@@ -1,0 +1,62 @@
+ID  Setup      MPSetup       Stage
+09  setupsev   mp_setupsev   Maian SOS
+14  setupsilo  mp_setupsilo
+16  setupstat  mp_setupstat  WAR!
+17  setuparec  mp_setuparec  Ravine (MP)
+18  setuparch  mp_setuparch
+19  setuptra   mp_setuptra   Escape
+1a  setupdest  mp_setupdest
+1b  setupsevb  mp_setupsevb  Retaking the Institute
+1c  setupazt   mp_setupazt   Crash Site
+1d  setuppete  mp_setuppete  Chicago
+1e  setupdepo  mp_setupdepo  G5 Building
+1f  setupref   mp_setupref   Complex (MP)
+20  setupcryp  mp_setupcryp  G5 Building (MP)
+21  setupdam   mp_setupdam   Pelagic II
+22  setupark   mp_setupark   Extraction
+23  setuprun   mp_setuprun
+24  setupsevx  mp_setupsevx
+25  setupjun   mp_setupjun   Temple (MP)
+26  setupdish  mp_setupdish  CI Training
+27  setupcave  mp_setupcave  Air Base
+28  setupcat   mp_setupcat
+29  setupcrad  mp_setupcrad  Pipes (MP)
+2a  setupsho   mp_setupsho   Skedar Ruins
+2b  setupsevx  mp_setupsevx
+2c  setupeld   mp_setupeld   Villa
+2d  setupimp   mp_setupimp   Defense
+2e  setupash   mp_setupash
+2f  setuplue   mp_setuplue   Infiltration
+30  setupame   mp_setupame   Defection
+31  setuprit   mp_setuprit   Air Force One
+32  setupoat   mp_setupoat   Skedar (MP)
+33  setupear   mp_setupear   Investigation
+34  setuplee   mp_setuplee   Attack Ship
+35  setuplip   mp_setuplip   Rescue
+36  setuplen   mp_setuplen
+37  setupwax   mp_setupwax   MBR
+38  setuppam   mp_setuppam   Deep Sea
+39  setupmp1   mp_setupmp1   Base (MP)
+3a  setupmp2   mp_setupmp2
+3b  setupmp3   mp_setupmp3   Area 52 (MP)
+3c  setupmp4   mp_setupmp4   Warehouse (MP)
+3d  setupmp5   mp_setupmp5   Car Park (MP)
+3e  setupmp6   mp_setupmp6
+3f  setupmp7   mp_setupmp7
+40  setupmp8   mp_setupmp8
+41  setupmp9   mp_setupmp9   Ruins (MP)
+42  setupmp10  mp_setupmp10  Sewers (MP)
+43  setupmp11  mp_setupmp11  Felicity (MP)
+44  setupmp12  mp_setupmp12  Fortress (MP)
+45  setupmp13  mp_setupmp13  Villa (MP)
+46  setupmp14  mp_setupmp14
+47  setupmp15  mp_setupmp15  Grid (MP)
+48  setupmp16  mp_setupmp16
+49  setupmp17  mp_setupmp17
+4a  setupmp18  mp_setupmp18
+4b  setupmp19  mp_setupmp19
+4c  setupmp20  mp_setupmp20
+4d  setupuff   mp_setupuff
+4e  setupold   mp_setupold
+4f  setupate   mp_setupate   Duel
+50  setuplam   mp_setuplam

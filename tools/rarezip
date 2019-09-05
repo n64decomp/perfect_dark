@@ -1,0 +1,23 @@
+#!/bin/bash
+
+size=$(stat --format="%s" $1)
+
+printf "0: 1173 %.6x" $size | xxd -r -g0 > $1.tmp
+
+cat $1 | tools/gzip --no-name --best | head --bytes=-8 | tail --bytes=+11 >> $1.tmp
+
+# Pad to 0x10 boundary
+compsize=$(stat --format="%s" $1.tmp)
+over=$((compsize % 0x10))
+
+if [ "$over" -gt 0 ]; then
+	while [ "$over" -lt 16 ]; do
+		echo -ne \\x00 >> $1.tmp
+		over=$((over + 1))
+	done
+fi
+
+cat $1.tmp
+
+rm -f $1.tmp
+

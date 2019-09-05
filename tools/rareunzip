@@ -1,0 +1,22 @@
+#!/usr/bin/python
+
+import sys, zlib
+
+fp = open(sys.argv[1], 'rb')
+buffer = fp.read()
+fp.close()
+
+header = int.from_bytes(buffer[0:2], 'big')
+
+if header == 0x1172:
+    # GE
+    buffer = zlib.decompress(buffer[2:], wbits=-15)
+elif header == 0x1173:
+    # PD
+    buffer = zlib.decompress(buffer[5:], wbits=-15)
+else:
+    sys.stderr.write("Not an 0x1172 or 0x1173 compressed file\n");
+    sys.stderr.write("Got bytes 0x%04x\n" % header);
+    exit(1)
+
+sys.stdout.buffer.write(buffer)

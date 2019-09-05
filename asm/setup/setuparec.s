@@ -1,0 +1,29 @@
+#
+# Ravine (MP)
+#
+
+.set HEADERLEN, 0x20
+.include "asm/include/setup.inc"
+
+props:
+	lift 0x0100, MODEL_RAVINELIFT, 0x00bc, 0x035204e8, 0x00304300, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00bc, 0x00bb, 0x00baffff, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000071c, 0x0010aaaa, 0x00000000, 0x00000000, 0x00000000, 0x00000000
+	endprops
+
+unregistered_func1:
+	set_function CHR_SELF, GFUNC_IDLE
+	endfunction
+
+unregistered_func2:
+	set_function CHR_SELF, GFUNC_IDLE
+	endfunction
+
+intro:
+	endintro
+
+paths:
+	endpaths
+
+functions:
+	endfunctions
+
+.align 4

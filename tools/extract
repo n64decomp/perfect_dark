@@ -1,0 +1,216 @@
+#!/usr/bin/python
+
+# Extract assets from a Perfect Dark ROM.
+#
+# Place ROM in the main project directory, named pd.<romid>.z64, then run this
+# with tools/extract <romid>. The directory extracted/<romid>/ will be created
+# and populated.
+#
+# Supported ROM IDs are:
+# ntsc-beta
+# ntsc-1.0
+# ntsc-final
+# pal-beta
+# pal-final
+# jap-final
+
+import os, sys, zlib
+
+class Extractor:
+    def extract(self, romid):
+        self.romid = romid
+
+        filename = 'pd.%s.z64' % romid
+
+        fd = open(filename, 'rb')
+        self.rom = fd.read()
+        fd.close()
+
+        self.globals = self.decompress(self.rom[self.val('globals'):])
+        self.extract_all()
+
+    def extract_all(self):
+        self.extract_audio()
+        self.extract_files()
+        self.extract_fonts()
+        self.extract_midis()
+        self.extract_globals()
+        self.extract_textures()
+        self.extract_ucodes()
+
+    #
+    # Audio
+    #
+
+    def extract_audio(self):
+        # Not implemented
+        pass
+
+    #
+    # Files
+    #
+
+    def extract_files(self):
+        offsets = self.get_file_offsets()
+        names = self.get_file_names(offsets[len(offsets) - 1])
+
+        for (index, offset) in enumerate(offsets):
+            if index == 0:
+                continue
+            try:
+                endoffset = offsets[index + 1]
+            except:
+                return
+            content = self.rom[offset:endoffset]
+            name = names[index]
+            self.write('files/%s' % name, content)
+
+            if name.endswith('Z') and len(content):
+                unzippedname = name[:-1]
+                try:
+                    self.write('files/%s' % unzippedname, self.decompress(content))
+                except:
+                    print(name)
+
+    def get_file_offsets(self):
+        i = self.val('files')
+        offsets = []
+        while True:
+            offset = int.from_bytes(self.globals[i:i+4], 'big')
+            if offset == 0 and len(offsets):
+                return offsets
+            offsets.append(offset)
+            i += 4
+
+    def get_file_names(self, tableaddr):
+        i = tableaddr
+        names = []
+        while True:
+            offset = int.from_bytes(self.rom[i:i+4], 'big')
+            if offset == 0 and len(names):
+                return names
+            names.append(self.read_name(tableaddr + offset))
+            i += 4
+
+    def read_name(self, address):
+        nullpos = self.rom[address:].index(0)
+        return str(self.rom[address:address + nullpos], 'utf-8')
+
+    #
+    # Fonts
+    #
+
+    def extract_fonts(self):
+        # Not implemented
+        pass
+
+    #
+    # Globals
+    #
+
+    def extract_globals(self):
+        self.write('Uglobals', self.globals)
+
+    #
+    # MIDIs
+    #
+
+    def extract_midis(self):
+        # Not implemented
+        pass
+
+    #
+    # Textures
+    #
+
+    def extract_textures(self):
+        # Not implemented
+        pass
+
+    #
+    # Ucodes
+    #
+
+    def extract_ucodes(self):
+        self.write('ucode/rspboot.bin', self.rom[0x40:0x1000])
+        self.write('ucode/boot.bin', self.rom[0x1000:0x3050])
+        self.write('ucode/library.bin', self.decompress(self.rom[0x3050:]))
+        self.write('ucode/decompressor.bin', self.rom[0x4e850:0x4fc30])
+        self.extract_ucode_game()
+
+    def extract_ucode_game(self):
+        binary = bytes()
+        start = i = self.val('game')
+
+        while True:
+            romoffset = start + int.from_bytes(self.rom[i:i+4], 'big') + 2
+            peek = int.from_bytes(self.rom[romoffset:romoffset+2], 'big')
+            if peek == 0:
+                break
+            part = self.decompress(self.rom[romoffset:romoffset+0x1000])
+            binary += part
+            if len(part) != 0x1000:
+                break
+            i += 4
+
+        self.write('ucode/game.bin', binary)
+
+    #
+    # Misc functions
+    #
+
+    def decompress(self, buffer):
+        header = int.from_bytes(buffer[0:2], 'big')
+        assert(header == 0x1173)
+        return zlib.decompress(buffer[5:], wbits=-15)
+
+    def write(self, filename, data):
+        filename = 'extracted/%s/%s' % (self.romid, filename)
+
+        dirname = os.path.dirname(filename)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+
+        fd = open(filename, 'wb')
+        fd.write(data)
+        fd.close()
+
+    def val(self, name):
+        return self.vals[self.romid][name]
+
+    vals = {
+        'ntsc-final': {
+            'game': 0x4fc40,
+            'files': 0x28080,
+            'globals': 0x39850,
+        },
+        'ntsc-1.0': {
+            'game': 0x4fc40,
+            'files': 0x28080,
+            'globals': 0x39850,
+        },
+        'ntsc-beta': {
+            'game': 0x43c40,
+            'files': 0x29160,
+            'globals': 0x30850,
+        },
+        'pal-final': {
+            'game': 0x4fc40,
+            'files': 0x28910,
+            'globals': 0x39850,
+        },
+        'pal-beta': {
+            'game': 0x4fc40,
+            'files': 0x29b90,
+            'globals': 0x39850,
+        },
+        'jap-final': {
+            'game': 0x4fc40,
+            'files': 0x28800,
+            'globals': 0x39850,
+        },
+    }
+
+extractor = Extractor()
+extractor.extract(sys.argv[1])
+

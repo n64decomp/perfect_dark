@@ -1,0 +1,20 @@
+#
+# Stage ID 0x28
+#
+
+.set HEADERLEN, 0x20
+.include "asm/include/setup.inc"
+
+props:
+	endprops
+
+intro:
+	endintro
+
+paths:
+	endpaths
+
+functions:
+	endfunctions
+
+.align 4
