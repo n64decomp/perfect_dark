@@ -790,7 +790,7 @@ func0426_8420:
 	endfunction
 
 .macro init_path pathid
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 6
 	set_reaction_speed 50
 	set_chr_health CHR_SELF, 40
@@ -1283,7 +1283,7 @@ func100b_final_hangar:
 	endfunction
 
 func0411_init_hangar_guard1:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 8
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -1304,7 +1304,7 @@ func0411_init_hangar_guard1:
 	endfunction
 
 func0412_init_hangar_guard2:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 8
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -1325,7 +1325,7 @@ func0412_init_hangar_guard2:
 	endfunction
 
 func0413_init_hangar_guard3:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 8
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -1346,7 +1346,7 @@ func0413_init_hangar_guard3:
 	endfunction
 
 func0414_init_hangar_guard4:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 8
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -2506,7 +2506,7 @@ func1018_unhide_guards:
 	endfunction
 
 func0419_clone_spawner:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 8
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -2659,12 +2659,12 @@ func040f_spawned_guard:
 .endm
 
 func041d_trooper_unalerted:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	init_guard 6, 50, 0, 0, GFUNC_UNALERTED
 	endfunction
 
 func041f_trooper_alerted:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	init_guard 6, 50, 0, 0, GFUNC_ALERTED
 	endfunction
 

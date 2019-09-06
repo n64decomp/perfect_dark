@@ -1115,7 +1115,7 @@ func1006_check_lab_accessed:
 	endfunction
 
 .macro init_path accuracy health recovery pathid
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy \accuracy
 	set_reaction_speed 35
 	set_chr_health CHR_SELF, \health
@@ -2450,7 +2450,7 @@ func041d_unused_041d:
  * @unused
  */
 func041e_unused_041e:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 10
 	set_reaction_speed 35
 	set_chr_health CHR_SELF, 80
@@ -2798,7 +2798,7 @@ func0420_labtech_doors:
 		if_shot_near_chr 0x00, /*goto*/ 0x89
 		if_saw_death 0x00, /*goto*/ 0x89
 		dprint "TALK 5\n"
-		if_chr_field0x332_zero CHR_SELF, /*goto*/ 0x2d
+		if_chr_propsoundcount_zero CHR_SELF, /*goto*/ 0x2d
 	endloop 0x7b
 
 	label 0x2d
@@ -3757,7 +3757,7 @@ func1025_toggle_guards:
 	endfunction
 
 func0429_spawn_while_xraying:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 8
 	set_reaction_speed 35
 	set_chr_health CHR_SELF, 50
@@ -3835,7 +3835,7 @@ func042b_xray_clone:
 	endfunction
 
 func042c_dragon_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 8
 	set_reaction_speed 35
 	set_chr_health CHR_SELF, 50
@@ -3846,7 +3846,7 @@ func042c_dragon_guard:
 	endfunction
 
 func042d_superdragon_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 10
 	set_reaction_speed 35
 	set_chr_health CHR_SELF, 80
@@ -3857,7 +3857,7 @@ func042d_superdragon_guard:
 	endfunction
 
 func042e_biotech_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 18
 	set_reaction_speed 35
 	set_chr_health CHR_SELF, 80
@@ -3868,7 +3868,7 @@ func042e_biotech_guard:
 	endfunction
 
 func042e_biotech_guard_alerted:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 18
 	set_reaction_speed 35
 	set_chr_health CHR_SELF, 80

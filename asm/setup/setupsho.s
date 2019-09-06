@@ -563,7 +563,7 @@ func0402_unarmed_skedar:
 
 	label 0x09
 	label 0x0a
-	if_chr_field0x332_zero CHR_SELF, /*goto*/ 0x2d
+	if_chr_propsoundcount_zero CHR_SELF, /*goto*/ 0x2d
 	goto_next 0x2d
 
 	label 0x06
@@ -755,7 +755,7 @@ func0404_miniskedar:
 	restart_timer
 	label 0x09
 	restart_timer
-	if_chr_field0x332_zero CHR_SELF, /*goto*/ 0x2d
+	if_chr_propsoundcount_zero CHR_SELF, /*goto*/ 0x2d
 	goto_next 0x06
 
 	label 0x2d

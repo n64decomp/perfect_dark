@@ -1070,8 +1070,8 @@ func0409_start_path30:
 	do_path 30
 
 func040a_start_path31:
-	set_chr_field_0x35e_0x35f 2, 0x14
-	set_chr_field0x360 0
+	set_chr_dodge_rating 2, 0x14
+	set_unarmeddodgerating 0
 	set_accuracy 0
 	set_reaction_speed 0
 	set_chr_health CHR_SELF, 40
@@ -1085,8 +1085,8 @@ func040a_start_path31:
 	endfunction
 
 func040b_start_path32:
-	set_chr_field_0x35e_0x35f 2, 0x14
-	set_chr_field0x360 0
+	set_chr_dodge_rating 2, 0x14
+	set_unarmeddodgerating 0
 	set_accuracy 0
 	set_reaction_speed 0
 	set_chr_health CHR_SELF, 40
@@ -1099,8 +1099,8 @@ func040b_start_path32:
 	endfunction
 
 func040c_start_path33:
-	set_chr_field_0x35e_0x35f 2, 0x14
-	set_chr_field0x360 0
+	set_chr_dodge_rating 2, 0x14
+	set_unarmeddodgerating 0
 	set_accuracy 0
 	set_reaction_speed 0
 	set_chr_health CHR_SELF, 40
@@ -1113,8 +1113,8 @@ func040c_start_path33:
 	endfunction
 
 func040d_start_path34:
-	set_chr_field_0x35e_0x35f 2, 0x14
-	set_chr_field0x360 0
+	set_chr_dodge_rating 2, 0x14
+	set_unarmeddodgerating 0
 	set_accuracy 10
 	set_reaction_speed 0
 	set_chr_health CHR_SELF, 40
@@ -3212,8 +3212,8 @@ func1012_trigger_x_music:
 	endfunction
 
 .macro init_guard accuracy health
-	set_chr_field_0x35e_0x35f 2, 0x14
-	set_chr_field0x360 0
+	set_chr_dodge_rating 2, 0x14
+	set_unarmeddodgerating 0
 	set_accuracy \accuracy
 	set_reaction_speed 0
 	set_chr_health CHR_SELF, \health

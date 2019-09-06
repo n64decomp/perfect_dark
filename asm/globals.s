@@ -227,7 +227,7 @@ func0006_unalerted:
 	if_self_flag_bankx_eq CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x13
 	if_self_flag_bankx_eq CHRFLAG1_DISSPEE, FALSE, BANK_1, /*goto*/ 0x15
 	dprint "CHECK SOUFI\n" // checks outfit?
-	if_chr_field0x332_zero CHR_SELF, /*goto*/ 0x28
+	if_chr_propsoundcount_zero CHR_SELF, /*goto*/ 0x28
 	if_timer_gt 60, /*goto*/ 0x28
 	goto_next 0x15
 
@@ -313,7 +313,7 @@ func0006_unalerted:
 	goto_next 0x14
 
 	label 0x15
-	if_chr_field_0x120 600, OPERATOR_GREATER_THAN, /*goto*/ 0x15
+	if_chr_soundtimer 600, OPERATOR_GREATER_THAN, /*goto*/ 0x15
 	goto_next 0xea
 
 	label 0x14
@@ -869,7 +869,7 @@ func0007_alerted:
 	// is_chr_is_dead_maybe (named wrong) was false
 	label 0x16
 	set_onshot_function GFUNC_ALERTED
-	set_chr_field_0x356 35
+	set_aishootingatmel 35
 	set_unknown_function GFUNC_SEARCH_FOR_PLAYER
 
 	dprint "START LOOP\n"
@@ -881,7 +881,7 @@ func0007_alerted:
 
 	// Dying
 	label 0x16
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_onshot_function GFUNC_IDLE
 
 	restart_timer
@@ -937,7 +937,7 @@ func0007_alerted:
 	if_has_gun CHR_SELF, /*goto*/ 0x1b
 	dprint "LOST MY GUN\n"
 	label 0xac
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	say_quip CHR_JOANNA, 0x21, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00 // "My gun!"
 	stop_chr
 	restart_timer
@@ -2446,8 +2446,8 @@ func0007_alerted:
 	// RETREAT
 	//
 	label LABEL_RETREAT
-	set_chr_field_0x35e_0x35f 0, 0x00
-	set_chr_field_0x35e_0x35f 1, 0x00
+	set_chr_dodge_rating 0, 0x00
+	set_chr_dodge_rating 1, 0x00
 	dprint "ROUTED\n"
 	set_action ACTION_RETREAT, FALSE
 	unset_self_flag_bankx CHRFLAG1_00040000, BANK_1
@@ -3713,7 +3713,7 @@ func001a_maybe_unset_disspee:
 	// Wait 1 second, or for some field in the current chr to change.
 	label 0x13
 	if_timer_lt 60, /*goto*/ 0x15
-	if_chr_field0x332_zero CHR_SELF, /*goto*/ 0x28
+	if_chr_propsoundcount_zero CHR_SELF, /*goto*/ 0x28
 	goto_next 0x15
 
 	// Field changed
@@ -4249,12 +4249,12 @@ func001d_search_for_player:
 	set_chr_special_death_animation CHR_SELF, NULL
 	label 0x13
 	dprint "SEARCH ROOM\n"
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	label 0x00
 	set_target_chr FOLLOW_CHR
 	set_self_flag_bankx CHRFLAG1_01000000, BANK_1
 	if_self_flag_bankx_eq CHRFLAG1_10000000, TRUE, BANK_1, /*goto*/ 0x16
-	set_chr_field_0x330
+	set_chr_roomtosearch
 	if_chr_distance_gt 1000, /*goto*/ 0x13
 	try_run_to_target_chr_with_hand_up /*goto*/ 0x03
 	label 0x13
@@ -4853,7 +4853,7 @@ func002b_do_something_and_wait:
  * Not used.
  */
 func0022_comment_on_player_dead:
-	set_chr_field_0x356 0
+	set_aishootingatmel 0
 	dprint "KILL\n"
 	stop_chr
 
@@ -4902,7 +4902,7 @@ func0023_dodge:
 
 	// Dying
 	label 0x16
-	set_chr_field_0x356 0
+	set_aishootingatmel 0
 	set_function CHR_SELF, GFUNC_IDLE
 
 	label 0x13

@@ -1511,7 +1511,7 @@ func1008_spawngroup1:
 	endfunction
 
 func1008_spawngroup1_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 10
 	set_reaction_speed 40
 	set_chr_health CHR_SELF, 40
@@ -1584,7 +1584,7 @@ func1013_spawngroup2:
 	endfunction
 
 func1013_spawngroup2_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 10
 	set_reaction_speed 40
 	set_chr_health CHR_SELF, 40
@@ -1685,7 +1685,7 @@ func1014_spawngroup3:
 	endfunction
 
 func1014_spawngroup3_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 10
 	set_reaction_speed 40
 	set_chr_health CHR_SELF, 40
@@ -1765,7 +1765,7 @@ func1015_spawngroup4:
  * @unused
  */
 func1015_spawngroup4_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 10
 	set_reaction_speed 40
 	set_chr_health CHR_SELF, 40
@@ -3124,7 +3124,7 @@ func1021_jo_escaping:
  * time.
  */
 func0416_spawn_during_follow:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 10
 	set_reaction_speed 40
 	set_chr_health CHR_SELF, 40
@@ -3192,7 +3192,7 @@ func0418_follower_clone:
 	endfunction
 
 func0419_init_biotech:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 20
 	set_reaction_speed 40
 	set_chr_health CHR_SELF, 40
@@ -3204,7 +3204,7 @@ func0419_init_biotech:
 	endfunction
 
 func041a_init_superdragon_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 10
 	set_reaction_speed 40
 	set_chr_health CHR_SELF, 40

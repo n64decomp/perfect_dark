@@ -732,7 +732,7 @@ func0407_init_blonde:
 	endfunction
 
 func0406_init_stripes:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 16
 	set_reaction_speed 55
 	set_chr_health CHR_SELF, 60
@@ -791,7 +791,7 @@ func1006_msg_elvisbeable:
 	endfunction
 
 .macro init_path pathid function
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 16
 	set_reaction_speed 55
 	set_chr_health CHR_SELF, 60
@@ -883,7 +883,7 @@ unregistered_function1:
 	endfunction
 
 func0415_unused:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 16
 	set_reaction_speed 55
 	set_chr_health CHR_SELF, 60
@@ -965,7 +965,7 @@ func100c_spawn_dd_guards:
 	endfunction
 
 func0416_spawned_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 16
 	set_reaction_speed 55
 	set_chr_health CHR_SELF, 60

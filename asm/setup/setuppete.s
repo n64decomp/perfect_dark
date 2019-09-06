@@ -1668,7 +1668,7 @@ func0413_bugspotter:
 	endfunction
 
 .macro init_patroller pathid
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 4
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -1813,7 +1813,7 @@ func041d_fbi:
 
 	beginloop 0x0e
 		if_difficulty_lt DIFF_SA, /*goto*/ 0x03
-		if_chr_field0x332_zero CHR_SELF, /*goto*/ 0x04
+		if_chr_propsoundcount_zero CHR_SELF, /*goto*/ 0x04
 		label 0x03
 		if_chr_stopped /*goto*/ 0x04
 	endloop 0x0e
@@ -2010,7 +2010,7 @@ func041a_robot:
 func041e_sealer1:
 	.set LABEL_ALERTED, 0x18
 
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 4
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -2278,7 +2278,7 @@ func100d_spawn_alarm_responders:
 func041f_alarm_responder:
 	set_self_flag_bankx CHRFLAG1_00080000, BANK_1
 	set_self_flag_bankx CHRFLAG0_80000000, BANK_0
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 14
 	set_reaction_speed 20
 	set_chr_health CHR_SELF, 40
@@ -2791,7 +2791,7 @@ func1019_setup_topstairs_death_animation:
 	endfunction
 
 func040e_6064:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 4
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -2803,7 +2803,7 @@ func040e_6064:
 
 func040f_6088:
 	if_difficulty_lt DIFF_SA, /*goto*/ 0x03
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 20
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -2812,7 +2812,7 @@ func040f_6088:
 	set_shield 0
 	set_function CHR_SELF, GFUNC_UNALERTED
 	label 0x03
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 4
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -2823,7 +2823,7 @@ func040f_6088:
 	endfunction
 
 func0410_60d0:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 14
 	set_reaction_speed 20
 	set_chr_health CHR_SELF, 40
@@ -2835,7 +2835,7 @@ func0410_60d0:
 
 func0411_60f4:
 	set_self_flag_bank3 CHRFLAG3_00020000
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 14
 	set_reaction_speed 20
 	set_chr_health CHR_SELF, 40

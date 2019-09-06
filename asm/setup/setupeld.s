@@ -2435,7 +2435,7 @@ func1015_check_computers_destroyed:
 	endfunction
 
 .macro init_guard accuracy reaction health recovery
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy \accuracy
 	set_reaction_speed \reaction
 	set_chr_health CHR_SELF, \health

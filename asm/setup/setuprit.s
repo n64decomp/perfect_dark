@@ -1625,7 +1625,7 @@ func100c_cockpit_stripes:
 	set_chr_alliance CHR_SELF, 0x04
 	cmd0145_rebuild_groups
 	cmd0146_rebuild_groups
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 14
 	set_reaction_speed 50
 	set_chr_health CHR_SELF, 60
@@ -1663,7 +1663,7 @@ func0413_taker1:
 	cmd0145_rebuild_groups
 	cmd0146_rebuild_groups
 	set_self_flag_bank3 CHRFLAG3_00000020
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_reaction_speed 50
 	set_chr_health CHR_SELF, 60
 	set_armor 0
@@ -1678,7 +1678,7 @@ func0413_taker2:
 	cmd0145_rebuild_groups
 	cmd0146_rebuild_groups
 	set_self_flag_bank3 CHRFLAG3_00000020
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_reaction_speed 50
 	set_chr_health CHR_SELF, 60
 	set_armor 0
@@ -1924,7 +1924,7 @@ func0412_sitting_guy:
 	endfunction
 
 func0426_start_path00:
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 14
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40
@@ -1937,7 +1937,7 @@ func0426_start_path00:
 	endfunction
 
 func0427_start_path01:
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 14
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40
@@ -2420,7 +2420,7 @@ func0415_cloner1:
 	endfunction
 
 func0416_init_clone1:
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 14
 	set_reaction_speed 50
 	set_chr_health CHR_SELF, 60
@@ -2513,7 +2513,7 @@ func0418_cloner2:
 	endfunction
 
 func0419_init_clone2:
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 14
 	set_reaction_speed 50
 	set_chr_health CHR_SELF, 60
@@ -2602,7 +2602,7 @@ func041b_cloner3:
 	endfunction
 
 func041c_init_clone3:
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 14
 	set_reaction_speed 50
 	set_chr_health CHR_SELF, 60
@@ -2632,7 +2632,7 @@ func041f_init_blonde:
 	set_chr_alliance CHR_SELF, 0x04
 	cmd0145_rebuild_groups
 	cmd0146_rebuild_groups
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 24
 	set_reaction_speed 50
 	set_chr_health CHR_SELF, 60
@@ -3019,7 +3019,7 @@ func042a_init_neutral:
 	yield
 	yield
 	yield
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 14
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40
@@ -3032,7 +3032,7 @@ func042a_init_neutral:
 	endfunction
 
 func042b_reinit_stripes:
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 14
 	set_reaction_speed 50
 	set_chr_health CHR_SELF, 60

@@ -1057,7 +1057,7 @@ func1004_guard_activation:
 	endfunction
 
 func0405_start_path15:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 12
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40
@@ -2323,7 +2323,7 @@ func100e_check_alaskans_killed:
  * @unused
  */
 func0410_unused:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 22
 	set_reaction_speed 80
 	set_chr_health CHR_SELF, 40
@@ -2510,7 +2510,7 @@ func040f_nsa:
 func0412_init_takeover_lackey:
 	set_onshot_function GFUNC_ALERTED
 	set_self_flag_bank3 CHRFLAG3_00000040
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 60
 	set_reaction_speed 80
 	set_chr_health CHR_SELF, 40
@@ -2795,7 +2795,7 @@ func1017_laser5:
 	endfunction
 
 func0403_unused:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 12
 	set_reaction_speed 45
 	set_chr_health CHR_SELF, 60
@@ -2948,7 +2948,7 @@ func1016_console_noises:
 	endfunction
 
 func0426_init_alaskan_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 12
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40
@@ -2965,7 +2965,7 @@ func0427_init_posttakeover_guard:
 	set_self_flag_bank3 CHRFLAG3_00040000
 	set_self_flag_bank3 CHRFLAG3_HIDDEN
 	set_chr_alliance CHR_SELF, 0x04
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 12
 	set_reaction_speed 45
 	set_chr_health CHR_SELF, 60
@@ -3015,7 +3015,7 @@ func0428_posttakeover_guard:
  * @unused
  */
 func0429_unused:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 22
 	set_reaction_speed 80
 	set_chr_health CHR_SELF, 40
@@ -3029,7 +3029,7 @@ func0429_unused:
  * Assigned to two stripes guards in the foyer during takeover.
  */
 func042a_foyer_spawner:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 12
 	set_reaction_speed 45
 	set_chr_health CHR_SELF, 60

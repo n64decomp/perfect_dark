@@ -1369,7 +1369,7 @@
 	.byte  \label
 .endm
 
-// Does some math on chr fields 0x1a0 and 0x290, possibly involving square roots.
+// Does some math on chr's bdlist, possibly involving square roots.
 // If result is > 50, goto label
 .macro if_distance_to_home_gt_50_maybe label
 	.short 0x012c
@@ -1748,7 +1748,8 @@
 	.byte  \label
 .endm
 
-// Involves a call to the RNG, and zeroing chr props 0x160 through 0x016c
+// Involves a call to the RNG, and zeroing chr fields aimendlshoulder,
+// aimendrshoulder, aimendback and amendsideback.
 //
 // Called with values:
 // 0x5a64 (23140)
@@ -1771,8 +1772,7 @@
 	.short 0x0185
 .endm
 
-// 0258 01 15
-.macro if_chr_field_0x120 value operator label
+.macro if_chr_soundtimer value operator label
 	.short 0x0186
 	.short \value
 	.byte  \operator
@@ -1864,8 +1864,8 @@
 	.byte  \animation
 .endm
 
-// Copies a value from the chr's position struct into the chr struct itself
-.macro set_chr_field_0x330
+// Copies the room from the chr's position struct into the chr struct itself
+.macro set_chr_roomtosearch
 	.short 0x01a1
 .endm
 
@@ -1887,7 +1887,7 @@
 	.short \text
 .endm
 
-.macro if_chr_field0x332_zero chr label
+.macro if_chr_propsoundcount_zero chr label
 	.short 0x01a7
 	.byte  \chr
 	.byte  \label
@@ -2009,7 +2009,7 @@
 	.byte  \chr
 .endm
 
-.macro set_chr_field_0x356 value
+.macro set_aishootingatmel value
 	.short 0x01c2
 	.short \value
 .endm
@@ -2028,16 +2028,16 @@
 .endm
 
 // Sets a field in the chr struct
-// If whichprop is 0, set field 0x35e
-// If whichprop is 1, set field 0x35f
+// If whichprop is 0, set dodgerating
+// If whichprop is 1, set maxdodgerating
 // If whichprop is 2, set both
-.macro set_chr_field_0x35e_0x35f value whichprop
+.macro set_chr_dodge_rating value whichprop
 	.short 0x01c6
 	.byte  \value
 	.byte  \whichprop
 .endm
 
-.macro set_chr_field0x360 value
+.macro set_unarmeddodgerating value
 	.short 0x01c7
 	.byte  \value
 .endm

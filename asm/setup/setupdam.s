@@ -637,7 +637,7 @@ func1400_setup_counterop:
 
 func0408_guard_unalerted:
 	set_chr_cloaked CHR_SELF, FALSE, TRUE
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 18
 	set_reaction_speed 60
 	set_chr_health CHR_SELF, 70
@@ -1248,7 +1248,7 @@ func100f_check_researchdata_collected:
 	endfunction
 
 .macro init_path pathid
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 18
 	set_reaction_speed 60
 	set_chr_health CHR_SELF, 70
@@ -2086,7 +2086,7 @@ func1014_moonpool_switch:
 
 func0413_guard_alerted:
 	set_chr_cloaked CHR_SELF, FALSE, TRUE
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 18
 	set_reaction_speed 60
 	set_chr_health CHR_SELF, 70

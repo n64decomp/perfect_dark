@@ -456,7 +456,7 @@ path03:
 	endpath
 
 func0409_start_path00:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 5
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -469,7 +469,7 @@ func0409_start_path00:
 	endfunction
 
 func040a_start_path01:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 5
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -482,7 +482,7 @@ func040a_start_path01:
 	endfunction
 
 func040b_start_path02:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 5
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -495,7 +495,7 @@ func040b_start_path02:
 	endfunction
 
 func040c_start_path03:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 5
 	set_reaction_speed 30
 	set_chr_health CHR_SELF, 40
@@ -1011,7 +1011,7 @@ func1009_spawner_during_decode:
 .macro init_swat
 	set_chr_flag_bank2 CHR_SELF, CHRFLAG2_00400000
 	set_self_flag_bankx CHRFLAG1_00080000, BANK_1
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 15
 	set_reaction_speed 25
 	set_chr_health CHR_SELF, 40
@@ -2292,7 +2292,7 @@ func0414_init_cloak2_guard:
 	stop_chr
 	set_onshot_function FUNC_CLOAK_GUARD
 	set_self_flag_bank3 CHRFLAG3_INVINCIBLE_TO_GUNFIRE
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 5
 	set_reaction_speed 25
 	set_chr_health CHR_SELF, 40
@@ -2495,7 +2495,7 @@ func101d_init_mines:
 	endfunction
 
 .macro init_guard accuracy reaction function
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy \accuracy
 	set_reaction_speed \reaction
 	set_chr_health CHR_SELF, 40

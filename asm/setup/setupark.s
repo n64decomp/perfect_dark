@@ -763,7 +763,7 @@ func0410_init_top_guard:
 	if_difficulty_lt DIFF_SA, /*goto*/ 0x20
 
 	// SA and PA
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 80
 	set_reaction_speed 10
 	set_chr_health CHR_SELF, 10
@@ -774,7 +774,7 @@ func0410_init_top_guard:
 
 	// Agent
 	label 0x20
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 12
 	set_reaction_speed 10
 	set_chr_health CHR_SELF, 10
@@ -2565,7 +2565,7 @@ func0412_outro:
 	endfunction
 
 func0413_defend_pad:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 12
 	set_reaction_speed 10
 	set_chr_health CHR_SELF, 10
@@ -2622,7 +2622,7 @@ func1001_objectives_failed_msg:
 	endfunction
 
 func0414_init_shock:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 12
 	set_reaction_speed 10
 	set_chr_health CHR_SELF, 40
@@ -2636,7 +2636,7 @@ func0414_init_shock:
  * @unused
  */
 func0415_init_10hp:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 12
 	set_reaction_speed 10
 	set_chr_health CHR_SELF, 10

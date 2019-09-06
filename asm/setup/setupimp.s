@@ -589,7 +589,7 @@ func1400_setup_counterop:
 .endm
 
 .macro initclone_logic templatechr clonefunc
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 20
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40
@@ -1869,7 +1869,7 @@ func0422_taker_holo3:
 	endfunction
 
 func0423_init_shock:
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 20
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40
@@ -2906,7 +2906,7 @@ func1015_firingrange_pc:
 .endm
 
 .macro inittopclone_logic templatechr clonefunc
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 20
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40
@@ -3247,7 +3247,7 @@ unregistered_function1:
 	endfunction
 
 func043b_init_blonde:
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 20
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40
@@ -3259,7 +3259,7 @@ func043b_init_blonde:
 	endfunction
 
 func043c_init_cisolder:
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 20
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40
@@ -3270,7 +3270,7 @@ func043c_init_cisolder:
 	endfunction
 
 func043d_unused:
-	set_chr_field_0x35e_0x35f 2, 0x00
+	set_chr_dodge_rating 2, 0x00
 	set_accuracy 30
 	set_reaction_speed 70
 	set_chr_health CHR_SELF, 40

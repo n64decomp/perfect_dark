@@ -2135,7 +2135,7 @@ func1002_intro:
 	endfunction
 
 func042f_init_pelagic_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 20
 	set_reaction_speed 65
 	set_chr_health CHR_SELF, 70
@@ -2214,7 +2214,7 @@ func1008_msg_theresdrcaroll:
 		goto_next 0x0d
 
 		label 0x2e
-		if_chr_field0x332_zero CHR_ELVIS, /*goto*/ 0x2e
+		if_chr_propsoundcount_zero CHR_ELVIS, /*goto*/ 0x2e
 	endloop 0x04
 
 	label 0x2e
@@ -3954,7 +3954,7 @@ func1021_c6c4:
 	endfunction
 
 .macro init_path pathid function
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 20
 	set_reaction_speed 65
 	set_chr_health CHR_SELF, 70
@@ -4246,7 +4246,7 @@ func1028_enable_last_3_guards:
 	endfunction
 
 func042b_run_to_exit:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 40
 	set_reaction_speed 65
 	set_chr_health CHR_SELF, 10

@@ -791,7 +791,7 @@ path13:
 	endpath
 
 .macro init_path pathid
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 1
 	set_reaction_speed 20
 	set_chr_health CHR_SELF, 40
@@ -2931,7 +2931,7 @@ func1016_setup_drcaroll:
 	endfunction
 
 func040a_init_basic_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 1
 	set_reaction_speed 20
 	set_chr_health CHR_SELF, 40
@@ -2942,7 +2942,7 @@ func040a_init_basic_guard:
 	endfunction
 
 func040b_init_shock_guard:
-	set_chr_field_0x35e_0x35f 2, 0x0a
+	set_chr_dodge_rating 2, 0x0a
 	set_accuracy 11
 	set_reaction_speed 20
 	set_chr_health CHR_SELF, 40
