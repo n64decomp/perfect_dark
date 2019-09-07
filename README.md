@@ -1,42 +1,36 @@
-# Perfect Dark Setup Decompilation
+# Perfect Dark Decompilation (WIP)
 
-This repository contains a decompilation of the level setup files used in Perfect Dark for the Nintendo 64.
+This repository contains a work-in-progress decompilation of Perfect Dark for the Nintendo 64. So far only the stage setup files are decompiled.
 
-## Come again?
+## I have no idea what you're talking about
 
-It's known that Perfect Dark (and GoldenEye) use a custom made binary scripting language to set up the levels. See the GE/PD Function Explorer and the GoldenEye Setup Editor. However, the specifics of how it works has been difficult to explore. Until now.
-
-I've realised that Rare likely did their level setup and scripting with assembly macros. The giveaway was the U prefix on the setup filename, which is also a common prefix for compiled machine code (ucode). So I made a tool that would read the binaries and generate some assembly files which can be compiled back into those exact same binaries. Once I got it matching, I started annotating each setup file, discovering new commands and renaming symbols.
-
-## I still have no idea what you're talking about
-
-Go have a look at the level scripts in the asm/setup directory. Here's a mapping table for your convenience:
+Go have a look at the level scripts in the src/setup directory. Here's a mapping table for your convenience:
 
 | Stage            | File                                 |
 | ---------------- | ------------------------------------ |
-| Defection        | [setupame.s](asm/setup/setupame.s)   |
-| Investigation    | [setupear.s](asm/setup/setupear.s)   |
-| Extraction       | [setupark.s](asm/setup/setupark.s)   |
-| Villa            | [setupeld.s](asm/setup/setupeld.s)   |
-| Chicago          | [setuppete.s](asm/setup/setuppete.s) |
-| G5 Building      | [setupdepo.s](asm/setup/setupdepo.s) |
-| Infiltration     | [setuplue.s](asm/setup/setuplue.s)   |
-| Rescue           | [setuplip.s](asm/setup/setuplip.s)   |
-| Escape           | [setuptra.s](asm/setup/setuptra.s)   |
-| Air Base         | [setupcave.s](asm/setup/setupcave.s) |
-| Air Force One    | [setuprit.s](asm/setup/setuprit.s)   |
-| Crash Site       | [setupazt.s](asm/setup/setupazt.s)   |
-| Pelagic II       | [setupdam.s](asm/setup/setupdam.s)   |
-| Deep Sea         | [setuppam.s](asm/setup/setuppam.s)   |
-| Defense          | [setupimp.s](asm/setup/setupimp.s)   |
-| Attack Ship      | [setuplee.s](asm/setup/setuplee.s)   |
-| Skedar Ruins     | [setupsho.s](asm/setup/setupsho.s)   |
-| MBR              | [setupwax.s](asm/setup/setupwax.s)   |
-| Maian SOS        | [setupsev.s](asm/setup/setupsev.s)   |
-| WAR!             | [setupstat.s](asm/setup/setupstat.s) |
-| The Duel         | [setupate.s](asm/setup/setupate.s)   |
-| CI Training      | [setupdish.s](asm/setup/setupdish.s) |
-| Global Functions | [globals.s](asm/globals.s)           |
+| Defection        | [setupame.c](src/setup/setupame.c)   |
+| Investigation    | [setupear.c](src/setup/setupear.c)   |
+| Extraction       | [setupark.c](src/setup/setupark.c)   |
+| Villa            | [setupeld.c](src/setup/setupeld.c)   |
+| Chicago          | [setuppete.c](src/setup/setuppete.c) |
+| G5 Building      | [setupdepo.c](src/setup/setupdepo.c) |
+| Infiltration     | [setuplue.c](src/setup/setuplue.c)   |
+| Rescue           | [setuplip.c](src/setup/setuplip.c)   |
+| Escape           | [setuptra.c](src/setup/setuptra.c)   |
+| Air Base         | [setupcave.c](src/setup/setupcave.c) |
+| Air Force One    | [setuprit.c](src/setup/setuprit.c)   |
+| Crash Site       | [setupazt.c](src/setup/setupazt.c)   |
+| Pelagic II       | [setupdam.c](src/setup/setupdam.c)   |
+| Deep Sea         | [setuppam.c](src/setup/setuppam.c)   |
+| Defense          | [setupimp.c](src/setup/setupimp.c)   |
+| Attack Ship      | [setuplee.c](src/setup/setuplee.c)   |
+| Skedar Ruins     | [setupsho.c](src/setup/setupsho.c)   |
+| MBR              | [setupwax.c](src/setup/setupwax.c)   |
+| Maian SOS        | [setupsev.c](src/setup/setupsev.c)   |
+| WAR!             | [setupstat.c](src/setup/setupstat.c) |
+| The Duel         | [setupate.c](src/setup/setupate.c)   |
+| CI Training      | [setupdish.c](src/setup/setupdish.c) |
+| Global Functions | [globals.c](src/globals.c)           |
 
 There is also a stagetable.txt in the repository root which includes multiplayer stages.
 
@@ -51,24 +45,20 @@ You can use this to make mods without having to deal with the GE Setup Editor's 
 Install the following:
 
 * make
-* aarch64 build tools (aarch64-linux-gnu-as, aarch64-linux-gnu-ld, aarch64-linux-gnu-objcopy)
+* mips build tools (Debian/Ubuntu: binutils-mips-linux-gnu, Arch: mips64-elf-binutils from AUR)
 * Python 3
 
 Then:
 
 1. Save your existing ROM file into the root of the repository with the name `pd.ntsc-final.z64`. It should not be byteswapped (the first four bytes should be `0x80371240`).
-2. Edit a setup file. Open up `asm/setup/setupame.s` (Defection), find the function `func0422_intro` and add `explosions_around_chr CHR_JOANNA` as the first statement.
+2. Edit a setup file. Open up `src/setup/setupame.c` (Defection), find the symbol `func0422_intro` and add `explosions_around_chr(CHR_JOANNA)` as the first statement.
 3. Run `make rom`. This will create a ROM file at `build/ntsc-final/pd.z64`.
 4. Play the ROM.
 5. Start Defection, watch the intro and admire Joanna jumping from the dropship into a sea of explosions to her fiery death.
 
-## Wait, aarch64? Isn't that ARM?
-
-Yeah. I originally used mips64, but the binaries it created were padded and therefore incorrect. I couldn't figure out how to change that with modern versions of the mips build tools and I didn't want to waste too much time on that aspect of it. Because there's no actual opcodes being generated, the architecture isn't really important. I just needed something that worked and was big endian (so x64_64 was out of the question too).
-
 ## Where's the list of commands? Is there a reference?
 
-See `asm/include/commands.inc` and `asm/include/constants.inc` for a start.
+See `src/include/commands.h` and `src/include/constants.h` for a start.
 
 ## Whats with all this beginloop and endloop stuff?
 
@@ -82,7 +72,7 @@ I also added a `reloop` macro, which is selectively used to replace a `goto_firs
 
 Well, yes but no. They won't be injected into the ROM because I'm lazy and haven't written code to do that. The stage files will though.
 
-The global functions are at asm/globals.s.
+The global functions are at src/globals.c.
 
 ## How much stuff can I add before I run out of space?
 
