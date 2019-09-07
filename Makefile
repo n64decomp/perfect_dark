@@ -9,12 +9,6 @@ RELEASE=final
 ROMID := $(REGION)-$(RELEASE)
 E_DIR := extracted/$(ROMID)
 B_DIR := build/$(ROMID)
-SETUP_FILES := $(wildcard src/setup/*.c)
-SETUP_H_FILES := $(wildcard src/include/*.h)
-B_BIN_FILES := $(patsubst src/setup/%.c, $(B_DIR)/files/U%, $(SETUP_FILES))
-E_BIN_FILES := $(patsubst src/setup/%.c, $(E_DIR)/files/U%, $(SETUP_FILES))
-B_BINZ_FILES := $(patsubst src/setup/%.c, $(B_DIR)/files/U%Z, $(SETUP_FILES))
-E_BINZ_FILES := $(patsubst src/setup/%.c, $(E_DIR)/files/U%Z, $(SETUP_FILES))
 
 QEMU_IRIX := tools/irix/qemu-irix
 IRIX_ROOT := tools/irix/root
@@ -27,7 +21,7 @@ endif
 
 CFLAGS := -Wo,-loopunroll,0 -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -woff 819,820,852,821 -signed -I . -I include -mips2
 
-default: $(B_BIN_FILES) $(B_DIR)/Uglobals
+default: all
 
 ################################################################################
 # Extract related
@@ -36,40 +30,103 @@ extract:
 	tools/extract $(ROMID)
 
 ################################################################################
-# Test related
-
-test: $(B_BIN_FILES)
-	@diff -q --exclude='A*' --exclude='C*' --exclude='G*' --exclude='L*' --exclude='P*' --exclude='*Z' --exclude=bgdata --exclude=ob $(E_DIR)/files $(B_DIR)/files
-	@cmp -b --ignore-initial=0x1be00 --bytes=0x4ff0 $(E_DIR)/Uglobals $(B_DIR)/Uglobals
-
-testall:
-	REGION=ntsc RELEASE=final make test
-	REGION=ntsc RELEASE=1.0 make test
-	REGION=ntsc RELEASE=beta make test
-	REGION=pal RELEASE=final make test
-	REGION=pal RELEASE=beta make test
-	REGION=jap RELEASE=final make test
-
-################################################################################
 # Stage setup files
 
-$(B_DIR)/files/%.o: src/setup/%.c $(SETUP_H_FILES)
-	mkdir -p $(B_DIR)/files
+SETUP_C_FILES := $(wildcard src/setup/*.c)
+SETUP_H_FILES := $(wildcard src/include/*.h)
+B_SETUP_BIN_FILES := $(patsubst src/setup/%.c, $(B_DIR)/files/setup/U%.bin, $(SETUP_C_FILES))
+E_SETUP_BIN_FILES := $(patsubst src/setup/%.c, $(E_DIR)/files/setup/U%.bin, $(SETUP_C_FILES))
+B_SETUP_BINZ_FILES := $(patsubst src/setup/%.c, $(B_DIR)/files/U%Z, $(SETUP_C_FILES))
+E_SETUP_BINZ_FILES := $(patsubst src/setup/%.c, $(E_DIR)/files/U%Z, $(SETUP_C_FILES))
+
+setup: $(B_SETUP_BINZ_FILES)
+
+$(B_DIR)/files/setup/%.o: src/setup/%.c $(SETUP_H_FILES)
+	mkdir -p $(B_DIR)/files/setup
 	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) -o $@ -O2 $<
 
-$(B_DIR)/files/%.elf: $(B_DIR)/files/%.o
+$(B_DIR)/files/setup/%.elf: $(B_DIR)/files/setup/%.o
 	cp $< build/setup.tmp.o
 	$(TOOLCHAIN)-ld -T setup.ld -o $@
 	rm -f build/setup.tmp.o
 
-$(B_DIR)/files/U%: $(B_DIR)/files/%.elf
+$(B_DIR)/files/setup/U%.bin: $(B_DIR)/files/setup/%.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
-$(B_DIR)/files/U%Z: $(B_DIR)/files/U%
+$(B_DIR)/files/U%Z: $(B_DIR)/files/setup/U%.bin
+	tools/rarezip $< > $@
+
+################################################################################
+# Lang files
+
+LANG_C_EJP_FILES := $(wildcard src/lang/*E.c) $(wildcard src/lang/*J.c) $(wildcard src/lang/*P.c)
+LANG_C_STR_FILES := $(wildcard src/lang/*_str.c)
+B_LANG_BIN_FILES := $(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%.bin, $(LANG_C_EJP_FILES)) \
+	$(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%_f.bin, $(LANG_C_STR_FILES)) \
+	$(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%_g.bin, $(LANG_C_STR_FILES)) \
+	$(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%_i.bin, $(LANG_C_STR_FILES)) \
+	$(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%_s.bin, $(LANG_C_STR_FILES))
+B_LANG_BINZ_FILES := $(patsubst src/lang/%.c, $(B_DIR)/files/L%, $(LANG_C_EJP_FILES)) \
+	$(patsubst src/lang/%.c, $(B_DIR)/files/L%_fZ, $(LANG_C_STR_FILES)) \
+	$(patsubst src/lang/%.c, $(B_DIR)/files/L%_gZ, $(LANG_C_STR_FILES)) \
+	$(patsubst src/lang/%.c, $(B_DIR)/files/L%_iZ, $(LANG_C_STR_FILES)) \
+	$(patsubst src/lang/%.c, $(B_DIR)/files/L%_sZ, $(LANG_C_STR_FILES))
+E_LANG_BIN_FILES := $(patsubst $(B_DIR), $(E_DIR), $(B_LANG_BIN_FILES))
+E_LANG_BINZ_FILES := $(patsubst $(B_DIR), $(E_DIR), $(B_LANG_BINZ_FILES))
+
+lang: $(B_LANG_BINZ_FILES)
+
+$(B_DIR)/files/lang/%.o: src/lang/%.c
+	mkdir -p $(B_DIR)/files/lang
+	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) -o $@ -O2 $<
+
+$(B_DIR)/files/lang/%.elf: $(B_DIR)/files/lang/%.o
+	cp $< build/setup.tmp.o
+	$(TOOLCHAIN)-ld -T setup.ld -o $@
+	rm -f build/setup.tmp.o
+
+$(B_DIR)/files/lang/L%.bin: $(B_DIR)/files/lang/%.elf
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
+
+# Specific E/J/P and str_f/g/i/s
+$(B_DIR)/files/lang/%E.bin: $(B_DIR)/files/lang/%E.elf
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
+
+$(B_DIR)/files/lang/%J.bin: $(B_DIR)/files/lang/%J.elf
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
+
+$(B_DIR)/files/lang/%P.bin: $(B_DIR)/files/lang/%P.elf
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
+
+$(B_DIR)/files/lang/L%_str_f.bin: $(B_DIR)/files/lang/%_str.elf
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
+
+$(B_DIR)/files/lang/L%_str_g.bin: $(B_DIR)/files/lang/L%_str_f.bin
+	cp $< $@
+
+$(B_DIR)/files/lang/L%_str_i.bin: $(B_DIR)/files/lang/L%_str_f.bin
+	cp $< $@
+
+$(B_DIR)/files/lang/L%_str_s.bin: $(B_DIR)/files/lang/L%_str_f.bin
+	cp $< $@
+# End specific
+
+$(B_DIR)/files/L%E: $(B_DIR)/files/lang/L%E.bin
+	tools/rarezip $< > $@
+
+$(B_DIR)/files/L%J: $(B_DIR)/files/lang/L%J.bin
+	tools/rarezip $< > $@
+
+$(B_DIR)/files/L%P: $(B_DIR)/files/lang/L%P.bin
+	tools/rarezip $< > $@
+
+$(B_DIR)/files/L%Z: $(B_DIR)/files/lang/L%.bin
 	tools/rarezip $< > $@
 
 ################################################################################
 # Globals file
+
+globals: $(B_DIR)/Uglobals
 
 $(B_DIR)/globals.o: src/globals.c $(SETUP_H_FILES)
 	mkdir -p $(B_DIR)
@@ -84,9 +141,37 @@ $(B_DIR)/Uglobals: $(B_DIR)/globals.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
 ################################################################################
+# Test related
+
+test: $(B_SETUP_BINZ_FILES) $(B_LANG_BINZ_FILES)
+	@rm -f $(B_DIR)/files/lang/*.{elf,o}
+	@diff -rq --exclude='*.bin' \
+		--exclude=chrs \
+		--exclude=guns \
+		--exclude=props \
+		--exclude='A*' \
+		--exclude='C*' \
+		--exclude='G*' \
+		--exclude='P*' \
+		--exclude=bgdata \
+		--exclude=ob \
+		$(E_DIR)/files $(B_DIR)/files
+	@cmp -b --ignore-initial=0x1be00 --bytes=0x4ff0 $(E_DIR)/Uglobals $(B_DIR)/Uglobals
+
+testall:
+	REGION=ntsc RELEASE=final make test
+	REGION=ntsc RELEASE=1.0 make test
+	REGION=ntsc RELEASE=beta make test
+	REGION=pal RELEASE=final make test
+	REGION=pal RELEASE=beta make test
+	REGION=jap RELEASE=final make test
+
+################################################################################
 # Miscellaneous
 
-rom: $(B_BINZ_FILES)
+all: setup lang globals
+
+rom: $(B_SETUP_BINZ_FILES)
 	tools/inject pd.$(ROMID).z64
 
 clean:

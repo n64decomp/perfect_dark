@@ -1,6 +1,6 @@
 # Perfect Dark Decompilation (WIP)
 
-This repository contains a work-in-progress decompilation of Perfect Dark for the Nintendo 64. So far only the stage setup files are decompiled.
+This repository contains a work-in-progress decompilation of Perfect Dark for the Nintendo 64. So far only the stage setup files and lang files are decompiled.
 
 ## I have no idea what you're talking about
 
