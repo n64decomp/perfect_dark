@@ -88,29 +88,6 @@ $(B_DIR)/files/lang/%.elf: $(B_DIR)/files/lang/%.o
 $(B_DIR)/files/lang/L%.bin: $(B_DIR)/files/lang/%.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
-# Specific E/J/P and str_f/g/i/s
-$(B_DIR)/files/lang/%E.bin: $(B_DIR)/files/lang/%E.elf
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
-
-$(B_DIR)/files/lang/%J.bin: $(B_DIR)/files/lang/%J.elf
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
-
-$(B_DIR)/files/lang/%P.bin: $(B_DIR)/files/lang/%P.elf
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
-
-$(B_DIR)/files/lang/L%_str_f.bin: $(B_DIR)/files/lang/%_str.elf
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
-
-$(B_DIR)/files/lang/L%_str_g.bin: $(B_DIR)/files/lang/L%_str_f.bin
-	cp $< $@
-
-$(B_DIR)/files/lang/L%_str_i.bin: $(B_DIR)/files/lang/L%_str_f.bin
-	cp $< $@
-
-$(B_DIR)/files/lang/L%_str_s.bin: $(B_DIR)/files/lang/L%_str_f.bin
-	cp $< $@
-# End specific
-
 $(B_DIR)/files/L%E: $(B_DIR)/files/lang/L%E.bin
 	tools/rarezip $< > $@
 
