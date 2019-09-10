@@ -33,7 +33,6 @@ class Extractor:
         self.extract_audio()
         self.extract_files()
         self.extract_fonts()
-        self.extract_midis()
         self.extract_globals()
         self.extract_textures()
         self.extract_ucodes()
@@ -43,8 +42,33 @@ class Extractor:
     #
 
     def extract_audio(self):
-        # Not implemented
-        pass
+        sfxctl = self.val('sfxctl')
+        sfxtbl = sfxctl + 0x2fb80
+        musicctl = sfxtbl + 0x4c2160
+        musictbl = musicctl + 0xa060
+        seqtbl = musictbl + 0x17c070
+        self.write('audio/sfx.ctl', self.rom[sfxctl:sfxtbl])
+        self.write('audio/sfx.tbl', self.rom[sfxtbl:musicctl])
+        self.write('audio/music.ctl', self.rom[musicctl:musictbl])
+        self.write('audio/music.tbl', self.rom[musictbl:seqtbl])
+
+        seqtbllen = 0x563b0 if self.romid == 'ntsc-beta' else 0x563a0
+
+        sequences = self.rom[seqtbl:seqtbl+seqtbllen]
+        self.write('audio/sequences.bin', sequences)
+
+        # Extract sequences
+        count = int.from_bytes(sequences[0:2], 'big')
+        i = 0
+        while i < count:
+            sequence = self.extract_sequence(sequences, i)
+            self.write('audio/sequences/%03d.seq' % i, sequence)
+            i += 1
+
+    def extract_sequence(self, sequences, index):
+        pos = 4 + index * 8
+        offset = int.from_bytes(sequences[pos:pos+4], 'big')
+        return self.decompress(sequences[offset:])
 
     #
     # Files
@@ -122,14 +146,6 @@ class Extractor:
         self.write('Uglobals', self.globals)
 
     #
-    # MIDIs
-    #
-
-    def extract_midis(self):
-        # Not implemented
-        pass
-
-    #
     # Textures
     #
 
@@ -193,31 +209,37 @@ class Extractor:
             'game': 0x4fc40,
             'files': 0x28080,
             'globals': 0x39850,
+            'sfxctl': 0x80a250,
         },
         'ntsc-1.0': {
             'game': 0x4fc40,
             'files': 0x28080,
             'globals': 0x39850,
+            'sfxctl': 0x80a250,
         },
         'ntsc-beta': {
             'game': 0x43c40,
             'files': 0x29160,
             'globals': 0x30850,
+            'sfxctl': 0x7be940,
         },
         'pal-final': {
             'game': 0x4fc40,
             'files': 0x28910,
             'globals': 0x39850,
+            'sfxctl': 0x7f87e0,
         },
         'pal-beta': {
             'game': 0x4fc40,
             'files': 0x29b90,
             'globals': 0x39850,
+            'sfxctl': 0x7f87e0,
         },
         'jap-final': {
             'game': 0x4fc40,
             'files': 0x28800,
             'globals': 0x39850,
+            'sfxctl': 0x7fc670,
         },
     }
 
