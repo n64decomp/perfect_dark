@@ -60,17 +60,11 @@ $(B_DIR)/files/U%Z: $(B_DIR)/files/setup/U%.bin
 # Lang files
 
 LANG_C_EJP_FILES := $(wildcard src/lang/*E.c) $(wildcard src/lang/*J.c) $(wildcard src/lang/*P.c)
-LANG_C_STR_FILES := $(wildcard src/lang/*_str.c)
+LANG_C_STR_FILES := $(wildcard src/lang/*_str_*.c)
 B_LANG_BIN_FILES := $(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%.bin, $(LANG_C_EJP_FILES)) \
-	$(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%_f.bin, $(LANG_C_STR_FILES)) \
-	$(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%_g.bin, $(LANG_C_STR_FILES)) \
-	$(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%_i.bin, $(LANG_C_STR_FILES)) \
-	$(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%_s.bin, $(LANG_C_STR_FILES))
+	$(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%.bin, $(LANG_C_STR_FILES))
 B_LANG_BINZ_FILES := $(patsubst src/lang/%.c, $(B_DIR)/files/L%, $(LANG_C_EJP_FILES)) \
-	$(patsubst src/lang/%.c, $(B_DIR)/files/L%_fZ, $(LANG_C_STR_FILES)) \
-	$(patsubst src/lang/%.c, $(B_DIR)/files/L%_gZ, $(LANG_C_STR_FILES)) \
-	$(patsubst src/lang/%.c, $(B_DIR)/files/L%_iZ, $(LANG_C_STR_FILES)) \
-	$(patsubst src/lang/%.c, $(B_DIR)/files/L%_sZ, $(LANG_C_STR_FILES))
+	$(patsubst src/lang/%.c, $(B_DIR)/files/L%Z, $(LANG_C_STR_FILES))
 E_LANG_BIN_FILES := $(patsubst $(B_DIR), $(E_DIR), $(B_LANG_BIN_FILES))
 E_LANG_BINZ_FILES := $(patsubst $(B_DIR), $(E_DIR), $(B_LANG_BINZ_FILES))
 
