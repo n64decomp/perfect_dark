@@ -1315,8 +1315,8 @@ u8 func0411_cass_in_office[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x56)
 
 	beginloop(0x56)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x57)
-		cmd004f(246, /*goto*/ 0x57)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x57)
+		if_jo_ccw_direction_gt(246, /*goto*/ 0x57)
 	endloop(0x56)
 
 	// Draw weapon

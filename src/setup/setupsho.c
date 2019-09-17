@@ -610,8 +610,8 @@ u8 func0402_unarmed_skedar[] = {
 	label(0x2f)
 	restart_timer
 	dprint 'F','A','C','E',' ','T','A','R','G','E','T','\n',0,
-	if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
-	cmd004f(246, /*goto*/ 0x06)
+	if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+	if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 	stop_chr
 	set_action(ACTION_FACING_TARGET, TRUE)
 	try_face_entity(0x0200, 0x0001, /*goto*/ 0x0c)
@@ -623,8 +623,8 @@ u8 func0402_unarmed_skedar[] = {
 		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x10)
 		if_chr_dying(TARGET_CHR, /*goto*/ 0x10)
 		if_chr_unloaded(TARGET_CHR, /*goto*/ 0x10)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
-		cmd004f(246, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x0c)
 
@@ -809,8 +809,8 @@ u8 func0404_miniskedar[] = {
 	endloop(0x0c)
 
 	label(0x2d)
-	if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
-	cmd004f(246, /*goto*/ 0x06)
+	if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+	if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 	goto_first(0x0c)
 
 	label(0x06)
@@ -2148,15 +2148,15 @@ u8 func040d_king_combat[] = {
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	restart_timer
 	dprint 'F','A','C','E',' ','T','A','R','G','E','T','\n',0,
-	if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
-	cmd004f(246, /*goto*/ 0x06)
+	if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+	if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 	stop_chr
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ 0x0b)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
-		cmd004f(246, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 

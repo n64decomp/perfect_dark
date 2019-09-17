@@ -1274,7 +1274,7 @@ u8 func040f_cass[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x64)
 
 	beginloop(0x64)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x65)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x65)
 		if_timer_gt(90, /*goto*/ 0x65)
 	endloop(0x64)
 
@@ -1507,7 +1507,7 @@ u8 func0411_secretary[] = {
 		try_face_entity(0x0200, 0x0000, /*goto*/ 0x7f)
 
 		beginloop(0x7f)
-			if_angle_to_target_chr_lt(10, /*goto*/ 0x81)
+			if_jo_ccw_direction_lt(10, /*goto*/ 0x81)
 			if_timer_gt(120, /*goto*/ 0x81)
 		endloop(0x7f)
 
@@ -1698,7 +1698,7 @@ u8 func0414_programmer[] = {
 		try_face_entity(0x0200, 0x0000, /*goto*/ 0x9a)
 
 		beginloop(0x9a)
-			if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+			if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 			if_timer_gt(60, /*goto*/ 0x06)
 		endloop(0x9a)
 
@@ -1798,7 +1798,7 @@ u8 func0414_programmer[] = {
 
 	beginloop(0x9b)
 		if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x06)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x9b)
 

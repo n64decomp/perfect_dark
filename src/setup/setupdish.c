@@ -594,7 +594,7 @@ u8 func041e_colleague[] = {
 		try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 		beginloop(0x09)
-			if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+			if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 			if_timer_gt(60, /*goto*/ 0x06)
 		endloop(0x09)
 
@@ -2468,7 +2468,7 @@ u8 func0429_grimshaw_disguise[] = {
 
 	beginloop(0x09)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -2659,7 +2659,7 @@ u8 func042a_carrington_cloak[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -5169,8 +5169,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 
 	label(0x06)
 	restart_timer
-	if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
-	cmd004f(246, /*goto*/ 0x06)
+	if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+	if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 	stop_chr
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
@@ -5178,8 +5178,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 		if_chr_dying(TARGET_CHR, /*goto*/ 0x57)
 		if_chr_unloaded(TARGET_CHR, /*goto*/ 0x57)
 		if_chr_distance_gt(400, /*goto*/ 0x10)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
-		cmd004f(246, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 		if_timer_gt(120, /*goto*/ 0x06)
 	endloop(0x09)
 

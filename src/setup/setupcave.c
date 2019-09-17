@@ -1230,7 +1230,7 @@ u8 func0407_stewardess[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x05)
 
 	beginloop(0x05)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x02)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
 		if_timer_gt(60, /*goto*/ 0x02)
 	endloop(0x05)
 
@@ -1527,7 +1527,7 @@ u8 func0408_secretary[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x05)
 
 	beginloop(0x05)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x02)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
 		if_timer_gt(60, /*goto*/ 0x02)
 	endloop(0x05)
 
@@ -2123,7 +2123,7 @@ u8 func0409_office1[] = {
 		reloop(0x0b)
 
 		label(0x31)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x02)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
 		if_timer_gt(60, /*goto*/ 0x02)
 	endloop(0x0b)
 
@@ -2146,7 +2146,7 @@ u8 func0409_office1[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x05)
 
 	beginloop(0x05)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x02)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
 		if_timer_gt(60, /*goto*/ 0x02)
 	endloop(0x05)
 
@@ -2241,7 +2241,7 @@ u8 func040a_office2[] = {
 		reloop(0x05)
 
 		label(0x31)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x02)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
 		if_timer_gt(60, /*goto*/ 0x02)
 	endloop(0x05)
 
@@ -2506,8 +2506,8 @@ u8 func040f_nsa[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x02)
-		cmd004f(245, /*goto*/ 0x02)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
+		if_jo_ccw_direction_gt(245, /*goto*/ 0x02)
 		if_timer_gt(60, /*goto*/ 0x02)
 	endloop(0x09)
 
@@ -2744,7 +2744,7 @@ u8 func0414_officeworker[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x78)
 
 	beginloop(0x78)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x02)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
 		if_timer_gt(40, /*goto*/ 0x02)
 	endloop(0x78)
 
@@ -3415,7 +3415,7 @@ u8 func0419_ba8c[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x08)
 	label(0x08)
 	yield
-	if_angle_to_target_chr_lt(10, /*goto*/ 0x02)
+	if_jo_ccw_direction_lt(10, /*goto*/ 0x02)
 	if_timer_gt(40, /*goto*/ 0x02)
 	goto_first(0x08)
 

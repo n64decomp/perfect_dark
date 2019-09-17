@@ -3126,7 +3126,7 @@ u8 func041b_sniper_wait_for_detection[] = {
 
 		label(0x2e)
 		if_chr_distance_lt(400, /*goto*/ 0x06)
-		if_distance_to_target_chr_lt(30, /*goto*/ 0x06)
+		if_jo_front_direction_lt(30, /*goto*/ 0x06)
 		if_chr_in_view(/*goto*/ 0x06)
 		if_saw_death(0x00, /*goto*/ 0x06)
 		if_alertness(100, OPERATOR_GREATER_THAN, /*goto*/ 0x06)
@@ -3467,8 +3467,8 @@ u8 func040f_miniskedar[] = {
 			reloop(0x0b)
 
 			label(0x2e)
-			if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
-			cmd004f(246, /*goto*/ 0x06)
+			if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
+			if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 		endloop(0x0b)
 
 		label(0x06)

@@ -1357,7 +1357,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -1728,7 +1728,7 @@ u8 func0418_doorman[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -1961,7 +1961,7 @@ u8 func041a_labtech_harrysmate[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -2331,7 +2331,7 @@ u8 func0413_mechanic[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -2635,7 +2635,7 @@ u8 func041f_labtech_lights[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -2854,7 +2854,7 @@ u8 func0420_labtech_doors[] = {
 	beginloop(0x09)
 		if_shot_near_chr(0x00, /*goto*/ 0x89)
 		if_saw_death(0x00, /*goto*/ 0x89)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -3087,7 +3087,7 @@ u8 func0422_labtech_records[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 	label(0x09)
 	yield
-	if_angle_to_target_chr_lt(10, /*goto*/ 0x06)
+	if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 	if_timer_gt(60, /*goto*/ 0x06)
 	goto_first(0x09)
 

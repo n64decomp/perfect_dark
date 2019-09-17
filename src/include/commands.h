@@ -287,7 +287,11 @@
 	mkshort(0x004c), \
 	label,
 
-#define if_angle_to_target_chr_lt(value, label) \
+// Checks if Jo is within a certain angle of the chr's direction.
+// Value is a percentage of the circle, where 256 is a full circle.
+// Only ever called with value = decimal 10, which is about 14 degrees.
+// With value 10, returns true if Jo is roughly within 12-11 o'clock.
+#define if_jo_ccw_direction_lt(value, label) \
 	mkshort(0x004d), \
 	value, \
 	label,
@@ -302,16 +306,26 @@
 	bool2, \
 	label,
 
-// If given value * some global / 256 is less than some value derived from the current chr
-// Used by skedar before they do hand combat or pounce
-#define cmd004f(value, label) \
+// Checks if Jo is outside of a certain angle of the chr's direction.
+// Value is a percentage of the circle, where 256 is a full circle.
+// Called with values = -10 and -11, which is about -14 degrees.
+// With value -10, returns true if Jo is roughly within 12-1 o'clock.
+#define if_jo_ccw_direction_gt(value, label) \
 	mkshort(0x004f), \
 	value, \
 	label,
 
-// The value is multiplied by a variable at 0x7f1a9364
-#define if_distance_to_target_chr_lt(value, label) \
+// Similar to 004d and 004f, but checks if Jo is within the angle of player's
+// 12 o'clock (ie. either side).
+#define if_jo_front_direction_lt(value, label) \
 	mkshort(0x0050), \
+	value, \
+	label,
+
+// Similar to 004d and 004f, but checks if Jo is not in front of the current chr
+// by the given angle.
+#define if_jo_front_direction_gt(value, label) \
+	mkshort(0x0051), \
 	value, \
 	label,
 

@@ -1440,7 +1440,7 @@ u8 func0412_cia[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x04)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x04)
 		if_timer_gt(40, /*goto*/ 0x04)
 	endloop(0x09)
 
@@ -1589,7 +1589,7 @@ u8 func0413_bugspotter[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x04)
 
 	beginloop(0x09)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x04)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x04)
 		if_timer_gt(40, /*goto*/ 0x04)
 	endloop(0x09)
 
@@ -1871,7 +1871,7 @@ u8 func041d_fbi[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x0d)
 
 	beginloop(0x0d)
-		if_angle_to_target_chr_lt(10, /*goto*/ 0x04)
+		if_jo_ccw_direction_lt(10, /*goto*/ 0x04)
 		if_timer_gt(40, /*goto*/ 0x04)
 	endloop(0x0d)
 
