@@ -165,7 +165,7 @@ test: $(B_SETUP_BINZ_FILES) $(B_LANG_BINZ_FILES)
 		--exclude=bgdata \
 		--exclude=ob \
 		$(E_DIR)/files $(B_DIR)/files
-	@cmp -b --ignore-initial=0x1be00 --bytes=0x4ff0 $(E_DIR)/Uglobals $(B_DIR)/Uglobals
+	@diff -q $(E_DIR)/Uglobals $(B_DIR)/Uglobals
 
 testall:
 	REGION=ntsc RELEASE=final make test

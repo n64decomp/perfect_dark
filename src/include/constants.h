@@ -62,6 +62,12 @@
 #define BANK_2 2
 #define BANK_3 3
 
+#define CASING_NONE     -1
+#define CASING_STANDARD 0
+#define CASING_REAPER   1
+#define CASING_RIFLE    2
+#define CASING_SHOTGUN  3
+
 #define CHANNEL_0  0
 #define CHANNEL_1  1
 #define CHANNEL_2  2
