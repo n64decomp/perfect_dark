@@ -1221,7 +1221,7 @@
 #define MUSIC_DEFECTION_X             0x10
 #define MUSIC_EXTRACTION_X            0x11
 #define MUSIC_INVESTIGATION           0x12
-#define MUSIC_INVESTIGATION_x         0x13
+#define MUSIC_INVESTIGATION_X         0x13
 #define MUSIC_INFILTRATION            0x14
 #define MUSIC_DEATH_BETA              0x15
 #define MUSIC_RESCUE                  0x16

@@ -202,6 +202,26 @@ struct mpmusictrack {
 	s16 unlockcategory;
 };
 
+struct stageoverviewentry {
+	u32 stage_id;
+	u8 unk04;
+	u16 name1; // "dataDyne Central"
+	u16 name2; // " - Defection"
+	u16 name3; // "dataDyne Defection"
+};
+
+struct stagemusic {
+	u16 stage_id;
+	u16 main_music;
+	s16 sfx_music;
+	u16 x_music;
+};
+
+struct mission {
+	u32 first_stage_index;
+	u16 name;
+};
+
 struct suntableentry {
 	u32 unk00;
 	u32 unk04;
