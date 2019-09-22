@@ -202,4 +202,12 @@ struct mpmusictrack {
 	s16 unlockcategory;
 };
 
+struct suntableentry {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+};
+
 #endif
