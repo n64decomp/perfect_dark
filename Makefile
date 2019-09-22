@@ -180,7 +180,7 @@ testall:
 
 all: setup lang globals
 
-rom: $(B_SETUP_BINZ_FILES)
+rom: $(B_SETUP_BINZ_FILES) $(B_DIR)/Uglobals
 	tools/inject pd.$(ROMID).z64
 
 clean:

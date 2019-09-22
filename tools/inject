@@ -34,7 +34,9 @@ class Injector:
         self.rompart3 = rombuffer[0x001a15c0:0x00ed83a0]
         self.rompart4 = rombuffer[0x01d5ca00:]
 
-        globals = self.rareunzip(rombuffer[0x39850:])
+        fp = open('build/ntsc-final/Uglobals', 'rb')
+        globals = fp.read()
+        fp.close()
 
         self.globaltop = globals[0:0x28080]
         self.globalbot = globals[0x2a000:]
