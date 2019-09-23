@@ -53,7 +53,7 @@ u8 func0408_idle_with_10_health[] = {
 
 u8 func0404_spawn_enemies[] = {
 	// Spawn 12 enemies
-	set_chr_alliance(CHR_SELF, ALLIANCE_ENEMY)
+	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	restart_timer
 	dprint 'B','4','C','H','E','C','K','\n',0,
 	set_morale(12)
@@ -92,7 +92,7 @@ u8 func0401_init_enemy[] = {
 
 u8 func0405_spawn_maians[] = {
 	// Spawn 12 Maians
-	set_chr_alliance(CHR_SELF, ALLIANCE_ALLY)
+	set_chr_team(CHR_SELF, TEAM_ALLY)
 	stop_chr
 	restart_timer
 	dprint 'B','4','C','H','E','K','\n',0,
@@ -119,7 +119,7 @@ u8 func0405_spawn_maians[] = {
 };
 
 u8 func0402_init_maian[] = {
-	set_chr_alliance(CHR_SELF, ALLIANCE_ALLY)
+	set_chr_team(CHR_SELF, TEAM_ALLY)
 	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_MAGSEC4, 0x00000000, /*goto*/ 0x01)
 	label(0x01)
 	try_inherit_properties(0x07, /*goto*/ 0x01)

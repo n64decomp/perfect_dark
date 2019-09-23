@@ -34259,7 +34259,7 @@ u8 func001f_related_to_spawning[] = {
 u8 func0012_init_coop_100[] = {
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_00000400)
 	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_chr_alliance(CHR_SELF, ALLIANCE_ALLY)
+	set_chr_team(CHR_SELF, TEAM_ALLY)
 	set_self_flag_bank3(CHRFLAG3_01000000)
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED)
 	set_alertness(100)
@@ -34332,7 +34332,7 @@ u8 func0012_init_coop_100[] = {
  */
 u8 func0013_init_coop_200[] = {
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_00000400)
-	set_chr_alliance(CHR_SELF, ALLIANCE_ALLY)
+	set_chr_team(CHR_SELF, TEAM_ALLY)
 	set_self_flag_bank3(CHRFLAG3_00040000)
 	set_self_flag_bank3(CHRFLAG3_01000000)
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED)
@@ -34826,7 +34826,7 @@ u8 func0025_pointless[] = {
 
 u8 func0026_init_psychosis[] = {
 	set_onshot_function(GFUNC_INIT_PSYCHOSIS)
-	set_chr_alliance(CHR_SELF, 0x80)
+	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
 	set_self_flag_bankx(CHRFLAG1_80000000, BANK_1)
 	set_self_flag_bank3(CHRFLAG3_00040000)
 	set_self_flag_bank3(CHRFLAG3_01000000)
@@ -34855,7 +34855,7 @@ u8 func0026_init_psychosis[] = {
 
 	// Become ally
 	label(0x16)
-	set_chr_alliance(CHR_SELF, ALLIANCE_ALLY)
+	set_chr_team(CHR_SELF, TEAM_ALLY)
 	cmd0145_rebuild_groups
 	cmd0146_rebuild_groups
 

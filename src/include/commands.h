@@ -1003,10 +1003,10 @@
 	bool, \
 	label,
 
-#define set_chr_alliance(chr, alliance) \
+#define set_chr_team(chr, team) \
 	mkshort(0x010b), \
 	chr, \
-	alliance,
+	team,
 
 #define set_shield(value) \
 	mkshort(0x010e), \

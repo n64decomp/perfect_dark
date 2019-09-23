@@ -27,9 +27,6 @@
 #define ACTION_FACING_TARGET      0x35
 #define ACTION_HAND_COMBAT_SKEDAR 0x36
 
-#define ALLIANCE_ENEMY 0x02
-#define ALLIANCE_ALLY  0x10
-
 #define AMMOTYPE_PISTOL      0x01
 #define AMMOTYPE_SMG         0x02
 #define AMMOTYPE_CROSSBOW    0x03
@@ -1322,6 +1319,15 @@
 #define MUSIC_BETA_MELODY             0x75
 #define MUSIC_ESCAPE_OUTRO_SHORT      0x76
 
+#define TEAM_00        0x00
+#define TEAM_01        0x01
+#define TEAM_ENEMY     0x02
+#define TEAM_04        0x04
+#define TEAM_ALLY      0x10
+#define TEAM_20        0x20
+#define TEAM_22        0x22
+#define TEAM_32        0x32
+#define TEAM_NONCOMBAT 0x80
 
 // Animations
 //.set ANIM_, 0x0000: idle

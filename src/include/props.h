@@ -66,7 +66,7 @@
 	generic_object(model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19), \
 	mkword(ammotype),
 
-#define chr(unk1, id, pad, body, head, function, target_pad, target_chr, hear_dist, view_dist, props1, bank1flags, alliance, group, chair, group2, associated) \
+#define chr(unk1, id, pad, body, head, function, target_pad, target_chr, hear_dist, view_dist, props1, bank1flags, team, group, chair, group2, associated) \
 	mkshort(0), \
 	mkshort(0x09), \
 	mkword(unk1), \
@@ -81,7 +81,7 @@
 	mkshort(view_dist), \
 	mkword(props1), \
 	mkword(bank1flags), \
-	alliance, \
+	team, \
 	group, \
 	mkshort(chair), \
 	mkword(group2), \
