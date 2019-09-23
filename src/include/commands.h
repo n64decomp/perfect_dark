@@ -1708,9 +1708,7 @@
 	mkshort(0x01c2), \
 	mkshort(value),
 
-// Sets a function in the chr's struct. Likely a callback of some sort, such as
-// the onshot function.
-#define set_unknown_function(function) \
+#define set_darkroom_function(function) \
 	mkshort(0x01c3), \
 	mkshort(function),
 

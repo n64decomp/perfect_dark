@@ -30571,7 +30571,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	set_onshot_function(GFUNC_ALERTED)
 	set_aishootingatmel(35)
-	set_unknown_function(GFUNC_SEARCH_FOR_PLAYER)
+	set_darkroom_function(GFUNC_SEARCH_FOR_PLAYER)
 
 	dprint 'S','T','A','R','T',' ','L','O','O','P','\n',0,
 	if_chr_dying(CHR_SELF, /*goto*/ 0x16)
