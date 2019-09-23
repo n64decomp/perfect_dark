@@ -1734,7 +1734,7 @@ u8 func0414_programmer[] = {
 		label(0xa1)
 		restart_timer
 		set_stage_flag(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD)
-		try_target_chr_in_same_group(/*goto*/ LABEL_RUN_TO_GUARD)
+		try_set_target_chr_to_teammate(/*goto*/ LABEL_RUN_TO_GUARD)
 		unset_object_flag_bank1(OBJ_LAPTOPGUNDOOR, OBJECTFLAG1_20000000)
 		jog_to_pad(0x0086)
 
@@ -1960,8 +1960,8 @@ u8 func0413_c318[] = {
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	set_alertness(255)
 	set_self_flag_bank3(CHRFLAG3_00000200)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_UNALERTED_0001)
 	endfunction
 };
@@ -3746,7 +3746,7 @@ u8 func042f_surrendering_guard[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	try_target_chr_in_same_group(/*goto*/ 0x54)
+	try_set_target_chr_to_teammate(/*goto*/ 0x54)
 	goto_next(0x55)
 
 	label(0x54)

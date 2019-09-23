@@ -744,8 +744,8 @@ u8 func040e_elvis_give_ar34[] = {
 	// Talk
 	label(0x06)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_stage_flag(STAGEFLAG_MET_ELVIS)
 	speak(CHR_P1P2, 0x2613, 0x12e1, CHANNEL_6, COLOR_04_ORANGE) // "Good to see you, Joanna."
 	animation(ANIM_TALKING_0231, 0, -1, 0x1010, CHR_SELF, 2)
@@ -1174,8 +1174,8 @@ u8 func1006_wake_slayer_skedar[] = {
 	unlock_door(0x10, 0x02)
 	open_door(0x0f)
 	set_chr_team(CHR_SUSPENDEDANIM1, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SUSPENDEDANIM1, FUNC_WAKE_SUSPENDEDANIM_SKEDAR)
 	restart_timer
 
@@ -1195,8 +1195,8 @@ u8 func1006_wake_slayer_skedar[] = {
 	set_function(CHR_SUSPENDEDANIM3, FUNC_WAKE_SUSPENDEDANIM_SKEDAR)
 
 	set_chr_team(CHR_SUSPENDEDANIM3, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 
 	// Wait until player coming back from Slayer area
 	label(0x2c)
@@ -1220,14 +1220,14 @@ u8 func1006_wake_slayer_skedar[] = {
 	open_door(0x15)
 	set_function(CHR_SUSPENDEDANIM2, FUNC_WAKE_SUSPENDEDANIM_SKEDAR)
 	set_chr_team(CHR_SUSPENDEDANIM2, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 
 	// 4
 	set_function(CHR_SUSPENDEDANIM4, FUNC_WAKE_SUSPENDEDANIM_SKEDAR)
 	set_chr_team(CHR_SUSPENDEDANIM4, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -1698,8 +1698,8 @@ u8 func0413_init_hangarclone[] = {
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_00400000)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	label(0x04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	try_inherit_properties(0x07, /*goto*/ 0x06)
 	label(0x06)
 	set_function(CHR_SELF, FUNC_HANGARCLONE)
@@ -2219,8 +2219,8 @@ u8 func0416_init_bridgeclone[] = {
 	set_chr_flag_bank3(CHR_SELF, CHRFLAG3_KILLCOUNTABLE)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	label(0x04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 
 	if_self_flag_bankx_eq(CHRFLAG0_00000004, TRUE, BANK_0, /*goto*/ 0x2c)
 	try_inherit_properties(CHR_BRIDGESPAWNER1, /*goto*/ 0x06)
@@ -3720,8 +3720,8 @@ u8 func1025_toggle_chrs[] = {
 	set_function(0x08, FUNC_CLOAK_AND_REMOVE)
 	set_function(0x09, FUNC_CLOAK_AND_REMOVE)
 	set_function(0x0a, FUNC_CLOAK_AND_REMOVE)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 
 	beginloop(0x09)
 		consider_coop_for_p1p2_chr(CHR_SELF)

@@ -995,19 +995,19 @@ u8 func1009_spawner_during_decode[] = {
 		label(0x06)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x55)
 		if_difficulty_lt(DIFF_PA, /*goto*/ 0x56)
-		if_num_chrs_in_group_gt(5, 0x09, /*goto*/ 0x2c)
+		if_num_chrs_in_squadron_gt(5, 0x09, /*goto*/ 0x2c)
 		if_kill_count_gt(50, /*goto*/ 0x2c)
 		goto_next(0x57)
 
 		// Agent
 		label(0x55)
-		if_num_chrs_in_group_gt(3, 0x09, /*goto*/ 0x2c)
+		if_num_chrs_in_squadron_gt(3, 0x09, /*goto*/ 0x2c)
 		if_kill_count_gt(50, /*goto*/ 0x2c)
 		goto_next(0x57)
 
 		// Special Agent
 		label(0x56)
-		if_num_chrs_in_group_gt(4, 0x09, /*goto*/ 0x2c)
+		if_num_chrs_in_squadron_gt(4, 0x09, /*goto*/ 0x2c)
 		if_kill_count_gt(50, /*goto*/ 0x2c)
 		goto_next(0x57)
 
@@ -1059,8 +1059,8 @@ u8 func1009_spawner_during_decode[] = {
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0) \
 	set_alertness(90) \
 	set_self_flag_bank3(CHRFLAG3_00000200) \
-	cmd0145_rebuild_groups \
-	cmd0146_rebuild_groups \
+	rebuild_teams \
+	rebuild_squadrons \
 	run_to_pad(0x004e)
 
 
@@ -3066,8 +3066,8 @@ u8 func102b_81bc[] = {
 	set_chr_team(0x15, TEAM_ENEMY)
 	set_chr_team(0x16, TEAM_ENEMY)
 	set_chr_team(0x17, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -3089,8 +3089,8 @@ u8 func102c_set_lightswitch_guard_team[] = {
 
 	label(0x06)
 	set_chr_team(CHR_LIGHTSWITCH_GUARD, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };

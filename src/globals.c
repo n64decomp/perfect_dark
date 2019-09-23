@@ -32154,7 +32154,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	say_quip(CHR_JOANNA, 0x04, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00) // "Go to plan B","Get the hell out of here!","Retreat!"
-	try_target_chr_in_same_group(/*goto*/ 0x95)
+	try_set_target_chr_to_teammate(/*goto*/ 0x95)
 	if_self_flag_bankx_eq(CHRFLAG1_00000002, TRUE, BANK_1, /*goto*/ 0x16)
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_00200000, TRUE, BANK_0, /*goto*/ 0x16)
@@ -32465,7 +32465,7 @@ u8 func000b_choose_target_chr[] = {
 	dprint 'S','C','A','N','\n',0,
 
 	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, TRUE, BANK_0, /*goto*/ 0x13)
-	cmd0127_try_find_chr_in_group(/*goto*/ 0x16)
+	try_find_chr_in_team(/*goto*/ 0x16)
 	goto_next(0x04)
 
 	// No hear - only see
@@ -32489,7 +32489,7 @@ u8 func000b_choose_target_chr[] = {
 	dprint 'F','O','U','N','D','A','L','E','R','T','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, TRUE, BANK_0, /*goto*/ 0x16)
-	cmd0127_try_find_chr_in_group(/*goto*/ 0x13)
+	try_find_chr_in_team(/*goto*/ 0x13)
 	label(0x16)
 	goto_first(0xd3)
 
@@ -33307,8 +33307,8 @@ u8 func0016_show_objective_failed_msg[] = {
 };
 
 u8 func0017_rebuild_groups[] = {
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -34265,8 +34265,8 @@ u8 func0012_init_coop_100[] = {
 	set_alertness(100)
 	set_follow_chr(CHR_JOANNA)
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	yield
 	yield
 	yield
@@ -34285,8 +34285,8 @@ u8 func0012_init_coop_100[] = {
 	endloop(0x03)
 
 	label(0x16)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_target_chr(-1)
 
 	// Set stage flag 00000080 for Air Force One and Skedar Ruins
@@ -34357,8 +34357,8 @@ u8 func0013_init_coop_200[] = {
 	endloop(0x03)
 
 	label(0x16)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 
 	// Wait 2 seconds
@@ -34515,7 +34515,7 @@ u8 func0014_coop_buddy[] = {
 
 		// Not G5 Building or Deep Sea
 		label(0x15)
-		cmd0127_try_find_chr_in_group(/*goto*/ 0x0b)
+		try_find_chr_in_team(/*goto*/ 0x0b)
 
 		// All stages
 		label(0x13)
@@ -34836,8 +34836,8 @@ u8 func0026_init_psychosis[] = {
 	set_alertness(100)
 	set_follow_chr(CHR_JOANNA)
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	yield
 	yield
 	yield
@@ -34856,8 +34856,8 @@ u8 func0026_init_psychosis[] = {
 	// Become ally
 	label(0x16)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 
 	label(0x16)
 	set_target_chr(-1)
@@ -34893,7 +34893,7 @@ u8 func0027_psychosised[] = {
 
 	// Healthy
 	label(0x16)
-	cmd0127_try_find_chr_in_group(/*goto*/ 0x03)
+	try_find_chr_in_team(/*goto*/ 0x03)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 	set_target_chr(FOLLOW_CHR)
 	if_chr_distance_lt(200, /*goto*/ 0x16)
@@ -34935,7 +34935,7 @@ u8 func0027_psychosised[] = {
 		label(0x06)
 		set_chr_flag_bank2(CHR_SELF, CHRFLAG2_DISGUISED)
 		label(0x07)
-		cmd0127_try_find_chr_in_group(/*goto*/ 0x03)
+		try_find_chr_in_team(/*goto*/ 0x03)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 		set_target_chr(FOLLOW_CHR)
 		if_chr_distance_gt(300, /*goto*/ 0x16)

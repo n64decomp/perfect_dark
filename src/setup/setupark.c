@@ -1647,8 +1647,8 @@ u8 func0409_tech_conversation[] = {
 	set_chr_team(CHR_TECH1, TEAM_ENEMY)
 	set_chr_team(CHR_TECH2, TEAM_ENEMY)
 	set_chr_team(CHR_RLSHOCK, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	unset_chr_flag_bank3(CHR_TECH1, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_flag_bank3(CHR_TECH2, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_flag_bank3(CHR_RLSHOCK, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)

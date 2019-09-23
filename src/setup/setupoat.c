@@ -72,8 +72,8 @@ u8 func0404_spawn_enemies[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC0401_INIT_ENEMY)
 	endfunction
 };
@@ -107,8 +107,8 @@ u8 func0405_spawn_maians[] = {
 	goto_first(0x04)
 
 	label(0x01)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	yield
 	yield
 	yield
@@ -133,8 +133,8 @@ u8 func0402_init_maian[] = {
 
 u8 func1001_01a4[] = {
 	noop016c
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };

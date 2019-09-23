@@ -874,8 +874,8 @@ u8 func0407_init_cloaked_skedar[] = {
 
 u8 func0408_cloaked_skedar[] = {
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_self_flag_bank3(CHRFLAG3_00040000)
 	set_self_flag_bank3(CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_CLOAKED)

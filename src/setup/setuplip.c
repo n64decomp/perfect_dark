@@ -1487,7 +1487,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	label(0x06)
 	restart_timer
 	speak(TARGET_CHR, 0x2a27, 0x1b2f, CHANNEL_4, COLOR_08_RED) // "Help - help!"
-	try_target_chr_in_same_group(/*goto*/ 0x06)
+	try_set_target_chr_to_teammate(/*goto*/ 0x06)
 
 	// No chr in same group - run to pad instead
 	run_to_pad(0x0121)
@@ -4074,8 +4074,8 @@ u8 func0429_spawn_while_xraying[] = {
 u8 func042a_init_xray_clone[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	label(0x04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	try_inherit_properties(0x47, /*goto*/ 0x06)
 	label(0x06)
 	set_function(CHR_SELF, 0x042b)

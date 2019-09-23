@@ -1580,8 +1580,8 @@ u8 func0416_mechanic[] = {
 
 	label(0x2e)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 
 	beginloop(0x6a)
 		if_chr_stopped(/*goto*/ 0x2e)
@@ -1638,8 +1638,8 @@ u8 func0416_mechanic[] = {
 
 	label(0x0f)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	play_sound(0x80f7, CHANNEL_7)
 	label(0x06)
 	set_return_function(CHR_SELF, GFUNC_ALERTED)
@@ -2659,8 +2659,8 @@ u8 func0419_clone_spawner[] = {
 u8 func041a_init_alerted_spawned_guard[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	label(0x04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	try_inherit_properties(0x25, /*goto*/ 0x06)
 	label(0x06)
 	set_function(CHR_SELF, FUNC_ALERTED_SPAWNED_GUARD)
@@ -2727,8 +2727,8 @@ u8 func1019_spawn_guards_at_antenna[] = {
 	unset_chr_flag_bank3(0x35, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(0x35, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_function(0x35, GFUNC_SEARCH_FOR_PLAYER)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -3093,8 +3093,8 @@ u8 func0423_a5e8[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_TROOPER_ALERTED)
 	endfunction
 };

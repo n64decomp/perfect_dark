@@ -123,8 +123,8 @@ u8 unregistered_func1[] = {
 
 u8 func1000_1898[] = {
 	cmd0185_mponly
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };

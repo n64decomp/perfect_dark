@@ -3258,8 +3258,8 @@ u8 func040c_blonde[] = {
 	label(0x06)
 	unset_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_onshot_function(GFUNC_ALERTED)
 
 	beginloop(0x08)
@@ -3397,8 +3397,8 @@ u8 func040e_init_miniskedar[] = {
 	set_shield(0)
 	set_self_flag_bank3(CHRFLAG3_00080000)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_MINISKEDAR)
 	endfunction
 };
@@ -3602,7 +3602,7 @@ u8 func1012_sa_megaweapon_spawner[] = {
 		// Consider spawn
 		label(0x2e)
 		dprint 'S','Q','U','A','D','\n',0,
-		if_num_chrs_in_group_gt(5, 0x0e, /*goto*/ 0x21)
+		if_num_chrs_in_squadron_gt(5, 0x0e, /*goto*/ 0x21)
 		call_rng
 		if_rand_gt(86, /*goto*/ 0x63)
 		if_rand_gt(172, /*goto*/ 0x64)
@@ -3622,8 +3622,8 @@ u8 func1012_sa_megaweapon_spawner[] = {
 
 	label(0x22)
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	goto_first(0x1f)
 
 	endfunction
@@ -3632,8 +3632,8 @@ u8 func1012_sa_megaweapon_spawner[] = {
 // SA megaweapon miniskedar
 u8 func041e_init_sa_megaweapon_miniskedar[] = {
 	set_squadron(SQUADRON_0E)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_INIT_MINISKEDAR)
 	endfunction
 };
@@ -4013,7 +4013,7 @@ u8 func101f_pa_circleroom_spawner[] = {
 		if_timer_lt(300, /*goto*/ 0x21)
 		label(0x2e)
 		dprint 'S','Q','U','A','D','\n',0,
-		if_num_chrs_in_group_gt(3, 0x0d, /*goto*/ 0x21)
+		if_num_chrs_in_squadron_gt(3, 0x0d, /*goto*/ 0x21)
 		call_rng
 		if_rand_gt(128, /*goto*/ 0x63)
 		try_spawn_chr(BODY_MINISKEDAR, HEAD_RANDOM, 0x00dd, FUNC_INIT_PA_CIRCLEROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
@@ -4026,8 +4026,8 @@ u8 func101f_pa_circleroom_spawner[] = {
 
 	label(0x22)
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	goto_first(0x1f)
 
 	label(0x58)
@@ -4037,8 +4037,8 @@ u8 func101f_pa_circleroom_spawner[] = {
 
 u8 func041f_init_pa_circleroom_miniskedar[] = {
 	set_squadron(SQUADRON_0D)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_INIT_MINISKEDAR)
 	endfunction
 };
@@ -4063,7 +4063,7 @@ u8 func1020_pa_deadendroom_spawner[] = {
 		if_timer_lt(300, /*goto*/ 0x21)
 		label(0x2e)
 		dprint 'S','Q','U','A','D','\n',0,
-		if_num_chrs_in_group_gt(3, 0x0b, /*goto*/ 0x21)
+		if_num_chrs_in_squadron_gt(3, 0x0b, /*goto*/ 0x21)
 		call_rng
 		if_rand_gt(64, /*goto*/ 0x63)
 		if_rand_gt(128, /*goto*/ 0x64)
@@ -4084,8 +4084,8 @@ u8 func1020_pa_deadendroom_spawner[] = {
 
 	label(0x22)
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	goto_first(0x1f)
 
 	endfunction
@@ -4093,8 +4093,8 @@ u8 func1020_pa_deadendroom_spawner[] = {
 
 u8 func0420_init_pa_deadendroom_miniskedar[] = {
 	set_squadron(SQUADRON_0B)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_INIT_MINISKEDAR)
 	endfunction
 };
@@ -4512,8 +4512,8 @@ u8 func040f_miniskedar_unalerted[] = {
 	set_shield(0)
 	set_self_flag_bank3(CHRFLAG3_00080000)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
@@ -4740,8 +4740,8 @@ u8 func102d_check_farsight_ammo_wasted[] = {
 
 u8 unregistered_function4[] = {
 	cmd0185_mponly
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };

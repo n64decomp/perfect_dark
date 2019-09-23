@@ -923,7 +923,7 @@ u8 unregistered_function1[] = {
 		if_timer_lt(1800, /*goto*/ 0x98)
 		label(0x31)
 		dprint 'S','Q','U','A','D','\n',0,
-		if_num_chrs_in_group_gt(1, 0x0f, /*goto*/ 0x98)
+		if_num_chrs_in_squadron_gt(1, 0x0f, /*goto*/ 0x98)
 		call_rng
 		if_rand_gt(64, /*goto*/ 0x69)
 		if_rand_gt(128, /*goto*/ 0x6a)
@@ -933,8 +933,8 @@ u8 unregistered_function1[] = {
 
 	label(0x68)
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	goto_first(0x66)
 
 	endfunction
@@ -953,8 +953,8 @@ u8 func0415_unused[] = {
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_squadron(SQUADRON_0F)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_SEARCH_FOR_PLAYER)
 	endfunction
 };
@@ -978,7 +978,7 @@ u8 func100c_spawn_dd_guards[] = {
 	if_timer_lt(3600, /*goto*/ 0x98)
 	label(0x31)
 	dprint 'S','Q','U','A','D','\n',0,
-	if_num_chrs_in_group_gt(1, 0x0e, /*goto*/ 0x98)
+	if_num_chrs_in_squadron_gt(1, 0x0e, /*goto*/ 0x98)
 	call_rng
 	if_rand_gt(64, /*goto*/ 0x69)
 	if_rand_gt(128, /*goto*/ 0x6a)
@@ -1015,8 +1015,8 @@ u8 func100c_spawn_dd_guards[] = {
 	label(0x68)
 	if_stage_flag_eq(STAGEFLAG_OUTRO_STARTED, TRUE, /*goto*/ 0x0f)
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	goto_first(0x66)
 
 	label(0x0f)
@@ -1038,8 +1038,8 @@ u8 func0416_spawned_guard[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_AIVSAI, BANK_0)
 	set_squadron(SQUADRON_0E)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	// Pad is next to UFO
 	run_to_pad(0x0105)
 	set_return_function(CHR_SELF, GFUNC_UNALERTED)
@@ -1635,8 +1635,8 @@ u8 func041d_president_running[] = {
 	label(0x08)
 	stop_chr
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	if_stage_flag_eq(STAGEFLAG_PRESIDENT_RESCUED, TRUE, /*goto*/ 0x31)
 	message(TARGET_CHR, 0x0a19) // "President has been rescued."
 	set_stage_flag(STAGEFLAG_PRESIDENT_RESCUED)

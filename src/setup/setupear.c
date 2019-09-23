@@ -2033,8 +2033,8 @@ u8 func0408_alarm_responder[] = {
 	goto_next(0x06)
 
 	label(0x06)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_UNALERTED_0001)
 	endfunction
 };
@@ -2695,8 +2695,8 @@ u8 func0409_uplink_responder[] = {
 	set_alertness(110)
 	set_self_flag_bank3(CHRFLAG3_00000200)
 	label(0x06)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_UNALERTED)
 	endfunction
 };

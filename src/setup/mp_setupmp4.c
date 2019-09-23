@@ -118,8 +118,8 @@ u8 func1001_1590[] = {
 
 u8 func1000_159c[] = {
 	cmd0185_mponly
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };

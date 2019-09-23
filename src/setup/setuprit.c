@@ -823,8 +823,8 @@ u8 func1006_hijack[] = {
 	unset_chr_flag_bank2(CHR_BLONDE1, CHRFLAG2_40000000)
 	unset_chr_flag_bank2(CHR_BLONDE2, CHRFLAG2_40000000)
 	unlock_door(OBJ_COCKPITDOOR, 0x40)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	unset_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_DISGUISED)
 	unset_chr_flag_bank2(CHR_VELVET, CHRFLAG2_DISGUISED)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -1375,8 +1375,8 @@ u8 func0405_president_in_room[] = {
 
 	label(0x06)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	hide_object(OBJ_EXTERIOR_DOOR)
 	hide_object(OBJ_FLOORHATCH)
 	set_object_flag_bank0(OBJ_FLOOR_HATCH_DETACHED, OBJECTFLAG0_00000100)
@@ -1583,8 +1583,8 @@ u8 func0404_president_running[] = {
 	stop_chr
 	set_stage_flag(STAGEFLAG_PRESIDENT_AT_POD)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	// Player is in the entrace to Trent's room and both blondes are dead.
@@ -1666,8 +1666,8 @@ u8 func0409_unused[] = {
 u8 func100c_cockpit_stripes[] = {
 	set_onshot_function(GFUNC_ALERTED)
 	set_chr_team(CHR_SELF, TEAM_04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_chr_dodge_rating(2, 0x00)
 	set_accuracy(14)
 	set_reaction_speed(50)
@@ -1704,8 +1704,8 @@ u8 func100c_cockpit_stripes[] = {
 
 u8 func0413_taker1[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_self_flag_bank3(CHRFLAG3_00000020)
 	set_chr_dodge_rating(2, 0x00)
 	set_reaction_speed(50)
@@ -1720,8 +1720,8 @@ u8 func0413_taker1[] = {
 
 u8 func0413_taker2[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_self_flag_bank3(CHRFLAG3_00000020)
 	set_chr_dodge_rating(2, 0x00)
 	set_reaction_speed(50)
@@ -1738,8 +1738,8 @@ u8 func0413_taker[] = {
 	set_onshot_function(GFUNC_ALERTED)
 	unset_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_team(CHR_SELF, TEAM_04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_accuracy(50)
 	set_self_flag_bank3(CHRFLAG3_00000040)
 	restart_timer
@@ -2490,8 +2490,8 @@ u8 func0416_init_clone1[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	try_draw_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
 	label(0x04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	try_inherit_properties(0x35, /*goto*/ 0x06)
 	label(0x06)
 	set_function(CHR_SELF, FUNC_CLONE1)
@@ -2586,8 +2586,8 @@ u8 func0419_init_clone2[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	try_draw_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
 	label(0x04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	try_inherit_properties(0x36, /*goto*/ 0x06)
 	label(0x06)
 	set_function(CHR_SELF, FUNC_CLONE2)
@@ -2678,8 +2678,8 @@ u8 func041c_init_clone3[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	try_draw_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
 	label(0x04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	try_inherit_properties(0x37, /*goto*/ 0x06)
 	label(0x06)
 	set_function(CHR_SELF, FUNC_CLONE3)
@@ -2698,8 +2698,8 @@ u8 func041d_clone3[] = {
 
 u8 func041f_init_blonde[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_chr_dodge_rating(2, 0x00)
 	set_accuracy(24)
 	set_reaction_speed(50)
@@ -2713,8 +2713,8 @@ u8 func041f_init_blonde[] = {
 
 u8 func041e_blonde[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_accuracy(30)
 	set_onshot_function(FUNC_BLONDE)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
@@ -2858,8 +2858,8 @@ u8 func041e_blonde[] = {
 
 u8 func0421_trent_waiting[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_self_flag_bank3(CHRFLAG3_00000040)
 	set_shield(500)
 	set_chr_flag_bank3(CHR_TRENT, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
@@ -3103,8 +3103,8 @@ u8 func042a_init_neutral[] = {
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_UNALERTED)
 	endfunction
 };
@@ -3118,8 +3118,8 @@ u8 func042b_reinit_stripes[] = {
 	set_recovery_speed(30)
 	set_shield(0)
 	set_chr_team(CHR_SELF, TEAM_04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_STRIPES)
 	endfunction
 };
@@ -3303,7 +3303,7 @@ u8 func0407_stewardess[] = {
 	endloop(0x08)
 
 	label(0x06)
-	try_target_chr_in_same_group(/*goto*/ 0x2d)
+	try_set_target_chr_to_teammate(/*goto*/ 0x2d)
 	goto_next(0x0a)
 
 	label(0x2d)
@@ -3747,8 +3747,8 @@ u8 func101c_check_equipment_switch_destroyed[] = {
 u8 func040c_init_defend_pad[] = {
 	unset_chr_flag_bank2(CHR_SELF, CHRFLAG2_40000000)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_target_chr(-1)
 	label(0x04)
 	try_draw_weapon(MODEL_CHRCYCLONE, WEAPON_CYCLONE, 0x00000000, /*goto*/ 0x2d)
@@ -3779,8 +3779,8 @@ u8 func040d_init_defend_president[] = {
 u8 func042c_remove_if_offscreen[] = {
 	unset_chr_flag_bank2(CHR_SELF, CHRFLAG2_40000000)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_chr_health(CHR_SELF, 0)
 
 	label(0x04)

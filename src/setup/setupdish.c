@@ -5065,8 +5065,8 @@ u8 func0415_holo_guard_unarmed_unalert[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	yield
 	yield
 	yield
@@ -5496,8 +5496,8 @@ u8 func0418_holo_guard_armed_unalert[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_action(ACTION_SCAN, FALSE)
 	set_onshot_function(FUNC_HOLO_GUARD_UNARMED_ALERT)
 	restart_timer

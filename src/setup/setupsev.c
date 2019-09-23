@@ -1236,8 +1236,8 @@ u8 func0411_init_clone[] = {
 	try_inherit_properties(0x4e, /*goto*/ 0x06)
 	label(0x06)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_CLONE)
 	endfunction
 };

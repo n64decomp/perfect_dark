@@ -870,8 +870,8 @@ u8 func0404_jonathan_following_and_mine[] = {
 
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_return_function(CHR_SELF, FUNC_JONATHAN_FOLLOWING_AND_MINE)
 	set_onshot_function(FUNC_JONATHAN_FOLLOWING_AND_MINE)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x32)
@@ -1519,7 +1519,7 @@ u8 func1008_spawngroup1[] = {
 		yield
 		if_stage_flag_eq(STAGEFLAG_JON_FINISHED_EXPLOSIVES, TRUE, /*goto*/ 0x06)
 		subtract_morale(1)
-		if_num_chrs_in_group_gt(3, SPAWNGROUP1, /*goto*/ 0x32)
+		if_num_chrs_in_squadron_gt(3, SPAWNGROUP1, /*goto*/ 0x32)
 		reloop(0x5f)
 
 		label(0x32)
@@ -1538,8 +1538,8 @@ u8 func1008_spawngroup1[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -1559,8 +1559,8 @@ u8 func1008_spawngroup1_guard[] = {
 	set_self_flag_bankx(CHRFLAG0_AIVSAI, BANK_0)
 	set_squadron(SPAWNGROUP1)
 	run_to_pad(0x013e)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_CHOOSE_TARGET_CHR)
 	endfunction
 };
@@ -1594,12 +1594,12 @@ u8 func1013_spawngroup2[] = {
 		yield
 		if_stage_flag_eq(STAGEFLAG_WALL_EXPLODED, TRUE, /*goto*/ 0x06)
 		subtract_morale(1)
-		cmd0145_rebuild_groups
-		cmd0146_rebuild_groups
+		rebuild_teams
+		rebuild_squadrons
 		label(0x08)
 		yield
 		if_stage_flag_eq(STAGEFLAG_WALL_EXPLODED, TRUE, /*goto*/ 0x06)
-		if_num_chrs_in_group_gt(4, SPAWNGROUP2, /*goto*/ 0x32)
+		if_num_chrs_in_squadron_gt(4, SPAWNGROUP2, /*goto*/ 0x32)
 		call_rng
 		if_rand_gt(5, /*goto*/ 0x32)
 	endloop(0x5f)
@@ -1613,8 +1613,8 @@ u8 func1013_spawngroup2[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -1633,8 +1633,8 @@ u8 func1013_spawngroup2_guard[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_AIVSAI, BANK_0)
 	set_squadron(SPAWNGROUP2)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_target_chr(CHR_JOANNA)
 	set_function(CHR_SELF, GFUNC_ALERTED)
 	endfunction
@@ -1687,15 +1687,15 @@ u8 func1014_spawngroup3[] = {
 		yield
 		if_stage_flag_eq(STAGEFLAG_ELVIS_REVIVED, TRUE, /*goto*/ 0x06)
 		subtract_morale(1)
-		cmd0145_rebuild_groups
-		cmd0146_rebuild_groups
+		rebuild_teams
+		rebuild_squadrons
 
 		// Wait for Elvis to be revived, for someone to die, or 5 in 256 chance
 		// of spawning another guard anyway.
 		label(0x08)
 		yield
 		if_stage_flag_eq(STAGEFLAG_ELVIS_REVIVED, TRUE, /*goto*/ 0x06)
-		if_num_chrs_in_group_gt(6, SPAWNGROUP3, /*goto*/ 0x32)
+		if_num_chrs_in_squadron_gt(6, SPAWNGROUP3, /*goto*/ 0x32)
 		call_rng
 		if_rand_gt(5, /*goto*/ 0x32)
 	endloop(0x5f)
@@ -1709,11 +1709,11 @@ u8 func1014_spawngroup3[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 
 	beginloop(0x0d)
-		if_all_chrs_in_group_are_dead(SPAWNGROUP3, /*goto*/ 0x06)
+		if_all_chrs_in_squadron_are_dead(SPAWNGROUP3, /*goto*/ 0x06)
 	endloop(0x0d)
 
 	label(0x06)
@@ -1736,8 +1736,8 @@ u8 func1014_spawngroup3_guard[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_AIVSAI, BANK_0)
 	set_squadron(SPAWNGROUP3)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_target_chr(CHR_JOANNA)
 	set_function(CHR_SELF, GFUNC_ALERTED)
 	endfunction
@@ -1762,7 +1762,7 @@ u8 func1015_spawngroup4[] = {
 
 		// @bug: This is spawning guards using the same function as the previous
 		// spawn group. This causes the guards to set their group to spawngroup3
-		// which causes the if_num_chrs_in_group_gt check further below to
+		// which causes the if_num_chrs_in_squadron_gt check further below to
 		// never pass.
 		try_spawn_chr(BODY_AREA51GUARD, HEAD_RANDOM, 0x0140, FUNC_SPAWNGROUP3_GUARD, 0x00000200, /*goto*/ 0x60)
 		goto_next(0x06)
@@ -1775,13 +1775,13 @@ u8 func1015_spawngroup4[] = {
 		yield
 		if_stage_flag_eq(STAGEFLAG_BOTH_HANGAR_DOORS_OPEN, TRUE, /*goto*/ 0x06)
 		subtract_morale(1)
-		cmd0145_rebuild_groups
-		cmd0146_rebuild_groups
+		rebuild_teams
+		rebuild_squadrons
 
 		label(0x08)
 		yield
 		if_morale_lt(1, /*goto*/ 0x06)
-		if_num_chrs_in_group_gt(6, SPAWNGROUP4, /*goto*/ 0x32)
+		if_num_chrs_in_squadron_gt(6, SPAWNGROUP4, /*goto*/ 0x32)
 		call_rng
 		if_rand_gt(2, /*goto*/ 0x32)
 	endloop(0x5f)
@@ -1795,8 +1795,8 @@ u8 func1015_spawngroup4[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -1818,8 +1818,8 @@ u8 func1015_spawngroup4_guard[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_AIVSAI, BANK_0)
 	set_squadron(SPAWNGROUP4)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	run_to_pad(0x0168)
 	set_function(CHR_SELF, GFUNC_CHOOSE_TARGET_CHR)
 	endfunction
@@ -2343,8 +2343,8 @@ u8 func1016_enable_guards_after_meetup[] = {
 	unset_chr_flag_bank3(0x16, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(0x16, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_function(0x16, FUNC_INIT_SUPERDRAGON_GUARD)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -3239,8 +3239,8 @@ u8 func0416_spawn_during_follow[] = {
 u8 func0417_init_follower_clone[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	label(0x04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	try_inherit_properties(0x09, /*goto*/ 0x06)
 	label(0x06)
 	set_function(CHR_SELF, FUNC_FOLLOWER_CLONE)

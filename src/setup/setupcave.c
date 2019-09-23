@@ -1440,8 +1440,8 @@ u8 func0422_start_path13[] = {
 	set_armor(40)
 	set_recovery_speed(30)
 	set_shield(0)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	assign_path(13)
 	start_path
 	set_function(CHR_SELF, GFUNC_UNALERTED)
@@ -1456,8 +1456,8 @@ u8 func0423_start_path14[] = {
 	set_armor(40)
 	set_recovery_speed(30)
 	set_shield(0)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	assign_path(14)
 	start_path
 	set_function(CHR_SELF, GFUNC_UNALERTED)
@@ -3072,8 +3072,8 @@ u8 func0427_init_posttakeover_guard[] = {
 	set_armor(40)
 	set_recovery_speed(30)
 	set_shield(0)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_POSTTAKEOVER_GUARD)
 	endfunction
 };
@@ -3153,8 +3153,8 @@ u8 func042a_foyer_spawner[] = {
 		// Security shut down
 		label(0x02)
 		set_chr_team(CHR_SELF, TEAM_04)
-		cmd0145_rebuild_groups
-		cmd0146_rebuild_groups
+		rebuild_teams
+		rebuild_squadrons
 		dprint 'O','B','J','E','C','T','I','V','E',' ','D','O','N','E','\n',0,
 		if_never_been_onscreen(/*goto*/ 0x6a)
 		if_chr_sees_player(/*goto*/ 0x04)
@@ -3183,8 +3183,8 @@ u8 func042a_foyer_spawner[] = {
 u8 func042b_init_foyer_clone[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	label(0x00)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	try_inherit_properties(0x42, /*goto*/ 0x02)
 	label(0x02)
 	set_function(CHR_SELF, FUNC_FOYER_CLONE)
@@ -3436,7 +3436,7 @@ u8 func0419_ba8c[] = {
 	goto_first(0x09)
 
 	label(0x0b)
-	try_target_chr_in_same_group(/*goto*/ 0x02)
+	try_set_target_chr_to_teammate(/*goto*/ 0x02)
 	goto_next(0x0e)
 	label(0x31)
 	goto_first(0x04)
@@ -3471,8 +3471,8 @@ u8 func041a_draw_magnum[] = {
 	unset_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	set_self_flag_bankx(CHRFLAG0_AIVSAI, BANK_0)
 	set_self_flag_bankx(CHRFLAG1_WARNED, BANK_1)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_UNALERTED)
 	endfunction
 };

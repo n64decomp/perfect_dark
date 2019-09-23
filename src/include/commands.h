@@ -1087,10 +1087,10 @@
 	chr, \
 	label,
 
-// Tries to find an chr in the group who meets certain criteria. For each
-// chr, a score is calculated based on several fchrs, such as whether
-// they've been shot. If any chr in the group has a score lower than the given
-// value, the condition passes.
+// Tries to find an chr in the team who meets certain criteria. For each chr, a
+// score is calculated based on several factors, such as whether they've been
+// shot. If any chr in the team has a score lower than the given value, the
+// condition passes.
 #define if_retreat_risk_lt(value, label) \
 	mkshort(0x0120), \
 	value, \
@@ -1119,10 +1119,9 @@
 	mkshort(0x0126), \
 	label,
 
-// Tries to find an chr in the group who meets some criteria, the stores them
-// in the current chr's struct at 0x17e.
-// globals.s only
-#define cmd0127_try_find_chr_in_group(label) \
+// Tries to find a chr in the team who meets some criteria and sets them as the
+// current chr's target. This is different to the target chr.
+#define try_find_chr_in_team(label) \
 	mkshort(0x0127), \
 	label,
 
@@ -1230,7 +1229,7 @@
 	u1, \
 	bool,
 
-#define try_target_chr_in_same_group(label) \
+#define try_set_target_chr_to_teammate(label) \
 	mkshort(0x013a), \
 	0x00, \
 	0x00, \
@@ -1277,21 +1276,23 @@
 #define cmd0143 \
 	mkshort(0x0143),
 
-#define cmd0145_rebuild_groups \
+// Rebuild an array of teams containing chr IDs in that team
+#define rebuild_teams \
 	mkshort(0x0145),
 
-#define cmd0146_rebuild_groups \
+// Rebuild an array of squadrons containing chr IDs in that squadron
+#define rebuild_squadrons \
 	mkshort(0x0146),
 
-#define if_all_chrs_in_group_are_dead(group, label) \
+#define if_all_chrs_in_squadron_are_dead(squadron, label) \
 	mkshort(0x0147), \
-	group, \
+	squadron, \
 	label,
 
-#define if_num_chrs_in_group_gt(value, group, label) \
+#define if_num_chrs_in_squadron_gt(value, squadron, label) \
 	mkshort(0x0152), \
 	value, \
-	group, \
+	squadron, \
 	label,
 
 #define set_tinted_glass_enabled(bool) \

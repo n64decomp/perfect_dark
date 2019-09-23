@@ -451,9 +451,9 @@ u8 func1003_spawn_maians[] = {
 		yield
 		yield
 		yield
-		cmd0145_rebuild_groups
-		cmd0146_rebuild_groups
-		if_num_chrs_in_group_gt(7, GROUP_MAIANS, /*goto*/ 0x2d)
+		rebuild_teams
+		rebuild_squadrons
+		if_num_chrs_in_squadron_gt(7, GROUP_MAIANS, /*goto*/ 0x2d)
 		reloop(0x8d)
 
 		// Wait 5 seconds
@@ -467,7 +467,7 @@ u8 func1003_spawn_maians[] = {
 
 		// If a spot has freed up, go back to the spawning part to spawn another
 		label(0x2d)
-		if_num_chrs_in_group_gt(7, GROUP_MAIANS, /*goto*/ 0x2d)
+		if_num_chrs_in_squadron_gt(7, GROUP_MAIANS, /*goto*/ 0x2d)
 	endloop(0x8d)
 
 	// Still no free spot, so go back to the 5 second wait
@@ -481,8 +481,8 @@ u8 func1003_spawn_maians[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -492,8 +492,8 @@ u8 func0405_init_maian[] = {
 	set_self_flag_bank3(CHRFLAG3_00080000)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	set_squadron(GROUP_MAIANS)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	try_draw_weapon(MODEL_CHRMAIANSMG, WEAPON_CALLISTONTG, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	try_inherit_properties(CHR_MAIAN_TEMPLATE, /*goto*/ 0x2d)
@@ -505,8 +505,8 @@ u8 func0405_init_maian[] = {
 	set_recovery_speed(100)
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_MAIAN)
 	endfunction
 };
@@ -614,9 +614,9 @@ u8 func1004_spawn_king1_skedar[] = {
 		yield
 		yield
 		yield
-		cmd0145_rebuild_groups
-		cmd0146_rebuild_groups
-		if_num_chrs_in_group_gt(5, 0x02, /*goto*/ 0x2d)
+		rebuild_teams
+		rebuild_squadrons
+		if_num_chrs_in_squadron_gt(5, 0x02, /*goto*/ 0x2d)
 		reloop(0x8d)
 
 		// Wait for 10 seconds if Maian squad is somewhat full,
@@ -627,7 +627,7 @@ u8 func1004_spawn_king1_skedar[] = {
 		beginloop(0x08)
 			if_stage_flag_eq(STAGEFLAG_KING1_DEAD, TRUE, /*goto*/ 0x0e)
 			dprint 'S','Q','U','A','D',' ','F','U','L','L','\n',0,
-			if_num_chrs_in_group_gt(3, GROUP_MAIANS, /*goto*/ 0x2e)
+			if_num_chrs_in_squadron_gt(3, GROUP_MAIANS, /*goto*/ 0x2e)
 			if_timer_gt(60, /*goto*/ 0x2d)
 			label(0x2e)
 			if_timer_gt(600, /*goto*/ 0x2d)
@@ -635,7 +635,7 @@ u8 func1004_spawn_king1_skedar[] = {
 
 		// If squad is still full, wait another 1 or 10 seconds
 		label(0x2d)
-		if_num_chrs_in_group_gt(5, GROUP_KING1_SKEDAR, /*goto*/ 0x2d)
+		if_num_chrs_in_squadron_gt(5, GROUP_KING1_SKEDAR, /*goto*/ 0x2d)
 	goto_first(0x8d)
 
 	// Spawn more
@@ -652,8 +652,8 @@ u8 func1004_spawn_king1_skedar[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -706,9 +706,9 @@ u8 func1008_spawn_king2_skedar[] = {
 		yield
 		yield
 		subtract_morale(1)
-		cmd0145_rebuild_groups
-		cmd0146_rebuild_groups
-		if_num_chrs_in_group_gt(3, GROUP_KING2_SKEDAR, /*goto*/ 0x2d)
+		rebuild_teams
+		rebuild_squadrons
+		if_num_chrs_in_squadron_gt(3, GROUP_KING2_SKEDAR, /*goto*/ 0x2d)
 		reloop(0x8d)
 
 		// Wait 15 seconds or until king 2 dead
@@ -723,7 +723,7 @@ u8 func1008_spawn_king2_skedar[] = {
 		// If squad still full, wait another 15 seconds, otherwise loop back to
 		// the spawning code.
 		label(0x2d)
-		if_num_chrs_in_group_gt(3, GROUP_KING2_SKEDAR, /*goto*/ 0x2d)
+		if_num_chrs_in_squadron_gt(3, GROUP_KING2_SKEDAR, /*goto*/ 0x2d)
 	endloop(0x8d)
 
 	label(0x2d)
@@ -736,8 +736,8 @@ u8 func1008_spawn_king2_skedar[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	label(0x0e)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -777,9 +777,9 @@ u8 func100c_spawn_king3_skedar[] = {
 		label(0x8e)
 		yield
 		subtract_morale(1)
-		cmd0145_rebuild_groups
-		cmd0146_rebuild_groups
-		if_num_chrs_in_group_gt(5, 0x04, /*goto*/ 0x2d)
+		rebuild_teams
+		rebuild_squadrons
+		if_num_chrs_in_squadron_gt(5, 0x04, /*goto*/ 0x2d)
 		reloop(0x8d)
 
 		// Squad full - wait 15 seconds or for king 3 to die
@@ -793,7 +793,7 @@ u8 func100c_spawn_king3_skedar[] = {
 
 		// Spawn more or wait another 15 seconds
 		label(0x2d)
-		if_num_chrs_in_group_gt(5, GROUP_KING3_SKEDAR, /*goto*/ 0x2d)
+		if_num_chrs_in_squadron_gt(5, GROUP_KING3_SKEDAR, /*goto*/ 0x2d)
 	endloop(0x8d)
 
 	label(0x2d)
@@ -806,8 +806,8 @@ u8 func100c_spawn_king3_skedar[] = {
 	yield
 	yield
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	label(0x0e)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -829,8 +829,8 @@ u8 func0407_king1_skedar[] = {
 	set_recovery_speed(100)
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_SKEDAR)
 	endfunction
 };
@@ -850,8 +850,8 @@ u8 func0408_king2_skedar[] = {
 	set_recovery_speed(100)
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_SKEDAR)
 	endfunction
 };
@@ -871,8 +871,8 @@ u8 func0409_king3_skedar[] = {
 	set_recovery_speed(100)
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_SKEDAR)
 	endfunction
 };

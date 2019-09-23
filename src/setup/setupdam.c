@@ -1588,7 +1588,7 @@ u8 func0411_labtech_alerted[] = {
 
 	// Already alert (eg. by gunfire)
 	label(0x04)
-	try_target_chr_in_same_group(/*goto*/ 0x3f)
+	try_set_target_chr_to_teammate(/*goto*/ 0x3f)
 	goto_next(0x42)
 
 	label(0x3f)
@@ -1739,8 +1739,8 @@ u8 func1010_alarm_responders[] = {
 	set_chr_team(0x5c, TEAM_ENEMY)
 	set_chr_team(0x5d, TEAM_ENEMY)
 	set_chr_team(0x5e, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	yield
 	show_chr(0x04)
 	show_chr(0x25)
@@ -1776,8 +1776,8 @@ u8 func1010_alarm_responders[] = {
 	set_chr_team(0x1e, TEAM_ENEMY)
 	set_chr_team(0x20, TEAM_ENEMY)
 	set_chr_team(0x22, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	yield
 	set_function(0x57, 0x0409)
 	set_function(0x58, 0x0409)
@@ -2122,8 +2122,8 @@ u8 func0404_angry_pilot[] = {
 	set_accuracy(90)
 	set_reaction_speed(100)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	unset_self_flag_bankx(CHRFLAG0_00100000, BANK_0)
 	set_self_flag_bank3(CHRFLAG3_00000040)
 	set_onshot_function(FUNC_ANGRY_PILOT)

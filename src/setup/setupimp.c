@@ -623,8 +623,8 @@ u8 func1400_setup_counterop[] = {
 	try_inherit_properties(templatechr, /*goto*/ 0x08) \
 	label(0x08) \
 	set_chr_team(CHR_SELF, TEAM_ENEMY) \
-	cmd0145_rebuild_groups \
-	cmd0146_rebuild_groups \
+	rebuild_teams \
+	rebuild_squadrons \
 	set_function(CHR_SELF, clonefunc)
 
 
@@ -1812,8 +1812,8 @@ u8 func041a_hostage_holo[] = {
 
 u8 func041c_init_holoclone1[] = {
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	play_sound(0x05bc, CHANNEL_9)
 	set_onshot_function(FUNC_HOLOCLONE_ONSHOT)
 	set_chr_health(CHR_SELF, 1)
@@ -1825,8 +1825,8 @@ u8 func041c_init_holoclone1[] = {
 
 u8 func041d_init_holoclone2[] = {
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	play_sound(0x05bc, CHANNEL_5)
 	set_onshot_function(FUNC_HOLOCLONE_ONSHOT)
 	set_chr_health(CHR_SELF, 1)
@@ -1838,8 +1838,8 @@ u8 func041d_init_holoclone2[] = {
 
 u8 func041e_init_holoclone3[] = {
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	play_sound(0x05bc, CHANNEL_6)
 	set_onshot_function(FUNC_HOLOCLONE_ONSHOT)
 	set_chr_health(CHR_SELF, 1)
@@ -1950,8 +1950,8 @@ u8 func0426_init_saved_hostage[] = {
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
 	set_armor(80)
 	set_chr_health(CHR_SELF, 1)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_HOSTAGE_THANK_AND_RUN)
 
 	label(0x2e)
@@ -2037,8 +2037,8 @@ u8 func0428_init_drop_devastator[] = {
 	set_onshot_function(FUNC_HOSTAGE_THANK_AND_RUN)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
 	set_chr_health(CHR_SELF, 40)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, FUNC_DROP_DEVASTATOR)
 	endfunction
 };
@@ -3009,8 +3009,8 @@ u8 func1015_firingrange_pc[] = {
 	try_inherit_properties(templatechr, /*goto*/ 0x08) \
 	label(0x08) \
 	set_chr_team(CHR_SELF, TEAM_ENEMY) \
-	cmd0145_rebuild_groups \
-	cmd0146_rebuild_groups \
+	rebuild_teams \
+	rebuild_squadrons \
 	set_function(CHR_SELF, clonefunc)
 
 

@@ -1752,8 +1752,8 @@ u8 func1005_toggle_snipers[] = {
 	show_chr(CHR_SNIPER5)
 	yield
 	show_chr(CHR_SNIPER8)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 
 	// All difficulties
 	label(0x06)
@@ -2177,8 +2177,8 @@ u8 func100b_invoke_hackers[] = {
 	unset_chr_flag_bank3(CHR_HACKER1, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_HACKER2, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_HACKER3, CHRFLAG3_HIDDEN)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	play_x_music(CHANNEL_10, 60)
 	set_countdown_timer(60)
 	show_countdown_timer
@@ -2661,8 +2661,8 @@ u8 func101b_toggle_basement_chrs[] = {
 	yield
 	show_chr(CHR_CARRINGTON)
 	yield
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 
 	// Every 5 frames, check if the wine bottles are destroyed.
 	// There's a lot of stuff going on here without yielding. If you destroyed
@@ -2904,8 +2904,8 @@ u8 func101c_toggle_villa_guards[] = {
 	show_chr(0x41)
 	yield
 	show_chr(0x42)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };

@@ -1475,8 +1475,8 @@ u8 func0412_cia[] = {
 	endloop(0x38)
 
 	label(0x03)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_action(ACTION_COWER, FALSE)
 	say_quip(CHR_JOANNA, 0x18, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	animation(ANIM_SURRENDER_002E, 0, 193, 0x1010, CHR_SELF, 2)
@@ -1490,13 +1490,13 @@ u8 func0412_cia[] = {
 	set_action(ACTION_SCAN, FALSE)
 	if_self_flag_bankx_eq(CHRFLAG0_00000080, FALSE, BANK_0, /*goto*/ 0x03)
 	set_squadron(SQUADRON_04)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	label(0x03)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
-	try_target_chr_in_same_group(/*goto*/ 0x04)
+	rebuild_teams
+	rebuild_squadrons
+	try_set_target_chr_to_teammate(/*goto*/ 0x04)
 	goto_next(0x0b)
 
 	label(0x03)
@@ -1504,8 +1504,8 @@ u8 func0412_cia[] = {
 
 	label(0x04)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	try_run_to_chr(FOLLOW_CHR, /*goto*/ 0x06)
 
 	beginloop(0x06)
@@ -1521,8 +1521,8 @@ u8 func0412_cia[] = {
 	say_quip(CHR_JOANNA, 0x19, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	label(0x0b)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x2d)
 	if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x2f)
 	run_to_pad(0x00c8)
@@ -1651,7 +1651,7 @@ u8 func0413_bugspotter[] = {
 
 	// Find another guard and run to them
 	label(0x04)
-	try_target_chr_in_same_group(/*goto*/ 0x04)
+	try_set_target_chr_to_teammate(/*goto*/ 0x04)
 	goto_next(0x0b)
 
 	label(0x04)
@@ -2317,7 +2317,7 @@ u8 func100d_spawn_alarm_responders[] = {
 
 		// Wait until group is dead
 		beginloop(0x06)
-			if_all_chrs_in_group_are_dead(GROUP_ALARM_RESPONDER, /*goto*/ 0x04)
+			if_all_chrs_in_squadron_are_dead(GROUP_ALARM_RESPONDER, /*goto*/ 0x04)
 		endloop(0x06)
 
 		// Set this group as dead
@@ -2372,8 +2372,8 @@ u8 func041f_alarm_responder[] = {
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	set_alertness(90)
 	set_self_flag_bank3(CHRFLAG3_00000200)
-	cmd0145_rebuild_groups
-	cmd0146_rebuild_groups
+	rebuild_teams
+	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_SEARCH_FOR_PLAYER)
 	endfunction
 };
