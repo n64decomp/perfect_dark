@@ -133,10 +133,10 @@ struct bodytableentry {
 
 struct stagetableentry {
 	u16 id;
-	u8 unk02; // usually 2, but 8 for Deep Sea
-	s8 unk03; // usually -1, but 96 for Deep Sea
-	u8 unk04; // usually 100, but 80 for Deep Sea
-	u8 unk05; // usually 100, but 200 for Deep Sea
+	u8 light_type;
+	u8 light_alpha;
+	u8 light_width;
+	u8 light_height;
 	u16 unk06;
 	u16 bgfileid;
 	u16 tilefileid;
@@ -163,8 +163,8 @@ struct mpweaponset {
 };
 
 struct mpheadentry {
-	u16 slot;
-	u8 head;
+	u16 head;
+	u8 unlockvalue;
 };
 
 #define SIMTYPE_GENERAL 0
@@ -186,7 +186,7 @@ struct mpsimulant {
 	u8 skill;
 	u16 name;
 	u16 body;
-	u8 unk06;
+	u8 unlockvalue;
 };
 
 struct mpbody {
@@ -197,7 +197,8 @@ struct mpbody {
 };
 
 struct mpmusictrack {
-	u16 audioid;
+	u8 audioid;
+	u8 duration;
 	u16 name;
 	s16 unlockcategory;
 };
@@ -212,9 +213,9 @@ struct stageoverviewentry {
 
 struct stagemusic {
 	u16 stage_id;
-	u16 main_music;
+	s16 main_music;
 	s16 sfx_music;
-	u16 x_music;
+	s16 x_music;
 };
 
 struct mission {
@@ -222,12 +223,16 @@ struct mission {
 	u16 name;
 };
 
-struct suntableentry {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
+struct sun {
+	u8 lens_flare;
+	u8 red;
+	u8 green;
+	u8 blue;
+	float x;
+	float y;
+	float z;
+	u16 texture_size;
+	u16 orb_size;
 };
 
 #endif
