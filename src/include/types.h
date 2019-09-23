@@ -15,12 +15,12 @@ struct aipaths {
 	u8 type;
 };
 
-struct inventory_typec {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
+struct inventory_menupos {
+	float x;
+	float y;
+	float z;
+	float rotation;
+	float size;
 };
 
 struct inventory_typee {
@@ -56,7 +56,7 @@ struct inventory_function {
 	u16 name;
 	u8 unk06;
 	s8 unk07;
-	struct inventory_typec *cptr;
+	struct inventory_menupos *menupos;
 	u32 *fire_animation;
 	u32 flags;
 };
@@ -126,7 +126,7 @@ struct bodytableentry {
 	u16 unk00;
 	u16 bodyfileid;
 	float unk04;
-	u32 unk08;
+	float unk08;
 	u32 unk0c;
 	u16 handfileid;
 };

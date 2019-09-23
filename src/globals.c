@@ -16838,111 +16838,63 @@ u32 var00010fcc = 0x00000000;
 
 // BEGIN INVENTORY
 // 10fd0
-struct inventory_typec invc_00010fd0 = {
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x3f800000,
-	0x40c00000,
+struct inventory_menupos invmenupos_00010fd0 = {
+	0, 0, 0, 1, 6,
 };
 
 // 10fe4
-struct inventory_typec invc_00010fe4 = {
-	0x00000000,
-	0x40400000,
-	0x3fb33333,
-	0x3f800000,
-	0x40c00000,
+struct inventory_menupos invmenupos_00010fe4 = {
+	0, 3, 1.4, 1, 6,
 };
 
 // 10ff8
-struct inventory_typec invc_00010ff8 = {
-	0x00000000,
-	0x41100000,
-	0x40000000,
-	0x3f800000,
-	0x40c00000,
+struct inventory_menupos invmenupos_00010ff8 = {
+	0, 9, 2, 1, 6,
 };
 
 // 1100c
-struct inventory_typec invc_0001100c = {
-	0x00000000,
-	0x41600000,
-	0x40000000,
-	0x3f800000,
-	0x40c00000,
+struct inventory_menupos invmenupos_0001100c = {
+	0, 14, 2, 1, 6,
 };
 
 // 11020
-struct inventory_typec invc_00011020 = {
-	0x00000000,
-	0x41900000,
-	0x40000000,
-	0x3f800000,
-	0x40c00000,
+struct inventory_menupos invmenupos_00011020 = {
+	0, 18, 2, 1, 6,
 };
 
 // 11034
-struct inventory_typec invc_00011034 = {
-	0x00000000,
-	0x41b00000,
-	0x40400000,
-	0x3f800000,
-	0x40c00000,
+struct inventory_menupos invmenupos_00011034 = {
+	0, 22, 3, 1, 6,
 };
 
 // 11048
-struct inventory_typec invc_00011048 = {
-	0x00000000,
-	0x41c80000,
-	0x41700000,
-	0x40a00000,
-	0x40c00000,
+struct inventory_menupos invmenupos_00011048 = {
+	0, 25, 15, 5, 6,
 };
 
 // 1105c
-struct inventory_typec invc_0001105c = {
-	0x00000000,
-	0x420c0000,
-	0x3f800000,
-	0x3f800000,
-	0x40c00000,
+struct inventory_menupos invmenupos_0001105c = {
+	0, 35, 1, 1, 6,
 };
 
 // 11070
-struct inventory_typec invc_00011070 = {
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x3e4ccccd,
-	0x01000000,
+struct inventory_menupos invmenupos_00011070 = {
+	0, 0, 0, 0.2, 2.3509887016446E-38,
 };
 
 // 11084
-struct inventory_typec invc_00011084 = {
-	0x3e4ccccd,
-	0x3e4ccccd,
-	0x3e4ccccd,
-	0x3e4ccccd,
-	0x01000000,
+struct inventory_menupos invmenupos_00011084 = {
+	0.2, 0.2, 0.2, 0.2, 2.3509887016446E-38,
 };
 
 // 11098
-struct inventory_typec invc_00011098 = {
-	0x3f19999a,
-	0x3f19999a,
-	0x3f19999a,
-	0x3e4ccccd,
-	0x01000000,
+struct inventory_menupos invmenupos_00011098 = {
+	0.6, 0.6, 0.6, 0.2, 2.3509887016446E-38,
 };
 
 // 110ac
-struct inventory_typec invc_000110ac = {
-	0x3f19999a,
-	0x3f19999a,
-	0x40266666,
-	0x3e4ccccd,
-	0x01000000,
+struct inventory_menupos invmenupos_000110ac = {
+	0.6, 0.6, 2.6, 0.2, 2.3509887016446E-38,
 };
 
 // 110c0
@@ -17013,12 +16965,12 @@ struct inventory_function invfunc_00011160 = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00011174 = (u32) &invc_00011098;
+u32 var00011174 = (u32) &invmenupos_00011098;
 u32 var00011178 = 0x00000000;
 u32 var0001117c = 0x3f800000;
 u32 var00011180 = 0x40c00000;
@@ -17141,7 +17093,7 @@ struct inventory_function invfunc_unarmed_punch = {
 	0x4c64, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_punch, // fire animation
 	0x0041a200, // flags
 };
@@ -17169,7 +17121,7 @@ struct inventory_function invfunc_unarmed_disarm = {
 	0x4c65, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_punch, // fire animation
 	0x0041a600, // flags
 };
@@ -17394,12 +17346,12 @@ struct inventory_function invfunc_falcon2_singleshot = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_falcon2_shoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00011668 = (u32) &invc_00011098;
+u32 var00011668 = (u32) &invmenupos_00011098;
 u32 var0001166c = 0x10000000;
 u32 var00011670 = 0x3f800000;
 u32 var00011674 = 0x3f800000;
@@ -17419,12 +17371,12 @@ struct inventory_function invfunc_falcon2silenced_singleshot = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fe4, // cptr
+	&invmenupos_00010fe4, // menupos
 	invanim_falcon2_shoot, // fire animation
 	0x00002000, // flags
 };
 
-u32 var000116a8 = (u32) &invc_00011098;
+u32 var000116a8 = (u32) &invmenupos_00011098;
 u32 var000116ac = 0x10000000;
 u32 var000116b0 = 0x3f800000;
 u32 var000116b4 = 0x3f800000;
@@ -17444,7 +17396,7 @@ struct inventory_function invfunc_falcon2_pistolwhip = {
 	0x4c5e, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_falcon2_pistolwhip, // fire animation
 	0x0041a200, // flags
 };
@@ -17655,12 +17607,12 @@ struct inventory_function invfunc_magsec_singleshot = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_magsec_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var000119a4 = (u32) &invc_00011098;
+u32 var000119a4 = (u32) &invmenupos_00011098;
 u32 var000119a8 = 0x10000000;
 u32 var000119ac = 0x3f8ccccd;
 u32 var000119b0 = 0x40c00000;
@@ -17680,12 +17632,12 @@ struct inventory_function invfunc_magsec_burst = {
 	0x4c80, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_magsec_equiporshoot, // fire animation
 	0x00000002, // flags
 };
 
-u32 var000119e4 = (u32) &invc_00011098;
+u32 var000119e4 = (u32) &invmenupos_00011098;
 u32 var000119e8 = 0x10000000;
 u32 var000119ec = 0x3f8ccccd;
 u32 var000119f0 = 0x41200000;
@@ -17845,12 +17797,12 @@ struct inventory_function invfunc_dy357_singleshot = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011020, // cptr
+	&invmenupos_00011020, // menupos
 	invanim_dy357_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00011c90 = (u32) &invc_00011098;
+u32 var00011c90 = (u32) &invmenupos_00011098;
 u32 var00011c94 = 0x14000000;
 u32 var00011c98 = 0x40000000;
 u32 var00011c9c = 0x00000000;
@@ -17870,12 +17822,12 @@ struct inventory_function invfunc_dy357lx_singleshot = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011020, // cptr
+	&invmenupos_00011020, // menupos
 	invanim_dy357_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00011cd0 = (u32) &invc_00011098;
+u32 var00011cd0 = (u32) &invmenupos_00011098;
 u32 var00011cd4 = 0x1e000000;
 u32 var00011cd8 = 0x43480000;
 u32 var00011cdc = 0x00000000;
@@ -17895,7 +17847,7 @@ struct inventory_function invfunc_dy357_pistolwhip = {
 	0x4c5e, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_dy357_pistolwhip, // fire animation
 	0x0041a200, // flags
 };
@@ -18041,12 +17993,12 @@ struct inventory_function invfunc_phoenix_singleshot = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_phoenix_shoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00011ed4 = (u32) &invc_00011098;
+u32 var00011ed4 = (u32) &invmenupos_00011098;
 u32 var00011ed8 = 0x10000000;
 u32 var00011edc = 0x3f8ccccd;
 u32 var00011ee0 = 0x40400000;
@@ -18066,12 +18018,12 @@ struct inventory_function invfunc_phoenix_explosiveshells = {
 	0x4c5f, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_phoenix_shoot, // fire animation
 	0x00004000, // flags
 };
 
-u32 var00011f14 = (u32) &invc_00011098;
+u32 var00011f14 = (u32) &invmenupos_00011098;
 u32 var00011f18 = 0x10000000;
 u32 var00011f1c = 0x3f99999a;
 u32 var00011f20 = 0x40a00000;
@@ -18202,12 +18154,12 @@ struct inventory_function invfunc_mauler_singleshot = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011020, // cptr
+	&invmenupos_00011020, // menupos
 	invanim_mauler_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00012100 = (u32) &invc_00011098;
+u32 var00012100 = (u32) &invmenupos_00011098;
 u32 var00012104 = 0x00000000;
 u32 var00012108 = 0x3f99999a;
 u32 var0001210c = 0x40c00000;
@@ -18227,12 +18179,12 @@ struct inventory_function invfunc_mauler_chargeshot = {
 	0x4c81, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011020, // cptr
+	&invmenupos_00011020, // menupos
 	invanim_mauler_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00012140 = (u32) &invc_00011098;
+u32 var00012140 = (u32) &invmenupos_00011098;
 u32 var00012144 = 0x00000000;
 u32 var00012148 = 0x3f99999a;
 u32 var0001214c = 0x40c00000;
@@ -18371,12 +18323,12 @@ struct inventory_function invfunc_cmp150_rapidfire = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011020, // cptr
+	&invmenupos_00011020, // menupos
 	invanim_cmp150_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var0001233c = (u32) &invc_00011098;
+u32 var0001233c = (u32) &invmenupos_00011098;
 u32 var00012340 = 0x00000000;
 u32 var00012344 = 0x3f800000;
 u32 var00012348 = 0x41100000;
@@ -18401,12 +18353,12 @@ struct inventory_function invfunc_cmp150_followlockon = {
 	0x4c66, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011020, // cptr
+	&invmenupos_00011020, // menupos
 	invanim_cmp150_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00012390 = (u32) &invc_00011098;
+u32 var00012390 = (u32) &invmenupos_00011098;
 u32 var00012394 = 0x00000000;
 u32 var00012398 = 0x3f800000;
 u32 var0001239c = 0x41100000;
@@ -18518,12 +18470,12 @@ struct inventory_function invfunc_cyclone_rapidfire = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011034, // cptr
+	&invmenupos_00011034, // menupos
 	invanim_cyclone_shoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var000124e8 = (u32) &invc_00011098;
+u32 var000124e8 = (u32) &invmenupos_00011098;
 u32 var000124ec = 0x00000000;
 u32 var000124f0 = 0x3f4ccccd;
 u32 var000124f4 = 0x40c00000;
@@ -18548,12 +18500,12 @@ struct inventory_function invfunc_cyclone_magazinedischarge = {
 	0x4c61, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011034, // cptr
+	&invmenupos_00011034, // menupos
 	invanim_cyclone_shoot, // fire animation
 	0x00000020, // flags
 };
 
-u32 var0001253c = (u32) &invc_00011098;
+u32 var0001253c = (u32) &invmenupos_00011098;
 u32 var00012540 = 0x00000000;
 u32 var00012544 = 0x3fb33333;
 u32 var00012548 = 0x41c80000;
@@ -18652,12 +18604,12 @@ struct inventory_function invfunc_rcp120_rapidfire = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_rcp120_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00012680 = (u32) &invc_00011098;
+u32 var00012680 = (u32) &invmenupos_00011098;
 u32 var00012684 = 0x00000000;
 u32 var00012688 = 0x3f99999a;
 u32 var0001268c = 0x40c00000;
@@ -18682,7 +18634,7 @@ struct inventory_function invfunc_rcp120_cloak = {
 	0x4c74, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00102000, // flags
 };
@@ -18768,12 +18720,12 @@ struct inventory_function invfunc_callisto_rapidfire = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_callisto_shoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var000127c0 = (u32) &invc_00011098;
+u32 var000127c0 = (u32) &invmenupos_00011098;
 u32 var000127c4 = 0x00000000;
 u32 var000127c8 = 0x3f99999a;
 u32 var000127cc = 0x41100000;
@@ -18798,12 +18750,12 @@ struct inventory_function invfunc_callisto_highimpactshells = {
 	0x4c73, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_callisto_shoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00012814 = (u32) &invc_00011098;
+u32 var00012814 = (u32) &invmenupos_00011098;
 u32 var00012818 = 0x00000000;
 u32 var0001281c = 0x4019999a;
 u32 var00012820 = 0x41100000;
@@ -18899,12 +18851,12 @@ struct inventory_function invfunc_dragon_rapidfire = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011034, // cptr
+	&invmenupos_00011034, // menupos
 	invanim_dragon_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00012940 = (u32) &invc_00011098;
+u32 var00012940 = (u32) &invmenupos_00011098;
 u32 var00012944 = 0x00000000;
 u32 var00012948 = 0x3f8ccccd;
 u32 var0001294c = 0x40c00000;
@@ -18929,7 +18881,7 @@ struct inventory_function invfunc_dragon_selfdestruct = {
 	0x4c76, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00042040, // flags
 };
@@ -19054,12 +19006,12 @@ struct inventory_function invfunc_superdragon_rapidfire = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011034, // cptr
+	&invmenupos_00011034, // menupos
 	invanim_superdragon_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00012b24 = (u32) &invc_00011098;
+u32 var00012b24 = (u32) &invmenupos_00011098;
 u32 var00012b28 = 0x00000000;
 u32 var00012b2c = 0x3f99999a;
 u32 var00012b30 = 0x40c00000;
@@ -19084,7 +19036,7 @@ struct inventory_function invfunc_superdragon_grenadelauncher = {
 	0x4c62, // name
 	0x00, // unk06
 	1, // unk07
-	&invc_00011048, // cptr
+	&invmenupos_00011048, // menupos
 	invanim_superdragon_shootgrenade, // fire animation
 	0x30000040, // flags
 };
@@ -19210,12 +19162,12 @@ struct inventory_function invfunc_ar34_burstfire = {
 	0x4c57, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011034, // cptr
+	&invmenupos_00011034, // menupos
 	NULL, // fire animation
 	0x00000002, // flags
 };
 
-u32 var00012cf8 = (u32) &invc_00011098;
+u32 var00012cf8 = (u32) &invmenupos_00011098;
 u32 var00012cfc = 0x00000000;
 u32 var00012d00 = 0x3fb33333;
 u32 var00012d04 = 0x41000000;
@@ -19240,12 +19192,12 @@ struct inventory_function invfunc_ar34_usescope = {
 	0x4c67, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011034, // cptr
+	&invmenupos_00011034, // menupos
 	NULL, // fire animation
 	0x00000002, // flags
 };
 
-u32 var00012d4c = (u32) &invc_00011098;
+u32 var00012d4c = (u32) &invmenupos_00011098;
 u32 var00012d50 = 0x00000000;
 u32 var00012d54 = 0x3fb33333;
 u32 var00012d58 = 0x41000000;
@@ -19367,12 +19319,12 @@ struct inventory_function invfunc_k7avenger_burstfire = {
 	0x4c57, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011034, // cptr
+	&invmenupos_00011034, // menupos
 	NULL, // fire animation
 	0x00000002, // flags
 };
 
-u32 var00012ed0 = (u32) &invc_00011098;
+u32 var00012ed0 = (u32) &invmenupos_00011098;
 u32 var00012ed4 = 0x00000000;
 u32 var00012ed8 = 0x3fc00000;
 u32 var00012edc = 0x40c00000;
@@ -19397,12 +19349,12 @@ struct inventory_function invfunc_k7avenger_threatdetector = {
 	0x4c77, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011034, // cptr
+	&invmenupos_00011034, // menupos
 	NULL, // fire animation
 	0x00082002, // flags
 };
 
-u32 var00012f24 = (u32) &invc_00011098;
+u32 var00012f24 = (u32) &invmenupos_00011098;
 u32 var00012f28 = 0x00000000;
 u32 var00012f2c = 0x3fc00000;
 u32 var00012f30 = 0x40c00000;
@@ -19532,12 +19484,12 @@ struct inventory_function invfunc_laptopgun_burstfire = {
 	0x4c57, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011020, // cptr
+	&invmenupos_00011020, // menupos
 	invanim_laptopgun_shoot, // fire animation
 	0x00000002, // flags
 };
 
-u32 var00013114 = (u32) &invc_00011098;
+u32 var00013114 = (u32) &invmenupos_00011098;
 u32 var00013118 = 0x00000000;
 u32 var0001311c = 0x3f933333;
 u32 var00013120 = 0x40c00000;
@@ -19562,7 +19514,7 @@ struct inventory_function invfunc_laptopgun_deploy = {
 	0x4c75, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00842140, // flags
 };
@@ -19660,12 +19612,12 @@ struct inventory_function invfunc_shotgun_single = {
 	0x4c59, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011048, // cptr
+	&invmenupos_00011048, // menupos
 	invanim_shotgun_equiporsingleshot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var0001328c = (u32) &invc_00011098;
+u32 var0001328c = (u32) &invmenupos_00011098;
 u32 var00013290 = 0x00000000;
 u32 var00013294 = 0x3f19999a;
 u32 var00013298 = 0x41f00000;
@@ -19685,12 +19637,12 @@ struct inventory_function invfunc_shotgun_double = {
 	0x4c69, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011048, // cptr
+	&invmenupos_00011048, // menupos
 	invanim_shotgun_doubleshot, // fire animation
 	0x00001000, // flags
 };
 
-u32 var000132cc = (u32) &invc_00011098;
+u32 var000132cc = (u32) &invmenupos_00011098;
 u32 var000132d0 = 0x00000000;
 u32 var000132d4 = 0x3f19999a;
 u32 var000132d8 = 0x41800000;
@@ -19819,12 +19771,12 @@ struct inventory_function invfunc_reaper_shoot = {
 	0x4c58, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001105c, // cptr
+	&invmenupos_0001105c, // menupos
 	invanim_reaper_shoot, // fire animation
 	0x00000002, // flags
 };
 
-u32 var00013470 = (u32) &invc_000110ac;
+u32 var00013470 = (u32) &invmenupos_000110ac;
 u32 var00013474 = 0x00000000;
 u32 var00013478 = 0x3f99999a;
 u32 var0001347c = 0x42600000;
@@ -19849,7 +19801,7 @@ struct inventory_function invfunc_reaper_grind = {
 	0x4c6a, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -19963,7 +19915,7 @@ struct inventory_function invfunc_rockerlauncher_shoot = {
 	0x4c5b, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011048, // cptr
+	&invmenupos_00011048, // menupos
 	invanim_rockerlauncher_equiporshoot, // fire animation
 	0x08000040, // flags
 };
@@ -19997,7 +19949,7 @@ struct inventory_function invfunc_rocketlauncher_homing = {
 	0x4c5c, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011048, // cptr
+	&invmenupos_00011048, // menupos
 	invanim_rockerlauncher_equiporshoot, // fire animation
 	0x48000040, // flags
 };
@@ -20086,7 +20038,7 @@ struct inventory_function invfunc_slayer_shoot = {
 	0x4c5b, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011048, // cptr
+	&invmenupos_00011048, // menupos
 	invanim_slayer_equiporshoot, // fire animation
 	0x08000040, // flags
 };
@@ -20120,7 +20072,7 @@ struct inventory_function invfunc_slayer_flybywire = {
 	0x4c5d, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011048, // cptr
+	&invmenupos_00011048, // menupos
 	NULL, // fire animation
 	0x28000840, // flags
 };
@@ -20220,7 +20172,7 @@ struct inventory_function invfunc_devastator_shoot = {
 	0x4c62, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011048, // cptr
+	&invmenupos_00011048, // menupos
 	invanim_devastator_equiporshoot, // fire animation
 	0x30000040, // flags
 };
@@ -20254,7 +20206,7 @@ struct inventory_function invfunc_devastator_wallhugger = {
 	0x4c63, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011048, // cptr
+	&invmenupos_00011048, // menupos
 	invanim_devastator_equiporshoot, // fire animation
 	0x30000140, // flags
 };
@@ -20330,7 +20282,7 @@ struct inventory_function invfunc_mine_threatdetector = {
 	0x4c77, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00080000, // flags
 };
@@ -20363,7 +20315,7 @@ struct inventory_function invfunc_timedmine_throw = {
 	0x4c78, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_mine_throw, // fire animation
 	0x00802040, // flags
 };
@@ -20457,7 +20409,7 @@ struct inventory_function invfunc_remotemine_throw = {
 	0x4c7a, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_remotemine_throw, // fire animation
 	0x00802040, // flags
 };
@@ -20475,7 +20427,7 @@ struct inventory_function invfunc_remotemine_detonate = {
 	0x4c7b, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00102000, // flags
 };
@@ -20534,7 +20486,7 @@ struct inventory_function invfunc_proxymine_throw = {
 	0x4c79, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_mine_throw, // fire animation
 	0x00802040, // flags
 };
@@ -20609,7 +20561,7 @@ struct inventory_function invfunc_ecmmine_throw = {
 	0x4c8c, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_ecmmine_throw, // fire animation
 	0x00802040, // flags
 };
@@ -20711,7 +20663,7 @@ struct inventory_function invfunc_grenade_throw = {
 	0x4c7c, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_grenade_throw, // fire animation
 	0x00002040, // flags
 };
@@ -20729,7 +20681,7 @@ struct inventory_function invfunc_grenade_pinball = {
 	0x4c7d, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_grenade_throw, // fire animation
 	0x00002040, // flags
 };
@@ -20785,7 +20737,7 @@ struct inventory_function invfunc_nbomb_throw = {
 	0x4c86, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_grenade_throw, // fire animation
 	0x00002640, // flags
 };
@@ -20803,7 +20755,7 @@ struct inventory_function invfunc_nbomb_proxy = {
 	0x4c7f, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_grenade_throw, // fire animation
 	0x00002640, // flags
 };
@@ -20896,12 +20848,12 @@ struct inventory_function invfunc_farsight_shoot = {
 	0x4c5a, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011034, // cptr
+	&invmenupos_00011034, // menupos
 	invanim_farsight_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var0001402c = (u32) &invc_00011098;
+u32 var0001402c = (u32) &invmenupos_00011098;
 u32 var00014030 = 0x00000000;
 u32 var00014034 = 0x42c80000;
 u32 var00014038 = 0x00000000;
@@ -20921,12 +20873,12 @@ struct inventory_function invfunc_farsight_targetlocator = {
 	0x4c6f, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011034, // cptr
+	&invmenupos_00011034, // menupos
 	invanim_farsight_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var0001406c = (u32) &invc_00011098;
+u32 var0001406c = (u32) &invmenupos_00011098;
 u32 var00014070 = 0x00000000;
 u32 var00014074 = 0x42c80000;
 u32 var00014078 = 0x00000000;
@@ -21041,7 +20993,7 @@ struct inventory_function invfunc_crossbow_lethal = {
 	0x4c70, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fe4, // cptr
+	&invmenupos_00010fe4, // menupos
 	invanim_crossbow_shoot, // fire animation
 	0x00802000, // flags
 };
@@ -21075,7 +21027,7 @@ struct inventory_function invfunc_crossbow_shoot = {
 	0x4c6b, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fe4, // cptr
+	&invmenupos_00010fe4, // menupos
 	invanim_crossbow_shoot, // fire animation
 	0x00802200, // flags
 };
@@ -21200,12 +21152,12 @@ struct inventory_function invfunc_tranquilizer_shoot = {
 	0x4c6b, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fe4, // cptr
+	&invmenupos_00010fe4, // menupos
 	invanim_tranquilizer_equiporshoot, // fire animation
 	0x00000200, // flags
 };
 
-u32 var00014408 = (u32) &invc_00011098;
+u32 var00014408 = (u32) &invmenupos_00011098;
 u32 var0001440c = 0x10000000;
 u32 var00014410 = 0x3e800000;
 u32 var00014414 = 0x40400000;
@@ -21225,7 +21177,7 @@ struct inventory_function invfunc_tranquilizer_lethal = {
 	0x4c6c, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fe4, // cptr
+	&invmenupos_00010fe4, // menupos
 	invanim_tranquilizer_lethalinject, // fire animation
 	0x00002000, // flags
 };
@@ -21306,12 +21258,12 @@ struct inventory_function invfunc_psychosisgun_shoot = {
 	0x4c83, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fe4, // cptr
+	&invmenupos_00010fe4, // menupos
 	invanim_tranquilizer_equiporshoot, // fire animation
 	0x00200200, // flags
 };
 
-u32 var00014514 = (u32) &invc_00011098;
+u32 var00014514 = (u32) &invmenupos_00011098;
 u32 var00014518 = 0x10000000;
 u32 var0001451c = 0x3f000000;
 u32 var00014520 = 0x40400000;
@@ -21400,12 +21352,12 @@ struct inventory_function invfunc_sniperrifle_singleshot = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010ff8, // cptr
+	&invmenupos_00010ff8, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
 
-u32 var00014640 = (u32) &invc_00011098;
+u32 var00014640 = (u32) &invmenupos_00011098;
 u32 var00014644 = 0x10000000;
 u32 var00014648 = 0x3f99999a;
 u32 var0001464c = 0x00000000;
@@ -21425,7 +21377,7 @@ struct inventory_function invfunc_sniperrifle_crouch = {
 	0x4c82, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00102000, // flags
 };
@@ -21496,12 +21448,12 @@ struct inventory_function invfunc_laser_pulse = {
 	0x4c84, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00014728 = (u32) &invc_00011098;
+u32 var00014728 = (u32) &invmenupos_00011098;
 u32 var0001472c = 0x00000000;
 u32 var00014730 = 0x3f800000;
 u32 var00014734 = 0x00000000;
@@ -21521,12 +21473,12 @@ struct inventory_function invfunc_laser_stream = {
 	0x4c85, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00014768 = (u32) &invc_00011084;
+u32 var00014768 = (u32) &invmenupos_00011084;
 u32 var0001476c = 0x00000000;
 u32 var00014770 = 0x3dcccccd;
 u32 var00014774 = 0x00000000;
@@ -21598,12 +21550,12 @@ struct inventory_function invfunc_pp9i_shoot = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_pp9i_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var0001483c = (u32) &invc_00011098;
+u32 var0001483c = (u32) &invmenupos_00011098;
 u32 var00014840 = 0x10000000;
 u32 var00014844 = 0x3f800000;
 u32 var00014848 = 0x3f800000;
@@ -21668,12 +21620,12 @@ struct inventory_function invfunc_cc13_shoot = {
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_cc13_equiporshoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var000148f8 = (u32) &invc_00011098;
+u32 var000148f8 = (u32) &invmenupos_00011098;
 u32 var000148fc = 0x10000000;
 u32 var00014900 = 0x3f800000;
 u32 var00014904 = 0x40c00000;
@@ -21731,12 +21683,12 @@ struct inventory_function invfunc_kl01313_shoot = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
 
-u32 var0001499c = (u32) &invc_00011098;
+u32 var0001499c = (u32) &invmenupos_00011098;
 u32 var000149a0 = 0x00000000;
 u32 var000149a4 = 0x3f19999a;
 u32 var000149a8 = 0x41700000;
@@ -21799,12 +21751,12 @@ struct inventory_function invfunc_kf7special_shoot = {
 	0x4c57, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00000002, // flags
 };
 
-u32 var00014a54 = (u32) &invc_00011098;
+u32 var00014a54 = (u32) &invmenupos_00011098;
 u32 var00014a58 = 0x00000000;
 u32 var00014a5c = 0x3f800000;
 u32 var00014a60 = 0x41200000;
@@ -21867,12 +21819,12 @@ struct inventory_function invfunc_zzt9mm_shoot = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00014b0c = (u32) &invc_00011098;
+u32 var00014b0c = (u32) &invmenupos_00011098;
 u32 var00014b10 = 0x00000000;
 u32 var00014b14 = 0x3f800000;
 u32 var00014b18 = 0x41100000;
@@ -21935,12 +21887,12 @@ struct inventory_function invfunc_dmc_shoot = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00014bc4 = (u32) &invc_00011098;
+u32 var00014bc4 = (u32) &invmenupos_00011098;
 u32 var00014bc8 = 0x00000000;
 u32 var00014bcc = 0x3f800000;
 u32 var00014bd0 = 0x40e00000;
@@ -22003,12 +21955,12 @@ struct inventory_function invfunc_ar53_shoot = {
 	0x4c57, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00000002, // flags
 };
 
-u32 var00014c7c = (u32) &invc_00011098;
+u32 var00014c7c = (u32) &invmenupos_00011098;
 u32 var00014c80 = 0x00000000;
 u32 var00014c84 = 0x3fb33333;
 u32 var00014c88 = 0x40c00000;
@@ -22071,12 +22023,12 @@ struct inventory_function invfunc_rcp45_shoot = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00014d34 = (u32) &invc_00011098;
+u32 var00014d34 = (u32) &invmenupos_00011098;
 u32 var00014d38 = 0x00000000;
 u32 var00014d3c = 0x3fe66666;
 u32 var00014d40 = 0x40c00000;
@@ -22139,7 +22091,7 @@ struct inventory_function invfunc_briefcase_use = {
 	0x4c00, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
@@ -22185,12 +22137,12 @@ struct inventory_function invfunc_59_rapidfire = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00014e64 = (u32) &invc_00011098;
+u32 var00014e64 = (u32) &invmenupos_00011098;
 u32 var00014e68 = 0x00000000;
 u32 var00014e6c = 0x3f800000;
 u32 var00014e70 = 0x40c00000;
@@ -22253,12 +22205,12 @@ struct inventory_function invfunc_5a_rapidfire = {
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00014f1c = (u32) &invc_00011098;
+u32 var00014f1c = (u32) &invmenupos_00011098;
 u32 var00014f20 = 0x00000000;
 u32 var00014f24 = 0x3f800000;
 u32 var00014f28 = 0x40c00000;
@@ -22389,7 +22341,7 @@ struct inventory_function invfunc_combatknife_slash = {
 	0x4c6d, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_combatknife_slash, // fire animation
 	0x00002000, // flags
 };
@@ -22417,7 +22369,7 @@ struct inventory_function invfunc_combatknife_throw = {
 	0x4c6e, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	invanim_combatknife_throw, // fire animation
 	0x00802000, // flags
 };
@@ -22473,7 +22425,7 @@ struct inventory_function invfunc_bug_throw = {
 	0x4c00, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00802040, // flags
 };
@@ -22491,7 +22443,7 @@ struct inventory_function invfunc_targetamplifier_throw = {
 	0x4c00, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00802040, // flags
 };
@@ -22601,7 +22553,7 @@ struct inventory_function invfunc_nightvision_primary = {
 	0x4c87, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -22643,7 +22595,7 @@ struct inventory_function invfunc_horizonscanner_primary = {
 	0x4c8b, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
@@ -22695,7 +22647,7 @@ struct inventory_function invfunc_cloak_primary = {
 	0x4c74, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -22748,7 +22700,7 @@ struct inventory_function invfunc_combatboost_boost = {
 	0x4c71, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -22765,7 +22717,7 @@ struct inventory_function invfunc_combatboost_revert = {
 	0x4c72, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -22820,7 +22772,7 @@ struct inventory_function invfunc_suicidepill_primary = {
 	0x4c00, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -22862,7 +22814,7 @@ struct inventory_function invfunc_irscanner_primary = {
 	0x4c8a, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -22904,7 +22856,7 @@ struct inventory_function invfunc_disguise_primary = {
 	0x4c8f, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00000000, // flags
 };
@@ -22971,7 +22923,7 @@ struct inventory_function invfunc_camspy_deploy = {
 	0x4c88, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -23013,7 +22965,7 @@ struct inventory_function invfunc_rtracker_primary = {
 	0x4c8e, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -23055,7 +23007,7 @@ struct inventory_function invfunc_xray_primary = {
 	0x4c89, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -23114,7 +23066,7 @@ struct inventory_function invfunc_datauplink_primary = {
 	0x4c8d, // name
 	0x00, // unk06
 	-1, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00102000, // flags
 };
@@ -23287,7 +23239,7 @@ struct inventory_item invitem_bolt = {
 
 u32 var000159c4 = 0x00000004;
 u32 var000159c8 = 0x4c9000ff;
-u32 var000159cc = (u32) &invc_00010fd0;
+u32 var000159cc = (u32) &invmenupos_00010fd0;
 u32 var000159d0 = 0x00000000;
 u32 var000159d4 = 0x00102000;
 u32 var000159d8 = 0x0000000c;
@@ -23356,7 +23308,7 @@ struct inventory_function invfunc_presidentscanner_primary = {
 	0x4c8e, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00010fd0, // cptr
+	&invmenupos_00010fd0, // menupos
 	NULL, // fire animation
 	0x00002000, // flags
 };
@@ -23641,7 +23593,7 @@ struct inventory_function invfunc_rocketlauncher34_primary = {
 	0x4c00, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_00011048, // cptr
+	&invmenupos_00011048, // menupos
 	invanim_rockerlauncher_equiporshoot, // fire animation
 	0x08000040, // flags
 };
@@ -23719,12 +23671,12 @@ struct inventory_function invfunc_tester_primary = {
 	0x4c00, // name
 	0x00, // unk06
 	0, // unk07
-	&invc_0001100c, // cptr
+	&invmenupos_0001100c, // menupos
 	invanim_tester_shoot, // fire animation
 	0x00000000, // flags
 };
 
-u32 var00015ea8 = (u32) &invc_00011070;
+u32 var00015ea8 = (u32) &invmenupos_00011070;
 u32 var00015eac = 0x10000000;
 u32 var00015eb0 = 0x3f800000;
 u32 var00015eb4 = 0x40c00000;
