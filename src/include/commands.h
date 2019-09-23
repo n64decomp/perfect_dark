@@ -1178,25 +1178,24 @@
 	mkshort(0x0131), \
 	value,
 
-// Sets chr's field_0x2a0 to value. If bool is false, also sets 0x2a1 to zero.
+// Sets chr's action to value. If bool is false, also sets orders to zero.
 #define set_action(value, bool) \
 	mkshort(0x0132), \
 	value, \
 	bool,
 
-// Set next action (0x2a1)?
-#define cmd0133(action, label) \
+#define set_orders(orders, label) \
 	mkshort(0x0133), \
-	action, \
+	orders, \
 	label,
 
-#define if_field_0x2a1_eq(action, label) \
+#define if_orders_eq(action, label) \
 	mkshort(0x0134), \
 	0xfd, \
 	action, \
 	label,
 
-#define if_field_0x2a1_nonzero(label) \
+#define if_has_orders(label) \
 	mkshort(0x0135), \
 	label,
 

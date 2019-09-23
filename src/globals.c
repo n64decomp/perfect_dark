@@ -30787,8 +30787,8 @@ u8 func0007_alerted[] = {
 	// something different.
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x93)
-	if_field_0x2a1_eq(ACTION_FLANK_LEFT, /*goto*/ 0x13)
-	if_field_0x2a1_eq(ACTION_FLANK_RIGHT, /*goto*/ 0x15)
+	if_orders_eq(ACTION_FLANK_LEFT, /*goto*/ 0x13)
+	if_orders_eq(ACTION_FLANK_RIGHT, /*goto*/ 0x15)
 	goto_next(0x93)
 
 	label(0x13)
@@ -31181,7 +31181,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	cmd0133(ACTION_SYNC_SHOOT, /*goto*/ 0x16)
+	set_orders(ACTION_SYNC_SHOOT, /*goto*/ 0x16)
 	label(0x16)
 	say_quip(CHR_JOANNA, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	restart_timer
@@ -31228,7 +31228,7 @@ u8 func0007_alerted[] = {
 		if_within_units_of_sight(30, /*goto*/ 0x5f)
 		if_timer_gt(240, /*goto*/ 0x61)
 		if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x93)
-		if_field_0x2a1_nonzero(/*goto*/ 0x84)
+		if_has_orders(/*goto*/ 0x84)
 		label(0x93)
 		label(0x5a)
 	endloop(0x59)
@@ -31255,7 +31255,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	cmd0133(ACTION_BREAKING_COVER, /*goto*/ 0x16)
+	set_orders(ACTION_BREAKING_COVER, /*goto*/ 0x16)
 	label(0x16)
 	cmd012f
 	restart_timer
@@ -31298,10 +31298,10 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	cmd0133(ACTION_SEE_COVER, /*goto*/ 0x16)
+	set_orders(ACTION_SEE_COVER, /*goto*/ 0x16)
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x93)
-	if_field_0x2a1_nonzero(/*goto*/ 0x84)
+	if_has_orders(/*goto*/ 0x84)
 	label(0x93)
 	if_in_disarm_range(/*goto*/ 0x26)
 	goto_next(0x87)
@@ -31437,8 +31437,8 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	cmd0139(25, 0x02, TRUE)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	cmd0133(ACTION_FLANK_LEFT, /*goto*/ 0x16)
-	cmd0133(ACTION_FLANK_RIGHT, /*goto*/ 0x16)
+	set_orders(ACTION_FLANK_LEFT, /*goto*/ 0x16)
+	set_orders(ACTION_FLANK_RIGHT, /*goto*/ 0x16)
 	label(0x16)
 	goto_next(0x33)
 
@@ -31447,7 +31447,7 @@ u8 func0007_alerted[] = {
 	set_action(ACTION_FLANK_LEFT, FALSE)
 	cmd0139(335, 0x02, FALSE)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	cmd0133(ACTION_FLANK_LEFT, /*goto*/ 0x16)
+	set_orders(ACTION_FLANK_LEFT, /*goto*/ 0x16)
 	label(0x16)
 	goto_next(0x33)
 
@@ -31455,7 +31455,7 @@ u8 func0007_alerted[] = {
 	dprint 'F','L','A','N','K',' ','R','I','G','H','T','\n',0,
 	set_action(ACTION_FLANK_RIGHT, FALSE)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	cmd0133(ACTION_FLANK_RIGHT, /*goto*/ 0x16)
+	set_orders(ACTION_FLANK_RIGHT, /*goto*/ 0x16)
 	label(0x16)
 	cmd0139(25, 0x02, FALSE)
 	label(0x33)
@@ -31554,7 +31554,7 @@ u8 func0007_alerted[] = {
 
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x47)
-	cmd0133(ACTION_THROW_GRENADE, /*goto*/ 0x47)
+	set_orders(ACTION_THROW_GRENADE, /*goto*/ 0x47)
 
 	beginloop(0x47)
 		say_quip(CHR_JOANNA, 0x05, 0xff, 0x07, 0x00, BANK_0, 0x00, 0x00)
@@ -31607,7 +31607,7 @@ u8 func0007_alerted[] = {
 		if_retreat_risk_lt(5, /*goto*/ 0x41)
 		label(0x16)
 		if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x93)
-		if_field_0x2a1_nonzero(/*goto*/ 0x84)
+		if_has_orders(/*goto*/ 0x84)
 		label(0x93)
 		if_within_units_of_sight(30, /*goto*/ 0x42)
 		cmd0108_if_something(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
@@ -31637,7 +31637,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	dprint 'S','E','E','W','A','I','T','2','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	cmd0133(ACTION_SEEWAIT, /*goto*/ 0x16)
+	set_orders(ACTION_SEEWAIT, /*goto*/ 0x16)
 	label(0x16)
 	dprint 'S','E','E','W','A','I','T','3','\n',0,
 	if_in_disarm_range(/*goto*/ 0x8a)
@@ -31820,7 +31820,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	cmd0133(ACTION_16, /*goto*/ 0x16)
+	set_orders(ACTION_16, /*goto*/ 0x16)
 	label(0x16)
 	goto_next(0x3f)
 
@@ -32115,7 +32115,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	set_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	cmd0133(ACTION_DODGE, /*goto*/ 0x16)
+	set_orders(ACTION_DODGE, /*goto*/ 0x16)
 	label(0x16)
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x2d)
