@@ -1319,6 +1319,23 @@
 #define MUSIC_BETA_MELODY             0x75
 #define MUSIC_ESCAPE_OUTRO_SHORT      0x76
 
+#define SQUADRON_00 0x00
+#define SQUADRON_01 0x01
+#define SQUADRON_02 0x02
+#define SQUADRON_03 0x03
+#define SQUADRON_04 0x04
+#define SQUADRON_05 0x05
+#define SQUADRON_06 0x06
+#define SQUADRON_07 0x07
+#define SQUADRON_08 0x08
+#define SQUADRON_09 0x09
+#define SQUADRON_0A 0x0a
+#define SQUADRON_0B 0x0b
+#define SQUADRON_0C 0x0c
+#define SQUADRON_0D 0x0d
+#define SQUADRON_0E 0x0e
+#define SQUADRON_0F 0x0f
+
 #define TEAM_00        0x00
 #define TEAM_01        0x01
 #define TEAM_ENEMY     0x02

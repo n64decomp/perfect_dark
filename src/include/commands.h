@@ -1174,7 +1174,7 @@
 	u4, \
 	channel,
 
-#define set_group_alertness(value) \
+#define set_squadron_alertness(value) \
 	mkshort(0x0131), \
 	value,
 
@@ -1237,7 +1237,7 @@
 	0x00, \
 	label,
 
-#define set_group(id) \
+#define set_squadron(id) \
 	mkshort(0x013b), \
 	id,
 
