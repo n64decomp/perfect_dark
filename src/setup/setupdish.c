@@ -606,7 +606,7 @@ u8 func041e_colleague[] = {
 		label(0x7f)
 		animation(ANIM_SITTING_0265, 0, -1, 0x1400, CHR_SELF, 2)
 		label(0x2f)
-		play_chr_specific_quip(BANK_0, CHANNEL_6)
+		play_cistaff_quip(BANK_0, CHANNEL_6)
 		restart_timer
 
 		beginloop(0x57)
@@ -637,7 +637,7 @@ u8 func041e_colleague[] = {
 		label(0x06)
 		do_special_animation(-1)
 		label(0x06)
-		play_chr_specific_quip(BANK_1, CHANNEL_6)
+		play_cistaff_quip(BANK_1, CHANNEL_6)
 		restart_timer
 
 		beginloop(0x5b)
@@ -680,7 +680,7 @@ u8 func041e_colleague[] = {
 		label(0x7f)
 		animation(ANIM_SITTING_0265, 0, -1, 0x1400, CHR_SELF, 2)
 		label(0x06)
-		play_chr_specific_quip(BANK_2, CHANNEL_6)
+		play_cistaff_quip(BANK_2, CHANNEL_6)
 		restart_timer
 
 		beginloop(0x5c)
@@ -2475,7 +2475,7 @@ u8 func0429_grimshaw_disguise[] = {
 	label(0x06)
 	dprint 'I','n','i','t','i','a','l','i','s','e','c',0,
 	do_special_animation(3)
-	play_chr_specific_quip(BANK_0, CHANNEL_6)
+	play_cistaff_quip(BANK_0, CHANNEL_6)
 	restart_timer
 
 	beginloop(0x57)

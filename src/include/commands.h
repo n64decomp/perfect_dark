@@ -1158,11 +1158,16 @@
 #define cmd012f \
 	mkshort(0x012f),
 
-#define say_quip(chr, u1, index, u2, u3, bank, u4, channel) \
+/**
+ * Make chr say something out of a random set of 3. Sets are defined in globals.
+ * The bank argument applies to humans only. Skedar and maians have their own
+ * hard coded banks.
+ */
+#define say_quip(chr, index, u1, u2, u3, bank, u4, channel) \
 	mkshort(0x0130), \
 	chr, \
-	u1, \
 	index, \
+	u1, \
 	u2, \
 	u3, \
 	bank, \
@@ -1574,11 +1579,17 @@
 #define set_chr_roomtosearch \
 	mkshort(0x01a1),
 
-#define play_chr_specific_quip(bank, channel) \
+#define play_cistaff_quip(bank, channel) \
 	mkshort(0x01a2), \
 	bank, \
 	channel,
 
+/**
+ * If value is -2, either do 0x299 or 0x29a based on something.
+ * If value is -1, choose a random anim out of 8 from bank at 8006984c.
+ * If value is 3, choose a random anim out of 2 from bank at 80069844.
+ * Any other value is an index into bank at 80069840.
+ */
 #define do_special_animation(value) \
 	mkshort(0x01a3), \
 	value,
