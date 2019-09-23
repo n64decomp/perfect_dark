@@ -1484,7 +1484,7 @@ u8 func040c_init_secretary[] = {
 };
 
 /**
- * The secretary uses var_a to track things.
+ * The secretary uses morale to track things.
  *
  * 0 = Not done anything
  * 1 = Not used
@@ -1494,7 +1494,7 @@ u8 func040c_init_secretary[] = {
  */
 u8 func0408_secretary[] = {
 	set_onshot_function(FUNC_SECRETARY)
-	set_var_a(0)
+	set_morale(0)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x02)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x02)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x02)
@@ -1572,7 +1572,7 @@ u8 func0408_secretary[] = {
 
 	// Seen Jo while disguised
 	label(0x07)
-	if_var_a_lt(2, /*goto*/ 0x32)
+	if_morale_lt(2, /*goto*/ 0x32)
 	goto_next(0x02)
 
 	//
@@ -1582,7 +1582,7 @@ u8 func0408_secretary[] = {
 	speak(TARGET_CHR, 0x0e1d, 0x8161, CHANNEL_4, COLOR_06_WHITE) // "Good afternoon."
 	animation(ANIM_TALKING_0231, 0, 193, 0x1810, CHR_SELF, 2)
 	restart_timer
-	set_var_a(2)
+	set_morale(2)
 
 	beginloop(0x08)
 		if_shot_near_chr(0x00, /*goto*/ LABEL_BECOME_ALERT2)
@@ -1602,7 +1602,7 @@ u8 func0408_secretary[] = {
 	if_chr_weapon_equipped(TARGET_CHR, WEAPON_UNARMED, /*goto*/ 0x0c)
 	if_chr_weapon_equipped(TARGET_CHR, WEAPON_HORIZONSCANNER, /*goto*/ 0x0c)
 	if_chr_weapon_equipped(TARGET_CHR, WEAPON_SUITCASE, /*goto*/ 0x0c)
-	if_var_a_lt(3, /*goto*/ 0x32)
+	if_morale_lt(3, /*goto*/ 0x32)
 	goto_next(0x02)
 
 	//
@@ -1612,7 +1612,7 @@ u8 func0408_secretary[] = {
 	speak(TARGET_CHR, 0x0e1f, 0x1273, CHANNEL_4, COLOR_06_WHITE) // "You'll have to check that weapon in here."
 	restart_timer
 	animation(ANIM_TALKING_0232, 0, 193, 0x1810, CHR_SELF, 2)
-	set_var_a(3)
+	set_morale(3)
 
 	beginloop(0x09)
 		if_shot_near_chr(0x00, /*goto*/ LABEL_BECOME_ALERT2)
@@ -1630,14 +1630,14 @@ u8 func0408_secretary[] = {
 	if_chr_weapon_equipped(TARGET_CHR, WEAPON_UNARMED, /*goto*/ 0x31)
 	if_chr_weapon_equipped(TARGET_CHR, WEAPON_HORIZONSCANNER, /*goto*/ 0x31)
 	if_chr_weapon_equipped(TARGET_CHR, WEAPON_SUITCASE, /*goto*/ 0x31)
-	if_var_a_lt(4, /*goto*/ 0x32)
+	if_morale_lt(4, /*goto*/ 0x32)
 	goto_next(0x02)
 
 	label(0x32)
 	speak(TARGET_CHR, 0x0e21, 0x1274, CHANNEL_4, COLOR_06_WHITE) // "Weapons are not allowed in the base."
 	restart_timer
 	animation(ANIM_TALKING_0233, 0, 193, 0x1810, CHR_SELF, 2)
-	set_var_a(4)
+	set_morale(4)
 
 	beginloop(0x0a)
 		if_shot_near_chr(0x00, /*goto*/ LABEL_BECOME_ALERT2)
@@ -2049,7 +2049,7 @@ u8 func0409_office1[] = {
 #define LABEL_RUN_TO_FOYER 0x4f
 
 	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_var_a(0)
+	set_morale(0)
 	set_onshot_function(FUNC_OFFICE1)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x02)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x02)
@@ -2186,7 +2186,7 @@ u8 func040e_init_office2[] = {
 
 u8 func040a_office2[] = {
 	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_var_a(0)
+	set_morale(0)
 	set_onshot_function(FUNC_OFFICE2)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x02)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x02)
@@ -2673,7 +2673,7 @@ u8 unregistered_function3[] = {
 };
 
 u8 func0414_officeworker[] = {
-	set_var_a(0)
+	set_morale(0)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x02)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x02)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x02)

@@ -1505,12 +1505,12 @@ u8 func1008_spawngroup1[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_var_a(15)
+	set_morale(15)
 
 	beginloop(0x5f)
 		// Keep doing this until explosives finished, or 15 guards spawned
 		if_stage_flag_eq(STAGEFLAG_JON_FINISHED_EXPLOSIVES, TRUE, /*goto*/ 0x06)
-		if_var_a_lt(1, /*goto*/ 0x06)
+		if_morale_lt(1, /*goto*/ 0x06)
 		try_spawn_chr(BODY_AREA51GUARD, HEAD_RANDOM, 0x00c7, FUNC_SPAWNGROUP1_GUARD, 0x00000200, /*goto*/ 0x60)
 		reloop(0x5f)
 
@@ -1518,7 +1518,7 @@ u8 func1008_spawngroup1[] = {
 		label(0x60)
 		yield
 		if_stage_flag_eq(STAGEFLAG_JON_FINISHED_EXPLOSIVES, TRUE, /*goto*/ 0x06)
-		subtract_var_a(1)
+		subtract_morale(1)
 		if_num_chrs_in_group_gt(3, SPAWNGROUP1, /*goto*/ 0x32)
 		reloop(0x5f)
 
@@ -1577,10 +1577,10 @@ u8 func1013_spawngroup2[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_var_a(12)
+	set_morale(12)
 
 	beginloop(0x5f)
-		if_var_a_lt(1, /*goto*/ 0x06)
+		if_morale_lt(1, /*goto*/ 0x06)
 		call_rng
 		if_rand_gt(128, /*goto*/ 0x32)
 		try_spawn_chr(BODY_AREA51GUARD, HEAD_RANDOM, 0x0144, FUNC_SPAWNGROUP2_GUARD, 0x00000200, /*goto*/ 0x60)
@@ -1593,7 +1593,7 @@ u8 func1013_spawngroup2[] = {
 		label(0x60)
 		yield
 		if_stage_flag_eq(STAGEFLAG_WALL_EXPLODED, TRUE, /*goto*/ 0x06)
-		subtract_var_a(1)
+		subtract_morale(1)
 		cmd0145_rebuild_groups
 		cmd0146_rebuild_groups
 		label(0x08)
@@ -1666,10 +1666,10 @@ u8 func1014_spawngroup3[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_var_a(4)
+	set_morale(4)
 
 	beginloop(0x5f)
-		if_var_a_lt(1, /*goto*/ 0x06)
+		if_morale_lt(1, /*goto*/ 0x06)
 		call_rng
 		if_rand_gt(128, /*goto*/ 0x32)
 
@@ -1686,7 +1686,7 @@ u8 func1014_spawngroup3[] = {
 		label(0x60)
 		yield
 		if_stage_flag_eq(STAGEFLAG_ELVIS_REVIVED, TRUE, /*goto*/ 0x06)
-		subtract_var_a(1)
+		subtract_morale(1)
 		cmd0145_rebuild_groups
 		cmd0146_rebuild_groups
 
@@ -1754,7 +1754,7 @@ u8 func1015_spawngroup4[] = {
 
 	label(0x06)
 	label(0x06)
-	set_var_a(12)
+	set_morale(12)
 
 	beginloop(0x5f)
 		call_rng
@@ -1774,13 +1774,13 @@ u8 func1015_spawngroup4[] = {
 		label(0x60)
 		yield
 		if_stage_flag_eq(STAGEFLAG_BOTH_HANGAR_DOORS_OPEN, TRUE, /*goto*/ 0x06)
-		subtract_var_a(1)
+		subtract_morale(1)
 		cmd0145_rebuild_groups
 		cmd0146_rebuild_groups
 
 		label(0x08)
 		yield
-		if_var_a_lt(1, /*goto*/ 0x06)
+		if_morale_lt(1, /*goto*/ 0x06)
 		if_num_chrs_in_group_gt(6, SPAWNGROUP4, /*goto*/ 0x32)
 		call_rng
 		if_rand_gt(2, /*goto*/ 0x32)

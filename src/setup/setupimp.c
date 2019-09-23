@@ -1574,7 +1574,7 @@ u8 func100c_check_carrington_dead[] = {
 };
 
 u8 func0415_init_hostage_fr1[] = {
-	set_var_a(5)
+	set_morale(5)
 	set_chr_health(CHR_SELF, 1)
 	set_accuracy(0)
 	set_function(CHR_SELF, FUNC_FIRINGRANGE_HOSTAGE)
@@ -1582,7 +1582,7 @@ u8 func0415_init_hostage_fr1[] = {
 };
 
 u8 func0416_init_hostage_fr2[] = {
-	set_var_a(7)
+	set_morale(7)
 	set_chr_health(CHR_SELF, 1)
 	set_accuracy(0)
 	set_function(CHR_SELF, FUNC_FIRINGRANGE_HOSTAGE)
@@ -1706,7 +1706,7 @@ u8 func0419_init_firingrange_taker[] = {
 };
 
 u8 func041b_init_hostage_holo[] = {
-	set_var_a(3)
+	set_morale(3)
 	set_chr_health(CHR_SELF, 1)
 	set_function(CHR_SELF, FUNC_HOSTAGE_HOLO)
 	endfunction
@@ -2179,14 +2179,14 @@ u8 func1011_check_info_takers_dead[] = {
 };
 
 u8 func042c_init_hostage_device_f[] = {
-	set_var_a(1)
+	set_morale(1)
 	set_chr_health(CHR_SELF, 1)
 	set_function(CHR_SELF, FUNC_DEVICEROOM_HOSTAGE)
 	endfunction
 };
 
 u8 func042d_init_hostage_device_m[] = {
-	set_var_a(6)
+	set_morale(6)
 	set_chr_health(CHR_SELF, 1)
 	set_function(CHR_SELF, FUNC_DEVICEROOM_HOSTAGE)
 	endfunction
@@ -2379,7 +2379,7 @@ u8 func0432_taker_attack[] = {
 };
 
 u8 func0434_init_hostage_info_m[] = {
-	set_var_a(2)
+	set_morale(2)
 	set_armor(10)
 	set_chr_health(CHR_SELF, 1)
 	set_function(CHR_SELF, FUNC_INFOROOM_HOSTAGE)
@@ -2387,7 +2387,7 @@ u8 func0434_init_hostage_info_m[] = {
 };
 
 u8 func0435_init_hostage_info_f[] = {
-	set_var_a(8)
+	set_morale(8)
 	set_armor(10)
 	set_chr_health(CHR_SELF, 1)
 	set_function(CHR_SELF, FUNC_INFOROOM_HOSTAGE)

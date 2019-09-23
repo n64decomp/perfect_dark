@@ -33597,7 +33597,7 @@ u8 func000f_hand_combat[] = {
 	goto_first(0x0c)
 
 	label(0x13)
-	add_var_a(1)
+	add_morale(1)
 	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x17)
 	goto_next(0x05)
 
@@ -34392,7 +34392,7 @@ u8 func0014_coop_buddy[] = {
 	dprint 'B','A','C','K',' ','T','O',' ','B','U','D','D','Y','\n',0,
 	unset_self_flag_bank3(CHRFLAG3_00040000)
 	set_self_flag_bankx(CHRFLAG1_00100000, BANK_1)
-	set_var_a(0)
+	set_morale(0)
 	set_onshot_function(GFUNC_COOP_BUDDY)
 	set_target_chr(CHR_JOANNA)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x13)
@@ -34866,7 +34866,7 @@ u8 func0026_init_psychosis[] = {
 };
 
 u8 func0027_psychosised[] = {
-	set_var_a(0)
+	set_morale(0)
 	set_onshot_function(GFUNC_PSYCHOSISED)
 	set_target_chr(FOLLOW_CHR)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x13)

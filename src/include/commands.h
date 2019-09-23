@@ -540,19 +540,19 @@
 	chr, \
 	label,
 
-#define set_var_a(value) \
+#define set_morale(value) \
 	mkshort(0x0084), \
 	value,
 
-#define add_var_a(value) \
+#define add_morale(value) \
 	mkshort(0x0085), \
 	value,
 
-#define subtract_var_a(value) \
+#define subtract_morale(value) \
 	mkshort(0x0087), \
 	value,
 
-#define if_var_a_lt(value, label) \
+#define if_morale_lt(value, label) \
 	mkshort(0x0088), \
 	value, \
 	label,

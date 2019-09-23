@@ -915,7 +915,7 @@ u8 func0404_miniskedar_spawner[] = {
 	set_self_flag_bank3(CHRFLAG3_00000002)
 	set_self_flag_bank3(CHRFLAG3_HIDDEN)
 	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_var_a(0)
+	set_morale(0)
 
 	// Wait until player near trigger pad
 	beginloop(0x04)
@@ -924,7 +924,7 @@ u8 func0404_miniskedar_spawner[] = {
 		endloop(0x04)
 
 		label(0x4f)
-		if_var_a_lt(3, /*goto*/ 0x06)
+		if_morale_lt(3, /*goto*/ 0x06)
 		goto_next(0x2e)
 
 		label(0x06)
@@ -936,7 +936,7 @@ u8 func0404_miniskedar_spawner[] = {
 		reloop(0x04)
 
 		label(0x2d)
-		add_var_a(1)
+		add_morale(1)
 		label(0x2e)
 		yield
 	endloop(0x04)
@@ -1926,7 +1926,7 @@ u8 func040c_king_waiting[] = {
 	label(0x2d)
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_10000000)
-	set_var_a(0)
+	set_morale(0)
 
 	beginloop(0x08)
 		consider_coop_for_p1p2_chr(CHR_SELF)
@@ -1949,7 +1949,7 @@ u8 func040c_king_waiting[] = {
 };
 
 /**
- * var_a tracks how many rockets have been fired in a row.
+ * morale tracks how many rockets have been fired in a row.
  */
 u8 func040d_king_combat[] = {
 #define LABEL_MAINLOOP         0x03
@@ -1982,7 +1982,7 @@ u8 func040d_king_combat[] = {
 		// No clones exist
 		call_rng
 		if_rand_gt(200, /*goto*/ 0x79)
-		if_var_a_lt(2, /*goto*/ 0x06)
+		if_morale_lt(2, /*goto*/ 0x06)
 		goto_next(0x2d)
 
 		label(0x06)
@@ -2049,7 +2049,7 @@ u8 func040d_king_combat[] = {
 	endloop(0x7b)
 
 	label(0x2d)
-	add_var_a(1)
+	add_morale(1)
 	goto_first(LABEL_MAINLOOP)
 
 	//
@@ -2057,7 +2057,7 @@ u8 func040d_king_combat[] = {
 	//
 	label(LABEL_SPAWN_SKEDAR)
 	say_quip(CHR_JOANNA, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_var_a(0)
+	set_morale(0)
 	restart_timer
 	animation(0x0350, 0, -1, 0x1010, CHR_SELF, 2)
 
@@ -2076,7 +2076,7 @@ u8 func040d_king_combat[] = {
 	//
 	label(LABEL_SPAWN_MINISKEDAR)
 	say_quip(CHR_JOANNA, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_var_a(0)
+	set_morale(0)
 	restart_timer
 	animation(0x0350, 0, -1, 0x1010, CHR_SELF, 2)
 
@@ -2095,7 +2095,7 @@ u8 func040d_king_combat[] = {
 	//
 	label(LABEL_CLOAK)
 	say_quip(CHR_JOANNA, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_var_a(0)
+	set_morale(0)
 	restart_timer
 	animation(0x0350, 0, -1, 0x1010, CHR_SELF, 2)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
@@ -2201,7 +2201,7 @@ u8 func040d_king_combat[] = {
 	// Unreachable - nothing jumps here
 	label(0x77)
 	say_quip(CHR_JOANNA, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_var_a(0)
+	set_morale(0)
 	restart_timer
 	animation(0x0350, 0, -1, 0x1010, CHR_SELF, 2)
 

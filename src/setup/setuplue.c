@@ -2697,18 +2697,18 @@ u8 func1019_spawn_guards_at_antenna[] = {
 	// Spawn 3 guards
 	label(0x2e)
 	label(0x06)
-	set_var_a(3)
+	set_morale(3)
 
 	beginloop(0x56)
 		dprint 'T','R','Y',' ','C','R','E','A','T','E','\n',0,
-		if_var_a_lt(1, /*goto*/ 0x06)
+		if_morale_lt(1, /*goto*/ 0x06)
 		try_spawn_chr(BODY_A51TROOPER, HEAD_RANDOM, 0x00a0, FUNC_SPAWNED_GUARD, 0x00000200, /*goto*/ 0x57)
 		reloop(0x56)
 
 		label(0x57)
 		yield
 		dprint 'C','R','E','A','T','E','\n',0,
-		subtract_var_a(1)
+		subtract_morale(1)
 		restart_timer
 
 		beginloop(0x09)

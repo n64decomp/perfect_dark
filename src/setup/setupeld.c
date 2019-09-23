@@ -2984,13 +2984,13 @@ u8 func101f_check_one_basement_guard_remaining[] = {
 		if_chr_unloaded(chr, /*goto*/ 0x2d) \
 		goto_next(0x06) \
 		label(0x2d) \
-		add_var_a(1) \
+		add_morale(1) \
 		label(0x06)
 
 
 
 	beginloop(0x04)
-		set_var_a(0)
+		set_morale(0)
 
 		inc_var_if_chr_dead(CHR_BASEMENT1)
 		inc_var_if_chr_dead(CHR_BASEMENT2)
@@ -3002,7 +3002,7 @@ u8 func101f_check_one_basement_guard_remaining[] = {
 		inc_var_if_chr_dead(CHR_BASEMENT8)
 		inc_var_if_chr_dead(CHR_BASEMENT9)
 
-		if_var_a_lt(8, /*goto*/ 0x2d)
+		if_morale_lt(8, /*goto*/ 0x2d)
 		set_stage_flag(STAGEFLAG_ONE_BASEMENT_GUARD_REMAINING)
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2d)

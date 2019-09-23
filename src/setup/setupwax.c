@@ -1554,7 +1554,7 @@ u8 func0414_init_chief[] = {
 	set_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_var_a(0)
+	set_morale(0)
 	set_self_flag_bank3(CHRFLAG3_HIDDEN)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction

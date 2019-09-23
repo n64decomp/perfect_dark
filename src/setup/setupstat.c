@@ -423,11 +423,11 @@ u8 func1003_spawn_maians[] = {
 	label(0x04)
 	yield
 	label(0x06)
-	set_var_a(50)
+	set_morale(50)
 
 	// Loop until a Maian is able to be spawned or counter depleted
 	beginloop(0x8d)
-		if_var_a_lt(1, /*goto*/ 0x06)
+		if_morale_lt(1, /*goto*/ 0x06)
 		try_spawn_chr(BODY_ELVIS1, HEAD_MAIAN_S, 0x0053, FUNC_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
 		try_spawn_chr(BODY_ELVIS1, HEAD_MAIAN_S, 0x0050, FUNC_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
 		try_spawn_chr(BODY_ELVIS1, HEAD_MAIAN_S, 0x004d, FUNC_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
@@ -440,7 +440,7 @@ u8 func1003_spawn_maians[] = {
 		label(0x8e)
 		dprint 'C','R','E','A','T','E','D',' ','1','\n',0,
 		yield
-		subtract_var_a(1)
+		subtract_morale(1)
 		yield
 		yield
 		yield
@@ -587,12 +587,12 @@ u8 func1004_spawn_king1_skedar[] = {
 	label(0x04)
 	yield
 	label(0x06)
-	set_var_a(65)
+	set_morale(65)
 
 	// Loop until a Skedar is able to be spawned or counter depleted
 	beginloop(0x8d)
 		if_stage_flag_eq(STAGEFLAG_KING1_DEAD, TRUE, /*goto*/ 0x0e)
-		if_var_a_lt(1, /*goto*/ 0x06)
+		if_morale_lt(1, /*goto*/ 0x06)
 		try_spawn_chr(BODY_SKEDAR, HEAD_RANDOM, 0x0079, FUNC_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
 		try_spawn_chr(BODY_SKEDAR, HEAD_RANDOM, 0x007d, FUNC_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
 		try_spawn_chr(BODY_SKEDAR, HEAD_RANDOM, 0x0083, FUNC_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
@@ -603,7 +603,7 @@ u8 func1004_spawn_king1_skedar[] = {
 		label(0x8e)
 		dprint 'C','R','E','A','T','E','D',' ','1','\n',0,
 		yield
-		subtract_var_a(1)
+		subtract_morale(1)
 		yield
 		yield
 		yield
@@ -676,11 +676,11 @@ u8 func1008_spawn_king2_skedar[] = {
 
 	// Loop until a Skedar is able to be spawned or counter depleted
 	label(0x06)
-	set_var_a(50)
+	set_morale(50)
 
 	beginloop(0x8d)
 		if_stage_flag_eq(STAGEFLAG_KING2_DEAD, TRUE, /*goto*/ 0x0e)
-		if_var_a_lt(1, /*goto*/ 0x06)
+		if_morale_lt(1, /*goto*/ 0x06)
 		try_spawn_chr(BODY_SKEDAR, HEAD_RANDOM, 0x008e, FUNC_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
 		try_spawn_chr(BODY_SKEDAR, HEAD_RANDOM, 0x0090, FUNC_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
 		try_spawn_chr(BODY_SKEDAR, HEAD_RANDOM, 0x008f, FUNC_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
@@ -705,7 +705,7 @@ u8 func1008_spawn_king2_skedar[] = {
 		yield
 		yield
 		yield
-		subtract_var_a(1)
+		subtract_morale(1)
 		cmd0145_rebuild_groups
 		cmd0146_rebuild_groups
 		if_num_chrs_in_group_gt(3, GROUP_KING2_SKEDAR, /*goto*/ 0x2d)
@@ -762,11 +762,11 @@ u8 func100c_spawn_king3_skedar[] = {
 
 	// Loop until a Skedar is able to be spawned or counter depleted
 	label(0x06)
-	set_var_a(50)
+	set_morale(50)
 
 	beginloop(0x8d)
 		if_stage_flag_eq(STAGEFLAG_KING3_DEAD, TRUE, /*goto*/ 0x0e)
-		if_var_a_lt(1, /*goto*/ 0x06)
+		if_morale_lt(1, /*goto*/ 0x06)
 		try_spawn_chr(BODY_SKEDAR, HEAD_RANDOM, 0x0095, FUNC_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
 		try_spawn_chr(BODY_SKEDAR, HEAD_RANDOM, 0x0096, FUNC_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
 		try_spawn_chr(BODY_SKEDAR, HEAD_RANDOM, 0x012e, FUNC_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
@@ -776,7 +776,7 @@ u8 func100c_spawn_king3_skedar[] = {
 		// Successful spawn
 		label(0x8e)
 		yield
-		subtract_var_a(1)
+		subtract_morale(1)
 		cmd0145_rebuild_groups
 		cmd0146_rebuild_groups
 		if_num_chrs_in_group_gt(5, 0x04, /*goto*/ 0x2d)

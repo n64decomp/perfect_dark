@@ -614,7 +614,7 @@ u8 func041e_colleague[] = {
 		endloop(0x57)
 
 		label(0x06)
-		if_var_a_lt(6, /*goto*/ 0x06)
+		if_morale_lt(6, /*goto*/ 0x06)
 		goto_next(0x7e)
 
 		label(0x06)
@@ -713,7 +713,7 @@ u8 func041e_colleague[] = {
 u8 func041f_colleague1[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
-	set_var_a(0)
+	set_morale(0)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
@@ -721,7 +721,7 @@ u8 func041f_colleague1[] = {
 u8 func0420_colleague2[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
-	set_var_a(1)
+	set_morale(1)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
@@ -729,7 +729,7 @@ u8 func0420_colleague2[] = {
 u8 func0421_colleague3[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
-	set_var_a(2)
+	set_morale(2)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
@@ -737,7 +737,7 @@ u8 func0421_colleague3[] = {
 u8 func0422_colleague4[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
-	set_var_a(3)
+	set_morale(3)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
@@ -745,7 +745,7 @@ u8 func0422_colleague4[] = {
 u8 func0423_colleague5[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
-	set_var_a(4)
+	set_morale(4)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
@@ -753,7 +753,7 @@ u8 func0423_colleague5[] = {
 u8 func0424_colleague6[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
-	set_var_a(5)
+	set_morale(5)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
@@ -761,7 +761,7 @@ u8 func0424_colleague6[] = {
 u8 func0425_colleague7[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
-	set_var_a(6)
+	set_morale(6)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
@@ -769,7 +769,7 @@ u8 func0425_colleague7[] = {
 u8 func0426_colleague8[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
-	set_var_a(7)
+	set_morale(7)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
@@ -777,7 +777,7 @@ u8 func0426_colleague8[] = {
 u8 func0427_colleague9[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
-	set_var_a(8)
+	set_morale(8)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
@@ -785,7 +785,7 @@ u8 func0427_colleague9[] = {
 u8 func0428_colleague10[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
-	set_var_a(9)
+	set_morale(9)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
@@ -2877,7 +2877,7 @@ u8 func042b_init_carrington[] = {
 	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
 	yield
-	set_var_a(0)
+	set_morale(0)
 	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 	set_eeprom_flag(EEPROMFLAG_CI_TOUR_DONE)
 	dprint 'E','E','P','R','O','M',' ','S','E','T',0,

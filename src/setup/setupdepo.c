@@ -2242,7 +2242,7 @@ u8 func101a_init_laser_switch_guards[] = {
 };
 
 u8 func0412_cloak_guard[] = {
-	set_var_a(0)
+	set_morale(0)
 	set_onshot_function(FUNC_CLOAK_GUARD)
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
@@ -2281,7 +2281,7 @@ u8 func0412_cloak_guard[] = {
 
 		// Attacking
 		label(0x06)
-		if_var_a_lt(3, /*goto*/ 0x2c)
+		if_morale_lt(3, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		label(0x2c)
@@ -2290,7 +2290,7 @@ u8 func0412_cloak_guard[] = {
 		if_in_disarm_range(/*goto*/ 0x2c)
 		goto_next(0x0d)
 		label(0x0e)
-		add_var_a(1)
+		add_morale(1)
 		label(0x2c)
 		restart_timer
 		set_chr_cloaked(CHR_SELF, FALSE, TRUE)
@@ -2305,7 +2305,7 @@ u8 func0412_cloak_guard[] = {
 		endloop(0x0b)
 
 		label(0x0c)
-		set_var_a(0)
+		set_morale(0)
 		set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 		label(0x0d)
 	goto_first(0x03)
@@ -2974,14 +2974,14 @@ u8 func1027_cloak1_check_one_remaining[] = {
 u8 func1028_cloak2_check_one_remaining[] = {
 	// Count number of dead cloak guards in second room
 	beginloop(0x04)
-		set_var_a(0)
+		set_morale(0)
 		if_chr_dying(CHR_CLOAK_2A, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CLOAK_2A, /*goto*/ 0x2c)
 		if_chr_unloaded(CHR_CLOAK_2A, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		label(0x2c)
-		add_var_a(1)
+		add_morale(1)
 		label(0x06)
 		if_chr_dying(CHR_CLOAK_2B, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CLOAK_2B, /*goto*/ 0x2c)
@@ -2989,7 +2989,7 @@ u8 func1028_cloak2_check_one_remaining[] = {
 		goto_next(0x06)
 
 		label(0x2c)
-		add_var_a(1)
+		add_morale(1)
 		label(0x06)
 		if_chr_dying(CHR_CLOAK_2C, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CLOAK_2C, /*goto*/ 0x2c)
@@ -2997,7 +2997,7 @@ u8 func1028_cloak2_check_one_remaining[] = {
 		goto_next(0x06)
 
 		label(0x2c)
-		add_var_a(1)
+		add_morale(1)
 		label(0x06)
 		if_chr_dying(CHR_CLOAK_2D, /*goto*/ 0x2c)
 		if_chr_death_animation_finished(CHR_CLOAK_2D, /*goto*/ 0x2c)
@@ -3005,9 +3005,9 @@ u8 func1028_cloak2_check_one_remaining[] = {
 		goto_next(0x06)
 
 		label(0x2c)
-		add_var_a(1)
+		add_morale(1)
 		label(0x06)
-		if_var_a_lt(3, /*goto*/ 0x2c)
+		if_morale_lt(3, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_CLOAK2_ONE_REMAINING)
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2c)

@@ -4449,14 +4449,14 @@ u8 func1031_toggle_doorman[] = {
 
 u8 func1032_count_last_room_guards[] = {
 	beginloop(0x04)
-		set_var_a(0)
+		set_morale(0)
 		if_chr_dying(0x23, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(0x23, /*goto*/ 0x2d)
 		if_chr_unloaded(0x23, /*goto*/ 0x2d)
 		goto_next(0x06)
 
 		label(0x2d)
-		add_var_a(1)
+		add_morale(1)
 		label(0x06)
 		if_chr_dying(0x24, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(0x24, /*goto*/ 0x2d)
@@ -4464,7 +4464,7 @@ u8 func1032_count_last_room_guards[] = {
 		goto_next(0x06)
 
 		label(0x2d)
-		add_var_a(1)
+		add_morale(1)
 		label(0x06)
 		if_chr_dying(0x25, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(0x25, /*goto*/ 0x2d)
@@ -4472,7 +4472,7 @@ u8 func1032_count_last_room_guards[] = {
 		goto_next(0x06)
 
 		label(0x2d)
-		add_var_a(1)
+		add_morale(1)
 		label(0x06)
 		if_chr_dying(0x26, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(0x26, /*goto*/ 0x2d)
@@ -4480,9 +4480,9 @@ u8 func1032_count_last_room_guards[] = {
 		goto_next(0x06)
 
 		label(0x2d)
-		add_var_a(1)
+		add_morale(1)
 		label(0x06)
-		if_var_a_lt(3, /*goto*/ 0x2d)
+		if_morale_lt(3, /*goto*/ 0x2d)
 		set_stage_flag(STAGEFLAG_ONE_KEYCARD_GUARD_REMAINING)
 		set_function(CHR_SELF, GFUNC_IDLE)
 

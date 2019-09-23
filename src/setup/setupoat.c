@@ -56,14 +56,14 @@ u8 func0404_spawn_enemies[] = {
 	set_chr_alliance(CHR_SELF, ALLIANCE_ENEMY)
 	restart_timer
 	dprint 'B','4','C','H','E','C','K','\n',0,
-	set_var_a(12)
+	set_morale(12)
 	label(0x04)
-	if_var_a_lt(1, /*goto*/ 0x01)
+	if_morale_lt(1, /*goto*/ 0x01)
 	try_spawn_clone(BODY_DDSHOCK, HEAD_DDSHOCK, 0x06, FUNC0401_INIT_ENEMY, 0x00000010, /*goto*/ 0xa2)
 	goto_next(0x01)
 	label(0xa2)
 	yield
-	subtract_var_a(1)
+	subtract_morale(1)
 	goto_first(0x04)
 
 	label(0x01)
@@ -96,14 +96,14 @@ u8 func0405_spawn_maians[] = {
 	stop_chr
 	restart_timer
 	dprint 'B','4','C','H','E','K','\n',0,
-	set_var_a(12)
+	set_morale(12)
 	label(0x04)
-	if_var_a_lt(1, /*goto*/ 0x01)
+	if_morale_lt(1, /*goto*/ 0x01)
 	try_spawn_clone(BODY_ELVIS1, HEAD_ELVIS, 0x07, FUNC0402_INIT_MAIAN, 0x00000010, /*goto*/ 0xa2)
 	goto_next(0x01)
 	label(0xa2)
 	yield
-	subtract_var_a(1)
+	subtract_morale(1)
 	goto_first(0x04)
 
 	label(0x01)

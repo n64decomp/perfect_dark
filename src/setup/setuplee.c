@@ -997,7 +997,7 @@ u8 func040a_elvis_go_to_hangar_lift[] = {
 	label(0x03)
 	set_target_chr(CHR_JOANNA)
 	restart_timer
-	if_var_a_lt(50, /*goto*/ 0x06)
+	if_morale_lt(50, /*goto*/ 0x06)
 	goto_next(0xc3)
 
 	label(0x06)
@@ -1015,7 +1015,7 @@ u8 func040a_elvis_go_to_hangar_lift[] = {
 	label(0x06)
 	speak(CHR_JOANNA, 0x2616, 0x12e4, CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards. I'll take this lift; you tak..."
 	animation(ANIM_TALKING_0231, 0, -1, 0x1010, CHR_SELF, 2)
-	set_var_a(50)
+	set_morale(50)
 
 	beginloop(0x0c)
 		if_timer_gt(180, /*goto*/ 0xc3)
@@ -1051,11 +1051,11 @@ u8 func041b_elvis_at_bridge[] = {
 	// Alive
 	label(0x06)
 	label(0x06)
-	if_var_a_lt(100, /*goto*/ 0x06)
+	if_morale_lt(100, /*goto*/ 0x06)
 	goto_next(0x2c)
 
 	label(0x06)
-	set_var_a(100)
+	set_morale(100)
 	label(0x2c)
 
 	beginloop(0x65)
@@ -1650,7 +1650,7 @@ u8 func0412_hangarspawner[] = {
 	set_self_flag_bank3(CHRFLAG3_00000002)
 	set_self_flag_bank3(CHRFLAG3_HIDDEN)
 	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_var_a(0)
+	set_morale(0)
 
 	beginloop(0xc2)
 		if_stage_flag_eq(STAGEFLAG_HANGAR_ALARM_ACTIVATED, TRUE, /*goto*/ 0x04)
@@ -1686,7 +1686,7 @@ u8 func0412_hangarspawner[] = {
 		try_spawn_clone2(CHR_SELF, FUNC_INIT_HANGARCLONE, 0x00000000, /*goto*/ 0x2c)
 		set_function(CHR_SELF, FUNC_HANGARCLONE)
 		label(0x2c)
-		add_var_a(1)
+		add_morale(1)
 		yield
 	endloop(0x04)
 
@@ -2133,7 +2133,7 @@ u8 func0415_bridgespawner[] = {
 	set_self_flag_bank3(CHRFLAG3_HIDDEN)
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
 	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_var_a(0)
+	set_morale(0)
 
 	beginloop(0xc2)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_BRIDGE_SPAWNING, TRUE, /*goto*/ 0x04)
@@ -2141,7 +2141,7 @@ u8 func0415_bridgespawner[] = {
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_BRIDGE_DOORS_UNLOCKED, TRUE, /*goto*/ 0x06)
-		if_var_a_lt(2, /*goto*/ 0x2c)
+		if_morale_lt(2, /*goto*/ 0x2c)
 
 		// Doors are unlocked (have been spawning for over a minute)
 		label(0x06)
@@ -2154,7 +2154,7 @@ u8 func0415_bridgespawner[] = {
 		label(0x06)
 		goto_next(0x08)
 
-		// var_a is 0 or 1
+		// morale is 0 or 1
 		label(0x2c)
 		if_never_been_onscreen(/*goto*/ 0x4d)
 		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x2c)
@@ -2200,7 +2200,7 @@ u8 func0415_bridgespawner[] = {
 	set_function(CHR_SELF, FUNC_INIT_BRIDGESPAWNER_REVEAL)
 
 	label(0x2c)
-	add_var_a(1)
+	add_morale(1)
 	yield
 	goto_first(0x04)
 
