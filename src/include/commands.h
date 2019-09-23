@@ -991,7 +991,7 @@
 	0x00, \
 	0x00,
 
-#define if_target_chrs_field_0x17e_is_different(label) \
+#define if_target_chrs_target_is_different(label) \
 	mkshort(0x0107), \
 	label,
 
@@ -1470,7 +1470,6 @@
 	0x00, \
 	label,
 
-// Related to chr fields 0x17e and 0x32e
 // In practice, scripts will assign function unalerted guard if this passes
 #define if_chr_lost_track_of_target_maybe(label) \
 	mkshort(0x0183), \

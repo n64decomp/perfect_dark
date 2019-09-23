@@ -1780,7 +1780,7 @@ u8 func0413_taker[] = {
 
 	label(0x2d)
 	if_chr_lost_track_of_target_maybe(/*goto*/ 0x11)
-	if_target_chrs_field_0x17e_is_different(/*goto*/ 0x2d)
+	if_target_chrs_target_is_different(/*goto*/ 0x2d)
 	goto_next(0x11)
 
 	label(0x2d)

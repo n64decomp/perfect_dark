@@ -875,7 +875,7 @@ u8 func0409_elvis_follow[] = {
 	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x2c)
 	if_chr_dying(TARGET_CHR, /*goto*/ 0x2c)
 	if_chr_unloaded(TARGET_CHR, /*goto*/ 0x2c)
-	if_target_chrs_field_0x17e_is_different(/*goto*/ 0x06)
+	if_target_chrs_target_is_different(/*goto*/ 0x06)
 	label(0x2c)
 	goto_first(0x03)
 

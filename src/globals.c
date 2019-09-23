@@ -32658,7 +32658,7 @@ u8 func000c_combat_with_target_chr[] = {
 	goto_next(0x16)
 
 	label(0x13)
-	if_target_chrs_field_0x17e_is_different(/*goto*/ 0xb3)
+	if_target_chrs_target_is_different(/*goto*/ 0xb3)
 	label(0x16)
 	dprint 'N','O',' ','T','A','R','G','E','T','\n',0,
 	set_target_chr(-1)
@@ -32714,7 +32714,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_chr_dying(TARGET_CHR, /*goto*/ 0xba)
 	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xba)
 	if_chr_unloaded(TARGET_CHR, /*goto*/ 0xba)
-	if_target_chrs_field_0x17e_is_different(/*goto*/ 0x13)
+	if_target_chrs_target_is_different(/*goto*/ 0x13)
 	goto_next(0x16)
 
 	// Target's field 0x17e is different
@@ -32744,7 +32744,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_chr_dying(TARGET_CHR, /*goto*/ 0xba)
 		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xba)
 		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xba)
-		if_target_chrs_field_0x17e_is_different(/*goto*/ 0x13)
+		if_target_chrs_target_is_different(/*goto*/ 0x13)
 		goto_next(0xba)
 
 		label(0x13)
@@ -32780,7 +32780,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_chr_dying(TARGET_CHR, /*goto*/ 0xba)
 	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xba)
 	if_chr_unloaded(TARGET_CHR, /*goto*/ 0xba)
-	if_target_chrs_field_0x17e_is_different(/*goto*/ 0x13)
+	if_target_chrs_target_is_different(/*goto*/ 0x13)
 	goto_next(0xba)
 
 	label(0x13)
@@ -32795,7 +32795,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_chr_dying(TARGET_CHR, /*goto*/ 0xc0)
 		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc0)
 		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc0)
-		if_target_chrs_field_0x17e_is_different(/*goto*/ 0x13)
+		if_target_chrs_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc0)
 
 		label(0x13)
@@ -32817,7 +32817,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_chr_dying(TARGET_CHR, /*goto*/ 0xc1)
 	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc1)
 	if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc1)
-	if_target_chrs_field_0x17e_is_different(/*goto*/ 0x13)
+	if_target_chrs_target_is_different(/*goto*/ 0x13)
 	goto_next(0xc1)
 
 	label(0x13)
@@ -32913,7 +32913,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_chr_dying(TARGET_CHR, /*goto*/ 0xc1)
 		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc1)
 		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc1)
-		if_target_chrs_field_0x17e_is_different(/*goto*/ 0x16)
+		if_target_chrs_target_is_different(/*goto*/ 0x16)
 		goto_next(0xc1)
 
 		label(0x16)
@@ -32955,7 +32955,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_chr_dying(TARGET_CHR, /*goto*/ 0xc5)
 	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc5)
 	if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc5)
-	if_target_chrs_field_0x17e_is_different(/*goto*/ 0x13)
+	if_target_chrs_target_is_different(/*goto*/ 0x13)
 	goto_next(0xc5)
 
 	label(0x13)
@@ -33006,7 +33006,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_chr_dying(TARGET_CHR, /*goto*/ 0xc5)
 		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc5)
 		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc5)
-		if_target_chrs_field_0x17e_is_different(/*goto*/ 0x13)
+		if_target_chrs_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc5)
 
 		label(0x13)
@@ -33048,7 +33048,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_chr_dying(TARGET_CHR, /*goto*/ 0xc5)
 		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc5)
 		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc5)
-		if_target_chrs_field_0x17e_is_different(/*goto*/ 0x13)
+		if_target_chrs_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc5)
 
 		label(0x13)
@@ -33483,7 +33483,7 @@ u8 func000f_hand_combat[] = {
 
 	// This if-statement is effectively a no op
 	dprint 'L','1','\n',0,
-	if_target_chrs_field_0x17e_is_different(/*goto*/ 0x13)
+	if_target_chrs_target_is_different(/*goto*/ 0x13)
 
 	dprint 'L','2','\n',0,
 	label(0x13)
@@ -33935,7 +33935,7 @@ u8 func001b_observe_camspy[] = {
 
 	// Unreachable - no label
 	dprint 'E','4','\n',0,
-	if_target_chrs_field_0x17e_is_different(/*goto*/ 0x16)
+	if_target_chrs_target_is_different(/*goto*/ 0x16)
 	dprint 'E','5','\n',0,
 	goto_next(0x13)
 
