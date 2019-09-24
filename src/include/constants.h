@@ -466,9 +466,12 @@
 #define SPEED_RUN  2
 
 #define STAGE_MAIANSOS      0x09
+#define STAGE_TEST_SILO     0x14
 #define STAGE_WAR           0x16
 #define STAGE_MP_RAVINE     0x17
+#define STAGE_TEST_ARCH     0x18
 #define STAGE_ESCAPE        0x19
+#define STAGE_TEST_DEST     0x1a
 #define STAGE_RETAKING      0x1b
 #define STAGE_CRASHSITE     0x1c
 #define STAGE_CHICAGO       0x1d
@@ -477,6 +480,7 @@
 #define STAGE_MP_G5BUILDING 0x20
 #define STAGE_PELAGIC       0x21
 #define STAGE_EXTRACTION    0x22
+#define STAGE_TEST_RUN      0x23
 #define STAGE_MP_TEMPLE     0x25
 #define STAGE_CITRAINING    0x26
 #define STAGE_AIRBASE       0x27
@@ -484,6 +488,7 @@
 #define STAGE_SKEDARRUINS   0x2a
 #define STAGE_VILLA         0x2c
 #define STAGE_DEFENSE       0x2d
+#define STAGE_TEST_ASH      0x2e
 #define STAGE_INFILTRATION  0x2f
 #define STAGE_DEFECTION     0x30
 #define STAGE_AIRFORCEONE   0x31
@@ -491,19 +496,33 @@
 #define STAGE_INVESTIGATION 0x33
 #define STAGE_ATTACKSHIP    0x34
 #define STAGE_RESCUE        0x35
+#define STAGE_TEST_LEN      0x36
 #define STAGE_MBR           0x37
 #define STAGE_DEEPSEA       0x38
 #define STAGE_MP_BASE       0x39
+#define STAGE_TEST_MP2      0x3a
 #define STAGE_MP_AREA52     0x3b
 #define STAGE_MP_WAREHOUSE  0x3c
 #define STAGE_MP_CARPARK    0x3d
+#define STAGE_TEST_MP6      0x3e
+#define STAGE_TEST_MP7      0x3f
+#define STAGE_TEST_MP8      0x40
 #define STAGE_MP_RUINS      0x41
 #define STAGE_MP_SEWERS     0x42
 #define STAGE_MP_FELICITY   0x43
 #define STAGE_MP_FORTRESS   0x44
 #define STAGE_MP_VILLA      0x45
+#define STAGE_TEST_MP14     0x46
 #define STAGE_MP_GRID       0x47
+#define STAGE_TEST_MP16     0x48
+#define STAGE_TEST_MP17     0x49
+#define STAGE_TEST_MP18     0x4a
+#define STAGE_TEST_MP19     0x4b
+#define STAGE_TEST_MP20     0x4c
+#define STAGE_TEST_UFF      0x4d
+#define STAGE_TEST_OLD      0x4e
 #define STAGE_DUEL          0x4f
+#define STAGE_TEST_LAM      0x50
 
 #define TARGET_PAD 0x2328
 

@@ -235,4 +235,63 @@ struct sun {
 	u16 orb_size;
 };
 
+struct smallsky {
+	// len 0x2c
+	u16 stage;
+	u16 blend_multiplier;
+	u16 sky_far;
+	u16 unk06;
+	u16 unk08;
+	u16 unk0a;
+	u16 unk0c;
+	u16 unk0e;
+	u8 sky_r;
+	u8 sky_g;
+	u8 sky_b;
+	u8 sky_enabled;
+	struct sun *sun;
+	u8 clouds_enabled;
+	u8 unk19; // pad
+	u16 unk1a;
+	u8 unk1c;
+	u8 clouds_r;
+	u8 clouds_g;
+	u8 clouds_b;
+	u16 unk20;
+	u8 unk22;
+	u8 unk23;
+	u8 water_enabled;
+	u8 water_r;
+	u8 water_g;
+	u8 water_b;
+	u8 unk28;
+};
+
+struct sky {
+	s32 stage;
+	u16 blend_multiplier;
+	u16 sky_far;
+	u32 unk08;
+	u16 unk0c;
+	u8 sky_r;
+	u8 sky_g;
+	u8 sky_b;
+	u8 num_suns;
+	struct sun *sunptr;
+	u8 clouds_enabled;
+	u8 clouds_r;
+	u8 clouds_g;
+	u8 clouds_b;
+	float clouds_scale;
+	u16 unk20;
+	u8 water_enabled;
+	u8 water_r;
+	u8 water_g;
+	u8 water_b;
+	float water_scale;
+	u16 water_type;
+	u32 unk30;
+	u32 unk34;
+};
+
 #endif
