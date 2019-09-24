@@ -44744,33 +44744,21 @@ u32 var0002f7dc = 0x1718191a;
 u32 var0002f7e0 = 0x1c1d0000;
 u32 var0002f7e4 = 0xb7000500;
 u32 var0002f7e8 = 0x0400ff00;
-u32 var0002f7ec = 0x000000c8;
-u32 var0002f7f0 = 0x00000007;
-u32 var0002f7f4 = 0x00080000;
-u32 var0002f7f8 = 0x000000d7;
-u32 var0002f7fc = 0xfffffffb;
-u32 var0002f800 = 0x02580000;
-u32 var0002f804 = 0x000000d5;
-u32 var0002f808 = 0xfffffff6;
-u32 var0002f80c = 0x00320000;
-u32 var0002f810 = 0x000000d4;
-u32 var0002f814 = 0xffffffec;
-u32 var0002f818 = 0x03e80000;
-u32 var0002f81c = 0x00000097;
-u32 var0002f820 = 0x00000023;
-u32 var0002f824 = 0x001e0000;
-u32 var0002f828 = 0x00000236;
-u32 var0002f82c = 0x00000000;
-u32 var0002f830 = 0x00460000;
-u32 var0002f834 = 0x000004b1;
-u32 var0002f838 = 0xffffffe2;
-u32 var0002f83c = 0x01f40000;
-u32 var0002f840 = 0x0000033e;
-u32 var0002f844 = 0x00000000;
-u32 var0002f848 = 0x000f0000;
-u32 var0002f84c = 0x0000023f;
-u32 var0002f850 = 0x00000000;
-u32 var0002f854 = 0x000a0000;
+
+// 2f7ec
+struct hoverprop hoverprops[] = {
+	// File ID, Y offset, size
+	{ 0x00c8,   7,    8 }, // dropship
+	{ 0x00d7,  -5,  600 }, // hovercrate1
+	{ 0x00d5, -10,   50 }, // hovbike
+	{ 0x00d4, -20, 1000 }, // hooverbot
+	{ 0x0097,  35,   30 }, // dd_hovercopter
+	{ 0x0236,   0,   70 }, // chicrob
+	{ 0x04b1, -30,  500 }, // a51interceptor
+	{ 0x033e,   0,   15 }, // elvis_saucer
+	{ 0x023f,   0,   10 }, // sk_shuttle
+};
+
 u32 var0002f858 = 0x12000000;
 u32 var0002f85c = 0x00200002;
 u32 var0002f860 = 0x00000104;

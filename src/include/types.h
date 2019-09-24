@@ -294,4 +294,10 @@ struct sky {
 	u32 unk34;
 };
 
+struct hoverprop {
+	u32 fileid;
+	s32 y_offset;
+	u16 size;
+};
+
 #endif
