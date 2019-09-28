@@ -300,4 +300,44 @@ struct hoverprop {
 	u16 size;
 };
 
+#define MENUITEMTYPE_LABEL       0x01
+#define MENUITEMTYPE_CUSTOM      0x02
+#define MENUITEMTYPE_SELECTABLE  0x04
+#define MENUITEMTYPE_SCROLLABLE  0x05
+#define MENUITEMTYPE_OBJECTIVES  0x06
+#define MENUITEMTYPE_SLIDER      0x08
+#define MENUITEMTYPE_CHECKBOX    0x09
+#define MENUITEMTYPE_SEPARATOR   0x0b
+#define MENUITEMTYPE_DROPDOWN    0x0c
+#define MENUITEMTYPE_KEYBOARD    0x0d
+#define MENUITEMTYPE_RANKING     0x0e
+#define MENUITEMTYPE_PLAYERSTATS 0x0f
+#define MENUITEMTYPE_CAROUSEL    0x11
+#define MENUITEMTYPE_MODEL       0x12
+#define MENUITEMTYPE_MARQUEE     0x17
+#define MENUITEMTYPE_CONTROLLER  0x19
+#define MENUITEMTYPE_END         0x1a
+
+struct menu_item {
+	u8 type;
+	u8 param;
+	u32 flags;
+	u32 left;
+	u32 right;
+	u32 unk10;
+};
+
+#define MENUDIALOGTYPE_DEFAULT 0x01
+#define MENUDIALOGTYPE_DANGER  0x02
+#define MENUDIALOGTYPE_SUCCESS 0x03
+
+struct menu_dialog {
+	u8 type;
+	u32 title;
+	struct menu_item *items;
+	u32 unk0c;
+	u32 unk10;
+	struct menu_dialog *nextsibling;
+};
+
 #endif
