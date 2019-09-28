@@ -357,4 +357,15 @@ struct something {
 	u32 unk08;
 };
 
+struct something2 {
+	u32 unk00;
+	float unk04;
+	float unk08;
+	float unk0c;
+	float unk10;
+	u32 unk14;
+	s32 unk18;
+	u32 unk1c;
+};
+
 #endif
