@@ -39506,110 +39506,163 @@ u32 var0002a340 = 0x0000c000;
 u32 var0002a344 = 0x00000000;
 u32 var0002a348 = 0x00000000;
 u32 var0002a34c = 0x00000000;
+
 u32 var0002a350 = 0x80878088;
 u32 var0002a354 = 0x06000000;
-u32 var0002a358 = (u32) &var0002a350;
-u32 var0002a35c = (u32) &var0002a354;
-u32 var0002a360 = 0x00020001;
+
+// 2a358
+struct something something_2a358 = {
+	&var0002a350, &var0002a354, 0x00020001,
+};
+
 u32 var0002a364 = 0x80878088;
 u32 var0002a368 = 0x01000000;
-u32 var0002a36c = (u32) &var0002a364;
-u32 var0002a370 = (u32) &var0002a368;
-u32 var0002a374 = 0x00020001;
+
+// 2a36c
+struct something something_2a36c = {
+	&var0002a364, &var0002a368, 0x00020001,
+};
+
 u32 var0002a378 = 0x807e807f;
 u32 var0002a37c = 0x10000000;
-u32 var0002a380 = (u32) &var0002a378;
-u32 var0002a384 = (u32) &var0002a37c;
-u32 var0002a388 = 0x00020001;
+
+// 2a380
+struct something something_2a380 = {
+	&var0002a378, &var0002a37c, 0x00020001,
+};
+
 u32 var0002a38c = 0x8079807b;
 u32 var0002a390 = 0x11000000;
-u32 var0002a394 = (u32) &var0002a38c;
-u32 var0002a398 = (u32) &var0002a390;
-u32 var0002a39c = 0x00020001;
+
+// 2a394
+struct something something_2a394 = {
+	&var0002a38c, &var0002a390, 0x00020001,
+};
+
 u32 var0002a3a0 = 0x80770000;
 u32 var0002a3a4 = 0x03040500;
-u32 var0002a3a8 = (u32) &var0002a3a0;
-u32 var0002a3ac = (u32) &var0002a3a4;
-u32 var0002a3b0 = 0x00010003;
+
+// 2a3a8
+struct something something_2a3a8 = {
+	&var0002a3a0, &var0002a3a4, 0x00010003,
+};
+
 u32 var0002a3b4 = 0x807d0000;
 u32 var0002a3b8 = 0x01000000;
-u32 var0002a3bc = (u32) &var0002a3b4;
-u32 var0002a3c0 = (u32) &var0002a3b8;
-u32 var0002a3c4 = 0x00010001;
+
+// 2a3bc
+struct something something_2a3bc = {
+	&var0002a3b4, &var0002a3b8, 0x00010001,
+};
+
 u32 var0002a3c8 = 0x80848085;
 u32 var0002a3cc = 0x02000000;
-u32 var0002a3d0 = (u32) &var0002a3c8;
-u32 var0002a3d4 = (u32) &var0002a3cc;
-u32 var0002a3d8 = 0x00020001;
+
+// 2a3d0
+struct something something_2a3d0 = {
+	&var0002a3c8, &var0002a3cc, 0x00020001,
+};
+
 u32 var0002a3dc = 0x80818082;
 u32 var0002a3e0 = 0x80830000;
 u32 var0002a3e4 = 0x02000000;
-u32 var0002a3e8 = (u32) &var0002a3dc;
-u32 var0002a3ec = (u32) &var0002a3e4;
-u32 var0002a3f0 = 0x00030001;
+
+// 2a3e8
+struct something something_2a3e8 = {
+	&var0002a3dc, &var0002a3e4, 0x00030001,
+};
+
 u32 var0002a3f4 = 0x80860000;
 u32 var0002a3f8 = 0x01000000;
-u32 var0002a3fc = (u32) &var0002a3f4;
-u32 var0002a400 = (u32) &var0002a3f8;
-u32 var0002a404 = 0x00010001;
+
+// 2a3fc
+struct something something_2a3fc = {
+	&var0002a3f4, &var0002a3f8, 0x00010001,
+};
+
 u32 var0002a408 = 0x8089808a;
 u32 var0002a40c = 0x01060000;
-u32 var0002a410 = (u32) &var0002a408;
-u32 var0002a414 = (u32) &var0002a40c;
-u32 var0002a418 = 0x00020002;
+
+// 2a410
+struct something something_2a410 = {
+	&var0002a408, &var0002a40c, 0x00020002,
+};
+
 u32 var0002a41c = 0x80760000;
 u32 var0002a420 = 0x02000000;
-u32 var0002a424 = (u32) &var0002a41c;
-u32 var0002a428 = (u32) &var0002a420;
-u32 var0002a42c = 0x00010001;
+
+// 2a424
+struct something something_2a424 = {
+	&var0002a41c, &var0002a420, 0x00010001,
+};
+
 u32 var0002a430 = 0x80770000;
 u32 var0002a434 = 0x03040500;
-u32 var0002a438 = (u32) &var0002a430;
-u32 var0002a43c = (u32) &var0002a434;
-u32 var0002a440 = 0x00010003;
-u32 var0002a444 = 0x00000000;
-u32 var0002a448 = 0x00000000;
-u32 var0002a44c = 0x00000000;
+
+// 2a438
+struct something something_2a438 = {
+	&var0002a430, &var0002a434, 0x00010003,
+};
+
+// 2a444
+struct something something_2a444 = {
+	NULL, NULL, 0x00000000,
+};
+
 u32 var0002a450 = 0x80800000;
 u32 var0002a454 = 0x00000000;
-u32 var0002a458 = (u32) &var0002a450;
-u32 var0002a45c = (u32) &var0002a454;
-u32 var0002a460 = 0x00010001;
+
+// 2a458
+struct something something_2a458 = {
+	&var0002a450, &var0002a454, 0x00010001,
+};
+
 u32 var0002a464 = 0x80800000;
 u32 var0002a468 = 0x00000000;
-u32 var0002a46c = (u32) &var0002a464;
-u32 var0002a470 = (u32) &var0002a468;
-u32 var0002a474 = 0x00010001;
-u32 var0002a478 = (u32) &var0002a358;
-u32 var0002a47c = (u32) &var0002a36c;
-u32 var0002a480 = (u32) &var0002a380;
-u32 var0002a484 = (u32) &var0002a394;
-u32 var0002a488 = (u32) &var0002a3a8;
-u32 var0002a48c = (u32) &var0002a458;
-u32 var0002a490 = (u32) &var0002a3bc;
-u32 var0002a494 = (u32) &var0002a3d0;
-u32 var0002a498 = (u32) &var0002a3e8;
-u32 var0002a49c = (u32) &var0002a3fc;
-u32 var0002a4a0 = (u32) &var0002a410;
-u32 var0002a4a4 = (u32) &var0002a424;
-u32 var0002a4a8 = (u32) &var0002a438;
-u32 var0002a4ac = (u32) &var0002a444;
-u32 var0002a4b0 = (u32) &var0002a46c;
-u32 var0002a4b4 = 0x7f1b7ba0;
-u32 var0002a4b8 = 0x7f1b7ba8;
-u32 var0002a4bc = 0x7f1b7bb0;
-u32 var0002a4c0 = 0x7f1b7bb8;
-u32 var0002a4c4 = 0x7f1b7bc0;
-u32 var0002a4c8 = 0x7f1b7bc8;
-u32 var0002a4cc = 0x7f1b7bd8;
-u32 var0002a4d0 = 0x7f1b7be0;
-u32 var0002a4d4 = 0x7f1b7be8;
-u32 var0002a4d8 = 0x7f1b7bec;
-u32 var0002a4dc = 0x7f1b7bf4;
-u32 var0002a4e0 = 0x7f1b7c00;
-u32 var0002a4e4 = 0x7f1b7c04;
-u32 var0002a4e8 = 0x7f1b7c10;
-u32 var0002a4ec = 0x7f1b7c18;
+
+// 2a46c
+struct something something_2a46c = {
+	&var0002a464, &var0002a468, 0x00010001,
+};
+
+// 2a478
+struct something *somethings[] = {
+	/* 0*/ &something_2a358,
+	/* 1*/ &something_2a36c,
+	/* 2*/ &something_2a380,
+	/* 3*/ &something_2a394,
+	/* 4*/ &something_2a3a8,
+	/* 5*/ &something_2a458,
+	/* 6*/ &something_2a3bc,
+	/* 7*/ &something_2a3d0,
+	/* 8*/ &something_2a3e8,
+	/* 9*/ &something_2a3fc,
+	/*10*/ &something_2a410,
+	/*11*/ &something_2a424,
+	/*12*/ &something_2a438,
+	/*13*/ &something_2a444,
+	/*14*/ &something_2a46c,
+};
+
+// 2a4b4
+u32 somethingpointers[] = {
+	/* 0*/ 0x7f1b7ba0,
+	/* 1*/ 0x7f1b7ba8,
+	/* 2*/ 0x7f1b7bb0,
+	/* 3*/ 0x7f1b7bb8,
+	/* 4*/ 0x7f1b7bc0,
+	/* 5*/ 0x7f1b7bc8,
+	/* 6*/ 0x7f1b7bd8,
+	/* 7*/ 0x7f1b7be0,
+	/* 8*/ 0x7f1b7be8,
+	/* 9*/ 0x7f1b7bec,
+	/*10*/ 0x7f1b7bf4,
+	/*11*/ 0x7f1b7c00,
+	/*12*/ 0x7f1b7c04,
+	/*13*/ 0x7f1b7c10,
+	/*14*/ 0x7f1b7c18,
+};
+
 u32 var0002a4f0 = 0x00000000;
 u32 var0002a4f4 = 0x00000000;
 u32 var0002a4f8 = 0x00000000;

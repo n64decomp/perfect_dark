@@ -351,4 +351,10 @@ struct twowords {
 	u32 unk04;
 };
 
+struct something {
+	u32 *unk00;
+	u32 *unk04;
+	u32 unk08;
+};
+
 #endif
