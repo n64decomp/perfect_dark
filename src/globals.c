@@ -38405,399 +38405,253 @@ struct stagetableentry stagetable[] = {
 
 u32 var00026a38 = 0x00000000;
 u32 var00026a3c = 0x00000000;
-u32 var00026a40 = 0xfc26a004;
-u32 var00026a44 = 0x1f1093ff;
-u32 var00026a48 = 0xfc232dff;
-u32 var00026a4c = 0xfffffe38;
-u32 var00026a50 = 0x00000000;
-u32 var00026a54 = 0x00000000;
-u32 var00026a58 = 0xb900031d;
-u32 var00026a5c = 0x0c192078;
-u32 var00026a60 = 0xb900031d;
-u32 var00026a64 = 0xc8112078;
-u32 var00026a68 = 0xb900031d;
-u32 var00026a6c = 0x0c182078;
-u32 var00026a70 = 0xb900031d;
-u32 var00026a74 = 0xc8102078;
-u32 var00026a78 = 0xb900031d;
-u32 var00026a7c = 0x0c192d58;
-u32 var00026a80 = 0xb900031d;
-u32 var00026a84 = 0xc8112d58;
-u32 var00026a88 = 0xb900031d;
-u32 var00026a8c = 0x0c184dd8;
-u32 var00026a90 = 0xb900031d;
-u32 var00026a94 = 0xc8104dd8;
-u32 var00026a98 = 0xb900031d;
-u32 var00026a9c = 0x0c1849d8;
-u32 var00026aa0 = 0xb900031d;
-u32 var00026aa4 = 0xc81049d8;
-u32 var00026aa8 = 0xb900031d;
-u32 var00026aac = 0x0c193078;
-u32 var00026ab0 = 0xb900031d;
-u32 var00026ab4 = 0xc8113078;
-u32 var00026ab8 = 0xb900031d;
-u32 var00026abc = 0x0c192048;
-u32 var00026ac0 = 0xb900031d;
-u32 var00026ac4 = 0xc8112048;
-u32 var00026ac8 = 0xb900031d;
-u32 var00026acc = 0x0c182048;
-u32 var00026ad0 = 0xb900031d;
-u32 var00026ad4 = 0xc8102048;
-u32 var00026ad8 = 0xfc26a004;
-u32 var00026adc = 0x1f1093ff;
-u32 var00026ae0 = 0xfc26a004;
-u32 var00026ae4 = 0x1f1493ff;
-u32 var00026ae8 = 0xfc121824;
-u32 var00026aec = 0xff33ffff;
-u32 var00026af0 = 0xfc121a24;
-u32 var00026af4 = 0xff37ffff;
-u32 var00026af8 = 0xfc26a004;
-u32 var00026afc = 0x1ffc93fc;
-u32 var00026b00 = 0xfc26a004;
-u32 var00026b04 = 0x1ffc93fd;
-u32 var00026b08 = 0xfc127e24;
-u32 var00026b0c = 0xfffff9fc;
-u32 var00026b10 = 0xfc127e24;
-u32 var00026b14 = 0xfffffbfd;
-u32 var00026b18 = 0xfc26a004;
-u32 var00026b1c = 0x1f1093ff;
-u32 var00026b20 = 0xfc26a004;
-u32 var00026b24 = 0x1f1493ff;
-u32 var00026b28 = 0xfc121824;
-u32 var00026b2c = 0xff33ffff;
-u32 var00026b30 = 0xfc121a24;
-u32 var00026b34 = 0xff37ffff;
-u32 var00026b38 = 0xfc26a004;
-u32 var00026b3c = 0x1ffc93fc;
-u32 var00026b40 = 0xfc26a004;
-u32 var00026b44 = 0x1ffc93fd;
-u32 var00026b48 = 0xfc127e24;
-u32 var00026b4c = 0xfffff9fc;
-u32 var00026b50 = 0xfc127e24;
-u32 var00026b54 = 0xfffffbfd;
-u32 var00026b58 = 0xfcffffff;
-u32 var00026b5c = 0xfffe7838;
-u32 var00026b60 = 0xfcffffff;
-u32 var00026b64 = 0xfffe7a38;
-u32 var00026b68 = 0xfcffffff;
-u32 var00026b6c = 0xfffe793c;
-u32 var00026b70 = 0xfcffffff;
-u32 var00026b74 = 0xfffe7b3d;
-u32 var00026b78 = 0xfc26e404;
-u32 var00026b7c = 0x1f10ffff;
-u32 var00026b80 = 0xfc26e404;
-u32 var00026b84 = 0x1f14ffff;
-u32 var00026b88 = 0x00000000;
-u32 var00026b8c = 0x00000000;
-u32 var00026b90 = 0xb900031d;
-u32 var00026b94 = 0x0c184dd8;
-u32 var00026b98 = 0xb900031d;
-u32 var00026b9c = 0xc8104dd8;
-u32 var00026ba0 = 0xb900031d;
-u32 var00026ba4 = 0x0c1849d8;
-u32 var00026ba8 = 0xb900031d;
-u32 var00026bac = 0xc81049d8;
-u32 var00026bb0 = 0xb900031d;
-u32 var00026bb4 = 0x0c193078;
-u32 var00026bb8 = 0xb900031d;
-u32 var00026bbc = 0xc8113078;
-u32 var00026bc0 = 0xfc26a004;
-u32 var00026bc4 = 0x1f1093ff;
-u32 var00026bc8 = 0xfc26a004;
-u32 var00026bcc = 0x1f1493ff;
-u32 var00026bd0 = 0xfc121824;
-u32 var00026bd4 = 0xff33ffff;
-u32 var00026bd8 = 0xfc121a24;
-u32 var00026bdc = 0xff37ffff;
-u32 var00026be0 = 0xfc26a004;
-u32 var00026be4 = 0x1ffc93fc;
-u32 var00026be8 = 0xfc26a004;
-u32 var00026bec = 0x1ffc93fd;
-u32 var00026bf0 = 0xfc127e24;
-u32 var00026bf4 = 0xfffff9fc;
-u32 var00026bf8 = 0xfc127e24;
-u32 var00026bfc = 0xfffffbfd;
-u32 var00026c00 = 0xfc26a004;
-u32 var00026c04 = 0x1f1093ff;
-u32 var00026c08 = 0xfc26a004;
-u32 var00026c0c = 0x1f1493ff;
-u32 var00026c10 = 0xfc121824;
-u32 var00026c14 = 0xff33ffff;
-u32 var00026c18 = 0xfc121a24;
-u32 var00026c1c = 0xff37ffff;
-u32 var00026c20 = 0xfc26a004;
-u32 var00026c24 = 0x1ffc93fc;
-u32 var00026c28 = 0xfc26a004;
-u32 var00026c2c = 0x1ffc93fd;
-u32 var00026c30 = 0xfc127e24;
-u32 var00026c34 = 0xfffff9fc;
-u32 var00026c38 = 0xfc127e24;
-u32 var00026c3c = 0xfffffbfd;
-u32 var00026c40 = 0xfcffffff;
-u32 var00026c44 = 0xfffe7838;
-u32 var00026c48 = 0xfcffffff;
-u32 var00026c4c = 0xfffe7a38;
-u32 var00026c50 = 0xfcffffff;
-u32 var00026c54 = 0xfffe793c;
-u32 var00026c58 = 0xfcffffff;
-u32 var00026c5c = 0xfffe7b3d;
-u32 var00026c60 = 0xfc26e404;
-u32 var00026c64 = 0x1f10ffff;
-u32 var00026c68 = 0xfc26e404;
-u32 var00026c6c = 0x1f14ffff;
-u32 var00026c70 = 0x00000000;
-u32 var00026c74 = 0x00000000;
-u32 var00026c78 = 0xfc26a004;
-u32 var00026c7c = 0x1f1093ff;
-u32 var00026c80 = 0xfc26a004;
-u32 var00026c84 = 0x1f1493ff;
-u32 var00026c88 = 0xfc121824;
-u32 var00026c8c = 0xff33ffff;
-u32 var00026c90 = 0xfc121a24;
-u32 var00026c94 = 0xff37ffff;
-u32 var00026c98 = 0xfc26a004;
-u32 var00026c9c = 0x1ffc93fc;
-u32 var00026ca0 = 0xfc26a004;
-u32 var00026ca4 = 0x1ffc93fd;
-u32 var00026ca8 = 0xfc127e24;
-u32 var00026cac = 0xfffff9fc;
-u32 var00026cb0 = 0xfc127e24;
-u32 var00026cb4 = 0xfffffbfd;
-u32 var00026cb8 = 0xfc26a004;
-u32 var00026cbc = 0x1f1093ff;
-u32 var00026cc0 = 0xfc26a004;
-u32 var00026cc4 = 0x1f1493ff;
-u32 var00026cc8 = 0xfc121824;
-u32 var00026ccc = 0xff33ffff;
-u32 var00026cd0 = 0xfc121a24;
-u32 var00026cd4 = 0xff37ffff;
-u32 var00026cd8 = 0xfc26a004;
-u32 var00026cdc = 0x1ffc93fc;
-u32 var00026ce0 = 0xfc26a004;
-u32 var00026ce4 = 0x1ffc93fd;
-u32 var00026ce8 = 0xfc127e24;
-u32 var00026cec = 0xfffff9fc;
-u32 var00026cf0 = 0xfc127e24;
-u32 var00026cf4 = 0xfffffbfd;
-u32 var00026cf8 = 0xfcffffff;
-u32 var00026cfc = 0xfffe7838;
-u32 var00026d00 = 0xfcffffff;
-u32 var00026d04 = 0xfffe7a38;
-u32 var00026d08 = 0xfcffffff;
-u32 var00026d0c = 0xfffe793c;
-u32 var00026d10 = 0xfcffffff;
-u32 var00026d14 = 0xfffe7b3d;
-u32 var00026d18 = 0x00000000;
-u32 var00026d1c = 0x00000000;
-u32 var00026d20 = 0xfc26a004;
-u32 var00026d24 = 0x1f1093ff;
-u32 var00026d28 = 0xfc26a004;
-u32 var00026d2c = 0x1f1493ff;
-u32 var00026d30 = 0xfc121824;
-u32 var00026d34 = 0xff33ffff;
-u32 var00026d38 = 0xfc121a24;
-u32 var00026d3c = 0xff37ffff;
-u32 var00026d40 = 0xfc26a004;
-u32 var00026d44 = 0x1ffc93fc;
-u32 var00026d48 = 0xfc26a004;
-u32 var00026d4c = 0x1ffc93fd;
-u32 var00026d50 = 0xfc127e24;
-u32 var00026d54 = 0xfffff9fc;
-u32 var00026d58 = 0xfc127e24;
-u32 var00026d5c = 0xfffffbfd;
-u32 var00026d60 = 0xfc26a004;
-u32 var00026d64 = 0x1f1093ff;
-u32 var00026d68 = 0xfc26a004;
-u32 var00026d6c = 0x1f1493ff;
-u32 var00026d70 = 0xfc121824;
-u32 var00026d74 = 0xff33ffff;
-u32 var00026d78 = 0xfc121a24;
-u32 var00026d7c = 0xff37ffff;
-u32 var00026d80 = 0xfc26a004;
-u32 var00026d84 = 0x1ffc93fc;
-u32 var00026d88 = 0xfc26a004;
-u32 var00026d8c = 0x1ffc93fd;
-u32 var00026d90 = 0xfc127e24;
-u32 var00026d94 = 0xfffff9fc;
-u32 var00026d98 = 0xfc127e24;
-u32 var00026d9c = 0xfffffbfd;
-u32 var00026da0 = 0xfcffffff;
-u32 var00026da4 = 0xfffe7838;
-u32 var00026da8 = 0xfcffffff;
-u32 var00026dac = 0xfffe7a38;
-u32 var00026db0 = 0xfcffffff;
-u32 var00026db4 = 0xfffe793c;
-u32 var00026db8 = 0xfcffffff;
-u32 var00026dbc = 0xfffe7b3d;
-u32 var00026dc0 = 0x00000000;
-u32 var00026dc4 = 0x00000000;
-u32 var00026dc8 = 0xb900031d;
-u32 var00026dcc = 0x005049d8;
-u32 var00026dd0 = 0xb900031d;
-u32 var00026dd4 = 0x00553078;
-u32 var00026dd8 = 0xb900031d;
-u32 var00026ddc = 0x0c1849d8;
-u32 var00026de0 = 0xb900031d;
-u32 var00026de4 = 0x0c193078;
-u32 var00026de8 = 0x00000000;
-u32 var00026dec = 0x00000000;
-u32 var00026df0 = 0xb900031d;
-u32 var00026df4 = 0x00552078;
-u32 var00026df8 = 0xb900031d;
-u32 var00026dfc = 0x00502078;
-u32 var00026e00 = 0xb900031d;
-u32 var00026e04 = 0x0c192078;
-u32 var00026e08 = 0xb900031d;
-u32 var00026e0c = 0x0c182078;
-u32 var00026e10 = 0x00000000;
-u32 var00026e14 = 0x00000000;
-u32 var00026e18 = 0xb900031d;
-u32 var00026e1c = 0x0c1849d8;
-u32 var00026e20 = 0xb900031d;
-u32 var00026e24 = 0x0c184b50;
-u32 var00026e28 = 0x00000000;
-u32 var00026e2c = 0x00000000;
-u32 var00026e30 = 0xba001402;
-u32 var00026e34 = 0x00000000;
-u32 var00026e38 = 0xba001402;
-u32 var00026e3c = 0x00100000;
-u32 var00026e40 = 0xb900031d;
-u32 var00026e44 = 0x00502048;
-u32 var00026e48 = 0xb900031d;
-u32 var00026e4c = 0x08d02048;
-u32 var00026e50 = 0xfc127e24;
-u32 var00026e54 = 0xfffff9fc;
-u32 var00026e58 = 0xfc127fff;
-u32 var00026e5c = 0xfffff838;
-u32 var00026e60 = 0x00000000;
-u32 var00026e64 = 0x00000000;
-u32 var00026e68 = 0xfc127e24;
-u32 var00026e6c = 0xfffff9fc;
-u32 var00026e70 = 0xfc137e26;
-u32 var00026e74 = 0xfffff9fc;
-u32 var00026e78 = 0xfc121824;
-u32 var00026e7c = 0xff33ffff;
-u32 var00026e80 = 0xfc131826;
-u32 var00026e84 = 0xff33ffff;
-u32 var00026e88 = 0xfc127e24;
-u32 var00026e8c = 0xfffff9fc;
-u32 var00026e90 = 0xfc137e26;
-u32 var00026e94 = 0xfffff9fc;
-u32 var00026e98 = 0xfc121824;
-u32 var00026e9c = 0xff33ffff;
-u32 var00026ea0 = 0xfc131826;
-u32 var00026ea4 = 0xff33ffff;
-u32 var00026ea8 = 0xfcffffff;
-u32 var00026eac = 0xfffe793c;
-u32 var00026eb0 = 0xfc637ec6;
-u32 var00026eb4 = 0xfffff9fc;
-u32 var00026eb8 = 0xfc26a004;
-u32 var00026ebc = 0x1ffc93fc;
-u32 var00026ec0 = 0xfc26a006;
-u32 var00026ec4 = 0x1ffc93fc;
-u32 var00026ec8 = 0xfc26a004;
-u32 var00026ecc = 0x1f1093ff;
-u32 var00026ed0 = 0xfc26a006;
-u32 var00026ed4 = 0x1f1093ff;
-u32 var00026ed8 = 0xfc26a004;
-u32 var00026edc = 0x1ffc93fc;
-u32 var00026ee0 = 0xfc26a006;
-u32 var00026ee4 = 0x1ffc93fc;
-u32 var00026ee8 = 0xfc26a004;
-u32 var00026eec = 0x1f1093ff;
-u32 var00026ef0 = 0xfc26a006;
-u32 var00026ef4 = 0x1f1093ff;
-u32 var00026ef8 = 0xfc26e404;
-u32 var00026efc = 0x1ffcfffc;
-u32 var00026f00 = 0xfc26e406;
-u32 var00026f04 = 0x1ffcfffc;
-u32 var00026f08 = 0xfc26e404;
-u32 var00026f0c = 0x1f10ffff;
-u32 var00026f10 = 0xfc26e406;
-u32 var00026f14 = 0x1f10ffff;
-u32 var00026f18 = 0xfc26e404;
-u32 var00026f1c = 0x1ffcfffc;
-u32 var00026f20 = 0xfc26e406;
-u32 var00026f24 = 0x1ffcfffc;
-u32 var00026f28 = 0xfc26e404;
-u32 var00026f2c = 0x1f10ffff;
-u32 var00026f30 = 0xfc26e406;
-u32 var00026f34 = 0x1f10ffff;
-u32 var00026f38 = 0xfcffffff;
-u32 var00026f3c = 0xfffe7838;
-u32 var00026f40 = 0xfc637fff;
-u32 var00026f44 = 0xfffff838;
-u32 var00026f48 = 0x00000000;
-u32 var00026f4c = 0x00000000;
-u32 var00026f50 = 0xfc137e26;
-u32 var00026f54 = 0xfffff9fc;
-u32 var00026f58 = 0xfc127e24;
-u32 var00026f5c = 0xfffff9fc;
-u32 var00026f60 = 0xfc131826;
-u32 var00026f64 = 0xff33ffff;
-u32 var00026f68 = 0xfc121824;
-u32 var00026f6c = 0xff33ffff;
-u32 var00026f70 = 0xfc137e26;
-u32 var00026f74 = 0xfffff9fc;
-u32 var00026f78 = 0xfc127e24;
-u32 var00026f7c = 0xfffff9fc;
-u32 var00026f80 = 0xfc131826;
-u32 var00026f84 = 0xff33ffff;
-u32 var00026f88 = 0xfc121824;
-u32 var00026f8c = 0xff33ffff;
-u32 var00026f90 = 0xfc637ec6;
-u32 var00026f94 = 0xfffff9fc;
-u32 var00026f98 = 0xfcffffff;
-u32 var00026f9c = 0xfffe793c;
-u32 var00026fa0 = 0xfc26a006;
-u32 var00026fa4 = 0x1ffc93fc;
-u32 var00026fa8 = 0xfc26a004;
-u32 var00026fac = 0x1ffc93fc;
-u32 var00026fb0 = 0xfc26a006;
-u32 var00026fb4 = 0x1f1093ff;
-u32 var00026fb8 = 0xfc26a004;
-u32 var00026fbc = 0x1f1093ff;
-u32 var00026fc0 = 0xfc26a006;
-u32 var00026fc4 = 0x1ffc93fc;
-u32 var00026fc8 = 0xfc26a004;
-u32 var00026fcc = 0x1ffc93fc;
-u32 var00026fd0 = 0xfc26a006;
-u32 var00026fd4 = 0x1f1093ff;
-u32 var00026fd8 = 0xfc26a004;
-u32 var00026fdc = 0x1f1093ff;
-u32 var00026fe0 = 0xfc26e406;
-u32 var00026fe4 = 0x1ffcfffc;
-u32 var00026fe8 = 0xfc26e404;
-u32 var00026fec = 0x1ffcfffc;
-u32 var00026ff0 = 0xfc26e406;
-u32 var00026ff4 = 0x1f10ffff;
-u32 var00026ff8 = 0xfc26e404;
-u32 var00026ffc = 0x1f10ffff;
-u32 var00027000 = 0xfc26e406;
-u32 var00027004 = 0x1ffcfffc;
-u32 var00027008 = 0xfc26e404;
-u32 var0002700c = 0x1ffcfffc;
-u32 var00027010 = 0xfc26e406;
-u32 var00027014 = 0x1f10ffff;
-u32 var00027018 = 0xfc26e404;
-u32 var0002701c = 0x1f10ffff;
-u32 var00027020 = 0xfc637fff;
-u32 var00027024 = 0xfffff838;
-u32 var00027028 = 0xfcffffff;
-u32 var0002702c = 0xfffe7838;
-u32 var00027030 = 0x00000000;
-u32 var00027034 = 0x00000000;
-u32 var00027038 = (u32) &var00026a40;
-u32 var0002703c = (u32) &var00026a58;
-u32 var00027040 = (u32) &var00026dc8;
-u32 var00027044 = (u32) &var00026df0;
-u32 var00027048 = (u32) &var00026e18;
-u32 var0002704c = (u32) &var00026b90;
-u32 var00027050 = (u32) &var00026c78;
-u32 var00027054 = (u32) &var00026d20;
-u32 var00027058 = (u32) &var00026e30;
-u32 var0002705c = (u32) &var00026e68;
-u32 var00027060 = (u32) &var00026f50;
+
+// 26a40
+struct twowords twowords_26a40[] = {
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc232dff, 0xfffffe38 },
+	{ 0x00000000, 0x00000000 },
+};
+
+// 26a58
+struct twowords twowords_26a58[] = {
+	{ 0xb900031d, 0x0c192078 },
+	{ 0xb900031d, 0xc8112078 },
+	{ 0xb900031d, 0x0c182078 },
+	{ 0xb900031d, 0xc8102078 },
+	{ 0xb900031d, 0x0c192d58 },
+	{ 0xb900031d, 0xc8112d58 },
+	{ 0xb900031d, 0x0c184dd8 },
+	{ 0xb900031d, 0xc8104dd8 },
+	{ 0xb900031d, 0x0c1849d8 },
+	{ 0xb900031d, 0xc81049d8 },
+	{ 0xb900031d, 0x0c193078 },
+	{ 0xb900031d, 0xc8113078 },
+	{ 0xb900031d, 0x0c192048 },
+	{ 0xb900031d, 0xc8112048 },
+	{ 0xb900031d, 0x0c182048 },
+	{ 0xb900031d, 0xc8102048 },
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a004, 0x1f1493ff },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc121a24, 0xff37ffff },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1ffc93fd },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc127e24, 0xfffffbfd },
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a004, 0x1f1493ff },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc121a24, 0xff37ffff },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1ffc93fd },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc127e24, 0xfffffbfd },
+	{ 0xfcffffff, 0xfffe7838 },
+	{ 0xfcffffff, 0xfffe7a38 },
+	{ 0xfcffffff, 0xfffe793c },
+	{ 0xfcffffff, 0xfffe7b3d },
+	{ 0xfc26e404, 0x1f10ffff },
+	{ 0xfc26e404, 0x1f14ffff },
+	{ 0x00000000, 0x00000000 },
+};
+
+// 26b90
+struct twowords twowords_26b90[] = {
+	{ 0xb900031d, 0x0c184dd8 },
+	{ 0xb900031d, 0xc8104dd8 },
+	{ 0xb900031d, 0x0c1849d8 },
+	{ 0xb900031d, 0xc81049d8 },
+	{ 0xb900031d, 0x0c193078 },
+	{ 0xb900031d, 0xc8113078 },
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a004, 0x1f1493ff },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc121a24, 0xff37ffff },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1ffc93fd },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc127e24, 0xfffffbfd },
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a004, 0x1f1493ff },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc121a24, 0xff37ffff },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1ffc93fd },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc127e24, 0xfffffbfd },
+	{ 0xfcffffff, 0xfffe7838 },
+	{ 0xfcffffff, 0xfffe7a38 },
+	{ 0xfcffffff, 0xfffe793c },
+	{ 0xfcffffff, 0xfffe7b3d },
+	{ 0xfc26e404, 0x1f10ffff },
+	{ 0xfc26e404, 0x1f14ffff },
+	{ 0x00000000, 0x00000000 },
+};
+
+// 26c78
+struct twowords twowords_26c78[] = {
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a004, 0x1f1493ff },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc121a24, 0xff37ffff },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1ffc93fd },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc127e24, 0xfffffbfd },
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a004, 0x1f1493ff },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc121a24, 0xff37ffff },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1ffc93fd },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc127e24, 0xfffffbfd },
+	{ 0xfcffffff, 0xfffe7838 },
+	{ 0xfcffffff, 0xfffe7a38 },
+	{ 0xfcffffff, 0xfffe793c },
+	{ 0xfcffffff, 0xfffe7b3d },
+	{ 0x00000000, 0x00000000 },
+};
+
+// 26d20
+struct twowords twowords_26d20[] = {
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a004, 0x1f1493ff },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc121a24, 0xff37ffff },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1ffc93fd },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc127e24, 0xfffffbfd },
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a004, 0x1f1493ff },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc121a24, 0xff37ffff },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1ffc93fd },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc127e24, 0xfffffbfd },
+	{ 0xfcffffff, 0xfffe7838 },
+	{ 0xfcffffff, 0xfffe7a38 },
+	{ 0xfcffffff, 0xfffe793c },
+	{ 0xfcffffff, 0xfffe7b3d },
+	{ 0x00000000, 0x00000000 },
+};
+
+// 26dc8
+struct twowords twowords_26dc8[] = {
+	{ 0xb900031d, 0x005049d8 },
+	{ 0xb900031d, 0x00553078 },
+	{ 0xb900031d, 0x0c1849d8 },
+	{ 0xb900031d, 0x0c193078 },
+	{ 0x00000000, 0x00000000 },
+};
+
+// 26df0
+struct twowords twowords_26df0[] = {
+	{ 0xb900031d, 0x00552078 },
+	{ 0xb900031d, 0x00502078 },
+	{ 0xb900031d, 0x0c192078 },
+	{ 0xb900031d, 0x0c182078 },
+	{ 0x00000000, 0x00000000 },
+};
+
+// 26e18
+struct twowords twowords_26e18[] = {
+	{ 0xb900031d, 0x0c1849d8 },
+	{ 0xb900031d, 0x0c184b50 },
+	{ 0x00000000, 0x00000000 },
+};
+
+// 26e30
+struct twowords twowords_26e30[] = {
+	{ 0xba001402, 0x00000000 },
+	{ 0xba001402, 0x00100000 },
+	{ 0xb900031d, 0x00502048 },
+	{ 0xb900031d, 0x08d02048 },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc127fff, 0xfffff838 },
+	{ 0x00000000, 0x00000000 },
+};
+
+// 26e68
+struct twowords twowords_26e68[] = {
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc137e26, 0xfffff9fc },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc131826, 0xff33ffff },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc137e26, 0xfffff9fc },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc131826, 0xff33ffff },
+	{ 0xfcffffff, 0xfffe793c },
+	{ 0xfc637ec6, 0xfffff9fc },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a006, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a006, 0x1f1093ff },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a006, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a006, 0x1f1093ff },
+	{ 0xfc26e404, 0x1ffcfffc },
+	{ 0xfc26e406, 0x1ffcfffc },
+	{ 0xfc26e404, 0x1f10ffff },
+	{ 0xfc26e406, 0x1f10ffff },
+	{ 0xfc26e404, 0x1ffcfffc },
+	{ 0xfc26e406, 0x1ffcfffc },
+	{ 0xfc26e404, 0x1f10ffff },
+	{ 0xfc26e406, 0x1f10ffff },
+	{ 0xfcffffff, 0xfffe7838 },
+	{ 0xfc637fff, 0xfffff838 },
+	{ 0x00000000, 0x00000000 },
+};
+
+// 26f50
+struct twowords twowords_26f50[] = {
+	{ 0xfc137e26, 0xfffff9fc },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc131826, 0xff33ffff },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc137e26, 0xfffff9fc },
+	{ 0xfc127e24, 0xfffff9fc },
+	{ 0xfc131826, 0xff33ffff },
+	{ 0xfc121824, 0xff33ffff },
+	{ 0xfc637ec6, 0xfffff9fc },
+	{ 0xfcffffff, 0xfffe793c },
+	{ 0xfc26a006, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a006, 0x1f1093ff },
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26a006, 0x1ffc93fc },
+	{ 0xfc26a004, 0x1ffc93fc },
+	{ 0xfc26a006, 0x1f1093ff },
+	{ 0xfc26a004, 0x1f1093ff },
+	{ 0xfc26e406, 0x1ffcfffc },
+	{ 0xfc26e404, 0x1ffcfffc },
+	{ 0xfc26e406, 0x1f10ffff },
+	{ 0xfc26e404, 0x1f10ffff },
+	{ 0xfc26e406, 0x1ffcfffc },
+	{ 0xfc26e404, 0x1ffcfffc },
+	{ 0xfc26e406, 0x1f10ffff },
+	{ 0xfc26e404, 0x1f10ffff },
+	{ 0xfc637fff, 0xfffff838 },
+	{ 0xfcffffff, 0xfffe7838 },
+	{ 0x00000000, 0x00000000 },
+};
+
+u32 var00027038 = (u32) &twowords_26a40;
+u32 var0002703c = (u32) &twowords_26a58;
+u32 var00027040 = (u32) &twowords_26dc8;
+u32 var00027044 = (u32) &twowords_26df0;
+u32 var00027048 = (u32) &twowords_26e18;
+u32 var0002704c = (u32) &twowords_26b90;
+u32 var00027050 = (u32) &twowords_26c78;
+u32 var00027054 = (u32) &twowords_26d20;
+u32 var00027058 = (u32) &twowords_26e30;
+u32 var0002705c = (u32) &twowords_26e68;
+u32 var00027060 = (u32) &twowords_26f50;
 u32 var00027064 = 0x00000000;
 u32 var00027068 = 0x00000000;
 u32 var0002706c = 0x00000000;

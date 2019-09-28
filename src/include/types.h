@@ -346,4 +346,9 @@ struct stagethinglist {
 	u16 *things;
 };
 
+struct twowords {
+	u32 unk00;
+	u32 unk04;
+};
+
 #endif
