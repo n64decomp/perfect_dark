@@ -340,4 +340,10 @@ struct menu_dialog {
 	struct menu_dialog *nextsibling;
 };
 
+struct stagethinglist {
+	u16 stage;
+	u16 numthings;
+	u16 *things;
+};
+
 #endif
