@@ -115,6 +115,25 @@ $(B_DIR)/files/L%Z: $(B_DIR)/files/lang/L%.bin
 	tools/rarezip $< > $@
 
 ################################################################################
+# Library
+
+library: $(B_DIR)/ucode/library.bin
+
+$(B_DIR)/library.o: src/library.c
+	mkdir -p $(B_DIR)
+	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
+	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+
+$(B_DIR)/library.elf: $(B_DIR)/library.o
+	cp $< build/library.tmp.o
+	$(TOOLCHAIN)-ld -e 0x00003050 -T ld/library.ld -o $@
+	rm -f build/library.tmp.o
+
+$(B_DIR)/ucode/library.bin: $(B_DIR)/library.elf
+	mkdir -p $(B_DIR)/ucode
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
+
+################################################################################
 # Game setup file
 
 setup: $(B_DIR)/ucode/setup.bin
@@ -167,6 +186,7 @@ test: $(B_SETUP_BINZ_FILES) $(B_LANG_BINZ_FILES)
 		--exclude=ob \
 		$(E_DIR)/files $(B_DIR)/files
 	@diff -q $(E_DIR)/ucode/setup.bin $(B_DIR)/ucode/setup.bin
+	@diff -q $(E_DIR)/ucode/library.bin $(B_DIR)/ucode/library.bin
 
 testall:
 	REGION=ntsc RELEASE=final make test
@@ -179,7 +199,7 @@ testall:
 ################################################################################
 # Miscellaneous
 
-all: setup lang stagesetup
+all: library setup lang stagesetup
 
 rom: $(B_SETUP_BINZ_FILES) $(B_DIR)/ucode/setup.bin
 	tools/inject pd.$(ROMID).z64
