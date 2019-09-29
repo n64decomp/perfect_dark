@@ -3,10 +3,10 @@ OUTPUT_ARCH (mips)
 
 SECTIONS
 {
-   .data 0x80059fe0 : AT(0x0000) {
-      build/globals.tmp.o (.data);
+   .text 0x70200000 : AT(0x0000) {
+      build/rarezip.tmp.o (.text);
+      build/rarezip.tmp.o (.data);
    }
-
 
 
 

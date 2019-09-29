@@ -34,19 +34,19 @@ class Injector:
         self.rompart3 = rombuffer[0x001a15c0:0x00ed83a0]
         self.rompart4 = rombuffer[0x01d5ca00:]
 
-        fp = open('build/ntsc-final/Uglobals', 'rb')
-        globals = fp.read()
+        fp = open('build/ntsc-final/ucode/setup.bin', 'rb')
+        setup = fp.read()
         fp.close()
 
-        self.globaltop = globals[0:0x28080]
-        self.globalbot = globals[0x2a000:]
+        self.globaltop = setup[0:0x28080]
+        self.globalbot = setup[0x2a000:]
 
         self.files = []
         i = 0
 
         while i <= 0x7dd:
             romnameaddr = int.from_bytes(rombuffer[0x01d5ca00 + i * 4:0x01d5ca00 + i * 4 + 4], 'big') + 0x01d5ca00
-            romdataaddr = int.from_bytes(globals[0x28080 + i * 4:0x28080 + i * 4 + 4], 'big')
+            romdataaddr = int.from_bytes(setup[0x28080 + i * 4:0x28080 + i * 4 + 4], 'big')
 
             name = ''
             while rombuffer[romnameaddr] != 0:

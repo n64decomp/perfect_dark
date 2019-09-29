@@ -59,16 +59,16 @@ E_SETUP_BIN_FILES := $(patsubst src/setup/%.c, $(E_DIR)/files/setup/U%.bin, $(SE
 B_SETUP_BINZ_FILES := $(patsubst src/setup/%.c, $(B_DIR)/files/U%Z, $(SETUP_C_FILES))
 E_SETUP_BINZ_FILES := $(patsubst src/setup/%.c, $(E_DIR)/files/U%Z, $(SETUP_C_FILES))
 
-setup: $(B_SETUP_BINZ_FILES)
+stagesetup: $(B_SETUP_BINZ_FILES)
 
 $(B_DIR)/files/setup/%.o: src/setup/%.c $(SETUP_H_FILES)
 	mkdir -p $(B_DIR)/files/setup
 	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) -o $@ -O2 $<
 
 $(B_DIR)/files/setup/%.elf: $(B_DIR)/files/setup/%.o
-	cp $< build/setup.tmp.o
-	$(TOOLCHAIN)-ld -T setup.ld -o $@
-	rm -f build/setup.tmp.o
+	cp $< build/zero.tmp.o
+	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
+	rm -f build/zero.tmp.o
 
 $(B_DIR)/files/setup/U%.bin: $(B_DIR)/files/setup/%.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
@@ -95,9 +95,9 @@ $(B_DIR)/files/lang/%.o: src/lang/%.c
 	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) -o $@ -O2 $<
 
 $(B_DIR)/files/lang/%.elf: $(B_DIR)/files/lang/%.o
-	cp $< build/setup.tmp.o
-	$(TOOLCHAIN)-ld -T setup.ld -o $@
-	rm -f build/setup.tmp.o
+	cp $< build/zero.tmp.o
+	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
+	rm -f build/zero.tmp.o
 
 $(B_DIR)/files/lang/L%.bin: $(B_DIR)/files/lang/%.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
@@ -115,20 +115,21 @@ $(B_DIR)/files/L%Z: $(B_DIR)/files/lang/L%.bin
 	tools/rarezip $< > $@
 
 ################################################################################
-# Globals file
+# Game setup file
 
-globals: $(B_DIR)/Uglobals
+setup: $(B_DIR)/ucode/setup.bin
 
-$(B_DIR)/globals.o: src/globals.c $(SETUP_H_FILES)
+$(B_DIR)/setup.o: src/setup.c $(SETUP_H_FILES)
 	mkdir -p $(B_DIR)
 	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) -o $@ -O2 $<
 
-$(B_DIR)/globals.elf: $(B_DIR)/globals.o
-	cp $< build/globals.tmp.o
-	$(TOOLCHAIN)-ld -e 0x80059fe0 -T globals.ld -o $@
-	rm -f build/globals.tmp.o
+$(B_DIR)/setup.elf: $(B_DIR)/setup.o
+	cp $< build/setup.tmp.o
+	$(TOOLCHAIN)-ld -e 0x80059fe0 -T ld/setup.ld -o $@
+	rm -f build/setup.tmp.o
 
-$(B_DIR)/Uglobals: $(B_DIR)/globals.elf
+$(B_DIR)/ucode/setup.bin: $(B_DIR)/setup.elf
+	mkdir -p $(B_DIR)/ucode
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
 ################################################################################
@@ -165,7 +166,7 @@ test: $(B_SETUP_BINZ_FILES) $(B_LANG_BINZ_FILES)
 		--exclude=bgdata \
 		--exclude=ob \
 		$(E_DIR)/files $(B_DIR)/files
-	@diff -q $(E_DIR)/Uglobals $(B_DIR)/Uglobals
+	@diff -q $(E_DIR)/ucode/setup.bin $(B_DIR)/ucode/setup.bin
 
 testall:
 	REGION=ntsc RELEASE=final make test
@@ -178,9 +179,9 @@ testall:
 ################################################################################
 # Miscellaneous
 
-all: setup lang globals
+all: setup lang stagesetup
 
-rom: $(B_SETUP_BINZ_FILES) $(B_DIR)/Uglobals
+rom: $(B_SETUP_BINZ_FILES) $(B_DIR)/ucode/setup.bin
 	tools/inject pd.$(ROMID).z64
 
 clean:
