@@ -115,6 +115,25 @@ $(B_DIR)/files/L%Z: $(B_DIR)/files/lang/L%.bin
 	tools/rarezip $< > $@
 
 ################################################################################
+# Boot
+
+boot: $(B_DIR)/ucode/boot.bin
+
+$(B_DIR)/boot.o: src/boot.c
+	mkdir -p $(B_DIR)
+	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
+	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+
+$(B_DIR)/boot.elf: $(B_DIR)/boot.o $(B_DIR)/library.o
+	$(TOOLCHAIN)-ld -e 0x00003050 -T ld/boot.ld -o $@
+
+$(B_DIR)/ucode/boot.bin: $(B_DIR)/boot.elf
+	mkdir -p $(B_DIR)/ucode
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
+	dd if="$@" of="$@.tmp" bs=8272 count=1
+	mv "$@.tmp" "$@"
+
+################################################################################
 # Library
 
 library: $(B_DIR)/ucode/library.bin
