@@ -2,7 +2,7 @@
 // Stage ID 0x36
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 u8 intro[];
 u8 props[];

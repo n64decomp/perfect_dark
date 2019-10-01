@@ -2,7 +2,7 @@
 // Chicago
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_TOPSTAIRS 0x07

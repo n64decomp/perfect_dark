@@ -2,7 +2,7 @@
 // Skedar Ruins
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_KING1 0x33

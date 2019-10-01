@@ -2,7 +2,7 @@
 // Air Force One
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_ELVIS      0x00

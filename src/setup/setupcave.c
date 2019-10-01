@@ -2,7 +2,7 @@
 // Air Base
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_STEWARDESS 0x38

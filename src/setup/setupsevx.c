@@ -2,7 +2,7 @@
 // Stage IDs 0x24 and 0x2b
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 u8 intro[];
 u8 props[];

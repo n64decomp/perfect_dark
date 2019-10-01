@@ -2,7 +2,7 @@
 // WAR!
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_MAIAN_LEADER    0x3d

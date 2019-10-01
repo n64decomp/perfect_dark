@@ -3,9 +3,13 @@ OUTPUT_ARCH (mips)
 
 SECTIONS
 {
-	.data 0x00003050 : AT(0x0000) {
-		build/library.tmp.o (.text);
-		build/library.tmp.o (.data);
+	.library 0x00003050 : AT(0) {
+		build/ntsc-final/library.o (.text);
+		build/ntsc-final/library.o (.data);
+	}
+
+	.setup 0x80059fe0 : AT(SIZEOF(.library)) {
+		build/ntsc-final/setup.o (.data);
 	}
 
 	/DISCARD/ : {
@@ -17,5 +21,6 @@ SECTIONS
 		* (.gptab.bss);
 		* (.gptab.data);
 		* (.reginfo);
+		* (.setup.data);
 	}
 }

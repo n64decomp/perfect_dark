@@ -2,7 +2,7 @@
 // Duel
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_GUARD    0x00

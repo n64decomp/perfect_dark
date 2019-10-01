@@ -2,7 +2,7 @@
 // Escape
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_JONATHAN 0x21

@@ -2,7 +2,7 @@
 // Mr. Blonde's Revenge
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_CHIEF 0x21

@@ -1,8 +1,8 @@
-#include "ultra64.h"
-#include "constants.h"
-#include "commands.h"
-#include "intro.h"
-#include "props.h"
-#include "types.h"
-#include "gunscript.h"
+#ifndef _IN_SETUP_H
+#define _IN_SETUP_H
+#include <ultra64.h>
 
+extern u32 levelnum;
+extern u64 rand_seed;
+
+#endif

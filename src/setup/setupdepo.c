@@ -2,7 +2,7 @@
 // G5 Building
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_CLOAK_1A          0x00 // first room

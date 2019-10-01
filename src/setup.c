@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "src/include/setup.h"
+#include "src/include/stagesetup.h"
 #include "src/include/types.h"
 
 // Assembly
@@ -3546,7 +3547,9 @@ u32 var000039c4 = 0x00000000;
 u32 var000039c8 = 0x00000000;
 u32 var000039cc = 0x00000000;
 u32 var000039d0 = 0x00000000;
-u32 var000039d4 = 0x0000005a;
+
+u32 levelnum = 0x5a;
+
 u32 var000039d8 = 0x0004b000;
 u32 var000039dc = 0x00000000;
 u32 var000039e0 = 0x00000000;
@@ -4312,8 +4315,10 @@ u32 var00004e10 = 0xffffffff;
 u32 var00004e14 = 0x00000000;
 u32 var00004e18 = 0x00000000;
 u32 var00004e1c = 0x00000000;
-u32 var00004e20 = 0xab8d9f77;
-u32 var00004e24 = 0x81280783;
+
+// 4e20
+u64 rand_seed = 0xab8d9f7781280783;
+
 u32 var00004e28 = 0x00000000;
 u32 var00004e2c = 0x00000000;
 u32 var00004e30 = 0x00000001;

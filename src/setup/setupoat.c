@@ -2,7 +2,7 @@
 // Skedar (MP)
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Functions
 #define FUNC0401_INIT_ENEMY 0x0401

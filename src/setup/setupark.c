@@ -2,7 +2,7 @@
 // Extraction
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_DRCAROLL      0x00

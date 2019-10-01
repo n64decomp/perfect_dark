@@ -2,7 +2,7 @@
 // Rescue
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_ALIEN              0x38

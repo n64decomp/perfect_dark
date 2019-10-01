@@ -124,14 +124,14 @@ $(B_DIR)/library.o: src/library.c
 	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
 	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
-$(B_DIR)/library.elf: $(B_DIR)/library.o
-	cp $< build/library.tmp.o
+$(B_DIR)/library.elf: $(B_DIR)/library.o $(B_DIR)/setup.o
 	$(TOOLCHAIN)-ld -e 0x00003050 -T ld/library.ld -o $@
-	rm -f build/library.tmp.o
 
 $(B_DIR)/ucode/library.bin: $(B_DIR)/library.elf
 	mkdir -p $(B_DIR)/ucode
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
+	dd if="$@" of="$@.tmp" bs=356240 count=1
+	mv "$@.tmp" "$@"
 
 ################################################################################
 # Game setup file
@@ -143,9 +143,7 @@ $(B_DIR)/setup.o: src/setup.c $(SETUP_H_FILES)
 	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) -o $@ -O2 $<
 
 $(B_DIR)/setup.elf: $(B_DIR)/setup.o
-	cp $< build/setup.tmp.o
 	$(TOOLCHAIN)-ld -e 0x80059fe0 -T ld/setup.ld -o $@
-	rm -f build/setup.tmp.o
 
 $(B_DIR)/ucode/setup.bin: $(B_DIR)/setup.elf
 	mkdir -p $(B_DIR)/ucode

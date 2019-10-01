@@ -2,7 +2,7 @@
 // Air Force One
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 u8 intro[];
 u8 props[];

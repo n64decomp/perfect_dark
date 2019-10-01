@@ -2,7 +2,7 @@
 // Defection
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_CASS       0x24

@@ -2,7 +2,7 @@
 // Defense
 //
 
-#include "../include/setup.h"
+#include "../include/stagesetup.h"
 
 // Characters
 #define CHR_CARRINGTON       0x00
