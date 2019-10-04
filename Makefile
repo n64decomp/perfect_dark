@@ -194,7 +194,7 @@ $(B_DIR)/game.o: src/game/game.c
 	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
 	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
-$(B_DIR)/game.elf: $(B_DIR)/game.o $(B_DIR)/library.o $(B_DIR)/setup.o
+$(B_DIR)/game.elf: $(B_DIR)/game.o $(B_DIR)/library.o $(B_DIR)/setup.o $(B_DIR)/gvars.o
 	$(TOOLCHAIN)-ld -T ld/game.ld -o $@
 
 $(B_DIR)/ucode/game.bin: $(B_DIR)/game.elf
@@ -202,6 +202,23 @@ $(B_DIR)/ucode/game.bin: $(B_DIR)/game.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 	dd if="$@" of="$@.tmp" bs=1808864 count=1
 	mv "$@.tmp" "$@"
+
+################################################################################
+# gVars
+
+gvars: $(B_DIR)/ucode/gvars.bin
+
+$(B_DIR)/gvars.o: src/gvars.c
+	mkdir -p $(B_DIR)/ucode
+	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
+	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+
+$(B_DIR)/gvars.elf: $(B_DIR)/gvars.o
+	$(TOOLCHAIN)-ld -T ld/gvars.ld -o $@
+
+$(B_DIR)/ucode/gvars.bin: $(B_DIR)/gvars.elf
+	mkdir -p $(B_DIR)/ucode
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
 ################################################################################
 # Test related

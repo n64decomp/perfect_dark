@@ -18,6 +18,11 @@ SECTIONS
 		build/ntsc-final/setup.o (.data);
 	}
 
+	.gvars 0x80099fc0 : AT(SIZEOF(.game) + SIZEOF(.library) + SIZEOF(.setup)) {
+		build/ntsc-final/gvars.o (.text);
+		build/ntsc-final/gvars.o (.data);
+	}
+
 	/DISCARD/ : {
 		* (.MIPS.abiflags);
 		* (.options);
@@ -27,6 +32,5 @@ SECTIONS
 		* (.gptab.bss);
 		* (.gptab.data);
 		* (.reginfo);
-		* (.setup.data);
 	}
 }
