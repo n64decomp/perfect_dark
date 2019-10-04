@@ -223,6 +223,7 @@ test: $(B_SETUP_BINZ_FILES) $(B_LANG_BINZ_FILES)
 		$(E_DIR)/files $(B_DIR)/files
 	@diff -q $(E_DIR)/ucode/setup.bin $(B_DIR)/ucode/setup.bin
 	@diff -q $(E_DIR)/ucode/library.bin $(B_DIR)/ucode/library.bin
+	@diff -q $(E_DIR)/ucode/game.bin $(B_DIR)/ucode/game.bin
 
 testall:
 	REGION=ntsc RELEASE=final make test
