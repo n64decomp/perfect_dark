@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "src/include/game.h"
 #include "src/include/setup.h"
 #include "src/include/stagesetup.h"
 #include "src/include/types.h"
@@ -13948,7 +13949,7 @@ u32 var0000e4ac = 0x00000000;
 u32 command_pointers[] = {
 	/*0x0000*/ 0x7f04dbc0,
 	/*0x0001*/ 0x7f04dbfc,
-	/*0x0002*/ 0x7f04dc3c,
+	/*0x0002*/ aiLabel,
 	/*0x0003*/ 0x7f04dc58,
 	/*0x0004*/ 0x7f04e0a8,
 	/*0x0005*/ 0x7f04dd08,

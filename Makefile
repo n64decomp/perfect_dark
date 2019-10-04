@@ -167,6 +167,8 @@ $(B_DIR)/setup.elf: $(B_DIR)/setup.o
 $(B_DIR)/ucode/setup.bin: $(B_DIR)/setup.elf
 	mkdir -p $(B_DIR)/ucode
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
+	dd if="$@" of="$@.tmp" bs=200256 count=1
+	mv "$@.tmp" "$@"
 
 ################################################################################
 # Rarezip
