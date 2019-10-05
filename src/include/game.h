@@ -7,7 +7,7 @@
 /*0x0001*/ bool aiGoToFirst(void);
 /*0x0002*/ bool aiLabel(void);
 /*0x0003*/ bool aiYield(void);
-/*0x0004*/ bool ai0004(void);
+/*0x0004*/ bool aiEndList(void);
 /*0x0005*/ bool ai0005(void);
 /*0x0006*/ bool ai0006(void);
 /*0x0007*/ bool ai0007(void);
