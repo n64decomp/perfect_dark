@@ -13948,7 +13948,7 @@ u32 var0000e4ac = 0x00000000;
 // e4b0
 bool (*command_pointers[])(void) = {
 	/*0x0000*/ ai0000,
-	/*0x0001*/ ai0001,
+	/*0x0001*/ aiGoToFirst,
 	/*0x0002*/ aiLabel,
 	/*0x0003*/ ai0003,
 	/*0x0004*/ ai0004,

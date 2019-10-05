@@ -4,7 +4,7 @@
 #include "src/include/constants.h"
 
 /*0x0000*/ bool ai0000(void);
-/*0x0001*/ bool ai0001(void);
+/*0x0001*/ bool aiGoToFirst(void);
 /*0x0002*/ bool aiLabel(void);
 /*0x0003*/ bool ai0003(void);
 /*0x0004*/ bool ai0004(void);
