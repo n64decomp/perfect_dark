@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "src/include/constants.h"
 
-/*0x0000*/ bool ai0000(void);
+/*0x0000*/ bool aiGoToNext(void);
 /*0x0001*/ bool aiGoToFirst(void);
 /*0x0002*/ bool aiLabel(void);
 /*0x0003*/ bool ai0003(void);
