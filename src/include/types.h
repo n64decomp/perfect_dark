@@ -324,7 +324,7 @@ struct menu_item {
 	u32 flags;
 	u32 left;
 	u32 right;
-	u32 unk10;
+	u32 (*handler)(u32, u32, u32);
 };
 
 #define MENUDIALOGTYPE_DEFAULT 0x01
