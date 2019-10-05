@@ -6,7 +6,7 @@
 /*0x0000*/ bool aiGoToNext(void);
 /*0x0001*/ bool aiGoToFirst(void);
 /*0x0002*/ bool aiLabel(void);
-/*0x0003*/ bool ai0003(void);
+/*0x0003*/ bool aiYield(void);
 /*0x0004*/ bool ai0004(void);
 /*0x0005*/ bool ai0005(void);
 /*0x0006*/ bool ai0006(void);

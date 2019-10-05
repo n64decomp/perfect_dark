@@ -1,4 +1,5 @@
 #include "ultra64.h"
+#include "src/include/types.h"
 
 struct g_vars {
 	// Known member names based on debug strings:
@@ -280,10 +281,10 @@ struct g_vars {
 	/*0418*/ u32 unk0418;
 	/*041c*/ u32 unk041c;
 	/*0420*/ u32 unk0420;
-	/*0424*/ u32 unk0424;
-	/*0428*/ u32 unk0428;
-	/*042c*/ u32 unk042c;
-	/*0430*/ u32 unk0430;
+	/*0424*/ struct chrdata *chrdata;
+	/*0428*/ struct defaultobj *objdata;
+	/*042c*/ struct otheraidata *aicdata;
+	/*0430*/ struct otheraidata *aiddata;
 	/*0434*/ u8 *ailist;
 	/*0438*/ u32 aioffset;
 	/*043c*/ u32 unk043c;
