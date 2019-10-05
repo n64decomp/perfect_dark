@@ -24710,7 +24710,7 @@ struct menu_dialog menudialog_pakremoved = {
 	MENUDIALOGTYPE_DANGER,
 	0x54ad, // "Error"
 	menuitems_pakremoved,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -24728,7 +24728,7 @@ struct menu_dialog menudialog_pakrepaired = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x54b4,
 	menuitems_pakrepaired,
-	0x7f0fcd48,
+	menudialog000fcd48,
 	0x00000000,
 	NULL,
 };
@@ -24746,7 +24746,7 @@ struct menu_dialog menudialog_pakrepairfailed = {
 	MENUDIALOGTYPE_DANGER,
 	0x54b6,
 	menuitems_pakrepairfailed,
-	0x7f0fcd48,
+	menudialog000fcd48,
 	0x00000000,
 	NULL,
 };
@@ -24766,7 +24766,7 @@ struct menu_dialog menudialog_pakattemptrepair = {
 	MENUDIALOGTYPE_DANGER,
 	0x54af, // "Attempt Repair"
 	menuitems_pakattemptrepair,
-	0x7f0fcd48,
+	menudialog000fcd48,
 	0x00000000,
 	NULL,
 };
@@ -24798,7 +24798,7 @@ struct menu_dialog menudialog_damagedcontrollerpak = {
 	MENUDIALOGTYPE_DANGER,
 	0x05440,
 	menuitems_damagedcontrollerpak,
-	0x7f0fcd48,
+	menudialog000fcd48,
 	0x00000020,
 	NULL,
 };
@@ -24819,7 +24819,7 @@ struct menu_dialog menudialog_fullcontrollerpak = {
 	MENUDIALOGTYPE_DANGER,
 	0x5446,
 	menuitems_fullcontrollerpak,
-	0x7f0fcd48,
+	menudialog000fcd48,
 	0x00000020,
 	NULL,
 };
@@ -24837,7 +24837,7 @@ struct menu_dialog menudialog_cannotreadgameboy = {
 	MENUDIALOGTYPE_DANGER,
 	0x54fd, // "Error"
 	menuitems_cannotreadgameboy,
-	0x00000000,
+	NULL,
 	0x00000020,
 	NULL,
 };
@@ -24858,7 +24858,7 @@ struct menu_dialog menudialog_datalost = {
 	MENUDIALOGTYPE_DANGER,
 	0x5500,
 	menuitems_datalost,
-	0x00000000,
+	NULL,
 	0x00000020,
 	NULL,
 };
@@ -24886,7 +24886,7 @@ struct menu_dialog menudialog_picktarget = {
 	MENUDIALOGTYPE_DANGER,
 	0x57ec, // "Pick Target"
 	menuitems_picktarget,
-	0x7f0fdc74,
+	menudialog000fdc74,
 	0x00000000,
 	NULL,
 };
@@ -24965,7 +24965,7 @@ struct menu_dialog menudialog_briefing = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56f7, // "Briefing"
 	menuitems_briefing,
-	0x7f103368,
+	menudialog00103368,
 	0x00000008,
 	NULL,
 };
@@ -24983,7 +24983,7 @@ struct menu_dialog menudialog_objectives = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f103550,
 	menuitems_objectives,
-	0x7f103608,
+	menudialog00103608,
 	0x0000000c,
 	&menudialog_briefing,
 };
@@ -25005,7 +25005,7 @@ struct menu_dialog menudialog_perfectdarkmodesettings = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x54dd, // "Perfect Dark"
 	menuitems_perfectdarkmodesettings,
-	0x00000000,
+	NULL,
 	0x00000004,
 	NULL,
 };
@@ -25027,7 +25027,7 @@ struct menu_dialog menudialog_selectdifficulty = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56f8, // "Select Difficulty"
 	menuitems_selectdifficulty,
-	0x00000000,
+	NULL,
 	0x00000004,
 	NULL,
 };
@@ -25048,7 +25048,7 @@ struct menu_dialog menudialog_cooperativeoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56ff, // "Co-Operative Options"
 	menuitems_cooperativeoptions,
-	0x7f104104,
+	menudialog00104104,
 	0x00000004,
 	NULL,
 };
@@ -25068,7 +25068,7 @@ struct menu_dialog menudialog_counteroperativeoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x570a, // "Counter-Operative Options"
 	menuitems_counteroperativeoptions,
-	0x7f104104,
+	menudialog00104104,
 	0x00000004,
 	NULL,
 };
@@ -25088,7 +25088,7 @@ struct menu_dialog menudialog_selectdifficulty2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x000056f8, // "Select Difficulty"
 	menuitems_selectdifficulty2,
-	0x00000000,
+	NULL,
 	0x00000004,
 	NULL,
 };
@@ -25108,7 +25108,7 @@ struct menu_dialog menudialog_selectdifficulty3 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x000056f8, // "Select Difficulty"
 	menuitems_selectdifficulty3,
-	0x00000000,
+	NULL,
 	0x00000004,
 	NULL,
 };
@@ -25171,7 +25171,7 @@ struct menu_dialog menudialog_18028 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56f7, // "Briefing"
 	menuitems_17fd8,
-	0x00000000,
+	NULL,
 	0x00000008,
 	NULL,
 };
@@ -25181,7 +25181,7 @@ struct menu_dialog menudialog_18040 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56f7, // "Briefing"
 	menuitems_17fd8,
-	0x00000000,
+	NULL,
 	0x00000008,
 	NULL,
 };
@@ -25191,7 +25191,7 @@ struct menu_dialog menudialog_18058 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56f7, // "Briefing"
 	menuitems_18000,
-	0x00000000,
+	NULL,
 	0x00000008,
 	NULL,
 };
@@ -25207,7 +25207,7 @@ struct menu_dialog menudialog_control = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56ec, // "Control"
 	menuitems_control,
-	0x00000000,
+	NULL,
 	0x00000400,
 	NULL,
 };
@@ -25224,7 +25224,7 @@ struct menu_dialog menudialog_control2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56ec, // "Control"
 	menuitems_control2,
-	0x00000000,
+	NULL,
 	0x00000400,
 	NULL,
 };
@@ -25241,7 +25241,7 @@ struct menu_dialog menudialog_control3 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56ec, // "Control"
 	menuitems_control3,
-	0x00000000,
+	NULL,
 	0x00000400,
 	NULL,
 };
@@ -25258,7 +25258,7 @@ struct menu_dialog menudialog_control4 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56ec, // "Control"
 	menuitems_control4,
-	0x00000000,
+	NULL,
 	0x00000400,
 	NULL,
 };
@@ -25279,7 +25279,7 @@ struct menu_dialog menudialog_audiooptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56e3, // "Audio Options"
 	menuitems_audiooptions,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -25300,7 +25300,7 @@ struct menu_dialog menudialog_audiooptionsshort = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56e3, // "Audio Options"
 	menuitems_audiooptions2,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -25332,7 +25332,7 @@ struct menu_dialog menudialog_videooptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56d6, // "Video Options"
 	menuitems_videooptions,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -25342,7 +25342,7 @@ struct menu_dialog menudialog_videooptionsshort = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56d6, // "Video Options"
 	menuitems_videooptionsshort,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -25368,7 +25368,7 @@ struct menu_dialog menudialog_displayoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56cb, // "Display Options"
 	menuitems_displayoptions,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -25394,7 +25394,7 @@ struct menu_dialog menudialog_displayoptionsshort = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56cb, // "Display Options"
 	menuitems_displayoptionsshort,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -25422,7 +25422,7 @@ struct menu_dialog menudialog_displayoptions_2pplayer1 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56cb, // "Display Options"
 	menuitems_displayoptions_2pplayer1,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_displayplayer2,
 };
@@ -25448,7 +25448,7 @@ struct menu_dialog menudialog_displayplayer2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56cc, // "Display Player 2"
 	menuitems_displayplayer2,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -25471,7 +25471,7 @@ struct menu_dialog menudialog_controloptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56c0, // "Control Options"
 	menuitems_controloptions,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -25496,7 +25496,7 @@ struct menu_dialog menudialog_189dc = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56c0, // "Control Options"
 	menuitems_18928,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_18aa8,
 };
@@ -25519,7 +25519,7 @@ struct menu_dialog menudialog_18aa8 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56c1, // "Control Player 2"
 	menuitems_189f4,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -25537,7 +25537,7 @@ struct menu_dialog menudialog_changeagent = {
 	MENUDIALOGTYPE_DANGER,
 	0x56bc, // "Warning"
 	menuitems_changeagent,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -25592,7 +25592,7 @@ struct menu_dialog menudialog_18d30 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56b4, // "Options"
 	menuitems_18b28,
-	0x7f10559c,
+	menudialog0010559c,
 	0x00000000,
 	&menudialog_18028,
 };
@@ -25602,7 +25602,7 @@ struct menu_dialog menudialog_18d48 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56b4, // "Options"
 	menuitems_18ca4,
-	0x7f10559c,
+	menudialog0010559c,
 	0x00000000,
 	NULL,
 };
@@ -25612,7 +25612,7 @@ struct menu_dialog menudialog_18d60 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56b4, // "Options"
 	menuitems_18ca4,
-	0x7f10559c,
+	menudialog0010559c,
 	0x00000000,
 	NULL,
 };
@@ -25622,7 +25622,7 @@ struct menu_dialog menudialog_18d78 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56b4, // "Options"
 	menuitems_18b8c,
-	0x7f10559c,
+	menudialog0010559c,
 	0x00000000,
 	&menudialog_18040,
 };
@@ -25632,7 +25632,7 @@ struct menu_dialog menudialog_18d90 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56b4, // "Options"
 	menuitems_18c18,
-	0x7f10559c,
+	menudialog0010559c,
 	0x00000000,
 	&menudialog_18058,
 };
@@ -26070,7 +26070,7 @@ struct menu_dialog menudialog_19534 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56b2, // "Inventory"
 	menuitems_inventory,
-	0x7f105c54,
+	menudialog00105c54,
 	0x00000602,
 	&menudialog_18d30,
 };
@@ -26080,7 +26080,7 @@ struct menu_dialog menudialog_weaponsavailable = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56b3, // "Weapons Available"
 	menuitems_weaponsavailable,
-	0x7f105c54,
+	menudialog00105c54,
 	0x00000602,
 	NULL,
 };
@@ -26100,7 +26100,7 @@ struct menu_dialog menudialog_abort = {
 	MENUDIALOGTYPE_DANGER,
 	0x56ae, // "Warning"
 	menuitems_abort,
-	0x7f1063d4,
+	menudialog001063d4,
 	0x00000000,
 	NULL,
 };
@@ -26118,7 +26118,7 @@ struct menu_dialog menudialog_abortshort = {
 	MENUDIALOGTYPE_DANGER,
 	0x56ae, // "Warning"
 	menuitems_abortshort,
-	0x7f1063d4,
+	menudialog001063d4,
 	0x00000000,
 	NULL,
 };
@@ -26142,7 +26142,7 @@ struct menu_dialog menudialog_196b0 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f106508,
 	menuitems_19674,
-	0x7f1063e4,
+	menudialog001063e4,
 	0x00000048,
 	&menudialog_19534,
 };
@@ -26154,7 +26154,7 @@ struct menu_dialog menudialog_196c8 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f106508,
 	menuitems_19674,
-	0x7f1063e4,
+	menudialog001063e4,
 	0x00000048,
 	&menudialog_2a800,
 };
@@ -26166,7 +26166,7 @@ struct menu_dialog menudialog_status = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56ac, // "Status"
 	menuitems_status,
-	0x7f1063e4,
+	menudialog001063e4,
 	0x00000048,
 	&menudialog_2a818,
 };
@@ -26264,7 +26264,7 @@ struct menu_dialog menudialog_cinema = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x57ea, // "Cinema"
 	menuitems_cinema,
-	0x00000000,
+	NULL,
 	0x00000004,
 	NULL,
 };
@@ -26280,7 +26280,7 @@ struct menu_dialog menudialog_missionselect = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x567a, // "Mission Select"
 	menuitems_missionselect,
-	0x00000000,
+	NULL,
 	0x00000004,
 	NULL,
 };
@@ -26315,7 +26315,7 @@ struct menu_dialog menudialog_mainmenu = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5674, // "Perfect Menu"
 	menuitems_mainmenu,
-	0x7f1069c0,
+	menudialog001069c0,
 	0x00000004,
 	&menudialog_18d48,
 };
@@ -26325,7 +26325,7 @@ struct menu_dialog menudialog_mainmenu2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5674, // "Perfect Menu"
 	menuitems_mainmenu,
-	0x7f1069c0,
+	menudialog001069c0,
 	0x00000004,
 	&menudialog_18d60,
 };
@@ -26392,7 +26392,7 @@ struct menu_dialog menudialog_cheatwarning = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x51de, // "Warning"
 	menuitems_cheatwarning,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -26417,7 +26417,7 @@ struct menu_dialog menudialog_cheats_fun = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5476, // "Fun"
 	menuitems_cheats_fun,
-	0x7f107990,
+	menudialog00107990,
 	0x00000000,
 	NULL,
 };
@@ -26444,7 +26444,7 @@ struct menu_dialog menudialog_cheats_gameplay = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5477, // "Gameplay"
 	menuitems_cheats_gameplay,
-	0x7f107990,
+	menudialog00107990,
 	0x00000000,
 	NULL,
 };
@@ -26471,7 +26471,7 @@ struct menu_dialog menudialog_cheats_soloweapons = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x547a, // "Weapons for Jo in Solo"
 	menuitems_cheats_soloweapons,
-	0x7f107990,
+	menudialog00107990,
 	0x00000000,
 	NULL,
 };
@@ -26498,7 +26498,7 @@ struct menu_dialog menudialog_cheats_classicweapons = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x547b, // "Classic Weapons for Jo in Solo"
 	menuitems_cheats_classicweapons,
-	0x7f107990,
+	menudialog00107990,
 	0x00000000,
 	NULL,
 };
@@ -26525,7 +26525,7 @@ struct menu_dialog menudialog_cheats_weapons = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5478, // "Weapons"
 	menuitems_cheats_weapons,
-	0x7f107990,
+	menudialog00107990,
 	0x00000000,
 	NULL,
 };
@@ -26549,7 +26549,7 @@ struct menu_dialog menudialog_cheats_buddies = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5479, // "Buddies"
 	menuitems_cheats_buddies,
-	0x7f107990,
+	menudialog00107990,
 	0x00000000,
 	NULL,
 };
@@ -26574,7 +26574,7 @@ struct menu_dialog menudialog_cheats = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51dc, // "Cheats"
 	menuitems_cheats,
-	0x7f107990,
+	menudialog00107990,
 	0x00000000,
 	NULL,
 };
@@ -26612,7 +26612,7 @@ struct menu_dialog menudialog_1a410 = {
 	MENUDIALOGTYPE_DANGER,
 	0x5740, // "Error"
 	menuitems_1a3c0,
-	0x00000000,
+	NULL,
 	0x00000080,
 	NULL,
 };
@@ -26661,7 +26661,7 @@ struct menu_dialog menudialog_filesaved = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x5759, // "Cool!"
 	menuitems_filesaved,
-	0x00000000,
+	NULL,
 	0x00000080,
 	NULL,
 };
@@ -26681,7 +26681,7 @@ struct menu_dialog menudialog_saveerror = {
 	MENUDIALOGTYPE_DANGER,
 	0x7f10876c,
 	menuitems_saveerror,
-	0x00000000,
+	NULL,
 	0x000000a0,
 	NULL,
 };
@@ -26699,7 +26699,7 @@ struct menu_dialog menudialog_savelost = {
 	MENUDIALOGTYPE_DANGER,
 	0x7f10876c,
 	menuitems_savelost,
-	0x00000000,
+	NULL,
 	0x000000a0,
 	NULL,
 };
@@ -26717,7 +26717,7 @@ struct menu_dialog menudialog_saveelsewhere = {
 	MENUDIALOGTYPE_DANGER,
 	0x5767, // "Save"
 	menuitems_saveelsewhere,
-	0x00000000,
+	NULL,
 	0x000000a0,
 	NULL,
 };
@@ -26735,7 +26735,7 @@ struct menu_dialog menudialog_1a654 = {
 	MENUDIALOGTYPE_DANGER,
 	0x7f10876c,
 	menuitems_1a604,
-	0x7f108e58,
+	menudialog00108e58,
 	0x000000a0,
 	NULL,
 };
@@ -26759,7 +26759,7 @@ struct menu_dialog menudialog_changefilename = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x54ee, // "Change File Name"
 	menuitems_changefilename,
-	0x00000000,
+	NULL,
 	0x00000080,
 	NULL,
 };
@@ -26781,7 +26781,7 @@ struct menu_dialog menudialog_duplicatefilename = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x54e8, // "Duplicate File Name"
 	menuitems_duplicatefilename,
-	0x00000000,
+	NULL,
 	0x00000080,
 	NULL,
 };
@@ -26816,7 +26816,7 @@ struct menu_dialog menudialog_selectlocation = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x576f, // "Select Location"
 	menuitems_selectlocation,
-	0x00000000,
+	NULL,
 	0x00000080,
 	NULL,
 };
@@ -26836,7 +26836,7 @@ struct menu_dialog menudialog_confirmdelete = {
 	MENUDIALOGTYPE_DANGER,
 	0x577b, // "Warning"
 	menuitems_confirmdelete,
-	0x00000000,
+	NULL,
 	0x00000080,
 	NULL,
 };
@@ -26855,7 +26855,7 @@ struct menu_dialog menudialog_1a984 = {
 	MENUDIALOGTYPE_DANGER,
 	0x549f, // "Error"
 	menuitems_1a920,
-	0x00000000,
+	NULL,
 	0x00000080,
 	NULL,
 };
@@ -26873,7 +26873,7 @@ struct menu_dialog menudialog_deletefile = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5778, // "Delete File"
 	menuitems_deletefile,
-	0x7f10b014,
+	menudialog0010b014,
 	0x00000000,
 	NULL,
 };
@@ -26891,7 +26891,7 @@ struct menu_dialog menudialog_copyfile = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5775, // "Copy File"
 	menuitems_copyfile,
-	0x7f10b014,
+	menudialog0010b014,
 	0x00000000,
 	NULL,
 };
@@ -26911,7 +26911,7 @@ struct menu_dialog menudialog_deletegamenote = {
 	MENUDIALOGTYPE_DANGER,
 	0x577f,
 	menuitems_deletegamenote,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -26933,7 +26933,7 @@ struct menu_dialog menudialog_gamenotes = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5783, // "Game Notes"
 	menuitems_gamenotes,
-	0x7f10b674,
+	menudialog0010b674,
 	0x00000000,
 	NULL,
 };
@@ -26957,7 +26957,7 @@ struct menu_dialog menudialog_controllerpakmenu = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x566b, // "Controller Pak Menu"
 	menuitems_controllerpakmenu,
-	0x7f10ba10,
+	menudialog0010ba10,
 	0x00000000,
 	NULL,
 };
@@ -26983,7 +26983,7 @@ struct menu_dialog menudialog_gamefiles = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5663,
 	menuitems_gamefiles,
-	0x00000000,
+	NULL,
 	0x00000020,
 	NULL,
 };
@@ -26999,7 +26999,7 @@ struct menu_dialog menudialog_enteragentname = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5791, // "Enter Agent Name"
 	menuitems_enteragentname,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -27016,7 +27016,7 @@ struct menu_dialog menudialog_fileselect = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x565f, // "Perfect Dark"
 	menuitems_fileselect,
-	0x7f10c804,
+	menudialog0010c804,
 	0x00000020,
 	&menudialog_gamefiles,
 };
@@ -27044,7 +27044,7 @@ struct menu_dialog menudialog_gamefiles2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5663, // "Game Files"
 	menuitems_gamefiles2,
-	0x00000000,
+	NULL,
 	0x00000020,
 	NULL,
 };
@@ -27061,7 +27061,7 @@ struct menu_dialog menudialog_fileselect2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x565f, // "Perfect Dark"
 	menuitems_fileselect2,
-	0x7f10c804,
+	menudialog0010c804,
 	0x00000020,
 	&menudialog_gamefiles2,
 };
@@ -27083,7 +27083,7 @@ struct menu_dialog menudialog_1b00c = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5733, // "Audio/Visual"
 	menuitems_audiovisual,
-	0x7f10559c,
+	menudialog0010559c,
 	0x00000000,
 	NULL,
 };
@@ -27113,7 +27113,7 @@ struct menu_dialog menudialog_mpplayersetup = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x501c, // "Player Setup"
 	menuitems_mpplayersetup,
-	0x00000000,
+	NULL,
 	0x00000800,
 	&menudialog_mpchallengedetails,
 };
@@ -27135,7 +27135,7 @@ struct menu_dialog menudialog_mpquickgo2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x59cc, // "Quick Go"
 	menuitems_mpquickgo2,
-	0x7f17f0dc,
+	menudialog0017f0dc,
 	0x00000000,
 	NULL,
 };
@@ -27154,7 +27154,7 @@ struct menu_dialog menudialog_1b1bc = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f17e318,
 	menuitems_1b158,
-	0x7f17e3fc,
+	menudialog0017e3fc,
 	0x00000000,
 	NULL,
 };
@@ -27170,7 +27170,7 @@ struct menu_dialog menudialog_mpcombatchallenges = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5032, // "Combat Challenges"
 	menuitems_mpcombatchallenges,
-	0x7f17eb34,
+	menudialog0017eb34,
 	0x00000000,
 	NULL,
 };
@@ -27195,7 +27195,7 @@ struct menu_dialog menudialog_smallbutperfectmenu = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x572e, // "Small but Perfect Menu"
 	menuitems_smallbutperfectmenu,
-	0x7f10cc08,
+	menudialog0010cc08,
 	0x00000030,
 	NULL,
 };
@@ -27213,7 +27213,7 @@ struct menu_dialog menudialog_mpdropout = {
 	MENUDIALOGTYPE_DANGER,
 	0x50c3, // "Drop Out"
 	menuitems_mpdropout,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -27231,7 +27231,7 @@ struct menu_dialog menudialog_mpabort = {
 	MENUDIALOGTYPE_DANGER,
 	0x5034, // "Abort"
 	menuitems_mpabort,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -27251,7 +27251,7 @@ struct menu_dialog menudialog_1b414 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f17cfc0,
 	menuitems_1b39c,
-	0x7f17c618,
+	menudialog0017c618,
 	0x00000010,
 	NULL,
 };
@@ -27289,7 +27289,7 @@ struct menu_dialog menudialog_mpgamesetup = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5011,
 	menuitems_mpgamesetup,
-	0x7f17f0b0,
+	menudialog0017f0b0,
 	0x00000810,
 	&menudialog_mpplayersetup,
 };
@@ -27307,7 +27307,7 @@ struct menu_dialog menudialog_1b5c0 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f10ce74,
 	menuitems_1b570,
-	0x7f10cd0c,
+	menudialog0010cd0c,
 	0x0000000c,
 	&menudialog_briefing,
 };
@@ -27327,7 +27327,7 @@ struct menu_dialog menudialog_promptnextmission = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f10cf2c,
 	menuitems_promptnextmission,
-	0x7f10cd0c,
+	menudialog0010cd0c,
 	0x0000000c,
 	&menudialog_briefing,
 };
@@ -27353,7 +27353,7 @@ struct menu_dialog menudialog_1b708 = {
 	MENUDIALOGTYPE_DANGER,
 	0x572c, // "Objectives"
 	menuitems_1b6b8,
-	0x7f1063e4,
+	menudialog001063e4,
 	0x00000048,
 	NULL,
 };
@@ -27363,7 +27363,7 @@ struct menu_dialog menudialog_1b720 = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x572c, // "Objectives"
 	menuitems_1b6b8,
-	0x7f1063e4,
+	menudialog001063e4,
 	0x00000048,
 	NULL,
 };
@@ -27373,7 +27373,7 @@ struct menu_dialog menudialog_1b738 = {
 	MENUDIALOGTYPE_DANGER,
 	0x572c, // "Objectives"
 	menuitems_1b668,
-	0x7f1063e4,
+	menudialog001063e4,
 	0x00000048,
 	NULL,
 };
@@ -27383,7 +27383,7 @@ struct menu_dialog menudialog_1b750 = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x572c, // "Objectives"
 	menuitems_1b668,
-	0x7f1063e4,
+	menudialog001063e4,
 	0x00000048,
 	NULL,
 };
@@ -27400,7 +27400,7 @@ struct menu_dialog menudialog_1b7a4 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f10d61c,
 	menuitems_1b768,
-	0x00000000,
+	NULL,
 	0x00000004,
 	NULL,
 };
@@ -27465,7 +27465,7 @@ struct menu_dialog menudialog_1bb44 = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x7f10d588,
 	menuitems_1b98c,
-	0x7f10dd28,
+	menudialog0010dd28,
 	0x00000048,
 	&menudialog_1b720,
 };
@@ -27475,7 +27475,7 @@ struct menu_dialog menudialog_1bb5c = {
 	MENUDIALOGTYPE_DANGER,
 	0x7f10d678,
 	menuitems_1b98c,
-	0x7f10de58,
+	menudialog0010de58,
 	0x00000048,
 	&menudialog_1b708,
 };
@@ -27485,7 +27485,7 @@ struct menu_dialog menudialog_1bb74 = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x7f10d588,
 	menuitems_1b98c,
-	0x7f10dd28,
+	menudialog0010dd28,
 	0x00000048,
 	&menudialog_1b720,
 };
@@ -27495,7 +27495,7 @@ struct menu_dialog menudialog_1bb8c = {
 	MENUDIALOGTYPE_DANGER,
 	0x7f10d678,
 	menuitems_1b98c,
-	0x7f10de58,
+	menudialog0010de58,
 	0x00000048,
 	&menudialog_1b708,
 };
@@ -27505,7 +27505,7 @@ struct menu_dialog menudialog_1bba4 = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x5714, // "Completed"
 	menuitems_1b7bc,
-	0x7f10dd28,
+	menudialog0010dd28,
 	0x00000048,
 	&menudialog_1b750,
 };
@@ -27515,7 +27515,7 @@ struct menu_dialog menudialog_1bbbc = {
 	MENUDIALOGTYPE_DANGER,
 	0x5715, // "Failed"
 	menuitems_1b7bc,
-	0x7f10de58,
+	menudialog0010de58,
 	0x00000048,
 	&menudialog_1b738,
 };
@@ -39647,7 +39647,7 @@ struct menu_dialog menudialog_mpendgame = {
 	MENUDIALOGTYPE_DANGER,
 	0x5122, // "End Game"
 	menuitems_mpendgame,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -39671,7 +39671,7 @@ struct menu_dialog menudialog_2a794 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x511d, // "Control"
 	menuitems_2a6cc,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -39688,7 +39688,7 @@ struct menu_dialog menudialog_2a7e8 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x511c, // "Inventory"
 	menuitems_2a7ac,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2a794,
 };
@@ -39698,7 +39698,7 @@ struct menu_dialog menudialog_2a800 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x511c, // "Inventory"
 	menuitems_2a7ac,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_18d78,
 };
@@ -39708,7 +39708,7 @@ struct menu_dialog menudialog_2a818 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x511c, // "Inventory"
 	menuitems_2a7ac,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_18d90,
 };
@@ -39724,7 +39724,7 @@ struct menu_dialog menudialog_2a858 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f1783a0,
 	menuitems_2a830,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2a7e8,
 };
@@ -39734,7 +39734,7 @@ struct menu_dialog menudialog_2a870 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f1783a0,
 	menuitems_2a830,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -39750,7 +39750,7 @@ struct menu_dialog menudialog_2a8b0 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5114, // "Player Ranking"
 	menuitems_2a888,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2a858,
 };
@@ -39760,7 +39760,7 @@ struct menu_dialog menudialog_2a8c8 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5114, // "Player Ranking"
 	menuitems_2a888,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2a870,
 };
@@ -39776,7 +39776,7 @@ struct menu_dialog menudialog_2a908 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5117, // "Team Ranking"
 	menuitems_2a8e0,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2a8b0,
 };
@@ -39786,7 +39786,7 @@ struct menu_dialog menudialog_2a920 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5117, // "Team Ranking"
 	menuitems_2a8e0,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2a8c8,
 };
@@ -39826,7 +39826,7 @@ struct menu_dialog menudialog_2aa18 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5104, // "Game Over"
 	menuitems_2a950,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2a8c8,
 };
@@ -39836,7 +39836,7 @@ struct menu_dialog menudialog_2aa30 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5104, // "Game Over"
 	menuitems_2a950,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2a920,
 };
@@ -39846,7 +39846,7 @@ struct menu_dialog menudialog_2aa48 = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x54a5, // "Challenge Completed!"
 	menuitems_2a8e0,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2aa18,
 };
@@ -39856,7 +39856,7 @@ struct menu_dialog menudialog_2aa60 = {
 	MENUDIALOGTYPE_DANGER,
 	0x54a7, // "Challenge Cheated!"
 	menuitems_2a8e0,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2aa18,
 };
@@ -39866,7 +39866,7 @@ struct menu_dialog menudialog_2aa78 = {
 	MENUDIALOGTYPE_DANGER,
 	0x54a6, // "Challenge Failed!"
 	menuitems_2a8e0,
-	0x00000000,
+	NULL,
 	0x00000000,
 	&menudialog_2aa18,
 };
@@ -39883,7 +39883,7 @@ struct menu_dialog menudialog_2aacc = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x508e, // "Player Name"
 	menuitems_2aa90,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -39901,7 +39901,7 @@ struct menu_dialog menudialog_2ab34 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x54f6, // "Save Player"
 	menuitems_2aae4,
-	0x00000000,
+	NULL,
 	0x00000004,
 	NULL,
 };
@@ -39921,7 +39921,7 @@ struct menu_dialog menudialog_2aba0 = {
 	MENUDIALOGTYPE_DANGER,
 	0x50c3, // "Drop Out"
 	menuitems_2ab50,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -39983,7 +39983,7 @@ struct menu_dialog menudialog_mpsavechr = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50be, // "Confirm"
 	menuitems_mpsavechr,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40000,7 +40000,7 @@ struct menu_dialog menudialog_mpsavesetupname = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50bc, // "Game File Name"
 	menuitems_mpsavesetupname,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40021,7 +40021,7 @@ struct menu_dialog menudialog_mpsavesetup = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50b7, // "Save Game Setup"
 	menuitems_mpsavesetup,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40047,7 +40047,7 @@ struct menu_dialog menudialog_mpweapons = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50ad, // Weapons
 	menuitems_mpweapons,
-	0x00000000,
+	NULL,
 	0x00000010,
 	NULL,
 };
@@ -40071,7 +40071,7 @@ struct menu_dialog menudialog_mpweapons2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50ad,
 	menuitems_mpweapons2,
-	0x00000000,
+	NULL,
 	0x00000010,
 	NULL,
 };
@@ -40092,7 +40092,7 @@ struct menu_dialog menudialog_mpoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50a7, // "Options"
 	menuitems_mpoptions,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40122,7 +40122,7 @@ struct menu_dialog menudialog_mpcontrol = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50c7, // "Control"
 	menuitems_mpcontrol,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40138,7 +40138,7 @@ struct menu_dialog menudialog_mpcompletedchallenges = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50a5, // "Completed Challenges"
 	menuitems_mpcompletedchallenges,
-	0x00000000,
+	NULL,
 	0x00000048,
 	NULL,
 };
@@ -40190,7 +40190,7 @@ struct menu_dialog menudialog_mpplayerstats = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f17b360,
 	menuitems_mpplayerstats,
-	0x00000000,
+	NULL,
 	0x00000048,
 	&menudialog_mpcompletedchallenges,
 };
@@ -40211,7 +40211,7 @@ struct menu_dialog menudialog_mpcharacter = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x508f, // "Character"
 	menuitems_mpcharacter,
-	0x7f17a174,
+	menudialog0017a174,
 	0x00000002,
 	NULL,
 };
@@ -40227,7 +40227,7 @@ struct menu_dialog menudialog_mpplayername = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x508e, // "Player Name"
 	menuitems_mpplayername,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40244,7 +40244,7 @@ struct menu_dialog menudialog_mploadgamesettingstype0 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x508b, // "Load Game Settings"
 	menuitems_mploadgamesettingstype0,
-	0x00000000,
+	NULL,
 	0x00000001,
 	NULL,
 };
@@ -40261,7 +40261,7 @@ struct menu_dialog menudialog_mploadgamesettingstype1 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x508b, // "Load Game Settings"
 	menuitems_mploadgamesettingstype1,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40278,7 +40278,7 @@ struct menu_dialog menudialog_mploadplayer = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5089, // "Load Player"
 	menuitems_mploadplayer,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40294,7 +40294,7 @@ struct menu_dialog menudialog_mparena = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5073, // "Arena"
 	menuitems_mparena,
-	0x00000000,
+	NULL,
 	0x00000011,
 	NULL,
 };
@@ -40315,7 +40315,7 @@ struct menu_dialog menudialog_mplimits = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x506b,
 	menuitems_mplimits,
-	0x00000000,
+	NULL,
 	0x00000010,
 	NULL,
 };
@@ -40337,7 +40337,7 @@ struct menu_dialog menudialog_mpplayerhandicaps = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x54b8, // "Player Handicaps"
 	menuitems_mpplayerhandicaps,
-	0x00000000,
+	NULL,
 	0x00000010,
 	NULL,
 };
@@ -40353,7 +40353,7 @@ struct menu_dialog menudialog_mpready = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x5069,
 	menuitems_mpready,
-	0x7f17c5a4,
+	menudialog0017c5a4,
 	0x00000001,
 	NULL,
 };
@@ -40375,7 +40375,7 @@ struct menu_dialog menudialog_mpaddsimulant = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5065,
 	menuitems_mpaddchangesimulant,
-	0x00000000,
+	NULL,
 	0x00000011,
 	NULL,
 };
@@ -40385,7 +40385,7 @@ struct menu_dialog menudialog_mpchangesimulant = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5066,
 	menuitems_mpaddchangesimulant,
-	0x7f17c618,
+	menudialog0017c618,
 	0x00000011,
 	NULL,
 };
@@ -40402,7 +40402,7 @@ struct menu_dialog menudialog_mpsimulantcharacter = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5064,
 	menuitems_mpsimulantcharacter,
-	0x7f17ccfc,
+	menudialog0017ccfc,
 	0x00000012,
 	NULL,
 };
@@ -40423,7 +40423,7 @@ struct menu_dialog menudialog_mpeditsimulant = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f17cfc0,
 	menuitems_mpeditsimulant,
-	0x7f17c618,
+	menudialog0017c618,
 	0x00000010,
 	NULL,
 };
@@ -40451,7 +40451,7 @@ struct menu_dialog menudialog_mpsimulants = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5053, // "Simulants"
 	menuitems_mpsimulants,
-	0x7f17d468,
+	menudialog0017d468,
 	0x00000010,
 	NULL,
 };
@@ -40480,7 +40480,7 @@ struct menu_dialog menudialog_mpautoteam = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x504b,
 	menuitems_mpautoteam,
-	0x00000000,
+	NULL,
 	0x00000010,
 	NULL,
 };
@@ -40513,7 +40513,7 @@ struct menu_dialog menudialog_mpteamcontrol = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5046,
 	menuitems_mpteamcontrol,
-	0x00000000,
+	NULL,
 	0x00000010,
 	NULL,
 };
@@ -40534,7 +40534,7 @@ struct menu_dialog menudialog_2bd40 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f17dc44,
 	menuitems_2bd18,
-	0x7f17df74,
+	menudialog0017df74,
 	0x00000010,
 	NULL,
 };
@@ -40556,7 +40556,7 @@ struct menu_dialog menudialog_mpsoundtrack = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x503e, // "Soundtrack"
 	menuitems_mpsoundtrack,
-	0x00000000,
+	NULL,
 	0x00000010,
 	NULL,
 };
@@ -40572,7 +40572,7 @@ struct menu_dialog menudialog_mpchangeteamname = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x503d,
 	menuitems_mpchangeteamname,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40597,7 +40597,7 @@ struct menu_dialog menudialog_mpteamnames = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x503b, // "Team Names"
 	menuitems_mpteamnames,
-	0x00000000,
+	NULL,
 	0x00000010,
 	NULL,
 };
@@ -40616,7 +40616,7 @@ struct menu_dialog menudialog_2bfa8 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f17e318,
 	menuitems_2bf44,
-	0x7f17e3fc,
+	menudialog0017e3fc,
 	0x00000014,
 	NULL,
 };
@@ -40636,7 +40636,7 @@ struct menu_dialog menudialog_mpchallengedetails = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f17eac8,
 	menuitems_mpchallengedetails,
-	0x7f17eb34,
+	menudialog0017eb34,
 	0x00000808,
 	NULL,
 };
@@ -40648,7 +40648,7 @@ struct menu_dialog menudialog_mpchallengedetails2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f17eac8,
 	menuitems_mpchallengedetails,
-	0x7f17eb34,
+	menudialog0017eb34,
 	0x00000808,
 	&menudialog_mpgamesetup2,
 };
@@ -40667,7 +40667,7 @@ struct menu_dialog menudialog_2c0cc = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f17e318,
 	menuitems_2c068,
-	0x7f17e3fc,
+	menudialog0017e3fc,
 	0x00000004,
 	NULL,
 };
@@ -40683,7 +40683,7 @@ struct menu_dialog menudialog_mpcombatchallenges2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5032, // "Combat Challenges"
 	menuitems_mpcombatchallenges2,
-	0x7f17eb34,
+	menudialog0017eb34,
 	0x00000000,
 	NULL,
 };
@@ -40718,7 +40718,7 @@ struct menu_dialog menudialog_mpstuff = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5028, // "Stuff"
 	menuitems_mpstuff,
-	0x00000000,
+	NULL,
 	0x00000810,
 	&menudialog_mpchallengedetails,
 };
@@ -40728,7 +40728,7 @@ struct menu_dialog menudialog_mpstuff2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5028, // "Stuff"
 	menuitems_mpstuff,
-	0x00000000,
+	NULL,
 	0x00000810,
 	NULL,
 };
@@ -40751,7 +40751,7 @@ struct menu_dialog menudialog_mpplayersetup4 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x501c, // "Player Setup"
 	menuitems_mpplayersetup4,
-	0x00000000,
+	NULL,
 	0x00000800,
 	&menudialog_mpstuff,
 };
@@ -40761,7 +40761,7 @@ struct menu_dialog menudialog_mpplayersetup2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x501c, // "Player Setup"
 	menuitems_mpplayersetup4,
-	0x00000000,
+	NULL,
 	0x00000800,
 	&menudialog_mpstuff2,
 };
@@ -40771,7 +40771,7 @@ struct menu_dialog menudialog_mpplayersetup3 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x501c, // "Player Setup"
 	menuitems_mpplayersetup4,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40789,7 +40789,7 @@ struct menu_dialog menudialog_mpabort2 = {
 	MENUDIALOGTYPE_DANGER,
 	0x5034,
 	menuitems_mpabort2,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40817,7 +40817,7 @@ struct menu_dialog menudialog_mpgamesetup3 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5011,
 	menuitems_mpgamesetup3,
-	0x7f17f0b0,
+	menudialog0017f0b0,
 	0x00000810,
 	&menudialog_mpplayersetup4,
 };
@@ -40827,7 +40827,7 @@ struct menu_dialog menudialog_mpgamesetup2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5011,
 	menuitems_mpgamesetup3,
-	0x7f17f0b0,
+	menudialog0017f0b0,
 	0x00000810,
 	&menudialog_mpplayersetup2,
 };
@@ -40846,7 +40846,7 @@ struct menu_dialog menudialog_mpquickgo = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x59cc, // "Quick Go"
 	menuitems_mpquickgo,
-	0x7f17f0dc,
+	menudialog0017f0dc,
 	0x00000000,
 	NULL,
 };
@@ -40880,7 +40880,7 @@ struct menu_dialog menudialog_2c6a0 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5011, // "Game Setup"
 	menuitems_2c538,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -40901,7 +40901,7 @@ struct menu_dialog menudialog_mpquickteam = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x59ce, // "Quick Team"
 	menuitems_mpquickteam,
-	0x00000000,
+	NULL,
 	0x00000004,
 	NULL,
 };
@@ -40920,7 +40920,7 @@ struct menu_dialog menudialog_mpcombatsimulator = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x59bd,
 	menuitems_mpcombatsimulator,
-	0x7f17f930,
+	menudialog0017f930,
 	0x00000004,
 	NULL,
 };
@@ -40957,7 +40957,7 @@ struct menu_dialog menudialog_mpcombatoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50d7,
 	menuitems_mpcombatoptions,
-	0x7f184ec0,
+	menudialog00184ec0,
 	0x00000010,
 	NULL,
 };
@@ -40984,7 +40984,7 @@ struct menu_dialog menudialog_mpbriefcaseoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50d8,
 	menuitems_mpbriefcaseoptions,
-	0x7f184ec0,
+	menudialog00184ec0,
 	0x00000010,
 	NULL,
 };
@@ -41038,7 +41038,7 @@ struct menu_dialog menudialog_mpcaptureoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50dc,
 	menuitems_mpcaptureoptions,
-	0x7f184ec0,
+	menudialog00184ec0,
 	0x00000010,
 	NULL,
 };
@@ -41093,7 +41093,7 @@ struct menu_dialog menudialog_mphilloptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50db,
 	menuitems_mphilloptions,
-	0x7f184ec0,
+	menudialog00184ec0,
 	0x00000010,
 	NULL,
 };
@@ -41120,7 +41120,7 @@ struct menu_dialog menudialog_mphackeroptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50d9,
 	menuitems_mphackeroptions,
-	0x7f184ec0,
+	menudialog00184ec0,
 	0x00000010,
 	NULL,
 };
@@ -41174,7 +41174,7 @@ struct menu_dialog menudialog_mppopacapoptions = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50da,
 	menuitems_mppopacapoptions,
-	0x7f184ec0,
+	menudialog00184ec0,
 	0x00000010,
 	NULL,
 };
@@ -41216,7 +41216,7 @@ struct menu_dialog menudialog_mpscenario = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50f3,
 	menuitems_mpscenario,
-	0x00000000,
+	NULL,
 	0x00000011,
 	NULL,
 };
@@ -41232,7 +41232,7 @@ struct menu_dialog menudialog_mpscenario2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x50f3,
 	menuitems_mpscenario2,
-	0x00000000,
+	NULL,
 	0x00000011,
 	NULL,
 };
@@ -42634,7 +42634,7 @@ struct menu_dialog menudialog_frdifficulty = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51ba, // "Difficulty"
 	menuitems_frdifficulty,
-	0x00000000,
+	NULL,
 	0x00000200,
 	NULL,
 };
@@ -42650,7 +42650,7 @@ struct menu_dialog menudialog_frweapon = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51be, // "Weapon"
 	menuitems_frweapon,
-	0x00000000,
+	NULL,
 	0x00000200,
 	NULL,
 };
@@ -42675,7 +42675,7 @@ struct menu_dialog menudialog_frtraininginfo = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51bf,
 	menuitems_frtraininginfo,
-	0x7f1a39a8,
+	menudialog001a39a8,
 	0x00000602,
 	NULL,
 };
@@ -42700,7 +42700,7 @@ struct menu_dialog menudialog_frtraininginfo2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51bf, // "Training Info"
 	menuitems_frtraininginfo2,
-	0x7f1a39a8,
+	menudialog001a39a8,
 	0x00000602,
 	NULL,
 };
@@ -42727,7 +42727,7 @@ struct menu_dialog menudialog_frtrainingstats = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x51c0,
 	menuitems_frtrainingstats,
-	0x7f1a3af4,
+	menudialog001a3af4,
 	0x00000004,
 	NULL,
 };
@@ -42754,7 +42754,7 @@ struct menu_dialog menudialog_frtrainingstats2 = {
 	MENUDIALOGTYPE_DANGER,
 	0x51c0, // "Training Stats"
 	menuitems_frtrainingstats2,
-	0x7f1a3af4,
+	menudialog001a3af4,
 	0x00000004,
 	NULL,
 };
@@ -42775,7 +42775,7 @@ struct menu_dialog menudialog_information = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51a2, // "Information"
 	menuitems_information,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -42793,7 +42793,7 @@ struct menu_dialog menudialog_nowsafe = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51b4, // "Cheats"
 	menuitems_nowsafe,
-	0x00000000,
+	NULL,
 	0x00000200,
 	NULL,
 };
@@ -42824,7 +42824,7 @@ struct menu_dialog menudialog_characterprofile = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51af,
 	menuitems_characterprofile,
-	0x7f1a5f48,
+	menudialog001a5f48,
 	0x00000002,
 	NULL,
 };
@@ -42842,7 +42842,7 @@ struct menu_dialog menudialog_2f3c0 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f1a6388,
 	menuitems_2f370,
-	0x00000000,
+	NULL,
 	0x00000200,
 	NULL,
 };
@@ -42858,7 +42858,7 @@ struct menu_dialog menudialog_devicelist = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51a1, // "Device List"
 	menuitems_devicelist,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -42882,7 +42882,7 @@ struct menu_dialog menudialog_2f49c = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f1a64a0,
 	menuitems_2f424,
-	0x7f1a6548,
+	menudialog001a6548,
 	0x00000206,
 	NULL,
 };
@@ -42902,7 +42902,7 @@ struct menu_dialog menudialog_trainingstats_failed = {
 	MENUDIALOGTYPE_DANGER,
 	0x000051a7, // "Training Stats"
 	menuitems_trainingstats_failed,
-	0x7f1a6918,
+	menudialog001a6918,
 	0x00000200,
 	&menudialog_devicelist,
 };
@@ -42922,7 +42922,7 @@ struct menu_dialog menudialog_trainingstats_completed = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x51a7,
 	menuitems_trainingstats_completed,
-	0x7f1a6918,
+	menudialog001a6918,
 	0x00000200,
 	&menudialog_devicelist,
 };
@@ -42938,7 +42938,7 @@ struct menu_dialog menudialog_holotraining = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51a0,
 	menuitems_holotraining,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };
@@ -42958,7 +42958,7 @@ struct menu_dialog menudialog_2f68c = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f1a6a04,
 	menuitems_2f614,
-	0x7f1a6aa4,
+	menudialog001a6aa4,
 	0x00000206,
 	NULL,
 };
@@ -42978,7 +42978,7 @@ struct menu_dialog menudialog_trainingstats_failed2 = {
 	MENUDIALOGTYPE_DANGER,
 	0x51a7, // "Training Stats"
 	menuitems_trainingstats_failed2,
-	0x7f1a6c54,
+	menudialog001a6c54,
 	0x00000200,
 	&menudialog_holotraining,
 };
@@ -42998,7 +42998,7 @@ struct menu_dialog menudialog_trainingstats_completed2 = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x51a7, // "Training Stats"
 	menuitems_trainingstats_completed2,
-	0x7f1a6c54,
+	menudialog001a6c54,
 	0x00000200,
 	&menudialog_holotraining,
 };
@@ -43052,7 +43052,7 @@ struct menu_dialog menudialog_holograph = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x59d7,
 	menuitems_holograph,
-	0x7f1a737c,
+	menudialog001a737c,
 	0x00000202,
 	NULL,
 };
@@ -43062,7 +43062,7 @@ struct menu_dialog menudialog_2f938 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f1a6c8c,
 	menuitems_2f858,
-	0x00000000,
+	NULL,
 	0x00000202,
 	&menudialog_holograph,
 };
@@ -43072,7 +43072,7 @@ struct menu_dialog menudialog_2f950 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f1a6c8c,
 	menuitems_2f858,
-	0x00000000,
+	NULL,
 	0x00000202,
 	NULL,
 };
@@ -43088,7 +43088,7 @@ struct menu_dialog menudialog_hangarinformation = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x519f,
 	menuitems_hangarinformation,
-	0x00000000,
+	NULL,
 	0x00000000,
 	NULL,
 };

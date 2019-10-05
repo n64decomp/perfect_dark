@@ -143,7 +143,7 @@ $(B_DIR)/library.o: src/library.c
 	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
 	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
-$(B_DIR)/library.elf: $(B_DIR)/library.o $(B_DIR)/setup.o
+$(B_DIR)/library.elf: $(B_DIR)/library.o $(B_DIR)/setup.o $(B_DIR)/game.o $(B_DIR)/gvars.o
 	$(TOOLCHAIN)-ld -e 0x00003050 -T ld/library.ld -o $@
 
 $(B_DIR)/ucode/library.bin: $(B_DIR)/library.elf
@@ -161,7 +161,7 @@ $(B_DIR)/setup.o: src/setup.c $(SETUP_H_FILES)
 	mkdir -p $(B_DIR)
 	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) -o $@ -O2 $<
 
-$(B_DIR)/setup.elf: $(B_DIR)/setup.o
+$(B_DIR)/setup.elf: $(B_DIR)/setup.o $(B_DIR)/game.o
 	$(TOOLCHAIN)-ld -e 0x80059fe0 -T ld/setup.ld -o $@
 
 $(B_DIR)/ucode/setup.bin: $(B_DIR)/setup.elf

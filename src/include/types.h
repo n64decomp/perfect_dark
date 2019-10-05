@@ -335,7 +335,7 @@ struct menu_dialog {
 	u8 type;
 	u32 title;
 	struct menu_item *items;
-	u32 unk0c;
+	void (*unk0c)(void);
 	u32 unk10;
 	struct menu_dialog *nextsibling;
 };
