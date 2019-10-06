@@ -1715,6 +1715,10 @@
 	mkshort(0x01c3), \
 	mkshort(function),
 
+#define set_aiplayerdeadlist(ailistid) \
+	mkshort(0x01c4), \
+	mkshort(ailistid),
+
 // Calls some function on the chr. Possibly related to geometry, because it
 // works with values such as 45 and 360.
 #define cmd01c5 \

@@ -415,7 +415,7 @@
 /*0x01c1*/ bool aiSetPunchDodgeList(void);
 /*0x01c2*/ bool aiSetShootingAtMeList(void);
 /*0x01c3*/ bool aiSetDarkRoomList(void);
-/*0x01c4*/ bool ai01c4(void);
+/*0x01c4*/ bool aiSetPlayerDeadList(void);
 /*0x01c5*/ bool ai01c5(void);
 /*0x01c6*/ bool ai01c6(void);
 /*0x01c7*/ bool ai01c7(void);

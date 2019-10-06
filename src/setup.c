@@ -14399,7 +14399,7 @@ bool (*command_pointers[])(void) = {
 	/*0x01c1*/ aiSetPunchDodgeList,
 	/*0x01c2*/ aiSetShootingAtMeList,
 	/*0x01c3*/ aiSetDarkRoomList,
-	/*0x01c4*/ ai01c4,
+	/*0x01c4*/ aiSetPlayerDeadList,
 	/*0x01c5*/ ai01c5,
 	/*0x01c6*/ ai01c6,
 	/*0x01c7*/ ai01c7,
