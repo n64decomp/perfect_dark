@@ -13952,7 +13952,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0002*/ aiLabel,
 	/*0x0003*/ aiYield,
 	/*0x0004*/ aiEndList,
-	/*0x0005*/ ai0005,
+	/*0x0005*/ aiSetAilist,
 	/*0x0006*/ ai0006,
 	/*0x0007*/ ai0007,
 	/*0x0008*/ ai0008,

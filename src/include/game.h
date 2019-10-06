@@ -8,7 +8,7 @@
 /*0x0002*/ bool aiLabel(void);
 /*0x0003*/ bool aiYield(void);
 /*0x0004*/ bool aiEndList(void);
-/*0x0005*/ bool ai0005(void);
+/*0x0005*/ bool aiSetAilist(void);
 /*0x0006*/ bool ai0006(void);
 /*0x0007*/ bool ai0007(void);
 /*0x0008*/ bool ai0008(void);
@@ -995,5 +995,7 @@ u32 menuhandler001a6a34(u32, u32, u32);
 u32 menuhandler001a6a70(u32, u32, u32);
 u32 menuhandler001a6ea4(u32, u32, u32);
 u32 menuhandler001a6d4c(u32, u32, u32);
+
+struct chrdata *chrFindById(struct chrdata *data, u8 chrnum);
 
 #endif

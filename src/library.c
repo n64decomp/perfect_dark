@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "src/include/library.h"
 #include "src/include/setup.h"
 
 u32 var0004f3e0 = 0x70002d68;
@@ -30656,6 +30657,10 @@ glabel func00018148
 /*    184c4:	03e00008 */ 	jr	$ra
 /*    184c8:	27bd00d0 */ 	addiu	$sp,$sp,0xd0
 /*    184cc:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+GLOBAL_ASM(
+glabel func000184d0
 /*    184d0:	28810401 */ 	slti	$at,$a0,0x401
 /*    184d4:	14200020 */ 	bnez	$at,.L00018558
 /*    184d8:	3c058006 */ 	lui	$a1,0x8006
