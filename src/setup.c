@@ -14397,7 +14397,7 @@ bool (*command_pointers[])(void) = {
 	/*0x01bf*/ ai01bf,
 	/*0x01c0*/ ai01c0,
 	/*0x01c1*/ aiSetPunchDodgeList,
-	/*0x01c2*/ ai01c2,
+	/*0x01c2*/ aiSetShootingAtMeList,
 	/*0x01c3*/ ai01c3,
 	/*0x01c4*/ ai01c4,
 	/*0x01c5*/ ai01c5,
@@ -28530,7 +28530,7 @@ u8 func0007_alerted[] = {
 	// is_chr_is_dead_maybe (named wrong) was false
 	label(0x16)
 	set_onshot_function(GFUNC_ALERTED)
-	set_aishootingatmel(35)
+	set_aishootingatmelist(GFUNC_DODGE)
 	set_darkroom_function(GFUNC_SEARCH_FOR_PLAYER)
 
 	dprint 'S','T','A','R','T',' ','L','O','O','P','\n',0,
@@ -32540,7 +32540,7 @@ u8 func002b_do_something_and_wait[] = {
  * Not used.
  */
 u8 func0022_comment_on_player_dead[] = {
-	set_aishootingatmel(0)
+	set_aishootingatmelist(GFUNC_IDLE)
 	dprint 'K','I','L','L','\n',0,
 	stop_chr
 
@@ -32579,8 +32579,6 @@ u8 func0022_comment_on_player_dead[] = {
 
 /**
  * Do a sideways dodge, then assign GFUNC_ALERTED.
- *
- * Not used?
  */
 u8 func0023_dodge[] = {
 	if_chr_dying(CHR_SELF, /*goto*/ 0x16)
@@ -32590,7 +32588,7 @@ u8 func0023_dodge[] = {
 
 	// Dying
 	label(0x16)
-	set_aishootingatmel(0)
+	set_aishootingatmelist(GFUNC_IDLE)
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x13)

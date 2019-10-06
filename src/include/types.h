@@ -207,7 +207,7 @@ struct chrdata {
 	/*0x344*/ struct coord LastDropPos;
 	/*0x350*/ u32 unk350;
 	/*0x354*/ u16 aipunchdodgelist;
-	/*0x356*/ u16 aishootingatmel;
+	/*0x356*/ u16 aishootingatmelist;
 	/*0x358*/ u16 poisonCounter;
 	/*0x35a*/ u16 aidarkroomlist;
 	/*0x35c*/ u16 aiplayerdeadlist;

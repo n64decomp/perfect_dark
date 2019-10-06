@@ -1707,9 +1707,9 @@
 	mkshort(0x01c1), \
 	mkshort(ailistid),
 
-#define set_aishootingatmel(value) \
+#define set_aishootingatmelist(ailistid) \
 	mkshort(0x01c2), \
-	mkshort(value),
+	mkshort(ailistid),
 
 #define set_darkroom_function(function) \
 	mkshort(0x01c3), \
