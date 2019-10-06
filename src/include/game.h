@@ -12,7 +12,7 @@
 /*0x0006*/ bool aiSetReturnList(void);
 /*0x0007*/ bool ai0007(void);
 /*0x0008*/ bool aiReturn(void);
-/*0x0009*/ bool ai0009(void);
+/*0x0009*/ bool aiStop(void);
 /*0x000a*/ bool ai000a(void);
 /*0x000b*/ bool ai000b(void);
 /*0x000c*/ bool ai000c(void);
