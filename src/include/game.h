@@ -412,7 +412,7 @@
 /*0x01be*/ bool ai01be(void);
 /*0x01bf*/ bool ai01bf(void);
 /*0x01c0*/ bool ai01c0(void);
-/*0x01c1*/ bool ai01c1(void);
+/*0x01c1*/ bool aiSetPunchDodgeList(void);
 /*0x01c2*/ bool ai01c2(void);
 /*0x01c3*/ bool ai01c3(void);
 /*0x01c4*/ bool ai01c4(void);

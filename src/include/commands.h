@@ -1703,6 +1703,10 @@
 	label, \
 	chr,
 
+#define set_aipunchdodgelist(ailistid) \
+	mkshort(0x01c1), \
+	mkshort(ailistid),
+
 #define set_aishootingatmel(value) \
 	mkshort(0x01c2), \
 	mkshort(value),
