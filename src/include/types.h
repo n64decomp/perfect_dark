@@ -247,6 +247,7 @@ struct defaultobj {
 	/*0x5a*/ u8 numtiles;
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
+	/*0x62*/ u16 aireturnlist;
 };
 
 struct otheraidata {
@@ -275,6 +276,7 @@ struct otheraidata {
 	/*0x58*/ u32 unk58;
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
+	/*0x62*/ u16 aireturnlist;
 };
 
 struct ailists {
