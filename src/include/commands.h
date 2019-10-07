@@ -1677,6 +1677,7 @@
 #define shuffle_pelagic_switches \
 	mkshort(0x01b9),
 
+// Likely some kind of shoot command, with u1 = entitytype and u2 = entityid
 #define cmd01ba(u1, u2, label) \
 	mkshort(0x01ba), \
 	mkshort(u1), \
