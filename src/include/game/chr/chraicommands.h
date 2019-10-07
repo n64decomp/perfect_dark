@@ -30,7 +30,7 @@
 /*0x0018*/ bool aiFaceEntity(void);
 /*0x0019*/ bool ai0019(void);
 /*0x001a*/ bool ai001a(void);
-/*0x001b*/ bool ai001b(void);
+/*0x001b*/ bool aiConsiderGrenadeThrow(void);
 /*0x001c*/ bool ai001c(void);
 /*0x001d*/ bool ai001d(void);
 /*0x001e*/ bool ai001e(void);

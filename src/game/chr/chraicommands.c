@@ -1112,49 +1112,20 @@ glabel ai001a
 /**
  * @cmd 001b
  */
-GLOBAL_ASM(
-glabel ai001b
-/*  f04f054:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f058:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f05c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f04f060:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f04f064:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04f068:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04f06c:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f04f070:	90f80004 */ 	lbu	$t8,0x4($a3)
-/*  f04f074:	90e90002 */ 	lbu	$t1,0x2($a3)
-/*  f04f078:	90e80005 */ 	lbu	$t0,0x5($a3)
-/*  f04f07c:	90eb0003 */ 	lbu	$t3,0x3($a3)
-/*  f04f080:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f04f084:	00095200 */ 	sll	$t2,$t1,0x8
-/*  f04f088:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f04f08c:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f04f090:	03283025 */ 	or	$a2,$t9,$t0
-/*  f04f094:	0fc0eda1 */ 	jal	func0f03b684
-/*  f04f098:	014b2825 */ 	or	$a1,$t2,$t3
-/*  f04f09c:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f0a0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f0a4:	10400009 */ 	beqz	$v0,.L0f04f0cc
-/*  f04f0a8:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f04f0ac:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f04f0b0:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f04f0b4:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f04f0b8:	90e60006 */ 	lbu	$a2,0x6($a3)
-/*  f04f0bc:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f0c0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f0c4:	10000004 */ 	beqz	$zero,.L0f04f0d8
-/*  f04f0c8:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f04f0cc:
-/*  f04f0cc:	8c6c0438 */ 	lw	$t4,0x438($v1)
-/*  f04f0d0:	258d0007 */ 	addiu	$t5,$t4,0x7
-/*  f04f0d4:	ac6d0438 */ 	sw	$t5,0x438($v1)
-.L0f04f0d8:
-/*  f04f0d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04f0dc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f04f0e0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04f0e4:	03e00008 */ 	jr	$ra
-/*  f04f0e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiConsiderGrenadeThrow(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 value2 = cmd[5] | (cmd[4] << 8);
+	u32 value1 = cmd[3] | (cmd[2] << 8);
+
+	if (func0f03b684(g_Vars.chrdata, value1, value2)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+	} else {
+		g_Vars.aioffset += 7;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 001c
