@@ -587,23 +587,13 @@ bool func0f04e418(void)
 /**
  * @cmd 000d
  */
-GLOBAL_ASM(
-glabel ai000d
-/*  f04e420:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04e424:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04e428:	3c04800a */ 	lui	$a0,0x800a
-/*  f04e42c:	0fc0eb7d */ 	jal	func0f03adf4
-/*  f04e430:	8c84a3e4 */ 	lw	$a0,-0x5c1c($a0)
-/*  f04e434:	3c03800a */ 	lui	$v1,0x800a
-/*  f04e438:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04e43c:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f04e440:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04e444:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04e448:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f04e44c:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f04e450:	03e00008 */ 	jr	$ra
-/*  f04e454:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai000d(void)
+{
+	func0f03adf4(g_Vars.chrdata);
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 000e
