@@ -356,7 +356,7 @@
 /*0x0178*/ bool ai0178(void);
 /*0x0179*/ bool ai0179(void);
 /*0x017a*/ bool ai017a(void);
-/*0x017b*/ bool ai017b(void);
+/*0x017b*/ bool aiIfChrUnloaded(void);
 /*0x017c*/ bool ai017c(void);
 /*0x017d*/ bool ai017d(void);
 /*0x017e*/ bool ai017e(void);
