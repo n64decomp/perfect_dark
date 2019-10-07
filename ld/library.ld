@@ -4,22 +4,27 @@ OUTPUT_ARCH (mips)
 SECTIONS
 {
 	.library 0x00003050 : AT(0) {
-		build/ntsc-final/library.o (.text);
-		build/ntsc-final/library.o (.data);
+		src/library/library.o (.text);
+		src/library/library.o (.data);
 	}
 
 	.setup 0x80059fe0 : AT(SIZEOF(.library)) {
-		build/ntsc-final/setup.o (.data);
+		src/setup/setup.o (.data);
 	}
 
 	.game 0x7f000000 : AT(SIZEOF(.library) + SIZEOF(.setup)) {
-		build/ntsc-final/game.o (.text);
-		build/ntsc-final/game.o (.data);
+		src/game/game_000000.o (.text);
+		src/game/chr/chraicommands.o (.text);
+		src/game/game_0601b0.o (.text);
+
+		src/game/game_000000.o (.data);
+		src/game/chr/chraicommands.o (.data);
+		src/game/game_0601b0.o (.data);
 	}
 
 	.gvars 0x7f000000 : AT(SIZEOF(.library) + SIZEOF(.setup) + SIZEOF(.game)) {
-		build/ntsc-final/gvars.o (.text);
-		build/ntsc-final/gvars.o (.data);
+		src/gvars/gvars.o (.text);
+		src/gvars/gvars.o (.data);
 	}
 
 	/DISCARD/ : {

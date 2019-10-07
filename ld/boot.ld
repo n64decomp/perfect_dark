@@ -9,18 +9,33 @@ SECTIONS
 	ziplistSegmentRomStart = 0x4fc40;
 
 	.boot 0x00001000 : AT(0) {
-		build/ntsc-final/boot.o (.text);
-		build/ntsc-final/boot.o (.data);
+		src/boot/boot.o (.text);
+		src/boot/boot.o (.data);
 	}
 
 	.library 0x00003050 : AT(SIZEOF(.boot)) {
-		build/ntsc-final/library.o (.text);
-		build/ntsc-final/library.o (.data);
+		src/library/library.o (.text);
+		src/library/library.o (.data);
 	}
 
 	.setup 0x80059fe0 : AT(SIZEOF(.boot) + SIZEOF(.library)) {
-		build/ntsc-final/setup.o (.text);
-		build/ntsc-final/setup.o (.data);
+		src/setup/setup.o (.text);
+		src/setup/setup.o (.data);
+	}
+
+	.game 0x7f000000 : AT(SIZEOF(.boot) + SIZEOF(.library) + SIZEOF(.setup)) {
+		src/game/game_000000.o (.text);
+		src/game/chr/chraicommands.o (.text);
+		src/game/game_0601b0.o (.text);
+
+		src/game/game_000000.o (.data);
+		src/game/chr/chraicommands.o (.data);
+		src/game/game_0601b0.o (.data);
+	}
+
+	.gvars 0x80099fc0 : {
+		src/gvars/gvars.o (.text);
+		src/gvars/gvars.o (.data);
 	}
 
 	/DISCARD/ : {

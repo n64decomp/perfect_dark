@@ -39,7 +39,10 @@ ifeq ($(RELEASE),final)
     RELEASE_CFLAGS := -DBETA=0 -DREL1_0 -DFINAL=1
 endif
 
-CFLAGS := $(VERSION_CFLAGS) $(RELEASE_CFLAGS) -Wo,-loopunroll,0 -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -woff 819,820,852,821 -signed -I . -I include -mips2
+CFLAGS := $(VERSION_CFLAGS) $(RELEASE_CFLAGS) -Wo,-loopunroll,0 -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -woff 819,820,852,821 -signed -I src/include -mips2
+
+C_FILES := $(shell find src -name '*.c')
+O_FILES := $(patsubst %.c, %.o, $(C_FILES))
 
 default: all
 
@@ -52,20 +55,12 @@ extract:
 ################################################################################
 # Stage setup files
 
-SETUP_C_FILES := $(wildcard src/setup/*.c)
-SETUP_H_FILES := $(wildcard src/include/*.h)
-B_SETUP_BIN_FILES := $(patsubst src/setup/%.c, $(B_DIR)/files/setup/U%.bin, $(SETUP_C_FILES))
-E_SETUP_BIN_FILES := $(patsubst src/setup/%.c, $(E_DIR)/files/setup/U%.bin, $(SETUP_C_FILES))
-B_SETUP_BINZ_FILES := $(patsubst src/setup/%.c, $(B_DIR)/files/U%Z, $(SETUP_C_FILES))
-E_SETUP_BINZ_FILES := $(patsubst src/setup/%.c, $(E_DIR)/files/U%Z, $(SETUP_C_FILES))
+SETUP_C_FILES := $(wildcard src/files/setup/*.c)
+SETUP_BIN_FILES := $(patsubst src/files/setup/%.c, $(B_DIR)/files/setup/U%.bin, $(SETUP_C_FILES))
+SETUP_BINZ_FILES := $(patsubst src/files/setup/%.c, $(B_DIR)/files/U%Z, $(SETUP_C_FILES))
 
-stagesetup: $(B_SETUP_BINZ_FILES)
-
-$(B_DIR)/files/setup/%.o: src/setup/%.c $(SETUP_H_FILES)
+$(B_DIR)/files/setup/%.elf: src/files/setup/%.o
 	mkdir -p $(B_DIR)/files/setup
-	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) -o $@ -O2 $<
-
-$(B_DIR)/files/setup/%.elf: $(B_DIR)/files/setup/%.o
 	cp $< build/zero.tmp.o
 	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
 	rm -f build/zero.tmp.o
@@ -76,25 +71,17 @@ $(B_DIR)/files/setup/U%.bin: $(B_DIR)/files/setup/%.elf
 $(B_DIR)/files/U%Z: $(B_DIR)/files/setup/U%.bin
 	tools/rarezip $< > $@
 
+stagesetup: $(SETUP_BIN_FILES)
+
 ################################################################################
 # Lang files
 
-LANG_C_EJP_FILES := $(wildcard src/lang/*E.c) $(wildcard src/lang/*J.c) $(wildcard src/lang/*P.c)
-LANG_C_STR_FILES := $(wildcard src/lang/*_str_*.c)
-B_LANG_BIN_FILES := $(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%.bin, $(LANG_C_EJP_FILES)) \
-	$(patsubst src/lang/%.c, $(B_DIR)/files/lang/L%.bin, $(LANG_C_STR_FILES))
-B_LANG_BINZ_FILES := $(patsubst src/lang/%.c, $(B_DIR)/files/L%, $(LANG_C_EJP_FILES)) \
-	$(patsubst src/lang/%.c, $(B_DIR)/files/L%Z, $(LANG_C_STR_FILES))
-E_LANG_BIN_FILES := $(patsubst $(B_DIR), $(E_DIR), $(B_LANG_BIN_FILES))
-E_LANG_BINZ_FILES := $(patsubst $(B_DIR), $(E_DIR), $(B_LANG_BINZ_FILES))
+LANG_C_FILES := $(wildcard src/files/lang/*.c)
+LANG_BIN_FILES := $(patsubst src/files/lang/%.c, $(B_DIR)/files/lang/L%.bin, $(LANG_C_FILES))
+LANG_BINZ_FILES := $(patsubst src/files/lang/%.c, $(B_DIR)/files/L%, $(LANG_C_FILES))
 
-lang: $(B_LANG_BINZ_FILES)
-
-$(B_DIR)/files/lang/%.o: src/lang/%.c
+$(B_DIR)/files/lang/%.elf: src/files/lang/%.o
 	mkdir -p $(B_DIR)/files/lang
-	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) -o $@ -O2 $<
-
-$(B_DIR)/files/lang/%.elf: $(B_DIR)/files/lang/%.o
 	cp $< build/zero.tmp.o
 	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
 	rm -f build/zero.tmp.o
@@ -114,17 +101,13 @@ $(B_DIR)/files/L%P: $(B_DIR)/files/lang/L%P.bin
 $(B_DIR)/files/L%Z: $(B_DIR)/files/lang/L%.bin
 	tools/rarezip $< > $@
 
+lang: $(LANG_BIN_FILES)
+
 ################################################################################
 # Boot
 
-boot: $(B_DIR)/ucode/boot.bin
-
-$(B_DIR)/boot.o: src/boot.c
+$(B_DIR)/boot.elf: $(O_FILES)
 	mkdir -p $(B_DIR)
-	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
-	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
-
-$(B_DIR)/boot.elf: $(B_DIR)/boot.o $(B_DIR)/library.o
 	$(TOOLCHAIN)-ld -e 0x00003050 -T ld/boot.ld -o $@
 
 $(B_DIR)/ucode/boot.bin: $(B_DIR)/boot.elf
@@ -133,17 +116,13 @@ $(B_DIR)/ucode/boot.bin: $(B_DIR)/boot.elf
 	dd if="$@" of="$@.tmp" bs=8272 count=1
 	mv "$@.tmp" "$@"
 
+boot: $(B_DIR)/ucode/boot.bin
+
 ################################################################################
 # Library
 
-library: $(B_DIR)/ucode/library.bin
-
-$(B_DIR)/library.o: src/library.c
+$(B_DIR)/library.elf: $(O_FILES)
 	mkdir -p $(B_DIR)
-	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
-	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
-
-$(B_DIR)/library.elf: $(B_DIR)/library.o $(B_DIR)/setup.o $(B_DIR)/game.o $(B_DIR)/gvars.o
 	$(TOOLCHAIN)-ld -e 0x00003050 -T ld/library.ld -o $@
 
 $(B_DIR)/ucode/library.bin: $(B_DIR)/library.elf
@@ -152,16 +131,13 @@ $(B_DIR)/ucode/library.bin: $(B_DIR)/library.elf
 	dd if="$@" of="$@.tmp" bs=356240 count=1
 	mv "$@.tmp" "$@"
 
+library: $(B_DIR)/ucode/library.bin
+
 ################################################################################
 # Game setup file
 
-setup: $(B_DIR)/ucode/setup.bin
-
-$(B_DIR)/setup.o: src/setup.c $(SETUP_H_FILES)
+$(B_DIR)/setup.elf: $(O_FILES)
 	mkdir -p $(B_DIR)
-	$(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) -o $@ -O2 $<
-
-$(B_DIR)/setup.elf: $(B_DIR)/setup.o $(B_DIR)/game.o
 	$(TOOLCHAIN)-ld -e 0x80059fe0 -T ld/setup.ld -o $@
 
 $(B_DIR)/ucode/setup.bin: $(B_DIR)/setup.elf
@@ -170,33 +146,26 @@ $(B_DIR)/ucode/setup.bin: $(B_DIR)/setup.elf
 	dd if="$@" of="$@.tmp" bs=200256 count=1
 	mv "$@.tmp" "$@"
 
+setup: $(B_DIR)/ucode/setup.bin
+
 ################################################################################
 # Rarezip
 
-$(B_DIR)/ucode/rarezip.o: src/rarezip/rarezip.c
-	mkdir -p $(B_DIR)/ucode
-	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
-	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
-
-$(B_DIR)/ucode/rarezip.elf: $(B_DIR)/ucode/rarezip.o
-	cp $< build/rarezip.tmp.o
+$(B_DIR)/rarezip.elf: $(O_FILES)
+	mkdir -p $(B_DIR)
 	$(TOOLCHAIN)-ld -T ld/rarezip.ld -o $@
-	rm -f build/rarezip.tmp.o
 
-$(B_DIR)/ucode/rarezip.bin: $(B_DIR)/ucode/rarezip.elf
+$(B_DIR)/ucode/rarezip.bin: $(B_DIR)/rarezip.elf
+	mkdir -p $(B_DIR)/ucode
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
+
+rarezip: $(B_DIR)/ucode/rarezip.bin
 
 ################################################################################
 # Main game
 
-game: $(B_DIR)/ucode/game.bin
-
-$(B_DIR)/game.o: src/game/game.c
-	mkdir -p $(B_DIR)/ucode
-	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
-	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
-
-$(B_DIR)/game.elf: $(B_DIR)/game.o $(B_DIR)/library.o $(B_DIR)/setup.o $(B_DIR)/gvars.o
+$(B_DIR)/game.elf: $(O_FILES)
+	mkdir -p $(B_DIR)
 	$(TOOLCHAIN)-ld -T ld/game.ld -o $@
 
 $(B_DIR)/ucode/game.bin: $(B_DIR)/game.elf
@@ -205,61 +174,47 @@ $(B_DIR)/ucode/game.bin: $(B_DIR)/game.elf
 	dd if="$@" of="$@.tmp" bs=1808864 count=1
 	mv "$@.tmp" "$@"
 
+game: $(B_DIR)/ucode/game.bin
+
 ################################################################################
 # gVars
 
-gvars: $(B_DIR)/ucode/gvars.bin
-
-$(B_DIR)/gvars.o: src/gvars.c
-	mkdir -p $(B_DIR)/ucode
-	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
-	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
-
-$(B_DIR)/gvars.elf: $(B_DIR)/gvars.o
+$(B_DIR)/gvars.elf: $(O_FILES)
+	mkdir -p $(B_DIR)
 	$(TOOLCHAIN)-ld -T ld/gvars.ld -o $@
 
 $(B_DIR)/ucode/gvars.bin: $(B_DIR)/gvars.elf
 	mkdir -p $(B_DIR)/ucode
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
+gvars: $(B_DIR)/ucode/gvars.bin
+
 ################################################################################
 # Test related
 
-test: $(B_SETUP_BINZ_FILES) $(B_LANG_BINZ_FILES)
-	@rm -f $(B_DIR)/files/lang/*.{elf,o}
-	@diff -rq --exclude='*.bin' \
-		--exclude=chrs \
-		--exclude=guns \
-		--exclude=lang \
-		--exclude=props \
-		--exclude=setup \
-		--exclude='A*' \
-		--exclude='C*' \
-		--exclude='G*' \
-		--exclude='P*' \
-		--exclude=bgdata \
-		--exclude=ob \
-		$(E_DIR)/files $(B_DIR)/files
-	@diff -q $(E_DIR)/ucode/setup.bin $(B_DIR)/ucode/setup.bin
-	@diff -q $(E_DIR)/ucode/library.bin $(B_DIR)/ucode/library.bin
+test: all
+	@rm -f $(B_DIR)/*.elf
+	@diff -q $(E_DIR)/files/lang/ $(B_DIR)/files/lang/
+	@diff -q $(E_DIR)/files/setup/ $(B_DIR)/files/setup/
+	@diff -q $(E_DIR)/ucode/boot.bin $(B_DIR)/ucode/boot.bin
 	@diff -q $(E_DIR)/ucode/game.bin $(B_DIR)/ucode/game.bin
-
-testall:
-	REGION=ntsc RELEASE=final make test
-	REGION=ntsc RELEASE=1.0 make test
-	REGION=ntsc RELEASE=beta make test
-	REGION=pal RELEASE=final make test
-	REGION=pal RELEASE=beta make test
-	REGION=jap RELEASE=final make test
+	@diff -q $(E_DIR)/ucode/library.bin $(B_DIR)/ucode/library.bin
+	@diff -q $(E_DIR)/ucode/rarezip.bin $(B_DIR)/ucode/rarezip.bin
+	@diff -q $(E_DIR)/ucode/setup.bin $(B_DIR)/ucode/setup.bin
 
 ################################################################################
 # Miscellaneous
 
-all: library setup lang stagesetup
+%.o: %.c
+	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
+	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
-rom: $(B_SETUP_BINZ_FILES) $(B_DIR)/ucode/setup.bin
+all: stagesetup lang boot library setup rarezip game gvars
+
+rom: all
 	tools/inject pd.$(ROMID).z64
 
 clean:
 	rm -rf build/*
+	find src -name '*.o' -delete
 

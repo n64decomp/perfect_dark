@@ -4,8 +4,8 @@ OUTPUT_ARCH (mips)
 SECTIONS
 {
 	.gvars 0x80099fc0 : AT(0) {
-		build/ntsc-final/gvars.o (.text);
-		build/ntsc-final/gvars.o (.data);
+		src/gvars/gvars.o (.text);
+		src/gvars/gvars.o (.data);
 	}
 
 	/DISCARD/ : {

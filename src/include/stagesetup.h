@@ -1,4 +1,4 @@
-#include "ultra64.h"
+#include <ultra64.h>
 #include "constants.h"
 #include "commands.h"
 #include "intro.h"

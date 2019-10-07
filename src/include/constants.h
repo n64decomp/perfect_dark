@@ -4,8 +4,6 @@
 #define false 0
 #define true  1
 
-#define bool u8
-
 #define ACTION_SCAN               0x01
 #define ACTION_UNDER_COVER        0x02
 #define ACTION_GRENADE_STOP       0x03

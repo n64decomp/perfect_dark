@@ -1,8 +1,9 @@
 #ifndef _IN_TYPES_H
 #define _IN_TYPES_H
-
-#include "ultra64.h"
+#include <ultra64.h>
 #include "constants.h"
+
+#define bool u8
 
 struct coord {
 	float x;
@@ -25,7 +26,7 @@ struct chrdata {
 	/*0x003*/ u8 speedrating;
 	/*0x004*/ u16 firecount;
 	/*0x006*/ u8 headnum;
-	/*0x007*/ u8 actiontype;
+	/*0x007*/ s8 actiontype;
 	/*0x008*/ u8 sleep;
 	/*0x009*/ u8 invalidmove;
 	/*0x00a*/ u8 numclosearghs;
