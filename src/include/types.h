@@ -56,7 +56,7 @@ struct chrdata {
 	/*0x04c*/ u32 unk04c;
 	/*0x050*/ u32 unk050;
 	/*0x054*/ u32 unk054;
-	/*0x058*/ u32 unk058;
+	/*0x058*/ void *unk058;
 	/*0x05c*/ u32 unk05c;
 	/*0x060*/ u32 unk060;
 	/*0x064*/ u32 unk064;
