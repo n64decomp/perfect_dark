@@ -25,7 +25,7 @@
 /*0x0013*/ bool aiRunAndFire(void);
 /*0x0014*/ bool aiRollAndFire(void);
 /*0x0015*/ bool aiAimAndFire1(void);
-/*0x0016*/ bool ai0016(void);
+/*0x0016*/ bool aiKneelAndFire(void);
 /*0x0017*/ bool ai0017(void);
 /*0x0018*/ bool ai0018(void);
 /*0x0019*/ bool ai0019(void);
