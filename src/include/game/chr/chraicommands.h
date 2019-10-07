@@ -56,7 +56,7 @@
 /*0x0032*/ bool aiIfStopped(void);
 /*0x0033*/ bool aiIfDying(void);
 /*0x0034*/ bool ai0034(void);
-/*0x0035*/ bool ai0035(void);
+/*0x0035*/ bool aiIfPlayerInSight(void);
 /*0x0036*/ bool ai0036(void);
 /*0x0037*/ bool ai0037(void);
 /*0x0038*/ bool ai0038(void);
