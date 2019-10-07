@@ -53,7 +53,7 @@
 /*0x002f*/ bool ai002f(void);
 /*0x0030*/ bool ai0030(void);
 /*0x0031*/ bool ai0031(void);
-/*0x0032*/ bool ai0032(void);
+/*0x0032*/ bool aiIfStopped(void);
 /*0x0033*/ bool ai0033(void);
 /*0x0034*/ bool ai0034(void);
 /*0x0035*/ bool ai0035(void);
