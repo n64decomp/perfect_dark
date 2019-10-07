@@ -18,7 +18,7 @@
 /*0x000c*/ bool aiIfIdle(void);
 /*0x000d*/ bool ai000d(void);
 /*0x000e*/ bool ai000e(void);
-/*0x000f*/ bool ai000f(void);
+/*0x000f*/ bool aiStepSideways(void);
 /*0x0010*/ bool ai0010(void);
 /*0x0011*/ bool ai0011(void);
 /*0x0012*/ bool ai0012(void);
