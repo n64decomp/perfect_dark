@@ -1494,53 +1494,26 @@ bool aiJogToPad(void)
 /**
  * @cmd 001e
  */
-GLOBAL_ASM(
-glabel ai001e
-/*  f04f8d4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04f8d8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04f8dc:	3c10800a */ 	lui	$s0,0x800a
-/*  f04f8e0:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f04f8e4:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f04f8e8:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f04f8ec:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04f8f0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f04f8f4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f04f8f8:	90430002 */ 	lbu	$v1,0x2($v0)
-/*  f04f8fc:	50600006 */ 	beqzl	$v1,.L0f04f918
-/*  f04f900:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f04f904:	5061000a */ 	beql	$v1,$at,.L0f04f930
-/*  f04f908:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f04f90c:	1000000e */ 	beqz	$zero,.L0f04f948
-/*  f04f910:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f04f914:	8e040424 */ 	lw	$a0,0x424($s0)
-.L0f04f918:
-/*  f04f918:	00003025 */ 	or	$a2,$zero,$zero
-/*  f04f91c:	0fc0ea25 */ 	jal	func0f03a894
-/*  f04f920:	84850128 */ 	lh	$a1,0x128($a0)
-/*  f04f924:	1000000c */ 	beqz	$zero,.L0f04f958
-/*  f04f928:	8e180438 */ 	lw	$t8,0x438($s0)
-/*  f04f92c:	8e040424 */ 	lw	$a0,0x424($s0)
-.L0f04f930:
-/*  f04f930:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f04f934:	0fc0ea25 */ 	jal	func0f03a894
-/*  f04f938:	84850128 */ 	lh	$a1,0x128($a0)
-/*  f04f93c:	10000006 */ 	beqz	$zero,.L0f04f958
-/*  f04f940:	8e180438 */ 	lw	$t8,0x438($s0)
-/*  f04f944:	8e040424 */ 	lw	$a0,0x424($s0)
-.L0f04f948:
-/*  f04f948:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f04f94c:	0fc0ea25 */ 	jal	func0f03a894
-/*  f04f950:	84850128 */ 	lh	$a1,0x128($a0)
-/*  f04f954:	8e180438 */ 	lw	$t8,0x438($s0)
-.L0f04f958:
-/*  f04f958:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04f95c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04f960:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f04f964:	ae190438 */ 	sw	$t9,0x438($s0)
-/*  f04f968:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f04f96c:	03e00008 */ 	jr	$ra
-/*  f04f970:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+bool aiGoToPadPreset(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	switch (cmd[2]) {
+	case 0:
+		func0f03a894(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_WALK);
+		break;
+	case 1:
+		func0f03a894(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_JOG);
+		break;
+	default:
+		func0f03a894(g_Vars.chrdata, g_Vars.chrdata->padpreset1, SPEED_RUN);
+		break;
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 001f

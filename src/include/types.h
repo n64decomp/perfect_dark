@@ -110,7 +110,7 @@ struct chrdata {
 	/*0x124*/ u8 random;
 	/*0x125*/ u8 team;
 	/*0x126*/ u8 soundgap;
-	/*0x128*/ u16 padpreset1;
+	/*0x128*/ s16 padpreset1;
 	/*0x12a*/ u16 chrpreset1;
 	/*0x12c*/ u16 proppreset1;
 	/*0x12e*/ u16 chrseeshot;
