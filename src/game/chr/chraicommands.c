@@ -1350,7 +1350,7 @@ bool aiRunToChr(void)
  * @cmd 0036
  */
 GLOBAL_ASM(
-glabel ai0036
+glabel aiRandom
 /*  f04f6dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f04f6e0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f04f6e4:	0c004b70 */ 	jal	0x12dc0
