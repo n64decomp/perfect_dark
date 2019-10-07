@@ -34,7 +34,7 @@
 /*0x001c*/ bool ai001c(void);
 /*0x001d*/ bool aiJogToPad(void);
 /*0x001e*/ bool aiGoToPadPreset(void);
-/*0x001f*/ bool ai001f(void);
+/*0x001f*/ bool aiWalkToPad(void);
 /*0x0020*/ bool ai0020(void);
 /*0x0021*/ bool ai0021(void);
 /*0x0022*/ bool ai0022(void);

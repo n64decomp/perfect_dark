@@ -1518,33 +1518,16 @@ bool aiGoToPadPreset(void)
 /**
  * @cmd 001f
  */
-GLOBAL_ASM(
-glabel ai001f
-/*  f04f974:	3c07800a */ 	lui	$a3,0x800a
-/*  f04f978:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f04f97c:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f04f980:	8cef0438 */ 	lw	$t7,0x438($a3)
-/*  f04f984:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04f988:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04f98c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f04f990:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f04f994:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f04f998:	8ce40424 */ 	lw	$a0,0x424($a3)
-/*  f04f99c:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f04f9a0:	03281825 */ 	or	$v1,$t9,$t0
-/*  f04f9a4:	3065ffff */ 	andi	$a1,$v1,0xffff
-/*  f04f9a8:	0fc0ea25 */ 	jal	func0f03a894
-/*  f04f9ac:	00003025 */ 	or	$a2,$zero,$zero
-/*  f04f9b0:	3c07800a */ 	lui	$a3,0x800a
-/*  f04f9b4:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f04f9b8:	8cea0438 */ 	lw	$t2,0x438($a3)
-/*  f04f9bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04f9c0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04f9c4:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f04f9c8:	aceb0438 */ 	sw	$t3,0x438($a3)
-/*  f04f9cc:	03e00008 */ 	jr	$ra
-/*  f04f9d0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiWalkToPad(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 pad = cmd[3] | (cmd[2] << 8);
+
+	func0f03a894(g_Vars.chrdata, pad, SPEED_WALK);
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0020
