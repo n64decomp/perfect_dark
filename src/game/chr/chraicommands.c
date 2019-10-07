@@ -1480,33 +1480,16 @@ glabel ai0038
 /**
  * @cmd 001d
  */
-GLOBAL_ASM(
-glabel ai001d
-/*  f04f874:	3c07800a */ 	lui	$a3,0x800a
-/*  f04f878:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f04f87c:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f04f880:	8cef0438 */ 	lw	$t7,0x438($a3)
-/*  f04f884:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04f888:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04f88c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f04f890:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f04f894:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f04f898:	8ce40424 */ 	lw	$a0,0x424($a3)
-/*  f04f89c:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f04f8a0:	03281825 */ 	or	$v1,$t9,$t0
-/*  f04f8a4:	3065ffff */ 	andi	$a1,$v1,0xffff
-/*  f04f8a8:	0fc0ea25 */ 	jal	func0f03a894
-/*  f04f8ac:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f04f8b0:	3c07800a */ 	lui	$a3,0x800a
-/*  f04f8b4:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f04f8b8:	8cea0438 */ 	lw	$t2,0x438($a3)
-/*  f04f8bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04f8c0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04f8c4:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f04f8c8:	aceb0438 */ 	sw	$t3,0x438($a3)
-/*  f04f8cc:	03e00008 */ 	jr	$ra
-/*  f04f8d0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiJogToPad(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 pad = cmd[3] | (cmd[2] << 8);
+
+	func0f03a894(g_Vars.chrdata, pad, SPEED_JOG);
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 001e
