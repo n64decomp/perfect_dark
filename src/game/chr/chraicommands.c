@@ -1559,23 +1559,13 @@ bool aiSetPath(void)
 /**
  * @cmd 0022
  */
-GLOBAL_ASM(
-glabel ai0022
-/*  f04fa80:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04fa84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04fa88:	3c04800a */ 	lui	$a0,0x800a
-/*  f04fa8c:	0fc0ea5a */ 	jal	func0f03a968
-/*  f04fa90:	8c84a3e4 */ 	lw	$a0,-0x5c1c($a0)
-/*  f04fa94:	3c03800a */ 	lui	$v1,0x800a
-/*  f04fa98:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04fa9c:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f04faa0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04faa4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04faa8:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f04faac:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f04fab0:	03e00008 */ 	jr	$ra
-/*  f04fab4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiStartPath(void)
+{
+	func0f03a968(g_Vars.chrdata);
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 0039
