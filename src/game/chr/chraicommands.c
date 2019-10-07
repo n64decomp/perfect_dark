@@ -1130,47 +1130,19 @@ bool aiConsiderGrenadeThrow(void)
 /**
  * @cmd 001c
  */
-GLOBAL_ASM(
-glabel ai001c
-/*  f04f0ec:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f0f0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f0f4:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f04f0f8:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f04f0fc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04f100:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04f104:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f04f108:	90f80002 */ 	lbu	$t8,0x2($a3)
-/*  f04f10c:	90e80003 */ 	lbu	$t0,0x3($a3)
-/*  f04f110:	90e60004 */ 	lbu	$a2,0x4($a3)
-/*  f04f114:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f04f118:	03281025 */ 	or	$v0,$t9,$t0
-/*  f04f11c:	3045ffff */ 	andi	$a1,$v0,0xffff
-/*  f04f120:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f04f124:	0fc0ee5f */ 	jal	func0f03b97c
-/*  f04f128:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f04f12c:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f130:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f134:	10400009 */ 	beqz	$v0,.L0f04f15c
-/*  f04f138:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f04f13c:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f04f140:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f04f144:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f04f148:	90e60005 */ 	lbu	$a2,0x5($a3)
-/*  f04f14c:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f150:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f154:	10000004 */ 	beqz	$zero,.L0f04f168
-/*  f04f158:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f04f15c:
-/*  f04f15c:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f04f160:	254b0006 */ 	addiu	$t3,$t2,0x6
-/*  f04f164:	ac6b0438 */ 	sw	$t3,0x438($v1)
-.L0f04f168:
-/*  f04f168:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04f16c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f04f170:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04f174:	03e00008 */ 	jr	$ra
-/*  f04f178:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai001c(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 value = cmd[3] | (cmd[2] << 8);
+
+	if (func0f03b97c(g_Vars.chrdata, value & 0xffff, cmd[4] & 0xff)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	} else {
+		g_Vars.aioffset += 6;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0024
