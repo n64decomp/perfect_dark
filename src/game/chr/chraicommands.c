@@ -1546,28 +1546,15 @@ bool aiRunToPad(void)
 /**
  * @cmd 0021
  */
-GLOBAL_ASM(
-glabel ai0021
-/*  f04fa34:	3c03800a */ 	lui	$v1,0x800a
-/*  f04fa38:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04fa3c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f04fa40:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f04fa44:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04fa48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04fa4c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f04fa50:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f04fa54:	0fc0ea57 */ 	jal	func0f03a95c
-/*  f04fa58:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f04fa5c:	3c03800a */ 	lui	$v1,0x800a
-/*  f04fa60:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04fa64:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f04fa68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04fa6c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04fa70:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f04fa74:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f04fa78:	03e00008 */ 	jr	$ra
-/*  f04fa7c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetPath(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	func0f03a95c(g_Vars.chrdata, cmd[2]);
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0022
