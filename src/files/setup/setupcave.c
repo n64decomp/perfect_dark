@@ -1277,7 +1277,7 @@ u8 func0407_stewardess[] = {
 	goto_first(0x62)
 
 	label(0x0f)
-	chr_try_run_to_target_chr_with_hand_up(0xfb, /*goto*/ 0x49)
+	try_run_to_chr_with_hand_up(CHR_FRIEND, /*goto*/ 0x49)
 	dprint 'W','A','L','K','F','A','I','L','\n',0,
 
 	beginloop(0x49)

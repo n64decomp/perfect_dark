@@ -180,7 +180,7 @@
 	mkshort(0x002d), \
 	label,
 
-#define chr_try_run_to_target_chr_with_hand_up(chr, label) \
+#define try_run_to_chr_with_hand_up(chr, label) \
 	mkshort(0x002f), \
 	chr, \
 	label,

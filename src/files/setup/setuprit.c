@@ -2377,7 +2377,7 @@ u8 func040b_defend_president[] = {
 	if_self_distance_to_chr_lt(200, CHR_PRESIDENT, /*goto*/ 0x06)
 
 	label(0x03)
-	chr_try_run_to_target_chr_with_hand_up(CHR_PRESIDENT, /*goto*/ 0x04)
+	try_run_to_chr_with_hand_up(CHR_PRESIDENT, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,

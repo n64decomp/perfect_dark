@@ -533,7 +533,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x17)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_EXAMINE_BODY, FALSE, BANK_0, /*goto*/ 0x7d)
-	chr_try_run_to_target_chr_with_hand_up(CHR_FRIEND, /*goto*/ 0x7e)
+	try_run_to_chr_with_hand_up(CHR_FRIEND, /*goto*/ 0x7e)
 	dprint 'W','A','L','K','F','A','I','L','\n',0,
 
 	beginloop(0x7e)
