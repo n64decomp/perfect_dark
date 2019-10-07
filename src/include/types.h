@@ -12,7 +12,8 @@ struct coord {
 };
 
 struct position {
-	u16 unk00;
+	u8 unk00;
+	u8 unk01;
 	u16 room;
 	u32 unk04;
 	float x;
