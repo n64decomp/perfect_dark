@@ -23,7 +23,7 @@
 /*0x0011*/ bool aiRunSideways(void);
 /*0x0012*/ bool aiWalkAndFire(void);
 /*0x0013*/ bool aiRunAndFire(void);
-/*0x0014*/ bool ai0014(void);
+/*0x0014*/ bool aiRollAndFire(void);
 /*0x0015*/ bool ai0015(void);
 /*0x0016*/ bool ai0016(void);
 /*0x0017*/ bool ai0017(void);
