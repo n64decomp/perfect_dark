@@ -1169,37 +1169,20 @@ bool aiFadeOut(void)
 /**
  * @cmd 0026
  */
-GLOBAL_ASM(
-glabel ai0026
-/*  f04f1ec:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f1f0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f1f4:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f04f1f8:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f04f1fc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04f200:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04f204:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f04f208:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f04f20c:	0fc126d1 */ 	jal	chrFindById
-/*  f04f210:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f04f214:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f218:	10400007 */ 	beqz	$v0,.L0f04f238
-/*  f04f21c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f220:	8c58001c */ 	lw	$t8,0x1c($v0)
-/*  f04f224:	53000005 */ 	beqzl	$t8,.L0f04f23c
-/*  f04f228:	8c690438 */ 	lw	$t1,0x438($v1)
-/*  f04f22c:	8c590014 */ 	lw	$t9,0x14($v0)
-/*  f04f230:	37280020 */ 	ori	$t0,$t9,0x20
-/*  f04f234:	ac480014 */ 	sw	$t0,0x14($v0)
-.L0f04f238:
-/*  f04f238:	8c690438 */ 	lw	$t1,0x438($v1)
-.L0f04f23c:
-/*  f04f23c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04f240:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04f244:	252a0003 */ 	addiu	$t2,$t1,0x3
-/*  f04f248:	ac6a0438 */ 	sw	$t2,0x438($v1)
-/*  f04f24c:	03e00008 */ 	jr	$ra
-/*  f04f250:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiRemoveChr(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->pos) {
+		chr->hidden |= 0x20;
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0027
