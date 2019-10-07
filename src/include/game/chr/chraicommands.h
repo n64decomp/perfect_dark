@@ -50,9 +50,9 @@
 /*0x002c*/ bool ai002c(void);
 /*0x002d*/ bool ai002d(void);
 /*0x002e*/ bool ai002e(void);
-/*0x002f*/ bool aiGoToChr(void);
-/*0x0030*/ bool ai0030(void);
-/*0x0031*/ bool ai0031(void);
+/*0x002f*/ bool aiJogToChr(void);
+/*0x0030*/ bool aiWalkToChr(void);
+/*0x0031*/ bool aiRunToChr(void);
 /*0x0032*/ bool aiIfStopped(void);
 /*0x0033*/ bool aiIfDying(void);
 /*0x0034*/ bool ai0034(void);
