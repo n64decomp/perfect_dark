@@ -40,7 +40,7 @@
 /*0x0022*/ bool ai0022(void);
 /*0x0023*/ bool ai0023(void);
 /*0x0024*/ bool aiSurrender(void);
-/*0x0025*/ bool ai0025(void);
+/*0x0025*/ bool aiFadeOut(void);
 /*0x0026*/ bool ai0026(void);
 /*0x0027*/ bool ai0027(void);
 /*0x0028*/ bool ai0028(void);
