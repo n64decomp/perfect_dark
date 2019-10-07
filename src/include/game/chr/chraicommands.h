@@ -15,7 +15,7 @@
 /*0x0009*/ bool aiStop(void);
 /*0x000a*/ bool aiKneel(void);
 /*0x000b*/ bool ai000b(void);
-/*0x000c*/ bool ai000c(void);
+/*0x000c*/ bool aiIfIdle(void);
 /*0x000d*/ bool ai000d(void);
 /*0x000e*/ bool ai000e(void);
 /*0x000f*/ bool ai000f(void);
