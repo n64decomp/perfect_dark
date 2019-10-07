@@ -13981,7 +13981,7 @@ bool (*command_pointers[])(void) = {
 	/*0x001d*/ aiJogToPad,
 	/*0x001e*/ aiGoToPadPreset,
 	/*0x001f*/ aiWalkToPad,
-	/*0x0020*/ ai0020,
+	/*0x0020*/ aiRunToPad,
 	/*0x0021*/ ai0021,
 	/*0x0022*/ ai0022,
 	/*0x0023*/ ai0023,
