@@ -781,37 +781,17 @@ bool aiRunSideways(void)
 /**
  * @cmd 0012
  */
-GLOBAL_ASM(
-glabel ai0012
-/*  f04e8dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04e8e0:	3c03800a */ 	lui	$v1,0x800a
-/*  f04e8e4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04e8e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04e8ec:	0fc0e7f3 */ 	jal	func0f039fcc
-/*  f04e8f0:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f04e8f4:	3c03800a */ 	lui	$v1,0x800a
-/*  f04e8f8:	1040000a */ 	beqz	$v0,.L0f04e924
-/*  f04e8fc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04e900:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f04e904:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f04e908:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f04e90c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f04e910:	90460002 */ 	lbu	$a2,0x2($v0)
-/*  f04e914:	3c03800a */ 	lui	$v1,0x800a
-/*  f04e918:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04e91c:	10000004 */ 	beqz	$zero,.L0f04e930
-/*  f04e920:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f04e924:
-/*  f04e924:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f04e928:	25cf0003 */ 	addiu	$t7,$t6,0x3
-/*  f04e92c:	ac6f0438 */ 	sw	$t7,0x438($v1)
-.L0f04e930:
-/*  f04e930:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04e934:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04e938:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04e93c:	03e00008 */ 	jr	$ra
-/*  f04e940:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiWalkAndFire(void)
+{
+	if (func0f039fcc(g_Vars.chrdata)) {
+		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0013
