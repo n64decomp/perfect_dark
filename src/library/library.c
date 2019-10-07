@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "library/library.h"
-#include "setup/setup.h"
+#include "setup/setup_000000.h"
 
 u32 var0004f3e0 = 0x70002d68;
 u32 var0004f3e4 = 0x70002d14;
