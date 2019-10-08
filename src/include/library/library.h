@@ -2,6 +2,6 @@
 #define _IN_LIBRARY_H
 #include <ultra64.h>
 
-u32 random(void);
+u8 random(void);
 
 #endif

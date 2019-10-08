@@ -24488,7 +24488,7 @@ glabel func00012cb4
 
 // func00012dc0
 // Commented because compiler won't bitshift a u64
-//u32 random(void)
+//u8 random(void)
 //{
 //	rand_seed = ((rand_seed << 63) >> 31 | (rand_seed << 31) >> 32) ^
 //		(rand_seed << 44) >> 32;

@@ -1361,56 +1361,19 @@ bool aiRandom(void)
 /**
  * @cmd 0037
  */
-GLOBAL_ASM(
-glabel ai0037
-/*  f04f71c:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f720:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f724:	8c620424 */ 	lw	$v0,0x424($v1)
-/*  f04f728:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f04f72c:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f04f730:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04f734:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04f738:	10400006 */ 	beqz	$v0,.L0f04f754
-/*  f04f73c:	00853821 */ 	addu	$a3,$a0,$a1
-/*  f04f740:	904e0124 */ 	lbu	$t6,0x124($v0)
-/*  f04f744:	90ef0002 */ 	lbu	$t7,0x2($a3)
-/*  f04f748:	01cf082a */ 	slt	$at,$t6,$t7
-/*  f04f74c:	14200010 */ 	bnez	$at,.L0f04f790
-/*  f04f750:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04f754:
-/*  f04f754:	8c780430 */ 	lw	$t8,0x430($v1)
-/*  f04f758:	53000014 */ 	beqzl	$t8,.L0f04f7ac
-/*  f04f75c:	8c690438 */ 	lw	$t1,0x438($v1)
-/*  f04f760:	0c004b70 */ 	jal	random
-/*  f04f764:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f04f768:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f04f76c:	305900ff */ 	andi	$t9,$v0,0xff
-/*  f04f770:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f774:	90e80002 */ 	lbu	$t0,0x2($a3)
-/*  f04f778:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f77c:	0328082a */ 	slt	$at,$t9,$t0
-/*  f04f780:	5020000a */ 	beqzl	$at,.L0f04f7ac
-/*  f04f784:	8c690438 */ 	lw	$t1,0x438($v1)
-/*  f04f788:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f04f78c:	8c650438 */ 	lw	$a1,0x438($v1)
-.L0f04f790:
-/*  f04f790:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f04f794:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f04f798:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f79c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f7a0:	10000004 */ 	beqz	$zero,.L0f04f7b4
-/*  f04f7a4:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f04f7a8:	8c690438 */ 	lw	$t1,0x438($v1)
-.L0f04f7ac:
-/*  f04f7ac:	252a0004 */ 	addiu	$t2,$t1,0x4
-/*  f04f7b0:	ac6a0438 */ 	sw	$t2,0x438($v1)
-.L0f04f7b4:
-/*  f04f7b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04f7b8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f04f7bc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04f7c0:	03e00008 */ 	jr	$ra
-/*  f04f7c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfRandomLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if ((g_Vars.chrdata && g_Vars.chrdata->random < cmd[2]) ||
+			(g_Vars.aiddata && (random() & 0xff) < cmd[2])) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0038
