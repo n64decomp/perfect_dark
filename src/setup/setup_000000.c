@@ -14019,7 +14019,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0043*/ ai0043,
 	/*0x0044*/ aiIfShotAtCloseRange,
 	/*0x0045*/ ai0045,
-	/*0x0046*/ ai0046,
+	/*0x0046*/ aiIfNeverBeenOnScreen,
 	/*0x0047*/ ai0047,
 	/*0x0048*/ ai0048,
 	/*0x0049*/ ai0049,

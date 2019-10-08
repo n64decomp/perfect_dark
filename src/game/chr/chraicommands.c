@@ -1824,37 +1824,17 @@ bool ai0045(void)
 /**
  * @cmd 0046
  */
-GLOBAL_ASM(
-glabel ai0046
-/*  f050210:	3c03800a */ 	lui	$v1,0x800a
-/*  f050214:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f050218:	8c6e0424 */ 	lw	$t6,0x424($v1)
-/*  f05021c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f050220:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f050224:	8dcf0018 */ 	lw	$t7,0x18($t6)
-/*  f050228:	31f80008 */ 	andi	$t8,$t7,0x8
-/*  f05022c:	5700000b */ 	bnezl	$t8,.L0f05025c
-/*  f050230:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f050234:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f050238:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05023c:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f050240:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f050244:	90460002 */ 	lbu	$a2,0x2($v0)
-/*  f050248:	3c03800a */ 	lui	$v1,0x800a
-/*  f05024c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f050250:	10000004 */ 	beqz	$zero,.L0f050264
-/*  f050254:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f050258:	8c790438 */ 	lw	$t9,0x438($v1)
-.L0f05025c:
-/*  f05025c:	27280003 */ 	addiu	$t0,$t9,0x3
-/*  f050260:	ac680438 */ 	sw	$t0,0x438($v1)
-.L0f050264:
-/*  f050264:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f050268:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05026c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f050270:	03e00008 */ 	jr	$ra
-/*  f050274:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfNeverBeenOnScreen(void)
+{
+	if ((g_Vars.chrdata->chrflags & CHRFLAG3_NEVER_BEEN_ON_SCREEN) == 0) {
+		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0047

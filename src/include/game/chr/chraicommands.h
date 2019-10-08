@@ -73,7 +73,7 @@
 /*0x0043*/ bool ai0043(void);
 /*0x0044*/ bool aiIfShotAtCloseRange(void);
 /*0x0045*/ bool ai0045(void);
-/*0x0046*/ bool ai0046(void);
+/*0x0046*/ bool aiIfNeverBeenOnScreen(void);
 /*0x0047*/ bool ai0047(void);
 /*0x0048*/ bool ai0048(void);
 /*0x0049*/ bool ai0049(void);
