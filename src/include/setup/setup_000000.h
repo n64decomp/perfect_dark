@@ -1,6 +1,7 @@
 #ifndef IN_SETUP_000000_H
 #define IN_SETUP_000000_H
 #include <ultra64.h>
+#include "types.h"
 
 extern u32 levelnum;
 extern u64 rand_seed;
@@ -14,5 +15,7 @@ extern u32 var0000da78;
 extern u32 var0000c3f8;
 extern u32 var0000db50;
 extern u32 var0000db98;
+
+extern struct coord var0000f00c;
 
 #endif
