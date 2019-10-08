@@ -65,7 +65,7 @@
 /*0x003b*/ bool aiIfAlarmInactive(void);
 /*0x003c*/ bool ai003c(void);
 /*0x003d*/ bool ai003d(void);
-/*0x003e*/ bool ai003e(void);
+/*0x003e*/ bool aiIfSawDeath(void);
 /*0x003f*/ bool ai003f(void);
 /*0x0040*/ bool ai0040(void);
 /*0x0041*/ bool ai0041(void);
