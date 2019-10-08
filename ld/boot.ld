@@ -26,7 +26,7 @@ SECTIONS
 		src/setup/setup_020df0.o (.data);
 	}
 
-	.game 0x7f000000 : AT(SIZEOF(.boot) + SIZEOF(.library) + SIZEOF(.setup)) {
+	.game 0x0f000000 : AT(SIZEOF(.boot) + SIZEOF(.library) + SIZEOF(.setup)) {
 		src/game/game_000000.o (.text);
 		src/game/chr/chraicommands.o (.text);
 		src/game/game_0601b0.o (.text);

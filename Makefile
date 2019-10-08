@@ -108,7 +108,7 @@ lang: $(LANG_BIN_FILES)
 
 $(B_DIR)/boot.elf: $(O_FILES)
 	mkdir -p $(B_DIR)
-	$(TOOLCHAIN)-ld -e 0x00003050 -T ld/boot.ld -o $@
+	$(TOOLCHAIN)-ld -T ld/boot.ld -o $@
 
 $(B_DIR)/ucode/boot.bin: $(B_DIR)/boot.elf
 	mkdir -p $(B_DIR)/ucode
@@ -123,7 +123,7 @@ boot: $(B_DIR)/ucode/boot.bin
 
 $(B_DIR)/library.elf: $(O_FILES)
 	mkdir -p $(B_DIR)
-	$(TOOLCHAIN)-ld -e 0x00003050 -T ld/library.ld -o $@
+	$(TOOLCHAIN)-ld -T ld/library.ld -o $@
 
 $(B_DIR)/ucode/library.bin: $(B_DIR)/library.elf
 	mkdir -p $(B_DIR)/ucode
@@ -138,7 +138,7 @@ library: $(B_DIR)/ucode/library.bin
 
 $(B_DIR)/setup.elf: $(O_FILES)
 	mkdir -p $(B_DIR)
-	$(TOOLCHAIN)-ld -e 0x80059fe0 -T ld/setup.ld -o $@
+	$(TOOLCHAIN)-ld -T ld/setup.ld -o $@
 
 $(B_DIR)/ucode/setup.bin: $(B_DIR)/setup.elf
 	mkdir -p $(B_DIR)/ucode
