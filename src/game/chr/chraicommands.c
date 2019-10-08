@@ -1925,48 +1925,20 @@ glabel ai0048
 /**
  * @cmd 0049
  */
-GLOBAL_ASM(
-glabel ai0049
-/*  f0503d0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0503d4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0503d8:	3c10800a */ 	lui	$s0,0x800a
-/*  f0503dc:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f0503e0:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f0503e4:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f0503e8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0503ec:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f0503f0:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f0503f4:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f0503f8:	90680003 */ 	lbu	$t0,0x3($v1)
-/*  f0503fc:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f050400:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f050404:	03281025 */ 	or	$v0,$t9,$t0
-/*  f050408:	0fc12574 */ 	jal	func0f0495d0
-/*  f05040c:	3045ffff */ 	andi	$a1,$v0,0xffff
-/*  f050410:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f050414:	0440000b */ 	bltz	$v0,.L0f050444
-/*  f050418:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05041c:	0fc575ba */ 	jal	func0f15d6e8
-/*  f050420:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f050424:	10400007 */ 	beqz	$v0,.L0f050444
-/*  f050428:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f05042c:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f050430:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f050434:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f050438:	90660004 */ 	lbu	$a2,0x4($v1)
-/*  f05043c:	10000004 */ 	beqz	$zero,.L0f050450
-/*  f050440:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f050444:
-/*  f050444:	8e0a0438 */ 	lw	$t2,0x438($s0)
-/*  f050448:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f05044c:	ae0b0438 */ 	sw	$t3,0x438($s0)
-.L0f050450:
-/*  f050450:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f050454:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f050458:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f05045c:	03e00008 */ 	jr	$ra
-/*  f050460:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai0049(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 value1 = cmd[3] | (cmd[2] << 8);
+	s32 value2 = func0f0495d0(g_Vars.chrdata, value1);
+
+	if (value2 >= 0 && func0f15d6e8(value2)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 004a
