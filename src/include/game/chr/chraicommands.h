@@ -59,7 +59,7 @@
 /*0x0035*/ bool aiIfPlayerInSight(void);
 /*0x0036*/ bool aiRandom(void);
 /*0x0037*/ bool aiIfRandomLessThan(void);
-/*0x0038*/ bool ai0038(void);
+/*0x0038*/ bool aiIfRandomGreaterThan(void);
 /*0x0039*/ bool aiIfAlarmActivate(void);
 /*0x003a*/ bool ai003a(void);
 /*0x003b*/ bool ai003b(void);
