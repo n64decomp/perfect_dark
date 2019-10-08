@@ -14017,7 +14017,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0041*/ ai0041,
 	/*0x0042*/ aiIfInLoadedRoom,
 	/*0x0043*/ ai0043,
-	/*0x0044*/ ai0044,
+	/*0x0044*/ aiIfShotAtCloseRange,
 	/*0x0045*/ ai0045,
 	/*0x0046*/ ai0046,
 	/*0x0047*/ ai0047,
