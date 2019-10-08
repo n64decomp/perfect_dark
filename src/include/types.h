@@ -16,9 +16,7 @@ struct position {
 	u8 unk01;
 	u16 room;
 	u32 unk04;
-	float x;
-	float y;
-	float z;
+	struct coord coord;
 };
 
 struct chrdata {

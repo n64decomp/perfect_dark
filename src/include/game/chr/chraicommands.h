@@ -69,7 +69,7 @@
 /*0x003f*/ bool aiIfSeesPlayer(void);
 /*0x0040*/ bool ai0040(void);
 /*0x0041*/ bool ai0041(void);
-/*0x0042*/ bool ai0042(void);
+/*0x0042*/ bool aiIfInLoadedRoom(void);
 /*0x0043*/ bool ai0043(void);
 /*0x0044*/ bool ai0044(void);
 /*0x0045*/ bool ai0045(void);
