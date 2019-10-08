@@ -30660,7 +30660,7 @@ glabel func00018148
 );
 
 GLOBAL_ASM(
-glabel func000184d0
+glabel ailistFindById
 /*    184d0:	28810401 */ 	slti	$at,$a0,0x401
 /*    184d4:	14200020 */ 	bnez	$at,.L00018558
 /*    184d8:	3c058006 */ 	lui	$a1,0x8006

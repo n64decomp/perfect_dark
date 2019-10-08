@@ -76,7 +76,7 @@ glabel aiSetList
 /*  f04dd2c:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f04dd30:	0018ca00 */ 	sll	$t9,$t8,0x8
 /*  f04dd34:	03281025 */ 	or	$v0,$t9,$t0
-/*  f04dd38:	0c006134 */ 	jal	0x184d0
+/*  f04dd38:	0c006134 */ 	jal	ailistFindById
 /*  f04dd3c:	3044ffff */ 	andi	$a0,$v0,0xffff
 /*  f04dd40:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f04dd44:	3c06800a */ 	lui	$a2,0x800a
@@ -114,14 +114,14 @@ glabel aiSetList
 
 /**
  * Commented because ld is refusing to link to the library binary, making the
- * call to func000184d0 unresolvable. Matches otherwise.
- * Assumes func000184d0 is defined as u8 *func000184d0(u16 ailistid);
+ * call to ailistFindById unresolvable. Matches otherwise.
+ * Assumes ailistFindById is defined as u8 *ailistFindById(u16 ailistid);
  */
 //bool aiSetList(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	u32 ailistid = cmd[4] | (cmd[3] << 8);
-//	u8 *ailist = func000184d0(ailistid);
+//	u8 *ailist = ailistFindById(ailistid);
 //
 //	struct chrdata *chr = g_Vars.chrdata;
 //
@@ -296,7 +296,7 @@ glabel aiReturn
 /*  f04e004:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f04e008:	10400007 */ 	beqz	$v0,.L0f04e028
 /*  f04e00c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f04e010:	0c006134 */ 	jal	0x184d0
+/*  f04e010:	0c006134 */ 	jal	ailistFindById
 /*  f04e014:	8444010e */ 	lh	$a0,0x10e($v0)
 /*  f04e018:	3c05800a */ 	lui	$a1,0x800a
 /*  f04e01c:	24a59fc0 */ 	addiu	$a1,$a1,-24640
@@ -306,7 +306,7 @@ glabel aiReturn
 /*  f04e028:	8ca20428 */ 	lw	$v0,0x428($a1)
 /*  f04e02c:	50400008 */ 	beqzl	$v0,.L0f04e050
 /*  f04e030:	8ca2042c */ 	lw	$v0,0x42c($a1)
-/*  f04e034:	0c006134 */ 	jal	0x184d0
+/*  f04e034:	0c006134 */ 	jal	ailistFindById
 /*  f04e038:	84440062 */ 	lh	$a0,0x62($v0)
 /*  f04e03c:	3c05800a */ 	lui	$a1,0x800a
 /*  f04e040:	24a59fc0 */ 	addiu	$a1,$a1,-24640
@@ -316,7 +316,7 @@ glabel aiReturn
 .L0f04e050:
 /*  f04e050:	50400008 */ 	beqzl	$v0,.L0f04e074
 /*  f04e054:	8ca20430 */ 	lw	$v0,0x430($a1)
-/*  f04e058:	0c006134 */ 	jal	0x184d0
+/*  f04e058:	0c006134 */ 	jal	ailistFindById
 /*  f04e05c:	84440062 */ 	lh	$a0,0x62($v0)
 /*  f04e060:	3c05800a */ 	lui	$a1,0x800a
 /*  f04e064:	24a59fc0 */ 	addiu	$a1,$a1,-24640
@@ -326,7 +326,7 @@ glabel aiReturn
 .L0f04e074:
 /*  f04e074:	50400007 */ 	beqzl	$v0,.L0f04e094
 /*  f04e078:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04e07c:	0c006134 */ 	jal	0x184d0
+/*  f04e07c:	0c006134 */ 	jal	ailistFindById
 /*  f04e080:	84440062 */ 	lh	$a0,0x62($v0)
 /*  f04e084:	3c05800a */ 	lui	$a1,0x800a
 /*  f04e088:	24a59fc0 */ 	addiu	$a1,$a1,-24640
@@ -343,21 +343,21 @@ glabel aiReturn
 
 /**
  * Commented because ld is refusing to link to the library binary, making the
- * call to func000184d0 unresolvable. Matches otherwise.
- * Assumes func000184d0 is defined as u8 *func000184d0(s16 ailistid);
+ * call to ailistFindById unresolvable. Matches otherwise.
+ * Assumes ailistFindById is defined as u8 *ailistFindById(s16 ailistid);
  */
 //bool aiReturn(void)
 //{
 //	u8 *ailist = NULL;
 //
 //	if (g_Vars.chrdata) {
-//		ailist = func000184d0(g_Vars.chrdata->aireturnlist);
+//		ailist = ailistFindById(g_Vars.chrdata->aireturnlist);
 //	} else if (g_Vars.objdata) {
-//		ailist = func000184d0(g_Vars.objdata->aireturnlist);
+//		ailist = ailistFindById(g_Vars.objdata->aireturnlist);
 //	} else if (g_Vars.aicdata) {
-//		ailist = func000184d0(g_Vars.aicdata->aireturnlist);
+//		ailist = ailistFindById(g_Vars.aicdata->aireturnlist);
 //	} else if (g_Vars.aiddata) {
-//		ailist = func000184d0(g_Vars.aiddata->aireturnlist);
+//		ailist = ailistFindById(g_Vars.aiddata->aireturnlist);
 //	}
 //
 //	g_Vars.ailist = ailist;
@@ -8425,7 +8425,7 @@ glabel ai00c6
 /*  f0556c4:	01af1025 */ 	or	$v0,$t5,$t7
 /*  f0556c8:	3044ffff */ 	andi	$a0,$v0,0xffff
 /*  f0556cc:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*  f0556d0:	0c006134 */ 	jal	0x184d0
+/*  f0556d0:	0c006134 */ 	jal	ailistFindById
 /*  f0556d4:	afa30034 */ 	sw	$v1,0x34($sp)
 /*  f0556d8:	8fa30034 */ 	lw	$v1,0x34($sp)
 /*  f0556dc:	8fa8002c */ 	lw	$t0,0x2c($sp)
@@ -8486,7 +8486,7 @@ glabel ai00c7
 /*  f055794:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*  f055798:	00184200 */ 	sll	$t0,$t8,0x8
 /*  f05579c:	01191025 */ 	or	$v0,$t0,$t9
-/*  f0557a0:	0c006134 */ 	jal	0x184d0
+/*  f0557a0:	0c006134 */ 	jal	ailistFindById
 /*  f0557a4:	3044ffff */ 	andi	$a0,$v0,0xffff
 /*  f0557a8:	8fa3002c */ 	lw	$v1,0x2c($sp)
 /*  f0557ac:	8fab0028 */ 	lw	$t3,0x28($sp)
@@ -8767,7 +8767,7 @@ glabel ai00ca
 /*  f055b70:	afa50064 */ 	sw	$a1,0x64($sp)
 /*  f055b74:	00184200 */ 	sll	$t0,$t8,0x8
 /*  f055b78:	01191025 */ 	or	$v0,$t0,$t9
-/*  f055b7c:	0c006134 */ 	jal	0x184d0
+/*  f055b7c:	0c006134 */ 	jal	ailistFindById
 /*  f055b80:	3044ffff */ 	andi	$a0,$v0,0xffff
 /*  f055b84:	8fab0064 */ 	lw	$t3,0x64($sp)
 /*  f055b88:	afa00054 */ 	sw	$zero,0x54($sp)
