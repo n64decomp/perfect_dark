@@ -1352,8 +1352,7 @@ bool aiRunToChr(void)
  */
 bool aiRandom(void)
 {
-	u32 value = random();
-	g_Vars.chrdata->random = value & 0xff;
+	g_Vars.chrdata->random = random() & 0xff;
 	g_Vars.aioffset += 2;
 
 	return false;
