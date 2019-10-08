@@ -5,4 +5,6 @@
 
 struct chrdata *chrFindById(struct chrdata *data, u8 chrnum);
 
+s32 padResolve(struct chrdata *chr, s32 pad_id);
+
 #endif
