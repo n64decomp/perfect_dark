@@ -18,4 +18,6 @@ extern u32 var0000db98;
 
 extern struct coord var0000f00c;
 
+extern s32 g_AlarmActive;
+
 #endif

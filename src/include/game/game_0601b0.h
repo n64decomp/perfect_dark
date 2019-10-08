@@ -3,6 +3,8 @@
 #include <ultra64.h>
 #include "constants.h"
 
+void alarmActivate(void);
+
 void menudialog000fcd48(void);
 void menudialog000fcd48(void);
 void menudialog000fcd48(void);

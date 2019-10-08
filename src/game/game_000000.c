@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "gvars/gvars.h"
 #include "game/game_000000.h"
+#include "game/game_0601b0.h"
 #include "library/library.h"
 
 GLOBAL_ASM(
@@ -70012,7 +70013,7 @@ glabel func0f03e0e4
 /*  f03e150:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03e154:	45000003 */ 	bc1f	.L0f03e164
 /*  f03e158:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e15c:	0fc240ec */ 	jal	func0f0903b0
+/*  f03e15c:	0fc240ec */ 	jal	alarmActivate
 /*  f03e160:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f03e164:
 /*  f03e164:	0c00745f */ 	jal	0x1d17c
