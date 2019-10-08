@@ -13,7 +13,7 @@ struct coord {
 
 struct position {
 	u8 unk00;
-	u8 unk01;
+	u8 flags;
 	u16 room;
 	u32 unk04;
 	struct coord coord;
