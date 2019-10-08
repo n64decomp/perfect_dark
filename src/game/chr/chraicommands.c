@@ -1544,39 +1544,22 @@ bool aiIfAlarmInactive(void)
 }
 
 /**
+ * Either a check if chr is alerted or a check if they can hear gunfire.
+ * Probably the latter.
+ *
  * @cmd 003c
  */
-GLOBAL_ASM(
-glabel ai003c
-/*  f04fc68:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04fc6c:	3c03800a */ 	lui	$v1,0x800a
-/*  f04fc70:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04fc74:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04fc78:	0fc127e1 */ 	jal	func0f049f84
-/*  f04fc7c:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f04fc80:	3c03800a */ 	lui	$v1,0x800a
-/*  f04fc84:	1040000a */ 	beqz	$v0,.L0f04fcb0
-/*  f04fc88:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04fc8c:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f04fc90:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f04fc94:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f04fc98:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f04fc9c:	90460002 */ 	lbu	$a2,0x2($v0)
-/*  f04fca0:	3c03800a */ 	lui	$v1,0x800a
-/*  f04fca4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04fca8:	10000004 */ 	beqz	$zero,.L0f04fcbc
-/*  f04fcac:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f04fcb0:
-/*  f04fcb0:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f04fcb4:	25cf0003 */ 	addiu	$t7,$t6,0x3
-/*  f04fcb8:	ac6f0438 */ 	sw	$t7,0x438($v1)
-.L0f04fcbc:
-/*  f04fcbc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04fcc0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04fcc4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04fcc8:	03e00008 */ 	jr	$ra
-/*  f04fccc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai003c(void)
+{
+	if (func0f049f84(g_Vars.chrdata)) {
+		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 003d
