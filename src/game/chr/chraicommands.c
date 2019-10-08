@@ -1350,25 +1350,14 @@ bool aiRunToChr(void)
 /**
  * @cmd 0036
  */
-GLOBAL_ASM(
-glabel aiRandom
-/*  f04f6dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04f6e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04f6e4:	0c004b70 */ 	jal	random
-/*  f04f6e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04f6ec:	3c03800a */ 	lui	$v1,0x800a
-/*  f04f6f0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f04f6f4:	8c6f0424 */ 	lw	$t7,0x424($v1)
-/*  f04f6f8:	00407025 */ 	or	$t6,$v0,$zero
-/*  f04f6fc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04f700:	a1ee0124 */ 	sb	$t6,0x124($t7)
-/*  f04f704:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f04f708:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04f70c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04f710:	27190002 */ 	addiu	$t9,$t8,0x2
-/*  f04f714:	03e00008 */ 	jr	$ra
-/*  f04f718:	ac790438 */ 	sw	$t9,0x438($v1)
-);
+bool aiRandom(void)
+{
+	u32 value = random();
+	g_Vars.chrdata->random = value & 0xff;
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 0037
