@@ -62,7 +62,7 @@
 /*0x0038*/ bool aiIfRandomGreaterThan(void);
 /*0x0039*/ bool aiIfChrAlarmActivate(void);
 /*0x003a*/ bool aiIfAlarmActive(void);
-/*0x003b*/ bool ai003b(void);
+/*0x003b*/ bool aiIfAlarmInactive(void);
 /*0x003c*/ bool ai003c(void);
 /*0x003d*/ bool ai003d(void);
 /*0x003e*/ bool ai003e(void);

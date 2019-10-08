@@ -14008,7 +14008,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0038*/ aiIfRandomGreaterThan,
 	/*0x0039*/ aiIfChrAlarmActivate,
 	/*0x003a*/ aiIfAlarmActive,
-	/*0x003b*/ ai003b,
+	/*0x003b*/ aiIfAlarmInactive,
 	/*0x003c*/ ai003c,
 	/*0x003d*/ ai003d,
 	/*0x003e*/ ai003e,
