@@ -1813,7 +1813,7 @@ bool ai0045(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && func0f0393b4(g_Vars.chrdata, &chr->pos->coord, &chr->pos->unk24)) {
+	if (chr && chr->pos && func0f0393b4(g_Vars.chrdata, &chr->pos->coord, &chr->pos->unk28)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
