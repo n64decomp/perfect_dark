@@ -18254,27 +18254,14 @@ glabel ai018f
 /**
  * @cmd 0190
  */
-GLOBAL_ASM(
-glabel ai0190
-/*  f05d79c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d7a0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d7a4:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05d7a8:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d7ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05d7b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d7b4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05d7b8:	0fc43c4f */ 	jal	func0f10f13c
-/*  f05d7bc:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f05d7c0:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d7c4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d7c8:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f05d7cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05d7d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05d7d4:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f05d7d8:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f05d7dc:	03e00008 */ 	jr	$ra
-/*  f05d7e0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiEepromSet(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	func0f10f13c(cmd[2]);
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0191

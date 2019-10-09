@@ -14349,7 +14349,7 @@ bool (*command_pointers[])(void) = {
 	/*0x018d*/ ai018d,
 	/*0x018e*/ ai018e,
 	/*0x018f*/ ai018f,
-	/*0x0190*/ ai0190,
+	/*0x0190*/ aiEepromSet,
 	/*0x0191*/ ai0191,
 	/*0x0192*/ ai0192,
 	/*0x0193*/ ai0193,

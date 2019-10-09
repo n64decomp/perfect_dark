@@ -377,7 +377,7 @@
 /*0x018d*/ bool ai018d(void);
 /*0x018e*/ bool ai018e(void);
 /*0x018f*/ bool ai018f(void);
-/*0x0190*/ bool ai0190(void);
+/*0x0190*/ bool aiEepromSet(void);
 /*0x0191*/ bool ai0191(void);
 /*0x0192*/ bool ai0192(void);
 /*0x0193*/ bool ai0193(void);
