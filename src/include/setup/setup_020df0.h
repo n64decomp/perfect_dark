@@ -22,4 +22,6 @@ extern struct menu_dialog menudialog_mpchallengedetails;
 extern struct menu_dialog menudialog_mpscenario;
 extern struct menu_dialog menudialog_mpquickteam;
 
+extern u32 g_Difficulty;
+
 #endif
