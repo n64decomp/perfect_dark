@@ -83725,17 +83725,10 @@ glabel func0f04a27c
 /*  f04a2b0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04a2b4
-/*  f04a2b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04a2b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04a2bc:	0fc2410e */ 	jal	alarmIsActive
-/*  f04a2c0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f04a2c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04a2c8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04a2cc:	03e00008 */ 	jr	$ra
-/*  f04a2d0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f04a2b4(struct chrdata *chr)
+{
+	return alarmIsActive();
+}
 
 GLOBAL_ASM(
 glabel func0f04a2d4
