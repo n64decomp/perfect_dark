@@ -18,10 +18,12 @@ SECTIONS
 
 	.game 0x7f000000 : AT(SIZEOF(.setup) + SIZEOF(.library)) {
 		src/game/game_000000.o (.text);
+		src/game/chr/chrai.o (.text);
 		src/game/chr/chraicommands.o (.text);
 		src/game/game_0601b0.o (.text);
 
 		src/game/game_000000.o (.data);
+		src/game/chr/chrai.o (.data);
 		src/game/chr/chraicommands.o (.data);
 		src/game/game_0601b0.o (.data);
 	}

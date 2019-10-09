@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chr/chraicommands.h"
+#include "game/chr/chrai.h"
 #include "game/game_000000.h"
 #include "game/game_0601b0.h"
 #include "gvars/gvars.h"
@@ -372,7 +373,7 @@ glabel aiReturn
 bool aiEndList(void)
 {
 	u64 unk;
-	func0f04d560(g_Vars.ailist, &unk);
+	chraiEndList(g_Vars.ailist, &unk);
 
 	return true;
 }
@@ -1191,10 +1192,10 @@ bool aiRemoveChr(void)
 bool ai0027(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u32 value = cmd[3] | (cmd[2] << 8);
+	u16 value = cmd[3] | (cmd[2] << 8);
 
-	if (func0f03b5f0(g_Vars.chrdata, value & 0xffff)) {
-		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4] & 0xff);
+	if (func0f03b5f0(g_Vars.chrdata, value)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
 	}
@@ -7766,7 +7767,7 @@ glabel ai00b5
 .L0f054edc:
 /*  f054edc:	24639fc0 */ 	addiu	$v1,$v1,-24640
 /*  f054ee0:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f054ee4:	0fc136d0 */ 	jal	func0f04db40
+/*  f054ee4:	0fc136d0 */ 	jal	chraiGetCommandLength
 /*  f054ee8:	8c650438 */ 	lw	$a1,0x438($v1)
 /*  f054eec:	3c03800a */ 	lui	$v1,0x800a
 /*  f054ef0:	24639fc0 */ 	addiu	$v1,$v1,-24640

@@ -227,6 +227,10 @@
 #define CHRFLAG3_40000000                    0x40000000 // Not used in scripts
 #define CHRFLAG3_80000000                    0x80000000 // Not used in scripts
 
+#define CMD_LABEL 0x0002
+#define CMD_END   0x0004
+#define CMD_PRINT 0x00b5
+
 #define COLOR_00_GREEN  0x00
 #define COLOR_02_WHITE  0x02
 #define COLOR_03_RED    0x03
