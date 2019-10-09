@@ -84425,19 +84425,10 @@ glabel func0f04ac60
 /*  f04ac9c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04aca0
-/*  f04aca0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04aca4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04aca8:	0fc1258b */ 	jal	padResolve
-/*  f04acac:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f04acb0:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f04acb4:	a5c20128 */ 	sh	$v0,0x128($t6)
-/*  f04acb8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04acbc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04acc0:	03e00008 */ 	jr	$ra
-/*  f04acc4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrSetPadPreset(struct chrdata *chr, u32 pad_id)
+{
+	chr->padpreset1 = padResolve(chr, pad_id);
+}
 
 GLOBAL_ASM(
 glabel func0f04acc8

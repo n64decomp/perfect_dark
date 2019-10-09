@@ -7613,7 +7613,7 @@ glabel ai00b2
 /*  f054d9c:	30c8ffff */ 	andi	$t0,$a2,0xffff
 /*  f054da0:	10800007 */ 	beqz	$a0,.L0f054dc0
 /*  f054da4:	01003025 */ 	or	$a2,$t0,$zero
-/*  f054da8:	0fc12b28 */ 	jal	func0f04aca0
+/*  f054da8:	0fc12b28 */ 	jal	chrSetPadPreset
 /*  f054dac:	01002825 */ 	or	$a1,$t0,$zero
 /*  f054db0:	3c07800a */ 	lui	$a3,0x800a
 /*  f054db4:	24e79fc0 */ 	addiu	$a3,$a3,-24640
@@ -16197,7 +16197,7 @@ glabel ai0142
 /*  f05bd5c:	56380005 */ 	bnel	$s1,$t8,.L0f05bd74
 /*  f05bd60:	26100004 */ 	addiu	$s0,$s0,0x4
 /*  f05bd64:	8e640424 */ 	lw	$a0,0x424($s3)
-/*  f05bd68:	0fc12b28 */ 	jal	func0f04aca0
+/*  f05bd68:	0fc12b28 */ 	jal	chrSetPadPreset
 /*  f05bd6c:	96050002 */ 	lhu	$a1,0x2($s0)
 /*  f05bd70:	26100004 */ 	addiu	$s0,$s0,0x4
 .L0f05bd74:
