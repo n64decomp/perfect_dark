@@ -255,6 +255,15 @@ struct defaultobj {
 	/*0x62*/ u16 aireturnlist;
 };
 
+struct tag {
+	// These three words are possibly the same values as defined in the setup
+	// file, but this just a guess.
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	struct defaultobj *obj;
+};
+
 struct otheraidata {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
