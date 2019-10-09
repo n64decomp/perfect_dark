@@ -218,3 +218,6 @@ clean:
 	rm -rf build/*
 	find src -name '*.o' -delete
 
+binclean:
+	rm -f build/ntsc-final/ucode/*.bin
+	find src/{boot,game,library,rarezip,setup} -name '*.o' -delete
