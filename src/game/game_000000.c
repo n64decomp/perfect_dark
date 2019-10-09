@@ -23469,7 +23469,7 @@ GLOBAL_ASM(
 glabel func0f014fe0
 /*  f014fe0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f014fe4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f014fe8:	0fc24105 */ 	jal	func0f090414
+/*  f014fe8:	0fc24105 */ 	jal	alarmDeactivate
 /*  f014fec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f014ff0:	0fc24138 */ 	jal	func0f0904e0
 /*  f014ff4:	00000000 */ 	sll	$zero,$zero,0x0

@@ -1219,7 +1219,7 @@ bool aiActivateAlarm(void)
  */
 bool aiDeactivateAlarm(void)
 {
-	func0f090414();
+	alarmDeactivate();
 	g_Vars.aioffset += 2;
 
 	return false;
