@@ -84399,19 +84399,10 @@ glabel func0f04aa8c
 /*  f04ac34:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04ac38
-/*  f04ac38:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04ac3c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04ac40:	0fc12604 */ 	jal	func0f049810
-/*  f04ac44:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f04ac48:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f04ac4c:	a5c2012a */ 	sh	$v0,0x12a($t6)
-/*  f04ac50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04ac54:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04ac58:	03e00008 */ 	jr	$ra
-/*  f04ac5c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrSetChrPreset(struct chrdata *chr, u32 chrpreset)
+{
+	chr->chrpreset1 = func0f049810(chr, chrpreset);
+}
 
 GLOBAL_ASM(
 glabel func0f04ac60

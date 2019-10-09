@@ -7553,7 +7553,7 @@ glabel ai00b0
 /*  f054ce4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f054ce8:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*  f054cec:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f054cf0:	0fc12b0e */ 	jal	func0f04ac38
+/*  f054cf0:	0fc12b0e */ 	jal	chrSetChrPreset
 /*  f054cf4:	8c640424 */ 	lw	$a0,0x424($v1)
 /*  f054cf8:	3c03800a */ 	lui	$v1,0x800a
 /*  f054cfc:	24639fc0 */ 	addiu	$v1,$v1,-24640
@@ -12917,7 +12917,7 @@ glabel ai010c
 /*  f059150:	8faa0024 */ 	lw	$t2,0x24($sp)
 .L0f059154:
 /*  f059154:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f059158:	0fc12b0e */ 	jal	func0f04ac38
+/*  f059158:	0fc12b0e */ 	jal	chrSetChrPreset
 /*  f05915c:	240500f8 */ 	addiu	$a1,$zero,0xf8
 /*  f059160:	8e040424 */ 	lw	$a0,0x424($s0)
 /*  f059164:	0fc126d1 */ 	jal	chrFindById
@@ -15753,7 +15753,7 @@ glabel ai013a
 .L0f05b7b8:
 /*  f05b7b8:	12610009 */ 	beq	$s3,$at,.L0f05b7e0
 /*  f05b7bc:	02602825 */ 	or	$a1,$s3,$zero
-/*  f05b7c0:	0fc12b0e */ 	jal	func0f04ac38
+/*  f05b7c0:	0fc12b0e */ 	jal	chrSetChrPreset
 /*  f05b7c4:	8e840424 */ 	lw	$a0,0x424($s4)
 /*  f05b7c8:	8e840434 */ 	lw	$a0,0x434($s4)
 /*  f05b7cc:	8e850438 */ 	lw	$a1,0x438($s4)
