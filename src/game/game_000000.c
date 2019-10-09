@@ -83706,24 +83706,15 @@ glabel func0f04a250
 /*  f04a278:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04a27c
-/*  f04a27c:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f04a280:	90830000 */ 	lbu	$v1,0x0($a0)
-/*  f04a284:	30a200ff */ 	andi	$v0,$a1,0xff
-/*  f04a288:	240f00ff */ 	addiu	$t7,$zero,0xff
-/*  f04a28c:	01e2c023 */ 	subu	$t8,$t7,$v0
-/*  f04a290:	0303082a */ 	slt	$at,$t8,$v1
-/*  f04a294:	10200004 */ 	beqz	$at,.L0f04a2a8
-/*  f04a298:	00624021 */ 	addu	$t0,$v1,$v0
-/*  f04a29c:	241900ff */ 	addiu	$t9,$zero,0xff
-/*  f04a2a0:	03e00008 */ 	jr	$ra
-/*  f04a2a4:	a0990000 */ 	sb	$t9,0x0($a0)
-.L0f04a2a8:
-/*  f04a2a8:	a0880000 */ 	sb	$t0,0x0($a0)
-/*  f04a2ac:	03e00008 */ 	jr	$ra
-/*  f04a2b0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void incrementByte(u8 *dst, u8 amount)
+{
+	if (0xff - amount < *dst) {
+		*dst = 0xff;
+		return;
+	}
+
+	*dst += amount;
+}
 
 bool func0f04a2b4(struct chrdata *chr)
 {
