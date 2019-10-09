@@ -18278,41 +18278,18 @@ bool aiEepromUnset(void)
 /**
  * @cmd 0192
  */
-GLOBAL_ASM(
-glabel ai0192
-/*  f05d82c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d830:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d834:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05d838:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d83c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05d840:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d844:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f05d848:	90e40002 */ 	lbu	$a0,0x2($a3)
-/*  f05d84c:	0fc43c63 */ 	jal	func0f10f18c
-/*  f05d850:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f05d854:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d858:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d85c:	10400009 */ 	beqz	$v0,.L0f05d884
-/*  f05d860:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05d864:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05d868:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05d86c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05d870:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f05d874:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d878:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d87c:	10000004 */ 	beqz	$zero,.L0f05d890
-/*  f05d880:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05d884:
-/*  f05d884:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f05d888:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f05d88c:	ac790438 */ 	sw	$t9,0x438($v1)
-.L0f05d890:
-/*  f05d890:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05d894:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05d898:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05d89c:	03e00008 */ 	jr	$ra
-/*  f05d8a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfEepromSet(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (func0f10f18c(cmd[2])) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0193
