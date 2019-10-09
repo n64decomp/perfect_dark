@@ -65976,12 +65976,11 @@ glabel func0f03a894
 /*  f03a958:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03a95c
-/*  f03a95c:	a0850013 */ 	sb	$a1,0x13($a0)
-/*  f03a960:	03e00008 */ 	jr	$ra
-/*  f03a964:	24020001 */ 	addiu	$v0,$zero,0x1
-);
+bool chrSetPath(struct chrdata *chr, u32 path_id)
+{
+	chr->path = path_id;
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f03a968

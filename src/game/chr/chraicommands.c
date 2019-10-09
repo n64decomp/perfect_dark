@@ -1466,7 +1466,7 @@ bool aiSetPath(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	func0f03a95c(g_Vars.chrdata, cmd[2]);
+	chrSetPath(g_Vars.chrdata, cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
