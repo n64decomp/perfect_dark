@@ -16,7 +16,7 @@ extern u32 var0000c3f8;
 extern u32 var0000db50;
 extern u32 var0000db98;
 
-extern u16 command_lengths[];
+extern u16 g_CommandLengths[];
 
 extern struct coord var0000f00c;
 

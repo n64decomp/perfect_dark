@@ -398,42 +398,24 @@ glabel chraiExecute
 /*  f04db3c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chraiGetCommandLength
-/*  f04db40:	00a41021 */ 	addu	$v0,$a1,$a0
-/*  f04db44:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f04db48:	904e0001 */ 	lbu	$t6,0x1($v0)
-/*  f04db4c:	240100b5 */ 	addiu	$at,$zero,0xb5
-/*  f04db50:	000fc200 */ 	sll	$t8,$t7,0x8
-/*  f04db54:	01d81821 */ 	addu	$v1,$t6,$t8
-/*  f04db58:	1461000e */ 	bne	$v1,$at,.L0f04db94
-/*  f04db5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04db60:	90590002 */ 	lbu	$t9,0x2($v0)
-/*  f04db64:	24a30002 */ 	addiu	$v1,$a1,0x2
-/*  f04db68:	00831021 */ 	addu	$v0,$a0,$v1
-/*  f04db6c:	53200007 */ 	beqzl	$t9,.L0f04db8c
-/*  f04db70:	00651023 */ 	subu	$v0,$v1,$a1
-/*  f04db74:	90480001 */ 	lbu	$t0,0x1($v0)
-.L0f04db78:
-/*  f04db78:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f04db7c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f04db80:	5500fffd */ 	bnezl	$t0,.L0f04db78
-/*  f04db84:	90480001 */ 	lbu	$t0,0x1($v0)
-/*  f04db88:	00651023 */ 	subu	$v0,$v1,$a1
-.L0f04db8c:
-/*  f04db8c:	03e00008 */ 	jr	$ra
-/*  f04db90:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f04db94:
-/*  f04db94:	04600007 */ 	bltz	$v1,.L0f04dbb4
-/*  f04db98:	286101e1 */ 	slti	$at,$v1,0x1e1
-/*  f04db9c:	10200005 */ 	beqz	$at,.L0f04dbb4
-/*  f04dba0:	00034840 */ 	sll	$t1,$v1,0x1
-/*  f04dba4:	3c028007 */ 	lui	$v0,0x8007
-/*  f04dba8:	00491021 */ 	addu	$v0,$v0,$t1
-/*  f04dbac:	03e00008 */ 	jr	$ra
-/*  f04dbb0:	94428c14 */ 	lhu	$v0,-0x73ec($v0)
-.L0f04dbb4:
-/*  f04dbb4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04dbb8:	03e00008 */ 	jr	$ra
-/*  f04dbbc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 chraiGetCommandLength(u8 *ailist, u32 aioffset)
+{
+	u8 *cmd = aioffset + ailist;
+	s32 type = (cmd[0] << 8) + cmd[1];
+
+	if (type == CMD_PRINT) {
+		u32 pos = aioffset + 2;
+
+		while (ailist[pos] != 0) {
+			++pos;
+		}
+
+		return (pos - aioffset) + 1;
+	}
+
+	if (type >= 0 && type < 0x1e1) {
+		return g_CommandLengths[type];
+	}
+
+	return 1;
+}
