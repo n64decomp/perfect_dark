@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "constants.h"
 
-#define bool u8
+#define bool u32
 
 struct coord {
 	float x;
