@@ -83690,21 +83690,15 @@ glabel func0f04a1ac
 /*  f04a24c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04a250
-/*  f04a250:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f04a254:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f04a258:	30a300ff */ 	andi	$v1,$a1,0xff
-/*  f04a25c:	0043082a */ 	slt	$at,$v0,$v1
-/*  f04a260:	10200003 */ 	beqz	$at,.L0f04a270
-/*  f04a264:	00437823 */ 	subu	$t7,$v0,$v1
-/*  f04a268:	03e00008 */ 	jr	$ra
-/*  f04a26c:	a0800000 */ 	sb	$zero,0x0($a0)
-.L0f04a270:
-/*  f04a270:	a08f0000 */ 	sb	$t7,0x0($a0)
-/*  f04a274:	03e00008 */ 	jr	$ra
-/*  f04a278:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void decrementByte(u8 *dst, u8 amount)
+{
+	if (*dst < amount) {
+		*dst = 0;
+		return;
+	}
+
+	*dst -= amount;
+}
 
 void incrementByte(u8 *dst, u8 amount)
 {
