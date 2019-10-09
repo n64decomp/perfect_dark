@@ -7760,7 +7760,7 @@ GLOBAL_ASM(
 glabel ai00b5
 /*  f054ec4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f054ec8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f054ecc:	0fc47bba */ 	jal	func0f11eee8
+/*  f054ecc:	0fc47bba */ 	jal	dprint
 /*  f054ed0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f054ed4:	10400001 */ 	beqz	$v0,.L0f054edc
 /*  f054ed8:	3c03800a */ 	lui	$v1,0x800a
