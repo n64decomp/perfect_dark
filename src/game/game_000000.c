@@ -83321,24 +83321,14 @@ void chrSetFlags(struct chrdata *chr, u32 flags, u8 bank)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f049e08
-/*  f049e08:	30ce00ff */ 	andi	$t6,$a2,0xff
-/*  f049e0c:	15c00006 */ 	bnez	$t6,.L0f049e28
-/*  f049e10:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f049e14:	8c8f0114 */ 	lw	$t7,0x114($a0)
-/*  f049e18:	00a0c027 */ 	nor	$t8,$a1,$zero
-/*  f049e1c:	01f8c824 */ 	and	$t9,$t7,$t8
-/*  f049e20:	03e00008 */ 	jr	$ra
-/*  f049e24:	ac990114 */ 	sw	$t9,0x114($a0)
-.L0f049e28:
-/*  f049e28:	8c880118 */ 	lw	$t0,0x118($a0)
-/*  f049e2c:	00a04827 */ 	nor	$t1,$a1,$zero
-/*  f049e30:	01095024 */ 	and	$t2,$t0,$t1
-/*  f049e34:	ac8a0118 */ 	sw	$t2,0x118($a0)
-/*  f049e38:	03e00008 */ 	jr	$ra
-/*  f049e3c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrUnsetFlags(struct chrdata *chr, u32 flags, u8 bank)
+{
+	if (bank == 0) {
+		chr->flags &= ~flags;
+	} else {
+		chr->flags2 &= ~flags;
+	}
+}
 
 bool chrHasFlag(struct chrdata *chr, u32 flag, u8 bank)
 {
@@ -83378,7 +83368,7 @@ glabel func0f049eb0
 /*  f049ec4:	10400004 */ 	beqz	$v0,.L0f049ed8
 /*  f049ec8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f049ecc:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f049ed0:	0fc12782 */ 	jal	func0f049e08
+/*  f049ed0:	0fc12782 */ 	jal	chrUnsetFlags
 /*  f049ed4:	93a60027 */ 	lbu	$a2,0x27($sp)
 .L0f049ed8:
 /*  f049ed8:	8fbf0014 */ 	lw	$ra,0x14($sp)

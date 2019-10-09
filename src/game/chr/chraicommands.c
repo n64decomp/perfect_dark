@@ -6362,7 +6362,7 @@ glabel ai009c
 /*  f053dcc:	014c6825 */ 	or	$t5,$t2,$t4
 /*  f053dd0:	90460006 */ 	lbu	$a2,0x6($v0)
 /*  f053dd4:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f053dd8:	0fc12782 */ 	jal	func0f049e08
+/*  f053dd8:	0fc12782 */ 	jal	chrUnsetFlags
 /*  f053ddc:	01ae2825 */ 	or	$a1,$t5,$t6
 /*  f053de0:	3c03800a */ 	lui	$v1,0x800a
 /*  f053de4:	24639fc0 */ 	addiu	$v1,$v1,-24640
@@ -14845,7 +14845,7 @@ glabel ai0130
 /*  f05ab9c:	8e0e0424 */ 	lw	$t6,0x424($s0)
 /*  f05aba0:	91b80005 */ 	lbu	$t8,0x5($t5)
 /*  f05aba4:	a1d80126 */ 	sb	$t8,0x126($t6)
-/*  f05aba8:	0fc12782 */ 	jal	func0f049e08
+/*  f05aba8:	0fc12782 */ 	jal	chrUnsetFlags
 /*  f05abac:	8e040424 */ 	lw	$a0,0x424($s0)
 .L0f05abb0:
 /*  f05abb0:	0fc4a24b */ 	jal	func0f12892c
