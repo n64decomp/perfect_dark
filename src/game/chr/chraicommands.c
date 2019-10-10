@@ -8060,22 +8060,13 @@ bool aiStopCountdownTimer(void)
 /**
  * @cmd 00c2
  */
-GLOBAL_ASM(
-glabel ai00c2
-/*  f055454:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f055458:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05545c:	0fc2421c */ 	jal	countdownTimerSetRunning
-/*  f055460:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f055464:	3c03800a */ 	lui	$v1,0x800a
-/*  f055468:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05546c:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f055470:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f055474:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f055478:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f05547c:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f055480:	03e00008 */ 	jr	$ra
-/*  f055484:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiStartCountdownTimer(void)
+{
+	countdownTimerSetRunning(true);
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 00c3

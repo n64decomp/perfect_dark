@@ -196,7 +196,7 @@
 /*0x00bf*/ bool aiHideCountdownTimer(void);
 /*0x00c0*/ bool ai00c0(void);
 /*0x00c1*/ bool aiStopCountdownTimer(void);
-/*0x00c2*/ bool ai00c2(void);
+/*0x00c2*/ bool aiStartCountdownTimer(void);
 /*0x00c3*/ bool ai00c3(void);
 /*0x00c4*/ bool ai00c4(void);
 /*0x00c5*/ bool ai00c5(void);
