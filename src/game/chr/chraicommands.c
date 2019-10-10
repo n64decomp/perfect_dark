@@ -1813,7 +1813,7 @@ bool ai0045(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && func0f0393b4(g_Vars.chrdata, &chr->pos->coord, &chr->pos->unk28)) {
+	if (chr && chr->pos && func0f0393b4(g_Vars.chrdata, &chr->pos->coord, &chr->pos->room)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -18369,34 +18369,18 @@ bool aiSetChrSpecialDeathAnimation(void)
 /**
  * @cmd 01a1
  */
-GLOBAL_ASM(
-glabel ai01a1
-/*  f05daac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05dab0:	3c06800a */ 	lui	$a2,0x800a
-/*  f05dab4:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f05dab8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05dabc:	8cc40424 */ 	lw	$a0,0x424($a2)
-/*  f05dac0:	0fc126d1 */ 	jal	chrFindById
-/*  f05dac4:	240500f6 */ 	addiu	$a1,$zero,0xf6
-/*  f05dac8:	3c06800a */ 	lui	$a2,0x800a
-/*  f05dacc:	10400007 */ 	beqz	$v0,.L0f05daec
-/*  f05dad0:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f05dad4:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f05dad8:	50600005 */ 	beqzl	$v1,.L0f05daf0
-/*  f05dadc:	8cd80438 */ 	lw	$t8,0x438($a2)
-/*  f05dae0:	846e0028 */ 	lh	$t6,0x28($v1)
-/*  f05dae4:	8ccf0424 */ 	lw	$t7,0x424($a2)
-/*  f05dae8:	a5ee0330 */ 	sh	$t6,0x330($t7)
-.L0f05daec:
-/*  f05daec:	8cd80438 */ 	lw	$t8,0x438($a2)
-.L0f05daf0:
-/*  f05daf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05daf4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05daf8:	27190002 */ 	addiu	$t9,$t8,0x2
-/*  f05dafc:	acd90438 */ 	sw	$t9,0x438($a2)
-/*  f05db00:	03e00008 */ 	jr	$ra
-/*  f05db04:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetRoomToSearch(void)
+{
+	struct chrdata *target = chrFindById(g_Vars.chrdata, TARGET_CHR);
+
+	if (target && target->pos) {
+		g_Vars.chrdata->roomtosearch = target->pos->room;
+	}
+
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 01a2

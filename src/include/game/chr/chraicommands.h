@@ -384,7 +384,7 @@
 /*0x019e*/ bool aiIfObjHealthLessThan(void);
 /*0x019f*/ bool aiSetObjHealth(void);
 /*0x01a0*/ bool aiSetChrSpecialDeathAnimation(void);
-/*0x01a1*/ bool ai01a1(void);
+/*0x01a1*/ bool aiSetRoomToSearch(void);
 /*0x01a2*/ bool ai01a2(void);
 /*0x01a3*/ bool ai01a3(void);
 /*0x01a4*/ bool ai01a4(void);

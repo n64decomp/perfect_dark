@@ -1574,7 +1574,8 @@
 	chr, \
 	anim,
 
-// Copies the room from the chr's position struct into the chr struct itself
+// Sets the chr's roomtosearch field
+// to the same room that the chr's target is in.
 #define set_chr_roomtosearch \
 	mkshort(0x01a1),
 
