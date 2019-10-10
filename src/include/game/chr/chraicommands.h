@@ -192,7 +192,7 @@
 /*0x00bb*/ bool aiIfTimerGreaterThanRandom(void);
 /*0x00bc*/ bool ai00bc(void);
 /*0x00bd*/ bool ai00bd(void);
-/*0x00be*/ bool ai00be(void);
+/*0x00be*/ bool aiShowCountdownTimer(void);
 /*0x00bf*/ bool ai00bf(void);
 /*0x00c0*/ bool ai00c0(void);
 /*0x00c1*/ bool ai00c1(void);

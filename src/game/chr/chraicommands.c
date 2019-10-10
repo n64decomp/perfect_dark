@@ -7993,23 +7993,13 @@ glabel ai00bd
 /**
  * @cmd 00be
  */
-GLOBAL_ASM(
-glabel ai00be
-/*  f055344:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f055348:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05534c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f055350:	0fc24202 */ 	jal	func0f090808
-/*  f055354:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f055358:	3c03800a */ 	lui	$v1,0x800a
-/*  f05535c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f055360:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f055364:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f055368:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05536c:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f055370:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f055374:	03e00008 */ 	jr	$ra
-/*  f055378:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiShowCountdownTimer(void)
+{
+	countdownTimerSetVisible(true, true);
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 00bf
@@ -8019,7 +8009,7 @@ glabel ai00bf
 /*  f05537c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f055380:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f055384:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f055388:	0fc24202 */ 	jal	func0f090808
+/*  f055388:	0fc24202 */ 	jal	countdownTimerSetVisible
 /*  f05538c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f055390:	3c03800a */ 	lui	$v1,0x800a
 /*  f055394:	24639fc0 */ 	addiu	$v1,$v1,-24640
@@ -10597,7 +10587,7 @@ glabel ai00e0
 .L0f0575a8:
 /*  f0575a8:	15600003 */ 	bnez	$t3,.L0f0575b8
 /*  f0575ac:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f0575b0:	0fc24202 */ 	jal	func0f090808
+/*  f0575b0:	0fc24202 */ 	jal	countdownTimerSetVisible
 /*  f0575b4:	00002825 */ 	or	$a1,$zero,$zero
 .L0f0575b8:
 /*  f0575b8:	8e0c028c */ 	lw	$t4,0x28c($s0)
@@ -10658,7 +10648,7 @@ glabel ai00e1
 /*  f057674:	0fc37e87 */ 	jal	func0f0dfa1c
 /*  f057678:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f05767c:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f057680:	0fc24202 */ 	jal	func0f090808
+/*  f057680:	0fc24202 */ 	jal	countdownTimerSetVisible
 /*  f057684:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f057688:	8e09028c */ 	lw	$t1,0x28c($s0)
 /*  f05768c:	3c018007 */ 	lui	$at,0x8007
