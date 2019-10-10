@@ -758,6 +758,14 @@
 	mkshort(0x00ba), \
 	label,
 
+/**
+ * Compares the timer against the chr's random value.
+ * (You need to use call_rng before using this)
+ */
+#define if_timer_gt_random(label) \
+	mkshort(0x00bb), \
+	label,
+
 #define if_timer_gt(value, label) \
 	mkshort(0x00bd), \
 	0x00, \

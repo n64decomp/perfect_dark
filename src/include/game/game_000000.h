@@ -5,6 +5,8 @@
 
 struct chrdata *chrFindById(struct chrdata *data, u8 chrnum);
 
+float chrGetTimer(struct chrdata *chr);
+
 s32 padResolve(struct chrdata *chr, s32 pad_id);
 
 #endif

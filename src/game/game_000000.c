@@ -83452,7 +83452,7 @@ glabel func0f049f94
 );
 
 GLOBAL_ASM(
-glabel func0f049fa8
+glabel chrGetTimer
 /*  f049fa8:	8c8e011c */ 	lw	$t6,0x11c($a0)
 /*  f049fac:	3c017f1b */ 	lui	$at,0x7f1b
 /*  f049fb0:	c42893dc */ 	lwc1	$f8,-0x6c24($at)
