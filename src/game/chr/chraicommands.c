@@ -7774,21 +7774,13 @@ bool aiResetTimer(void)
 /**
  * @cmd 00b8
  */
-GLOBAL_ASM(
-glabel ai00b8
-/*  f054fb8:	3c04800a */ 	lui	$a0,0x800a
-/*  f054fbc:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f054fc0:	8c830424 */ 	lw	$v1,0x424($a0)
-/*  f054fc4:	2401ffbf */ 	addiu	$at,$zero,-65
-/*  f054fc8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f054fcc:	8c6e0014 */ 	lw	$t6,0x14($v1)
-/*  f054fd0:	01c17824 */ 	and	$t7,$t6,$at
-/*  f054fd4:	ac6f0014 */ 	sw	$t7,0x14($v1)
-/*  f054fd8:	8c980438 */ 	lw	$t8,0x438($a0)
-/*  f054fdc:	27190002 */ 	addiu	$t9,$t8,0x2
-/*  f054fe0:	03e00008 */ 	jr	$ra
-/*  f054fe4:	ac990438 */ 	sw	$t9,0x438($a0)
-);
+bool aiPauseTimer(void)
+{
+	g_Vars.chrdata->hidden &= 0xffffffbf;
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 00b9
