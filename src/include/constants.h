@@ -159,14 +159,14 @@
 #define CHRFLAG1_40000000                  0x40000000 // Globals
 #define CHRFLAG1_80000000                  0x80000000 // Globals
 
-// Character flags - bank 2 (chr struct offset 0x14)
+// Character flags - bank 2 (chr struct offset 0x14 - "hidden")
 #define CHRFLAG2_00000001           0x00000001 // Not used in scripts - sunglasses?
 #define CHRFLAG2_00000002           0x00000002 // Not used in scripts
 #define CHRFLAG2_00000004           0x00000004 // Not used in scripts
 #define CHRFLAG2_00000008           0x00000008 // Not used in scripts
 #define CHRFLAG2_00000010           0x00000010 // Not used in scripts
 #define CHRFLAG2_00000020           0x00000020 // Not used in scripts
-#define CHRFLAG2_00000040           0x00000040 // Not used in scripts
+#define CHRFLAG2_TIMER_RUNNING      0x00000040
 #define CHRFLAG2_00000080           0x00000080 // Not used in scripts
 #define CHRFLAG2_00000100           0x00000100 // Not used in scripts
 #define CHRFLAG2_00000200           0x00000200 // Not used in scripts

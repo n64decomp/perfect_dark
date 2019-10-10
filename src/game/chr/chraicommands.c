@@ -7776,7 +7776,7 @@ bool aiResetTimer(void)
  */
 bool aiPauseTimer(void)
 {
-	g_Vars.chrdata->hidden &= 0xffffffbf;
+	g_Vars.chrdata->hidden &= ~CHRFLAG2_TIMER_RUNNING;
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -7785,20 +7785,13 @@ bool aiPauseTimer(void)
 /**
  * @cmd 00b9
  */
-GLOBAL_ASM(
-glabel ai00b9
-/*  f054fe8:	3c04800a */ 	lui	$a0,0x800a
-/*  f054fec:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f054ff0:	8c830424 */ 	lw	$v1,0x424($a0)
-/*  f054ff4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f054ff8:	8c6e0014 */ 	lw	$t6,0x14($v1)
-/*  f054ffc:	35cf0040 */ 	ori	$t7,$t6,0x40
-/*  f055000:	ac6f0014 */ 	sw	$t7,0x14($v1)
-/*  f055004:	8c980438 */ 	lw	$t8,0x438($a0)
-/*  f055008:	27190002 */ 	addiu	$t9,$t8,0x2
-/*  f05500c:	03e00008 */ 	jr	$ra
-/*  f055010:	ac990438 */ 	sw	$t9,0x438($a0)
-);
+bool aiResumeTimer(void)
+{
+	g_Vars.chrdata->hidden |= CHRFLAG2_TIMER_RUNNING;
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 00ba
