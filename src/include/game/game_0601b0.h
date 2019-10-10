@@ -556,6 +556,8 @@ u32 menuhandler001a6a70(u32, u32, u32);
 u32 menuhandler001a6ea4(u32, u32, u32);
 u32 menuhandler001a6d4c(u32, u32, u32);
 
+struct defaultobj *objFindByTagId(s32 tag_id);
+
 char *textGet(u16 textid);
 
 u32 getDifficulty(void);

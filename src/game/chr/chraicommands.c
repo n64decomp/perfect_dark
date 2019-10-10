@@ -18310,59 +18310,26 @@ bool aiIfEepromUnset(void)
 /**
  * @cmd 019e
  */
-GLOBAL_ASM(
-glabel ai019e
-/*  f05d91c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d920:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d924:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05d928:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d92c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05d930:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d934:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f05d938:	90f80003 */ 	lbu	$t8,0x3($a3)
-/*  f05d93c:	90e80004 */ 	lbu	$t0,0x4($a3)
-/*  f05d940:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f05d944:	03284825 */ 	or	$t1,$t9,$t0
-/*  f05d948:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f05d94c:	90e40002 */ 	lbu	$a0,0x2($a3)
-/*  f05d950:	0fc2556c */ 	jal	objFindByTagId
-/*  f05d954:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f05d958:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d95c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d960:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05d964:	1040000a */ 	beqz	$v0,.L0f05d990
-/*  f05d968:	00002025 */ 	or	$a0,$zero,$zero
-/*  f05d96c:	8c4a0014 */ 	lw	$t2,0x14($v0)
-/*  f05d970:	8fac0018 */ 	lw	$t4,0x18($sp)
-/*  f05d974:	11400006 */ 	beqz	$t2,.L0f05d990
-/*  f05d978:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d97c:	844b004c */ 	lh	$t3,0x4c($v0)
-/*  f05d980:	016c082a */ 	slt	$at,$t3,$t4
-/*  f05d984:	10200002 */ 	beqz	$at,.L0f05d990
-/*  f05d988:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d98c:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f05d990:
-/*  f05d990:	5080000a */ 	beqzl	$a0,.L0f05d9bc
-/*  f05d994:	8c6d0438 */ 	lw	$t5,0x438($v1)
-/*  f05d998:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05d99c:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05d9a0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05d9a4:	90e60005 */ 	lbu	$a2,0x5($a3)
-/*  f05d9a8:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d9ac:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d9b0:	10000004 */ 	beqz	$zero,.L0f05d9c4
-/*  f05d9b4:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f05d9b8:	8c6d0438 */ 	lw	$t5,0x438($v1)
-.L0f05d9bc:
-/*  f05d9bc:	25ae0006 */ 	addiu	$t6,$t5,0x6
-/*  f05d9c0:	ac6e0438 */ 	sw	$t6,0x438($v1)
-.L0f05d9c4:
-/*  f05d9c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05d9c8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05d9cc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05d9d0:	03e00008 */ 	jr	$ra
-/*  f05d9d4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfObjHealthLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s32 damage = cmd[4] | (cmd[3] << 8);
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	bool condition_passes = false;
+
+	if (obj && obj->pos && obj->damage < damage) {
+		condition_passes = true;
+	}
+
+	if (condition_passes) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	} else {
+		g_Vars.aioffset += 6;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 019f

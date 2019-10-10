@@ -238,13 +238,13 @@ struct defaultobj {
 	/*0x08*/ u32 flags;
 	/*0x0c*/ u32 flags2;
 	/*0x10*/ u32 flags3;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ struct position *pos;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ float realrot[9];
 	/*0x40*/ u32 hidden;
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;
-	/*0x4c*/ u16 damage;
+	/*0x4c*/ s16 damage;
 	/*0x4e*/ u16 maxdamage;
 	/*0x50*/ u32 shadecol;
 	/*0x54*/ u32 nextcol;

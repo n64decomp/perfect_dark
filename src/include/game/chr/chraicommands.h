@@ -381,7 +381,7 @@
 /*0x0191*/ bool aiEepromUnset(void);
 /*0x0192*/ bool aiIfEepromSet(void);
 /*0x0193*/ bool aiIfEepromUnset(void);
-/*0x019e*/ bool ai019e(void);
+/*0x019e*/ bool aiIfObjHealthLessThan(void);
 /*0x019f*/ bool ai019f(void);
 /*0x01a0*/ bool ai01a0(void);
 /*0x01a1*/ bool ai01a1(void);
