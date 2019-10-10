@@ -18334,40 +18334,20 @@ bool aiIfObjHealthLessThan(void)
 /**
  * @cmd 019f
  */
-GLOBAL_ASM(
-glabel ai019f
-/*  f05d9d8:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d9dc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d9e0:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05d9e4:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d9e8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05d9ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d9f0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05d9f4:	90580003 */ 	lbu	$t8,0x3($v0)
-/*  f05d9f8:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f05d9fc:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f05da00:	03284825 */ 	or	$t1,$t9,$t0
-/*  f05da04:	afa90018 */ 	sw	$t1,0x18($sp)
-/*  f05da08:	0fc2556c */ 	jal	objFindByTagId
-/*  f05da0c:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f05da10:	3c03800a */ 	lui	$v1,0x800a
-/*  f05da14:	10400006 */ 	beqz	$v0,.L0f05da30
-/*  f05da18:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05da1c:	8c4a0014 */ 	lw	$t2,0x14($v0)
-/*  f05da20:	8fab0018 */ 	lw	$t3,0x18($sp)
-/*  f05da24:	51400003 */ 	beqzl	$t2,.L0f05da34
-/*  f05da28:	8c6c0438 */ 	lw	$t4,0x438($v1)
-/*  f05da2c:	a44b004c */ 	sh	$t3,0x4c($v0)
-.L0f05da30:
-/*  f05da30:	8c6c0438 */ 	lw	$t4,0x438($v1)
-.L0f05da34:
-/*  f05da34:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05da38:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05da3c:	258d0005 */ 	addiu	$t5,$t4,0x5
-/*  f05da40:	ac6d0438 */ 	sw	$t5,0x438($v1)
-/*  f05da44:	03e00008 */ 	jr	$ra
-/*  f05da48:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetObjHealth(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s32 damage = cmd[4] | (cmd[3] << 8);
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos) {
+		obj->damage = damage;
+	}
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 01a0
