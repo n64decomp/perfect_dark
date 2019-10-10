@@ -18257,7 +18257,7 @@ glabel ai018f
 bool aiEepromSet(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f10f13c(cmd[2]);
+	eepromSet(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
