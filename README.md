@@ -11,7 +11,7 @@ This repository contains a work-in-progress decompilation of Perfect Dark for th
 | 0x3050 library  | 1/684 functions done (0.15%)              |
 | 0x39850 setup   | About 50% identified                      |
 | 0x4e850 rarezip | 2/8 functions done (25.00%)               |
-| 0x5032e game    | 95/4101 functions done (2.32%)            |
+| 0x5032e game    | 119/4102 functions done (2.90%)           |
 | Lang files      | Done                                      |
 | Setup files     | Done                                      |
 | Prop files      | Not started                               |
