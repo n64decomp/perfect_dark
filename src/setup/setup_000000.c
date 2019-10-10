@@ -14132,7 +14132,7 @@ bool (*command_pointers[])(void) = {
 	/*0x00b4*/ ai00b4,
 	/*0x00b5*/ ai00b5,
 	/*0x00b6*/ aiRestartTimer,
-	/*0x00b7*/ ai00b7,
+	/*0x00b7*/ aiResetTimer,
 	/*0x00b8*/ ai00b8,
 	/*0x00b9*/ ai00b9,
 	/*0x00ba*/ ai00ba,

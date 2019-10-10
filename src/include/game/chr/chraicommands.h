@@ -185,7 +185,7 @@
 /*0x00b4*/ bool ai00b4(void);
 /*0x00b5*/ bool ai00b5(void);
 /*0x00b6*/ bool aiRestartTimer(void);
-/*0x00b7*/ bool ai00b7(void);
+/*0x00b7*/ bool aiResetTimer(void);
 /*0x00b8*/ bool ai00b8(void);
 /*0x00b9*/ bool ai00b9(void);
 /*0x00ba*/ bool ai00ba(void);

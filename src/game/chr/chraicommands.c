@@ -7763,18 +7763,13 @@ bool aiRestartTimer(void)
 /**
  * @cmd 00b7
  */
-GLOBAL_ASM(
-glabel ai00b7
-/*  f054f94:	3c03800a */ 	lui	$v1,0x800a
-/*  f054f98:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f054f9c:	8c6e0424 */ 	lw	$t6,0x424($v1)
-/*  f054fa0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f054fa4:	adc0011c */ 	sw	$zero,0x11c($t6)
-/*  f054fa8:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f054fac:	25f80002 */ 	addiu	$t8,$t7,0x2
-/*  f054fb0:	03e00008 */ 	jr	$ra
-/*  f054fb4:	ac780438 */ 	sw	$t8,0x438($v1)
-);
+bool aiResetTimer(void)
+{
+	g_Vars.chrdata->timer60 = 0;
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 00b8
