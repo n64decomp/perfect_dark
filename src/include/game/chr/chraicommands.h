@@ -383,7 +383,7 @@
 /*0x0193*/ bool aiIfEepromUnset(void);
 /*0x019e*/ bool aiIfObjHealthLessThan(void);
 /*0x019f*/ bool aiSetObjHealth(void);
-/*0x01a0*/ bool ai01a0(void);
+/*0x01a0*/ bool aiSetChrSpecialDeathAnimation(void);
 /*0x01a1*/ bool ai01a1(void);
 /*0x01a2*/ bool ai01a2(void);
 /*0x01a3*/ bool ai01a3(void);

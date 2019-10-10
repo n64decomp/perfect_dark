@@ -18352,34 +18352,19 @@ bool aiSetObjHealth(void)
 /**
  * @cmd 01a0
  */
-GLOBAL_ASM(
-glabel ai01a0
-/*  f05da4c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05da50:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05da54:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05da58:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05da5c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05da60:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05da64:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f05da68:	90c50002 */ 	lbu	$a1,0x2($a2)
-/*  f05da6c:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f05da70:	0fc126d1 */ 	jal	chrFindById
-/*  f05da74:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05da78:	3c03800a */ 	lui	$v1,0x800a
-/*  f05da7c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05da80:	10400003 */ 	beqz	$v0,.L0f05da90
-/*  f05da84:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f05da88:	90d80003 */ 	lbu	$t8,0x3($a2)
-/*  f05da8c:	a058032f */ 	sb	$t8,0x32f($v0)
-.L0f05da90:
-/*  f05da90:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f05da94:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05da98:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05da9c:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f05daa0:	ac680438 */ 	sw	$t0,0x438($v1)
-/*  f05daa4:	03e00008 */ 	jr	$ra
-/*  f05daa8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetChrSpecialDeathAnimation(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr) {
+		chr->specialdie = cmd[3];
+	}
+
+	g_Vars.aioffset += 4;
+
+	return 0;
+}
 
 /**
  * @cmd 01a1
