@@ -8004,23 +8004,13 @@ bool aiShowCountdownTimer(void)
 /**
  * @cmd 00bf
  */
-GLOBAL_ASM(
-glabel ai00bf
-/*  f05537c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f055380:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f055384:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f055388:	0fc24202 */ 	jal	countdownTimerSetVisible
-/*  f05538c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f055390:	3c03800a */ 	lui	$v1,0x800a
-/*  f055394:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f055398:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f05539c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0553a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0553a4:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f0553a8:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f0553ac:	03e00008 */ 	jr	$ra
-/*  f0553b0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiHideCountdownTimer(void)
+{
+	countdownTimerSetVisible(true, false);
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 00c0
