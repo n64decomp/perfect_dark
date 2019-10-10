@@ -3159,3 +3159,5 @@ extern struct g_vars g_Vars;
 
 extern s32 g_NumTags;
 extern struct tag **g_TagPtrs;
+
+extern u32 g_EepromFlags;
