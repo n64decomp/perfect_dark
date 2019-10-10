@@ -7796,35 +7796,18 @@ bool aiResumeTimer(void)
 /**
  * @cmd 00ba
  */
-GLOBAL_ASM(
-glabel ai00ba
-/*  f055014:	3c03800a */ 	lui	$v1,0x800a
-/*  f055018:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05501c:	8c6e0424 */ 	lw	$t6,0x424($v1)
-/*  f055020:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f055024:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f055028:	8dcf0014 */ 	lw	$t7,0x14($t6)
-/*  f05502c:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f055030:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f055034:	31f80040 */ 	andi	$t8,$t7,0x40
-/*  f055038:	17000007 */ 	bnez	$t8,.L0f055058
-/*  f05503c:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f055040:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f055044:	90460002 */ 	lbu	$a2,0x2($v0)
-/*  f055048:	3c03800a */ 	lui	$v1,0x800a
-/*  f05504c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f055050:	10000003 */ 	beqz	$zero,.L0f055060
-/*  f055054:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f055058:
-/*  f055058:	24b90003 */ 	addiu	$t9,$a1,0x3
-/*  f05505c:	ac790438 */ 	sw	$t9,0x438($v1)
-.L0f055060:
-/*  f055060:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f055064:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f055068:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05506c:	03e00008 */ 	jr	$ra
-/*  f055070:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfTimerStopped(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if ((g_Vars.chrdata->hidden & CHRFLAG2_TIMER_RUNNING) == 0) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00bb

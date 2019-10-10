@@ -754,6 +754,10 @@
 #define resume_timer \
 	mkshort(0x00b9),
 
+#define if_timer_stopped(label) \
+	mkshort(0x00ba), \
+	label,
+
 #define if_timer_gt(value, label) \
 	mkshort(0x00bd), \
 	0x00, \
