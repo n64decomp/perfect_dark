@@ -14142,7 +14142,7 @@ bool (*command_pointers[])(void) = {
 	/*0x00be*/ aiShowCountdownTimer,
 	/*0x00bf*/ aiHideCountdownTimer,
 	/*0x00c0*/ ai00c0,
-	/*0x00c1*/ ai00c1,
+	/*0x00c1*/ aiStopCountdownTimer,
 	/*0x00c2*/ ai00c2,
 	/*0x00c3*/ ai00c3,
 	/*0x00c4*/ ai00c4,

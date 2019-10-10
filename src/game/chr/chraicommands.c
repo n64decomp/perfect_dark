@@ -8049,22 +8049,13 @@ glabel ai00c0
 /**
  * @cmd 00c1
  */
-GLOBAL_ASM(
-glabel ai00c1
-/*  f055420:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f055424:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f055428:	0fc2421c */ 	jal	func0f090870
-/*  f05542c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f055430:	3c03800a */ 	lui	$v1,0x800a
-/*  f055434:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f055438:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f05543c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f055440:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f055444:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f055448:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f05544c:	03e00008 */ 	jr	$ra
-/*  f055450:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiStopCountdownTimer(void)
+{
+	countdownTimerSetRunning(false);
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 00c2
@@ -8073,7 +8064,7 @@ GLOBAL_ASM(
 glabel ai00c2
 /*  f055454:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f055458:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05545c:	0fc2421c */ 	jal	func0f090870
+/*  f05545c:	0fc2421c */ 	jal	countdownTimerSetRunning
 /*  f055460:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f055464:	3c03800a */ 	lui	$v1,0x800a
 /*  f055468:	24639fc0 */ 	addiu	$v1,$v1,-24640
