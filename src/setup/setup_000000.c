@@ -14369,7 +14369,7 @@ bool (*command_pointers[])(void) = {
 	/*0x01a1*/ aiSetRoomToSearch,
 	/*0x01a2*/ ai01a2,
 	/*0x01a3*/ ai01a3,
-	/*0x01a4*/ ai01a4,
+	/*0x01a4*/ aiShowText,
 	/*0x01a5*/ ai01a5,
 	/*0x01a6*/ ai01a6,
 	/*0x01a7*/ ai01a7,

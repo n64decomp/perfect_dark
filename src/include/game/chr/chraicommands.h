@@ -387,7 +387,7 @@
 /*0x01a1*/ bool aiSetRoomToSearch(void);
 /*0x01a2*/ bool ai01a2(void);
 /*0x01a3*/ bool ai01a3(void);
-/*0x01a4*/ bool ai01a4(void);
+/*0x01a4*/ bool aiShowText(void);
 /*0x01a5*/ bool ai01a5(void);
 /*0x01a6*/ bool ai01a6(void);
 /*0x01a7*/ bool ai01a7(void);
