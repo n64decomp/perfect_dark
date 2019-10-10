@@ -18269,7 +18269,7 @@ bool aiEepromSet(void)
 bool aiEepromUnset(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f10f164(cmd[2]);
+	eepromUnset(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
