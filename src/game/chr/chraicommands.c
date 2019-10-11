@@ -8742,57 +8742,27 @@ glabel ai00ca
 /**
  * @cmd 00cb
  */
-GLOBAL_ASM(
-glabel ai00cb
-/*  f055dfc:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f055e00:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f055e04:	3c10800a */ 	lui	$s0,0x800a
-/*  f055e08:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f055e0c:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f055e10:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f055e14:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f055e18:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f055e1c:	90780003 */ 	lbu	$t8,0x3($v1)
-/*  f055e20:	90680004 */ 	lbu	$t0,0x4($v1)
-/*  f055e24:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f055e28:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f055e2c:	0fc5b9f1 */ 	jal	textGet
-/*  f055e30:	03282025 */ 	or	$a0,$t9,$t0
-/*  f055e34:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f055e38:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f055e3c:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f055e40:	0fc126d1 */ 	jal	chrFindById
-/*  f055e44:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f055e48:	8e04028c */ 	lw	$a0,0x28c($s0)
-/*  f055e4c:	1040000b */ 	beqz	$v0,.L0f055e7c
-/*  f055e50:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f055e54:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f055e58:	10600008 */ 	beqz	$v1,.L0f055e7c
-/*  f055e5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f055e60:	906a0000 */ 	lbu	$t2,0x0($v1)
-/*  f055e64:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f055e68:	15410004 */ 	bne	$t2,$at,.L0f055e7c
-/*  f055e6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f055e70:	0fc4a25f */ 	jal	func0f12897c
-/*  f055e74:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f055e78:	00402025 */ 	or	$a0,$v0,$zero
-.L0f055e7c:
-/*  f055e7c:	0fc4a24b */ 	jal	func0f12892c
-/*  f055e80:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f055e84:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f055e88:	0fc377c7 */ 	jal	func0f0ddf1c
-/*  f055e8c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f055e90:	0fc4a24b */ 	jal	func0f12892c
-/*  f055e94:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f055e98:	8e0b0438 */ 	lw	$t3,0x438($s0)
-/*  f055e9c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f055ea0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f055ea4:	256c0005 */ 	addiu	$t4,$t3,0x5
-/*  f055ea8:	ae0c0438 */ 	sw	$t4,0x438($s0)
-/*  f055eac:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f055eb0:	03e00008 */ 	jr	$ra
-/*  f055eb4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+bool aiMessage(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	char *text = textGet(cmd[4] | (cmd[3] << 8));
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	u32 iVar1 = g_Vars.unk00028c;
+	u32 iVar2 = g_Vars.unk00028c;
+
+	if (chr && chr->pos && (chr->pos->unk00 & 0xff) == 6) {
+		iVar2 = func0f12897c(chr->pos);
+	}
+
+	func0f12892c(iVar2);
+	func0f0ddf1c(text, 0);
+	func0f12892c(iVar1);
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 01a4
