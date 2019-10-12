@@ -112,9 +112,9 @@ $(B_DIR)/boot.elf: $(O_FILES)
 
 $(B_DIR)/ucode/boot.bin: $(B_DIR)/boot.elf
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
-	dd if="$@" of="$@.tmp" bs=8272 count=1
-	mv "$@.tmp" "$@"
+	$(TOOLCHAIN)-objcopy $< /tmp/boot.tmp -O binary
+	dd if=/tmp/boot.tmp of="$@" bs=8272 count=1
+	rm -f /tmp/boot.tmp
 
 boot: $(B_DIR)/ucode/boot.bin
 
@@ -127,9 +127,9 @@ $(B_DIR)/library.elf: $(O_FILES)
 
 $(B_DIR)/ucode/library.bin: $(B_DIR)/library.elf
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
-	dd if="$@" of="$@.tmp" bs=356240 count=1
-	mv "$@.tmp" "$@"
+	$(TOOLCHAIN)-objcopy $< /tmp/library.tmp -O binary
+	dd if=/tmp/library.tmp of="$@" bs=356240 count=1
+	rm -f /tmp/library.tmp
 
 library: $(B_DIR)/ucode/library.bin
 
@@ -142,9 +142,9 @@ $(B_DIR)/setup.elf: $(O_FILES)
 
 $(B_DIR)/ucode/setup.bin: $(B_DIR)/setup.elf
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
-	dd if="$@" of="$@.tmp" bs=200256 count=1
-	mv "$@.tmp" "$@"
+	$(TOOLCHAIN)-objcopy $< /tmp/setup.tmp -O binary
+	dd if=/tmp/setup.tmp of="$@" bs=200256 count=1
+	rm -f /tmp/setup.tmp
 
 setup: $(B_DIR)/ucode/setup.bin
 
@@ -170,9 +170,9 @@ $(B_DIR)/game.elf: $(O_FILES)
 
 $(B_DIR)/ucode/game.bin: $(B_DIR)/game.elf
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
-	dd if="$@" of="$@.tmp" bs=1808864 count=1
-	mv "$@.tmp" "$@"
+	$(TOOLCHAIN)-objcopy $< /tmp/game.tmp -O binary
+	dd if=/tmp/game.tmp of="$@" bs=1808864 count=1
+	rm -f /tmp/game.tmp
 
 game: $(B_DIR)/ucode/game.bin
 
@@ -196,11 +196,7 @@ test: all
 	@rm -f $(B_DIR)/*.elf
 	@diff -q $(E_DIR)/files/lang/ $(B_DIR)/files/lang/
 	@diff -q $(E_DIR)/files/setup/ $(B_DIR)/files/setup/
-	@diff -q $(E_DIR)/ucode/boot.bin $(B_DIR)/ucode/boot.bin
-	@diff -q $(E_DIR)/ucode/game.bin $(B_DIR)/ucode/game.bin
-	@diff -q $(E_DIR)/ucode/library.bin $(B_DIR)/ucode/library.bin
-	@diff -q $(E_DIR)/ucode/rarezip.bin $(B_DIR)/ucode/rarezip.bin
-	@diff -q $(E_DIR)/ucode/setup.bin $(B_DIR)/ucode/setup.bin
+	@diff -rq --exclude=gvars.bin --exclude=rspboot.bin $(E_DIR)/ucode/ $(B_DIR)/ucode/
 
 ################################################################################
 # Miscellaneous
@@ -220,4 +216,4 @@ clean:
 
 binclean:
 	rm -f build/ntsc-final/ucode/*.bin
-	find src/{boot,game,library,rarezip,setup} -name '*.o' -delete
+	find src/{boot,game,gvars,library,rarezip,setup} -name '*.o' -delete
