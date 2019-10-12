@@ -562,4 +562,6 @@ char *textGet(u32 textid);
 
 u32 getDifficulty(void);
 
+bool audioPlayFromWorldPosition(u8 channel_id, u16 audio_id, u8 volumemaybe, struct position *pos);
+
 #endif

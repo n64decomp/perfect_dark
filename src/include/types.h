@@ -648,8 +648,13 @@ struct something {
 	u32 unk08;
 };
 
-struct something2 {
-	u32 unk00;
+struct audiodefinition {
+	u16 unk00;
+	u16 audioconfig_index;
+};
+
+struct audioconfig {
+	u32 flags; // 0x10 = contains swearing
 	float unk04;
 	float unk08;
 	float unk0c;

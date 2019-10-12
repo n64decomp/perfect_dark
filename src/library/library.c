@@ -1,6 +1,8 @@
 #include <ultra64.h>
+#include "gvars/gvars.h"
 #include "library/library.h"
 #include "setup/setup_000000.h"
+#include "types.h"
 
 u32 var0004f3e0 = 0x70002d68;
 u32 var0004f3e4 = 0x70002d14;
@@ -21457,6 +21459,10 @@ glabel func0001036c
 /*    10400:	27bd0030 */ 	addiu	$sp,$sp,0x30
 /*    10404:	03e00008 */ 	jr	$ra
 /*    10408:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+GLOBAL_ASM(
+glabel audioIsFiltered
 /*    1040c:	3c0e800a */ 	lui	$t6,0x800a
 /*    10410:	91cea4a3 */ 	lbu	$t6,-0x5b5d($t6)
 /*    10414:	27bdfff8 */ 	addiu	$sp,$sp,-8
@@ -21498,6 +21504,22 @@ glabel func0001036c
 /*    10498:	03e00008 */ 	jr	$ra
 /*    1049c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
+
+//bool audioIsFiltered(s16 audio_id)
+//{
+//	bool filtered = false;
+//
+//	if (g_LangFilterActive) {
+//		if (audio_id < 0) {
+//			u32 bankoffset = audio_id & 0x7ff;
+//			filtered = bankoffset == 0x51d || bankoffset == 0x51e || bankoffset == 0x17ad;
+//		} else {
+//			filtered = (audioconfigs[audiodefinitions[audio_id].audioconfig_index].flags & 0x10) != 0;
+//		}
+//	}
+//
+//	return filtered;
+//}
 
 GLOBAL_ASM(
 glabel func000104a0
