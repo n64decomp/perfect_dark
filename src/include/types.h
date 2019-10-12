@@ -201,7 +201,7 @@ struct chrdata {
 	/*0x31c*/ u32 onladder;
 	/*0x320*/ struct coord laddernormal;
 	/*0x32c*/ u16 BITFIELD;
-	/*0x32d*/ u8 liftaction;
+	/*0x32e*/ u8 liftaction;
 	/*0x32f*/ u8 specialdie;
 	/*0x330*/ u16 roomtosearch;
 	/*0x332*/ u8 propsoundcount;

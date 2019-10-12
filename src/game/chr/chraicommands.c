@@ -19047,6 +19047,27 @@ glabel ai01b3
 /*  f05e758:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+//bool ai01b3(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//
+//	if (g_Vars.unk000298 >= 0) {
+//		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+//
+//		if (chr) {
+//			if (g_Vars.unk000294 == ((chr->BITFIELD >> 14) & 0x3) && g_Vars.unk0002a4->unkd8 == 0) {
+//				chr->BITFIELD = (g_Vars.unk000298 << 6) | (chr->BITFIELD & 0x3f);
+//			} else if (g_Vars.unk0002a0->unkd8 == 0) {
+//				chr->BITFIELD = (g_Vars.unk000294 << 6) | (chr->BITFIELD & 0x3f);
+//			}
+//		}
+//	}
+//
+//	g_Vars.aioffset += 3;
+//
+//	return false;
+//}
+
 /**
  * @cmd 01b5
  */

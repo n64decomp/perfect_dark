@@ -181,11 +181,11 @@ struct g_vars {
 	/*000288*/ u32 unk000288;
 	/*00028c*/ u32 unk00028c;
 	/*000290*/ u32 unk000290;
-	/*000294*/ u32 unk000294;
-	/*000298*/ u32 unk000298;
+	/*000294*/ u32 unk000294; // suspected 0-3 to indicate p1 controller number
+	/*000298*/ s32 unk000298; // suspected 0-3 to indicate p2 controller number
 	/*00029c*/ u32 unk00029c;
-	/*0002a0*/ u32 unk0002a0;
-	/*0002a4*/ u32 unk0002a4;
+	/*0002a0*/ u32 unk0002a0; // pointer to a struct with len >= 0xd8
+	/*0002a4*/ u32 unk0002a4; // pointer to a struct with len >= 0xd8
 	/*0002a8*/ u32 unk0002a8;
 	/*0002ac*/ u32 unk0002ac;
 	/*0002b0*/ u32 unk0002b0;
