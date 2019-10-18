@@ -965,7 +965,7 @@ u8 func140e_check_interceptors_destroyed[] = {
 u8 func100c_maingate_switch[] = {
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
-		if_door_state(OBJ_MAINGATE1, DOORSTATE_CLOSING, /*goto*/ 0x2e)
+		if_door_state(OBJ_MAINGATE1, DOORSTATEBIT_CLOSING, /*goto*/ 0x2e)
 		goto_next(0x06)
 
 		label(0x2e)
@@ -978,7 +978,7 @@ u8 func100c_maingate_switch[] = {
 		assign_sound(0x043f, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
 		set_object_image(OBJ_MAINGATE_SWITCH, 0x00, 0x13)
-		if_door_state(OBJ_MAINGATE1, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(OBJ_MAINGATE1, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		message(CHR_P1P2, 0x2c2b) // "Main gate has been opened."
 		open_door(OBJ_MAINGATE1)
 		open_door(OBJ_MAINGATE2)
@@ -1243,8 +1243,8 @@ u8 func1007_check_hangar_accessed[] = {
 
 u8 func1008_check_end_level[] = {
 	beginloop(0x04)
-		if_door_state(0x11, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x09)
-		if_door_state(0x12, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x09)
+		if_door_state(0x11, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x09)
+		if_door_state(0x12, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x09)
 	endloop(0x04)
 
 	beginloop(0x09)
@@ -2340,7 +2340,7 @@ u8 func1013_bunker_lasers[] = {
 		beginloop(0x04)
 			if_stage_flag_eq(STAGEFLAG_EXPLOSIVES_PLACED, TRUE, /*goto*/ 0x09)
 			if_stage_flag_eq(STAGEFLAG_ANY_LASER_DESTROYED, TRUE, /*goto*/ 0x09)
-			if_door_state(0x1e, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
+			if_door_state(0x1e, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
 		endloop(0x04)
 
 		label(0x06)

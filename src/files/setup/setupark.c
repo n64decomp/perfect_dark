@@ -1633,7 +1633,7 @@ u8 func0409_tech_conversation[] = {
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_activated_object(TARGET_CHR, 0x11, /*goto*/ 0x00)
-		if_door_state(0x11, DOORSTATE_OPEN, /*goto*/ 0x00)
+		if_door_state(0x11, DOORSTATEBIT_OPEN, /*goto*/ 0x00)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 		dprint 'T','E','C','H',' ','1',' ','L','O','O','P','\n',0,
 		set_chr_flag_bank3(CHR_TECH1, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)

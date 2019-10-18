@@ -270,6 +270,19 @@ struct defaultobj {
 	/*0x62*/ u16 aireturnlist;
 };
 
+struct doorobj {
+	struct defaultobj base;
+	/*0x64*/ u32 unk64;
+	/*0x68*/ u32 unk68;
+	/*0x6c*/ u32 unk6c;
+	/*0x70*/ u32 unk70;
+	/*0x74*/ u32 unk74;
+	/*0x78*/ u32 unk78;
+	/*0x7c*/ float speed;
+	/*0x80*/ u32 unk80;
+	/*0x84*/ s8 state;
+};
+
 struct tag {
 	// These three words are possibly the same values as defined in the setup
 	// file, but this just a guess.

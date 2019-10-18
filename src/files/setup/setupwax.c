@@ -1725,7 +1725,7 @@ u8 func1008_check_bomb_unplantable[] = {
 
 		beginloop(0xb1)
 			if_stage_flag_eq(STAGEFLAG_BOMB_PLANTED, TRUE, /*goto*/ 0x0d)
-			if_door_state(0x2e, DOORSTATE_CLOSED, /*goto*/ 0xb2)
+			if_door_state(0x2e, DOORSTATEBIT_CLOSED, /*goto*/ 0xb2)
 			reloop(0xb1)
 
 			// Door is closed

@@ -3999,7 +3999,7 @@ bool aiOpenDoor(void)
 
 	if (door && door->pos && door->pos->unk00 == 2) {
 		if (!func0f066310(door->pos, 0)) {
-			func0f08e488(door, DOORSTATE_CLOSED);
+			func0f08e488(door, DOORSTATE_OPEN);
 		}
 	}
 
@@ -4017,7 +4017,7 @@ bool aiCloseDoor(void)
 	struct defaultobj *door = objFindByTagId(cmd[2]);
 
 	if (door && door->pos && door->pos->unk00 == 2) {
-		func0f08e488(door, DOORSTATE_OPEN);
+		func0f08e488(door, DOORSTATE_CLOSED);
 	}
 
 	g_Vars.aioffset += 3;
@@ -4028,87 +4028,36 @@ bool aiCloseDoor(void)
 /**
  * @cmd 006e
  */
-GLOBAL_ASM(
-glabel ai006e
-/*  f0522a4:	3c08800a */ 	lui	$t0,0x800a
-/*  f0522a8:	25089fc0 */ 	addiu	$t0,$t0,-24640
-/*  f0522ac:	8d0e0434 */ 	lw	$t6,0x434($t0)
-/*  f0522b0:	8d0f0438 */ 	lw	$t7,0x438($t0)
-/*  f0522b4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0522b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0522bc:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f0522c0:	90e40002 */ 	lbu	$a0,0x2($a3)
-/*  f0522c4:	0fc2556c */ 	jal	objFindByTagId
-/*  f0522c8:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f0522cc:	3c08800a */ 	lui	$t0,0x800a
-/*  f0522d0:	25089fc0 */ 	addiu	$t0,$t0,-24640
-/*  f0522d4:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f0522d8:	10400027 */ 	beqz	$v0,.L0f052378
-/*  f0522dc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0522e0:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f0522e4:	13000024 */ 	beqz	$t8,.L0f052378
-/*  f0522e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0522ec:	90590003 */ 	lbu	$t9,0x3($v0)
-/*  f0522f0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0522f4:	14b90020 */ 	bne	$a1,$t9,.L0f052378
-/*  f0522f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0522fc:	80430084 */ 	lb	$v1,0x84($v0)
-/*  f052300:	1460000f */ 	bnez	$v1,.L0f052340
-/*  f052304:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052308:	44802000 */ 	mtc1	$zero,$f4
-/*  f05230c:	c446007c */ 	lwc1	$f6,0x7c($v0)
-/*  f052310:	4604303e */ 	c.le.s	$f6,$f4
-/*  f052314:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052318:	45020006 */ 	bc1fl	.L0f052334
-/*  f05231c:	90e40003 */ 	lbu	$a0,0x3($a3)
-/*  f052320:	90e40003 */ 	lbu	$a0,0x3($a3)
-/*  f052324:	30890001 */ 	andi	$t1,$a0,0x1
-/*  f052328:	10000013 */ 	beqz	$zero,.L0f052378
-/*  f05232c:	0009202b */ 	sltu	$a0,$zero,$t1
-/*  f052330:	90e40003 */ 	lbu	$a0,0x3($a3)
-.L0f052334:
-/*  f052334:	308b0002 */ 	andi	$t3,$a0,0x2
-/*  f052338:	1000000f */ 	beqz	$zero,.L0f052378
-/*  f05233c:	000b202b */ 	sltu	$a0,$zero,$t3
-.L0f052340:
-/*  f052340:	10a30003 */ 	beq	$a1,$v1,.L0f052350
-/*  f052344:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f052348:	54610006 */ 	bnel	$v1,$at,.L0f052364
-/*  f05234c:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f052350:
-/*  f052350:	90e40003 */ 	lbu	$a0,0x3($a3)
-/*  f052354:	308d0008 */ 	andi	$t5,$a0,0x8
-/*  f052358:	10000007 */ 	beqz	$zero,.L0f052378
-/*  f05235c:	000d202b */ 	sltu	$a0,$zero,$t5
-/*  f052360:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f052364:
-/*  f052364:	14610004 */ 	bne	$v1,$at,.L0f052378
-/*  f052368:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05236c:	90e40003 */ 	lbu	$a0,0x3($a3)
-/*  f052370:	308f0004 */ 	andi	$t7,$a0,0x4
-/*  f052374:	000f202b */ 	sltu	$a0,$zero,$t7
-.L0f052378:
-/*  f052378:	5080000a */ 	beqzl	$a0,.L0f0523a4
-/*  f05237c:	8d190438 */ 	lw	$t9,0x438($t0)
-/*  f052380:	8d040434 */ 	lw	$a0,0x434($t0)
-/*  f052384:	8d050438 */ 	lw	$a1,0x438($t0)
-/*  f052388:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05238c:	90e60004 */ 	lbu	$a2,0x4($a3)
-/*  f052390:	3c08800a */ 	lui	$t0,0x800a
-/*  f052394:	25089fc0 */ 	addiu	$t0,$t0,-24640
-/*  f052398:	10000004 */ 	beqz	$zero,.L0f0523ac
-/*  f05239c:	ad020438 */ 	sw	$v0,0x438($t0)
-/*  f0523a0:	8d190438 */ 	lw	$t9,0x438($t0)
-.L0f0523a4:
-/*  f0523a4:	27290005 */ 	addiu	$t1,$t9,0x5
-/*  f0523a8:	ad090438 */ 	sw	$t1,0x438($t0)
-.L0f0523ac:
-/*  f0523ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0523b0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0523b4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0523b8:	03e00008 */ 	jr	$ra
-/*  f0523bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfDoorState(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+	bool pass = false;
+
+	if (obj && obj->pos && obj->type == OBJTYPE_DOOR) {
+		struct doorobj *door = (struct doorobj *) obj;
+
+		if (door->state == 0) {
+			if (door->speed <= 0) {
+				pass = (cmd[3] & DOORSTATEBIT_CLOSED) != 0;
+			} else {
+				pass = (cmd[3] & DOORSTATEBIT_OPEN) != 0;
+			}
+		} else if (door->state == 1 || door->state == 3) {
+			pass = (cmd[3] & DOORSTATEBIT_OPENING) != 0;
+		} else if (door->state == 2) {
+			pass = (cmd[3] & DOORSTATEBIT_CLOSING) != 0;
+		}
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 006f

@@ -1530,16 +1530,16 @@ u8 func1017_check_lasers_closed[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_ALL_LASERS_DISABLED, TRUE, /*goto*/ 0x08)
 		if_stage_flag_eq(STAGEFLAG_MEETING_HOLOGRAPHED, TRUE, /*goto*/ 0x08)
-		if_door_state(OBJ_LASER_1A, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(OBJ_LASER_1A, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 		unset_stage_flag(STAGEFLAG_LASERSET1_DISABLED)
 		label(0x2c)
-		if_door_state(OBJ_LASER_2A, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(OBJ_LASER_2A, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 		unset_stage_flag(STAGEFLAG_LASERSET2_DISABLED)
 		label(0x2c)
-		if_door_state(OBJ_LASER_3A, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(OBJ_LASER_3A, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 		unset_stage_flag(STAGEFLAG_LASERSET3_DISABLED)
 		label(0x2c)
-		if_door_state(OBJ_LASER_4A, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(OBJ_LASER_4A, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 		unset_stage_flag(STAGEFLAG_LASERSET4_DISABLED)
 		label(0x2c)
 	endloop(0x04)
@@ -2845,28 +2845,28 @@ u8 func1023_hide_nbomb_crate[] = {
 u8 unregistered_function[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_LASERSET1_DISABLED, FALSE, /*goto*/ 0x2c)
-		if_door_state(OBJ_LASER_1A, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(OBJ_LASER_1A, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 		open_door(OBJ_LASER_1A)
 		open_door(OBJ_LASER_1B)
 		open_door(OBJ_LASER_1C)
 		open_door(OBJ_LASER_1D)
 		label(0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET2_DISABLED, FALSE, /*goto*/ 0x2c)
-		if_door_state(OBJ_LASER_2A, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(OBJ_LASER_2A, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 		open_door(OBJ_LASER_2A)
 		open_door(OBJ_LASER_2B)
 		open_door(OBJ_LASER_2C)
 		open_door(OBJ_LASER_2D)
 		label(0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, FALSE, /*goto*/ 0x2c)
-		if_door_state(OBJ_LASER_3A, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(OBJ_LASER_3A, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 		open_door(OBJ_LASER_3A)
 		open_door(OBJ_LASER_3B)
 		open_door(OBJ_LASER_3C)
 		open_door(OBJ_LASER_3D)
 		label(0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET4_DISABLED, FALSE, /*goto*/ 0x2c)
-		if_door_state(OBJ_LASER_4A, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(OBJ_LASER_4A, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 		open_door(OBJ_LASER_4A)
 		open_door(OBJ_LASER_4B)
 		open_door(OBJ_LASER_4C)
@@ -2892,10 +2892,10 @@ u8 func1026_unlock_doors[] = {
 
 	// Wait until some door is not closed (so... opening, I guess?)
 	beginloop(0x04)
-		if_door_state(0x43, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
-		if_door_state(0x44, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
-		if_door_state(0x45, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
-		if_door_state(0x46, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x43, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x44, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x45, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x46, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 	endloop(0x04)
 
 	// Unlock those doors
@@ -2907,10 +2907,10 @@ u8 func1026_unlock_doors[] = {
 
 	// New set of doors - wait until not closed
 	beginloop(0x08)
-		if_door_state(0x34, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
-		if_door_state(0x35, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
-		if_door_state(0x36, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
-		if_door_state(0x37, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x34, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x35, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x36, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x37, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 	endloop(0x08)
 
 	// Unlock them
@@ -2922,8 +2922,8 @@ u8 func1026_unlock_doors[] = {
 
 	// Third set of doors
 	beginloop(0x09)
-		if_door_state(0x3f, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
-		if_door_state(0x40, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x3f, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x40, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 	endloop(0x09)
 
 	label(0x2c)
@@ -3027,7 +3027,7 @@ u8 func1029_set_secret_weapon_props[] = {
 u8 func102a_8174[] = {
 	// Wait until some door opening
 	beginloop(0x08)
-		if_door_state(0x3f, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x3f, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 	endloop(0x08)
 
 	label(0x2c)
@@ -3045,7 +3045,7 @@ u8 func102a_8174[] = {
 u8 func102b_81bc[] = {
 	// Wait until some door opening
 	beginloop(0x08)
-		if_door_state(0x3f, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2c)
+		if_door_state(0x3f, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2c)
 	endloop(0x08)
 
 	label(0x2c)

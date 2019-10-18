@@ -14063,7 +14063,7 @@ bool (*command_pointers[])(void) = {
 	/*0x006b*/ ai006b,
 	/*0x006c*/ aiOpenDoor,
 	/*0x006d*/ aiCloseDoor,
-	/*0x006e*/ ai006e,
+	/*0x006e*/ aiIfDoorState,
 	/*0x006f*/ aiIfObjectIsDoor,
 	/*0x0070*/ ai0070,
 	/*0x0071*/ ai0071,

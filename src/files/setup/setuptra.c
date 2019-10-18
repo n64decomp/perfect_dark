@@ -2095,13 +2095,13 @@ u8 func100d_check_terminals_destroyed[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_INNER_DOOR_OPENING, TRUE, /*goto*/ 0x06)
 		if_object_in_good_condition(OBJ_TERMINAL1, /*goto*/ 0x06)
-		if_door_state(0x2c, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x06)
+		if_door_state(0x2c, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x06)
 		goto_next(0x08)
 
 		label(0x06)
 		if_stage_flag_eq(STAGEFLAG_OUTER_DOOR_OPENING, TRUE, /*goto*/ 0x06)
 		if_object_in_good_condition(OBJ_TERMINAL2, /*goto*/ 0x06)
-		if_door_state(0x2e, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x06)
+		if_door_state(0x2e, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x06)
 		goto_first(0x08)
 
 		label(0x06)
@@ -2236,7 +2236,7 @@ u8 func1012_hoverbike_auto_doors[] = {
 
 		// Pad/door 1
 		label(0x08)
-		if_door_state(0x0a, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
+		if_door_state(0x0a, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x06)
@@ -2246,7 +2246,7 @@ u8 func1012_hoverbike_auto_doors[] = {
 
 		// Pad/door 2
 		label(0x09)
-		if_door_state(0x0b, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
+		if_door_state(0x0b, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x06)
@@ -2256,7 +2256,7 @@ u8 func1012_hoverbike_auto_doors[] = {
 
 		// Pad/door 3
 		label(0x0a)
-		if_door_state(0x08, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
+		if_door_state(0x08, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x06)
@@ -2268,7 +2268,7 @@ u8 func1012_hoverbike_auto_doors[] = {
 
 		// Pad/door 4
 		label(0x0c)
-		if_door_state(0x0c, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
+		if_door_state(0x0c, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x06)
@@ -2278,7 +2278,7 @@ u8 func1012_hoverbike_auto_doors[] = {
 
 		// Pad/door 5
 		label(0x0d)
-		if_door_state(0x05, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
+		if_door_state(0x05, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x06)
@@ -3535,14 +3535,14 @@ u8 func102e_keep_hangar_doors_open[] = {
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_HANGAR_TERMINAL_DESTROYED, TRUE, /*goto*/ 0x0f)
-		if_door_state(0x2c, DOORSTATE_CLOSING, /*goto*/ 0x08)
-		if_door_state(0x2e, DOORSTATE_CLOSING, /*goto*/ 0x09)
+		if_door_state(0x2c, DOORSTATEBIT_CLOSING, /*goto*/ 0x08)
+		if_door_state(0x2e, DOORSTATEBIT_CLOSING, /*goto*/ 0x09)
 		reloop(0x04)
 
 		// Door 1 closing
 		label(0x08)
 		if_stage_flag_eq(STAGEFLAG_INNER_DOOR_OPENING, TRUE, /*goto*/ 0x32)
-		if_door_state(0x2c, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x09)
+		if_door_state(0x2c, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x09)
 		reloop(0x04)
 
 		label(0x32)

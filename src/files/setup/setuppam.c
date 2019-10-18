@@ -1421,7 +1421,7 @@ u8 func0403_elvis_give_farsight[] = {
 u8 func1003_powernode1[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_POWERNODE1, /*goto*/ 0x2e)
-		if_door_state(0x03, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x03, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		open_door(0x03)
 	endloop(0x04)
 
@@ -1441,7 +1441,7 @@ u8 func1003_powernode1[] = {
 u8 func1004_powernode2[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_POWERNODE2, /*goto*/ 0x2e)
-		if_door_state(0x04, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x04, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		open_door(0x04)
 	endloop(0x04)
 
@@ -1461,7 +1461,7 @@ u8 func1004_powernode2[] = {
 u8 func1005_powernode3[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_POWERNODE3, /*goto*/ 0x2e)
-		if_door_state(0x05, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x05, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		open_door(0x05)
 	endloop(0x04)
 
@@ -2285,7 +2285,7 @@ u8 func1008_msg_theresdrcaroll[] = {
 		if_chr_dying(CHR_DRCAROLL, /*goto*/ 0x0d)
 		if_chr_unloaded(CHR_DRCAROLL, /*goto*/ 0x0d)
 
-		if_door_state(0xae, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0xae, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		reloop(0x04)
 
 		label(0x2e)
@@ -3723,7 +3723,7 @@ u8 func0408_check_pa_earlydoorcylinders_destroyed[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x08)
-		if_door_state(0x09, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
+		if_door_state(0x09, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
 	endloop(0x08)
 
 	label(0x06)
@@ -3804,7 +3804,7 @@ u8 func1018_pa_door1[] = {
 	set_lights_state(0x00a1, 0x03, 0xff, 0x0a, 0x78)
 
 	beginloop(0x08)
-		if_door_state(0x0b, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
+		if_door_state(0x0b, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
 		reloop(0x08)
 
 		label(0x06)
@@ -3835,7 +3835,7 @@ u8 func0409_check_pa_latedoorcylinders_destroyed[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x08)
-		if_door_state(0x0d, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
+		if_door_state(0x0d, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
 	endloop(0x08)
 
 	label(0x06)
@@ -3970,7 +3970,7 @@ u8 func040a_check_pa_canisters_destroyed[] = {
 	set_lights_state(0x00bc, 0x03, 0xff, 0x0a, 0x78)
 
 	beginloop(0x08)
-		if_door_state(0x0f, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x06)
+		if_door_state(0x0f, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
 	endloop(0x08)
 
 	label(0x06)
@@ -3991,7 +3991,7 @@ u8 func040a_check_pa_canisters_destroyed[] = {
 u8 func101f_pa_circleroom_spawner[] = {
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
-		if_door_state(0x09, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x09, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x008b, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -3999,7 +3999,7 @@ u8 func101f_pa_circleroom_spawner[] = {
 	restart_timer
 
 	beginloop(0x0d)
-		if_door_state(0x09, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x1f)
+		if_door_state(0x09, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x1f)
 		if_timer_gt(300, /*goto*/ 0x1f)
 	endloop(0x0d)
 
@@ -4379,21 +4379,21 @@ u8 func042e_elvis_run_to_exit[] = {
 
 u8 func1027_powernode_illumination[] = {
 	beginloop(0x04)
-		if_door_state(0x03, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x03, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		unset_object_flag_bank0(OBJ_POWERNODE1, OBJECTFLAG0_ILLUMINATED)
 		goto_next(0x06)
 		label(0x2e)
 		set_object_flag_bank0(OBJ_POWERNODE1, OBJECTFLAG0_ILLUMINATED)
 
 		label(0x06)
-		if_door_state(0x04, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x04, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		unset_object_flag_bank0(OBJ_POWERNODE2, OBJECTFLAG0_ILLUMINATED)
 		goto_next(0x06)
 		label(0x2e)
 		set_object_flag_bank0(OBJ_POWERNODE2, OBJECTFLAG0_ILLUMINATED)
 
 		label(0x06)
-		if_door_state(0x05, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x05, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		unset_object_flag_bank0(OBJ_POWERNODE3, OBJECTFLAG0_ILLUMINATED)
 		goto_next(0x06)
 		label(0x2e)
@@ -4414,7 +4414,7 @@ u8 func1028_enable_last_3_guards[] = {
 		reloop(0x04)
 
 		label(0x2e)
-		if_door_state(0xab, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0xab, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 	endloop(0x04)
 
 	label(0x2e)
