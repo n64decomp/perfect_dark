@@ -97,7 +97,7 @@
 /*0x005b*/ bool ai005b(void);
 /*0x005c*/ bool ai005c(void);
 /*0x005d*/ bool aiIfChrHasObject(void);
-/*0x005e*/ bool ai005e(void);
+/*0x005e*/ bool aiIfWeaponThrown(void);
 /*0x005f*/ bool ai005f(void);
 /*0x0060*/ bool ai0060(void);
 /*0x0061*/ bool ai0061(void);

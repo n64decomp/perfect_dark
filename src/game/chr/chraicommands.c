@@ -3164,41 +3164,18 @@ bool aiIfChrHasObject(void)
 /**
  * @cmd 005e
  */
-GLOBAL_ASM(
-glabel ai005e
-/*  f051604:	3c03800a */ 	lui	$v1,0x800a
-/*  f051608:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05160c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f051610:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f051614:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f051618:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05161c:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f051620:	90e40002 */ 	lbu	$a0,0x2($a3)
-/*  f051624:	0fc22abd */ 	jal	func0f08aaf4
-/*  f051628:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f05162c:	3c03800a */ 	lui	$v1,0x800a
-/*  f051630:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f051634:	10400009 */ 	beqz	$v0,.L0f05165c
-/*  f051638:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05163c:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f051640:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f051644:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f051648:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f05164c:	3c03800a */ 	lui	$v1,0x800a
-/*  f051650:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f051654:	10000004 */ 	beqz	$zero,.L0f051668
-/*  f051658:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05165c:
-/*  f05165c:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f051660:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f051664:	ac790438 */ 	sw	$t9,0x438($v1)
-.L0f051668:
-/*  f051668:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05166c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f051670:	00001025 */ 	or	$v0,$zero,$zero
-/*  f051674:	03e00008 */ 	jr	$ra
-/*  f051678:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfWeaponThrown(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (func0f08aaf4(cmd[2])) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 005f
