@@ -442,6 +442,8 @@
 #define OBJECTFLAG2_40000000        0x40000000 // Not used in scripts
 #define OBJECTFLAG2_80000000        0x80000000 // Not used in scripts
 
+#define OBJTYPE_DOOR 0x01
+
 #define OPERATOR_LESS_THAN    0
 #define OPERATOR_GREATER_THAN 1
 

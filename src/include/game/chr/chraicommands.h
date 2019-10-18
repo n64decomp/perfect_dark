@@ -113,7 +113,7 @@
 /*0x006c*/ bool aiOpenDoor(void);
 /*0x006d*/ bool aiCloseDoor(void);
 /*0x006e*/ bool ai006e(void);
-/*0x006f*/ bool ai006f(void);
+/*0x006f*/ bool aiIfObjectIsDoor(void);
 /*0x0070*/ bool ai0070(void);
 /*0x0071*/ bool ai0071(void);
 /*0x0072*/ bool ai0072(void);

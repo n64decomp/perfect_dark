@@ -4113,53 +4113,19 @@ glabel ai006e
 /**
  * @cmd 006f
  */
-GLOBAL_ASM(
-glabel ai006f
-/*  f0523c0:	3c03800a */ 	lui	$v1,0x800a
-/*  f0523c4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0523c8:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0523cc:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0523d0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0523d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0523d8:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f0523dc:	90e40002 */ 	lbu	$a0,0x2($a3)
-/*  f0523e0:	0fc2556c */ 	jal	objFindByTagId
-/*  f0523e4:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f0523e8:	3c03800a */ 	lui	$v1,0x800a
-/*  f0523ec:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0523f0:	10400014 */ 	beqz	$v0,.L0f052444
-/*  f0523f4:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f0523f8:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f0523fc:	53000012 */ 	beqzl	$t8,.L0f052448
-/*  f052400:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f052404:	90590003 */ 	lbu	$t9,0x3($v0)
-/*  f052408:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f05240c:	5721000e */ 	bnel	$t9,$at,.L0f052448
-/*  f052410:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f052414:	8c480040 */ 	lw	$t0,0x40($v0)
-/*  f052418:	31090200 */ 	andi	$t1,$t0,0x200
-/*  f05241c:	5120000a */ 	beqzl	$t1,.L0f052448
-/*  f052420:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f052424:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f052428:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05242c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f052430:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f052434:	3c03800a */ 	lui	$v1,0x800a
-/*  f052438:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05243c:	10000004 */ 	beqz	$zero,.L0f052450
-/*  f052440:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f052444:
-/*  f052444:	8c6a0438 */ 	lw	$t2,0x438($v1)
-.L0f052448:
-/*  f052448:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f05244c:	ac6b0438 */ 	sw	$t3,0x438($v1)
-.L0f052450:
-/*  f052450:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f052454:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f052458:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05245c:	03e00008 */ 	jr	$ra
-/*  f052460:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfObjectIsDoor(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos && obj->type == OBJTYPE_DOOR && (obj->hidden & 0x200)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0070
