@@ -3137,73 +3137,29 @@ glabel ai005c
 /**
  * @cmd 005d
  */
-GLOBAL_ASM(
-glabel ai005d
-/*  f051510:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f051514:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f051518:	3c10800a */ 	lui	$s0,0x800a
-/*  f05151c:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f051520:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f051524:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f051528:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05152c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f051530:	90440003 */ 	lbu	$a0,0x3($v0)
-/*  f051534:	0fc2556c */ 	jal	objFindByTagId
-/*  f051538:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f05153c:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f051540:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f051544:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f051548:	0fc126d1 */ 	jal	chrFindById
-/*  f05154c:	93050002 */ 	lbu	$a1,0x2($t8)
-/*  f051550:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f051554:	00002825 */ 	or	$a1,$zero,$zero
-/*  f051558:	10e0001a */ 	beqz	$a3,.L0f0515c4
-/*  f05155c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051560:	8cf90014 */ 	lw	$t9,0x14($a3)
-/*  f051564:	13200017 */ 	beqz	$t9,.L0f0515c4
-/*  f051568:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05156c:	10400015 */ 	beqz	$v0,.L0f0515c4
-/*  f051570:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051574:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f051578:	10600012 */ 	beqz	$v1,.L0f0515c4
-/*  f05157c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051580:	90680000 */ 	lbu	$t0,0x0($v1)
-/*  f051584:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f051588:	1501000e */ 	bne	$t0,$at,.L0f0515c4
-/*  f05158c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051590:	8e09028c */ 	lw	$t1,0x28c($s0)
-/*  f051594:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f051598:	0fc4a25f */ 	jal	func0f12897c
-/*  f05159c:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f0515a0:	0fc4a24b */ 	jal	func0f12892c
-/*  f0515a4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0515a8:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*  f0515ac:	0fc44a33 */ 	jal	func0f1128cc
-/*  f0515b0:	8d440014 */ 	lw	$a0,0x14($t2)
-/*  f0515b4:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0515b8:	0fc4a24b */ 	jal	func0f12892c
-/*  f0515bc:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f0515c0:	8fa50028 */ 	lw	$a1,0x28($sp)
-.L0f0515c4:
-/*  f0515c4:	10a00007 */ 	beqz	$a1,.L0f0515e4
-/*  f0515c8:	8fab0034 */ 	lw	$t3,0x34($sp)
-/*  f0515cc:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f0515d0:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f0515d4:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0515d8:	91660004 */ 	lbu	$a2,0x4($t3)
-/*  f0515dc:	10000004 */ 	beqz	$zero,.L0f0515f0
-/*  f0515e0:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f0515e4:
-/*  f0515e4:	8e0c0438 */ 	lw	$t4,0x438($s0)
-/*  f0515e8:	258d0005 */ 	addiu	$t5,$t4,0x5
-/*  f0515ec:	ae0d0438 */ 	sw	$t5,0x438($s0)
-.L0f0515f0:
-/*  f0515f0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0515f4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0515f8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0515fc:	03e00008 */ 	jr	$ra
-/*  f051600:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfChrHasObject(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[3]);
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	s32 somevalue = 0;
+
+	if (obj && obj->pos && chr && chr->pos && chr->pos->unk00 == 6) {
+		s32 original_value = g_Vars.unk00028c;
+		somevalue = func0f12897c(chr->pos);
+		func0f12892c(somevalue);
+		somevalue = func0f1128cc(obj->pos);
+		func0f12892c(original_value);
+	}
+
+	if (somevalue != 0) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 005e

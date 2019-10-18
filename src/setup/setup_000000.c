@@ -14046,7 +14046,7 @@ bool (*command_pointers[])(void) = {
 	/*0x005a*/ ai005a,
 	/*0x005b*/ ai005b,
 	/*0x005c*/ ai005c,
-	/*0x005d*/ ai005d,
+	/*0x005d*/ aiIfChrHasObject,
 	/*0x005e*/ ai005e,
 	/*0x005f*/ ai005f,
 	/*0x0060*/ ai0060,
