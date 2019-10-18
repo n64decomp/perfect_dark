@@ -101,7 +101,7 @@
 /*0x005f*/ bool ai005f(void);
 /*0x0060*/ bool ai0060(void);
 /*0x0061*/ bool ai0061(void);
-/*0x0062*/ bool ai0062(void);
+/*0x0062*/ bool aiIfObjectHealthy(void);
 /*0x0063*/ bool ai0063(void);
 /*0x0065*/ bool ai0065(void);
 /*0x0066*/ bool ai0066(void);
