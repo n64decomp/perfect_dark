@@ -110,7 +110,7 @@
 /*0x0069*/ bool ai0069(void);
 /*0x006a*/ bool ai006a(void);
 /*0x006b*/ bool ai006b(void);
-/*0x006c*/ bool ai006c(void);
+/*0x006c*/ bool aiOpenDoor(void);
 /*0x006d*/ bool ai006d(void);
 /*0x006e*/ bool ai006e(void);
 /*0x006f*/ bool ai006f(void);

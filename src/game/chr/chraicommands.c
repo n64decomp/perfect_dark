@@ -3992,46 +3992,21 @@ glabel ai006b
 /**
  * @cmd 006c
  */
-GLOBAL_ASM(
-glabel ai006c
-/*  f0521a0:	3c03800a */ 	lui	$v1,0x800a
-/*  f0521a4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0521a8:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0521ac:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0521b0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0521b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0521b8:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0521bc:	0fc2556c */ 	jal	objFindByTagId
-/*  f0521c0:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f0521c4:	10400011 */ 	beqz	$v0,.L0f05220c
-/*  f0521c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0521cc:	8c430014 */ 	lw	$v1,0x14($v0)
-/*  f0521d0:	1060000e */ 	beqz	$v1,.L0f05220c
-/*  f0521d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0521d8:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f0521dc:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0521e0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0521e4:	17010009 */ 	bne	$t8,$at,.L0f05220c
-/*  f0521e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0521ec:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f0521f0:	0fc198c4 */ 	jal	func0f066310
-/*  f0521f4:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f0521f8:	14400004 */ 	bnez	$v0,.L0f05220c
-/*  f0521fc:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f052200:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f052204:	0fc23922 */ 	jal	func0f08e488
-/*  f052208:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f05220c:
-/*  f05220c:	3c03800a */ 	lui	$v1,0x800a
-/*  f052210:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f052214:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f052218:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05221c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f052220:	27280003 */ 	addiu	$t0,$t9,0x3
-/*  f052224:	ac680438 */ 	sw	$t0,0x438($v1)
-/*  f052228:	03e00008 */ 	jr	$ra
-/*  f05222c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiOpenDoor(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *door = objFindByTagId(cmd[2]);
+
+	if (door && door->pos && door->pos->unk00 == 2) {
+		if (!func0f066310(door->pos, 0)) {
+			func0f08e488(door, DOORSTATE_CLOSED);
+		}
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 006d
