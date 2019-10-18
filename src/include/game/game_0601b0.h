@@ -560,7 +560,7 @@ struct defaultobj *objFindByTagId(s32 tag_id);
 
 char *textGet(u32 textid);
 
-u32 getDifficulty(void);
+s32 getDifficulty(void);
 
 bool audioPlayFromWorldPosition(u8 channel_id, u16 audio_id, u8 volumemaybe, struct position *pos);
 

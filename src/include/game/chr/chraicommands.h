@@ -121,8 +121,8 @@
 /*0x0074*/ bool ai0074(void);
 /*0x0075*/ bool ai0075(void);
 /*0x0076*/ bool ai0076(void);
-/*0x0077*/ bool ai0077(void);
-/*0x0078*/ bool ai0078(void);
+/*0x0077*/ bool aiIfDifficultyLessThan(void);
+/*0x0078*/ bool aiIfDifficultyGreaterThan(void);
 /*0x0079*/ bool ai0079(void);
 /*0x007a*/ bool ai007a(void);
 /*0x007b*/ bool ai007b(void);

@@ -6082,7 +6082,7 @@ u32 var0002a034 = 0x00000000;
 u32 var0002a038 = 0x3f800000;
 u32 var0002a03c = 0x00000001;
 
-u32 g_Difficulty = 0;
+s32 g_Difficulty = 0;
 
 u32 var0002a044 = 0x00000000;
 u32 var0002a048 = 0x00008ca0;
