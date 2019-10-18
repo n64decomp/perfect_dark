@@ -41,8 +41,7 @@ struct g_vars {
 	/*000058*/ u32 unk000058;
 	/*00005c*/ u32 unk00005c;
 	/*000060*/ u32 unk000060;
-	/*000064*/ u32 unk000064;
-	/*000068*/ u32 unk000068;
+	/*000064*/ struct player *unk000064[2];
 	/*00006c*/ u32 unk00006c;
 	/*000070*/ u32 unk000070;
 	/*000074*/ u32 unk000074;
@@ -181,12 +180,12 @@ struct g_vars {
 	/*000288*/ u32 unk000288;
 	/*00028c*/ u32 unk00028c;
 	/*000290*/ u32 unk000290;
-	/*000294*/ u32 unk000294; // suspected 0-3 to indicate p1 controller number
-	/*000298*/ s32 unk000298; // suspected 0-3 to indicate p2 controller number
-	/*00029c*/ u32 unk00029c;
-	/*0002a0*/ u32 unk0002a0; // pointer to a struct with len >= 0xd8
-	/*0002a4*/ u32 unk0002a4; // pointer to a struct with len >= 0xd8
-	/*0002a8*/ u32 unk0002a8;
+	/*000294*/ s32 unk000294; // suspected 0-3 to indicate bond controller number
+	/*000298*/ s32 unk000298; // suspected 0-3 to indicate coop controller number
+	/*00029c*/ s32 unk00029c; // suspected 0-3 to indicate anti controller number
+	/*0002a0*/ struct player *bond;
+	/*0002a4*/ struct player *coop; // Co-op buddy when controlled by human
+	/*0002a8*/ struct player *anti; // Counter-op
 	/*0002ac*/ u32 unk0002ac;
 	/*0002b0*/ u32 unk0002b0;
 	/*0002b4*/ u32 unk0002b4;
@@ -222,7 +221,7 @@ struct g_vars {
 	/*00032c*/ u32 unk00032c;
 	/*000330*/ u32 unk000330;
 	/*000334*/ u32 unk000334;
-	/*000338*/ u32 unk000338;
+	/*000338*/ u32 unk000338; // array of something related to chr targets, each 0x48 long
 	/*00033c*/ u32 unk00033c;
 	/*000340*/ u32 unk000340;
 	/*000344*/ u32 unk000344;

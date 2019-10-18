@@ -3,14 +3,7 @@ OUTPUT_ARCH (mips)
 
 SECTIONS
 {
-	.game 0x0f000000 : AT(0) {
-		src/game/game_000000.o (.text);
-		src/game/chr/chrai.o (.text);
-		src/game/chr/chraicommands.o (.text);
-		src/game/game_0601b0.o (.text);
-	}
-
-	.gamerodata 0x7f000000 + SIZEOF(.game) : AT(SIZEOF(.game)) {
+	.gamerodata 0x7f000000 + SIZEOF(.game) : AT(0) {
 		src/game/game_000000.o (.rodata);
 		src/game/chr/chrai.o (.rodata);
 		src/game/chr/chraicommands.o (.rodata);
@@ -22,7 +15,14 @@ SECTIONS
 		src/game/game_0601b0.o (.data);
 	}
 
-	.library 0x00003050 : AT(SIZEOF(.game) + SIZEOF(.gamerodata)) {
+	.game 0x7f000000 : AT(SIZEOF(.gamerodata)) {
+		src/game/game_000000.o (.text);
+		src/game/chr/chrai.o (.text);
+		src/game/chr/chraicommands.o (.text);
+		src/game/game_0601b0.o (.text);
+	}
+
+	.library 0x7f003050 : AT(SIZEOF(.game) + SIZEOF(.gamerodata)) {
 		src/library/library.o (.text);
 		src/library/library.o (.data);
 	}

@@ -25,8 +25,14 @@ struct position {
 	s16 room;
 };
 
+struct bitfielddata {
+	u8 unk32e;
+	u8 specialdie;
+	u16 roomtosearch;
+};
+
 struct chrdata {
-	/*0x000*/ u16 chrnum;
+	/*0x000*/ s16 chrnum;
 	/*0x002*/ u8 accuracyrating;
 	/*0x003*/ u8 speedrating;
 	/*0x004*/ u16 firecount;
@@ -118,11 +124,11 @@ struct chrdata {
 	/*0x125*/ u8 team;
 	/*0x126*/ u8 soundgap;
 	/*0x128*/ s16 padpreset1;
-	/*0x12a*/ u16 chrpreset1;
-	/*0x12c*/ u16 proppreset1;
-	/*0x12e*/ u16 chrseeshot;
-	/*0x130*/ u16 chrseedie;
-	/*0x132*/ u16 chrdup;
+	/*0x12a*/ s16 chrpreset1;
+	/*0x12c*/ s16 proppreset1;
+	/*0x12e*/ s16 chrseeshot;
+	/*0x130*/ s16 chrseedie;
+	/*0x132*/ s16 chrdup;
 	/*0x134*/ u32 unk134;
 	/*0x138*/ u32 unk138;
 	/*0x13c*/ u32 unk13c;
@@ -200,10 +206,17 @@ struct chrdata {
 	/*0x314*/ u32 gunrotx[2];
 	/*0x31c*/ u32 onladder;
 	/*0x320*/ struct coord laddernormal;
-	/*0x32c*/ u16 BITFIELD;
-	/*0x32e*/ u8 liftaction;
-	/*0x32f*/ u8 specialdie;
-	/*0x330*/ u16 roomtosearch;
+	/*0x32c*/ u8 liftaction;
+
+	union {
+	/*0x32e*/ u16 BITFIELD;
+	/*0x32e*/ struct bitfielddata bitfielddata;
+		/* 0x32e - u8 unk32e;
+		 * 0x32f - u8 specialdie;
+		 * 0x330 - u16 roomtosearch;
+		 */
+	};
+
 	/*0x332*/ u8 propsoundcount;
 	/*0x333*/ u8 patrolnextstep;
 	/*0x334*/ u8 BulletsTaken;
@@ -293,6 +306,83 @@ struct otheraidata {
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
 	/*0x62*/ u16 aireturnlist;
+};
+
+struct playerbc {
+	u32 unk00;
+	struct chrdata *chr;
+};
+
+struct player {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ u32 unk4c;
+	/*0x50*/ u32 unk50;
+	/*0x54*/ u32 unk54;
+	/*0x58*/ u32 unk58;
+	/*0x5c*/ u32 unk5c;
+	/*0x60*/ u32 unk60;
+	/*0x64*/ u32 unk64;
+	/*0x68*/ u32 unk68;
+	/*0x6c*/ u32 unk6c;
+	/*0x70*/ u32 unk70;
+	/*0x74*/ u32 unk74;
+	/*0x78*/ u32 unk78;
+	/*0x7c*/ u32 unk7c;
+	/*0x80*/ u32 unk80;
+	/*0x84*/ u32 unk84;
+	/*0x88*/ u32 unk88;
+	/*0x8c*/ u32 unk8c;
+	/*0x90*/ u32 unk90;
+	/*0x94*/ u32 unk94;
+	/*0x98*/ u32 unk98;
+	/*0x9c*/ u32 unk9c;
+	/*0xa0*/ u32 unka0;
+	/*0xa4*/ u32 unka4;
+	/*0xa8*/ u32 unka8;
+	/*0xac*/ u32 unkac;
+	/*0xb0*/ u32 unkb0;
+	/*0xb4*/ u32 unkb4;
+	/*0xb8*/ u32 unkb8;
+	/*0xbc*/ struct playerbc *unkbc;
+};
+
+struct targetsomething {
+	/*0x00*/ u8 unk00;
+	/*0x04*/ struct chrdata *chr;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
 };
 
 struct ailists {

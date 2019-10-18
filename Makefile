@@ -168,11 +168,17 @@ $(B_DIR)/game.elf: $(O_FILES)
 	mkdir -p $(B_DIR)
 	$(TOOLCHAIN)-ld -T ld/game.ld -o $@
 
-$(B_DIR)/ucode/game.bin: $(B_DIR)/game.elf
+$(B_DIR)/gamerodata.elf: $(O_FILES)
+	mkdir -p $(B_DIR)
+	$(TOOLCHAIN)-ld -T ld/gamerodata.ld -o $@
+
+$(B_DIR)/ucode/game.bin: $(B_DIR)/game.elf $(B_DIR)/gamerodata.elf
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $< /tmp/game.tmp -O binary
-	dd if=/tmp/game.tmp of="$@" bs=1808864 count=1
-	rm -f /tmp/game.tmp
+	$(TOOLCHAIN)-objcopy $(B_DIR)/game.elf /tmp/game.tmp -O binary
+	$(TOOLCHAIN)-objcopy $(B_DIR)/gamerodata.elf /tmp/gamerodata.tmp -O binary
+	dd if=/tmp/game.tmp of="$@" bs=1734848 count=1
+	dd if=/tmp/gamerodata.tmp of="$@" bs=74016 count=1 conv=notrunc oflag=append
+	rm -f /tmp/game.tmp /tmp/gamerodata.tmp
 
 game: $(B_DIR)/ucode/game.bin
 

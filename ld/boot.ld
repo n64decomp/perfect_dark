@@ -36,6 +36,11 @@ SECTIONS
 		src/game/chr/chrai.o (.data);
 		src/game/chr/chraicommands.o (.data);
 		src/game/game_0601b0.o (.data);
+
+		src/game/game_000000.o (.rodata);
+		src/game/chr/chrai.o (.rodata);
+		src/game/chr/chraicommands.o (.rodata);
+		src/game/game_0601b0.o (.rodata);
 	}
 
 	.gvars 0x80099fc0 : {
