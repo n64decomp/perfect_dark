@@ -111,7 +111,7 @@
 /*0x006a*/ bool ai006a(void);
 /*0x006b*/ bool ai006b(void);
 /*0x006c*/ bool aiOpenDoor(void);
-/*0x006d*/ bool ai006d(void);
+/*0x006d*/ bool aiCloseDoor(void);
 /*0x006e*/ bool ai006e(void);
 /*0x006f*/ bool ai006f(void);
 /*0x0070*/ bool ai0070(void);

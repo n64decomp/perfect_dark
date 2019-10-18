@@ -4011,39 +4011,19 @@ bool aiOpenDoor(void)
 /**
  * @cmd 006d
  */
-GLOBAL_ASM(
-glabel ai006d
-/*  f052230:	3c03800a */ 	lui	$v1,0x800a
-/*  f052234:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f052238:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05223c:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f052240:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f052244:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f052248:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05224c:	0fc2556c */ 	jal	objFindByTagId
-/*  f052250:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f052254:	1040000a */ 	beqz	$v0,.L0f052280
-/*  f052258:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05225c:	8c430014 */ 	lw	$v1,0x14($v0)
-/*  f052260:	10600007 */ 	beqz	$v1,.L0f052280
-/*  f052264:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052268:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f05226c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f052270:	17010003 */ 	bne	$t8,$at,.L0f052280
-/*  f052274:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052278:	0fc23922 */ 	jal	func0f08e488
-/*  f05227c:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f052280:
-/*  f052280:	3c03800a */ 	lui	$v1,0x800a
-/*  f052284:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f052288:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f05228c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f052290:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f052294:	27280003 */ 	addiu	$t0,$t9,0x3
-/*  f052298:	ac680438 */ 	sw	$t0,0x438($v1)
-/*  f05229c:	03e00008 */ 	jr	$ra
-/*  f0522a0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiCloseDoor(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *door = objFindByTagId(cmd[2]);
+
+	if (door && door->pos && door->pos->unk00 == 2) {
+		func0f08e488(door, DOORSTATE_OPEN);
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 006e
