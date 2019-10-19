@@ -5300,42 +5300,18 @@ glabel aiSetHearDistance
 /**
  * @cmd 0093
  */
-GLOBAL_ASM(
-glabel ai0093
-/*  f053828:	3c03800a */ 	lui	$v1,0x800a
-/*  f05382c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053830:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f053834:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053838:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05383c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f053840:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f053844:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f053848:	0fc41b99 */ 	jal	func0f106e64
-/*  f05384c:	24040015 */ 	addiu	$a0,$zero,0x15
-/*  f053850:	3c03800a */ 	lui	$v1,0x800a
-/*  f053854:	1440000c */ 	bnez	$v0,.L0f053888
-/*  f053858:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05385c:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*  f053860:	3c014f80 */ 	lui	$at,0x4f80
-/*  f053864:	93280002 */ 	lbu	$t0,0x2($t9)
-/*  f053868:	44882000 */ 	mtc1	$t0,$f4
-/*  f05386c:	05010004 */ 	bgez	$t0,.L0f053880
-/*  f053870:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f053874:	44814000 */ 	mtc1	$at,$f8
-/*  f053878:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05387c:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f053880:
-/*  f053880:	8c690424 */ 	lw	$t1,0x424($v1)
-/*  f053884:	e52600dc */ 	swc1	$f6,0xdc($t1)
-.L0f053888:
-/*  f053888:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f05388c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053890:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f053894:	254b0003 */ 	addiu	$t3,$t2,0x3
-/*  f053898:	ac6b0438 */ 	sw	$t3,0x438($v1)
-/*  f05389c:	03e00008 */ 	jr	$ra
-/*  f0538a0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetViewDistance(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (!func0f106e64(21)) {
+		g_Vars.chrdata->visionrange = cmd[2];
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0094
