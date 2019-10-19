@@ -6859,29 +6859,14 @@ bool aiSetChrPreset(void)
 /**
  * @cmd 00b1
  */
-GLOBAL_ASM(
-glabel ai00b1
-/*  f054d1c:	3c03800a */ 	lui	$v1,0x800a
-/*  f054d20:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f054d24:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f054d28:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f054d2c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f054d30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f054d34:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f054d38:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f054d3c:	90460003 */ 	lbu	$a2,0x3($v0)
-/*  f054d40:	0fc12b18 */ 	jal	func0f04ac60
-/*  f054d44:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f054d48:	3c03800a */ 	lui	$v1,0x800a
-/*  f054d4c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f054d50:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f054d54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054d58:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f054d5c:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f054d60:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f054d64:	03e00008 */ 	jr	$ra
-/*  f054d68:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetChrTarget(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	func0f04ac60(g_Vars.chrdata, cmd[2], cmd[3]);
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 00b2
