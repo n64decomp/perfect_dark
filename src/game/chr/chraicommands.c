@@ -5226,48 +5226,19 @@ bool aiIfAlertness(void)
 /**
  * @cmd 008f
  */
-GLOBAL_ASM(
-glabel ai008f
-/*  f0536e0:	3c03800a */ 	lui	$v1,0x800a
-/*  f0536e4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0536e8:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0536ec:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0536f0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0536f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0536f8:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f0536fc:	90e50003 */ 	lbu	$a1,0x3($a3)
-/*  f053700:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f053704:	0fc126d1 */ 	jal	chrFindById
-/*  f053708:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05370c:	3c03800a */ 	lui	$v1,0x800a
-/*  f053710:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053714:	1040000e */ 	beqz	$v0,.L0f053750
-/*  f053718:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05371c:	90580113 */ 	lbu	$t8,0x113($v0)
-/*  f053720:	90f90002 */ 	lbu	$t9,0x2($a3)
-/*  f053724:	0319082a */ 	slt	$at,$t8,$t9
-/*  f053728:	5020000a */ 	beqzl	$at,.L0f053754
-/*  f05372c:	8c680438 */ 	lw	$t0,0x438($v1)
-/*  f053730:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f053734:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f053738:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05373c:	90e60004 */ 	lbu	$a2,0x4($a3)
-/*  f053740:	3c03800a */ 	lui	$v1,0x800a
-/*  f053744:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053748:	10000004 */ 	beqz	$zero,.L0f05375c
-/*  f05374c:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f053750:
-/*  f053750:	8c680438 */ 	lw	$t0,0x438($v1)
-.L0f053754:
-/*  f053754:	25090005 */ 	addiu	$t1,$t0,0x5
-/*  f053758:	ac690438 */ 	sw	$t1,0x438($v1)
-.L0f05375c:
-/*  f05375c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053760:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f053764:	00001025 */ 	or	$v0,$zero,$zero
-/*  f053768:	03e00008 */ 	jr	$ra
-/*  f05376c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfChrAlertnessLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
+
+	if (chr && chr->alertness < cmd[2]) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0090
