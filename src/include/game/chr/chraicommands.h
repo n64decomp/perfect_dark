@@ -151,7 +151,7 @@
 /*0x0092*/ bool aiSetHearDistance(void);
 /*0x0093*/ bool aiSetViewDistance(void);
 /*0x0094*/ bool aiSetGrenadeProbability(void);
-/*0x0095*/ bool ai0095(void);
+/*0x0095*/ bool aiSetChrNum(void);
 /*0x0096*/ bool ai0096(void);
 /*0x0097*/ bool ai0097(void);
 /*0x0098*/ bool ai0098(void);

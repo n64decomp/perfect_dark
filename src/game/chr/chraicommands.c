@@ -5328,33 +5328,16 @@ bool aiSetGrenadeProbability(void)
 /**
  * @cmd 0095
  */
-GLOBAL_ASM(
-glabel ai0095
-/*  f0538d8:	3c03800a */ 	lui	$v1,0x800a
-/*  f0538dc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0538e0:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0538e4:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0538e8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0538ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0538f0:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f0538f4:	90c50002 */ 	lbu	$a1,0x2($a2)
-/*  f0538f8:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f0538fc:	0fc07937 */ 	jal	func0f01e4dc
-/*  f053900:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f053904:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f053908:	3c03800a */ 	lui	$v1,0x800a
-/*  f05390c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053910:	8c790424 */ 	lw	$t9,0x424($v1)
-/*  f053914:	90d80002 */ 	lbu	$t8,0x2($a2)
-/*  f053918:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05391c:	a7380000 */ 	sh	$t8,0x0($t9)
-/*  f053920:	8c680438 */ 	lw	$t0,0x438($v1)
-/*  f053924:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053928:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05392c:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f053930:	03e00008 */ 	jr	$ra
-/*  f053934:	ac690438 */ 	sw	$t1,0x438($v1)
-);
+bool aiSetChrNum(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	func0f01e4dc(g_Vars.chrdata, cmd[2]);
+	g_Vars.chrdata->chrnum = cmd[2];
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0096
