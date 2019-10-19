@@ -5124,36 +5124,18 @@ bool aiSubtractMorale(void)
 /**
  * @cmd 0088
  */
-GLOBAL_ASM(
-glabel ai0088
-/*  f053438:	3c03800a */ 	lui	$v1,0x800a
-/*  f05343c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053440:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f053444:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f053448:	8c6e0424 */ 	lw	$t6,0x424($v1)
-/*  f05344c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f053450:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f053454:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f053458:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f05345c:	91cf0112 */ 	lbu	$t7,0x112($t6)
-/*  f053460:	24b90004 */ 	addiu	$t9,$a1,0x4
-/*  f053464:	01f8082a */ 	slt	$at,$t7,$t8
-/*  f053468:	50200008 */ 	beqzl	$at,.L0f05348c
-/*  f05346c:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f053470:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f053474:	90460003 */ 	lbu	$a2,0x3($v0)
-/*  f053478:	3c03800a */ 	lui	$v1,0x800a
-/*  f05347c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053480:	10000002 */ 	beqz	$zero,.L0f05348c
-/*  f053484:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f053488:	ac790438 */ 	sw	$t9,0x438($v1)
-.L0f05348c:
-/*  f05348c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053490:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f053494:	00001025 */ 	or	$v0,$zero,$zero
-/*  f053498:	03e00008 */ 	jr	$ra
-/*  f05349c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfMoraleLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (g_Vars.chrdata->morale < cmd[2]) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0089
