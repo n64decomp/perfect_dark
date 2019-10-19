@@ -9849,37 +9849,19 @@ bool aiSetDoorClosed(void)
 /**
  * @cmd 00e9
  */
-GLOBAL_ASM(
-glabel ai00e9
-/*  f057c1c:	3c03800a */ 	lui	$v1,0x800a
-/*  f057c20:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f057c24:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f057c28:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f057c2c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f057c30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f057c34:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f057c38:	90c50002 */ 	lbu	$a1,0x2($a2)
-/*  f057c3c:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f057c40:	0fc126d1 */ 	jal	chrFindById
-/*  f057c44:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f057c48:	3c03800a */ 	lui	$v1,0x800a
-/*  f057c4c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f057c50:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f057c54:	10400005 */ 	beqz	$v0,.L0f057c6c
-/*  f057c58:	00402025 */ 	or	$a0,$v0,$zero
-/*  f057c5c:	0fc22e2e */ 	jal	func0f08b8b8
-/*  f057c60:	90c50003 */ 	lbu	$a1,0x3($a2)
-/*  f057c64:	3c03800a */ 	lui	$v1,0x800a
-/*  f057c68:	24639fc0 */ 	addiu	$v1,$v1,-24640
-.L0f057c6c:
-/*  f057c6c:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f057c70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f057c74:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f057c78:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f057c7c:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f057c80:	03e00008 */ 	jr	$ra
-/*  f057c84:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai00e9(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr) {
+		func0f08b8b8(chr, cmd[3]);
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 00ea
