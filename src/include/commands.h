@@ -767,6 +767,11 @@
 	mkshort(0x00b2), \
 	mkshort(pad),
 
+#define chr_set_target_pad(pad) \
+	mkshort(0x00b3), \
+	chr, \
+	mkshort(pad),
+
 #define dprint \
 	mkshort(0x00b5),
 

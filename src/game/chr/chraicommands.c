@@ -6890,33 +6890,17 @@ bool aiSetPadPreset(void)
 /**
  * @cmd 00b3
  */
-GLOBAL_ASM(
-glabel ai00b3
-/*  f054dec:	3c07800a */ 	lui	$a3,0x800a
-/*  f054df0:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f054df4:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f054df8:	8cef0438 */ 	lw	$t7,0x438($a3)
-/*  f054dfc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f054e00:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f054e04:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f054e08:	90580003 */ 	lbu	$t8,0x3($v0)
-/*  f054e0c:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f054e10:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f054e14:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f054e18:	03281825 */ 	or	$v1,$t9,$t0
-/*  f054e1c:	3066ffff */ 	andi	$a2,$v1,0xffff
-/*  f054e20:	0fc12b32 */ 	jal	func0f04acc8
-/*  f054e24:	8ce40424 */ 	lw	$a0,0x424($a3)
-/*  f054e28:	3c07800a */ 	lui	$a3,0x800a
-/*  f054e2c:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f054e30:	8cea0438 */ 	lw	$t2,0x438($a3)
-/*  f054e34:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054e38:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f054e3c:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f054e40:	aceb0438 */ 	sw	$t3,0x438($a3)
-/*  f054e44:	03e00008 */ 	jr	$ra
-/*  f054e48:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrSetPadPreset(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 pad_id = cmd[4] | (cmd[3] << 8);
+
+	func0f04acc8(g_Vars.chrdata, cmd[2], pad_id);
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 00b4
