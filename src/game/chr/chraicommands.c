@@ -8883,16 +8883,11 @@ bool aiSetObjImage(void)
 /**
  * @cmd 00db
  */
-GLOBAL_ASM(
-glabel ai00db
-/*  f056c68:	3c03800a */ 	lui	$v1,0x800a
-/*  f056c6c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056c70:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f056c74:	00001025 */ 	or	$v0,$zero,$zero
-/*  f056c78:	25cf0003 */ 	addiu	$t7,$t6,0x3
-/*  f056c7c:	03e00008 */ 	jr	$ra
-/*  f056c80:	ac6f0438 */ 	sw	$t7,0x438($v1)
-);
+bool ai00db(void)
+{
+	g_Vars.aioffset += 3;
+	return false;
+}
 
 /**
  * @cmd 00dc
