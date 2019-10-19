@@ -9057,28 +9057,14 @@ bool aiIfCutsceneButtonPressed(void)
 /**
  * @cmd 0175
  */
-GLOBAL_ASM(
-glabel ai0175
-/*  f056f08:	3c03800a */ 	lui	$v1,0x800a
-/*  f056f0c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056f10:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f056f14:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f056f18:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f056f1c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f056f20:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f056f24:	0fc2e864 */ 	jal	func0f0ba190
-/*  f056f28:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f056f2c:	3c03800a */ 	lui	$v1,0x800a
-/*  f056f30:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056f34:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f056f38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f056f3c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f056f40:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f056f44:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f056f48:	03e00008 */ 	jr	$ra
-/*  f056f4c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai0175(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	func0f0ba190(cmd[2]);
+	g_Vars.aioffset += 3;
 
+	return false;
+}
 /**
  * @cmd 0112
  */
