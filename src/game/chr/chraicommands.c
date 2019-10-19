@@ -5260,7 +5260,7 @@ bool aiIfAlertnessLessThanRandom(void)
  * @cmd 0092
  */
 GLOBAL_ASM(
-glabel ai0092
+glabel aiSetHearDistance
 /*  f0537d4:	3c04800a */ 	lui	$a0,0x800a
 /*  f0537d8:	24849fc0 */ 	addiu	$a0,$a0,-24640
 /*  f0537dc:	8c8e0434 */ 	lw	$t6,0x434($a0)
@@ -5283,6 +5283,19 @@ glabel ai0092
 /*  f053820:	03e00008 */ 	jr	$ra
 /*  f053824:	ac8c0438 */ 	sw	$t4,0x438($a0)
 );
+
+// Commented because it uses different float registers. Matches otherwise.
+//bool aiSetHearDistance(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	float distance = cmd[3] | (cmd[2] << 8);
+//	distance /= 1000;
+//	g_Vars.chrdata->hearingscale = distance;
+//
+//	g_Vars.aioffset += 4;
+//
+//	return false;
+//}
 
 /**
  * @cmd 0093
