@@ -9825,51 +9825,26 @@ glabel ai00e5
 /**
  * @cmd 00e8
  */
-GLOBAL_ASM(
-glabel ai00e8
-/*  f057b78:	3c03800a */ 	lui	$v1,0x800a
-/*  f057b7c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f057b80:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f057b84:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f057b88:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f057b8c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f057b90:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f057b94:	0fc2556c */ 	jal	objFindByTagId
-/*  f057b98:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f057b9c:	10400016 */ 	beqz	$v0,.L0f057bf8
-/*  f057ba0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f057ba4:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f057ba8:	13000013 */ 	beqz	$t8,.L0f057bf8
-/*  f057bac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f057bb0:	c444005c */ 	lwc1	$f4,0x5c($v0)
-/*  f057bb4:	44803000 */ 	mtc1	$zero,$f6
-/*  f057bb8:	3c19800a */ 	lui	$t9,0x800a
-/*  f057bbc:	e444007c */ 	swc1	$f4,0x7c($v0)
-/*  f057bc0:	e4460080 */ 	swc1	$f6,0x80($v0)
-/*  f057bc4:	8f399fc8 */ 	lw	$t9,-0x6038($t9)
-/*  f057bc8:	a0400084 */ 	sb	$zero,0x84($v0)
-/*  f057bcc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f057bd0:	ac5900c0 */ 	sw	$t9,0xc0($v0)
-/*  f057bd4:	0fc23153 */ 	jal	func0f08c54c
-/*  f057bd8:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f057bdc:	0fc2353a */ 	jal	func0f08d4e8
-/*  f057be0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f057be4:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f057be8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f057bec:	3406ffff */ 	dli	$a2,0xffff
-/*  f057bf0:	0fc249af */ 	jal	func0f0926bc
-/*  f057bf4:	8ce40014 */ 	lw	$a0,0x14($a3)
-.L0f057bf8:
-/*  f057bf8:	3c08800a */ 	lui	$t0,0x800a
-/*  f057bfc:	8d08a3f8 */ 	lw	$t0,-0x5c08($t0)
-/*  f057c00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f057c04:	3c01800a */ 	lui	$at,0x800a
-/*  f057c08:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f057c0c:	ac29a3f8 */ 	sw	$t1,-0x5c08($at)
-/*  f057c10:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f057c14:	03e00008 */ 	jr	$ra
-/*  f057c18:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetDoorClosed(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos) {
+		struct doorobj *door = (struct doorobj *) obj;
+		door->speed = door->unk5c;
+		door->unk80 = 0;
+		door->unkc0 = g_Vars.unk000008;
+		door->state = 0;
+		func0f08c54c(door);
+		func0f08d4e8(door);
+		func0f0926bc(door->base.pos, 1, 0xffff);
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 00e9

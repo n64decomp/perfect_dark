@@ -281,7 +281,7 @@ struct g_vars {
 	/*00041c*/ u32 unk00041c;
 	/*000420*/ u32 unk000420;
 	/*000424*/ struct chrdata *chrdata;
-	/*000428*/ struct defaultobj *objdata;
+	/*000428*/ struct standardobj *objdata;
 	/*00042c*/ struct otheraidata *aicdata;
 	/*000430*/ struct otheraidata *aiddata;
 	/*000434*/ u8 *ailist;

@@ -265,16 +265,12 @@ struct defaultobj {
 	/*0x54*/ u32 nextcol;
 	/*0x58*/ u16 floorcol;
 	/*0x5a*/ u8 numtiles;
-
-	// These properties might not be part of defaultobj,
-	// but rather standard objs only
-	/*0x5c*/ u8 *ailist;
-	/*0x60*/ u16 aioffset;
-	/*0x62*/ u16 aireturnlist;
 };
 
 struct doorobj { // objtype 0x01
 	struct defaultobj base;
+	/*0x5c*/ float unk5c;
+	/*0x60*/ u32 unk60;
 	/*0x64*/ u32 unk64;
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u32 unk6c;
@@ -282,8 +278,30 @@ struct doorobj { // objtype 0x01
 	/*0x74*/ u32 unk74;
 	/*0x78*/ u32 unk78;
 	/*0x7c*/ float speed;
-	/*0x80*/ u32 unk80;
+	/*0x80*/ float unk80;
 	/*0x84*/ s8 state;
+	/*0x88*/ u32 unk88;
+	/*0x8c*/ u32 unk8c;
+	/*0x90*/ u32 unk90;
+	/*0x94*/ u32 unk94;
+	/*0x98*/ u32 unk98;
+	/*0x9c*/ u32 unk9c;
+	/*0xa0*/ u32 unka0;
+	/*0xa4*/ u32 unka4;
+	/*0xa8*/ u32 unka8;
+	/*0xac*/ u32 unkac;
+	/*0xb0*/ u32 unkb0;
+	/*0xb4*/ u32 unkb4;
+	/*0xb8*/ u32 unkb8;
+	/*0xbc*/ u32 unkbc;
+	/*0xc0*/ u32 unkc0;
+};
+
+struct standardobj { // objtype 0x03
+	struct defaultobj base;
+	/*0x5c*/ u8 *ailist;
+	/*0x60*/ u16 aioffset;
+	/*0x62*/ u16 aireturnlist;
 };
 
 struct image {
