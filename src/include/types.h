@@ -352,7 +352,8 @@ struct tag {
 	// These three words are possibly the same values as defined in the setup
 	// file, but this just a guess.
 	u32 unk00;
-	u32 unk04;
+	u16 unk04;
+	s16 unk06;
 	u32 unk08;
 	struct defaultobj *obj;
 };

@@ -9328,53 +9328,24 @@ bool aiHideObj(void)
 /**
  * @cmd 00df
  */
-GLOBAL_ASM(
-glabel ai00df
-/*  f057450:	3c02800a */ 	lui	$v0,0x800a
-/*  f057454:	24429fc0 */ 	addiu	$v0,$v0,-24640
-/*  f057458:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f05745c:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f057460:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f057464:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f057468:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05746c:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f057470:	0fc2554a */ 	jal	tagFindById
-/*  f057474:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f057478:	10400017 */ 	beqz	$v0,.L0f0574d8
-/*  f05747c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f057480:	00402025 */ 	or	$a0,$v0,$zero
-/*  f057484:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f057488:	0fc24826 */ 	jal	func0f092098
-/*  f05748c:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f057490:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f057494:	04400010 */ 	bltz	$v0,.L0f0574d8
-/*  f057498:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f05749c:	84b80006 */ 	lh	$t8,0x6($a1)
-/*  f0574a0:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0574a4:	0fc24801 */ 	jal	func0f092004
-/*  f0574a8:	03022021 */ 	addu	$a0,$t8,$v0
-/*  f0574ac:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0574b0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0574b4:	90790003 */ 	lbu	$t9,0x3($v1)
-/*  f0574b8:	906a0005 */ 	lbu	$t2,0x5($v1)
-/*  f0574bc:	90690004 */ 	lbu	$t1,0x4($v1)
-/*  f0574c0:	906c0006 */ 	lbu	$t4,0x6($v1)
-/*  f0574c4:	00194200 */ 	sll	$t0,$t9,0x8
-/*  f0574c8:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*  f0574cc:	01092825 */ 	or	$a1,$t0,$t1
-/*  f0574d0:	0fc2e6eb */ 	jal	func0f0b9bac
-/*  f0574d4:	016c3025 */ 	or	$a2,$t3,$t4
-.L0f0574d8:
-/*  f0574d8:	3c03800a */ 	lui	$v1,0x800a
-/*  f0574dc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0574e0:	8c6d0438 */ 	lw	$t5,0x438($v1)
-/*  f0574e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0574e8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0574ec:	25ae0007 */ 	addiu	$t6,$t5,0x7
-/*  f0574f0:	ac6e0438 */ 	sw	$t6,0x438($v1)
-/*  f0574f4:	03e00008 */ 	jr	$ra
-/*  f0574f8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai00df(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct tag *tag = tagFindById(cmd[2]);
+
+	if (tag) {
+		s32 a = func0f092098(tag);
+
+		if (a >= 0) {
+			u32 d = func0f092004(tag->unk06 + a);
+			func0f0b9bac(d, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
+		}
+	}
+
+	g_Vars.aioffset += 7;
+
+	return false;
+}
 
 /**
  * @cmd 00e0

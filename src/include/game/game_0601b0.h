@@ -564,4 +564,6 @@ s32 getDifficulty(void);
 
 bool audioPlayFromWorldPosition(u8 channel_id, u16 audio_id, u8 volumemaybe, struct position *pos);
 
+struct tag *tagFindById(s32 tag_id);
+
 #endif
