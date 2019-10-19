@@ -14074,7 +14074,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0076*/ ai0076,
 	/*0x0077*/ aiIfDifficultyLessThan,
 	/*0x0078*/ aiIfDifficultyGreaterThan,
-	/*0x0079*/ ai0079,
+	/*0x0079*/ aiIfUptimeLessThan,
 	/*0x007a*/ ai007a,
 	/*0x007b*/ ai007b,
 	/*0x007c*/ ai007c,

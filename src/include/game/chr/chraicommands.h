@@ -123,7 +123,7 @@
 /*0x0076*/ bool ai0076(void);
 /*0x0077*/ bool aiIfDifficultyLessThan(void);
 /*0x0078*/ bool aiIfDifficultyGreaterThan(void);
-/*0x0079*/ bool ai0079(void);
+/*0x0079*/ bool aiIfUptimeLessThan(void);
 /*0x007a*/ bool ai007a(void);
 /*0x007b*/ bool ai007b(void);
 /*0x007c*/ bool ai007c(void);
