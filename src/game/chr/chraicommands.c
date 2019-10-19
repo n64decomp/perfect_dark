@@ -9305,53 +9305,25 @@ bool aiShowObj(void)
 /**
  * @cmd 0117
  */
-GLOBAL_ASM(
-glabel ai0117
-/*  f0573a8:	3c03800a */ 	lui	$v1,0x800a
-/*  f0573ac:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0573b0:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0573b4:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0573b8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0573bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0573c0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0573c4:	0fc2556c */ 	jal	objFindByTagId
-/*  f0573c8:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f0573cc:	10400017 */ 	beqz	$v0,.L0f05742c
-/*  f0573d0:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0573d4:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f0573d8:	10800014 */ 	beqz	$a0,.L0f05742c
-/*  f0573dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0573e0:	8c580018 */ 	lw	$t8,0x18($v0)
-/*  f0573e4:	13000011 */ 	beqz	$t8,.L0f05742c
-/*  f0573e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0573ec:	8c990018 */ 	lw	$t9,0x18($a0)
-/*  f0573f0:	53200006 */ 	beqzl	$t9,.L0f05740c
-/*  f0573f4:	8c640014 */ 	lw	$a0,0x14($v1)
-/*  f0573f8:	0fc20be2 */ 	jal	func0f082f88
-/*  f0573fc:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f057400:	1000000a */ 	beqz	$zero,.L0f05742c
-/*  f057404:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f057408:	8c640014 */ 	lw	$a0,0x14($v1)
-.L0f05740c:
-/*  f05740c:	0fc19711 */ 	jal	func0f065c44
-/*  f057410:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f057414:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f057418:	0fc18171 */ 	jal	func0f0605c4
-/*  f05741c:	8c640014 */ 	lw	$a0,0x14($v1)
-/*  f057420:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f057424:	0fc180c0 */ 	jal	func0f060300
-/*  f057428:	8c640014 */ 	lw	$a0,0x14($v1)
-.L0f05742c:
-/*  f05742c:	3c03800a */ 	lui	$v1,0x800a
-/*  f057430:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f057434:	8c680438 */ 	lw	$t0,0x438($v1)
-/*  f057438:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05743c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f057440:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f057444:	ac690438 */ 	sw	$t1,0x438($v1)
-/*  f057448:	03e00008 */ 	jr	$ra
-/*  f05744c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiHideObj(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos && obj->unk18) {
+		if (obj->pos->unk18) {
+			func0f082f88(obj->pos);
+		} else {
+			func0f065c44(obj->pos);
+			func0f0605c4(obj->pos);
+			func0f060300(obj->pos);
+		}
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 00df
