@@ -9983,50 +9983,23 @@ bool aiChrDrawWeapon(void)
 /**
  * @cmd 00ed
  */
-GLOBAL_ASM(
-glabel ai00ed
-/*  f057ee0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f057ee4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f057ee8:	3c10800a */ 	lui	$s0,0x800a
-/*  f057eec:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f057ef0:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f057ef4:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f057ef8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f057efc:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f057f00:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f057f04:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f057f08:	0fc126d1 */ 	jal	chrFindById
-/*  f057f0c:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f057f10:	50400014 */ 	beqzl	$v0,.L0f057f64
-/*  f057f14:	8e090438 */ 	lw	$t1,0x438($s0)
-/*  f057f18:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f057f1c:	50600011 */ 	beqzl	$v1,.L0f057f64
-/*  f057f20:	8e090438 */ 	lw	$t1,0x438($s0)
-/*  f057f24:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f057f28:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f057f2c:	5701000d */ 	bnel	$t8,$at,.L0f057f64
-/*  f057f30:	8e090438 */ 	lw	$t1,0x438($s0)
-/*  f057f34:	8e19028c */ 	lw	$t9,0x28c($s0)
-/*  f057f38:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f057f3c:	0fc4a25f */ 	jal	func0f12897c
-/*  f057f40:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f057f44:	0fc4a24b */ 	jal	func0f12892c
-/*  f057f48:	00402025 */ 	or	$a0,$v0,$zero
-/*  f057f4c:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f057f50:	0fc2865b */ 	jal	func0f0a196c
-/*  f057f54:	81040003 */ 	lb	$a0,0x3($t0)
-/*  f057f58:	0fc4a24b */ 	jal	func0f12892c
-/*  f057f5c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f057f60:	8e090438 */ 	lw	$t1,0x438($s0)
-.L0f057f64:
-/*  f057f64:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f057f68:	00001025 */ 	or	$v0,$zero,$zero
-/*  f057f6c:	252a0004 */ 	addiu	$t2,$t1,0x4
-/*  f057f70:	ae0a0438 */ 	sw	$t2,0x438($s0)
-/*  f057f74:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f057f78:	03e00008 */ 	jr	$ra
-/*  f057f7c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+bool aiChrDrawWeaponInCutscene(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->pos && chr->pos->unk00 == 6) {
+		u32 original_playerid = g_Vars.unk00028c;
+		u32 playerid = func0f12897c(chr->pos);
+		func0f12892c(playerid);
+		func0f0a196c((s8)cmd[3]);
+		func0f12892c(original_playerid);
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 00ee

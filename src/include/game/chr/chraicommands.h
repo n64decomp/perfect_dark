@@ -237,7 +237,7 @@
 /*0x00ea*/ bool ai00ea(void);
 /*0x00eb*/ bool aiIfChrAmmoQuantityLessThan(void);
 /*0x00ec*/ bool aiChrDrawWeapon(void);
-/*0x00ed*/ bool ai00ed(void);
+/*0x00ed*/ bool aiChrDrawWeaponInCutscene(void);
 /*0x00ee*/ bool ai00ee(void);
 /*0x00ef*/ bool ai00ef(void);
 /*0x00f0*/ bool ai00f0(void);
