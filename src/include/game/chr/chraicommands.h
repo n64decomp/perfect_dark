@@ -141,7 +141,7 @@
 /*0x0088*/ bool aiIfMoraleLessThan(void);
 /*0x0089*/ bool aiIfMoraleLessThanRandom(void);
 /*0x008a*/ bool aiSetAlertness(void);
-/*0x008b*/ bool ai008b(void);
+/*0x008b*/ bool aiAddAlertness(void);
 /*0x008c*/ bool ai008c(void);
 /*0x008d*/ bool ai008d(void);
 /*0x008e*/ bool ai008e(void);

@@ -5168,29 +5168,14 @@ bool aiSetAlertness(void)
 /**
  * @cmd 008b
  */
-GLOBAL_ASM(
-glabel ai008b
-/*  f053538:	3c03800a */ 	lui	$v1,0x800a
-/*  f05353c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053540:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f053544:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053548:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05354c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f053550:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f053554:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f053558:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f05355c:	0fc1289f */ 	jal	incrementByte
-/*  f053560:	24840113 */ 	addiu	$a0,$a0,0x113
-/*  f053564:	3c03800a */ 	lui	$v1,0x800a
-/*  f053568:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05356c:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f053570:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053574:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f053578:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f05357c:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f053580:	03e00008 */ 	jr	$ra
-/*  f053584:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiAddAlertness(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	incrementByte(&g_Vars.chrdata->alertness, cmd[2]);
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 008c
