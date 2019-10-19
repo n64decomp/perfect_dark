@@ -6871,44 +6871,21 @@ bool aiSetChrTarget(void)
 /**
  * @cmd 00b2
  */
-GLOBAL_ASM(
-glabel ai00b2
-/*  f054d6c:	3c07800a */ 	lui	$a3,0x800a
-/*  f054d70:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f054d74:	8ce30438 */ 	lw	$v1,0x438($a3)
-/*  f054d78:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f054d7c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f054d80:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f054d84:	01c31021 */ 	addu	$v0,$t6,$v1
-/*  f054d88:	904f0002 */ 	lbu	$t7,0x2($v0)
-/*  f054d8c:	90590003 */ 	lbu	$t9,0x3($v0)
-/*  f054d90:	8ce40424 */ 	lw	$a0,0x424($a3)
-/*  f054d94:	000fc200 */ 	sll	$t8,$t7,0x8
-/*  f054d98:	03193025 */ 	or	$a2,$t8,$t9
-/*  f054d9c:	30c8ffff */ 	andi	$t0,$a2,0xffff
-/*  f054da0:	10800007 */ 	beqz	$a0,.L0f054dc0
-/*  f054da4:	01003025 */ 	or	$a2,$t0,$zero
-/*  f054da8:	0fc12b28 */ 	jal	chrSetPadPreset
-/*  f054dac:	01002825 */ 	or	$a1,$t0,$zero
-/*  f054db0:	3c07800a */ 	lui	$a3,0x800a
-/*  f054db4:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f054db8:	10000006 */ 	beqz	$zero,.L0f054dd4
-/*  f054dbc:	8ce30438 */ 	lw	$v1,0x438($a3)
-.L0f054dc0:
-/*  f054dc0:	8ce2042c */ 	lw	$v0,0x42c($a3)
-/*  f054dc4:	50400004 */ 	beqzl	$v0,.L0f054dd8
-/*  f054dc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054dcc:	a4460006 */ 	sh	$a2,0x6($v0)
-/*  f054dd0:	8ce30438 */ 	lw	$v1,0x438($a3)
-.L0f054dd4:
-/*  f054dd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f054dd8:
-/*  f054dd8:	24690004 */ 	addiu	$t1,$v1,0x4
-/*  f054ddc:	ace90438 */ 	sw	$t1,0x438($a3)
-/*  f054de0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f054de4:	03e00008 */ 	jr	$ra
-/*  f054de8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetPadPreset(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 pad_id = cmd[3] | (cmd[2] << 8);
+
+	if (g_Vars.chrdata) {
+		chrSetPadPreset(g_Vars.chrdata, pad_id);
+	} else if (g_Vars.aicdata) {
+		g_Vars.aicdata->padpreset1 = pad_id;
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 00b3

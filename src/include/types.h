@@ -294,7 +294,8 @@ struct tag {
 
 struct otheraidata {
 	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
+	/*0x04*/ u16 unk04;
+	/*0x06*/ u16 padpreset1;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;

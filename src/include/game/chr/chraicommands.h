@@ -180,7 +180,7 @@
 /*0x00af*/ bool ai00af(void);
 /*0x00b0*/ bool aiSetChrPreset(void);
 /*0x00b1*/ bool aiSetChrTarget(void);
-/*0x00b2*/ bool ai00b2(void);
+/*0x00b2*/ bool aiSetPadPreset(void);
 /*0x00b3*/ bool ai00b3(void);
 /*0x00b4*/ bool ai00b4(void);
 /*0x00b5*/ bool ai00b5(void);
