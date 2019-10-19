@@ -9260,46 +9260,21 @@ bool aiShowChr(void)
 /**
  * @cmd 0115
  */
-GLOBAL_ASM(
-glabel ai0115
-/*  f057254:	3c03800a */ 	lui	$v1,0x800a
-/*  f057258:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05725c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f057260:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f057264:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f057268:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05726c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f057270:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f057274:	0fc126d1 */ 	jal	chrFindById
-/*  f057278:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05727c:	10400010 */ 	beqz	$v0,.L0f0572c0
-/*  f057280:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f057284:	8c58001c */ 	lw	$t8,0x1c($v0)
-/*  f057288:	1300000d */ 	beqz	$t8,.L0f0572c0
-/*  f05728c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f057290:	8c590020 */ 	lw	$t9,0x20($v0)
-/*  f057294:	1320000a */ 	beqz	$t9,.L0f0572c0
-/*  f057298:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05729c:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f0572a0:	0fc19711 */ 	jal	func0f065c44
-/*  f0572a4:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f0572a8:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*  f0572ac:	0fc18171 */ 	jal	func0f0605c4
-/*  f0572b0:	8d04001c */ 	lw	$a0,0x1c($t0)
-/*  f0572b4:	8fa90018 */ 	lw	$t1,0x18($sp)
-/*  f0572b8:	0fc180c0 */ 	jal	func0f060300
-/*  f0572bc:	8d24001c */ 	lw	$a0,0x1c($t1)
-.L0f0572c0:
-/*  f0572c0:	3c03800a */ 	lui	$v1,0x800a
-/*  f0572c4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0572c8:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f0572cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0572d0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0572d4:	254b0003 */ 	addiu	$t3,$t2,0x3
-/*  f0572d8:	ac6b0438 */ 	sw	$t3,0x438($v1)
-/*  f0572dc:	03e00008 */ 	jr	$ra
-/*  f0572e0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiHideChr(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->pos && chr->unk020) {
+		func0f065c44(chr->pos);
+		func0f0605c4(chr->pos);
+		func0f060300(chr->pos);
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0116
