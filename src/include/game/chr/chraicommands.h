@@ -275,7 +275,7 @@
 /*0x0110*/ bool ai0110(void);
 /*0x0111*/ bool ai0111(void);
 /*0x0112*/ bool ai0112(void);
-/*0x0113*/ bool ai0113(void);
+/*0x0113*/ bool aiIfInCutscene(void);
 /*0x0114*/ bool ai0114(void);
 /*0x0115*/ bool ai0115(void);
 /*0x0116*/ bool ai0116(void);

@@ -322,7 +322,7 @@ struct g_vars {
 	/*0004c0*/ u32 unk0004c0;
 	/*0004c4*/ u32 unk0004c4;
 	/*0004c8*/ u32 unk0004c8;
-	/*0004cc*/ u32 unk0004cc;
+	/*0004cc*/ u32 in_cutscene;
 	/*0004d0*/ u32 unk0004d0;
 	/*0004d4*/ u32 unk0004d4;
 	/*0004d8*/ u32 unk0004d8;
