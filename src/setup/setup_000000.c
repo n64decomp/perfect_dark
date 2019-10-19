@@ -14077,7 +14077,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0079*/ aiIfUptimeLessThan,
 	/*0x007a*/ aiIfUptimeGreaterThan,
 	/*0x007b*/ aiIfStageIdLessThan,
-	/*0x007c*/ ai007c,
+	/*0x007c*/ aiIfStageIdGreaterThan,
 	/*0x007d*/ ai007d,
 	/*0x007e*/ ai007e,
 	/*0x007f*/ ai007f,

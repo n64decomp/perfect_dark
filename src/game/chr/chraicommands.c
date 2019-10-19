@@ -5059,43 +5059,18 @@ bool aiIfStageIdLessThan(void)
 /**
  * @cmd 007c
  */
-GLOBAL_ASM(
-glabel ai007c
-/*  f053284:	3c03800a */ 	lui	$v1,0x800a
-/*  f053288:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05328c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f053290:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053294:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f053298:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05329c:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f0532a0:	0c003a61 */ 	jal	0xe984
-/*  f0532a4:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f0532a8:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f0532ac:	3c03800a */ 	lui	$v1,0x800a
-/*  f0532b0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0532b4:	90f80002 */ 	lbu	$t8,0x2($a3)
-/*  f0532b8:	0302082a */ 	slt	$at,$t8,$v0
-/*  f0532bc:	5020000a */ 	beqzl	$at,.L0f0532e8
-/*  f0532c0:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f0532c4:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f0532c8:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f0532cc:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0532d0:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f0532d4:	3c03800a */ 	lui	$v1,0x800a
-/*  f0532d8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0532dc:	10000004 */ 	beqz	$zero,.L0f0532f0
-/*  f0532e0:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f0532e4:	8c790438 */ 	lw	$t9,0x438($v1)
-.L0f0532e8:
-/*  f0532e8:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f0532ec:	ac680438 */ 	sw	$t0,0x438($v1)
-.L0f0532f0:
-/*  f0532f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0532f4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0532f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0532fc:	03e00008 */ 	jr	$ra
-/*  f053300:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfStageIdGreaterThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (getCurrentStageId() > cmd[2]) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0084
