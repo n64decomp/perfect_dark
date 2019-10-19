@@ -19558,7 +19558,7 @@ glabel func0000e684
 );
 
 // func0000e984
-u32 getCurrentStageId(void)
+s32 getCurrentStageId(void)
 {
 	return levelnum;
 }

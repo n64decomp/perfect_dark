@@ -5043,43 +5043,18 @@ bool aiIfUptimeGreaterThan(void)
 /**
  * @cmd 007b
  */
-GLOBAL_ASM(
-glabel ai007b
-/*  f053204:	3c03800a */ 	lui	$v1,0x800a
-/*  f053208:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05320c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f053210:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053214:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f053218:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05321c:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f053220:	0c003a61 */ 	jal	0xe984
-/*  f053224:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f053228:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05322c:	3c03800a */ 	lui	$v1,0x800a
-/*  f053230:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053234:	90f80002 */ 	lbu	$t8,0x2($a3)
-/*  f053238:	0058082a */ 	slt	$at,$v0,$t8
-/*  f05323c:	5020000a */ 	beqzl	$at,.L0f053268
-/*  f053240:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f053244:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f053248:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05324c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f053250:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f053254:	3c03800a */ 	lui	$v1,0x800a
-/*  f053258:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05325c:	10000004 */ 	beqz	$zero,.L0f053270
-/*  f053260:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f053264:	8c790438 */ 	lw	$t9,0x438($v1)
-.L0f053268:
-/*  f053268:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f05326c:	ac680438 */ 	sw	$t0,0x438($v1)
-.L0f053270:
-/*  f053270:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053274:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f053278:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05327c:	03e00008 */ 	jr	$ra
-/*  f053280:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfStageIdLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (cmd[2] > getCurrentStageId()) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 007c

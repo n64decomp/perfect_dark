@@ -3551,7 +3551,7 @@ u32 var000039c8 = 0x00000000;
 u32 var000039cc = 0x00000000;
 u32 var000039d0 = 0x00000000;
 
-u32 levelnum = 0x5a;
+s32 levelnum = 0x5a;
 
 u32 var000039d8 = 0x0004b000;
 u32 var000039dc = 0x00000000;
@@ -14076,7 +14076,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0078*/ aiIfDifficultyGreaterThan,
 	/*0x0079*/ aiIfUptimeLessThan,
 	/*0x007a*/ aiIfUptimeGreaterThan,
-	/*0x007b*/ ai007b,
+	/*0x007b*/ aiIfStageIdLessThan,
 	/*0x007c*/ ai007c,
 	/*0x007d*/ ai007d,
 	/*0x007e*/ ai007e,

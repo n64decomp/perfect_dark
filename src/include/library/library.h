@@ -7,4 +7,6 @@ u8 random(void);
 // Not sure what type the argument is
 u8 *ailistFindById(s32 ailistid);
 
+s32 getCurrentStageId(void);
+
 #endif

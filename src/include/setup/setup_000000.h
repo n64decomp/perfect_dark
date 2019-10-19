@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-extern u32 levelnum;
+extern s32 levelnum;
 extern u64 rand_seed;
 
 extern u32 var0000bc00;
