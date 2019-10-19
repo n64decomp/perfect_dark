@@ -5156,22 +5156,14 @@ bool aiIfMoraleLessThanRandom(void)
 /**
  * @cmd 008a
  */
-GLOBAL_ASM(
-glabel ai008a
-/*  f053504:	3c04800a */ 	lui	$a0,0x800a
-/*  f053508:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f05350c:	8c8e0434 */ 	lw	$t6,0x434($a0)
-/*  f053510:	8c8f0438 */ 	lw	$t7,0x438($a0)
-/*  f053514:	8c990424 */ 	lw	$t9,0x424($a0)
-/*  f053518:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05351c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f053520:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f053524:	a3380113 */ 	sb	$t8,0x113($t9)
-/*  f053528:	8c880438 */ 	lw	$t0,0x438($a0)
-/*  f05352c:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f053530:	03e00008 */ 	jr	$ra
-/*  f053534:	ac890438 */ 	sw	$t1,0x438($a0)
-);
+bool aiSetAlertness(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.chrdata->alertness = cmd[2];
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 008b
