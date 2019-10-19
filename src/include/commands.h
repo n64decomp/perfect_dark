@@ -519,6 +519,11 @@
 	mkshort(value), \
 	label,
 
+#define if_uptime_gt(value, label) \
+	mkshort(0x007a), \
+	mkshort(value), \
+	label,
+
 #define if_stage_lt(stage, label) \
 	mkshort(0x007b), \
 	stage, \

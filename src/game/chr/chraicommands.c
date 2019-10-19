@@ -5025,51 +5025,20 @@ bool aiIfUptimeLessThan(void)
 /**
  * @cmd 007a
  */
-GLOBAL_ASM(
-glabel ai007a
-/*  f053164:	3c03800a */ 	lui	$v1,0x800a
-/*  f053168:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05316c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f053170:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053174:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f053178:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05317c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f053180:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f053184:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f053188:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f05318c:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f053190:	03284825 */ 	or	$t1,$t9,$t0
-/*  f053194:	44892000 */ 	mtc1	$t1,$f4
-/*  f053198:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05319c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0531a0:	0fc5b37b */ 	jal	func0f16cdec
-/*  f0531a4:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f0531a8:	c7a80018 */ 	lwc1	$f8,0x18($sp)
-/*  f0531ac:	3c03800a */ 	lui	$v1,0x800a
-/*  f0531b0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0531b4:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f0531b8:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f0531bc:	4502000a */ 	bc1fl	.L0f0531e8
-/*  f0531c0:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f0531c4:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f0531c8:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f0531cc:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0531d0:	90460004 */ 	lbu	$a2,0x4($v0)
-/*  f0531d4:	3c03800a */ 	lui	$v1,0x800a
-/*  f0531d8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0531dc:	10000004 */ 	beqz	$zero,.L0f0531f0
-/*  f0531e0:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f0531e4:	8c6a0438 */ 	lw	$t2,0x438($v1)
-.L0f0531e8:
-/*  f0531e8:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f0531ec:	ac6b0438 */ 	sw	$t3,0x438($v1)
-.L0f0531f0:
-/*  f0531f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0531f4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0531f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0531fc:	03e00008 */ 	jr	$ra
-/*  f053200:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfUptimeGreaterThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	float target = (float)(cmd[3] | (cmd[2] << 8));
+	float uptime = func0f16cdec();
+
+	if (uptime > target) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 007b
