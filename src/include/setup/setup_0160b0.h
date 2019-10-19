@@ -5,4 +5,6 @@
 extern struct menu_dialog menudialog_18d78;
 extern struct menu_dialog menudialog_18d90;
 
+extern u32 g_PlayersWithControl[];
+
 #endif

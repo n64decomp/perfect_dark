@@ -178,7 +178,7 @@ struct g_vars {
 	/*000280*/ u32 unk000280;
 	/*000284*/ struct gvars284 *unk000284;
 	/*000288*/ u32 unk000288;
-	/*00028c*/ u32 unk00028c;
+	/*00028c*/ u32 unk00028c; // suspected 0-3 to select one of the players
 	/*000290*/ u32 unk000290;
 	/*000294*/ s32 unk000294; // suspected 0-3 to indicate bond controller number
 	/*000298*/ s32 unk000298; // suspected 0-3 to indicate coop controller number

@@ -6,6 +6,7 @@
 #include "game/game_0601b0.h"
 #include "gvars/gvars.h"
 #include "library/library.h"
+#include "setup/setup_0160b0.h"
 #include "setup/setup_020df0.h"
 
 /**
@@ -7205,7 +7206,7 @@ glabel ai00bd
  */
 bool aiShowCountdownTimer(void)
 {
-	countdownTimerSetVisible(true, true);
+	countdownTimerSetVisible(1, true);
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -7216,7 +7217,7 @@ bool aiShowCountdownTimer(void)
  */
 bool aiHideCountdownTimer(void)
 {
-	countdownTimerSetVisible(true, false);
+	countdownTimerSetVisible(1, false);
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -9351,7 +9352,7 @@ bool ai00df(void)
  * @cmd 00e0
  */
 GLOBAL_ASM(
-glabel ai00e0
+glabel aiRevokeControl
 /*  f0574fc:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f057500:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f057504:	3c10800a */ 	lui	$s0,0x800a
@@ -9418,6 +9419,35 @@ glabel ai00e0
 /*  f0575ec:	03e00008 */ 	jr	$ra
 /*  f0575f0:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
+
+// Mismatch due to differing registers
+//bool aiRevokeControl(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+//
+//	if (chr && chr->pos && chr->pos->unk00 == 6) {
+//		u32 original_value = g_Vars.unk00028c;
+//		func0f12892c(func0f12897c(chr->pos));
+//		func0f0abc74(4, 0);
+//		func0f0a95ec(2, 0);
+//
+//		if ((cmd[3] & 2) == 0) {
+//			func0f0dfa38(2);
+//		}
+//
+//		if ((cmd[3] & 4) == 0) {
+//			countdownTimerSetVisible(16, false);
+//		}
+//
+//		g_PlayersWithControl[g_Vars.unk00028c] = false;
+//		func0f12892c(original_value);
+//	}
+//
+//	g_Vars.aioffset += 4;
+//
+//	return false;
+//}
 
 /**
  * @cmd 00e1
