@@ -14133,7 +14133,7 @@ bool (*command_pointers[])(void) = {
 	/*0x00b1*/ aiSetChrTarget,
 	/*0x00b2*/ aiSetPadPreset,
 	/*0x00b3*/ aiChrSetPadPreset,
-	/*0x00b4*/ ai00b4,
+	/*0x00b4*/ aiChrCopyPadPreset,
 	/*0x00b5*/ ai00b5,
 	/*0x00b6*/ aiRestartTimer,
 	/*0x00b7*/ aiResetTimer,

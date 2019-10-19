@@ -772,6 +772,11 @@
 	chr, \
 	mkshort(pad),
 
+#define chr_copy_target_pad(srcchr, dstchr) \
+	mkshort(0x00b4), \
+	srcchr, \
+	dstchr,
+
 #define dprint \
 	mkshort(0x00b5),
 
