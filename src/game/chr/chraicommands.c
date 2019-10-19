@@ -5316,22 +5316,14 @@ bool aiSetViewDistance(void)
 /**
  * @cmd 0094
  */
-GLOBAL_ASM(
-glabel ai0094
-/*  f0538a4:	3c04800a */ 	lui	$a0,0x800a
-/*  f0538a8:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f0538ac:	8c8e0434 */ 	lw	$t6,0x434($a0)
-/*  f0538b0:	8c8f0438 */ 	lw	$t7,0x438($a0)
-/*  f0538b4:	8c990424 */ 	lw	$t9,0x424($a0)
-/*  f0538b8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0538bc:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f0538c0:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f0538c4:	a338000f */ 	sb	$t8,0xf($t9)
-/*  f0538c8:	8c880438 */ 	lw	$t0,0x438($a0)
-/*  f0538cc:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f0538d0:	03e00008 */ 	jr	$ra
-/*  f0538d4:	ac890438 */ 	sw	$t1,0x438($a0)
-);
+bool aiSetGrenadeProbability(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.chrdata->grenadeprob = cmd[2];
+	g_Vars.aioffset += + 3;
+
+	return false;
+}
 
 /**
  * @cmd 0095
