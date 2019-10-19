@@ -9279,59 +9279,28 @@ bool aiHideChr(void)
 /**
  * @cmd 0116
  */
-GLOBAL_ASM(
-glabel ai0116
-/*  f0572e4:	3c03800a */ 	lui	$v1,0x800a
-/*  f0572e8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0572ec:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0572f0:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0572f4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0572f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0572fc:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f057300:	0fc2556c */ 	jal	objFindByTagId
-/*  f057304:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f057308:	1040001e */ 	beqz	$v0,.L0f057384
-/*  f05730c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f057310:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f057314:	1300001b */ 	beqz	$t8,.L0f057384
-/*  f057318:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05731c:	8c590018 */ 	lw	$t9,0x18($v0)
-/*  f057320:	13200018 */ 	beqz	$t9,.L0f057384
-/*  f057324:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f057328:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f05732c:	0fc1812f */ 	jal	func0f0604bc
-/*  f057330:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f057334:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f057338:	0fc180bc */ 	jal	func0f0602f0
-/*  f05733c:	8c640014 */ 	lw	$a0,0x14($v1)
-/*  f057340:	3c04800a */ 	lui	$a0,0x800a
-/*  f057344:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f057348:	8c880284 */ 	lw	$t0,0x284($a0)
-/*  f05734c:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f057350:	8d090480 */ 	lw	$t1,0x480($t0)
-/*  f057354:	1520000b */ 	bnez	$t1,.L0f057384
-/*  f057358:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05735c:	906a0003 */ 	lbu	$t2,0x3($v1)
-/*  f057360:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f057364:	15410007 */ 	bne	$t2,$at,.L0f057384
-/*  f057368:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05736c:	906b005c */ 	lbu	$t3,0x5c($v1)
-/*  f057370:	2401002e */ 	addiu	$at,$zero,0x2e
-/*  f057374:	15610003 */ 	bne	$t3,$at,.L0f057384
-/*  f057378:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05737c:	0fc0458c */ 	jal	func0f011630
-/*  f057380:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f057384:
-/*  f057384:	3c04800a */ 	lui	$a0,0x800a
-/*  f057388:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f05738c:	8c8c0438 */ 	lw	$t4,0x438($a0)
-/*  f057390:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f057394:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f057398:	258d0003 */ 	addiu	$t5,$t4,0x3
-/*  f05739c:	ac8d0438 */ 	sw	$t5,0x438($a0)
-/*  f0573a0:	03e00008 */ 	jr	$ra
-/*  f0573a4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiShowObj(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos && obj->unk18) {
+		func0f0604bc(obj->pos);
+		func0f0602f0(obj->pos);
+
+		if (g_Vars.unk000284->unk480 == 0 && obj->type == OBJTYPE_WEAPON) {
+			struct weaponobj *weapon = (struct weaponobj *) obj;
+
+			if (weapon->weapon_id == WEAPON_CAMSPY) {
+				func0f011630();
+			}
+		}
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0117

@@ -9,15 +9,9 @@
 u8 padding8009ae20[0xf1a0];
 
 // 80099fc0
-struct g_vars g_Vars;
+struct g_vars g_Vars; // ends at 8009a6c8
 
-// 8009a4a0
-u8 var8009a4a0;
-u8 var8009a4a1;
-u8 var8009a4a2;
-u8 g_LangFilterActive;
-
-u8 padding8009a4a4[0x2c1c];
+u8 padding8009a6c8[0x29fc];
 
 // 8009d0c4
 s32 g_NumTags;
