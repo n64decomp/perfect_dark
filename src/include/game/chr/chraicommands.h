@@ -220,7 +220,7 @@
 /*0x00d7*/ bool ai00d7(void);
 /*0x00d8*/ bool ai00d8(void);
 /*0x00d9*/ bool ai00d9(void);
-/*0x00da*/ bool ai00da(void);
+/*0x00da*/ bool aiSetObjImage(void);
 /*0x00db*/ bool ai00db(void);
 /*0x00dc*/ bool ai00dc(void);
 /*0x00dd*/ bool ai00dd(void);

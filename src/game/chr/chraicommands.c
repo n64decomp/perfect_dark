@@ -8867,60 +8867,28 @@ glabel ai00d9
 /**
  * @cmd 00da
  */
-GLOBAL_ASM(
-glabel ai00da
-/*  f056ba4:	3c02800a */ 	lui	$v0,0x800a
-/*  f056ba8:	24429fc0 */ 	addiu	$v0,$v0,-24640
-/*  f056bac:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f056bb0:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f056bb4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f056bb8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f056bbc:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f056bc0:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f056bc4:	0fc2556c */ 	jal	objFindByTagId
-/*  f056bc8:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f056bcc:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f056bd0:	1040001c */ 	beqz	$v0,.L0f056c44
-/*  f056bd4:	00403025 */ 	or	$a2,$v0,$zero
-/*  f056bd8:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f056bdc:	13000019 */ 	beqz	$t8,.L0f056c44
-/*  f056be0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f056be4:	90440003 */ 	lbu	$a0,0x3($v0)
-/*  f056be8:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f056bec:	54810007 */ 	bnel	$a0,$at,.L0f056c0c
-/*  f056bf0:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f056bf4:	2444005c */ 	addiu	$a0,$v0,0x5c
-/*  f056bf8:	0fc1fe49 */ 	jal	func0f07f924
-/*  f056bfc:	90650004 */ 	lbu	$a1,0x4($v1)
-/*  f056c00:	10000010 */ 	beqz	$zero,.L0f056c44
-/*  f056c04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f056c08:	2401000b */ 	addiu	$at,$zero,0xb
-.L0f056c0c:
-/*  f056c0c:	1481000d */ 	bne	$a0,$at,.L0f056c44
-/*  f056c10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f056c14:	90620003 */ 	lbu	$v0,0x3($v1)
-/*  f056c18:	28410004 */ 	slti	$at,$v0,0x4
-/*  f056c1c:	10200009 */ 	beqz	$at,.L0f056c44
-/*  f056c20:	0002c8c0 */ 	sll	$t9,$v0,0x3
-/*  f056c24:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  f056c28:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f056c2c:	0322c821 */ 	addu	$t9,$t9,$v0
-/*  f056c30:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f056c34:	00d92021 */ 	addu	$a0,$a2,$t9
-/*  f056c38:	2484005c */ 	addiu	$a0,$a0,0x5c
-/*  f056c3c:	0fc1fe49 */ 	jal	func0f07f924
-/*  f056c40:	90650004 */ 	lbu	$a1,0x4($v1)
-.L0f056c44:
-/*  f056c44:	3c03800a */ 	lui	$v1,0x800a
-/*  f056c48:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056c4c:	8c680438 */ 	lw	$t0,0x438($v1)
-/*  f056c50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f056c54:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f056c58:	25090005 */ 	addiu	$t1,$t0,0x5
-/*  f056c5c:	ac690438 */ 	sw	$t1,0x438($v1)
-/*  f056c60:	03e00008 */ 	jr	$ra
-/*  f056c64:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetObjImage(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos) {
+		if (obj->type == OBJTYPE_SINGLEMONITOR) {
+			struct singlemonitorobj *sm = (struct singlemonitorobj *) obj;
+			func0f07f924(&sm->image, cmd[4], sm);
+		} else if (obj->type == OBJTYPE_MULTIMONITOR) {
+			u8 slot = cmd[3];
+			if (slot < 4) {
+				struct multimonitorobj *mm = (struct multimonitorobj *) obj;
+				func0f07f924(&mm->subobjs[slot].image, cmd[4], mm);
+			}
+		}
+	}
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 00db

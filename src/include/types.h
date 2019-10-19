@@ -265,6 +265,9 @@ struct defaultobj {
 	/*0x54*/ u32 nextcol;
 	/*0x58*/ u16 floorcol;
 	/*0x5a*/ u8 numtiles;
+
+	// These properties might not be part of defaultobj,
+	// but rather standard objs only
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
 	/*0x62*/ u16 aireturnlist;
@@ -281,6 +284,43 @@ struct doorobj {
 	/*0x7c*/ float speed;
 	/*0x80*/ u32 unk80;
 	/*0x84*/ s8 state;
+};
+
+struct image {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+};
+
+struct singlemonitorobj {
+	/*0x00*/ u16 extrascale;
+	/*0x02*/ u8 hidden2;
+	/*0x03*/ u8 type;
+	/*0x04*/ u16 obj;
+	/*0x06*/ u16 pad;
+	/*0x08*/ u32 flags;
+	/*0x0c*/ u32 flags2;
+	/*0x10*/ u32 flags3;
+	/*0x14*/ struct position *pos;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ float realrot[9];
+	/*0x40*/ u32 hidden;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ s16 damage;
+	/*0x4e*/ u16 maxdamage;
+	/*0x50*/ u32 shadecol;
+	/*0x54*/ u32 nextcol;
+	/*0x58*/ u16 floorcol;
+	/*0x5a*/ u8 numtiles;
+	/*0x5c*/ struct image image;
+};
+
+struct multimonitorobj {
+	struct singlemonitorobj subobjs[4];
 };
 
 struct tag {
