@@ -336,4 +336,6 @@ extern u8 g_LangFilterActive;
 extern s32 g_NumTags;
 extern struct tag **g_TagPtrs;
 
+extern u32 g_8009de24;
+
 extern u32 g_EepromFlags;

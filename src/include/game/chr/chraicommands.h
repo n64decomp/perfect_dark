@@ -349,7 +349,7 @@
 /*0x0171*/ bool ai0171(void);
 /*0x0172*/ bool ai0172(void);
 /*0x0173*/ bool ai0173(void);
-/*0x0174*/ bool ai0174(void);
+/*0x0174*/ bool aiIfCutsceneButtonPressed(void);
 /*0x0175*/ bool ai0175(void);
 /*0x0176*/ bool ai0176(void);
 /*0x0177*/ bool ai0177(void);

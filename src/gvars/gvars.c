@@ -26,7 +26,13 @@ s32 g_NumTags;
 struct tag **g_TagPtrs;
 
 // 8009d0d0
-u8 padding8009d0d0[0x5144];
+u8 padding8009d0d0[0xd54];
+
+// 8009de24
+u32 g_8009de24;
+
+// 8009de28
+u8 padding8009de28[0x43ec];
 
 // 800a2214
 u32 g_EepromFlags;

@@ -6,6 +6,7 @@
 #include "game/game_0601b0.h"
 #include "gvars/gvars.h"
 #include "library/library.h"
+#include "setup/setup_020df0.h"
 
 /**
  * @cmd 0000
@@ -9039,46 +9040,19 @@ bool aiIfInCutscene(void)
 /**
  * @cmd 0174
  */
-GLOBAL_ASM(
-glabel ai0174
-/*  f056e84:	3c03800a */ 	lui	$v1,0x800a
-/*  f056e88:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056e8c:	8c6e04cc */ 	lw	$t6,0x4cc($v1)
-/*  f056e90:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f056e94:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f056e98:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f056e9c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f056ea0:	11c00005 */ 	beqz	$t6,.L0f056eb8
-/*  f056ea4:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f056ea8:	3c0f800a */ 	lui	$t7,0x800a
-/*  f056eac:	8defde24 */ 	lw	$t7,-0x21dc($t7)
-/*  f056eb0:	15e00009 */ 	bnez	$t7,.L0f056ed8
-/*  f056eb4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f056eb8:
-/*  f056eb8:	8c7804b4 */ 	lw	$t8,0x4b4($v1)
-/*  f056ebc:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f056ec0:	3c198008 */ 	lui	$t9,0x8008
-/*  f056ec4:	1701000a */ 	bne	$t8,$at,.L0f056ef0
-/*  f056ec8:	24a80003 */ 	addiu	$t0,$a1,0x3
-/*  f056ecc:	8f397260 */ 	lw	$t9,0x7260($t9)
-/*  f056ed0:	5b200008 */ 	blezl	$t9,.L0f056ef4
-/*  f056ed4:	ac680438 */ 	sw	$t0,0x438($v1)
-.L0f056ed8:
-/*  f056ed8:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f056edc:	90460002 */ 	lbu	$a2,0x2($v0)
-/*  f056ee0:	3c03800a */ 	lui	$v1,0x800a
-/*  f056ee4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056ee8:	10000002 */ 	beqz	$zero,.L0f056ef4
-/*  f056eec:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f056ef0:
-/*  f056ef0:	ac680438 */ 	sw	$t0,0x438($v1)
-.L0f056ef4:
-/*  f056ef4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f056ef8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f056efc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f056f00:	03e00008 */ 	jr	$ra
-/*  f056f04:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfCutsceneButtonPressed(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if ((g_Vars.in_cutscene && g_8009de24) ||
+			(g_Vars.unk0004b4 == 0x26 && var0002d280 > 0)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0175

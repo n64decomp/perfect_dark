@@ -24,4 +24,6 @@ extern struct menu_dialog menudialog_mpquickteam;
 
 extern s32 g_Difficulty;
 
+extern s32 var0002d280;
+
 #endif
