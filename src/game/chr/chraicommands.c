@@ -8934,22 +8934,12 @@ glabel ai00dc
 /**
  * @cmd 00dd
  */
-GLOBAL_ASM(
-glabel ai00dd
-/*  f056d04:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f056d08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f056d0c:	0fc2e6bf */ 	jal	func0f0b9afc
-/*  f056d10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f056d14:	3c03800a */ 	lui	$v1,0x800a
-/*  f056d18:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056d1c:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f056d20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f056d24:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f056d28:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f056d2c:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f056d30:	03e00008 */ 	jr	$ra
-/*  f056d34:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai00dd(void)
+{
+	func0f0b9afc();
+	g_Vars.aioffset += 2;
+	return false;
+}
 
 /**
  * @cmd 00de
