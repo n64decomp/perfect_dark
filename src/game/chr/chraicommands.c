@@ -5550,22 +5550,15 @@ bool aiSetReactionSpeed(void)
 /**
  * @cmd 0099
  */
-GLOBAL_ASM(
-glabel ai0099
-/*  f053c08:	3c04800a */ 	lui	$a0,0x800a
-/*  f053c0c:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f053c10:	8c8e0434 */ 	lw	$t6,0x434($a0)
-/*  f053c14:	8c8f0438 */ 	lw	$t7,0x438($a0)
-/*  f053c18:	8c990424 */ 	lw	$t9,0x424($a0)
-/*  f053c1c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f053c20:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f053c24:	80780002 */ 	lb	$t8,0x2($v1)
-/*  f053c28:	a338000d */ 	sb	$t8,0xd($t9)
-/*  f053c2c:	8c880438 */ 	lw	$t0,0x438($a0)
-/*  f053c30:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f053c34:	03e00008 */ 	jr	$ra
-/*  f053c38:	ac890438 */ 	sw	$t1,0x438($a0)
-);
+bool aiSetRecoverySpeed(void)
+{
+	s8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	g_Vars.chrdata->arghrating = cmd[2];
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 009a

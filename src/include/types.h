@@ -43,7 +43,7 @@ struct chrdata {
 	/*0x00a*/ u8 numclosearghs;
 	/*0x00b*/ u8 numarghs;
 	/*0x00c*/ u8 fadealpha;
-	/*0x00d*/ u8 arghrating;
+	/*0x00d*/ s8 arghrating;
 	/*0x00e*/ u8 aimendcount;
 	/*0x00f*/ u8 grenadeprob;
 	/*0x010*/ u16 bodynum;
