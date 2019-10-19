@@ -14088,7 +14088,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0084*/ aiSetMorale,
 	/*0x0085*/ aiAddMorale,
 	/*0x0086*/ aiChrAddMorale,
-	/*0x0087*/ ai0087,
+	/*0x0087*/ aiSubtractMorale,
 	/*0x0088*/ ai0088,
 	/*0x0089*/ ai0089,
 	/*0x008a*/ ai008a,
