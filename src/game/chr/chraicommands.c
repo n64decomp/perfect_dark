@@ -5537,22 +5537,15 @@ glabel ai010e
 /**
  * @cmd 0098
  */
-GLOBAL_ASM(
-glabel ai0098
-/*  f053bd4:	3c04800a */ 	lui	$a0,0x800a
-/*  f053bd8:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f053bdc:	8c8e0434 */ 	lw	$t6,0x434($a0)
-/*  f053be0:	8c8f0438 */ 	lw	$t7,0x438($a0)
-/*  f053be4:	8c990424 */ 	lw	$t9,0x424($a0)
-/*  f053be8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f053bec:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f053bf0:	80780002 */ 	lb	$t8,0x2($v1)
-/*  f053bf4:	a3380003 */ 	sb	$t8,0x3($t9)
-/*  f053bf8:	8c880438 */ 	lw	$t0,0x438($a0)
-/*  f053bfc:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f053c00:	03e00008 */ 	jr	$ra
-/*  f053c04:	ac890438 */ 	sw	$t1,0x438($a0)
-);
+bool aiSetReactionSpeed(void)
+{
+	s8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	g_Vars.chrdata->speedrating = cmd[2];
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0099

@@ -14105,7 +14105,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0095*/ aiSetChrNum,
 	/*0x0096*/ ai0096,
 	/*0x0097*/ ai0097,
-	/*0x0098*/ ai0098,
+	/*0x0098*/ aiSetReactionSpeed,
 	/*0x0099*/ ai0099,
 	/*0x009a*/ ai009a,
 	/*0x009b*/ ai009b,

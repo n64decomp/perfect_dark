@@ -154,7 +154,7 @@
 /*0x0095*/ bool aiSetChrNum(void);
 /*0x0096*/ bool ai0096(void);
 /*0x0097*/ bool ai0097(void);
-/*0x0098*/ bool ai0098(void);
+/*0x0098*/ bool aiSetReactionSpeed(void);
 /*0x0099*/ bool ai0099(void);
 /*0x009a*/ bool ai009a(void);
 /*0x009b*/ bool ai009b(void);
