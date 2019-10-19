@@ -8839,16 +8839,11 @@ glabel ai00d7
 /**
  * @cmd 00d8
  */
-GLOBAL_ASM(
-glabel ai00d8
-/*  f056b6c:	3c03800a */ 	lui	$v1,0x800a
-/*  f056b70:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056b74:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f056b78:	00001025 */ 	or	$v0,$zero,$zero
-/*  f056b7c:	25cf0003 */ 	addiu	$t7,$t6,0x3
-/*  f056b80:	03e00008 */ 	jr	$ra
-/*  f056b84:	ac6f0438 */ 	sw	$t7,0x438($v1)
-);
+bool ai00d8(void)
+{
+	g_Vars.aioffset += 3;
+	return false;
+}
 
 /**
  * @cmd 00d9
