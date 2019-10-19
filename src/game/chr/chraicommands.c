@@ -8223,27 +8223,16 @@ glabel ai017c
 /**
  * @cmd 00d3
  */
-GLOBAL_ASM(
-glabel ai00d3
-/*  f0562dc:	3c03800a */ 	lui	$v1,0x800a
-/*  f0562e0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0562e4:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0562e8:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0562ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0562f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0562f4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0562f8:	0fc250b4 */ 	jal	func0f0942d0
-/*  f0562fc:	80440002 */ 	lb	$a0,0x2($v0)
-/*  f056300:	3c03800a */ 	lui	$v1,0x800a
-/*  f056304:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056308:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f05630c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f056310:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f056314:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f056318:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f05631c:	03e00008 */ 	jr	$ra
-/*  f056320:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiAudioMuteChannel(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s8 channel = (s8)cmd[2];
+
+	func0f0942d0(channel);
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0138

@@ -213,7 +213,7 @@
 /*0x00d0*/ bool ai00d0(void);
 /*0x00d1*/ bool ai00d1(void);
 /*0x00d2*/ bool ai00d2(void);
-/*0x00d3*/ bool ai00d3(void);
+/*0x00d3*/ bool aiAudioMuteChannel(void);
 /*0x00d4*/ bool ai00d4(void);
 /*0x00d5*/ bool ai00d5(void);
 /*0x00d6*/ bool ai00d6(void);
