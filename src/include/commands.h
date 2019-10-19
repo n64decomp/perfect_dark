@@ -558,6 +558,11 @@
 	mkshort(0x0085), \
 	value,
 
+#define chr_add_morale(chr, value) \
+	mkshort(0x0085), \
+	chr, \
+	value,
+
 #define subtract_morale(value) \
 	mkshort(0x0087), \
 	value,

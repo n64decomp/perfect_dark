@@ -136,7 +136,7 @@
 /*0x0083*/ bool ai0083(void);
 /*0x0084*/ bool aiSetMorale(void);
 /*0x0085*/ bool aiAddMorale(void);
-/*0x0086*/ bool ai0086(void);
+/*0x0086*/ bool aiChrAddMorale(void);
 /*0x0087*/ bool ai0087(void);
 /*0x0088*/ bool ai0088(void);
 /*0x0089*/ bool ai0089(void);

@@ -5099,33 +5099,15 @@ bool aiAddMorale(void)
 /**
  * @cmd 0086
  */
-GLOBAL_ASM(
-glabel ai0086
-/*  f053388:	3c03800a */ 	lui	$v1,0x800a
-/*  f05338c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053390:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f053394:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053398:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05339c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0533a0:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f0533a4:	90c50003 */ 	lbu	$a1,0x3($a2)
-/*  f0533a8:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f0533ac:	0fc126d1 */ 	jal	chrFindById
-/*  f0533b0:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f0533b4:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f0533b8:	24440112 */ 	addiu	$a0,$v0,0x112
-/*  f0533bc:	0fc1289f */ 	jal	incrementByte
-/*  f0533c0:	90c50002 */ 	lbu	$a1,0x2($a2)
-/*  f0533c4:	3c03800a */ 	lui	$v1,0x800a
-/*  f0533c8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0533cc:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f0533d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0533d4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0533d8:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f0533dc:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f0533e0:	03e00008 */ 	jr	$ra
-/*  f0533e4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrAddMorale(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
+	incrementByte(&chr->morale, cmd[2]);
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0087
