@@ -5576,43 +5576,6 @@ bool aiSetAccuracy(void)
 /**
  * @cmd 01c6
  */
-//GLOBAL_ASM(
-//glabel ai01c6
-///*  f053c70:	3c04800a */ 	lui	$a0,0x800a
-///*  f053c74:	24849fc0 */ 	addiu	$a0,$a0,-24640
-///*  f053c78:	8c8e0434 */ 	lw	$t6,0x434($a0)
-///*  f053c7c:	8c8f0438 */ 	lw	$t7,0x438($a0)
-///*  f053c80:	24010001 */ 	addiu	$at,$zero,0x1
-///*  f053c84:	01cf1021 */ 	addu	$v0,$t6,$t7
-///*  f053c88:	80430002 */ 	lb	$v1,0x2($v0)
-///*  f053c8c:	14600005 */ 	bnez	$v1,.L0f053ca4
-///*  f053c90:	00000000 */ 	sll	$zero,$zero,0x0
-///*  f053c94:	80580003 */ 	lb	$t8,0x3($v0)
-///*  f053c98:	8c990424 */ 	lw	$t9,0x424($a0)
-///*  f053c9c:	1000000d */ 	beqz	$zero,.L0f053cd4
-///*  f053ca0:	a338035e */ 	sb	$t8,0x35e($t9)
-//.L0f053ca4:
-///*  f053ca4:	54610006 */ 	bnel	$v1,$at,.L0f053cc0
-///*  f053ca8:	804a0003 */ 	lb	$t2,0x3($v0)
-///*  f053cac:	80480003 */ 	lb	$t0,0x3($v0)
-///*  f053cb0:	8c890424 */ 	lw	$t1,0x424($a0)
-///*  f053cb4:	10000007 */ 	beqz	$zero,.L0f053cd4
-///*  f053cb8:	a128035f */ 	sb	$t0,0x35f($t1)
-///*  f053cbc:	804a0003 */ 	lb	$t2,0x3($v0)
-//.L0f053cc0:
-///*  f053cc0:	8c8b0424 */ 	lw	$t3,0x424($a0)
-///*  f053cc4:	a16a035e */ 	sb	$t2,0x35e($t3)
-///*  f053cc8:	8c8d0424 */ 	lw	$t5,0x424($a0)
-///*  f053ccc:	804c0003 */ 	lb	$t4,0x3($v0)
-///*  f053cd0:	a1ac035f */ 	sb	$t4,0x35f($t5)
-//.L0f053cd4:
-///*  f053cd4:	8c8e0438 */ 	lw	$t6,0x438($a0)
-///*  f053cd8:	00001025 */ 	or	$v0,$zero,$zero
-///*  f053cdc:	25cf0004 */ 	addiu	$t7,$t6,0x4
-///*  f053ce0:	03e00008 */ 	jr	$ra
-///*  f053ce4:	ac8f0438 */ 	sw	$t7,0x438($a0)
-//);
-
 bool aiSetDodgeRating(void)
 {
 	s8 *cmd = (s8 *)g_Vars.ailist + g_Vars.aioffset;
@@ -5634,22 +5597,15 @@ bool aiSetDodgeRating(void)
 /**
  * @cmd 01c7
  */
-GLOBAL_ASM(
-glabel ai01c7
-/*  f053ce8:	3c04800a */ 	lui	$a0,0x800a
-/*  f053cec:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f053cf0:	8c8e0434 */ 	lw	$t6,0x434($a0)
-/*  f053cf4:	8c8f0438 */ 	lw	$t7,0x438($a0)
-/*  f053cf8:	8c990424 */ 	lw	$t9,0x424($a0)
-/*  f053cfc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f053d00:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f053d04:	80780002 */ 	lb	$t8,0x2($v1)
-/*  f053d08:	a3380360 */ 	sb	$t8,0x360($t9)
-/*  f053d0c:	8c880438 */ 	lw	$t0,0x438($a0)
-/*  f053d10:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f053d14:	03e00008 */ 	jr	$ra
-/*  f053d18:	ac890438 */ 	sw	$t1,0x438($a0)
-);
+bool aiSetUnarmedDodgeRating(void)
+{
+	s8 *cmd = (s8 *)g_Vars.ailist + g_Vars.aioffset;
+
+	g_Vars.chrdata->unarmeddodgerating = cmd[2];
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 009b

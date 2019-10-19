@@ -418,7 +418,7 @@
 /*0x01c4*/ bool aiSetPlayerDeadList(void);
 /*0x01c5*/ bool ai01c5(void);
 /*0x01c6*/ bool aiSetDodgeRating(void);
-/*0x01c7*/ bool ai01c7(void);
+/*0x01c7*/ bool aiSetUnarmedDodgeRating(void);
 /*0x01c8*/ bool ai01c8(void);
 /*0x01c9*/ bool ai01c9(void);
 /*0x01ca*/ bool ai01ca(void);

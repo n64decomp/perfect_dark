@@ -237,7 +237,7 @@ struct chrdata {
 	/*0x35c*/ u16 aiplayerdeadlist;
 	/*0x35e*/ u8 dodgerating;
 	/*0x35f*/ u8 maxdodgerating;
-	/*0x360*/ u8 unarmeddodgerat;
+	/*0x360*/ u8 unarmeddodgerating;
 	/*0x361*/ u8 lastfootsample;
 	/*0x362*/ u8 onlift;
 	/*0x364*/ u32 unk364;
