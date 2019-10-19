@@ -9933,7 +9933,7 @@ glabel ai00ea
  */
 bool aiIfChrAmmoQuantityLessThan(void)
 {
-	s8 *cmd = (s8 *)g_Vars.ailist + g_Vars.aioffset;
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool passes = false;
 
@@ -9942,7 +9942,7 @@ bool aiIfChrAmmoQuantityLessThan(void)
 		u32 playerid = func0f12897c(chr->pos);
 		func0f12892c(playerid);
 
-		if (func0f0a9868(cmd[3]) < cmd[4]) {
+		if (func0f0a9868((s8)cmd[3]) < (s8)cmd[4]) {
 			passes = true;
 		}
 
@@ -9961,58 +9961,24 @@ bool aiIfChrAmmoQuantityLessThan(void)
 /**
  * @cmd 00ec
  */
-GLOBAL_ASM(
-glabel ai00ec
-/*  f057e30:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f057e34:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f057e38:	3c10800a */ 	lui	$s0,0x800a
-/*  f057e3c:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f057e40:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f057e44:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f057e48:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f057e4c:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f057e50:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f057e54:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f057e58:	0fc126d1 */ 	jal	chrFindById
-/*  f057e5c:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f057e60:	50400018 */ 	beqzl	$v0,.L0f057ec4
-/*  f057e64:	8e090438 */ 	lw	$t1,0x438($s0)
-/*  f057e68:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f057e6c:	50600015 */ 	beqzl	$v1,.L0f057ec4
-/*  f057e70:	8e090438 */ 	lw	$t1,0x438($s0)
-/*  f057e74:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f057e78:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f057e7c:	57010011 */ 	bnel	$t8,$at,.L0f057ec4
-/*  f057e80:	8e090438 */ 	lw	$t1,0x438($s0)
-/*  f057e84:	8e19028c */ 	lw	$t9,0x28c($s0)
-/*  f057e88:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f057e8c:	0fc4a25f */ 	jal	func0f12897c
-/*  f057e90:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f057e94:	0fc4a24b */ 	jal	func0f12892c
-/*  f057e98:	00402025 */ 	or	$a0,$v0,$zero
-/*  f057e9c:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f057ea0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f057ea4:	0fc28824 */ 	jal	func0f0a2090
-/*  f057ea8:	81050003 */ 	lb	$a1,0x3($t0)
-/*  f057eac:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f057eb0:	0fc28824 */ 	jal	func0f0a2090
-/*  f057eb4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f057eb8:	0fc4a24b */ 	jal	func0f12892c
-/*  f057ebc:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f057ec0:	8e090438 */ 	lw	$t1,0x438($s0)
-.L0f057ec4:
-/*  f057ec4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f057ec8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f057ecc:	252a0004 */ 	addiu	$t2,$t1,0x4
-);
+bool aiChrDrawWeapon(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-GLOBAL_ASM(
-glabel func0f057ed0
-/*  f057ed0:	ae0a0438 */ 	sw	$t2,0x438($s0)
-/*  f057ed4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f057ed8:	03e00008 */ 	jr	$ra
-/*  f057edc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+	if (chr && chr->pos && chr->pos->unk00 == 6) {
+		u32 original_playerid = g_Vars.unk00028c;
+		u32 playerid = func0f12897c(chr->pos);
+		func0f12892c(playerid);
+		func0f0a2090(0, (s8)cmd[3]);
+		func0f0a2090(1, 0);
+		func0f12892c(original_playerid);
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 00ed
