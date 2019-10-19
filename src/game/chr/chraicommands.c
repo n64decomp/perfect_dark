@@ -5075,22 +5075,14 @@ bool aiIfStageIdGreaterThan(void)
 /**
  * @cmd 0084
  */
-GLOBAL_ASM(
-glabel ai0084
-/*  f053304:	3c04800a */ 	lui	$a0,0x800a
-/*  f053308:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f05330c:	8c8e0434 */ 	lw	$t6,0x434($a0)
-/*  f053310:	8c8f0438 */ 	lw	$t7,0x438($a0)
-/*  f053314:	8c990424 */ 	lw	$t9,0x424($a0)
-/*  f053318:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05331c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f053320:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f053324:	a3380112 */ 	sb	$t8,0x112($t9)
-/*  f053328:	8c880438 */ 	lw	$t0,0x438($a0)
-/*  f05332c:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f053330:	03e00008 */ 	jr	$ra
-/*  f053334:	ac890438 */ 	sw	$t1,0x438($a0)
-);
+bool aiSetMorale(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.chrdata->morale = cmd[2];
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0085
