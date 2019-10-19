@@ -589,6 +589,11 @@
 	value, \
 	chr,
 
+#define subtract_alertness(value, chr) \
+	mkshort(0x008d), \
+	value, \
+	chr,
+
 #define if_alertness(value, operator, label) \
 	mkshort(0x008e), \
 	value, \
