@@ -610,6 +610,9 @@
 	mkshort(0x0090), \
 	label,
 
+#define cmd0091_noop \
+	mkdir(0x0091),
+
 // Set their hear distance to value divided by 1000.
 // Only ever called with distance = 10,000, so it gets set to 10.
 #define set_hear_distance(value) \
