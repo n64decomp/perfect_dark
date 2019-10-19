@@ -5563,22 +5563,15 @@ bool aiSetRecoverySpeed(void)
 /**
  * @cmd 009a
  */
-GLOBAL_ASM(
-glabel ai009a
-/*  f053c3c:	3c04800a */ 	lui	$a0,0x800a
-/*  f053c40:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f053c44:	8c8e0434 */ 	lw	$t6,0x434($a0)
-/*  f053c48:	8c8f0438 */ 	lw	$t7,0x438($a0)
-/*  f053c4c:	8c990424 */ 	lw	$t9,0x424($a0)
-/*  f053c50:	00001025 */ 	or	$v0,$zero,$zero
-/*  f053c54:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f053c58:	80780002 */ 	lb	$t8,0x2($v1)
-/*  f053c5c:	a3380002 */ 	sb	$t8,0x2($t9)
-/*  f053c60:	8c880438 */ 	lw	$t0,0x438($a0)
-/*  f053c64:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f053c68:	03e00008 */ 	jr	$ra
-/*  f053c6c:	ac890438 */ 	sw	$t1,0x438($a0)
-);
+bool aiSetAccuracy(void)
+{
+	s8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	g_Vars.chrdata->accuracyrating = cmd[2];
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 01c6

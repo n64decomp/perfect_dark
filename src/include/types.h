@@ -33,7 +33,7 @@ struct bitfielddata {
 
 struct chrdata {
 	/*0x000*/ s16 chrnum;
-	/*0x002*/ u8 accuracyrating;
+	/*0x002*/ s8 accuracyrating;
 	/*0x003*/ s8 speedrating;
 	/*0x004*/ u16 firecount;
 	/*0x006*/ u8 headnum;
