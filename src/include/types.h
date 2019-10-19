@@ -52,7 +52,7 @@ struct chrdata {
 	/*0x014*/ u32 hidden;
 	/*0x018*/ u32 chrflags;
 	/*0x01c*/ struct position *pos;
-	/*0x020*/ u32 unk020;
+	/*0x020*/ void *unk020;
 	/*0x024*/ u32 chrwidth;
 	/*0x028*/ u32 chrheight;
 	/*0x02c*/ u32 unk02c;
