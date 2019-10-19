@@ -8237,41 +8237,19 @@ bool aiAudioMuteChannel(void)
 /**
  * @cmd 0138
  */
-GLOBAL_ASM(
-glabel ai0138
-/*  f056324:	3c03800a */ 	lui	$v1,0x800a
-/*  f056328:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05632c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f056330:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f056334:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f056338:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05633c:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f056340:	80e40002 */ 	lb	$a0,0x2($a3)
-/*  f056344:	0fc250ef */ 	jal	func0f0943bc
-/*  f056348:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f05634c:	3c03800a */ 	lui	$v1,0x800a
-/*  f056350:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056354:	10400009 */ 	beqz	$v0,.L0f05637c
-/*  f056358:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05635c:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f056360:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f056364:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f056368:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f05636c:	3c03800a */ 	lui	$v1,0x800a
-/*  f056370:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f056374:	10000004 */ 	beqz	$zero,.L0f056388
-/*  f056378:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05637c:
-/*  f05637c:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f056380:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f056384:	ac790438 */ 	sw	$t9,0x438($v1)
-.L0f056388:
-/*  f056388:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05638c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f056390:	00001025 */ 	or	$v0,$zero,$zero
-/*  f056394:	03e00008 */ 	jr	$ra
-/*  f056398:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfChannelIdle(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s8 channel = (s8) cmd[2];
+
+	if (func0f0943bc(channel)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00d1

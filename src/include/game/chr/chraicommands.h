@@ -310,7 +310,7 @@
 /*0x0135*/ bool ai0135(void);
 /*0x0136*/ bool ai0136(void);
 /*0x0137*/ bool ai0137(void);
-/*0x0138*/ bool ai0138(void);
+/*0x0138*/ bool aiIfChannelIdle(void);
 /*0x0139*/ bool ai0139(void);
 /*0x013a*/ bool ai013a(void);
 /*0x013b*/ bool ai013b(void);
