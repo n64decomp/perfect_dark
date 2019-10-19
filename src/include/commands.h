@@ -606,6 +606,10 @@
 	chr, \
 	label,
 
+#define if_alertness_lt_random(label) \
+	mkshort(0x0090), \
+	label,
+
 // Set their hear distance to value divided by 1000.
 // Only ever called with distance = 10,000, so it gets set to 10.
 #define set_hear_distance(value) \

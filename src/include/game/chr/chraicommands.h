@@ -146,7 +146,7 @@
 /*0x008d*/ bool aiSubtractAlertness(void);
 /*0x008e*/ bool aiIfAlertness(void);
 /*0x008f*/ bool aiIfChrAlertnessLessThan(void);
-/*0x0090*/ bool ai0090(void);
+/*0x0090*/ bool aiIfAlertnessLessThanRandom(void);
 /*0x0091*/ bool ai0091(void);
 /*0x0092*/ bool ai0092(void);
 /*0x0093*/ bool ai0093(void);
