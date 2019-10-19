@@ -5209,49 +5209,19 @@ bool aiSubtractAlertness(void)
 /**
  * @cmd 008e
  */
-GLOBAL_ASM(
-glabel ai008e
-/*  f053650:	3c07800a */ 	lui	$a3,0x800a
-/*  f053654:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f053658:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f05365c:	8ce50438 */ 	lw	$a1,0x438($a3)
-/*  f053660:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f053664:	8cf80424 */ 	lw	$t8,0x424($a3)
-/*  f053668:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05366c:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f053670:	01c51021 */ 	addu	$v0,$t6,$a1
-/*  f053674:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f053678:	93030113 */ 	lbu	$v1,0x113($t8)
-/*  f05367c:	0064082a */ 	slt	$at,$v1,$a0
-/*  f053680:	50200004 */ 	beqzl	$at,.L0f053694
-/*  f053684:	0083082a */ 	slt	$at,$a0,$v1
-/*  f053688:	90590003 */ 	lbu	$t9,0x3($v0)
-/*  f05368c:	13200007 */ 	beqz	$t9,.L0f0536ac
-/*  f053690:	0083082a */ 	slt	$at,$a0,$v1
-.L0f053694:
-/*  f053694:	1020000c */ 	beqz	$at,.L0f0536c8
-/*  f053698:	24a90005 */ 	addiu	$t1,$a1,0x5
-/*  f05369c:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f0536a0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0536a4:	55010009 */ 	bnel	$t0,$at,.L0f0536cc
-/*  f0536a8:	ace90438 */ 	sw	$t1,0x438($a3)
-.L0f0536ac:
-/*  f0536ac:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0536b0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0536b4:	90460004 */ 	lbu	$a2,0x4($v0)
-/*  f0536b8:	3c07800a */ 	lui	$a3,0x800a
-/*  f0536bc:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f0536c0:	10000002 */ 	beqz	$zero,.L0f0536cc
-/*  f0536c4:	ace20438 */ 	sw	$v0,0x438($a3)
-.L0f0536c8:
-/*  f0536c8:	ace90438 */ 	sw	$t1,0x438($a3)
-.L0f0536cc:
-/*  f0536cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0536d0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0536d4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0536d8:	03e00008 */ 	jr	$ra
-/*  f0536dc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfAlertness(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if ((g_Vars.chrdata->alertness < cmd[2] && cmd[3] == 0) ||
+			(cmd[2] < g_Vars.chrdata->alertness && cmd[3] == 1)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 008f
