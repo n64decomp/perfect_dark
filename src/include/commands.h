@@ -572,6 +572,10 @@
 	value, \
 	label,
 
+#define if_morale_lt_random(label) \
+	mkshort(0x0089), \
+	label,
+
 #define set_alertness(value) \
 	mkshort(0x008a), \
 	value,

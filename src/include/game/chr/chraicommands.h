@@ -139,7 +139,7 @@
 /*0x0086*/ bool aiChrAddMorale(void);
 /*0x0087*/ bool aiSubtractMorale(void);
 /*0x0088*/ bool aiIfMoraleLessThan(void);
-/*0x0089*/ bool ai0089(void);
+/*0x0089*/ bool aiIfMoraleLessThanRandom(void);
 /*0x008a*/ bool ai008a(void);
 /*0x008b*/ bool ai008b(void);
 /*0x008c*/ bool ai008c(void);

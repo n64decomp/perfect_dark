@@ -5140,36 +5140,18 @@ bool aiIfMoraleLessThan(void)
 /**
  * @cmd 0089
  */
-GLOBAL_ASM(
-glabel ai0089
-/*  f0534a0:	3c03800a */ 	lui	$v1,0x800a
-/*  f0534a4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0534a8:	8c620424 */ 	lw	$v0,0x424($v1)
-/*  f0534ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0534b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0534b4:	904f0124 */ 	lbu	$t7,0x124($v0)
-/*  f0534b8:	904e0112 */ 	lbu	$t6,0x112($v0)
-/*  f0534bc:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f0534c0:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f0534c4:	01cf082a */ 	slt	$at,$t6,$t7
-/*  f0534c8:	10200007 */ 	beqz	$at,.L0f0534e8
-/*  f0534cc:	00853821 */ 	addu	$a3,$a0,$a1
-/*  f0534d0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0534d4:	90e60002 */ 	lbu	$a2,0x2($a3)
-/*  f0534d8:	3c03800a */ 	lui	$v1,0x800a
-/*  f0534dc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0534e0:	10000003 */ 	beqz	$zero,.L0f0534f0
-/*  f0534e4:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f0534e8:
-/*  f0534e8:	24b80003 */ 	addiu	$t8,$a1,0x3
-/*  f0534ec:	ac780438 */ 	sw	$t8,0x438($v1)
-.L0f0534f0:
-/*  f0534f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0534f4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0534f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0534fc:	03e00008 */ 	jr	$ra
-/*  f053500:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfMoraleLessThanRandom(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (g_Vars.chrdata->morale < g_Vars.chrdata->random) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 008a
