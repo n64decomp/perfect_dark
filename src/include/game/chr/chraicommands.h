@@ -178,7 +178,7 @@
 /*0x00ad*/ bool ai00ad(void);
 /*0x00ae*/ bool ai00ae(void);
 /*0x00af*/ bool ai00af(void);
-/*0x00b0*/ bool ai00b0(void);
+/*0x00b0*/ bool aiSetChrPreset(void);
 /*0x00b1*/ bool ai00b1(void);
 /*0x00b2*/ bool ai00b2(void);
 /*0x00b3*/ bool ai00b3(void);
