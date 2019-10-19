@@ -235,7 +235,7 @@
 /*0x00e8*/ bool aiSetDoorClosed(void);
 /*0x00e9*/ bool ai00e9(void);
 /*0x00ea*/ bool ai00ea(void);
-/*0x00eb*/ bool ai00eb(void);
+/*0x00eb*/ bool aiIfChrAmmoQuantityLessThan(void);
 /*0x00ec*/ bool ai00ec(void);
 /*0x00ed*/ bool ai00ed(void);
 /*0x00ee*/ bool ai00ee(void);

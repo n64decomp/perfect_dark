@@ -14188,7 +14188,7 @@ bool (*command_pointers[])(void) = {
 	/*0x00e8*/ aiSetDoorClosed,
 	/*0x00e9*/ ai00e9,
 	/*0x00ea*/ ai00ea,
-	/*0x00eb*/ ai00eb,
+	/*0x00eb*/ aiIfChrAmmoQuantityLessThan,
 	/*0x00ec*/ ai00ec,
 	/*0x00ed*/ ai00ed,
 	/*0x00ee*/ ai00ee,
