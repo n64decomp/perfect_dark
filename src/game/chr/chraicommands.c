@@ -10494,16 +10494,11 @@ bool ai00ff(void)
 /**
  * @cmd 0100
  */
-GLOBAL_ASM(
-glabel ai0100
-/*  f0589b0:	3c03800a */ 	lui	$v1,0x800a
-/*  f0589b4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0589b8:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f0589bc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0589c0:	25cf0003 */ 	addiu	$t7,$t6,0x3
-/*  f0589c4:	03e00008 */ 	jr	$ra
-/*  f0589c8:	ac6f0438 */ 	sw	$t7,0x438($v1)
-);
+bool ai0100(void)
+{
+	g_Vars.aioffset += 3;
+	return false;
+}
 
 /**
  * @cmd 0101
