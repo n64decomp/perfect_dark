@@ -5,7 +5,7 @@
 extern struct menu_dialog menudialog_18d78;
 extern struct menu_dialog menudialog_18d90;
 
-extern bool g_8007073c;
+extern u32 g_8007073c;
 extern u32 g_PlayersWithControl[];
 extern bool g_PlayerInvincible;
 
