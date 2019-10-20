@@ -10065,57 +10065,21 @@ glabel ai00ee
 /**
  * @cmd 00ef
  */
-GLOBAL_ASM(
-glabel ai00ef
-/*  f058054:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f058058:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f05805c:	3c10800a */ 	lui	$s0,0x800a
-/*  f058060:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f058064:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f058068:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f05806c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f058070:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f058074:	90e40002 */ 	lbu	$a0,0x2($a3)
-/*  f058078:	0fc2556c */ 	jal	objFindByTagId
-/*  f05807c:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f058080:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f058084:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f058088:	90f80003 */ 	lbu	$t8,0x3($a3)
-/*  f05808c:	90e80004 */ 	lbu	$t0,0x4($a3)
-/*  f058090:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f058094:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f058098:	03281825 */ 	or	$v1,$t9,$t0
-/*  f05809c:	0fc12574 */ 	jal	func0f0495d0
-/*  f0580a0:	3065ffff */ 	andi	$a1,$v1,0xffff
-/*  f0580a4:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f0580a8:	0440000f */ 	bltz	$v0,.L0f0580e8
-/*  f0580ac:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f0580b0:	50c0000e */ 	beqzl	$a2,.L0f0580ec
-/*  f0580b4:	8e0b0438 */ 	lw	$t3,0x438($s0)
-/*  f0580b8:	8cc30014 */ 	lw	$v1,0x14($a2)
-/*  f0580bc:	5060000b */ 	beqzl	$v1,.L0f0580ec
-/*  f0580c0:	8e0b0438 */ 	lw	$t3,0x438($s0)
-/*  f0580c4:	846a0028 */ 	lh	$t2,0x28($v1)
-/*  f0580c8:	544a0008 */ 	bnel	$v0,$t2,.L0f0580ec
-/*  f0580cc:	8e0b0438 */ 	lw	$t3,0x438($s0)
-/*  f0580d0:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f0580d4:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f0580d8:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0580dc:	90e60005 */ 	lbu	$a2,0x5($a3)
-/*  f0580e0:	10000004 */ 	beqz	$zero,.L0f0580f4
-/*  f0580e4:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f0580e8:
-/*  f0580e8:	8e0b0438 */ 	lw	$t3,0x438($s0)
-.L0f0580ec:
-/*  f0580ec:	256c0006 */ 	addiu	$t4,$t3,0x6
-/*  f0580f0:	ae0c0438 */ 	sw	$t4,0x438($s0)
-.L0f0580f4:
-/*  f0580f4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0580f8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0580fc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f058100:	03e00008 */ 	jr	$ra
-/*  f058104:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfObjInRoom(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+	u16 room_id = cmd[4] | (cmd[3] << 8);
+	s32 room_something = func0f0495d0(g_Vars.chrdata, room_id);
+
+	if (room_something >= 0 && obj && obj->pos && room_something == obj->pos->room) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	} else {
+		g_Vars.aioffset += 6;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00f2

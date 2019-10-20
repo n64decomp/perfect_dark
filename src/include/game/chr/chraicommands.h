@@ -239,7 +239,7 @@
 /*0x00ec*/ bool aiChrDrawWeapon(void);
 /*0x00ed*/ bool aiChrDrawWeaponInCutscene(void);
 /*0x00ee*/ bool ai00ee(void);
-/*0x00ef*/ bool ai00ef(void);
+/*0x00ef*/ bool aiIfObjInRoom(void);
 /*0x00f0*/ bool ai00f0(void);
 /*0x00f1*/ bool ai00f1(void);
 /*0x00f2*/ bool ai00f2(void);
