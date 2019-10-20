@@ -10388,22 +10388,13 @@ bool aiAudioSetSfxTrack(void)
 /**
  * @cmd 0180
  */
-GLOBAL_ASM(
-glabel ai0180
-/*  f0586bc:	3c02800a */ 	lui	$v0,0x800a
-/*  f0586c0:	24429fc0 */ 	addiu	$v0,$v0,-24640
-/*  f0586c4:	8c4e0438 */ 	lw	$t6,0x438($v0)
-/*  f0586c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0586cc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0586d0:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f0586d4:	0fc5b80b */ 	jal	func0f16e02c
-/*  f0586d8:	ac4f0438 */ 	sw	$t7,0x438($v0)
-/*  f0586dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0586e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0586e4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0586e8:	03e00008 */ 	jr	$ra
-/*  f0586ec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiAudioRestartSfx(void)
+{
+	g_Vars.aioffset += 2;
+	func0f16e02c();
+
+	return false;
+}
 
 /**
  * @cmd 00fb

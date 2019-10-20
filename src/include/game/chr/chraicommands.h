@@ -361,7 +361,7 @@
 /*0x017d*/ bool aiAudioSetMusicTrack(void);
 /*0x017e*/ bool aiAudioRestartDefaultMusic(void);
 /*0x017f*/ bool aiAudioSetSfxTrack(void);
-/*0x0180*/ bool ai0180(void);
+/*0x0180*/ bool aiAudioRestartSfx(void);
 /*0x0181*/ bool ai0181(void);
 /*0x0182*/ bool ai0182(void);
 /*0x0183*/ bool ai0183(void);
