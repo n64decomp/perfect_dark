@@ -14334,7 +14334,7 @@ bool (*command_pointers[])(void) = {
 	/*0x017a*/ ai017a,
 	/*0x017b*/ aiIfChrUnloaded,
 	/*0x017c*/ ai017c,
-	/*0x017d*/ ai017d,
+	/*0x017d*/ aiAudioSetMusicTrack,
 	/*0x017e*/ ai017e,
 	/*0x017f*/ ai017f,
 	/*0x0180*/ ai0180,

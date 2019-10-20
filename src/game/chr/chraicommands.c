@@ -10353,27 +10353,14 @@ bool aiAudioRestartMusic(void)
 /**
  * @cmd 017d
  */
-GLOBAL_ASM(
-glabel ai017d
-/*  f0585f8:	3c03800a */ 	lui	$v1,0x800a
-/*  f0585fc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f058600:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f058604:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f058608:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05860c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f058610:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f058614:	0fc5b7be */ 	jal	func0f16def8
-/*  f058618:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f05861c:	3c03800a */ 	lui	$v1,0x800a
-/*  f058620:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f058624:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f058628:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05862c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f058630:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f058634:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f058638:	03e00008 */ 	jr	$ra
-/*  f05863c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiAudioSetMusicTrack(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	func0f16def8(cmd[2]);
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 017e
