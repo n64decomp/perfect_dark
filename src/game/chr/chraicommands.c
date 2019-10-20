@@ -10436,61 +10436,20 @@ bool aiIfKillCountGreaterThan(void)
 /**
  * @cmd 01ab
  */
-GLOBAL_ASM(
-glabel ai01ab
-/*  f0587ec:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0587f0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0587f4:	3c10800a */ 	lui	$s0,0x800a
-/*  f0587f8:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f0587fc:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f058800:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f058804:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f058808:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05880c:	0fc2c163 */ 	jal	func0f0b058c
-/*  f058810:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f058814:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f058818:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f05881c:	0302082a */ 	slt	$at,$t8,$v0
-/*  f058820:	1020000a */ 	beqz	$at,.L0f05884c
-/*  f058824:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f058828:	90790003 */ 	lbu	$t9,0x3($v1)
-/*  f05882c:	17200007 */ 	bnez	$t9,.L0f05884c
-/*  f058830:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f058834:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f058838:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f05883c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f058840:	90660004 */ 	lbu	$a2,0x4($v1)
-/*  f058844:	10000015 */ 	beqz	$zero,.L0f05889c
-/*  f058848:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f05884c:
-/*  f05884c:	0fc2c163 */ 	jal	func0f0b058c
-/*  f058850:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f058854:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f058858:	90680002 */ 	lbu	$t0,0x2($v1)
-/*  f05885c:	0048082a */ 	slt	$at,$v0,$t0
-/*  f058860:	5020000c */ 	beqzl	$at,.L0f058894
-/*  f058864:	8e0a0438 */ 	lw	$t2,0x438($s0)
-/*  f058868:	90690003 */ 	lbu	$t1,0x3($v1)
-/*  f05886c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f058870:	55210008 */ 	bnel	$t1,$at,.L0f058894
-/*  f058874:	8e0a0438 */ 	lw	$t2,0x438($s0)
-/*  f058878:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f05887c:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f058880:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f058884:	90660004 */ 	lbu	$a2,0x4($v1)
-/*  f058888:	10000004 */ 	beqz	$zero,.L0f05889c
-/*  f05888c:	ae020438 */ 	sw	$v0,0x438($s0)
-/*  f058890:	8e0a0438 */ 	lw	$t2,0x438($s0)
-.L0f058894:
-/*  f058894:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f058898:	ae0b0438 */ 	sw	$t3,0x438($s0)
-.L0f05889c:
-/*  f05889c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0588a0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0588a4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0588a8:	03e00008 */ 	jr	$ra
-/*  f0588ac:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfNumKnockedOutChrs(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (cmd[2] < func0f0b058c() && cmd[3] == 0) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else if (func0f0b058c() < cmd[2] && cmd[3] == 1) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00fd

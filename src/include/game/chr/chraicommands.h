@@ -392,7 +392,7 @@
 /*0x01a6*/ bool ai01a6(void);
 /*0x01a7*/ bool ai01a7(void);
 /*0x01aa*/ bool ai01aa(void);
-/*0x01ab*/ bool ai01ab(void);
+/*0x01ab*/ bool aiIfNumKnockedOutChrs(void);
 /*0x01ad*/ bool ai01ad(void);
 /*0x01ae*/ bool ai01ae(void);
 /*0x01af*/ bool ai01af(void);
