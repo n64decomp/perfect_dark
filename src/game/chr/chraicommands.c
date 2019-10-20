@@ -14045,7 +14045,7 @@ glabel ai0142
 bool ai0143(void)
 {
 	if (g_Vars.aiddata) {
-		func0f07b0bc(g_Vars.aiddata, 1);
+		func0f07b0bc(g_Vars.aiddata, true);
 	}
 
 	g_Vars.aioffset += 2;
@@ -14056,28 +14056,16 @@ bool ai0143(void)
 /**
  * @cmd 0144
  */
-GLOBAL_ASM(
-glabel ai0144
-/*  f05bdf0:	3c03800a */ 	lui	$v1,0x800a
-/*  f05bdf4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05bdf8:	8c640430 */ 	lw	$a0,0x430($v1)
-/*  f05bdfc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05be00:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05be04:	50800006 */ 	beqzl	$a0,.L0f05be20
-/*  f05be08:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f05be0c:	0fc1ec2f */ 	jal	func0f07b0bc
-/*  f05be10:	00002825 */ 	or	$a1,$zero,$zero
-/*  f05be14:	3c03800a */ 	lui	$v1,0x800a
-/*  f05be18:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05be1c:	8c6e0438 */ 	lw	$t6,0x438($v1)
-.L0f05be20:
-/*  f05be20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05be24:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05be28:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f05be2c:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f05be30:	03e00008 */ 	jr	$ra
-/*  f05be34:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai0144(void)
+{
+	if (g_Vars.aiddata) {
+		func0f07b0bc(g_Vars.aiddata, false);
+	}
+
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 0145
