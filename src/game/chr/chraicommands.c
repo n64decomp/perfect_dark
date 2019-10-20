@@ -11292,57 +11292,24 @@ glabel ai0120
 /*  f059518:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+s32 func0f04ba34(struct chrdata *chr, u16, u32);
+
 /**
  * @cmd 0121
  */
-GLOBAL_ASM(
-glabel ai0121
-/*  f05951c:	3c03800a */ 	lui	$v1,0x800a
-/*  f059520:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f059524:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f059528:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05952c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f059530:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f059534:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f059538:	90f80002 */ 	lbu	$t8,0x2($a3)
-/*  f05953c:	90e80003 */ 	lbu	$t0,0x3($a3)
-/*  f059540:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f059544:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f059548:	03282825 */ 	or	$a1,$t9,$t0
-/*  f05954c:	30a9ffff */ 	andi	$t1,$a1,0xffff
-/*  f059550:	10800014 */ 	beqz	$a0,.L0f0595a4
-/*  f059554:	01202825 */ 	or	$a1,$t1,$zero
-/*  f059558:	8c8a001c */ 	lw	$t2,0x1c($a0)
-/*  f05955c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f059560:	51400011 */ 	beqzl	$t2,.L0f0595a8
-/*  f059564:	8c6b0438 */ 	lw	$t3,0x438($v1)
-/*  f059568:	0fc12e8d */ 	jal	func0f04ba34
-/*  f05956c:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f059570:	3c03800a */ 	lui	$v1,0x800a
-/*  f059574:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f059578:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05957c:	10410009 */ 	beq	$v0,$at,.L0f0595a4
-/*  f059580:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f059584:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f059588:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05958c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f059590:	90e60004 */ 	lbu	$a2,0x4($a3)
-/*  f059594:	3c03800a */ 	lui	$v1,0x800a
-/*  f059598:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05959c:	10000004 */ 	beqz	$zero,.L0f0595b0
-/*  f0595a0:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f0595a4:
-/*  f0595a4:	8c6b0438 */ 	lw	$t3,0x438($v1)
-.L0f0595a8:
-/*  f0595a8:	256c0005 */ 	addiu	$t4,$t3,0x5
-/*  f0595ac:	ac6c0438 */ 	sw	$t4,0x438($v1)
-.L0f0595b0:
-/*  f0595b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0595b4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0595b8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0595bc:	03e00008 */ 	jr	$ra
-/*  f0595c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai0121(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 someshort = cmd[3] | (cmd[2] << 8);
+
+	if (g_Vars.chrdata && g_Vars.chrdata->pos && func0f04ba34(g_Vars.chrdata, someshort, 0) != -1) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0122
