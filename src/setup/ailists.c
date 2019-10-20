@@ -711,7 +711,7 @@ u8 func0006_unalerted[] = {
 	goto_first(LABEL_HEARSPAWN)
 
 	label(0x13)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x7b)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x7b)
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x7a)
 	animation(ANIM_YAWN, 0, 193, 0x1810, CHR_SELF, 2)
@@ -869,7 +869,7 @@ u8 func0007_alerted[] = {
 	// If something, jump to combat
 	label(0x13)
 	unset_self_flag_bankx(CHRFLAG1_01000000, BANK_1)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x13)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -2838,7 +2838,7 @@ u8 func000d_init_combat[] = {
 };
 
 u8 func000c_combat_with_target_chr[] = {
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x16)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
 	dprint 'S','E','E',' ','E','N','E','M','Y','\n',0,
 	if_num_human_players_lt(2, /*goto*/ 0x16)
 	label(0x13)
@@ -2908,7 +2908,7 @@ u8 func000c_combat_with_target_chr[] = {
 	endloop(0x1c)
 
 	label(0x16)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x16)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
 	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	goto_next(0x17)
 
@@ -2961,7 +2961,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_alertness(100, OPERATOR_LESS_THAN, /*goto*/ 0xb3)
 	dprint 'A','L','E','R','T','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0xb3)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x16)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
 	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
@@ -2973,7 +2973,7 @@ u8 func000c_combat_with_target_chr[] = {
 	return
 
 	label(0xb3)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x16)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
 	label(0x13)
 	if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
 	goto_next(0x16)
@@ -3190,7 +3190,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x13)
 	label(0x16)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x17)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x17)
 	goto_next(0x16)
 
 	label(0x17)
@@ -3339,7 +3339,7 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0xca)
 	restart_timer
 	dprint 'T','A','R','S','H','O','\n',0,
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x16)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
 	goto_next(0x17)
 
 	label(0x16)
@@ -3458,7 +3458,7 @@ u8 func000c_combat_with_target_chr[] = {
 	say_quip(CHR_BOND, 0x0f, 0x28, 0x00, 0x01, BANK_0, 0x00, 0x00)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x16)
 	label(0x16)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0xd9)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0xd9)
 	animation(ANIM_YAWN, 0, 193, 0x1810, CHR_SELF, 2)
 
 	beginloop(0xd8)
@@ -3797,7 +3797,7 @@ u8 func000f_hand_combat[] = {
 	label(0x13)
 	dprint 'L','O','O','K',' ','F','O','R',' ','T','A','R','G','E','T','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x0f)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
 	if_chr_distance_gt(120, /*goto*/ 0x13)
 	goto_next(0x10)
 
@@ -3814,7 +3814,7 @@ u8 func000f_hand_combat[] = {
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
 	if_chr_distance_gt(400, /*goto*/ 0x0b)
 	label(0x13)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x0f)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
 	if_chr_distance_lt(120, /*goto*/ LABEL_FACE_TARGET)
 	goto_next(0x10)
 
@@ -3836,7 +3836,7 @@ u8 func000f_hand_combat[] = {
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
 		if_chr_distance_gt(400, /*goto*/ 0x0b)
 		label(0x13)
-		if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x0f)
+		if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
 		if_chr_distance_lt(120, /*goto*/ LABEL_FACE_TARGET)
 		goto_next(0x10)
 
@@ -3846,7 +3846,7 @@ u8 func000f_hand_combat[] = {
 	endloop(0x03)
 
 	label(0x09)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x0f)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
 	if_chr_distance_lt(120, /*goto*/ LABEL_FACE_TARGET)
 	goto_next(0x10)
 
@@ -3859,7 +3859,7 @@ u8 func000f_hand_combat[] = {
 	goto_first(0x03)
 
 	label(0x0a)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x0f)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
 	if_chr_distance_lt(120, /*goto*/ LABEL_FACE_TARGET)
 	goto_next(0x10)
 
@@ -3906,7 +3906,7 @@ u8 func000f_hand_combat[] = {
 
 	label(0x13)
 	add_morale(1)
-	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x17)
+	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x17)
 	goto_next(0x05)
 
 	label(0x17)

@@ -1134,8 +1134,12 @@
 	mkword(chrflag2), \
 	label,
 
-// This is definitely wrong
-#define if_chr_is_dead_maybe(chr, label) \
+#define if_chr_is_human(chr, label) \
+	mkshort(0x011e), \
+	chr, \
+	label,
+
+#define if_chr_is_skedar(chr, label) \
 	mkshort(0x011f), \
 	chr, \
 	label,

@@ -11042,43 +11042,43 @@ bool ai010c(void)
 GLOBAL_ASM(
 glabel ai011e
 /*  f0591c0:	3c03800a */ 	lui	$v1,0x800a
-/*  f0591c4:	24639fc0 */ 	addiu	$v1,$v1,-24640
+/*  f0591c4:	24639fc0 */ 	addiu	$v1,$v1,-24640  # v1 = g_Vars
 /*  f0591c8:	8c6e0434 */ 	lw	$t6,0x434($v1)
 /*  f0591cc:	8c6f0438 */ 	lw	$t7,0x438($v1)
 /*  f0591d0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0591d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0591d8:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f0591dc:	90e50002 */ 	lbu	$a1,0x2($a3)
+/*  f0591d8:	01cf3821 */ 	addu	$a3,$t6,$t7     # a3 = g_Vars.ailist + g_Vars.aioffset
+/*  f0591dc:	90e50002 */ 	lbu	$a1,0x2($a3)        # a1 = cmd[2]
 /*  f0591e0:	afa7001c */ 	sw	$a3,0x1c($sp)
 /*  f0591e4:	0fc126d1 */ 	jal	chrFindById
-/*  f0591e8:	8c640424 */ 	lw	$a0,0x424($v1)
+/*  f0591e8:	8c640424 */ 	lw	$a0,0x424($v1)      # a0 = g_Vars.chrdata
 /*  f0591ec:	3c03800a */ 	lui	$v1,0x800a
-/*  f0591f0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0591f4:	10400012 */ 	beqz	$v0,.L0f059240
+/*  f0591f0:	24639fc0 */ 	addiu	$v1,$v1,-24640  # v1 = g_Vars
+/*  f0591f4:	10400012 */ 	beqz	$v0,.L0f059240  # if (chr == 0) goto 40
 /*  f0591f8:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f0591fc:	8c58001c */ 	lw	$t8,0x1c($v0)
-/*  f059200:	53000010 */ 	beqzl	$t8,.L0f059244
-/*  f059204:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f059208:	10400003 */ 	beqz	$v0,.L0f059218
-/*  f05920c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f059210:	10000001 */ 	beqz	$zero,.L0f059218
-/*  f059214:	904402fe */ 	lbu	$a0,0x2fe($v0)
+/*  f0591fc:	8c58001c */ 	lw	$t8,0x1c($v0)       # t8 = chr->pos
+/*  f059200:	53000010 */ 	beqzl	$t8,.L0f059244  # if (chr->pos == 0) goto 44
+/*  f059204:	8c790438 */ 	lw	$t9,0x438($v1)      # t9 = g_Vars.aioffset
+/*  f059208:	10400003 */ 	beqz	$v0,.L0f059218   # if (v0 == 0) goto 18
+/*  f05920c:	00002025 */ 	or	$a0,$zero,$zero      # a0 = 0
+/*  f059210:	10000001 */ 	beqz	$zero,.L0f059218 # if (true)
+/*  f059214:	904402fe */ 	lbu	$a0,0x2fe($v0)       # a0 = chr->race
 .L0f059218:
-/*  f059218:	5480000a */ 	bnezl	$a0,.L0f059244
-/*  f05921c:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f059220:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f059224:	8c650438 */ 	lw	$a1,0x438($v1)
+/*  f059218:	5480000a */ 	bnezl	$a0,.L0f059244   # if (a0 != 0) goto 44
+/*  f05921c:	8c790438 */ 	lw	$t9,0x438($v1)       # t9 = g_Vars.aioffset
+/*  f059220:	8c640434 */ 	lw	$a0,0x434($v1)       # a0 = g_Vars.ailist
+/*  f059224:	8c650438 */ 	lw	$a1,0x438($v1)       # a1 = g_Vars.aioffset
 /*  f059228:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05922c:	90e60003 */ 	lbu	$a2,0x3($a3)
+/*  f05922c:	90e60003 */ 	lbu	$a2,0x3($a3)         # a2 = cmd[3]
 /*  f059230:	3c03800a */ 	lui	$v1,0x800a
-/*  f059234:	24639fc0 */ 	addiu	$v1,$v1,-24640
+/*  f059234:	24639fc0 */ 	addiu	$v1,$v1,-24640   # v1 = g_Vars
 /*  f059238:	10000004 */ 	beqz	$zero,.L0f05924c
-/*  f05923c:	ac620438 */ 	sw	$v0,0x438($v1)
+/*  f05923c:	ac620438 */ 	sw	$v0,0x438($v1)       # v0 = g_Vars.aioffset
 .L0f059240:
-/*  f059240:	8c790438 */ 	lw	$t9,0x438($v1)
+/*  f059240:	8c790438 */ 	lw	$t9,0x438($v1)       # t9 = g_Vars.aioffset
 .L0f059244:
-/*  f059244:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f059248:	ac680438 */ 	sw	$t0,0x438($v1)
+/*  f059244:	27280004 */ 	addiu	$t0,$t9,0x4      # t9 += 4
+/*  f059248:	ac680438 */ 	sw	$t0,0x438($v1)       # g_Vars.aioffset += 4
 .L0f05924c:
 /*  f05924c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f059250:	27bd0020 */ 	addiu	$sp,$sp,0x20
