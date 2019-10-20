@@ -329,7 +329,7 @@
 /*0x0148*/ bool aiChrSetListening(void);
 /*0x0149*/ bool ai0149(void);
 /*0x014a*/ bool ai014a(void);
-/*0x014b*/ bool ai014b(void);
+/*0x014b*/ bool aiIfNotListening(void);
 /*0x0152*/ bool ai0152(void);
 /*0x0157*/ bool ai0157(void);
 /*0x015b*/ bool aiAudioPlayMusic(void);
