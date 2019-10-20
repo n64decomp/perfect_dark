@@ -445,7 +445,8 @@ bool g_PlayersWithControl[] = {
 	true, true, true, true
 };
 
-u32 var00016780 = 0x00000000;
+bool g_PlayerInvincible = false;
+
 u32 var00016784 = 0x00000000;
 u32 var00016788 = 0x001a001c;
 u32 var0001678c = 0x00200021;

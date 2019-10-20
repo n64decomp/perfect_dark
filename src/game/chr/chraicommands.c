@@ -10097,49 +10097,23 @@ bool ai00f2(void)
 /**
  * @cmd 00f3
  */
-GLOBAL_ASM(
-glabel ai00f3
-/*  f058144:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f058148:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f05814c:	3c10800a */ 	lui	$s0,0x800a
-/*  f058150:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f058154:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f058158:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f05815c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f058160:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f058164:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f058168:	0fc126d1 */ 	jal	chrFindById
-/*  f05816c:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f058170:	50400014 */ 	beqzl	$v0,.L0f0581c4
-/*  f058174:	8e090438 */ 	lw	$t1,0x438($s0)
-/*  f058178:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f05817c:	50600011 */ 	beqzl	$v1,.L0f0581c4
-/*  f058180:	8e090438 */ 	lw	$t1,0x438($s0)
-/*  f058184:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f058188:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f05818c:	5701000d */ 	bnel	$t8,$at,.L0f0581c4
-/*  f058190:	8e090438 */ 	lw	$t1,0x438($s0)
-/*  f058194:	8e19028c */ 	lw	$t9,0x28c($s0)
-/*  f058198:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f05819c:	0fc4a25f */ 	jal	posGetPlayerNum
-/*  f0581a0:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f0581a4:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0581a8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0581ac:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0581b0:	3c018007 */ 	lui	$at,0x8007
-/*  f0581b4:	ac280760 */ 	sw	$t0,0x760($at)
-/*  f0581b8:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0581bc:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0581c0:	8e090438 */ 	lw	$t1,0x438($s0)
-.L0f0581c4:
-/*  f0581c4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0581c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0581cc:	252a0003 */ 	addiu	$t2,$t1,0x3
-/*  f0581d0:	ae0a0438 */ 	sw	$t2,0x438($s0)
-/*  f0581d4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0581d8:	03e00008 */ 	jr	$ra
-/*  f0581dc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+bool aiChrSetInvincible(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->pos && chr->pos->unk00 == 6) {
+		u32 prevplayernum = g_Vars.currentplayernum;
+		u32 playernum = posGetPlayerNum(chr->pos);
+		setCurrentPlayerNum(playernum);
+		g_PlayerInvincible = true;
+		setCurrentPlayerNum(prevplayernum);
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 00f4

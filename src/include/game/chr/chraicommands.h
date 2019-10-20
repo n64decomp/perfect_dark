@@ -243,7 +243,7 @@
 /*0x00f0*/ bool ai00f0(void);
 /*0x00f1*/ bool ai00f1(void);
 /*0x00f2*/ bool ai00f2(void);
-/*0x00f3*/ bool ai00f3(void);
+/*0x00f3*/ bool aiChrSetInvincible(void);
 /*0x00f4*/ bool ai00f4(void);
 /*0x00f5*/ bool ai00f5(void);
 /*0x00f6*/ bool ai00f6(void);
