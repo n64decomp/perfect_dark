@@ -307,7 +307,7 @@
 /*0x0132*/ bool aiSetAction(void);
 /*0x0133*/ bool ai0133(void);
 /*0x0134*/ bool ai0134(void);
-/*0x0135*/ bool ai0135(void);
+/*0x0135*/ bool aiIfHasOrders(void);
 /*0x0136*/ bool ai0136(void);
 /*0x0137*/ bool ai0137(void);
 /*0x0138*/ bool aiIfChannelIdle(void);
