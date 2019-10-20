@@ -10298,27 +10298,14 @@ glabel ai00f8
 /**
  * @cmd 00f9
  */
-GLOBAL_ASM(
-glabel ai00f9
-/*  f0584bc:	3c07800a */ 	lui	$a3,0x800a
-/*  f0584c0:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f0584c4:	8ce30438 */ 	lw	$v1,0x438($a3)
-/*  f0584c8:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f0584cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0584d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0584d4:	246f0005 */ 	addiu	$t7,$v1,0x5
-/*  f0584d8:	acef0438 */ 	sw	$t7,0x438($a3)
-/*  f0584dc:	01c31021 */ 	addu	$v0,$t6,$v1
-/*  f0584e0:	80440002 */ 	lb	$a0,0x2($v0)
-/*  f0584e4:	90450003 */ 	lbu	$a1,0x3($v0)
-/*  f0584e8:	0fc5b816 */ 	jal	func0f16e058
-/*  f0584ec:	90460004 */ 	lbu	$a2,0x4($v0)
-/*  f0584f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0584f4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0584f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0584fc:	03e00008 */ 	jr	$ra
-/*  f058500:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiAudioPlayXMusic(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.aioffset += 5;
+	func0f16e058((s8)cmd[2], cmd[3], cmd[4]);
+
+	return false;
+}
 
 /**
  * @cmd 00fa
