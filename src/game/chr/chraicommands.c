@@ -11017,62 +11017,24 @@ bool aiChrSetTeam(void)
 /**
  * @cmd 010c
  */
-GLOBAL_ASM(
-glabel ai010c
-/*  f0590fc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f059100:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f059104:	3c10800a */ 	lui	$s0,0x800a
-/*  f059108:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f05910c:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f059110:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f059114:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f059118:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05911c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f059120:	afb80024 */ 	sw	$t8,0x24($sp)
-/*  f059124:	0fc126d1 */ 	jal	chrFindById
-/*  f059128:	240500fc */ 	addiu	$a1,$zero,0xfc
-/*  f05912c:	10400009 */ 	beqz	$v0,.L0f059154
-/*  f059130:	00402025 */ 	or	$a0,$v0,$zero
-/*  f059134:	8c590020 */ 	lw	$t9,0x20($v0)
-/*  f059138:	5720000e */ 	bnezl	$t9,.L0f059174
-/*  f05913c:	8faa0024 */ 	lw	$t2,0x24($sp)
-/*  f059140:	8c48001c */ 	lw	$t0,0x1c($v0)
-/*  f059144:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f059148:	91090000 */ 	lbu	$t1,0x0($t0)
-/*  f05914c:	51210009 */ 	beql	$t1,$at,.L0f059174
-/*  f059150:	8faa0024 */ 	lw	$t2,0x24($sp)
-.L0f059154:
-/*  f059154:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f059158:	0fc12b0e */ 	jal	chrSetChrPreset
-/*  f05915c:	240500f8 */ 	addiu	$a1,$zero,0xf8
-/*  f059160:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f059164:	0fc126d1 */ 	jal	chrFindById
-/*  f059168:	240500fc */ 	addiu	$a1,$zero,0xfc
-/*  f05916c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f059170:	8faa0024 */ 	lw	$t2,0x24($sp)
-.L0f059174:
-/*  f059174:	8e050424 */ 	lw	$a1,0x424($s0)
-/*  f059178:	0fc12aa3 */ 	jal	func0f04aa8c
-/*  f05917c:	91460002 */ 	lbu	$a2,0x2($t2)
-/*  f059180:	10400007 */ 	beqz	$v0,.L0f0591a0
-/*  f059184:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*  f059188:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f05918c:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f059190:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f059194:	91660003 */ 	lbu	$a2,0x3($t3)
-/*  f059198:	10000004 */ 	beqz	$zero,.L0f0591ac
-/*  f05919c:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f0591a0:
-/*  f0591a0:	8e0c0438 */ 	lw	$t4,0x438($s0)
-/*  f0591a4:	258d0004 */ 	addiu	$t5,$t4,0x4
-/*  f0591a8:	ae0d0438 */ 	sw	$t5,0x438($s0)
-.L0f0591ac:
-/*  f0591ac:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0591b0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0591b4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0591b8:	03e00008 */ 	jr	$ra
-/*  f0591bc:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai010c(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, FOLLOW_CHR);
+
+	if (!chr || (!chr->unk020 && chr->pos->unk00 != 6)) {
+		chrSetChrPreset(g_Vars.chrdata, CHR_JOANNA);
+		chr = chrFindById(g_Vars.chrdata, FOLLOW_CHR);
+	}
+
+	if (func0f04aa8c(chr, g_Vars.chrdata, cmd[2])) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 011e
