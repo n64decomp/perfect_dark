@@ -13654,22 +13654,14 @@ glabel ai013a
 /**
  * @cmd 013b
  */
-GLOBAL_ASM(
-glabel ai013b
-/*  f05b814:	3c04800a */ 	lui	$a0,0x800a
-/*  f05b818:	24849fc0 */ 	addiu	$a0,$a0,-24640
-/*  f05b81c:	8c8e0434 */ 	lw	$t6,0x434($a0)
-/*  f05b820:	8c8f0438 */ 	lw	$t7,0x438($a0)
-/*  f05b824:	8c990424 */ 	lw	$t9,0x424($a0)
-/*  f05b828:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05b82c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05b830:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f05b834:	a33802a2 */ 	sb	$t8,0x2a2($t9)
-/*  f05b838:	8c880438 */ 	lw	$t0,0x438($a0)
-/*  f05b83c:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f05b840:	03e00008 */ 	jr	$ra
-/*  f05b844:	ac890438 */ 	sw	$t1,0x438($a0)
-);
+bool aiSetSquadron(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.chrdata->squadron = cmd[2];
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 013c
