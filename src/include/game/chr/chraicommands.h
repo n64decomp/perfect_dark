@@ -332,7 +332,7 @@
 /*0x014b*/ bool ai014b(void);
 /*0x0152*/ bool ai0152(void);
 /*0x0157*/ bool ai0157(void);
-/*0x015b*/ bool ai015b(void);
+/*0x015b*/ bool aiAudioPlayMusic(void);
 /*0x015c*/ bool ai015c(void);
 /*0x0165*/ bool ai0165(void);
 /*0x0166*/ bool ai0166(void);

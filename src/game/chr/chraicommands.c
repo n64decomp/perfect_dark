@@ -10322,43 +10322,22 @@ bool aiAudioStopChannel(void)
 /**
  * @cmd 015b
  */
-GLOBAL_ASM(
-glabel ai015b
-/*  f058544:	3c02800a */ 	lui	$v0,0x800a
-/*  f058548:	24429fc0 */ 	addiu	$v0,$v0,-24640
-/*  f05854c:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f058550:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f058554:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f058558:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05855c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f058560:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f058564:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f058568:	1481000b */ 	bne	$a0,$at,.L0f058598
-/*  f05856c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f058570:	0fc54bd4 */ 	jal	func0f152f50
-/*  f058574:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f058578:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f05857c:	a7a2001a */ 	sh	$v0,0x1a($sp)
-/*  f058580:	0fc5b783 */ 	jal	func0f16de0c
-/*  f058584:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f058588:	0fc54bdc */ 	jal	func0f152f70
-/*  f05858c:	97a4001a */ 	lhu	$a0,0x1a($sp)
-/*  f058590:	10000003 */ 	beqz	$zero,.L0f0585a0
-/*  f058594:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f058598:
-/*  f058598:	0fc5b783 */ 	jal	func0f16de0c
-/*  f05859c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0585a0:
-/*  f0585a0:	3c18800a */ 	lui	$t8,0x800a
-/*  f0585a4:	8f18a3f8 */ 	lw	$t8,-0x5c08($t8)
-/*  f0585a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0585ac:	3c01800a */ 	lui	$at,0x800a
-/*  f0585b0:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f0585b4:	ac39a3f8 */ 	sw	$t9,-0x5c08($at)
-/*  f0585b8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0585bc:	03e00008 */ 	jr	$ra
-/*  f0585c0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiAudioPlayMusic(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (cmd[2] == MUSIC_CI_TRAINING) {
+		u16 something = func0f152f50();
+		func0f16de0c(cmd[2]);
+		func0f152f70(something);
+	} else {
+		func0f16de0c(cmd[2]);
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 015c

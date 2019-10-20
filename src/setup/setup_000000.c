@@ -14300,7 +14300,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0158*/ NULL,
 	/*0x0159*/ NULL,
 	/*0x015a*/ NULL,
-	/*0x015b*/ ai015b,
+	/*0x015b*/ aiAudioPlayMusic,
 	/*0x015c*/ ai015c,
 	/*0x015d*/ NULL,
 	/*0x015e*/ NULL,
