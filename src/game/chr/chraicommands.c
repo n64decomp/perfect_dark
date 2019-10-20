@@ -12097,29 +12097,16 @@ bool ai012c(void)
 /**
  * @cmd 012f
  */
-GLOBAL_ASM(
-glabel ai012f
-/*  f05a20c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05a210:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05a214:	8c6e0424 */ 	lw	$t6,0x424($v1)
-/*  f05a218:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05a21c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05a220:	85c40292 */ 	lh	$a0,0x292($t6)
-/*  f05a224:	04820006 */ 	bltzl	$a0,.L0f05a240
-/*  f05a228:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05a22c:	0fc45929 */ 	jal	func0f1164a4
-/*  f05a230:	00002825 */ 	or	$a1,$zero,$zero
-/*  f05a234:	3c03800a */ 	lui	$v1,0x800a
-/*  f05a238:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05a23c:	8c6f0438 */ 	lw	$t7,0x438($v1)
-.L0f05a240:
-/*  f05a240:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05a244:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05a248:	25f80002 */ 	addiu	$t8,$t7,0x2
-/*  f05a24c:	ac780438 */ 	sw	$t8,0x438($v1)
-/*  f05a250:	03e00008 */ 	jr	$ra
-/*  f05a254:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai012f(void)
+{
+	if (g_Vars.chrdata->cover >= 0) {
+		func0f1164a4(g_Vars.chrdata->cover, 0);
+	}
+
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 0130
