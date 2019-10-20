@@ -10873,6 +10873,8 @@ glabel ai0108
 /*  f058f34:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+bool func0f04a79c(u8 chrnum, struct chrdata *chr, float distance);
+
 /**
  * @cmd 0109
  */
@@ -10923,6 +10925,21 @@ glabel ai0109
 /*  f058fd8:	03e00008 */ 	jr	$ra
 /*  f058fdc:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because it uses different float registers.
+//bool ai0109(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	float distance = cmd[4] | (cmd[3] << 8);
+//
+//	if (func0f04a79c(cmd[2], g_Vars.chrdata, distance * 10)) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+//	} else {
+//		g_Vars.aioffset += 6;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 010a
