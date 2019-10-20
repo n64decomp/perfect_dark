@@ -82,7 +82,7 @@ u8 func0006_unalerted[] = {
 
 	// Injured or has no gun
 	label(0x16)
-	say_quip(CHR_JOANNA, 0x0c, 0x78, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, 0x0c, 0x78, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
 	dprint 'N','O','G','U','N',',','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x06)
 	unset_self_flag_bankx(CHRFLAG1_DOINGIDLEANIMATION, BANK_1)
@@ -105,16 +105,16 @@ u8 func0006_unalerted[] = {
 	label(0x06)
 	dprint 'B','E','E','N',' ','S','H','O','T','\n',0,
 	// if 01000000, set 04000000
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_01000000, /*goto*/ 0x14)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_01000000, /*goto*/ 0x14)
 	goto_next(0x13)
 
 	label(0x14)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_04000000)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_04000000)
 
 	// Stop chr, either immediately or by waiting for their animation to end.
 	// I think the animation is their injured animation.
 	label(0x13)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
 	if_chr_idle(/*goto*/ 0x13)
 	goto_next(0x03)
 
@@ -130,7 +130,7 @@ u8 func0006_unalerted[] = {
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_WARNED, TRUE, BANK_1, /*goto*/ LABEL_SCAN_START)
 
-	say_quip(CHR_JOANNA, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
 	dprint 'N','O',' ','W','A','R','N','I','N','G','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_CANT_ALERT_GROUP, TRUE, BANK_0, /*goto*/ 0x13)
 	set_squadron_alertness(100)
@@ -289,33 +289,33 @@ u8 func0006_unalerted[] = {
 	// Handle seeing player
 	label(LABEL_SEE_DETECT)
 	dprint 'S','E','E',' ','D','E','T','E','C','T','\n',0,
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISE_UNCOVERED, /*goto*/ LABEL_DISGUISE_UNCOVERED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISE_UNCOVERED, /*goto*/ LABEL_DISGUISE_UNCOVERED)
 	label(0x13)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000, /*goto*/ 0x14)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000, /*goto*/ 0x14)
 	goto_next(0x13)
 
 	label(0x14)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_NONE, /*goto*/ 0x15)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_UNARMED, /*goto*/ 0x15)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_COMBATBOOST, /*goto*/ 0x15)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_HORIZONSCANNER, /*goto*/ 0x15)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_SUITCASE, /*goto*/ 0x15)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x15)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x15)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_COMBATBOOST, /*goto*/ 0x15)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_HORIZONSCANNER, /*goto*/ 0x15)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_SUITCASE, /*goto*/ 0x15)
 	if_chr_in_view(/*goto*/ LABEL_DISGUISE_UNCOVERED)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_04000000, /*goto*/ LABEL_DISGUISE_UNCOVERED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_04000000, /*goto*/ LABEL_DISGUISE_UNCOVERED)
 
 	label(0x15)
 	dprint 'N','O','T',' ','A','I','M','I','N','G',' ','A','T',' ','M','E','\n',0,
 
 	label(0x13)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
 	goto_next(LABEL_DISGUISE_UNCOVERED)
 
 	label(0x13)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_NONE, /*goto*/ 0x15)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_UNARMED, /*goto*/ 0x15)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_COMBATBOOST, /*goto*/ 0x15)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_HORIZONSCANNER, /*goto*/ 0x15)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_SUITCASE, /*goto*/ 0x15)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x15)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x15)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_COMBATBOOST, /*goto*/ 0x15)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_HORIZONSCANNER, /*goto*/ 0x15)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_SUITCASE, /*goto*/ 0x15)
 	goto_next(0x14)
 
 	label(0x15)
@@ -323,15 +323,15 @@ u8 func0006_unalerted[] = {
 	goto_next(0xea)
 
 	label(0x14)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000, /*goto*/ 0xe8)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_01000000, /*goto*/ 0xe8)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000, /*goto*/ 0xe8)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_01000000, /*goto*/ 0xe8)
 
 	label(0xea)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_NONE, /*goto*/ 0xe6)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_UNARMED, /*goto*/ 0xe6)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_COMBATBOOST, /*goto*/ 0xe6)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_HORIZONSCANNER, /*goto*/ 0xe6)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_SUITCASE, /*goto*/ 0xe6)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0xe6)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0xe6)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_COMBATBOOST, /*goto*/ 0xe6)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_HORIZONSCANNER, /*goto*/ 0xe6)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_SUITCASE, /*goto*/ 0xe6)
 	dprint 'T','A','L','K',' ','D','I','S','T',' ','G','U','N','\n',0,
 	if_chr_distance_gt(900, /*goto*/ 0x15)
 	goto_next(0xe8)
@@ -363,18 +363,18 @@ u8 func0006_unalerted[] = {
 	if_near_miss(/*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_UNSURPRISABLE, TRUE, BANK_0, /*goto*/ 0x94)
 	label(0x16)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x14)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x14)
 	if_any_chr_doing_action(ACTION_WARN_OTHERS, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_RUN_FOR_ALARM, TRUE, BANK_0, /*goto*/ 0x9f)
 	label(0x16)
-	say_quip(CHR_JOANNA, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
+	say_quip(CHR_BOND, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
 	label(0x9f)
 	set_squadron_alertness(100)
 	goto_next(0x77)
 
 	label(0xdb) // jumped to from below
 	label(0x14)
-	say_quip(CHR_JOANNA, 0x20, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Imposter!","It's a spy!"
+	say_quip(CHR_BOND, 0x20, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Imposter!","It's a spy!"
 	set_squadron_alertness(100)
 	goto_next(0x77)
 
@@ -383,15 +383,15 @@ u8 func0006_unalerted[] = {
 	yield
 	yield
 	dprint 'S','3',0,
-	say_quip(CHR_JOANNA, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
 	set_squadron_alertness(100)
 	goto_next(0x77)
 
 	label(0x94)
 	label(0x16)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_PSYCHOSISED)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_PSYCHOSISED)
 	dprint 'S','U','R','P','R','I','S','E','D','!','\n',0,
-	say_quip(CHR_JOANNA, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
+	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x16)
 	if_chr_idle_action_eq(IDLEACTION_SITTING_TYPING, /*goto*/ 0x13)
@@ -424,7 +424,7 @@ u8 func0006_unalerted[] = {
 	yield
 	dprint 'S','7',0,
 	dprint 'H','E','A','R','D','E','T','E','C','T','\n',0,
-	say_quip(CHR_JOANNA, 0x09, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Did you hear that?","What's that noise?","I heard a noise..."
+	say_quip(CHR_BOND, 0x09, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Did you hear that?","What's that noise?","I heard a noise..."
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_HEARSPAWN, TRUE, BANK_0, /*goto*/ LABEL_HEARSPAWN)
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x80)
@@ -482,31 +482,31 @@ u8 func0006_unalerted[] = {
 	//
 	label(LABEL_NEAR_MISS)
 	increase_self_alertness(100)
-	say_quip(CHR_JOANNA, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
-	set_target_chr(CHR_JOANNA)
+	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	set_target_chr(CHR_BOND)
 	if_within_units_of_sight(30, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
 	goto_next(0x94)
 
 	label(0x16)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x16)
-	set_target_chr(CHR_VELVET)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x16)
+	set_target_chr(CHR_COOP)
 	if_within_units_of_sight(30, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
 	goto_next(0x94)
 
 	label(0x16)
@@ -521,7 +521,7 @@ u8 func0006_unalerted[] = {
 	label(0x94)
 	label(0x16)
 	dprint 'S','U','R','P','R','I','S','E','D','!','\n',0,
-	say_quip(CHR_JOANNA, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
+	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x76)
 	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
@@ -533,7 +533,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x17)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_EXAMINE_BODY, FALSE, BANK_0, /*goto*/ 0x7d)
-	try_run_to_chr_with_hand_up(CHR_FRIEND, /*goto*/ 0x7e)
+	try_run_to_chr_with_hand_up(CHR_SEEDIE, /*goto*/ 0x7e)
 	dprint 'W','A','L','K','F','A','I','L','\n',0,
 
 	beginloop(0x7e)
@@ -545,7 +545,7 @@ u8 func0006_unalerted[] = {
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x13)
 		if_target_chr_in_sight(/*goto*/ 0x16)
 		label(0x13)
-		if_self_distance_to_chr_lt(150, CHR_FRIEND, /*goto*/ 0x7f)
+		if_self_distance_to_chr_lt(150, CHR_SEEDIE, /*goto*/ 0x7f)
 		if_chr_stopped(/*goto*/ 0x7f)
 	endloop(0x7e)
 
@@ -570,7 +570,7 @@ u8 func0006_unalerted[] = {
 		label(0x13)
 		if_self_flag_bankx_eq(CHRFLAG0_CAN_EXAMINE_BODY, FALSE, BANK_0, /*goto*/ 0x13)
 		if_timer_lt(120, /*goto*/ 0x13)
-		say_quip(CHR_JOANNA, 0x13, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Are you okay?","Got a man down!","He's bought it..."
+		say_quip(CHR_BOND, 0x13, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Are you okay?","Got a man down!","He's bought it..."
 		unset_self_flag_bankx(CHRFLAG0_CAN_EXAMINE_BODY, BANK_0)
 		label(0x13)
 		if_timer_gt(600, /*goto*/ 0x7d)
@@ -579,37 +579,37 @@ u8 func0006_unalerted[] = {
 	// Heard gunfire
 	label(0x16)
 	set_alertness(100)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
 	goto_first(LABEL_SCAN_START)
 
 	// Saw player
 	label(0x17)
 	set_alertness(100)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
 	goto_first(LABEL_SCAN_START)
 
 	// Examination finished
 	label(0x7d)
 	dprint 'E','X','A','M',' ','B','O','D','Y','D','O','N','E','\n',0,
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	if_within_units_of_sight(30, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
 	set_alertness(100)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
 	goto_first(0xdb)
 
 	// Can't see Jonna
 	label(0x16)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x16)
-	set_target_chr(CHR_VELVET)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x16)
+	set_target_chr(CHR_COOP)
 	if_within_units_of_sight(30, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
 	set_alertness(100)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
 	goto_first(0xdb)
 
 	label(0x16)
@@ -741,7 +741,7 @@ u8 func0006_unalerted[] = {
 	label(0x13)
 	dprint 'W','A','R','N','E','D','B','E','N','D','3','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_UNSURPRISABLE, FALSE, BANK_0, /*goto*/ 0x77)
-	say_quip(CHR_JOANNA, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
+	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x75)
 	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
@@ -780,7 +780,7 @@ u8 unregistered_function1[] = {
 };
 
 u8 func0008_wakeup[] = {
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_PSYCHOSISED)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_PSYCHOSISED)
 	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
@@ -853,7 +853,7 @@ u8 func0007_alerted[] = {
 #define LABEL_SNIPE         0xde
 #define LABEL_FLEE_GRENADE  0xe4
 
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_PSYCHOSISED)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_PSYCHOSISED)
 	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
@@ -873,7 +873,7 @@ u8 func0007_alerted[] = {
 	goto_next(0x16)
 
 	label(0x13)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	// is_chr_is_dead_maybe (named wrong) was false
 	label(0x16)
@@ -901,7 +901,7 @@ u8 func0007_alerted[] = {
 	endloop(0x1c)
 
 	label(0x16)
-	say_quip(CHR_JOANNA, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "You bitch!","Oh... my... god","She got me"
+	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "You bitch!","Oh... my... god","She got me"
 	set_onshot_function(GFUNC_IDLE)
 	set_function(CHR_SELF, GFUNC_IDLE)
 
@@ -930,8 +930,8 @@ u8 func0007_alerted[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x16)
 		if_num_times_shot_lt(1, /*goto*/ 0x16)
 		if_timer_lt(20, /*goto*/ 0x16)
-		say_quip(CHR_JOANNA, 0x0d, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Medic!","Help!","You shot me?!"
-		say_quip(CHR_JOANNA, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00) // "I'm hit, I'm hit!","I'm taking fire!","Taking damage!"
+		say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Medic!","Help!","You shot me?!"
+		say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00) // "I'm hit, I'm hit!","I'm taking fire!","Taking damage!"
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x16)
 		if_timer_gt(180, /*goto*/ 0x13)
@@ -947,7 +947,7 @@ u8 func0007_alerted[] = {
 	dprint 'L','O','S','T',' ','M','Y',' ','G','U','N','\n',0,
 	label(0xac)
 	set_chr_dodge_rating(2, 0x00)
-	say_quip(CHR_JOANNA, 0x21, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "My gun!"
+	say_quip(CHR_BOND, 0x21, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "My gun!"
 	stop_chr
 	restart_timer
 	yield
@@ -1067,7 +1067,7 @@ u8 func0007_alerted[] = {
 	yield
 	label(0x16)
 	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_00002000, /*goto*/ 0x13)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x01)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x01)
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ LABEL_TRACK)
 	dprint 'C','H','E','C','K','I','N','J','U','R','Y','E','N','D','\n',0,
@@ -1080,7 +1080,7 @@ u8 func0007_alerted[] = {
 
 	// No need to warn
 	label(0x16)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	goto_next(0x16)
 
 	// Unreachable - nothing jumps here
@@ -1100,11 +1100,11 @@ u8 func0007_alerted[] = {
 	goto_next(0x93)
 
 	label(0x13)
-	say_quip(CHR_JOANNA, 0x07, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Wipe the target!","Let's split up!","Surround her!"
+	say_quip(CHR_BOND, 0x07, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Wipe the target!","Let's split up!","Surround her!"
 	goto_next(LABEL_FLANK_LEFT)
 
 	label(0x15)
-	say_quip(CHR_JOANNA, 0x07, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Wipe the target!","Let's split up!","Surround her!"
+	say_quip(CHR_BOND, 0x07, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Wipe the target!","Let's split up!","Surround her!"
 	goto_next(LABEL_FLANK_RIGHT)
 
 	// Attempt trap (hide and ambush when player gets near)
@@ -1169,7 +1169,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	dprint 'A','T',' ','T','R','A','P',' ','P','A','D','\n',0,
 	label(0x9b)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x03)
 
 	beginloop(0x03)
@@ -1222,14 +1222,14 @@ u8 func0007_alerted[] = {
 
 	label(0xee)
 	if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
-	set_return_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_return_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	label(0x13)
 	dprint 'A','M','B','U','S','H',' ','P','L','A','Y','E','R','\n',0,
 	set_accuracy(30)
 	set_self_flag_bankx(CHRFLAG0_02000000, BANK_0)
-	say_quip(CHR_JOANNA, 0x01, 0x50, 0x02, 0x01, BANK_0, 0x00, 0x00) // "Open fire!","Wipe her out!","Waste her!"
+	say_quip(CHR_BOND, 0x01, 0x50, 0x02, 0x01, BANK_0, 0x00, 0x00) // "Open fire!","Wipe her out!","Waste her!"
 	goto_first(0x1b)
 
 	label(0xa3)
@@ -1261,7 +1261,7 @@ u8 func0007_alerted[] = {
 	label(0xa7)
 	dprint 'U','N','D','E','R',' ','P','O','P','P','E','R','\n',0,
 	label(0xa8)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0xa9)
 
 	beginloop(0xa9)
@@ -1298,7 +1298,7 @@ u8 func0007_alerted[] = {
 	endloop(0xab)
 
 	label(0x13)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x13)
 	goto_first(0xa8)
 
@@ -1370,7 +1370,7 @@ u8 func0007_alerted[] = {
 
 	label(0x13)
 	restart_timer
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	cmd01ba(0x0022, 0x0000, /*goto*/ 0xdf)
 
 	beginloop(0xdf)
@@ -1491,13 +1491,13 @@ u8 func0007_alerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
 	set_orders(ACTION_SYNC_SHOOT, /*goto*/ 0x16)
 	label(0x16)
-	say_quip(CHR_JOANNA, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	restart_timer
 	cmd0124_run_for_cover_maybe(ACTION_UNDER_COVER)
 
 	beginloop(0x55)
 		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 		if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -1521,12 +1521,12 @@ u8 func0007_alerted[] = {
 	set_self_flag_bankx(CHRFLAG0_00000010, BANK_0)
 	dprint 'U','N','D','E','R',' ','C','O','V','E','R','\n',0,
 	label(0x58)
-	set_follow_chr(TARGET_CHR)
+	set_follow_chr(CHR_TARGET)
 	restart_timer
 	set_action(ACTION_UNDER_COVER, TRUE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x59)
 
 	beginloop(0x59)
@@ -1542,7 +1542,7 @@ u8 func0007_alerted[] = {
 	endloop(0x59)
 
 	label(0x61)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	dprint 'B','R','E','A','K',' ','C','O','V','E','R','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_00008000, TRUE, BANK_0, /*goto*/ 0x66)
 	label(0x16)
@@ -1614,7 +1614,7 @@ u8 func0007_alerted[] = {
 	if_in_disarm_range(/*goto*/ 0x26)
 	goto_next(0x87)
 
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 	if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -1635,7 +1635,7 @@ u8 func0007_alerted[] = {
 	goto_next(0x48)
 
 	label(0x13)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	call_rng
 	if_rand_lt(10, /*goto*/ 0x57)
 	if_rand_gt(64, /*goto*/ 0x16)
@@ -1674,7 +1674,7 @@ u8 func0007_alerted[] = {
 	endloop(0x60)
 
 	label(0x57)
-	say_quip(CHR_JOANNA, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	do_special_animation(-2)
 	goto_next(0xe8)
 
@@ -1772,7 +1772,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x30)
 		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 		if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -1865,7 +1865,7 @@ u8 func0007_alerted[] = {
 	set_orders(ACTION_THROW_GRENADE, /*goto*/ 0x47)
 
 	beginloop(0x47)
-		say_quip(CHR_JOANNA, 0x05, 0xff, 0x07, 0x00, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, 0x05, 0xff, 0x07, 0x00, BANK_0, 0x00, 0x00)
 		if_chr_stopped(/*goto*/ 0x4a)
 	endloop(0x47)
 
@@ -1904,7 +1904,7 @@ u8 func0007_alerted[] = {
 	set_action(ACTION_WAIT, TRUE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x40)
 
 	beginloop(0x40)
@@ -1964,7 +1964,7 @@ u8 func0007_alerted[] = {
 	endloop(0x89)
 
 	label(0x8a)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 	if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -1985,7 +1985,7 @@ u8 func0007_alerted[] = {
 	goto_first(0x48)
 
 	label(0x13)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	call_rng
 	if_rand_lt(10, /*goto*/ 0x57)
 	if_rand_gt(64, /*goto*/ 0x16)
@@ -2024,7 +2024,7 @@ u8 func0007_alerted[] = {
 	endloop(0x43)
 
 	label(0x57)
-	say_quip(CHR_JOANNA, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	do_special_animation(-2)
 	goto_next(0xe9)
 
@@ -2034,13 +2034,13 @@ u8 func0007_alerted[] = {
 	set_accuracy(0)
 	label(0x13)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x13)
-	say_quip(CHR_JOANNA, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	goto_next(0x16)
 
 	label(0x13)
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	label(0x16)
 	call_rng
 	if_rand_lt(20, /*goto*/ 0x16)
@@ -2085,7 +2085,7 @@ u8 func0007_alerted[] = {
 	endloop(0x4f)
 
 	label(0x50)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 	if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -2102,7 +2102,7 @@ u8 func0007_alerted[] = {
 
 	label(0x13)
 	cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	goto_next(0x16)
 
 	label(0x13)
@@ -2148,7 +2148,7 @@ u8 func0007_alerted[] = {
 	goto_first(0x1b)
 
 	label(LABEL_TRACK)
-	set_follow_chr(TARGET_CHR)
+	set_follow_chr(CHR_TARGET)
 	dprint 'T','R','A','C','K','\n',0,
 	set_action(ACTION_FOLLOW, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
@@ -2159,10 +2159,10 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x35)
 		if_chr_flag_bank2(CHR_SELF, CHRFLAG2_00002000, /*goto*/ 0x13)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x01)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x01)
 		label(0x13)
 		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 		if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -2201,7 +2201,7 @@ u8 func0007_alerted[] = {
 		label(0x16)
 		if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
 		set_return_function(CHR_SELF, GFUNC_UNALERTED)
-		set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+		set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 		label(0x13)
 		if_chr_distance_gt(1300, /*goto*/ 0x3c)
@@ -2238,11 +2238,11 @@ u8 func0007_alerted[] = {
 
 	label(0x13)
 	dprint 'C','O','M','P','L','E','T','E','D','\n',0,
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	goto_first(0xf7)
 
 	label(0x36)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	dprint 'E','N','D',' ','T','R','A','C','K','\n',0,
 	set_alertness(0)
 	set_return_function(CHR_SELF, GFUNC_ALERTED)
@@ -2269,7 +2269,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x85)
 		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 		if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -2294,7 +2294,7 @@ u8 func0007_alerted[] = {
 
 	label(0x26)
 	dprint 'I','C','A','N','S','E',' ','P','L','A','Y','E','R','\n',0,
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 	if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -2321,7 +2321,7 @@ u8 func0007_alerted[] = {
 	goto_first(0x48)
 
 	label(0x13)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	call_rng
 	if_rand_lt(10, /*goto*/ 0x57)
 	if_rand_gt(64, /*goto*/ 0x16)
@@ -2361,8 +2361,8 @@ u8 func0007_alerted[] = {
 	goto_next(0x67)
 
 	label(0x44)
-	say_quip(CHR_JOANNA, 0x00, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x01, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x00, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x01, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
 	beginloop(0x45)
 		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
@@ -2370,7 +2370,7 @@ u8 func0007_alerted[] = {
 	endloop(0x45)
 
 	label(0x57)
-	say_quip(CHR_JOANNA, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	do_special_animation(-2)
 	goto_next(0xea)
 	label(0x2a)
@@ -2379,13 +2379,13 @@ u8 func0007_alerted[] = {
 	set_accuracy(0)
 	label(0x13)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x13)
-	say_quip(CHR_JOANNA, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	goto_next(0x16)
 
 	label(0x13)
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	label(0x16)
 	call_rng
 	if_rand_lt(20, /*goto*/ 0x16)
@@ -2461,7 +2461,7 @@ u8 func0007_alerted[] = {
 	set_action(ACTION_RETREAT, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
-	say_quip(CHR_JOANNA, 0x04, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00) // "Go to plan B","Get the hell out of here!","Retreat!"
+	say_quip(CHR_BOND, 0x04, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00) // "Go to plan B","Get the hell out of here!","Retreat!"
 	try_set_target_chr_to_teammate(/*goto*/ 0x95)
 	if_self_flag_bankx_eq(CHRFLAG1_00000002, TRUE, BANK_1, /*goto*/ 0x16)
 	label(0x16)
@@ -2507,7 +2507,7 @@ u8 func0007_alerted[] = {
 	set_action(ACTION_SURRENDER, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
-	say_quip(CHR_JOANNA, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00) // "Please! Don't shoot me!","I give up!","You win! I surrender"
+	say_quip(CHR_BOND, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00) // "Please! Don't shoot me!","I give up!","You win! I surrender"
 	restart_timer
 	surrender
 
@@ -2530,26 +2530,26 @@ u8 func0007_alerted[] = {
 	goto_first(0x71)
 
 	label(0x72)
-	say_quip(CHR_JOANNA, 0x08, 0x23, 0x0a, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x08, 0x23, 0x0a, 0x00, BANK_0, 0x00, 0x00)
 	restart_timer
 	goto_first(0x71)
 
 	label(0x95)
 	unset_self_flag_bankx(CHRFLAG0_CAN_RETREAT, BANK_0)
 	unset_self_flag_bankx(CHRFLAG0_CANT_ALERT_GROUP, BANK_0)
-	try_run_to_chr(FOLLOW_CHR, /*goto*/ 0x96)
+	try_run_to_chr(CHR_PRESET, /*goto*/ 0x96)
 
 	beginloop(0x96)
 		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
-		if_chr_death_animation_finished(FOLLOW_CHR, /*goto*/ 0x84)
-		if_chr_unloaded(FOLLOW_CHR, /*goto*/ 0x84)
-		if_detected_chr(FOLLOW_CHR, /*goto*/ 0x97)
+		if_chr_death_animation_finished(CHR_PRESET, /*goto*/ 0x84)
+		if_chr_unloaded(CHR_PRESET, /*goto*/ 0x84)
+		if_detected_chr(CHR_PRESET, /*goto*/ 0x97)
 		if_chr_stopped(/*goto*/ 0x97)
 	endloop(0x96)
 
 	label(0x97)
 	dprint 'W','A','R','N',' ','F','R','I','E','N','D','S','\n',0,
-	say_quip(CHR_JOANNA, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	set_squadron_alertness(100)
 	label(0x84)
 	goto_first(0x1b)
@@ -2564,7 +2564,7 @@ u8 func0007_alerted[] = {
 	set_action(ACTION_WARN_OTHERS, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
-	say_quip(CHR_JOANNA, 0x22, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Trigger the alarm"
+	say_quip(CHR_BOND, 0x22, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Trigger the alarm"
 	go_to_target_pad(SPEED_JOG)
 
 	beginloop(0x9d)
@@ -2723,7 +2723,7 @@ u8 func000a_do_idle_animation[] = {
 
 	label(0x12)
 	set_return_function(CHR_SELF, GFUNC_UNALERTED)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
@@ -2745,18 +2745,18 @@ u8 func000a_do_idle_animation[] = {
  * If both fail, the function yields and continues checking.
  */
 u8 func000b_choose_target_chr[] = {
-	set_onshot_function(GFUNC_CHOOSE_TARGET_CHR)
+	set_onshot_function(GFUNC_CHOOSE_TARGET)
 	if_num_times_shot_lt(1, /*goto*/ 0xd3)
 
 	// Has been shot
-	say_quip(CHR_JOANNA, 0x0c, 0x78, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, 0x0c, 0x78, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
 
 	beginloop(0x03)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0x03)
 
 	label(0x16)
-	say_quip(CHR_JOANNA, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
 	dprint 'N','O',' ','W','A','R','N','I','N','G','\n',0,
 	set_squadron_alertness(100)
 	dprint 'N','O',' ','W','A','R','N','I','N','G','\n',0,
@@ -2764,7 +2764,7 @@ u8 func000b_choose_target_chr[] = {
 	goto_next(0xd3)
 
 	label(0x13)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	// Hasn't been shot, or can't engage target chr
 	label(0xd3)
@@ -2790,8 +2790,8 @@ u8 func000b_choose_target_chr[] = {
 	label(0x16)
 	dprint 'F','O','U','N','D','\n',0,
 	set_squadron_alertness(100)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
-	set_return_function(CHR_SELF, GFUNC_CHOOSE_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+	set_return_function(CHR_SELF, GFUNC_CHOOSE_TARGET)
 
 	label(0x13)
 	dprint 'F','O','U','N','D','A','L','E','R','T','\n',0,
@@ -2802,12 +2802,12 @@ u8 func000b_choose_target_chr[] = {
 	goto_first(0xd3)
 
 	label(0x13)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
 u8 func000d_init_combat[] = {
-	set_onshot_function(GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_onshot_function(GFUNC_COMBAT_WITH_TARGET)
 
 	// If not idle, turn off special death animation
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x13)
@@ -2832,8 +2832,8 @@ u8 func000d_init_combat[] = {
 
 	label(0x13)
 	label(0x16)
-	set_onshot_function(GFUNC_COMBAT_WITH_TARGET_CHR)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_onshot_function(GFUNC_COMBAT_WITH_TARGET)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
@@ -2909,11 +2909,11 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x16)
 	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0x16)
-	say_quip(CHR_JOANNA, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	goto_next(0x17)
 
 	label(0x16)
-	say_quip(CHR_JOANNA, 0x02, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x02, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 
 	label(0x17)
 	set_onshot_function(GFUNC_IDLE)
@@ -2938,8 +2938,8 @@ u8 func000c_combat_with_target_chr[] = {
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x16)
 		if_num_times_shot_lt(1, /*goto*/ 0x16)
 		if_timer_lt(20, /*goto*/ 0x16)
-		say_quip(CHR_JOANNA, 0x0d, 0x28, 0x03, 0xff, BANK_0, 0x00, 0x00)
-		say_quip(CHR_JOANNA, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, 0x0d, 0x28, 0x03, 0xff, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, 0x0e, 0x28, 0x03, 0x01, BANK_0, 0x00, 0x00)
 		set_self_flag_bankx(CHRFLAG0_SAID_INJURY_QUIP, BANK_0)
 		label(0x16)
 		if_chr_stopped(/*goto*/ 0x13)
@@ -2950,7 +2950,7 @@ u8 func000c_combat_with_target_chr[] = {
 	dprint 'D','E','T','E','C','T','3','\n',0,
 	label(0xb2)
 	yield
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_08000000, /*goto*/ 0x13)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_08000000, /*goto*/ 0x13)
 	unset_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	goto_next(0x16)
 
@@ -3019,9 +3019,9 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0x16)
 	dprint 'F','O','U','N','D',' ','E','N','E','M','Y','\n',0,
 	restart_timer
-	if_chr_dying(TARGET_CHR, /*goto*/ 0xba)
-	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xba)
-	if_chr_unloaded(TARGET_CHR, /*goto*/ 0xba)
+	if_chr_dying(CHR_TARGET, /*goto*/ 0xba)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xba)
+	if_chr_unloaded(CHR_TARGET, /*goto*/ 0xba)
 	if_target_chrs_target_is_different(/*goto*/ 0x13)
 	goto_next(0x16)
 
@@ -3049,9 +3049,9 @@ u8 func000c_combat_with_target_chr[] = {
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, FALSE, BANK_1, /*goto*/ 0x13)
 		if_timer_gt(20, /*goto*/ 0x09)
 		label(0x13)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0xba)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xba)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xba)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0xba)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xba)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xba)
 		if_target_chrs_target_is_different(/*goto*/ 0x13)
 		goto_next(0xba)
 
@@ -3085,9 +3085,9 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0xb7)
 	label(0xb9)
 	if_in_disarm_range(/*goto*/ 0xb6)
-	if_chr_dying(TARGET_CHR, /*goto*/ 0xba)
-	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xba)
-	if_chr_unloaded(TARGET_CHR, /*goto*/ 0xba)
+	if_chr_dying(CHR_TARGET, /*goto*/ 0xba)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xba)
+	if_chr_unloaded(CHR_TARGET, /*goto*/ 0xba)
 	if_target_chrs_target_is_different(/*goto*/ 0x13)
 	goto_next(0xba)
 
@@ -3100,14 +3100,14 @@ u8 func000c_combat_with_target_chr[] = {
 	try_run_to_target_chr(/*goto*/ 0xbc)
 
 	beginloop(0xbc)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0xc0)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc0)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc0)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0xc0)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc0)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc0)
 		if_target_chrs_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc0)
 
 		label(0x13)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ 0x13)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ 0x13)
 		if_in_disarm_range(/*goto*/ 0xbf)
 		label(0x13)
 		if_timer_gt(120, /*goto*/ 0xc0)
@@ -3122,9 +3122,9 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0xb6)
 	set_grenade_probability_out_of_255(255)
 	set_self_flag_bank3(CHRFLAG3_00000040)
-	if_chr_dying(TARGET_CHR, /*goto*/ 0xc1)
-	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc1)
-	if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc1)
+	if_chr_dying(CHR_TARGET, /*goto*/ 0xc1)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
+	if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc1)
 	if_target_chrs_target_is_different(/*goto*/ 0x13)
 	goto_next(0xc1)
 
@@ -3194,7 +3194,7 @@ u8 func000c_combat_with_target_chr[] = {
 	goto_next(0x16)
 
 	label(0x17)
-	say_quip(CHR_JOANNA, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x16)
 	call_rng
 	if_rand_gt(50, /*goto*/ 0x13)
@@ -3214,13 +3214,13 @@ u8 func000c_combat_with_target_chr[] = {
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0xc3)
 
 	label(0xc3)
-	say_quip(CHR_JOANNA, 0x24, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x25, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x24, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x25, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
 	beginloop(0xe2)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0xc1)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc1)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc1)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0xc1)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc1)
 		if_target_chrs_target_is_different(/*goto*/ 0x16)
 		goto_next(0xc1)
 
@@ -3244,25 +3244,25 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0xc1)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x13)
 	dprint 'P','U','N','C','H','M','I','S','S','E','D','\n',0,
-	say_quip(CHR_JOANNA, 0x16, 0x19, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x16, 0x19, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	goto_next(0x16)
 
 	label(0x13)
 	dprint 'P','U','N','C','H','H','I','T','\n',0,
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x15, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 
 	label(0x16)
 	dprint 'B','O','N','N','D',' ','3','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG1_00000800, FALSE, BANK_1, /*goto*/ 0x13)
 	if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
-	damage_chr(TARGET_CHR, 18)
+	damage_chr(CHR_TARGET, 18)
 	unset_self_flag_bankx(CHRFLAG1_00000800, BANK_1)
 	label(0x13)
-	if_chr_dying(TARGET_CHR, /*goto*/ 0xc5)
-	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc5)
-	if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc5)
+	if_chr_dying(CHR_TARGET, /*goto*/ 0xc5)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
+	if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc5)
 	if_target_chrs_target_is_different(/*goto*/ 0x13)
 	goto_next(0xc5)
 
@@ -3288,14 +3288,14 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x53)
 	dprint 'G','O',' ','T','O',' ','C','O','V','E','R','\n',0,
-	say_quip(CHR_JOANNA, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	cmd0124_run_for_cover_maybe(ACTION_UNDER_COVER)
 	restart_timer
 
 	beginloop(0xc7)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0xc5)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc5)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc5)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0xc5)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc5)
 		if_enemy_distance_lt_and_los(400, /*goto*/ 0x13)
 		if_chr_stopped(/*goto*/ 0x16)
 		if_timer_gt(360, /*goto*/ 0x16)
@@ -3311,15 +3311,15 @@ u8 func000c_combat_with_target_chr[] = {
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0xc9)
 
 	beginloop(0xc9)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0xc5)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc5)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc5)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0xc5)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc5)
 		if_target_chrs_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc5)
 
 		label(0x13)
 		if_enemy_distance_lt_and_los(400, /*goto*/ 0x15)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_CLOAKED, /*goto*/ 0x13)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ 0x13)
 		if_in_disarm_range(/*goto*/ 0xca)
 		label(0x13)
 		if_timer_gt(200, /*goto*/ 0x16)
@@ -3343,19 +3343,19 @@ u8 func000c_combat_with_target_chr[] = {
 	goto_next(0x17)
 
 	label(0x16)
-	say_quip(CHR_JOANNA, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x17)
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0xcb)
 	goto_next(0x16)
 
 	label(0xcb)
-	say_quip(CHR_JOANNA, 0x24, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x25, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x24, 0x19, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x25, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
 	beginloop(0xcc)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0xc5)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xc5)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xc5)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0xc5)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc5)
 		if_target_chrs_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc5)
 
@@ -3455,7 +3455,7 @@ u8 func000c_combat_with_target_chr[] = {
 	goto_first(0xb3)
 
 	label(0xd7)
-	say_quip(CHR_JOANNA, 0x0f, 0x28, 0x00, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x0f, 0x28, 0x00, 0x01, BANK_0, 0x00, 0x00)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x16)
 	label(0x16)
 	if_chr_is_dead_maybe(CHR_SELF, /*goto*/ 0xd9)
@@ -3560,7 +3560,7 @@ u8 func0016_show_objective_failed_msg[] = {
 
 	// Show message first time
 	label(0x13)
-	message(CHR_JOANNA, 0x5845) // "OBJECTIVES FAILED - abort mission."
+	message(CHR_BOND, 0x5845) // "OBJECTIVES FAILED - abort mission."
 
 	// Wait 60 seconds
 	restart_timer
@@ -3580,7 +3580,7 @@ u8 func0016_show_objective_failed_msg[] = {
 
 	// Show message second time
 	label(0x13)
-	message(CHR_JOANNA, 0x5845) // "OBJECTIVES FAILED - abort mission."
+	message(CHR_BOND, 0x5845) // "OBJECTIVES FAILED - abort mission."
 	restart_timer
 
 	// Wait 2 minutes
@@ -3599,7 +3599,7 @@ u8 func0016_show_objective_failed_msg[] = {
 
 	// Show message third time
 	label(0x13)
-	message(CHR_JOANNA, 0x5845) // "OBJECTIVES FAILED - abort mission."
+	message(CHR_BOND, 0x5845) // "OBJECTIVES FAILED - abort mission."
 	restart_timer
 
 	// Wait 5 minutes
@@ -3715,19 +3715,19 @@ u8 func001a_maybe_unset_disspee[] = {
 	// then they must not have a gun equipped.
 	label(0x00)
 	yield
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x14)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x14)
 	goto_next(0x13)
 
 	label(0x14)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000, /*goto*/ 0xe8)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000, /*goto*/ 0xe8)
 	goto_next(0x13)
 
 	label(0xe8)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_NONE, /*goto*/ 0x13)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_UNARMED, /*goto*/ 0x13)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_COMBATBOOST, /*goto*/ 0x13)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_HORIZONSCANNER, /*goto*/ 0x13)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_SUITCASE, /*goto*/ 0x13)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x13)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x13)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_COMBATBOOST, /*goto*/ 0x13)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_HORIZONSCANNER, /*goto*/ 0x13)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_SUITCASE, /*goto*/ 0x13)
 	set_function(CHR_SELF, GFUNC_UNALERTED_0004)
 
 	// Not disguised, or
@@ -3785,9 +3785,9 @@ u8 func000f_hand_combat[] = {
 	// Begin loop
 	label(0x0c)
 	yield
-	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xfa)
-	if_chr_dying(TARGET_CHR, /*goto*/ 0xfa)
-	if_chr_unloaded(TARGET_CHR, /*goto*/ 0xfa)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xfa)
+	if_chr_dying(CHR_TARGET, /*goto*/ 0xfa)
+	if_chr_unloaded(CHR_TARGET, /*goto*/ 0xfa)
 
 	// This if-statement is effectively a no op
 	dprint 'L','1','\n',0,
@@ -3827,9 +3827,9 @@ u8 func000f_hand_combat[] = {
 	try_run_to_target_chr(/*goto*/ 0x03)
 
 	beginloop(0x03)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xfa)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0xfa)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xfa)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xfa)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0xfa)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xfa)
 		label(0x13)
 		if_timer_gt(90, /*goto*/ 0x0b)
 		if_chr_lost_track_of_target_maybe(/*goto*/ 0x09)
@@ -3882,9 +3882,9 @@ u8 func000f_hand_combat[] = {
 	try_face_entity(0x0200, 0x0001, /*goto*/ 0x04)
 
 	beginloop(0x04)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0xfa)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0xfa)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0xfa)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xfa)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0xfa)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xfa)
 		label(0x13)
 		if_chr_distance_gt(400, /*goto*/ 0x0b)
 		if_jo_ccw_direction_lt(15, /*goto*/ LABEL_PUNCH)
@@ -3911,7 +3911,7 @@ u8 func000f_hand_combat[] = {
 
 	label(0x17)
 	restart_timer
-	say_quip(CHR_JOANNA, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Open fire!","Wipe her out!","Waste her!"
+	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Open fire!","Wipe her out!","Waste her!"
 
 	beginloop(0x05)
 		if_timer_gt(180, /*goto*/ 0x16)
@@ -3921,14 +3921,14 @@ u8 func000f_hand_combat[] = {
 	label(0x16)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x13)
 	dprint 'P','U','N','C','H','M','I','S','S','E','D','\n',0,
-	say_quip(CHR_JOANNA, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00) // Say random quip: "Damn, missed!","How did I miss?"
-	say_quip(CHR_JOANNA, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00) // "God sakes, someone hit her","She's a tricky one"
+	say_quip(CHR_BOND, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00) // Say random quip: "Damn, missed!","How did I miss?"
+	say_quip(CHR_BOND, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00) // "God sakes, someone hit her","She's a tricky one"
 	goto_next(0x16)
 
 	label(0x13)
 	dprint 'P','U','N','C','H','H','I','T','\n',0,
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00) // Say random quip: "Give it up!","Surrender, now!","Take that!"
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
+	say_quip(CHR_BOND, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00) // Say random quip: "Give it up!","Surrender, now!","Take that!"
+	say_quip(CHR_BOND, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
 
 	label(0x16)
 	goto_next(0x0b)
@@ -3947,7 +3947,7 @@ u8 func000f_hand_combat[] = {
 
 	label(0x13)
 	dprint 'D','E','T',' ','E','N','I','T','\n',0,
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
@@ -3990,11 +3990,11 @@ u8 func0010_civilian_say_comment[] = {
 	label(0x16)
 	set_self_flag_bankx(CHRFLAG1_DISSPEE, BANK_1)
 	dprint 'S','E','T',' ','D','I','S','S','P','E','E','\n',0,
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_NONE, /*goto*/ 0x07)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_UNARMED, /*goto*/ 0x07)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_COMBATBOOST, /*goto*/ 0x07)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_HORIZONSCANNER, /*goto*/ 0x07)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_SUITCASE, /*goto*/ 0x07)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x07)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x07)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_COMBATBOOST, /*goto*/ 0x07)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_HORIZONSCANNER, /*goto*/ 0x07)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_SUITCASE, /*goto*/ 0x07)
 	goto_next(0x05)
 
 	// Unarmed
@@ -4002,7 +4002,7 @@ u8 func0010_civilian_say_comment[] = {
 	restart_timer
 	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_01000000, /*goto*/ 0x13)
 	do_special_animation(-1)
-	say_quip(CHR_JOANNA, 0x1d, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "How's things?","Hey there","Hi, how are you?"
+	say_quip(CHR_BOND, 0x1d, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "How's things?","Hey there","Hi, how are you?"
 	yield
 
 	// Set a do-once flag, so chr is only stopped the first time
@@ -4017,9 +4017,9 @@ u8 func0010_civilian_say_comment[] = {
 
 	// Armed
 	label(0x05)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_01000000, /*goto*/ 0x06)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_01000000)
-	say_quip(CHR_JOANNA, 0x1e, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "Where did you get that?","Should you have that?","What are you doing with that weapon?"
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_01000000, /*goto*/ 0x06)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_01000000)
+	say_quip(CHR_BOND, 0x1e, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "Where did you get that?","Should you have that?","What are you doing with that weapon?"
 	do_special_animation(6)
 	restart_timer
 
@@ -4038,9 +4038,9 @@ u8 func0010_civilian_say_comment[] = {
 	return
 
 	label(0x13)
-	set_chr_flag_bank2(TARGET_CHR, CHRFLAG2_02000000)
+	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
 	dprint 'D','O','N','T',' ','P','O','I','N','T','\n',0,
-	say_quip(CHR_JOANNA, 0x1f, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Don't point that at me","Watch where you're pointing that"
+	say_quip(CHR_BOND, 0x1f, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Don't point that at me","Watch where you're pointing that"
 	do_special_animation(-1)
 	restart_timer
 
@@ -4064,23 +4064,23 @@ u8 func0010_civilian_say_comment[] = {
 	if_stage_is_not(STAGE_CHICAGO, /*goto*/ 0x15) // will never pass
 
 	// 50% chance of this happening
-	say_quip(CHR_JOANNA, 0x16, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x16, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	goto_next(0x13)
 
 	// 50% chance of this happening
 	label(0x16)
-	say_quip(CHR_JOANNA, 0x17, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x17, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	label(0x13)
 	do_special_animation(3)
 	return
 
 	// Not Chicago
 	label(0x15)
-	say_quip(CHR_JOANNA, 0x22, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x22, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	goto_next(0x13)
 
 	label(0x16)
-	say_quip(CHR_JOANNA, 0x23, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x23, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	label(0x13)
 	do_special_animation(3)
 	return
@@ -4097,7 +4097,7 @@ u8 func0010_civilian_say_comment[] = {
 u8 func001c_surprised[] = {
 	set_onshot_function(GFUNC_ALERTED)
 	set_squadron_alertness(100)
-	say_quip(CHR_JOANNA, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
+	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
 	restart_timer
 	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
 
@@ -4117,7 +4117,7 @@ u8 func0011_flee_from_grenade[] = {
 	set_action(ACTION_FLEE_GRENADE, FALSE)
 	dprint 'N','E','A','R',' ','D','A','N','G','E','R','\n',0,
 	run_from_grenade
-	say_quip(CHR_JOANNA, 0x03, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00) // "Look out, look out!","It's a grenade!","Clear the area!"
+	say_quip(CHR_BOND, 0x03, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00) // "Look out, look out!","It's a grenade!","Clear the area!"
 	restart_timer
 
 	beginloop(0x0c)
@@ -4139,13 +4139,13 @@ u8 func001b_observe_camspy[] = {
 	set_onshot_function(GFUNC_ALERTED)
 	unset_self_flag_bankx(CHRFLAG1_DOINGIDLEANIMATION, BANK_1)
 	set_chr_special_death_animation(CHR_SELF, 0)
-	set_follow_chr(TARGET_CHR)
+	set_follow_chr(CHR_TARGET)
 
 	if_just_injured(CHR_SELF, /*goto*/ 0x09)
 	dprint 'E','Y','E',' ','S','P','Y','\n',0,
 
 	label(0x00)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_distance_lt(300, /*goto*/ 0x13)
 	try_run_to_target_chr_with_hand_up(/*goto*/ 0x0c)
 	restart_timer
@@ -4158,12 +4158,12 @@ u8 func001b_observe_camspy[] = {
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
 		if_target_chr_in_sight(/*goto*/ 0x0b)
 		label(0x16)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 	endloop(0x0c)
 
 	// At camspy
 	label(0x13)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	restart_timer
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x03)
 
@@ -4178,7 +4178,7 @@ u8 func001b_observe_camspy[] = {
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
 		if_target_chr_in_sight(/*goto*/ 0x0b)
 		label(0x16)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 	endloop(0x03)
 
 	// Camspy moved away - follow it
@@ -4188,7 +4188,7 @@ u8 func001b_observe_camspy[] = {
 	// Timer expired
 	label(0x04)
 	do_special_animation(-1)
-	say_quip(CHR_JOANNA, 0x1c, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00) // "What the hell?","Hello there","What's this?"
+	say_quip(CHR_BOND, 0x1c, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00) // "What the hell?","Hello there","What's this?"
 
 	// Wait another 5 seconds with same logic as previous timer
 	beginloop(0x05)
@@ -4200,7 +4200,7 @@ u8 func001b_observe_camspy[] = {
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
 		if_target_chr_in_sight(/*goto*/ 0x0b)
 		label(0x16)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 	endloop(0x05)
 
 	// Timer expired
@@ -4215,7 +4215,7 @@ u8 func001b_observe_camspy[] = {
 
 	// Timer expired second time
 	label(0xe8)
-	say_quip(CHR_JOANNA, 0x28, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "It's a spy!"
+	say_quip(CHR_BOND, 0x28, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "It's a spy!"
 
 	// Shoot camspy
 	label(0x09)
@@ -4231,9 +4231,9 @@ u8 func001b_observe_camspy[] = {
 
 	label(0x16)
 	dprint 'E','1','\n',0,
-	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x13)
-	if_chr_dying(TARGET_CHR, /*goto*/ 0x13)
-	if_chr_unloaded(TARGET_CHR, /*goto*/ 0x13)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x13)
+	if_chr_dying(CHR_TARGET, /*goto*/ 0x13)
+	if_chr_unloaded(CHR_TARGET, /*goto*/ 0x13)
 
 	// Camspy still alive
 	dprint 'E','2','\n',0,
@@ -4254,7 +4254,7 @@ u8 func001b_observe_camspy[] = {
 	goto_first(0x09)
 
 	label(0x13)
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	dprint 'E','8','\n',0,
 	set_self_flag_bankx(CHRFLAG1_10000000, BANK_1)
 	set_function(CHR_SELF, GFUNC_SEARCH_FOR_PLAYER)
@@ -4280,7 +4280,7 @@ u8 func001d_search_for_player[] = {
 	dprint 'S','E','A','R','C','H',' ','R','O','O','M','\n',0,
 	set_chr_dodge_rating(2, 0x00)
 	label(0x00)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	set_self_flag_bankx(CHRFLAG1_01000000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG1_10000000, TRUE, BANK_1, /*goto*/ 0x16)
 	set_chr_roomtosearch
@@ -4414,7 +4414,7 @@ u8 func001d_search_for_player[] = {
 	label(0x28)
 	dprint 'E','Y','E',' ','S','P','Y','\n',0,
 	label(0x12)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -4426,15 +4426,15 @@ u8 func001d_search_for_player[] = {
 	set_alertness(100)
 	dprint 'S','E','E',' ','P','L','A','Y','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG1_00000400, FALSE, BANK_1, /*goto*/ 0x13)
-	say_quip(CHR_JOANNA, 0x1b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x1b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x13)
 	set_function(CHR_SELF, GFUNC_ALERTED)
 	label(0x0b)
-	say_quip(CHR_JOANNA, 0x23, 0x32, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x23, 0x32, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	goto_first(0x05)
 
 	label(0xc3)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -4444,8 +4444,8 @@ u8 func001d_search_for_player[] = {
 
 	label(0x16)
 	set_return_function(CHR_SELF, GFUNC_UNALERTED)
-	set_onshot_function(GFUNC_COMBAT_WITH_TARGET_CHR)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_onshot_function(GFUNC_COMBAT_WITH_TARGET)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
@@ -4506,25 +4506,25 @@ u8 func001f_related_to_spawning[] = {
 
 	label(0x1e)
 	dprint 'S','E','E',' ','D','E','T','E','C','T','\n',0,
-	say_quip(CHR_JOANNA, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x9f)
 	set_squadron_alertness(100)
 	set_alertness(255)
 	set_return_function(CHR_SELF, GFUNC_RELATED_TO_SPAWNING)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	label(0x1f)
 	yield
-	say_quip(CHR_JOANNA, 0x09, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x09, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_HEARSPAWN, TRUE, BANK_0, /*goto*/ 0xda)
 	set_squadron_alertness(100)
 	set_return_function(CHR_SELF, GFUNC_RELATED_TO_SPAWNING)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	label(0xda)
 	if_never_been_onscreen(/*goto*/ 0x0e)
 	set_return_function(CHR_SELF, GFUNC_RELATED_TO_SPAWNING)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	label(0x0e)
 	if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x0e)
@@ -4535,7 +4535,7 @@ u8 func001f_related_to_spawning[] = {
 	label(0x0e)
 	try_spawn_clone2(CHR_SELF, GFUNC_SEARCH_FOR_PLAYER, 0x00000000, /*goto*/ 0x13)
 	set_return_function(CHR_SELF, GFUNC_RELATED_TO_SPAWNING)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	label(0x13)
 	set_function(CHR_SELF, GFUNC_RELATED_TO_SPAWNING)
@@ -4548,7 +4548,7 @@ u8 func001f_related_to_spawning[] = {
 
 	label(0x13)
 	set_return_function(CHR_SELF, GFUNC_RELATED_TO_SPAWNING)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	label(0x12)
 	if_self_flag_bankx_eq(CHRFLAG1_00100000, TRUE, BANK_1, /*goto*/ 0x13)
@@ -4557,7 +4557,7 @@ u8 func001f_related_to_spawning[] = {
 	label(0x13)
 	dprint 'W','A','R','N','E','D','B','E','N','D','3','\n',0,
 	set_return_function(CHR_SELF, GFUNC_RELATED_TO_SPAWNING)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
@@ -4571,7 +4571,7 @@ u8 func0012_init_coop_100[] = {
 	set_self_flag_bank3(CHRFLAG3_01000000)
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED)
 	set_alertness(100)
-	set_follow_chr(CHR_JOANNA)
+	set_follow_chr(CHR_BOND)
 	yield
 	rebuild_teams
 	rebuild_squadrons
@@ -4702,7 +4702,7 @@ u8 func0014_coop_buddy[] = {
 	set_self_flag_bankx(CHRFLAG1_00100000, BANK_1)
 	set_morale(0)
 	set_onshot_function(GFUNC_COOP_BUDDY)
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x13)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x13)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x13)
@@ -4720,11 +4720,11 @@ u8 func0014_coop_buddy[] = {
 
 	// Injured
 	label(0x13)
-	say_quip(CHR_JOANNA, 0x0e, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "I'm hit, I'm hit!","I'm taking fire!","Taking damage!"
+	say_quip(CHR_BOND, 0x0e, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "I'm hit, I'm hit!","I'm taking fire!","Taking damage!"
 	dprint 'B','U','D','D','Y',' ','W','O','U','N','D','\n',0,
 
 	beginloop(0xf2)
-		if_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
+		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
 		unset_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED)
 		goto_next(0x15)
 
@@ -4738,7 +4738,7 @@ u8 func0014_coop_buddy[] = {
 
 	// Healthy
 	label(0x16)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_08000000, /*goto*/ 0x13)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_08000000, /*goto*/ 0x13)
 	unset_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	goto_next(0x16)
 
@@ -4748,13 +4748,13 @@ u8 func0014_coop_buddy[] = {
 	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_00000400, /*goto*/ 0xdc)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 	label(0xdc)
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	if_chr_distance_lt(200, /*goto*/ 0x16)
 
 	// Start outer loop
 	label(0x00)
 	dprint 'B','U','D','D','Y',' ','G','O',' ','T','O','W','A','R','D','S','\n',0,
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x16)
 	try_run_to_target_chr_with_hand_up(/*goto*/ 0x0c)
@@ -4762,7 +4762,7 @@ u8 func0014_coop_buddy[] = {
 	try_run_to_target_chr(/*goto*/ 0x0c)
 
 	beginloop(0x0c)
-		if_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
+		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
 		unset_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED)
 		goto_next(0x15)
 
@@ -4771,19 +4771,19 @@ u8 func0014_coop_buddy[] = {
 		goto_next(LABEL_PLACE_BUDDY)
 
 		label(0x15)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
 		goto_next(0x07)
 
 		label(0x06)
 		set_chr_flag_bank2(CHR_SELF, CHRFLAG2_DISGUISED)
 		label(0x07)
-		set_target_chr(CHR_JOANNA)
+		set_target_chr(CHR_BOND)
 		if_chr_sees_player(/*goto*/ 0xdd)
 		if_chr_flag_bank2(CHR_SELF, CHRFLAG2_00000400, /*goto*/ 0xdc)
 		label(0xdd)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 		label(0xdc)
-		set_target_chr(CHR_JOANNA)
+		set_target_chr(CHR_BOND)
 		if_chr_distance_lt(200, /*goto*/ 0x16)
 		if_timer_gt(60, /*goto*/ 0x13)
 	endloop(0x0c)
@@ -4797,7 +4797,7 @@ u8 func0014_coop_buddy[] = {
 	stop_chr
 
 	beginloop(0x04)
-		if_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
+		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
 		unset_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED)
 		goto_next(0x15)
 
@@ -4807,7 +4807,7 @@ u8 func0014_coop_buddy[] = {
 
 		label(0x15)
 		label(0x13)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
 		goto_next(0x07)
 
 		label(0x06)
@@ -4829,7 +4829,7 @@ u8 func0014_coop_buddy[] = {
 		label(0x13)
 		label(0xdc)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
-		set_target_chr(CHR_JOANNA)
+		set_target_chr(CHR_BOND)
 		if_chr_distance_gt(300, /*goto*/ 0x16)
 	endloop(0x04)
 
@@ -4841,20 +4841,20 @@ u8 func0014_coop_buddy[] = {
 	call_rng
 	if_rand_lt(85, /*goto*/ 0xfa)
 	if_rand_lt(170, /*goto*/ 0xf3)
-	say_quip(CHR_JOANNA, 0x00, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "I've got a clear shot","She's mine!"
+	say_quip(CHR_BOND, 0x00, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "I've got a clear shot","She's mine!"
 	goto_next(0x13)
 
 	label(0xfa)
-	say_quip(CHR_JOANNA, 0x0b, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
+	say_quip(CHR_BOND, 0x0b, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
 	goto_next(0x13)
 
 	label(0xf3)
-	say_quip(CHR_JOANNA, 0x15, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
+	say_quip(CHR_BOND, 0x15, 0xff, 0x14, 0xff, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
 	label(0x13)
 
 	// Found chr in group from non G5 or Deep Sea stage
 	label(0x0b)
-	if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_08000000, /*goto*/ 0x13)
+	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_08000000, /*goto*/ 0x13)
 	unset_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	goto_next(0x16)
 
@@ -4862,7 +4862,7 @@ u8 func0014_coop_buddy[] = {
 	set_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	label(0x16)
 	set_return_function(CHR_SELF, GFUNC_COOP_BUDDY)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	label(LABEL_PLACE_BUDDY)
 	set_function(CHR_SELF, GFUNC_PLACE_COOP_BUDDY)
@@ -4914,8 +4914,8 @@ u8 func0022_comment_on_player_dead[] = {
 
 	label(0x16)
 	dprint 'K','I','L','L','E','D','E','R','\n',0,
-	say_quip(CHR_JOANNA, 0x26, 0xff, 0x02, 0x00, BANK_0, 0x00, 0x00) // "Grab a body bag","One for the morgue","Rest in peace"
-	say_quip(CHR_JOANNA, 0x15, 0x80, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
+	say_quip(CHR_BOND, 0x26, 0xff, 0x02, 0x00, BANK_0, 0x00, 0x00) // "Grab a body bag","One for the morgue","Rest in peace"
+	say_quip(CHR_BOND, 0x15, 0x80, 0x03, 0x01, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
 
 	beginloop(0x04)
 	endloop(0x04)
@@ -5071,8 +5071,8 @@ u8 func002c_init_search_unused[] = {
 /**
  * Not used.
  */
-u8 func0024_follow_joanna[] = {
-	set_target_chr(CHR_JOANNA)
+u8 func0024_follow_bond[] = {
+	set_target_chr(CHR_BOND)
 
 	label(0x03)
 	restart_timer
@@ -5111,8 +5111,8 @@ u8 func0024_follow_joanna[] = {
 u8 func0025_pointless[] = {
 	// Wait until target chr is dead
 	beginloop(0x0c)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x03)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0x03)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x03)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0x03)
 	endloop(0x0c)
 
 	// Wait 10 seconds
@@ -5140,7 +5140,7 @@ u8 func0026_init_psychosis[] = {
 	set_self_flag_bankx(CHRFLAG1_40000000, BANK_1)
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED)
 	set_alertness(100)
-	set_follow_chr(CHR_JOANNA)
+	set_follow_chr(CHR_BOND)
 	yield
 	rebuild_teams
 	rebuild_squadrons
@@ -5174,7 +5174,7 @@ u8 func0026_init_psychosis[] = {
 u8 func0027_psychosised[] = {
 	set_morale(0)
 	set_onshot_function(GFUNC_PSYCHOSISED)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x13)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x13)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x13)
@@ -5191,7 +5191,7 @@ u8 func0027_psychosised[] = {
 
 	// Injured
 	label(0x13)
-	say_quip(CHR_JOANNA, 0x0e, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "I'm hit, I'm hit!","I'm taking fire!","Taking damage!"
+	say_quip(CHR_BOND, 0x0e, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "I'm hit, I'm hit!","I'm taking fire!","Taking damage!"
 
 	beginloop(0xf2)
 		if_chr_stopped(/*goto*/ 0x16)
@@ -5201,12 +5201,12 @@ u8 func0027_psychosised[] = {
 	label(0x16)
 	try_find_chr_in_team(/*goto*/ 0x03)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_distance_lt(200, /*goto*/ 0x16)
 
 	// Following Joanna
 	label(0x00)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x16)
 	try_run_to_target_chr_with_hand_up(/*goto*/ 0x0c)
@@ -5215,14 +5215,14 @@ u8 func0027_psychosised[] = {
 	try_run_to_target_chr(/*goto*/ 0x0c)
 
 	beginloop(0x0c)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
 		goto_next(0x07)
 
 		label(0x06)
 		set_chr_flag_bank2(CHR_SELF, CHRFLAG2_DISGUISED)
 		label(0x07)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 		if_chr_distance_lt(200, /*goto*/ 0x16)
 		if_timer_gt(60, /*goto*/ 0x13)
 	endloop(0x0c)
@@ -5235,7 +5235,7 @@ u8 func0027_psychosised[] = {
 	stop_chr
 
 	beginloop(0x04)
-		if_chr_flag_bank2(TARGET_CHR, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
+		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
 		goto_next(0x07)
 
 		label(0x06)
@@ -5243,7 +5243,7 @@ u8 func0027_psychosised[] = {
 		label(0x07)
 		try_find_chr_in_team(/*goto*/ 0x03)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 		if_chr_distance_gt(300, /*goto*/ 0x16)
 	endloop(0x04)
 
@@ -5256,19 +5256,19 @@ u8 func0027_psychosised[] = {
 	if_rand_lt(85, /*goto*/ 0xfa)
 	if_rand_lt(170, /*goto*/ 0xf3)
 
-	say_quip(CHR_JOANNA, 0x00, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "I've got a clear shot","She's mine!"
+	say_quip(CHR_BOND, 0x00, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "I've got a clear shot","She's mine!"
 	goto_next(0x13)
 
 	label(0xfa)
-	say_quip(CHR_JOANNA, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
+	say_quip(CHR_BOND, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
 	goto_next(0x13)
 
 	label(0xf3)
-	say_quip(CHR_JOANNA, 0x15, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
+	say_quip(CHR_BOND, 0x15, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Give it up!","Surrender, now!","Take that!"
 
 	label(0x13)
 	set_return_function(CHR_SELF, GFUNC_PSYCHOSISED)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
@@ -5284,7 +5284,7 @@ u8 func0020_place_coop_buddy[] = {
 	set_self_flag_bank3(CHRFLAG3_00040000)
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_CLOAKED)
 	stop_chr
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	yield
 	if_stage_is_not(STAGE_DEEPSEA, /*goto*/ 0x15)
 	goto_next(0x16)
@@ -5376,7 +5376,7 @@ u8 func0020_place_coop_buddy[] = {
 	restart_timer
 
 	beginloop(0xef)
-		if_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
+		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
 		goto_next(0x16)
 
 		label(0x13)
@@ -5479,7 +5479,7 @@ struct ailists functions[] = {
 	{ func0022_comment_on_player_dead,    0x0022 },
 	{ func0023_dodge,                     0x0023 },
 	{ func002c_init_search_unused,        0x002c },
-	{ func0024_follow_joanna,             0x0024 },
+	{ func0024_follow_bond,             0x0024 },
 	{ func0025_pointless,                 0x0025 },
 	{ func0026_init_psychosis,            0x0026 },
 	{ func0027_psychosised,               0x0027 },

@@ -792,7 +792,7 @@ u8 func0428_colleague10[] = {
 
 u8 func1001_set_jo_team[] = {
 	yield
-	set_chr_team(CHR_JOANNA, TEAM_32)
+	set_chr_team(CHR_BOND, TEAM_32)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -826,14 +826,14 @@ u8 func1002_devicetraining_camspy[] = {
 
 		beginloop(0x86)
 			if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-			if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-			if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-			if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+			if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+			if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+			if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 			goto_next(0x59)
 			label(0x57)
 			set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 			label(0x59)
-			if_chr_has_object(CHR_JOANNA, OBJ_CAMSPY, /*goto*/ 0x2f)
+			if_chr_has_object(CHR_BOND, OBJ_CAMSPY, /*goto*/ 0x2f)
 			if_timer_gt(1200, /*goto*/ 0x06)
 		endloop(0x86)
 
@@ -843,13 +843,13 @@ u8 func1002_devicetraining_camspy[] = {
 	label(0x2f)
 	label(0x8d)
 		remove_displayed_text
-		if_chr_weapon_equipped(CHR_JOANNA, WEAPON_CAMSPY, /*goto*/ 0x2f)
+		if_chr_weapon_equipped(CHR_BOND, WEAPON_CAMSPY, /*goto*/ 0x2f)
 		display_text(0x01, COLOR_04_ORANGE, 0x1c39) // "Select the CamSpy. - Hold A Button. - Use Control Stick to change selection. - Highlight CamSpy and release A Button."
 		restart_timer
 
 		beginloop(0x8e)
 			if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-			if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_CAMSPY, /*goto*/ 0x2f)
+			if_chr_has_weapon_equipped(CHR_BOND, WEAPON_CAMSPY, /*goto*/ 0x2f)
 			if_timer_gt(1200, /*goto*/ 0x06)
 		endloop(0x8e)
 
@@ -870,7 +870,7 @@ u8 func1002_devicetraining_camspy[] = {
 
 	label(0x09)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c16) // "Info Room PC successfully holographed."
+	message(CHR_BOND, 0x1c16) // "Info Room PC successfully holographed."
 	restart_timer
 
 	beginloop(0x0c)
@@ -888,7 +888,7 @@ u8 func1002_devicetraining_camspy[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	set_eeprom_flag(EEPROMFLAG_CI_CAMSPY_DONE)
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	set_stage_flag(STAGEFLAG_CONSIDER_WARP)
 	unlock_door(0x31, 0x40)
@@ -938,15 +938,15 @@ u8 func1003_devicetraining_nightvision[] = {
 
 	beginloop(0x86)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_object(CHR_JOANNA, 0x27, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, 0x27, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x86)
 
@@ -956,13 +956,13 @@ u8 func1003_devicetraining_nightvision[] = {
 	label(0x2f)
 	label(0x8d)
 	remove_displayed_text
-	if_chr_weapon_equipped(CHR_JOANNA, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
+	if_chr_weapon_equipped(CHR_BOND, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c3a) // "Select the Night Vision. - Hold A Button. - Use Control Stick to change selection. - Highlight Night Vision and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -975,9 +975,9 @@ u8 func1003_devicetraining_nightvision[] = {
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -997,7 +997,7 @@ u8 func1003_devicetraining_nightvision[] = {
 	set_lights_state(0x0026, 0x01, 0xff, 0x00, 0x00)
 	set_lights_state(0x0022, 0x01, 0xff, 0x00, 0x00)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c17) // "Lights have been reactivated."
+	message(CHR_BOND, 0x1c17) // "Lights have been reactivated."
 	restart_timer
 
 	beginloop(0x0d)
@@ -1023,7 +1023,7 @@ u8 func1003_devicetraining_nightvision[] = {
 	set_lights_state(0x0022, 0x01, 0xff, 0x00, 0x00)
 	yield
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -1071,15 +1071,15 @@ u8 func1004_devicetraining_doordecoder[] = {
 
 	beginloop(0x86)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_object(CHR_JOANNA, 0x28, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, 0x28, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x86)
 
@@ -1089,13 +1089,13 @@ u8 func1004_devicetraining_doordecoder[] = {
 	label(0x2f)
 	label(0x8d)
 	remove_displayed_text
-	if_chr_weapon_equipped(CHR_JOANNA, WEAPON_DOORDECODER, /*goto*/ 0x2f)
+	if_chr_weapon_equipped(CHR_BOND, WEAPON_DOORDECODER, /*goto*/ 0x2f)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c3b) // "Select the Door Decoder. - Hold A Button. - Use Control Stick to change selection. - Highlight Door Decoder and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_weapon_equipped(CHR_JOANNA, WEAPON_DOORDECODER, /*goto*/ 0x2f)
+		if_chr_weapon_equipped(CHR_BOND, WEAPON_DOORDECODER, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -1103,7 +1103,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	goto_first(0x8d)
 
 	label(0x2f)
-	if_chr_activated_object(CHR_JOANNA, 0x35, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x35, /*goto*/ 0x2f)
 	label(0x2f)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c19) // "Use Decoder on door pad to unlock it."
@@ -1113,20 +1113,20 @@ u8 func1004_devicetraining_doordecoder[] = {
 		if_door_state(0x31, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
 		if_door_state(0x8a, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
 		if_door_state(0x89, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_chr_activated_object(CHR_JOANNA, 0x35, /*goto*/ 0x09)
+		if_chr_activated_object(CHR_BOND, 0x35, /*goto*/ 0x09)
 	endloop(0x82)
 
 	label(0x09)
-	if_chr_weapon_equipped(CHR_JOANNA, WEAPON_DOORDECODER, /*goto*/ 0x06)
+	if_chr_weapon_equipped(CHR_BOND, WEAPON_DOORDECODER, /*goto*/ 0x06)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c1a) // "You need to be holding the Door Decoder."
+	message(CHR_BOND, 0x1c1a) // "You need to be holding the Door Decoder."
 	restart_timer
 
 	beginloop(0x0e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -1140,7 +1140,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 
 	label(0x06)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c1b) // "Decoder attached. Initiating cracking routines..."
+	message(CHR_BOND, 0x1c1b) // "Decoder attached. Initiating cracking routines..."
 	unset_object_flag_bank1(0x88, OBJECTFLAG1_INVISIBLE)
 	assign_sound(0x8144, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, 0x35, 0x012c, 0x0190)
@@ -1148,9 +1148,9 @@ u8 func1004_devicetraining_doordecoder[] = {
 
 	beginloop(0x0c)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -1164,15 +1164,15 @@ u8 func1004_devicetraining_doordecoder[] = {
 	assign_sound(0x8145, CHANNEL_1)
 	control_sound_from_object(CHANNEL_1, 0x35, TRUE)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c1c) // "Decoding complete. Door has been unlocked."
+	message(CHR_BOND, 0x1c1c) // "Decoding complete. Door has been unlocked."
 	unlock_door(0x41, 0x40)
 	restart_timer
 
 	beginloop(0x0d)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -1193,7 +1193,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	unset_object_flag_bank1(0x88, OBJECTFLAG1_INVISIBLE)
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	mute_channel(CHANNEL_1)
 	unlock_door(0x31, 0x40)
@@ -1229,9 +1229,9 @@ u8 func1005_devicetraining_xray[] = {
 	close_door(0x31)
 	close_door(0x8a)
 	close_door(0x89)
-	if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 	goto_next(0x59)
 
 	label(0x57)
@@ -1243,7 +1243,7 @@ u8 func1005_devicetraining_xray[] = {
 	restart_timer
 
 	beginloop(0x86)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
 		set_object_flag_bank0(0x38, OBJECTFLAG0_02000000)
 		set_object_flag_bank0(0x39, OBJECTFLAG0_02000000)
 		goto_next(0x30)
@@ -1253,15 +1253,15 @@ u8 func1005_devicetraining_xray[] = {
 		unset_object_flag_bank0(0x39, OBJECTFLAG0_02000000)
 		label(0x30)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_object(CHR_JOANNA, 0x29, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, 0x29, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x86)
 
@@ -1270,13 +1270,13 @@ u8 func1005_devicetraining_xray[] = {
 
 	label(0x8d)
 	remove_displayed_text
-	if_chr_weapon_equipped(CHR_JOANNA, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
+	if_chr_weapon_equipped(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c3c) // "Select the X-Ray Scanner. - Hold A Button. - Use Control Stick to change selection. - Highlight X-Ray Scanner and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -1285,19 +1285,19 @@ u8 func1005_devicetraining_xray[] = {
 
 	label(0x2f)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c24) // "Find hidden switches to shut down laser grid."
+	message(CHR_BOND, 0x1c24) // "Find hidden switches to shut down laser grid."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
 		set_object_flag_bank0(0x38, OBJECTFLAG0_02000000)
 		set_object_flag_bank0(0x39, OBJECTFLAG0_02000000)
 		goto_next(0x30)
@@ -1306,14 +1306,14 @@ u8 func1005_devicetraining_xray[] = {
 		unset_object_flag_bank0(0x38, OBJECTFLAG0_02000000)
 		unset_object_flag_bank0(0x39, OBJECTFLAG0_02000000)
 		label(0x30)
-		if_chr_activated_object(CHR_JOANNA, 0x38, /*goto*/ 0x5b)
-		if_chr_activated_object(CHR_JOANNA, 0x39, /*goto*/ 0x5c)
+		if_chr_activated_object(CHR_BOND, 0x38, /*goto*/ 0x5b)
+		if_chr_activated_object(CHR_BOND, 0x39, /*goto*/ 0x5c)
 	endloop(0x82)
 
 	label(0x5b)
 	if_object_flag_bank1(0x38, OBJECTFLAG1_00000001, /*goto*/ 0x87)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c29) // "Laser Grid 1 has been deactivated."
+	message(CHR_BOND, 0x1c29) // "Laser Grid 1 has been deactivated."
 	set_object_image(0x38, 0x00, 0x12)
 	set_object_flag_bank1(0x38, OBJECTFLAG1_00000001)
 	open_door(0x3a)
@@ -1322,9 +1322,9 @@ u8 func1005_devicetraining_xray[] = {
 
 	beginloop(0x89)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x85)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x85)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x85)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x85)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x85)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x85)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x89)
 
@@ -1332,7 +1332,7 @@ u8 func1005_devicetraining_xray[] = {
 	if_object_flag_bank1(0x39, OBJECTFLAG1_00000001, /*goto*/ 0x88)
 	set_object_image(0x39, 0x00, 0x12)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c2a) // "Laser Grid 2 has been deactivated."
+	message(CHR_BOND, 0x1c2a) // "Laser Grid 2 has been deactivated."
 	set_object_flag_bank1(0x39, OBJECTFLAG1_00000001)
 	open_door(0x3b)
 	label(0x88)
@@ -1340,9 +1340,9 @@ u8 func1005_devicetraining_xray[] = {
 
 	beginloop(0x8a)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -1376,14 +1376,14 @@ u8 func1005_devicetraining_xray[] = {
 
 	label(0x2f)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c25) // "All laser grids have been deactivated."
+	message(CHR_BOND, 0x1c25) // "All laser grids have been deactivated."
 	restart_timer
 
 	beginloop(0x0e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -1403,7 +1403,7 @@ u8 func1005_devicetraining_xray[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -1424,7 +1424,7 @@ u8 func1006_devicetraining_disguise[] = {
 	endloop(0x08)
 
 	label(0x81)
-	unset_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_DISGUISED)
+	unset_chr_flag_bank2(CHR_BOND, CHRFLAG2_DISGUISED)
 	unset_stage_flag(STAGEFLAG_DISGUISE_FAILED)
 	unset_stage_flag(STAGEFLAG_DISGUISE_COMPLETE)
 	lock_door(0x31, 0x40)
@@ -1440,9 +1440,9 @@ u8 func1006_devicetraining_disguise[] = {
 	close_door(0x31)
 	close_door(0x8a)
 	close_door(0x89)
-	if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 	goto_next(0x59)
 
 	label(0x57)
@@ -1456,14 +1456,14 @@ u8 func1006_devicetraining_disguise[] = {
 	beginloop(0x86)
 		if_stage_flag_eq(STAGEFLAG_DISGUISE_FAILED, TRUE, /*goto*/ 0x0a)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_object(CHR_JOANNA, 0x2a, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, 0x2a, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x86)
 
@@ -1473,14 +1473,14 @@ u8 func1006_devicetraining_disguise[] = {
 	label(0x2f)
 	label(0x8d)
 	remove_displayed_text
-	if_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_DISGUISED, /*goto*/ 0x2f)
+	if_chr_flag_bank2(CHR_BOND, CHRFLAG2_DISGUISED, /*goto*/ 0x2f)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c3d) // "Select the Disguise. - Hold A Button. - Use Control Stick to change selection. - Highlight Disguise and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
 		if_stage_flag_eq(STAGEFLAG_DISGUISE_FAILED, TRUE, /*goto*/ 0x0a)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_DISGUISED, /*goto*/ 0x2f)
+		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_DISGUISED, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -1502,14 +1502,14 @@ u8 func1006_devicetraining_disguise[] = {
 
 	label(0x09)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c28) // "Cloaking Device successfully retrieved."
+	message(CHR_BOND, 0x1c28) // "Cloaking Device successfully retrieved."
 	restart_timer
 
 	beginloop(0x0e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -1520,7 +1520,7 @@ u8 func1006_devicetraining_disguise[] = {
 
 	label(0x0a)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c2f) // "You're meant to use the Disguise, remember?"
+	message(CHR_BOND, 0x1c2f) // "You're meant to use the Disguise, remember?"
 	restart_timer
 
 	beginloop(0x0f)
@@ -1540,7 +1540,7 @@ u8 func1006_devicetraining_disguise[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -1568,7 +1568,7 @@ u8 func1007_devicetrainign_ir[] = {
 	endloop(0x08)
 
 	label(0x81)
-	if_chr_activated_object(CHR_JOANNA, 0x37, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x37, /*goto*/ 0x2f)
 	label(0x2f)
 	lock_door(0x31, 0x40)
 	lock_door(0x8a, 0x40)
@@ -1582,9 +1582,9 @@ u8 func1007_devicetrainign_ir[] = {
 	close_door(0x31)
 	close_door(0x8a)
 	close_door(0x89)
-	if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 	goto_next(0x59)
 
 	label(0x57)
@@ -1596,21 +1596,21 @@ u8 func1007_devicetrainign_ir[] = {
 	restart_timer
 
 	beginloop(0x86)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_IRSCANNER, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
 		set_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
 		goto_next(0x30)
 		label(0x2f)
 		unset_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
 		label(0x30)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_object(CHR_JOANNA, 0x2b, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, 0x2b, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x86)
 
@@ -1620,12 +1620,12 @@ u8 func1007_devicetrainign_ir[] = {
 	label(0x2f)
 	label(0x8d)
 	remove_displayed_text
-	if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_IRSCANNER, /*goto*/ 0x2f)
+	if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c3e) // "Select the IR Scanner. - Hold A Button. - Use Control Stick to change selection. - Highlight IR Scanner and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_IRSCANNER, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
 		set_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
 		goto_next(0x30)
 
@@ -1633,7 +1633,7 @@ u8 func1007_devicetrainign_ir[] = {
 		unset_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
 		label(0x30)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_IRSCANNER, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -1645,7 +1645,7 @@ u8 func1007_devicetrainign_ir[] = {
 	display_text(0x01, COLOR_04_ORANGE, 0x1c21) // "Locate secret door using IR Scanner."
 
 	beginloop(0x82)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_IRSCANNER, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
 		set_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
 		goto_next(0x30)
 		label(0x2f)
@@ -1655,19 +1655,19 @@ u8 func1007_devicetrainign_ir[] = {
 		if_door_state(0x31, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
 		if_door_state(0x8a, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
 		if_door_state(0x89, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_chr_activated_object(CHR_JOANNA, 0x37, /*goto*/ 0x09)
+		if_chr_activated_object(CHR_BOND, 0x37, /*goto*/ 0x09)
 	endloop(0x82)
 
 	label(0x09)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c22) // "Secret door has been successfully located."
+	message(CHR_BOND, 0x1c22) // "Secret door has been successfully located."
 	restart_timer
 
 	beginloop(0x0e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -1687,7 +1687,7 @@ u8 func1007_devicetrainign_ir[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -1720,9 +1720,9 @@ u8 func1008_devicetraining_rtracker[] = {
 	close_door(0x31)
 	close_door(0x8a)
 	close_door(0x89)
-	if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 	goto_next(0x59)
 
 	label(0x57)
@@ -1735,15 +1735,15 @@ u8 func1008_devicetraining_rtracker[] = {
 
 	beginloop(0x86)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_object(CHR_JOANNA, 0x2c, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, 0x2c, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x86)
 
@@ -1753,13 +1753,13 @@ u8 func1008_devicetraining_rtracker[] = {
 	label(0x2f)
 	label(0x8d)
 	remove_displayed_text
-	if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_RTRACKER, /*goto*/ 0x2f)
+	if_chr_has_weapon_equipped(CHR_BOND, WEAPON_RTRACKER, /*goto*/ 0x2f)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c3f) // "Select the Tracker. - Hold A Button. - Use Control Stick to change selection. - Highlight Tracker and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_RTRACKER, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_RTRACKER, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -1780,19 +1780,19 @@ u8 func1008_devicetraining_rtracker[] = {
 		if_door_state(0x31, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
 		if_door_state(0x8a, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
 		if_door_state(0x89, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_chr_has_object(CHR_JOANNA, 0x36, /*goto*/ 0x09)
+		if_chr_has_object(CHR_BOND, 0x36, /*goto*/ 0x09)
 	endloop(0x82)
 
 	label(0x09)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c1f) // "IR Scanner has been successfully located."
+	message(CHR_BOND, 0x1c1f) // "IR Scanner has been successfully located."
 	restart_timer
 
 	beginloop(0x0e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -1812,7 +1812,7 @@ u8 func1008_devicetraining_rtracker[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -1851,9 +1851,9 @@ u8 func1009_devicetraining_cloak[] = {
 	close_door(0x31)
 	close_door(0x8a)
 	close_door(0x89)
-	if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 	goto_next(0x59)
 
 	label(0x57)
@@ -1868,15 +1868,15 @@ u8 func1009_devicetraining_cloak[] = {
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
 		if_stage_flag_eq(STAGEFLAG_CLOAK_COMPLETE, TRUE, /*goto*/ 0x09)
 		if_stage_flag_eq(STAGEFLAG_CLOAK_FAILED, TRUE, /*goto*/ 0x0a)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_object(CHR_JOANNA, 0x2d, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, 0x2d, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x86)
 
@@ -1887,7 +1887,7 @@ u8 func1009_devicetraining_cloak[] = {
 	set_function(CHR_CARRINGTON, FUNC_CARRINGTON_CLOAK)
 	label(0x8d)
 	remove_displayed_text
-	if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_CLOAKINGDEVICE, /*goto*/ 0x2f)
+	if_chr_has_weapon_equipped(CHR_BOND, WEAPON_CLOAKINGDEVICE, /*goto*/ 0x2f)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c40) // "Select the Cloaking Device. - Hold A Button. - Use Control Stick to change selection. - Highlight Device and release A Button."
 	restart_timer
 
@@ -1895,7 +1895,7 @@ u8 func1009_devicetraining_cloak[] = {
 		if_stage_flag_eq(STAGEFLAG_CLOAK_COMPLETE, TRUE, /*goto*/ 0x09)
 		if_stage_flag_eq(STAGEFLAG_CLOAK_FAILED, TRUE, /*goto*/ 0x0a)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_CLOAKINGDEVICE, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_CLOAKINGDEVICE, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -1917,14 +1917,14 @@ u8 func1009_devicetraining_cloak[] = {
 
 	label(0x09)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c36) // "Mission complete - Device Training passed!"
+	message(CHR_BOND, 0x1c36) // "Mission complete - Device Training passed!"
 	restart_timer
 
 	beginloop(0x0e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
@@ -1934,14 +1934,14 @@ u8 func1009_devicetraining_cloak[] = {
 
 	label(0x0a)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c37) // "Mission failed - you have been detected."
+	message(CHR_BOND, 0x1c37) // "Mission failed - you have been detected."
 	restart_timer
 
 	beginloop(0x0f)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -1961,7 +1961,7 @@ u8 func1009_devicetraining_cloak[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -2000,9 +2000,9 @@ u8 func100a_devicetraining_ecmmine[] = {
 	close_door(0x31)
 	close_door(0x8a)
 	close_door(0x89)
-	if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 	goto_next(0x59)
 
 	label(0x57)
@@ -2015,15 +2015,15 @@ u8 func100a_devicetraining_ecmmine[] = {
 
 	beginloop(0x86)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_object(CHR_JOANNA, 0x2e, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, 0x2e, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x86)
 
@@ -2033,13 +2033,13 @@ u8 func100a_devicetraining_ecmmine[] = {
 	label(0x2f)
 	label(0x8d)
 	remove_displayed_text
-	if_chr_weapon_equipped(CHR_JOANNA, WEAPON_ECMMINE, /*goto*/ 0x2f)
+	if_chr_weapon_equipped(CHR_BOND, WEAPON_ECMMINE, /*goto*/ 0x2f)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c41) // "Select the ECM Mine. - Hold A Button. - Use Control Stick to change selection. - Highlight ECM Mine and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_weapon_equipped(CHR_JOANNA, WEAPON_ECMMINE, /*goto*/ 0x2f)
+		if_chr_weapon_equipped(CHR_BOND, WEAPON_ECMMINE, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -2052,15 +2052,15 @@ u8 func100a_devicetraining_ecmmine[] = {
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_ammo_quantity_lt(CHR_JOANNA, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0x2f)
+		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0x2f)
 	endloop(0x82)
 
 	label(0x2f)
@@ -2083,7 +2083,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 
 	label(0x09)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c13) // "ECM Mine has been placed correctly."
+	message(CHR_BOND, 0x1c13) // "ECM Mine has been placed correctly."
 	restart_timer
 
 	beginloop(0x0c)
@@ -2093,7 +2093,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 
 	label(0x0a)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c12) // "ECM Mine has been placed incorrectly."
+	message(CHR_BOND, 0x1c12) // "ECM Mine has been placed incorrectly."
 	restart_timer
 
 	beginloop(0x0d)
@@ -2112,7 +2112,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -2148,9 +2148,9 @@ u8 func100b_devicetraining_uplink[] = {
 	close_door(0x8a)
 	close_door(0x89)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
-	if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x8c)
-	if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x8c)
-	if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x8c)
+	if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x8c)
+	if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x8c)
+	if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x8c)
 	label(0x8c)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c0a) // "Collect Data Uplink from table to begin."
@@ -2158,14 +2158,14 @@ u8 func100b_devicetraining_uplink[] = {
 
 	beginloop(0x86)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_has_object(CHR_JOANNA, 0x2f, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, 0x2f, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x86)
 
@@ -2175,20 +2175,20 @@ u8 func100b_devicetraining_uplink[] = {
 	label(0x2f)
 	label(0x8d)
 	remove_displayed_text
-	if_chr_weapon_equipped(CHR_JOANNA, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
+	if_chr_weapon_equipped(CHR_BOND, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c38) // "Select the Uplink. - Hold A Button. - Use Control Stick to change selection. - Highlight Data Uplink and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_weapon_equipped(CHR_JOANNA, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
+		if_chr_weapon_equipped(CHR_BOND, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -2196,17 +2196,17 @@ u8 func100b_devicetraining_uplink[] = {
 	goto_first(0x8d)
 
 	label(0x2f)
-	if_chr_activated_object(CHR_JOANNA, 0x30, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x30, /*goto*/ 0x2f)
 	label(0x2f)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c0b) // "Stand next to the terminal and use the Uplink."
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x30, /*goto*/ 0x2f)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x30, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -2215,23 +2215,23 @@ u8 func100b_devicetraining_uplink[] = {
 	endloop(0x82)
 
 	label(0x2f)
-	if_chr_weapon_equipped(CHR_JOANNA, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
+	if_chr_weapon_equipped(CHR_BOND, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
 	play_sound(0x8116, -1)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c0c) // "You need to be holding the Data Uplink."
+	message(CHR_BOND, 0x1c0c) // "You need to be holding the Data Uplink."
 	goto_first(0x82)
 
 	label(0x2f)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c0d) // "Connection established..."
+	message(CHR_BOND, 0x1c0d) // "Connection established..."
 	restart_timer
 
 	label(0x08)
 	yield
 	if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-	if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 	goto_next(0x59)
 
 	label(0x57)
@@ -2242,17 +2242,17 @@ u8 func100b_devicetraining_uplink[] = {
 	label(0x14)
 	yield
 	if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-	if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-	if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+	if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 	goto_next(0x59)
 
 	label(0x57)
 	set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	label(0x59)
 	if_timer_gt(400, /*goto*/ 0x06)
-	if_chr_distance_to_pad_gt(CHR_JOANNA, 400, 0x0227, /*goto*/ 0x09)
-	if_chr_weapon_equipped(CHR_JOANNA, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
+	if_chr_distance_to_pad_gt(CHR_BOND, 400, 0x0227, /*goto*/ 0x09)
+	if_chr_weapon_equipped(CHR_BOND, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
 	goto_first(0x09)
 
 	label(0x2f)
@@ -2264,13 +2264,13 @@ u8 func100b_devicetraining_uplink[] = {
 	assign_sound(0x01c1, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x30, TRUE)
 	remove_displayed_text
-	message(TARGET_CHR, 0x1c0e) // "Terminal has been successfully hacked."
+	message(CHR_TARGET, 0x1c0e) // "Terminal has been successfully hacked."
 
 	beginloop(0x15)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -2284,7 +2284,7 @@ u8 func100b_devicetraining_uplink[] = {
 
 	label(0x09)
 	remove_displayed_text
-	message(CHR_JOANNA, 0x1c0f) // "Connection broken - too far from PC."
+	message(CHR_BOND, 0x1c0f) // "Connection broken - too far from PC."
 	mute_channel(CHANNEL_5)
 	assign_sound(0x01c0, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, 0x30, TRUE)
@@ -2292,9 +2292,9 @@ u8 func100b_devicetraining_uplink[] = {
 
 	beginloop(0x16)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_activated_object(CHR_JOANNA, 0x31, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x8a, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x89, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x8a, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x89, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -2320,7 +2320,7 @@ u8 func100b_devicetraining_uplink[] = {
 	goto_next(0x84)
 
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -2361,7 +2361,7 @@ u8 func101a_move_jo_to_training_room[] = {
 
 	label(0x06)
 	unset_stage_flag(STAGEFLAG_CONSIDER_WARP)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x2f)
 	goto_next(0x30)
 
 	// In room
@@ -2370,7 +2370,7 @@ u8 func101a_move_jo_to_training_room[] = {
 
 	// Not in room
 	label(0x30)
-	revoke_control(CHR_JOANNA, 0)
+	revoke_control(CHR_BOND, 0)
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 5000)
 	restart_timer
@@ -2380,11 +2380,11 @@ u8 func101a_move_jo_to_training_room[] = {
 	endloop(0x08)
 
 	label(0x2f)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0016, /*goto*/ 0x2f)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0017, /*goto*/ 0x2f)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0018, /*goto*/ 0x2f)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0019, /*goto*/ 0x2f)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0014, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0016, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0017, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0018, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0019, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0014, /*goto*/ 0x2f)
 	enter_camera_and_move_to_pad(0x0151)
 	set_function(CHR_P1P2, FUNC_MOVE_TO_DEVICEROOM)
 	goto_next(0x06)
@@ -2408,7 +2408,7 @@ u8 func101a_move_jo_to_training_room[] = {
 	endloop(0x09)
 
 	label(0x06)
-	grant_control(CHR_JOANNA)
+	grant_control(CHR_BOND)
 	enter_firstperson
 	unset_stage_flag(STAGEFLAG_CONSIDER_WARP)
 	goto_first(0x04)
@@ -2493,7 +2493,7 @@ u8 func0429_grimshaw_disguise[] = {
 	endloop(0x58)
 
 	label(0x06)
-	speak(CHR_JOANNA, 0x1c2b, 0x1517, CHANNEL_6, COLOR_09_BLUE) // "I'm here to pick up the equipment."
+	speak(CHR_BOND, 0x1c2b, 0x1517, CHANNEL_6, COLOR_09_BLUE) // "I'm here to pick up the equipment."
 
 	beginloop(0x59)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -2509,9 +2509,9 @@ u8 func0429_grimshaw_disguise[] = {
 	endloop(0x5b)
 
 	label(0x06)
-	if_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_DISGUISED, /*goto*/ 0x2f)
+	if_chr_flag_bank2(CHR_BOND, CHRFLAG2_DISGUISED, /*goto*/ 0x2f)
 	do_special_animation(-1)
-	speak(TARGET_CHR, 0x1c2c, 0x1518, CHANNEL_6, COLOR_05_GREEN) // "Go away, Joanna. You're not fooling anybody!"
+	speak(CHR_TARGET, 0x1c2c, 0x1518, CHANNEL_6, COLOR_05_GREEN) // "Go away, Joanna. You're not fooling anybody!"
 
 	beginloop(0x5c)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -2524,7 +2524,7 @@ u8 func0429_grimshaw_disguise[] = {
 
 	label(0x2f)
 	do_special_animation(-1)
-	speak(TARGET_CHR, 0x1c2d, 0x1519, CHANNEL_6, COLOR_05_GREEN) // "Here you go. Don't drop it now."
+	speak(CHR_TARGET, 0x1c2d, 0x1519, CHANNEL_6, COLOR_05_GREEN) // "Here you go. Don't drop it now."
 
 	beginloop(0x5d)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
@@ -2532,7 +2532,7 @@ u8 func0429_grimshaw_disguise[] = {
 	endloop(0x5d)
 
 	label(0x06)
-	give_object_to_chr(0x3c, CHR_JOANNA)
+	give_object_to_chr(0x3c, CHR_BOND)
 	set_stage_flag(STAGEFLAG_DISGUISE_COMPLETE)
 	label(0x0d)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -2549,7 +2549,7 @@ u8 func100c_cloak_detection[] = {
 		beginloop(0x8f)
 			dprint 'L','O','O','P','Y',0,
 			if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x5d)
-			if_chr_distance_to_pad_lt(CHR_JOANNA, 200, 0x027b, /*goto*/ 0x06)
+			if_chr_distance_to_pad_lt(CHR_BOND, 200, 0x027b, /*goto*/ 0x06)
 		endloop(0x8f)
 
 		beginloop(0x5d)
@@ -2572,7 +2572,7 @@ u8 func100c_cloak_detection[] = {
 
 	label(0x06)
 	dprint 'G','O','T','T','H','R','U',0,
-	if_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_CLOAKED, /*goto*/ 0x30)
+	if_chr_flag_bank2(CHR_BOND, CHRFLAG2_CLOAKED, /*goto*/ 0x30)
 	activate_alarm
 	yield
 	restart_timer
@@ -2584,8 +2584,8 @@ u8 func100c_cloak_detection[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
-	speak(TARGET_CHR, 0x1c30, 0x151a, CHANNEL_6, COLOR_05_GREEN) // "You'll have to do better than that, Joanna."
-	message(CHR_JOANNA, 0x1c32) // "You have been detected by the camera."
+	speak(CHR_TARGET, 0x1c30, 0x151a, CHANNEL_6, COLOR_05_GREEN) // "You'll have to do better than that, Joanna."
+	message(CHR_BOND, 0x1c32) // "You have been detected by the camera."
 	restart_timer
 
 	beginloop(0x0a)
@@ -2675,7 +2675,7 @@ u8 func042a_carrington_cloak[] = {
 
 	label(0x06)
 	do_special_animation(-1)
-	speak(CHR_JOANNA, 0x1c31, 0x151b, CHANNEL_6, COLOR_06_WHITE) // "Joanna, where did you spring from?"
+	speak(CHR_BOND, 0x1c31, 0x151b, CHANNEL_6, COLOR_06_WHITE) // "Joanna, where did you spring from?"
 
 	beginloop(0x59)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x06)
@@ -2690,7 +2690,7 @@ u8 func042a_carrington_cloak[] = {
 
 	label(0x06)
 	do_special_animation(-1)
-	speak(TARGET_CHR, 0x1c35, 0x151c, CHANNEL_6, COLOR_06_WHITE) // "I think we can safely say your training is now complete!"
+	speak(CHR_TARGET, 0x1c35, 0x151c, CHANNEL_6, COLOR_06_WHITE) // "I think we can safely say your training is now complete!"
 
 	beginloop(0x5c)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x06)
@@ -2773,7 +2773,7 @@ u8 func100e_training_unlockables[] = {
 		reloop(0x04) \
  \
 		label(0x2f) \
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 350, pad, /*goto*/ 0x06) \
+		if_chr_distance_to_pad_lt(CHR_BOND, 350, pad, /*goto*/ 0x06) \
 		close_door(door) \
 		reloop(0x04) \
  \
@@ -2824,7 +2824,7 @@ u8 func1012_cloak_doorproxy[] = {
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_DEVICE_SUCCESS, TRUE, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_DEVICE_FAILURE, TRUE, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 350, 0x0188, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_BOND, 350, 0x0188, /*goto*/ 0x06)
 		close_door(0x40)
 		label(0x2f)
 	endloop(0x04)
@@ -2853,7 +2853,7 @@ u8 func101b_ir_door[] = {
 		reloop(0x04)
 
 		label(0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 350, 0x0192, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_BOND, 350, 0x0192, /*goto*/ 0x06)
 		close_door(0x37)
 	endloop(0x04)
 
@@ -2951,7 +2951,7 @@ u8 func042c_carrington_tour[] = {
 	set_eeprom_flag(EEPROMFLAG_CI_TOUR_STARTED)
 	do_special_animation(-1)
 	remove_displayed_text
-	speak(TARGET_CHR, 0x1c42, 0x8029, CHANNEL_6, COLOR_06_WHITE) // "Joanna, it's good to see you."
+	speak(CHR_TARGET, 0x1c42, 0x8029, CHANNEL_6, COLOR_06_WHITE) // "Joanna, it's good to see you."
 	restart_timer
 
 	beginloop(0x57)
@@ -2960,7 +2960,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x06)
 	do_special_animation(-1)
-	speak(TARGET_CHR, 0x1c43, 0x151d, CHANNEL_6, COLOR_06_WHITE) // "Come with me. I'll walk you round the training rooms."
+	speak(CHR_TARGET, 0x1c43, 0x151d, CHANNEL_6, COLOR_06_WHITE) // "Come with me. I'll walk you round the training rooms."
 	restart_timer
 
 	beginloop(0x59)
@@ -2992,7 +2992,7 @@ u8 func042c_carrington_tour[] = {
 	label(0x2f)
 	do_special_animation(-1)
 	remove_displayed_text
-	speak(TARGET_CHR, 0x1c44, 0x1520, CHANNEL_6, COLOR_06_WHITE) // "The information center is through this door."
+	speak(CHR_TARGET, 0x1c44, 0x1520, CHANNEL_6, COLOR_06_WHITE) // "The information center is through this door."
 	restart_timer
 
 	beginloop(0x5d)
@@ -3020,7 +3020,7 @@ u8 func042c_carrington_tour[] = {
 	label(0x2f)
 	set_function(0x01, GFUNC_IDLE)
 	do_special_animation(-1)
-	speak(TARGET_CHR, 0x1c45, 0x151f, CHANNEL_6, COLOR_06_WHITE) // "In here we have the device lab."
+	speak(CHR_TARGET, 0x1c45, 0x151f, CHANNEL_6, COLOR_06_WHITE) // "In here we have the device lab."
 	restart_timer
 
 	beginloop(0x64)
@@ -3076,7 +3076,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_special_animation(-1)
-	speak(TARGET_CHR, 0x1c46, 0x1521, CHANNEL_6, COLOR_06_WHITE) // "This leads to the simulant training room."
+	speak(CHR_TARGET, 0x1c46, 0x1521, CHANNEL_6, COLOR_06_WHITE) // "This leads to the simulant training room."
 	restart_timer
 
 	beginloop(0x6b)
@@ -3112,7 +3112,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_special_animation(-1)
-	speak(TARGET_CHR, 0x1c47, 0x151e, CHANNEL_6, COLOR_06_WHITE) // "This is the firing range, Jo."
+	speak(CHR_TARGET, 0x1c47, 0x151e, CHANNEL_6, COLOR_06_WHITE) // "This is the firing range, Jo."
 	restart_timer
 
 	beginloop(0x6f)
@@ -3164,7 +3164,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_special_animation(-1)
-	speak(TARGET_CHR, 0x1c48, 0x1522, CHANNEL_6, COLOR_06_WHITE) // "This corridor leads down to the hangar."
+	speak(CHR_TARGET, 0x1c48, 0x1522, CHANNEL_6, COLOR_06_WHITE) // "This corridor leads down to the hangar."
 	restart_timer
 
 	beginloop(0x75)
@@ -3173,7 +3173,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x06)
 	restart_timer
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x79)
 
 	beginloop(0x79)
@@ -3182,7 +3182,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	do_special_animation(-1)
-	speak(TARGET_CHR, 0x1c7c, 0x17dc, CHANNEL_6, COLOR_06_WHITE) // "Okay, Jo, I'll leave you to prepare for the mission."
+	speak(CHR_TARGET, 0x1c7c, 0x17dc, CHANNEL_6, COLOR_06_WHITE) // "Okay, Jo, I'll leave you to prepare for the mission."
 
 	beginloop(0x7a)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x2f)
@@ -3269,7 +3269,7 @@ u8 func1013_msg_hovercrate[] = {
 
 	beginloop(0x04)
 		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x0141, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0141, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x06)
@@ -3297,7 +3297,7 @@ u8 func1014_msg_hoverbike[] = {
 
 	beginloop(0x04)
 		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x01f9, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x01f9, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x06)
@@ -3352,8 +3352,8 @@ u8 func1016_msg_elevators[] = {
 
 	beginloop(0x04)
 		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x0160, /*goto*/ 0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x0162, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0160, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0162, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -3370,13 +3370,13 @@ u8 func1017_msg_terminals[] = {
 
 	beginloop(0x04)
 		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x0227, /*goto*/ 0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x022a, /*goto*/ 0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x021c, /*goto*/ 0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x021e, /*goto*/ 0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x0221, /*goto*/ 0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x0224, /*goto*/ 0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, 0x023e, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0227, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x022a, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x021c, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x021e, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0221, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0224, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x023e, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -3390,7 +3390,7 @@ u8 func1017_msg_terminals[] = {
 u8 func1018_lightswitch[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_NIGHTVISION, FALSE, /*goto*/ 0x2f)
-		if_chr_has_weapon_equipped(CHR_JOANNA, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
+		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
 		set_object_flag_bank1(OBJ_LIGHTSWITCH, OBJECTFLAG1_INVISIBLE)
 		reloop(0x04)
 
@@ -3430,8 +3430,8 @@ u8 func101c_holo1_main[] = {
 	lock_door(0x76, 0x40)
 	close_door(0x75)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
-	if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x2f)
-	if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
 	unset_stage_flag(STAGEFLAG_HOLO_ABORTING)
 	unset_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
@@ -3485,8 +3485,8 @@ u8 func101c_holo1_main[] = {
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x90)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_SUCCESS, TRUE, /*goto*/ 0x83)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_FAILURE, TRUE, /*goto*/ 0x85)
-		if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -3511,7 +3511,7 @@ u8 func101c_holo1_main[] = {
 	goto_next(0x84)
 
 	label(0x84)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
 	set_stage_flag(STAGEFLAG_CONSIDER_WARP)
 	unlock_door(0x75, 0x40)
@@ -3622,9 +3622,9 @@ u8 func1020_holo1_monitor_switches[] = {
  \
 		label(0x2f) \
 		if_object_flag_bank1(object1, OBJECTFLAG1_00000001, /*goto*/ 0x2f) \
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 400, pad, /*goto*/ 0x09) \
+		if_chr_distance_to_pad_lt(CHR_BOND, 400, pad, /*goto*/ 0x09) \
 		label(0x2f) \
-		if_chr_looking_at_object(CHR_JOANNA, object1, /*goto*/ 0x2f) \
+		if_chr_looking_at_object(CHR_BOND, object1, /*goto*/ 0x2f) \
 	endloop(0x04) \
  \
 	label(0x09)
@@ -3640,7 +3640,7 @@ u8 func1020_holo1_monitor_switches[] = {
 	set_object_image(object2, 0x00, 0x12) \
 	set_object_image(object1, 0x00, 0x13) \
 	remove_displayed_text \
-	message(CHR_JOANNA, msg) \
+	message(CHR_BOND, msg) \
 	assign_sound(0x81b0, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, object1, TRUE) \
 	restart_timer \
@@ -3800,8 +3800,8 @@ u8 func1022_holo2_main[] = {
 	lock_door(0x76, 0x40)
 	close_door(0x75)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
-	if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x2f)
-	if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
 	unset_object_flag_bank1(0x54, OBJECTFLAG1_00000001)
 	unset_object_flag_bank1(0x55, OBJECTFLAG1_00000001)
@@ -3832,8 +3832,8 @@ u8 func1022_holo2_main[] = {
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x90)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_FAILURE, TRUE, /*goto*/ 0x85)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_SUCCESS, TRUE, /*goto*/ 0x83)
-		if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x57)
 		goto_next(0x59)
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
@@ -4061,8 +4061,8 @@ u8 func1027_holo3_main[] = {
 	lock_door(0x76, 0x40)
 	close_door(0x75)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
-	if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x2f)
-	if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
 	unset_object_flag_bank1(0x65, OBJECTFLAG1_00000001)
 	unset_object_flag_bank1(0x66, OBJECTFLAG1_00000001)
@@ -4139,8 +4139,8 @@ u8 func1027_holo3_main[] = {
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x90)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_FAILURE, TRUE, /*goto*/ 0x85)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_SUCCESS, TRUE, /*goto*/ 0x83)
-		if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -4225,7 +4225,7 @@ u8 func102a_holo3_part1[] = {
 	reloop(0x04)
 
 		label(0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 300, 0x0123, /*goto*/ 0x09)
+		if_chr_distance_to_pad_lt(CHR_BOND, 300, 0x0123, /*goto*/ 0x09)
 	endloop(0x04)
 
 	label(0x09)
@@ -4251,7 +4251,7 @@ u8 func102b_holo3_part2[] = {
 		reloop(0x04)
 
 		label(0x2f)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 300, 0x0124, /*goto*/ 0x09)
+		if_chr_distance_to_pad_lt(CHR_BOND, 300, 0x0124, /*goto*/ 0x09)
 	endloop(0x04)
 
 	label(0x09)
@@ -4343,8 +4343,8 @@ u8 func1028_holo4_main[] = {
 	lock_door(0x76, 0x40)
 	close_door(0x75)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
-	if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x2f)
-	if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
 	unset_stage_flag(STAGEFLAG_HOLO_ABORTING)
 	unset_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
@@ -4380,8 +4380,8 @@ u8 func1028_holo4_main[] = {
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x90)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_FAILURE, TRUE, /*goto*/ 0x85)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_SUCCESS, TRUE, /*goto*/ 0x83)
-		if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x57)
 		goto_next(0x59)
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
@@ -4584,8 +4584,8 @@ u8 func1029_holo5_main[] = {
 	lock_door(0x76, 0x40)
 	close_door(0x75)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
-	if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x2f)
-	if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
 	unset_stage_flag(STAGEFLAG_HOLO_ABORTING)
 	unset_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
@@ -4620,8 +4620,8 @@ u8 func1029_holo5_main[] = {
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x90)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_FAILURE, TRUE, /*goto*/ 0x85)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_SUCCESS, TRUE, /*goto*/ 0x83)
-		if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x57)
 		goto_next(0x59)
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
@@ -4719,7 +4719,7 @@ u8 func0407_holo5_guard1[] = {
 	set_self_flag_bank3(CHRFLAG3_00000040)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	surrender
-	message(CHR_JOANNA, 0x1c5a) // "Guard has been successfully disarmed."
+	message(CHR_BOND, 0x1c5a) // "Guard has been successfully disarmed."
 
 	beginloop(0x59)
 		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0272, FUNC_HOLO5_INIT_GUARD2, 0x00002210, /*goto*/ 0x2f)
@@ -4941,8 +4941,8 @@ u8 func102e_holo6_main[] = {
 	lock_door(0x76, 0x40)
 	close_door(0x75)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
-	if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x2f)
-	if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
 	unset_stage_flag(STAGEFLAG_HOLO_ABORTING)
 	unset_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
@@ -4981,8 +4981,8 @@ u8 func102e_holo6_main[] = {
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x90)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_FAILURE, TRUE, /*goto*/ 0x85)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_SUCCESS, TRUE, /*goto*/ 0x83)
-		if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x57)
 		goto_next(0x59)
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
@@ -5139,8 +5139,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	restart_timer
 
 	beginloop(0x04)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0x57)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0x57)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0x57)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x57)
 		if_chr_distance_gt(100, /*goto*/ 0x2f)
 		if_in_disarm_range(/*goto*/ 0x2f)
 		if_timer_gt(120, /*goto*/ 0x10)
@@ -5153,8 +5153,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	try_run_to_target_chr(/*goto*/ 0x08)
 
 	beginloop(0x08)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0x57)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0x57)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0x57)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x57)
 		if_timer_gt(20, /*goto*/ 0x10)
 		if_chr_stopped(/*goto*/ 0x10)
 		if_chr_lost_track_of_target_maybe(/*goto*/ 0x0e)
@@ -5175,8 +5175,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0x57)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0x57)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0x57)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x57)
 		if_chr_distance_gt(400, /*goto*/ 0x10)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
@@ -5202,13 +5202,13 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 
 	label(0x06)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x2f)
-	say_quip(CHR_JOANNA, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x16, 0x19, 0x03, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x17, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	goto_next(0x06)
 
 	label(0x2f)
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0f)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	set_stage_flag(STAGEFLAG_HOLO_FAILED)
@@ -5350,8 +5350,8 @@ u8 func1030_holo7_main[] = {
 	lock_door(0x76, 0x40)
 	close_door(0x75)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
-	if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x2f)
-	if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
+	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
 	unset_stage_flag(STAGEFLAG_HOLO_ABORTING)
 	unset_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
@@ -5395,8 +5395,8 @@ u8 func1030_holo7_main[] = {
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x90)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_FAILURE, TRUE, /*goto*/ 0x85)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_SUCCESS, TRUE, /*goto*/ 0x83)
-		if_chr_activated_object(CHR_JOANNA, 0x75, /*goto*/ 0x57)
-		if_chr_activated_object(CHR_JOANNA, 0x76, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x57)
+		if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x57)
 		goto_next(0x59)
 
 		label(0x57)
@@ -5545,8 +5545,8 @@ u8 func0419_holo_guard_armed_alert[] = {
 	label(0x06)
 	goto_first(0x8f)
 
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
-	say_quip(CHR_JOANNA, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x15, 0x19, 0x02, 0x00, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x15, 0x19, 0x03, 0x01, BANK_0, 0x00, 0x00)
 	label(0x2f)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
@@ -5688,7 +5688,7 @@ u8 func1035_manage_music[] = {
 		reloop(0x03) \
  \
 		label(0x2f) \
-		message(CHR_JOANNA, text) \
+		message(CHR_BOND, text) \
 		restart_timer \
  \
 		beginloop(0x08) \
@@ -5741,16 +5741,16 @@ u8 func103f_msg_fnp90[] = {
 };
 
 u8 func1000_jo_typing[] = {
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	camera_movement(0x0484)
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x7b)
 	set_music_track(MUSIC_CI_INTRO)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0485, -1, -1, 0x0600, CHR_JOANNA, 4)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0485, -1, -1, 0x0600, CHR_BOND, 4)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
@@ -5781,11 +5781,11 @@ u8 func1000_jo_typing[] = {
 	endloop(0x08)
 
 	label(0x7b)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0485, -2, -1, 0x0600, CHR_JOANNA, 2)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0485, -2, -1, 0x0600, CHR_BOND, 2)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	enter_firstperson
 	passive_mode(TRUE)
 	fade_to_color(0x00000000, 0)
@@ -5895,10 +5895,10 @@ u8 func1042_check_jo_in_training_room[] = {
 		// 0x001a = entry to information room
 		// 0x000b = entry to carrington's office
 		label(0x2f)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0014, /*goto*/ 0x30)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x001d, /*goto*/ 0x2f)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x001a, /*goto*/ 0x2f)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x000b, /*goto*/ 0x2f)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0014, /*goto*/ 0x30)
+		if_chr_in_room(CHR_BOND, 0x00, 0x001d, /*goto*/ 0x2f)
+		if_chr_in_room(CHR_BOND, 0x00, 0x001a, /*goto*/ 0x2f)
+		if_chr_in_room(CHR_BOND, 0x00, 0x000b, /*goto*/ 0x2f)
 		reloop(0x04)
 
 		label(0x30)

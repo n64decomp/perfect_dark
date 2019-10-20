@@ -24,11 +24,11 @@
 #define OBJ_ALARMTERM2               0x14
 #define OBJ_ALARMTERM3               0x19
 #define OBJ_UPLINKDOOR               0x22
-#define OBJ_DATAUPLINK_JOANNA        0x25
+#define OBJ_DATAUPLINK_BOND          0x25
 #define OBJ_YELLOWBOT                0x37 // opens the secret door
 #define OBJ_PURPLEBOT                0x38 // lasers
 #define OBJ_HATCHPC                  0x3a
-#define OBJ_DATAUPLINK_VELVET        0x48
+#define OBJ_DATAUPLINK_COOP          0x48
 #define OBJ_CACHEDOOR1               0x55
 #define OBJ_CACHEDOOR2               0x56
 #define OBJ_CMP150_1                 0x57
@@ -1022,7 +1022,7 @@ u8 func0404_scientist[] = {
 
 	label(0x06)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	say_quip(TARGET_CHR, 0x0a, 0xff, 0x00, 0xff, 0x81, 0x03, 0x08)
+	say_quip(CHR_TARGET, 0x0a, 0xff, 0x00, 0xff, 0x81, 0x03, 0x08)
 	restart_timer
 	stop_chr
 
@@ -1034,7 +1034,7 @@ u8 func0404_scientist[] = {
 
 	label(0x06)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	say_quip(TARGET_CHR, 0x0b, 0xff, 0x00, 0xff, 0x81, 0x04, 0x09)
+	say_quip(CHR_TARGET, 0x0b, 0xff, 0x00, 0xff, 0x81, 0x04, 0x09)
 	restart_timer
 
 	beginloop(0x57)
@@ -1043,7 +1043,7 @@ u8 func0404_scientist[] = {
 
 	label(0x06)
 	label(0x0a)
-	say_quip(TARGET_CHR, 0x0c, 0xff, 0x00, 0xff, 0x81, 0x05, 0x08)
+	say_quip(CHR_TARGET, 0x0c, 0xff, 0x00, 0xff, 0x81, 0x05, 0x08)
 	restart_timer
 	animation(ANIM_SURRENDER_002E, 0, -1, 0x1010, CHR_SELF, 2)
 
@@ -1075,59 +1075,59 @@ u8 func0404_scientist[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x06)
 	if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x2f)
 	if_object_in_good_condition(OBJ_GOODTERM3, /*goto*/ 0x19)
-	say_quip(TARGET_CHR, 0x10, 0xff, 0x00, 0xff, 0x81, 0x09, 0x08)
-	display_text_top_middle(TARGET_CHR, 0x1e2c, COLOR_00_GREEN) // "It appears someone has broken my PC."
+	say_quip(CHR_TARGET, 0x10, 0xff, 0x00, 0xff, 0x81, 0x09, 0x08)
+	display_text_top_middle(CHR_TARGET, 0x1e2c, COLOR_00_GREEN) // "It appears someone has broken my PC."
 	goto_next(0x0e)
 
 	label(0x19)
 	if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT3, FALSE, /*goto*/ 0x15)
-	say_quip(TARGET_CHR, 0x0f, 0xff, 0x00, 0xff, 0x81, 0x08, 0x08)
+	say_quip(CHR_TARGET, 0x0f, 0xff, 0x00, 0xff, 0x81, 0x08, 0x08)
 	goto_next(0x0e)
 
 	label(0x15)
 	set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT3)
-	say_quip(TARGET_CHR, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
+	say_quip(CHR_TARGET, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
 	assign_sound(0x01c3, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_GOODTERM3, TRUE)
 	goto_next(0x0f)
 
 	label(0x06)
 	if_object_in_good_condition(OBJ_GOODTERM1, /*goto*/ 0x19)
-	say_quip(TARGET_CHR, 0x10, 0xff, 0x00, 0xff, 0x81, 0x09, 0x08)
+	say_quip(CHR_TARGET, 0x10, 0xff, 0x00, 0xff, 0x81, 0x09, 0x08)
 	goto_next(0x0e)
 
 	label(0x19)
 	if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT1, FALSE, /*goto*/ 0x16)
-	say_quip(TARGET_CHR, 0x0f, 0xff, 0x00, 0xff, 0x81, 0x08, 0x08)
+	say_quip(CHR_TARGET, 0x0f, 0xff, 0x00, 0xff, 0x81, 0x08, 0x08)
 	goto_next(0x0e)
 
 	label(0x16)
 	set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT1)
-	say_quip(TARGET_CHR, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
+	say_quip(CHR_TARGET, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
 	assign_sound(0x01c3, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_GOODTERM1, TRUE)
 	goto_next(0x0f)
 
 	label(0x2f)
 	if_object_in_good_condition(OBJ_GOODTERM1, /*goto*/ 0x19)
-	say_quip(TARGET_CHR, 0x10, 0xff, 0x00, 0xff, 0x81, 0x09, 0x08)
+	say_quip(CHR_TARGET, 0x10, 0xff, 0x00, 0xff, 0x81, 0x09, 0x08)
 	goto_next(0x0e)
 
 	label(0x19)
 	if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT2, FALSE, /*goto*/ 0x17)
-	say_quip(TARGET_CHR, 0x0f, 0xff, 0x00, 0xff, 0x81, 0x08, 0x08)
+	say_quip(CHR_TARGET, 0x0f, 0xff, 0x00, 0xff, 0x81, 0x08, 0x08)
 	goto_next(0x0e)
 
 	label(0x17)
 	set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT2)
-	say_quip(TARGET_CHR, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
+	say_quip(CHR_TARGET, 0x0d, 0xff, 0x00, 0xff, 0x81, 0x06, 0x08)
 	assign_sound(0x01c3, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_GOODTERM2, TRUE)
 	goto_next(0x0f)
 
 	label(0x0f)
-	message(TARGET_CHR, 0x1e1c) // "Powering down active systems."
-	speak(TARGET_CHR, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+	message(CHR_TARGET, 0x1e1c) // "Powering down active systems."
+	speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 	animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x1010, CHR_SELF, 2)
 
 	beginloop(0x0d)
@@ -1135,7 +1135,7 @@ u8 func0404_scientist[] = {
 	endloop(0x0d)
 
 	label(0x06)
-	message(TARGET_CHR, 0x1e1d) // "Experiment has been shut down."
+	message(CHR_TARGET, 0x1e1d) // "Experiment has been shut down."
 	stop_chr
 
 	beginloop(0x0e)
@@ -1205,7 +1205,7 @@ u8 func0406_nasty_scientist[] = {
 	endloop(0x09)
 
 	label(0x06)
-	say_quip(TARGET_CHR, 0x0a, 0xff, 0x00, 0xff, 0x81, 0x03, 0x08)
+	say_quip(CHR_TARGET, 0x0a, 0xff, 0x00, 0xff, 0x81, 0x03, 0x08)
 	restart_timer
 
 	beginloop(0x56)
@@ -1214,7 +1214,7 @@ u8 func0406_nasty_scientist[] = {
 
 	label(0x06)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	say_quip(TARGET_CHR, 0x0b, 0xff, 0x00, 0xff, 0x81, 0x04, 0x09)
+	say_quip(CHR_TARGET, 0x0b, 0xff, 0x00, 0xff, 0x81, 0x04, 0x09)
 	restart_timer
 
 	beginloop(0x57)
@@ -1224,7 +1224,7 @@ u8 func0406_nasty_scientist[] = {
 	label(0x0a)
 	restart_timer
 	stop_chr
-	say_quip(TARGET_CHR, 0x0c, 0xff, 0x00, 0xff, 0x81, 0x05, 0x08)
+	say_quip(CHR_TARGET, 0x0c, 0xff, 0x00, 0xff, 0x81, 0x05, 0x08)
 
 	beginloop(0x0b)
 		if_timer_gt(90, /*goto*/ 0x55)
@@ -1270,12 +1270,12 @@ u8 func0406_nasty_scientist[] = {
 	goto_next(0x0f)
 
 	label(0x11)
-	say_quip(TARGET_CHR, 0x10, 0xff, 0x00, 0xff, 0x81, 0x09, 0x08)
+	say_quip(CHR_TARGET, 0x10, 0xff, 0x00, 0xff, 0x81, 0x09, 0x08)
 	goto_next(0x78)
 
 	label(0x0f)
-	speak(TARGET_CHR, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
-	say_quip(TARGET_CHR, 0x0e, 0xff, 0x00, 0xff, 0x81, 0x07, 0x08)
+	speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+	say_quip(CHR_TARGET, 0x0e, 0xff, 0x00, 0xff, 0x81, 0x07, 0x08)
 	animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x1010, CHR_SELF, 2)
 
 	beginloop(0x0d)
@@ -1298,12 +1298,12 @@ u8 func1009_weaponscache[] = {
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_activated_object(TARGET_CHR, OBJ_CACHETERMINAL, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, OBJ_CACHETERMINAL, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
-	if_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_PSYCHOSISED, /*goto*/ 0x2f)
-	message(TARGET_CHR, 0x1e62) // "Secret weapons compartment opened."
+	if_chr_flag_bank2(CHR_BOND, CHRFLAG2_PSYCHOSISED, /*goto*/ 0x2f)
+	message(CHR_TARGET, 0x1e62) // "Secret weapons compartment opened."
 	play_sound(0x00f7, -1)
 	assign_sound(0x043b, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_CMP150_1, TRUE)
@@ -1318,7 +1318,7 @@ u8 func1009_weaponscache[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2f)
-	message(TARGET_CHR, 0x1e63) // "Enemy detected - weapon cache locked."
+	message(CHR_TARGET, 0x1e63) // "Enemy detected - weapon cache locked."
 	play_sound(0x00f7, -1)
 	unset_stage_flag(STAGEFLAG_BOT_ACTIVE)
 	unset_stage_flag(STAGEFLAG_BOT_REPROGRAMMED)
@@ -1345,7 +1345,7 @@ u8 func1002_bot_activation_terminal[] = {
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_activated_object(TARGET_CHR, OBJ_BOT_ACTIVATION_TERMINAL, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, OBJ_BOT_ACTIVATION_TERMINAL, /*goto*/ 0x2f)
 		reloop(0x04)
 
 		label(0x2f)
@@ -1358,25 +1358,25 @@ u8 func1002_bot_activation_terminal[] = {
 		play_sound(0x01ca, -1)
 		assign_sound(0x01c5, CHANNEL_3)
 		play_sound_from_object(CHANNEL_3, OBJ_PURPLEBOT, 0x0258, 0x0320)
-		message(TARGET_CHR, 0x1e0f) // "Maintenance robots activated."
+		message(CHR_TARGET, 0x1e0f) // "Maintenance robots activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE)
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE_NOPROGRAM)
 		reloop(0x04)
 
 		// Activating after reprogramming
 		label(0x2f)
-		message(TARGET_CHR, 0x1e0f) // "Maintenance robots activated."
+		message(CHR_TARGET, 0x1e0f) // "Maintenance robots activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE)
 		yield
 		play_sound(0x00f7, -1)
-		message(TARGET_CHR, 0x1e12) // "Maintenance cycle activated."
+		message(CHR_TARGET, 0x1e12) // "Maintenance cycle activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE_MAINTENANCE)
 		reloop(0x04)
 
 		// Attempting to deactivate while bot reprogrammed and running
 		label(0x08)
 		play_sound(0x00f7, -1)
-		message(TARGET_CHR, 0x1e14) // "Operation not allowed - robots busy."
+		message(CHR_TARGET, 0x1e14) // "Operation not allowed - robots busy."
 		restart_timer
 
 		beginloop(0x09)
@@ -1388,7 +1388,7 @@ u8 func1002_bot_activation_terminal[] = {
 
 		// Deactivating
 		label(0x0a)
-		message(TARGET_CHR, 0x1e15) // "Maintenance robots deactivated."
+		message(CHR_TARGET, 0x1e15) // "Maintenance robots deactivated."
 		unset_stage_flag(STAGEFLAG_BOT_ACTIVE)
 		unset_stage_flag(STAGEFLAG_BOT_ACTIVE_CLEANING)
 		unset_stage_flag(STAGEFLAG_BOT_ACTIVE_NOPROGRAM)
@@ -1398,7 +1398,7 @@ u8 func1002_bot_activation_terminal[] = {
 
 		label(0x0b)
 		play_sound(0x00f7, -1)
-		message(TARGET_CHR, 0x1e17) // "Maintenance robot system offline."
+		message(CHR_TARGET, 0x1e17) // "Maintenance robot system offline."
 	endloop(0x04)
 
 	endfunction
@@ -1423,7 +1423,7 @@ u8 func1003_bot_programming_terminal[] = {
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_activated_object(TARGET_CHR, OBJ_BOT_PROGRAMMING_TERMINAL, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, OBJ_BOT_PROGRAMMING_TERMINAL, /*goto*/ 0x2f)
 		reloop(0x04)
 
 		label(0x2f)
@@ -1433,7 +1433,7 @@ u8 func1003_bot_programming_terminal[] = {
 
 		// Reprogramming
 		play_sound(0x00f7, -1)
-		message(TARGET_CHR, 0x1e10) // "Maintenance robots reprogrammed."
+		message(CHR_TARGET, 0x1e10) // "Maintenance robots reprogrammed."
 		set_stage_flag(STAGEFLAG_BOT_REPROGRAMMED)
 		if_stage_flag_eq(STAGEFLAG_BOT_ACTIVE, TRUE, /*goto*/ 0x2f)
 		reloop(0x04)
@@ -1441,7 +1441,7 @@ u8 func1003_bot_programming_terminal[] = {
 		label(0x2f)
 		yield
 		play_sound(0x00f7, -1)
-		message(TARGET_CHR, 0x1e13) // "Routine cleaning cycle activated."
+		message(CHR_TARGET, 0x1e13) // "Routine cleaning cycle activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE_CLEANING)
 		restart_timer
 
@@ -1455,7 +1455,7 @@ u8 func1003_bot_programming_terminal[] = {
 		// Attempting to reprogram while bot already reprogrammed and running
 		label(0x09)
 		play_sound(0x00f7, -1)
-		message(TARGET_CHR, 0x1e14) // "Operation not allowed - robots busy."
+		message(CHR_TARGET, 0x1e14) // "Operation not allowed - robots busy."
 		restart_timer
 
 		beginloop(0x0a)
@@ -1466,7 +1466,7 @@ u8 func1003_bot_programming_terminal[] = {
 		reloop(0x04)
 
 		label(0x0b)
-		message(TARGET_CHR, 0x1e17) // "Maintenance robot system offline."
+		message(CHR_TARGET, 0x1e17) // "Maintenance robot system offline."
 	endloop(0x04)
 
 	endfunction
@@ -1479,18 +1479,18 @@ u8 func1004_check_items_collected[] = {
 	set_object_flag_bank2(OBJ_SHIELD, OBJECTFLAG2_00400000)
 
 	beginloop(0x04)
-		if_chr_has_object(CHR_JOANNA, OBJ_K7AVENGER, /*goto*/ 0x2f)
-		if_chr_has_object(CHR_VELVET, OBJ_K7AVENGER, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, OBJ_K7AVENGER, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_COOP, OBJ_K7AVENGER, /*goto*/ 0x2f)
 		reloop(0x04)
 
 		label(0x2f)
-		if_chr_has_object(CHR_JOANNA, OBJ_NIGHTVISION, /*goto*/ 0x2f)
-		if_chr_has_object(CHR_VELVET, OBJ_NIGHTVISION, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, OBJ_NIGHTVISION, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_COOP, OBJ_NIGHTVISION, /*goto*/ 0x2f)
 		reloop(0x04)
 
 		label(0x2f)
-		if_chr_has_object(CHR_JOANNA, OBJ_SHIELD, /*goto*/ 0x2f)
-		if_chr_has_object(CHR_VELVET, OBJ_SHIELD, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_BOND, OBJ_SHIELD, /*goto*/ 0x2f)
+		if_chr_has_object(CHR_COOP, OBJ_SHIELD, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -1589,7 +1589,7 @@ u8 func1005_check_unacceptable_casualties[] = {
 	label(0x2f)
 	label(0x0f)
 	set_stage_flag(STAGEFLAG_UNACCEPTABLE_CASUALTIES)
-	message(CHR_JOANNA, 0x1e1a) // "Unacceptable scientist casualties."
+	message(CHR_BOND, 0x1e1a) // "Unacceptable scientist casualties."
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -1598,38 +1598,38 @@ u8 func1006_terminal_activation[] = {
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_activated_object(TARGET_CHR, OBJ_GOODTERM1, /*goto*/ 0x08)
-		if_chr_activated_object(TARGET_CHR, OBJ_ALARMTERM1, /*goto*/ 0x09)
-		if_chr_activated_object(TARGET_CHR, OBJ_GOODTERM2, /*goto*/ 0x0d)
-		if_chr_activated_object(TARGET_CHR, OBJ_ALARMTERM2, /*goto*/ 0x0b)
-		if_chr_activated_object(TARGET_CHR, OBJ_GOODTERM3, /*goto*/ 0x0f)
-		if_chr_activated_object(TARGET_CHR, OBJ_ALARMTERM3, /*goto*/ 0x0c)
-		if_chr_activated_object(TARGET_CHR, 0x0b, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x0c, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x0d, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x0e, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x10, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x11, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x12, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x13, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x15, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x16, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x17, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x18, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x1a, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x1b, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x1c, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x1d, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x1e, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x1f, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x20, /*goto*/ 0x2f)
-		if_chr_activated_object(TARGET_CHR, 0x21, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, OBJ_GOODTERM1, /*goto*/ 0x08)
+		if_chr_activated_object(CHR_TARGET, OBJ_ALARMTERM1, /*goto*/ 0x09)
+		if_chr_activated_object(CHR_TARGET, OBJ_GOODTERM2, /*goto*/ 0x0d)
+		if_chr_activated_object(CHR_TARGET, OBJ_ALARMTERM2, /*goto*/ 0x0b)
+		if_chr_activated_object(CHR_TARGET, OBJ_GOODTERM3, /*goto*/ 0x0f)
+		if_chr_activated_object(CHR_TARGET, OBJ_ALARMTERM3, /*goto*/ 0x0c)
+		if_chr_activated_object(CHR_TARGET, 0x0b, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x0c, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x0d, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x0e, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x10, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x11, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x12, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x13, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x15, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x16, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x17, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x18, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x1a, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x1b, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x1c, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x1d, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x1e, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x1f, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x20, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, 0x21, /*goto*/ 0x2f)
 		endloop(0x04)
 
 		// Inactive terminal
 		label(0x2f)
-		speak(TARGET_CHR, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(TARGET_CHR, 0x1e1b) // "Terminal is not active."
+		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		message(CHR_TARGET, 0x1e1b) // "Terminal is not active."
 		restart_timer
 
 		beginloop(0x56)
@@ -1641,7 +1641,7 @@ u8 func1006_terminal_activation[] = {
 
 		// Good terminal 0x07
 		label(0x08)
-		speak(TARGET_CHR, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT1, FALSE, /*goto*/ 0x2f)
 		restart_timer
 
@@ -1650,11 +1650,11 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x56)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e2a) // "Experiment already powered down."
+		message(CHR_TARGET, 0x1e2a) // "Experiment already powered down."
 		reloop(0x04)
 
 		label(0x2f)
-		message(TARGET_CHR, 0x1e1c) // "Powering down active systems."
+		message(CHR_TARGET, 0x1e1c) // "Powering down active systems."
 		assign_sound(0x01c3, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM1, TRUE)
 		restart_timer
@@ -1664,13 +1664,13 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x0a)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e1d) // "Experiment has been shut down."
+		message(CHR_TARGET, 0x1e1d) // "Experiment has been shut down."
 		set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT1)
 		reloop(0x04)
 
 		// Good terminal 0x08
 		label(0x0d)
-		speak(TARGET_CHR, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT2, FALSE, /*goto*/ 0x2f)
 		restart_timer
 
@@ -1679,11 +1679,11 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x57)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e2a) // "Experiment already powered down."
+		message(CHR_TARGET, 0x1e2a) // "Experiment already powered down."
 		goto_first(0x04)
 
 		label(0x2f)
-		message(TARGET_CHR, 0x1e1c) // "Powering down active systems."
+		message(CHR_TARGET, 0x1e1c) // "Powering down active systems."
 		assign_sound(0x01c3, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM2, TRUE)
 		restart_timer
@@ -1693,13 +1693,13 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x0e)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e1d) // "Experiment has been shut down."
+		message(CHR_TARGET, 0x1e1d) // "Experiment has been shut down."
 		set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT2)
 		reloop(0x04)
 
 		// Good terminal 0x09
 		label(0x0f)
-		speak(TARGET_CHR, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT3, FALSE, /*goto*/ 0x2f)
 		restart_timer
 
@@ -1708,11 +1708,11 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x58)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e2a) // "Experiment already powered down."
+		message(CHR_TARGET, 0x1e2a) // "Experiment already powered down."
 		reloop(0x04)
 
 		label(0x2f)
-		message(TARGET_CHR, 0x1e1c) // "Powering down active systems."
+		message(CHR_TARGET, 0x1e1c) // "Powering down active systems."
 		assign_sound(0x01c3, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM3, TRUE)
 		restart_timer
@@ -1722,21 +1722,21 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x10)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e1d) // "Experiment has been shut down."
+		message(CHR_TARGET, 0x1e1d) // "Experiment has been shut down."
 		set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT3)
 		reloop(0x04)
 
 		// Alarm terminal 0x0f
 		label(0x09)
 		if_alarm_active(/*goto*/ 0x06)
-		speak(TARGET_CHR, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(TARGET_CHR, 0x1e1e) // "Alarm activated."
+		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		message(CHR_TARGET, 0x1e1e) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM1_ACTIVE)
 		activate_alarm
 		reloop(0x04)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e1f) // "Alarm deactivated."
+		message(CHR_TARGET, 0x1e1f) // "Alarm deactivated."
 		unset_stage_flag(STAGEFLAG_ALARM1_ACTIVE)
 		deactivate_alarm
 		reloop(0x04)
@@ -1744,14 +1744,14 @@ u8 func1006_terminal_activation[] = {
 		// Alarm terminal 0x14
 		label(0x0b)
 		if_alarm_active(/*goto*/ 0x06)
-		speak(TARGET_CHR, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(TARGET_CHR, 0x1e1e) // "Alarm activated."
+		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		message(CHR_TARGET, 0x1e1e) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM2_ACTIVE)
 		activate_alarm
 		reloop(0x04)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e1f) // "Alarm deactivated."
+		message(CHR_TARGET, 0x1e1f) // "Alarm deactivated."
 		unset_stage_flag(STAGEFLAG_ALARM2_ACTIVE)
 		deactivate_alarm
 		reloop(0x04)
@@ -1759,14 +1759,14 @@ u8 func1006_terminal_activation[] = {
 		// Alarm terminal 0x19
 		label(0x0c)
 		if_alarm_active(/*goto*/ 0x06)
-		speak(TARGET_CHR, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(TARGET_CHR, 0x1e1e) // "Alarm activated."
+		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		message(CHR_TARGET, 0x1e1e) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM3_ACTIVE)
 		activate_alarm
 		reloop(0x04)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e1f) // "Alarm deactivated."
+		message(CHR_TARGET, 0x1e1f) // "Alarm deactivated."
 		unset_stage_flag(STAGEFLAG_ALARM3_ACTIVE)
 		deactivate_alarm
 		reloop(0x04)
@@ -1785,28 +1785,28 @@ u8 func1007_uplink[] = {
 		label(0x30)
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_activated_object(TARGET_CHR, OBJ_UPLINKPC, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_TARGET, OBJ_UPLINKPC, /*goto*/ 0x2f)
 		reloop(0x04)
 
 		label(0x2f)
 		if_stage_flag_eq(STAGEFLAG_UPLINK_FINISHED, FALSE, /*goto*/ 0x06)
 
 		// Activating a second time
-		speak(TARGET_CHR, 0xffff, 0x8116, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(TARGET_CHR, 0x1e29) // "Security door already unlocked."
+		speak(CHR_TARGET, 0xffff, 0x8116, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		message(CHR_TARGET, 0x1e29) // "Security door already unlocked."
 		reloop(0x04)
 
 		label(0x06)
-		if_chr_weapon_equipped(TARGET_CHR, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
+		if_chr_weapon_equipped(CHR_TARGET, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
 
 		// Activated computer without uplink
-		speak(TARGET_CHR, 0xffff, 0x8116, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(TARGET_CHR, 0x1e24) // "ACCESS DENIED - security code required."
+		speak(CHR_TARGET, 0xffff, 0x8116, CHANNEL_9, COLOR_00_GREEN) // unknown text
+		message(CHR_TARGET, 0x1e24) // "ACCESS DENIED - security code required."
 		reloop(0x04)
 
 		// Uplinking
 		label(0x2f)
-		message(TARGET_CHR, 0x1e3c) // "Connection established."
+		message(CHR_TARGET, 0x1e3c) // "Connection established."
 		restart_timer
 
 		// First second of uplinking
@@ -1816,19 +1816,19 @@ u8 func1007_uplink[] = {
 
 			label(0x30)
 			if_timer_gt(60, /*goto*/ 0x06)
-			if_chr_distance_to_pad_gt(TARGET_CHR, 200, 0x025a, /*goto*/ 0x09)
+			if_chr_distance_to_pad_gt(CHR_TARGET, 200, 0x025a, /*goto*/ 0x09)
 			if_difficulty_lt(DIFF_SA, /*goto*/ 0x2f)
 			if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT1, FALSE, /*goto*/ 0x0b)
 			if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT2, FALSE, /*goto*/ 0x0b)
 			if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT3, FALSE, /*goto*/ 0x0b)
 			label(0x2f)
-			if_chr_weapon_equipped(TARGET_CHR, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
+			if_chr_weapon_equipped(CHR_TARGET, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
 			goto_next(0x09)
 			label(0x2f)
 		endloop(0x08)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e25) // "Searching for password."
+		message(CHR_TARGET, 0x1e25) // "Searching for password."
 		restart_timer
 		set_stage_flag(STAGEFLAG_UPLINK_SEARCHING)
 		assign_sound(0x01bf, CHANNEL_5)
@@ -1840,8 +1840,8 @@ u8 func1007_uplink[] = {
 
 			label(0x30)
 			if_timer_gt(400, /*goto*/ 0x06)
-			if_chr_distance_to_pad_gt(TARGET_CHR, 200, 0x025a, /*goto*/ 0x09)
-			if_chr_weapon_equipped(TARGET_CHR, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
+			if_chr_distance_to_pad_gt(CHR_TARGET, 200, 0x025a, /*goto*/ 0x09)
+			if_chr_weapon_equipped(CHR_TARGET, WEAPON_DATAUPLINK, /*goto*/ 0x2f)
 			goto_next(0x09)
 			label(0x2f)
 		endloop(0x14)
@@ -1850,9 +1850,9 @@ u8 func1007_uplink[] = {
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c1, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, OBJ_UPLINKPC, TRUE)
-		message(TARGET_CHR, 0x1e27) // "Password located - bypassing lock."
+		message(CHR_TARGET, 0x1e27) // "Password located - bypassing lock."
 		yield
-		message(TARGET_CHR, 0x1e11) // "Security doors unlocked."
+		message(CHR_TARGET, 0x1e11) // "Security doors unlocked."
 		set_stage_flag(STAGEFLAG_UPLINK_FINISHED)
 		unlock_door(OBJ_UPLINKDOOR, 0x02)
 
@@ -1867,7 +1867,7 @@ u8 func1007_uplink[] = {
 
 		// Moved away from PC or switched weapon
 		label(0x09)
-		message(TARGET_CHR, 0x1e28) // "Contact broken - reestablish link."
+		message(CHR_TARGET, 0x1e28) // "Contact broken - reestablish link."
 		mute_channel(CHANNEL_5)
 		mute_channel(CHANNEL_6)
 		assign_sound(0x01c0, CHANNEL_6)
@@ -1890,7 +1890,7 @@ u8 func1007_uplink[] = {
 		endloop(0x0c)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e55) // "Connection broken - experiments still active."
+		message(CHR_TARGET, 0x1e55) // "Connection broken - experiments still active."
 		mute_channel(CHANNEL_5)
 		mute_channel(CHANNEL_6)
 		assign_sound(0x01c0, CHANNEL_6)
@@ -1919,13 +1919,13 @@ u8 func1008_check_bot_terminals_destroyed[] = {
 		if_object_in_good_condition(OBJ_BOT_ACTIVATION_TERMINAL, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_BOT_ACTIVATION_TERMINAL_DESTROYED)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x2f)
-		message(CHR_JOANNA, 0x1e16) // "Critical mission object destroyed."
+		message(CHR_BOND, 0x1e16) // "Critical mission object destroyed."
 		label(0x2f)
 		if_stage_flag_eq(STAGEFLAG_BOT_PROGRAMMING_TERMINAL_DESTROYED, TRUE, /*goto*/ 0x2f)
 		if_object_in_good_condition(OBJ_BOT_PROGRAMMING_TERMINAL, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_BOT_PROGRAMMING_TERMINAL_DESTROYED)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x2f)
-		message(CHR_JOANNA, 0x1e16) // "Critical mission object destroyed."
+		message(CHR_BOND, 0x1e16) // "Critical mission object destroyed."
 		label(0x2f)
 	endloop(0x04)
 
@@ -2044,7 +2044,7 @@ u8 func100b_check_uplink_pc_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_UPLINK_FINISHED, TRUE, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_UPLINKPC, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_UPLINKPC_DESTROYED)
-		message(CHR_JOANNA, 0x1e16) // "Critical mission object destroyed."
+		message(CHR_BOND, 0x1e16) // "Critical mission object destroyed."
 		goto_next(0x08)
 		label(0x2f)
 	endloop(0x04)
@@ -2191,21 +2191,21 @@ u8 func100e_experiment_terminals_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_GOODTERM_DESTROYED, TRUE, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT1, TRUE, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_GOODTERM_DESTROYED)
-		message(CHR_JOANNA, 0x1e16) // "Critical mission object destroyed."
+		message(CHR_BOND, 0x1e16) // "Critical mission object destroyed."
 
 		label(0x2f)
 		if_object_in_good_condition(OBJ_GOODTERM2, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_GOODTERM_DESTROYED, TRUE, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT2, TRUE, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_GOODTERM_DESTROYED)
-		message(CHR_JOANNA, 0x1e16) // "Critical mission object destroyed."
+		message(CHR_BOND, 0x1e16) // "Critical mission object destroyed."
 
 		label(0x2f)
 		if_object_in_good_condition(0x09, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_GOODTERM_DESTROYED, TRUE, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT3, TRUE, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_GOODTERM_DESTROYED)
-		message(CHR_JOANNA, 0x1e16) // "Critical mission object destroyed."
+		message(CHR_BOND, 0x1e16) // "Critical mission object destroyed."
 
 		label(0x2f)
 	endloop(0x04)
@@ -2217,13 +2217,13 @@ u8 func0416_intro[] = {
 	set_music_track(MUSIC_INVESTIGATION_INTRO)
 	camera_movement(0x00f5)
 	cmd0175(60)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_00010000)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x00f6, -1, -1, 0x0600, CHR_JOANNA, 4)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_00010000)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x00f6, -1, -1, 0x0600, CHR_BOND, 4)
 
 	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_00010000)
@@ -2234,9 +2234,9 @@ u8 func0416_intro[] = {
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 90)
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_NONE, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_FALCON2, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2, WEAPON_NONE)
 
 	#define wait_until(time, loopid) \
 		beginloop(loopid) \
@@ -2316,18 +2316,18 @@ u8 func0416_intro[] = {
 	label(0x77)
 	open_door2(0x24)
 	open_door2(0x40)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_00010000)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x00f6, -2, -1, 0x0600, CHR_JOANNA, 2)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_00010000)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x00f6, -2, -1, 0x0600, CHR_BOND, 2)
 
 	unset_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank2(CHR_INTRO_GUARD, CHRFLAG2_00020000)
 	animation(0x00f7, -2, -1, 0x0600, CHR_INTRO_GUARD, 2)
 
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	restart_default_music
 	reset_ambience
 	enter_firstperson
@@ -2341,7 +2341,7 @@ u8 func0416_intro[] = {
 
 u8 func0417_outro[] = {
 	set_music_track(MUSIC_INVESTIGATION_OUTRO)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(0xf1, CHRFLAG3_HIDDEN)
 	set_stage_flag(STAGEFLAG_TRIGGER_OUTRO_AUDIO)
 
@@ -2619,15 +2619,15 @@ u8 func100f_check_for_end_level[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x2f)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x2f)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x2f)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2f)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x2f)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2f)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x2f)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x2f)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2f)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x2f)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
@@ -2635,7 +2635,7 @@ u8 func100f_check_for_end_level[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
-	set_invincible(CHR_JOANNA)
+	set_invincible(CHR_BOND)
 	set_function(CHR_SELF, FUNC_OUTRO)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -2643,9 +2643,9 @@ u8 func100f_check_for_end_level[] = {
 
 u8 func1400_setup_counterop[] = {
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
-	give_object_to_chr(OBJ_DATAUPLINK_JOANNA, CHR_JOANNA)
-	give_object_to_chr(OBJ_DATAUPLINK_VELVET, CHR_VELVET)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
+	give_object_to_chr(OBJ_DATAUPLINK_BOND, CHR_BOND)
+	give_object_to_chr(OBJ_DATAUPLINK_COOP, CHR_COOP)
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	endfunction
 };
@@ -2724,7 +2724,7 @@ u8 func1013_hatch_pc[] = {
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_activated_object(TARGET_CHR, OBJ_HATCHPC, /*goto*/ 0x06)
+		if_chr_activated_object(CHR_TARGET, OBJ_HATCHPC, /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x06)
@@ -2733,12 +2733,12 @@ u8 func1013_hatch_pc[] = {
 
 		label(0x56)
 		play_sound(0x00f7, -1)
-		message(TARGET_CHR, 0x1e3d) // "Maintenance hatch is now open."
+		message(CHR_TARGET, 0x1e3d) // "Maintenance hatch is now open."
 		unlock_door(0x3f, 0x08)
 		reloop(0x04)
 
 		label(0x2f)
-		message(TARGET_CHR, 0x1e3e) // "Maintenance hatch is already open."
+		message(CHR_TARGET, 0x1e3e) // "Maintenance hatch is already open."
 		restart_timer
 
 		beginloop(0x57)
@@ -2756,32 +2756,32 @@ u8 func0415_radioactivity[] = {
 	restart_timer
 
 	beginloop(0x04)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0014, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0015, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0016, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0017, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0018, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0019, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x001a, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0014, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0015, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0016, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0017, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0018, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0019, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x001a, /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x06)
-		message(TARGET_CHR, 0x1e3f) // "WARNING - radioactive matter detected."
+		message(CHR_TARGET, 0x1e3f) // "WARNING - radioactive matter detected."
 		restart_timer
 		label(0x08)
 		yield
-		add_motion_blur(TARGET_CHR, 10, TRUE)
+		add_motion_blur(CHR_TARGET, 10, TRUE)
 		if_timer_lt(300, /*goto*/ 0x2f)
 		restart_timer
-		damage_chr2(TARGET_CHR, 1024)
+		damage_chr2(CHR_TARGET, 1024)
 		label(0x2f)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0014, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0015, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0016, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0017, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0018, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0019, /*goto*/ 0x06)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x001a, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0014, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0015, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0016, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0017, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0018, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0019, /*goto*/ 0x06)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x001a, /*goto*/ 0x06)
 	endloop(0x04)
 
 	label(0x06)
@@ -2792,15 +2792,15 @@ u8 func0415_radioactivity[] = {
 };
 
 u8 func1014_jo_radioactivity[] = {
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	set_function(CHR_SELF, FUNC_RADIOACTIVITY)
 	endfunction
 };
 
-u8 func101d_velvet_radioactivty[] = {
+u8 func101d_coop_radioactivty[] = {
 	yield
-	set_target_chr(CHR_VELVET)
-	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x2f)
+	set_target_chr(CHR_COOP)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2f)
 	set_function(CHR_SELF, FUNC_RADIOACTIVITY)
 	label(0x2f)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -2809,8 +2809,8 @@ u8 func101d_velvet_radioactivty[] = {
 
 u8 func1021_counterop_radioactivity[] = {
 	yield
-	set_target_chr(CHR_COUNTEROP)
-	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x2f)
+	set_target_chr(CHR_ANTI)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2f)
 	set_function(CHR_SELF, FUNC_RADIOACTIVITY)
 	label(0x2f)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -2826,9 +2826,9 @@ u8 func0402_k7_guard[] = {
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		set_follow_chr(CHR_P1P2)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0036, /*goto*/ 0x03)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0037, /*goto*/ 0x03)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x003a, /*goto*/ 0x03)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0036, /*goto*/ 0x03)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0037, /*goto*/ 0x03)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x003a, /*goto*/ 0x03)
 	endloop(0x0f)
 
 	label(0x03)
@@ -2836,7 +2836,7 @@ u8 func0402_k7_guard[] = {
 		call_rng
 		if_rand_gt(128, /*goto*/ 0x06)
 		label(0x2f)
-		say_quip(FOLLOW_CHR, 0x09, 0xff, 0x02, 0xff, BANK_1, 0x00, 0x00)
+		say_quip(CHR_PRESET, 0x09, 0xff, 0x02, 0xff, BANK_1, 0x00, 0x00)
 		label(0x06)
 
 		beginloop(0x04)
@@ -2855,7 +2855,7 @@ u8 func0402_k7_guard[] = {
 		label(0x2f)
 		try_aim_and_shoot_thing2(0x0008, 0x0159, /*goto*/ 0x2f)
 		label(0x2f)
-		say_quip(CHR_JOANNA, 0x00, 0x32, 0x02, 0xff, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, 0x00, 0x32, 0x02, 0xff, BANK_0, 0x00, 0x00)
 
 		beginloop(0x08)
 			consider_coop_for_p1p2_chr(CHR_SELF)
@@ -2886,7 +2886,7 @@ u8 func0402_k7_guard[] = {
 	endloop(0x0c)
 
 	label(0x2f)
-	say_quip(FOLLOW_CHR, 0x08, 0xff, 0x02, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_PRESET, 0x08, 0xff, 0x02, 0xff, BANK_1, 0x00, 0x00)
 	label(0x06)
 	if_chr_distance_to_pad_lt(CHR_SELF, 100, 0x013b, /*goto*/ 0x2f)
 	walk_to_pad(0x013b)
@@ -2930,10 +2930,10 @@ u8 func0403_k7_scientist[] = {
 	beginloop(0x14)
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0035, /*goto*/ 0x03)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0036, /*goto*/ 0x03)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x0037, /*goto*/ 0x03)
-		if_chr_in_room(TARGET_CHR, 0x00, 0x003a, /*goto*/ 0x03)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0035, /*goto*/ 0x03)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0036, /*goto*/ 0x03)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x0037, /*goto*/ 0x03)
+		if_chr_in_room(CHR_TARGET, 0x00, 0x003a, /*goto*/ 0x03)
 	endloop(0x14)
 
 	label(0x03)
@@ -3132,79 +3132,79 @@ u8 func101f_check_bot_destroyed[] = {
 	endloop(0x08)
 
 	label(0x2f)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x004d, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x004e, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x004f, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0050, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0051, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0052, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0053, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0054, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0055, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0056, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0057, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0058, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0059, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x005a, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x005b, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x005c, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x005d, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x005e, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x005f, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0061, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0062, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0063, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x006c, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x006b, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0069, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0068, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x006d, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x006e, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0064, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0065, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0066, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0060, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x0067, /*goto*/ 0x06)
-	if_chr_in_room(CHR_JOANNA, 0x00, 0x006a, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x004d, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x004e, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x004f, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0050, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0051, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0052, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0053, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0054, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0055, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0056, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0057, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0058, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0059, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x005a, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x005b, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x005c, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x005d, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x005e, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x005f, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0061, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0062, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0063, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x006c, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x006b, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0069, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0068, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x006d, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x006e, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0064, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0065, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0066, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0060, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x0067, /*goto*/ 0x06)
+	if_chr_in_room(CHR_BOND, 0x00, 0x006a, /*goto*/ 0x06)
 
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x0b)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x004d, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x004e, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x004f, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0050, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0051, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0052, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0053, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0054, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0055, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0056, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0057, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0058, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0059, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x005a, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x005b, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x005c, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x005d, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x005e, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x005f, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0061, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0062, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0063, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x006c, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x006b, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0069, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0068, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x006d, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x006e, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0064, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0065, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0066, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0060, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x0067, /*goto*/ 0x06)
-	if_chr_in_room(CHR_VELVET, 0x00, 0x006a, /*goto*/ 0x06)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x0b)
+	if_chr_in_room(CHR_COOP, 0x00, 0x004d, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x004e, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x004f, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0050, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0051, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0052, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0053, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0054, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0055, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0056, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0057, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0058, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0059, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x005a, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x005b, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x005c, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x005d, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x005e, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x005f, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0061, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0062, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0063, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x006c, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x006b, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0069, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0068, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x006d, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x006e, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0064, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0065, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0066, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0060, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x0067, /*goto*/ 0x06)
+	if_chr_in_room(CHR_COOP, 0x00, 0x006a, /*goto*/ 0x06)
 
 	label(0x0b)
-	message(CHR_JOANNA, 0x1e16) // "Critical mission object destroyed."
+	message(CHR_BOND, 0x1e16) // "Critical mission object destroyed."
 	set_stage_flag(STAGEFLAG_00000008)
 	set_stage_flag(STAGEFLAG_00000004)
 	if_stage_flag_eq(STAGEFLAG_HAS_K7AVENGER, TRUE, /*goto*/ 0x2f)
@@ -3226,13 +3226,13 @@ u8 func101f_check_bot_destroyed[] = {
 
 	label(0x2f)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x0d)
-	if_chr_has_object(CHR_JOANNA, OBJ_K7AVENGER, /*goto*/ 0x2f)
-	if_chr_has_object(CHR_VELVET, OBJ_K7AVENGER, /*goto*/ 0x2f)
+	if_chr_has_object(CHR_BOND, OBJ_K7AVENGER, /*goto*/ 0x2f)
+	if_chr_has_object(CHR_COOP, OBJ_K7AVENGER, /*goto*/ 0x2f)
 	goto_first(0x0b)
 
 	label(0x2f)
-	if_chr_has_object(CHR_JOANNA, OBJ_NIGHTVISION, /*goto*/ 0x2f)
-	if_chr_has_object(CHR_VELVET, OBJ_NIGHTVISION, /*goto*/ 0x2f)
+	if_chr_has_object(CHR_BOND, OBJ_NIGHTVISION, /*goto*/ 0x2f)
+	if_chr_has_object(CHR_COOP, OBJ_NIGHTVISION, /*goto*/ 0x2f)
 	label(0x0d)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -3364,7 +3364,7 @@ struct ailists functions[] = {
 	{ func101a_msg_lotofpower,                 0x101a },
 	{ func101b_msg_reprogram,                  0x101b },
 	{ func101c_msg_radioactive,                0x101c },
-	{ func101d_velvet_radioactivty,            0x101d },
+	{ func101d_coop_radioactivty,              0x101d },
 	{ func101e_unlock_drcaroll_door,           0x101e },
 	{ func101f_check_bot_destroyed,            0x101f },
 	{ func1020_lock_agent_doors,               0x1020 },

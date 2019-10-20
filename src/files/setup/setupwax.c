@@ -13,8 +13,8 @@
 #define OBJ_CHIEF_LIFT      0x4e
 #define OBJ_BLONDE_LIFT     0x4f
 #define OBJ_SHUTTLE1        0x51
-#define OBJ_JOANNA_BOMB     0x52
-#define OBJ_VELVET_BOMB     0x53
+#define OBJ_BOND_BOMB       0x52
+#define OBJ_COOP_BOMB       0x53
 #define OBJ_PLANTED_BOMB    0x54
 #define OBJ_LOBBYDOOR_LEFT  0x5f
 #define OBJ_LOBBYDOOR_RIGHT 0x60
@@ -1206,12 +1206,12 @@ u8 func1001_objectives_failed_msg[] = {
 u8 func1000_setup_counterop[] = {
 	noop016c
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
-	give_object_to_chr(OBJ_JOANNA_BOMB, CHR_JOANNA)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2c)
-	give_object_to_chr(OBJ_VELVET_BOMB, CHR_VELVET)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
+	give_object_to_chr(OBJ_BOND_BOMB, CHR_BOND)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
+	give_object_to_chr(OBJ_COOP_BOMB, CHR_COOP)
 	label(0x2c)
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	endfunction
@@ -1276,7 +1276,7 @@ u8 func0411_cass_in_office[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_YWSM)
 	set_onshot_function(FUNC_CASS_RUNNING)
 	restart_timer
-	speak(TARGET_CHR, 0x4a08, 0x0d23, CHANNEL_6, COLOR_06_WHITE) // "Go to the helipad if you want to live."
+	speak(CHR_TARGET, 0x4a08, 0x0d23, CHANNEL_6, COLOR_06_WHITE) // "Go to the helipad if you want to live."
 	animation(0x0226, -1, -1, 0x1010, CHR_SELF, 2)
 	yield
 
@@ -1325,7 +1325,7 @@ u8 func0411_cass_in_office[] = {
 	animation(0x0245, 0, -1, 0x1010, CHR_SELF, 2)
 	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x2c)
 	label(0x2c)
-	speak(TARGET_CHR, 0x4a07, 0x81a3, CHANNEL_6, COLOR_04_ORANGE) // "Get the hell out of my office..."
+	speak(CHR_TARGET, 0x4a07, 0x81a3, CHANNEL_6, COLOR_04_ORANGE) // "Get the hell out of my office..."
 
 	beginloop(0x58)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x2c)
@@ -1427,7 +1427,7 @@ u8 func0413_cass_running[] = {
 		do_special_animation(-1)
 		restart_timer
 		if_stage_flag_eq(STAGEFLAG_CASS_SAID_YWSM, FALSE, /*goto*/ 0x06)
-		say_quip(TARGET_CHR, 0x2b, 0xff, 0x00, 0xff, BANK_1, 0x0a, 0x04)
+		say_quip(CHR_TARGET, 0x2b, 0xff, 0x00, 0xff, BANK_1, 0x0a, 0x04)
 
 		// And wait 2 seconds for the speech to finish
 		beginloop(0x0b)
@@ -1464,7 +1464,7 @@ u8 func1004_check_cass_dead[] = {
 	endloop(0x03)
 
 	label(0x2c)
-	message(CHR_JOANNA, 0x4a0e) // "Cassandra has been immobilized."
+	message(CHR_BOND, 0x4a0e) // "Cassandra has been immobilized."
 	set_stage_flag(STAGEFLAG_CASS_DEAD)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -1477,7 +1477,7 @@ u8 func1005_check_cass_captured[] = {
 		if_chr_dying(CHR_CASS, /*goto*/ 0x0d)
 		if_chr_unloaded(CHR_CASS, /*goto*/ 0x0d)
 		if_chr_y(CHR_CASS, 0, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
-		message(CHR_JOANNA, 0x4a0f) // "Cassandra has been captured successfully."
+		message(CHR_BOND, 0x4a0f) // "Cassandra has been captured successfully."
 		set_stage_flag(STAGEFLAG_CASS_CAPTURED)
 		set_function(CHR_SELF, GFUNC_IDLE)
 
@@ -1520,7 +1520,7 @@ u8 func1006_lift_disabling[] = {
 	unset_object_flag_bank0(OBJ_CHIEF_LIFT, OBJECTFLAG0_DEACTIVATED)
 	unset_chr_flag_bank3(CHR_CHIEF, CHRFLAG3_HIDDEN)
 	set_function(CHR_CHIEF, FUNC_CHIEF)
-	message(CHR_JOANNA, 0x4a19) // "Lift has been disabled."
+	message(CHR_BOND, 0x4a19) // "Lift has been disabled."
 
 	// Wait until chief dead
 	beginloop(0x08)
@@ -1530,7 +1530,7 @@ u8 func1006_lift_disabling[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	message(CHR_JOANNA, 0x4a10) // "Security chief has been eliminated."
+	message(CHR_BOND, 0x4a10) // "Security chief has been eliminated."
 	set_stage_flag(STAGEFLAG_CHIEF_DEAD)
 	restart_timer
 
@@ -1646,11 +1646,11 @@ u8 func1007_bomb_logic[] = {
 
 	// Plant bomb
 	label(0x2c)
-	message(CHR_JOANNA, 0x4a16) // "Skedar bomb has been placed successfully."
+	message(CHR_BOND, 0x4a16) // "Skedar bomb has been placed successfully."
 	remove_weapon_from_inventory(WEAPON_SKEDARBOMB)
 	set_stage_flag(STAGEFLAG_BOMB_PLANTED)
-	hide_object(OBJ_JOANNA_BOMB)
-	hide_object(OBJ_VELVET_BOMB)
+	hide_object(OBJ_BOND_BOMB)
+	hide_object(OBJ_COOP_BOMB)
 	assign_sound(0x8144, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, OBJ_PLANTED_BOMB, 0x0258, 0x04b0)
 	unset_object_flag_bank1(OBJ_PLANTED_BOMB, OBJECTFLAG1_INVISIBLE)
@@ -1678,7 +1678,7 @@ u8 func1007_bomb_logic[] = {
 	set_countdown_timer(0)
 	stop_countdown_timer
 	set_stage_flag(STAGEFLAG_BOMB_EXPIRED)
-	message(CHR_JOANNA, 0x4a17) // "Skedar bomb has detonated."
+	message(CHR_BOND, 0x4a17) // "Skedar bomb has detonated."
 
 	// Wait 2 seconds
 	restart_timer
@@ -1689,7 +1689,7 @@ u8 func1007_bomb_logic[] = {
 	// Bomb exploding
 	label(0xb2)
 	label(0x2c)
-	explosions_around_chr(CHR_JOANNA)
+	explosions_around_chr(CHR_BOND)
 
 	// Wait 2 seconds for player to die
 	restart_timer
@@ -1733,15 +1733,15 @@ u8 func1008_check_bomb_unplantable[] = {
 			yield
 			consider_coop_for_p1p2_chr(CHR_SELF)
 			if_stage_flag_eq(STAGEFLAG_BOMB_PLANTED, TRUE, /*goto*/ 0x0d)
-			if_chr_in_room(CHR_JOANNA, 0x00, 0x002b, /*goto*/ 0x06)
-			if_chr_in_room(CHR_VELVET, 0x00, 0x002b, /*goto*/ 0x06)
+			if_chr_in_room(CHR_BOND, 0x00, 0x002b, /*goto*/ 0x06)
+			if_chr_in_room(CHR_COOP, 0x00, 0x002b, /*goto*/ 0x06)
 			goto_next(0x2c)
 			label(0x06)
 		endloop(0xb1)
 
 		// Fail mission
 		label(0x2c)
-		message(CHR_JOANNA, 0x4a18) // "Lift doors locked - bomb cannot be placed."
+		message(CHR_BOND, 0x4a18) // "Lift doors locked - bomb cannot be placed."
 		set_stage_flag(STAGEFLAG_BOMB_UNPLANTABLE)
 
 		// Difficulty is agent or bomb has been planted - return
@@ -1849,15 +1849,15 @@ u8 func100a_check_for_completion[] = {
 
 		// If either player is alive
 		label(0x06)
-		if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x2c)
-		if_chr_dying(CHR_JOANNA, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x2c)
+		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
+		if_chr_dying(CHR_BOND, /*goto*/ 0x2c)
+		if_chr_unloaded(CHR_BOND, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		label(0x2c)
-		if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2c)
-		if_chr_dying(CHR_VELVET, /*goto*/ 0x2c)
-		if_chr_unloaded(CHR_VELVET, /*goto*/ 0x2c)
+		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
+		if_chr_dying(CHR_COOP, /*goto*/ 0x2c)
+		if_chr_unloaded(CHR_COOP, /*goto*/ 0x2c)
 		goto_next(0x06)
 
 		// Both players dead
@@ -1931,20 +1931,20 @@ u8 func0416_intro[] = {
 	set_object_flag_bank1(0x62, OBJECTFLAG1_INVISIBLE)
 	unset_object_flag_bank0(0x61, OBJECTFLAG0_00000100)
 	unset_object_flag_bank0(0x62, OBJECTFLAG0_00000100)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_music_track(MUSIC_G5_INTRO)
 	camera_movement(0x0472)
 	cmd0175(60)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0473, -1, -1, 0x0600, CHR_JOANNA, 4)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0473, -1, -1, 0x0600, CHR_BOND, 4)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_NONE, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_MAULER, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_MAULER, WEAPON_NONE)
 	open_door(OBJ_LOBBYDOOR_LEFT)
 	open_door(OBJ_LOBBYDOOR_RIGHT)
 
@@ -1995,11 +1995,11 @@ u8 func0416_intro[] = {
 	set_object_flag_bank0(0x61, OBJECTFLAG0_00000100)
 	set_object_flag_bank0(0x62, OBJECTFLAG0_00000100)
 	mute_channel(CHANNEL_10)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0473, -2, -1, 0x0600, CHR_JOANNA, 2)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0473, -2, -1, 0x0600, CHR_BOND, 2)
 	restart_default_music
 	reset_ambience
 	enter_firstperson
@@ -2008,15 +2008,15 @@ u8 func0416_intro[] = {
 };
 
 u8 func0417_outro[] = {
-	set_invincible(CHR_JOANNA)
+	set_invincible(CHR_BOND)
 	hide_object(OBJ_SHUTTLE1)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_music_track(MUSIC_G5_OUTRO)
 	camera_movement(0x0474)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	show_object(OBJ_SHUTTLE2)

@@ -23,7 +23,7 @@
 #define STAGEFLAG_DONE_FIRST_TELEPORT             0x00000004
 #define STAGEFLAG_PURPLE_GUARD_SHOT_JO_OR_ELVIS   0x00000010
 #define STAGEFLAG_TELEPORT_DONE                   0x00000020
-#define STAGEFLAG_ELVIS_FOLLOWING_VELVET          0x00000080
+#define STAGEFLAG_ELVIS_FOLLOWING_COOP            0x00000080
 #define STAGEFLAG_TELEPORTALS_ACTIVATED           0x00000100
 #define STAGEFLAG_MIDCUTSCENE_FINISHED            0x00000200
 #define STAGEFLAG_ESCAPED                         0x00000400
@@ -63,12 +63,12 @@
 #define FUNC_OUTRO                                   0x0410
 #define FUNC_HIDE                                    0x0411
 #define FUNC_CLOAK_AND_HIDE                          0x0413
-#define FUNC_TELEPORT_JOANNA_TO_SAPA                 0x0414
-#define FUNC_TELEPORT_JOANNA_TO_DRCAROLL             0x0415
-#define FUNC_TELEPORT_JOANNA_TO_A_PA_DRCAROLL        0x0416
-#define FUNC_TELEPORT_VELVET_TO_SAPA                 0x0417
-#define FUNC_TELEPORT_VELVET_TO_DRCAROLL             0x0418
-#define FUNC_TELEPORT_VELVET_TO_A_PA_DRCAROLL        0x0419
+#define FUNC_TELEPORT_BOND_TO_SAPA                   0x0414
+#define FUNC_TELEPORT_BOND_TO_DRCAROLL               0x0415
+#define FUNC_TELEPORT_BOND_TO_A_PA_DRCAROLL          0x0416
+#define FUNC_TELEPORT_COOP_TO_SAPA                   0x0417
+#define FUNC_TELEPORT_COOP_TO_DRCAROLL               0x0418
+#define FUNC_TELEPORT_COOP_TO_A_PA_DRCAROLL          0x0419
 #define FUNC_INIT_SNIPER                             0x041a
 #define FUNC_SNIPER_WAIT_FOR_DETECTION               0x041b
 #define FUNC_TELEPORT_ACTIVATION_RESPONDER           0x041c
@@ -732,7 +732,7 @@ u8 func1001_objectives_failed_msg[] = {
 
 u8 func1400_setup_counterop[] = {
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	endfunction
 };
@@ -754,7 +754,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	dprint 'B','A','C','K',' ','T','O',' ','E','L','V','I','S','\n',0,
 	set_return_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
@@ -774,7 +774,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	goto_next(0x12)
 
 	label(0x2f)
-	say_quip(CHR_JOANNA, 0x29, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x29, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 
 	beginloop(0x12)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -792,13 +792,13 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 
 	// No enemy nearby
 	label(0x06)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_distance_lt(200, /*goto*/ 0x06)
 
 	// Jo distance >= 200
 	label(0x03)
 	dprint 'G','O','T','O','W','\n',0,
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
 	try_run_to_target_chr_with_hand_up(/*goto*/ 0x04)
@@ -817,7 +817,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 		if_stage_flag_eq(STAGEFLAG_TELEPORTALS_ACTIVATED, TRUE, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_ELVIS, 0x00, 0x003c, /*goto*/ 0x5f)
 		label(0x2e)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 		if_chr_distance_lt(200, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2e)
 	endloop(0x04)
@@ -839,7 +839,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 		if_stage_flag_eq(STAGEFLAG_TELEPORTALS_ACTIVATED, TRUE, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_ELVIS, 0x00, 0x003c, /*goto*/ 0x5f)
 		label(0x2e)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 		if_chr_distance_gt(300, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -856,24 +856,24 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	if_rand_lt(85, /*goto*/ 0x63)
 	if_rand_lt(170, /*goto*/ 0x64)
 
-	say_quip(CHR_JOANNA, 0x26, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x26, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	goto_next(0x2e)
 
 	label(0x63)
-	say_quip(CHR_JOANNA, 0x27, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x27, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	goto_next(0x2e)
 
 	label(0x64)
-	say_quip(CHR_JOANNA, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	label(0x2e)
 	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	set_return_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	// In teleport control room
 	label(0x5f)
 	stop_chr
-	speak(TARGET_CHR, 0x301d, 0x14eb, CHANNEL_6, COLOR_04_ORANGE) // "Time to reactivate those teleportals."
+	speak(CHR_TARGET, 0x301d, 0x14eb, CHANNEL_6, COLOR_04_ORANGE) // "Time to reactivate those teleportals."
 	jog_to_pad(0x01c3)
 
 	beginloop(0x0f)
@@ -890,8 +890,8 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	endloop(0x10)
 
 	label(0x06)
-	say_quip(CHR_JOANNA, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
-	message(CHR_JOANNA, 0x301e) // "Teleportals have been reactivated."
+	say_quip(CHR_BOND, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
+	message(CHR_BOND, 0x301e) // "Teleportals have been reactivated."
 	set_stage_flag(STAGEFLAG_TELEPORTALS_ACTIVATED)
 	set_self_flag_bank3(CHRFLAG3_01000000)
 	play_sound(0x8148, -1)
@@ -914,11 +914,11 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 
 u8 func0433_unused[] = {
 	beginloop(0x04)
-		set_target_chr(CHR_JOANNA)
+		set_target_chr(CHR_BOND)
 		if_within_units_of_sight(30, /*goto*/ 0x06)
-		set_target_chr(CHR_VELVET)
+		set_target_chr(CHR_COOP)
 		if_within_units_of_sight(30, /*goto*/ 0x06)
-		set_target_chr(CHR_COUNTEROP)
+		set_target_chr(CHR_ANTI)
 		if_within_units_of_sight(30, /*goto*/ 0x06)
 		goto_next(0x2e)
 
@@ -939,7 +939,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	set_self_flag_bank3(CHRFLAG3_00080000)
 	unset_self_flag_bankx(CHRFLAG1_00200000, BANK_1)
 	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
@@ -956,7 +956,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 
 	// Injured
 	label(0x2e)
-	say_quip(CHR_JOANNA, 0x29, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x29, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 
 	beginloop(0x12)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -968,10 +968,10 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	if_stage_flag_eq(STAGEFLAG_ELVIS_SAID_SABOTAGE, TRUE, /*goto*/ 0x5f)
 	label(0x2e)
 	if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_distance_lt(200, /*goto*/ 0x06)
 	label(0x03)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
 	try_run_to_target_chr_with_hand_up(/*goto*/ 0x04)
@@ -984,7 +984,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 		label(0x2e)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 		if_chr_distance_lt(200, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2e)
 	endloop(0x04)
@@ -1002,7 +1002,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 		label(0x2e)
 		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 		if_chr_distance_gt(300, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -1015,24 +1015,24 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	if_rand_lt(85, /*goto*/ 0x63)
 	if_rand_lt(170, /*goto*/ 0x64)
 
-	say_quip(CHR_JOANNA, 0x26, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x26, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	goto_next(0x2e)
 
 	label(0x63)
-	say_quip(CHR_JOANNA, 0x27, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x27, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	goto_next(0x2e)
 
 	label(0x64)
-	say_quip(CHR_JOANNA, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 
 	label(0x2e)
 	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
 	set_return_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	// In Agent megaweapon room
 	label(0x1d)
-	speak(TARGET_CHR, 0x301c, 0x14ec, CHANNEL_6, COLOR_04_ORANGE) // "It looks like this could benefit from a little bit..."
+	speak(CHR_TARGET, 0x301c, 0x14ec, CHANNEL_6, COLOR_04_ORANGE) // "It looks like this could benefit from a little bit..."
 	label(0x5f)
 	set_stage_flag(STAGEFLAG_ELVIS_SAID_SABOTAGE)
 	stop_chr
@@ -1053,9 +1053,9 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	endloop(0x10)
 
 	label(0x06)
-	say_quip(CHR_JOANNA, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 	set_self_flag_bank3(CHRFLAG3_01000000)
-	message(CHR_JOANNA, 0x3014) // "Cetan megaweapon has been disabled."
+	message(CHR_BOND, 0x3014) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_AGENT_MEGAWEAPON_DISABLED)
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	set_lights_state(0x006c, 0x03, 0x64, 0xff, 0x78)
@@ -1080,7 +1080,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 	set_self_flag_bank3(CHRFLAG3_00080000)
 	unset_self_flag_bankx(CHRFLAG1_00200000, BANK_1)
 	set_onshot_function(0x0405)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
@@ -1097,7 +1097,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 
 	// Injured
 	label(0x2e)
-	say_quip(CHR_JOANNA, 0x29, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x29, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 
 	beginloop(0x12)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1105,10 +1105,10 @@ u8 func0405_elvis_follow_nocombat[] = {
 
 	label(0x06)
 	if_enemy_distance_lt_and_los(300, /*goto*/ 0x08)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_distance_lt(200, /*goto*/ 0x06)
 	label(0x03)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
 	try_run_to_target_chr_with_hand_up(/*goto*/ 0x04)
@@ -1119,7 +1119,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 		label(0x2e)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(300, /*goto*/ 0x08)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 		if_chr_distance_lt(200, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2e)
 	endloop(0x04)
@@ -1135,7 +1135,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 		label(0x2e)
 		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 		if_chr_distance_gt(300, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -1145,7 +1145,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 	// Detected enemy
 	label(0x08)
 	restart_timer
-	say_quip(CHR_JOANNA, 0x29, 0xff, 0x14, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x29, 0xff, 0x14, 0xff, BANK_1, 0x00, 0x00)
 	retreat(0x02, 0x01)
 
 	beginloop(0x09)
@@ -1160,7 +1160,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 
 u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_DO_SA_MEGAWEAPON)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
@@ -1177,7 +1177,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 
 	// Injured
 	label(0x2e)
-	say_quip(CHR_JOANNA, 0x29, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x29, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 
 	beginloop(0x12)
 		if_chr_stopped(/*goto*/ 0x5f)
@@ -1244,9 +1244,9 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 	goto_first(0x1b)
 
 	label(0x2e)
-	say_quip(CHR_JOANNA, 0x2c, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x2c, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	set_self_flag_bank3(CHRFLAG3_01000000)
-	message(CHR_JOANNA, 0x3014) // "Cetan megaweapon has been disabled."
+	message(CHR_BOND, 0x3014) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	try_draw_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x04)
 	label(0x04)
@@ -1260,7 +1260,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 
 u8 func0407_elvis_go_to_sa_teleport[] = {
 	set_onshot_function(FUNC_ELVIS_GO_TO_SA_TELEPORT)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
@@ -1277,14 +1277,14 @@ u8 func0407_elvis_go_to_sa_teleport[] = {
 
 	// Injured
 	label(0x2e)
-	say_quip(CHR_JOANNA, 0x29, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x29, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 
 	beginloop(0x12)
 		if_chr_stopped(/*goto*/ 0x06)
 	endloop(0x12)
 
 	label(0x06)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	label(0x5f)
 	restart_timer
 	if_chr_distance_lt(1400, /*goto*/ 0x2e)
@@ -1317,25 +1317,25 @@ u8 func0407_elvis_go_to_sa_teleport[] = {
 	call_rng
 	if_rand_lt(85, /*goto*/ 0x63)
 	if_rand_lt(170, /*goto*/ 0x64)
-	say_quip(CHR_JOANNA, 0x26, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x26, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	goto_next(0x2e)
 
 	label(0x63)
-	say_quip(CHR_JOANNA, 0x27, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x27, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	goto_next(0x2e)
 
 	label(0x64)
-	say_quip(CHR_JOANNA, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	label(0x2e)
 	set_onshot_function(FUNC_ELVIS_GO_TO_SA_TELEPORT)
 	set_return_function(CHR_SELF, FUNC_ELVIS_GO_TO_SA_TELEPORT)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
 u8 func0403_elvis_give_farsight[] = {
 	set_onshot_function(FUNC_ELVIS_GIVE_FARSIGHT)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
@@ -1352,7 +1352,7 @@ u8 func0403_elvis_give_farsight[] = {
 
 	// Injured
 	label(0x2e)
-	say_quip(CHR_JOANNA, 0x29, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x29, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 
 	beginloop(0x12)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1360,11 +1360,11 @@ u8 func0403_elvis_give_farsight[] = {
 
 	// Healthy
 	label(0x06)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_distance_lt(200, /*goto*/ 0x06)
 
 	label(0x03)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
 	try_run_to_target_chr_with_hand_up(/*goto*/ 0x04)
@@ -1373,7 +1373,7 @@ u8 func0403_elvis_give_farsight[] = {
 
 	beginloop(0x04)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
-		set_target_chr(FOLLOW_CHR)
+		set_target_chr(CHR_PRESET)
 		if_chr_distance_lt(200, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2e)
 	endloop(0x04)
@@ -1385,8 +1385,8 @@ u8 func0403_elvis_give_farsight[] = {
 	stop_chr
 	label(0x09)
 	do_special_animation(5)
-	speak(TARGET_CHR, 0x3012, 0x12ea, CHANNEL_6, COLOR_04_ORANGE) // "Here, take this gun and keep those Skedar off my b..."
-	give_object_to_chr(0x73, TARGET_CHR)
+	speak(CHR_TARGET, 0x3012, 0x12ea, CHANNEL_6, COLOR_04_ORANGE) // "Here, take this gun and keep those Skedar off my b..."
+	give_object_to_chr(0x73, CHR_TARGET)
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_MINISKEDAR_SPAWNING)
 
@@ -1483,7 +1483,7 @@ u8 func0c01_midcutscene[] = {
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 15)
 	set_chr_flag_bank3(0xf1, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_function(CHR_ELVIS, GFUNC_IDLE)
 	set_music_track(MUSIC_DEEPSEA_MIDCUTSCENE)
 	camera_movement(0x01d4)
@@ -1532,7 +1532,7 @@ u8 func0c01_midcutscene[] = {
 
 
 	wait_until(114, 0x63)
-	speak(CHR_JOANNA, 0x3023, 0x746d, CHANNEL_10, COLOR_09_BLUE) // "Here goes. I just hope dataDyne haven't done anyth..."
+	speak(CHR_BOND, 0x3023, 0x746d, CHANNEL_10, COLOR_09_BLUE) // "Here goes. I just hope dataDyne haven't done anyth..."
 
 	wait_until(300, 0x64)
 	play_sound(0x0171, CHANNEL_2)
@@ -1547,7 +1547,7 @@ u8 func0c01_midcutscene[] = {
 	play_sound(0x04f7, CHANNEL_10)
 
 	wait_until(490, 0x6b)
-	speak(CHR_JOANNA, 0x3024, 0x746e, CHANNEL_10, COLOR_04_ORANGE) // "Virus detected."
+	speak(CHR_BOND, 0x3024, 0x746e, CHANNEL_10, COLOR_04_ORANGE) // "Virus detected."
 
 	wait_until(570, 0x69)
 
@@ -1562,7 +1562,7 @@ u8 func0c01_midcutscene[] = {
 
 	label(0x06)
 	set_drcaroll_image(CHR_DRCAROLL, 0x02, 0x02)
-	speak(CHR_JOANNA, 0x3025, 0x746f, CHANNEL_10, COLOR_09_BLUE) // "Me and my big mouth."
+	speak(CHR_BOND, 0x3025, 0x746f, CHANNEL_10, COLOR_09_BLUE) // "Me and my big mouth."
 
 	wait_until(700, 0x6d)
 	play_sound(0x0172, CHANNEL_6)
@@ -1581,7 +1581,7 @@ u8 func0c01_midcutscene[] = {
 	goto_first(0x71)
 
 	label(0x06)
-	speak(CHR_JOANNA, 0x3026, 0x7470, CHANNEL_10, COLOR_04_ORANGE) // "Commencing countermeasures. Commenc..... *** ooOOo..."
+	speak(CHR_BOND, 0x3026, 0x7470, CHANNEL_10, COLOR_04_ORANGE) // "Commencing countermeasures. Commenc..... *** ooOOo..."
 
 	wait_until_with_images(746, 0x73, 0x02, 0x08)
 	play_sound(0x0128, CHANNEL_5)
@@ -1687,7 +1687,7 @@ u8 func0c01_midcutscene[] = {
 	play_sound(0x0171, CHANNEL_3)
 
 	wait_until_with_images(1500, 0xd4, 0x08, 0x00)
-	speak(CHR_JOANNA, 0x3027, 0x7471, CHANNEL_10, COLOR_09_BLUE) // "Dr. Caroll? Are you in control again? Can you stop..."
+	speak(CHR_BOND, 0x3027, 0x7471, CHANNEL_10, COLOR_09_BLUE) // "Dr. Caroll? Are you in control again? Can you stop..."
 	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x00)
 
 	wait_until(1534, 0xd6)
@@ -1700,7 +1700,7 @@ u8 func0c01_midcutscene[] = {
 	play_sound(0x0175, CHANNEL_5)
 
 	wait_until(1810, 0xe3)
-	speak(CHR_JOANNA, 0x3028, 0x7472, CHANNEL_10, COLOR_04_ORANGE) // "Yes, I'm back again, my dear. But the program has ..."
+	speak(CHR_BOND, 0x3028, 0x7472, CHANNEL_10, COLOR_04_ORANGE) // "Yes, I'm back again, my dear. But the program has ..."
 
 	wait_until(1810, 0xe5)
 	play_sound(0x0177, CHANNEL_3)
@@ -1710,10 +1710,10 @@ u8 func0c01_midcutscene[] = {
 
 	wait_until(2378, 0xe9)
 	mute_channel(CHANNEL_7)
-	speak(CHR_JOANNA, 0x3029, 0x7473, CHANNEL_10, COLOR_09_BLUE) // "What do you mean?"
+	speak(CHR_BOND, 0x3029, 0x7473, CHANNEL_10, COLOR_09_BLUE) // "What do you mean?"
 
 	wait_until(2510, 0xea)
-	speak(CHR_JOANNA, 0x302a, 0x7474, CHANNEL_10, COLOR_04_ORANGE) // "When the program has run, I will have control of a..."
+	speak(CHR_BOND, 0x302a, 0x7474, CHANNEL_10, COLOR_04_ORANGE) // "When the program has run, I will have control of a..."
 
 	wait_until(3126, 0xf5)
 	play_sound(0x012b, CHANNEL_5)
@@ -1814,8 +1814,8 @@ u8 func0c01_midcutscene[] = {
 	fade_to_color(0xffffffff, 0)
 	fade_to_color(0x00000000, 15)
 	hide_object(0xbb)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
 	animation(0x01d5, -2, -1, 0x0600, CHR_P1P2, 2)
@@ -1833,9 +1833,9 @@ u8 func0c01_midcutscene[] = {
 	chr_move_to_pad(CHR_ELVIS, 0x0013, 0x01, /*goto*/ 0x2e)
 	label(0x2e)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	chr_move_to_pad(CHR_JOANNA, 0x019f, 0x01, /*goto*/ 0x2e)
+	chr_move_to_pad(CHR_BOND, 0x019f, 0x01, /*goto*/ 0x2e)
 	label(0x2e)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
 	restart_default_music
 	reset_ambience
 	play_x_music(CHANNEL_10, 60)
@@ -1869,16 +1869,16 @@ u8 func042d_elvis_warp_to_outside_drcaroll[] = {
 u8 func0c02_outro[] = {
 	show_nonessential_chrs(FALSE)
 	hide_countdown_timer
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_music_track(MUSIC_DEEPSEA_OUTRO)
 	camera_movement(0x02d7)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	restart_timer
@@ -1983,15 +1983,15 @@ u8 func0c02_outro[] = {
 
 	label(0x57)
 	if_all_objectives_complete(/*goto*/ 0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	explosions_around_chr(CHR_JOANNA)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	explosions_around_chr(CHR_BOND)
 	label(0x2e)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	enter_firstperson
-	grant_control(CHR_JOANNA)
+	grant_control(CHR_BOND)
 	restart_timer
 
 	beginloop(0x0d)
@@ -1999,8 +1999,8 @@ u8 func0c02_outro[] = {
 	endloop(0x0d)
 
 	label(0x2f)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2e)
-	explosions_around_chr(CHR_VELVET)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
+	explosions_around_chr(CHR_COOP)
 	label(0x2e)
 
 	beginloop(0x0e)
@@ -2019,15 +2019,15 @@ u8 func0c02_outro[] = {
 
 u8 func1002_intro[] = {
 	set_drcaroll_image(CHR_DRCAROLL, 0x02, 0x02)
-	chr_draw_weapon_in_cutscene(CHR_JOANNA, WEAPON_FALCON2_SCOPE)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	chr_draw_weapon_in_cutscene(CHR_BOND, WEAPON_FALCON2_SCOPE)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_music_track(MUSIC_DEEPSEA_INTRO)
 	camera_movement(0x01ef)
 	cmd0175(60)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x01f0, -1, -1, 0x0600, CHR_JOANNA, 4)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x01f0, -1, -1, 0x0600, CHR_BOND, 4)
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
@@ -2041,9 +2041,9 @@ u8 func1002_intro[] = {
 	set_chr_flag_bank2(0x40, CHRFLAG2_00020000)
 	animation(0x0471, -1, -1, 0x0600, 0x40, 4)
 	restart_timer
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_NONE, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_FALCON2_SCOPE, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2_SCOPE, WEAPON_NONE)
 
 	wait_until(0, 0x63)
 	play_sound_from_object2(CHANNEL_5, 0x07, 0x81aa, 0x00, 0x00)
@@ -2066,7 +2066,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0171, CHANNEL_7)
 
 	wait_until(1210, 0x65)
-	speak(CHR_JOANNA, 0x301f, 0x7469, CHANNEL_10, COLOR_04_ORANGE) // "This doesn't seem normal. No one's around."
+	speak(CHR_BOND, 0x301f, 0x7469, CHANNEL_10, COLOR_04_ORANGE) // "This doesn't seem normal. No one's around."
 
 	wait_until(1266, 0x66)
 	play_sound(0x0172, CHANNEL_7)
@@ -2079,7 +2079,7 @@ u8 func1002_intro[] = {
 	play_sound_from_object2(CHANNEL_5, 0x07, 0x81a9, 0x00, 0x00)
 
 	wait_until(1522, 0x6c)
-	speak(CHR_JOANNA, 0x3020, 0x746a, CHANNEL_10, COLOR_09_BLUE) // "No signs of conflict. No spent ammo cases or bulle..."
+	speak(CHR_BOND, 0x3020, 0x746a, CHANNEL_10, COLOR_09_BLUE) // "No signs of conflict. No spent ammo cases or bulle..."
 
 	wait_until(1548, 0x6d)
 	play_sound(0x0174, CHANNEL_7)
@@ -2094,7 +2094,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0177, CHANNEL_7)
 
 	wait_until(1945, 0x71)
-	speak(CHR_JOANNA, 0x3021, 0x746b, CHANNEL_10, COLOR_04_ORANGE) // "But there ought to be a rear guard at least. It ma..."
+	speak(CHR_BOND, 0x3021, 0x746b, CHANNEL_10, COLOR_04_ORANGE) // "But there ought to be a rear guard at least. It ma..."
 
 	wait_until(1958, 0x72)
 	play_sound(0x0178, CHANNEL_7)
@@ -2124,7 +2124,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0178, CHANNEL_7)
 
 	wait_until(2420, 0x7b)
-	speak(CHR_JOANNA, 0x3022, 0x746c, CHANNEL_10, COLOR_09_BLUE) // "There has to be someone farther inside. Cover me."
+	speak(CHR_BOND, 0x3022, 0x746c, CHANNEL_10, COLOR_09_BLUE) // "There has to be someone farther inside. Cover me."
 
 	wait_until(2426, 0x7c)
 	play_sound(0x0171, CHANNEL_7)
@@ -2181,11 +2181,11 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_4)
 	mute_channel(CHANNEL_10)
 	remove_chr(0x40)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x01f0, -2, -1, 0x0600, CHR_JOANNA, 2)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x01f0, -2, -1, 0x0600, CHR_BOND, 2)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
 	animation(0x01f1, -2, -1, 0x0600, CHR_ELVIS, 2)
@@ -2268,7 +2268,7 @@ u8 func1007_msg_antibodymasking[] = {
 
 	// Unreachable
 	label(0x2e)
-	speak(CHR_JOANNA, 0x300b, 0x73d5, CHANNEL_6, COLOR_09_BLUE) // "This antibody masking will protect us from the aut..."
+	speak(CHR_BOND, 0x300b, 0x73d5, CHANNEL_6, COLOR_09_BLUE) // "This antibody masking will protect us from the aut..."
 
 	label(0x0d)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -2297,7 +2297,7 @@ u8 func1008_msg_theresdrcaroll[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_JOANNA, 0x300c, 0x73d6, CHANNEL_6, COLOR_04_ORANGE) // "There's Dr. Caroll. Let's see if we can reverse wh..."
+	speak(CHR_BOND, 0x300c, 0x73d6, CHANNEL_6, COLOR_04_ORANGE) // "There's Dr. Caroll. Let's see if we can reverse wh..."
 
 	// Elvis dead, Dr Caroll dead, or Elvis didn't get teleported
 	label(0x0d)
@@ -2321,7 +2321,7 @@ u8 func1009_msg_getoutofhere[] = {
 	endloop(0x08)
 
 	label(0x2e)
-	speak(CHR_JOANNA, 0x300d, 0x73d7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
+	speak(CHR_BOND, 0x300d, 0x73d7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
 
 	label(0x0d)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -2333,22 +2333,22 @@ u8 func1009_msg_getoutofhere[] = {
  *
  * Map of how these functions call each other:
  *
- * 100a func100a_joanna_teleports
- * - calls 0414 teleport_joanna_to_sapa
- * - calls 0416 teleport_joanna_to_a_pa_drcaroll
- *   - calls 0415 teleport_joanna_to_drcaroll
- * - calls 0415 teleport_joanna_to_drcaroll
+ * 100a func100a_bond_teleports
+ * - calls 0414 teleport_bond_to_sapa
+ * - calls 0416 teleport_bond_to_a_pa_drcaroll
+ *   - calls 0415 teleport_bond_to_drcaroll
+ * - calls 0415 teleport_bond_to_drcaroll
  */
-u8 func100a_joanna_teleports[] = {
+u8 func100a_bond_teleports[] = {
 	beginloop(0x1f)
 		if_stage_flag_eq(STAGEFLAG_TELEPORTALS_ACTIVATED, TRUE, /*goto*/ 0x04)
 	endloop(0x1f)
 
 	beginloop(0x04)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, PAD_STARTAREA_TELEPORT, /*goto*/ 0x59)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, PAD_SAPAAREA_TELEPORT, /*goto*/ 0x09)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, PAD_AGENTAREA_TELEPORT, /*goto*/ 0x08)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, PAD_PAAREA_TELEPORT, /*goto*/ 0x08)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_STARTAREA_TELEPORT, /*goto*/ 0x59)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_SAPAAREA_TELEPORT, /*goto*/ 0x09)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_AGENTAREA_TELEPORT, /*goto*/ 0x08)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_PAAREA_TELEPORT, /*goto*/ 0x08)
 		if_stage_flag_eq(STAGEFLAG_DONE_FIRST_TELEPORT, TRUE, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -2377,11 +2377,11 @@ u8 func100a_joanna_teleports[] = {
 	//
 	label(0x59)
 	set_stage_flag(STAGEFLAG_DONE_FIRST_TELEPORT)
-	revoke_control(CHR_JOANNA, 0)
-	teleport_to_pad(PAD_STARTAREA_TELEPORT, CHR_JOANNA)
+	revoke_control(CHR_BOND, 0)
+	teleport_to_pad(PAD_STARTAREA_TELEPORT, CHR_BOND)
 
 	label(0x5b)
-	if_teleport_full_white(/*goto*/ 0x5e, CHR_JOANNA)
+	if_teleport_full_white(/*goto*/ 0x5e, CHR_BOND)
 	yield
 	goto_first(0x5b)
 
@@ -2390,7 +2390,7 @@ u8 func100a_joanna_teleports[] = {
 
 	label(0x2e)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x64)
-	set_function(CHR_JOANNA, FUNC_TELEPORT_JOANNA_TO_SAPA)
+	set_function(CHR_BOND, FUNC_TELEPORT_BOND_TO_SAPA)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x31)
@@ -2398,8 +2398,8 @@ u8 func100a_joanna_teleports[] = {
 	endloop(0x31)
 
 	label(0x2e)
-	grant_control(CHR_JOANNA)
-	teleport_to_pad(0x0000, CHR_JOANNA)
+	grant_control(CHR_BOND)
+	teleport_to_pad(0x0000, CHR_BOND)
 	goto_first(0x04)
 
 	//
@@ -2414,15 +2414,15 @@ u8 func100a_joanna_teleports[] = {
 		// Teleport is active
 		label(0x2e)
 		unset_stage_flag(STAGEFLAG_SA_EXIT_TELEPORT_DISABLED)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, PAD_SAPAAREA_TELEPORT, /*goto*/ 0x59)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_SAPAAREA_TELEPORT, /*goto*/ 0x59)
 	endloop(0x09)
 
 	label(0x59)
-	teleport_to_pad(0x00c0, CHR_JOANNA)
-	revoke_control(CHR_JOANNA, 0)
+	teleport_to_pad(0x00c0, CHR_BOND)
+	revoke_control(CHR_BOND, 0)
 
 	label(0x5c)
-	if_teleport_full_white(/*goto*/ 0x5e, CHR_JOANNA)
+	if_teleport_full_white(/*goto*/ 0x5e, CHR_BOND)
 	yield
 	goto_first(0x5c)
 
@@ -2438,7 +2438,7 @@ u8 func100a_joanna_teleports[] = {
 	goto_next(0x2e)
 
 	label(0x2e)
-	set_function(CHR_JOANNA, FUNC_TELEPORT_JOANNA_TO_A_PA_DRCAROLL)
+	set_function(CHR_BOND, FUNC_TELEPORT_BOND_TO_A_PA_DRCAROLL)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x32)
@@ -2446,8 +2446,8 @@ u8 func100a_joanna_teleports[] = {
 	endloop(0x32)
 
 	label(0x2e)
-	grant_control(CHR_JOANNA)
-	teleport_to_pad(0x0000, CHR_JOANNA)
+	grant_control(CHR_BOND)
+	teleport_to_pad(0x0000, CHR_BOND)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x06)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2e)
 	label(0x06)
@@ -2460,29 +2460,29 @@ u8 func100a_joanna_teleports[] = {
 	// At Agent or PA teleport
 	//
 	beginloop(0x08)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, PAD_AGENTAREA_TELEPORT, /*goto*/ 0x59)
-		if_chr_distance_to_pad_lt(CHR_JOANNA, 250, PAD_PAAREA_TELEPORT, /*goto*/ 0x5a)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_AGENTAREA_TELEPORT, /*goto*/ 0x59)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, PAD_PAAREA_TELEPORT, /*goto*/ 0x5a)
 	endloop(0x08)
 
 	// Agent teleport
 	label(0x59)
-	revoke_control(CHR_JOANNA, 0)
-	teleport_to_pad(0x0054, CHR_JOANNA)
+	revoke_control(CHR_BOND, 0)
+	teleport_to_pad(0x0054, CHR_BOND)
 	goto_next(0x5d)
 
 	// PA teleport
 	label(0x5a)
-	revoke_control(CHR_JOANNA, 0)
-	teleport_to_pad(0x0111, CHR_JOANNA)
+	revoke_control(CHR_BOND, 0)
+	teleport_to_pad(0x0111, CHR_BOND)
 
 	label(0x5d)
-	if_teleport_full_white(/*goto*/ 0x5e, CHR_JOANNA)
+	if_teleport_full_white(/*goto*/ 0x5e, CHR_BOND)
 	yield
 	goto_first(0x5d)
 
 	label(0x5e)
 	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
-	set_function(CHR_JOANNA, FUNC_TELEPORT_JOANNA_TO_DRCAROLL)
+	set_function(CHR_BOND, FUNC_TELEPORT_BOND_TO_DRCAROLL)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x33)
@@ -2490,18 +2490,18 @@ u8 func100a_joanna_teleports[] = {
 	endloop(0x33)
 
 	label(0x2e)
-	grant_control(CHR_JOANNA)
-	teleport_to_pad(0x0000, CHR_JOANNA)
+	grant_control(CHR_BOND)
+	teleport_to_pad(0x0000, CHR_BOND)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
 
-u8 func0414_teleport_joanna_to_sapa[] = {
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_TRIGGER_BUDDY_WARP)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x61)
+u8 func0414_teleport_bond_to_sapa[] = {
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2528,10 +2528,10 @@ u8 func0414_teleport_joanna_to_sapa[] = {
 	yield
 	stop_chr
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 	label(0x61)
 	set_function(CHR_ELVIS, FUNC_ELVIS_GIVE_FARSIGHT)
@@ -2540,12 +2540,12 @@ u8 func0414_teleport_joanna_to_sapa[] = {
 	endfunction
 };
 
-u8 func0415_teleport_joanna_to_drcaroll[] = {
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_TRIGGER_BUDDY_WARP)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x61)
+u8 func0415_teleport_bond_to_drcaroll[] = {
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2562,7 +2562,7 @@ u8 func0415_teleport_joanna_to_drcaroll[] = {
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
 	goto_next(0x63)
 	label(0x07)
-	message(CHR_JOANNA, 0x300e) // "Elvis has been killed."
+	message(CHR_BOND, 0x300e) // "Elvis has been killed."
 
 	label(0x62)
 
@@ -2574,10 +2574,10 @@ u8 func0415_teleport_joanna_to_drcaroll[] = {
 	stop_chr
 	yield
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2593,12 +2593,12 @@ u8 func0415_teleport_joanna_to_drcaroll[] = {
  * If SA: Warp to Dr Caroll Area
  * If PA: Warp to PA area
  */
-u8 func0416_teleport_joanna_to_a_pa_drcaroll[] = {
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_TRIGGER_BUDDY_WARP)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x61)
+u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2609,10 +2609,10 @@ u8 func0416_teleport_joanna_to_a_pa_drcaroll[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x08)
 
 	// PA
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2637,10 +2637,10 @@ u8 func0416_teleport_joanna_to_a_pa_drcaroll[] = {
 	label(0x2e)
 	stop_chr
 	yield
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2652,14 +2652,14 @@ u8 func0416_teleport_joanna_to_a_pa_drcaroll[] = {
 
 	// SA
 	label(0x08)
-	set_function(CHR_SELF, FUNC_TELEPORT_JOANNA_TO_DRCAROLL)
+	set_function(CHR_SELF, FUNC_TELEPORT_BOND_TO_DRCAROLL)
 
 	// Agent
 	label(0x09)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2685,10 +2685,10 @@ u8 func0416_teleport_joanna_to_a_pa_drcaroll[] = {
 	stop_chr
 	yield
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, FALSE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2703,14 +2703,14 @@ u8 func0416_teleport_joanna_to_a_pa_drcaroll[] = {
  *
  * Map of how these functions call each other:
  *
- * 100b func100b_velvet_teleports
- * - calls 0417 teleport_velvet_to_sapa
- * - calls 0419 teleport_velvet_to_a_pa_drcaroll
- *   - calls 0418 teleport_velvet_to_drcaroll
- * - calls 0418 teleport_velvet_to_drcaroll
+ * 100b func100b_coop_teleports
+ * - calls 0417 teleport_coop_to_sapa
+ * - calls 0419 teleport_coop_to_a_pa_drcaroll
+ *   - calls 0418 teleport_coop_to_drcaroll
+ * - calls 0418 teleport_coop_to_drcaroll
  */
-u8 func100b_velvet_teleports[] = {
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2e)
+u8 func100b_coop_teleports[] = {
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
 	goto_next(0x1f)
 
 	label(0x2e)
@@ -2721,28 +2721,28 @@ u8 func100b_velvet_teleports[] = {
 	endloop(0x1f)
 
 	beginloop(0x04)
-		if_chr_distance_to_pad_lt(CHR_VELVET, 250, PAD_STARTAREA_TELEPORT, /*goto*/ 0x59)
-		if_chr_distance_to_pad_lt(CHR_VELVET, 250, PAD_SAPAAREA_TELEPORT, /*goto*/ 0x09)
-		if_chr_distance_to_pad_lt(CHR_VELVET, 250, PAD_AGENTAREA_TELEPORT, /*goto*/ 0x08)
-		if_chr_distance_to_pad_lt(CHR_VELVET, 250, PAD_PAAREA_TELEPORT, /*goto*/ 0x08)
+		if_chr_distance_to_pad_lt(CHR_COOP, 250, PAD_STARTAREA_TELEPORT, /*goto*/ 0x59)
+		if_chr_distance_to_pad_lt(CHR_COOP, 250, PAD_SAPAAREA_TELEPORT, /*goto*/ 0x09)
+		if_chr_distance_to_pad_lt(CHR_COOP, 250, PAD_AGENTAREA_TELEPORT, /*goto*/ 0x08)
+		if_chr_distance_to_pad_lt(CHR_COOP, 250, PAD_PAAREA_TELEPORT, /*goto*/ 0x08)
 	endloop(0x04)
 
 	//
 	// At start area teleport
 	//
 	label(0x59)
-	revoke_control(CHR_VELVET, 0)
-	teleport_to_pad(PAD_STARTAREA_TELEPORT, CHR_VELVET)
+	revoke_control(CHR_COOP, 0)
+	teleport_to_pad(PAD_STARTAREA_TELEPORT, CHR_COOP)
 
 	label(0x5b)
-	if_teleport_full_white(/*goto*/ 0x5e, CHR_VELVET)
+	if_teleport_full_white(/*goto*/ 0x5e, CHR_COOP)
 	yield
 	goto_first(0x5b)
 
 	label(0x5e)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2750,7 +2750,7 @@ u8 func100b_velvet_teleports[] = {
 	label(0x62)
 	label(0x2e)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x64)
-	set_function(CHR_VELVET, FUNC_TELEPORT_VELVET_TO_SAPA)
+	set_function(CHR_COOP, FUNC_TELEPORT_COOP_TO_SAPA)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x31)
@@ -2758,8 +2758,8 @@ u8 func100b_velvet_teleports[] = {
 	endloop(0x31)
 
 	label(0x2e)
-	grant_control(CHR_VELVET)
-	teleport_to_pad(0x0000, CHR_VELVET)
+	grant_control(CHR_COOP)
+	teleport_to_pad(0x0000, CHR_COOP)
 	goto_first(0x04)
 
 	//
@@ -2773,22 +2773,22 @@ u8 func100b_velvet_teleports[] = {
 
 		label(0x2e)
 		unset_stage_flag(STAGEFLAG_SA_EXIT_TELEPORT_DISABLED)
-		if_chr_distance_to_pad_lt(CHR_VELVET, 250, PAD_SAPAAREA_TELEPORT, /*goto*/ 0x59)
+		if_chr_distance_to_pad_lt(CHR_COOP, 250, PAD_SAPAAREA_TELEPORT, /*goto*/ 0x59)
 	endloop(0x09)
 
 	label(0x59)
-	teleport_to_pad(0x00c0, CHR_VELVET)
-	revoke_control(CHR_VELVET, 0)
+	teleport_to_pad(0x00c0, CHR_COOP)
+	revoke_control(CHR_COOP, 0)
 
 	label(0x5c)
-	if_teleport_full_white(/*goto*/ 0x5e, CHR_VELVET)
+	if_teleport_full_white(/*goto*/ 0x5e, CHR_COOP)
 	yield
 	goto_first(0x5c)
 
 	label(0x5e)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2801,7 +2801,7 @@ u8 func100b_velvet_teleports[] = {
 	goto_next(0x2e)
 
 	label(0x2e)
-	set_function(CHR_VELVET, FUNC_TELEPORT_VELVET_TO_A_PA_DRCAROLL)
+	set_function(CHR_COOP, FUNC_TELEPORT_COOP_TO_A_PA_DRCAROLL)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x32)
@@ -2809,8 +2809,8 @@ u8 func100b_velvet_teleports[] = {
 	endloop(0x32)
 
 	label(0x2e)
-	grant_control(CHR_VELVET)
-	teleport_to_pad(0x0000, CHR_VELVET)
+	grant_control(CHR_COOP)
+	teleport_to_pad(0x0000, CHR_COOP)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x06)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2e)
 	label(0x06)
@@ -2823,36 +2823,36 @@ u8 func100b_velvet_teleports[] = {
 	// At Agent or PA area teleport
 	//
 	beginloop(0x08)
-		if_chr_distance_to_pad_lt(CHR_VELVET, 250, PAD_AGENTAREA_TELEPORT, /*goto*/ 0x59)
-		if_chr_distance_to_pad_lt(CHR_VELVET, 250, PAD_PAAREA_TELEPORT, /*goto*/ 0x5a)
+		if_chr_distance_to_pad_lt(CHR_COOP, 250, PAD_AGENTAREA_TELEPORT, /*goto*/ 0x59)
+		if_chr_distance_to_pad_lt(CHR_COOP, 250, PAD_PAAREA_TELEPORT, /*goto*/ 0x5a)
 	endloop(0x08)
 
 	// Agent teleport
 	label(0x59)
-	revoke_control(CHR_VELVET, 0)
-	teleport_to_pad(0x0054, CHR_VELVET)
+	revoke_control(CHR_COOP, 0)
+	teleport_to_pad(0x0054, CHR_COOP)
 	goto_next(0x5d)
 
 	// PA teleport
 	label(0x5a)
-	revoke_control(CHR_VELVET, 0)
-	teleport_to_pad(0x0111, CHR_VELVET)
+	revoke_control(CHR_COOP, 0)
+	teleport_to_pad(0x0111, CHR_COOP)
 
 	label(0x5d)
-	if_teleport_full_white(/*goto*/ 0x5e, CHR_VELVET)
+	if_teleport_full_white(/*goto*/ 0x5e, CHR_COOP)
 	yield
 	goto_first(0x5d)
 
 	label(0x5e)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
 	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
 	label(0x62)
-	set_function(CHR_VELVET, FUNC_TELEPORT_VELVET_TO_DRCAROLL)
+	set_function(CHR_COOP, FUNC_TELEPORT_COOP_TO_DRCAROLL)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x33)
@@ -2860,17 +2860,17 @@ u8 func100b_velvet_teleports[] = {
 	endloop(0x33)
 
 	label(0x2e)
-	grant_control(CHR_VELVET)
-	teleport_to_pad(0x0000, CHR_VELVET)
+	grant_control(CHR_COOP)
+	teleport_to_pad(0x0000, CHR_COOP)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
 
-u8 func0417_teleport_velvet_to_sapa[] = {
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+u8 func0417_teleport_coop_to_sapa[] = {
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2897,10 +2897,10 @@ u8 func0417_teleport_velvet_to_sapa[] = {
 	yield
 	stop_chr
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2911,11 +2911,11 @@ u8 func0417_teleport_velvet_to_sapa[] = {
 	endfunction
 };
 
-u8 func0418_teleport_velvet_to_drcaroll[] = {
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+u8 func0418_teleport_coop_to_drcaroll[] = {
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2933,7 +2933,7 @@ u8 func0418_teleport_velvet_to_drcaroll[] = {
 	goto_next(0x63)
 
 	label(0x07)
-	message(CHR_JOANNA, 0x300e) // "Elvis has been killed."
+	message(CHR_BOND, 0x300e) // "Elvis has been killed."
 	label(0x62)
 
 	beginloop(0x63)
@@ -2944,10 +2944,10 @@ u8 func0418_teleport_velvet_to_drcaroll[] = {
 	stop_chr
 	yield
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2962,11 +2962,11 @@ u8 func0418_teleport_velvet_to_drcaroll[] = {
  * If SA: Warp to Dr Caroll Area
  * If PA: Warp to PA area
  */
-u8 func0419_teleport_velvet_to_a_pa_drcaroll[] = {
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -2976,10 +2976,10 @@ u8 func0419_teleport_velvet_to_a_pa_drcaroll[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x08)
 
 	// PA
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -3004,10 +3004,10 @@ u8 func0419_teleport_velvet_to_a_pa_drcaroll[] = {
 	label(0x2e)
 	stop_chr
 	yield
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -3018,14 +3018,14 @@ u8 func0419_teleport_velvet_to_a_pa_drcaroll[] = {
 
 	// SA
 	label(0x08)
-	set_function(CHR_SELF, FUNC_TELEPORT_VELVET_TO_DRCAROLL)
+	set_function(CHR_SELF, FUNC_TELEPORT_COOP_TO_DRCAROLL)
 
 	// Agent
 	label(0x09)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 	label(0x61)
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x07)
@@ -3050,10 +3050,10 @@ u8 func0419_teleport_velvet_to_a_pa_drcaroll[] = {
 	stop_chr
 	yield
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
-	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_VELVET, TRUE, /*goto*/ 0x61)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x61)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x61)
+	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, TRUE, /*goto*/ 0x61)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x61)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x61)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x61)
 	goto_next(0x62)
 
 	label(0x61)
@@ -3071,9 +3071,9 @@ u8 func0419_teleport_velvet_to_a_pa_drcaroll[] = {
  */
 u8 func041c_teleport_activation_responder[] = {
 	beginloop(0x04)
-		set_target_chr(CHR_JOANNA)
+		set_target_chr(CHR_BOND)
 		if_chr_sees_player(/*goto*/ 0x2e)
-		set_target_chr(CHR_VELVET)
+		set_target_chr(CHR_COOP)
 		if_chr_sees_player(/*goto*/ 0x2e)
 		unset_self_flag_bank3(CHRFLAG3_HIDDEN)
 		set_function(CHR_SELF, FUNC_INIT_SNIPER)
@@ -3194,7 +3194,7 @@ u8 func041d_sniper[] = {
 
 	label(0x06)
 	dprint '2','\n',0,
-	set_follow_chr(TARGET_CHR)
+	set_follow_chr(CHR_TARGET)
 	goto_next(0x06)
 
 	// Unreachable
@@ -3237,7 +3237,7 @@ u8 func041d_sniper[] = {
 	label(0x06)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 	label(0x0d)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	goto_first(0x03)
 
 	label(0x10)
@@ -3308,15 +3308,15 @@ u8 func100c_countdown_timer[] = {
 	label(0x09)
 	yield
 	label(0x2e)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x2e)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x2e)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2e)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x2e)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	label(0x2e)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2e)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x2e)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x2e)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	// Both players dead
@@ -3326,8 +3326,8 @@ u8 func100c_countdown_timer[] = {
 
 	// Mission complete
 	label(0x06)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_function(CHR_SELF, FUNC_OUTRO)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -3341,7 +3341,7 @@ u8 func100e_check_elvis_dead[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_JOANNA, 0x300e) // "Elvis has been killed."
+	message(CHR_BOND, 0x300e) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ALLY_DEAD)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -3355,7 +3355,7 @@ u8 func100f_check_drcaroll_dead[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_JOANNA, 0x300f) // "Dr. Caroll has been killed."
+	message(CHR_BOND, 0x300f) // "Dr. Caroll has been killed."
 	set_stage_flag(STAGEFLAG_ALLY_DEAD)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -3420,7 +3420,7 @@ u8 func040f_miniskedar[] = {
 	endloop(0x10)
 
 	label(0x2e)
-	say_quip(CHR_JOANNA, 0x05, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x05, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
@@ -3472,7 +3472,7 @@ u8 func040f_miniskedar[] = {
 		endloop(0x0b)
 
 		label(0x06)
-		say_quip(CHR_JOANNA, 0x04, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
+		say_quip(CHR_BOND, 0x04, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
 		if_chr_distance_lt(200, /*goto*/ 0x2f)
 		miniskedar_try_pounce(0x04, 0x000e, /*goto*/ 0x34)
 		reloop(0x03)
@@ -3975,7 +3975,7 @@ u8 func040a_check_pa_canisters_destroyed[] = {
 
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_MEGAWEAPON_DISABLED, TRUE, /*goto*/ 0x2e)
-	message(CHR_JOANNA, 0x302b) // "Cetan megaweapon has been disabled."
+	message(CHR_BOND, 0x302b) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	label(0x2e)
 	open_door(0x0f)
@@ -4219,7 +4219,7 @@ u8 func1022_control_room[] = {
 u8 func1023_check_drcaroll_restored[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x04)
 	yield
-	give_object_to_chr(OBJ_BACKUPDISK, CHR_JOANNA)
+	give_object_to_chr(OBJ_BACKUPDISK, CHR_BOND)
 
 	beginloop(0x04)
 		if_chr_death_animation_finished(CHR_DRCAROLL, /*goto*/ 0x0d)
@@ -4257,19 +4257,19 @@ u8 func1023_check_drcaroll_restored[] = {
 
 u8 func1024_update_elvis_target_chr[] = {
 	beginloop(0x04)
-		if_chr_dying(CHR_JOANNA, /*goto*/ 0x08)
-		if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x08)
-		if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x08)
-		set_chr_target_chr(CHR_ELVIS, CHR_JOANNA)
-		unset_stage_flag(STAGEFLAG_ELVIS_FOLLOWING_VELVET)
+		if_chr_dying(CHR_BOND, /*goto*/ 0x08)
+		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x08)
+		if_chr_unloaded(CHR_BOND, /*goto*/ 0x08)
+		set_chr_target_chr(CHR_ELVIS, CHR_BOND)
+		unset_stage_flag(STAGEFLAG_ELVIS_FOLLOWING_COOP)
 	endloop(0x04)
 
 	beginloop(0x08)
-		if_chr_dying(CHR_VELVET, /*goto*/ 0x2e)
-		if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2e)
-		if_chr_unloaded(CHR_VELVET, /*goto*/ 0x2e)
-		set_chr_target_chr(CHR_ELVIS, CHR_VELVET)
-		set_stage_flag(STAGEFLAG_ELVIS_FOLLOWING_VELVET)
+		if_chr_dying(CHR_COOP, /*goto*/ 0x2e)
+		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
+		if_chr_unloaded(CHR_COOP, /*goto*/ 0x2e)
+		set_chr_target_chr(CHR_ELVIS, CHR_COOP)
+		set_stage_flag(STAGEFLAG_ELVIS_FOLLOWING_COOP)
 	endloop(0x08)
 
 	label(0x2e)
@@ -4301,7 +4301,7 @@ u8 func042e_elvis_run_to_exit[] = {
 	set_self_flag_bank3(CHRFLAG3_00080000)
 	set_onshot_function(FUNC_ELVIS_RUN_TO_EXIT)
 	set_return_function(CHR_SELF, FUNC_ELVIS_RUN_TO_EXIT)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
@@ -4318,7 +4318,7 @@ u8 func042e_elvis_run_to_exit[] = {
 
 	// Injured
 	label(0x2e)
-	say_quip(CHR_JOANNA, 0x29, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x29, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 
 	beginloop(0x12)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -4327,7 +4327,7 @@ u8 func042e_elvis_run_to_exit[] = {
 	// Healthy
 	label(0x1f)
 	label(0x06)
-	set_target_chr(FOLLOW_CHR)
+	set_target_chr(CHR_PRESET)
 	label(0x5f)
 	restart_timer
 	if_chr_distance_lt(1400, /*goto*/ 0x2e)
@@ -4363,17 +4363,17 @@ u8 func042e_elvis_run_to_exit[] = {
 	call_rng
 	if_rand_lt(85, /*goto*/ 0x63)
 	if_rand_lt(170, /*goto*/ 0x64)
-	say_quip(CHR_JOANNA, 0x26, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x26, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	goto_next(0x2e)
 	label(0x63)
-	say_quip(CHR_JOANNA, 0x27, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x27, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	goto_next(0x2e)
 	label(0x64)
-	say_quip(CHR_JOANNA, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	label(0x2e)
 	set_onshot_function(FUNC_ELVIS_RUN_TO_EXIT)
 	set_return_function(CHR_SELF, FUNC_ELVIS_RUN_TO_EXIT)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
@@ -4616,7 +4616,7 @@ u8 func1030_unlock_agent_teleport_door[] = {
  */
 u8 func1031_unset_trigger_buddy_warp[] = {
 	beginloop(0x08)
-		if_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x2e)
+		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x2e)
 		reloop(0x08)
 
 		label(0x2e)
@@ -4627,7 +4627,7 @@ u8 func1031_unset_trigger_buddy_warp[] = {
 		endloop(0x09)
 
 		label(0x2e)
-		unset_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_TRIGGER_BUDDY_WARP)
+		unset_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP)
 	endloop(0x08)
 
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -4713,24 +4713,24 @@ u8 func102d_check_farsight_ammo_wasted[] = {
 	// Probable @bug: Looks like the objective will fail if one buddy uses all
 	// their ammo but the other is still stocked.
 	beginloop(0x1f)
-		if_chr_weapon_equipped(CHR_JOANNA, WEAPON_FARSIGHTXR20, /*goto*/ 0x2e)
-		if_chr_weapon_equipped(CHR_VELVET, WEAPON_FARSIGHTXR20, /*goto*/ 0x2f)
+		if_chr_weapon_equipped(CHR_BOND, WEAPON_FARSIGHTXR20, /*goto*/ 0x2e)
+		if_chr_weapon_equipped(CHR_COOP, WEAPON_FARSIGHTXR20, /*goto*/ 0x2f)
 	endloop(0x1f)
 
 	label(0x2e)
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	goto_next(0x63)
 
 	label(0x2f)
-	set_target_chr(CHR_VELVET)
+	set_target_chr(CHR_COOP)
 
 	beginloop(0x63)
 		if_objective_complete(1, /*goto*/ 0x0d)
-		if_ammo_quantity_lt(TARGET_CHR, AMMOTYPE_FARSIGHT, 1, /*goto*/ 0x2e)
+		if_ammo_quantity_lt(CHR_TARGET, AMMOTYPE_FARSIGHT, 1, /*goto*/ 0x2e)
 	endloop(0x63)
 
 	label(0x2e)
-	message(CHR_JOANNA, 0x302c) // "Ammo wasted - unable to disable megaweapon."
+	message(CHR_BOND, 0x302c) // "Ammo wasted - unable to disable megaweapon."
 	set_stage_flag(STAGEFLAG_FARSIGHT_AMMO_WASTED)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	label(0x0d)
@@ -4758,8 +4758,8 @@ struct ailists functions[] = {
 	{ func1007_msg_antibodymasking,                   0x1007 },
 	{ func1008_msg_theresdrcaroll,                    0x1008 },
 	{ func1009_msg_getoutofhere,                      0x1009 },
-	{ func100a_joanna_teleports,                      0x100a },
-	{ func100b_velvet_teleports,                      0x100b },
+	{ func100a_bond_teleports,                        0x100a },
+	{ func100b_coop_teleports,                        0x100b },
 	{ func100c_countdown_timer,                       0x100c },
 	{ func100e_check_elvis_dead,                      0x100e },
 	{ func100f_check_drcaroll_dead,                   0x100f },
@@ -4818,12 +4818,12 @@ struct ailists functions[] = {
 	{ func0408_check_pa_earlydoorcylinders_destroyed, 0x0408 },
 	{ func0409_check_pa_latedoorcylinders_destroyed,  0x0409 },
 	{ func040a_check_pa_canisters_destroyed,          0x040a },
-	{ func0414_teleport_joanna_to_sapa,               0x0414 },
-	{ func0415_teleport_joanna_to_drcaroll,           0x0415 },
-	{ func0416_teleport_joanna_to_a_pa_drcaroll,      0x0416 },
-	{ func0417_teleport_velvet_to_sapa,               0x0417 },
-	{ func0418_teleport_velvet_to_drcaroll,           0x0418 },
-	{ func0419_teleport_velvet_to_a_pa_drcaroll,      0x0419 },
+	{ func0414_teleport_bond_to_sapa,                 0x0414 },
+	{ func0415_teleport_bond_to_drcaroll,             0x0415 },
+	{ func0416_teleport_bond_to_a_pa_drcaroll,        0x0416 },
+	{ func0417_teleport_coop_to_sapa,                 0x0417 },
+	{ func0418_teleport_coop_to_drcaroll,             0x0418 },
+	{ func0419_teleport_coop_to_a_pa_drcaroll,        0x0419 },
 	{ func041a_init_sniper,                           0x041a },
 	{ func041b_sniper_wait_for_detection,             0x041b },
 	{ func041c_teleport_activation_responder,         0x041c },

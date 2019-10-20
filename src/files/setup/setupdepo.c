@@ -19,45 +19,44 @@
 #define CHR_INTRO_VICTIM      0x1d
 
 // Objects
-#define OBJ_GENERATOR     0x01
-#define OBJ_LASERSWITCH1  0x03
-#define OBJ_LASERSWITCH2  0x04
-#define OBJ_LASERSWITCH3  0x05
-#define OBJ_LASERSWITCH4  0x06
-#define OBJ_SAFEDOOR      0x0b
-#define OBJ_BACKUPDISK    0x0c
-#define OBJ_KEYCARD1      0x0e
-#define OBJ_KEYCARD2      0x0f
-#define OBJ_DECODER       0x10
-#define OBJ_SAFEKEYPAD    0x11
-#define OBJ_ALARM1        0x12
-#define OBJ_ALARM2        0x13
-#define OBJ_ESCAPEDOOR1   0x18
-#define OBJ_ESCAPEDOOR2   0x1b
-#define OBJ_LASER_1A      0x22
-#define OBJ_LASER_1B      0x23
-#define OBJ_LASER_1C      0x24
-#define OBJ_LASER_1D      0x25
-#define OBJ_LASER_2A      0x26
-#define OBJ_LASER_2B      0x27
-#define OBJ_LASER_2C      0x28
-#define OBJ_LASER_2D      0x29
-#define OBJ_LASER_3A      0x2a
-#define OBJ_LASER_3B      0x2b
-#define OBJ_LASER_3C      0x2c
-#define OBJ_LASER_3D      0x2d
-#define OBJ_LASER_4A      0x2e
-#define OBJ_LASER_4B      0x2f
-#define OBJ_LASER_4C      0x30
-#define OBJ_LASER_4D      0x31
-#define OBJ_MINE1         0x38
-#define OBJ_MINE2         0x39
-#define OBJ_NBOMB_CRATE   0x3c
-#define OBJ_LIGHTSWITCH   0x3d
-#define OBJ_CROSSBOW      0x3e
-#define OBJ_CMP150_JOANNA 0x47
-#define OBJ_CMP150_VELVET 0x48
-
+#define OBJ_GENERATOR    0x01
+#define OBJ_LASERSWITCH1 0x03
+#define OBJ_LASERSWITCH2 0x04
+#define OBJ_LASERSWITCH3 0x05
+#define OBJ_LASERSWITCH4 0x06
+#define OBJ_SAFEDOOR     0x0b
+#define OBJ_BACKUPDISK   0x0c
+#define OBJ_KEYCARD1     0x0e
+#define OBJ_KEYCARD2     0x0f
+#define OBJ_DECODER      0x10
+#define OBJ_SAFEKEYPAD   0x11
+#define OBJ_ALARM1       0x12
+#define OBJ_ALARM2       0x13
+#define OBJ_ESCAPEDOOR1  0x18
+#define OBJ_ESCAPEDOOR2  0x1b
+#define OBJ_LASER_1A     0x22
+#define OBJ_LASER_1B     0x23
+#define OBJ_LASER_1C     0x24
+#define OBJ_LASER_1D     0x25
+#define OBJ_LASER_2A     0x26
+#define OBJ_LASER_2B     0x27
+#define OBJ_LASER_2C     0x28
+#define OBJ_LASER_2D     0x29
+#define OBJ_LASER_3A     0x2a
+#define OBJ_LASER_3B     0x2b
+#define OBJ_LASER_3C     0x2c
+#define OBJ_LASER_3D     0x2d
+#define OBJ_LASER_4A     0x2e
+#define OBJ_LASER_4B     0x2f
+#define OBJ_LASER_4C     0x30
+#define OBJ_LASER_4D     0x31
+#define OBJ_MINE1        0x38
+#define OBJ_MINE2        0x39
+#define OBJ_NBOMB_CRATE  0x3c
+#define OBJ_LIGHTSWITCH  0x3d
+#define OBJ_CROSSBOW     0x3e
+#define OBJ_CMP150_BOND  0x47
+#define OBJ_CMP150_COOP  0x48
 // Stage flags
 #define STAGEFLAG_CLOAK1_ONE_REMAINING   0x00000002
 #define STAGEFLAG_CLOAK2_ONE_REMAINING   0x00000004
@@ -318,11 +317,11 @@ u8 props[] = {
 	tag(OBJ_SAFEDOOR, 1)
 	door(0x0100, MODEL_G5SAFEDOOR, 0x00c2, 0x10000010, 0x20000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x005a0000, 0x03e80000, 0x00500000, 0x00500000, 0x00001999, 0x00000005, 0x00000040, 0x00000e10, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000300, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
 
-	tag(OBJ_CMP150_JOANNA, 1)
+	tag(OBJ_CMP150_BOND, 1)
 	weapon(0x0100, MODEL_CHRCMP150, 0xffff, 0x40000000, 0x00000000, 0x00400000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_REMOTEMINE, 0x00ffffff, 0x00000000)
 	rename_object(-1, 0x0022, 0x1842, 0x1843, 0x1844, 0x1845, 0x1846, 0x0000, 0x0000) // ""
 
-	tag(OBJ_CMP150_VELVET, 1)
+	tag(OBJ_CMP150_COOP, 1)
 	weapon(0x0100, MODEL_CHRCMP150, 0xffff, 0x40000000, 0x00000000, 0x00400000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_REMOTEMINE, 0x00ffffff, 0x00000000)
 	rename_object(-1, 0x0022, 0x1842, 0x1843, 0x1844, 0x1845, 0x1846, 0x0000, 0x0000) // ""
 
@@ -542,7 +541,7 @@ u8 func1008_check_generator[] = {
 		// Destroyed
 		mute_channel(CHANNEL_4)
 		if_difficulty_lt(DIFF_PA, /*goto*/ 0x06)
-		message(CHR_JOANNA, 0x1818) // "Mission critical object destroyed."
+		message(CHR_BOND, 0x1818) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_GENERATOR_DESTROYED)
 		label(0x06)
 		set_function(CHR_SELF, GFUNC_IDLE)
@@ -579,7 +578,7 @@ u8 func1003_laser_switch_1[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH1, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH1, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET1_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_JOANNA, 0x1818) // "Mission critical object destroyed."
+		message(CHR_BOND, 0x1818) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH1_DESTROYED)
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2c)
@@ -645,7 +644,7 @@ u8 func1004_laser_switch_2[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH2, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH2, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET2_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_JOANNA, 0x1818) // "Mission critical object destroyed."
+		message(CHR_BOND, 0x1818) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH2_DESTROYED)
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2c)
@@ -712,7 +711,7 @@ u8 func1005_laser_switch_3[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH3, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH3, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_JOANNA, 0x1818) // "Mission critical object destroyed."
+		message(CHR_BOND, 0x1818) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH3_DESTROYED)
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2c)
@@ -778,7 +777,7 @@ u8 func1006_laser_switch_4[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH4, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH4, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET4_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_JOANNA, 0x1818) // "Mission critical object destroyed."
+		message(CHR_BOND, 0x1818) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH4_DESTROYED)
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2c)
@@ -873,7 +872,7 @@ u8 func1007_init_lasers[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, FALSE, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET4_DISABLED, FALSE, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_ALL_LASERS_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_JOANNA, 0x181d) // "All laser grid systems shut down."
+		message(CHR_BOND, 0x181d) // "All laser grid systems shut down."
 		set_stage_flag(STAGEFLAG_ALL_LASERS_DISABLED)
 		label(0x2c)
 	endloop(0x04)
@@ -1155,9 +1154,9 @@ u8 func100a_give_keycards[] = {
 
 	// Wait for the chr who holds the keycard to die
 	beginloop(0x55)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0x08)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0x2c)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x2c)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x08)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0x2c)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2c)
 	endloop(0x55)
 
 	label(0x2c)
@@ -1230,12 +1229,12 @@ u8 func1002_set_ai[] = {
 
 u8 func1400_setup_counterop[] = {
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 
 	// On counterop SA and PA, give Joanna a CMP150
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x06)
-	give_object_to_chr(OBJ_CMP150_JOANNA, CHR_JOANNA)
-	give_object_to_chr(OBJ_CMP150_VELVET, CHR_VELVET)
+	give_object_to_chr(OBJ_CMP150_BOND, CHR_BOND)
+	give_object_to_chr(OBJ_CMP150_COOP, CHR_COOP)
 	label(0x06)
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	endfunction
@@ -1268,7 +1267,7 @@ u8 func100e_check_conspirators_alerted[] = {
 		set_function(CHR_CASS, FUNC_RUN_FROM_MEETING)
 		set_function(0x1c, FUNC_RUN_FROM_MEETING) // chr doesn't exist
 		set_function(CHR_BLONDE, FUNC_RUN_FROM_MEETING)
-		message(CHR_JOANNA, 0x1829) // "Conspirators have been alerted."
+		message(CHR_BOND, 0x1829) // "Conspirators have been alerted."
 
 		// Wait until alarm not active
 		label(0x06)
@@ -1316,7 +1315,7 @@ u8 func1010_safe_cracking[] = {
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		if_object_in_good_condition(OBJ_SAFEKEYPAD, /*goto*/ 0x2c)
-		message(CHR_JOANNA, 0x1840) // "Mission critical object destroyed."
+		message(CHR_BOND, 0x1840) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_SAFEKEYPAD_DESTROYED)
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2c)
@@ -1342,7 +1341,7 @@ u8 func1010_safe_cracking[] = {
 	endloop(0x09)
 
 	label(0x06)
-	speak(CHR_JOANNA, 0x1826, 0x7754, CHANNEL_5, COLOR_00_GREEN) // "INTRUDER ALERT - all security to the vault."
+	speak(CHR_BOND, 0x1826, 0x7754, CHANNEL_5, COLOR_00_GREEN) // "INTRUDER ALERT - all security to the vault."
 	play_x_music(CHANNEL_10, 180)
 	yield
 	set_countdown_timer(60)
@@ -1361,7 +1360,7 @@ u8 func1010_safe_cracking[] = {
 
 	beginloop(0x08)
 		if_object_in_good_condition(OBJ_SAFEKEYPAD, /*goto*/ 0x2c)
-		message(CHR_JOANNA, 0x1840) // "Mission critical object destroyed."
+		message(CHR_BOND, 0x1840) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_SAFEKEYPAD_DESTROYED)
 		hide_countdown_timer
 		set_function(CHR_SELF, GFUNC_IDLE)
@@ -1402,14 +1401,14 @@ u8 func1012_check_for_end[] = {
 	label(0x06)
 	set_stage_flag(STAGEFLAG_EXITED_BUILDING)
 	dprint 'I','N',' ','T','H','E',' ','E','L','E','V','A','T','O','R','\n',0,
-	set_invincible(CHR_JOANNA)
+	set_invincible(CHR_BOND)
 	yield
 	yield
-	revoke_control(CHR_JOANNA, 4)
+	revoke_control(CHR_BOND, 4)
 	hide_countdown_timer
 	stop_countdown_timer
 	if_all_objectives_complete(/*goto*/ 0x53)
-	message(CHR_JOANNA, 0x1833) // "Objectives incomplete - MISSION FAILED."
+	message(CHR_BOND, 0x1833) // "Objectives incomplete - MISSION FAILED."
 	label(0x2c)
 	restart_timer
 
@@ -1423,15 +1422,15 @@ u8 func1012_check_for_end[] = {
 
 	// Objectives complete
 	label(0x53)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x2c)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x2c)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2c)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x2c)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
@@ -1550,15 +1549,15 @@ u8 func1017_check_lasers_closed[] = {
 };
 
 u8 func040d_intro[] = {
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_music_track(MUSIC_G5_INTRO)
 	camera_movement(0x0165)
 	cmd0175(60)
 
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0166, -1, -1, 0x0600, CHR_JOANNA, 4)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0166, -1, -1, 0x0600, CHR_BOND, 4)
 
 	set_chr_flag_bank3(CHR_INTRO_VICTIM, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_INTRO_VICTIM, CHRFLAG3_HIDDEN)
@@ -1566,7 +1565,7 @@ u8 func040d_intro[] = {
 	animation(0x0167, -1, -1, 0x0600, CHR_INTRO_VICTIM, 4)
 
 	restart_timer
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_FALCON2_SILENCER, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2_SILENCER, WEAPON_NONE)
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
 
@@ -1764,11 +1763,11 @@ u8 func040d_intro[] = {
 	endloop(0x08)
 
 	label(0x54)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0166, -2, -1, 0x0600, CHR_JOANNA, 2)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0166, -2, -1, 0x0600, CHR_BOND, 2)
 
 	unset_chr_flag_bank3(CHR_INTRO_VICTIM, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_INTRO_VICTIM, CHRFLAG2_00020000)
@@ -1803,8 +1802,8 @@ u8 func040d_intro[] = {
 
 u8 func040e_meeting_cutscene[] = {
 	deactivate_alarm
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_music_track(MUSIC_G5_MIDCUTSCENE)
 	camera_movement(0x0191)
 	set_stage_flag(STAGEFLAG_MEETING_STARTED)
@@ -1839,13 +1838,13 @@ u8 func040e_meeting_cutscene[] = {
 	endloop(0x55)
 
 	label(0x06)
-	speak(CHR_JOANNA, 0x1848, 0x740c, CHANNEL_5, COLOR_04_ORANGE) // "We've recovered the sapient from Carrington and al..."
+	speak(CHR_BOND, 0x1848, 0x740c, CHANNEL_5, COLOR_04_ORANGE) // "We've recovered the sapient from Carrington and al..."
 
 	wait_until(752, 0x56)
 	play_sound(0x0161, CHANNEL_6)
 
 	wait_until(760, 0x57)
-	speak(CHR_JOANNA, 0x1849, 0x740d, CHANNEL_7, COLOR_03_RED) // "This will reduce its efficiency. My team will have..."
+	speak(CHR_BOND, 0x1849, 0x740d, CHANNEL_7, COLOR_03_RED) // "This will reduce its efficiency. My team will have..."
 
 	wait_until(813, 0x58)
 	play_sound(0x0162, CHANNEL_6)
@@ -1872,7 +1871,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0593, CHANNEL_6)
 
 	wait_until(1684, 0x5d)
-	speak(CHR_JOANNA, 0x184a, 0x740e, CHANNEL_5, COLOR_04_ORANGE) // "No one could have predicted that! And I resent bei..."
+	speak(CHR_BOND, 0x184a, 0x740e, CHANNEL_5, COLOR_04_ORANGE) // "No one could have predicted that! And I resent bei..."
 
 	wait_until(1780, 0x5e)
 	play_sound_from_object2(CHANNEL_6, 0x3a, 0x01d5, 0x00, 0x00)
@@ -1897,7 +1896,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0161, CHANNEL_7)
 
 	wait_until(2316, 0x65)
-	speak(CHR_JOANNA, 0x184b, 0x740f, CHANNEL_7, COLOR_03_RED) // "The President turned down your request for the loa..."
+	speak(CHR_BOND, 0x184b, 0x740f, CHANNEL_7, COLOR_03_RED) // "The President turned down your request for the loa..."
 
 	wait_until(2342, 0x67)
 	play_sound(0x0162, CHANNEL_6)
@@ -1931,7 +1930,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0161, CHANNEL_5)
 
 	wait_until(2692, 0x6f)
-	speak(CHR_JOANNA, 0x184c, 0x7410, CHANNEL_7, COLOR_03_RED) // "Could it be you overestimated your influence over ..."
+	speak(CHR_BOND, 0x184c, 0x7410, CHANNEL_7, COLOR_03_RED) // "Could it be you overestimated your influence over ..."
 
 	wait_until(2705, 0x72)
 	play_sound(0x0161, CHANNEL_6)
@@ -1955,7 +1954,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0163, CHANNEL_5)
 
 	wait_until(3048, 0x79)
-	speak(CHR_JOANNA, 0x184d, 0x7411, CHANNEL_7, COLOR_05_GREEN) // "No! Perhaps I underestimated his resolve. We have ..."
+	speak(CHR_BOND, 0x184d, 0x7411, CHANNEL_7, COLOR_05_GREEN) // "No! Perhaps I underestimated his resolve. We have ..."
 
 	wait_until(3186, 0x7a)
 	play_sound(0x0164, CHANNEL_6)
@@ -1982,7 +1981,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0162, CHANNEL_6)
 
 	wait_until(4070, 0x82)
-	speak(CHR_JOANNA, 0x184e, 0x7412, CHANNEL_7, COLOR_04_ORANGE) // "Ha! Assuming you don't get any interference. If Ca..."
+	speak(CHR_BOND, 0x184e, 0x7412, CHANNEL_7, COLOR_04_ORANGE) // "Ha! Assuming you don't get any interference. If Ca..."
 
 	wait_until(4312, 0x84)
 	play_sound(0x0163, CHANNEL_6)
@@ -2000,7 +1999,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0161, CHANNEL_7)
 
 	wait_until(4560, 0x83)
-	speak(CHR_JOANNA, 0x184f, 0x7413, CHANNEL_5, COLOR_05_GREEN) // "There will be no outside help for Mr. Carrington. ..."
+	speak(CHR_BOND, 0x184f, 0x7413, CHANNEL_5, COLOR_05_GREEN) // "There will be no outside help for Mr. Carrington. ..."
 
 	wait_until(4636, 0x89)
 	play_sound(0x0163, CHANNEL_7)
@@ -2009,7 +2008,7 @@ u8 func040e_meeting_cutscene[] = {
 	play_sound(0x0164, CHANNEL_7)
 
 	wait_until(5272, 0x8b)
-	speak(CHR_JOANNA, 0x1850, 0x7414, CHANNEL_5, COLOR_03_RED) // "Then the devices we gave you are working correctly..."
+	speak(CHR_BOND, 0x1850, 0x7414, CHANNEL_5, COLOR_03_RED) // "Then the devices we gave you are working correctly..."
 
 	wait_until(5360, 0x8c)
 	play_sound(0x0163, CHANNEL_6)
@@ -2037,8 +2036,8 @@ u8 func040e_meeting_cutscene[] = {
 	mute_channel(CHANNEL_7)
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_5)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	restart_timer
 	label(0x06)
 	set_function(CHR_CASS, FUNC_WALK_FROM_MEETING)
@@ -2073,7 +2072,7 @@ u8 func040f_outro_from_menu[] = {
 u8 func040f_outro[] = {
 	camera_movement(0x0196)
 	set_music_track(MUSIC_G5_OUTRO)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(0xf1, CHRFLAG3_HIDDEN)
 	set_function(CHR_P1P2, GFUNC_IDLE)
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
@@ -2543,7 +2542,7 @@ u8 func101d_init_mines[] = {
 	set_object_flag_bank1(OBJ_MINE2, OBJECTFLAG1_INVISIBLE)
 	unset_object_flag_bank0(OBJ_MINE1, OBJECTFLAG0_00000100)
 	unset_object_flag_bank0(OBJ_MINE2, OBJECTFLAG0_00000100)
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 
 	label(0x06)
 	if_eeprom_flag_is_unset(EEPROMFLAG_G5_MINE, /*goto*/ 0x06)
@@ -2885,10 +2884,10 @@ u8 unregistered_function[] = {
 u8 func1026_unlock_doors[] = {
 	// If Velvet and counter op don't exist, return
 	yield
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2c)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
 	goto_next(0x04)
 	label(0x2c)
-	if_chr_death_animation_finished(CHR_COUNTEROP, /*goto*/ 0x0a)
+	if_chr_death_animation_finished(CHR_ANTI, /*goto*/ 0x0a)
 
 	// Wait until some door is not closed (so... opening, I guess?)
 	beginloop(0x04)

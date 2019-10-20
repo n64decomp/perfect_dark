@@ -865,11 +865,11 @@ struct aipaths paths[] = {
 
 u8 func1000_setup_counterop[] = {
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 
 	// These objects don't exist...?
-	give_object_to_chr(0x05, CHR_JOANNA)
-	give_object_to_chr(0x3a, CHR_VELVET)
+	give_object_to_chr(0x05, CHR_BOND)
+	give_object_to_chr(0x3a, CHR_COOP)
 
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	endfunction
@@ -1131,7 +1131,7 @@ u8 func100d_start_lifts[] = {
 u8 func1003_check_experiment_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_EXPERIMENT, /*goto*/ 0x2c)
-		message(CHR_JOANNA, 0x3c07) // "Medical experiment has been sabotaged."
+		message(CHR_BOND, 0x3c07) // "Medical experiment has been sabotaged."
 		set_stage_flag(STAGEFLAG_EXPERIMENT_DESTROYED)
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2c)
@@ -1143,7 +1143,7 @@ u8 func1003_check_experiment_destroyed[] = {
 u8 func1004_check_saucer_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(0x3e, /*goto*/ 0x2c)
-		message(CHR_JOANNA, 0x3c08) // "Captured Maian saucer has been destroyed."
+		message(CHR_BOND, 0x3c08) // "Captured Maian saucer has been destroyed."
 		set_stage_flag(STAGEFLAG_SAUCER_DESTROYED)
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2c)
@@ -1256,7 +1256,7 @@ u8 func0410_clone_spawner2[] = {
 
 	// Wait until player is in room 0x005e
 	beginloop(0x0d)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x005e, /*goto*/ 0x2c)
+		if_chr_in_room(CHR_BOND, 0x00, 0x005e, /*goto*/ 0x2c)
 	endloop(0x0d)
 
 	beginloop(0x04)
@@ -1327,13 +1327,13 @@ u8 func1008_check_console[] = {
 	label(0x2c)
 	assign_sound(0x8111, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_CONSOLE, 0x012c, 0x0190)
-	message(CHR_JOANNA, 0x3c09) // "Distress signal has been sent."
+	message(CHR_BOND, 0x3c09) // "Distress signal has been sent."
 	set_stage_flag(STAGEFLAG_CONSOLE_ACTIVATED)
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	// Console destroyed
 	label(0x08)
-	message(CHR_JOANNA, 0x3c0a) // "Critical mission object has been destroyed."
+	message(CHR_BOND, 0x3c0a) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_CONSOLE_DESTROYED)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -1354,17 +1354,17 @@ u8 func1009_check_for_exit[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x2c)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x2c)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2c)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x2c)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	// Both players dead
@@ -1407,10 +1407,10 @@ u8 func100a_vertical_door_sounds[] = {
 u8 func100b_check_medlab_escapable[] = {
 	// While player is in the starting area
 	beginloop(0x04)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0095, /*goto*/ 0x2c)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0096, /*goto*/ 0x2c)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0097, /*goto*/ 0x2c)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0098, /*goto*/ 0x2c)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0095, /*goto*/ 0x2c)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0096, /*goto*/ 0x2c)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0097, /*goto*/ 0x2c)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0098, /*goto*/ 0x2c)
 		reloop(0x04)
 
 		// If any glass is broken, jump to 0x0d where we'll return
@@ -1433,7 +1433,7 @@ u8 func100b_check_medlab_escapable[] = {
 		// Wait until we have pistol ammo (ie. Falcon 2), then wait until we don't.
 		label(0x06)
 		if_stage_flag_eq(STAGEFLAG_GOT_FALCON2, TRUE, /*goto*/ 0x66)
-		if_ammo_quantity_lt(CHR_JOANNA, AMMOTYPE_PISTOL, 1, /*goto*/ 0x67)
+		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_PISTOL, 1, /*goto*/ 0x67)
 		set_stage_flag(STAGEFLAG_GOT_FALCON2)
 		reloop(0x04)
 
@@ -1441,7 +1441,7 @@ u8 func100b_check_medlab_escapable[] = {
 		reloop(0x04)
 
 		label(0x66)
-		if_ammo_quantity_lt(CHR_JOANNA, AMMOTYPE_PISTOL, 1, /*goto*/ 0x2c)
+		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_PISTOL, 1, /*goto*/ 0x2c)
 		reloop(0x04)
 
 		// Trolley is destroyed. Wait 3 seconds for explosion to break any glass.
@@ -1474,11 +1474,11 @@ u8 func100b_check_medlab_escapable[] = {
 		if_chr_unloaded(CHR_LABTECH2, /*goto*/ 0x65)
 
 		label(0x06)
-		if_chr_has_object(CHR_JOANNA, OBJ_PSYCHOSISGUN, /*goto*/ 0x2c)
+		if_chr_has_object(CHR_BOND, OBJ_PSYCHOSISGUN, /*goto*/ 0x2c)
 		reloop(0x04)
 
 		label(0x2c)
-		if_ammo_quantity_lt(CHR_JOANNA, AMMOTYPE_PSYCHOSIS, 1, /*goto*/ 0x2c)
+		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_PSYCHOSIS, 1, /*goto*/ 0x2c)
 		reloop(0x04)
 
 		// Both lab techs dead
@@ -1486,7 +1486,7 @@ u8 func100b_check_medlab_escapable[] = {
 
 		// Player has psychosis gun but ammo depleted
 		label(0x2c)
-		message(CHR_JOANNA, 0x3c0b) // "Mission failed - cannot escape from medlab."
+		message(CHR_BOND, 0x3c0b) // "Mission failed - cannot escape from medlab."
 		set_stage_flag(STAGEFLAG_TRAPPED_AT_START)
 		goto_next(0x0e)
 
@@ -1496,16 +1496,16 @@ u8 func100b_check_medlab_escapable[] = {
 		set_function(CHR_SELF, GFUNC_IDLE)
 
 		beginloop(0x0e)
-			if_chr_in_room(CHR_JOANNA, 0x00, 0x0095, /*goto*/ 0x2c)
-			if_chr_in_room(CHR_JOANNA, 0x00, 0x0096, /*goto*/ 0x2c)
-			if_chr_in_room(CHR_JOANNA, 0x00, 0x0097, /*goto*/ 0x2c)
-			if_chr_in_room(CHR_JOANNA, 0x00, 0x0098, /*goto*/ 0x2c)
+			if_chr_in_room(CHR_BOND, 0x00, 0x0095, /*goto*/ 0x2c)
+			if_chr_in_room(CHR_BOND, 0x00, 0x0096, /*goto*/ 0x2c)
+			if_chr_in_room(CHR_BOND, 0x00, 0x0097, /*goto*/ 0x2c)
+			if_chr_in_room(CHR_BOND, 0x00, 0x0098, /*goto*/ 0x2c)
 			goto_next(0x06)
 			label(0x2c)
 		endloop(0x0e)
 
 		label(0x06)
-		message(CHR_JOANNA, 0x3c0c) // "Alternative escape route found."
+		message(CHR_BOND, 0x3c0c) // "Alternative escape route found."
 		unset_stage_flag(STAGEFLAG_TRAPPED_AT_START)
 	goto_first(0x04)
 
@@ -1513,14 +1513,14 @@ u8 func100b_check_medlab_escapable[] = {
 };
 
 u8 func1002_intro[] = {
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_music_track(MUSIC_G5_INTRO)
 	camera_movement(0x0476)
 	cmd0175(60)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0477, -1, -1, 0x0600, CHR_JOANNA, 4)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0477, -1, -1, 0x0600, CHR_BOND, 4)
 	set_object_flag_bank1(OBJ_TROLLEY, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(OBJ_TROLLEY, OBJECTFLAG2_00000010)
 	object_do_animation(0x0478, OBJ_TROLLEY, 0x04ff, 0xff)
@@ -1559,12 +1559,12 @@ u8 func1002_intro[] = {
 	endloop(0x08)
 
 	label(0x87)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0477, -2, -1, 0x0600, CHR_JOANNA, 2)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0477, -2, -1, 0x0600, CHR_BOND, 2)
 	unset_object_flag_bank1(OBJ_TROLLEY, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(OBJ_TROLLEY, OBJECTFLAG2_00000010)
 	object_do_animation(0x0478, OBJ_TROLLEY, 0x04ff, 0xfe)
@@ -1576,15 +1576,15 @@ u8 func1002_intro[] = {
 };
 
 u8 func041b_outro[] = {
-	set_invincible(CHR_JOANNA)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_invincible(CHR_BOND)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_music_track(MUSIC_G5_OUTRO)
 	camera_movement(0x0479)
 
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x047a, -1, -1, 0x0600, CHR_JOANNA, 4)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x047a, -1, -1, 0x0600, CHR_BOND, 4)
 
 	unset_chr_flag_bank3(CHR_OUTRO_GUARD, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_OUTRO_GUARD, CHRFLAG3_UNPLAYABLE)
@@ -1881,14 +1881,14 @@ u8 func1010_unload_part1_chrs[] = {
 u8 func0414_unload[] = {
 	label(0x2c)
 	yield
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	if_within_units_of_sight(30, /*goto*/ 0x06)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2c)
-	set_target_chr(CHR_VELVET)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
+	set_target_chr(CHR_COOP)
 	if_within_units_of_sight(30, /*goto*/ 0x06)
 	label(0x2c)
-	if_chr_death_animation_finished(CHR_COUNTEROP, /*goto*/ 0x08)
-	set_target_chr(CHR_COUNTEROP)
+	if_chr_death_animation_finished(CHR_ANTI, /*goto*/ 0x08)
+	set_target_chr(CHR_ANTI)
 	if_within_units_of_sight(30, /*goto*/ 0x06)
 	label(0x08)
 	yield

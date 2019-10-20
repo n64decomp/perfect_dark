@@ -84,7 +84,7 @@ struct aipaths paths[] = {
 
 u8 func1000_counterop_setup[] = {
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	endfunction
 };
@@ -96,16 +96,16 @@ u8 func1001_objectives_failed[] = {
 };
 
 u8 func1002_first_walk[] = {
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	camera_movement(0x0488)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
 	display_text(0x00, COLOR_02_WHITE, 0x5e07) // "THE DUEL"
 	animation(ANIM_RELOAD, -1, -1, 0x0600, CHR_GUARD, 2)
 	label(0x2d)
-	message(CHR_JOANNA, 0x5e0c) // "Opponent skill level: AGENT"
+	message(CHR_BOND, 0x5e0c) // "Opponent skill level: AGENT"
 
 	// Wait for camera to stop animating
 	restart_timer
@@ -119,18 +119,18 @@ u8 func1002_first_walk[] = {
 	// Start walking
 	label(0x06)
 	remove_displayed_text
-	revoke_control(CHR_JOANNA, 0)
+	revoke_control(CHR_BOND, 0)
 	enter_firstperson
-	force_walk(CHR_JOANNA, 0x0275, 0x2805, 0x0064)
+	force_walk(CHR_BOND, 0x0275, 0x2805, 0x0064)
 	chr_move_to_pad(CHR_GUARD, 0x0274, 0x01, /*goto*/ 0x0b)
 
 	// Wait for walk to finish
 	beginloop(0x0b)
-		if_force_walk_finished(CHR_JOANNA, /*goto*/ 0x0c)
+		if_force_walk_finished(CHR_BOND, /*goto*/ 0x0c)
 	endloop(0x0b)
 
 	label(0x0c)
-	grant_control(CHR_JOANNA)
+	grant_control(CHR_BOND)
 	set_function(CHR_GUARD, FUNC_GUARD_COMBAT)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -139,8 +139,8 @@ u8 func1002_first_walk[] = {
 u8 func1007_second_walk[] = {
 	// Wait until SA walk trigger
 	beginloop(0x58)
-		if_chr_dying(CHR_JOANNA, /*goto*/ 0x2d)
-		if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x2d)
+		if_chr_dying(CHR_BOND, /*goto*/ 0x2d)
+		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_SA_WALK_TRIGGER, TRUE, /*goto*/ 0x06)
 	endloop(0x58)
 
@@ -148,7 +148,7 @@ u8 func1007_second_walk[] = {
 	label(0x2d)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	label(0x06)
-	revoke_control(CHR_JOANNA, 0)
+	revoke_control(CHR_BOND, 0)
 	camera_movement(0x0488)
 
 	// Place chrs
@@ -163,13 +163,13 @@ u8 func1007_second_walk[] = {
 	unset_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_UNEXPLODABLE)
 	yield
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
 	animation(ANIM_GRAB_CROTCH, -1, -1, 0x0600, CHR_JONATHAN, 2)
 
 	label(0x2d)
-	message(CHR_JOANNA, 0x5e0d) // "Opponent skill level: SPECIAL AGENT"
+	message(CHR_BOND, 0x5e0d) // "Opponent skill level: SPECIAL AGENT"
 	restart_timer
 
 	beginloop(0x08)
@@ -182,10 +182,10 @@ u8 func1007_second_walk[] = {
 	label(0x06)
 	label(0x2d)
 	remove_displayed_text
-	revoke_control(CHR_JOANNA, 0)
+	revoke_control(CHR_BOND, 0)
 	enter_firstperson
 	yield
-	force_walk(CHR_JOANNA, 0x0275, 0x2805, 0x0064)
+	force_walk(CHR_BOND, 0x0275, 0x2805, 0x0064)
 
 	// Place Jon
 	call_rng
@@ -196,12 +196,12 @@ u8 func1007_second_walk[] = {
 
 	// Wait for force walk to finish
 	beginloop(0x0b)
-		if_force_walk_finished(CHR_JOANNA, /*goto*/ 0x0c)
+		if_force_walk_finished(CHR_BOND, /*goto*/ 0x0c)
 	endloop(0x0b)
 
 	// Give control back to Jo
 	label(0x0c)
-	grant_control(CHR_JOANNA)
+	grant_control(CHR_BOND)
 	set_function(CHR_JONATHAN, FUNC_JON_COMBAT)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -219,8 +219,8 @@ u8 func0401_move_to_pad[] = {
 u8 func1008_third_walk[] = {
 	// Wait for flag or Jo dying
 	beginloop(0x58)
-		if_chr_dying(CHR_JOANNA, /*goto*/ 0x2d)
-		if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x2d)
+		if_chr_dying(CHR_BOND, /*goto*/ 0x2d)
+		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_PA_WALK_TRIGGER, TRUE, /*goto*/ 0x06)
 	endloop(0x58)
 
@@ -230,7 +230,7 @@ u8 func1008_third_walk[] = {
 
 	// Do cutscene
 	label(0x06)
-	revoke_control(CHR_JOANNA, 0)
+	revoke_control(CHR_BOND, 0)
 	camera_movement(0x0488)
 
 	label(0x8f)
@@ -244,12 +244,12 @@ u8 func1008_third_walk[] = {
 	unset_chr_flag_bank3(CHR_TRENT, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_flag_bank3(CHR_TRENT, CHRFLAG3_UNEXPLODABLE)
 	yield
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
 	animation(ANIM_HEAD_ROLL, -1, -1, 0x0600, CHR_TRENT, 2)
 	label(0x2d)
-	message(CHR_JOANNA, 0x5e0e) // "Opponent skill level: PERFECT AGENT"
+	message(CHR_BOND, 0x5e0e) // "Opponent skill level: PERFECT AGENT"
 
 	// Wait for cutscene to finish
 	restart_timer
@@ -263,25 +263,25 @@ u8 func1008_third_walk[] = {
 	// Begin force walk
 	label(0x06)
 	remove_displayed_text
-	revoke_control(CHR_JOANNA, 0)
+	revoke_control(CHR_BOND, 0)
 	enter_firstperson
-	force_walk(CHR_JOANNA, 0x0275, 0x2805, 0x0064)
+	force_walk(CHR_BOND, 0x0275, 0x2805, 0x0064)
 	chr_move_to_pad(CHR_TRENT, 0x0272, 0x01, /*goto*/ 0x0b)
 
 	beginloop(0x0b)
-		if_force_walk_finished(CHR_JOANNA, /*goto*/ 0x0c)
+		if_force_walk_finished(CHR_BOND, /*goto*/ 0x0c)
 	endloop(0x0b)
 
 	label(0x0c)
 	set_function(CHR_TRENT, FUNC_TRENT_COMBAT)
-	grant_control(CHR_JOANNA)
+	grant_control(CHR_BOND)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
 
 u8 func1004_revoke_control[] = {
 	yield
-	revoke_control(CHR_JOANNA, 0)
+	revoke_control(CHR_BOND, 0)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -295,7 +295,7 @@ u8 func1005_main[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_JOANNA, 0x5e09) // "Well done! You were too quick for him!"
+	message(CHR_BOND, 0x5e09) // "Well done! You were too quick for him!"
 	set_stage_flag(STAGEFLAG_GUARD_DEAD)
 	restart_timer
 
@@ -322,7 +322,7 @@ u8 func1005_main[] = {
 	endloop(0x09)
 
 	label(0x2d)
-	message(CHR_JOANNA, 0x5e0a) // "Well done! You were too quick for him!"
+	message(CHR_BOND, 0x5e0a) // "Well done! You were too quick for him!"
 	set_stage_flag(STAGEFLAG_JONATHAN_DEAD)
 	restart_timer
 
@@ -349,7 +349,7 @@ u8 func1005_main[] = {
 	endloop(0x0c)
 
 	label(0x2d)
-	message(CHR_JOANNA, 0x5e0b) // "Well done! You were too quick for him!"
+	message(CHR_BOND, 0x5e0b) // "Well done! You were too quick for him!"
 	set_stage_flag(STAGEFLAG_TRENT_DEAD)
 	restart_timer
 
@@ -420,7 +420,7 @@ u8 func0402_guard_combat[] = {
 
 		// 2 seconds have passed without seeing guard, or guard has been shot
 		label(0x06)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0x2e)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0x2e)
 		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x2d)
 		label(0x2d)
 		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x0c)
@@ -502,7 +502,7 @@ u8 func0404_trent_combat[] = {
 
 		// Attack
 		label(0x06)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0x2e)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0x2e)
 		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x2d)
 		label(0x2d)
 		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x0c)

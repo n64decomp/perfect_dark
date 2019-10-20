@@ -80,16 +80,16 @@
 #define CHANNEL_9  9
 #define CHANNEL_10 10
 
-#define CHR_P1P2      0xf2
-#define CHR_F3        0xf3
-#define CHR_COUNTEROP 0xf4
-#define CHR_VELVET    0xf5
-#define TARGET_CHR    0xf6
-#define CHR_JOANNA    0xf8
-#define CHR_CLONE     0xf9
-#define CHR_FRIEND    0xfb // when seeing friend die
-#define FOLLOW_CHR    0xfc
-#define CHR_SELF      0xfd
+#define CHR_P1P2   0xf2
+#define CHR_F3     0xf3
+#define CHR_ANTI   0xf4
+#define CHR_COOP   0xf5
+#define CHR_TARGET 0xf6
+#define CHR_BOND   0xf8
+#define CHR_CLONE  0xf9
+#define CHR_SEEDIE 0xfb
+#define CHR_PRESET 0xfc
+#define CHR_SELF   0xfd
 
 // Character flags - bank 0 (chr struct offset 0x114 - chr->flags)
 #define CHRFLAG0_CANT_ALERT_GROUP   0x00000001 // Don't set group alertness when becoming aware
@@ -301,8 +301,8 @@
 #define GFUNC_WAKEUP                 0x0008
 #define GFUNC_IDLE_0009              0x0009
 #define GFUNC_BUSY                   0x000a
-#define GFUNC_CHOOSE_TARGET_CHR      0x000b
-#define GFUNC_COMBAT_WITH_TARGET_CHR 0x000c
+#define GFUNC_CHOOSE_TARGET          0x000b
+#define GFUNC_COMBAT_WITH_TARGET     0x000c
 #define GFUNC_INIT_COMBAT            0x000d // unused
 #define GFUNC_SEE_THEN_ATTACK        0x000e // unused
 #define GFUNC_HAND_COMBAT            0x000f
@@ -326,7 +326,7 @@
 #define GFUNC_STOP_AND_IDLE          0x0021
 #define GFUNC_COMMENT_ON_PLAYER_DEAD 0x0022 // unused
 #define GFUNC_DODGE                  0x0023
-#define GFUNC_FOLLOW_JOANNA          0x0024
+#define GFUNC_FOLLOW_BOND          0x0024
 #define GFUNC_POINTLESS              0x0025 // unused
 #define GFUNC_INIT_PSYCHOSIS         0x0026
 #define GFUNC_PSYCHOSISED            0x0027

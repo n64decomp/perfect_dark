@@ -295,7 +295,7 @@ u8 func1001_objectives_failed_msg[] = {
 
 u8 func1000_counterop[] = {
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	endfunction
 };
@@ -390,13 +390,13 @@ u8 func0401_defend[] = {
 		endloop(0x8f)
 
 		label(0x2d)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0x2d)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x2d)
-		if_chr_dying(TARGET_CHR, /*goto*/ 0x2d)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x2d)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2d)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0x2d)
 		dprint 'D','E','T','E','C','T','E','D','\n',0,
 		set_return_function(CHR_SELF, FUNC_DEFEND)
 		set_onshot_function(FUNC_DEFEND)
-		set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+		set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 		label(0x2d)
 	goto_first(0x03)
@@ -544,9 +544,9 @@ u8 func0404_maian[] = {
 		beginloop(0x04)
 			dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 			if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
-			if_chr_dying(TARGET_CHR, /*goto*/ 0x06)
-			if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x06)
-			if_chr_unloaded(TARGET_CHR, /*goto*/ 0x06)
+			if_chr_dying(CHR_TARGET, /*goto*/ 0x06)
+			if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x06)
+			if_chr_unloaded(CHR_TARGET, /*goto*/ 0x06)
 		endloop(0x04)
 
 		// King died while running to him
@@ -556,12 +556,12 @@ u8 func0404_maian[] = {
 		// Maian has line of sight to king
 		label(0x08)
 		dprint 'D','E','T','E','C','T','E','D','\n',0,
-		if_chr_dying(TARGET_CHR, /*goto*/ 0x06)
-		if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x06)
-		if_chr_unloaded(TARGET_CHR, /*goto*/ 0x06)
+		if_chr_dying(CHR_TARGET, /*goto*/ 0x06)
+		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x06)
+		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x06)
 		set_return_function(CHR_SELF, FUNC_MAIAN)
 		set_onshot_function(FUNC_MAIAN)
-		set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+		set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 		// King died while fighting
 		label(0x06)
@@ -895,7 +895,7 @@ u8 func0406_skedar[] = {
 	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_return_function(CHR_SELF, FUNC_SKEDAR)
 	set_onshot_function(FUNC_SKEDAR)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
@@ -907,7 +907,7 @@ u8 func1005_check_leader_dead[] = {
 	endloop(0x03)
 
 	label(0x2d)
-	message(CHR_JOANNA, 0x4607) // "Maian leader has been killed."
+	message(CHR_BOND, 0x4607) // "Maian leader has been killed."
 	set_stage_flag(STAGEFLAG_LEADER_DEAD)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -923,7 +923,7 @@ u8 func1009_check_king1_dead[] = {
 	endloop(0x03)
 
 	label(0x2d)
-	message(CHR_JOANNA, 0x4608) // "Skedar King has been killed."
+	message(CHR_BOND, 0x4608) // "Skedar King has been killed."
 	set_stage_flag(STAGEFLAG_KING1_DEAD)
 	unlock_door(0x3e, 0x40)
 	unlock_door(0x3f, 0x40)
@@ -942,7 +942,7 @@ u8 func100a_check_king2_dead[] = {
 	endloop(0x03)
 
 	label(0x2d)
-	message(CHR_JOANNA, 0x4608) // "Skedar King has been killed."
+	message(CHR_BOND, 0x4608) // "Skedar King has been killed."
 	set_stage_flag(STAGEFLAG_KING2_DEAD)
 	label(0x0e)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -960,7 +960,7 @@ u8 func100b_check_king3_dead[] = {
 	endloop(0x03)
 
 	label(0x2d)
-	message(CHR_JOANNA, 0x4608) // "Skedar King has been killed."
+	message(CHR_BOND, 0x4608) // "Skedar King has been killed."
 	set_stage_flag(STAGEFLAG_KING3_DEAD)
 	label(0x0e)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -983,16 +983,16 @@ u8 func1007_check_end_level[] = {
 
 	// Check Jo not dead
 	label(0x2d)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x2d)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x2d)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x2d)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2d)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x2d)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	// Check Velvet not dead
 	label(0x2d)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2d)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x2d)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x2d)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2d)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x2d)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2d)
 	goto_next(0x06)
 
 	// Mission failed
@@ -1017,16 +1017,16 @@ u8 func040c_hide[] = {
 
 u8 func100d_king1_invincible[] = {
 	beginloop(0x03)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0070, /*goto*/ 0x2d)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0071, /*goto*/ 0x2d)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0072, /*goto*/ 0x2d)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0073, /*goto*/ 0x2d)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0074, /*goto*/ 0x2d)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0075, /*goto*/ 0x2d)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0076, /*goto*/ 0x2d)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0077, /*goto*/ 0x2d)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0078, /*goto*/ 0x2d)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0079, /*goto*/ 0x2d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0070, /*goto*/ 0x2d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0071, /*goto*/ 0x2d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0072, /*goto*/ 0x2d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0073, /*goto*/ 0x2d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0074, /*goto*/ 0x2d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0075, /*goto*/ 0x2d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0076, /*goto*/ 0x2d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0077, /*goto*/ 0x2d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0078, /*goto*/ 0x2d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0079, /*goto*/ 0x2d)
 		set_chr_flag_bank3(CHR_KING1, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 		reloop(0x03)
 
@@ -1056,7 +1056,7 @@ u8 unregistered_function[] = {
 
 	// Remove Blonde if counterop doesn't exist
 	label(0x03)
-	if_chr_death_animation_finished(CHR_COUNTEROP, /*goto*/ 0x2d)
+	if_chr_death_animation_finished(CHR_ANTI, /*goto*/ 0x2d)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	label(0x2d)
 	remove_chr(CHR_BLONDE)
@@ -1065,17 +1065,17 @@ u8 unregistered_function[] = {
 };
 
 u8 func1002_intro[] = {
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_music_track(MUSIC_G5_INTRO)
-	set_chr_flag_bank2(CHR_COUNTEROP, CHRFLAG2_00020000)
+	set_chr_flag_bank2(CHR_ANTI, CHRFLAG2_00020000)
 	set_chr_flag_bank2(CHR_BLONDE, CHRFLAG2_00020000)
 	camera_movement(0x047c)
 	cmd0175(60)
 
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x047d, -1, -1, 0x0600, CHR_JOANNA, 4)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x047d, -1, -1, 0x0600, CHR_BOND, 4)
 
 	unset_chr_flag_bank3(CHR_MAIAN1, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_MAIAN1, CHRFLAG3_UNPLAYABLE)
@@ -1090,9 +1090,9 @@ u8 func1002_intro[] = {
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_NONE, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_PHOENIX, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_PHOENIX, WEAPON_NONE)
 
 	// Wait 200 frames (3.3 secs) or until button pressed
 	beginloop(0x96)
@@ -1116,13 +1116,13 @@ u8 func1002_intro[] = {
 	// Outro done
 	label(0x82)
 	mute_channel(CHANNEL_10)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_COUNTEROP, CHRFLAG2_00020000)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank2(CHR_ANTI, CHRFLAG2_00020000)
 
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x047d, -2, -1, 0x0600, CHR_JOANNA, 2)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x047d, -2, -1, 0x0600, CHR_BOND, 2)
 
 	unset_chr_flag_bank3(CHR_MAIAN3, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_MAIAN3, CHRFLAG2_00020000)
@@ -1144,14 +1144,14 @@ u8 func1002_intro[] = {
 };
 
 u8 func040b_outro[] = {
-	set_invincible(CHR_JOANNA)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_invincible(CHR_BOND)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_music_track(MUSIC_G5_OUTRO)
 	camera_movement(0x0480)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 
 	unset_chr_flag_bank3(CHR_MAIAN3, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_MAIAN3, CHRFLAG3_UNPLAYABLE)

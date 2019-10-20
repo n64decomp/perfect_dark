@@ -11020,11 +11020,11 @@ bool aiChrSetTeam(void)
 bool ai010c(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, FOLLOW_CHR);
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 
 	if (!chr || (!chr->unk020 && chr->pos->unk00 != 6)) {
-		chrSetChrPreset(g_Vars.chrdata, CHR_JOANNA);
-		chr = chrFindById(g_Vars.chrdata, FOLLOW_CHR);
+		chrSetChrPreset(g_Vars.chrdata, CHR_BOND);
+		chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 	}
 
 	if (func0f04aa8c(chr, g_Vars.chrdata, cmd[2])) {
@@ -16459,7 +16459,7 @@ bool aiSetChrSpecialDeathAnimation(void)
  */
 bool aiSetRoomToSearch(void)
 {
-	struct chrdata *target = chrFindById(g_Vars.chrdata, TARGET_CHR);
+	struct chrdata *target = chrFindById(g_Vars.chrdata, CHR_TARGET);
 
 	if (target && target->pos) {
 		g_Vars.chrdata->bitfielddata.roomtosearch = target->pos->room;

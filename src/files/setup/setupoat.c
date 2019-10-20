@@ -85,8 +85,8 @@ u8 func0401_init_enemy[] = {
 	label(0x01)
 	assign_path(0)
 	start_path
-	set_return_function(CHR_SELF, GFUNC_CHOOSE_TARGET_CHR)
-	set_function(CHR_SELF, GFUNC_CHOOSE_TARGET_CHR)
+	set_return_function(CHR_SELF, GFUNC_CHOOSE_TARGET)
+	set_function(CHR_SELF, GFUNC_CHOOSE_TARGET)
 	endfunction
 };
 
@@ -126,8 +126,8 @@ u8 func0402_init_maian[] = {
 	label(0x01)
 	assign_path(0)
 	start_path
-	set_return_function(CHR_SELF, GFUNC_CHOOSE_TARGET_CHR)
-	set_function(CHR_SELF, GFUNC_CHOOSE_TARGET_CHR)
+	set_return_function(CHR_SELF, GFUNC_CHOOSE_TARGET)
+	set_function(CHR_SELF, GFUNC_CHOOSE_TARGET)
 	endfunction
 };
 
@@ -144,7 +144,7 @@ u8 unregistered_function1[] = {
 	// The object doesn't exist in the props code though, so was likely removed.
 	label(0x04)
 	yield
-	if_chr_looking_at_object(CHR_JOANNA, 0x00, /*goto*/ 0x01)
+	if_chr_looking_at_object(CHR_BOND, 0x00, /*goto*/ 0x01)
 	goto_first(0x04)
 
 	label(0x01)
@@ -198,7 +198,7 @@ u8 func0407_defend_pad[] = {
 	label(0xa5)
 	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_return_function(CHR_SELF, 0x0407)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 

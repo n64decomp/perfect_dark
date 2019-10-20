@@ -655,7 +655,7 @@ u8 func1001_objectives_failed_msg[] = {
 
 u8 func1400_setup_counterop[] = {
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	endfunction
 };
@@ -675,13 +675,13 @@ u8 func0408_guard_unalerted[] = {
 
 u8 func1002_intro[] = {
 	set_music_track(MUSIC_PELAGIC_INTRO)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	camera_movement(0x02ce)
 	cmd0175(60)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x02cf, -1, -1, 0x0600, CHR_JOANNA, 4)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x02cf, -1, -1, 0x0600, CHR_BOND, 4)
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
@@ -691,9 +691,9 @@ u8 func1002_intro[] = {
 	set_chr_flag_bank2(CHR_INTRO_GUARD, CHRFLAG2_00020000)
 	animation(0x02d1, -1, -1, 0x0600, CHR_INTRO_GUARD, 4)
 	restart_timer
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_NONE, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_FALCON2_SILENCER, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2_SILENCER, WEAPON_NONE)
 
 	#define wait_until(time, loopid) \
 		beginloop(loopid) \
@@ -799,11 +799,11 @@ u8 func1002_intro[] = {
 
 	label(0x39)
 	mute_channel(CHANNEL_10)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x02cf, -2, -1, 0x0600, CHR_JOANNA, 2)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x02cf, -2, -1, 0x0600, CHR_BOND, 2)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
 	animation(0x02d0, -2, -1, 0x0600, CHR_ELVIS, 2)
@@ -828,7 +828,7 @@ u8 func1002_intro[] = {
 u8 func0c01_outro[] = {
 	camera_movement(0x02e2)
 	set_music_track(MUSIC_PELAGIC_OUTRO)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(0xf1, CHRFLAG3_HIDDEN)
 	set_function(CHR_P1P2, GFUNC_IDLE)
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
@@ -879,7 +879,7 @@ u8 func0c01_outro[] = {
 	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, 0x042d, 0x00, 0x00)
 
 	wait_until(180, 0x3b)
-	speak(CHR_JOANNA, 0x1627, 0x7465, CHANNEL_10, COLOR_06_WHITE) // "Right. The diving operation has been disrupted on ..."
+	speak(CHR_BOND, 0x1627, 0x7465, CHANNEL_10, COLOR_06_WHITE) // "Right. The diving operation has been disrupted on ..."
 
 	wait_until(200, 0x48)
 	play_sound(0x0173, CHANNEL_10)
@@ -905,7 +905,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x0171, CHANNEL_10)
 
 	wait_until(570, 0x4f)
-	speak(CHR_JOANNA, 0x1628, 0x7466, CHANNEL_10, COLOR_09_BLUE) // "I hope the government don't want to use this ship ..."
+	speak(CHR_BOND, 0x1628, 0x7466, CHANNEL_10, COLOR_09_BLUE) // "I hope the government don't want to use this ship ..."
 
 	wait_until(582, 0x50)
 	play_sound(0x0171, CHANNEL_10)
@@ -935,7 +935,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x80a2, CHANNEL_10)
 
 	wait_until(950, 0x58)
-	speak(CHR_JOANNA, 0x1629, 0x7467, CHANNEL_10, COLOR_06_WHITE) // "Do you think we were a little heavy-handed?"
+	speak(CHR_BOND, 0x1629, 0x7467, CHANNEL_10, COLOR_06_WHITE) // "Do you think we were a little heavy-handed?"
 
 	wait_until(1088, 0x59)
 	play_sound(0x80a3, CHANNEL_10)
@@ -944,7 +944,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x0176, CHANNEL_10)
 
 	wait_until(1190, 0x5b)
-	speak(CHR_JOANNA, 0x162a, 0x7468, CHANNEL_10, COLOR_09_BLUE) // "Naaahhhh."
+	speak(CHR_BOND, 0x162a, 0x7468, CHANNEL_10, COLOR_09_BLUE) // "Naaahhhh."
 
 	wait_until(1228, 0x5c)
 	play_sound(0x0174, CHANNEL_10)
@@ -1059,7 +1059,7 @@ u8 unregistered_function2[] = {
 	endloop(0x00)
 
 	label(0x04)
-	message(CHR_JOANNA, 0x1610) // "Critical mission object has been destroyed."
+	message(CHR_BOND, 0x1610) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_00000400)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -1097,7 +1097,7 @@ u8 func100a_reactor_switch[] = {
 	beginloop(0x00)
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		if_object_in_good_condition(OBJ_REACTOR_SWITCH, /*goto*/ 0x07)
-		message(CHR_JOANNA, 0x1624) // "Critical mission object has been destroyed."
+		message(CHR_BOND, 0x1624) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_REACTOR_SWITCH_DESTROYED)
 		set_function(CHR_SELF, GFUNC_IDLE)
 
@@ -1200,15 +1200,15 @@ u8 func100c_check_end_level[] = {
 	endloop(0x0b)
 
 	label(0x07)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x07)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x07)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x07)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x07)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x07)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x07)
 	goto_next(0x08)
 
 	label(0x07)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x07)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x07)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x07)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x07)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x07)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x07)
 
 	// Jo or Velvet alive
 	label(0x08)
@@ -1216,16 +1216,16 @@ u8 func100c_check_end_level[] = {
 	if_chr_dying(CHR_ELVIS, /*goto*/ 0x08)
 	if_chr_unloaded(CHR_ELVIS, /*goto*/ 0x08)
 
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x07)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x07)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x07)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x07)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x07)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x07)
 	goto_next(0x04)
 
 	// Both players dead - this check is redundant
 	label(0x07)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x07)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x07)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x07)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x07)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x07)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x07)
 	goto_next(0x04)
 
 	// Both players dead
@@ -1235,7 +1235,7 @@ u8 func100c_check_end_level[] = {
 
 	// Mission complete
 	label(0x04)
-	set_invincible(CHR_JOANNA)
+	set_invincible(CHR_BOND)
 	set_function(CHR_SELF, FUNC_OUTRO)
 
 	// Elvis dead
@@ -1257,7 +1257,7 @@ u8 func100e_check_labtech_dead[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_JOANNA, 0x1614) // "Critical mission personnel killed."
+	message(CHR_BOND, 0x1614) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_LABTECH_DEAD)
 	label(0x0b)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -1266,22 +1266,22 @@ u8 func100e_check_labtech_dead[] = {
 
 u8 func100f_check_researchdata_collected[] = {
 	beginloop(0x00)
-		if_chr_has_object(CHR_JOANNA, OBJ_RESEARCHDATA1, /*goto*/ 0x07)
-		if_chr_has_object(CHR_VELVET, OBJ_RESEARCHDATA1, /*goto*/ 0x07)
+		if_chr_has_object(CHR_BOND, OBJ_RESEARCHDATA1, /*goto*/ 0x07)
+		if_chr_has_object(CHR_COOP, OBJ_RESEARCHDATA1, /*goto*/ 0x07)
 		reloop(0x00)
 
 		label(0x07)
-		if_chr_has_object(CHR_JOANNA, OBJ_RESEARCHDATA2, /*goto*/ 0x07)
-		if_chr_has_object(CHR_VELVET, OBJ_RESEARCHDATA2, /*goto*/ 0x07)
+		if_chr_has_object(CHR_BOND, OBJ_RESEARCHDATA2, /*goto*/ 0x07)
+		if_chr_has_object(CHR_COOP, OBJ_RESEARCHDATA2, /*goto*/ 0x07)
 		reloop(0x00)
 
 		label(0x07)
-		if_chr_has_object(CHR_JOANNA, OBJ_RESEARCHDATA3, /*goto*/ 0x07)
-		if_chr_has_object(CHR_VELVET, OBJ_RESEARCHDATA3, /*goto*/ 0x07)
+		if_chr_has_object(CHR_BOND, OBJ_RESEARCHDATA3, /*goto*/ 0x07)
+		if_chr_has_object(CHR_COOP, OBJ_RESEARCHDATA3, /*goto*/ 0x07)
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_JOANNA, 0x1615) // "Research data has been secured."
+	message(CHR_BOND, 0x1615) // "Research data has been secured."
 	set_stage_flag(STAGEFLAG_COLLECTED_RESEARCH_DATA)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -1579,7 +1579,7 @@ u8 func0411_labtech_alerted[] = {
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x04)
 	set_alertness(100)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	say_quip(CHR_JOANNA, 0x2a, 0xff, 0x02, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x2a, 0xff, 0x02, 0xff, BANK_1, 0x00, 0x00)
 	animation(ANIM_SURRENDER_002E, 0, -1, 0x1010, CHR_SELF, 2)
 
 	beginloop(0x3e)
@@ -1592,17 +1592,17 @@ u8 func0411_labtech_alerted[] = {
 	goto_next(0x42)
 
 	label(0x3f)
-	try_run_to_chr(FOLLOW_CHR, /*goto*/ 0x40)
+	try_run_to_chr(CHR_PRESET, /*goto*/ 0x40)
 	goto_next(0x42)
 
 	beginloop(0x40)
-		if_detected_chr(FOLLOW_CHR, /*goto*/ 0x41)
+		if_detected_chr(CHR_PRESET, /*goto*/ 0x41)
 		if_chr_stopped(/*goto*/ 0x41)
 	endloop(0x40)
 
 	label(0x41)
 	set_squadron_alertness(100)
-	say_quip(CHR_JOANNA, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 
 	label(0x42)
 	go_to_target_pad(SPEED_RUN)
@@ -1893,7 +1893,7 @@ u8 func0401_pilot[] = {
 
 	// Seen player
 	label(0x07)
-	say_quip(CHR_JOANNA, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00)
 
 	label(0x04)
 	set_squadron_alertness(100)
@@ -1934,16 +1934,16 @@ u8 func0401_pilot[] = {
 
 	// GPS disabled
 	label(0x04)
-	say_quip(CHR_JOANNA, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00)
 	goto_first(0x0b)
 
 	label(0x07)
-	speak(TARGET_CHR, 0x162b, 0x7325, CHANNEL_7, COLOR_09_BLUE) // "Pull the plug on that now."
+	speak(CHR_TARGET, 0x162b, 0x7325, CHANNEL_7, COLOR_09_BLUE) // "Pull the plug on that now."
 	set_stage_flag(STAGEFLAG_SAID_PULLTHEPLUG)
 	goto_next(0x0c)
 
 	label(0x08)
-	speak(TARGET_CHR, 0x162c, 0x7326, CHANNEL_7, COLOR_09_BLUE) // "Switch this thing off."
+	speak(CHR_TARGET, 0x162c, 0x7326, CHANNEL_7, COLOR_09_BLUE) // "Switch this thing off."
 	set_stage_flag(STAGEFLAG_SAID_SWITCHTHINGOFF)
 	goto_next(0x0c)
 
@@ -1954,11 +1954,11 @@ u8 func0401_pilot[] = {
 	label(0x07)
 	set_self_flag_bankx(CHRFLAG0_08000000, BANK_0)
 	if_stage_flag_eq(STAGEFLAG_SAID_SWITCHTHINGOFF, FALSE, /*goto*/ 0x07)
-	speak(TARGET_CHR, 0x162d, 0x128e, CHANNEL_6, COLOR_04_ORANGE) // "I'll shut it down."
+	speak(CHR_TARGET, 0x162d, 0x128e, CHANNEL_6, COLOR_04_ORANGE) // "I'll shut it down."
 	goto_next(0x08)
 
 	label(0x07)
-	speak(TARGET_CHR, 0x162e, 0x1280, CHANNEL_6, COLOR_04_ORANGE) // "Please don't hurt me."
+	speak(CHR_TARGET, 0x162e, 0x1280, CHANNEL_6, COLOR_04_ORANGE) // "Please don't hurt me."
 	label(0x08)
 	do_special_animation(-1)
 
@@ -1999,7 +1999,7 @@ u8 func0401_pilot[] = {
 
 	label(0x07)
 	if_stage_flag_eq(STAGEFLAG_AUTOPILOT_DISABLED, TRUE, /*goto*/ 0x07)
-	message(TARGET_CHR, 0x160e) // "Autopilot system has been deactivated."
+	message(CHR_TARGET, 0x160e) // "Autopilot system has been deactivated."
 	set_stage_flag(STAGEFLAG_TRIGGER_ANGRY_PILOT)
 	yield
 	yield
@@ -2016,7 +2016,7 @@ u8 func0401_pilot[] = {
 	goto_first(0x0b)
 
 	label(0x07)
-	message(TARGET_CHR, 0x160f) // "GPS system has been deactivated."
+	message(CHR_TARGET, 0x160f) // "GPS system has been deactivated."
 	set_stage_flag(STAGEFLAG_GPS_DISABLED)
 	surrender
 	goto_first(0x0b)
@@ -2055,7 +2055,7 @@ u8 func1011_check_pilots_dead[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x07)
-	message(CHR_JOANNA, 0x161b) // "Critical mission personnel have been killed."
+	message(CHR_BOND, 0x161b) // "Critical mission personnel have been killed."
 	set_stage_flag(STAGEFLAG_PILOT_DEAD)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -2111,7 +2111,7 @@ u8 func1012_choose_angry_pilot[] = {
 
 	// Killed a pilot
 	label(0x08)
-	message(CHR_JOANNA, 0x1623) // "Civilians have been killed."
+	message(CHR_BOND, 0x1623) // "Civilians have been killed."
 	set_stage_flag(STAGEFLAG_JO_KILLED_A_PILOT)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -2140,7 +2140,7 @@ u8 func0404_angry_pilot[] = {
 	// Alive
 	label(0x04)
 	set_self_flag_bankx(CHRFLAG0_00000004, BANK_0)
-	speak(TARGET_CHR, 0x162f, 0x14dd, CHANNEL_7, COLOR_04_ORANGE) // "Die, you traitors."
+	speak(CHR_TARGET, 0x162f, 0x14dd, CHANNEL_7, COLOR_04_ORANGE) // "Die, you traitors."
 	animation(ANIM_DRAW_PISTOL_0245, -1, 120, 0x0600, CHR_SELF, 3)
 	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x6c)
 
@@ -2185,11 +2185,11 @@ u8 func0404_angry_pilot[] = {
 	label(0x04)
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x3b)
-	set_target_chr(CHR_VELVET)
-	if_chr_death_animation_finished(TARGET_CHR, /*goto*/ 0x3b)
+	set_target_chr(CHR_COOP)
+	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x3b)
 	goto_next(0x00)
 	label(0x3b)
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 
 	// Got target (other pilot or Jo)
 	label(0x00)
@@ -2464,7 +2464,7 @@ u8 func0415_elvis_at_start[] = {
 
 	label(0x07)
 	do_special_animation(-1)
-	speak(TARGET_CHR, 0x1620, 0x14dc, CHANNEL_6, COLOR_06_WHITE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
+	speak(CHR_TARGET, 0x1620, 0x14dc, CHANNEL_6, COLOR_06_WHITE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
 
 	beginloop(0x0c)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x07)
@@ -2535,15 +2535,15 @@ u8 func0415_elvis_at_start[] = {
 	go_to_target_pad(SPEED_WALK)
 
 	beginloop(0x4c)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0029, /*goto*/ 0x04)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x002a, /*goto*/ 0x04)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x002b, /*goto*/ 0x04)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0030, /*goto*/ 0x04)
-		if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x07)
-		if_chr_in_room(CHR_VELVET, 0x00, 0x0029, /*goto*/ 0x04)
-		if_chr_in_room(CHR_VELVET, 0x00, 0x002a, /*goto*/ 0x04)
-		if_chr_in_room(CHR_VELVET, 0x00, 0x002b, /*goto*/ 0x04)
-		if_chr_in_room(CHR_VELVET, 0x00, 0x0030, /*goto*/ 0x04)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0029, /*goto*/ 0x04)
+		if_chr_in_room(CHR_BOND, 0x00, 0x002a, /*goto*/ 0x04)
+		if_chr_in_room(CHR_BOND, 0x00, 0x002b, /*goto*/ 0x04)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0030, /*goto*/ 0x04)
+		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x07)
+		if_chr_in_room(CHR_COOP, 0x00, 0x0029, /*goto*/ 0x04)
+		if_chr_in_room(CHR_COOP, 0x00, 0x002a, /*goto*/ 0x04)
+		if_chr_in_room(CHR_COOP, 0x00, 0x002b, /*goto*/ 0x04)
+		if_chr_in_room(CHR_COOP, 0x00, 0x0030, /*goto*/ 0x04)
 		label(0x07)
 		goto_next(0x10)
 
@@ -2601,7 +2601,7 @@ u8 func0416_elvis_leading[] = {
 
 	// Injured
 	label(0x07)
-	say_quip(CHR_JOANNA, 0x29, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x29, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 
 	beginloop(0x3a)
 		if_chr_stopped(/*goto*/ 0x04)
@@ -2643,20 +2643,20 @@ u8 func0416_elvis_leading[] = {
 	call_rng
 	if_rand_lt(85, /*goto*/ 0x3b)
 	if_rand_lt(170, /*goto*/ 0x3c)
-	say_quip(CHR_JOANNA, 0x26, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x26, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 	goto_next(0x07)
 
 	label(0x3b)
-	say_quip(CHR_JOANNA, 0x27, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x27, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 	goto_next(0x07)
 
 	label(0x3c)
-	say_quip(CHR_JOANNA, 0x28, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x28, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 
 	label(0x07)
 	set_onshot_function(FUNC_ELVIS_LEADING)
 	set_return_function(CHR_SELF, FUNC_ELVIS_LEADING)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	endfunction
 };
 
@@ -2668,7 +2668,7 @@ u8 func101c_check_elvis_dead[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_JOANNA, 0x1621) // "Elvis has been killed."
+	message(CHR_BOND, 0x1621) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -2817,7 +2817,7 @@ u8 func101d_alarm_switches[] = {
 
 	label(0x07)
 	deactivate_alarm
-	message(CHR_JOANNA, 0x1626) // "Alarm has been deactivated."
+	message(CHR_BOND, 0x1626) // "Alarm has been deactivated."
 	goto_next(0x0c)
 
 	label(0x0c)

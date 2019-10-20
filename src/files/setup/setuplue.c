@@ -16,7 +16,7 @@
 #define OBJ_INTERCEPTOR3     0x04
 #define OBJ_MAINGATE_SWITCH  0x05
 #define OBJ_ANTENNA          0x07
-#define OBJ_BUG1_JOANNA      0x08
+#define OBJ_BUG1_BOND        0x08
 #define OBJ_ANTENNA_SWITCH   0x09
 #define OBJ_KEYCARD          0x0a
 #define OBJ_LIFT1_SWITCH     0x0b
@@ -30,10 +30,10 @@
 #define OBJ_MINE4            0x1b
 #define OBJ_MINE5            0x1c
 #define OBJ_MINE6            0x1d
-#define OBJ_BUG2_JOANNA      0x2e
+#define OBJ_BUG2_BOND        0x2e
 #define OBJ_AUTOGUN_AT_START 0x35
-#define OBJ_BUG1_VELVET      0x36
-#define OBJ_BUG2_VELVET      0x37
+#define OBJ_BUG1_COOP        0x36
+#define OBJ_BUG2_COOP        0x37
 #define OBJ_ROCKETLAUNCHER   0x53
 #define OBJ_EXPLOSIVE_BRICK  0x54
 #define OBJ_HOVERBIKE        0x55
@@ -935,25 +935,25 @@ u8 func140e_check_interceptors_destroyed[] = {
 		if_object_in_good_condition(OBJ_INTERCEPTOR1, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR1_DESTROYED, TRUE, /*goto*/ 0x2e)
 		set_stage_flag(STAGEFLAG_INTERCEPTOR1_DESTROYED)
-		message(CHR_JOANNA, 0x2c13) // "Robot interceptor disabled."
+		message(CHR_BOND, 0x2c13) // "Robot interceptor disabled."
 
 		label(0x2e)
 		if_object_in_good_condition(OBJ_INTERCEPTOR2, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR2_DESTROYED, TRUE, /*goto*/ 0x2e)
 		set_stage_flag(STAGEFLAG_INTERCEPTOR2_DESTROYED)
-		message(CHR_JOANNA, 0x2c13) // "Robot interceptor disabled."
+		message(CHR_BOND, 0x2c13) // "Robot interceptor disabled."
 
 		label(0x2e)
 		if_object_in_good_condition(OBJ_INTERCEPTOR3, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR3_DESTROYED, TRUE, /*goto*/ 0x2e)
 		set_stage_flag(STAGEFLAG_INTERCEPTOR3_DESTROYED)
-		message(CHR_JOANNA, 0x2c13) // "Robot interceptor disabled."
+		message(CHR_BOND, 0x2c13) // "Robot interceptor disabled."
 
 		label(0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR1_DESTROYED, FALSE, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR2_DESTROYED, FALSE, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR3_DESTROYED, FALSE, /*goto*/ 0x2e)
-		message(CHR_JOANNA, 0x2c14) // "All robot interceptors disabled."
+		message(CHR_BOND, 0x2c14) // "All robot interceptors disabled."
 
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2e)
@@ -1012,16 +1012,16 @@ u8 func100c_maingate_switch[] = {
 
 u8 func1400_give_bugs[] = {
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2e)
-	give_object_to_chr(OBJ_BUG1_JOANNA, CHR_JOANNA)
+	give_object_to_chr(OBJ_BUG1_BOND, CHR_BOND)
 	label(0x2e)
-	give_object_to_chr(OBJ_BUG2_JOANNA, CHR_JOANNA)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2e)
+	give_object_to_chr(OBJ_BUG2_BOND, CHR_BOND)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2e)
-	give_object_to_chr(OBJ_BUG1_VELVET, CHR_VELVET)
+	give_object_to_chr(OBJ_BUG1_COOP, CHR_COOP)
 	label(0x2e)
-	give_object_to_chr(OBJ_BUG2_VELVET, CHR_VELVET)
+	give_object_to_chr(OBJ_BUG2_COOP, CHR_COOP)
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	label(0x2e)
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
@@ -1067,19 +1067,19 @@ u8 func1400_give_bugs[] = {
  * @unused
  */
 u8 func0422_check_bug_wasted_target[] = {
-	check_bug_wasted(TARGET_CHR)
+	check_bug_wasted(CHR_TARGET)
 	endfunction
 };
 
-u8 func1003_check_bug_wasted_joanna[] = {
-	set_target_chr(CHR_JOANNA)
-	check_bug_wasted(CHR_JOANNA)
+u8 func1003_check_bug_wasted_bond[] = {
+	set_target_chr(CHR_BOND)
+	check_bug_wasted(CHR_BOND)
 	endfunction
 };
 
-u8 func1023_check_bug_wasted_velvet[] = {
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2e)
-	set_target_chr(CHR_VELVET)
+u8 func1023_check_bug_wasted_coop[] = {
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
+	set_target_chr(CHR_COOP)
 	goto_next(0x06)
 
 	label(0x2e)
@@ -1087,14 +1087,14 @@ u8 func1023_check_bug_wasted_velvet[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
-	check_bug_wasted(CHR_VELVET)
+	check_bug_wasted(CHR_COOP)
 	endfunction
 };
 
 u8 func1004_check_antenna_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_ANTENNA, /*goto*/ 0x2e)
-		message(CHR_JOANNA, 0x2c1c) // "Antenna has been destroyed."
+		message(CHR_BOND, 0x2c1c) // "Antenna has been destroyed."
 		set_stage_flag(STAGEFLAG_ANTENNA_DESTROYED)
 		set_function(CHR_SELF, GFUNC_IDLE)
 		label(0x2e)
@@ -1193,7 +1193,7 @@ u8 func1006_lift_switches[] = {
 		label(0x0a)
 		assign_sound(0x043f, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_LIFT2_SWITCH, 0x012c, 0x0190, 0x00)
-		if_chr_has_object(CHR_JOANNA, OBJ_KEYCARD, /*goto*/ 0x2e)
+		if_chr_has_object(CHR_BOND, OBJ_KEYCARD, /*goto*/ 0x2e)
 		message(CHR_P1P2, 0x2c24) // "Lift access denied - key card needed."
 		goto_next(0x0b)
 
@@ -1257,15 +1257,15 @@ u8 func1008_check_end_level[] = {
 	set_stage_flag(STAGEFLAG_MET_JON)
 	yield
 	yield
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x2e)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x2e)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2e)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x2e)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	label(0x2e)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2e)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x2e)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x2e)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2e)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x2e)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	label(0x2e)
@@ -1273,7 +1273,7 @@ u8 func1008_check_end_level[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
-	set_invincible(CHR_JOANNA)
+	set_invincible(CHR_BOND)
 	set_function(CHR_SELF, FUNC_OUTRO)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -1287,7 +1287,7 @@ u8 func1009_check_radar_shut_down[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_JOANNA, 0x2c29) // "Air intercept radar shut down."
+	message(CHR_BOND, 0x2c29) // "Air intercept radar shut down."
 	mute_channel(CHANNEL_0)
 	set_stage_flag(STAGEFLAG_RADAR_SHUT_DOWN)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -1450,7 +1450,7 @@ u8 func0414_init_hangar_guard4[] = {
 	label(0x06)
 	jog_to_pad(0x041d)
 	yield
-	set_target_chr(CHR_JOANNA)
+	set_target_chr(CHR_BOND)
 	set_function(CHR_SELF, FUNC_ALERT_WHEN_STOPPED)
 	endfunction
 };
@@ -1749,7 +1749,7 @@ u8 func040e_outro[] = {
 	hide_object(OBJ_HOVERBIKE)
 	camera_movement(0x017d)
 	set_music_track(MUSIC_INFILTRATION_OUTRO)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(0xf1, CHRFLAG3_HIDDEN)
 	set_function(CHR_P1P2, GFUNC_IDLE)
 	set_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
@@ -1889,8 +1889,8 @@ u8 func040e_outro[] = {
 };
 
 u8 func0410_intro[] = {
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	if_controller_button_pressed(/*goto*/ 0x54)
 	set_music_track(MUSIC_INFILTRATION_INTRO)
 	camera_movement(0x0181)
@@ -1900,27 +1900,27 @@ u8 func0410_intro[] = {
 	unset_chr_flag_bank3(0x32, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x32, CHRFLAG2_00020000)
 	animation(0x0182, -1, -1, 0x0600, 0x32, 4)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 90)
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_NONE, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_FALCON2, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2, WEAPON_NONE)
 
 	wait_until(26, 0x60)
-	speak(CHR_JOANNA, 0x2c3a, 0x7418, CHANNEL_7, COLOR_06_WHITE) // "Okay, Joanna, take a look at this. Our operative i..."
+	speak(CHR_BOND, 0x2c3a, 0x7418, CHANNEL_7, COLOR_06_WHITE) // "Okay, Joanna, take a look at this. Our operative i..."
 
 	wait_until(500, 0x61)
-	speak(CHR_JOANNA, 0x2c3b, 0x7419, CHANNEL_7, COLOR_06_WHITE) // "This is your entry point... A deserted helipad on ..."
+	speak(CHR_BOND, 0x2c3b, 0x7419, CHANNEL_7, COLOR_06_WHITE) // "This is your entry point... A deserted helipad on ..."
 
 	wait_until(800, 0x62)
-	speak(CHR_JOANNA, 0x2c3c, 0x741a, CHANNEL_7, COLOR_06_WHITE) // "The lift down to the hangars and the rendezvous po..."
+	speak(CHR_BOND, 0x2c3c, 0x741a, CHANNEL_7, COLOR_06_WHITE) // "The lift down to the hangars and the rendezvous po..."
 
 	wait_until(1200, 0x63)
 
 	wait_until(1236, 0x64)
-	speak(CHR_JOANNA, 0x2c3d, 0x741b, CHANNEL_7, COLOR_06_WHITE) // "Here is the communications antenna. Attach a comms..."
+	speak(CHR_BOND, 0x2c3d, 0x741b, CHANNEL_7, COLOR_06_WHITE) // "Here is the communications antenna. Attach a comms..."
 
 	beginloop(0x09)
 		if_camera_animating(/*goto*/ 0x2e)
@@ -1934,11 +1934,11 @@ u8 func0410_intro[] = {
 	label(0x06)
 	label(0x55)
 	unset_chr_flag_bank3(0x32, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	label(0x54)
 	if_controller_button_pressed(/*goto*/ 0x54)
 	camera_movement(0x0183)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 
 	set_chr_flag_bank3(0x29, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x29, CHRFLAG3_HIDDEN)
@@ -1961,10 +1961,10 @@ u8 func0410_intro[] = {
 	restart_timer
 
 	wait_until(186, 0x65)
-	speak(CHR_JOANNA, 0x2c3e, 0x81b9, CHANNEL_7, COLOR_09_BLUE) // "Oh, my God!"
+	speak(CHR_BOND, 0x2c3e, 0x81b9, CHANNEL_7, COLOR_09_BLUE) // "Oh, my God!"
 
 	wait_until(380, 0x66)
-	speak(CHR_JOANNA, 0x2c3f, 0x741d, CHANNEL_7, COLOR_06_WHITE) // "Here is our friend. He appears to be physically un..."
+	speak(CHR_BOND, 0x2c3f, 0x741d, CHANNEL_7, COLOR_06_WHITE) // "Here is our friend. He appears to be physically un..."
 
 	beginloop(0x0a)
 		if_camera_animating(/*goto*/ 0x2e)
@@ -1976,7 +1976,7 @@ u8 func0410_intro[] = {
 	endloop(0x0a)
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(0x29, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x2a, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x2b, CHRFLAG3_UNPLAYABLE)
@@ -1984,7 +1984,7 @@ u8 func0410_intro[] = {
 	label(0x54)
 	if_controller_button_pressed(/*goto*/ 0x54)
 	camera_movement(0x0188)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 
 	set_chr_flag_bank3(0x2a, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x2a, CHRFLAG3_HIDDEN)
@@ -2002,10 +2002,10 @@ u8 func0410_intro[] = {
 	restart_timer
 
 	wait_until(416, 0x67)
-	speak(CHR_JOANNA, 0x2c40, 0x741e, CHANNEL_7, COLOR_09_BLUE) // "But who was...?"
+	speak(CHR_BOND, 0x2c40, 0x741e, CHANNEL_7, COLOR_09_BLUE) // "But who was...?"
 
 	wait_until(485, 0x68)
-	speak(CHR_JOANNA, 0x2c41, 0x741f, CHANNEL_7, COLOR_06_WHITE) // "Any questions? No. Good. Away you go to the hangar..."
+	speak(CHR_BOND, 0x2c41, 0x741f, CHANNEL_7, COLOR_06_WHITE) // "Any questions? No. Good. Away you go to the hangar..."
 
 	beginloop(0x0b)
 		if_camera_animating(/*goto*/ 0x2e)
@@ -2017,7 +2017,7 @@ u8 func0410_intro[] = {
 	endloop(0x0b)
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(0x2a, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x2b, CHRFLAG3_UNPLAYABLE)
 	unset_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
@@ -2025,16 +2025,16 @@ u8 func0410_intro[] = {
 	camera_movement(0x00f0)
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x54)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x00f1, -1, -1, 0x0600, CHR_JOANNA, 4)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x00f1, -1, -1, 0x0600, CHR_BOND, 4)
 	set_chr_flag_bank3(0x03, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(0x03, CHRFLAG2_00020000)
 	unset_chr_flag_bank3(0x03, CHRFLAG3_HIDDEN)
 	restart_timer
 
 	wait_until(1, 0x69)
-	speak(CHR_JOANNA, 0x2c42, 0x7420, CHANNEL_10, COLOR_09_BLUE) // "Agent Dark Mission Log, 1028 hours. Against my bet..."
+	speak(CHR_BOND, 0x2c42, 0x7420, CHANNEL_10, COLOR_09_BLUE) // "Agent Dark Mission Log, 1028 hours. Against my bet..."
 
 	wait_until(340, 0x6a)
 	play_sound(0x80d5, CHANNEL_10)
@@ -2083,8 +2083,8 @@ u8 func0410_intro[] = {
 	label(0x54)
 	mute_channel(CHANNEL_10)
 	mute_channel(CHANNEL_7)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(0x0c, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(0x0d, CHRFLAG3_HIDDEN)
 	remove_chr(0x32)
@@ -2092,10 +2092,10 @@ u8 func0410_intro[] = {
 	remove_chr(0x2a)
 	remove_chr(0x2b)
 	hide_object(0x2f)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x00f1, -2, -1, 0x0600, CHR_JOANNA, 2)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x00f1, -2, -1, 0x0600, CHR_BOND, 2)
 	unset_chr_flag_bank3(0x03, CHRFLAG3_UNPLAYABLE)
 	set_function(0x02, 0x0426)
 	set_function(0x03, 0x0426)
@@ -2126,7 +2126,7 @@ u8 func0418_walk_to_pad[] = {
 
 u8 func1010_bunker_lighting[] = {
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	restart_timer
 
 	beginloop(0x09)
@@ -2920,7 +2920,7 @@ u8 func0421_activate_autogun[] = {
 	set_function(CHR_SELF, GFUNC_ALERTED)
 
 	label(0x0e)
-	say_quip(CHR_JOANNA, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
+	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
 	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
 
@@ -2969,7 +2969,7 @@ u8 func1022_check_lift_switches_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_LIFT2_CALLED, TRUE, /*goto*/ 0x06)
 		if_object_in_good_condition(OBJ_LIFT1_SWITCH, /*goto*/ 0x2e)
 		if_object_in_good_condition(OBJ_LIFT2_SWITCH, /*goto*/ 0x2e)
-		message(CHR_JOANNA, 0x2c39) // "Lift access terminals destroyed."
+		message(CHR_BOND, 0x2c39) // "Lift access terminals destroyed."
 		set_stage_flag(STAGEFLAG_LIFT_SWITCHES_DESTROYED)
 		goto_next(0x06)
 
@@ -3164,7 +3164,7 @@ u8 func0424_activate_lasers[] = {
 	if_stage_flag_eq(STAGEFLAG_ANY_LASER_DESTROYED, TRUE, /*goto*/ 0x2e)
 	set_stage_flag(STAGEFLAG_ANY_LASER_DESTROYED)
 	if_stage_flag_eq(STAGEFLAG_EXPLOSIVES_PLACED, TRUE, /*goto*/ 0x2e)
-	message(CHR_JOANNA, 0x2c2f) // "Intruder detected - security system online."
+	message(CHR_BOND, 0x2c2f) // "Intruder detected - security system online."
 
 	// A and SA
 	label(0x2e)
@@ -3205,7 +3205,7 @@ u8 func102d_check_antenna_switch_destroyed[] = {
 
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_ANTENNA_LOWERED, TRUE, /*goto*/ 0x2e)
-	message(CHR_JOANNA, 0x2c2a) // "Critical mission object destroyed."
+	message(CHR_BOND, 0x2c2a) // "Critical mission object destroyed."
 	set_stage_flag(STAGEFLAG_ANTENNA_DESTROYED)
 	label(0x2e)
 	label(0x0e)
@@ -3314,7 +3314,7 @@ struct ailists functions[] = {
 	{ func1400_give_bugs,                      0x1400 },
 	{ func1001_objectives_failed_msg,          0x1001 },
 	{ func0c00_init_intro,                     0x1002 },
-	{ func1003_check_bug_wasted_joanna,        0x1003 },
+	{ func1003_check_bug_wasted_bond,          0x1003 },
 	{ func1004_check_antenna_destroyed,        0x1004 },
 	{ func1405_antenna_switch,                 0x1405 },
 	{ func1006_lift_switches,                  0x1006 },
@@ -3343,7 +3343,7 @@ struct ailists functions[] = {
 	{ func1020_choose_autogun_guard,           0x1020 },
 	{ func1021_damage_rl_guard,                0x1021 },
 	{ func1022_check_lift_switches_destroyed,  0x1022 },
-	{ func1023_check_bug_wasted_velvet,        0x1023 },
+	{ func1023_check_bug_wasted_coop,          0x1023 },
 	{ func1024_lift_door_sounds,               0x1024 },
 	{ func1025_spawn_bunker_guards,            0x1025 },
 	{ func1026_check_laser1_broken,            0x1026 },

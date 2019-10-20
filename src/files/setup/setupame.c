@@ -10,94 +10,94 @@
 #define CHR_PROGRAMMER 0x26
 
 // Objects
-#define OBJ_NECKLACE          0x00
-#define OBJ_SECURITYHUB       0x03
-#define OBJ_EXTCOMMSHUB       0x04
-#define OBJ_PC                0x0c
-#define OBJ_DOORSWITCH        0x0d
-#define OBJ_OFFICEDOOR1       0x0e
-#define OBJ_OFFICEDOOR2       0x0f
-#define OBJ_LIGHTSWITCH       0x14
-#define OBJ_JUMPSHIP1         0x17
-#define OBJ_ROPE              0x18
-#define OBJ_BANNER1           0x19
-#define OBJ_BANNER2           0x1a
-#define OBJ_JUMPSHIP2         0x1b
-#define OBJ_HOVERTAXI1        0x1c
-#define OBJ_HOVERTAXI2        0x1e
-#define OBJ_HOVERCOP1         0x1f
-#define OBJ_HOVERCOP2         0x20
-#define OBJ_HOVERCAR1         0x21
-#define OBJ_HOVERCAR2         0x22
-#define OBJ_HOVERMOTO1        0x23
-#define OBJ_HOVERMOTO2        0x24
-#define OBJ_HOVERTRUCK1       0x25
-#define OBJ_HOVERTRUCK2       0x26
-#define OBJ_HOVERCAB1         0x27
-#define OBJ_HOVERCAB2         0x28
-#define OBJ_HOVERCOP3         0x29
-#define OBJ_HOVERCAR3         0x2a
-#define OBJ_HOVERMOTO3        0x2b
-#define OBJ_HOVERCAB3         0x2c
-#define OBJ_HOVERTRUCK3       0x2d
-#define OBJ_LABLIFTDOOR1      0x2e
-#define OBJ_LABLIFTDOOR2      0x2f
-#define OBJ_POLICECAR         0x30
-#define OBJ_ECMMINE_JOANNA    0x31
-#define OBJ_DATAUPLINK_JOANNA 0x32
-#define OBJ_SECRETDOOR        0x33
-#define OBJ_ECMMINE_VELVET    0x3e
-#define OBJ_DATAUPLINK_VELVET 0x3f
-#define OBJ_LAPTOPGUNDOOR     0x40
-#define OBJ_LAPTOPGUN         0x43
-#define OBJ_LIFT1             0x4e
-#define OBJ_LIFT2             0x4f
-#define OBJ_CAMERA1           0x50
-#define OBJ_CAMERA2           0x51
-#define OBJ_CAMERA3           0x52
-#define OBJ_CAMERA4           0x53
-#define OBJ_CAMERA5           0x54
-#define OBJ_CAMERA6           0x55
-#define OBJ_LIFT1DOOR1        0x56
-#define OBJ_LIFT1DOOR2        0x57
-#define OBJ_LIFT1DOOR3        0x58
-#define OBJ_LIFT1DOOR4        0x59
-#define OBJ_LIFT2DOOR1        0x5a
-#define OBJ_LIFT2DOOR2        0x5b
-#define OBJ_LIFT2DOOR3        0x5c
-#define OBJ_LIFT2DOOR4        0x5d
-#define OBJ_FALCONSIL1        0x61
-#define OBJ_FALCONSIL2        0x62
-#define OBJ_PCMONITOR         0x63
+#define OBJ_NECKLACE        0x00
+#define OBJ_SECURITYHUB     0x03
+#define OBJ_EXTCOMMSHUB     0x04
+#define OBJ_PC              0x0c
+#define OBJ_DOORSWITCH      0x0d
+#define OBJ_OFFICEDOOR1     0x0e
+#define OBJ_OFFICEDOOR2     0x0f
+#define OBJ_LIGHTSWITCH     0x14
+#define OBJ_JUMPSHIP1       0x17
+#define OBJ_ROPE            0x18
+#define OBJ_BANNER1         0x19
+#define OBJ_BANNER2         0x1a
+#define OBJ_JUMPSHIP2       0x1b
+#define OBJ_HOVERTAXI1      0x1c
+#define OBJ_HOVERTAXI2      0x1e
+#define OBJ_HOVERCOP1       0x1f
+#define OBJ_HOVERCOP2       0x20
+#define OBJ_HOVERCAR1       0x21
+#define OBJ_HOVERCAR2       0x22
+#define OBJ_HOVERMOTO1      0x23
+#define OBJ_HOVERMOTO2      0x24
+#define OBJ_HOVERTRUCK1     0x25
+#define OBJ_HOVERTRUCK2     0x26
+#define OBJ_HOVERCAB1       0x27
+#define OBJ_HOVERCAB2       0x28
+#define OBJ_HOVERCOP3       0x29
+#define OBJ_HOVERCAR3       0x2a
+#define OBJ_HOVERMOTO3      0x2b
+#define OBJ_HOVERCAB3       0x2c
+#define OBJ_HOVERTRUCK3     0x2d
+#define OBJ_LABLIFTDOOR1    0x2e
+#define OBJ_LABLIFTDOOR2    0x2f
+#define OBJ_POLICECAR       0x30
+#define OBJ_ECMMINE_BOND    0x31
+#define OBJ_DATAUPLINK_BOND 0x32
+#define OBJ_SECRETDOOR      0x33
+#define OBJ_ECMMINE_COOP    0x3e
+#define OBJ_DATAUPLINK_COOP 0x3f
+#define OBJ_LAPTOPGUNDOOR   0x40
+#define OBJ_LAPTOPGUN       0x43
+#define OBJ_LIFT1           0x4e
+#define OBJ_LIFT2           0x4f
+#define OBJ_CAMERA1         0x50
+#define OBJ_CAMERA2         0x51
+#define OBJ_CAMERA3         0x52
+#define OBJ_CAMERA4         0x53
+#define OBJ_CAMERA5         0x54
+#define OBJ_CAMERA6         0x55
+#define OBJ_LIFT1DOOR1      0x56
+#define OBJ_LIFT1DOOR2      0x57
+#define OBJ_LIFT1DOOR3      0x58
+#define OBJ_LIFT1DOOR4      0x59
+#define OBJ_LIFT2DOOR1      0x5a
+#define OBJ_LIFT2DOOR2      0x5b
+#define OBJ_LIFT2DOOR3      0x5c
+#define OBJ_LIFT2DOOR4      0x5d
+#define OBJ_FALCONSIL1      0x61
+#define OBJ_FALCONSIL2      0x62
+#define OBJ_PCMONITOR       0x63
 
 // Stage flags
-#define STAGEFLAG_TALKED_TO_PROGRAMMER      0x00000001
-#define STAGEFLAG_SECRETARY_SAW_VELVET      0x00000002
-#define STAGEFLAG_STOP_INTRO                0x00000004
-#define STAGEFLAG_SECURITY_DISABLED         0x00000008
-#define STAGEFLAG_TRIGGER_INTRO             0x00000010
-#define STAGEFLAG_SECURITYHUB_COMPLETE      0x00000100
-#define STAGEFLAG_EXTCOMMSHUB_COMPLETE      0x00000200
-#define STAGEFLAG_SECURITYHUB_MINES_WASTED  0x00000400
-#define STAGEFLAG_EXTCOMMSHUB_MINES_WASTED  0x00000800
-#define STAGEFLAG_LIGHTS_OFF                0x00001000
-#define STAGEFLAG_CIVILIANS_KILLED          0x00002000
-#define STAGEFLAG_OFFICE_DOOR_UNLOCKED      0x00004000
-#define STAGEFLAG_PROGRAMMER_DEAD           0x00010000
-#define STAGEFLAG_PROGRAMMER_WALKING        0x00020000
-#define STAGEFLAG_DELETED_WITHOUT_DOWNLOAD  0x00040000
-#define STAGEFLAG_PROGRAMMER_LOGGED_IN      0x00080000
-#define STAGEFLAG_PROGRAMMER_RAN_TO_GUARD   0x00100000
-#define STAGEFLAG_PERSONALITY_DELETED       0x00200000
-#define STAGEFLAG_PROGRAMMER_INJURED        0x00400000
-#define STAGEFLAG_DOWNLOAD_COMPLETE         0x00800000
-#define STAGEFLAG_LAB_LIFT_LOCATED          0x02000000
-#define STAGEFLAG_PC_DESTROYED              0x04000000
-#define STAGEFLAG_SECURITYHUB_DESTROYED     0x08000000
-#define STAGEFLAG_EXTCOMMSHUB_DESTROYED     0x10000000
-#define STAGEFLAG_DOORSWITCH_DESTROYED      0x20000000
-#define STAGEFLAG_SECETARY_SAW_JO_OR_VELVET 0x40000000
-#define STAGEFLAG_LAB_ELEVATOR_CLOSED       0x80000000
+#define STAGEFLAG_TALKED_TO_PROGRAMMER     0x00000001
+#define STAGEFLAG_SECRETARY_SAW_COOP       0x00000002
+#define STAGEFLAG_STOP_INTRO               0x00000004
+#define STAGEFLAG_SECURITY_DISABLED        0x00000008
+#define STAGEFLAG_TRIGGER_INTRO            0x00000010
+#define STAGEFLAG_SECURITYHUB_COMPLETE     0x00000100
+#define STAGEFLAG_EXTCOMMSHUB_COMPLETE     0x00000200
+#define STAGEFLAG_SECURITYHUB_MINES_WASTED 0x00000400
+#define STAGEFLAG_EXTCOMMSHUB_MINES_WASTED 0x00000800
+#define STAGEFLAG_LIGHTS_OFF               0x00001000
+#define STAGEFLAG_CIVILIANS_KILLED         0x00002000
+#define STAGEFLAG_OFFICE_DOOR_UNLOCKED     0x00004000
+#define STAGEFLAG_PROGRAMMER_DEAD          0x00010000
+#define STAGEFLAG_PROGRAMMER_WALKING       0x00020000
+#define STAGEFLAG_DELETED_WITHOUT_DOWNLOAD 0x00040000
+#define STAGEFLAG_PROGRAMMER_LOGGED_IN     0x00080000
+#define STAGEFLAG_PROGRAMMER_RAN_TO_GUARD  0x00100000
+#define STAGEFLAG_PERSONALITY_DELETED      0x00200000
+#define STAGEFLAG_PROGRAMMER_INJURED       0x00400000
+#define STAGEFLAG_DOWNLOAD_COMPLETE        0x00800000
+#define STAGEFLAG_LAB_LIFT_LOCATED         0x02000000
+#define STAGEFLAG_PC_DESTROYED             0x04000000
+#define STAGEFLAG_SECURITYHUB_DESTROYED    0x08000000
+#define STAGEFLAG_EXTCOMMSHUB_DESTROYED    0x10000000
+#define STAGEFLAG_DOORSWITCH_DESTROYED     0x20000000
+#define STAGEFLAG_SECETARY_SAW_JO_OR_COOP  0x40000000
+#define STAGEFLAG_LAB_ELEVATOR_CLOSED      0x80000000
 
 // Functions
 #define FUNC_INIT_HOVERCAR      0x0404
@@ -1061,7 +1061,7 @@ u8 func0402_guard_with_chrflag[] = {
 u8 func0403_shielded_guard[] = {
 	set_shield(200)
 	set_self_flag_bank3(CHRFLAG3_00000200)
-	set_function(CHR_SELF, GFUNC_CHOOSE_TARGET_CHR)
+	set_function(CHR_SELF, GFUNC_CHOOSE_TARGET)
 	endfunction
 };
 
@@ -1218,28 +1218,28 @@ u8 func040f_cass[] = {
 
 	// Wait for player to enter room
 	beginloop(0x59)
-		set_target_chr(CHR_JOANNA)
+		set_target_chr(CHR_BOND)
 		if_chr_sees_player(/*goto*/ 0x5a)
-		set_target_chr(CHR_VELVET)
+		set_target_chr(CHR_COOP)
 		if_chr_sees_player(/*goto*/ 0x5a)
-		set_target_chr(CHR_JOANNA)
-		if_stage_flag_eq(STAGEFLAG_SECETARY_SAW_JO_OR_VELVET, TRUE, /*goto*/ 0xbe)
+		set_target_chr(CHR_BOND)
+		if_stage_flag_eq(STAGEFLAG_SECETARY_SAW_JO_OR_COOP, TRUE, /*goto*/ 0xbe)
 	endloop(0x59)
 
 	label(0xbe)
-	if_stage_flag_eq(STAGEFLAG_SECRETARY_SAW_VELVET, TRUE, /*goto*/ 0xbf)
-	set_target_chr(CHR_JOANNA)
+	if_stage_flag_eq(STAGEFLAG_SECRETARY_SAW_COOP, TRUE, /*goto*/ 0xbf)
+	set_target_chr(CHR_BOND)
 	goto_next(0x5a)
 
 	label(0xbf)
-	set_target_chr(CHR_VELVET)
+	set_target_chr(CHR_COOP)
 	goto_next(0x5a)
 
 	// Face target chr (Jo or Velvet)
 	label(0x5a)
 	stop_chr
 	yield
-	unset_stage_flag(STAGEFLAG_SECETARY_SAW_JO_OR_VELVET)
+	unset_stage_flag(STAGEFLAG_SECETARY_SAW_JO_OR_COOP)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x5b)
 
 	beginloop(0x5b)
@@ -1247,7 +1247,7 @@ u8 func040f_cass[] = {
 	endloop(0x5b)
 
 	label(0x5c)
-	speak(TARGET_CHR, 0x0215, 0x0af4, CHANNEL_6, COLOR_04_ORANGE) // "Who are you and what are you doing here?"
+	speak(CHR_TARGET, 0x0215, 0x0af4, CHANNEL_6, COLOR_04_ORANGE) // "Who are you and what are you doing here?"
 	restart_timer
 	animation(ANIM_TALKING_0098, 0, 193, 0x1810, CHR_SELF, 2)
 
@@ -1281,19 +1281,19 @@ u8 func040f_cass[] = {
 	label(0x65)
 	restart_timer
 	if_chr_sees_player(/*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005b, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005c, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005d, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005e, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005f, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0060, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0061, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0062, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0064, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005b, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005c, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005d, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005e, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005f, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0060, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0061, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0062, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0064, /*goto*/ 0x2c)
 	goto_next(0x66)
 
 	label(0x2c)
-	speak(TARGET_CHR, 0x0217, 0x0af5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me, foolish child!"
+	speak(CHR_TARGET, 0x0217, 0x0af5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me, foolish child!"
 	animation(ANIM_TALKING_00A0, 0, 193, 0x1810, CHR_SELF, 2)
 
 	beginloop(0x66)
@@ -1302,20 +1302,20 @@ u8 func040f_cass[] = {
 
 	label(0x67)
 	if_chr_sees_player(/*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005b, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005c, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005d, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005e, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005f, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0060, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0061, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0062, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0064, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005b, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005c, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005d, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005e, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005f, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0060, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0061, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0062, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0064, /*goto*/ 0x2c)
 	goto_next(0x68)
 
 	label(0x2c)
 	animation(ANIM_TALKING_00A3, 0, 193, 0x1810, CHR_SELF, 2)
-	speak(TARGET_CHR, 0x0218, 0x0af6, CHANNEL_6, COLOR_04_ORANGE) // "Don't you know who I am?"
+	speak(CHR_TARGET, 0x0218, 0x0af6, CHANNEL_6, COLOR_04_ORANGE) // "Don't you know who I am?"
 
 	beginloop(0x68)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x69)
@@ -1352,19 +1352,19 @@ u8 func040f_cass[] = {
 
 	label(0x63)
 	if_chr_sees_player(/*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005b, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005c, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005d, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005e, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x005f, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0060, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0061, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0062, /*goto*/ 0x2c)
-	if_chr_in_room(TARGET_CHR, 0x00, 0x0064, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005b, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005c, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005d, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005e, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x005f, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0060, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0061, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0062, /*goto*/ 0x2c)
+	if_chr_in_room(CHR_TARGET, 0x00, 0x0064, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
-	speak(TARGET_CHR, 0x0219, 0x0af7, CHANNEL_6, COLOR_04_ORANGE) // "Let's see how you deal with security."
+	speak(CHR_TARGET, 0x0219, 0x0af7, CHANNEL_6, COLOR_04_ORANGE) // "Let's see how you deal with security."
 	label(0x06)
 	animation(ANIM_PUSH_BUTTON, 0, 193, 0x1010, CHR_SELF, 2)
 
@@ -1394,7 +1394,7 @@ u8 func040f_cass[] = {
 
 		label(0x6d)
 		restart_timer
-		say_quip(TARGET_CHR, 0x00, 0xff, 0x00, 0xff, BANK_1, 0x01, 0x04) // "How dare you disturb me","You will regret this intrusion girl","If I were you I'd leave, now"
+		say_quip(CHR_TARGET, 0x00, 0xff, 0x00, 0xff, BANK_1, 0x01, 0x04) // "How dare you disturb me","You will regret this intrusion girl","If I were you I'd leave, now"
 		animation(ANIM_TALKING_00A3, 0, 193, 0x1810, CHR_SELF, 2)
 
 		beginloop(0x6e)
@@ -1441,19 +1441,19 @@ u8 func0411_secretary[] = {
 	animation(0x00a1, 0, 193, 0x1810, CHR_SELF, 2)
 
 	beginloop(0x72)
-		set_target_chr(CHR_JOANNA)
+		set_target_chr(CHR_BOND)
 		if_chr_sees_player(/*goto*/ 0x73)
-		set_target_chr(CHR_VELVET)
+		set_target_chr(CHR_COOP)
 		if_chr_sees_player(/*goto*/ 0x74)
-		set_target_chr(CHR_JOANNA)
+		set_target_chr(CHR_BOND)
 	endloop(0x72)
 
 	label(0x74)
-	set_stage_flag(STAGEFLAG_SECRETARY_SAW_VELVET)
+	set_stage_flag(STAGEFLAG_SECRETARY_SAW_COOP)
 	label(0x73)
 	stop_chr
 	restart_timer
-	set_stage_flag(STAGEFLAG_SECETARY_SAW_JO_OR_VELVET)
+	set_stage_flag(STAGEFLAG_SECETARY_SAW_JO_OR_COOP)
 
 	beginloop(0x7a)
 		if_timer_gt(20, /*goto*/ 0x7b)
@@ -1470,9 +1470,9 @@ u8 func0411_secretary[] = {
 
 	label(0x7d)
 	restart_timer
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_NONE, /*goto*/ 0x2c)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_UNARMED, /*goto*/ 0x2c)
-	speak(TARGET_CHR, 0x0216, 0x1aed, CHANNEL_5, COLOR_07_RED) // "Look out! She's got a gun."
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x2c)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x2c)
+	speak(CHR_TARGET, 0x0216, 0x1aed, CHANNEL_5, COLOR_07_RED) // "Look out! She's got a gun."
 	label(0x2c)
 	animation(ANIM_SURRENDER_002E, 0, 193, 0x1810, CHR_SELF, 2)
 
@@ -1513,7 +1513,7 @@ u8 func0411_secretary[] = {
 
 		label(0x81)
 		restart_timer
-		say_quip(TARGET_CHR, 0x01, 0xff, 0x00, 0xff, BANK_1, 0x02, 0x07) // "Please don't kill me","Don't shoot!"
+		say_quip(CHR_TARGET, 0x01, 0xff, 0x00, 0xff, BANK_1, 0x02, 0x07) // "Please don't kill me","Don't shoot!"
 		animation(ANIM_SURRENDER_002E, 0, -1, 0x1810, CHR_SELF, 2)
 
 		beginloop(0x82)
@@ -1560,13 +1560,13 @@ u8 func0414_programmer[] = {
 	label(0x2c)
 	if_num_times_shot_lt(1, /*goto*/ 0x06)
 	set_stage_flag(STAGEFLAG_PROGRAMMER_INJURED)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_NONE, /*goto*/ 0x2c)
-	if_chr_weapon_equipped(TARGET_CHR, WEAPON_UNARMED, /*goto*/ 0x2c)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x2c)
+	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x2c)
 	if_sound_finished(CHANNEL_3, /*goto*/ 0x90)
 	goto_next(0x2c)
 
 	label(0x90)
-	speak(TARGET_CHR, 0x0235, 0x12fe, CHANNEL_3, COLOR_03_RED) // "Don't shoot, don't shoot!"
+	speak(CHR_TARGET, 0x0235, 0x12fe, CHANNEL_3, COLOR_03_RED) // "Don't shoot, don't shoot!"
 	label(0x2c)
 	restart_timer
 
@@ -1581,10 +1581,10 @@ u8 func0414_programmer[] = {
 
 	// Wait until Jo or Velvet near his office
 	beginloop(0x91)
-		set_target_chr(CHR_JOANNA)
-		if_chr_distance_to_pad_lt2(TARGET_CHR, 0x0050, 1240, /*goto*/ 0x06)
-		set_target_chr(CHR_VELVET)
-		if_chr_distance_to_pad_lt2(TARGET_CHR, 0x0050, 1240, /*goto*/ 0x06)
+		set_target_chr(CHR_BOND)
+		if_chr_distance_to_pad_lt2(CHR_TARGET, 0x0050, 1240, /*goto*/ 0x06)
+		set_target_chr(CHR_COOP)
+		if_chr_distance_to_pad_lt2(CHR_TARGET, 0x0050, 1240, /*goto*/ 0x06)
 	endloop(0x91)
 
 	// Phone ringing
@@ -1593,10 +1593,10 @@ u8 func0414_programmer[] = {
 
 	// Wait until Jo or Velvet is close to his door
 	beginloop(0x92)
-		set_target_chr(CHR_JOANNA)
-		if_chr_distance_to_pad_lt2(TARGET_CHR, 0x0014, 1240, /*goto*/ 0x06)
-		set_target_chr(CHR_VELVET)
-		if_chr_distance_to_pad_lt2(TARGET_CHR, 0x0014, 1240, /*goto*/ 0x06)
+		set_target_chr(CHR_BOND)
+		if_chr_distance_to_pad_lt2(CHR_TARGET, 0x0014, 1240, /*goto*/ 0x06)
+		set_target_chr(CHR_COOP)
+		if_chr_distance_to_pad_lt2(CHR_TARGET, 0x0014, 1240, /*goto*/ 0x06)
 	endloop(0x92)
 
 	label(0x06)
@@ -1618,7 +1618,7 @@ u8 func0414_programmer[] = {
 	// speaks.
 	label(0x2c)
 	restart_timer
-	speak(TARGET_CHR, 0x0244, 0x8104, CHANNEL_3, COLOR_03_RED) // "Yes, yes, I agree. Personality is expendable in th..."
+	speak(CHR_TARGET, 0x0244, 0x8104, CHANNEL_3, COLOR_03_RED) // "Yes, yes, I agree. Personality is expendable in th..."
 	restart_timer
 	animation(ANIM_TALKING_00A0, 0, 193, 0x1010, CHR_SELF, 2)
 
@@ -1636,7 +1636,7 @@ u8 func0414_programmer[] = {
 	yield
 	yield
 	yield
-	speak(TARGET_CHR, 0x0245, 0x8105, CHANNEL_3, COLOR_03_RED) // "No, I can start the process from my office termina..."
+	speak(CHR_TARGET, 0x0245, 0x8105, CHANNEL_3, COLOR_03_RED) // "No, I can start the process from my office termina..."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1650,7 +1650,7 @@ u8 func0414_programmer[] = {
 	endloop(0x0e)
 
 	label(0x06)
-	speak(TARGET_CHR, 0x0246, 0x8106, CHANNEL_3, COLOR_03_RED) // "I'll begin at once. Goodbye."
+	speak(CHR_TARGET, 0x0246, 0x8106, CHANNEL_3, COLOR_03_RED) // "I'll begin at once. Goodbye."
 
 	beginloop(0x0f)
 		if_sound_finished(CHANNEL_3, /*goto*/ 0x06)
@@ -1704,7 +1704,7 @@ u8 func0414_programmer[] = {
 
 		label(0x06)
 		if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x06)
-		speak(TARGET_CHR, 0x0224, 0x1300, CHANNEL_3, COLOR_03_RED) // "HELP - Intruder!"
+		speak(CHR_TARGET, 0x0224, 0x1300, CHANNEL_3, COLOR_03_RED) // "HELP - Intruder!"
 		animation(ANIM_SURRENDER_002E, 0, 193, 0x1810, CHR_SELF, 2)
 
 		beginloop(0xa3)
@@ -1726,11 +1726,11 @@ u8 func0414_programmer[] = {
 		if_stage_flag_eq(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD, TRUE, /*goto*/ 0x06)
 
 		label(0x2c)
-		speak(TARGET_CHR, 0x024f, 0x8107, CHANNEL_3, COLOR_03_RED) // "Security... Help me!"
+		speak(CHR_TARGET, 0x024f, 0x8107, CHANNEL_3, COLOR_03_RED) // "Security... Help me!"
 		goto_next(0xa1)
 
 		label(0x06)
-		speak(TARGET_CHR, 0x0226, 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
+		speak(CHR_TARGET, 0x0226, 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
 		label(0xa1)
 		restart_timer
 		set_stage_flag(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD)
@@ -1768,10 +1768,10 @@ u8 func0414_programmer[] = {
 		goto_first(0x99)
 
 		label(LABEL_RUN_TO_GUARD)
-		try_run_to_chr(FOLLOW_CHR, /*goto*/ 0xa6)
+		try_run_to_chr(CHR_PRESET, /*goto*/ 0xa6)
 
 		beginloop(0xa6)
-			if_detected_chr(FOLLOW_CHR, /*goto*/ 0xa7)
+			if_detected_chr(CHR_PRESET, /*goto*/ 0xa7)
 			if_timer_lt(120, /*goto*/ 0x06)
 			if_chr_sees_player(/*goto*/ LABEL_JO_SPEAK)
 			goto_next(0x06)
@@ -1781,17 +1781,17 @@ u8 func0414_programmer[] = {
 		endloop(0xa6)
 
 		label(0xa7)
-		speak(TARGET_CHR, 0x0226, 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
+		speak(CHR_TARGET, 0x0226, 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
 		set_squadron_alertness(100)
 	endloop(0x99)
 
 	label(LABEL_JO_SPEAK)
 	restart_timer
 	if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x2c)
-	speak(TARGET_CHR, 0x0248, 0x7322, CHANNEL_3, COLOR_09_BLUE) // "I've got a password problem, and you're the man to..."
+	speak(CHR_TARGET, 0x0248, 0x7322, CHANNEL_3, COLOR_09_BLUE) // "I've got a password problem, and you're the man to..."
 	goto_next(0x06)
 	label(0x2c)
-	speak(TARGET_CHR, 0x0247, 0x7323, CHANNEL_3, COLOR_09_BLUE) // "Move it!"
+	speak(CHR_TARGET, 0x0247, 0x7323, CHANNEL_3, COLOR_09_BLUE) // "Move it!"
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TALKED_TO_PROGRAMMER)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x9b)
@@ -1811,11 +1811,11 @@ u8 func0414_programmer[] = {
 
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x2c)
-	speak(TARGET_CHR, 0x0223, 0x12ff, CHANNEL_5, COLOR_03_RED) // "I'll do what you want!"
+	speak(CHR_TARGET, 0x0223, 0x12ff, CHANNEL_5, COLOR_03_RED) // "I'll do what you want!"
 	set_stage_flag(STAGEFLAG_TALKED_TO_PROGRAMMER)
 	goto_next(0x06)
 	label(0x2c)
-	speak(TARGET_CHR, 0x0249, 0x12fe, CHANNEL_5, COLOR_03_RED) // "Don't shoot, don't shoot!"
+	speak(CHR_TARGET, 0x0249, 0x12fe, CHANNEL_5, COLOR_03_RED) // "Don't shoot, don't shoot!"
 	label(0x06)
 	animation(ANIM_DONT_SHOOT, 0, -1, 0x1010, CHR_SELF, 2)
 
@@ -1843,7 +1843,7 @@ u8 func0414_programmer[] = {
 
 	label(LABEL_NEAR_LAPTOPGUN_ROOM)
 	stop_chr
-	speak(TARGET_CHR, 0x0227, 0x12ff, CHANNEL_3, COLOR_03_RED) // "I'll do what you want..."
+	speak(CHR_TARGET, 0x0227, 0x12ff, CHANNEL_3, COLOR_03_RED) // "I'll do what you want..."
 	restart_timer
 	label(0x06)
 	walk_to_pad(0x0062)
@@ -1855,14 +1855,14 @@ u8 func0414_programmer[] = {
 	label(LABEL_LOG_ON)
 	restart_timer
 	if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
-	if_detected_chr(TARGET_CHR, /*goto*/ 0x2c)
-	speak(TARGET_CHR, 0x0228, 0x1301, CHANNEL_3, COLOR_03_RED) // "Logging on now..."
+	if_detected_chr(CHR_TARGET, /*goto*/ 0x2c)
+	speak(CHR_TARGET, 0x0228, 0x1301, CHANNEL_3, COLOR_03_RED) // "Logging on now..."
 	goto_next(0x06)
 	label(0x2c)
-	speak(TARGET_CHR, 0x026d, 0x1304, CHANNEL_3, COLOR_03_RED) // "I...I'm logging on now."
+	speak(CHR_TARGET, 0x026d, 0x1304, CHANNEL_3, COLOR_03_RED) // "I...I'm logging on now."
 	label(0x06)
 	animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x1810, CHR_SELF, 2)
-	speak(TARGET_CHR, -1, 0x8116, -1, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, 0x8116, -1, COLOR_00_GREEN)
 
 	beginloop(0xae)
 		if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
@@ -1873,13 +1873,13 @@ u8 func0414_programmer[] = {
 	if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
 	animation(ANIM_PUSH_BUTTON, 0, 193, 0x1810, CHR_SELF, 2)
 	set_stage_flag(STAGEFLAG_PROGRAMMER_LOGGED_IN)
-	if_detected_chr(TARGET_CHR, /*goto*/ 0x2c)
-	speak(TARGET_CHR, 0x0229, 0x1302, CHANNEL_3, COLOR_03_RED) // "Okay, I'm in..."
+	if_detected_chr(CHR_TARGET, /*goto*/ 0x2c)
+	speak(CHR_TARGET, 0x0229, 0x1302, CHANNEL_3, COLOR_03_RED) // "Okay, I'm in..."
 	goto_next(0x06)
 	label(0x2c)
-	speak(TARGET_CHR, 0x026c, 0x1305, CHANNEL_3, COLOR_03_RED) // "Right, I'm in..."
+	speak(CHR_TARGET, 0x026c, 0x1305, CHANNEL_3, COLOR_03_RED) // "Right, I'm in..."
 	label(0x06)
-	speak(TARGET_CHR, -1, 0x8117, -1, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, 0x8117, -1, COLOR_00_GREEN)
 
 	beginloop(0xaf)
 		if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
@@ -1892,11 +1892,11 @@ u8 func0414_programmer[] = {
 	set_stage_flag(STAGEFLAG_PERSONALITY_DELETED)
 	set_chr_health(CHR_SELF, 1)
 	animation(ANIM_TALKING_003D, 0, 193, 0x1810, CHR_SELF, 2)
-	speak(TARGET_CHR, 0x022a, 0x1303, CHANNEL_3, COLOR_03_RED) // "Goodbye, Dr. Caroll."
+	speak(CHR_TARGET, 0x022a, 0x1303, CHANNEL_3, COLOR_03_RED) // "Goodbye, Dr. Caroll."
 	if_stage_flag_eq(STAGEFLAG_DOWNLOAD_COMPLETE, TRUE, /*goto*/ 0x2c)
 	set_stage_flag(STAGEFLAG_DELETED_WITHOUT_DOWNLOAD)
 	label(0x2c)
-	speak(TARGET_CHR, -1, 0x8118, -1, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, 0x8118, -1, COLOR_00_GREEN)
 
 	beginloop(0xb0)
 	endloop(0xb0)
@@ -1906,7 +1906,7 @@ u8 func0414_programmer[] = {
 
 	label(LABEL_PC_BROKEN)
 	set_self_flag_bankx(CHRFLAG0_CANT_ALERT_GROUP, BANK_0)
-	speak(TARGET_CHR, 0x0262, 0x1289, CHANNEL_3, COLOR_03_RED) // "You vandal, you've broken it!"
+	speak(CHR_TARGET, 0x0262, 0x1289, CHANNEL_3, COLOR_03_RED) // "You vandal, you've broken it!"
 	do_special_animation(-1)
 
 	beginloop(0xc6)
@@ -1932,8 +1932,8 @@ u8 func1005_give_control[] = {
 	label(0x06)
 	label(0x2c)
 	yield
-	grant_control(CHR_JOANNA)
-	grant_control(CHR_VELVET)
+	grant_control(CHR_BOND)
+	grant_control(CHR_COOP)
 	yield
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -1975,12 +1975,12 @@ u8 func100e_check_ecm_mines[] = {
 	yield
 	yield
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x06)
-	give_object_to_chr(OBJ_ECMMINE_JOANNA, CHR_JOANNA)
-	give_object_to_chr(OBJ_ECMMINE_VELVET, CHR_VELVET)
+	give_object_to_chr(OBJ_ECMMINE_BOND, CHR_BOND)
+	give_object_to_chr(OBJ_ECMMINE_COOP, CHR_COOP)
 	label(0x06)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x00)
-	give_object_to_chr(OBJ_DATAUPLINK_JOANNA, CHR_JOANNA)
-	give_object_to_chr(OBJ_DATAUPLINK_VELVET, CHR_VELVET)
+	give_object_to_chr(OBJ_DATAUPLINK_BOND, CHR_BOND)
+	give_object_to_chr(OBJ_DATAUPLINK_COOP, CHR_COOP)
 
 	beginloop(0x00)
 		if_stage_flag_eq(STAGEFLAG_SECURITYHUB_COMPLETE, TRUE, /*goto*/ 0x06)
@@ -2002,23 +2002,23 @@ u8 func100e_check_ecm_mines[] = {
 
 		label(0x08)
 		reset_timer
-		message(CHR_JOANNA, 0x021d) // "ECM Mine placed correctly."
+		message(CHR_BOND, 0x021d) // "ECM Mine placed correctly."
 		yield
 		mute_channel(CHANNEL_0)
 		assign_sound(0x8113, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, TRUE)
-		message(CHR_JOANNA, 0x024c) // "Internal security system temporarily disabled."
+		message(CHR_BOND, 0x024c) // "Internal security system temporarily disabled."
 		set_stage_flag(STAGEFLAG_SECURITYHUB_COMPLETE)
 		reloop(0x00)
 
 		label(0x0a)
 		reset_timer
-		message(CHR_JOANNA, 0x021d) // "ECM Mine placed correctly."
+		message(CHR_BOND, 0x021d) // "ECM Mine placed correctly."
 		yield
 		mute_channel(CHANNEL_1)
 		assign_sound(0x8113, CHANNEL_1)
 		control_sound_from_object(CHANNEL_1, OBJ_EXTCOMMSHUB, TRUE)
-		message(CHR_JOANNA, 0x024d) // "External communications hub disabled."
+		message(CHR_BOND, 0x024d) // "External communications hub disabled."
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_COMPLETE)
 		reloop(0x00)
 
@@ -2031,19 +2031,19 @@ u8 func100e_check_ecm_mines[] = {
 		reset_timer
 		if_stage_flag_eq(STAGEFLAG_SECURITYHUB_COMPLETE, TRUE, /*goto*/ 0x88)
 		if_stage_flag_eq(STAGEFLAG_EXTCOMMSHUB_COMPLETE, TRUE, /*goto*/ 0x89)
-		if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0xbe)
-		if_ammo_quantity_lt(CHR_JOANNA, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xbe)
-		if_ammo_quantity_lt(CHR_JOANNA, AMMOTYPE_ECM_MINE, 2, /*goto*/ 0xbf)
+		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0xbe)
+		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xbe)
+		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_ECM_MINE, 2, /*goto*/ 0xbf)
 		reloop(0x00)
 
 		label(0xbe)
-		if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0xc0)
-		if_ammo_quantity_lt(CHR_VELVET, AMMOTYPE_ECM_MINE, 2, /*goto*/ 0xc0)
+		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0xc0)
+		if_ammo_quantity_lt(CHR_COOP, AMMOTYPE_ECM_MINE, 2, /*goto*/ 0xc0)
 		reloop(0x00)
 
 		label(0xbf)
-		if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0xc0)
-		if_ammo_quantity_lt(CHR_VELVET, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xc0)
+		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0xc0)
+		if_ammo_quantity_lt(CHR_COOP, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xc0)
 		reloop(0x00)
 
 		label(0xc0)
@@ -2052,13 +2052,13 @@ u8 func100e_check_ecm_mines[] = {
 		// Security hub is complete
 		label(0x88)
 		if_stage_flag_eq(STAGEFLAG_EXTCOMMSHUB_COMPLETE, TRUE, /*goto*/ 0x8a)
-		if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0xbe)
-		if_ammo_quantity_lt(CHR_JOANNA, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xbe)
+		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0xbe)
+		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xbe)
 		reloop(0x00)
 
 		label(0xbe)
-		if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0xbf)
-		if_ammo_quantity_lt(CHR_VELVET, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xbf)
+		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0xbf)
+		if_ammo_quantity_lt(CHR_COOP, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xbf)
 		reloop(0x00)
 
 		label(0xbf)
@@ -2066,13 +2066,13 @@ u8 func100e_check_ecm_mines[] = {
 
 		// Comms hub is complete
 		label(0x89)
-		if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0xbe)
-		if_ammo_quantity_lt(CHR_JOANNA, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xbe)
+		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0xbe)
+		if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xbe)
 		reloop(0x00)
 
 		label(0xbe)
-		if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0xbf)
-		if_ammo_quantity_lt(CHR_VELVET, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xbf)
+		if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0xbf)
+		if_ammo_quantity_lt(CHR_COOP, AMMOTYPE_ECM_MINE, 1, /*goto*/ 0xbf)
 		reloop(0x00)
 
 		// Mines wasted with security hub remaining
@@ -2087,13 +2087,13 @@ u8 func100e_check_ecm_mines[] = {
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_MINES_WASTED)
 
 		label(0x8c)
-		message(CHR_JOANNA, 0x021c) // "Badly placed ECM Mine."
+		message(CHR_BOND, 0x021c) // "Badly placed ECM Mine."
 		reloop(0x00)
 
 		// Mines wasted with both hubs remaining
 		label(0x8d)
-		message(CHR_JOANNA, 0x021c) // "Badly placed ECM Mine."
-		message(CHR_JOANNA, 0x0220) // "CANNOT complete all objectives."
+		message(CHR_BOND, 0x021c) // "Badly placed ECM Mine."
+		message(CHR_BOND, 0x0220) // "CANNOT complete all objectives."
 		set_stage_flag(STAGEFLAG_SECURITYHUB_MINES_WASTED)
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_MINES_WASTED)
 		reloop(0x00)
@@ -2126,15 +2126,15 @@ u8 func1004_check_lab_lift_located[] = {
 	endloop(0x52)
 
 	label(0x2c)
-	if_chr_death_animation_finished(CHR_JOANNA, /*goto*/ 0x2c)
-	if_chr_dying(CHR_JOANNA, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_JOANNA, /*goto*/ 0x2c)
+	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_dying(CHR_BOND, /*goto*/ 0x2c)
+	if_chr_unloaded(CHR_BOND, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
-	if_chr_death_animation_finished(CHR_VELVET, /*goto*/ 0x2c)
-	if_chr_dying(CHR_VELVET, /*goto*/ 0x2c)
-	if_chr_unloaded(CHR_VELVET, /*goto*/ 0x2c)
+	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_dying(CHR_COOP, /*goto*/ 0x2c)
+	if_chr_unloaded(CHR_COOP, /*goto*/ 0x2c)
 	goto_next(0x06)
 
 	label(0x2c)
@@ -2142,7 +2142,7 @@ u8 func1004_check_lab_lift_located[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
-	set_invincible(CHR_JOANNA)
+	set_invincible(CHR_BOND)
 	set_function(CHR_SELF, FUNC_OUTRO)
 	endfunction
 };
@@ -2157,7 +2157,7 @@ u8 func1006_check_programmer_dead[] = {
 
 	label(0x2c)
 	if_stage_flag_eq(STAGEFLAG_PROGRAMMER_LOGGED_IN, TRUE, /*goto*/ 0x06)
-	message(CHR_JOANNA, 0x0239) // "Critical mission personnel killed."
+	message(CHR_BOND, 0x0239) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_PROGRAMMER_DEAD)
 	set_function(CHR_SELF, GFUNC_IDLE)
 
@@ -2174,40 +2174,40 @@ u8 func1006_check_programmer_dead[] = {
 
 u8 func1007_uplinking[] = {
 	beginloop(0x04)
-		if_chr_activated_object(CHR_JOANNA, OBJ_PC, /*goto*/ 0xbe)
-		if_chr_activated_object(CHR_VELVET, OBJ_PC, /*goto*/ 0xbf)
+		if_chr_activated_object(CHR_BOND, OBJ_PC, /*goto*/ 0xbe)
+		if_chr_activated_object(CHR_COOP, OBJ_PC, /*goto*/ 0xbf)
 		reloop(0x04)
 
 		label(0xbe)
-		set_target_chr(CHR_JOANNA)
+		set_target_chr(CHR_BOND)
 		goto_next(0xc0)
 
 		label(0xbf)
-		set_target_chr(CHR_VELVET)
+		set_target_chr(CHR_COOP)
 		goto_next(0xc0)
 
 		label(0xc0)
-		if_chr_weapon_equipped(TARGET_CHR, WEAPON_DATAUPLINK, /*goto*/ 0x2c)
-		message(TARGET_CHR, 0x0231) // "Unable to download - Data Uplink needed."
+		if_chr_weapon_equipped(CHR_TARGET, WEAPON_DATAUPLINK, /*goto*/ 0x2c)
+		message(CHR_TARGET, 0x0231) // "Unable to download - Data Uplink needed."
 		call_rng
 		if_rand_lt(60, /*goto*/ 0x0d)
 		if_rand_lt(120, /*goto*/ 0x0e)
 		if_rand_lt(180, /*goto*/ 0x0f)
 
 		label(0x0c)
-		speak(TARGET_CHR, -1, 0x8116, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, 0x8116, -1, COLOR_00_GREEN)
 		goto_next(0x06)
 
 		label(0x0d)
-		speak(TARGET_CHR, -1, 0x8117, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, 0x8117, -1, COLOR_00_GREEN)
 		goto_next(0x06)
 
 		label(0x0e)
-		speak(TARGET_CHR, -1, 0x8118, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, 0x8118, -1, COLOR_00_GREEN)
 		goto_next(0x06)
 
 		label(0x0f)
-		speak(TARGET_CHR, -1, 0x8118, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, 0x8118, -1, COLOR_00_GREEN)
 
 		label(0x06)
 		restart_timer
@@ -2222,7 +2222,7 @@ u8 func1007_uplinking[] = {
 		label(0x2c)
 		if_stage_flag_eq(STAGEFLAG_PROGRAMMER_LOGGED_IN, TRUE, /*goto*/ 0xae)
 		restart_timer
-		message(TARGET_CHR, 0x022e) // "ACCESS DENIED - password needed."
+		message(CHR_TARGET, 0x022e) // "ACCESS DENIED - password needed."
 		assign_sound(0x01c0, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_PC, FALSE)
 
@@ -2235,14 +2235,14 @@ u8 func1007_uplinking[] = {
 		goto_first(0x04)
 
 		label(0xae)
-		message(TARGET_CHR, 0x022c) // "File download initiated."
+		message(CHR_TARGET, 0x022c) // "File download initiated."
 		assign_sound(0x01bf, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_PC, TRUE)
 		restart_timer
 
 		// @bug: Missing check for player still having uplink equipped
 		beginloop(0xac)
-			if_chr_distance_to_pad_gt(TARGET_CHR, 250, 0x01b6, /*goto*/ 0x2c)
+			if_chr_distance_to_pad_gt(CHR_TARGET, 250, 0x01b6, /*goto*/ 0x2c)
 			if_stage_flag_eq(STAGEFLAG_DELETED_WITHOUT_DOWNLOAD, TRUE, /*goto*/ 0x12)
 			if_timer_gt(300, /*goto*/ 0xad)
 		endloop(0xac)
@@ -2251,13 +2251,13 @@ u8 func1007_uplinking[] = {
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c1, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_PC, TRUE)
-		message(TARGET_CHR, 0x022d) // "File download completed."
+		message(CHR_TARGET, 0x022d) // "File download completed."
 		yield
 		set_stage_flag(STAGEFLAG_DOWNLOAD_COMPLETE)
 		set_function(CHR_SELF, GFUNC_IDLE)
 
 		label(0x2c)
-		message(TARGET_CHR, 0x024a) // "Datalink broken - connection terminated."
+		message(CHR_TARGET, 0x024a) // "Datalink broken - connection terminated."
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c0, CHANNEL_6)
 		play_sound_from_object(CHANNEL_6, OBJ_PC, 0x012c, 0x0190)
@@ -2272,7 +2272,7 @@ u8 func1007_uplinking[] = {
 		reloop(0x04)
 
 		label(0x12)
-		message(TARGET_CHR, 0x024b) // "Datalink error - incomplete file download."
+		message(CHR_TARGET, 0x024b) // "Datalink error - incomplete file download."
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c0, CHANNEL_6)
 		play_sound_from_object(CHANNEL_6, OBJ_PC, 0x012c, 0x0190)
@@ -2337,12 +2337,12 @@ u8 func1009_check_civilians_killed[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	message(CHR_JOANNA, 0x0237) // "Unacceptable civilian casualties."
+	message(CHR_BOND, 0x0237) // "Unacceptable civilian casualties."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x09)
-	message(CHR_JOANNA, 0x0239) // "Critical mission personnel killed."
+	message(CHR_BOND, 0x0239) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -2437,7 +2437,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_object_in_good_condition(OBJ_SECURITYHUB, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_SECURITYHUB_DESTROYED)
 		mute_channel(CHANNEL_0)
-		message(CHR_JOANNA, 0x0236) // "Critical mission object destroyed."
+		message(CHR_BOND, 0x0236) // "Critical mission object destroyed."
 
 		// PA only - check door switch
 		label(0x2c)
@@ -2446,7 +2446,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_DOORSWITCH_DESTROYED, TRUE, /*goto*/ 0x2c)
 		if_object_in_good_condition(OBJ_DOORSWITCH, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_DOORSWITCH_DESTROYED)
-		message(CHR_JOANNA, 0x0236) // "Critical mission object destroyed."
+		message(CHR_BOND, 0x0236) // "Critical mission object destroyed."
 
 		// PA only - check PC
 		label(0x2c)
@@ -2456,7 +2456,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_objective_failed(2, /*goto*/ 0x2c)
 		if_object_in_good_condition(OBJ_PC, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_PC_DESTROYED)
-		message(CHR_JOANNA, 0x0236) // "Critical mission object destroyed."
+		message(CHR_BOND, 0x0236) // "Critical mission object destroyed."
 
 		// Check comms hub
 		label(0x2c)
@@ -2464,7 +2464,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_object_in_good_condition(OBJ_EXTCOMMSHUB, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_DESTROYED)
 		mute_channel(CHANNEL_1)
-		message(CHR_JOANNA, 0x0236) // "Critical mission object destroyed."
+		message(CHR_BOND, 0x0236) // "Critical mission object destroyed."
 		label(0x2c)
 	endloop(0x04)
 
@@ -2496,9 +2496,9 @@ u8 func1002_objectives_failed_msg[] = {
 u8 func041b_intro_041b[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00c9)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP2)
 	set_object_flag_bank2(OBJ_JUMPSHIP2, OBJECTFLAG2_00000010)
 	object_do_animation(0x00ca, OBJ_JUMPSHIP2, 0x04ff, 0xff)
@@ -2519,16 +2519,16 @@ u8 func041b_intro_041b[] = {
 	object_do_animation(0x0126, OBJ_HOVERCAB3, 0x04ff, 0xff)
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 90)
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_NONE, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
-	set_cutscene_weapon(CHR_JOANNA, WEAPON_FALCON2_SILENCER, WEAPON_NONE)
+	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2_SILENCER, WEAPON_NONE)
 
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP2)
 	hide_object(OBJ_POLICECAR)
 	hide_object(OBJ_HOVERCOP3)
@@ -2543,9 +2543,9 @@ u8 func041b_intro_041b[] = {
 u8 func041a_intro_041a[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00c7)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP2)
 	set_object_flag_bank2(OBJ_JUMPSHIP2, OBJECTFLAG2_00000010)
 	object_do_animation(0x00c8, OBJ_JUMPSHIP2, 0x04ff, 0xff)
@@ -2571,9 +2571,9 @@ u8 func041a_intro_041a[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP2)
 	hide_object(OBJ_HOVERTAXI2)
 	hide_object(OBJ_HOVERCOP3)
@@ -2589,9 +2589,9 @@ u8 func041a_intro_041a[] = {
 u8 func0419_intro_0419[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00c5)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP2)
 	set_object_flag_bank2(OBJ_JUMPSHIP2, OBJECTFLAG2_00000010)
 	object_do_animation(0x00c6, OBJ_JUMPSHIP2, 0x04ff, 0xff)
@@ -2608,9 +2608,9 @@ u8 func0419_intro_0419[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP2)
 	hide_object(OBJ_HOVERTAXI1)
 	hide_object(OBJ_HOVERCOP3)
@@ -2623,9 +2623,9 @@ u8 func0419_intro_0419[] = {
 u8 func041c_intro_041c[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00cb)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP2)
 	set_object_flag_bank2(OBJ_JUMPSHIP2, OBJECTFLAG2_00000010)
 	object_do_animation(0x00cc, OBJ_JUMPSHIP2, 0x04ff, 0xff)
@@ -2651,9 +2651,9 @@ u8 func041c_intro_041c[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP2)
 	hide_object(OBJ_HOVERTAXI1)
 	hide_object(0x1d)
@@ -2671,9 +2671,9 @@ u8 func041c_intro_041c[] = {
 u8 func041d_intro_041d[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00cd)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP2)
 	set_object_flag_bank2(OBJ_JUMPSHIP2, OBJECTFLAG2_00000010)
 	object_do_animation(0x00ce, OBJ_JUMPSHIP2, 0x01ff, 0xff)
@@ -2687,9 +2687,9 @@ u8 func041d_intro_041d[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP2)
 	hide_object(OBJ_HOVERTAXI1)
 	hide_object(0x1d)
@@ -2817,9 +2817,9 @@ u8 func0421_intro_0421[] = {
 u8 func0422_intro_0423[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00ee)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x00ef, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2828,9 +2828,9 @@ u8 func0422_intro_0423[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	set_tinted_glass_enabled(FALSE)
 	label(0x36)
@@ -2841,9 +2841,9 @@ u8 func0422_intro_0423[] = {
 u8 func0422_intro_0424[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00fc)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x00fd, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2856,9 +2856,9 @@ u8 func0422_intro_0424[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	unset_chr_flag_bank3(CHR_CASS, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_SECRETARY, CHRFLAG3_UNPLAYABLE)
@@ -2870,9 +2870,9 @@ u8 func0422_intro_0424[] = {
 u8 func0422_intro_0425[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00ff)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0100, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2882,9 +2882,9 @@ u8 func0422_intro_0425[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	hide_object(OBJ_BANNER1)
 	hide_object(OBJ_BANNER2)
@@ -2896,9 +2896,9 @@ u8 func0422_intro_0425[] = {
 u8 func0422_intro_0426[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x012e)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x012f, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2912,9 +2912,9 @@ u8 func0422_intro_0426[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	hide_object(OBJ_BANNER1)
 	hide_object(OBJ_BANNER2)
@@ -2926,9 +2926,9 @@ u8 func0422_intro_0426[] = {
 u8 func0422_intro_0427[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x0133)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0134, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2945,9 +2945,9 @@ u8 func0422_intro_0427[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	hide_object(OBJ_ROPE)
 	hide_object(OBJ_BANNER1)
@@ -2960,9 +2960,9 @@ u8 func0422_intro_0427[] = {
 u8 func0422_intro_0428[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x0103)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0104, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2980,9 +2980,9 @@ u8 func0422_intro_0428[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	unset_object_flag_bank1(OBJ_HOVERCOP1, OBJECTFLAG1_INVISIBLE)
 	unset_object_flag_bank1(OBJ_HOVERCOP2, OBJECTFLAG1_INVISIBLE)
@@ -3002,9 +3002,9 @@ u8 func0422_intro_0428[] = {
 u8 func0422_intro_0429[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x0105)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0106, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -3013,9 +3013,9 @@ u8 func0422_intro_0429[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	set_tinted_glass_enabled(FALSE)
 	label(0x36)
@@ -3026,15 +3026,15 @@ u8 func0422_intro_0429[] = {
 u8 func0422_intro_042a[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x0107)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0108, OBJ_JUMPSHIP1, 0x04ff, 0xff)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0109, -1, -1, 0x0600, CHR_JOANNA, 4)
-	set_chr_hud_visible(CHR_JOANNA, TRUE)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0109, -1, -1, 0x0600, CHR_BOND, 4)
+	set_chr_hud_visible(CHR_BOND, TRUE)
 	show_object(OBJ_ROPE)
 	set_object_flag_bank2(OBJ_ROPE, OBJECTFLAG2_00000010)
 	object_do_animation(0x010a, OBJ_ROPE, 0x04ff, 0xff)
@@ -3042,8 +3042,8 @@ u8 func0422_intro_042a[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	hide_object(OBJ_ROPE)
 	label(0x36)
@@ -3054,15 +3054,15 @@ u8 func0422_intro_042a[] = {
 u8 func0422_intro_042b[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x010b)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x010c, OBJ_JUMPSHIP1, 0x04ff, 0xff)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x010d, -1, -1, 0x0600, CHR_JOANNA, 4)
-	set_chr_hud_visible(CHR_JOANNA, TRUE)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x010d, -1, -1, 0x0600, CHR_BOND, 4)
+	set_chr_hud_visible(CHR_BOND, TRUE)
 	show_object(OBJ_ROPE)
 	set_object_flag_bank2(OBJ_ROPE, OBJECTFLAG2_00000010)
 	object_do_animation(0x010e, OBJ_ROPE, 0x04ff, 0xff)
@@ -3076,8 +3076,8 @@ u8 func0422_intro_042b[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	hide_object(OBJ_ROPE)
 	hide_object(OBJ_BANNER1)
@@ -3096,12 +3096,12 @@ u8 func0422_intro_042d[] = {
 	camera_movement(0x0155)
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x36)
-	set_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0156, -1, -1, 0x0600, CHR_JOANNA, 4)
-	set_chr_hud_visible(CHR_JOANNA, FALSE)
+	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0156, -1, -1, 0x0600, CHR_BOND, 4)
+	set_chr_hud_visible(CHR_BOND, FALSE)
 
 	wait_for_camera_finished
 
@@ -3115,12 +3115,12 @@ u8 func0422_intro_042d[] = {
 	// @bug: Copy/paste error - should be banner 2
 	set_object_flag_bank2(OBJ_BANNER1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0162, OBJ_BANNER2, 0x08ff, 0xff)
-	unset_chr_flag_bank3(CHR_VELVET, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_JOANNA, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_JOANNA, CHRFLAG2_00020000)
-	animation(0x0156, -2, -1, 0x0600, CHR_JOANNA, 2)
-	set_chr_hud_visible(CHR_JOANNA, FALSE)
+	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
+	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	animation(0x0156, -2, -1, 0x0600, CHR_BOND, 2)
+	set_chr_hud_visible(CHR_BOND, FALSE)
 	mute_channel(CHANNEL_7)
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_5)
@@ -3149,7 +3149,7 @@ u8 func0416_outro_from_menu[] = {
 u8 func0416_outro[] = {
 	camera_movement(0x00f2)
 	set_music_track(MUSIC_DEFECTION_OUTRO)
-	set_chr_flag_bank3(CHR_COUNTEROP, CHRFLAG3_HIDDEN)
+	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(0xf1, CHRFLAG3_HIDDEN)
 	set_function(CHR_P1P2, GFUNC_IDLE)
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
@@ -3251,15 +3251,15 @@ u8 func1000_rebuild_groups[] = {
 u8 func1401_setup_counterop[] = {
 	noop016c
 	yield
-	set_chr_team(CHR_COUNTEROP, TEAM_ENEMY)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	endfunction
 };
 
 u8 func100f_check_necklace_collected[] = {
 	beginloop(0x04)
-		if_chr_has_object(CHR_JOANNA, OBJ_NECKLACE, /*goto*/ 0x2c)
-		if_chr_has_object(CHR_VELVET, OBJ_NECKLACE, /*goto*/ 0x2c)
+		if_chr_has_object(CHR_BOND, OBJ_NECKLACE, /*goto*/ 0x2c)
+		if_chr_has_object(CHR_COOP, OBJ_NECKLACE, /*goto*/ 0x2c)
 	endloop(0x04)
 
 	label(0x2c)
@@ -3289,7 +3289,7 @@ u8 func1011_check_hubs_activated[] = {
 		reloop(0x04)
 
 		label(0x08)
-		message(CHR_JOANNA, 0x0250) // "ECM Mine needed to disable security hub."
+		message(CHR_BOND, 0x0250) // "ECM Mine needed to disable security hub."
 		restart_timer
 
 		beginloop(0x09)
@@ -3297,7 +3297,7 @@ u8 func1011_check_hubs_activated[] = {
 		endloop(0x09)
 
 		label(0x0a)
-		message(CHR_JOANNA, 0x0251) // "ECM Mine needed to disable comms hub."
+		message(CHR_BOND, 0x0251) // "ECM Mine needed to disable comms hub."
 		restart_timer
 
 		beginloop(0x0b)
@@ -3314,8 +3314,8 @@ u8 func1012_trigger_x_music[] = {
 	// Wait until arriving at bottom floor
 	beginloop(0x04)
 		if_camera_animating(/*goto*/ 0x2c)
-		if_chr_y(CHR_JOANNA, -8000, OPERATOR_LESS_THAN, /*goto*/ 0x06)
-		if_chr_y(CHR_VELVET, -8000, OPERATOR_LESS_THAN, /*goto*/ 0x06)
+		if_chr_y(CHR_BOND, -8000, OPERATOR_LESS_THAN, /*goto*/ 0x06)
+		if_chr_y(CHR_COOP, -8000, OPERATOR_LESS_THAN, /*goto*/ 0x06)
 		label(0x2c)
 	endloop(0x04)
 
@@ -3381,15 +3381,15 @@ u8 func1013_msg_commshubnearby[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0d)
 
 	beginloop(0x04)
-		if_chr_y(CHR_JOANNA, -770, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
+		if_chr_y(CHR_BOND, -770, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		reloop(0x04)
 
 		label(0x2c)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0039, /*goto*/ 0x2c)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0039, /*goto*/ 0x2c)
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x025d, 0x8170, CHANNEL_6, COLOR_09_BLUE) // "We're getting a positive reading - the internal co..."
+	speak(CHR_BOND, 0x025d, 0x8170, CHANNEL_6, COLOR_09_BLUE) // "We're getting a positive reading - the internal co..."
 	label(0x0d)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -3399,12 +3399,12 @@ u8 func1014_msg_officefloor[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0d)
 
 	beginloop(0x04)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0054, /*goto*/ 0x2c)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0064, /*goto*/ 0x0d)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0054, /*goto*/ 0x2c)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0064, /*goto*/ 0x0d)
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x025e, 0x8171, CHANNEL_6, COLOR_09_BLUE) // "You're on the same floor as Cassandra's office."
+	speak(CHR_BOND, 0x025e, 0x8171, CHANNEL_6, COLOR_09_BLUE) // "You're on the same floor as Cassandra's office."
 	label(0x0d)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -3414,11 +3414,11 @@ u8 func1015_msg_securityroom[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0d)
 
 	beginloop(0x04)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x0025, /*goto*/ 0x2c)
+		if_chr_in_room(CHR_BOND, 0x00, 0x0025, /*goto*/ 0x2c)
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x025f, 0x73a2, CHANNEL_6, COLOR_09_BLUE) // "The other hub has got to be in the Security Room."
+	speak(CHR_BOND, 0x025f, 0x73a2, CHANNEL_6, COLOR_09_BLUE) // "The other hub has got to be in the Security Room."
 	label(0x0d)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -3426,11 +3426,11 @@ u8 func1015_msg_securityroom[] = {
 
 u8 func1016_msg_basementelevator[] = {
 	beginloop(0x04)
-		if_chr_in_room(CHR_JOANNA, 0x00, 0x002c, /*goto*/ 0x2c)
+		if_chr_in_room(CHR_BOND, 0x00, 0x002c, /*goto*/ 0x2c)
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x0260, 0x8172, CHANNEL_6, COLOR_09_BLUE) // "The basement elevator must be around there somewhe..."
+	speak(CHR_BOND, 0x0260, 0x8172, CHANNEL_6, COLOR_09_BLUE) // "The basement elevator must be around there somewhe..."
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -3465,7 +3465,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0xb6)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x0264, 0x73e4, CHANNEL_6, COLOR_09_BLUE) // "Why the big hurry?"
+	speak(CHR_BOND, 0x0264, 0x73e4, CHANNEL_6, COLOR_09_BLUE) // "Why the big hurry?"
 
 	beginloop(0x08)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3473,7 +3473,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x0265, 0x73e5, CHANNEL_6, COLOR_06_WHITE) // "If Dr. Caroll is not extracted tonight, dataDyne w..."
+	speak(CHR_BOND, 0x0265, 0x73e5, CHANNEL_6, COLOR_06_WHITE) // "If Dr. Caroll is not extracted tonight, dataDyne w..."
 
 	beginloop(0x09)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3481,7 +3481,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x09)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x0266, 0x73e6, CHANNEL_6, COLOR_09_BLUE) // "Are they all expendable?"
+	speak(CHR_BOND, 0x0266, 0x73e6, CHANNEL_6, COLOR_09_BLUE) // "Are they all expendable?"
 
 	beginloop(0x0a)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3489,7 +3489,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x0a)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x0267, 0x73e7, CHANNEL_6, COLOR_06_WHITE) // "Don't joke! You have to be careful, Joanna. Code k..."
+	speak(CHR_BOND, 0x0267, 0x73e7, CHANNEL_6, COLOR_06_WHITE) // "Don't joke! You have to be careful, Joanna. Code k..."
 
 	beginloop(0x0b)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3497,7 +3497,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x0b)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x0268, 0x73e8, CHANNEL_6, COLOR_09_BLUE) // "What's the target location?"
+	speak(CHR_BOND, 0x0268, 0x73e8, CHANNEL_6, COLOR_09_BLUE) // "What's the target location?"
 
 	beginloop(0x0c)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3505,7 +3505,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x0c)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x0269, 0x73e9, CHANNEL_6, COLOR_06_WHITE) // "Work your way down the building to the ground leve..."
+	speak(CHR_BOND, 0x0269, 0x73e9, CHANNEL_6, COLOR_06_WHITE) // "Work your way down the building to the ground leve..."
 
 	beginloop(0x0d)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3513,7 +3513,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x0d)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x026a, 0x73ea, CHANNEL_6, COLOR_09_BLUE) // "How will I recognize him?"
+	speak(CHR_BOND, 0x026a, 0x73ea, CHANNEL_6, COLOR_09_BLUE) // "How will I recognize him?"
 
 	beginloop(0x0e)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3521,7 +3521,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x0e)
 
 	label(0x2c)
-	speak(CHR_JOANNA, 0x026b, 0x73eb, CHANNEL_6, COLOR_06_WHITE) // "We don't have an image record, and we can't find a..."
+	speak(CHR_BOND, 0x026b, 0x73eb, CHANNEL_6, COLOR_06_WHITE) // "We don't have an image record, and we can't find a..."
 
 	beginloop(0x0f)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3669,7 +3669,7 @@ u8 func101d_disable_cameras[] = {
 	unset_object_flag_bank0(OBJ_CAMERA6, OBJECTFLAG0_DEACTIVATED)
 
 	label(0x06)
-	message(CHR_JOANNA, 0x0261) // "Security system is now back online."
+	message(CHR_BOND, 0x0261) // "Security system is now back online."
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -3678,7 +3678,7 @@ u8 func101d_disable_cameras[] = {
  * @unregistered
  */
 u8 unregistered_function7[] = {
-	message(CHR_JOANNA, 0x0263) // "2023 AD, 2214 Hours Lucerne Tower - dataDyne HQ"
+	message(CHR_BOND, 0x0263) // "2023 AD, 2214 Hours Lucerne Tower - dataDyne HQ"
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -3736,7 +3736,7 @@ u8 func042f_surrendering_guard[] = {
 
 	// Be surprised
 	label(0x2c)
-	say_quip(CHR_JOANNA, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
+	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
 	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
 
 	// Wait 1 second
@@ -3750,22 +3750,22 @@ u8 func042f_surrendering_guard[] = {
 	goto_next(0x55)
 
 	label(0x54)
-	try_run_to_chr(FOLLOW_CHR, /*goto*/ 0x56)
+	try_run_to_chr(CHR_PRESET, /*goto*/ 0x56)
 
 	beginloop(0x56)
 		if_chr_distance_gt(300, /*goto*/ 0x06)
 		if_chr_in_view(/*goto*/ 0x28)
 		label(0x06)
-		if_chr_death_animation_finished(FOLLOW_CHR, /*goto*/ 0x55)
-		if_chr_unloaded(FOLLOW_CHR, /*goto*/ 0x55)
-		if_detected_chr(FOLLOW_CHR, /*goto*/ 0x57)
+		if_chr_death_animation_finished(CHR_PRESET, /*goto*/ 0x55)
+		if_chr_unloaded(CHR_PRESET, /*goto*/ 0x55)
+		if_detected_chr(CHR_PRESET, /*goto*/ 0x57)
 		if_chr_stopped(/*goto*/ 0x57)
 	endloop(0x56)
 
 	// Warn
 	label(0x57)
 	dprint 'W','A','R','N',' ','F','R','I','E','N','D','S','\n',0,
-	say_quip(CHR_JOANNA, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "Intruder alert!","We've got trouble","We've got problems"
+	say_quip(CHR_BOND, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "Intruder alert!","We've got trouble","We've got problems"
 	set_squadron_alertness(100)
 
 	// No chr in same group, or follow through from above
