@@ -460,6 +460,13 @@ struct player {
 	/*0xb4*/ u32 unkb4;
 	/*0xb8*/ u32 unkb8;
 	/*0xbc*/ struct playerbc *unkbc;
+	/*0xc0*/ u32 unkc0;
+	/*0xc4*/ u32 unkc4;
+	/*0xc8*/ u32 unkc8;
+	/*0xcc*/ u32 unkcc;
+	/*0xd0*/ u32 unkd0;
+	/*0xd4*/ u32 unkd4;
+	/*0xd8*/ u32 unkd8;
 };
 
 struct targetsomething {

@@ -10472,19 +10472,13 @@ bool ai00fd(void)
 /**
  * @cmd 00fe
  */
-GLOBAL_ASM(
-glabel ai00fe
-/*  f058950:	3c03800a */ 	lui	$v1,0x800a
-/*  f058954:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f058958:	8c6f02a0 */ 	lw	$t7,0x2a0($v1)
-/*  f05895c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f058960:	00001025 */ 	or	$v0,$zero,$zero
-/*  f058964:	adee00d8 */ 	sw	$t6,0xd8($t7)
-/*  f058968:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f05896c:	27190002 */ 	addiu	$t9,$t8,0x2
-/*  f058970:	03e00008 */ 	jr	$ra
-/*  f058974:	ac790438 */ 	sw	$t9,0x438($v1)
-);
+bool ai00fe(void)
+{
+	g_Vars.bond->unkd8 = 1;
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 00ff
