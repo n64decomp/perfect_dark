@@ -10342,22 +10342,13 @@ bool aiAudioPlayMusic(void)
 /**
  * @cmd 015c
  */
-GLOBAL_ASM(
-glabel ai015c
-/*  f0585c4:	3c02800a */ 	lui	$v0,0x800a
-/*  f0585c8:	24429fc0 */ 	addiu	$v0,$v0,-24640
-/*  f0585cc:	8c4e0438 */ 	lw	$t6,0x438($v0)
-/*  f0585d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0585d4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0585d8:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f0585dc:	0fc5b7a0 */ 	jal	func0f16de80
-/*  f0585e0:	ac4f0438 */ 	sw	$t7,0x438($v0)
-/*  f0585e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0585e8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0585ec:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0585f0:	03e00008 */ 	jr	$ra
-/*  f0585f4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiAudioRestartMusic(void)
+{
+	g_Vars.aioffset += 2;
+	func0f16de80();
+
+	return false;
+}
 
 /**
  * @cmd 017d
