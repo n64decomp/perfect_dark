@@ -91,7 +91,7 @@
 #define FOLLOW_CHR    0xfc
 #define CHR_SELF      0xfd
 
-// Character flags - bank 0 (chr struct offset 0x114)
+// Character flags - bank 0 (chr struct offset 0x114 - chr->flags)
 #define CHRFLAG0_CANT_ALERT_GROUP   0x00000001 // Don't set group alertness when becoming aware
 #define CHRFLAG0_00000002           0x00000002 // Not used in scripts
 #define CHRFLAG0_00000004           0x00000004 // Can search for player when heard?
@@ -125,7 +125,7 @@
 #define CHRFLAG0_NOHEAR             0x40000000 // Globals, Villa
 #define CHRFLAG0_80000000           0x80000000 // Globals, Villa, Chicago, CI Training
 
-// Character flags - bank 1 (chr struct offset 0x118)
+// Character flags - bank 1 (chr struct offset 0x118 - chr->flags2)
 #define CHRFLAG1_00000001                  0x00000001 // Globals, Extraction, Air Base, Deep Sea
 #define CHRFLAG1_00000002                  0x00000002 // Globals
 #define CHRFLAG1_00000004                  0x00000004 // Globals - If set, avoids cmd0184
@@ -159,7 +159,7 @@
 #define CHRFLAG1_40000000                  0x40000000 // Globals
 #define CHRFLAG1_80000000                  0x80000000 // Globals
 
-// Character flags - bank 2 (chr struct offset 0x14 - "hidden")
+// Character flags - bank 2 (chr struct offset 0x14 - chr->hidden)
 #define CHRFLAG2_00000001           0x00000001 // Not used in scripts - sunglasses?
 #define CHRFLAG2_00000002           0x00000002 // Not used in scripts
 #define CHRFLAG2_00000004           0x00000004 // Not used in scripts
@@ -193,7 +193,7 @@
 #define CHRFLAG2_40000000           0x40000000 // Air Base and AF1
 #define CHRFLAG2_PSYCHOSISED        0x80000000
 
-// Character flags - bank 3 (chr struct offset 0x18)
+// Character flags - bank 3 (chr struct offset 0x18 - chr->chrflags)
 #define CHRFLAG3_00000001                    0x00000001 // Villa takers, Attack Ship Cass and skedar - both set at end of intros
 #define CHRFLAG3_00000002                    0x00000002 // Seems to be set on guards who can spawn clones?
 #define CHRFLAG3_00000004                    0x00000004 // Not used in scripts
@@ -215,7 +215,7 @@
 #define CHRFLAG3_00040000                    0x00040000 // Used a lot
 #define CHRFLAG3_00080000                    0x00080000
 #define CHRFLAG3_KILLCOUNTABLE               0x00100000
-#define CHRFLAG3_00200000                    0x00200000 // Not used in scripts
+#define CHRFLAG3_00200000                    0x00200000 // Unset by cmd 00fd
 #define CHRFLAG3_00400000                    0x00400000 // Not used in scripts
 #define CHRFLAG3_UNPLAYABLE                  0x00800000
 #define CHRFLAG3_01000000                    0x01000000 // Typically set on allies during init
