@@ -13242,6 +13242,24 @@ glabel ai0134
 /*  f05b298:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch because it uses different temporary registers
+//bool ai0134(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//
+//	if (g_Vars.chrdata->orders == cmd[3]) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+//
+//		if (g_Vars.chrdata->orders == 13) {
+//			// empty
+//		}
+//	} else {
+//		g_Vars.aioffset += 5;
+//	}
+//
+//	return false;
+//}
+
 /**
  * @cmd 0135
  */
