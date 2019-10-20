@@ -10081,27 +10081,18 @@ bool aiIfObjInRoom(void)
 	return false;
 }
 
+void func0f1660a4(float value);
+
 /**
  * @cmd 00f2
  */
-GLOBAL_ASM(
-glabel ai00f2
-/*  f058108:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05810c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f058110:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f058114:	44816000 */ 	mtc1	$at,$f12
-/*  f058118:	0fc59829 */ 	jal	func0f1660a4
-/*  f05811c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f058120:	3c03800a */ 	lui	$v1,0x800a
-/*  f058124:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f058128:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f05812c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f058130:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f058134:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f058138:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f05813c:	03e00008 */ 	jr	$ra
-/*  f058140:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai00f2(void)
+{
+	func0f1660a4(1);
+	g_Vars.aioffset += + 2;
+
+	return false;
+}
 
 /**
  * @cmd 00f3
