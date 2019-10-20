@@ -10310,25 +10310,14 @@ bool aiAudioPlayXMusic(void)
 /**
  * @cmd 00fa
  */
-GLOBAL_ASM(
-glabel ai00fa
-/*  f058504:	3c05800a */ 	lui	$a1,0x800a
-/*  f058508:	24a59fc0 */ 	addiu	$a1,$a1,-24640
-/*  f05850c:	8ca20438 */ 	lw	$v0,0x438($a1)
-/*  f058510:	8cae0434 */ 	lw	$t6,0x434($a1)
-/*  f058514:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f058518:	244f0003 */ 	addiu	$t7,$v0,0x3
-/*  f05851c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f058520:	acaf0438 */ 	sw	$t7,0x438($a1)
-/*  f058524:	01c21821 */ 	addu	$v1,$t6,$v0
-/*  f058528:	0fc5b82d */ 	jal	func0f16e0b4
-/*  f05852c:	80640002 */ 	lb	$a0,0x2($v1)
-/*  f058530:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f058534:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f058538:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05853c:	03e00008 */ 	jr	$ra
-/*  f058540:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiAudioStopChannel(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.aioffset += 3;
+	func0f16e0b4((s8)cmd[2]);
+
+	return false;
+}
 
 /**
  * @cmd 015b

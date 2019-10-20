@@ -250,7 +250,7 @@
 /*0x00f7*/ bool aiIfAllObjectivesComplete(void);
 /*0x00f8*/ bool ai00f8(void);
 /*0x00f9*/ bool aiAudioPlayXMusic(void);
-/*0x00fa*/ bool ai00fa(void);
+/*0x00fa*/ bool aiAudioStopChannel(void);
 /*0x00fb*/ bool ai00fb(void);
 /*0x00fc*/ bool ai00fc(void);
 /*0x00fd*/ bool ai00fd(void);
