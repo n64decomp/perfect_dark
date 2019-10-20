@@ -6524,7 +6524,7 @@ struct menu_item menuitems_2a6cc[] = {
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000511e, 0x7f1782f8, NULL }, // "Game Time:"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, 0x7f1782b8, 0x00000000, menuhandler001781ac },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000024, 0x0000511f, 0x00000000, (u32) &menudialog_mpendgame }, // "End Game"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000024, 0x0000511f, 0x00000000, &menudialog_mpendgame }, // "End Game"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -6753,7 +6753,7 @@ struct menu_dialog menudialog_2aacc = {
 // 2aae4
 struct menu_item menuitems_2aae4[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000054f7, 0x00000000, NULL }, // "Save new player and statistics?"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x0000002c, 0x000054f8, 0x00000000, (u32) &menudialog_2aacc }, // "Save Now"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x0000002c, 0x000054f8, 0x00000000, &menudialog_2aacc }, // "Save Now"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x000054f9, 0x00000000, NULL }, // "No Thanks!"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -7273,7 +7273,7 @@ struct menu_dialog menudialog_mpsimulantcharacter = {
 struct menu_item menuitems_mpeditsimulant[] = {
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x0000505f, 0x00000000, menuhandler0017cda0 }, // "Difficulty:"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005060, 0x00000000, menuhandler0017d044 }, // "Change Type..."
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005061, 0x00000000, (u32) &menudialog_mpsimulantcharacter }, // "Character..."
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005061, 0x00000000, &menudialog_mpsimulantcharacter }, // "Character..."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005062, 0x00000000, menuhandler0017cf58 }, // "Delete Simulant"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x00005063, 0x00000000, NULL }, // "Back"
@@ -7365,7 +7365,7 @@ struct menu_item menuitems_mpteamcontrol[] = {
 	{ MENUITEMTYPE_DROPDOWN,    10, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
 	{ MENUITEMTYPE_DROPDOWN,    11, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000004, 0x00005049, 0x00000000, (u32) &menudialog_mpautoteam }, // "Auto Team..."
+	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000004, 0x00005049, 0x00000000, &menudialog_mpautoteam }, // "Auto Team..."
 	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000008, 0x0000504a, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -7406,7 +7406,7 @@ struct menu_item menuitems_mpsoundtrack[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000503f, 0x00000000, NULL }, // "Current:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005603, 0x7f17dfac, NULL }, // ""
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x7f17dc44, 0x00000000, (u32) &menudialog_2bd40 },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x7f17dc44, 0x00000000, &menudialog_2bd40 },
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x00005040, 0x00000000, menuhandler0017e00c }, // "Multiple Tunes"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x00005041, 0x00000000, NULL }, // "Back"
@@ -7562,16 +7562,16 @@ struct menu_dialog menudialog_mpabort2;
 
 // 2c12c
 struct menu_item menuitems_mpstuff[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005029, 0x00000000, (u32) &menudialog_mpsoundtrack }, // "Soundtrack"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000502a, 0x00000000, (u32) &menudialog_mpteamnames }, // "Team Names"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005029, 0x00000000, &menudialog_mpsoundtrack }, // "Soundtrack"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000502a, 0x00000000, &menudialog_mpteamnames }, // "Team Names"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x0000502c, 0x00000000, menuhandler0017ecd4 }, // "Lock"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000056d8, 0x00000000, menuhandler00102814 }, // "Ratio"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x0000549a, 0x00000000, menuhandler001028cc }, // "Split"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005024, 0x00000000, (u32) &menudialog_mpready }, // "Start Game"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005025, 0x00000000, (u32) &menudialog_2aba0 }, // "Drop Out"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501b, 0x00000000, (u32) &menudialog_mpabort2 }, // "Abort Game"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005024, 0x00000000, &menudialog_mpready }, // "Start Game"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005025, 0x00000000, &menudialog_2aba0 }, // "Drop Out"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501b, 0x00000000, &menudialog_mpabort2 }, // "Abort Game"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -7597,13 +7597,13 @@ struct menu_dialog menudialog_mpstuff2 = {
 
 // 2c238
 struct menu_item menuitems_mpplayersetup4[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501e, 0x7f17909c, (u32) &menudialog_mpplayername }, // "Name"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501f, 0x00000000, (u32) &menudialog_mpcharacter }, // "Character"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005021, 0x00000000, (u32) &menudialog_mpcontrol }, // "Control"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005022, 0x00000000, (u32) &menudialog_mpoptions }, // "Player Options"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005023, 0x00000000, (u32) &menudialog_mpplayerstats }, // "Statistics"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501e, 0x7f17909c, &menudialog_mpplayername }, // "Name"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501f, 0x00000000, &menudialog_mpcharacter }, // "Character"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005021, 0x00000000, &menudialog_mpcontrol }, // "Control"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005022, 0x00000000, &menudialog_mpoptions }, // "Player Options"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005023, 0x00000000, &menudialog_mpplayerstats }, // "Statistics"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501d, 0x00000000, (u32) &menudialog_mploadplayer }, // "Load Player"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501d, 0x00000000, &menudialog_mploadplayer }, // "Load Player"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x7f17eed4, 0x00000000, menuhandler0017ee60 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -7660,16 +7660,16 @@ struct menu_dialog menudialog_mpscenario;
 
 // 2c39c
 struct menu_item menuitems_mpgamesetup3[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, 0x00005013, 0x7f184fb0, (u32) &menudialog_mpscenario }, // "Scenario"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, 0x00005013, 0x7f184fb0, &menudialog_mpscenario }, // "Scenario"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005015, 0x00000000, menuhandler00185380 }, // "Options"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005014, 0x7f17f024, (u32) &menudialog_mparena }, // "Arena"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005017, 0x00000000, (u32) &menudialog_mpweapons }, // "Weapons"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005018, 0x00000000, (u32) &menudialog_mplimits }, // "Limits"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000054b8, 0x00000000, (u32) &menudialog_mpplayerhandicaps }, // "Player Handicaps"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005019, 0x00000000, (u32) &menudialog_mpsimulants }, // "Simulants"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005016, 0x00000000, (u32) &menudialog_mpteamcontrol }, // "Teams"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005014, 0x7f17f024, &menudialog_mparena }, // "Arena"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005017, 0x00000000, &menudialog_mpweapons }, // "Weapons"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005018, 0x00000000, &menudialog_mplimits }, // "Limits"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000054b8, 0x00000000, &menudialog_mpplayerhandicaps }, // "Player Handicaps"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005019, 0x00000000, &menudialog_mpsimulants }, // "Simulants"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005016, 0x00000000, &menudialog_mpteamcontrol }, // "Teams"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060004, 0x00005012, 0x00000000, (u32) &menudialog_mploadgamesettingstype0 }, // "Load Settings"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060004, 0x00005012, 0x00000000, &menudialog_mploadgamesettingstype0 }, // "Load Settings"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, 0x0000501a, 0x00000000, menuhandler0017efbc }, // "Save Settings"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -7696,10 +7696,10 @@ struct menu_dialog menudialog_mpgamesetup2 = {
 
 // 2c4bc
 struct menu_item menuitems_mpquickgo[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000059c8, 0x00000000, (u32) &menudialog_mpready }, // "Start Game"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501d, 0x00000000, (u32) &menudialog_mploadplayer }, // "Load Player"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000059ca, 0x00000000, (u32) &menudialog_mpplayersetup3 }, // "Player Settings"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000059c9, 0x00000000, (u32) &menudialog_2aba0 }, // "Drop Out"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000059c8, 0x00000000, &menudialog_mpready }, // "Start Game"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501d, 0x00000000, &menudialog_mploadplayer }, // "Load Player"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000059ca, 0x00000000, &menudialog_mpplayersetup3 }, // "Player Settings"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000059c9, 0x00000000, &menudialog_2aba0 }, // "Drop Out"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -7717,11 +7717,11 @@ struct menu_dialog menudialog_mpscenario2;
 
 // 2c538
 struct menu_item menuitems_2c538[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, 0x00005013, 0x7f184fb0, (u32) &menudialog_mpscenario2 }, // "Scenario"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, 0x00005013, 0x7f184fb0, &menudialog_mpscenario2 }, // "Scenario"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005015, 0x00000000, menuhandler00185380 }, // "Options"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005014, 0x7f17f024, (u32) &menudialog_mparena }, // "Arena"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005017, 0x7f17f088, (u32) &menudialog_mpweapons2 }, // "Weapons"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005018, 0x00000000, (u32) &menudialog_mplimits }, // "Limits"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005014, 0x7f17f024, &menudialog_mparena }, // "Arena"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005017, 0x7f17f088, &menudialog_mpweapons2 }, // "Weapons"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005018, 0x00000000, &menudialog_mplimits }, // "Limits"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, menuhandler0017f4c8 },
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000059c1, 0x00000000, menuhandler0017f4fc }, // "Player 1 Team"
 	{ MENUITEMTYPE_DROPDOWN,    1, 0x00000000, 0x000059c2, 0x00000000, menuhandler0017f4fc }, // "Player 2 Team"
@@ -7770,9 +7770,9 @@ struct menu_dialog menudialog_mpquickteam = {
 
 // 2c75c
 struct menu_item menuitems_mpcombatsimulator[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059b9, 0x00000000, (u32) &menudialog_mpcombatchallenges2 }, // "Challenges"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059ba, 0x00000001, (u32) &menudialog_mploadgamesettingstype1 }, // "Load/Preset Games"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059bb, 0x00000002, (u32) &menudialog_mpquickteam }, // "Quick Start"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059b9, 0x00000000, &menudialog_mpcombatchallenges2 }, // "Challenges"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059ba, 0x00000001, &menudialog_mploadgamesettingstype1 }, // "Load/Preset Games"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059bb, 0x00000002, &menudialog_mpquickteam }, // "Quick Start"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, 0x000059bc, 0x00000003, menuhandler0017f9ec }, // "Advanced Setup"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
