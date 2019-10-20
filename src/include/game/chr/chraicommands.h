@@ -390,7 +390,7 @@
 /*0x01a4*/ bool aiShowText(void);
 /*0x01a5*/ bool ai01a5(void);
 /*0x01a6*/ bool ai01a6(void);
-/*0x01a7*/ bool ai01a7(void);
+/*0x01a7*/ bool aiIfChrPropsoundcountZero(void);
 /*0x01aa*/ bool ai01aa(void);
 /*0x01ab*/ bool aiIfNumKnockedOutChrs(void);
 /*0x01ad*/ bool ai01ad(void);

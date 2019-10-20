@@ -12790,45 +12790,19 @@ glabel func0f05abdc
 /**
  * @cmd 01a7
  */
-GLOBAL_ASM(
-glabel ai01a7
-/*  f05ac14:	3c03800a */ 	lui	$v1,0x800a
-/*  f05ac18:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05ac1c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05ac20:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05ac24:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05ac28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05ac2c:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f05ac30:	90e40002 */ 	lbu	$a0,0x2($a3)
-/*  f05ac34:	0fc0a1dd */ 	jal	func0f028774
-/*  f05ac38:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f05ac3c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05ac40:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05ac44:	1040000c */ 	beqz	$v0,.L0f05ac78
-/*  f05ac48:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05ac4c:	90580332 */ 	lbu	$t8,0x332($v0)
-/*  f05ac50:	5700000a */ 	bnezl	$t8,.L0f05ac7c
-/*  f05ac54:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f05ac58:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05ac5c:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05ac60:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05ac64:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f05ac68:	3c03800a */ 	lui	$v1,0x800a
-/*  f05ac6c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05ac70:	10000004 */ 	beqz	$zero,.L0f05ac84
-/*  f05ac74:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05ac78:
-/*  f05ac78:	8c790438 */ 	lw	$t9,0x438($v1)
-.L0f05ac7c:
-/*  f05ac7c:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f05ac80:	ac680438 */ 	sw	$t0,0x438($v1)
-.L0f05ac84:
-/*  f05ac84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05ac88:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05ac8c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05ac90:	03e00008 */ 	jr	$ra
-/*  f05ac94:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfChrPropsoundcountZero(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = func0f028774(cmd[2]);
+
+	if (chr && chr->propsoundcount == 0) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset = g_Vars.aioffset + 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0131
