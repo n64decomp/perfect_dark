@@ -14216,7 +14216,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0104*/ ai0104,
 	/*0x0105*/ ai0105,
 	/*0x0106*/ ai0106,
-	/*0x0107*/ ai0107,
+	/*0x0107*/ aiIfPresetsTargetIsNotMyTarget,
 	/*0x0108*/ ai0108,
 	/*0x0109*/ ai0109,
 	/*0x010a*/ ai010a,

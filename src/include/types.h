@@ -148,7 +148,7 @@ struct chrdata {
 	/*0x174*/ u32 unk174;
 	/*0x178*/ u32 unk178;
 	/*0x17c*/ u16 fireslot;
-	/*0x17e*/ u16 target;
+	/*0x17e*/ s16 target;
 	/*0x180*/ u32 cshield;
 	/*0x184*/ u8 cmnum;
 	/*0x185*/ u8 cmnum2;

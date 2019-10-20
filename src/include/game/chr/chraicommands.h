@@ -263,7 +263,7 @@
 /*0x0104*/ bool ai0104(void);
 /*0x0105*/ bool ai0105(void);
 /*0x0106*/ bool ai0106(void);
-/*0x0107*/ bool ai0107(void);
+/*0x0107*/ bool aiIfPresetsTargetIsNotMyTarget(void);
 /*0x0108*/ bool ai0108(void);
 /*0x0109*/ bool ai0109(void);
 /*0x010a*/ bool ai010a(void);

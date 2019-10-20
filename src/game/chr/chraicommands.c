@@ -10760,52 +10760,23 @@ glabel ai0106
 /**
  * @cmd 0107
  */
-GLOBAL_ASM(
-glabel ai0107
-/*  f058d50:	3c03800a */ 	lui	$v1,0x800a
-/*  f058d54:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f058d58:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f058d5c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f058d60:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f058d64:	8486012a */ 	lh	$a2,0x12a($a0)
-/*  f058d68:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f058d6c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f058d70:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f058d74:	10c1000a */ 	beq	$a2,$at,.L0f058da0
-/*  f058d78:	01c53821 */ 	addu	$a3,$t6,$a1
-/*  f058d7c:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f058d80:	0fc12705 */ 	jal	func0f049c14
-/*  f058d84:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f058d88:	3c03800a */ 	lui	$v1,0x800a
-/*  f058d8c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f058d90:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f058d94:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f058d98:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f058d9c:	afa2001c */ 	sw	$v0,0x1c($sp)
-.L0f058da0:
-/*  f058da0:	8482017e */ 	lh	$v0,0x17e($a0)
-/*  f058da4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f058da8:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f058dac:	1041000a */ 	beq	$v0,$at,.L0f058dd8
-/*  f058db0:	24b80003 */ 	addiu	$t8,$a1,0x3
-/*  f058db4:	51e20009 */ 	beql	$t7,$v0,.L0f058ddc
-/*  f058db8:	ac780438 */ 	sw	$t8,0x438($v1)
-/*  f058dbc:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f058dc0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f058dc4:	90e60002 */ 	lbu	$a2,0x2($a3)
-/*  f058dc8:	3c03800a */ 	lui	$v1,0x800a
-/*  f058dcc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f058dd0:	10000002 */ 	beqz	$zero,.L0f058ddc
-/*  f058dd4:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f058dd8:
-/*  f058dd8:	ac780438 */ 	sw	$t8,0x438($v1)
-.L0f058ddc:
-/*  f058ddc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f058de0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f058de4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f058de8:	03e00008 */ 	jr	$ra
-/*  f058dec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfPresetsTargetIsNotMyTarget(void)
+{
+	s32 mypresetchrstarget;
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (g_Vars.chrdata->chrpreset1 != -1) {
+		mypresetchrstarget = func0f049c14(g_Vars.chrdata, g_Vars.chrdata->chrpreset1);
+	}
+
+	if (g_Vars.chrdata->target != -1 && mypresetchrstarget != g_Vars.chrdata->target) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0108
