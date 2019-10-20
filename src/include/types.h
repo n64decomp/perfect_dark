@@ -167,7 +167,7 @@ struct chrdata {
 	/*0x1a0*/ u8 bdlist[240];
 	/*0x290*/ u8 bdstart;
 	/*0x291*/ u8 goposhitcount;
-	/*0x292*/ u16 cover;
+	/*0x292*/ s16 cover;
 	/*0x294*/ struct coord targetlastseenp;
 	/*0x2a0*/ u8 myaction;
 	/*0x2a1*/ u8 orders;
