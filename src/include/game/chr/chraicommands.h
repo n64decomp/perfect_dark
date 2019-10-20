@@ -267,7 +267,7 @@
 /*0x0108*/ bool ai0108(void);
 /*0x0109*/ bool ai0109(void);
 /*0x010a*/ bool ai010a(void);
-/*0x010b*/ bool ai010b(void);
+/*0x010b*/ bool aiChrSetTeam(void);
 /*0x010c*/ bool ai010c(void);
 /*0x010d*/ bool ai010d(void);
 /*0x010e*/ bool ai010e(void);

@@ -11000,34 +11000,19 @@ glabel ai010a
 /**
  * @cmd 010b
  */
-GLOBAL_ASM(
-glabel ai010b
-/*  f05909c:	3c03800a */ 	lui	$v1,0x800a
-/*  f0590a0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0590a4:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0590a8:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0590ac:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0590b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0590b4:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f0590b8:	90c50002 */ 	lbu	$a1,0x2($a2)
-/*  f0590bc:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f0590c0:	0fc126d1 */ 	jal	chrFindById
-/*  f0590c4:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f0590c8:	3c03800a */ 	lui	$v1,0x800a
-/*  f0590cc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0590d0:	10400003 */ 	beqz	$v0,.L0f0590e0
-/*  f0590d4:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f0590d8:	90d80003 */ 	lbu	$t8,0x3($a2)
-/*  f0590dc:	a0580125 */ 	sb	$t8,0x125($v0)
-.L0f0590e0:
-/*  f0590e0:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f0590e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0590e8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0590ec:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f0590f0:	ac680438 */ 	sw	$t0,0x438($v1)
-/*  f0590f4:	03e00008 */ 	jr	$ra
-/*  f0590f8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrSetTeam(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr) {
+		chr->team = cmd[3];
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 010c
