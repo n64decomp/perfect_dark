@@ -247,7 +247,7 @@
 /*0x00f4*/ bool ai00f4(void);
 /*0x00f5*/ bool ai00f5(void);
 /*0x00f6*/ bool ai00f6(void);
-/*0x00f7*/ bool ai00f7(void);
+/*0x00f7*/ bool aiIfAllObjectivesComplete(void);
 /*0x00f8*/ bool ai00f8(void);
 /*0x00f9*/ bool ai00f9(void);
 /*0x00fa*/ bool ai00fa(void);
