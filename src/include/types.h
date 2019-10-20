@@ -249,7 +249,7 @@ struct defaultobj {
 	/*0x02*/ u8 hidden2;
 	/*0x03*/ u8 type;
 	/*0x04*/ u16 obj;
-	/*0x06*/ u16 pad;
+	/*0x06*/ s16 pad;
 	/*0x08*/ u32 flags;
 	/*0x0c*/ u32 flags2;
 	/*0x10*/ u32 flags3;

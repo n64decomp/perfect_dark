@@ -13753,7 +13753,7 @@ bool ai0140(void)
  * @cmd 0141
  */
 GLOBAL_ASM(
-glabel ai0141
+glabel aiShuffleInvestigationTerminals
 /*  f05bac0:	3c02800a */ 	lui	$v0,0x800a
 /*  f05bac4:	24429fc0 */ 	addiu	$v0,$v0,-24640
 /*  f05bac8:	8c4e0434 */ 	lw	$t6,0x434($v0)
@@ -13912,6 +13912,83 @@ glabel ai0141
 /*  f05bd04:	03e00008 */ 	jr	$ra
 /*  f05bd08:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+// Mismatch due to stack pointers misaligned
+//bool aiShuffleInvestigationTerminals(void)
+//{
+//	// 2 = dst1
+//	// 3 = dst2
+//	// 4 = src1
+//	// 5 = src2
+//	// 6 = src3
+//	// 7 = src4
+//	// 8 = always 00
+//
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct tag *goodpc = tagFindById(cmd[2]);
+//	struct tag *badpc = tagFindById(cmd[3]);
+//
+//	/**
+//	 * @bug: These should be using modulus 4. Because it's 1 short, the final
+//	 * else conditions are unreachable so only 3 of the 4 terminals can be
+//	 * selected as the destination.
+//	 */
+//	u8 rand1 = random() % 3U;
+//	u8 rand2 = random() % 3U;
+//
+//	if (cmd[8] == 0) {
+//		struct tag *dst;
+//
+//		// Place the good terminal
+//		if (rand1 == 0) {
+//			dst = tagFindById(cmd[4]);
+//			goodpc->unk06 = dst->unk06;
+//			goodpc->obj = dst->obj;
+//		} else if (rand1 == 1) {
+//			dst = tagFindById(cmd[5]);
+//			goodpc->unk06 = dst->unk06;
+//			goodpc->obj = dst->obj;
+//		} else if (rand1 == 2) {
+//			dst = tagFindById(cmd[6]);
+//			goodpc->unk06 = dst->unk06;
+//			goodpc->obj = dst->obj;
+//		} else {
+//			dst = tagFindById(cmd[7]);
+//			goodpc->unk06 = dst->unk06;
+//			goodpc->obj = dst->obj;
+//		}
+//
+//		// Handle both good and alarm terminals having the same destination
+//		if (rand2 == rand1 && rand2 > 0) {
+//			rand2--;
+//		} else if (rand2 == rand1 && rand2 < 3) {
+//			rand2++;
+//		}
+//
+//		// Place the alarm terminal
+//		if (rand2 == 0) {
+//			dst = tagFindById(cmd[4]);
+//			badpc->unk06 = dst->unk06;
+//			badpc->obj = dst->obj;
+//		} else if (rand2 == 1) {
+//			dst = tagFindById(cmd[5]);
+//			badpc->unk06 = dst->unk06;
+//			badpc->obj = dst->obj;
+//		} else if (rand2 == 2) {
+//			dst = tagFindById(cmd[6]);
+//			badpc->unk06 = dst->unk06;
+//			badpc->obj = dst->obj;
+//		} else {
+//			dst = tagFindById(cmd[7]);
+//			badpc->unk06 = dst->unk06;
+//			badpc->obj = dst->obj;
+//		}
+//	}
+//
+//	g_Vars.aioffset += 9;
+//
+//	return false;
+//}
 
 /**
  * @cmd 0142
