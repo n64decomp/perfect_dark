@@ -435,7 +435,7 @@ u32 var0001674c = 0x00000001;
 u32 var00016750 = 0xffffffff;
 u32 var00016754 = 0xffffffff;
 u32 var00016758 = 0x00000000;
-u32 var0001675c = 0x00000000;
+bool g_8007073c = false;
 u32 var00016760 = 0x00000000;
 u32 var00016764 = 0x00000000;
 u32 var00016768 = 0x00000000;
@@ -446,7 +446,6 @@ bool g_PlayersWithControl[] = {
 };
 
 bool g_PlayerInvincible = false;
-
 u32 var00016784 = 0x00000000;
 u32 var00016788 = 0x001a001c;
 u32 var0001678c = 0x00200021;

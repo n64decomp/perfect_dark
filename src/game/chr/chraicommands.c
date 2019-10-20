@@ -10194,19 +10194,13 @@ glabel ai00f4
 /**
  * @cmd 00f5
  */
-GLOBAL_ASM(
-glabel ai00f5
-/*  f0582f4:	3c03800a */ 	lui	$v1,0x800a
-/*  f0582f8:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0582fc:	3c018007 */ 	lui	$at,0x8007
-/*  f058300:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f058304:	ac2e073c */ 	sw	$t6,0x73c($at)
-/*  f058308:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05830c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f058310:	25f80002 */ 	addiu	$t8,$t7,0x2
-/*  f058314:	03e00008 */ 	jr	$ra
-/*  f058318:	ac780438 */ 	sw	$t8,0x438($v1)
-);
+bool ai00f5(void)
+{
+	g_8007073c = true;
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 00f6
