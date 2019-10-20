@@ -15842,7 +15842,7 @@ glabel func0f00cee4
 .L0f00cfd8:
 /*  f00cfd8:	51c0002d */ 	beqzl	$t6,.L0f00d090
 /*  f00cfdc:	86040006 */ 	lh	$a0,0x6($s0)
-/*  f00cfe0:	0fc0a1dd */ 	jal	func0f028774
+/*  f00cfe0:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f00cfe4:	86040006 */ 	lh	$a0,0x6($s0)
 /*  f00cfe8:	8fa80140 */ 	lw	$t0,0x140($sp)
 /*  f00cfec:	1040019b */ 	beqz	$v0,.L0f00d65c
@@ -16315,7 +16315,7 @@ glabel func0f00d670
 /*  f00d68c:	11e00051 */ 	beqz	$t7,.L0f00d7d4
 /*  f00d690:	24429fc0 */ 	addiu	$v0,$v0,-24640
 /*  f00d694:	84840006 */ 	lh	$a0,0x6($a0)
-/*  f00d698:	0fc0a1dd */ 	jal	func0f028774
+/*  f00d698:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f00d69c:	afa60030 */ 	sw	$a2,0x30($sp)
 /*  f00d6a0:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f00d6a4:	10400093 */ 	beqz	$v0,.L0f00d8f4
@@ -16491,7 +16491,7 @@ glabel func0f00d904
 /*  f00d918:	11e00011 */ 	beqz	$t7,.L0f00d960
 /*  f00d91c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f00d920:	84840006 */ 	lh	$a0,0x6($a0)
-/*  f00d924:	0fc0a1dd */ 	jal	func0f028774
+/*  f00d924:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f00d928:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f00d92c:	8fa60018 */ 	lw	$a2,0x18($sp)
 /*  f00d930:	1040000d */ 	beqz	$v0,.L0f00d968
@@ -18513,7 +18513,7 @@ glabel func0f00f174
 /*  f00f608:	03000008 */ 	jr	$t8
 /*  f00f60c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f00f610:	92500007 */ 	lbu	$s0,0x7($s2)
-/*  f00f614:	0fc0a1dd */ 	jal	func0f028774
+/*  f00f614:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f00f618:	86440004 */ 	lh	$a0,0x4($s2)
 /*  f00f61c:	1040031c */ 	beqz	$v0,.L0f010290
 /*  f00f620:	00000000 */ 	sll	$zero,$zero,0x0
@@ -37649,7 +37649,7 @@ glabel func0f0205ec
 .L0f020630:
 /*  f020630:	00028c00 */ 	sll	$s1,$v0,0x10
 /*  f020634:	00112403 */ 	sra	$a0,$s1,0x10
-/*  f020638:	0fc0a1dd */ 	jal	func0f028774
+/*  f020638:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f02063c:	00808825 */ 	or	$s1,$a0,$zero
 /*  f020640:	5440fff5 */ 	bnezl	$v0,.L0f020618
 /*  f020644:	8e0e0000 */ 	lw	$t6,0x0($s0)
@@ -46738,7 +46738,7 @@ glabel func0f028590
 );
 
 GLOBAL_ASM(
-glabel func0f028774
+glabel chrFindByLiteralId
 /*  f028774:	3c03800a */ 	lui	$v1,0x800a
 /*  f028778:	8c63cd10 */ 	lw	$v1,-0x32f0($v1)
 /*  f02877c:	00803025 */ 	or	$a2,$a0,$zero
@@ -84357,7 +84357,7 @@ glabel chrFindById
 /*  f049b4c:	0fc12604 */ 	jal	chrResolveId
 /*  f049b50:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f049b54:	00402025 */ 	or	$a0,$v0,$zero
-/*  f049b58:	0fc0a1dd */ 	jal	func0f028774
+/*  f049b58:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f049b5c:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f049b60:	10400003 */ 	beqz	$v0,.L0f049b70
 /*  f049b64:	8fa7001c */ 	lw	$a3,0x1c($sp)

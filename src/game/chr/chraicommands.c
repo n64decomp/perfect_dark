@@ -11199,7 +11199,7 @@ glabel ai0120
 /*  f0593c4:	1081002d */ 	beq	$a0,$at,.L0f05947c
 /*  f0593c8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0593cc:
-/*  f0593cc:	0fc0a1dd */ 	jal	func0f028774
+/*  f0593cc:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f0593d0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0593d4:	10400024 */ 	beqz	$v0,.L0f059468
 /*  f0593d8:	00408025 */ 	or	$s0,$v0,$zero
@@ -11543,7 +11543,7 @@ glabel ai0127
 /*  f059970:	c730000c */ 	lwc1	$f16,0xc($t9)
 /*  f059974:	e7b00048 */ 	swc1	$f16,0x48($sp)
 .L0f059978:
-/*  f059978:	0fc0a1dd */ 	jal	func0f028774
+/*  f059978:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f05997c:	86240000 */ 	lh	$a0,0x0($s1)
 /*  f059980:	86280000 */ 	lh	$t0,0x0($s1)
 /*  f059984:	2401fffe */ 	addiu	$at,$zero,-2
@@ -11751,7 +11751,7 @@ glabel ai0128
 /*  f059c68:	118e006f */ 	beq	$t4,$t6,.L0f059e28
 /*  f059c6c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f059c70:
-/*  f059c70:	0fc0a1dd */ 	jal	func0f028774
+/*  f059c70:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f059c74:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f059c78:	10400063 */ 	beqz	$v0,.L0f059e08
 /*  f059c7c:	00408825 */ 	or	$s1,$v0,$zero
@@ -11956,7 +11956,7 @@ glabel ai0129
 /*  f059f50:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f059f54:	c4349d60 */ 	lwc1	$f20,-0x62a0($at)
 .L0f059f58:
-/*  f059f58:	0fc0a1dd */ 	jal	func0f028774
+/*  f059f58:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f059f5c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f059f60:	10400019 */ 	beqz	$v0,.L0f059fc8
 /*  f059f64:	00408025 */ 	or	$s0,$v0,$zero
@@ -12290,7 +12290,7 @@ glabel ai0130
 /*  f05a4dc:	5081003e */ 	beql	$a0,$at,.L0f05a5d8
 /*  f05a4e0:	8fae0094 */ 	lw	$t6,0x94($sp)
 .L0f05a4e4:
-/*  f05a4e4:	0fc0a1dd */ 	jal	func0f028774
+/*  f05a4e4:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f05a4e8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05a4ec:	50400033 */ 	beqzl	$v0,.L0f05a5bc
 /*  f05a4f0:	8fa20088 */ 	lw	$v0,0x88($sp)
@@ -12794,7 +12794,7 @@ glabel func0f05abdc
 bool aiIfChrPropsoundcountZero(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct chrdata *chr = func0f028774(cmd[2]);
+	struct chrdata *chr = chrFindByLiteralId(cmd[2]);
 
 	if (chr && chr->propsoundcount == 0) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -12840,7 +12840,7 @@ glabel ai0131
 /*  f05ad04:	241600ff */ 	addiu	$s6,$zero,0xff
 /*  f05ad08:	24150005 */ 	addiu	$s5,$zero,0x5
 .L0f05ad0c:
-/*  f05ad0c:	0fc0a1dd */ 	jal	func0f028774
+/*  f05ad0c:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f05ad10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05ad14:	10400023 */ 	beqz	$v0,.L0f05ada4
 /*  f05ad18:	00408025 */ 	or	$s0,$v0,$zero
@@ -12959,7 +12959,7 @@ glabel ai0133
 /*  f05aeb0:	24180037 */ 	addiu	$t8,$zero,0x37
 /*  f05aeb4:	84440000 */ 	lh	$a0,0x0($v0)
 .L0f05aeb8:
-/*  f05aeb8:	0fc0a1dd */ 	jal	func0f028774
+/*  f05aeb8:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f05aebc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05aec0:	1040002e */ 	beqz	$v0,.L0f05af7c
 /*  f05aec4:	00408025 */ 	or	$s0,$v0,$zero
@@ -13029,7 +13029,7 @@ glabel ai0133
 /*  f05afb0:	2414000d */ 	addiu	$s4,$zero,0xd
 /*  f05afb4:	2412000e */ 	addiu	$s2,$zero,0xe
 .L0f05afb8:
-/*  f05afb8:	0fc0a1dd */ 	jal	func0f028774
+/*  f05afb8:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f05afbc:	86640000 */ 	lh	$a0,0x0($s3)
 /*  f05afc0:	93a80056 */ 	lbu	$t0,0x56($sp)
 /*  f05afc4:	00408025 */ 	or	$s0,$v0,$zero
@@ -13381,7 +13381,7 @@ glabel ai0137
 /*  f05b448:	84440000 */ 	lh	$a0,0x0($v0)
 /*  f05b44c:	c4349d94 */ 	lwc1	$f20,-0x626c($at)
 .L0f05b450:
-/*  f05b450:	0fc0a1dd */ 	jal	func0f028774
+/*  f05b450:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f05b454:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05b458:	10400023 */ 	beqz	$v0,.L0f05b4e8
 /*  f05b45c:	00408025 */ 	or	$s0,$v0,$zero
@@ -13532,7 +13532,7 @@ glabel ai013a
 /*  f05b654:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f05b658:	86240000 */ 	lh	$a0,0x0($s1)
 .L0f05b65c:
-/*  f05b65c:	0fc0a1dd */ 	jal	func0f028774
+/*  f05b65c:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f05b660:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05b664:	924a0003 */ 	lbu	$t2,0x3($s2)
 /*  f05b668:	00408025 */ 	or	$s0,$v0,$zero
@@ -14121,7 +14121,7 @@ glabel ai0147
 /*  f05befc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05bf00:	84440000 */ 	lh	$a0,0x0($v0)
 .L0f05bf04:
-/*  f05bf04:	0fc0a1dd */ 	jal	func0f028774
+/*  f05bf04:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f05bf08:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05bf0c:	1040000d */ 	beqz	$v0,.L0f05bf44
 /*  f05bf10:	00408025 */ 	or	$s0,$v0,$zero
@@ -14344,7 +14344,7 @@ glabel ai0152
 /*  f05c20c:	2415001f */ 	addiu	$s5,$zero,0x1f
 /*  f05c210:	24140005 */ 	addiu	$s4,$zero,0x5
 .L0f05c214:
-/*  f05c214:	0fc0a1dd */ 	jal	func0f028774
+/*  f05c214:	0fc0a1dd */ 	jal	chrFindByLiteralId
 /*  f05c218:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05c21c:	10400012 */ 	beqz	$v0,.L0f05c268
 /*  f05c220:	00408025 */ 	or	$s0,$v0,$zero
