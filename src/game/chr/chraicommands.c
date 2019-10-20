@@ -10365,22 +10365,13 @@ bool aiAudioSetMusicTrack(void)
 /**
  * @cmd 017e
  */
-GLOBAL_ASM(
-glabel ai017e
-/*  f058640:	3c02800a */ 	lui	$v0,0x800a
-/*  f058644:	24429fc0 */ 	addiu	$v0,$v0,-24640
-/*  f058648:	8c4e0438 */ 	lw	$t6,0x438($v0)
-/*  f05864c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f058650:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f058654:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f058658:	0fc5b7e1 */ 	jal	func0f16df84
-/*  f05865c:	ac4f0438 */ 	sw	$t7,0x438($v0)
-/*  f058660:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f058664:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f058668:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05866c:	03e00008 */ 	jr	$ra
-/*  f058670:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiAudioRestartDefaultMusic(void)
+{
+	g_Vars.aioffset += 2;
+	func0f16df84();
+
+	return false;
+}
 
 /**
  * @cmd 017f
