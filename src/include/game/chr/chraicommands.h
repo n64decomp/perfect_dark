@@ -304,7 +304,7 @@
 /*0x012f*/ bool ai012f(void);
 /*0x0130*/ bool ai0130(void);
 /*0x0131*/ bool ai0131(void);
-/*0x0132*/ bool ai0132(void);
+/*0x0132*/ bool aiSetAction(void);
 /*0x0133*/ bool ai0133(void);
 /*0x0134*/ bool ai0134(void);
 /*0x0135*/ bool ai0135(void);

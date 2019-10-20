@@ -12907,28 +12907,19 @@ glabel ai0131
 /**
  * @cmd 0132
  */
-GLOBAL_ASM(
-glabel ai0132
-/*  f05adf4:	3c03800a */ 	lui	$v1,0x800a
-/*  f05adf8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05adfc:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05ae00:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05ae04:	8c790424 */ 	lw	$t9,0x424($v1)
-/*  f05ae08:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05ae0c:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f05ae10:	a33802a0 */ 	sb	$t8,0x2a0($t9)
-/*  f05ae14:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f05ae18:	55000004 */ 	bnezl	$t0,.L0f05ae2c
-/*  f05ae1c:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f05ae20:	8c690424 */ 	lw	$t1,0x424($v1)
-/*  f05ae24:	a12002a1 */ 	sb	$zero,0x2a1($t1)
-/*  f05ae28:	8c6a0438 */ 	lw	$t2,0x438($v1)
-.L0f05ae2c:
-/*  f05ae2c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05ae30:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f05ae34:	03e00008 */ 	jr	$ra
-/*  f05ae38:	ac6b0438 */ 	sw	$t3,0x438($v1)
-);
+bool aiSetAction(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.chrdata->myaction = cmd[2];
+
+	if (cmd[3] == 0) {
+		g_Vars.chrdata->orders = 0;
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0133
