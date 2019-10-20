@@ -323,7 +323,7 @@
 /*0x0142*/ bool ai0142(void);
 /*0x0143*/ bool ai0143(void);
 /*0x0144*/ bool ai0144(void);
-/*0x0145*/ bool ai0145(void);
+/*0x0145*/ bool aiRebuildTeams(void);
 /*0x0146*/ bool ai0146(void);
 /*0x0147*/ bool ai0147(void);
 /*0x0148*/ bool ai0148(void);

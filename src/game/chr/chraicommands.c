@@ -14070,22 +14070,13 @@ bool ai0144(void)
 /**
  * @cmd 0145
  */
-GLOBAL_ASM(
-glabel ai0145
-/*  f05be38:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05be3c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05be40:	0fc13301 */ 	jal	func0f04cc04
-/*  f05be44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05be48:	3c03800a */ 	lui	$v1,0x800a
-/*  f05be4c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05be50:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f05be54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05be58:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05be5c:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f05be60:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f05be64:	03e00008 */ 	jr	$ra
-/*  f05be68:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiRebuildTeams(void)
+{
+	func0f04cc04();
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 0146
