@@ -23,6 +23,7 @@ extern u16 g_CommandLengths[];
 
 extern struct coord var0000f00c;
 
+extern u32 g_TintedGlassEnabled;
 extern s32 g_AlarmActive;
 
 #endif

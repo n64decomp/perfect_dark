@@ -6,6 +6,7 @@
 #include "game/game_0601b0.h"
 #include "gvars/gvars.h"
 #include "library/library.h"
+#include "setup/setup_000000.h"
 #include "setup/setup_0160b0.h"
 #include "setup/setup_020df0.h"
 
@@ -14298,21 +14299,14 @@ bool aiIfNotListening(void)
 /**
  * @cmd 0157
  */
-GLOBAL_ASM(
-glabel ai0157
-/*  f05c16c:	3c05800a */ 	lui	$a1,0x800a
-/*  f05c170:	24a59fc0 */ 	addiu	$a1,$a1,-24640
-/*  f05c174:	8ca40438 */ 	lw	$a0,0x438($a1)
-/*  f05c178:	8cae0434 */ 	lw	$t6,0x434($a1)
-/*  f05c17c:	3c018007 */ 	lui	$at,0x8007
-/*  f05c180:	24980003 */ 	addiu	$t8,$a0,0x3
-/*  f05c184:	01c41821 */ 	addu	$v1,$t6,$a0
-/*  f05c188:	906f0002 */ 	lbu	$t7,0x2($v1)
-/*  f05c18c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05c190:	ac2f98d0 */ 	sw	$t7,-0x6730($at)
-/*  f05c194:	03e00008 */ 	jr	$ra
-/*  f05c198:	acb80438 */ 	sw	$t8,0x438($a1)
-);
+bool aiSetTintedGlassEnabled(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_TintedGlassEnabled = cmd[2];
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0152

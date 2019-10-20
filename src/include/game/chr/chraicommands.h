@@ -331,7 +331,7 @@
 /*0x014a*/ bool ai014a(void);
 /*0x014b*/ bool aiIfNotListening(void);
 /*0x0152*/ bool ai0152(void);
-/*0x0157*/ bool ai0157(void);
+/*0x0157*/ bool aiSetTintedGlassEnabled(void);
 /*0x015b*/ bool aiAudioPlayMusic(void);
 /*0x015c*/ bool aiAudioRestartMusic(void);
 /*0x0165*/ bool ai0165(void);

@@ -14296,7 +14296,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0154*/ NULL,
 	/*0x0155*/ NULL,
 	/*0x0156*/ NULL,
-	/*0x0157*/ ai0157,
+	/*0x0157*/ aiSetTintedGlassEnabled,
 	/*0x0158*/ NULL,
 	/*0x0159*/ NULL,
 	/*0x015a*/ NULL,
@@ -14939,7 +14939,9 @@ u32 var0000f8e0 = 0x00000000;
 u32 var0000f8e4 = 0x00000000;
 u32 var0000f8e8 = 0x00000000;
 u32 var0000f8ec = 0x00000000;
-u32 var0000f8f0 = 0x00000000;
+
+// f8f0
+u32 g_TintedGlassEnabled = 0;
 
 // f8f4
 s32 g_AlarmActive = 0;
