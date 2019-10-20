@@ -10399,48 +10399,23 @@ bool aiAudioRestartSfx(void)
 /**
  * @cmd 00fb
  */
-GLOBAL_ASM(
-glabel ai00fb
-/*  f0586f0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0586f4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0586f8:	3c10800a */ 	lui	$s0,0x800a
-/*  f0586fc:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f058700:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f058704:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f058708:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05870c:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f058710:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f058714:	0fc126d1 */ 	jal	chrFindById
-/*  f058718:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f05871c:	50400013 */ 	beqzl	$v0,.L0f05876c
-/*  f058720:	8e080438 */ 	lw	$t0,0x438($s0)
-/*  f058724:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f058728:	50600010 */ 	beqzl	$v1,.L0f05876c
-/*  f05872c:	8e080438 */ 	lw	$t0,0x438($s0)
-/*  f058730:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f058734:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f058738:	5701000c */ 	bnel	$t8,$at,.L0f05876c
-/*  f05873c:	8e080438 */ 	lw	$t0,0x438($s0)
-/*  f058740:	8e19028c */ 	lw	$t9,0x28c($s0)
-/*  f058744:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f058748:	0fc4a25f */ 	jal	posGetPlayerNum
-/*  f05874c:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f058750:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f058754:	00402025 */ 	or	$a0,$v0,$zero
-/*  f058758:	0fc2f03c */ 	jal	func0f0bc0f0
-/*  f05875c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f058760:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f058764:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f058768:	8e080438 */ 	lw	$t0,0x438($s0)
-.L0f05876c:
-/*  f05876c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f058770:	00001025 */ 	or	$v0,$zero,$zero
-/*  f058774:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f058778:	ae090438 */ 	sw	$t1,0x438($s0)
-/*  f05877c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f058780:	03e00008 */ 	jr	$ra
-/*  f058784:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+bool aiChrExplosions(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->pos && chr->pos->unk00 == 6) {
+		u32 prevplayernum = g_Vars.currentplayernum;
+		u32 playernum = posGetPlayerNum(chr->pos);
+		setCurrentPlayerNum(playernum);
+		func0f0bc0f0(0);
+		setCurrentPlayerNum(prevplayernum);
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 00fc
