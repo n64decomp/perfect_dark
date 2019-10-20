@@ -14244,6 +14244,30 @@ glabel ai0149
 /*  f05c0d0:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+// Mismatch because chr->listening and cmd[3] registers are loaded to registers
+// in the wrong order. The function is functionally identical though.
+//bool ai0149(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+//
+//	if (cmd[4] == 0) {
+//		if (chr->listening == cmd[3]) {
+//			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+//		} else {
+//			g_Vars.aioffset += 6;
+//		}
+//	} else {
+//		if (g_Vars.chrdata->convtalk == 0) {
+//			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+//		} else {
+//			g_Vars.aioffset += 6;
+//		}
+//	}
+//
+//	return false;
+//}
+
 /**
  * @cmd 014a
  */
