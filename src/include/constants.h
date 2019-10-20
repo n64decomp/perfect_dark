@@ -225,7 +225,7 @@
 #define CHRFLAG3_10000000                    0x10000000 // Not used in scripts
 #define CHRFLAG3_20000000                    0x20000000 // Not used in scripts
 #define CHRFLAG3_40000000                    0x40000000 // Not used in scripts
-#define CHRFLAG3_80000000                    0x80000000 // Not used in scripts
+#define CHRFLAG3_INJURED                     0x80000000
 
 #define CMD_LABEL 0x0002
 #define CMD_END   0x0004

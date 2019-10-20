@@ -334,7 +334,7 @@
 /*0x0157*/ bool aiSetTintedGlassEnabled(void);
 /*0x015b*/ bool aiAudioPlayMusic(void);
 /*0x015c*/ bool aiAudioRestartMusic(void);
-/*0x0165*/ bool ai0165(void);
+/*0x0165*/ bool aiIfChrInjured(void);
 /*0x0166*/ bool ai0166(void);
 /*0x0167*/ bool ai0167(void);
 /*0x0168*/ bool ai0168(void);
