@@ -14171,38 +14171,19 @@ glabel ai0147
 /**
  * @cmd 0148
  */
-GLOBAL_ASM(
-glabel ai0148
-/*  f05bfa8:	3c03800a */ 	lui	$v1,0x800a
-/*  f05bfac:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05bfb0:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05bfb4:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05bfb8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05bfbc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05bfc0:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f05bfc4:	90c50002 */ 	lbu	$a1,0x2($a2)
-/*  f05bfc8:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f05bfcc:	0fc126d1 */ 	jal	chrFindById
-/*  f05bfd0:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05bfd4:	3c03800a */ 	lui	$v1,0x800a
-/*  f05bfd8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05bfdc:	10400006 */ 	beqz	$v0,.L0f05bff8
-/*  f05bfe0:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f05bfe4:	905802a3 */ 	lbu	$t8,0x2a3($v0)
-/*  f05bfe8:	57000004 */ 	bnezl	$t8,.L0f05bffc
-/*  f05bfec:	8c680438 */ 	lw	$t0,0x438($v1)
-/*  f05bff0:	90d90003 */ 	lbu	$t9,0x3($a2)
-/*  f05bff4:	a05902a3 */ 	sb	$t9,0x2a3($v0)
-.L0f05bff8:
-/*  f05bff8:	8c680438 */ 	lw	$t0,0x438($v1)
-.L0f05bffc:
-/*  f05bffc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05c000:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05c004:	25090004 */ 	addiu	$t1,$t0,0x4
-/*  f05c008:	ac690438 */ 	sw	$t1,0x438($v1)
-/*  f05c00c:	03e00008 */ 	jr	$ra
-/*  f05c010:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrSetListening(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->listening == 0) {
+		chr->listening = cmd[3];
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0149

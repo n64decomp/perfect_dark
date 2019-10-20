@@ -326,7 +326,7 @@
 /*0x0145*/ bool aiRebuildTeams(void);
 /*0x0146*/ bool aiRebuildSquadrons(void);
 /*0x0147*/ bool ai0147(void);
-/*0x0148*/ bool ai0148(void);
+/*0x0148*/ bool aiChrSetListening(void);
 /*0x0149*/ bool ai0149(void);
 /*0x014a*/ bool ai014a(void);
 /*0x014b*/ bool ai014b(void);
