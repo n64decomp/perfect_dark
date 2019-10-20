@@ -14271,24 +14271,13 @@ glabel ai0149
 /**
  * @cmd 014a
  */
-GLOBAL_ASM(
-glabel ai014a
-/*  f05c0d4:	3c03800a */ 	lui	$v1,0x800a
-/*  f05c0d8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05c0dc:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05c0e0:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05c0e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05c0e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05c0ec:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f05c0f0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05c0f4:	90460005 */ 	lbu	$a2,0x5($v0)
-/*  f05c0f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05c0fc:	3c01800a */ 	lui	$at,0x800a
-/*  f05c100:	ac22a3f8 */ 	sw	$v0,-0x5c08($at)
-/*  f05c104:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05c108:	03e00008 */ 	jr	$ra
-/*  f05c10c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool ai014a(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+
+	return false;
+}
 
 /**
  * @cmd 014b
