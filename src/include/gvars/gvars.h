@@ -187,7 +187,7 @@ struct g_vars {
 	/*0002a4*/ struct player *coop; // Co-op buddy when controlled by human
 	/*0002a8*/ struct player *anti; // Counter-op
 	/*0002ac*/ u32 unk0002ac;
-	/*0002b0*/ u32 unk0002b0;
+	/*0002b0*/ s32 killcount;
 	/*0002b4*/ u32 unk0002b4;
 	/*0002b8*/ u32 unk0002b8;
 	/*0002bc*/ u32 unk0002bc;

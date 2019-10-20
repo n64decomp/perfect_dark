@@ -252,7 +252,7 @@
 /*0x00f9*/ bool aiAudioPlayXMusic(void);
 /*0x00fa*/ bool aiAudioStopChannel(void);
 /*0x00fb*/ bool aiChrExplosions(void);
-/*0x00fc*/ bool ai00fc(void);
+/*0x00fc*/ bool aiIfKillCountGreaterThan(void);
 /*0x00fd*/ bool ai00fd(void);
 /*0x00fe*/ bool ai00fe(void);
 /*0x00ff*/ bool ai00ff(void);
