@@ -449,6 +449,7 @@
 #define OBJTYPE_WEAPON        0x08
 #define OBJTYPE_SINGLEMONITOR 0x0a
 #define OBJTYPE_MULTIMONITOR  0x0b
+#define OBJTYPE_AUTOGUN       0x0d
 #define OBJTYPE_LIFT          0x30
 
 #define OPERATOR_LESS_THAN    0

@@ -14393,7 +14393,7 @@ bool (*command_pointers[])(void) = {
 	/*0x01b5*/ ai01b5,
 	/*0x01b6*/ aiConfigureSnow,
 	/*0x01b7*/ ai01b7,
-	/*0x01b8*/ ai01b8,
+	/*0x01b8*/ aiSetAutogunType,
 	/*0x01b9*/ ai01b9,
 	/*0x01ba*/ ai01ba,
 	/*0x01bb*/ ai01bb,

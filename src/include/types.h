@@ -392,6 +392,30 @@ struct multimonitorobj { // objtype 0b
 	struct singlemonitorobj subobjs[4];
 };
 
+struct autogunobj { // objtype 0d
+	struct defaultobj base;
+	/*0x5c*/ u32 unk5c;
+	/*0x60*/ u32 unk60;
+	/*0x64*/ u32 unk64;
+	/*0x68*/ u32 unk68;
+	/*0x6c*/ u32 unk6c;
+	/*0x70*/ u32 unk70;
+	/*0x74*/ u32 unk74;
+	/*0x78*/ u32 unk78;
+	/*0x7c*/ u32 unk7c;
+	/*0x80*/ u32 unk80;
+	/*0x84*/ u32 unk84;
+	/*0x88*/ u32 unk88;
+	/*0x8c*/ u32 unk8c;
+	/*0x90*/ u32 unk90;
+	/*0x94*/ u32 unk94;
+	/*0x98*/ u32 unk98;
+	/*0x9c*/ u32 unk9c;
+	/*0xa0*/ u32 unka0;
+	/*0xa4*/ u32 unka4;
+	/*0xa8*/ u8 autogun_type;
+};
+
 struct liftobj {
 	struct defaultobj base;
 	/*0x5c*/ u32 unk5c;

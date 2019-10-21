@@ -16717,42 +16717,21 @@ glabel ai01b7
 /**
  * @cmd 01b8
  */
-GLOBAL_ASM(
-glabel ai01b8
-/*  f05e914:	3c05800a */ 	lui	$a1,0x800a
-/*  f05e918:	24a59fc0 */ 	addiu	$a1,$a1,-24640
-/*  f05e91c:	8cae0434 */ 	lw	$t6,0x434($a1)
-/*  f05e920:	8caf0438 */ 	lw	$t7,0x438($a1)
-/*  f05e924:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05e928:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05e92c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05e930:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f05e934:	0fc2556c */ 	jal	objFindByTagId
-/*  f05e938:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f05e93c:	3c05800a */ 	lui	$a1,0x800a
-/*  f05e940:	24a59fc0 */ 	addiu	$a1,$a1,-24640
-/*  f05e944:	1040000b */ 	beqz	$v0,.L0f05e974
-/*  f05e948:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f05e94c:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f05e950:	53000009 */ 	beqzl	$t8,.L0f05e978
-/*  f05e954:	8ca90438 */ 	lw	$t1,0x438($a1)
-/*  f05e958:	90590003 */ 	lbu	$t9,0x3($v0)
-/*  f05e95c:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f05e960:	57210005 */ 	bnel	$t9,$at,.L0f05e978
-/*  f05e964:	8ca90438 */ 	lw	$t1,0x438($a1)
-/*  f05e968:	90680003 */ 	lbu	$t0,0x3($v1)
-/*  f05e96c:	ac4000a4 */ 	sw	$zero,0xa4($v0)
-/*  f05e970:	a04800a8 */ 	sb	$t0,0xa8($v0)
-.L0f05e974:
-/*  f05e974:	8ca90438 */ 	lw	$t1,0x438($a1)
-.L0f05e978:
-/*  f05e978:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05e97c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05e980:	252a0004 */ 	addiu	$t2,$t1,0x4
-/*  f05e984:	acaa0438 */ 	sw	$t2,0x438($a1)
-/*  f05e988:	03e00008 */ 	jr	$ra
-/*  f05e98c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetAutogunType(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos && obj->type == OBJTYPE_AUTOGUN) {
+		struct autogunobj *autogun = (struct autogunobj *)obj;
+		autogun->autogun_type = cmd[3];
+		autogun->unka4 = 0;
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 01b9

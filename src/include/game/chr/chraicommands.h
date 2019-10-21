@@ -403,7 +403,7 @@
 /*0x01b5*/ bool ai01b5(void);
 /*0x01b6*/ bool aiConfigureSnow(void);
 /*0x01b7*/ bool ai01b7(void);
-/*0x01b8*/ bool ai01b8(void);
+/*0x01b8*/ bool aiSetAutogunType(void);
 /*0x01b9*/ bool ai01b9(void);
 /*0x01ba*/ bool ai01ba(void);
 /*0x01bb*/ bool ai01bb(void);
