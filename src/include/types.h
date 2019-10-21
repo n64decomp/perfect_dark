@@ -185,7 +185,7 @@ struct chrdata {
 	/*0x2b8*/ u16 oldrooms[8];
 	/*0x2c8*/ struct coord runfrompos;
 	/*0x2d4*/ u32 unk2d4;
-	/*0x2d8*/ u16 blurdrugamount;
+	/*0x2d8*/ s16 blurdrugamount;
 	/*0x2da*/ u16 cloakpause;
 	/*0x2dc*/ u32 drugheadsway;
 	/*0x2e0*/ u8 drugheadcount;

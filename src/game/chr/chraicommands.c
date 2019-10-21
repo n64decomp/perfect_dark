@@ -14576,45 +14576,23 @@ bool ai016c(void)
 /**
  * @cmd 016d
  */
-GLOBAL_ASM(
-glabel ai016d
-/*  f05c630:	3c06800a */ 	lui	$a2,0x800a
-/*  f05c634:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f05c638:	8cce0434 */ 	lw	$t6,0x434($a2)
-/*  f05c63c:	8ccf0438 */ 	lw	$t7,0x438($a2)
-/*  f05c640:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05c644:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05c648:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05c64c:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f05c650:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f05c654:	0fc126d1 */ 	jal	chrFindById
-/*  f05c658:	8cc40424 */ 	lw	$a0,0x424($a2)
-/*  f05c65c:	3c06800a */ 	lui	$a2,0x800a
-/*  f05c660:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f05c664:	1040000d */ 	beqz	$v0,.L0f05c69c
-/*  f05c668:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f05c66c:	90780004 */ 	lbu	$t8,0x4($v1)
-/*  f05c670:	57000007 */ 	bnezl	$t8,.L0f05c690
-/*  f05c674:	844a02d8 */ 	lh	$t2,0x2d8($v0)
-/*  f05c678:	845902d8 */ 	lh	$t9,0x2d8($v0)
-/*  f05c67c:	90680003 */ 	lbu	$t0,0x3($v1)
-/*  f05c680:	03284823 */ 	subu	$t1,$t9,$t0
-/*  f05c684:	10000005 */ 	beqz	$zero,.L0f05c69c
-/*  f05c688:	a44902d8 */ 	sh	$t1,0x2d8($v0)
-/*  f05c68c:	844a02d8 */ 	lh	$t2,0x2d8($v0)
-.L0f05c690:
-/*  f05c690:	906b0003 */ 	lbu	$t3,0x3($v1)
-/*  f05c694:	014b6021 */ 	addu	$t4,$t2,$t3
-/*  f05c698:	a44c02d8 */ 	sh	$t4,0x2d8($v0)
-.L0f05c69c:
-/*  f05c69c:	8ccd0438 */ 	lw	$t5,0x438($a2)
-/*  f05c6a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05c6a4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05c6a8:	25ae0005 */ 	addiu	$t6,$t5,0x5
-/*  f05c6ac:	acce0438 */ 	sw	$t6,0x438($a2)
-/*  f05c6b0:	03e00008 */ 	jr	$ra
-/*  f05c6b4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrAdjustMotionBlur(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr) {
+		if (cmd[4] == 0) {
+			chr->blurdrugamount -= cmd[3];
+		} else {
+			chr->blurdrugamount += cmd[3];
+		}
+	}
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 016e

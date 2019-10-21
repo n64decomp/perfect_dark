@@ -342,7 +342,7 @@
 /*0x016a*/ bool aiIfY(void);
 /*0x016b*/ bool ai016b(void);
 /*0x016c*/ bool ai016c(void);
-/*0x016d*/ bool ai016d(void);
+/*0x016d*/ bool aiChrAdjustMotionBlur(void);
 /*0x016e*/ bool ai016e(void);
 /*0x016f*/ bool ai016f(void);
 /*0x0170*/ bool ai0170(void);
