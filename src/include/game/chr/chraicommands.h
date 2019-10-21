@@ -369,7 +369,7 @@
 /*0x0185*/ bool ai0185(void);
 /*0x0186*/ bool aiIfSoundTimer(void);
 /*0x0187*/ bool ai0187(void);
-/*0x0188*/ bool ai0188(void);
+/*0x0188*/ bool aiIfLiftStationary(void);
 /*0x0189*/ bool ai0189(void);
 /*0x018a*/ bool ai018a(void);
 /*0x018b*/ bool ai018b(void);

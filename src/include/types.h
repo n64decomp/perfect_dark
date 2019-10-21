@@ -392,6 +392,17 @@ struct multimonitorobj { // objtype 0b
 	struct singlemonitorobj subobjs[4];
 };
 
+struct liftobj {
+	struct defaultobj base;
+	/*0x5c*/ u32 unk5c;
+	/*0x60*/ u32 unk60;
+	/*0x64*/ u32 unk64;
+	/*0x68*/ u32 unk68;
+	/*0x6c*/ u32 unk6c;
+	/*0x70*/ u32 unk70;
+	/*0x74*/ float unk74;
+};
+
 struct tag {
 	// These three words are possibly the same values as defined in the setup
 	// file, but this just a guess.
