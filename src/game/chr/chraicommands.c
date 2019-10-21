@@ -15419,37 +15419,19 @@ bool aiChrToggleProp(void)
 /**
  * @cmd 018d
  */
-GLOBAL_ASM(
-glabel ai018d
-/*  f05d4d4:	3c02800a */ 	lui	$v0,0x800a
-/*  f05d4d8:	24429fc0 */ 	addiu	$v0,$v0,-24640
-/*  f05d4dc:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f05d4e0:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f05d4e4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05d4e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d4ec:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05d4f0:	90640003 */ 	lbu	$a0,0x3($v1)
-/*  f05d4f4:	0fc2556c */ 	jal	objFindByTagId
-/*  f05d4f8:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f05d4fc:	10400007 */ 	beqz	$v0,.L0f05d51c
-/*  f05d500:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f05d504:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f05d508:	13000004 */ 	beqz	$t8,.L0f05d51c
-/*  f05d50c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d510:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f05d514:	0fc1c38b */ 	jal	func0f070e2c
-/*  f05d518:	90650002 */ 	lbu	$a1,0x2($v1)
-.L0f05d51c:
-/*  f05d51c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d520:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d524:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f05d528:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05d52c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05d530:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f05d534:	ac680438 */ 	sw	$t0,0x438($v1)
-/*  f05d538:	03e00008 */ 	jr	$ra
-/*  f05d53c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiActivateLift(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[3]);
+
+	if (obj && obj->pos) {
+		func0f070e2c(obj->pos, cmd[2]);
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 018e
