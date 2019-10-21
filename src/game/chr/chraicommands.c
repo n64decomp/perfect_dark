@@ -15378,27 +15378,14 @@ glabel ai018a
 /**
  * @cmd 018b
  */
-GLOBAL_ASM(
-glabel ai018b
-/*  f05d3d8:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d3dc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d3e0:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05d3e4:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d3e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05d3ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d3f0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05d3f4:	0fc4ca6f */ 	jal	func0f1329bc
-/*  f05d3f8:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f05d3fc:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d400:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d404:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f05d408:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05d40c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05d410:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f05d414:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f05d418:	03e00008 */ 	jr	$ra
-/*  f05d41c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiConfigureRain(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	func0f1329bc(cmd[2]);
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 01b6
