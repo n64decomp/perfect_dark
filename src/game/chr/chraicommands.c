@@ -15183,32 +15183,14 @@ bool ai0183(void)
 /**
  * @cmd 0184
  */
-GLOBAL_ASM(
-glabel ai0184
-/*  f05d004:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d008:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d00c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05d010:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d014:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05d018:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05d01c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05d020:	90580003 */ 	lbu	$t8,0x3($v0)
-/*  f05d024:	90470002 */ 	lbu	$a3,0x2($v0)
-/*  f05d028:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05d02c:	24050200 */ 	addiu	$a1,$zero,0x200
-/*  f05d030:	00003025 */ 	or	$a2,$zero,$zero
-/*  f05d034:	0fc0e8fb */ 	jal	func0f03a3ec
-/*  f05d038:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f05d03c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d040:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d044:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f05d048:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f05d04c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05d050:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f05d054:	ac680438 */ 	sw	$t0,0x438($v1)
-/*  f05d058:	03e00008 */ 	jr	$ra
-/*  f05d05c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai0184(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	func0f03a3ec(g_Vars.chrdata, 512, 0, cmd[2], cmd[3]);
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0186

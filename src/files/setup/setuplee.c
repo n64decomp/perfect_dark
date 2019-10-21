@@ -3014,7 +3014,7 @@ u8 func0421_bridge_skedar[] = {
 	goto_next(0xca)
 
 	// Unreachable
-	cmd0184(0x5a64)
+	cmd0184(90, 100)
 
 	// Reachable from below
 	beginloop(0xcb)
@@ -3083,7 +3083,7 @@ u8 func0421_bridge_skedar[] = {
 	goto_next(0x2c)
 
 	label(0x60)
-	cmd0184(0x283c)
+	cmd0184(40, 60)
 	dprint 'F','I','R','E',' ','F','U','L','L','\n',0,
 	label(0x06)
 	goto_first(0xcb)

@@ -1640,13 +1640,13 @@ u8 func0007_alerted[] = {
 	if_rand_lt(10, /*goto*/ 0x57)
 	if_rand_gt(64, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_00000010, FALSE, BANK_1, /*goto*/ 0x13)
-	cmd0184(0x5a64)
+	cmd0184(90, 100)
 	set_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	goto_next(0x60)
 
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000004, FALSE, BANK_1, /*goto*/ 0x13)
-	cmd0184(0x141e)
+	cmd0184(20, 30)
 	goto_next(0x60)
 
 	label(0x13)
@@ -1990,13 +1990,13 @@ u8 func0007_alerted[] = {
 	if_rand_lt(10, /*goto*/ 0x57)
 	if_rand_gt(64, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_00000010, FALSE, BANK_1, /*goto*/ 0x13)
-	cmd0184(0x5a64)
+	cmd0184(90, 100)
 	set_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	goto_next(0x43)
 
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000004, FALSE, BANK_1, /*goto*/ 0x13)
-	cmd0184(0x141e)
+	cmd0184(20, 30)
 	goto_next(0x43)
 
 	label(0x13)
@@ -2326,13 +2326,13 @@ u8 func0007_alerted[] = {
 	if_rand_lt(10, /*goto*/ 0x57)
 	if_rand_gt(64, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_00000010, FALSE, BANK_1, /*goto*/ 0x13)
-	cmd0184(0x5a64)
+	cmd0184(90, 100)
 	set_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	goto_next(0x44)
 
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000004, FALSE, BANK_1, /*goto*/ 0x13)
-	cmd0184(0x141e)
+	cmd0184(20, 30)
 	goto_next(0x44)
 
 	label(0x13)
@@ -3179,13 +3179,13 @@ u8 func000c_combat_with_target_chr[] = {
 	call_rng
 	if_rand_gt(64, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_00000010, FALSE, BANK_1, /*goto*/ 0x13)
-	cmd0184(0x5a64)
+	cmd0184(90, 100)
 	set_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	goto_next(0xc3)
 
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000004, FALSE, BANK_1, /*goto*/ 0x13)
-	cmd0184(0x141e)
+	cmd0184(20, 30)
 	goto_next(0xc3)
 
 	label(0x13)

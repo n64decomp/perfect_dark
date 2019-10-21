@@ -1536,19 +1536,20 @@
 // aimendrshoulder, aimendback and amendsideback.
 //
 // Called with values:
-// 0x5a64 (23140)
-// 0x283c (10300)
-// 0x141e (5150)
+// 90, 100
+// 40, 60
+// 20, 30
 //
 // Used by:
-// Attack Ship - Bridge skedar (with 0x283c)
-// Ruins - Reaper and Slayer skedar (with 0x283c)
-// globals.s - with values 0x5a64 and 0x141e
+// Attack Ship - Bridge skedar (with 40,60)
+// Ruins - Reaper and Slayer skedar (with 40,60)
+// globals.s - with values 90,100 and 20,30
 //
 // Sometimes accompanied with dprint "FIRE FULL"
-#define cmd0184(u1) \
+#define cmd0184(u1, u2) \
 	mkshort(0x0184), \
-	mkshort(u1),
+	u1, \
+	u2,
 
 // The rom address for this command is not a valid function entry...?
 #define cmd0185_mponly \
