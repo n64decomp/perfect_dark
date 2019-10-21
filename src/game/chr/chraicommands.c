@@ -17151,25 +17151,14 @@ bool ai01c5(void)
 /**
  * @cmd 01c8
  */
-GLOBAL_ASM(
-glabel ai01c8
-/*  f05ef98:	3c05800a */ 	lui	$a1,0x800a
-/*  f05ef9c:	24a59fc0 */ 	addiu	$a1,$a1,-24640
-/*  f05efa0:	8ca20438 */ 	lw	$v0,0x438($a1)
-/*  f05efa4:	8cae0434 */ 	lw	$t6,0x434($a1)
-/*  f05efa8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05efac:	244f0003 */ 	addiu	$t7,$v0,0x3
-/*  f05efb0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05efb4:	acaf0438 */ 	sw	$t7,0x438($a1)
-/*  f05efb8:	01c21821 */ 	addu	$v1,$t6,$v0
-/*  f05efbc:	0fc06b2a */ 	jal	func0f01aca8
-/*  f05efc0:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f05efc4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05efc8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05efcc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05efd0:	03e00008 */ 	jr	$ra
-/*  f05efd4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai01c8(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.aioffset += 3;
+	func0f01aca8(cmd[2]);
+
+	return false;
+}
 
 /**
  * @cmd 01c9
