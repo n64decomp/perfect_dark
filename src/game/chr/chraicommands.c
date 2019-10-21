@@ -15197,52 +15197,20 @@ bool ai0184(void)
 /**
  * @cmd 0186
  */
-GLOBAL_ASM(
-glabel ai0186
-/*  f05d060:	3c07800a */ 	lui	$a3,0x800a
-/*  f05d064:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f05d068:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f05d06c:	8ce50438 */ 	lw	$a1,0x438($a3)
-/*  f05d070:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f05d074:	8ce90424 */ 	lw	$t1,0x424($a3)
-/*  f05d078:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d07c:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f05d080:	01c51021 */ 	addu	$v0,$t6,$a1
-/*  f05d084:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f05d088:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f05d08c:	8d240120 */ 	lw	$a0,0x120($t1)
-/*  f05d090:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f05d094:	03281825 */ 	or	$v1,$t9,$t0
-/*  f05d098:	0064082a */ 	slt	$at,$v1,$a0
-/*  f05d09c:	50200004 */ 	beqzl	$at,.L0f05d0b0
-/*  f05d0a0:	0083082a */ 	slt	$at,$a0,$v1
-/*  f05d0a4:	904a0004 */ 	lbu	$t2,0x4($v0)
-/*  f05d0a8:	11400007 */ 	beqz	$t2,.L0f05d0c8
-/*  f05d0ac:	0083082a */ 	slt	$at,$a0,$v1
-.L0f05d0b0:
-/*  f05d0b0:	1020000c */ 	beqz	$at,.L0f05d0e4
-/*  f05d0b4:	24ac0006 */ 	addiu	$t4,$a1,0x6
-/*  f05d0b8:	904b0004 */ 	lbu	$t3,0x4($v0)
-/*  f05d0bc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f05d0c0:	55610009 */ 	bnel	$t3,$at,.L0f05d0e8
-/*  f05d0c4:	acec0438 */ 	sw	$t4,0x438($a3)
-.L0f05d0c8:
-/*  f05d0c8:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f05d0cc:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05d0d0:	90460005 */ 	lbu	$a2,0x5($v0)
-/*  f05d0d4:	3c07800a */ 	lui	$a3,0x800a
-/*  f05d0d8:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f05d0dc:	10000002 */ 	beqz	$zero,.L0f05d0e8
-/*  f05d0e0:	ace20438 */ 	sw	$v0,0x438($a3)
-.L0f05d0e4:
-/*  f05d0e4:	acec0438 */ 	sw	$t4,0x438($a3)
-.L0f05d0e8:
-/*  f05d0e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05d0ec:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f05d0f0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05d0f4:	03e00008 */ 	jr	$ra
-/*  f05d0f8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfSoundTimer(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s32 value = cmd[3] | (cmd[2] << 8);
+
+	if ((g_Vars.chrdata->soundtimer > value && cmd[4] == 0) ||
+			(g_Vars.chrdata->soundtimer < value && cmd[4] == 1)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	} else {
+		g_Vars.aioffset += 6;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0187
