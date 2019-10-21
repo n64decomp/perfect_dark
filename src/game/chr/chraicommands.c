@@ -18186,27 +18186,14 @@ bool aiChrKill(void)
 /**
  * @cmd 01dc
  */
-GLOBAL_ASM(
-glabel ai01dc
-/*  f05ff58:	3c03800a */ 	lui	$v1,0x800a
-/*  f05ff5c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05ff60:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05ff64:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05ff68:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05ff6c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05ff70:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05ff74:	0fc447a9 */ 	jal	func0f111ea4
-/*  f05ff78:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f05ff7c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05ff80:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05ff84:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f05ff88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05ff8c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05ff90:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f05ff94:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f05ff98:	03e00008 */ 	jr	$ra
-/*  f05ff9c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiRemoveWeaponFromInventory(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	func0f111ea4(cmd[2]);
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 01dd
