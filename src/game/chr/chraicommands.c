@@ -15300,41 +15300,19 @@ bool aiIfLiftStationary(void)
 /**
  * @cmd 0189
  */
-GLOBAL_ASM(
-glabel ai0189
-/*  f05d290:	3c02800a */ 	lui	$v0,0x800a
-/*  f05d294:	24429fc0 */ 	addiu	$v0,$v0,-24640
-/*  f05d298:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f05d29c:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f05d2a0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05d2a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d2a8:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05d2ac:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f05d2b0:	0fc2556c */ 	jal	objFindByTagId
-/*  f05d2b4:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f05d2b8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f05d2bc:	1040000a */ 	beqz	$v0,.L0f05d2e8
-/*  f05d2c0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05d2c4:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f05d2c8:	13000007 */ 	beqz	$t8,.L0f05d2e8
-/*  f05d2cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d2d0:	90590003 */ 	lbu	$t9,0x3($v0)
-/*  f05d2d4:	24010030 */ 	addiu	$at,$zero,0x30
-/*  f05d2d8:	17210003 */ 	bne	$t9,$at,.L0f05d2e8
-/*  f05d2dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d2e0:	0fc1c43b */ 	jal	func0f0710ec
-/*  f05d2e4:	90650003 */ 	lbu	$a1,0x3($v1)
-.L0f05d2e8:
-/*  f05d2e8:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d2ec:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d2f0:	8c680438 */ 	lw	$t0,0x438($v1)
-/*  f05d2f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05d2f8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05d2fc:	25090004 */ 	addiu	$t1,$t0,0x4
-/*  f05d300:	ac690438 */ 	sw	$t1,0x438($v1)
-/*  f05d304:	03e00008 */ 	jr	$ra
-/*  f05d308:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai0189(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos && obj->type == OBJTYPE_LIFT) {
+		func0f0710ec(obj, cmd[3]);
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 018a
