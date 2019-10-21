@@ -15402,37 +15402,19 @@ bool aiConfigureSnow(void)
 /**
  * @cmd 018c
  */
-GLOBAL_ASM(
-glabel ai018c
-/*  f05d468:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d46c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d470:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05d474:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d478:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05d47c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d480:	01cf3021 */ 	addu	$a2,$t6,$t7
-/*  f05d484:	90c50002 */ 	lbu	$a1,0x2($a2)
-/*  f05d488:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f05d48c:	0fc126d1 */ 	jal	chrFindById
-/*  f05d490:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05d494:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d498:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d49c:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f05d4a0:	10400005 */ 	beqz	$v0,.L0f05d4b8
-/*  f05d4a4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05d4a8:	0fc133e4 */ 	jal	func0f04cf90
-/*  f05d4ac:	90c50003 */ 	lbu	$a1,0x3($a2)
-/*  f05d4b0:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d4b4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-.L0f05d4b8:
-/*  f05d4b8:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f05d4bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05d4c0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05d4c4:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f05d4c8:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f05d4cc:	03e00008 */ 	jr	$ra
-/*  f05d4d0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrToggleProp(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr) {
+		func0f04cf90(chr, cmd[3]);
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 018d

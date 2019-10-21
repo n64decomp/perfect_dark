@@ -373,7 +373,7 @@
 /*0x0189*/ bool ai0189(void);
 /*0x018a*/ bool ai018a(void);
 /*0x018b*/ bool aiConfigureRain(void);
-/*0x018c*/ bool ai018c(void);
+/*0x018c*/ bool aiChrToggleProp(void);
 /*0x018d*/ bool ai018d(void);
 /*0x018e*/ bool ai018e(void);
 /*0x018f*/ bool ai018f(void);

@@ -14349,7 +14349,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0189*/ ai0189,
 	/*0x018a*/ ai018a,
 	/*0x018b*/ aiConfigureRain,
-	/*0x018c*/ ai018c,
+	/*0x018c*/ aiChrToggleProp,
 	/*0x018d*/ ai018d,
 	/*0x018e*/ ai018e,
 	/*0x018f*/ ai018f,
