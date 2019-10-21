@@ -14689,49 +14689,19 @@ glabel ai016e
 /**
  * @cmd 016f
  */
-GLOBAL_ASM(
-glabel ai016f
-/*  f05c800:	3c03800a */ 	lui	$v1,0x800a
-/*  f05c804:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05c808:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05c80c:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05c810:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05c814:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05c818:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f05c81c:	90e50002 */ 	lbu	$a1,0x2($a3)
-/*  f05c820:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f05c824:	0fc126d1 */ 	jal	chrFindById
-/*  f05c828:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05c82c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05c830:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05c834:	1040000f */ 	beqz	$v0,.L0f05c874
-/*  f05c838:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05c83c:	8c580020 */ 	lw	$t8,0x20($v0)
-/*  f05c840:	5300000d */ 	beqzl	$t8,.L0f05c878
-/*  f05c844:	8c680438 */ 	lw	$t0,0x438($v1)
-/*  f05c848:	8c590300 */ 	lw	$t9,0x300($v0)
-/*  f05c84c:	5720000a */ 	bnezl	$t9,.L0f05c878
-/*  f05c850:	8c680438 */ 	lw	$t0,0x438($v1)
-/*  f05c854:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05c858:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05c85c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05c860:	90e60004 */ 	lbu	$a2,0x4($a3)
-/*  f05c864:	3c03800a */ 	lui	$v1,0x800a
-/*  f05c868:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05c86c:	10000004 */ 	beqz	$zero,.L0f05c880
-/*  f05c870:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05c874:
-/*  f05c874:	8c680438 */ 	lw	$t0,0x438($v1)
-.L0f05c878:
-/*  f05c878:	25090005 */ 	addiu	$t1,$t0,0x5
-/*  f05c87c:	ac690438 */ 	sw	$t1,0x438($v1)
-.L0f05c880:
-/*  f05c880:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05c884:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05c888:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05c88c:	03e00008 */ 	jr	$ra
-/*  f05c890:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfChrHasGun(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->unk020 && chr->gungroundpos == NULL) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0170
