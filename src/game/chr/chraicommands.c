@@ -17488,38 +17488,19 @@ glabel ai01d0
 /**
  * @cmd 01d1
  */
-GLOBAL_ASM(
-glabel ai01d1
-/*  f05f51c:	3c02800a */ 	lui	$v0,0x800a
-/*  f05f520:	24429fc0 */ 	addiu	$v0,$v0,-24640
-/*  f05f524:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f05f528:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f05f52c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05f530:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05f534:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05f538:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f05f53c:	0fc2556c */ 	jal	objFindByTagId
-/*  f05f540:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f05f544:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f05f548:	10400007 */ 	beqz	$v0,.L0f05f568
-/*  f05f54c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05f550:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f05f554:	13000004 */ 	beqz	$t8,.L0f05f568
-/*  f05f558:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05f55c:	90650003 */ 	lbu	$a1,0x3($v1)
-/*  f05f560:	0fc24761 */ 	jal	func0f091d84
-/*  f05f564:	90660004 */ 	lbu	$a2,0x4($v1)
-.L0f05f568:
-/*  f05f568:	3c03800a */ 	lui	$v1,0x800a
-/*  f05f56c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05f570:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f05f574:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05f578:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05f57c:	27280005 */ 	addiu	$t0,$t9,0x5
-/*  f05f580:	ac680438 */ 	sw	$t0,0x438($v1)
-/*  f05f584:	03e00008 */ 	jr	$ra
-/*  f05f588:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetObjPartVisible(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos) {
+		func0f091d84(obj, cmd[3], cmd[4]);
+	}
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 01d2

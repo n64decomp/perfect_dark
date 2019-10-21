@@ -14418,7 +14418,7 @@ bool (*command_pointers[])(void) = {
 	/*0x01ce*/ ai01ce,
 	/*0x01cf*/ ai01cf,
 	/*0x01d0*/ ai01d0,
-	/*0x01d1*/ ai01d1,
+	/*0x01d1*/ aiSetObjPartVisible,
 	/*0x01d2*/ ai01d2,
 	/*0x01d3*/ ai01d3,
 	/*0x01d4*/ ai01d4,

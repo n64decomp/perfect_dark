@@ -428,7 +428,7 @@
 /*0x01ce*/ bool ai01ce(void);
 /*0x01cf*/ bool ai01cf(void);
 /*0x01d0*/ bool ai01d0(void);
-/*0x01d1*/ bool ai01d1(void);
+/*0x01d1*/ bool aiSetObjPartVisible(void);
 /*0x01d2*/ bool ai01d2(void);
 /*0x01d3*/ bool ai01d3(void);
 /*0x01d4*/ bool ai01d4(void);
