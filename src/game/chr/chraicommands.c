@@ -15163,6 +15163,8 @@ bool aiPunchOrKick(void)
 	return false;
 }
 
+struct targetsomething *func0f028884(struct chrdata *chr);
+
 /**
  * @cmd 0183
  */
