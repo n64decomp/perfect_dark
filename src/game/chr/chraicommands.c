@@ -14484,7 +14484,7 @@ bool aiHovercopterFireRocket(void)
  * @cmd 0169
  */
 GLOBAL_ASM(
-glabel ai0169
+glabel aiIfNaturalAnim
 /*  f05c434:	3c03800a */ 	lui	$v1,0x800a
 /*  f05c438:	24639fc0 */ 	addiu	$v1,$v1,-24640
 /*  f05c43c:	8c640434 */ 	lw	$a0,0x434($v1)
@@ -14512,6 +14512,20 @@ glabel ai0169
 /*  f05c490:	03e00008 */ 	jr	$ra
 /*  f05c494:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch due to different temporary registers
+//bool aiIfNaturalAnim(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//
+//	if (g_Vars.chrdata->naturalanim == cmd[2]) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+//	} else {
+//		g_Vars.aioffset += 4;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 016a
