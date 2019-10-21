@@ -14567,16 +14567,11 @@ bool aiIfY(void)
 /**
  * @cmd 016c
  */
-GLOBAL_ASM(
-glabel ai016c
-/*  f05c614:	3c03800a */ 	lui	$v1,0x800a
-/*  f05c618:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05c61c:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f05c620:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05c624:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f05c628:	03e00008 */ 	jr	$ra
-/*  f05c62c:	ac6f0438 */ 	sw	$t7,0x438($v1)
-);
+bool ai016c(void)
+{
+	g_Vars.aioffset += 2;
+	return false;
+}
 
 /**
  * @cmd 016d
