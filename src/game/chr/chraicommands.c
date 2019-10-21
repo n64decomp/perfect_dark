@@ -15150,43 +15150,18 @@ glabel ai0181
 /**
  * @cmd 0182
  */
-GLOBAL_ASM(
-glabel ai0182
-/*  f05cef8:	3c03800a */ 	lui	$v1,0x800a
-/*  f05cefc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05cf00:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05cf04:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05cf08:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05cf0c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05cf10:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05cf14:	10800010 */ 	beqz	$a0,.L0f05cf58
-/*  f05cf18:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f05cf1c:	90e50002 */ 	lbu	$a1,0x2($a3)
-/*  f05cf20:	0fc0eef2 */ 	jal	func0f03bbc8
-/*  f05cf24:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f05cf28:	3c03800a */ 	lui	$v1,0x800a
-/*  f05cf2c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05cf30:	10400009 */ 	beqz	$v0,.L0f05cf58
-/*  f05cf34:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05cf38:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05cf3c:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05cf40:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05cf44:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f05cf48:	3c03800a */ 	lui	$v1,0x800a
-/*  f05cf4c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05cf50:	10000004 */ 	beqz	$zero,.L0f05cf64
-/*  f05cf54:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05cf58:
-/*  f05cf58:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f05cf5c:	27190004 */ 	addiu	$t9,$t8,0x4
-/*  f05cf60:	ac790438 */ 	sw	$t9,0x438($v1)
-.L0f05cf64:
-/*  f05cf64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05cf68:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05cf6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05cf70:	03e00008 */ 	jr	$ra
-/*  f05cf74:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiPunchOrKick(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (g_Vars.chrdata && func0f03bbc8(g_Vars.chrdata, cmd[2])) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0183
