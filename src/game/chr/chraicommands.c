@@ -16563,6 +16563,7 @@ glabel ai01b3
 /*  f05e758:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+// Mismatch due to different temporary registers
 //bool ai01b3(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
@@ -16571,10 +16572,10 @@ glabel ai01b3
 //		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 //
 //		if (chr) {
-//			if (g_Vars.unk000294 == ((chr->BITFIELD >> 14) & 0x3) && g_Vars.unk0002a4->unkd8 == 0) {
-//				chr->BITFIELD = (g_Vars.unk000298 << 6) | (chr->BITFIELD & 0x3f);
-//			} else if (g_Vars.unk0002a0->unkd8 == 0) {
-//				chr->BITFIELD = (g_Vars.unk000294 << 6) | (chr->BITFIELD & 0x3f);
+//			if (((u32)chr->BITFIELD >> 14) == g_Vars.unk000294 && g_Vars.coop->unkd8 == 0) {
+//				chr->bitfielddata.unk32e = (g_Vars.unk000298 << 6) | (chr->bitfielddata.unk32e & 0xff3f);
+//			} else if (g_Vars.bond->unkd8 == 0) {
+//				chr->bitfielddata.unk32e = (g_Vars.unk000294 << 6) | (chr->bitfielddata.unk32e & 0xff3f);
 //			}
 //		}
 //	}
