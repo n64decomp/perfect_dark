@@ -409,7 +409,7 @@
 /*0x01bb*/ bool ai01bb(void);
 /*0x01bc*/ bool ai01bc(void);
 /*0x01bd*/ bool ai01bd(void);
-/*0x01be*/ bool ai01be(void);
+/*0x01be*/ bool aiIfChrWeaponEquipped(void);
 /*0x01bf*/ bool ai01bf(void);
 /*0x01c0*/ bool ai01c0(void);
 /*0x01c1*/ bool aiSetPunchDodgeList(void);
