@@ -14919,89 +14919,37 @@ glabel ai0172
 /**
  * @cmd 0173
  */
-GLOBAL_ASM(
-glabel ai0173
-/*  f05cb30:	3c03800a */ 	lui	$v1,0x800a
-/*  f05cb34:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05cb38:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05cb3c:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05cb40:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05cb44:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05cb48:	01cf4021 */ 	addu	$t0,$t6,$t7
-/*  f05cb4c:	91050002 */ 	lbu	$a1,0x2($t0)
-/*  f05cb50:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f05cb54:	0fc126d1 */ 	jal	chrFindById
-/*  f05cb58:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05cb5c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05cb60:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05cb64:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f05cb68:	10400036 */ 	beqz	$v0,.L0f05cc44
-/*  f05cb6c:	00403825 */ 	or	$a3,$v0,$zero
-/*  f05cb70:	8c580020 */ 	lw	$t8,0x20($v0)
-/*  f05cb74:	53000034 */ 	beqzl	$t8,.L0f05cc48
-/*  f05cb78:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f05cb7c:	c44400f0 */ 	lwc1	$f4,0xf0($v0)
-/*  f05cb80:	8c790424 */ 	lw	$t9,0x424($v1)
-/*  f05cb84:	e72400f0 */ 	swc1	$f4,0xf0($t9)
-/*  f05cb88:	8c690424 */ 	lw	$t1,0x424($v1)
-/*  f05cb8c:	c44600dc */ 	lwc1	$f6,0xdc($v0)
-/*  f05cb90:	e52600dc */ 	swc1	$f6,0xdc($t1)
-/*  f05cb94:	8c6b0424 */ 	lw	$t3,0x424($v1)
-/*  f05cb98:	844a0128 */ 	lh	$t2,0x128($v0)
-/*  f05cb9c:	a56a0128 */ 	sh	$t2,0x128($t3)
-/*  f05cba0:	8c6d0424 */ 	lw	$t5,0x424($v1)
-/*  f05cba4:	844c012a */ 	lh	$t4,0x12a($v0)
-/*  f05cba8:	a5ac012a */ 	sh	$t4,0x12a($t5)
-/*  f05cbac:	8c6f0424 */ 	lw	$t7,0x424($v1)
-/*  f05cbb0:	8c4e0114 */ 	lw	$t6,0x114($v0)
-/*  f05cbb4:	adee0114 */ 	sw	$t6,0x114($t7)
-/*  f05cbb8:	8c790424 */ 	lw	$t9,0x424($v1)
-/*  f05cbbc:	8c580118 */ 	lw	$t8,0x118($v0)
-/*  f05cbc0:	af380118 */ 	sw	$t8,0x118($t9)
-/*  f05cbc4:	8c6a0424 */ 	lw	$t2,0x424($v1)
-/*  f05cbc8:	90490125 */ 	lbu	$t1,0x125($v0)
-/*  f05cbcc:	a1490125 */ 	sb	$t1,0x125($t2)
-/*  f05cbd0:	8c6c0424 */ 	lw	$t4,0x424($v1)
-/*  f05cbd4:	904b02a2 */ 	lbu	$t3,0x2a2($v0)
-/*  f05cbd8:	a18b02a2 */ 	sb	$t3,0x2a2($t4)
-/*  f05cbdc:	8c620424 */ 	lw	$v0,0x424($v1)
-/*  f05cbe0:	804d0002 */ 	lb	$t5,0x2($v0)
-/*  f05cbe4:	a04d0002 */ 	sb	$t5,0x2($v0)
-/*  f05cbe8:	8c620424 */ 	lw	$v0,0x424($v1)
-/*  f05cbec:	804e0003 */ 	lb	$t6,0x3($v0)
-/*  f05cbf0:	a04e0003 */ 	sb	$t6,0x3($v0)
-/*  f05cbf4:	8c780424 */ 	lw	$t8,0x424($v1)
-/*  f05cbf8:	90ef02e3 */ 	lbu	$t7,0x2e3($a3)
-/*  f05cbfc:	a30f02e3 */ 	sb	$t7,0x2e3($t8)
-/*  f05cc00:	8c690424 */ 	lw	$t1,0x424($v1)
-/*  f05cc04:	8cf902e4 */ 	lw	$t9,0x2e4($a3)
-/*  f05cc08:	ad3902e4 */ 	sw	$t9,0x2e4($t1)
-/*  f05cc0c:	8c6b0424 */ 	lw	$t3,0x424($v1)
-/*  f05cc10:	90ea02fc */ 	lbu	$t2,0x2fc($a3)
-/*  f05cc14:	a16a02fc */ 	sb	$t2,0x2fc($t3)
-/*  f05cc18:	8c6d0424 */ 	lw	$t5,0x424($v1)
-/*  f05cc1c:	90ec02e2 */ 	lbu	$t4,0x2e2($a3)
-/*  f05cc20:	a1ac02e2 */ 	sb	$t4,0x2e2($t5)
-/*  f05cc24:	91060003 */ 	lbu	$a2,0x3($t0)
-/*  f05cc28:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05cc2c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05cc30:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05cc34:	3c03800a */ 	lui	$v1,0x800a
-/*  f05cc38:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05cc3c:	10000004 */ 	beqz	$zero,.L0f05cc50
-/*  f05cc40:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05cc44:
-/*  f05cc44:	8c6e0438 */ 	lw	$t6,0x438($v1)
-.L0f05cc48:
-/*  f05cc48:	25cf0004 */ 	addiu	$t7,$t6,0x4
-/*  f05cc4c:	ac6f0438 */ 	sw	$t7,0x438($v1)
-.L0f05cc50:
-/*  f05cc50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05cc54:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05cc58:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05cc5c:	03e00008 */ 	jr	$ra
-/*  f05cc60:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiChrCopyProperties(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->unk020) {
+		g_Vars.chrdata->hearingscale = chr->hearingscale;
+		g_Vars.chrdata->visionrange = chr->visionrange;
+		g_Vars.chrdata->padpreset1 = chr->padpreset1;
+		g_Vars.chrdata->chrpreset1 = chr->chrpreset1;
+		g_Vars.chrdata->flags = chr->flags;
+		g_Vars.chrdata->flags2 = chr->flags2;
+		g_Vars.chrdata->team = chr->team;
+		g_Vars.chrdata->squadron = chr->squadron;
+
+		// @bug? Copying from self to self
+		g_Vars.chrdata->accuracyrating = g_Vars.chrdata->accuracyrating;
+		g_Vars.chrdata->speedrating = g_Vars.chrdata->speedrating;
+
+		g_Vars.chrdata->naturalanim = chr->naturalanim;
+		g_Vars.chrdata->myspecial = chr->myspecial;
+		g_Vars.chrdata->yvisang = chr->yvisang;
+		g_Vars.chrdata->teamscandist = chr->teamscandist;
+
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0177
