@@ -15166,47 +15166,19 @@ bool aiPunchOrKick(void)
 /**
  * @cmd 0183
  */
-GLOBAL_ASM(
-glabel ai0183
-/*  f05cf78:	3c03800a */ 	lui	$v1,0x800a
-/*  f05cf7c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05cf80:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05cf84:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05cf88:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05cf8c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05cf90:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f05cf94:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f05cf98:	0fc0a221 */ 	jal	func0f028884
-/*  f05cf9c:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05cfa0:	90440000 */ 	lbu	$a0,0x0($v0)
-/*  f05cfa4:	3c03800a */ 	lui	$v1,0x800a
-/*  f05cfa8:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f05cfac:	10810004 */ 	beq	$a0,$at,.L0f05cfc0
-/*  f05cfb0:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05cfb4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f05cfb8:	5481000b */ 	bnel	$a0,$at,.L0f05cfe8
-/*  f05cfbc:	8c680438 */ 	lw	$t0,0x438($v1)
-.L0f05cfc0:
-/*  f05cfc0:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*  f05cfc4:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05cfc8:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05cfcc:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05cfd0:	93260002 */ 	lbu	$a2,0x2($t9)
-/*  f05cfd4:	3c03800a */ 	lui	$v1,0x800a
-/*  f05cfd8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05cfdc:	10000004 */ 	beqz	$zero,.L0f05cff0
-/*  f05cfe0:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f05cfe4:	8c680438 */ 	lw	$t0,0x438($v1)
-.L0f05cfe8:
-/*  f05cfe8:	25090003 */ 	addiu	$t1,$t0,0x3
-/*  f05cfec:	ac690438 */ 	sw	$t1,0x438($v1)
-.L0f05cff0:
-/*  f05cff0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05cff4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05cff8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05cffc:	03e00008 */ 	jr	$ra
-/*  f05d000:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai0183(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct targetsomething *target = func0f028884(g_Vars.chrdata);
+
+	if (target->unk00 == 5 || target->unk00 == 6) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0184
