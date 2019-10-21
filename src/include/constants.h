@@ -220,7 +220,7 @@
 #define CHRFLAG3_UNPLAYABLE                  0x00800000
 #define CHRFLAG3_01000000                    0x01000000 // Typically set on allies during init
 #define CHRFLAG3_02000000                    0x02000000 // can be unset by cmd0168
-#define CHRFLAG3_04000000                    0x04000000
+#define CHRFLAG3_04000000                    0x04000000 // Set by aiChrKill command
 #define CHRFLAG3_08000000                    0x08000000 // Not used in scripts
 #define CHRFLAG3_10000000                    0x10000000 // Not used in scripts
 #define CHRFLAG3_20000000                    0x20000000 // Not used in scripts
