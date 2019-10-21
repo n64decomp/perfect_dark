@@ -393,7 +393,7 @@
 /*0x01a7*/ bool aiIfChrPropsoundcountZero(void);
 /*0x01aa*/ bool ai01aa(void);
 /*0x01ab*/ bool aiIfNumKnockedOutChrs(void);
-/*0x01ad*/ bool ai01ad(void);
+/*0x01ad*/ bool aiReleaseObject(void);
 /*0x01ae*/ bool ai01ae(void);
 /*0x01af*/ bool ai01af(void);
 /*0x01b1*/ bool ai01b1(void);
