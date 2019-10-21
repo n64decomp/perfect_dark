@@ -14897,6 +14897,25 @@ glabel ai0172
 /*  f05cb2c:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+// Mismatch because some stores/loads to SP is in the opposite order
+//bool ai0172(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct position *pos = g_Vars.chrdata->gungroundpos;
+//	g_Vars.chrdata->gungroundpos = NULL;
+//
+//	if (pos && pos->unk04 && pos->unk18 == 0 && pos->unk00 == 4) {
+//		func0f065c44(pos);
+//		func0f0605c4(pos);
+//		func0f060300(pos);
+//		func0f08ae54(pos->unk04, g_Vars.chrdata);
+//	}
+//
+//	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+//
+//	return false;
+//}
+
 /**
  * @cmd 0173
  */
