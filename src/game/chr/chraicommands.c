@@ -17140,23 +17140,13 @@ glabel ai01c0
 /**
  * @cmd 01c5
  */
-GLOBAL_ASM(
-glabel ai01c5
-/*  f05ef60:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05ef64:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05ef68:	3c04800a */ 	lui	$a0,0x800a
-/*  f05ef6c:	0fc13400 */ 	jal	func0f04d000
-/*  f05ef70:	8c84a3e4 */ 	lw	$a0,-0x5c1c($a0)
-/*  f05ef74:	3c03800a */ 	lui	$v1,0x800a
-/*  f05ef78:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05ef7c:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f05ef80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05ef84:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05ef88:	25cf0002 */ 	addiu	$t7,$t6,0x2
-/*  f05ef8c:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f05ef90:	03e00008 */ 	jr	$ra
-/*  f05ef94:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai01c5(void)
+{
+	func0f04d000(g_Vars.chrdata);
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 01c8
