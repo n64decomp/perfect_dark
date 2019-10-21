@@ -14384,7 +14384,7 @@ bool (*command_pointers[])(void) = {
 	/*0x01ac*/ NULL,
 	/*0x01ad*/ aiReleaseObject,
 	/*0x01ae*/ ai01ae,
-	/*0x01af*/ ai01af,
+	/*0x01af*/ aiChrGrabObject,
 	/*0x01b0*/ NULL,
 	/*0x01b1*/ ai01b1,
 	/*0x01b2*/ ai01b2,

@@ -954,7 +954,7 @@ struct gvars284 {
 	u32 unk0a8;
 	u32 unk0ac;
 	u32 unk0b0;
-	u32 unk0b4;
+	float unk0b4;
 	u32 unk0b8;
 	u32 unk0bc;
 	u32 unk0c0;
