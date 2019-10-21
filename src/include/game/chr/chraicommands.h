@@ -401,7 +401,7 @@
 /*0x01b3*/ bool ai01b3(void);
 /*0x01b4*/ bool ai01b4(void);
 /*0x01b5*/ bool ai01b5(void);
-/*0x01b6*/ bool ai01b6(void);
+/*0x01b6*/ bool aiConfigureSnow(void);
 /*0x01b7*/ bool ai01b7(void);
 /*0x01b8*/ bool ai01b8(void);
 /*0x01b9*/ bool ai01b9(void);

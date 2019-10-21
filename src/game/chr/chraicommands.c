@@ -15390,27 +15390,14 @@ bool aiConfigureRain(void)
 /**
  * @cmd 01b6
  */
-GLOBAL_ASM(
-glabel ai01b6
-/*  f05d420:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d424:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d428:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05d42c:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d430:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05d434:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05d438:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05d43c:	0fc4ca7b */ 	jal	func0f1329ec
-/*  f05d440:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f05d444:	3c03800a */ 	lui	$v1,0x800a
-/*  f05d448:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05d44c:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f05d450:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05d454:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05d458:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f05d45c:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f05d460:	03e00008 */ 	jr	$ra
-/*  f05d464:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiConfigureSnow(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	func0f1329ec(cmd[2]);
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 018c
