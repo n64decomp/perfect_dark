@@ -339,7 +339,7 @@
 /*0x0167*/ bool aiHovercopterFireRocket(void);
 /*0x0168*/ bool ai0168(void);
 /*0x0169*/ bool aiIfNaturalAnim(void);
-/*0x016a*/ bool ai016a(void);
+/*0x016a*/ bool aiIfY(void);
 /*0x016b*/ bool ai016b(void);
 /*0x016c*/ bool ai016c(void);
 /*0x016d*/ bool ai016d(void);
