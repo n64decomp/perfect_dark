@@ -18150,27 +18150,14 @@ glabel ai01d9
 /**
  * @cmd 01da
  */
-GLOBAL_ASM(
-glabel ai01da
-/*  f05fe8c:	3c03800a */ 	lui	$v1,0x800a
-/*  f05fe90:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05fe94:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05fe98:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05fe9c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05fea0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05fea4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05fea8:	0fc5b7ae */ 	jal	func0f16deb8
-/*  f05feac:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f05feb0:	3c03800a */ 	lui	$v1,0x800a
-/*  f05feb4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05feb8:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f05febc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05fec0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05fec4:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f05fec8:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f05fecc:	03e00008 */ 	jr	$ra
-/*  f05fed0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai01da(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	func0f16deb8(cmd[2]);
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 01db
