@@ -14425,7 +14425,7 @@ bool aiIfChrInjured(void)
  * @cmd 0166
  */
 GLOBAL_ASM(
-glabel ai0166
+glabel aiIfAction
 /*  f05c384:	3c03800a */ 	lui	$v1,0x800a
 /*  f05c388:	24639fc0 */ 	addiu	$v1,$v1,-24640
 /*  f05c38c:	8c640434 */ 	lw	$a0,0x434($v1)
@@ -14453,6 +14453,20 @@ glabel ai0166
 /*  f05c3e0:	03e00008 */ 	jr	$ra
 /*  f05c3e4:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch due to different temporary registers
+//bool aiIfAction(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//
+//	if (g_Vars.chrdata->myaction == cmd[2]) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+//	} else {
+//		g_Vars.aioffset += 4;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 0167
