@@ -5724,53 +5724,19 @@ bool aiChrUnsetFlag(void)
 /**
  * @cmd 00a0
  */
-GLOBAL_ASM(
-glabel ai00a0
-/*  f053fb0:	3c08800a */ 	lui	$t0,0x800a
-/*  f053fb4:	25089fc0 */ 	addiu	$t0,$t0,-24640
-/*  f053fb8:	8d0e0434 */ 	lw	$t6,0x434($t0)
-/*  f053fbc:	8d0f0438 */ 	lw	$t7,0x438($t0)
-/*  f053fc0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f053fc4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f053fc8:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f053fcc:	90780003 */ 	lbu	$t8,0x3($v1)
-/*  f053fd0:	90690004 */ 	lbu	$t1,0x4($v1)
-/*  f053fd4:	906c0005 */ 	lbu	$t4,0x5($v1)
-/*  f053fd8:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f053fdc:	00095400 */ 	sll	$t2,$t1,0x10
-/*  f053fe0:	906f0006 */ 	lbu	$t7,0x6($v1)
-/*  f053fe4:	032a5825 */ 	or	$t3,$t9,$t2
-/*  f053fe8:	000c6a00 */ 	sll	$t5,$t4,0x8
-/*  f053fec:	016d7025 */ 	or	$t6,$t3,$t5
-/*  f053ff0:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f053ff4:	90670007 */ 	lbu	$a3,0x7($v1)
-/*  f053ff8:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f053ffc:	8d040424 */ 	lw	$a0,0x424($t0)
-/*  f054000:	0fc127ba */ 	jal	func0f049ee8
-/*  f054004:	01cf3025 */ 	or	$a2,$t6,$t7
-/*  f054008:	3c08800a */ 	lui	$t0,0x800a
-/*  f05400c:	25089fc0 */ 	addiu	$t0,$t0,-24640
-/*  f054010:	10400009 */ 	beqz	$v0,.L0f054038
-/*  f054014:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f054018:	8d040434 */ 	lw	$a0,0x434($t0)
-/*  f05401c:	8d050438 */ 	lw	$a1,0x438($t0)
-/*  f054020:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f054024:	90660008 */ 	lbu	$a2,0x8($v1)
-/*  f054028:	3c08800a */ 	lui	$t0,0x800a
-/*  f05402c:	25089fc0 */ 	addiu	$t0,$t0,-24640
-/*  f054030:	10000004 */ 	beqz	$zero,.L0f054044
-/*  f054034:	ad020438 */ 	sw	$v0,0x438($t0)
-.L0f054038:
-/*  f054038:	8d180438 */ 	lw	$t8,0x438($t0)
-/*  f05403c:	27090009 */ 	addiu	$t1,$t8,0x9
-/*  f054040:	ad090438 */ 	sw	$t1,0x438($t0)
-.L0f054044:
-/*  f054044:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054048:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05404c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f054050:	03e00008 */ 	jr	$ra
-/*  f054054:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfChrHasFlag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
+
+	if (func0f049ee8(g_Vars.chrdata, cmd[2], flags, cmd[7])) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
+	} else {
+		g_Vars.aioffset += 9;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00a1

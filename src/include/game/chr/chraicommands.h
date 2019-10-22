@@ -162,7 +162,7 @@
 /*0x009d*/ bool ai009d(void);
 /*0x009e*/ bool aiChrSetFlag(void);
 /*0x009f*/ bool aiChrUnsetFlag(void);
-/*0x00a0*/ bool ai00a0(void);
+/*0x00a0*/ bool aiIfChrHasFlag(void);
 /*0x00a1*/ bool aiSetStageFlag(void);
 /*0x00a2*/ bool aiUnsetStageFlag(void);
 /*0x00a3*/ bool ai00a3(void);
