@@ -5788,37 +5788,15 @@ bool aiSetStageFlag(void)
 /**
  * @cmd 00a2
  */
-GLOBAL_ASM(
-glabel ai00a2
-/*  f0540c8:	3c03800a */ 	lui	$v1,0x800a
-/*  f0540cc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0540d0:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0540d4:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0540d8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0540dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0540e0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0540e4:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f0540e8:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f0540ec:	904b0004 */ 	lbu	$t3,0x4($v0)
-/*  f0540f0:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f0540f4:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f0540f8:	904e0005 */ 	lbu	$t6,0x5($v0)
-/*  f0540fc:	03295025 */ 	or	$t2,$t9,$t1
-/*  f054100:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f054104:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f054108:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05410c:	0fc127d2 */ 	jal	func0f049f48
-/*  f054110:	01ae2825 */ 	or	$a1,$t5,$t6
-/*  f054114:	3c03800a */ 	lui	$v1,0x800a
-/*  f054118:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05411c:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f054120:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054124:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f054128:	25f80006 */ 	addiu	$t8,$t7,0x6
-/*  f05412c:	ac780438 */ 	sw	$t8,0x438($v1)
-/*  f054130:	03e00008 */ 	jr	$ra
-/*  f054134:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiUnsetStageFlag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
+	func0f049f48(g_Vars.chrdata, flags);
+	g_Vars.aioffset += 6;
+
+	return false;
+}
 
 /**
  * @cmd 00a3
