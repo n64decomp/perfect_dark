@@ -5613,38 +5613,16 @@ bool aiSetUnarmedDodgeRating(void)
 /**
  * @cmd 009b
  */
-GLOBAL_ASM(
-glabel ai009b
-/*  f053d1c:	3c03800a */ 	lui	$v1,0x800a
-/*  f053d20:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053d24:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f053d28:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053d2c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f053d30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f053d34:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f053d38:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f053d3c:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f053d40:	904b0004 */ 	lbu	$t3,0x4($v0)
-/*  f053d44:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f053d48:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f053d4c:	904e0005 */ 	lbu	$t6,0x5($v0)
-/*  f053d50:	03295025 */ 	or	$t2,$t9,$t1
-/*  f053d54:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f053d58:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f053d5c:	90460006 */ 	lbu	$a2,0x6($v0)
-/*  f053d60:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f053d64:	0fc12776 */ 	jal	chrSetFlags
-/*  f053d68:	01ae2825 */ 	or	$a1,$t5,$t6
-/*  f053d6c:	3c03800a */ 	lui	$v1,0x800a
-/*  f053d70:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053d74:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053d78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053d7c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f053d80:	25f80007 */ 	addiu	$t8,$t7,0x7
-/*  f053d84:	ac780438 */ 	sw	$t8,0x438($v1)
-/*  f053d88:	03e00008 */ 	jr	$ra
-/*  f053d8c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetFlag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
+	chrSetFlags(g_Vars.chrdata, flags, cmd[6]);
+
+	g_Vars.aioffset += 7;
+
+	return false;
+}
 
 /**
  * @cmd 009c
