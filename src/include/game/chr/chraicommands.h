@@ -165,7 +165,7 @@
 /*0x00a0*/ bool aiIfChrHasFlag(void);
 /*0x00a1*/ bool aiSetStageFlag(void);
 /*0x00a2*/ bool aiUnsetStageFlag(void);
-/*0x00a3*/ bool ai00a3(void);
+/*0x00a3*/ bool aiIfStageFlagEq(void);
 /*0x00a4*/ bool aiSetChrflag(void);
 /*0x00a5*/ bool aiUnsetChrflag(void);
 /*0x00a6*/ bool aiIfHasChrflag(void);
