@@ -281,7 +281,7 @@
 /*0x0116*/ bool aiShowObj(void);
 /*0x0117*/ bool aiHideObj(void);
 /*0x0118*/ bool aiSetObjFlag3(void);
-/*0x0119*/ bool ai0119(void);
+/*0x0119*/ bool aiUnsetObjFlag3(void);
 /*0x011a*/ bool ai011a(void);
 /*0x011b*/ bool aiChrSetHiddenFlag(void);
 /*0x011c*/ bool aiChrUnsetHiddenFlag(void);
