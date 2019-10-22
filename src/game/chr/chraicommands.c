@@ -6182,46 +6182,20 @@ bool aiChrSetHiddenFlag(void)
 /**
  * @cmd 011c
  */
-GLOBAL_ASM(
-glabel ai011c
-/*  f0545b4:	3c03800a */ 	lui	$v1,0x800a
-/*  f0545b8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0545bc:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0545c0:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0545c4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0545c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0545cc:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0545d0:	90580003 */ 	lbu	$t8,0x3($v0)
-/*  f0545d4:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f0545d8:	904b0005 */ 	lbu	$t3,0x5($v0)
-/*  f0545dc:	904e0006 */ 	lbu	$t6,0x6($v0)
-/*  f0545e0:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f0545e4:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f0545e8:	03295025 */ 	or	$t2,$t9,$t1
-/*  f0545ec:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f0545f0:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f0545f4:	01ae7825 */ 	or	$t7,$t5,$t6
-/*  f0545f8:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f0545fc:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f054600:	0fc126d1 */ 	jal	chrFindById
-/*  f054604:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f054608:	3c03800a */ 	lui	$v1,0x800a
-/*  f05460c:	10400006 */ 	beqz	$v0,.L0f054628
-/*  f054610:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f054614:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*  f054618:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f05461c:	0100c827 */ 	nor	$t9,$t0,$zero
-/*  f054620:	03194824 */ 	and	$t1,$t8,$t9
-/*  f054624:	ac490014 */ 	sw	$t1,0x14($v0)
-.L0f054628:
-/*  f054628:	8c6b0438 */ 	lw	$t3,0x438($v1)
-/*  f05462c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054630:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f054634:	256a0007 */ 	addiu	$t2,$t3,0x7
-/*  f054638:	ac6a0438 */ 	sw	$t2,0x438($v1)
-/*  f05463c:	03e00008 */ 	jr	$ra
-/*  f054640:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrUnsetHiddenFlag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr) {
+		chr->hidden &= ~flags;
+	}
+
+	g_Vars.aioffset += 7;
+
+	return false;
+}
 
 /**
  * @cmd 011d

@@ -14237,7 +14237,7 @@ bool (*command_pointers[])(void) = {
 	/*0x0119*/ ai0119,
 	/*0x011a*/ ai011a,
 	/*0x011b*/ aiChrSetHiddenFlag,
-	/*0x011c*/ ai011c,
+	/*0x011c*/ aiChrUnsetHiddenFlag,
 	/*0x011d*/ ai011d,
 	/*0x011e*/ ai011e,
 	/*0x011f*/ ai011f,
