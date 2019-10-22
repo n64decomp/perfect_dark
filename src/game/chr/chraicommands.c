@@ -6000,33 +6000,16 @@ glabel ai00a3
 /**
  * @cmd 00a4
  */
-GLOBAL_ASM(
-glabel ai00a4
-/*  f054204:	3c06800a */ 	lui	$a2,0x800a
-/*  f054208:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f05420c:	8cce0434 */ 	lw	$t6,0x434($a2)
-/*  f054210:	8ccf0438 */ 	lw	$t7,0x438($a2)
-/*  f054214:	8cc50424 */ 	lw	$a1,0x424($a2)
-/*  f054218:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05421c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f054220:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f054224:	90680003 */ 	lbu	$t0,0x3($v1)
-/*  f054228:	906b0004 */ 	lbu	$t3,0x4($v1)
-/*  f05422c:	906e0005 */ 	lbu	$t6,0x5($v1)
-/*  f054230:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f054234:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f054238:	8caf0018 */ 	lw	$t7,0x18($a1)
-/*  f05423c:	03295025 */ 	or	$t2,$t9,$t1
-/*  f054240:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f054244:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f054248:	01ae2025 */ 	or	$a0,$t5,$t6
-/*  f05424c:	01e4c025 */ 	or	$t8,$t7,$a0
-/*  f054250:	acb80018 */ 	sw	$t8,0x18($a1)
-/*  f054254:	8cc80438 */ 	lw	$t0,0x438($a2)
-/*  f054258:	25190006 */ 	addiu	$t9,$t0,0x6
-/*  f05425c:	03e00008 */ 	jr	$ra
-/*  f054260:	acd90438 */ 	sw	$t9,0x438($a2)
-);
+bool aiSetChrflag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
+
+	g_Vars.chrdata->chrflags |= flags;
+	g_Vars.aioffset += 6;
+
+	return false;
+}
 
 /**
  * @cmd 00a5
