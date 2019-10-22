@@ -6139,49 +6139,20 @@ bool aiSetObjFlag(void)
 /**
  * @cmd 00ab
  */
-GLOBAL_ASM(
-glabel ai00ab
-/*  f054794:	3c03800a */ 	lui	$v1,0x800a
-/*  f054798:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05479c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0547a0:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0547a4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0547a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0547ac:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0547b0:	90580003 */ 	lbu	$t8,0x3($v0)
-/*  f0547b4:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f0547b8:	904b0005 */ 	lbu	$t3,0x5($v0)
-/*  f0547bc:	904e0006 */ 	lbu	$t6,0x6($v0)
-/*  f0547c0:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f0547c4:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f0547c8:	03295025 */ 	or	$t2,$t9,$t1
-/*  f0547cc:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f0547d0:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f0547d4:	01ae7825 */ 	or	$t7,$t5,$t6
-/*  f0547d8:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f0547dc:	0fc2556c */ 	jal	objFindByTagId
-/*  f0547e0:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f0547e4:	3c03800a */ 	lui	$v1,0x800a
-/*  f0547e8:	10400009 */ 	beqz	$v0,.L0f054810
-/*  f0547ec:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0547f0:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f0547f4:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*  f0547f8:	53000006 */ 	beqzl	$t8,.L0f054814
-/*  f0547fc:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f054800:	8c480008 */ 	lw	$t0,0x8($v0)
-/*  f054804:	03204827 */ 	nor	$t1,$t9,$zero
-/*  f054808:	01095824 */ 	and	$t3,$t0,$t1
-/*  f05480c:	ac4b0008 */ 	sw	$t3,0x8($v0)
-.L0f054810:
-/*  f054810:	8c6a0438 */ 	lw	$t2,0x438($v1)
-.L0f054814:
-/*  f054814:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054818:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05481c:	254c0007 */ 	addiu	$t4,$t2,0x7
-/*  f054820:	ac6c0438 */ 	sw	$t4,0x438($v1)
-/*  f054824:	03e00008 */ 	jr	$ra
-/*  f054828:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiUnsetObjFlag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos) {
+		obj->flags &= ~flags;
+	}
+
+	g_Vars.aioffset += 7;
+
+	return false;
+}
 
 /**
  * @cmd 00ac
