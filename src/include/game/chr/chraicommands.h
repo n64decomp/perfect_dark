@@ -158,7 +158,7 @@
 /*0x0099*/ bool aiSetRecoverySpeed(void);
 /*0x009a*/ bool aiSetAccuracy(void);
 /*0x009b*/ bool aiSetFlag(void);
-/*0x009c*/ bool ai009c(void);
+/*0x009c*/ bool aiUnsetFlag(void);
 /*0x009d*/ bool ai009d(void);
 /*0x009e*/ bool ai009e(void);
 /*0x009f*/ bool ai009f(void);
