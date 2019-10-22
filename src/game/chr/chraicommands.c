@@ -5965,59 +5965,20 @@ bool aiChrUnsetHiddenFlag(void)
 /**
  * @cmd 011d
  */
-GLOBAL_ASM(
-glabel ai011d
-/*  f054644:	3c07800a */ 	lui	$a3,0x800a
-/*  f054648:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f05464c:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f054650:	8cef0438 */ 	lw	$t7,0x438($a3)
-/*  f054654:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f054658:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05465c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f054660:	90780003 */ 	lbu	$t8,0x3($v1)
-/*  f054664:	90680004 */ 	lbu	$t0,0x4($v1)
-/*  f054668:	906b0005 */ 	lbu	$t3,0x5($v1)
-/*  f05466c:	906e0006 */ 	lbu	$t6,0x6($v1)
-/*  f054670:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f054674:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f054678:	03295025 */ 	or	$t2,$t9,$t1
-/*  f05467c:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f054680:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f054684:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f054688:	01ae3025 */ 	or	$a2,$t5,$t6
-/*  f05468c:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f054690:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f054694:	0fc126d1 */ 	jal	chrFindById
-/*  f054698:	8ce40424 */ 	lw	$a0,0x424($a3)
-/*  f05469c:	3c07800a */ 	lui	$a3,0x800a
-/*  f0546a0:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f0546a4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0546a8:	1040000d */ 	beqz	$v0,.L0f0546e0
-/*  f0546ac:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f0546b0:	8c4f0014 */ 	lw	$t7,0x14($v0)
-/*  f0546b4:	01e6c024 */ 	and	$t8,$t7,$a2
-/*  f0546b8:	54d8000a */ 	bnel	$a2,$t8,.L0f0546e4
-/*  f0546bc:	8ce80438 */ 	lw	$t0,0x438($a3)
-/*  f0546c0:	8ce40434 */ 	lw	$a0,0x434($a3)
-/*  f0546c4:	8ce50438 */ 	lw	$a1,0x438($a3)
-/*  f0546c8:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0546cc:	90660007 */ 	lbu	$a2,0x7($v1)
-/*  f0546d0:	3c07800a */ 	lui	$a3,0x800a
-/*  f0546d4:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f0546d8:	10000004 */ 	beqz	$zero,.L0f0546ec
-/*  f0546dc:	ace20438 */ 	sw	$v0,0x438($a3)
-.L0f0546e0:
-/*  f0546e0:	8ce80438 */ 	lw	$t0,0x438($a3)
-.L0f0546e4:
-/*  f0546e4:	25190008 */ 	addiu	$t9,$t0,0x8
-/*  f0546e8:	acf90438 */ 	sw	$t9,0x438($a3)
-.L0f0546ec:
-/*  f0546ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0546f0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0546f4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0546f8:	03e00008 */ 	jr	$ra
-/*  f0546fc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfChrHasHiddenFlag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && (chr->hidden & flags) == flags) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+	} else {
+		g_Vars.aioffset += 8;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00aa

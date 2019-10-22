@@ -285,7 +285,7 @@
 /*0x011a*/ bool aiIfObjHasFlag3(void);
 /*0x011b*/ bool aiChrSetHiddenFlag(void);
 /*0x011c*/ bool aiChrUnsetHiddenFlag(void);
-/*0x011d*/ bool ai011d(void);
+/*0x011d*/ bool aiIfChrHasHiddenFlag(void);
 /*0x011e*/ bool ai011e(void);
 /*0x011f*/ bool ai011f(void);
 /*0x0120*/ bool ai0120(void);
