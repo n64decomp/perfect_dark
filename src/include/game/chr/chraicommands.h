@@ -160,7 +160,7 @@
 /*0x009b*/ bool aiSetFlag(void);
 /*0x009c*/ bool aiUnsetFlag(void);
 /*0x009d*/ bool ai009d(void);
-/*0x009e*/ bool ai009e(void);
+/*0x009e*/ bool aiChrSetFlag(void);
 /*0x009f*/ bool ai009f(void);
 /*0x00a0*/ bool ai00a0(void);
 /*0x00a1*/ bool ai00a1(void);
