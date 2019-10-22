@@ -14123,7 +14123,7 @@ bool (*command_pointers[])(void) = {
 	/*0x00a7*/ aiChrSetChrflag,
 	/*0x00a8*/ aiChrUnsetChrflag,
 	/*0x00a9*/ ai00a9,
-	/*0x00aa*/ ai00aa,
+	/*0x00aa*/ aiSetObjFlag,
 	/*0x00ab*/ ai00ab,
 	/*0x00ac*/ ai00ac,
 	/*0x00ad*/ ai00ad,
