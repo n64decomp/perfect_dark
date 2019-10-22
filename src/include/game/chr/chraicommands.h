@@ -176,7 +176,7 @@
 /*0x00ab*/ bool aiUnsetObjFlag(void);
 /*0x00ac*/ bool ai00ac(void);
 /*0x00ad*/ bool aiSetObjFlag2(void);
-/*0x00ae*/ bool ai00ae(void);
+/*0x00ae*/ bool aiUnsetObjFlag2(void);
 /*0x00af*/ bool ai00af(void);
 /*0x00b0*/ bool aiSetChrPreset(void);
 /*0x00b1*/ bool aiSetChrTarget(void);
