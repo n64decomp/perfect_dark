@@ -6216,48 +6216,20 @@ glabel ai00ac
 /**
  * @cmd 00ad
  */
-GLOBAL_ASM(
-glabel ai00ad
-/*  f0548f0:	3c03800a */ 	lui	$v1,0x800a
-/*  f0548f4:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0548f8:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0548fc:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f054900:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f054904:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f054908:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05490c:	90580003 */ 	lbu	$t8,0x3($v0)
-/*  f054910:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f054914:	904b0005 */ 	lbu	$t3,0x5($v0)
-/*  f054918:	904e0006 */ 	lbu	$t6,0x6($v0)
-/*  f05491c:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f054920:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f054924:	03295025 */ 	or	$t2,$t9,$t1
-/*  f054928:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f05492c:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f054930:	01ae7825 */ 	or	$t7,$t5,$t6
-/*  f054934:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f054938:	0fc2556c */ 	jal	objFindByTagId
-/*  f05493c:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f054940:	3c03800a */ 	lui	$v1,0x800a
-/*  f054944:	10400008 */ 	beqz	$v0,.L0f054968
-/*  f054948:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05494c:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f054950:	8fb90018 */ 	lw	$t9,0x18($sp)
-/*  f054954:	53000005 */ 	beqzl	$t8,.L0f05496c
-/*  f054958:	8c6b0438 */ 	lw	$t3,0x438($v1)
-/*  f05495c:	8c48000c */ 	lw	$t0,0xc($v0)
-/*  f054960:	01194825 */ 	or	$t1,$t0,$t9
-/*  f054964:	ac49000c */ 	sw	$t1,0xc($v0)
-.L0f054968:
-/*  f054968:	8c6b0438 */ 	lw	$t3,0x438($v1)
-.L0f05496c:
-/*  f05496c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054970:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f054974:	256a0007 */ 	addiu	$t2,$t3,0x7
-/*  f054978:	ac6a0438 */ 	sw	$t2,0x438($v1)
-/*  f05497c:	03e00008 */ 	jr	$ra
-/*  f054980:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetObjFlag2(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos) {
+		obj->flags2 |= flags;
+	}
+
+	g_Vars.aioffset += 7;
+
+	return false;
+}
 
 /**
  * @cmd 00ae
