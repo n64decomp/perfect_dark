@@ -168,7 +168,7 @@
 /*0x00a3*/ bool ai00a3(void);
 /*0x00a4*/ bool aiSetChrflag(void);
 /*0x00a5*/ bool aiUnsetChrflag(void);
-/*0x00a6*/ bool ai00a6(void);
+/*0x00a6*/ bool aiIfHasChrflag(void);
 /*0x00a7*/ bool aiChrSetChrflag(void);
 /*0x00a8*/ bool aiChrUnsetChrflag(void);
 /*0x00a9*/ bool ai00a9(void);

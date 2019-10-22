@@ -5858,45 +5858,19 @@ bool aiUnsetChrflag(void)
 /**
  * @cmd 00a6
  */
-GLOBAL_ASM(
-glabel ai00a6
-/*  f0542c8:	3c07800a */ 	lui	$a3,0x800a
-/*  f0542cc:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f0542d0:	8ce40434 */ 	lw	$a0,0x434($a3)
-/*  f0542d4:	8ce50438 */ 	lw	$a1,0x438($a3)
-/*  f0542d8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0542dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0542e0:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f0542e4:	904e0002 */ 	lbu	$t6,0x2($v0)
-/*  f0542e8:	90580003 */ 	lbu	$t8,0x3($v0)
-/*  f0542ec:	90490004 */ 	lbu	$t1,0x4($v0)
-/*  f0542f0:	8ced0424 */ 	lw	$t5,0x424($a3)
-/*  f0542f4:	000e7e00 */ 	sll	$t7,$t6,0x18
-/*  f0542f8:	904c0005 */ 	lbu	$t4,0x5($v0)
-/*  f0542fc:	0018cc00 */ 	sll	$t9,$t8,0x10
-/*  f054300:	8dae0018 */ 	lw	$t6,0x18($t5)
-/*  f054304:	01f94025 */ 	or	$t0,$t7,$t9
-/*  f054308:	00095200 */ 	sll	$t2,$t1,0x8
-/*  f05430c:	010a5825 */ 	or	$t3,$t0,$t2
-/*  f054310:	016c1825 */ 	or	$v1,$t3,$t4
-/*  f054314:	01c3c024 */ 	and	$t8,$t6,$v1
-/*  f054318:	14780007 */ 	bne	$v1,$t8,.L0f054338
-/*  f05431c:	24af0007 */ 	addiu	$t7,$a1,0x7
-/*  f054320:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f054324:	90460006 */ 	lbu	$a2,0x6($v0)
-/*  f054328:	3c07800a */ 	lui	$a3,0x800a
-/*  f05432c:	24e79fc0 */ 	addiu	$a3,$a3,-24640
-/*  f054330:	10000002 */ 	beqz	$zero,.L0f05433c
-/*  f054334:	ace20438 */ 	sw	$v0,0x438($a3)
-.L0f054338:
-/*  f054338:	acef0438 */ 	sw	$t7,0x438($a3)
-.L0f05433c:
-/*  f05433c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f054340:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f054344:	00001025 */ 	or	$v0,$zero,$zero
-/*  f054348:	03e00008 */ 	jr	$ra
-/*  f05434c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfHasChrflag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
+
+	if ((g_Vars.chrdata->chrflags & flags) == flags) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+	} else {
+		g_Vars.aioffset += 7;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00a7
