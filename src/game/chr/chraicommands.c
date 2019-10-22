@@ -5711,39 +5711,15 @@ bool aiChrSetFlag(void)
 /**
  * @cmd 009f
  */
-GLOBAL_ASM(
-glabel ai009f
-/*  f053f38:	3c03800a */ 	lui	$v1,0x800a
-/*  f053f3c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053f40:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f053f44:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053f48:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f053f4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f053f50:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f053f54:	90580003 */ 	lbu	$t8,0x3($v0)
-/*  f053f58:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f053f5c:	904b0005 */ 	lbu	$t3,0x5($v0)
-/*  f053f60:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f053f64:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f053f68:	904e0006 */ 	lbu	$t6,0x6($v0)
-/*  f053f6c:	03295025 */ 	or	$t2,$t9,$t1
-/*  f053f70:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f053f74:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f053f78:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f053f7c:	90470007 */ 	lbu	$a3,0x7($v0)
-/*  f053f80:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f053f84:	0fc127ac */ 	jal	func0f049eb0
-/*  f053f88:	01ae3025 */ 	or	$a2,$t5,$t6
-/*  f053f8c:	3c03800a */ 	lui	$v1,0x800a
-/*  f053f90:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f053f94:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053f98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053f9c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f053fa0:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f053fa4:	ac780438 */ 	sw	$t8,0x438($v1)
-/*  f053fa8:	03e00008 */ 	jr	$ra
-/*  f053fac:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrUnsetFlag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
+	func0f049eb0(g_Vars.chrdata, cmd[2], flags, cmd[7]);
+	g_Vars.aioffset += 8;
+
+	return false;
+}
 
 /**
  * @cmd 00a0
