@@ -174,7 +174,7 @@
 /*0x00a9*/ bool aiIfChrHasChrflag(void);
 /*0x00aa*/ bool aiSetObjFlag(void);
 /*0x00ab*/ bool aiUnsetObjFlag(void);
-/*0x00ac*/ bool ai00ac(void);
+/*0x00ac*/ bool aiIfObjHasFlag(void);
 /*0x00ad*/ bool aiSetObjFlag2(void);
 /*0x00ae*/ bool aiUnsetObjFlag2(void);
 /*0x00af*/ bool aiIfObjHasFlag2(void);
