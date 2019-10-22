@@ -6164,45 +6164,20 @@ glabel ai00a9
 /**
  * @cmd 011b
  */
-GLOBAL_ASM(
-glabel ai011b
-/*  f054528:	3c03800a */ 	lui	$v1,0x800a
-/*  f05452c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f054530:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f054534:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f054538:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05453c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f054540:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f054544:	90580003 */ 	lbu	$t8,0x3($v0)
-/*  f054548:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f05454c:	904b0005 */ 	lbu	$t3,0x5($v0)
-/*  f054550:	904e0006 */ 	lbu	$t6,0x6($v0)
-/*  f054554:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f054558:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f05455c:	03295025 */ 	or	$t2,$t9,$t1
-/*  f054560:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f054564:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f054568:	01ae7825 */ 	or	$t7,$t5,$t6
-/*  f05456c:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f054570:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f054574:	0fc126d1 */ 	jal	chrFindById
-/*  f054578:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05457c:	3c03800a */ 	lui	$v1,0x800a
-/*  f054580:	10400005 */ 	beqz	$v0,.L0f054598
-/*  f054584:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f054588:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f05458c:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*  f054590:	0308c825 */ 	or	$t9,$t8,$t0
-/*  f054594:	ac590014 */ 	sw	$t9,0x14($v0)
-.L0f054598:
-/*  f054598:	8c690438 */ 	lw	$t1,0x438($v1)
-/*  f05459c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0545a0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0545a4:	252b0007 */ 	addiu	$t3,$t1,0x7
-/*  f0545a8:	ac6b0438 */ 	sw	$t3,0x438($v1)
-/*  f0545ac:	03e00008 */ 	jr	$ra
-/*  f0545b0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrSetHiddenFlag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr) {
+		chr->hidden |= flags;
+	}
+
+	g_Vars.aioffset += 7;
+
+	return false;
+}
 
 /**
  * @cmd 011c
