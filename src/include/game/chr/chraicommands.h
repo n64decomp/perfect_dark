@@ -170,7 +170,7 @@
 /*0x00a5*/ bool ai00a5(void);
 /*0x00a6*/ bool ai00a6(void);
 /*0x00a7*/ bool aiChrSetChrflag(void);
-/*0x00a8*/ bool ai00a8(void);
+/*0x00a8*/ bool aiChrUnsetChrflag(void);
 /*0x00a9*/ bool ai00a9(void);
 /*0x00aa*/ bool ai00aa(void);
 /*0x00ab*/ bool ai00ab(void);
