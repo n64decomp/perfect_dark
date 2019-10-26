@@ -6502,7 +6502,7 @@ struct menu_item menuitems_mpendgame[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x02000020, 0x00005123, 0x00000000, NULL }, // "Are you sure?"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x00005124, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005125, 0x00000000, menuhandler00177fd8 }, // "End Game"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005125, 0x00000000, menuhandlerMpEndGame }, // "End Game"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -6895,12 +6895,12 @@ struct menu_item menuitems_mpweapons[] = {
 	{ MENUITEMTYPE_DROPDOWN,    1, 0x00020090, 0x000050ae, 0x00000000, menuhandler00179634 }, // "Set:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000212, 0x000050af, 0x00000000, NULL }, // "Current Weapon Setup:"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b0, 0x00000000, menuhandler00179574 }, // "1:"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b1, 0x00000001, menuhandler00179574 }, // "2:"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b2, 0x00000002, menuhandler00179574 }, // "3:"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b3, 0x00000003, menuhandler00179574 }, // "4:"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b4, 0x00000004, menuhandler00179574 }, // "5:"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b5, 0x00000005, menuhandler00179574 }, // "6:"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b0, 0x00000000, menuhandlerMpWeaponSlot }, // "1:"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b1, 0x00000001, menuhandlerMpWeaponSlot }, // "2:"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b2, 0x00000002, menuhandlerMpWeaponSlot }, // "3:"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b3, 0x00000003, menuhandlerMpWeaponSlot }, // "4:"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b4, 0x00000004, menuhandlerMpWeaponSlot }, // "5:"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b5, 0x00000005, menuhandlerMpWeaponSlot }, // "6:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050b6, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -6963,19 +6963,19 @@ struct menu_dialog menudialog_mpoptions = {
 
 // 2b044
 struct menu_item menuitems_mpcontrol[] = {
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000050c8, 0x00000000, menuhandler001794b4 }, // "Control Style"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050c9, 0x00000001, menuhandler001796c4 }, // "Reverse Pitch"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050ca, 0x00000002, menuhandler001796c4 }, // "Look Ahead"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050cb, 0x00000080, menuhandler001796c4 }, // "Head Roll"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050cc, 0x00000008, menuhandler001796c4 }, // "Auto-Aim"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000050cd, 0x00000000, menuhandler001797e0 }, // "Aim Control"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000050c8, 0x00000000, menuhandlerMpControlStyle }, // "Control Style"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050c9, 0x00000001, menuhandlerMpControlCheckbox }, // "Reverse Pitch"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050ca, 0x00000002, menuhandlerMpControlCheckbox }, // "Look Ahead"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050cb, 0x00000080, menuhandlerMpControlCheckbox }, // "Head Roll"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050cc, 0x00000008, menuhandlerMpControlCheckbox }, // "Auto-Aim"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000050cd, 0x00000000, menuhandlerMpAimControl }, // "Aim Control"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050ce, 0x00000004, menuhandler001796c4 }, // "Sight on Screen"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050cf, 0x00000200, menuhandler001796c4 }, // "Show Target"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050d0, 0x00000400, menuhandler001796c4 }, // "Show Zoom Range"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050d1, 0x00000020, menuhandler001796c4 }, // "Ammo on Screen"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050d2, 0x00000040, menuhandler001796c4 }, // "Gun Function"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050d3, 0x00000800, menuhandler001796c4 }, // "Paintball"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050ce, 0x00000004, menuhandlerMpControlCheckbox }, // "Sight on Screen"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050cf, 0x00000200, menuhandlerMpControlCheckbox }, // "Show Target"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050d0, 0x00000400, menuhandlerMpControlCheckbox }, // "Show Zoom Range"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050d1, 0x00000020, menuhandlerMpControlCheckbox }, // "Ammo on Screen"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050d2, 0x00000040, menuhandlerMpControlCheckbox }, // "Gun Function"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050d3, 0x00000800, menuhandlerMpControlCheckbox }, // "Paintball"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050d4, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -7033,10 +7033,10 @@ struct menu_item menuitems_mpplayerstats[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000509d, 0x7f17aaa0, NULL }, // "Distance:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x0000509e, 0x00000000, NULL }, // "Medals Won:"
-	{ MENUITEMTYPE_LABEL,       2, 0x00200000, 0x0000509f, 0x7f17a850, menuhandler0017b01c }, // "Accuracy:"
-	{ MENUITEMTYPE_LABEL,       1, 0x00200000, 0x000050a0, 0x7f17a8a4, menuhandler0017b01c }, // "Head Shot:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00200000, 0x000050a1, 0x7f17a8f8, menuhandler0017b01c }, // "KillMaster:"
-	{ MENUITEMTYPE_LABEL,       3, 0x00200000, 0x000050a2, 0x7f17a94c, menuhandler0017b01c }, // "Survivor:"
+	{ MENUITEMTYPE_LABEL,       2, 0x00200000, 0x0000509f, 0x7f17a850, menuhandlerMpMedal }, // "Accuracy:"
+	{ MENUITEMTYPE_LABEL,       1, 0x00200000, 0x000050a0, 0x7f17a8a4, menuhandlerMpMedal }, // "Head Shot:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00200000, 0x000050a1, 0x7f17a8f8, menuhandlerMpMedal }, // "KillMaster:"
+	{ MENUITEMTYPE_LABEL,       3, 0x00200000, 0x000050a2, 0x7f17a94c, menuhandlerMpMedal }, // "Survivor:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x000050a3, 0x00000000, NULL }, // "Your Title:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, 0x7f178bb0, 0x00000000, NULL },
@@ -7065,8 +7065,8 @@ u32 var0002b46c = 0x0400ff00;
 // 2b470
 struct menu_item menuitems_mpcharacter[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00004230, 0x7f17b8b0, 0x00000000, NULL },
-	{ MENUITEMTYPE_CAROUSEL,    0, 0x00000000, 0x00000000, 0x00000022, menuhandler0017b840 },
-	{ MENUITEMTYPE_CAROUSEL,    0, 0x00000000, 0x00000000, 0x0000001b, menuhandler0017a028 },
+	{ MENUITEMTYPE_CAROUSEL,    0, 0x00000000, 0x00000000, 0x00000022, menuhandlerMpCharacterHead },
+	{ MENUITEMTYPE_CAROUSEL,    0, 0x00000000, 0x00000000, 0x0000001b, menuhandlerMpCharacterBody },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -7165,11 +7165,11 @@ struct menu_dialog menudialog_mparena = {
 
 // 2b654
 struct menu_item menuitems_mplimits[] = {
-	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x0000506c, 0x0000003c, menuhandler0017c1a4 }, // "Time"
-	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x0000506d, 0x00000064, menuhandler0017c264 }, // "Score"
-	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x000059bf, 0x00000190, menuhandler0017c324 }, // "Team Score"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x0000506c, 0x0000003c, menuhandlerMpTime }, // "Time"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x0000506d, 0x00000064, menuhandlerMpScore }, // "Score"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x000059bf, 0x00000190, menuhandlerMpTeamScore }, // "Team Score"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, 0x0000506e, 0x00000000, menuhandler0017c3e8 }, // "Restore Defaults"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, 0x0000506e, 0x00000000, menuhandlerMpRestoreScoreDefaults }, // "Restore Defaults"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x0000506f, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -7186,12 +7186,12 @@ struct menu_dialog menudialog_mplimits = {
 
 // 2b6f8
 struct menu_item menuitems_mpplayerhandicaps[] = {
-	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x7f17c524, 0x000000ff, menuhandler0017c41c },
-	{ MENUITEMTYPE_SLIDER,      1, 0x00020010, 0x7f17c524, 0x000000ff, menuhandler0017c41c },
-	{ MENUITEMTYPE_SLIDER,      2, 0x00020010, 0x7f17c524, 0x000000ff, menuhandler0017c41c },
-	{ MENUITEMTYPE_SLIDER,      3, 0x00020010, 0x7f17c524, 0x000000ff, menuhandler0017c41c },
+	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x7f17c524, 0x000000ff, menuhandlerMpHandicapPlayer },
+	{ MENUITEMTYPE_SLIDER,      1, 0x00020010, 0x7f17c524, 0x000000ff, menuhandlerMpHandicapPlayer },
+	{ MENUITEMTYPE_SLIDER,      2, 0x00020010, 0x7f17c524, 0x000000ff, menuhandlerMpHandicapPlayer },
+	{ MENUITEMTYPE_SLIDER,      3, 0x00020010, 0x7f17c524, 0x000000ff, menuhandlerMpHandicapPlayer },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, 0x0000506e, 0x00000000, menuhandler0017c56c }, // "Restore Defaults"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, 0x0000506e, 0x00000000, menuhandlerMpRestoreHandicapDefaults }, // "Restore Defaults"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x0000506f, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -7256,8 +7256,8 @@ struct menu_dialog menudialog_mpchangesimulant = {
 
 // 2b86c
 struct menu_item menuitems_mpsimulantcharacter[] = {
-	 { MENUITEMTYPE_CAROUSEL,    0, 0x00020000, 0x00000000, 0x00000025, menuhandler0017ca94 },
-	 { MENUITEMTYPE_CAROUSEL,    0, 0x00020000, 0x00000000, 0x0000001b, menuhandler0017cc24 },
+	 { MENUITEMTYPE_CAROUSEL,    0, 0x00020000, 0x00000000, 0x00000025, menuhandlerMpSimulantHead },
+	 { MENUITEMTYPE_CAROUSEL,    0, 0x00020000, 0x00000000, 0x0000001b, menuhandlerMpSimulantBody },
 	 { MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -7273,11 +7273,11 @@ struct menu_dialog menudialog_mpsimulantcharacter = {
 
 // 2b8c0
 struct menu_item menuitems_mpeditsimulant[] = {
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x0000505f, 0x00000000, menuhandler0017cda0 }, // "Difficulty:"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005060, 0x00000000, menuhandler0017d044 }, // "Change Type..."
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x0000505f, 0x00000000, menuhandlerMpSimulantDifficulty }, // "Difficulty:"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005060, 0x00000000, menuhandlerMpChangeSimulantType }, // "Change Type..."
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005061, 0x00000000, &menudialog_mpsimulantcharacter }, // "Character..."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005062, 0x00000000, menuhandler0017cf58 }, // "Delete Simulant"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005062, 0x00000000, menuhandlerMpDeleteSimulant }, // "Delete Simulant"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x00005063, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -7294,18 +7294,18 @@ struct menu_dialog menudialog_mpeditsimulant = {
 
 // 2b964
 struct menu_item menuitems_mpsimulants[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005054, 0x00000000, menuhandler0017d1b0 }, // "Add Simulant..."
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005054, 0x00000000, menuhandlerMpAddSimulant }, // "Add Simulant..."
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005055, 0x7f17d378, menuhandler0017d250 }, // "1:"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x00005056, 0x7f17d378, menuhandler0017d250 }, // "2:"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x00005057, 0x7f17d378, menuhandler0017d250 }, // "3:"
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, 0x00005058, 0x7f17d378, menuhandler0017d250 }, // "4:"
-	{ MENUITEMTYPE_SELECTABLE,  4, 0x00000000, 0x00005059, 0x7f17d378, menuhandler0017d250 }, // "5:"
-	{ MENUITEMTYPE_SELECTABLE,  5, 0x00000000, 0x0000505a, 0x7f17d378, menuhandler0017d250 }, // "6:"
-	{ MENUITEMTYPE_SELECTABLE,  6, 0x00000000, 0x0000505b, 0x7f17d378, menuhandler0017d250 }, // "7:"
-	{ MENUITEMTYPE_SELECTABLE,  7, 0x00000000, 0x0000505c, 0x7f17d378, menuhandler0017d250 }, // "8:"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005055, 0x7f17d378, menuhandlerMpSimulantSlot }, // "1:"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x00005056, 0x7f17d378, menuhandlerMpSimulantSlot }, // "2:"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x00005057, 0x7f17d378, menuhandlerMpSimulantSlot }, // "3:"
+	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, 0x00005058, 0x7f17d378, menuhandlerMpSimulantSlot }, // "4:"
+	{ MENUITEMTYPE_SELECTABLE,  4, 0x00000000, 0x00005059, 0x7f17d378, menuhandlerMpSimulantSlot }, // "5:"
+	{ MENUITEMTYPE_SELECTABLE,  5, 0x00000000, 0x0000505a, 0x7f17d378, menuhandlerMpSimulantSlot }, // "6:"
+	{ MENUITEMTYPE_SELECTABLE,  6, 0x00000000, 0x0000505b, 0x7f17d378, menuhandlerMpSimulantSlot }, // "7:"
+	{ MENUITEMTYPE_SELECTABLE,  7, 0x00000000, 0x0000505c, 0x7f17d378, menuhandlerMpSimulantSlot }, // "8:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000505d, 0x00000000, menuhandler0017d15c }, // "Clear All"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000505d, 0x00000000, menuhandlerMpClearAllSimulants }, // "Clear All"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x0000505e, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -7328,12 +7328,12 @@ u32 var0002baa4 = 0x00010203;
 
 // 2baa8
 struct menu_item menuitems_mpautoteam[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000504c, 0x00000000, menuhandler0017d760 }, // "Two Teams"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000504d, 0x00000000, menuhandler0017d780 }, // "Three Teams"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000504e, 0x00000000, menuhandler0017d7a0 }, // "Four Teams"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000504f, 0x00000000, menuhandler0017d7c0 }, // "Maximum Teams"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005050, 0x00000000, menuhandler0017d8d0 }, // "Humans vs. Simulants"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005051, 0x00000000, menuhandler0017d998 }, // "Human-Simulant Pairs"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000504c, 0x00000000, menuhandlerMpTwoTeams }, // "Two Teams"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000504d, 0x00000000, menuhandlerMpThreeTeams }, // "Three Teams"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000504e, 0x00000000, menuhandlerMpFourTeams }, // "Four Teams"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000504f, 0x00000000, menuhandlerMpMaximumTeams }, // "Maximum Teams"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005050, 0x00000000, menuhandlerMpHumansVsSimulants }, // "Humans vs. Simulants"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005051, 0x00000000, menuhandlerMpHumanSimulantPairs }, // "Human-Simulant Pairs"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x00005052, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -7351,21 +7351,21 @@ struct menu_dialog menudialog_mpautoteam = {
 
 // 2bb74
 struct menu_item menuitems_mpteamcontrol[] = {
-	{ MENUITEMTYPE_CHECKBOX,     0, 0x00020000, 0x00005047, 0x00000002, menuhandler00179914 }, // "Teams Enabled"
+	{ MENUITEMTYPE_CHECKBOX,     0, 0x00020000, 0x00005047, 0x00000002, menuhandlerMpTeamsEnabled }, // "Teams Enabled"
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,        0, 0x00000010, 0x00005048, 0x00000000, menuhandler001790c4 }, // "Teams:"
-	{ MENUITEMTYPE_DROPDOWN,     0, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,     1, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,     2, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,     3, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,     4, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,     5, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,     6, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,     7, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,     8, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,     9, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,    10, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
-	{ MENUITEMTYPE_DROPDOWN,    11, 0x00020000, 0x7f17da94, 0x00000000, menuhandler0017db5c },
+	{ MENUITEMTYPE_DROPDOWN,     0, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     1, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     2, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     3, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     4, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     5, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     6, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     7, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     8, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,     9, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,    10, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
+	{ MENUITEMTYPE_DROPDOWN,    11, 0x00020000, 0x7f17da94, 0x00000000, menuhandlerMpTeamSlot },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000004, 0x00005049, 0x00000000, &menudialog_mpautoteam }, // "Auto Team..."
 	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000008, 0x0000504a, 0x00000000, NULL }, // "Back"
@@ -7409,7 +7409,7 @@ struct menu_item menuitems_mpsoundtrack[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005603, 0x7f17dfac, NULL }, // ""
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x7f17dc44, 0x00000000, &menudialog_2bd40 },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x00005040, 0x00000000, menuhandler0017e00c }, // "Multiple Tunes"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x00005040, 0x00000000, menuhandlerMpMultipleTunes }, // "Multiple Tunes"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x00005041, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -7443,14 +7443,14 @@ struct menu_dialog menudialog_mpchangeteamname = {
 
 // 2be50
 struct menu_item menuitems_mpteamnames[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005608, 0x7f17e288, menuhandler0017e2ac }, // "Red"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005609, 0x7f17e288, menuhandler0017e2ac }, // "Yellow"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560a, 0x7f17e288, menuhandler0017e2ac }, // "Blue"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560b, 0x7f17e288, menuhandler0017e2ac }, // "Magenta"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560c, 0x7f17e288, menuhandler0017e2ac }, // "Cyan"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560d, 0x7f17e288, menuhandler0017e2ac }, // "Orange"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560e, 0x7f17e288, menuhandler0017e2ac }, // "Pink"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560f, 0x7f17e288, menuhandler0017e2ac }, // "Brown"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005608, 0x7f17e288, menuhandlerMpTeamNameSlot }, // "Red"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x00005609, 0x7f17e288, menuhandlerMpTeamNameSlot }, // "Yellow"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560a, 0x7f17e288, menuhandlerMpTeamNameSlot }, // "Blue"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560b, 0x7f17e288, menuhandlerMpTeamNameSlot }, // "Magenta"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560c, 0x7f17e288, menuhandlerMpTeamNameSlot }, // "Cyan"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560d, 0x7f17e288, menuhandlerMpTeamNameSlot }, // "Orange"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560e, 0x7f17e288, menuhandlerMpTeamNameSlot }, // "Pink"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020000, 0x0000560f, 0x7f17e288, menuhandlerMpTeamNameSlot }, // "Brown"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x0000503c, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -7490,8 +7490,8 @@ struct menu_item menuitems_mpchallengedetails[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x00000078, 0x0000004d, menuhandler0017e4d4 },
 	{ MENUITEMTYPE_SCROLLABLE,  2, 0x00000000, 0x0000007c, 0x00000037, menuhandler0017e9d8 },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, menuhandler0017e9d8 },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054ab, 0x00000000, menuhandler0017ea6c }, // "Start Challenge"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005033, 0x00000000, menuhandler0017ea10 }, // "Abort Challenge"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054ab, 0x00000000, menuhandlerMpStartChallenge }, // "Start Challenge"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005033, 0x00000000, menuhandlerMpAbortChallenge }, // "Abort Challenge"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -7566,10 +7566,10 @@ struct menu_dialog menudialog_mpabort2;
 struct menu_item menuitems_mpstuff[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005029, 0x00000000, &menudialog_mpsoundtrack }, // "Soundtrack"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000502a, 0x00000000, &menudialog_mpteamnames }, // "Team Names"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x0000502c, 0x00000000, menuhandler0017ecd4 }, // "Lock"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x0000502c, 0x00000000, menuhandlerMpLock }, // "Lock"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000056d8, 0x00000000, menuhandler00102814 }, // "Ratio"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x0000549a, 0x00000000, menuhandler001028cc }, // "Split"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000056d8, 0x00000000, menuhandlerScreenRatio }, // "Ratio"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x0000549a, 0x00000000, menuhandlerScreenSplit }, // "Split"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005024, 0x00000000, &menudialog_mpready }, // "Start Game"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005025, 0x00000000, &menudialog_2aba0 }, // "Drop Out"
@@ -7663,7 +7663,7 @@ struct menu_dialog menudialog_mpscenario;
 // 2c39c
 struct menu_item menuitems_mpgamesetup3[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, 0x00005013, 0x7f184fb0, &menudialog_mpscenario }, // "Scenario"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005015, 0x00000000, menuhandler00185380 }, // "Options"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005015, 0x00000000, menuhandlerMpOpenOptions }, // "Options"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005014, 0x7f17f024, &menudialog_mparena }, // "Arena"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005017, 0x00000000, &menudialog_mpweapons }, // "Weapons"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005018, 0x00000000, &menudialog_mplimits }, // "Limits"
@@ -7672,7 +7672,7 @@ struct menu_item menuitems_mpgamesetup3[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005016, 0x00000000, &menudialog_mpteamcontrol }, // "Teams"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060004, 0x00005012, 0x00000000, &menudialog_mploadgamesettingstype0 }, // "Load Settings"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, 0x0000501a, 0x00000000, menuhandler0017efbc }, // "Save Settings"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, 0x0000501a, 0x00000000, menuhandlerMpSaveSettings }, // "Save Settings"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -7720,7 +7720,7 @@ struct menu_dialog menudialog_mpscenario2;
 // 2c538
 struct menu_item menuitems_2c538[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, 0x00005013, 0x7f184fb0, &menudialog_mpscenario2 }, // "Scenario"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005015, 0x00000000, menuhandler00185380 }, // "Options"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005015, 0x00000000, menuhandlerMpOpenOptions }, // "Options"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005014, 0x7f17f024, &menudialog_mparena }, // "Arena"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005017, 0x7f17f088, &menudialog_mpweapons2 }, // "Weapons"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005018, 0x00000000, &menudialog_mplimits }, // "Limits"
@@ -7729,13 +7729,13 @@ struct menu_item menuitems_2c538[] = {
 	{ MENUITEMTYPE_DROPDOWN,    1, 0x00000000, 0x000059c2, 0x00000000, menuhandler0017f4fc }, // "Player 2 Team"
 	{ MENUITEMTYPE_DROPDOWN,    2, 0x00000000, 0x000059c3, 0x00000000, menuhandler0017f4fc }, // "Player 3 Team"
 	{ MENUITEMTYPE_DROPDOWN,    3, 0x00000000, 0x000059c4, 0x00000000, menuhandler0017f4fc }, // "Player 4 Team"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000059c5, 0x00000000, menuhandler0017f5a4 }, // "Number Of Simulants"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000059c6, 0x00000000, menuhandler0017f68c }, // "Simulants Per Team"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000059c5, 0x00000000, menuhandlerMpNumberOfSimulants }, // "Number Of Simulants"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000059c6, 0x00000000, menuhandlerMpSimulantsPerTeam }, // "Simulants Per Team"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000059c7, 0x00000000, menuhandler0017f74c }, // "Simulant Difficulty"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000059c0, 0x00000000, menuhandler0017f480 }, // "Finished Setup"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000059c0, 0x00000000, menuhandlerMpFinishedSetup }, // "Finished Setup"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, 0x0000501a, 0x00000000, menuhandler0017efbc }, // "Save Settings"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, 0x0000501a, 0x00000000, menuhandlerMpSaveSettings }, // "Save Settings"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -7751,12 +7751,12 @@ struct menu_dialog menudialog_2c6a0 = {
 
 // 2c6b8
 struct menu_item menuitems_mpquickteam[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, 0x000059cf, 0x00000000, menuhandler0017f890 }, // "Players Only"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, 0x000059d0, 0x00000000, menuhandler0017f890 }, // "Players and Simulants"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, 0x000059cf, 0x00000000, menuhandlerMpQuickteamOption }, // "Players Only"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, 0x000059d0, 0x00000000, menuhandlerMpQuickteamOption }, // "Players and Simulants"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, 0x000059d1, 0x00000000, menuhandler0017f890 }, // "Player Teams"
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, 0x000059d2, 0x00000000, menuhandler0017f890 }, // "Players vs. Simulants"
-	{ MENUITEMTYPE_SELECTABLE,  4, 0x00400000, 0x000059d3, 0x00000000, menuhandler0017f890 }, // "Player-Simulant Teams"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, 0x000059d1, 0x00000000, menuhandlerMpQuickteamOption }, // "Player Teams"
+	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, 0x000059d2, 0x00000000, menuhandlerMpQuickteamOption }, // "Players vs. Simulants"
+	{ MENUITEMTYPE_SELECTABLE,  4, 0x00400000, 0x000059d3, 0x00000000, menuhandlerMpQuickteamOption }, // "Player-Simulant Teams"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -7775,7 +7775,7 @@ struct menu_item menuitems_mpcombatsimulator[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059b9, 0x00000000, &menudialog_mpcombatchallenges2 }, // "Challenges"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059ba, 0x00000001, &menudialog_mploadgamesettingstype1 }, // "Load/Preset Games"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059bb, 0x00000002, &menudialog_mpquickteam }, // "Quick Start"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, 0x000059bc, 0x00000003, menuhandler0017f9ec }, // "Advanced Setup"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, 0x000059bc, 0x00000003, menuhandlerMpAdvancedSetup }, // "Advanced Setup"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -7802,15 +7802,15 @@ u16 mpslowmotionoptions[] = {
 
 // 2c7e8
 struct menu_item menuitems_mpcombatoptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandler0017fdfc }, // "One-Hit Hills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandler0017fe50 }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandler00179898 }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandler0017fdb0 }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandler00179898 }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandler00179898 }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandlerMpDisplayTeam }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e4, 0x00000010, menuhandler00179898 }, // "No Player Highlight"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e5, 0x00000020, menuhandler00179898 }, // "No Pickup Highlight"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e4, 0x00000010, menuhandlerMpCheckboxOption }, // "No Player Highlight"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e5, 0x00000020, menuhandlerMpCheckboxOption }, // "No Pickup Highlight"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050ef, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -7828,16 +7828,16 @@ struct menu_dialog menudialog_mpcombatoptions = {
 
 // 2c8f0
 struct menu_item menuitems_mpbriefcaseoptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandler0017fdfc }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandler0017fe50 }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandler00179898 }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandler0017fdb0 }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandler00179898 }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandler00179898 }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000057ed, 0x00000400, menuhandler00179898 }, // "Kills Score"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandlerMpDisplayTeam }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000057ed, 0x00000400, menuhandlerMpCheckboxOption }, // "Kills Score"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ed, 0x00000800, menuhandler00179898 }, // "Highlight Briefcase"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ee, 0x00001000, menuhandler00179898 }, // "Show on Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ed, 0x00000800, menuhandlerMpCheckboxOption }, // "Highlight Briefcase"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ee, 0x00001000, menuhandlerMpCheckboxOption }, // "Show on Radar"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050ef, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -7883,15 +7883,15 @@ u32 var0002ca74 = 0x00000000;
 
 // 2ca78
 struct menu_item menuitems_mpcaptureoptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandler0017fdfc }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandler0017fe50 }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandler00179898 }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandler0017fdb0 }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandler00179898 }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandler00179898 }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000057ed, 0x00000400, menuhandler00179898 }, // "Kills Score"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandlerMpDisplayTeam }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000057ed, 0x00000400, menuhandlerMpCheckboxOption }, // "Kills Score"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ec, 0x00002000, menuhandler00179898 }, // "Show on Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ec, 0x00002000, menuhandlerMpCheckboxOption }, // "Show on Radar"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050ef, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -7936,16 +7936,16 @@ u32 var0002cbe4 = 0x00000000;
 
 // 2cbe8
 struct menu_item menuitems_mphilloptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandler0017fdfc }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandler0017fe50 }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandler00179898 }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandler0017fdb0 }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandler00179898 }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandler00179898 }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000057ed, 0x00000400, menuhandler00179898 }, // "Kills Score"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandlerMpDisplayTeam }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000057ed, 0x00000400, menuhandlerMpCheckboxOption }, // "Kills Score"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e9, 0x00004000, menuhandler00179898 }, // "Hill on Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ea, 0x00008000, menuhandler00179898 }, // "Mobile Hill"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e9, 0x00004000, menuhandlerMpCheckboxOption }, // "Hill on Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ea, 0x00008000, menuhandlerMpCheckboxOption }, // "Mobile Hill"
 	{ MENUITEMTYPE_SLIDER,      0, 0x00020000, 0x000050eb, 0x0000006e, menuhandler00181a98 }, // "Time"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050ef, 0x00000000, NULL }, // "Back"
@@ -7964,16 +7964,16 @@ struct menu_dialog menudialog_mphilloptions = {
 
 // 2cd18
 struct menu_item menuitems_mphackeroptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandler0017fdfc }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandler0017fe50 }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandler00179898 }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandler0017fdb0 }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandler00179898 }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandler00179898 }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000057ed, 0x00000400, menuhandler00179898 }, // "Kills Score"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandlerMpDisplayTeam }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000057ed, 0x00000400, menuhandlerMpCheckboxOption }, // "Kills Score"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e7, 0x00020000, menuhandler00179898 }, // "Highlight Terminal"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ee, 0x00040000, menuhandler00179898 }, // "Show on Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e7, 0x00020000, menuhandlerMpCheckboxOption }, // "Highlight Terminal"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ee, 0x00040000, menuhandlerMpCheckboxOption }, // "Show on Radar"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050ef, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -8018,16 +8018,16 @@ u32 var0002ce98 = 0x00000000;
 
 // 2ce9c
 struct menu_item menuitems_mppopacapoptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandler0017fdfc }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandler0017fe50 }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandler00179898 }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandler0017fdb0 }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandler00179898 }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandler00179898 }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000057ed, 0x00000400, menuhandler00179898 }, // "Kills Score"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050de, 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x000050df, 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e0, 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e1, 0x00000200, menuhandlerMpDisplayTeam }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e2, 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e3, 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000057ed, 0x00000400, menuhandlerMpCheckboxOption }, // "Kills Score"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e6, 0x00080000, menuhandler00179898 }, // "Highlight Target"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ee, 0x00100000, menuhandler00179898 }, // "Show on Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050e6, 0x00080000, menuhandlerMpCheckboxOption }, // "Highlight Target"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, 0x000050ee, 0x00100000, menuhandlerMpCheckboxOption }, // "Show on Radar"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050ef, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -9485,9 +9485,9 @@ u32 var0002ecc8 = 0x00000000;
 // 2eccc
 struct menu_item menuitems_frdifficulty[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, 0x000051bc, 0x000051bd, NULL }, // "Select Difficulty:"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x000051b7, 0x00005603, menuhandler001a3c18 }, // "Bronze"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, 0x000051b8, 0x00005603, menuhandler001a3c18 }, // "Silver"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000020, 0x000051b9, 0x00005603, menuhandler001a3c18 }, // "Gold"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x000051b7, 0x00005603, menuhandlerFrDifficulty }, // "Bronze"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, 0x000051b8, 0x00005603, menuhandlerFrDifficulty }, // "Silver"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000020, 0x000051b9, 0x00005603, menuhandlerFrDifficulty }, // "Gold"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x000051ad, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
