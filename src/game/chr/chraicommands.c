@@ -6748,6 +6748,23 @@ glabel ai00c7
 /*  f055808:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+// Mismatch due to different temporary registers
+//bool ai00c7(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	u32 flags = (cmd[8] << 16) | (cmd[9] << 8) | cmd[10] | (cmd[7] << 24);
+//	u32 ailistid = cmd[6] | (cmd[5] << 8);
+//	u8 *ailist = ailistFindById(ailistid);
+//
+//	if (func0f04b5f4(g_Vars.chrdata, cmd[2], (s8)cmd[3], cmd[4], ailist, flags)) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[11]);
+//	} else {
+//		g_Vars.aioffset += 12;
+//	}
+//
+//	return false;
+//}
+
 /**
  * @cmd 00c8
  */
