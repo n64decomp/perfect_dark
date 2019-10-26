@@ -883,7 +883,7 @@ struct menu_item {
 	u32 flags;
 	u32 left;
 	u32 right;
-	void *handler;
+	s32 *handler;
 };
 
 #define MENUDIALOGTYPE_DEFAULT 0x01
