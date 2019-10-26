@@ -16410,7 +16410,7 @@ bool aiFadeScreen(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 color = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	u32 num_frames = ((cmd[7] | (cmd[6] << 8)) << 16) >> 16;
-	func0f16856c(color, num_frames);
+	fadeConfigure(color, num_frames);
 	g_Vars.aioffset += 8;
 
 	return false;

@@ -24,6 +24,12 @@ extern struct menu_dialog menudialog_mpquickteam;
 
 extern s32 g_Difficulty;
 
+extern s16 g_FadeNumFrames;
+extern float fade80084058;
+extern u32 g_FadePrevColor;
+extern u32 g_FadeColor;
+extern u16 fade80084064;
+
 extern s32 var0002d280;
 
 #endif
