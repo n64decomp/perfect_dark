@@ -16405,42 +16405,16 @@ glabel ai01ca
 /**
  * @cmd 01cb
  */
-GLOBAL_ASM(
-glabel ai01cb
-/*  f05f1f4:	3c03800a */ 	lui	$v1,0x800a
-/*  f05f1f8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05f1fc:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05f200:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05f204:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05f208:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05f20c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05f210:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f05f214:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f05f218:	904f0006 */ 	lbu	$t7,0x6($v0)
-/*  f05f21c:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f05f220:	904b0004 */ 	lbu	$t3,0x4($v0)
-/*  f05f224:	90480007 */ 	lbu	$t0,0x7($v0)
-/*  f05f228:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f05f22c:	03295025 */ 	or	$t2,$t9,$t1
-/*  f05f230:	000fc200 */ 	sll	$t8,$t7,0x8
-/*  f05f234:	904e0005 */ 	lbu	$t6,0x5($v0)
-/*  f05f238:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f05f23c:	03082825 */ 	or	$a1,$t8,$t0
-/*  f05f240:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f05f244:	0005cc00 */ 	sll	$t9,$a1,0x10
-/*  f05f248:	00192c03 */ 	sra	$a1,$t9,0x10
-/*  f05f24c:	0fc5a15b */ 	jal	func0f16856c
-/*  f05f250:	01ae2025 */ 	or	$a0,$t5,$t6
-/*  f05f254:	3c03800a */ 	lui	$v1,0x800a
-/*  f05f258:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f05f25c:	8c6b0438 */ 	lw	$t3,0x438($v1)
-/*  f05f260:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05f264:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05f268:	256a0008 */ 	addiu	$t2,$t3,0x8
-/*  f05f26c:	ac6a0438 */ 	sw	$t2,0x438($v1)
-/*  f05f270:	03e00008 */ 	jr	$ra
-/*  f05f274:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiFadeScreen(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 color = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
+	u32 num_frames = ((cmd[7] | (cmd[6] << 8)) << 16) >> 16;
+	func0f16856c(color, num_frames);
+	g_Vars.aioffset += 8;
+
+	return false;
+}
 
 /**
  * @cmd 01cc
