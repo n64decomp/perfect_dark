@@ -15818,14 +15818,14 @@ glabel ai01b3
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //
-//	if (g_Vars.unk000298 >= 0) {
+//	if (g_Vars.coopplayernum >= 0) {
 //		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 //
 //		if (chr) {
-//			if (((u32)chr->BITFIELD >> 14) == g_Vars.unk000294 && g_Vars.coop->unkd8 == 0) {
-//				chr->bitfielddata.unk32e = (g_Vars.unk000298 << 6) | (chr->bitfielddata.unk32e & 0xff3f);
+//			if (((u32)chr->BITFIELD >> 14) == g_Vars.bondplayernum && g_Vars.coop->unkd8 == 0) {
+//				chr->bitfielddata.unk32e = (g_Vars.coopplayernum << 6) | (chr->bitfielddata.unk32e & 0xff3f);
 //			} else if (g_Vars.bond->unkd8 == 0) {
-//				chr->bitfielddata.unk32e = (g_Vars.unk000294 << 6) | (chr->bitfielddata.unk32e & 0xff3f);
+//				chr->bitfielddata.unk32e = (g_Vars.bondplayernum << 6) | (chr->bitfielddata.unk32e & 0xff3f);
 //			}
 //		}
 //	}

@@ -2,14 +2,13 @@
 #include "types.h"
 
 struct g_vars {
-	// Known member names based on debug strings:
+	// Known remaining member names based on debug strings:
 	//g_Vars.PaksNeedsReInit
 	//g_Vars.FourMeg2Player
 	//g_Vars.playersperm[0]
 	//g_Vars.playersperm[1]
 	//g_Vars.PropState.propznum
 	//g_Vars.PropState
-	//g_Vars.antiplayernum
 	//g_Vars.antiradaron
 	//g_Vars.antibodynum
 	//g_Vars.antiheadnum
@@ -41,7 +40,7 @@ struct g_vars {
 	/*000058*/ u32 unk000058;
 	/*00005c*/ u32 unk00005c;
 	/*000060*/ u32 unk000060;
-	/*000064*/ struct player *unk000064[2];
+	/*000064*/ struct player *players[2];
 	/*00006c*/ u32 unk00006c;
 	/*000070*/ u32 unk000070;
 	/*000074*/ u32 unk000074;
@@ -180,9 +179,9 @@ struct g_vars {
 	/*000288*/ u32 unk000288;
 	/*00028c*/ u32 currentplayernum;
 	/*000290*/ u32 unk000290;
-	/*000294*/ s32 unk000294; // suspected 0-3 to indicate bond controller number
-	/*000298*/ s32 unk000298; // suspected 0-3 to indicate coop controller number
-	/*00029c*/ s32 unk00029c; // suspected 0-3 to indicate anti controller number
+	/*000294*/ s32 bondplayernum; // suspected 0-3 to indicate bond controller number
+	/*000298*/ s32 coopplayernum;
+	/*00029c*/ s32 antiplayernum;
 	/*0002a0*/ struct player *bond;
 	/*0002a4*/ struct player *coop; // Co-op buddy when controlled by human
 	/*0002a8*/ struct player *anti; // Counter-op

@@ -84287,16 +84287,16 @@ s32 chrResolveId(struct chrdata *ref, s32 id)
 			break;
 		case 0xf2:
 			{
-				u32 index = g_Vars.unk000298 >= 0 ? (u32)ref->BITFIELD >> 14 : g_Vars.unk000294;
-				struct player *player = g_Vars.unk000064[index];
+				u32 index = g_Vars.coopplayernum >= 0 ? (u32)ref->BITFIELD >> 14 : g_Vars.bondplayernum;
+				struct player *player = g_Vars.players[index];
 				if (player && player->unkbc && player->unkbc->chr) {
 					id = player->unkbc->chr->chrnum;
 				}
 			}
 			break;
 		case 0xf1:
-			if (g_Vars.unk000298 >= 0) {
-				struct player *player = g_Vars.unk000064[1 - ((u32)ref->BITFIELD >> 14)];
+			if (g_Vars.coopplayernum >= 0) {
+				struct player *player = g_Vars.players[1 - ((u32)ref->BITFIELD >> 14)];
 				if (player && player->unkbc && player->unkbc->chr) {
 					id = player->unkbc->chr->chrnum;
 				}
@@ -84330,15 +84330,15 @@ s32 chrResolveId(struct chrdata *ref, s32 id)
 			break;
 		case 0xf2: // P1/P2
 			{
-				struct player *player = g_Vars.unk000064[g_Vars.unk000294];
+				struct player *player = g_Vars.players[g_Vars.bondplayernum];
 				if (player && player->unkbc && player->unkbc->chr) {
 					id = player->unkbc->chr->chrnum;
 				}
 			}
 			break;
 		case 0xf1: // P1/P2 inverse?
-			if (g_Vars.unk000298 >= 0) {
-				struct player *player = g_Vars.unk000064[g_Vars.unk000298];
+			if (g_Vars.coopplayernum >= 0) {
+				struct player *player = g_Vars.players[g_Vars.coopplayernum];
 				if (player && player->unkbc && player->unkbc->chr) {
 					id = player->unkbc->chr->chrnum;
 				}
