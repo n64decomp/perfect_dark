@@ -91,6 +91,9 @@ class Extractor:
 
             unzippedname = name[:-1] if name.endswith('Z') else name
 
+            if name.endswith('tilesZ'):
+                self.write('files/bgdata/%s.bin' % unzippedname, self.decompress(content))
+
             if name.startswith('C'):
                 self.write('files/chrs/%s.bin' % unzippedname, self.decompress(content))
 

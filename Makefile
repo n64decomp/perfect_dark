@@ -74,6 +74,26 @@ $(B_DIR)/files/U%Z: $(B_DIR)/files/setup/U%.bin
 stagesetup: $(SETUP_BIN_FILES)
 
 ################################################################################
+# Tile files
+
+TILE_S_FILES := $(wildcard src/files/bgdata/bg_*_tiles.s)
+TILE_BIN_FILES := $(patsubst src/files/bgdata/%.s, $(B_DIR)/files/bgdata/bgdata/%.bin, $(TILE_S_FILES))
+
+src/files/bgdata/%.o: src/files/bgdata/%.s
+	$(TOOLCHAIN)-as -I src/include -EB -o $@ $<
+
+$(B_DIR)/files/bgdata/bgdata/%.elf: src/files/bgdata/%.o
+	mkdir -p $(B_DIR)/files/bgdata/bgdata
+	cp $< build/zero.tmp.o
+	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
+	rm -f build/zero.tmp.o
+
+$(B_DIR)/files/bgdata/bgdata/%.bin: $(B_DIR)/files/bgdata/bgdata/%.elf
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
+
+tiles: $(TILE_BIN_FILES)
+
+################################################################################
 # Lang files
 
 LANG_C_FILES := $(wildcard src/files/lang/*.c)
@@ -200,6 +220,7 @@ gvars: $(B_DIR)/ucode/gvars.bin
 
 test: all
 	@rm -f $(B_DIR)/*.elf
+	@diff -q $(E_DIR)/files/bgdata/bgdata/ $(B_DIR)/files/bgdata/bgdata/
 	@diff -q $(E_DIR)/files/lang/ $(B_DIR)/files/lang/
 	@diff -q $(E_DIR)/files/setup/ $(B_DIR)/files/setup/
 	@diff -rq --exclude=gvars.bin --exclude=rspboot.bin $(E_DIR)/ucode/ $(B_DIR)/ucode/
@@ -211,7 +232,7 @@ test: all
 	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
 	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
-all: stagesetup lang boot library setup rarezip game gvars
+all: stagesetup lang boot library setup tiles rarezip game gvars
 
 rom: all
 	tools/inject pd.$(ROMID).z64

@@ -19,12 +19,12 @@ This repository contains a work-in-progress decompilation of Perfect Dark for th
 | Gun files       | Not started                               |
 | BG files        | Not started                               |
 | Pad files       | Not started                               |
-| Tile files      | Not started                               |
+| Tile files      | Done                                      |
 
 If you want to browse the stage setup files, use this table to find the filename:
 
-| Stage            | File                                 |
-| ---------------- | ------------------------------------ |
+| Stage            | File                                       |
+| ---------------- | ------------------------------------------ |
 | Defection        | [setupame.c](src/files/setup/setupame.c)   |
 | Investigation    | [setupear.c](src/files/setup/setupear.c)   |
 | Extraction       | [setupark.c](src/files/setup/setupark.c)   |
