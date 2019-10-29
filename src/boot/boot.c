@@ -771,34 +771,26 @@ glabel func000019f4
 /*     1a98:	ac22dbc8 */ 	sw	$v0,-0x2438($at)
 /*     1a9c:	03e00008 */ 	jr	$ra
 /*     1aa0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     1aa4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     1aa8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     1aac:	0c000652 */ 	jal	func00001948
-/*     1ab0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*     1ab4:	0c004dd4 */ 	jal	0x13750
-/*     1ab8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1abc:	0c004dc4 */ 	jal	0x13710
-/*     1ac0:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1ac4:	0c000667 */ 	jal	func0000199c
-/*     1ac8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1acc:	0c004bcc */ 	jal	0x12f30
-/*     1ad0:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1ad4:	50400004 */ 	beqzl	$v0,.L00001ae8
-/*     1ad8:	00002025 */ 	or	$a0,$zero,$zero
-/*     1adc:	0c0120dc */ 	jal	0x48370
-/*     1ae0:	00002025 */ 	or	$a0,$zero,$zero
-/*     1ae4:	00002025 */ 	or	$a0,$zero,$zero
-.L00001ae8:
-/*     1ae8:	0c01210c */ 	jal	0x48430
-/*     1aec:	2405000a */ 	addiu	$a1,$zero,0xa
-/*     1af0:	0c00067d */ 	jal	func000019f4
-/*     1af4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1af8:	0c0036ba */ 	jal	0xdae8
-/*     1afc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1b00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     1b04:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     1b08:	03e00008 */ 	jr	$ra
-/*     1b0c:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+void func00001aa4(u32 value)
+{
+	func00001948();
+	func00013750();
+	func00013710();
+	func0000199c();
+
+	if (func00012f30()) {
+		func00048370(0);
+	}
+
+	func00048430(0, 10);
+	func000019f4();
+	func0000dae8();
+}
+
+GLOBAL_ASM(
+glabel func00001b10
 /*     1b10:	3c018006 */ 	lui	$at,0x8006
 /*     1b14:	03e00008 */ 	jr	$ra
 /*     1b18:	ac24ce64 */ 	sw	$a0,-0x319c($at)
