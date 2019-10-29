@@ -829,18 +829,10 @@ void func00001b98(u32 value)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00001c28
-/*     1c28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     1c2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     1c30:	0c012144 */ 	jal	0x48510
-/*     1c34:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1c38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     1c3c:	3c018006 */ 	lui	$at,0x8006
-/*     1c40:	ac22ce70 */ 	sw	$v0,-0x3190($at)
-/*     1c44:	03e00008 */ 	jr	$ra
-/*     1c48:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void func00001c28(void)
+{
+	var8005ce70 = func00048510();
+}
 
 GLOBAL_ASM(
 glabel func00001c4c
