@@ -2,7 +2,11 @@
 #include "gvars/gvars.h"
 
 // 8008ae20
-u8 padding8008ae20[0xf1a0];
+u8 padding8008ae20[0x3018];
+
+u32 var8008de38;
+
+u8 padding8008de3c[0xc17c];
 
 // 80099fc0
 struct g_vars g_Vars; // ends at 8009a6c8

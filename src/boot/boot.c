@@ -1378,10 +1378,12 @@ glabel func000022e0
 /*     23e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
 /*     23ec:	03e00008 */ 	jr	$ra
 /*     23f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*     23f4:	3c028009 */ 	lui	$v0,0x8009
-/*     23f8:	03e00008 */ 	jr	$ra
-/*     23fc:	2442de38 */ 	addiu	$v0,$v0,-8648
 );
+
+u32 func000023f4(void)
+{
+	return &var8008de38;
+}
 
 GLOBAL_ASM(
 glabel func00002400
