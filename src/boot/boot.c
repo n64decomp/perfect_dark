@@ -795,11 +795,13 @@ void func00001b10(u32 value)
 	var8005ce64 = value;
 }
 
+void func00001b1c(u32 value)
+{
+	var8005ce60 = value;
+}
+
 GLOBAL_ASM(
-glabel func0001b1c
-/*     1b1c:	3c018006 */ 	lui	$at,0x8006
-/*     1b20:	03e00008 */ 	jr	$ra
-/*     1b24:	ac24ce60 */ 	sw	$a0,-0x31a0($at)
+glabel func0001b28
 /*     1b28:	3c018006 */ 	lui	$at,0x8006
 /*     1b2c:	03e00008 */ 	jr	$ra
 /*     1b30:	ac24ce68 */ 	sw	$a0,-0x3198($at)

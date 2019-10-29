@@ -6,6 +6,7 @@
 extern s32 levelnum;
 extern u64 rand_seed;
 
+extern u32 var8005ce60;
 extern u32 var8005ce64;
 extern u32 var80065be0;
 extern u32 var80067aa0;
