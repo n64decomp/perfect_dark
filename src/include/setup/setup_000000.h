@@ -6,22 +6,22 @@
 extern s32 levelnum;
 extern u64 rand_seed;
 
-extern u32 var0000bc00;
-extern u32 var0000dac0;
-extern u32 var0000db08;
-extern u32 var0000b6e0;
-extern u32 var0000da30;
-extern u32 var0000da78;
-extern u32 var0000c3f8;
-extern u32 var0000db50;
-extern u32 var0000db98;
+extern u32 var80065be0;
+extern u32 var80067aa0;
+extern u32 var80067ae8;
+extern u32 var800656c0;
+extern u32 var80067a10;
+extern u32 var80067a58;
+extern u32 var800663d8;
+extern u32 var80067b30;
+extern u32 var80067b78;
 
 extern struct audiodefinition audiodefinitions[];
 extern struct audioconfig audioconfigs[];
 
 extern u16 g_CommandLengths[];
 
-extern struct coord var0000f00c;
+extern struct coord var80068fec;
 
 extern u32 g_TintedGlassEnabled;
 extern s32 g_AlarmActive;

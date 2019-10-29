@@ -8241,7 +8241,7 @@ bool aiIfCutsceneButtonPressed(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if ((g_Vars.in_cutscene && g_8009de24) ||
-			(g_Vars.unk0004b4 == 0x26 && var0002d280 > 0)) {
+			(g_Vars.unk0004b4 == 0x26 && var80087260 > 0)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;

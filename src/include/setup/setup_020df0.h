@@ -30,6 +30,6 @@ extern u32 g_FadePrevColor;
 extern u32 g_FadeColor;
 extern u16 fade80084064;
 
-extern s32 var0002d280;
+extern s32 var80087260;
 
 #endif
