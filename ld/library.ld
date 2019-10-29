@@ -28,7 +28,7 @@ SECTIONS
 		src/game/game_0601b0.o (.data);
 	}
 
-	.gvars 0x0e000000 : AT(SIZEOF(.library) + SIZEOF(.setup) + SIZEOF(.game)) {
+	.gvars 0x8008ae20 : AT(SIZEOF(.library) + SIZEOF(.setup) + SIZEOF(.game)) {
 		src/gvars/gvars.o (.text);
 		src/gvars/gvars.o (.data);
 	}

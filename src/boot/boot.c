@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "setup/setup_000000.h"
+#include "gvars/gvars.h"
 
 GLOBAL_ASM(
 glabel func00001000
@@ -818,49 +819,15 @@ void func00001b40(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func00001b98
-/*     1b98:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     1b9c:	308e000f */ 	andi	$t6,$a0,0xf
-/*     1ba0:	15c0001d */ 	bnez	$t6,.L00001c18
-/*     1ba4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     1ba8:	3c0f8006 */ 	lui	$t7,0x8006
-/*     1bac:	8defce68 */ 	lw	$t7,-0x3198($t7)
-/*     1bb0:	3c188006 */ 	lui	$t8,0x8006
-/*     1bb4:	3c198006 */ 	lui	$t9,0x8006
-/*     1bb8:	11e00004 */ 	beqz	$t7,.L00001bcc
-/*     1bbc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1bc0:	8f18ce64 */ 	lw	$t8,-0x319c($t8)
-/*     1bc4:	17000004 */ 	bnez	$t8,.L00001bd8
-/*     1bc8:	00000000 */ 	sll	$zero,$zero,0x0
-.L00001bcc:
-/*     1bcc:	8f39ce60 */ 	lw	$t9,-0x31a0($t9)
-/*     1bd0:	53200012 */ 	beqzl	$t9,.L00001c1c
-/*     1bd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00001bd8:
-/*     1bd8:	0c012144 */ 	jal	0x48510
-/*     1bdc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1be0:	3c098006 */ 	lui	$t1,0x8006
-/*     1be4:	8d29ce70 */ 	lw	$t1,-0x3190($t1)
-/*     1be8:	3c088006 */ 	lui	$t0,0x8006
-/*     1bec:	8d08ce6c */ 	lw	$t0,-0x3194($t0)
-/*     1bf0:	00495023 */ 	subu	$t2,$v0,$t1
-/*     1bf4:	3c04800a */ 	lui	$a0,0x800a
-/*     1bf8:	010a082b */ 	sltu	$at,$t0,$t2
-/*     1bfc:	50200007 */ 	beqzl	$at,.L00001c1c
-/*     1c00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     1c04:	0c0033d5 */ 	jal	0xcf54
-/*     1c08:	8c84cac0 */ 	lw	$a0,-0x3540($a0)
-/*     1c0c:	3c04800a */ 	lui	$a0,0x800a
-/*     1c10:	0c0033d5 */ 	jal	0xcf54
-/*     1c14:	8c84cac4 */ 	lw	$a0,-0x353c($a0)
-.L00001c18:
-/*     1c18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00001c1c:
-/*     1c1c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     1c20:	03e00008 */ 	jr	$ra
-/*     1c24:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func00001b98(u32 value)
+{
+	if ((value & 0xf) == 0 && ((var8005ce68 && var8005ce64) || var8005ce60)) {
+		if (func00048510() - var8005ce70 > var8005ce6c) {
+			func0000cf54(var8009cac0);
+			func0000cf54(var8009cac4);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func00001c28

@@ -3,7 +3,7 @@ OUTPUT_ARCH (mips)
 
 SECTIONS
 {
-	.gvars 0x80099fc0 : AT(0) {
+	.gvars 0x8008ae20 : AT(0) {
 		src/gvars/gvars.o (.text);
 		src/gvars/gvars.o (.data);
 	}

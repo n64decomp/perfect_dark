@@ -26,7 +26,11 @@ SECTIONS
 		src/setup/setup_020df0.o (.data);
 	}
 
-	.game 0x0f000000 : AT(SIZEOF(.boot) + SIZEOF(.library) + SIZEOF(.setup)) {
+	.gvars 0x8008ae20 : AT(SIZEOF(.boot) + SIZEOF(.library) + SIZEOF(.setup)) {
+		src/gvars/gvars.o (.bss);
+	}
+
+	.game 0x0f000000 : AT(SIZEOF(.boot) + SIZEOF(.library) + SIZEOF(.setup) + SIZEOF(.gvars)) {
 		src/game/game_000000.o (.text);
 		src/game/chr/chrai.o (.text);
 		src/game/chr/chraicommands.o (.text);
@@ -41,11 +45,6 @@ SECTIONS
 		src/game/chr/chrai.o (.rodata);
 		src/game/chr/chraicommands.o (.rodata);
 		src/game/game_0601b0.o (.rodata);
-	}
-
-	.gvars 0x80099fc0 : {
-		src/gvars/gvars.o (.text);
-		src/gvars/gvars.o (.data);
 	}
 
 	/DISCARD/ : {

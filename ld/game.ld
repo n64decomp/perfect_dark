@@ -35,7 +35,7 @@ SECTIONS
 		src/setup/setup_020df0.o (.data);
 	}
 
-	.gvars 0x80099fc0 : AT(SIZEOF(.game) + SIZEOF(.gamerodata) + SIZEOF(.library) + SIZEOF(.setup)) {
+	.gvars 0x8008ae20 : AT(SIZEOF(.game) + SIZEOF(.gamerodata) + SIZEOF(.library) + SIZEOF(.setup)) {
 		src/gvars/gvars.o (.text);
 		src/gvars/gvars.o (.data);
 	}
