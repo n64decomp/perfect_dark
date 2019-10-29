@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "setup/setup_000000.h"
 
 GLOBAL_ASM(
 glabel func00001000
@@ -789,11 +790,13 @@ void func00001aa4(u32 value)
 	func0000dae8();
 }
 
+void func00001b10(u32 value)
+{
+	var8005ce64 = value;
+}
+
 GLOBAL_ASM(
-glabel func00001b10
-/*     1b10:	3c018006 */ 	lui	$at,0x8006
-/*     1b14:	03e00008 */ 	jr	$ra
-/*     1b18:	ac24ce64 */ 	sw	$a0,-0x319c($at)
+glabel func0001b1c
 /*     1b1c:	3c018006 */ 	lui	$at,0x8006
 /*     1b20:	03e00008 */ 	jr	$ra
 /*     1b24:	ac24ce60 */ 	sw	$a0,-0x31a0($at)
