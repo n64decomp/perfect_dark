@@ -810,34 +810,13 @@ void func00001b34(u32 value)
 	var8005ce6c = value;
 }
 
-GLOBAL_ASM(
-glabel func00001b40
-/*     1b40:	3c0e8006 */ 	lui	$t6,0x8006
-/*     1b44:	8dcece68 */ 	lw	$t6,-0x3198($t6)
-/*     1b48:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     1b4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     1b50:	11c00003 */ 	beqz	$t6,.L00001b60
-/*     1b54:	3c0f8006 */ 	lui	$t7,0x8006
-/*     1b58:	8defce64 */ 	lw	$t7,-0x319c($t7)
-/*     1b5c:	15e00004 */ 	bnez	$t7,.L00001b70
-.L00001b60:
-/*     1b60:	3c188006 */ 	lui	$t8,0x8006
-/*     1b64:	8f18ce60 */ 	lw	$t8,-0x31a0($t8)
-/*     1b68:	53000008 */ 	beqzl	$t8,.L00001b8c
-/*     1b6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00001b70:
-/*     1b70:	0c0033d5 */ 	jal	0xcf54
-/*     1b74:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1b78:	0c012144 */ 	jal	0x48510
-/*     1b7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1b80:	3c018006 */ 	lui	$at,0x8006
-/*     1b84:	ac22ce70 */ 	sw	$v0,-0x3190($at)
-/*     1b88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00001b8c:
-/*     1b8c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     1b90:	03e00008 */ 	jr	$ra
-/*     1b94:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func00001b40(void)
+{
+	if ((var8005ce68 && var8005ce64) || var8005ce60) {
+		func0000cf54();
+		var8005ce70 = func00048510();
+	}
+}
 
 GLOBAL_ASM(
 glabel func00001b98

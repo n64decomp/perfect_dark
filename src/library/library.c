@@ -17691,6 +17691,10 @@ glabel func0000cef8
 .L0000cf4c:
 /*     cf4c:	03e00008 */ 	jr	$ra
 /*     cf50:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+GLOBAL_ASM(
+glabel func0000cf54
 /*     cf54:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*     cf58:	3c01a000 */ 	lui	$at,0xa000
 /*     cf5c:	00817025 */ 	or	$t6,$a0,$at

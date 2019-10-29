@@ -2,10 +2,12 @@
 #define _IN_LIBRARY_H
 #include <ultra64.h>
 
+void func0000cf54(void);
 void func0000dae8(void);
 s32 func00012f30(void);
 void func00013710(void);
 void func00013750(void);
+void func00048510(void);
 
 u8 random(void);
 
