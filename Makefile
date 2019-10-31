@@ -126,92 +126,54 @@ lang: $(LANG_BIN_FILES)
 ################################################################################
 # Boot
 
-$(B_DIR)/boot.elf: $(O_FILES)
-	mkdir -p $(B_DIR)
-	$(TOOLCHAIN)-ld -T ld/boot.ld -o $@
-
-$(B_DIR)/ucode/boot.bin: $(B_DIR)/boot.elf
+$(B_DIR)/ucode/boot.bin: $(B_DIR)/stage1.bin
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $< /tmp/boot.tmp -O binary
-	dd if=/tmp/boot.tmp of="$@" bs=8272 count=1
-	rm -f /tmp/boot.tmp
+	B_DIR=$(B_DIR) tools/extract-segment boot
 
 boot: $(B_DIR)/ucode/boot.bin
 
 ################################################################################
 # Library
 
-$(B_DIR)/library.elf: $(O_FILES)
-	mkdir -p $(B_DIR)
-	$(TOOLCHAIN)-ld -T ld/library.ld -o $@
-
-$(B_DIR)/ucode/library.bin: $(B_DIR)/library.elf
+$(B_DIR)/ucode/library.bin: $(B_DIR)/stage1.bin
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $< /tmp/library.tmp -O binary
-	dd if=/tmp/library.tmp of="$@" bs=356240 count=1
-	rm -f /tmp/library.tmp
+	B_DIR=$(B_DIR) tools/extract-segment library
 
 library: $(B_DIR)/ucode/library.bin
 
 ################################################################################
 # Game setup file
 
-$(B_DIR)/setup.elf: $(O_FILES)
-	mkdir -p $(B_DIR)
-	$(TOOLCHAIN)-ld -T ld/setup.ld -o $@
-
-$(B_DIR)/ucode/setup.bin: $(B_DIR)/setup.elf
+$(B_DIR)/ucode/setup.bin: $(B_DIR)/stage1.bin
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $< /tmp/setup.tmp -O binary
-	dd if=/tmp/setup.tmp of="$@" bs=200256 count=1
-	rm -f /tmp/setup.tmp
+	B_DIR=$(B_DIR) tools/extract-segment setup
 
 setup: $(B_DIR)/ucode/setup.bin
 
 ################################################################################
 # Rarezip
 
-$(B_DIR)/rarezip.elf: $(O_FILES)
-	mkdir -p $(B_DIR)
-	$(TOOLCHAIN)-ld -T ld/rarezip.ld -o $@
-
-$(B_DIR)/ucode/rarezip.bin: $(B_DIR)/rarezip.elf
+$(B_DIR)/ucode/rarezip.bin: $(B_DIR)/stage1.bin
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
+	B_DIR=$(B_DIR) tools/extract-segment rarezip
 
 rarezip: $(B_DIR)/ucode/rarezip.bin
 
 ################################################################################
 # Main game
 
-$(B_DIR)/game.elf: $(O_FILES)
-	mkdir -p $(B_DIR)
-	$(TOOLCHAIN)-ld -T ld/game.ld -o $@
-
-$(B_DIR)/gamerodata.elf: $(O_FILES)
-	mkdir -p $(B_DIR)
-	$(TOOLCHAIN)-ld -T ld/gamerodata.ld -o $@
-
-$(B_DIR)/ucode/game.bin: $(B_DIR)/game.elf $(B_DIR)/gamerodata.elf
+$(B_DIR)/ucode/game.bin: $(B_DIR)/stage1.bin
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $(B_DIR)/game.elf /tmp/game.tmp -O binary
-	$(TOOLCHAIN)-objcopy $(B_DIR)/gamerodata.elf /tmp/gamerodata.tmp -O binary
-	dd if=/tmp/game.tmp of="$@" bs=1734848 count=1
-	dd if=/tmp/gamerodata.tmp of="$@" bs=74016 count=1 conv=notrunc oflag=append
-	rm -f /tmp/game.tmp /tmp/gamerodata.tmp
+	B_DIR=$(B_DIR) tools/extract-segment game
 
 game: $(B_DIR)/ucode/game.bin
 
 ################################################################################
 # gVars
 
-$(B_DIR)/gvars.elf: $(O_FILES)
-	mkdir -p $(B_DIR)
-	$(TOOLCHAIN)-ld -T ld/gvars.ld -o $@
-
-$(B_DIR)/ucode/gvars.bin: $(B_DIR)/gvars.elf
+$(B_DIR)/ucode/gvars.bin: $(B_DIR)/stage1.bin
 	mkdir -p $(B_DIR)/ucode
-	$(TOOLCHAIN)-objcopy $< $@ -O binary
+	B_DIR=$(B_DIR) tools/extract-segment gvars
 
 gvars: $(B_DIR)/ucode/gvars.bin
 
@@ -231,6 +193,14 @@ test: all
 %.o: %.c
 	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
 	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+
+$(B_DIR)/stage1.elf: $(O_FILES)
+	mkdir -p $(B_DIR)
+	$(TOOLCHAIN)-ld -T ld/stage1.ld --print-map -o $@ > $(B_DIR)/stage1.map
+
+$(B_DIR)/stage1.bin: $(B_DIR)/stage1.elf
+	mkdir -p $(B_DIR)/ucode
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
 all: stagesetup lang boot library setup tiles rarezip game gvars
 
