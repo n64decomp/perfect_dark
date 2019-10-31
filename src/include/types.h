@@ -1224,4 +1224,8 @@ struct gvars284 {
 	u32 unk480;
 };
 
+struct bootbufferthing {
+	u8 unk00[2400];
+};
+
 #endif

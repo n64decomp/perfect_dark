@@ -36,7 +36,6 @@ SECTIONS
 	}
 
 	.gvars 0x8008ae20 : AT(SIZEOF(.game) + SIZEOF(.gamerodata) + SIZEOF(.library) + SIZEOF(.setup)) {
-		src/gvars/gvars.o (.text);
 		src/gvars/gvars.o (.data);
 	}
 

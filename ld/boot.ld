@@ -27,7 +27,7 @@ SECTIONS
 	}
 
 	.gvars 0x8008ae20 : AT(SIZEOF(.boot) + SIZEOF(.library) + SIZEOF(.setup)) {
-		src/gvars/gvars.o (.bss);
+		src/gvars/gvars.o (.data);
 	}
 
 	.game 0x0f000000 : AT(SIZEOF(.boot) + SIZEOF(.library) + SIZEOF(.setup) + SIZEOF(.gvars)) {

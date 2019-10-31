@@ -469,14 +469,20 @@ struct g_vars {
 	/*000704*/ u32 unk000704;
 };
 
+extern u32 var8008ae20;
 extern struct g_vars g_Vars;
 
 extern s32 g_NumTags;
 extern struct tag **g_TagPtrs;
 
+extern u32 var8008de24;
 extern u32 var8008de38;
+extern struct bootbufferthing var8008de48[3];
+extern s32 var8008fa6c;
+extern s32 var8008fa70;
+extern s32 var8008fa74;
 extern u32 var8009cac0;
 extern u32 var8009cac4;
-extern u32 g_8009de24;
+extern u32 var8009de24;
 
 extern u32 g_EepromFlags;

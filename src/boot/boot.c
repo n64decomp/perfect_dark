@@ -1408,92 +1408,44 @@ glabel func00002400
 /*     2440:	a0a0ffff */ 	sb	$zero,-0x1($a1)
 /*     2444:	03e00008 */ 	jr	$ra
 /*     2448:	00000000 */ 	sll	$zero,$zero,0x0
-/*     244c:	3c0e8009 */ 	lui	$t6,0x8009
-/*     2450:	8dcefa6c */ 	lw	$t6,-0x594($t6)
-/*     2454:	3c188009 */ 	lui	$t8,0x8009
-/*     2458:	2718de48 */ 	addiu	$t8,$t8,-8632
-/*     245c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*     2460:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*     2464:	000f7880 */ 	sll	$t7,$t7,0x2
-/*     2468:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*     246c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*     2470:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*     2474:	000f7940 */ 	sll	$t7,$t7,0x5
-/*     2478:	03e00008 */ 	jr	$ra
-/*     247c:	01f81021 */ 	addu	$v0,$t7,$t8
-/*     2480:	3c0e8009 */ 	lui	$t6,0x8009
-/*     2484:	8dcefa70 */ 	lw	$t6,-0x590($t6)
-/*     2488:	3c188009 */ 	lui	$t8,0x8009
-/*     248c:	2718de48 */ 	addiu	$t8,$t8,-8632
-/*     2490:	000e7880 */ 	sll	$t7,$t6,0x2
-/*     2494:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*     2498:	000f7880 */ 	sll	$t7,$t7,0x2
-/*     249c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*     24a0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*     24a4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*     24a8:	000f7940 */ 	sll	$t7,$t7,0x5
-/*     24ac:	03e00008 */ 	jr	$ra
-/*     24b0:	01f81021 */ 	addu	$v0,$t7,$t8
 );
 
-GLOBAL_ASM(
-glabel func000024b4
-/*     24b4:	3c0e8009 */ 	lui	$t6,0x8009
-/*     24b8:	8dcefa74 */ 	lw	$t6,-0x58c($t6)
-/*     24bc:	3c188009 */ 	lui	$t8,0x8009
-/*     24c0:	2718de48 */ 	addiu	$t8,$t8,-8632
-/*     24c4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*     24c8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*     24cc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*     24d0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*     24d4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*     24d8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*     24dc:	000f7940 */ 	sll	$t7,$t7,0x5
-/*     24e0:	03e00008 */ 	jr	$ra
-/*     24e4:	01f81021 */ 	addu	$v0,$t7,$t8
-/*     24e8:	3c028009 */ 	lui	$v0,0x8009
-/*     24ec:	2442fa6c */ 	addiu	$v0,$v0,-1428
-/*     24f0:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*     24f4:	24010003 */ 	addiu	$at,$zero,0x3
-/*     24f8:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*     24fc:	01e1001a */ 	div	$zero,$t7,$at
-/*     2500:	0000c010 */ 	mfhi	$t8
-/*     2504:	ac580000 */ 	sw	$t8,0x0($v0)
-/*     2508:	03e00008 */ 	jr	$ra
-/*     250c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     2510:	3c028009 */ 	lui	$v0,0x8009
-/*     2514:	2442fa70 */ 	addiu	$v0,$v0,-1424
-/*     2518:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*     251c:	24010003 */ 	addiu	$at,$zero,0x3
-/*     2520:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*     2524:	01e1001a */ 	div	$zero,$t7,$at
-/*     2528:	0000c010 */ 	mfhi	$t8
-/*     252c:	ac580000 */ 	sw	$t8,0x0($v0)
-/*     2530:	03e00008 */ 	jr	$ra
-/*     2534:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct bootbufferthing *func0000244c(void)
+{
+	return &var8008de48[var8008fa6c];
+}
 
-GLOBAL_ASM(
-glabel func00002538
-/*     2538:	3c028009 */ 	lui	$v0,0x8009
-/*     253c:	2442fa74 */ 	addiu	$v0,$v0,-1420
-/*     2540:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*     2544:	24010003 */ 	addiu	$at,$zero,0x3
-/*     2548:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*     254c:	01e1001a */ 	div	$zero,$t7,$at
-/*     2550:	0000c010 */ 	mfhi	$t8
-/*     2554:	ac580000 */ 	sw	$t8,0x0($v0)
-/*     2558:	03e00008 */ 	jr	$ra
-/*     255c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     2560:	3c018009 */ 	lui	$at,0x8009
-/*     2564:	ac20fa6c */ 	sw	$zero,-0x594($at)
-/*     2568:	3c018009 */ 	lui	$at,0x8009
-/*     256c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*     2570:	ac2efa70 */ 	sw	$t6,-0x590($at)
-/*     2574:	3c018009 */ 	lui	$at,0x8009
-/*     2578:	03e00008 */ 	jr	$ra
-/*     257c:	ac20fa74 */ 	sw	$zero,-0x58c($at)
-);
+struct bootbufferthing *func00002480(void)
+{
+	return &var8008de48[var8008fa70];
+}
+
+struct bootbufferthing *func000024b4(void)
+{
+	return &var8008de48[var8008fa74];
+}
+
+void func000024e8(void)
+{
+	var8008fa6c = (var8008fa6c + 1) % 3;
+}
+
+void func00002510(void)
+{
+	var8008fa70 = (var8008fa70 + 1) % 3;
+}
+
+void func00002538(void)
+{
+	var8008fa74 = (var8008fa74 + 1) % 3;
+}
+
+void func00002560(void)
+{
+	var8008fa6c = 0;
+	var8008fa70 = 1;
+	var8008fa74 = 0;
+}
 
 GLOBAL_ASM(
 glabel func00002580
