@@ -32,6 +32,18 @@ SECTIONS
 		src/game/game_0601b0.o (.data);
 	}
 
+	.boot 0x1000 : AT(SIZEOF(.library) + SIZEOF(.setup) + SIZEOF(.gvars) + SIZEOF(.game)) {
+		src/boot/boot.o (.text);
+		src/boot/boot.o (.data);
+	}
+
+	/* We don't really care about these values here */
+	setupSegmentStart = 0;
+	setupSegmentRomStart = 0;
+	rarezipSegmentStart = 0;
+	rarezipSegmentRomStart = 0;
+	ziplistSegmentRomStart = 0;
+
 	/DISCARD/ : {
 		* (.MIPS.abiflags);
 		* (.options);
