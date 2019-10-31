@@ -682,13 +682,13 @@ glabel func000018ac
 /*     1928:	00651021 */ 	addu	$v0,$v1,$a1
 /*     192c:	03e00008 */ 	jr	$ra
 /*     1930:	2442fff8 */ 	addiu	$v0,$v0,-8
-/*     1934:	afa40000 */ 	sw	$a0,0x0($sp)
-.L00001938:
-/*     1938:	1000ffff */ 	beqz	$zero,.L00001938
-/*     193c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1940:	03e00008 */ 	jr	$ra
-/*     1944:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// This is possibly the idle thread's callback
+void func00001934(u32 arg)
+{
+	while (true);
+}
 
 GLOBAL_ASM(
 glabel func00001948
@@ -1400,7 +1400,7 @@ glabel func000022e0
 /*     23f0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-u32 func000023f4(void)
+u32 *func000023f4(void)
 {
 	return &var8008de38;
 }
