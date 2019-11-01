@@ -4,7 +4,7 @@
 
 s32 chraiEndList(u8 *ailist, u64 *unk);
 u32 chraiGoToLabel(u8 *ailist, u32 aioffset, u8 label);
-void chraiExecute(struct chrdata *chr, u8 mode);
+void chraiExecute(void *entity, s32 entity_type);
 u32 chraiGetCommandLength(u8 *ailist, u32 aioffset);
 
 #endif

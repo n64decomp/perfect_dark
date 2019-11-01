@@ -398,6 +398,130 @@ glabel chraiExecute
 /*  f04db3c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Uses different temporary register near BITFIELD. Matches otherwise.
+//void chraiExecute(void *entity, s32 entity_type)
+//{
+//	g_Vars.chrdata = NULL;
+//	g_Vars.objdata = NULL;
+//	g_Vars.aicdata = NULL;
+//	g_Vars.aiddata = NULL;
+//	g_Vars.ailist = NULL;
+//	g_Vars.aioffset = 0;
+//
+//	if (entity_type == 3) {
+//		g_Vars.chrdata = entity;
+//	} else if (entity_type == 1) {
+//		struct defaultobj *obj = entity;
+//
+//		if (obj->type == 0x27) {
+//			g_Vars.objdata = entity;
+//		} else if (obj->type == 0x28) {
+//			g_Vars.aicdata = entity;
+//		} else if (obj->type == OBJTYPE_HOVERVEHICLE || obj->type == OBJTYPE_ARMEDVEHICLE) {
+//			g_Vars.aiddata = entity;
+//		}
+//	}
+//
+//	if (g_Vars.chrdata) {
+//		g_Vars.ailist = g_Vars.chrdata->ailist;
+//		g_Vars.aioffset = g_Vars.chrdata->aioffset;
+//	} else if (g_Vars.objdata) {
+//		g_Vars.ailist = g_Vars.objdata->ailist;
+//		g_Vars.aioffset = g_Vars.objdata->aioffset;
+//	} else if (g_Vars.aicdata) {
+//		g_Vars.ailist = g_Vars.aicdata->ailist;
+//		g_Vars.aioffset = g_Vars.aicdata->aioffset;
+//	} else if (g_Vars.aiddata) {
+//		g_Vars.ailist = g_Vars.aiddata->ailist;
+//		g_Vars.aioffset = g_Vars.aiddata->aioffset;
+//	}
+//
+//	if (g_Vars.ailist) {
+//		if (g_Vars.chrdata) {
+//			func0f04c444(g_Vars.chrdata);
+//		}
+//
+//		// Check if the ailist should be switched to a different one
+//		if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & 0x00200000)) {
+//			u32 animationmaybe = func0001d13c(g_Vars.chrdata->unk020);
+//			if (g_Vars.chrdata->aishotlist >= 0
+//					&& g_Vars.chrdata->cshield <= 0
+//					&& (0 <= g_Vars.chrdata->damage || g_Vars.chrdata->gungroundpos != NULL)
+//					&& animationmaybe != 0x269 && animationmaybe != 0x26b && animationmaybe != 0x26a) {
+//				// Set shot list
+//				g_Vars.chrdata->chrflags &= ~0x00200000;
+//				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishotlist);
+//				g_Vars.aioffset = 0;
+//			}
+//		} else if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & 0x08000000)) {
+//			g_Vars.chrdata->chrflags &= ~0x08000000;
+//
+//			if (g_Vars.chrdata->aishootingatmelist >= 0
+//					&& ailistFindById(g_Vars.chrdata->aishootingatmelist) != g_Vars.chrdata->ailist
+//					&& g_Vars.chrdata->dodgerating > (u32)random() % 100
+//					&& chrHasFlag(g_Vars.chrdata, 0x00000400, BANK_1) == 0
+//					&& chrHasFlag(g_Vars.chrdata, 0x00010000, BANK_0) == 0
+//					&& ailistFindById(g_Vars.chrdata->aishootingatmelist) != g_Vars.chrdata->ailist
+//					&& g_Vars.chrdata->actiontype != 8
+//					&& g_Vars.chrdata->actiontype != 9
+//					&& g_Vars.chrdata->actiontype != 4
+//					&& g_Vars.chrdata->actiontype != 5
+//					&& g_Vars.chrdata->actiontype != 6
+//					&& g_Vars.chrdata->actiontype != 7
+//					&& g_Vars.chrdata->actiontype != 10) {
+//				// Set shooting at me list
+//				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishootingatmelist);
+//				g_Vars.aioffset = 0;
+//				g_Vars.chrdata->dodgerating = 0;
+//			} else {
+//				// Increase dodge rating
+//				g_Vars.chrdata->dodgerating *= 2;
+//
+//				if (g_Vars.chrdata->dodgerating > g_Vars.chrdata->maxdodgerating) {
+//					g_Vars.chrdata->dodgerating = g_Vars.chrdata->maxdodgerating & 0xff;
+//				}
+//			}
+//		} else if (g_Vars.chrdata
+//				&& g_Vars.chrdata->BITFIELD.word & 0x00020000
+//				&& chrHasFlag(g_Vars.chrdata, 0x00000400, BANK_1) == 0
+//				&& ailistFindById(g_Vars.chrdata->aidarkroomlist) != g_Vars.chrdata->ailist
+//				&& g_Vars.unk0004b4 != 0x1c) {
+//			g_Vars.chrdata->BITFIELD.bytes[1] &= ~0x02;
+//
+//			if (g_Vars.chrdata->aidarkroomlist >= 0
+//					&& g_Vars.chrdata->actiontype != 4
+//					&& g_Vars.chrdata->actiontype != 5
+//					&& g_Vars.chrdata->actiontype != 6) {
+//				// Set darkroom list
+//				chrSetFlags(g_Vars.chrdata, 0x00000400, BANK_1);
+//				chrSetFlags(g_Vars.chrdata, 0x10000000, BANK_1);
+//				g_Vars.chrdata->alertness = 0;
+//				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aidarkroomlist);
+//				g_Vars.aioffset = 0;
+//			}
+//		} else {
+//			// empty
+//		}
+//
+//		// Iterate and execute the ailist
+//		while (g_Vars.ailist) {
+//			u8 *cmd = g_Vars.aioffset + g_Vars.ailist;
+//			s32 type = (cmd[0] << 8) + cmd[1];
+//
+//			if (type >= 0 && type <= 0x1e0) {
+//				if (g_CommandPointers[type]()) {
+//					break;
+//				}
+//			} else {
+//				// This is attempting to handle situations where the command
+//				// type is invalid by passing over them and continuing
+//				// execution. This would very likely result in a crash though.
+//				g_Vars.aioffset += chraiGetCommandLength(g_Vars.ailist, g_Vars.aioffset);
+//			}
+//		}
+//	}
+//}
+
 u32 chraiGetCommandLength(u8 *ailist, u32 aioffset)
 {
 	u8 *cmd = aioffset + ailist;

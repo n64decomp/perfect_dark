@@ -24,6 +24,7 @@ extern u32 var80067b78;
 extern struct audiodefinition audiodefinitions[];
 extern struct audioconfig audioconfigs[];
 
+extern bool (*g_CommandPointers[])(void);
 extern u16 g_CommandLengths[];
 
 extern struct coord var80068fec;

@@ -51,10 +51,12 @@ struct position {
 	u32 unk40;
 };
 
-struct bitfielddata {
-	u8 unk32e;
-	u8 specialdie;
-	u16 roomtosearch;
+struct bitfield {
+	union {
+		u8 bytes[4];
+		u16 shorts[2];
+		u32 word;
+	};
 };
 
 struct chrdata {
@@ -139,7 +141,7 @@ struct chrdata {
 	/*0x108*/ u8 *ailist;
 	/*0x10c*/ u16 aioffset;
 	/*0x10e*/ u16 aireturnlist;
-	/*0x110*/ u16 aishotlist;
+	/*0x110*/ s16 aishotlist;
 	/*0x112*/ u8 morale;
 	/*0x113*/ u8 alertness;
 	/*0x114*/ u32 flags;
@@ -175,7 +177,7 @@ struct chrdata {
 	/*0x178*/ u32 unk178;
 	/*0x17c*/ u16 fireslot;
 	/*0x17e*/ s16 target;
-	/*0x180*/ u32 cshield;
+	/*0x180*/ float cshield;
 	/*0x184*/ u8 cmnum;
 	/*0x185*/ u8 cmnum2;
 	/*0x186*/ u8 cmnum3;
@@ -232,17 +234,8 @@ struct chrdata {
 	/*0x314*/ u32 gunrotx[2];
 	/*0x31c*/ u32 onladder;
 	/*0x320*/ struct coord laddernormal;
-	/*0x32c*/ u8 liftaction;
-
-	union {
-	/*0x32e*/ u16 BITFIELD;
-	/*0x32e*/ struct bitfielddata bitfielddata;
-		/* 0x32e - u8 unk32e;
-		 * 0x32f - u8 specialdie;
-		 * 0x330 - u16 roomtosearch;
-		 */
-	};
-
+	/*0x32c*/ struct bitfield BITFIELD;
+	/*0x330*/ u16 roomtosearch;
 	/*0x332*/ u8 propsoundcount;
 	/*0x333*/ u8 patrolnextstep;
 	/*0x334*/ u8 BulletsTaken;
@@ -256,11 +249,11 @@ struct chrdata {
 	/*0x348*/ u32 unk348;
 	/*0x34c*/ u32 unk34c;
 	/*0x350*/ u32 unk350;
-	/*0x354*/ u16 aipunchdodgelist;
-	/*0x356*/ u16 aishootingatmelist;
+	/*0x354*/ s16 aipunchdodgelist;
+	/*0x356*/ s16 aishootingatmelist;
 	/*0x358*/ u16 poisonCounter;
-	/*0x35a*/ u16 aidarkroomlist;
-	/*0x35c*/ u16 aiplayerdeadlist;
+	/*0x35a*/ s16 aidarkroomlist;
+	/*0x35c*/ s16 aiplayerdeadlist;
 	/*0x35e*/ u8 dodgerating;
 	/*0x35f*/ u8 maxdodgerating;
 	/*0x360*/ u8 unarmeddodgerating;

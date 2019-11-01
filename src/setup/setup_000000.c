@@ -13952,7 +13952,7 @@ u32 var80068488 = 0x00000023;
 u32 var8006848c = 0x00000000;
 
 // e4b0
-bool (*command_pointers[])(void) = {
+bool (*g_CommandPointers[])(void) = {
 	/*0x0000*/ aiGoToNext,
 	/*0x0001*/ aiGoToFirst,
 	/*0x0002*/ aiLabel,

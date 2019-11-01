@@ -14817,7 +14817,7 @@ bool aiSetChrSpecialDeathAnimation(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
-		chr->bitfielddata.specialdie = cmd[3];
+		chr->BITFIELD.bytes[3] = cmd[3];
 	}
 
 	g_Vars.aioffset += 4;
@@ -14833,7 +14833,7 @@ bool aiSetRoomToSearch(void)
 	struct chrdata *target = chrFindById(g_Vars.chrdata, CHR_TARGET);
 
 	if (target && target->pos) {
-		g_Vars.chrdata->bitfielddata.roomtosearch = target->pos->room;
+		g_Vars.chrdata->roomtosearch = target->pos->room;
 	}
 
 	g_Vars.aioffset += 2;

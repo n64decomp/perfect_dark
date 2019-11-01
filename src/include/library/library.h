@@ -2,7 +2,7 @@
 #define _IN_LIBRARY_H
 #include <ultra64.h>
 
-u8 *ailistFindById(u16 ailistid);
+u8 *ailistFindById(s16 ailistid);
 
 s32 getCurrentStageId(void);
 
@@ -114,7 +114,7 @@ u32 func00012ab0(void);
 u32 func00012cb4(void);
 u32 func00012cdc(void);
 u32 func00012d48(void);
-u8 random(void);
+s32 random(void);
 u32 func00012e1c(void);
 s32 func00012f30(void);
 u32 func00013010(void);
@@ -247,7 +247,7 @@ u32 func0001cb0c(void);
 u32 func0001cc20(void);
 u32 func0001ce64(void);
 u32 func0001cebc(void);
-u32 func0001d13c(void);
+u32 func0001d13c(void *chr_unk020);
 u32 func0001d15c(void);
 u32 func0001d17c(void);
 u32 func0001d1a0(void);

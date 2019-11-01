@@ -84363,7 +84363,7 @@ s32 chrResolveId(struct chrdata *ref, s32 id)
 			break;
 		case 0xf2:
 			{
-				u32 index = g_Vars.coopplayernum >= 0 ? (u32)ref->BITFIELD >> 14 : g_Vars.bondplayernum;
+				u32 index = g_Vars.coopplayernum >= 0 ? (u32)ref->BITFIELD.shorts[1] >> 14 : g_Vars.bondplayernum;
 				struct player *player = g_Vars.players[index];
 				if (player && player->unkbc && player->unkbc->chr) {
 					id = player->unkbc->chr->chrnum;
@@ -84372,7 +84372,7 @@ s32 chrResolveId(struct chrdata *ref, s32 id)
 			break;
 		case 0xf1:
 			if (g_Vars.coopplayernum >= 0) {
-				struct player *player = g_Vars.players[1 - ((u32)ref->BITFIELD >> 14)];
+				struct player *player = g_Vars.players[1 - ((u32)ref->BITFIELD.shorts[1] >> 14)];
 				if (player && player->unkbc && player->unkbc->chr) {
 					id = player->unkbc->chr->chrnum;
 				}
