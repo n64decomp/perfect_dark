@@ -4,7 +4,7 @@
 #include "constants.h"
 
 struct chrdata *chrFindByLiteralId(u8 chrnum);
-struct chrdata *chrFindById(struct chrdata *data, u8 chrnum);
+struct chrdata *chrFindById(struct chrdata *data, u32 chrnum);
 
 float chrGetTimer(struct chrdata *chr);
 
