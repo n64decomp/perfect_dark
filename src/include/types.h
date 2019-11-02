@@ -140,7 +140,7 @@ struct chrdata {
 	/*0x104*/ float maxdamage;
 	/*0x108*/ u8 *ailist;
 	/*0x10c*/ u16 aioffset;
-	/*0x10e*/ u16 aireturnlist;
+	/*0x10e*/ s16 aireturnlist;
 	/*0x110*/ s16 aishotlist;
 	/*0x112*/ u8 morale;
 	/*0x113*/ u8 alertness;
@@ -320,7 +320,7 @@ struct standardobj { // objtype 0x03
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
-	/*0x62*/ u16 aireturnlist;
+	/*0x62*/ s16 aireturnlist;
 };
 
 struct image {
@@ -424,7 +424,7 @@ struct heliobj {
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
-	/*0x62*/ u16 aireturnlist;
+	/*0x62*/ s16 aireturnlist;
 	/*0x64*/ u32 unk64;
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u32 unk6c;

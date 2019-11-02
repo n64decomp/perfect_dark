@@ -66,86 +66,31 @@ bool aiYield(void)
 /**
  * @cmd 0005
  */
-GLOBAL_ASM(
-glabel aiSetList
-/*  f04dd08:	3c06800a */ 	lui	$a2,0x800a
-/*  f04dd0c:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f04dd10:	8cce0434 */ 	lw	$t6,0x434($a2)
-/*  f04dd14:	8ccf0438 */ 	lw	$t7,0x438($a2)
-/*  f04dd18:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f04dd1c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04dd20:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f04dd24:	90780003 */ 	lbu	$t8,0x3($v1)
-/*  f04dd28:	90680004 */ 	lbu	$t0,0x4($v1)
-/*  f04dd2c:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f04dd30:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f04dd34:	03281025 */ 	or	$v0,$t9,$t0
-/*  f04dd38:	0c006134 */ 	jal	ailistFindById
-/*  f04dd3c:	3044ffff */ 	andi	$a0,$v0,0xffff
-/*  f04dd40:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f04dd44:	3c06800a */ 	lui	$a2,0x800a
-/*  f04dd48:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f04dd4c:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f04dd50:	240100fd */ 	addiu	$at,$zero,0xfd
-/*  f04dd54:	00403825 */ 	or	$a3,$v0,$zero
-/*  f04dd58:	14a10005 */ 	bne	$a1,$at,.L0f04dd70
-/*  f04dd5c:	8cc40424 */ 	lw	$a0,0x424($a2)
-/*  f04dd60:	3c01800a */ 	lui	$at,0x800a
-/*  f04dd64:	ac22a3f4 */ 	sw	$v0,-0x5c0c($at)
-/*  f04dd68:	1000000d */ 	beqz	$zero,.L0f04dda0
-/*  f04dd6c:	acc00438 */ 	sw	$zero,0x438($a2)
-.L0f04dd70:
-/*  f04dd70:	0fc126d1 */ 	jal	chrFindById
-/*  f04dd74:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f04dd78:	3c06800a */ 	lui	$a2,0x800a
-/*  f04dd7c:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f04dd80:	10400004 */ 	beqz	$v0,.L0f04dd94
-/*  f04dd84:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f04dd88:	ac470108 */ 	sw	$a3,0x108($v0)
-/*  f04dd8c:	a440010c */ 	sh	$zero,0x10c($v0)
-/*  f04dd90:	a0400008 */ 	sb	$zero,0x8($v0)
-.L0f04dd94:
-/*  f04dd94:	8cca0438 */ 	lw	$t2,0x438($a2)
-/*  f04dd98:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f04dd9c:	accb0438 */ 	sw	$t3,0x438($a2)
-.L0f04dda0:
-/*  f04dda0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04dda4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f04dda8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04ddac:	03e00008 */ 	jr	$ra
-/*  f04ddb0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiSetList(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 ailistid = cmd[4] | (cmd[3] << 8);
+	u8 *ailist = ailistFindById(ailistid & 0xffff);
 
-/**
- * Commented because ld is refusing to link to the library binary, making the
- * call to ailistFindById unresolvable. Matches otherwise.
- * Assumes ailistFindById is defined as u8 *ailistFindById(u16 ailistid);
- */
-//bool aiSetList(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	u32 ailistid = cmd[4] | (cmd[3] << 8);
-//	u8 *ailist = ailistFindById(ailistid);
-//
-//	struct chrdata *chr = g_Vars.chrdata;
-//
-//	if ((cmd[2] & 0xff) == CHR_SELF) {
-//		g_Vars.ailist = ailist;
-//		g_Vars.aioffset = 0;
-//	} else {
-//		chr = chrFindById(chr, cmd[2]);
-//
-//		if (chr) {
-//			chr->ailist = ailist;
-//			chr->aioffset = 0;
-//			chr->sleep = 0;
-//		}
-//
-//		g_Vars.aioffset += 5;
-//	}
-//
-//	return false;
-//}
+	struct chrdata *chr = g_Vars.chrdata;
+
+	if ((cmd[2] & 0xff) == CHR_SELF) {
+		g_Vars.ailist = ailist;
+		g_Vars.aioffset = 0;
+	} else {
+		chr = chrFindById(chr, cmd[2]);
+
+		if (chr) {
+			chr->ailist = ailist;
+			chr->aioffset = 0;
+			chr->sleep = 0;
+		}
+
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0006

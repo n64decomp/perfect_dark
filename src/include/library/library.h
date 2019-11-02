@@ -2,7 +2,7 @@
 #define _IN_LIBRARY_H
 #include <ultra64.h>
 
-u8 *ailistFindById(s16 ailistid);
+u8 *ailistFindById(u32 ailistid);
 
 s32 getCurrentStageId(void);
 
