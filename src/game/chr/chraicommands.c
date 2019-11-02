@@ -6182,7 +6182,7 @@ bool ai0091(void)
 bool aiRestartTimer(void)
 {
 	if (g_Vars.chrdata) {
-		func0f049f94(g_Vars.chrdata);
+		chrRestartTimer(g_Vars.chrdata);
 	} else if (g_Vars.aiddata) {
 		func0f07b0f4(g_Vars.aiddata);
 	}

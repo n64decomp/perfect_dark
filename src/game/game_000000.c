@@ -84699,14 +84699,11 @@ bool chrHasHiddenFlag00000002(struct chrdata *chr)
 	return (chr->hidden & 0x00000002) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f049f94
-/*  f049f94:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f049f98:	ac80011c */ 	sw	$zero,0x11c($a0)
-/*  f049f9c:	35cf0040 */ 	ori	$t7,$t6,0x40
-/*  f049fa0:	03e00008 */ 	jr	$ra
-/*  f049fa4:	ac8f0014 */ 	sw	$t7,0x14($a0)
-);
+void chrRestartTimer(struct chrdata *chr)
+{
+	chr->timer60 = 0;
+	chr->hidden |= CHRFLAG2_TIMER_RUNNING;
+}
 
 GLOBAL_ASM(
 glabel chrGetTimer
