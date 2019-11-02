@@ -291,84 +291,25 @@ bool aiSetPlayerDeadList(void)
 /**
  * @cmd 0008
  */
-GLOBAL_ASM(
-glabel aiReturn
-/*  f04dff4:	3c05800a */ 	lui	$a1,0x800a
-/*  f04dff8:	24a59fc0 */ 	addiu	$a1,$a1,-24640
-/*  f04dffc:	8ca20424 */ 	lw	$v0,0x424($a1)
-/*  f04e000:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04e004:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04e008:	10400007 */ 	beqz	$v0,.L0f04e028
-/*  f04e00c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f04e010:	0c006134 */ 	jal	ailistFindById
-/*  f04e014:	8444010e */ 	lh	$a0,0x10e($v0)
-/*  f04e018:	3c05800a */ 	lui	$a1,0x800a
-/*  f04e01c:	24a59fc0 */ 	addiu	$a1,$a1,-24640
-/*  f04e020:	1000001b */ 	beqz	$zero,.L0f04e090
-/*  f04e024:	00401825 */ 	or	$v1,$v0,$zero
-.L0f04e028:
-/*  f04e028:	8ca20428 */ 	lw	$v0,0x428($a1)
-/*  f04e02c:	50400008 */ 	beqzl	$v0,.L0f04e050
-/*  f04e030:	8ca2042c */ 	lw	$v0,0x42c($a1)
-/*  f04e034:	0c006134 */ 	jal	ailistFindById
-/*  f04e038:	84440062 */ 	lh	$a0,0x62($v0)
-/*  f04e03c:	3c05800a */ 	lui	$a1,0x800a
-/*  f04e040:	24a59fc0 */ 	addiu	$a1,$a1,-24640
-/*  f04e044:	10000012 */ 	beqz	$zero,.L0f04e090
-/*  f04e048:	00401825 */ 	or	$v1,$v0,$zero
-/*  f04e04c:	8ca2042c */ 	lw	$v0,0x42c($a1)
-.L0f04e050:
-/*  f04e050:	50400008 */ 	beqzl	$v0,.L0f04e074
-/*  f04e054:	8ca20430 */ 	lw	$v0,0x430($a1)
-/*  f04e058:	0c006134 */ 	jal	ailistFindById
-/*  f04e05c:	84440062 */ 	lh	$a0,0x62($v0)
-/*  f04e060:	3c05800a */ 	lui	$a1,0x800a
-/*  f04e064:	24a59fc0 */ 	addiu	$a1,$a1,-24640
-/*  f04e068:	10000009 */ 	beqz	$zero,.L0f04e090
-/*  f04e06c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f04e070:	8ca20430 */ 	lw	$v0,0x430($a1)
-.L0f04e074:
-/*  f04e074:	50400007 */ 	beqzl	$v0,.L0f04e094
-/*  f04e078:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04e07c:	0c006134 */ 	jal	ailistFindById
-/*  f04e080:	84440062 */ 	lh	$a0,0x62($v0)
-/*  f04e084:	3c05800a */ 	lui	$a1,0x800a
-/*  f04e088:	24a59fc0 */ 	addiu	$a1,$a1,-24640
-/*  f04e08c:	00401825 */ 	or	$v1,$v0,$zero
-.L0f04e090:
-/*  f04e090:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f04e094:
-/*  f04e094:	aca30434 */ 	sw	$v1,0x434($a1)
-/*  f04e098:	aca00438 */ 	sw	$zero,0x438($a1)
-/*  f04e09c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04e0a0:	03e00008 */ 	jr	$ra
-/*  f04e0a4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiReturn(void)
+{
+	u8 *ailist = NULL;
 
-/**
- * Commented because ld is refusing to link to the library binary, making the
- * call to ailistFindById unresolvable. Matches otherwise.
- * Assumes ailistFindById is defined as u8 *ailistFindById(s16 ailistid);
- */
-//bool aiReturn(void)
-//{
-//	u8 *ailist = NULL;
-//
-//	if (g_Vars.chrdata) {
-//		ailist = ailistFindById(g_Vars.chrdata->aireturnlist);
-//	} else if (g_Vars.objdata) {
-//		ailist = ailistFindById(g_Vars.objdata->aireturnlist);
-//	} else if (g_Vars.aicdata) {
-//		ailist = ailistFindById(g_Vars.aicdata->aireturnlist);
-//	} else if (g_Vars.hovdata) {
-//		ailist = ailistFindById(g_Vars.hovdata->aireturnlist);
-//	}
-//
-//	g_Vars.ailist = ailist;
-//	g_Vars.aioffset = 0;
-//
-//	return false;
-//}
+	if (g_Vars.chrdata) {
+		ailist = ailistFindById(g_Vars.chrdata->aireturnlist);
+	} else if (g_Vars.objdata) {
+		ailist = ailistFindById(g_Vars.objdata->aireturnlist);
+	} else if (g_Vars.aicdata) {
+		ailist = ailistFindById(g_Vars.aicdata->aireturnlist);
+	} else if (g_Vars.hovdata) {
+		ailist = ailistFindById(g_Vars.hovdata->aireturnlist);
+	}
+
+	g_Vars.ailist = ailist;
+	g_Vars.aioffset = 0;
+
+	return false;
+}
 
 /**
  * @cmd 0004
