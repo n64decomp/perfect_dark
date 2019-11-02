@@ -3069,7 +3069,7 @@ glabel ai005c
 /*  f051480:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f051484:	8e040424 */ 	lw	$a0,0x424($s0)
 /*  f051488:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f05148c:	0fc0a221 */ 	jal	func0f028884
+/*  f05148c:	0fc0a221 */ 	jal	chrGetTargetSomething
 /*  f051490:	afb80024 */ 	sw	$t8,0x24($sp)
 /*  f051494:	8fa70024 */ 	lw	$a3,0x24($sp)
 /*  f051498:	8e040424 */ 	lw	$a0,0x424($s0)
@@ -10026,7 +10026,7 @@ glabel ai0108
 /*  f058e9c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f058ea0:	afa20020 */ 	sw	$v0,0x20($sp)
 /*  f058ea4:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f058ea8:	0fc0a221 */ 	jal	func0f028884
+/*  f058ea8:	0fc0a221 */ 	jal	chrGetTargetSomething
 /*  f058eac:	afa80024 */ 	sw	$t0,0x24($sp)
 /*  f058eb0:	8fa30020 */ 	lw	$v1,0x20($sp)
 /*  f058eb4:	8fa7002c */ 	lw	$a3,0x2c($sp)
@@ -12423,7 +12423,7 @@ glabel ai0136
 /*  f05b368:	1441000d */ 	bne	$v0,$at,.L0f05b3a0
 /*  f05b36c:	2405090a */ 	addiu	$a1,$zero,0x90a
 /*  f05b370:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05b374:	0fc0a221 */ 	jal	func0f028884
+/*  f05b374:	0fc0a221 */ 	jal	chrGetTargetSomething
 /*  f05b378:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f05b37c:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f05b380:	3c06461c */ 	lui	$a2,0x461c
@@ -13635,7 +13635,6 @@ glabel aiIfNaturalAnim
 //}
 
 struct otheraidata *func0f07adf4(struct otheraidata *otheraidata);
-struct targetsomething *func0f07adb8(struct otheraidata *otheraidata);
 
 /**
  * @cmd 016a
@@ -13650,7 +13649,7 @@ bool aiIfY(void)
 		struct otheraidata *aiddata = func0f07adf4(g_Vars.aiddata);
 
 		if (aiddata) {
-			struct targetsomething *target = func0f07adb8(aiddata);
+			struct targetsomething *target = objGetTargetSomething(aiddata);
 
 			if (target && (target->unk00 == 3 || target->unk00 == 6)) {
 				chr = target->chr;
@@ -14270,15 +14269,13 @@ bool aiPunchOrKick(void)
 	return false;
 }
 
-struct targetsomething *func0f028884(struct chrdata *chr);
-
 /**
  * @cmd 0183
  */
 bool ai0183(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct targetsomething *target = func0f028884(g_Vars.chrdata);
+	struct targetsomething *target = chrGetTargetSomething(g_Vars.chrdata);
 
 	if (target->unk00 == 5 || target->unk00 == 6) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -15140,7 +15137,7 @@ glabel ai01a6
 /*  f05df6c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f05df70:	01cf3821 */ 	addu	$a3,$t6,$t7
 /*  f05df74:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f05df78:	0fc0a221 */ 	jal	func0f028884
+/*  f05df78:	0fc0a221 */ 	jal	chrGetTargetSomething
 /*  f05df7c:	8c640424 */ 	lw	$a0,0x424($v1)
 /*  f05df80:	3c03800a */ 	lui	$v1,0x800a
 /*  f05df84:	24639fc0 */ 	addiu	$v1,$v1,-24640

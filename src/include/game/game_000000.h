@@ -5,6 +5,7 @@
 
 struct chrdata *chrFindByLiteralId(u8 chrnum);
 struct chrdata *chrFindById(struct chrdata *data, u32 chrnum);
+struct targetsomething *chrGetTargetSomething(struct chrdata *chr);
 
 float chrGetTimer(struct chrdata *chr);
 

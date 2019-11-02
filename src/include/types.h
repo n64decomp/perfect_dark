@@ -472,9 +472,25 @@ struct otheraidata {
 	/*0x90*/ s16 unk90;
 };
 
-struct playerbc {
-	u32 unk00;
-	struct chrdata *chr;
+struct targetsomething {
+	/*0x00*/ u8 unk00;
+	/*0x04*/ struct chrdata *chr;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
 };
 
 struct player {
@@ -525,7 +541,7 @@ struct player {
 	/*0xb0*/ u32 unkb0;
 	/*0xb4*/ u32 unkb4;
 	/*0xb8*/ u32 unkb8;
-	/*0xbc*/ struct playerbc *unkbc;
+	/*0xbc*/ struct targetsomething *targetsomething;
 	/*0xc0*/ u32 unkc0;
 	/*0xc4*/ u32 unkc4;
 	/*0xc8*/ u32 unkc8;
@@ -533,27 +549,6 @@ struct player {
 	/*0xd0*/ u32 unkd0;
 	/*0xd4*/ u32 unkd4;
 	/*0xd8*/ u32 unkd8;
-};
-
-struct targetsomething {
-	/*0x00*/ u8 unk00;
-	/*0x04*/ struct chrdata *chr;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
 };
 
 struct ailists {
