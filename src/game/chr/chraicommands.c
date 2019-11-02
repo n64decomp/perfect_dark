@@ -9555,7 +9555,7 @@ bool ai00fd(void)
  */
 bool ai00fe(void)
 {
-	g_Vars.bond->unkd8 = 1;
+	g_Vars.bond->unk0d8 = 1;
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -13533,7 +13533,7 @@ bool aiIfY(void)
 		struct heliobj *heli = func0f07adf4(&g_Vars.hovdata->base);
 
 		if (heli) {
-			struct targetsomething *target = objGetTargetSomething(heli);
+			struct targetsomething *target = heliGetTargetSomething(heli);
 
 			if (target && (target->unk00 == 3 || target->unk00 == 6)) {
 				chr = target->chr;
@@ -15560,9 +15560,9 @@ glabel ai01b3
 //		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 //
 //		if (chr) {
-//			if (((u32)chr->BITFIELD >> 14) == g_Vars.bondplayernum && g_Vars.coop->unkd8 == 0) {
+//			if (((u32)chr->BITFIELD >> 14) == g_Vars.bondplayernum && g_Vars.coop->unk0d8 == 0) {
 //				chr->bitfielddata.unk32e = (g_Vars.coopplayernum << 6) | (chr->bitfielddata.unk32e & 0xff3f);
-//			} else if (g_Vars.bond->unkd8 == 0) {
+//			} else if (g_Vars.bond->unk0d8 == 0) {
 //				chr->bitfielddata.unk32e = (g_Vars.bondplayernum << 6) | (chr->bitfielddata.unk32e & 0xff3f);
 //			}
 //		}

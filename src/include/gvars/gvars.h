@@ -175,7 +175,7 @@ struct g_vars {
 	/*000278*/ u32 unk000278;
 	/*00027c*/ u32 unk00027c;
 	/*000280*/ u32 unk000280;
-	/*000284*/ struct gvars284 *unk000284;
+	/*000284*/ struct player *unk000284;
 	/*000288*/ u32 unk000288;
 	/*00028c*/ u32 currentplayernum;
 	/*000290*/ u32 unk000290;
