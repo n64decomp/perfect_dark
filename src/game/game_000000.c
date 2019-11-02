@@ -84694,13 +84694,10 @@ bool chrHasStageFlag(struct chrdata *chr, u32 flag)
 	return (g_StageFlags & flag) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f049f84
-/*  f049f84:	8c820014 */ 	lw	$v0,0x14($a0)
-/*  f049f88:	304e0002 */ 	andi	$t6,$v0,0x2
-/*  f049f8c:	03e00008 */ 	jr	$ra
-/*  f049f90:	000e102b */ 	sltu	$v0,$zero,$t6
-);
+bool chrHasHiddenFlag00000002(struct chrdata *chr)
+{
+	return (chr->hidden & 0x00000002) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f049f94

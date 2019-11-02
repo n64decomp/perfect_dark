@@ -1555,7 +1555,7 @@ bool aiIfAlarmInactive(void)
  */
 bool ai003c(void)
 {
-	if (func0f049f84(g_Vars.chrdata)) {
+	if (chrHasHiddenFlag00000002(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
