@@ -16665,7 +16665,7 @@ glabel ai01d5
 /*  f05f850:	90430002 */ 	lbu	$v1,0x2($v0)
 /*  f05f854:	1060002a */ 	beqz	$v1,.L0f05f900
 /*  f05f858:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05f85c:	0fc07934 */ 	jal	func0f01e4d0
+/*  f05f85c:	0fc07934 */ 	jal	getNumChrs
 /*  f05f860:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05f864:	3c08800a */ 	lui	$t0,0x800a
 /*  f05f868:	2443ffff */ 	addiu	$v1,$v0,-1
@@ -16710,7 +16710,7 @@ glabel ai01d5
 /*  f05f8f8:	1000002b */ 	beqz	$zero,.L0f05f9a8
 /*  f05f8fc:	8d180438 */ 	lw	$t8,0x438($t0)
 .L0f05f900:
-/*  f05f900:	0fc07934 */ 	jal	func0f01e4d0
+/*  f05f900:	0fc07934 */ 	jal	getNumChrs
 /*  f05f904:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05f908:	3c08800a */ 	lui	$t0,0x800a
 /*  f05f90c:	2443ffff */ 	addiu	$v1,$v0,-1
