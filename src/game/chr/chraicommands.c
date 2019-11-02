@@ -5715,7 +5715,7 @@ bool aiSetStageFlag(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
-	func0f049f2c(g_Vars.chrdata, flags);
+	chrSetStageFlag(g_Vars.chrdata, flags);
 	g_Vars.aioffset += 6;
 
 	return false;
@@ -5728,7 +5728,7 @@ bool aiUnsetStageFlag(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
-	func0f049f48(g_Vars.chrdata, flags);
+	chrUnsetStageFlag(g_Vars.chrdata, flags);
 	g_Vars.aioffset += 6;
 
 	return false;
@@ -5742,8 +5742,8 @@ bool aiIfStageFlagEq(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 
-	if ((func0f049f68(g_Vars.chrdata, flags) && cmd[6] == 1) ||
-			(!func0f049f68(g_Vars.chrdata, flags) && cmd[6] == 0)) {
+	if ((chrHasStageFlag(g_Vars.chrdata, flags) && cmd[6] == 1) ||
+			(!chrHasStageFlag(g_Vars.chrdata, flags) && cmd[6] == 0)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
 	} else {
 		g_Vars.aioffset += 8;

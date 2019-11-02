@@ -5,6 +5,7 @@
 #include "game/game_000000.h"
 #include "game/game_0601b0.h"
 #include "library/library.h"
+#include "setup/setup_000000.h"
 
 const u32 var001a78c0[] = {
 	0x40c907a9,
@@ -84678,39 +84679,20 @@ bool chrHasFlagById(struct chrdata *ref, u32 chrnum, u32 flag, u32 bank)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f049f2c
-/*  f049f2c:	3c028006 */ 	lui	$v0,0x8006
-/*  f049f30:	24427e54 */ 	addiu	$v0,$v0,0x7e54
-/*  f049f34:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f049f38:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f049f3c:	01c57825 */ 	or	$t7,$t6,$a1
-/*  f049f40:	03e00008 */ 	jr	$ra
-/*  f049f44:	ac4f0000 */ 	sw	$t7,0x0($v0)
-);
+void chrSetStageFlag(struct chrdata *chr, u32 flag)
+{
+	g_StageFlags |= flag;
+}
 
-GLOBAL_ASM(
-glabel func0f049f48
-/*  f049f48:	3c028006 */ 	lui	$v0,0x8006
-/*  f049f4c:	24427e54 */ 	addiu	$v0,$v0,0x7e54
-/*  f049f50:	8c4f0000 */ 	lw	$t7,0x0($v0)
-/*  f049f54:	00a07027 */ 	nor	$t6,$a1,$zero
-/*  f049f58:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f049f5c:	01cfc024 */ 	and	$t8,$t6,$t7
-/*  f049f60:	03e00008 */ 	jr	$ra
-/*  f049f64:	ac580000 */ 	sw	$t8,0x0($v0)
-);
+void chrUnsetStageFlag(struct chrdata *chr, u32 flag)
+{
+	g_StageFlags = g_StageFlags & ~flag;
+}
 
-GLOBAL_ASM(
-glabel func0f049f68
-/*  f049f68:	3c0e8006 */ 	lui	$t6,0x8006
-/*  f049f6c:	8dce7e54 */ 	lw	$t6,0x7e54($t6)
-/*  f049f70:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f049f74:	01c51024 */ 	and	$v0,$t6,$a1
-/*  f049f78:	0002782b */ 	sltu	$t7,$zero,$v0
-/*  f049f7c:	03e00008 */ 	jr	$ra
-/*  f049f80:	01e01025 */ 	or	$v0,$t7,$zero
-);
+bool chrHasStageFlag(struct chrdata *chr, u32 flag)
+{
+	return (g_StageFlags & flag) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f049f84
