@@ -46899,44 +46899,18 @@ glabel func0f028834
 /*  f028880:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrGetTargetSomething
-/*  f028884:	8482017e */ 	lh	$v0,0x17e($a0)
-/*  f028888:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f02888c:	3c09800a */ 	lui	$t1,0x800a
-/*  f028890:	14410009 */ 	bne	$v0,$at,.L0f0288b8
-/*  f028894:	000240c0 */ 	sll	$t0,$v0,0x3
-/*  f028898:	948e032e */ 	lhu	$t6,0x32e($a0)
-/*  f02889c:	3c19800a */ 	lui	$t9,0x800a
-/*  f0288a0:	000e7b82 */ 	srl	$t7,$t6,0xe
-/*  f0288a4:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f0288a8:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0288ac:	8f39a024 */ 	lw	$t9,-0x5fdc($t9)
-/*  f0288b0:	03e00008 */ 	jr	$ra
-/*  f0288b4:	8f2200bc */ 	lw	$v0,0xbc($t9)
-.L0f0288b8:
-/*  f0288b8:	8d29a2f8 */ 	lw	$t1,-0x5d08($t1)
-/*  f0288bc:	01024021 */ 	addu	$t0,$t0,$v0
-/*  f0288c0:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f0288c4:	01091821 */ 	addu	$v1,$t0,$t1
-/*  f0288c8:	03e00008 */ 	jr	$ra
-/*  f0288cc:	00601025 */ 	or	$v0,$v1,$zero
-);
+struct targetsomething *chrGetTargetSomething(struct chrdata *chr)
+{
+	struct targetsomething *ret;
 
-// Mismatch because the way it calculates the offset into g_Vars.targets is
-// different.
-//struct targetsomething *chrGetTargetSomething(struct chrdata *chr)
-//{
-//	struct targetsomething *ret;
-//
-//	if (chr->target == -1) {
-//		ret = g_Vars.players[(u32)chr->BITFIELD.shorts[1] >> 14]->targetsomething;
-//	} else {
-//		ret = &g_Vars.targets[chr->target];
-//	}
-//
-//	return ret;
-//}
+	if (chr->target == -1) {
+		ret = g_Vars.players[(u32)chr->BITFIELD.shorts[1] >> 14]->targetsomething;
+	} else {
+		ret = g_Vars.targets + chr->target;
+	}
+
+	return ret;
+}
 
 GLOBAL_ASM(
 glabel func0f0288d0
