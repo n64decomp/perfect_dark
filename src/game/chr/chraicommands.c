@@ -5685,7 +5685,7 @@ bool aiChrUnsetFlag(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
-	func0f049eb0(g_Vars.chrdata, cmd[2], flags, cmd[7]);
+	chrUnsetFlagsById(g_Vars.chrdata, cmd[2], flags, cmd[7]);
 	g_Vars.aioffset += 8;
 
 	return false;

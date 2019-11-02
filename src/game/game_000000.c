@@ -84658,24 +84658,14 @@ void chrSetFlagsById(struct chrdata *ref, u32 chrnum, u32 flags, u32 bank)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f049eb0
-/*  f049eb0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f049eb4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049eb8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f049ebc:	0fc126d1 */ 	jal	chrFindById
-/*  f049ec0:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f049ec4:	10400004 */ 	beqz	$v0,.L0f049ed8
-/*  f049ec8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f049ecc:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f049ed0:	0fc12782 */ 	jal	chrUnsetFlags
-/*  f049ed4:	93a60027 */ 	lbu	$a2,0x27($sp)
-.L0f049ed8:
-/*  f049ed8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049edc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f049ee0:	03e00008 */ 	jr	$ra
-/*  f049ee4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrUnsetFlagsById(struct chrdata *ref, u32 chrnum, u32 flags, u32 bank)
+{
+	struct chrdata *chr = chrFindById(ref, chrnum);
+
+	if (chr) {
+		chrUnsetFlags(chr, flags, bank);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f049ee8
