@@ -5699,7 +5699,7 @@ bool aiIfChrHasFlag(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 
-	if (func0f049ee8(g_Vars.chrdata, cmd[2], flags, cmd[7])) {
+	if (chrHasFlagById(g_Vars.chrdata, cmd[2], flags, cmd[7])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
 	} else {
 		g_Vars.aioffset += 9;
@@ -12214,7 +12214,7 @@ glabel ai0133
 /*  f05b0cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f05b0d0:	240500fd */ 	addiu	$a1,$zero,0xfd
 /*  f05b0d4:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f05b0d8:	0fc127ba */ 	jal	func0f049ee8
+/*  f05b0d8:	0fc127ba */ 	jal	chrHasFlagById
 /*  f05b0dc:	00003825 */ 	or	$a3,$zero,$zero
 /*  f05b0e0:	50400005 */ 	beqzl	$v0,.L0f05b0f8
 /*  f05b0e4:	a21202a1 */ 	sb	$s2,0x2a1($s0)
@@ -12236,7 +12236,7 @@ glabel ai0133
 .L0f05b11c:
 /*  f05b11c:	240500fd */ 	addiu	$a1,$zero,0xfd
 /*  f05b120:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f05b124:	0fc127ba */ 	jal	func0f049ee8
+/*  f05b124:	0fc127ba */ 	jal	chrHasFlagById
 /*  f05b128:	00003825 */ 	or	$a3,$zero,$zero
 /*  f05b12c:	10400002 */ 	beqz	$v0,.L0f05b138
 /*  f05b130:	00000000 */ 	sll	$zero,$zero,0x0
@@ -12251,7 +12251,7 @@ glabel ai0133
 /*  f05b150:	02002025 */ 	or	$a0,$s0,$zero
 /*  f05b154:	240500fd */ 	addiu	$a1,$zero,0xfd
 /*  f05b158:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f05b15c:	0fc127ba */ 	jal	func0f049ee8
+/*  f05b15c:	0fc127ba */ 	jal	chrHasFlagById
 /*  f05b160:	00003825 */ 	or	$a3,$zero,$zero
 /*  f05b164:	50400005 */ 	beqzl	$v0,.L0f05b17c
 /*  f05b168:	a21202a1 */ 	sb	$s2,0x2a1($s0)
@@ -12266,7 +12266,7 @@ glabel ai0133
 /*  f05b184:	02002025 */ 	or	$a0,$s0,$zero
 /*  f05b188:	240500fd */ 	addiu	$a1,$zero,0xfd
 /*  f05b18c:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f05b190:	0fc127ba */ 	jal	func0f049ee8
+/*  f05b190:	0fc127ba */ 	jal	chrHasFlagById
 /*  f05b194:	00003825 */ 	or	$a3,$zero,$zero
 /*  f05b198:	50400003 */ 	beqzl	$v0,.L0f05b1a8
 /*  f05b19c:	92690006 */ 	lbu	$t1,0x6($s3)
