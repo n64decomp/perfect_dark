@@ -404,7 +404,7 @@ glabel chraiExecute
 //	g_Vars.chrdata = NULL;
 //	g_Vars.objdata = NULL;
 //	g_Vars.aicdata = NULL;
-//	g_Vars.aiddata = NULL;
+//	g_Vars.hovdata = NULL;
 //	g_Vars.ailist = NULL;
 //	g_Vars.aioffset = 0;
 //
@@ -418,7 +418,7 @@ glabel chraiExecute
 //		} else if (obj->type == 0x28) {
 //			g_Vars.aicdata = entity;
 //		} else if (obj->type == OBJTYPE_HOVERVEHICLE || obj->type == OBJTYPE_ARMEDVEHICLE) {
-//			g_Vars.aiddata = entity;
+//			g_Vars.hovdata = entity;
 //		}
 //	}
 //
@@ -431,9 +431,9 @@ glabel chraiExecute
 //	} else if (g_Vars.aicdata) {
 //		g_Vars.ailist = g_Vars.aicdata->ailist;
 //		g_Vars.aioffset = g_Vars.aicdata->aioffset;
-//	} else if (g_Vars.aiddata) {
-//		g_Vars.ailist = g_Vars.aiddata->ailist;
-//		g_Vars.aioffset = g_Vars.aiddata->aioffset;
+//	} else if (g_Vars.hovdata) {
+//		g_Vars.ailist = g_Vars.hovdata->ailist;
+//		g_Vars.aioffset = g_Vars.hovdata->aioffset;
 //	}
 //
 //	if (g_Vars.ailist) {

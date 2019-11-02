@@ -55,9 +55,9 @@ bool aiYield(void)
 	} else if (g_Vars.aicdata) {
 		g_Vars.aicdata->ailist = g_Vars.ailist;
 		g_Vars.aicdata->aioffset = g_Vars.aioffset;
-	} else if (g_Vars.aiddata) {
-		g_Vars.aiddata->ailist = g_Vars.ailist;
-		g_Vars.aiddata->aioffset = g_Vars.aioffset;
+	} else if (g_Vars.hovdata) {
+		g_Vars.hovdata->ailist = g_Vars.ailist;
+		g_Vars.hovdata->aioffset = g_Vars.aioffset;
 	}
 
 	return true;
@@ -170,8 +170,8 @@ bool aiSetReturnList(void)
 		g_Vars.objdata->aireturnlist = ailistid;
 	} else if (g_Vars.aicdata) {
 		g_Vars.aicdata->aireturnlist = ailistid;
-	} else if (g_Vars.aiddata) {
-		g_Vars.aiddata->aireturnlist = ailistid;
+	} else if (g_Vars.hovdata) {
+		g_Vars.hovdata->aireturnlist = ailistid;
 	}
 
 	g_Vars.aioffset += 5;
@@ -360,8 +360,8 @@ glabel aiReturn
 //		ailist = ailistFindById(g_Vars.objdata->aireturnlist);
 //	} else if (g_Vars.aicdata) {
 //		ailist = ailistFindById(g_Vars.aicdata->aireturnlist);
-//	} else if (g_Vars.aiddata) {
-//		ailist = ailistFindById(g_Vars.aiddata->aireturnlist);
+//	} else if (g_Vars.hovdata) {
+//		ailist = ailistFindById(g_Vars.hovdata->aireturnlist);
 //	}
 //
 //	g_Vars.ailist = ailist;
@@ -388,8 +388,8 @@ bool aiStop(void)
 {
 	if (g_Vars.chrdata) {
 		func0f03ad8c(g_Vars.chrdata);
-	} else if (g_Vars.aiddata) {
-		func0f07b078(g_Vars.aiddata);
+	} else if (g_Vars.hovdata) {
+		func0f07b078(g_Vars.hovdata);
 	}
 
 	g_Vars.aioffset += 2;
@@ -924,7 +924,7 @@ bool aiAimAndFire2(void)
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if ((g_Vars.chrdata && func0f03a76c(g_Vars.chrdata, thingtype, thingid)) ||
-			(g_Vars.aiddata && func0f07b038(g_Vars.aiddata))) {
+			(g_Vars.hovdata && func0f07b038(g_Vars.hovdata))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -1370,7 +1370,7 @@ bool aiIfRandomLessThan(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if ((g_Vars.chrdata && g_Vars.chrdata->random < cmd[2]) ||
-			(g_Vars.aiddata && (random() & 0xff) < cmd[2])) {
+			(g_Vars.hovdata && (random() & 0xff) < cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1387,7 +1387,7 @@ bool aiIfRandomGreaterThan(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if ((g_Vars.chrdata && g_Vars.chrdata->random > cmd[2]) ||
-			(g_Vars.aiddata && (random() & 0xff) > cmd[2])) {
+			(g_Vars.hovdata && (random() & 0xff) > cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1603,7 +1603,7 @@ bool aiIfSawDeath(void)
 bool aiIfSeesPlayer(void)
 {
 	if ((g_Vars.chrdata && func0f039368(g_Vars.chrdata)) ||
-			(g_Vars.aiddata && func0f07ae18(g_Vars.aiddata, 0x40) && func0f07af34(g_Vars.aiddata))) {
+			(g_Vars.hovdata && func0f07ae18(g_Vars.hovdata, 0x40) && func0f07af34(g_Vars.hovdata))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -6102,7 +6102,7 @@ bool aiSetPadPreset(void)
 	if (g_Vars.chrdata) {
 		chrSetPadPreset(g_Vars.chrdata, pad_id);
 	} else if (g_Vars.aicdata) {
-		g_Vars.aicdata->padpreset1 = pad_id;
+		g_Vars.aicdata->base.pad = pad_id;
 	}
 
 	g_Vars.aioffset += 4;
@@ -6183,8 +6183,8 @@ bool aiRestartTimer(void)
 {
 	if (g_Vars.chrdata) {
 		chrRestartTimer(g_Vars.chrdata);
-	} else if (g_Vars.aiddata) {
-		func0f07b0f4(g_Vars.aiddata);
+	} else if (g_Vars.hovdata) {
+		func0f07b0f4(g_Vars.hovdata);
 	}
 
 	g_Vars.aioffset += 2;
@@ -12824,8 +12824,8 @@ bool ai013f(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.aiddata) {
-		if (g_Vars.aiddata->unk90 != 0) {
+	if (g_Vars.hovdata) {
+		if (g_Vars.hovdata->unk90 != 0) {
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 		} else {
 			g_Vars.aioffset += 3;
@@ -12844,8 +12844,8 @@ bool ai0140(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.aiddata) {
-		if ((cmd[3] < g_Vars.aiddata->unk8c && cmd[2] == 1) || (g_Vars.aiddata->unk8c < cmd[3] && cmd[2] == 0)) {
+	if (g_Vars.hovdata) {
+		if ((cmd[3] < g_Vars.hovdata->unk8c && cmd[2] == 1) || (g_Vars.hovdata->unk8c < cmd[3] && cmd[2] == 0)) {
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 		} else {
 			g_Vars.aioffset += 5;
@@ -13152,8 +13152,8 @@ glabel ai0142
  */
 bool ai0143(void)
 {
-	if (g_Vars.aiddata) {
-		func0f07b0bc(g_Vars.aiddata, true);
+	if (g_Vars.hovdata) {
+		func0f07b0bc(g_Vars.hovdata, true);
 	}
 
 	g_Vars.aioffset += 2;
@@ -13166,8 +13166,8 @@ bool ai0143(void)
  */
 bool ai0144(void)
 {
-	if (g_Vars.aiddata) {
-		func0f07b0bc(g_Vars.aiddata, false);
+	if (g_Vars.hovdata) {
+		func0f07b0bc(g_Vars.hovdata, false);
 	}
 
 	g_Vars.aioffset += 2;
@@ -13581,7 +13581,7 @@ glabel aiIfAction
 bool aiHovercopterFireRocket(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f07b290(g_Vars.aiddata, cmd[2]);
+	func0f07b290(g_Vars.hovdata, cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -13634,8 +13634,6 @@ glabel aiIfNaturalAnim
 //	return false;
 //}
 
-struct otheraidata *func0f07adf4(struct otheraidata *otheraidata);
-
 /**
  * @cmd 016a
  */
@@ -13645,11 +13643,11 @@ bool aiIfY(void)
 	struct chrdata *chr = NULL;
 	float cutoff_y = ((cmd[4] | (cmd[3] << 8)) << 16) >> 16;
 
-	if (cmd[2] == CHR_TARGET && g_Vars.aiddata) {
-		struct otheraidata *aiddata = func0f07adf4(g_Vars.aiddata);
+	if (cmd[2] == CHR_TARGET && g_Vars.hovdata) {
+		struct heliobj *heli = func0f07adf4(&g_Vars.hovdata->base);
 
-		if (aiddata) {
-			struct targetsomething *target = objGetTargetSomething(aiddata);
+		if (heli) {
+			struct targetsomething *target = objGetTargetSomething(heli);
 
 			if (target && (target->unk00 == 3 || target->unk00 == 6)) {
 				chr = target->chr;
