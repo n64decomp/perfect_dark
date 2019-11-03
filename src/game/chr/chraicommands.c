@@ -6385,55 +6385,19 @@ bool aiIfCountdownTimerStopped(void)
 /**
  * @cmd 00c4
  */
-GLOBAL_ASM(
-glabel ai00c4
-/*  f0554fc:	3c03800a */ 	lui	$v1,0x800a
-/*  f055500:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f055504:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f055508:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05550c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f055510:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f055514:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f055518:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f05551c:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f055520:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f055524:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f055528:	03284825 */ 	or	$t1,$t9,$t0
-/*  f05552c:	44892000 */ 	mtc1	$t1,$f4
-/*  f055530:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f055534:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f055538:	0fc24219 */ 	jal	countdownTimerGetValue
-/*  f05553c:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f055540:	3c014270 */ 	lui	$at,0x4270
-/*  f055544:	44815000 */ 	mtc1	$at,$f10
-/*  f055548:	c7a80018 */ 	lwc1	$f8,0x18($sp)
-/*  f05554c:	3c03800a */ 	lui	$v1,0x800a
-/*  f055550:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f055554:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f055558:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f05555c:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f055560:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f055564:	4502000a */ 	bc1fl	.L0f055590
-/*  f055568:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f05556c:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f055570:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f055574:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f055578:	90460004 */ 	lbu	$a2,0x4($v0)
-/*  f05557c:	3c03800a */ 	lui	$v1,0x800a
-/*  f055580:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f055584:	10000004 */ 	beqz	$zero,.L0f055598
-/*  f055588:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f05558c:	8c6a0438 */ 	lw	$t2,0x438($v1)
-.L0f055590:
-/*  f055590:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f055594:	ac6b0438 */ 	sw	$t3,0x438($v1)
-.L0f055598:
-/*  f055598:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05559c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0555a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0555a4:	03e00008 */ 	jr	$ra
-/*  f0555a8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfCountdownTimerLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	float value = cmd[3] | (cmd[2] << 8);
+
+	if (countdownTimerGetValue() < value * 60) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00c5

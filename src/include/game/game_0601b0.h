@@ -399,5 +399,6 @@ u32 func0f18b9e4(void);
 u32 func0f1a78b0(void);
 
 void countdownTimerSetValue(float frames);
+float countdownTimerGetValue(void);
 
 #endif
