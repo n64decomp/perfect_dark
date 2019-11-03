@@ -8370,7 +8370,7 @@ bool aiShowObj(void)
 		func0f0604bc(obj->pos);
 		func0f0602f0(obj->pos);
 
-		if (g_Vars.unk000284->unk480 == 0 && obj->type == OBJTYPE_WEAPON) {
+		if (g_Vars.currentplayer->unk480 == 0 && obj->type == OBJTYPE_WEAPON) {
 			struct weaponobj *weapon = (struct weaponobj *) obj;
 
 			if (weapon->weapon_id == WEAPON_CAMSPY) {
@@ -15266,7 +15266,7 @@ bool aiChrGrabObject(void)
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
 
-		if (g_Vars.unk000284->unk1b0 == 0 && func0f0cc680() == 2 && g_Vars.unk000284->unk0b4 == 0) {
+		if (g_Vars.currentplayer->unk1b0 == 0 && func0f0cc680() == 2 && g_Vars.currentplayer->unk0b4 == 0) {
 			func0f0c7cf0(obj->pos);
 		}
 

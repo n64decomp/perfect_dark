@@ -1136,4 +1136,8 @@ struct bootbufferthing {
 	u8 unk00[2400];
 };
 
+struct gvars74 {
+	u8 unk00[0x80];
+};
+
 #endif
