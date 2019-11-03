@@ -6333,36 +6333,16 @@ bool aiHideCountdownTimer(void)
 /**
  * @cmd 00c0
  */
-GLOBAL_ASM(
-glabel ai00c0
-/*  f0553b4:	3c03800a */ 	lui	$v1,0x800a
-/*  f0553b8:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f0553bc:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0553c0:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0553c4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0553c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0553cc:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0553d0:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f0553d4:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f0553d8:	3c014270 */ 	lui	$at,0x4270
-/*  f0553dc:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f0553e0:	03284825 */ 	or	$t1,$t9,$t0
-/*  f0553e4:	44892000 */ 	mtc1	$t1,$f4
-/*  f0553e8:	44813000 */ 	mtc1	$at,$f6
-/*  f0553ec:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f0553f0:	46060302 */ 	mul.s	$f12,$f0,$f6
-/*  f0553f4:	0fc24216 */ 	jal	countdownTimerSetValue
-/*  f0553f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0553fc:	3c03800a */ 	lui	$v1,0x800a
-/*  f055400:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f055404:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f055408:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05540c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f055410:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f055414:	ac6b0438 */ 	sw	$t3,0x438($v1)
-/*  f055418:	03e00008 */ 	jr	$ra
-/*  f05541c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetCountdownTimerValue(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	float seconds = cmd[3] | (cmd[2] << 8);
+
+	countdownTimerSetValue(seconds * 60);
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 00c1

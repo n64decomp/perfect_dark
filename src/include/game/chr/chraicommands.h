@@ -194,7 +194,7 @@
 /*0x00bd*/ bool ai00bd(void);
 /*0x00be*/ bool aiShowCountdownTimer(void);
 /*0x00bf*/ bool aiHideCountdownTimer(void);
-/*0x00c0*/ bool ai00c0(void);
+/*0x00c0*/ bool aiSetCountdownTimerValue(void);
 /*0x00c1*/ bool aiStopCountdownTimer(void);
 /*0x00c2*/ bool aiStartCountdownTimer(void);
 /*0x00c3*/ bool aiIfCountdownTimerStopped(void);
