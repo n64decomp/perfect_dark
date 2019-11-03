@@ -34,7 +34,7 @@ struct g_vars {
 	/*000040*/ u32 unk000040;
 	/*000044*/ u32 unk000044;
 	/*000048*/ u32 unk000048;
-	/*00004c*/ u32 unk00004c;
+	/*00004c*/ float countdowntimerstep; // probably a generic lastframems field
 	/*000050*/ u32 unk000050;
 	/*000054*/ u32 unk000054;
 	/*000058*/ u32 unk000058;
