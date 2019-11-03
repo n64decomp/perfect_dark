@@ -14148,7 +14148,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x00c0*/ ai00c0,
 	/*0x00c1*/ aiStopCountdownTimer,
 	/*0x00c2*/ aiStartCountdownTimer,
-	/*0x00c3*/ ai00c3,
+	/*0x00c3*/ aiIfCountdownTimerStopped,
 	/*0x00c4*/ ai00c4,
 	/*0x00c5*/ ai00c5,
 	/*0x00c6*/ ai00c6,

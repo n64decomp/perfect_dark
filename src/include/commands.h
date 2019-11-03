@@ -835,6 +835,10 @@
 #define start_countdown_timer \
 	mkshort(0x00c2),
 
+#define if_countdown_timer_stopped(label) \
+	mkshort(0x00c3), \
+	label,
+
 #define if_countdown_timer_lt(value, label) \
 	mkshort(0x00c4), \
 	mkshort(value), \
