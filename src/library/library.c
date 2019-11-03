@@ -6779,17 +6779,15 @@ glabel func00003360
 /*     34cc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func000034d0
-/*     34d0:	03e00008 */ 	jr	$ra
-/*     34d4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func000034d0(void)
+{
+	// empty
+}
 
-GLOBAL_ASM(
-glabel func000034d8
-/*     34d8:	03e00008 */ 	jr	$ra
-/*     34dc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func000034d8(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func000034e0
@@ -14020,29 +14018,25 @@ glabel func00009a08
 /*     9a7c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func00009a80
-/*     9a80:	03e00008 */ 	jr	$ra
-/*     9a84:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func00009a80(void)
+{
+	// empty
+}
 
-GLOBAL_ASM(
-glabel func00009a88
-/*     9a88:	03e00008 */ 	jr	$ra
-/*     9a8c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func00009a88(void)
+{
+	// empty
+}
 
-GLOBAL_ASM(
-glabel func00009a90
-/*     9a90:	03e00008 */ 	jr	$ra
-/*     9a94:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func00009a90(void)
+{
+	// empty
+}
 
-GLOBAL_ASM(
-glabel func00009a98
-/*     9a98:	03e00008 */ 	jr	$ra
-/*     9a9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func00009a98(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func00009aa0
@@ -14050,11 +14044,10 @@ glabel func00009aa0
 /*     9aa4:	afa40000 */ 	sw	$a0,0x0($sp)
 );
 
-GLOBAL_ASM(
-glabel func00009aa8
-/*     9aa8:	03e00008 */ 	jr	$ra
-/*     9aac:	00801025 */ 	or	$v0,$a0,$zero
-);
+u32 func00009aa8(u32 arg)
+{
+	return arg;
+}
 
 GLOBAL_ASM(
 glabel func00009ab0
@@ -21243,11 +21236,10 @@ glabel func0000fd9c
 /*     fe14:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0000fe18
-/*     fe18:	03e00008 */ 	jr	$ra
-/*     fe1c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0000fe18(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0000fe20
@@ -23853,11 +23845,10 @@ glabel func00011d84
 /*    121dc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func000121e0
-/*    121e0:	03e00008 */ 	jr	$ra
-/*    121e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func000121e0(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func000121e8
@@ -24494,11 +24485,10 @@ glabel func00012914
 /*    12a08:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func00012a0c
-/*    12a0c:	03e00008 */ 	jr	$ra
-/*    12a10:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func00012a0c(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func00012a14
@@ -25565,11 +25555,10 @@ glabel func00013710
 /*    1374c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func00013750
-/*    13750:	03e00008 */ 	jr	$ra
-/*    13754:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func00013750(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func00013758
@@ -25589,11 +25578,10 @@ glabel func00013758
 /*    1378c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func00013790
-/*    13790:	03e00008 */ 	jr	$ra
-/*    13794:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func00013790(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func00013798

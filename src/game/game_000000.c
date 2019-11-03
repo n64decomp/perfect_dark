@@ -26328,11 +26328,10 @@ glabel func0f016404
 /*  f016440:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f016444
-/*  f016444:	03e00008 */ 	jr	$ra
-/*  f016448:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f016444(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f01644c
@@ -30760,11 +30759,10 @@ glabel func0f01a494
 /*  f01a49c:	ac2024c4 */ 	sw	$zero,0x24c4($at)
 );
 
-GLOBAL_ASM(
-glabel func0f01a4a0
-/*  f01a4a0:	03e00008 */ 	jr	$ra
-/*  f01a4a4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f01a4a0(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f01a4a8
