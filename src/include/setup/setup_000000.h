@@ -22,6 +22,7 @@ extern u32 var80067a58;
 extern u32 var800663d8;
 extern u32 var80067b30;
 extern u32 var80067b78;
+extern u32 g_CountdownTimerVisible;
 extern u32 g_StageFlags;
 
 extern struct audiodefinition audiodefinitions[];
