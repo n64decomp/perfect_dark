@@ -580,7 +580,7 @@ struct player {
 	/*0x1a4*/ u32 unk1a4;
 	/*0x1a8*/ u32 unk1a8;
 	/*0x1ac*/ u32 unk1ac;
-	/*0x1b0*/ u32 unk1b0;
+	/*0x1b0*/ u32 unk1b0; // related to grabbed object
 	/*0x1b4*/ u32 unk1b4;
 	/*0x1b8*/ u32 unk1b8;
 	/*0x1bc*/ u32 unk1bc;
