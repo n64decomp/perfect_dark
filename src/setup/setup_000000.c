@@ -8134,8 +8134,8 @@ u32 var80062978 = 0x00000000;
 u32 var8006297c = 0x00000000;
 u32 var80062980 = 0x00000000;
 u32 var80062984 = 0x00001388;
-u32 var80062988 = 0x00000000;
-u32 g_NumChrs = 0;
+struct chrdata *g_Chrs = NULL; // 80062988
+u32 g_NumChrs = 0; // 8006298c
 u32 var80062990 = 0x00000000;
 u32 var80062994 = 0x00000000;
 u32 var80062998 = 0x00000000;
@@ -14422,7 +14422,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01d2*/ aiChrEmitSparks,
 	/*0x01d3*/ ai01d3,
 	/*0x01d4*/ ai01d4,
-	/*0x01d5*/ ai01d5,
+	/*0x01d5*/ aiShowCutsceneChrs,
 	/*0x01d6*/ ai01d6,
 	/*0x01d7*/ ai01d7,
 	/*0x01d8*/ ai01d8,

@@ -432,7 +432,7 @@
 /*0x01d2*/ bool aiChrEmitSparks(void);
 /*0x01d3*/ bool ai01d3(void);
 /*0x01d4*/ bool ai01d4(void);
-/*0x01d5*/ bool ai01d5(void);
+/*0x01d5*/ bool aiShowCutsceneChrs(void);
 /*0x01d6*/ bool ai01d6(void);
 /*0x01d7*/ bool ai01d7(void);
 /*0x01d8*/ bool ai01d8(void);

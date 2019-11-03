@@ -16654,7 +16654,7 @@ glabel ai01d4
  * @cmd 01d5
  */
 GLOBAL_ASM(
-glabel ai01d5
+glabel aiShowCutsceneChrs
 /*  f05f834:	3c08800a */ 	lui	$t0,0x800a
 /*  f05f838:	25089fc0 */ 	addiu	$t0,$t0,-24640
 /*  f05f83c:	8d0e0434 */ 	lw	$t6,0x434($t0)
@@ -16763,6 +16763,39 @@ glabel ai01d5
 /*  f05f9b8:	03e00008 */ 	jr	$ra
 /*  f05f9bc:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+//bool aiShowCutsceneChrs(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct chrdata *chr;
+//	s32 i;
+//
+//	if (cmd[2]) {
+//		// Show chrs
+//		for (i = getNumChrs() - 1; i >= 0; i--) {
+//			chr = &g_Chrs[i];
+//
+//			if (chr->chrnum >= 0 && chr->pos && (chr->hidden2 & 1)) {
+//				chr->hidden2 = chr->hidden2 & ~1;
+//				chr->chrflags = chr->chrflags & ~0x00000400;
+//			}
+//		}
+//	} else {
+//		// Hide chrs
+//		for (i = getNumChrs() - 1; i >= 0; i--) {
+//			chr = &g_Chrs[i];
+//
+//			if (chr->chrnum >= 0 && chr->pos && (chr->chrflags & 0x00800400) == 0) {
+//				chr->hidden2 = chr->hidden2 | 1;
+//				chr->chrflags = chr->chrflags | 0x00000400;
+//			}
+//		}
+//	}
+//
+//	g_Vars.aioffset += 3;
+//
+//	return false;
+//}
 
 /**
  * @cmd 01d6

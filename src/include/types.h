@@ -260,7 +260,6 @@ struct chrdata {
 	/*0x361*/ u8 lastfootsample;
 	/*0x362*/ u8 onlift;
 	/*0x364*/ u32 unk364;
-	/*0x368*/ u32 m_SoundEndTime;
 };
 
 struct defaultobj {

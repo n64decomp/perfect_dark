@@ -6,6 +6,7 @@
 extern s32 levelnum;
 extern u64 rand_seed;
 
+extern struct chrdata *g_Chrs; // pointer to first element of chrs array
 extern u32 g_NumChrs;
 extern u32 var8005ce60;
 extern u32 var8005ce64;
