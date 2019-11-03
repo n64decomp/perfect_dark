@@ -14960,8 +14960,8 @@ u32 var80069900 = 0x00000000;
 
 u32 g_CountdownTimerVisible = 1; // 80069904
 bool g_CountdownTimerRunning = false; // 80069908
+float g_CountdownTimerValue = 0; // 8006990c
 
-u32 var8006990c = 0x00000000;
 u32 var80069910 = 0x00000000;
 u32 var80069914 = 0x00000000;
 u32 var80069918 = 0x00000000;
