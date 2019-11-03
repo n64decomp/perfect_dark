@@ -42,14 +42,11 @@ struct g_vars {
 	/*000060*/ u32 unk000060;
 	/*000064*/ struct player *players[4];
 	/*000074*/ struct gvars74 unk000074[4];
-	/*000274*/ u32 unk000274;
-	/*000278*/ u32 unk000278;
-	/*00027c*/ u32 unk00027c;
-	/*000280*/ u32 unk000280;
+	/*000274*/ u32 unk000274[4];
 	/*000284*/ struct player *currentplayer;
 	/*000288*/ struct gvars74 *unk000288;
-	/*00028c*/ u32 currentplayernum; // 0-3
-	/*000290*/ u32 unk000290;
+	/*00028c*/ u32 currentplayernum; // 0-3 - controller numbers I think
+	/*000290*/ u32 currentplayerindex; // 0-3 - but 2 or 3 probably only used in combat simulator
 	/*000294*/ s32 bondplayernum;
 	/*000298*/ s32 coopplayernum;
 	/*00029c*/ s32 antiplayernum;

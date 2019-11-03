@@ -345,6 +345,7 @@ u32 func0f127950(void);
 u32 func0f1279a4(void);
 void setCurrentPlayerNum(u32 playernum);
 u32 func0f128dbc(void);
+u32 calculatePlayerIndex(u32 playernum);
 u32 func0f128ec8(void);
 u32 func0f14a328(void);
 u32 func0f14a3bc(void);
