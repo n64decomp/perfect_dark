@@ -409,7 +409,7 @@ u8 func1002_intro[] = {
 
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x01b6, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x01b6, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_hud_visible(CHR_BOND, TRUE)
 
 	restart_timer
@@ -514,7 +514,7 @@ u8 func1002_intro[] = {
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x01b6, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x01b6, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	restart_default_music
 	reset_ambience
 	set_chr_hud_visible(CHR_BOND, FALSE)
@@ -565,36 +565,36 @@ u8 func0402_outro[] = {
 	set_chr_flag_bank3(CHR_TARGET, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_TARGET, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_00020000)
-	animation(0x01df, -1, -1, 0x0600, CHR_TARGET, 4)
+	animation(0x01df, -1, -1, 0x06, 0x00, CHR_TARGET, 4)
 
 	set_chr_flag_bank3(CHR_SKEDAR, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_SKEDAR, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_SKEDAR, CHRFLAG2_00020000)
-	animation(0x01da, -1, -1, 0x0600, CHR_SKEDAR, 4)
+	animation(0x01da, -1, -1, 0x06, 0x00, CHR_SKEDAR, 4)
 
 	set_chr_flag_bank3(CHR_ELVIS_OUTRO, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank3(CHR_ELVIS_OUTRO, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS_OUTRO, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS_OUTRO, CHRFLAG2_00020000)
-	animation(0x01db, -1, -1, 0x0600, CHR_ELVIS_OUTRO, 4)
+	animation(0x01db, -1, -1, 0x06, 0x00, CHR_ELVIS_OUTRO, 4)
 
 	set_chr_flag_bank3(CHR_TRENT, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank3(CHR_TRENT, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_TRENT, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_TRENT, CHRFLAG2_00020000)
-	animation(0x01dc, -1, -1, 0x0600, CHR_TRENT, 4)
+	animation(0x01dc, -1, -1, 0x06, 0x00, CHR_TRENT, 4)
 
 	set_chr_flag_bank3(CHR_MRBLONDE, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank3(CHR_MRBLONDE, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_MRBLONDE, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_MRBLONDE, CHRFLAG2_00020000)
-	animation(0x01dd, -1, -1, 0x0600, CHR_MRBLONDE, 4)
+	animation(0x01dd, -1, -1, 0x06, 0x00, CHR_MRBLONDE, 4)
 
 	set_chr_flag_bank3(CHR_PRESIDENT_OUTRO, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank3(CHR_PRESIDENT_OUTRO, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_PRESIDENT_OUTRO, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_PRESIDENT_OUTRO, CHRFLAG2_00020000)
-	animation(0x01de, -1, -1, 0x0600, CHR_PRESIDENT_OUTRO, 4)
+	animation(0x01de, -1, -1, 0x06, 0x00, CHR_PRESIDENT_OUTRO, 4)
 
 	show_object(0x00)
 	set_object_flag_bank1(OBJ_CRATE, OBJECTFLAG1_04000000)
@@ -1178,19 +1178,19 @@ u8 func0404_elvis[] = {
 	if_rand_lt(196, /*goto*/ 0x9b)
 
 	set_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
-	animation(ANIM_LOOK_AROUND_025B, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025B, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x31)
 
 	label(0x99)
-	animation(ANIM_LOOK_AROUND_025C, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025C, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x31)
 
 	label(0x9a)
-	animation(ANIM_LOOK_AROUND_025D, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025D, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x31)
 
 	label(0x9b)
-	animation(ANIM_LOOK_AROUND_025E, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025E, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	label(0x31)
 	goto_first(0x04)
@@ -1436,7 +1436,7 @@ u8 func041a_pres_clone[] = {
 	stop_chr
 
 	label(0xa5)
-	animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_chr_stopped(/*goto*/ 0x31)
@@ -1719,7 +1719,7 @@ u8 func041e_trent_waiting[] = {
 	label(0x08)
 	restart_timer
 	speak(CHR_P1P2, 0x0a18, 0x12ca, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now!"
-	animation(ANIM_TALKING_0231, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0a)
 		if_timer_gt(120, /*goto*/ 0x08)
@@ -1770,7 +1770,7 @@ u8 func041f_trent_shooting[] = {
 
 	label(0x0b)
 	restart_timer
-	animation(ANIM_TALKING_0231, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0c)
 		if_timer_gt(120, /*goto*/ 0x08)

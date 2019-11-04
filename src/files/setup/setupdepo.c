@@ -1557,12 +1557,12 @@ u8 func040d_intro[] = {
 
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0166, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x0166, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	set_chr_flag_bank3(CHR_INTRO_VICTIM, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_INTRO_VICTIM, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_INTRO_VICTIM, CHRFLAG2_00020000)
-	animation(0x0167, -1, -1, 0x0600, CHR_INTRO_VICTIM, 4)
+	animation(0x0167, -1, -1, 0x06, 0x00, CHR_INTRO_VICTIM, 4)
 
 	restart_timer
 	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2_SILENCER, WEAPON_NONE)
@@ -1767,18 +1767,18 @@ u8 func040d_intro[] = {
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0166, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x0166, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 
 	unset_chr_flag_bank3(CHR_INTRO_VICTIM, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_INTRO_VICTIM, CHRFLAG2_00020000)
 	set_chr_flag_bank3(CHR_INTRO_VICTIM, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank3(CHR_INTRO_VICTIM, CHRFLAG3_00010000)
-	animation(0x0167, -2, -1, 0x0600, CHR_INTRO_VICTIM, 2)
+	animation(0x0167, -2, -1, 0x06, 0x00, CHR_INTRO_VICTIM, 2)
 
 	restart_default_music
 	reset_ambience
 	enter_firstperson
-	animation(0x022a, -1, -1, 0x0600, CHR_INTRO_VICTIM, 2)
+	animation(0x022a, -1, -1, 0x06, 0x00, CHR_INTRO_VICTIM, 2)
 	chr_drop_weapon(CHR_INTRO_VICTIM)
 	yield
 	set_function(CHR_CLOAK_1A, FUNC_INIT_CLOAK1_GUARD)
@@ -1815,22 +1815,22 @@ u8 func040e_meeting_cutscene[] = {
 	set_chr_flag_bank3(CHR_BLONDE, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_BLONDE, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_BLONDE, CHRFLAG2_00020000)
-	animation(0x0192, -1, -1, 0x0600, CHR_BLONDE, 4)
+	animation(0x0192, -1, -1, 0x06, 0x00, CHR_BLONDE, 4)
 
 	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_CASS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_CASS, CHRFLAG2_00020000)
-	animation(0x0193, -1, -1, 0x0600, CHR_CASS, 4)
+	animation(0x0193, -1, -1, 0x06, 0x00, CHR_CASS, 4)
 
 	set_chr_flag_bank3(CHR_TRENT, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_TRENT, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_TRENT, CHRFLAG2_00020000)
-	animation(0x0194, -1, -1, 0x0600, CHR_TRENT, 4)
+	animation(0x0194, -1, -1, 0x06, 0x00, CHR_TRENT, 4)
 
 	set_chr_flag_bank3(CHR_STRIPES, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_STRIPES, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_STRIPES, CHRFLAG2_00020000)
-	animation(0x0195, -1, -1, 0x0600, CHR_STRIPES, 4)
+	animation(0x0195, -1, -1, 0x06, 0x00, CHR_STRIPES, 4)
 	restart_timer
 
 	beginloop(0x55)
@@ -2078,7 +2078,7 @@ u8 func040f_outro[] = {
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
-	animation(0x0197, -1, -1, 0x0600, CHR_P1P2, 4)
+	animation(0x0197, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 	set_chr_hud_visible(CHR_P1P2, TRUE)
 	restart_timer
 	deactivate_alarm

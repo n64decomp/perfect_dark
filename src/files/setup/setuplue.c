@@ -1590,7 +1590,7 @@ u8 func0416_mechanic[] = {
 	// Not alert - at interceptor
 	label(0x04)
 		call_rng
-		animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x1010, CHR_SELF, 2)
+		animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 		beginloop(0x09)
 			consider_coop_for_p1p2_chr(CHR_SELF)
@@ -1613,7 +1613,7 @@ u8 func0416_mechanic[] = {
 
 	// In bunker
 	label(0x0e)
-		animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x1010, CHR_SELF, 2)
+		animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 		beginloop(0x0d)
 			consider_coop_for_p1p2_chr(CHR_SELF)
@@ -1758,18 +1758,18 @@ u8 func040e_outro[] = {
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
-	animation(0x017f, -1, -1, 0x0600, CHR_P1P2, 4)
+	animation(0x017f, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 	set_chr_hud_visible(CHR_P1P2, TRUE)
 
 	set_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_JONATHAN, CHRFLAG2_00020000)
-	animation(0x017e, -1, -1, 0x0600, CHR_JONATHAN, 4)
+	animation(0x017e, -1, -1, 0x06, 0x00, CHR_JONATHAN, 4)
 
 	set_chr_flag_bank3(CHR_OUTRO_GUARD, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_OUTRO_GUARD, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_OUTRO_GUARD, CHRFLAG2_00020000)
-	animation(0x0180, -1, -1, 0x0600, CHR_OUTRO_GUARD, 4)
+	animation(0x0180, -1, -1, 0x06, 0x00, CHR_OUTRO_GUARD, 4)
 
 	restart_timer
 	show_nonessential_chrs(FALSE)
@@ -1899,7 +1899,7 @@ u8 func0410_intro[] = {
 	set_chr_flag_bank3(0x32, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x32, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x32, CHRFLAG2_00020000)
-	animation(0x0182, -1, -1, 0x0600, 0x32, 4)
+	animation(0x0182, -1, -1, 0x06, 0x00, 0x32, 4)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -1943,17 +1943,17 @@ u8 func0410_intro[] = {
 	set_chr_flag_bank3(0x29, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x29, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x29, CHRFLAG2_00020000)
-	animation(0x0184, -1, -1, 0x0600, 0x29, 4)
+	animation(0x0184, -1, -1, 0x06, 0x00, 0x29, 4)
 
 	set_chr_flag_bank3(0x2a, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x2a, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x2a, CHRFLAG2_00020000)
-	animation(0x0185, -1, -1, 0x0600, 0x2a, 4)
+	animation(0x0185, -1, -1, 0x06, 0x00, 0x2a, 4)
 
 	set_chr_flag_bank3(0x2b, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x2b, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x2b, CHRFLAG2_00020000)
-	animation(0x0186, -1, -1, 0x0600, 0x2b, 4)
+	animation(0x0186, -1, -1, 0x06, 0x00, 0x2b, 4)
 
 	set_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x2f, OBJECTFLAG2_00000010)
@@ -1989,12 +1989,12 @@ u8 func0410_intro[] = {
 	set_chr_flag_bank3(0x2a, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x2a, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x2a, CHRFLAG2_00020000)
-	animation(0x0189, -1, -1, 0x0600, 0x2a, 4)
+	animation(0x0189, -1, -1, 0x06, 0x00, 0x2a, 4)
 
 	set_chr_flag_bank3(0x2b, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x2b, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x2b, CHRFLAG2_00020000)
-	animation(0x018a, -1, -1, 0x0600, 0x2b, 4)
+	animation(0x018a, -1, -1, 0x06, 0x00, 0x2b, 4)
 
 	set_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x2f, OBJECTFLAG2_00000010)
@@ -2027,7 +2027,7 @@ u8 func0410_intro[] = {
 	if_controller_button_pressed(/*goto*/ 0x54)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x00f1, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x00f1, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_flag_bank3(0x03, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(0x03, CHRFLAG2_00020000)
 	unset_chr_flag_bank3(0x03, CHRFLAG3_HIDDEN)
@@ -2095,7 +2095,7 @@ u8 func0410_intro[] = {
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x00f1, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x00f1, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_chr_flag_bank3(0x03, CHRFLAG3_UNPLAYABLE)
 	set_function(0x02, 0x0426)
 	set_function(0x03, 0x0426)
@@ -2904,7 +2904,7 @@ u8 func0421_activate_autogun[] = {
 	endloop(0x09)
 
 	label(0x2e)
-	animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 120, 0x1010, CHR_SELF, 2)
+	animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 120, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0a)
 		if_chr_stopped(/*goto*/ 0x2e)
@@ -2922,7 +2922,7 @@ u8 func0421_activate_autogun[] = {
 	label(0x0e)
 	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
-	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
+	animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x7c)
 		if_timer_gt(60, /*goto*/ 0x7d)

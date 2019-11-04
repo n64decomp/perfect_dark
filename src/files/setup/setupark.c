@@ -859,7 +859,7 @@ u8 func0411_top_guard_blinded[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x00)
-	animation(ANIM_BLINDED, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_BLINDED, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	say_quip(CHR_BOND, 0x11, 0x64, 0x02, 0xff, BANK_1, 0x00, 0x00)
 
 	beginloop(0x1f)
@@ -1654,7 +1654,7 @@ u8 func0409_tech_conversation[] = {
 	unset_chr_flag_bank3(CHR_RLSHOCK, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_function(CHR_RLSHOCK, GFUNC_UNALERTED)
 	restart_timer
-	animation(0x0204, -1, -1, 0x0214, 0x10, 2)
+	animation(0x0204, -1, -1, 0x02, 0x14, 0x10, 2)
 
 	beginloop(0x28)
 		if_shot_near_chr(0x00, /*goto*/ 0x33)
@@ -1664,7 +1664,7 @@ u8 func0409_tech_conversation[] = {
 
 	label(0x20)
 	dprint 'T','E','C','H',' ','2',' ','L','O','O','P','\n',0,
-	animation(ANIM_TALKING_00A0, 0, -1, 0x1014, CHR_SELF, 2)
+	animation(ANIM_TALKING_00A0, 0, -1, 0x10, 0x14, CHR_SELF, 2)
 	speak(CHR_PRESET, 0x0625, 0x811d, CHANNEL_7, COLOR_06_WHITE) // "That's not how it goes."
 	restart_timer
 
@@ -1685,8 +1685,8 @@ u8 func0409_tech_conversation[] = {
 	goto_first(0x21)
 
 	label(0x20)
-	animation(ANIM_TWO_GUN_HOLD, 0, -1, 0x1014, CHR_SELF, 2)
-	animation(ANIM_TALKING_00A0, -1, -1, 0x0214, 0x10, 2)
+	animation(ANIM_TWO_GUN_HOLD, 0, -1, 0x10, 0x14, CHR_SELF, 2)
+	animation(ANIM_TALKING_00A0, -1, -1, 0x02, 0x14, 0x10, 2)
 	speak(CHR_PRESET, 0x0626, 0x8120, CHANNEL_7, COLOR_08_RED) // "Yes, it is."
 
 	beginloop(0x22)
@@ -1706,8 +1706,8 @@ u8 func0409_tech_conversation[] = {
 	endloop(0x22)
 
 	label(0x20)
-	animation(ANIM_TALKING_00A0, 0, -1, 0x1014, CHR_SELF, 2)
-	animation(0x0205, -1, -1, 0x0214, 0x10, 2)
+	animation(ANIM_TALKING_00A0, 0, -1, 0x10, 0x14, CHR_SELF, 2)
+	animation(0x0205, -1, -1, 0x02, 0x14, 0x10, 2)
 	speak(CHR_PRESET, 0x0627, 0x811e, CHANNEL_7, COLOR_06_WHITE) // "Give it to me - you're doing it wrong."
 
 	beginloop(0x23)
@@ -1727,8 +1727,8 @@ u8 func0409_tech_conversation[] = {
 	endloop(0x23)
 
 	label(0x20)
-	animation(ANIM_TWO_GUN_HOLD, 0, -1, 0x1014, CHR_SELF, 2)
-	animation(ANIM_TALKING_00A0, -1, -1, 0x0214, 0x10, 2)
+	animation(ANIM_TWO_GUN_HOLD, 0, -1, 0x10, 0x14, CHR_SELF, 2)
+	animation(ANIM_TALKING_00A0, -1, -1, 0x02, 0x14, 0x10, 2)
 	speak(CHR_PRESET, 0x0628, 0x8121, CHANNEL_7, COLOR_08_RED) // "Stop annoying me."
 
 	beginloop(0x24)
@@ -1748,9 +1748,9 @@ u8 func0409_tech_conversation[] = {
 	endloop(0x24)
 
 	label(0x20)
-	animation(ANIM_TWO_GUN_HOLD, 0, -1, 0x1014, CHR_SELF, 2)
-	animation(ANIM_TALKING_00A0, -1, -1, 0x0214, CHR_RLSHOCK, 2)
-	animation(0x0206, -1, -1, 0x0214, 0x10, 2)
+	animation(ANIM_TWO_GUN_HOLD, 0, -1, 0x10, 0x14, CHR_SELF, 2)
+	animation(ANIM_TALKING_00A0, -1, -1, 0x02, 0x14, CHR_RLSHOCK, 2)
+	animation(0x0206, -1, -1, 0x02, 0x14, 0x10, 2)
 	speak(CHR_PRESET, 0x0629, 0x8123, CHANNEL_7, COLOR_09_BLUE) // "Will you just hurry up!"
 
 	beginloop(0x25)
@@ -1792,7 +1792,7 @@ u8 func0409_tech_conversation[] = {
 	open_door(0x04)
 	restart_timer
 	speak(CHR_TARGET, 0x062a, 0x811f, CHANNEL_7, COLOR_06_WHITE) // "Oh, no...too late."
-	animation(ANIM_SURRENDER_002E, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x34)
 		if_timer_gt(60, /*goto*/ 0x35)
@@ -1811,7 +1811,7 @@ u8 func0409_tech_conversation[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	// Unreachable
-	animation(ANIM_COWER_0229, -1, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x38)
 		if_chr_idle(/*goto*/ 0x5e)
@@ -1873,7 +1873,7 @@ u8 func040a_tech2[] = {
 		open_door(0x04)
 		yield
 		restart_timer
-		animation(0x0205, 0, -1, 0x180a, CHR_SELF, 2)
+		animation(0x0205, 0, -1, 0x18, 0x0a, CHR_SELF, 2)
 
 		// @bug: Duplicate label. I suspect the goto first 0x21 below is
 		// supposed to go here. The only possible side effect is the tech may
@@ -1884,7 +1884,7 @@ u8 func040a_tech2[] = {
 	endloop(0x21)
 
 	label(0x20)
-	animation(ANIM_SURRENDER_002E, 0, -1, 0x180a, CHR_SELF, 2)
+	animation(ANIM_SURRENDER_002E, 0, -1, 0x18, 0x0a, CHR_SELF, 2)
 	speak(CHR_TARGET, 0x062b, 0x8122, CHANNEL_7, COLOR_08_RED) // "She's here..."
 
 	beginloop(0x22)
@@ -1904,7 +1904,7 @@ u8 func040a_tech2[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	// Unreachable
-	animation(ANIM_COWER_0229, -1, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x38)
 		if_chr_idle(/*goto*/ 0x5e)
@@ -1986,7 +1986,7 @@ u8 func040d_cass[] = {
 	label(0x00)
 	restart_timer
 	speak(CHR_TARGET, 0x0620, 0x80ff, CHANNEL_6, COLOR_04_ORANGE) // "We meet again, girl!"
-	animation(ANIM_TALKING_00A0, 0, 193, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_00A0, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x27)
 		if_stage_flag_eq(STAGEFLAG_CASS_SHIELD_DAMAGED, TRUE, /*goto*/ 0x5b)
@@ -1996,7 +1996,7 @@ u8 func040d_cass[] = {
 	label(0x00)
 	restart_timer
 	speak(CHR_TARGET, 0x0614, 0x80fe, CHANNEL_6, COLOR_04_ORANGE) // "You've become quite an annoyance..."
-	animation(ANIM_TALKING_00A3, 0, 193, 0x1014, CHR_SELF, 2)
+	animation(ANIM_TALKING_00A3, 0, 193, 0x10, 0x14, CHR_SELF, 2)
 
 	beginloop(0x28)
 		if_stage_flag_eq(STAGEFLAG_CASS_SHIELD_DAMAGED, TRUE, /*goto*/ 0x5b)
@@ -2012,13 +2012,13 @@ u8 func040d_cass[] = {
 
 	label(0x20)
 	speak(CHR_TARGET, 0x062c, 0x8101, CHANNEL_6, COLOR_04_ORANGE) // "Get her!"
-	animation(ANIM_TALKING_00A3, 0, 193, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_00A3, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 	goto_next(0x20)
 
 	label(0x00)
 	restart_timer
 	speak(CHR_TARGET, 0x0615, 0x8100, CHANNEL_6, COLOR_04_ORANGE) // "Good night, Ms. Dark."
-	animation(ANIM_TALKING_00A0, 0, 193, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_00A0, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x2a)
 		if_timer_gt(150, /*goto*/ 0x20)
@@ -2304,13 +2304,13 @@ u8 func100d_intro[] = {
 	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0139, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x0139, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_flag_bank3(0x00, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(0x00, CHRFLAG2_00020000)
-	animation(0x013d, -1, -1, 0x0600, CHR_DRCAROLL, 4)
+	animation(0x013d, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 4)
 	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_INTRO_GUARD, CHRFLAG2_00020000)
-	animation(0x013a, -1, -1, 0x0600, CHR_INTRO_GUARD, 4)
+	animation(0x013a, -1, -1, 0x06, 0x00, CHR_INTRO_GUARD, 4)
 	unset_stage_flag(STAGEFLAG_00800000)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -2382,23 +2382,23 @@ u8 func100d_intro[] = {
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0139, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x0139, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 
 	unset_chr_flag_bank3(CHR_DRCAROLL, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_DRCAROLL, CHRFLAG2_00020000)
-	animation(0x013d, -2, -1, 0x0600, CHR_DRCAROLL, 2)
+	animation(0x013d, -2, -1, 0x06, 0x00, CHR_DRCAROLL, 2)
 
 	unset_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank2(CHR_INTRO_GUARD, CHRFLAG2_00020000)
 	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_00010000)
-	animation(0x013a, -2, -1, 0x0600, CHR_INTRO_GUARD, 2)
+	animation(0x013a, -2, -1, 0x06, 0x00, CHR_INTRO_GUARD, 2)
 
 	restart_default_music
 	reset_ambience
 	enter_firstperson
 	yield
-	animation(0x020c, -1, -1, 0x0600, CHR_INTRO_GUARD, 2)
+	animation(0x020c, -1, -1, 0x06, 0x00, CHR_INTRO_GUARD, 2)
 	set_function(CHR_DRCAROLL, 0x0402)
 	yield
 	kill(CHR_INTRO_GUARD)
@@ -2428,31 +2428,31 @@ u8 func0412_outro[] = {
 	set_chr_flag_bank3(CHR_DRCAROLL, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_DRCAROLL, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_DRCAROLL, CHRFLAG2_00020000)
-	animation(0x015d, -1, -1, 0x0600, CHR_DRCAROLL, 4)
+	animation(0x015d, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 4)
 
 	set_function(CHR_CASS, FUNC_CASS_OUTRO)
 	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_CASS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_CASS, CHRFLAG2_00020000)
-	animation(0x0159, -1, -1, 0x0600, CHR_CASS, 4)
+	animation(0x0159, -1, -1, 0x06, 0x00, CHR_CASS, 4)
 
 	set_function(CHR_MRBLONDE, GFUNC_IDLE)
 	set_chr_flag_bank3(CHR_MRBLONDE, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_MRBLONDE, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_MRBLONDE, CHRFLAG2_00020000)
-	animation(0x015a, -1, -1, 0x0600, CHR_MRBLONDE, 4)
+	animation(0x015a, -1, -1, 0x06, 0x00, CHR_MRBLONDE, 4)
 
 	set_function(CHR_OUTRO_GUARD1, GFUNC_IDLE)
 	set_chr_flag_bank3(CHR_OUTRO_GUARD1, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_OUTRO_GUARD1, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_OUTRO_GUARD1, CHRFLAG2_00020000)
-	animation(0x015b, -1, -1, 0x0600, CHR_OUTRO_GUARD1, 4)
+	animation(0x015b, -1, -1, 0x06, 0x00, CHR_OUTRO_GUARD1, 4)
 
 	set_function(CHR_OUTRO_GUARD2, GFUNC_IDLE)
 	set_chr_flag_bank3(CHR_OUTRO_GUARD2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_OUTRO_GUARD2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_OUTRO_GUARD2, CHRFLAG2_00020000)
-	animation(0x015c, -1, -1, 0x0600, CHR_OUTRO_GUARD2, 4)
+	animation(0x015c, -1, -1, 0x06, 0x00, CHR_OUTRO_GUARD2, 4)
 
 	show_object(OBJ_JUMPSHIP)
 	set_object_flag_bank2(OBJ_JUMPSHIP, OBJECTFLAG2_00000010)
@@ -2462,7 +2462,7 @@ u8 func0412_outro[] = {
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
-	animation(0x0158, -1, -1, 0x0600, CHR_P1P2, 4)
+	animation(0x0158, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 	show_nonessential_chrs(FALSE)
 	restart_timer
 	set_cutscene_weapon(CHR_P1P2, -1, -1)

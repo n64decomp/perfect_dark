@@ -995,15 +995,15 @@ u8 func0404_jonathan_following_and_mine[] = {
 	call_rng
 	if_rand_lt(86, /*goto*/ 0x6a)
 	if_rand_lt(172, /*goto*/ 0x6b)
-	animation(ANIM_OPERATE_0204, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0204, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x0e)
 
 	label(0x6a)
-	animation(ANIM_OPERATE_0205, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0205, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x0e)
 
 	label(0x6b)
-	animation(ANIM_OPERATE_0206, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0206, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	label(0x0e)
 	set_onshot_function(FUNC_JONATHAN_SHOT_WHILE_PLANTING)
@@ -1119,7 +1119,7 @@ u8 func0413_jonathan_hangar[] = {
 	if_chr_dying(CHR_ELVIS, /*goto*/ 0xc3)
 	if_chr_unloaded(CHR_ELVIS, /*goto*/ 0xc3)
 	restart_timer
-	animation(0x0232, -1, 200, 0x0200, CHR_ELVIS, 2)
+	animation(0x0232, -1, 200, 0x02, 0x00, CHR_ELVIS, 2)
 	speak(CHR_P1P2, 0x483b, 0x1a9a, CHANNEL_5, COLOR_06_WHITE) // "Oh, no! We have a problem. It's a single seater!"
 
 	beginloop(0x7d)
@@ -1135,7 +1135,7 @@ u8 func0413_jonathan_hangar[] = {
 
 	label(0x06)
 	restart_timer
-	animation(0x0233, -1, 200, 0x0200, CHR_ELVIS, 2)
+	animation(0x0233, -1, 200, 0x02, 0x00, CHR_ELVIS, 2)
 	speak(CHR_P1P2, 0x483c, 0x1a9b, CHANNEL_5, COLOR_06_WHITE) // "Two can get in but no more."
 
 	beginloop(0x7e)
@@ -1166,7 +1166,7 @@ u8 func0413_jonathan_hangar[] = {
 
 	label(0x06)
 	restart_timer
-	animation(0x0232, -1, 200, 0x0200, CHR_ELVIS, 2)
+	animation(0x0232, -1, 200, 0x02, 0x00, CHR_ELVIS, 2)
 	speak(CHR_P1P2, 0x483d, 0x1a9c, CHANNEL_5, COLOR_06_WHITE) // "Plus, it's got no style, you know what I'm saying?"
 
 	beginloop(0x7f)
@@ -1197,7 +1197,7 @@ u8 func0413_jonathan_hangar[] = {
 
 	label(0x06)
 	restart_timer
-	animation(0x0231, -1, 200, 0x0200, CHR_JONATHAN, 2)
+	animation(0x0231, -1, 200, 0x02, 0x00, CHR_JONATHAN, 2)
 	speak(CHR_P1P2, 0x482d, 0x12b9, CHANNEL_5, COLOR_03_RED) // "One of us will have to stay behind and open the ha..."
 
 	beginloop(0x1a)
@@ -1243,7 +1243,7 @@ u8 func0413_jonathan_hangar[] = {
 
 	label(0x06)
 	restart_timer
-	animation(0x0232, -1, 200, 0x0200, CHR_JONATHAN, 2)
+	animation(0x0232, -1, 200, 0x02, 0x00, CHR_JONATHAN, 2)
 	speak(CHR_P1P2, 0x482e, 0x12ba, CHANNEL_5, COLOR_03_RED) // "I'll get out on that hoverbike. Cover me while I o..."
 
 	beginloop(0x1b)
@@ -1287,7 +1287,7 @@ u8 func0413_jonathan_hangar[] = {
 
 	// At first terminal
 	label(0x06)
-	animation(ANIM_OPERATE_0204, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x1d)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1313,7 +1313,7 @@ u8 func0413_jonathan_hangar[] = {
 
 	// At second terminal
 	label(0x06)
-	animation(ANIM_OPERATE_0204, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x1f)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -2460,19 +2460,19 @@ u8 func1002_intro[] = {
 
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x019d, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x019d, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	set_chr_flag_bank3(0x23, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank3(0x23, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x23, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x23, CHRFLAG2_00020000)
-	animation(0x019e, -1, -1, 0x0600, 0x23, 4)
+	animation(0x019e, -1, -1, 0x06, 0x00, 0x23, 4)
 
 	set_chr_flag_bank3(0x24, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank3(0x24, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x24, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x24, CHRFLAG2_00020000)
-	animation(0x019f, -1, -1, 0x0600, 0x24, 4)
+	animation(0x019f, -1, -1, 0x06, 0x00, 0x24, 4)
 
 	set_object_flag_bank1(0x00, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x00, OBJECTFLAG2_00000010)
@@ -2753,15 +2753,15 @@ u8 func1002_intro[] = {
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x019d, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x019d, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 
 	unset_chr_flag_bank3(0x23, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(0x23, CHRFLAG2_00020000)
-	animation(0x019e, -2, -1, 0x0600, 0x23, 2)
+	animation(0x019e, -2, -1, 0x06, 0x00, 0x23, 2)
 
 	unset_chr_flag_bank3(0x24, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(0x24, CHRFLAG2_00020000)
-	animation(0x019f, -2, -1, 0x0600, 0x24, 2)
+	animation(0x019f, -2, -1, 0x06, 0x00, 0x24, 2)
 
 	unset_object_flag_bank1(OBJ_HOVERBED, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(OBJ_HOVERBED, OBJECTFLAG2_00000010)
@@ -2811,17 +2811,17 @@ u8 func0c01_midcutscene[] = {
 	set_chr_flag_bank3(CHR_TARGET, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_TARGET, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_00020000)
-	animation(0x01ce, -1, -1, 0x0600, CHR_TARGET, 4)
+	animation(0x01ce, -1, -1, 0x06, 0x00, CHR_TARGET, 4)
 
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x01cc, -1, -1, 0x0600, CHR_ELVIS, 4)
+	animation(0x01cc, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 
 	set_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_JONATHAN, CHRFLAG2_00020000)
-	animation(0x01cd, -1, -1, 0x0600, CHR_JONATHAN, 4)
+	animation(0x01cd, -1, -1, 0x06, 0x00, CHR_JONATHAN, 4)
 
 	set_object_flag_bank1(0x11, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x11, OBJECTFLAG2_00000010)
@@ -2953,15 +2953,15 @@ u8 func0c01_midcutscene[] = {
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_TARGET, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_00020000)
-	animation(0x01ce, -2, -1, 0x0600, CHR_TARGET, 2)
+	animation(0x01ce, -2, -1, 0x06, 0x00, CHR_TARGET, 2)
 
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x01cc, -2, -1, 0x0600, CHR_ELVIS, 2)
+	animation(0x01cc, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
 
 	unset_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_JONATHAN, CHRFLAG2_00020000)
-	animation(0x01cd, -2, -1, 0x0600, CHR_JONATHAN, 2)
+	animation(0x01cd, -2, -1, 0x06, 0x00, CHR_JONATHAN, 2)
 
 	unset_object_flag_bank1(0x11, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x11, OBJECTFLAG2_00000010)
@@ -3040,7 +3040,7 @@ u8 func0c02_outro[] = {
 	set_chr_flag_bank3(0x2b, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x2b, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x2b, CHRFLAG2_00020000)
-	animation(0x0304, -1, -1, 0x0600, 0x2b, 4)
+	animation(0x0304, -1, -1, 0x06, 0x00, 0x2b, 4)
 
 	open_door(0x2c)
 	open_door(0x2e)
@@ -3161,7 +3161,7 @@ u8 func1021_jo_escaping[] = {
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
-	animation(0x0304, -1, -1, 0x0600, CHR_P1P2, 4)
+	animation(0x0304, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 
 	beginloop(0x09)
 		if_camera_animating(/*goto*/ 0x32)

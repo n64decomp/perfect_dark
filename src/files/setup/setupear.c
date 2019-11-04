@@ -967,7 +967,7 @@ u8 func0404_scientist[] = {
 	goto_next(0x06)
 
 	label(0x6a)
-		animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+		animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 		beginloop(0x6b)
 			if_chr_dying(0x2b, /*goto*/ 0x2f)
@@ -987,7 +987,7 @@ u8 func0404_scientist[] = {
 	goto_first(0x6a)
 
 	label(0x6d)
-		animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+		animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 		beginloop(0x6e)
 			if_chr_dying(0x2d, /*goto*/ 0x2f)
@@ -1045,7 +1045,7 @@ u8 func0404_scientist[] = {
 	label(0x0a)
 	say_quip(CHR_TARGET, 0x0c, 0xff, 0x00, 0xff, 0x81, 0x05, 0x08)
 	restart_timer
-	animation(ANIM_SURRENDER_002E, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_SURRENDER_002E, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0b)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
@@ -1128,7 +1128,7 @@ u8 func0404_scientist[] = {
 	label(0x0f)
 	message(CHR_TARGET, 0x1e1c) // "Powering down active systems."
 	speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
-	animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x1010, CHR_SELF, 2)
+	animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0d)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1276,7 +1276,7 @@ u8 func0406_nasty_scientist[] = {
 	label(0x0f)
 	speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 	say_quip(CHR_TARGET, 0x0e, 0xff, 0x00, 0xff, 0x81, 0x07, 0x08)
-	animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x1010, CHR_SELF, 2)
+	animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0d)
 		if_chr_stopped(/*goto*/ 0x30)
@@ -2223,13 +2223,13 @@ u8 func0416_intro[] = {
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_00010000)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x00f6, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x00f6, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_00010000)
 	unset_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_INTRO_GUARD, CHRFLAG2_00020000)
-	animation(0x00f7, -1, -1, 0x0600, CHR_INTRO_GUARD, 4)
+	animation(0x00f7, -1, -1, 0x06, 0x00, CHR_INTRO_GUARD, 4)
 
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -2319,12 +2319,12 @@ u8 func0416_intro[] = {
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_00010000)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x00f6, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x00f6, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 
 	unset_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank2(CHR_INTRO_GUARD, CHRFLAG2_00020000)
-	animation(0x00f7, -2, -1, 0x0600, CHR_INTRO_GUARD, 2)
+	animation(0x00f7, -2, -1, 0x06, 0x00, CHR_INTRO_GUARD, 2)
 
 	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
@@ -2332,7 +2332,7 @@ u8 func0416_intro[] = {
 	reset_ambience
 	enter_firstperson
 	yield
-	animation(0x020b, -1, -1, 0x0600, CHR_INTRO_GUARD, 2)
+	animation(0x020b, -1, -1, 0x06, 0x00, CHR_INTRO_GUARD, 2)
 	yield
 	kill(CHR_INTRO_GUARD)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -2354,7 +2354,7 @@ u8 func0417_outro[] = {
 	restart_timer
 	dprint 's','h','o','t',' ','1',0,
 	camera_movement(0x00f9)
-	animation(0x00fa, -1, -1, 0x0600, CHR_P1P2, 2)
+	animation(0x00fa, -1, -1, 0x06, 0x00, CHR_P1P2, 2)
 	set_cutscene_weapon(CHR_P1P2, -1, -1)
 	yield
 	set_cutscene_weapon(CHR_P1P2, -1, WEAPON_FALCON2)
@@ -2376,21 +2376,21 @@ u8 func0417_outro[] = {
 	dprint 's','h','o','t',' ','2',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
 	camera_movement(0x0140)
-	animation(0x0141, -1, -1, 0x0600, CHR_P1P2, 2)
+	animation(0x0141, -1, -1, 0x06, 0x00, CHR_P1P2, 2)
 
 	wait_for_camera(0x09)
 
 	dprint 's','h','o','t',' ','3',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
 	camera_movement(0x0143)
-	animation(0x0144, -1, -1, 0x0600, CHR_P1P2, 2)
+	animation(0x0144, -1, -1, 0x06, 0x00, CHR_P1P2, 2)
 
 	wait_for_camera(0x0a)
 
 	dprint 's','h','o','t',' ','4',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
 	camera_movement(0x0146)
-	animation(0x0147, -1, -1, 0x0600, CHR_P1P2, 2)
+	animation(0x0147, -1, -1, 0x06, 0x00, CHR_P1P2, 2)
 	restart_timer
 
 	beginloop(0x0b)
@@ -2419,31 +2419,31 @@ u8 func0417_outro[] = {
 	set_chr_flag_bank3(CHR_DRCAROLL, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_DRCAROLL, CHRFLAG2_00020000)
 	camera_movement(0x0149)
-	animation(0x014a, -1, -1, 0x0600, CHR_P1P2, 2)
-	animation(0x014b, -1, -1, 0x0600, CHR_DRCAROLL, 2)
+	animation(0x014a, -1, -1, 0x06, 0x00, CHR_P1P2, 2)
+	animation(0x014b, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 2)
 
 	wait_for_camera(0x0c)
 
 	dprint 's','h','o','t',' ','6',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
 	camera_movement(0x014c)
-	animation(0x014d, -1, -1, 0x0600, CHR_P1P2, 2)
-	animation(0x014e, -1, -1, 0x0600, CHR_DRCAROLL, 2)
+	animation(0x014d, -1, -1, 0x06, 0x00, CHR_P1P2, 2)
+	animation(0x014e, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 2)
 
 	wait_for_camera(0x0d)
 
 	dprint 's','h','o','t',' ','7',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
 	camera_movement(0x014f)
-	animation(0x0150, -1, -1, 0x0600, CHR_P1P2, 2)
-	animation(0x0151, -1, -1, 0x0600, CHR_DRCAROLL, 2)
+	animation(0x0150, -1, -1, 0x06, 0x00, CHR_P1P2, 2)
+	animation(0x0151, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 2)
 
 	wait_for_camera(0x0e)
 
 	dprint 's','h','o','t',' ','8',0,
 	camera_movement(0x0152)
-	animation(0x0153, -1, -1, 0x0600, CHR_P1P2, 2)
-	animation(0x0154, -1, -1, 0x0600, CHR_DRCAROLL, 2)
+	animation(0x0153, -1, -1, 0x06, 0x00, CHR_P1P2, 2)
+	animation(0x0154, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 2)
 
 	wait_for_camera(0x0f)
 
@@ -2958,16 +2958,16 @@ u8 func0403_k7_scientist[] = {
 		if_rand_lt(64, /*goto*/ 0x09)
 		if_rand_lt(128, /*goto*/ 0x0a)
 		if_rand_lt(196, /*goto*/ 0x0b)
-		animation(ANIM_GRAB_CROTCH, 0, -1, 0x1010, CHR_SELF, 2)
+		animation(ANIM_GRAB_CROTCH, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 		goto_next(0x0f)
 		label(0x09)
-		animation(ANIM_YAWN, 0, -1, 0x1010, CHR_SELF, 2)
+		animation(ANIM_YAWN, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 		goto_next(0x0f)
 		label(0x0a)
-		animation(ANIM_ROLL_HEAD, 0, -1, 0x1010, CHR_SELF, 2)
+		animation(ANIM_ROLL_HEAD, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 		goto_next(0x0f)
 		label(0x0b)
-		animation(ANIM_GRAB_BUTT, 0, -1, 0x1010, CHR_SELF, 2)
+		animation(ANIM_GRAB_BUTT, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 		goto_next(0x0f)
 
 		beginloop(0x0f)
@@ -2995,7 +2995,7 @@ u8 func0403_k7_scientist[] = {
 	endloop(0x0d)
 
 	label(0x10)
-		animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+		animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 		beginloop(0x0e)
 			if_chr_stopped(/*goto*/ 0x2f)

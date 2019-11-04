@@ -786,24 +786,24 @@ u8 func0401_unused_cutscene[] = {
 	cmd0175(60)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0170, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x0170, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_hud_visible(CHR_BOND, TRUE)
 	set_chr_flag_bank3(0x00, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x00, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x00, CHRFLAG2_00020000)
-	animation(0x016c, -1, -1, 0x0600, 0x00, 4)
+	animation(0x016c, -1, -1, 0x06, 0x00, 0x00, 4)
 	set_chr_flag_bank3(0x01, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x01, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x01, CHRFLAG2_00020000)
-	animation(0x016d, -1, -1, 0x0600, 0x01, 4)
+	animation(0x016d, -1, -1, 0x06, 0x00, 0x01, 4)
 	set_chr_flag_bank3(0x02, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x02, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x02, CHRFLAG2_00020000)
-	animation(0x016e, -1, -1, 0x0600, 0x02, 4)
+	animation(0x016e, -1, -1, 0x06, 0x00, 0x02, 4)
 	set_chr_flag_bank3(CHR_STEWARDESS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_STEWARDESS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_STEWARDESS, CHRFLAG2_00020000)
-	animation(0x016f, -1, -1, 0x0600, CHR_STEWARDESS, 4)
+	animation(0x016f, -1, -1, 0x06, 0x00, CHR_STEWARDESS, 4)
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 90)
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
@@ -846,7 +846,7 @@ u8 func0425_outro[] = {
 	set_chr_flag_bank3(CHR_OUTRO_NSA, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_OUTRO_NSA, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_OUTRO_NSA, CHRFLAG2_00020000)
-	animation(0x031b, -1, -1, 0x0600, CHR_OUTRO_NSA, 4)
+	animation(0x031b, -1, -1, 0x06, 0x00, CHR_OUTRO_NSA, 4)
 
 	show_object(OBJ_PLANE)
 	set_object_flag_bank1(OBJ_PLANE, OBJECTFLAG1_04000000)
@@ -1237,7 +1237,7 @@ u8 func0407_stewardess[] = {
 	label(0x02)
 	speak(CHR_TARGET, 0x0e19, 0x1adc, CHANNEL_4, COLOR_07_RED) // "Look out - it's an intruder..."
 	set_squadron_alertness(100)
-	animation(ANIM_SURRENDER_002E, 0, 193, 0x1010, CHR_SELF, 2)
+	animation(ANIM_SURRENDER_002E, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x06)
 		if_chr_stopped(/*goto*/ 0x02)
@@ -1253,7 +1253,7 @@ u8 func0407_stewardess[] = {
 	label(0x0b)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x31)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	animation(ANIM_SNEEZE, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_SNEEZE, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x69)
 		if_chr_stopped(/*goto*/ 0x02)
@@ -1267,7 +1267,7 @@ u8 func0407_stewardess[] = {
 
 	label(0x62)
 		set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
-		animation(ANIM_COWER_0229, -1, 190, 0x100a, CHR_SELF, 2)
+		animation(ANIM_COWER_0229, -1, 190, 0x10, 0x0a, CHR_SELF, 2)
 
 		beginloop(0x63)
 			if_chr_stopped(/*goto*/ 0x31)
@@ -1546,7 +1546,7 @@ u8 func0408_secretary[] = {
 	label(0x67)
 	set_squadron_alertness(100)
 	restart_timer
-	animation(ANIM_SURRENDER_002E, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x06)
 		if_chr_stopped(/*goto*/ 0x4f)
@@ -1554,7 +1554,7 @@ u8 func0408_secretary[] = {
 
 	label(0x4f)
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
-	animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x0f)
 		if_chr_stopped(/*goto*/ 0x31)
@@ -1580,7 +1580,7 @@ u8 func0408_secretary[] = {
 	//
 	label(0x32)
 	speak(CHR_TARGET, 0x0e1d, 0x8161, CHANNEL_4, COLOR_06_WHITE) // "Good afternoon."
-	animation(ANIM_TALKING_0231, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_TALKING_0231, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	restart_timer
 	set_morale(2)
 
@@ -1611,7 +1611,7 @@ u8 func0408_secretary[] = {
 	label(0x32)
 	speak(CHR_TARGET, 0x0e1f, 0x1273, CHANNEL_4, COLOR_06_WHITE) // "You'll have to check that weapon in here."
 	restart_timer
-	animation(ANIM_TALKING_0232, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_TALKING_0232, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	set_morale(3)
 
 	beginloop(0x09)
@@ -1636,7 +1636,7 @@ u8 func0408_secretary[] = {
 	label(0x32)
 	speak(CHR_TARGET, 0x0e21, 0x1274, CHANNEL_4, COLOR_06_WHITE) // "Weapons are not allowed in the base."
 	restart_timer
-	animation(ANIM_TALKING_0233, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_TALKING_0233, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	set_morale(4)
 
 	beginloop(0x0a)
@@ -1669,7 +1669,7 @@ u8 func0408_secretary[] = {
 	set_stage_flag(STAGEFLAG_RECEPTIONIST_CALLED_SECURITY)
 	activate_alarm
 	restart_timer
-	animation(ANIM_SURRENDER_002E, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0b)
 		if_timer_gt(180, /*goto*/ 0x02)
@@ -1686,7 +1686,7 @@ u8 func0408_secretary[] = {
 	//
 	label(0x31)
 	speak(CHR_TARGET, 0x0e1e, 0x1272, CHANNEL_4, COLOR_06_WHITE) // "OK, you know the way from here."
-	animation(0x0232, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(0x0232, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	unlock_door(0x18, 0x02)
 
 	beginloop(0x0e)
@@ -2060,7 +2060,7 @@ u8 func0409_office1[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x42)
-	animation(ANIM_SITTING_DORMANT, 0, -1, 0x1410, CHR_SELF, 2)
+	animation(ANIM_SITTING_DORMANT, 0, -1, 0x14, 0x10, CHR_SELF, 2)
 
 	beginloop(0x00)
 		consider_coop_for_p1p2_chr(CHR_SELF)
@@ -2090,7 +2090,7 @@ u8 func0409_office1[] = {
 
 	// Disguised and unarmed-ish
 	label(0x31)
-	animation(ANIM_SITTING_0265, 0, -1, 0x1410, CHR_SELF, 2)
+	animation(ANIM_SITTING_0265, 0, -1, 0x14, 0x10, CHR_SELF, 2)
 	speak(CHR_TARGET, 0x0e29, 0x1ae6, CHANNEL_4, COLOR_08_RED) // "Are you new around here?"
 
 	beginloop(0x09)
@@ -2110,7 +2110,7 @@ u8 func0409_office1[] = {
 		reloop(0x09)
 
 		label(0x7b)
-		animation(ANIM_SITTING_DORMANT, 0, -1, 0x1400, CHR_SELF, 2)
+		animation(ANIM_SITTING_DORMANT, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 	endloop(0x09)
 
 	// Picked up briefcase
@@ -2155,7 +2155,7 @@ u8 func0409_office1[] = {
 	speak(CHR_TARGET, 0x0e28, 0x1ae5, CHANNEL_4, COLOR_08_RED) // "Hey, you - this is a restricted area."
 	set_squadron_alertness(100)
 	restart_timer
-	animation(ANIM_WALK_BACKWARDS, -1, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_WALK_BACKWARDS, -1, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x06)
 		if_timer_gt(180, /*goto*/ LABEL_RUN_TO_FOYER)
@@ -2197,7 +2197,7 @@ u8 func040a_office2[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x42)
-	animation(ANIM_SITTING_DORMANT, 0, -1, 0x1410, CHR_SELF, 2)
+	animation(ANIM_SITTING_DORMANT, 0, -1, 0x14, 0x10, CHR_SELF, 2)
 
 	beginloop(0x00)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x02)
@@ -2512,7 +2512,7 @@ u8 func040f_nsa[] = {
 	endloop(0x09)
 
 	label(0x02)
-	animation(ANIM_TALKING_0098, 0, 90, 0x0010, CHR_SELF, 2)
+	animation(ANIM_TALKING_0098, 0, 90, 0x00, 0x10, CHR_SELF, 2)
 	say_quip(CHR_BOND, 0x1c, 0xff, 0x02, 0xff, 0x81, 0x00, 0x00)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 
@@ -2574,7 +2574,7 @@ u8 func040f_nsa[] = {
 	set_function(CHR_SELF, GFUNC_HAND_COMBAT)
 
 	label(0x07)
-	animation(ANIM_TALKING_0098, 0, 90, 0x0010, CHR_SELF, 2)
+	animation(ANIM_TALKING_0098, 0, 90, 0x00, 0x10, CHR_SELF, 2)
 	say_quip(CHR_BOND, 0x1d, 0xff, 0x02, 0xff, 0x81, 0x00, 0x00)
 	label(0x08)
 	yield
@@ -2683,7 +2683,7 @@ u8 func0414_officeworker[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x44)
-	animation(ANIM_SITTING_DORMANT, -1, 60, 0x1400, CHR_SELF, 2)
+	animation(ANIM_SITTING_DORMANT, -1, 60, 0x14, 0x00, CHR_SELF, 2)
 
 	beginloop(0x00)
 		consider_coop_for_p1p2_chr(CHR_SELF)
@@ -2698,7 +2698,7 @@ u8 func0414_officeworker[] = {
 	endloop(0x00)
 
 	label(0x02)
-	animation(ANIM_SITTING_0265, 0, 120, 0x1410, CHR_SELF, 2)
+	animation(ANIM_SITTING_0265, 0, 120, 0x14, 0x10, CHR_SELF, 2)
 	say_quip(CHR_BOND, 0x20, 0xff, 0x0a, 0xff, BANK_1, 0x00, 0x00)
 	restart_timer
 
@@ -2724,10 +2724,10 @@ u8 func0414_officeworker[] = {
 	chr_move_to_pad(0x3a, 0x00d7, 0x00, /*goto*/ 0x31)
 
 	label(0x31)
-	animation(ANIM_SITTING_DORMANT, -1, 60, 0x1400, CHR_SELF, 2)
+	animation(ANIM_SITTING_DORMANT, -1, 60, 0x14, 0x00, CHR_SELF, 2)
 
 	label(0x77)
-	animation(ANIM_COWER_0229, -1, 60, 0x140a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, 60, 0x14, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
@@ -2757,7 +2757,7 @@ u8 func0414_officeworker[] = {
 	endloop(0x05)
 
 	label(0x79)
-	animation(0x0229, -1, 60, 0x140a, CHR_SELF, 2)
+	animation(0x0229, -1, 60, 0x14, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x06)
 		if_chr_idle(/*goto*/ 0x02)
@@ -3327,23 +3327,23 @@ u8 func0419_ba8c[] = {
 	if_rand_lt(128, /*goto*/ 0x6f)
 	if_rand_lt(196, /*goto*/ 0x70)
 	set_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
-	animation(ANIM_SMOKE_CIGARETTE, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_SMOKE_CIGARETTE, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x72)
 
 	label(0x6e)
-	animation(ANIM_SCRATCH_HEAD, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_SCRATCH_HEAD, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x72)
 
 	label(0x6f)
-	animation(ANIM_YAWN, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_YAWN, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x72)
 
 	label(0x70)
-	animation(ANIM_GRAB_CROTCH, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_GRAB_CROTCH, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x72)
 
 	label(0x71)
-	animation(ANIM_TWO_GUN_HOLD, 0, 100, 0x100a, CHR_SELF, 2)
+	animation(ANIM_TWO_GUN_HOLD, 0, 100, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x72)
 
 	label(0x31)
@@ -3421,7 +3421,7 @@ u8 func0419_ba8c[] = {
 
 	label(0x4f)
 	restart_timer
-	animation(0x025f, 0, 193, 0x1010, CHR_SELF, 2)
+	animation(0x025f, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 	label(0x0f)
 	yield
 	if_timer_gt(90, /*goto*/ 0x0b)
@@ -3429,7 +3429,7 @@ u8 func0419_ba8c[] = {
 
 	label(0x02)
 	say_quip(CHR_BOND, 0x24, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
-	animation(0x002e, 0, 193, 0x1010, CHR_SELF, 2)
+	animation(0x002e, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 	label(0x09)
 	yield
 	if_timer_gt(120, /*goto*/ 0x0b)
@@ -3452,7 +3452,7 @@ u8 func0419_ba8c[] = {
 	set_squadron_alertness(100)
 	say_quip(CHR_BOND, 0x25, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	label(0x0e)
-	animation(0x0229, -1, -1, 0x1014, CHR_SELF, 2)
+	animation(0x0229, -1, -1, 0x10, 0x14, CHR_SELF, 2)
 	label(0x0a)
 	yield
 	if_chr_stopped(/*goto*/ 0x31)
@@ -3594,32 +3594,32 @@ u8 func1003_intro[] = {
 	cmd0175(60)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x01e6, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x01e6, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_hud_visible(CHR_BOND, TRUE)
 	set_chr_flag_bank3(CHR_TRENT, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_TRENT, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_TRENT, CHRFLAG2_00020000)
-	animation(0x01e7, -1, -1, 0x0600, CHR_TRENT, 4)
+	animation(0x01e7, -1, -1, 0x06, 0x00, CHR_TRENT, 4)
 	set_chr_flag_bank3(0x48, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x48, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x48, CHRFLAG2_00020000)
-	animation(0x01e8, -1, -1, 0x0600, 0x48, 4)
+	animation(0x01e8, -1, -1, 0x06, 0x00, 0x48, 4)
 	set_chr_flag_bank3(0x49, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x49, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x49, CHRFLAG2_00020000)
-	animation(0x01e9, -1, -1, 0x0600, 0x49, 4)
+	animation(0x01e9, -1, -1, 0x06, 0x00, 0x49, 4)
 	set_chr_flag_bank3(0x4a, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x4a, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x4a, CHRFLAG2_00020000)
-	animation(0x01ea, -1, -1, 0x0600, 0x4a, 4)
+	animation(0x01ea, -1, -1, 0x06, 0x00, 0x4a, 4)
 	set_chr_flag_bank3(0x4b, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x4b, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x4b, CHRFLAG2_00020000)
-	animation(0x01eb, -1, -1, 0x0600, 0x4b, 4)
+	animation(0x01eb, -1, -1, 0x06, 0x00, 0x4b, 4)
 	set_chr_flag_bank3(0x4c, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x4c, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x4c, CHRFLAG2_00020000)
-	animation(0x01ec, -1, -1, 0x0600, 0x4c, 4)
+	animation(0x01ec, -1, -1, 0x06, 0x00, 0x4c, 4)
 	show_object(0x22)
 	set_object_flag_bank1(0x22, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x22, OBJECTFLAG2_00000010)
@@ -3837,10 +3837,10 @@ u8 func1003_intro[] = {
 	set_chr_flag_bank3(0x49, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank3(0x49, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x49, CHRFLAG2_00020000)
-	animation(0x01e9, -2, -1, 0x0600, 0x49, 2)
+	animation(0x01e9, -2, -1, 0x06, 0x00, 0x49, 2)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x01e6, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x01e6, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	set_chr_hud_visible(CHR_BOND, FALSE)
 	unset_object_flag_bank1(0x22, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x22, OBJECTFLAG2_00000010)
@@ -4073,7 +4073,7 @@ u8 func0418_remove_or_cower[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 	label(0x02)
 	label(0x62)
-	animation(ANIM_COWER_0229, -1, -1, 0x140a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x63)
 		if_chr_stopped(/*goto*/ 0x31)

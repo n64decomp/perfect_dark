@@ -1277,7 +1277,7 @@ u8 func0411_cass_in_office[] = {
 	set_onshot_function(FUNC_CASS_RUNNING)
 	restart_timer
 	speak(CHR_TARGET, 0x4a08, 0x0d23, CHANNEL_6, COLOR_06_WHITE) // "Go to the helipad if you want to live."
-	animation(0x0226, -1, -1, 0x1010, CHR_SELF, 2)
+	animation(0x0226, -1, -1, 0x10, 0x10, CHR_SELF, 2)
 	yield
 
 	// Wait 3 seconds
@@ -1300,7 +1300,7 @@ u8 func0411_cass_in_office[] = {
 	label(0x06)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	label(0x2c)
-	animation(0x00a0, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(0x00a0, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x54)
 		consider_coop_for_p1p2_chr(CHR_SELF)
@@ -1322,7 +1322,7 @@ u8 func0411_cass_in_office[] = {
 	// Draw weapon
 	label(0x57)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	animation(0x0245, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(0x0245, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x2c)
 	label(0x2c)
 	speak(CHR_TARGET, 0x4a07, 0x81a3, CHANNEL_6, COLOR_04_ORANGE) // "Get the hell out of my office..."
@@ -1938,7 +1938,7 @@ u8 func0416_intro[] = {
 	cmd0175(60)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0473, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x0473, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
@@ -1999,7 +1999,7 @@ u8 func0416_intro[] = {
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0473, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x0473, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	restart_default_music
 	reset_ambience
 	enter_firstperson
@@ -2062,7 +2062,7 @@ u8 func100e_cass_speech[] = {
 	label(0x2c)
 	restart_timer
 	speak(CHR_CASS, 0x4a0d, 0x6af5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me!"
-	animation(0x00a0, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(0x00a0, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x09)
 		if_timer_gt(80, /*goto*/ 0x06)

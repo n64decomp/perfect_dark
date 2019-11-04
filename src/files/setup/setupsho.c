@@ -948,7 +948,7 @@ u8 unregistered_function3[] = {
 	camera_movement(0x00c3)
 	yield
 	set_chr_flag_bank2(0x00, CHRFLAG2_00020000)
-	animation(0x00c4, -1, -1, 0x0600, 0x00, 4)
+	animation(0x00c4, -1, -1, 0x06, 0x00, 0x00, 4)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -2059,7 +2059,7 @@ u8 func040d_king_combat[] = {
 	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_morale(0)
 	restart_timer
-	animation(0x0350, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(0x0350, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x66)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ LABEL_PLAYER_DEAD)
@@ -2078,7 +2078,7 @@ u8 func040d_king_combat[] = {
 	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_morale(0)
 	restart_timer
-	animation(0x0350, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(0x0350, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x67)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ LABEL_PLAYER_DEAD)
@@ -2097,7 +2097,7 @@ u8 func040d_king_combat[] = {
 	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_morale(0)
 	restart_timer
-	animation(0x0350, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(0x0350, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 
 	beginloop(0x68)
@@ -2203,7 +2203,7 @@ u8 func040d_king_combat[] = {
 	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	set_morale(0)
 	restart_timer
-	animation(0x0350, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(0x0350, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x69)
 		if_chr_shield_lt(CHR_SELF, 20, /*goto*/ LABEL_LOW_SHIELD)
@@ -2225,7 +2225,7 @@ u8 func040d_king_combat[] = {
 	label(0x06)
 	restart_timer
 	set_stage_flag(STAGEFLAG_SPIKES_VULNERABLE)
-	animation(0x0351, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(0x0351, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x7e)
 		if_stage_flag_eq(STAGEFLAG_SPIKE_DESTROYED, TRUE, /*goto*/ 0x06)
@@ -2554,12 +2554,12 @@ u8 func0c00_intro[] = {
 
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x02eb, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x02eb, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x02ec, -1, -1, 0x0600, CHR_ELVIS, 4)
+	animation(0x02ec, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -2583,17 +2583,17 @@ u8 func0c00_intro[] = {
 	set_chr_flag_bank3(0x37, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x37, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x37, CHRFLAG2_00020000)
-	animation(0x02ee, -1, -1, 0x0600, 0x37, 4)
+	animation(0x02ee, -1, -1, 0x06, 0x00, 0x37, 4)
 
 	set_chr_flag_bank3(0x38, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x38, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x38, CHRFLAG2_00020000)
-	animation(0x02ef, -1, -1, 0x0600, 0x38, 4)
+	animation(0x02ef, -1, -1, 0x06, 0x00, 0x38, 4)
 
 	set_chr_flag_bank3(0x39, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x39, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x39, CHRFLAG2_00020000)
-	animation(0x02f0, -1, -1, 0x0600, 0x39, 4)
+	animation(0x02f0, -1, -1, 0x06, 0x00, 0x39, 4)
 
 	beginloop(0x0b)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -2613,12 +2613,12 @@ u8 func0c00_intro[] = {
 
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x02f2, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x02f2, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x02f3, -1, -1, 0x0600, CHR_ELVIS, 4)
+	animation(0x02f3, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -2642,22 +2642,22 @@ u8 func0c00_intro[] = {
 	set_chr_flag_bank3(0x37, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x37, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x37, CHRFLAG2_00020000)
-	animation(0x02f5, -1, -1, 0x0600, 0x37, 4)
+	animation(0x02f5, -1, -1, 0x06, 0x00, 0x37, 4)
 
 	set_chr_flag_bank3(0x38, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x38, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x38, CHRFLAG2_00020000)
-	animation(0x02f6, -1, -1, 0x0600, 0x38, 4)
+	animation(0x02f6, -1, -1, 0x06, 0x00, 0x38, 4)
 
 	set_chr_flag_bank3(0x39, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x39, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x39, CHRFLAG2_00020000)
-	animation(0x02f7, -1, -1, 0x0600, 0x39, 4)
+	animation(0x02f7, -1, -1, 0x06, 0x00, 0x39, 4)
 
 	set_chr_flag_bank3(0x3a, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x3a, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x3a, CHRFLAG2_00020000)
-	animation(0x02f8, -1, -1, 0x0600, 0x3a, 4)
+	animation(0x02f8, -1, -1, 0x06, 0x00, 0x3a, 4)
 
 	beginloop(0x0d)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -2699,28 +2699,28 @@ u8 func0c00_intro[] = {
 	set_chr_flag_bank3(0x37, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x37, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x37, CHRFLAG2_00020000)
-	animation(0x02fc, -1, -1, 0x0600, 0x37, 4)
+	animation(0x02fc, -1, -1, 0x06, 0x00, 0x37, 4)
 
 	set_chr_flag_bank3(0x38, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x38, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x38, CHRFLAG2_00020000)
-	animation(0x02fd, -1, -1, 0x0600, 0x38, 4)
+	animation(0x02fd, -1, -1, 0x06, 0x00, 0x38, 4)
 
 	set_chr_flag_bank3(0x39, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x39, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x39, CHRFLAG2_00020000)
-	animation(0x02fe, -1, -1, 0x0600, 0x39, 4)
+	animation(0x02fe, -1, -1, 0x06, 0x00, 0x39, 4)
 
 	set_chr_flag_bank3(0x3a, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x3a, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x3a, CHRFLAG2_00020000)
-	animation(0x02ff, -1, -1, 0x0600, 0x3a, 4)
+	animation(0x02ff, -1, -1, 0x06, 0x00, 0x3a, 4)
 
 	unset_chr_flag_bank3(CHR_KING2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_KING2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_KING2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_KING2, CHRFLAG2_00020000)
-	animation(0x0300, -1, -1, 0x0600, CHR_KING2, 4)
+	animation(0x0300, -1, -1, 0x06, 0x00, CHR_KING2, 4)
 
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -2753,7 +2753,7 @@ u8 func0c00_intro[] = {
 
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0303, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x0303, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	beginloop(0x10)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -2771,7 +2771,7 @@ u8 func0c00_intro[] = {
 	label(0x06)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0303, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x0303, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	hide_object(0x36)
 	remove_chr(0x37)
 	remove_chr(0x38)
@@ -2854,7 +2854,7 @@ u8 func0414_outro[] = {
 	set_chr_flag_bank3(CHR_KING1, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_KING1, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_KING1, CHRFLAG2_00020000)
-	animation(0x044d, -1, -1, 0x0600, CHR_KING1, 4)
+	animation(0x044d, -1, -1, 0x06, 0x00, CHR_KING1, 4)
 
 	object_do_animation(0x044e, OBJ_SPIKE_T, 0x04ff, 0xff)
 	set_stage_flag(STAGEFLAG_IN_OUTRO)
@@ -2875,12 +2875,12 @@ u8 func0414_outro[] = {
 	set_chr_flag_bank3(CHR_KING1, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_KING1, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_KING1, CHRFLAG2_00020000)
-	animation(0x0450, -1, -1, 0x0600, CHR_KING1, 4)
+	animation(0x0450, -1, -1, 0x06, 0x00, CHR_KING1, 4)
 
 	set_chr_flag_bank3(CHR_TARGET, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_TARGET, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_00020000)
-	animation(0x0451, -1, -1, 0x0600, CHR_TARGET, 4)
+	animation(0x0451, -1, -1, 0x06, 0x00, CHR_TARGET, 4)
 
 	object_do_animation(0x0452, OBJ_SPIKE_T, 0x04ff, 0xff)
 
@@ -2930,12 +2930,12 @@ u8 func0414_outro[] = {
 	set_chr_flag_bank3(CHR_TARGET, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_TARGET, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_00020000)
-	animation(0x02c8, -1, -1, 0x0600, CHR_TARGET, 4)
+	animation(0x02c8, -1, -1, 0x06, 0x00, CHR_TARGET, 4)
 
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x02c9, -1, -1, 0x0600, CHR_ELVIS, 4)
+	animation(0x02c9, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 
 	show_object(0x23)
 	set_object_flag_bank1(0x23, OBJECTFLAG1_04000000)

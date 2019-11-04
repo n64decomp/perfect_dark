@@ -1287,7 +1287,7 @@ u8 func0405_president_in_room[] = {
 	set_chr_flag_bank2(CHR_COOP, CHRFLAG2_DISGUISE_UNCOVERED)
 	speak(CHR_TARGET, 0x3624, 0x12c4, CHANNEL_6, COLOR_08_RED) // "Security, SECURITY!!"
 	restart_timer
-	animation(0x0231, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(0x0231, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x77)
 		if_timer_gt(120, /*goto*/ 0x06)
@@ -1602,7 +1602,7 @@ u8 func0404_president_running[] = {
 
 	// Unreachable under real conditions
 	label(0x0b)
-	animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x83)
 		if_stage_flag_eq(STAGEFLAG_BOTH_BLONDES_DEAD, TRUE, /*goto*/ 0x06)
@@ -1943,7 +1943,7 @@ u8 func100c_cockpit[] = {
 u8 func0411_typing_guy[] = {
 	set_onshot_function(FUNC_TYPING_GUY)
 	label(0x04)
-	animation(ANIM_SITTING_TYPING, 0, -1, 0x0410, CHR_SELF, 2)
+	animation(ANIM_SITTING_TYPING, 0, -1, 0x04, 0x10, CHR_SELF, 2)
 
 	beginloop(0x03)
 		if_chr_idle(/*goto*/ 0x06)
@@ -1961,7 +1961,7 @@ u8 func0411_typing_guy[] = {
 u8 func0412_sitting_guy[] = {
 	set_onshot_function(FUNC_SITTING_GUY)
 	label(0x04)
-	animation(ANIM_SITTING_DORMANT, 0, -1, 0x0410, CHR_SELF, 2)
+	animation(ANIM_SITTING_DORMANT, 0, -1, 0x04, 0x10, CHR_SELF, 2)
 
 	beginloop(0x03)
 		if_chr_idle(/*goto*/ 0x06)
@@ -2016,15 +2016,15 @@ u8 func1002_intro[] = {
 	set_chr_flag_bank3(0x30, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x30, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x30, CHRFLAG2_00020000)
-	animation(0x018f, -1, -1, 0x0600, 0x30, 4)
+	animation(0x018f, -1, -1, 0x06, 0x00, 0x30, 4)
 	set_chr_flag_bank3(0x31, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x31, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x31, CHRFLAG2_00020000)
-	animation(0x018d, -1, -1, 0x0600, 0x31, 4)
+	animation(0x018d, -1, -1, 0x06, 0x00, 0x31, 4)
 	set_chr_flag_bank3(CHR_PRESIDENT, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_PRESIDENT, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_PRESIDENT, CHRFLAG2_00020000)
-	animation(0x018e, -1, -1, 0x0600, CHR_PRESIDENT, 4)
+	animation(0x018e, -1, -1, 0x06, 0x00, CHR_PRESIDENT, 4)
 	set_chr_flag_bank3(0x13, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(0x14, CHRFLAG3_HIDDEN)
 	restart_timer
@@ -2128,7 +2128,7 @@ u8 func1002_intro[] = {
 	if_controller_button_pressed(/*goto*/ 0x5f)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x01d1, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x01d1, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	beginloop(0x09)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -2152,7 +2152,7 @@ u8 func1002_intro[] = {
 	if_controller_button_pressed(/*goto*/ 0x5f)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x01d3, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x01d3, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	beginloop(0x0a)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -2170,10 +2170,10 @@ u8 func1002_intro[] = {
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
 	if_eeprom_flag_is_set(EEPROMFLAG_AF1_ENTRY, /*goto*/ 0x06)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP)
-	animation(0x01d3, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x01d3, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	goto_next(0x2d)
 	label(0x06)
-	animation(0x01d1, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x01d1, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	label(0x2d)
 	restart_default_music
 	reset_ambience
@@ -2783,7 +2783,7 @@ u8 func041e_blonde[] = {
 
 	label(0x6e)
 	restart_timer
-	animation(ANIM_RELOAD_0209, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_RELOAD_0209, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x66)
 		if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x06)
@@ -2873,7 +2873,7 @@ u8 func0421_trent_waiting[] = {
 	label(0x06)
 	restart_timer
 	speak(CHR_TARGET, 0x362d, 0x816f, CHANNEL_6, COLOR_05_GREEN) // "How the hell did you get on board?"
-	animation(ANIM_TALKING_0231, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x08)
 		if_timer_gt(120, /*goto*/ 0x06)
@@ -2928,7 +2928,7 @@ u8 func0420_trent_attacking[] = {
 
 	label(0x09)
 	restart_timer
-	animation(ANIM_TALKING_0231, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	speak(CHR_P1P2, 0x3647, 0x12ca, CHANNEL_6, COLOR_05_GREEN) // "You'll never save him now."
 
 	beginloop(0x0a)
@@ -3142,35 +3142,35 @@ u8 func0407_steward[] = {
 		if_rand_lt(192, /*goto*/ 0x8f)
 		if_rand_lt(224, /*goto*/ 0x90)
 
-		animation(ANIM_OPERATE_0221, -1, -1, 0x1001, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 		goto_next(0x2d)
 
 		label(0x8a)
-		animation(ANIM_OPERATE_0221, -1, -1, 0x1001, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 		goto_next(0x2d)
 
 		label(0x8b)
-		animation(ANIM_OPERATE_0223, -1, -1, 0x1001, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0223, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 		goto_next(0x2d)
 
 		label(0x8c)
-		animation(ANIM_OPERATE_0221, -1, -1, 0x1101, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0221, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 		goto_next(0x2d)
 
 		label(0x8d)
-		animation(ANIM_OPERATE_0221, -1, -1, 0x1101, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0221, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 		goto_next(0x2d)
 
 		label(0x8e)
-		animation(ANIM_OPERATE_0223, -1, -1, 0x1101, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0223, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 		goto_next(0x2d)
 
 		label(0x8f)
-		animation(0x023a, -1, -1, 0x1101, CHR_SELF, 2)
+		animation(0x023a, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 		goto_next(0x2d)
 
 		label(0x90)
-		animation(0x023b, -1, -1, 0x1101, CHR_SELF, 2)
+		animation(0x023b, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 		goto_next(0x2d)
 
 		label(0x0f)
@@ -3220,7 +3220,7 @@ u8 func0407_steward[] = {
 		label(0x06)
 		reloop(0x03)
 
-		animation(ANIM_OPERATE_0204, 0, -1, 0x1010, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 		label(0x2d)
 		if_target_chr_in_sight(/*goto*/ 0x89)
 		if_shot_near_chr(0x00, /*goto*/ 0x89)
@@ -3275,7 +3275,7 @@ u8 func0407_stewardess[] = {
 	// Wait until alerted
 	beginloop(0x03)
 		if_chr_idle(/*goto*/ 0x2d)
-		animation(ANIM_OPERATE_0204, 0, -1, 0x1010, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 		label(0x2d)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2d)
 		if_shot_near_chr(0x00, /*goto*/ 0x2d)
@@ -3295,7 +3295,7 @@ u8 func0407_stewardess[] = {
 
 	label(0x06)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_DISGUISE_UNCOVERED)
-	animation(ANIM_WALK_BACKWARDS, -1, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_WALK_BACKWARDS, -1, -1, 0x10, 0x10, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x08)
@@ -3320,7 +3320,7 @@ u8 func0407_stewardess[] = {
 
 	label(0x0a)
 	set_self_flag_bank3(CHRFLAG3_01000000)
-	animation(ANIM_COWER_0229, -1, 190, 0x100a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, 190, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x83)
 		if_chr_stopped(/*goto*/ 0x2d)
@@ -3440,12 +3440,12 @@ u8 func0423_outro[] = {
 	set_chr_flag_bank3(CHR_TARGET, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_TARGET, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_00020000)
-	animation(0x02da, -1, -1, 0x0600, CHR_TARGET, 4)
+	animation(0x02da, -1, -1, 0x06, 0x00, CHR_TARGET, 4)
 	set_chr_hud_visible(CHR_TARGET, TRUE)
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x02d9, -1, -1, 0x0600, CHR_ELVIS, 4)
+	animation(0x02d9, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 	show_object(0x19)
 	set_object_flag_bank1(0x19, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x19, OBJECTFLAG2_00000010)

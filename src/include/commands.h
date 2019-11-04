@@ -41,12 +41,13 @@
 #define kneel \
 	mkshort(0x000a),
 
-#define animation(animation, unknown1, unknown2, unknown3, chr, animspeed) \
+#define animation(animation, startframe, endframe, flags, transition, chr, animspeed) \
 	mkshort(0x000b), \
 	mkshort(animation), \
-	mkshort(unknown1), \
-	mkshort(unknown2), \
-	mkshort(unknown3), \
+	mkshort(startframe), \
+	mkshort(endframe), \
+	flags, \
+	transition, \
 	chr, \
 	animspeed,
 

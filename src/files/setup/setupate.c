@@ -103,7 +103,7 @@ u8 func1002_first_walk[] = {
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
 	display_text(0x00, COLOR_02_WHITE, 0x5e07) // "THE DUEL"
-	animation(ANIM_RELOAD, -1, -1, 0x0600, CHR_GUARD, 2)
+	animation(ANIM_RELOAD, -1, -1, 0x06, 0x00, CHR_GUARD, 2)
 	label(0x2d)
 	message(CHR_BOND, 0x5e0c) // "Opponent skill level: AGENT"
 
@@ -166,7 +166,7 @@ u8 func1007_second_walk[] = {
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(ANIM_GRAB_CROTCH, -1, -1, 0x0600, CHR_JONATHAN, 2)
+	animation(ANIM_GRAB_CROTCH, -1, -1, 0x06, 0x00, CHR_JONATHAN, 2)
 
 	label(0x2d)
 	message(CHR_BOND, 0x5e0d) // "Opponent skill level: SPECIAL AGENT"
@@ -247,7 +247,7 @@ u8 func1008_third_walk[] = {
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(ANIM_HEAD_ROLL, -1, -1, 0x0600, CHR_TRENT, 2)
+	animation(ANIM_HEAD_ROLL, -1, -1, 0x06, 0x00, CHR_TRENT, 2)
 	label(0x2d)
 	message(CHR_BOND, 0x5e0e) // "Opponent skill level: PERFECT AGENT"
 

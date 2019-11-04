@@ -1075,17 +1075,17 @@ u8 func1002_intro[] = {
 
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x047d, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x047d, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	unset_chr_flag_bank3(CHR_MAIAN1, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_MAIAN1, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_MAIAN1, CHRFLAG2_00020000)
-	animation(0x047e, -1, -1, 0x0600, CHR_MAIAN1, 4)
+	animation(0x047e, -1, -1, 0x06, 0x00, CHR_MAIAN1, 4)
 
 	unset_chr_flag_bank3(CHR_MAIAN2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_MAIAN2, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_MAIAN2, CHRFLAG2_00020000)
-	animation(0x047f, -1, -1, 0x0600, CHR_MAIAN2, 4)
+	animation(0x047f, -1, -1, 0x06, 0x00, CHR_MAIAN2, 4)
 
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -1122,15 +1122,15 @@ u8 func1002_intro[] = {
 
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x047d, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x047d, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 
 	unset_chr_flag_bank3(CHR_MAIAN3, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_MAIAN3, CHRFLAG2_00020000)
-	animation(0x047e, -2, -1, 0x0600, CHR_MAIAN3, 2)
+	animation(0x047e, -2, -1, 0x06, 0x00, CHR_MAIAN3, 2)
 
 	unset_chr_flag_bank3(CHR_MAIAN4, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_MAIAN4, CHRFLAG2_00020000)
-	animation(0x047f, -2, -1, 0x0600, CHR_MAIAN4, 2)
+	animation(0x047f, -2, -1, 0x06, 0x00, CHR_MAIAN4, 2)
 
 	set_function(CHR_MAIAN1, FUNC_INIT_MAIAN)
 	set_function(CHR_MAIAN2, FUNC_INIT_MAIAN)
@@ -1156,17 +1156,17 @@ u8 func040b_outro[] = {
 	unset_chr_flag_bank3(CHR_MAIAN3, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_MAIAN3, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_MAIAN3, CHRFLAG2_00020000)
-	animation(0x0481, -1, -1, 0x0600, CHR_MAIAN3, 4)
+	animation(0x0481, -1, -1, 0x06, 0x00, CHR_MAIAN3, 4)
 
 	unset_chr_flag_bank3(CHR_MAIAN4, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_MAIAN4, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_MAIAN4, CHRFLAG2_00020000)
-	animation(0x0482, -1, -1, 0x0600, CHR_MAIAN4, 4)
+	animation(0x0482, -1, -1, 0x06, 0x00, CHR_MAIAN4, 4)
 
 	unset_chr_flag_bank3(CHR_MAIAN5, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_MAIAN5, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_MAIAN5, CHRFLAG2_00020000)
-	animation(0x0483, -1, -1, 0x0600, CHR_MAIAN5, 4)
+	animation(0x0483, -1, -1, 0x06, 0x00, CHR_MAIAN5, 4)
 
 	show_nonessential_chrs(FALSE)
 

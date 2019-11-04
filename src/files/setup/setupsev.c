@@ -1520,7 +1520,7 @@ u8 func1002_intro[] = {
 	cmd0175(60)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0477, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x0477, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_object_flag_bank1(OBJ_TROLLEY, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(OBJ_TROLLEY, OBJECTFLAG2_00000010)
 	object_do_animation(0x0478, OBJ_TROLLEY, 0x04ff, 0xff)
@@ -1564,7 +1564,7 @@ u8 func1002_intro[] = {
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0477, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x0477, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_object_flag_bank1(OBJ_TROLLEY, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(OBJ_TROLLEY, OBJECTFLAG2_00000010)
 	object_do_animation(0x0478, OBJ_TROLLEY, 0x04ff, 0xfe)
@@ -1584,12 +1584,12 @@ u8 func041b_outro[] = {
 
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x047a, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x047a, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	unset_chr_flag_bank3(CHR_OUTRO_GUARD, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_OUTRO_GUARD, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_OUTRO_GUARD, CHRFLAG2_00020000)
-	animation(0x047b, -1, -1, 0x0600, CHR_OUTRO_GUARD, 4)
+	animation(0x047b, -1, -1, 0x06, 0x00, CHR_OUTRO_GUARD, 4)
 
 	show_nonessential_chrs(FALSE)
 	restart_timer

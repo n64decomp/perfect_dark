@@ -575,7 +575,7 @@ u8 func041e_colleague[] = {
 		if_target_chr_in_sight(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
 		if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x7f)
-		animation(0x0227, 0, -1, 0x1400, CHR_SELF, 2)
+		animation(0x0227, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 		reloop(0x04)
 
 		// Player not in sight - 2 in 255 chance of doing a bored animation
@@ -604,7 +604,7 @@ u8 func041e_colleague[] = {
 		goto_next(0x2f)
 
 		label(0x7f)
-		animation(ANIM_SITTING_0265, 0, -1, 0x1400, CHR_SELF, 2)
+		animation(ANIM_SITTING_0265, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 		label(0x2f)
 		play_cistaff_quip(BANK_0, CHANNEL_6)
 		restart_timer
@@ -678,7 +678,7 @@ u8 func041e_colleague[] = {
 		goto_next(0x06)
 
 		label(0x7f)
-		animation(ANIM_SITTING_0265, 0, -1, 0x1400, CHR_SELF, 2)
+		animation(ANIM_SITTING_0265, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 		label(0x06)
 		play_cistaff_quip(BANK_2, CHANNEL_6)
 		restart_timer
@@ -2666,7 +2666,7 @@ u8 func042a_carrington_cloak[] = {
 	label(0x06)
 	dprint 'I','n','i','t','i','a','l','i','s','e','c',0,
 	restart_timer
-	animation(ANIM_WALK_BACKWARDS, -1, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_WALK_BACKWARDS, -1, -1, 0x10, 0x10, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x57)
@@ -5750,7 +5750,7 @@ u8 func1000_jo_typing[] = {
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0485, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x0485, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
@@ -5783,7 +5783,7 @@ u8 func1000_jo_typing[] = {
 	label(0x7b)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x0485, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x0485, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	enter_firstperson

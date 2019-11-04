@@ -870,7 +870,7 @@ u8 func0c01_outro[] = {
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
-	animation(0x01a3, -1, -1, 0x0600, CHR_P1P2, 4)
+	animation(0x01a3, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 
 	#define show_object_with_animation(object, animation) \
 		show_object(object) \
@@ -946,12 +946,12 @@ u8 func0c01_outro[] = {
 	set_chr_flag_bank3(CHR_SKEDAR1, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_SKEDAR1, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_SKEDAR1, CHRFLAG2_00020000)
-	animation(0x01ad, -1, -1, 0x0600, CHR_SKEDAR1, 4)
+	animation(0x01ad, -1, -1, 0x06, 0x00, CHR_SKEDAR1, 4)
 
 	set_chr_flag_bank3(CHR_SKEDAR2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_SKEDAR2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_SKEDAR2, CHRFLAG2_00020000)
-	animation(0x01ae, -1, -1, 0x0600, CHR_SKEDAR2, 4)
+	animation(0x01ae, -1, -1, 0x06, 0x00, CHR_SKEDAR2, 4)
 
 	wait_until(16, 0x78)
 	play_sound(0x0530, CHANNEL_10)
@@ -974,7 +974,7 @@ u8 func0c01_outro[] = {
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
-	animation(0x0306, -1, -1, 0x0600, CHR_P1P2, 4)
+	animation(0x0306, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 
 	show_object_with_animation(0x0e, 0x0307)
 	show_object_with_animation(0x0f, 0x0308)
@@ -1087,12 +1087,12 @@ u8 func0c01_outro[] = {
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
-	animation(0x0311, -1, -1, 0x0600, CHR_P1P2, 4)
+	animation(0x0311, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 
 	set_chr_flag_bank3(CHR_SKEDAR1, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_SKEDAR1, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_SKEDAR1, CHRFLAG2_00020000)
-	animation(0x0312, -1, -1, 0x0600, CHR_SKEDAR1, 4)
+	animation(0x0312, -1, -1, 0x06, 0x00, CHR_SKEDAR1, 4)
 
 	show_object_with_animation(0x0e, 0x0313)
 	show_object_with_animation(0x0f, 0x0314)
@@ -1162,19 +1162,19 @@ u8 func1002_intro[] = {
 	set_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x02bd, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x02bd, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_flag_bank3(CHR_CARRINGTON, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_CARRINGTON, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_CARRINGTON, CHRFLAG2_00020000)
-	animation(0x02be, -1, -1, 0x0600, CHR_CARRINGTON, 4)
+	animation(0x02be, -1, -1, 0x06, 0x00, CHR_CARRINGTON, 4)
 	set_chr_flag_bank3(0x19, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x19, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x19, CHRFLAG2_00020000)
-	animation(0x02bf, -1, -1, 0x0600, 0x19, 4)
+	animation(0x02bf, -1, -1, 0x06, 0x00, 0x19, 4)
 	set_chr_flag_bank3(0x1a, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(0x1a, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(0x1a, CHRFLAG2_00020000)
-	animation(0x02c0, -1, -1, 0x0600, 0x1a, 4)
+	animation(0x02c0, -1, -1, 0x06, 0x00, 0x1a, 4)
 	show_object(0x0d)
 	set_object_flag_bank1(0x0d, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x0d, OBJECTFLAG2_00000010)
@@ -1406,10 +1406,10 @@ u8 func1002_intro[] = {
 	unset_chr_flag_bank3(CHR_SKEDAR4, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank3(CHR_SKEDAR4, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_SKEDAR4, CHRFLAG2_00020000)
-	animation(0x02c3, -1, -1, 0x0600, CHR_SKEDAR4, 4)
+	animation(0x02c3, -1, -1, 0x06, 0x00, CHR_SKEDAR4, 4)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x02c4, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x02c4, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	show_object(0x52)
 	set_object_flag_bank1(0x52, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x52, OBJECTFLAG2_00000010)
@@ -1491,20 +1491,20 @@ u8 func1002_intro[] = {
 	set_cutscene_weapon(CHR_BOND, WEAPON_AR34, WEAPON_NONE)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x02c4, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x02c4, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_chr_flag_bank3(CHR_CARRINGTON, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_CARRINGTON, CHRFLAG2_00020000)
-	animation(0x02be, -2, -1, 0x0600, CHR_CARRINGTON, 2)
+	animation(0x02be, -2, -1, 0x06, 0x00, CHR_CARRINGTON, 2)
 	unset_chr_flag_bank3(0x19, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(0x19, CHRFLAG2_00020000)
-	animation(0x02bf, -2, -1, 0x0600, 0x19, 2)
+	animation(0x02bf, -2, -1, 0x06, 0x00, 0x19, 2)
 	unset_chr_flag_bank3(0x1a, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(0x1a, CHRFLAG2_00020000)
-	animation(0x02c0, -2, -1, 0x0600, 0x1a, 2)
+	animation(0x02c0, -2, -1, 0x06, 0x00, 0x1a, 2)
 	unset_chr_flag_bank3(CHR_SKEDAR4, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_SKEDAR4, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_SKEDAR4, CHRFLAG2_00020000)
-	animation(0x02c3, -2, -1, 0x0600, CHR_SKEDAR4, 2)
+	animation(0x02c3, -2, -1, 0x06, 0x00, CHR_SKEDAR4, 2)
 	unset_object_flag_bank1(0x0d, OBJECTFLAG1_04000000)
 	set_object_flag_bank0(0x0d, OBJECTFLAG0_DEACTIVATED)
 	set_object_flag_bank2(0x0d, OBJECTFLAG2_00000010)
@@ -1795,7 +1795,7 @@ u8 func041a_hostage_holo[] = {
 	label(0x08)
 
 	label(0x12)
-	animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_stage_flag_eq(STAGEFLAG_HOLO_TAKERS_DEAD, TRUE, /*goto*/ 0x08)
@@ -1864,7 +1864,7 @@ u8 func041f_holoclone[] = {
 	label(0x08)
 
 	label(0x12)
-	animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_chr_stopped(/*goto*/ 0x2e)
@@ -1878,7 +1878,7 @@ u8 func041f_holoclone[] = {
 
 #define holo_taker_logic(holoclone) \
 	restart_timer \
-	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2) \
+	animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2) \
  \
 	beginloop(0xba) \
 		set_target_chr(CHR_BOND) \
@@ -1996,7 +1996,7 @@ u8 func0425_hostage_thank_and_run[] = {
 
 	label(0x08)
 	play_cistaff_quip(BANK_3, CHANNEL_6)
-	animation(ANIM_TALKING_0231, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	label(0x2f)
 	restart_timer
 
@@ -2086,7 +2086,7 @@ u8 func0427_drop_devastator[] = {
 	yield
 	drop_concealed_items(CHR_SELF)
 	play_cistaff_quip(BANK_3, CHANNEL_6)
-	animation(ANIM_TALKING_0231, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x71)
@@ -2212,7 +2212,7 @@ u8 func042b_deviceroom_hostage[] = {
 	goto_next(0x10)
 
 	label(0x2e)
-	animation(ANIM_SURRENDER_002E, 0, 193, 0x1010, CHR_SELF, 2)
+	animation(ANIM_SURRENDER_002E, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_TAKERS_DEAD, TRUE, /*goto*/ 0x08)
@@ -2265,7 +2265,7 @@ u8 func042e_taker_device_m[] = {
 	assign_sound(0x025b, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	restart_timer
-	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
+	animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0xba)
 		if_timer_gt(60, /*goto*/ 0xbb)
@@ -2312,7 +2312,7 @@ u8 func0430_taker_device_f[] = {
 	set_squadron_alertness(100)
 	set_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	restart_timer
-	animation(ANIM_RELOAD_0209, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_RELOAD_0209, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0xbc)
 		if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x08)
@@ -2426,7 +2426,7 @@ u8 func0433_inforoom_hostage[] = {
 	endloop(0x0a)
 
 	label(0x12)
-	animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_stage_flag_eq(STAGEFLAG_INFO_TAKERS_DEAD, TRUE, /*goto*/ 0x0d)
@@ -3938,7 +3938,7 @@ u8 unregistered_function2[] = {
 		endloop(0x0a)
 
 		label(0x2e)
-		animation(0x02c3, -1, -1, 0x0600, 0x34, 4)
+		animation(0x02c3, -1, -1, 0x06, 0x00, 0x34, 4)
 	endloop(0x03)
 
 	endfunction

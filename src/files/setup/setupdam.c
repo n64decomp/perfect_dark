@@ -681,15 +681,15 @@ u8 func1002_intro[] = {
 	cmd0175(60)
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x02cf, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x02cf, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x02d0, -1, -1, 0x0600, CHR_ELVIS, 4)
+	animation(0x02d0, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_INTRO_GUARD, CHRFLAG2_00020000)
-	animation(0x02d1, -1, -1, 0x0600, CHR_INTRO_GUARD, 4)
+	animation(0x02d1, -1, -1, 0x06, 0x00, CHR_INTRO_GUARD, 4)
 	restart_timer
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -803,10 +803,10 @@ u8 func1002_intro[] = {
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x02cf, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x02cf, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x02d0, -2, -1, 0x0600, CHR_ELVIS, 2)
+	animation(0x02d0, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
 	unset_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_UNPLAYABLE)
 	hide_chr(CHR_INTRO_GUARD)
 	enter_firstperson
@@ -834,13 +834,13 @@ u8 func0c01_outro[] = {
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
-	animation(0x02e3, -1, -1, 0x0600, CHR_P1P2, 4)
+	animation(0x02e3, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 	set_function(CHR_ELVIS, GFUNC_IDLE)
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x02e4, -1, -1, 0x0600, CHR_ELVIS, 4)
+	animation(0x02e4, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 
 	show_object(OBJ_OUTRO_SUBMARINE)
 	set_object_flag_bank1(OBJ_OUTRO_SUBMARINE, OBJECTFLAG1_04000000)
@@ -992,10 +992,10 @@ u8 func0c01_outro[] = {
 	label(0x39)
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
-	animation(0x02cf, -2, -1, 0x0600, CHR_P1P2, 2)
+	animation(0x02cf, -2, -1, 0x06, 0x00, CHR_P1P2, 2)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x02d0, -2, -1, 0x0600, CHR_ELVIS, 2)
+	animation(0x02d0, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
 	end_level
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -1370,15 +1370,15 @@ u8 func040b_labtech1[] = {
 		if_rand_lt(86, /*goto*/ 0x3b)
 		if_rand_lt(172, /*goto*/ 0x3c)
 
-		animation(ANIM_OPERATE_0206, -1, -1, 0x0210, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3b)
-		animation(ANIM_OPERATE_0204, -1, -1, 0x0210, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3c)
-		animation(ANIM_OPERATE_0205, -1, -1, 0x0210, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x27)
@@ -1445,15 +1445,15 @@ u8 func040c_labtech2[] = {
 		if_rand_lt(86, /*goto*/ 0x3b)
 		if_rand_lt(172, /*goto*/ 0x3c)
 
-		animation(ANIM_OPERATE_0206, -1, -1, 0x0210, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3b)
-		animation(ANIM_OPERATE_0204, -1, -1, 0x0210, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3c)
-		animation(ANIM_OPERATE_0205, -1, -1, 0x0210, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x27)
@@ -1524,15 +1524,15 @@ u8 func040d_labtech3[] = {
 		if_rand_lt(86, /*goto*/ 0x3b)
 		if_rand_lt(172, /*goto*/ 0x3c)
 
-		animation(ANIM_OPERATE_0206, -1, -1, 0x0210, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3b)
-		animation(ANIM_OPERATE_0204, -1, -1, 0x0210, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3c)
-		animation(ANIM_OPERATE_0205, -1, -1, 0x0210, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x27)
@@ -1580,7 +1580,7 @@ u8 func0411_labtech_alerted[] = {
 	set_alertness(100)
 	dprint 'T','A','L','K',' ','1','\n',0,
 	say_quip(CHR_BOND, 0x2a, 0xff, 0x02, 0xff, BANK_1, 0x00, 0x00)
-	animation(ANIM_SURRENDER_002E, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_SURRENDER_002E, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x3e)
 		if_timer_gt(90, /*goto*/ 0x04)
@@ -1621,7 +1621,7 @@ u8 func0411_labtech_alerted[] = {
 	if_chr_distance_lt(300, /*goto*/ 0x04)
 
 	label(0x00)
-	animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x11)
 		consider_coop_for_p1p2_chr(CHR_SELF)
@@ -1982,7 +1982,7 @@ u8 func0401_pilot[] = {
 
 	// Push button
 	label(0x07)
-	animation(ANIM_PUSH_BUTTON, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_PUSH_BUTTON, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x0e)
@@ -2141,7 +2141,7 @@ u8 func0404_angry_pilot[] = {
 	label(0x04)
 	set_self_flag_bankx(CHRFLAG0_00000004, BANK_0)
 	speak(CHR_TARGET, 0x162f, 0x14dd, CHANNEL_7, COLOR_04_ORANGE) // "Die, you traitors."
-	animation(ANIM_DRAW_PISTOL_0245, -1, 120, 0x0600, CHR_SELF, 3)
+	animation(ANIM_DRAW_PISTOL_0245, -1, 120, 0x06, 0x00, CHR_SELF, 3)
 	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x6c)
 
 	beginloop(0x6c)
@@ -2492,23 +2492,23 @@ u8 func0415_elvis_at_start[] = {
 	if_rand_lt(196, /*goto*/ 0x46)
 
 	set_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
-	animation(ANIM_SMOKE_CIGARETTE, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_SMOKE_CIGARETTE, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x4c)
 
 	label(0x44)
-	animation(ANIM_SCRATCH_HEAD, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_SCRATCH_HEAD, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x4c)
 
 	label(0x45)
-	animation(ANIM_YAWN, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_YAWN, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x4c)
 
 	label(0x46)
-	animation(ANIM_GRAB_CROTCH, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_GRAB_CROTCH, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x4c)
 
 	label(0x47)
-	animation(ANIM_TWO_GUN_HOLD, 0, 100, 0x100a, CHR_SELF, 2)
+	animation(ANIM_TWO_GUN_HOLD, 0, 100, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x4c)
 
 	// 50% chance

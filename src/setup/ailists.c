@@ -96,7 +96,7 @@ u8 func0006_unalerted[] = {
 	dprint 'A','N','I','M',' ','O','B','J','E','C','T',' ','N','O','W','\n',0,
 	set_chr_health(CHR_SELF, 40)
 	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
-	animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x0210, CHR_SELF, 2)
+	animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x02, 0x10, CHR_SELF, 2)
 	unset_self_flag_bankx(CHRFLAG1_DOINGIDLEANIMATION, BANK_1)
 	set_chr_special_death_animation(CHR_SELF, 0)
 	dprint 'B','4',' ','W','A','T','\n',0,
@@ -403,7 +403,7 @@ u8 func0006_unalerted[] = {
 	goto_next(0x73)
 
 	label(0x16)
-	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
+	animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x73)
 		dprint 'S','4',0,
@@ -428,7 +428,7 @@ u8 func0006_unalerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_HEARSPAWN, TRUE, BANK_0, /*goto*/ LABEL_HEARSPAWN)
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x80)
-	animation(ANIM_YAWN, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_YAWN, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x80)
 		dprint 'S','8',0,
@@ -524,7 +524,7 @@ u8 func0006_unalerted[] = {
 	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x76)
-	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
+	animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x76)
 		dprint 'S','6',0,
@@ -637,7 +637,7 @@ u8 func0006_unalerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_HEARSPAWN, TRUE, BANK_0, /*goto*/ LABEL_HEARSPAWN)
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x82)
-	animation(ANIM_YAWN, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_YAWN, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x82)
 		dprint 'T','2',0,
@@ -714,7 +714,7 @@ u8 func0006_unalerted[] = {
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x7b)
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x7a)
-	animation(ANIM_YAWN, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_YAWN, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x7a)
 		dprint 'T','3',0,
@@ -744,7 +744,7 @@ u8 func0006_unalerted[] = {
 	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
 	restart_timer
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x75)
-	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
+	animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x75)
 		dprint 'S','6',0,
@@ -820,7 +820,7 @@ u8 func0008_wakeup[] = {
 	// Stand up
 	label(0x15)
 	set_chr_health(CHR_SELF, 40)
-	animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x0210, CHR_SELF, 2)
+	animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x02, 0x10, CHR_SELF, 2)
 	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
 	goto_next(0x0c)
 
@@ -987,7 +987,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	dprint 'A','T',' ','G','U','N','\n',0,
 	restart_timer
-	animation(ANIM_PICK_UP_GUN, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_PICK_UP_GUN, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0xae)
 		if_timer_gt(60, /*goto*/ 0x16)
@@ -1033,15 +1033,15 @@ u8 func0007_alerted[] = {
 	call_rng
 	if_rand_lt(82, /*goto*/ 0x13)
 	if_rand_lt(164, /*goto*/ 0x15)
-	animation(ANIM_DRAW_PISTOL_0288, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_DRAW_PISTOL_0288, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
-	animation(ANIM_DRAW_PISTOL_0289, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_DRAW_PISTOL_0289, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x15)
-	animation(ANIM_DRAW_PISTOL_0245, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_DRAW_PISTOL_0245, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	label(0x16)
 	if_stage_is_not(STAGE_AIRFORCEONE, /*goto*/ 0x13)
@@ -1685,7 +1685,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	set_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	restart_timer
-	animation(ANIM_RELOAD_0209, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_RELOAD_0209, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0xe8)
 		if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x16)
@@ -2048,7 +2048,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	set_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	restart_timer
-	animation(ANIM_RELOAD_0209, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_RELOAD_0209, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	label(0xe9)
 	yield
 	if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x16)
@@ -2393,7 +2393,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	set_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	restart_timer
-	animation(ANIM_RELOAD_0209, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_RELOAD_0209, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	label(0xea)
 	yield
 	if_self_flag_bankx_eq(CHRFLAG1_00000020, FALSE, BANK_1, /*goto*/ 0x16)
@@ -2573,7 +2573,7 @@ u8 func0007_alerted[] = {
 	endloop(0x9d)
 
 	label(0x16)
-	animation(ANIM_PUSH_BUTTON, 0, 193, 0x1010, CHR_SELF, 2)
+	animation(ANIM_PUSH_BUTTON, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0xed)
@@ -2651,19 +2651,19 @@ u8 func000a_do_idle_animation[] = {
 
 	label(0x03)
 	dprint 'S','T','A','N','D','I','N','G','\n',0,
-	animation(ANIM_OPERATE_0204, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	goto_next(0x0c)
 
 	label(0x04)
 	dprint 'S','I','T','T','I','N','G',' ','T','Y','P','I','N','G','\n',0,
 	set_chr_special_death_animation(CHR_SELF, 0x06)
-	animation(ANIM_SITTING_TYPING, 0, -1, 0x1400, CHR_SELF, 2)
+	animation(ANIM_SITTING_TYPING, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 	goto_next(0x0c)
 
 	label(0x05)
 	dprint 'S','I','T','T','I','N','G','\n',0,
 	set_chr_special_death_animation(CHR_SELF, 0x06)
-	animation(ANIM_SITTING_DORMANT, 0, -1, 0x1400, CHR_SELF, 2)
+	animation(ANIM_SITTING_DORMANT, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 	goto_next(0x0c)
 
 	label(0x07)
@@ -2680,15 +2680,15 @@ u8 func000a_do_idle_animation[] = {
 	call_rng
 	if_rand_gt(85, /*goto*/ 0x28)
 	if_rand_gt(170, /*goto*/ 0x29)
-	animation(ANIM_OPERATE_0221, 0, -1, 0x1000, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0221, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 	goto_next(0x0c)
 
 	label(0x28)
-	animation(ANIM_OPERATE_0222, 0, -1, 0x1000, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0222, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 	goto_next(0x0c)
 
 	label(0x29)
-	animation(ANIM_OPERATE_0223, 0, -1, 0x1000, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0223, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 	goto_next(0x0c)
 
 	label(0x0c)
@@ -2711,7 +2711,7 @@ u8 func000a_do_idle_animation[] = {
 
 	// Stand up
 	label(0x13)
-	animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x0210, CHR_SELF, 2)
+	animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x02, 0x10, CHR_SELF, 2)
 	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
 
 	beginloop(0x06)
@@ -2823,7 +2823,7 @@ u8 func000d_init_combat[] = {
 	// Stand up
 	label(0x05)
 	set_chr_health(CHR_SELF, 40)
-	animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x0210, CHR_SELF, 2)
+	animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x02, 0x10, CHR_SELF, 2)
 	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
 
 	beginloop(0x0c)
@@ -3459,7 +3459,7 @@ u8 func000c_combat_with_target_chr[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x16)
 	label(0x16)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0xd9)
-	animation(ANIM_YAWN, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_YAWN, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0xd8)
 		if_chr_stopped(/*goto*/ 0xd9)
@@ -3624,27 +3624,27 @@ u8 func0017_rebuild_groups[] = {
 u8 func0018_do_bored_animation[] = {
 	call_rng
 	if_rand_gt(50, /*goto*/ 0x13)
-	animation(ANIM_YAWN, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_YAWN, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
 	if_rand_gt(100, /*goto*/ 0x13)
-	animation(ANIM_SCRATCH_HEAD, 0, 294, 0x1810, CHR_SELF, 2)
+	animation(ANIM_SCRATCH_HEAD, 0, 294, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
 	if_rand_gt(150, /*goto*/ 0x13)
-	animation(ANIM_ROLL_HEAD, 0, 183, 0x1810, CHR_SELF, 2)
+	animation(ANIM_ROLL_HEAD, 0, 183, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
 	if_rand_gt(200, /*goto*/ 0x13)
-	animation(ANIM_GRAB_CROTCH, 0, 123, 0x1810, CHR_SELF, 2)
+	animation(ANIM_GRAB_CROTCH, 0, 123, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
 	if_rand_gt(250, /*goto*/ 0x13)
-	animation(ANIM_GRAB_BUTT, 0, 56, 0x1810, CHR_SELF, 2)
+	animation(ANIM_GRAB_BUTT, 0, 56, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
@@ -3656,29 +3656,29 @@ u8 func0018_do_bored_animation[] = {
 u8 func001e_look_around[] = {
 	call_rng
 	if_rand_gt(50, /*goto*/ 0x13)
-	animation(ANIM_LOOK_AROUND_025B, 0, 193, 0x1810, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025B, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
 	if_rand_gt(100, /*goto*/ 0x13)
-	animation(ANIM_LOOK_AROUND_025C, 0, 294, 0x1810, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025C, 0, 294, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
 	if_rand_gt(150, /*goto*/ 0x13)
-	animation(ANIM_LOOK_AROUND_025D, 0, 183, 0x1810, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025D, 0, 183, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	// @bug: Shows grab crotch animation when wanting to look around instead.
 	// Probably a copy/paste error from previous function.
 	label(0x13)
 	if_rand_gt(200, /*goto*/ 0x13)
-	animation(ANIM_GRAB_CROTCH, 0, 123, 0x1810, CHR_SELF, 2)
+	animation(ANIM_GRAB_CROTCH, 0, 123, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
 	if_rand_gt(250, /*goto*/ 0x13)
-	animation(ANIM_LOOK_AROUND_025E, 0, 56, 0x1810, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025E, 0, 56, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
@@ -3690,11 +3690,11 @@ u8 func001e_look_around[] = {
 u8 func0019_do_sitting_animation[] = {
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x13)
-	animation(ANIM_SITTING_TYPING, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_SITTING_TYPING, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
-	animation(ANIM_SITTING_DORMANT, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_SITTING_DORMANT, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
 	label(0x13)
@@ -4099,7 +4099,7 @@ u8 func001c_surprised[] = {
 	set_squadron_alertness(100)
 	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
 	restart_timer
-	animation(ANIM_SURPRISED_0202, 0, -1, 0x0010, CHR_SELF, 2)
+	animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	// Wait 1 second
 	beginloop(0x03)
@@ -4343,19 +4343,19 @@ u8 func001d_search_for_player[] = {
 	if_rand_lt(128, /*goto*/ 0x29)
 	if_rand_lt(196, /*goto*/ 0x2a)
 	set_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
-	animation(ANIM_LOOK_AROUND_025B, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025B, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x04)
 
 	label(0x28)
-	animation(ANIM_LOOK_AROUND_025C, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025C, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x04)
 
 	label(0x29)
-	animation(ANIM_LOOK_AROUND_025D, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025D, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x04)
 
 	label(0x2a)
-	animation(ANIM_LOOK_AROUND_025E, 0, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_LOOK_AROUND_025E, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x04)
 
 	label(0x13)
@@ -5152,7 +5152,7 @@ u8 func0026_init_psychosis[] = {
 	yield
 	yield
 	yield
-	animation(ANIM_BIG_SNEEZE, -1, -1, 0x1014, CHR_SELF, 2)
+	animation(ANIM_BIG_SNEEZE, -1, -1, 0x10, 0x14, CHR_SELF, 2)
 
 	// Wait for animation to finish
 	beginloop(0x03)

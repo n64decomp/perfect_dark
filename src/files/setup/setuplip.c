@@ -1474,7 +1474,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 
 	// Tech saw weapon
 	label(0x53)
-	animation(ANIM_SURPRISED_0202, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_SURPRISED_0202, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	dprint 'T','A','L','K',' ','1','\n',0,
 	speak(CHR_TARGET, 0x2a29, 0x8156, CHANNEL_4, COLOR_08_RED) // "Oh, my God - a gun!"
 	restart_timer
@@ -1969,7 +1969,7 @@ u8 func041a_labtech_harrysmate[] = {
 	speak(CHR_TARGET, 0x2a3a, 0x1abb, CHANNEL_4, COLOR_08_RED) // "Hey, that's not Harry. It's an intruder."
 	set_squadron_alertness(120)
 	restart_timer
-	animation(0x002e, 0, -1, 0x1810, CHR_SELF, 2)
+	animation(0x002e, 0, -1, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0a)
 		if_timer_gt(120, /*goto*/ 0x06)
@@ -1983,7 +1983,7 @@ u8 func041a_labtech_harrysmate[] = {
 	endloop(0x0b)
 
 	label(0x5a)
-	animation(ANIM_DRAW_PISTOL_0288, 0, -1, 0x0010, CHR_SELF, 2)
+	animation(ANIM_DRAW_PISTOL_0288, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0c)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -2061,7 +2061,7 @@ u8 func041b_labtech_keycardguy[] = {
 
 	label(0x2d)
 	restart_timer
-	animation(ANIM_SURRENDER_002E, 0, 190, 0x1010, CHR_SELF, 2)
+	animation(ANIM_SURRENDER_002E, 0, 190, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x09)
 		if_timer_gt(60, /*goto*/ 0x06)
@@ -2073,7 +2073,7 @@ u8 func041b_labtech_keycardguy[] = {
 	endloop(0x09)
 
 	label(0x5a)
-	animation(ANIM_DRAW_PISTOL_0288, 0, -1, 0x0010, CHR_SELF, 2)
+	animation(ANIM_DRAW_PISTOL_0288, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0a)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -2339,7 +2339,7 @@ u8 func0413_mechanic[] = {
 	dprint 'T','A','L','K',' ','1','\n',0,
 	speak(CHR_BOND, 0x2a41, 0x80fb, CHANNEL_4, COLOR_08_RED) // "Get the hell out of here!"
 	restart_timer
-	animation(ANIM_SURRENDER_002E, 0, -1, 0x1810, CHR_SELF, 2)
+	animation(ANIM_SURRENDER_002E, 0, -1, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x64)
 		if_timer_gt(120, /*goto*/ 0x2d)
@@ -2355,7 +2355,7 @@ u8 func0413_mechanic[] = {
 
 	label(0x06)
 	label(0x0f)
-		animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+		animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 		beginloop(0x8a)
 			if_chr_stopped(/*goto*/ 0x2d)
@@ -2603,15 +2603,15 @@ u8 func041f_labtech_lights[] = {
 	call_rng
 	if_rand_lt(86, /*goto*/ 0x69)
 	if_rand_lt(172, /*goto*/ 0x6a)
-	animation(ANIM_SITTING_DORMANT, -1, -1, 0x1401, CHR_SELF, 2)
+	animation(ANIM_SITTING_DORMANT, -1, -1, 0x14, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 
 	label(0x69)
-	animation(ANIM_SITTING_DORMANT, -1, -1, 0x1401, CHR_SELF, 2)
+	animation(ANIM_SITTING_DORMANT, -1, -1, 0x14, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 
 	label(0x6a)
-	animation(ANIM_SITTING_DORMANT, -1, -1, 0x1401, CHR_SELF, 2)
+	animation(ANIM_SITTING_DORMANT, -1, -1, 0x14, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 
 	beginloop(0x04)
@@ -2728,15 +2728,15 @@ u8 func041f_labtech_lights[] = {
 	call_rng
 	if_rand_lt(86, /*goto*/ 0x64)
 	if_rand_lt(172, /*goto*/ 0x66)
-	animation(ANIM_OPERATE_0221, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x0e)
 
 	label(0x64)
-	animation(ANIM_OPERATE_0221, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x0e)
 
 	label(0x66)
-	animation(ANIM_OPERATE_0223, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0223, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x0e)
 		consider_coop_for_p1p2_chr(CHR_SELF)
@@ -2758,7 +2758,7 @@ u8 func041f_labtech_lights[] = {
 	label(0x0f)
 	speak(CHR_TARGET, 0x2a54, 0x8124, CHANNEL_4, COLOR_08_RED) // "Holy..."
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	animation(ANIM_SURPRISED_0202, -1, -1, 0x140a, CHR_SELF, 2)
+	animation(ANIM_SURPRISED_0202, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x10)
@@ -2810,15 +2810,15 @@ u8 func0420_labtech_doors[] = {
 	endloop(0x55)
 
 	label(0x5e)
-	animation(ANIM_OPERATE_0221, -1, -1, 0x1001, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	goto_next(0x6f)
 
 	label(0x64)
-	animation(ANIM_OPERATE_0221, -1, -1, 0x1001, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	goto_next(0x6f)
 
 	label(0x66)
-	animation(ANIM_OPERATE_0223, -1, -1, 0x1001, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0223, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	label(0x6f)
 
 	beginloop(0x04)
@@ -2924,7 +2924,7 @@ u8 func0420_labtech_doors[] = {
 	endloop(0x70)
 
 	label(0x2d)
-	animation(ANIM_OPERATE_0221, -1, 120, 0x1001, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0221, -1, 120, 0x10, 0x01, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x71)
@@ -2955,7 +2955,7 @@ u8 func0420_labtech_doors[] = {
 	label(0x06)
 	dprint 'F','L','A','G',' ','S','E','T','\n',0,
 	label(0x10)
-	animation(ANIM_COWER_0229, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x77)
 		if_chr_stopped(/*goto*/ 0x2d)
@@ -3035,28 +3035,28 @@ u8 func0422_labtech_records[] = {
 	if_rand_lt(160, /*goto*/ 0x6a)
 	if_rand_lt(192, /*goto*/ 0x6b)
 	if_rand_lt(224, /*goto*/ 0x6c)
-	animation(0x0221, -1, -1, 0x1001, CHR_SELF, 2)
+	animation(0x0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x64)
-	animation(0x0221, -1, -1, 0x1001, CHR_SELF, 2)
+	animation(0x0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x66)
-	animation(0x0223, -1, -1, 0x1001, CHR_SELF, 2)
+	animation(0x0223, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x68)
-	animation(0x0221, -1, -1, 0x1101, CHR_SELF, 2)
+	animation(0x0221, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x69)
-	animation(0x0221, -1, -1, 0x1101, CHR_SELF, 2)
+	animation(0x0221, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x6a)
-	animation(0x0223, -1, -1, 0x1101, CHR_SELF, 2)
+	animation(0x0223, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x6b)
-	animation(0x023a, -1, -1, 0x1101, CHR_SELF, 2)
+	animation(0x023a, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x6c)
-	animation(0x023b, -1, -1, 0x1101, CHR_SELF, 2)
+	animation(0x023b, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 	label(0x04)
 	yield
 	if_chr_idle(/*goto*/ 0x2d)
@@ -3096,7 +3096,7 @@ u8 func0422_labtech_records[] = {
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2d)
 	set_squadron_alertness(100)
 	speak(CHR_TARGET, 0x2a57, 0x1aa5, CHANNEL_4, COLOR_08_RED) // "Imposter!"
-	animation(0x0202, -1, -1, 0x140a, CHR_SELF, 2)
+	animation(0x0202, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
 	restart_timer
 	label(0x79)
 	yield
@@ -3117,7 +3117,7 @@ u8 func0422_labtech_records[] = {
 	label(0x06)
 	dprint 'F','L','A','G',' ','S','E','T','\n',0,
 	label(0x10)
-	animation(0x0229, -1, -1, 0x100a, CHR_SELF, 2)
+	animation(0x0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 	label(0x0e)
 	yield
 	if_chr_stopped(/*goto*/ 0x2d)
@@ -3647,17 +3647,17 @@ u8 func0c01_outro[] = {
 	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
-	animation(0x0199, -1, -1, 0x0600, CHR_P1P2, 4)
+	animation(0x0199, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 
 	set_chr_flag_bank3(CHR_BIOTECH1, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_BIOTECH1, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_BIOTECH1, CHRFLAG2_00020000)
-	animation(0x019a, -1, -1, 0x0600, CHR_BIOTECH1, 4)
+	animation(0x019a, -1, -1, 0x06, 0x00, CHR_BIOTECH1, 4)
 
 	set_chr_flag_bank3(CHR_BIOTECH2, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_BIOTECH2, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_BIOTECH2, CHRFLAG2_00020000)
-	animation(0x019b, -1, -1, 0x0600, CHR_BIOTECH2, 4)
+	animation(0x019b, -1, -1, 0x06, 0x00, CHR_BIOTECH2, 4)
 
 	set_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x2f, OBJECTFLAG2_00000010)
@@ -3749,17 +3749,17 @@ u8 func1002_intro[] = {
 
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x01c8, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x01c8, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	set_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_JONATHAN, CHRFLAG2_00020000)
-	animation(0x01c7, -1, -1, 0x0600, CHR_JONATHAN, 4)
+	animation(0x01c7, -1, -1, 0x06, 0x00, CHR_JONATHAN, 4)
 
 	set_chr_flag_bank3(CHR_INTRO_DEAD_GUARD, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_INTRO_DEAD_GUARD, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_INTRO_DEAD_GUARD, CHRFLAG2_00020000)
-	animation(0x01c9, -1, -1, 0x0600, CHR_INTRO_DEAD_GUARD, 4)
+	animation(0x01c9, -1, -1, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 4)
 
 	set_object_flag_bank1(OBJ_CRATE, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(OBJ_CRATE, OBJECTFLAG2_00000010)
@@ -3902,7 +3902,7 @@ u8 func1002_intro[] = {
 	control_sound_from_object(CHANNEL_1, OBJ_CRATE, TRUE)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x01c8, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x01c8, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_UNPLAYABLE)
@@ -3910,7 +3910,7 @@ u8 func1002_intro[] = {
 	unset_chr_flag_bank3(CHR_INTRO_DEAD_GUARD, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank3(CHR_INTRO_DEAD_GUARD, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_chr_flag_bank2(CHR_INTRO_DEAD_GUARD, CHRFLAG2_00020000)
-	animation(0x01c9, -2, -1, 0x0600, CHR_INTRO_DEAD_GUARD, 2)
+	animation(0x01c9, -2, -1, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 2)
 	mute_channel(CHANNEL_10)
 	unset_object_flag_bank1(OBJ_CRATE, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(OBJ_CRATE, OBJECTFLAG2_00000010)
@@ -3922,7 +3922,7 @@ u8 func1002_intro[] = {
 	enter_firstperson
 	yield
 	set_chr_flag_bank3(CHR_INTRO_DEAD_GUARD, CHRFLAG3_00010000)
-	animation(0x01c9, 2, 3, 0x0600, CHR_INTRO_DEAD_GUARD, 2)
+	animation(0x01c9, 2, 3, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 2)
 	set_function(CHR_INTRO_DEAD_GUARD, GFUNC_IDLE)
 	yield
 	kill(CHR_INTRO_DEAD_GUARD)
@@ -4640,15 +4640,15 @@ u8 func0430_biotech2[] = {
 		if_rand_gt(85, /*goto*/ 0x62)
 		if_rand_gt(170, /*goto*/ 0x63)
 
-		animation(ANIM_OPERATE_0221, 0, -1, 0x1000, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0221, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		label(0x62)
-		animation(ANIM_OPERATE_0222, 0, -1, 0x1000, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0222, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		label(0x63)
-		animation(ANIM_OPERATE_0223, 0, -1, 0x1000, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0223, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		beginloop(0x04)
@@ -4667,15 +4667,15 @@ u8 func0431_biotech1[] = {
 		if_rand_gt(85, /*goto*/ 0x62)
 		if_rand_gt(170, /*goto*/ 0x63)
 
-		animation(ANIM_OPERATE_0204, 0, -1, 0x1000, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		label(0x62)
-		animation(ANIM_OPERATE_0205, 0, -1, 0x1000, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0205, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		label(0x63)
-		animation(ANIM_OPERATE_0206, 0, -1, 0x1000, CHR_SELF, 2)
+		animation(ANIM_OPERATE_0206, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		beginloop(0x04)

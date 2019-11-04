@@ -748,7 +748,7 @@ u8 func040e_elvis_give_ar34[] = {
 	rebuild_squadrons
 	set_stage_flag(STAGEFLAG_MET_ELVIS)
 	speak(CHR_P1P2, 0x2613, 0x12e1, CHANNEL_6, COLOR_04_ORANGE) // "Good to see you, Joanna."
-	animation(ANIM_TALKING_0231, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0c)
 		if_timer_gt(180, /*goto*/ 0x06)
@@ -906,7 +906,7 @@ u8 func0409_elvis_follow[] = {
 
 	label(0x2c)
 	restart_timer
-	animation(ANIM_OPERATE_0221, 0, -1, 0x0010, CHR_SELF, 2)
+	animation(ANIM_OPERATE_0221, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_timer_gt(180, /*goto*/ 0x06)
@@ -1014,7 +1014,7 @@ u8 func040a_elvis_go_to_hangar_lift[] = {
 	// At player
 	label(0x06)
 	speak(CHR_BOND, 0x2616, 0x12e4, CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards. I'll take this lift; you tak..."
-	animation(ANIM_TALKING_0231, 0, -1, 0x1010, CHR_SELF, 2)
+	animation(ANIM_TALKING_0231, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	set_morale(50)
 
 	beginloop(0x0c)
@@ -1794,7 +1794,7 @@ u8 func0419_hangar_maian[] = {
 
 	label(0x2c)
 	restart_timer
-	animation(ANIM_SNEEZE, 0, 193, 0x0010, CHR_SELF, 2)
+	animation(ANIM_SNEEZE, 0, 193, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_timer_gt(180, /*goto*/ 0x06)
@@ -2529,17 +2529,17 @@ u8 func1003_intro[] = {
 
 	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x01c3, -1, -1, 0x0600, CHR_BOND, 4)
+	animation(0x01c3, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_CASS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_CASS, CHRFLAG2_00020000)
-	animation(0x01c4, -1, -1, 0x0600, CHR_CASS, 4)
+	animation(0x01c4, -1, -1, 0x06, 0x00, CHR_CASS, 4)
 
 	set_chr_flag_bank3(CHR_INTRO_SKEDAR, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_INTRO_SKEDAR, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_INTRO_SKEDAR, CHRFLAG2_00020000)
-	animation(0x01c5, -1, -1, 0x0600, CHR_INTRO_SKEDAR, 4)
+	animation(0x01c5, -1, -1, 0x06, 0x00, CHR_INTRO_SKEDAR, 4)
 
 	restart_timer
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
@@ -2754,17 +2754,17 @@ u8 func1003_intro[] = {
 	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
 	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	animation(0x01c3, -2, -1, 0x0600, CHR_BOND, 2)
+	animation(0x01c3, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 
 	unset_chr_flag_bank3(CHR_CASS, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_CASS, CHRFLAG2_00020000)
 	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_00000001)
-	animation(0x01c4, -2, -1, 0x0600, CHR_CASS, 2)
+	animation(0x01c4, -2, -1, 0x06, 0x00, CHR_CASS, 2)
 
 	unset_chr_flag_bank3(CHR_INTRO_SKEDAR, CHRFLAG3_UNPLAYABLE)
 	set_chr_flag_bank2(CHR_INTRO_SKEDAR, CHRFLAG2_00020000)
 	set_chr_flag_bank3(CHR_INTRO_SKEDAR, CHRFLAG3_00000001)
-	animation(0x01c5, -2, -1, 0x0600, CHR_INTRO_SKEDAR, 2)
+	animation(0x01c5, -2, -1, 0x06, 0x00, CHR_INTRO_SKEDAR, 2)
 
 	remove_chr(CHR_INTRO_SKEDAR)
 	set_function(CHR_SHY_SKEDAR, FUNC_SHY_SKEDAR_WAIT)
@@ -2797,14 +2797,14 @@ u8 func0c01_outro[] = {
 	set_chr_flag_bank3(CHR_TARGET, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_TARGET, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_00020000)
-	animation(0x01e2, -1, -1, 0x0600, CHR_TARGET, 4)
+	animation(0x01e2, -1, -1, 0x06, 0x00, CHR_TARGET, 4)
 
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 	set_function(CHR_ELVIS, GFUNC_IDLE)
 	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
 	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
 	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
-	animation(0x01e3, -1, -1, 0x0600, CHR_ELVIS, 4)
+	animation(0x01e3, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 
 	show_object(OBJ_OUTRO_SHUTTLE)
 	set_object_flag_bank1(OBJ_OUTRO_SHUTTLE, OBJECTFLAG1_04000000)
