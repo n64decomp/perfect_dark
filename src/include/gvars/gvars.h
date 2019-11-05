@@ -189,7 +189,7 @@ struct g_vars {
 	/*0004c0*/ u32 unk0004c0;
 	/*0004c4*/ u32 unk0004c4;
 	/*0004c8*/ u32 unk0004c8;
-	/*0004cc*/ u32 in_cutscene;
+	/*0004cc*/ s32 in_cutscene;
 	/*0004d0*/ u32 unk0004d0;
 	/*0004d4*/ u32 unk0004d4;
 	/*0004d8*/ u32 unk0004d8;
@@ -355,6 +355,7 @@ extern u32 var80090af8;
 extern u32 var80090afc;
 extern u32 var8009cac0;
 extern u32 var8009cac4;
+extern u32 var8009de20;
 extern u32 var8009de24;
 
 extern u32 g_EepromFlags;

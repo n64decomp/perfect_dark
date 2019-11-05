@@ -282,7 +282,7 @@ u32 func00023108(void);
 u32 func0002319c(void);
 u32 func00023314(void);
 u32 func0002373c(void);
-u32 func00023768(void);
+s32 func00023768(s16 anim_id);
 u32 func00023794(void);
 u32 func000237dc(void);
 u32 func0002384c(void);

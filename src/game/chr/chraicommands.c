@@ -455,6 +455,67 @@ glabel ai000b
 /*  f04e3ac:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+// Mismatch because the compiler adds divide-by-zero checks to the division.
+// We need something like -mno-check-zero-division but that option doesn't exist
+// in our version of the compiler.
+//bool ai000b(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	u32 anim_id = cmd[3] | (cmd[2] << 8);
+//	struct chrdata *chr = NULL;
+//	s32 startframe = cmd[5] | (cmd[4] << 8);
+//	s32 endframe = cmd[7] | (cmd[6] << 8);
+//	float fstartframe;
+//	float fendframe;
+//
+//	if (g_Vars.chrdata) {
+//		chr = chrFindById(g_Vars.chrdata, cmd[10]);
+//	}
+//
+//	if (startframe == 0xffff) {
+//		fstartframe = 0;
+//	} else if (startframe == 0xfffe) {
+//		fstartframe = func00023768(anim_id) - 1;
+//	} else {
+//		fstartframe = startframe;
+//	}
+//
+//	if (endframe == 0xffff) {
+//		fendframe = -1.0;
+//	} else {
+//		fendframe = endframe;
+//	}
+//
+//	if (chr && chr->unk020) {
+//		float result = 1.0 / cmd[11];
+//
+//		if (g_Vars.in_cutscene) {
+//			if (startframe != 0xfffe) {
+//				fstartframe += var8009de20 * result * 0.25;
+//			}
+//
+//			chr->pos->unk3a = 0;
+//		}
+//
+//		func0f03af44(chr, anim_id, fstartframe, fendframe, cmd[8], cmd[9], result);
+//
+//		if (startframe == 0xfffe) {
+//			func0f0220ec(chr, 1, 1);
+//
+//			if (chr->pos->unk00 == 6) {
+//				u32 playernum = posGetPlayerNum(chr->pos);
+//				struct player *player = g_Vars.players[playernum];
+//				player->unk078 = chr->ground;
+//				player->unk074 = chr->ground;
+//			}
+//		}
+//	}
+//
+//	g_Vars.aioffset += 12;
+//
+//	return false;
+//}
+
 /**
  * @cmd 000c
  */

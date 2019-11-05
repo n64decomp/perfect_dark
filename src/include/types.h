@@ -46,7 +46,8 @@ struct position {
 	u32 unk2c;
 	u32 unk30;
 	u32 unk34;
-	u32 unk38;
+	s16 unk38;
+	s16 unk3a;
 	u32 unk3c;
 	u32 unk40;
 };
@@ -121,7 +122,7 @@ struct chrdata {
 	/*0x0ac*/ u32 unk0ac;
 	/*0x0b0*/ u32 sumground;
 	/*0x0b4*/ u32 manground;
-	/*0x0b8*/ u32 ground;
+	/*0x0b8*/ float ground;
 	/*0x0bc*/ struct coord fallspeed;
 	/*0x0c8*/ struct coord prevpos;
 	/*0x0d4*/ u32 lastwalk60;
@@ -501,8 +502,8 @@ struct player {
 	/*0x068*/ u32 unk068;
 	/*0x06c*/ u32 unk06c;
 	/*0x070*/ u32 unk070;
-	/*0x074*/ u32 unk074;
-	/*0x078*/ u32 unk078;
+	/*0x074*/ float unk074;
+	/*0x078*/ float unk078;
 	/*0x07c*/ u32 unk07c;
 	/*0x080*/ u32 unk080;
 	/*0x084*/ u32 unk084;
