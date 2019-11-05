@@ -576,7 +576,7 @@ bool aiIfStopped(void)
 /**
  * @cmd 0033
  */
-bool aiIfDying(void)
+bool aiIfChrDying(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
@@ -593,64 +593,31 @@ bool aiIfDying(void)
 /**
  * @cmd 0034
  */
-GLOBAL_ASM(
-glabel ai0034
-/*  f04e5ac:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f04e5b0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04e5b4:	3c10800a */ 	lui	$s0,0x800a
-/*  f04e5b8:	26109fc0 */ 	addiu	$s0,$s0,-24640
-/*  f04e5bc:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f04e5c0:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f04e5c4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04e5c8:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f04e5cc:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f04e5d0:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f04e5d4:	0fc126d1 */ 	jal	chrFindById
-/*  f04e5d8:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f04e5dc:	10400004 */ 	beqz	$v0,.L0f04e5f0
-/*  f04e5e0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f04e5e4:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f04e5e8:	54600004 */ 	bnezl	$v1,.L0f04e5fc
-/*  f04e5ec:	90780000 */ 	lbu	$t8,0x0($v1)
-.L0f04e5f0:
-/*  f04e5f0:	1000000f */ 	beqz	$zero,.L0f04e630
-/*  f04e5f4:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f04e5f8:	90780000 */ 	lbu	$t8,0x0($v1)
-.L0f04e5fc:
-/*  f04e5fc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f04e600:	57010009 */ 	bnel	$t8,$at,.L0f04e628
-/*  f04e604:	80430007 */ 	lb	$v1,0x7($v0)
-/*  f04e608:	0fc4a25f */ 	jal	posGetPlayerNum
-/*  f04e60c:	8ca4001c */ 	lw	$a0,0x1c($a1)
-/*  f04e610:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f04e614:	02194021 */ 	addu	$t0,$s0,$t9
-/*  f04e618:	8d090064 */ 	lw	$t1,0x64($t0)
-/*  f04e61c:	10000004 */ 	beqz	$zero,.L0f04e630
-/*  f04e620:	8d2300d8 */ 	lw	$v1,0xd8($t1)
-/*  f04e624:	80430007 */ 	lb	$v1,0x7($v0)
-.L0f04e628:
-/*  f04e628:	386a0005 */ 	xori	$t2,$v1,0x5
-/*  f04e62c:	2d430001 */ 	sltiu	$v1,$t2,0x1
-.L0f04e630:
-/*  f04e630:	10600007 */ 	beqz	$v1,.L0f04e650
-/*  f04e634:	8fab0024 */ 	lw	$t3,0x24($sp)
-/*  f04e638:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f04e63c:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f04e640:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f04e644:	91660003 */ 	lbu	$a2,0x3($t3)
-/*  f04e648:	10000004 */ 	beqz	$zero,.L0f04e65c
-/*  f04e64c:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f04e650:
-/*  f04e650:	8e0c0438 */ 	lw	$t4,0x438($s0)
-/*  f04e654:	258d0004 */ 	addiu	$t5,$t4,0x4
-/*  f04e658:	ae0d0438 */ 	sw	$t5,0x438($s0)
-.L0f04e65c:
-/*  f04e65c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04e660:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f04e664:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f04e668:	03e00008 */ 	jr	$ra
-/*  f04e66c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfChrDeathAnimationFinished(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	bool pass;
+
+	if (!chr || !chr->pos) {
+		pass = true;
+	} else {
+		if (chr->pos->unk00 == 6) {
+			u32 playernum = posGetPlayerNum(chr->pos);
+			pass = g_Vars.players[playernum]->unk0d8;
+		} else {
+			pass = (chr->actiontype == 5);
+		}
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 017b

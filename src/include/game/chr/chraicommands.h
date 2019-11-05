@@ -54,8 +54,8 @@
 /*0x0030*/ bool aiWalkToChr(void);
 /*0x0031*/ bool aiRunToChr(void);
 /*0x0032*/ bool aiIfStopped(void);
-/*0x0033*/ bool aiIfDying(void);
-/*0x0034*/ bool ai0034(void);
+/*0x0033*/ bool aiIfChrDying(void);
+/*0x0034*/ bool aiIfChrDeathAnimationFinished(void);
 /*0x0035*/ bool aiIfPlayerInSight(void);
 /*0x0036*/ bool aiRandom(void);
 /*0x0037*/ bool aiIfRandomLessThan(void);
