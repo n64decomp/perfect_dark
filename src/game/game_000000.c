@@ -68151,11 +68151,11 @@ glabel func0f03b1e0
 /*  f03b348:	55a00097 */ 	bnezl	$t5,.L0f03b5a8
 /*  f03b34c:	26520001 */ 	addiu	$s2,$s2,0x1
 /*  f03b350:	02c02025 */ 	or	$a0,$s6,$zero
-/*  f03b354:	0fc12495 */ 	jal	func0f049254
+/*  f03b354:	0fc12495 */ 	jal	positionGetDistanceToPosition
 /*  f03b358:	02002825 */ 	or	$a1,$s0,$zero
 /*  f03b35c:	46000506 */ 	mov.s	$f20,$f0
 /*  f03b360:	02602025 */ 	or	$a0,$s3,$zero
-/*  f03b364:	0fc12495 */ 	jal	func0f049254
+/*  f03b364:	0fc12495 */ 	jal	positionGetDistanceToPosition
 /*  f03b368:	02002825 */ 	or	$a1,$s0,$zero
 /*  f03b36c:	3c014396 */ 	lui	$at,0x4396
 /*  f03b370:	44812000 */ 	mtc1	$at,$f4
@@ -83844,7 +83844,7 @@ glabel func0f04911c
 float chrGetDistanceToTarget(struct chrdata *chr)
 {
 	struct position *targetpos = chrGetTargetPosition(chr);
-	return func0f049254(chr->pos, targetpos);
+	return positionGetDistanceToPosition(chr->pos, targetpos);
 }
 
 GLOBAL_ASM(
@@ -83855,7 +83855,7 @@ glabel func0f0491f8
 /*  f049204:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f049208:	8fae0018 */ 	lw	$t6,0x18($sp)
 /*  f04920c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f049210:	0fc12495 */ 	jal	func0f049254
+/*  f049210:	0fc12495 */ 	jal	positionGetDistanceToPosition
 /*  f049214:	8dc4001c */ 	lw	$a0,0x1c($t6)
 /*  f049218:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f04921c:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -83870,7 +83870,7 @@ glabel func0f049228
 /*  f049230:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
 /*  f049234:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f049238:	8c84001c */ 	lw	$a0,0x1c($a0)
-/*  f04923c:	0fc12495 */ 	jal	func0f049254
+/*  f04923c:	0fc12495 */ 	jal	positionGetDistanceToPosition
 /*  f049240:	8dc500bc */ 	lw	$a1,0xbc($t6)
 /*  f049244:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f049248:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -83878,29 +83878,17 @@ glabel func0f049228
 /*  f049250:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+float positionGetDistanceToPosition(struct position *a, struct position *b)
+{
+	float xdiff = a->coord.x - b->coord.x;
+	float ydiff = a->coord.y - b->coord.y;
+	float zdiff = a->coord.z - b->coord.z;
+
+	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+}
+
 GLOBAL_ASM(
-glabel func0f049254
-/*  f049254:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f049258:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04925c:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f049260:	c4840008 */ 	lwc1	$f4,0x8($a0)
-/*  f049264:	c4aa000c */ 	lwc1	$f10,0xc($a1)
-/*  f049268:	c488000c */ 	lwc1	$f8,0xc($a0)
-/*  f04926c:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f049270:	c4b20010 */ 	lwc1	$f18,0x10($a1)
-/*  f049274:	c4900010 */ 	lwc1	$f16,0x10($a0)
-/*  f049278:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f04927c:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f049280:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f049284:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f049288:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f04928c:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f049290:	0c012974 */ 	jal	sqrtf
-/*  f049294:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f049298:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04929c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0492a0:	03e00008 */ 	jr	$ra
-/*  f0492a4:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f0492a8
 /*  f0492a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0492ac:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0492b0:	c4a60008 */ 	lwc1	$f6,0x8($a1)

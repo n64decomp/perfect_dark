@@ -36,6 +36,6 @@ u32 func0f01b154(void);
 void func0f03af44(struct chrdata *chr, u32 anim_id, float fstartframe, float fendframe, u8 flags, u8 transition, float result);
 u32 func0f048f20(struct chrdata *chr, u8 b);
 float chrGetDistanceToTarget(struct chrdata *chr);
-float func0f049254(struct position *a, struct position *b);
+float positionGetDistanceToPosition(struct position *a, struct position *b);
 
 #endif
