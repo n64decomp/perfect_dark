@@ -83847,21 +83847,12 @@ float chrGetDistanceToTarget(struct chrdata *chr)
 	return positionGetDistanceToPosition(chr->pos, targetpos);
 }
 
-GLOBAL_ASM(
-glabel func0f0491f8
-/*  f0491f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0491fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049200:	0fc0a221 */ 	jal	chrGetTargetPosition
-/*  f049204:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f049208:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f04920c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f049210:	0fc12495 */ 	jal	positionGetDistanceToPosition
-/*  f049214:	8dc4001c */ 	lw	$a0,0x1c($t6)
-/*  f049218:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04921c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f049220:	03e00008 */ 	jr	$ra
-/*  f049224:	00000000 */ 	sll	$zero,$zero,0x0
-);
+// Redundant function - it's the same as above
+float chrGetDistanceToTarget2(struct chrdata *chr)
+{
+	struct position *targetpos = chrGetTargetPosition(chr);
+	return positionGetDistanceToPosition(chr->pos, targetpos);
+}
 
 float chrGetDistanceToCurrentPlayer(struct chrdata *chr)
 {
