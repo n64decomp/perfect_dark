@@ -46735,7 +46735,7 @@ glabel func0f028590
 /*  f028660:	5448002d */ 	bnel	$v0,$t0,.L0f028718
 /*  f028664:	8fcf0000 */ 	lw	$t7,0x0($s8)
 /*  f028668:	8ec90000 */ 	lw	$t1,0x0($s6)
-/*  f02866c:	0fc1248a */ 	jal	func0f049228
+/*  f02866c:	0fc1248a */ 	jal	chrGetDistanceToCurrentPlayer
 /*  f028670:	02a92021 */ 	addu	$a0,$s5,$t1
 /*  f028674:	46180032 */ 	c.eq.s	$f0,$f24
 /*  f028678:	3c137000 */ 	lui	$s3,0x7000
@@ -69803,7 +69803,7 @@ glabel func0f03c91c
 /*  f03ca88:	316c0001 */ 	andi	$t4,$t3,0x1
 /*  f03ca8c:	5580001c */ 	bnezl	$t4,.L0f03cb00
 /*  f03ca90:	820f0008 */ 	lb	$t7,0x8($s0)
-/*  f03ca94:	0fc1248a */ 	jal	func0f049228
+/*  f03ca94:	0fc1248a */ 	jal	chrGetDistanceToCurrentPlayer
 /*  f03ca98:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03ca9c:	3c014448 */ 	lui	$at,0x4448
 /*  f03caa0:	44813000 */ 	mtc1	$at,$f6
@@ -83863,20 +83863,10 @@ glabel func0f0491f8
 /*  f049224:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f049228
-/*  f049228:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04922c:	3c0e800a */ 	lui	$t6,0x800a
-/*  f049230:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f049234:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049238:	8c84001c */ 	lw	$a0,0x1c($a0)
-/*  f04923c:	0fc12495 */ 	jal	positionGetDistanceToPosition
-/*  f049240:	8dc500bc */ 	lw	$a1,0xbc($t6)
-/*  f049244:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049248:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04924c:	03e00008 */ 	jr	$ra
-/*  f049250:	00000000 */ 	sll	$zero,$zero,0x0
-);
+float chrGetDistanceToCurrentPlayer(struct chrdata *chr)
+{
+	return positionGetDistanceToPosition(chr->pos, g_Vars.currentplayer->targetpos);
+}
 
 float positionGetDistanceToPosition(struct position *a, struct position *b)
 {
