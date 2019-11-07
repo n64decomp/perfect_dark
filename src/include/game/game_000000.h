@@ -33,6 +33,7 @@ u32 func0f01a348(void);
 u32 func0f01aba8(void);
 u32 func0f01b148(void);
 u32 func0f01b154(void);
+u32 func0f048f20(struct chrdata *chr, u8 b);
 void func0f03af44(struct chrdata *chr, u32 anim_id, float fstartframe, float fendframe, u8 flags, u8 transition, float result);
 
 #endif
