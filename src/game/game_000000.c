@@ -83868,26 +83868,13 @@ float positionGetDistanceToPosition(struct position *a, struct position *b)
 	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 }
 
-GLOBAL_ASM(
-glabel func0f0492a8
-/*  f0492a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0492ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0492b0:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f0492b4:	c4840008 */ 	lwc1	$f4,0x8($a0)
-/*  f0492b8:	c4aa0010 */ 	lwc1	$f10,0x10($a1)
-/*  f0492bc:	c4880010 */ 	lwc1	$f8,0x10($a0)
-/*  f0492c0:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f0492c4:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f0492c8:	46000402 */ 	mul.s	$f16,$f0,$f0
-/*  f0492cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0492d0:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f0492d4:	0c012974 */ 	jal	sqrtf
-/*  f0492d8:	46128300 */ 	add.s	$f12,$f16,$f18
-/*  f0492dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0492e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0492e4:	03e00008 */ 	jr	$ra
-/*  f0492e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+float positionGetLateralDistanceToPosition(struct position *a, struct position *b)
+{
+	float xdiff = a->coord.x - b->coord.x;
+	float zdiff = a->coord.z - b->coord.z;
+
+	return sqrtf(xdiff * xdiff + zdiff * zdiff);
+}
 
 GLOBAL_ASM(
 glabel func0f0492ec
