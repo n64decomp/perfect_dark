@@ -85,8 +85,8 @@
 /*0x004f*/ bool ai004f(void);
 /*0x0050*/ bool ai0050(void);
 /*0x0051*/ bool ai0051(void);
-/*0x0052*/ bool ai0052(void);
-/*0x0053*/ bool ai0053(void);
+/*0x0052*/ bool aiIfDistanceToTargetLessThan(void);
+/*0x0053*/ bool aiIfDistanceToTargetGreaterThan(void);
 /*0x0054*/ bool ai0054(void);
 /*0x0055*/ bool ai0055(void);
 /*0x0056*/ bool ai0056(void);

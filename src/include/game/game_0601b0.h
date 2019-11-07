@@ -301,7 +301,7 @@ u32 func0f065880(void);
 u32 func0f065d1c(void);
 u32 func0f065f80(void);
 u32 func0f066290(void);
-struct targetsomething *heliGetTargetSomething(struct heliobj *obj);
+struct position *heliGetTargetPosition(struct heliobj *obj);
 struct heliobj *func0f07adf4(struct defaultobj *obj);
 u32 func0f095bf4(void);
 u32 func0f095d64(void);

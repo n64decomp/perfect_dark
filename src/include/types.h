@@ -11,31 +11,14 @@ struct coord {
 	float z;
 };
 
-struct position04 {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 flags;
-};
-
+// This might be a pad, but given that chrs have a gunground pointer to this
+// struct, I think it's more likely an ad hoc coordinate that can be created as
+// needed during gameplay.
 struct position {
 	u8 unk00;
 	u8 flags;
 	u16 unk02;
-	struct position04 *unk04;
+	struct chrdata *chr;
 	struct coord coord;
 	u32 unk14;
 	u32 unk18; // related to gun recovery
@@ -50,6 +33,7 @@ struct position {
 	s16 unk3a;
 	u32 unk3c;
 	u32 unk40;
+	u32 unk44;
 };
 
 struct bitfield {
@@ -451,27 +435,6 @@ struct tag {
 	struct defaultobj *obj;
 };
 
-struct targetsomething {
-	/*0x00*/ u8 unk00;
-	/*0x04*/ struct chrdata *chr;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-};
-
 struct player {
 	/*0x000*/ u32 unk000;
 	/*0x004*/ u32 unk004;
@@ -520,7 +483,7 @@ struct player {
 	/*0x0b0*/ u32 unk0b0;
 	/*0x0b4*/ float unk0b4;
 	/*0x0b8*/ u32 unk0b8;
-	/*0x0bc*/ struct targetsomething *targetsomething;
+	/*0x0bc*/ struct position *targetpos;
 	/*0x0c0*/ u32 unk0c0;
 	/*0x0c4*/ u32 unk0c4;
 	/*0x0c8*/ u32 unk0c8;

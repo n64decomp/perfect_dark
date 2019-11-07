@@ -46132,7 +46132,7 @@ glabel func0f027994
 /*  f027db4:	8fbf0054 */ 	lw	$ra,0x54($sp)
 /*  f027db8:	51400011 */ 	beqzl	$t2,.L0f027e00
 /*  f027dbc:	8fbf0054 */ 	lw	$ra,0x54($sp)
-/*  f027dc0:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f027dc0:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f027dc4:	8fa400cc */ 	lw	$a0,0xcc($sp)
 /*  f027dc8:	3c09800a */ 	lui	$t1,0x800a
 /*  f027dcc:	8d29a244 */ 	lw	$t1,-0x5dbc($t1)
@@ -46727,7 +46727,7 @@ glabel func0f028590
 /*  f028640:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f028644:	57010034 */ 	bnel	$t8,$at,.L0f028718
 /*  f028648:	8fcf0000 */ 	lw	$t7,0x0($s8)
-/*  f02864c:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f02864c:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f028650:	02a22021 */ 	addu	$a0,$s5,$v0
 /*  f028654:	3c19800a */ 	lui	$t9,0x800a
 /*  f028658:	8f39a244 */ 	lw	$t9,-0x5dbc($t9)
@@ -46897,14 +46897,14 @@ glabel func0f028834
 /*  f028880:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-struct targetsomething *chrGetTargetSomething(struct chrdata *chr)
+struct position *chrGetTargetPosition(struct chrdata *chr)
 {
-	struct targetsomething *ret;
+	struct position *ret;
 
 	if (chr->target == -1) {
-		ret = g_Vars.players[(u32)chr->BITFIELD.shorts[1] >> 14]->targetsomething;
+		ret = g_Vars.players[(u32)chr->BITFIELD.shorts[1] >> 14]->targetpos;
 	} else {
-		ret = g_Vars.targets + chr->target;
+		ret = g_Vars.positions + chr->target;
 	}
 
 	return ret;
@@ -53261,7 +53261,7 @@ glabel func0f02e370
 /*  f02e374:	30ae0200 */ 	andi	$t6,$a1,0x200
 /*  f02e378:	11c00005 */ 	beqz	$t6,.L0f02e390
 /*  f02e37c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02e380:	0fc12472 */ 	jal	func0f0491c8
+/*  f02e380:	0fc12472 */ 	jal	chrGetDistanceToTarget
 /*  f02e384:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f02e388:	10000011 */ 	beqz	$zero,.L0f02e3d0
 /*  f02e38c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -54541,7 +54541,7 @@ glabel func0f02f530
 /*  f02f530:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f02f534:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f02f538:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f02f53c:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f02f53c:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f02f540:	00808025 */ 	or	$s0,$a0,$zero
 /*  f02f544:	02002025 */ 	or	$a0,$s0,$zero
 /*  f02f548:	0fc122a1 */ 	jal	func0f048a84
@@ -60434,7 +60434,7 @@ glabel func0f034524
 /*  f034854:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f034858:	5541000c */ 	bnel	$t2,$at,.L0f03488c
 /*  f03485c:	8fa4014c */ 	lw	$a0,0x14c($sp)
-/*  f034860:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f034860:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f034864:	8e240004 */ 	lw	$a0,0x4($s1)
 /*  f034868:	8e0b001c */ 	lw	$t3,0x1c($s0)
 /*  f03486c:	544b0007 */ 	bnel	$v0,$t3,.L0f03488c
@@ -62767,7 +62767,7 @@ glabel func0f0369cc
 /*  f0369d4:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*  f0369d8:	8c83001c */ 	lw	$v1,0x1c($a0)
 /*  f0369dc:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f0369e0:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f0369e0:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f0369e4:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f0369e8:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f0369ec:	44808000 */ 	mtc1	$zero,$f16
@@ -65525,7 +65525,7 @@ glabel func0f038f40
 /*  f038ffc:	304b0200 */ 	andi	$t3,$v0,0x200
 /*  f039000:	11600046 */ 	beqz	$t3,.L0f03911c
 /*  f039004:	304e0004 */ 	andi	$t6,$v0,0x4
-/*  f039008:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f039008:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03900c:	8fa40078 */ 	lw	$a0,0x78($sp)
 /*  f039010:	904c0000 */ 	lbu	$t4,0x0($v0)
 /*  f039014:	24010006 */ 	addiu	$at,$zero,0x6
@@ -65772,7 +65772,7 @@ GLOBAL_ASM(
 glabel func0f039368
 /*  f039368:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f03936c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f039370:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f039370:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f039374:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f039378:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f03937c:	8c450004 */ 	lw	$a1,0x4($v0)
@@ -66084,7 +66084,7 @@ glabel func0f03978c
 /*  f039790:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f039794:	8c83001c */ 	lw	$v1,0x1c($a0)
 /*  f039798:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f03979c:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03979c:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f0397a0:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0397a4:	8fa40050 */ 	lw	$a0,0x50($sp)
 /*  f0397a8:	0fc0f917 */ 	jal	func0f03e45c
@@ -66357,7 +66357,7 @@ glabel func0f039b20
 /*  f039b5c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f039b60:	8e0e001c */ 	lw	$t6,0x1c($s0)
 /*  f039b64:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039b68:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f039b68:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f039b6c:	afae0048 */ 	sw	$t6,0x48($sp)
 /*  f039b70:	02002025 */ 	or	$a0,$s0,$zero
 /*  f039b74:	0fc0f917 */ 	jal	func0f03e45c
@@ -66464,7 +66464,7 @@ glabel func0f039ca8
 /*  f039cdc:	00001025 */ 	or	$v0,$zero,$zero
 /*  f039ce0:	8e0e001c */ 	lw	$t6,0x1c($s0)
 /*  f039ce4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039ce8:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f039ce8:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f039cec:	afae0044 */ 	sw	$t6,0x44($sp)
 /*  f039cf0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f039cf4:	0fc0f917 */ 	jal	func0f03e45c
@@ -66724,7 +66724,7 @@ glabel func0f039fcc
 /*  f03a088:	29010079 */ 	slti	$at,$t0,0x79
 /*  f03a08c:	54200020 */ 	bnezl	$at,.L0f03a110
 /*  f03a090:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a094:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03a094:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03a098:	afa30020 */ 	sw	$v1,0x20($sp)
 /*  f03a09c:	8fa30020 */ 	lw	$v1,0x20($sp)
 /*  f03a0a0:	8fa90024 */ 	lw	$t1,0x24($sp)
@@ -66821,7 +66821,7 @@ glabel func0f03a124
 /*  f03a1e0:	290100b5 */ 	slti	$at,$t0,0xb5
 /*  f03a1e4:	54200020 */ 	bnezl	$at,.L0f03a268
 /*  f03a1e8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a1ec:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03a1ec:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03a1f0:	afa30020 */ 	sw	$v1,0x20($sp)
 /*  f03a1f4:	8fa30020 */ 	lw	$v1,0x20($sp)
 /*  f03a1f8:	8fa90024 */ 	lw	$t1,0x24($sp)
@@ -66902,7 +66902,7 @@ glabel func0f03a27c
 /*  f03a304:	8fa30044 */ 	lw	$v1,0x44($sp)
 .L0f03a308:
 /*  f03a308:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a30c:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03a30c:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03a310:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f03a314:	8fa30044 */ 	lw	$v1,0x44($sp)
 /*  f03a318:	c4440008 */ 	lwc1	$f4,0x8($v0)
@@ -67484,7 +67484,7 @@ glabel func0f03aa38
 /*  f03aa80:	0503000d */ 	bgezl	$t0,.L0f03aab8
 /*  f03aa84:	00001025 */ 	or	$v0,$zero,$zero
 .L0f03aa88:
-/*  f03aa88:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03aa88:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03aa8c:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f03aa90:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f03aa94:	24450008 */ 	addiu	$a1,$v0,0x8
@@ -67901,7 +67901,7 @@ glabel func0f03afac
 /*  f03afac:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f03afb0:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f03afb4:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f03afb8:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03afb8:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03afbc:	afa40088 */ 	sw	$a0,0x88($sp)
 /*  f03afc0:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f03afc4:	8c90001c */ 	lw	$s0,0x1c($a0)
@@ -68062,7 +68062,7 @@ glabel func0f03b1e0
 /*  f03b200:	afb10020 */ 	sw	$s1,0x20($sp)
 /*  f03b204:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*  f03b208:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f03b20c:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03b20c:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03b210:	afa402b8 */ 	sw	$a0,0x2b8($sp)
 /*  f03b214:	8fa402b8 */ 	lw	$a0,0x2b8($sp)
 /*  f03b218:	0040b025 */ 	or	$s6,$v0,$zero
@@ -68401,7 +68401,7 @@ glabel func0f03b684
 /*  f03b6d0:	01cf082b */ 	sltu	$at,$t6,$t7
 /*  f03b6d4:	502000a5 */ 	beqzl	$at,.L0f03b96c
 /*  f03b6d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03b6dc:	0fc12472 */ 	jal	func0f0491c8
+/*  f03b6dc:	0fc12472 */ 	jal	chrGetDistanceToTarget
 /*  f03b6e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03b6e4:	3c014348 */ 	lui	$at,0x4348
 /*  f03b6e8:	44812000 */ 	mtc1	$at,$f4
@@ -68414,7 +68414,7 @@ glabel func0f03b684
 /*  f03b704:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03b708:	50400098 */ 	beqzl	$v0,.L0f03b96c
 /*  f03b70c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03b710:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03b710:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03b714:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03b718:	10400007 */ 	beqz	$v0,.L0f03b738
 /*  f03b71c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -68656,7 +68656,7 @@ glabel func0f03ba44
 /*  f03ba54:	afb10020 */ 	sw	$s1,0x20($sp)
 /*  f03ba58:	afa5004c */ 	sw	$a1,0x4c($sp)
 /*  f03ba5c:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f03ba60:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03ba60:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03ba64:	afa70054 */ 	sw	$a3,0x54($sp)
 /*  f03ba68:	3c0e8007 */ 	lui	$t6,0x8007
 /*  f03ba6c:	8dce8298 */ 	lw	$t6,-0x7d68($t6)
@@ -68679,7 +68679,7 @@ glabel func0f03ba44
 /*  f03baac:	93a60057 */ 	lbu	$a2,0x57($sp)
 /*  f03bab0:	5040003e */ 	beqzl	$v0,.L0f03bbac
 /*  f03bab4:	93a40040 */ 	lbu	$a0,0x40($sp)
-/*  f03bab8:	0fc12472 */ 	jal	func0f0491c8
+/*  f03bab8:	0fc12472 */ 	jal	chrGetDistanceToTarget
 /*  f03babc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03bac0:	8faa0050 */ 	lw	$t2,0x50($sp)
 /*  f03bac4:	448a2000 */ 	mtc1	$t2,$f4
@@ -68933,7 +68933,7 @@ glabel func0f03bbc8
 .L0f03be54:
 /*  f03be54:	10400073 */ 	beqz	$v0,.L0f03c024
 /*  f03be58:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03be5c:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03be5c:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03be60:	afa30030 */ 	sw	$v1,0x30($sp)
 /*  f03be64:	90440000 */ 	lbu	$a0,0x0($v0)
 /*  f03be68:	24010005 */ 	addiu	$at,$zero,0x5
@@ -71921,7 +71921,7 @@ glabel func0f03e788
 /*  f03e7fc:	8e1902d4 */ 	lw	$t9,0x2d4($s0)
 /*  f03e800:	53200009 */ 	beqzl	$t9,.L0f03e828
 /*  f03e804:	82020007 */ 	lb	$v0,0x7($s0)
-/*  f03e808:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03e808:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03e80c:	e7ac0028 */ 	swc1	$f12,0x28($sp)
 /*  f03e810:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03e814:	0fc122a1 */ 	jal	func0f048a84
@@ -71969,7 +71969,7 @@ glabel func0f03e788
 /*  f03e8ac:	10000007 */ 	beqz	$zero,.L0f03e8cc
 /*  f03e8b0:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
 .L0f03e8b4:
-/*  f03e8b4:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03e8b4:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03e8b8:	e7ac0028 */ 	swc1	$f12,0x28($sp)
 /*  f03e8bc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03e8c0:	0fc122a1 */ 	jal	func0f048a84
@@ -72109,7 +72109,7 @@ glabel func0f03e9f4
 /*  f03ea88:	afa80184 */ 	sw	$t0,0x184($sp)
 /*  f03ea8c:	afa40190 */ 	sw	$a0,0x190($sp)
 /*  f03ea90:	afa30180 */ 	sw	$v1,0x180($sp)
-/*  f03ea94:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03ea94:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03ea98:	afb9016c */ 	sw	$t9,0x16c($sp)
 /*  f03ea9c:	8fa3016c */ 	lw	$v1,0x16c($sp)
 /*  f03eaa0:	afa20168 */ 	sw	$v0,0x168($sp)
@@ -73251,7 +73251,7 @@ glabel func0f03fab0
 /*  f03facc:	e7a40030 */ 	swc1	$f4,0x30($sp)
 /*  f03fad0:	8c83001c */ 	lw	$v1,0x1c($a0)
 /*  f03fad4:	afa40060 */ 	sw	$a0,0x60($sp)
-/*  f03fad8:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f03fad8:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f03fadc:	afa3005c */ 	sw	$v1,0x5c($sp)
 /*  f03fae0:	8fa3005c */ 	lw	$v1,0x5c($sp)
 /*  f03fae4:	c4460008 */ 	lwc1	$f6,0x8($v0)
@@ -73972,7 +73972,7 @@ glabel func0f0404d4
 /*  f04051c:	afa00268 */ 	sw	$zero,0x268($sp)
 /*  f040520:	8c590004 */ 	lw	$t9,0x4($v0)
 /*  f040524:	8fa40278 */ 	lw	$a0,0x278($sp)
-/*  f040528:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f040528:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04052c:	afb90264 */ 	sw	$t9,0x264($sp)
 /*  f040530:	8fab0264 */ 	lw	$t3,0x264($sp)
 /*  f040534:	afa2025c */ 	sw	$v0,0x25c($sp)
@@ -74225,7 +74225,7 @@ glabel func0f0404d4
 /*  f0408cc:	1040000f */ 	beqz	$v0,.L0f04090c
 /*  f0408d0:	00401825 */ 	or	$v1,$v0,$zero
 /*  f0408d4:	afa2005c */ 	sw	$v0,0x5c($sp)
-/*  f0408d8:	0fc12472 */ 	jal	func0f0491c8
+/*  f0408d8:	0fc12472 */ 	jal	chrGetDistanceToTarget
 /*  f0408dc:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f0408e0:	3c014316 */ 	lui	$at,0x4316
 /*  f0408e4:	44813000 */ 	mtc1	$at,$f6
@@ -74815,7 +74815,7 @@ glabel func0f0404d4
 /*  f041164:	c5e60050 */ 	lwc1	$f6,0x50($t7)
 /*  f041168:	46043402 */ 	mul.s	$f16,$f6,$f4
 /*  f04116c:	e7100098 */ 	swc1	$f16,0x98($t8)
-/*  f041170:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f041170:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f041174:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f041178:	8fac01b8 */ 	lw	$t4,0x1b8($sp)
 /*  f04117c:	3c01bf80 */ 	lui	$at,0xbf80
@@ -75458,7 +75458,7 @@ glabel func0f041a74
 /*  f041aa8:	8c82001c */ 	lw	$v0,0x1c($a0)
 /*  f041aac:	9048003f */ 	lbu	$t0,0x3f($v0)
 /*  f041ab0:	35090020 */ 	ori	$t1,$t0,0x20
-/*  f041ab4:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f041ab4:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f041ab8:	a049003f */ 	sb	$t1,0x3f($v0)
 /*  f041abc:	8e0a005c */ 	lw	$t2,0x5c($s0)
 /*  f041ac0:	8e04001c */ 	lw	$a0,0x1c($s0)
@@ -75491,7 +75491,7 @@ glabel func0f041a74
 /*  f041b24:	02002025 */ 	or	$a0,$s0,$zero
 /*  f041b28:	904a003f */ 	lbu	$t2,0x3f($v0)
 /*  f041b2c:	354b0020 */ 	ori	$t3,$t2,0x20
-/*  f041b30:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f041b30:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f041b34:	a04b003f */ 	sb	$t3,0x3f($v0)
 /*  f041b38:	8e0c0060 */ 	lw	$t4,0x60($s0)
 /*  f041b3c:	8e04001c */ 	lw	$a0,0x1c($s0)
@@ -76533,7 +76533,7 @@ glabel func0f0429d8
 /*  f0429dc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0429e0:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0429e4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0429e8:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f0429e8:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f0429ec:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f0429f0:	8fae0018 */ 	lw	$t6,0x18($sp)
 /*  f0429f4:	c4440008 */ 	lwc1	$f4,0x8($v0)
@@ -76578,7 +76578,7 @@ glabel func0f042a40
 /*  f042a80:	f7b80028 */ 	sdc1	$f24,0x28($sp)
 /*  f042a84:	f7b60020 */ 	sdc1	$f22,0x20($sp)
 /*  f042a88:	f7b40018 */ 	sdc1	$f20,0x18($sp)
-/*  f042a8c:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f042a8c:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f042a90:	4600e686 */ 	mov.s	$f26,$f28
 /*  f042a94:	0040f025 */ 	or	$s8,$v0,$zero
 /*  f042a98:	0fc0f917 */ 	jal	func0f03e45c
@@ -78250,7 +78250,7 @@ glabel func0f044208
 /*  f04421c:	8c8e001c */ 	lw	$t6,0x1c($a0)
 /*  f044220:	8c910020 */ 	lw	$s1,0x20($a0)
 /*  f044224:	00808025 */ 	or	$s0,$a0,$zero
-/*  f044228:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f044228:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04422c:	afae0048 */ 	sw	$t6,0x48($sp)
 /*  f044230:	8e0f0014 */ 	lw	$t7,0x14($s0)
 /*  f044234:	00409025 */ 	or	$s2,$v0,$zero
@@ -81940,7 +81940,7 @@ glabel func0f047700
 /*  f047718:	afa70074 */ 	sw	$a3,0x74($sp)
 /*  f04771c:	8c8e001c */ 	lw	$t6,0x1c($a0)
 /*  f047720:	00808025 */ 	or	$s0,$a0,$zero
-/*  f047724:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f047724:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f047728:	afae0058 */ 	sw	$t6,0x58($sp)
 /*  f04772c:	00408825 */ 	or	$s1,$v0,$zero
 /*  f047730:	02002025 */ 	or	$a0,$s0,$zero
@@ -82273,7 +82273,7 @@ glabel func0f047934
 .L0f047c04:
 /*  f047c04:	55400010 */ 	bnezl	$t2,.L0f047c48
 /*  f047c08:	8e02003c */ 	lw	$v0,0x3c($s0)
-/*  f047c0c:	0fc12472 */ 	jal	func0f0491c8
+/*  f047c0c:	0fc12472 */ 	jal	chrGetDistanceToTarget
 /*  f047c10:	02002025 */ 	or	$a0,$s0,$zero
 /*  f047c14:	3c014316 */ 	lui	$at,0x4316
 /*  f047c18:	44814000 */ 	mtc1	$at,$f8
@@ -82852,7 +82852,7 @@ glabel func0f048398
 /*  f048444:	02002025 */ 	or	$a0,$s0,$zero
 /*  f048448:	54400044 */ 	bnezl	$v0,.L0f04855c
 /*  f04844c:	8faa00e0 */ 	lw	$t2,0xe0($sp)
-/*  f048450:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f048450:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f048454:	02002025 */ 	or	$a0,$s0,$zero
 /*  f048458:	1040003f */ 	beqz	$v0,.L0f048558
 /*  f04845c:	00408825 */ 	or	$s1,$v0,$zero
@@ -83362,7 +83362,7 @@ GLOBAL_ASM(
 glabel func0f048b4c
 /*  f048b4c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f048b50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f048b54:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f048b54:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f048b58:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f048b5c:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f048b60:	0fc122a1 */ 	jal	func0f048a84
@@ -83437,7 +83437,7 @@ glabel func0f048b78
 /*  f048c50:	10000017 */ 	beqz	$zero,.L0f048cb0
 /*  f048c54:	a4aa0000 */ 	sh	$t2,0x0($a1)
 .L0f048c58:
-/*  f048c58:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f048c58:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f048c5c:	afa7008c */ 	sw	$a3,0x8c($sp)
 /*  f048c60:	8fa7008c */ 	lw	$a3,0x8c($sp)
 /*  f048c64:	c4440008 */ 	lwc1	$f4,0x8($v0)
@@ -83475,7 +83475,7 @@ glabel func0f048cc0
 /*  f048cc8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f048ccc:	8c83001c */ 	lw	$v1,0x1c($a0)
 /*  f048cd0:	e7b20034 */ 	swc1	$f18,0x34($sp)
-/*  f048cd4:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f048cd4:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f048cd8:	afa30030 */ 	sw	$v1,0x30($sp)
 /*  f048cdc:	8fa30030 */ 	lw	$v1,0x30($sp)
 /*  f048ce0:	c7a20034 */ 	lwc1	$f2,0x34($sp)
@@ -83549,7 +83549,7 @@ glabel func0f048dcc
 /*  f048dcc:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f048dd0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f048dd4:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f048dd8:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f048dd8:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f048ddc:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f048de0:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f048de4:	44801000 */ 	mtc1	$zero,$f2
@@ -83700,7 +83700,7 @@ glabel func0f048fcc
 /*  f048fd4:	afa50034 */ 	sw	$a1,0x34($sp)
 /*  f048fd8:	8c83001c */ 	lw	$v1,0x1c($a0)
 /*  f048fdc:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f048fe0:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f048fe0:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f048fe4:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f048fe8:	8fa30028 */ 	lw	$v1,0x28($sp)
 /*  f048fec:	c4460008 */ 	lwc1	$f6,0x8($v0)
@@ -83841,27 +83841,17 @@ glabel func0f04911c
 /*  f0491c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f0491c8
-/*  f0491c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0491cc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0491d0:	0fc0a221 */ 	jal	chrGetTargetSomething
-/*  f0491d4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0491d8:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f0491dc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0491e0:	0fc12495 */ 	jal	func0f049254
-/*  f0491e4:	8dc4001c */ 	lw	$a0,0x1c($t6)
-/*  f0491e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0491ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0491f0:	03e00008 */ 	jr	$ra
-/*  f0491f4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+float chrGetDistanceToTarget(struct chrdata *chr)
+{
+	struct position *targetpos = chrGetTargetPosition(chr);
+	return func0f049254(chr->pos, targetpos);
+}
 
 GLOBAL_ASM(
 glabel func0f0491f8
 /*  f0491f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0491fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049200:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f049200:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f049204:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f049208:	8fae0018 */ 	lw	$t6,0x18($sp)
 /*  f04920c:	00402825 */ 	or	$a1,$v0,$zero
@@ -84331,40 +84321,40 @@ s32 chrResolveId(struct chrdata *ref, s32 id)
 			id = ref->chrdup;
 			break;
 		case 0xf8:
-			if (g_Vars.bond && g_Vars.bond->targetsomething && g_Vars.bond->targetsomething->chr) {
-				id = g_Vars.bond->targetsomething->chr->chrnum;
+			if (g_Vars.bond && g_Vars.bond->targetpos && g_Vars.bond->targetpos->chr) {
+				id = g_Vars.bond->targetpos->chr->chrnum;
 			}
 			break;
 		case 0xf5:
-			if (g_Vars.coop && g_Vars.coop->targetsomething && g_Vars.coop->targetsomething->chr) {
-				id = g_Vars.coop->targetsomething->chr->chrnum;
+			if (g_Vars.coop && g_Vars.coop->targetpos && g_Vars.coop->targetpos->chr) {
+				id = g_Vars.coop->targetpos->chr->chrnum;
 			}
 			break;
 		case 0xf4:
-			if (g_Vars.anti && g_Vars.anti->targetsomething && g_Vars.anti->targetsomething->chr) {
-				id = g_Vars.anti->targetsomething->chr->chrnum;
+			if (g_Vars.anti && g_Vars.anti->targetpos && g_Vars.anti->targetpos->chr) {
+				id = g_Vars.anti->targetpos->chr->chrnum;
 			}
 			break;
 		case 0xf2:
 			{
 				u32 index = g_Vars.coopplayernum >= 0 ? (u32)ref->BITFIELD.shorts[1] >> 14 : g_Vars.bondplayernum;
 				struct player *player = g_Vars.players[index];
-				if (player && player->targetsomething && player->targetsomething->chr) {
-					id = player->targetsomething->chr->chrnum;
+				if (player && player->targetpos && player->targetpos->chr) {
+					id = player->targetpos->chr->chrnum;
 				}
 			}
 			break;
 		case 0xf1:
 			if (g_Vars.coopplayernum >= 0) {
 				struct player *player = g_Vars.players[1 - ((u32)ref->BITFIELD.shorts[1] >> 14)];
-				if (player && player->targetsomething && player->targetsomething->chr) {
-					id = player->targetsomething->chr->chrnum;
+				if (player && player->targetpos && player->targetpos->chr) {
+					id = player->targetpos->chr->chrnum;
 				}
 			}
 			break;
 		case 0xf6:
 			{
-				struct targetsomething *target = chrGetTargetSomething(ref);
+				struct position *target = chrGetTargetPosition(ref);
 				if ((target->unk00 == 3 || target->unk00 == 6) && target->chr) {
 					id = target->chr->chrnum;
 				}
@@ -84374,33 +84364,33 @@ s32 chrResolveId(struct chrdata *ref, s32 id)
 	} else { // ref is NULL
 		switch (id) {
 		case 0xf8:
-			if (g_Vars.bond && g_Vars.bond->targetsomething && g_Vars.bond->targetsomething->chr) {
-				id = g_Vars.bond->targetsomething->chr->chrnum;
+			if (g_Vars.bond && g_Vars.bond->targetpos && g_Vars.bond->targetpos->chr) {
+				id = g_Vars.bond->targetpos->chr->chrnum;
 			}
 			break;
 		case 0xf5:
-			if (g_Vars.coop && g_Vars.coop->targetsomething && g_Vars.coop->targetsomething->chr) {
-				id = g_Vars.coop->targetsomething->chr->chrnum;
+			if (g_Vars.coop && g_Vars.coop->targetpos && g_Vars.coop->targetpos->chr) {
+				id = g_Vars.coop->targetpos->chr->chrnum;
 			}
 			break;
 		case 0xf4:
-			if (g_Vars.anti && g_Vars.anti->targetsomething && g_Vars.anti->targetsomething->chr) {
-				id = g_Vars.anti->targetsomething->chr->chrnum;
+			if (g_Vars.anti && g_Vars.anti->targetpos && g_Vars.anti->targetpos->chr) {
+				id = g_Vars.anti->targetpos->chr->chrnum;
 			}
 			break;
 		case 0xf2: // P1/P2
 			{
 				struct player *player = g_Vars.players[g_Vars.bondplayernum];
-				if (player && player->targetsomething && player->targetsomething->chr) {
-					id = player->targetsomething->chr->chrnum;
+				if (player && player->targetpos && player->targetpos->chr) {
+					id = player->targetpos->chr->chrnum;
 				}
 			}
 			break;
 		case 0xf1: // P1/P2 inverse?
 			if (g_Vars.coopplayernum >= 0) {
 				struct player *player = g_Vars.players[g_Vars.coopplayernum];
-				if (player && player->targetsomething && player->targetsomething->chr) {
-					id = player->targetsomething->chr->chrnum;
+				if (player && player->targetpos && player->targetpos->chr) {
+					id = player->targetpos->chr->chrnum;
 				}
 			}
 			break;
@@ -84565,7 +84555,7 @@ glabel func0f049d34
 /*  f049d34:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f049d38:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f049d3c:	afa40080 */ 	sw	$a0,0x80($sp)
-/*  f049d40:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f049d40:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f049d44:	afa50084 */ 	sw	$a1,0x84($sp)
 /*  f049d48:	44801000 */ 	mtc1	$zero,$f2
 /*  f049d4c:	8fa40080 */ 	lw	$a0,0x80($sp)
@@ -84705,7 +84695,7 @@ GLOBAL_ASM(
 glabel func0f049fcc
 /*  f049fcc:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f049fd0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f049fd4:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f049fd4:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f049fd8:	afa40058 */ 	sw	$a0,0x58($sp)
 /*  f049fdc:	1040003c */ 	beqz	$v0,.L0f04a0d0
 /*  f049fe0:	00401825 */ 	or	$v1,$v0,$zero
@@ -85097,7 +85087,7 @@ glabel func0f04a4ec
 .L0f04a520:
 /*  f04a520:	8e30001c */ 	lw	$s0,0x1c($s1)
 /*  f04a524:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f04a528:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04a528:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04a52c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f04a530:	26040008 */ 	addiu	$a0,$s0,0x8
 /*  f04a534:	26050028 */ 	addiu	$a1,$s0,0x28
@@ -85208,7 +85198,7 @@ glabel func0f04a674
 .L0f04a6b4:
 /*  f04a6b4:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f04a6b8:	a3a5002f */ 	sb	$a1,0x2f($sp)
-/*  f04a6bc:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04a6bc:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04a6c0:	e7a20024 */ 	swc1	$f2,0x24($sp)
 /*  f04a6c4:	90430000 */ 	lbu	$v1,0x0($v0)
 /*  f04a6c8:	24010006 */ 	addiu	$at,$zero,0x6
@@ -85671,7 +85661,7 @@ glabel func0f04ad08
 /*  f04ad20:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f04ad24:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f04ad28:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04ad2c:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04ad2c:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04ad30:	afa400d8 */ 	sw	$a0,0xd8($sp)
 /*  f04ad34:	904f0000 */ 	lbu	$t7,0x0($v0)
 /*  f04ad38:	8fae00d8 */ 	lw	$t6,0xd8($sp)
@@ -86330,7 +86320,7 @@ glabel func0f04b658
 /*  f04b664:	afa0002c */ 	sw	$zero,0x2c($sp)
 /*  f04b668:	8c8e001c */ 	lw	$t6,0x1c($a0)
 /*  f04b66c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f04b670:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04b670:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04b674:	afae0028 */ 	sw	$t6,0x28($sp)
 /*  f04b678:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f04b67c:	860f012c */ 	lh	$t7,0x12c($s0)
@@ -86548,7 +86538,7 @@ glabel func0f04b950
 /*  f04b990:	10000024 */ 	beqz	$zero,.L0f04ba24
 /*  f04b994:	00001025 */ 	or	$v0,$zero,$zero
 .L0f04b998:
-/*  f04b998:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04b998:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04b99c:	8fa40040 */ 	lw	$a0,0x40($sp)
 /*  f04b9a0:	14400003 */ 	bnez	$v0,.L0f04b9b0
 /*  f04b9a4:	00401825 */ 	or	$v1,$v0,$zero
@@ -86614,7 +86604,7 @@ glabel func0f04ba34
 /*  f04ba70:	a7a500be */ 	sh	$a1,0xbe($sp)
 /*  f04ba74:	afa20078 */ 	sw	$v0,0x78($sp)
 /*  f04ba78:	0000f025 */ 	or	$s8,$zero,$zero
-/*  f04ba7c:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04ba7c:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04ba80:	02802025 */ 	or	$a0,$s4,$zero
 /*  f04ba84:	8e8f001c */ 	lw	$t7,0x1c($s4)
 /*  f04ba88:	3c01432a */ 	lui	$at,0x432a
@@ -87321,7 +87311,7 @@ glabel func0f04c444
 /*  f04c44c:	8c8e001c */ 	lw	$t6,0x1c($a0)
 /*  f04c450:	51c00048 */ 	beqzl	$t6,.L0f04c574
 /*  f04c454:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04c458:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04c458:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04c45c:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f04c460:	10400043 */ 	beqz	$v0,.L0f04c570
 /*  f04c464:	8fa40018 */ 	lw	$a0,0x18($sp)
@@ -87494,7 +87484,7 @@ glabel func0f04c6b4
 /*  f04c6b4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f04c6b8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f04c6bc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f04c6c0:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04c6c0:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04c6c4:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f04c6c8:	8fae0020 */ 	lw	$t6,0x20($sp)
 /*  f04c6cc:	8faf0024 */ 	lw	$t7,0x24($sp)
@@ -87525,7 +87515,7 @@ glabel func0f04c71c
 /*  f04c71c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f04c720:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f04c724:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f04c728:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04c728:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04c72c:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f04c730:	8fae0020 */ 	lw	$t6,0x20($sp)
 /*  f04c734:	8faf0024 */ 	lw	$t7,0x24($sp)
@@ -87557,7 +87547,7 @@ glabel func0f04c784
 /*  f04c788:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f04c78c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f04c790:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f04c794:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04c794:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04c798:	e7b00024 */ 	swc1	$f16,0x24($sp)
 /*  f04c79c:	90430000 */ 	lbu	$v1,0x0($v0)
 /*  f04c7a0:	24010003 */ 	addiu	$at,$zero,0x3
@@ -87641,7 +87631,7 @@ glabel func0f04c874
 /*  f04c8bc:	f7b80038 */ 	sdc1	$f24,0x38($sp)
 /*  f04c8c0:	f7b60030 */ 	sdc1	$f22,0x30($sp)
 /*  f04c8c4:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f04c8c8:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04c8c8:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04c8cc:	afa700f4 */ 	sw	$a3,0xf4($sp)
 /*  f04c8d0:	4480d000 */ 	mtc1	$zero,$f26
 /*  f04c8d4:	00408825 */ 	or	$s1,$v0,$zero
@@ -88193,7 +88183,7 @@ glabel func0f04d000
 /*  f04d04c:	8de8001c */ 	lw	$t0,0x1c($t7)
 /*  f04d050:	8de10018 */ 	lw	$at,0x18($t7)
 /*  f04d054:	adc8001c */ 	sw	$t0,0x1c($t6)
-/*  f04d058:	0fc0a221 */ 	jal	chrGetTargetSomething
+/*  f04d058:	0fc0a221 */ 	jal	chrGetTargetPosition
 /*  f04d05c:	adc10018 */ 	sw	$at,0x18($t6)
 /*  f04d060:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04d064:	0fc122a1 */ 	jal	func0f048a84
