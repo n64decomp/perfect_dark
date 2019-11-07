@@ -2100,54 +2100,19 @@ bool ai0052(void)
 /**
  * @cmd 0053
  */
-GLOBAL_ASM(
-glabel ai0053
-/*  f050ab8:	3c03800a */ 	lui	$v1,0x800a
-/*  f050abc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f050ac0:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f050ac4:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f050ac8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f050acc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f050ad0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f050ad4:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f050ad8:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f050adc:	3c014120 */ 	lui	$at,0x4120
-/*  f050ae0:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f050ae4:	03284825 */ 	or	$t1,$t9,$t0
-/*  f050ae8:	44892000 */ 	mtc1	$t1,$f4
-/*  f050aec:	44814000 */ 	mtc1	$at,$f8
-/*  f050af0:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f050af4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f050af8:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f050afc:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f050b00:	0fc12472 */ 	jal	func0f0491c8
-/*  f050b04:	e7aa0018 */ 	swc1	$f10,0x18($sp)
-/*  f050b08:	c7b00018 */ 	lwc1	$f16,0x18($sp)
-/*  f050b0c:	3c03800a */ 	lui	$v1,0x800a
-/*  f050b10:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f050b14:	4600803c */ 	c.lt.s	$f16,$f0
-/*  f050b18:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f050b1c:	4502000a */ 	bc1fl	.L0f050b48
-/*  f050b20:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f050b24:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f050b28:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f050b2c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f050b30:	90460004 */ 	lbu	$a2,0x4($v0)
-/*  f050b34:	3c03800a */ 	lui	$v1,0x800a
-/*  f050b38:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f050b3c:	10000004 */ 	beqz	$zero,.L0f050b50
-/*  f050b40:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f050b44:	8c6a0438 */ 	lw	$t2,0x438($v1)
-.L0f050b48:
-/*  f050b48:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f050b4c:	ac6b0438 */ 	sw	$t3,0x438($v1)
-.L0f050b50:
-/*  f050b50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f050b54:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f050b58:	00001025 */ 	or	$v0,$zero,$zero
-/*  f050b5c:	03e00008 */ 	jr	$ra
-/*  f050b60:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai0053(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	float distance = (cmd[3] | (cmd[2] << 8)) * (float)10;
+
+	if (func0f0491c8(g_Vars.chrdata) > distance) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0054
