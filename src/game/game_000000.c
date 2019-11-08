@@ -38389,7 +38389,7 @@ glabel func0f020f90
 /*  f020fec:	25290001 */ 	addiu	$t1,$t1,0x1
 /*  f020ff0:	8465012a */ 	lh	$a1,0x12a($v1)
 /*  f020ff4:	afa9002c */ 	sw	$t1,0x2c($sp)
-/*  f020ff8:	0fc12705 */ 	jal	func0f049c14
+/*  f020ff8:	0fc12705 */ 	jal	positionGetIndexByChrId
 /*  f020ffc:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f021000:	3c068006 */ 	lui	$a2,0x8006
 /*  f021004:	24c62988 */ 	addiu	$a2,$a2,0x2988
@@ -84323,7 +84323,7 @@ glabel chrFindById
 );
 
 GLOBAL_ASM(
-glabel func0f049c14
+glabel positionGetIndexByChrId
 /*  f049c14:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f049c18:	240200f8 */ 	addiu	$v0,$zero,0xf8
 /*  f049c1c:	10a20003 */ 	beq	$a1,$v0,.L0f049c2c

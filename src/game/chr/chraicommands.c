@@ -9536,7 +9536,7 @@ glabel ai0106
 /*  f058c6c:	90580004 */ 	lbu	$t8,0x4($v0)
 /*  f058c70:	57000009 */ 	bnezl	$t8,.L0f058c98
 /*  f058c74:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f058c78:	0fc12705 */ 	jal	func0f049c14
+/*  f058c78:	0fc12705 */ 	jal	positionGetIndexByChrId
 /*  f058c7c:	90450002 */ 	lbu	$a1,0x2($v0)
 /*  f058c80:	3c06800a */ 	lui	$a2,0x800a
 /*  f058c84:	24c69fc0 */ 	addiu	$a2,$a2,-24640
@@ -9608,7 +9608,7 @@ bool aiIfPresetsTargetIsNotMyTarget(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (g_Vars.chrdata->chrpreset1 != -1) {
-		mypresetchrstarget = func0f049c14(g_Vars.chrdata, g_Vars.chrdata->chrpreset1);
+		mypresetchrstarget = positionGetIndexByChrId(g_Vars.chrdata, g_Vars.chrdata->chrpreset1);
 	}
 
 	if (g_Vars.chrdata->target != -1 && mypresetchrstarget != g_Vars.chrdata->target) {
@@ -10411,7 +10411,7 @@ glabel ai0127
 /*  f059b1c:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f059b20:	1281000c */ 	beq	$s4,$at,.L0f059b54
 /*  f059b24:	02802825 */ 	or	$a1,$s4,$zero
-/*  f059b28:	0fc12705 */ 	jal	func0f049c14
+/*  f059b28:	0fc12705 */ 	jal	positionGetIndexByChrId
 /*  f059b2c:	8e440424 */ 	lw	$a0,0x424($s2)
 /*  f059b30:	8e490424 */ 	lw	$t1,0x424($s2)
 /*  f059b34:	a522017e */ 	sh	$v0,0x17e($t1)
@@ -10595,7 +10595,7 @@ glabel ai0128
 /*  f059dc8:	86350000 */ 	lh	$s5,0x0($s1)
 /*  f059dcc:	8612017e */ 	lh	$s2,0x17e($s0)
 .L0f059dd0:
-/*  f059dd0:	0fc12705 */ 	jal	func0f049c14
+/*  f059dd0:	0fc12705 */ 	jal	positionGetIndexByChrId
 /*  f059dd4:	86250000 */ 	lh	$a1,0x0($s1)
 /*  f059dd8:	8e680424 */ 	lw	$t0,0x424($s3)
 /*  f059ddc:	a502017e */ 	sh	$v0,0x17e($t0)
@@ -10634,7 +10634,7 @@ glabel ai0128
 /*  f059e4c:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f059e50:	12a1000c */ 	beq	$s5,$at,.L0f059e84
 /*  f059e54:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f059e58:	0fc12705 */ 	jal	func0f049c14
+/*  f059e58:	0fc12705 */ 	jal	positionGetIndexByChrId
 /*  f059e5c:	8e640424 */ 	lw	$a0,0x424($s3)
 /*  f059e60:	8e6f0424 */ 	lw	$t7,0x424($s3)
 /*  f059e64:	a5e2017e */ 	sh	$v0,0x17e($t7)
@@ -13989,7 +13989,7 @@ glabel ai0187
 /*  f05d14c:	ae090438 */ 	sw	$t1,0x438($s0)
 /*  f05d150:	8c6c0000 */ 	lw	$t4,0x0($v1)
 /*  f05d154:	8d820004 */ 	lw	$v0,0x4($t4)
-/*  f05d158:	0fc12705 */ 	jal	func0f049c14
+/*  f05d158:	0fc12705 */ 	jal	positionGetIndexByChrId
 /*  f05d15c:	84450000 */ 	lh	$a1,0x0($v0)
 /*  f05d160:	8e0d0424 */ 	lw	$t5,0x424($s0)
 /*  f05d164:	a5a2017e */ 	sh	$v0,0x17e($t5)
