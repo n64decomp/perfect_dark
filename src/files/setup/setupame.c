@@ -1582,9 +1582,9 @@ u8 func0414_programmer[] = {
 	// Wait until Jo or Velvet near his office
 	beginloop(0x91)
 		set_target_chr(CHR_BOND)
-		if_chr_distance_to_pad_lt2(CHR_TARGET, 0x0050, 1240, /*goto*/ 0x06)
+		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 0x0050, 1240, /*goto*/ 0x06)
 		set_target_chr(CHR_COOP)
-		if_chr_distance_to_pad_lt2(CHR_TARGET, 0x0050, 1240, /*goto*/ 0x06)
+		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 0x0050, 1240, /*goto*/ 0x06)
 	endloop(0x91)
 
 	// Phone ringing
@@ -1594,9 +1594,9 @@ u8 func0414_programmer[] = {
 	// Wait until Jo or Velvet is close to his door
 	beginloop(0x92)
 		set_target_chr(CHR_BOND)
-		if_chr_distance_to_pad_lt2(CHR_TARGET, 0x0014, 1240, /*goto*/ 0x06)
+		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 0x0014, 1240, /*goto*/ 0x06)
 		set_target_chr(CHR_COOP)
-		if_chr_distance_to_pad_lt2(CHR_TARGET, 0x0014, 1240, /*goto*/ 0x06)
+		if_chr_same_floor_distance_to_pad_lt(CHR_TARGET, 0x0014, 1240, /*goto*/ 0x06)
 	endloop(0x92)
 
 	label(0x06)

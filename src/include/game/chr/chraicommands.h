@@ -442,7 +442,7 @@
 /*0x01dc*/ bool aiRemoveWeaponFromInventory(void);
 /*0x01dd*/ bool ai01dd(void);
 /*0x01de*/ bool ai01de(void);
-/*0x01df*/ bool ai01df(void);
+/*0x01df*/ bool aiIfChrSameFloorDistanceToPadLessThan(void);
 /*0x01e0*/ bool ai01e0(void);
 
 #endif

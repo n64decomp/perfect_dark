@@ -1913,7 +1913,7 @@
 	u1, \
 	label,
 
-#define if_chr_distance_to_pad_lt2(chr, pad, distance, label) \
+#define if_chr_same_floor_distance_to_pad_lt(chr, pad, distance, label) \
 	mkshort(0x01df), \
 	chr, \
 	mkshort(pad), \

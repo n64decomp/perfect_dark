@@ -2189,7 +2189,7 @@ glabel aiIfChrDistanceToPadLessThan
  * @cmd 01df
  */
 GLOBAL_ASM(
-glabel ai01df
+glabel aiIfChrSameFloorDistanceToPadLessThan
 /*  f050c54:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f050c58:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f050c5c:	3c10800a */ 	lui	$s0,0x800a
