@@ -2330,55 +2330,19 @@ glabel aiIfChrDistanceToPadGreaterThan
 /**
  * @cmd 0056
  */
-GLOBAL_ASM(
-glabel ai0056
-/*  f050e38:	3c03800a */ 	lui	$v1,0x800a
-/*  f050e3c:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f050e40:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f050e44:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f050e48:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f050e4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f050e50:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f050e54:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f050e58:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f050e5c:	3c014120 */ 	lui	$at,0x4120
-/*  f050e60:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f050e64:	03284825 */ 	or	$t1,$t9,$t0
-/*  f050e68:	44892000 */ 	mtc1	$t1,$f4
-/*  f050e6c:	44814000 */ 	mtc1	$at,$f8
-/*  f050e70:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f050e74:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f050e78:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f050e7c:	e7aa0018 */ 	swc1	$f10,0x18($sp)
-/*  f050e80:	90450004 */ 	lbu	$a1,0x4($v0)
-/*  f050e84:	0fc1272c */ 	jal	chrGetDistanceToChr
-/*  f050e88:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f050e8c:	c7b00018 */ 	lwc1	$f16,0x18($sp)
-/*  f050e90:	3c03800a */ 	lui	$v1,0x800a
-/*  f050e94:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f050e98:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f050e9c:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f050ea0:	4502000a */ 	bc1fl	.L0f050ecc
-/*  f050ea4:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f050ea8:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f050eac:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f050eb0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f050eb4:	90460005 */ 	lbu	$a2,0x5($v0)
-/*  f050eb8:	3c03800a */ 	lui	$v1,0x800a
-/*  f050ebc:	24639fc0 */ 	addiu	$v1,$v1,-24640
-/*  f050ec0:	10000004 */ 	beqz	$zero,.L0f050ed4
-/*  f050ec4:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f050ec8:	8c6a0438 */ 	lw	$t2,0x438($v1)
-.L0f050ecc:
-/*  f050ecc:	254b0006 */ 	addiu	$t3,$t2,0x6
-/*  f050ed0:	ac6b0438 */ 	sw	$t3,0x438($v1)
-.L0f050ed4:
-/*  f050ed4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f050ed8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f050edc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f050ee0:	03e00008 */ 	jr	$ra
-/*  f050ee4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfDistanceToChrLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	float cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
+
+	if (chrGetDistanceToChr(g_Vars.chrdata, cmd[4]) < cutoff) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	} else {
+		g_Vars.aioffset += 6;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0057

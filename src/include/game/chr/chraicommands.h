@@ -89,7 +89,7 @@
 /*0x0053*/ bool aiIfDistanceToTargetGreaterThan(void);
 /*0x0054*/ bool aiIfChrDistanceToPadLessThan(void);
 /*0x0055*/ bool aiIfChrDistanceToPadGreaterThan(void);
-/*0x0056*/ bool ai0056(void);
+/*0x0056*/ bool aiIfDistanceToChrLessThan(void);
 /*0x0057*/ bool ai0057(void);
 /*0x0058*/ bool ai0058(void);
 /*0x0059*/ bool ai0059(void);
