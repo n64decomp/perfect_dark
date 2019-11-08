@@ -14048,7 +14048,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x005c*/ aiIfTargetInRoom,
 	/*0x005d*/ aiIfChrHasObject,
 	/*0x005e*/ aiIfWeaponThrown,
-	/*0x005f*/ ai005f,
+	/*0x005f*/ aiIfWeaponThrownOnObject,
 	/*0x0060*/ ai0060,
 	/*0x0061*/ ai0061,
 	/*0x0062*/ aiIfObjectHealthy,

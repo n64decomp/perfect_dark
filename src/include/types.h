@@ -11,6 +11,20 @@ struct coord {
 	float z;
 };
 
+struct weaponobj;
+
+struct attachment {
+	u8 type;
+	struct weaponobj *weapon;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	struct attachment *next;
+};
+
 // This might be a pad, but given that chrs have a gunground pointer to this
 // struct, I think it's more likely an ad hoc coordinate that can be created as
 // needed during gameplay.
@@ -22,7 +36,7 @@ struct position {
 	struct coord coord;
 	u32 unk14;
 	u32 unk18; // related to gun recovery
-	u32 unk1c;
+	struct attachment *attachments;
 	u32 unk20;
 	u32 unk24;
 	s16 room;

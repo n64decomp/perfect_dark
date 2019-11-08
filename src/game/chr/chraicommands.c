@@ -2805,7 +2805,7 @@ bool aiIfWeaponThrown(void)
  * @cmd 005f
  */
 GLOBAL_ASM(
-glabel ai005f
+glabel aiIfWeaponThrownOnObject
 /*  f05167c:	3c08800a */ 	lui	$t0,0x800a
 /*  f051680:	25089fc0 */ 	addiu	$t0,$t0,-24640
 /*  f051684:	8d0e0434 */ 	lw	$t6,0x434($t0)
@@ -2864,6 +2864,34 @@ glabel ai005f
 /*  f051744:	03e00008 */ 	jr	$ra
 /*  f051748:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch due to different registers
+//bool aiIfWeaponThrownOnObject(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct defaultobj *obj = objFindByTagId(cmd[3]);
+//	bool pass = false;
+//
+//	if (obj && obj->pos) {
+//		struct attachment *attachment = obj->pos->attachments;
+//
+//		while (attachment) {
+//			if (attachment->type == ATTACHMENTTYPE_WEAPON && attachment->weapon->weapon_id == cmd[2]) {
+//				pass = true;
+//			}
+//
+//			attachment = attachment->next;
+//		}
+//	}
+//
+//	if (pass) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+//	} else {
+//		g_Vars.aioffset += 5;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 0060
