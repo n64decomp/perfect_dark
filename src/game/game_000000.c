@@ -83896,7 +83896,7 @@ float chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
 }
 
 GLOBAL_ASM(
-glabel func0f049380
+glabel chrGetSameFloorDistanceToPad
 /*  f049380:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f049384:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f049388:	8c83001c */ 	lw	$v1,0x1c($a0)
