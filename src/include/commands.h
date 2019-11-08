@@ -372,6 +372,12 @@
 	mkshort(pad), \
 	label,
 
+#define if_distance_from_target_to_pad_gt(distance, pad, label) \
+	mkshort(0x005a), \
+	mkshort(distance / 10), \
+	mkshort(pad), \
+	label,
+
 // type 0 = if <chr> in <room>
 // type 1 = if <chr> in same room as self
 // type 2 = if <chr>'s camspy in <room>

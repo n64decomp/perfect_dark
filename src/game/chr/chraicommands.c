@@ -2439,7 +2439,7 @@ glabel aiIfDistanceFromTargetToPadLessThan
  * @cmd 005a
  */
 GLOBAL_ASM(
-glabel ai005a
+glabel aiIfDistanceFromTargetToPadGreaterThan
 /*  f0510fc:	3c03800a */ 	lui	$v1,0x800a
 /*  f051100:	24639fc0 */ 	addiu	$v1,$v1,-24640
 /*  f051104:	8c6e0434 */ 	lw	$t6,0x434($v1)
