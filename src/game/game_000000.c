@@ -77975,7 +77975,7 @@ glabel func0f043da8
 .L0f043e5c:
 /*  f043e5c:	10800019 */ 	beqz	$a0,.L0f043ec4
 /*  f043e60:	24650008 */ 	addiu	$a1,$v1,0x8
-/*  f043e64:	0fc12555 */ 	jal	func0f049554
+/*  f043e64:	0fc12555 */ 	jal	chrGetSquaredDistanceToCoord
 /*  f043e68:	02402025 */ 	or	$a0,$s2,$zero
 /*  f043e6c:	4614003c */ 	c.lt.s	$f0,$f20
 /*  f043e70:	00000000 */ 	sll	$zero,$zero,0x0
@@ -83983,25 +83983,14 @@ float chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
 	return distance;
 }
 
-GLOBAL_ASM(
-glabel func0f049554
-/*  f049554:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f049558:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f04955c:	c4a80004 */ 	lwc1	$f8,0x4($a1)
-/*  f049560:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f049564:	c44a000c */ 	lwc1	$f10,0xc($v0)
-/*  f049568:	c4b00008 */ 	lwc1	$f16,0x8($a1)
-/*  f04956c:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f049570:	c4520010 */ 	lwc1	$f18,0x10($v0)
-/*  f049574:	460a4301 */ 	sub.s	$f12,$f8,$f10
-/*  f049578:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f04957c:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f049580:	460c6182 */ 	mul.s	$f6,$f12,$f12
-/*  f049584:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f049588:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f04958c:	03e00008 */ 	jr	$ra
-/*  f049590:	460a4000 */ 	add.s	$f0,$f8,$f10
-);
+float chrGetSquaredDistanceToCoord(struct chrdata *chr, struct coord *coord)
+{
+	float xdiff = coord->x - chr->pos->coord.x;
+	float ydiff = coord->y - chr->pos->coord.y;
+	float zdiff = coord->z - chr->pos->coord.z;
+
+	return xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+}
 
 GLOBAL_ASM(
 glabel func0f049594
@@ -86663,7 +86652,7 @@ glabel func0f04ba34
 /*  f04bcd0:	11c00006 */ 	beqz	$t6,.L0f04bcec
 /*  f04bcd4:	322f0008 */ 	andi	$t7,$s1,0x8
 /*  f04bcd8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f04bcdc:	0fc12555 */ 	jal	func0f049554
+/*  f04bcdc:	0fc12555 */ 	jal	chrGetSquaredDistanceToCoord
 /*  f04bce0:	8fa50098 */ 	lw	$a1,0x98($sp)
 /*  f04bce4:	10000021 */ 	beqz	$zero,.L0f04bd6c
 /*  f04bce8:	46000306 */ 	mov.s	$f12,$f0
