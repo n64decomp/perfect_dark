@@ -2118,7 +2118,7 @@ bool aiIfDistanceToTargetGreaterThan(void)
  * @cmd 0054
  */
 GLOBAL_ASM(
-glabel ai0054
+glabel aiIfChrDistanceToPadLessThan
 /*  f050b64:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f050b68:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f050b6c:	3c10800a */ 	lui	$s0,0x800a
