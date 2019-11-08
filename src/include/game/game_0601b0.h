@@ -400,5 +400,6 @@ u32 func0f1a78b0(void);
 
 void countdownTimerSetValue(float frames);
 float countdownTimerGetValue(void);
+void padUnpack(s32 pad_id, u32 flags, struct pad *dst);
 
 #endif

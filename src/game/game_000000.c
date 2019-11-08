@@ -83965,41 +83965,23 @@ float chrGetLateralDistanceToCoord(struct chrdata *chr, struct coord *coord)
 	return sqrtf(xdiff * xdiff + zdiff * zdiff);
 }
 
-GLOBAL_ASM(
-glabel func0f0494d8
-/*  f0494d8:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f0494dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0494e0:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f0494e4:	44801000 */ 	mtc1	$zero,$f2
-/*  f0494e8:	afae007c */ 	sw	$t6,0x7c($sp)
-/*  f0494ec:	0fc1258b */ 	jal	padResolve
-/*  f0494f0:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f0494f4:	04400012 */ 	bltz	$v0,.L0f049540
-/*  f0494f8:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f0494fc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f049500:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f049504:	0fc456ac */ 	jal	padUnpack
-/*  f049508:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f04950c:	8fa2007c */ 	lw	$v0,0x7c($sp)
-/*  f049510:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f049514:	c7a80028 */ 	lwc1	$f8,0x28($sp)
-/*  f049518:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f04951c:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f049520:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f049524:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f049528:	46000402 */ 	mul.s	$f16,$f0,$f0
-/*  f04952c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f049530:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f049534:	0c012974 */ 	jal	sqrtf
-/*  f049538:	46128300 */ 	add.s	$f12,$f16,$f18
-/*  f04953c:	46000086 */ 	mov.s	$f2,$f0
-.L0f049540:
-/*  f049540:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049544:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f049548:	46001006 */ 	mov.s	$f0,$f2
-/*  f04954c:	03e00008 */ 	jr	$ra
-/*  f049550:	00000000 */ 	sll	$zero,$zero,0x0
-);
+float chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
+{
+	struct position *pos = chr->pos;
+	float xdiff, zdiff;
+	struct pad pad;
+	float distance = 0;
+	pad_id = padResolve(chr, pad_id);
+
+	if (pad_id >= 0) {
+		padUnpack(pad_id, 2, &pad);
+		xdiff = pad.coord.x - pos->coord.x;
+		zdiff = pad.coord.z - pos->coord.z;
+		distance = sqrtf(xdiff * xdiff + zdiff * zdiff);
+	}
+
+	return distance;
+}
 
 GLOBAL_ASM(
 glabel func0f049554
