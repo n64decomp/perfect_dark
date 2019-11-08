@@ -2693,7 +2693,7 @@ glabel ai005b
  * @cmd 005c
  */
 GLOBAL_ASM(
-glabel ai005c
+glabel aiIfTargetInRoom
 /*  f051468:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f05146c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f051470:	3c10800a */ 	lui	$s0,0x800a
@@ -2740,6 +2740,23 @@ glabel ai005c
 /*  f051508:	03e00008 */ 	jr	$ra
 /*  f05150c:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+// Mismatch due to different temporary registers
+//bool aiIfTargetInRoom(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct position *pos = chrGetTargetPosition(g_Vars.chrdata);
+//	s32 room_id = cmd[3] | (cmd[2] << 8);
+//	room_id = func0f0495d0(g_Vars.chrdata, room_id & 0xffff);
+//
+//	if (room_id >= 0 && pos && room_id == pos->room) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+//	} else {
+//		g_Vars.aioffset += 5;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 005d

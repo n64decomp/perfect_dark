@@ -388,6 +388,11 @@
 	mkshort(room), \
 	label,
 
+#define if_target_in_room(room, label) \
+	mkshort(0x005c), \
+	mkshort(room), \
+	label
+
 #define if_chr_has_object(chr, object, label) \
 	mkshort(0x005d), \
 	chr, \

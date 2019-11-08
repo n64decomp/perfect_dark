@@ -95,7 +95,7 @@
 /*0x0059*/ bool aiIfDistanceFromTargetToPadLessThan(void);
 /*0x005a*/ bool aiIfDistanceFromTargetToPadGreaterThan(void);
 /*0x005b*/ bool ai005b(void);
-/*0x005c*/ bool ai005c(void);
+/*0x005c*/ bool aiIfTargetInRoom(void);
 /*0x005d*/ bool aiIfChrHasObject(void);
 /*0x005e*/ bool aiIfWeaponThrown(void);
 /*0x005f*/ bool ai005f(void);
