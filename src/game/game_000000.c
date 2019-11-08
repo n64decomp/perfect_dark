@@ -83992,24 +83992,14 @@ float chrGetSquaredDistanceToCoord(struct chrdata *chr, struct coord *coord)
 	return xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 }
 
-GLOBAL_ASM(
-glabel func0f049594
-/*  f049594:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f049598:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*  f04959c:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f0495a0:	c4aa0004 */ 	lwc1	$f10,0x4($a1)
-/*  f0495a4:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f0495a8:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f0495ac:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*  f0495b0:	460a4301 */ 	sub.s	$f12,$f8,$f10
-/*  f0495b4:	46021102 */ 	mul.s	$f4,$f2,$f2
-/*  f0495b8:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f0495bc:	460c6182 */ 	mul.s	$f6,$f12,$f12
-/*  f0495c0:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0495c4:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f0495c8:	03e00008 */ 	jr	$ra
-/*  f0495cc:	460a4000 */ 	add.s	$f0,$f8,$f10
-);
+float coordGetSquaredDistanceToCoord(struct coord *a, struct coord *b)
+{
+	float xdiff = a->x - b->x;
+	float ydiff = a->y - b->y;
+	float zdiff = a->z - b->z;
+
+	return xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
+}
 
 GLOBAL_ASM(
 glabel func0f0495d0
@@ -86660,7 +86650,7 @@ glabel func0f04ba34
 /*  f04bcec:	11e00006 */ 	beqz	$t7,.L0f04bd08
 /*  f04bcf0:	32384000 */ 	andi	$t8,$s1,0x4000
 /*  f04bcf4:	26c40008 */ 	addiu	$a0,$s6,0x8
-/*  f04bcf8:	0fc12565 */ 	jal	func0f049594
+/*  f04bcf8:	0fc12565 */ 	jal	coordGetSquaredDistanceToCoord
 /*  f04bcfc:	8fa50098 */ 	lw	$a1,0x98($sp)
 /*  f04bd00:	1000001a */ 	beqz	$zero,.L0f04bd6c
 /*  f04bd04:	46000306 */ 	mov.s	$f12,$f0
@@ -86668,7 +86658,7 @@ glabel func0f04ba34
 /*  f04bd08:	13000006 */ 	beqz	$t8,.L0f04bd24
 /*  f04bd0c:	8fa40058 */ 	lw	$a0,0x58($sp)
 /*  f04bd10:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f04bd14:	0fc12565 */ 	jal	func0f049594
+/*  f04bd14:	0fc12565 */ 	jal	coordGetSquaredDistanceToCoord
 /*  f04bd18:	8fa50098 */ 	lw	$a1,0x98($sp)
 /*  f04bd1c:	10000013 */ 	beqz	$zero,.L0f04bd6c
 /*  f04bd20:	46000306 */ 	mov.s	$f12,$f0
@@ -86959,7 +86949,7 @@ glabel func0f04bffc
 /*  f04c120:	262402c8 */ 	addiu	$a0,$s1,0x2c8
 /*  f04c124:	44945000 */ 	mtc1	$s4,$f10
 /*  f04c128:	8fa50064 */ 	lw	$a1,0x64($sp)
-/*  f04c12c:	0fc12565 */ 	jal	func0f049594
+/*  f04c12c:	0fc12565 */ 	jal	coordGetSquaredDistanceToCoord
 /*  f04c130:	46805520 */ 	cvt.s.w	$f20,$f10
 /*  f04c134:	4614003c */ 	c.lt.s	$f0,$f20
 /*  f04c138:	00000000 */ 	sll	$zero,$zero,0x0
