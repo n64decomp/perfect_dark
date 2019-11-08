@@ -15,6 +15,7 @@ u32 func0f000000(void);
 u32 func0f000090(void);
 u32 func0f000100(void);
 u32 func0f000130(void);
+bool func0f04a76c(struct chrdata *chr, float distance);
 u32 func0f000840(void);
 u32 func0f000850(void);
 u32 func0f000860(void);
