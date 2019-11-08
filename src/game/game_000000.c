@@ -83957,26 +83957,16 @@ float chrGetDistanceToCoord(struct chrdata *chr, struct coord *coord)
 	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 }
 
+float chrGetLateralDistanceToCoord(struct chrdata *chr, struct coord *coord)
+{
+	float xdiff = coord->x - chr->pos->coord.x;
+	float zdiff = coord->z - chr->pos->coord.z;
+
+	return sqrtf(xdiff * xdiff + zdiff * zdiff);
+}
+
 GLOBAL_ASM(
-glabel func0f049490
-/*  f049490:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f049494:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049498:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f04949c:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f0494a0:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*  f0494a4:	c4460008 */ 	lwc1	$f6,0x8($v0)
-/*  f0494a8:	c44a0010 */ 	lwc1	$f10,0x10($v0)
-/*  f0494ac:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f0494b0:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f0494b4:	46000402 */ 	mul.s	$f16,$f0,$f0
-/*  f0494b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0494bc:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f0494c0:	0c012974 */ 	jal	sqrtf
-/*  f0494c4:	46128300 */ 	add.s	$f12,$f16,$f18
-/*  f0494c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0494cc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0494d0:	03e00008 */ 	jr	$ra
-/*  f0494d4:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f0494d8
 /*  f0494d8:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f0494dc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0494e0:	8c8e001c */ 	lw	$t6,0x1c($a0)
