@@ -85063,25 +85063,10 @@ bool func0f04a76c(struct chrdata *chr, float distance)
 	return func0f04a79c(0, chr, distance);
 }
 
-GLOBAL_ASM(
-glabel func0f04a79c
-/*  f04a79c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04a7a0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04a7a4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f04a7a8:	44866000 */ 	mtc1	$a2,$f12
-/*  f04a7ac:	8ca2001c */ 	lw	$v0,0x1c($a1)
-/*  f04a7b0:	308e00ff */ 	andi	$t6,$a0,0xff
-/*  f04a7b4:	44066000 */ 	mfc1	$a2,$f12
-/*  f04a7b8:	244f0028 */ 	addiu	$t7,$v0,0x28
-/*  f04a7bc:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f04a7c0:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f04a7c4:	0fc12a12 */ 	jal	func0f04a848
-/*  f04a7c8:	24470008 */ 	addiu	$a3,$v0,0x8
-/*  f04a7cc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04a7d0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f04a7d4:	03e00008 */ 	jr	$ra
-/*  f04a7d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f04a79c(u8 chrnum, struct chrdata *chr, float distance)
+{
+	return func0f04a848(chrnum, chr, distance, &chr->pos->coord, &chr->pos->room);
+}
 
 GLOBAL_ASM(
 glabel func0f04a7dc

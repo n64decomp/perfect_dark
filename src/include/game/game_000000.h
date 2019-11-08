@@ -17,6 +17,7 @@ u32 func0f000100(void);
 u32 func0f000130(void);
 bool func0f04a76c(struct chrdata *chr, float distance);
 bool func0f04a79c(u8 chrnum, struct chrdata *chr, float distance);
+bool func0f04a848(u8 chrnum, struct chrdata *chr, float distance, struct coord *coord, s16 *room);
 u32 func0f000840(void);
 u32 func0f000850(void);
 u32 func0f000860(void);
