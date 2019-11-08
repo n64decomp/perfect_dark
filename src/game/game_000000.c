@@ -53269,7 +53269,7 @@ glabel func0f02e370
 /*  f02e390:	30af0004 */ 	andi	$t7,$a1,0x4
 /*  f02e394:	11e00005 */ 	beqz	$t7,.L0f02e3ac
 /*  f02e398:	30b80008 */ 	andi	$t8,$a1,0x8
-/*  f02e39c:	0fc1272c */ 	jal	func0f049cb0
+/*  f02e39c:	0fc1272c */ 	jal	chrGetDistanceToChr
 /*  f02e3a0:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f02e3a4:	1000000a */ 	beqz	$zero,.L0f02e3d0
 /*  f02e3a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -84369,44 +84369,21 @@ glabel positionGetIndexByChrId
 /*  f049cac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f049cb0
-/*  f049cb0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f049cb4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049cb8:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f049cbc:	0fc126d1 */ 	jal	chrFindById
-/*  f049cc0:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f049cc4:	44801000 */ 	mtc1	$zero,$f2
-/*  f049cc8:	10400015 */ 	beqz	$v0,.L0f049d20
-/*  f049ccc:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f049cd0:	8c4e001c */ 	lw	$t6,0x1c($v0)
-/*  f049cd4:	51c00013 */ 	beqzl	$t6,.L0f049d24
-/*  f049cd8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049cdc:	8c42001c */ 	lw	$v0,0x1c($v0)
-/*  f049ce0:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f049ce4:	c46a000c */ 	lwc1	$f10,0xc($v1)
-/*  f049ce8:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f049cec:	c448000c */ 	lwc1	$f8,0xc($v0)
-/*  f049cf0:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f049cf4:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f049cf8:	c4500010 */ 	lwc1	$f16,0x10($v0)
-/*  f049cfc:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f049d00:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f049d04:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f049d08:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f049d0c:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f049d10:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f049d14:	0c012974 */ 	jal	sqrtf
-/*  f049d18:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f049d1c:	46000086 */ 	mov.s	$f2,$f0
-.L0f049d20:
-/*  f049d20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f049d24:
-/*  f049d24:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f049d28:	46001006 */ 	mov.s	$f0,$f2
-/*  f049d2c:	03e00008 */ 	jr	$ra
-/*  f049d30:	00000000 */ 	sll	$zero,$zero,0x0
-);
+float chrGetDistanceToChr(struct chrdata *chr1, s32 chr2num)
+{
+	struct position *pos1 = chr1->pos;
+	struct chrdata *chr2 = chrFindById(chr1, chr2num);
+	float distance = 0.00000000;
+
+	if (chr2 && chr2->pos) {
+		float xdiff = chr2->pos->coord.x - pos1->coord.x;
+		float ydiff = chr2->pos->coord.y - pos1->coord.y;
+		float zdiff = chr2->pos->coord.z - pos1->coord.z;
+		distance = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+	}
+
+	return distance;
+}
 
 GLOBAL_ASM(
 glabel func0f049d34
