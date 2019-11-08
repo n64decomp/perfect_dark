@@ -2382,7 +2382,7 @@ bool ai0058(void)
  * @cmd 0059
  */
 GLOBAL_ASM(
-glabel ai0059
+glabel aiIfDistanceFromTargetToPadLessThan
 /*  f05103c:	3c03800a */ 	lui	$v1,0x800a
 /*  f051040:	24639fc0 */ 	addiu	$v1,$v1,-24640
 /*  f051044:	8c6e0434 */ 	lw	$t6,0x434($v1)

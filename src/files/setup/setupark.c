@@ -2637,7 +2637,7 @@ u8 func0413_defend_pad[] = {
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x21)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x21)
-		if_distance_to_pad_gt2(200, TARGET_PAD, /*goto*/ 0x22)
+		if_distance_from_target_to_pad_lt(200, TARGET_PAD, /*goto*/ 0x22)
 	endloop(0x1f)
 
 	label(0x21)

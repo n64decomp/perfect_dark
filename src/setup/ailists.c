@@ -1213,7 +1213,7 @@ u8 func0007_alerted[] = {
 		dprint 'W','A','I','T',' ','F','O','R',' ','A','M','B','\n',0,
 		if_in_disarm_range(/*goto*/ 0xa3)
 		dprint 'A','M','B','1','\n',0,
-		if_distance_to_pad_gt2(200, TARGET_PAD, /*goto*/ 0x13)
+		if_distance_from_target_to_pad_lt(200, TARGET_PAD, /*goto*/ 0x13)
 		dprint 'A','M','B','2','\n',0,
 		consider_coop_for_p1p2_chr(CHR_SELF)
 		set_target_chr(CHR_P1P2)

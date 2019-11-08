@@ -366,7 +366,7 @@
 	chr, \
 	label,
 
-#define if_distance_to_pad_gt2(distance, pad, label) \
+#define if_distance_from_target_to_pad_lt(distance, pad, label) \
 	mkshort(0x0059), \
 	mkshort(distance / 10), \
 	mkshort(pad), \
