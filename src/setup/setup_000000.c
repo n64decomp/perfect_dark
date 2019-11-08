@@ -14038,7 +14038,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0052*/ aiIfDistanceToTargetLessThan,
 	/*0x0053*/ aiIfDistanceToTargetGreaterThan,
 	/*0x0054*/ aiIfChrDistanceToPadLessThan,
-	/*0x0055*/ ai0055,
+	/*0x0055*/ aiIfChrDistanceToPadGreaterThan,
 	/*0x0056*/ ai0056,
 	/*0x0057*/ ai0057,
 	/*0x0058*/ ai0058,

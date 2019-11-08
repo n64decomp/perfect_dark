@@ -2258,7 +2258,7 @@ glabel aiIfChrSameFloorDistanceToPadLessThan
  * @cmd 0055
  */
 GLOBAL_ASM(
-glabel ai0055
+glabel aiIfChrDistanceToPadGreaterThan
 /*  f050d40:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f050d44:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f050d48:	3c10800a */ 	lui	$s0,0x800a
