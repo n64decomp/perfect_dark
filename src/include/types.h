@@ -47,7 +47,7 @@ struct pad {
 	/*0x3c*/ float ymax;
 	/*0x40*/ float zmin;
 	/*0x44*/ float zmax;
-	/*0x48*/ u32 flags;
+	/*0x48*/ s32 padnum;
 	/*0x4c*/ u32 unk4c;
 	/*0x50*/ u32 unk50;
 };

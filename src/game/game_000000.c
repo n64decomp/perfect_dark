@@ -84001,34 +84001,25 @@ float coordGetSquaredDistanceToCoord(struct coord *a, struct coord *b)
 	return xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 }
 
-GLOBAL_ASM(
-glabel func0f0495d0
-/*  f0495d0:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f0495d4:	28a12710 */ 	slti	$at,$a1,0x2710
-/*  f0495d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0495dc:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f0495e0:	1420000c */ 	bnez	$at,.L0f049614
-/*  f0495e4:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f0495e8:	24a5d8f0 */ 	addiu	$a1,$a1,-10000
-/*  f0495ec:	0fc1258b */ 	jal	padResolve
-/*  f0495f0:	afa30074 */ 	sw	$v1,0x74($sp)
-/*  f0495f4:	8fa30074 */ 	lw	$v1,0x74($sp)
-/*  f0495f8:	04400007 */ 	bltz	$v0,.L0f049618
-/*  f0495fc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f049600:	24050040 */ 	addiu	$a1,$zero,0x40
-/*  f049604:	0fc456ac */ 	jal	padUnpack
-/*  f049608:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*  f04960c:	10000002 */ 	beqz	$zero,.L0f049618
-/*  f049610:	8fa30064 */ 	lw	$v1,0x64($sp)
-.L0f049614:
-/*  f049614:	00c01825 */ 	or	$v1,$a2,$zero
-.L0f049618:
-/*  f049618:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04961c:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f049620:	00601025 */ 	or	$v0,$v1,$zero
-/*  f049624:	03e00008 */ 	jr	$ra
-/*  f049628:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f0495d0(struct chrdata *chr, s32 pad_id)
+{
+	s32 ret = -1;
+	s32 pad_id_backup = pad_id;
+	struct pad pad;
+
+	if (pad_id >= 10000) {
+		s32 resolved_pad_id = padResolve(chr, pad_id - 10000);
+
+		if (resolved_pad_id >= 0) {
+			padUnpack(resolved_pad_id, 0x40, &pad);
+			ret = pad.padnum;
+		}
+	} else {
+		ret = pad_id;
+	}
+
+	return ret;
+}
 
 s32 padResolve(struct chrdata *chr, s32 pad_id)
 {
