@@ -84373,7 +84373,7 @@ float chrGetDistanceToChr(struct chrdata *chr1, s32 chr2num)
 {
 	struct position *pos1 = chr1->pos;
 	struct chrdata *chr2 = chrFindById(chr1, chr2num);
-	float distance = 0.00000000;
+	float distance = 0;
 
 	if (chr2 && chr2->pos) {
 		float xdiff = chr2->pos->coord.x - pos1->coord.x;
@@ -84385,51 +84385,24 @@ float chrGetDistanceToChr(struct chrdata *chr1, s32 chr2num)
 	return distance;
 }
 
-GLOBAL_ASM(
-glabel func0f049d34
-/*  f049d34:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f049d38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049d3c:	afa40080 */ 	sw	$a0,0x80($sp)
-/*  f049d40:	0fc0a221 */ 	jal	chrGetTargetPosition
-/*  f049d44:	afa50084 */ 	sw	$a1,0x84($sp)
-/*  f049d48:	44801000 */ 	mtc1	$zero,$f2
-/*  f049d4c:	8fa40080 */ 	lw	$a0,0x80($sp)
-/*  f049d50:	8fa50084 */ 	lw	$a1,0x84($sp)
-/*  f049d54:	afa2007c */ 	sw	$v0,0x7c($sp)
-/*  f049d58:	0fc1258b */ 	jal	padResolve
-/*  f049d5c:	e7a20018 */ 	swc1	$f2,0x18($sp)
-/*  f049d60:	8fa3007c */ 	lw	$v1,0x7c($sp)
-/*  f049d64:	c7a20018 */ 	lwc1	$f2,0x18($sp)
-/*  f049d68:	04400016 */ 	bltz	$v0,.L0f049dc4
-/*  f049d6c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f049d70:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f049d74:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*  f049d78:	0fc456ac */ 	jal	padUnpack
-/*  f049d7c:	afa3007c */ 	sw	$v1,0x7c($sp)
-/*  f049d80:	8fa3007c */ 	lw	$v1,0x7c($sp)
-/*  f049d84:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*  f049d88:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f049d8c:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f049d90:	c46a000c */ 	lwc1	$f10,0xc($v1)
-/*  f049d94:	c7b00024 */ 	lwc1	$f16,0x24($sp)
-/*  f049d98:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f049d9c:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f049da0:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f049da4:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f049da8:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f049dac:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f049db0:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f049db4:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f049db8:	0c012974 */ 	jal	sqrtf
-/*  f049dbc:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f049dc0:	46000086 */ 	mov.s	$f2,$f0
-.L0f049dc4:
-/*  f049dc4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049dc8:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f049dcc:	46001006 */ 	mov.s	$f0,$f2
-/*  f049dd0:	03e00008 */ 	jr	$ra
-/*  f049dd4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+float chrGetDistanceFromTargetToPad(struct chrdata *chr, s32 pad_id)
+{
+	struct position *targetpos = chrGetTargetPosition(chr);
+	float xdiff, ydiff, zdiff;
+	struct pad pad;
+	float distance = 0;
+	pad_id = padResolve(chr, pad_id);
+
+	if (pad_id >= 0) {
+		padUnpack(pad_id, 2, &pad);
+		xdiff = pad.coord.x - targetpos->coord.x;
+		ydiff = pad.coord.y - targetpos->coord.y;
+		zdiff = pad.coord.z - targetpos->coord.z;
+		distance = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+	}
+
+	return distance;
+}
 
 void chrSetFlags(struct chrdata *chr, u32 flags, u8 bank)
 {
