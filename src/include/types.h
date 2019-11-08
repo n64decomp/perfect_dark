@@ -36,6 +36,22 @@ struct position {
 	u32 unk44;
 };
 
+struct pad {
+	/*0x00*/ struct coord coord;
+	/*0x0c*/ struct coord look;
+	/*0x18*/ struct coord up;
+	/*0x24*/ struct coord normal;
+	/*0x30*/ float xmin;
+	/*0x34*/ float xmax;
+	/*0x38*/ float ymin;
+	/*0x3c*/ float ymax;
+	/*0x40*/ float zmin;
+	/*0x44*/ float zmax;
+	/*0x48*/ u32 flags;
+	/*0x4c*/ u32 unk4c;
+	/*0x50*/ u32 unk50;
+};
+
 struct bitfield {
 	union {
 		u8 bytes[4];

@@ -53276,7 +53276,7 @@ glabel func0f02e370
 .L0f02e3ac:
 /*  f02e3ac:	53000006 */ 	beqzl	$t8,.L0f02e3c8
 /*  f02e3b0:	44800000 */ 	mtc1	$zero,$f0
-/*  f02e3b4:	0fc124bb */ 	jal	func0f0492ec
+/*  f02e3b4:	0fc124bb */ 	jal	chrGetDistanceToPad
 /*  f02e3b8:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f02e3bc:	10000004 */ 	beqz	$zero,.L0f02e3d0
 /*  f02e3c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -83876,47 +83876,24 @@ float positionGetLateralDistanceToPosition(struct position *a, struct position *
 	return sqrtf(xdiff * xdiff + zdiff * zdiff);
 }
 
-GLOBAL_ASM(
-glabel func0f0492ec
-/*  f0492ec:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f0492f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0492f4:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f0492f8:	44801000 */ 	mtc1	$zero,$f2
-/*  f0492fc:	afa3007c */ 	sw	$v1,0x7c($sp)
-/*  f049300:	0fc1258b */ 	jal	padResolve
-/*  f049304:	e7a2006c */ 	swc1	$f2,0x6c($sp)
-/*  f049308:	8fa3007c */ 	lw	$v1,0x7c($sp)
-/*  f04930c:	04400017 */ 	bltz	$v0,.L0f04936c
-/*  f049310:	c7a2006c */ 	lwc1	$f2,0x6c($sp)
-/*  f049314:	00402025 */ 	or	$a0,$v0,$zero
-/*  f049318:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f04931c:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f049320:	0fc456ac */ 	jal	padUnpack
-/*  f049324:	afa3007c */ 	sw	$v1,0x7c($sp)
-/*  f049328:	8fa3007c */ 	lw	$v1,0x7c($sp)
-/*  f04932c:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*  f049330:	c7a8001c */ 	lwc1	$f8,0x1c($sp)
-/*  f049334:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f049338:	c46a000c */ 	lwc1	$f10,0xc($v1)
-/*  f04933c:	c7b00020 */ 	lwc1	$f16,0x20($sp)
-/*  f049340:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f049344:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f049348:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f04934c:	46000102 */ 	mul.s	$f4,$f0,$f0
-/*  f049350:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f049354:	46021182 */ 	mul.s	$f6,$f2,$f2
-/*  f049358:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f04935c:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f049360:	0c012974 */ 	jal	sqrtf
-/*  f049364:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f049368:	46000086 */ 	mov.s	$f2,$f0
-.L0f04936c:
-/*  f04936c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049370:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f049374:	46001006 */ 	mov.s	$f0,$f2
-/*  f049378:	03e00008 */ 	jr	$ra
-/*  f04937c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+float chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
+{
+	struct position *pos = chr->pos;
+	float xdiff, ydiff, zdiff;
+	float distance = 0;
+	struct pad pad;
+	pad_id = padResolve(chr, pad_id);
+
+	if (pad_id >= 0) {
+		padUnpack(pad_id, 2, &pad);
+		xdiff = pad.coord.x - pos->coord.x;
+		ydiff = pad.coord.y - pos->coord.y;
+		zdiff = pad.coord.z - pos->coord.z;
+		distance = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+	}
+
+	return distance;
+}
 
 GLOBAL_ASM(
 glabel func0f049380
