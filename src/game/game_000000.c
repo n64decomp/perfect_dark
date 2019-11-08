@@ -85058,21 +85058,10 @@ glabel func0f04a674
 /*  f04a768:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04a76c
-/*  f04a76c:	44856000 */ 	mtc1	$a1,$f12
-/*  f04a770:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04a774:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04a778:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f04a77c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f04a780:	44066000 */ 	mfc1	$a2,$f12
-/*  f04a784:	0fc129e7 */ 	jal	func0f04a79c
-/*  f04a788:	00002025 */ 	or	$a0,$zero,$zero
-/*  f04a78c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04a790:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04a794:	03e00008 */ 	jr	$ra
-/*  f04a798:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f04a76c(struct chrdata *chr, float distance)
+{
+	return func0f04a79c(0, chr, distance);
+}
 
 GLOBAL_ASM(
 glabel func0f04a79c

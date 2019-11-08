@@ -9610,8 +9610,6 @@ glabel ai0108
 /*  f058f34:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-bool func0f04a79c(u8 chrnum, struct chrdata *chr, float distance);
-
 /**
  * @cmd 0109
  */
