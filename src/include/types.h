@@ -1134,4 +1134,11 @@ struct gvars74 {
 	u8 unk00[0x80];
 };
 
+struct credit {
+	u8 unk00;
+	u8 type;
+	u16 text1;
+	u16 text2;
+};
+
 #endif

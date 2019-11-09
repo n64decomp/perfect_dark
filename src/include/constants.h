@@ -243,6 +243,17 @@
 #define COLOR_08_RED    0x08
 #define COLOR_09_BLUE   0x09
 
+// L/C/R = left/centered/right
+// big/med/sml is the font size
+#define CREDITSTYLE_R_BIG_R_MED 1
+#define CREDITSTYLE_C_BIG       2
+#define CREDITSTYLE_C_MED       3
+#define CREDITSTYLE_C_SML       5
+#define CREDITSTYLE_L_BIG       7
+#define CREDITSTYLE_R_MED       9
+#define CREDITSTYLE_C_BIG_C_BIG 10
+#define CREDITSTYLE_TERMINATOR  20
+
 #define DIFF_A  0x00
 #define DIFF_SA 0x01
 #define DIFF_PA 0x02

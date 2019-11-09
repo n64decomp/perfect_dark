@@ -4563,155 +4563,109 @@ u32 var8007f460 = 0x00000000;
 u32 var8007f464 = 0x00200020;
 u32 var8007f468 = 0x00000025;
 u32 var8007f46c = 0x00000000;
-u32 var8007f470 = 0x00014e02;
-u32 var8007f474 = 0x4e000001;
-u32 var8007f478 = 0x4e034e04;
-u32 var8007f47c = 0x00014e05;
-u32 var8007f480 = 0x4e060001;
-u32 var8007f484 = 0x4e074e08;
-u32 var8007f488 = 0x00014e09;
-u32 var8007f48c = 0x4e0a0001;
-u32 var8007f490 = 0x4e0b4e0c;
-u32 var8007f494 = 0x00014e0d;
-u32 var8007f498 = 0x4e0e0001;
-u32 var8007f49c = 0x4e0f4e10;
-u32 var8007f4a0 = 0x00014e11;
-u32 var8007f4a4 = 0x4e120001;
-u32 var8007f4a8 = 0x4e134e14;
-u32 var8007f4ac = 0x00014e15;
-u32 var8007f4b0 = 0x4e160001;
-u32 var8007f4b4 = 0x4e174e18;
-u32 var8007f4b8 = 0x00014e19;
-u32 var8007f4bc = 0x4e1a0001;
-u32 var8007f4c0 = 0x4e1b4e1c;
-u32 var8007f4c4 = 0x00014e1d;
-u32 var8007f4c8 = 0x4e1e0001;
-u32 var8007f4cc = 0x4e1f4e20;
-u32 var8007f4d0 = 0x00014e21;
-u32 var8007f4d4 = 0x4e22a002;
-u32 var8007f4d8 = 0x4e234e00;
-u32 var8007f4dc = 0x80034e24;
-u32 var8007f4e0 = 0x4e250003;
-u32 var8007f4e4 = 0x4e264e01;
-u32 var8007f4e8 = 0xe0024e23;
-u32 var8007f4ec = 0x4e008003;
-u32 var8007f4f0 = 0x4e274e28;
-u32 var8007f4f4 = 0x00034e29;
-u32 var8007f4f8 = 0x4e01c002;
-u32 var8007f4fc = 0x4e234e00;
-u32 var8007f500 = 0x80034e2a;
-u32 var8007f504 = 0x4e2b0003;
-u32 var8007f508 = 0x4e2c4e01;
-u32 var8007f50c = 0x80024e2d;
-u32 var8007f510 = 0x4e008003;
-u32 var8007f514 = 0x4e2e4e2f;
-u32 var8007f518 = 0x00034e30;
-u32 var8007f51c = 0x4e31a002;
-u32 var8007f520 = 0x4e324e00;
-u32 var8007f524 = 0x80034e33;
-u32 var8007f528 = 0x4e340003;
-u32 var8007f52c = 0x4e354e01;
-u32 var8007f530 = 0xc0024e32;
-u32 var8007f534 = 0x4e008003;
-u32 var8007f538 = 0x4e364e37;
-u32 var8007f53c = 0x00034e38;
-u32 var8007f540 = 0x4e39a002;
-u32 var8007f544 = 0x4e3a4e00;
-u32 var8007f548 = 0x80034e3b;
-u32 var8007f54c = 0x4e3c0003;
-u32 var8007f550 = 0x4e3d4e3e;
-u32 var8007f554 = 0xe0024e3a;
-u32 var8007f558 = 0x4e008003;
-u32 var8007f55c = 0x4e3f4e40;
-u32 var8007f560 = 0x00034e41;
-u32 var8007f564 = 0x4e42c002;
-u32 var8007f568 = 0x4e3a4e00;
-u32 var8007f56c = 0x80034e44;
-u32 var8007f570 = 0x4e430003;
-u32 var8007f574 = 0x4e454e01;
-u32 var8007f578 = 0xa0074e5d;
-u32 var8007f57c = 0x4e008009;
-u32 var8007f580 = 0x4e5e4e5f;
-u32 var8007f584 = 0x80094e60;
-u32 var8007f588 = 0x4e610009;
-u32 var8007f58c = 0x4e624e6d;
-u32 var8007f590 = 0xe0074e5d;
-u32 var8007f594 = 0x4e008009;
-u32 var8007f598 = 0x4e634e64;
-u32 var8007f59c = 0x80094e65;
-u32 var8007f5a0 = 0x4e660009;
-u32 var8007f5a4 = 0x4e674e01;
-u32 var8007f5a8 = 0xc0074e5d;
-u32 var8007f5ac = 0x4e008009;
-u32 var8007f5b0 = 0x4e684e69;
-u32 var8007f5b4 = 0x80094e6a;
-u32 var8007f5b8 = 0x4e6b0009;
-u32 var8007f5bc = 0x4e6c4e01;
-u32 var8007f5c0 = 0x80074e46; // var80074e46
-u32 var8007f5c4 = 0x4e008009;
-u32 var8007f5c8 = 0x4e474e48;
-u32 var8007f5cc = 0x00094e49;
-u32 var8007f5d0 = 0x4e4a8007;
-u32 var8007f5d4 = 0x4e4b4e00;
-u32 var8007f5d8 = 0x80094e4c;
-u32 var8007f5dc = 0x4e4d0009;
-u32 var8007f5e0 = 0x4e4e4e00;
-u32 var8007f5e4 = 0x80074e53; // var80074e53
-u32 var8007f5e8 = 0x4e008009;
-u32 var8007f5ec = 0x4e544e55;
-u32 var8007f5f0 = 0x00094e56;
-u32 var8007f5f4 = 0x4e008007;
-u32 var8007f5f8 = 0x4e574e00;
-u32 var8007f5fc = 0x80094e58;
-u32 var8007f600 = 0x4e598009;
-u32 var8007f604 = 0x4e5a4e5b;
-u32 var8007f608 = 0x00094e5c;
-u32 var8007f60c = 0x4e008007;
-u32 var8007f610 = 0x4e764e00;
-u32 var8007f614 = 0x00094e77;
-u32 var8007f618 = 0x4e008002;
-u32 var8007f61c = 0x4e714e00;
-u32 var8007f620 = 0x80034e72;
-u32 var8007f624 = 0x4e730003;
-u32 var8007f628 = 0x4e744e75;
-u32 var8007f62c = 0x80024e6e;
-u32 var8007f630 = 0x4e000003;
-u32 var8007f634 = 0x4e6f4e70;
-u32 var8007f638 = 0xa0074e78;
-u32 var8007f63c = 0x4e008009;
-u32 var8007f640 = 0x4e794e7a;
-u32 var8007f644 = 0x00094e7b;
-u32 var8007f648 = 0x4e7cc007;
-u32 var8007f64c = 0x4e784e00;
-u32 var8007f650 = 0x80094e7d;
-u32 var8007f654 = 0x4e7e0009;
-u32 var8007f658 = 0x4e7f4e01;
-u32 var8007f65c = 0x00014e80;
-u32 var8007f660 = 0x4e818007;
-u32 var8007f664 = 0x4e824e00;
-u32 var8007f668 = 0x80094e83;
-u32 var8007f66c = 0x4e840009;
-u32 var8007f670 = 0x4e854e00;
-u32 var8007f674 = 0x80074e86; // var80074e86
-u32 var8007f678 = 0x4e000009;
-u32 var8007f67c = 0x4e874e00;
-u32 var8007f680 = 0xa0024e88;
-u32 var8007f684 = 0x4e008003;
-u32 var8007f688 = 0x4e894e8a;
-u32 var8007f68c = 0x00034e8b;
-u32 var8007f690 = 0x4e8cc002;
-u32 var8007f694 = 0x4e884e00;
-u32 var8007f698 = 0x80034e8d;
-u32 var8007f69c = 0x4e8e0003;
-u32 var8007f6a0 = 0x4e8f4e90;
-u32 var8007f6a4 = 0x880a4e94;
-u32 var8007f6a8 = 0x4e958005;
-u32 var8007f6ac = 0x4e014e91;
-u32 var8007f6b0 = 0x00054e92;
-u32 var8007f6b4 = 0x4e930005;
-u32 var8007f6b8 = 0x4e964e00;
-u32 var8007f6bc = 0x00144e00;
-u32 var8007f6c0 = 0x4e000000;
+
+struct credit credits[] = {
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e02, 0x4e00 }, // "perfect dark", ""
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e03, 0x4e04 }, // "neau ner chesluk", "guns and visual orgasms"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e05, 0x4e06 }, // "jonathan nasty mummery", "mover and shaker"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e07, 0x4e08 }, // "darkmark", "reality engineer"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e09, 0x4e0a }, // "chris tilston", "designs on the future"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e0b, 0x4e0c }, // "chris darling", "weapons specialist"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e0d, 0x4e0e }, // "duncan botwood", "grey area"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e0f, 0x4e10 }, // "b jones", "bodybuilder"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e11, 0x4e12 }, // "steve malpass", "perfect locations and vox"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e13, 0x4e14 }, // "brian marshall", "-aqham-"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e15, 0x4e16 }, // "russel irwin", "well packed man"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e17, 0x4e18 }, // "jamie 'evo' williams", "manic welsh designer"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e19, 0x4e1a }, // "ross bury", "bionic backgrounds"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e1b, 0x4e1c }, // "martin penny", "sound geezer"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e1d, 0x4e1e }, // "grant kirkhope", "play that music maestro"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e1f, 0x4e20 }, // "david clynick", "bangin hardcore choonz"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e21, 0x4e22 }, // "keith 'bunny' rabbette", "dinomic backgrounds"
+	{ 0xa0, CREDITSTYLE_C_BIG,       0x4e23, 0x4e00 }, // "dd snipers", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e24, 0x4e25 }, // "kevin bayliss", "dean smith"
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e26, 0x4e01 }, // "graham smith", "\n"
+	{ 0xe0, CREDITSTYLE_C_BIG,       0x4e23, 0x4e00 }, // "dd snipers", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e27, 0x4e28 }, // "mike 'curry' currington", "tony wong"
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e29, 0x4e01 }, // "simon farmer", "\n"
+	{ 0xc0, CREDITSTYLE_C_BIG,       0x4e23, 0x4e00 }, // "dd snipers", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e2a, 0x4e2b }, // "leigh loverday", "rob harrison"
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e2c, 0x4e01 }, // "steven hurst", "\n"
+	{ 0x80, CREDITSTYLE_C_BIG,       0x4e2d, 0x4e00 }, // "fearsome foursome", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e2e, 0x4e2f }, // "phil dunne", "ricky berwick"
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e30, 0x4e31 }, // "gareth glover", "jonathan ambrose"
+	{ 0xa0, CREDITSTYLE_C_BIG,       0x4e32, 0x4e00 }, // "trent's henchmen", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e33, 0x4e34 }, // "lee musgrave", "johnni christensen"
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e35, 0x4e01 }, // "mark betteridge", "\n"
+	{ 0xc0, CREDITSTYLE_C_BIG,       0x4e32, 0x4e00 }, // "trent's henchmen", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e36, 0x4e37 }, // "chris marlow", "robin beanland"
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e38, 0x4e39 }, // "neil gallagher", "feargal plant"
+	{ 0xa0, CREDITSTYLE_C_BIG,       0x4e3a, 0x4e00 }, // "voices in the dark", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e3b, 0x4e3c }, // "eveline fischer", "chris sutherland"
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e3d, 0x4e3e }, // "chris seavor", "john silke"
+	{ 0xe0, CREDITSTYLE_C_BIG,       0x4e3a, 0x4e00 }, // "voices in the dark", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e3f, 0x4e40 }, // "ben cullum", "louise tilston"
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e41, 0x4e42 }, // "alistair", "lindsay"
+	{ 0xc0, CREDITSTYLE_C_BIG,       0x4e3a, 0x4e00 }, // "voices in the dark", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e44, 0x4e43 }, // "beau chesluk", "b jones"
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e45, 0x4e01 }, // "steve malpass", "\n"
+	{ 0xa0, CREDITSTYLE_L_BIG,       0x4e5d, 0x4e00 }, // "rare exterminators", ""
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e5e, 0x4e5f }, // "huw ward", "adam munton"
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e60, 0x4e61 }, // "david wong", "luke munton"
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e62, 0x4e6d }, // "gary phelps", "andrew wilson"
+	{ 0xe0, CREDITSTYLE_L_BIG,       0x4e5d, 0x4e00 }, // "rare exterminators", ""
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e63, 0x4e64 }, // "john silke", "matthew carter"
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e65, 0x4e66 }, // "gavin price", "gareth stevenson"
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e67, 0x4e01 }, // "bushbaby", "\n"
+	{ 0xc0, CREDITSTYLE_L_BIG,       0x4e5d, 0x4e00 }, // "rare exterminators", ""
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e68, 0x4e69 }, // "stephen stamper", "ross bullimore"
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e6a, 0x4e6b }, // "justin cook", "dale murchie"
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e6c, 0x4e01 }, // "roger smith", "\n"
+	{ 0x80, CREDITSTYLE_L_BIG,       0x4e46, 0x4e00 }, // "ci techs", ""
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e47, 0x4e48 }, // "richard 'force 9' gale", "mark green"
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e49, 0x4e4a }, // "alex zoro", "mark wilson"
+	{ 0x80, CREDITSTYLE_L_BIG,       0x4e4b, 0x4e00 }, // "hard and wary support", ""
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e4c, 0x4e4d }, // "pete 'hardrom' cox", "maul 'max' mikell"
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e4e, 0x4e00 }, // "doug crouch", ""
+	{ 0x80, CREDITSTYLE_L_BIG,       0x4e53, 0x4e00 }, // "motion capture", ""
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e54, 0x4e55 }, // "alan tippertronic", "des easen"
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e56, 0x4e00 }, // "jim 'love' ballard", ""
+	{ 0x80, CREDITSTYLE_L_BIG,       0x4e57, 0x4e00 }, // "going through the motions", ""
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e58, 0x4e59 }, // "duncan 'bot' botwood", "michelle tipper"
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e5a, 0x4e5b }, // "sue 'falling' fell", "doug 'crouch' crouch"
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e5c, 0x4e00 }, // "ross bury", ""
+	{ 0x80, CREDITSTYLE_L_BIG,       0x4e76, 0x4e00 }, // "testing (rare miami)", ""
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e77, 0x4e00 }, // "keith coll", ""
+	{ 0x80, CREDITSTYLE_C_BIG,       0x4e71, 0x4e00 }, // "rare in the sun", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e72, 0x4e73 }, // "joel hochberg", ""
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e74, 0x4e75 }, // "scott hochberg", ""
+	{ 0x80, CREDITSTYLE_C_BIG,       0x4e6e, 0x4e00 }, // "dark commanders", ""
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e6f, 0x4e70 }, // "bis", "wombat"
+	{ 0xa0, CREDITSTYLE_L_BIG,       0x4e78, 0x4e00 }, // "testing (noa)", ""
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e79, 0x4e7a }, // "michael kelbaugh", "tim bechtel"
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e7b, 0x4e7c }, // "tom hertzog", "melvin 'sherwood' forrest"
+	{ 0xc0, CREDITSTYLE_L_BIG,       0x4e78, 0x4e00 }, // "testing (noa)", ""
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e7d, 0x4e7e }, // "dougall campbell", "roger harrison"
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e7f, 0x4e01 }, // "jeff kalles", "\n"
+	{ 0x00, CREDITSTYLE_R_BIG_R_MED, 0x4e80, 0x4e81 }, // "the perfect core", "-darker than you"
+	{ 0x80, CREDITSTYLE_L_BIG,       0x4e82, 0x4e00 }, // "treehouse", ""
+	{ 0x80, CREDITSTYLE_R_MED,       0x4e83, 0x4e84 }, // "armond williams junior", "henry sterchi"
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e85, 0x4e00 }, // "ed ridgeway", ""
+	{ 0x80, CREDITSTYLE_L_BIG,       0x4e86, 0x4e00 }, // "perfect spelling", ""
+	{ 0x00, CREDITSTYLE_R_MED,       0x4e87, 0x4e00 }, // "teresa lillygren", ""
+	{ 0xa0, CREDITSTYLE_C_BIG,       0x4e88, 0x4e00 }, // "nintendo", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e89, 0x4e8a }, // "mr arakawa", ""
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e8b, 0x4e8c }, // "don james", ""
+	{ 0xc0, CREDITSTYLE_C_BIG,       0x4e88, 0x4e00 }, // "nintendo", ""
+	{ 0x80, CREDITSTYLE_C_MED,       0x4e8d, 0x4e8e }, // "howard lincoln", "ken lobb"
+	{ 0x00, CREDITSTYLE_C_MED,       0x4e8f, 0x4e90 }, // "jacqualee story", "gail"
+	{ 0x88, CREDITSTYLE_C_BIG_C_BIG, 0x4e94, 0x4e95 }, // "rare", "designs on the future"
+	{ 0x80, CREDITSTYLE_C_SML,       0x4e01, 0x4e91 }, // "\n", "copyright rare 2000"
+	{ 0x00, CREDITSTYLE_C_SML,       0x4e92, 0x4e93 }, // "perfect dark and the pd device", "are trademarks"
+	{ 0x00, CREDITSTYLE_C_SML,       0x4e96, 0x4e00 }, // "perfect dark is forever", ""
+	{ 0x00, CREDITSTYLE_TERMINATOR,  0x4e00, 0x4e00 }, // "", ""
+};
+
 u32 var8007f6c4 = 0x40800000;
 u32 var8007f6c8 = 0x41000000;
 u32 var8007f6cc = 0x41400000;
