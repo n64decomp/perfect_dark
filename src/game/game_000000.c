@@ -1351,7 +1351,6 @@ const u32 var001a8cf0[] = {
 	0x40490fdb,
 	0x40c907a9,
 	0x40490fdb,
-	0x4cbebc20,
 };
 
 GLOBAL_ASM(
@@ -83895,58 +83894,33 @@ float chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
 	return distance;
 }
 
-GLOBAL_ASM(
-glabel chrGetSameFloorDistanceToPad
-/*  f049380:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f049384:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049388:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f04938c:	0fc1258b */ 	jal	padResolve
-/*  f049390:	afa30084 */ 	sw	$v1,0x84($sp)
-/*  f049394:	00402025 */ 	or	$a0,$v0,$zero
-/*  f049398:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f04939c:	0fc456ac */ 	jal	padUnpack
-/*  f0493a0:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f0493a4:	8fa30084 */ 	lw	$v1,0x84($sp)
-/*  f0493a8:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f0493ac:	c7a80024 */ 	lwc1	$f8,0x24($sp)
-/*  f0493b0:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f0493b4:	c46a000c */ 	lwc1	$f10,0xc($v1)
-/*  f0493b8:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*  f0493bc:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f0493c0:	44802000 */ 	mtc1	$zero,$f4
-/*  f0493c4:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f0493c8:	460a4001 */ 	sub.s	$f0,$f8,$f10
-/*  f0493cc:	3c014316 */ 	lui	$at,0x4316
-/*  f0493d0:	44813000 */ 	mtc1	$at,$f6
-/*  f0493d4:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f0493d8:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f0493dc:	46128381 */ 	sub.s	$f14,$f16,$f18
-/*  f0493e0:	45020004 */ 	bc1fl	.L0f0493f4
-/*  f0493e4:	46000307 */ 	neg.s	$f12,$f0
-/*  f0493e8:	10000002 */ 	beqz	$zero,.L0f0493f4
-/*  f0493ec:	46000306 */ 	mov.s	$f12,$f0
-/*  f0493f0:	46000307 */ 	neg.s	$f12,$f0
-.L0f0493f4:
-/*  f0493f4:	4606603c */ 	c.lt.s	$f12,$f6
-/*  f0493f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0493fc:	45000008 */ 	bc1f	.L0f049420
-/*  f049400:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f049404:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f049408:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04940c:	460e7282 */ 	mul.s	$f10,$f14,$f14
-/*  f049410:	0c012974 */ 	jal	sqrtf
-/*  f049414:	460a4300 */ 	add.s	$f12,$f8,$f10
-/*  f049418:	10000002 */ 	beqz	$zero,.L0f049424
-/*  f04941c:	46000086 */ 	mov.s	$f2,$f0
-.L0f049420:
-/*  f049420:	c4229384 */ 	lwc1	$f2,-0x6c7c($at)
-.L0f049424:
-/*  f049424:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049428:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f04942c:	46001006 */ 	mov.s	$f0,$f2
-/*  f049430:	03e00008 */ 	jr	$ra
-/*  f049434:	00000000 */ 	sll	$zero,$zero,0x0
-);
+float chrGetSameFloorDistanceToPad(struct chrdata *chr, s32 pad_id)
+{
+	struct position *pos = chr->pos;
+	float xdiff, ydiff, zdiff, ydiff_absolute;
+	struct pad pad;
+	float ret;
+
+	pad_id = padResolve(chr, pad_id);
+	padUnpack(pad_id, 2, &pad);
+	xdiff = pad.coord.x - pos->coord.x;
+	ydiff = pad.coord.y - pos->coord.y;
+	zdiff = pad.coord.z - pos->coord.z;
+
+	if (ydiff > 0) {
+		ydiff_absolute = ydiff;
+	} else {
+		ydiff_absolute = -ydiff;
+	}
+
+	if (ydiff_absolute < 150) {
+		ret = sqrtf(xdiff * xdiff + zdiff * zdiff);
+	} else {
+		ret = 100000000;
+	}
+
+	return ret;
+}
 
 float chrGetDistanceToCoord(struct chrdata *chr, struct coord *coord)
 {

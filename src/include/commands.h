@@ -1924,6 +1924,8 @@
 	u1, \
 	label,
 
+// Get distance from chr to pad, but only if they are on the same floor
+// (ie. Y difference is less than 150).
 #define if_chr_same_floor_distance_to_pad_lt(chr, pad, distance, label) \
 	mkshort(0x01df), \
 	chr, \
