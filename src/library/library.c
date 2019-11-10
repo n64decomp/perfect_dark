@@ -5,6477 +5,6477 @@
 #include "setup/setup_000000.h"
 #include "types.h"
 
-u32 var800a93c0 = 0x70002d68;
-u32 var800a93c4 = 0x70002d14;
-u32 var800a93c8 = 0x70002c8c;
-u32 var800a93cc = 0x70002d68;
-u32 var800a93d0 = 0x70002d68;
-u32 var800a93d4 = 0x70002d14;
-u32 var800a93d8 = 0x70002d14;
-u32 var800a93dc = 0x00000000;
-u32 var800a93e0 = 0x00141818;
-u32 var800a93e4 = 0x1c1c1c1c;
-u32 var800a93e8 = 0x20202020;
-u32 var800a93ec = 0x20202020;
-u32 var800a93f0 = 0x00040808;
-u32 var800a93f4 = 0x0c0c0c0c;
-u32 var800a93f8 = 0x10101010;
-u32 var800a93fc = 0x10101010;
-u32 var800a9400 = 0x70003a3c;
-u32 var800a9404 = 0x700039c8;
-u32 var800a9408 = 0x700039a8;
-u32 var800a940c = 0x7000380c;
-u32 var800a9410 = 0x700037c8;
-u32 var800a9414 = 0x7000394c;
-u32 var800a9418 = 0x70003790;
-u32 var800a941c = 0x7000379c;
-u32 var800a9420 = 0x700037a8;
-u32 var800a9424 = 0x00000000;
-u32 var800a9428 = 0x00000000;
-u32 var800a942c = 0x00000000;
-u32 var800a9430 = 0x3a83126f;
-u32 var800a9434 = 0x3a83126f;
-u32 var800a9438 = 0x3a83126f;
-u32 var800a943c = 0x00000000;
-u32 var800a9440 = 0x3c8efa35;
-u32 var800a9444 = 0x00000000;
-u32 var800a9448 = 0x00000000;
-u32 var800a944c = 0x00000000;
-u32 var800a9450 = 0x3c8efa35;
-u32 var800a9454 = 0x00000000;
-u32 var800a9458 = 0x00000000;
-u32 var800a945c = 0x00000000;
-u32 var800a9460 = 0x40240000;
-u32 var800a9464 = 0x00000000;
-u32 var800a9468 = 0x40590000;
-u32 var800a946c = 0x00000000;
-u32 var800a9470 = 0x40c38800;
-u32 var800a9474 = 0x00000000;
-u32 var800a9478 = 0x4197d784;
-u32 var800a947c = 0x00000000;
-u32 var800a9480 = 0x4341c379;
-u32 var800a9484 = 0x37e08000;
-u32 var800a9488 = 0x4693b8b5;
-u32 var800a948c = 0xb5056e17;
-u32 var800a9490 = 0x4d384f03;
-u32 var800a9494 = 0xe93ff9f5;
-u32 var800a9498 = 0x5a827748;
-u32 var800a949c = 0xf9301d32;
-u32 var800a94a0 = 0x75154fdd;
-u32 var800a94a4 = 0x7f73bf3c;
-u32 var800a94a8 = 0x4e614e00;
-u32 var800a94ac = 0x496e6600;
-u32 var800a94b0 = 0x30000000;
-u32 var800a94b4 = 0x00000000;
-u32 var800a94b8 = 0x4197d784;
-u32 var800a94bc = 0x00000000;
-u32 var800a94c0 = 0x00000001;
-u32 var800a94c4 = 0x00030007;
-u32 var800a94c8 = 0x000f001f;
-u32 var800a94cc = 0x003f007f;
-u32 var800a94d0 = 0x00ff01ff;
-u32 var800a94d4 = 0x03ff07ff;
-u32 var800a94d8 = 0x0fff1fff;
-u32 var800a94dc = 0x3fff7fff;
-u32 var800a94e0 = 0xffff0003;
-u32 var800a94e4 = 0x00040005;
-u32 var800a94e8 = 0x00060007;
-u32 var800a94ec = 0x00080009;
-u32 var800a94f0 = 0x000a000b;
-u32 var800a94f4 = 0x000d000f;
-u32 var800a94f8 = 0x00110013;
-u32 var800a94fc = 0x0017001b;
-u32 var800a9500 = 0x001f0023;
-u32 var800a9504 = 0x002b0033;
-u32 var800a9508 = 0x003b0043;
-u32 var800a950c = 0x00530063;
-u32 var800a9510 = 0x00730083;
-u32 var800a9514 = 0x00a300c3;
-u32 var800a9518 = 0x00e30102;
-u32 var800a951c = 0x00000000;
-u32 var800a9520 = 0x00010002;
-u32 var800a9524 = 0x00030004;
-u32 var800a9528 = 0x00050007;
-u32 var800a952c = 0x0009000d;
-u32 var800a9530 = 0x00110019;
-u32 var800a9534 = 0x00210031;
-u32 var800a9538 = 0x00410061;
-u32 var800a953c = 0x008100c1;
-u32 var800a9540 = 0x01010181;
-u32 var800a9544 = 0x02010301;
-u32 var800a9548 = 0x04010601;
-u32 var800a954c = 0x08010c01;
-u32 var800a9550 = 0x10011801;
-u32 var800a9554 = 0x20013001;
-u32 var800a9558 = 0x40016001;
-u32 var800a955c = 0x10111200;
-u32 var800a9560 = 0x08070906;
-u32 var800a9564 = 0x0a050b04;
-u32 var800a9568 = 0x0c030d02;
-u32 var800a956c = 0x0e010f00;
-u32 var800a9570 = 0x00000000;
-u32 var800a9574 = 0x00000001;
-u32 var800a9578 = 0x01010102;
-u32 var800a957c = 0x02020203;
-u32 var800a9580 = 0x03030304;
-u32 var800a9584 = 0x04040405;
-u32 var800a9588 = 0x05050500;
-u32 var800a958c = 0x63630000;
-u32 var800a9590 = 0x00000101;
-u32 var800a9594 = 0x02020303;
-u32 var800a9598 = 0x04040505;
-u32 var800a959c = 0x06060707;
-u32 var800a95a0 = 0x08080909;
-u32 var800a95a4 = 0x0a0a0b0b;
-u32 var800a95a8 = 0x0c0c0d0d;
+u32 var00052430 = 0x70002d68;
+u32 var00052434 = 0x70002d14;
+u32 var00052438 = 0x70002c8c;
+u32 var0005243c = 0x70002d68;
+u32 var00052440 = 0x70002d68;
+u32 var00052444 = 0x70002d14;
+u32 var00052448 = 0x70002d14;
+u32 var0005244c = 0x00000000;
+u32 var00052450 = 0x00141818;
+u32 var00052454 = 0x1c1c1c1c;
+u32 var00052458 = 0x20202020;
+u32 var0005245c = 0x20202020;
+u32 var00052460 = 0x00040808;
+u32 var00052464 = 0x0c0c0c0c;
+u32 var00052468 = 0x10101010;
+u32 var0005246c = 0x10101010;
+u32 var00052470 = 0x70003a3c;
+u32 var00052474 = 0x700039c8;
+u32 var00052478 = 0x700039a8;
+u32 var0005247c = 0x7000380c;
+u32 var00052480 = 0x700037c8;
+u32 var00052484 = 0x7000394c;
+u32 var00052488 = 0x70003790;
+u32 var0005248c = 0x7000379c;
+u32 var00052490 = 0x700037a8;
+u32 var00052494 = 0x00000000;
+u32 var00052498 = 0x00000000;
+u32 var0005249c = 0x00000000;
+u32 var000524a0 = 0x3a83126f;
+u32 var000524a4 = 0x3a83126f;
+u32 var000524a8 = 0x3a83126f;
+u32 var000524ac = 0x00000000;
+u32 var000524b0 = 0x3c8efa35;
+u32 var000524b4 = 0x00000000;
+u32 var000524b8 = 0x00000000;
+u32 var000524bc = 0x00000000;
+u32 var000524c0 = 0x3c8efa35;
+u32 var000524c4 = 0x00000000;
+u32 var000524c8 = 0x00000000;
+u32 var000524cc = 0x00000000;
+u32 var000524d0 = 0x40240000;
+u32 var000524d4 = 0x00000000;
+u32 var000524d8 = 0x40590000;
+u32 var000524dc = 0x00000000;
+u32 var000524e0 = 0x40c38800;
+u32 var000524e4 = 0x00000000;
+u32 var000524e8 = 0x4197d784;
+u32 var000524ec = 0x00000000;
+u32 var000524f0 = 0x4341c379;
+u32 var000524f4 = 0x37e08000;
+u32 var000524f8 = 0x4693b8b5;
+u32 var000524fc = 0xb5056e17;
+u32 var00052500 = 0x4d384f03;
+u32 var00052504 = 0xe93ff9f5;
+u32 var00052508 = 0x5a827748;
+u32 var0005250c = 0xf9301d32;
+u32 var00052510 = 0x75154fdd;
+u32 var00052514 = 0x7f73bf3c;
+u32 var00052518 = 0x4e614e00;
+u32 var0005251c = 0x496e6600;
+u32 var00052520 = 0x30000000;
+u32 var00052524 = 0x00000000;
+u32 var00052528 = 0x4197d784;
+u32 var0005252c = 0x00000000;
+u32 var00052530 = 0x00000001;
+u32 var00052534 = 0x00030007;
+u32 var00052538 = 0x000f001f;
+u32 var0005253c = 0x003f007f;
+u32 var00052540 = 0x00ff01ff;
+u32 var00052544 = 0x03ff07ff;
+u32 var00052548 = 0x0fff1fff;
+u32 var0005254c = 0x3fff7fff;
+u32 var00052550 = 0xffff0003;
+u32 var00052554 = 0x00040005;
+u32 var00052558 = 0x00060007;
+u32 var0005255c = 0x00080009;
+u32 var00052560 = 0x000a000b;
+u32 var00052564 = 0x000d000f;
+u32 var00052568 = 0x00110013;
+u32 var0005256c = 0x0017001b;
+u32 var00052570 = 0x001f0023;
+u32 var00052574 = 0x002b0033;
+u32 var00052578 = 0x003b0043;
+u32 var0005257c = 0x00530063;
+u32 var00052580 = 0x00730083;
+u32 var00052584 = 0x00a300c3;
+u32 var00052588 = 0x00e30102;
+u32 var0005258c = 0x00000000;
+u32 var00052590 = 0x00010002;
+u32 var00052594 = 0x00030004;
+u32 var00052598 = 0x00050007;
+u32 var0005259c = 0x0009000d;
+u32 var000525a0 = 0x00110019;
+u32 var000525a4 = 0x00210031;
+u32 var000525a8 = 0x00410061;
+u32 var000525ac = 0x008100c1;
+u32 var000525b0 = 0x01010181;
+u32 var000525b4 = 0x02010301;
+u32 var000525b8 = 0x04010601;
+u32 var000525bc = 0x08010c01;
+u32 var000525c0 = 0x10011801;
+u32 var000525c4 = 0x20013001;
+u32 var000525c8 = 0x40016001;
+u32 var000525cc = 0x10111200;
+u32 var000525d0 = 0x08070906;
+u32 var000525d4 = 0x0a050b04;
+u32 var000525d8 = 0x0c030d02;
+u32 var000525dc = 0x0e010f00;
+u32 var000525e0 = 0x00000000;
+u32 var000525e4 = 0x00000001;
+u32 var000525e8 = 0x01010102;
+u32 var000525ec = 0x02020203;
+u32 var000525f0 = 0x03030304;
+u32 var000525f4 = 0x04040405;
+u32 var000525f8 = 0x05050500;
+u32 var000525fc = 0x63630000;
+u32 var00052600 = 0x00000101;
+u32 var00052604 = 0x02020303;
+u32 var00052608 = 0x04040505;
+u32 var0005260c = 0x06060707;
+u32 var00052610 = 0x08080909;
+u32 var00052614 = 0x0a0a0b0b;
+u32 var00052618 = 0x0c0c0d0d;
 
-char var800a95ac[] =
+char var0005261c[] =
 	"RareZipAsmDecompress: inflate failed (%d)\n\0"
 	"RareZipAsmDecompress: hufts overflow=%d\n\0"
 	"RareZipAsmDecompress: bad len\n\0"
 	"RareZipAsmDecompress: input not in any known rare zip format\n";
 
-u32 var800a9660 = 0x01400140;
-u32 var800a9664 = 0x02800000;
-u32 var800a9668 = 0x00dc00dc;
-u32 var800a966c = 0x01b80000;
+u32 var000526d0 = 0x01400140;
+u32 var000526d4 = 0x02800000;
+u32 var000526d8 = 0x00dc00dc;
+u32 var000526dc = 0x01b80000;
 
-char var800a9670[] = "ASSERTION : %s, %d: (\"%s\")\n";
-char var800a968c[] = "";
-char var800a9690[] = "BD";
-char var800a9694[] = "IP8";
-char var800a9698[] = "IP7";
-char var800a969c[] = "IP6";
-char var800a96a0[] = "IP5";
-char var800a96a4[] = "IP4";
-char var800a96a8[] = "IP3";
-char var800a96ac[] = "IP2";
-char var800a96b0[] = "IP1";
-char var800a96b4[] = "Int";
-char var800a96b8[] = "TLBmod";
-char var800a96c0[] = "TLBload";
-char var800a96c8[] = "TLBstore";
-char var800a96d4[] = "Address error on load or instruction fetch";
-char var800a9700[] = "Address error on store";
-char var800a9718[] = "Bus error exception on instruction fetch";
-char var800a9744[] = "Bus error exception on data reference";
-char var800a976c[] = "Syscall";
-char var800a9774[] = "Brk";
-char var800a9778[] = "Reserved instruction";
-char var800a9790[] = "Cop unusable";
-char var800a97a0[] = "Overflow";
-char var800a97ac[] = "Trap";
-char var800a97b4[] = "Virtual coherency exception on intruction fetch";
-char var800a97e4[] = "Fp exception";
-char var800a97f4[] = "Watchpoint";
-char var800a9800[] = "Virtual coherency exception on data reference";
-char var800a9830[] = "";
-char var800a9834[] = "CU3";
-char var800a9838[] = "CU2";
-char var800a983c[] = "CU1";
-char var800a9840[] = "CU0";
-char var800a9844[] = "RP";
-char var800a9848[] = "FR";
-char var800a984c[] = "RE";
-char var800a9850[] = "BEV";
-char var800a9854[] = "TS";
-char var800a9858[] = "SR";
-char var800a985c[] = "CH";
-char var800a9860[] = "CE";
-char var800a9864[] = "DE";
-char var800a9868[] = "IM8";
-char var800a986c[] = "IM7";
-char var800a9870[] = "IM6";
-char var800a9874[] = "IM5";
-char var800a9878[] = "IM4";
-char var800a987c[] = "IM3";
-char var800a9880[] = "IM2";
-char var800a9884[] = "IM1";
-char var800a9888[] = "KX";
-char var800a988c[] = "SX";
-char var800a9890[] = "UX";
-char var800a9894[] = "USR";
-char var800a9898[] = "SUP";
-char var800a989c[] = "KER";
-char var800a98a0[] = "ERL";
-char var800a98a4[] = "EXL";
-char var800a98a8[] = "IE";
-char var800a98ac[] = "";
-char var800a98b0[] = "FS";
-char var800a98b4[] = "C";
-char var800a98b8[] = "Unimplemented";
-char var800a98c8[] = "Invalid op";
-char var800a98d4[] = "/ by 0.0";
-char var800a98e0[] = "Overflow";
-char var800a98ec[] = "Underflow";
-char var800a98f8[] = "Inexact op";
-char var800a9904[] = "EV";
-char var800a9908[] = "EZ";
-char var800a990c[] = "EO";
-char var800a9910[] = "EU";
-char var800a9914[] = "EI";
-char var800a9918[] = "FV";
-char var800a991c[] = "FZ";
-char var800a9920[] = "FO";
-char var800a9924[] = "FU";
-char var800a9928[] = "FI";
-char var800a992c[] = "RN";
-char var800a9930[] = "RZ";
-char var800a9934[] = "RP";
-char var800a9938[] = "RM";
-char var800a993c[] = "";
-char var800a9940[] = "Bad tid\n";
-char var800a994c[] = "Bad tid\n";
-char var800a9958[] = "%s%s%02d: % .7e ";
-char var800a996c[] = "";
-char var800a9970[] = "";
-char var800a9974[] = "%02d: I%d.%03d.%07d ";
-char var800a998c[] = " ";
-char var800a9990[] = "\n";
-char var800a9994[] = " ";
-char var800a9998[] = " ";
-char var800a999c[] = "\n";
-char var800a99a0[] = "\n\nFAULT-\n";
-char var800a99ac[] = "DodgyStackTrace: %08llx ";
-char var800a99c8[] = "%08x ";
-char var800a99d0[] = ".\n";
-char var800a99d4[] = "%H#@! Another Perfect Crash (tm)\n";
-char var800a99f8[] = "at 0x%016llx v0 0x%016llx v1 0x%016llx\n";
-char var800a9a20[] = "a0 0x%016llx a1 0x%016llx a2 0x%016llx\n";
-char var800a9a48[] = "a3 0x%016llx t0 0x%016llx t1 0x%016llx\n";
-char var800a9a70[] = "t2 0x%016llx t3 0x%016llx t4 0x%016llx\n";
-char var800a9a98[] = "t5 0x%016llx t6 0x%016llx t7 0x%016llx\n";
-char var800a9ac0[] = "s0 0x%016llx s1 0x%016llx s2 0x%016llx\n";
-char var800a9ae8[] = "s3 0x%016llx s4 0x%016llx s5 0x%016llx\n";
-char var800a9b10[] = "s6 0x%016llx s7 0x%016llx t8 0x%016llx\n";
-char var800a9b38[] = "t9 0x%016llx gp 0x%016llx sp 0x%016llx\n";
-char var800a9b60[] = "s8 0x%016llx ra 0x%016llx\n";
-char var800a9b7c[] = "TID %d epc %08x caus %08x fp %08x badv %08x sr %08x\n";
-char var800a9bb4[] = "dshex -a %08x %08x %08x %08x %08x\n";
-char var800a9bd8[] = "cause";
-char var800a9be0[] = " : ";
-char var800a9be4[] = "fpcsr";
-char var800a9bec[] = "\n";
-char var800a9bf0[] = "nearl: ";
-char var800a9bf8[] = " %08x ";
-char var800a9c00[] = "\n       ";
-char var800a9c0c[] = "\n";
-char var800a9c10[] = "\n";
-char var800a9c14[] = "%s <";
-char var800a9c1c[] = ",";
-char var800a9c20[] = "%s";
-char var800a9c24[] = ">";
-char var800a9c28[] = "";
-char var800a9c2c[] = "";
-char var800a9c30[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800a9c54[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9c84[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9cb4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9ce4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9d14[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9d44[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma600";
-char var800a9d74[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500";
-char var800a9da4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500";
-char var800a9dd4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500";
-char var800a9e04[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9e34[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9e64[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9e94[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9ec4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9ef4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9f24[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9f54[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
-char var800a9f84[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800a9fa8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800a9fcc[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800a9ff0[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa014[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa038[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa05c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa080[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa0a4[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa0c8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa0ec[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa110[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa134[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa158[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa17c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa1a0[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa1c4[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa1e8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa20c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa230[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa254[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa278[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa29c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa2c0[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa2e4[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa308[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa32c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa350[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800aa374[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800aa398[] = "-ml0 -me0 -mgfx120 -mvtx100 -ma700";
-char var800aa3bc[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa3e0[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800aa404[] = "-ml0 -me0 -mgfx120 -mvtx100 -ma500";
-char var800aa428[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800aa44c[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800aa470[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800aa494[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800aa4b8[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800aa4dc[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800aa500[] = "-ml0 -me0 -mgfx120 -mvtx100 -ma700";
-char var800aa524[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
-char var800aa548[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
-char var800aa56c[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma300";
-char var800aa590[] = "-ml0 -me0 -mgfx80 -mvtx20 -ma001";
-char var800aa5b4[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma300";
-char var800aa5d8[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa5fc[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa620[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa644[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa668[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa68c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa6b0[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa6d4[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa6f8[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa71c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa740[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa764[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa788[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa7ac[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa7d0[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa7f4[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma130";
-char var800aa818[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
-char var800aa83c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-char var800aa860[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-char var800aa884[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-char var800aa8a8[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-char var800aa8cc[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-char var800aa8f0[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-char var800aa914[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-char var800aa938[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-char var800aa95c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-char var800aa980[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
-char var800aa9a4[] = "-ml0 -me0 -mgfx100 -mvtx96 -ma120";
-char var800aa9c8[] = "-mgfx100 -mvtx50 -ma50";
-char var800aa9e0[] = "-ml0 -me0 -mgfx80 -mvtx20 -ma001";
-char var800aaa04[] = "-ml0 -me0 -mgfx100 -mvtx96 -ma300";
-char var800aaa28[] = "-level_";
-char var800aaa30[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
-char var800aaa64[] = "-hard";
-char var800aaa6c[] = "-hard";
-char var800aaa74[] = "-ma";
-char var800aaa78[] = "-ma";
-char var800aaa7c[] = "-play";
-char var800aaa84[] = "-play";
-char var800aaa8c[] = "-coop";
-char var800aaa94[] = "-anti";
-char var800aaa9c[] = "-mpbots";
-char var800aaaa4[] = "-play";
-char var800aaaac[] = "";
-char var800aaab0[] = "RUSSES SOUND GUARD STRING";
-char var800aaacc[] = "Snd: SoundHeaderCacheInit\n";
-char var800aaae8[] = "-nomp3";
-char var800aaaf0[] = "RWI : Initialising the new and improved MP3 player\n";
-char var800aab24[] = "RWI : MP3 player Initialising Done\n";
-char var800aab48[] = "gsSndpNew\n";
-char var800aab54[] = "Set the sample callbacks\n";
-char var800aab70[] = "Snd_Play_Universal : Overriding -> Link = %d\n";
-char var800aaba0[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
-char var800aabc4[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
-char var800aabec[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
-u32 var800aac14 = 0x3ee147ae;
-u32 var800aac18 = 0x3f266666;
-u32 var800aac1c = 0x3e99999a;
-u32 var800aac20 = 0x3f333333;
-u32 var800aac24 = 0x3eb33333;
-u32 var800aac28 = 0x3f4ccccd;
-u32 var800aac2c = 0x00000000;
-u32 var800aac30 = 0x00000000;
-u32 var800aac34 = 0x00050000;
-char var800aac38[] = "OFF";
-char var800aac3c[] = "LEVELTUNE";
-char var800aac48[] = "NRGTUNE";
-char var800aac50[] = "WATCHTUNE";
-char var800aac5c[] = "MPDEATHTUNE";
-char var800aac68[] = "AMBIENCE";
-char var800aac74[] = " after %d %s\n";
-char var800aac84[] = "Attempts";
-char var800aac90[] = "Attempt";
-char var800aac98[] = "MUSIC(Play) : Unpaused midi channel %d for state %d\n";
-char var800aacd0[] = "MUSIC(Play) : Starting, Guid=%u, Midi=%d, Tune=%d\n";
-char var800aad04[] = "MUSIC(Play) : Done\n";
-char var800aad18[] = "MUSIC(Play) : About to dump the fading channel %d as a same state play request is waiting\n";
-char var800aad74[] = "MUSIC(Play) : About to dump the ambience channel %d\n";
-char var800aadac[] = "MUSIC(Play) : Reason : A play request is waiting - State = %d\n";
-char var800aadec[] = "MUSIC(Play) : SERIOUS -> Out of MIDI channels - Attempt = %d\n";
-char var800aae2c[] = "MUSIC(Play) : SERIOUS -> Tried %d times to play tune : Giving up\n";
-char var800aae70[] = "MUSIC : Fading to pause\n";
-char var800aae8c[] = "Music : Update Rate = %d";
-char var800aaea8[] = "MUSIC TICK : Queue size = %d\n";
-char var800aaec8[] = "MUSIC : Tick -> Channel %d (State=%d) has faded to stop : Dumping\n";
-char var800aaf0c[] = "MUSIC : WARNING -> Force fade termination\n";
-char var800aaf38[] = "MUSIC TICK : Job Guid = %u\n";
-u32 var800aaf54 = 0x70011470;
-u32 var800aaf58 = 0x70011470;
-u32 var800aaf5c = 0x70011470;
-u32 var800aaf60 = 0x70011470;
-u32 var800aaf64 = 0x70011470;
-u32 var800aaf68 = 0x70011470;
-u32 var800aaf6c = 0x70011c30;
-u32 var800aaf70 = 0x70011c44;
-u32 var800aaf74 = 0x70011c58;
-u32 var800aaf78 = 0x70011c6c;
-u32 var800aaf7c = 0x70011c7c;
-u32 var800aaf80 = 0x00000000;
-char var800aaf84[] = "-d";
-char var800aaf88[] = "-s";
-char var800aaf8c[] = "-j";
-char var800aaf90[] = "-level_";
-char var800aaf98[] = "";
-char var800aaf9c[] = "";
-char var800aafa0[] = "s1";
-char var800aafa4[] = "str.c";
-char var800aafac[] = "s2";
-char var800aafb0[] = "str.c";
-char var800aafb8[] = "";
-char var800aafbc[] = "";
-char var800aafc0[] = "0123456789abcdefghijklmnopqrstuvwxyz";
-char var800aafe8[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-char var800ab010[] = "joyReset\n";
-char var800ab01c[] = "joyReset: doing nothing\n";
-char var800ab038[] = "debugjoy";
-char var800ab044[] = "JOY : g_EnableCyclicPolling=%d";
-char var800ab064[] = "JOY : g_JoyReCheckInterval=%d";
-char var800ab084[] = "JOY : g_JoyReCheckEventIn=%d";
-char var800ab0a4[] = "JOY : g_JoyRecheckDone=%d";
-char var800ab0c0[] = "osContStartReadData -> Failed - CONT_NO_RESPONSE_ERROR\n";
-char var800ab0f8[] = "osContStartReadData -> Failed - CONT_OVERRUN_ERROR\n";
-char var800ab12c[] = "joyTickRetrace:joy%derrno%d->%d\n";
-char var800ab150[] = "joyTickRetrace:joy%derrno%d->%d\n";
-u32 var800ab174 = 0x700156a4;
-u32 var800ab178 = 0x700156d8;
-u32 var800ab17c = 0x700157a8;
-u32 var800ab180 = 0x700157d8;
-u32 var800ab184 = 0x7001581c;
-u32 var800ab188 = 0x7001580c;
-u32 var800ab18c = 0x00000000;
-u32 var800ab190 = 0x42652ee0;
-u32 var800ab194 = 0x00000000;
-u32 var800ab198 = 0x00000000;
-u32 var800ab19c = 0x00000000;
-u32 var800ab1a0 = 0xbf7ffcb9;
-u32 var800ab1a4 = 0x3f7ffcb9;
-u32 var800ab1a8 = 0x40490fdb;
-u32 var800ab1ac = 0x40c90fdb;
-u32 var800ab1b0 = 0x3fc90fda;
-u32 var800ab1b4 = 0xbf7ffcb9;
-u32 var800ab1b8 = 0x3f7ffcb9;
-u32 var800ab1bc = 0x38c90fdb;
-u32 var800ab1c0 = 0x3fc90fda;
-u32 var800ab1c4 = 0x38490fdb;
-u32 var800ab1c8 = 0x3fc90fdb;
-u32 var800ab1cc = 0x46fffe00;
-u32 var800ab1d0 = 0x384910a4;
-u32 var800ab1d4 = 0x3fc90fda;
-u32 var800ab1d8 = 0x362edef8;
-u32 var800ab1dc = 0xb94fb7ff;
-u32 var800ab1e0 = 0x3c08876a;
-u32 var800ab1e4 = 0xbe2aaaa6;
-u32 var800ab1e8 = 0x3ea2f983;
-u32 var800ab1ec = 0x40490fdb;
-u32 var800ab1f0 = 0x330885a3;
-u32 var800ab1f4 = 0x362edef8;
-u32 var800ab1f8 = 0xb94fb7ff;
-u32 var800ab1fc = 0x3c08876a;
-u32 var800ab200 = 0xbe2aaaa6;
-u32 var800ab204 = 0x00000000;
-u32 var800ab208 = 0x00000000;
-u32 var800ab20c = 0x00000000;
-u32 var800ab210 = 0x7001aa58;
-u32 var800ab214 = 0x7001aab4;
-u32 var800ab218 = 0x7001aab4;
-u32 var800ab21c = 0x7001aab4;
-u32 var800ab220 = 0x7001aab4;
-u32 var800ab224 = 0x7001aab4;
-u32 var800ab228 = 0x7001aab4;
-u32 var800ab22c = 0x7001aa70;
-u32 var800ab230 = 0x7001aa88;
-u32 var800ab234 = 0x7001aab4;
-u32 var800ab238 = 0x7001aa94;
-u32 var800ab23c = 0x7001aaa0;
-u32 var800ab240 = 0x7001aab4;
-u32 var800ab244 = 0x7001aab4;
-u32 var800ab248 = 0x7001aab4;
-u32 var800ab24c = 0x7001aab4;
-u32 var800ab250 = 0x7001aab4;
-u32 var800ab254 = 0x7001aa7c;
-u32 var800ab258 = 0x7001aab4;
-u32 var800ab25c = 0x7001aab4;
-u32 var800ab260 = 0x7001aab4;
-u32 var800ab264 = 0x7001aab4;
-u32 var800ab268 = 0x7001aaac;
-u32 var800ab26c = 0x7001aa64;
-u32 var800ab270 = 0x40c907a9;
-u32 var800ab274 = 0x40c907a9;
-u32 var800ab278 = 0x40c907a9;
-u32 var800ab27c = 0x40c907a9;
-u32 var800ab280 = 0x40490fdb;
-u32 var800ab284 = 0x40490fdb;
-u32 var800ab288 = 0x40c907a9;
-u32 var800ab28c = 0x40c907a9;
-u32 var800ab290 = 0x40490fdb;
-u32 var800ab294 = 0x40c907a9;
-u32 var800ab298 = 0x3f63dec6;
-u32 var800ab29c = 0x40490fdb;
-u32 var800ab2a0 = 0x40c907a9;
-u32 var800ab2a4 = 0x40c907a9;
-u32 var800ab2a8 = 0x40490fdb;
-u32 var800ab2ac = 0x40c907a9;
-u32 var800ab2b0 = 0x3f63dec6;
-u32 var800ab2b4 = 0x7001cb68;
-u32 var800ab2b8 = 0x7001cb68;
-u32 var800ab2bc = 0x7001cba4;
-u32 var800ab2c0 = 0x7001cba4;
-u32 var800ab2c4 = 0x7001cba4;
-u32 var800ab2c8 = 0x7001cba4;
-u32 var800ab2cc = 0x7001cba4;
-u32 var800ab2d0 = 0x7001cb70;
-u32 var800ab2d4 = 0x7001cb84;
-u32 var800ab2d8 = 0x7001cba4;
-u32 var800ab2dc = 0x7001cb68;
-u32 var800ab2e0 = 0x7001cb68;
-u32 var800ab2e4 = 0x7001cb68;
-u32 var800ab2e8 = 0x7001cb68;
-u32 var800ab2ec = 0x7001cb68;
-u32 var800ab2f0 = 0x7001cba4;
-u32 var800ab2f4 = 0x7001cba4;
-u32 var800ab2f8 = 0x7001cba4;
-u32 var800ab2fc = 0x7001cba4;
-u32 var800ab300 = 0x7001cba4;
-u32 var800ab304 = 0x7001cb68;
-u32 var800ab308 = 0x7001cba4;
-u32 var800ab30c = 0x7001cb98;
-u32 var800ab310 = 0x7001cba4;
-u32 var800ab314 = 0x7001ccc0;
-u32 var800ab318 = 0x7001ccc0;
-u32 var800ab31c = 0x7001ccc0;
-u32 var800ab320 = 0x7001ccc0;
-u32 var800ab324 = 0x7001ccc0;
-u32 var800ab328 = 0x7001ccc0;
-u32 var800ab32c = 0x7001ccc0;
-u32 var800ab330 = 0x7001cc70;
-u32 var800ab334 = 0x7001cc84;
-u32 var800ab338 = 0x7001ccc0;
-u32 var800ab33c = 0x7001ccc0;
-u32 var800ab340 = 0x7001ccc0;
-u32 var800ab344 = 0x7001ccc0;
-u32 var800ab348 = 0x7001ccc0;
-u32 var800ab34c = 0x7001ccc0;
-u32 var800ab350 = 0x7001ccc0;
-u32 var800ab354 = 0x7001ccc0;
-u32 var800ab358 = 0x7001cc98;
-u32 var800ab35c = 0x7001ccc0;
-u32 var800ab360 = 0x7001ccc0;
-u32 var800ab364 = 0x7001ccc0;
-u32 var800ab368 = 0x7001ccc0;
-u32 var800ab36c = 0x7001ccac;
-u32 var800ab370 = 0x7001ccc0;
-u32 var800ab374 = 0x7001cd70;
-u32 var800ab378 = 0x7001cd88;
-u32 var800ab37c = 0x7001ce08;
-u32 var800ab380 = 0x7001ce08;
-u32 var800ab384 = 0x7001ce08;
-u32 var800ab388 = 0x7001ce08;
-u32 var800ab38c = 0x7001ce08;
-u32 var800ab390 = 0x7001cdb8;
-u32 var800ab394 = 0x7001cdcc;
-u32 var800ab398 = 0x7001ce08;
-u32 var800ab39c = 0x7001ce08;
-u32 var800ab3a0 = 0x7001ce08;
-u32 var800ab3a4 = 0x7001ce08;
-u32 var800ab3a8 = 0x7001ce08;
-u32 var800ab3ac = 0x7001ce08;
-u32 var800ab3b0 = 0x7001ce08;
-u32 var800ab3b4 = 0x7001ce08;
-u32 var800ab3b8 = 0x7001cde0;
-u32 var800ab3bc = 0x7001ce08;
-u32 var800ab3c0 = 0x7001ce08;
-u32 var800ab3c4 = 0x7001cda0;
-u32 var800ab3c8 = 0x7001ce08;
-u32 var800ab3cc = 0x7001cdf4;
-u32 var800ab3d0 = 0x7001ce08;
-u32 var800ab3d4 = 0x40c907a9;
-u32 var800ab3d8 = 0x40c907a9;
-u32 var800ab3dc = 0x40c907a9;
-u32 var800ab3e0 = 0x40c907a9;
-u32 var800ab3e4 = 0x40c907a9;
-u32 var800ab3e8 = 0x7002209c;
-u32 var800ab3ec = 0x7002209c;
-u32 var800ab3f0 = 0x7002209c;
-u32 var800ab3f4 = 0x70022058;
-u32 var800ab3f8 = 0x7002209c;
-u32 var800ab3fc = 0x7002209c;
-u32 var800ab400 = 0x7002209c;
-u32 var800ab404 = 0x70021f78;
-u32 var800ab408 = 0x7002202c;
-u32 var800ab40c = 0x7002209c;
-u32 var800ab410 = 0x7002209c;
-u32 var800ab414 = 0x70022040;
-u32 var800ab418 = 0x7002209c;
-u32 var800ab41c = 0x7002209c;
-u32 var800ab420 = 0x7002209c;
-u32 var800ab424 = 0x7002209c;
-u32 var800ab428 = 0x7002209c;
-u32 var800ab42c = 0x70021f78;
-u32 var800ab430 = 0x7002209c;
-u32 var800ab434 = 0x7002209c;
-u32 var800ab438 = 0x7002209c;
-u32 var800ab43c = 0x70022088;
-u32 var800ab440 = 0x70021ff0;
-u32 var800ab444 = 0x70022070;
-u32 var800ab448 = 0x7002277c;
-u32 var800ab44c = 0x7002277c;
-u32 var800ab450 = 0x7002277c;
-u32 var800ab454 = 0x7002277c;
-u32 var800ab458 = 0x7002277c;
-u32 var800ab45c = 0x7002277c;
-u32 var800ab460 = 0x7002277c;
-u32 var800ab464 = 0x700226e8;
-u32 var800ab468 = 0x7002277c;
-u32 var800ab46c = 0x700226a0;
-u32 var800ab470 = 0x7002277c;
-u32 var800ab474 = 0x7002277c;
-u32 var800ab478 = 0x7002277c;
-u32 var800ab47c = 0x7002277c;
-u32 var800ab480 = 0x7002277c;
-u32 var800ab484 = 0x7002277c;
-u32 var800ab488 = 0x7002277c;
-u32 var800ab48c = 0x70022718;
-u32 var800ab490 = 0x7002277c;
-u32 var800ab494 = 0x7002277c;
-u32 var800ab498 = 0x7002277c;
-u32 var800ab49c = 0x7002277c;
-u32 var800ab4a0 = 0x70022748;
-u32 var800ab4a4 = 0x7002277c;
-u32 var800ab4a8 = 0x70022840;
-u32 var800ab4ac = 0x70022848;
-u32 var800ab4b0 = 0x700229d8;
-u32 var800ab4b4 = 0x70022850;
-u32 var800ab4b8 = 0x700229d8;
-u32 var800ab4bc = 0x700229d8;
-u32 var800ab4c0 = 0x700229d8;
-u32 var800ab4c4 = 0x70022898;
-u32 var800ab4c8 = 0x700228e0;
-u32 var800ab4cc = 0x700229d8;
-u32 var800ab4d0 = 0x70022934;
-u32 var800ab4d4 = 0x70022958;
-u32 var800ab4d8 = 0x7002297c;
-u32 var800ab4dc = 0x700229d8;
-u32 var800ab4e0 = 0x700229d8;
-u32 var800ab4e4 = 0x700229d8;
-u32 var800ab4e8 = 0x70022914;
-u32 var800ab4ec = 0x700228c0;
-u32 var800ab4f0 = 0x700229d8;
-u32 var800ab4f4 = 0x700229d8;
-u32 var800ab4f8 = 0x700229d8;
-u32 var800ab4fc = 0x700229b4;
-u32 var800ab500 = 0x700229d8;
-u32 var800ab504 = 0x70022874;
-u32 var800ab508 = 0x70022bb8;
-u32 var800ab50c = 0x70022cb0;
-u32 var800ab510 = 0x70022cb0;
-u32 var800ab514 = 0x70022cb0;
-u32 var800ab518 = 0x70022cb0;
-u32 var800ab51c = 0x70022cb0;
-u32 var800ab520 = 0x70022cb0;
-u32 var800ab524 = 0x70022bd4;
-u32 var800ab528 = 0x70022c34;
-u32 var800ab52c = 0x70022cb0;
-u32 var800ab530 = 0x70022c5c;
-u32 var800ab534 = 0x70022c78;
-u32 var800ab538 = 0x70022cb0;
-u32 var800ab53c = 0x70022cb0;
-u32 var800ab540 = 0x70022cb0;
-u32 var800ab544 = 0x70022cb0;
-u32 var800ab548 = 0x70022cb0;
-u32 var800ab54c = 0x70022bf4;
-u32 var800ab550 = 0x70022cb0;
-u32 var800ab554 = 0x70022cb0;
-u32 var800ab558 = 0x70022cb0;
-u32 var800ab55c = 0x70022cb0;
-u32 var800ab560 = 0x70022c14;
-u32 var800ab564 = 0x70022c94;
-u32 var800ab568 = 0x70022db0;
-u32 var800ab56c = 0x70022f2c;
-u32 var800ab570 = 0x70022f2c;
-u32 var800ab574 = 0x70022f2c;
-u32 var800ab578 = 0x70022f2c;
-u32 var800ab57c = 0x70022f2c;
-u32 var800ab580 = 0x70022f2c;
-u32 var800ab584 = 0x70022e28;
-u32 var800ab588 = 0x70022e88;
-u32 var800ab58c = 0x70022f2c;
-u32 var800ab590 = 0x70022eac;
-u32 var800ab594 = 0x70022ec4;
-u32 var800ab598 = 0x70022f2c;
-u32 var800ab59c = 0x70022f2c;
-u32 var800ab5a0 = 0x70022f2c;
-u32 var800ab5a4 = 0x70022f2c;
-u32 var800ab5a8 = 0x70022f2c;
-u32 var800ab5ac = 0x70022e48;
-u32 var800ab5b0 = 0x70022f2c;
-u32 var800ab5b4 = 0x70022f2c;
-u32 var800ab5b8 = 0x70022f2c;
-u32 var800ab5bc = 0x70022f2c;
-u32 var800ab5c0 = 0x70022e6c;
-u32 var800ab5c4 = 0x70022edc;
-u32 var800ab5c8 = 0x70023200;
-u32 var800ab5cc = 0x700232a4;
-u32 var800ab5d0 = 0x700232a4;
-u32 var800ab5d4 = 0x700232a4;
-u32 var800ab5d8 = 0x70023278;
-u32 var800ab5dc = 0x70023298;
-u32 var800ab5e0 = 0x700232a4;
-u32 var800ab5e4 = 0x700232a4;
-u32 var800ab5e8 = 0x700232a4;
-u32 var800ab5ec = 0x700232a4;
-u32 var800ab5f0 = 0x700232a4;
-u32 var800ab5f4 = 0x700232a4;
-u32 var800ab5f8 = 0x700232a4;
-u32 var800ab5fc = 0x700232a4;
-u32 var800ab600 = 0x70023288;
-u32 var800ab604 = 0x700232a4;
-u32 var800ab608 = 0x700232a4;
-u32 var800ab60c = 0x700232a4;
-u32 var800ab610 = 0x70023260;
-u32 var800ab614 = 0x700232a4;
-u32 var800ab618 = 0x70023230;
-u32 var800ab61c = 0x00000000;
-u32 var800ab620 = 0x3a83126f;
-u32 var800ab624 = 0x3a83126f;
-u32 var800ab628 = 0x3a83126f;
-u32 var800ab62c = 0x40c907a9;
-u32 var800ab630 = 0x40c907a9;
-u32 var800ab634 = 0x40c907a9;
-u32 var800ab638 = 0x40c907a9;
-u32 var800ab63c = 0x3a83126f;
-u32 var800ab640 = 0x3f83f794;
-u32 var800ab644 = 0x40c90fdb;
-u32 var800ab648 = 0x40c90fdb;
-u32 var800ab64c = 0x4622f985;
-u32 var800ab650 = 0x49742400;
-u32 var800ab654 = 0x700304d0;
-u32 var800ab658 = 0x700304d0;
-u32 var800ab65c = 0x700304d0;
-u32 var800ab660 = 0x700304d0;
-u32 var800ab664 = 0x70030548;
-u32 var800ab668 = 0x70030568;
-u32 var800ab66c = 0x70030548;
-u32 var800ab670 = 0x70030568;
-u32 var800ab674 = 0x700305a0;
-u32 var800ab678 = 0x70030548;
-u32 var800ab67c = 0x70030548;
-u32 var800ab680 = 0x70030568;
-u32 var800ab684 = 0x48f42400;
-u32 var800ab688 = 0x7003081c;
-u32 var800ab68c = 0x7003081c;
-u32 var800ab690 = 0x7003081c;
-u32 var800ab694 = 0x7003081c;
-u32 var800ab698 = 0x7003085c;
-u32 var800ab69c = 0x7003085c;
-u32 var800ab6a0 = 0x70030960;
-u32 var800ab6a4 = 0x70030960;
-u32 var800ab6a8 = 0x70030998;
-u32 var800ab6ac = 0x70030998;
-u32 var800ab6b0 = 0x700309c4;
-u32 var800ab6b4 = 0x700309c4;
-u32 var800ab6b8 = 0x00000000;
-u32 var800ab6bc = 0x00000000;
-u32 var800ab6c0 = 0x49742400;
-u32 var800ab6c4 = 0x00000000;
-u32 var800ab6c8 = 0x00000000;
-u32 var800ab6cc = 0x00000000;
-u32 var800ab6d0 = 0x70031ce0;
-u32 var800ab6d4 = 0x700325ac;
-u32 var800ab6d8 = 0x70033010;
-u32 var800ab6dc = 0x70032730;
-u32 var800ab6e0 = 0x70033010;
-u32 var800ab6e4 = 0x70033010;
-u32 var800ab6e8 = 0x70033010;
-u32 var800ab6ec = 0x70032a3c;
-u32 var800ab6f0 = 0x70033010;
-u32 var800ab6f4 = 0x70033010;
-u32 var800ab6f8 = 0x70033010;
-u32 var800ab6fc = 0x70033010;
-u32 var800ab700 = 0x70033010;
-u32 var800ab704 = 0x70033010;
-u32 var800ab708 = 0x70033010;
-u32 var800ab70c = 0x700327d4;
-u32 var800ab710 = 0x70034500;
-u32 var800ab714 = 0x70034d84;
-u32 var800ab718 = 0x70034910;
-u32 var800ab71c = 0x70034d84;
-u32 var800ab720 = 0x70034d84;
-u32 var800ab724 = 0x70034538;
-u32 var800ab728 = 0x70034590;
-u32 var800ab72c = 0x70034928;
-u32 var800ab730 = 0x70034d8c;
-u32 var800ab734 = 0x70034510;
-u32 var800ab738 = 0x70034940;
-u32 var800ab73c = 0x70034d8c;
-u32 var800ab740 = 0x70034ce0;
-u32 var800ab744 = 0x70034d20;
-u32 var800ab748 = 0x70034d60;
-u32 var800ab74c = 0x70034aa4;
-u32 var800ab750 = 0x70034ad4;
-u32 var800ab754 = 0x70034b5c;
-u32 var800ab758 = 0x70034d8c;
-u32 var800ab75c = 0x70034d8c;
-u32 var800ab760 = 0x70034d8c;
-u32 var800ab764 = 0x70034910;
-u32 var800ab768 = 0x70034624;
-u32 var800ab76c = 0x70034764;
-u32 var800ab770 = 0x700349b0;
-u32 var800ab774 = 0x70034a10;
-u32 var800ab778 = 0x70034e5c;
-u32 var800ab77c = 0x70034eec;
-u32 var800ab780 = 0x70034e78;
-u32 var800ab784 = 0x70034e94;
-u32 var800ab788 = 0x70034eec;
-u32 var800ab78c = 0x70034eec;
-u32 var800ab790 = 0x70034eec;
-u32 var800ab794 = 0x70034eec;
-u32 var800ab798 = 0x70034eec;
-u32 var800ab79c = 0x70034eec;
-u32 var800ab7a0 = 0x70034eec;
-u32 var800ab7a4 = 0x70034eec;
-u32 var800ab7a8 = 0x70034eec;
-u32 var800ab7ac = 0x70034eec;
-u32 var800ab7b0 = 0x70034eec;
-u32 var800ab7b4 = 0x70034eec;
-u32 var800ab7b8 = 0x70034eec;
-u32 var800ab7bc = 0x70034edc;
-u32 var800ab7c0 = 0x70034edc;
-u32 var800ab7c4 = 0x70034edc;
-u32 var800ab7c8 = 0x70035a44;
-u32 var800ab7cc = 0x700371f8;
-u32 var800ab7d0 = 0x700371f8;
-u32 var800ab7d4 = 0x700371f8;
-u32 var800ab7d8 = 0x700371f8;
-u32 var800ab7dc = 0x700371f8;
-u32 var800ab7e0 = 0x700371f8;
-u32 var800ab7e4 = 0x700371f8;
-u32 var800ab7e8 = 0x700371f8;
-u32 var800ab7ec = 0x700371f8;
-u32 var800ab7f0 = 0x700371f8;
-u32 var800ab7f4 = 0x700371f8;
-u32 var800ab7f8 = 0x700371f8;
-u32 var800ab7fc = 0x700371f8;
-u32 var800ab800 = 0x700371f8;
-u32 var800ab804 = 0x700371f8;
-u32 var800ab808 = 0x700351a4;
-u32 var800ab80c = 0x700371f8;
-u32 var800ab810 = 0x700371f8;
-u32 var800ab814 = 0x700371f8;
-u32 var800ab818 = 0x700371f8;
-u32 var800ab81c = 0x700371f8;
-u32 var800ab820 = 0x700371f8;
-u32 var800ab824 = 0x700371f8;
-u32 var800ab828 = 0x700371f8;
-u32 var800ab82c = 0x700371f8;
-u32 var800ab830 = 0x700371f8;
-u32 var800ab834 = 0x700371f8;
-u32 var800ab838 = 0x700371f8;
-u32 var800ab83c = 0x700371f8;
-u32 var800ab840 = 0x700371f8;
-u32 var800ab844 = 0x700371f8;
-u32 var800ab848 = 0x70035b68;
-u32 var800ab84c = 0x700371f8;
-u32 var800ab850 = 0x700371f8;
-u32 var800ab854 = 0x700371f8;
-u32 var800ab858 = 0x700371f8;
-u32 var800ab85c = 0x700371f8;
-u32 var800ab860 = 0x700371f8;
-u32 var800ab864 = 0x700371f8;
-u32 var800ab868 = 0x700371f8;
-u32 var800ab86c = 0x700371f8;
-u32 var800ab870 = 0x700371f8;
-u32 var800ab874 = 0x700371f8;
-u32 var800ab878 = 0x700371f8;
-u32 var800ab87c = 0x700371f8;
-u32 var800ab880 = 0x700371f8;
-u32 var800ab884 = 0x700371f8;
-u32 var800ab888 = 0x70035c64;
-u32 var800ab88c = 0x700371f8;
-u32 var800ab890 = 0x700371f8;
-u32 var800ab894 = 0x700371f8;
-u32 var800ab898 = 0x700371f8;
-u32 var800ab89c = 0x700371f8;
-u32 var800ab8a0 = 0x700371f8;
-u32 var800ab8a4 = 0x700371f8;
-u32 var800ab8a8 = 0x700371f8;
-u32 var800ab8ac = 0x700371f8;
-u32 var800ab8b0 = 0x700371f8;
-u32 var800ab8b4 = 0x700371f8;
-u32 var800ab8b8 = 0x700371f8;
-u32 var800ab8bc = 0x700371f8;
-u32 var800ab8c0 = 0x700371f8;
-u32 var800ab8c4 = 0x700371f8;
-u32 var800ab8c8 = 0x70036fb4;
-u32 var800ab8cc = 0x700371f8;
-u32 var800ab8d0 = 0x700371f8;
-u32 var800ab8d4 = 0x700371f8;
-u32 var800ab8d8 = 0x700371f8;
-u32 var800ab8dc = 0x700371f8;
-u32 var800ab8e0 = 0x700371f8;
-u32 var800ab8e4 = 0x700371f8;
-u32 var800ab8e8 = 0x700371f8;
-u32 var800ab8ec = 0x700371f8;
-u32 var800ab8f0 = 0x700371f8;
-u32 var800ab8f4 = 0x700371f8;
-u32 var800ab8f8 = 0x700371f8;
-u32 var800ab8fc = 0x700371f8;
-u32 var800ab900 = 0x700371f8;
-u32 var800ab904 = 0x700371f8;
-u32 var800ab908 = 0x70035be0;
-u32 var800ab90c = 0x700371f8;
-u32 var800ab910 = 0x700371f8;
-u32 var800ab914 = 0x700371f8;
-u32 var800ab918 = 0x700371f8;
-u32 var800ab91c = 0x700371f8;
-u32 var800ab920 = 0x700371f8;
-u32 var800ab924 = 0x700371f8;
-u32 var800ab928 = 0x700371f8;
-u32 var800ab92c = 0x700371f8;
-u32 var800ab930 = 0x700371f8;
-u32 var800ab934 = 0x700371f8;
-u32 var800ab938 = 0x700371f8;
-u32 var800ab93c = 0x700371f8;
-u32 var800ab940 = 0x700371f8;
-u32 var800ab944 = 0x700371f8;
-u32 var800ab948 = 0x70037044;
-u32 var800ab94c = 0x70036e4c;
-u32 var800ab950 = 0x70036988;
-u32 var800ab954 = 0x700369ec;
-u32 var800ab958 = 0x70036aa4;
-u32 var800ab95c = 0x70036fa4;
-u32 var800ab960 = 0x70036fa4;
-u32 var800ab964 = 0x70036328;
-u32 var800ab968 = 0x70036fa4;
-u32 var800ab96c = 0x70036fa4;
-u32 var800ab970 = 0x70035d40;
-u32 var800ab974 = 0x70036b30;
-u32 var800ab978 = 0x70036ba8;
-u32 var800ab97c = 0x70036c08;
-u32 var800ab980 = 0x70036c6c;
-u32 var800ab984 = 0x70036ccc;
-u32 var800ab988 = 0x700363d8;
-u32 var800ab98c = 0x70036d2c;
-u32 var800ab990 = 0x70036d8c;
-u32 var800ab994 = 0x70036dec;
-u32 var800ab998 = 0x70036778;
-u32 var800ab99c = 0x700367e8;
-u32 var800ab9a0 = 0x70036848;
-u32 var800ab9a4 = 0x700368b8;
-u32 var800ab9a8 = 0x70036918;
-u32 var800ab9ac = 0x70036f70;
-u32 var800ab9b0 = 0x70036734;
-u32 var800ab9b4 = 0x70036fa4;
-u32 var800ab9b8 = 0x70036fa4;
-u32 var800ab9bc = 0x70036fa4;
-u32 var800ab9c0 = 0x700362e0;
-u32 var800ab9c4 = 0x70036fa4;
-u32 var800ab9c8 = 0x70036744;
-u32 var800ab9cc = 0x700361e8;
-u32 var800ab9d0 = 0x70036228;
-u32 var800ab9d4 = 0x70036268;
-u32 var800ab9d8 = 0x70036ecc;
-u32 var800ab9dc = 0x70036ee0;
-u32 var800ab9e0 = 0x70036ee0;
-u32 var800ab9e4 = 0x70036ee0;
-u32 var800ab9e8 = 0x70036f40;
-u32 var800ab9ec = 0x70036ef8;
-u32 var800ab9f0 = 0x70036f40;
-u32 var800ab9f4 = 0x70036ef8;
-u32 var800ab9f8 = 0x70036f1c;
-u32 var800ab9fc = 0x70036f40;
-u32 var800aba00 = 0x70036f40;
-u32 var800aba04 = 0x70036ef8;
-u32 var800aba08 = 0x00000000;
-u32 var800aba0c = 0x00000000;
-u32 var800aba10 = 0x3f8012ef;
-u32 var800aba14 = 0x3f7fda28;
-u32 var800aba18 = 0x00000000;
-u32 var800aba1c = 0x00000000;
-u32 var800aba20 = 0x3fb50481;
-u32 var800aba24 = 0x7003a9c8;
-u32 var800aba28 = 0x7003aa24;
-u32 var800aba2c = 0x7003aa80;
-u32 var800aba30 = 0x7003aaac;
-u32 var800aba34 = 0x7003aad8;
-u32 var800aba38 = 0x7003ab04;
-u32 var800aba3c = 0x7003ab68;
-u32 var800aba40 = 0x7003ab84;
-u32 var800aba44 = 0x482910da;
-u32 var800aba48 = 0x482910da;
-u32 var800aba4c = 0x00000000;
-u32 var800aba50 = 0x40490fdb;
-u32 var800aba54 = 0x3fb504f4;
-u32 var800aba58 = 0x3f879c7d;
-u32 var800aba5c = 0x3f71a1bf;
-u32 var800aba60 = 0x46d12000;
-u32 var800aba64 = 0x46d12000;
-u32 var800aba68 = 0x482910da;
-u32 var800aba6c = 0x00000000;
-u32 var800aba70 = 0x3dcccccd;
-u32 var800aba74 = 0x00000000;
-u32 var800aba78 = 0x00000000;
-u32 var800aba7c = 0x00000000;
-u32 var800aba80 = 0x7003eff8;
-u32 var800aba84 = 0x7003f0d0;
-u32 var800aba88 = 0x7003f0d0;
-u32 var800aba8c = 0x7003f0d0;
-u32 var800aba90 = 0x7003f0d0;
-u32 var800aba94 = 0x7003f090;
-u32 var800aba98 = 0x7003f0d0;
-u32 var800aba9c = 0x7003f024;
-u32 var800abaa0 = 0x7003f05c;
-u32 var800abaa4 = 0x7003f0d0;
-u32 var800abaa8 = 0x7003f0d0;
-u32 var800abaac = 0x7003ec2c;
-u32 var800abab0 = 0x7003ec2c;
-u32 var800abab4 = 0x7003e9b8;
-u32 var800abab8 = 0x7003ef70;
-u32 var800ababc = 0x7003efc0;
-u32 var800abac0 = 0x7003ec2c;
-u32 var800abac4 = 0x477fff00;
-u32 var800abac8 = 0x00000000;
-u32 var800abacc = 0x00000000;
-u32 var800abad0 = 0x00000100;
-u32 var800abad4 = 0x00000001;
-u32 var800abad8 = 0x00010300;
-u32 var800abadc = 0x00000004;
-u32 var800abae0 = 0x01000200;
-u32 var800abae4 = 0x00000002;
-u32 var800abae8 = 0x01010300;
-u32 var800abaec = 0x00000000;
-u32 var800abaf0 = 0x64646400;
-u32 var800abaf4 = 0x00000000;
-u32 var800abaf8 = 0x00000100;
-u32 var800abafc = 0x00000001;
-u32 var800abb00 = 0x00010300;
-u32 var800abb04 = 0x00000002;
-u32 var800abb08 = 0x00020600;
-u32 var800abb0c = 0x00000020;
-u32 var800abb10 = 0x01000300;
-u32 var800abb14 = 0x00000006;
-u32 var800abb18 = 0x01010300;
-u32 var800abb1c = 0x00000004;
-u32 var800abb20 = 0x01020500;
-u32 var800abb24 = 0x00000010;
-u32 var800abb28 = 0x02000500;
-u32 var800abb2c = 0x00000018;
-u32 var800abb30 = 0x02010500;
-u32 var800abb34 = 0x00000008;
-u32 var800abb38 = 0x02020600;
-u32 var800abb3c = 0x00000000;
-u32 var800abb40 = 0x64646400;
-u32 var800abb44 = 0x00000000;
-u32 var800abb48 = 0x00000200;
-u32 var800abb4c = 0x00000003;
-u32 var800abb50 = 0x00010200;
-u32 var800abb54 = 0x00000001;
-u32 var800abb58 = 0x00020600;
-u32 var800abb5c = 0x00000020;
-u32 var800abb60 = 0x01000300;
-u32 var800abb64 = 0x00000004;
-u32 var800abb68 = 0x01010200;
-u32 var800abb6c = 0x00000002;
-u32 var800abb70 = 0x01020500;
-u32 var800abb74 = 0x00000010;
-u32 var800abb78 = 0x02000500;
-u32 var800abb7c = 0x00000018;
-u32 var800abb80 = 0x02010500;
-u32 var800abb84 = 0x00000008;
-u32 var800abb88 = 0x02020600;
-u32 var800abb8c = 0x00000000;
-u32 var800abb90 = 0x64646400;
-u32 var800abb94 = 0x00000000;
-u32 var800abb98 = 0x00000100;
-u32 var800abb9c = 0x00000001;
-u32 var800abba0 = 0x00010300;
-u32 var800abba4 = 0x00000002;
-u32 var800abba8 = 0x00020600;
-u32 var800abbac = 0x00000018;
-u32 var800abbb0 = 0x00030700;
-u32 var800abbb4 = 0x00000050;
-u32 var800abbb8 = 0x01000300;
-u32 var800abbbc = 0x00000006;
-u32 var800abbc0 = 0x01010300;
-u32 var800abbc4 = 0x00000004;
-u32 var800abbc8 = 0x01020600;
-u32 var800abbcc = 0x00000008;
-u32 var800abbd0 = 0x01030700;
-u32 var800abbd4 = 0x00000010;
-u32 var800abbd8 = 0x02000600;
-u32 var800abbdc = 0x00000038;
-u32 var800abbe0 = 0x02010600;
-u32 var800abbe4 = 0x00000028;
-u32 var800abbe8 = 0x02020700;
-u32 var800abbec = 0x00000070;
-u32 var800abbf0 = 0x02030800;
-u32 var800abbf4 = 0x00000080;
-u32 var800abbf8 = 0x03000700;
-u32 var800abbfc = 0x00000030;
-u32 var800abc00 = 0x03010600;
-u32 var800abc04 = 0x00000020;
-u32 var800abc08 = 0x03020700;
-u32 var800abc0c = 0x00000040;
-u32 var800abc10 = 0x03030800;
-u32 var800abc14 = 0x00000000;
-u32 var800abc18 = 0x64646400;
-u32 var800abc1c = 0x00000000;
-u32 var800abc20 = 0x00000300;
-u32 var800abc24 = 0x00000007;
-u32 var800abc28 = 0x00010300;
-u32 var800abc2c = 0x00000006;
-u32 var800abc30 = 0x00020500;
-u32 var800abc34 = 0x00000014;
-u32 var800abc38 = 0x00030700;
-u32 var800abc3c = 0x00000040;
-u32 var800abc40 = 0x01000300;
-u32 var800abc44 = 0x00000003;
-u32 var800abc48 = 0x01010200;
-u32 var800abc4c = 0x00000001;
-u32 var800abc50 = 0x01020400;
-u32 var800abc54 = 0x0000000c;
-u32 var800abc58 = 0x01030500;
-u32 var800abc5c = 0x00000008;
-u32 var800abc60 = 0x02000400;
-u32 var800abc64 = 0x0000000a;
-u32 var800abc68 = 0x02010400;
-u32 var800abc6c = 0x00000002;
-u32 var800abc70 = 0x02020500;
-u32 var800abc74 = 0x00000004;
-u32 var800abc78 = 0x02030600;
-u32 var800abc7c = 0x00000020;
-u32 var800abc80 = 0x03000600;
-u32 var800abc84 = 0x00000030;
-u32 var800abc88 = 0x03010500;
-u32 var800abc8c = 0x00000018;
-u32 var800abc90 = 0x03020600;
-u32 var800abc94 = 0x00000010;
-u32 var800abc98 = 0x03030700;
-u32 var800abc9c = 0x00000000;
-u32 var800abca0 = 0x64646400;
-u32 var800abca4 = 0x00000000;
-u32 var800abca8 = 0x00000100;
-u32 var800abcac = 0x00000001;
-u32 var800abcb0 = 0x00010300;
-u32 var800abcb4 = 0x00000002;
-u32 var800abcb8 = 0x00020600;
-u32 var800abcbc = 0x00000014;
-u32 var800abcc0 = 0x00030800;
-u32 var800abcc4 = 0x000000c8;
-u32 var800abcc8 = 0x00040800;
-u32 var800abccc = 0x00000008;
-u32 var800abcd0 = 0x00050900;
-u32 var800abcd4 = 0x000000a0;
-u32 var800abcd8 = 0x01000300;
-u32 var800abcdc = 0x00000006;
-u32 var800abce0 = 0x01010400;
-u32 var800abce4 = 0x0000000c;
-u32 var800abce8 = 0x01020600;
-u32 var800abcec = 0x00000038;
-u32 var800abcf0 = 0x01030700;
-u32 var800abcf4 = 0x00000028;
-u32 var800abcf8 = 0x01040700;
-u32 var800abcfc = 0x00000050;
-u32 var800abd00 = 0x01050800;
-u32 var800abd04 = 0x000000c0;
-u32 var800abd08 = 0x02000600;
-u32 var800abd0c = 0x00000034;
-u32 var800abd10 = 0x02010500;
-u32 var800abd14 = 0x00000004;
-u32 var800abd18 = 0x02020700;
-u32 var800abd1c = 0x00000058;
-u32 var800abd20 = 0x02030800;
-u32 var800abd24 = 0x00000088;
-u32 var800abd28 = 0x02040800;
-u32 var800abd2c = 0x00000010;
-u32 var800abd30 = 0x02050900;
-u32 var800abd34 = 0x00000040;
-u32 var800abd38 = 0x03000700;
-u32 var800abd3c = 0x00000018;
-u32 var800abd40 = 0x03010700;
-u32 var800abd44 = 0x00000068;
-u32 var800abd48 = 0x03020800;
-u32 var800abd4c = 0x00000048;
-u32 var800abd50 = 0x03030900;
-u32 var800abd54 = 0x000001e0;
-u32 var800abd58 = 0x03040900;
-u32 var800abd5c = 0x000001a0;
-u32 var800abd60 = 0x03050900;
-u32 var800abd64 = 0x00000080;
-u32 var800abd68 = 0x04000700;
-u32 var800abd6c = 0x00000070;
-u32 var800abd70 = 0x04010700;
-u32 var800abd74 = 0x00000030;
-u32 var800abd78 = 0x04020800;
-u32 var800abd7c = 0x00000090;
-u32 var800abd80 = 0x04030900;
-u32 var800abd84 = 0x000000e0;
-u32 var800abd88 = 0x04040900;
-u32 var800abd8c = 0x00000180;
-u32 var800abd90 = 0x04050a00;
-u32 var800abd94 = 0x00000200;
-u32 var800abd98 = 0x05000800;
-u32 var800abd9c = 0x00000060;
-u32 var800abda0 = 0x05010800;
-u32 var800abda4 = 0x00000020;
-u32 var800abda8 = 0x05020900;
-u32 var800abdac = 0x00000140;
-u32 var800abdb0 = 0x05030a00;
-u32 var800abdb4 = 0x00000300;
-u32 var800abdb8 = 0x05040a00;
-u32 var800abdbc = 0x00000100;
-u32 var800abdc0 = 0x05050a00;
-u32 var800abdc4 = 0x00000000;
-u32 var800abdc8 = 0x64646400;
-u32 var800abdcc = 0x00000000;
-u32 var800abdd0 = 0x00000200;
-u32 var800abdd4 = 0x00000003;
-u32 var800abdd8 = 0x00010300;
-u32 var800abddc = 0x00000001;
-u32 var800abde0 = 0x00020600;
-u32 var800abde4 = 0x00000018;
-u32 var800abde8 = 0x00030800;
-u32 var800abdec = 0x00000048;
-u32 var800abdf0 = 0x00040800;
-u32 var800abdf4 = 0x00000030;
-u32 var800abdf8 = 0x00050900;
-u32 var800abdfc = 0x00000140;
-u32 var800abe00 = 0x01000300;
-u32 var800abe04 = 0x00000005;
-u32 var800abe08 = 0x01010200;
-u32 var800abe0c = 0x00000002;
-u32 var800abe10 = 0x01020400;
-u32 var800abe14 = 0x00000004;
-u32 var800abe18 = 0x01030800;
-u32 var800abe1c = 0x00000008;
-u32 var800abe20 = 0x01040800;
-u32 var800abe24 = 0x00000090;
-u32 var800abe28 = 0x01050800;
-u32 var800abe2c = 0x000000c0;
-u32 var800abe30 = 0x02000600;
-u32 var800abe34 = 0x00000038;
-u32 var800abe38 = 0x02010400;
-u32 var800abe3c = 0x0000000c;
-u32 var800abe40 = 0x02020600;
-u32 var800abe44 = 0x00000028;
-u32 var800abe48 = 0x02030800;
-u32 var800abe4c = 0x00000070;
-u32 var800abe50 = 0x02040800;
-u32 var800abe54 = 0x000000e0;
-u32 var800abe58 = 0x02050900;
-u32 var800abe5c = 0x00000180;
-u32 var800abe60 = 0x03000800;
-u32 var800abe64 = 0x000000c8;
-u32 var800abe68 = 0x03010800;
-u32 var800abe6c = 0x00000088;
-u32 var800abe70 = 0x03020800;
-u32 var800abe74 = 0x000000f0;
-u32 var800abe78 = 0x03030900;
-u32 var800abe7c = 0x00000160;
-u32 var800abe80 = 0x03040900;
-u32 var800abe84 = 0x000000a0;
-u32 var800abe88 = 0x03050a00;
-u32 var800abe8c = 0x00000080;
-u32 var800abe90 = 0x04000800;
-u32 var800abe94 = 0x000000b0;
-u32 var800abe98 = 0x04010700;
-u32 var800abe9c = 0x00000050;
-u32 var800abea0 = 0x04020800;
-u32 var800abea4 = 0x00000010;
-u32 var800abea8 = 0x04030900;
-u32 var800abeac = 0x000001a0;
-u32 var800abeb0 = 0x04040a00;
-u32 var800abeb4 = 0x00000280;
-u32 var800abeb8 = 0x04050a00;
-u32 var800abebc = 0x00000200;
-u32 var800abec0 = 0x05000900;
-u32 var800abec4 = 0x00000060;
-u32 var800abec8 = 0x05010800;
-u32 var800abecc = 0x00000020;
-u32 var800abed0 = 0x05020900;
-u32 var800abed4 = 0x00000040;
-u32 var800abed8 = 0x05030900;
-u32 var800abedc = 0x00000100;
-u32 var800abee0 = 0x05040b00;
-u32 var800abee4 = 0x00000400;
-u32 var800abee8 = 0x05050b00;
-u32 var800abeec = 0x00000000;
-u32 var800abef0 = 0x64646400;
-u32 var800abef4 = 0x00000000;
-u32 var800abef8 = 0x00000300;
-u32 var800abefc = 0x00000007;
-u32 var800abf00 = 0x00010300;
-u32 var800abf04 = 0x00000005;
-u32 var800abf08 = 0x00020500;
-u32 var800abf0c = 0x00000012;
-u32 var800abf10 = 0x00030600;
-u32 var800abf14 = 0x0000001c;
-u32 var800abf18 = 0x00040800;
-u32 var800abf1c = 0x000000f0;
-u32 var800abf20 = 0x00050900;
-u32 var800abf24 = 0x000001c0;
-u32 var800abf28 = 0x01000300;
-u32 var800abf2c = 0x00000003;
-u32 var800abf30 = 0x01010300;
-u32 var800abf34 = 0x00000001;
-u32 var800abf38 = 0x01020400;
-u32 var800abf3c = 0x0000000a;
-u32 var800abf40 = 0x01030500;
-u32 var800abf44 = 0x00000014;
-u32 var800abf48 = 0x01040600;
-u32 var800abf4c = 0x00000018;
-u32 var800abf50 = 0x01050800;
-u32 var800abf54 = 0x000000e0;
-u32 var800abf58 = 0x02000400;
-u32 var800abf5c = 0x0000000e;
-u32 var800abf60 = 0x02010400;
-u32 var800abf64 = 0x00000006;
-u32 var800abf68 = 0x02020500;
-u32 var800abf6c = 0x00000002;
-u32 var800abf70 = 0x02030600;
-u32 var800abf74 = 0x00000004;
-u32 var800abf78 = 0x02040700;
-u32 var800abf7c = 0x00000008;
-u32 var800abf80 = 0x02050800;
-u32 var800abf84 = 0x000000a0;
-u32 var800abf88 = 0x03000600;
-u32 var800abf8c = 0x0000003c;
-u32 var800abf90 = 0x03010500;
-u32 var800abf94 = 0x0000000c;
-u32 var800abf98 = 0x03020600;
-u32 var800abf9c = 0x00000024;
-u32 var800abfa0 = 0x03030700;
-u32 var800abfa4 = 0x00000028;
-u32 var800abfa8 = 0x03040700;
-u32 var800abfac = 0x00000050;
-u32 var800abfb0 = 0x03050800;
-u32 var800abfb4 = 0x00000080;
-u32 var800abfb8 = 0x04000700;
-u32 var800abfbc = 0x00000068;
-u32 var800abfc0 = 0x04010600;
-u32 var800abfc4 = 0x00000038;
-u32 var800abfc8 = 0x04020700;
-u32 var800abfcc = 0x00000048;
-u32 var800abfd0 = 0x04030700;
-u32 var800abfd4 = 0x00000030;
-u32 var800abfd8 = 0x04040800;
-u32 var800abfdc = 0x00000020;
-u32 var800abfe0 = 0x04050900;
-u32 var800abfe4 = 0x00000100;
-u32 var800abfe8 = 0x05000800;
-u32 var800abfec = 0x00000070;
-u32 var800abff0 = 0x05010700;
-u32 var800abff4 = 0x00000010;
-u32 var800abff8 = 0x05020800;
-u32 var800abffc = 0x00000060;
-u32 var800ac000 = 0x05030800;
-u32 var800ac004 = 0x00000040;
-u32 var800ac008 = 0x05040900;
-u32 var800ac00c = 0x000000c0;
-u32 var800ac010 = 0x05050900;
-u32 var800ac014 = 0x00000000;
-u32 var800ac018 = 0x64646400;
-u32 var800ac01c = 0x00000000;
-u32 var800ac020 = 0x00000100;
-u32 var800ac024 = 0x00000001;
-u32 var800ac028 = 0x00010300;
-u32 var800ac02c = 0x00000002;
-u32 var800ac030 = 0x00020600;
-u32 var800ac034 = 0x00000014;
-u32 var800ac038 = 0x00030800;
-u32 var800ac03c = 0x000000e8;
-u32 var800ac040 = 0x00040900;
-u32 var800ac044 = 0x00000188;
-u32 var800ac048 = 0x00050900;
-u32 var800ac04c = 0x000000f0;
-u32 var800ac050 = 0x00060900;
-u32 var800ac054 = 0x00000060;
-u32 var800ac058 = 0x00070a00;
-u32 var800ac05c = 0x00000220;
-u32 var800ac060 = 0x01000300;
-u32 var800ac064 = 0x00000006;
-u32 var800ac068 = 0x01010400;
-u32 var800ac06c = 0x0000000c;
-u32 var800ac070 = 0x01020600;
-u32 var800ac074 = 0x00000004;
-u32 var800ac078 = 0x01030700;
-u32 var800ac07c = 0x00000018;
-u32 var800ac080 = 0x01040800;
-u32 var800ac084 = 0x00000048;
-u32 var800ac088 = 0x01050900;
-u32 var800ac08c = 0x00000150;
-u32 var800ac090 = 0x01060800;
-u32 var800ac094 = 0x00000030;
-u32 var800ac098 = 0x01070800;
-u32 var800ac09c = 0x000000e0;
-u32 var800ac0a0 = 0x02000600;
-u32 var800ac0a4 = 0x00000034;
-u32 var800ac0a8 = 0x02010600;
-u32 var800ac0ac = 0x00000024;
-u32 var800ac0b0 = 0x02020700;
-u32 var800ac0b4 = 0x00000078;
-u32 var800ac0b8 = 0x02030800;
-u32 var800ac0bc = 0x000000a8;
-u32 var800ac0c0 = 0x02040900;
-u32 var800ac0c4 = 0x00000008;
-u32 var800ac0c8 = 0x02050a00;
-u32 var800ac0cc = 0x00000050;
-u32 var800ac0d0 = 0x02060900;
-u32 var800ac0d4 = 0x00000190;
-u32 var800ac0d8 = 0x02070900;
-u32 var800ac0dc = 0x000000c0;
-u32 var800ac0e0 = 0x03000700;
-u32 var800ac0e4 = 0x00000038;
-u32 var800ac0e8 = 0x03010700;
-u32 var800ac0ec = 0x00000058;
-u32 var800ac0f0 = 0x03020800;
-u32 var800ac0f4 = 0x00000068;
-u32 var800ac0f8 = 0x03030900;
-u32 var800ac0fc = 0x00000088;
-u32 var800ac100 = 0x03040a00;
-u32 var800ac104 = 0x000001d0;
-u32 var800ac108 = 0x03050a00;
-u32 var800ac10c = 0x000003a0;
-u32 var800ac110 = 0x03060900;
-u32 var800ac114 = 0x00000090;
-u32 var800ac118 = 0x03070a00;
-u32 var800ac11c = 0x00000380;
-u32 var800ac120 = 0x04000800;
-u32 var800ac124 = 0x00000028;
-u32 var800ac128 = 0x04010800;
-u32 var800ac12c = 0x000000c8;
-u32 var800ac130 = 0x04020900;
-u32 var800ac134 = 0x00000108;
-u32 var800ac138 = 0x04030a00;
-u32 var800ac13c = 0x000003d0;
-u32 var800ac140 = 0x04040a00;
-u32 var800ac144 = 0x00000360;
-u32 var800ac148 = 0x04050a00;
-u32 var800ac14c = 0x000001a0;
-u32 var800ac150 = 0x04060a00;
-u32 var800ac154 = 0x00000240;
-u32 var800ac158 = 0x04070a00;
-u32 var800ac15c = 0x00000300;
-u32 var800ac160 = 0x05000900;
-u32 var800ac164 = 0x000001f0;
-u32 var800ac168 = 0x05010900;
-u32 var800ac16c = 0x000000d0;
-u32 var800ac170 = 0x05020a00;
-u32 var800ac174 = 0x00000250;
-u32 var800ac178 = 0x05030a00;
-u32 var800ac17c = 0x00000160;
-u32 var800ac180 = 0x05040b00;
-u32 var800ac184 = 0x00000540;
-u32 var800ac188 = 0x05050b00;
-u32 var800ac18c = 0x00000140;
-u32 var800ac190 = 0x05060a00;
-u32 var800ac194 = 0x00000280;
-u32 var800ac198 = 0x05070b00;
-u32 var800ac19c = 0x00000600;
-u32 var800ac1a0 = 0x06000800;
-u32 var800ac1a4 = 0x00000070;
-u32 var800ac1a8 = 0x06010800;
-u32 var800ac1ac = 0x000000b0;
-u32 var800ac1b0 = 0x06020900;
-u32 var800ac1b4 = 0x000000a0;
-u32 var800ac1b8 = 0x06030a00;
-u32 var800ac1bc = 0x00000340;
-u32 var800ac1c0 = 0x06040a00;
-u32 var800ac1c4 = 0x00000020;
-u32 var800ac1c8 = 0x06050a00;
-u32 var800ac1cc = 0x00000180;
-u32 var800ac1d0 = 0x06060b00;
-u32 var800ac1d4 = 0x00000500;
-u32 var800ac1d8 = 0x06070b00;
-u32 var800ac1dc = 0x00000400;
-u32 var800ac1e0 = 0x07000900;
-u32 var800ac1e4 = 0x00000120;
-u32 var800ac1e8 = 0x07010800;
-u32 var800ac1ec = 0x00000010;
-u32 var800ac1f0 = 0x07020900;
-u32 var800ac1f4 = 0x000001c0;
-u32 var800ac1f8 = 0x07030a00;
-u32 var800ac1fc = 0x00000040;
-u32 var800ac200 = 0x07040a00;
-u32 var800ac204 = 0x00000080;
-u32 var800ac208 = 0x07050b00;
-u32 var800ac20c = 0x00000100;
-u32 var800ac210 = 0x07060b00;
-u32 var800ac214 = 0x00000200;
-u32 var800ac218 = 0x07070b00;
-u32 var800ac21c = 0x00000000;
-u32 var800ac220 = 0x64646400;
-u32 var800ac224 = 0x00000000;
-u32 var800ac228 = 0x00000200;
-u32 var800ac22c = 0x00000003;
-u32 var800ac230 = 0x00010300;
-u32 var800ac234 = 0x00000001;
-u32 var800ac238 = 0x00020500;
-u32 var800ac23c = 0x0000000a;
-u32 var800ac240 = 0x00030700;
-u32 var800ac244 = 0x0000000c;
-u32 var800ac248 = 0x00040800;
-u32 var800ac24c = 0x00000044;
-u32 var800ac250 = 0x00050900;
-u32 var800ac254 = 0x00000108;
-u32 var800ac258 = 0x00060800;
-u32 var800ac25c = 0x000000a8;
-u32 var800ac260 = 0x00070900;
-u32 var800ac264 = 0x000001e0;
-u32 var800ac268 = 0x01000300;
-u32 var800ac26c = 0x00000005;
-u32 var800ac270 = 0x01010300;
-u32 var800ac274 = 0x00000006;
-u32 var800ac278 = 0x01020400;
-u32 var800ac27c = 0x00000002;
-u32 var800ac280 = 0x01030600;
-u32 var800ac284 = 0x00000014;
-u32 var800ac288 = 0x01040800;
-u32 var800ac28c = 0x00000004;
-u32 var800ac290 = 0x01050800;
-u32 var800ac294 = 0x00000088;
-u32 var800ac298 = 0x01060700;
-u32 var800ac29c = 0x00000068;
-u32 var800ac2a0 = 0x01070800;
-u32 var800ac2a4 = 0x00000050;
-u32 var800ac2a8 = 0x02000500;
-u32 var800ac2ac = 0x0000001a;
-u32 var800ac2b0 = 0x02010500;
-u32 var800ac2b4 = 0x0000001c;
-u32 var800ac2b8 = 0x02020600;
-u32 var800ac2bc = 0x0000002c;
-u32 var800ac2c0 = 0x02030700;
-u32 var800ac2c4 = 0x00000024;
-u32 var800ac2c8 = 0x02040800;
-u32 var800ac2cc = 0x00000078;
-u32 var800ac2d0 = 0x02050900;
-u32 var800ac2d4 = 0x000001f0;
-u32 var800ac2d8 = 0x02060800;
-u32 var800ac2dc = 0x00000028;
-u32 var800ac2e0 = 0x02070800;
-u32 var800ac2e4 = 0x000000a0;
-u32 var800ac2e8 = 0x03000700;
-u32 var800ac2ec = 0x0000004c;
-u32 var800ac2f0 = 0x03010600;
-u32 var800ac2f4 = 0x00000034;
-u32 var800ac2f8 = 0x03020700;
-u32 var800ac2fc = 0x00000064;
-u32 var800ac300 = 0x03030900;
-u32 var800ac304 = 0x000001b8;
-u32 var800ac308 = 0x03040800;
-u32 var800ac30c = 0x000000d8;
-u32 var800ac310 = 0x03050a00;
-u32 var800ac314 = 0x00000120;
-u32 var800ac318 = 0x03060800;
-u32 var800ac31c = 0x00000030;
-u32 var800ac320 = 0x03070900;
-u32 var800ac324 = 0x00000140;
-u32 var800ac328 = 0x04000800;
-u32 var800ac32c = 0x000000c4;
-u32 var800ac330 = 0x04010800;
-u32 var800ac334 = 0x00000084;
-u32 var800ac338 = 0x04020800;
-u32 var800ac33c = 0x000000f8;
-u32 var800ac340 = 0x04030900;
-u32 var800ac344 = 0x000000b8;
-u32 var800ac348 = 0x04040900;
-u32 var800ac34c = 0x000000f0;
-u32 var800ac350 = 0x04050a00;
-u32 var800ac354 = 0x00000020;
-u32 var800ac358 = 0x04060900;
-u32 var800ac35c = 0x000001c0;
-u32 var800ac360 = 0x04070a00;
-u32 var800ac364 = 0x00000280;
-u32 var800ac368 = 0x05000800;
-u32 var800ac36c = 0x00000038;
-u32 var800ac370 = 0x05010800;
-u32 var800ac374 = 0x00000058;
-u32 var800ac378 = 0x05020900;
-u32 var800ac37c = 0x00000008;
-u32 var800ac380 = 0x05030a00;
-u32 var800ac384 = 0x00000320;
-u32 var800ac388 = 0x05040a00;
-u32 var800ac38c = 0x00000220;
-u32 var800ac390 = 0x05050b00;
-u32 var800ac394 = 0x00000780;
-u32 var800ac398 = 0x05060a00;
-u32 var800ac39c = 0x00000040;
-u32 var800ac3a0 = 0x05070b00;
-u32 var800ac3a4 = 0x00000380;
-u32 var800ac3a8 = 0x06000800;
-u32 var800ac3ac = 0x00000070;
-u32 var800ac3b0 = 0x06010700;
-u32 var800ac3b4 = 0x00000018;
-u32 var800ac3b8 = 0x06020700;
-u32 var800ac3bc = 0x00000048;
-u32 var800ac3c0 = 0x06030800;
-u32 var800ac3c4 = 0x000000b0;
-u32 var800ac3c8 = 0x06040900;
-u32 var800ac3cc = 0x000000e0;
-u32 var800ac3d0 = 0x06050a00;
-u32 var800ac3d4 = 0x00000240;
-u32 var800ac3d8 = 0x06060a00;
-u32 var800ac3dc = 0x00000080;
-u32 var800ac3e0 = 0x06070a00;
-u32 var800ac3e4 = 0x00000200;
-u32 var800ac3e8 = 0x07000800;
-u32 var800ac3ec = 0x000000d0;
-u32 var800ac3f0 = 0x07010700;
-u32 var800ac3f4 = 0x00000010;
-u32 var800ac3f8 = 0x07020800;
-u32 var800ac3fc = 0x00000060;
-u32 var800ac400 = 0x07030900;
-u32 var800ac404 = 0x000000c0;
-u32 var800ac408 = 0x07040a00;
-u32 var800ac40c = 0x00000180;
-u32 var800ac410 = 0x07050a00;
-u32 var800ac414 = 0x00000300;
-u32 var800ac418 = 0x07060a00;
-u32 var800ac41c = 0x00000100;
-u32 var800ac420 = 0x07070a00;
-u32 var800ac424 = 0x00000000;
-u32 var800ac428 = 0x64646400;
-u32 var800ac42c = 0x00000000;
-u32 var800ac430 = 0x00000400;
-u32 var800ac434 = 0x00000009;
-u32 var800ac438 = 0x00010300;
-u32 var800ac43c = 0x00000003;
-u32 var800ac440 = 0x00020500;
-u32 var800ac444 = 0x00000001;
-u32 var800ac448 = 0x00030700;
-u32 var800ac44c = 0x00000042;
-u32 var800ac450 = 0x00040800;
-u32 var800ac454 = 0x00000094;
-u32 var800ac458 = 0x00050900;
-u32 var800ac45c = 0x000001c8;
-u32 var800ac460 = 0x00060900;
-u32 var800ac464 = 0x000000c8;
-u32 var800ac468 = 0x00070900;
-u32 var800ac46c = 0x000000b0;
-u32 var800ac470 = 0x01000300;
-u32 var800ac474 = 0x00000007;
-u32 var800ac478 = 0x01010300;
-u32 var800ac47c = 0x00000005;
-u32 var800ac480 = 0x01020400;
-u32 var800ac484 = 0x00000006;
-u32 var800ac488 = 0x01030500;
-u32 var800ac48c = 0x00000012;
-u32 var800ac490 = 0x01040700;
-u32 var800ac494 = 0x00000074;
-u32 var800ac498 = 0x01050700;
-u32 var800ac49c = 0x00000004;
-u32 var800ac4a0 = 0x01060800;
-u32 var800ac4a4 = 0x00000058;
-u32 var800ac4a8 = 0x01070800;
-u32 var800ac4ac = 0x000000d0;
-u32 var800ac4b0 = 0x02000500;
-u32 var800ac4b4 = 0x00000011;
-u32 var800ac4b8 = 0x02010400;
-u32 var800ac4bc = 0x0000000e;
-u32 var800ac4c0 = 0x02020500;
-u32 var800ac4c4 = 0x0000001a;
-u32 var800ac4c8 = 0x02030600;
-u32 var800ac4cc = 0x0000001c;
-u32 var800ac4d0 = 0x02040700;
-u32 var800ac4d4 = 0x00000054;
-u32 var800ac4d8 = 0x02050800;
-u32 var800ac4dc = 0x00000078;
-u32 var800ac4e0 = 0x02060700;
-u32 var800ac4e4 = 0x00000028;
-u32 var800ac4e8 = 0x02070800;
-u32 var800ac4ec = 0x000000e0;
-u32 var800ac4f0 = 0x03000600;
-u32 var800ac4f4 = 0x00000022;
-u32 var800ac4f8 = 0x03010500;
-u32 var800ac4fc = 0x0000000a;
-u32 var800ac500 = 0x03020600;
-u32 var800ac504 = 0x0000003c;
-u32 var800ac508 = 0x03030600;
-u32 var800ac50c = 0x0000000c;
-u32 var800ac510 = 0x03040700;
-u32 var800ac514 = 0x00000024;
-u32 var800ac518 = 0x03050800;
-u32 var800ac51c = 0x00000038;
-u32 var800ac520 = 0x03060800;
-u32 var800ac524 = 0x00000070;
-u32 var800ac528 = 0x03070800;
-u32 var800ac52c = 0x000000a0;
-u32 var800ac530 = 0x04000700;
-u32 var800ac534 = 0x00000002;
-u32 var800ac538 = 0x04010600;
-u32 var800ac53c = 0x0000002c;
-u32 var800ac540 = 0x04020700;
-u32 var800ac544 = 0x00000034;
-u32 var800ac548 = 0x04030700;
-u32 var800ac54c = 0x00000064;
-u32 var800ac550 = 0x04040800;
-u32 var800ac554 = 0x00000048;
-u32 var800ac558 = 0x04050800;
-u32 var800ac55c = 0x00000008;
-u32 var800ac560 = 0x04060800;
-u32 var800ac564 = 0x00000090;
-u32 var800ac568 = 0x04070900;
-u32 var800ac56c = 0x00000140;
-u32 var800ac570 = 0x05000800;
-u32 var800ac574 = 0x00000014;
-u32 var800ac578 = 0x05010700;
-u32 var800ac57c = 0x00000044;
-u32 var800ac580 = 0x05020800;
-u32 var800ac584 = 0x000000f8;
-u32 var800ac588 = 0x05030800;
-u32 var800ac58c = 0x000000b8;
-u32 var800ac590 = 0x05040800;
-u32 var800ac594 = 0x00000088;
-u32 var800ac598 = 0x05050900;
-u32 var800ac59c = 0x00000160;
-u32 var800ac5a0 = 0x05060800;
-u32 var800ac5a4 = 0x00000020;
-u32 var800ac5a8 = 0x05070900;
-u32 var800ac5ac = 0x00000080;
-u32 var800ac5b0 = 0x06000800;
-u32 var800ac5b4 = 0x000000d8;
-u32 var800ac5b8 = 0x06010700;
-u32 var800ac5bc = 0x00000018;
-u32 var800ac5c0 = 0x06020700;
-u32 var800ac5c4 = 0x00000068;
-u32 var800ac5c8 = 0x06030800;
-u32 var800ac5cc = 0x000000f0;
-u32 var800ac5d0 = 0x06040800;
-u32 var800ac5d4 = 0x00000050;
-u32 var800ac5d8 = 0x06050900;
-u32 var800ac5dc = 0x000001c0;
-u32 var800ac5e0 = 0x06060900;
-u32 var800ac5e4 = 0x00000040;
-u32 var800ac5e8 = 0x06070a00;
-u32 var800ac5ec = 0x00000200;
-u32 var800ac5f0 = 0x07000900;
-u32 var800ac5f4 = 0x000001b0;
-u32 var800ac5f8 = 0x07010800;
-u32 var800ac5fc = 0x00000030;
-u32 var800ac600 = 0x07020800;
-u32 var800ac604 = 0x00000010;
-u32 var800ac608 = 0x07030900;
-u32 var800ac60c = 0x00000060;
-u32 var800ac610 = 0x07040900;
-u32 var800ac614 = 0x000000c0;
-u32 var800ac618 = 0x07050900;
-u32 var800ac61c = 0x00000180;
-u32 var800ac620 = 0x07060900;
-u32 var800ac624 = 0x00000100;
-u32 var800ac628 = 0x07070a00;
-u32 var800ac62c = 0x00000000;
-u32 var800ac630 = 0x64646400;
-u32 var800ac634 = 0x00000000;
-u32 var800ac638 = 0x00000100;
-u32 var800ac63c = 0x00000001;
-u32 var800ac640 = 0x00010400;
-u32 var800ac644 = 0x0000000a;
-u32 var800ac648 = 0x00020600;
-u32 var800ac64c = 0x0000001c;
-u32 var800ac650 = 0x00030700;
-u32 var800ac654 = 0x00000054;
-u32 var800ac658 = 0x00040800;
-u32 var800ac65c = 0x00000044;
-u32 var800ac660 = 0x00050900;
-u32 var800ac664 = 0x00000198;
-u32 var800ac668 = 0x00060900;
-u32 var800ac66c = 0x000000e8;
-u32 var800ac670 = 0x00070a00;
-u32 var800ac674 = 0x00000388;
-u32 var800ac678 = 0x00080900;
-u32 var800ac67c = 0x000000a8;
-u32 var800ac680 = 0x00090a00;
-u32 var800ac684 = 0x000000b0;
-u32 var800ac688 = 0x000a0b00;
-u32 var800ac68c = 0x00000110;
-u32 var800ac690 = 0x000b0b00;
-u32 var800ac694 = 0x00000160;
-u32 var800ac698 = 0x000c0c00;
-u32 var800ac69c = 0x00000c20;
-u32 var800ac6a0 = 0x000d0c00;
-u32 var800ac6a4 = 0x00000340;
-u32 var800ac6a8 = 0x000e0d00;
-u32 var800ac6ac = 0x00001a80;
-u32 var800ac6b0 = 0x000f0d00;
-u32 var800ac6b4 = 0x00001900;
-u32 var800ac6b8 = 0x01000300;
-u32 var800ac6bc = 0x00000006;
-u32 var800ac6c0 = 0x01010400;
-u32 var800ac6c4 = 0x00000002;
-u32 var800ac6c8 = 0x01020600;
-u32 var800ac6cc = 0x0000000c;
-u32 var800ac6d0 = 0x01030700;
-u32 var800ac6d4 = 0x00000064;
-u32 var800ac6d8 = 0x01040800;
-u32 var800ac6dc = 0x000000f8;
-u32 var800ac6e0 = 0x01050800;
-u32 var800ac6e4 = 0x00000058;
-u32 var800ac6e8 = 0x01060900;
-u32 var800ac6ec = 0x00000068;
-u32 var800ac6f0 = 0x01070900;
-u32 var800ac6f4 = 0x00000108;
-u32 var800ac6f8 = 0x01080900;
-u32 var800ac6fc = 0x000001f0;
-u32 var800ac700 = 0x01090900;
-u32 var800ac704 = 0x00000030;
-u32 var800ac708 = 0x010a0a00;
-u32 var800ac70c = 0x00000010;
-u32 var800ac710 = 0x010b0a00;
-u32 var800ac714 = 0x00000060;
-u32 var800ac718 = 0x010c0b00;
-u32 var800ac71c = 0x000007c0;
-u32 var800ac720 = 0x010d0c00;
-u32 var800ac724 = 0x00000c40;
-u32 var800ac728 = 0x010e0c00;
-u32 var800ac72c = 0x00000680;
-u32 var800ac730 = 0x010f0c00;
-u32 var800ac734 = 0x00000700;
-u32 var800ac738 = 0x02000600;
-u32 var800ac73c = 0x0000003c;
-u32 var800ac740 = 0x02010600;
-u32 var800ac744 = 0x0000002c;
-u32 var800ac748 = 0x02020700;
-u32 var800ac74c = 0x00000074;
-u32 var800ac750 = 0x02030800;
-u32 var800ac754 = 0x00000024;
-u32 var800ac758 = 0x02040900;
-u32 var800ac75c = 0x000001b8;
-u32 var800ac760 = 0x02050900;
-u32 var800ac764 = 0x00000118;
-u32 var800ac768 = 0x02060a00;
-u32 var800ac76c = 0x000002c8;
-u32 var800ac770 = 0x02070a00;
-u32 var800ac774 = 0x00000208;
-u32 var800ac778 = 0x02080900;
-u32 var800ac77c = 0x00000170;
-u32 var800ac780 = 0x02090a00;
-u32 var800ac784 = 0x00000050;
-u32 var800ac788 = 0x020a0a00;
-u32 var800ac78c = 0x000001e0;
-u32 var800ac790 = 0x020b0b00;
-u32 var800ac794 = 0x000000a0;
-u32 var800ac798 = 0x020c0b00;
-u32 var800ac79c = 0x000006c0;
-u32 var800ac7a0 = 0x020d0c00;
-u32 var800ac7a4 = 0x00000840;
-u32 var800ac7a8 = 0x020e0d00;
-u32 var800ac7ac = 0x00000a80;
-u32 var800ac7b0 = 0x020f0d00;
-u32 var800ac7b4 = 0x00000100;
-u32 var800ac7b8 = 0x03000700;
-u32 var800ac7bc = 0x00000034;
-u32 var800ac7c0 = 0x03010700;
-u32 var800ac7c4 = 0x00000014;
-u32 var800ac7c8 = 0x03020800;
-u32 var800ac7cc = 0x000000a4;
-u32 var800ac7d0 = 0x03030900;
-u32 var800ac7d4 = 0x00000178;
-u32 var800ac7d8 = 0x03040900;
-u32 var800ac7dc = 0x00000038;
-u32 var800ac7e0 = 0x03050a00;
-u32 var800ac7e4 = 0x000003c8;
-u32 var800ac7e8 = 0x03060a00;
-u32 var800ac7ec = 0x00000248;
-u32 var800ac7f0 = 0x03070a00;
-u32 var800ac7f4 = 0x00000008;
-u32 var800ac7f8 = 0x03080a00;
-u32 var800ac7fc = 0x00000350;
-u32 var800ac800 = 0x03090b00;
-u32 var800ac804 = 0x00000190;
-u32 var800ac808 = 0x030a0b00;
-u32 var800ac80c = 0x000000e0;
-u32 var800ac810 = 0x030b0b00;
-u32 var800ac814 = 0x00000520;
-u32 var800ac818 = 0x030c0b00;
-u32 var800ac81c = 0x000002c0;
-u32 var800ac820 = 0x030d0c00;
-u32 var800ac824 = 0x00000f80;
-u32 var800ac828 = 0x030e0d00;
-u32 var800ac82c = 0x00001300;
-u32 var800ac830 = 0x030f0d00;
-u32 var800ac834 = 0x00000e00;
-u32 var800ac838 = 0x04000800;
-u32 var800ac83c = 0x000000c4;
-u32 var800ac840 = 0x04010700;
-u32 var800ac844 = 0x00000004;
-u32 var800ac848 = 0x04020900;
-u32 var800ac84c = 0x00000078;
-u32 var800ac850 = 0x04030900;
-u32 var800ac854 = 0x00000138;
-u32 var800ac858 = 0x04040a00;
-u32 var800ac85c = 0x00000218;
-u32 var800ac860 = 0x04050a00;
-u32 var800ac864 = 0x00000348;
-u32 var800ac868 = 0x04060b00;
-u32 var800ac86c = 0x00000270;
-u32 var800ac870 = 0x04070b00;
-u32 var800ac874 = 0x000006d0;
-u32 var800ac878 = 0x04080a00;
-u32 var800ac87c = 0x000001b0;
-u32 var800ac880 = 0x04090b00;
-u32 var800ac884 = 0x00000490;
-u32 var800ac888 = 0x040a0b00;
-u32 var800ac88c = 0x00000760;
-u32 var800ac890 = 0x040b0c00;
-u32 var800ac894 = 0x00000940;
-u32 var800ac898 = 0x040c0c00;
-u32 var800ac89c = 0x000000c0;
-u32 var800ac8a0 = 0x040d0d00;
-u32 var800ac8a4 = 0x00001580;
-u32 var800ac8a8 = 0x040e0d00;
-u32 var800ac8ac = 0x00001d00;
-u32 var800ac8b0 = 0x040f0e00;
-u32 var800ac8b4 = 0x00000600;
-u32 var800ac8b8 = 0x05000900;
-u32 var800ac8bc = 0x000000b8;
-u32 var800ac8c0 = 0x05010800;
-u32 var800ac8c4 = 0x000000d8;
-u32 var800ac8c8 = 0x05020900;
-u32 var800ac8cc = 0x00000098;
-u32 var800ac8d0 = 0x05030a00;
-u32 var800ac8d4 = 0x00000018;
-u32 var800ac8d8 = 0x05040a00;
-u32 var800ac8dc = 0x000000c8;
-u32 var800ac8e0 = 0x05050a00;
-u32 var800ac8e4 = 0x00000188;
-u32 var800ac8e8 = 0x05060b00;
-u32 var800ac8ec = 0x000005d0;
-u32 var800ac8f0 = 0x05070b00;
-u32 var800ac8f4 = 0x00000150;
-u32 var800ac8f8 = 0x05080b00;
-u32 var800ac8fc = 0x00000590;
-u32 var800ac900 = 0x05090b00;
-u32 var800ac904 = 0x000002e0;
-u32 var800ac908 = 0x050a0c00;
-u32 var800ac90c = 0x00000f20;
-u32 var800ac910 = 0x050b0b00;
-u32 var800ac914 = 0x000005c0;
-u32 var800ac918 = 0x050c0d00;
-u32 var800ac91c = 0x00000a40;
-u32 var800ac920 = 0x050d0d00;
-u32 var800ac924 = 0x00001180;
-u32 var800ac928 = 0x050e0e00;
-u32 var800ac92c = 0x00002500;
-u32 var800ac930 = 0x050f0e00;
-u32 var800ac934 = 0x00002200;
-u32 var800ac938 = 0x06000900;
-u32 var800ac93c = 0x000001e8;
-u32 var800ac940 = 0x06010900;
-u32 var800ac944 = 0x00000168;
-u32 var800ac948 = 0x06020a00;
-u32 var800ac94c = 0x000001c8;
-u32 var800ac950 = 0x06030a00;
-u32 var800ac954 = 0x00000148;
-u32 var800ac958 = 0x06040b00;
-u32 var800ac95c = 0x00000670;
-u32 var800ac960 = 0x06050b00;
-u32 var800ac964 = 0x000003d0;
-u32 var800ac968 = 0x06060b00;
-u32 var800ac96c = 0x000002d0;
-u32 var800ac970 = 0x06070b00;
-u32 var800ac974 = 0x00000790;
-u32 var800ac978 = 0x06080b00;
-u32 var800ac97c = 0x00000510;
-u32 var800ac980 = 0x06090c00;
-u32 var800ac984 = 0x00000ca0;
-u32 var800ac988 = 0x060a0c00;
-u32 var800ac98c = 0x00000e20;
-u32 var800ac990 = 0x060b0c00;
-u32 var800ac994 = 0x000004c0;
-u32 var800ac998 = 0x060c0d00;
-u32 var800ac99c = 0x00001b80;
-u32 var800ac9a0 = 0x060d0d00;
-u32 var800ac9a4 = 0x00000c80;
-u32 var800ac9a8 = 0x060e0e00;
-u32 var800ac9ac = 0x00000900;
-u32 var800ac9b0 = 0x060f0e00;
-u32 var800ac9b4 = 0x00003c00;
-u32 var800ac9b8 = 0x07000a00;
-u32 var800ac9bc = 0x00000048;
-u32 var800ac9c0 = 0x07010900;
-u32 var800ac9c4 = 0x00000088;
-u32 var800ac9c8 = 0x07020a00;
-u32 var800ac9cc = 0x00000070;
-u32 var800ac9d0 = 0x07030b00;
-u32 var800ac9d4 = 0x000007d0;
-u32 var800ac9d8 = 0x07040b00;
-u32 var800ac9dc = 0x000001d0;
-u32 var800ac9e0 = 0x07050b00;
-u32 var800ac9e4 = 0x00000550;
-u32 var800ac9e8 = 0x07060c00;
-u32 var800ac9ec = 0x00000da0;
-u32 var800ac9f0 = 0x07070c00;
-u32 var800ac9f4 = 0x000005a0;
-u32 var800ac9f8 = 0x07080c00;
-u32 var800ac9fc = 0x000006a0;
-u32 var800aca00 = 0x07090c00;
-u32 var800aca04 = 0x00000920;
-u32 var800aca08 = 0x070a0d00;
-u32 var800aca0c = 0x00001640;
-u32 var800aca10 = 0x070b0d00;
-u32 var800aca14 = 0x00001040;
-u32 var800aca18 = 0x070c0d00;
-u32 var800aca1c = 0x00001980;
-u32 var800aca20 = 0x070d0e00;
-u32 var800aca24 = 0x00000d00;
-u32 var800aca28 = 0x070e1000;
-u32 var800aca2c = 0x0000d400;
-u32 var800aca30 = 0x070f1000;
-u32 var800aca34 = 0x00005400;
-u32 var800aca38 = 0x08000900;
-u32 var800aca3c = 0x000001a8;
-u32 var800aca40 = 0x08010800;
-u32 var800aca44 = 0x00000028;
-u32 var800aca48 = 0x08020900;
-u32 var800aca4c = 0x000000f0;
-u32 var800aca50 = 0x08030a00;
-u32 var800aca54 = 0x000000d0;
-u32 var800aca58 = 0x08040a00;
-u32 var800aca5c = 0x000003b0;
-u32 var800aca60 = 0x08050b00;
-u32 var800aca64 = 0x00000390;
-u32 var800aca68 = 0x08060b00;
-u32 var800aca6c = 0x00000090;
-u32 var800aca70 = 0x08070c00;
-u32 var800aca74 = 0x00000ea0;
-u32 var800aca78 = 0x08080c00;
-u32 var800aca7c = 0x00000720;
-u32 var800aca80 = 0x08090c00;
-u32 var800aca84 = 0x00000bc0;
-u32 var800aca88 = 0x080a0c00;
-u32 var800aca8c = 0x00000740;
-u32 var800aca90 = 0x080b0d00;
-u32 var800aca94 = 0x00000d80;
-u32 var800aca98 = 0x080c0d00;
-u32 var800aca9c = 0x00001480;
-u32 var800acaa0 = 0x080d0e00;
-u32 var800acaa4 = 0x00001e00;
-u32 var800acaa8 = 0x080e0f00;
-u32 var800acaac = 0x00001400;
-u32 var800acab0 = 0x080f0f00;
-u32 var800acab4 = 0x00000400;
-u32 var800acab8 = 0x09000a00;
-u32 var800acabc = 0x000002b0;
-u32 var800acac0 = 0x09010900;
-u32 var800acac4 = 0x00000130;
-u32 var800acac8 = 0x09020a00;
-u32 var800acacc = 0x00000250;
-u32 var800acad0 = 0x09030a00;
-u32 var800acad4 = 0x00000290;
-u32 var800acad8 = 0x09040b00;
-u32 var800acadc = 0x000001a0;
-u32 var800acae0 = 0x09050b00;
-u32 var800acae4 = 0x000006e0;
-u32 var800acae8 = 0x09060b00;
-u32 var800acaec = 0x00000360;
-u32 var800acaf0 = 0x09070d00;
-u32 var800acaf4 = 0x00001140;
-u32 var800acaf8 = 0x09080c00;
-u32 var800acafc = 0x00000420;
-u32 var800acb00 = 0x09090d00;
-u32 var800acb04 = 0x00000640;
-u32 var800acb08 = 0x090a0d00;
-u32 var800acb0c = 0x00001380;
-u32 var800acb10 = 0x090b0e00;
-u32 var800acb14 = 0x00001b00;
-u32 var800acb18 = 0x090c0e00;
-u32 var800acb1c = 0x00002900;
-u32 var800acb20 = 0x090d0e00;
-u32 var800acb24 = 0x00001200;
-u32 var800acb28 = 0x090e1000;
-u32 var800acb2c = 0x0000e400;
-u32 var800acb30 = 0x090f0f00;
-u32 var800acb34 = 0x00006800;
-u32 var800acb38 = 0x0a000a00;
-u32 var800acb3c = 0x00000310;
-u32 var800acb40 = 0x0a010a00;
-u32 var800acb44 = 0x00000210;
-u32 var800acb48 = 0x0a020a00;
-u32 var800acb4c = 0x000003e0;
-u32 var800acb50 = 0x0a030b00;
-u32 var800acb54 = 0x000004e0;
-u32 var800acb58 = 0x0a040b00;
-u32 var800acb5c = 0x000002a0;
-u32 var800acb60 = 0x0a050c00;
-u32 var800acb64 = 0x000004a0;
-u32 var800acb68 = 0x0a060c00;
-u32 var800acb6c = 0x00000120;
-u32 var800acb70 = 0x0a070d00;
-u32 var800acb74 = 0x00000140;
-u32 var800acb78 = 0x0a080c00;
-u32 var800acb7c = 0x00000f40;
-u32 var800acb80 = 0x0a090d00;
-u32 var800acb84 = 0x00000b80;
-u32 var800acb88 = 0x0a0a0e00;
-u32 var800acb8c = 0x00003b00;
-u32 var800acb90 = 0x0a0b0d00;
-u32 var800acb94 = 0x00001500;
-u32 var800acb98 = 0x0a0c0e00;
-u32 var800acb9c = 0x00001a00;
-u32 var800acba0 = 0x0a0d0f00;
-u32 var800acba4 = 0x00002c00;
-u32 var800acba8 = 0x0a0e1000;
-u32 var800acbac = 0x00006400;
-u32 var800acbb0 = 0x0a0f1100;
-u32 var800acbb4 = 0x0000d000;
-u32 var800acbb8 = 0x0b000b00;
-u32 var800acbbc = 0x00000560;
-u32 var800acbc0 = 0x0b010a00;
-u32 var800acbc4 = 0x00000260;
-u32 var800acbc8 = 0x0b020a00;
-u32 var800acbcc = 0x000003a0;
-u32 var800acbd0 = 0x0b030b00;
-u32 var800acbd4 = 0x00000320;
-u32 var800acbd8 = 0x0b040c00;
-u32 var800acbdc = 0x00000620;
-u32 var800acbe0 = 0x0b050c00;
-u32 var800acbe4 = 0x000003c0;
-u32 var800acbe8 = 0x0b060c00;
-u32 var800acbec = 0x00000cc0;
-u32 var800acbf0 = 0x0b070c00;
-u32 var800acbf4 = 0x00000240;
-u32 var800acbf8 = 0x0b080d00;
-u32 var800acbfc = 0x00001d80;
-u32 var800acc00 = 0x0b090d00;
-u32 var800acc04 = 0x00000b00;
-u32 var800acc08 = 0x0b0a0d00;
-u32 var800acc0c = 0x00000880;
-u32 var800acc10 = 0x0b0b0e00;
-u32 var800acc14 = 0x00003a00;
-u32 var800acc18 = 0x0b0c0f00;
-u32 var800acc1c = 0x00006c00;
-u32 var800acc20 = 0x0b0d0f00;
-u32 var800acc24 = 0x00003800;
-u32 var800acc28 = 0x0b0e0f00;
-u32 var800acc2c = 0x00004800;
-u32 var800acc30 = 0x0b0f1000;
-u32 var800acc34 = 0x0000e000;
-u32 var800acc38 = 0x0c000b00;
-u32 var800acc3c = 0x00000220;
-u32 var800acc40 = 0x0c010b00;
-u32 var800acc44 = 0x00000020;
-u32 var800acc48 = 0x0c020b00;
-u32 var800acc4c = 0x000001c0;
-u32 var800acc50 = 0x0c030c00;
-u32 var800acc54 = 0x00000e40;
-u32 var800acc58 = 0x0c040c00;
-u32 var800acc5c = 0x000008c0;
-u32 var800acc60 = 0x0c050d00;
-u32 var800acc64 = 0x00001a40;
-u32 var800acc68 = 0x0c060c00;
-u32 var800acc6c = 0x00000780;
-u32 var800acc70 = 0x0c070d00;
-u32 var800acc74 = 0x00000580;
-u32 var800acc78 = 0x0c080e00;
-u32 var800acc7c = 0x00000300;
-u32 var800acc80 = 0x0c090e00;
-u32 var800acc84 = 0x00000500;
-u32 var800acc88 = 0x0c0a0f00;
-u32 var800acc8c = 0x00001600;
-u32 var800acc90 = 0x0c0b0f00;
-u32 var800acc94 = 0x00001c00;
-u32 var800acc98 = 0x0c0c0f00;
-u32 var800acc9c = 0x00002400;
-u32 var800acca0 = 0x0c0d1000;
-u32 var800acca4 = 0x00008800;
-u32 var800acca8 = 0x0c0e1000;
-u32 var800accac = 0x00009000;
-u32 var800accb0 = 0x0c0f1000;
-u32 var800accb4 = 0x0000a000;
-u32 var800accb8 = 0x0d000c00;
-u32 var800accbc = 0x00000b40;
-u32 var800accc0 = 0x0d010b00;
-u32 var800accc4 = 0x00000540;
-u32 var800accc8 = 0x0d020c00;
-u32 var800acccc = 0x00000440;
-u32 var800accd0 = 0x0d030d00;
-u32 var800accd4 = 0x00000040;
-u32 var800accd8 = 0x0d040d00;
-u32 var800accdc = 0x00000380;
-u32 var800acce0 = 0x0d050d00;
-u32 var800acce4 = 0x00000980;
-u32 var800acce8 = 0x0d060e00;
-u32 var800accec = 0x00002300;
-u32 var800accf0 = 0x0d070e00;
-u32 var800accf4 = 0x00002d00;
-u32 var800accf8 = 0x0d080e00;
-u32 var800accfc = 0x00003e00;
-u32 var800acd00 = 0x0d090e00;
-u32 var800acd04 = 0x00003200;
-u32 var800acd08 = 0x0d0a0e00;
-u32 var800acd0c = 0x00000c00;
-u32 var800acd10 = 0x0d0b0f00;
-u32 var800acd14 = 0x00007800;
-u32 var800acd18 = 0x0d0c1000;
-u32 var800acd1c = 0x00005000;
-u32 var800acd20 = 0x0d0d0f00;
-u32 var800acd24 = 0x00007000;
-u32 var800acd28 = 0x0d0e1000;
-u32 var800acd2c = 0x00006000;
-u32 var800acd30 = 0x0d0f1000;
-u32 var800acd34 = 0x0000c000;
-u32 var800acd38 = 0x0e000d00;
-u32 var800acd3c = 0x00000180;
-u32 var800acd40 = 0x0e010c00;
-u32 var800acd44 = 0x00000e80;
-u32 var800acd48 = 0x0e020c00;
-u32 var800acd4c = 0x00000280;
-u32 var800acd50 = 0x0e030d00;
-u32 var800acd54 = 0x00001c80;
-u32 var800acd58 = 0x0e040d00;
-u32 var800acd5c = 0x00000480;
-u32 var800acd60 = 0x0e050d00;
-u32 var800acd64 = 0x00001880;
-u32 var800acd68 = 0x0e060f00;
-u32 var800acd6c = 0x00005600;
-u32 var800acd70 = 0x0e070e00;
-u32 var800acd74 = 0x00002a00;
-u32 var800acd78 = 0x0e080e00;
-u32 var800acd7c = 0x00000200;
-u32 var800acd80 = 0x0e091100;
-u32 var800acd84 = 0x0001d000;
-u32 var800acd88 = 0x0e0a0f00;
-u32 var800acd8c = 0x00005800;
-u32 var800acd90 = 0x0e0b0f00;
-u32 var800acd94 = 0x00002800;
-u32 var800acd98 = 0x0e0c0f00;
-u32 var800acd9c = 0x00003000;
-u32 var800acda0 = 0x0e0d1100;
-u32 var800acda4 = 0x00010000;
-u32 var800acda8 = 0x0e0e1000;
-u32 var800acdac = 0x00002000;
-u32 var800acdb0 = 0x0e0f1000;
-u32 var800acdb4 = 0x00004000;
-u32 var800acdb8 = 0x0f000c00;
-u32 var800acdbc = 0x00000080;
-u32 var800acdc0 = 0x0f010c00;
-u32 var800acdc4 = 0x00000f00;
-u32 var800acdc8 = 0x0f020d00;
-u32 var800acdcc = 0x00001100;
-u32 var800acdd0 = 0x0f030e00;
-u32 var800acdd4 = 0x00003600;
-u32 var800acdd8 = 0x0f040e00;
-u32 var800acddc = 0x00002600;
-u32 var800acde0 = 0x0f050e00;
-u32 var800acde4 = 0x00000a00;
-u32 var800acde8 = 0x0f060f00;
-u32 var800acdec = 0x00005c00;
-u32 var800acdf0 = 0x0f070e00;
-u32 var800acdf4 = 0x00003400;
-u32 var800acdf8 = 0x0f080f00;
-u32 var800acdfc = 0x00004400;
-u32 var800ace00 = 0x0f090f00;
-u32 var800ace04 = 0x00001800;
-u32 var800ace08 = 0x0f0a1000;
-u32 var800ace0c = 0x00000800;
-u32 var800ace10 = 0x0f0b1000;
-u32 var800ace14 = 0x00001000;
-u32 var800ace18 = 0x0f0c1300;
-u32 var800ace1c = 0x00040000;
-u32 var800ace20 = 0x0f0d1200;
-u32 var800ace24 = 0x00020000;
-u32 var800ace28 = 0x0f0e1300;
-u32 var800ace2c = 0x00000000;
-u32 var800ace30 = 0x0f0f1000;
-u32 var800ace34 = 0x00008000;
-u32 var800ace38 = 0x64646400;
-u32 var800ace3c = 0x00000000;
-u32 var800ace40 = 0x00000300;
-u32 var800ace44 = 0x00000007;
-u32 var800ace48 = 0x00010400;
-u32 var800ace4c = 0x00000003;
-u32 var800ace50 = 0x00020500;
-u32 var800ace54 = 0x00000009;
-u32 var800ace58 = 0x00030700;
-u32 var800ace5c = 0x00000056;
-u32 var800ace60 = 0x00040700;
-u32 var800ace64 = 0x0000007a;
-u32 var800ace68 = 0x00050800;
-u32 var800ace6c = 0x00000032;
-u32 var800ace70 = 0x00060900;
-u32 var800ace74 = 0x0000007c;
-u32 var800ace78 = 0x00070900;
-u32 var800ace7c = 0x0000006c;
-u32 var800ace80 = 0x00080900;
-u32 var800ace84 = 0x00000134;
-u32 var800ace88 = 0x00090a00;
-u32 var800ace8c = 0x00000378;
-u32 var800ace90 = 0x000a0a00;
-u32 var800ace94 = 0x000000d8;
-u32 var800ace98 = 0x000b0b00;
-u32 var800ace9c = 0x00000770;
-u32 var800acea0 = 0x000c0b00;
-u32 var800acea4 = 0x000006b0;
-u32 var800acea8 = 0x000d0b00;
-u32 var800aceac = 0x00000450;
-u32 var800aceb0 = 0x000e0c00;
-u32 var800aceb4 = 0x000005e0;
-u32 var800aceb8 = 0x000f0d00;
-u32 var800acebc = 0x00001f80;
-u32 var800acec0 = 0x01000400;
-u32 var800acec4 = 0x0000000b;
-u32 var800acec8 = 0x01010300;
-u32 var800acecc = 0x00000005;
-u32 var800aced0 = 0x01020500;
-u32 var800aced4 = 0x00000001;
-u32 var800aced8 = 0x01030600;
-u32 var800acedc = 0x00000036;
-u32 var800acee0 = 0x01040700;
-u32 var800acee4 = 0x0000003a;
-u32 var800acee8 = 0x01050700;
-u32 var800aceec = 0x00000012;
-u32 var800acef0 = 0x01060800;
-u32 var800acef4 = 0x000000bc;
-u32 var800acef8 = 0x01070800;
-u32 var800acefc = 0x000000cc;
-u32 var800acf00 = 0x01080800;
-u32 var800acf04 = 0x00000054;
-u32 var800acf08 = 0x01090900;
-u32 var800acf0c = 0x000000c4;
-u32 var800acf10 = 0x010a0900;
-u32 var800acf14 = 0x00000058;
-u32 var800acf18 = 0x010b0a00;
-u32 var800acf1c = 0x00000328;
-u32 var800acf20 = 0x010c0a00;
-u32 var800acf24 = 0x00000208;
-u32 var800acf28 = 0x010d0a00;
-u32 var800acf2c = 0x00000250;
-u32 var800acf30 = 0x010e0b00;
-u32 var800acf34 = 0x000006e0;
-u32 var800acf38 = 0x010f0b00;
-u32 var800acf3c = 0x00000120;
-u32 var800acf40 = 0x02000500;
-u32 var800acf44 = 0x00000019;
-u32 var800acf48 = 0x02010500;
-u32 var800acf4c = 0x00000011;
-u32 var800acf50 = 0x02020500;
-u32 var800acf54 = 0x0000001e;
-u32 var800acf58 = 0x02030600;
-u32 var800acf5c = 0x00000006;
-u32 var800acf60 = 0x02040700;
-u32 var800acf64 = 0x0000004a;
-u32 var800acf68 = 0x02050700;
-u32 var800acf6c = 0x00000022;
-u32 var800acf70 = 0x02060800;
-u32 var800acf74 = 0x000000dc;
-u32 var800acf78 = 0x02070800;
-u32 var800acf7c = 0x0000000c;
-u32 var800acf80 = 0x02080800;
-u32 var800acf84 = 0x00000014;
-u32 var800acf88 = 0x02090900;
-u32 var800acf8c = 0x00000004;
-u32 var800acf90 = 0x020a0900;
-u32 var800acf94 = 0x00000098;
-u32 var800acf98 = 0x020b0a00;
-u32 var800acf9c = 0x000001c8;
-u32 var800acfa0 = 0x020c0a00;
-u32 var800acfa4 = 0x000001f0;
-u32 var800acfa8 = 0x020d0b00;
-u32 var800acfac = 0x00000050;
-u32 var800acfb0 = 0x020e0b00;
-u32 var800acfb4 = 0x000000e0;
-u32 var800acfb8 = 0x020f0b00;
-u32 var800acfbc = 0x00000420;
-u32 var800acfc0 = 0x03000600;
-u32 var800acfc4 = 0x0000002e;
-u32 var800acfc8 = 0x03010600;
-u32 var800acfcc = 0x0000000e;
-u32 var800acfd0 = 0x03020600;
-u32 var800acfd4 = 0x00000026;
-u32 var800acfd8 = 0x03030700;
-u32 var800acfdc = 0x0000006a;
-u32 var800acfe0 = 0x03040700;
-u32 var800acfe4 = 0x00000072;
-u32 var800acfe8 = 0x03050800;
-u32 var800acfec = 0x000000fc;
-u32 var800acff0 = 0x03060800;
-u32 var800acff4 = 0x000000ec;
-u32 var800acff8 = 0x03070900;
-u32 var800acffc = 0x00000174;
-u32 var800ad000 = 0x03080900;
-u32 var800ad004 = 0x00000064;
-u32 var800ad008 = 0x03090900;
-u32 var800ad00c = 0x000001b8;
-u32 var800ad010 = 0x030a0a00;
-u32 var800ad014 = 0x000002e8;
-u32 var800ad018 = 0x030b0a00;
-u32 var800ad01c = 0x00000048;
-u32 var800ad020 = 0x030c0a00;
-u32 var800ad024 = 0x000001b0;
-u32 var800ad028 = 0x030d0b00;
-u32 var800ad02c = 0x00000690;
-u32 var800ad030 = 0x030e0b00;
-u32 var800ad034 = 0x00000260;
-u32 var800ad038 = 0x030f0b00;
-u32 var800ad03c = 0x000005c0;
-u32 var800ad040 = 0x04000700;
-u32 var800ad044 = 0x00000016;
-u32 var800ad048 = 0x04010600;
-u32 var800ad04c = 0x0000001a;
-u32 var800ad050 = 0x04020700;
-u32 var800ad054 = 0x0000002a;
-u32 var800ad058 = 0x04030700;
-u32 var800ad05c = 0x0000000a;
-u32 var800ad060 = 0x04040800;
-u32 var800ad064 = 0x000000c2;
-u32 var800ad068 = 0x04050800;
-u32 var800ad06c = 0x0000009c;
-u32 var800ad070 = 0x04060900;
-u32 var800ad074 = 0x000001f4;
-u32 var800ad078 = 0x04070900;
-u32 var800ad07c = 0x000001e4;
-u32 var800ad080 = 0x04080900;
-u32 var800ad084 = 0x00000024;
-u32 var800ad088 = 0x04090900;
-u32 var800ad08c = 0x00000138;
-u32 var800ad090 = 0x040a0a00;
-u32 var800ad094 = 0x00000268;
-u32 var800ad098 = 0x040b0a00;
-u32 var800ad09c = 0x00000288;
-u32 var800ad0a0 = 0x040c0a00;
-u32 var800ad0a4 = 0x00000230;
-u32 var800ad0a8 = 0x040d0b00;
-u32 var800ad0ac = 0x00000210;
-u32 var800ad0b0 = 0x040e0b00;
-u32 var800ad0b4 = 0x000003a0;
-u32 var800ad0b8 = 0x040f0b00;
-u32 var800ad0bc = 0x000006c0;
-u32 var800ad0c0 = 0x05000800;
-u32 var800ad0c4 = 0x000000b2;
-u32 var800ad0c8 = 0x05010700;
-u32 var800ad0cc = 0x00000052;
-u32 var800ad0d0 = 0x05020700;
-u32 var800ad0d4 = 0x00000062;
-u32 var800ad0d8 = 0x05030800;
-u32 var800ad0dc = 0x00000042;
-u32 var800ad0e0 = 0x05040800;
-u32 var800ad0e4 = 0x0000005c;
-u32 var800ad0e8 = 0x05050800;
-u32 var800ad0ec = 0x0000002c;
-u32 var800ad0f0 = 0x05060900;
-u32 var800ad0f4 = 0x000001b4;
-u32 var800ad0f8 = 0x05070900;
-u32 var800ad0fc = 0x000000a4;
-u32 var800ad100 = 0x05080900;
-u32 var800ad104 = 0x000000f8;
-u32 var800ad108 = 0x05090900;
-u32 var800ad10c = 0x00000018;
-u32 var800ad110 = 0x050a0a00;
-u32 var800ad114 = 0x000003c8;
-u32 var800ad118 = 0x050b0a00;
-u32 var800ad11c = 0x000003f0;
-u32 var800ad120 = 0x050c0b00;
-u32 var800ad124 = 0x000002d0;
-u32 var800ad128 = 0x050d0b00;
-u32 var800ad12c = 0x000003e0;
-u32 var800ad130 = 0x050e0b00;
-u32 var800ad134 = 0x000000a0;
-u32 var800ad138 = 0x050f0c00;
-u32 var800ad13c = 0x00000640;
-u32 var800ad140 = 0x06000900;
-u32 var800ad144 = 0x0000017c;
-u32 var800ad148 = 0x06010700;
-u32 var800ad14c = 0x00000002;
-u32 var800ad150 = 0x06020800;
-u32 var800ad154 = 0x0000003c;
-u32 var800ad158 = 0x06030800;
-u32 var800ad15c = 0x0000001c;
-u32 var800ad160 = 0x06040800;
-u32 var800ad164 = 0x0000004c;
-u32 var800ad168 = 0x06050900;
-u32 var800ad16c = 0x00000074;
-u32 var800ad170 = 0x06060900;
-u32 var800ad174 = 0x000000e4;
-u32 var800ad178 = 0x06070900;
-u32 var800ad17c = 0x00000104;
-u32 var800ad180 = 0x06080900;
-u32 var800ad184 = 0x000001d8;
-u32 var800ad188 = 0x06090a00;
-u32 var800ad18c = 0x000003a8;
-u32 var800ad190 = 0x060a0a00;
-u32 var800ad194 = 0x00000388;
-u32 var800ad198 = 0x060b0a00;
-u32 var800ad19c = 0x00000330;
-u32 var800ad1a0 = 0x060c0b00;
-u32 var800ad1a4 = 0x00000490;
-u32 var800ad1a8 = 0x060d0b00;
-u32 var800ad1ac = 0x00000660;
-u32 var800ad1b0 = 0x060e0c00;
-u32 var800ad1b4 = 0x00000620;
-u32 var800ad1b8 = 0x060f0c00;
-u32 var800ad1bc = 0x00000780;
-u32 var800ad1c0 = 0x07000900;
-u32 var800ad1c4 = 0x0000016c;
-u32 var800ad1c8 = 0x07010800;
-u32 var800ad1cc = 0x000000ac;
-u32 var800ad1d0 = 0x07020800;
-u32 var800ad1d4 = 0x0000008c;
-u32 var800ad1d8 = 0x07030900;
-u32 var800ad1dc = 0x000000f4;
-u32 var800ad1e0 = 0x07040900;
-u32 var800ad1e4 = 0x00000034;
-u32 var800ad1e8 = 0x07050900;
-u32 var800ad1ec = 0x000001a4;
-u32 var800ad1f0 = 0x07060900;
-u32 var800ad1f4 = 0x00000084;
-u32 var800ad1f8 = 0x07070a00;
-u32 var800ad1fc = 0x00000178;
-u32 var800ad200 = 0x07080a00;
-u32 var800ad204 = 0x00000368;
-u32 var800ad208 = 0x07090a00;
-u32 var800ad20c = 0x00000248;
-u32 var800ad210 = 0x070a0a00;
-u32 var800ad214 = 0x00000070;
-u32 var800ad218 = 0x070b0a00;
-u32 var800ad21c = 0x00000150;
-u32 var800ad220 = 0x070c0b00;
-u32 var800ad224 = 0x00000010;
-u32 var800ad228 = 0x070d0b00;
-u32 var800ad22c = 0x000001a0;
-u32 var800ad230 = 0x070e0b00;
-u32 var800ad234 = 0x00000540;
-u32 var800ad238 = 0x070f0c00;
-u32 var800ad23c = 0x00000980;
-u32 var800ad240 = 0x08000900;
-u32 var800ad244 = 0x000000b4;
-u32 var800ad248 = 0x08010800;
-u32 var800ad24c = 0x000000d4;
-u32 var800ad250 = 0x08020800;
-u32 var800ad254 = 0x00000094;
-u32 var800ad258 = 0x08030900;
-u32 var800ad25c = 0x00000164;
-u32 var800ad260 = 0x08040900;
-u32 var800ad264 = 0x00000124;
-u32 var800ad268 = 0x08050900;
-u32 var800ad26c = 0x000001f8;
-u32 var800ad270 = 0x08060900;
-u32 var800ad274 = 0x00000038;
-u32 var800ad278 = 0x08070a00;
-u32 var800ad27c = 0x000000e8;
-u32 var800ad280 = 0x08080a00;
-u32 var800ad284 = 0x000002c8;
-u32 var800ad288 = 0x08090a00;
-u32 var800ad28c = 0x00000108;
-u32 var800ad290 = 0x080a0a00;
-u32 var800ad294 = 0x000003d0;
-u32 var800ad298 = 0x080b0b00;
-u32 var800ad29c = 0x00000610;
-u32 var800ad2a0 = 0x080c0b00;
-u32 var800ad2a4 = 0x00000060;
-u32 var800ad2a8 = 0x080d0c00;
-u32 var800ad2ac = 0x00000ac0;
-u32 var800ad2b0 = 0x080e0c00;
-u32 var800ad2b4 = 0x00000240;
-u32 var800ad2b8 = 0x080f0c00;
-u32 var800ad2bc = 0x00000280;
-u32 var800ad2c0 = 0x09000900;
-u32 var800ad2c4 = 0x000001c4;
-u32 var800ad2c8 = 0x09010800;
-u32 var800ad2cc = 0x00000044;
-u32 var800ad2d0 = 0x09020900;
-u32 var800ad2d4 = 0x00000184;
-u32 var800ad2d8 = 0x09030900;
-u32 var800ad2dc = 0x00000078;
-u32 var800ad2e0 = 0x09040900;
-u32 var800ad2e4 = 0x000000b8;
-u32 var800ad2e8 = 0x09050900;
-u32 var800ad2ec = 0x00000118;
-u32 var800ad2f0 = 0x09060a00;
-u32 var800ad2f4 = 0x00000068;
-u32 var800ad2f8 = 0x09070a00;
-u32 var800ad2fc = 0x000000c8;
-u32 var800ad300 = 0x09080a00;
-u32 var800ad304 = 0x00000308;
-u32 var800ad308 = 0x09090b00;
-u32 var800ad30c = 0x000002b0;
-u32 var800ad310 = 0x090a0b00;
-u32 var800ad314 = 0x00000710;
-u32 var800ad318 = 0x090b0b00;
-u32 var800ad31c = 0x00000360;
-u32 var800ad320 = 0x090c0b00;
-u32 var800ad324 = 0x00000320;
-u32 var800ad328 = 0x090d0c00;
-u32 var800ad32c = 0x00000e40;
-u32 var800ad330 = 0x090e0c00;
-u32 var800ad334 = 0x00000e80;
-u32 var800ad338 = 0x090f0c00;
-u32 var800ad33c = 0x00000f00;
-u32 var800ad340 = 0x0a000a00;
-u32 var800ad344 = 0x000002d8;
-u32 var800ad348 = 0x0a010900;
-u32 var800ad34c = 0x00000158;
-u32 var800ad350 = 0x0a020900;
-u32 var800ad354 = 0x00000198;
-u32 var800ad358 = 0x0a030900;
-u32 var800ad35c = 0x000001e8;
-u32 var800ad360 = 0x0a040a00;
-u32 var800ad364 = 0x00000168;
-u32 var800ad368 = 0x0a050a00;
-u32 var800ad36c = 0x00000128;
-u32 var800ad370 = 0x0a060a00;
-u32 var800ad374 = 0x00000170;
-u32 var800ad378 = 0x0a070a00;
-u32 var800ad37c = 0x00000270;
-u32 var800ad380 = 0x0a080a00;
-u32 var800ad384 = 0x00000030;
-u32 var800ad388 = 0x0a090b00;
-u32 var800ad38c = 0x00000090;
-u32 var800ad390 = 0x0a0a0b00;
-u32 var800ad394 = 0x000004e0;
-u32 var800ad398 = 0x0a0b0b00;
-u32 var800ad39c = 0x000004a0;
-u32 var800ad3a0 = 0x0a0c0b00;
-u32 var800ad3a4 = 0x00000740;
-u32 var800ad3a8 = 0x0a0d0c00;
-u32 var800ad3ac = 0x00000d80;
-u32 var800ad3b0 = 0x0a0e0d00;
-u32 var800ad3b4 = 0x00000f80;
-u32 var800ad3b8 = 0x0a0f0c00;
-u32 var800ad3bc = 0x00000900;
-u32 var800ad3c0 = 0x0b000a00;
-u32 var800ad3c4 = 0x000001a8;
-u32 var800ad3c8 = 0x0b010900;
-u32 var800ad3cc = 0x000000a8;
-u32 var800ad3d0 = 0x0b020900;
-u32 var800ad3d4 = 0x00000028;
-u32 var800ad3d8 = 0x0b030900;
-u32 var800ad3dc = 0x00000148;
-u32 var800ad3e0 = 0x0b040a00;
-u32 var800ad3e4 = 0x00000188;
-u32 var800ad3e8 = 0x0b050a00;
-u32 var800ad3ec = 0x00000008;
-u32 var800ad3f0 = 0x0b060a00;
-u32 var800ad3f4 = 0x000000b0;
-u32 var800ad3f8 = 0x0b070a00;
-u32 var800ad3fc = 0x00000350;
-u32 var800ad400 = 0x0b080b00;
-u32 var800ad404 = 0x00000310;
-u32 var800ad408 = 0x0b090b00;
-u32 var800ad40c = 0x00000760;
-u32 var800ad410 = 0x0b0a0b00;
-u32 var800ad414 = 0x000002a0;
-u32 var800ad418 = 0x0b0b0b00;
-u32 var800ad41c = 0x000004c0;
-u32 var800ad420 = 0x0b0c0c00;
-u32 var800ad424 = 0x00000b80;
-u32 var800ad428 = 0x0b0d0c00;
-u32 var800ad42c = 0x00000480;
-u32 var800ad430 = 0x0b0e0c00;
-u32 var800ad434 = 0x00000d00;
-u32 var800ad438 = 0x0b0f0d00;
-u32 var800ad43c = 0x00001a00;
-u32 var800ad440 = 0x0c000b00;
-u32 var800ad444 = 0x00000370;
-u32 var800ad448 = 0x0c010a00;
-u32 var800ad44c = 0x00000088;
-u32 var800ad450 = 0x0c020900;
-u32 var800ad454 = 0x000000f0;
-u32 var800ad458 = 0x0c030a00;
-u32 var800ad45c = 0x000003b0;
-u32 var800ad460 = 0x0c040a00;
-u32 var800ad464 = 0x00000130;
-u32 var800ad468 = 0x0c050a00;
-u32 var800ad46c = 0x000001d0;
-u32 var800ad470 = 0x0c060b00;
-u32 var800ad474 = 0x00000290;
-u32 var800ad478 = 0x0c070b00;
-u32 var800ad47c = 0x00000410;
-u32 var800ad480 = 0x0c080b00;
-u32 var800ad484 = 0x00000460;
-u32 var800ad488 = 0x0c090b00;
-u32 var800ad48c = 0x00000720;
-u32 var800ad490 = 0x0c0a0b00;
-u32 var800ad494 = 0x000000c0;
-u32 var800ad498 = 0x0c0b0b00;
-u32 var800ad49c = 0x00000040;
-u32 var800ad4a0 = 0x0c0c0c00;
-u32 var800ad4a4 = 0x00000680;
-u32 var800ad4a8 = 0x0c0d0c00;
-u32 var800ad4ac = 0x00000b00;
-u32 var800ad4b0 = 0x0c0e0d00;
-u32 var800ad4b4 = 0x00000e00;
-u32 var800ad4b8 = 0x0c0f0d00;
-u32 var800ad4bc = 0x00001c00;
-u32 var800ad4c0 = 0x0d000b00;
-u32 var800ad4c4 = 0x000006d0;
-u32 var800ad4c8 = 0x0d010a00;
-u32 var800ad4cc = 0x000000d0;
-u32 var800ad4d0 = 0x0d020a00;
-u32 var800ad4d4 = 0x00000390;
-u32 var800ad4d8 = 0x0d030a00;
-u32 var800ad4dc = 0x00000190;
-u32 var800ad4e0 = 0x0d040a00;
-u32 var800ad4e4 = 0x00000110;
-u32 var800ad4e8 = 0x0d050b00;
-u32 var800ad4ec = 0x000007e0;
-u32 var800ad4f0 = 0x0d060b00;
-u32 var800ad4f4 = 0x00000160;
-u32 var800ad4f8 = 0x0d070b00;
-u32 var800ad4fc = 0x000005a0;
-u32 var800ad500 = 0x0d080b00;
-u32 var800ad504 = 0x000007c0;
-u32 var800ad508 = 0x0d090c00;
-u32 var800ad50c = 0x000002c0;
-u32 var800ad510 = 0x0d0a0c00;
-u32 var800ad514 = 0x00000380;
-u32 var800ad518 = 0x0d0b0c00;
-u32 var800ad51c = 0x00000c80;
-u32 var800ad520 = 0x0d0c0c00;
-u32 var800ad524 = 0x00000700;
-u32 var800ad528 = 0x0d0d0c00;
-u32 var800ad52c = 0x00000100;
-u32 var800ad530 = 0x0d0e0d00;
-u32 var800ad534 = 0x00001200;
-u32 var800ad538 = 0x0d0f0d00;
-u32 var800ad53c = 0x00001800;
-u32 var800ad540 = 0x0e000c00;
-u32 var800ad544 = 0x00000de0;
-u32 var800ad548 = 0x0e010b00;
-u32 var800ad54c = 0x000001e0;
-u32 var800ad550 = 0x0e020b00;
-u32 var800ad554 = 0x000002e0;
-u32 var800ad558 = 0x0e030b00;
-u32 var800ad55c = 0x00000560;
-u32 var800ad560 = 0x0e040b00;
-u32 var800ad564 = 0x000007a0;
-u32 var800ad568 = 0x0e050b00;
-u32 var800ad56c = 0x000006a0;
-u32 var800ad570 = 0x0e060b00;
-u32 var800ad574 = 0x00000020;
-u32 var800ad578 = 0x0e070b00;
-u32 var800ad57c = 0x00000340;
-u32 var800ad580 = 0x0e080c00;
-u32 var800ad584 = 0x00000a40;
-u32 var800ad588 = 0x0e090c00;
-u32 var800ad58c = 0x00000180;
-u32 var800ad590 = 0x0e0a0c00;
-u32 var800ad594 = 0x00000880;
-u32 var800ad598 = 0x0e0b0c00;
-u32 var800ad59c = 0x00000300;
-u32 var800ad5a0 = 0x0e0c0d00;
-u32 var800ad5a4 = 0x00001e00;
-u32 var800ad5a8 = 0x0e0d0d00;
-u32 var800ad5ac = 0x00000a00;
-u32 var800ad5b0 = 0x0e0e0c00;
-u32 var800ad5b4 = 0x00000400;
-u32 var800ad5b8 = 0x0e0f0d00;
-u32 var800ad5bc = 0x00001000;
-u32 var800ad5c0 = 0x0f000c00;
-u32 var800ad5c4 = 0x00000e20;
-u32 var800ad5c8 = 0x0f010b00;
-u32 var800ad5cc = 0x00000520;
-u32 var800ad5d0 = 0x0f020b00;
-u32 var800ad5d4 = 0x00000220;
-u32 var800ad5d8 = 0x0f030b00;
-u32 var800ad5dc = 0x000003c0;
-u32 var800ad5e0 = 0x0f040b00;
-u32 var800ad5e4 = 0x000001c0;
-u32 var800ad5e8 = 0x0f050b00;
-u32 var800ad5ec = 0x00000140;
-u32 var800ad5f0 = 0x0f060b00;
-u32 var800ad5f4 = 0x00000440;
-u32 var800ad5f8 = 0x0f070c00;
-u32 var800ad5fc = 0x00000580;
-u32 var800ad600 = 0x0f080c00;
-u32 var800ad604 = 0x00000a80;
-u32 var800ad608 = 0x0f090c00;
-u32 var800ad60c = 0x00000080;
-u32 var800ad610 = 0x0f0a0c00;
-u32 var800ad614 = 0x00000500;
-u32 var800ad618 = 0x0f0b0c00;
-u32 var800ad61c = 0x00000600;
-u32 var800ad620 = 0x0f0c0d00;
-u32 var800ad624 = 0x00000200;
-u32 var800ad628 = 0x0f0d0d00;
-u32 var800ad62c = 0x00000c00;
-u32 var800ad630 = 0x0f0e0d00;
-u32 var800ad634 = 0x00000800;
-u32 var800ad638 = 0x0f0f0d00;
-u32 var800ad63c = 0x00000000;
-u32 var800ad640 = 0x64646400;
-u32 var800ad644 = 0x00000000;
-u32 var800ad648 = 0x00000100;
-u32 var800ad64c = 0x00000001;
-u32 var800ad650 = 0x00010400;
-u32 var800ad654 = 0x0000000a;
-u32 var800ad658 = 0x00020600;
-u32 var800ad65c = 0x0000001c;
-u32 var800ad660 = 0x00030800;
-u32 var800ad664 = 0x00000034;
-u32 var800ad668 = 0x00040900;
-u32 var800ad66c = 0x000000a4;
-u32 var800ad670 = 0x00050900;
-u32 var800ad674 = 0x000001f8;
-u32 var800ad678 = 0x00060a00;
-u32 var800ad67c = 0x000001d8;
-u32 var800ad680 = 0x00070a00;
-u32 var800ad684 = 0x000002e8;
-u32 var800ad688 = 0x00080b00;
-u32 var800ad68c = 0x000001a8;
-u32 var800ad690 = 0x00090b00;
-u32 var800ad694 = 0x00000548;
-u32 var800ad698 = 0x000a0b00;
-u32 var800ad69c = 0x00000288;
-u32 var800ad6a0 = 0x000b0c00;
-u32 var800ad6a4 = 0x000004f0;
-u32 var800ad6a8 = 0x000c0c00;
-u32 var800ad6ac = 0x00000870;
-u32 var800ad6b0 = 0x000d0c00;
-u32 var800ad6b4 = 0x00000c30;
-u32 var800ad6b8 = 0x000e0d00;
-u32 var800ad6bc = 0x000003d0;
-u32 var800ad6c0 = 0x000f0900;
-u32 var800ad6c4 = 0x00000110;
-u32 var800ad6c8 = 0x01000300;
-u32 var800ad6cc = 0x00000006;
-u32 var800ad6d0 = 0x01010400;
-u32 var800ad6d4 = 0x00000002;
-u32 var800ad6d8 = 0x01020600;
-u32 var800ad6dc = 0x0000000c;
-u32 var800ad6e0 = 0x01030700;
-u32 var800ad6e4 = 0x00000014;
-u32 var800ad6e8 = 0x01040800;
-u32 var800ad6ec = 0x000000c4;
-u32 var800ad6f0 = 0x01050900;
-u32 var800ad6f4 = 0x000000f8;
-u32 var800ad6f8 = 0x01060900;
-u32 var800ad6fc = 0x00000158;
-u32 var800ad700 = 0x01070900;
-u32 var800ad704 = 0x000001e8;
-u32 var800ad708 = 0x01080a00;
-u32 var800ad70c = 0x00000328;
-u32 var800ad710 = 0x01090a00;
-u32 var800ad714 = 0x00000348;
-u32 var800ad718 = 0x010a0a00;
-u32 var800ad71c = 0x00000088;
-u32 var800ad720 = 0x010b0b00;
-u32 var800ad724 = 0x00000770;
-u32 var800ad728 = 0x010c0c00;
-u32 var800ad72c = 0x00000930;
-u32 var800ad730 = 0x010d0b00;
-u32 var800ad734 = 0x000006b0;
-u32 var800ad738 = 0x010e0c00;
-u32 var800ad73c = 0x00000f30;
-u32 var800ad740 = 0x010f0800;
-u32 var800ad744 = 0x00000090;
-u32 var800ad748 = 0x02000600;
-u32 var800ad74c = 0x0000003c;
-u32 var800ad750 = 0x02010600;
-u32 var800ad754 = 0x0000002c;
-u32 var800ad758 = 0x02020700;
-u32 var800ad75c = 0x00000074;
-u32 var800ad760 = 0x02030800;
-u32 var800ad764 = 0x00000064;
-u32 var800ad768 = 0x02040900;
-u32 var800ad76c = 0x00000184;
-u32 var800ad770 = 0x02050900;
-u32 var800ad774 = 0x000000b8;
-u32 var800ad778 = 0x02060a00;
-u32 var800ad77c = 0x00000398;
-u32 var800ad780 = 0x02070a00;
-u32 var800ad784 = 0x00000168;
-u32 var800ad788 = 0x02080b00;
-u32 var800ad78c = 0x00000428;
-u32 var800ad790 = 0x02090a00;
-u32 var800ad794 = 0x00000048;
-u32 var800ad798 = 0x020a0b00;
-u32 var800ad79c = 0x000007f0;
-u32 var800ad7a0 = 0x020b0b00;
-u32 var800ad7a4 = 0x00000570;
-u32 var800ad7a8 = 0x020c0b00;
-u32 var800ad7ac = 0x000003b0;
-u32 var800ad7b0 = 0x020d0c00;
-u32 var800ad7b4 = 0x000008b0;
-u32 var800ad7b8 = 0x020e0c00;
-u32 var800ad7bc = 0x00000730;
-u32 var800ad7c0 = 0x020f0900;
-u32 var800ad7c4 = 0x00000010;
-u32 var800ad7c8 = 0x03000800;
-u32 var800ad7cc = 0x000000b4;
-u32 var800ad7d0 = 0x03010700;
-u32 var800ad7d4 = 0x00000054;
-u32 var800ad7d8 = 0x03020800;
-u32 var800ad7dc = 0x000000e4;
-u32 var800ad7e0 = 0x03030900;
-u32 var800ad7e4 = 0x00000144;
-u32 var800ad7e8 = 0x03040900;
-u32 var800ad7ec = 0x00000004;
-u32 var800ad7f0 = 0x03050a00;
-u32 var800ad7f4 = 0x00000138;
-u32 var800ad7f8 = 0x03060a00;
-u32 var800ad7fc = 0x00000318;
-u32 var800ad800 = 0x03070a00;
-u32 var800ad804 = 0x000003a8;
-u32 var800ad808 = 0x03080b00;
-u32 var800ad80c = 0x000003c8;
-u32 var800ad810 = 0x03090b00;
-u32 var800ad814 = 0x00000188;
-u32 var800ad818 = 0x030a0c00;
-u32 var800ad81c = 0x000003f0;
-u32 var800ad820 = 0x030b0c00;
-u32 var800ad824 = 0x000002b0;
-u32 var800ad828 = 0x030c0c00;
-u32 var800ad82c = 0x00000e30;
-u32 var800ad830 = 0x030d0d00;
-u32 var800ad834 = 0x00001830;
-u32 var800ad838 = 0x030e0d00;
-u32 var800ad83c = 0x000016d0;
-u32 var800ad840 = 0x030f0a00;
-u32 var800ad844 = 0x00000160;
-u32 var800ad848 = 0x04000900;
-u32 var800ad84c = 0x000001a4;
-u32 var800ad850 = 0x04010800;
-u32 var800ad854 = 0x00000024;
-u32 var800ad858 = 0x04020900;
-u32 var800ad85c = 0x00000044;
-u32 var800ad860 = 0x04030900;
-u32 var800ad864 = 0x00000104;
-u32 var800ad868 = 0x04040a00;
-u32 var800ad86c = 0x00000338;
-u32 var800ad870 = 0x04050a00;
-u32 var800ad874 = 0x00000298;
-u32 var800ad878 = 0x04060b00;
-u32 var800ad87c = 0x00000668;
-u32 var800ad880 = 0x04070b00;
-u32 var800ad884 = 0x00000128;
-u32 var800ad888 = 0x04080b00;
-u32 var800ad88c = 0x000006c8;
-u32 var800ad890 = 0x04090c00;
-u32 var800ad894 = 0x00000108;
-u32 var800ad898 = 0x040a0c00;
-u32 var800ad89c = 0x000006f0;
-u32 var800ad8a0 = 0x040b0c00;
-u32 var800ad8a4 = 0x00000470;
-u32 var800ad8a8 = 0x040c0d00;
-u32 var800ad8ac = 0x00001a30;
-u32 var800ad8b0 = 0x040d0d00;
-u32 var800ad8b4 = 0x00000fd0;
-u32 var800ad8b8 = 0x040e0d00;
-u32 var800ad8bc = 0x00000ad0;
-u32 var800ad8c0 = 0x040f0900;
-u32 var800ad8c4 = 0x00000120;
-u32 var800ad8c8 = 0x05000900;
-u32 var800ad8cc = 0x00000084;
-u32 var800ad8d0 = 0x05010800;
-u32 var800ad8d4 = 0x00000078;
-u32 var800ad8d8 = 0x05020900;
-u32 var800ad8dc = 0x000001b8;
-u32 var800ad8e0 = 0x05030900;
-u32 var800ad8e4 = 0x00000038;
-u32 var800ad8e8 = 0x05040a00;
-u32 var800ad8ec = 0x00000198;
-u32 var800ad8f0 = 0x05050b00;
-u32 var800ad8f4 = 0x000004e8;
-u32 var800ad8f8 = 0x05060b00;
-u32 var800ad8fc = 0x000005a8;
-u32 var800ad900 = 0x05070c00;
-u32 var800ad904 = 0x00000908;
-u32 var800ad908 = 0x05080b00;
-u32 var800ad90c = 0x00000388;
-u32 var800ad910 = 0x05090c00;
-u32 var800ad914 = 0x00000bf0;
-u32 var800ad918 = 0x050a0c00;
-u32 var800ad91c = 0x00000170;
-u32 var800ad920 = 0x050b0d00;
-u32 var800ad924 = 0x00000130;
-u32 var800ad928 = 0x050c0d00;
-u32 var800ad92c = 0x00000430;
-u32 var800ad930 = 0x050d0d00;
-u32 var800ad934 = 0x00000bd0;
-u32 var800ad938 = 0x050e0e00;
-u32 var800ad93c = 0x00002f60;
-u32 var800ad940 = 0x050f0a00;
-u32 var800ad944 = 0x00000020;
-u32 var800ad948 = 0x06000a00;
-u32 var800ad94c = 0x000003d8;
-u32 var800ad950 = 0x06010900;
-u32 var800ad954 = 0x000000d8;
-u32 var800ad958 = 0x06020900;
-u32 var800ad95c = 0x00000058;
-u32 var800ad960 = 0x06030a00;
-u32 var800ad964 = 0x00000098;
-u32 var800ad968 = 0x06040b00;
-u32 var800ad96c = 0x000000e8;
-u32 var800ad970 = 0x06050b00;
-u32 var800ad974 = 0x00000268;
-u32 var800ad978 = 0x06060b00;
-u32 var800ad97c = 0x00000028;
-u32 var800ad980 = 0x06070b00;
-u32 var800ad984 = 0x00000508;
-u32 var800ad988 = 0x06080c00;
-u32 var800ad98c = 0x00000808;
-u32 var800ad990 = 0x06090c00;
-u32 var800ad994 = 0x000002f0;
-u32 var800ad998 = 0x060a0c00;
-u32 var800ad99c = 0x00000270;
-u32 var800ad9a0 = 0x060b0c00;
-u32 var800ad9a4 = 0x000009b0;
-u32 var800ad9a8 = 0x060c0d00;
-u32 var800ad9ac = 0x00001030;
-u32 var800ad9b0 = 0x060d0d00;
-u32 var800ad9b4 = 0x00000ed0;
-u32 var800ad9b8 = 0x060e0e00;
-u32 var800ad9bc = 0x000034d0;
-u32 var800ad9c0 = 0x060f0a00;
-u32 var800ad9c4 = 0x00000140;
-u32 var800ad9c8 = 0x07000a00;
-u32 var800ad9cc = 0x00000118;
-u32 var800ad9d0 = 0x07010900;
-u32 var800ad9d4 = 0x00000018;
-u32 var800ad9d8 = 0x07020a00;
-u32 var800ad9dc = 0x00000368;
-u32 var800ad9e0 = 0x07030a00;
-u32 var800ad9e4 = 0x00000068;
-u32 var800ad9e8 = 0x07040b00;
-u32 var800ad9ec = 0x00000528;
-u32 var800ad9f0 = 0x07050b00;
-u32 var800ad9f4 = 0x000005c8;
-u32 var800ad9f8 = 0x07060b00;
-u32 var800ad9fc = 0x00000148;
-u32 var800ada00 = 0x07070c00;
-u32 var800ada04 = 0x00000a08;
-u32 var800ada08 = 0x07080c00;
-u32 var800ada0c = 0x000001f0;
-u32 var800ada10 = 0x07090d00;
-u32 var800ada14 = 0x00001d30;
-u32 var800ada18 = 0x070a0d00;
-u32 var800ada1c = 0x00001630;
-u32 var800ada20 = 0x070b0d00;
-u32 var800ada24 = 0x000005d0;
-u32 var800ada28 = 0x070c0d00;
-u32 var800ada2c = 0x000007d0;
-u32 var800ada30 = 0x070d0f00;
-u32 var800ada34 = 0x00004f60;
-u32 var800ada38 = 0x070e0f00;
-u32 var800ada3c = 0x00001760;
-u32 var800ada40 = 0x070f0a00;
-u32 var800ada44 = 0x00000040;
-u32 var800ada48 = 0x08000a00;
-u32 var800ada4c = 0x000002a8;
-u32 var800ada50 = 0x08010a00;
-u32 var800ada54 = 0x000000a8;
-u32 var800ada58 = 0x08020a00;
-u32 var800ada5c = 0x00000228;
-u32 var800ada60 = 0x08030b00;
-u32 var800ada64 = 0x000007c8;
-u32 var800ada68 = 0x08040b00;
-u32 var800ada6c = 0x000001c8;
-u32 var800ada70 = 0x08050b00;
-u32 var800ada74 = 0x00000788;
-u32 var800ada78 = 0x08060c00;
-u32 var800ada7c = 0x00000208;
-u32 var800ada80 = 0x08070c00;
-u32 var800ada84 = 0x000009f0;
-u32 var800ada88 = 0x08080d00;
-u32 var800ada8c = 0x00001ab0;
-u32 var800ada90 = 0x08090d00;
-u32 var800ada94 = 0x00001130;
-u32 var800ada98 = 0x080a0d00;
-u32 var800ada9c = 0x00000230;
-u32 var800adaa0 = 0x080b0d00;
-u32 var800adaa4 = 0x00001fd0;
-u32 var800adaa8 = 0x080c0e00;
-u32 var800adaac = 0x00003ad0;
-u32 var800adab0 = 0x080d0e00;
-u32 var800adab4 = 0x000024d0;
-u32 var800adab8 = 0x080e0e00;
-u32 var800adabc = 0x000008d0;
-u32 var800adac0 = 0x080f0a00;
-u32 var800adac4 = 0x00000380;
-u32 var800adac8 = 0x09000b00;
-u32 var800adacc = 0x000002c8;
-u32 var800adad0 = 0x09010a00;
-u32 var800adad4 = 0x000000c8;
-u32 var800adad8 = 0x09020a00;
-u32 var800adadc = 0x00000248;
-u32 var800adae0 = 0x09030b00;
-u32 var800adae4 = 0x00000588;
-u32 var800adae8 = 0x09040b00;
-u32 var800adaec = 0x00000608;
-u32 var800adaf0 = 0x09050c00;
-u32 var800adaf4 = 0x00000008;
-u32 var800adaf8 = 0x09060c00;
-u32 var800adafc = 0x00000af0;
-u32 var800adb00 = 0x09070d00;
-u32 var800adb04 = 0x00000ab0;
-u32 var800adb08 = 0x09080d00;
-u32 var800adb0c = 0x00000d30;
-u32 var800adb10 = 0x09090d00;
-u32 var800adb14 = 0x00000a30;
-u32 var800adb18 = 0x090a0d00;
-u32 var800adb1c = 0x00000030;
-u32 var800adb20 = 0x090b0e00;
-u32 var800adb24 = 0x00003ed0;
-u32 var800adb28 = 0x090c0d00;
-u32 var800adb2c = 0x00001cd0;
-u32 var800adb30 = 0x090d0e00;
-u32 var800adb34 = 0x000018d0;
-u32 var800adb38 = 0x090e0d00;
-u32 var800adb3c = 0x000000d0;
-u32 var800adb40 = 0x090f0b00;
-u32 var800adb44 = 0x00000680;
-u32 var800adb48 = 0x0a000b00;
-u32 var800adb4c = 0x00000688;
-u32 var800adb50 = 0x0a010b00;
-u32 var800adb54 = 0x00000408;
-u32 var800adb58 = 0x0a020a00;
-u32 var800adb5c = 0x00000308;
-u32 var800adb60 = 0x0a030b00;
-u32 var800adb64 = 0x000005f0;
-u32 var800adb68 = 0x0a040c00;
-u32 var800adb6c = 0x00000ef0;
-u32 var800adb70 = 0x0a050c00;
-u32 var800adb74 = 0x00000970;
-u32 var800adb78 = 0x0a060c00;
-u32 var800adb7c = 0x00000a70;
-u32 var800adb80 = 0x0a070c00;
-u32 var800adb84 = 0x00000db0;
-u32 var800adb88 = 0x0a080d00;
-u32 var800adb8c = 0x00001230;
-u32 var800adb90 = 0x0a090e00;
-u32 var800adb94 = 0x000039d0;
-u32 var800adb98 = 0x0a0a0e00;
-u32 var800adb9c = 0x000021d0;
-u32 var800adba0 = 0x0a0b0e00;
-u32 var800adba4 = 0x000002d0;
-u32 var800adba8 = 0x0a0c0f00;
-u32 var800adbac = 0x00005760;
-u32 var800adbb0 = 0x0a0d0f00;
-u32 var800adbb4 = 0x00002760;
-u32 var800adbb8 = 0x0a0e0e00;
-u32 var800adbbc = 0x00003b60;
-u32 var800adbc0 = 0x0a0f0a00;
-u32 var800adbc4 = 0x00000080;
-u32 var800adbc8 = 0x0b000c00;
-u32 var800adbcc = 0x00000cf0;
-u32 var800adbd0 = 0x0b010b00;
-u32 var800adbd4 = 0x000000f0;
-u32 var800adbd8 = 0x0b020b00;
-u32 var800adbdc = 0x00000370;
-u32 var800adbe0 = 0x0b030b00;
-u32 var800adbe4 = 0x00000670;
-u32 var800adbe8 = 0x0b040c00;
-u32 var800adbec = 0x00000c70;
-u32 var800adbf0 = 0x0b050c00;
-u32 var800adbf4 = 0x00000fb0;
-u32 var800adbf8 = 0x0b060d00;
-u32 var800adbfc = 0x00000630;
-u32 var800adc00 = 0x0b070e00;
-u32 var800adc04 = 0x000015d0;
-u32 var800adc08 = 0x0b080e00;
-u32 var800adc0c = 0x000019d0;
-u32 var800adc10 = 0x0b090e00;
-u32 var800adc14 = 0x000001d0;
-u32 var800adc18 = 0x0b0a0e00;
-u32 var800adc1c = 0x000022d0;
-u32 var800adc20 = 0x0b0b0e00;
-u32 var800adc24 = 0x000004d0;
-u32 var800adc28 = 0x0b0c0e00;
-u32 var800adc2c = 0x000010d0;
-u32 var800adc30 = 0x0b0d0d00;
-u32 var800adc34 = 0x00001f60;
-u32 var800adc38 = 0x0b0e0e00;
-u32 var800adc3c = 0x00000b60;
-u32 var800adc40 = 0x0b0f0b00;
-u32 var800adc44 = 0x00000300;
-u32 var800adc48 = 0x0c000c00;
-u32 var800adc4c = 0x00000530;
-u32 var800adc50 = 0x0c010c00;
-u32 var800adc54 = 0x00000070;
-u32 var800adc58 = 0x0c020c00;
-u32 var800adc5c = 0x000007b0;
-u32 var800adc60 = 0x0c030c00;
-u32 var800adc64 = 0x000005b0;
-u32 var800adc68 = 0x0c040c00;
-u32 var800adc6c = 0x000001b0;
-u32 var800adc70 = 0x0c050d00;
-u32 var800adc74 = 0x00001430;
-u32 var800adc78 = 0x0c060d00;
-u32 var800adc7c = 0x00000830;
-u32 var800adc80 = 0x0c070d00;
-u32 var800adc84 = 0x000017d0;
-u32 var800adc88 = 0x0c080d00;
-u32 var800adc8c = 0x000006d0;
-u32 var800adc90 = 0x0c090f00;
-u32 var800adc94 = 0x00000f60;
-u32 var800adc98 = 0x0c0a0e00;
-u32 var800adc9c = 0x00003760;
-u32 var800adca0 = 0x0c0b0e00;
-u32 var800adca4 = 0x000030d0;
-u32 var800adca8 = 0x0c0c0e00;
-u32 var800adcac = 0x00000760;
-u32 var800adcb0 = 0x0c0d0e00;
-u32 var800adcb4 = 0x00002b60;
-u32 var800adcb8 = 0x0c0e1000;
-u32 var800adcbc = 0x00000360;
-u32 var800adcc0 = 0x0c0f0b00;
-u32 var800adcc4 = 0x00000100;
-u32 var800adcc8 = 0x0d000e00;
-u32 var800adccc = 0x000035d0;
-u32 var800adcd0 = 0x0d010c00;
-u32 var800adcd4 = 0x00000cb0;
-u32 var800adcd8 = 0x0d020c00;
-u32 var800adcdc = 0x000004b0;
-u32 var800adce0 = 0x0d030c00;
-u32 var800adce4 = 0x000000b0;
-u32 var800adce8 = 0x0d040d00;
-u32 var800adcec = 0x000009d0;
-u32 var800adcf0 = 0x0d050d00;
-u32 var800adcf4 = 0x00001bd0;
-u32 var800adcf8 = 0x0d060e00;
-u32 var800adcfc = 0x00001ed0;
-u32 var800add00 = 0x0d070e00;
-u32 var800add04 = 0x000032d0;
-u32 var800add08 = 0x0d080e00;
-u32 var800add0c = 0x000014d0;
-u32 var800add10 = 0x0d091000;
-u32 var800add14 = 0x0000e360;
-u32 var800add18 = 0x0d0a0f00;
-u32 var800add1c = 0x00006760;
-u32 var800add20 = 0x0d0b0f00;
-u32 var800add24 = 0x00005b60;
-u32 var800add28 = 0x0d0c0f00;
-u32 var800add2c = 0x00001b60;
-u32 var800add30 = 0x0d0d1100;
-u32 var800add34 = 0x00018360;
-u32 var800add38 = 0x0d0e0f00;
-u32 var800add3c = 0x00004360;
-u32 var800add40 = 0x0d0f0b00;
-u32 var800add44 = 0x00000200;
-u32 var800add48 = 0x0e000d00;
-u32 var800add4c = 0x000013d0;
-u32 var800add50 = 0x0e010d00;
-u32 var800add54 = 0x000011d0;
-u32 var800add58 = 0x0e020b00;
-u32 var800add5c = 0x00000330;
-u32 var800add60 = 0x0e030c00;
-u32 var800add64 = 0x00000dd0;
-u32 var800add68 = 0x0e040e00;
-u32 var800add6c = 0x00001ad0;
-u32 var800add70 = 0x0e050e00;
-u32 var800add74 = 0x000012d0;
-u32 var800add78 = 0x0e060d00;
-u32 var800add7c = 0x00000cd0;
-u32 var800add80 = 0x0e070e00;
-u32 var800add84 = 0x000038d0;
-u32 var800add88 = 0x0e080e00;
-u32 var800add8c = 0x000028d0;
-u32 var800add90 = 0x0e090f00;
-u32 var800add94 = 0x00002360;
-u32 var800add98 = 0x0e0a1000;
-u32 var800add9c = 0x00006360;
-u32 var800adda0 = 0x0e0b0f00;
-u32 var800adda4 = 0x00007360;
-u32 var800adda8 = 0x0e0c1100;
-u32 var800addac = 0x00008360;
-u32 var800addb0 = 0x0e0d0f00;
-u32 var800addb4 = 0x00003360;
-u32 var800addb8 = 0x0e0e0e00;
-u32 var800addbc = 0x00001360;
-u32 var800addc0 = 0x0e0f0b00;
-u32 var800addc4 = 0x00000000;
-u32 var800addc8 = 0x0f000900;
-u32 var800addcc = 0x00000060;
-u32 var800addd0 = 0x0f010800;
-u32 var800addd4 = 0x00000050;
-u32 var800addd8 = 0x0f020800;
-u32 var800adddc = 0x000000e0;
-u32 var800adde0 = 0x0f030900;
-u32 var800adde4 = 0x000001a0;
-u32 var800adde8 = 0x0f040900;
-u32 var800addec = 0x000000a0;
-u32 var800addf0 = 0x0f050a00;
-u32 var800addf4 = 0x00000220;
-u32 var800addf8 = 0x0f060a00;
-u32 var800addfc = 0x00000340;
-u32 var800ade00 = 0x0f070a00;
-u32 var800ade04 = 0x00000240;
-u32 var800ade08 = 0x0f080b00;
-u32 var800ade0c = 0x00000580;
-u32 var800ade10 = 0x0f090b00;
-u32 var800ade14 = 0x00000180;
-u32 var800ade18 = 0x0f0a0b00;
-u32 var800ade1c = 0x00000280;
-u32 var800ade20 = 0x0f0b0b00;
-u32 var800ade24 = 0x00000700;
-u32 var800ade28 = 0x0f0c0b00;
-u32 var800ade2c = 0x00000500;
-u32 var800ade30 = 0x0f0d0b00;
-u32 var800ade34 = 0x00000600;
-u32 var800ade38 = 0x0f0e0b00;
-u32 var800ade3c = 0x00000400;
-u32 var800ade40 = 0x0f0f0800;
-u32 var800ade44 = 0x000000c0;
-u32 var800ade48 = 0x64646400;
-u32 var800ade4c = 0x00000000;
-u32 var800ade50 = 0x00000400;
-u32 var800ade54 = 0x0000000f;
-u32 var800ade58 = 0x00010400;
-u32 var800ade5c = 0x0000000b;
-u32 var800ade60 = 0x00020600;
-u32 var800ade64 = 0x0000001d;
-u32 var800ade68 = 0x00030700;
-u32 var800ade6c = 0x00000005;
-u32 var800ade70 = 0x00040800;
-u32 var800ade74 = 0x00000049;
-u32 var800ade78 = 0x00050900;
-u32 var800ade7c = 0x000000c1;
-u32 var800ade80 = 0x00060900;
-u32 var800ade84 = 0x0000003e;
-u32 var800ade88 = 0x00070a00;
-u32 var800ade8c = 0x00000136;
-u32 var800ade90 = 0x00080a00;
-u32 var800ade94 = 0x00000156;
-u32 var800ade98 = 0x00090b00;
-u32 var800ade9c = 0x000005ca;
-u32 var800adea0 = 0x000a0b00;
-u32 var800adea4 = 0x0000058a;
-u32 var800adea8 = 0x000b0b00;
-u32 var800adeac = 0x0000048a;
-u32 var800adeb0 = 0x000c0b00;
-u32 var800adeb4 = 0x000005b2;
-u32 var800adeb8 = 0x000d0b00;
-u32 var800adebc = 0x00000502;
-u32 var800adec0 = 0x000e0c00;
-u32 var800adec4 = 0x00000102;
-u32 var800adec8 = 0x000f0900;
-u32 var800adecc = 0x00000034;
-u32 var800aded0 = 0x01000400;
-u32 var800aded4 = 0x00000007;
-u32 var800aded8 = 0x01010400;
-u32 var800adedc = 0x00000003;
-u32 var800adee0 = 0x01020500;
-u32 var800adee4 = 0x00000015;
-u32 var800adee8 = 0x01030600;
-u32 var800adeec = 0x00000019;
-u32 var800adef0 = 0x01040700;
-u32 var800adef4 = 0x00000071;
-u32 var800adef8 = 0x01050800;
-u32 var800adefc = 0x00000041;
-u32 var800adf00 = 0x01060800;
-u32 var800adf04 = 0x0000005e;
-u32 var800adf08 = 0x01070900;
-u32 var800adf0c = 0x00000036;
-u32 var800adf10 = 0x01080900;
-u32 var800adf14 = 0x00000116;
-u32 var800adf18 = 0x01090900;
-u32 var800adf1c = 0x000000c6;
-u32 var800adf20 = 0x010a0a00;
-u32 var800adf24 = 0x0000038a;
-u32 var800adf28 = 0x010b0a00;
-u32 var800adf2c = 0x0000026a;
-u32 var800adf30 = 0x010c0a00;
-u32 var800adf34 = 0x000003f2;
-u32 var800adf38 = 0x010d0a00;
-u32 var800adf3c = 0x00000252;
-u32 var800adf40 = 0x010e0a00;
-u32 var800adf44 = 0x000003a2;
-u32 var800adf48 = 0x010f0800;
-u32 var800adf4c = 0x00000054;
-u32 var800adf50 = 0x02000600;
-u32 var800adf54 = 0x0000003d;
-u32 var800adf58 = 0x02010500;
-u32 var800adf5c = 0x0000000d;
-u32 var800adf60 = 0x02020600;
-u32 var800adf64 = 0x00000025;
-u32 var800adf68 = 0x02030700;
-u32 var800adf6c = 0x00000029;
-u32 var800adf70 = 0x02040700;
-u32 var800adf74 = 0x00000011;
-u32 var800adf78 = 0x02050800;
-u32 var800adf7c = 0x00000001;
-u32 var800adf80 = 0x02060800;
-u32 var800adf84 = 0x0000001e;
-u32 var800adf88 = 0x02070900;
-u32 var800adf8c = 0x00000176;
-u32 var800adf90 = 0x02080900;
-u32 var800adf94 = 0x000001e6;
-u32 var800adf98 = 0x02090900;
-u32 var800adf9c = 0x00000086;
-u32 var800adfa0 = 0x020a0900;
-u32 var800adfa4 = 0x000000da;
-u32 var800adfa8 = 0x020b0a00;
-u32 var800adfac = 0x000000aa;
-u32 var800adfb0 = 0x020c0a00;
-u32 var800adfb4 = 0x00000372;
-u32 var800adfb8 = 0x020d0a00;
-u32 var800adfbc = 0x00000392;
-u32 var800adfc0 = 0x020e0b00;
-u32 var800adfc4 = 0x000005c2;
-u32 var800adfc8 = 0x020f0700;
-u32 var800adfcc = 0x00000024;
-u32 var800adfd0 = 0x03000700;
-u32 var800adfd4 = 0x00000045;
-u32 var800adfd8 = 0x03010600;
-u32 var800adfdc = 0x00000039;
-u32 var800adfe0 = 0x03020700;
-u32 var800adfe4 = 0x00000069;
-u32 var800adfe8 = 0x03030700;
-u32 var800adfec = 0x00000031;
-u32 var800adff0 = 0x03040800;
-u32 var800adff4 = 0x00000061;
-u32 var800adff8 = 0x03050800;
-u32 var800adffc = 0x000000be;
-u32 var800ae000 = 0x03060800;
-u32 var800ae004 = 0x0000002e;
-u32 var800ae008 = 0x03070900;
-u32 var800ae00c = 0x00000076;
-u32 var800ae010 = 0x03080900;
-u32 var800ae014 = 0x00000066;
-u32 var800ae018 = 0x03090900;
-u32 var800ae01c = 0x000000fa;
-u32 var800ae020 = 0x030a0900;
-u32 var800ae024 = 0x0000009a;
-u32 var800ae028 = 0x030b0a00;
-u32 var800ae02c = 0x0000028a;
-u32 var800ae030 = 0x030c0a00;
-u32 var800ae034 = 0x000003b2;
-u32 var800ae038 = 0x030d0a00;
-u32 var800ae03c = 0x00000292;
-u32 var800ae040 = 0x030e0a00;
-u32 var800ae044 = 0x000003c2;
-u32 var800ae048 = 0x030f0700;
-u32 var800ae04c = 0x00000004;
-u32 var800ae050 = 0x04000800;
-u32 var800ae054 = 0x000000c9;
-u32 var800ae058 = 0x04010700;
-u32 var800ae05c = 0x00000009;
-u32 var800ae060 = 0x04020700;
-u32 var800ae064 = 0x00000051;
-u32 var800ae068 = 0x04030800;
-u32 var800ae06c = 0x000000e1;
-u32 var800ae070 = 0x04040800;
-u32 var800ae074 = 0x000000fe;
-u32 var800ae078 = 0x04050800;
-u32 var800ae07c = 0x0000006e;
-u32 var800ae080 = 0x04060800;
-u32 var800ae084 = 0x0000000e;
-u32 var800ae088 = 0x04070900;
-u32 var800ae08c = 0x00000096;
-u32 var800ae090 = 0x04080900;
-u32 var800ae094 = 0x00000026;
-u32 var800ae098 = 0x04090900;
-u32 var800ae09c = 0x0000007a;
-u32 var800ae0a0 = 0x040a0a00;
-u32 var800ae0a4 = 0x0000001a;
-u32 var800ae0a8 = 0x040b0a00;
-u32 var800ae0ac = 0x0000030a;
-u32 var800ae0b0 = 0x040c0a00;
-u32 var800ae0b4 = 0x00000132;
-u32 var800ae0b8 = 0x040d0a00;
-u32 var800ae0bc = 0x000002e2;
-u32 var800ae0c0 = 0x040e0b00;
-u32 var800ae0c4 = 0x000001c2;
-u32 var800ae0c8 = 0x040f0700;
-u32 var800ae0cc = 0x00000038;
-u32 var800ae0d0 = 0x05000900;
-u32 var800ae0d4 = 0x000001c1;
-u32 var800ae0d8 = 0x05010700;
-u32 var800ae0dc = 0x00000021;
-u32 var800ae0e0 = 0x05020800;
-u32 var800ae0e4 = 0x00000081;
-u32 var800ae0e8 = 0x05030800;
-u32 var800ae0ec = 0x0000007e;
-u32 var800ae0f0 = 0x05040800;
-u32 var800ae0f4 = 0x000000ee;
-u32 var800ae0f8 = 0x05050800;
-u32 var800ae0fc = 0x0000004e;
-u32 var800ae100 = 0x05060900;
-u32 var800ae104 = 0x000000d6;
-u32 var800ae108 = 0x05070900;
-u32 var800ae10c = 0x000000a6;
-u32 var800ae110 = 0x05080900;
-u32 var800ae114 = 0x00000006;
-u32 var800ae118 = 0x05090900;
-u32 var800ae11c = 0x0000005a;
-u32 var800ae120 = 0x050a0a00;
-u32 var800ae124 = 0x000002aa;
-u32 var800ae128 = 0x050b0a00;
-u32 var800ae12c = 0x000002f2;
-u32 var800ae130 = 0x050c0a00;
-u32 var800ae134 = 0x000002d2;
-u32 var800ae138 = 0x050d0a00;
-u32 var800ae13c = 0x00000262;
-u32 var800ae140 = 0x050e0a00;
-u32 var800ae144 = 0x00000182;
-u32 var800ae148 = 0x050f0700;
-u32 var800ae14c = 0x00000018;
-u32 var800ae150 = 0x06000900;
-u32 var800ae154 = 0x0000013e;
-u32 var800ae158 = 0x06010800;
-u32 var800ae15c = 0x000000de;
-u32 var800ae160 = 0x06020800;
-u32 var800ae164 = 0x0000009e;
-u32 var800ae168 = 0x06030800;
-u32 var800ae16c = 0x000000ae;
-u32 var800ae170 = 0x06040800;
-u32 var800ae174 = 0x0000008e;
-u32 var800ae178 = 0x06050900;
-u32 var800ae17c = 0x000001d6;
-u32 var800ae180 = 0x06060900;
-u32 var800ae184 = 0x000000e6;
-u32 var800ae188 = 0x06070900;
-u32 var800ae18c = 0x00000186;
-u32 var800ae190 = 0x06080900;
-u32 var800ae194 = 0x0000013a;
-u32 var800ae198 = 0x06090a00;
-u32 var800ae19c = 0x0000036a;
-u32 var800ae1a0 = 0x060a0a00;
-u32 var800ae1a4 = 0x0000014a;
-u32 var800ae1a8 = 0x060b0a00;
-u32 var800ae1ac = 0x000000b2;
-u32 var800ae1b0 = 0x060c0a00;
-u32 var800ae1b4 = 0x00000312;
-u32 var800ae1b8 = 0x060d0a00;
-u32 var800ae1bc = 0x00000022;
-u32 var800ae1c0 = 0x060e0b00;
-u32 var800ae1c4 = 0x00000082;
-u32 var800ae1c8 = 0x060f0700;
-u32 var800ae1cc = 0x00000028;
-u32 var800ae1d0 = 0x07000a00;
-u32 var800ae1d4 = 0x00000336;
-u32 var800ae1d8 = 0x07010800;
-u32 var800ae1dc = 0x000000ce;
-u32 var800ae1e0 = 0x07020800;
-u32 var800ae1e4 = 0x000000f6;
-u32 var800ae1e8 = 0x07030800;
-u32 var800ae1ec = 0x000000b6;
-u32 var800ae1f0 = 0x07040900;
-u32 var800ae1f4 = 0x00000196;
-u32 var800ae1f8 = 0x07050900;
-u32 var800ae1fc = 0x000001a6;
-u32 var800ae200 = 0x07060900;
-u32 var800ae204 = 0x00000046;
-u32 var800ae208 = 0x07070900;
-u32 var800ae20c = 0x000001ba;
-u32 var800ae210 = 0x07080a00;
-u32 var800ae214 = 0x0000021a;
-u32 var800ae218 = 0x07090a00;
-u32 var800ae21c = 0x000000ca;
-u32 var800ae220 = 0x070a0a00;
-u32 var800ae224 = 0x00000272;
-u32 var800ae228 = 0x070b0a00;
-u32 var800ae22c = 0x00000152;
-u32 var800ae230 = 0x070c0a00;
-u32 var800ae234 = 0x00000362;
-u32 var800ae238 = 0x070d0b00;
-u32 var800ae23c = 0x00000642;
-u32 var800ae240 = 0x070e0b00;
-u32 var800ae244 = 0x000005f4;
-u32 var800ae248 = 0x070f0800;
-u32 var800ae24c = 0x00000088;
-u32 var800ae250 = 0x08000a00;
-u32 var800ae254 = 0x00000356;
-u32 var800ae258 = 0x08010900;
-u32 var800ae25c = 0x00000056;
-u32 var800ae260 = 0x08020900;
-u32 var800ae264 = 0x00000016;
-u32 var800ae268 = 0x08030900;
-u32 var800ae26c = 0x00000166;
-u32 var800ae270 = 0x08040900;
-u32 var800ae274 = 0x00000126;
-u32 var800ae278 = 0x08050900;
-u32 var800ae27c = 0x00000106;
-u32 var800ae280 = 0x08060900;
-u32 var800ae284 = 0x000000ba;
-u32 var800ae288 = 0x08070900;
-u32 var800ae28c = 0x0000011a;
-u32 var800ae290 = 0x08080900;
-u32 var800ae294 = 0x0000012a;
-u32 var800ae298 = 0x08090a00;
-u32 var800ae29c = 0x0000000a;
-u32 var800ae2a0 = 0x080a0a00;
-u32 var800ae2a4 = 0x000003d2;
-u32 var800ae2a8 = 0x080b0a00;
-u32 var800ae2ac = 0x000001e2;
-u32 var800ae2b0 = 0x080c0a00;
-u32 var800ae2b4 = 0x000000c2;
-u32 var800ae2b8 = 0x080d0b00;
-u32 var800ae2bc = 0x00000202;
-u32 var800ae2c0 = 0x080e0b00;
-u32 var800ae2c4 = 0x000004f4;
-u32 var800ae2c8 = 0x080f0800;
-u32 var800ae2cc = 0x00000008;
-u32 var800ae2d0 = 0x09000a00;
-u32 var800ae2d4 = 0x000003ca;
-u32 var800ae2d8 = 0x09010900;
-u32 var800ae2dc = 0x000001c6;
-u32 var800ae2e0 = 0x09020900;
-u32 var800ae2e4 = 0x00000146;
-u32 var800ae2e8 = 0x09030900;
-u32 var800ae2ec = 0x000001fa;
-u32 var800ae2f0 = 0x09040900;
-u32 var800ae2f4 = 0x0000017a;
-u32 var800ae2f8 = 0x09050900;
-u32 var800ae2fc = 0x0000015a;
-u32 var800ae300 = 0x09060900;
-u32 var800ae304 = 0x000000ea;
-u32 var800ae308 = 0x09070a00;
-u32 var800ae30c = 0x000002ca;
-u32 var800ae310 = 0x09080a00;
-u32 var800ae314 = 0x0000020a;
-u32 var800ae318 = 0x09090a00;
-u32 var800ae31c = 0x00000232;
-u32 var800ae320 = 0x090a0a00;
-u32 var800ae324 = 0x00000212;
-u32 var800ae328 = 0x090b0a00;
-u32 var800ae32c = 0x00000322;
-u32 var800ae330 = 0x090c0b00;
-u32 var800ae334 = 0x00000482;
-u32 var800ae338 = 0x090d0b00;
-u32 var800ae33c = 0x000006f4;
-u32 var800ae340 = 0x090e0b00;
-u32 var800ae344 = 0x00000674;
-u32 var800ae348 = 0x090f0800;
-u32 var800ae34c = 0x000000d0;
-u32 var800ae350 = 0x0a000b00;
-u32 var800ae354 = 0x000001ca;
-u32 var800ae358 = 0x0a010900;
-u32 var800ae35c = 0x0000003a;
-u32 var800ae360 = 0x0a020900;
-u32 var800ae364 = 0x000001da;
-u32 var800ae368 = 0x0a030900;
-u32 var800ae36c = 0x0000019a;
-u32 var800ae370 = 0x0a040900;
-u32 var800ae374 = 0x000001ea;
-u32 var800ae378 = 0x0a050a00;
-u32 var800ae37c = 0x0000006a;
-u32 var800ae380 = 0x0a060a00;
-u32 var800ae384 = 0x0000034a;
-u32 var800ae388 = 0x0a070a00;
-u32 var800ae38c = 0x00000172;
-u32 var800ae390 = 0x0a080a00;
-u32 var800ae394 = 0x00000032;
-u32 var800ae398 = 0x0a090a00;
-u32 var800ae39c = 0x00000112;
-u32 var800ae3a0 = 0x0a0a0a00;
-u32 var800ae3a4 = 0x000002a2;
-u32 var800ae3a8 = 0x0a0b0b00;
-u32 var800ae3ac = 0x00000242;
-u32 var800ae3b0 = 0x0a0c0b00;
-u32 var800ae3b4 = 0x000007f4;
-u32 var800ae3b8 = 0x0a0d0b00;
-u32 var800ae3bc = 0x00000574;
-u32 var800ae3c0 = 0x0a0e0b00;
-u32 var800ae3c4 = 0x000003b4;
-u32 var800ae3c8 = 0x0a0f0800;
-u32 var800ae3cc = 0x00000050;
-u32 var800ae3d0 = 0x0b000b00;
-u32 var800ae3d4 = 0x0000018a;
-u32 var800ae3d8 = 0x0b010a00;
-u32 var800ae3dc = 0x0000016a;
-u32 var800ae3e0 = 0x0b020900;
-u32 var800ae3e4 = 0x000001aa;
-u32 var800ae3e8 = 0x0b030900;
-u32 var800ae3ec = 0x0000002a;
-u32 var800ae3f0 = 0x0b040900;
-u32 var800ae3f4 = 0x0000004a;
-u32 var800ae3f8 = 0x0b050a00;
-u32 var800ae3fc = 0x000001f2;
-u32 var800ae400 = 0x0b060a00;
-u32 var800ae404 = 0x000002b2;
-u32 var800ae408 = 0x0b070a00;
-u32 var800ae40c = 0x00000352;
-u32 var800ae410 = 0x0b080a00;
-u32 var800ae414 = 0x000003e2;
-u32 var800ae418 = 0x0b090a00;
-u32 var800ae41c = 0x000000a2;
-u32 var800ae420 = 0x0b0a0a00;
-u32 var800ae424 = 0x00000382;
-u32 var800ae428 = 0x0b0b0b00;
-u32 var800ae42c = 0x00000402;
-u32 var800ae430 = 0x0b0c0b00;
-u32 var800ae434 = 0x00000774;
-u32 var800ae438 = 0x0b0d0b00;
-u32 var800ae43c = 0x00000074;
-u32 var800ae440 = 0x0b0e0b00;
-u32 var800ae444 = 0x000002b4;
-u32 var800ae448 = 0x0b0f0800;
-u32 var800ae44c = 0x00000060;
-u32 var800ae450 = 0x0c000b00;
-u32 var800ae454 = 0x0000008a;
-u32 var800ae458 = 0x0c010a00;
-u32 var800ae45c = 0x0000010a;
-u32 var800ae460 = 0x0c020a00;
-u32 var800ae464 = 0x000000f2;
-u32 var800ae468 = 0x0c030a00;
-u32 var800ae46c = 0x00000072;
-u32 var800ae470 = 0x0c040a00;
-u32 var800ae474 = 0x00000332;
-u32 var800ae478 = 0x0c050a00;
-u32 var800ae47c = 0x000001d2;
-u32 var800ae480 = 0x0c060a00;
-u32 var800ae484 = 0x00000092;
-u32 var800ae488 = 0x0c070a00;
-u32 var800ae48c = 0x000000e2;
-u32 var800ae490 = 0x0c080a00;
-u32 var800ae494 = 0x000002c2;
-u32 var800ae498 = 0x0c090a00;
-u32 var800ae49c = 0x00000282;
-u32 var800ae4a0 = 0x0c0a0b00;
-u32 var800ae4a4 = 0x00000002;
-u32 var800ae4a8 = 0x0c0b0b00;
-u32 var800ae4ac = 0x000000f4;
-u32 var800ae4b0 = 0x0c0c0b00;
-u32 var800ae4b4 = 0x00000274;
-u32 var800ae4b8 = 0x0c0d0b00;
-u32 var800ae4bc = 0x000001b4;
-u32 var800ae4c0 = 0x0c0e0b00;
-u32 var800ae4c4 = 0x00000734;
-u32 var800ae4c8 = 0x0c0f0800;
-u32 var800ae4cc = 0x00000020;
-u32 var800ae4d0 = 0x0d000b00;
-u32 var800ae4d4 = 0x000001b2;
-u32 var800ae4d8 = 0x0d010a00;
-u32 var800ae4dc = 0x000000d2;
-u32 var800ae4e0 = 0x0d020a00;
-u32 var800ae4e4 = 0x00000052;
-u32 var800ae4e8 = 0x0d030a00;
-u32 var800ae4ec = 0x00000192;
-u32 var800ae4f0 = 0x0d040a00;
-u32 var800ae4f4 = 0x00000012;
-u32 var800ae4f8 = 0x0d050a00;
-u32 var800ae4fc = 0x00000162;
-u32 var800ae500 = 0x0d060a00;
-u32 var800ae504 = 0x00000222;
-u32 var800ae508 = 0x0d070a00;
-u32 var800ae50c = 0x00000142;
-u32 var800ae510 = 0x0d080b00;
-u32 var800ae514 = 0x00000602;
-u32 var800ae518 = 0x0d090b00;
-u32 var800ae51c = 0x000001f4;
-u32 var800ae520 = 0x0d0a0b00;
-u32 var800ae524 = 0x00000374;
-u32 var800ae528 = 0x0d0b0b00;
-u32 var800ae52c = 0x00000474;
-u32 var800ae530 = 0x0d0c0b00;
-u32 var800ae534 = 0x000005b4;
-u32 var800ae538 = 0x0d0d0b00;
-u32 var800ae53c = 0x000004b4;
-u32 var800ae540 = 0x0d0e0b00;
-u32 var800ae544 = 0x00000534;
-u32 var800ae548 = 0x0d0f0800;
-u32 var800ae54c = 0x00000040;
-u32 var800ae550 = 0x0e000c00;
-u32 var800ae554 = 0x00000902;
-u32 var800ae558 = 0x0e010a00;
-u32 var800ae55c = 0x00000062;
-u32 var800ae560 = 0x0e020a00;
-u32 var800ae564 = 0x000001a2;
-u32 var800ae568 = 0x0e030a00;
-u32 var800ae56c = 0x00000122;
-u32 var800ae570 = 0x0e040a00;
-u32 var800ae574 = 0x00000342;
-u32 var800ae578 = 0x0e050a00;
-u32 var800ae57c = 0x00000042;
-u32 var800ae580 = 0x0e060a00;
-u32 var800ae584 = 0x00000302;
-u32 var800ae588 = 0x0e070b00;
-u32 var800ae58c = 0x000003f4;
-u32 var800ae590 = 0x0e080b00;
-u32 var800ae594 = 0x000002f4;
-u32 var800ae598 = 0x0e090b00;
-u32 var800ae59c = 0x00000174;
-u32 var800ae5a0 = 0x0e0a0b00;
-u32 var800ae5a4 = 0x000007b4;
-u32 var800ae5a8 = 0x0e0b0b00;
-u32 var800ae5ac = 0x000006b4;
-u32 var800ae5b0 = 0x0e0c0b00;
-u32 var800ae5b4 = 0x000000b4;
-u32 var800ae5b8 = 0x0e0d0b00;
-u32 var800ae5bc = 0x00000334;
-u32 var800ae5c0 = 0x0e0e0b00;
-u32 var800ae5c4 = 0x00000134;
-u32 var800ae5c8 = 0x0e0f0800;
-u32 var800ae5cc = 0x00000000;
-u32 var800ae5d0 = 0x0f000800;
-u32 var800ae5d4 = 0x000000d4;
-u32 var800ae5d8 = 0x0f010700;
-u32 var800ae5dc = 0x00000014;
-u32 var800ae5e0 = 0x0f020700;
-u32 var800ae5e4 = 0x00000064;
-u32 var800ae5e8 = 0x0f030700;
-u32 var800ae5ec = 0x00000044;
-u32 var800ae5f0 = 0x0f040700;
-u32 var800ae5f4 = 0x00000078;
-u32 var800ae5f8 = 0x0f050700;
-u32 var800ae5fc = 0x00000058;
-u32 var800ae600 = 0x0f060700;
-u32 var800ae604 = 0x00000068;
-u32 var800ae608 = 0x0f070700;
-u32 var800ae60c = 0x00000048;
-u32 var800ae610 = 0x0f080700;
-u32 var800ae614 = 0x00000070;
-u32 var800ae618 = 0x0f090700;
-u32 var800ae61c = 0x00000030;
-u32 var800ae620 = 0x0f0a0700;
-u32 var800ae624 = 0x00000010;
-u32 var800ae628 = 0x0f0b0800;
-u32 var800ae62c = 0x000000e0;
-u32 var800ae630 = 0x0f0c0800;
-u32 var800ae634 = 0x000000a0;
-u32 var800ae638 = 0x0f0d0800;
-u32 var800ae63c = 0x000000c0;
-u32 var800ae640 = 0x0f0e0800;
-u32 var800ae644 = 0x00000080;
-u32 var800ae648 = 0x0f0f0400;
-u32 var800ae64c = 0x0000000c;
-u32 var800ae650 = 0x64646400;
-u32 var800ae654 = 0x00000000;
-u32 var800ae658 = 0x00000100;
-u32 var800ae65c = 0x00000001;
-u32 var800ae660 = 0x01010400;
-u32 var800ae664 = 0x0000000a;
-u32 var800ae668 = 0x02020400;
-u32 var800ae66c = 0x00000002;
-u32 var800ae670 = 0x03030500;
-u32 var800ae674 = 0x00000014;
-u32 var800ae678 = 0x04040400;
-u32 var800ae67c = 0x00000006;
-u32 var800ae680 = 0x05050600;
-u32 var800ae684 = 0x00000028;
-u32 var800ae688 = 0x06060500;
-u32 var800ae68c = 0x00000004;
-u32 var800ae690 = 0x07070600;
-u32 var800ae694 = 0x00000008;
-u32 var800ae698 = 0x08080400;
-u32 var800ae69c = 0x0000000e;
-u32 var800ae6a0 = 0x09090500;
-u32 var800ae6a4 = 0x00000018;
-u32 var800ae6a8 = 0x0a0a0500;
-u32 var800ae6ac = 0x0000000c;
-u32 var800ae6b0 = 0x0b0b0600;
-u32 var800ae6b4 = 0x00000000;
-u32 var800ae6b8 = 0x0c0c0500;
-u32 var800ae6bc = 0x0000001c;
-u32 var800ae6c0 = 0x0d0d0600;
-u32 var800ae6c4 = 0x00000010;
-u32 var800ae6c8 = 0x0e0e0600;
-u32 var800ae6cc = 0x00000030;
-u32 var800ae6d0 = 0x0f0f0600;
-u32 var800ae6d4 = 0x00000020;
-u32 var800ae6d8 = 0x64646400;
-u32 var800ae6dc = 0x00000000;
-u32 var800ae6e0 = 0x00000400;
-u32 var800ae6e4 = 0x0000000f;
-u32 var800ae6e8 = 0x01010400;
-u32 var800ae6ec = 0x00000007;
-u32 var800ae6f0 = 0x02020400;
-u32 var800ae6f4 = 0x0000000b;
-u32 var800ae6f8 = 0x03030400;
-u32 var800ae6fc = 0x00000003;
-u32 var800ae700 = 0x04040400;
-u32 var800ae704 = 0x0000000d;
-u32 var800ae708 = 0x05050400;
-u32 var800ae70c = 0x00000005;
-u32 var800ae710 = 0x06060400;
-u32 var800ae714 = 0x00000009;
-u32 var800ae718 = 0x07070400;
-u32 var800ae71c = 0x00000001;
-u32 var800ae720 = 0x08080400;
-u32 var800ae724 = 0x0000000e;
-u32 var800ae728 = 0x09090400;
-u32 var800ae72c = 0x00000006;
-u32 var800ae730 = 0x0a0a0400;
-u32 var800ae734 = 0x0000000a;
-u32 var800ae738 = 0x0b0b0400;
-u32 var800ae73c = 0x00000002;
-u32 var800ae740 = 0x0c0c0400;
-u32 var800ae744 = 0x0000000c;
-u32 var800ae748 = 0x0d0d0400;
-u32 var800ae74c = 0x00000004;
-u32 var800ae750 = 0x0e0e0400;
-u32 var800ae754 = 0x00000008;
-u32 var800ae758 = 0x0f0f0400;
-u32 var800ae75c = 0x00000000;
-u32 var800ae760 = 0x64646400;
-u32 var800ae764 = 0x00000000;
-u32 var800ae768 = 0x00000000;
-u32 var800ae76c = 0x00000000;
-u32 var800ae770 = 0x00000000;
-u32 var800ae774 = 0x00000000;
-u32 var800ae778 = 0x00000000;
-u32 var800ae77c = 0x00000000;
-u32 var800ae780 = 0x00000000;
-u32 var800ae784 = 0x00000000;
-u32 var800ae788 = 0x00000000;
-u32 var800ae78c = 0x00000000;
-u32 var800ae790 = 0x00000000;
-u32 var800ae794 = 0x00000000;
-u32 var800ae798 = 0x00000000;
-u32 var800ae79c = 0x00000000;
-u32 var800ae7a0 = 0x00000000;
-u32 var800ae7a4 = 0x00000000;
-u32 var800ae7a8 = 0x00000001;
-u32 var800ae7ac = 0x00000002;
-u32 var800ae7b0 = 0x00000003;
-u32 var800ae7b4 = 0x00000004;
-u32 var800ae7b8 = 0x00000006;
-u32 var800ae7bc = 0x00000008;
-u32 var800ae7c0 = 0x0000000a;
-u32 var800ae7c4 = 0x0000000d;
-u32 var800ae7c8 = 0x00000004;
-u32 var800ae7cc = 0x00000005;
-u32 var800ae7d0 = 0x00000006;
-u32 var800ae7d4 = 0x00000007;
-u32 var800ae7d8 = 0x00000008;
-u32 var800ae7dc = 0x00000009;
-u32 var800ae7e0 = 0x0000000b;
-u32 var800ae7e4 = 0x0000000d;
-u32 var800ae7e8 = 0xffffffff;
-u32 var800ae7ec = 0xffffffff;
-u32 var800ae7f0 = 0x0005000b;
-u32 var800ae7f4 = 0x00110017;
-u32 var800ae7f8 = 0x001d0023;
-u32 var800ae7fc = 0x002b0035;
-u32 var800ae800 = 0x0041004f;
-u32 var800ae804 = 0x005f0073;
-u32 var800ae808 = 0x008b00a7;
-u32 var800ae80c = 0x00c700ed;
-u32 var800ae810 = 0x011b014f;
-u32 var800ae814 = 0x018b01cf;
-u32 var800ae818 = 0x0209023f;
-u32 var800ae81c = 0x0005000b;
-u32 var800ae820 = 0x00110017;
-u32 var800ae824 = 0x001d0023;
-u32 var800ae828 = 0x002b0035;
-u32 var800ae82c = 0x0041004f;
-u32 var800ae830 = 0x005f0071;
-u32 var800ae834 = 0x008700a1;
-u32 var800ae838 = 0x00c100e7;
-u32 var800ae83c = 0x0115014b;
-u32 var800ae840 = 0x018901cf;
-u32 var800ae844 = 0x021b023f;
-u32 var800ae848 = 0x0005000b;
-u32 var800ae84c = 0x00110017;
-u32 var800ae850 = 0x001d0023;
-u32 var800ae854 = 0x002b0035;
-u32 var800ae858 = 0x0041004f;
-u32 var800ae85c = 0x005f0073;
-u32 var800ae860 = 0x008b00a7;
-u32 var800ae864 = 0x00c700ed;
-u32 var800ae868 = 0x011b014f;
-u32 var800ae86c = 0x018b01cf;
-u32 var800ae870 = 0x0209023f;
-u32 var800ae874 = 0x00030007;
-u32 var800ae878 = 0x000b000f;
-u32 var800ae87c = 0x00130017;
-u32 var800ae880 = 0x001d0023;
-u32 var800ae884 = 0x002b0033;
-u32 var800ae888 = 0x003d0049;
-u32 var800ae88c = 0x0059006d;
-u32 var800ae890 = 0x008500a1;
-u32 var800ae894 = 0x00c300ed;
-u32 var800ae898 = 0x011f0155;
-u32 var800ae89c = 0x01a1023f;
-u32 var800ae8a0 = 0x00030007;
-u32 var800ae8a4 = 0x000b000f;
-u32 var800ae8a8 = 0x00130017;
-u32 var800ae8ac = 0x001d0023;
-u32 var800ae8b0 = 0x00290031;
-u32 var800ae8b4 = 0x003b0047;
-u32 var800ae8b8 = 0x00570069;
-u32 var800ae8bc = 0x007f009b;
-u32 var800ae8c0 = 0x00bd00e5;
-u32 var800ae8c4 = 0x01130149;
-u32 var800ae8c8 = 0x017f023f;
-u32 var800ae8cc = 0x00030007;
-u32 var800ae8d0 = 0x000b000f;
-u32 var800ae8d4 = 0x00130017;
-u32 var800ae8d8 = 0x001d0023;
-u32 var800ae8dc = 0x002b0035;
-u32 var800ae8e0 = 0x00410051;
-u32 var800ae8e4 = 0x0065007d;
-u32 var800ae8e8 = 0x009b00c1;
-u32 var800ae8ec = 0x00ef0127;
-u32 var800ae8f0 = 0x016b01bf;
-u32 var800ae8f4 = 0x0225023f;
-u32 var800ae8f8 = 0x03070b11;
-u32 var800ae8fc = 0x171f2937;
-u32 var800ae900 = 0x496383ad;
-u32 var800ae904 = 0xbf03070b;
-u32 var800ae908 = 0x1119232f;
-u32 var800ae90c = 0x3d4f6787;
-u32 var800ae910 = 0xb3bf0307;
-u32 var800ae914 = 0x0b111923;
-u32 var800ae918 = 0x2f3d4f67;
-u32 var800ae91c = 0x85adbf03;
-u32 var800ae920 = 0x070b0f15;
-u32 var800ae924 = 0x1d273341;
-u32 var800ae928 = 0x536987bf;
-u32 var800ae92c = 0x03070b0f;
-u32 var800ae930 = 0x151b2531;
-u32 var800ae934 = 0x3f4f637d;
-u32 var800ae938 = 0xbf03070b;
-u32 var800ae93c = 0x0f151d29;
-u32 var800ae940 = 0x394d6789;
-u32 var800ae944 = 0xb3bf0000;
-u32 var800ae948 = 0x00000006;
-u32 var800ae94c = 0x000c0012;
-u32 var800ae950 = 0x0018001e;
-u32 var800ae954 = 0x0024002c;
-u32 var800ae958 = 0x00360042;
-u32 var800ae95c = 0x00500060;
-u32 var800ae960 = 0x0074008c;
-u32 var800ae964 = 0x00a800c8;
-u32 var800ae968 = 0x00ee011c;
-u32 var800ae96c = 0x0150018c;
-u32 var800ae970 = 0x01d0020a;
-u32 var800ae974 = 0x02400000;
-u32 var800ae978 = 0x00040008;
-u32 var800ae97c = 0x000c0012;
-u32 var800ae980 = 0x00180020;
-u32 var800ae984 = 0x002a0038;
-u32 var800ae988 = 0x004a0064;
-u32 var800ae98c = 0x008400ae;
-u32 var800ae990 = 0x00c00000;
-u32 var800ae994 = 0x0006000c;
-u32 var800ae998 = 0x00120018;
-u32 var800ae99c = 0x001e0024;
-u32 var800ae9a0 = 0x002c0036;
-u32 var800ae9a4 = 0x00420050;
-u32 var800ae9a8 = 0x00600072;
-u32 var800ae9ac = 0x008800a2;
-u32 var800ae9b0 = 0x00c200e8;
-u32 var800ae9b4 = 0x0116014a;
-u32 var800ae9b8 = 0x018a01d0;
-u32 var800ae9bc = 0x021c0240;
-u32 var800ae9c0 = 0x00000004;
-u32 var800ae9c4 = 0x0008000c;
-u32 var800ae9c8 = 0x0012001a;
-u32 var800ae9cc = 0x00240030;
-u32 var800ae9d0 = 0x003e0050;
-u32 var800ae9d4 = 0x00680088;
-u32 var800ae9d8 = 0x00b400c0;
-u32 var800ae9dc = 0x00000006;
-u32 var800ae9e0 = 0x000c0012;
-u32 var800ae9e4 = 0x0018001e;
-u32 var800ae9e8 = 0x0024002c;
-u32 var800ae9ec = 0x00360042;
-u32 var800ae9f0 = 0x00500060;
-u32 var800ae9f4 = 0x0074008c;
-u32 var800ae9f8 = 0x00a800c8;
-u32 var800ae9fc = 0x00ee011c;
-u32 var800aea00 = 0x0150018c;
-u32 var800aea04 = 0x01d0020a;
-u32 var800aea08 = 0x02400000;
-u32 var800aea0c = 0x00040008;
-u32 var800aea10 = 0x000c0012;
-u32 var800aea14 = 0x001a0024;
-u32 var800aea18 = 0x0030003e;
-u32 var800aea1c = 0x00500068;
-u32 var800aea20 = 0x008600ae;
-u32 var800aea24 = 0x00c00000;
-u32 var800aea28 = 0x00040008;
-u32 var800aea2c = 0x000c0010;
-u32 var800aea30 = 0x00140018;
-u32 var800aea34 = 0x001e0024;
-u32 var800aea38 = 0x002c0034;
-u32 var800aea3c = 0x003e004a;
-u32 var800aea40 = 0x005a006e;
-u32 var800aea44 = 0x008600a2;
-u32 var800aea48 = 0x00c400ee;
-u32 var800aea4c = 0x01200156;
-u32 var800aea50 = 0x01a20240;
-u32 var800aea54 = 0x00000004;
-u32 var800aea58 = 0x0008000c;
-u32 var800aea5c = 0x00100016;
-u32 var800aea60 = 0x001e0028;
-u32 var800aea64 = 0x00340042;
-u32 var800aea68 = 0x0054006a;
-u32 var800aea6c = 0x008800c0;
-u32 var800aea70 = 0x00000004;
-u32 var800aea74 = 0x0008000c;
-u32 var800aea78 = 0x00100014;
-u32 var800aea7c = 0x0018001e;
-u32 var800aea80 = 0x0024002a;
-u32 var800aea84 = 0x0032003c;
-u32 var800aea88 = 0x00480058;
-u32 var800aea8c = 0x006a0080;
-u32 var800aea90 = 0x009c00be;
-u32 var800aea94 = 0x00e60114;
-u32 var800aea98 = 0x014a0180;
-u32 var800aea9c = 0x02400000;
-u32 var800aeaa0 = 0x00040008;
-u32 var800aeaa4 = 0x000c0010;
-u32 var800aeaa8 = 0x0016001c;
-u32 var800aeaac = 0x00260032;
-u32 var800aeab0 = 0x00400050;
-u32 var800aeab4 = 0x0064007e;
-u32 var800aeab8 = 0x00c00000;
-u32 var800aeabc = 0x00040008;
-u32 var800aeac0 = 0x000c0010;
-u32 var800aeac4 = 0x00140018;
-u32 var800aeac8 = 0x001e0024;
-u32 var800aeacc = 0x002c0036;
-u32 var800aead0 = 0x00420052;
-u32 var800aead4 = 0x0066007e;
-u32 var800aead8 = 0x009c00c2;
-u32 var800aeadc = 0x00f00128;
-u32 var800aeae0 = 0x016c01c0;
-u32 var800aeae4 = 0x02260240;
-u32 var800aeae8 = 0x00000004;
-u32 var800aeaec = 0x0008000c;
-u32 var800aeaf0 = 0x00100016;
-u32 var800aeaf4 = 0x001e002a;
-u32 var800aeaf8 = 0x003a004e;
-u32 var800aeafc = 0x0068008a;
-u32 var800aeb00 = 0x00b400c0;
-u32 var800aeb04 = 0x00060b10;
-u32 var800aeb08 = 0x1500060c;
-u32 var800aeb0c = 0x00000000;
-u32 var800aeb10 = 0x03010101;
-u32 var800aeb14 = 0x02020203;
-u32 var800aeb18 = 0x03030404;
-u32 var800aeb1c = 0x00010203;
-u32 var800aeb20 = 0x00010203;
-u32 var800aeb24 = 0x01020301;
-u32 var800aeb28 = 0x02030203;
-u32 var800aeb2c = 0x00000001;
-u32 var800aeb30 = 0x00020003;
-u32 var800aeb34 = 0x00060007;
-u32 var800aeb38 = 0x00080009;
-u32 var800aeb3c = 0x000c000d;
-u32 var800aeb40 = 0x000e000f;
-u32 var800aeb44 = 0x00040005;
-u32 var800aeb48 = 0x00120013;
-u32 var800aeb4c = 0x000a000b;
-u32 var800aeb50 = 0x00180019;
-u32 var800aeb54 = 0x00100011;
-u32 var800aeb58 = 0x001e001f;
-u32 var800aeb5c = 0x00140015;
-u32 var800aeb60 = 0x00160017;
-u32 var800aeb64 = 0x001a001b;
-u32 var800aeb68 = 0x001c001d;
-u32 var800aeb6c = 0x00200021;
-u32 var800aeb70 = 0x00220023;
-u32 var800aeb74 = 0x00240025;
-u32 var800aeb78 = 0x00260027;
-u32 var800aeb7c = 0x00280029;
-u32 var800aeb80 = 0x002a002b;
-u32 var800aeb84 = 0x002c002d;
-u32 var800aeb88 = 0x002e002f;
-u32 var800aeb8c = 0x00300031;
-u32 var800aeb90 = 0x00320033;
-u32 var800aeb94 = 0x00340035;
-u32 var800aeb98 = 0x00360037;
-u32 var800aeb9c = 0x00380039;
-u32 var800aeba0 = 0x003a003b;
-u32 var800aeba4 = 0x003c003d;
-u32 var800aeba8 = 0x003e003f;
-u32 var800aebac = 0x00400041;
-u32 var800aebb0 = 0x00420043;
-u32 var800aebb4 = 0x00440045;
-u32 var800aebb8 = 0x00460047;
-u32 var800aebbc = 0x00480049;
-u32 var800aebc0 = 0x004a004b;
-u32 var800aebc4 = 0x004c004d;
-u32 var800aebc8 = 0x005a005b;
-u32 var800aebcc = 0x004e004f;
-u32 var800aebd0 = 0x00500051;
-u32 var800aebd4 = 0x00520053;
-u32 var800aebd8 = 0x00600061;
-u32 var800aebdc = 0x00540055;
-u32 var800aebe0 = 0x00560057;
-u32 var800aebe4 = 0x00580059;
-u32 var800aebe8 = 0x00660067;
-u32 var800aebec = 0x005c005d;
-u32 var800aebf0 = 0x005e005f;
-u32 var800aebf4 = 0x006c006d;
-u32 var800aebf8 = 0x006e006f;
-u32 var800aebfc = 0x00700071;
-u32 var800aec00 = 0x00620063;
-u32 var800aec04 = 0x00640065;
-u32 var800aec08 = 0x00720073;
-u32 var800aec0c = 0x00740075;
-u32 var800aec10 = 0x00760077;
-u32 var800aec14 = 0x00680069;
-u32 var800aec18 = 0x006a006b;
-u32 var800aec1c = 0x00780079;
-u32 var800aec20 = 0x007a007b;
-u32 var800aec24 = 0x007c007d;
-u32 var800aec28 = 0x007e007f;
-u32 var800aec2c = 0x00800081;
-u32 var800aec30 = 0x00820083;
-u32 var800aec34 = 0x00900091;
-u32 var800aec38 = 0x00920093;
-u32 var800aec3c = 0x00940095;
-u32 var800aec40 = 0x00a200a3;
-u32 var800aec44 = 0x00840085;
-u32 var800aec48 = 0x00860087;
-u32 var800aec4c = 0x00880089;
-u32 var800aec50 = 0x00960097;
-u32 var800aec54 = 0x00980099;
-u32 var800aec58 = 0x009a009b;
-u32 var800aec5c = 0x00a800a9;
-u32 var800aec60 = 0x008a008b;
-u32 var800aec64 = 0x008c008d;
-u32 var800aec68 = 0x008e008f;
-u32 var800aec6c = 0x009c009d;
-u32 var800aec70 = 0x009e009f;
-u32 var800aec74 = 0x00a000a1;
-u32 var800aec78 = 0x00ae00af;
-u32 var800aec7c = 0x00a400a5;
-u32 var800aec80 = 0x00a600a7;
-u32 var800aec84 = 0x00b400b5;
-u32 var800aec88 = 0x00b600b7;
-u32 var800aec8c = 0x00b800b9;
-u32 var800aec90 = 0x00c600c7;
-u32 var800aec94 = 0x00c800c9;
-u32 var800aec98 = 0x00ca00cb;
-u32 var800aec9c = 0x00d800d9;
-u32 var800aeca0 = 0x00aa00ab;
-u32 var800aeca4 = 0x00ac00ad;
-u32 var800aeca8 = 0x00ba00bb;
-u32 var800aecac = 0x00bc00bd;
-u32 var800aecb0 = 0x00be00bf;
-u32 var800aecb4 = 0x00cc00cd;
-u32 var800aecb8 = 0x00ce00cf;
-u32 var800aecbc = 0x00d000d1;
-u32 var800aecc0 = 0x00de00df;
-u32 var800aecc4 = 0x00b000b1;
-u32 var800aecc8 = 0x00b200b3;
-u32 var800aeccc = 0x00c000c1;
-u32 var800aecd0 = 0x00c200c3;
-u32 var800aecd4 = 0x00c400c5;
-u32 var800aecd8 = 0x00d200d3;
-u32 var800aecdc = 0x00d400d5;
-u32 var800aece0 = 0x00d600d7;
-u32 var800aece4 = 0x00e400e5;
-u32 var800aece8 = 0x00da00db;
-u32 var800aecec = 0x00dc00dd;
-u32 var800aecf0 = 0x00ea00eb;
-u32 var800aecf4 = 0x00ec00ed;
-u32 var800aecf8 = 0x00ee00ef;
-u32 var800aecfc = 0x00fc00fd;
-u32 var800aed00 = 0x00fe00ff;
-u32 var800aed04 = 0x01000101;
-u32 var800aed08 = 0x010e010f;
-u32 var800aed0c = 0x01100111;
-u32 var800aed10 = 0x01120113;
-u32 var800aed14 = 0x01200121;
-u32 var800aed18 = 0x01220123;
-u32 var800aed1c = 0x00e000e1;
-u32 var800aed20 = 0x00e200e3;
-u32 var800aed24 = 0x00f000f1;
-u32 var800aed28 = 0x00f200f3;
-u32 var800aed2c = 0x00f400f5;
-u32 var800aed30 = 0x01020103;
-u32 var800aed34 = 0x01040105;
-u32 var800aed38 = 0x01060107;
-u32 var800aed3c = 0x01140115;
-u32 var800aed40 = 0x01160117;
-u32 var800aed44 = 0x01180119;
-u32 var800aed48 = 0x01260127;
-u32 var800aed4c = 0x01280129;
-u32 var800aed50 = 0x00e600e7;
-u32 var800aed54 = 0x00e800e9;
-u32 var800aed58 = 0x00f600f7;
-u32 var800aed5c = 0x00f800f9;
-u32 var800aed60 = 0x00fa00fb;
-u32 var800aed64 = 0x01080109;
-u32 var800aed68 = 0x010a010b;
-u32 var800aed6c = 0x010c010d;
-u32 var800aed70 = 0x011a011b;
-u32 var800aed74 = 0x011c011d;
-u32 var800aed78 = 0x011e011f;
-u32 var800aed7c = 0x012c012d;
-u32 var800aed80 = 0x012e012f;
-u32 var800aed84 = 0x01240125;
-u32 var800aed88 = 0x01320133;
-u32 var800aed8c = 0x01340135;
-u32 var800aed90 = 0x01360137;
-u32 var800aed94 = 0x01440145;
-u32 var800aed98 = 0x01460147;
-u32 var800aed9c = 0x01480149;
-u32 var800aeda0 = 0x01560157;
-u32 var800aeda4 = 0x01580159;
-u32 var800aeda8 = 0x015a015b;
-u32 var800aedac = 0x01680169;
-u32 var800aedb0 = 0x016a016b;
-u32 var800aedb4 = 0x016c016d;
-u32 var800aedb8 = 0x017a017b;
-u32 var800aedbc = 0x017c017d;
-u32 var800aedc0 = 0x017e017f;
-u32 var800aedc4 = 0x012a012b;
-u32 var800aedc8 = 0x01380139;
-u32 var800aedcc = 0x013a013b;
-u32 var800aedd0 = 0x013c013d;
-u32 var800aedd4 = 0x014a014b;
-u32 var800aedd8 = 0x014c014d;
-u32 var800aeddc = 0x014e014f;
-u32 var800aede0 = 0x015c015d;
-u32 var800aede4 = 0x015e015f;
-u32 var800aede8 = 0x01600161;
-u32 var800aedec = 0x016e016f;
-u32 var800aedf0 = 0x01700171;
-u32 var800aedf4 = 0x01720173;
-u32 var800aedf8 = 0x01800181;
-u32 var800aedfc = 0x01820183;
-u32 var800aee00 = 0x01840185;
-u32 var800aee04 = 0x01300131;
-u32 var800aee08 = 0x013e013f;
-u32 var800aee0c = 0x01400141;
-u32 var800aee10 = 0x01420143;
-u32 var800aee14 = 0x01500151;
-u32 var800aee18 = 0x01520153;
-u32 var800aee1c = 0x01540155;
-u32 var800aee20 = 0x01620163;
-u32 var800aee24 = 0x01640165;
-u32 var800aee28 = 0x01660167;
-u32 var800aee2c = 0x01740175;
-u32 var800aee30 = 0x01760177;
-u32 var800aee34 = 0x01780179;
-u32 var800aee38 = 0x01860187;
-u32 var800aee3c = 0x01880189;
-u32 var800aee40 = 0x018a018b;
-u32 var800aee44 = 0x018c018d;
-u32 var800aee48 = 0x018e018f;
-u32 var800aee4c = 0x01900191;
-u32 var800aee50 = 0x019e019f;
-u32 var800aee54 = 0x01a001a1;
-u32 var800aee58 = 0x01a201a3;
-u32 var800aee5c = 0x01b001b1;
-u32 var800aee60 = 0x01b201b3;
-u32 var800aee64 = 0x01b401b5;
-u32 var800aee68 = 0x01c201c3;
-u32 var800aee6c = 0x01c401c5;
-u32 var800aee70 = 0x01c601c7;
-u32 var800aee74 = 0x01d401d5;
-u32 var800aee78 = 0x01d601d7;
-u32 var800aee7c = 0x01d801d9;
-u32 var800aee80 = 0x01e601e7;
-u32 var800aee84 = 0x01e801e9;
-u32 var800aee88 = 0x01ea01eb;
-u32 var800aee8c = 0x01f801f9;
-u32 var800aee90 = 0x01fa01fb;
-u32 var800aee94 = 0x01fc01fd;
-u32 var800aee98 = 0x01920193;
-u32 var800aee9c = 0x01940195;
-u32 var800aeea0 = 0x01960197;
-u32 var800aeea4 = 0x01a401a5;
-u32 var800aeea8 = 0x01a601a7;
-u32 var800aeeac = 0x01a801a9;
-u32 var800aeeb0 = 0x01b601b7;
-u32 var800aeeb4 = 0x01b801b9;
-u32 var800aeeb8 = 0x01ba01bb;
-u32 var800aeebc = 0x01c801c9;
-u32 var800aeec0 = 0x01ca01cb;
-u32 var800aeec4 = 0x01cc01cd;
-u32 var800aeec8 = 0x01da01db;
-u32 var800aeecc = 0x01dc01dd;
-u32 var800aeed0 = 0x01de01df;
-u32 var800aeed4 = 0x01ec01ed;
-u32 var800aeed8 = 0x01ee01ef;
-u32 var800aeedc = 0x01f001f1;
-u32 var800aeee0 = 0x01fe01ff;
-u32 var800aeee4 = 0x02000201;
-u32 var800aeee8 = 0x02020203;
-u32 var800aeeec = 0x01980199;
-u32 var800aeef0 = 0x019a019b;
-u32 var800aeef4 = 0x019c019d;
-u32 var800aeef8 = 0x01aa01ab;
-u32 var800aeefc = 0x01ac01ad;
-u32 var800aef00 = 0x01ae01af;
-u32 var800aef04 = 0x01bc01bd;
-u32 var800aef08 = 0x01be01bf;
-u32 var800aef0c = 0x01c001c1;
-u32 var800aef10 = 0x01ce01cf;
-u32 var800aef14 = 0x01d001d1;
-u32 var800aef18 = 0x01d201d3;
-u32 var800aef1c = 0x01e001e1;
-u32 var800aef20 = 0x01e201e3;
-u32 var800aef24 = 0x01e401e5;
-u32 var800aef28 = 0x01f201f3;
-u32 var800aef2c = 0x01f401f5;
-u32 var800aef30 = 0x01f601f7;
-u32 var800aef34 = 0x02040205;
-u32 var800aef38 = 0x02060207;
-u32 var800aef3c = 0x02080209;
-u32 var800aef40 = 0x020a020b;
-u32 var800aef44 = 0x020c020d;
-u32 var800aef48 = 0x020e020f;
-u32 var800aef4c = 0x021c021d;
-u32 var800aef50 = 0x021e021f;
-u32 var800aef54 = 0x02200221;
-u32 var800aef58 = 0x022e022f;
-u32 var800aef5c = 0x02300231;
-u32 var800aef60 = 0x02320233;
-u32 var800aef64 = 0x02100211;
-u32 var800aef68 = 0x02120213;
-u32 var800aef6c = 0x02140215;
-u32 var800aef70 = 0x02220223;
-u32 var800aef74 = 0x02240225;
-u32 var800aef78 = 0x02260227;
-u32 var800aef7c = 0x02340235;
-u32 var800aef80 = 0x02360237;
-u32 var800aef84 = 0x02380239;
-u32 var800aef88 = 0x02160217;
-u32 var800aef8c = 0x02180219;
-u32 var800aef90 = 0x021a021b;
-u32 var800aef94 = 0x02280229;
-u32 var800aef98 = 0x022a022b;
-u32 var800aef9c = 0x022c022d;
-u32 var800aefa0 = 0x023a023b;
-u32 var800aefa4 = 0x023c023d;
-u32 var800aefa8 = 0x023e023f;
-u32 var800aefac = 0x00000001;
-u32 var800aefb0 = 0x00020003;
-u32 var800aefb4 = 0x00060007;
-u32 var800aefb8 = 0x00080009;
-u32 var800aefbc = 0x000c000d;
-u32 var800aefc0 = 0x000e000f;
-u32 var800aefc4 = 0x00040005;
-u32 var800aefc8 = 0x00120013;
-u32 var800aefcc = 0x000a000b;
-u32 var800aefd0 = 0x00180019;
-u32 var800aefd4 = 0x00100011;
-u32 var800aefd8 = 0x001e001f;
-u32 var800aefdc = 0x00140015;
-u32 var800aefe0 = 0x00160017;
-u32 var800aefe4 = 0x001a001b;
-u32 var800aefe8 = 0x001c001d;
-u32 var800aefec = 0x00200021;
-u32 var800aeff0 = 0x00220023;
-u32 var800aeff4 = 0x00240025;
-u32 var800aeff8 = 0x00260027;
-u32 var800aeffc = 0x00280029;
-u32 var800af000 = 0x002a002b;
-u32 var800af004 = 0x002c002d;
-u32 var800af008 = 0x002e002f;
-u32 var800af00c = 0x00300031;
-u32 var800af010 = 0x00320033;
-u32 var800af014 = 0x00340035;
-u32 var800af018 = 0x00360037;
-u32 var800af01c = 0x00380039;
-u32 var800af020 = 0x003a003b;
-u32 var800af024 = 0x00480049;
-u32 var800af028 = 0x003c003d;
-u32 var800af02c = 0x003e003f;
-u32 var800af030 = 0x00400041;
-u32 var800af034 = 0x004e004f;
-u32 var800af038 = 0x00420043;
-u32 var800af03c = 0x00440045;
-u32 var800af040 = 0x00460047;
-u32 var800af044 = 0x00540055;
-u32 var800af048 = 0x004a004b;
-u32 var800af04c = 0x004c004d;
-u32 var800af050 = 0x005a005b;
-u32 var800af054 = 0x005c005d;
-u32 var800af058 = 0x005e005f;
-u32 var800af05c = 0x00500051;
-u32 var800af060 = 0x00520053;
-u32 var800af064 = 0x00600061;
-u32 var800af068 = 0x00620063;
-u32 var800af06c = 0x00640065;
-u32 var800af070 = 0x00560057;
-u32 var800af074 = 0x00580059;
-u32 var800af078 = 0x00660067;
-u32 var800af07c = 0x00680069;
-u32 var800af080 = 0x006a006b;
-u32 var800af084 = 0x006c006d;
-u32 var800af088 = 0x006e006f;
-u32 var800af08c = 0x00700071;
-u32 var800af090 = 0x007e007f;
-u32 var800af094 = 0x00800081;
-u32 var800af098 = 0x00820083;
-u32 var800af09c = 0x00720073;
-u32 var800af0a0 = 0x00740075;
-u32 var800af0a4 = 0x00760077;
-u32 var800af0a8 = 0x00840085;
-u32 var800af0ac = 0x00860087;
-u32 var800af0b0 = 0x00880089;
-u32 var800af0b4 = 0x00780079;
-u32 var800af0b8 = 0x007a007b;
-u32 var800af0bc = 0x007c007d;
-u32 var800af0c0 = 0x008a008b;
-u32 var800af0c4 = 0x008c008d;
-u32 var800af0c8 = 0x008e008f;
-u32 var800af0cc = 0x00900091;
-u32 var800af0d0 = 0x00920093;
-u32 var800af0d4 = 0x00940095;
-u32 var800af0d8 = 0x00a200a3;
-u32 var800af0dc = 0x00a400a5;
-u32 var800af0e0 = 0x00a600a7;
-u32 var800af0e4 = 0x00b400b5;
-u32 var800af0e8 = 0x00960097;
-u32 var800af0ec = 0x00980099;
-u32 var800af0f0 = 0x009a009b;
-u32 var800af0f4 = 0x00a800a9;
-u32 var800af0f8 = 0x00aa00ab;
-u32 var800af0fc = 0x00ac00ad;
-u32 var800af100 = 0x00ba00bb;
-u32 var800af104 = 0x009c009d;
-u32 var800af108 = 0x009e009f;
-u32 var800af10c = 0x00a000a1;
-u32 var800af110 = 0x00ae00af;
-u32 var800af114 = 0x00b000b1;
-u32 var800af118 = 0x00b200b3;
-u32 var800af11c = 0x00c000c1;
-u32 var800af120 = 0x00b600b7;
-u32 var800af124 = 0x00b800b9;
-u32 var800af128 = 0x00c600c7;
-u32 var800af12c = 0x00c800c9;
-u32 var800af130 = 0x00ca00cb;
-u32 var800af134 = 0x00d800d9;
-u32 var800af138 = 0x00da00db;
-u32 var800af13c = 0x00dc00dd;
-u32 var800af140 = 0x00ea00eb;
-u32 var800af144 = 0x00bc00bd;
-u32 var800af148 = 0x00be00bf;
-u32 var800af14c = 0x00cc00cd;
-u32 var800af150 = 0x00ce00cf;
-u32 var800af154 = 0x00d000d1;
-u32 var800af158 = 0x00de00df;
-u32 var800af15c = 0x00e000e1;
-u32 var800af160 = 0x00e200e3;
-u32 var800af164 = 0x00f000f1;
-u32 var800af168 = 0x00c200c3;
-u32 var800af16c = 0x00c400c5;
-u32 var800af170 = 0x00d200d3;
-u32 var800af174 = 0x00d400d5;
-u32 var800af178 = 0x00d600d7;
-u32 var800af17c = 0x00e400e5;
-u32 var800af180 = 0x00e600e7;
-u32 var800af184 = 0x00e800e9;
-u32 var800af188 = 0x00f600f7;
-u32 var800af18c = 0x00ec00ed;
-u32 var800af190 = 0x00ee00ef;
-u32 var800af194 = 0x00fc00fd;
-u32 var800af198 = 0x00fe00ff;
-u32 var800af19c = 0x01000101;
-u32 var800af1a0 = 0x010e010f;
-u32 var800af1a4 = 0x01100111;
-u32 var800af1a8 = 0x01120113;
-u32 var800af1ac = 0x01200121;
-u32 var800af1b0 = 0x01220123;
-u32 var800af1b4 = 0x01240125;
-u32 var800af1b8 = 0x01320133;
-u32 var800af1bc = 0x00f200f3;
-u32 var800af1c0 = 0x00f400f5;
-u32 var800af1c4 = 0x01020103;
-u32 var800af1c8 = 0x01040105;
-u32 var800af1cc = 0x01060107;
-u32 var800af1d0 = 0x01140115;
-u32 var800af1d4 = 0x01160117;
-u32 var800af1d8 = 0x01180119;
-u32 var800af1dc = 0x01260127;
-u32 var800af1e0 = 0x01280129;
-u32 var800af1e4 = 0x012a012b;
-u32 var800af1e8 = 0x01380139;
-u32 var800af1ec = 0x00f800f9;
-u32 var800af1f0 = 0x00fa00fb;
-u32 var800af1f4 = 0x01080109;
-u32 var800af1f8 = 0x010a010b;
-u32 var800af1fc = 0x010c010d;
-u32 var800af200 = 0x011a011b;
-u32 var800af204 = 0x011c011d;
-u32 var800af208 = 0x011e011f;
-u32 var800af20c = 0x012c012d;
-u32 var800af210 = 0x012e012f;
-u32 var800af214 = 0x01300131;
-u32 var800af218 = 0x013e013f;
-u32 var800af21c = 0x01340135;
-u32 var800af220 = 0x01360137;
-u32 var800af224 = 0x01440145;
-u32 var800af228 = 0x01460147;
-u32 var800af22c = 0x01480149;
-u32 var800af230 = 0x01560157;
-u32 var800af234 = 0x01580159;
-u32 var800af238 = 0x015a015b;
-u32 var800af23c = 0x01680169;
-u32 var800af240 = 0x016a016b;
-u32 var800af244 = 0x016c016d;
-u32 var800af248 = 0x017a017b;
-u32 var800af24c = 0x017c017d;
-u32 var800af250 = 0x017e017f;
-u32 var800af254 = 0x018c018d;
-u32 var800af258 = 0x018e018f;
-u32 var800af25c = 0x013a013b;
-u32 var800af260 = 0x013c013d;
-u32 var800af264 = 0x014a014b;
-u32 var800af268 = 0x014c014d;
-u32 var800af26c = 0x014e014f;
-u32 var800af270 = 0x015c015d;
-u32 var800af274 = 0x015e015f;
-u32 var800af278 = 0x01600161;
-u32 var800af27c = 0x016e016f;
-u32 var800af280 = 0x01700171;
-u32 var800af284 = 0x01720173;
-u32 var800af288 = 0x01800181;
-u32 var800af28c = 0x01820183;
-u32 var800af290 = 0x01840185;
-u32 var800af294 = 0x01920193;
-u32 var800af298 = 0x01940195;
-u32 var800af29c = 0x01400141;
-u32 var800af2a0 = 0x01420143;
-u32 var800af2a4 = 0x01500151;
-u32 var800af2a8 = 0x01520153;
-u32 var800af2ac = 0x01540155;
-u32 var800af2b0 = 0x01620163;
-u32 var800af2b4 = 0x01640165;
-u32 var800af2b8 = 0x01660167;
-u32 var800af2bc = 0x01740175;
-u32 var800af2c0 = 0x01760177;
-u32 var800af2c4 = 0x01780179;
-u32 var800af2c8 = 0x01860187;
-u32 var800af2cc = 0x01880189;
-u32 var800af2d0 = 0x018a018b;
-u32 var800af2d4 = 0x01980199;
-u32 var800af2d8 = 0x019a019b;
-u32 var800af2dc = 0x01900191;
-u32 var800af2e0 = 0x019e019f;
-u32 var800af2e4 = 0x01a001a1;
-u32 var800af2e8 = 0x01a201a3;
-u32 var800af2ec = 0x01b001b1;
-u32 var800af2f0 = 0x01b201b3;
-u32 var800af2f4 = 0x01b401b5;
-u32 var800af2f8 = 0x01c201c3;
-u32 var800af2fc = 0x01c401c5;
-u32 var800af300 = 0x01c601c7;
-u32 var800af304 = 0x01d401d5;
-u32 var800af308 = 0x01d601d7;
-u32 var800af30c = 0x01d801d9;
-u32 var800af310 = 0x01e601e7;
-u32 var800af314 = 0x01e801e9;
-u32 var800af318 = 0x01ea01eb;
-u32 var800af31c = 0x01f801f9;
-u32 var800af320 = 0x01fa01fb;
-u32 var800af324 = 0x01fc01fd;
-u32 var800af328 = 0x020a020b;
-u32 var800af32c = 0x020c020d;
-u32 var800af330 = 0x020e020f;
-u32 var800af334 = 0x01960197;
-u32 var800af338 = 0x01a401a5;
-u32 var800af33c = 0x01a601a7;
-u32 var800af340 = 0x01a801a9;
-u32 var800af344 = 0x01b601b7;
-u32 var800af348 = 0x01b801b9;
-u32 var800af34c = 0x01ba01bb;
-u32 var800af350 = 0x01c801c9;
-u32 var800af354 = 0x01ca01cb;
-u32 var800af358 = 0x01cc01cd;
-u32 var800af35c = 0x01da01db;
-u32 var800af360 = 0x01dc01dd;
-u32 var800af364 = 0x01de01df;
-u32 var800af368 = 0x01ec01ed;
-u32 var800af36c = 0x01ee01ef;
-u32 var800af370 = 0x01f001f1;
-u32 var800af374 = 0x01fe01ff;
-u32 var800af378 = 0x02000201;
-u32 var800af37c = 0x02020203;
-u32 var800af380 = 0x02100211;
-u32 var800af384 = 0x02120213;
-u32 var800af388 = 0x02140215;
-u32 var800af38c = 0x019c019d;
-u32 var800af390 = 0x01aa01ab;
-u32 var800af394 = 0x01ac01ad;
-u32 var800af398 = 0x01ae01af;
-u32 var800af39c = 0x01bc01bd;
-u32 var800af3a0 = 0x01be01bf;
-u32 var800af3a4 = 0x01c001c1;
-u32 var800af3a8 = 0x01ce01cf;
-u32 var800af3ac = 0x01d001d1;
-u32 var800af3b0 = 0x01d201d3;
-u32 var800af3b4 = 0x01e001e1;
-u32 var800af3b8 = 0x01e201e3;
-u32 var800af3bc = 0x01e401e5;
-u32 var800af3c0 = 0x01f201f3;
-u32 var800af3c4 = 0x01f401f5;
-u32 var800af3c8 = 0x01f601f7;
-u32 var800af3cc = 0x02040205;
-u32 var800af3d0 = 0x02060207;
-u32 var800af3d4 = 0x02080209;
-u32 var800af3d8 = 0x02160217;
-u32 var800af3dc = 0x02180219;
-u32 var800af3e0 = 0x021a021b;
-u32 var800af3e4 = 0x021c021d;
-u32 var800af3e8 = 0x021e021f;
-u32 var800af3ec = 0x02200221;
-u32 var800af3f0 = 0x022e022f;
-u32 var800af3f4 = 0x02300231;
-u32 var800af3f8 = 0x02320233;
-u32 var800af3fc = 0x02220223;
-u32 var800af400 = 0x02240225;
-u32 var800af404 = 0x02260227;
-u32 var800af408 = 0x02340235;
-u32 var800af40c = 0x02360237;
-u32 var800af410 = 0x02380239;
-u32 var800af414 = 0x02280229;
-u32 var800af418 = 0x022a022b;
-u32 var800af41c = 0x022c022d;
-u32 var800af420 = 0x023a023b;
-u32 var800af424 = 0x023c023d;
-u32 var800af428 = 0x023e023f;
-u32 var800af42c = 0x00000001;
-u32 var800af430 = 0x00020003;
-u32 var800af434 = 0x00060007;
-u32 var800af438 = 0x00080009;
-u32 var800af43c = 0x000c000d;
-u32 var800af440 = 0x000e000f;
-u32 var800af444 = 0x00040005;
-u32 var800af448 = 0x00120013;
-u32 var800af44c = 0x000a000b;
-u32 var800af450 = 0x00180019;
-u32 var800af454 = 0x00100011;
-u32 var800af458 = 0x001e001f;
-u32 var800af45c = 0x00140015;
-u32 var800af460 = 0x00160017;
-u32 var800af464 = 0x001a001b;
-u32 var800af468 = 0x001c001d;
-u32 var800af46c = 0x00200021;
-u32 var800af470 = 0x00220023;
-u32 var800af474 = 0x00240025;
-u32 var800af478 = 0x00260027;
-u32 var800af47c = 0x00280029;
-u32 var800af480 = 0x002a002b;
-u32 var800af484 = 0x002c002d;
-u32 var800af488 = 0x002e002f;
-u32 var800af48c = 0x00300031;
-u32 var800af490 = 0x00320033;
-u32 var800af494 = 0x00340035;
-u32 var800af498 = 0x00360037;
-u32 var800af49c = 0x00380039;
-u32 var800af4a0 = 0x003a003b;
-u32 var800af4a4 = 0x00480049;
-u32 var800af4a8 = 0x003c003d;
-u32 var800af4ac = 0x003e003f;
-u32 var800af4b0 = 0x00400041;
-u32 var800af4b4 = 0x004e004f;
-u32 var800af4b8 = 0x00420043;
-u32 var800af4bc = 0x00440045;
-u32 var800af4c0 = 0x00460047;
-u32 var800af4c4 = 0x00540055;
-u32 var800af4c8 = 0x004a004b;
-u32 var800af4cc = 0x004c004d;
-u32 var800af4d0 = 0x005a005b;
-u32 var800af4d4 = 0x005c005d;
-u32 var800af4d8 = 0x005e005f;
-u32 var800af4dc = 0x00500051;
-u32 var800af4e0 = 0x00520053;
-u32 var800af4e4 = 0x00600061;
-u32 var800af4e8 = 0x00620063;
-u32 var800af4ec = 0x00640065;
-u32 var800af4f0 = 0x00560057;
-u32 var800af4f4 = 0x00580059;
-u32 var800af4f8 = 0x00660067;
-u32 var800af4fc = 0x00680069;
-u32 var800af500 = 0x006a006b;
-u32 var800af504 = 0x006c006d;
-u32 var800af508 = 0x006e006f;
-u32 var800af50c = 0x00700071;
-u32 var800af510 = 0x007e007f;
-u32 var800af514 = 0x00800081;
-u32 var800af518 = 0x00820083;
-u32 var800af51c = 0x00720073;
-u32 var800af520 = 0x00740075;
-u32 var800af524 = 0x00760077;
-u32 var800af528 = 0x00840085;
-u32 var800af52c = 0x00860087;
-u32 var800af530 = 0x00880089;
-u32 var800af534 = 0x00780079;
-u32 var800af538 = 0x007a007b;
-u32 var800af53c = 0x007c007d;
-u32 var800af540 = 0x008a008b;
-u32 var800af544 = 0x008c008d;
-u32 var800af548 = 0x008e008f;
-u32 var800af54c = 0x00900091;
-u32 var800af550 = 0x00920093;
-u32 var800af554 = 0x00940095;
-u32 var800af558 = 0x00a200a3;
-u32 var800af55c = 0x00a400a5;
-u32 var800af560 = 0x00a600a7;
-u32 var800af564 = 0x00b400b5;
-u32 var800af568 = 0x00960097;
-u32 var800af56c = 0x00980099;
-u32 var800af570 = 0x009a009b;
-u32 var800af574 = 0x00a800a9;
-u32 var800af578 = 0x00aa00ab;
-u32 var800af57c = 0x00ac00ad;
-u32 var800af580 = 0x00ba00bb;
-u32 var800af584 = 0x009c009d;
-u32 var800af588 = 0x009e009f;
-u32 var800af58c = 0x00a000a1;
-u32 var800af590 = 0x00ae00af;
-u32 var800af594 = 0x00b000b1;
-u32 var800af598 = 0x00b200b3;
-u32 var800af59c = 0x00c000c1;
-u32 var800af5a0 = 0x00b600b7;
-u32 var800af5a4 = 0x00b800b9;
-u32 var800af5a8 = 0x00c600c7;
-u32 var800af5ac = 0x00c800c9;
-u32 var800af5b0 = 0x00ca00cb;
-u32 var800af5b4 = 0x00d800d9;
-u32 var800af5b8 = 0x00da00db;
-u32 var800af5bc = 0x00dc00dd;
-u32 var800af5c0 = 0x00ea00eb;
-u32 var800af5c4 = 0x00bc00bd;
-u32 var800af5c8 = 0x00be00bf;
-u32 var800af5cc = 0x00cc00cd;
-u32 var800af5d0 = 0x00ce00cf;
-u32 var800af5d4 = 0x00d000d1;
-u32 var800af5d8 = 0x00de00df;
-u32 var800af5dc = 0x00e000e1;
-u32 var800af5e0 = 0x00e200e3;
-u32 var800af5e4 = 0x00f000f1;
-u32 var800af5e8 = 0x00c200c3;
-u32 var800af5ec = 0x00c400c5;
-u32 var800af5f0 = 0x00d200d3;
-u32 var800af5f4 = 0x00d400d5;
-u32 var800af5f8 = 0x00d600d7;
-u32 var800af5fc = 0x00e400e5;
-u32 var800af600 = 0x00e600e7;
-u32 var800af604 = 0x00e800e9;
-u32 var800af608 = 0x00f600f7;
-u32 var800af60c = 0x00ec00ed;
-u32 var800af610 = 0x00ee00ef;
-u32 var800af614 = 0x00fc00fd;
-u32 var800af618 = 0x00fe00ff;
-u32 var800af61c = 0x01000101;
-u32 var800af620 = 0x010e010f;
-u32 var800af624 = 0x01100111;
-u32 var800af628 = 0x01120113;
-u32 var800af62c = 0x01200121;
-u32 var800af630 = 0x01220123;
-u32 var800af634 = 0x01240125;
-u32 var800af638 = 0x01320133;
-u32 var800af63c = 0x00f200f3;
-u32 var800af640 = 0x00f400f5;
-u32 var800af644 = 0x01020103;
-u32 var800af648 = 0x01040105;
-u32 var800af64c = 0x01060107;
-u32 var800af650 = 0x01140115;
-u32 var800af654 = 0x01160117;
-u32 var800af658 = 0x01180119;
-u32 var800af65c = 0x01260127;
-u32 var800af660 = 0x01280129;
-u32 var800af664 = 0x012a012b;
-u32 var800af668 = 0x01380139;
-u32 var800af66c = 0x00f800f9;
-u32 var800af670 = 0x00fa00fb;
-u32 var800af674 = 0x01080109;
-u32 var800af678 = 0x010a010b;
-u32 var800af67c = 0x010c010d;
-u32 var800af680 = 0x011a011b;
-u32 var800af684 = 0x011c011d;
-u32 var800af688 = 0x011e011f;
-u32 var800af68c = 0x012c012d;
-u32 var800af690 = 0x012e012f;
-u32 var800af694 = 0x01300131;
-u32 var800af698 = 0x013e013f;
-u32 var800af69c = 0x01340135;
-u32 var800af6a0 = 0x01360137;
-u32 var800af6a4 = 0x01440145;
-u32 var800af6a8 = 0x01460147;
-u32 var800af6ac = 0x01480149;
-u32 var800af6b0 = 0x01560157;
-u32 var800af6b4 = 0x01580159;
-u32 var800af6b8 = 0x015a015b;
-u32 var800af6bc = 0x01680169;
-u32 var800af6c0 = 0x016a016b;
-u32 var800af6c4 = 0x016c016d;
-u32 var800af6c8 = 0x017a017b;
-u32 var800af6cc = 0x017c017d;
-u32 var800af6d0 = 0x017e017f;
-u32 var800af6d4 = 0x018c018d;
-u32 var800af6d8 = 0x013a013b;
-u32 var800af6dc = 0x013c013d;
-u32 var800af6e0 = 0x014a014b;
-u32 var800af6e4 = 0x014c014d;
-u32 var800af6e8 = 0x014e014f;
-u32 var800af6ec = 0x015c015d;
-u32 var800af6f0 = 0x015e015f;
-u32 var800af6f4 = 0x01600161;
-u32 var800af6f8 = 0x016e016f;
-u32 var800af6fc = 0x01700171;
-u32 var800af700 = 0x01720173;
-u32 var800af704 = 0x01800181;
-u32 var800af708 = 0x01820183;
-u32 var800af70c = 0x01840185;
-u32 var800af710 = 0x01920193;
-u32 var800af714 = 0x01400141;
-u32 var800af718 = 0x01420143;
-u32 var800af71c = 0x01500151;
-u32 var800af720 = 0x01520153;
-u32 var800af724 = 0x01540155;
-u32 var800af728 = 0x01620163;
-u32 var800af72c = 0x01640165;
-u32 var800af730 = 0x01660167;
-u32 var800af734 = 0x01740175;
-u32 var800af738 = 0x01760177;
-u32 var800af73c = 0x01780179;
-u32 var800af740 = 0x01860187;
-u32 var800af744 = 0x01880189;
-u32 var800af748 = 0x018a018b;
-u32 var800af74c = 0x01980199;
-u32 var800af750 = 0x018e018f;
-u32 var800af754 = 0x01900191;
-u32 var800af758 = 0x019e019f;
-u32 var800af75c = 0x01a001a1;
-u32 var800af760 = 0x01a201a3;
-u32 var800af764 = 0x01b001b1;
-u32 var800af768 = 0x01b201b3;
-u32 var800af76c = 0x01b401b5;
-u32 var800af770 = 0x01c201c3;
-u32 var800af774 = 0x01c401c5;
-u32 var800af778 = 0x01c601c7;
-u32 var800af77c = 0x01d401d5;
-u32 var800af780 = 0x01d601d7;
-u32 var800af784 = 0x01d801d9;
-u32 var800af788 = 0x01e601e7;
-u32 var800af78c = 0x01e801e9;
-u32 var800af790 = 0x01ea01eb;
-u32 var800af794 = 0x01f801f9;
-u32 var800af798 = 0x01fa01fb;
-u32 var800af79c = 0x01fc01fd;
-u32 var800af7a0 = 0x01940195;
-u32 var800af7a4 = 0x01960197;
-u32 var800af7a8 = 0x01a401a5;
-u32 var800af7ac = 0x01a601a7;
-u32 var800af7b0 = 0x01a801a9;
-u32 var800af7b4 = 0x01b601b7;
-u32 var800af7b8 = 0x01b801b9;
-u32 var800af7bc = 0x01ba01bb;
-u32 var800af7c0 = 0x01c801c9;
-u32 var800af7c4 = 0x01ca01cb;
-u32 var800af7c8 = 0x01cc01cd;
-u32 var800af7cc = 0x01da01db;
-u32 var800af7d0 = 0x01dc01dd;
-u32 var800af7d4 = 0x01de01df;
-u32 var800af7d8 = 0x01ec01ed;
-u32 var800af7dc = 0x01ee01ef;
-u32 var800af7e0 = 0x01f001f1;
-u32 var800af7e4 = 0x01fe01ff;
-u32 var800af7e8 = 0x02000201;
-u32 var800af7ec = 0x02020203;
-u32 var800af7f0 = 0x019a019b;
-u32 var800af7f4 = 0x019c019d;
-u32 var800af7f8 = 0x01aa01ab;
-u32 var800af7fc = 0x01ac01ad;
-u32 var800af800 = 0x01ae01af;
-u32 var800af804 = 0x01bc01bd;
-u32 var800af808 = 0x01be01bf;
-u32 var800af80c = 0x01c001c1;
-u32 var800af810 = 0x01ce01cf;
-u32 var800af814 = 0x01d001d1;
-u32 var800af818 = 0x01d201d3;
-u32 var800af81c = 0x01e001e1;
-u32 var800af820 = 0x01e201e3;
-u32 var800af824 = 0x01e401e5;
-u32 var800af828 = 0x01f201f3;
-u32 var800af82c = 0x01f401f5;
-u32 var800af830 = 0x01f601f7;
-u32 var800af834 = 0x02040205;
-u32 var800af838 = 0x02060207;
-u32 var800af83c = 0x02080209;
-u32 var800af840 = 0x020a020b;
-u32 var800af844 = 0x020c020d;
-u32 var800af848 = 0x020e020f;
-u32 var800af84c = 0x021c021d;
-u32 var800af850 = 0x021e021f;
-u32 var800af854 = 0x02200221;
-u32 var800af858 = 0x022e022f;
-u32 var800af85c = 0x02300231;
-u32 var800af860 = 0x02320233;
-u32 var800af864 = 0x02100211;
-u32 var800af868 = 0x02120213;
-u32 var800af86c = 0x02140215;
-u32 var800af870 = 0x02220223;
-u32 var800af874 = 0x02240225;
-u32 var800af878 = 0x02260227;
-u32 var800af87c = 0x02340235;
-u32 var800af880 = 0x02360237;
-u32 var800af884 = 0x02380239;
-u32 var800af888 = 0x02160217;
-u32 var800af88c = 0x02180219;
-u32 var800af890 = 0x021a021b;
-u32 var800af894 = 0x02280229;
-u32 var800af898 = 0x022a022b;
-u32 var800af89c = 0x022c022d;
-u32 var800af8a0 = 0x023a023b;
-u32 var800af8a4 = 0x023c023d;
-u32 var800af8a8 = 0x023e023f;
-u32 var800af8ac = 0x00000001;
-u32 var800af8b0 = 0x00020003;
-u32 var800af8b4 = 0x00060007;
-u32 var800af8b8 = 0x00080009;
-u32 var800af8bc = 0x000c000d;
-u32 var800af8c0 = 0x000e000f;
-u32 var800af8c4 = 0x00040005;
-u32 var800af8c8 = 0x00120013;
-u32 var800af8cc = 0x000a000b;
-u32 var800af8d0 = 0x00180019;
-u32 var800af8d4 = 0x00100011;
-u32 var800af8d8 = 0x001e001f;
-u32 var800af8dc = 0x00140015;
-u32 var800af8e0 = 0x00160017;
-u32 var800af8e4 = 0x001a001b;
-u32 var800af8e8 = 0x001c001d;
-u32 var800af8ec = 0x00200021;
-u32 var800af8f0 = 0x00220023;
-u32 var800af8f4 = 0x00240025;
-u32 var800af8f8 = 0x00260027;
-u32 var800af8fc = 0x002a002b;
-u32 var800af900 = 0x002c002d;
-u32 var800af904 = 0x00300031;
-u32 var800af908 = 0x00320033;
-u32 var800af90c = 0x00280029;
-u32 var800af910 = 0x00360037;
-u32 var800af914 = 0x00380039;
-u32 var800af918 = 0x002e002f;
-u32 var800af91c = 0x003c003d;
-u32 var800af920 = 0x003e003f;
-u32 var800af924 = 0x00340035;
-u32 var800af928 = 0x00420043;
-u32 var800af92c = 0x00440045;
-u32 var800af930 = 0x003a003b;
-u32 var800af934 = 0x00480049;
-u32 var800af938 = 0x004a004b;
-u32 var800af93c = 0x004c004d;
-u32 var800af940 = 0x00400041;
-u32 var800af944 = 0x004e004f;
-u32 var800af948 = 0x00500051;
-u32 var800af94c = 0x00520053;
-u32 var800af950 = 0x00460047;
-u32 var800af954 = 0x00540055;
-u32 var800af958 = 0x00560057;
-u32 var800af95c = 0x00580059;
-u32 var800af960 = 0x005a005b;
-u32 var800af964 = 0x005c005d;
-u32 var800af968 = 0x005e005f;
-u32 var800af96c = 0x006c006d;
-u32 var800af970 = 0x006e006f;
-u32 var800af974 = 0x00600061;
-u32 var800af978 = 0x00620063;
-u32 var800af97c = 0x00640065;
-u32 var800af980 = 0x00720073;
-u32 var800af984 = 0x00740075;
-u32 var800af988 = 0x00660067;
-u32 var800af98c = 0x00680069;
-u32 var800af990 = 0x006a006b;
-u32 var800af994 = 0x00780079;
-u32 var800af998 = 0x007a007b;
-u32 var800af99c = 0x00700071;
-u32 var800af9a0 = 0x007e007f;
-u32 var800af9a4 = 0x00800081;
-u32 var800af9a8 = 0x00820083;
-u32 var800af9ac = 0x00900091;
-u32 var800af9b0 = 0x00920093;
-u32 var800af9b4 = 0x00760077;
-u32 var800af9b8 = 0x00840085;
-u32 var800af9bc = 0x00860087;
-u32 var800af9c0 = 0x00880089;
-u32 var800af9c4 = 0x00960097;
-u32 var800af9c8 = 0x00980099;
-u32 var800af9cc = 0x007c007d;
-u32 var800af9d0 = 0x008a008b;
-u32 var800af9d4 = 0x008c008d;
-u32 var800af9d8 = 0x008e008f;
-u32 var800af9dc = 0x009c009d;
-u32 var800af9e0 = 0x009e009f;
-u32 var800af9e4 = 0x00940095;
-u32 var800af9e8 = 0x00a200a3;
-u32 var800af9ec = 0x00a400a5;
-u32 var800af9f0 = 0x00a600a7;
-u32 var800af9f4 = 0x00b400b5;
-u32 var800af9f8 = 0x00b600b7;
-u32 var800af9fc = 0x00b800b9;
-u32 var800afa00 = 0x009a009b;
-u32 var800afa04 = 0x00a800a9;
-u32 var800afa08 = 0x00aa00ab;
-u32 var800afa0c = 0x00ac00ad;
-u32 var800afa10 = 0x00ba00bb;
-u32 var800afa14 = 0x00bc00bd;
-u32 var800afa18 = 0x00be00bf;
-u32 var800afa1c = 0x00a000a1;
-u32 var800afa20 = 0x00ae00af;
-u32 var800afa24 = 0x00b000b1;
-u32 var800afa28 = 0x00b200b3;
-u32 var800afa2c = 0x00c000c1;
-u32 var800afa30 = 0x00c200c3;
-u32 var800afa34 = 0x00c400c5;
-u32 var800afa38 = 0x00c600c7;
-u32 var800afa3c = 0x00c800c9;
-u32 var800afa40 = 0x00ca00cb;
-u32 var800afa44 = 0x00d800d9;
-u32 var800afa48 = 0x00da00db;
-u32 var800afa4c = 0x00dc00dd;
-u32 var800afa50 = 0x00ea00eb;
-u32 var800afa54 = 0x00ec00ed;
-u32 var800afa58 = 0x00ee00ef;
-u32 var800afa5c = 0x00cc00cd;
-u32 var800afa60 = 0x00ce00cf;
-u32 var800afa64 = 0x00d000d1;
-u32 var800afa68 = 0x00de00df;
-u32 var800afa6c = 0x00e000e1;
-u32 var800afa70 = 0x00e200e3;
-u32 var800afa74 = 0x00f000f1;
-u32 var800afa78 = 0x00f200f3;
-u32 var800afa7c = 0x00f400f5;
-u32 var800afa80 = 0x00d200d3;
-u32 var800afa84 = 0x00d400d5;
-u32 var800afa88 = 0x00d600d7;
-u32 var800afa8c = 0x00e400e5;
-u32 var800afa90 = 0x00e600e7;
-u32 var800afa94 = 0x00e800e9;
-u32 var800afa98 = 0x00f600f7;
-u32 var800afa9c = 0x00f800f9;
-u32 var800afaa0 = 0x00fa00fb;
-u32 var800afaa4 = 0x00fc00fd;
-u32 var800afaa8 = 0x00fe00ff;
-u32 var800afaac = 0x01000101;
-u32 var800afab0 = 0x010e010f;
-u32 var800afab4 = 0x01100111;
-u32 var800afab8 = 0x01120113;
-u32 var800afabc = 0x01200121;
-u32 var800afac0 = 0x01220123;
-u32 var800afac4 = 0x01240125;
-u32 var800afac8 = 0x01320133;
-u32 var800afacc = 0x01340135;
-u32 var800afad0 = 0x01020103;
-u32 var800afad4 = 0x01040105;
-u32 var800afad8 = 0x01060107;
-u32 var800afadc = 0x01140115;
-u32 var800afae0 = 0x01160117;
-u32 var800afae4 = 0x01180119;
-u32 var800afae8 = 0x01260127;
-u32 var800afaec = 0x01280129;
-u32 var800afaf0 = 0x012a012b;
-u32 var800afaf4 = 0x01380139;
-u32 var800afaf8 = 0x013a013b;
-u32 var800afafc = 0x01080109;
-u32 var800afb00 = 0x010a010b;
-u32 var800afb04 = 0x010c010d;
-u32 var800afb08 = 0x011a011b;
-u32 var800afb0c = 0x011c011d;
-u32 var800afb10 = 0x011e011f;
-u32 var800afb14 = 0x012c012d;
-u32 var800afb18 = 0x012e012f;
-u32 var800afb1c = 0x01300131;
-u32 var800afb20 = 0x013e013f;
-u32 var800afb24 = 0x01400141;
-u32 var800afb28 = 0x01360137;
-u32 var800afb2c = 0x01440145;
-u32 var800afb30 = 0x01460147;
-u32 var800afb34 = 0x01480149;
-u32 var800afb38 = 0x01560157;
-u32 var800afb3c = 0x01580159;
-u32 var800afb40 = 0x015a015b;
-u32 var800afb44 = 0x01680169;
-u32 var800afb48 = 0x016a016b;
-u32 var800afb4c = 0x016c016d;
-u32 var800afb50 = 0x017a017b;
-u32 var800afb54 = 0x017c017d;
-u32 var800afb58 = 0x017e017f;
-u32 var800afb5c = 0x018c018d;
-u32 var800afb60 = 0x018e018f;
-u32 var800afb64 = 0x013c013d;
-u32 var800afb68 = 0x014a014b;
-u32 var800afb6c = 0x014c014d;
-u32 var800afb70 = 0x014e014f;
-u32 var800afb74 = 0x015c015d;
-u32 var800afb78 = 0x015e015f;
-u32 var800afb7c = 0x01600161;
-u32 var800afb80 = 0x016e016f;
-u32 var800afb84 = 0x01700171;
-u32 var800afb88 = 0x01720173;
-u32 var800afb8c = 0x01800181;
-u32 var800afb90 = 0x01820183;
-u32 var800afb94 = 0x01840185;
-u32 var800afb98 = 0x01920193;
-u32 var800afb9c = 0x01940195;
-u32 var800afba0 = 0x01420143;
-u32 var800afba4 = 0x01500151;
-u32 var800afba8 = 0x01520153;
-u32 var800afbac = 0x01540155;
-u32 var800afbb0 = 0x01620163;
-u32 var800afbb4 = 0x01640165;
-u32 var800afbb8 = 0x01660167;
-u32 var800afbbc = 0x01740175;
-u32 var800afbc0 = 0x01760177;
-u32 var800afbc4 = 0x01780179;
-u32 var800afbc8 = 0x01860187;
-u32 var800afbcc = 0x01880189;
-u32 var800afbd0 = 0x018a018b;
-u32 var800afbd4 = 0x01980199;
-u32 var800afbd8 = 0x019a019b;
-u32 var800afbdc = 0x01900191;
-u32 var800afbe0 = 0x019e019f;
-u32 var800afbe4 = 0x01a001a1;
-u32 var800afbe8 = 0x01a201a3;
-u32 var800afbec = 0x01b001b1;
-u32 var800afbf0 = 0x01b201b3;
-u32 var800afbf4 = 0x01b401b5;
-u32 var800afbf8 = 0x01c201c3;
-u32 var800afbfc = 0x01c401c5;
-u32 var800afc00 = 0x01c601c7;
-u32 var800afc04 = 0x01d401d5;
-u32 var800afc08 = 0x01d601d7;
-u32 var800afc0c = 0x01d801d9;
-u32 var800afc10 = 0x01e601e7;
-u32 var800afc14 = 0x01e801e9;
-u32 var800afc18 = 0x01ea01eb;
-u32 var800afc1c = 0x01f801f9;
-u32 var800afc20 = 0x01fa01fb;
-u32 var800afc24 = 0x01fc01fd;
-u32 var800afc28 = 0x020a020b;
-u32 var800afc2c = 0x020c020d;
-u32 var800afc30 = 0x020e020f;
-u32 var800afc34 = 0x021c021d;
-u32 var800afc38 = 0x021e021f;
-u32 var800afc3c = 0x02200221;
-u32 var800afc40 = 0x022e022f;
-u32 var800afc44 = 0x02300231;
-u32 var800afc48 = 0x02320233;
-u32 var800afc4c = 0x01960197;
-u32 var800afc50 = 0x01a401a5;
-u32 var800afc54 = 0x01a601a7;
-u32 var800afc58 = 0x01a801a9;
-u32 var800afc5c = 0x01b601b7;
-u32 var800afc60 = 0x01b801b9;
-u32 var800afc64 = 0x01ba01bb;
-u32 var800afc68 = 0x01c801c9;
-u32 var800afc6c = 0x01ca01cb;
-u32 var800afc70 = 0x01cc01cd;
-u32 var800afc74 = 0x01da01db;
-u32 var800afc78 = 0x01dc01dd;
-u32 var800afc7c = 0x01de01df;
-u32 var800afc80 = 0x01ec01ed;
-u32 var800afc84 = 0x01ee01ef;
-u32 var800afc88 = 0x01f001f1;
-u32 var800afc8c = 0x01fe01ff;
-u32 var800afc90 = 0x02000201;
-u32 var800afc94 = 0x02020203;
-u32 var800afc98 = 0x02100211;
-u32 var800afc9c = 0x02120213;
-u32 var800afca0 = 0x02140215;
-u32 var800afca4 = 0x02220223;
-u32 var800afca8 = 0x02240225;
-u32 var800afcac = 0x02260227;
-u32 var800afcb0 = 0x02340235;
-u32 var800afcb4 = 0x02360237;
-u32 var800afcb8 = 0x02380239;
-u32 var800afcbc = 0x019c019d;
-u32 var800afcc0 = 0x01aa01ab;
-u32 var800afcc4 = 0x01ac01ad;
-u32 var800afcc8 = 0x01ae01af;
-u32 var800afccc = 0x01bc01bd;
-u32 var800afcd0 = 0x01be01bf;
-u32 var800afcd4 = 0x01c001c1;
-u32 var800afcd8 = 0x01ce01cf;
-u32 var800afcdc = 0x01d001d1;
-u32 var800afce0 = 0x01d201d3;
-u32 var800afce4 = 0x01e001e1;
-u32 var800afce8 = 0x01e201e3;
-u32 var800afcec = 0x01e401e5;
-u32 var800afcf0 = 0x01f201f3;
-u32 var800afcf4 = 0x01f401f5;
-u32 var800afcf8 = 0x01f601f7;
-u32 var800afcfc = 0x02040205;
-u32 var800afd00 = 0x02060207;
-u32 var800afd04 = 0x02080209;
-u32 var800afd08 = 0x02160217;
-u32 var800afd0c = 0x02180219;
-u32 var800afd10 = 0x021a021b;
-u32 var800afd14 = 0x02280229;
-u32 var800afd18 = 0x022a022b;
-u32 var800afd1c = 0x022c022d;
-u32 var800afd20 = 0x023a023b;
-u32 var800afd24 = 0x023c023d;
-u32 var800afd28 = 0x023e023f;
-u32 var800afd2c = 0x00000001;
-u32 var800afd30 = 0x00020003;
-u32 var800afd34 = 0x00060007;
-u32 var800afd38 = 0x00080009;
-u32 var800afd3c = 0x000c000d;
-u32 var800afd40 = 0x000e000f;
-u32 var800afd44 = 0x00040005;
-u32 var800afd48 = 0x00120013;
-u32 var800afd4c = 0x000a000b;
-u32 var800afd50 = 0x00180019;
-u32 var800afd54 = 0x00100011;
-u32 var800afd58 = 0x001e001f;
-u32 var800afd5c = 0x00140015;
-u32 var800afd60 = 0x00160017;
-u32 var800afd64 = 0x001a001b;
-u32 var800afd68 = 0x001c001d;
-u32 var800afd6c = 0x00200021;
-u32 var800afd70 = 0x00220023;
-u32 var800afd74 = 0x00240025;
-u32 var800afd78 = 0x00260027;
-u32 var800afd7c = 0x002a002b;
-u32 var800afd80 = 0x002c002d;
-u32 var800afd84 = 0x00300031;
-u32 var800afd88 = 0x00320033;
-u32 var800afd8c = 0x00280029;
-u32 var800afd90 = 0x00360037;
-u32 var800afd94 = 0x00380039;
-u32 var800afd98 = 0x002e002f;
-u32 var800afd9c = 0x003c003d;
-u32 var800afda0 = 0x003e003f;
-u32 var800afda4 = 0x00340035;
-u32 var800afda8 = 0x00420043;
-u32 var800afdac = 0x00440045;
-u32 var800afdb0 = 0x003a003b;
-u32 var800afdb4 = 0x00480049;
-u32 var800afdb8 = 0x004a004b;
-u32 var800afdbc = 0x00400041;
-u32 var800afdc0 = 0x004e004f;
-u32 var800afdc4 = 0x00500051;
-u32 var800afdc8 = 0x00460047;
-u32 var800afdcc = 0x00540055;
-u32 var800afdd0 = 0x00560057;
-u32 var800afdd4 = 0x004c004d;
-u32 var800afdd8 = 0x005a005b;
-u32 var800afddc = 0x005c005d;
-u32 var800afde0 = 0x005e005f;
-u32 var800afde4 = 0x006c006d;
-u32 var800afde8 = 0x00520053;
-u32 var800afdec = 0x00600061;
-u32 var800afdf0 = 0x00620063;
-u32 var800afdf4 = 0x00640065;
-u32 var800afdf8 = 0x00720073;
-u32 var800afdfc = 0x00580059;
-u32 var800afe00 = 0x00660067;
-u32 var800afe04 = 0x00680069;
-u32 var800afe08 = 0x006a006b;
-u32 var800afe0c = 0x00780079;
-u32 var800afe10 = 0x006e006f;
-u32 var800afe14 = 0x00700071;
-u32 var800afe18 = 0x007e007f;
-u32 var800afe1c = 0x00800081;
-u32 var800afe20 = 0x00820083;
-u32 var800afe24 = 0x00900091;
-u32 var800afe28 = 0x00740075;
-u32 var800afe2c = 0x00760077;
-u32 var800afe30 = 0x00840085;
-u32 var800afe34 = 0x00860087;
-u32 var800afe38 = 0x00880089;
-u32 var800afe3c = 0x00960097;
-u32 var800afe40 = 0x007a007b;
-u32 var800afe44 = 0x007c007d;
-u32 var800afe48 = 0x008a008b;
-u32 var800afe4c = 0x008c008d;
-u32 var800afe50 = 0x008e008f;
-u32 var800afe54 = 0x009c009d;
-u32 var800afe58 = 0x00920093;
-u32 var800afe5c = 0x00940095;
-u32 var800afe60 = 0x00a200a3;
-u32 var800afe64 = 0x00a400a5;
-u32 var800afe68 = 0x00a600a7;
-u32 var800afe6c = 0x00b400b5;
-u32 var800afe70 = 0x00b600b7;
-u32 var800afe74 = 0x00980099;
-u32 var800afe78 = 0x009a009b;
-u32 var800afe7c = 0x00a800a9;
-u32 var800afe80 = 0x00aa00ab;
-u32 var800afe84 = 0x00ac00ad;
-u32 var800afe88 = 0x00ba00bb;
-u32 var800afe8c = 0x00bc00bd;
-u32 var800afe90 = 0x009e009f;
-u32 var800afe94 = 0x00a000a1;
-u32 var800afe98 = 0x00ae00af;
-u32 var800afe9c = 0x00b000b1;
-u32 var800afea0 = 0x00b200b3;
-u32 var800afea4 = 0x00c000c1;
-u32 var800afea8 = 0x00c200c3;
-u32 var800afeac = 0x00b800b9;
-u32 var800afeb0 = 0x00c600c7;
-u32 var800afeb4 = 0x00c800c9;
-u32 var800afeb8 = 0x00ca00cb;
-u32 var800afebc = 0x00d800d9;
-u32 var800afec0 = 0x00da00db;
-u32 var800afec4 = 0x00dc00dd;
-u32 var800afec8 = 0x00ea00eb;
-u32 var800afecc = 0x00be00bf;
-u32 var800afed0 = 0x00cc00cd;
-u32 var800afed4 = 0x00ce00cf;
-u32 var800afed8 = 0x00d000d1;
-u32 var800afedc = 0x00de00df;
-u32 var800afee0 = 0x00e000e1;
-u32 var800afee4 = 0x00e200e3;
-u32 var800afee8 = 0x00f000f1;
-u32 var800afeec = 0x00c400c5;
-u32 var800afef0 = 0x00d200d3;
-u32 var800afef4 = 0x00d400d5;
-u32 var800afef8 = 0x00d600d7;
-u32 var800afefc = 0x00e400e5;
-u32 var800aff00 = 0x00e600e7;
-u32 var800aff04 = 0x00e800e9;
-u32 var800aff08 = 0x00f600f7;
-u32 var800aff0c = 0x00ec00ed;
-u32 var800aff10 = 0x00ee00ef;
-u32 var800aff14 = 0x00fc00fd;
-u32 var800aff18 = 0x00fe00ff;
-u32 var800aff1c = 0x01000101;
-u32 var800aff20 = 0x010e010f;
-u32 var800aff24 = 0x01100111;
-u32 var800aff28 = 0x01120113;
-u32 var800aff2c = 0x01200121;
-u32 var800aff30 = 0x01220123;
-u32 var800aff34 = 0x00f200f3;
-u32 var800aff38 = 0x00f400f5;
-u32 var800aff3c = 0x01020103;
-u32 var800aff40 = 0x01040105;
-u32 var800aff44 = 0x01060107;
-u32 var800aff48 = 0x01140115;
-u32 var800aff4c = 0x01160117;
-u32 var800aff50 = 0x01180119;
-u32 var800aff54 = 0x01260127;
-u32 var800aff58 = 0x01280129;
-u32 var800aff5c = 0x00f800f9;
-u32 var800aff60 = 0x00fa00fb;
-u32 var800aff64 = 0x01080109;
-u32 var800aff68 = 0x010a010b;
-u32 var800aff6c = 0x010c010d;
-u32 var800aff70 = 0x011a011b;
-u32 var800aff74 = 0x011c011d;
-u32 var800aff78 = 0x011e011f;
-u32 var800aff7c = 0x012c012d;
-u32 var800aff80 = 0x012e012f;
-u32 var800aff84 = 0x01240125;
-u32 var800aff88 = 0x01320133;
-u32 var800aff8c = 0x01340135;
-u32 var800aff90 = 0x01360137;
-u32 var800aff94 = 0x01440145;
-u32 var800aff98 = 0x01460147;
-u32 var800aff9c = 0x01480149;
-u32 var800affa0 = 0x01560157;
-u32 var800affa4 = 0x01580159;
-u32 var800affa8 = 0x015a015b;
-u32 var800affac = 0x01680169;
-u32 var800affb0 = 0x016a016b;
-u32 var800affb4 = 0x016c016d;
-u32 var800affb8 = 0x012a012b;
-u32 var800affbc = 0x01380139;
-u32 var800affc0 = 0x013a013b;
-u32 var800affc4 = 0x013c013d;
-u32 var800affc8 = 0x014a014b;
-u32 var800affcc = 0x014c014d;
-u32 var800affd0 = 0x014e014f;
-u32 var800affd4 = 0x015c015d;
-u32 var800affd8 = 0x015e015f;
-u32 var800affdc = 0x01600161;
-u32 var800affe0 = 0x016e016f;
-u32 var800affe4 = 0x01700171;
-u32 var800affe8 = 0x01720173;
-u32 var800affec = 0x01300131;
-u32 var800afff0 = 0x013e013f;
-u32 var800afff4 = 0x01400141;
-u32 var800afff8 = 0x01420143;
-u32 var800afffc = 0x01500151;
-u32 var800b0000 = 0x01520153;
-u32 var800b0004 = 0x01540155;
-u32 var800b0008 = 0x01620163;
-u32 var800b000c = 0x01640165;
-u32 var800b0010 = 0x01660167;
-u32 var800b0014 = 0x01740175;
-u32 var800b0018 = 0x01760177;
-u32 var800b001c = 0x01780179;
-u32 var800b0020 = 0x017a017b;
-u32 var800b0024 = 0x017c017d;
-u32 var800b0028 = 0x017e017f;
-u32 var800b002c = 0x018c018d;
-u32 var800b0030 = 0x018e018f;
-u32 var800b0034 = 0x01900191;
-u32 var800b0038 = 0x019e019f;
-u32 var800b003c = 0x01a001a1;
-u32 var800b0040 = 0x01a201a3;
-u32 var800b0044 = 0x01b001b1;
-u32 var800b0048 = 0x01b201b3;
-u32 var800b004c = 0x01b401b5;
-u32 var800b0050 = 0x01c201c3;
-u32 var800b0054 = 0x01c401c5;
-u32 var800b0058 = 0x01c601c7;
-u32 var800b005c = 0x01d401d5;
-u32 var800b0060 = 0x01d601d7;
-u32 var800b0064 = 0x01d801d9;
-u32 var800b0068 = 0x01e601e7;
-u32 var800b006c = 0x01e801e9;
-u32 var800b0070 = 0x01ea01eb;
-u32 var800b0074 = 0x01f801f9;
-u32 var800b0078 = 0x01fa01fb;
-u32 var800b007c = 0x01fc01fd;
-u32 var800b0080 = 0x020a020b;
-u32 var800b0084 = 0x020c020d;
-u32 var800b0088 = 0x020e020f;
-u32 var800b008c = 0x021c021d;
-u32 var800b0090 = 0x021e021f;
-u32 var800b0094 = 0x02200221;
-u32 var800b0098 = 0x022e022f;
-u32 var800b009c = 0x02300231;
-u32 var800b00a0 = 0x02320233;
-u32 var800b00a4 = 0x01800181;
-u32 var800b00a8 = 0x01820183;
-u32 var800b00ac = 0x01840185;
-u32 var800b00b0 = 0x01920193;
-u32 var800b00b4 = 0x01940195;
-u32 var800b00b8 = 0x01960197;
-u32 var800b00bc = 0x01a401a5;
-u32 var800b00c0 = 0x01a601a7;
-u32 var800b00c4 = 0x01a801a9;
-u32 var800b00c8 = 0x01b601b7;
-u32 var800b00cc = 0x01b801b9;
-u32 var800b00d0 = 0x01ba01bb;
-u32 var800b00d4 = 0x01c801c9;
-u32 var800b00d8 = 0x01ca01cb;
-u32 var800b00dc = 0x01cc01cd;
-u32 var800b00e0 = 0x01da01db;
-u32 var800b00e4 = 0x01dc01dd;
-u32 var800b00e8 = 0x01de01df;
-u32 var800b00ec = 0x01ec01ed;
-u32 var800b00f0 = 0x01ee01ef;
-u32 var800b00f4 = 0x01f001f1;
-u32 var800b00f8 = 0x01fe01ff;
-u32 var800b00fc = 0x02000201;
-u32 var800b0100 = 0x02020203;
-u32 var800b0104 = 0x02100211;
-u32 var800b0108 = 0x02120213;
-u32 var800b010c = 0x02140215;
-u32 var800b0110 = 0x02220223;
-u32 var800b0114 = 0x02240225;
-u32 var800b0118 = 0x02260227;
-u32 var800b011c = 0x02340235;
-u32 var800b0120 = 0x02360237;
-u32 var800b0124 = 0x02380239;
-u32 var800b0128 = 0x01860187;
-u32 var800b012c = 0x01880189;
-u32 var800b0130 = 0x018a018b;
-u32 var800b0134 = 0x01980199;
-u32 var800b0138 = 0x019a019b;
-u32 var800b013c = 0x019c019d;
-u32 var800b0140 = 0x01aa01ab;
-u32 var800b0144 = 0x01ac01ad;
-u32 var800b0148 = 0x01ae01af;
-u32 var800b014c = 0x01bc01bd;
-u32 var800b0150 = 0x01be01bf;
-u32 var800b0154 = 0x01c001c1;
-u32 var800b0158 = 0x01ce01cf;
-u32 var800b015c = 0x01d001d1;
-u32 var800b0160 = 0x01d201d3;
-u32 var800b0164 = 0x01e001e1;
-u32 var800b0168 = 0x01e201e3;
-u32 var800b016c = 0x01e401e5;
-u32 var800b0170 = 0x01f201f3;
-u32 var800b0174 = 0x01f401f5;
-u32 var800b0178 = 0x01f601f7;
-u32 var800b017c = 0x02040205;
-u32 var800b0180 = 0x02060207;
-u32 var800b0184 = 0x02080209;
-u32 var800b0188 = 0x02160217;
-u32 var800b018c = 0x02180219;
-u32 var800b0190 = 0x021a021b;
-u32 var800b0194 = 0x02280229;
-u32 var800b0198 = 0x022a022b;
-u32 var800b019c = 0x022c022d;
-u32 var800b01a0 = 0x023a023b;
-u32 var800b01a4 = 0x023c023d;
-u32 var800b01a8 = 0x023e023f;
-u32 var800b01ac = 0x00000001;
-u32 var800b01b0 = 0x00020003;
-u32 var800b01b4 = 0x00060007;
-u32 var800b01b8 = 0x00080009;
-u32 var800b01bc = 0x000c000d;
-u32 var800b01c0 = 0x000e000f;
-u32 var800b01c4 = 0x00040005;
-u32 var800b01c8 = 0x00120013;
-u32 var800b01cc = 0x000a000b;
-u32 var800b01d0 = 0x00180019;
-u32 var800b01d4 = 0x00100011;
-u32 var800b01d8 = 0x001e001f;
-u32 var800b01dc = 0x00140015;
-u32 var800b01e0 = 0x00160017;
-u32 var800b01e4 = 0x001a001b;
-u32 var800b01e8 = 0x001c001d;
-u32 var800b01ec = 0x00200021;
-u32 var800b01f0 = 0x00220023;
-u32 var800b01f4 = 0x00240025;
-u32 var800b01f8 = 0x00260027;
-u32 var800b01fc = 0x002a002b;
-u32 var800b0200 = 0x002c002d;
-u32 var800b0204 = 0x00300031;
-u32 var800b0208 = 0x00320033;
-u32 var800b020c = 0x00280029;
-u32 var800b0210 = 0x00360037;
-u32 var800b0214 = 0x00380039;
-u32 var800b0218 = 0x002e002f;
-u32 var800b021c = 0x003c003d;
-u32 var800b0220 = 0x003e003f;
-u32 var800b0224 = 0x00340035;
-u32 var800b0228 = 0x00420043;
-u32 var800b022c = 0x00440045;
-u32 var800b0230 = 0x003a003b;
-u32 var800b0234 = 0x00480049;
-u32 var800b0238 = 0x004a004b;
-u32 var800b023c = 0x004c004d;
-u32 var800b0240 = 0x00400041;
-u32 var800b0244 = 0x004e004f;
-u32 var800b0248 = 0x00500051;
-u32 var800b024c = 0x00520053;
-u32 var800b0250 = 0x00460047;
-u32 var800b0254 = 0x00540055;
-u32 var800b0258 = 0x00560057;
-u32 var800b025c = 0x00580059;
-u32 var800b0260 = 0x005a005b;
-u32 var800b0264 = 0x005c005d;
-u32 var800b0268 = 0x005e005f;
-u32 var800b026c = 0x006c006d;
-u32 var800b0270 = 0x006e006f;
-u32 var800b0274 = 0x00700071;
-u32 var800b0278 = 0x00600061;
-u32 var800b027c = 0x00620063;
-u32 var800b0280 = 0x00640065;
-u32 var800b0284 = 0x00720073;
-u32 var800b0288 = 0x00740075;
-u32 var800b028c = 0x00760077;
-u32 var800b0290 = 0x00660067;
-u32 var800b0294 = 0x00680069;
-u32 var800b0298 = 0x006a006b;
-u32 var800b029c = 0x00780079;
-u32 var800b02a0 = 0x007a007b;
-u32 var800b02a4 = 0x007c007d;
-u32 var800b02a8 = 0x007e007f;
-u32 var800b02ac = 0x00800081;
-u32 var800b02b0 = 0x00820083;
-u32 var800b02b4 = 0x00900091;
-u32 var800b02b8 = 0x00920093;
-u32 var800b02bc = 0x00940095;
-u32 var800b02c0 = 0x00a200a3;
-u32 var800b02c4 = 0x00a400a5;
-u32 var800b02c8 = 0x00840085;
-u32 var800b02cc = 0x00860087;
-u32 var800b02d0 = 0x00880089;
-u32 var800b02d4 = 0x00960097;
-u32 var800b02d8 = 0x00980099;
-u32 var800b02dc = 0x009a009b;
-u32 var800b02e0 = 0x00a800a9;
-u32 var800b02e4 = 0x00aa00ab;
-u32 var800b02e8 = 0x008a008b;
-u32 var800b02ec = 0x008c008d;
-u32 var800b02f0 = 0x008e008f;
-u32 var800b02f4 = 0x009c009d;
-u32 var800b02f8 = 0x009e009f;
-u32 var800b02fc = 0x00a000a1;
-u32 var800b0300 = 0x00ae00af;
-u32 var800b0304 = 0x00b000b1;
-u32 var800b0308 = 0x00a600a7;
-u32 var800b030c = 0x00b400b5;
-u32 var800b0310 = 0x00b600b7;
-u32 var800b0314 = 0x00b800b9;
-u32 var800b0318 = 0x00c600c7;
-u32 var800b031c = 0x00c800c9;
-u32 var800b0320 = 0x00ca00cb;
-u32 var800b0324 = 0x00d800d9;
-u32 var800b0328 = 0x00da00db;
-u32 var800b032c = 0x00dc00dd;
-u32 var800b0330 = 0x00ac00ad;
-u32 var800b0334 = 0x00ba00bb;
-u32 var800b0338 = 0x00bc00bd;
-u32 var800b033c = 0x00be00bf;
-u32 var800b0340 = 0x00cc00cd;
-u32 var800b0344 = 0x00ce00cf;
-u32 var800b0348 = 0x00d000d1;
-u32 var800b034c = 0x00de00df;
-u32 var800b0350 = 0x00e000e1;
-u32 var800b0354 = 0x00e200e3;
-u32 var800b0358 = 0x00b200b3;
-u32 var800b035c = 0x00c000c1;
-u32 var800b0360 = 0x00c200c3;
-u32 var800b0364 = 0x00c400c5;
-u32 var800b0368 = 0x00d200d3;
-u32 var800b036c = 0x00d400d5;
-u32 var800b0370 = 0x00d600d7;
-u32 var800b0374 = 0x00e400e5;
-u32 var800b0378 = 0x00e600e7;
-u32 var800b037c = 0x00e800e9;
-u32 var800b0380 = 0x00ea00eb;
-u32 var800b0384 = 0x00ec00ed;
-u32 var800b0388 = 0x00ee00ef;
-u32 var800b038c = 0x00fc00fd;
-u32 var800b0390 = 0x00fe00ff;
-u32 var800b0394 = 0x01000101;
-u32 var800b0398 = 0x010e010f;
-u32 var800b039c = 0x01100111;
-u32 var800b03a0 = 0x01120113;
-u32 var800b03a4 = 0x01200121;
-u32 var800b03a8 = 0x01220123;
-u32 var800b03ac = 0x01240125;
-u32 var800b03b0 = 0x01320133;
-u32 var800b03b4 = 0x00f000f1;
-u32 var800b03b8 = 0x00f200f3;
-u32 var800b03bc = 0x00f400f5;
-u32 var800b03c0 = 0x01020103;
-u32 var800b03c4 = 0x01040105;
-u32 var800b03c8 = 0x01060107;
-u32 var800b03cc = 0x01140115;
-u32 var800b03d0 = 0x01160117;
-u32 var800b03d4 = 0x01180119;
-u32 var800b03d8 = 0x01260127;
-u32 var800b03dc = 0x01280129;
-u32 var800b03e0 = 0x012a012b;
-u32 var800b03e4 = 0x01380139;
-u32 var800b03e8 = 0x00f600f7;
-u32 var800b03ec = 0x00f800f9;
-u32 var800b03f0 = 0x00fa00fb;
-u32 var800b03f4 = 0x01080109;
-u32 var800b03f8 = 0x010a010b;
-u32 var800b03fc = 0x010c010d;
-u32 var800b0400 = 0x011a011b;
-u32 var800b0404 = 0x011c011d;
-u32 var800b0408 = 0x011e011f;
-u32 var800b040c = 0x012c012d;
-u32 var800b0410 = 0x012e012f;
-u32 var800b0414 = 0x01300131;
-u32 var800b0418 = 0x013e013f;
-u32 var800b041c = 0x01340135;
-u32 var800b0420 = 0x01360137;
-u32 var800b0424 = 0x01440145;
-u32 var800b0428 = 0x01460147;
-u32 var800b042c = 0x01480149;
-u32 var800b0430 = 0x01560157;
-u32 var800b0434 = 0x01580159;
-u32 var800b0438 = 0x015a015b;
-u32 var800b043c = 0x01680169;
-u32 var800b0440 = 0x016a016b;
-u32 var800b0444 = 0x016c016d;
-u32 var800b0448 = 0x017a017b;
-u32 var800b044c = 0x017c017d;
-u32 var800b0450 = 0x017e017f;
-u32 var800b0454 = 0x018c018d;
-u32 var800b0458 = 0x018e018f;
-u32 var800b045c = 0x01900191;
-u32 var800b0460 = 0x013a013b;
-u32 var800b0464 = 0x013c013d;
-u32 var800b0468 = 0x014a014b;
-u32 var800b046c = 0x014c014d;
-u32 var800b0470 = 0x014e014f;
-u32 var800b0474 = 0x015c015d;
-u32 var800b0478 = 0x015e015f;
-u32 var800b047c = 0x01600161;
-u32 var800b0480 = 0x016e016f;
-u32 var800b0484 = 0x01700171;
-u32 var800b0488 = 0x01720173;
-u32 var800b048c = 0x01800181;
-u32 var800b0490 = 0x01820183;
-u32 var800b0494 = 0x01840185;
-u32 var800b0498 = 0x01920193;
-u32 var800b049c = 0x01940195;
-u32 var800b04a0 = 0x01960197;
-u32 var800b04a4 = 0x01400141;
-u32 var800b04a8 = 0x01420143;
-u32 var800b04ac = 0x01500151;
-u32 var800b04b0 = 0x01520153;
-u32 var800b04b4 = 0x01540155;
-u32 var800b04b8 = 0x01620163;
-u32 var800b04bc = 0x01640165;
-u32 var800b04c0 = 0x01660167;
-u32 var800b04c4 = 0x01740175;
-u32 var800b04c8 = 0x01760177;
-u32 var800b04cc = 0x01780179;
-u32 var800b04d0 = 0x01860187;
-u32 var800b04d4 = 0x01880189;
-u32 var800b04d8 = 0x018a018b;
-u32 var800b04dc = 0x01980199;
-u32 var800b04e0 = 0x019a019b;
-u32 var800b04e4 = 0x019c019d;
-u32 var800b04e8 = 0x019e019f;
-u32 var800b04ec = 0x01a001a1;
-u32 var800b04f0 = 0x01a201a3;
-u32 var800b04f4 = 0x01b001b1;
-u32 var800b04f8 = 0x01b201b3;
-u32 var800b04fc = 0x01b401b5;
-u32 var800b0500 = 0x01c201c3;
-u32 var800b0504 = 0x01c401c5;
-u32 var800b0508 = 0x01c601c7;
-u32 var800b050c = 0x01d401d5;
-u32 var800b0510 = 0x01d601d7;
-u32 var800b0514 = 0x01d801d9;
-u32 var800b0518 = 0x01e601e7;
-u32 var800b051c = 0x01e801e9;
-u32 var800b0520 = 0x01ea01eb;
-u32 var800b0524 = 0x01f801f9;
-u32 var800b0528 = 0x01fa01fb;
-u32 var800b052c = 0x01fc01fd;
-u32 var800b0530 = 0x020a020b;
-u32 var800b0534 = 0x020c020d;
-u32 var800b0538 = 0x020e020f;
-u32 var800b053c = 0x01a401a5;
-u32 var800b0540 = 0x01a601a7;
-u32 var800b0544 = 0x01a801a9;
-u32 var800b0548 = 0x01b601b7;
-u32 var800b054c = 0x01b801b9;
-u32 var800b0550 = 0x01ba01bb;
-u32 var800b0554 = 0x01c801c9;
-u32 var800b0558 = 0x01ca01cb;
-u32 var800b055c = 0x01cc01cd;
-u32 var800b0560 = 0x01da01db;
-u32 var800b0564 = 0x01dc01dd;
-u32 var800b0568 = 0x01de01df;
-u32 var800b056c = 0x01ec01ed;
-u32 var800b0570 = 0x01ee01ef;
-u32 var800b0574 = 0x01f001f1;
-u32 var800b0578 = 0x01fe01ff;
-u32 var800b057c = 0x02000201;
-u32 var800b0580 = 0x02020203;
-u32 var800b0584 = 0x02100211;
-u32 var800b0588 = 0x02120213;
-u32 var800b058c = 0x02140215;
-u32 var800b0590 = 0x01aa01ab;
-u32 var800b0594 = 0x01ac01ad;
-u32 var800b0598 = 0x01ae01af;
-u32 var800b059c = 0x01bc01bd;
-u32 var800b05a0 = 0x01be01bf;
-u32 var800b05a4 = 0x01c001c1;
-u32 var800b05a8 = 0x01ce01cf;
-u32 var800b05ac = 0x01d001d1;
-u32 var800b05b0 = 0x01d201d3;
-u32 var800b05b4 = 0x01e001e1;
-u32 var800b05b8 = 0x01e201e3;
-u32 var800b05bc = 0x01e401e5;
-u32 var800b05c0 = 0x01f201f3;
-u32 var800b05c4 = 0x01f401f5;
-u32 var800b05c8 = 0x01f601f7;
-u32 var800b05cc = 0x02040205;
-u32 var800b05d0 = 0x02060207;
-u32 var800b05d4 = 0x02080209;
-u32 var800b05d8 = 0x02160217;
-u32 var800b05dc = 0x02180219;
-u32 var800b05e0 = 0x021a021b;
-u32 var800b05e4 = 0x021c021d;
-u32 var800b05e8 = 0x021e021f;
-u32 var800b05ec = 0x02200221;
-u32 var800b05f0 = 0x022e022f;
-u32 var800b05f4 = 0x02300231;
-u32 var800b05f8 = 0x02320233;
-u32 var800b05fc = 0x02220223;
-u32 var800b0600 = 0x02240225;
-u32 var800b0604 = 0x02260227;
-u32 var800b0608 = 0x02340235;
-u32 var800b060c = 0x02360237;
-u32 var800b0610 = 0x02380239;
-u32 var800b0614 = 0x02280229;
-u32 var800b0618 = 0x022a022b;
-u32 var800b061c = 0x022c022d;
-u32 var800b0620 = 0x023a023b;
-u32 var800b0624 = 0x023c023d;
-u32 var800b0628 = 0x023e023f;
-u32 var800b062c = 0xbf03b5fe;
-u32 var800b0630 = 0xbef186da;
-u32 var800b0634 = 0xbea07302;
-u32 var800b0638 = 0xbe3a4774;
-u32 var800b063c = 0xbdc1b01d;
-u32 var800b0640 = 0xbd27cb87;
-u32 var800b0644 = 0xbc68a11d;
-u32 var800b0648 = 0xbb727b46;
-u32 var800b064c = 0x3f5b84a8;
-u32 var800b0650 = 0x3f61b9d8;
-u32 var800b0654 = 0x3f731add;
-u32 var800b0658 = 0x3f7bba81;
-u32 var800b065c = 0x3f7eda41;
-u32 var800b0660 = 0x3f7fc8fd;
-u32 var800b0664 = 0x3f7ff965;
-u32 var800b0668 = 0x3f7fff8d;
-u32 var800b066c = 0x00000000;
-u32 var800b0670 = 0x00001f40;
-u32 var800b0674 = 0x00003e80;
-u32 var800b0678 = 0x00005dc0;
-u32 var800b067c = 0x00007d00;
-u32 var800b0680 = 0x00009c40;
-u32 var800b0684 = 0x0000bb80;
-u32 var800b0688 = 0x0000dac0;
-u32 var800b068c = 0x0000fa00;
-u32 var800b0690 = 0x00013880;
-u32 var800b0694 = 0x00017700;
-u32 var800b0698 = 0x0001b580;
-u32 var800b069c = 0x0001f400;
-u32 var800b06a0 = 0x00023280;
-u32 var800b06a4 = 0x00027100;
-u32 var800b06a8 = 0x00000000;
-u32 var800b06ac = 0x00007d00;
-u32 var800b06b0 = 0x00009c40;
-u32 var800b06b4 = 0x0000bb80;
-u32 var800b06b8 = 0x0000dac0;
-u32 var800b06bc = 0x0000fa00;
-u32 var800b06c0 = 0x00013880;
-u32 var800b06c4 = 0x00017700;
-u32 var800b06c8 = 0x0001b580;
-u32 var800b06cc = 0x0001f400;
-u32 var800b06d0 = 0x00027100;
-u32 var800b06d4 = 0x0002ee00;
-u32 var800b06d8 = 0x00036b00;
-u32 var800b06dc = 0x0003e800;
-u32 var800b06e0 = 0x0004e200;
-u32 var800b06e4 = 0x00005622;
-u32 var800b06e8 = 0x00005dc0;
-u32 var800b06ec = 0x00003e80;
-u32 var800b06f0 = 0x00005622;
-u32 var800b06f4 = 0x0000ac44;
-u32 var800b06f8 = 0x0000bb80;
-u32 var800b06fc = 0x00007d00;
-u32 var800b0700 = 0x0000ac44;
-u32 var800b0704 = 0xbd03ba34;
-u32 var800b0708 = 0x3dd41398;
-u32 var800b070c = 0xbe3aec8d;
-u32 var800b0710 = 0x3e8890b4;
-u32 var800b0714 = 0xbeb50508;
-u32 var800b0718 = 0x3ee17918;
-u32 var800b071c = 0xbf0649c3;
-u32 var800b0720 = 0x3f1a8273;
-u32 var800b0724 = 0xbf2cc954;
-u32 var800b0728 = 0x3f3c902e;
-u32 var800b072c = 0xbf495c64;
-u32 var800b0730 = 0x3f52ca58;
-u32 var800b0734 = 0xbf5890a3;
-u32 var800b0738 = 0x3f5a8284;
-u32 var800b073c = 0xbf5890a3;
-u32 var800b0740 = 0x3f52ca47;
-u32 var800b0744 = 0xbf495c64;
-u32 var800b0748 = 0x3f3c902e;
-u32 var800b074c = 0xbf2cc954;
-u32 var800b0750 = 0x3f1a8273;
-u32 var800b0754 = 0xbf0649d4;
-u32 var800b0758 = 0x3ee1793a;
-u32 var800b075c = 0xbeb504e6;
-u32 var800b0760 = 0x3e8890b4;
-u32 var800b0764 = 0xbe3aecd0;
-u32 var800b0768 = 0x3dd41398;
-u32 var800b076c = 0xbd03ba34;
-u32 var800b0770 = 0xbcf168f9;
-u32 var800b0774 = 0x3da2bb66;
-u32 var800b0778 = 0xbdee2b06;
-u32 var800b077c = 0x3e0e2ef5;
-u32 var800b0780 = 0xbe15f5f1;
-u32 var800b0784 = 0x3e0e2ef5;
-u32 var800b0788 = 0xbdee2b06;
-u32 var800b078c = 0x3da2bb66;
-u32 var800b0790 = 0xbcf168f9;
-u32 var800b0794 = 0xbd03ba34;
-u32 var800b0798 = 0x3dd41398;
-u32 var800b079c = 0xbe3aec8d;
-u32 var800b07a0 = 0x3e8890b4;
-u32 var800b07a4 = 0xbeb50508;
-u32 var800b07a8 = 0x3ee17918;
-u32 var800b07ac = 0xbf0649c3;
-u32 var800b07b0 = 0x3f1a8273;
-u32 var800b07b4 = 0xbf2cc954;
-u32 var800b07b8 = 0x3f3c902e;
-u32 var800b07bc = 0xbf495c64;
-u32 var800b07c0 = 0x3f52ca58;
-u32 var800b07c4 = 0xbf5890a3;
-u32 var800b07c8 = 0x3f5a8284;
-u32 var800b07cc = 0xbf5890a3;
-u32 var800b07d0 = 0x3f52ca47;
-u32 var800b07d4 = 0xbf495c64;
-u32 var800b07d8 = 0x3f3c902e;
-u32 var800b07dc = 0xbf2cf377;
-u32 var800b07e0 = 0x3f1bd7c3;
-u32 var800b07e4 = 0xbf098c7e;
-u32 var800b07e8 = 0x3eec6a5d;
-u32 var800b07ec = 0xbec3ef07;
-u32 var800b07f0 = 0x3e99f623;
-u32 var800b07f4 = 0xbe5bbcf5;
-u32 var800b07f8 = 0x3df6f7e4;
-u32 var800b07fc = 0xbd0dbf05;
-u32 var800b0800 = 0xbcd987c6;
-u32 var800b0804 = 0x3d4c985f;
-u32 var800b0808 = 0xbce76ea4;
-u32 var800b080c = 0x00000000;
-u32 var800b0810 = 0x00000000;
-u32 var800b0814 = 0x00000000;
-u32 var800b0818 = 0x00000000;
-u32 var800b081c = 0x00000000;
-u32 var800b0820 = 0x00000000;
-u32 var800b0824 = 0xbdd41398;
-u32 var800b0828 = 0x3eb50508;
-u32 var800b082c = 0xbf1a8273;
-u32 var800b0830 = 0x3f495c64;
-u32 var800b0834 = 0xbf5a8284;
-u32 var800b0838 = 0x3f495c64;
-u32 var800b083c = 0xbf1a8273;
-u32 var800b0840 = 0x3eb504e6;
-u32 var800b0844 = 0xbdd41398;
-u32 var800b0848 = 0xbda2bb66;
-u32 var800b084c = 0x3e15f5f1;
-u32 var800b0850 = 0xbda2bb66;
-u32 var800b0854 = 0x00000000;
-u32 var800b0858 = 0x00000000;
-u32 var800b085c = 0x00000000;
-u32 var800b0860 = 0x00000000;
-u32 var800b0864 = 0x00000000;
-u32 var800b0868 = 0x00000000;
-u32 var800b086c = 0x00000000;
-u32 var800b0870 = 0x00000000;
-u32 var800b0874 = 0x00000000;
-u32 var800b0878 = 0x00000000;
-u32 var800b087c = 0x00000000;
-u32 var800b0880 = 0x00000000;
-u32 var800b0884 = 0x00000000;
-u32 var800b0888 = 0x00000000;
-u32 var800b088c = 0x00000000;
-u32 var800b0890 = 0x00000000;
-u32 var800b0894 = 0x00000000;
-u32 var800b0898 = 0x00000000;
-u32 var800b089c = 0x00000000;
-u32 var800b08a0 = 0x00000000;
-u32 var800b08a4 = 0x00000000;
-u32 var800b08a8 = 0x00000000;
-u32 var800b08ac = 0x00000000;
-u32 var800b08b0 = 0x00000000;
-u32 var800b08b4 = 0x00000000;
-u32 var800b08b8 = 0x00000000;
-u32 var800b08bc = 0x00000000;
-u32 var800b08c0 = 0x00000000;
-u32 var800b08c4 = 0x00000000;
-u32 var800b08c8 = 0x00000000;
-u32 var800b08cc = 0xbe027d89;
-u32 var800b08d0 = 0x3ec24207;
-u32 var800b08d4 = 0xbf1bb1d1;
-u32 var800b08d8 = 0x3f4ae7b4;
-u32 var800b08dc = 0xbf6a7d67;
-u32 var800b08e0 = 0x3f77cb2e;
-u32 var800b08e4 = 0xbf7426cc;
-u32 var800b08e8 = 0x3f6c8366;
-u32 var800b08ec = 0xbf631327;
-u32 var800b08f0 = 0x3f57e879;
-u32 var800b08f4 = 0xbf4b192f;
-u32 var800b08f8 = 0x3f3cbe2f;
-u32 var800b08fc = 0xbf2cc954;
-u32 var800b0900 = 0x3f1a8273;
-u32 var800b0904 = 0xbf0649d4;
-u32 var800b0908 = 0x3ee1793a;
-u32 var800b090c = 0xbeb504e6;
-u32 var800b0910 = 0x3e8890b4;
-u32 var800b0914 = 0xbe3aecd0;
-u32 var800b0918 = 0x3dd41398;
-u32 var800b091c = 0xbd03ba34;
-u32 var800b0920 = 0xbcf168f9;
-u32 var800b0924 = 0x3da2bb66;
-u32 var800b0928 = 0xbdee2b06;
-u32 var800b092c = 0x3e0e2ef5;
-u32 var800b0930 = 0xbe15f5f1;
-u32 var800b0934 = 0x3e0e2ef5;
-u32 var800b0938 = 0xbdee2b06;
-u32 var800b093c = 0x3da2bb66;
-u32 var800b0940 = 0xbcf168f9;
-u32 var800b0944 = 0xbe327e95;
-u32 var800b0948 = 0xbf0483ed;
-u32 var800b094c = 0xbf586174;
-u32 var800b0950 = 0xbf92d5e9;
-u32 var800b0954 = 0xbfb504f7;
-u32 var800b0958 = 0xbfd1b3f2;
-u32 var800b095c = 0xbfe803cd;
-u32 var800b0960 = 0xbff746ed;
-u32 var800b0964 = 0xbfff069a;
-u32 var800b0968 = 0x3e327e95;
-u32 var800b096c = 0x3f0483ed;
-u32 var800b0970 = 0x3f586174;
-u32 var800b0974 = 0x3f92d5e9;
-u32 var800b0978 = 0x3fb504f7;
-u32 var800b097c = 0x3fd1b3f2;
-u32 var800b0980 = 0x3fe803cd;
-u32 var800b0984 = 0x3ff746ed;
-u32 var800b0988 = 0x3fff069a;
-u32 var800b098c = 0xbe327e95;
-u32 var800b0990 = 0xbf0483ed;
-u32 var800b0994 = 0xbf586174;
-u32 var800b0998 = 0xbf92d5e9;
-u32 var800b099c = 0xbfb504f7;
-u32 var800b09a0 = 0xbfd1b3f2;
-u32 var800b09a4 = 0xbfe803cd;
-u32 var800b09a8 = 0xbff746ed;
-u32 var800b09ac = 0xbfff069a;
-u32 var800b09b0 = 0x3e327e95;
-u32 var800b09b4 = 0x3f0483ed;
-u32 var800b09b8 = 0x3f586174;
-u32 var800b09bc = 0x3f92d5e9;
-u32 var800b09c0 = 0x3fb504f7;
-u32 var800b09c4 = 0x3fd1b3f2;
-u32 var800b09c8 = 0x3fe803cd;
-u32 var800b09cc = 0x3ff746ed;
-u32 var800b09d0 = 0x3fff069a;
-u32 var800b09d4 = 0xbf0483ed;
-u32 var800b09d8 = 0xbfb504d5;
-u32 var800b09dc = 0xbff746dc;
-u32 var800b09e0 = 0x3f0483ed;
-u32 var800b09e4 = 0x3fb504d5;
-u32 var800b09e8 = 0x3ff746dc;
-u32 var800b09ec = 0x00000000;
-u32 var800b09f0 = 0x00000000;
-u32 var800b09f4 = 0x00000000;
-u32 var800b09f8 = 0x00000000;
-u32 var800b09fc = 0x00000000;
-u32 var800b0a00 = 0x00000000;
-u32 var800b0a04 = 0x00000000;
-u32 var800b0a08 = 0x00000000;
-u32 var800b0a0c = 0x00000000;
-u32 var800b0a10 = 0x00000000;
-u32 var800b0a14 = 0x00000000;
-u32 var800b0a18 = 0x00000000;
-u32 var800b0a1c = 0xbe327e95;
-u32 var800b0a20 = 0xbf0483ed;
-u32 var800b0a24 = 0xbf586174;
-u32 var800b0a28 = 0xbf92d5e9;
-u32 var800b0a2c = 0xbfb504f7;
-u32 var800b0a30 = 0xbfd1b3f2;
-u32 var800b0a34 = 0xbfe803cd;
-u32 var800b0a38 = 0xbff746ed;
-u32 var800b0a3c = 0xbfff069a;
-u32 var800b0a40 = 0x3e327e95;
-u32 var800b0a44 = 0x3f0483ed;
-u32 var800b0a48 = 0x3f586174;
-u32 var800b0a4c = 0x3f92d5e9;
-u32 var800b0a50 = 0x3fb504f7;
-u32 var800b0a54 = 0x3fd1b3f2;
-u32 var800b0a58 = 0x3fe803cd;
-u32 var800b0a5c = 0x3ff746ed;
-u32 var800b0a60 = 0x3fff069a;
-u32 var800b0a64 = 0x80402010;
-u32 var800b0a68 = 0x08040201;
-u32 var800b0a6c = 0x00000000;
-u32 var800b0a70 = 0x00000000;
-u32 var800b0a74 = 0x00000000;
-u32 var800b0a78 = 0x00000000;
-u32 var800b0a7c = 0x00000000;
-u32 var800b0a80 = 0x00000000;
-u32 var800b0a84 = 0x00000000;
-u32 var800b0a88 = 0x00000000;
-u32 var800b0a8c = 0x00000000;
-u32 var800b0a90 = 0x00000000;
-u32 var800b0a94 = 0x00000000;
-u32 var800b0a98 = 0x00000001;
-u32 var800b0a9c = 0x00000001;
-u32 var800b0aa0 = 0x00000001;
-u32 var800b0aa4 = 0x00000001;
-u32 var800b0aa8 = 0x00000002;
-u32 var800b0aac = 0x00000002;
-u32 var800b0ab0 = 0x00000003;
-u32 var800b0ab4 = 0x00000003;
-u32 var800b0ab8 = 0x00000003;
-u32 var800b0abc = 0x00000002;
-u32 var800b0ac0 = 0x00000000;
-u32 var800b0ac4 = 0x00000006;
-u32 var800b0ac8 = 0x00000005;
-u32 var800b0acc = 0x00000005;
-u32 var800b0ad0 = 0x00000005;
-u32 var800b0ad4 = 0x00000009;
-u32 var800b0ad8 = 0x00000009;
-u32 var800b0adc = 0x00000009;
-u32 var800b0ae0 = 0x00000009;
-u32 var800b0ae4 = 0x00000006;
-u32 var800b0ae8 = 0x00000009;
-u32 var800b0aec = 0x00000009;
-u32 var800b0af0 = 0x00000009;
-u32 var800b0af4 = 0x00000006;
-u32 var800b0af8 = 0x00000005;
-u32 var800b0afc = 0x00000007;
-u32 var800b0b00 = 0x00000003;
-u32 var800b0b04 = 0x00000009;
-u32 var800b0b08 = 0x00000009;
-u32 var800b0b0c = 0x0000000c;
-u32 var800b0b10 = 0x00000006;
-u32 var800b0b14 = 0x00000006;
-u32 var800b0b18 = 0x00000009;
-u32 var800b0b1c = 0x0000000c;
-u32 var800b0b20 = 0x00000006;
-u32 var800b0b24 = 0x0000000b;
-u32 var800b0b28 = 0x0000000a;
-u32 var800b0b2c = 0x00000000;
-u32 var800b0b30 = 0x00000000;
-u32 var800b0b34 = 0x00000012;
-u32 var800b0b38 = 0x00000012;
-u32 var800b0b3c = 0x00000000;
-u32 var800b0b40 = 0x00000000;
-u32 var800b0b44 = 0x0000000f;
-u32 var800b0b48 = 0x00000012;
-u32 var800b0b4c = 0x00000000;
-u32 var800b0b50 = 0x00000000;
-u32 var800b0b54 = 0x00000007;
-u32 var800b0b58 = 0x00000007;
-u32 var800b0b5c = 0x00000007;
-u32 var800b0b60 = 0x00000000;
-u32 var800b0b64 = 0x0000000c;
-u32 var800b0b68 = 0x0000000c;
-u32 var800b0b6c = 0x0000000c;
-u32 var800b0b70 = 0x00000000;
-u32 var800b0b74 = 0x00000006;
-u32 var800b0b78 = 0x0000000f;
-u32 var800b0b7c = 0x0000000c;
-u32 var800b0b80 = 0x00000000;
-u32 var800b0b84 = 0x00000006;
-u32 var800b0b88 = 0x00000006;
-u32 var800b0b8c = 0x00000006;
-u32 var800b0b90 = 0x00000003;
-u32 var800b0b94 = 0x0000000c;
-u32 var800b0b98 = 0x00000009;
-u32 var800b0b9c = 0x00000009;
-u32 var800b0ba0 = 0x00000006;
-u32 var800b0ba4 = 0x00000006;
-u32 var800b0ba8 = 0x0000000c;
-u32 var800b0bac = 0x00000009;
-u32 var800b0bb0 = 0x00000006;
-u32 var800b0bb4 = 0x00000008;
-u32 var800b0bb8 = 0x00000008;
-u32 var800b0bbc = 0x00000005;
-u32 var800b0bc0 = 0x00000000;
-u32 var800b0bc4 = 0x0000000f;
-u32 var800b0bc8 = 0x0000000c;
-u32 var800b0bcc = 0x00000009;
-u32 var800b0bd0 = 0x00000000;
-u32 var800b0bd4 = 0x00000006;
-u32 var800b0bd8 = 0x00000012;
-u32 var800b0bdc = 0x00000009;
-u32 var800b0be0 = 0x00000000;
-u32 var800b0be4 = 0x3db2b8c2;
-u32 var800b0be8 = 0x3db2b8c2;
-u32 var800b0bec = 0x3e860a92;
-u32 var800b0bf0 = 0x3e860a92;
-u32 var800b0bf4 = 0x3db2b8c2;
-u32 var800b0bf8 = 0x3faaaaab;
-u32 var800b0bfc = 0x00000000;
-u32 var800b0c00 = 0x46d10600;
-u32 var800b0c04 = 0x00000000;
-u32 var800b0c08 = 0x00000000;
-u32 var800b0c0c = 0x00000000;
-u32 var800b0c10 = 0x46d10600;
-u32 var800b0c14 = 0x45f15800;
-u32 var800b0c18 = 0x45f15800;
-u32 var800b0c1c = 0x00000000;
-u32 var800b0c20 = 0x3ff08fb2;
-u32 var800b0c24 = 0x3fc41b7d;
-u32 var800b0c28 = 0x3eb1d0d4;
-u32 var800b0c2c = 0xbeb1d0d4;
-u32 var800b0c30 = 0xbff08fb2;
-u32 var800b0c34 = 0x3fc41b7d;
-u32 var800b0c38 = 0xbfc41b7d;
-u32 var800b0c3c = 0x3eb1d0d4;
-u32 var800b0c40 = 0xbff08fb2;
-u32 var800b0c44 = 0x3fddb3d7;
-u32 var800b0c48 = 0x3ffc1c5c;
-u32 var800b0c4c = 0x3fa48dbb;
-u32 var800b0c50 = 0x3f2f1d44;
-u32 var800b0c54 = 0x3fa48dbb;
-u32 var800b0c58 = 0xbf2f1d44;
-u32 var800b0c5c = 0x3ffc1c5c;
-u32 var800b0c60 = 0x3f2f1d44;
-u32 var800b0c64 = 0x3ffc1c5c;
-u32 var800b0c68 = 0xbfa48dbb;
-u32 var800b0c6c = 0x3fddb3d7;
-u32 var800b0c70 = 0x3ff08fb2;
-u32 var800b0c74 = 0x3fc41b7d;
-u32 var800b0c78 = 0x3eb1d0d4;
-u32 var800b0c7c = 0xbeb1d0d4;
-u32 var800b0c80 = 0xbff08fb2;
-u32 var800b0c84 = 0x3fc41b7d;
-u32 var800b0c88 = 0xbfc41b7d;
-u32 var800b0c8c = 0x3eb1d0d4;
-u32 var800b0c90 = 0xbff08fb2;
-u32 var800b0c94 = 0x3fddb3d7;
-u32 var800b0c98 = 0x3ffc1c5c;
-u32 var800b0c9c = 0x3fa48dbb;
-u32 var800b0ca0 = 0x3f2f1d44;
-u32 var800b0ca4 = 0x3fa48dbb;
-u32 var800b0ca8 = 0xbf2f1d44;
-u32 var800b0cac = 0x3ffc1c5c;
-u32 var800b0cb0 = 0x3f2f1d44;
-u32 var800b0cb4 = 0x3ffc1c5c;
-u32 var800b0cb8 = 0xbfa48dbb;
-u32 var800b0cbc = 0x3fddb3d7;
-u32 var800b0cc0 = 0x3f007d2b;
-u32 var800b0cc4 = 0xbe801f38;
-u32 var800b0cc8 = 0xc0b76799;
-u32 var800b0ccc = 0x3f0483ee;
-u32 var800b0cd0 = 0xbe811ac1;
-u32 var800b0cd4 = 0xbff5295a;
-u32 var800b0cd8 = 0x3f0d3b7d;
-u32 var800b0cdc = 0xbe831b97;
-u32 var800b0ce0 = 0xbf93d8e5;
-u32 var800b0ce4 = 0x3f1c4257;
-u32 var800b0ce8 = 0xbe863634;
-u32 var800b0cec = 0xbf54d526;
-u32 var800b0cf0 = 0x3f5f2944;
-u32 var800b0cf4 = 0xbe904e0d;
-u32 var800b0cf8 = 0xbf0a9a83;
-u32 var800b0cfc = 0x3f976fd9;
-u32 var800b0d00 = 0xbe97c4a9;
-u32 var800b0d04 = 0xbeee3a75;
-u32 var800b0d08 = 0x3ff746ea;
-u32 var800b0d0c = 0xbea15729;
-u32 var800b0d10 = 0xbed24353;
-u32 var800b0d14 = 0x40b79454;
-u32 var800b0d18 = 0xbead9c9b;
-u32 var800b0d1c = 0xbebd76c6;
-u32 var800b0d20 = 0x3f3504f3;
-u32 var800b0d24 = 0xbf0a8bd4;
-u32 var800b0d28 = 0xbfa73d75;
-u32 var800b0d2c = 0x3f5db3d7;
-u32 var800b0d30 = 0x3f5db3d7;
-u32 var800b0d34 = 0x3ff746ea;
-u32 var800b0d38 = 0x3f3504f3;
-u32 var800b0d3c = 0x3f0483ee;
-u32 var800b0d40 = 0x3f011ac1;
-u32 var800b0d44 = 0x3f0a8bd4;
-u32 var800b0d48 = 0x3f215729;
-u32 var800b0d4c = 0x3f524353;
-u32 var800b0d50 = 0x3fa73d75;
-u32 var800b0d54 = 0x4075295a;
-u32 var800b0d58 = 0xbf4b1934;
-u32 var800b0d5c = 0xbf1bd7ca;
-u32 var800b0d60 = 0xbf6c835e;
-u32 var800b0d64 = 0xbec3ef15;
-u32 var800b0d68 = 0xbf7dcf55;
-u32 var800b0d6c = 0xbe05a8a8;
-u32 var800b0d70 = 0x3ec3ef15;
-u32 var800b0d74 = 0x3f1bd7ca;
-u32 var800b0d78 = 0xbf4b1934;
-u32 var800b0d7c = 0xbf6c835e;
-u32 var800b0d80 = 0xbf7dcf55;
-u32 var800b0d84 = 0x3e05a8a8;
-u32 var800b0d88 = 0x00000000;
-u32 var800b0d8c = 0x00000000;
-u32 var800b0d90 = 0x3fffffd6;
-u32 var800b0d94 = 0x0e94ee39;
-u32 var800b0d98 = 0x3ffffeb0;
-u32 var800b0d9c = 0x00000000;
-u32 var800b0da0 = 0x3f317218;
-u32 var800b0da4 = 0x7f7fffff;
-u32 var800b0da8 = 0x3f317218;
-u32 var800b0dac = 0x00000000;
-u32 var800b0db0 = 0x3f317218;
-u32 var800b0db4 = 0x3f317218;
-u32 var800b0db8 = 0x00000000;
-u32 var800b0dbc = 0x00000000;
-u32 var800b0dc0 = 0x05550556;
-u32 var800b0dc4 = 0x0559055a;
-u32 var800b0dc8 = 0x05650566;
-u32 var800b0dcc = 0x0569056a;
-u32 var800b0dd0 = 0x05950596;
-u32 var800b0dd4 = 0x0599059a;
-u32 var800b0dd8 = 0x05a505a6;
-u32 var800b0ddc = 0x05a905aa;
-u32 var800b0de0 = 0x06550656;
-u32 var800b0de4 = 0x0659065a;
-u32 var800b0de8 = 0x06650666;
-u32 var800b0dec = 0x0669066a;
-u32 var800b0df0 = 0x06950696;
-u32 var800b0df4 = 0x0699069a;
-u32 var800b0df8 = 0x06a506a6;
-u32 var800b0dfc = 0x06a906aa;
-u32 var800b0e00 = 0x09550956;
-u32 var800b0e04 = 0x0959095a;
-u32 var800b0e08 = 0x09650966;
-u32 var800b0e0c = 0x0969096a;
-u32 var800b0e10 = 0x09950996;
-u32 var800b0e14 = 0x0999099a;
-u32 var800b0e18 = 0x09a509a6;
-u32 var800b0e1c = 0x09a909aa;
-u32 var800b0e20 = 0x0a550a56;
-u32 var800b0e24 = 0x0a590a5a;
-u32 var800b0e28 = 0x0a650a66;
-u32 var800b0e2c = 0x0a690a6a;
-u32 var800b0e30 = 0x0a950a96;
-u32 var800b0e34 = 0x0a990a9a;
-u32 var800b0e38 = 0x0aa50aa6;
-u32 var800b0e3c = 0x0aa90aaa;
-u32 var800b0e40 = 0x7004a17c;
-u32 var800b0e44 = 0x7004a094;
-u32 var800b0e48 = 0x7004a0c8;
-u32 var800b0e4c = 0x7004a198;
-u32 var800b0e50 = 0x7004a198;
-u32 var800b0e54 = 0x7004a0fc;
-u32 var800b0e58 = 0x7004a13c;
-u32 var800b0e5c = 0x00000000;
-u32 var800b0e60 = 0x686c4c00;
-u32 var800b0e64 = 0x202b2d23;
-u32 var800b0e68 = 0x30000000;
-u32 var800b0e6c = 0x00000001;
-u32 var800b0e70 = 0x00000002;
-u32 var800b0e74 = 0x00000004;
-u32 var800b0e78 = 0x00000008;
-u32 var800b0e7c = 0x00000010;
-u32 var800b0e80 = 0x00000000;
-u32 var800b0e84 = 0x7004e9f8;
-u32 var800b0e88 = 0x7004ecd8;
-u32 var800b0e8c = 0x7004e9f8;
-u32 var800b0e90 = 0x7004ecd8;
-u32 var800b0e94 = 0x7004ecd8;
-u32 var800b0e98 = 0x7004ecd8;
-u32 var800b0e9c = 0x7004ecd8;
-u32 var800b0ea0 = 0x7004ecd8;
-u32 var800b0ea4 = 0x7004ecd8;
-u32 var800b0ea8 = 0x7004ecd8;
-u32 var800b0eac = 0x7004ecd8;
-u32 var800b0eb0 = 0x7004ecd8;
-u32 var800b0eb4 = 0x7004ecd8;
-u32 var800b0eb8 = 0x7004ecd8;
-u32 var800b0ebc = 0x7004ecd8;
-u32 var800b0ec0 = 0x7004ecd8;
-u32 var800b0ec4 = 0x7004ecd8;
-u32 var800b0ec8 = 0x7004ecd8;
-u32 var800b0ecc = 0x7004ecd8;
-u32 var800b0ed0 = 0x7004e8a8;
-u32 var800b0ed4 = 0x7004ecd8;
-u32 var800b0ed8 = 0x7004ecd8;
-u32 var800b0edc = 0x7004ecd8;
-u32 var800b0ee0 = 0x7004ecd8;
-u32 var800b0ee4 = 0x7004ecd8;
-u32 var800b0ee8 = 0x7004ecd8;
-u32 var800b0eec = 0x7004ecd8;
-u32 var800b0ef0 = 0x7004ecd8;
-u32 var800b0ef4 = 0x7004ecd8;
-u32 var800b0ef8 = 0x7004ecd8;
-u32 var800b0efc = 0x7004e700;
-u32 var800b0f00 = 0x7004e738;
-u32 var800b0f04 = 0x7004e9f8;
-u32 var800b0f08 = 0x7004e9f8;
-u32 var800b0f0c = 0x7004e9f8;
-u32 var800b0f10 = 0x7004ecd8;
-u32 var800b0f14 = 0x7004e738;
-u32 var800b0f18 = 0x7004ecd8;
-u32 var800b0f1c = 0x7004ecd8;
-u32 var800b0f20 = 0x7004ecd8;
-u32 var800b0f24 = 0x7004ecd8;
-u32 var800b0f28 = 0x7004eb5c;
-u32 var800b0f2c = 0x7004e8a8;
-u32 var800b0f30 = 0x7004ec2c;
-u32 var800b0f34 = 0x7004ecd8;
-u32 var800b0f38 = 0x7004ecd8;
-u32 var800b0f3c = 0x7004ec74;
-u32 var800b0f40 = 0x7004ecd8;
-u32 var800b0f44 = 0x7004e8a8;
-u32 var800b0f48 = 0x7004ecd8;
-u32 var800b0f4c = 0x7004ecd8;
-u32 var800b0f50 = 0x7004e8a8;
-u32 var800b0f54 = 0x00000000;
-u32 var800b0f58 = 0x00000000;
-u32 var800b0f5c = 0x00000000;
-u32 var800b0f60 = 0x3c8efa35;
-u32 var800b0f64 = 0x00000000;
-u32 var800b0f68 = 0x00000000;
-u32 var800b0f6c = 0x00000000;
+char var000526e0[] = "ASSERTION : %s, %d: (\"%s\")\n";
+char var000526fc[] = "";
+char var00052700[] = "BD";
+char var00052704[] = "IP8";
+char var00052708[] = "IP7";
+char var0005270c[] = "IP6";
+char var00052710[] = "IP5";
+char var00052714[] = "IP4";
+char var00052718[] = "IP3";
+char var0005271c[] = "IP2";
+char var00052720[] = "IP1";
+char var00052724[] = "Int";
+char var00052728[] = "TLBmod";
+char var00052730[] = "TLBload";
+char var00052738[] = "TLBstore";
+char var00052744[] = "Address error on load or instruction fetch";
+char var00052770[] = "Address error on store";
+char var00052788[] = "Bus error exception on instruction fetch";
+char var000527b4[] = "Bus error exception on data reference";
+char var000527dc[] = "Syscall";
+char var000527e4[] = "Brk";
+char var000527e8[] = "Reserved instruction";
+char var00052800[] = "Cop unusable";
+char var00052810[] = "Overflow";
+char var0005281c[] = "Trap";
+char var00052824[] = "Virtual coherency exception on intruction fetch";
+char var00052854[] = "Fp exception";
+char var00052864[] = "Watchpoint";
+char var00052870[] = "Virtual coherency exception on data reference";
+char var000528a0[] = "";
+char var000528a4[] = "CU3";
+char var000528a8[] = "CU2";
+char var000528ac[] = "CU1";
+char var000528b0[] = "CU0";
+char var000528b4[] = "RP";
+char var000528b8[] = "FR";
+char var000528bc[] = "RE";
+char var000528c0[] = "BEV";
+char var000528c4[] = "TS";
+char var000528c8[] = "SR";
+char var000528cc[] = "CH";
+char var000528d0[] = "CE";
+char var000528d4[] = "DE";
+char var000528d8[] = "IM8";
+char var000528dc[] = "IM7";
+char var000528e0[] = "IM6";
+char var000528e4[] = "IM5";
+char var000528e8[] = "IM4";
+char var000528ec[] = "IM3";
+char var000528f0[] = "IM2";
+char var000528f4[] = "IM1";
+char var000528f8[] = "KX";
+char var000528fc[] = "SX";
+char var00052900[] = "UX";
+char var00052904[] = "USR";
+char var00052908[] = "SUP";
+char var0005290c[] = "KER";
+char var00052910[] = "ERL";
+char var00052914[] = "EXL";
+char var00052918[] = "IE";
+char var0005291c[] = "";
+char var00052920[] = "FS";
+char var00052924[] = "C";
+char var00052928[] = "Unimplemented";
+char var00052938[] = "Invalid op";
+char var00052944[] = "/ by 0.0";
+char var00052950[] = "Overflow";
+char var0005295c[] = "Underflow";
+char var00052968[] = "Inexact op";
+char var00052974[] = "EV";
+char var00052978[] = "EZ";
+char var0005297c[] = "EO";
+char var00052980[] = "EU";
+char var00052984[] = "EI";
+char var00052988[] = "FV";
+char var0005298c[] = "FZ";
+char var00052990[] = "FO";
+char var00052994[] = "FU";
+char var00052998[] = "FI";
+char var0005299c[] = "RN";
+char var000529a0[] = "RZ";
+char var000529a4[] = "RP";
+char var000529a8[] = "RM";
+char var000529ac[] = "";
+char var000529b0[] = "Bad tid\n";
+char var000529bc[] = "Bad tid\n";
+char var000529c8[] = "%s%s%02d: % .7e ";
+char var000529dc[] = "";
+char var000529e0[] = "";
+char var000529e4[] = "%02d: I%d.%03d.%07d ";
+char var000529fc[] = " ";
+char var00052a00[] = "\n";
+char var00052a04[] = " ";
+char var00052a08[] = " ";
+char var00052a0c[] = "\n";
+char var00052a10[] = "\n\nFAULT-\n";
+char var00052a1c[] = "DodgyStackTrace: %08llx ";
+char var00052a38[] = "%08x ";
+char var00052a40[] = ".\n";
+char var00052a44[] = "%H#@! Another Perfect Crash (tm)\n";
+char var00052a68[] = "at 0x%016llx v0 0x%016llx v1 0x%016llx\n";
+char var00052a90[] = "a0 0x%016llx a1 0x%016llx a2 0x%016llx\n";
+char var00052ab8[] = "a3 0x%016llx t0 0x%016llx t1 0x%016llx\n";
+char var00052ae0[] = "t2 0x%016llx t3 0x%016llx t4 0x%016llx\n";
+char var00052b08[] = "t5 0x%016llx t6 0x%016llx t7 0x%016llx\n";
+char var00052b30[] = "s0 0x%016llx s1 0x%016llx s2 0x%016llx\n";
+char var00052b58[] = "s3 0x%016llx s4 0x%016llx s5 0x%016llx\n";
+char var00052b80[] = "s6 0x%016llx s7 0x%016llx t8 0x%016llx\n";
+char var00052ba8[] = "t9 0x%016llx gp 0x%016llx sp 0x%016llx\n";
+char var00052bd0[] = "s8 0x%016llx ra 0x%016llx\n";
+char var00052bec[] = "TID %d epc %08x caus %08x fp %08x badv %08x sr %08x\n";
+char var00052c24[] = "dshex -a %08x %08x %08x %08x %08x\n";
+char var00052c48[] = "cause";
+char var00052c50[] = " : ";
+char var00052c54[] = "fpcsr";
+char var00052c5c[] = "\n";
+char var00052c60[] = "nearl: ";
+char var00052c68[] = " %08x ";
+char var00052c70[] = "\n       ";
+char var00052c7c[] = "\n";
+char var00052c80[] = "\n";
+char var00052c84[] = "%s <";
+char var00052c8c[] = ",";
+char var00052c90[] = "%s";
+char var00052c94[] = ">";
+char var00052c98[] = "";
+char var00052c9c[] = "";
+char var00052ca0[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var00052cc4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052cf4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052d24[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052d54[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052d84[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052db4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma600";
+char var00052de4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500";
+char var00052e14[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500";
+char var00052e44[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma500";
+char var00052e74[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052ea4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052ed4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052f04[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052f34[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052f64[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052f94[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052fc4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";
+char var00052ff4[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053018[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var0005303c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053060[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053084[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000530a8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000530cc[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000530f0[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053114[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053138[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var0005315c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053180[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000531a4[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000531c8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000531ec[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053210[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053234[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053258[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var0005327c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000532a0[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000532c4[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000532e8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var0005330c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053330[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053354[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053378[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var0005339c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000533c0[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var000533e4[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var00053408[] = "-ml0 -me0 -mgfx120 -mvtx100 -ma700";
+char var0005342c[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var00053450[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var00053474[] = "-ml0 -me0 -mgfx120 -mvtx100 -ma500";
+char var00053498[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var000534bc[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var000534e0[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var00053504[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var00053528[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var0005354c[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var00053570[] = "-ml0 -me0 -mgfx120 -mvtx100 -ma700";
+char var00053594[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
+char var000535b8[] = "-ml0 -me0 -mgfx200 -mvtx200 -ma400";
+char var000535dc[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma300";
+char var00053600[] = "-ml0 -me0 -mgfx80 -mvtx20 -ma001";
+char var00053624[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma300";
+char var00053648[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var0005366c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var00053690[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var000536b4[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var000536d8[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var000536fc[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var00053720[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var00053744[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var00053768[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var0005378c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var000537b0[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var000537d4[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var000537f8[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var0005381c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var00053840[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var00053864[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma130";
+char var00053888[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma140";
+char var000538ac[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
+char var000538d0[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
+char var000538f4[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
+char var00053918[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
+char var0005393c[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
+char var00053960[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
+char var00053984[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
+char var000539a8[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
+char var000539cc[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
+char var000539f0[] = "-ml0 -me0 -mgfx96 -mvtx96 -ma115";
+char var00053a14[] = "-ml0 -me0 -mgfx100 -mvtx96 -ma120";
+char var00053a38[] = "-mgfx100 -mvtx50 -ma50";
+char var00053a50[] = "-ml0 -me0 -mgfx80 -mvtx20 -ma001";
+char var00053a74[] = "-ml0 -me0 -mgfx100 -mvtx96 -ma300";
+char var00053a98[] = "-level_";
+char var00053aa0[] = "          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400";
+char var00053ad4[] = "-hard";
+char var00053adc[] = "-hard";
+char var00053ae4[] = "-ma";
+char var00053ae8[] = "-ma";
+char var00053aec[] = "-play";
+char var00053af4[] = "-play";
+char var00053afc[] = "-coop";
+char var00053b04[] = "-anti";
+char var00053b0c[] = "-mpbots";
+char var00053b14[] = "-play";
+char var00053b1c[] = "";
+char var00053b20[] = "RUSSES SOUND GUARD STRING";
+char var00053b3c[] = "Snd: SoundHeaderCacheInit\n";
+char var00053b58[] = "-nomp3";
+char var00053b60[] = "RWI : Initialising the new and improved MP3 player\n";
+char var00053b94[] = "RWI : MP3 player Initialising Done\n";
+char var00053bb8[] = "gsSndpNew\n";
+char var00053bc4[] = "Set the sample callbacks\n";
+char var00053be0[] = "Snd_Play_Universal : Overriding -> Link = %d\n";
+char var00053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
+char var00053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
+char var00053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
+u32 var00053c84 = 0x3ee147ae;
+u32 var00053c88 = 0x3f266666;
+u32 var00053c8c = 0x3e99999a;
+u32 var00053c90 = 0x3f333333;
+u32 var00053c94 = 0x3eb33333;
+u32 var00053c98 = 0x3f4ccccd;
+u32 var00053c9c = 0x00000000;
+u32 var00053ca0 = 0x00000000;
+u32 var00053ca4 = 0x00050000;
+char var00053ca8[] = "OFF";
+char var00053cac[] = "LEVELTUNE";
+char var00053cb8[] = "NRGTUNE";
+char var00053cc0[] = "WATCHTUNE";
+char var00053ccc[] = "MPDEATHTUNE";
+char var00053cd8[] = "AMBIENCE";
+char var00053ce4[] = " after %d %s\n";
+char var00053cf4[] = "Attempts";
+char var00053d00[] = "Attempt";
+char var00053d08[] = "MUSIC(Play) : Unpaused midi channel %d for state %d\n";
+char var00053d40[] = "MUSIC(Play) : Starting, Guid=%u, Midi=%d, Tune=%d\n";
+char var00053d74[] = "MUSIC(Play) : Done\n";
+char var00053d88[] = "MUSIC(Play) : About to dump the fading channel %d as a same state play request is waiting\n";
+char var00053de4[] = "MUSIC(Play) : About to dump the ambience channel %d\n";
+char var00053e1c[] = "MUSIC(Play) : Reason : A play request is waiting - State = %d\n";
+char var00053e5c[] = "MUSIC(Play) : SERIOUS -> Out of MIDI channels - Attempt = %d\n";
+char var00053e9c[] = "MUSIC(Play) : SERIOUS -> Tried %d times to play tune : Giving up\n";
+char var00053ee0[] = "MUSIC : Fading to pause\n";
+char var00053efc[] = "Music : Update Rate = %d";
+char var00053f18[] = "MUSIC TICK : Queue size = %d\n";
+char var00053f38[] = "MUSIC : Tick -> Channel %d (State=%d) has faded to stop : Dumping\n";
+char var00053f7c[] = "MUSIC : WARNING -> Force fade termination\n";
+char var00053fa8[] = "MUSIC TICK : Job Guid = %u\n";
+u32 var00053fc4 = 0x70011470;
+u32 var00053fc8 = 0x70011470;
+u32 var00053fcc = 0x70011470;
+u32 var00053fd0 = 0x70011470;
+u32 var00053fd4 = 0x70011470;
+u32 var00053fd8 = 0x70011470;
+u32 var00053fdc = 0x70011c30;
+u32 var00053fe0 = 0x70011c44;
+u32 var00053fe4 = 0x70011c58;
+u32 var00053fe8 = 0x70011c6c;
+u32 var00053fec = 0x70011c7c;
+u32 var00053ff0 = 0x00000000;
+char var00053ff4[] = "-d";
+char var00053ff8[] = "-s";
+char var00053ffc[] = "-j";
+char var00054000[] = "-level_";
+char var00054008[] = "";
+char var0005400c[] = "";
+char var00054010[] = "s1";
+char var00054014[] = "str.c";
+char var0005401c[] = "s2";
+char var00054020[] = "str.c";
+char var00054028[] = "";
+char var0005402c[] = "";
+char var00054030[] = "0123456789abcdefghijklmnopqrstuvwxyz";
+char var00054058[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+char var00054080[] = "joyReset\n";
+char var0005408c[] = "joyReset: doing nothing\n";
+char var000540a8[] = "debugjoy";
+char var000540b4[] = "JOY : g_EnableCyclicPolling=%d";
+char var000540d4[] = "JOY : g_JoyReCheckInterval=%d";
+char var000540f4[] = "JOY : g_JoyReCheckEventIn=%d";
+char var00054114[] = "JOY : g_JoyRecheckDone=%d";
+char var00054130[] = "osContStartReadData -> Failed - CONT_NO_RESPONSE_ERROR\n";
+char var00054168[] = "osContStartReadData -> Failed - CONT_OVERRUN_ERROR\n";
+char var0005419c[] = "joyTickRetrace:joy%derrno%d->%d\n";
+char var000541c0[] = "joyTickRetrace:joy%derrno%d->%d\n";
+u32 var000541e4 = 0x700156a4;
+u32 var000541e8 = 0x700156d8;
+u32 var000541ec = 0x700157a8;
+u32 var000541f0 = 0x700157d8;
+u32 var000541f4 = 0x7001581c;
+u32 var000541f8 = 0x7001580c;
+u32 var000541fc = 0x00000000;
+u32 var00054200 = 0x42652ee0;
+u32 var00054204 = 0x00000000;
+u32 var00054208 = 0x00000000;
+u32 var0005420c = 0x00000000;
+u32 var00054210 = 0xbf7ffcb9;
+u32 var00054214 = 0x3f7ffcb9;
+u32 var00054218 = 0x40490fdb;
+u32 var0005421c = 0x40c90fdb;
+u32 var00054220 = 0x3fc90fda;
+u32 var00054224 = 0xbf7ffcb9;
+u32 var00054228 = 0x3f7ffcb9;
+u32 var0005422c = 0x38c90fdb;
+u32 var00054230 = 0x3fc90fda;
+u32 var00054234 = 0x38490fdb;
+u32 var00054238 = 0x3fc90fdb;
+u32 var0005423c = 0x46fffe00;
+u32 var00054240 = 0x384910a4;
+u32 var00054244 = 0x3fc90fda;
+u32 var00054248 = 0x362edef8;
+u32 var0005424c = 0xb94fb7ff;
+u32 var00054250 = 0x3c08876a;
+u32 var00054254 = 0xbe2aaaa6;
+u32 var00054258 = 0x3ea2f983;
+u32 var0005425c = 0x40490fdb;
+u32 var00054260 = 0x330885a3;
+u32 var00054264 = 0x362edef8;
+u32 var00054268 = 0xb94fb7ff;
+u32 var0005426c = 0x3c08876a;
+u32 var00054270 = 0xbe2aaaa6;
+u32 var00054274 = 0x00000000;
+u32 var00054278 = 0x00000000;
+u32 var0005427c = 0x00000000;
+u32 var00054280 = 0x7001aa58;
+u32 var00054284 = 0x7001aab4;
+u32 var00054288 = 0x7001aab4;
+u32 var0005428c = 0x7001aab4;
+u32 var00054290 = 0x7001aab4;
+u32 var00054294 = 0x7001aab4;
+u32 var00054298 = 0x7001aab4;
+u32 var0005429c = 0x7001aa70;
+u32 var000542a0 = 0x7001aa88;
+u32 var000542a4 = 0x7001aab4;
+u32 var000542a8 = 0x7001aa94;
+u32 var000542ac = 0x7001aaa0;
+u32 var000542b0 = 0x7001aab4;
+u32 var000542b4 = 0x7001aab4;
+u32 var000542b8 = 0x7001aab4;
+u32 var000542bc = 0x7001aab4;
+u32 var000542c0 = 0x7001aab4;
+u32 var000542c4 = 0x7001aa7c;
+u32 var000542c8 = 0x7001aab4;
+u32 var000542cc = 0x7001aab4;
+u32 var000542d0 = 0x7001aab4;
+u32 var000542d4 = 0x7001aab4;
+u32 var000542d8 = 0x7001aaac;
+u32 var000542dc = 0x7001aa64;
+u32 var000542e0 = 0x40c907a9;
+u32 var000542e4 = 0x40c907a9;
+u32 var000542e8 = 0x40c907a9;
+u32 var000542ec = 0x40c907a9;
+u32 var000542f0 = 0x40490fdb;
+u32 var000542f4 = 0x40490fdb;
+u32 var000542f8 = 0x40c907a9;
+u32 var000542fc = 0x40c907a9;
+u32 var00054300 = 0x40490fdb;
+u32 var00054304 = 0x40c907a9;
+u32 var00054308 = 0x3f63dec6;
+u32 var0005430c = 0x40490fdb;
+u32 var00054310 = 0x40c907a9;
+u32 var00054314 = 0x40c907a9;
+u32 var00054318 = 0x40490fdb;
+u32 var0005431c = 0x40c907a9;
+u32 var00054320 = 0x3f63dec6;
+u32 var00054324 = 0x7001cb68;
+u32 var00054328 = 0x7001cb68;
+u32 var0005432c = 0x7001cba4;
+u32 var00054330 = 0x7001cba4;
+u32 var00054334 = 0x7001cba4;
+u32 var00054338 = 0x7001cba4;
+u32 var0005433c = 0x7001cba4;
+u32 var00054340 = 0x7001cb70;
+u32 var00054344 = 0x7001cb84;
+u32 var00054348 = 0x7001cba4;
+u32 var0005434c = 0x7001cb68;
+u32 var00054350 = 0x7001cb68;
+u32 var00054354 = 0x7001cb68;
+u32 var00054358 = 0x7001cb68;
+u32 var0005435c = 0x7001cb68;
+u32 var00054360 = 0x7001cba4;
+u32 var00054364 = 0x7001cba4;
+u32 var00054368 = 0x7001cba4;
+u32 var0005436c = 0x7001cba4;
+u32 var00054370 = 0x7001cba4;
+u32 var00054374 = 0x7001cb68;
+u32 var00054378 = 0x7001cba4;
+u32 var0005437c = 0x7001cb98;
+u32 var00054380 = 0x7001cba4;
+u32 var00054384 = 0x7001ccc0;
+u32 var00054388 = 0x7001ccc0;
+u32 var0005438c = 0x7001ccc0;
+u32 var00054390 = 0x7001ccc0;
+u32 var00054394 = 0x7001ccc0;
+u32 var00054398 = 0x7001ccc0;
+u32 var0005439c = 0x7001ccc0;
+u32 var000543a0 = 0x7001cc70;
+u32 var000543a4 = 0x7001cc84;
+u32 var000543a8 = 0x7001ccc0;
+u32 var000543ac = 0x7001ccc0;
+u32 var000543b0 = 0x7001ccc0;
+u32 var000543b4 = 0x7001ccc0;
+u32 var000543b8 = 0x7001ccc0;
+u32 var000543bc = 0x7001ccc0;
+u32 var000543c0 = 0x7001ccc0;
+u32 var000543c4 = 0x7001ccc0;
+u32 var000543c8 = 0x7001cc98;
+u32 var000543cc = 0x7001ccc0;
+u32 var000543d0 = 0x7001ccc0;
+u32 var000543d4 = 0x7001ccc0;
+u32 var000543d8 = 0x7001ccc0;
+u32 var000543dc = 0x7001ccac;
+u32 var000543e0 = 0x7001ccc0;
+u32 var000543e4 = 0x7001cd70;
+u32 var000543e8 = 0x7001cd88;
+u32 var000543ec = 0x7001ce08;
+u32 var000543f0 = 0x7001ce08;
+u32 var000543f4 = 0x7001ce08;
+u32 var000543f8 = 0x7001ce08;
+u32 var000543fc = 0x7001ce08;
+u32 var00054400 = 0x7001cdb8;
+u32 var00054404 = 0x7001cdcc;
+u32 var00054408 = 0x7001ce08;
+u32 var0005440c = 0x7001ce08;
+u32 var00054410 = 0x7001ce08;
+u32 var00054414 = 0x7001ce08;
+u32 var00054418 = 0x7001ce08;
+u32 var0005441c = 0x7001ce08;
+u32 var00054420 = 0x7001ce08;
+u32 var00054424 = 0x7001ce08;
+u32 var00054428 = 0x7001cde0;
+u32 var0005442c = 0x7001ce08;
+u32 var00054430 = 0x7001ce08;
+u32 var00054434 = 0x7001cda0;
+u32 var00054438 = 0x7001ce08;
+u32 var0005443c = 0x7001cdf4;
+u32 var00054440 = 0x7001ce08;
+u32 var00054444 = 0x40c907a9;
+u32 var00054448 = 0x40c907a9;
+u32 var0005444c = 0x40c907a9;
+u32 var00054450 = 0x40c907a9;
+u32 var00054454 = 0x40c907a9;
+u32 var00054458 = 0x7002209c;
+u32 var0005445c = 0x7002209c;
+u32 var00054460 = 0x7002209c;
+u32 var00054464 = 0x70022058;
+u32 var00054468 = 0x7002209c;
+u32 var0005446c = 0x7002209c;
+u32 var00054470 = 0x7002209c;
+u32 var00054474 = 0x70021f78;
+u32 var00054478 = 0x7002202c;
+u32 var0005447c = 0x7002209c;
+u32 var00054480 = 0x7002209c;
+u32 var00054484 = 0x70022040;
+u32 var00054488 = 0x7002209c;
+u32 var0005448c = 0x7002209c;
+u32 var00054490 = 0x7002209c;
+u32 var00054494 = 0x7002209c;
+u32 var00054498 = 0x7002209c;
+u32 var0005449c = 0x70021f78;
+u32 var000544a0 = 0x7002209c;
+u32 var000544a4 = 0x7002209c;
+u32 var000544a8 = 0x7002209c;
+u32 var000544ac = 0x70022088;
+u32 var000544b0 = 0x70021ff0;
+u32 var000544b4 = 0x70022070;
+u32 var000544b8 = 0x7002277c;
+u32 var000544bc = 0x7002277c;
+u32 var000544c0 = 0x7002277c;
+u32 var000544c4 = 0x7002277c;
+u32 var000544c8 = 0x7002277c;
+u32 var000544cc = 0x7002277c;
+u32 var000544d0 = 0x7002277c;
+u32 var000544d4 = 0x700226e8;
+u32 var000544d8 = 0x7002277c;
+u32 var000544dc = 0x700226a0;
+u32 var000544e0 = 0x7002277c;
+u32 var000544e4 = 0x7002277c;
+u32 var000544e8 = 0x7002277c;
+u32 var000544ec = 0x7002277c;
+u32 var000544f0 = 0x7002277c;
+u32 var000544f4 = 0x7002277c;
+u32 var000544f8 = 0x7002277c;
+u32 var000544fc = 0x70022718;
+u32 var00054500 = 0x7002277c;
+u32 var00054504 = 0x7002277c;
+u32 var00054508 = 0x7002277c;
+u32 var0005450c = 0x7002277c;
+u32 var00054510 = 0x70022748;
+u32 var00054514 = 0x7002277c;
+u32 var00054518 = 0x70022840;
+u32 var0005451c = 0x70022848;
+u32 var00054520 = 0x700229d8;
+u32 var00054524 = 0x70022850;
+u32 var00054528 = 0x700229d8;
+u32 var0005452c = 0x700229d8;
+u32 var00054530 = 0x700229d8;
+u32 var00054534 = 0x70022898;
+u32 var00054538 = 0x700228e0;
+u32 var0005453c = 0x700229d8;
+u32 var00054540 = 0x70022934;
+u32 var00054544 = 0x70022958;
+u32 var00054548 = 0x7002297c;
+u32 var0005454c = 0x700229d8;
+u32 var00054550 = 0x700229d8;
+u32 var00054554 = 0x700229d8;
+u32 var00054558 = 0x70022914;
+u32 var0005455c = 0x700228c0;
+u32 var00054560 = 0x700229d8;
+u32 var00054564 = 0x700229d8;
+u32 var00054568 = 0x700229d8;
+u32 var0005456c = 0x700229b4;
+u32 var00054570 = 0x700229d8;
+u32 var00054574 = 0x70022874;
+u32 var00054578 = 0x70022bb8;
+u32 var0005457c = 0x70022cb0;
+u32 var00054580 = 0x70022cb0;
+u32 var00054584 = 0x70022cb0;
+u32 var00054588 = 0x70022cb0;
+u32 var0005458c = 0x70022cb0;
+u32 var00054590 = 0x70022cb0;
+u32 var00054594 = 0x70022bd4;
+u32 var00054598 = 0x70022c34;
+u32 var0005459c = 0x70022cb0;
+u32 var000545a0 = 0x70022c5c;
+u32 var000545a4 = 0x70022c78;
+u32 var000545a8 = 0x70022cb0;
+u32 var000545ac = 0x70022cb0;
+u32 var000545b0 = 0x70022cb0;
+u32 var000545b4 = 0x70022cb0;
+u32 var000545b8 = 0x70022cb0;
+u32 var000545bc = 0x70022bf4;
+u32 var000545c0 = 0x70022cb0;
+u32 var000545c4 = 0x70022cb0;
+u32 var000545c8 = 0x70022cb0;
+u32 var000545cc = 0x70022cb0;
+u32 var000545d0 = 0x70022c14;
+u32 var000545d4 = 0x70022c94;
+u32 var000545d8 = 0x70022db0;
+u32 var000545dc = 0x70022f2c;
+u32 var000545e0 = 0x70022f2c;
+u32 var000545e4 = 0x70022f2c;
+u32 var000545e8 = 0x70022f2c;
+u32 var000545ec = 0x70022f2c;
+u32 var000545f0 = 0x70022f2c;
+u32 var000545f4 = 0x70022e28;
+u32 var000545f8 = 0x70022e88;
+u32 var000545fc = 0x70022f2c;
+u32 var00054600 = 0x70022eac;
+u32 var00054604 = 0x70022ec4;
+u32 var00054608 = 0x70022f2c;
+u32 var0005460c = 0x70022f2c;
+u32 var00054610 = 0x70022f2c;
+u32 var00054614 = 0x70022f2c;
+u32 var00054618 = 0x70022f2c;
+u32 var0005461c = 0x70022e48;
+u32 var00054620 = 0x70022f2c;
+u32 var00054624 = 0x70022f2c;
+u32 var00054628 = 0x70022f2c;
+u32 var0005462c = 0x70022f2c;
+u32 var00054630 = 0x70022e6c;
+u32 var00054634 = 0x70022edc;
+u32 var00054638 = 0x70023200;
+u32 var0005463c = 0x700232a4;
+u32 var00054640 = 0x700232a4;
+u32 var00054644 = 0x700232a4;
+u32 var00054648 = 0x70023278;
+u32 var0005464c = 0x70023298;
+u32 var00054650 = 0x700232a4;
+u32 var00054654 = 0x700232a4;
+u32 var00054658 = 0x700232a4;
+u32 var0005465c = 0x700232a4;
+u32 var00054660 = 0x700232a4;
+u32 var00054664 = 0x700232a4;
+u32 var00054668 = 0x700232a4;
+u32 var0005466c = 0x700232a4;
+u32 var00054670 = 0x70023288;
+u32 var00054674 = 0x700232a4;
+u32 var00054678 = 0x700232a4;
+u32 var0005467c = 0x700232a4;
+u32 var00054680 = 0x70023260;
+u32 var00054684 = 0x700232a4;
+u32 var00054688 = 0x70023230;
+u32 var0005468c = 0x00000000;
+u32 var00054690 = 0x3a83126f;
+u32 var00054694 = 0x3a83126f;
+u32 var00054698 = 0x3a83126f;
+u32 var0005469c = 0x40c907a9;
+u32 var000546a0 = 0x40c907a9;
+u32 var000546a4 = 0x40c907a9;
+u32 var000546a8 = 0x40c907a9;
+u32 var000546ac = 0x3a83126f;
+u32 var000546b0 = 0x3f83f794;
+u32 var000546b4 = 0x40c90fdb;
+u32 var000546b8 = 0x40c90fdb;
+u32 var000546bc = 0x4622f985;
+u32 var000546c0 = 0x49742400;
+u32 var000546c4 = 0x700304d0;
+u32 var000546c8 = 0x700304d0;
+u32 var000546cc = 0x700304d0;
+u32 var000546d0 = 0x700304d0;
+u32 var000546d4 = 0x70030548;
+u32 var000546d8 = 0x70030568;
+u32 var000546dc = 0x70030548;
+u32 var000546e0 = 0x70030568;
+u32 var000546e4 = 0x700305a0;
+u32 var000546e8 = 0x70030548;
+u32 var000546ec = 0x70030548;
+u32 var000546f0 = 0x70030568;
+u32 var000546f4 = 0x48f42400;
+u32 var000546f8 = 0x7003081c;
+u32 var000546fc = 0x7003081c;
+u32 var00054700 = 0x7003081c;
+u32 var00054704 = 0x7003081c;
+u32 var00054708 = 0x7003085c;
+u32 var0005470c = 0x7003085c;
+u32 var00054710 = 0x70030960;
+u32 var00054714 = 0x70030960;
+u32 var00054718 = 0x70030998;
+u32 var0005471c = 0x70030998;
+u32 var00054720 = 0x700309c4;
+u32 var00054724 = 0x700309c4;
+u32 var00054728 = 0x00000000;
+u32 var0005472c = 0x00000000;
+u32 var00054730 = 0x49742400;
+u32 var00054734 = 0x00000000;
+u32 var00054738 = 0x00000000;
+u32 var0005473c = 0x00000000;
+u32 var00054740 = 0x70031ce0;
+u32 var00054744 = 0x700325ac;
+u32 var00054748 = 0x70033010;
+u32 var0005474c = 0x70032730;
+u32 var00054750 = 0x70033010;
+u32 var00054754 = 0x70033010;
+u32 var00054758 = 0x70033010;
+u32 var0005475c = 0x70032a3c;
+u32 var00054760 = 0x70033010;
+u32 var00054764 = 0x70033010;
+u32 var00054768 = 0x70033010;
+u32 var0005476c = 0x70033010;
+u32 var00054770 = 0x70033010;
+u32 var00054774 = 0x70033010;
+u32 var00054778 = 0x70033010;
+u32 var0005477c = 0x700327d4;
+u32 var00054780 = 0x70034500;
+u32 var00054784 = 0x70034d84;
+u32 var00054788 = 0x70034910;
+u32 var0005478c = 0x70034d84;
+u32 var00054790 = 0x70034d84;
+u32 var00054794 = 0x70034538;
+u32 var00054798 = 0x70034590;
+u32 var0005479c = 0x70034928;
+u32 var000547a0 = 0x70034d8c;
+u32 var000547a4 = 0x70034510;
+u32 var000547a8 = 0x70034940;
+u32 var000547ac = 0x70034d8c;
+u32 var000547b0 = 0x70034ce0;
+u32 var000547b4 = 0x70034d20;
+u32 var000547b8 = 0x70034d60;
+u32 var000547bc = 0x70034aa4;
+u32 var000547c0 = 0x70034ad4;
+u32 var000547c4 = 0x70034b5c;
+u32 var000547c8 = 0x70034d8c;
+u32 var000547cc = 0x70034d8c;
+u32 var000547d0 = 0x70034d8c;
+u32 var000547d4 = 0x70034910;
+u32 var000547d8 = 0x70034624;
+u32 var000547dc = 0x70034764;
+u32 var000547e0 = 0x700349b0;
+u32 var000547e4 = 0x70034a10;
+u32 var000547e8 = 0x70034e5c;
+u32 var000547ec = 0x70034eec;
+u32 var000547f0 = 0x70034e78;
+u32 var000547f4 = 0x70034e94;
+u32 var000547f8 = 0x70034eec;
+u32 var000547fc = 0x70034eec;
+u32 var00054800 = 0x70034eec;
+u32 var00054804 = 0x70034eec;
+u32 var00054808 = 0x70034eec;
+u32 var0005480c = 0x70034eec;
+u32 var00054810 = 0x70034eec;
+u32 var00054814 = 0x70034eec;
+u32 var00054818 = 0x70034eec;
+u32 var0005481c = 0x70034eec;
+u32 var00054820 = 0x70034eec;
+u32 var00054824 = 0x70034eec;
+u32 var00054828 = 0x70034eec;
+u32 var0005482c = 0x70034edc;
+u32 var00054830 = 0x70034edc;
+u32 var00054834 = 0x70034edc;
+u32 var00054838 = 0x70035a44;
+u32 var0005483c = 0x700371f8;
+u32 var00054840 = 0x700371f8;
+u32 var00054844 = 0x700371f8;
+u32 var00054848 = 0x700371f8;
+u32 var0005484c = 0x700371f8;
+u32 var00054850 = 0x700371f8;
+u32 var00054854 = 0x700371f8;
+u32 var00054858 = 0x700371f8;
+u32 var0005485c = 0x700371f8;
+u32 var00054860 = 0x700371f8;
+u32 var00054864 = 0x700371f8;
+u32 var00054868 = 0x700371f8;
+u32 var0005486c = 0x700371f8;
+u32 var00054870 = 0x700371f8;
+u32 var00054874 = 0x700371f8;
+u32 var00054878 = 0x700351a4;
+u32 var0005487c = 0x700371f8;
+u32 var00054880 = 0x700371f8;
+u32 var00054884 = 0x700371f8;
+u32 var00054888 = 0x700371f8;
+u32 var0005488c = 0x700371f8;
+u32 var00054890 = 0x700371f8;
+u32 var00054894 = 0x700371f8;
+u32 var00054898 = 0x700371f8;
+u32 var0005489c = 0x700371f8;
+u32 var000548a0 = 0x700371f8;
+u32 var000548a4 = 0x700371f8;
+u32 var000548a8 = 0x700371f8;
+u32 var000548ac = 0x700371f8;
+u32 var000548b0 = 0x700371f8;
+u32 var000548b4 = 0x700371f8;
+u32 var000548b8 = 0x70035b68;
+u32 var000548bc = 0x700371f8;
+u32 var000548c0 = 0x700371f8;
+u32 var000548c4 = 0x700371f8;
+u32 var000548c8 = 0x700371f8;
+u32 var000548cc = 0x700371f8;
+u32 var000548d0 = 0x700371f8;
+u32 var000548d4 = 0x700371f8;
+u32 var000548d8 = 0x700371f8;
+u32 var000548dc = 0x700371f8;
+u32 var000548e0 = 0x700371f8;
+u32 var000548e4 = 0x700371f8;
+u32 var000548e8 = 0x700371f8;
+u32 var000548ec = 0x700371f8;
+u32 var000548f0 = 0x700371f8;
+u32 var000548f4 = 0x700371f8;
+u32 var000548f8 = 0x70035c64;
+u32 var000548fc = 0x700371f8;
+u32 var00054900 = 0x700371f8;
+u32 var00054904 = 0x700371f8;
+u32 var00054908 = 0x700371f8;
+u32 var0005490c = 0x700371f8;
+u32 var00054910 = 0x700371f8;
+u32 var00054914 = 0x700371f8;
+u32 var00054918 = 0x700371f8;
+u32 var0005491c = 0x700371f8;
+u32 var00054920 = 0x700371f8;
+u32 var00054924 = 0x700371f8;
+u32 var00054928 = 0x700371f8;
+u32 var0005492c = 0x700371f8;
+u32 var00054930 = 0x700371f8;
+u32 var00054934 = 0x700371f8;
+u32 var00054938 = 0x70036fb4;
+u32 var0005493c = 0x700371f8;
+u32 var00054940 = 0x700371f8;
+u32 var00054944 = 0x700371f8;
+u32 var00054948 = 0x700371f8;
+u32 var0005494c = 0x700371f8;
+u32 var00054950 = 0x700371f8;
+u32 var00054954 = 0x700371f8;
+u32 var00054958 = 0x700371f8;
+u32 var0005495c = 0x700371f8;
+u32 var00054960 = 0x700371f8;
+u32 var00054964 = 0x700371f8;
+u32 var00054968 = 0x700371f8;
+u32 var0005496c = 0x700371f8;
+u32 var00054970 = 0x700371f8;
+u32 var00054974 = 0x700371f8;
+u32 var00054978 = 0x70035be0;
+u32 var0005497c = 0x700371f8;
+u32 var00054980 = 0x700371f8;
+u32 var00054984 = 0x700371f8;
+u32 var00054988 = 0x700371f8;
+u32 var0005498c = 0x700371f8;
+u32 var00054990 = 0x700371f8;
+u32 var00054994 = 0x700371f8;
+u32 var00054998 = 0x700371f8;
+u32 var0005499c = 0x700371f8;
+u32 var000549a0 = 0x700371f8;
+u32 var000549a4 = 0x700371f8;
+u32 var000549a8 = 0x700371f8;
+u32 var000549ac = 0x700371f8;
+u32 var000549b0 = 0x700371f8;
+u32 var000549b4 = 0x700371f8;
+u32 var000549b8 = 0x70037044;
+u32 var000549bc = 0x70036e4c;
+u32 var000549c0 = 0x70036988;
+u32 var000549c4 = 0x700369ec;
+u32 var000549c8 = 0x70036aa4;
+u32 var000549cc = 0x70036fa4;
+u32 var000549d0 = 0x70036fa4;
+u32 var000549d4 = 0x70036328;
+u32 var000549d8 = 0x70036fa4;
+u32 var000549dc = 0x70036fa4;
+u32 var000549e0 = 0x70035d40;
+u32 var000549e4 = 0x70036b30;
+u32 var000549e8 = 0x70036ba8;
+u32 var000549ec = 0x70036c08;
+u32 var000549f0 = 0x70036c6c;
+u32 var000549f4 = 0x70036ccc;
+u32 var000549f8 = 0x700363d8;
+u32 var000549fc = 0x70036d2c;
+u32 var00054a00 = 0x70036d8c;
+u32 var00054a04 = 0x70036dec;
+u32 var00054a08 = 0x70036778;
+u32 var00054a0c = 0x700367e8;
+u32 var00054a10 = 0x70036848;
+u32 var00054a14 = 0x700368b8;
+u32 var00054a18 = 0x70036918;
+u32 var00054a1c = 0x70036f70;
+u32 var00054a20 = 0x70036734;
+u32 var00054a24 = 0x70036fa4;
+u32 var00054a28 = 0x70036fa4;
+u32 var00054a2c = 0x70036fa4;
+u32 var00054a30 = 0x700362e0;
+u32 var00054a34 = 0x70036fa4;
+u32 var00054a38 = 0x70036744;
+u32 var00054a3c = 0x700361e8;
+u32 var00054a40 = 0x70036228;
+u32 var00054a44 = 0x70036268;
+u32 var00054a48 = 0x70036ecc;
+u32 var00054a4c = 0x70036ee0;
+u32 var00054a50 = 0x70036ee0;
+u32 var00054a54 = 0x70036ee0;
+u32 var00054a58 = 0x70036f40;
+u32 var00054a5c = 0x70036ef8;
+u32 var00054a60 = 0x70036f40;
+u32 var00054a64 = 0x70036ef8;
+u32 var00054a68 = 0x70036f1c;
+u32 var00054a6c = 0x70036f40;
+u32 var00054a70 = 0x70036f40;
+u32 var00054a74 = 0x70036ef8;
+u32 var00054a78 = 0x00000000;
+u32 var00054a7c = 0x00000000;
+u32 var00054a80 = 0x3f8012ef;
+u32 var00054a84 = 0x3f7fda28;
+u32 var00054a88 = 0x00000000;
+u32 var00054a8c = 0x00000000;
+u32 var00054a90 = 0x3fb50481;
+u32 var00054a94 = 0x7003a9c8;
+u32 var00054a98 = 0x7003aa24;
+u32 var00054a9c = 0x7003aa80;
+u32 var00054aa0 = 0x7003aaac;
+u32 var00054aa4 = 0x7003aad8;
+u32 var00054aa8 = 0x7003ab04;
+u32 var00054aac = 0x7003ab68;
+u32 var00054ab0 = 0x7003ab84;
+u32 var00054ab4 = 0x482910da;
+u32 var00054ab8 = 0x482910da;
+u32 var00054abc = 0x00000000;
+u32 var00054ac0 = 0x40490fdb;
+u32 var00054ac4 = 0x3fb504f4;
+u32 var00054ac8 = 0x3f879c7d;
+u32 var00054acc = 0x3f71a1bf;
+u32 var00054ad0 = 0x46d12000;
+u32 var00054ad4 = 0x46d12000;
+u32 var00054ad8 = 0x482910da;
+u32 var00054adc = 0x00000000;
+u32 var00054ae0 = 0x3dcccccd;
+u32 var00054ae4 = 0x00000000;
+u32 var00054ae8 = 0x00000000;
+u32 var00054aec = 0x00000000;
+u32 var00054af0 = 0x7003eff8;
+u32 var00054af4 = 0x7003f0d0;
+u32 var00054af8 = 0x7003f0d0;
+u32 var00054afc = 0x7003f0d0;
+u32 var00054b00 = 0x7003f0d0;
+u32 var00054b04 = 0x7003f090;
+u32 var00054b08 = 0x7003f0d0;
+u32 var00054b0c = 0x7003f024;
+u32 var00054b10 = 0x7003f05c;
+u32 var00054b14 = 0x7003f0d0;
+u32 var00054b18 = 0x7003f0d0;
+u32 var00054b1c = 0x7003ec2c;
+u32 var00054b20 = 0x7003ec2c;
+u32 var00054b24 = 0x7003e9b8;
+u32 var00054b28 = 0x7003ef70;
+u32 var00054b2c = 0x7003efc0;
+u32 var00054b30 = 0x7003ec2c;
+u32 var00054b34 = 0x477fff00;
+u32 var00054b38 = 0x00000000;
+u32 var00054b3c = 0x00000000;
+u32 var00054b40 = 0x00000100;
+u32 var00054b44 = 0x00000001;
+u32 var00054b48 = 0x00010300;
+u32 var00054b4c = 0x00000004;
+u32 var00054b50 = 0x01000200;
+u32 var00054b54 = 0x00000002;
+u32 var00054b58 = 0x01010300;
+u32 var00054b5c = 0x00000000;
+u32 var00054b60 = 0x64646400;
+u32 var00054b64 = 0x00000000;
+u32 var00054b68 = 0x00000100;
+u32 var00054b6c = 0x00000001;
+u32 var00054b70 = 0x00010300;
+u32 var00054b74 = 0x00000002;
+u32 var00054b78 = 0x00020600;
+u32 var00054b7c = 0x00000020;
+u32 var00054b80 = 0x01000300;
+u32 var00054b84 = 0x00000006;
+u32 var00054b88 = 0x01010300;
+u32 var00054b8c = 0x00000004;
+u32 var00054b90 = 0x01020500;
+u32 var00054b94 = 0x00000010;
+u32 var00054b98 = 0x02000500;
+u32 var00054b9c = 0x00000018;
+u32 var00054ba0 = 0x02010500;
+u32 var00054ba4 = 0x00000008;
+u32 var00054ba8 = 0x02020600;
+u32 var00054bac = 0x00000000;
+u32 var00054bb0 = 0x64646400;
+u32 var00054bb4 = 0x00000000;
+u32 var00054bb8 = 0x00000200;
+u32 var00054bbc = 0x00000003;
+u32 var00054bc0 = 0x00010200;
+u32 var00054bc4 = 0x00000001;
+u32 var00054bc8 = 0x00020600;
+u32 var00054bcc = 0x00000020;
+u32 var00054bd0 = 0x01000300;
+u32 var00054bd4 = 0x00000004;
+u32 var00054bd8 = 0x01010200;
+u32 var00054bdc = 0x00000002;
+u32 var00054be0 = 0x01020500;
+u32 var00054be4 = 0x00000010;
+u32 var00054be8 = 0x02000500;
+u32 var00054bec = 0x00000018;
+u32 var00054bf0 = 0x02010500;
+u32 var00054bf4 = 0x00000008;
+u32 var00054bf8 = 0x02020600;
+u32 var00054bfc = 0x00000000;
+u32 var00054c00 = 0x64646400;
+u32 var00054c04 = 0x00000000;
+u32 var00054c08 = 0x00000100;
+u32 var00054c0c = 0x00000001;
+u32 var00054c10 = 0x00010300;
+u32 var00054c14 = 0x00000002;
+u32 var00054c18 = 0x00020600;
+u32 var00054c1c = 0x00000018;
+u32 var00054c20 = 0x00030700;
+u32 var00054c24 = 0x00000050;
+u32 var00054c28 = 0x01000300;
+u32 var00054c2c = 0x00000006;
+u32 var00054c30 = 0x01010300;
+u32 var00054c34 = 0x00000004;
+u32 var00054c38 = 0x01020600;
+u32 var00054c3c = 0x00000008;
+u32 var00054c40 = 0x01030700;
+u32 var00054c44 = 0x00000010;
+u32 var00054c48 = 0x02000600;
+u32 var00054c4c = 0x00000038;
+u32 var00054c50 = 0x02010600;
+u32 var00054c54 = 0x00000028;
+u32 var00054c58 = 0x02020700;
+u32 var00054c5c = 0x00000070;
+u32 var00054c60 = 0x02030800;
+u32 var00054c64 = 0x00000080;
+u32 var00054c68 = 0x03000700;
+u32 var00054c6c = 0x00000030;
+u32 var00054c70 = 0x03010600;
+u32 var00054c74 = 0x00000020;
+u32 var00054c78 = 0x03020700;
+u32 var00054c7c = 0x00000040;
+u32 var00054c80 = 0x03030800;
+u32 var00054c84 = 0x00000000;
+u32 var00054c88 = 0x64646400;
+u32 var00054c8c = 0x00000000;
+u32 var00054c90 = 0x00000300;
+u32 var00054c94 = 0x00000007;
+u32 var00054c98 = 0x00010300;
+u32 var00054c9c = 0x00000006;
+u32 var00054ca0 = 0x00020500;
+u32 var00054ca4 = 0x00000014;
+u32 var00054ca8 = 0x00030700;
+u32 var00054cac = 0x00000040;
+u32 var00054cb0 = 0x01000300;
+u32 var00054cb4 = 0x00000003;
+u32 var00054cb8 = 0x01010200;
+u32 var00054cbc = 0x00000001;
+u32 var00054cc0 = 0x01020400;
+u32 var00054cc4 = 0x0000000c;
+u32 var00054cc8 = 0x01030500;
+u32 var00054ccc = 0x00000008;
+u32 var00054cd0 = 0x02000400;
+u32 var00054cd4 = 0x0000000a;
+u32 var00054cd8 = 0x02010400;
+u32 var00054cdc = 0x00000002;
+u32 var00054ce0 = 0x02020500;
+u32 var00054ce4 = 0x00000004;
+u32 var00054ce8 = 0x02030600;
+u32 var00054cec = 0x00000020;
+u32 var00054cf0 = 0x03000600;
+u32 var00054cf4 = 0x00000030;
+u32 var00054cf8 = 0x03010500;
+u32 var00054cfc = 0x00000018;
+u32 var00054d00 = 0x03020600;
+u32 var00054d04 = 0x00000010;
+u32 var00054d08 = 0x03030700;
+u32 var00054d0c = 0x00000000;
+u32 var00054d10 = 0x64646400;
+u32 var00054d14 = 0x00000000;
+u32 var00054d18 = 0x00000100;
+u32 var00054d1c = 0x00000001;
+u32 var00054d20 = 0x00010300;
+u32 var00054d24 = 0x00000002;
+u32 var00054d28 = 0x00020600;
+u32 var00054d2c = 0x00000014;
+u32 var00054d30 = 0x00030800;
+u32 var00054d34 = 0x000000c8;
+u32 var00054d38 = 0x00040800;
+u32 var00054d3c = 0x00000008;
+u32 var00054d40 = 0x00050900;
+u32 var00054d44 = 0x000000a0;
+u32 var00054d48 = 0x01000300;
+u32 var00054d4c = 0x00000006;
+u32 var00054d50 = 0x01010400;
+u32 var00054d54 = 0x0000000c;
+u32 var00054d58 = 0x01020600;
+u32 var00054d5c = 0x00000038;
+u32 var00054d60 = 0x01030700;
+u32 var00054d64 = 0x00000028;
+u32 var00054d68 = 0x01040700;
+u32 var00054d6c = 0x00000050;
+u32 var00054d70 = 0x01050800;
+u32 var00054d74 = 0x000000c0;
+u32 var00054d78 = 0x02000600;
+u32 var00054d7c = 0x00000034;
+u32 var00054d80 = 0x02010500;
+u32 var00054d84 = 0x00000004;
+u32 var00054d88 = 0x02020700;
+u32 var00054d8c = 0x00000058;
+u32 var00054d90 = 0x02030800;
+u32 var00054d94 = 0x00000088;
+u32 var00054d98 = 0x02040800;
+u32 var00054d9c = 0x00000010;
+u32 var00054da0 = 0x02050900;
+u32 var00054da4 = 0x00000040;
+u32 var00054da8 = 0x03000700;
+u32 var00054dac = 0x00000018;
+u32 var00054db0 = 0x03010700;
+u32 var00054db4 = 0x00000068;
+u32 var00054db8 = 0x03020800;
+u32 var00054dbc = 0x00000048;
+u32 var00054dc0 = 0x03030900;
+u32 var00054dc4 = 0x000001e0;
+u32 var00054dc8 = 0x03040900;
+u32 var00054dcc = 0x000001a0;
+u32 var00054dd0 = 0x03050900;
+u32 var00054dd4 = 0x00000080;
+u32 var00054dd8 = 0x04000700;
+u32 var00054ddc = 0x00000070;
+u32 var00054de0 = 0x04010700;
+u32 var00054de4 = 0x00000030;
+u32 var00054de8 = 0x04020800;
+u32 var00054dec = 0x00000090;
+u32 var00054df0 = 0x04030900;
+u32 var00054df4 = 0x000000e0;
+u32 var00054df8 = 0x04040900;
+u32 var00054dfc = 0x00000180;
+u32 var00054e00 = 0x04050a00;
+u32 var00054e04 = 0x00000200;
+u32 var00054e08 = 0x05000800;
+u32 var00054e0c = 0x00000060;
+u32 var00054e10 = 0x05010800;
+u32 var00054e14 = 0x00000020;
+u32 var00054e18 = 0x05020900;
+u32 var00054e1c = 0x00000140;
+u32 var00054e20 = 0x05030a00;
+u32 var00054e24 = 0x00000300;
+u32 var00054e28 = 0x05040a00;
+u32 var00054e2c = 0x00000100;
+u32 var00054e30 = 0x05050a00;
+u32 var00054e34 = 0x00000000;
+u32 var00054e38 = 0x64646400;
+u32 var00054e3c = 0x00000000;
+u32 var00054e40 = 0x00000200;
+u32 var00054e44 = 0x00000003;
+u32 var00054e48 = 0x00010300;
+u32 var00054e4c = 0x00000001;
+u32 var00054e50 = 0x00020600;
+u32 var00054e54 = 0x00000018;
+u32 var00054e58 = 0x00030800;
+u32 var00054e5c = 0x00000048;
+u32 var00054e60 = 0x00040800;
+u32 var00054e64 = 0x00000030;
+u32 var00054e68 = 0x00050900;
+u32 var00054e6c = 0x00000140;
+u32 var00054e70 = 0x01000300;
+u32 var00054e74 = 0x00000005;
+u32 var00054e78 = 0x01010200;
+u32 var00054e7c = 0x00000002;
+u32 var00054e80 = 0x01020400;
+u32 var00054e84 = 0x00000004;
+u32 var00054e88 = 0x01030800;
+u32 var00054e8c = 0x00000008;
+u32 var00054e90 = 0x01040800;
+u32 var00054e94 = 0x00000090;
+u32 var00054e98 = 0x01050800;
+u32 var00054e9c = 0x000000c0;
+u32 var00054ea0 = 0x02000600;
+u32 var00054ea4 = 0x00000038;
+u32 var00054ea8 = 0x02010400;
+u32 var00054eac = 0x0000000c;
+u32 var00054eb0 = 0x02020600;
+u32 var00054eb4 = 0x00000028;
+u32 var00054eb8 = 0x02030800;
+u32 var00054ebc = 0x00000070;
+u32 var00054ec0 = 0x02040800;
+u32 var00054ec4 = 0x000000e0;
+u32 var00054ec8 = 0x02050900;
+u32 var00054ecc = 0x00000180;
+u32 var00054ed0 = 0x03000800;
+u32 var00054ed4 = 0x000000c8;
+u32 var00054ed8 = 0x03010800;
+u32 var00054edc = 0x00000088;
+u32 var00054ee0 = 0x03020800;
+u32 var00054ee4 = 0x000000f0;
+u32 var00054ee8 = 0x03030900;
+u32 var00054eec = 0x00000160;
+u32 var00054ef0 = 0x03040900;
+u32 var00054ef4 = 0x000000a0;
+u32 var00054ef8 = 0x03050a00;
+u32 var00054efc = 0x00000080;
+u32 var00054f00 = 0x04000800;
+u32 var00054f04 = 0x000000b0;
+u32 var00054f08 = 0x04010700;
+u32 var00054f0c = 0x00000050;
+u32 var00054f10 = 0x04020800;
+u32 var00054f14 = 0x00000010;
+u32 var00054f18 = 0x04030900;
+u32 var00054f1c = 0x000001a0;
+u32 var00054f20 = 0x04040a00;
+u32 var00054f24 = 0x00000280;
+u32 var00054f28 = 0x04050a00;
+u32 var00054f2c = 0x00000200;
+u32 var00054f30 = 0x05000900;
+u32 var00054f34 = 0x00000060;
+u32 var00054f38 = 0x05010800;
+u32 var00054f3c = 0x00000020;
+u32 var00054f40 = 0x05020900;
+u32 var00054f44 = 0x00000040;
+u32 var00054f48 = 0x05030900;
+u32 var00054f4c = 0x00000100;
+u32 var00054f50 = 0x05040b00;
+u32 var00054f54 = 0x00000400;
+u32 var00054f58 = 0x05050b00;
+u32 var00054f5c = 0x00000000;
+u32 var00054f60 = 0x64646400;
+u32 var00054f64 = 0x00000000;
+u32 var00054f68 = 0x00000300;
+u32 var00054f6c = 0x00000007;
+u32 var00054f70 = 0x00010300;
+u32 var00054f74 = 0x00000005;
+u32 var00054f78 = 0x00020500;
+u32 var00054f7c = 0x00000012;
+u32 var00054f80 = 0x00030600;
+u32 var00054f84 = 0x0000001c;
+u32 var00054f88 = 0x00040800;
+u32 var00054f8c = 0x000000f0;
+u32 var00054f90 = 0x00050900;
+u32 var00054f94 = 0x000001c0;
+u32 var00054f98 = 0x01000300;
+u32 var00054f9c = 0x00000003;
+u32 var00054fa0 = 0x01010300;
+u32 var00054fa4 = 0x00000001;
+u32 var00054fa8 = 0x01020400;
+u32 var00054fac = 0x0000000a;
+u32 var00054fb0 = 0x01030500;
+u32 var00054fb4 = 0x00000014;
+u32 var00054fb8 = 0x01040600;
+u32 var00054fbc = 0x00000018;
+u32 var00054fc0 = 0x01050800;
+u32 var00054fc4 = 0x000000e0;
+u32 var00054fc8 = 0x02000400;
+u32 var00054fcc = 0x0000000e;
+u32 var00054fd0 = 0x02010400;
+u32 var00054fd4 = 0x00000006;
+u32 var00054fd8 = 0x02020500;
+u32 var00054fdc = 0x00000002;
+u32 var00054fe0 = 0x02030600;
+u32 var00054fe4 = 0x00000004;
+u32 var00054fe8 = 0x02040700;
+u32 var00054fec = 0x00000008;
+u32 var00054ff0 = 0x02050800;
+u32 var00054ff4 = 0x000000a0;
+u32 var00054ff8 = 0x03000600;
+u32 var00054ffc = 0x0000003c;
+u32 var00055000 = 0x03010500;
+u32 var00055004 = 0x0000000c;
+u32 var00055008 = 0x03020600;
+u32 var0005500c = 0x00000024;
+u32 var00055010 = 0x03030700;
+u32 var00055014 = 0x00000028;
+u32 var00055018 = 0x03040700;
+u32 var0005501c = 0x00000050;
+u32 var00055020 = 0x03050800;
+u32 var00055024 = 0x00000080;
+u32 var00055028 = 0x04000700;
+u32 var0005502c = 0x00000068;
+u32 var00055030 = 0x04010600;
+u32 var00055034 = 0x00000038;
+u32 var00055038 = 0x04020700;
+u32 var0005503c = 0x00000048;
+u32 var00055040 = 0x04030700;
+u32 var00055044 = 0x00000030;
+u32 var00055048 = 0x04040800;
+u32 var0005504c = 0x00000020;
+u32 var00055050 = 0x04050900;
+u32 var00055054 = 0x00000100;
+u32 var00055058 = 0x05000800;
+u32 var0005505c = 0x00000070;
+u32 var00055060 = 0x05010700;
+u32 var00055064 = 0x00000010;
+u32 var00055068 = 0x05020800;
+u32 var0005506c = 0x00000060;
+u32 var00055070 = 0x05030800;
+u32 var00055074 = 0x00000040;
+u32 var00055078 = 0x05040900;
+u32 var0005507c = 0x000000c0;
+u32 var00055080 = 0x05050900;
+u32 var00055084 = 0x00000000;
+u32 var00055088 = 0x64646400;
+u32 var0005508c = 0x00000000;
+u32 var00055090 = 0x00000100;
+u32 var00055094 = 0x00000001;
+u32 var00055098 = 0x00010300;
+u32 var0005509c = 0x00000002;
+u32 var000550a0 = 0x00020600;
+u32 var000550a4 = 0x00000014;
+u32 var000550a8 = 0x00030800;
+u32 var000550ac = 0x000000e8;
+u32 var000550b0 = 0x00040900;
+u32 var000550b4 = 0x00000188;
+u32 var000550b8 = 0x00050900;
+u32 var000550bc = 0x000000f0;
+u32 var000550c0 = 0x00060900;
+u32 var000550c4 = 0x00000060;
+u32 var000550c8 = 0x00070a00;
+u32 var000550cc = 0x00000220;
+u32 var000550d0 = 0x01000300;
+u32 var000550d4 = 0x00000006;
+u32 var000550d8 = 0x01010400;
+u32 var000550dc = 0x0000000c;
+u32 var000550e0 = 0x01020600;
+u32 var000550e4 = 0x00000004;
+u32 var000550e8 = 0x01030700;
+u32 var000550ec = 0x00000018;
+u32 var000550f0 = 0x01040800;
+u32 var000550f4 = 0x00000048;
+u32 var000550f8 = 0x01050900;
+u32 var000550fc = 0x00000150;
+u32 var00055100 = 0x01060800;
+u32 var00055104 = 0x00000030;
+u32 var00055108 = 0x01070800;
+u32 var0005510c = 0x000000e0;
+u32 var00055110 = 0x02000600;
+u32 var00055114 = 0x00000034;
+u32 var00055118 = 0x02010600;
+u32 var0005511c = 0x00000024;
+u32 var00055120 = 0x02020700;
+u32 var00055124 = 0x00000078;
+u32 var00055128 = 0x02030800;
+u32 var0005512c = 0x000000a8;
+u32 var00055130 = 0x02040900;
+u32 var00055134 = 0x00000008;
+u32 var00055138 = 0x02050a00;
+u32 var0005513c = 0x00000050;
+u32 var00055140 = 0x02060900;
+u32 var00055144 = 0x00000190;
+u32 var00055148 = 0x02070900;
+u32 var0005514c = 0x000000c0;
+u32 var00055150 = 0x03000700;
+u32 var00055154 = 0x00000038;
+u32 var00055158 = 0x03010700;
+u32 var0005515c = 0x00000058;
+u32 var00055160 = 0x03020800;
+u32 var00055164 = 0x00000068;
+u32 var00055168 = 0x03030900;
+u32 var0005516c = 0x00000088;
+u32 var00055170 = 0x03040a00;
+u32 var00055174 = 0x000001d0;
+u32 var00055178 = 0x03050a00;
+u32 var0005517c = 0x000003a0;
+u32 var00055180 = 0x03060900;
+u32 var00055184 = 0x00000090;
+u32 var00055188 = 0x03070a00;
+u32 var0005518c = 0x00000380;
+u32 var00055190 = 0x04000800;
+u32 var00055194 = 0x00000028;
+u32 var00055198 = 0x04010800;
+u32 var0005519c = 0x000000c8;
+u32 var000551a0 = 0x04020900;
+u32 var000551a4 = 0x00000108;
+u32 var000551a8 = 0x04030a00;
+u32 var000551ac = 0x000003d0;
+u32 var000551b0 = 0x04040a00;
+u32 var000551b4 = 0x00000360;
+u32 var000551b8 = 0x04050a00;
+u32 var000551bc = 0x000001a0;
+u32 var000551c0 = 0x04060a00;
+u32 var000551c4 = 0x00000240;
+u32 var000551c8 = 0x04070a00;
+u32 var000551cc = 0x00000300;
+u32 var000551d0 = 0x05000900;
+u32 var000551d4 = 0x000001f0;
+u32 var000551d8 = 0x05010900;
+u32 var000551dc = 0x000000d0;
+u32 var000551e0 = 0x05020a00;
+u32 var000551e4 = 0x00000250;
+u32 var000551e8 = 0x05030a00;
+u32 var000551ec = 0x00000160;
+u32 var000551f0 = 0x05040b00;
+u32 var000551f4 = 0x00000540;
+u32 var000551f8 = 0x05050b00;
+u32 var000551fc = 0x00000140;
+u32 var00055200 = 0x05060a00;
+u32 var00055204 = 0x00000280;
+u32 var00055208 = 0x05070b00;
+u32 var0005520c = 0x00000600;
+u32 var00055210 = 0x06000800;
+u32 var00055214 = 0x00000070;
+u32 var00055218 = 0x06010800;
+u32 var0005521c = 0x000000b0;
+u32 var00055220 = 0x06020900;
+u32 var00055224 = 0x000000a0;
+u32 var00055228 = 0x06030a00;
+u32 var0005522c = 0x00000340;
+u32 var00055230 = 0x06040a00;
+u32 var00055234 = 0x00000020;
+u32 var00055238 = 0x06050a00;
+u32 var0005523c = 0x00000180;
+u32 var00055240 = 0x06060b00;
+u32 var00055244 = 0x00000500;
+u32 var00055248 = 0x06070b00;
+u32 var0005524c = 0x00000400;
+u32 var00055250 = 0x07000900;
+u32 var00055254 = 0x00000120;
+u32 var00055258 = 0x07010800;
+u32 var0005525c = 0x00000010;
+u32 var00055260 = 0x07020900;
+u32 var00055264 = 0x000001c0;
+u32 var00055268 = 0x07030a00;
+u32 var0005526c = 0x00000040;
+u32 var00055270 = 0x07040a00;
+u32 var00055274 = 0x00000080;
+u32 var00055278 = 0x07050b00;
+u32 var0005527c = 0x00000100;
+u32 var00055280 = 0x07060b00;
+u32 var00055284 = 0x00000200;
+u32 var00055288 = 0x07070b00;
+u32 var0005528c = 0x00000000;
+u32 var00055290 = 0x64646400;
+u32 var00055294 = 0x00000000;
+u32 var00055298 = 0x00000200;
+u32 var0005529c = 0x00000003;
+u32 var000552a0 = 0x00010300;
+u32 var000552a4 = 0x00000001;
+u32 var000552a8 = 0x00020500;
+u32 var000552ac = 0x0000000a;
+u32 var000552b0 = 0x00030700;
+u32 var000552b4 = 0x0000000c;
+u32 var000552b8 = 0x00040800;
+u32 var000552bc = 0x00000044;
+u32 var000552c0 = 0x00050900;
+u32 var000552c4 = 0x00000108;
+u32 var000552c8 = 0x00060800;
+u32 var000552cc = 0x000000a8;
+u32 var000552d0 = 0x00070900;
+u32 var000552d4 = 0x000001e0;
+u32 var000552d8 = 0x01000300;
+u32 var000552dc = 0x00000005;
+u32 var000552e0 = 0x01010300;
+u32 var000552e4 = 0x00000006;
+u32 var000552e8 = 0x01020400;
+u32 var000552ec = 0x00000002;
+u32 var000552f0 = 0x01030600;
+u32 var000552f4 = 0x00000014;
+u32 var000552f8 = 0x01040800;
+u32 var000552fc = 0x00000004;
+u32 var00055300 = 0x01050800;
+u32 var00055304 = 0x00000088;
+u32 var00055308 = 0x01060700;
+u32 var0005530c = 0x00000068;
+u32 var00055310 = 0x01070800;
+u32 var00055314 = 0x00000050;
+u32 var00055318 = 0x02000500;
+u32 var0005531c = 0x0000001a;
+u32 var00055320 = 0x02010500;
+u32 var00055324 = 0x0000001c;
+u32 var00055328 = 0x02020600;
+u32 var0005532c = 0x0000002c;
+u32 var00055330 = 0x02030700;
+u32 var00055334 = 0x00000024;
+u32 var00055338 = 0x02040800;
+u32 var0005533c = 0x00000078;
+u32 var00055340 = 0x02050900;
+u32 var00055344 = 0x000001f0;
+u32 var00055348 = 0x02060800;
+u32 var0005534c = 0x00000028;
+u32 var00055350 = 0x02070800;
+u32 var00055354 = 0x000000a0;
+u32 var00055358 = 0x03000700;
+u32 var0005535c = 0x0000004c;
+u32 var00055360 = 0x03010600;
+u32 var00055364 = 0x00000034;
+u32 var00055368 = 0x03020700;
+u32 var0005536c = 0x00000064;
+u32 var00055370 = 0x03030900;
+u32 var00055374 = 0x000001b8;
+u32 var00055378 = 0x03040800;
+u32 var0005537c = 0x000000d8;
+u32 var00055380 = 0x03050a00;
+u32 var00055384 = 0x00000120;
+u32 var00055388 = 0x03060800;
+u32 var0005538c = 0x00000030;
+u32 var00055390 = 0x03070900;
+u32 var00055394 = 0x00000140;
+u32 var00055398 = 0x04000800;
+u32 var0005539c = 0x000000c4;
+u32 var000553a0 = 0x04010800;
+u32 var000553a4 = 0x00000084;
+u32 var000553a8 = 0x04020800;
+u32 var000553ac = 0x000000f8;
+u32 var000553b0 = 0x04030900;
+u32 var000553b4 = 0x000000b8;
+u32 var000553b8 = 0x04040900;
+u32 var000553bc = 0x000000f0;
+u32 var000553c0 = 0x04050a00;
+u32 var000553c4 = 0x00000020;
+u32 var000553c8 = 0x04060900;
+u32 var000553cc = 0x000001c0;
+u32 var000553d0 = 0x04070a00;
+u32 var000553d4 = 0x00000280;
+u32 var000553d8 = 0x05000800;
+u32 var000553dc = 0x00000038;
+u32 var000553e0 = 0x05010800;
+u32 var000553e4 = 0x00000058;
+u32 var000553e8 = 0x05020900;
+u32 var000553ec = 0x00000008;
+u32 var000553f0 = 0x05030a00;
+u32 var000553f4 = 0x00000320;
+u32 var000553f8 = 0x05040a00;
+u32 var000553fc = 0x00000220;
+u32 var00055400 = 0x05050b00;
+u32 var00055404 = 0x00000780;
+u32 var00055408 = 0x05060a00;
+u32 var0005540c = 0x00000040;
+u32 var00055410 = 0x05070b00;
+u32 var00055414 = 0x00000380;
+u32 var00055418 = 0x06000800;
+u32 var0005541c = 0x00000070;
+u32 var00055420 = 0x06010700;
+u32 var00055424 = 0x00000018;
+u32 var00055428 = 0x06020700;
+u32 var0005542c = 0x00000048;
+u32 var00055430 = 0x06030800;
+u32 var00055434 = 0x000000b0;
+u32 var00055438 = 0x06040900;
+u32 var0005543c = 0x000000e0;
+u32 var00055440 = 0x06050a00;
+u32 var00055444 = 0x00000240;
+u32 var00055448 = 0x06060a00;
+u32 var0005544c = 0x00000080;
+u32 var00055450 = 0x06070a00;
+u32 var00055454 = 0x00000200;
+u32 var00055458 = 0x07000800;
+u32 var0005545c = 0x000000d0;
+u32 var00055460 = 0x07010700;
+u32 var00055464 = 0x00000010;
+u32 var00055468 = 0x07020800;
+u32 var0005546c = 0x00000060;
+u32 var00055470 = 0x07030900;
+u32 var00055474 = 0x000000c0;
+u32 var00055478 = 0x07040a00;
+u32 var0005547c = 0x00000180;
+u32 var00055480 = 0x07050a00;
+u32 var00055484 = 0x00000300;
+u32 var00055488 = 0x07060a00;
+u32 var0005548c = 0x00000100;
+u32 var00055490 = 0x07070a00;
+u32 var00055494 = 0x00000000;
+u32 var00055498 = 0x64646400;
+u32 var0005549c = 0x00000000;
+u32 var000554a0 = 0x00000400;
+u32 var000554a4 = 0x00000009;
+u32 var000554a8 = 0x00010300;
+u32 var000554ac = 0x00000003;
+u32 var000554b0 = 0x00020500;
+u32 var000554b4 = 0x00000001;
+u32 var000554b8 = 0x00030700;
+u32 var000554bc = 0x00000042;
+u32 var000554c0 = 0x00040800;
+u32 var000554c4 = 0x00000094;
+u32 var000554c8 = 0x00050900;
+u32 var000554cc = 0x000001c8;
+u32 var000554d0 = 0x00060900;
+u32 var000554d4 = 0x000000c8;
+u32 var000554d8 = 0x00070900;
+u32 var000554dc = 0x000000b0;
+u32 var000554e0 = 0x01000300;
+u32 var000554e4 = 0x00000007;
+u32 var000554e8 = 0x01010300;
+u32 var000554ec = 0x00000005;
+u32 var000554f0 = 0x01020400;
+u32 var000554f4 = 0x00000006;
+u32 var000554f8 = 0x01030500;
+u32 var000554fc = 0x00000012;
+u32 var00055500 = 0x01040700;
+u32 var00055504 = 0x00000074;
+u32 var00055508 = 0x01050700;
+u32 var0005550c = 0x00000004;
+u32 var00055510 = 0x01060800;
+u32 var00055514 = 0x00000058;
+u32 var00055518 = 0x01070800;
+u32 var0005551c = 0x000000d0;
+u32 var00055520 = 0x02000500;
+u32 var00055524 = 0x00000011;
+u32 var00055528 = 0x02010400;
+u32 var0005552c = 0x0000000e;
+u32 var00055530 = 0x02020500;
+u32 var00055534 = 0x0000001a;
+u32 var00055538 = 0x02030600;
+u32 var0005553c = 0x0000001c;
+u32 var00055540 = 0x02040700;
+u32 var00055544 = 0x00000054;
+u32 var00055548 = 0x02050800;
+u32 var0005554c = 0x00000078;
+u32 var00055550 = 0x02060700;
+u32 var00055554 = 0x00000028;
+u32 var00055558 = 0x02070800;
+u32 var0005555c = 0x000000e0;
+u32 var00055560 = 0x03000600;
+u32 var00055564 = 0x00000022;
+u32 var00055568 = 0x03010500;
+u32 var0005556c = 0x0000000a;
+u32 var00055570 = 0x03020600;
+u32 var00055574 = 0x0000003c;
+u32 var00055578 = 0x03030600;
+u32 var0005557c = 0x0000000c;
+u32 var00055580 = 0x03040700;
+u32 var00055584 = 0x00000024;
+u32 var00055588 = 0x03050800;
+u32 var0005558c = 0x00000038;
+u32 var00055590 = 0x03060800;
+u32 var00055594 = 0x00000070;
+u32 var00055598 = 0x03070800;
+u32 var0005559c = 0x000000a0;
+u32 var000555a0 = 0x04000700;
+u32 var000555a4 = 0x00000002;
+u32 var000555a8 = 0x04010600;
+u32 var000555ac = 0x0000002c;
+u32 var000555b0 = 0x04020700;
+u32 var000555b4 = 0x00000034;
+u32 var000555b8 = 0x04030700;
+u32 var000555bc = 0x00000064;
+u32 var000555c0 = 0x04040800;
+u32 var000555c4 = 0x00000048;
+u32 var000555c8 = 0x04050800;
+u32 var000555cc = 0x00000008;
+u32 var000555d0 = 0x04060800;
+u32 var000555d4 = 0x00000090;
+u32 var000555d8 = 0x04070900;
+u32 var000555dc = 0x00000140;
+u32 var000555e0 = 0x05000800;
+u32 var000555e4 = 0x00000014;
+u32 var000555e8 = 0x05010700;
+u32 var000555ec = 0x00000044;
+u32 var000555f0 = 0x05020800;
+u32 var000555f4 = 0x000000f8;
+u32 var000555f8 = 0x05030800;
+u32 var000555fc = 0x000000b8;
+u32 var00055600 = 0x05040800;
+u32 var00055604 = 0x00000088;
+u32 var00055608 = 0x05050900;
+u32 var0005560c = 0x00000160;
+u32 var00055610 = 0x05060800;
+u32 var00055614 = 0x00000020;
+u32 var00055618 = 0x05070900;
+u32 var0005561c = 0x00000080;
+u32 var00055620 = 0x06000800;
+u32 var00055624 = 0x000000d8;
+u32 var00055628 = 0x06010700;
+u32 var0005562c = 0x00000018;
+u32 var00055630 = 0x06020700;
+u32 var00055634 = 0x00000068;
+u32 var00055638 = 0x06030800;
+u32 var0005563c = 0x000000f0;
+u32 var00055640 = 0x06040800;
+u32 var00055644 = 0x00000050;
+u32 var00055648 = 0x06050900;
+u32 var0005564c = 0x000001c0;
+u32 var00055650 = 0x06060900;
+u32 var00055654 = 0x00000040;
+u32 var00055658 = 0x06070a00;
+u32 var0005565c = 0x00000200;
+u32 var00055660 = 0x07000900;
+u32 var00055664 = 0x000001b0;
+u32 var00055668 = 0x07010800;
+u32 var0005566c = 0x00000030;
+u32 var00055670 = 0x07020800;
+u32 var00055674 = 0x00000010;
+u32 var00055678 = 0x07030900;
+u32 var0005567c = 0x00000060;
+u32 var00055680 = 0x07040900;
+u32 var00055684 = 0x000000c0;
+u32 var00055688 = 0x07050900;
+u32 var0005568c = 0x00000180;
+u32 var00055690 = 0x07060900;
+u32 var00055694 = 0x00000100;
+u32 var00055698 = 0x07070a00;
+u32 var0005569c = 0x00000000;
+u32 var000556a0 = 0x64646400;
+u32 var000556a4 = 0x00000000;
+u32 var000556a8 = 0x00000100;
+u32 var000556ac = 0x00000001;
+u32 var000556b0 = 0x00010400;
+u32 var000556b4 = 0x0000000a;
+u32 var000556b8 = 0x00020600;
+u32 var000556bc = 0x0000001c;
+u32 var000556c0 = 0x00030700;
+u32 var000556c4 = 0x00000054;
+u32 var000556c8 = 0x00040800;
+u32 var000556cc = 0x00000044;
+u32 var000556d0 = 0x00050900;
+u32 var000556d4 = 0x00000198;
+u32 var000556d8 = 0x00060900;
+u32 var000556dc = 0x000000e8;
+u32 var000556e0 = 0x00070a00;
+u32 var000556e4 = 0x00000388;
+u32 var000556e8 = 0x00080900;
+u32 var000556ec = 0x000000a8;
+u32 var000556f0 = 0x00090a00;
+u32 var000556f4 = 0x000000b0;
+u32 var000556f8 = 0x000a0b00;
+u32 var000556fc = 0x00000110;
+u32 var00055700 = 0x000b0b00;
+u32 var00055704 = 0x00000160;
+u32 var00055708 = 0x000c0c00;
+u32 var0005570c = 0x00000c20;
+u32 var00055710 = 0x000d0c00;
+u32 var00055714 = 0x00000340;
+u32 var00055718 = 0x000e0d00;
+u32 var0005571c = 0x00001a80;
+u32 var00055720 = 0x000f0d00;
+u32 var00055724 = 0x00001900;
+u32 var00055728 = 0x01000300;
+u32 var0005572c = 0x00000006;
+u32 var00055730 = 0x01010400;
+u32 var00055734 = 0x00000002;
+u32 var00055738 = 0x01020600;
+u32 var0005573c = 0x0000000c;
+u32 var00055740 = 0x01030700;
+u32 var00055744 = 0x00000064;
+u32 var00055748 = 0x01040800;
+u32 var0005574c = 0x000000f8;
+u32 var00055750 = 0x01050800;
+u32 var00055754 = 0x00000058;
+u32 var00055758 = 0x01060900;
+u32 var0005575c = 0x00000068;
+u32 var00055760 = 0x01070900;
+u32 var00055764 = 0x00000108;
+u32 var00055768 = 0x01080900;
+u32 var0005576c = 0x000001f0;
+u32 var00055770 = 0x01090900;
+u32 var00055774 = 0x00000030;
+u32 var00055778 = 0x010a0a00;
+u32 var0005577c = 0x00000010;
+u32 var00055780 = 0x010b0a00;
+u32 var00055784 = 0x00000060;
+u32 var00055788 = 0x010c0b00;
+u32 var0005578c = 0x000007c0;
+u32 var00055790 = 0x010d0c00;
+u32 var00055794 = 0x00000c40;
+u32 var00055798 = 0x010e0c00;
+u32 var0005579c = 0x00000680;
+u32 var000557a0 = 0x010f0c00;
+u32 var000557a4 = 0x00000700;
+u32 var000557a8 = 0x02000600;
+u32 var000557ac = 0x0000003c;
+u32 var000557b0 = 0x02010600;
+u32 var000557b4 = 0x0000002c;
+u32 var000557b8 = 0x02020700;
+u32 var000557bc = 0x00000074;
+u32 var000557c0 = 0x02030800;
+u32 var000557c4 = 0x00000024;
+u32 var000557c8 = 0x02040900;
+u32 var000557cc = 0x000001b8;
+u32 var000557d0 = 0x02050900;
+u32 var000557d4 = 0x00000118;
+u32 var000557d8 = 0x02060a00;
+u32 var000557dc = 0x000002c8;
+u32 var000557e0 = 0x02070a00;
+u32 var000557e4 = 0x00000208;
+u32 var000557e8 = 0x02080900;
+u32 var000557ec = 0x00000170;
+u32 var000557f0 = 0x02090a00;
+u32 var000557f4 = 0x00000050;
+u32 var000557f8 = 0x020a0a00;
+u32 var000557fc = 0x000001e0;
+u32 var00055800 = 0x020b0b00;
+u32 var00055804 = 0x000000a0;
+u32 var00055808 = 0x020c0b00;
+u32 var0005580c = 0x000006c0;
+u32 var00055810 = 0x020d0c00;
+u32 var00055814 = 0x00000840;
+u32 var00055818 = 0x020e0d00;
+u32 var0005581c = 0x00000a80;
+u32 var00055820 = 0x020f0d00;
+u32 var00055824 = 0x00000100;
+u32 var00055828 = 0x03000700;
+u32 var0005582c = 0x00000034;
+u32 var00055830 = 0x03010700;
+u32 var00055834 = 0x00000014;
+u32 var00055838 = 0x03020800;
+u32 var0005583c = 0x000000a4;
+u32 var00055840 = 0x03030900;
+u32 var00055844 = 0x00000178;
+u32 var00055848 = 0x03040900;
+u32 var0005584c = 0x00000038;
+u32 var00055850 = 0x03050a00;
+u32 var00055854 = 0x000003c8;
+u32 var00055858 = 0x03060a00;
+u32 var0005585c = 0x00000248;
+u32 var00055860 = 0x03070a00;
+u32 var00055864 = 0x00000008;
+u32 var00055868 = 0x03080a00;
+u32 var0005586c = 0x00000350;
+u32 var00055870 = 0x03090b00;
+u32 var00055874 = 0x00000190;
+u32 var00055878 = 0x030a0b00;
+u32 var0005587c = 0x000000e0;
+u32 var00055880 = 0x030b0b00;
+u32 var00055884 = 0x00000520;
+u32 var00055888 = 0x030c0b00;
+u32 var0005588c = 0x000002c0;
+u32 var00055890 = 0x030d0c00;
+u32 var00055894 = 0x00000f80;
+u32 var00055898 = 0x030e0d00;
+u32 var0005589c = 0x00001300;
+u32 var000558a0 = 0x030f0d00;
+u32 var000558a4 = 0x00000e00;
+u32 var000558a8 = 0x04000800;
+u32 var000558ac = 0x000000c4;
+u32 var000558b0 = 0x04010700;
+u32 var000558b4 = 0x00000004;
+u32 var000558b8 = 0x04020900;
+u32 var000558bc = 0x00000078;
+u32 var000558c0 = 0x04030900;
+u32 var000558c4 = 0x00000138;
+u32 var000558c8 = 0x04040a00;
+u32 var000558cc = 0x00000218;
+u32 var000558d0 = 0x04050a00;
+u32 var000558d4 = 0x00000348;
+u32 var000558d8 = 0x04060b00;
+u32 var000558dc = 0x00000270;
+u32 var000558e0 = 0x04070b00;
+u32 var000558e4 = 0x000006d0;
+u32 var000558e8 = 0x04080a00;
+u32 var000558ec = 0x000001b0;
+u32 var000558f0 = 0x04090b00;
+u32 var000558f4 = 0x00000490;
+u32 var000558f8 = 0x040a0b00;
+u32 var000558fc = 0x00000760;
+u32 var00055900 = 0x040b0c00;
+u32 var00055904 = 0x00000940;
+u32 var00055908 = 0x040c0c00;
+u32 var0005590c = 0x000000c0;
+u32 var00055910 = 0x040d0d00;
+u32 var00055914 = 0x00001580;
+u32 var00055918 = 0x040e0d00;
+u32 var0005591c = 0x00001d00;
+u32 var00055920 = 0x040f0e00;
+u32 var00055924 = 0x00000600;
+u32 var00055928 = 0x05000900;
+u32 var0005592c = 0x000000b8;
+u32 var00055930 = 0x05010800;
+u32 var00055934 = 0x000000d8;
+u32 var00055938 = 0x05020900;
+u32 var0005593c = 0x00000098;
+u32 var00055940 = 0x05030a00;
+u32 var00055944 = 0x00000018;
+u32 var00055948 = 0x05040a00;
+u32 var0005594c = 0x000000c8;
+u32 var00055950 = 0x05050a00;
+u32 var00055954 = 0x00000188;
+u32 var00055958 = 0x05060b00;
+u32 var0005595c = 0x000005d0;
+u32 var00055960 = 0x05070b00;
+u32 var00055964 = 0x00000150;
+u32 var00055968 = 0x05080b00;
+u32 var0005596c = 0x00000590;
+u32 var00055970 = 0x05090b00;
+u32 var00055974 = 0x000002e0;
+u32 var00055978 = 0x050a0c00;
+u32 var0005597c = 0x00000f20;
+u32 var00055980 = 0x050b0b00;
+u32 var00055984 = 0x000005c0;
+u32 var00055988 = 0x050c0d00;
+u32 var0005598c = 0x00000a40;
+u32 var00055990 = 0x050d0d00;
+u32 var00055994 = 0x00001180;
+u32 var00055998 = 0x050e0e00;
+u32 var0005599c = 0x00002500;
+u32 var000559a0 = 0x050f0e00;
+u32 var000559a4 = 0x00002200;
+u32 var000559a8 = 0x06000900;
+u32 var000559ac = 0x000001e8;
+u32 var000559b0 = 0x06010900;
+u32 var000559b4 = 0x00000168;
+u32 var000559b8 = 0x06020a00;
+u32 var000559bc = 0x000001c8;
+u32 var000559c0 = 0x06030a00;
+u32 var000559c4 = 0x00000148;
+u32 var000559c8 = 0x06040b00;
+u32 var000559cc = 0x00000670;
+u32 var000559d0 = 0x06050b00;
+u32 var000559d4 = 0x000003d0;
+u32 var000559d8 = 0x06060b00;
+u32 var000559dc = 0x000002d0;
+u32 var000559e0 = 0x06070b00;
+u32 var000559e4 = 0x00000790;
+u32 var000559e8 = 0x06080b00;
+u32 var000559ec = 0x00000510;
+u32 var000559f0 = 0x06090c00;
+u32 var000559f4 = 0x00000ca0;
+u32 var000559f8 = 0x060a0c00;
+u32 var000559fc = 0x00000e20;
+u32 var00055a00 = 0x060b0c00;
+u32 var00055a04 = 0x000004c0;
+u32 var00055a08 = 0x060c0d00;
+u32 var00055a0c = 0x00001b80;
+u32 var00055a10 = 0x060d0d00;
+u32 var00055a14 = 0x00000c80;
+u32 var00055a18 = 0x060e0e00;
+u32 var00055a1c = 0x00000900;
+u32 var00055a20 = 0x060f0e00;
+u32 var00055a24 = 0x00003c00;
+u32 var00055a28 = 0x07000a00;
+u32 var00055a2c = 0x00000048;
+u32 var00055a30 = 0x07010900;
+u32 var00055a34 = 0x00000088;
+u32 var00055a38 = 0x07020a00;
+u32 var00055a3c = 0x00000070;
+u32 var00055a40 = 0x07030b00;
+u32 var00055a44 = 0x000007d0;
+u32 var00055a48 = 0x07040b00;
+u32 var00055a4c = 0x000001d0;
+u32 var00055a50 = 0x07050b00;
+u32 var00055a54 = 0x00000550;
+u32 var00055a58 = 0x07060c00;
+u32 var00055a5c = 0x00000da0;
+u32 var00055a60 = 0x07070c00;
+u32 var00055a64 = 0x000005a0;
+u32 var00055a68 = 0x07080c00;
+u32 var00055a6c = 0x000006a0;
+u32 var00055a70 = 0x07090c00;
+u32 var00055a74 = 0x00000920;
+u32 var00055a78 = 0x070a0d00;
+u32 var00055a7c = 0x00001640;
+u32 var00055a80 = 0x070b0d00;
+u32 var00055a84 = 0x00001040;
+u32 var00055a88 = 0x070c0d00;
+u32 var00055a8c = 0x00001980;
+u32 var00055a90 = 0x070d0e00;
+u32 var00055a94 = 0x00000d00;
+u32 var00055a98 = 0x070e1000;
+u32 var00055a9c = 0x0000d400;
+u32 var00055aa0 = 0x070f1000;
+u32 var00055aa4 = 0x00005400;
+u32 var00055aa8 = 0x08000900;
+u32 var00055aac = 0x000001a8;
+u32 var00055ab0 = 0x08010800;
+u32 var00055ab4 = 0x00000028;
+u32 var00055ab8 = 0x08020900;
+u32 var00055abc = 0x000000f0;
+u32 var00055ac0 = 0x08030a00;
+u32 var00055ac4 = 0x000000d0;
+u32 var00055ac8 = 0x08040a00;
+u32 var00055acc = 0x000003b0;
+u32 var00055ad0 = 0x08050b00;
+u32 var00055ad4 = 0x00000390;
+u32 var00055ad8 = 0x08060b00;
+u32 var00055adc = 0x00000090;
+u32 var00055ae0 = 0x08070c00;
+u32 var00055ae4 = 0x00000ea0;
+u32 var00055ae8 = 0x08080c00;
+u32 var00055aec = 0x00000720;
+u32 var00055af0 = 0x08090c00;
+u32 var00055af4 = 0x00000bc0;
+u32 var00055af8 = 0x080a0c00;
+u32 var00055afc = 0x00000740;
+u32 var00055b00 = 0x080b0d00;
+u32 var00055b04 = 0x00000d80;
+u32 var00055b08 = 0x080c0d00;
+u32 var00055b0c = 0x00001480;
+u32 var00055b10 = 0x080d0e00;
+u32 var00055b14 = 0x00001e00;
+u32 var00055b18 = 0x080e0f00;
+u32 var00055b1c = 0x00001400;
+u32 var00055b20 = 0x080f0f00;
+u32 var00055b24 = 0x00000400;
+u32 var00055b28 = 0x09000a00;
+u32 var00055b2c = 0x000002b0;
+u32 var00055b30 = 0x09010900;
+u32 var00055b34 = 0x00000130;
+u32 var00055b38 = 0x09020a00;
+u32 var00055b3c = 0x00000250;
+u32 var00055b40 = 0x09030a00;
+u32 var00055b44 = 0x00000290;
+u32 var00055b48 = 0x09040b00;
+u32 var00055b4c = 0x000001a0;
+u32 var00055b50 = 0x09050b00;
+u32 var00055b54 = 0x000006e0;
+u32 var00055b58 = 0x09060b00;
+u32 var00055b5c = 0x00000360;
+u32 var00055b60 = 0x09070d00;
+u32 var00055b64 = 0x00001140;
+u32 var00055b68 = 0x09080c00;
+u32 var00055b6c = 0x00000420;
+u32 var00055b70 = 0x09090d00;
+u32 var00055b74 = 0x00000640;
+u32 var00055b78 = 0x090a0d00;
+u32 var00055b7c = 0x00001380;
+u32 var00055b80 = 0x090b0e00;
+u32 var00055b84 = 0x00001b00;
+u32 var00055b88 = 0x090c0e00;
+u32 var00055b8c = 0x00002900;
+u32 var00055b90 = 0x090d0e00;
+u32 var00055b94 = 0x00001200;
+u32 var00055b98 = 0x090e1000;
+u32 var00055b9c = 0x0000e400;
+u32 var00055ba0 = 0x090f0f00;
+u32 var00055ba4 = 0x00006800;
+u32 var00055ba8 = 0x0a000a00;
+u32 var00055bac = 0x00000310;
+u32 var00055bb0 = 0x0a010a00;
+u32 var00055bb4 = 0x00000210;
+u32 var00055bb8 = 0x0a020a00;
+u32 var00055bbc = 0x000003e0;
+u32 var00055bc0 = 0x0a030b00;
+u32 var00055bc4 = 0x000004e0;
+u32 var00055bc8 = 0x0a040b00;
+u32 var00055bcc = 0x000002a0;
+u32 var00055bd0 = 0x0a050c00;
+u32 var00055bd4 = 0x000004a0;
+u32 var00055bd8 = 0x0a060c00;
+u32 var00055bdc = 0x00000120;
+u32 var00055be0 = 0x0a070d00;
+u32 var00055be4 = 0x00000140;
+u32 var00055be8 = 0x0a080c00;
+u32 var00055bec = 0x00000f40;
+u32 var00055bf0 = 0x0a090d00;
+u32 var00055bf4 = 0x00000b80;
+u32 var00055bf8 = 0x0a0a0e00;
+u32 var00055bfc = 0x00003b00;
+u32 var00055c00 = 0x0a0b0d00;
+u32 var00055c04 = 0x00001500;
+u32 var00055c08 = 0x0a0c0e00;
+u32 var00055c0c = 0x00001a00;
+u32 var00055c10 = 0x0a0d0f00;
+u32 var00055c14 = 0x00002c00;
+u32 var00055c18 = 0x0a0e1000;
+u32 var00055c1c = 0x00006400;
+u32 var00055c20 = 0x0a0f1100;
+u32 var00055c24 = 0x0000d000;
+u32 var00055c28 = 0x0b000b00;
+u32 var00055c2c = 0x00000560;
+u32 var00055c30 = 0x0b010a00;
+u32 var00055c34 = 0x00000260;
+u32 var00055c38 = 0x0b020a00;
+u32 var00055c3c = 0x000003a0;
+u32 var00055c40 = 0x0b030b00;
+u32 var00055c44 = 0x00000320;
+u32 var00055c48 = 0x0b040c00;
+u32 var00055c4c = 0x00000620;
+u32 var00055c50 = 0x0b050c00;
+u32 var00055c54 = 0x000003c0;
+u32 var00055c58 = 0x0b060c00;
+u32 var00055c5c = 0x00000cc0;
+u32 var00055c60 = 0x0b070c00;
+u32 var00055c64 = 0x00000240;
+u32 var00055c68 = 0x0b080d00;
+u32 var00055c6c = 0x00001d80;
+u32 var00055c70 = 0x0b090d00;
+u32 var00055c74 = 0x00000b00;
+u32 var00055c78 = 0x0b0a0d00;
+u32 var00055c7c = 0x00000880;
+u32 var00055c80 = 0x0b0b0e00;
+u32 var00055c84 = 0x00003a00;
+u32 var00055c88 = 0x0b0c0f00;
+u32 var00055c8c = 0x00006c00;
+u32 var00055c90 = 0x0b0d0f00;
+u32 var00055c94 = 0x00003800;
+u32 var00055c98 = 0x0b0e0f00;
+u32 var00055c9c = 0x00004800;
+u32 var00055ca0 = 0x0b0f1000;
+u32 var00055ca4 = 0x0000e000;
+u32 var00055ca8 = 0x0c000b00;
+u32 var00055cac = 0x00000220;
+u32 var00055cb0 = 0x0c010b00;
+u32 var00055cb4 = 0x00000020;
+u32 var00055cb8 = 0x0c020b00;
+u32 var00055cbc = 0x000001c0;
+u32 var00055cc0 = 0x0c030c00;
+u32 var00055cc4 = 0x00000e40;
+u32 var00055cc8 = 0x0c040c00;
+u32 var00055ccc = 0x000008c0;
+u32 var00055cd0 = 0x0c050d00;
+u32 var00055cd4 = 0x00001a40;
+u32 var00055cd8 = 0x0c060c00;
+u32 var00055cdc = 0x00000780;
+u32 var00055ce0 = 0x0c070d00;
+u32 var00055ce4 = 0x00000580;
+u32 var00055ce8 = 0x0c080e00;
+u32 var00055cec = 0x00000300;
+u32 var00055cf0 = 0x0c090e00;
+u32 var00055cf4 = 0x00000500;
+u32 var00055cf8 = 0x0c0a0f00;
+u32 var00055cfc = 0x00001600;
+u32 var00055d00 = 0x0c0b0f00;
+u32 var00055d04 = 0x00001c00;
+u32 var00055d08 = 0x0c0c0f00;
+u32 var00055d0c = 0x00002400;
+u32 var00055d10 = 0x0c0d1000;
+u32 var00055d14 = 0x00008800;
+u32 var00055d18 = 0x0c0e1000;
+u32 var00055d1c = 0x00009000;
+u32 var00055d20 = 0x0c0f1000;
+u32 var00055d24 = 0x0000a000;
+u32 var00055d28 = 0x0d000c00;
+u32 var00055d2c = 0x00000b40;
+u32 var00055d30 = 0x0d010b00;
+u32 var00055d34 = 0x00000540;
+u32 var00055d38 = 0x0d020c00;
+u32 var00055d3c = 0x00000440;
+u32 var00055d40 = 0x0d030d00;
+u32 var00055d44 = 0x00000040;
+u32 var00055d48 = 0x0d040d00;
+u32 var00055d4c = 0x00000380;
+u32 var00055d50 = 0x0d050d00;
+u32 var00055d54 = 0x00000980;
+u32 var00055d58 = 0x0d060e00;
+u32 var00055d5c = 0x00002300;
+u32 var00055d60 = 0x0d070e00;
+u32 var00055d64 = 0x00002d00;
+u32 var00055d68 = 0x0d080e00;
+u32 var00055d6c = 0x00003e00;
+u32 var00055d70 = 0x0d090e00;
+u32 var00055d74 = 0x00003200;
+u32 var00055d78 = 0x0d0a0e00;
+u32 var00055d7c = 0x00000c00;
+u32 var00055d80 = 0x0d0b0f00;
+u32 var00055d84 = 0x00007800;
+u32 var00055d88 = 0x0d0c1000;
+u32 var00055d8c = 0x00005000;
+u32 var00055d90 = 0x0d0d0f00;
+u32 var00055d94 = 0x00007000;
+u32 var00055d98 = 0x0d0e1000;
+u32 var00055d9c = 0x00006000;
+u32 var00055da0 = 0x0d0f1000;
+u32 var00055da4 = 0x0000c000;
+u32 var00055da8 = 0x0e000d00;
+u32 var00055dac = 0x00000180;
+u32 var00055db0 = 0x0e010c00;
+u32 var00055db4 = 0x00000e80;
+u32 var00055db8 = 0x0e020c00;
+u32 var00055dbc = 0x00000280;
+u32 var00055dc0 = 0x0e030d00;
+u32 var00055dc4 = 0x00001c80;
+u32 var00055dc8 = 0x0e040d00;
+u32 var00055dcc = 0x00000480;
+u32 var00055dd0 = 0x0e050d00;
+u32 var00055dd4 = 0x00001880;
+u32 var00055dd8 = 0x0e060f00;
+u32 var00055ddc = 0x00005600;
+u32 var00055de0 = 0x0e070e00;
+u32 var00055de4 = 0x00002a00;
+u32 var00055de8 = 0x0e080e00;
+u32 var00055dec = 0x00000200;
+u32 var00055df0 = 0x0e091100;
+u32 var00055df4 = 0x0001d000;
+u32 var00055df8 = 0x0e0a0f00;
+u32 var00055dfc = 0x00005800;
+u32 var00055e00 = 0x0e0b0f00;
+u32 var00055e04 = 0x00002800;
+u32 var00055e08 = 0x0e0c0f00;
+u32 var00055e0c = 0x00003000;
+u32 var00055e10 = 0x0e0d1100;
+u32 var00055e14 = 0x00010000;
+u32 var00055e18 = 0x0e0e1000;
+u32 var00055e1c = 0x00002000;
+u32 var00055e20 = 0x0e0f1000;
+u32 var00055e24 = 0x00004000;
+u32 var00055e28 = 0x0f000c00;
+u32 var00055e2c = 0x00000080;
+u32 var00055e30 = 0x0f010c00;
+u32 var00055e34 = 0x00000f00;
+u32 var00055e38 = 0x0f020d00;
+u32 var00055e3c = 0x00001100;
+u32 var00055e40 = 0x0f030e00;
+u32 var00055e44 = 0x00003600;
+u32 var00055e48 = 0x0f040e00;
+u32 var00055e4c = 0x00002600;
+u32 var00055e50 = 0x0f050e00;
+u32 var00055e54 = 0x00000a00;
+u32 var00055e58 = 0x0f060f00;
+u32 var00055e5c = 0x00005c00;
+u32 var00055e60 = 0x0f070e00;
+u32 var00055e64 = 0x00003400;
+u32 var00055e68 = 0x0f080f00;
+u32 var00055e6c = 0x00004400;
+u32 var00055e70 = 0x0f090f00;
+u32 var00055e74 = 0x00001800;
+u32 var00055e78 = 0x0f0a1000;
+u32 var00055e7c = 0x00000800;
+u32 var00055e80 = 0x0f0b1000;
+u32 var00055e84 = 0x00001000;
+u32 var00055e88 = 0x0f0c1300;
+u32 var00055e8c = 0x00040000;
+u32 var00055e90 = 0x0f0d1200;
+u32 var00055e94 = 0x00020000;
+u32 var00055e98 = 0x0f0e1300;
+u32 var00055e9c = 0x00000000;
+u32 var00055ea0 = 0x0f0f1000;
+u32 var00055ea4 = 0x00008000;
+u32 var00055ea8 = 0x64646400;
+u32 var00055eac = 0x00000000;
+u32 var00055eb0 = 0x00000300;
+u32 var00055eb4 = 0x00000007;
+u32 var00055eb8 = 0x00010400;
+u32 var00055ebc = 0x00000003;
+u32 var00055ec0 = 0x00020500;
+u32 var00055ec4 = 0x00000009;
+u32 var00055ec8 = 0x00030700;
+u32 var00055ecc = 0x00000056;
+u32 var00055ed0 = 0x00040700;
+u32 var00055ed4 = 0x0000007a;
+u32 var00055ed8 = 0x00050800;
+u32 var00055edc = 0x00000032;
+u32 var00055ee0 = 0x00060900;
+u32 var00055ee4 = 0x0000007c;
+u32 var00055ee8 = 0x00070900;
+u32 var00055eec = 0x0000006c;
+u32 var00055ef0 = 0x00080900;
+u32 var00055ef4 = 0x00000134;
+u32 var00055ef8 = 0x00090a00;
+u32 var00055efc = 0x00000378;
+u32 var00055f00 = 0x000a0a00;
+u32 var00055f04 = 0x000000d8;
+u32 var00055f08 = 0x000b0b00;
+u32 var00055f0c = 0x00000770;
+u32 var00055f10 = 0x000c0b00;
+u32 var00055f14 = 0x000006b0;
+u32 var00055f18 = 0x000d0b00;
+u32 var00055f1c = 0x00000450;
+u32 var00055f20 = 0x000e0c00;
+u32 var00055f24 = 0x000005e0;
+u32 var00055f28 = 0x000f0d00;
+u32 var00055f2c = 0x00001f80;
+u32 var00055f30 = 0x01000400;
+u32 var00055f34 = 0x0000000b;
+u32 var00055f38 = 0x01010300;
+u32 var00055f3c = 0x00000005;
+u32 var00055f40 = 0x01020500;
+u32 var00055f44 = 0x00000001;
+u32 var00055f48 = 0x01030600;
+u32 var00055f4c = 0x00000036;
+u32 var00055f50 = 0x01040700;
+u32 var00055f54 = 0x0000003a;
+u32 var00055f58 = 0x01050700;
+u32 var00055f5c = 0x00000012;
+u32 var00055f60 = 0x01060800;
+u32 var00055f64 = 0x000000bc;
+u32 var00055f68 = 0x01070800;
+u32 var00055f6c = 0x000000cc;
+u32 var00055f70 = 0x01080800;
+u32 var00055f74 = 0x00000054;
+u32 var00055f78 = 0x01090900;
+u32 var00055f7c = 0x000000c4;
+u32 var00055f80 = 0x010a0900;
+u32 var00055f84 = 0x00000058;
+u32 var00055f88 = 0x010b0a00;
+u32 var00055f8c = 0x00000328;
+u32 var00055f90 = 0x010c0a00;
+u32 var00055f94 = 0x00000208;
+u32 var00055f98 = 0x010d0a00;
+u32 var00055f9c = 0x00000250;
+u32 var00055fa0 = 0x010e0b00;
+u32 var00055fa4 = 0x000006e0;
+u32 var00055fa8 = 0x010f0b00;
+u32 var00055fac = 0x00000120;
+u32 var00055fb0 = 0x02000500;
+u32 var00055fb4 = 0x00000019;
+u32 var00055fb8 = 0x02010500;
+u32 var00055fbc = 0x00000011;
+u32 var00055fc0 = 0x02020500;
+u32 var00055fc4 = 0x0000001e;
+u32 var00055fc8 = 0x02030600;
+u32 var00055fcc = 0x00000006;
+u32 var00055fd0 = 0x02040700;
+u32 var00055fd4 = 0x0000004a;
+u32 var00055fd8 = 0x02050700;
+u32 var00055fdc = 0x00000022;
+u32 var00055fe0 = 0x02060800;
+u32 var00055fe4 = 0x000000dc;
+u32 var00055fe8 = 0x02070800;
+u32 var00055fec = 0x0000000c;
+u32 var00055ff0 = 0x02080800;
+u32 var00055ff4 = 0x00000014;
+u32 var00055ff8 = 0x02090900;
+u32 var00055ffc = 0x00000004;
+u32 var00056000 = 0x020a0900;
+u32 var00056004 = 0x00000098;
+u32 var00056008 = 0x020b0a00;
+u32 var0005600c = 0x000001c8;
+u32 var00056010 = 0x020c0a00;
+u32 var00056014 = 0x000001f0;
+u32 var00056018 = 0x020d0b00;
+u32 var0005601c = 0x00000050;
+u32 var00056020 = 0x020e0b00;
+u32 var00056024 = 0x000000e0;
+u32 var00056028 = 0x020f0b00;
+u32 var0005602c = 0x00000420;
+u32 var00056030 = 0x03000600;
+u32 var00056034 = 0x0000002e;
+u32 var00056038 = 0x03010600;
+u32 var0005603c = 0x0000000e;
+u32 var00056040 = 0x03020600;
+u32 var00056044 = 0x00000026;
+u32 var00056048 = 0x03030700;
+u32 var0005604c = 0x0000006a;
+u32 var00056050 = 0x03040700;
+u32 var00056054 = 0x00000072;
+u32 var00056058 = 0x03050800;
+u32 var0005605c = 0x000000fc;
+u32 var00056060 = 0x03060800;
+u32 var00056064 = 0x000000ec;
+u32 var00056068 = 0x03070900;
+u32 var0005606c = 0x00000174;
+u32 var00056070 = 0x03080900;
+u32 var00056074 = 0x00000064;
+u32 var00056078 = 0x03090900;
+u32 var0005607c = 0x000001b8;
+u32 var00056080 = 0x030a0a00;
+u32 var00056084 = 0x000002e8;
+u32 var00056088 = 0x030b0a00;
+u32 var0005608c = 0x00000048;
+u32 var00056090 = 0x030c0a00;
+u32 var00056094 = 0x000001b0;
+u32 var00056098 = 0x030d0b00;
+u32 var0005609c = 0x00000690;
+u32 var000560a0 = 0x030e0b00;
+u32 var000560a4 = 0x00000260;
+u32 var000560a8 = 0x030f0b00;
+u32 var000560ac = 0x000005c0;
+u32 var000560b0 = 0x04000700;
+u32 var000560b4 = 0x00000016;
+u32 var000560b8 = 0x04010600;
+u32 var000560bc = 0x0000001a;
+u32 var000560c0 = 0x04020700;
+u32 var000560c4 = 0x0000002a;
+u32 var000560c8 = 0x04030700;
+u32 var000560cc = 0x0000000a;
+u32 var000560d0 = 0x04040800;
+u32 var000560d4 = 0x000000c2;
+u32 var000560d8 = 0x04050800;
+u32 var000560dc = 0x0000009c;
+u32 var000560e0 = 0x04060900;
+u32 var000560e4 = 0x000001f4;
+u32 var000560e8 = 0x04070900;
+u32 var000560ec = 0x000001e4;
+u32 var000560f0 = 0x04080900;
+u32 var000560f4 = 0x00000024;
+u32 var000560f8 = 0x04090900;
+u32 var000560fc = 0x00000138;
+u32 var00056100 = 0x040a0a00;
+u32 var00056104 = 0x00000268;
+u32 var00056108 = 0x040b0a00;
+u32 var0005610c = 0x00000288;
+u32 var00056110 = 0x040c0a00;
+u32 var00056114 = 0x00000230;
+u32 var00056118 = 0x040d0b00;
+u32 var0005611c = 0x00000210;
+u32 var00056120 = 0x040e0b00;
+u32 var00056124 = 0x000003a0;
+u32 var00056128 = 0x040f0b00;
+u32 var0005612c = 0x000006c0;
+u32 var00056130 = 0x05000800;
+u32 var00056134 = 0x000000b2;
+u32 var00056138 = 0x05010700;
+u32 var0005613c = 0x00000052;
+u32 var00056140 = 0x05020700;
+u32 var00056144 = 0x00000062;
+u32 var00056148 = 0x05030800;
+u32 var0005614c = 0x00000042;
+u32 var00056150 = 0x05040800;
+u32 var00056154 = 0x0000005c;
+u32 var00056158 = 0x05050800;
+u32 var0005615c = 0x0000002c;
+u32 var00056160 = 0x05060900;
+u32 var00056164 = 0x000001b4;
+u32 var00056168 = 0x05070900;
+u32 var0005616c = 0x000000a4;
+u32 var00056170 = 0x05080900;
+u32 var00056174 = 0x000000f8;
+u32 var00056178 = 0x05090900;
+u32 var0005617c = 0x00000018;
+u32 var00056180 = 0x050a0a00;
+u32 var00056184 = 0x000003c8;
+u32 var00056188 = 0x050b0a00;
+u32 var0005618c = 0x000003f0;
+u32 var00056190 = 0x050c0b00;
+u32 var00056194 = 0x000002d0;
+u32 var00056198 = 0x050d0b00;
+u32 var0005619c = 0x000003e0;
+u32 var000561a0 = 0x050e0b00;
+u32 var000561a4 = 0x000000a0;
+u32 var000561a8 = 0x050f0c00;
+u32 var000561ac = 0x00000640;
+u32 var000561b0 = 0x06000900;
+u32 var000561b4 = 0x0000017c;
+u32 var000561b8 = 0x06010700;
+u32 var000561bc = 0x00000002;
+u32 var000561c0 = 0x06020800;
+u32 var000561c4 = 0x0000003c;
+u32 var000561c8 = 0x06030800;
+u32 var000561cc = 0x0000001c;
+u32 var000561d0 = 0x06040800;
+u32 var000561d4 = 0x0000004c;
+u32 var000561d8 = 0x06050900;
+u32 var000561dc = 0x00000074;
+u32 var000561e0 = 0x06060900;
+u32 var000561e4 = 0x000000e4;
+u32 var000561e8 = 0x06070900;
+u32 var000561ec = 0x00000104;
+u32 var000561f0 = 0x06080900;
+u32 var000561f4 = 0x000001d8;
+u32 var000561f8 = 0x06090a00;
+u32 var000561fc = 0x000003a8;
+u32 var00056200 = 0x060a0a00;
+u32 var00056204 = 0x00000388;
+u32 var00056208 = 0x060b0a00;
+u32 var0005620c = 0x00000330;
+u32 var00056210 = 0x060c0b00;
+u32 var00056214 = 0x00000490;
+u32 var00056218 = 0x060d0b00;
+u32 var0005621c = 0x00000660;
+u32 var00056220 = 0x060e0c00;
+u32 var00056224 = 0x00000620;
+u32 var00056228 = 0x060f0c00;
+u32 var0005622c = 0x00000780;
+u32 var00056230 = 0x07000900;
+u32 var00056234 = 0x0000016c;
+u32 var00056238 = 0x07010800;
+u32 var0005623c = 0x000000ac;
+u32 var00056240 = 0x07020800;
+u32 var00056244 = 0x0000008c;
+u32 var00056248 = 0x07030900;
+u32 var0005624c = 0x000000f4;
+u32 var00056250 = 0x07040900;
+u32 var00056254 = 0x00000034;
+u32 var00056258 = 0x07050900;
+u32 var0005625c = 0x000001a4;
+u32 var00056260 = 0x07060900;
+u32 var00056264 = 0x00000084;
+u32 var00056268 = 0x07070a00;
+u32 var0005626c = 0x00000178;
+u32 var00056270 = 0x07080a00;
+u32 var00056274 = 0x00000368;
+u32 var00056278 = 0x07090a00;
+u32 var0005627c = 0x00000248;
+u32 var00056280 = 0x070a0a00;
+u32 var00056284 = 0x00000070;
+u32 var00056288 = 0x070b0a00;
+u32 var0005628c = 0x00000150;
+u32 var00056290 = 0x070c0b00;
+u32 var00056294 = 0x00000010;
+u32 var00056298 = 0x070d0b00;
+u32 var0005629c = 0x000001a0;
+u32 var000562a0 = 0x070e0b00;
+u32 var000562a4 = 0x00000540;
+u32 var000562a8 = 0x070f0c00;
+u32 var000562ac = 0x00000980;
+u32 var000562b0 = 0x08000900;
+u32 var000562b4 = 0x000000b4;
+u32 var000562b8 = 0x08010800;
+u32 var000562bc = 0x000000d4;
+u32 var000562c0 = 0x08020800;
+u32 var000562c4 = 0x00000094;
+u32 var000562c8 = 0x08030900;
+u32 var000562cc = 0x00000164;
+u32 var000562d0 = 0x08040900;
+u32 var000562d4 = 0x00000124;
+u32 var000562d8 = 0x08050900;
+u32 var000562dc = 0x000001f8;
+u32 var000562e0 = 0x08060900;
+u32 var000562e4 = 0x00000038;
+u32 var000562e8 = 0x08070a00;
+u32 var000562ec = 0x000000e8;
+u32 var000562f0 = 0x08080a00;
+u32 var000562f4 = 0x000002c8;
+u32 var000562f8 = 0x08090a00;
+u32 var000562fc = 0x00000108;
+u32 var00056300 = 0x080a0a00;
+u32 var00056304 = 0x000003d0;
+u32 var00056308 = 0x080b0b00;
+u32 var0005630c = 0x00000610;
+u32 var00056310 = 0x080c0b00;
+u32 var00056314 = 0x00000060;
+u32 var00056318 = 0x080d0c00;
+u32 var0005631c = 0x00000ac0;
+u32 var00056320 = 0x080e0c00;
+u32 var00056324 = 0x00000240;
+u32 var00056328 = 0x080f0c00;
+u32 var0005632c = 0x00000280;
+u32 var00056330 = 0x09000900;
+u32 var00056334 = 0x000001c4;
+u32 var00056338 = 0x09010800;
+u32 var0005633c = 0x00000044;
+u32 var00056340 = 0x09020900;
+u32 var00056344 = 0x00000184;
+u32 var00056348 = 0x09030900;
+u32 var0005634c = 0x00000078;
+u32 var00056350 = 0x09040900;
+u32 var00056354 = 0x000000b8;
+u32 var00056358 = 0x09050900;
+u32 var0005635c = 0x00000118;
+u32 var00056360 = 0x09060a00;
+u32 var00056364 = 0x00000068;
+u32 var00056368 = 0x09070a00;
+u32 var0005636c = 0x000000c8;
+u32 var00056370 = 0x09080a00;
+u32 var00056374 = 0x00000308;
+u32 var00056378 = 0x09090b00;
+u32 var0005637c = 0x000002b0;
+u32 var00056380 = 0x090a0b00;
+u32 var00056384 = 0x00000710;
+u32 var00056388 = 0x090b0b00;
+u32 var0005638c = 0x00000360;
+u32 var00056390 = 0x090c0b00;
+u32 var00056394 = 0x00000320;
+u32 var00056398 = 0x090d0c00;
+u32 var0005639c = 0x00000e40;
+u32 var000563a0 = 0x090e0c00;
+u32 var000563a4 = 0x00000e80;
+u32 var000563a8 = 0x090f0c00;
+u32 var000563ac = 0x00000f00;
+u32 var000563b0 = 0x0a000a00;
+u32 var000563b4 = 0x000002d8;
+u32 var000563b8 = 0x0a010900;
+u32 var000563bc = 0x00000158;
+u32 var000563c0 = 0x0a020900;
+u32 var000563c4 = 0x00000198;
+u32 var000563c8 = 0x0a030900;
+u32 var000563cc = 0x000001e8;
+u32 var000563d0 = 0x0a040a00;
+u32 var000563d4 = 0x00000168;
+u32 var000563d8 = 0x0a050a00;
+u32 var000563dc = 0x00000128;
+u32 var000563e0 = 0x0a060a00;
+u32 var000563e4 = 0x00000170;
+u32 var000563e8 = 0x0a070a00;
+u32 var000563ec = 0x00000270;
+u32 var000563f0 = 0x0a080a00;
+u32 var000563f4 = 0x00000030;
+u32 var000563f8 = 0x0a090b00;
+u32 var000563fc = 0x00000090;
+u32 var00056400 = 0x0a0a0b00;
+u32 var00056404 = 0x000004e0;
+u32 var00056408 = 0x0a0b0b00;
+u32 var0005640c = 0x000004a0;
+u32 var00056410 = 0x0a0c0b00;
+u32 var00056414 = 0x00000740;
+u32 var00056418 = 0x0a0d0c00;
+u32 var0005641c = 0x00000d80;
+u32 var00056420 = 0x0a0e0d00;
+u32 var00056424 = 0x00000f80;
+u32 var00056428 = 0x0a0f0c00;
+u32 var0005642c = 0x00000900;
+u32 var00056430 = 0x0b000a00;
+u32 var00056434 = 0x000001a8;
+u32 var00056438 = 0x0b010900;
+u32 var0005643c = 0x000000a8;
+u32 var00056440 = 0x0b020900;
+u32 var00056444 = 0x00000028;
+u32 var00056448 = 0x0b030900;
+u32 var0005644c = 0x00000148;
+u32 var00056450 = 0x0b040a00;
+u32 var00056454 = 0x00000188;
+u32 var00056458 = 0x0b050a00;
+u32 var0005645c = 0x00000008;
+u32 var00056460 = 0x0b060a00;
+u32 var00056464 = 0x000000b0;
+u32 var00056468 = 0x0b070a00;
+u32 var0005646c = 0x00000350;
+u32 var00056470 = 0x0b080b00;
+u32 var00056474 = 0x00000310;
+u32 var00056478 = 0x0b090b00;
+u32 var0005647c = 0x00000760;
+u32 var00056480 = 0x0b0a0b00;
+u32 var00056484 = 0x000002a0;
+u32 var00056488 = 0x0b0b0b00;
+u32 var0005648c = 0x000004c0;
+u32 var00056490 = 0x0b0c0c00;
+u32 var00056494 = 0x00000b80;
+u32 var00056498 = 0x0b0d0c00;
+u32 var0005649c = 0x00000480;
+u32 var000564a0 = 0x0b0e0c00;
+u32 var000564a4 = 0x00000d00;
+u32 var000564a8 = 0x0b0f0d00;
+u32 var000564ac = 0x00001a00;
+u32 var000564b0 = 0x0c000b00;
+u32 var000564b4 = 0x00000370;
+u32 var000564b8 = 0x0c010a00;
+u32 var000564bc = 0x00000088;
+u32 var000564c0 = 0x0c020900;
+u32 var000564c4 = 0x000000f0;
+u32 var000564c8 = 0x0c030a00;
+u32 var000564cc = 0x000003b0;
+u32 var000564d0 = 0x0c040a00;
+u32 var000564d4 = 0x00000130;
+u32 var000564d8 = 0x0c050a00;
+u32 var000564dc = 0x000001d0;
+u32 var000564e0 = 0x0c060b00;
+u32 var000564e4 = 0x00000290;
+u32 var000564e8 = 0x0c070b00;
+u32 var000564ec = 0x00000410;
+u32 var000564f0 = 0x0c080b00;
+u32 var000564f4 = 0x00000460;
+u32 var000564f8 = 0x0c090b00;
+u32 var000564fc = 0x00000720;
+u32 var00056500 = 0x0c0a0b00;
+u32 var00056504 = 0x000000c0;
+u32 var00056508 = 0x0c0b0b00;
+u32 var0005650c = 0x00000040;
+u32 var00056510 = 0x0c0c0c00;
+u32 var00056514 = 0x00000680;
+u32 var00056518 = 0x0c0d0c00;
+u32 var0005651c = 0x00000b00;
+u32 var00056520 = 0x0c0e0d00;
+u32 var00056524 = 0x00000e00;
+u32 var00056528 = 0x0c0f0d00;
+u32 var0005652c = 0x00001c00;
+u32 var00056530 = 0x0d000b00;
+u32 var00056534 = 0x000006d0;
+u32 var00056538 = 0x0d010a00;
+u32 var0005653c = 0x000000d0;
+u32 var00056540 = 0x0d020a00;
+u32 var00056544 = 0x00000390;
+u32 var00056548 = 0x0d030a00;
+u32 var0005654c = 0x00000190;
+u32 var00056550 = 0x0d040a00;
+u32 var00056554 = 0x00000110;
+u32 var00056558 = 0x0d050b00;
+u32 var0005655c = 0x000007e0;
+u32 var00056560 = 0x0d060b00;
+u32 var00056564 = 0x00000160;
+u32 var00056568 = 0x0d070b00;
+u32 var0005656c = 0x000005a0;
+u32 var00056570 = 0x0d080b00;
+u32 var00056574 = 0x000007c0;
+u32 var00056578 = 0x0d090c00;
+u32 var0005657c = 0x000002c0;
+u32 var00056580 = 0x0d0a0c00;
+u32 var00056584 = 0x00000380;
+u32 var00056588 = 0x0d0b0c00;
+u32 var0005658c = 0x00000c80;
+u32 var00056590 = 0x0d0c0c00;
+u32 var00056594 = 0x00000700;
+u32 var00056598 = 0x0d0d0c00;
+u32 var0005659c = 0x00000100;
+u32 var000565a0 = 0x0d0e0d00;
+u32 var000565a4 = 0x00001200;
+u32 var000565a8 = 0x0d0f0d00;
+u32 var000565ac = 0x00001800;
+u32 var000565b0 = 0x0e000c00;
+u32 var000565b4 = 0x00000de0;
+u32 var000565b8 = 0x0e010b00;
+u32 var000565bc = 0x000001e0;
+u32 var000565c0 = 0x0e020b00;
+u32 var000565c4 = 0x000002e0;
+u32 var000565c8 = 0x0e030b00;
+u32 var000565cc = 0x00000560;
+u32 var000565d0 = 0x0e040b00;
+u32 var000565d4 = 0x000007a0;
+u32 var000565d8 = 0x0e050b00;
+u32 var000565dc = 0x000006a0;
+u32 var000565e0 = 0x0e060b00;
+u32 var000565e4 = 0x00000020;
+u32 var000565e8 = 0x0e070b00;
+u32 var000565ec = 0x00000340;
+u32 var000565f0 = 0x0e080c00;
+u32 var000565f4 = 0x00000a40;
+u32 var000565f8 = 0x0e090c00;
+u32 var000565fc = 0x00000180;
+u32 var00056600 = 0x0e0a0c00;
+u32 var00056604 = 0x00000880;
+u32 var00056608 = 0x0e0b0c00;
+u32 var0005660c = 0x00000300;
+u32 var00056610 = 0x0e0c0d00;
+u32 var00056614 = 0x00001e00;
+u32 var00056618 = 0x0e0d0d00;
+u32 var0005661c = 0x00000a00;
+u32 var00056620 = 0x0e0e0c00;
+u32 var00056624 = 0x00000400;
+u32 var00056628 = 0x0e0f0d00;
+u32 var0005662c = 0x00001000;
+u32 var00056630 = 0x0f000c00;
+u32 var00056634 = 0x00000e20;
+u32 var00056638 = 0x0f010b00;
+u32 var0005663c = 0x00000520;
+u32 var00056640 = 0x0f020b00;
+u32 var00056644 = 0x00000220;
+u32 var00056648 = 0x0f030b00;
+u32 var0005664c = 0x000003c0;
+u32 var00056650 = 0x0f040b00;
+u32 var00056654 = 0x000001c0;
+u32 var00056658 = 0x0f050b00;
+u32 var0005665c = 0x00000140;
+u32 var00056660 = 0x0f060b00;
+u32 var00056664 = 0x00000440;
+u32 var00056668 = 0x0f070c00;
+u32 var0005666c = 0x00000580;
+u32 var00056670 = 0x0f080c00;
+u32 var00056674 = 0x00000a80;
+u32 var00056678 = 0x0f090c00;
+u32 var0005667c = 0x00000080;
+u32 var00056680 = 0x0f0a0c00;
+u32 var00056684 = 0x00000500;
+u32 var00056688 = 0x0f0b0c00;
+u32 var0005668c = 0x00000600;
+u32 var00056690 = 0x0f0c0d00;
+u32 var00056694 = 0x00000200;
+u32 var00056698 = 0x0f0d0d00;
+u32 var0005669c = 0x00000c00;
+u32 var000566a0 = 0x0f0e0d00;
+u32 var000566a4 = 0x00000800;
+u32 var000566a8 = 0x0f0f0d00;
+u32 var000566ac = 0x00000000;
+u32 var000566b0 = 0x64646400;
+u32 var000566b4 = 0x00000000;
+u32 var000566b8 = 0x00000100;
+u32 var000566bc = 0x00000001;
+u32 var000566c0 = 0x00010400;
+u32 var000566c4 = 0x0000000a;
+u32 var000566c8 = 0x00020600;
+u32 var000566cc = 0x0000001c;
+u32 var000566d0 = 0x00030800;
+u32 var000566d4 = 0x00000034;
+u32 var000566d8 = 0x00040900;
+u32 var000566dc = 0x000000a4;
+u32 var000566e0 = 0x00050900;
+u32 var000566e4 = 0x000001f8;
+u32 var000566e8 = 0x00060a00;
+u32 var000566ec = 0x000001d8;
+u32 var000566f0 = 0x00070a00;
+u32 var000566f4 = 0x000002e8;
+u32 var000566f8 = 0x00080b00;
+u32 var000566fc = 0x000001a8;
+u32 var00056700 = 0x00090b00;
+u32 var00056704 = 0x00000548;
+u32 var00056708 = 0x000a0b00;
+u32 var0005670c = 0x00000288;
+u32 var00056710 = 0x000b0c00;
+u32 var00056714 = 0x000004f0;
+u32 var00056718 = 0x000c0c00;
+u32 var0005671c = 0x00000870;
+u32 var00056720 = 0x000d0c00;
+u32 var00056724 = 0x00000c30;
+u32 var00056728 = 0x000e0d00;
+u32 var0005672c = 0x000003d0;
+u32 var00056730 = 0x000f0900;
+u32 var00056734 = 0x00000110;
+u32 var00056738 = 0x01000300;
+u32 var0005673c = 0x00000006;
+u32 var00056740 = 0x01010400;
+u32 var00056744 = 0x00000002;
+u32 var00056748 = 0x01020600;
+u32 var0005674c = 0x0000000c;
+u32 var00056750 = 0x01030700;
+u32 var00056754 = 0x00000014;
+u32 var00056758 = 0x01040800;
+u32 var0005675c = 0x000000c4;
+u32 var00056760 = 0x01050900;
+u32 var00056764 = 0x000000f8;
+u32 var00056768 = 0x01060900;
+u32 var0005676c = 0x00000158;
+u32 var00056770 = 0x01070900;
+u32 var00056774 = 0x000001e8;
+u32 var00056778 = 0x01080a00;
+u32 var0005677c = 0x00000328;
+u32 var00056780 = 0x01090a00;
+u32 var00056784 = 0x00000348;
+u32 var00056788 = 0x010a0a00;
+u32 var0005678c = 0x00000088;
+u32 var00056790 = 0x010b0b00;
+u32 var00056794 = 0x00000770;
+u32 var00056798 = 0x010c0c00;
+u32 var0005679c = 0x00000930;
+u32 var000567a0 = 0x010d0b00;
+u32 var000567a4 = 0x000006b0;
+u32 var000567a8 = 0x010e0c00;
+u32 var000567ac = 0x00000f30;
+u32 var000567b0 = 0x010f0800;
+u32 var000567b4 = 0x00000090;
+u32 var000567b8 = 0x02000600;
+u32 var000567bc = 0x0000003c;
+u32 var000567c0 = 0x02010600;
+u32 var000567c4 = 0x0000002c;
+u32 var000567c8 = 0x02020700;
+u32 var000567cc = 0x00000074;
+u32 var000567d0 = 0x02030800;
+u32 var000567d4 = 0x00000064;
+u32 var000567d8 = 0x02040900;
+u32 var000567dc = 0x00000184;
+u32 var000567e0 = 0x02050900;
+u32 var000567e4 = 0x000000b8;
+u32 var000567e8 = 0x02060a00;
+u32 var000567ec = 0x00000398;
+u32 var000567f0 = 0x02070a00;
+u32 var000567f4 = 0x00000168;
+u32 var000567f8 = 0x02080b00;
+u32 var000567fc = 0x00000428;
+u32 var00056800 = 0x02090a00;
+u32 var00056804 = 0x00000048;
+u32 var00056808 = 0x020a0b00;
+u32 var0005680c = 0x000007f0;
+u32 var00056810 = 0x020b0b00;
+u32 var00056814 = 0x00000570;
+u32 var00056818 = 0x020c0b00;
+u32 var0005681c = 0x000003b0;
+u32 var00056820 = 0x020d0c00;
+u32 var00056824 = 0x000008b0;
+u32 var00056828 = 0x020e0c00;
+u32 var0005682c = 0x00000730;
+u32 var00056830 = 0x020f0900;
+u32 var00056834 = 0x00000010;
+u32 var00056838 = 0x03000800;
+u32 var0005683c = 0x000000b4;
+u32 var00056840 = 0x03010700;
+u32 var00056844 = 0x00000054;
+u32 var00056848 = 0x03020800;
+u32 var0005684c = 0x000000e4;
+u32 var00056850 = 0x03030900;
+u32 var00056854 = 0x00000144;
+u32 var00056858 = 0x03040900;
+u32 var0005685c = 0x00000004;
+u32 var00056860 = 0x03050a00;
+u32 var00056864 = 0x00000138;
+u32 var00056868 = 0x03060a00;
+u32 var0005686c = 0x00000318;
+u32 var00056870 = 0x03070a00;
+u32 var00056874 = 0x000003a8;
+u32 var00056878 = 0x03080b00;
+u32 var0005687c = 0x000003c8;
+u32 var00056880 = 0x03090b00;
+u32 var00056884 = 0x00000188;
+u32 var00056888 = 0x030a0c00;
+u32 var0005688c = 0x000003f0;
+u32 var00056890 = 0x030b0c00;
+u32 var00056894 = 0x000002b0;
+u32 var00056898 = 0x030c0c00;
+u32 var0005689c = 0x00000e30;
+u32 var000568a0 = 0x030d0d00;
+u32 var000568a4 = 0x00001830;
+u32 var000568a8 = 0x030e0d00;
+u32 var000568ac = 0x000016d0;
+u32 var000568b0 = 0x030f0a00;
+u32 var000568b4 = 0x00000160;
+u32 var000568b8 = 0x04000900;
+u32 var000568bc = 0x000001a4;
+u32 var000568c0 = 0x04010800;
+u32 var000568c4 = 0x00000024;
+u32 var000568c8 = 0x04020900;
+u32 var000568cc = 0x00000044;
+u32 var000568d0 = 0x04030900;
+u32 var000568d4 = 0x00000104;
+u32 var000568d8 = 0x04040a00;
+u32 var000568dc = 0x00000338;
+u32 var000568e0 = 0x04050a00;
+u32 var000568e4 = 0x00000298;
+u32 var000568e8 = 0x04060b00;
+u32 var000568ec = 0x00000668;
+u32 var000568f0 = 0x04070b00;
+u32 var000568f4 = 0x00000128;
+u32 var000568f8 = 0x04080b00;
+u32 var000568fc = 0x000006c8;
+u32 var00056900 = 0x04090c00;
+u32 var00056904 = 0x00000108;
+u32 var00056908 = 0x040a0c00;
+u32 var0005690c = 0x000006f0;
+u32 var00056910 = 0x040b0c00;
+u32 var00056914 = 0x00000470;
+u32 var00056918 = 0x040c0d00;
+u32 var0005691c = 0x00001a30;
+u32 var00056920 = 0x040d0d00;
+u32 var00056924 = 0x00000fd0;
+u32 var00056928 = 0x040e0d00;
+u32 var0005692c = 0x00000ad0;
+u32 var00056930 = 0x040f0900;
+u32 var00056934 = 0x00000120;
+u32 var00056938 = 0x05000900;
+u32 var0005693c = 0x00000084;
+u32 var00056940 = 0x05010800;
+u32 var00056944 = 0x00000078;
+u32 var00056948 = 0x05020900;
+u32 var0005694c = 0x000001b8;
+u32 var00056950 = 0x05030900;
+u32 var00056954 = 0x00000038;
+u32 var00056958 = 0x05040a00;
+u32 var0005695c = 0x00000198;
+u32 var00056960 = 0x05050b00;
+u32 var00056964 = 0x000004e8;
+u32 var00056968 = 0x05060b00;
+u32 var0005696c = 0x000005a8;
+u32 var00056970 = 0x05070c00;
+u32 var00056974 = 0x00000908;
+u32 var00056978 = 0x05080b00;
+u32 var0005697c = 0x00000388;
+u32 var00056980 = 0x05090c00;
+u32 var00056984 = 0x00000bf0;
+u32 var00056988 = 0x050a0c00;
+u32 var0005698c = 0x00000170;
+u32 var00056990 = 0x050b0d00;
+u32 var00056994 = 0x00000130;
+u32 var00056998 = 0x050c0d00;
+u32 var0005699c = 0x00000430;
+u32 var000569a0 = 0x050d0d00;
+u32 var000569a4 = 0x00000bd0;
+u32 var000569a8 = 0x050e0e00;
+u32 var000569ac = 0x00002f60;
+u32 var000569b0 = 0x050f0a00;
+u32 var000569b4 = 0x00000020;
+u32 var000569b8 = 0x06000a00;
+u32 var000569bc = 0x000003d8;
+u32 var000569c0 = 0x06010900;
+u32 var000569c4 = 0x000000d8;
+u32 var000569c8 = 0x06020900;
+u32 var000569cc = 0x00000058;
+u32 var000569d0 = 0x06030a00;
+u32 var000569d4 = 0x00000098;
+u32 var000569d8 = 0x06040b00;
+u32 var000569dc = 0x000000e8;
+u32 var000569e0 = 0x06050b00;
+u32 var000569e4 = 0x00000268;
+u32 var000569e8 = 0x06060b00;
+u32 var000569ec = 0x00000028;
+u32 var000569f0 = 0x06070b00;
+u32 var000569f4 = 0x00000508;
+u32 var000569f8 = 0x06080c00;
+u32 var000569fc = 0x00000808;
+u32 var00056a00 = 0x06090c00;
+u32 var00056a04 = 0x000002f0;
+u32 var00056a08 = 0x060a0c00;
+u32 var00056a0c = 0x00000270;
+u32 var00056a10 = 0x060b0c00;
+u32 var00056a14 = 0x000009b0;
+u32 var00056a18 = 0x060c0d00;
+u32 var00056a1c = 0x00001030;
+u32 var00056a20 = 0x060d0d00;
+u32 var00056a24 = 0x00000ed0;
+u32 var00056a28 = 0x060e0e00;
+u32 var00056a2c = 0x000034d0;
+u32 var00056a30 = 0x060f0a00;
+u32 var00056a34 = 0x00000140;
+u32 var00056a38 = 0x07000a00;
+u32 var00056a3c = 0x00000118;
+u32 var00056a40 = 0x07010900;
+u32 var00056a44 = 0x00000018;
+u32 var00056a48 = 0x07020a00;
+u32 var00056a4c = 0x00000368;
+u32 var00056a50 = 0x07030a00;
+u32 var00056a54 = 0x00000068;
+u32 var00056a58 = 0x07040b00;
+u32 var00056a5c = 0x00000528;
+u32 var00056a60 = 0x07050b00;
+u32 var00056a64 = 0x000005c8;
+u32 var00056a68 = 0x07060b00;
+u32 var00056a6c = 0x00000148;
+u32 var00056a70 = 0x07070c00;
+u32 var00056a74 = 0x00000a08;
+u32 var00056a78 = 0x07080c00;
+u32 var00056a7c = 0x000001f0;
+u32 var00056a80 = 0x07090d00;
+u32 var00056a84 = 0x00001d30;
+u32 var00056a88 = 0x070a0d00;
+u32 var00056a8c = 0x00001630;
+u32 var00056a90 = 0x070b0d00;
+u32 var00056a94 = 0x000005d0;
+u32 var00056a98 = 0x070c0d00;
+u32 var00056a9c = 0x000007d0;
+u32 var00056aa0 = 0x070d0f00;
+u32 var00056aa4 = 0x00004f60;
+u32 var00056aa8 = 0x070e0f00;
+u32 var00056aac = 0x00001760;
+u32 var00056ab0 = 0x070f0a00;
+u32 var00056ab4 = 0x00000040;
+u32 var00056ab8 = 0x08000a00;
+u32 var00056abc = 0x000002a8;
+u32 var00056ac0 = 0x08010a00;
+u32 var00056ac4 = 0x000000a8;
+u32 var00056ac8 = 0x08020a00;
+u32 var00056acc = 0x00000228;
+u32 var00056ad0 = 0x08030b00;
+u32 var00056ad4 = 0x000007c8;
+u32 var00056ad8 = 0x08040b00;
+u32 var00056adc = 0x000001c8;
+u32 var00056ae0 = 0x08050b00;
+u32 var00056ae4 = 0x00000788;
+u32 var00056ae8 = 0x08060c00;
+u32 var00056aec = 0x00000208;
+u32 var00056af0 = 0x08070c00;
+u32 var00056af4 = 0x000009f0;
+u32 var00056af8 = 0x08080d00;
+u32 var00056afc = 0x00001ab0;
+u32 var00056b00 = 0x08090d00;
+u32 var00056b04 = 0x00001130;
+u32 var00056b08 = 0x080a0d00;
+u32 var00056b0c = 0x00000230;
+u32 var00056b10 = 0x080b0d00;
+u32 var00056b14 = 0x00001fd0;
+u32 var00056b18 = 0x080c0e00;
+u32 var00056b1c = 0x00003ad0;
+u32 var00056b20 = 0x080d0e00;
+u32 var00056b24 = 0x000024d0;
+u32 var00056b28 = 0x080e0e00;
+u32 var00056b2c = 0x000008d0;
+u32 var00056b30 = 0x080f0a00;
+u32 var00056b34 = 0x00000380;
+u32 var00056b38 = 0x09000b00;
+u32 var00056b3c = 0x000002c8;
+u32 var00056b40 = 0x09010a00;
+u32 var00056b44 = 0x000000c8;
+u32 var00056b48 = 0x09020a00;
+u32 var00056b4c = 0x00000248;
+u32 var00056b50 = 0x09030b00;
+u32 var00056b54 = 0x00000588;
+u32 var00056b58 = 0x09040b00;
+u32 var00056b5c = 0x00000608;
+u32 var00056b60 = 0x09050c00;
+u32 var00056b64 = 0x00000008;
+u32 var00056b68 = 0x09060c00;
+u32 var00056b6c = 0x00000af0;
+u32 var00056b70 = 0x09070d00;
+u32 var00056b74 = 0x00000ab0;
+u32 var00056b78 = 0x09080d00;
+u32 var00056b7c = 0x00000d30;
+u32 var00056b80 = 0x09090d00;
+u32 var00056b84 = 0x00000a30;
+u32 var00056b88 = 0x090a0d00;
+u32 var00056b8c = 0x00000030;
+u32 var00056b90 = 0x090b0e00;
+u32 var00056b94 = 0x00003ed0;
+u32 var00056b98 = 0x090c0d00;
+u32 var00056b9c = 0x00001cd0;
+u32 var00056ba0 = 0x090d0e00;
+u32 var00056ba4 = 0x000018d0;
+u32 var00056ba8 = 0x090e0d00;
+u32 var00056bac = 0x000000d0;
+u32 var00056bb0 = 0x090f0b00;
+u32 var00056bb4 = 0x00000680;
+u32 var00056bb8 = 0x0a000b00;
+u32 var00056bbc = 0x00000688;
+u32 var00056bc0 = 0x0a010b00;
+u32 var00056bc4 = 0x00000408;
+u32 var00056bc8 = 0x0a020a00;
+u32 var00056bcc = 0x00000308;
+u32 var00056bd0 = 0x0a030b00;
+u32 var00056bd4 = 0x000005f0;
+u32 var00056bd8 = 0x0a040c00;
+u32 var00056bdc = 0x00000ef0;
+u32 var00056be0 = 0x0a050c00;
+u32 var00056be4 = 0x00000970;
+u32 var00056be8 = 0x0a060c00;
+u32 var00056bec = 0x00000a70;
+u32 var00056bf0 = 0x0a070c00;
+u32 var00056bf4 = 0x00000db0;
+u32 var00056bf8 = 0x0a080d00;
+u32 var00056bfc = 0x00001230;
+u32 var00056c00 = 0x0a090e00;
+u32 var00056c04 = 0x000039d0;
+u32 var00056c08 = 0x0a0a0e00;
+u32 var00056c0c = 0x000021d0;
+u32 var00056c10 = 0x0a0b0e00;
+u32 var00056c14 = 0x000002d0;
+u32 var00056c18 = 0x0a0c0f00;
+u32 var00056c1c = 0x00005760;
+u32 var00056c20 = 0x0a0d0f00;
+u32 var00056c24 = 0x00002760;
+u32 var00056c28 = 0x0a0e0e00;
+u32 var00056c2c = 0x00003b60;
+u32 var00056c30 = 0x0a0f0a00;
+u32 var00056c34 = 0x00000080;
+u32 var00056c38 = 0x0b000c00;
+u32 var00056c3c = 0x00000cf0;
+u32 var00056c40 = 0x0b010b00;
+u32 var00056c44 = 0x000000f0;
+u32 var00056c48 = 0x0b020b00;
+u32 var00056c4c = 0x00000370;
+u32 var00056c50 = 0x0b030b00;
+u32 var00056c54 = 0x00000670;
+u32 var00056c58 = 0x0b040c00;
+u32 var00056c5c = 0x00000c70;
+u32 var00056c60 = 0x0b050c00;
+u32 var00056c64 = 0x00000fb0;
+u32 var00056c68 = 0x0b060d00;
+u32 var00056c6c = 0x00000630;
+u32 var00056c70 = 0x0b070e00;
+u32 var00056c74 = 0x000015d0;
+u32 var00056c78 = 0x0b080e00;
+u32 var00056c7c = 0x000019d0;
+u32 var00056c80 = 0x0b090e00;
+u32 var00056c84 = 0x000001d0;
+u32 var00056c88 = 0x0b0a0e00;
+u32 var00056c8c = 0x000022d0;
+u32 var00056c90 = 0x0b0b0e00;
+u32 var00056c94 = 0x000004d0;
+u32 var00056c98 = 0x0b0c0e00;
+u32 var00056c9c = 0x000010d0;
+u32 var00056ca0 = 0x0b0d0d00;
+u32 var00056ca4 = 0x00001f60;
+u32 var00056ca8 = 0x0b0e0e00;
+u32 var00056cac = 0x00000b60;
+u32 var00056cb0 = 0x0b0f0b00;
+u32 var00056cb4 = 0x00000300;
+u32 var00056cb8 = 0x0c000c00;
+u32 var00056cbc = 0x00000530;
+u32 var00056cc0 = 0x0c010c00;
+u32 var00056cc4 = 0x00000070;
+u32 var00056cc8 = 0x0c020c00;
+u32 var00056ccc = 0x000007b0;
+u32 var00056cd0 = 0x0c030c00;
+u32 var00056cd4 = 0x000005b0;
+u32 var00056cd8 = 0x0c040c00;
+u32 var00056cdc = 0x000001b0;
+u32 var00056ce0 = 0x0c050d00;
+u32 var00056ce4 = 0x00001430;
+u32 var00056ce8 = 0x0c060d00;
+u32 var00056cec = 0x00000830;
+u32 var00056cf0 = 0x0c070d00;
+u32 var00056cf4 = 0x000017d0;
+u32 var00056cf8 = 0x0c080d00;
+u32 var00056cfc = 0x000006d0;
+u32 var00056d00 = 0x0c090f00;
+u32 var00056d04 = 0x00000f60;
+u32 var00056d08 = 0x0c0a0e00;
+u32 var00056d0c = 0x00003760;
+u32 var00056d10 = 0x0c0b0e00;
+u32 var00056d14 = 0x000030d0;
+u32 var00056d18 = 0x0c0c0e00;
+u32 var00056d1c = 0x00000760;
+u32 var00056d20 = 0x0c0d0e00;
+u32 var00056d24 = 0x00002b60;
+u32 var00056d28 = 0x0c0e1000;
+u32 var00056d2c = 0x00000360;
+u32 var00056d30 = 0x0c0f0b00;
+u32 var00056d34 = 0x00000100;
+u32 var00056d38 = 0x0d000e00;
+u32 var00056d3c = 0x000035d0;
+u32 var00056d40 = 0x0d010c00;
+u32 var00056d44 = 0x00000cb0;
+u32 var00056d48 = 0x0d020c00;
+u32 var00056d4c = 0x000004b0;
+u32 var00056d50 = 0x0d030c00;
+u32 var00056d54 = 0x000000b0;
+u32 var00056d58 = 0x0d040d00;
+u32 var00056d5c = 0x000009d0;
+u32 var00056d60 = 0x0d050d00;
+u32 var00056d64 = 0x00001bd0;
+u32 var00056d68 = 0x0d060e00;
+u32 var00056d6c = 0x00001ed0;
+u32 var00056d70 = 0x0d070e00;
+u32 var00056d74 = 0x000032d0;
+u32 var00056d78 = 0x0d080e00;
+u32 var00056d7c = 0x000014d0;
+u32 var00056d80 = 0x0d091000;
+u32 var00056d84 = 0x0000e360;
+u32 var00056d88 = 0x0d0a0f00;
+u32 var00056d8c = 0x00006760;
+u32 var00056d90 = 0x0d0b0f00;
+u32 var00056d94 = 0x00005b60;
+u32 var00056d98 = 0x0d0c0f00;
+u32 var00056d9c = 0x00001b60;
+u32 var00056da0 = 0x0d0d1100;
+u32 var00056da4 = 0x00018360;
+u32 var00056da8 = 0x0d0e0f00;
+u32 var00056dac = 0x00004360;
+u32 var00056db0 = 0x0d0f0b00;
+u32 var00056db4 = 0x00000200;
+u32 var00056db8 = 0x0e000d00;
+u32 var00056dbc = 0x000013d0;
+u32 var00056dc0 = 0x0e010d00;
+u32 var00056dc4 = 0x000011d0;
+u32 var00056dc8 = 0x0e020b00;
+u32 var00056dcc = 0x00000330;
+u32 var00056dd0 = 0x0e030c00;
+u32 var00056dd4 = 0x00000dd0;
+u32 var00056dd8 = 0x0e040e00;
+u32 var00056ddc = 0x00001ad0;
+u32 var00056de0 = 0x0e050e00;
+u32 var00056de4 = 0x000012d0;
+u32 var00056de8 = 0x0e060d00;
+u32 var00056dec = 0x00000cd0;
+u32 var00056df0 = 0x0e070e00;
+u32 var00056df4 = 0x000038d0;
+u32 var00056df8 = 0x0e080e00;
+u32 var00056dfc = 0x000028d0;
+u32 var00056e00 = 0x0e090f00;
+u32 var00056e04 = 0x00002360;
+u32 var00056e08 = 0x0e0a1000;
+u32 var00056e0c = 0x00006360;
+u32 var00056e10 = 0x0e0b0f00;
+u32 var00056e14 = 0x00007360;
+u32 var00056e18 = 0x0e0c1100;
+u32 var00056e1c = 0x00008360;
+u32 var00056e20 = 0x0e0d0f00;
+u32 var00056e24 = 0x00003360;
+u32 var00056e28 = 0x0e0e0e00;
+u32 var00056e2c = 0x00001360;
+u32 var00056e30 = 0x0e0f0b00;
+u32 var00056e34 = 0x00000000;
+u32 var00056e38 = 0x0f000900;
+u32 var00056e3c = 0x00000060;
+u32 var00056e40 = 0x0f010800;
+u32 var00056e44 = 0x00000050;
+u32 var00056e48 = 0x0f020800;
+u32 var00056e4c = 0x000000e0;
+u32 var00056e50 = 0x0f030900;
+u32 var00056e54 = 0x000001a0;
+u32 var00056e58 = 0x0f040900;
+u32 var00056e5c = 0x000000a0;
+u32 var00056e60 = 0x0f050a00;
+u32 var00056e64 = 0x00000220;
+u32 var00056e68 = 0x0f060a00;
+u32 var00056e6c = 0x00000340;
+u32 var00056e70 = 0x0f070a00;
+u32 var00056e74 = 0x00000240;
+u32 var00056e78 = 0x0f080b00;
+u32 var00056e7c = 0x00000580;
+u32 var00056e80 = 0x0f090b00;
+u32 var00056e84 = 0x00000180;
+u32 var00056e88 = 0x0f0a0b00;
+u32 var00056e8c = 0x00000280;
+u32 var00056e90 = 0x0f0b0b00;
+u32 var00056e94 = 0x00000700;
+u32 var00056e98 = 0x0f0c0b00;
+u32 var00056e9c = 0x00000500;
+u32 var00056ea0 = 0x0f0d0b00;
+u32 var00056ea4 = 0x00000600;
+u32 var00056ea8 = 0x0f0e0b00;
+u32 var00056eac = 0x00000400;
+u32 var00056eb0 = 0x0f0f0800;
+u32 var00056eb4 = 0x000000c0;
+u32 var00056eb8 = 0x64646400;
+u32 var00056ebc = 0x00000000;
+u32 var00056ec0 = 0x00000400;
+u32 var00056ec4 = 0x0000000f;
+u32 var00056ec8 = 0x00010400;
+u32 var00056ecc = 0x0000000b;
+u32 var00056ed0 = 0x00020600;
+u32 var00056ed4 = 0x0000001d;
+u32 var00056ed8 = 0x00030700;
+u32 var00056edc = 0x00000005;
+u32 var00056ee0 = 0x00040800;
+u32 var00056ee4 = 0x00000049;
+u32 var00056ee8 = 0x00050900;
+u32 var00056eec = 0x000000c1;
+u32 var00056ef0 = 0x00060900;
+u32 var00056ef4 = 0x0000003e;
+u32 var00056ef8 = 0x00070a00;
+u32 var00056efc = 0x00000136;
+u32 var00056f00 = 0x00080a00;
+u32 var00056f04 = 0x00000156;
+u32 var00056f08 = 0x00090b00;
+u32 var00056f0c = 0x000005ca;
+u32 var00056f10 = 0x000a0b00;
+u32 var00056f14 = 0x0000058a;
+u32 var00056f18 = 0x000b0b00;
+u32 var00056f1c = 0x0000048a;
+u32 var00056f20 = 0x000c0b00;
+u32 var00056f24 = 0x000005b2;
+u32 var00056f28 = 0x000d0b00;
+u32 var00056f2c = 0x00000502;
+u32 var00056f30 = 0x000e0c00;
+u32 var00056f34 = 0x00000102;
+u32 var00056f38 = 0x000f0900;
+u32 var00056f3c = 0x00000034;
+u32 var00056f40 = 0x01000400;
+u32 var00056f44 = 0x00000007;
+u32 var00056f48 = 0x01010400;
+u32 var00056f4c = 0x00000003;
+u32 var00056f50 = 0x01020500;
+u32 var00056f54 = 0x00000015;
+u32 var00056f58 = 0x01030600;
+u32 var00056f5c = 0x00000019;
+u32 var00056f60 = 0x01040700;
+u32 var00056f64 = 0x00000071;
+u32 var00056f68 = 0x01050800;
+u32 var00056f6c = 0x00000041;
+u32 var00056f70 = 0x01060800;
+u32 var00056f74 = 0x0000005e;
+u32 var00056f78 = 0x01070900;
+u32 var00056f7c = 0x00000036;
+u32 var00056f80 = 0x01080900;
+u32 var00056f84 = 0x00000116;
+u32 var00056f88 = 0x01090900;
+u32 var00056f8c = 0x000000c6;
+u32 var00056f90 = 0x010a0a00;
+u32 var00056f94 = 0x0000038a;
+u32 var00056f98 = 0x010b0a00;
+u32 var00056f9c = 0x0000026a;
+u32 var00056fa0 = 0x010c0a00;
+u32 var00056fa4 = 0x000003f2;
+u32 var00056fa8 = 0x010d0a00;
+u32 var00056fac = 0x00000252;
+u32 var00056fb0 = 0x010e0a00;
+u32 var00056fb4 = 0x000003a2;
+u32 var00056fb8 = 0x010f0800;
+u32 var00056fbc = 0x00000054;
+u32 var00056fc0 = 0x02000600;
+u32 var00056fc4 = 0x0000003d;
+u32 var00056fc8 = 0x02010500;
+u32 var00056fcc = 0x0000000d;
+u32 var00056fd0 = 0x02020600;
+u32 var00056fd4 = 0x00000025;
+u32 var00056fd8 = 0x02030700;
+u32 var00056fdc = 0x00000029;
+u32 var00056fe0 = 0x02040700;
+u32 var00056fe4 = 0x00000011;
+u32 var00056fe8 = 0x02050800;
+u32 var00056fec = 0x00000001;
+u32 var00056ff0 = 0x02060800;
+u32 var00056ff4 = 0x0000001e;
+u32 var00056ff8 = 0x02070900;
+u32 var00056ffc = 0x00000176;
+u32 var00057000 = 0x02080900;
+u32 var00057004 = 0x000001e6;
+u32 var00057008 = 0x02090900;
+u32 var0005700c = 0x00000086;
+u32 var00057010 = 0x020a0900;
+u32 var00057014 = 0x000000da;
+u32 var00057018 = 0x020b0a00;
+u32 var0005701c = 0x000000aa;
+u32 var00057020 = 0x020c0a00;
+u32 var00057024 = 0x00000372;
+u32 var00057028 = 0x020d0a00;
+u32 var0005702c = 0x00000392;
+u32 var00057030 = 0x020e0b00;
+u32 var00057034 = 0x000005c2;
+u32 var00057038 = 0x020f0700;
+u32 var0005703c = 0x00000024;
+u32 var00057040 = 0x03000700;
+u32 var00057044 = 0x00000045;
+u32 var00057048 = 0x03010600;
+u32 var0005704c = 0x00000039;
+u32 var00057050 = 0x03020700;
+u32 var00057054 = 0x00000069;
+u32 var00057058 = 0x03030700;
+u32 var0005705c = 0x00000031;
+u32 var00057060 = 0x03040800;
+u32 var00057064 = 0x00000061;
+u32 var00057068 = 0x03050800;
+u32 var0005706c = 0x000000be;
+u32 var00057070 = 0x03060800;
+u32 var00057074 = 0x0000002e;
+u32 var00057078 = 0x03070900;
+u32 var0005707c = 0x00000076;
+u32 var00057080 = 0x03080900;
+u32 var00057084 = 0x00000066;
+u32 var00057088 = 0x03090900;
+u32 var0005708c = 0x000000fa;
+u32 var00057090 = 0x030a0900;
+u32 var00057094 = 0x0000009a;
+u32 var00057098 = 0x030b0a00;
+u32 var0005709c = 0x0000028a;
+u32 var000570a0 = 0x030c0a00;
+u32 var000570a4 = 0x000003b2;
+u32 var000570a8 = 0x030d0a00;
+u32 var000570ac = 0x00000292;
+u32 var000570b0 = 0x030e0a00;
+u32 var000570b4 = 0x000003c2;
+u32 var000570b8 = 0x030f0700;
+u32 var000570bc = 0x00000004;
+u32 var000570c0 = 0x04000800;
+u32 var000570c4 = 0x000000c9;
+u32 var000570c8 = 0x04010700;
+u32 var000570cc = 0x00000009;
+u32 var000570d0 = 0x04020700;
+u32 var000570d4 = 0x00000051;
+u32 var000570d8 = 0x04030800;
+u32 var000570dc = 0x000000e1;
+u32 var000570e0 = 0x04040800;
+u32 var000570e4 = 0x000000fe;
+u32 var000570e8 = 0x04050800;
+u32 var000570ec = 0x0000006e;
+u32 var000570f0 = 0x04060800;
+u32 var000570f4 = 0x0000000e;
+u32 var000570f8 = 0x04070900;
+u32 var000570fc = 0x00000096;
+u32 var00057100 = 0x04080900;
+u32 var00057104 = 0x00000026;
+u32 var00057108 = 0x04090900;
+u32 var0005710c = 0x0000007a;
+u32 var00057110 = 0x040a0a00;
+u32 var00057114 = 0x0000001a;
+u32 var00057118 = 0x040b0a00;
+u32 var0005711c = 0x0000030a;
+u32 var00057120 = 0x040c0a00;
+u32 var00057124 = 0x00000132;
+u32 var00057128 = 0x040d0a00;
+u32 var0005712c = 0x000002e2;
+u32 var00057130 = 0x040e0b00;
+u32 var00057134 = 0x000001c2;
+u32 var00057138 = 0x040f0700;
+u32 var0005713c = 0x00000038;
+u32 var00057140 = 0x05000900;
+u32 var00057144 = 0x000001c1;
+u32 var00057148 = 0x05010700;
+u32 var0005714c = 0x00000021;
+u32 var00057150 = 0x05020800;
+u32 var00057154 = 0x00000081;
+u32 var00057158 = 0x05030800;
+u32 var0005715c = 0x0000007e;
+u32 var00057160 = 0x05040800;
+u32 var00057164 = 0x000000ee;
+u32 var00057168 = 0x05050800;
+u32 var0005716c = 0x0000004e;
+u32 var00057170 = 0x05060900;
+u32 var00057174 = 0x000000d6;
+u32 var00057178 = 0x05070900;
+u32 var0005717c = 0x000000a6;
+u32 var00057180 = 0x05080900;
+u32 var00057184 = 0x00000006;
+u32 var00057188 = 0x05090900;
+u32 var0005718c = 0x0000005a;
+u32 var00057190 = 0x050a0a00;
+u32 var00057194 = 0x000002aa;
+u32 var00057198 = 0x050b0a00;
+u32 var0005719c = 0x000002f2;
+u32 var000571a0 = 0x050c0a00;
+u32 var000571a4 = 0x000002d2;
+u32 var000571a8 = 0x050d0a00;
+u32 var000571ac = 0x00000262;
+u32 var000571b0 = 0x050e0a00;
+u32 var000571b4 = 0x00000182;
+u32 var000571b8 = 0x050f0700;
+u32 var000571bc = 0x00000018;
+u32 var000571c0 = 0x06000900;
+u32 var000571c4 = 0x0000013e;
+u32 var000571c8 = 0x06010800;
+u32 var000571cc = 0x000000de;
+u32 var000571d0 = 0x06020800;
+u32 var000571d4 = 0x0000009e;
+u32 var000571d8 = 0x06030800;
+u32 var000571dc = 0x000000ae;
+u32 var000571e0 = 0x06040800;
+u32 var000571e4 = 0x0000008e;
+u32 var000571e8 = 0x06050900;
+u32 var000571ec = 0x000001d6;
+u32 var000571f0 = 0x06060900;
+u32 var000571f4 = 0x000000e6;
+u32 var000571f8 = 0x06070900;
+u32 var000571fc = 0x00000186;
+u32 var00057200 = 0x06080900;
+u32 var00057204 = 0x0000013a;
+u32 var00057208 = 0x06090a00;
+u32 var0005720c = 0x0000036a;
+u32 var00057210 = 0x060a0a00;
+u32 var00057214 = 0x0000014a;
+u32 var00057218 = 0x060b0a00;
+u32 var0005721c = 0x000000b2;
+u32 var00057220 = 0x060c0a00;
+u32 var00057224 = 0x00000312;
+u32 var00057228 = 0x060d0a00;
+u32 var0005722c = 0x00000022;
+u32 var00057230 = 0x060e0b00;
+u32 var00057234 = 0x00000082;
+u32 var00057238 = 0x060f0700;
+u32 var0005723c = 0x00000028;
+u32 var00057240 = 0x07000a00;
+u32 var00057244 = 0x00000336;
+u32 var00057248 = 0x07010800;
+u32 var0005724c = 0x000000ce;
+u32 var00057250 = 0x07020800;
+u32 var00057254 = 0x000000f6;
+u32 var00057258 = 0x07030800;
+u32 var0005725c = 0x000000b6;
+u32 var00057260 = 0x07040900;
+u32 var00057264 = 0x00000196;
+u32 var00057268 = 0x07050900;
+u32 var0005726c = 0x000001a6;
+u32 var00057270 = 0x07060900;
+u32 var00057274 = 0x00000046;
+u32 var00057278 = 0x07070900;
+u32 var0005727c = 0x000001ba;
+u32 var00057280 = 0x07080a00;
+u32 var00057284 = 0x0000021a;
+u32 var00057288 = 0x07090a00;
+u32 var0005728c = 0x000000ca;
+u32 var00057290 = 0x070a0a00;
+u32 var00057294 = 0x00000272;
+u32 var00057298 = 0x070b0a00;
+u32 var0005729c = 0x00000152;
+u32 var000572a0 = 0x070c0a00;
+u32 var000572a4 = 0x00000362;
+u32 var000572a8 = 0x070d0b00;
+u32 var000572ac = 0x00000642;
+u32 var000572b0 = 0x070e0b00;
+u32 var000572b4 = 0x000005f4;
+u32 var000572b8 = 0x070f0800;
+u32 var000572bc = 0x00000088;
+u32 var000572c0 = 0x08000a00;
+u32 var000572c4 = 0x00000356;
+u32 var000572c8 = 0x08010900;
+u32 var000572cc = 0x00000056;
+u32 var000572d0 = 0x08020900;
+u32 var000572d4 = 0x00000016;
+u32 var000572d8 = 0x08030900;
+u32 var000572dc = 0x00000166;
+u32 var000572e0 = 0x08040900;
+u32 var000572e4 = 0x00000126;
+u32 var000572e8 = 0x08050900;
+u32 var000572ec = 0x00000106;
+u32 var000572f0 = 0x08060900;
+u32 var000572f4 = 0x000000ba;
+u32 var000572f8 = 0x08070900;
+u32 var000572fc = 0x0000011a;
+u32 var00057300 = 0x08080900;
+u32 var00057304 = 0x0000012a;
+u32 var00057308 = 0x08090a00;
+u32 var0005730c = 0x0000000a;
+u32 var00057310 = 0x080a0a00;
+u32 var00057314 = 0x000003d2;
+u32 var00057318 = 0x080b0a00;
+u32 var0005731c = 0x000001e2;
+u32 var00057320 = 0x080c0a00;
+u32 var00057324 = 0x000000c2;
+u32 var00057328 = 0x080d0b00;
+u32 var0005732c = 0x00000202;
+u32 var00057330 = 0x080e0b00;
+u32 var00057334 = 0x000004f4;
+u32 var00057338 = 0x080f0800;
+u32 var0005733c = 0x00000008;
+u32 var00057340 = 0x09000a00;
+u32 var00057344 = 0x000003ca;
+u32 var00057348 = 0x09010900;
+u32 var0005734c = 0x000001c6;
+u32 var00057350 = 0x09020900;
+u32 var00057354 = 0x00000146;
+u32 var00057358 = 0x09030900;
+u32 var0005735c = 0x000001fa;
+u32 var00057360 = 0x09040900;
+u32 var00057364 = 0x0000017a;
+u32 var00057368 = 0x09050900;
+u32 var0005736c = 0x0000015a;
+u32 var00057370 = 0x09060900;
+u32 var00057374 = 0x000000ea;
+u32 var00057378 = 0x09070a00;
+u32 var0005737c = 0x000002ca;
+u32 var00057380 = 0x09080a00;
+u32 var00057384 = 0x0000020a;
+u32 var00057388 = 0x09090a00;
+u32 var0005738c = 0x00000232;
+u32 var00057390 = 0x090a0a00;
+u32 var00057394 = 0x00000212;
+u32 var00057398 = 0x090b0a00;
+u32 var0005739c = 0x00000322;
+u32 var000573a0 = 0x090c0b00;
+u32 var000573a4 = 0x00000482;
+u32 var000573a8 = 0x090d0b00;
+u32 var000573ac = 0x000006f4;
+u32 var000573b0 = 0x090e0b00;
+u32 var000573b4 = 0x00000674;
+u32 var000573b8 = 0x090f0800;
+u32 var000573bc = 0x000000d0;
+u32 var000573c0 = 0x0a000b00;
+u32 var000573c4 = 0x000001ca;
+u32 var000573c8 = 0x0a010900;
+u32 var000573cc = 0x0000003a;
+u32 var000573d0 = 0x0a020900;
+u32 var000573d4 = 0x000001da;
+u32 var000573d8 = 0x0a030900;
+u32 var000573dc = 0x0000019a;
+u32 var000573e0 = 0x0a040900;
+u32 var000573e4 = 0x000001ea;
+u32 var000573e8 = 0x0a050a00;
+u32 var000573ec = 0x0000006a;
+u32 var000573f0 = 0x0a060a00;
+u32 var000573f4 = 0x0000034a;
+u32 var000573f8 = 0x0a070a00;
+u32 var000573fc = 0x00000172;
+u32 var00057400 = 0x0a080a00;
+u32 var00057404 = 0x00000032;
+u32 var00057408 = 0x0a090a00;
+u32 var0005740c = 0x00000112;
+u32 var00057410 = 0x0a0a0a00;
+u32 var00057414 = 0x000002a2;
+u32 var00057418 = 0x0a0b0b00;
+u32 var0005741c = 0x00000242;
+u32 var00057420 = 0x0a0c0b00;
+u32 var00057424 = 0x000007f4;
+u32 var00057428 = 0x0a0d0b00;
+u32 var0005742c = 0x00000574;
+u32 var00057430 = 0x0a0e0b00;
+u32 var00057434 = 0x000003b4;
+u32 var00057438 = 0x0a0f0800;
+u32 var0005743c = 0x00000050;
+u32 var00057440 = 0x0b000b00;
+u32 var00057444 = 0x0000018a;
+u32 var00057448 = 0x0b010a00;
+u32 var0005744c = 0x0000016a;
+u32 var00057450 = 0x0b020900;
+u32 var00057454 = 0x000001aa;
+u32 var00057458 = 0x0b030900;
+u32 var0005745c = 0x0000002a;
+u32 var00057460 = 0x0b040900;
+u32 var00057464 = 0x0000004a;
+u32 var00057468 = 0x0b050a00;
+u32 var0005746c = 0x000001f2;
+u32 var00057470 = 0x0b060a00;
+u32 var00057474 = 0x000002b2;
+u32 var00057478 = 0x0b070a00;
+u32 var0005747c = 0x00000352;
+u32 var00057480 = 0x0b080a00;
+u32 var00057484 = 0x000003e2;
+u32 var00057488 = 0x0b090a00;
+u32 var0005748c = 0x000000a2;
+u32 var00057490 = 0x0b0a0a00;
+u32 var00057494 = 0x00000382;
+u32 var00057498 = 0x0b0b0b00;
+u32 var0005749c = 0x00000402;
+u32 var000574a0 = 0x0b0c0b00;
+u32 var000574a4 = 0x00000774;
+u32 var000574a8 = 0x0b0d0b00;
+u32 var000574ac = 0x00000074;
+u32 var000574b0 = 0x0b0e0b00;
+u32 var000574b4 = 0x000002b4;
+u32 var000574b8 = 0x0b0f0800;
+u32 var000574bc = 0x00000060;
+u32 var000574c0 = 0x0c000b00;
+u32 var000574c4 = 0x0000008a;
+u32 var000574c8 = 0x0c010a00;
+u32 var000574cc = 0x0000010a;
+u32 var000574d0 = 0x0c020a00;
+u32 var000574d4 = 0x000000f2;
+u32 var000574d8 = 0x0c030a00;
+u32 var000574dc = 0x00000072;
+u32 var000574e0 = 0x0c040a00;
+u32 var000574e4 = 0x00000332;
+u32 var000574e8 = 0x0c050a00;
+u32 var000574ec = 0x000001d2;
+u32 var000574f0 = 0x0c060a00;
+u32 var000574f4 = 0x00000092;
+u32 var000574f8 = 0x0c070a00;
+u32 var000574fc = 0x000000e2;
+u32 var00057500 = 0x0c080a00;
+u32 var00057504 = 0x000002c2;
+u32 var00057508 = 0x0c090a00;
+u32 var0005750c = 0x00000282;
+u32 var00057510 = 0x0c0a0b00;
+u32 var00057514 = 0x00000002;
+u32 var00057518 = 0x0c0b0b00;
+u32 var0005751c = 0x000000f4;
+u32 var00057520 = 0x0c0c0b00;
+u32 var00057524 = 0x00000274;
+u32 var00057528 = 0x0c0d0b00;
+u32 var0005752c = 0x000001b4;
+u32 var00057530 = 0x0c0e0b00;
+u32 var00057534 = 0x00000734;
+u32 var00057538 = 0x0c0f0800;
+u32 var0005753c = 0x00000020;
+u32 var00057540 = 0x0d000b00;
+u32 var00057544 = 0x000001b2;
+u32 var00057548 = 0x0d010a00;
+u32 var0005754c = 0x000000d2;
+u32 var00057550 = 0x0d020a00;
+u32 var00057554 = 0x00000052;
+u32 var00057558 = 0x0d030a00;
+u32 var0005755c = 0x00000192;
+u32 var00057560 = 0x0d040a00;
+u32 var00057564 = 0x00000012;
+u32 var00057568 = 0x0d050a00;
+u32 var0005756c = 0x00000162;
+u32 var00057570 = 0x0d060a00;
+u32 var00057574 = 0x00000222;
+u32 var00057578 = 0x0d070a00;
+u32 var0005757c = 0x00000142;
+u32 var00057580 = 0x0d080b00;
+u32 var00057584 = 0x00000602;
+u32 var00057588 = 0x0d090b00;
+u32 var0005758c = 0x000001f4;
+u32 var00057590 = 0x0d0a0b00;
+u32 var00057594 = 0x00000374;
+u32 var00057598 = 0x0d0b0b00;
+u32 var0005759c = 0x00000474;
+u32 var000575a0 = 0x0d0c0b00;
+u32 var000575a4 = 0x000005b4;
+u32 var000575a8 = 0x0d0d0b00;
+u32 var000575ac = 0x000004b4;
+u32 var000575b0 = 0x0d0e0b00;
+u32 var000575b4 = 0x00000534;
+u32 var000575b8 = 0x0d0f0800;
+u32 var000575bc = 0x00000040;
+u32 var000575c0 = 0x0e000c00;
+u32 var000575c4 = 0x00000902;
+u32 var000575c8 = 0x0e010a00;
+u32 var000575cc = 0x00000062;
+u32 var000575d0 = 0x0e020a00;
+u32 var000575d4 = 0x000001a2;
+u32 var000575d8 = 0x0e030a00;
+u32 var000575dc = 0x00000122;
+u32 var000575e0 = 0x0e040a00;
+u32 var000575e4 = 0x00000342;
+u32 var000575e8 = 0x0e050a00;
+u32 var000575ec = 0x00000042;
+u32 var000575f0 = 0x0e060a00;
+u32 var000575f4 = 0x00000302;
+u32 var000575f8 = 0x0e070b00;
+u32 var000575fc = 0x000003f4;
+u32 var00057600 = 0x0e080b00;
+u32 var00057604 = 0x000002f4;
+u32 var00057608 = 0x0e090b00;
+u32 var0005760c = 0x00000174;
+u32 var00057610 = 0x0e0a0b00;
+u32 var00057614 = 0x000007b4;
+u32 var00057618 = 0x0e0b0b00;
+u32 var0005761c = 0x000006b4;
+u32 var00057620 = 0x0e0c0b00;
+u32 var00057624 = 0x000000b4;
+u32 var00057628 = 0x0e0d0b00;
+u32 var0005762c = 0x00000334;
+u32 var00057630 = 0x0e0e0b00;
+u32 var00057634 = 0x00000134;
+u32 var00057638 = 0x0e0f0800;
+u32 var0005763c = 0x00000000;
+u32 var00057640 = 0x0f000800;
+u32 var00057644 = 0x000000d4;
+u32 var00057648 = 0x0f010700;
+u32 var0005764c = 0x00000014;
+u32 var00057650 = 0x0f020700;
+u32 var00057654 = 0x00000064;
+u32 var00057658 = 0x0f030700;
+u32 var0005765c = 0x00000044;
+u32 var00057660 = 0x0f040700;
+u32 var00057664 = 0x00000078;
+u32 var00057668 = 0x0f050700;
+u32 var0005766c = 0x00000058;
+u32 var00057670 = 0x0f060700;
+u32 var00057674 = 0x00000068;
+u32 var00057678 = 0x0f070700;
+u32 var0005767c = 0x00000048;
+u32 var00057680 = 0x0f080700;
+u32 var00057684 = 0x00000070;
+u32 var00057688 = 0x0f090700;
+u32 var0005768c = 0x00000030;
+u32 var00057690 = 0x0f0a0700;
+u32 var00057694 = 0x00000010;
+u32 var00057698 = 0x0f0b0800;
+u32 var0005769c = 0x000000e0;
+u32 var000576a0 = 0x0f0c0800;
+u32 var000576a4 = 0x000000a0;
+u32 var000576a8 = 0x0f0d0800;
+u32 var000576ac = 0x000000c0;
+u32 var000576b0 = 0x0f0e0800;
+u32 var000576b4 = 0x00000080;
+u32 var000576b8 = 0x0f0f0400;
+u32 var000576bc = 0x0000000c;
+u32 var000576c0 = 0x64646400;
+u32 var000576c4 = 0x00000000;
+u32 var000576c8 = 0x00000100;
+u32 var000576cc = 0x00000001;
+u32 var000576d0 = 0x01010400;
+u32 var000576d4 = 0x0000000a;
+u32 var000576d8 = 0x02020400;
+u32 var000576dc = 0x00000002;
+u32 var000576e0 = 0x03030500;
+u32 var000576e4 = 0x00000014;
+u32 var000576e8 = 0x04040400;
+u32 var000576ec = 0x00000006;
+u32 var000576f0 = 0x05050600;
+u32 var000576f4 = 0x00000028;
+u32 var000576f8 = 0x06060500;
+u32 var000576fc = 0x00000004;
+u32 var00057700 = 0x07070600;
+u32 var00057704 = 0x00000008;
+u32 var00057708 = 0x08080400;
+u32 var0005770c = 0x0000000e;
+u32 var00057710 = 0x09090500;
+u32 var00057714 = 0x00000018;
+u32 var00057718 = 0x0a0a0500;
+u32 var0005771c = 0x0000000c;
+u32 var00057720 = 0x0b0b0600;
+u32 var00057724 = 0x00000000;
+u32 var00057728 = 0x0c0c0500;
+u32 var0005772c = 0x0000001c;
+u32 var00057730 = 0x0d0d0600;
+u32 var00057734 = 0x00000010;
+u32 var00057738 = 0x0e0e0600;
+u32 var0005773c = 0x00000030;
+u32 var00057740 = 0x0f0f0600;
+u32 var00057744 = 0x00000020;
+u32 var00057748 = 0x64646400;
+u32 var0005774c = 0x00000000;
+u32 var00057750 = 0x00000400;
+u32 var00057754 = 0x0000000f;
+u32 var00057758 = 0x01010400;
+u32 var0005775c = 0x00000007;
+u32 var00057760 = 0x02020400;
+u32 var00057764 = 0x0000000b;
+u32 var00057768 = 0x03030400;
+u32 var0005776c = 0x00000003;
+u32 var00057770 = 0x04040400;
+u32 var00057774 = 0x0000000d;
+u32 var00057778 = 0x05050400;
+u32 var0005777c = 0x00000005;
+u32 var00057780 = 0x06060400;
+u32 var00057784 = 0x00000009;
+u32 var00057788 = 0x07070400;
+u32 var0005778c = 0x00000001;
+u32 var00057790 = 0x08080400;
+u32 var00057794 = 0x0000000e;
+u32 var00057798 = 0x09090400;
+u32 var0005779c = 0x00000006;
+u32 var000577a0 = 0x0a0a0400;
+u32 var000577a4 = 0x0000000a;
+u32 var000577a8 = 0x0b0b0400;
+u32 var000577ac = 0x00000002;
+u32 var000577b0 = 0x0c0c0400;
+u32 var000577b4 = 0x0000000c;
+u32 var000577b8 = 0x0d0d0400;
+u32 var000577bc = 0x00000004;
+u32 var000577c0 = 0x0e0e0400;
+u32 var000577c4 = 0x00000008;
+u32 var000577c8 = 0x0f0f0400;
+u32 var000577cc = 0x00000000;
+u32 var000577d0 = 0x64646400;
+u32 var000577d4 = 0x00000000;
+u32 var000577d8 = 0x00000000;
+u32 var000577dc = 0x00000000;
+u32 var000577e0 = 0x00000000;
+u32 var000577e4 = 0x00000000;
+u32 var000577e8 = 0x00000000;
+u32 var000577ec = 0x00000000;
+u32 var000577f0 = 0x00000000;
+u32 var000577f4 = 0x00000000;
+u32 var000577f8 = 0x00000000;
+u32 var000577fc = 0x00000000;
+u32 var00057800 = 0x00000000;
+u32 var00057804 = 0x00000000;
+u32 var00057808 = 0x00000000;
+u32 var0005780c = 0x00000000;
+u32 var00057810 = 0x00000000;
+u32 var00057814 = 0x00000000;
+u32 var00057818 = 0x00000001;
+u32 var0005781c = 0x00000002;
+u32 var00057820 = 0x00000003;
+u32 var00057824 = 0x00000004;
+u32 var00057828 = 0x00000006;
+u32 var0005782c = 0x00000008;
+u32 var00057830 = 0x0000000a;
+u32 var00057834 = 0x0000000d;
+u32 var00057838 = 0x00000004;
+u32 var0005783c = 0x00000005;
+u32 var00057840 = 0x00000006;
+u32 var00057844 = 0x00000007;
+u32 var00057848 = 0x00000008;
+u32 var0005784c = 0x00000009;
+u32 var00057850 = 0x0000000b;
+u32 var00057854 = 0x0000000d;
+u32 var00057858 = 0xffffffff;
+u32 var0005785c = 0xffffffff;
+u32 var00057860 = 0x0005000b;
+u32 var00057864 = 0x00110017;
+u32 var00057868 = 0x001d0023;
+u32 var0005786c = 0x002b0035;
+u32 var00057870 = 0x0041004f;
+u32 var00057874 = 0x005f0073;
+u32 var00057878 = 0x008b00a7;
+u32 var0005787c = 0x00c700ed;
+u32 var00057880 = 0x011b014f;
+u32 var00057884 = 0x018b01cf;
+u32 var00057888 = 0x0209023f;
+u32 var0005788c = 0x0005000b;
+u32 var00057890 = 0x00110017;
+u32 var00057894 = 0x001d0023;
+u32 var00057898 = 0x002b0035;
+u32 var0005789c = 0x0041004f;
+u32 var000578a0 = 0x005f0071;
+u32 var000578a4 = 0x008700a1;
+u32 var000578a8 = 0x00c100e7;
+u32 var000578ac = 0x0115014b;
+u32 var000578b0 = 0x018901cf;
+u32 var000578b4 = 0x021b023f;
+u32 var000578b8 = 0x0005000b;
+u32 var000578bc = 0x00110017;
+u32 var000578c0 = 0x001d0023;
+u32 var000578c4 = 0x002b0035;
+u32 var000578c8 = 0x0041004f;
+u32 var000578cc = 0x005f0073;
+u32 var000578d0 = 0x008b00a7;
+u32 var000578d4 = 0x00c700ed;
+u32 var000578d8 = 0x011b014f;
+u32 var000578dc = 0x018b01cf;
+u32 var000578e0 = 0x0209023f;
+u32 var000578e4 = 0x00030007;
+u32 var000578e8 = 0x000b000f;
+u32 var000578ec = 0x00130017;
+u32 var000578f0 = 0x001d0023;
+u32 var000578f4 = 0x002b0033;
+u32 var000578f8 = 0x003d0049;
+u32 var000578fc = 0x0059006d;
+u32 var00057900 = 0x008500a1;
+u32 var00057904 = 0x00c300ed;
+u32 var00057908 = 0x011f0155;
+u32 var0005790c = 0x01a1023f;
+u32 var00057910 = 0x00030007;
+u32 var00057914 = 0x000b000f;
+u32 var00057918 = 0x00130017;
+u32 var0005791c = 0x001d0023;
+u32 var00057920 = 0x00290031;
+u32 var00057924 = 0x003b0047;
+u32 var00057928 = 0x00570069;
+u32 var0005792c = 0x007f009b;
+u32 var00057930 = 0x00bd00e5;
+u32 var00057934 = 0x01130149;
+u32 var00057938 = 0x017f023f;
+u32 var0005793c = 0x00030007;
+u32 var00057940 = 0x000b000f;
+u32 var00057944 = 0x00130017;
+u32 var00057948 = 0x001d0023;
+u32 var0005794c = 0x002b0035;
+u32 var00057950 = 0x00410051;
+u32 var00057954 = 0x0065007d;
+u32 var00057958 = 0x009b00c1;
+u32 var0005795c = 0x00ef0127;
+u32 var00057960 = 0x016b01bf;
+u32 var00057964 = 0x0225023f;
+u32 var00057968 = 0x03070b11;
+u32 var0005796c = 0x171f2937;
+u32 var00057970 = 0x496383ad;
+u32 var00057974 = 0xbf03070b;
+u32 var00057978 = 0x1119232f;
+u32 var0005797c = 0x3d4f6787;
+u32 var00057980 = 0xb3bf0307;
+u32 var00057984 = 0x0b111923;
+u32 var00057988 = 0x2f3d4f67;
+u32 var0005798c = 0x85adbf03;
+u32 var00057990 = 0x070b0f15;
+u32 var00057994 = 0x1d273341;
+u32 var00057998 = 0x536987bf;
+u32 var0005799c = 0x03070b0f;
+u32 var000579a0 = 0x151b2531;
+u32 var000579a4 = 0x3f4f637d;
+u32 var000579a8 = 0xbf03070b;
+u32 var000579ac = 0x0f151d29;
+u32 var000579b0 = 0x394d6789;
+u32 var000579b4 = 0xb3bf0000;
+u32 var000579b8 = 0x00000006;
+u32 var000579bc = 0x000c0012;
+u32 var000579c0 = 0x0018001e;
+u32 var000579c4 = 0x0024002c;
+u32 var000579c8 = 0x00360042;
+u32 var000579cc = 0x00500060;
+u32 var000579d0 = 0x0074008c;
+u32 var000579d4 = 0x00a800c8;
+u32 var000579d8 = 0x00ee011c;
+u32 var000579dc = 0x0150018c;
+u32 var000579e0 = 0x01d0020a;
+u32 var000579e4 = 0x02400000;
+u32 var000579e8 = 0x00040008;
+u32 var000579ec = 0x000c0012;
+u32 var000579f0 = 0x00180020;
+u32 var000579f4 = 0x002a0038;
+u32 var000579f8 = 0x004a0064;
+u32 var000579fc = 0x008400ae;
+u32 var00057a00 = 0x00c00000;
+u32 var00057a04 = 0x0006000c;
+u32 var00057a08 = 0x00120018;
+u32 var00057a0c = 0x001e0024;
+u32 var00057a10 = 0x002c0036;
+u32 var00057a14 = 0x00420050;
+u32 var00057a18 = 0x00600072;
+u32 var00057a1c = 0x008800a2;
+u32 var00057a20 = 0x00c200e8;
+u32 var00057a24 = 0x0116014a;
+u32 var00057a28 = 0x018a01d0;
+u32 var00057a2c = 0x021c0240;
+u32 var00057a30 = 0x00000004;
+u32 var00057a34 = 0x0008000c;
+u32 var00057a38 = 0x0012001a;
+u32 var00057a3c = 0x00240030;
+u32 var00057a40 = 0x003e0050;
+u32 var00057a44 = 0x00680088;
+u32 var00057a48 = 0x00b400c0;
+u32 var00057a4c = 0x00000006;
+u32 var00057a50 = 0x000c0012;
+u32 var00057a54 = 0x0018001e;
+u32 var00057a58 = 0x0024002c;
+u32 var00057a5c = 0x00360042;
+u32 var00057a60 = 0x00500060;
+u32 var00057a64 = 0x0074008c;
+u32 var00057a68 = 0x00a800c8;
+u32 var00057a6c = 0x00ee011c;
+u32 var00057a70 = 0x0150018c;
+u32 var00057a74 = 0x01d0020a;
+u32 var00057a78 = 0x02400000;
+u32 var00057a7c = 0x00040008;
+u32 var00057a80 = 0x000c0012;
+u32 var00057a84 = 0x001a0024;
+u32 var00057a88 = 0x0030003e;
+u32 var00057a8c = 0x00500068;
+u32 var00057a90 = 0x008600ae;
+u32 var00057a94 = 0x00c00000;
+u32 var00057a98 = 0x00040008;
+u32 var00057a9c = 0x000c0010;
+u32 var00057aa0 = 0x00140018;
+u32 var00057aa4 = 0x001e0024;
+u32 var00057aa8 = 0x002c0034;
+u32 var00057aac = 0x003e004a;
+u32 var00057ab0 = 0x005a006e;
+u32 var00057ab4 = 0x008600a2;
+u32 var00057ab8 = 0x00c400ee;
+u32 var00057abc = 0x01200156;
+u32 var00057ac0 = 0x01a20240;
+u32 var00057ac4 = 0x00000004;
+u32 var00057ac8 = 0x0008000c;
+u32 var00057acc = 0x00100016;
+u32 var00057ad0 = 0x001e0028;
+u32 var00057ad4 = 0x00340042;
+u32 var00057ad8 = 0x0054006a;
+u32 var00057adc = 0x008800c0;
+u32 var00057ae0 = 0x00000004;
+u32 var00057ae4 = 0x0008000c;
+u32 var00057ae8 = 0x00100014;
+u32 var00057aec = 0x0018001e;
+u32 var00057af0 = 0x0024002a;
+u32 var00057af4 = 0x0032003c;
+u32 var00057af8 = 0x00480058;
+u32 var00057afc = 0x006a0080;
+u32 var00057b00 = 0x009c00be;
+u32 var00057b04 = 0x00e60114;
+u32 var00057b08 = 0x014a0180;
+u32 var00057b0c = 0x02400000;
+u32 var00057b10 = 0x00040008;
+u32 var00057b14 = 0x000c0010;
+u32 var00057b18 = 0x0016001c;
+u32 var00057b1c = 0x00260032;
+u32 var00057b20 = 0x00400050;
+u32 var00057b24 = 0x0064007e;
+u32 var00057b28 = 0x00c00000;
+u32 var00057b2c = 0x00040008;
+u32 var00057b30 = 0x000c0010;
+u32 var00057b34 = 0x00140018;
+u32 var00057b38 = 0x001e0024;
+u32 var00057b3c = 0x002c0036;
+u32 var00057b40 = 0x00420052;
+u32 var00057b44 = 0x0066007e;
+u32 var00057b48 = 0x009c00c2;
+u32 var00057b4c = 0x00f00128;
+u32 var00057b50 = 0x016c01c0;
+u32 var00057b54 = 0x02260240;
+u32 var00057b58 = 0x00000004;
+u32 var00057b5c = 0x0008000c;
+u32 var00057b60 = 0x00100016;
+u32 var00057b64 = 0x001e002a;
+u32 var00057b68 = 0x003a004e;
+u32 var00057b6c = 0x0068008a;
+u32 var00057b70 = 0x00b400c0;
+u32 var00057b74 = 0x00060b10;
+u32 var00057b78 = 0x1500060c;
+u32 var00057b7c = 0x00000000;
+u32 var00057b80 = 0x03010101;
+u32 var00057b84 = 0x02020203;
+u32 var00057b88 = 0x03030404;
+u32 var00057b8c = 0x00010203;
+u32 var00057b90 = 0x00010203;
+u32 var00057b94 = 0x01020301;
+u32 var00057b98 = 0x02030203;
+u32 var00057b9c = 0x00000001;
+u32 var00057ba0 = 0x00020003;
+u32 var00057ba4 = 0x00060007;
+u32 var00057ba8 = 0x00080009;
+u32 var00057bac = 0x000c000d;
+u32 var00057bb0 = 0x000e000f;
+u32 var00057bb4 = 0x00040005;
+u32 var00057bb8 = 0x00120013;
+u32 var00057bbc = 0x000a000b;
+u32 var00057bc0 = 0x00180019;
+u32 var00057bc4 = 0x00100011;
+u32 var00057bc8 = 0x001e001f;
+u32 var00057bcc = 0x00140015;
+u32 var00057bd0 = 0x00160017;
+u32 var00057bd4 = 0x001a001b;
+u32 var00057bd8 = 0x001c001d;
+u32 var00057bdc = 0x00200021;
+u32 var00057be0 = 0x00220023;
+u32 var00057be4 = 0x00240025;
+u32 var00057be8 = 0x00260027;
+u32 var00057bec = 0x00280029;
+u32 var00057bf0 = 0x002a002b;
+u32 var00057bf4 = 0x002c002d;
+u32 var00057bf8 = 0x002e002f;
+u32 var00057bfc = 0x00300031;
+u32 var00057c00 = 0x00320033;
+u32 var00057c04 = 0x00340035;
+u32 var00057c08 = 0x00360037;
+u32 var00057c0c = 0x00380039;
+u32 var00057c10 = 0x003a003b;
+u32 var00057c14 = 0x003c003d;
+u32 var00057c18 = 0x003e003f;
+u32 var00057c1c = 0x00400041;
+u32 var00057c20 = 0x00420043;
+u32 var00057c24 = 0x00440045;
+u32 var00057c28 = 0x00460047;
+u32 var00057c2c = 0x00480049;
+u32 var00057c30 = 0x004a004b;
+u32 var00057c34 = 0x004c004d;
+u32 var00057c38 = 0x005a005b;
+u32 var00057c3c = 0x004e004f;
+u32 var00057c40 = 0x00500051;
+u32 var00057c44 = 0x00520053;
+u32 var00057c48 = 0x00600061;
+u32 var00057c4c = 0x00540055;
+u32 var00057c50 = 0x00560057;
+u32 var00057c54 = 0x00580059;
+u32 var00057c58 = 0x00660067;
+u32 var00057c5c = 0x005c005d;
+u32 var00057c60 = 0x005e005f;
+u32 var00057c64 = 0x006c006d;
+u32 var00057c68 = 0x006e006f;
+u32 var00057c6c = 0x00700071;
+u32 var00057c70 = 0x00620063;
+u32 var00057c74 = 0x00640065;
+u32 var00057c78 = 0x00720073;
+u32 var00057c7c = 0x00740075;
+u32 var00057c80 = 0x00760077;
+u32 var00057c84 = 0x00680069;
+u32 var00057c88 = 0x006a006b;
+u32 var00057c8c = 0x00780079;
+u32 var00057c90 = 0x007a007b;
+u32 var00057c94 = 0x007c007d;
+u32 var00057c98 = 0x007e007f;
+u32 var00057c9c = 0x00800081;
+u32 var00057ca0 = 0x00820083;
+u32 var00057ca4 = 0x00900091;
+u32 var00057ca8 = 0x00920093;
+u32 var00057cac = 0x00940095;
+u32 var00057cb0 = 0x00a200a3;
+u32 var00057cb4 = 0x00840085;
+u32 var00057cb8 = 0x00860087;
+u32 var00057cbc = 0x00880089;
+u32 var00057cc0 = 0x00960097;
+u32 var00057cc4 = 0x00980099;
+u32 var00057cc8 = 0x009a009b;
+u32 var00057ccc = 0x00a800a9;
+u32 var00057cd0 = 0x008a008b;
+u32 var00057cd4 = 0x008c008d;
+u32 var00057cd8 = 0x008e008f;
+u32 var00057cdc = 0x009c009d;
+u32 var00057ce0 = 0x009e009f;
+u32 var00057ce4 = 0x00a000a1;
+u32 var00057ce8 = 0x00ae00af;
+u32 var00057cec = 0x00a400a5;
+u32 var00057cf0 = 0x00a600a7;
+u32 var00057cf4 = 0x00b400b5;
+u32 var00057cf8 = 0x00b600b7;
+u32 var00057cfc = 0x00b800b9;
+u32 var00057d00 = 0x00c600c7;
+u32 var00057d04 = 0x00c800c9;
+u32 var00057d08 = 0x00ca00cb;
+u32 var00057d0c = 0x00d800d9;
+u32 var00057d10 = 0x00aa00ab;
+u32 var00057d14 = 0x00ac00ad;
+u32 var00057d18 = 0x00ba00bb;
+u32 var00057d1c = 0x00bc00bd;
+u32 var00057d20 = 0x00be00bf;
+u32 var00057d24 = 0x00cc00cd;
+u32 var00057d28 = 0x00ce00cf;
+u32 var00057d2c = 0x00d000d1;
+u32 var00057d30 = 0x00de00df;
+u32 var00057d34 = 0x00b000b1;
+u32 var00057d38 = 0x00b200b3;
+u32 var00057d3c = 0x00c000c1;
+u32 var00057d40 = 0x00c200c3;
+u32 var00057d44 = 0x00c400c5;
+u32 var00057d48 = 0x00d200d3;
+u32 var00057d4c = 0x00d400d5;
+u32 var00057d50 = 0x00d600d7;
+u32 var00057d54 = 0x00e400e5;
+u32 var00057d58 = 0x00da00db;
+u32 var00057d5c = 0x00dc00dd;
+u32 var00057d60 = 0x00ea00eb;
+u32 var00057d64 = 0x00ec00ed;
+u32 var00057d68 = 0x00ee00ef;
+u32 var00057d6c = 0x00fc00fd;
+u32 var00057d70 = 0x00fe00ff;
+u32 var00057d74 = 0x01000101;
+u32 var00057d78 = 0x010e010f;
+u32 var00057d7c = 0x01100111;
+u32 var00057d80 = 0x01120113;
+u32 var00057d84 = 0x01200121;
+u32 var00057d88 = 0x01220123;
+u32 var00057d8c = 0x00e000e1;
+u32 var00057d90 = 0x00e200e3;
+u32 var00057d94 = 0x00f000f1;
+u32 var00057d98 = 0x00f200f3;
+u32 var00057d9c = 0x00f400f5;
+u32 var00057da0 = 0x01020103;
+u32 var00057da4 = 0x01040105;
+u32 var00057da8 = 0x01060107;
+u32 var00057dac = 0x01140115;
+u32 var00057db0 = 0x01160117;
+u32 var00057db4 = 0x01180119;
+u32 var00057db8 = 0x01260127;
+u32 var00057dbc = 0x01280129;
+u32 var00057dc0 = 0x00e600e7;
+u32 var00057dc4 = 0x00e800e9;
+u32 var00057dc8 = 0x00f600f7;
+u32 var00057dcc = 0x00f800f9;
+u32 var00057dd0 = 0x00fa00fb;
+u32 var00057dd4 = 0x01080109;
+u32 var00057dd8 = 0x010a010b;
+u32 var00057ddc = 0x010c010d;
+u32 var00057de0 = 0x011a011b;
+u32 var00057de4 = 0x011c011d;
+u32 var00057de8 = 0x011e011f;
+u32 var00057dec = 0x012c012d;
+u32 var00057df0 = 0x012e012f;
+u32 var00057df4 = 0x01240125;
+u32 var00057df8 = 0x01320133;
+u32 var00057dfc = 0x01340135;
+u32 var00057e00 = 0x01360137;
+u32 var00057e04 = 0x01440145;
+u32 var00057e08 = 0x01460147;
+u32 var00057e0c = 0x01480149;
+u32 var00057e10 = 0x01560157;
+u32 var00057e14 = 0x01580159;
+u32 var00057e18 = 0x015a015b;
+u32 var00057e1c = 0x01680169;
+u32 var00057e20 = 0x016a016b;
+u32 var00057e24 = 0x016c016d;
+u32 var00057e28 = 0x017a017b;
+u32 var00057e2c = 0x017c017d;
+u32 var00057e30 = 0x017e017f;
+u32 var00057e34 = 0x012a012b;
+u32 var00057e38 = 0x01380139;
+u32 var00057e3c = 0x013a013b;
+u32 var00057e40 = 0x013c013d;
+u32 var00057e44 = 0x014a014b;
+u32 var00057e48 = 0x014c014d;
+u32 var00057e4c = 0x014e014f;
+u32 var00057e50 = 0x015c015d;
+u32 var00057e54 = 0x015e015f;
+u32 var00057e58 = 0x01600161;
+u32 var00057e5c = 0x016e016f;
+u32 var00057e60 = 0x01700171;
+u32 var00057e64 = 0x01720173;
+u32 var00057e68 = 0x01800181;
+u32 var00057e6c = 0x01820183;
+u32 var00057e70 = 0x01840185;
+u32 var00057e74 = 0x01300131;
+u32 var00057e78 = 0x013e013f;
+u32 var00057e7c = 0x01400141;
+u32 var00057e80 = 0x01420143;
+u32 var00057e84 = 0x01500151;
+u32 var00057e88 = 0x01520153;
+u32 var00057e8c = 0x01540155;
+u32 var00057e90 = 0x01620163;
+u32 var00057e94 = 0x01640165;
+u32 var00057e98 = 0x01660167;
+u32 var00057e9c = 0x01740175;
+u32 var00057ea0 = 0x01760177;
+u32 var00057ea4 = 0x01780179;
+u32 var00057ea8 = 0x01860187;
+u32 var00057eac = 0x01880189;
+u32 var00057eb0 = 0x018a018b;
+u32 var00057eb4 = 0x018c018d;
+u32 var00057eb8 = 0x018e018f;
+u32 var00057ebc = 0x01900191;
+u32 var00057ec0 = 0x019e019f;
+u32 var00057ec4 = 0x01a001a1;
+u32 var00057ec8 = 0x01a201a3;
+u32 var00057ecc = 0x01b001b1;
+u32 var00057ed0 = 0x01b201b3;
+u32 var00057ed4 = 0x01b401b5;
+u32 var00057ed8 = 0x01c201c3;
+u32 var00057edc = 0x01c401c5;
+u32 var00057ee0 = 0x01c601c7;
+u32 var00057ee4 = 0x01d401d5;
+u32 var00057ee8 = 0x01d601d7;
+u32 var00057eec = 0x01d801d9;
+u32 var00057ef0 = 0x01e601e7;
+u32 var00057ef4 = 0x01e801e9;
+u32 var00057ef8 = 0x01ea01eb;
+u32 var00057efc = 0x01f801f9;
+u32 var00057f00 = 0x01fa01fb;
+u32 var00057f04 = 0x01fc01fd;
+u32 var00057f08 = 0x01920193;
+u32 var00057f0c = 0x01940195;
+u32 var00057f10 = 0x01960197;
+u32 var00057f14 = 0x01a401a5;
+u32 var00057f18 = 0x01a601a7;
+u32 var00057f1c = 0x01a801a9;
+u32 var00057f20 = 0x01b601b7;
+u32 var00057f24 = 0x01b801b9;
+u32 var00057f28 = 0x01ba01bb;
+u32 var00057f2c = 0x01c801c9;
+u32 var00057f30 = 0x01ca01cb;
+u32 var00057f34 = 0x01cc01cd;
+u32 var00057f38 = 0x01da01db;
+u32 var00057f3c = 0x01dc01dd;
+u32 var00057f40 = 0x01de01df;
+u32 var00057f44 = 0x01ec01ed;
+u32 var00057f48 = 0x01ee01ef;
+u32 var00057f4c = 0x01f001f1;
+u32 var00057f50 = 0x01fe01ff;
+u32 var00057f54 = 0x02000201;
+u32 var00057f58 = 0x02020203;
+u32 var00057f5c = 0x01980199;
+u32 var00057f60 = 0x019a019b;
+u32 var00057f64 = 0x019c019d;
+u32 var00057f68 = 0x01aa01ab;
+u32 var00057f6c = 0x01ac01ad;
+u32 var00057f70 = 0x01ae01af;
+u32 var00057f74 = 0x01bc01bd;
+u32 var00057f78 = 0x01be01bf;
+u32 var00057f7c = 0x01c001c1;
+u32 var00057f80 = 0x01ce01cf;
+u32 var00057f84 = 0x01d001d1;
+u32 var00057f88 = 0x01d201d3;
+u32 var00057f8c = 0x01e001e1;
+u32 var00057f90 = 0x01e201e3;
+u32 var00057f94 = 0x01e401e5;
+u32 var00057f98 = 0x01f201f3;
+u32 var00057f9c = 0x01f401f5;
+u32 var00057fa0 = 0x01f601f7;
+u32 var00057fa4 = 0x02040205;
+u32 var00057fa8 = 0x02060207;
+u32 var00057fac = 0x02080209;
+u32 var00057fb0 = 0x020a020b;
+u32 var00057fb4 = 0x020c020d;
+u32 var00057fb8 = 0x020e020f;
+u32 var00057fbc = 0x021c021d;
+u32 var00057fc0 = 0x021e021f;
+u32 var00057fc4 = 0x02200221;
+u32 var00057fc8 = 0x022e022f;
+u32 var00057fcc = 0x02300231;
+u32 var00057fd0 = 0x02320233;
+u32 var00057fd4 = 0x02100211;
+u32 var00057fd8 = 0x02120213;
+u32 var00057fdc = 0x02140215;
+u32 var00057fe0 = 0x02220223;
+u32 var00057fe4 = 0x02240225;
+u32 var00057fe8 = 0x02260227;
+u32 var00057fec = 0x02340235;
+u32 var00057ff0 = 0x02360237;
+u32 var00057ff4 = 0x02380239;
+u32 var00057ff8 = 0x02160217;
+u32 var00057ffc = 0x02180219;
+u32 var00058000 = 0x021a021b;
+u32 var00058004 = 0x02280229;
+u32 var00058008 = 0x022a022b;
+u32 var0005800c = 0x022c022d;
+u32 var00058010 = 0x023a023b;
+u32 var00058014 = 0x023c023d;
+u32 var00058018 = 0x023e023f;
+u32 var0005801c = 0x00000001;
+u32 var00058020 = 0x00020003;
+u32 var00058024 = 0x00060007;
+u32 var00058028 = 0x00080009;
+u32 var0005802c = 0x000c000d;
+u32 var00058030 = 0x000e000f;
+u32 var00058034 = 0x00040005;
+u32 var00058038 = 0x00120013;
+u32 var0005803c = 0x000a000b;
+u32 var00058040 = 0x00180019;
+u32 var00058044 = 0x00100011;
+u32 var00058048 = 0x001e001f;
+u32 var0005804c = 0x00140015;
+u32 var00058050 = 0x00160017;
+u32 var00058054 = 0x001a001b;
+u32 var00058058 = 0x001c001d;
+u32 var0005805c = 0x00200021;
+u32 var00058060 = 0x00220023;
+u32 var00058064 = 0x00240025;
+u32 var00058068 = 0x00260027;
+u32 var0005806c = 0x00280029;
+u32 var00058070 = 0x002a002b;
+u32 var00058074 = 0x002c002d;
+u32 var00058078 = 0x002e002f;
+u32 var0005807c = 0x00300031;
+u32 var00058080 = 0x00320033;
+u32 var00058084 = 0x00340035;
+u32 var00058088 = 0x00360037;
+u32 var0005808c = 0x00380039;
+u32 var00058090 = 0x003a003b;
+u32 var00058094 = 0x00480049;
+u32 var00058098 = 0x003c003d;
+u32 var0005809c = 0x003e003f;
+u32 var000580a0 = 0x00400041;
+u32 var000580a4 = 0x004e004f;
+u32 var000580a8 = 0x00420043;
+u32 var000580ac = 0x00440045;
+u32 var000580b0 = 0x00460047;
+u32 var000580b4 = 0x00540055;
+u32 var000580b8 = 0x004a004b;
+u32 var000580bc = 0x004c004d;
+u32 var000580c0 = 0x005a005b;
+u32 var000580c4 = 0x005c005d;
+u32 var000580c8 = 0x005e005f;
+u32 var000580cc = 0x00500051;
+u32 var000580d0 = 0x00520053;
+u32 var000580d4 = 0x00600061;
+u32 var000580d8 = 0x00620063;
+u32 var000580dc = 0x00640065;
+u32 var000580e0 = 0x00560057;
+u32 var000580e4 = 0x00580059;
+u32 var000580e8 = 0x00660067;
+u32 var000580ec = 0x00680069;
+u32 var000580f0 = 0x006a006b;
+u32 var000580f4 = 0x006c006d;
+u32 var000580f8 = 0x006e006f;
+u32 var000580fc = 0x00700071;
+u32 var00058100 = 0x007e007f;
+u32 var00058104 = 0x00800081;
+u32 var00058108 = 0x00820083;
+u32 var0005810c = 0x00720073;
+u32 var00058110 = 0x00740075;
+u32 var00058114 = 0x00760077;
+u32 var00058118 = 0x00840085;
+u32 var0005811c = 0x00860087;
+u32 var00058120 = 0x00880089;
+u32 var00058124 = 0x00780079;
+u32 var00058128 = 0x007a007b;
+u32 var0005812c = 0x007c007d;
+u32 var00058130 = 0x008a008b;
+u32 var00058134 = 0x008c008d;
+u32 var00058138 = 0x008e008f;
+u32 var0005813c = 0x00900091;
+u32 var00058140 = 0x00920093;
+u32 var00058144 = 0x00940095;
+u32 var00058148 = 0x00a200a3;
+u32 var0005814c = 0x00a400a5;
+u32 var00058150 = 0x00a600a7;
+u32 var00058154 = 0x00b400b5;
+u32 var00058158 = 0x00960097;
+u32 var0005815c = 0x00980099;
+u32 var00058160 = 0x009a009b;
+u32 var00058164 = 0x00a800a9;
+u32 var00058168 = 0x00aa00ab;
+u32 var0005816c = 0x00ac00ad;
+u32 var00058170 = 0x00ba00bb;
+u32 var00058174 = 0x009c009d;
+u32 var00058178 = 0x009e009f;
+u32 var0005817c = 0x00a000a1;
+u32 var00058180 = 0x00ae00af;
+u32 var00058184 = 0x00b000b1;
+u32 var00058188 = 0x00b200b3;
+u32 var0005818c = 0x00c000c1;
+u32 var00058190 = 0x00b600b7;
+u32 var00058194 = 0x00b800b9;
+u32 var00058198 = 0x00c600c7;
+u32 var0005819c = 0x00c800c9;
+u32 var000581a0 = 0x00ca00cb;
+u32 var000581a4 = 0x00d800d9;
+u32 var000581a8 = 0x00da00db;
+u32 var000581ac = 0x00dc00dd;
+u32 var000581b0 = 0x00ea00eb;
+u32 var000581b4 = 0x00bc00bd;
+u32 var000581b8 = 0x00be00bf;
+u32 var000581bc = 0x00cc00cd;
+u32 var000581c0 = 0x00ce00cf;
+u32 var000581c4 = 0x00d000d1;
+u32 var000581c8 = 0x00de00df;
+u32 var000581cc = 0x00e000e1;
+u32 var000581d0 = 0x00e200e3;
+u32 var000581d4 = 0x00f000f1;
+u32 var000581d8 = 0x00c200c3;
+u32 var000581dc = 0x00c400c5;
+u32 var000581e0 = 0x00d200d3;
+u32 var000581e4 = 0x00d400d5;
+u32 var000581e8 = 0x00d600d7;
+u32 var000581ec = 0x00e400e5;
+u32 var000581f0 = 0x00e600e7;
+u32 var000581f4 = 0x00e800e9;
+u32 var000581f8 = 0x00f600f7;
+u32 var000581fc = 0x00ec00ed;
+u32 var00058200 = 0x00ee00ef;
+u32 var00058204 = 0x00fc00fd;
+u32 var00058208 = 0x00fe00ff;
+u32 var0005820c = 0x01000101;
+u32 var00058210 = 0x010e010f;
+u32 var00058214 = 0x01100111;
+u32 var00058218 = 0x01120113;
+u32 var0005821c = 0x01200121;
+u32 var00058220 = 0x01220123;
+u32 var00058224 = 0x01240125;
+u32 var00058228 = 0x01320133;
+u32 var0005822c = 0x00f200f3;
+u32 var00058230 = 0x00f400f5;
+u32 var00058234 = 0x01020103;
+u32 var00058238 = 0x01040105;
+u32 var0005823c = 0x01060107;
+u32 var00058240 = 0x01140115;
+u32 var00058244 = 0x01160117;
+u32 var00058248 = 0x01180119;
+u32 var0005824c = 0x01260127;
+u32 var00058250 = 0x01280129;
+u32 var00058254 = 0x012a012b;
+u32 var00058258 = 0x01380139;
+u32 var0005825c = 0x00f800f9;
+u32 var00058260 = 0x00fa00fb;
+u32 var00058264 = 0x01080109;
+u32 var00058268 = 0x010a010b;
+u32 var0005826c = 0x010c010d;
+u32 var00058270 = 0x011a011b;
+u32 var00058274 = 0x011c011d;
+u32 var00058278 = 0x011e011f;
+u32 var0005827c = 0x012c012d;
+u32 var00058280 = 0x012e012f;
+u32 var00058284 = 0x01300131;
+u32 var00058288 = 0x013e013f;
+u32 var0005828c = 0x01340135;
+u32 var00058290 = 0x01360137;
+u32 var00058294 = 0x01440145;
+u32 var00058298 = 0x01460147;
+u32 var0005829c = 0x01480149;
+u32 var000582a0 = 0x01560157;
+u32 var000582a4 = 0x01580159;
+u32 var000582a8 = 0x015a015b;
+u32 var000582ac = 0x01680169;
+u32 var000582b0 = 0x016a016b;
+u32 var000582b4 = 0x016c016d;
+u32 var000582b8 = 0x017a017b;
+u32 var000582bc = 0x017c017d;
+u32 var000582c0 = 0x017e017f;
+u32 var000582c4 = 0x018c018d;
+u32 var000582c8 = 0x018e018f;
+u32 var000582cc = 0x013a013b;
+u32 var000582d0 = 0x013c013d;
+u32 var000582d4 = 0x014a014b;
+u32 var000582d8 = 0x014c014d;
+u32 var000582dc = 0x014e014f;
+u32 var000582e0 = 0x015c015d;
+u32 var000582e4 = 0x015e015f;
+u32 var000582e8 = 0x01600161;
+u32 var000582ec = 0x016e016f;
+u32 var000582f0 = 0x01700171;
+u32 var000582f4 = 0x01720173;
+u32 var000582f8 = 0x01800181;
+u32 var000582fc = 0x01820183;
+u32 var00058300 = 0x01840185;
+u32 var00058304 = 0x01920193;
+u32 var00058308 = 0x01940195;
+u32 var0005830c = 0x01400141;
+u32 var00058310 = 0x01420143;
+u32 var00058314 = 0x01500151;
+u32 var00058318 = 0x01520153;
+u32 var0005831c = 0x01540155;
+u32 var00058320 = 0x01620163;
+u32 var00058324 = 0x01640165;
+u32 var00058328 = 0x01660167;
+u32 var0005832c = 0x01740175;
+u32 var00058330 = 0x01760177;
+u32 var00058334 = 0x01780179;
+u32 var00058338 = 0x01860187;
+u32 var0005833c = 0x01880189;
+u32 var00058340 = 0x018a018b;
+u32 var00058344 = 0x01980199;
+u32 var00058348 = 0x019a019b;
+u32 var0005834c = 0x01900191;
+u32 var00058350 = 0x019e019f;
+u32 var00058354 = 0x01a001a1;
+u32 var00058358 = 0x01a201a3;
+u32 var0005835c = 0x01b001b1;
+u32 var00058360 = 0x01b201b3;
+u32 var00058364 = 0x01b401b5;
+u32 var00058368 = 0x01c201c3;
+u32 var0005836c = 0x01c401c5;
+u32 var00058370 = 0x01c601c7;
+u32 var00058374 = 0x01d401d5;
+u32 var00058378 = 0x01d601d7;
+u32 var0005837c = 0x01d801d9;
+u32 var00058380 = 0x01e601e7;
+u32 var00058384 = 0x01e801e9;
+u32 var00058388 = 0x01ea01eb;
+u32 var0005838c = 0x01f801f9;
+u32 var00058390 = 0x01fa01fb;
+u32 var00058394 = 0x01fc01fd;
+u32 var00058398 = 0x020a020b;
+u32 var0005839c = 0x020c020d;
+u32 var000583a0 = 0x020e020f;
+u32 var000583a4 = 0x01960197;
+u32 var000583a8 = 0x01a401a5;
+u32 var000583ac = 0x01a601a7;
+u32 var000583b0 = 0x01a801a9;
+u32 var000583b4 = 0x01b601b7;
+u32 var000583b8 = 0x01b801b9;
+u32 var000583bc = 0x01ba01bb;
+u32 var000583c0 = 0x01c801c9;
+u32 var000583c4 = 0x01ca01cb;
+u32 var000583c8 = 0x01cc01cd;
+u32 var000583cc = 0x01da01db;
+u32 var000583d0 = 0x01dc01dd;
+u32 var000583d4 = 0x01de01df;
+u32 var000583d8 = 0x01ec01ed;
+u32 var000583dc = 0x01ee01ef;
+u32 var000583e0 = 0x01f001f1;
+u32 var000583e4 = 0x01fe01ff;
+u32 var000583e8 = 0x02000201;
+u32 var000583ec = 0x02020203;
+u32 var000583f0 = 0x02100211;
+u32 var000583f4 = 0x02120213;
+u32 var000583f8 = 0x02140215;
+u32 var000583fc = 0x019c019d;
+u32 var00058400 = 0x01aa01ab;
+u32 var00058404 = 0x01ac01ad;
+u32 var00058408 = 0x01ae01af;
+u32 var0005840c = 0x01bc01bd;
+u32 var00058410 = 0x01be01bf;
+u32 var00058414 = 0x01c001c1;
+u32 var00058418 = 0x01ce01cf;
+u32 var0005841c = 0x01d001d1;
+u32 var00058420 = 0x01d201d3;
+u32 var00058424 = 0x01e001e1;
+u32 var00058428 = 0x01e201e3;
+u32 var0005842c = 0x01e401e5;
+u32 var00058430 = 0x01f201f3;
+u32 var00058434 = 0x01f401f5;
+u32 var00058438 = 0x01f601f7;
+u32 var0005843c = 0x02040205;
+u32 var00058440 = 0x02060207;
+u32 var00058444 = 0x02080209;
+u32 var00058448 = 0x02160217;
+u32 var0005844c = 0x02180219;
+u32 var00058450 = 0x021a021b;
+u32 var00058454 = 0x021c021d;
+u32 var00058458 = 0x021e021f;
+u32 var0005845c = 0x02200221;
+u32 var00058460 = 0x022e022f;
+u32 var00058464 = 0x02300231;
+u32 var00058468 = 0x02320233;
+u32 var0005846c = 0x02220223;
+u32 var00058470 = 0x02240225;
+u32 var00058474 = 0x02260227;
+u32 var00058478 = 0x02340235;
+u32 var0005847c = 0x02360237;
+u32 var00058480 = 0x02380239;
+u32 var00058484 = 0x02280229;
+u32 var00058488 = 0x022a022b;
+u32 var0005848c = 0x022c022d;
+u32 var00058490 = 0x023a023b;
+u32 var00058494 = 0x023c023d;
+u32 var00058498 = 0x023e023f;
+u32 var0005849c = 0x00000001;
+u32 var000584a0 = 0x00020003;
+u32 var000584a4 = 0x00060007;
+u32 var000584a8 = 0x00080009;
+u32 var000584ac = 0x000c000d;
+u32 var000584b0 = 0x000e000f;
+u32 var000584b4 = 0x00040005;
+u32 var000584b8 = 0x00120013;
+u32 var000584bc = 0x000a000b;
+u32 var000584c0 = 0x00180019;
+u32 var000584c4 = 0x00100011;
+u32 var000584c8 = 0x001e001f;
+u32 var000584cc = 0x00140015;
+u32 var000584d0 = 0x00160017;
+u32 var000584d4 = 0x001a001b;
+u32 var000584d8 = 0x001c001d;
+u32 var000584dc = 0x00200021;
+u32 var000584e0 = 0x00220023;
+u32 var000584e4 = 0x00240025;
+u32 var000584e8 = 0x00260027;
+u32 var000584ec = 0x00280029;
+u32 var000584f0 = 0x002a002b;
+u32 var000584f4 = 0x002c002d;
+u32 var000584f8 = 0x002e002f;
+u32 var000584fc = 0x00300031;
+u32 var00058500 = 0x00320033;
+u32 var00058504 = 0x00340035;
+u32 var00058508 = 0x00360037;
+u32 var0005850c = 0x00380039;
+u32 var00058510 = 0x003a003b;
+u32 var00058514 = 0x00480049;
+u32 var00058518 = 0x003c003d;
+u32 var0005851c = 0x003e003f;
+u32 var00058520 = 0x00400041;
+u32 var00058524 = 0x004e004f;
+u32 var00058528 = 0x00420043;
+u32 var0005852c = 0x00440045;
+u32 var00058530 = 0x00460047;
+u32 var00058534 = 0x00540055;
+u32 var00058538 = 0x004a004b;
+u32 var0005853c = 0x004c004d;
+u32 var00058540 = 0x005a005b;
+u32 var00058544 = 0x005c005d;
+u32 var00058548 = 0x005e005f;
+u32 var0005854c = 0x00500051;
+u32 var00058550 = 0x00520053;
+u32 var00058554 = 0x00600061;
+u32 var00058558 = 0x00620063;
+u32 var0005855c = 0x00640065;
+u32 var00058560 = 0x00560057;
+u32 var00058564 = 0x00580059;
+u32 var00058568 = 0x00660067;
+u32 var0005856c = 0x00680069;
+u32 var00058570 = 0x006a006b;
+u32 var00058574 = 0x006c006d;
+u32 var00058578 = 0x006e006f;
+u32 var0005857c = 0x00700071;
+u32 var00058580 = 0x007e007f;
+u32 var00058584 = 0x00800081;
+u32 var00058588 = 0x00820083;
+u32 var0005858c = 0x00720073;
+u32 var00058590 = 0x00740075;
+u32 var00058594 = 0x00760077;
+u32 var00058598 = 0x00840085;
+u32 var0005859c = 0x00860087;
+u32 var000585a0 = 0x00880089;
+u32 var000585a4 = 0x00780079;
+u32 var000585a8 = 0x007a007b;
+u32 var000585ac = 0x007c007d;
+u32 var000585b0 = 0x008a008b;
+u32 var000585b4 = 0x008c008d;
+u32 var000585b8 = 0x008e008f;
+u32 var000585bc = 0x00900091;
+u32 var000585c0 = 0x00920093;
+u32 var000585c4 = 0x00940095;
+u32 var000585c8 = 0x00a200a3;
+u32 var000585cc = 0x00a400a5;
+u32 var000585d0 = 0x00a600a7;
+u32 var000585d4 = 0x00b400b5;
+u32 var000585d8 = 0x00960097;
+u32 var000585dc = 0x00980099;
+u32 var000585e0 = 0x009a009b;
+u32 var000585e4 = 0x00a800a9;
+u32 var000585e8 = 0x00aa00ab;
+u32 var000585ec = 0x00ac00ad;
+u32 var000585f0 = 0x00ba00bb;
+u32 var000585f4 = 0x009c009d;
+u32 var000585f8 = 0x009e009f;
+u32 var000585fc = 0x00a000a1;
+u32 var00058600 = 0x00ae00af;
+u32 var00058604 = 0x00b000b1;
+u32 var00058608 = 0x00b200b3;
+u32 var0005860c = 0x00c000c1;
+u32 var00058610 = 0x00b600b7;
+u32 var00058614 = 0x00b800b9;
+u32 var00058618 = 0x00c600c7;
+u32 var0005861c = 0x00c800c9;
+u32 var00058620 = 0x00ca00cb;
+u32 var00058624 = 0x00d800d9;
+u32 var00058628 = 0x00da00db;
+u32 var0005862c = 0x00dc00dd;
+u32 var00058630 = 0x00ea00eb;
+u32 var00058634 = 0x00bc00bd;
+u32 var00058638 = 0x00be00bf;
+u32 var0005863c = 0x00cc00cd;
+u32 var00058640 = 0x00ce00cf;
+u32 var00058644 = 0x00d000d1;
+u32 var00058648 = 0x00de00df;
+u32 var0005864c = 0x00e000e1;
+u32 var00058650 = 0x00e200e3;
+u32 var00058654 = 0x00f000f1;
+u32 var00058658 = 0x00c200c3;
+u32 var0005865c = 0x00c400c5;
+u32 var00058660 = 0x00d200d3;
+u32 var00058664 = 0x00d400d5;
+u32 var00058668 = 0x00d600d7;
+u32 var0005866c = 0x00e400e5;
+u32 var00058670 = 0x00e600e7;
+u32 var00058674 = 0x00e800e9;
+u32 var00058678 = 0x00f600f7;
+u32 var0005867c = 0x00ec00ed;
+u32 var00058680 = 0x00ee00ef;
+u32 var00058684 = 0x00fc00fd;
+u32 var00058688 = 0x00fe00ff;
+u32 var0005868c = 0x01000101;
+u32 var00058690 = 0x010e010f;
+u32 var00058694 = 0x01100111;
+u32 var00058698 = 0x01120113;
+u32 var0005869c = 0x01200121;
+u32 var000586a0 = 0x01220123;
+u32 var000586a4 = 0x01240125;
+u32 var000586a8 = 0x01320133;
+u32 var000586ac = 0x00f200f3;
+u32 var000586b0 = 0x00f400f5;
+u32 var000586b4 = 0x01020103;
+u32 var000586b8 = 0x01040105;
+u32 var000586bc = 0x01060107;
+u32 var000586c0 = 0x01140115;
+u32 var000586c4 = 0x01160117;
+u32 var000586c8 = 0x01180119;
+u32 var000586cc = 0x01260127;
+u32 var000586d0 = 0x01280129;
+u32 var000586d4 = 0x012a012b;
+u32 var000586d8 = 0x01380139;
+u32 var000586dc = 0x00f800f9;
+u32 var000586e0 = 0x00fa00fb;
+u32 var000586e4 = 0x01080109;
+u32 var000586e8 = 0x010a010b;
+u32 var000586ec = 0x010c010d;
+u32 var000586f0 = 0x011a011b;
+u32 var000586f4 = 0x011c011d;
+u32 var000586f8 = 0x011e011f;
+u32 var000586fc = 0x012c012d;
+u32 var00058700 = 0x012e012f;
+u32 var00058704 = 0x01300131;
+u32 var00058708 = 0x013e013f;
+u32 var0005870c = 0x01340135;
+u32 var00058710 = 0x01360137;
+u32 var00058714 = 0x01440145;
+u32 var00058718 = 0x01460147;
+u32 var0005871c = 0x01480149;
+u32 var00058720 = 0x01560157;
+u32 var00058724 = 0x01580159;
+u32 var00058728 = 0x015a015b;
+u32 var0005872c = 0x01680169;
+u32 var00058730 = 0x016a016b;
+u32 var00058734 = 0x016c016d;
+u32 var00058738 = 0x017a017b;
+u32 var0005873c = 0x017c017d;
+u32 var00058740 = 0x017e017f;
+u32 var00058744 = 0x018c018d;
+u32 var00058748 = 0x013a013b;
+u32 var0005874c = 0x013c013d;
+u32 var00058750 = 0x014a014b;
+u32 var00058754 = 0x014c014d;
+u32 var00058758 = 0x014e014f;
+u32 var0005875c = 0x015c015d;
+u32 var00058760 = 0x015e015f;
+u32 var00058764 = 0x01600161;
+u32 var00058768 = 0x016e016f;
+u32 var0005876c = 0x01700171;
+u32 var00058770 = 0x01720173;
+u32 var00058774 = 0x01800181;
+u32 var00058778 = 0x01820183;
+u32 var0005877c = 0x01840185;
+u32 var00058780 = 0x01920193;
+u32 var00058784 = 0x01400141;
+u32 var00058788 = 0x01420143;
+u32 var0005878c = 0x01500151;
+u32 var00058790 = 0x01520153;
+u32 var00058794 = 0x01540155;
+u32 var00058798 = 0x01620163;
+u32 var0005879c = 0x01640165;
+u32 var000587a0 = 0x01660167;
+u32 var000587a4 = 0x01740175;
+u32 var000587a8 = 0x01760177;
+u32 var000587ac = 0x01780179;
+u32 var000587b0 = 0x01860187;
+u32 var000587b4 = 0x01880189;
+u32 var000587b8 = 0x018a018b;
+u32 var000587bc = 0x01980199;
+u32 var000587c0 = 0x018e018f;
+u32 var000587c4 = 0x01900191;
+u32 var000587c8 = 0x019e019f;
+u32 var000587cc = 0x01a001a1;
+u32 var000587d0 = 0x01a201a3;
+u32 var000587d4 = 0x01b001b1;
+u32 var000587d8 = 0x01b201b3;
+u32 var000587dc = 0x01b401b5;
+u32 var000587e0 = 0x01c201c3;
+u32 var000587e4 = 0x01c401c5;
+u32 var000587e8 = 0x01c601c7;
+u32 var000587ec = 0x01d401d5;
+u32 var000587f0 = 0x01d601d7;
+u32 var000587f4 = 0x01d801d9;
+u32 var000587f8 = 0x01e601e7;
+u32 var000587fc = 0x01e801e9;
+u32 var00058800 = 0x01ea01eb;
+u32 var00058804 = 0x01f801f9;
+u32 var00058808 = 0x01fa01fb;
+u32 var0005880c = 0x01fc01fd;
+u32 var00058810 = 0x01940195;
+u32 var00058814 = 0x01960197;
+u32 var00058818 = 0x01a401a5;
+u32 var0005881c = 0x01a601a7;
+u32 var00058820 = 0x01a801a9;
+u32 var00058824 = 0x01b601b7;
+u32 var00058828 = 0x01b801b9;
+u32 var0005882c = 0x01ba01bb;
+u32 var00058830 = 0x01c801c9;
+u32 var00058834 = 0x01ca01cb;
+u32 var00058838 = 0x01cc01cd;
+u32 var0005883c = 0x01da01db;
+u32 var00058840 = 0x01dc01dd;
+u32 var00058844 = 0x01de01df;
+u32 var00058848 = 0x01ec01ed;
+u32 var0005884c = 0x01ee01ef;
+u32 var00058850 = 0x01f001f1;
+u32 var00058854 = 0x01fe01ff;
+u32 var00058858 = 0x02000201;
+u32 var0005885c = 0x02020203;
+u32 var00058860 = 0x019a019b;
+u32 var00058864 = 0x019c019d;
+u32 var00058868 = 0x01aa01ab;
+u32 var0005886c = 0x01ac01ad;
+u32 var00058870 = 0x01ae01af;
+u32 var00058874 = 0x01bc01bd;
+u32 var00058878 = 0x01be01bf;
+u32 var0005887c = 0x01c001c1;
+u32 var00058880 = 0x01ce01cf;
+u32 var00058884 = 0x01d001d1;
+u32 var00058888 = 0x01d201d3;
+u32 var0005888c = 0x01e001e1;
+u32 var00058890 = 0x01e201e3;
+u32 var00058894 = 0x01e401e5;
+u32 var00058898 = 0x01f201f3;
+u32 var0005889c = 0x01f401f5;
+u32 var000588a0 = 0x01f601f7;
+u32 var000588a4 = 0x02040205;
+u32 var000588a8 = 0x02060207;
+u32 var000588ac = 0x02080209;
+u32 var000588b0 = 0x020a020b;
+u32 var000588b4 = 0x020c020d;
+u32 var000588b8 = 0x020e020f;
+u32 var000588bc = 0x021c021d;
+u32 var000588c0 = 0x021e021f;
+u32 var000588c4 = 0x02200221;
+u32 var000588c8 = 0x022e022f;
+u32 var000588cc = 0x02300231;
+u32 var000588d0 = 0x02320233;
+u32 var000588d4 = 0x02100211;
+u32 var000588d8 = 0x02120213;
+u32 var000588dc = 0x02140215;
+u32 var000588e0 = 0x02220223;
+u32 var000588e4 = 0x02240225;
+u32 var000588e8 = 0x02260227;
+u32 var000588ec = 0x02340235;
+u32 var000588f0 = 0x02360237;
+u32 var000588f4 = 0x02380239;
+u32 var000588f8 = 0x02160217;
+u32 var000588fc = 0x02180219;
+u32 var00058900 = 0x021a021b;
+u32 var00058904 = 0x02280229;
+u32 var00058908 = 0x022a022b;
+u32 var0005890c = 0x022c022d;
+u32 var00058910 = 0x023a023b;
+u32 var00058914 = 0x023c023d;
+u32 var00058918 = 0x023e023f;
+u32 var0005891c = 0x00000001;
+u32 var00058920 = 0x00020003;
+u32 var00058924 = 0x00060007;
+u32 var00058928 = 0x00080009;
+u32 var0005892c = 0x000c000d;
+u32 var00058930 = 0x000e000f;
+u32 var00058934 = 0x00040005;
+u32 var00058938 = 0x00120013;
+u32 var0005893c = 0x000a000b;
+u32 var00058940 = 0x00180019;
+u32 var00058944 = 0x00100011;
+u32 var00058948 = 0x001e001f;
+u32 var0005894c = 0x00140015;
+u32 var00058950 = 0x00160017;
+u32 var00058954 = 0x001a001b;
+u32 var00058958 = 0x001c001d;
+u32 var0005895c = 0x00200021;
+u32 var00058960 = 0x00220023;
+u32 var00058964 = 0x00240025;
+u32 var00058968 = 0x00260027;
+u32 var0005896c = 0x002a002b;
+u32 var00058970 = 0x002c002d;
+u32 var00058974 = 0x00300031;
+u32 var00058978 = 0x00320033;
+u32 var0005897c = 0x00280029;
+u32 var00058980 = 0x00360037;
+u32 var00058984 = 0x00380039;
+u32 var00058988 = 0x002e002f;
+u32 var0005898c = 0x003c003d;
+u32 var00058990 = 0x003e003f;
+u32 var00058994 = 0x00340035;
+u32 var00058998 = 0x00420043;
+u32 var0005899c = 0x00440045;
+u32 var000589a0 = 0x003a003b;
+u32 var000589a4 = 0x00480049;
+u32 var000589a8 = 0x004a004b;
+u32 var000589ac = 0x004c004d;
+u32 var000589b0 = 0x00400041;
+u32 var000589b4 = 0x004e004f;
+u32 var000589b8 = 0x00500051;
+u32 var000589bc = 0x00520053;
+u32 var000589c0 = 0x00460047;
+u32 var000589c4 = 0x00540055;
+u32 var000589c8 = 0x00560057;
+u32 var000589cc = 0x00580059;
+u32 var000589d0 = 0x005a005b;
+u32 var000589d4 = 0x005c005d;
+u32 var000589d8 = 0x005e005f;
+u32 var000589dc = 0x006c006d;
+u32 var000589e0 = 0x006e006f;
+u32 var000589e4 = 0x00600061;
+u32 var000589e8 = 0x00620063;
+u32 var000589ec = 0x00640065;
+u32 var000589f0 = 0x00720073;
+u32 var000589f4 = 0x00740075;
+u32 var000589f8 = 0x00660067;
+u32 var000589fc = 0x00680069;
+u32 var00058a00 = 0x006a006b;
+u32 var00058a04 = 0x00780079;
+u32 var00058a08 = 0x007a007b;
+u32 var00058a0c = 0x00700071;
+u32 var00058a10 = 0x007e007f;
+u32 var00058a14 = 0x00800081;
+u32 var00058a18 = 0x00820083;
+u32 var00058a1c = 0x00900091;
+u32 var00058a20 = 0x00920093;
+u32 var00058a24 = 0x00760077;
+u32 var00058a28 = 0x00840085;
+u32 var00058a2c = 0x00860087;
+u32 var00058a30 = 0x00880089;
+u32 var00058a34 = 0x00960097;
+u32 var00058a38 = 0x00980099;
+u32 var00058a3c = 0x007c007d;
+u32 var00058a40 = 0x008a008b;
+u32 var00058a44 = 0x008c008d;
+u32 var00058a48 = 0x008e008f;
+u32 var00058a4c = 0x009c009d;
+u32 var00058a50 = 0x009e009f;
+u32 var00058a54 = 0x00940095;
+u32 var00058a58 = 0x00a200a3;
+u32 var00058a5c = 0x00a400a5;
+u32 var00058a60 = 0x00a600a7;
+u32 var00058a64 = 0x00b400b5;
+u32 var00058a68 = 0x00b600b7;
+u32 var00058a6c = 0x00b800b9;
+u32 var00058a70 = 0x009a009b;
+u32 var00058a74 = 0x00a800a9;
+u32 var00058a78 = 0x00aa00ab;
+u32 var00058a7c = 0x00ac00ad;
+u32 var00058a80 = 0x00ba00bb;
+u32 var00058a84 = 0x00bc00bd;
+u32 var00058a88 = 0x00be00bf;
+u32 var00058a8c = 0x00a000a1;
+u32 var00058a90 = 0x00ae00af;
+u32 var00058a94 = 0x00b000b1;
+u32 var00058a98 = 0x00b200b3;
+u32 var00058a9c = 0x00c000c1;
+u32 var00058aa0 = 0x00c200c3;
+u32 var00058aa4 = 0x00c400c5;
+u32 var00058aa8 = 0x00c600c7;
+u32 var00058aac = 0x00c800c9;
+u32 var00058ab0 = 0x00ca00cb;
+u32 var00058ab4 = 0x00d800d9;
+u32 var00058ab8 = 0x00da00db;
+u32 var00058abc = 0x00dc00dd;
+u32 var00058ac0 = 0x00ea00eb;
+u32 var00058ac4 = 0x00ec00ed;
+u32 var00058ac8 = 0x00ee00ef;
+u32 var00058acc = 0x00cc00cd;
+u32 var00058ad0 = 0x00ce00cf;
+u32 var00058ad4 = 0x00d000d1;
+u32 var00058ad8 = 0x00de00df;
+u32 var00058adc = 0x00e000e1;
+u32 var00058ae0 = 0x00e200e3;
+u32 var00058ae4 = 0x00f000f1;
+u32 var00058ae8 = 0x00f200f3;
+u32 var00058aec = 0x00f400f5;
+u32 var00058af0 = 0x00d200d3;
+u32 var00058af4 = 0x00d400d5;
+u32 var00058af8 = 0x00d600d7;
+u32 var00058afc = 0x00e400e5;
+u32 var00058b00 = 0x00e600e7;
+u32 var00058b04 = 0x00e800e9;
+u32 var00058b08 = 0x00f600f7;
+u32 var00058b0c = 0x00f800f9;
+u32 var00058b10 = 0x00fa00fb;
+u32 var00058b14 = 0x00fc00fd;
+u32 var00058b18 = 0x00fe00ff;
+u32 var00058b1c = 0x01000101;
+u32 var00058b20 = 0x010e010f;
+u32 var00058b24 = 0x01100111;
+u32 var00058b28 = 0x01120113;
+u32 var00058b2c = 0x01200121;
+u32 var00058b30 = 0x01220123;
+u32 var00058b34 = 0x01240125;
+u32 var00058b38 = 0x01320133;
+u32 var00058b3c = 0x01340135;
+u32 var00058b40 = 0x01020103;
+u32 var00058b44 = 0x01040105;
+u32 var00058b48 = 0x01060107;
+u32 var00058b4c = 0x01140115;
+u32 var00058b50 = 0x01160117;
+u32 var00058b54 = 0x01180119;
+u32 var00058b58 = 0x01260127;
+u32 var00058b5c = 0x01280129;
+u32 var00058b60 = 0x012a012b;
+u32 var00058b64 = 0x01380139;
+u32 var00058b68 = 0x013a013b;
+u32 var00058b6c = 0x01080109;
+u32 var00058b70 = 0x010a010b;
+u32 var00058b74 = 0x010c010d;
+u32 var00058b78 = 0x011a011b;
+u32 var00058b7c = 0x011c011d;
+u32 var00058b80 = 0x011e011f;
+u32 var00058b84 = 0x012c012d;
+u32 var00058b88 = 0x012e012f;
+u32 var00058b8c = 0x01300131;
+u32 var00058b90 = 0x013e013f;
+u32 var00058b94 = 0x01400141;
+u32 var00058b98 = 0x01360137;
+u32 var00058b9c = 0x01440145;
+u32 var00058ba0 = 0x01460147;
+u32 var00058ba4 = 0x01480149;
+u32 var00058ba8 = 0x01560157;
+u32 var00058bac = 0x01580159;
+u32 var00058bb0 = 0x015a015b;
+u32 var00058bb4 = 0x01680169;
+u32 var00058bb8 = 0x016a016b;
+u32 var00058bbc = 0x016c016d;
+u32 var00058bc0 = 0x017a017b;
+u32 var00058bc4 = 0x017c017d;
+u32 var00058bc8 = 0x017e017f;
+u32 var00058bcc = 0x018c018d;
+u32 var00058bd0 = 0x018e018f;
+u32 var00058bd4 = 0x013c013d;
+u32 var00058bd8 = 0x014a014b;
+u32 var00058bdc = 0x014c014d;
+u32 var00058be0 = 0x014e014f;
+u32 var00058be4 = 0x015c015d;
+u32 var00058be8 = 0x015e015f;
+u32 var00058bec = 0x01600161;
+u32 var00058bf0 = 0x016e016f;
+u32 var00058bf4 = 0x01700171;
+u32 var00058bf8 = 0x01720173;
+u32 var00058bfc = 0x01800181;
+u32 var00058c00 = 0x01820183;
+u32 var00058c04 = 0x01840185;
+u32 var00058c08 = 0x01920193;
+u32 var00058c0c = 0x01940195;
+u32 var00058c10 = 0x01420143;
+u32 var00058c14 = 0x01500151;
+u32 var00058c18 = 0x01520153;
+u32 var00058c1c = 0x01540155;
+u32 var00058c20 = 0x01620163;
+u32 var00058c24 = 0x01640165;
+u32 var00058c28 = 0x01660167;
+u32 var00058c2c = 0x01740175;
+u32 var00058c30 = 0x01760177;
+u32 var00058c34 = 0x01780179;
+u32 var00058c38 = 0x01860187;
+u32 var00058c3c = 0x01880189;
+u32 var00058c40 = 0x018a018b;
+u32 var00058c44 = 0x01980199;
+u32 var00058c48 = 0x019a019b;
+u32 var00058c4c = 0x01900191;
+u32 var00058c50 = 0x019e019f;
+u32 var00058c54 = 0x01a001a1;
+u32 var00058c58 = 0x01a201a3;
+u32 var00058c5c = 0x01b001b1;
+u32 var00058c60 = 0x01b201b3;
+u32 var00058c64 = 0x01b401b5;
+u32 var00058c68 = 0x01c201c3;
+u32 var00058c6c = 0x01c401c5;
+u32 var00058c70 = 0x01c601c7;
+u32 var00058c74 = 0x01d401d5;
+u32 var00058c78 = 0x01d601d7;
+u32 var00058c7c = 0x01d801d9;
+u32 var00058c80 = 0x01e601e7;
+u32 var00058c84 = 0x01e801e9;
+u32 var00058c88 = 0x01ea01eb;
+u32 var00058c8c = 0x01f801f9;
+u32 var00058c90 = 0x01fa01fb;
+u32 var00058c94 = 0x01fc01fd;
+u32 var00058c98 = 0x020a020b;
+u32 var00058c9c = 0x020c020d;
+u32 var00058ca0 = 0x020e020f;
+u32 var00058ca4 = 0x021c021d;
+u32 var00058ca8 = 0x021e021f;
+u32 var00058cac = 0x02200221;
+u32 var00058cb0 = 0x022e022f;
+u32 var00058cb4 = 0x02300231;
+u32 var00058cb8 = 0x02320233;
+u32 var00058cbc = 0x01960197;
+u32 var00058cc0 = 0x01a401a5;
+u32 var00058cc4 = 0x01a601a7;
+u32 var00058cc8 = 0x01a801a9;
+u32 var00058ccc = 0x01b601b7;
+u32 var00058cd0 = 0x01b801b9;
+u32 var00058cd4 = 0x01ba01bb;
+u32 var00058cd8 = 0x01c801c9;
+u32 var00058cdc = 0x01ca01cb;
+u32 var00058ce0 = 0x01cc01cd;
+u32 var00058ce4 = 0x01da01db;
+u32 var00058ce8 = 0x01dc01dd;
+u32 var00058cec = 0x01de01df;
+u32 var00058cf0 = 0x01ec01ed;
+u32 var00058cf4 = 0x01ee01ef;
+u32 var00058cf8 = 0x01f001f1;
+u32 var00058cfc = 0x01fe01ff;
+u32 var00058d00 = 0x02000201;
+u32 var00058d04 = 0x02020203;
+u32 var00058d08 = 0x02100211;
+u32 var00058d0c = 0x02120213;
+u32 var00058d10 = 0x02140215;
+u32 var00058d14 = 0x02220223;
+u32 var00058d18 = 0x02240225;
+u32 var00058d1c = 0x02260227;
+u32 var00058d20 = 0x02340235;
+u32 var00058d24 = 0x02360237;
+u32 var00058d28 = 0x02380239;
+u32 var00058d2c = 0x019c019d;
+u32 var00058d30 = 0x01aa01ab;
+u32 var00058d34 = 0x01ac01ad;
+u32 var00058d38 = 0x01ae01af;
+u32 var00058d3c = 0x01bc01bd;
+u32 var00058d40 = 0x01be01bf;
+u32 var00058d44 = 0x01c001c1;
+u32 var00058d48 = 0x01ce01cf;
+u32 var00058d4c = 0x01d001d1;
+u32 var00058d50 = 0x01d201d3;
+u32 var00058d54 = 0x01e001e1;
+u32 var00058d58 = 0x01e201e3;
+u32 var00058d5c = 0x01e401e5;
+u32 var00058d60 = 0x01f201f3;
+u32 var00058d64 = 0x01f401f5;
+u32 var00058d68 = 0x01f601f7;
+u32 var00058d6c = 0x02040205;
+u32 var00058d70 = 0x02060207;
+u32 var00058d74 = 0x02080209;
+u32 var00058d78 = 0x02160217;
+u32 var00058d7c = 0x02180219;
+u32 var00058d80 = 0x021a021b;
+u32 var00058d84 = 0x02280229;
+u32 var00058d88 = 0x022a022b;
+u32 var00058d8c = 0x022c022d;
+u32 var00058d90 = 0x023a023b;
+u32 var00058d94 = 0x023c023d;
+u32 var00058d98 = 0x023e023f;
+u32 var00058d9c = 0x00000001;
+u32 var00058da0 = 0x00020003;
+u32 var00058da4 = 0x00060007;
+u32 var00058da8 = 0x00080009;
+u32 var00058dac = 0x000c000d;
+u32 var00058db0 = 0x000e000f;
+u32 var00058db4 = 0x00040005;
+u32 var00058db8 = 0x00120013;
+u32 var00058dbc = 0x000a000b;
+u32 var00058dc0 = 0x00180019;
+u32 var00058dc4 = 0x00100011;
+u32 var00058dc8 = 0x001e001f;
+u32 var00058dcc = 0x00140015;
+u32 var00058dd0 = 0x00160017;
+u32 var00058dd4 = 0x001a001b;
+u32 var00058dd8 = 0x001c001d;
+u32 var00058ddc = 0x00200021;
+u32 var00058de0 = 0x00220023;
+u32 var00058de4 = 0x00240025;
+u32 var00058de8 = 0x00260027;
+u32 var00058dec = 0x002a002b;
+u32 var00058df0 = 0x002c002d;
+u32 var00058df4 = 0x00300031;
+u32 var00058df8 = 0x00320033;
+u32 var00058dfc = 0x00280029;
+u32 var00058e00 = 0x00360037;
+u32 var00058e04 = 0x00380039;
+u32 var00058e08 = 0x002e002f;
+u32 var00058e0c = 0x003c003d;
+u32 var00058e10 = 0x003e003f;
+u32 var00058e14 = 0x00340035;
+u32 var00058e18 = 0x00420043;
+u32 var00058e1c = 0x00440045;
+u32 var00058e20 = 0x003a003b;
+u32 var00058e24 = 0x00480049;
+u32 var00058e28 = 0x004a004b;
+u32 var00058e2c = 0x00400041;
+u32 var00058e30 = 0x004e004f;
+u32 var00058e34 = 0x00500051;
+u32 var00058e38 = 0x00460047;
+u32 var00058e3c = 0x00540055;
+u32 var00058e40 = 0x00560057;
+u32 var00058e44 = 0x004c004d;
+u32 var00058e48 = 0x005a005b;
+u32 var00058e4c = 0x005c005d;
+u32 var00058e50 = 0x005e005f;
+u32 var00058e54 = 0x006c006d;
+u32 var00058e58 = 0x00520053;
+u32 var00058e5c = 0x00600061;
+u32 var00058e60 = 0x00620063;
+u32 var00058e64 = 0x00640065;
+u32 var00058e68 = 0x00720073;
+u32 var00058e6c = 0x00580059;
+u32 var00058e70 = 0x00660067;
+u32 var00058e74 = 0x00680069;
+u32 var00058e78 = 0x006a006b;
+u32 var00058e7c = 0x00780079;
+u32 var00058e80 = 0x006e006f;
+u32 var00058e84 = 0x00700071;
+u32 var00058e88 = 0x007e007f;
+u32 var00058e8c = 0x00800081;
+u32 var00058e90 = 0x00820083;
+u32 var00058e94 = 0x00900091;
+u32 var00058e98 = 0x00740075;
+u32 var00058e9c = 0x00760077;
+u32 var00058ea0 = 0x00840085;
+u32 var00058ea4 = 0x00860087;
+u32 var00058ea8 = 0x00880089;
+u32 var00058eac = 0x00960097;
+u32 var00058eb0 = 0x007a007b;
+u32 var00058eb4 = 0x007c007d;
+u32 var00058eb8 = 0x008a008b;
+u32 var00058ebc = 0x008c008d;
+u32 var00058ec0 = 0x008e008f;
+u32 var00058ec4 = 0x009c009d;
+u32 var00058ec8 = 0x00920093;
+u32 var00058ecc = 0x00940095;
+u32 var00058ed0 = 0x00a200a3;
+u32 var00058ed4 = 0x00a400a5;
+u32 var00058ed8 = 0x00a600a7;
+u32 var00058edc = 0x00b400b5;
+u32 var00058ee0 = 0x00b600b7;
+u32 var00058ee4 = 0x00980099;
+u32 var00058ee8 = 0x009a009b;
+u32 var00058eec = 0x00a800a9;
+u32 var00058ef0 = 0x00aa00ab;
+u32 var00058ef4 = 0x00ac00ad;
+u32 var00058ef8 = 0x00ba00bb;
+u32 var00058efc = 0x00bc00bd;
+u32 var00058f00 = 0x009e009f;
+u32 var00058f04 = 0x00a000a1;
+u32 var00058f08 = 0x00ae00af;
+u32 var00058f0c = 0x00b000b1;
+u32 var00058f10 = 0x00b200b3;
+u32 var00058f14 = 0x00c000c1;
+u32 var00058f18 = 0x00c200c3;
+u32 var00058f1c = 0x00b800b9;
+u32 var00058f20 = 0x00c600c7;
+u32 var00058f24 = 0x00c800c9;
+u32 var00058f28 = 0x00ca00cb;
+u32 var00058f2c = 0x00d800d9;
+u32 var00058f30 = 0x00da00db;
+u32 var00058f34 = 0x00dc00dd;
+u32 var00058f38 = 0x00ea00eb;
+u32 var00058f3c = 0x00be00bf;
+u32 var00058f40 = 0x00cc00cd;
+u32 var00058f44 = 0x00ce00cf;
+u32 var00058f48 = 0x00d000d1;
+u32 var00058f4c = 0x00de00df;
+u32 var00058f50 = 0x00e000e1;
+u32 var00058f54 = 0x00e200e3;
+u32 var00058f58 = 0x00f000f1;
+u32 var00058f5c = 0x00c400c5;
+u32 var00058f60 = 0x00d200d3;
+u32 var00058f64 = 0x00d400d5;
+u32 var00058f68 = 0x00d600d7;
+u32 var00058f6c = 0x00e400e5;
+u32 var00058f70 = 0x00e600e7;
+u32 var00058f74 = 0x00e800e9;
+u32 var00058f78 = 0x00f600f7;
+u32 var00058f7c = 0x00ec00ed;
+u32 var00058f80 = 0x00ee00ef;
+u32 var00058f84 = 0x00fc00fd;
+u32 var00058f88 = 0x00fe00ff;
+u32 var00058f8c = 0x01000101;
+u32 var00058f90 = 0x010e010f;
+u32 var00058f94 = 0x01100111;
+u32 var00058f98 = 0x01120113;
+u32 var00058f9c = 0x01200121;
+u32 var00058fa0 = 0x01220123;
+u32 var00058fa4 = 0x00f200f3;
+u32 var00058fa8 = 0x00f400f5;
+u32 var00058fac = 0x01020103;
+u32 var00058fb0 = 0x01040105;
+u32 var00058fb4 = 0x01060107;
+u32 var00058fb8 = 0x01140115;
+u32 var00058fbc = 0x01160117;
+u32 var00058fc0 = 0x01180119;
+u32 var00058fc4 = 0x01260127;
+u32 var00058fc8 = 0x01280129;
+u32 var00058fcc = 0x00f800f9;
+u32 var00058fd0 = 0x00fa00fb;
+u32 var00058fd4 = 0x01080109;
+u32 var00058fd8 = 0x010a010b;
+u32 var00058fdc = 0x010c010d;
+u32 var00058fe0 = 0x011a011b;
+u32 var00058fe4 = 0x011c011d;
+u32 var00058fe8 = 0x011e011f;
+u32 var00058fec = 0x012c012d;
+u32 var00058ff0 = 0x012e012f;
+u32 var00058ff4 = 0x01240125;
+u32 var00058ff8 = 0x01320133;
+u32 var00058ffc = 0x01340135;
+u32 var00059000 = 0x01360137;
+u32 var00059004 = 0x01440145;
+u32 var00059008 = 0x01460147;
+u32 var0005900c = 0x01480149;
+u32 var00059010 = 0x01560157;
+u32 var00059014 = 0x01580159;
+u32 var00059018 = 0x015a015b;
+u32 var0005901c = 0x01680169;
+u32 var00059020 = 0x016a016b;
+u32 var00059024 = 0x016c016d;
+u32 var00059028 = 0x012a012b;
+u32 var0005902c = 0x01380139;
+u32 var00059030 = 0x013a013b;
+u32 var00059034 = 0x013c013d;
+u32 var00059038 = 0x014a014b;
+u32 var0005903c = 0x014c014d;
+u32 var00059040 = 0x014e014f;
+u32 var00059044 = 0x015c015d;
+u32 var00059048 = 0x015e015f;
+u32 var0005904c = 0x01600161;
+u32 var00059050 = 0x016e016f;
+u32 var00059054 = 0x01700171;
+u32 var00059058 = 0x01720173;
+u32 var0005905c = 0x01300131;
+u32 var00059060 = 0x013e013f;
+u32 var00059064 = 0x01400141;
+u32 var00059068 = 0x01420143;
+u32 var0005906c = 0x01500151;
+u32 var00059070 = 0x01520153;
+u32 var00059074 = 0x01540155;
+u32 var00059078 = 0x01620163;
+u32 var0005907c = 0x01640165;
+u32 var00059080 = 0x01660167;
+u32 var00059084 = 0x01740175;
+u32 var00059088 = 0x01760177;
+u32 var0005908c = 0x01780179;
+u32 var00059090 = 0x017a017b;
+u32 var00059094 = 0x017c017d;
+u32 var00059098 = 0x017e017f;
+u32 var0005909c = 0x018c018d;
+u32 var000590a0 = 0x018e018f;
+u32 var000590a4 = 0x01900191;
+u32 var000590a8 = 0x019e019f;
+u32 var000590ac = 0x01a001a1;
+u32 var000590b0 = 0x01a201a3;
+u32 var000590b4 = 0x01b001b1;
+u32 var000590b8 = 0x01b201b3;
+u32 var000590bc = 0x01b401b5;
+u32 var000590c0 = 0x01c201c3;
+u32 var000590c4 = 0x01c401c5;
+u32 var000590c8 = 0x01c601c7;
+u32 var000590cc = 0x01d401d5;
+u32 var000590d0 = 0x01d601d7;
+u32 var000590d4 = 0x01d801d9;
+u32 var000590d8 = 0x01e601e7;
+u32 var000590dc = 0x01e801e9;
+u32 var000590e0 = 0x01ea01eb;
+u32 var000590e4 = 0x01f801f9;
+u32 var000590e8 = 0x01fa01fb;
+u32 var000590ec = 0x01fc01fd;
+u32 var000590f0 = 0x020a020b;
+u32 var000590f4 = 0x020c020d;
+u32 var000590f8 = 0x020e020f;
+u32 var000590fc = 0x021c021d;
+u32 var00059100 = 0x021e021f;
+u32 var00059104 = 0x02200221;
+u32 var00059108 = 0x022e022f;
+u32 var0005910c = 0x02300231;
+u32 var00059110 = 0x02320233;
+u32 var00059114 = 0x01800181;
+u32 var00059118 = 0x01820183;
+u32 var0005911c = 0x01840185;
+u32 var00059120 = 0x01920193;
+u32 var00059124 = 0x01940195;
+u32 var00059128 = 0x01960197;
+u32 var0005912c = 0x01a401a5;
+u32 var00059130 = 0x01a601a7;
+u32 var00059134 = 0x01a801a9;
+u32 var00059138 = 0x01b601b7;
+u32 var0005913c = 0x01b801b9;
+u32 var00059140 = 0x01ba01bb;
+u32 var00059144 = 0x01c801c9;
+u32 var00059148 = 0x01ca01cb;
+u32 var0005914c = 0x01cc01cd;
+u32 var00059150 = 0x01da01db;
+u32 var00059154 = 0x01dc01dd;
+u32 var00059158 = 0x01de01df;
+u32 var0005915c = 0x01ec01ed;
+u32 var00059160 = 0x01ee01ef;
+u32 var00059164 = 0x01f001f1;
+u32 var00059168 = 0x01fe01ff;
+u32 var0005916c = 0x02000201;
+u32 var00059170 = 0x02020203;
+u32 var00059174 = 0x02100211;
+u32 var00059178 = 0x02120213;
+u32 var0005917c = 0x02140215;
+u32 var00059180 = 0x02220223;
+u32 var00059184 = 0x02240225;
+u32 var00059188 = 0x02260227;
+u32 var0005918c = 0x02340235;
+u32 var00059190 = 0x02360237;
+u32 var00059194 = 0x02380239;
+u32 var00059198 = 0x01860187;
+u32 var0005919c = 0x01880189;
+u32 var000591a0 = 0x018a018b;
+u32 var000591a4 = 0x01980199;
+u32 var000591a8 = 0x019a019b;
+u32 var000591ac = 0x019c019d;
+u32 var000591b0 = 0x01aa01ab;
+u32 var000591b4 = 0x01ac01ad;
+u32 var000591b8 = 0x01ae01af;
+u32 var000591bc = 0x01bc01bd;
+u32 var000591c0 = 0x01be01bf;
+u32 var000591c4 = 0x01c001c1;
+u32 var000591c8 = 0x01ce01cf;
+u32 var000591cc = 0x01d001d1;
+u32 var000591d0 = 0x01d201d3;
+u32 var000591d4 = 0x01e001e1;
+u32 var000591d8 = 0x01e201e3;
+u32 var000591dc = 0x01e401e5;
+u32 var000591e0 = 0x01f201f3;
+u32 var000591e4 = 0x01f401f5;
+u32 var000591e8 = 0x01f601f7;
+u32 var000591ec = 0x02040205;
+u32 var000591f0 = 0x02060207;
+u32 var000591f4 = 0x02080209;
+u32 var000591f8 = 0x02160217;
+u32 var000591fc = 0x02180219;
+u32 var00059200 = 0x021a021b;
+u32 var00059204 = 0x02280229;
+u32 var00059208 = 0x022a022b;
+u32 var0005920c = 0x022c022d;
+u32 var00059210 = 0x023a023b;
+u32 var00059214 = 0x023c023d;
+u32 var00059218 = 0x023e023f;
+u32 var0005921c = 0x00000001;
+u32 var00059220 = 0x00020003;
+u32 var00059224 = 0x00060007;
+u32 var00059228 = 0x00080009;
+u32 var0005922c = 0x000c000d;
+u32 var00059230 = 0x000e000f;
+u32 var00059234 = 0x00040005;
+u32 var00059238 = 0x00120013;
+u32 var0005923c = 0x000a000b;
+u32 var00059240 = 0x00180019;
+u32 var00059244 = 0x00100011;
+u32 var00059248 = 0x001e001f;
+u32 var0005924c = 0x00140015;
+u32 var00059250 = 0x00160017;
+u32 var00059254 = 0x001a001b;
+u32 var00059258 = 0x001c001d;
+u32 var0005925c = 0x00200021;
+u32 var00059260 = 0x00220023;
+u32 var00059264 = 0x00240025;
+u32 var00059268 = 0x00260027;
+u32 var0005926c = 0x002a002b;
+u32 var00059270 = 0x002c002d;
+u32 var00059274 = 0x00300031;
+u32 var00059278 = 0x00320033;
+u32 var0005927c = 0x00280029;
+u32 var00059280 = 0x00360037;
+u32 var00059284 = 0x00380039;
+u32 var00059288 = 0x002e002f;
+u32 var0005928c = 0x003c003d;
+u32 var00059290 = 0x003e003f;
+u32 var00059294 = 0x00340035;
+u32 var00059298 = 0x00420043;
+u32 var0005929c = 0x00440045;
+u32 var000592a0 = 0x003a003b;
+u32 var000592a4 = 0x00480049;
+u32 var000592a8 = 0x004a004b;
+u32 var000592ac = 0x004c004d;
+u32 var000592b0 = 0x00400041;
+u32 var000592b4 = 0x004e004f;
+u32 var000592b8 = 0x00500051;
+u32 var000592bc = 0x00520053;
+u32 var000592c0 = 0x00460047;
+u32 var000592c4 = 0x00540055;
+u32 var000592c8 = 0x00560057;
+u32 var000592cc = 0x00580059;
+u32 var000592d0 = 0x005a005b;
+u32 var000592d4 = 0x005c005d;
+u32 var000592d8 = 0x005e005f;
+u32 var000592dc = 0x006c006d;
+u32 var000592e0 = 0x006e006f;
+u32 var000592e4 = 0x00700071;
+u32 var000592e8 = 0x00600061;
+u32 var000592ec = 0x00620063;
+u32 var000592f0 = 0x00640065;
+u32 var000592f4 = 0x00720073;
+u32 var000592f8 = 0x00740075;
+u32 var000592fc = 0x00760077;
+u32 var00059300 = 0x00660067;
+u32 var00059304 = 0x00680069;
+u32 var00059308 = 0x006a006b;
+u32 var0005930c = 0x00780079;
+u32 var00059310 = 0x007a007b;
+u32 var00059314 = 0x007c007d;
+u32 var00059318 = 0x007e007f;
+u32 var0005931c = 0x00800081;
+u32 var00059320 = 0x00820083;
+u32 var00059324 = 0x00900091;
+u32 var00059328 = 0x00920093;
+u32 var0005932c = 0x00940095;
+u32 var00059330 = 0x00a200a3;
+u32 var00059334 = 0x00a400a5;
+u32 var00059338 = 0x00840085;
+u32 var0005933c = 0x00860087;
+u32 var00059340 = 0x00880089;
+u32 var00059344 = 0x00960097;
+u32 var00059348 = 0x00980099;
+u32 var0005934c = 0x009a009b;
+u32 var00059350 = 0x00a800a9;
+u32 var00059354 = 0x00aa00ab;
+u32 var00059358 = 0x008a008b;
+u32 var0005935c = 0x008c008d;
+u32 var00059360 = 0x008e008f;
+u32 var00059364 = 0x009c009d;
+u32 var00059368 = 0x009e009f;
+u32 var0005936c = 0x00a000a1;
+u32 var00059370 = 0x00ae00af;
+u32 var00059374 = 0x00b000b1;
+u32 var00059378 = 0x00a600a7;
+u32 var0005937c = 0x00b400b5;
+u32 var00059380 = 0x00b600b7;
+u32 var00059384 = 0x00b800b9;
+u32 var00059388 = 0x00c600c7;
+u32 var0005938c = 0x00c800c9;
+u32 var00059390 = 0x00ca00cb;
+u32 var00059394 = 0x00d800d9;
+u32 var00059398 = 0x00da00db;
+u32 var0005939c = 0x00dc00dd;
+u32 var000593a0 = 0x00ac00ad;
+u32 var000593a4 = 0x00ba00bb;
+u32 var000593a8 = 0x00bc00bd;
+u32 var000593ac = 0x00be00bf;
+u32 var000593b0 = 0x00cc00cd;
+u32 var000593b4 = 0x00ce00cf;
+u32 var000593b8 = 0x00d000d1;
+u32 var000593bc = 0x00de00df;
+u32 var000593c0 = 0x00e000e1;
+u32 var000593c4 = 0x00e200e3;
+u32 var000593c8 = 0x00b200b3;
+u32 var000593cc = 0x00c000c1;
+u32 var000593d0 = 0x00c200c3;
+u32 var000593d4 = 0x00c400c5;
+u32 var000593d8 = 0x00d200d3;
+u32 var000593dc = 0x00d400d5;
+u32 var000593e0 = 0x00d600d7;
+u32 var000593e4 = 0x00e400e5;
+u32 var000593e8 = 0x00e600e7;
+u32 var000593ec = 0x00e800e9;
+u32 var000593f0 = 0x00ea00eb;
+u32 var000593f4 = 0x00ec00ed;
+u32 var000593f8 = 0x00ee00ef;
+u32 var000593fc = 0x00fc00fd;
+u32 var00059400 = 0x00fe00ff;
+u32 var00059404 = 0x01000101;
+u32 var00059408 = 0x010e010f;
+u32 var0005940c = 0x01100111;
+u32 var00059410 = 0x01120113;
+u32 var00059414 = 0x01200121;
+u32 var00059418 = 0x01220123;
+u32 var0005941c = 0x01240125;
+u32 var00059420 = 0x01320133;
+u32 var00059424 = 0x00f000f1;
+u32 var00059428 = 0x00f200f3;
+u32 var0005942c = 0x00f400f5;
+u32 var00059430 = 0x01020103;
+u32 var00059434 = 0x01040105;
+u32 var00059438 = 0x01060107;
+u32 var0005943c = 0x01140115;
+u32 var00059440 = 0x01160117;
+u32 var00059444 = 0x01180119;
+u32 var00059448 = 0x01260127;
+u32 var0005944c = 0x01280129;
+u32 var00059450 = 0x012a012b;
+u32 var00059454 = 0x01380139;
+u32 var00059458 = 0x00f600f7;
+u32 var0005945c = 0x00f800f9;
+u32 var00059460 = 0x00fa00fb;
+u32 var00059464 = 0x01080109;
+u32 var00059468 = 0x010a010b;
+u32 var0005946c = 0x010c010d;
+u32 var00059470 = 0x011a011b;
+u32 var00059474 = 0x011c011d;
+u32 var00059478 = 0x011e011f;
+u32 var0005947c = 0x012c012d;
+u32 var00059480 = 0x012e012f;
+u32 var00059484 = 0x01300131;
+u32 var00059488 = 0x013e013f;
+u32 var0005948c = 0x01340135;
+u32 var00059490 = 0x01360137;
+u32 var00059494 = 0x01440145;
+u32 var00059498 = 0x01460147;
+u32 var0005949c = 0x01480149;
+u32 var000594a0 = 0x01560157;
+u32 var000594a4 = 0x01580159;
+u32 var000594a8 = 0x015a015b;
+u32 var000594ac = 0x01680169;
+u32 var000594b0 = 0x016a016b;
+u32 var000594b4 = 0x016c016d;
+u32 var000594b8 = 0x017a017b;
+u32 var000594bc = 0x017c017d;
+u32 var000594c0 = 0x017e017f;
+u32 var000594c4 = 0x018c018d;
+u32 var000594c8 = 0x018e018f;
+u32 var000594cc = 0x01900191;
+u32 var000594d0 = 0x013a013b;
+u32 var000594d4 = 0x013c013d;
+u32 var000594d8 = 0x014a014b;
+u32 var000594dc = 0x014c014d;
+u32 var000594e0 = 0x014e014f;
+u32 var000594e4 = 0x015c015d;
+u32 var000594e8 = 0x015e015f;
+u32 var000594ec = 0x01600161;
+u32 var000594f0 = 0x016e016f;
+u32 var000594f4 = 0x01700171;
+u32 var000594f8 = 0x01720173;
+u32 var000594fc = 0x01800181;
+u32 var00059500 = 0x01820183;
+u32 var00059504 = 0x01840185;
+u32 var00059508 = 0x01920193;
+u32 var0005950c = 0x01940195;
+u32 var00059510 = 0x01960197;
+u32 var00059514 = 0x01400141;
+u32 var00059518 = 0x01420143;
+u32 var0005951c = 0x01500151;
+u32 var00059520 = 0x01520153;
+u32 var00059524 = 0x01540155;
+u32 var00059528 = 0x01620163;
+u32 var0005952c = 0x01640165;
+u32 var00059530 = 0x01660167;
+u32 var00059534 = 0x01740175;
+u32 var00059538 = 0x01760177;
+u32 var0005953c = 0x01780179;
+u32 var00059540 = 0x01860187;
+u32 var00059544 = 0x01880189;
+u32 var00059548 = 0x018a018b;
+u32 var0005954c = 0x01980199;
+u32 var00059550 = 0x019a019b;
+u32 var00059554 = 0x019c019d;
+u32 var00059558 = 0x019e019f;
+u32 var0005955c = 0x01a001a1;
+u32 var00059560 = 0x01a201a3;
+u32 var00059564 = 0x01b001b1;
+u32 var00059568 = 0x01b201b3;
+u32 var0005956c = 0x01b401b5;
+u32 var00059570 = 0x01c201c3;
+u32 var00059574 = 0x01c401c5;
+u32 var00059578 = 0x01c601c7;
+u32 var0005957c = 0x01d401d5;
+u32 var00059580 = 0x01d601d7;
+u32 var00059584 = 0x01d801d9;
+u32 var00059588 = 0x01e601e7;
+u32 var0005958c = 0x01e801e9;
+u32 var00059590 = 0x01ea01eb;
+u32 var00059594 = 0x01f801f9;
+u32 var00059598 = 0x01fa01fb;
+u32 var0005959c = 0x01fc01fd;
+u32 var000595a0 = 0x020a020b;
+u32 var000595a4 = 0x020c020d;
+u32 var000595a8 = 0x020e020f;
+u32 var000595ac = 0x01a401a5;
+u32 var000595b0 = 0x01a601a7;
+u32 var000595b4 = 0x01a801a9;
+u32 var000595b8 = 0x01b601b7;
+u32 var000595bc = 0x01b801b9;
+u32 var000595c0 = 0x01ba01bb;
+u32 var000595c4 = 0x01c801c9;
+u32 var000595c8 = 0x01ca01cb;
+u32 var000595cc = 0x01cc01cd;
+u32 var000595d0 = 0x01da01db;
+u32 var000595d4 = 0x01dc01dd;
+u32 var000595d8 = 0x01de01df;
+u32 var000595dc = 0x01ec01ed;
+u32 var000595e0 = 0x01ee01ef;
+u32 var000595e4 = 0x01f001f1;
+u32 var000595e8 = 0x01fe01ff;
+u32 var000595ec = 0x02000201;
+u32 var000595f0 = 0x02020203;
+u32 var000595f4 = 0x02100211;
+u32 var000595f8 = 0x02120213;
+u32 var000595fc = 0x02140215;
+u32 var00059600 = 0x01aa01ab;
+u32 var00059604 = 0x01ac01ad;
+u32 var00059608 = 0x01ae01af;
+u32 var0005960c = 0x01bc01bd;
+u32 var00059610 = 0x01be01bf;
+u32 var00059614 = 0x01c001c1;
+u32 var00059618 = 0x01ce01cf;
+u32 var0005961c = 0x01d001d1;
+u32 var00059620 = 0x01d201d3;
+u32 var00059624 = 0x01e001e1;
+u32 var00059628 = 0x01e201e3;
+u32 var0005962c = 0x01e401e5;
+u32 var00059630 = 0x01f201f3;
+u32 var00059634 = 0x01f401f5;
+u32 var00059638 = 0x01f601f7;
+u32 var0005963c = 0x02040205;
+u32 var00059640 = 0x02060207;
+u32 var00059644 = 0x02080209;
+u32 var00059648 = 0x02160217;
+u32 var0005964c = 0x02180219;
+u32 var00059650 = 0x021a021b;
+u32 var00059654 = 0x021c021d;
+u32 var00059658 = 0x021e021f;
+u32 var0005965c = 0x02200221;
+u32 var00059660 = 0x022e022f;
+u32 var00059664 = 0x02300231;
+u32 var00059668 = 0x02320233;
+u32 var0005966c = 0x02220223;
+u32 var00059670 = 0x02240225;
+u32 var00059674 = 0x02260227;
+u32 var00059678 = 0x02340235;
+u32 var0005967c = 0x02360237;
+u32 var00059680 = 0x02380239;
+u32 var00059684 = 0x02280229;
+u32 var00059688 = 0x022a022b;
+u32 var0005968c = 0x022c022d;
+u32 var00059690 = 0x023a023b;
+u32 var00059694 = 0x023c023d;
+u32 var00059698 = 0x023e023f;
+u32 var0005969c = 0xbf03b5fe;
+u32 var000596a0 = 0xbef186da;
+u32 var000596a4 = 0xbea07302;
+u32 var000596a8 = 0xbe3a4774;
+u32 var000596ac = 0xbdc1b01d;
+u32 var000596b0 = 0xbd27cb87;
+u32 var000596b4 = 0xbc68a11d;
+u32 var000596b8 = 0xbb727b46;
+u32 var000596bc = 0x3f5b84a8;
+u32 var000596c0 = 0x3f61b9d8;
+u32 var000596c4 = 0x3f731add;
+u32 var000596c8 = 0x3f7bba81;
+u32 var000596cc = 0x3f7eda41;
+u32 var000596d0 = 0x3f7fc8fd;
+u32 var000596d4 = 0x3f7ff965;
+u32 var000596d8 = 0x3f7fff8d;
+u32 var000596dc = 0x00000000;
+u32 var000596e0 = 0x00001f40;
+u32 var000596e4 = 0x00003e80;
+u32 var000596e8 = 0x00005dc0;
+u32 var000596ec = 0x00007d00;
+u32 var000596f0 = 0x00009c40;
+u32 var000596f4 = 0x0000bb80;
+u32 var000596f8 = 0x0000dac0;
+u32 var000596fc = 0x0000fa00;
+u32 var00059700 = 0x00013880;
+u32 var00059704 = 0x00017700;
+u32 var00059708 = 0x0001b580;
+u32 var0005970c = 0x0001f400;
+u32 var00059710 = 0x00023280;
+u32 var00059714 = 0x00027100;
+u32 var00059718 = 0x00000000;
+u32 var0005971c = 0x00007d00;
+u32 var00059720 = 0x00009c40;
+u32 var00059724 = 0x0000bb80;
+u32 var00059728 = 0x0000dac0;
+u32 var0005972c = 0x0000fa00;
+u32 var00059730 = 0x00013880;
+u32 var00059734 = 0x00017700;
+u32 var00059738 = 0x0001b580;
+u32 var0005973c = 0x0001f400;
+u32 var00059740 = 0x00027100;
+u32 var00059744 = 0x0002ee00;
+u32 var00059748 = 0x00036b00;
+u32 var0005974c = 0x0003e800;
+u32 var00059750 = 0x0004e200;
+u32 var00059754 = 0x00005622;
+u32 var00059758 = 0x00005dc0;
+u32 var0005975c = 0x00003e80;
+u32 var00059760 = 0x00005622;
+u32 var00059764 = 0x0000ac44;
+u32 var00059768 = 0x0000bb80;
+u32 var0005976c = 0x00007d00;
+u32 var00059770 = 0x0000ac44;
+u32 var00059774 = 0xbd03ba34;
+u32 var00059778 = 0x3dd41398;
+u32 var0005977c = 0xbe3aec8d;
+u32 var00059780 = 0x3e8890b4;
+u32 var00059784 = 0xbeb50508;
+u32 var00059788 = 0x3ee17918;
+u32 var0005978c = 0xbf0649c3;
+u32 var00059790 = 0x3f1a8273;
+u32 var00059794 = 0xbf2cc954;
+u32 var00059798 = 0x3f3c902e;
+u32 var0005979c = 0xbf495c64;
+u32 var000597a0 = 0x3f52ca58;
+u32 var000597a4 = 0xbf5890a3;
+u32 var000597a8 = 0x3f5a8284;
+u32 var000597ac = 0xbf5890a3;
+u32 var000597b0 = 0x3f52ca47;
+u32 var000597b4 = 0xbf495c64;
+u32 var000597b8 = 0x3f3c902e;
+u32 var000597bc = 0xbf2cc954;
+u32 var000597c0 = 0x3f1a8273;
+u32 var000597c4 = 0xbf0649d4;
+u32 var000597c8 = 0x3ee1793a;
+u32 var000597cc = 0xbeb504e6;
+u32 var000597d0 = 0x3e8890b4;
+u32 var000597d4 = 0xbe3aecd0;
+u32 var000597d8 = 0x3dd41398;
+u32 var000597dc = 0xbd03ba34;
+u32 var000597e0 = 0xbcf168f9;
+u32 var000597e4 = 0x3da2bb66;
+u32 var000597e8 = 0xbdee2b06;
+u32 var000597ec = 0x3e0e2ef5;
+u32 var000597f0 = 0xbe15f5f1;
+u32 var000597f4 = 0x3e0e2ef5;
+u32 var000597f8 = 0xbdee2b06;
+u32 var000597fc = 0x3da2bb66;
+u32 var00059800 = 0xbcf168f9;
+u32 var00059804 = 0xbd03ba34;
+u32 var00059808 = 0x3dd41398;
+u32 var0005980c = 0xbe3aec8d;
+u32 var00059810 = 0x3e8890b4;
+u32 var00059814 = 0xbeb50508;
+u32 var00059818 = 0x3ee17918;
+u32 var0005981c = 0xbf0649c3;
+u32 var00059820 = 0x3f1a8273;
+u32 var00059824 = 0xbf2cc954;
+u32 var00059828 = 0x3f3c902e;
+u32 var0005982c = 0xbf495c64;
+u32 var00059830 = 0x3f52ca58;
+u32 var00059834 = 0xbf5890a3;
+u32 var00059838 = 0x3f5a8284;
+u32 var0005983c = 0xbf5890a3;
+u32 var00059840 = 0x3f52ca47;
+u32 var00059844 = 0xbf495c64;
+u32 var00059848 = 0x3f3c902e;
+u32 var0005984c = 0xbf2cf377;
+u32 var00059850 = 0x3f1bd7c3;
+u32 var00059854 = 0xbf098c7e;
+u32 var00059858 = 0x3eec6a5d;
+u32 var0005985c = 0xbec3ef07;
+u32 var00059860 = 0x3e99f623;
+u32 var00059864 = 0xbe5bbcf5;
+u32 var00059868 = 0x3df6f7e4;
+u32 var0005986c = 0xbd0dbf05;
+u32 var00059870 = 0xbcd987c6;
+u32 var00059874 = 0x3d4c985f;
+u32 var00059878 = 0xbce76ea4;
+u32 var0005987c = 0x00000000;
+u32 var00059880 = 0x00000000;
+u32 var00059884 = 0x00000000;
+u32 var00059888 = 0x00000000;
+u32 var0005988c = 0x00000000;
+u32 var00059890 = 0x00000000;
+u32 var00059894 = 0xbdd41398;
+u32 var00059898 = 0x3eb50508;
+u32 var0005989c = 0xbf1a8273;
+u32 var000598a0 = 0x3f495c64;
+u32 var000598a4 = 0xbf5a8284;
+u32 var000598a8 = 0x3f495c64;
+u32 var000598ac = 0xbf1a8273;
+u32 var000598b0 = 0x3eb504e6;
+u32 var000598b4 = 0xbdd41398;
+u32 var000598b8 = 0xbda2bb66;
+u32 var000598bc = 0x3e15f5f1;
+u32 var000598c0 = 0xbda2bb66;
+u32 var000598c4 = 0x00000000;
+u32 var000598c8 = 0x00000000;
+u32 var000598cc = 0x00000000;
+u32 var000598d0 = 0x00000000;
+u32 var000598d4 = 0x00000000;
+u32 var000598d8 = 0x00000000;
+u32 var000598dc = 0x00000000;
+u32 var000598e0 = 0x00000000;
+u32 var000598e4 = 0x00000000;
+u32 var000598e8 = 0x00000000;
+u32 var000598ec = 0x00000000;
+u32 var000598f0 = 0x00000000;
+u32 var000598f4 = 0x00000000;
+u32 var000598f8 = 0x00000000;
+u32 var000598fc = 0x00000000;
+u32 var00059900 = 0x00000000;
+u32 var00059904 = 0x00000000;
+u32 var00059908 = 0x00000000;
+u32 var0005990c = 0x00000000;
+u32 var00059910 = 0x00000000;
+u32 var00059914 = 0x00000000;
+u32 var00059918 = 0x00000000;
+u32 var0005991c = 0x00000000;
+u32 var00059920 = 0x00000000;
+u32 var00059924 = 0x00000000;
+u32 var00059928 = 0x00000000;
+u32 var0005992c = 0x00000000;
+u32 var00059930 = 0x00000000;
+u32 var00059934 = 0x00000000;
+u32 var00059938 = 0x00000000;
+u32 var0005993c = 0xbe027d89;
+u32 var00059940 = 0x3ec24207;
+u32 var00059944 = 0xbf1bb1d1;
+u32 var00059948 = 0x3f4ae7b4;
+u32 var0005994c = 0xbf6a7d67;
+u32 var00059950 = 0x3f77cb2e;
+u32 var00059954 = 0xbf7426cc;
+u32 var00059958 = 0x3f6c8366;
+u32 var0005995c = 0xbf631327;
+u32 var00059960 = 0x3f57e879;
+u32 var00059964 = 0xbf4b192f;
+u32 var00059968 = 0x3f3cbe2f;
+u32 var0005996c = 0xbf2cc954;
+u32 var00059970 = 0x3f1a8273;
+u32 var00059974 = 0xbf0649d4;
+u32 var00059978 = 0x3ee1793a;
+u32 var0005997c = 0xbeb504e6;
+u32 var00059980 = 0x3e8890b4;
+u32 var00059984 = 0xbe3aecd0;
+u32 var00059988 = 0x3dd41398;
+u32 var0005998c = 0xbd03ba34;
+u32 var00059990 = 0xbcf168f9;
+u32 var00059994 = 0x3da2bb66;
+u32 var00059998 = 0xbdee2b06;
+u32 var0005999c = 0x3e0e2ef5;
+u32 var000599a0 = 0xbe15f5f1;
+u32 var000599a4 = 0x3e0e2ef5;
+u32 var000599a8 = 0xbdee2b06;
+u32 var000599ac = 0x3da2bb66;
+u32 var000599b0 = 0xbcf168f9;
+u32 var000599b4 = 0xbe327e95;
+u32 var000599b8 = 0xbf0483ed;
+u32 var000599bc = 0xbf586174;
+u32 var000599c0 = 0xbf92d5e9;
+u32 var000599c4 = 0xbfb504f7;
+u32 var000599c8 = 0xbfd1b3f2;
+u32 var000599cc = 0xbfe803cd;
+u32 var000599d0 = 0xbff746ed;
+u32 var000599d4 = 0xbfff069a;
+u32 var000599d8 = 0x3e327e95;
+u32 var000599dc = 0x3f0483ed;
+u32 var000599e0 = 0x3f586174;
+u32 var000599e4 = 0x3f92d5e9;
+u32 var000599e8 = 0x3fb504f7;
+u32 var000599ec = 0x3fd1b3f2;
+u32 var000599f0 = 0x3fe803cd;
+u32 var000599f4 = 0x3ff746ed;
+u32 var000599f8 = 0x3fff069a;
+u32 var000599fc = 0xbe327e95;
+u32 var00059a00 = 0xbf0483ed;
+u32 var00059a04 = 0xbf586174;
+u32 var00059a08 = 0xbf92d5e9;
+u32 var00059a0c = 0xbfb504f7;
+u32 var00059a10 = 0xbfd1b3f2;
+u32 var00059a14 = 0xbfe803cd;
+u32 var00059a18 = 0xbff746ed;
+u32 var00059a1c = 0xbfff069a;
+u32 var00059a20 = 0x3e327e95;
+u32 var00059a24 = 0x3f0483ed;
+u32 var00059a28 = 0x3f586174;
+u32 var00059a2c = 0x3f92d5e9;
+u32 var00059a30 = 0x3fb504f7;
+u32 var00059a34 = 0x3fd1b3f2;
+u32 var00059a38 = 0x3fe803cd;
+u32 var00059a3c = 0x3ff746ed;
+u32 var00059a40 = 0x3fff069a;
+u32 var00059a44 = 0xbf0483ed;
+u32 var00059a48 = 0xbfb504d5;
+u32 var00059a4c = 0xbff746dc;
+u32 var00059a50 = 0x3f0483ed;
+u32 var00059a54 = 0x3fb504d5;
+u32 var00059a58 = 0x3ff746dc;
+u32 var00059a5c = 0x00000000;
+u32 var00059a60 = 0x00000000;
+u32 var00059a64 = 0x00000000;
+u32 var00059a68 = 0x00000000;
+u32 var00059a6c = 0x00000000;
+u32 var00059a70 = 0x00000000;
+u32 var00059a74 = 0x00000000;
+u32 var00059a78 = 0x00000000;
+u32 var00059a7c = 0x00000000;
+u32 var00059a80 = 0x00000000;
+u32 var00059a84 = 0x00000000;
+u32 var00059a88 = 0x00000000;
+u32 var00059a8c = 0xbe327e95;
+u32 var00059a90 = 0xbf0483ed;
+u32 var00059a94 = 0xbf586174;
+u32 var00059a98 = 0xbf92d5e9;
+u32 var00059a9c = 0xbfb504f7;
+u32 var00059aa0 = 0xbfd1b3f2;
+u32 var00059aa4 = 0xbfe803cd;
+u32 var00059aa8 = 0xbff746ed;
+u32 var00059aac = 0xbfff069a;
+u32 var00059ab0 = 0x3e327e95;
+u32 var00059ab4 = 0x3f0483ed;
+u32 var00059ab8 = 0x3f586174;
+u32 var00059abc = 0x3f92d5e9;
+u32 var00059ac0 = 0x3fb504f7;
+u32 var00059ac4 = 0x3fd1b3f2;
+u32 var00059ac8 = 0x3fe803cd;
+u32 var00059acc = 0x3ff746ed;
+u32 var00059ad0 = 0x3fff069a;
+u32 var00059ad4 = 0x80402010;
+u32 var00059ad8 = 0x08040201;
+u32 var00059adc = 0x00000000;
+u32 var00059ae0 = 0x00000000;
+u32 var00059ae4 = 0x00000000;
+u32 var00059ae8 = 0x00000000;
+u32 var00059aec = 0x00000000;
+u32 var00059af0 = 0x00000000;
+u32 var00059af4 = 0x00000000;
+u32 var00059af8 = 0x00000000;
+u32 var00059afc = 0x00000000;
+u32 var00059b00 = 0x00000000;
+u32 var00059b04 = 0x00000000;
+u32 var00059b08 = 0x00000001;
+u32 var00059b0c = 0x00000001;
+u32 var00059b10 = 0x00000001;
+u32 var00059b14 = 0x00000001;
+u32 var00059b18 = 0x00000002;
+u32 var00059b1c = 0x00000002;
+u32 var00059b20 = 0x00000003;
+u32 var00059b24 = 0x00000003;
+u32 var00059b28 = 0x00000003;
+u32 var00059b2c = 0x00000002;
+u32 var00059b30 = 0x00000000;
+u32 var00059b34 = 0x00000006;
+u32 var00059b38 = 0x00000005;
+u32 var00059b3c = 0x00000005;
+u32 var00059b40 = 0x00000005;
+u32 var00059b44 = 0x00000009;
+u32 var00059b48 = 0x00000009;
+u32 var00059b4c = 0x00000009;
+u32 var00059b50 = 0x00000009;
+u32 var00059b54 = 0x00000006;
+u32 var00059b58 = 0x00000009;
+u32 var00059b5c = 0x00000009;
+u32 var00059b60 = 0x00000009;
+u32 var00059b64 = 0x00000006;
+u32 var00059b68 = 0x00000005;
+u32 var00059b6c = 0x00000007;
+u32 var00059b70 = 0x00000003;
+u32 var00059b74 = 0x00000009;
+u32 var00059b78 = 0x00000009;
+u32 var00059b7c = 0x0000000c;
+u32 var00059b80 = 0x00000006;
+u32 var00059b84 = 0x00000006;
+u32 var00059b88 = 0x00000009;
+u32 var00059b8c = 0x0000000c;
+u32 var00059b90 = 0x00000006;
+u32 var00059b94 = 0x0000000b;
+u32 var00059b98 = 0x0000000a;
+u32 var00059b9c = 0x00000000;
+u32 var00059ba0 = 0x00000000;
+u32 var00059ba4 = 0x00000012;
+u32 var00059ba8 = 0x00000012;
+u32 var00059bac = 0x00000000;
+u32 var00059bb0 = 0x00000000;
+u32 var00059bb4 = 0x0000000f;
+u32 var00059bb8 = 0x00000012;
+u32 var00059bbc = 0x00000000;
+u32 var00059bc0 = 0x00000000;
+u32 var00059bc4 = 0x00000007;
+u32 var00059bc8 = 0x00000007;
+u32 var00059bcc = 0x00000007;
+u32 var00059bd0 = 0x00000000;
+u32 var00059bd4 = 0x0000000c;
+u32 var00059bd8 = 0x0000000c;
+u32 var00059bdc = 0x0000000c;
+u32 var00059be0 = 0x00000000;
+u32 var00059be4 = 0x00000006;
+u32 var00059be8 = 0x0000000f;
+u32 var00059bec = 0x0000000c;
+u32 var00059bf0 = 0x00000000;
+u32 var00059bf4 = 0x00000006;
+u32 var00059bf8 = 0x00000006;
+u32 var00059bfc = 0x00000006;
+u32 var00059c00 = 0x00000003;
+u32 var00059c04 = 0x0000000c;
+u32 var00059c08 = 0x00000009;
+u32 var00059c0c = 0x00000009;
+u32 var00059c10 = 0x00000006;
+u32 var00059c14 = 0x00000006;
+u32 var00059c18 = 0x0000000c;
+u32 var00059c1c = 0x00000009;
+u32 var00059c20 = 0x00000006;
+u32 var00059c24 = 0x00000008;
+u32 var00059c28 = 0x00000008;
+u32 var00059c2c = 0x00000005;
+u32 var00059c30 = 0x00000000;
+u32 var00059c34 = 0x0000000f;
+u32 var00059c38 = 0x0000000c;
+u32 var00059c3c = 0x00000009;
+u32 var00059c40 = 0x00000000;
+u32 var00059c44 = 0x00000006;
+u32 var00059c48 = 0x00000012;
+u32 var00059c4c = 0x00000009;
+u32 var00059c50 = 0x00000000;
+u32 var00059c54 = 0x3db2b8c2;
+u32 var00059c58 = 0x3db2b8c2;
+u32 var00059c5c = 0x3e860a92;
+u32 var00059c60 = 0x3e860a92;
+u32 var00059c64 = 0x3db2b8c2;
+u32 var00059c68 = 0x3faaaaab;
+u32 var00059c6c = 0x00000000;
+u32 var00059c70 = 0x46d10600;
+u32 var00059c74 = 0x00000000;
+u32 var00059c78 = 0x00000000;
+u32 var00059c7c = 0x00000000;
+u32 var00059c80 = 0x46d10600;
+u32 var00059c84 = 0x45f15800;
+u32 var00059c88 = 0x45f15800;
+u32 var00059c8c = 0x00000000;
+u32 var00059c90 = 0x3ff08fb2;
+u32 var00059c94 = 0x3fc41b7d;
+u32 var00059c98 = 0x3eb1d0d4;
+u32 var00059c9c = 0xbeb1d0d4;
+u32 var00059ca0 = 0xbff08fb2;
+u32 var00059ca4 = 0x3fc41b7d;
+u32 var00059ca8 = 0xbfc41b7d;
+u32 var00059cac = 0x3eb1d0d4;
+u32 var00059cb0 = 0xbff08fb2;
+u32 var00059cb4 = 0x3fddb3d7;
+u32 var00059cb8 = 0x3ffc1c5c;
+u32 var00059cbc = 0x3fa48dbb;
+u32 var00059cc0 = 0x3f2f1d44;
+u32 var00059cc4 = 0x3fa48dbb;
+u32 var00059cc8 = 0xbf2f1d44;
+u32 var00059ccc = 0x3ffc1c5c;
+u32 var00059cd0 = 0x3f2f1d44;
+u32 var00059cd4 = 0x3ffc1c5c;
+u32 var00059cd8 = 0xbfa48dbb;
+u32 var00059cdc = 0x3fddb3d7;
+u32 var00059ce0 = 0x3ff08fb2;
+u32 var00059ce4 = 0x3fc41b7d;
+u32 var00059ce8 = 0x3eb1d0d4;
+u32 var00059cec = 0xbeb1d0d4;
+u32 var00059cf0 = 0xbff08fb2;
+u32 var00059cf4 = 0x3fc41b7d;
+u32 var00059cf8 = 0xbfc41b7d;
+u32 var00059cfc = 0x3eb1d0d4;
+u32 var00059d00 = 0xbff08fb2;
+u32 var00059d04 = 0x3fddb3d7;
+u32 var00059d08 = 0x3ffc1c5c;
+u32 var00059d0c = 0x3fa48dbb;
+u32 var00059d10 = 0x3f2f1d44;
+u32 var00059d14 = 0x3fa48dbb;
+u32 var00059d18 = 0xbf2f1d44;
+u32 var00059d1c = 0x3ffc1c5c;
+u32 var00059d20 = 0x3f2f1d44;
+u32 var00059d24 = 0x3ffc1c5c;
+u32 var00059d28 = 0xbfa48dbb;
+u32 var00059d2c = 0x3fddb3d7;
+u32 var00059d30 = 0x3f007d2b;
+u32 var00059d34 = 0xbe801f38;
+u32 var00059d38 = 0xc0b76799;
+u32 var00059d3c = 0x3f0483ee;
+u32 var00059d40 = 0xbe811ac1;
+u32 var00059d44 = 0xbff5295a;
+u32 var00059d48 = 0x3f0d3b7d;
+u32 var00059d4c = 0xbe831b97;
+u32 var00059d50 = 0xbf93d8e5;
+u32 var00059d54 = 0x3f1c4257;
+u32 var00059d58 = 0xbe863634;
+u32 var00059d5c = 0xbf54d526;
+u32 var00059d60 = 0x3f5f2944;
+u32 var00059d64 = 0xbe904e0d;
+u32 var00059d68 = 0xbf0a9a83;
+u32 var00059d6c = 0x3f976fd9;
+u32 var00059d70 = 0xbe97c4a9;
+u32 var00059d74 = 0xbeee3a75;
+u32 var00059d78 = 0x3ff746ea;
+u32 var00059d7c = 0xbea15729;
+u32 var00059d80 = 0xbed24353;
+u32 var00059d84 = 0x40b79454;
+u32 var00059d88 = 0xbead9c9b;
+u32 var00059d8c = 0xbebd76c6;
+u32 var00059d90 = 0x3f3504f3;
+u32 var00059d94 = 0xbf0a8bd4;
+u32 var00059d98 = 0xbfa73d75;
+u32 var00059d9c = 0x3f5db3d7;
+u32 var00059da0 = 0x3f5db3d7;
+u32 var00059da4 = 0x3ff746ea;
+u32 var00059da8 = 0x3f3504f3;
+u32 var00059dac = 0x3f0483ee;
+u32 var00059db0 = 0x3f011ac1;
+u32 var00059db4 = 0x3f0a8bd4;
+u32 var00059db8 = 0x3f215729;
+u32 var00059dbc = 0x3f524353;
+u32 var00059dc0 = 0x3fa73d75;
+u32 var00059dc4 = 0x4075295a;
+u32 var00059dc8 = 0xbf4b1934;
+u32 var00059dcc = 0xbf1bd7ca;
+u32 var00059dd0 = 0xbf6c835e;
+u32 var00059dd4 = 0xbec3ef15;
+u32 var00059dd8 = 0xbf7dcf55;
+u32 var00059ddc = 0xbe05a8a8;
+u32 var00059de0 = 0x3ec3ef15;
+u32 var00059de4 = 0x3f1bd7ca;
+u32 var00059de8 = 0xbf4b1934;
+u32 var00059dec = 0xbf6c835e;
+u32 var00059df0 = 0xbf7dcf55;
+u32 var00059df4 = 0x3e05a8a8;
+u32 var00059df8 = 0x00000000;
+u32 var00059dfc = 0x00000000;
+u32 var00059e00 = 0x3fffffd6;
+u32 var00059e04 = 0x0e94ee39;
+u32 var00059e08 = 0x3ffffeb0;
+u32 var00059e0c = 0x00000000;
+u32 var00059e10 = 0x3f317218;
+u32 var00059e14 = 0x7f7fffff;
+u32 var00059e18 = 0x3f317218;
+u32 var00059e1c = 0x00000000;
+u32 var00059e20 = 0x3f317218;
+u32 var00059e24 = 0x3f317218;
+u32 var00059e28 = 0x00000000;
+u32 var00059e2c = 0x00000000;
+u32 var00059e30 = 0x05550556;
+u32 var00059e34 = 0x0559055a;
+u32 var00059e38 = 0x05650566;
+u32 var00059e3c = 0x0569056a;
+u32 var00059e40 = 0x05950596;
+u32 var00059e44 = 0x0599059a;
+u32 var00059e48 = 0x05a505a6;
+u32 var00059e4c = 0x05a905aa;
+u32 var00059e50 = 0x06550656;
+u32 var00059e54 = 0x0659065a;
+u32 var00059e58 = 0x06650666;
+u32 var00059e5c = 0x0669066a;
+u32 var00059e60 = 0x06950696;
+u32 var00059e64 = 0x0699069a;
+u32 var00059e68 = 0x06a506a6;
+u32 var00059e6c = 0x06a906aa;
+u32 var00059e70 = 0x09550956;
+u32 var00059e74 = 0x0959095a;
+u32 var00059e78 = 0x09650966;
+u32 var00059e7c = 0x0969096a;
+u32 var00059e80 = 0x09950996;
+u32 var00059e84 = 0x0999099a;
+u32 var00059e88 = 0x09a509a6;
+u32 var00059e8c = 0x09a909aa;
+u32 var00059e90 = 0x0a550a56;
+u32 var00059e94 = 0x0a590a5a;
+u32 var00059e98 = 0x0a650a66;
+u32 var00059e9c = 0x0a690a6a;
+u32 var00059ea0 = 0x0a950a96;
+u32 var00059ea4 = 0x0a990a9a;
+u32 var00059ea8 = 0x0aa50aa6;
+u32 var00059eac = 0x0aa90aaa;
+u32 var00059eb0 = 0x7004a17c;
+u32 var00059eb4 = 0x7004a094;
+u32 var00059eb8 = 0x7004a0c8;
+u32 var00059ebc = 0x7004a198;
+u32 var00059ec0 = 0x7004a198;
+u32 var00059ec4 = 0x7004a0fc;
+u32 var00059ec8 = 0x7004a13c;
+u32 var00059ecc = 0x00000000;
+u32 var00059ed0 = 0x686c4c00;
+u32 var00059ed4 = 0x202b2d23;
+u32 var00059ed8 = 0x30000000;
+u32 var00059edc = 0x00000001;
+u32 var00059ee0 = 0x00000002;
+u32 var00059ee4 = 0x00000004;
+u32 var00059ee8 = 0x00000008;
+u32 var00059eec = 0x00000010;
+u32 var00059ef0 = 0x00000000;
+u32 var00059ef4 = 0x7004e9f8;
+u32 var00059ef8 = 0x7004ecd8;
+u32 var00059efc = 0x7004e9f8;
+u32 var00059f00 = 0x7004ecd8;
+u32 var00059f04 = 0x7004ecd8;
+u32 var00059f08 = 0x7004ecd8;
+u32 var00059f0c = 0x7004ecd8;
+u32 var00059f10 = 0x7004ecd8;
+u32 var00059f14 = 0x7004ecd8;
+u32 var00059f18 = 0x7004ecd8;
+u32 var00059f1c = 0x7004ecd8;
+u32 var00059f20 = 0x7004ecd8;
+u32 var00059f24 = 0x7004ecd8;
+u32 var00059f28 = 0x7004ecd8;
+u32 var00059f2c = 0x7004ecd8;
+u32 var00059f30 = 0x7004ecd8;
+u32 var00059f34 = 0x7004ecd8;
+u32 var00059f38 = 0x7004ecd8;
+u32 var00059f3c = 0x7004ecd8;
+u32 var00059f40 = 0x7004e8a8;
+u32 var00059f44 = 0x7004ecd8;
+u32 var00059f48 = 0x7004ecd8;
+u32 var00059f4c = 0x7004ecd8;
+u32 var00059f50 = 0x7004ecd8;
+u32 var00059f54 = 0x7004ecd8;
+u32 var00059f58 = 0x7004ecd8;
+u32 var00059f5c = 0x7004ecd8;
+u32 var00059f60 = 0x7004ecd8;
+u32 var00059f64 = 0x7004ecd8;
+u32 var00059f68 = 0x7004ecd8;
+u32 var00059f6c = 0x7004e700;
+u32 var00059f70 = 0x7004e738;
+u32 var00059f74 = 0x7004e9f8;
+u32 var00059f78 = 0x7004e9f8;
+u32 var00059f7c = 0x7004e9f8;
+u32 var00059f80 = 0x7004ecd8;
+u32 var00059f84 = 0x7004e738;
+u32 var00059f88 = 0x7004ecd8;
+u32 var00059f8c = 0x7004ecd8;
+u32 var00059f90 = 0x7004ecd8;
+u32 var00059f94 = 0x7004ecd8;
+u32 var00059f98 = 0x7004eb5c;
+u32 var00059f9c = 0x7004e8a8;
+u32 var00059fa0 = 0x7004ec2c;
+u32 var00059fa4 = 0x7004ecd8;
+u32 var00059fa8 = 0x7004ecd8;
+u32 var00059fac = 0x7004ec74;
+u32 var00059fb0 = 0x7004ecd8;
+u32 var00059fb4 = 0x7004e8a8;
+u32 var00059fb8 = 0x7004ecd8;
+u32 var00059fbc = 0x7004ecd8;
+u32 var00059fc0 = 0x7004e8a8;
+u32 var00059fc4 = 0x00000000;
+u32 var00059fc8 = 0x00000000;
+u32 var00059fcc = 0x00000000;
+u32 var00059fd0 = 0x3c8efa35;
+u32 var00059fd4 = 0x00000000;
+u32 var00059fd8 = 0x00000000;
+u32 var00059fdc = 0x00000000;
 
 GLOBAL_ASM(
 glabel func00003050
 /*     3050:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     3054:	afb00020 */ 	sw	$s0,0x20($sp)
-/*     3058:	3c108006 */ 	lui	$s0,0x8006
-/*     305c:	2610cee0 */ 	addiu	$s0,$s0,-12576
+/*     3058:	3c108006 */ 	lui	$s0,%hi(var8005cee0)
+/*     305c:	2610cee0 */ 	addiu	$s0,$s0,%lo(var8005cee0)
 /*     3060:	8e0e0000 */ 	lw	$t6,0x0($s0)
 /*     3064:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*     3068:	afa40030 */ 	sw	$a0,0x30($sp)
@@ -6484,33 +6484,33 @@ glabel func00003050
 /*     3074:	0c01246c */ 	jal	func000491b0
 /*     3078:	00000000 */ 	sll	$zero,$zero,0x0
 /*     307c:	3c018006 */ 	lui	$at,0x8006
-/*     3080:	3c048009 */ 	lui	$a0,0x8009
-/*     3084:	3c058009 */ 	lui	$a1,0x8009
+/*     3080:	3c048009 */ 	lui	$a0,%hi(var80090230)
+/*     3084:	3c058009 */ 	lui	$a1,%hi(var80090248)
 /*     3088:	ac20cefc */ 	sw	$zero,-0x3104($at)
-/*     308c:	24a50248 */ 	addiu	$a1,$a1,0x248
-/*     3090:	24840230 */ 	addiu	$a0,$a0,0x230
+/*     308c:	24a50248 */ 	addiu	$a1,$a1,%lo(var80090248)
+/*     3090:	24840230 */ 	addiu	$a0,$a0,%lo(var80090230)
 /*     3094:	0c0120d0 */ 	jal	func00048340
 /*     3098:	24060005 */ 	addiu	$a2,$zero,0x5
-/*     309c:	3c068009 */ 	lui	$a2,0x8009
-/*     30a0:	3c078009 */ 	lui	$a3,0x8009
-/*     30a4:	24e70278 */ 	addiu	$a3,$a3,0x278
-/*     30a8:	24c60260 */ 	addiu	$a2,$a2,0x260
+/*     309c:	3c068009 */ 	lui	$a2,%hi(var80090260)
+/*     30a0:	3c078009 */ 	lui	$a3,%hi(var80090278)
+/*     30a4:	24e70278 */ 	addiu	$a3,$a3,%lo(var80090278)
+/*     30a8:	24c60260 */ 	addiu	$a2,$a2,%lo(var80090260)
 /*     30ac:	240f000d */ 	addiu	$t7,$zero,0xd
 /*     30b0:	2418000e */ 	addiu	$t8,$zero,0xe
-/*     30b4:	3c058009 */ 	lui	$a1,0x8009
+/*     30b4:	3c058009 */ 	lui	$a1,%hi(var80090230)
 /*     30b8:	a4cf0000 */ 	sh	$t7,0x0($a2)
 /*     30bc:	a0c00002 */ 	sb	$zero,0x2($a2)
 /*     30c0:	acc00004 */ 	sw	$zero,0x4($a2)
 /*     30c4:	a4f80000 */ 	sh	$t8,0x0($a3)
 /*     30c8:	a0e00002 */ 	sb	$zero,0x2($a3)
 /*     30cc:	ace00004 */ 	sw	$zero,0x4($a3)
-/*     30d0:	24a50230 */ 	addiu	$a1,$a1,0x230
+/*     30d0:	24a50230 */ 	addiu	$a1,$a1,%lo(var80090230)
 /*     30d4:	0c012148 */ 	jal	func00048520
 /*     30d8:	24040007 */ 	addiu	$a0,$zero,0x7
 /*     30dc:	3c078009 */ 	lui	$a3,0x8009
-/*     30e0:	3c058009 */ 	lui	$a1,0x8009
+/*     30e0:	3c058009 */ 	lui	$a1,%hi(var80090230)
 /*     30e4:	24e60278 */ 	addiu	$a2,$a3,0x278
-/*     30e8:	24a50230 */ 	addiu	$a1,$a1,0x230
+/*     30e8:	24a50230 */ 	addiu	$a1,$a1,%lo(var80090230)
 /*     30ec:	0c012148 */ 	jal	func00048520
 /*     30f0:	24040003 */ 	addiu	$a0,$zero,0x3
 /*     30f4:	2419ffff */ 	addiu	$t9,$zero,-1
@@ -6528,13 +6528,13 @@ glabel func00003050
 /*     3120:	0c01256c */ 	jal	func000495b0
 /*     3124:	00000000 */ 	sll	$zero,$zero,0x0
 /*     3128:	8fab0030 */ 	lw	$t3,0x30($sp)
-/*     312c:	3c038009 */ 	lui	$v1,0x8009
-/*     3130:	3c048009 */ 	lui	$a0,0x8009
-/*     3134:	3c0a8009 */ 	lui	$t2,0x8009
-/*     3138:	2484fe00 */ 	addiu	$a0,$a0,-512
-/*     313c:	24630230 */ 	addiu	$v1,$v1,0x230
+/*     312c:	3c038009 */ 	lui	$v1,%hi(var80090230)
+/*     3130:	3c048009 */ 	lui	$a0,%hi(var8008fe00)
+/*     3134:	3c0a8009 */ 	lui	$t2,%hi(var80090230)
+/*     3138:	2484fe00 */ 	addiu	$a0,$a0,%lo(var8008fe00)
+/*     313c:	24630230 */ 	addiu	$v1,$v1,%lo(var80090230)
 /*     3140:	24090001 */ 	addiu	$t1,$zero,0x1
-/*     3144:	254a0230 */ 	addiu	$t2,$t2,0x230
+/*     3144:	254a0230 */ 	addiu	$t2,$t2,%lo(var80090230)
 /*     3148:	3c067000 */ 	lui	$a2,0x7000
 /*     314c:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*     3150:	ae090000 */ 	sw	$t1,0x0($s0)
@@ -6552,9 +6552,9 @@ glabel func00003050
 /*     3180:	afab0014 */ 	sw	$t3,0x14($sp)
 /*     3184:	0c012590 */ 	jal	func00049640
 /*     3188:	00000000 */ 	sll	$zero,$zero,0x0
-/*     318c:	3c048009 */ 	lui	$a0,0x8009
+/*     318c:	3c048009 */ 	lui	$a0,%hi(var8008fe00)
 /*     3190:	0c01207c */ 	jal	func000481f0
-/*     3194:	2484fe00 */ 	addiu	$a0,$a0,-512
+/*     3194:	2484fe00 */ 	addiu	$a0,$a0,%lo(var8008fe00)
 /*     3198:	0c012588 */ 	jal	func00049620
 /*     319c:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*     31a0:	8fac0028 */ 	lw	$t4,0x28($sp)
@@ -6592,12 +6592,12 @@ glabel func00003050
 /*     321c:	3c018009 */ 	lui	$at,0x8009
 /*     3220:	a4230290 */ 	sh	$v1,0x290($at)
 .L00003224:
-/*     3224:	3c13800a */ 	lui	$s3,0x800a
-/*     3228:	3c12800a */ 	lui	$s2,0x800a
-/*     322c:	3c11800a */ 	lui	$s1,0x800a
-/*     3230:	2631c780 */ 	addiu	$s1,$s1,-14464
-/*     3234:	2652c788 */ 	addiu	$s2,$s2,-14456
-/*     3238:	2673c78c */ 	addiu	$s3,$s3,-14452
+/*     3224:	3c13800a */ 	lui	$s3,%hi(var8009c78c)
+/*     3228:	3c12800a */ 	lui	$s2,%hi(var8009c788)
+/*     322c:	3c11800a */ 	lui	$s1,%hi(var8009c780)
+/*     3230:	2631c780 */ 	addiu	$s1,$s1,%lo(var8009c780)
+/*     3234:	2652c788 */ 	addiu	$s2,$s2,%lo(var8009c788)
+/*     3238:	2673c78c */ 	addiu	$s3,$s3,%lo(var8009c78c)
 /*     323c:	2415000d */ 	addiu	$s5,$zero,0xd
 /*     3240:	27b40044 */ 	addiu	$s4,$sp,0x44
 .L00003244:
@@ -6683,8 +6683,8 @@ GLOBAL_ASM(
 glabel func00003360
 /*     3360:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     3364:	afb00020 */ 	sw	$s0,0x20($sp)
-/*     3368:	3c108006 */ 	lui	$s0,0x8006
-/*     336c:	2610cf00 */ 	addiu	$s0,$s0,-12544
+/*     3368:	3c108006 */ 	lui	$s0,%hi(var8005cf00)
+/*     336c:	2610cf00 */ 	addiu	$s0,$s0,%lo(var8005cf00)
 /*     3370:	8e0e0000 */ 	lw	$t6,0x0($s0)
 /*     3374:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*     3378:	afa40030 */ 	sw	$a0,0x30($sp)
@@ -6695,10 +6695,10 @@ glabel func00003360
 /*     338c:	00c02825 */ 	or	$a1,$a2,$zero
 /*     3390:	0c0120d0 */ 	jal	func00048340
 /*     3394:	00e03025 */ 	or	$a2,$a3,$zero
-/*     3398:	3c048009 */ 	lui	$a0,0x8009
-/*     339c:	3c058009 */ 	lui	$a1,0x8009
-/*     33a0:	24a507d8 */ 	addiu	$a1,$a1,0x7d8
-/*     33a4:	248407c0 */ 	addiu	$a0,$a0,0x7c0
+/*     3398:	3c048009 */ 	lui	$a0,%hi(var800907c0)
+/*     339c:	3c058009 */ 	lui	$a1,%hi(var800907d8)
+/*     33a0:	24a507d8 */ 	addiu	$a1,$a1,%lo(var800907d8)
+/*     33a4:	248407c0 */ 	addiu	$a0,$a0,%lo(var800907c0)
 /*     33a8:	0c0120d0 */ 	jal	func00048340
 /*     33ac:	24060004 */ 	addiu	$a2,$zero,0x4
 /*     33b0:	3c0f8006 */ 	lui	$t7,0x8006
@@ -6708,10 +6708,10 @@ glabel func00003360
 /*     33c0:	0c0126a4 */ 	jal	func00049a90
 /*     33c4:	00000000 */ 	sll	$zero,$zero,0x0
 .L000033c8:
-/*     33c8:	3c058009 */ 	lui	$a1,0x8009
+/*     33c8:	3c058009 */ 	lui	$a1,%hi(var800907c0)
 /*     33cc:	3c062222 */ 	lui	$a2,0x2222
 /*     33d0:	34c62222 */ 	ori	$a2,$a2,0x2222
-/*     33d4:	24a507c0 */ 	addiu	$a1,$a1,0x7c0
+/*     33d4:	24a507c0 */ 	addiu	$a1,$a1,%lo(var800907c0)
 /*     33d8:	0c012148 */ 	jal	func00048520
 /*     33dc:	24040008 */ 	addiu	$a0,$zero,0x8
 /*     33e0:	2418ffff */ 	addiu	$t8,$zero,-1
@@ -6730,19 +6730,19 @@ glabel func00003360
 /*     3410:	00000000 */ 	sll	$zero,$zero,0x0
 /*     3414:	8fa90034 */ 	lw	$t1,0x34($sp)
 /*     3418:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*     341c:	3c048009 */ 	lui	$a0,0x8009
-/*     3420:	3c0a8009 */ 	lui	$t2,0x8009
-/*     3424:	3c0b800a */ 	lui	$t3,0x800a
+/*     341c:	3c048009 */ 	lui	$a0,%hi(var80090390)
+/*     3420:	3c0a8009 */ 	lui	$t2,%hi(var800907c0)
+/*     3424:	3c0b800a */ 	lui	$t3,%hi(var8009c7a8)
 /*     3428:	3c0c7005 */ 	lui	$t4,0x7005
 /*     342c:	3c0d7005 */ 	lui	$t5,0x7005
-/*     3430:	3c0e8009 */ 	lui	$t6,0x8009
-/*     3434:	24840390 */ 	addiu	$a0,$a0,0x390
+/*     3430:	3c0e8009 */ 	lui	$t6,%hi(var800907c0)
+/*     3434:	24840390 */ 	addiu	$a0,$a0,%lo(var80090390)
 /*     3438:	24080001 */ 	addiu	$t0,$zero,0x1
-/*     343c:	254a07c0 */ 	addiu	$t2,$t2,0x7c0
-/*     3440:	256bc7a8 */ 	addiu	$t3,$t3,-14424
+/*     343c:	254a07c0 */ 	addiu	$t2,$t2,%lo(var800907c0)
+/*     3440:	256bc7a8 */ 	addiu	$t3,$t3,%lo(var8009c7a8)
 /*     3444:	258c9b50 */ 	addiu	$t4,$t4,-25776
 /*     3448:	25ad9c20 */ 	addiu	$t5,$t5,-25568
-/*     344c:	25ce07c0 */ 	addiu	$t6,$t6,0x7c0
+/*     344c:	25ce07c0 */ 	addiu	$t6,$t6,%lo(var800907c0)
 /*     3450:	3c067005 */ 	lui	$a2,0x7005
 /*     3454:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*     3458:	ae080000 */ 	sw	$t0,0x0($s0)
@@ -6758,9 +6758,9 @@ glabel func00003360
 /*     3480:	ae090008 */ 	sw	$t1,0x8($s0)
 /*     3484:	0c000fb8 */ 	jal	func00003ee0
 /*     3488:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*     348c:	3c048009 */ 	lui	$a0,0x8009
+/*     348c:	3c048009 */ 	lui	$a0,%hi(var80090390)
 /*     3490:	0c01207c */ 	jal	func000481f0
-/*     3494:	24840390 */ 	addiu	$a0,$a0,0x390
+/*     3494:	24840390 */ 	addiu	$a0,$a0,%lo(var80090390)
 /*     3498:	0c012588 */ 	jal	func00049620
 /*     349c:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*     34a0:	8fb80028 */ 	lw	$t8,0x28($sp)
@@ -6799,8 +6799,8 @@ glabel func000034e0
 /*     34f4:	275a3500 */ 	addiu	$k0,$k0,0x3500
 /*     34f8:	03400008 */ 	jr	$k0
 /*     34fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3500:	3c1a8009 */ 	lui	$k0,0x8009
-/*     3504:	275a07f0 */ 	addiu	$k0,$k0,0x7f0
+/*     3500:	3c1a8009 */ 	lui	$k0,%hi(var800907f0)
+/*     3504:	275a07f0 */ 	addiu	$k0,$k0,%lo(var800907f0)
 /*     3508:	ff410020 */ 	sd	$at,0x20($k0)
 /*     350c:	401b6000 */ 	mfc0	$k1,$12
 /*     3510:	af5b0118 */ 	sw	$k1,0x118($k0)
@@ -6857,8 +6857,8 @@ glabel func000034e0
 /*     35dc:	ff5f0100 */ 	sd	$ra,0x100($k0)
 /*     35e0:	11200011 */ 	beqz	$t1,.L00003628
 /*     35e4:	ff480110 */ 	sd	$t0,0x110($k0)
-/*     35e8:	3c088006 */ 	lui	$t0,0x8006
-/*     35ec:	2508cf70 */ 	addiu	$t0,$t0,-12432
+/*     35e8:	3c088006 */ 	lui	$t0,%hi(var8005cf70)
+/*     35ec:	2508cf70 */ 	addiu	$t0,$t0,%lo(var8005cf70)
 /*     35f0:	8d080000 */ 	lw	$t0,0x0($t0)
 /*     35f4:	2401ffff */ 	addiu	$at,$zero,-1
 /*     35f8:	01015026 */ 	xor	$t2,$t0,$at
@@ -6878,8 +6878,8 @@ glabel func000034e0
 /*     362c:	8d29000c */ 	lw	$t1,0xc($t1)
 /*     3630:	5120000c */ 	beqzl	$t1,.L00003664
 /*     3634:	af490128 */ 	sw	$t1,0x128($k0)
-/*     3638:	3c088006 */ 	lui	$t0,0x8006
-/*     363c:	2508cf70 */ 	addiu	$t0,$t0,-12432
+/*     3638:	3c088006 */ 	lui	$t0,%hi(var8005cf70)
+/*     363c:	2508cf70 */ 	addiu	$t0,$t0,%lo(var8005cf70)
 /*     3640:	8d080000 */ 	lw	$t0,0x0($t0)
 /*     3644:	8f4c0128 */ 	lw	$t4,0x128($k0)
 /*     3648:	2401ffff */ 	addiu	$at,$zero,-1
@@ -6983,8 +6983,8 @@ glabel func000034e0
 /*     37bc:	34217fff */ 	ori	$at,$at,0x7fff
 /*     37c0:	1000ffe5 */ 	beqz	$zero,.L00003758
 /*     37c4:	02018024 */ 	and	$s0,$s0,$at
-/*     37c8:	3c098006 */ 	lui	$t1,0x8006
-/*     37cc:	2529cf30 */ 	addiu	$t1,$t1,-12496
+/*     37c8:	3c098006 */ 	lui	$t1,%hi(var8005cf30)
+/*     37cc:	2529cf30 */ 	addiu	$t1,$t1,%lo(var8005cf30)
 /*     37d0:	8d2a0008 */ 	lw	$t2,0x8($t1)
 /*     37d4:	2401f7ff */ 	addiu	$at,$zero,-2049
 /*     37d8:	02018024 */ 	and	$s0,$s0,$at
@@ -7001,8 +7001,8 @@ glabel func000034e0
 /*     3800:	24040010 */ 	addiu	$a0,$zero,0x10
 /*     3804:	1000ffd5 */ 	beqz	$zero,.L0000375c
 /*     3808:	3209ff00 */ 	andi	$t1,$s0,0xff00
-/*     380c:	3c088006 */ 	lui	$t0,0x8006
-/*     3810:	2508cf70 */ 	addiu	$t0,$t0,-12432
+/*     380c:	3c088006 */ 	lui	$t0,%hi(var8005cf70)
+/*     3810:	2508cf70 */ 	addiu	$t0,$t0,%lo(var8005cf70)
 /*     3814:	8d080000 */ 	lw	$t0,0x0($t0)
 /*     3818:	3c11a430 */ 	lui	$s1,0xa430
 /*     381c:	8e310008 */ 	lw	$s1,0x8($s1)
@@ -7090,10 +7090,10 @@ glabel func000034e0
 /*     3948:	02018024 */ 	and	$s0,$s0,$at
 /*     394c:	8f5b0118 */ 	lw	$k1,0x118($k0)
 /*     3950:	2401efff */ 	addiu	$at,$zero,-4097
-/*     3954:	3c098006 */ 	lui	$t1,0x8006
+/*     3954:	3c098006 */ 	lui	$t1,%hi(var8005cf6c)
 /*     3958:	0361d824 */ 	and	$k1,$k1,$at
 /*     395c:	af5b0118 */ 	sw	$k1,0x118($k0)
-/*     3960:	2529cf6c */ 	addiu	$t1,$t1,-12436
+/*     3960:	2529cf6c */ 	addiu	$t1,$t1,%lo(var8005cf6c)
 /*     3964:	8d2a0000 */ 	lw	$t2,0x0($t1)
 /*     3968:	11400003 */ 	beqz	$t2,.L00003978
 /*     396c:	2401efff */ 	addiu	$at,$zero,-4097
@@ -7160,15 +7160,15 @@ glabel func000034e0
 /*     3a4c:	012b082a */ 	slt	$at,$t1,$t3
 /*     3a50:	10200007 */ 	beqz	$at,.L00003a70
 /*     3a54:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3a58:	3c048006 */ 	lui	$a0,0x8006
+/*     3a58:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*     3a5c:	03402825 */ 	or	$a1,$k0,$zero
 /*     3a60:	0c000f2e */ 	jal	func00003cb8
-/*     3a64:	24840938 */ 	addiu	$a0,$a0,0x938
+/*     3a64:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 /*     3a68:	08000f44 */ 	j	0x3d10
 /*     3a6c:	00000000 */ 	sll	$zero,$zero,0x0
 .L00003a70:
-/*     3a70:	3c098006 */ 	lui	$t1,0x8006
-/*     3a74:	25290938 */ 	addiu	$t1,$t1,0x938
+/*     3a70:	3c098006 */ 	lui	$t1,%hi(var80060938)
+/*     3a74:	25290938 */ 	addiu	$t1,$t1,%lo(var80060938)
 /*     3a78:	8d2a0000 */ 	lw	$t2,0x0($t1)
 /*     3a7c:	af4a0000 */ 	sw	$t2,0x0($k0)
 /*     3a80:	08000f44 */ 	j	0x3d10
@@ -7190,8 +7190,8 @@ glabel func000034e0
 
 GLOBAL_ASM(
 glabel func00003ab8
-/*     3ab8:	3c0a800a */ 	lui	$t2,0x800a
-/*     3abc:	254ac6e0 */ 	addiu	$t2,$t2,-14624
+/*     3ab8:	3c0a800a */ 	lui	$t2,%hi(var8009c6e0)
+/*     3abc:	254ac6e0 */ 	addiu	$t2,$t2,%lo(var8009c6e0)
 /*     3ac0:	01445021 */ 	addu	$t2,$t2,$a0
 /*     3ac4:	8d490000 */ 	lw	$t1,0x0($t2)
 /*     3ac8:	03e09025 */ 	or	$s2,$ra,$zero
@@ -7231,10 +7231,10 @@ glabel func00003ab8
 /*     3b48:	0c000f40 */ 	jal	func00003d00
 /*     3b4c:	01202025 */ 	or	$a0,$t1,$zero
 /*     3b50:	00405025 */ 	or	$t2,$v0,$zero
-/*     3b54:	3c048006 */ 	lui	$a0,0x8006
+/*     3b54:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*     3b58:	01402825 */ 	or	$a1,$t2,$zero
 /*     3b5c:	0c000f2e */ 	jal	func00003cb8
-/*     3b60:	24840938 */ 	addiu	$a0,$a0,0x938
+/*     3b60:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 .L00003b64:
 /*     3b64:	02400008 */ 	jr	$s2
 /*     3b68:	00000000 */ 	sll	$zero,$zero,0x0
@@ -7295,8 +7295,8 @@ glabel func00003ba0
 /*     3c2c:	3369ff00 */ 	andi	$t1,$k1,0xff00
 /*     3c30:	5120000e */ 	beqzl	$t1,.L00003c6c
 /*     3c34:	3c1ba430 */ 	lui	$k1,0xa430
-/*     3c38:	3c088006 */ 	lui	$t0,0x8006
-/*     3c3c:	2508cf70 */ 	addiu	$t0,$t0,-12432
+/*     3c38:	3c088006 */ 	lui	$t0,%hi(var8005cf70)
+/*     3c3c:	2508cf70 */ 	addiu	$t0,$t0,%lo(var8005cf70)
 /*     3c40:	8d080000 */ 	lw	$t0,0x0($t0)
 /*     3c44:	2401ffff */ 	addiu	$at,$zero,-1
 /*     3c48:	01014026 */ 	xor	$t0,$t0,$at
@@ -7312,8 +7312,8 @@ glabel func00003ba0
 /*     3c6c:	8f7b000c */ 	lw	$k1,0xc($k1)
 /*     3c70:	1360000b */ 	beqz	$k1,.L00003ca0
 /*     3c74:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3c78:	3c1a8006 */ 	lui	$k0,0x8006
-/*     3c7c:	275acf70 */ 	addiu	$k0,$k0,-12432
+/*     3c78:	3c1a8006 */ 	lui	$k0,%hi(var8005cf70)
+/*     3c7c:	275acf70 */ 	addiu	$k0,$k0,%lo(var8005cf70)
 /*     3c80:	8f5a0000 */ 	lw	$k0,0x0($k0)
 /*     3c84:	8ca80128 */ 	lw	$t0,0x128($a1)
 /*     3c88:	2401ffff */ 	addiu	$at,$zero,-1
@@ -7366,17 +7366,17 @@ glabel func00003d00
 
 GLOBAL_ASM(
 glabel func00003d10
-/*     3d10:	3c048006 */ 	lui	$a0,0x8006
+/*     3d10:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*     3d14:	0c000f40 */ 	jal	func00003d00
-/*     3d18:	24840938 */ 	addiu	$a0,$a0,0x938
+/*     3d18:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 /*     3d1c:	3c018006 */ 	lui	$at,0x8006
 /*     3d20:	ac220940 */ 	sw	$v0,0x940($at)
 /*     3d24:	24080004 */ 	addiu	$t0,$zero,0x4
 /*     3d28:	a4480010 */ 	sh	$t0,0x10($v0)
 /*     3d2c:	0040d025 */ 	or	$k0,$v0,$zero
-/*     3d30:	3c088006 */ 	lui	$t0,0x8006
+/*     3d30:	3c088006 */ 	lui	$t0,%hi(var8005cf70)
 /*     3d34:	8f5b0118 */ 	lw	$k1,0x118($k0)
-/*     3d38:	2508cf70 */ 	addiu	$t0,$t0,-12432
+/*     3d38:	2508cf70 */ 	addiu	$t0,$t0,%lo(var8005cf70)
 /*     3d3c:	8d080000 */ 	lw	$t0,0x0($t0)
 /*     3d40:	3c01ffff */ 	lui	$at,0xffff
 /*     3d44:	3369ff00 */ 	andi	$t1,$k1,0xff00
@@ -7460,8 +7460,8 @@ glabel func00003d10
 /*     3e7c:	d75f0228 */ 	ldc1	$f31,0x228($k0)
 .L00003e80:
 /*     3e80:	8f5b0128 */ 	lw	$k1,0x128($k0)
-/*     3e84:	3c1a8006 */ 	lui	$k0,0x8006
-/*     3e88:	275acf70 */ 	addiu	$k0,$k0,-12432
+/*     3e84:	3c1a8006 */ 	lui	$k0,%hi(var8005cf70)
+/*     3e88:	275acf70 */ 	addiu	$k0,$k0,%lo(var8005cf70)
 /*     3e8c:	8f5a0000 */ 	lw	$k0,0x0($k0)
 /*     3e90:	001ad402 */ 	srl	$k0,$k0,0x10
 /*     3e94:	037ad824 */ 	and	$k1,$k1,$k0
@@ -7525,8 +7525,8 @@ glabel func00003ee0
 /*     3f6c:	a4880010 */ 	sh	$t0,0x10($a0)
 /*     3f70:	0c01256c */ 	jal	func000495b0
 /*     3f74:	a4800012 */ 	sh	$zero,0x12($a0)
-/*     3f78:	3c038006 */ 	lui	$v1,0x8006
-/*     3f7c:	2463093c */ 	addiu	$v1,$v1,0x93c
+/*     3f78:	3c038006 */ 	lui	$v1,%hi(var8006093c)
+/*     3f7c:	2463093c */ 	addiu	$v1,$v1,%lo(var8006093c)
 /*     3f80:	8c690000 */ 	lw	$t1,0x0($v1)
 /*     3f84:	00402025 */ 	or	$a0,$v0,$zero
 /*     3f88:	ae09000c */ 	sw	$t1,0xc($s0)
@@ -9237,8 +9237,8 @@ glabel func00005770
 /*     57a8:	0c012a18 */ 	jal	func0004a860
 /*     57ac:	24110001 */ 	addiu	$s1,$zero,0x1
 /*     57b0:	3c1e800a */ 	lui	$s8,0x800a
-/*     57b4:	3c138009 */ 	lui	$s3,0x8009
-/*     57b8:	26730a20 */ 	addiu	$s3,$s3,0xa20
+/*     57b4:	3c138009 */ 	lui	$s3,%hi(var80090a20)
+/*     57b8:	26730a20 */ 	addiu	$s3,$s3,%lo(var80090a20)
 /*     57bc:	27dec821 */ 	addiu	$s8,$s8,-14303
 /*     57c0:	00008025 */ 	or	$s0,$zero,$zero
 /*     57c4:	27b70054 */ 	addiu	$s7,$sp,0x54
@@ -9386,10 +9386,10 @@ glabel func000059b0
 /*     59b0:	3c07800a */ 	lui	$a3,0x800a
 /*     59b4:	24e7c821 */ 	addiu	$a3,$a3,-14303
 /*     59b8:	90ee0000 */ 	lbu	$t6,0x0($a3)
-/*     59bc:	3c038009 */ 	lui	$v1,0x8009
+/*     59bc:	3c038009 */ 	lui	$v1,%hi(var80090a20)
 /*     59c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     59c4:	00001025 */ 	or	$v0,$zero,$zero
-/*     59c8:	24630a20 */ 	addiu	$v1,$v1,0xa20
+/*     59c8:	24630a20 */ 	addiu	$v1,$v1,%lo(var80090a20)
 /*     59cc:	19c00020 */ 	blez	$t6,.L00005a50
 /*     59d0:	00003025 */ 	or	$a2,$zero,$zero
 /*     59d4:	27a8000c */ 	addiu	$t0,$sp,0xc
@@ -9613,8 +9613,8 @@ glabel func00005b60
 /*     5cc0:	00000000 */ 	sll	$zero,$zero,0x0
 /*     5cc4:	0c000bfc */ 	jal	func00002ff0
 /*     5cc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*     5ccc:	3c108006 */ 	lui	$s0,0x8006
-/*     5cd0:	2610cf60 */ 	addiu	$s0,$s0,-12448
+/*     5ccc:	3c108006 */ 	lui	$s0,%hi(var8005cf60)
+/*     5cd0:	2610cf60 */ 	addiu	$s0,$s0,%lo(var8005cf60)
 /*     5cd4:	8e040000 */ 	lw	$a0,0x0($s0)
 /*     5cd8:	8e050004 */ 	lw	$a1,0x4($s0)
 /*     5cdc:	24060000 */ 	addiu	$a2,$zero,0x0
@@ -9684,8 +9684,8 @@ glabel func00005b60
 
 GLOBAL_ASM(
 glabel func00005dc0
-/*     5dc0:	3c028009 */ 	lui	$v0,0x8009
-/*     5dc4:	244202a0 */ 	addiu	$v0,$v0,0x2a0
+/*     5dc0:	3c028009 */ 	lui	$v0,%hi(var800902a0)
+/*     5dc4:	244202a0 */ 	addiu	$v0,$v0,%lo(var800902a0)
 /*     5dc8:	24030007 */ 	addiu	$v1,$zero,0x7
 /*     5dcc:	a0430004 */ 	sb	$v1,0x4($v0)
 /*     5dd0:	3c0ea460 */ 	lui	$t6,0xa460
@@ -9695,10 +9695,10 @@ glabel func00005dc0
 /*     5de0:	a04f0005 */ 	sb	$t7,0x5($v0)
 /*     5de4:	8f190018 */ 	lw	$t9,0x18($t8)
 /*     5de8:	3c0aa460 */ 	lui	$t2,0xa460
-/*     5dec:	3c048009 */ 	lui	$a0,0x8009
+/*     5dec:	3c048009 */ 	lui	$a0,%hi(var80090318)
 /*     5df0:	a0590008 */ 	sb	$t9,0x8($v0)
 /*     5df4:	8d09001c */ 	lw	$t1,0x1c($t0)
-/*     5df8:	24840318 */ 	addiu	$a0,$a0,0x318
+/*     5df8:	24840318 */ 	addiu	$a0,$a0,%lo(var80090318)
 /*     5dfc:	3c0ca460 */ 	lui	$t4,0xa460
 /*     5e00:	a0490006 */ 	sb	$t1,0x6($v0)
 /*     5e04:	8d4b0020 */ 	lw	$t3,0x20($t2)
@@ -9722,8 +9722,8 @@ GLOBAL_ASM(
 glabel func00005e40
 /*     5e40:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     5e44:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     5e48:	3c058009 */ 	lui	$a1,0x8009
-/*     5e4c:	24a50a70 */ 	addiu	$a1,$a1,0xa70
+/*     5e48:	3c058009 */ 	lui	$a1,%hi(var80090a70)
+/*     5e4c:	24a50a70 */ 	addiu	$a1,$a1,%lo(var80090a70)
 /*     5e50:	0c012c5c */ 	jal	func0004b170
 /*     5e54:	24060040 */ 	addiu	$a2,$zero,0x40
 /*     5e58:	3c048009 */ 	lui	$a0,0x8009
@@ -9790,8 +9790,8 @@ glabel func00005e40
 /*     5f34:	ac220aa8 */ 	sw	$v0,0xaa8($at)
 /*     5f38:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L00005f3c:
-/*     5f3c:	3c028009 */ 	lui	$v0,0x8009
-/*     5f40:	24420a70 */ 	addiu	$v0,$v0,0xa70
+/*     5f3c:	3c028009 */ 	lui	$v0,%hi(var80090a70)
+/*     5f40:	24420a70 */ 	addiu	$v0,$v0,%lo(var80090a70)
 /*     5f44:	03e00008 */ 	jr	$ra
 /*     5f48:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
@@ -10027,33 +10027,33 @@ glabel func00006100
 /*     6258:	0c012ea4 */ 	jal	func0004ba90
 /*     625c:	8fa50060 */ 	lw	$a1,0x60($sp)
 /*     6260:	10400003 */ 	beqz	$v0,.L00006270
-/*     6264:	3c048009 */ 	lui	$a0,0x8009
+/*     6264:	3c048009 */ 	lui	$a0,%hi(var80090ad0)
 /*     6268:	1000002b */ 	beqz	$zero,.L00006318
 /*     626c:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L00006270:
-/*     6270:	3c058009 */ 	lui	$a1,0x8009
-/*     6274:	24a50ae8 */ 	addiu	$a1,$a1,0xae8
-/*     6278:	24840ad0 */ 	addiu	$a0,$a0,0xad0
+/*     6270:	3c058009 */ 	lui	$a1,%hi(var80090ae8)
+/*     6274:	24a50ae8 */ 	addiu	$a1,$a1,%lo(var80090ae8)
+/*     6278:	24840ad0 */ 	addiu	$a0,$a0,%lo(var80090ad0)
 /*     627c:	0c0120d0 */ 	jal	func00048340
 /*     6280:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     6284:	3c198009 */ 	lui	$t9,0x8009
-/*     6288:	3c098009 */ 	lui	$t1,0x8009
-/*     628c:	25290ae8 */ 	addiu	$t1,$t1,0xae8
-/*     6290:	27390ad0 */ 	addiu	$t9,$t9,0xad0
-/*     6294:	3c048009 */ 	lui	$a0,0x8009
+/*     6284:	3c198009 */ 	lui	$t9,%hi(var80090ad0)
+/*     6288:	3c098009 */ 	lui	$t1,%hi(var80090ae8)
+/*     628c:	25290ae8 */ 	addiu	$t1,$t1,%lo(var80090ae8)
+/*     6290:	27390ad0 */ 	addiu	$t9,$t9,%lo(var80090ad0)
+/*     6294:	3c048009 */ 	lui	$a0,%hi(var80090ab0)
 /*     6298:	3c07000e */ 	lui	$a3,0xe
 /*     629c:	240a0000 */ 	addiu	$t2,$zero,0x0
 /*     62a0:	240b0000 */ 	addiu	$t3,$zero,0x0
 /*     62a4:	afab0014 */ 	sw	$t3,0x14($sp)
 /*     62a8:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*     62ac:	34e74e1c */ 	ori	$a3,$a3,0x4e1c
-/*     62b0:	24840ab0 */ 	addiu	$a0,$a0,0xab0
+/*     62b0:	24840ab0 */ 	addiu	$a0,$a0,%lo(var80090ab0)
 /*     62b4:	afb90018 */ 	sw	$t9,0x18($sp)
 /*     62b8:	afa9001c */ 	sw	$t1,0x1c($sp)
 /*     62bc:	0c0122c8 */ 	jal	func00048b20
 /*     62c0:	24060000 */ 	addiu	$a2,$zero,0x0
-/*     62c4:	3c048009 */ 	lui	$a0,0x8009
-/*     62c8:	24840ad0 */ 	addiu	$a0,$a0,0xad0
+/*     62c4:	3c048009 */ 	lui	$a0,%hi(var80090ad0)
+/*     62c8:	24840ad0 */ 	addiu	$a0,$a0,%lo(var80090ad0)
 /*     62cc:	00002825 */ 	or	$a1,$zero,$zero
 /*     62d0:	0c0121bc */ 	jal	func000486f0
 /*     62d4:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -10124,11 +10124,11 @@ glabel func00006330
 /*     63bc:	24030004 */ 	addiu	$v1,$zero,0x4
 .L000063c0:
 /*     63c0:	12000016 */ 	beqz	$s0,.L0000641c
-/*     63c4:	3c048009 */ 	lui	$a0,0x8009
-/*     63c8:	3c108009 */ 	lui	$s0,0x8009
-/*     63cc:	3c188009 */ 	lui	$t8,0x8009
-/*     63d0:	26100ad0 */ 	addiu	$s0,$s0,0xad0
-/*     63d4:	27180ae8 */ 	addiu	$t8,$t8,0xae8
+/*     63c4:	3c048009 */ 	lui	$a0,%hi(var80090ab0)
+/*     63c8:	3c108009 */ 	lui	$s0,%hi(var80090ad0)
+/*     63cc:	3c188009 */ 	lui	$t8,%hi(var80090ae8)
+/*     63d0:	26100ad0 */ 	addiu	$s0,$s0,%lo(var80090ad0)
+/*     63d4:	27180ae8 */ 	addiu	$t8,$t8,%lo(var80090ae8)
 /*     63d8:	3c07000e */ 	lui	$a3,0xe
 /*     63dc:	240e0000 */ 	addiu	$t6,$zero,0x0
 /*     63e0:	240f0000 */ 	addiu	$t7,$zero,0x0
@@ -10137,7 +10137,7 @@ glabel func00006330
 /*     63ec:	34e74e1c */ 	ori	$a3,$a3,0x4e1c
 /*     63f0:	afb8001c */ 	sw	$t8,0x1c($sp)
 /*     63f4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     63f8:	24840ab0 */ 	addiu	$a0,$a0,0xab0
+/*     63f8:	24840ab0 */ 	addiu	$a0,$a0,%lo(var80090ab0)
 /*     63fc:	24060000 */ 	addiu	$a2,$zero,0x0
 /*     6400:	0c0122c8 */ 	jal	func00048b20
 /*     6404:	afa30058 */ 	sw	$v1,0x58($sp)
@@ -10177,12 +10177,12 @@ glabel func00006440
 /*     6478:	afa5004c */ 	sw	$a1,0x4c($sp)
 /*     647c:	18e00025 */ 	blez	$a3,.L00006514
 /*     6480:	0000b025 */ 	or	$s6,$zero,$zero
-/*     6484:	3c15800a */ 	lui	$s5,0x800a
-/*     6488:	3c14800a */ 	lui	$s4,0x800a
-/*     648c:	3c13800a */ 	lui	$s3,0x800a
-/*     6490:	2673c848 */ 	addiu	$s3,$s3,-14264
-/*     6494:	2694c828 */ 	addiu	$s4,$s4,-14296
-/*     6498:	26b5c860 */ 	addiu	$s5,$s5,-14240
+/*     6484:	3c15800a */ 	lui	$s5,%hi(var8009c860)
+/*     6488:	3c14800a */ 	lui	$s4,%hi(var8009c828)
+/*     648c:	3c13800a */ 	lui	$s3,%hi(var8009c848)
+/*     6490:	2673c848 */ 	addiu	$s3,$s3,%lo(var8009c848)
+/*     6494:	2694c828 */ 	addiu	$s4,$s4,%lo(var8009c828)
+/*     6498:	26b5c860 */ 	addiu	$s5,$s5,%lo(var8009c860)
 /*     649c:	02e02025 */ 	or	$a0,$s7,$zero
 .L000064a0:
 /*     64a0:	322500ff */ 	andi	$a1,$s1,0xff
@@ -11105,18 +11105,18 @@ glabel func000070d0
 /*     7138:	01097023 */ 	subu	$t6,$t0,$t1
 /*     713c:	a0300af0 */ 	sb	$s0,0xaf0($at)
 /*     7140:	25cf0fff */ 	addiu	$t7,$t6,0xfff
-/*     7144:	3c178006 */ 	lui	$s7,0x8006
-/*     7148:	26f7cf84 */ 	addiu	$s7,$s7,-12412
+/*     7144:	3c178006 */ 	lui	$s7,%hi(var8005cf84)
+/*     7148:	26f7cf84 */ 	addiu	$s7,$s7,%lo(var8005cf84)
 /*     714c:	3c07803f */ 	lui	$a3,0x803f
 /*     7150:	01091023 */ 	subu	$v0,$t0,$t1
 /*     7154:	34e750b8 */ 	ori	$a3,$a3,0x50b8
 /*     7158:	24420fff */ 	addiu	$v0,$v0,0xfff
 /*     715c:	00027302 */ 	srl	$t6,$v0,0xc
 /*     7160:	25c60002 */ 	addiu	$a2,$t6,0x2
-/*     7164:	3c158009 */ 	lui	$s5,0x8009
+/*     7164:	3c158009 */ 	lui	$s5,%hi(var8008ae30)
 /*     7168:	25d60001 */ 	addiu	$s6,$t6,0x1
 /*     716c:	3c120005 */ 	lui	$s2,0x5
-/*     7170:	26b5ae30 */ 	addiu	$s5,$s5,-20944
+/*     7170:	26b5ae30 */ 	addiu	$s5,$s5,%lo(var8008ae30)
 /*     7174:	05e10003 */ 	bgez	$t7,.L00007184
 /*     7178:	000fc303 */ 	sra	$t8,$t7,0xc
 /*     717c:	25e10fff */ 	addiu	$at,$t7,0xfff
@@ -11190,9 +11190,9 @@ glabel func000070d0
 /*     7274:	0311c823 */ 	subu	$t9,$t8,$s1
 /*     7278:	032b6824 */ 	and	$t5,$t9,$t3
 /*     727c:	34214000 */ 	ori	$at,$at,0x4000
-/*     7280:	3c028009 */ 	lui	$v0,0x8009
+/*     7280:	3c028009 */ 	lui	$v0,%hi(var8008ae2c)
 /*     7284:	01a19821 */ 	addu	$s3,$t5,$at
-/*     7288:	2442ae2c */ 	addiu	$v0,$v0,-20948
+/*     7288:	2442ae2c */ 	addiu	$v0,$v0,%lo(var8008ae2c)
 /*     728c:	ac590000 */ 	sw	$t9,0x0($v0)
 /*     7290:	326e1fff */ 	andi	$t6,$s3,0x1fff
 /*     7294:	ac4d0000 */ 	sw	$t5,0x0($v0)
@@ -11653,8 +11653,8 @@ glabel func00007908
 /*     794c:	26f7ffff */ 	addiu	$s7,$s7,-1
 .L00007950:
 /*     7950:	24020000 */ 	addiu	$v0,$zero,0x0
-/*     7954:	3c0b8009 */ 	lui	$t3,0x8009
-/*     7958:	256b1558 */ 	addiu	$t3,$t3,0x1558
+/*     7954:	3c0b8009 */ 	lui	$t3,%hi(var80091558)
+/*     7958:	256b1558 */ 	addiu	$t3,$t3,%lo(var80091558)
 /*     795c:	ad770000 */ 	sw	$s7,0x0($t3)
 .L00007960:
 /*     7960:	8fbf0a6c */ 	lw	$ra,0xa6c($sp)
@@ -12147,12 +12147,12 @@ GLOBAL_ASM(
 glabel func00008024
 /*     8024:	afbf0a44 */ 	sw	$ra,0xa44($sp)
 /*     8028:	afb60a74 */ 	sw	$s6,0xa74($sp)
-/*     802c:	3c168009 */ 	lui	$s6,0x8009
-/*     8030:	26d60b10 */ 	addiu	$s6,$s6,0xb10
-/*     8034:	3c048009 */ 	lui	$a0,0x8009
-/*     8038:	24840b14 */ 	addiu	$a0,$a0,0xb14
-/*     803c:	3c058009 */ 	lui	$a1,0x8009
-/*     8040:	24a514d8 */ 	addiu	$a1,$a1,0x14d8
+/*     802c:	3c168009 */ 	lui	$s6,%hi(var80090b10)
+/*     8030:	26d60b10 */ 	addiu	$s6,$s6,%lo(var80090b10)
+/*     8034:	3c048009 */ 	lui	$a0,%hi(var80090b14)
+/*     8038:	24840b14 */ 	addiu	$a0,$a0,%lo(var80090b14)
+/*     803c:	3c058009 */ 	lui	$a1,%hi(var800914d8)
+/*     8040:	24a514d8 */ 	addiu	$a1,$a1,%lo(var800914d8)
 /*     8044:	24060007 */ 	addiu	$a2,$zero,0x7
 /*     8048:	24070005 */ 	addiu	$a3,$zero,0x5
 /*     804c:	0c002184 */ 	jal	func00008610
@@ -12770,8 +12770,8 @@ glabel func000088b0
 /*     88d0:	afb70a64 */ 	sw	$s7,0xa64($sp)
 /*     88d4:	afbf0a80 */ 	sw	$ra,0xa80($sp)
 /*     88d8:	44809800 */ 	mtc1	$zero,$f19
-/*     88dc:	3c168009 */ 	lui	$s6,0x8009
-/*     88e0:	26d60b10 */ 	addiu	$s6,$s6,0xb10
+/*     88dc:	3c168009 */ 	lui	$s6,%hi(var80090b10)
+/*     88e0:	26d60b10 */ 	addiu	$s6,$s6,%lo(var80090b10)
 /*     88e4:	24080008 */ 	addiu	$t0,$zero,0x8
 /*     88e8:	27aa0548 */ 	addiu	$t2,$sp,0x548
 /*     88ec:	25490240 */ 	addiu	$t1,$t2,0x240
@@ -12859,8 +12859,8 @@ glabel func000089dc
 
 GLOBAL_ASM(
 glabel func00008a08
-/*     8a08:	3c028009 */ 	lui	$v0,0x8009
-/*     8a0c:	24421558 */ 	addiu	$v0,$v0,0x1558
+/*     8a08:	3c028009 */ 	lui	$v0,%hi(var80091558)
+/*     8a0c:	24421558 */ 	addiu	$v0,$v0,%lo(var80091558)
 /*     8a10:	03e00008 */ 	jr	$ra
 /*     8a14:	8c420000 */ 	lw	$v0,0x0($v0)
 /*     8a18:	00000000 */ 	sll	$zero,$zero,0x0
@@ -12900,9 +12900,9 @@ glabel func00008a48
 /*     8a80:	468021a0 */ 	cvt.s.w	$f6,$f4
 /*     8a84:	8fa505c0 */ 	lw	$a1,0x5c0($sp)
 /*     8a88:	3c0e7001 */ 	lui	$t6,0x7001
-/*     8a8c:	3c158009 */ 	lui	$s5,0x8009
+/*     8a8c:	3c158009 */ 	lui	$s5,%hi(var80090af0)
 /*     8a90:	25ce9844 */ 	addiu	$t6,$t6,-26556
-/*     8a94:	26b50af0 */ 	addiu	$s5,$s5,0xaf0
+/*     8a94:	26b50af0 */ 	addiu	$s5,$s5,%lo(var80090af0)
 /*     8a98:	46083083 */ 	div.s	$f2,$f6,$f8
 /*     8a9c:	aca20018 */ 	sw	$v0,0x18($a1)
 /*     8aa0:	acae0010 */ 	sw	$t6,0x10($a1)
@@ -12918,8 +12918,8 @@ glabel func00008a48
 /*     8ac8:	00000000 */ 	sll	$zero,$zero,0x0
 .L00008acc:
 /*     8acc:	4600040d */ 	trunc.w.s	$f16,$f0
-/*     8ad0:	3c038009 */ 	lui	$v1,0x8009
-/*     8ad4:	246318e0 */ 	addiu	$v1,$v1,0x18e0
+/*     8ad0:	3c038009 */ 	lui	$v1,%hi(var800918e0)
+/*     8ad4:	246318e0 */ 	addiu	$v1,$v1,%lo(var800918e0)
 /*     8ad8:	44198000 */ 	mfc1	$t9,$f16
 /*     8adc:	00000000 */ 	sll	$zero,$zero,0x0
 /*     8ae0:	03201025 */ 	or	$v0,$t9,$zero
@@ -12959,33 +12959,33 @@ glabel func00008a48
 /*     8b5c:	3c018006 */ 	lui	$at,0x8006
 /*     8b60:	0c002598 */ 	jal	func00009660
 /*     8b64:	a020cf94 */ 	sb	$zero,-0x306c($at)
-/*     8b68:	3c048009 */ 	lui	$a0,0x8009
-/*     8b6c:	3c058009 */ 	lui	$a1,0x8009
-/*     8b70:	24a51860 */ 	addiu	$a1,$a1,0x1860
-/*     8b74:	24841848 */ 	addiu	$a0,$a0,0x1848
+/*     8b68:	3c048009 */ 	lui	$a0,%hi(var80091848)
+/*     8b6c:	3c058009 */ 	lui	$a1,%hi(var80091860)
+/*     8b70:	24a51860 */ 	addiu	$a1,$a1,%lo(var80091860)
+/*     8b74:	24841848 */ 	addiu	$a0,$a0,%lo(var80091848)
 /*     8b78:	0c0120d0 */ 	jal	func00048340
 /*     8b7c:	24060008 */ 	addiu	$a2,$zero,0x8
-/*     8b80:	3c048009 */ 	lui	$a0,0x8009
-/*     8b84:	3c058009 */ 	lui	$a1,0x8009
-/*     8b88:	24a51828 */ 	addiu	$a1,$a1,0x1828
-/*     8b8c:	24841810 */ 	addiu	$a0,$a0,0x1810
+/*     8b80:	3c048009 */ 	lui	$a0,%hi(var80091810)
+/*     8b84:	3c058009 */ 	lui	$a1,%hi(var80091828)
+/*     8b88:	24a51828 */ 	addiu	$a1,$a1,%lo(var80091828)
+/*     8b8c:	24841810 */ 	addiu	$a0,$a0,%lo(var80091810)
 /*     8b90:	0c0120d0 */ 	jal	func00048340
 /*     8b94:	24060008 */ 	addiu	$a2,$zero,0x8
 /*     8b98:	92af0000 */ 	lbu	$t7,0x0($s5)
-/*     8b9c:	3c128009 */ 	lui	$s2,0x8009
-/*     8ba0:	265218ec */ 	addiu	$s2,$s2,0x18ec
+/*     8b9c:	3c128009 */ 	lui	$s2,%hi(var800918ec)
+/*     8ba0:	265218ec */ 	addiu	$s2,$s2,%lo(var800918ec)
 /*     8ba4:	240e07d0 */ 	addiu	$t6,$zero,0x7d0
 /*     8ba8:	168f0003 */ 	bne	$s4,$t7,.L00008bb8
 /*     8bac:	ae4e0000 */ 	sw	$t6,0x0($s2)
 /*     8bb0:	000ec843 */ 	sra	$t9,$t6,0x1
 /*     8bb4:	ae590000 */ 	sw	$t9,0x0($s2)
 .L00008bb8:
-/*     8bb8:	3c108009 */ 	lui	$s0,0x8009
-/*     8bbc:	3c138009 */ 	lui	$s3,0x8009
-/*     8bc0:	3c118009 */ 	lui	$s1,0x8009
-/*     8bc4:	263151f0 */ 	addiu	$s1,$s1,0x51f0
-/*     8bc8:	267315d0 */ 	addiu	$s3,$s3,0x15d0
-/*     8bcc:	261015c8 */ 	addiu	$s0,$s0,0x15c8
+/*     8bb8:	3c108009 */ 	lui	$s0,%hi(var800915c8)
+/*     8bbc:	3c138009 */ 	lui	$s3,%hi(var800915d0)
+/*     8bc0:	3c118009 */ 	lui	$s1,%hi(var800951f0)
+/*     8bc4:	263151f0 */ 	addiu	$s1,$s1,%lo(var800951f0)
+/*     8bc8:	267315d0 */ 	addiu	$s3,$s3,%lo(var800915d0)
+/*     8bcc:	261015c8 */ 	addiu	$s0,$s0,%lo(var800915c8)
 .L00008bd0:
 /*     8bd0:	8e480000 */ 	lw	$t0,0x0($s2)
 /*     8bd4:	00002025 */ 	or	$a0,$zero,$zero
@@ -12999,10 +12999,10 @@ glabel func00008a48
 /*     8bf4:	0213082b */ 	sltu	$at,$s0,$s3
 /*     8bf8:	1420fff5 */ 	bnez	$at,.L00008bd0
 /*     8bfc:	ae02fffc */ 	sw	$v0,-0x4($s0)
-/*     8c00:	3c108009 */ 	lui	$s0,0x8009
-/*     8c04:	3c128009 */ 	lui	$s2,0x8009
-/*     8c08:	265215d4 */ 	addiu	$s2,$s2,0x15d4
-/*     8c0c:	261015c8 */ 	addiu	$s0,$s0,0x15c8
+/*     8c00:	3c108009 */ 	lui	$s0,%hi(var800915c8)
+/*     8c04:	3c128009 */ 	lui	$s2,%hi(var800915d4)
+/*     8c08:	265215d4 */ 	addiu	$s2,$s2,%lo(var800915d4)
+/*     8c0c:	261015c8 */ 	addiu	$s0,$s0,%lo(var800915c8)
 .L00008c10:
 /*     8c10:	240a0060 */ 	addiu	$t2,$zero,0x60
 /*     8c14:	afaa0010 */ 	sw	$t2,0x10($sp)
@@ -13025,8 +13025,8 @@ glabel func00008a48
 /*     8c58:	0212082b */ 	sltu	$at,$s0,$s2
 /*     8c5c:	1420ffec */ 	bnez	$at,.L00008c10
 /*     8c60:	ad820000 */ 	sw	$v0,0x0($t4)
-/*     8c64:	3c0e8006 */ 	lui	$t6,0x8006
-/*     8c68:	25cecf98 */ 	addiu	$t6,$t6,-12392
+/*     8c64:	3c0e8006 */ 	lui	$t6,%hi(var8005cf98)
+/*     8c68:	25cecf98 */ 	addiu	$t6,$t6,%lo(var8005cf98)
 /*     8c6c:	27a201c0 */ 	addiu	$v0,$sp,0x1c0
 /*     8c70:	27a30090 */ 	addiu	$v1,$sp,0x90
 /*     8c74:	27a50198 */ 	addiu	$a1,$sp,0x198
@@ -13044,8 +13044,8 @@ glabel func00008a48
 /*     8ca0:	15d8fff8 */ 	bne	$t6,$t8,.L00008c84
 /*     8ca4:	ada1fffc */ 	sw	$at,-0x4($t5)
 /*     8ca8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*     8cac:	3c088006 */ 	lui	$t0,0x8006
-/*     8cb0:	2508cfc0 */ 	addiu	$t0,$t0,-12352
+/*     8cac:	3c088006 */ 	lui	$t0,%hi(var8005cfc0)
+/*     8cb0:	2508cfc0 */ 	addiu	$t0,$t0,%lo(var8005cfc0)
 /*     8cb4:	250a0024 */ 	addiu	$t2,$t0,0x24
 /*     8cb8:	27b90568 */ 	addiu	$t9,$sp,0x568
 /*     8cbc:	ada10000 */ 	sw	$at,0x0($t5)
@@ -13060,8 +13060,8 @@ glabel func00008a48
 /*     8cdc:	150afff8 */ 	bne	$t0,$t2,.L00008cc0
 /*     8ce0:	af21fffc */ 	sw	$at,-0x4($t9)
 /*     8ce4:	8d010000 */ 	lw	$at,0x0($t0)
-/*     8ce8:	3c0c8006 */ 	lui	$t4,0x8006
-/*     8cec:	258ccfe8 */ 	addiu	$t4,$t4,-12312
+/*     8ce8:	3c0c8006 */ 	lui	$t4,%hi(var8005cfe8)
+/*     8cec:	258ccfe8 */ 	addiu	$t4,$t4,%lo(var8005cfe8)
 /*     8cf0:	25980024 */ 	addiu	$t8,$t4,0x24
 /*     8cf4:	27ab0540 */ 	addiu	$t3,$sp,0x540
 /*     8cf8:	af210000 */ 	sw	$at,0x0($t9)
@@ -13076,8 +13076,8 @@ glabel func00008a48
 /*     8d18:	1598fff8 */ 	bne	$t4,$t8,.L00008cfc
 /*     8d1c:	ad61fffc */ 	sw	$at,-0x4($t3)
 /*     8d20:	8d810000 */ 	lw	$at,0x0($t4)
-/*     8d24:	3c0d8006 */ 	lui	$t5,0x8006
-/*     8d28:	25add010 */ 	addiu	$t5,$t5,-12272
+/*     8d24:	3c0d8006 */ 	lui	$t5,%hi(var8005d010)
+/*     8d28:	25add010 */ 	addiu	$t5,$t5,%lo(var8005d010)
 /*     8d2c:	25aa00c0 */ 	addiu	$t2,$t5,0xc0
 /*     8d30:	27ae0478 */ 	addiu	$t6,$sp,0x478
 /*     8d34:	ad610000 */ 	sw	$at,0x0($t3)
@@ -13093,8 +13093,8 @@ glabel func00008a48
 /*     8d58:	adc1fffc */ 	sw	$at,-0x4($t6)
 /*     8d5c:	8da10000 */ 	lw	$at,0x0($t5)
 /*     8d60:	8daa0004 */ 	lw	$t2,0x4($t5)
-/*     8d64:	3c198006 */ 	lui	$t9,0x8006
-/*     8d68:	2739d0d8 */ 	addiu	$t9,$t9,-12072
+/*     8d64:	3c198006 */ 	lui	$t9,%hi(var8005d0d8)
+/*     8d68:	2739d0d8 */ 	addiu	$t9,$t9,%lo(var8005d0d8)
 /*     8d6c:	27380048 */ 	addiu	$t8,$t9,0x48
 /*     8d70:	27a80430 */ 	addiu	$t0,$sp,0x430
 /*     8d74:	adc10000 */ 	sw	$at,0x0($t6)
@@ -13109,8 +13109,8 @@ glabel func00008a48
 /*     8d94:	8f21fffc */ 	lw	$at,-0x4($t9)
 /*     8d98:	1738fff8 */ 	bne	$t9,$t8,.L00008d7c
 /*     8d9c:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*     8da0:	3c0b8006 */ 	lui	$t3,0x8006
-/*     8da4:	256bd120 */ 	addiu	$t3,$t3,-12000
+/*     8da0:	3c0b8006 */ 	lui	$t3,%hi(var8005d120)
+/*     8da4:	256bd120 */ 	addiu	$t3,$t3,%lo(var8005d120)
 /*     8da8:	256a0060 */ 	addiu	$t2,$t3,0x60
 /*     8dac:	27ac03c8 */ 	addiu	$t4,$sp,0x3c8
 .L00008db0:
@@ -13125,8 +13125,8 @@ glabel func00008a48
 /*     8dd0:	ad81fffc */ 	sw	$at,-0x4($t4)
 /*     8dd4:	8d610000 */ 	lw	$at,0x0($t3)
 /*     8dd8:	8d6a0004 */ 	lw	$t2,0x4($t3)
-/*     8ddc:	3c0e8006 */ 	lui	$t6,0x8006
-/*     8de0:	25ced188 */ 	addiu	$t6,$t6,-11896
+/*     8ddc:	3c0e8006 */ 	lui	$t6,%hi(var8005d188)
+/*     8de0:	25ced188 */ 	addiu	$t6,$t6,%lo(var8005d188)
 /*     8de4:	25d80060 */ 	addiu	$t8,$t6,0x60
 /*     8de8:	27ad0360 */ 	addiu	$t5,$sp,0x360
 /*     8dec:	ad810000 */ 	sw	$at,0x0($t4)
@@ -13143,8 +13143,8 @@ glabel func00008a48
 /*     8e14:	ada1fffc */ 	sw	$at,-0x4($t5)
 /*     8e18:	8dc10000 */ 	lw	$at,0x0($t6)
 /*     8e1c:	8dd80004 */ 	lw	$t8,0x4($t6)
-/*     8e20:	3c088006 */ 	lui	$t0,0x8006
-/*     8e24:	2508d1f0 */ 	addiu	$t0,$t0,-11792
+/*     8e20:	3c088006 */ 	lui	$t0,%hi(var8005d1f0)
+/*     8e24:	2508d1f0 */ 	addiu	$t0,$t0,%lo(var8005d1f0)
 /*     8e28:	250a0060 */ 	addiu	$t2,$t0,0x60
 /*     8e2c:	27b902f8 */ 	addiu	$t9,$sp,0x2f8
 /*     8e30:	ada10000 */ 	sw	$at,0x0($t5)
@@ -13161,8 +13161,8 @@ glabel func00008a48
 /*     8e58:	af21fffc */ 	sw	$at,-0x4($t9)
 /*     8e5c:	8d010000 */ 	lw	$at,0x0($t0)
 /*     8e60:	8d0a0004 */ 	lw	$t2,0x4($t0)
-/*     8e64:	3c0c8006 */ 	lui	$t4,0x8006
-/*     8e68:	258cd258 */ 	addiu	$t4,$t4,-11688
+/*     8e64:	3c0c8006 */ 	lui	$t4,%hi(var8005d258)
+/*     8e68:	258cd258 */ 	addiu	$t4,$t4,%lo(var8005d258)
 /*     8e6c:	25980084 */ 	addiu	$t8,$t4,0x84
 /*     8e70:	27ab0270 */ 	addiu	$t3,$sp,0x270
 /*     8e74:	af210000 */ 	sw	$at,0x0($t9)
@@ -13178,8 +13178,8 @@ glabel func00008a48
 /*     8e98:	1598fff8 */ 	bne	$t4,$t8,.L00008e7c
 /*     8e9c:	ad61fffc */ 	sw	$at,-0x4($t3)
 /*     8ea0:	8d810000 */ 	lw	$at,0x0($t4)
-/*     8ea4:	3c0d8006 */ 	lui	$t5,0x8006
-/*     8ea8:	25add2e0 */ 	addiu	$t5,$t5,-11552
+/*     8ea4:	3c0d8006 */ 	lui	$t5,%hi(var8005d2e0)
+/*     8ea8:	25add2e0 */ 	addiu	$t5,$t5,%lo(var8005d2e0)
 /*     8eac:	25aa0024 */ 	addiu	$t2,$t5,0x24
 /*     8eb0:	27ae0248 */ 	addiu	$t6,$sp,0x248
 /*     8eb4:	ad610000 */ 	sw	$at,0x0($t3)
@@ -13194,8 +13194,8 @@ glabel func00008a48
 /*     8ed4:	15aafff8 */ 	bne	$t5,$t2,.L00008eb8
 /*     8ed8:	adc1fffc */ 	sw	$at,-0x4($t6)
 /*     8edc:	8da10000 */ 	lw	$at,0x0($t5)
-/*     8ee0:	3c088006 */ 	lui	$t0,0x8006
-/*     8ee4:	2508d308 */ 	addiu	$t0,$t0,-11512
+/*     8ee0:	3c088006 */ 	lui	$t0,%hi(var8005d308)
+/*     8ee4:	2508d308 */ 	addiu	$t0,$t0,%lo(var8005d308)
 /*     8ee8:	250f0084 */ 	addiu	$t7,$t0,0x84
 /*     8eec:	0040c025 */ 	or	$t8,$v0,$zero
 /*     8ef0:	adc10000 */ 	sw	$at,0x0($t6)
@@ -13210,8 +13210,8 @@ glabel func00008a48
 /*     8f10:	150ffff8 */ 	bne	$t0,$t7,.L00008ef4
 /*     8f14:	af01fffc */ 	sw	$at,-0x4($t8)
 /*     8f18:	8d010000 */ 	lw	$at,0x0($t0)
-/*     8f1c:	3c0c8006 */ 	lui	$t4,0x8006
-/*     8f20:	258cd390 */ 	addiu	$t4,$t4,-11376
+/*     8f1c:	3c0c8006 */ 	lui	$t4,%hi(var8005d390)
+/*     8f20:	258cd390 */ 	addiu	$t4,$t4,%lo(var8005d390)
 /*     8f24:	25890024 */ 	addiu	$t1,$t4,0x24
 /*     8f28:	00a05025 */ 	or	$t2,$a1,$zero
 /*     8f2c:	af010000 */ 	sw	$at,0x0($t8)
@@ -13226,8 +13226,8 @@ glabel func00008a48
 /*     8f4c:	1589fff8 */ 	bne	$t4,$t1,.L00008f30
 /*     8f50:	ad41fffc */ 	sw	$at,-0x4($t2)
 /*     8f54:	8d810000 */ 	lw	$at,0x0($t4)
-/*     8f58:	3c0d8006 */ 	lui	$t5,0x8006
-/*     8f5c:	25add3b8 */ 	addiu	$t5,$t5,-11336
+/*     8f58:	3c0d8006 */ 	lui	$t5,%hi(var8005d3b8)
+/*     8f5c:	25add3b8 */ 	addiu	$t5,$t5,%lo(var8005d3b8)
 /*     8f60:	25b90108 */ 	addiu	$t9,$t5,0x108
 /*     8f64:	00607825 */ 	or	$t7,$v1,$zero
 /*     8f68:	ad410000 */ 	sw	$at,0x0($t2)
@@ -13241,8 +13241,8 @@ glabel func00008a48
 /*     8f84:	8da1fffc */ 	lw	$at,-0x4($t5)
 /*     8f88:	15b9fff8 */ 	bne	$t5,$t9,.L00008f6c
 /*     8f8c:	ade1fffc */ 	sw	$at,-0x4($t7)
-/*     8f90:	3c088006 */ 	lui	$t0,0x8006
-/*     8f94:	2508d4c0 */ 	addiu	$t0,$t0,-11072
+/*     8f90:	3c088006 */ 	lui	$t0,%hi(var8005d4c0)
+/*     8f94:	2508d4c0 */ 	addiu	$t0,$t0,%lo(var8005d4c0)
 /*     8f98:	250b0024 */ 	addiu	$t3,$t0,0x24
 /*     8f9c:	00c04825 */ 	or	$t1,$a2,$zero
 .L00008fa0:
@@ -13256,8 +13256,8 @@ glabel func00008a48
 /*     8fbc:	150bfff8 */ 	bne	$t0,$t3,.L00008fa0
 /*     8fc0:	ad21fffc */ 	sw	$at,-0x4($t1)
 /*     8fc4:	8d010000 */ 	lw	$at,0x0($t0)
-/*     8fc8:	3c0a8006 */ 	lui	$t2,0x8006
-/*     8fcc:	254ad4e8 */ 	addiu	$t2,$t2,-11032
+/*     8fc8:	3c0a8006 */ 	lui	$t2,%hi(var8005d4e8)
+/*     8fcc:	254ad4e8 */ 	addiu	$t2,$t2,%lo(var8005d4e8)
 /*     8fd0:	25590024 */ 	addiu	$t9,$t2,0x24
 /*     8fd4:	27ac0040 */ 	addiu	$t4,$sp,0x40
 /*     8fd8:	ad210000 */ 	sw	$at,0x0($t1)
@@ -13283,8 +13283,8 @@ glabel func00008a48
 .L00009024:
 /*     9024:	ace30020 */ 	sw	$v1,0x20($a3)
 .L00009028:
-/*     9028:	3c048009 */ 	lui	$a0,0x8009
-/*     902c:	24844ea8 */ 	addiu	$a0,$a0,0x4ea8
+/*     9028:	3c048009 */ 	lui	$a0,%hi(var80094ea8)
+/*     902c:	24844ea8 */ 	addiu	$a0,$a0,%lo(var80094ea8)
 /*     9030:	8c820000 */ 	lw	$v0,0x0($a0)
 /*     9034:	28410002 */ 	slti	$at,$v0,0x2
 /*     9038:	14200010 */ 	bnez	$at,.L0000907c
@@ -13307,8 +13307,8 @@ glabel func00008a48
 /*     9074:	5420fff6 */ 	bnezl	$at,.L00009050
 /*     9078:	92b80000 */ 	lbu	$t8,0x0($s5)
 .L0000907c:
-/*     907c:	3c048009 */ 	lui	$a0,0x8009
-/*     9080:	24841880 */ 	addiu	$a0,$a0,0x1880
+/*     907c:	3c048009 */ 	lui	$a0,%hi(var80091880)
+/*     9080:	24841880 */ 	addiu	$a0,$a0,%lo(var80091880)
 /*     9084:	0c00bee8 */ 	jal	func0002fba0
 /*     9088:	00e02825 */ 	or	$a1,$a3,$zero
 /*     908c:	00002025 */ 	or	$a0,$zero,$zero
@@ -13316,12 +13316,12 @@ glabel func00008a48
 /*     9094:	2405003c */ 	addiu	$a1,$zero,0x3c
 /*     9098:	3c088009 */ 	lui	$t0,0x8009
 /*     909c:	8d0818f0 */ 	lw	$t0,0x18f0($t0)
-/*     90a0:	3c048009 */ 	lui	$a0,0x8009
+/*     90a0:	3c048009 */ 	lui	$a0,%hi(var800915e0)
 /*     90a4:	3c067001 */ 	lui	$a2,0x7001
 /*     90a8:	24090014 */ 	addiu	$t1,$zero,0x14
 /*     90ac:	afa90014 */ 	sw	$t1,0x14($sp)
 /*     90b0:	24c69154 */ 	addiu	$a2,$a2,-28332
-/*     90b4:	248415e0 */ 	addiu	$a0,$a0,0x15e0
+/*     90b4:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
 /*     90b8:	24050004 */ 	addiu	$a1,$zero,0x4
 /*     90bc:	00003825 */ 	or	$a3,$zero,$zero
 /*     90c0:	0c000fb8 */ 	jal	func00003ee0
@@ -13341,9 +13341,9 @@ GLOBAL_ASM(
 glabel func000090ec
 /*     90ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     90f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     90f4:	3c048009 */ 	lui	$a0,0x8009
+/*     90f4:	3c048009 */ 	lui	$a0,%hi(var800915e0)
 /*     90f8:	0c01207c */ 	jal	func000481f0
-/*     90fc:	248415e0 */ 	addiu	$a0,$a0,0x15e0
+/*     90fc:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
 /*     9100:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     9104:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*     9108:	3c018006 */ 	lui	$at,0x8006
@@ -13354,9 +13354,9 @@ glabel func000090ec
 
 GLOBAL_ASM(
 glabel func00009118
-/*     9118:	3c028009 */ 	lui	$v0,0x8009
+/*     9118:	3c028009 */ 	lui	$v0,%hi(var80091810)
 /*     911c:	03e00008 */ 	jr	$ra
-/*     9120:	24421810 */ 	addiu	$v0,$v0,0x1810
+/*     9120:	24421810 */ 	addiu	$v0,$v0,%lo(var80091810)
 );
 
 GLOBAL_ASM(
@@ -13366,9 +13366,9 @@ glabel func00009124
 /*     912c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     9130:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     9134:	11c00003 */ 	beqz	$t6,.L00009144
-/*     9138:	3c048009 */ 	lui	$a0,0x8009
+/*     9138:	3c048009 */ 	lui	$a0,%hi(var800915e0)
 /*     913c:	0c0120dc */ 	jal	func00048370
-/*     9140:	248415e0 */ 	addiu	$a0,$a0,0x15e0
+/*     9140:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
 .L00009144:
 /*     9144:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     9148:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -13383,9 +13383,9 @@ glabel func00009124
 /*     916c:	afb30024 */ 	sw	$s3,0x24($sp)
 /*     9170:	afb20020 */ 	sw	$s2,0x20($sp)
 /*     9174:	2dce0001 */ 	sltiu	$t6,$t6,0x1
-/*     9178:	3c048009 */ 	lui	$a0,0x8009
-/*     917c:	3c058009 */ 	lui	$a1,0x8009
-/*     9180:	3c068009 */ 	lui	$a2,0x8009
+/*     9178:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
+/*     917c:	3c058009 */ 	lui	$a1,%hi(var800918d0)
+/*     9180:	3c068009 */ 	lui	$a2,%hi(var80091810)
 /*     9184:	afbe0038 */ 	sw	$s8,0x38($sp)
 /*     9188:	afb70034 */ 	sw	$s7,0x34($sp)
 /*     918c:	afb60030 */ 	sw	$s6,0x30($sp)
@@ -13397,25 +13397,25 @@ glabel func00009124
 /*     91a4:	00009825 */ 	or	$s3,$zero,$zero
 /*     91a8:	afa00064 */ 	sw	$zero,0x64($sp)
 /*     91ac:	afa00060 */ 	sw	$zero,0x60($sp)
-/*     91b0:	24c61810 */ 	addiu	$a2,$a2,0x1810
-/*     91b4:	24a518d0 */ 	addiu	$a1,$a1,0x18d0
-/*     91b8:	2484dbd0 */ 	addiu	$a0,$a0,-9264
+/*     91b0:	24c61810 */ 	addiu	$a2,$a2,%lo(var80091810)
+/*     91b4:	24a518d0 */ 	addiu	$a1,$a1,%lo(var800918d0)
+/*     91b8:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
 /*     91bc:	0c00078c */ 	jal	func00001e30
 /*     91c0:	2dc70001 */ 	sltiu	$a3,$t6,0x1
-/*     91c4:	3c158009 */ 	lui	$s5,0x8009
-/*     91c8:	3c148009 */ 	lui	$s4,0x8009
-/*     91cc:	3c118009 */ 	lui	$s1,0x8009
-/*     91d0:	3c108009 */ 	lui	$s0,0x8009
-/*     91d4:	26101580 */ 	addiu	$s0,$s0,0x1580
-/*     91d8:	26311568 */ 	addiu	$s1,$s1,0x1568
-/*     91dc:	26941588 */ 	addiu	$s4,$s4,0x1588
-/*     91e0:	26b51590 */ 	addiu	$s5,$s5,0x1590
+/*     91c4:	3c158009 */ 	lui	$s5,%hi(var80091590)
+/*     91c8:	3c148009 */ 	lui	$s4,%hi(var80091588)
+/*     91cc:	3c118009 */ 	lui	$s1,%hi(var80091568)
+/*     91d0:	3c108009 */ 	lui	$s0,%hi(var80091580)
+/*     91d4:	26101580 */ 	addiu	$s0,$s0,%lo(var80091580)
+/*     91d8:	26311568 */ 	addiu	$s1,$s1,%lo(var80091568)
+/*     91dc:	26941588 */ 	addiu	$s4,$s4,%lo(var80091588)
+/*     91e0:	26b51590 */ 	addiu	$s5,$s5,%lo(var80091590)
 /*     91e4:	241e0005 */ 	addiu	$s8,$zero,0x5
 /*     91e8:	24170004 */ 	addiu	$s7,$zero,0x4
 /*     91ec:	27b60064 */ 	addiu	$s6,$sp,0x64
 .L000091f0:
-/*     91f0:	3c048009 */ 	lui	$a0,0x8009
-/*     91f4:	24841810 */ 	addiu	$a0,$a0,0x1810
+/*     91f0:	3c048009 */ 	lui	$a0,%hi(var80091810)
+/*     91f4:	24841810 */ 	addiu	$a0,$a0,%lo(var80091810)
 /*     91f8:	02c02825 */ 	or	$a1,$s6,$zero
 /*     91fc:	0c0121bc */ 	jal	func000486f0
 /*     9200:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -13537,8 +13537,8 @@ glabel func00009124
 /*     93c0:	ae2f0004 */ 	sw	$t7,0x4($s1)
 .L000093c4:
 /*     93c4:	8f18d514 */ 	lw	$t8,-0x2aec($t8)
-/*     93c8:	3c048009 */ 	lui	$a0,0x8009
-/*     93cc:	24841848 */ 	addiu	$a0,$a0,0x1848
+/*     93c8:	3c048009 */ 	lui	$a0,%hi(var80091848)
+/*     93cc:	24841848 */ 	addiu	$a0,$a0,%lo(var80091848)
 /*     93d0:	17000003 */ 	bnez	$t8,.L000093e0
 /*     93d4:	27a50060 */ 	addiu	$a1,$sp,0x60
 /*     93d8:	0c0121bc */ 	jal	func000486f0
@@ -13557,9 +13557,9 @@ glabel func00009124
 .L00009404:
 /*     9404:	1260ff7a */ 	beqz	$s3,.L000091f0
 /*     9408:	00000000 */ 	sll	$zero,$zero,0x0
-/*     940c:	3c048009 */ 	lui	$a0,0x8009
+/*     940c:	3c048009 */ 	lui	$a0,%hi(var80091880)
 /*     9410:	0c00bf03 */ 	jal	func0002fc0c
-/*     9414:	24841880 */ 	addiu	$a0,$a0,0x1880
+/*     9414:	24841880 */ 	addiu	$a0,$a0,%lo(var80091880)
 /*     9418:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*     941c:	8fb00018 */ 	lw	$s0,0x18($sp)
 /*     9420:	8fb1001c */ 	lw	$s1,0x1c($sp)
@@ -13584,10 +13584,10 @@ glabel func00009448
 /*     945c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*     9460:	10c00007 */ 	beqz	$a2,.L00009480
 /*     9464:	afa50034 */ 	sw	$a1,0x34($sp)
-/*     9468:	3c048009 */ 	lui	$a0,0x8009
+/*     9468:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
 /*     946c:	3c018009 */ 	lui	$at,0x8009
 /*     9470:	ac2618f4 */ 	sw	$a2,0x18f4($at)
-/*     9474:	2484dbd0 */ 	addiu	$a0,$a0,-9264
+/*     9474:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
 /*     9478:	0c0007ea */ 	jal	func00001fa8
 /*     947c:	00c02825 */ 	or	$a1,$a2,$zero
 .L00009480:
@@ -13619,12 +13619,12 @@ glabel func00009448
 /*     94e4:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*     94e8:	8fab002c */ 	lw	$t3,0x2c($sp)
 .L000094ec:
-/*     94ec:	3c058009 */ 	lui	$a1,0x8009
-/*     94f0:	3c038006 */ 	lui	$v1,0x8006
+/*     94ec:	3c058009 */ 	lui	$a1,%hi(var800918e8)
+/*     94f0:	3c038006 */ 	lui	$v1,%hi(var8005cf94)
 /*     94f4:	2d6100f9 */ 	sltiu	$at,$t3,0xf9
 /*     94f8:	1420000b */ 	bnez	$at,.L00009528
-/*     94fc:	24a518e8 */ 	addiu	$a1,$a1,0x18e8
-/*     9500:	2463cf94 */ 	addiu	$v1,$v1,-12396
+/*     94fc:	24a518e8 */ 	addiu	$a1,$a1,%lo(var800918e8)
+/*     9500:	2463cf94 */ 	addiu	$v1,$v1,%lo(var8005cf94)
 /*     9504:	906c0000 */ 	lbu	$t4,0x0($v1)
 /*     9508:	3c0d8009 */ 	lui	$t5,0x8009
 /*     950c:	15800006 */ 	bnez	$t4,.L00009528
@@ -13637,8 +13637,8 @@ glabel func00009448
 .L00009528:
 /*     9528:	3c0f8009 */ 	lui	$t7,0x8009
 /*     952c:	8def18e0 */ 	lw	$t7,0x18e0($t7)
-/*     9530:	3c038006 */ 	lui	$v1,0x8006
-/*     9534:	2463cf94 */ 	addiu	$v1,$v1,-12396
+/*     9530:	3c038006 */ 	lui	$v1,%hi(var8005cf94)
+/*     9534:	2463cf94 */ 	addiu	$v1,$v1,%lo(var8005cf94)
 /*     9538:	a60f0004 */ 	sh	$t7,0x4($s0)
 /*     953c:	90620000 */ 	lbu	$v0,0x0($v1)
 /*     9540:	10400002 */ 	beqz	$v0,.L0000954c
@@ -13649,18 +13649,18 @@ glabel func00009448
 /*     9550:	0c00c4b9 */ 	jal	func000312e4
 /*     9554:	86070004 */ 	lh	$a3,0x4($s0)
 /*     9558:	26060008 */ 	addiu	$a2,$s0,0x8
-/*     955c:	3c038006 */ 	lui	$v1,0x8006
-/*     9560:	3c088006 */ 	lui	$t0,0x8006
-/*     9564:	24639fe0 */ 	addiu	$v1,$v1,-24608
+/*     955c:	3c038006 */ 	lui	$v1,%hi(var80059fe0)
+/*     9560:	3c088006 */ 	lui	$t0,%hi(var8005a0b0)
+/*     9564:	24639fe0 */ 	addiu	$v1,$v1,%lo(var80059fe0)
 /*     9568:	24040002 */ 	addiu	$a0,$zero,0x2
-/*     956c:	3c198009 */ 	lui	$t9,0x8009
-/*     9570:	2508a0b0 */ 	addiu	$t0,$t0,-24400
-/*     9574:	3c0a8006 */ 	lui	$t2,0x8006
-/*     9578:	3c0b8009 */ 	lui	$t3,0x8009
-/*     957c:	27391848 */ 	addiu	$t9,$t9,0x1848
+/*     956c:	3c198009 */ 	lui	$t9,%hi(var80091848)
+/*     9570:	2508a0b0 */ 	addiu	$t0,$t0,%lo(var8005a0b0)
+/*     9574:	3c0a8006 */ 	lui	$t2,%hi(var8005b4d0)
+/*     9578:	3c0b8009 */ 	lui	$t3,%hi(var8008a2d0)
+/*     957c:	27391848 */ 	addiu	$t9,$t9,%lo(var80091848)
 /*     9580:	01034823 */ 	subu	$t1,$t0,$v1
-/*     9584:	254ab4d0 */ 	addiu	$t2,$t2,-19248
-/*     9588:	256ba2d0 */ 	addiu	$t3,$t3,-23856
+/*     9584:	254ab4d0 */ 	addiu	$t2,$t2,%lo(var8005b4d0)
+/*     9588:	256ba2d0 */ 	addiu	$t3,$t3,%lo(var8008a2d0)
 /*     958c:	240c1000 */ 	addiu	$t4,$zero,0x1000
 /*     9590:	240d0800 */ 	addiu	$t5,$zero,0x800
 /*     9594:	acc00000 */ 	sw	$zero,0x0($a2)
@@ -13684,9 +13684,9 @@ glabel func00009448
 /*     95dc:	004fc023 */ 	subu	$t8,$v0,$t7
 /*     95e0:	0018c8c3 */ 	sra	$t9,$t8,0x3
 /*     95e4:	001940c0 */ 	sll	$t0,$t9,0x3
-/*     95e8:	3c028006 */ 	lui	$v0,0x8006
+/*     95e8:	3c028006 */ 	lui	$v0,%hi(var8005cf90)
 /*     95ec:	acc80044 */ 	sw	$t0,0x44($a2)
-/*     95f0:	2442cf90 */ 	addiu	$v0,$v0,-12400
+/*     95f0:	2442cf90 */ 	addiu	$v0,$v0,%lo(var8005cf90)
 /*     95f4:	8c490000 */ 	lw	$t1,0x0($v0)
 /*     95f8:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*     95fc:	8fb00018 */ 	lw	$s0,0x18($sp)
@@ -13726,10 +13726,10 @@ GLOBAL_ASM(
 glabel func00009660
 /*     9660:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     9664:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     9668:	3c048009 */ 	lui	$a0,0x8009
-/*     966c:	3c058009 */ 	lui	$a1,0x8009
-/*     9670:	24a526e8 */ 	addiu	$a1,$a1,0x26e8
-/*     9674:	248426d0 */ 	addiu	$a0,$a0,0x26d0
+/*     9668:	3c048009 */ 	lui	$a0,%hi(var800926d0)
+/*     966c:	3c058009 */ 	lui	$a1,%hi(var800926e8)
+/*     9670:	24a526e8 */ 	addiu	$a1,$a1,%lo(var800926e8)
+/*     9674:	248426d0 */ 	addiu	$a0,$a0,%lo(var800926d0)
 /*     9678:	0c0120d0 */ 	jal	func00048340
 /*     967c:	24060050 */ 	addiu	$a2,$zero,0x50
 /*     9680:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -13737,8 +13737,8 @@ glabel func00009660
 /*     9688:	03e00008 */ 	jr	$ra
 /*     968c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     9690:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*     9694:	3c088009 */ 	lui	$t0,0x8009
-/*     9698:	25081900 */ 	addiu	$t0,$t0,0x1900
+/*     9694:	3c088009 */ 	lui	$t0,%hi(var80091900)
+/*     9698:	25081900 */ 	addiu	$t0,$t0,%lo(var80091900)
 /*     969c:	afb10028 */ 	sw	$s1,0x28($sp)
 /*     96a0:	8d110004 */ 	lw	$s1,0x4($t0)
 /*     96a4:	afb00024 */ 	sw	$s0,0x24($sp)
@@ -13784,8 +13784,8 @@ glabel func00009660
 /*     9734:	afa60034 */ 	sw	$a2,0x34($sp)
 /*     9738:	0c00c5e9 */ 	jal	func000317a4
 /*     973c:	ad090008 */ 	sw	$t1,0x8($t0)
-/*     9740:	3c088009 */ 	lui	$t0,0x8009
-/*     9744:	25081900 */ 	addiu	$t0,$t0,0x1900
+/*     9740:	3c088009 */ 	lui	$t0,%hi(var80091900)
+/*     9744:	25081900 */ 	addiu	$t0,$t0,%lo(var80091900)
 /*     9748:	8fa60034 */ 	lw	$a2,0x34($sp)
 /*     974c:	12000009 */ 	beqz	$s0,.L00009774
 /*     9750:	8fa70040 */ 	lw	$a3,0x40($sp)
@@ -13823,16 +13823,16 @@ glabel func00009660
 /*     97c4:	00e12025 */ 	or	$a0,$a3,$at
 /*     97c8:	0c013920 */ 	jal	func0004e480
 /*     97cc:	24050400 */ 	addiu	$a1,$zero,0x400
-/*     97d0:	3c038006 */ 	lui	$v1,0x8006
-/*     97d4:	2463d520 */ 	addiu	$v1,$v1,-10976
+/*     97d0:	3c038006 */ 	lui	$v1,%hi(var8005d520)
+/*     97d4:	2463d520 */ 	addiu	$v1,$v1,%lo(var8005d520)
 /*     97d8:	8c620000 */ 	lw	$v0,0x0($v1)
-/*     97dc:	3c0c8009 */ 	lui	$t4,0x8009
-/*     97e0:	3c0e8009 */ 	lui	$t6,0x8009
+/*     97dc:	3c0c8009 */ 	lui	$t4,%hi(var80091f50)
+/*     97e0:	3c0e8009 */ 	lui	$t6,%hi(var800926d0)
 /*     97e4:	00025880 */ 	sll	$t3,$v0,0x2
 /*     97e8:	01625823 */ 	subu	$t3,$t3,$v0
 /*     97ec:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*     97f0:	25ce26d0 */ 	addiu	$t6,$t6,0x26d0
-/*     97f4:	258c1f50 */ 	addiu	$t4,$t4,0x1f50
+/*     97f0:	25ce26d0 */ 	addiu	$t6,$t6,%lo(var800926d0)
+/*     97f4:	258c1f50 */ 	addiu	$t4,$t4,%lo(var80091f50)
 /*     97f8:	240d0400 */ 	addiu	$t5,$zero,0x400
 /*     97fc:	244f0001 */ 	addiu	$t7,$v0,0x1
 /*     9800:	8fa70040 */ 	lw	$a3,0x40($sp)
@@ -13870,22 +13870,22 @@ glabel func00009660
 .L0000987c:
 /*     987c:	24020050 */ 	addiu	$v0,$zero,0x50
 .L00009880:
-/*     9880:	3c038009 */ 	lui	$v1,0x8009
-/*     9884:	24631900 */ 	addiu	$v1,$v1,0x1900
+/*     9880:	3c038009 */ 	lui	$v1,%hi(var80091900)
+/*     9884:	24631900 */ 	addiu	$v1,$v1,%lo(var80091900)
 /*     9888:	906f0000 */ 	lbu	$t7,0x0($v1)
-/*     988c:	3c188009 */ 	lui	$t8,0x8009
-/*     9890:	27181910 */ 	addiu	$t8,$t8,0x1910
+/*     988c:	3c188009 */ 	lui	$t8,%hi(var80091910)
+/*     9890:	27181910 */ 	addiu	$t8,$t8,%lo(var80091910)
 /*     9894:	15e0001d */ 	bnez	$t7,.L0000990c
 /*     9898:	00008825 */ 	or	$s1,$zero,$zero
 /*     989c:	2453ffff */ 	addiu	$s3,$v0,-1
 /*     98a0:	1a600018 */ 	blez	$s3,.L00009904
 /*     98a4:	ac780008 */ 	sw	$t8,0x8($v1)
-/*     98a8:	3c108009 */ 	lui	$s0,0x8009
-/*     98ac:	3c128009 */ 	lui	$s2,0x8009
-/*     98b0:	3c148009 */ 	lui	$s4,0x8009
-/*     98b4:	269451f0 */ 	addiu	$s4,$s4,0x51f0
-/*     98b8:	26521924 */ 	addiu	$s2,$s2,0x1924
-/*     98bc:	26101910 */ 	addiu	$s0,$s0,0x1910
+/*     98a8:	3c108009 */ 	lui	$s0,%hi(var80091910)
+/*     98ac:	3c128009 */ 	lui	$s2,%hi(var80091924)
+/*     98b0:	3c148009 */ 	lui	$s4,%hi(var800951f0)
+/*     98b4:	269451f0 */ 	addiu	$s4,$s4,%lo(var800951f0)
+/*     98b8:	26521924 */ 	addiu	$s2,$s2,%lo(var80091924)
+/*     98bc:	26101910 */ 	addiu	$s0,$s0,%lo(var80091910)
 .L000098c0:
 /*     98c0:	02402025 */ 	or	$a0,$s2,$zero
 /*     98c4:	0c00c5dc */ 	jal	func00031770
@@ -13902,8 +13902,8 @@ glabel func00009660
 /*     98f0:	26520014 */ 	addiu	$s2,$s2,0x14
 /*     98f4:	1633fff2 */ 	bne	$s1,$s3,.L000098c0
 /*     98f8:	ae02fffc */ 	sw	$v0,-0x4($s0)
-/*     98fc:	3c038009 */ 	lui	$v1,0x8009
-/*     9900:	24631900 */ 	addiu	$v1,$v1,0x1900
+/*     98fc:	3c038009 */ 	lui	$v1,%hi(var80091900)
+/*     9900:	24631900 */ 	addiu	$v1,$v1,%lo(var80091900)
 .L00009904:
 /*     9904:	24080001 */ 	addiu	$t0,$zero,0x1
 /*     9908:	a0680000 */ 	sb	$t0,0x0($v1)
@@ -13926,16 +13926,16 @@ GLOBAL_ASM(
 glabel func0000993c
 /*     993c:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*     9940:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*     9944:	3c128009 */ 	lui	$s2,0x8009
-/*     9948:	26521900 */ 	addiu	$s2,$s2,0x1900
+/*     9944:	3c128009 */ 	lui	$s2,%hi(var80091900)
+/*     9948:	26521900 */ 	addiu	$s2,$s2,%lo(var80091900)
 /*     994c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*     9950:	8e500004 */ 	lw	$s0,0x4($s2)
 /*     9954:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*     9958:	afb30020 */ 	sw	$s3,0x20($sp)
 /*     995c:	1200001c */ 	beqz	$s0,.L000099d0
 /*     9960:	afb10018 */ 	sw	$s1,0x18($sp)
-/*     9964:	3c138009 */ 	lui	$s3,0x8009
-/*     9968:	26732828 */ 	addiu	$s3,$s3,0x2828
+/*     9964:	3c138009 */ 	lui	$s3,%hi(var80092828)
+/*     9968:	26732828 */ 	addiu	$s3,$s3,%lo(var80092828)
 .L0000996c:
 /*     996c:	8e0f000c */ 	lw	$t7,0xc($s0)
 /*     9970:	8e6e0000 */ 	lw	$t6,0x0($s3)
@@ -13966,8 +13966,8 @@ glabel func0000993c
 /*     99c8:	1620ffe8 */ 	bnez	$s1,.L0000996c
 /*     99cc:	02208025 */ 	or	$s0,$s1,$zero
 .L000099d0:
-/*     99d0:	3c138009 */ 	lui	$s3,0x8009
-/*     99d4:	26732828 */ 	addiu	$s3,$s3,0x2828
+/*     99d0:	3c138009 */ 	lui	$s3,%hi(var80092828)
+/*     99d4:	26732828 */ 	addiu	$s3,$s3,%lo(var80092828)
 /*     99d8:	8e680000 */ 	lw	$t0,0x0($s3)
 /*     99dc:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*     99e0:	3c018006 */ 	lui	$at,0x8006
@@ -13986,8 +13986,8 @@ GLOBAL_ASM(
 glabel func00009a08
 /*     9a08:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*     9a0c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*     9a10:	3c138006 */ 	lui	$s3,0x8006
-/*     9a14:	2673d520 */ 	addiu	$s3,$s3,-10976
+/*     9a10:	3c138006 */ 	lui	$s3,%hi(var8005d520)
+/*     9a14:	2673d520 */ 	addiu	$s3,$s3,%lo(var8005d520)
 /*     9a18:	8e6e0000 */ 	lw	$t6,0x0($s3)
 /*     9a1c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*     9a20:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -13995,8 +13995,8 @@ glabel func00009a08
 /*     9a28:	afb10018 */ 	sw	$s1,0x18($sp)
 /*     9a2c:	19c0000c */ 	blez	$t6,.L00009a60
 /*     9a30:	00008025 */ 	or	$s0,$zero,$zero
-/*     9a34:	3c118009 */ 	lui	$s1,0x8009
-/*     9a38:	263126d0 */ 	addiu	$s1,$s1,0x26d0
+/*     9a34:	3c118009 */ 	lui	$s1,%hi(var800926d0)
+/*     9a38:	263126d0 */ 	addiu	$s1,$s1,%lo(var800926d0)
 /*     9a3c:	02202025 */ 	or	$a0,$s1,$zero
 .L00009a40:
 /*     9a40:	00002825 */ 	or	$a1,$zero,$zero
@@ -14056,8 +14056,8 @@ glabel func00009ab0
 /*     9ab8:	01e50019 */ 	multu	$t7,$a1
 /*     9abc:	3c028009 */ 	lui	$v0,0x8009
 /*     9ac0:	3c038009 */ 	lui	$v1,0x8009
-/*     9ac4:	3c048006 */ 	lui	$a0,0x8006
-/*     9ac8:	2484d530 */ 	addiu	$a0,$a0,-10960
+/*     9ac4:	3c048006 */ 	lui	$a0,%hi(var8005d530)
+/*     9ac8:	2484d530 */ 	addiu	$a0,$a0,%lo(var8005d530)
 /*     9acc:	24632877 */ 	addiu	$v1,$v1,0x2877
 /*     9ad0:	24422876 */ 	addiu	$v0,$v0,0x2876
 /*     9ad4:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -14096,12 +14096,12 @@ glabel func00009ab0
 
 GLOBAL_ASM(
 glabel func00009b50
-/*     9b50:	3c03800a */ 	lui	$v1,0x800a
-/*     9b54:	3c058006 */ 	lui	$a1,0x8006
-/*     9b58:	3c078006 */ 	lui	$a3,0x8006
-/*     9b5c:	24e7d588 */ 	addiu	$a3,$a3,-10872
-/*     9b60:	24a5d530 */ 	addiu	$a1,$a1,-10960
-/*     9b64:	2463cac0 */ 	addiu	$v1,$v1,-13632
+/*     9b50:	3c03800a */ 	lui	$v1,%hi(var8009cac0)
+/*     9b54:	3c058006 */ 	lui	$a1,%hi(var8005d530)
+/*     9b58:	3c078006 */ 	lui	$a3,%hi(var8005d588)
+/*     9b5c:	24e7d588 */ 	addiu	$a3,$a3,%lo(var8005d588)
+/*     9b60:	24a5d530 */ 	addiu	$a1,$a1,%lo(var8005d530)
+/*     9b64:	2463cac0 */ 	addiu	$v1,$v1,%lo(var8009cac0)
 /*     9b68:	24060030 */ 	addiu	$a2,$zero,0x30
 /*     9b6c:	24020240 */ 	addiu	$v0,$zero,0x240
 .L00009b70:
@@ -14117,8 +14117,8 @@ glabel func00009b50
 /*     9b94:	a4a6fff2 */ 	sh	$a2,-0xe($a1)
 /*     9b98:	3c0e8009 */ 	lui	$t6,0x8009
 /*     9b9c:	91ce2876 */ 	lbu	$t6,0x2876($t6)
-/*     9ba0:	3c02800a */ 	lui	$v0,0x800a
-/*     9ba4:	2442cac0 */ 	addiu	$v0,$v0,-13632
+/*     9ba0:	3c02800a */ 	lui	$v0,%hi(var8009cac0)
+/*     9ba4:	2442cac0 */ 	addiu	$v0,$v0,%lo(var8009cac0)
 /*     9ba8:	000e7880 */ 	sll	$t7,$t6,0x2
 /*     9bac:	004fc021 */ 	addu	$t8,$v0,$t7
 /*     9bb0:	3c088006 */ 	lui	$t0,0x8006
@@ -14143,10 +14143,10 @@ glabel func00009b50
 
 GLOBAL_ASM(
 glabel func00009bf8
-/*     9bf8:	3c038006 */ 	lui	$v1,0x8006
-/*     9bfc:	3c058006 */ 	lui	$a1,0x8006
-/*     9c00:	24a5d588 */ 	addiu	$a1,$a1,-10872
-/*     9c04:	2463d530 */ 	addiu	$v1,$v1,-10960
+/*     9bf8:	3c038006 */ 	lui	$v1,%hi(var8005d530)
+/*     9bfc:	3c058006 */ 	lui	$a1,%hi(var8005d588)
+/*     9c00:	24a5d588 */ 	addiu	$a1,$a1,%lo(var8005d588)
+/*     9c04:	2463d530 */ 	addiu	$v1,$v1,%lo(var8005d530)
 /*     9c08:	240400dc */ 	addiu	$a0,$zero,0xdc
 /*     9c0c:	24020140 */ 	addiu	$v0,$zero,0x140
 .L00009c10:
@@ -14165,8 +14165,8 @@ glabel func00009bf8
 
 GLOBAL_ASM(
 glabel func00009c3c
-/*     9c3c:	3c05800a */ 	lui	$a1,0x800a
-/*     9c40:	24a59fc0 */ 	addiu	$a1,$a1,-24640
+/*     9c3c:	3c05800a */ 	lui	$a1,%hi(g_Vars)
+/*     9c40:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
 /*     9c44:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*     9c48:	2401005a */ 	addiu	$at,$zero,0x5a
 /*     9c4c:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -14202,10 +14202,10 @@ glabel func00009c3c
 /*     9cb8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*     9cbc:	3c028009 */ 	lui	$v0,0x8009
 /*     9cc0:	90420af0 */ 	lbu	$v0,0xaf0($v0)
-/*     9cc4:	3c05800a */ 	lui	$a1,0x800a
+/*     9cc4:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*     9cc8:	24010001 */ 	addiu	$at,$zero,0x1
 /*     9ccc:	14410004 */ 	bne	$v0,$at,.L00009ce0
-/*     9cd0:	24a59fc0 */ 	addiu	$a1,$a1,-24640
+/*     9cd0:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
 /*     9cd4:	3c060002 */ 	lui	$a2,0x2
 /*     9cd8:	10000003 */ 	beqz	$zero,.L00009ce8
 /*     9cdc:	34c62600 */ 	ori	$a2,$a2,0x2600
@@ -14304,10 +14304,10 @@ glabel func00009c3c
 /*     9e10:	0c0048f2 */ 	jal	func000123c8
 /*     9e14:	afa60018 */ 	sw	$a2,0x18($sp)
 /*     9e18:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*     9e1c:	3c04800a */ 	lui	$a0,0x800a
+/*     9e1c:	3c04800a */ 	lui	$a0,%hi(var8009cac0)
 /*     9e20:	2445003f */ 	addiu	$a1,$v0,0x3f
 /*     9e24:	2401ffc0 */ 	addiu	$at,$zero,-64
-/*     9e28:	2484cac0 */ 	addiu	$a0,$a0,-13632
+/*     9e28:	2484cac0 */ 	addiu	$a0,$a0,%lo(var8009cac0)
 /*     9e2c:	00a17024 */ 	and	$t6,$a1,$at
 /*     9e30:	00ce7821 */ 	addu	$t7,$a2,$t6
 /*     9e34:	ac8e0000 */ 	sw	$t6,0x0($a0)
@@ -14360,8 +14360,8 @@ glabel func00009ec4
 
 GLOBAL_ASM(
 glabel func00009ed4
-/*     9ed4:	3c038006 */ 	lui	$v1,0x8006
-/*     9ed8:	2463ce9c */ 	addiu	$v1,$v1,-12644
+/*     9ed4:	3c038006 */ 	lui	$v1,%hi(var8005ce9c)
+/*     9ed8:	2463ce9c */ 	addiu	$v1,$v1,%lo(var8005ce9c)
 /*     9edc:	8c620000 */ 	lw	$v0,0x0($v1)
 /*     9ee0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*     9ee4:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -14373,8 +14373,8 @@ glabel func00009ed4
 /*     9efc:	3c018006 */ 	lui	$at,0x8006
 /*     9f00:	ac20ce98 */ 	sw	$zero,-0x3168($at)
 .L00009f04:
-/*     9f04:	3c038006 */ 	lui	$v1,0x8006
-/*     9f08:	2463ce94 */ 	addiu	$v1,$v1,-12652
+/*     9f04:	3c038006 */ 	lui	$v1,%hi(var8005ce94)
+/*     9f08:	2463ce94 */ 	addiu	$v1,$v1,%lo(var8005ce94)
 /*     9f0c:	8c620000 */ 	lw	$v0,0x0($v1)
 /*     9f10:	8f18ce98 */ 	lw	$t8,-0x3168($t8)
 /*     9f14:	24040001 */ 	addiu	$a0,$zero,0x1
@@ -14385,17 +14385,17 @@ glabel func00009ed4
 /*     9f28:	afa50018 */ 	sw	$a1,0x18($sp)
 /*     9f2c:	0c012194 */ 	jal	func00048650
 /*     9f30:	00000000 */ 	sll	$zero,$zero,0x0
-/*     9f34:	3c078006 */ 	lui	$a3,0x8006
+/*     9f34:	3c078006 */ 	lui	$a3,%hi(var8005ce74)
 /*     9f38:	3c038009 */ 	lui	$v1,0x8009
 /*     9f3c:	8c6dde0c */ 	lw	$t5,-0x21f4($v1)
-/*     9f40:	24e7ce74 */ 	addiu	$a3,$a3,-12684
+/*     9f40:	24e7ce74 */ 	addiu	$a3,$a3,%lo(var8005ce74)
 /*     9f44:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*     9f48:	8cf90000 */ 	lw	$t9,0x0($a3)
 /*     9f4c:	000d4c03 */ 	sra	$t1,$t5,0x10
-/*     9f50:	3c068009 */ 	lui	$a2,0x8009
+/*     9f50:	3c068009 */ 	lui	$a2,%hi(var8008dd64)
 /*     9f54:	01255821 */ 	addu	$t3,$t1,$a1
 /*     9f58:	00194080 */ 	sll	$t0,$t9,0x2
-/*     9f5c:	24c6dd64 */ 	addiu	$a2,$a2,-8860
+/*     9f5c:	24c6dd64 */ 	addiu	$a2,$a2,%lo(var8008dd64)
 /*     9f60:	00084823 */ 	negu	$t1,$t0
 /*     9f64:	00c95021 */ 	addu	$t2,$a2,$t1
 /*     9f68:	000b6400 */ 	sll	$t4,$t3,0x10
@@ -14458,7 +14458,7 @@ glabel func00009ed4
 GLOBAL_ASM(
 glabel func0000a044
 /*     a044:	3c098006 */ 	lui	$t1,0x8006
-/*     a048:	3c0e8006 */ 	lui	$t6,0x8006
+/*     a048:	3c0e8006 */ 	lui	$t6,%hi(var8006000c)
 /*     a04c:	8dced590 */ 	lw	$t6,-0x2a70($t6)
 /*     a050:	8d29d594 */ 	lw	$t1,-0x2a6c($t1)
 /*     a054:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -14527,24 +14527,24 @@ glabel func0000a044
 /*     a140:	11400033 */ 	beqz	$t2,.L0000a210
 /*     a144:	00000000 */ 	sll	$zero,$zero,0x0
 /*     a148:	8f180300 */ 	lw	$t8,0x300($t8)
-/*     a14c:	3c198009 */ 	lui	$t9,0x8009
-/*     a150:	2739dcc0 */ 	addiu	$t9,$t9,-9024
+/*     a14c:	3c198009 */ 	lui	$t9,%hi(var8008dcc0)
+/*     a150:	2739dcc0 */ 	addiu	$t9,$t9,%lo(var8008dcc0)
 /*     a154:	14980019 */ 	bne	$a0,$t8,.L0000a1bc
-/*     a158:	3c0f8006 */ 	lui	$t7,0x8006
+/*     a158:	3c0f8006 */ 	lui	$t7,%hi(var8006000c)
 /*     a15c:	000bc880 */ 	sll	$t9,$t3,0x2
 /*     a160:	032bc821 */ 	addu	$t9,$t9,$t3
-/*     a164:	3c0e8009 */ 	lui	$t6,0x8009
-/*     a168:	25cedcc0 */ 	addiu	$t6,$t6,-9024
+/*     a164:	3c0e8009 */ 	lui	$t6,%hi(var8008dcc0)
+/*     a168:	25cedcc0 */ 	addiu	$t6,$t6,%lo(var8008dcc0)
 /*     a16c:	0019c900 */ 	sll	$t9,$t9,0x4
 /*     a170:	032e2021 */ 	addu	$a0,$t9,$t6
-/*     a174:	3c0f8006 */ 	lui	$t7,0x8006
-/*     a178:	25ef0070 */ 	addiu	$t7,$t7,0x70
+/*     a174:	3c0f8006 */ 	lui	$t7,%hi(var80060070)
+/*     a178:	25ef0070 */ 	addiu	$t7,$t7,%lo(var80060070)
 /*     a17c:	25f90048 */ 	addiu	$t9,$t7,0x48
 /*     a180:	00807025 */ 	or	$t6,$a0,$zero
 .L0000a184:
 /*     a184:	8de10000 */ 	lw	$at,0x0($t7)
-/*     a188:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*     a18c:	25ce000c */ 	addiu	$t6,$t6,0xc
+/*     a188:	25ef000c */ 	addiu	$t7,$t7,%lo(var8006000c)
+/*     a18c:	25ce000c */ 	addiu	$t6,$t6,%lo(var8006000c)
 /*     a190:	adc1fff4 */ 	sw	$at,-0xc($t6)
 /*     a194:	8de1fff8 */ 	lw	$at,-0x8($t7)
 /*     a198:	adc1fff8 */ 	sw	$at,-0x8($t6)
@@ -14585,12 +14585,12 @@ glabel func0000a044
 /*     a218:	148e0018 */ 	bne	$a0,$t6,.L0000a27c
 /*     a21c:	000bc080 */ 	sll	$t8,$t3,0x2
 /*     a220:	030bc021 */ 	addu	$t8,$t8,$t3
-/*     a224:	3c0f8009 */ 	lui	$t7,0x8009
-/*     a228:	25efdcc0 */ 	addiu	$t7,$t7,-9024
+/*     a224:	3c0f8009 */ 	lui	$t7,%hi(var8008dcc0)
+/*     a228:	25efdcc0 */ 	addiu	$t7,$t7,%lo(var8008dcc0)
 /*     a22c:	0018c100 */ 	sll	$t8,$t8,0x4
 /*     a230:	030f2021 */ 	addu	$a0,$t8,$t7
-/*     a234:	3c198006 */ 	lui	$t9,0x8006
-/*     a238:	273901b0 */ 	addiu	$t9,$t9,0x1b0
+/*     a234:	3c198006 */ 	lui	$t9,%hi(var800601b0)
+/*     a238:	273901b0 */ 	addiu	$t9,$t9,%lo(var800601b0)
 /*     a23c:	27380048 */ 	addiu	$t8,$t9,0x48
 /*     a240:	00807825 */ 	or	$t7,$a0,$zero
 .L0000a244:
@@ -14611,12 +14611,12 @@ glabel func0000a044
 .L0000a27c:
 /*     a27c:	000b7080 */ 	sll	$t6,$t3,0x2
 /*     a280:	01cb7021 */ 	addu	$t6,$t6,$t3
-/*     a284:	3c188009 */ 	lui	$t8,0x8009
-/*     a288:	2718dcc0 */ 	addiu	$t8,$t8,-9024
+/*     a284:	3c188009 */ 	lui	$t8,%hi(var8008dcc0)
+/*     a288:	2718dcc0 */ 	addiu	$t8,$t8,%lo(var8008dcc0)
 /*     a28c:	000e7100 */ 	sll	$t6,$t6,0x4
 /*     a290:	01d82021 */ 	addu	$a0,$t6,$t8
-/*     a294:	3c198006 */ 	lui	$t9,0x8006
-/*     a298:	2739f8f0 */ 	addiu	$t9,$t9,-1808
+/*     a294:	3c198006 */ 	lui	$t9,%hi(var8005f8f0)
+/*     a298:	2739f8f0 */ 	addiu	$t9,$t9,%lo(var8005f8f0)
 /*     a29c:	272e0048 */ 	addiu	$t6,$t9,0x48
 /*     a2a0:	0080c025 */ 	or	$t8,$a0,$zero
 .L0000a2a4:
@@ -14636,11 +14636,11 @@ glabel func0000a044
 .L0000a2d8:
 /*     a2d8:	852f0018 */ 	lh	$t7,0x18($t1)
 /*     a2dc:	24010280 */ 	addiu	$at,$zero,0x280
-/*     a2e0:	3c0d8009 */ 	lui	$t5,0x8009
+/*     a2e0:	3c0d8009 */ 	lui	$t5,%hi(var8008de0c)
 /*     a2e4:	ac8f0008 */ 	sw	$t7,0x8($a0)
 /*     a2e8:	852e0018 */ 	lh	$t6,0x18($t1)
 /*     a2ec:	3406ffff */ 	dli	$a2,0xffff
-/*     a2f0:	25adde0c */ 	addiu	$t5,$t5,-8692
+/*     a2f0:	25adde0c */ 	addiu	$t5,$t5,%lo(var8008de0c)
 /*     a2f4:	000eca80 */ 	sll	$t9,$t6,0xa
 /*     a2f8:	0321001a */ 	div	$zero,$t9,$at
 /*     a2fc:	0000c012 */ 	mflo	$t8
@@ -14649,7 +14649,7 @@ glabel func0000a044
 /*     a308:	000f7040 */ 	sll	$t6,$t7,0x1
 /*     a30c:	ac8e0028 */ 	sw	$t6,0x28($a0)
 /*     a310:	85390018 */ 	lh	$t9,0x18($t1)
-/*     a314:	3c0f8009 */ 	lui	$t7,0x8009
+/*     a314:	3c0f8009 */ 	lui	$t7,%hi(var8009000c)
 /*     a318:	0019c040 */ 	sll	$t8,$t9,0x1
 /*     a31c:	ac98003c */ 	sw	$t8,0x3c($a0)
 /*     a320:	91ef0af0 */ 	lbu	$t7,0xaf0($t7)
@@ -14807,20 +14807,20 @@ glabel func0000a044
 /*     a540:	3406ffff */ 	dli	$a2,0xffff
 /*     a544:	24080800 */ 	addiu	$t0,$zero,0x800
 /*     a548:	148e0019 */ 	bne	$a0,$t6,.L0000a5b0
-/*     a54c:	3c0d8009 */ 	lui	$t5,0x8009
+/*     a54c:	3c0d8009 */ 	lui	$t5,%hi(var8008de0c)
 /*     a550:	000bc880 */ 	sll	$t9,$t3,0x2
 /*     a554:	032bc821 */ 	addu	$t9,$t9,$t3
-/*     a558:	3c188009 */ 	lui	$t8,0x8009
-/*     a55c:	2718dcc0 */ 	addiu	$t8,$t8,-9024
+/*     a558:	3c188009 */ 	lui	$t8,%hi(var8008dcc0)
+/*     a55c:	2718dcc0 */ 	addiu	$t8,$t8,%lo(var8008dcc0)
 /*     a560:	0019c900 */ 	sll	$t9,$t9,0x4
 /*     a564:	03382021 */ 	addu	$a0,$t9,$t8
-/*     a568:	3c0f8006 */ 	lui	$t7,0x8006
-/*     a56c:	25ef0340 */ 	addiu	$t7,$t7,0x340
+/*     a568:	3c0f8006 */ 	lui	$t7,%hi(var80060340)
+/*     a56c:	25ef0340 */ 	addiu	$t7,$t7,%lo(var80060340)
 /*     a570:	25f90048 */ 	addiu	$t9,$t7,0x48
 /*     a574:	0080c025 */ 	or	$t8,$a0,$zero
 .L0000a578:
 /*     a578:	8de10000 */ 	lw	$at,0x0($t7)
-/*     a57c:	25ef000c */ 	addiu	$t7,$t7,0xc
+/*     a57c:	25ef000c */ 	addiu	$t7,$t7,%lo(var8009000c)
 /*     a580:	2718000c */ 	addiu	$t8,$t8,0xc
 /*     a584:	af01fff4 */ 	sw	$at,-0xc($t8)
 /*     a588:	8de1fff8 */ 	lw	$at,-0x8($t7)
@@ -14836,12 +14836,12 @@ glabel func0000a044
 .L0000a5b0:
 /*     a5b0:	000b7080 */ 	sll	$t6,$t3,0x2
 /*     a5b4:	01cb7021 */ 	addu	$t6,$t6,$t3
-/*     a5b8:	3c198009 */ 	lui	$t9,0x8009
-/*     a5bc:	2739dcc0 */ 	addiu	$t9,$t9,-9024
+/*     a5b8:	3c198009 */ 	lui	$t9,%hi(var8008dcc0)
+/*     a5bc:	2739dcc0 */ 	addiu	$t9,$t9,%lo(var8008dcc0)
 /*     a5c0:	000e7100 */ 	sll	$t6,$t6,0x4
 /*     a5c4:	01d92021 */ 	addu	$a0,$t6,$t9
-/*     a5c8:	3c0f8006 */ 	lui	$t7,0x8006
-/*     a5cc:	25effa80 */ 	addiu	$t7,$t7,-1408
+/*     a5c8:	3c0f8006 */ 	lui	$t7,%hi(var8005fa80)
+/*     a5cc:	25effa80 */ 	addiu	$t7,$t7,%lo(var8005fa80)
 /*     a5d0:	25ee0048 */ 	addiu	$t6,$t7,0x48
 /*     a5d4:	0080c825 */ 	or	$t9,$a0,$zero
 .L0000a5d8:
@@ -14881,7 +14881,7 @@ glabel func0000a044
 /*     a658:	000fc880 */ 	sll	$t9,$t7,0x2
 /*     a65c:	ac99003c */ 	sw	$t9,0x3c($a0)
 /*     a660:	8ce7d588 */ 	lw	$a3,-0x2a78($a3)
-/*     a664:	25adde0c */ 	addiu	$t5,$t5,-8692
+/*     a664:	25adde0c */ 	addiu	$t5,$t5,%lo(var8008de0c)
 /*     a668:	3c1f8009 */ 	lui	$ra,0x8009
 /*     a66c:	01c77821 */ 	addu	$t7,$t6,$a3
 /*     a670:	01e6001a */ 	div	$zero,$t7,$a2
@@ -15104,8 +15104,8 @@ glabel func0000a044
 /*     a970:	2408002c */ 	addiu	$t0,$zero,0x2c
 /*     a974:	24632877 */ 	addiu	$v1,$v1,0x2877
 /*     a978:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*     a97c:	3c078006 */ 	lui	$a3,0x8006
-/*     a980:	24e7d530 */ 	addiu	$a3,$a3,-10960
+/*     a97c:	3c078006 */ 	lui	$a3,%hi(var8005d530)
+/*     a980:	24e7d530 */ 	addiu	$a3,$a3,%lo(var8005d530)
 /*     a984:	05e10004 */ 	bgez	$t7,.L0000a998
 /*     a988:	31f80001 */ 	andi	$t8,$t7,0x1
 /*     a98c:	13000002 */ 	beqz	$t8,.L0000a998
@@ -15146,8 +15146,8 @@ glabel func0000a044
 /*     aa10:	030fc021 */ 	addu	$t8,$t8,$t7
 /*     aa14:	8f18cac0 */ 	lw	$t8,-0x3540($t8)
 /*     aa18:	8dced594 */ 	lw	$t6,-0x2a6c($t6)
-/*     aa1c:	3c028006 */ 	lui	$v0,0x8006
-/*     aa20:	2442d59c */ 	addiu	$v0,$v0,-10852
+/*     aa1c:	3c028006 */ 	lui	$v0,%hi(var8005d59c)
+/*     aa20:	2442d59c */ 	addiu	$v0,$v0,%lo(var8005d59c)
 /*     aa24:	add80028 */ 	sw	$t8,0x28($t6)
 /*     aa28:	8c590000 */ 	lw	$t9,0x0($v0)
 /*     aa2c:	53200005 */ 	beqzl	$t9,.L0000aa44
@@ -15194,8 +15194,8 @@ glabel func0000aa50
 
 GLOBAL_ASM(
 glabel func0000aab0
-/*     aab0:	3c058006 */ 	lui	$a1,0x8006
-/*     aab4:	24a5d594 */ 	addiu	$a1,$a1,-10860
+/*     aab0:	3c058006 */ 	lui	$a1,%hi(var8005d594)
+/*     aab4:	24a5d594 */ 	addiu	$a1,$a1,%lo(var8005d594)
 /*     aab8:	8cae0000 */ 	lw	$t6,0x0($a1)
 /*     aabc:	00041840 */ 	sll	$v1,$a0,0x1
 /*     aac0:	3c027005 */ 	lui	$v0,0x7005
@@ -15393,8 +15393,8 @@ glabel func0000aca4
 
 GLOBAL_ASM(
 glabel func0000ad5c
-/*     ad5c:	3c088006 */ 	lui	$t0,0x8006
-/*     ad60:	2508d594 */ 	addiu	$t0,$t0,-10860
+/*     ad5c:	3c088006 */ 	lui	$t0,%hi(var8005d594)
+/*     ad60:	2508d594 */ 	addiu	$t0,$t0,%lo(var8005d594)
 /*     ad64:	8d0e0000 */ 	lw	$t6,0x0($t0)
 /*     ad68:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     ad6c:	3c028009 */ 	lui	$v0,0x8009
@@ -15445,10 +15445,10 @@ glabel func0000ad5c
 /*     ae20:	01e15021 */ 	addu	$t2,$t7,$at
 /*     ae24:	0fc59e66 */ 	jal	func0f167998
 /*     ae28:	ac8a0004 */ 	sw	$t2,0x4($a0)
-/*     ae2c:	3c088006 */ 	lui	$t0,0x8006
+/*     ae2c:	3c088006 */ 	lui	$t0,%hi(var8005d594)
 /*     ae30:	3c018009 */ 	lui	$at,0x8009
 /*     ae34:	ac222870 */ 	sw	$v0,0x2870($at)
-/*     ae38:	2508d594 */ 	addiu	$t0,$t0,-10860
+/*     ae38:	2508d594 */ 	addiu	$t0,$t0,%lo(var8005d594)
 /*     ae3c:	8d030000 */ 	lw	$v1,0x0($t0)
 /*     ae40:	3c013f80 */ 	lui	$at,0x3f80
 /*     ae44:	44814000 */ 	mtc1	$at,$f8
@@ -15457,23 +15457,23 @@ glabel func0000ad5c
 /*     ae50:	8c67000c */ 	lw	$a3,0xc($v1)
 /*     ae54:	e7a40010 */ 	swc1	$f4,0x10($sp)
 /*     ae58:	c4660014 */ 	lwc1	$f6,0x14($v1)
-/*     ae5c:	3c048009 */ 	lui	$a0,0x8009
-/*     ae60:	3c058009 */ 	lui	$a1,0x8009
-/*     ae64:	24a52874 */ 	addiu	$a1,$a1,0x2874
-/*     ae68:	24842830 */ 	addiu	$a0,$a0,0x2830
+/*     ae5c:	3c048009 */ 	lui	$a0,%hi(var80092830)
+/*     ae60:	3c058009 */ 	lui	$a1,%hi(var80092874)
+/*     ae64:	24a52874 */ 	addiu	$a1,$a1,%lo(var80092874)
+/*     ae68:	24842830 */ 	addiu	$a0,$a0,%lo(var80092830)
 /*     ae6c:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*     ae70:	0c001210 */ 	jal	func00004840
 /*     ae74:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*     ae78:	3c048009 */ 	lui	$a0,0x8009
+/*     ae78:	3c048009 */ 	lui	$a0,%hi(var80092830)
 /*     ae7c:	3c058009 */ 	lui	$a1,0x8009
 /*     ae80:	8ca52870 */ 	lw	$a1,0x2870($a1)
 /*     ae84:	0c0128d8 */ 	jal	func0004a360
-/*     ae88:	24842830 */ 	addiu	$a0,$a0,0x2830
+/*     ae88:	24842830 */ 	addiu	$a0,$a0,%lo(var80092830)
 /*     ae8c:	3c0c0103 */ 	lui	$t4,0x103
-/*     ae90:	3c058009 */ 	lui	$a1,0x8009
+/*     ae90:	3c058009 */ 	lui	$a1,%hi(var80092870)
 /*     ae94:	358c0040 */ 	ori	$t4,$t4,0x40
 /*     ae98:	02001025 */ 	or	$v0,$s0,$zero
-/*     ae9c:	24a52870 */ 	addiu	$a1,$a1,0x2870
+/*     ae9c:	24a52870 */ 	addiu	$a1,$a1,%lo(var80092870)
 /*     aea0:	ac4c0000 */ 	sw	$t4,0x0($v0)
 /*     aea4:	8cae0000 */ 	lw	$t6,0x0($a1)
 /*     aea8:	3c018000 */ 	lui	$at,0x8000
@@ -15490,9 +15490,9 @@ glabel func0000ad5c
 /*     aed4:	ac790004 */ 	sw	$t9,0x4($v1)
 /*     aed8:	0fc2d3f6 */ 	jal	func0f0b4fd8
 /*     aedc:	8ca40000 */ 	lw	$a0,0x0($a1)
-/*     aee0:	3c048009 */ 	lui	$a0,0x8009
+/*     aee0:	3c048009 */ 	lui	$a0,%hi(var80092830)
 /*     aee4:	0fc2d5c2 */ 	jal	func0f0b5708
-/*     aee8:	24842830 */ 	addiu	$a0,$a0,0x2830
+/*     aee8:	24842830 */ 	addiu	$a0,$a0,%lo(var80092830)
 /*     aeec:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*     aef0:	02001025 */ 	or	$v0,$s0,$zero
 /*     aef4:	8fb00028 */ 	lw	$s0,0x28($sp)
@@ -15502,8 +15502,8 @@ glabel func0000ad5c
 
 GLOBAL_ASM(
 glabel func0000af00
-/*     af00:	3c088006 */ 	lui	$t0,0x8006
-/*     af04:	2508d594 */ 	addiu	$t0,$t0,-10860
+/*     af00:	3c088006 */ 	lui	$t0,%hi(var8005d594)
+/*     af04:	2508d594 */ 	addiu	$t0,$t0,%lo(var8005d594)
 /*     af08:	8d0e0000 */ 	lw	$t6,0x0($t0)
 /*     af0c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     af10:	3c028009 */ 	lui	$v0,0x8009
@@ -15571,10 +15571,10 @@ glabel func0000af00
 /*     b008:	01c15821 */ 	addu	$t3,$t6,$at
 /*     b00c:	0fc59e66 */ 	jal	func0f167998
 /*     b010:	ac8b0004 */ 	sw	$t3,0x4($a0)
-/*     b014:	3c088006 */ 	lui	$t0,0x8006
+/*     b014:	3c088006 */ 	lui	$t0,%hi(var8005d594)
 /*     b018:	3c018009 */ 	lui	$at,0x8009
 /*     b01c:	ac222870 */ 	sw	$v0,0x2870($at)
-/*     b020:	2508d594 */ 	addiu	$t0,$t0,-10860
+/*     b020:	2508d594 */ 	addiu	$t0,$t0,%lo(var8005d594)
 /*     b024:	8d030000 */ 	lw	$v1,0x0($t0)
 /*     b028:	3c013f80 */ 	lui	$at,0x3f80
 /*     b02c:	44814000 */ 	mtc1	$at,$f8
@@ -15583,23 +15583,23 @@ glabel func0000af00
 /*     b038:	8c67000c */ 	lw	$a3,0xc($v1)
 /*     b03c:	e7a40010 */ 	swc1	$f4,0x10($sp)
 /*     b040:	c4660014 */ 	lwc1	$f6,0x14($v1)
-/*     b044:	3c048009 */ 	lui	$a0,0x8009
-/*     b048:	3c058009 */ 	lui	$a1,0x8009
-/*     b04c:	24a52874 */ 	addiu	$a1,$a1,0x2874
-/*     b050:	24842830 */ 	addiu	$a0,$a0,0x2830
+/*     b044:	3c048009 */ 	lui	$a0,%hi(var80092830)
+/*     b048:	3c058009 */ 	lui	$a1,%hi(var80092874)
+/*     b04c:	24a52874 */ 	addiu	$a1,$a1,%lo(var80092874)
+/*     b050:	24842830 */ 	addiu	$a0,$a0,%lo(var80092830)
 /*     b054:	e7a80018 */ 	swc1	$f8,0x18($sp)
 /*     b058:	0c001210 */ 	jal	func00004840
 /*     b05c:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*     b060:	3c048009 */ 	lui	$a0,0x8009
+/*     b060:	3c048009 */ 	lui	$a0,%hi(var80092830)
 /*     b064:	3c058009 */ 	lui	$a1,0x8009
 /*     b068:	8ca52870 */ 	lw	$a1,0x2870($a1)
 /*     b06c:	0c0128d8 */ 	jal	func0004a360
-/*     b070:	24842830 */ 	addiu	$a0,$a0,0x2830
+/*     b070:	24842830 */ 	addiu	$a0,$a0,%lo(var80092830)
 /*     b074:	3c0d0103 */ 	lui	$t5,0x103
-/*     b078:	3c058009 */ 	lui	$a1,0x8009
+/*     b078:	3c058009 */ 	lui	$a1,%hi(var80092870)
 /*     b07c:	35ad0040 */ 	ori	$t5,$t5,0x40
 /*     b080:	02001025 */ 	or	$v0,$s0,$zero
-/*     b084:	24a52870 */ 	addiu	$a1,$a1,0x2870
+/*     b084:	24a52870 */ 	addiu	$a1,$a1,%lo(var80092870)
 /*     b088:	ac4d0000 */ 	sw	$t5,0x0($v0)
 /*     b08c:	8cb90000 */ 	lw	$t9,0x0($a1)
 /*     b090:	3c018000 */ 	lui	$at,0x8000
@@ -15616,9 +15616,9 @@ glabel func0000af00
 /*     b0bc:	ac6f0004 */ 	sw	$t7,0x4($v1)
 /*     b0c0:	0fc2d3f6 */ 	jal	func0f0b4fd8
 /*     b0c4:	8ca40000 */ 	lw	$a0,0x0($a1)
-/*     b0c8:	3c048009 */ 	lui	$a0,0x8009
+/*     b0c8:	3c048009 */ 	lui	$a0,%hi(var80092830)
 /*     b0cc:	0fc2d5c2 */ 	jal	func0f0b5708
-/*     b0d0:	24842830 */ 	addiu	$a0,$a0,0x2830
+/*     b0d0:	24842830 */ 	addiu	$a0,$a0,%lo(var80092830)
 /*     b0d4:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*     b0d8:	02001025 */ 	or	$v0,$s0,$zero
 /*     b0dc:	8fb00028 */ 	lw	$s0,0x28($sp)
@@ -15641,10 +15641,10 @@ glabel func0000b0e8
 /*     b110:	3c013f80 */ 	lui	$at,0x3f80
 /*     b114:	c4640010 */ 	lwc1	$f4,0x10($v1)
 /*     b118:	44814000 */ 	mtc1	$at,$f8
-/*     b11c:	3c058009 */ 	lui	$a1,0x8009
+/*     b11c:	3c058009 */ 	lui	$a1,%hi(var80092874)
 /*     b120:	e7a40010 */ 	swc1	$f4,0x10($sp)
 /*     b124:	c4660014 */ 	lwc1	$f6,0x14($v1)
-/*     b128:	24a52874 */ 	addiu	$a1,$a1,0x2874
+/*     b128:	24a52874 */ 	addiu	$a1,$a1,%lo(var80092874)
 /*     b12c:	27a40040 */ 	addiu	$a0,$sp,0x40
 /*     b130:	8fa60084 */ 	lw	$a2,0x84($sp)
 /*     b134:	8fa70088 */ 	lw	$a3,0x88($sp)
@@ -15680,12 +15680,12 @@ glabel func0000b0e8
 
 GLOBAL_ASM(
 glabel func0000b1a8
-/*     b1a8:	3c05800a */ 	lui	$a1,0x800a
+/*     b1a8:	3c05800a */ 	lui	$a1,%hi(var800a0610)
 /*     b1ac:	8ca5a244 */ 	lw	$a1,-0x5dbc($a1)
 /*     b1b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     b1b4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     b1b8:	0c002b57 */ 	jal	func0000ad5c
-/*     b1bc:	24a50610 */ 	addiu	$a1,$a1,0x610
+/*     b1bc:	24a50610 */ 	addiu	$a1,$a1,%lo(var800a0610)
 /*     b1c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     b1c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*     b1c8:	03e00008 */ 	jr	$ra
@@ -15700,12 +15700,12 @@ glabel func0000b1d0
 /*     b1dc:	00000000 */ 	sll	$zero,$zero,0x0
 /*     b1e0:	3c0e8006 */ 	lui	$t6,0x8006
 /*     b1e4:	8dced598 */ 	lw	$t6,-0x2a68($t6)
-/*     b1e8:	3c058006 */ 	lui	$a1,0x8006
-/*     b1ec:	24a5d594 */ 	addiu	$a1,$a1,-10860
+/*     b1e8:	3c058006 */ 	lui	$a1,%hi(var8005d594)
+/*     b1ec:	24a5d594 */ 	addiu	$a1,$a1,%lo(var8005d594)
 /*     b1f0:	51c00012 */ 	beqzl	$t6,.L0000b23c
 /*     b1f4:	8cad0000 */ 	lw	$t5,0x0($a1)
-/*     b1f8:	3c058006 */ 	lui	$a1,0x8006
-/*     b1fc:	24a5d594 */ 	addiu	$a1,$a1,-10860
+/*     b1f8:	3c058006 */ 	lui	$a1,%hi(var8005d594)
+/*     b1fc:	24a5d594 */ 	addiu	$a1,$a1,%lo(var8005d594)
 /*     b200:	8caf0000 */ 	lw	$t7,0x0($a1)
 /*     b204:	3c01ff10 */ 	lui	$at,0xff10
 /*     b208:	24440008 */ 	addiu	$a0,$v0,0x8
@@ -15820,11 +15820,11 @@ glabel func0000b330
 /*     b380:	448f8000 */ 	mtc1	$t7,$f16
 /*     b384:	44810000 */ 	mtc1	$at,$f0
 /*     b388:	8fa600a8 */ 	lw	$a2,0xa8($sp)
-/*     b38c:	3c0b800a */ 	lui	$t3,0x800a
+/*     b38c:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*     b390:	468084a0 */ 	cvt.s.w	$f18,$f16
 /*     b394:	46003202 */ 	mul.s	$f8,$f6,$f0
 /*     b398:	00c01825 */ 	or	$v1,$a2,$zero
-/*     b39c:	256b9fc0 */ 	addiu	$t3,$t3,-24640
+/*     b39c:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*     b3a0:	24010001 */ 	addiu	$at,$zero,0x1
 /*     b3a4:	00002825 */ 	or	$a1,$zero,$zero
 /*     b3a8:	46009102 */ 	mul.s	$f4,$f18,$f0
@@ -15885,8 +15885,8 @@ glabel func0000b330
 .L0000b474:
 /*     b474:	0fc2f130 */ 	jal	func0f0bc4c0
 /*     b478:	afa600a8 */ 	sw	$a2,0xa8($sp)
-/*     b47c:	3c0b800a */ 	lui	$t3,0x800a
-/*     b480:	256b9fc0 */ 	addiu	$t3,$t3,-24640
+/*     b47c:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
+/*     b480:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*     b484:	10400050 */ 	beqz	$v0,.L0000b5c8
 /*     b488:	8fa600a8 */ 	lw	$a2,0xa8($sp)
 /*     b48c:	8d6e028c */ 	lw	$t6,0x28c($t3)
@@ -16081,8 +16081,8 @@ glabel func0000b330
 /*     b740:	0c002f06 */ 	jal	func0000bc18
 /*     b744:	afac0084 */ 	sw	$t4,0x84($sp)
 /*     b748:	8fac0084 */ 	lw	$t4,0x84($sp)
-/*     b74c:	3c0b800a */ 	lui	$t3,0x800a
-/*     b750:	256b9fc0 */ 	addiu	$t3,$t3,-24640
+/*     b74c:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
+/*     b750:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*     b754:	000c7080 */ 	sll	$t6,$t4,0x2
 /*     b758:	016e2821 */ 	addu	$a1,$t3,$t6
 /*     b75c:	8ca30064 */ 	lw	$v1,0x64($a1)
@@ -16133,8 +16133,8 @@ glabel func0000b330
 /*     b80c:	0c002f02 */ 	jal	func0000bc08
 /*     b810:	afa4006c */ 	sw	$a0,0x6c($sp)
 /*     b814:	8fae0080 */ 	lw	$t6,0x80($sp)
-/*     b818:	3c0b800a */ 	lui	$t3,0x800a
-/*     b81c:	256b9fc0 */ 	addiu	$t3,$t3,-24640
+/*     b818:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
+/*     b81c:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*     b820:	000e7880 */ 	sll	$t7,$t6,0x2
 /*     b824:	016f6021 */ 	addu	$t4,$t3,$t7
 /*     b828:	8d980064 */ 	lw	$t8,0x64($t4)
@@ -16226,9 +16226,9 @@ glabel func0000b330
 /*     b95c:	afa600a8 */ 	sw	$a2,0xa8($sp)
 /*     b960:	0fc54bcd */ 	jal	func0f152f34
 /*     b964:	afac001c */ 	sw	$t4,0x1c($sp)
-/*     b968:	3c0b800a */ 	lui	$t3,0x800a
+/*     b968:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*     b96c:	24010001 */ 	addiu	$at,$zero,0x1
-/*     b970:	256b9fc0 */ 	addiu	$t3,$t3,-24640
+/*     b970:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*     b974:	8fa600a8 */ 	lw	$a2,0xa8($sp)
 /*     b978:	10410004 */ 	beq	$v0,$at,.L0000b98c
 /*     b97c:	8fac001c */ 	lw	$t4,0x1c($sp)
@@ -16269,8 +16269,8 @@ glabel func0000b330
 /*     b9e8:	01a5c821 */ 	addu	$t9,$t5,$a1
 /*     b9ec:	17210004 */ 	bne	$t9,$at,.L0000ba00
 /*     b9f0:	00c02825 */ 	or	$a1,$a2,$zero
-/*     b9f4:	3c0c800a */ 	lui	$t4,0x800a
-/*     b9f8:	258c9fc0 */ 	addiu	$t4,$t4,-24640
+/*     b9f4:	3c0c800a */ 	lui	$t4,%hi(g_Vars)
+/*     b9f8:	258c9fc0 */ 	addiu	$t4,$t4,%lo(g_Vars)
 /*     b9fc:	afa00080 */ 	sw	$zero,0x80($sp)
 .L0000ba00:
 /*     ba00:	24c60008 */ 	addiu	$a2,$a2,0x8
@@ -16283,11 +16283,11 @@ glabel func0000b330
 /*     ba1c:	3c01f600 */ 	lui	$at,0xf600
 /*     ba20:	8d830064 */ 	lw	$v1,0x64($t4)
 /*     ba24:	8fa600a8 */ 	lw	$a2,0xa8($sp)
-/*     ba28:	3c0b800a */ 	lui	$t3,0x800a
+/*     ba28:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*     ba2c:	84780634 */ 	lh	$t8,0x634($v1)
 /*     ba30:	846e0630 */ 	lh	$t6,0x630($v1)
 /*     ba34:	00c02025 */ 	or	$a0,$a2,$zero
-/*     ba38:	256b9fc0 */ 	addiu	$t3,$t3,-24640
+/*     ba38:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
 /*     ba3c:	030e7821 */ 	addu	$t7,$t8,$t6
 /*     ba40:	31ed03ff */ 	andi	$t5,$t7,0x3ff
 /*     ba44:	2458ffff */ 	addiu	$t8,$v0,-1
@@ -16390,8 +16390,8 @@ glabel func0000b330
 
 GLOBAL_ASM(
 glabel func0000bba0
-/*     bba0:	3c028006 */ 	lui	$v0,0x8006
-/*     bba4:	2442d594 */ 	addiu	$v0,$v0,-10860
+/*     bba0:	3c028006 */ 	lui	$v0,%hi(var8005d594)
+/*     bba4:	2442d594 */ 	addiu	$v0,$v0,%lo(var8005d594)
 /*     bba8:	8c480000 */ 	lw	$t0,0x0($v0)
 /*     bbac:	afa40000 */ 	sw	$a0,0x0($sp)
 /*     bbb0:	afa50004 */ 	sw	$a1,0x4($sp)
@@ -16419,8 +16419,8 @@ glabel func0000bbd4
 
 GLOBAL_ASM(
 glabel func0000bbe4
-/*     bbe4:	3c028006 */ 	lui	$v0,0x8006
-/*     bbe8:	2442d594 */ 	addiu	$v0,$v0,-10860
+/*     bbe4:	3c028006 */ 	lui	$v0,%hi(var8005d594)
+/*     bbe8:	2442d594 */ 	addiu	$v0,$v0,%lo(var8005d594)
 /*     bbec:	8c480000 */ 	lw	$t0,0x0($v0)
 /*     bbf0:	afa40000 */ 	sw	$a0,0x0($sp)
 /*     bbf4:	afa50004 */ 	sw	$a1,0x4($sp)
@@ -16448,8 +16448,8 @@ glabel func0000bc18
 
 GLOBAL_ASM(
 glabel func0000bc28
-/*     bc28:	3c038006 */ 	lui	$v1,0x8006
-/*     bc2c:	2463d594 */ 	addiu	$v1,$v1,-10860
+/*     bc28:	3c038006 */ 	lui	$v1,%hi(var8005d594)
+/*     bc2c:	2463d594 */ 	addiu	$v1,$v1,%lo(var8005d594)
 /*     bc30:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     bc34:	8c680000 */ 	lw	$t0,0x0($v1)
 /*     bc38:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -16492,8 +16492,8 @@ glabel func0000bc98
 
 GLOBAL_ASM(
 glabel func0000bca8
-/*     bca8:	3c038006 */ 	lui	$v1,0x8006
-/*     bcac:	2463d594 */ 	addiu	$v1,$v1,-10860
+/*     bca8:	3c038006 */ 	lui	$v1,%hi(var8005d594)
+/*     bcac:	2463d594 */ 	addiu	$v1,$v1,%lo(var8005d594)
 /*     bcb0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     bcb4:	8c680000 */ 	lw	$t0,0x0($v1)
 /*     bcb8:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -16543,8 +16543,8 @@ glabel func0000bd20
 GLOBAL_ASM(
 glabel func0000bd30
 /*     bd30:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     bd34:	3c038006 */ 	lui	$v1,0x8006
-/*     bd38:	2463d594 */ 	addiu	$v1,$v1,-10860
+/*     bd34:	3c038006 */ 	lui	$v1,%hi(var8005d594)
+/*     bd38:	2463d594 */ 	addiu	$v1,$v1,%lo(var8005d594)
 /*     bd3c:	e7ac0018 */ 	swc1	$f12,0x18($sp)
 /*     bd40:	c7a40018 */ 	lwc1	$f4,0x18($sp)
 /*     bd44:	8c6e0000 */ 	lw	$t6,0x0($v1)
@@ -16566,8 +16566,8 @@ glabel func0000bd30
 GLOBAL_ASM(
 glabel func0000bd7c
 /*     bd7c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     bd80:	3c038006 */ 	lui	$v1,0x8006
-/*     bd84:	2463d594 */ 	addiu	$v1,$v1,-10860
+/*     bd80:	3c038006 */ 	lui	$v1,%hi(var8005d594)
+/*     bd84:	2463d594 */ 	addiu	$v1,$v1,%lo(var8005d594)
 /*     bd88:	e7ac0018 */ 	swc1	$f12,0x18($sp)
 /*     bd8c:	c7a40018 */ 	lwc1	$f4,0x18($sp)
 /*     bd90:	8c6e0000 */ 	lw	$t6,0x0($v1)
@@ -16597,8 +16597,8 @@ glabel func0000bdc8
 GLOBAL_ASM(
 glabel func0000bdd8
 /*     bdd8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     bddc:	3c038006 */ 	lui	$v1,0x8006
-/*     bde0:	2463d594 */ 	addiu	$v1,$v1,-10860
+/*     bddc:	3c038006 */ 	lui	$v1,%hi(var8005d594)
+/*     bde0:	2463d594 */ 	addiu	$v1,$v1,%lo(var8005d594)
 /*     bde4:	e7ac0018 */ 	swc1	$f12,0x18($sp)
 /*     bde8:	c7a40018 */ 	lwc1	$f4,0x18($sp)
 /*     bdec:	8c680000 */ 	lw	$t0,0x0($v1)
@@ -16622,8 +16622,8 @@ glabel func0000bdd8
 /*     be34:	46804320 */ 	cvt.s.w	$f12,$f8
 /*     be38:	0fc2d256 */ 	jal	func0f0b4958
 /*     be3c:	468053a0 */ 	cvt.s.w	$f14,$f10
-/*     be40:	3c038006 */ 	lui	$v1,0x8006
-/*     be44:	2463d594 */ 	addiu	$v1,$v1,-10860
+/*     be40:	3c038006 */ 	lui	$v1,%hi(var8005d594)
+/*     be44:	2463d594 */ 	addiu	$v1,$v1,%lo(var8005d594)
 /*     be48:	8c620000 */ 	lw	$v0,0x0($v1)
 /*     be4c:	c44c0010 */ 	lwc1	$f12,0x10($v0)
 /*     be50:	c44e0008 */ 	lwc1	$f14,0x8($v0)
@@ -16648,8 +16648,8 @@ glabel func0000be74
 GLOBAL_ASM(
 glabel func0000be84
 /*     be84:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     be88:	3c038006 */ 	lui	$v1,0x8006
-/*     be8c:	2463d594 */ 	addiu	$v1,$v1,-10860
+/*     be88:	3c038006 */ 	lui	$v1,%hi(var8005d594)
+/*     be8c:	2463d594 */ 	addiu	$v1,$v1,%lo(var8005d594)
 /*     be90:	e7ac0018 */ 	swc1	$f12,0x18($sp)
 /*     be94:	c7a40018 */ 	lwc1	$f4,0x18($sp)
 /*     be98:	8c6e0000 */ 	lw	$t6,0x0($v1)
@@ -16674,8 +16674,8 @@ glabel func0000be84
 
 GLOBAL_ASM(
 glabel func0000bee0
-/*     bee0:	3c028006 */ 	lui	$v0,0x8006
-/*     bee4:	2442d594 */ 	addiu	$v0,$v0,-10860
+/*     bee0:	3c028006 */ 	lui	$v0,%hi(var8005d594)
+/*     bee4:	2442d594 */ 	addiu	$v0,$v0,%lo(var8005d594)
 /*     bee8:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*     beec:	c5c40010 */ 	lwc1	$f4,0x10($t6)
 /*     bef0:	e4840000 */ 	swc1	$f4,0x0($a0)
@@ -16765,35 +16765,35 @@ GLOBAL_ASM(
 glabel func0000c000
 /*     c000:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*     c004:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*     c008:	3c048009 */ 	lui	$a0,0x8009
-/*     c00c:	3c058009 */ 	lui	$a1,0x8009
-/*     c010:	24a54ac8 */ 	addiu	$a1,$a1,0x4ac8
-/*     c014:	24844ab0 */ 	addiu	$a0,$a0,0x4ab0
+/*     c008:	3c048009 */ 	lui	$a0,%hi(var80094ab0)
+/*     c00c:	3c058009 */ 	lui	$a1,%hi(var80094ac8)
+/*     c010:	24a54ac8 */ 	addiu	$a1,$a1,%lo(var80094ac8)
+/*     c014:	24844ab0 */ 	addiu	$a0,$a0,%lo(var80094ab0)
 /*     c018:	0c0120d0 */ 	jal	func00048340
 /*     c01c:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     c020:	3c0e8009 */ 	lui	$t6,0x8009
-/*     c024:	25ce2eb0 */ 	addiu	$t6,$t6,0x2eb0
-/*     c028:	3c048009 */ 	lui	$a0,0x8009
+/*     c020:	3c0e8009 */ 	lui	$t6,%hi(var80092eb0)
+/*     c024:	25ce2eb0 */ 	addiu	$t6,$t6,%lo(var80092eb0)
+/*     c028:	3c048009 */ 	lui	$a0,%hi(var80092880)
 /*     c02c:	3c067001 */ 	lui	$a2,0x7001
 /*     c030:	240f0028 */ 	addiu	$t7,$zero,0x28
 /*     c034:	afaf0014 */ 	sw	$t7,0x14($sp)
 /*     c038:	24c6c06c */ 	addiu	$a2,$a2,-16276
-/*     c03c:	24842880 */ 	addiu	$a0,$a0,0x2880
+/*     c03c:	24842880 */ 	addiu	$a0,$a0,%lo(var80092880)
 /*     c040:	afae0010 */ 	sw	$t6,0x10($sp)
 /*     c044:	24050005 */ 	addiu	$a1,$zero,0x5
 /*     c048:	0c000fb8 */ 	jal	func00003ee0
 /*     c04c:	00003825 */ 	or	$a3,$zero,$zero
-/*     c050:	3c048009 */ 	lui	$a0,0x8009
+/*     c050:	3c048009 */ 	lui	$a0,%hi(var80092880)
 /*     c054:	0c01207c */ 	jal	func000481f0
-/*     c058:	24842880 */ 	addiu	$a0,$a0,0x2880
+/*     c058:	24842880 */ 	addiu	$a0,$a0,%lo(var80092880)
 /*     c05c:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*     c060:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*     c064:	03e00008 */ 	jr	$ra
 /*     c068:	00000000 */ 	sll	$zero,$zero,0x0
 /*     c06c:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*     c070:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*     c074:	3c118009 */ 	lui	$s1,0x8009
-/*     c078:	26314ab0 */ 	addiu	$s1,$s1,0x4ab0
+/*     c074:	3c118009 */ 	lui	$s1,%hi(var80094ab0)
+/*     c078:	26314ab0 */ 	addiu	$s1,$s1,%lo(var80094ab0)
 /*     c07c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*     c080:	afa40060 */ 	sw	$a0,0x60($sp)
 /*     c084:	afb20020 */ 	sw	$s2,0x20($sp)
@@ -17172,8 +17172,8 @@ glabel func0000c4d4
 /*     c574:	afa500f4 */ 	sw	$a1,0xf4($sp)
 /*     c578:	0c00bea9 */ 	jal	func0002faa4
 /*     c57c:	24842a10 */ 	addiu	$a0,$a0,0x2a10
-/*     c580:	3c14800a */ 	lui	$s4,0x800a
-/*     c584:	26949fc0 */ 	addiu	$s4,$s4,-24640
+/*     c580:	3c14800a */ 	lui	$s4,%hi(g_Vars)
+/*     c584:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
 /*     c588:	928e04e0 */ 	lbu	$t6,0x4e0($s4)
 /*     c58c:	55c00023 */ 	bnezl	$t6,.L0000c61c
 /*     c590:	8fb200f0 */ 	lw	$s2,0xf0($sp)
@@ -17427,8 +17427,8 @@ glabel func0000c4d4
 /*     c95c:	0c00bea9 */ 	jal	func0002faa4
 /*     c960:	afaf0014 */ 	sw	$t7,0x14($sp)
 /*     c964:	3c057005 */ 	lui	$a1,0x7005
-/*     c968:	3c068006 */ 	lui	$a2,0x8006
-/*     c96c:	24c6d5bc */ 	addiu	$a2,$a2,-10820
+/*     c968:	3c068006 */ 	lui	$a2,%hi(var8005d5bc)
+/*     c96c:	24c6d5bc */ 	addiu	$a2,$a2,%lo(var8005d5bc)
 /*     c970:	24a52c48 */ 	addiu	$a1,$a1,0x2c48
 /*     c974:	0c0032b9 */ 	jal	func0000cae4
 /*     c978:	8e440100 */ 	lw	$a0,0x100($s2)
@@ -17436,8 +17436,8 @@ glabel func0000c4d4
 /*     c980:	0c00bea9 */ 	jal	func0002faa4
 /*     c984:	24842c50 */ 	addiu	$a0,$a0,0x2c50
 /*     c988:	3c057005 */ 	lui	$a1,0x7005
-/*     c98c:	3c068006 */ 	lui	$a2,0x8006
-/*     c990:	24c6d880 */ 	addiu	$a2,$a2,-10112
+/*     c98c:	3c068006 */ 	lui	$a2,%hi(var8005d880)
+/*     c990:	24c6d880 */ 	addiu	$a2,$a2,%lo(var8005d880)
 /*     c994:	24a52c54 */ 	addiu	$a1,$a1,0x2c54
 /*     c998:	0c0032b9 */ 	jal	func0000cae4
 /*     c99c:	8e44010c */ 	lw	$a0,0x10c($s2)
@@ -17644,8 +17644,8 @@ glabel func0000cc34
 /*     cc4c:	00c01025 */ 	or	$v0,$a2,$zero
 /*     cc50:	24010009 */ 	addiu	$at,$zero,0x9
 /*     cc54:	14c1000a */ 	bne	$a2,$at,.L0000cc80
-/*     cc58:	3c108006 */ 	lui	$s0,0x8006
-/*     cc5c:	2610d5b4 */ 	addiu	$s0,$s0,-10828
+/*     cc58:	3c108006 */ 	lui	$s0,%hi(var8005d5b4)
+/*     cc5c:	2610d5b4 */ 	addiu	$s0,$s0,%lo(var8005d5b4)
 .L0000cc60:
 /*     cc60:	0c00330d */ 	jal	func0000cc34
 /*     cc64:	24040020 */ 	addiu	$a0,$zero,0x20
@@ -17658,28 +17658,28 @@ glabel func0000cc34
 .L0000cc80:
 /*     cc80:	2401000a */ 	addiu	$at,$zero,0xa
 /*     cc84:	14410008 */ 	bne	$v0,$at,.L0000cca8
-/*     cc88:	3c038006 */ 	lui	$v1,0x8006
-/*     cc8c:	2463d5b8 */ 	addiu	$v1,$v1,-10824
+/*     cc88:	3c038006 */ 	lui	$v1,%hi(var8005d5b8)
+/*     cc8c:	2463d5b8 */ 	addiu	$v1,$v1,%lo(var8005d5b8)
 /*     cc90:	84780000 */ 	lh	$t8,0x0($v1)
-/*     cc94:	3c108006 */ 	lui	$s0,0x8006
-/*     cc98:	2610d5b4 */ 	addiu	$s0,$s0,-10828
+/*     cc94:	3c108006 */ 	lui	$s0,%hi(var8005d5b4)
+/*     cc98:	2610d5b4 */ 	addiu	$s0,$s0,%lo(var8005d5b4)
 /*     cc9c:	27190001 */ 	addiu	$t9,$t8,0x1
 /*     cca0:	a4790000 */ 	sh	$t9,0x0($v1)
 /*     cca4:	a6000000 */ 	sh	$zero,0x0($s0)
 .L0000cca8:
-/*     cca8:	3c038006 */ 	lui	$v1,0x8006
-/*     ccac:	2463d5b8 */ 	addiu	$v1,$v1,-10824
+/*     cca8:	3c038006 */ 	lui	$v1,%hi(var8005d5b8)
+/*     ccac:	2463d5b8 */ 	addiu	$v1,$v1,%lo(var8005d5b8)
 /*     ccb0:	84650000 */ 	lh	$a1,0x0($v1)
-/*     ccb4:	3c108006 */ 	lui	$s0,0x8006
-/*     ccb8:	2610d5b4 */ 	addiu	$s0,$s0,-10828
+/*     ccb4:	3c108006 */ 	lui	$s0,%hi(var8005d5b4)
+/*     ccb8:	2610d5b4 */ 	addiu	$s0,$s0,%lo(var8005d5b4)
 /*     ccbc:	28a1001d */ 	slti	$at,$a1,0x1d
 /*     ccc0:	1420000a */ 	bnez	$at,.L0000ccec
 /*     ccc4:	24a4ffe4 */ 	addiu	$a0,$a1,-28
 /*     ccc8:	afa20024 */ 	sw	$v0,0x24($sp)
 /*     cccc:	0c003353 */ 	jal	func0000cd4c
 /*     ccd0:	a3a6002b */ 	sb	$a2,0x2b($sp)
-/*     ccd4:	3c038006 */ 	lui	$v1,0x8006
-/*     ccd8:	2463d5b8 */ 	addiu	$v1,$v1,-10824
+/*     ccd4:	3c038006 */ 	lui	$v1,%hi(var8005d5b8)
+/*     ccd8:	2463d5b8 */ 	addiu	$v1,$v1,%lo(var8005d5b8)
 /*     ccdc:	2408001c */ 	addiu	$t0,$zero,0x1c
 /*     cce0:	8fa20024 */ 	lw	$v0,0x24($sp)
 /*     cce4:	93a6002b */ 	lbu	$a2,0x2b($sp)
@@ -17692,8 +17692,8 @@ glabel func0000cc34
 /*     ccfc:	0c0032e8 */ 	jal	func0000cba0
 /*     cd00:	84650000 */ 	lh	$a1,0x0($v1)
 /*     cd04:	86090000 */ 	lh	$t1,0x0($s0)
-/*     cd08:	3c038006 */ 	lui	$v1,0x8006
-/*     cd0c:	2463d5b8 */ 	addiu	$v1,$v1,-10824
+/*     cd08:	3c038006 */ 	lui	$v1,%hi(var8005d5b8)
+/*     cd0c:	2463d5b8 */ 	addiu	$v1,$v1,%lo(var8005d5b8)
 /*     cd10:	252a0001 */ 	addiu	$t2,$t1,0x1
 /*     cd14:	a60a0000 */ 	sh	$t2,0x0($s0)
 /*     cd18:	860b0000 */ 	lh	$t3,0x0($s0)
@@ -17715,8 +17715,8 @@ glabel func0000cc34
 
 GLOBAL_ASM(
 glabel func0000cd4c
-/*     cd4c:	3c068006 */ 	lui	$a2,0x8006
-/*     cd50:	24c6d994 */ 	addiu	$a2,$a2,-9836
+/*     cd4c:	3c068006 */ 	lui	$a2,%hi(var8005d994)
+/*     cd50:	24c6d994 */ 	addiu	$a2,$a2,%lo(var8005d994)
 /*     cd54:	8cce0000 */ 	lw	$t6,0x0($a2)
 /*     cd58:	0004102a */ 	slt	$v0,$zero,$a0
 /*     cd5c:	11c00018 */ 	beqz	$t6,.L0000cdc0
@@ -17844,8 +17844,8 @@ glabel func0000cdc8
 
 GLOBAL_ASM(
 glabel func0000cef8
-/*     cef8:	3c048006 */ 	lui	$a0,0x8006
-/*     cefc:	2484d994 */ 	addiu	$a0,$a0,-9836
+/*     cef8:	3c048006 */ 	lui	$a0,%hi(var8005d994)
+/*     cefc:	2484d994 */ 	addiu	$a0,$a0,%lo(var8005d994)
 /*     cf00:	10000012 */ 	beqz	$zero,.L0000cf4c
 /*     cf04:	ac800000 */ 	sw	$zero,0x0($a0)
 /*     cf08:	00001025 */ 	or	$v0,$zero,$zero
@@ -17900,8 +17900,8 @@ glabel func0000cf54
 /*     cfb0:	2443fff6 */ 	addiu	$v1,$v0,-10
 /*     cfb4:	24010007 */ 	addiu	$at,$zero,0x7
 /*     cfb8:	0061001a */ 	div	$zero,$v1,$at
-/*     cfbc:	3c168006 */ 	lui	$s6,0x8006
-/*     cfc0:	26d6d994 */ 	addiu	$s6,$s6,-9836
+/*     cfbc:	3c168006 */ 	lui	$s6,%hi(var8005d994)
+/*     cfc0:	26d6d994 */ 	addiu	$s6,$s6,%lo(var8005d994)
 /*     cfc4:	8ed90000 */ 	lw	$t9,0x0($s6)
 /*     cfc8:	0000c012 */ 	mflo	$t8
 /*     cfcc:	2703ffff */ 	addiu	$v1,$t8,-1
@@ -17967,22 +17967,22 @@ glabel func0000cf54
 GLOBAL_ASM(
 glabel func0000d0a0
 /*     d0a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     d0a4:	3c028009 */ 	lui	$v0,0x8009
-/*     d0a8:	3c038009 */ 	lui	$v1,0x8009
+/*     d0a4:	3c028009 */ 	lui	$v0,%hi(var80094de8)
+/*     d0a8:	3c038009 */ 	lui	$v1,%hi(var80094e08)
 /*     d0ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     d0b0:	24634e08 */ 	addiu	$v1,$v1,0x4e08
-/*     d0b4:	24424de8 */ 	addiu	$v0,$v0,0x4de8
+/*     d0b0:	24634e08 */ 	addiu	$v1,$v1,%lo(var80094e08)
+/*     d0b4:	24424de8 */ 	addiu	$v0,$v0,%lo(var80094de8)
 .L0000d0b8:
 /*     d0b8:	24420001 */ 	addiu	$v0,$v0,0x1
 /*     d0bc:	1443fffe */ 	bne	$v0,$v1,.L0000d0b8
 /*     d0c0:	a040ffff */ 	sb	$zero,-0x1($v0)
-/*     d0c4:	3c0e8009 */ 	lui	$t6,0x8009
-/*     d0c8:	25ce4ae0 */ 	addiu	$t6,$t6,0x4ae0
-/*     d0cc:	3c048009 */ 	lui	$a0,0x8009
-/*     d0d0:	3c058009 */ 	lui	$a1,0x8009
+/*     d0c4:	3c0e8009 */ 	lui	$t6,%hi(var80094ae0)
+/*     d0c8:	25ce4ae0 */ 	addiu	$t6,$t6,%lo(var80094ae0)
+/*     d0cc:	3c048009 */ 	lui	$a0,%hi(var80094e88)
+/*     d0d0:	3c058009 */ 	lui	$a1,%hi(var80094e08)
 /*     d0d4:	adc00000 */ 	sw	$zero,0x0($t6)
-/*     d0d8:	24a54e08 */ 	addiu	$a1,$a1,0x4e08
-/*     d0dc:	24844e88 */ 	addiu	$a0,$a0,0x4e88
+/*     d0d8:	24a54e08 */ 	addiu	$a1,$a1,%lo(var80094e08)
+/*     d0dc:	24844e88 */ 	addiu	$a0,$a0,%lo(var80094e88)
 /*     d0e0:	0c0120d0 */ 	jal	func00048340
 /*     d0e4:	24060020 */ 	addiu	$a2,$zero,0x20
 /*     d0e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -17995,8 +17995,8 @@ GLOBAL_ASM(
 glabel func0000d0f8
 /*     d0f8:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*     d0fc:	afb70044 */ 	sw	$s7,0x44($sp)
-/*     d100:	3c178009 */ 	lui	$s7,0x8009
-/*     d104:	26f74ae0 */ 	addiu	$s7,$s7,0x4ae0
+/*     d100:	3c178009 */ 	lui	$s7,%hi(var80094ae0)
+/*     d104:	26f74ae0 */ 	addiu	$s7,$s7,%lo(var80094ae0)
 /*     d108:	8eee0000 */ 	lw	$t6,0x0($s7)
 /*     d10c:	afb40038 */ 	sw	$s4,0x38($sp)
 /*     d110:	afb30034 */ 	sw	$s3,0x34($sp)
@@ -18031,12 +18031,12 @@ glabel func0000d0f8
 /*     d178:	02002825 */ 	or	$a1,$s0,$zero
 /*     d17c:	13c0001b */ 	beqz	$s8,.L0000d1ec
 /*     d180:	00009025 */ 	or	$s2,$zero,$zero
-/*     d184:	3c108009 */ 	lui	$s0,0x8009
-/*     d188:	3c118009 */ 	lui	$s1,0x8009
-/*     d18c:	3c168009 */ 	lui	$s6,0x8009
-/*     d190:	26d64e88 */ 	addiu	$s6,$s6,0x4e88
-/*     d194:	26314ae8 */ 	addiu	$s1,$s1,0x4ae8
-/*     d198:	26104de8 */ 	addiu	$s0,$s0,0x4de8
+/*     d184:	3c108009 */ 	lui	$s0,%hi(var80094de8)
+/*     d188:	3c118009 */ 	lui	$s1,%hi(var80094ae8)
+/*     d18c:	3c168009 */ 	lui	$s6,%hi(var80094e88)
+/*     d190:	26d64e88 */ 	addiu	$s6,$s6,%lo(var80094e88)
+/*     d194:	26314ae8 */ 	addiu	$s1,$s1,%lo(var80094ae8)
+/*     d198:	26104de8 */ 	addiu	$s0,$s0,%lo(var80094de8)
 /*     d19c:	24150001 */ 	addiu	$s5,$zero,0x1
 .L0000d1a0:
 /*     d1a0:	a2150000 */ 	sb	$s5,0x0($s0)
@@ -18060,8 +18060,8 @@ glabel func0000d0f8
 /*     d1e8:	26734000 */ 	addiu	$s3,$s3,0x4000
 .L0000d1ec:
 /*     d1ec:	8fa30050 */ 	lw	$v1,0x50($sp)
-/*     d1f0:	3c168009 */ 	lui	$s6,0x8009
-/*     d1f4:	26d64e88 */ 	addiu	$s6,$s6,0x4e88
+/*     d1f0:	3c168009 */ 	lui	$s6,%hi(var80094e88)
+/*     d1f4:	26d64e88 */ 	addiu	$s6,$s6,%lo(var80094e88)
 /*     d1f8:	10600014 */ 	beqz	$v1,.L0000d24c
 /*     d1fc:	24150001 */ 	addiu	$s5,$zero,0x1
 /*     d200:	3c018009 */ 	lui	$at,0x8009
@@ -18070,8 +18070,8 @@ glabel func0000d0f8
 /*     d20c:	8ee20000 */ 	lw	$v0,0x0($s7)
 /*     d210:	00124880 */ 	sll	$t1,$s2,0x2
 /*     d214:	01324823 */ 	subu	$t1,$t1,$s2
-/*     d218:	3c0a8009 */ 	lui	$t2,0x8009
-/*     d21c:	254a4ae8 */ 	addiu	$t2,$t2,0x4ae8
+/*     d218:	3c0a8009 */ 	lui	$t2,%hi(var80094ae8)
+/*     d21c:	254a4ae8 */ 	addiu	$t2,$t2,%lo(var80094ae8)
 /*     d220:	000948c0 */ 	sll	$t1,$t1,0x3
 /*     d224:	24480001 */ 	addiu	$t0,$v0,0x1
 /*     d228:	aee80000 */ 	sw	$t0,0x0($s7)
@@ -18170,8 +18170,8 @@ GLOBAL_ASM(
 glabel func0000d350
 /*     d350:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*     d354:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*     d358:	3c128009 */ 	lui	$s2,0x8009
-/*     d35c:	26524ae0 */ 	addiu	$s2,$s2,0x4ae0
+/*     d358:	3c128009 */ 	lui	$s2,%hi(var80094ae0)
+/*     d35c:	26524ae0 */ 	addiu	$s2,$s2,%lo(var80094ae0)
 /*     d360:	8e4e0000 */ 	lw	$t6,0x0($s2)
 /*     d364:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*     d368:	afb50028 */ 	sw	$s5,0x28($sp)
@@ -18180,10 +18180,10 @@ glabel func0000d350
 /*     d374:	afb10018 */ 	sw	$s1,0x18($sp)
 /*     d378:	11c0001c */ 	beqz	$t6,.L0000d3ec
 /*     d37c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     d380:	3c158009 */ 	lui	$s5,0x8009
-/*     d384:	3c138009 */ 	lui	$s3,0x8009
-/*     d388:	26734e88 */ 	addiu	$s3,$s3,0x4e88
-/*     d38c:	26b54de8 */ 	addiu	$s5,$s5,0x4de8
+/*     d380:	3c158009 */ 	lui	$s5,%hi(var80094de8)
+/*     d384:	3c138009 */ 	lui	$s3,%hi(var80094e88)
+/*     d388:	26734e88 */ 	addiu	$s3,$s3,%lo(var80094e88)
+/*     d38c:	26b54de8 */ 	addiu	$s5,$s5,%lo(var80094de8)
 /*     d390:	27b40040 */ 	addiu	$s4,$sp,0x40
 /*     d394:	24110020 */ 	addiu	$s1,$zero,0x20
 /*     d398:	02602025 */ 	or	$a0,$s3,$zero
@@ -18192,8 +18192,8 @@ glabel func0000d350
 /*     d3a0:	24060001 */ 	addiu	$a2,$zero,0x1
 /*     d3a4:	0c0121bc */ 	jal	func000486f0
 /*     d3a8:	00008025 */ 	or	$s0,$zero,$zero
-/*     d3ac:	3c028009 */ 	lui	$v0,0x8009
-/*     d3b0:	24424ae8 */ 	addiu	$v0,$v0,0x4ae8
+/*     d3ac:	3c028009 */ 	lui	$v0,%hi(var80094ae8)
+/*     d3b0:	24424ae8 */ 	addiu	$v0,$v0,%lo(var80094ae8)
 /*     d3b4:	8fa30040 */ 	lw	$v1,0x40($sp)
 .L0000d3b8:
 /*     d3b8:	50620005 */ 	beql	$v1,$v0,.L0000d3d0
@@ -18395,19 +18395,19 @@ glabel func0000d520
 /*     d668:	0c0053d8 */ 	jal	func00014f60
 /*     d66c:	24051000 */ 	addiu	$a1,$zero,0x1000
 /*     d670:	14400004 */ 	bnez	$v0,.L0000d684
-/*     d674:	3c108006 */ 	lui	$s0,0x8006
-/*     d678:	2610d9d4 */ 	addiu	$s0,$s0,-9772
+/*     d674:	3c108006 */ 	lui	$s0,%hi(var8005d9d4)
+/*     d678:	2610d9d4 */ 	addiu	$s0,$s0,%lo(var8005d9d4)
 /*     d67c:	10000005 */ 	beqz	$zero,.L0000d694
 /*     d680:	ae000000 */ 	sw	$zero,0x0($s0)
 .L0000d684:
-/*     d684:	3c108006 */ 	lui	$s0,0x8006
-/*     d688:	2610d9d4 */ 	addiu	$s0,$s0,-9772
+/*     d684:	3c108006 */ 	lui	$s0,%hi(var8005d9d4)
+/*     d688:	2610d9d4 */ 	addiu	$s0,$s0,%lo(var8005d9d4)
 /*     d68c:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*     d690:	ae0c0000 */ 	sw	$t4,0x0($s0)
 .L0000d694:
-/*     d694:	3c0e8006 */ 	lui	$t6,0x8006
+/*     d694:	3c0e8006 */ 	lui	$t6,%hi(var8005dd1c)
 /*     d698:	afa01470 */ 	sw	$zero,0x1470($sp)
-/*     d69c:	25cedd1c */ 	addiu	$t6,$t6,-8932
+/*     d69c:	25cedd1c */ 	addiu	$t6,$t6,%lo(var8005dd1c)
 /*     d6a0:	8dc10000 */ 	lw	$at,0x0($t6)
 /*     d6a4:	8dd90004 */ 	lw	$t9,0x4($t6)
 /*     d6a8:	27ad1450 */ 	addiu	$t5,$sp,0x1450
@@ -18534,19 +18534,19 @@ glabel func0000d520
 /*     d86c:	02002025 */ 	or	$a0,$s0,$zero
 /*     d870:	8faa0048 */ 	lw	$t2,0x48($sp)
 /*     d874:	3c018006 */ 	lui	$at,0x8006
-/*     d878:	3c048009 */ 	lui	$a0,0x8009
+/*     d878:	3c048009 */ 	lui	$a0,%hi(var8008db30)
 /*     d87c:	ac2af044 */ 	sw	$t2,-0xfbc($at)
 /*     d880:	3c018006 */ 	lui	$at,0x8006
 /*     d884:	254e0800 */ 	addiu	$t6,$t2,0x800
 /*     d888:	ac2ef040 */ 	sw	$t6,-0xfc0($at)
-/*     d88c:	2484db30 */ 	addiu	$a0,$a0,-9424
+/*     d88c:	2484db30 */ 	addiu	$a0,$a0,%lo(var8008db30)
 /*     d890:	27a51470 */ 	addiu	$a1,$sp,0x1470
 /*     d894:	0c0121bc */ 	jal	func000486f0
 /*     d898:	00003025 */ 	or	$a2,$zero,$zero
 /*     d89c:	14400007 */ 	bnez	$v0,.L0000d8bc
 .L0000d8a0:
-/*     d8a0:	3c048009 */ 	lui	$a0,0x8009
-/*     d8a4:	2484db30 */ 	addiu	$a0,$a0,-9424
+/*     d8a0:	3c048009 */ 	lui	$a0,%hi(var8008db30)
+/*     d8a4:	2484db30 */ 	addiu	$a0,$a0,%lo(var8008db30)
 /*     d8a8:	27a51470 */ 	addiu	$a1,$sp,0x1470
 /*     d8ac:	0c0121bc */ 	jal	func000486f0
 /*     d8b0:	00003025 */ 	or	$a2,$zero,$zero
@@ -18555,8 +18555,8 @@ glabel func0000d520
 .L0000d8bc:
 /*     d8bc:	00001825 */ 	or	$v1,$zero,$zero
 .L0000d8c0:
-/*     d8c0:	3c048009 */ 	lui	$a0,0x8009
-/*     d8c4:	2484db30 */ 	addiu	$a0,$a0,-9424
+/*     d8c0:	3c048009 */ 	lui	$a0,%hi(var8008db30)
+/*     d8c4:	2484db30 */ 	addiu	$a0,$a0,%lo(var8008db30)
 /*     d8c8:	27a51470 */ 	addiu	$a1,$sp,0x1470
 /*     d8cc:	24060001 */ 	addiu	$a2,$zero,0x1
 /*     d8d0:	0c0121bc */ 	jal	func000486f0
@@ -18570,10 +18570,10 @@ glabel func0000d520
 /*     d8f0:	28610006 */ 	slti	$at,$v1,0x6
 /*     d8f4:	0c002811 */ 	jal	func0000a044
 /*     d8f8:	afa31488 */ 	sw	$v1,0x1488($sp)
-/*     d8fc:	3c048006 */ 	lui	$a0,0x8006
-/*     d900:	3c058006 */ 	lui	$a1,0x8006
-/*     d904:	24a5dcf0 */ 	addiu	$a1,$a1,-8976
-/*     d908:	2484dcc8 */ 	addiu	$a0,$a0,-9016
+/*     d8fc:	3c048006 */ 	lui	$a0,%hi(var8005dcc8)
+/*     d900:	3c058006 */ 	lui	$a1,%hi(var8005dcf0)
+/*     d904:	24a5dcf0 */ 	addiu	$a1,$a1,%lo(var8005dcf0)
+/*     d908:	2484dcc8 */ 	addiu	$a0,$a0,%lo(var8005dcc8)
 /*     d90c:	00003025 */ 	or	$a2,$zero,$zero
 /*     d910:	0c00be3d */ 	jal	func0002f8f4
 /*     d914:	02003825 */ 	or	$a3,$s0,$zero
@@ -18608,9 +18608,9 @@ glabel func0000d520
 /*     d97c:	0c004bbf */ 	jal	func00012efc
 /*     d980:	24843aa0 */ 	addiu	$a0,$a0,0x3aa0
 .L0000d984:
-/*     d984:	3c04800b */ 	lui	$a0,0x800b
+/*     d984:	3c04800b */ 	lui	$a0,%hi(var800ad1c0)
 /*     d988:	0c012d20 */ 	jal	func0004b480
-/*     d98c:	2484d1c0 */ 	addiu	$a0,$a0,-11840
+/*     d98c:	2484d1c0 */ 	addiu	$a0,$a0,%lo(var800ad1c0)
 /*     d990:	3c038009 */ 	lui	$v1,0x8009
 /*     d994:	8c630b00 */ 	lw	$v1,0xb00($v1)
 /*     d998:	3c018000 */ 	lui	$at,0x8000
@@ -18732,7 +18732,7 @@ glabel func0000db30
 GLOBAL_ASM(
 glabel func0000db3c
 /*     db3c:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*     db40:	3c0f8006 */ 	lui	$t7,0x8006
+/*     db40:	3c0f8006 */ 	lui	$t7,%hi(var8005dd5c)
 /*     db44:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*     db48:	afbe0038 */ 	sw	$s8,0x38($sp)
 /*     db4c:	afb70034 */ 	sw	$s7,0x34($sp)
@@ -18744,7 +18744,7 @@ glabel func0000db3c
 /*     db64:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*     db68:	afb00018 */ 	sw	$s0,0x18($sp)
 /*     db6c:	afa00084 */ 	sw	$zero,0x84($sp)
-/*     db70:	25efdd5c */ 	addiu	$t7,$t7,-8868
+/*     db70:	25efdd5c */ 	addiu	$t7,$t7,%lo(var8005dd5c)
 /*     db74:	8de10000 */ 	lw	$at,0x0($t7)
 /*     db78:	8de80004 */ 	lw	$t0,0x4($t7)
 /*     db7c:	27ae0064 */ 	addiu	$t6,$sp,0x64
@@ -18764,29 +18764,29 @@ glabel func0000db3c
 /*     dbb4:	0fc5d7e6 */ 	jal	func0f175f98
 /*     dbb8:	adc10018 */ 	sw	$at,0x18($t6)
 /*     dbbc:	3c018006 */ 	lui	$at,0x8006
-/*     dbc0:	3c048006 */ 	lui	$a0,0x8006
+/*     dbc0:	3c048006 */ 	lui	$a0,%hi(levelnum)
 /*     dbc4:	ac20d9c4 */ 	sw	$zero,-0x263c($at)
 /*     dbc8:	0c004c35 */ 	jal	func000130d4
-/*     dbcc:	2484d9b4 */ 	addiu	$a0,$a0,-9804
+/*     dbcc:	2484d9b4 */ 	addiu	$a0,$a0,%lo(levelnum)
 /*     dbd0:	3c098006 */ 	lui	$t1,0x8006
 /*     dbd4:	8d29d9d4 */ 	lw	$t1,-0x262c($t1)
-/*     dbd8:	3c028006 */ 	lui	$v0,0x8006
-/*     dbdc:	2442d9b4 */ 	addiu	$v0,$v0,-9804
+/*     dbd8:	3c028006 */ 	lui	$v0,%hi(levelnum)
+/*     dbdc:	2442d9b4 */ 	addiu	$v0,$v0,%lo(levelnum)
 /*     dbe0:	11200006 */ 	beqz	$t1,.L0000dbfc
-/*     dbe4:	3c12800a */ 	lui	$s2,0x800a
-/*     dbe8:	26529fc0 */ 	addiu	$s2,$s2,-24640
+/*     dbe4:	3c12800a */ 	lui	$s2,%hi(g_Vars)
+/*     dbe8:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
 /*     dbec:	240a00fd */ 	addiu	$t2,$zero,0xfd
 /*     dbf0:	240b005b */ 	addiu	$t3,$zero,0x5b
 /*     dbf4:	a64a04e4 */ 	sh	$t2,0x4e4($s2)
 /*     dbf8:	ac4b0000 */ 	sw	$t3,0x0($v0)
 .L0000dbfc:
-/*     dbfc:	3c028006 */ 	lui	$v0,0x8006
-/*     dc00:	2442d9b4 */ 	addiu	$v0,$v0,-9804
+/*     dbfc:	3c028006 */ 	lui	$v0,%hi(levelnum)
+/*     dc00:	2442d9b4 */ 	addiu	$v0,$v0,%lo(levelnum)
 /*     dc04:	8c440000 */ 	lw	$a0,0x0($v0)
-/*     dc08:	3c12800a */ 	lui	$s2,0x800a
+/*     dc08:	3c12800a */ 	lui	$s2,%hi(g_Vars)
 /*     dc0c:	2401005a */ 	addiu	$at,$zero,0x5a
 /*     dc10:	10810016 */ 	beq	$a0,$at,.L0000dc6c
-/*     dc14:	26529fc0 */ 	addiu	$s2,$s2,-24640
+/*     dc14:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
 /*     dc18:	0fc06c55 */ 	jal	func0f01b154
 /*     dc1c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dc20:	3c0c8006 */ 	lui	$t4,0x8006
@@ -18809,8 +18809,8 @@ glabel func0000db3c
 /*     dc64:	0fc5b36a */ 	jal	func0f16cda8
 /*     dc68:	2484ffd0 */ 	addiu	$a0,$a0,-48
 .L0000dc6c:
-/*     dc6c:	3c028006 */ 	lui	$v0,0x8006
-/*     dc70:	2442d9b4 */ 	addiu	$v0,$v0,-9804
+/*     dc6c:	3c028006 */ 	lui	$v0,%hi(levelnum)
+/*     dc70:	2442d9b4 */ 	addiu	$v0,$v0,%lo(levelnum)
 /*     dc74:	8c4d0000 */ 	lw	$t5,0x0($v0)
 /*     dc78:	24010026 */ 	addiu	$at,$zero,0x26
 /*     dc7c:	3c198009 */ 	lui	$t9,0x8009
@@ -18827,12 +18827,12 @@ glabel func0000db3c
 /*     dca4:	24160001 */ 	addiu	$s6,$zero,0x1
 /*     dca8:	0c004b82 */ 	jal	func00012e08
 /*     dcac:	00402025 */ 	or	$a0,$v0,$zero
-/*     dcb0:	3c178006 */ 	lui	$s7,0x8006
-/*     dcb4:	3c138009 */ 	lui	$s3,0x8009
-/*     dcb8:	3c108006 */ 	lui	$s0,0x8006
-/*     dcbc:	2610d9cc */ 	addiu	$s0,$s0,-9780
-/*     dcc0:	2673db30 */ 	addiu	$s3,$s3,-9424
-/*     dcc4:	26f7dd54 */ 	addiu	$s7,$s7,-8876
+/*     dcb0:	3c178006 */ 	lui	$s7,%hi(var8005dd54)
+/*     dcb4:	3c138009 */ 	lui	$s3,%hi(var8008db30)
+/*     dcb8:	3c108006 */ 	lui	$s0,%hi(var8005d9cc)
+/*     dcbc:	2610d9cc */ 	addiu	$s0,$s0,%lo(var8005d9cc)
+/*     dcc0:	2673db30 */ 	addiu	$s3,$s3,%lo(var8008db30)
+/*     dcc4:	26f7dd54 */ 	addiu	$s7,$s7,%lo(var8005dd54)
 /*     dcc8:	241e0002 */ 	addiu	$s8,$zero,0x2
 /*     dccc:	2415ffff */ 	addiu	$s5,$zero,-1
 /*     dcd0:	27b40060 */ 	addiu	$s4,$sp,0x60
@@ -18868,14 +18868,14 @@ glabel func0000db3c
 /*     dd44:	3c0a8006 */ 	lui	$t2,0x8006
 /*     dd48:	8d4adbd0 */ 	lw	$t2,-0x2430($t2)
 /*     dd4c:	00002825 */ 	or	$a1,$zero,$zero
-/*     dd50:	3c048006 */ 	lui	$a0,0x8006
+/*     dd50:	3c048006 */ 	lui	$a0,%hi(var80060190)
 /*     dd54:	1140000d */ 	beqz	$t2,.L0000dd8c
 /*     dd58:	3c0d8006 */ 	lui	$t5,0x8006
 /*     dd5c:	8c84d9b4 */ 	lw	$a0,-0x264c($a0)
 /*     dd60:	3c0b8006 */ 	lui	$t3,0x8006
 /*     dd64:	2562dbd0 */ 	addiu	$v0,$t3,-9264
 /*     dd68:	8c430000 */ 	lw	$v1,0x0($v0)
-/*     dd6c:	24840190 */ 	addiu	$a0,$a0,0x190
+/*     dd6c:	24840190 */ 	addiu	$a0,$a0,%lo(var80060190)
 .L0000dd70:
 /*     dd70:	50830007 */ 	beql	$a0,$v1,.L0000dd90
 /*     dd74:	000560c0 */ 	sll	$t4,$a1,0x3
@@ -18933,14 +18933,14 @@ glabel func0000db3c
 /*     de28:	3c088006 */ 	lui	$t0,0x8006
 /*     de2c:	8d08d9d8 */ 	lw	$t0,-0x2628($t0)
 /*     de30:	00002825 */ 	or	$a1,$zero,$zero
-/*     de34:	3c048006 */ 	lui	$a0,0x8006
+/*     de34:	3c048006 */ 	lui	$a0,%hi(var80060190)
 /*     de38:	1100000d */ 	beqz	$t0,.L0000de70
 /*     de3c:	3c0b8006 */ 	lui	$t3,0x8006
 /*     de40:	8c84d9b4 */ 	lw	$a0,-0x264c($a0)
 /*     de44:	3c098006 */ 	lui	$t1,0x8006
 /*     de48:	2522d9d8 */ 	addiu	$v0,$t1,-9768
 /*     de4c:	8c430000 */ 	lw	$v1,0x0($v0)
-/*     de50:	24840190 */ 	addiu	$a0,$a0,0x190
+/*     de50:	24840190 */ 	addiu	$a0,$a0,%lo(var80060190)
 .L0000de54:
 /*     de54:	50830007 */ 	beql	$a0,$v1,.L0000de74
 /*     de58:	000550c0 */ 	sll	$t2,$a1,0x3
@@ -19136,16 +19136,16 @@ glabel func0000db3c
 /*     e100:	2a210002 */ 	slti	$at,$s1,0x2
 /*     e104:	14200006 */ 	bnez	$at,.L0000e120
 /*     e108:	3c0a8006 */ 	lui	$t2,0x8006
-/*     e10c:	3c02800b */ 	lui	$v0,0x800b
-/*     e110:	2442cb88 */ 	addiu	$v0,$v0,-13432
+/*     e10c:	3c02800b */ 	lui	$v0,%hi(var800acb88)
+/*     e110:	2442cb88 */ 	addiu	$v0,$v0,%lo(var800acb88)
 /*     e114:	94590016 */ 	lhu	$t9,0x16($v0)
 /*     e118:	37380002 */ 	ori	$t8,$t9,0x2
 /*     e11c:	a4580016 */ 	sh	$t8,0x16($v0)
 .L0000e120:
 /*     e120:	2a210003 */ 	slti	$at,$s1,0x3
 /*     e124:	14200005 */ 	bnez	$at,.L0000e13c
-/*     e128:	3c02800b */ 	lui	$v0,0x800b
-/*     e12c:	2442cb88 */ 	addiu	$v0,$v0,-13432
+/*     e128:	3c02800b */ 	lui	$v0,%hi(var800acb88)
+/*     e12c:	2442cb88 */ 	addiu	$v0,$v0,%lo(var800acb88)
 /*     e130:	944e0016 */ 	lhu	$t6,0x16($v0)
 /*     e134:	35cf0004 */ 	ori	$t7,$t6,0x4
 /*     e138:	a44f0016 */ 	sh	$t7,0x16($v0)
@@ -19288,12 +19288,12 @@ glabel func0000db3c
 GLOBAL_ASM(
 glabel func0000e324
 /*     e324:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*     e328:	3c0f8006 */ 	lui	$t7,0x8006
+/*     e328:	3c0f8006 */ 	lui	$t7,%hi(var8005dd7c)
 /*     e32c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*     e330:	afb20020 */ 	sw	$s2,0x20($sp)
 /*     e334:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*     e338:	afb00018 */ 	sw	$s0,0x18($sp)
-/*     e33c:	25efdd7c */ 	addiu	$t7,$t7,-8836
+/*     e33c:	25efdd7c */ 	addiu	$t7,$t7,%lo(var8005dd7c)
 /*     e340:	8de10000 */ 	lw	$at,0x0($t7)
 /*     e344:	8de80004 */ 	lw	$t0,0x4($t7)
 /*     e348:	27ae0050 */ 	addiu	$t6,$sp,0x50
@@ -19360,8 +19360,8 @@ glabel func0000e324
 /*     e43c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e440:	3c088006 */ 	lui	$t0,0x8006
 /*     e444:	8d08d9b4 */ 	lw	$t0,-0x264c($t0)
-/*     e448:	3c11800a */ 	lui	$s1,0x800a
-/*     e44c:	26319fc0 */ 	addiu	$s1,$s1,-24640
+/*     e448:	3c11800a */ 	lui	$s1,%hi(g_Vars)
+/*     e44c:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
 /*     e450:	2901005a */ 	slti	$at,$t0,0x5a
 /*     e454:	10200055 */ 	beqz	$at,.L0000e5ac
 /*     e458:	00000000 */ 	sll	$zero,$zero,0x0
@@ -19502,8 +19502,8 @@ glabel func0000e324
 /*     e638:	00003025 */ 	or	$a2,$zero,$zero
 /*     e63c:	0c00be3d */ 	jal	func0002f8f4
 /*     e640:	27a70050 */ 	addiu	$a3,$sp,0x50
-/*     e644:	3c028006 */ 	lui	$v0,0x8006
-/*     e648:	2442d9cc */ 	addiu	$v0,$v0,-9780
+/*     e644:	3c028006 */ 	lui	$v0,%hi(var8005d9cc)
+/*     e648:	2442d9cc */ 	addiu	$v0,$v0,%lo(var8005d9cc)
 /*     e64c:	8c4a0000 */ 	lw	$t2,0x0($v0)
 /*     e650:	254b0001 */ 	addiu	$t3,$t2,0x1
 /*     e654:	0c004aa3 */ 	jal	func00012a8c
@@ -19536,8 +19536,8 @@ glabel func0000e684
 /*     e6ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e6b0:	0c004f75 */ 	jal	func00013dd4
 /*     e6b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     e6b8:	3c10800a */ 	lui	$s0,0x800a
-/*     e6bc:	26109fc0 */ 	addiu	$s0,$s0,-24640
+/*     e6b8:	3c10800a */ 	lui	$s0,%hi(g_Vars)
+/*     e6bc:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
 /*     e6c0:	8e0f0298 */ 	lw	$t7,0x298($s0)
 /*     e6c4:	05e20049 */ 	bltzl	$t7,.L0000e7ec
 /*     e6c8:	8e0b029c */ 	lw	$t3,0x29c($s0)
@@ -19867,8 +19867,8 @@ glabel func0000ea80
 
 GLOBAL_ASM(
 glabel func0000eadc
-/*     eadc:	3c028009 */ 	lui	$v0,0x8009
-/*     eae0:	24424eb0 */ 	addiu	$v0,$v0,0x4eb0
+/*     eadc:	3c028009 */ 	lui	$v0,%hi(var80094eb0)
+/*     eae0:	24424eb0 */ 	addiu	$v0,$v0,%lo(var80094eb0)
 /*     eae4:	944e0000 */ 	lhu	$t6,0x0($v0)
 /*     eae8:	2403ffff */ 	addiu	$v1,$zero,-1
 /*     eaec:	ac400004 */ 	sw	$zero,0x4($v0)
@@ -19897,10 +19897,10 @@ glabel func0000eb2c
 /*     eb38:	afb10024 */ 	sw	$s1,0x24($sp)
 /*     eb3c:	afb00020 */ 	sw	$s0,0x20($sp)
 /*     eb40:	2652006b */ 	addiu	$s2,$s2,0x6b
-/*     eb44:	3c118009 */ 	lui	$s1,0x8009
+/*     eb44:	3c118009 */ 	lui	$s1,%hi(var80094ea4)
 /*     eb48:	364e000f */ 	ori	$t6,$s2,0xf
 /*     eb4c:	3c100081 */ 	lui	$s0,0x81
-/*     eb50:	26314ea4 */ 	addiu	$s1,$s1,0x4ea4
+/*     eb50:	26314ea4 */ 	addiu	$s1,$s1,%lo(var80094ea4)
 /*     eb54:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*     eb58:	2610a250 */ 	addiu	$s0,$s0,-23984
 /*     eb5c:	39c4000f */ 	xori	$a0,$t6,0xf
@@ -19923,14 +19923,14 @@ glabel func0000eb2c
 /*     eba0:	0c003504 */ 	jal	func0000d410
 /*     eba4:	02802825 */ 	or	$a1,$s4,$zero
 /*     eba8:	864a000e */ 	lh	$t2,0xe($s2)
-/*     ebac:	3c098009 */ 	lui	$t1,0x8009
+/*     ebac:	3c098009 */ 	lui	$t1,%hi(var80094ea0)
 /*     ebb0:	3c018009 */ 	lui	$at,0x8009
 /*     ebb4:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*     ebb8:	25294ea0 */ 	addiu	$t1,$t1,0x4ea0
+/*     ebb8:	25294ea0 */ 	addiu	$t1,$t1,%lo(var80094ea0)
 /*     ebbc:	ac2b4ea0 */ 	sw	$t3,0x4ea0($at)
 /*     ebc0:	8d330000 */ 	lw	$s3,0x0($t1)
-/*     ebc4:	3c068009 */ 	lui	$a2,0x8009
-/*     ebc8:	24c651f0 */ 	addiu	$a2,$a2,0x51f0
+/*     ebc4:	3c068009 */ 	lui	$a2,%hi(var800951f0)
+/*     ebc8:	24c651f0 */ 	addiu	$a2,$a2,%lo(var800951f0)
 /*     ebcc:	00136080 */ 	sll	$t4,$s3,0x2
 /*     ebd0:	01809825 */ 	or	$s3,$t4,$zero
 /*     ebd4:	26730023 */ 	addiu	$s3,$s3,0x23
@@ -19946,9 +19946,9 @@ glabel func0000eb2c
 /*     ebfc:	02802825 */ 	or	$a1,$s4,$zero
 /*     ec00:	0c003504 */ 	jal	func0000d410
 /*     ec04:	02603025 */ 	or	$a2,$s3,$zero
-/*     ec08:	3c098009 */ 	lui	$t1,0x8009
+/*     ec08:	3c098009 */ 	lui	$t1,%hi(var80094ea0)
 /*     ec0c:	8e2f0000 */ 	lw	$t7,0x0($s1)
-/*     ec10:	25294ea0 */ 	addiu	$t1,$t1,0x4ea0
+/*     ec10:	25294ea0 */ 	addiu	$t1,$t1,%lo(var80094ea0)
 /*     ec14:	8d280000 */ 	lw	$t0,0x0($t1)
 /*     ec18:	25f80010 */ 	addiu	$t8,$t7,0x10
 /*     ec1c:	ae380000 */ 	sw	$t8,0x0($s1)
@@ -19969,19 +19969,19 @@ glabel func0000eb2c
 /*     ec54:	8e390000 */ 	lw	$t9,0x0($s1)
 /*     ec58:	00001825 */ 	or	$v1,$zero,$zero
 .L0000ec5c:
-/*     ec5c:	3c068009 */ 	lui	$a2,0x8009
-/*     ec60:	24c651f0 */ 	addiu	$a2,$a2,0x51f0
+/*     ec5c:	3c068009 */ 	lui	$a2,%hi(var800951f0)
+/*     ec60:	24c651f0 */ 	addiu	$a2,$a2,%lo(var800951f0)
 /*     ec64:	00002025 */ 	or	$a0,$zero,$zero
 /*     ec68:	00002825 */ 	or	$a1,$zero,$zero
 /*     ec6c:	24070002 */ 	addiu	$a3,$zero,0x2
 /*     ec70:	afa80010 */ 	sw	$t0,0x10($sp)
 /*     ec74:	0c00bec5 */ 	jal	func0002fb14
 /*     ec78:	afa3016c */ 	sw	$v1,0x16c($sp)
-/*     ec7c:	3c098009 */ 	lui	$t1,0x8009
-/*     ec80:	25294ea0 */ 	addiu	$t1,$t1,0x4ea0
+/*     ec7c:	3c098009 */ 	lui	$t1,%hi(var80094ea0)
+/*     ec80:	25294ea0 */ 	addiu	$t1,$t1,%lo(var80094ea0)
 /*     ec84:	8d2c0000 */ 	lw	$t4,0x0($t1)
-/*     ec88:	3c058009 */ 	lui	$a1,0x8009
-/*     ec8c:	24a55210 */ 	addiu	$a1,$a1,0x5210
+/*     ec88:	3c058009 */ 	lui	$a1,%hi(var80095210)
+/*     ec8c:	24a55210 */ 	addiu	$a1,$a1,%lo(var80095210)
 /*     ec90:	aca20000 */ 	sw	$v0,0x0($a1)
 /*     ec94:	1180000c */ 	beqz	$t4,.L0000ecc8
 /*     ec98:	8fa3016c */ 	lw	$v1,0x16c($sp)
@@ -20022,10 +20022,10 @@ glabel func0000eb2c
 
 GLOBAL_ASM(
 glabel func0000ed14
-/*     ed14:	3c038009 */ 	lui	$v1,0x8009
-/*     ed18:	3c068009 */ 	lui	$a2,0x8009
-/*     ed1c:	24c65210 */ 	addiu	$a2,$a2,0x5210
-/*     ed20:	24635210 */ 	addiu	$v1,$v1,0x5210
+/*     ed14:	3c038009 */ 	lui	$v1,%hi(var80095210)
+/*     ed18:	3c068009 */ 	lui	$a2,%hi(var80095210)
+/*     ed1c:	24c65210 */ 	addiu	$a2,$a2,%lo(var80095210)
+/*     ed20:	24635210 */ 	addiu	$v1,$v1,%lo(var80095210)
 /*     ed24:	00001025 */ 	or	$v0,$zero,$zero
 /*     ed28:	2407002d */ 	addiu	$a3,$zero,0x2d
 .L0000ed2c:
@@ -20102,8 +20102,8 @@ glabel func0000ed68
 /*     ee20:	02402025 */ 	or	$a0,$s2,$zero
 /*     ee24:	97ad00f6 */ 	lhu	$t5,0xf6($sp)
 /*     ee28:	8e210000 */ 	lw	$at,0x0($s1)
-/*     ee2c:	3c038009 */ 	lui	$v1,0x8009
-/*     ee30:	24635210 */ 	addiu	$v1,$v1,0x5210
+/*     ee2c:	3c038009 */ 	lui	$v1,%hi(var80095210)
+/*     ee30:	24635210 */ 	addiu	$v1,$v1,%lo(var80095210)
 /*     ee34:	000d7100 */ 	sll	$t6,$t5,0x4
 /*     ee38:	006e7821 */ 	addu	$t7,$v1,$t6
 /*     ee3c:	ade1008c */ 	sw	$at,0x8c($t7)
@@ -20183,9 +20183,9 @@ glabel func0000ee88
 /*     ef48:	8a210000 */ 	lwl	$at,0x0($s1)
 /*     ef4c:	9a210003 */ 	lwr	$at,0x3($s1)
 /*     ef50:	00036880 */ 	sll	$t5,$v1,0x2
-/*     ef54:	3c048009 */ 	lui	$a0,0x8009
+/*     ef54:	3c048009 */ 	lui	$a0,%hi(var80095210)
 /*     ef58:	01a36823 */ 	subu	$t5,$t5,$v1
-/*     ef5c:	24845210 */ 	addiu	$a0,$a0,0x5210
+/*     ef5c:	24845210 */ 	addiu	$a0,$a0,%lo(var80095210)
 /*     ef60:	000d6840 */ 	sll	$t5,$t5,0x1
 /*     ef64:	008d7021 */ 	addu	$t6,$a0,$t5
 /*     ef68:	a9c1035c */ 	swl	$at,0x35c($t6)
@@ -20259,8 +20259,8 @@ glabel func0000efa8
 /*     f05c:	5604ffe7 */ 	bnel	$s0,$a0,.L0000effc
 /*     f060:	02402025 */ 	or	$a0,$s2,$zero
 /*     f064:	97a302f6 */ 	lhu	$v1,0x2f6($sp)
-/*     f068:	3c048009 */ 	lui	$a0,0x8009
-/*     f06c:	24845210 */ 	addiu	$a0,$a0,0x5210
+/*     f068:	3c048009 */ 	lui	$a0,%hi(var80095210)
+/*     f06c:	24845210 */ 	addiu	$a0,$a0,%lo(var80095210)
 /*     f070:	00036940 */ 	sll	$t5,$v1,0x5
 /*     f074:	01a36821 */ 	addu	$t5,$t5,$v1
 /*     f078:	000d18c0 */ 	sll	$v1,$t5,0x3
@@ -20347,8 +20347,8 @@ glabel func0000f0d4
 /*     f198:	5604ffe7 */ 	bnel	$s0,$a0,.L0000f138
 /*     f19c:	02402025 */ 	or	$a0,$s2,$zero
 /*     f1a0:	97a300f6 */ 	lhu	$v1,0xf6($sp)
-/*     f1a4:	3c048009 */ 	lui	$a0,0x8009
-/*     f1a8:	24845210 */ 	addiu	$a0,$a0,0x5210
+/*     f1a4:	3c048009 */ 	lui	$a0,%hi(var80095210)
+/*     f1a8:	24845210 */ 	addiu	$a0,$a0,%lo(var80095210)
 /*     f1ac:	00036880 */ 	sll	$t5,$v1,0x2
 /*     f1b0:	01a36823 */ 	subu	$t5,$t5,$v1
 /*     f1b4:	000d6880 */ 	sll	$t5,$t5,0x2
@@ -20437,12 +20437,12 @@ glabel func0000f228
 /*     f2dc:	5604ffe7 */ 	bnel	$s0,$a0,.L0000f27c
 /*     f2e0:	02402025 */ 	or	$a0,$s2,$zero
 /*     f2e4:	97ad00fe */ 	lhu	$t5,0xfe($sp)
-/*     f2e8:	3c0f8009 */ 	lui	$t7,0x8009
+/*     f2e8:	3c0f8009 */ 	lui	$t7,%hi(var80095210)
 /*     f2ec:	8e210000 */ 	lw	$at,0x0($s1)
 /*     f2f0:	000d7080 */ 	sll	$t6,$t5,0x2
 /*     f2f4:	01cd7021 */ 	addu	$t6,$t6,$t5
 /*     f2f8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*     f2fc:	25ef5210 */ 	addiu	$t7,$t7,0x5210
+/*     f2fc:	25ef5210 */ 	addiu	$t7,$t7,%lo(var80095210)
 /*     f300:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*     f304:	2450046c */ 	addiu	$s0,$v0,0x46c
 /*     f308:	ae010000 */ 	sw	$at,0x0($s0)
@@ -20578,11 +20578,11 @@ glabel func0000f49c
 /*     f4c4:	0c003ee8 */ 	jal	func0000fba0
 /*     f4c8:	01e02025 */ 	or	$a0,$t7,$zero
 /*     f4cc:	10400003 */ 	beqz	$v0,.L0000f4dc
-/*     f4d0:	3c088009 */ 	lui	$t0,0x8009
+/*     f4d0:	3c088009 */ 	lui	$t0,%hi(var80095210)
 /*     f4d4:	10000064 */ 	beqz	$zero,.L0000f668
 /*     f4d8:	00001025 */ 	or	$v0,$zero,$zero
 .L0000f4dc:
-/*     f4dc:	25085210 */ 	addiu	$t0,$t0,0x5210
+/*     f4dc:	25085210 */ 	addiu	$t0,$t0,%lo(var80095210)
 /*     f4e0:	320a07ff */ 	andi	$t2,$s0,0x7ff
 /*     f4e4:	8d060000 */ 	lw	$a2,0x0($t0)
 /*     f4e8:	000ac400 */ 	sll	$t8,$t2,0x10
@@ -20594,8 +20594,8 @@ glabel func0000f49c
 /*     f500:	2407ffff */ 	addiu	$a3,$zero,-1
 /*     f504:	15210051 */ 	bne	$t1,$at,.L0000f64c
 /*     f508:	00002825 */ 	or	$a1,$zero,$zero
-/*     f50c:	3c038009 */ 	lui	$v1,0x8009
-/*     f510:	24635210 */ 	addiu	$v1,$v1,0x5210
+/*     f50c:	3c038009 */ 	lui	$v1,%hi(var80095210)
+/*     f510:	24635210 */ 	addiu	$v1,$v1,%lo(var80095210)
 /*     f514:	00001025 */ 	or	$v0,$zero,$zero
 .L0000f518:
 /*     f518:	906d0004 */ 	lbu	$t5,0x4($v1)
@@ -20662,8 +20662,8 @@ glabel func0000f49c
 /*     f5fc:	0c003ba2 */ 	jal	func0000ee88
 /*     f600:	3225ffff */ 	andi	$a1,$s1,0xffff
 /*     f604:	8e010000 */ 	lw	$at,0x0($s0)
-/*     f608:	3c088009 */ 	lui	$t0,0x8009
-/*     f60c:	25085210 */ 	addiu	$t0,$t0,0x5210
+/*     f608:	3c088009 */ 	lui	$t0,%hi(var80095210)
+/*     f60c:	25085210 */ 	addiu	$t0,$t0,%lo(var80095210)
 /*     f610:	97a900aa */ 	lhu	$t1,0xaa($sp)
 /*     f614:	0011c100 */ 	sll	$t8,$s1,0x4
 /*     f618:	ae020004 */ 	sw	$v0,0x4($s0)
@@ -20698,13 +20698,13 @@ glabel func0000f49c
 GLOBAL_ASM(
 glabel func0000f67c
 /*     f67c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*     f680:	3c198009 */ 	lui	$t9,0x8009
+/*     f680:	3c198009 */ 	lui	$t9,%hi(var800951f0)
 /*     f684:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*     f688:	afa40040 */ 	sw	$a0,0x40($sp)
 /*     f68c:	240e002c */ 	addiu	$t6,$zero,0x2c
 /*     f690:	240f0040 */ 	addiu	$t7,$zero,0x40
 /*     f694:	24180010 */ 	addiu	$t8,$zero,0x10
-/*     f698:	273951f0 */ 	addiu	$t9,$t9,0x51f0
+/*     f698:	273951f0 */ 	addiu	$t9,$t9,%lo(var800951f0)
 /*     f69c:	afae0020 */ 	sw	$t6,0x20($sp)
 /*     f6a0:	afaf0024 */ 	sw	$t7,0x24($sp)
 /*     f6a4:	a3b80028 */ 	sb	$t8,0x28($sp)
@@ -20718,29 +20718,29 @@ glabel func0000f67c
 /*     f6c4:	00002025 */ 	or	$a0,$zero,$zero
 /*     f6c8:	15010006 */ 	bne	$t0,$at,.L0000f6e4
 /*     f6cc:	00002825 */ 	or	$a1,$zero,$zero
-/*     f6d0:	3c028009 */ 	lui	$v0,0x8009
-/*     f6d4:	2442520c */ 	addiu	$v0,$v0,0x520c
+/*     f6d0:	3c028009 */ 	lui	$v0,%hi(var8009520c)
+/*     f6d4:	2442520c */ 	addiu	$v0,$v0,%lo(var8009520c)
 /*     f6d8:	24093800 */ 	addiu	$t1,$zero,0x3800
 /*     f6dc:	10000005 */ 	beqz	$zero,.L0000f6f4
 /*     f6e0:	ac490000 */ 	sw	$t1,0x0($v0)
 .L0000f6e4:
-/*     f6e4:	3c028009 */ 	lui	$v0,0x8009
-/*     f6e8:	2442520c */ 	addiu	$v0,$v0,0x520c
+/*     f6e4:	3c028009 */ 	lui	$v0,%hi(var8009520c)
+/*     f6e8:	2442520c */ 	addiu	$v0,$v0,%lo(var8009520c)
 /*     f6ec:	240a4800 */ 	addiu	$t2,$zero,0x4800
 /*     f6f0:	ac4a0000 */ 	sw	$t2,0x0($v0)
 .L0000f6f4:
 /*     f6f4:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*     f6f8:	3c068009 */ 	lui	$a2,0x8009
-/*     f6fc:	24c651f0 */ 	addiu	$a2,$a2,0x51f0
+/*     f6f8:	3c068009 */ 	lui	$a2,%hi(var800951f0)
+/*     f6fc:	24c651f0 */ 	addiu	$a2,$a2,%lo(var800951f0)
 /*     f700:	24070001 */ 	addiu	$a3,$zero,0x1
 /*     f704:	0c00bec5 */ 	jal	func0002fb14
 /*     f708:	afab0010 */ 	sw	$t3,0x10($sp)
 /*     f70c:	8fac0040 */ 	lw	$t4,0x40($sp)
-/*     f710:	3c068009 */ 	lui	$a2,0x8009
+/*     f710:	3c068009 */ 	lui	$a2,%hi(var800951f0)
 /*     f714:	240d008c */ 	addiu	$t5,$zero,0x8c
 /*     f718:	ad8200fc */ 	sw	$v0,0xfc($t4)
 /*     f71c:	afad0010 */ 	sw	$t5,0x10($sp)
-/*     f720:	24c651f0 */ 	addiu	$a2,$a2,0x51f0
+/*     f720:	24c651f0 */ 	addiu	$a2,$a2,%lo(var800951f0)
 /*     f724:	00002025 */ 	or	$a0,$zero,$zero
 /*     f728:	00002825 */ 	or	$a1,$zero,$zero
 /*     f72c:	0c00bec5 */ 	jal	func0002fb14
@@ -20759,16 +20759,16 @@ glabel func0000f67c
 /*     f760:	27bd0040 */ 	addiu	$sp,$sp,0x40
 /*     f764:	03e00008 */ 	jr	$ra
 /*     f768:	00000000 */ 	sll	$zero,$zero,0x0
-/*     f76c:	3c0e800a */ 	lui	$t6,0x800a
-/*     f770:	25ce9024 */ 	addiu	$t6,$t6,-28636
+/*     f76c:	3c0e800a */ 	lui	$t6,%hi(var80099024)
+/*     f770:	25ce9024 */ 	addiu	$t6,$t6,%lo(var80099024)
 /*     f774:	008e082b */ 	sltu	$at,$a0,$t6
 /*     f778:	1420000d */ 	bnez	$at,.L0000f7b0
-/*     f77c:	3c0f800a */ 	lui	$t7,0x800a
-/*     f780:	25ef92e4 */ 	addiu	$t7,$t7,-27932
+/*     f77c:	3c0f800a */ 	lui	$t7,%hi(var800992e4)
+/*     f780:	25ef92e4 */ 	addiu	$t7,$t7,%lo(var800992e4)
 /*     f784:	01e4082b */ 	sltu	$at,$t7,$a0
 /*     f788:	14200009 */ 	bnez	$at,.L0000f7b0
-/*     f78c:	3c038009 */ 	lui	$v1,0x8009
-/*     f790:	24635210 */ 	addiu	$v1,$v1,0x5210
+/*     f78c:	3c038009 */ 	lui	$v1,%hi(var80095210)
+/*     f790:	24635210 */ 	addiu	$v1,$v1,%lo(var80095210)
 /*     f794:	0083c023 */ 	subu	$t8,$a0,$v1
 /*     f798:	2719c1ec */ 	addiu	$t9,$t8,-15892
 /*     f79c:	00194103 */ 	sra	$t0,$t9,0x4
@@ -20779,16 +20779,16 @@ glabel func0000f67c
 .L0000f7b0:
 /*     f7b0:	03e00008 */ 	jr	$ra
 /*     f7b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     f7b8:	3c0e800a */ 	lui	$t6,0x800a
-/*     f7bc:	25ce9024 */ 	addiu	$t6,$t6,-28636
+/*     f7b8:	3c0e800a */ 	lui	$t6,%hi(var80099024)
+/*     f7bc:	25ce9024 */ 	addiu	$t6,$t6,%lo(var80099024)
 /*     f7c0:	008e082b */ 	sltu	$at,$a0,$t6
 /*     f7c4:	1420000d */ 	bnez	$at,.L0000f7fc
-/*     f7c8:	3c0f800a */ 	lui	$t7,0x800a
-/*     f7cc:	25ef92e4 */ 	addiu	$t7,$t7,-27932
+/*     f7c8:	3c0f800a */ 	lui	$t7,%hi(var800992e4)
+/*     f7cc:	25ef92e4 */ 	addiu	$t7,$t7,%lo(var800992e4)
 /*     f7d0:	01e4082b */ 	sltu	$at,$t7,$a0
 /*     f7d4:	14200009 */ 	bnez	$at,.L0000f7fc
-/*     f7d8:	3c038009 */ 	lui	$v1,0x8009
-/*     f7dc:	24635210 */ 	addiu	$v1,$v1,0x5210
+/*     f7d8:	3c038009 */ 	lui	$v1,%hi(var80095210)
+/*     f7dc:	24635210 */ 	addiu	$v1,$v1,%lo(var80095210)
 /*     f7e0:	0083c023 */ 	subu	$t8,$a0,$v1
 /*     f7e4:	2719c1ec */ 	addiu	$t9,$t8,-15892
 /*     f7e8:	00194103 */ 	sra	$t0,$t9,0x4
@@ -20859,21 +20859,21 @@ glabel func0000f804
 /*     f8cc:	1420fffd */ 	bnez	$at,.L0000f8c4
 /*     f8d0:	a060ffff */ 	sb	$zero,-0x1($v1)
 .L0000f8d4:
-/*     f8d4:	3c048009 */ 	lui	$a0,0x8009
-/*     f8d8:	248451f0 */ 	addiu	$a0,$a0,0x51f0
+/*     f8d4:	3c048009 */ 	lui	$a0,%hi(var800951f0)
+/*     f8d8:	248451f0 */ 	addiu	$a0,$a0,%lo(var800951f0)
 /*     f8dc:	00e02825 */ 	or	$a1,$a3,$zero
 /*     f8e0:	0c00bebc */ 	jal	func0002faf0
 /*     f8e4:	02003025 */ 	or	$a2,$s0,$zero
-/*     f8e8:	3c068009 */ 	lui	$a2,0x8009
+/*     f8e8:	3c068009 */ 	lui	$a2,%hi(var800951f0)
 /*     f8ec:	24190020 */ 	addiu	$t9,$zero,0x20
 /*     f8f0:	afb90010 */ 	sw	$t9,0x10($sp)
-/*     f8f4:	24c651f0 */ 	addiu	$a2,$a2,0x51f0
+/*     f8f4:	24c651f0 */ 	addiu	$a2,$a2,%lo(var800951f0)
 /*     f8f8:	00002025 */ 	or	$a0,$zero,$zero
 /*     f8fc:	00002825 */ 	or	$a1,$zero,$zero
 /*     f900:	0c00bec5 */ 	jal	func0002fb14
 /*     f904:	24070001 */ 	addiu	$a3,$zero,0x1
-/*     f908:	3c038006 */ 	lui	$v1,0x8006
-/*     f90c:	2463dde0 */ 	addiu	$v1,$v1,-8736
+/*     f908:	3c038006 */ 	lui	$v1,%hi(var8005dde0)
+/*     f90c:	2463dde0 */ 	addiu	$v1,$v1,%lo(var8005dde0)
 /*     f910:	3c057005 */ 	lui	$a1,0x7005
 /*     f914:	ac620000 */ 	sw	$v0,0x0($v1)
 /*     f918:	24a53b20 */ 	addiu	$a1,$a1,0x3b20
@@ -20888,9 +20888,9 @@ glabel func0000f804
 /*     f93c:	2408ffff */ 	addiu	$t0,$zero,-1
 /*     f940:	3c018009 */ 	lui	$at,0x8009
 /*     f944:	012a8023 */ 	subu	$s0,$t1,$t2
-/*     f948:	3c068009 */ 	lui	$a2,0x8009
+/*     f948:	3c068009 */ 	lui	$a2,%hi(var800951f0)
 /*     f94c:	ac285200 */ 	sw	$t0,0x5200($at)
-/*     f950:	24c651f0 */ 	addiu	$a2,$a2,0x51f0
+/*     f950:	24c651f0 */ 	addiu	$a2,$a2,%lo(var800951f0)
 /*     f954:	afb00010 */ 	sw	$s0,0x10($sp)
 /*     f958:	00002025 */ 	or	$a0,$zero,$zero
 /*     f95c:	00002825 */ 	or	$a1,$zero,$zero
@@ -20908,18 +20908,18 @@ glabel func0000f804
 /*     f98c:	02202025 */ 	or	$a0,$s1,$zero
 /*     f990:	8e2b0004 */ 	lw	$t3,0x4($s1)
 /*     f994:	3c018009 */ 	lui	$at,0x8009
-/*     f998:	3c068009 */ 	lui	$a2,0x8009
+/*     f998:	3c068009 */ 	lui	$a2,%hi(var800951f0)
 /*     f99c:	240c0010 */ 	addiu	$t4,$zero,0x10
 /*     f9a0:	afac0010 */ 	sw	$t4,0x10($sp)
-/*     f9a4:	24c651f0 */ 	addiu	$a2,$a2,0x51f0
+/*     f9a4:	24c651f0 */ 	addiu	$a2,$a2,%lo(var800951f0)
 /*     f9a8:	00002025 */ 	or	$a0,$zero,$zero
 /*     f9ac:	00002825 */ 	or	$a1,$zero,$zero
 /*     f9b0:	24070001 */ 	addiu	$a3,$zero,0x1
 /*     f9b4:	0c00bec5 */ 	jal	func0002fb14
 /*     f9b8:	ac2b5204 */ 	sw	$t3,0x5204($at)
-/*     f9bc:	3c108009 */ 	lui	$s0,0x8009
+/*     f9bc:	3c108009 */ 	lui	$s0,%hi(var80095208)
 /*     f9c0:	3c1100e8 */ 	lui	$s1,0xe8
-/*     f9c4:	26105208 */ 	addiu	$s0,$s0,0x5208
+/*     f9c4:	26105208 */ 	addiu	$s0,$s0,%lo(var80095208)
 /*     f9c8:	26312000 */ 	addiu	$s1,$s1,0x2000
 /*     f9cc:	ae020000 */ 	sw	$v0,0x0($s0)
 /*     f9d0:	02202825 */ 	or	$a1,$s1,$zero
@@ -20927,8 +20927,8 @@ glabel func0000f804
 /*     f9d8:	0c003504 */ 	jal	func0000d410
 /*     f9dc:	24060010 */ 	addiu	$a2,$zero,0x10
 /*     f9e0:	8e0d0000 */ 	lw	$t5,0x0($s0)
-/*     f9e4:	3c068009 */ 	lui	$a2,0x8009
-/*     f9e8:	24c651f0 */ 	addiu	$a2,$a2,0x51f0
+/*     f9e4:	3c068009 */ 	lui	$a2,%hi(var800951f0)
+/*     f9e8:	24c651f0 */ 	addiu	$a2,$a2,%lo(var800951f0)
 /*     f9ec:	95a30000 */ 	lhu	$v1,0x0($t5)
 /*     f9f0:	00002025 */ 	or	$a0,$zero,$zero
 /*     f9f4:	00002825 */ 	or	$a1,$zero,$zero
@@ -20954,7 +20954,7 @@ glabel func0000f804
 /*     fa44:	240b001e */ 	addiu	$t3,$zero,0x1e
 /*     fa48:	240c0040 */ 	addiu	$t4,$zero,0x40
 /*     fa4c:	1b00000d */ 	blez	$t8,.L0000fa84
-/*     fa50:	3c0d8009 */ 	lui	$t5,0x8009
+/*     fa50:	3c0d8009 */ 	lui	$t5,%hi(var800951f0)
 /*     fa54:	00002825 */ 	or	$a1,$zero,$zero
 /*     fa58:	00851021 */ 	addu	$v0,$a0,$a1
 .L0000fa5c:
@@ -20971,7 +20971,7 @@ glabel func0000f804
 .L0000fa84:
 /*     fa84:	3c038009 */ 	lui	$v1,0x8009
 /*     fa88:	8c634ea8 */ 	lw	$v1,0x4ea8($v1)
-/*     fa8c:	25ad51f0 */ 	addiu	$t5,$t5,0x51f0
+/*     fa8c:	25ad51f0 */ 	addiu	$t5,$t5,%lo(var800951f0)
 /*     fa90:	afaa0054 */ 	sw	$t2,0x54($sp)
 /*     fa94:	afab0058 */ 	sw	$t3,0x58($sp)
 /*     fa98:	afac005c */ 	sw	$t4,0x5c($sp)
@@ -20989,12 +20989,12 @@ glabel func0000f804
 /*     fac4:	1420fffd */ 	bnez	$at,.L0000fabc
 /*     fac8:	a043001b */ 	sb	$v1,0x1b($v0)
 .L0000facc:
-/*     facc:	3c098009 */ 	lui	$t1,0x8009
+/*     facc:	3c098009 */ 	lui	$t1,%hi(var800951f0)
 /*     fad0:	240f0040 */ 	addiu	$t7,$zero,0x40
 /*     fad4:	24180040 */ 	addiu	$t8,$zero,0x40
 /*     fad8:	24190014 */ 	addiu	$t9,$zero,0x14
 /*     fadc:	24080009 */ 	addiu	$t0,$zero,0x9
-/*     fae0:	252951f0 */ 	addiu	$t1,$t1,0x51f0
+/*     fae0:	252951f0 */ 	addiu	$t1,$t1,%lo(var800951f0)
 /*     fae4:	afaf0080 */ 	sw	$t7,0x80($sp)
 /*     fae8:	afb8007c */ 	sw	$t8,0x7c($sp)
 /*     faec:	afb90084 */ 	sw	$t9,0x84($sp)
@@ -21004,11 +21004,11 @@ glabel func0000f804
 /*     fafc:	27a40054 */ 	addiu	$a0,$sp,0x54
 /*     fb00:	3c0a8006 */ 	lui	$t2,0x8006
 /*     fb04:	8d4addd0 */ 	lw	$t2,-0x2230($t2)
-/*     fb08:	3c048009 */ 	lui	$a0,0x8009
+/*     fb08:	3c048009 */ 	lui	$a0,%hi(var800951f0)
 /*     fb0c:	11400009 */ 	beqz	$t2,.L0000fb34
 /*     fb10:	00000000 */ 	sll	$zero,$zero,0x0
 /*     fb14:	0c00dec0 */ 	jal	func00037b00
-/*     fb18:	248451f0 */ 	addiu	$a0,$a0,0x51f0
+/*     fb18:	248451f0 */ 	addiu	$a0,$a0,%lo(var800951f0)
 /*     fb1c:	24047fff */ 	addiu	$a0,$zero,0x7fff
 /*     fb20:	0c00dfc2 */ 	jal	func00037f08
 /*     fb24:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -21016,13 +21016,13 @@ glabel func0000f804
 /*     fb2c:	0c00dfd7 */ 	jal	func00037f5c
 /*     fb30:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0000fb34:
-/*     fb34:	3c108009 */ 	lui	$s0,0x8009
-/*     fb38:	26104ed8 */ 	addiu	$s0,$s0,0x4ed8
+/*     fb34:	3c108009 */ 	lui	$s0,%hi(var80094ed8)
+/*     fb38:	26104ed8 */ 	addiu	$s0,$s0,%lo(var80094ed8)
 .L0000fb3c:
 /*     fb3c:	0c003d9f */ 	jal	func0000f67c
 /*     fb40:	02002025 */ 	or	$a0,$s0,$zero
-/*     fb44:	3c0b8009 */ 	lui	$t3,0x8009
-/*     fb48:	256b51f0 */ 	addiu	$t3,$t3,0x51f0
+/*     fb44:	3c0b8009 */ 	lui	$t3,%hi(var800951f0)
+/*     fb48:	256b51f0 */ 	addiu	$t3,$t3,%lo(var800951f0)
 /*     fb4c:	26100108 */ 	addiu	$s0,$s0,0x108
 /*     fb50:	160bfffa */ 	bne	$s0,$t3,.L0000fb3c
 /*     fb54:	00000000 */ 	sll	$zero,$zero,0x0
@@ -21084,8 +21084,8 @@ glabel func0000fbc4
 .L0000fc10:
 /*     fc10:	0c00df87 */ 	jal	func00037e1c
 /*     fc14:	00000000 */ 	sll	$zero,$zero,0x0
-/*     fc18:	3c028009 */ 	lui	$v0,0x8009
-/*     fc1c:	24424eb0 */ 	addiu	$v0,$v0,0x4eb0
+/*     fc18:	3c028009 */ 	lui	$v0,%hi(var80094eb0)
+/*     fc1c:	24424eb0 */ 	addiu	$v0,$v0,%lo(var80094eb0)
 /*     fc20:	2419ffff */ 	addiu	$t9,$zero,-1
 /*     fc24:	ac400004 */ 	sw	$zero,0x4($v0)
 /*     fc28:	ac59000c */ 	sw	$t9,0xc($v0)
@@ -21285,10 +21285,10 @@ glabel func0000fe88
 /*     fe94:	afb00028 */ 	sw	$s0,0x28($sp)
 /*     fe98:	0c012230 */ 	jal	func000488c0
 /*     fe9c:	00002025 */ 	or	$a0,$zero,$zero
-/*     fea0:	3c048009 */ 	lui	$a0,0x8009
+/*     fea0:	3c048009 */ 	lui	$a0,%hi(var800915e0)
 /*     fea4:	00408025 */ 	or	$s0,$v0,$zero
 /*     fea8:	0c012230 */ 	jal	func000488c0
-/*     feac:	248415e0 */ 	addiu	$a0,$a0,0x15e0
+/*     feac:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
 /*     feb0:	00002025 */ 	or	$a0,$zero,$zero
 /*     feb4:	0c01210c */ 	jal	func00048430
 /*     feb8:	24450001 */ 	addiu	$a1,$v0,0x1
@@ -21296,8 +21296,8 @@ glabel func0000fe88
 /*     fec0:	00000000 */ 	sll	$zero,$zero,0x0
 /*     fec4:	0c00cfc2 */ 	jal	func00033f08
 /*     fec8:	afa20060 */ 	sw	$v0,0x60($sp)
-/*     fecc:	3c078006 */ 	lui	$a3,0x8006
-/*     fed0:	24e7ddd4 */ 	addiu	$a3,$a3,-8748
+/*     fecc:	3c078006 */ 	lui	$a3,%hi(var8005ddd4)
+/*     fed0:	24e7ddd4 */ 	addiu	$a3,$a3,%lo(var8005ddd4)
 /*     fed4:	8fa80060 */ 	lw	$t0,0x60($sp)
 /*     fed8:	00401825 */ 	or	$v1,$v0,$zero
 /*     fedc:	1040002c */ 	beqz	$v0,.L0000ff90
@@ -21354,10 +21354,10 @@ glabel func0000fe88
 .L0000ff94:
 /*     ff94:	0c01210c */ 	jal	func00048430
 /*     ff98:	02002825 */ 	or	$a1,$s0,$zero
-/*     ff9c:	3c048006 */ 	lui	$a0,0x8006
-/*     ffa0:	3c078006 */ 	lui	$a3,0x8006
-/*     ffa4:	24e7ddd4 */ 	addiu	$a3,$a3,-8748
-/*     ffa8:	2484ddd8 */ 	addiu	$a0,$a0,-8744
+/*     ff9c:	3c048006 */ 	lui	$a0,%hi(var8005ddd8)
+/*     ffa0:	3c078006 */ 	lui	$a3,%hi(var8005ddd4)
+/*     ffa4:	24e7ddd4 */ 	addiu	$a3,$a3,%lo(var8005ddd4)
+/*     ffa8:	2484ddd8 */ 	addiu	$a0,$a0,%lo(var8005ddd8)
 /*     ffac:	8c820000 */ 	lw	$v0,0x0($a0)
 /*     ffb0:	8ce30000 */ 	lw	$v1,0x0($a3)
 /*     ffb4:	3c0f8006 */ 	lui	$t7,0x8006
@@ -21442,8 +21442,8 @@ glabel func0000fe88
 /*    100d0:	0c00dfa9 */ 	jal	func00037ea4
 /*    100d4:	00000000 */ 	sll	$zero,$zero,0x0
 /*    100d8:	1440001d */ 	bnez	$v0,.L00010150
-/*    100dc:	3c108009 */ 	lui	$s0,0x8009
-/*    100e0:	26104eb0 */ 	addiu	$s0,$s0,0x4eb0
+/*    100dc:	3c108009 */ 	lui	$s0,%hi(var80094eb0)
+/*    100e0:	26104eb0 */ 	addiu	$s0,$s0,%lo(var80094eb0)
 /*    100e4:	8e0b0004 */ 	lw	$t3,0x4($s0)
 /*    100e8:	11600019 */ 	beqz	$t3,.L00010150
 /*    100ec:	00000000 */ 	sll	$zero,$zero,0x0
@@ -21475,8 +21475,8 @@ glabel func0000fe88
 /*    10148:	1000007b */ 	beqz	$zero,.L00010338
 /*    1014c:	ae000004 */ 	sw	$zero,0x4($s0)
 .L00010150:
-/*    10150:	3c108009 */ 	lui	$s0,0x8009
-/*    10154:	26104eb0 */ 	addiu	$s0,$s0,0x4eb0
+/*    10150:	3c108009 */ 	lui	$s0,%hi(var80094eb0)
+/*    10154:	26104eb0 */ 	addiu	$s0,$s0,%lo(var80094eb0)
 /*    10158:	8e02000c */ 	lw	$v0,0xc($s0)
 /*    1015c:	3c0e800a */ 	lui	$t6,0x800a
 /*    10160:	58400076 */ 	blezl	$v0,.L0001033c
@@ -21784,8 +21784,8 @@ glabel func000104a0
 /*    10524:	8fac002c */ 	lw	$t4,0x2c($sp)
 /*    10528:	a7a20020 */ 	sh	$v0,0x20($sp)
 /*    1052c:	8fac0020 */ 	lw	$t4,0x20($sp)
-/*    10530:	3c058006 */ 	lui	$a1,0x8006
-/*    10534:	24a5dde4 */ 	addiu	$a1,$a1,-8732
+/*    10530:	3c058006 */ 	lui	$a1,%hi(audiodefinitions)
+/*    10534:	24a5dde4 */ 	addiu	$a1,$a1,%lo(audiodefinitions)
 /*    10538:	000c6fc2 */ 	srl	$t5,$t4,0x1f
 /*    1053c:	11a0002e */ 	beqz	$t5,.L000105f8
 /*    10540:	00407025 */ 	or	$t6,$v0,$zero
@@ -21795,8 +21795,8 @@ glabel func000104a0
 /*    10550:	00b85021 */ 	addu	$t2,$a1,$t8
 /*    10554:	97220002 */ 	lhu	$v0,0x2($t9)
 /*    10558:	854b0000 */ 	lh	$t3,0x0($t2)
-/*    1055c:	3c0f8006 */ 	lui	$t7,0x8006
-/*    10560:	25efe4d8 */ 	addiu	$t7,$t7,-6952
+/*    1055c:	3c0f8006 */ 	lui	$t7,%hi(audioconfigs)
+/*    10560:	25efe4d8 */ 	addiu	$t7,$t7,%lo(audioconfigs)
 /*    10564:	00027140 */ 	sll	$t6,$v0,0x5
 /*    10568:	a7ab001c */ 	sh	$t3,0x1c($sp)
 /*    1056c:	93ac001c */ 	lbu	$t4,0x1c($sp)
@@ -21932,9 +21932,9 @@ glabel func00010718
 /*    10730:	0c012230 */ 	jal	func000488c0
 /*    10734:	00002025 */ 	or	$a0,$zero,$zero
 /*    10738:	2408ffff */ 	addiu	$t0,$zero,-1
-/*    1073c:	3c048009 */ 	lui	$a0,0x8009
+/*    1073c:	3c048009 */ 	lui	$a0,%hi(var800915e0)
 /*    10740:	afa2003c */ 	sw	$v0,0x3c($sp)
-/*    10744:	248415e0 */ 	addiu	$a0,$a0,0x15e0
+/*    10744:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
 /*    10748:	0c012230 */ 	jal	func000488c0
 /*    1074c:	afa80038 */ 	sw	$t0,0x38($sp)
 /*    10750:	00002025 */ 	or	$a0,$zero,$zero
@@ -21972,8 +21972,8 @@ glabel func00010718
 /*    107c4:	8fad004c */ 	lw	$t5,0x4c($sp)
 /*    107c8:	a7a90030 */ 	sh	$t1,0x30($sp)
 /*    107cc:	8faa0030 */ 	lw	$t2,0x30($sp)
-/*    107d0:	3c058006 */ 	lui	$a1,0x8006
-/*    107d4:	24a5dde4 */ 	addiu	$a1,$a1,-8732
+/*    107d0:	3c058006 */ 	lui	$a1,%hi(audiodefinitions)
+/*    107d4:	24a5dde4 */ 	addiu	$a1,$a1,%lo(audiodefinitions)
 /*    107d8:	000a5fc2 */ 	srl	$t3,$t2,0x1f
 /*    107dc:	11600031 */ 	beqz	$t3,.L000108a4
 /*    107e0:	24060064 */ 	addiu	$a2,$zero,0x64
@@ -21984,10 +21984,10 @@ glabel func00010718
 /*    107f4:	85f90000 */ 	lh	$t9,0x0($t7)
 /*    107f8:	00aec021 */ 	addu	$t8,$a1,$t6
 /*    107fc:	97020002 */ 	lhu	$v0,0x2($t8)
-/*    10800:	3c0d8006 */ 	lui	$t5,0x8006
+/*    10800:	3c0d8006 */ 	lui	$t5,%hi(audioconfigs)
 /*    10804:	a7b9002c */ 	sh	$t9,0x2c($sp)
 /*    10808:	93aa002c */ 	lbu	$t2,0x2c($sp)
-/*    1080c:	25ade4d8 */ 	addiu	$t5,$t5,-6952
+/*    1080c:	25ade4d8 */ 	addiu	$t5,$t5,%lo(audioconfigs)
 /*    10810:	00026140 */ 	sll	$t4,$v0,0x5
 /*    10814:	018d2021 */ 	addu	$a0,$t4,$t5
 /*    10818:	8c830010 */ 	lw	$v1,0x10($a0)
@@ -22212,11 +22212,11 @@ glabel func00010ae4
 /*    10b0c:	170000a3 */ 	bnez	$t8,.L00010d9c
 /*    10b10:	a7af0024 */ 	sh	$t7,0x24($sp)
 /*    10b14:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*    10b18:	3c108009 */ 	lui	$s0,0x8009
+/*    10b18:	3c108009 */ 	lui	$s0,%hi(var80094eb0)
 /*    10b1c:	31ea7fff */ 	andi	$t2,$t7,0x7fff
 /*    10b20:	001947c2 */ 	srl	$t0,$t9,0x1f
 /*    10b24:	1100000a */ 	beqz	$t0,.L00010b50
-/*    10b28:	26104eb0 */ 	addiu	$s0,$s0,0x4eb0
+/*    10b28:	26104eb0 */ 	addiu	$s0,$s0,%lo(var80094eb0)
 /*    10b2c:	000a5880 */ 	sll	$t3,$t2,0x2
 /*    10b30:	3c0c8006 */ 	lui	$t4,0x8006
 /*    10b34:	018b6021 */ 	addu	$t4,$t4,$t3
@@ -22258,8 +22258,8 @@ glabel func00010ae4
 /*    10bb4:	00084fc2 */ 	srl	$t1,$t0,0x1f
 /*    10bb8:	1120002e */ 	beqz	$t1,.L00010c74
 /*    10bbc:	314b7fff */ 	andi	$t3,$t2,0x7fff
-/*    10bc0:	3c028006 */ 	lui	$v0,0x8006
-/*    10bc4:	2442e4d8 */ 	addiu	$v0,$v0,-6952
+/*    10bc0:	3c028006 */ 	lui	$v0,%hi(audioconfigs)
+/*    10bc4:	2442e4d8 */ 	addiu	$v0,$v0,%lo(audioconfigs)
 /*    10bc8:	000b6140 */ 	sll	$t4,$t3,0x5
 /*    10bcc:	004c6821 */ 	addu	$t5,$v0,$t4
 /*    10bd0:	8daf0010 */ 	lw	$t7,0x10($t5)
@@ -22414,8 +22414,8 @@ glabel func00010db0
 
 GLOBAL_ASM(
 glabel func00010de0
-/*    10de0:	3c028006 */ 	lui	$v0,0x8006
-/*    10de4:	2442ddac */ 	addiu	$v0,$v0,-8788
+/*    10de0:	3c028006 */ 	lui	$v0,%hi(var8005ddac)
+/*    10de4:	2442ddac */ 	addiu	$v0,$v0,%lo(var8005ddac)
 /*    10de8:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*    10dec:	2401ffff */ 	addiu	$at,$zero,-1
 /*    10df0:	3c0f8006 */ 	lui	$t7,0x8006
@@ -22431,15 +22431,15 @@ glabel func00010de0
 
 GLOBAL_ASM(
 glabel func00010e10
-/*    10e10:	3c038006 */ 	lui	$v1,0x8006
-/*    10e14:	2463ddac */ 	addiu	$v1,$v1,-8788
+/*    10e10:	3c038006 */ 	lui	$v1,%hi(var8005ddac)
+/*    10e14:	2463ddac */ 	addiu	$v1,$v1,%lo(var8005ddac)
 /*    10e18:	8c620000 */ 	lw	$v0,0x0($v1)
 /*    10e1c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    10e20:	2401ffff */ 	addiu	$at,$zero,-1
 /*    10e24:	104100a1 */ 	beq	$v0,$at,.L000110ac
 /*    10e28:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    10e2c:	3c08800a */ 	lui	$t0,0x800a
-/*    10e30:	25089fc0 */ 	addiu	$t0,$t0,-24640
+/*    10e2c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
+/*    10e30:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 /*    10e34:	8d0e0034 */ 	lw	$t6,0x34($t0)
 /*    10e38:	3c198006 */ 	lui	$t9,0x8006
 /*    10e3c:	3c013f80 */ 	lui	$at,0x3f80
@@ -22450,9 +22450,9 @@ glabel func00010e10
 /*    10e50:	44818000 */ 	mtc1	$at,$f16
 /*    10e54:	44994000 */ 	mtc1	$t9,$f8
 /*    10e58:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    10e5c:	3c028006 */ 	lui	$v0,0x8006
+/*    10e5c:	3c028006 */ 	lui	$v0,%hi(var8005dda8)
 /*    10e60:	3c017005 */ 	lui	$at,0x7005
-/*    10e64:	2442dda8 */ 	addiu	$v0,$v0,-8792
+/*    10e64:	2442dda8 */ 	addiu	$v0,$v0,%lo(var8005dda8)
 /*    10e68:	468042a0 */ 	cvt.s.w	$f10,$f8
 /*    10e6c:	460a3003 */ 	div.s	$f0,$f6,$f10
 /*    10e70:	4610003c */ 	c.lt.s	$f0,$f16
@@ -22463,12 +22463,12 @@ glabel func00010e10
 /*    10e84:	46120000 */ 	add.s	$f0,$f0,$f18
 /*    10e88:	0fc5b364 */ 	jal	func0f16cd90
 /*    10e8c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*    10e90:	3c08800a */ 	lui	$t0,0x800a
-/*    10e94:	25089fc0 */ 	addiu	$t0,$t0,-24640
+/*    10e90:	3c08800a */ 	lui	$t0,%hi(g_Vars)
+/*    10e94:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 /*    10e98:	10400028 */ 	beqz	$v0,.L00010f3c
 /*    10e9c:	c7a00034 */ 	lwc1	$f0,0x34($sp)
-/*    10ea0:	3c028006 */ 	lui	$v0,0x8006
-/*    10ea4:	2442dda8 */ 	addiu	$v0,$v0,-8792
+/*    10ea0:	3c028006 */ 	lui	$v0,%hi(var8005dda8)
+/*    10ea4:	2442dda8 */ 	addiu	$v0,$v0,%lo(var8005dda8)
 /*    10ea8:	8c460000 */ 	lw	$a2,0x0($v0)
 /*    10eac:	00002825 */ 	or	$a1,$zero,$zero
 /*    10eb0:	24070040 */ 	addiu	$a3,$zero,0x40
@@ -22487,12 +22487,12 @@ glabel func00010e10
 .L00010ee4:
 /*    10ee4:	10c0000d */ 	beqz	$a2,.L00010f1c
 /*    10ee8:	240cffff */ 	addiu	$t4,$zero,-1
-/*    10eec:	3c048006 */ 	lui	$a0,0x8006
+/*    10eec:	3c048006 */ 	lui	$a0,%hi(var8005ddc0)
 /*    10ef0:	240dffff */ 	addiu	$t5,$zero,-1
 /*    10ef4:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*    10ef8:	afae0020 */ 	sw	$t6,0x20($sp)
 /*    10efc:	afad001c */ 	sw	$t5,0x1c($sp)
-/*    10f00:	2484ddc0 */ 	addiu	$a0,$a0,-8768
+/*    10f00:	2484ddc0 */ 	addiu	$a0,$a0,%lo(var8005ddc0)
 /*    10f04:	afac0010 */ 	sw	$t4,0x10($sp)
 /*    10f08:	e7a00014 */ 	swc1	$f0,0x14($sp)
 /*    10f0c:	0c004128 */ 	jal	func000104a0
@@ -22514,7 +22514,7 @@ glabel func00010e10
 /*    10f44:	3c048009 */ 	lui	$a0,0x8009
 /*    10f48:	24050608 */ 	addiu	$a1,$zero,0x608
 /*    10f4c:	15e00012 */ 	bnez	$t7,.L00010f98
-/*    10f50:	3c068006 */ 	lui	$a2,0x8006
+/*    10f50:	3c068006 */ 	lui	$a2,%hi(var8005ddc0)
 /*    10f54:	3c01bf80 */ 	lui	$at,0xbf80
 /*    10f58:	44812000 */ 	mtc1	$at,$f4
 /*    10f5c:	2418ffff */ 	addiu	$t8,$zero,-1
@@ -22524,20 +22524,20 @@ glabel func00010e10
 /*    10f6c:	afb90018 */ 	sw	$t9,0x18($sp)
 /*    10f70:	afb80010 */ 	sw	$t8,0x10($sp)
 /*    10f74:	8c845200 */ 	lw	$a0,0x5200($a0)
-/*    10f78:	24c6ddc0 */ 	addiu	$a2,$a2,-8768
+/*    10f78:	24c6ddc0 */ 	addiu	$a2,$a2,%lo(var8005ddc0)
 /*    10f7c:	2407ffff */ 	addiu	$a3,$zero,-1
 /*    10f80:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*    10f84:	0c004241 */ 	jal	func00010904
 /*    10f88:	e7a40014 */ 	swc1	$f4,0x14($sp)
-/*    10f8c:	3c08800a */ 	lui	$t0,0x800a
-/*    10f90:	25089fc0 */ 	addiu	$t0,$t0,-24640
+/*    10f8c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
+/*    10f90:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 /*    10f94:	c7a00034 */ 	lwc1	$f0,0x34($sp)
 .L00010f98:
-/*    10f98:	3c028006 */ 	lui	$v0,0x8006
-/*    10f9c:	2442dda8 */ 	addiu	$v0,$v0,-8792
+/*    10f98:	3c028006 */ 	lui	$v0,%hi(var8005dda8)
+/*    10f9c:	2442dda8 */ 	addiu	$v0,$v0,%lo(var8005dda8)
 /*    10fa0:	8c460000 */ 	lw	$a2,0x0($v0)
-/*    10fa4:	3c048006 */ 	lui	$a0,0x8006
-/*    10fa8:	2484ddc0 */ 	addiu	$a0,$a0,-8768
+/*    10fa4:	3c048006 */ 	lui	$a0,%hi(var8005ddc0)
+/*    10fa8:	2484ddc0 */ 	addiu	$a0,$a0,%lo(var8005ddc0)
 /*    10fac:	28c14e20 */ 	slti	$at,$a2,0x4e20
 /*    10fb0:	1020000c */ 	beqz	$at,.L00010fe4
 /*    10fb4:	00002825 */ 	or	$a1,$zero,$zero
@@ -22586,12 +22586,12 @@ glabel func00010e10
 /*    11054:	240bffff */ 	addiu	$t3,$zero,-1
 /*    11058:	3c01bf80 */ 	lui	$at,0xbf80
 /*    1105c:	44814000 */ 	mtc1	$at,$f8
-/*    11060:	3c048006 */ 	lui	$a0,0x8006
+/*    11060:	3c048006 */ 	lui	$a0,%hi(var8005ddc0)
 /*    11064:	240cffff */ 	addiu	$t4,$zero,-1
 /*    11068:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*    1106c:	afad0020 */ 	sw	$t5,0x20($sp)
 /*    11070:	afac001c */ 	sw	$t4,0x1c($sp)
-/*    11074:	2484ddc0 */ 	addiu	$a0,$a0,-8768
+/*    11074:	2484ddc0 */ 	addiu	$a0,$a0,%lo(var8005ddc0)
 /*    11078:	afab0010 */ 	sw	$t3,0x10($sp)
 /*    1107c:	afa00018 */ 	sw	$zero,0x18($sp)
 /*    11080:	0c004128 */ 	jal	func000104a0
@@ -22632,8 +22632,8 @@ glabel func000110bc
 
 GLOBAL_ASM(
 glabel func000110ec
-/*    110ec:	3c028006 */ 	lui	$v0,0x8006
-/*    110f0:	2442ddb8 */ 	addiu	$v0,$v0,-8776
+/*    110ec:	3c028006 */ 	lui	$v0,%hi(var8005ddb8)
+/*    110f0:	2442ddb8 */ 	addiu	$v0,$v0,%lo(var8005ddb8)
 /*    110f4:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*    110f8:	2401ffff */ 	addiu	$at,$zero,-1
 /*    110fc:	3c0f8006 */ 	lui	$t7,0x8006
@@ -22649,15 +22649,15 @@ glabel func000110ec
 
 GLOBAL_ASM(
 glabel func0001111c
-/*    1111c:	3c038006 */ 	lui	$v1,0x8006
-/*    11120:	2463ddb8 */ 	addiu	$v1,$v1,-8776
+/*    1111c:	3c038006 */ 	lui	$v1,%hi(var8005ddb8)
+/*    11120:	2463ddb8 */ 	addiu	$v1,$v1,%lo(var8005ddb8)
 /*    11124:	8c620000 */ 	lw	$v0,0x0($v1)
 /*    11128:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    1112c:	2401ffff */ 	addiu	$at,$zero,-1
 /*    11130:	104100b5 */ 	beq	$v0,$at,.L00011408
 /*    11134:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    11138:	3c08800a */ 	lui	$t0,0x800a
-/*    1113c:	25089fc0 */ 	addiu	$t0,$t0,-24640
+/*    11138:	3c08800a */ 	lui	$t0,%hi(g_Vars)
+/*    1113c:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 /*    11140:	8d0e0034 */ 	lw	$t6,0x34($t0)
 /*    11144:	3c198006 */ 	lui	$t9,0x8006
 /*    11148:	3c013f80 */ 	lui	$at,0x3f80
@@ -22668,9 +22668,9 @@ glabel func0001111c
 /*    1115c:	44816000 */ 	mtc1	$at,$f12
 /*    11160:	44994000 */ 	mtc1	$t9,$f8
 /*    11164:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*    11168:	3c028006 */ 	lui	$v0,0x8006
+/*    11168:	3c028006 */ 	lui	$v0,%hi(var8005ddb4)
 /*    1116c:	3c017005 */ 	lui	$at,0x7005
-/*    11170:	2442ddb4 */ 	addiu	$v0,$v0,-8780
+/*    11170:	2442ddb4 */ 	addiu	$v0,$v0,%lo(var8005ddb4)
 /*    11174:	468042a0 */ 	cvt.s.w	$f10,$f8
 /*    11178:	460a3003 */ 	div.s	$f0,$f6,$f10
 /*    1117c:	460c003c */ 	c.lt.s	$f0,$f12
@@ -22702,12 +22702,12 @@ glabel func0001111c
 .L000111e0:
 /*    111e0:	0fc5b364 */ 	jal	func0f16cd90
 /*    111e4:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*    111e8:	3c08800a */ 	lui	$t0,0x800a
-/*    111ec:	25089fc0 */ 	addiu	$t0,$t0,-24640
+/*    111e8:	3c08800a */ 	lui	$t0,%hi(g_Vars)
+/*    111ec:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 /*    111f0:	10400028 */ 	beqz	$v0,.L00011294
 /*    111f4:	c7a00034 */ 	lwc1	$f0,0x34($sp)
-/*    111f8:	3c028006 */ 	lui	$v0,0x8006
-/*    111fc:	2442ddb4 */ 	addiu	$v0,$v0,-8780
+/*    111f8:	3c028006 */ 	lui	$v0,%hi(var8005ddb4)
+/*    111fc:	2442ddb4 */ 	addiu	$v0,$v0,%lo(var8005ddb4)
 /*    11200:	8c460000 */ 	lw	$a2,0x0($v0)
 /*    11204:	00002825 */ 	or	$a1,$zero,$zero
 /*    11208:	24070040 */ 	addiu	$a3,$zero,0x40
@@ -22726,12 +22726,12 @@ glabel func0001111c
 .L0001123c:
 /*    1123c:	10c0000d */ 	beqz	$a2,.L00011274
 /*    11240:	240cffff */ 	addiu	$t4,$zero,-1
-/*    11244:	3c048006 */ 	lui	$a0,0x8006
+/*    11244:	3c048006 */ 	lui	$a0,%hi(var8005ddc4)
 /*    11248:	240dffff */ 	addiu	$t5,$zero,-1
 /*    1124c:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*    11250:	afae0020 */ 	sw	$t6,0x20($sp)
 /*    11254:	afad001c */ 	sw	$t5,0x1c($sp)
-/*    11258:	2484ddc4 */ 	addiu	$a0,$a0,-8764
+/*    11258:	2484ddc4 */ 	addiu	$a0,$a0,%lo(var8005ddc4)
 /*    1125c:	afac0010 */ 	sw	$t4,0x10($sp)
 /*    11260:	e7a00014 */ 	swc1	$f0,0x14($sp)
 /*    11264:	0c004128 */ 	jal	func000104a0
@@ -22753,7 +22753,7 @@ glabel func0001111c
 /*    1129c:	3c048009 */ 	lui	$a0,0x8009
 /*    112a0:	24050609 */ 	addiu	$a1,$zero,0x609
 /*    112a4:	15e00012 */ 	bnez	$t7,.L000112f0
-/*    112a8:	3c068006 */ 	lui	$a2,0x8006
+/*    112a8:	3c068006 */ 	lui	$a2,%hi(var8005ddc4)
 /*    112ac:	3c01bf80 */ 	lui	$at,0xbf80
 /*    112b0:	44814000 */ 	mtc1	$at,$f8
 /*    112b4:	2418ffff */ 	addiu	$t8,$zero,-1
@@ -22763,20 +22763,20 @@ glabel func0001111c
 /*    112c4:	afb90018 */ 	sw	$t9,0x18($sp)
 /*    112c8:	afb80010 */ 	sw	$t8,0x10($sp)
 /*    112cc:	8c845200 */ 	lw	$a0,0x5200($a0)
-/*    112d0:	24c6ddc4 */ 	addiu	$a2,$a2,-8764
+/*    112d0:	24c6ddc4 */ 	addiu	$a2,$a2,%lo(var8005ddc4)
 /*    112d4:	2407ffff */ 	addiu	$a3,$zero,-1
 /*    112d8:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*    112dc:	0c004241 */ 	jal	func00010904
 /*    112e0:	e7a80014 */ 	swc1	$f8,0x14($sp)
-/*    112e4:	3c08800a */ 	lui	$t0,0x800a
-/*    112e8:	25089fc0 */ 	addiu	$t0,$t0,-24640
+/*    112e4:	3c08800a */ 	lui	$t0,%hi(g_Vars)
+/*    112e8:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 /*    112ec:	c7a00034 */ 	lwc1	$f0,0x34($sp)
 .L000112f0:
-/*    112f0:	3c028006 */ 	lui	$v0,0x8006
-/*    112f4:	2442ddb4 */ 	addiu	$v0,$v0,-8780
+/*    112f0:	3c028006 */ 	lui	$v0,%hi(var8005ddb4)
+/*    112f4:	2442ddb4 */ 	addiu	$v0,$v0,%lo(var8005ddb4)
 /*    112f8:	8c460000 */ 	lw	$a2,0x0($v0)
-/*    112fc:	3c048006 */ 	lui	$a0,0x8006
-/*    11300:	2484ddc4 */ 	addiu	$a0,$a0,-8764
+/*    112fc:	3c048006 */ 	lui	$a0,%hi(var8005ddc4)
+/*    11300:	2484ddc4 */ 	addiu	$a0,$a0,%lo(var8005ddc4)
 /*    11304:	28c17fff */ 	slti	$at,$a2,0x7fff
 /*    11308:	1020000d */ 	beqz	$at,.L00011340
 /*    1130c:	00002825 */ 	or	$a1,$zero,$zero
@@ -22826,12 +22826,12 @@ glabel func0001111c
 /*    113b0:	240bffff */ 	addiu	$t3,$zero,-1
 /*    113b4:	3c01bf80 */ 	lui	$at,0xbf80
 /*    113b8:	44813000 */ 	mtc1	$at,$f6
-/*    113bc:	3c048006 */ 	lui	$a0,0x8006
+/*    113bc:	3c048006 */ 	lui	$a0,%hi(var8005ddc4)
 /*    113c0:	240cffff */ 	addiu	$t4,$zero,-1
 /*    113c4:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*    113c8:	afad0020 */ 	sw	$t5,0x20($sp)
 /*    113cc:	afac001c */ 	sw	$t4,0x1c($sp)
-/*    113d0:	2484ddc4 */ 	addiu	$a0,$a0,-8764
+/*    113d0:	2484ddc4 */ 	addiu	$a0,$a0,%lo(var8005ddc4)
 /*    113d4:	afab0010 */ 	sw	$t3,0x10($sp)
 /*    113d8:	afa00018 */ 	sw	$zero,0x18($sp)
 /*    113dc:	0c004128 */ 	jal	func000104a0
@@ -22879,10 +22879,10 @@ glabel func00011420
 /*    11468:	01c00008 */ 	jr	$t6
 /*    1146c:	00000000 */ 	sll	$zero,$zero,0x0
 .L00011470:
-/*    11470:	3c12800b */ 	lui	$s2,0x800b
-/*    11474:	3c138009 */ 	lui	$s3,0x8009
-/*    11478:	26734ed8 */ 	addiu	$s3,$s3,0x4ed8
-/*    1147c:	2652aa38 */ 	addiu	$s2,$s2,-21960
+/*    11470:	3c12800b */ 	lui	$s2,%hi(var800aaa38)
+/*    11474:	3c138009 */ 	lui	$s3,%hi(var80094ed8)
+/*    11478:	26734ed8 */ 	addiu	$s3,$s3,%lo(var80094ed8)
+/*    1147c:	2652aa38 */ 	addiu	$s2,$s2,%lo(var800aaa38)
 /*    11480:	00008025 */ 	or	$s0,$zero,$zero
 /*    11484:	24160003 */ 	addiu	$s6,$zero,0x3
 /*    11488:	24140108 */ 	addiu	$s4,$zero,0x108
@@ -22932,8 +22932,8 @@ glabel func00011420
 /*    11524:	26520010 */ 	addiu	$s2,$s2,0x10
 .L00011528:
 /*    11528:	8fab0044 */ 	lw	$t3,0x44($sp)
-/*    1152c:	3c118009 */ 	lui	$s1,0x8009
-/*    11530:	26314ed8 */ 	addiu	$s1,$s1,0x4ed8
+/*    1152c:	3c118009 */ 	lui	$s1,%hi(var80094ed8)
+/*    11530:	26314ed8 */ 	addiu	$s1,$s1,%lo(var80094ed8)
 /*    11534:	15600067 */ 	bnez	$t3,.L000116d4
 /*    11538:	00008025 */ 	or	$s0,$zero,$zero
 .L0001153c:
@@ -22949,8 +22949,8 @@ glabel func00011420
 /*    11560:	240c0002 */ 	addiu	$t4,$zero,0x2
 /*    11564:	0c003f67 */ 	jal	func0000fd9c
 /*    11568:	afac0044 */ 	sw	$t4,0x44($sp)
-/*    1156c:	3c0e800b */ 	lui	$t6,0x800b
-/*    11570:	25ceaa38 */ 	addiu	$t6,$t6,-21960
+/*    1156c:	3c0e800b */ 	lui	$t6,%hi(var800aaa38)
+/*    11570:	25ceaa38 */ 	addiu	$t6,$t6,%lo(var800aaa38)
 /*    11574:	00106900 */ 	sll	$t5,$s0,0x4
 /*    11578:	8eaf0000 */ 	lw	$t7,0x0($s5)
 /*    1157c:	01ae9021 */ 	addu	$s2,$t5,$t6
@@ -22970,8 +22970,8 @@ glabel func00011420
 /*    115ac:	2411ffff */ 	addiu	$s1,$zero,-1
 /*    115b0:	00008025 */ 	or	$s0,$zero,$zero
 /*    115b4:	17200047 */ 	bnez	$t9,.L000116d4
-/*    115b8:	3c12800b */ 	lui	$s2,0x800b
-/*    115bc:	2652aa38 */ 	addiu	$s2,$s2,-21960
+/*    115b8:	3c12800b */ 	lui	$s2,%hi(var800aaa38)
+/*    115bc:	2652aa38 */ 	addiu	$s2,$s2,%lo(var800aaa38)
 .L000115c0:
 /*    115c0:	8e420000 */ 	lw	$v0,0x0($s2)
 /*    115c4:	10400004 */ 	beqz	$v0,.L000115d8
@@ -22999,8 +22999,8 @@ glabel func00011420
 /*    11610:	56210018 */ 	bnel	$s1,$at,.L00011674
 /*    11614:	2401ffff */ 	addiu	$at,$zero,-1
 /*    11618:	96ab0016 */ 	lhu	$t3,0x16($s5)
-/*    1161c:	3c12800b */ 	lui	$s2,0x800b
-/*    11620:	2652aa38 */ 	addiu	$s2,$s2,-21960
+/*    1161c:	3c12800b */ 	lui	$s2,%hi(var800aaa38)
+/*    11620:	2652aa38 */ 	addiu	$s2,$s2,%lo(var800aaa38)
 /*    11624:	29610003 */ 	slti	$at,$t3,0x3
 /*    11628:	14200011 */ 	bnez	$at,.L00011670
 /*    1162c:	00008025 */ 	or	$s0,$zero,$zero
@@ -23032,8 +23032,8 @@ glabel func00011420
 /*    11684:	026fc021 */ 	addu	$t8,$s3,$t7
 /*    11688:	0c00e7dc */ 	jal	func00039f70
 /*    1168c:	8f0400f8 */ 	lw	$a0,0xf8($t8)
-/*    11690:	3c08800b */ 	lui	$t0,0x800b
-/*    11694:	2508aa38 */ 	addiu	$t0,$t0,-21960
+/*    11690:	3c08800b */ 	lui	$t0,%hi(var800aaa38)
+/*    11694:	2508aa38 */ 	addiu	$t0,$t0,%lo(var800aaa38)
 /*    11698:	0011c900 */ 	sll	$t9,$s1,0x4
 /*    1169c:	03281021 */ 	addu	$v0,$t9,$t0
 /*    116a0:	ac400000 */ 	sw	$zero,0x0($v0)
@@ -23070,8 +23070,8 @@ glabel func00011700
 /*    11704:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    11708:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*    1170c:	8c850000 */ 	lw	$a1,0x0($a0)
-/*    11710:	3c02800b */ 	lui	$v0,0x800b
-/*    11714:	2442aa38 */ 	addiu	$v0,$v0,-21960
+/*    11710:	3c02800b */ 	lui	$v0,%hi(var800aaa38)
+/*    11714:	2442aa38 */ 	addiu	$v0,$v0,%lo(var800aaa38)
 /*    11718:	24040003 */ 	addiu	$a0,$zero,0x3
 /*    1171c:	00001825 */ 	or	$v1,$zero,$zero
 .L00011720:
@@ -23113,13 +23113,13 @@ glabel func00011780
 /*    11794:	afb40024 */ 	sw	$s4,0x24($sp)
 /*    11798:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*    1179c:	3c137005 */ 	lui	$s3,0x7005
-/*    117a0:	3c15800b */ 	lui	$s5,0x800b
+/*    117a0:	3c15800b */ 	lui	$s5,%hi(var800aaa38)
 /*    117a4:	00809025 */ 	or	$s2,$a0,$zero
 /*    117a8:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*    117ac:	afb10018 */ 	sw	$s1,0x18($sp)
 /*    117b0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*    117b4:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*    117b8:	26b5aa38 */ 	addiu	$s5,$s5,-21960
+/*    117b8:	26b5aa38 */ 	addiu	$s5,$s5,%lo(var800aaa38)
 /*    117bc:	26733ca0 */ 	addiu	$s3,$s3,0x3ca0
 /*    117c0:	24140010 */ 	addiu	$s4,$zero,0x10
 /*    117c4:	0000b025 */ 	or	$s6,$zero,$zero
@@ -23134,8 +23134,8 @@ glabel func00011780
 /*    117e4:	0336c821 */ 	addu	$t9,$t9,$s6
 /*    117e8:	13000017 */ 	beqz	$t8,.L00011848
 /*    117ec:	00008025 */ 	or	$s0,$zero,$zero
-/*    117f0:	3c088009 */ 	lui	$t0,0x8009
-/*    117f4:	25084ed8 */ 	addiu	$t0,$t0,0x4ed8
+/*    117f0:	3c088009 */ 	lui	$t0,%hi(var80094ed8)
+/*    117f4:	25084ed8 */ 	addiu	$t0,$t0,%lo(var80094ed8)
 /*    117f8:	0019c8c0 */ 	sll	$t9,$t9,0x3
 /*    117fc:	03288821 */ 	addu	$s1,$t9,$t0
 /*    11800:	8e490000 */ 	lw	$t1,0x0($s2)
@@ -23182,14 +23182,14 @@ glabel func00011884
 /*    11888:	afb20020 */ 	sw	$s2,0x20($sp)
 /*    1188c:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*    11890:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    11894:	3c10800b */ 	lui	$s0,0x800b
-/*    11898:	3c118009 */ 	lui	$s1,0x8009
-/*    1189c:	3c12800b */ 	lui	$s2,0x800b
+/*    11894:	3c10800b */ 	lui	$s0,%hi(var800aaa38)
+/*    11898:	3c118009 */ 	lui	$s1,%hi(var80094ed8)
+/*    1189c:	3c12800b */ 	lui	$s2,%hi(var800aaa68)
 /*    118a0:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*    118a4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    118a8:	2652aa68 */ 	addiu	$s2,$s2,-21912
-/*    118ac:	26314ed8 */ 	addiu	$s1,$s1,0x4ed8
-/*    118b0:	2610aa38 */ 	addiu	$s0,$s0,-21960
+/*    118a8:	2652aa68 */ 	addiu	$s2,$s2,%lo(var800aaa68)
+/*    118ac:	26314ed8 */ 	addiu	$s1,$s1,%lo(var80094ed8)
+/*    118b0:	2610aa38 */ 	addiu	$s0,$s0,%lo(var800aaa38)
 .L000118b4:
 /*    118b4:	0c00e7dc */ 	jal	func00039f70
 /*    118b8:	8e2400f8 */ 	lw	$a0,0xf8($s1)
@@ -23230,10 +23230,10 @@ glabel func0001190c
 /*    11924:	afb10018 */ 	sw	$s1,0x18($sp)
 /*    11928:	15c0010f */ 	bnez	$t6,.L00011d68
 /*    1192c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    11930:	3c138008 */ 	lui	$s3,0x8008
-/*    11934:	3c10800b */ 	lui	$s0,0x800b
-/*    11938:	267340c4 */ 	addiu	$s3,$s3,0x40c4
-/*    1193c:	2610aa38 */ 	addiu	$s0,$s0,-21960
+/*    11930:	3c138008 */ 	lui	$s3,%hi(var800840c4)
+/*    11934:	3c10800b */ 	lui	$s0,%hi(var800aaa38)
+/*    11938:	267340c4 */ 	addiu	$s3,$s3,%lo(var800840c4)
+/*    1193c:	2610aa38 */ 	addiu	$s0,$s0,%lo(var800aaa38)
 /*    11940:	00008825 */ 	or	$s1,$zero,$zero
 /*    11944:	24120001 */ 	addiu	$s2,$zero,0x1
 .L00011948:
@@ -23242,8 +23242,8 @@ glabel func0001190c
 /*    11950:	0311c021 */ 	addu	$t8,$t8,$s1
 /*    11954:	15e00023 */ 	bnez	$t7,.L000119e4
 /*    11958:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*    1195c:	3c198009 */ 	lui	$t9,0x8009
-/*    11960:	27394ed8 */ 	addiu	$t9,$t9,0x4ed8
+/*    1195c:	3c198009 */ 	lui	$t9,%hi(var80094ed8)
+/*    11960:	27394ed8 */ 	addiu	$t9,$t9,%lo(var80094ed8)
 /*    11964:	03191821 */ 	addu	$v1,$t8,$t9
 /*    11968:	8c6400f8 */ 	lw	$a0,0xf8($v1)
 /*    1196c:	0c00e344 */ 	jal	func00038d10
@@ -23284,15 +23284,15 @@ glabel func0001190c
 /*    119ec:	1420ffd6 */ 	bnez	$at,.L00011948
 /*    119f0:	26100010 */ 	addiu	$s0,$s0,0x10
 /*    119f4:	8e650000 */ 	lw	$a1,0x0($s3)
-/*    119f8:	3c19800b */ 	lui	$t9,0x800b
-/*    119fc:	2739a5d8 */ 	addiu	$t9,$t9,-23080
+/*    119f8:	3c19800b */ 	lui	$t9,%hi(var800aa5d8)
+/*    119fc:	2739a5d8 */ 	addiu	$t9,$t9,%lo(var800aa5d8)
 /*    11a00:	24b1ffff */ 	addiu	$s1,$a1,-1
 /*    11a04:	06200046 */ 	bltz	$s1,.L00011b20
 /*    11a08:	0011c0c0 */ 	sll	$t8,$s1,0x3
 /*    11a0c:	0311c023 */ 	subu	$t8,$t8,$s1
 /*    11a10:	0018c080 */ 	sll	$t8,$t8,0x2
-/*    11a14:	3c0a800b */ 	lui	$t2,0x800b
-/*    11a18:	254aa5d8 */ 	addiu	$t2,$t2,-23080
+/*    11a14:	3c0a800b */ 	lui	$t2,%hi(var800aa5d8)
+/*    11a18:	254aa5d8 */ 	addiu	$t2,$t2,%lo(var800aa5d8)
 /*    11a1c:	03193021 */ 	addu	$a2,$t8,$t9
 /*    11a20:	24100002 */ 	addiu	$s0,$zero,0x2
 /*    11a24:	24090004 */ 	addiu	$t1,$zero,0x4
@@ -23316,8 +23316,8 @@ glabel func0001190c
 /*    11a60:	01601025 */ 	or	$v0,$t3,$zero
 /*    11a64:	000270c0 */ 	sll	$t6,$v0,0x3
 /*    11a68:	01c27023 */ 	subu	$t6,$t6,$v0
-/*    11a6c:	3c0f800b */ 	lui	$t7,0x800b
-/*    11a70:	25efa5d8 */ 	addiu	$t7,$t7,-23080
+/*    11a6c:	3c0f800b */ 	lui	$t7,%hi(var800aa5d8)
+/*    11a70:	25efa5d8 */ 	addiu	$t7,$t7,%lo(var800aa5d8)
 /*    11a74:	000e7080 */ 	sll	$t6,$t6,0x2
 /*    11a78:	01cf2821 */ 	addu	$a1,$t6,$t7
 /*    11a7c:	94c30012 */ 	lhu	$v1,0x12($a2)
@@ -23375,10 +23375,10 @@ glabel func0001190c
 /*    11b24:	00008825 */ 	or	$s1,$zero,$zero
 /*    11b28:	18a00020 */ 	blez	$a1,.L00011bac
 /*    11b2c:	00001025 */ 	or	$v0,$zero,$zero
-/*    11b30:	3c06800b */ 	lui	$a2,0x800b
-/*    11b34:	3c12800b */ 	lui	$s2,0x800b
-/*    11b38:	2652a5d8 */ 	addiu	$s2,$s2,-23080
-/*    11b3c:	24c6a5d8 */ 	addiu	$a2,$a2,-23080
+/*    11b30:	3c06800b */ 	lui	$a2,%hi(var800aa5d8)
+/*    11b34:	3c12800b */ 	lui	$s2,%hi(var800aa5d8)
+/*    11b38:	2652a5d8 */ 	addiu	$s2,$s2,%lo(var800aa5d8)
+/*    11b3c:	24c6a5d8 */ 	addiu	$a2,$a2,%lo(var800aa5d8)
 /*    11b40:	2403001c */ 	addiu	$v1,$zero,0x1c
 .L00011b44:
 /*    11b44:	8cd90000 */ 	lw	$t9,0x0($a2)
@@ -23412,8 +23412,8 @@ glabel func0001190c
 /*    11bac:	ae620000 */ 	sw	$v0,0x0($s3)
 /*    11bb0:	3c038008 */ 	lui	$v1,0x8008
 /*    11bb4:	8c6340e0 */ 	lw	$v1,0x40e0($v1)
-/*    11bb8:	3c12800b */ 	lui	$s2,0x800b
-/*    11bbc:	2652a5d8 */ 	addiu	$s2,$s2,-23080
+/*    11bb8:	3c12800b */ 	lui	$s2,%hi(var800aa5d8)
+/*    11bbc:	2652a5d8 */ 	addiu	$s2,$s2,%lo(var800aa5d8)
 /*    11bc0:	10600006 */ 	beqz	$v1,.L00011bdc
 /*    11bc4:	3c188008 */ 	lui	$t8,0x8008
 /*    11bc8:	3c19800a */ 	lui	$t9,0x800a
@@ -23469,9 +23469,9 @@ glabel func0001190c
 /*    11c88:	00402025 */ 	or	$a0,$v0,$zero
 .L00011c8c:
 /*    11c8c:	10800024 */ 	beqz	$a0,.L00011d20
-/*    11c90:	3c06800b */ 	lui	$a2,0x800b
+/*    11c90:	3c06800b */ 	lui	$a2,%hi(var800aa5d8)
 /*    11c94:	8e790000 */ 	lw	$t9,0x0($s3)
-/*    11c98:	24c6a5d8 */ 	addiu	$a2,$a2,-23080
+/*    11c98:	24c6a5d8 */ 	addiu	$a2,$a2,%lo(var800aa5d8)
 /*    11c9c:	3c0e800b */ 	lui	$t6,0x800b
 /*    11ca0:	272cffff */ 	addiu	$t4,$t9,-1
 /*    11ca4:	ae6c0000 */ 	sw	$t4,0x0($s3)
@@ -23547,15 +23547,15 @@ glabel func00011d84
 /*    11d90:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    11d94:	15c000e0 */ 	bnez	$t6,.L00012118
 /*    11d98:	afa00020 */ 	sw	$zero,0x20($sp)
-/*    11d9c:	3c038008 */ 	lui	$v1,0x8008
-/*    11da0:	246340f0 */ 	addiu	$v1,$v1,0x40f0
+/*    11d9c:	3c038008 */ 	lui	$v1,%hi(var800840f0)
+/*    11da0:	246340f0 */ 	addiu	$v1,$v1,%lo(var800840f0)
 /*    11da4:	8c620000 */ 	lw	$v0,0x0($v1)
-/*    11da8:	3c0a800a */ 	lui	$t2,0x800a
-/*    11dac:	254a9fc0 */ 	addiu	$t2,$t2,-24640
+/*    11da8:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
+/*    11dac:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 /*    11db0:	18400044 */ 	blez	$v0,.L00011ec4
 /*    11db4:	00000000 */ 	sll	$zero,$zero,0x0
 /*    11db8:	8d4f0318 */ 	lw	$t7,0x318($t2)
-/*    11dbc:	3c048008 */ 	lui	$a0,0x8008
+/*    11dbc:	3c048008 */ 	lui	$a0,%hi(var800840fc)
 /*    11dc0:	55e00014 */ 	bnezl	$t7,.L00011e14
 /*    11dc4:	8d590034 */ 	lw	$t9,0x34($t2)
 /*    11dc8:	8d58029c */ 	lw	$t8,0x29c($t2)
@@ -23579,7 +23579,7 @@ glabel func00011d84
 /*    11e0c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    11e10:	8d590034 */ 	lw	$t9,0x34($t2)
 .L00011e14:
-/*    11e14:	248440fc */ 	addiu	$a0,$a0,0x40fc
+/*    11e14:	248440fc */ 	addiu	$a0,$a0,%lo(var800840fc)
 /*    11e18:	ac800000 */ 	sw	$zero,0x0($a0)
 /*    11e1c:	00595823 */ 	subu	$t3,$v0,$t9
 /*    11e20:	1d600023 */ 	bgtz	$t3,.L00011eb0
@@ -23592,8 +23592,8 @@ glabel func00011d84
 /*    11e3c:	11a0001c */ 	beqz	$t5,.L00011eb0
 /*    11e40:	00000000 */ 	sll	$zero,$zero,0x0
 /*    11e44:	8dcea2d8 */ 	lw	$t6,-0x5d28($t6)
-/*    11e48:	3c058008 */ 	lui	$a1,0x8008
-/*    11e4c:	24a540f4 */ 	addiu	$a1,$a1,0x40f4
+/*    11e48:	3c058008 */ 	lui	$a1,%hi(var800840f4)
+/*    11e4c:	24a540f4 */ 	addiu	$a1,$a1,%lo(var800840f4)
 /*    11e50:	11c00017 */ 	beqz	$t6,.L00011eb0
 /*    11e54:	3c0f8008 */ 	lui	$t7,0x8008
 /*    11e58:	8def40f8 */ 	lw	$t7,0x40f8($t7)
@@ -23608,7 +23608,7 @@ glabel func00011d84
 /*    11e7c:	24040004 */ 	addiu	$a0,$zero,0x4
 /*    11e80:	0fc5b490 */ 	jal	func0f16d240
 /*    11e84:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11e88:	3c04800b */ 	lui	$a0,0x800b
+/*    11e88:	3c04800b */ 	lui	$a0,%hi(var800b0004)
 /*    11e8c:	0fc5db10 */ 	jal	func0f176c40
 /*    11e90:	8c84a5d0 */ 	lw	$a0,-0x5a30($a0)
 /*    11e94:	0fc5b3e8 */ 	jal	func0f16cfa0
@@ -23619,16 +23619,16 @@ glabel func00011d84
 /*    11ea8:	0fc5b46f */ 	jal	func0f16d1bc
 /*    11eac:	3047ffff */ 	andi	$a3,$v0,0xffff
 .L00011eb0:
-/*    11eb0:	3c0a800a */ 	lui	$t2,0x800a
+/*    11eb0:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*    11eb4:	3c028008 */ 	lui	$v0,0x8008
 /*    11eb8:	8c427264 */ 	lw	$v0,0x7264($v0)
 /*    11ebc:	1000001d */ 	beqz	$zero,.L00011f34
-/*    11ec0:	254a9fc0 */ 	addiu	$t2,$t2,-24640
+/*    11ec0:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 .L00011ec4:
 /*    11ec4:	3c028008 */ 	lui	$v0,0x8008
 /*    11ec8:	8c427264 */ 	lw	$v0,0x7264($v0)
-/*    11ecc:	3c0a800a */ 	lui	$t2,0x800a
-/*    11ed0:	254a9fc0 */ 	addiu	$t2,$t2,-24640
+/*    11ecc:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
+/*    11ed0:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 /*    11ed4:	10400017 */ 	beqz	$v0,.L00011f34
 /*    11ed8:	00000000 */ 	sll	$zero,$zero,0x0
 /*    11edc:	8d590318 */ 	lw	$t9,0x318($t2)
@@ -23649,16 +23649,16 @@ glabel func00011d84
 /*    11f18:	240d0078 */ 	addiu	$t5,$zero,0x78
 /*    11f1c:	3c018008 */ 	lui	$at,0x8008
 /*    11f20:	3c028008 */ 	lui	$v0,0x8008
-/*    11f24:	3c0a800a */ 	lui	$t2,0x800a
-/*    11f28:	254a9fc0 */ 	addiu	$t2,$t2,-24640
+/*    11f24:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
+/*    11f28:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 /*    11f2c:	8c427264 */ 	lw	$v0,0x7264($v0)
 /*    11f30:	ac2d40fc */ 	sw	$t5,0x40fc($at)
 .L00011f34:
-/*    11f34:	3c048008 */ 	lui	$a0,0x8008
-/*    11f38:	3c058008 */ 	lui	$a1,0x8008
-/*    11f3c:	24a540f4 */ 	addiu	$a1,$a1,0x40f4
+/*    11f34:	3c048008 */ 	lui	$a0,%hi(var800840fc)
+/*    11f38:	3c058008 */ 	lui	$a1,%hi(var800840f4)
+/*    11f3c:	24a540f4 */ 	addiu	$a1,$a1,%lo(var800840f4)
 /*    11f40:	1040001f */ 	beqz	$v0,.L00011fc0
-/*    11f44:	248440fc */ 	addiu	$a0,$a0,0x40fc
+/*    11f44:	248440fc */ 	addiu	$a0,$a0,%lo(var800840fc)
 /*    11f48:	8d4e0318 */ 	lw	$t6,0x318($t2)
 /*    11f4c:	11c0001c */ 	beqz	$t6,.L00011fc0
 /*    11f50:	00000000 */ 	sll	$zero,$zero,0x0
@@ -23677,7 +23677,7 @@ glabel func00011d84
 /*    11f84:	24040004 */ 	addiu	$a0,$zero,0x4
 /*    11f88:	0fc5b490 */ 	jal	func0f16d240
 /*    11f8c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    11f90:	3c04800b */ 	lui	$a0,0x800b
+/*    11f90:	3c04800b */ 	lui	$a0,%hi(var800b0004)
 /*    11f94:	0fc5db10 */ 	jal	func0f176c40
 /*    11f98:	8c84a5d0 */ 	lw	$a0,-0x5a30($a0)
 /*    11f9c:	0fc5b3e8 */ 	jal	func0f16cfa0
@@ -23687,15 +23687,15 @@ glabel func00011d84
 /*    11fac:	24060000 */ 	addiu	$a2,$zero,0x0
 /*    11fb0:	0fc5b46f */ 	jal	func0f16d1bc
 /*    11fb4:	3047ffff */ 	andi	$a3,$v0,0xffff
-/*    11fb8:	3c0a800a */ 	lui	$t2,0x800a
-/*    11fbc:	254a9fc0 */ 	addiu	$t2,$t2,-24640
+/*    11fb8:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
+/*    11fbc:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 .L00011fc0:
-/*    11fc0:	3c06800b */ 	lui	$a2,0x800b
-/*    11fc4:	3c04800b */ 	lui	$a0,0x800b
-/*    11fc8:	3c09800b */ 	lui	$t1,0x800b
-/*    11fcc:	2529aa88 */ 	addiu	$t1,$t1,-21880
-/*    11fd0:	2484aa78 */ 	addiu	$a0,$a0,-21896
-/*    11fd4:	24c6aa68 */ 	addiu	$a2,$a2,-21912
+/*    11fc0:	3c06800b */ 	lui	$a2,%hi(var800aaa68)
+/*    11fc4:	3c04800b */ 	lui	$a0,%hi(var800aaa78)
+/*    11fc8:	3c09800b */ 	lui	$t1,%hi(var800aaa88)
+/*    11fcc:	2529aa88 */ 	addiu	$t1,$t1,%lo(var800aaa88)
+/*    11fd0:	2484aa78 */ 	addiu	$a0,$a0,%lo(var800aaa78)
+/*    11fd4:	24c6aa68 */ 	addiu	$a2,$a2,%lo(var800aaa68)
 /*    11fd8:	8d480034 */ 	lw	$t0,0x34($t2)
 /*    11fdc:	00003825 */ 	or	$a3,$zero,$zero
 .L00011fe0:
@@ -23704,11 +23704,11 @@ glabel func00011d84
 /*    11fe8:	8c820000 */ 	lw	$v0,0x0($a0)
 /*    11fec:	8c8c0000 */ 	lw	$t4,0x0($a0)
 /*    11ff0:	5980001f */ 	blezl	$t4,.L00012070
-/*    11ff4:	24840004 */ 	addiu	$a0,$a0,0x4
+/*    11ff4:	24840004 */ 	addiu	$a0,$a0,%lo(var800b0004)
 /*    11ff8:	8c820000 */ 	lw	$v0,0x0($a0)
 .L00011ffc:
-/*    11ffc:	3c0d800b */ 	lui	$t5,0x800b
-/*    12000:	25adaa88 */ 	addiu	$t5,$t5,-21880
+/*    11ffc:	3c0d800b */ 	lui	$t5,%hi(var800aaa88)
+/*    12000:	25adaa88 */ 	addiu	$t5,$t5,%lo(var800aaa88)
 /*    12004:	0048082a */ 	slt	$at,$v0,$t0
 /*    12008:	14200004 */ 	bnez	$at,.L0001201c
 /*    1200c:	00ed1821 */ 	addu	$v1,$a3,$t5
@@ -23735,7 +23735,7 @@ glabel func00011d84
 /*    12050:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*    12054:	8c990000 */ 	lw	$t9,0x0($a0)
 /*    12058:	53200005 */ 	beqzl	$t9,.L00012070
-/*    1205c:	24840004 */ 	addiu	$a0,$a0,0x4
+/*    1205c:	24840004 */ 	addiu	$a0,$a0,%lo(var800b0004)
 .L00012060:
 /*    12060:	10000002 */ 	beqz	$zero,.L0001206c
 /*    12064:	afab0020 */ 	sw	$t3,0x20($sp)
@@ -23771,16 +23771,16 @@ glabel func00011d84
 /*    120d0:	3c08800a */ 	lui	$t0,0x800a
 /*    120d4:	8d089ff4 */ 	lw	$t0,-0x600c($t0)
 .L000120d8:
-/*    120d8:	3c038006 */ 	lui	$v1,0x8006
-/*    120dc:	2463edf0 */ 	addiu	$v1,$v1,-4624
+/*    120d8:	3c038006 */ 	lui	$v1,%hi(var8005edf0)
+/*    120dc:	2463edf0 */ 	addiu	$v1,$v1,%lo(var8005edf0)
 /*    120e0:	8c620000 */ 	lw	$v0,0x0($v1)
 /*    120e4:	0048082a */ 	slt	$at,$v0,$t0
 /*    120e8:	10200008 */ 	beqz	$at,.L0001210c
 /*    120ec:	0048c823 */ 	subu	$t9,$v0,$t0
 /*    120f0:	0fc5b84e */ 	jal	func0f16e138
 /*    120f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    120f8:	3c038006 */ 	lui	$v1,0x8006
-/*    120fc:	2463edf0 */ 	addiu	$v1,$v1,-4624
+/*    120f8:	3c038006 */ 	lui	$v1,%hi(var8005edf0)
+/*    120fc:	2463edf0 */ 	addiu	$v1,$v1,%lo(var8005edf0)
 /*    12100:	2418003c */ 	addiu	$t8,$zero,0x3c
 /*    12104:	10000002 */ 	beqz	$zero,.L00012110
 /*    12108:	ac780000 */ 	sw	$t8,0x0($v1)
@@ -23802,12 +23802,12 @@ glabel func00011d84
 /*    1213c:	afb40028 */ 	sw	$s4,0x28($sp)
 /*    12140:	afb20020 */ 	sw	$s2,0x20($sp)
 /*    12144:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    12148:	3c11800b */ 	lui	$s1,0x800b
-/*    1214c:	3c138009 */ 	lui	$s3,0x8009
+/*    12148:	3c11800b */ 	lui	$s1,%hi(var800aaa38)
+/*    1214c:	3c138009 */ 	lui	$s3,%hi(var80094ed8)
 /*    12150:	00809025 */ 	or	$s2,$a0,$zero
 /*    12154:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*    12158:	26734ed8 */ 	addiu	$s3,$s3,0x4ed8
-/*    1215c:	2631aa38 */ 	addiu	$s1,$s1,-21960
+/*    12158:	26734ed8 */ 	addiu	$s3,$s3,%lo(var80094ed8)
+/*    1215c:	2631aa38 */ 	addiu	$s1,$s1,%lo(var800aaa38)
 /*    12160:	00008025 */ 	or	$s0,$zero,$zero
 /*    12164:	24140108 */ 	addiu	$s4,$zero,0x108
 /*    12168:	24150001 */ 	addiu	$s5,$zero,0x1
@@ -23854,13 +23854,13 @@ GLOBAL_ASM(
 glabel func000121e8
 /*    121e8:	00803025 */ 	or	$a2,$a0,$zero
 /*    121ec:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    121f0:	3c04800a */ 	lui	$a0,0x800a
-/*    121f4:	3c03800a */ 	lui	$v1,0x800a
-/*    121f8:	3c02800a */ 	lui	$v0,0x800a
+/*    121f0:	3c04800a */ 	lui	$a0,%hi(var8009946c)
+/*    121f4:	3c03800a */ 	lui	$v1,%hi(var80099300)
+/*    121f8:	3c02800a */ 	lui	$v0,%hi(var800993b8)
 /*    121fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12200:	244293b8 */ 	addiu	$v0,$v0,-27720
-/*    12204:	24639300 */ 	addiu	$v1,$v1,-27904
-/*    12208:	2484946c */ 	addiu	$a0,$a0,-27540
+/*    12200:	244293b8 */ 	addiu	$v0,$v0,%lo(var800993b8)
+/*    12204:	24639300 */ 	addiu	$v1,$v1,%lo(var80099300)
+/*    12208:	2484946c */ 	addiu	$a0,$a0,%lo(var8009946c)
 .L0001220c:
 /*    1220c:	24420014 */ 	addiu	$v0,$v0,0x14
 /*    12210:	0044082b */ 	sltu	$at,$v0,$a0
@@ -23874,8 +23874,8 @@ glabel func000121e8
 /*    12230:	ac40fff4 */ 	sw	$zero,-0xc($v0)
 /*    12234:	1420fff5 */ 	bnez	$at,.L0001220c
 /*    12238:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*    1223c:	3c02800a */ 	lui	$v0,0x800a
-/*    12240:	24429300 */ 	addiu	$v0,$v0,-27904
+/*    1223c:	3c02800a */ 	lui	$v0,%hi(var80099300)
+/*    12240:	24429300 */ 	addiu	$v0,$v0,%lo(var80099300)
 /*    12244:	00c51821 */ 	addu	$v1,$a2,$a1
 /*    12248:	ac460000 */ 	sw	$a2,0x0($v0)
 /*    1224c:	ac430008 */ 	sw	$v1,0x8($v0)
@@ -23892,19 +23892,19 @@ glabel func000121e8
 /*    12278:	34210001 */ 	ori	$at,$at,0x1
 /*    1227c:	0041082a */ 	slt	$at,$v0,$at
 /*    12280:	14200007 */ 	bnez	$at,.L000122a0
-/*    12284:	3c03800a */ 	lui	$v1,0x800a
+/*    12284:	3c03800a */ 	lui	$v1,%hi(var80099300)
 /*    12288:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*    1228c:	3c02800a */ 	lui	$v0,0x800a
-/*    12290:	244293b8 */ 	addiu	$v0,$v0,-27720
+/*    1228c:	3c02800a */ 	lui	$v0,%hi(var800993b8)
+/*    12290:	244293b8 */ 	addiu	$v0,$v0,%lo(var800993b8)
 /*    12294:	3c0f8040 */ 	lui	$t7,0x8040
 /*    12298:	ac4f0050 */ 	sw	$t7,0x50($v0)
 /*    1229c:	ac580058 */ 	sw	$t8,0x58($v0)
 .L000122a0:
-/*    122a0:	3c02800a */ 	lui	$v0,0x800a
-/*    122a4:	3c04800a */ 	lui	$a0,0x800a
-/*    122a8:	2484946c */ 	addiu	$a0,$a0,-27540
-/*    122ac:	244293b8 */ 	addiu	$v0,$v0,-27720
-/*    122b0:	24639300 */ 	addiu	$v1,$v1,-27904
+/*    122a0:	3c02800a */ 	lui	$v0,%hi(var800993b8)
+/*    122a4:	3c04800a */ 	lui	$a0,%hi(var8009946c)
+/*    122a8:	2484946c */ 	addiu	$a0,$a0,%lo(var8009946c)
+/*    122ac:	244293b8 */ 	addiu	$v0,$v0,%lo(var800993b8)
+/*    122b0:	24639300 */ 	addiu	$v1,$v1,%lo(var80099300)
 .L000122b4:
 /*    122b4:	8c790008 */ 	lw	$t9,0x8($v1)
 /*    122b8:	8c480008 */ 	lw	$t0,0x8($v0)
@@ -23924,16 +23924,16 @@ glabel func000122e0
 /*    122e0:	3c0e8009 */ 	lui	$t6,0x8009
 /*    122e4:	91ce0af0 */ 	lbu	$t6,0xaf0($t6)
 /*    122e8:	24010001 */ 	addiu	$at,$zero,0x1
-/*    122ec:	3c02800a */ 	lui	$v0,0x800a
+/*    122ec:	3c02800a */ 	lui	$v0,%hi(var80099300)
 /*    122f0:	15c10005 */ 	bne	$t6,$at,.L00012308
-/*    122f4:	24429300 */ 	addiu	$v0,$v0,-27904
+/*    122f4:	24429300 */ 	addiu	$v0,$v0,%lo(var80099300)
 /*    122f8:	8c4f0058 */ 	lw	$t7,0x58($v0)
 /*    122fc:	8c580054 */ 	lw	$t8,0x54($v0)
 /*    12300:	03e00008 */ 	jr	$ra
 /*    12304:	01f81023 */ 	subu	$v0,$t7,$t8
 .L00012308:
-/*    12308:	3c02800a */ 	lui	$v0,0x800a
-/*    1230c:	244293b8 */ 	addiu	$v0,$v0,-27720
+/*    12308:	3c02800a */ 	lui	$v0,%hi(var800993b8)
+/*    1230c:	244293b8 */ 	addiu	$v0,$v0,%lo(var800993b8)
 /*    12310:	8c590058 */ 	lw	$t9,0x58($v0)
 /*    12314:	8c480054 */ 	lw	$t0,0x54($v0)
 /*    12318:	03281823 */ 	subu	$v1,$t9,$t0
@@ -24000,17 +24000,17 @@ glabel func000123c8
 /*    123cc:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    123d0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    123d4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    123d8:	3c04800a */ 	lui	$a0,0x800a
-/*    123dc:	24849300 */ 	addiu	$a0,$a0,-27904
+/*    123d8:	3c04800a */ 	lui	$a0,%hi(var80099300)
+/*    123dc:	24849300 */ 	addiu	$a0,$a0,%lo(var80099300)
 /*    123e0:	93a6001f */ 	lbu	$a2,0x1f($sp)
 /*    123e4:	0c0048d5 */ 	jal	func00012354
 /*    123e8:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*    123ec:	10400003 */ 	beqz	$v0,.L000123fc
-/*    123f0:	3c04800a */ 	lui	$a0,0x800a
+/*    123f0:	3c04800a */ 	lui	$a0,%hi(var800993b8)
 /*    123f4:	1000000b */ 	beqz	$zero,.L00012424
 /*    123f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L000123fc:
-/*    123fc:	248493b8 */ 	addiu	$a0,$a0,-27720
+/*    123fc:	248493b8 */ 	addiu	$a0,$a0,%lo(var800993b8)
 /*    12400:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*    12404:	0c0048d5 */ 	jal	func00012354
 /*    12408:	93a6001f */ 	lbu	$a2,0x1f($sp)
@@ -24032,15 +24032,15 @@ glabel func00012430
 /*    12430:	30ce00ff */ 	andi	$t6,$a2,0xff
 /*    12434:	000e1080 */ 	sll	$v0,$t6,0x2
 /*    12438:	004e1021 */ 	addu	$v0,$v0,$t6
-/*    1243c:	3c0f800a */ 	lui	$t7,0x800a
-/*    12440:	25ef9300 */ 	addiu	$t7,$t7,-27904
+/*    1243c:	3c0f800a */ 	lui	$t7,%hi(var80099300)
+/*    12440:	25ef9300 */ 	addiu	$t7,$t7,%lo(var80099300)
 /*    12444:	00021080 */ 	sll	$v0,$v0,0x2
 /*    12448:	afa50004 */ 	sw	$a1,0x4($sp)
 /*    1244c:	afa60008 */ 	sw	$a2,0x8($sp)
 /*    12450:	004f1821 */ 	addu	$v1,$v0,$t7
 /*    12454:	8c780010 */ 	lw	$t8,0x10($v1)
-/*    12458:	3c19800a */ 	lui	$t9,0x800a
-/*    1245c:	273993b8 */ 	addiu	$t9,$t9,-27720
+/*    12458:	3c19800a */ 	lui	$t9,%hi(var800993b8)
+/*    1245c:	273993b8 */ 	addiu	$t9,$t9,%lo(var800993b8)
 /*    12460:	50980008 */ 	beql	$a0,$t8,.L00012484
 /*    12464:	8c640004 */ 	lw	$a0,0x4($v1)
 /*    12468:	00591821 */ 	addu	$v1,$v0,$t9
@@ -24082,16 +24082,16 @@ glabel func000124d4
 /*    124e0:	01c02025 */ 	or	$a0,$t6,$zero
 /*    124e4:	000e7880 */ 	sll	$t7,$t6,0x2
 /*    124e8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*    124ec:	3c18800a */ 	lui	$t8,0x800a
-/*    124f0:	27189300 */ 	addiu	$t8,$t8,-27904
+/*    124ec:	3c18800a */ 	lui	$t8,%hi(var80099300)
+/*    124f0:	27189300 */ 	addiu	$t8,$t8,%lo(var80099300)
 /*    124f4:	000f7880 */ 	sll	$t7,$t7,0x2
 /*    124f8:	10000007 */ 	beqz	$zero,.L00012518
 /*    124fc:	01f81821 */ 	addu	$v1,$t7,$t8
 .L00012500:
 /*    12500:	0004c880 */ 	sll	$t9,$a0,0x2
 /*    12504:	0324c821 */ 	addu	$t9,$t9,$a0
-/*    12508:	3c08800a */ 	lui	$t0,0x800a
-/*    1250c:	250893b8 */ 	addiu	$t0,$t0,-27720
+/*    12508:	3c08800a */ 	lui	$t0,%hi(var800993b8)
+/*    1250c:	250893b8 */ 	addiu	$t0,$t0,%lo(var800993b8)
 /*    12510:	0019c880 */ 	sll	$t9,$t9,0x2
 /*    12514:	03281821 */ 	addu	$v1,$t9,$t0
 .L00012518:
@@ -24108,8 +24108,8 @@ glabel func00012528
 /*    12530:	24010004 */ 	addiu	$at,$zero,0x4
 /*    12534:	15c10007 */ 	bne	$t6,$at,.L00012554
 /*    12538:	01c02025 */ 	or	$a0,$t6,$zero
-/*    1253c:	3c06800a */ 	lui	$a2,0x800a
-/*    12540:	24c69300 */ 	addiu	$a2,$a2,-27904
+/*    1253c:	3c06800a */ 	lui	$a2,%hi(var80099300)
+/*    12540:	24c69300 */ 	addiu	$a2,$a2,%lo(var80099300)
 /*    12544:	8cc2007c */ 	lw	$v0,0x7c($a2)
 /*    12548:	acc20050 */ 	sw	$v0,0x50($a2)
 /*    1254c:	acc20080 */ 	sw	$v0,0x80($a2)
@@ -24117,11 +24117,11 @@ glabel func00012528
 .L00012554:
 /*    12554:	00041080 */ 	sll	$v0,$a0,0x2
 /*    12558:	00441021 */ 	addu	$v0,$v0,$a0
-/*    1255c:	3c06800a */ 	lui	$a2,0x800a
+/*    1255c:	3c06800a */ 	lui	$a2,%hi(var80099300)
 /*    12560:	00021080 */ 	sll	$v0,$v0,0x2
-/*    12564:	3c18800a */ 	lui	$t8,0x800a
-/*    12568:	24c69300 */ 	addiu	$a2,$a2,-27904
-/*    1256c:	271893b8 */ 	addiu	$t8,$t8,-27720
+/*    12564:	3c18800a */ 	lui	$t8,%hi(var800993b8)
+/*    12568:	24c69300 */ 	addiu	$a2,$a2,%lo(var80099300)
+/*    1256c:	271893b8 */ 	addiu	$t8,$t8,%lo(var800993b8)
 /*    12570:	00c21821 */ 	addu	$v1,$a2,$v0
 /*    12574:	00582821 */ 	addu	$a1,$v0,$t8
 /*    12578:	8c6f0000 */ 	lw	$t7,0x0($v1)
@@ -24139,10 +24139,10 @@ glabel func00012594
 /*    12598:	000e1080 */ 	sll	$v0,$t6,0x2
 /*    1259c:	004e1021 */ 	addu	$v0,$v0,$t6
 /*    125a0:	00021080 */ 	sll	$v0,$v0,0x2
-/*    125a4:	3c0f800a */ 	lui	$t7,0x800a
-/*    125a8:	3c18800a */ 	lui	$t8,0x800a
-/*    125ac:	25ef9300 */ 	addiu	$t7,$t7,-27904
-/*    125b0:	271893b8 */ 	addiu	$t8,$t8,-27720
+/*    125a4:	3c0f800a */ 	lui	$t7,%hi(var80099300)
+/*    125a8:	3c18800a */ 	lui	$t8,%hi(var800993b8)
+/*    125ac:	25ef9300 */ 	addiu	$t7,$t7,%lo(var80099300)
+/*    125b0:	271893b8 */ 	addiu	$t8,$t8,%lo(var800993b8)
 /*    125b4:	004f1821 */ 	addu	$v1,$v0,$t7
 /*    125b8:	00582821 */ 	addu	$a1,$v0,$t8
 /*    125bc:	8c79000c */ 	lw	$t9,0xc($v1)
@@ -24194,17 +24194,17 @@ glabel func00012644
 /*    12648:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    1264c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    12650:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    12654:	3c04800a */ 	lui	$a0,0x800a
-/*    12658:	24849300 */ 	addiu	$a0,$a0,-27904
+/*    12654:	3c04800a */ 	lui	$a0,%hi(var80099300)
+/*    12658:	24849300 */ 	addiu	$a0,$a0,%lo(var80099300)
 /*    1265c:	93a6001f */ 	lbu	$a2,0x1f($sp)
 /*    12660:	0c004977 */ 	jal	func000125dc
 /*    12664:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*    12668:	10400003 */ 	beqz	$v0,.L00012678
-/*    1266c:	3c04800a */ 	lui	$a0,0x800a
+/*    1266c:	3c04800a */ 	lui	$a0,%hi(var800993b8)
 /*    12670:	1000000b */ 	beqz	$zero,.L000126a0
 /*    12674:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L00012678:
-/*    12678:	248493b8 */ 	addiu	$a0,$a0,-27720
+/*    12678:	248493b8 */ 	addiu	$a0,$a0,%lo(var800993b8)
 /*    1267c:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*    12680:	0c004977 */ 	jal	func000125dc
 /*    12684:	93a6001f */ 	lbu	$a2,0x1f($sp)
@@ -24309,8 +24309,8 @@ GLOBAL_ASM(
 glabel func000127b8
 /*    127b8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    127bc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    127c0:	3c10800a */ 	lui	$s0,0x800a
-/*    127c4:	26109478 */ 	addiu	$s0,$s0,-27528
+/*    127c0:	3c10800a */ 	lui	$s0,%hi(var80099478)
+/*    127c4:	26109478 */ 	addiu	$s0,$s0,%lo(var80099478)
 /*    127c8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    127cc:	0c0049bc */ 	jal	func000126f0
 /*    127d0:	02002025 */ 	or	$a0,$s0,$zero
@@ -24424,8 +24424,8 @@ glabel func00012914
 /*    12930:	0019c880 */ 	sll	$t9,$t9,0x2
 /*    12934:	0329001a */ 	div	$zero,$t9,$t1
 /*    12938:	00003012 */ 	mflo	$a2
-/*    1293c:	3c0b800a */ 	lui	$t3,0x800a
-/*    12940:	256b9478 */ 	addiu	$t3,$t3,-27528
+/*    1293c:	3c0b800a */ 	lui	$t3,%hi(var80099478)
+/*    12940:	256b9478 */ 	addiu	$t3,$t3,%lo(var80099478)
 /*    12944:	000650c0 */ 	sll	$t2,$a2,0x3
 /*    12948:	014b1021 */ 	addu	$v0,$t2,$t3
 /*    1294c:	8c480010 */ 	lw	$t0,0x10($v0)
@@ -24468,11 +24468,11 @@ glabel func00012914
 /*    129cc:	8c6efffc */ 	lw	$t6,-0x4($v1)
 .L000129d0:
 /*    129d0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*    129d4:	3c04800a */ 	lui	$a0,0x800a
+/*    129d4:	3c04800a */ 	lui	$a0,%hi(var80099478)
 /*    129d8:	55e00005 */ 	bnezl	$t7,.L000129f0
 /*    129dc:	8fb80018 */ 	lw	$t8,0x18($sp)
 /*    129e0:	0c004a00 */ 	jal	func00012800
-/*    129e4:	24849478 */ 	addiu	$a0,$a0,-27528
+/*    129e4:	24849478 */ 	addiu	$a0,$a0,%lo(var80099478)
 /*    129e8:	00401825 */ 	or	$v1,$v0,$zero
 /*    129ec:	8fb80018 */ 	lw	$t8,0x18($sp)
 .L000129f0:
@@ -24492,32 +24492,32 @@ void func00012a0c(void)
 
 GLOBAL_ASM(
 glabel func00012a14
-/*    12a14:	3c03800a */ 	lui	$v1,0x800a
-/*    12a18:	24639478 */ 	addiu	$v1,$v1,-27528
+/*    12a14:	3c03800a */ 	lui	$v1,%hi(var80099478)
+/*    12a18:	24639478 */ 	addiu	$v1,$v1,%lo(var80099478)
 /*    12a1c:	2406ffff */ 	addiu	$a2,$zero,-1
 /*    12a20:	ac6603ec */ 	sw	$a2,0x3ec($v1)
 /*    12a24:	ac6603f4 */ 	sw	$a2,0x3f4($v1)
 /*    12a28:	240effff */ 	addiu	$t6,$zero,-1
-/*    12a2c:	3c06800a */ 	lui	$a2,0x800a
-/*    12a30:	3c02800a */ 	lui	$v0,0x800a
+/*    12a2c:	3c06800a */ 	lui	$a2,%hi(var8009985c)
+/*    12a30:	3c02800a */ 	lui	$v0,%hi(var80099484)
 /*    12a34:	24a508e0 */ 	addiu	$a1,$a1,0x8e0
 /*    12a38:	ac600000 */ 	sw	$zero,0x0($v1)
 /*    12a3c:	ac600004 */ 	sw	$zero,0x4($v1)
 /*    12a40:	ac600008 */ 	sw	$zero,0x8($v1)
 /*    12a44:	ac6003f0 */ 	sw	$zero,0x3f0($v1)
 /*    12a48:	ac6e03f8 */ 	sw	$t6,0x3f8($v1)
-/*    12a4c:	24429484 */ 	addiu	$v0,$v0,-27516
-/*    12a50:	24c6985c */ 	addiu	$a2,$a2,-26532
+/*    12a4c:	24429484 */ 	addiu	$v0,$v0,%lo(var80099484)
+/*    12a50:	24c6985c */ 	addiu	$a2,$a2,%lo(var8009985c)
 .L00012a54:
 /*    12a54:	24420008 */ 	addiu	$v0,$v0,0x8
 /*    12a58:	00c2082b */ 	sltu	$at,$a2,$v0
 /*    12a5c:	ac40fff8 */ 	sw	$zero,-0x8($v0)
 /*    12a60:	1020fffc */ 	beqz	$at,.L00012a54
 /*    12a64:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*    12a68:	3c02800a */ 	lui	$v0,0x800a
-/*    12a6c:	3c06800a */ 	lui	$a2,0x800a
-/*    12a70:	24c69474 */ 	addiu	$a2,$a2,-27532
-/*    12a74:	24429470 */ 	addiu	$v0,$v0,-27536
+/*    12a68:	3c02800a */ 	lui	$v0,%hi(var80099470)
+/*    12a6c:	3c06800a */ 	lui	$a2,%hi(var80099474)
+/*    12a70:	24c69474 */ 	addiu	$a2,$a2,%lo(var80099474)
+/*    12a74:	24429470 */ 	addiu	$v0,$v0,%lo(var80099470)
 /*    12a78:	ac440000 */ 	sw	$a0,0x0($v0)
 /*    12a7c:	ac64000c */ 	sw	$a0,0xc($v1)
 /*    12a80:	acc50000 */ 	sw	$a1,0x0($a2)
@@ -24529,9 +24529,9 @@ GLOBAL_ASM(
 glabel func00012a8c
 /*    12a8c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    12a90:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12a94:	3c04800a */ 	lui	$a0,0x800a
+/*    12a94:	3c04800a */ 	lui	$a0,%hi(var80099478)
 /*    12a98:	0c0049bc */ 	jal	func000126f0
-/*    12a9c:	24849478 */ 	addiu	$a0,$a0,-27528
+/*    12a9c:	24849478 */ 	addiu	$a0,$a0,%lo(var80099478)
 /*    12aa0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    12aa4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    12aa8:	03e00008 */ 	jr	$ra
@@ -24546,15 +24546,15 @@ glabel func00012ab0
 /*    12abc:	00809025 */ 	or	$s2,$a0,$zero
 /*    12ac0:	afb50028 */ 	sw	$s5,0x28($sp)
 /*    12ac4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*    12ac8:	3c11800a */ 	lui	$s1,0x800a
-/*    12acc:	3c078009 */ 	lui	$a3,0x8009
+/*    12ac8:	3c11800a */ 	lui	$s1,%hi(var80099484)
+/*    12acc:	3c078009 */ 	lui	$a3,%hi(var80090af0)
 /*    12ad0:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*    12ad4:	afb40024 */ 	sw	$s4,0x24($sp)
 /*    12ad8:	afb30020 */ 	sw	$s3,0x20($sp)
-/*    12adc:	26319484 */ 	addiu	$s1,$s1,-27516
+/*    12adc:	26319484 */ 	addiu	$s1,$s1,%lo(var80099484)
 /*    12ae0:	2404ffff */ 	addiu	$a0,$zero,-1
 /*    12ae4:	00004025 */ 	or	$t0,$zero,$zero
-/*    12ae8:	24e70af0 */ 	addiu	$a3,$a3,0xaf0
+/*    12ae8:	24e70af0 */ 	addiu	$a3,$a3,%lo(var80090af0)
 /*    12aec:	00008025 */ 	or	$s0,$zero,$zero
 /*    12af0:	2415ffff */ 	addiu	$s5,$zero,-1
 /*    12af4:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -24592,7 +24592,7 @@ glabel func00012ab0
 /*    12b68:	24140008 */ 	addiu	$s4,$zero,0x8
 /*    12b6c:	0332082b */ 	sltu	$at,$t9,$s2
 /*    12b70:	10200006 */ 	beqz	$at,.L00012b8c
-/*    12b74:	3c13800a */ 	lui	$s3,0x800a
+/*    12b74:	3c13800a */ 	lui	$s3,%hi(var80099478)
 /*    12b78:	8e29000c */ 	lw	$t1,0xc($s1)
 .L00012b7c:
 /*    12b7c:	26310008 */ 	addiu	$s1,$s1,0x8
@@ -24601,11 +24601,11 @@ glabel func00012ab0
 /*    12b88:	8e29000c */ 	lw	$t1,0xc($s1)
 .L00012b8c:
 /*    12b8c:	8e2a0000 */ 	lw	$t2,0x0($s1)
-/*    12b90:	26739478 */ 	addiu	$s3,$s3,-27528
+/*    12b90:	26739478 */ 	addiu	$s3,$s3,%lo(var80099478)
 /*    12b94:	56aa0017 */ 	bnel	$s5,$t2,.L00012bf4
 /*    12b98:	02204025 */ 	or	$t0,$s1,$zero
-/*    12b9c:	3c11800a */ 	lui	$s1,0x800a
-/*    12ba0:	26319484 */ 	addiu	$s1,$s1,-27516
+/*    12b9c:	3c11800a */ 	lui	$s1,%hi(var80099484)
+/*    12ba0:	26319484 */ 	addiu	$s1,$s1,%lo(var80099484)
 .L00012ba4:
 /*    12ba4:	0c0049bc */ 	jal	func000126f0
 /*    12ba8:	02602025 */ 	or	$a0,$s3,$zero
@@ -24657,9 +24657,9 @@ GLOBAL_ASM(
 glabel func00012c3c
 /*    12c3c:	3c0f800a */ 	lui	$t7,0x800a
 /*    12c40:	8def9484 */ 	lw	$t7,-0x6b7c($t7)
-/*    12c44:	3c0e800a */ 	lui	$t6,0x800a
+/*    12c44:	3c0e800a */ 	lui	$t6,%hi(var80099484)
 /*    12c48:	2407ffff */ 	addiu	$a3,$zero,-1
-/*    12c4c:	25ce9484 */ 	addiu	$t6,$t6,-27516
+/*    12c4c:	25ce9484 */ 	addiu	$t6,$t6,%lo(var80099484)
 /*    12c50:	00a03025 */ 	or	$a2,$a1,$zero
 /*    12c54:	10ef000c */ 	beq	$a3,$t7,.L00012c88
 /*    12c58:	01c01025 */ 	or	$v0,$t6,$zero
@@ -24715,10 +24715,10 @@ glabel func00012cdc
 /*    12cec:	3c0e800a */ 	lui	$t6,0x800a
 /*    12cf0:	8dce9484 */ 	lw	$t6,-0x6b7c($t6)
 /*    12cf4:	2405ffff */ 	addiu	$a1,$zero,-1
-/*    12cf8:	3c02800a */ 	lui	$v0,0x800a
+/*    12cf8:	3c02800a */ 	lui	$v0,%hi(var80099484)
 /*    12cfc:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*    12d00:	10ae000a */ 	beq	$a1,$t6,.L00012d2c
-/*    12d04:	24429484 */ 	addiu	$v0,$v0,-27516
+/*    12d04:	24429484 */ 	addiu	$v0,$v0,%lo(var80099484)
 /*    12d08:	8c430004 */ 	lw	$v1,0x4($v0)
 .L00012d0c:
 /*    12d0c:	0083082b */ 	sltu	$at,$a0,$v1
@@ -24844,11 +24844,11 @@ glabel func00012e1c
 
 GLOBAL_ASM(
 glabel func00012e60
-/*    12e60:	3c058006 */ 	lui	$a1,0x8006
-/*    12e64:	3c068006 */ 	lui	$a2,0x8006
+/*    12e60:	3c058006 */ 	lui	$a1,%hi(var8005ee14)
+/*    12e64:	3c068006 */ 	lui	$a2,%hi(var8005ee10)
 /*    12e68:	3c0e7005 */ 	lui	$t6,0x7005
-/*    12e6c:	24c6ee10 */ 	addiu	$a2,$a2,-4592
-/*    12e70:	24a5ee14 */ 	addiu	$a1,$a1,-4588
+/*    12e6c:	24c6ee10 */ 	addiu	$a2,$a2,%lo(var8005ee10)
+/*    12e70:	24a5ee14 */ 	addiu	$a1,$a1,%lo(var8005ee14)
 /*    12e74:	25ce3ff0 */ 	addiu	$t6,$t6,0x3ff0
 /*    12e78:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*    12e7c:	acae0000 */ 	sw	$t6,0x0($a1)
@@ -24896,12 +24896,12 @@ glabel func00012efc
 /*    12efc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    12f00:	00802825 */ 	or	$a1,$a0,$zero
 /*    12f04:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12f08:	3c04800a */ 	lui	$a0,0x800a
+/*    12f08:	3c04800a */ 	lui	$a0,%hi(var80099880)
 /*    12f0c:	0c004c4c */ 	jal	func00013130
-/*    12f10:	24849880 */ 	addiu	$a0,$a0,-26496
-/*    12f14:	3c04800a */ 	lui	$a0,0x800a
+/*    12f10:	24849880 */ 	addiu	$a0,$a0,%lo(var80099880)
+/*    12f14:	3c04800a */ 	lui	$a0,%hi(var80099880)
 /*    12f18:	0c004b98 */ 	jal	func00012e60
-/*    12f1c:	24849880 */ 	addiu	$a0,$a0,-26496
+/*    12f1c:	24849880 */ 	addiu	$a0,$a0,%lo(var80099880)
 /*    12f20:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    12f24:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    12f28:	03e00008 */ 	jr	$ra
@@ -24920,14 +24920,14 @@ glabel func00012f30
 /*    12f4c:	0c00be82 */ 	jal	func0002fa08
 /*    12f50:	3631ff00 */ 	ori	$s1,$s1,0xff00
 /*    12f54:	10400004 */ 	beqz	$v0,.L00012f68
-/*    12f58:	3c10800a */ 	lui	$s0,0x800a
+/*    12f58:	3c10800a */ 	lui	$s0,%hi(var80099880)
 /*    12f5c:	3c01800a */ 	lui	$at,0x800a
 /*    12f60:	1000000a */ 	beqz	$zero,.L00012f8c
 /*    12f64:	ac209880 */ 	sw	$zero,-0x6780($at)
 .L00012f68:
-/*    12f68:	3c12800a */ 	lui	$s2,0x800a
-/*    12f6c:	265298f8 */ 	addiu	$s2,$s2,-26376
-/*    12f70:	26109880 */ 	addiu	$s0,$s0,-26496
+/*    12f68:	3c12800a */ 	lui	$s2,%hi(var800998f8)
+/*    12f6c:	265298f8 */ 	addiu	$s2,$s2,%lo(var800998f8)
+/*    12f70:	26109880 */ 	addiu	$s0,$s0,%lo(var80099880)
 .L00012f74:
 /*    12f74:	02202025 */ 	or	$a0,$s1,$zero
 /*    12f78:	0c013994 */ 	jal	func0004e650
@@ -24936,9 +24936,9 @@ glabel func00012f30
 /*    12f84:	1612fffb */ 	bne	$s0,$s2,.L00012f74
 /*    12f88:	26310004 */ 	addiu	$s1,$s1,0x4
 .L00012f8c:
-/*    12f8c:	3c04800a */ 	lui	$a0,0x800a
+/*    12f8c:	3c04800a */ 	lui	$a0,%hi(var80099880)
 /*    12f90:	0c004b98 */ 	jal	func00012e60
-/*    12f94:	24849880 */ 	addiu	$a0,$a0,-26496
+/*    12f94:	24849880 */ 	addiu	$a0,$a0,%lo(var80099880)
 /*    12f98:	3c057005 */ 	lui	$a1,0x7005
 /*    12f9c:	24a53ff4 */ 	addiu	$a1,$a1,0x3ff4
 /*    12fa0:	0c004c04 */ 	jal	func00013010
@@ -24988,15 +24988,15 @@ glabel func00013010
 /*    13034:	afb00014 */ 	sw	$s0,0x14($sp)
 /*    13038:	0c012983 */ 	jal	func0004a60c
 /*    1303c:	00a02025 */ 	or	$a0,$a1,$zero
-/*    13040:	3c158006 */ 	lui	$s5,0x8006
-/*    13044:	26b5ee10 */ 	addiu	$s5,$s5,-4592
+/*    13040:	3c158006 */ 	lui	$s5,%hi(var8005ee10)
+/*    13044:	26b5ee10 */ 	addiu	$s5,$s5,%lo(var8005ee10)
 /*    13048:	8eae0000 */ 	lw	$t6,0x0($s5)
 /*    1304c:	00409825 */ 	or	$s3,$v0,$zero
 /*    13050:	24110001 */ 	addiu	$s1,$zero,0x1
 /*    13054:	29c10002 */ 	slti	$at,$t6,0x2
 /*    13058:	14200014 */ 	bnez	$at,.L000130ac
-/*    1305c:	3c108006 */ 	lui	$s0,0x8006
-/*    13060:	2610ee18 */ 	addiu	$s0,$s0,-4584
+/*    1305c:	3c108006 */ 	lui	$s0,%hi(var8005ee18)
+/*    13060:	2610ee18 */ 	addiu	$s0,$s0,%lo(var8005ee18)
 /*    13064:	02802025 */ 	or	$a0,$s4,$zero
 .L00013068:
 /*    13068:	8e050000 */ 	lw	$a1,0x0($s0)
@@ -25539,10 +25539,10 @@ GLOBAL_ASM(
 glabel func00013710
 /*    13710:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    13714:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    13718:	3c05800a */ 	lui	$a1,0x800a
-/*    1371c:	3c06800a */ 	lui	$a2,0x800a
-/*    13720:	24c69900 */ 	addiu	$a2,$a2,-26368
-/*    13724:	24a59a00 */ 	addiu	$a1,$a1,-26112
+/*    13718:	3c05800a */ 	lui	$a1,%hi(var80099a00)
+/*    1371c:	3c06800a */ 	lui	$a2,%hi(var80099900)
+/*    13720:	24c69900 */ 	addiu	$a2,$a2,%lo(var80099900)
+/*    13724:	24a59a00 */ 	addiu	$a1,$a1,%lo(var80099a00)
 /*    13728:	24040096 */ 	addiu	$a0,$zero,0x96
 /*    1372c:	0c000cd8 */ 	jal	func00003360
 /*    13730:	24070040 */ 	addiu	$a3,$zero,0x40
@@ -25564,10 +25564,10 @@ GLOBAL_ASM(
 glabel func00013758
 /*    13758:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    1375c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    13760:	3c04800a */ 	lui	$a0,0x800a
-/*    13764:	3c05800a */ 	lui	$a1,0x800a
-/*    13768:	24a59a20 */ 	addiu	$a1,$a1,-26080
-/*    1376c:	24849a40 */ 	addiu	$a0,$a0,-26048
+/*    13760:	3c04800a */ 	lui	$a0,%hi(var80099a40)
+/*    13764:	3c05800a */ 	lui	$a1,%hi(var80099a20)
+/*    13768:	24a59a20 */ 	addiu	$a1,$a1,%lo(var80099a20)
+/*    1376c:	24849a40 */ 	addiu	$a0,$a0,%lo(var80099a40)
 /*    13770:	0c0120d0 */ 	jal	func00048340
 /*    13774:	24060008 */ 	addiu	$a2,$zero,0x8
 /*    13778:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -25745,9 +25745,9 @@ glabel func0001398c
 /*    1399c:	000e7080 */ 	sll	$t6,$t6,0x2
 /*    139a0:	01c47023 */ 	subu	$t6,$t6,$a0
 /*    139a4:	000e7140 */ 	sll	$t6,$t6,0x5
-/*    139a8:	3c028006 */ 	lui	$v0,0x8006
+/*    139a8:	3c028006 */ 	lui	$v0,%hi(var8005eee0)
 /*    139ac:	01c47023 */ 	subu	$t6,$t6,$a0
-/*    139b0:	2442eee0 */ 	addiu	$v0,$v0,-4384
+/*    139b0:	2442eee0 */ 	addiu	$v0,$v0,%lo(var8005eee0)
 /*    139b4:	000e70c0 */ 	sll	$t6,$t6,0x3
 /*    139b8:	ac4e0000 */ 	sw	$t6,0x0($v0)
 /*    139bc:	3c018006 */ 	lui	$at,0x8006
@@ -25769,8 +25769,8 @@ glabel func000139c8
 
 GLOBAL_ASM(
 glabel func000139e8
-/*    139e8:	3c068006 */ 	lui	$a2,0x8006
-/*    139ec:	24c6eecc */ 	addiu	$a2,$a2,-4404
+/*    139e8:	3c068006 */ 	lui	$a2,%hi(var8005eecc)
+/*    139ec:	24c6eecc */ 	addiu	$a2,$a2,%lo(var8005eecc)
 /*    139f0:	8cc20000 */ 	lw	$v0,0x0($a2)
 /*    139f4:	00001825 */ 	or	$v1,$zero,$zero
 /*    139f8:	1040000f */ 	beqz	$v0,.L00013a38
@@ -25887,11 +25887,11 @@ glabel func00013ab8
 /*    13b74:	8fa70030 */ 	lw	$a3,0x30($sp)
 /*    13b78:	00a02025 */ 	or	$a0,$a1,$zero
 .L00013b7c:
-/*    13b7c:	3c038006 */ 	lui	$v1,0x8006
-/*    13b80:	2463eee4 */ 	addiu	$v1,$v1,-4380
+/*    13b7c:	3c038006 */ 	lui	$v1,%hi(var8005eee4)
+/*    13b80:	2463eee4 */ 	addiu	$v1,$v1,%lo(var8005eee4)
 /*    13b84:	8c6e0000 */ 	lw	$t6,0x0($v1)
 /*    13b88:	24010002 */ 	addiu	$at,$zero,0x2
-/*    13b8c:	3c028006 */ 	lui	$v0,0x8006
+/*    13b8c:	3c028006 */ 	lui	$v0,%hi(var8005eee8)
 /*    13b90:	01c47823 */ 	subu	$t7,$t6,$a0
 /*    13b94:	05e00009 */ 	bltz	$t7,.L00013bbc
 /*    13b98:	ac6f0000 */ 	sw	$t7,0x0($v1)
@@ -25904,7 +25904,7 @@ glabel func00013ab8
 /*    13bb4:	00d8082a */ 	slt	$at,$a2,$t8
 /*    13bb8:	1020001e */ 	beqz	$at,.L00013c34
 .L00013bbc:
-/*    13bbc:	2442eee8 */ 	addiu	$v0,$v0,-4376
+/*    13bbc:	2442eee8 */ 	addiu	$v0,$v0,%lo(var8005eee8)
 /*    13bc0:	8c590000 */ 	lw	$t9,0x0($v0)
 /*    13bc4:	a3a00027 */ 	sb	$zero,0x27($sp)
 /*    13bc8:	27280001 */ 	addiu	$t0,$t9,0x1
@@ -25914,8 +25914,8 @@ glabel func00013ab8
 /*    13bd8:	afa70030 */ 	sw	$a3,0x30($sp)
 /*    13bdc:	8fa70030 */ 	lw	$a3,0x30($sp)
 .L00013be0:
-/*    13be0:	3c04800a */ 	lui	$a0,0x800a
-/*    13be4:	24849e78 */ 	addiu	$a0,$a0,-24968
+/*    13be0:	3c04800a */ 	lui	$a0,%hi(var80099e78)
+/*    13be4:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
 /*    13be8:	27a50027 */ 	addiu	$a1,$sp,0x27
 /*    13bec:	0c0015dc */ 	jal	func00005770
 /*    13bf0:	afa70030 */ 	sw	$a3,0x30($sp)
@@ -25973,38 +25973,38 @@ GLOBAL_ASM(
 glabel func00013c94
 /*    13c94:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    13c98:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    13c9c:	3c04800a */ 	lui	$a0,0x800a
-/*    13ca0:	3c05800a */ 	lui	$a1,0x800a
-/*    13ca4:	24a59eb8 */ 	addiu	$a1,$a1,-24904
-/*    13ca8:	24849ec0 */ 	addiu	$a0,$a0,-24896
+/*    13c9c:	3c04800a */ 	lui	$a0,%hi(var80099ec0)
+/*    13ca0:	3c05800a */ 	lui	$a1,%hi(var80099eb8)
+/*    13ca4:	24a59eb8 */ 	addiu	$a1,$a1,%lo(var80099eb8)
+/*    13ca8:	24849ec0 */ 	addiu	$a0,$a0,%lo(var80099ec0)
 /*    13cac:	0c0120d0 */ 	jal	func00048340
 /*    13cb0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13cb4:	3c04800a */ 	lui	$a0,0x800a
-/*    13cb8:	3c05800a */ 	lui	$a1,0x800a
-/*    13cbc:	24a59ed8 */ 	addiu	$a1,$a1,-24872
-/*    13cc0:	24849ee0 */ 	addiu	$a0,$a0,-24864
+/*    13cb4:	3c04800a */ 	lui	$a0,%hi(var80099ee0)
+/*    13cb8:	3c05800a */ 	lui	$a1,%hi(var80099ed8)
+/*    13cbc:	24a59ed8 */ 	addiu	$a1,$a1,%lo(var80099ed8)
+/*    13cc0:	24849ee0 */ 	addiu	$a0,$a0,%lo(var80099ee0)
 /*    13cc4:	0c0120d0 */ 	jal	func00048340
 /*    13cc8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13ccc:	3c04800a */ 	lui	$a0,0x800a
-/*    13cd0:	3c05800a */ 	lui	$a1,0x800a
-/*    13cd4:	24a59ef8 */ 	addiu	$a1,$a1,-24840
-/*    13cd8:	24849f00 */ 	addiu	$a0,$a0,-24832
+/*    13ccc:	3c04800a */ 	lui	$a0,%hi(var80099f00)
+/*    13cd0:	3c05800a */ 	lui	$a1,%hi(var80099ef8)
+/*    13cd4:	24a59ef8 */ 	addiu	$a1,$a1,%lo(var80099ef8)
+/*    13cd8:	24849f00 */ 	addiu	$a0,$a0,%lo(var80099f00)
 /*    13cdc:	0c0120d0 */ 	jal	func00048340
 /*    13ce0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13ce4:	3c04800a */ 	lui	$a0,0x800a
-/*    13ce8:	3c05800a */ 	lui	$a1,0x800a
-/*    13cec:	24a59f18 */ 	addiu	$a1,$a1,-24808
-/*    13cf0:	24849f20 */ 	addiu	$a0,$a0,-24800
+/*    13ce4:	3c04800a */ 	lui	$a0,%hi(var80099f20)
+/*    13ce8:	3c05800a */ 	lui	$a1,%hi(var80099f18)
+/*    13cec:	24a59f18 */ 	addiu	$a1,$a1,%lo(var80099f18)
+/*    13cf0:	24849f20 */ 	addiu	$a0,$a0,%lo(var80099f20)
 /*    13cf4:	0c0120d0 */ 	jal	func00048340
 /*    13cf8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13cfc:	3c04800a */ 	lui	$a0,0x800a
-/*    13d00:	3c05800a */ 	lui	$a1,0x800a
-/*    13d04:	24a59e90 */ 	addiu	$a1,$a1,-24944
-/*    13d08:	24849e78 */ 	addiu	$a0,$a0,-24968
+/*    13cfc:	3c04800a */ 	lui	$a0,%hi(var80099e78)
+/*    13d00:	3c05800a */ 	lui	$a1,%hi(var80099e90)
+/*    13d04:	24a59e90 */ 	addiu	$a1,$a1,%lo(var80099e90)
+/*    13d08:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
 /*    13d0c:	0c0120d0 */ 	jal	func00048340
 /*    13d10:	2406000a */ 	addiu	$a2,$zero,0xa
-/*    13d14:	3c05800a */ 	lui	$a1,0x800a
-/*    13d18:	24a59e78 */ 	addiu	$a1,$a1,-24968
+/*    13d14:	3c05800a */ 	lui	$a1,%hi(var80099e78)
+/*    13d18:	24a59e78 */ 	addiu	$a1,$a1,%lo(var80099e78)
 /*    13d1c:	24040005 */ 	addiu	$a0,$zero,0x5
 /*    13d20:	0c012148 */ 	jal	func00048520
 /*    13d24:	00003025 */ 	or	$a2,$zero,$zero
@@ -26016,9 +26016,9 @@ glabel func00013c94
 /*    13d3c:	3c0f800a */ 	lui	$t7,0x800a
 /*    13d40:	3c018006 */ 	lui	$at,0x8006
 /*    13d44:	25e69a60 */ 	addiu	$a2,$t7,-26016
-/*    13d48:	3c08800a */ 	lui	$t0,0x800a
+/*    13d48:	3c08800a */ 	lui	$t0,%hi(var80099e68)
 /*    13d4c:	ac20eec8 */ 	sw	$zero,-0x1138($at)
-/*    13d50:	25089e68 */ 	addiu	$t0,$t0,-24984
+/*    13d50:	25089e68 */ 	addiu	$t0,$t0,%lo(var80099e68)
 /*    13d54:	00c02825 */ 	or	$a1,$a2,$zero
 /*    13d58:	2407ffff */ 	addiu	$a3,$zero,-1
 /*    13d5c:	24040004 */ 	addiu	$a0,$zero,0x4
@@ -26042,10 +26042,10 @@ glabel func00013c94
 /*    13d9c:	00c8082b */ 	sltu	$at,$a2,$t0
 /*    13da0:	1420ffef */ 	bnez	$at,.L00013d60
 /*    13da4:	24a50204 */ 	addiu	$a1,$a1,0x204
-/*    13da8:	3c02800a */ 	lui	$v0,0x800a
-/*    13dac:	3c03800a */ 	lui	$v1,0x800a
-/*    13db0:	24639e78 */ 	addiu	$v1,$v1,-24968
-/*    13db4:	24429e68 */ 	addiu	$v0,$v0,-24984
+/*    13da8:	3c02800a */ 	lui	$v0,%hi(var80099e68)
+/*    13dac:	3c03800a */ 	lui	$v1,%hi(var80099e78)
+/*    13db0:	24639e78 */ 	addiu	$v1,$v1,%lo(var80099e78)
+/*    13db4:	24429e68 */ 	addiu	$v0,$v0,%lo(var80099e68)
 .L00013db8:
 /*    13db8:	24420004 */ 	addiu	$v0,$v0,0x4
 /*    13dbc:	1443fffe */ 	bne	$v0,$v1,.L00013db8
@@ -26058,10 +26058,10 @@ glabel func00013c94
 
 GLOBAL_ASM(
 glabel func00013dd4
-/*    13dd4:	3c03800a */ 	lui	$v1,0x800a
-/*    13dd8:	3c04800a */ 	lui	$a0,0x800a
-/*    13ddc:	24849e78 */ 	addiu	$a0,$a0,-24968
-/*    13de0:	24639e68 */ 	addiu	$v1,$v1,-24984
+/*    13dd4:	3c03800a */ 	lui	$v1,%hi(var80099e68)
+/*    13dd8:	3c04800a */ 	lui	$a0,%hi(var80099e78)
+/*    13ddc:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
+/*    13de0:	24639e68 */ 	addiu	$v1,$v1,%lo(var80099e68)
 /*    13de4:	2402003c */ 	addiu	$v0,$zero,0x3c
 .L00013de8:
 /*    13de8:	24630004 */ 	addiu	$v1,$v1,0x4
@@ -26078,25 +26078,25 @@ glabel func00013dfc
 /*    13e04:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    13e08:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    13e0c:	11c00019 */ 	beqz	$t6,.L00013e74
-/*    13e10:	3c04800a */ 	lui	$a0,0x800a
-/*    13e14:	24849ec0 */ 	addiu	$a0,$a0,-24896
+/*    13e10:	3c04800a */ 	lui	$a0,%hi(var80099ec0)
+/*    13e14:	24849ec0 */ 	addiu	$a0,$a0,%lo(var80099ec0)
 /*    13e18:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    13e1c:	0c012238 */ 	jal	func000488e0
 /*    13e20:	00003025 */ 	or	$a2,$zero,$zero
-/*    13e24:	3c04800a */ 	lui	$a0,0x800a
-/*    13e28:	24849ee0 */ 	addiu	$a0,$a0,-24864
+/*    13e24:	3c04800a */ 	lui	$a0,%hi(var80099ee0)
+/*    13e28:	24849ee0 */ 	addiu	$a0,$a0,%lo(var80099ee0)
 /*    13e2c:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    13e30:	0c0121bc */ 	jal	func000486f0
 /*    13e34:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    13e38:	0c004fa1 */ 	jal	func00013e84
 /*    13e3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    13e40:	3c04800a */ 	lui	$a0,0x800a
-/*    13e44:	24849f00 */ 	addiu	$a0,$a0,-24832
+/*    13e40:	3c04800a */ 	lui	$a0,%hi(var80099f00)
+/*    13e44:	24849f00 */ 	addiu	$a0,$a0,%lo(var80099f00)
 /*    13e48:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    13e4c:	0c012238 */ 	jal	func000488e0
 /*    13e50:	00003025 */ 	or	$a2,$zero,$zero
-/*    13e54:	3c04800a */ 	lui	$a0,0x800a
-/*    13e58:	24849f20 */ 	addiu	$a0,$a0,-24800
+/*    13e54:	3c04800a */ 	lui	$a0,%hi(var80099f20)
+/*    13e58:	24849f20 */ 	addiu	$a0,$a0,%lo(var80099f20)
 /*    13e5c:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    13e60:	0c0121bc */ 	jal	func000486f0
 /*    13e64:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -26112,8 +26112,8 @@ glabel func00013dfc
 
 GLOBAL_ASM(
 glabel func00013e84
-/*    13e84:	3c028006 */ 	lui	$v0,0x8006
-/*    13e88:	2442eeb8 */ 	addiu	$v0,$v0,-4424
+/*    13e84:	3c028006 */ 	lui	$v0,%hi(var8005eeb8)
+/*    13e88:	2442eeb8 */ 	addiu	$v0,$v0,%lo(var8005eeb8)
 /*    13e8c:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*    13e90:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    13e94:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -26121,13 +26121,13 @@ glabel func00013e84
 /*    13e9c:	11c00018 */ 	beqz	$t6,.L00013f00
 /*    13ea0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*    13ea4:	3c11800a */ 	lui	$s1,0x800a
-/*    13ea8:	3c058006 */ 	lui	$a1,0x8006
-/*    13eac:	3c06800a */ 	lui	$a2,0x800a
+/*    13ea8:	3c058006 */ 	lui	$a1,%hi(var8005eeac)
+/*    13eac:	3c06800a */ 	lui	$a2,%hi(var80099f38)
 /*    13eb0:	26249e78 */ 	addiu	$a0,$s1,-24968
 /*    13eb4:	ac400000 */ 	sw	$zero,0x0($v0)
-/*    13eb8:	24c69f38 */ 	addiu	$a2,$a2,-24776
+/*    13eb8:	24c69f38 */ 	addiu	$a2,$a2,%lo(var80099f38)
 /*    13ebc:	0c012a60 */ 	jal	func0004a980
-/*    13ec0:	24a5eeac */ 	addiu	$a1,$a1,-4436
+/*    13ec0:	24a5eeac */ 	addiu	$a1,$a1,%lo(var8005eeac)
 /*    13ec4:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*    13ec8:	3c018006 */ 	lui	$at,0x8006
 /*    13ecc:	ac2feeb4 */ 	sw	$t7,-0x114c($at)
@@ -26145,8 +26145,8 @@ glabel func00013e84
 /*    13ef8:	1000001d */ 	beqz	$zero,.L00013f70
 /*    13efc:	00000000 */ 	sll	$zero,$zero,0x0
 .L00013f00:
-/*    13f00:	3c11800a */ 	lui	$s1,0x800a
-/*    13f04:	26319e78 */ 	addiu	$s1,$s1,-24968
+/*    13f00:	3c11800a */ 	lui	$s1,%hi(var80099e78)
+/*    13f04:	26319e78 */ 	addiu	$s1,$s1,%lo(var80099e78)
 /*    13f08:	2410000f */ 	addiu	$s0,$zero,0xf
 /*    13f0c:	0c013cd4 */ 	jal	func0004f350
 /*    13f10:	02202025 */ 	or	$a0,$s1,$zero
@@ -26154,11 +26154,11 @@ glabel func00013e84
 /*    13f18:	00002825 */ 	or	$a1,$zero,$zero
 /*    13f1c:	0c0121bc */ 	jal	func000486f0
 /*    13f20:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    13f24:	3c04800a */ 	lui	$a0,0x800a
+/*    13f24:	3c04800a */ 	lui	$a0,%hi(var80099f38)
 /*    13f28:	0c013cf5 */ 	jal	func0004f3d4
-/*    13f2c:	24849f38 */ 	addiu	$a0,$a0,-24776
-/*    13f30:	3c03800a */ 	lui	$v1,0x800a
-/*    13f34:	24639f38 */ 	addiu	$v1,$v1,-24776
+/*    13f2c:	24849f38 */ 	addiu	$a0,$a0,%lo(var80099f38)
+/*    13f30:	3c03800a */ 	lui	$v1,%hi(var80099f38)
+/*    13f34:	24639f38 */ 	addiu	$v1,$v1,%lo(var80099f38)
 /*    13f38:	00001025 */ 	or	$v0,$zero,$zero
 /*    13f3c:	24110004 */ 	addiu	$s1,$zero,0x4
 .L00013f40:
@@ -26184,8 +26184,8 @@ glabel func00013e84
 /*    13f84:	00001825 */ 	or	$v1,$zero,$zero
 /*    13f88:	10cb000f */ 	beq	$a2,$t3,.L00013fc8
 /*    13f8c:	00c02025 */ 	or	$a0,$a2,$zero
-/*    13f90:	3c05800a */ 	lui	$a1,0x800a
-/*    13f94:	24a59fc0 */ 	addiu	$a1,$a1,-24640
+/*    13f90:	3c05800a */ 	lui	$a1,%hi(g_Vars)
+/*    13f94:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
 /*    13f98:	240c0001 */ 	addiu	$t4,$zero,0x1
 .L00013f9c:
 /*    13f9c:	004c6804 */ 	sllv	$t5,$t4,$v0
@@ -26263,8 +26263,8 @@ glabel func00014058
 /*    14084:	a46001f8 */ 	sh	$zero,0x1f8($v1)
 /*    14088:	8c9901e0 */ 	lw	$t9,0x1e0($a0)
 /*    1408c:	8c8501e4 */ 	lw	$a1,0x1e4($a0)
-/*    14090:	3c18800a */ 	lui	$t8,0x800a
-/*    14094:	27189e68 */ 	addiu	$t8,$t8,-24984
+/*    14090:	3c18800a */ 	lui	$t8,%hi(var80099e68)
+/*    14094:	27189e68 */ 	addiu	$t8,$t8,%lo(var80099e68)
 /*    14098:	10b9005e */ 	beq	$a1,$t9,.L00014214
 /*    1409c:	24ae0001 */ 	addiu	$t6,$a1,0x1
 /*    140a0:	01d0001a */ 	div	$zero,$t6,$s0
@@ -26442,8 +26442,8 @@ glabel func000142f0
 /*    142f0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    142f4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    142f8:	3c047005 */ 	lui	$a0,0x7005
-/*    142fc:	3c058006 */ 	lui	$a1,0x8006
-/*    14300:	24a5ef08 */ 	addiu	$a1,$a1,-4344
+/*    142fc:	3c058006 */ 	lui	$a1,%hi(var8005ef08)
+/*    14300:	24a5ef08 */ 	addiu	$a1,$a1,%lo(var8005ef08)
 /*    14304:	0c0036cc */ 	jal	func0000db30
 /*    14308:	248440a8 */ 	addiu	$a0,$a0,0x40a8
 /*    1430c:	3c0e800a */ 	lui	$t6,0x800a
@@ -26455,25 +26455,25 @@ glabel func000142f0
 .L00014324:
 /*    14324:	3c028006 */ 	lui	$v0,0x8006
 /*    14328:	8c42eec4 */ 	lw	$v0,-0x113c($v0)
-/*    1432c:	3c04800a */ 	lui	$a0,0x800a
-/*    14330:	24849c64 */ 	addiu	$a0,$a0,-25500
+/*    1432c:	3c04800a */ 	lui	$a0,%hi(var80099c64)
+/*    14330:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099c64)
 /*    14334:	10400008 */ 	beqz	$v0,.L00014358
 /*    14338:	3c05800a */ 	lui	$a1,0x800a
 /*    1433c:	0040f809 */ 	jalr	$v0
 /*    14340:	8ca59e44 */ 	lw	$a1,-0x61bc($a1)
 /*    14344:	3c01800a */ 	lui	$at,0x800a
-/*    14348:	3c04800a */ 	lui	$a0,0x800a
+/*    14348:	3c04800a */ 	lui	$a0,%hi(var80099c64)
 /*    1434c:	ac229e4c */ 	sw	$v0,-0x61b4($at)
 /*    14350:	0c005016 */ 	jal	func00014058
-/*    14354:	24849c64 */ 	addiu	$a0,$a0,-25500
+/*    14354:	24849c64 */ 	addiu	$a0,$a0,%lo(var80099c64)
 .L00014358:
-/*    14358:	3c04800a */ 	lui	$a0,0x800a
+/*    14358:	3c04800a */ 	lui	$a0,%hi(var80099a60)
 /*    1435c:	0c005016 */ 	jal	func00014058
-/*    14360:	24849a60 */ 	addiu	$a0,$a0,-26016
+/*    14360:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
 /*    14364:	3c028006 */ 	lui	$v0,0x8006
 /*    14368:	8c42eec8 */ 	lw	$v0,-0x1138($v0)
-/*    1436c:	3c04800a */ 	lui	$a0,0x800a
-/*    14370:	24849a60 */ 	addiu	$a0,$a0,-26016
+/*    1436c:	3c04800a */ 	lui	$a0,%hi(var80099a60)
+/*    14370:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
 /*    14374:	10400004 */ 	beqz	$v0,.L00014388
 /*    14378:	00000000 */ 	sll	$zero,$zero,0x0
 /*    1437c:	8c8501e4 */ 	lw	$a1,0x1e4($a0)
@@ -26497,9 +26497,9 @@ glabel func000142f0
 /*    143c0:	00000000 */ 	sll	$zero,$zero,0x0
 /*    143c4:	0c005451 */ 	jal	func00015144
 /*    143c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    143cc:	3c04800a */ 	lui	$a0,0x800a
+/*    143cc:	3c04800a */ 	lui	$a0,%hi(var80099a60)
 /*    143d0:	0c005016 */ 	jal	func00014058
-/*    143d4:	24849a60 */ 	addiu	$a0,$a0,-26016
+/*    143d4:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
 .L000143d8:
 /*    143d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L000143dc:
@@ -26522,8 +26522,8 @@ glabel func000143e8
 
 GLOBAL_ASM(
 glabel func00014408
-/*    14408:	3c03800a */ 	lui	$v1,0x800a
-/*    1440c:	24639a60 */ 	addiu	$v1,$v1,-26016
+/*    14408:	3c03800a */ 	lui	$v1,%hi(var80099a60)
+/*    1440c:	24639a60 */ 	addiu	$v1,$v1,%lo(var80099a60)
 /*    14410:	8c6401e8 */ 	lw	$a0,0x1e8($v1)
 /*    14414:	24010014 */ 	addiu	$at,$zero,0x14
 /*    14418:	8c6f01e4 */ 	lw	$t7,0x1e4($v1)
@@ -26547,8 +26547,8 @@ glabel func00014408
 /*    1445c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    14460:	24480013 */ 	addiu	$t0,$v0,0x13
 /*    14464:	0101001a */ 	div	$zero,$t0,$at
-/*    14468:	3c03800a */ 	lui	$v1,0x800a
-/*    1446c:	24639a60 */ 	addiu	$v1,$v1,-26016
+/*    14468:	3c03800a */ 	lui	$v1,%hi(var80099a60)
+/*    1446c:	24639a60 */ 	addiu	$v1,$v1,%lo(var80099a60)
 /*    14470:	00004810 */ 	mfhi	$t1
 /*    14474:	ac6901ec */ 	sw	$t1,0x1ec($v1)
 /*    14478:	27bd0020 */ 	addiu	$sp,$sp,0x20
@@ -26560,17 +26560,17 @@ GLOBAL_ASM(
 glabel func00014484
 /*    14484:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    14488:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    1448c:	3c04800a */ 	lui	$a0,0x800a
-/*    14490:	24849ec0 */ 	addiu	$a0,$a0,-24896
+/*    1448c:	3c04800a */ 	lui	$a0,%hi(var80099ec0)
+/*    14490:	24849ec0 */ 	addiu	$a0,$a0,%lo(var80099ec0)
 /*    14494:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*    14498:	0c0121bc */ 	jal	func000486f0
 /*    1449c:	00003025 */ 	or	$a2,$zero,$zero
 /*    144a0:	14400049 */ 	bnez	$v0,.L000145c8
-/*    144a4:	3c04800a */ 	lui	$a0,0x800a
+/*    144a4:	3c04800a */ 	lui	$a0,%hi(var80099f00)
 /*    144a8:	3c0e8006 */ 	lui	$t6,0x8006
 /*    144ac:	8dceee64 */ 	lw	$t6,-0x119c($t6)
-/*    144b0:	3c04800a */ 	lui	$a0,0x800a
-/*    144b4:	24849e78 */ 	addiu	$a0,$a0,-24968
+/*    144b0:	3c04800a */ 	lui	$a0,%hi(var80099e78)
+/*    144b4:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
 /*    144b8:	11c00035 */ 	beqz	$t6,.L00014590
 /*    144bc:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*    144c0:	0c0121bc */ 	jal	func000486f0
@@ -26580,13 +26580,13 @@ glabel func00014484
 /*    144d0:	ac20ee64 */ 	sw	$zero,-0x119c($at)
 /*    144d4:	3c0f800a */ 	lui	$t7,0x800a
 /*    144d8:	8def9c48 */ 	lw	$t7,-0x63b8($t7)
-/*    144dc:	3c19800a */ 	lui	$t9,0x800a
-/*    144e0:	27399a60 */ 	addiu	$t9,$t9,-26016
+/*    144dc:	3c19800a */ 	lui	$t9,%hi(var80099a60)
+/*    144e0:	27399a60 */ 	addiu	$t9,$t9,%lo(var80099a60)
 /*    144e4:	000fc080 */ 	sll	$t8,$t7,0x2
 /*    144e8:	030fc023 */ 	subu	$t8,$t8,$t7
 /*    144ec:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*    144f0:	3c04800a */ 	lui	$a0,0x800a
-/*    144f4:	24849a60 */ 	addiu	$a0,$a0,-26016
+/*    144f0:	3c04800a */ 	lui	$a0,%hi(var80099a60)
+/*    144f4:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
 /*    144f8:	03193821 */ 	addu	$a3,$t8,$t9
 /*    144fc:	00002825 */ 	or	$a1,$zero,$zero
 /*    14500:	24060006 */ 	addiu	$a2,$zero,0x6
@@ -26631,13 +26631,13 @@ glabel func00014484
 /*    14588:	1420ffde */ 	bnez	$at,.L00014504
 /*    1458c:	00000000 */ 	sll	$zero,$zero,0x0
 .L00014590:
-/*    14590:	3c04800a */ 	lui	$a0,0x800a
-/*    14594:	24849ee0 */ 	addiu	$a0,$a0,-24864
+/*    14590:	3c04800a */ 	lui	$a0,%hi(var80099ee0)
+/*    14594:	24849ee0 */ 	addiu	$a0,$a0,%lo(var80099ee0)
 /*    14598:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*    1459c:	0c012238 */ 	jal	func000488e0
 /*    145a0:	00003025 */ 	or	$a2,$zero,$zero
-/*    145a4:	3c038006 */ 	lui	$v1,0x8006
-/*    145a8:	2463ee68 */ 	addiu	$v1,$v1,-4504
+/*    145a4:	3c038006 */ 	lui	$v1,%hi(var8005ee68)
+/*    145a8:	2463ee68 */ 	addiu	$v1,$v1,%lo(var8005ee68)
 /*    145ac:	8c6b0000 */ 	lw	$t3,0x0($v1)
 /*    145b0:	00002025 */ 	or	$a0,$zero,$zero
 /*    145b4:	256c0001 */ 	addiu	$t4,$t3,0x1
@@ -26646,27 +26646,27 @@ glabel func00014484
 /*    145c0:	10000090 */ 	beqz	$zero,.L00014804
 /*    145c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L000145c8:
-/*    145c8:	24849f00 */ 	addiu	$a0,$a0,-24832
+/*    145c8:	24849f00 */ 	addiu	$a0,$a0,%lo(var80099f00)
 /*    145cc:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*    145d0:	0c0121bc */ 	jal	func000486f0
 /*    145d4:	00003025 */ 	or	$a2,$zero,$zero
 /*    145d8:	14400014 */ 	bnez	$v0,.L0001462c
 /*    145dc:	3c198006 */ 	lui	$t9,0x8006
-/*    145e0:	3c038006 */ 	lui	$v1,0x8006
-/*    145e4:	2463ee68 */ 	addiu	$v1,$v1,-4504
+/*    145e0:	3c038006 */ 	lui	$v1,%hi(var8005ee68)
+/*    145e4:	2463ee68 */ 	addiu	$v1,$v1,%lo(var8005ee68)
 /*    145e8:	8c6d0000 */ 	lw	$t5,0x0($v1)
-/*    145ec:	3c04800a */ 	lui	$a0,0x800a
+/*    145ec:	3c04800a */ 	lui	$a0,%hi(var80099e78)
 /*    145f0:	25aeffff */ 	addiu	$t6,$t5,-1
 /*    145f4:	15c00006 */ 	bnez	$t6,.L00014610
 /*    145f8:	ac6e0000 */ 	sw	$t6,0x0($v1)
 /*    145fc:	0c0050fa */ 	jal	func000143e8
-/*    14600:	24849e78 */ 	addiu	$a0,$a0,-24968
+/*    14600:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
 /*    14604:	24180001 */ 	addiu	$t8,$zero,0x1
 /*    14608:	3c018006 */ 	lui	$at,0x8006
 /*    1460c:	ac38ee64 */ 	sw	$t8,-0x119c($at)
 .L00014610:
-/*    14610:	3c04800a */ 	lui	$a0,0x800a
-/*    14614:	24849f20 */ 	addiu	$a0,$a0,-24800
+/*    14610:	3c04800a */ 	lui	$a0,%hi(var80099f20)
+/*    14614:	24849f20 */ 	addiu	$a0,$a0,%lo(var80099f20)
 /*    14618:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*    1461c:	0c012238 */ 	jal	func000488e0
 /*    14620:	00003025 */ 	or	$a2,$zero,$zero
@@ -26674,13 +26674,13 @@ glabel func00014484
 /*    14628:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0001462c:
 /*    1462c:	8f39eeb4 */ 	lw	$t9,-0x114c($t9)
-/*    14630:	3c038006 */ 	lui	$v1,0x8006
-/*    14634:	2463ee68 */ 	addiu	$v1,$v1,-4504
+/*    14630:	3c038006 */ 	lui	$v1,%hi(var8005ee68)
+/*    14634:	2463ee68 */ 	addiu	$v1,$v1,%lo(var8005ee68)
 /*    14638:	53200072 */ 	beqzl	$t9,.L00014804
 /*    1463c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    14640:	8c680000 */ 	lw	$t0,0x0($v1)
-/*    14644:	3c04800a */ 	lui	$a0,0x800a
-/*    14648:	24849e78 */ 	addiu	$a0,$a0,-24968
+/*    14644:	3c04800a */ 	lui	$a0,%hi(var80099e78)
+/*    14648:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
 /*    1464c:	11000005 */ 	beqz	$t0,.L00014664
 /*    14650:	27a50034 */ 	addiu	$a1,$sp,0x34
 /*    14654:	0c004eae */ 	jal	func00013ab8
@@ -26696,13 +26696,13 @@ glabel func00014484
 /*    14678:	ac20ee64 */ 	sw	$zero,-0x119c($at)
 /*    1467c:	3c09800a */ 	lui	$t1,0x800a
 /*    14680:	8d299c48 */ 	lw	$t1,-0x63b8($t1)
-/*    14684:	3c0b800a */ 	lui	$t3,0x800a
-/*    14688:	256b9a60 */ 	addiu	$t3,$t3,-26016
+/*    14684:	3c0b800a */ 	lui	$t3,%hi(var80099a60)
+/*    14688:	256b9a60 */ 	addiu	$t3,$t3,%lo(var80099a60)
 /*    1468c:	00095080 */ 	sll	$t2,$t1,0x2
 /*    14690:	01495023 */ 	subu	$t2,$t2,$t1
 /*    14694:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*    14698:	3c04800a */ 	lui	$a0,0x800a
-/*    1469c:	24849a60 */ 	addiu	$a0,$a0,-26016
+/*    14698:	3c04800a */ 	lui	$a0,%hi(var80099a60)
+/*    1469c:	24849a60 */ 	addiu	$a0,$a0,%lo(var80099a60)
 /*    146a0:	014b3821 */ 	addu	$a3,$t2,$t3
 /*    146a4:	00002825 */ 	or	$a1,$zero,$zero
 /*    146a8:	24060006 */ 	addiu	$a2,$zero,0x6
@@ -26751,10 +26751,10 @@ glabel func00014484
 /*    1473c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    14740:	0c004eae */ 	jal	func00013ab8
 /*    14744:	00002025 */ 	or	$a0,$zero,$zero
-/*    14748:	3c04800a */ 	lui	$a0,0x800a
+/*    14748:	3c04800a */ 	lui	$a0,%hi(var80099e78)
 /*    1474c:	0c0050fa */ 	jal	func000143e8
-/*    14750:	24849e78 */ 	addiu	$a0,$a0,-24968
-/*    14754:	3c038006 */ 	lui	$v1,0x8006
+/*    14750:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
+/*    14754:	3c038006 */ 	lui	$v1,%hi(var80060004)
 /*    14758:	8c63ef0c */ 	lw	$v1,-0x10f4($v1)
 /*    1475c:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*    14760:	3c018006 */ 	lui	$at,0x8006
@@ -26764,16 +26764,16 @@ glabel func00014484
 /*    14770:	ac23ef0c */ 	sw	$v1,-0x10f4($at)
 /*    14774:	2861003c */ 	slti	$at,$v1,0x3c
 /*    14778:	14200021 */ 	bnez	$at,.L00014800
-/*    1477c:	3c038006 */ 	lui	$v1,0x8006
-/*    14780:	3c048006 */ 	lui	$a0,0x8006
-/*    14784:	3c058006 */ 	lui	$a1,0x8006
-/*    14788:	3c028006 */ 	lui	$v0,0x8006
-/*    1478c:	3c068006 */ 	lui	$a2,0x8006
-/*    14790:	24c6eeac */ 	addiu	$a2,$a2,-4436
-/*    14794:	2442ee9c */ 	addiu	$v0,$v0,-4452
-/*    14798:	24a5ee8c */ 	addiu	$a1,$a1,-4468
-/*    1479c:	2484ee7c */ 	addiu	$a0,$a0,-4484
-/*    147a0:	2463ee6c */ 	addiu	$v1,$v1,-4500
+/*    1477c:	3c038006 */ 	lui	$v1,%hi(var8005ee6c)
+/*    14780:	3c048006 */ 	lui	$a0,%hi(var8005ee7c)
+/*    14784:	3c058006 */ 	lui	$a1,%hi(var8005ee8c)
+/*    14788:	3c028006 */ 	lui	$v0,%hi(var8005ee9c)
+/*    1478c:	3c068006 */ 	lui	$a2,%hi(var8005eeac)
+/*    14790:	24c6eeac */ 	addiu	$a2,$a2,%lo(var8005eeac)
+/*    14794:	2442ee9c */ 	addiu	$v0,$v0,%lo(var8005ee9c)
+/*    14798:	24a5ee8c */ 	addiu	$a1,$a1,%lo(var8005ee8c)
+/*    1479c:	2484ee7c */ 	addiu	$a0,$a0,%lo(var8005ee7c)
+/*    147a0:	2463ee6c */ 	addiu	$v1,$v1,%lo(var8005ee6c)
 .L000147a4:
 /*    147a4:	8c780000 */ 	lw	$t8,0x0($v1)
 /*    147a8:	5700000b */ 	bnezl	$t8,.L000147d8
@@ -26794,7 +26794,7 @@ glabel func00014484
 /*    147e0:	ac400000 */ 	sw	$zero,0x0($v0)
 /*    147e4:	24420004 */ 	addiu	$v0,$v0,0x4
 .L000147e8:
-/*    147e8:	24630004 */ 	addiu	$v1,$v1,0x4
+/*    147e8:	24630004 */ 	addiu	$v1,$v1,%lo(var80060004)
 /*    147ec:	24840004 */ 	addiu	$a0,$a0,0x4
 /*    147f0:	1446ffec */ 	bne	$v0,$a2,.L000147a4
 /*    147f4:	24a50004 */ 	addiu	$a1,$a1,0x4
@@ -26842,8 +26842,8 @@ glabel func00014848
 /*    14864:	0701000e */ 	bgez	$t8,.L000148a0
 /*    14868:	3c198006 */ 	lui	$t9,0x8006
 /*    1486c:	9339eeac */ 	lbu	$t9,-0x1154($t9)
-/*    14870:	3c0b8006 */ 	lui	$t3,0x8006
-/*    14874:	256bee6c */ 	addiu	$t3,$t3,-4500
+/*    14870:	3c0b8006 */ 	lui	$t3,%hi(var8005ee6c)
+/*    14874:	256bee6c */ 	addiu	$t3,$t3,%lo(var8005ee6c)
 /*    14878:	01f94007 */ 	srav	$t0,$t9,$t7
 /*    1487c:	31090001 */ 	andi	$t1,$t0,0x1
 /*    14880:	15200007 */ 	bnez	$t1,.L000148a0
@@ -26895,8 +26895,8 @@ glabel func00014904
 /*    14920:	0701000e */ 	bgez	$t8,.L0001495c
 /*    14924:	3c198006 */ 	lui	$t9,0x8006
 /*    14928:	9339eeac */ 	lbu	$t9,-0x1154($t9)
-/*    1492c:	3c0b8006 */ 	lui	$t3,0x8006
-/*    14930:	256bee7c */ 	addiu	$t3,$t3,-4484
+/*    1492c:	3c0b8006 */ 	lui	$t3,%hi(var8005ee7c)
+/*    14930:	256bee7c */ 	addiu	$t3,$t3,%lo(var8005ee7c)
 /*    14934:	01f94007 */ 	srav	$t0,$t9,$t7
 /*    14938:	31090001 */ 	andi	$t1,$t0,0x1
 /*    1493c:	15200007 */ 	bnez	$t1,.L0001495c
@@ -26948,8 +26948,8 @@ glabel func000149c0
 /*    149dc:	0701000e */ 	bgez	$t8,.L00014a18
 /*    149e0:	3c198006 */ 	lui	$t9,0x8006
 /*    149e4:	9339eeac */ 	lbu	$t9,-0x1154($t9)
-/*    149e8:	3c0b8006 */ 	lui	$t3,0x8006
-/*    149ec:	256bee7c */ 	addiu	$t3,$t3,-4484
+/*    149e8:	3c0b8006 */ 	lui	$t3,%hi(var8005ee7c)
+/*    149ec:	256bee7c */ 	addiu	$t3,$t3,%lo(var8005ee7c)
 /*    149f0:	01f94007 */ 	srav	$t0,$t9,$t7
 /*    149f4:	31090001 */ 	andi	$t1,$t0,0x1
 /*    149f8:	15200007 */ 	bnez	$t1,.L00014a18
@@ -27004,8 +27004,8 @@ glabel func00014a78
 /*    14aa4:	00803825 */ 	or	$a3,$a0,$zero
 /*    14aa8:	3c088006 */ 	lui	$t0,0x8006
 /*    14aac:	9108eeac */ 	lbu	$t0,-0x1154($t0)
-/*    14ab0:	3c0c8006 */ 	lui	$t4,0x8006
-/*    14ab4:	258cee8c */ 	addiu	$t4,$t4,-4468
+/*    14ab0:	3c0c8006 */ 	lui	$t4,%hi(var8005ee8c)
+/*    14ab4:	258cee8c */ 	addiu	$t4,$t4,%lo(var8005ee8c)
 /*    14ab8:	01e84807 */ 	srav	$t1,$t0,$t7
 /*    14abc:	312a0001 */ 	andi	$t2,$t1,0x1
 /*    14ac0:	15400007 */ 	bnez	$t2,.L00014ae0
@@ -27067,8 +27067,8 @@ glabel func00014b50
 /*    14b88:	316c0001 */ 	andi	$t4,$t3,0x1
 /*    14b8c:	5580000a */ 	bnezl	$t4,.L00014bb8
 /*    14b90:	0005c880 */ 	sll	$t9,$a1,0x2
-/*    14b94:	3c0e8006 */ 	lui	$t6,0x8006
-/*    14b98:	25ceee9c */ 	addiu	$t6,$t6,-4452
+/*    14b94:	3c0e8006 */ 	lui	$t6,%hi(var8005ee9c)
+/*    14b98:	25ceee9c */ 	addiu	$t6,$t6,%lo(var8005ee9c)
 /*    14b9c:	01ae1821 */ 	addu	$v1,$t5,$t6
 /*    14ba0:	8c6f0000 */ 	lw	$t7,0x0($v1)
 /*    14ba4:	00001025 */ 	or	$v0,$zero,$zero
@@ -27166,8 +27166,8 @@ glabel func00014c98
 /*    14ce8:	316c0001 */ 	andi	$t4,$t3,0x1
 /*    14cec:	5580000a */ 	bnezl	$t4,.L00014d18
 /*    14cf0:	0005c880 */ 	sll	$t9,$a1,0x2
-/*    14cf4:	3c0e8006 */ 	lui	$t6,0x8006
-/*    14cf8:	25ceee8c */ 	addiu	$t6,$t6,-4468
+/*    14cf4:	3c0e8006 */ 	lui	$t6,%hi(var8005ee8c)
+/*    14cf8:	25ceee8c */ 	addiu	$t6,$t6,%lo(var8005ee8c)
 /*    14cfc:	01ae1821 */ 	addu	$v1,$t5,$t6
 /*    14d00:	8c6f0000 */ 	lw	$t7,0x0($v1)
 /*    14d04:	00001025 */ 	or	$v0,$zero,$zero
@@ -27262,8 +27262,8 @@ glabel func00014e10
 /*    14e2c:	0701000e */ 	bgez	$t8,.L00014e68
 /*    14e30:	3c198006 */ 	lui	$t9,0x8006
 /*    14e34:	9339eeac */ 	lbu	$t9,-0x1154($t9)
-/*    14e38:	3c0b8006 */ 	lui	$t3,0x8006
-/*    14e3c:	256bee6c */ 	addiu	$t3,$t3,-4500
+/*    14e38:	3c0b8006 */ 	lui	$t3,%hi(var8005ee6c)
+/*    14e3c:	256bee6c */ 	addiu	$t3,$t3,%lo(var8005ee6c)
 /*    14e40:	01f94007 */ 	srav	$t0,$t9,$t7
 /*    14e44:	31090001 */ 	andi	$t1,$t0,0x1
 /*    14e48:	15200007 */ 	bnez	$t1,.L00014e68
@@ -27310,8 +27310,8 @@ glabel func00014eb8
 /*    14ed4:	0701000e */ 	bgez	$t8,.L00014f10
 /*    14ed8:	3c198006 */ 	lui	$t9,0x8006
 /*    14edc:	9339eeac */ 	lbu	$t9,-0x1154($t9)
-/*    14ee0:	3c0b8006 */ 	lui	$t3,0x8006
-/*    14ee4:	256bee7c */ 	addiu	$t3,$t3,-4484
+/*    14ee0:	3c0b8006 */ 	lui	$t3,%hi(var8005ee7c)
+/*    14ee4:	256bee7c */ 	addiu	$t3,$t3,%lo(var8005ee7c)
 /*    14ee8:	01f94007 */ 	srav	$t0,$t9,$t7
 /*    14eec:	31090001 */ 	andi	$t1,$t0,0x1
 /*    14ef0:	15200007 */ 	bnez	$t1,.L00014f10
@@ -27361,8 +27361,8 @@ glabel func00014f60
 /*    14f88:	01e02025 */ 	or	$a0,$t7,$zero
 /*    14f8c:	3c088006 */ 	lui	$t0,0x8006
 /*    14f90:	9108eeac */ 	lbu	$t0,-0x1154($t0)
-/*    14f94:	3c0c8006 */ 	lui	$t4,0x8006
-/*    14f98:	258cee8c */ 	addiu	$t4,$t4,-4468
+/*    14f94:	3c0c8006 */ 	lui	$t4,%hi(var8005ee8c)
+/*    14f98:	258cee8c */ 	addiu	$t4,$t4,%lo(var8005ee8c)
 /*    14f9c:	01e84807 */ 	srav	$t1,$t0,$t7
 /*    14fa0:	312a0001 */ 	andi	$t2,$t1,0x1
 /*    14fa4:	15400007 */ 	bnez	$t2,.L00014fc4
@@ -27415,8 +27415,8 @@ glabel func00015020
 /*    15048:	01e02025 */ 	or	$a0,$t7,$zero
 /*    1504c:	3c088006 */ 	lui	$t0,0x8006
 /*    15050:	9108eeac */ 	lbu	$t0,-0x1154($t0)
-/*    15054:	3c0c8006 */ 	lui	$t4,0x8006
-/*    15058:	258cee9c */ 	addiu	$t4,$t4,-4452
+/*    15054:	3c0c8006 */ 	lui	$t4,%hi(var8005ee9c)
+/*    15058:	258cee9c */ 	addiu	$t4,$t4,%lo(var8005ee9c)
 /*    1505c:	01e84807 */ 	srav	$t1,$t0,$t7
 /*    15060:	312a0001 */ 	andi	$t2,$t1,0x1
 /*    15064:	15400007 */ 	bnez	$t2,.L00015084
@@ -27468,13 +27468,13 @@ glabel func000150e8
 /*    150f0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    150f4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    150f8:	1440000c */ 	bnez	$v0,.L0001512c
-/*    150fc:	3c04800a */ 	lui	$a0,0x800a
-/*    15100:	24849ec0 */ 	addiu	$a0,$a0,-24896
+/*    150fc:	3c04800a */ 	lui	$a0,%hi(var80099ec0)
+/*    15100:	24849ec0 */ 	addiu	$a0,$a0,%lo(var80099ec0)
 /*    15104:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    15108:	0c012238 */ 	jal	func000488e0
 /*    1510c:	00003025 */ 	or	$a2,$zero,$zero
-/*    15110:	3c04800a */ 	lui	$a0,0x800a
-/*    15114:	24849ee0 */ 	addiu	$a0,$a0,-24864
+/*    15110:	3c04800a */ 	lui	$a0,%hi(var80099ee0)
+/*    15114:	24849ee0 */ 	addiu	$a0,$a0,%lo(var80099ee0)
 /*    15118:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    1511c:	0c0121bc */ 	jal	func000486f0
 /*    15120:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -27491,21 +27491,21 @@ glabel func000150e8
 
 GLOBAL_ASM(
 glabel func00015144
-/*    15144:	3c028006 */ 	lui	$v0,0x8006
-/*    15148:	2442eebc */ 	addiu	$v0,$v0,-4420
+/*    15144:	3c028006 */ 	lui	$v0,%hi(var8005eebc)
+/*    15148:	2442eebc */ 	addiu	$v0,$v0,%lo(var8005eebc)
 /*    1514c:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*    15150:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    15154:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    15158:	25cfffff */ 	addiu	$t7,$t6,-1
 /*    1515c:	15e0000b */ 	bnez	$t7,.L0001518c
 /*    15160:	ac4f0000 */ 	sw	$t7,0x0($v0)
-/*    15164:	3c04800a */ 	lui	$a0,0x800a
-/*    15168:	24849f00 */ 	addiu	$a0,$a0,-24832
+/*    15164:	3c04800a */ 	lui	$a0,%hi(var80099f00)
+/*    15168:	24849f00 */ 	addiu	$a0,$a0,%lo(var80099f00)
 /*    1516c:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    15170:	0c012238 */ 	jal	func000488e0
 /*    15174:	00003025 */ 	or	$a2,$zero,$zero
-/*    15178:	3c04800a */ 	lui	$a0,0x800a
-/*    1517c:	24849f20 */ 	addiu	$a0,$a0,-24800
+/*    15178:	3c04800a */ 	lui	$a0,%hi(var80099f20)
+/*    1517c:	24849f20 */ 	addiu	$a0,$a0,%lo(var80099f20)
 /*    15180:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    15184:	0c0121bc */ 	jal	func000486f0
 /*    15188:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -27520,15 +27520,15 @@ GLOBAL_ASM(
 glabel func0001519c
 /*    1519c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    151a0:	afb40028 */ 	sw	$s4,0x28($sp)
-/*    151a4:	3c14800a */ 	lui	$s4,0x800a
-/*    151a8:	26949e78 */ 	addiu	$s4,$s4,-24968
+/*    151a4:	3c14800a */ 	lui	$s4,%hi(var80099e78)
+/*    151a8:	26949e78 */ 	addiu	$s4,$s4,%lo(var80099e78)
 /*    151ac:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    151b0:	3c05800a */ 	lui	$a1,0x800a
+/*    151b0:	3c05800a */ 	lui	$a1,%hi(var80099e90)
 /*    151b4:	afb30024 */ 	sw	$s3,0x24($sp)
 /*    151b8:	afb20020 */ 	sw	$s2,0x20($sp)
 /*    151bc:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*    151c0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    151c4:	24a59e90 */ 	addiu	$a1,$a1,-24944
+/*    151c4:	24a59e90 */ 	addiu	$a1,$a1,%lo(var80099e90)
 /*    151c8:	02802025 */ 	or	$a0,$s4,$zero
 /*    151cc:	0c0120d0 */ 	jal	func00048340
 /*    151d0:	2406000a */ 	addiu	$a2,$zero,0xa
@@ -27536,8 +27536,8 @@ glabel func0001519c
 /*    151d8:	02802825 */ 	or	$a1,$s4,$zero
 /*    151dc:	0c012148 */ 	jal	func00048520
 /*    151e0:	00003025 */ 	or	$a2,$zero,$zero
-/*    151e4:	3c12800a */ 	lui	$s2,0x800a
-/*    151e8:	26523180 */ 	addiu	$s2,$s2,0x3180
+/*    151e4:	3c12800a */ 	lui	$s2,%hi(var800a3180)
+/*    151e8:	26523180 */ 	addiu	$s2,$s2,%lo(var800a3180)
 /*    151ec:	00008025 */ 	or	$s0,$zero,$zero
 /*    151f0:	24130068 */ 	addiu	$s3,$zero,0x68
 /*    151f4:	24110004 */ 	addiu	$s1,$zero,0x4
@@ -27609,8 +27609,8 @@ glabel func0001519c
 
 GLOBAL_ASM(
 glabel func000152d0
-/*    152d0:	3c07800a */ 	lui	$a3,0x800a
-/*    152d4:	24e79fc0 */ 	addiu	$a3,$a3,-24640
+/*    152d0:	3c07800a */ 	lui	$a3,%hi(g_Vars)
+/*    152d4:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
 /*    152d8:	8cf80318 */ 	lw	$t8,0x318($a3)
 /*    152dc:	00047600 */ 	sll	$t6,$a0,0x18
 /*    152e0:	000e7e03 */ 	sra	$t7,$t6,0x18
@@ -27697,8 +27697,8 @@ glabel func000153c4
 /*    153fc:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*    15400:	000f7880 */ 	sll	$t7,$t7,0x2
 /*    15404:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*    15408:	3c18800a */ 	lui	$t8,0x800a
-/*    1540c:	27182380 */ 	addiu	$t8,$t8,0x2380
+/*    15408:	3c18800a */ 	lui	$t8,%hi(var800a2380)
+/*    1540c:	27182380 */ 	addiu	$t8,$t8,%lo(var800a2380)
 /*    15410:	000f7880 */ 	sll	$t7,$t7,0x2
 /*    15414:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*    15418:	afb9001c */ 	sw	$t9,0x1c($sp)
@@ -27716,7 +27716,7 @@ glabel func000153c4
 /*    15448:	24010004 */ 	addiu	$at,$zero,0x4
 .L0001544c:
 /*    1544c:	14c10003 */ 	bne	$a2,$at,.L0001545c
-/*    15450:	3c04800a */ 	lui	$a0,0x800a
+/*    15450:	3c04800a */ 	lui	$a0,%hi(var80099e78)
 /*    15454:	10000009 */ 	beqz	$zero,.L0001547c
 /*    15458:	00003825 */ 	or	$a3,$zero,$zero
 .L0001545c:
@@ -27724,12 +27724,12 @@ glabel func000153c4
 /*    15460:	01264823 */ 	subu	$t1,$t1,$a2
 /*    15464:	00094880 */ 	sll	$t1,$t1,0x2
 /*    15468:	01264821 */ 	addu	$t1,$t1,$a2
-/*    1546c:	3c0a800a */ 	lui	$t2,0x800a
-/*    15470:	254a3180 */ 	addiu	$t2,$t2,0x3180
+/*    1546c:	3c0a800a */ 	lui	$t2,%hi(var800a3180)
+/*    15470:	254a3180 */ 	addiu	$t2,$t2,%lo(var800a3180)
 /*    15474:	000948c0 */ 	sll	$t1,$t1,0x3
 /*    15478:	012a3821 */ 	addu	$a3,$t1,$t2
 .L0001547c:
-/*    1547c:	24849e78 */ 	addiu	$a0,$a0,-24968
+/*    1547c:	24849e78 */ 	addiu	$a0,$a0,%lo(var80099e78)
 /*    15480:	00e02825 */ 	or	$a1,$a3,$zero
 /*    15484:	0c013e15 */ 	jal	func0004f854
 /*    15488:	a3a6002b */ 	sb	$a2,0x2b($sp)
@@ -27745,8 +27745,8 @@ glabel func000153c4
 /*    154ac:	01665823 */ 	subu	$t3,$t3,$a2
 /*    154b0:	000b5880 */ 	sll	$t3,$t3,0x2
 /*    154b4:	01665821 */ 	addu	$t3,$t3,$a2
-/*    154b8:	3c0c800a */ 	lui	$t4,0x800a
-/*    154bc:	258c3180 */ 	addiu	$t4,$t4,0x3180
+/*    154b8:	3c0c800a */ 	lui	$t4,%hi(var800a3180)
+/*    154bc:	258c3180 */ 	addiu	$t4,$t4,%lo(var800a3180)
 /*    154c0:	000b58c0 */ 	sll	$t3,$t3,0x3
 /*    154c4:	016c3821 */ 	addu	$a3,$t3,$t4
 .L000154c8:
@@ -27764,8 +27764,8 @@ glabel func000153c4
 /*    154f0:	01a66823 */ 	subu	$t5,$t5,$a2
 /*    154f4:	000d6880 */ 	sll	$t5,$t5,0x2
 /*    154f8:	01a66821 */ 	addu	$t5,$t5,$a2
-/*    154fc:	3c0e800a */ 	lui	$t6,0x800a
-/*    15500:	25ce3180 */ 	addiu	$t6,$t6,0x3180
+/*    154fc:	3c0e800a */ 	lui	$t6,%hi(var800a3180)
+/*    15500:	25ce3180 */ 	addiu	$t6,$t6,%lo(var800a3180)
 /*    15504:	000d68c0 */ 	sll	$t5,$t5,0x3
 /*    15508:	01ae3821 */ 	addu	$a3,$t5,$t6
 .L0001550c:
@@ -27783,8 +27783,8 @@ glabel func000153c4
 /*    15534:	01e67823 */ 	subu	$t7,$t7,$a2
 /*    15538:	000f7880 */ 	sll	$t7,$t7,0x2
 /*    1553c:	01e67821 */ 	addu	$t7,$t7,$a2
-/*    15540:	3c18800a */ 	lui	$t8,0x800a
-/*    15544:	27183180 */ 	addiu	$t8,$t8,0x3180
+/*    15540:	3c18800a */ 	lui	$t8,%hi(var800a3180)
+/*    15544:	27183180 */ 	addiu	$t8,$t8,%lo(var800a3180)
 /*    15548:	000f78c0 */ 	sll	$t7,$t7,0x3
 /*    1554c:	01f83821 */ 	addu	$a3,$t7,$t8
 .L00015550:
@@ -27863,11 +27863,11 @@ glabel func0001561c
 /*    1562c:	afb40024 */ 	sw	$s4,0x24($sp)
 /*    15630:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*    15634:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    15638:	3c10800a */ 	lui	$s0,0x800a
-/*    1563c:	3c13800a */ 	lui	$s3,0x800a
+/*    15638:	3c10800a */ 	lui	$s0,%hi(var800a2380)
+/*    1563c:	3c13800a */ 	lui	$s3,%hi(var800a3180)
 /*    15640:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*    15644:	26733180 */ 	addiu	$s3,$s3,0x3180
-/*    15648:	26102380 */ 	addiu	$s0,$s0,0x2380
+/*    15644:	26733180 */ 	addiu	$s3,$s3,%lo(var800a3180)
+/*    15648:	26102380 */ 	addiu	$s0,$s0,%lo(var800a2380)
 /*    1564c:	00008825 */ 	or	$s1,$zero,$zero
 /*    15650:	24120004 */ 	addiu	$s2,$zero,0x4
 /*    15654:	24140068 */ 	addiu	$s4,$zero,0x68
@@ -28022,8 +28022,8 @@ glabel func0001561c
 
 GLOBAL_ASM(
 glabel func00015860
-/*    15860:	3c02800a */ 	lui	$v0,0x800a
-/*    15864:	24429fc0 */ 	addiu	$v0,$v0,-24640
+/*    15860:	3c02800a */ 	lui	$v0,%hi(g_Vars)
+/*    15864:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
 /*    15868:	24030001 */ 	addiu	$v1,$zero,0x1
 /*    1586c:	3c013f80 */ 	lui	$at,0x3f80
 /*    15870:	44810000 */ 	mtc1	$at,$f0
@@ -28592,8 +28592,8 @@ GLOBAL_ASM(
 glabel func00015fd0
 /*    15fd0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    15fd4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    15fd8:	3c04800a */ 	lui	$a0,0x800a
-/*    15fdc:	2484c7a8 */ 	addiu	$a0,$a0,-14424
+/*    15fd8:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)
+/*    15fdc:	2484c7a8 */ 	addiu	$a0,$a0,%lo(var8009c7a8)
 /*    15fe0:	24050000 */ 	addiu	$a1,$zero,0x0
 /*    15fe4:	0c0121bc */ 	jal	func000486f0
 /*    15fe8:	3c060001 */ 	lui	$a2,0x1
@@ -28615,8 +28615,8 @@ glabel func00015fd0
 /*    16024:	00852026 */ 	xor	$a0,$a0,$a1
 /*    16028:	8c820000 */ 	lw	$v0,0x0($a0)
 /*    1602c:	afa20018 */ 	sw	$v0,0x18($sp)
-/*    16030:	3c04800a */ 	lui	$a0,0x800a
-/*    16034:	2484c7a8 */ 	addiu	$a0,$a0,-14424
+/*    16030:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)
+/*    16034:	2484c7a8 */ 	addiu	$a0,$a0,%lo(var8009c7a8)
 /*    16038:	24050000 */ 	addiu	$a1,$zero,0x0
 /*    1603c:	0c012238 */ 	jal	func000488e0
 /*    16040:	3c060000 */ 	lui	$a2,0x0
@@ -28628,8 +28628,8 @@ glabel func00015fd0
 
 GLOBAL_ASM(
 glabel func00016054
-/*    16054:	3c0a8006 */ 	lui	$t2,0x8006
-/*    16058:	254aef10 */ 	addiu	$t2,$t2,-4336
+/*    16054:	3c0a8006 */ 	lui	$t2,%hi(var8005ef10)
+/*    16058:	254aef10 */ 	addiu	$t2,$t2,%lo(var8005ef10)
 /*    1605c:	24080004 */ 	addiu	$t0,$zero,0x4
 /*    16060:	3c09ffff */ 	lui	$t1,0xffff
 /*    16064:	c5400000 */ 	lwc1	$f0,0x0($t2)
@@ -29145,8 +29145,8 @@ glabel func00016748
 
 GLOBAL_ASM(
 glabel func00016760
-/*    16760:	3c028006 */ 	lui	$v0,0x8006
-/*    16764:	2442ef10 */ 	addiu	$v0,$v0,-4336
+/*    16760:	3c028006 */ 	lui	$v0,%hi(var8005ef10)
+/*    16764:	2442ef10 */ 	addiu	$v0,$v0,%lo(var8005ef10)
 /*    16768:	c4440000 */ 	lwc1	$f4,0x0($v0)
 /*    1676c:	3c01800a */ 	lui	$at,0x800a
 /*    16770:	e424a4d0 */ 	swc1	$f4,-0x5b30($at)
@@ -29167,8 +29167,8 @@ glabel func00016784
 
 GLOBAL_ASM(
 glabel func00016798
-/*    16798:	3c0a8006 */ 	lui	$t2,0x8006
-/*    1679c:	254aef10 */ 	addiu	$t2,$t2,-4336
+/*    16798:	3c0a8006 */ 	lui	$t2,%hi(var8005ef10)
+/*    1679c:	254aef10 */ 	addiu	$t2,$t2,%lo(var8005ef10)
 /*    167a0:	00001025 */ 	or	$v0,$zero,$zero
 /*    167a4:	00803825 */ 	or	$a3,$a0,$zero
 /*    167a8:	240b0008 */ 	addiu	$t3,$zero,0x8
@@ -30613,7 +30613,7 @@ glabel func00017cbc
 
 GLOBAL_ASM(
 glabel func00017ce0
-/*    17ce0:	3c03800a */ 	lui	$v1,0x800a
+/*    17ce0:	3c03800a */ 	lui	$v1,%hi(var800a000c)
 /*    17ce4:	8c634cc8 */ 	lw	$v1,0x4cc8($v1)
 /*    17ce8:	000470c0 */ 	sll	$t6,$a0,0x3
 /*    17cec:	3c013f80 */ 	lui	$at,0x3f80
@@ -30648,7 +30648,7 @@ glabel func00017ce0
 /*    17d58:	24e70001 */ 	addiu	$a3,$a3,0x1
 /*    17d5c:	46083400 */ 	add.s	$f16,$f6,$f8
 /*    17d60:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*    17d64:	2463000c */ 	addiu	$v1,$v1,0xc
+/*    17d64:	2463000c */ 	addiu	$v1,$v1,%lo(var800a000c)
 /*    17d68:	e4b00000 */ 	swc1	$f16,0x0($a1)
 /*    17d6c:	c46afffc */ 	lwc1	$f10,-0x4($v1)
 /*    17d70:	460a2480 */ 	add.s	$f18,$f4,$f10
@@ -30970,7 +30970,7 @@ glabel func00018148
 /*    181e8:	240100ff */ 	addiu	$at,$zero,0xff
 /*    181ec:	312a00ff */ 	andi	$t2,$t1,0xff
 /*    181f0:	15410010 */ 	bne	$t2,$at,.L00018234
-/*    181f4:	3c14800a */ 	lui	$s4,0x800a
+/*    181f4:	3c14800a */ 	lui	$s4,%hi(var800a4cc8)
 /*    181f8:	3c038008 */ 	lui	$v1,0x8008
 /*    181fc:	8c63fc40 */ 	lw	$v1,-0x3c0($v1)
 /*    18200:	3c0b800a */ 	lui	$t3,0x800a
@@ -30989,7 +30989,7 @@ glabel func00018148
 /*    1822c:	3c018006 */ 	lui	$at,0x8006
 /*    18230:	a020ef20 */ 	sb	$zero,-0x10e0($at)
 .L00018234:
-/*    18234:	26944cc8 */ 	addiu	$s4,$s4,0x4cc8
+/*    18234:	26944cc8 */ 	addiu	$s4,$s4,%lo(var800a4cc8)
 /*    18238:	87b5009c */ 	lh	$s5,0x9c($sp)
 .L0001823c:
 /*    1823c:	a7a4007c */ 	sh	$a0,0x7c($sp)
@@ -31220,10 +31220,10 @@ glabel ailistFindById
 /*    18554:	00001025 */ 	or	$v0,$zero,$zero
 .L00018558:
 /*    18558:	8ca5ef30 */ 	lw	$a1,-0x10d0($a1)
-/*    1855c:	3c098008 */ 	lui	$t1,0x8008
+/*    1855c:	3c098008 */ 	lui	$t1,%hi(functions)
 /*    18560:	00001825 */ 	or	$v1,$zero,$zero
 /*    18564:	04a00017 */ 	bltz	$a1,.L000185c4
-/*    18568:	2529ac58 */ 	addiu	$t1,$t1,-21416
+/*    18568:	2529ac58 */ 	addiu	$t1,$t1,%lo(functions)
 /*    1856c:	00653821 */ 	addu	$a3,$v1,$a1
 .L00018570:
 /*    18570:	04e10003 */ 	bgez	$a3,.L00018580
@@ -31352,20 +31352,20 @@ glabel func00018680
 /*    18714:	00000000 */ 	sll	$zero,$zero,0x0
 /*    18718:	03a04025 */ 	or	$t0,$sp,$zero
 /*    1871c:	20090000 */ 	addi	$t1,$zero,0x0
-/*    18720:	3c0c8006 */ 	lui	$t4,0x8006
-/*    18724:	258cf010 */ 	addiu	$t4,$t4,-4080
+/*    18720:	3c0c8006 */ 	lui	$t4,%hi(var8005f010)
+/*    18724:	258cf010 */ 	addiu	$t4,$t4,%lo(var8005f010)
 /*    18728:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    1872c:	84cd0000 */ 	lh	$t5,0x0($a2)
 /*    18730:	018d6020 */ 	add	$t4,$t4,$t5
 /*    18734:	918b0000 */ 	lbu	$t3,0x0($t4)
-/*    18738:	3c0c800a */ 	lui	$t4,0x800a
-/*    1873c:	258ca888 */ 	addiu	$t4,$t4,-22392
+/*    18738:	3c0c800a */ 	lui	$t4,%hi(var8009a888)
+/*    1873c:	258ca888 */ 	addiu	$t4,$t4,%lo(var8009a888)
 /*    18740:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    18744:	000b5880 */ 	sll	$t3,$t3,0x2
 /*    18748:	018b6020 */ 	add	$t4,$t4,$t3
 /*    1874c:	8d8a0000 */ 	lw	$t2,0x0($t4)
-/*    18750:	3c0c8006 */ 	lui	$t4,0x8006
-/*    18754:	258cf00c */ 	addiu	$t4,$t4,-4084
+/*    18750:	3c0c8006 */ 	lui	$t4,%hi(var8005f00c)
+/*    18754:	258cf00c */ 	addiu	$t4,$t4,%lo(var8005f00c)
 /*    18758:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    1875c:	000d6880 */ 	sll	$t5,$t5,0x2
 /*    18760:	01ad7020 */ 	add	$t6,$t5,$t5
@@ -31374,8 +31374,8 @@ glabel func00018680
 /*    1876c:	858d0008 */ 	lh	$t5,0x8($t4)
 /*    18770:	918c000a */ 	lbu	$t4,0xa($t4)
 /*    18774:	014d5820 */ 	add	$t3,$t2,$t5
-/*    18778:	3c0d800a */ 	lui	$t5,0x800a
-/*    1877c:	25ada874 */ 	addiu	$t5,$t5,-22412
+/*    18778:	3c0d800a */ 	lui	$t5,%hi(var8009a874)
+/*    1877c:	25ada874 */ 	addiu	$t5,$t5,%lo(var8009a874)
 /*    18780:	8dad0000 */ 	lw	$t5,0x0($t5)
 /*    18784:	114b003b */ 	beq	$t2,$t3,.L00018874
 /*    18788:	20020000 */ 	addi	$v0,$zero,0x0
@@ -31405,20 +31405,20 @@ glabel func00018680
 /*    187e4:	46020002 */ 	mul.s	$f0,$f0,$f2
 /*    187e8:	20090000 */ 	addi	$t1,$zero,0x0
 /*    187ec:	4600000d */ 	trunc.w.s	$f0,$f0
-/*    187f0:	3c0c8006 */ 	lui	$t4,0x8006
-/*    187f4:	258cf010 */ 	addiu	$t4,$t4,-4080
+/*    187f0:	3c0c8006 */ 	lui	$t4,%hi(var8005f010)
+/*    187f4:	258cf010 */ 	addiu	$t4,$t4,%lo(var8005f010)
 /*    187f8:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    187fc:	84cd0000 */ 	lh	$t5,0x0($a2)
 /*    18800:	018d6020 */ 	add	$t4,$t4,$t5
 /*    18804:	918b0000 */ 	lbu	$t3,0x0($t4)
-/*    18808:	3c0c800a */ 	lui	$t4,0x800a
-/*    1880c:	258ca888 */ 	addiu	$t4,$t4,-22392
+/*    18808:	3c0c800a */ 	lui	$t4,%hi(var8009a888)
+/*    1880c:	258ca888 */ 	addiu	$t4,$t4,%lo(var8009a888)
 /*    18810:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    18814:	000b5880 */ 	sll	$t3,$t3,0x2
 /*    18818:	018b6020 */ 	add	$t4,$t4,$t3
 /*    1881c:	8d8a0000 */ 	lw	$t2,0x0($t4)
-/*    18820:	3c0c8006 */ 	lui	$t4,0x8006
-/*    18824:	258cf00c */ 	addiu	$t4,$t4,-4084
+/*    18820:	3c0c8006 */ 	lui	$t4,%hi(var8005f00c)
+/*    18824:	258cf00c */ 	addiu	$t4,$t4,%lo(var8005f00c)
 /*    18828:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    1882c:	000d6880 */ 	sll	$t5,$t5,0x2
 /*    18830:	01ad7020 */ 	add	$t6,$t5,$t5
@@ -31427,8 +31427,8 @@ glabel func00018680
 /*    1883c:	858d0008 */ 	lh	$t5,0x8($t4)
 /*    18840:	918c000a */ 	lbu	$t4,0xa($t4)
 /*    18844:	014d5820 */ 	add	$t3,$t2,$t5
-/*    18848:	3c0d800a */ 	lui	$t5,0x800a
-/*    1884c:	25ada874 */ 	addiu	$t5,$t5,-22412
+/*    18848:	3c0d800a */ 	lui	$t5,%hi(var8009a874)
+/*    1884c:	25ada874 */ 	addiu	$t5,$t5,%lo(var8009a874)
 /*    18850:	8dad0000 */ 	lw	$t5,0x0($t5)
 /*    18854:	114b0007 */ 	beq	$t2,$t3,.L00018874
 /*    18858:	20020000 */ 	addi	$v0,$zero,0x0
@@ -31447,20 +31447,20 @@ glabel func00018680
 /*    18888:	03a04025 */ 	or	$t0,$sp,$zero
 /*    1888c:	250803c0 */ 	addiu	$t0,$t0,0x3c0
 /*    18890:	20090000 */ 	addi	$t1,$zero,0x0
-/*    18894:	3c0c8006 */ 	lui	$t4,0x8006
-/*    18898:	258cf010 */ 	addiu	$t4,$t4,-4080
+/*    18894:	3c0c8006 */ 	lui	$t4,%hi(var8005f010)
+/*    18898:	258cf010 */ 	addiu	$t4,$t4,%lo(var8005f010)
 /*    1889c:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    188a0:	84cd0002 */ 	lh	$t5,0x2($a2)
 /*    188a4:	018d6020 */ 	add	$t4,$t4,$t5
 /*    188a8:	918b0000 */ 	lbu	$t3,0x0($t4)
-/*    188ac:	3c0c800a */ 	lui	$t4,0x800a
-/*    188b0:	258ca888 */ 	addiu	$t4,$t4,-22392
+/*    188ac:	3c0c800a */ 	lui	$t4,%hi(var8009a888)
+/*    188b0:	258ca888 */ 	addiu	$t4,$t4,%lo(var8009a888)
 /*    188b4:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    188b8:	000b5880 */ 	sll	$t3,$t3,0x2
 /*    188bc:	018b6020 */ 	add	$t4,$t4,$t3
 /*    188c0:	8d8a0000 */ 	lw	$t2,0x0($t4)
-/*    188c4:	3c0c8006 */ 	lui	$t4,0x8006
-/*    188c8:	258cf00c */ 	addiu	$t4,$t4,-4084
+/*    188c4:	3c0c8006 */ 	lui	$t4,%hi(var8005f00c)
+/*    188c8:	258cf00c */ 	addiu	$t4,$t4,%lo(var8005f00c)
 /*    188cc:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    188d0:	000d6880 */ 	sll	$t5,$t5,0x2
 /*    188d4:	01ad7020 */ 	add	$t6,$t5,$t5
@@ -31469,8 +31469,8 @@ glabel func00018680
 /*    188e0:	858d0008 */ 	lh	$t5,0x8($t4)
 /*    188e4:	918c000a */ 	lbu	$t4,0xa($t4)
 /*    188e8:	014d5820 */ 	add	$t3,$t2,$t5
-/*    188ec:	3c0d800a */ 	lui	$t5,0x800a
-/*    188f0:	25ada874 */ 	addiu	$t5,$t5,-22412
+/*    188ec:	3c0d800a */ 	lui	$t5,%hi(var8009a874)
+/*    188f0:	25ada874 */ 	addiu	$t5,$t5,%lo(var8009a874)
 /*    188f4:	8dad0000 */ 	lw	$t5,0x0($t5)
 /*    188f8:	114b0034 */ 	beq	$t2,$t3,.L000189cc
 /*    188fc:	20020000 */ 	addi	$v0,$zero,0x0
@@ -31492,20 +31492,20 @@ glabel func00018680
 /*    1893c:	46020002 */ 	mul.s	$f0,$f0,$f2
 /*    18940:	20090000 */ 	addi	$t1,$zero,0x0
 /*    18944:	4600000d */ 	trunc.w.s	$f0,$f0
-/*    18948:	3c0c8006 */ 	lui	$t4,0x8006
-/*    1894c:	258cf010 */ 	addiu	$t4,$t4,-4080
+/*    18948:	3c0c8006 */ 	lui	$t4,%hi(var8005f010)
+/*    1894c:	258cf010 */ 	addiu	$t4,$t4,%lo(var8005f010)
 /*    18950:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    18954:	84cd0002 */ 	lh	$t5,0x2($a2)
 /*    18958:	018d6020 */ 	add	$t4,$t4,$t5
 /*    1895c:	918b0000 */ 	lbu	$t3,0x0($t4)
-/*    18960:	3c0c800a */ 	lui	$t4,0x800a
-/*    18964:	258ca888 */ 	addiu	$t4,$t4,-22392
+/*    18960:	3c0c800a */ 	lui	$t4,%hi(var8009a888)
+/*    18964:	258ca888 */ 	addiu	$t4,$t4,%lo(var8009a888)
 /*    18968:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    1896c:	000b5880 */ 	sll	$t3,$t3,0x2
 /*    18970:	018b6020 */ 	add	$t4,$t4,$t3
 /*    18974:	8d8a0000 */ 	lw	$t2,0x0($t4)
-/*    18978:	3c0c8006 */ 	lui	$t4,0x8006
-/*    1897c:	258cf00c */ 	addiu	$t4,$t4,-4084
+/*    18978:	3c0c8006 */ 	lui	$t4,%hi(var8005f00c)
+/*    1897c:	258cf00c */ 	addiu	$t4,$t4,%lo(var8005f00c)
 /*    18980:	8d8c0000 */ 	lw	$t4,0x0($t4)
 /*    18984:	000d6880 */ 	sll	$t5,$t5,0x2
 /*    18988:	01ad7020 */ 	add	$t6,$t5,$t5
@@ -31514,8 +31514,8 @@ glabel func00018680
 /*    18994:	858d0008 */ 	lh	$t5,0x8($t4)
 /*    18998:	918c000a */ 	lbu	$t4,0xa($t4)
 /*    1899c:	014d5820 */ 	add	$t3,$t2,$t5
-/*    189a0:	3c0d800a */ 	lui	$t5,0x800a
-/*    189a4:	25ada874 */ 	addiu	$t5,$t5,-22412
+/*    189a0:	3c0d800a */ 	lui	$t5,%hi(var8009a874)
+/*    189a4:	25ada874 */ 	addiu	$t5,$t5,%lo(var8009a874)
 /*    189a8:	8dad0000 */ 	lw	$t5,0x0($t5)
 /*    189ac:	114b0007 */ 	beq	$t2,$t3,.L000189cc
 /*    189b0:	20020000 */ 	addi	$v0,$zero,0x0
@@ -31532,13 +31532,13 @@ glabel func00018680
 /*    189d8:	03a0b825 */ 	or	$s7,$sp,$zero
 /*    189dc:	138002fa */ 	beqz	$gp,.L000195c8
 /*    189e0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*    189e4:	3c098006 */ 	lui	$t1,0x8006
-/*    189e8:	2529ef40 */ 	addiu	$t1,$t1,-4288
+/*    189e4:	3c098006 */ 	lui	$t1,%hi(var8005ef40)
+/*    189e8:	2529ef40 */ 	addiu	$t1,$t1,%lo(var8005ef40)
 /*    189ec:	97880000 */ 	lhu	$t0,0x0($gp)
 /*    189f0:	310800ff */ 	andi	$t0,$t0,0xff
 /*    189f4:	01094020 */ 	add	$t0,$t0,$t1
-/*    189f8:	3c098006 */ 	lui	$t1,0x8006
-/*    189fc:	2529ef5c */ 	addiu	$t1,$t1,-4260
+/*    189f8:	3c098006 */ 	lui	$t1,%hi(var8005ef5c)
+/*    189fc:	2529ef5c */ 	addiu	$t1,$t1,%lo(var8005ef5c)
 /*    18a00:	91080000 */ 	lbu	$t0,0x0($t0)
 /*    18a04:	01284020 */ 	add	$t0,$t1,$t0
 /*    18a08:	8d090000 */ 	lw	$t1,0x0($t0)
@@ -31775,8 +31775,8 @@ glabel func00018680
 /*    18d58:	8ca9000c */ 	lw	$t1,0xc($a1)
 /*    18d5c:	0c006870 */ 	jal	func0001a1c0
 /*    18d60:	012a4820 */ 	add	$t1,$t1,$t2
-/*    18d64:	3c0b8006 */ 	lui	$t3,0x8006
-/*    18d68:	256befcc */ 	addiu	$t3,$t3,-4148
+/*    18d64:	3c0b8006 */ 	lui	$t3,%hi(var8005efcc)
+/*    18d68:	256befcc */ 	addiu	$t3,$t3,%lo(var8005efcc)
 /*    18d6c:	8d6b0000 */ 	lw	$t3,0x0($t3)
 /*    18d70:	11600043 */ 	beqz	$t3,.L00018e80
 /*    18d74:	00000000 */ 	sll	$zero,$zero,0x0
@@ -31956,8 +31956,8 @@ glabel func00018680
 /*    1900c:	0000000c */ 	syscall
 /*    19010:	0c006897 */ 	jal	func0001a25c
 /*    19014:	001c4020 */ 	add	$t0,$zero,$gp
-/*    19018:	3c0a8006 */ 	lui	$t2,0x8006
-/*    1901c:	254aefb4 */ 	addiu	$t2,$t2,-4172
+/*    19018:	3c0a8006 */ 	lui	$t2,%hi(var8005efb4)
+/*    1901c:	254aefb4 */ 	addiu	$t2,$t2,%lo(var8005efb4)
 /*    19020:	0c006747 */ 	jal	func00019d1c
 /*    19024:	8f890004 */ 	lw	$t1,0x4($gp)
 /*    19028:	8d4a0000 */ 	lw	$t2,0x0($t2)
@@ -31965,15 +31965,15 @@ glabel func00018680
 /*    19030:	44800000 */ 	mtc1	$zero,$f0
 /*    19034:	1100000c */ 	beqz	$t0,.L00019068
 /*    19038:	44800000 */ 	mtc1	$zero,$f0
-/*    1903c:	3c0a800a */ 	lui	$t2,0x800a
-/*    19040:	254a9fc0 */ 	addiu	$t2,$t2,-24640
+/*    1903c:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
+/*    19040:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 /*    19044:	c5000038 */ 	lwc1	$f0,0x38($t0)
 /*    19048:	8d4a0284 */ 	lw	$t2,0x284($t2)
 /*    1904c:	46000007 */ 	neg.s	$f0,$f0
 /*    19050:	c5411774 */ 	lwc1	$f1,0x1774($t2)
 /*    19054:	46010002 */ 	mul.s	$f0,$f0,$f1
-/*    19058:	3c088006 */ 	lui	$t0,0x8006
-/*    1905c:	2508efb8 */ 	addiu	$t0,$t0,-4168
+/*    19058:	3c088006 */ 	lui	$t0,%hi(var8005efb8)
+/*    1905c:	2508efb8 */ 	addiu	$t0,$t0,%lo(var8005efb8)
 /*    19060:	c5010000 */ 	lwc1	$f1,0x0($t0)
 /*    19064:	46010002 */ 	mul.s	$f0,$f0,$f1
 .L00019068:
@@ -32803,8 +32803,8 @@ glabel func00019be0
 /*    19c40:	00000000 */ 	sll	$zero,$zero,0x0
 /*    19c44:	03c0b025 */ 	or	$s6,$s8,$zero
 .L00019c48:
-/*    19c48:	3c1e8006 */ 	lui	$s8,0x8006
-/*    19c4c:	27deef7c */ 	addiu	$s8,$s8,-4228
+/*    19c48:	3c1e8006 */ 	lui	$s8,%hi(var8005ef7c)
+/*    19c4c:	27deef7c */ 	addiu	$s8,$s8,%lo(var8005ef7c)
 /*    19c50:	0016b080 */ 	sll	$s6,$s6,0x2
 /*    19c54:	03d6b020 */ 	add	$s6,$s8,$s6
 /*    19c58:	8ed60000 */ 	lw	$s6,0x0($s6)
@@ -32872,8 +32872,8 @@ glabel func00019d1c
 /*    19d34:	afac0014 */ 	sw	$t4,0x14($sp)
 /*    19d38:	afbf0018 */ 	sw	$ra,0x18($sp)
 /*    19d3c:	8f8c0004 */ 	lw	$t4,0x4($gp)
-/*    19d40:	3c0a8006 */ 	lui	$t2,0x8006
-/*    19d44:	254aef90 */ 	addiu	$t2,$t2,-4208
+/*    19d40:	3c0a8006 */ 	lui	$t2,%hi(var8005ef90)
+/*    19d44:	254aef90 */ 	addiu	$t2,$t2,%lo(var8005ef90)
 /*    19d48:	97890000 */ 	lhu	$t1,0x0($gp)
 /*    19d4c:	312900ff */ 	andi	$t1,$t1,0xff
 /*    19d50:	00004025 */ 	or	$t0,$zero,$zero
@@ -33302,8 +33302,8 @@ glabel func0001a2dc
 /*    1a324:	29617fe0 */ 	slti	$at,$t3,0x7fe0
 /*    1a328:	14200007 */ 	bnez	$at,.L0001a348
 /*    1a32c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1a330:	3c0c8007 */ 	lui	$t4,0x8007
-/*    1a334:	258caf8c */ 	addiu	$t4,$t4,-20596
+/*    1a330:	3c0c8007 */ 	lui	$t4,%hi(var8006af8c)
+/*    1a334:	258caf8c */ 	addiu	$t4,$t4,%lo(var8006af8c)
 /*    1a338:	216b8020 */ 	addi	$t3,$t3,-32736
 /*    1a33c:	240d0003 */ 	addiu	$t5,$zero,0x3
 /*    1a340:	1000000e */ 	beqz	$zero,.L0001a37c
@@ -33312,15 +33312,15 @@ glabel func0001a2dc
 /*    1a348:	29617800 */ 	slti	$at,$t3,0x7800
 /*    1a34c:	14200007 */ 	bnez	$at,.L0001a36c
 /*    1a350:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1a354:	3c0c8007 */ 	lui	$t4,0x8007
-/*    1a358:	258caf0c */ 	addiu	$t4,$t4,-20724
+/*    1a354:	3c0c8007 */ 	lui	$t4,%hi(var8006af0c)
+/*    1a358:	258caf0c */ 	addiu	$t4,$t4,%lo(var8006af0c)
 /*    1a35c:	216b8800 */ 	addi	$t3,$t3,-30720
 /*    1a360:	240d0005 */ 	addiu	$t5,$zero,0x5
 /*    1a364:	10000005 */ 	beqz	$zero,.L0001a37c
 /*    1a368:	240e001f */ 	addiu	$t6,$zero,0x1f
 .L0001a36c:
-/*    1a36c:	3c0c8007 */ 	lui	$t4,0x8007
-/*    1a370:	258cae90 */ 	addiu	$t4,$t4,-20848
+/*    1a36c:	3c0c8007 */ 	lui	$t4,%hi(var8006ae90)
+/*    1a370:	258cae90 */ 	addiu	$t4,$t4,%lo(var8006ae90)
 /*    1a374:	240d0009 */ 	addiu	$t5,$zero,0x9
 /*    1a378:	240e01ff */ 	addiu	$t6,$zero,0x1ff
 .L0001a37c:
@@ -36526,8 +36526,8 @@ glabel func0001cebc
 /*    1ced0:	5060006a */ 	beqzl	$v1,.L0001d07c
 /*    1ced4:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*    1ced8:	84670000 */ 	lh	$a3,0x0($v1)
-/*    1cedc:	3c08800a */ 	lui	$t0,0x800a
-/*    1cee0:	25089fc0 */ 	addiu	$t0,$t0,-24640
+/*    1cedc:	3c08800a */ 	lui	$t0,%hi(g_Vars)
+/*    1cee0:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 /*    1cee4:	50e00065 */ 	beqzl	$a3,.L0001d07c
 /*    1cee8:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*    1ceec:	8d0f006c */ 	lw	$t7,0x6c($t0)
@@ -36642,8 +36642,8 @@ glabel func0001cebc
 /*    1d07c:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*    1d080:	0c007399 */ 	jal	func0001ce64
 /*    1d084:	afa30024 */ 	sw	$v1,0x24($sp)
-/*    1d088:	3c02800a */ 	lui	$v0,0x800a
-/*    1d08c:	24429fc0 */ 	addiu	$v0,$v0,-24640
+/*    1d088:	3c02800a */ 	lui	$v0,%hi(g_Vars)
+/*    1d08c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
 /*    1d090:	8c4e006c */ 	lw	$t6,0x6c($v0)
 /*    1d094:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*    1d098:	00003025 */ 	or	$a2,$zero,$zero
@@ -37132,10 +37132,10 @@ glabel func0001d62c
 /*    1d6f4:	0c006a87 */ 	jal	func0001aa1c
 /*    1d6f8:	afa900ac */ 	sw	$t1,0xac($sp)
 /*    1d6fc:	8fab00c0 */ 	lw	$t3,0xc0($sp)
-/*    1d700:	3c0d8006 */ 	lui	$t5,0x8006
+/*    1d700:	3c0d8006 */ 	lui	$t5,%hi(var8005efd0)
 /*    1d704:	8faa00ac */ 	lw	$t2,0xac($sp)
 /*    1d708:	8d6c0008 */ 	lw	$t4,0x8($t3)
-/*    1d70c:	25adefd0 */ 	addiu	$t5,$t5,-4144
+/*    1d70c:	25adefd0 */ 	addiu	$t5,$t5,%lo(var8005efd0)
 /*    1d710:	8da10000 */ 	lw	$at,0x0($t5)
 /*    1d714:	27a30088 */ 	addiu	$v1,$sp,0x88
 /*    1d718:	95440000 */ 	lhu	$a0,0x0($t2)
@@ -38022,8 +38022,8 @@ glabel func0001e2b4
 /*    1e330:	5700029e */ 	bnezl	$t8,.L0001edac
 /*    1e334:	c7b40140 */ 	lwc1	$f20,0x140($sp)
 /*    1e338:	96790000 */ 	lhu	$t9,0x0($s3)
-/*    1e33c:	3c0b8006 */ 	lui	$t3,0x8006
-/*    1e340:	256befe0 */ 	addiu	$t3,$t3,-4128
+/*    1e33c:	3c0b8006 */ 	lui	$t3,%hi(var8005efe0)
+/*    1e340:	256befe0 */ 	addiu	$t3,$t3,%lo(var8005efe0)
 /*    1e344:	afb90118 */ 	sw	$t9,0x118($sp)
 /*    1e348:	8e080008 */ 	lw	$t0,0x8($s0)
 /*    1e34c:	27aa00fc */ 	addiu	$t2,$sp,0xfc
@@ -41599,8 +41599,8 @@ glabel func0002170c
 /*    21734:	8cd10004 */ 	lw	$s1,0x4($a2)
 /*    21738:	0c006a87 */ 	jal	func0001aa1c
 /*    2173c:	00c02825 */ 	or	$a1,$a2,$zero
-/*    21740:	3c198006 */ 	lui	$t9,0x8006
-/*    21744:	2739efec */ 	addiu	$t9,$t9,-4116
+/*    21740:	3c198006 */ 	lui	$t9,%hi(var8005efec)
+/*    21744:	2739efec */ 	addiu	$t9,$t9,%lo(var8005efec)
 /*    21748:	8f210000 */ 	lw	$at,0x0($t9)
 /*    2174c:	27ab0084 */ 	addiu	$t3,$sp,0x84
 /*    21750:	8f380004 */ 	lw	$t8,0x4($t9)
@@ -43636,32 +43636,32 @@ glabel func000233c0
 /*    23408:	0c003504 */ 	jal	func0000d410
 /*    2340c:	afa20020 */ 	sw	$v0,0x20($sp)
 /*    23410:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*    23414:	3c04800a */ 	lui	$a0,0x800a
-/*    23418:	2484a894 */ 	addiu	$a0,$a0,-22380
+/*    23414:	3c04800a */ 	lui	$a0,%hi(var8009a894)
+/*    23418:	2484a894 */ 	addiu	$a0,$a0,%lo(var8009a894)
 /*    2341c:	8c6a0000 */ 	lw	$t2,0x0($v1)
-/*    23420:	3c05800a */ 	lui	$a1,0x800a
-/*    23424:	3c098006 */ 	lui	$t1,0x8006
+/*    23420:	3c05800a */ 	lui	$a1,%hi(var8009a898)
+/*    23424:	3c098006 */ 	lui	$t1,%hi(var8005f008)
 /*    23428:	a48a0000 */ 	sh	$t2,0x0($a0)
 /*    2342c:	848b0000 */ 	lh	$t3,0x0($a0)
-/*    23430:	2529f008 */ 	addiu	$t1,$t1,-4088
-/*    23434:	24a5a898 */ 	addiu	$a1,$a1,-22376
+/*    23430:	2529f008 */ 	addiu	$t1,$t1,%lo(var8005f008)
+/*    23434:	24a5a898 */ 	addiu	$a1,$a1,%lo(var8009a898)
 /*    23438:	246c0004 */ 	addiu	$t4,$v1,0x4
 /*    2343c:	acac0000 */ 	sw	$t4,0x0($a1)
 /*    23440:	3c018006 */ 	lui	$at,0x8006
 /*    23444:	a52b0000 */ 	sh	$t3,0x0($t1)
 /*    23448:	ac2cf00c */ 	sw	$t4,-0xff4($at)
 /*    2344c:	85280000 */ 	lh	$t0,0x0($t1)
-/*    23450:	3c078006 */ 	lui	$a3,0x8006
-/*    23454:	3c108006 */ 	lui	$s0,0x8006
-/*    23458:	2610f01c */ 	addiu	$s0,$s0,-4068
-/*    2345c:	24e7f018 */ 	addiu	$a3,$a3,-4072
+/*    23450:	3c078006 */ 	lui	$a3,%hi(var8005f018)
+/*    23454:	3c108006 */ 	lui	$s0,%hi(var8005f01c)
+/*    23458:	2610f01c */ 	addiu	$s0,$s0,%lo(var8005f01c)
+/*    2345c:	24e7f018 */ 	addiu	$a3,$a3,%lo(var8005f018)
 /*    23460:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    23464:	ae060000 */ 	sw	$a2,0x0($s0)
 /*    23468:	19000017 */ 	blez	$t0,.L000234c8
 /*    2346c:	ace60000 */ 	sw	$a2,0x0($a3)
 /*    23470:	00083080 */ 	sll	$a2,$t0,0x2
 /*    23474:	00c83023 */ 	subu	$a2,$a2,$t0
-/*    23478:	3c038006 */ 	lui	$v1,0x8006
+/*    23478:	3c038006 */ 	lui	$v1,%hi(var8006000c)
 /*    2347c:	8c63f00c */ 	lw	$v1,-0xff4($v1)
 /*    23480:	00063080 */ 	sll	$a2,$a2,0x2
 /*    23484:	00002025 */ 	or	$a0,$zero,$zero
@@ -43683,7 +43683,7 @@ glabel func000233c0
 /*    234bc:	0086082a */ 	slt	$at,$a0,$a2
 .L000234c0:
 /*    234c0:	1420fff1 */ 	bnez	$at,.L00023488
-/*    234c4:	2463000c */ 	addiu	$v1,$v1,0xc
+/*    234c4:	2463000c */ 	addiu	$v1,$v1,%lo(var8006000c)
 .L000234c8:
 /*    234c8:	8e0f0000 */ 	lw	$t7,0x0($s0)
 /*    234cc:	8ceb0000 */ 	lw	$t3,0x0($a3)
@@ -43700,10 +43700,10 @@ glabel func000233c0
 /*    234f8:	39e4003f */ 	xori	$a0,$t7,0x3f
 /*    234fc:	0c0048f2 */ 	jal	func000123c8
 /*    23500:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    23504:	3c098006 */ 	lui	$t1,0x8006
+/*    23504:	3c098006 */ 	lui	$t1,%hi(var8005f008)
 /*    23508:	3c018006 */ 	lui	$at,0x8006
 /*    2350c:	ac22f010 */ 	sw	$v0,-0xff0($at)
-/*    23510:	2529f008 */ 	addiu	$t1,$t1,-4088
+/*    23510:	2529f008 */ 	addiu	$t1,$t1,%lo(var8005f008)
 /*    23514:	85240000 */ 	lh	$a0,0x0($t1)
 /*    23518:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    2351c:	0004c840 */ 	sll	$t9,$a0,0x1
@@ -43711,10 +43711,10 @@ glabel func000233c0
 /*    23524:	348a003f */ 	ori	$t2,$a0,0x3f
 /*    23528:	0c0048f2 */ 	jal	func000123c8
 /*    2352c:	3944003f */ 	xori	$a0,$t2,0x3f
-/*    23530:	3c078006 */ 	lui	$a3,0x8006
+/*    23530:	3c078006 */ 	lui	$a3,%hi(var8005f018)
 /*    23534:	3c018006 */ 	lui	$at,0x8006
 /*    23538:	ac22f014 */ 	sw	$v0,-0xfec($at)
-/*    2353c:	24e7f018 */ 	addiu	$a3,$a3,-4072
+/*    2353c:	24e7f018 */ 	addiu	$a3,$a3,%lo(var8005f018)
 /*    23540:	8ce40000 */ 	lw	$a0,0x0($a3)
 /*    23544:	24050006 */ 	addiu	$a1,$zero,0x6
 /*    23548:	00046140 */ 	sll	$t4,$a0,0x5
@@ -43783,16 +43783,16 @@ glabel func000233c0
 
 GLOBAL_ASM(
 glabel func00023640
-/*    23640:	3c048006 */ 	lui	$a0,0x8006
-/*    23644:	2484f008 */ 	addiu	$a0,$a0,-4088
+/*    23640:	3c048006 */ 	lui	$a0,%hi(var8005f008)
+/*    23644:	2484f008 */ 	addiu	$a0,$a0,%lo(var8005f008)
 /*    23648:	848e0000 */ 	lh	$t6,0x0($a0)
 /*    2364c:	00001025 */ 	or	$v0,$zero,$zero
 /*    23650:	00001825 */ 	or	$v1,$zero,$zero
 /*    23654:	19c00012 */ 	blez	$t6,.L000236a0
-/*    23658:	3c078006 */ 	lui	$a3,0x8006
-/*    2365c:	3c058006 */ 	lui	$a1,0x8006
-/*    23660:	24a5f010 */ 	addiu	$a1,$a1,-4080
-/*    23664:	24e7f014 */ 	addiu	$a3,$a3,-4076
+/*    23658:	3c078006 */ 	lui	$a3,%hi(var8005f014)
+/*    2365c:	3c058006 */ 	lui	$a1,%hi(var8005f010)
+/*    23660:	24a5f010 */ 	addiu	$a1,$a1,%lo(var8005f010)
+/*    23664:	24e7f014 */ 	addiu	$a3,$a3,%lo(var8005f014)
 /*    23668:	240600ff */ 	addiu	$a2,$zero,0xff
 /*    2366c:	8caf0000 */ 	lw	$t7,0x0($a1)
 .L00023670:
@@ -43809,12 +43809,12 @@ glabel func00023640
 /*    23698:	8caf0000 */ 	lw	$t7,0x0($a1)
 /*    2369c:	00001025 */ 	or	$v0,$zero,$zero
 .L000236a0:
-/*    236a0:	3c06800a */ 	lui	$a2,0x800a
-/*    236a4:	3c05800a */ 	lui	$a1,0x800a
-/*    236a8:	3c04800a */ 	lui	$a0,0x800a
-/*    236ac:	2484a878 */ 	addiu	$a0,$a0,-22408
-/*    236b0:	24a5a87c */ 	addiu	$a1,$a1,-22404
-/*    236b4:	24c6a880 */ 	addiu	$a2,$a2,-22400
+/*    236a0:	3c06800a */ 	lui	$a2,%hi(var8009a880)
+/*    236a4:	3c05800a */ 	lui	$a1,%hi(var8009a87c)
+/*    236a8:	3c04800a */ 	lui	$a0,%hi(var8009a878)
+/*    236ac:	2484a878 */ 	addiu	$a0,$a0,%lo(var8009a878)
+/*    236b0:	24a5a87c */ 	addiu	$a1,$a1,%lo(var8009a87c)
+/*    236b4:	24c6a880 */ 	addiu	$a2,$a2,%lo(var8009a880)
 /*    236b8:	00001825 */ 	or	$v1,$zero,$zero
 .L000236bc:
 /*    236bc:	8c8a0000 */ 	lw	$t2,0x0($a0)
@@ -43830,10 +43830,10 @@ glabel func00023640
 /*    236e4:	28410020 */ 	slti	$at,$v0,0x20
 /*    236e8:	1420fff4 */ 	bnez	$at,.L000236bc
 /*    236ec:	a1e00000 */ 	sb	$zero,0x0($t7)
-/*    236f0:	3c05800a */ 	lui	$a1,0x800a
-/*    236f4:	3c02800a */ 	lui	$v0,0x800a
-/*    236f8:	2442a88c */ 	addiu	$v0,$v0,-22388
-/*    236fc:	24a5a890 */ 	addiu	$a1,$a1,-22384
+/*    236f0:	3c05800a */ 	lui	$a1,%hi(var8009a890)
+/*    236f4:	3c02800a */ 	lui	$v0,%hi(var8009a88c)
+/*    236f8:	2442a88c */ 	addiu	$v0,$v0,%lo(var8009a88c)
+/*    236fc:	24a5a890 */ 	addiu	$a1,$a1,%lo(var8009a890)
 /*    23700:	00001825 */ 	or	$v1,$zero,$zero
 /*    23704:	00002025 */ 	or	$a0,$zero,$zero
 /*    23708:	240700a0 */ 	addiu	$a3,$zero,0xa0
@@ -44127,13 +44127,13 @@ glabel func00023ab0
 /*    23ac0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*    23ac4:	afa40040 */ 	sw	$a0,0x40($sp)
 /*    23ac8:	3c06800a */ 	lui	$a2,0x800a
-/*    23acc:	3c08800a */ 	lui	$t0,0x800a
+/*    23acc:	3c08800a */ 	lui	$t0,%hi(var8009a87c)
 /*    23ad0:	00a08025 */ 	or	$s0,$a1,$zero
 /*    23ad4:	01c08825 */ 	or	$s1,$t6,$zero
 /*    23ad8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    23adc:	2407ffff */ 	addiu	$a3,$zero,-1
 /*    23ae0:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    23ae4:	2508a87c */ 	addiu	$t0,$t0,-22404
+/*    23ae4:	2508a87c */ 	addiu	$t0,$t0,%lo(var8009a87c)
 /*    23ae8:	8cc6a878 */ 	lw	$a2,-0x5788($a2)
 /*    23aec:	24040020 */ 	addiu	$a0,$zero,0x20
 /*    23af0:	00001025 */ 	or	$v0,$zero,$zero
@@ -44205,8 +44205,8 @@ glabel func00023ab0
 /*    23bdc:	3c0f8006 */ 	lui	$t7,0x8006
 /*    23be0:	8deff00c */ 	lw	$t7,-0xff4($t7)
 /*    23be4:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*    23be8:	3c08800a */ 	lui	$t0,0x800a
-/*    23bec:	2508a87c */ 	addiu	$t0,$t0,-22404
+/*    23be8:	3c08800a */ 	lui	$t0,%hi(var8009a87c)
+/*    23bec:	2508a87c */ 	addiu	$t0,$t0,%lo(var8009a87c)
 /*    23bf0:	8fa7003c */ 	lw	$a3,0x3c($sp)
 /*    23bf4:	01e91821 */ 	addu	$v1,$t7,$t1
 /*    23bf8:	94660002 */ 	lhu	$a2,0x2($v1)
@@ -44236,11 +44236,11 @@ glabel func00023ab0
 /*    23c54:	3c18800a */ 	lui	$t8,0x800a
 /*    23c58:	8f18a874 */ 	lw	$t8,-0x578c($t8)
 /*    23c5c:	0007c880 */ 	sll	$t9,$a3,0x2
-/*    23c60:	3c08800a */ 	lui	$t0,0x800a
+/*    23c60:	3c08800a */ 	lui	$t0,%hi(var8009a87c)
 /*    23c64:	03196021 */ 	addu	$t4,$t8,$t9
 /*    23c68:	ad820000 */ 	sw	$v0,0x0($t4)
 /*    23c6c:	1000000c */ 	beqz	$zero,.L00023ca0
-/*    23c70:	2508a87c */ 	addiu	$t0,$t0,-22404
+/*    23c70:	2508a87c */ 	addiu	$t0,$t0,%lo(var8009a87c)
 .L00023c74:
 /*    23c74:	8d4af018 */ 	lw	$t2,-0xfe8($t2)
 /*    23c78:	3c0d800a */ 	lui	$t5,0x800a
@@ -44254,7 +44254,7 @@ glabel func00023ab0
 /*    23c98:	016d7021 */ 	addu	$t6,$t3,$t5
 /*    23c9c:	af2e0000 */ 	sw	$t6,0x0($t9)
 .L00023ca0:
-/*    23ca0:	3c0c800a */ 	lui	$t4,0x800a
+/*    23ca0:	3c0c800a */ 	lui	$t4,%hi(var8009ffe0)
 /*    23ca4:	8d8ca878 */ 	lw	$t4,-0x5788($t4)
 /*    23ca8:	00071040 */ 	sll	$v0,$a3,0x1
 /*    23cac:	3c18800a */ 	lui	$t8,0x800a
@@ -44273,7 +44273,7 @@ glabel func00023ab0
 /*    23ce0:	332c001f */ 	andi	$t4,$t9,0x1f
 /*    23ce4:	11800002 */ 	beqz	$t4,.L00023cf0
 /*    23ce8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    23cec:	258cffe0 */ 	addiu	$t4,$t4,-32
+/*    23cec:	258cffe0 */ 	addiu	$t4,$t4,%lo(var8009ffe0)
 .L00023cf0:
 /*    23cf0:	ac2cf000 */ 	sw	$t4,-0x1000($at)
 .L00023cf4:
@@ -44287,8 +44287,8 @@ glabel func00023ab0
 
 GLOBAL_ASM(
 glabel func00023d0c
-/*    23d0c:	3c03800a */ 	lui	$v1,0x800a
-/*    23d10:	2463a880 */ 	addiu	$v1,$v1,-22400
+/*    23d0c:	3c03800a */ 	lui	$v1,%hi(var8009a880)
+/*    23d10:	2463a880 */ 	addiu	$v1,$v1,%lo(var8009a880)
 /*    23d14:	00001025 */ 	or	$v0,$zero,$zero
 /*    23d18:	24040020 */ 	addiu	$a0,$zero,0x20
 .L00023d1c:
@@ -44303,8 +44303,8 @@ glabel func00023d0c
 
 GLOBAL_ASM(
 glabel func00023d38
-/*    23d38:	3c0b8006 */ 	lui	$t3,0x8006
-/*    23d3c:	256bf010 */ 	addiu	$t3,$t3,-4080
+/*    23d38:	3c0b8006 */ 	lui	$t3,%hi(var8005f010)
+/*    23d3c:	256bf010 */ 	addiu	$t3,$t3,%lo(var8005f010)
 /*    23d40:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*    23d44:	8d660000 */ 	lw	$a2,0x0($t3)
 /*    23d48:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -44317,10 +44317,10 @@ glabel func00023d38
 /*    23d64:	240100ff */ 	addiu	$at,$zero,0xff
 /*    23d68:	01c08025 */ 	or	$s0,$t6,$zero
 /*    23d6c:	1041001c */ 	beq	$v0,$at,.L00023de0
-/*    23d70:	3c0a800a */ 	lui	$t2,0x800a
+/*    23d70:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*    23d74:	3c19800a */ 	lui	$t9,0x800a
 /*    23d78:	8f39a890 */ 	lw	$t9,-0x5770($t9)
-/*    23d7c:	254a9fc0 */ 	addiu	$t2,$t2,-24640
+/*    23d7c:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 /*    23d80:	8d580058 */ 	lw	$t8,0x58($t2)
 /*    23d84:	00026080 */ 	sll	$t4,$v0,0x2
 /*    23d88:	032c6821 */ 	addu	$t5,$t9,$t4
@@ -44405,10 +44405,10 @@ glabel func00023d38
 /*    23eac:	8fa80020 */ 	lw	$t0,0x20($sp)
 /*    23eb0:	8fa30028 */ 	lw	$v1,0x28($sp)
 /*    23eb4:	8fa70034 */ 	lw	$a3,0x34($sp)
-/*    23eb8:	3c0b8006 */ 	lui	$t3,0x8006
+/*    23eb8:	3c0b8006 */ 	lui	$t3,%hi(var8005f010)
 /*    23ebc:	01a87021 */ 	addu	$t6,$t5,$t0
 /*    23ec0:	adc20000 */ 	sw	$v0,0x0($t6)
-/*    23ec4:	256bf010 */ 	addiu	$t3,$t3,-4080
+/*    23ec4:	256bf010 */ 	addiu	$t3,$t3,%lo(var8005f010)
 /*    23ec8:	8d6f0000 */ 	lw	$t7,0x0($t3)
 /*    23ecc:	24090028 */ 	addiu	$t1,$zero,0x28
 /*    23ed0:	3c0c800a */ 	lui	$t4,0x800a
@@ -44417,12 +44417,12 @@ glabel func00023d38
 /*    23edc:	24f90001 */ 	addiu	$t9,$a3,0x1
 /*    23ee0:	0329001a */ 	div	$zero,$t9,$t1
 /*    23ee4:	8d8ca88c */ 	lw	$t4,-0x5774($t4)
-/*    23ee8:	3c0a800a */ 	lui	$t2,0x800a
+/*    23ee8:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*    23eec:	3c0e800a */ 	lui	$t6,0x800a
 /*    23ef0:	0183c021 */ 	addu	$t8,$t4,$v1
 /*    23ef4:	a7100000 */ 	sh	$s0,0x0($t8)
 /*    23ef8:	8dcea890 */ 	lw	$t6,-0x5770($t6)
-/*    23efc:	254a9fc0 */ 	addiu	$t2,$t2,-24640
+/*    23efc:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 /*    23f00:	8d4d0058 */ 	lw	$t5,0x58($t2)
 /*    23f04:	00006010 */ 	mfhi	$t4
 /*    23f08:	01c87821 */ 	addu	$t7,$t6,$t0
@@ -45499,15 +45499,15 @@ glabel func00024e40
 
 GLOBAL_ASM(
 glabel func00024e4c
-/*    24e4c:	3c02800a */ 	lui	$v0,0x800a
-/*    24e50:	2442a8b8 */ 	addiu	$v0,$v0,-22344
+/*    24e4c:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
+/*    24e50:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
 /*    24e54:	c4440000 */ 	lwc1	$f4,0x0($v0)
 /*    24e58:	afa60008 */ 	sw	$a2,0x8($sp)
 /*    24e5c:	afa7000c */ 	sw	$a3,0xc($sp)
 /*    24e60:	e4840000 */ 	swc1	$f4,0x0($a0)
 /*    24e64:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*    24e68:	3c03800a */ 	lui	$v1,0x800a
-/*    24e6c:	2463a8c8 */ 	addiu	$v1,$v1,-22328
+/*    24e68:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
+/*    24e6c:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
 /*    24e70:	e4860004 */ 	swc1	$f6,0x4($a0)
 /*    24e74:	c4480008 */ 	lwc1	$f8,0x8($v0)
 /*    24e78:	e4880008 */ 	swc1	$f8,0x8($a0)
@@ -45543,8 +45543,8 @@ glabel func00024eb0
 
 GLOBAL_ASM(
 glabel func00024ebc
-/*    24ebc:	3c02800a */ 	lui	$v0,0x800a
-/*    24ec0:	2442a8e0 */ 	addiu	$v0,$v0,-22304
+/*    24ebc:	3c02800a */ 	lui	$v0,%hi(var8009a8e0)
+/*    24ec0:	2442a8e0 */ 	addiu	$v0,$v0,%lo(var8009a8e0)
 /*    24ec4:	c4440000 */ 	lwc1	$f4,0x0($v0)
 /*    24ec8:	afa50004 */ 	sw	$a1,0x4($sp)
 /*    24ecc:	afa60008 */ 	sw	$a2,0x8($sp)
@@ -45625,12 +45625,12 @@ glabel func00024f6c
 GLOBAL_ASM(
 glabel func00024fb0
 /*    24fb0:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    24fb4:	3c02800a */ 	lui	$v0,0x800a
-/*    24fb8:	2442a8b8 */ 	addiu	$v0,$v0,-22344
+/*    24fb4:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
+/*    24fb8:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
 /*    24fbc:	e4440000 */ 	swc1	$f4,0x0($v0)
 /*    24fc0:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*    24fc4:	3c03800a */ 	lui	$v1,0x800a
-/*    24fc8:	2463a8c8 */ 	addiu	$v1,$v1,-22328
+/*    24fc4:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
+/*    24fc8:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
 /*    24fcc:	e4460004 */ 	swc1	$f6,0x4($v0)
 /*    24fd0:	c4880008 */ 	lwc1	$f8,0x8($a0)
 /*    24fd4:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -45664,14 +45664,14 @@ GLOBAL_ASM(
 glabel func00025038
 /*    25038:	44876000 */ 	mtc1	$a3,$f12
 /*    2503c:	3c01800a */ 	lui	$at,0x800a
-/*    25040:	3c02800a */ 	lui	$v0,0x800a
+/*    25040:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
 /*    25044:	e42ca8b0 */ 	swc1	$f12,-0x5750($at)
 /*    25048:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    2504c:	2442a8b8 */ 	addiu	$v0,$v0,-22344
-/*    25050:	3c03800a */ 	lui	$v1,0x800a
+/*    2504c:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
+/*    25050:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
 /*    25054:	e4440000 */ 	swc1	$f4,0x0($v0)
 /*    25058:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*    2505c:	2463a8c8 */ 	addiu	$v1,$v1,-22328
+/*    2505c:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
 /*    25060:	24070001 */ 	addiu	$a3,$zero,0x1
 /*    25064:	e4460004 */ 	swc1	$f6,0x4($v0)
 /*    25068:	c4880008 */ 	lwc1	$f8,0x8($a0)
@@ -45710,12 +45710,12 @@ glabel func000250cc
 /*    250dc:	afa50044 */ 	sw	$a1,0x44($sp)
 /*    250e0:	e7ac0034 */ 	swc1	$f12,0x34($sp)
 /*    250e4:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    250e8:	3c02800a */ 	lui	$v0,0x800a
-/*    250ec:	3c03800a */ 	lui	$v1,0x800a
+/*    250e8:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
+/*    250ec:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
 /*    250f0:	e7a40038 */ 	swc1	$f4,0x38($sp)
 /*    250f4:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*    250f8:	2463a8c8 */ 	addiu	$v1,$v1,-22328
-/*    250fc:	2442a8b8 */ 	addiu	$v0,$v0,-22344
+/*    250f8:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
+/*    250fc:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
 /*    25100:	e7a6003c */ 	swc1	$f6,0x3c($sp)
 /*    25104:	c4a80000 */ 	lwc1	$f8,0x0($a1)
 /*    25108:	c4500000 */ 	lwc1	$f16,0x0($v0)
@@ -45768,16 +45768,16 @@ glabel func00025168
 GLOBAL_ASM(
 glabel func000251ac
 /*    251ac:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    251b0:	3c02800a */ 	lui	$v0,0x800a
-/*    251b4:	2442a8b8 */ 	addiu	$v0,$v0,-22344
+/*    251b0:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
+/*    251b4:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
 /*    251b8:	e4440000 */ 	swc1	$f4,0x0($v0)
 /*    251bc:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*    251c0:	3c03800a */ 	lui	$v1,0x800a
-/*    251c4:	2463a8c8 */ 	addiu	$v1,$v1,-22328
+/*    251c0:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
+/*    251c4:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
 /*    251c8:	e4460004 */ 	swc1	$f6,0x4($v0)
 /*    251cc:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    251d0:	3c08800a */ 	lui	$t0,0x800a
-/*    251d4:	2508a8e0 */ 	addiu	$t0,$t0,-22304
+/*    251d0:	3c08800a */ 	lui	$t0,%hi(var8009a8e0)
+/*    251d4:	2508a8e0 */ 	addiu	$t0,$t0,%lo(var8009a8e0)
 /*    251d8:	e4480008 */ 	swc1	$f8,0x8($v0)
 /*    251dc:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
 /*    251e0:	24090001 */ 	addiu	$t1,$zero,0x1
@@ -45814,16 +45814,16 @@ glabel func000251ac
 GLOBAL_ASM(
 glabel func00025254
 /*    25254:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    25258:	3c02800a */ 	lui	$v0,0x800a
-/*    2525c:	2442a8b8 */ 	addiu	$v0,$v0,-22344
+/*    25258:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
+/*    2525c:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
 /*    25260:	e4440000 */ 	swc1	$f4,0x0($v0)
 /*    25264:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*    25268:	3c03800a */ 	lui	$v1,0x800a
-/*    2526c:	2463a8c8 */ 	addiu	$v1,$v1,-22328
+/*    25268:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
+/*    2526c:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
 /*    25270:	e4460004 */ 	swc1	$f6,0x4($v0)
 /*    25274:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*    25278:	3c08800a */ 	lui	$t0,0x800a
-/*    2527c:	2508a8e0 */ 	addiu	$t0,$t0,-22304
+/*    25278:	3c08800a */ 	lui	$t0,%hi(var8009a8e0)
+/*    2527c:	2508a8e0 */ 	addiu	$t0,$t0,%lo(var8009a8e0)
 /*    25280:	e4480008 */ 	swc1	$f8,0x8($v0)
 /*    25284:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
 /*    25288:	24090001 */ 	addiu	$t1,$zero,0x1
@@ -45866,12 +45866,12 @@ glabel func00025254
 GLOBAL_ASM(
 glabel func00025314
 /*    25314:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*    25318:	3c02800a */ 	lui	$v0,0x800a
-/*    2531c:	2442a8f8 */ 	addiu	$v0,$v0,-22280
+/*    25318:	3c02800a */ 	lui	$v0,%hi(var8009a8f8)
+/*    2531c:	2442a8f8 */ 	addiu	$v0,$v0,%lo(var8009a8f8)
 /*    25320:	e4440000 */ 	swc1	$f4,0x0($v0)
 /*    25324:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*    25328:	3c03800a */ 	lui	$v1,0x800a
-/*    2532c:	2463a908 */ 	addiu	$v1,$v1,-22264
+/*    25328:	3c03800a */ 	lui	$v1,%hi(var8009a908)
+/*    2532c:	2463a908 */ 	addiu	$v1,$v1,%lo(var8009a908)
 /*    25330:	e4460004 */ 	swc1	$f6,0x4($v0)
 /*    25334:	c4880008 */ 	lwc1	$f8,0x8($a0)
 /*    25338:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -45891,13 +45891,13 @@ GLOBAL_ASM(
 glabel func00025364
 /*    25364:	3c03800a */ 	lui	$v1,0x800a
 /*    25368:	8c63a8f4 */ 	lw	$v1,-0x570c($v1)
-/*    2536c:	3c02800a */ 	lui	$v0,0x800a
-/*    25370:	2442a8f8 */ 	addiu	$v0,$v0,-22280
+/*    2536c:	3c02800a */ 	lui	$v0,%hi(var8009a8f8)
+/*    25370:	2442a8f8 */ 	addiu	$v0,$v0,%lo(var8009a8f8)
 /*    25374:	10600011 */ 	beqz	$v1,.L000253bc
 /*    25378:	00000000 */ 	sll	$zero,$zero,0x0
 /*    2537c:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*    25380:	3c06800a */ 	lui	$a2,0x800a
-/*    25384:	24c6a908 */ 	addiu	$a2,$a2,-22264
+/*    25380:	3c06800a */ 	lui	$a2,%hi(var8009a908)
+/*    25384:	24c6a908 */ 	addiu	$a2,$a2,%lo(var8009a908)
 /*    25388:	e4840000 */ 	swc1	$f4,0x0($a0)
 /*    2538c:	c4460004 */ 	lwc1	$f6,0x4($v0)
 /*    25390:	3c03800a */ 	lui	$v1,0x800a
@@ -45918,8 +45918,8 @@ glabel func00025364
 
 GLOBAL_ASM(
 glabel func000253c4
-/*    253c4:	3c0e800a */ 	lui	$t6,0x800a
-/*    253c8:	25cea918 */ 	addiu	$t6,$t6,-22248
+/*    253c4:	3c0e800a */ 	lui	$t6,%hi(var8009a918)
+/*    253c8:	25cea918 */ 	addiu	$t6,$t6,%lo(var8009a918)
 /*    253cc:	00804025 */ 	or	$t0,$a0,$zero
 /*    253d0:	24990048 */ 	addiu	$t9,$a0,0x48
 .L000253d4:
@@ -47860,12 +47860,12 @@ glabel func00026e7c
 /*    26efc:	27b5026c */ 	addiu	$s5,$sp,0x26c
 /*    26f00:	27b40270 */ 	addiu	$s4,$sp,0x270
 /*    26f04:	11010021 */ 	beq	$t0,$at,.L00026f8c
-/*    26f08:	3c13800a */ 	lui	$s3,0x800a
-/*    26f0c:	3c12800a */ 	lui	$s2,0x800a
-/*    26f10:	3c11800a */ 	lui	$s1,0x800a
-/*    26f14:	2631a8a4 */ 	addiu	$s1,$s1,-22364
-/*    26f18:	2652a8a8 */ 	addiu	$s2,$s2,-22360
-/*    26f1c:	2673a8a0 */ 	addiu	$s3,$s3,-22368
+/*    26f08:	3c13800a */ 	lui	$s3,%hi(var8009a8a0)
+/*    26f0c:	3c12800a */ 	lui	$s2,%hi(var8009a8a8)
+/*    26f10:	3c11800a */ 	lui	$s1,%hi(var8009a8a4)
+/*    26f14:	2631a8a4 */ 	addiu	$s1,$s1,%lo(var8009a8a4)
+/*    26f18:	2652a8a8 */ 	addiu	$s2,$s2,%lo(var8009a8a8)
+/*    26f1c:	2673a8a0 */ 	addiu	$s3,$s3,%lo(var8009a8a0)
 /*    26f20:	8e2f0000 */ 	lw	$t7,0x0($s1)
 .L00026f24:
 /*    26f24:	010f082a */ 	slt	$at,$t0,$t7
@@ -47908,9 +47908,9 @@ glabel func00026e7c
 /*    26fb0:	02008825 */ 	or	$s1,$s0,$zero
 /*    26fb4:	27ae0064 */ 	addiu	$t6,$sp,0x64
 /*    26fb8:	05a0001f */ 	bltz	$t5,.L00027038
-/*    26fbc:	3c13800a */ 	lui	$s3,0x800a
+/*    26fbc:	3c13800a */ 	lui	$s3,%hi(g_Vars)
 /*    26fc0:	85c20000 */ 	lh	$v0,0x0($t6)
-/*    26fc4:	26739fc0 */ 	addiu	$s3,$s3,-24640
+/*    26fc4:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
 /*    26fc8:	24120048 */ 	addiu	$s2,$zero,0x48
 .L00026fcc:
 /*    26fcc:	00520019 */ 	multu	$v0,$s2
@@ -48867,12 +48867,12 @@ glabel func00027d1c
 /*    27d78:	00c08025 */ 	or	$s0,$a2,$zero
 /*    27d7c:	11010030 */ 	beq	$t0,$at,.L00027e40
 /*    27d80:	c7b602c4 */ 	lwc1	$f22,0x2c4($sp)
-/*    27d84:	3c14800a */ 	lui	$s4,0x800a
-/*    27d88:	3c13800a */ 	lui	$s3,0x800a
-/*    27d8c:	3c11800a */ 	lui	$s1,0x800a
-/*    27d90:	2631a8a4 */ 	addiu	$s1,$s1,-22364
-/*    27d94:	2673a8a8 */ 	addiu	$s3,$s3,-22360
-/*    27d98:	2694a8a0 */ 	addiu	$s4,$s4,-22368
+/*    27d84:	3c14800a */ 	lui	$s4,%hi(var8009a8a0)
+/*    27d88:	3c13800a */ 	lui	$s3,%hi(var8009a8a8)
+/*    27d8c:	3c11800a */ 	lui	$s1,%hi(var8009a8a4)
+/*    27d90:	2631a8a4 */ 	addiu	$s1,$s1,%lo(var8009a8a4)
+/*    27d94:	2673a8a8 */ 	addiu	$s3,$s3,%lo(var8009a8a8)
+/*    27d98:	2694a8a0 */ 	addiu	$s4,$s4,%lo(var8009a8a0)
 /*    27d9c:	c7b402c0 */ 	lwc1	$f20,0x2c0($sp)
 /*    27da0:	27b70294 */ 	addiu	$s7,$sp,0x294
 /*    27da4:	8fb602bc */ 	lw	$s6,0x2bc($sp)
@@ -48932,9 +48932,9 @@ glabel func00027d1c
 /*    27e70:	02008825 */ 	or	$s1,$s0,$zero
 /*    27e74:	27a90090 */ 	addiu	$t1,$sp,0x90
 /*    27e78:	07200029 */ 	bltz	$t9,.L00027f20
-/*    27e7c:	3c14800a */ 	lui	$s4,0x800a
+/*    27e7c:	3c14800a */ 	lui	$s4,%hi(g_Vars)
 /*    27e80:	85220000 */ 	lh	$v0,0x0($t1)
-/*    27e84:	26949fc0 */ 	addiu	$s4,$s4,-24640
+/*    27e84:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
 /*    27e88:	24130048 */ 	addiu	$s3,$zero,0x48
 .L00027e8c:
 /*    27e8c:	00530019 */ 	multu	$v0,$s3
@@ -50037,12 +50037,12 @@ glabel func00028df0
 /*    28e4c:	00c08025 */ 	or	$s0,$a2,$zero
 /*    28e50:	1101002b */ 	beq	$t0,$at,.L00028f00
 /*    28e54:	c7b602bc */ 	lwc1	$f22,0x2bc($sp)
-/*    28e58:	3c13800a */ 	lui	$s3,0x800a
-/*    28e5c:	3c12800a */ 	lui	$s2,0x800a
-/*    28e60:	3c11800a */ 	lui	$s1,0x800a
-/*    28e64:	2631a8a4 */ 	addiu	$s1,$s1,-22364
-/*    28e68:	2652a8a8 */ 	addiu	$s2,$s2,-22360
-/*    28e6c:	2673a8a0 */ 	addiu	$s3,$s3,-22368
+/*    28e58:	3c13800a */ 	lui	$s3,%hi(var8009a8a0)
+/*    28e5c:	3c12800a */ 	lui	$s2,%hi(var8009a8a8)
+/*    28e60:	3c11800a */ 	lui	$s1,%hi(var8009a8a4)
+/*    28e64:	2631a8a4 */ 	addiu	$s1,$s1,%lo(var8009a8a4)
+/*    28e68:	2652a8a8 */ 	addiu	$s2,$s2,%lo(var8009a8a8)
+/*    28e6c:	2673a8a0 */ 	addiu	$s3,$s3,%lo(var8009a8a0)
 /*    28e70:	c7b402b8 */ 	lwc1	$f20,0x2b8($sp)
 /*    28e74:	27be028c */ 	addiu	$s8,$sp,0x28c
 /*    28e78:	8fb702c4 */ 	lw	$s7,0x2c4($sp)
@@ -50098,9 +50098,9 @@ glabel func00028df0
 /*    28f34:	02008825 */ 	or	$s1,$s0,$zero
 /*    28f38:	27b80088 */ 	addiu	$t8,$sp,0x88
 /*    28f3c:	05e00022 */ 	bltz	$t7,.L00028fc8
-/*    28f40:	3c13800a */ 	lui	$s3,0x800a
+/*    28f40:	3c13800a */ 	lui	$s3,%hi(g_Vars)
 /*    28f44:	87020000 */ 	lh	$v0,0x0($t8)
-/*    28f48:	26739fc0 */ 	addiu	$s3,$s3,-24640
+/*    28f48:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
 /*    28f4c:	24120048 */ 	addiu	$s2,$zero,0x48
 .L00028f50:
 /*    28f50:	00520019 */ 	multu	$v0,$s2
@@ -54722,12 +54722,12 @@ glabel func0002d15c
 /*    2d1e0:	00c08025 */ 	or	$s0,$a2,$zero
 /*    2d1e4:	1101002e */ 	beq	$t0,$at,.L0002d2a0
 /*    2d1e8:	c7b602b8 */ 	lwc1	$f22,0x2b8($sp)
-/*    2d1ec:	3c13800a */ 	lui	$s3,0x800a
-/*    2d1f0:	3c12800a */ 	lui	$s2,0x800a
-/*    2d1f4:	3c11800a */ 	lui	$s1,0x800a
-/*    2d1f8:	2631a8a4 */ 	addiu	$s1,$s1,-22364
-/*    2d1fc:	2652a8a8 */ 	addiu	$s2,$s2,-22360
-/*    2d200:	2673a8a0 */ 	addiu	$s3,$s3,-22368
+/*    2d1ec:	3c13800a */ 	lui	$s3,%hi(var8009a8a0)
+/*    2d1f0:	3c12800a */ 	lui	$s2,%hi(var8009a8a8)
+/*    2d1f4:	3c11800a */ 	lui	$s1,%hi(var8009a8a4)
+/*    2d1f8:	2631a8a4 */ 	addiu	$s1,$s1,%lo(var8009a8a4)
+/*    2d1fc:	2652a8a8 */ 	addiu	$s2,$s2,%lo(var8009a8a8)
+/*    2d200:	2673a8a0 */ 	addiu	$s3,$s3,%lo(var8009a8a0)
 /*    2d204:	c7b402b4 */ 	lwc1	$f20,0x2b4($sp)
 /*    2d208:	8fbe02b0 */ 	lw	$s8,0x2b0($sp)
 /*    2d20c:	8fb702ac */ 	lw	$s7,0x2ac($sp)
@@ -54784,9 +54784,9 @@ glabel func0002d15c
 /*    2d2cc:	02208025 */ 	or	$s0,$s1,$zero
 /*    2d2d0:	27b90078 */ 	addiu	$t9,$sp,0x78
 /*    2d2d4:	07000027 */ 	bltz	$t8,.L0002d374
-/*    2d2d8:	3c13800a */ 	lui	$s3,0x800a
+/*    2d2d8:	3c13800a */ 	lui	$s3,%hi(g_Vars)
 /*    2d2dc:	87220000 */ 	lh	$v0,0x0($t9)
-/*    2d2e0:	26739fc0 */ 	addiu	$s3,$s3,-24640
+/*    2d2e0:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
 /*    2d2e4:	24120048 */ 	addiu	$s2,$zero,0x48
 .L0002d2e8:
 /*    2d2e8:	00520019 */ 	multu	$v0,$s2
@@ -54887,12 +54887,12 @@ glabel func0002d3b0
 /*    2d444:	00c08025 */ 	or	$s0,$a2,$zero
 /*    2d448:	1111003e */ 	beq	$t0,$s1,.L0002d544
 /*    2d44c:	c7b60300 */ 	lwc1	$f22,0x300($sp)
-/*    2d450:	3c17800a */ 	lui	$s7,0x800a
-/*    2d454:	3c16800a */ 	lui	$s6,0x800a
-/*    2d458:	3c15800a */ 	lui	$s5,0x800a
-/*    2d45c:	26b5a8a4 */ 	addiu	$s5,$s5,-22364
-/*    2d460:	26d6a8a8 */ 	addiu	$s6,$s6,-22360
-/*    2d464:	26f7a8a0 */ 	addiu	$s7,$s7,-22368
+/*    2d450:	3c17800a */ 	lui	$s7,%hi(var8009a8a0)
+/*    2d454:	3c16800a */ 	lui	$s6,%hi(var8009a8a8)
+/*    2d458:	3c15800a */ 	lui	$s5,%hi(var8009a8a4)
+/*    2d45c:	26b5a8a4 */ 	addiu	$s5,$s5,%lo(var8009a8a4)
+/*    2d460:	26d6a8a8 */ 	addiu	$s6,$s6,%lo(var8009a8a8)
+/*    2d464:	26f7a8a0 */ 	addiu	$s7,$s7,%lo(var8009a8a0)
 /*    2d468:	c7b402fc */ 	lwc1	$f20,0x2fc($sp)
 /*    2d46c:	27b4029c */ 	addiu	$s4,$sp,0x29c
 /*    2d470:	27b302a8 */ 	addiu	$s3,$sp,0x2a8
@@ -54967,8 +54967,8 @@ glabel func0002d3b0
 /*    2d574:	27b80090 */ 	addiu	$t8,$sp,0x90
 /*    2d578:	05e0003b */ 	bltz	$t7,.L0002d668
 /*    2d57c:	27be02d0 */ 	addiu	$s8,$sp,0x2d0
-/*    2d580:	3c16800a */ 	lui	$s6,0x800a
-/*    2d584:	26d69fc0 */ 	addiu	$s6,$s6,-24640
+/*    2d580:	3c16800a */ 	lui	$s6,%hi(g_Vars)
+/*    2d584:	26d69fc0 */ 	addiu	$s6,$s6,%lo(g_Vars)
 /*    2d588:	87020000 */ 	lh	$v0,0x0($t8)
 /*    2d58c:	27b702d4 */ 	addiu	$s7,$sp,0x2d4
 /*    2d590:	24150048 */ 	addiu	$s5,$zero,0x48
@@ -56093,12 +56093,12 @@ glabel func0002e4c4
 /*    2e50c:	2415ffff */ 	addiu	$s5,$zero,-1
 /*    2e510:	00a08025 */ 	or	$s0,$a1,$zero
 /*    2e514:	11150021 */ 	beq	$t0,$s5,.L0002e59c
-/*    2e518:	3c13800a */ 	lui	$s3,0x800a
-/*    2e51c:	3c12800a */ 	lui	$s2,0x800a
-/*    2e520:	3c11800a */ 	lui	$s1,0x800a
-/*    2e524:	2631a8a4 */ 	addiu	$s1,$s1,-22364
-/*    2e528:	2652a8a8 */ 	addiu	$s2,$s2,-22360
-/*    2e52c:	2673a8a0 */ 	addiu	$s3,$s3,-22368
+/*    2e518:	3c13800a */ 	lui	$s3,%hi(var8009a8a0)
+/*    2e51c:	3c12800a */ 	lui	$s2,%hi(var8009a8a8)
+/*    2e520:	3c11800a */ 	lui	$s1,%hi(var8009a8a4)
+/*    2e524:	2631a8a4 */ 	addiu	$s1,$s1,%lo(var8009a8a4)
+/*    2e528:	2652a8a8 */ 	addiu	$s2,$s2,%lo(var8009a8a8)
+/*    2e52c:	2673a8a0 */ 	addiu	$s3,$s3,%lo(var8009a8a0)
 /*    2e530:	8e2f0000 */ 	lw	$t7,0x0($s1)
 .L0002e534:
 /*    2e534:	010f082a */ 	slt	$at,$t0,$t7
@@ -56141,8 +56141,8 @@ glabel func0002e4c4
 /*    2e5bc:	27ae0054 */ 	addiu	$t6,$sp,0x54
 /*    2e5c0:	05a00022 */ 	bltz	$t5,.L0002e64c
 /*    2e5c4:	27b60258 */ 	addiu	$s6,$sp,0x258
-/*    2e5c8:	3c13800a */ 	lui	$s3,0x800a
-/*    2e5cc:	26739fc0 */ 	addiu	$s3,$s3,-24640
+/*    2e5c8:	3c13800a */ 	lui	$s3,%hi(g_Vars)
+/*    2e5cc:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
 /*    2e5d0:	85c20000 */ 	lh	$v0,0x0($t6)
 /*    2e5d4:	27b5025c */ 	addiu	$s5,$sp,0x25c
 /*    2e5d8:	24120048 */ 	addiu	$s2,$zero,0x48
@@ -56960,12 +56960,12 @@ glabel func0002f02c
 /*    2f154:	241effff */ 	addiu	$s8,$zero,-1
 /*    2f158:	27b7006c */ 	addiu	$s7,$sp,0x6c
 /*    2f15c:	111e0022 */ 	beq	$t0,$s8,.L0002f1e8
-/*    2f160:	3c14800a */ 	lui	$s4,0x800a
-/*    2f164:	3c13800a */ 	lui	$s3,0x800a
-/*    2f168:	3c11800a */ 	lui	$s1,0x800a
-/*    2f16c:	2631a8a4 */ 	addiu	$s1,$s1,-22364
-/*    2f170:	2673a8a8 */ 	addiu	$s3,$s3,-22360
-/*    2f174:	2694a8a0 */ 	addiu	$s4,$s4,-22368
+/*    2f160:	3c14800a */ 	lui	$s4,%hi(var8009a8a0)
+/*    2f164:	3c13800a */ 	lui	$s3,%hi(var8009a8a8)
+/*    2f168:	3c11800a */ 	lui	$s1,%hi(var8009a8a4)
+/*    2f16c:	2631a8a4 */ 	addiu	$s1,$s1,%lo(var8009a8a4)
+/*    2f170:	2673a8a8 */ 	addiu	$s3,$s3,%lo(var8009a8a8)
+/*    2f174:	2694a8a0 */ 	addiu	$s4,$s4,%lo(var8009a8a0)
 /*    2f178:	8e2b0000 */ 	lw	$t3,0x0($s1)
 .L0002f17c:
 /*    2f17c:	00086880 */ 	sll	$t5,$t0,0x2
@@ -57010,8 +57010,8 @@ glabel func0002f02c
 /*    2f210:	02008825 */ 	or	$s1,$s0,$zero
 /*    2f214:	05600027 */ 	bltz	$t3,.L0002f2b4
 /*    2f218:	27ac0134 */ 	addiu	$t4,$sp,0x134
-/*    2f21c:	3c14800a */ 	lui	$s4,0x800a
-/*    2f220:	26949fc0 */ 	addiu	$s4,$s4,-24640
+/*    2f21c:	3c14800a */ 	lui	$s4,%hi(g_Vars)
+/*    2f220:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
 /*    2f224:	85820000 */ 	lh	$v0,0x0($t4)
 /*    2f228:	27be033c */ 	addiu	$s8,$sp,0x33c
 /*    2f22c:	24130048 */ 	addiu	$s3,$zero,0x48
@@ -57479,8 +57479,8 @@ glabel func0002f8a0
 /*    2f8c8:	afa4001c */ 	sw	$a0,0x1c($sp)
 /*    2f8cc:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*    2f8d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    2f8d4:	3c038006 */ 	lui	$v1,0x8006
-/*    2f8d8:	2463f044 */ 	addiu	$v1,$v1,-4028
+/*    2f8d4:	3c038006 */ 	lui	$v1,%hi(var8005f044)
+/*    2f8d8:	2463f044 */ 	addiu	$v1,$v1,%lo(var8005f044)
 /*    2f8dc:	ac620000 */ 	sw	$v0,0x0($v1)
 /*    2f8e0:	3c018006 */ 	lui	$at,0x8006
 /*    2f8e4:	0044c021 */ 	addu	$t8,$v0,$a0
@@ -57492,23 +57492,23 @@ glabel func0002f8a0
 GLOBAL_ASM(
 glabel func0002f8f4
 /*    2f8f4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*    2f8f8:	3c038006 */ 	lui	$v1,0x8006
-/*    2f8fc:	2463f108 */ 	addiu	$v1,$v1,-3832
+/*    2f8f8:	3c038006 */ 	lui	$v1,%hi(var8005f108)
+/*    2f8fc:	2463f108 */ 	addiu	$v1,$v1,%lo(var8005f108)
 /*    2f900:	afa60028 */ 	sw	$a2,0x28($sp)
 /*    2f904:	8c660000 */ 	lw	$a2,0x0($v1)
-/*    2f908:	3c028006 */ 	lui	$v0,0x8006
-/*    2f90c:	3c0e8006 */ 	lui	$t6,0x8006
-/*    2f910:	24429fe0 */ 	addiu	$v0,$v0,-24608
-/*    2f914:	25cea0b0 */ 	addiu	$t6,$t6,-24400
+/*    2f908:	3c028006 */ 	lui	$v0,%hi(var80059fe0)
+/*    2f90c:	3c0e8006 */ 	lui	$t6,%hi(var8005a0b0)
+/*    2f910:	24429fe0 */ 	addiu	$v0,$v0,%lo(var80059fe0)
+/*    2f914:	25cea0b0 */ 	addiu	$t6,$t6,%lo(var8005a0b0)
 /*    2f918:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    2f91c:	01c27823 */ 	subu	$t7,$t6,$v0
 /*    2f920:	acc20018 */ 	sw	$v0,0x18($a2)
-/*    2f924:	3c188006 */ 	lui	$t8,0x8006
-/*    2f928:	3c198009 */ 	lui	$t9,0x8009
+/*    2f924:	3c188006 */ 	lui	$t8,%hi(var8005a0b0)
+/*    2f928:	3c198009 */ 	lui	$t9,%hi(var80089ad0)
 /*    2f92c:	accf001c */ 	sw	$t7,0x1c($a2)
 /*    2f930:	24c20010 */ 	addiu	$v0,$a2,0x10
-/*    2f934:	2718a0b0 */ 	addiu	$t8,$t8,-24400
-/*    2f938:	27399ad0 */ 	addiu	$t9,$t9,-25904
+/*    2f934:	2718a0b0 */ 	addiu	$t8,$t8,%lo(var8005a0b0)
+/*    2f938:	27399ad0 */ 	addiu	$t9,$t9,%lo(var80089ad0)
 /*    2f93c:	ac580010 */ 	sw	$t8,0x10($v0)
 /*    2f940:	ac590018 */ 	sw	$t9,0x18($v0)
 /*    2f944:	3c088006 */ 	lui	$t0,0x8006
@@ -57518,18 +57518,18 @@ glabel func0002f8f4
 /*    2f954:	ac480028 */ 	sw	$t0,0x28($v0)
 /*    2f958:	8d29f040 */ 	lw	$t1,-0xfc0($t1)
 /*    2f95c:	000a58c3 */ 	sra	$t3,$t2,0x3
-/*    2f960:	3c0d800a */ 	lui	$t5,0x800a
+/*    2f960:	3c0d800a */ 	lui	$t5,%hi(var8009ad70)
 /*    2f964:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*    2f968:	25adad70 */ 	addiu	$t5,$t5,-21136
+/*    2f968:	25adad70 */ 	addiu	$t5,$t5,%lo(var8009ad70)
 /*    2f96c:	240e0b00 */ 	addiu	$t6,$zero,0xb00
 /*    2f970:	ac440030 */ 	sw	$a0,0x30($v0)
 /*    2f974:	ac4c0034 */ 	sw	$t4,0x34($v0)
 /*    2f978:	ac4d0038 */ 	sw	$t5,0x38($v0)
 /*    2f97c:	ac4e003c */ 	sw	$t6,0x3c($v0)
 /*    2f980:	ac49002c */ 	sw	$t1,0x2c($v0)
-/*    2f984:	3c188009 */ 	lui	$t8,0x8009
+/*    2f984:	3c188009 */ 	lui	$t8,%hi(var8008db30)
 /*    2f988:	240f0063 */ 	addiu	$t7,$zero,0x63
-/*    2f98c:	2718db30 */ 	addiu	$t8,$t8,-9424
+/*    2f98c:	2718db30 */ 	addiu	$t8,$t8,%lo(var8008db30)
 /*    2f990:	acc00000 */ 	sw	$zero,0x0($a2)
 /*    2f994:	accf0008 */ 	sw	$t7,0x8($a2)
 /*    2f998:	acd80050 */ 	sw	$t8,0x50($a2)
@@ -57539,18 +57539,18 @@ glabel func0002f8f4
 /*    2f9a8:	acc8000c */ 	sw	$t0,0xc($a2)
 /*    2f9ac:	0c012048 */ 	jal	func00048120
 /*    2f9b0:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*    2f9b4:	3c048009 */ 	lui	$a0,0x8009
+/*    2f9b4:	3c048009 */ 	lui	$a0,%hi(var8008dbd0)
 /*    2f9b8:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*    2f9bc:	0c0007ea */ 	jal	func00001fa8
-/*    2f9c0:	2484dbd0 */ 	addiu	$a0,$a0,-9264
-/*    2f9c4:	3c028006 */ 	lui	$v0,0x8006
-/*    2f9c8:	2442f108 */ 	addiu	$v0,$v0,-3832
+/*    2f9c0:	2484dbd0 */ 	addiu	$a0,$a0,%lo(var8008dbd0)
+/*    2f9c4:	3c028006 */ 	lui	$v0,%hi(var8005f108)
+/*    2f9c8:	2442f108 */ 	addiu	$v0,$v0,%lo(var8005f108)
 /*    2f9cc:	8c490000 */ 	lw	$t1,0x0($v0)
-/*    2f9d0:	3c0a8006 */ 	lui	$t2,0x8006
+/*    2f9d0:	3c0a8006 */ 	lui	$t2,%hi(var8005f048)
 /*    2f9d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*    2f9d8:	254af048 */ 	addiu	$t2,$t2,-4024
-/*    2f9dc:	3c0c8006 */ 	lui	$t4,0x8006
-/*    2f9e0:	258cf0a8 */ 	addiu	$t4,$t4,-3928
+/*    2f9d8:	254af048 */ 	addiu	$t2,$t2,%lo(var8005f048)
+/*    2f9dc:	3c0c8006 */ 	lui	$t4,%hi(var8005f0a8)
+/*    2f9e0:	258cf0a8 */ 	addiu	$t4,$t4,%lo(var8005f0a8)
 /*    2f9e4:	012a5826 */ 	xor	$t3,$t1,$t2
 /*    2f9e8:	016c6826 */ 	xor	$t5,$t3,$t4
 /*    2f9ec:	ac4d0000 */ 	sw	$t5,0x0($v0)
@@ -58838,12 +58838,12 @@ GLOBAL_ASM(
 glabel func00030bfc
 /*    30bfc:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*    30c00:	afa40008 */ 	sw	$a0,0x8($sp)
-/*    30c04:	3c0e800a */ 	lui	$t6,0x800a
-/*    30c08:	25ceb878 */ 	addiu	$t6,$t6,-18312
+/*    30c04:	3c0e800a */ 	lui	$t6,%hi(var8009b878)
+/*    30c08:	25ceb878 */ 	addiu	$t6,$t6,%lo(var8009b878)
 /*    30c0c:	3c01800a */ 	lui	$at,0x800a
 /*    30c10:	ac2eb870 */ 	sw	$t6,-0x4790($at)
-/*    30c14:	3c0f800a */ 	lui	$t7,0x800a
-/*    30c18:	25efb878 */ 	addiu	$t7,$t7,-18312
+/*    30c14:	3c0f800a */ 	lui	$t7,%hi(var8009b878)
+/*    30c18:	25efb878 */ 	addiu	$t7,$t7,%lo(var8009b878)
 /*    30c1c:	afaf0004 */ 	sw	$t7,0x4($sp)
 /*    30c20:	24b8ffff */ 	addiu	$t8,$a1,-1
 /*    30c24:	1b000016 */ 	blez	$t8,.L00030c80
@@ -58851,14 +58851,14 @@ glabel func00030bfc
 .L00030c2c:
 /*    30c2c:	8fb90000 */ 	lw	$t9,0x0($sp)
 /*    30c30:	8fac0004 */ 	lw	$t4,0x4($sp)
-/*    30c34:	3c0a800a */ 	lui	$t2,0x800a
+/*    30c34:	3c0a800a */ 	lui	$t2,%hi(var8009b878)
 /*    30c38:	00194080 */ 	sll	$t0,$t9,0x2
 /*    30c3c:	01194023 */ 	subu	$t0,$t0,$t9
 /*    30c40:	00084080 */ 	sll	$t0,$t0,0x2
 /*    30c44:	01194023 */ 	subu	$t0,$t0,$t9
 /*    30c48:	00084080 */ 	sll	$t0,$t0,0x2
 /*    30c4c:	2509002c */ 	addiu	$t1,$t0,0x2c
-/*    30c50:	254ab878 */ 	addiu	$t2,$t2,-18312
+/*    30c50:	254ab878 */ 	addiu	$t2,$t2,%lo(var8009b878)
 /*    30c54:	012a5821 */ 	addu	$t3,$t1,$t2
 /*    30c58:	ad8b0000 */ 	sw	$t3,0x0($t4)
 /*    30c5c:	8fad0004 */ 	lw	$t5,0x4($sp)
@@ -59185,11 +59185,11 @@ glabel func00030ce0
 /*    31118:	000f7980 */ 	sll	$t7,$t7,0x6
 /*    3111c:	01e95821 */ 	addu	$t3,$t7,$t1
 /*    31120:	afab0034 */ 	sw	$t3,0x34($sp)
-/*    31124:	3c058006 */ 	lui	$a1,0x8006
+/*    31124:	3c058006 */ 	lui	$a1,%hi(var80060004)
 /*    31128:	8ca5f114 */ 	lw	$a1,-0xeec($a1)
 /*    3112c:	8fa40034 */ 	lw	$a0,0x34($sp)
 /*    31130:	0c00c5dc */ 	jal	func00031770
-/*    31134:	24a50004 */ 	addiu	$a1,$a1,0x4
+/*    31134:	24a50004 */ 	addiu	$a1,$a1,%lo(var80060004)
 /*    31138:	8faa0034 */ 	lw	$t2,0x34($sp)
 /*    3113c:	ad400008 */ 	sw	$zero,0x8($t2)
 /*    31140:	3c0c8006 */ 	lui	$t4,0x8006
@@ -59510,11 +59510,11 @@ glabel func00031590
 .L000315ac:
 /*    315ac:	0c00c5e9 */ 	jal	func000317a4
 /*    315b0:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    315b4:	3c058006 */ 	lui	$a1,0x8006
+/*    315b4:	3c058006 */ 	lui	$a1,%hi(var80060004)
 /*    315b8:	8ca5f114 */ 	lw	$a1,-0xeec($a1)
 /*    315bc:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*    315c0:	0c00c5dc */ 	jal	func00031770
-/*    315c4:	24a50004 */ 	addiu	$a1,$a1,0x4
+/*    315c4:	24a50004 */ 	addiu	$a1,$a1,%lo(var80060004)
 /*    315c8:	3c188006 */ 	lui	$t8,0x8006
 /*    315cc:	8f18f114 */ 	lw	$t8,-0xeec($t8)
 /*    315d0:	8f190014 */ 	lw	$t9,0x14($t8)
@@ -59537,11 +59537,11 @@ glabel func000315f4
 /*    315fc:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    31600:	0c00c5e9 */ 	jal	func000317a4
 /*    31604:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    31608:	3c058006 */ 	lui	$a1,0x8006
+/*    31608:	3c058006 */ 	lui	$a1,%hi(var80060014)
 /*    3160c:	8ca5f114 */ 	lw	$a1,-0xeec($a1)
 /*    31610:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*    31614:	0c00c5dc */ 	jal	func00031770
-/*    31618:	24a50014 */ 	addiu	$a1,$a1,0x14
+/*    31618:	24a50014 */ 	addiu	$a1,$a1,%lo(var80060014)
 /*    3161c:	10000001 */ 	beqz	$zero,.L00031624
 /*    31620:	00000000 */ 	sll	$zero,$zero,0x0
 .L00031624:
@@ -59738,11 +59738,11 @@ glabel func000317f0
 /*    31898:	0c00bec5 */ 	jal	func0002fb14
 /*    3189c:	afb90010 */ 	sw	$t9,0x10($sp)
 /*    318a0:	afa20038 */ 	sw	$v0,0x38($sp)
-/*    318a4:	3c048006 */ 	lui	$a0,0x8006
+/*    318a4:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    318a8:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    318ac:	8fa80040 */ 	lw	$t0,0x40($sp)
 /*    318b0:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*    318b4:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    318b4:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    318b8:	0c00f134 */ 	jal	func0003c4d0
 /*    318bc:	8d060004 */ 	lw	$a2,0x4($t0)
 /*    318c0:	3c098006 */ 	lui	$t1,0x8006
@@ -59829,7 +59829,7 @@ glabel func000317f0
 /*    319f4:	3c0c8006 */ 	lui	$t4,0x8006
 /*    319f8:	8d8cf12c */ 	lw	$t4,-0xed4($t4)
 /*    319fc:	ad8c0004 */ 	sw	$t4,0x4($t4)
-/*    31a00:	3c048006 */ 	lui	$a0,0x8006
+/*    31a00:	3c048006 */ 	lui	$a0,%hi(var80060028)
 /*    31a04:	0c00f240 */ 	jal	func0003c900
 /*    31a08:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    31a0c:	24080020 */ 	addiu	$t0,$zero,0x20
@@ -59883,7 +59883,7 @@ glabel func000317f0
 .L00031ac0:
 /*    31ac0:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*    31ac4:	0c00c6cd */ 	jal	func00031b34
-/*    31ac8:	24840028 */ 	addiu	$a0,$a0,0x28
+/*    31ac8:	24840028 */ 	addiu	$a0,$a0,%lo(var80060028)
 /*    31acc:	10000001 */ 	beqz	$zero,.L00031ad4
 /*    31ad0:	00000000 */ 	sll	$zero,$zero,0x0
 .L00031ad4:
@@ -60091,13 +60091,13 @@ glabel func00031b34
 /*    31db4:	8f190034 */ 	lw	$t9,0x34($t8)
 /*    31db8:	2728ffff */ 	addiu	$t0,$t9,-1
 /*    31dbc:	af080034 */ 	sw	$t0,0x34($t8)
-/*    31dc0:	3c048006 */ 	lui	$a0,0x8006
+/*    31dc0:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    31dc4:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    31dc8:	8fa500b8 */ 	lw	$a1,0xb8($sp)
 /*    31dcc:	34068235 */ 	dli	$a2,0x8235
 /*    31dd0:	00003825 */ 	or	$a3,$zero,$zero
 /*    31dd4:	0c00f184 */ 	jal	func0003c610
-/*    31dd8:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    31dd8:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    31ddc:	10000045 */ 	beqz	$zero,.L00031ef4
 /*    31de0:	00000000 */ 	sll	$zero,$zero,0x0
 .L00031de4:
@@ -60128,13 +60128,13 @@ glabel func00031b34
 /*    31e40:	8fa90054 */ 	lw	$t1,0x54($sp)
 /*    31e44:	24180003 */ 	addiu	$t8,$zero,0x3
 /*    31e48:	a1380045 */ 	sb	$t8,0x45($t1)
-/*    31e4c:	3c048006 */ 	lui	$a0,0x8006
+/*    31e4c:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    31e50:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    31e54:	27a50044 */ 	addiu	$a1,$sp,0x44
 /*    31e58:	240603e8 */ 	addiu	$a2,$zero,0x3e8
 /*    31e5c:	00003825 */ 	or	$a3,$zero,$zero
 /*    31e60:	0c00f184 */ 	jal	func0003c610
-/*    31e64:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    31e64:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    31e68:	8fa40054 */ 	lw	$a0,0x54($sp)
 /*    31e6c:	00002825 */ 	or	$a1,$zero,$zero
 /*    31e70:	240603e8 */ 	addiu	$a2,$zero,0x3e8
@@ -60157,13 +60157,13 @@ glabel func00031b34
 /*    31eac:	8fb90060 */ 	lw	$t9,0x60($sp)
 /*    31eb0:	240f0002 */ 	addiu	$t7,$zero,0x2
 /*    31eb4:	af2f0034 */ 	sw	$t7,0x34($t9)
-/*    31eb8:	3c048006 */ 	lui	$a0,0x8006
+/*    31eb8:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    31ebc:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    31ec0:	8fa500b8 */ 	lw	$a1,0xb8($sp)
 /*    31ec4:	240603e9 */ 	addiu	$a2,$zero,0x3e9
 /*    31ec8:	00003825 */ 	or	$a3,$zero,$zero
 /*    31ecc:	0c00f184 */ 	jal	func0003c610
-/*    31ed0:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    31ed0:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    31ed4:	10000003 */ 	beqz	$zero,.L00031ee4
 /*    31ed8:	00000000 */ 	sll	$zero,$zero,0x0
 .L00031edc:
@@ -60574,13 +60574,13 @@ glabel func00031b34
 /*    324c8:	a7ac0094 */ 	sh	$t4,0x94($sp)
 /*    324cc:	8fb90060 */ 	lw	$t9,0x60($sp)
 /*    324d0:	afb90098 */ 	sw	$t9,0x98($sp)
-/*    324d4:	3c048006 */ 	lui	$a0,0x8006
+/*    324d4:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    324d8:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    324dc:	27a50094 */ 	addiu	$a1,$sp,0x94
 /*    324e0:	8fa60080 */ 	lw	$a2,0x80($sp)
 /*    324e4:	00003825 */ 	or	$a3,$zero,$zero
 /*    324e8:	0c00f184 */ 	jal	func0003c610
-/*    324ec:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    324ec:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    324f0:	8fad0060 */ 	lw	$t5,0x60($sp)
 /*    324f4:	91ae0044 */ 	lbu	$t6,0x44($t5)
 /*    324f8:	31ca0020 */ 	andi	$t2,$t6,0x20
@@ -60622,13 +60622,13 @@ glabel func00031b34
 /*    32580:	100002be */ 	beqz	$zero,.L0003307c
 /*    32584:	00000000 */ 	sll	$zero,$zero,0x0
 .L00032588:
-/*    32588:	3c048006 */ 	lui	$a0,0x8006
+/*    32588:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    3258c:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    32590:	27a50094 */ 	addiu	$a1,$sp,0x94
 /*    32594:	8fa60080 */ 	lw	$a2,0x80($sp)
 /*    32598:	00003825 */ 	or	$a3,$zero,$zero
 /*    3259c:	0c00f184 */ 	jal	func0003c610
-/*    325a0:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    325a0:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 .L000325a4:
 /*    325a4:	1000029c */ 	beqz	$zero,.L00033018
 /*    325a8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -60658,12 +60658,12 @@ glabel func00031b34
 /*    32600:	1000003f */ 	beqz	$zero,.L00032700
 /*    32604:	00000000 */ 	sll	$zero,$zero,0x0
 .L00032608:
-/*    32608:	3c048006 */ 	lui	$a0,0x8006
+/*    32608:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    3260c:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    32610:	8fa50060 */ 	lw	$a1,0x60($sp)
 /*    32614:	24060040 */ 	addiu	$a2,$zero,0x40
 /*    32618:	0c00cc60 */ 	jal	func00033180
-/*    3261c:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    3261c:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    32620:	8fac00ac */ 	lw	$t4,0xac($sp)
 /*    32624:	8fae0060 */ 	lw	$t6,0x60($sp)
 /*    32628:	8d990000 */ 	lw	$t9,0x0($t4)
@@ -60702,13 +60702,13 @@ glabel func00031b34
 /*    326a8:	a7ab0094 */ 	sh	$t3,0x94($sp)
 /*    326ac:	8fb80060 */ 	lw	$t8,0x60($sp)
 /*    326b0:	afb80098 */ 	sw	$t8,0x98($sp)
-/*    326b4:	3c048006 */ 	lui	$a0,0x8006
+/*    326b4:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    326b8:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    326bc:	27a50094 */ 	addiu	$a1,$sp,0x94
 /*    326c0:	8fa60080 */ 	lw	$a2,0x80($sp)
 /*    326c4:	00003825 */ 	or	$a3,$zero,$zero
 /*    326c8:	0c00f184 */ 	jal	func0003c610
-/*    326cc:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    326cc:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    326d0:	8fb90060 */ 	lw	$t9,0x60($sp)
 /*    326d4:	240c0002 */ 	addiu	$t4,$zero,0x2
 /*    326d8:	10000003 */ 	beqz	$zero,.L000326e8
@@ -61306,13 +61306,13 @@ glabel func00031b34
 /*    32f5c:	a7ae0094 */ 	sh	$t6,0x94($sp)
 /*    32f60:	8faf0060 */ 	lw	$t7,0x60($sp)
 /*    32f64:	afaf0098 */ 	sw	$t7,0x98($sp)
-/*    32f68:	3c048006 */ 	lui	$a0,0x8006
+/*    32f68:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    32f6c:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    32f70:	27a50094 */ 	addiu	$a1,$sp,0x94
 /*    32f74:	8fa60080 */ 	lw	$a2,0x80($sp)
 /*    32f78:	00003825 */ 	or	$a3,$zero,$zero
 /*    32f7c:	0c00f184 */ 	jal	func0003c610
-/*    32f80:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    32f80:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    32f84:	8fb90060 */ 	lw	$t9,0x60($sp)
 /*    32f88:	93280044 */ 	lbu	$t0,0x44($t9)
 /*    32f8c:	310c0020 */ 	andi	$t4,$t0,0x20
@@ -61410,12 +61410,12 @@ glabel func00033090
 .L000330c8:
 /*    330c8:	0c00cd93 */ 	jal	func0003364c
 /*    330cc:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    330d0:	3c048006 */ 	lui	$a0,0x8006
+/*    330d0:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    330d4:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    330d8:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*    330dc:	3406ffff */ 	dli	$a2,0xffff
 /*    330e0:	0c00cc60 */ 	jal	func00033180
-/*    330e4:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    330e4:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    330e8:	10000001 */ 	beqz	$zero,.L000330f0
 /*    330ec:	00000000 */ 	sll	$zero,$zero,0x0
 .L000330f0:
@@ -61446,13 +61446,13 @@ glabel func00033100
 /*    33140:	27aa001c */ 	addiu	$t2,$sp,0x1c
 /*    33144:	8d4b0000 */ 	lw	$t3,0x0($t2)
 /*    33148:	afab0028 */ 	sw	$t3,0x28($sp)
-/*    3314c:	3c048006 */ 	lui	$a0,0x8006
+/*    3314c:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    33150:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    33154:	27a50020 */ 	addiu	$a1,$sp,0x20
 /*    33158:	34068235 */ 	dli	$a2,0x8235
 /*    3315c:	00003825 */ 	or	$a3,$zero,$zero
 /*    33160:	0c00f184 */ 	jal	func0003c610
-/*    33164:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33164:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    33168:	10000001 */ 	beqz	$zero,.L00033170
 /*    3316c:	00000000 */ 	sll	$zero,$zero,0x0
 .L00033170:
@@ -62057,12 +62057,12 @@ glabel func00033820
 /*    339b0:	916c0044 */ 	lbu	$t4,0x44($t3)
 /*    339b4:	01816824 */ 	and	$t5,$t4,$at
 /*    339b8:	a16d0044 */ 	sb	$t5,0x44($t3)
-/*    339bc:	3c048006 */ 	lui	$a0,0x8006
+/*    339bc:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    339c0:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    339c4:	8fa60040 */ 	lw	$a2,0x40($sp)
 /*    339c8:	27a5002c */ 	addiu	$a1,$sp,0x2c
 /*    339cc:	00003825 */ 	or	$a3,$zero,$zero
-/*    339d0:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    339d0:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    339d4:	0c00f184 */ 	jal	func0003c610
 /*    339d8:	24c60001 */ 	addiu	$a2,$a2,0x1
 /*    339dc:	8fae0044 */ 	lw	$t6,0x44($sp)
@@ -62072,12 +62072,12 @@ glabel func00033820
 /*    339ec:	10000009 */ 	beqz	$zero,.L00033a14
 /*    339f0:	a7af004e */ 	sh	$t7,0x4e($sp)
 .L000339f4:
-/*    339f4:	3c048006 */ 	lui	$a0,0x8006
+/*    339f4:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    339f8:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    339fc:	8fa60044 */ 	lw	$a2,0x44($sp)
 /*    33a00:	27a5002c */ 	addiu	$a1,$sp,0x2c
 /*    33a04:	00003825 */ 	or	$a3,$zero,$zero
-/*    33a08:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33a08:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    33a0c:	0c00f184 */ 	jal	func0003c610
 /*    33a10:	24c60001 */ 	addiu	$a2,$a2,0x1
 .L00033a14:
@@ -62130,13 +62130,13 @@ glabel func00033820
 /*    33ac4:	afaa0024 */ 	sw	$t2,0x24($sp)
 /*    33ac8:	8fad0060 */ 	lw	$t5,0x60($sp)
 /*    33acc:	afad0028 */ 	sw	$t5,0x28($sp)
-/*    33ad0:	3c048006 */ 	lui	$a0,0x8006
+/*    33ad0:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    33ad4:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    33ad8:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    33adc:	8fa60048 */ 	lw	$a2,0x48($sp)
 /*    33ae0:	00003825 */ 	or	$a3,$zero,$zero
 /*    33ae4:	0c00f184 */ 	jal	func0003c610
-/*    33ae8:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33ae8:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 .L00033aec:
 /*    33aec:	8faf007c */ 	lw	$t7,0x7c($sp)
 /*    33af0:	11e00004 */ 	beqz	$t7,.L00033b04
@@ -62185,13 +62185,13 @@ glabel func00033b24
 /*    33b80:	914b0044 */ 	lbu	$t3,0x44($t2)
 /*    33b84:	01616024 */ 	and	$t4,$t3,$at
 /*    33b88:	a14c0044 */ 	sb	$t4,0x44($t2)
-/*    33b8c:	3c048006 */ 	lui	$a0,0x8006
+/*    33b8c:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    33b90:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    33b94:	27a50018 */ 	addiu	$a1,$sp,0x18
 /*    33b98:	00003025 */ 	or	$a2,$zero,$zero
 /*    33b9c:	00003825 */ 	or	$a3,$zero,$zero
 /*    33ba0:	0c00f184 */ 	jal	func0003c610
-/*    33ba4:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33ba4:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 .L00033ba8:
 /*    33ba8:	10000001 */ 	beqz	$zero,.L00033bb0
 /*    33bac:	00000000 */ 	sll	$zero,$zero,0x0
@@ -62219,13 +62219,13 @@ glabel func00033bc0
 /*    33bf0:	93280044 */ 	lbu	$t0,0x44($t9)
 /*    33bf4:	01014824 */ 	and	$t1,$t0,$at
 /*    33bf8:	a3290044 */ 	sb	$t1,0x44($t9)
-/*    33bfc:	3c048006 */ 	lui	$a0,0x8006
+/*    33bfc:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    33c00:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    33c04:	27a50018 */ 	addiu	$a1,$sp,0x18
 /*    33c08:	00003025 */ 	or	$a2,$zero,$zero
 /*    33c0c:	00003825 */ 	or	$a3,$zero,$zero
 /*    33c10:	0c00f184 */ 	jal	func0003c610
-/*    33c14:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33c14:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 .L00033c18:
 /*    33c18:	10000001 */ 	beqz	$zero,.L00033c20
 /*    33c1c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -62266,13 +62266,13 @@ glabel func00033c30
 /*    33c90:	918d0044 */ 	lbu	$t5,0x44($t4)
 /*    33c94:	01a17024 */ 	and	$t6,$t5,$at
 /*    33c98:	a18e0044 */ 	sb	$t6,0x44($t4)
-/*    33c9c:	3c048006 */ 	lui	$a0,0x8006
+/*    33c9c:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    33ca0:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    33ca4:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    33ca8:	00003025 */ 	or	$a2,$zero,$zero
 /*    33cac:	00003825 */ 	or	$a3,$zero,$zero
 /*    33cb0:	0c00f184 */ 	jal	func0003c610
-/*    33cb4:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33cb4:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 .L00033cb8:
 /*    33cb8:	8faf0018 */ 	lw	$t7,0x18($sp)
 /*    33cbc:	8df80000 */ 	lw	$t8,0x0($t7)
@@ -62322,13 +62322,13 @@ glabel func00033cf0
 /*    33d50:	918d0044 */ 	lbu	$t5,0x44($t4)
 /*    33d54:	01a17024 */ 	and	$t6,$t5,$at
 /*    33d58:	a18e0044 */ 	sb	$t6,0x44($t4)
-/*    33d5c:	3c048006 */ 	lui	$a0,0x8006
+/*    33d5c:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    33d60:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    33d64:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    33d68:	00003025 */ 	or	$a2,$zero,$zero
 /*    33d6c:	00003825 */ 	or	$a3,$zero,$zero
 /*    33d70:	0c00f184 */ 	jal	func0003c610
-/*    33d74:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33d74:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 .L00033d78:
 /*    33d78:	8faf0018 */ 	lw	$t7,0x18($sp)
 /*    33d7c:	8df80000 */ 	lw	$t8,0x0($t7)
@@ -62416,13 +62416,13 @@ glabel func00033e50
 /*    33e7c:	8fb90028 */ 	lw	$t9,0x28($sp)
 /*    33e80:	1320000a */ 	beqz	$t9,.L00033eac
 /*    33e84:	00000000 */ 	sll	$zero,$zero,0x0
-/*    33e88:	3c048006 */ 	lui	$a0,0x8006
+/*    33e88:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    33e8c:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    33e90:	27a50018 */ 	addiu	$a1,$sp,0x18
 /*    33e94:	00003025 */ 	or	$a2,$zero,$zero
 /*    33e98:	00003825 */ 	or	$a3,$zero,$zero
 /*    33e9c:	0c00f184 */ 	jal	func0003c610
-/*    33ea0:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33ea0:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 /*    33ea4:	10000001 */ 	beqz	$zero,.L00033eac
 /*    33ea8:	00000000 */ 	sll	$zero,$zero,0x0
 .L00033eac:
@@ -62522,13 +62522,13 @@ glabel func00033f44
 /*    33fcc:	a7a9001c */ 	sh	$t1,0x1c($sp)
 /*    33fd0:	8fb80030 */ 	lw	$t8,0x30($sp)
 /*    33fd4:	afb80020 */ 	sw	$t8,0x20($sp)
-/*    33fd8:	3c048006 */ 	lui	$a0,0x8006
+/*    33fd8:	3c048006 */ 	lui	$a0,%hi(var80060014)
 /*    33fdc:	8c84f12c */ 	lw	$a0,-0xed4($a0)
 /*    33fe0:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    33fe4:	00003025 */ 	or	$a2,$zero,$zero
 /*    33fe8:	00003825 */ 	or	$a3,$zero,$zero
 /*    33fec:	0c00f184 */ 	jal	func0003c610
-/*    33ff0:	24840014 */ 	addiu	$a0,$a0,0x14
+/*    33ff0:	24840014 */ 	addiu	$a0,$a0,%lo(var80060014)
 .L00033ff4:
 /*    33ff4:	8faa002c */ 	lw	$t2,0x2c($sp)
 /*    33ff8:	8fac0030 */ 	lw	$t4,0x30($sp)
@@ -66605,8 +66605,8 @@ glabel func00037b00
 /*    37b00:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    37b04:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    37b08:	afa40020 */ 	sw	$a0,0x20($sp)
-/*    37b0c:	3c04800a */ 	lui	$a0,0x800a
-/*    37b10:	2484c390 */ 	addiu	$a0,$a0,-15472
+/*    37b0c:	3c04800a */ 	lui	$a0,%hi(var8009c390)
+/*    37b10:	2484c390 */ 	addiu	$a0,$a0,%lo(var8009c390)
 /*    37b14:	0c012c30 */ 	jal	func0004b0c0
 /*    37b18:	24050064 */ 	addiu	$a1,$zero,0x64
 /*    37b1c:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -66690,8 +66690,8 @@ glabel func00037b00
 /*    37c54:	8fa60020 */ 	lw	$a2,0x20($sp)
 /*    37c58:	0c00bec5 */ 	jal	func0002fb14
 /*    37c5c:	24070001 */ 	addiu	$a3,$zero,0x1
-/*    37c60:	3c0d800a */ 	lui	$t5,0x800a
-/*    37c64:	25adc390 */ 	addiu	$t5,$t5,-15472
+/*    37c60:	3c0d800a */ 	lui	$t5,%hi(var8009c390)
+/*    37c64:	25adc390 */ 	addiu	$t5,$t5,%lo(var8009c390)
 /*    37c68:	ada20044 */ 	sw	$v0,0x44($t5)
 /*    37c6c:	3c01800a */ 	lui	$at,0x800a
 /*    37c70:	ac20c3e0 */ 	sw	$zero,-0x3c20($at)
@@ -67053,8 +67053,8 @@ glabel func00037fc0
 /*    3812c:	ac20c3d0 */ 	sw	$zero,-0x3c30($at)
 /*    38130:	3c01800a */ 	lui	$at,0x800a
 /*    38134:	ac20c3d8 */ 	sw	$zero,-0x3c28($at)
-/*    38138:	3c0f800a */ 	lui	$t7,0x800a
-/*    3813c:	25efc390 */ 	addiu	$t7,$t7,-15472
+/*    38138:	3c0f800a */ 	lui	$t7,%hi(var8009c390)
+/*    3813c:	25efc390 */ 	addiu	$t7,$t7,%lo(var8009c390)
 /*    38140:	8de40044 */ 	lw	$a0,0x44($t7)
 /*    38144:	0c012c30 */ 	jal	func0004b0c0
 /*    38148:	24050440 */ 	addiu	$a1,$zero,0x440
@@ -67356,9 +67356,9 @@ glabel func00037fc0
 /*    385b4:	010a5821 */ 	addu	$t3,$t0,$t2
 /*    385b8:	ac2bc3d0 */ 	sw	$t3,-0x3c30($at)
 .L000385bc:
-/*    385bc:	3c04800a */ 	lui	$a0,0x800a
+/*    385bc:	3c04800a */ 	lui	$a0,%hi(var8009c390)
 /*    385c0:	0c00e249 */ 	jal	func00038924
-/*    385c4:	2484c390 */ 	addiu	$a0,$a0,-15472
+/*    385c4:	2484c390 */ 	addiu	$a0,$a0,%lo(var8009c390)
 /*    385c8:	3c0d800a */ 	lui	$t5,0x800a
 /*    385cc:	91adc3f1 */ 	lbu	$t5,-0x3c0f($t5)
 /*    385d0:	15a000c8 */ 	bnez	$t5,.L000388f4
@@ -67400,10 +67400,10 @@ glabel func00037fc0
 /*    38660:	3c0a800a */ 	lui	$t2,0x800a
 /*    38664:	854ac3ac */ 	lh	$t2,-0x3c54($t2)
 /*    38668:	8508c3a0 */ 	lh	$t0,-0x3c60($t0)
-/*    3866c:	3c07800a */ 	lui	$a3,0x800a
+/*    3866c:	3c07800a */ 	lui	$a3,%hi(var8009c390)
 /*    38670:	448a3000 */ 	mtc1	$t2,$f6
 /*    38674:	44882000 */ 	mtc1	$t0,$f4
-/*    38678:	24e7c390 */ 	addiu	$a3,$a3,-15472
+/*    38678:	24e7c390 */ 	addiu	$a3,$a3,%lo(var8009c390)
 /*    3867c:	3c06800a */ 	lui	$a2,0x800a
 /*    38680:	8cc6c3bc */ 	lw	$a2,-0x3c44($a2)
 /*    38684:	24e70018 */ 	addiu	$a3,$a3,0x18
@@ -67431,10 +67431,10 @@ glabel func00037fc0
 /*    386dc:	3c0a800a */ 	lui	$t2,0x800a
 /*    386e0:	854ac3b2 */ 	lh	$t2,-0x3c4e($t2)
 /*    386e4:	8508c3a2 */ 	lh	$t0,-0x3c5e($t0)
-/*    386e8:	3c07800a */ 	lui	$a3,0x800a
+/*    386e8:	3c07800a */ 	lui	$a3,%hi(var8009c390)
 /*    386ec:	448a5000 */ 	mtc1	$t2,$f10
 /*    386f0:	44884000 */ 	mtc1	$t0,$f8
-/*    386f4:	24e7c390 */ 	addiu	$a3,$a3,-15472
+/*    386f4:	24e7c390 */ 	addiu	$a3,$a3,%lo(var8009c390)
 /*    386f8:	3c06800a */ 	lui	$a2,0x800a
 /*    386fc:	8cc6c3bc */ 	lw	$a2,-0x3c44($a2)
 /*    38700:	24e7001e */ 	addiu	$a3,$a3,0x1e
@@ -71160,8 +71160,8 @@ glabel func0003bc50
 /*    3bcd4:	10000006 */ 	beqz	$zero,.L0003bcf0
 /*    3bcd8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0003bcdc:
-/*    3bcdc:	3c188006 */ 	lui	$t8,0x8006
-/*    3bce0:	2718f548 */ 	addiu	$t8,$t8,-2744
+/*    3bcdc:	3c188006 */ 	lui	$t8,%hi(var8005f548)
+/*    3bce0:	2718f548 */ 	addiu	$t8,$t8,%lo(var8005f548)
 /*    3bce4:	afb8002c */ 	sw	$t8,0x2c($sp)
 /*    3bce8:	10000001 */ 	beqz	$zero,.L0003bcf0
 /*    3bcec:	00000000 */ 	sll	$zero,$zero,0x0
@@ -72208,11 +72208,11 @@ glabel func0003cbb4
 /*    3cbe4:	af380000 */ 	sw	$t8,0x0($t9)
 /*    3cbe8:	0c00c5e9 */ 	jal	func000317a4
 /*    3cbec:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3cbf0:	3c058006 */ 	lui	$a1,0x8006
+/*    3cbf0:	3c058006 */ 	lui	$a1,%hi(var8006000c)
 /*    3cbf4:	8ca5f114 */ 	lw	$a1,-0xeec($a1)
 /*    3cbf8:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*    3cbfc:	0c00c5dc */ 	jal	func00031770
-/*    3cc00:	24a5000c */ 	addiu	$a1,$a1,0xc
+/*    3cc00:	24a5000c */ 	addiu	$a1,$a1,%lo(var8006000c)
 /*    3cc04:	10000030 */ 	beqz	$zero,.L0003ccc8
 /*    3cc08:	00000000 */ 	sll	$zero,$zero,0x0
 .L0003cc0c:
@@ -72226,11 +72226,11 @@ glabel func0003cbb4
 /*    3cc28:	ad6a0000 */ 	sw	$t2,0x0($t3)
 /*    3cc2c:	0c00c5e9 */ 	jal	func000317a4
 /*    3cc30:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*    3cc34:	3c058006 */ 	lui	$a1,0x8006
+/*    3cc34:	3c058006 */ 	lui	$a1,%hi(var8006000c)
 /*    3cc38:	8ca5f114 */ 	lw	$a1,-0xeec($a1)
 /*    3cc3c:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*    3cc40:	0c00c5dc */ 	jal	func00031770
-/*    3cc44:	24a5000c */ 	addiu	$a1,$a1,0xc
+/*    3cc44:	24a5000c */ 	addiu	$a1,$a1,%lo(var8006000c)
 /*    3cc48:	1000001f */ 	beqz	$zero,.L0003ccc8
 /*    3cc4c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0003cc50:
@@ -79825,13 +79825,13 @@ glabel func00042990
 /*    439bc:	000f7a00 */ 	sll	$t7,$t7,0x8
 /*    439c0:	000c48c0 */ 	sll	$t1,$t4,0x3
 /*    439c4:	000b70c0 */ 	sll	$t6,$t3,0x3
-/*    439c8:	3c19800a */ 	lui	$t9,0x800a
+/*    439c8:	3c19800a */ 	lui	$t9,%hi(var8009c400)
 /*    439cc:	012c4821 */ 	addu	$t1,$t1,$t4
 /*    439d0:	01cb7021 */ 	addu	$t6,$t6,$t3
 /*    439d4:	030f4021 */ 	addu	$t0,$t8,$t7
 /*    439d8:	000e7100 */ 	sll	$t6,$t6,0x4
 /*    439dc:	000948c0 */ 	sll	$t1,$t1,0x3
-/*    439e0:	2739c400 */ 	addiu	$t9,$t9,-15360
+/*    439e0:	2739c400 */ 	addiu	$t9,$t9,%lo(var8009c400)
 /*    439e4:	01d9c021 */ 	addu	$t8,$t6,$t9
 /*    439e8:	01096821 */ 	addu	$t5,$t0,$t1
 /*    439ec:	27aa0034 */ 	addiu	$t2,$sp,0x34
@@ -79921,13 +79921,13 @@ glabel func00042990
 /*    43b24:	00084200 */ 	sll	$t0,$t0,0x8
 /*    43b28:	000950c0 */ 	sll	$t2,$t1,0x3
 /*    43b2c:	000dc0c0 */ 	sll	$t8,$t5,0x3
-/*    43b30:	3c19800a */ 	lui	$t9,0x800a
+/*    43b30:	3c19800a */ 	lui	$t9,%hi(var8009c400)
 /*    43b34:	01495021 */ 	addu	$t2,$t2,$t1
 /*    43b38:	030dc021 */ 	addu	$t8,$t8,$t5
 /*    43b3c:	01e86021 */ 	addu	$t4,$t7,$t0
 /*    43b40:	0018c100 */ 	sll	$t8,$t8,0x4
 /*    43b44:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*    43b48:	2739c400 */ 	addiu	$t9,$t9,-15360
+/*    43b48:	2739c400 */ 	addiu	$t9,$t9,%lo(var8009c400)
 /*    43b4c:	03197821 */ 	addu	$t7,$t8,$t9
 /*    43b50:	018a5821 */ 	addu	$t3,$t4,$t2
 /*    43b54:	27ae0034 */ 	addiu	$t6,$sp,0x34
@@ -82619,8 +82619,8 @@ glabel func000461c0
 /*    461e0:	312900ff */ 	andi	$t1,$t1,0xff
 /*    461e4:	00065a00 */ 	sll	$t3,$a2,0x8
 /*    461e8:	01695820 */ 	add	$t3,$t3,$t1
-/*    461ec:	3c0a8006 */ 	lui	$t2,0x8006
-/*    461f0:	254af6fc */ 	addiu	$t2,$t2,-2308
+/*    461ec:	3c0a8006 */ 	lui	$t2,%hi(var8005f6fc)
+/*    461f0:	254af6fc */ 	addiu	$t2,$t2,%lo(var8005f6fc)
 /*    461f4:	8d4a0000 */ 	lw	$t2,0x0($t2)
 /*    461f8:	016a5020 */ 	add	$t2,$t3,$t2
 /*    461fc:	914a0000 */ 	lbu	$t2,0x0($t2)
@@ -82630,8 +82630,8 @@ glabel func000461c0
 /*    4620c:	018a6020 */ 	add	$t4,$t4,$t2
 /*    46210:	000c60c2 */ 	srl	$t4,$t4,0x3
 /*    46214:	008c2020 */ 	add	$a0,$a0,$t4
-/*    46218:	3c0a8006 */ 	lui	$t2,0x8006
-/*    4621c:	254af6f8 */ 	addiu	$t2,$t2,-2312
+/*    46218:	3c0a8006 */ 	lui	$t2,%hi(var8005f6f8)
+/*    4621c:	254af6f8 */ 	addiu	$t2,$t2,%lo(var8005f6f8)
 /*    46220:	8d4a0000 */ 	lw	$t2,0x0($t2)
 /*    46224:	016a5020 */ 	add	$t2,$t3,$t2
 /*    46228:	914a0000 */ 	lbu	$t2,0x0($t2)
@@ -82717,8 +82717,8 @@ glabel func000462f8
 /*    46328:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*    4632c:	8ca80000 */ 	lw	$t0,0x0($a1)
 /*    46330:	00068080 */ 	sll	$s0,$a2,0x2
-/*    46334:	3c09800a */ 	lui	$t1,0x800a
-/*    46338:	2529c650 */ 	addiu	$t1,$t1,-14768
+/*    46334:	3c09800a */ 	lui	$t1,%hi(var8009c650)
+/*    46338:	2529c650 */ 	addiu	$t1,$t1,%lo(var8009c650)
 /*    4633c:	02098020 */ 	add	$s0,$s0,$t1
 /*    46340:	8e100000 */ 	lw	$s0,0x0($s0)
 /*    46344:	8fb10040 */ 	lw	$s1,0x40($sp)
@@ -82835,8 +82835,8 @@ glabel func000464a8
 /*    464d8:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*    464dc:	8ca80000 */ 	lw	$t0,0x0($a1)
 /*    464e0:	00068080 */ 	sll	$s0,$a2,0x2
-/*    464e4:	3c09800a */ 	lui	$t1,0x800a
-/*    464e8:	2529c650 */ 	addiu	$t1,$t1,-14768
+/*    464e4:	3c09800a */ 	lui	$t1,%hi(var8009c650)
+/*    464e8:	2529c650 */ 	addiu	$t1,$t1,%lo(var8009c650)
 /*    464ec:	02098020 */ 	add	$s0,$s0,$t1
 /*    464f0:	8e100000 */ 	lw	$s0,0x0($s0)
 /*    464f4:	8fb20040 */ 	lw	$s2,0x40($sp)
@@ -84793,11 +84793,11 @@ glabel func000481f0
 /*    48224:	00000000 */ 	sll	$zero,$zero,0x0
 /*    48228:	8fb80028 */ 	lw	$t8,0x28($sp)
 /*    4822c:	240f0002 */ 	addiu	$t7,$zero,0x2
-/*    48230:	3c048006 */ 	lui	$a0,0x8006
+/*    48230:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*    48234:	a70f0010 */ 	sh	$t7,0x10($t8)
 /*    48238:	8fa50028 */ 	lw	$a1,0x28($sp)
 /*    4823c:	0c000f2e */ 	jal	func00003cb8
-/*    48240:	24840938 */ 	addiu	$a0,$a0,0x938
+/*    48240:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 /*    48244:	10000021 */ 	beqz	$zero,.L000482cc
 /*    48248:	00000000 */ 	sll	$zero,$zero,0x0
 .L0004824c:
@@ -84805,18 +84805,18 @@ glabel func000481f0
 /*    48250:	8f280008 */ 	lw	$t0,0x8($t9)
 /*    48254:	11000005 */ 	beqz	$t0,.L0004826c
 /*    48258:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4825c:	3c098006 */ 	lui	$t1,0x8006
-/*    48260:	25290938 */ 	addiu	$t1,$t1,0x938
+/*    4825c:	3c098006 */ 	lui	$t1,%hi(var80060938)
+/*    48260:	25290938 */ 	addiu	$t1,$t1,%lo(var80060938)
 /*    48264:	1509000a */ 	bne	$t0,$t1,.L00048290
 /*    48268:	00000000 */ 	sll	$zero,$zero,0x0
 .L0004826c:
 /*    4826c:	8fab0028 */ 	lw	$t3,0x28($sp)
 /*    48270:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*    48274:	3c048006 */ 	lui	$a0,0x8006
+/*    48274:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*    48278:	a56a0010 */ 	sh	$t2,0x10($t3)
 /*    4827c:	8fa50028 */ 	lw	$a1,0x28($sp)
 /*    48280:	0c000f2e */ 	jal	func00003cb8
-/*    48284:	24840938 */ 	addiu	$a0,$a0,0x938
+/*    48284:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 /*    48288:	10000010 */ 	beqz	$zero,.L000482cc
 /*    4828c:	00000000 */ 	sll	$zero,$zero,0x0
 .L00048290:
@@ -84831,8 +84831,8 @@ glabel func000481f0
 /*    482b0:	0c000f40 */ 	jal	func00003d00
 /*    482b4:	8de40008 */ 	lw	$a0,0x8($t7)
 /*    482b8:	00408825 */ 	or	$s1,$v0,$zero
-/*    482bc:	3c048006 */ 	lui	$a0,0x8006
-/*    482c0:	24840938 */ 	addiu	$a0,$a0,0x938
+/*    482bc:	3c048006 */ 	lui	$a0,%hi(var80060938)
+/*    482c0:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 /*    482c4:	0c000f2e */ 	jal	func00003cb8
 /*    482c8:	02202825 */ 	or	$a1,$s1,$zero
 .L000482cc:
@@ -84855,10 +84855,10 @@ glabel func000481f0
 /*    48308:	10200006 */ 	beqz	$at,.L00048324
 /*    4830c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    48310:	240b0002 */ 	addiu	$t3,$zero,0x2
-/*    48314:	3c048006 */ 	lui	$a0,0x8006
+/*    48314:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*    48318:	a72b0010 */ 	sh	$t3,0x10($t9)
 /*    4831c:	0c000ee8 */ 	jal	func00003ba0
-/*    48320:	24840938 */ 	addiu	$a0,$a0,0x938
+/*    48320:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 .L00048324:
 /*    48324:	0c012588 */ 	jal	func00049620
 /*    48328:	02002025 */ 	or	$a0,$s0,$zero
@@ -84871,10 +84871,10 @@ glabel func000481f0
 
 GLOBAL_ASM(
 glabel func00048340
-/*    48340:	3c0e8006 */ 	lui	$t6,0x8006
-/*    48344:	3c0f8006 */ 	lui	$t7,0x8006
-/*    48348:	25ce0930 */ 	addiu	$t6,$t6,0x930
-/*    4834c:	25ef0930 */ 	addiu	$t7,$t7,0x930
+/*    48340:	3c0e8006 */ 	lui	$t6,%hi(var80060930)
+/*    48344:	3c0f8006 */ 	lui	$t7,%hi(var80060930)
+/*    48348:	25ce0930 */ 	addiu	$t6,$t6,%lo(var80060930)
+/*    4834c:	25ef0930 */ 	addiu	$t7,$t7,%lo(var80060930)
 /*    48350:	ac8e0000 */ 	sw	$t6,0x0($a0)
 /*    48354:	ac8f0004 */ 	sw	$t7,0x4($a0)
 /*    48358:	ac800008 */ 	sw	$zero,0x8($a0)
@@ -84991,10 +84991,10 @@ glabel func00048430
 /*    484d8:	10200006 */ 	beqz	$at,.L000484f4
 /*    484dc:	00000000 */ 	sll	$zero,$zero,0x0
 /*    484e0:	24080002 */ 	addiu	$t0,$zero,0x2
-/*    484e4:	3c048006 */ 	lui	$a0,0x8006
+/*    484e4:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*    484e8:	a5a80010 */ 	sh	$t0,0x10($t5)
 /*    484ec:	0c000ee8 */ 	jal	func00003ba0
-/*    484f0:	24840938 */ 	addiu	$a0,$a0,0x938
+/*    484f0:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 .L000484f4:
 /*    484f4:	0c012588 */ 	jal	func00049620
 /*    484f8:	02002025 */ 	or	$a0,$s0,$zero
@@ -85023,9 +85023,9 @@ glabel func00048520
 /*    48534:	0c01256c */ 	jal	func000495b0
 /*    48538:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    4853c:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*    48540:	3c18800a */ 	lui	$t8,0x800a
+/*    48540:	3c18800a */ 	lui	$t8,%hi(var8009c6e0)
 /*    48544:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*    48548:	2718c6e0 */ 	addiu	$t8,$t8,-14624
+/*    48548:	2718c6e0 */ 	addiu	$t8,$t8,%lo(var8009c6e0)
 /*    4854c:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*    48550:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*    48554:	afb90020 */ 	sw	$t9,0x20($sp)
@@ -85103,8 +85103,8 @@ GLOBAL_ASM(
 glabel func00048650
 /*    48650:	400c6000 */ 	mfc0	$t4,$12
 /*    48654:	3182ff01 */ 	andi	$v0,$t4,0xff01
-/*    48658:	3c088006 */ 	lui	$t0,0x8006
-/*    4865c:	2508cf70 */ 	addiu	$t0,$t0,-12432
+/*    48658:	3c088006 */ 	lui	$t0,%hi(var8005cf70)
+/*    4865c:	2508cf70 */ 	addiu	$t0,$t0,%lo(var8005cf70)
 /*    48660:	8d0b0000 */ 	lw	$t3,0x0($t0)
 /*    48664:	2401ffff */ 	addiu	$at,$zero,-1
 /*    48668:	01614026 */ 	xor	$t0,$t3,$at
@@ -85782,19 +85782,19 @@ glabel func00048f50
 /*    48f5c:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    48f60:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*    48f64:	00402825 */ 	or	$a1,$v0,$zero
-/*    48f68:	3c038006 */ 	lui	$v1,0x8006
+/*    48f68:	3c038006 */ 	lui	$v1,%hi(var80060914)
 /*    48f6c:	308e0001 */ 	andi	$t6,$a0,0x1
 /*    48f70:	11c00006 */ 	beqz	$t6,.L00048f8c
 /*    48f74:	30990002 */ 	andi	$t9,$a0,0x2
-/*    48f78:	24630914 */ 	addiu	$v1,$v1,0x914
+/*    48f78:	24630914 */ 	addiu	$v1,$v1,%lo(var80060914)
 /*    48f7c:	8c620000 */ 	lw	$v0,0x0($v1)
 /*    48f80:	8c4f000c */ 	lw	$t7,0xc($v0)
 /*    48f84:	35f80008 */ 	ori	$t8,$t7,0x8
 /*    48f88:	ac58000c */ 	sw	$t8,0xc($v0)
 .L00048f8c:
-/*    48f8c:	3c038006 */ 	lui	$v1,0x8006
+/*    48f8c:	3c038006 */ 	lui	$v1,%hi(var80060914)
 /*    48f90:	13200006 */ 	beqz	$t9,.L00048fac
-/*    48f94:	24630914 */ 	addiu	$v1,$v1,0x914
+/*    48f94:	24630914 */ 	addiu	$v1,$v1,%lo(var80060914)
 /*    48f98:	8c620000 */ 	lw	$v0,0x0($v1)
 /*    48f9c:	2401fff7 */ 	addiu	$at,$zero,-9
 /*    48fa0:	8c48000c */ 	lw	$t0,0xc($v0)
@@ -86234,8 +86234,8 @@ glabel func00049428
 
 GLOBAL_ASM(
 glabel func000495b0
-/*    495b0:	3c0a8006 */ 	lui	$t2,0x8006
-/*    495b4:	254acf70 */ 	addiu	$t2,$t2,-12432
+/*    495b0:	3c0a8006 */ 	lui	$t2,%hi(var8005cf70)
+/*    495b4:	254acf70 */ 	addiu	$t2,$t2,%lo(var8005cf70)
 /*    495b8:	8d4b0000 */ 	lw	$t3,0x0($t2)
 /*    495bc:	316bff00 */ 	andi	$t3,$t3,0xff00
 /*    495c0:	40086000 */ 	mfc0	$t0,$12
@@ -86246,8 +86246,8 @@ glabel func000495b0
 /*    495d4:	8d480000 */ 	lw	$t0,0x0($t2)
 /*    495d8:	3108ff00 */ 	andi	$t0,$t0,0xff00
 /*    495dc:	110b000e */ 	beq	$t0,$t3,.L00049618
-/*    495e0:	3c0a8006 */ 	lui	$t2,0x8006
-/*    495e4:	254a0940 */ 	addiu	$t2,$t2,0x940
+/*    495e0:	3c0a8006 */ 	lui	$t2,%hi(var80060940)
+/*    495e4:	254a0940 */ 	addiu	$t2,$t2,%lo(var80060940)
 /*    495e8:	8d490118 */ 	lw	$t1,0x118($t2)
 /*    495ec:	312aff00 */ 	andi	$t2,$t1,0xff00
 /*    495f0:	01485024 */ 	and	$t2,$t2,$t0
@@ -86281,12 +86281,12 @@ GLOBAL_ASM(
 glabel func00049640
 /*    49640:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    49644:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    49648:	3c048006 */ 	lui	$a0,0x8006
-/*    4964c:	248408b0 */ 	addiu	$a0,$a0,0x8b0
+/*    49648:	3c048006 */ 	lui	$a0,%hi(var800608b0)
+/*    4964c:	248408b0 */ 	addiu	$a0,$a0,%lo(var800608b0)
 /*    49650:	0c012c30 */ 	jal	func0004b0c0
 /*    49654:	24050060 */ 	addiu	$a1,$zero,0x60
-/*    49658:	3c0e8006 */ 	lui	$t6,0x8006
-/*    4965c:	25ce08b0 */ 	addiu	$t6,$t6,0x8b0
+/*    49658:	3c0e8006 */ 	lui	$t6,%hi(var800608b0)
+/*    4965c:	25ce08b0 */ 	addiu	$t6,$t6,%lo(var800608b0)
 /*    49660:	3c018006 */ 	lui	$at,0x8006
 /*    49664:	ac2e0910 */ 	sw	$t6,0x910($at)
 /*    49668:	3c018006 */ 	lui	$at,0x8006
@@ -86312,8 +86312,8 @@ glabel func00049640
 /*    496b8:	00000000 */ 	sll	$zero,$zero,0x0
 /*    496bc:	3c188006 */ 	lui	$t8,0x8006
 /*    496c0:	8f180914 */ 	lw	$t8,0x914($t8)
-/*    496c4:	3c0f8006 */ 	lui	$t7,0x8006
-/*    496c8:	25ef1240 */ 	addiu	$t7,$t7,0x1240
+/*    496c4:	3c0f8006 */ 	lui	$t7,%hi(var80061240)
+/*    496c8:	25ef1240 */ 	addiu	$t7,$t7,%lo(var80061240)
 /*    496cc:	10000011 */ 	beqz	$zero,.L00049714
 /*    496d0:	af0f0008 */ 	sw	$t7,0x8($t8)
 .L000496d4:
@@ -86324,15 +86324,15 @@ glabel func00049640
 /*    496e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*    496e8:	3c088006 */ 	lui	$t0,0x8006
 /*    496ec:	8d080914 */ 	lw	$t0,0x914($t0)
-/*    496f0:	3c198006 */ 	lui	$t9,0x8006
-/*    496f4:	27391290 */ 	addiu	$t9,$t9,0x1290
+/*    496f0:	3c198006 */ 	lui	$t9,%hi(var80061290)
+/*    496f4:	27391290 */ 	addiu	$t9,$t9,%lo(var80061290)
 /*    496f8:	10000006 */ 	beqz	$zero,.L00049714
 /*    496fc:	ad190008 */ 	sw	$t9,0x8($t0)
 .L00049700:
 /*    49700:	3c0a8006 */ 	lui	$t2,0x8006
 /*    49704:	8d4a0914 */ 	lw	$t2,0x914($t2)
-/*    49708:	3c098006 */ 	lui	$t1,0x8006
-/*    4970c:	252912e0 */ 	addiu	$t1,$t1,0x12e0
+/*    49708:	3c098006 */ 	lui	$t1,%hi(var800612e0)
+/*    4970c:	252912e0 */ 	addiu	$t1,$t1,%lo(var800612e0)
 /*    49710:	ad490008 */ 	sw	$t1,0x8($t2)
 .L00049714:
 /*    49714:	3c0c8006 */ 	lui	$t4,0x8006
@@ -86536,19 +86536,19 @@ glabel func00049790
 /*    499d8:	ad6a0018 */ 	sw	$t2,0x18($t3)
 /*    499dc:	8cad0014 */ 	lw	$t5,0x14($a1)
 /*    499e0:	3c0aa440 */ 	lui	$t2,0xa440
-/*    499e4:	3c028006 */ 	lui	$v0,0x8006
+/*    499e4:	3c028006 */ 	lui	$v0,%hi(var80060910)
 /*    499e8:	ad8d001c */ 	sw	$t5,0x1c($t4)
 /*    499ec:	8cae0018 */ 	lw	$t6,0x18($a1)
 /*    499f0:	3c0da440 */ 	lui	$t5,0xa440
-/*    499f4:	24420910 */ 	addiu	$v0,$v0,0x910
+/*    499f4:	24420910 */ 	addiu	$v0,$v0,%lo(var80060910)
 /*    499f8:	adee0020 */ 	sw	$t6,0x20($t7)
 /*    499fc:	af070024 */ 	sw	$a3,0x24($t8)
 /*    49a00:	8fb90034 */ 	lw	$t9,0x34($sp)
 /*    49a04:	3c0ea440 */ 	lui	$t6,0xa440
-/*    49a08:	3c038006 */ 	lui	$v1,0x8006
+/*    49a08:	3c038006 */ 	lui	$v1,%hi(var80060914)
 /*    49a0c:	ad190028 */ 	sw	$t9,0x28($t0)
 /*    49a10:	8cc90034 */ 	lw	$t1,0x34($a2)
-/*    49a14:	24630914 */ 	addiu	$v1,$v1,0x914
+/*    49a14:	24630914 */ 	addiu	$v1,$v1,%lo(var80060914)
 /*    49a18:	ad49002c */ 	sw	$t1,0x2c($t2)
 /*    49a1c:	8ccb0038 */ 	lw	$t3,0x38($a2)
 /*    49a20:	adab000c */ 	sw	$t3,0xc($t5)
@@ -86588,15 +86588,15 @@ glabel func00049a90
 /*    49a94:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    49a98:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*    49a9c:	3c018006 */ 	lui	$at,0x8006
-/*    49aa0:	3c04800a */ 	lui	$a0,0x800a
-/*    49aa4:	3c05800a */ 	lui	$a1,0x800a
+/*    49aa0:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)
+/*    49aa4:	3c05800a */ 	lui	$a1,%hi(var8009c7a0)
 /*    49aa8:	ac2e0920 */ 	sw	$t6,0x920($at)
-/*    49aac:	24a5c7a0 */ 	addiu	$a1,$a1,-14432
-/*    49ab0:	2484c7a8 */ 	addiu	$a0,$a0,-14424
+/*    49aac:	24a5c7a0 */ 	addiu	$a1,$a1,%lo(var8009c7a0)
+/*    49ab0:	2484c7a8 */ 	addiu	$a0,$a0,%lo(var8009c7a8)
 /*    49ab4:	0c0120d0 */ 	jal	func00048340
 /*    49ab8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    49abc:	3c04800a */ 	lui	$a0,0x800a
-/*    49ac0:	2484c7a8 */ 	addiu	$a0,$a0,-14424
+/*    49abc:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)
+/*    49ac0:	2484c7a8 */ 	addiu	$a0,$a0,%lo(var8009c7a8)
 /*    49ac4:	00002825 */ 	or	$a1,$zero,$zero
 /*    49ac8:	0c012238 */ 	jal	func000488e0
 /*    49acc:	00003025 */ 	or	$a2,$zero,$zero
@@ -86617,8 +86617,8 @@ glabel func00049ae0
 /*    49af8:	0c0126a4 */ 	jal	func00049a90
 /*    49afc:	00000000 */ 	sll	$zero,$zero,0x0
 .L00049b00:
-/*    49b00:	3c04800a */ 	lui	$a0,0x800a
-/*    49b04:	2484c7a8 */ 	addiu	$a0,$a0,-14424
+/*    49b00:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)
+/*    49b04:	2484c7a8 */ 	addiu	$a0,$a0,%lo(var8009c7a8)
 /*    49b08:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    49b0c:	0c0121bc */ 	jal	func000486f0
 /*    49b10:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -86632,8 +86632,8 @@ GLOBAL_ASM(
 glabel func00049b24
 /*    49b24:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    49b28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    49b2c:	3c04800a */ 	lui	$a0,0x800a
-/*    49b30:	2484c7a8 */ 	addiu	$a0,$a0,-14424
+/*    49b2c:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)
+/*    49b30:	2484c7a8 */ 	addiu	$a0,$a0,%lo(var8009c7a8)
 /*    49b34:	00002825 */ 	or	$a1,$zero,$zero
 /*    49b38:	0c012238 */ 	jal	func000488e0
 /*    49b3c:	00003025 */ 	or	$a2,$zero,$zero
@@ -87576,15 +87576,15 @@ glabel func0004a810
 /*    4a814:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4a818:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*    4a81c:	3c018006 */ 	lui	$at,0x8006
-/*    4a820:	3c04800a */ 	lui	$a0,0x800a
-/*    4a824:	3c05800a */ 	lui	$a1,0x800a
+/*    4a820:	3c04800a */ 	lui	$a0,%hi(var8009c7c8)
+/*    4a824:	3c05800a */ 	lui	$a1,%hi(var8009c7c0)
 /*    4a828:	ac2e0950 */ 	sw	$t6,0x950($at)
-/*    4a82c:	24a5c7c0 */ 	addiu	$a1,$a1,-14400
-/*    4a830:	2484c7c8 */ 	addiu	$a0,$a0,-14392
+/*    4a82c:	24a5c7c0 */ 	addiu	$a1,$a1,%lo(var8009c7c0)
+/*    4a830:	2484c7c8 */ 	addiu	$a0,$a0,%lo(var8009c7c8)
 /*    4a834:	0c0120d0 */ 	jal	func00048340
 /*    4a838:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4a83c:	3c04800a */ 	lui	$a0,0x800a
-/*    4a840:	2484c7c8 */ 	addiu	$a0,$a0,-14392
+/*    4a83c:	3c04800a */ 	lui	$a0,%hi(var8009c7c8)
+/*    4a840:	2484c7c8 */ 	addiu	$a0,$a0,%lo(var8009c7c8)
 /*    4a844:	00002825 */ 	or	$a1,$zero,$zero
 /*    4a848:	0c012238 */ 	jal	func000488e0
 /*    4a84c:	00003025 */ 	or	$a2,$zero,$zero
@@ -87605,8 +87605,8 @@ glabel func0004a860
 /*    4a878:	0c012a04 */ 	jal	func0004a810
 /*    4a87c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0004a880:
-/*    4a880:	3c04800a */ 	lui	$a0,0x800a
-/*    4a884:	2484c7c8 */ 	addiu	$a0,$a0,-14392
+/*    4a880:	3c04800a */ 	lui	$a0,%hi(var8009c7c8)
+/*    4a884:	2484c7c8 */ 	addiu	$a0,$a0,%lo(var8009c7c8)
 /*    4a888:	27a5001c */ 	addiu	$a1,$sp,0x1c
 /*    4a88c:	0c0121bc */ 	jal	func000486f0
 /*    4a890:	24060001 */ 	addiu	$a2,$zero,0x1
@@ -87620,8 +87620,8 @@ GLOBAL_ASM(
 glabel func0004a8a4
 /*    4a8a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4a8a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    4a8ac:	3c04800a */ 	lui	$a0,0x800a
-/*    4a8b0:	2484c7c8 */ 	addiu	$a0,$a0,-14392
+/*    4a8ac:	3c04800a */ 	lui	$a0,%hi(var8009c7c8)
+/*    4a8b0:	2484c7c8 */ 	addiu	$a0,$a0,%lo(var8009c7c8)
 /*    4a8b4:	00002825 */ 	or	$a1,$zero,$zero
 /*    4a8b8:	0c012238 */ 	jal	func000488e0
 /*    4a8bc:	00003025 */ 	or	$a2,$zero,$zero
@@ -87746,8 +87746,8 @@ glabel func0004a980
 /*    4aa58:	a038c821 */ 	sb	$t8,-0x37df($at)
 /*    4aa5c:	0c012af0 */ 	jal	func0004abc0
 /*    4aa60:	00002025 */ 	or	$a0,$zero,$zero
-/*    4aa64:	3c05800a */ 	lui	$a1,0x800a
-/*    4aa68:	24a5c7e0 */ 	addiu	$a1,$a1,-14368
+/*    4aa64:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
+/*    4aa68:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
 /*    4aa6c:	0c012a34 */ 	jal	func0004a8d0
 /*    4aa70:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    4aa74:	afa20068 */ 	sw	$v0,0x68($sp)
@@ -87755,8 +87755,8 @@ glabel func0004a980
 /*    4aa7c:	27a5006c */ 	addiu	$a1,$sp,0x6c
 /*    4aa80:	0c0121bc */ 	jal	func000486f0
 /*    4aa84:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4aa88:	3c05800a */ 	lui	$a1,0x800a
-/*    4aa8c:	24a5c7e0 */ 	addiu	$a1,$a1,-14368
+/*    4aa88:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
+/*    4aa8c:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
 /*    4aa90:	0c012a34 */ 	jal	func0004a8d0
 /*    4aa94:	00002025 */ 	or	$a0,$zero,$zero
 /*    4aa98:	afa20068 */ 	sw	$v0,0x68($sp)
@@ -87770,10 +87770,10 @@ glabel func0004a980
 /*    4aab8:	3c01800a */ 	lui	$at,0x800a
 /*    4aabc:	0c012a04 */ 	jal	func0004a810
 /*    4aac0:	a020c820 */ 	sb	$zero,-0x37e0($at)
-/*    4aac4:	3c04800a */ 	lui	$a0,0x800a
-/*    4aac8:	3c05800a */ 	lui	$a1,0x800a
-/*    4aacc:	24a5c860 */ 	addiu	$a1,$a1,-14240
-/*    4aad0:	2484c848 */ 	addiu	$a0,$a0,-14264
+/*    4aac4:	3c04800a */ 	lui	$a0,%hi(var8009c848)
+/*    4aac8:	3c05800a */ 	lui	$a1,%hi(var8009c860)
+/*    4aacc:	24a5c860 */ 	addiu	$a1,$a1,%lo(var8009c860)
+/*    4aad0:	2484c848 */ 	addiu	$a0,$a0,%lo(var8009c848)
 /*    4aad4:	0c0120d0 */ 	jal	func00048340
 /*    4aad8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4aadc:	8fa20068 */ 	lw	$v0,0x68($sp)
@@ -87789,8 +87789,8 @@ glabel func0004aaf0
 /*    4aaf0:	3c0f800a */ 	lui	$t7,0x800a
 /*    4aaf4:	91efc821 */ 	lbu	$t7,-0x37df($t7)
 /*    4aaf8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4aafc:	3c0e800a */ 	lui	$t6,0x800a
-/*    4ab00:	25cec7e0 */ 	addiu	$t6,$t6,-14368
+/*    4aafc:	3c0e800a */ 	lui	$t6,%hi(var8009c7e0)
+/*    4ab00:	25cec7e0 */ 	addiu	$t6,$t6,%lo(var8009c7e0)
 /*    4ab04:	a3a00007 */ 	sb	$zero,0x7($sp)
 /*    4ab08:	afae0014 */ 	sw	$t6,0x14($sp)
 /*    4ab0c:	19e00028 */ 	blez	$t7,.L0004abb0
@@ -87861,10 +87861,10 @@ glabel func0004abc0
 /*    4abf0:	afb90000 */ 	sw	$t9,0x0($sp)
 /*    4abf4:	3c19800a */ 	lui	$t9,0x800a
 /*    4abf8:	9339c821 */ 	lbu	$t9,-0x37df($t9)
-/*    4abfc:	3c09800a */ 	lui	$t1,0x800a
+/*    4abfc:	3c09800a */ 	lui	$t1,%hi(var8009c7e0)
 /*    4ac00:	24080001 */ 	addiu	$t0,$zero,0x1
 /*    4ac04:	3c01800a */ 	lui	$at,0x800a
-/*    4ac08:	2529c7e0 */ 	addiu	$t1,$t1,-14368
+/*    4ac08:	2529c7e0 */ 	addiu	$t1,$t1,%lo(var8009c7e0)
 /*    4ac0c:	240a00ff */ 	addiu	$t2,$zero,0xff
 /*    4ac10:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*    4ac14:	240c0003 */ 	addiu	$t4,$zero,0x3
@@ -88679,12 +88679,12 @@ glabel func0004b610
 /*    4b688:	a7a60072 */ 	sh	$a2,0x72($sp)
 /*    4b68c:	0010c0c3 */ 	sra	$t8,$s0,0x3
 /*    4b690:	0010c940 */ 	sll	$t9,$s0,0x5
-/*    4b694:	3c178006 */ 	lui	$s7,0x8006
-/*    4b698:	3c16800a */ 	lui	$s6,0x800a
-/*    4b69c:	3c138009 */ 	lui	$s3,0x8009
-/*    4b6a0:	26730a20 */ 	addiu	$s3,$s3,0xa20
-/*    4b6a4:	26d6c820 */ 	addiu	$s6,$s6,-14304
-/*    4b6a8:	26f70970 */ 	addiu	$s7,$s7,0x970
+/*    4b694:	3c178006 */ 	lui	$s7,%hi(var80060970)
+/*    4b698:	3c16800a */ 	lui	$s6,%hi(var8009c820)
+/*    4b69c:	3c138009 */ 	lui	$s3,%hi(var80090a20)
+/*    4b6a0:	26730a20 */ 	addiu	$s3,$s3,%lo(var80090a20)
+/*    4b6a4:	26d6c820 */ 	addiu	$s6,$s6,%lo(var8009c820)
+/*    4b6a8:	26f70970 */ 	addiu	$s7,$s7,%lo(var80060970)
 /*    4b6ac:	afb90040 */ 	sw	$t9,0x40($sp)
 /*    4b6b0:	afb80044 */ 	sw	$t8,0x44($sp)
 /*    4b6b4:	241e0003 */ 	addiu	$s8,$zero,0x3
@@ -88826,16 +88826,16 @@ glabel func0004b860
 /*    4b89c:	0c012a18 */ 	jal	func0004a860
 /*    4b8a0:	24150002 */ 	addiu	$s5,$zero,0x2
 /*    4b8a4:	97a5006a */ 	lhu	$a1,0x6a($sp)
-/*    4b8a8:	3c1e8006 */ 	lui	$s8,0x8006
-/*    4b8ac:	3c17800a */ 	lui	$s7,0x800a
-/*    4b8b0:	3c148009 */ 	lui	$s4,0x8009
+/*    4b8a8:	3c1e8006 */ 	lui	$s8,%hi(var80060970)
+/*    4b8ac:	3c17800a */ 	lui	$s7,%hi(var8009c820)
+/*    4b8b0:	3c148009 */ 	lui	$s4,%hi(var80090a20)
 /*    4b8b4:	000570c3 */ 	sra	$t6,$a1,0x3
 /*    4b8b8:	00057940 */ 	sll	$t7,$a1,0x5
 /*    4b8bc:	afaf0040 */ 	sw	$t7,0x40($sp)
 /*    4b8c0:	afae0044 */ 	sw	$t6,0x44($sp)
-/*    4b8c4:	26940a20 */ 	addiu	$s4,$s4,0xa20
-/*    4b8c8:	26f7c820 */ 	addiu	$s7,$s7,-14304
-/*    4b8cc:	27de0970 */ 	addiu	$s8,$s8,0x970
+/*    4b8c4:	26940a20 */ 	addiu	$s4,$s4,%lo(var80090a20)
+/*    4b8c8:	26f7c820 */ 	addiu	$s7,$s7,%lo(var8009c820)
+/*    4b8cc:	27de0970 */ 	addiu	$s8,$s8,%lo(var80060970)
 .L0004b8d0:
 /*    4b8d0:	92f80000 */ 	lbu	$t8,0x0($s7)
 /*    4b8d4:	24010002 */ 	addiu	$at,$zero,0x2
@@ -88973,16 +88973,16 @@ glabel func0004ba90
 /*    4baac:	a02e0984 */ 	sb	$t6,0x984($at)
 /*    4bab0:	0c012ed8 */ 	jal	func0004bb60
 /*    4bab4:	00002825 */ 	or	$a1,$zero,$zero
-/*    4bab8:	3c058009 */ 	lui	$a1,0x8009
-/*    4babc:	24a50a20 */ 	addiu	$a1,$a1,0xa20
+/*    4bab8:	3c058009 */ 	lui	$a1,%hi(var80090a20)
+/*    4babc:	24a50a20 */ 	addiu	$a1,$a1,%lo(var80090a20)
 /*    4bac0:	0c012a34 */ 	jal	func0004a8d0
 /*    4bac4:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    4bac8:	8fa40030 */ 	lw	$a0,0x30($sp)
 /*    4bacc:	27a50028 */ 	addiu	$a1,$sp,0x28
 /*    4bad0:	0c0121bc */ 	jal	func000486f0
 /*    4bad4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4bad8:	3c058009 */ 	lui	$a1,0x8009
-/*    4badc:	24a50a20 */ 	addiu	$a1,$a1,0xa20
+/*    4bad8:	3c058009 */ 	lui	$a1,%hi(var80090a20)
+/*    4badc:	24a50a20 */ 	addiu	$a1,$a1,%lo(var80090a20)
 /*    4bae0:	0c012a34 */ 	jal	func0004a8d0
 /*    4bae4:	00002025 */ 	or	$a0,$zero,$zero
 /*    4bae8:	afa2002c */ 	sw	$v0,0x2c($sp)
@@ -89079,9 +89079,9 @@ glabel func0004bb60
 
 GLOBAL_ASM(
 glabel func0004bc24
-/*    4bc24:	3c028009 */ 	lui	$v0,0x8009
+/*    4bc24:	3c028009 */ 	lui	$v0,%hi(var80090a20)
 /*    4bc28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4bc2c:	24420a20 */ 	addiu	$v0,$v0,0xa20
+/*    4bc2c:	24420a20 */ 	addiu	$v0,$v0,%lo(var80090a20)
 /*    4bc30:	1880000b */ 	blez	$a0,.L0004bc60
 /*    4bc34:	00001825 */ 	or	$v1,$zero,$zero
 /*    4bc38:	30870003 */ 	andi	$a3,$a0,0x3
@@ -89184,16 +89184,16 @@ glabel func0004bcc0
 /*    4bd84:	93a4004f */ 	lbu	$a0,0x4f($sp)
 /*    4bd88:	0c012f8e */ 	jal	func0004be38
 /*    4bd8c:	8fa50050 */ 	lw	$a1,0x50($sp)
-/*    4bd90:	3c05800a */ 	lui	$a1,0x800a
-/*    4bd94:	24a5ca80 */ 	addiu	$a1,$a1,-13696
+/*    4bd90:	3c05800a */ 	lui	$a1,%hi(var8009ca80)
+/*    4bd94:	24a5ca80 */ 	addiu	$a1,$a1,%lo(var8009ca80)
 /*    4bd98:	0c012a34 */ 	jal	func0004a8d0
 /*    4bd9c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    4bda0:	02202025 */ 	or	$a0,$s1,$zero
 /*    4bda4:	00002825 */ 	or	$a1,$zero,$zero
 /*    4bda8:	0c0121bc */ 	jal	func000486f0
 /*    4bdac:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4bdb0:	3c05800a */ 	lui	$a1,0x800a
-/*    4bdb4:	24a5ca80 */ 	addiu	$a1,$a1,-13696
+/*    4bdb0:	3c05800a */ 	lui	$a1,%hi(var8009ca80)
+/*    4bdb4:	24a5ca80 */ 	addiu	$a1,$a1,%lo(var8009ca80)
 /*    4bdb8:	0c012a34 */ 	jal	func0004a8d0
 /*    4bdbc:	00002025 */ 	or	$a0,$zero,$zero
 /*    4bdc0:	240c0005 */ 	addiu	$t4,$zero,0x5
@@ -89203,8 +89203,8 @@ glabel func0004bcc0
 /*    4bdd0:	00002825 */ 	or	$a1,$zero,$zero
 /*    4bdd4:	0c0121bc */ 	jal	func000486f0
 /*    4bdd8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    4bddc:	3c07800a */ 	lui	$a3,0x800a
-/*    4bde0:	24e7ca84 */ 	addiu	$a3,$a3,-13692
+/*    4bddc:	3c07800a */ 	lui	$a3,%hi(var8009ca84)
+/*    4bde0:	24e7ca84 */ 	addiu	$a3,$a3,%lo(var8009ca84)
 /*    4bde4:	88e10000 */ 	lwl	$at,0x0($a3)
 /*    4bde8:	98e10003 */ 	lwr	$at,0x3($a3)
 /*    4bdec:	27ad0030 */ 	addiu	$t5,$sp,0x30
@@ -89232,8 +89232,8 @@ glabel func0004bcc0
 GLOBAL_ASM(
 glabel func0004be38
 /*    4be38:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4be3c:	3c07800a */ 	lui	$a3,0x800a
-/*    4be40:	24e7ca80 */ 	addiu	$a3,$a3,-13696
+/*    4be3c:	3c07800a */ 	lui	$a3,%hi(var8009ca80)
+/*    4be40:	24e7ca80 */ 	addiu	$a3,$a3,%lo(var8009ca80)
 /*    4be44:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*    4be48:	2418000a */ 	addiu	$t8,$zero,0xa
 /*    4be4c:	24190001 */ 	addiu	$t9,$zero,0x1
@@ -89280,20 +89280,20 @@ glabel func0004be38
 GLOBAL_ASM(
 glabel func0004bee4
 /*    4bee4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*    4bee8:	3c02800a */ 	lui	$v0,0x800a
-/*    4beec:	3c03800a */ 	lui	$v1,0x800a
+/*    4bee8:	3c02800a */ 	lui	$v0,%hi(var8009ca80)
+/*    4beec:	3c03800a */ 	lui	$v1,%hi(var8009cac0)
 /*    4bef0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4bef4:	afa40030 */ 	sw	$a0,0x30($sp)
 /*    4bef8:	afa50034 */ 	sw	$a1,0x34($sp)
-/*    4befc:	2463cac0 */ 	addiu	$v1,$v1,-13632
-/*    4bf00:	2442ca80 */ 	addiu	$v0,$v0,-13696
+/*    4befc:	2463cac0 */ 	addiu	$v1,$v1,%lo(var8009cac0)
+/*    4bf00:	2442ca80 */ 	addiu	$v0,$v0,%lo(var8009ca80)
 .L0004bf04:
 /*    4bf04:	24420004 */ 	addiu	$v0,$v0,0x4
 /*    4bf08:	0043082b */ 	sltu	$at,$v0,$v1
 /*    4bf0c:	1420fffd */ 	bnez	$at,.L0004bf04
 /*    4bf10:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*    4bf14:	3c05800a */ 	lui	$a1,0x800a
-/*    4bf18:	24a5ca80 */ 	addiu	$a1,$a1,-13696
+/*    4bf14:	3c05800a */ 	lui	$a1,%hi(var8009ca80)
+/*    4bf18:	24a5ca80 */ 	addiu	$a1,$a1,%lo(var8009ca80)
 /*    4bf1c:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*    4bf20:	acae003c */ 	sw	$t6,0x3c($a1)
 /*    4bf24:	00a01025 */ 	or	$v0,$a1,$zero
@@ -89337,9 +89337,9 @@ glabel func0004bee4
 /*    4bfb8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4bfbc:	241900fe */ 	addiu	$t9,$zero,0xfe
 /*    4bfc0:	3c01800a */ 	lui	$at,0x800a
-/*    4bfc4:	3c05800a */ 	lui	$a1,0x800a
+/*    4bfc4:	3c05800a */ 	lui	$a1,%hi(var8009ca80)
 /*    4bfc8:	a039c820 */ 	sb	$t9,-0x37e0($at)
-/*    4bfcc:	24a5ca80 */ 	addiu	$a1,$a1,-13696
+/*    4bfcc:	24a5ca80 */ 	addiu	$a1,$a1,%lo(var8009ca80)
 /*    4bfd0:	0c012a34 */ 	jal	func0004a8d0
 /*    4bfd4:	00002025 */ 	or	$a0,$zero,$zero
 /*    4bfd8:	8fa40030 */ 	lw	$a0,0x30($sp)
@@ -90054,8 +90054,8 @@ glabel func0004c934
 /*    4c97c:	92490065 */ 	lbu	$t1,0x65($s2)
 /*    4c980:	8f390980 */ 	lw	$t9,0x980($t9)
 /*    4c984:	8c880008 */ 	lw	$t0,0x8($a0)
-/*    4c988:	3c04800a */ 	lui	$a0,0x800a
-/*    4c98c:	2484c870 */ 	addiu	$a0,$a0,-14224
+/*    4c988:	3c04800a */ 	lui	$a0,%hi(var8009c870)
+/*    4c98c:	2484c870 */ 	addiu	$a0,$a0,%lo(var8009c870)
 /*    4c990:	57280006 */ 	bnel	$t9,$t0,.L0004c9ac
 /*    4c994:	92490065 */ 	lbu	$t1,0x65($s2)
 /*    4c998:	0c012c5c */ 	jal	func0004b170
@@ -90210,8 +90210,8 @@ glabel func0004c934
 /*    4cbb8:	93ab0067 */ 	lbu	$t3,0x67($sp)
 .L0004cbbc:
 /*    4cbbc:	3c018006 */ 	lui	$at,0x8006
-/*    4cbc0:	3c05800a */ 	lui	$a1,0x800a
-/*    4cbc4:	24a5c870 */ 	addiu	$a1,$a1,-14224
+/*    4cbc0:	3c05800a */ 	lui	$a1,%hi(var8009c870)
+/*    4cbc4:	24a5c870 */ 	addiu	$a1,$a1,%lo(var8009c870)
 /*    4cbc8:	8fa4005c */ 	lw	$a0,0x5c($sp)
 /*    4cbcc:	24060100 */ 	addiu	$a2,$zero,0x100
 /*    4cbd0:	0c012c5c */ 	jal	func0004b170
@@ -91904,8 +91904,8 @@ glabel func0004e1b0
 
 GLOBAL_ASM(
 glabel func0004e270
-/*    4e270:	3c058006 */ 	lui	$a1,0x8006
-/*    4e274:	24a5cf68 */ 	addiu	$a1,$a1,-12440
+/*    4e270:	3c058006 */ 	lui	$a1,%hi(var8005cf68)
+/*    4e274:	24a5cf68 */ 	addiu	$a1,$a1,%lo(var8005cf68)
 /*    4e278:	8cae0000 */ 	lw	$t6,0x0($a1)
 /*    4e27c:	44844000 */ 	mtc1	$a0,$f8
 /*    4e280:	3c014f80 */ 	lui	$at,0x4f80
@@ -92684,9 +92684,9 @@ glabel func0004ed00
 /*    4ed14:	afb40028 */ 	sw	$s4,0x28($sp)
 /*    4ed18:	afb30024 */ 	sw	$s3,0x24($sp)
 /*    4ed1c:	afa700e4 */ 	sw	$a3,0xe4($sp)
-/*    4ed20:	3c158006 */ 	lui	$s5,0x8006
+/*    4ed20:	3c158006 */ 	lui	$s5,%hi(var800609c4)
 /*    4ed24:	3c167006 */ 	lui	$s6,0x7006
-/*    4ed28:	3c178006 */ 	lui	$s7,0x8006
+/*    4ed28:	3c178006 */ 	lui	$s7,%hi(var800609a0)
 /*    4ed2c:	00c03825 */ 	or	$a3,$a2,$zero
 /*    4ed30:	00a09825 */ 	or	$s3,$a1,$zero
 /*    4ed34:	0080a025 */ 	or	$s4,$a0,$zero
@@ -92696,9 +92696,9 @@ glabel func0004ed00
 /*    4ed44:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    4ed48:	afa600e0 */ 	sw	$a2,0xe0($sp)
 /*    4ed4c:	afa000cc */ 	sw	$zero,0xcc($sp)
-/*    4ed50:	26f709a0 */ 	addiu	$s7,$s7,0x9a0
+/*    4ed50:	26f709a0 */ 	addiu	$s7,$s7,%lo(var800609a0)
 /*    4ed54:	26d69ed4 */ 	addiu	$s6,$s6,-24876
-/*    4ed58:	26b509c4 */ 	addiu	$s5,$s5,0x9c4
+/*    4ed58:	26b509c4 */ 	addiu	$s5,$s5,%lo(var800609c4)
 /*    4ed5c:	241e000a */ 	addiu	$s8,$zero,0xa
 .L0004ed60:
 /*    4ed60:	90e20000 */ 	lbu	$v0,0x0($a3)
@@ -93156,8 +93156,8 @@ glabel func0004f350
 /*    4f370:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4f374:	0c012af0 */ 	jal	func0004abc0
 /*    4f378:	00002025 */ 	or	$a0,$zero,$zero
-/*    4f37c:	3c05800a */ 	lui	$a1,0x800a
-/*    4f380:	24a5c7e0 */ 	addiu	$a1,$a1,-14368
+/*    4f37c:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
+/*    4f380:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
 /*    4f384:	0c012a34 */ 	jal	func0004a8d0
 /*    4f388:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    4f38c:	afa2001c */ 	sw	$v0,0x1c($sp)
@@ -93166,8 +93166,8 @@ glabel func0004f350
 /*    4f398:	0c0121bc */ 	jal	func000486f0
 /*    4f39c:	24060001 */ 	addiu	$a2,$zero,0x1
 .L0004f3a0:
-/*    4f3a0:	3c05800a */ 	lui	$a1,0x800a
-/*    4f3a4:	24a5c7e0 */ 	addiu	$a1,$a1,-14368
+/*    4f3a0:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
+/*    4f3a4:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
 /*    4f3a8:	0c012a34 */ 	jal	func0004a8d0
 /*    4f3ac:	00002025 */ 	or	$a0,$zero,$zero
 /*    4f3b0:	3c01800a */ 	lui	$at,0x800a
@@ -93209,8 +93209,8 @@ glabel func0004f400
 /*    4f420:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4f424:	0c013d44 */ 	jal	func0004f510
 /*    4f428:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4f42c:	3c05800a */ 	lui	$a1,0x800a
-/*    4f430:	24a5c7e0 */ 	addiu	$a1,$a1,-14368
+/*    4f42c:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
+/*    4f430:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
 /*    4f434:	0c012a34 */ 	jal	func0004a8d0
 /*    4f438:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    4f43c:	8fa40020 */ 	lw	$a0,0x20($sp)
@@ -93218,8 +93218,8 @@ glabel func0004f400
 /*    4f444:	0c0121bc */ 	jal	func000486f0
 /*    4f448:	24060001 */ 	addiu	$a2,$zero,0x1
 .L0004f44c:
-/*    4f44c:	3c05800a */ 	lui	$a1,0x800a
-/*    4f450:	24a5c7e0 */ 	addiu	$a1,$a1,-14368
+/*    4f44c:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
+/*    4f450:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
 /*    4f454:	0c012a34 */ 	jal	func0004a8d0
 /*    4f458:	00002025 */ 	or	$a0,$zero,$zero
 /*    4f45c:	240f0001 */ 	addiu	$t7,$zero,0x1
@@ -93239,9 +93239,9 @@ glabel func0004f484
 /*    4f484:	3c05800a */ 	lui	$a1,0x800a
 /*    4f488:	24a5c821 */ 	addiu	$a1,$a1,-14303
 /*    4f48c:	90ae0000 */ 	lbu	$t6,0x0($a1)
-/*    4f490:	3c02800a */ 	lui	$v0,0x800a
+/*    4f490:	3c02800a */ 	lui	$v0,%hi(var8009c7e0)
 /*    4f494:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*    4f498:	2442c7e0 */ 	addiu	$v0,$v0,-14368
+/*    4f498:	2442c7e0 */ 	addiu	$v0,$v0,%lo(var8009c7e0)
 /*    4f49c:	19c0001a */ 	blez	$t6,.L0004f508
 /*    4f4a0:	00001825 */ 	or	$v1,$zero,$zero
 /*    4f4a4:	27a60004 */ 	addiu	$a2,$sp,0x4
@@ -93278,14 +93278,14 @@ glabel func0004f484
 
 GLOBAL_ASM(
 glabel func0004f510
-/*    4f510:	3c05800a */ 	lui	$a1,0x800a
-/*    4f514:	24a5c7e0 */ 	addiu	$a1,$a1,-14368
-/*    4f518:	3c04800a */ 	lui	$a0,0x800a
-/*    4f51c:	3c03800a */ 	lui	$v1,0x800a
+/*    4f510:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
+/*    4f514:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
+/*    4f518:	3c04800a */ 	lui	$a0,%hi(var8009c7e0)
+/*    4f51c:	3c03800a */ 	lui	$v1,%hi(var8009c81c)
 /*    4f520:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4f524:	00a01025 */ 	or	$v0,$a1,$zero
-/*    4f528:	2463c81c */ 	addiu	$v1,$v1,-14308
-/*    4f52c:	2484c7e0 */ 	addiu	$a0,$a0,-14368
+/*    4f528:	2463c81c */ 	addiu	$v1,$v1,%lo(var8009c81c)
+/*    4f52c:	2484c7e0 */ 	addiu	$a0,$a0,%lo(var8009c7e0)
 .L0004f530:
 /*    4f530:	24840004 */ 	addiu	$a0,$a0,0x4
 /*    4f534:	0083082b */ 	sltu	$at,$a0,$v1
@@ -93342,8 +93342,8 @@ glabel func0004f5e0
 /*    4f5e8:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    4f5ec:	8c8e0008 */ 	lw	$t6,0x8($a0)
 /*    4f5f0:	8c990000 */ 	lw	$t9,0x0($a0)
-/*    4f5f4:	3c18800a */ 	lui	$t8,0x800a
-/*    4f5f8:	2718c970 */ 	addiu	$t8,$t8,-13968
+/*    4f5f4:	3c18800a */ 	lui	$t8,%hi(var8009c970)
+/*    4f5f8:	2718c970 */ 	addiu	$t8,$t8,%lo(var8009c970)
 /*    4f5fc:	000e7980 */ 	sll	$t7,$t6,0x6
 /*    4f600:	33290008 */ 	andi	$t1,$t9,0x8
 /*    4f604:	00808025 */ 	or	$s0,$a0,$zero
@@ -93357,8 +93357,8 @@ glabel func0004f5e0
 /*    4f620:	0c012a18 */ 	jal	func0004a860
 /*    4f624:	afa80024 */ 	sw	$t0,0x24($sp)
 /*    4f628:	8e0b0008 */ 	lw	$t3,0x8($s0)
-/*    4f62c:	3c06800a */ 	lui	$a2,0x800a
-/*    4f630:	24c6c970 */ 	addiu	$a2,$a2,-13968
+/*    4f62c:	3c06800a */ 	lui	$a2,%hi(var8009c970)
+/*    4f630:	24c6c970 */ 	addiu	$a2,$a2,%lo(var8009c970)
 /*    4f634:	000b6180 */ 	sll	$t4,$t3,0x6
 /*    4f638:	00cc6821 */ 	addu	$t5,$a2,$t4
 /*    4f63c:	240a0001 */ 	addiu	$t2,$zero,0x1
@@ -93393,8 +93393,8 @@ glabel func0004f5e0
 /*    4f6ac:	0c0121bc */ 	jal	func000486f0
 /*    4f6b0:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4f6b4:	8e090008 */ 	lw	$t1,0x8($s0)
-/*    4f6b8:	3c0c800a */ 	lui	$t4,0x800a
-/*    4f6bc:	258cc970 */ 	addiu	$t4,$t4,-13968
+/*    4f6b8:	3c0c800a */ 	lui	$t4,%hi(var8009c970)
+/*    4f6bc:	258cc970 */ 	addiu	$t4,$t4,%lo(var8009c970)
 /*    4f6c0:	00095980 */ 	sll	$t3,$t1,0x6
 /*    4f6c4:	016c2821 */ 	addu	$a1,$t3,$t4
 /*    4f6c8:	0c012a34 */ 	jal	func0004a8d0
@@ -93593,11 +93593,11 @@ glabel func0004f854
 /*    4f96c:	8e090000 */ 	lw	$t1,0x0($s0)
 .L0004f970:
 /*    4f970:	8fa40050 */ 	lw	$a0,0x50($sp)
-/*    4f974:	3c0d800a */ 	lui	$t5,0x800a
+/*    4f974:	3c0d800a */ 	lui	$t5,%hi(var8009c970)
 /*    4f978:	312a0008 */ 	andi	$t2,$t1,0x8
 /*    4f97c:	15400004 */ 	bnez	$t2,.L0004f990
 /*    4f980:	00046180 */ 	sll	$t4,$a0,0x6
-/*    4f984:	25adc970 */ 	addiu	$t5,$t5,-13968
+/*    4f984:	25adc970 */ 	addiu	$t5,$t5,%lo(var8009c970)
 /*    4f988:	0c013dd2 */ 	jal	func0004f748
 /*    4f98c:	018d2821 */ 	addu	$a1,$t4,$t5
 .L0004f990:
@@ -94170,12 +94170,12 @@ glabel func000501a0
 /*    501a8:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*    501ac:	afb20020 */ 	sw	$s2,0x20($sp)
 /*    501b0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*    501b4:	3c11800a */ 	lui	$s1,0x800a
+/*    501b4:	3c11800a */ 	lui	$s1,%hi(var8009ca80)
 /*    501b8:	00c08025 */ 	or	$s0,$a2,$zero
 /*    501bc:	00809025 */ 	or	$s2,$a0,$zero
 /*    501c0:	afa50054 */ 	sw	$a1,0x54($sp)
 /*    501c4:	0c012a18 */ 	jal	func0004a860
-/*    501c8:	2631ca80 */ 	addiu	$s1,$s1,-13696
+/*    501c8:	2631ca80 */ 	addiu	$s1,$s1,%lo(var8009ca80)
 /*    501cc:	02402025 */ 	or	$a0,$s2,$zero
 /*    501d0:	0c012fb9 */ 	jal	func0004bee4
 /*    501d4:	27a5003c */ 	addiu	$a1,$sp,0x3c
@@ -94224,16 +94224,16 @@ glabel func000501a0
 .L0005026c:
 /*    5026c:	0c0140d9 */ 	jal	func00050364
 /*    50270:	93a40057 */ 	lbu	$a0,0x57($sp)
-/*    50274:	3c05800a */ 	lui	$a1,0x800a
-/*    50278:	24a5ca80 */ 	addiu	$a1,$a1,-13696
+/*    50274:	3c05800a */ 	lui	$a1,%hi(var8009ca80)
+/*    50278:	24a5ca80 */ 	addiu	$a1,$a1,%lo(var8009ca80)
 /*    5027c:	0c012a34 */ 	jal	func0004a8d0
 /*    50280:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    50284:	02402025 */ 	or	$a0,$s2,$zero
 /*    50288:	00002825 */ 	or	$a1,$zero,$zero
 /*    5028c:	0c0121bc */ 	jal	func000486f0
 /*    50290:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    50294:	3c05800a */ 	lui	$a1,0x800a
-/*    50298:	24a5ca80 */ 	addiu	$a1,$a1,-13696
+/*    50294:	3c05800a */ 	lui	$a1,%hi(var8009ca80)
+/*    50298:	24a5ca80 */ 	addiu	$a1,$a1,%lo(var8009ca80)
 /*    5029c:	0c012a34 */ 	jal	func0004a8d0
 /*    502a0:	00002025 */ 	or	$a0,$zero,$zero
 /*    502a4:	240c0004 */ 	addiu	$t4,$zero,0x4
@@ -94293,8 +94293,8 @@ glabel func000501a0
 GLOBAL_ASM(
 glabel func00050364
 /*    50364:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    50368:	3c03800a */ 	lui	$v1,0x800a
-/*    5036c:	2463ca80 */ 	addiu	$v1,$v1,-13696
+/*    50368:	3c03800a */ 	lui	$v1,%hi(var8009ca80)
+/*    5036c:	2463ca80 */ 	addiu	$v1,$v1,%lo(var8009ca80)
 /*    50370:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*    50374:	ac6f003c */ 	sw	$t7,0x3c($v1)
 /*    50378:	24180002 */ 	addiu	$t8,$zero,0x2
@@ -95094,11 +95094,11 @@ glabel func00050d60
 /*    50e20:	24070004 */ 	addiu	$a3,$zero,0x4
 .L00050e24:
 /*    50e24:	10e00003 */ 	beqz	$a3,.L00050e34
-/*    50e28:	3c048006 */ 	lui	$a0,0x8006
+/*    50e28:	3c048006 */ 	lui	$a0,%hi(var800611f0)
 /*    50e2c:	10000036 */ 	beqz	$zero,.L00050f08
 /*    50e30:	00e01025 */ 	or	$v0,$a3,$zero
 .L00050e34:
-/*    50e34:	248411f0 */ 	addiu	$a0,$a0,0x11f0
+/*    50e34:	248411f0 */ 	addiu	$a0,$a0,%lo(var800611f0)
 /*    50e38:	27a50028 */ 	addiu	$a1,$sp,0x28
 /*    50e3c:	24060030 */ 	addiu	$a2,$zero,0x30
 /*    50e40:	0c013824 */ 	jal	func0004e090
@@ -96116,9 +96116,9 @@ glabel func00051c10
 /*    51c20:	3c0f8006 */ 	lui	$t7,0x8006
 /*    51c24:	8def0940 */ 	lw	$t7,0x940($t7)
 /*    51c28:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*    51c2c:	3c048006 */ 	lui	$a0,0x8006
+/*    51c2c:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*    51c30:	00408025 */ 	or	$s0,$v0,$zero
-/*    51c34:	24840938 */ 	addiu	$a0,$a0,0x938
+/*    51c34:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 /*    51c38:	0c000ee8 */ 	jal	func00003ba0
 /*    51c3c:	a5ee0010 */ 	sh	$t6,0x10($t7)
 /*    51c40:	0c012588 */ 	jal	func00049620
@@ -96491,12 +96491,12 @@ glabel func000520c0
 /*    520e0:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*    520e4:	14620004 */ 	bne	$v1,$v0,.L000520f8
 /*    520e8:	afa50094 */ 	sw	$a1,0x94($sp)
-/*    520ec:	3c138006 */ 	lui	$s3,0x8006
+/*    520ec:	3c138006 */ 	lui	$s3,%hi(var80061344)
 /*    520f0:	10000003 */ 	beqz	$zero,.L00052100
-/*    520f4:	26731344 */ 	addiu	$s3,$s3,0x1344
+/*    520f4:	26731344 */ 	addiu	$s3,$s3,%lo(var80061344)
 .L000520f8:
-/*    520f8:	3c138006 */ 	lui	$s3,0x8006
-/*    520fc:	26731330 */ 	addiu	$s3,$s3,0x1330
+/*    520f8:	3c138006 */ 	lui	$s3,%hi(var80061330)
+/*    520fc:	26731330 */ 	addiu	$s3,$s3,%lo(var80061330)
 .L00052100:
 /*    52100:	2401006f */ 	addiu	$at,$zero,0x6f
 /*    52104:	14410003 */ 	bne	$v0,$at,.L00052114

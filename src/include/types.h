@@ -1116,14 +1116,14 @@ struct audiodefinition {
 };
 
 struct audioconfig {
-	u32 flags; // 0x10 = contains swearing
+	float unk00;
 	float unk04;
 	float unk08;
 	float unk0c;
-	float unk10;
-	u32 unk14;
-	s32 unk18;
-	u32 unk1c;
+	u32 unk10;
+	s32 unk14;
+	u32 unk18;
+	u32 flags; // 0x10 = contains swearing
 };
 
 struct bootbufferthing {

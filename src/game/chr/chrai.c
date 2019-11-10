@@ -9,8 +9,8 @@
 
 GLOBAL_ASM(
 glabel chraiEndList
-/*  f04d560:	3c08800a */ 	lui	$t0,0x800a
-/*  f04d564:	2508d030 */ 	addiu	$t0,$t0,-12240
+/*  f04d560:	3c08800a */ 	lui	$t0,%hi(var8009d030)
+/*  f04d564:	2508d030 */ 	addiu	$t0,$t0,%lo(var8009d030)
 /*  f04d568:	8d020018 */ 	lw	$v0,0x18($t0)
 /*  f04d56c:	00a03825 */ 	or	$a3,$a1,$zero
 /*  f04d570:	3c198008 */ 	lui	$t9,0x8008
@@ -82,8 +82,8 @@ GLOBAL_ASM(
 glabel chraiExecute
 /*  f04d6b4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f04d6b8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04d6bc:	3c10800a */ 	lui	$s0,0x800a
-/*  f04d6c0:	26109fc0 */ 	addiu	$s0,$s0,-24640
+/*  f04d6bc:	3c10800a */ 	lui	$s0,%hi(g_Vars)
+/*  f04d6c0:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
 /*  f04d6c4:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f04d6c8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f04d6cc:	ae000424 */ 	sw	$zero,0x424($s0)

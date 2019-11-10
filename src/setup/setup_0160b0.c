@@ -441,6 +441,7 @@ u32 var80070744 = 0x00000000;
 u32 var80070748 = 0x00000000;
 u32 var8007074c = 0x00000000;
 
+// 80070750
 bool g_PlayersWithControl[] = {
 	true, true, true, true
 };
@@ -1555,6 +1556,7 @@ u16 options_soundmode[] = {
 	0x56eb, // "Surround"
 };
 
+// 17a10
 u16 options_screenmode[] = {
 	0x56dc, // "Full"
 	0x56dd, // "Wide"
@@ -1562,11 +1564,13 @@ u16 options_screenmode[] = {
 	0x0000, // ""
 };
 
+// 17a18
 u16 options_screenratio[] = {
 	0x56df, // "Normal"
 	0x56e0, // "16:9"
 };
 
+// 17a1c
 u16 options_screensplit[] = {
 	0x56e1, // "Horizontal"
 	0x56e2, // "Vertical"
@@ -1577,7 +1581,6 @@ struct menu_item menuitems_briefing[] = {
 	{ MENUITEMTYPE_SCROLLABLE,  0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
-
 
 // 17a48
 struct menu_dialog menudialog_briefing = {
@@ -1732,7 +1735,7 @@ struct menu_dialog menudialog_selectdifficulty3 = {
 	NULL,
 };
 
-// 00017e8c
+// 17e8c
 struct stageoverviewentry stageoverview[] = {
 	// stage,             unk04,  name1,  name2,  name3
 	{ STAGE_DEFECTION,     0x0c, 0x5685, 0x5686, 0x547c },
@@ -1758,7 +1761,7 @@ struct stageoverviewentry stageoverview[] = {
 	{ STAGE_DUEL,          0x1c, 0x56ab, 0x5603, 0x56ab },
 };
 
-// 00017f88
+// 17f88
 struct mission missions[] = {
 	// first stage index, name
 	{  0, 0x567b }, // "Mission 1"
@@ -2786,6 +2789,7 @@ struct menu_dialog menudialog_status = {
 	&menudialog_2a818,
 };
 
+// 196f8
 struct cutsceneentry cutscenetable[] = {
 	// stage ID, mission, scene, name file ID
 	{ /* 0*/ STAGE_DEFECTION,      0, 0, 0x57c2 },
@@ -2900,6 +2904,7 @@ struct menu_dialog menudialog_missionselect = {
 	NULL,
 };
 
+// 199e0
 u16 mainmenulabels_nocheats[] = {
 	0x5675, // "Solo Missions"
 	0x5676, // "Combat Simulator"
@@ -2907,6 +2912,7 @@ u16 mainmenulabels_nocheats[] = {
 	0x5678, // "Counter-Operative"
 };
 
+// 199e8
 u16 mainmenulabels_withcheats[] = {
 	0x5482, // "Cheat Solo Missions"
 	0x5483, // "Cheat Combat Simulator"

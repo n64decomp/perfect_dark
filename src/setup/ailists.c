@@ -5443,6 +5443,7 @@ u8 func002a_ai_bot_alive[] = {
 	endfunction
 };
 
+// 20c78
 struct ailists functions[] = {
 	{ func0000_idle,                      0x0000 },
 	{ func0001_unalerted_0001,            0x0001 },
@@ -5479,7 +5480,7 @@ struct ailists functions[] = {
 	{ func0022_comment_on_player_dead,    0x0022 },
 	{ func0023_dodge,                     0x0023 },
 	{ func002c_init_search_unused,        0x002c },
-	{ func0024_follow_bond,             0x0024 },
+	{ func0024_follow_bond,               0x0024 },
 	{ func0025_pointless,                 0x0025 },
 	{ func0026_init_psychosis,            0x0026 },
 	{ func0027_psychosised,               0x0027 },
