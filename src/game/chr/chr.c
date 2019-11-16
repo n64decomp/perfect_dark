@@ -4216,7 +4216,7 @@ glabel func0f020d44
 /*  f020e64:	0fc20be2 */ 	jal	func0f082f88
 /*  f020e68:	afa6002c */ 	sw	$a2,0x2c($sp)
 /*  f020e6c:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f020e70:	0fc1acd3 */ 	jal	func0f06b34c
+/*  f020e70:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
 /*  f020e74:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f020e78:
 /*  f020e78:	1600ffea */ 	bnez	$s0,.L0f020e24

@@ -90,7 +90,7 @@ glabel setupParseObjects
 /*  f015054:	01c00008 */ 	jr	$t6
 /*  f015058:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01505c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f015060:	0fc1acd3 */ 	jal	func0f06b34c
+/*  f015060:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
 /*  f015064:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f015068:
 /*  f015068:	0fc24784 */ 	jal	setupGetCommandLength
@@ -148,7 +148,7 @@ glabel setupParseObjects
 //			case OBJTYPE_HOVERVEHICLE:
 //			case OBJTYPE_ARMEDVEHICLE:
 //			case OBJTYPE_ESCALATOR:
-//				func0f06b34c(ptr, 1);
+//				setupParseObjectWithArg2False(ptr, 1);
 //			}
 //
 //			ptr = ptr + setupGetCommandLength(ptr);
