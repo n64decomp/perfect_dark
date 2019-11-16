@@ -23,7 +23,7 @@ u32 func0f166f74(void);
 u32 func0f166ff0(void);
 u32 func0f167054(void);
 u32 func0f1670fc(void);
-u32 func0f167200(void);
+char *func0f167200(void *ptr, s32 arg1, s32 arg2, s32 arg3);
 u32 func0f167280(void);
 u32 func0f167294(void);
 u32 func0f1672a8(void);

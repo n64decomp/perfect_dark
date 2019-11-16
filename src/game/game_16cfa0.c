@@ -2009,28 +2009,11 @@ glabel func0f16e728
 /*  f16e760:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f16e764
-/*  f16e764:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16e768:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16e76c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f16e770:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f16e774:	0fc5b9bd */ 	jal	func0f16e6f4
-/*  f16e778:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f16e77c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f16e780:	24050022 */ 	addiu	$a1,$zero,0x22
-/*  f16e784:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f16e788:	0fc59c80 */ 	jal	func0f167200
-/*  f16e78c:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f16e790:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f16e794:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16e798:	3c01800b */ 	lui	$at,0x800b
-/*  f16e79c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f16e7a0:	002f0821 */ 	addu	$at,$at,$t7
-/*  f16e7a4:	ac22aaa0 */ 	sw	$v0,-0x5560($at)
-/*  f16e7a8:	03e00008 */ 	jr	$ra
-/*  f16e7ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void textSetBank(s32 bank, s32 arg1, s32 arg2)
+{
+	void *ptr = func0f16e6f4(bank);
+	g_TextBanks[bank] = func0f167200(ptr, 0x22, arg1, arg2);
+}
 
 void textClearBank(s32 bank)
 {
