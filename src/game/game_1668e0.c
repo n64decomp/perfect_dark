@@ -7204,7 +7204,7 @@ void stageLoad(void)
 
 	if (g_Vars.unk0004b4 < 0x5a) {
 		s32 bank = func0f16e1e0(g_Vars.unk0004b4);
-		func0f16e7b0(bank);
+		textClearBank(bank);
 		func0f015270();
 	}
 

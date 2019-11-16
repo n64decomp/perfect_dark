@@ -2032,14 +2032,10 @@ glabel func0f16e764
 /*  f16e7ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f16e7b0
-/*  f16e7b0:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f16e7b4:	3c01800b */ 	lui	$at,0x800b
-/*  f16e7b8:	002e0821 */ 	addu	$at,$at,$t6
-/*  f16e7bc:	03e00008 */ 	jr	$ra
-/*  f16e7c0:	ac20aaa0 */ 	sw	$zero,-0x5560($at)
-);
+void textClearBank(s32 bank)
+{
+	g_TextBanks[bank] = NULL;
+}
 
 GLOBAL_ASM(
 glabel textGet

@@ -803,7 +803,7 @@ extern u32 var800aaa68;
 extern u32 var800aaa78;
 extern u32 var800aaa88;
 extern u32 var800aaa98;
-extern u32 var800aaaa0;
+extern char *g_TextBanks[];
 extern u32 var800aabb4;
 extern u32 var800aabb8;
 extern u32 var800aabc0;

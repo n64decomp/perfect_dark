@@ -46,7 +46,7 @@ u32 func0f16e6d4(void);
 u32 func0f16e6f4(void);
 u32 func0f16e728(void);
 u32 func0f16e764(void);
-void func0f16e7b0(s32 arg0);
+void textClearBank(s32 bank);
 u32 func0f16e818(void);
 u32 func0f16edac(void);
 u32 func0f16ee58(void);

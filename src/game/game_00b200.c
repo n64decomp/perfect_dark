@@ -99,13 +99,13 @@ glabel func0f00b210
 GLOBAL_ASM(
 glabel func0f00b320
 /*  f00b320:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f00b324:	3c02800b */ 	lui	$v0,%hi(var800aaaa0)
+/*  f00b324:	3c02800b */ 	lui	$v0,%hi(g_TextBanks)
 /*  f00b328:	3c03800b */ 	lui	$v1,%hi(var800aabb4)
 /*  f00b32c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f00b330:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f00b334:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f00b338:	2463abb4 */ 	addiu	$v1,$v1,%lo(var800aabb4)
-/*  f00b33c:	2442aaa0 */ 	addiu	$v0,$v0,%lo(var800aaaa0)
+/*  f00b33c:	2442aaa0 */ 	addiu	$v0,$v0,%lo(g_TextBanks)
 .L0f00b340:
 /*  f00b340:	24420004 */ 	addiu	$v0,$v0,0x4
 /*  f00b344:	1443fffe */ 	bne	$v0,$v1,.L0f00b340
@@ -115,8 +115,8 @@ glabel func0f00b320
 /*  f00b354:	00402025 */ 	or	$a0,$v0,$zero
 /*  f00b358:	0fc59c3f */ 	jal	func0f1670fc
 /*  f00b35c:	24050022 */ 	addiu	$a1,$zero,0x22
-/*  f00b360:	3c10800b */ 	lui	$s0,%hi(var800aaaa0)
-/*  f00b364:	2610aaa0 */ 	addiu	$s0,$s0,%lo(var800aaaa0)
+/*  f00b360:	3c10800b */ 	lui	$s0,%hi(g_TextBanks)
+/*  f00b364:	2610aaa0 */ 	addiu	$s0,$s0,%lo(g_TextBanks)
 /*  f00b368:	ae020098 */ 	sw	$v0,0x98($s0)
 /*  f00b36c:	0fc5b9bd */ 	jal	func0f16e6f4
 /*  f00b370:	24040028 */ 	addiu	$a0,$zero,0x28

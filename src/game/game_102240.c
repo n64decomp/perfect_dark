@@ -1702,7 +1702,7 @@ glabel menudialog00103608
 /*  f103688:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f10368c:
 /*  f10368c:	3c04800a */ 	lui	$a0,0x800a
-/*  f103690:	0fc5b9ec */ 	jal	func0f16e7b0
+/*  f103690:	0fc5b9ec */ 	jal	textClearBank
 /*  f103694:	9484dfe2 */ 	lhu	$a0,-0x201e($a0)
 /*  f103698:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f10369c:
