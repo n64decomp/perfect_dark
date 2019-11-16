@@ -136,7 +136,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -145,7 +145,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -2745,7 +2745,7 @@ u8 unregistered_function6[] = {
 
 /**
  * This is the most ridiculous way of doing an intro cutscene. This is how all
- * the functions call each other:
+ * the ailists call each other:
  *
  * func0422_intro calls 041b with return to 041e
  * 041e calls 041a with return to 041f
@@ -3969,7 +3969,7 @@ u8 unregistered_function8[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func0401_do_some_animation,        0x0401 },
 	{ func0402_guard_with_chrflag,       0x0402 },
 	{ func0403_shielded_guard,           0x0403 },

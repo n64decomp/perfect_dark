@@ -11,7 +11,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -20,7 +20,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -202,7 +202,7 @@ u8 func0407_defend_pad[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func0401_init_enemy,          0x0401 },
 	{ func0402_init_maian,          0x0402 },
 	{ func0403_init_some_sound,     0x0403 },

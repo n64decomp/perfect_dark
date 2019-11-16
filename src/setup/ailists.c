@@ -5444,7 +5444,7 @@ u8 func002a_ai_bot_alive[] = {
 };
 
 // 20c78
-struct ailists functions[] = {
+struct ailist g_GlobalAilists[] = {
 	{ func0000_idle,                      0x0000 },
 	{ func0001_unalerted_0001,            0x0001 },
 	{ func0004_unalerted_0004,            0x0004 },

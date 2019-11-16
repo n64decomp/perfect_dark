@@ -80,7 +80,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -89,7 +89,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -3140,7 +3140,7 @@ u8 func101d_setup_rtracker[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func0401_drcaroll_following,            0x0401 },
 	{ func0402_start_drcaroll,                0x0402 },
 	{ func0403_stop_and_idle,                 0x0403 },

@@ -92,7 +92,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -101,7 +101,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -3316,7 +3316,7 @@ u8 func1424_start_lift[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func0401_init_chr_with_flag,             0x0401 },
 	{ func0402_k7_guard,                       0x0402 },
 	{ func0403_k7_scientist,                   0x0403 },

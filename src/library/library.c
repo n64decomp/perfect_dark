@@ -3,6 +3,7 @@
 #include "gvars/gvars.h"
 #include "library/library.h"
 #include "setup/setup_000000.h"
+#include "setup/ailists.h"
 #include "types.h"
 
 u32 var00052430 = 0x70002d68;
@@ -31220,10 +31221,10 @@ glabel ailistFindById
 /*    18554:	00001025 */ 	or	$v0,$zero,$zero
 .L00018558:
 /*    18558:	8ca5ef30 */ 	lw	$a1,-0x10d0($a1)
-/*    1855c:	3c098008 */ 	lui	$t1,%hi(functions)
+/*    1855c:	3c098008 */ 	lui	$t1,%hi(g_GlobalAilists)
 /*    18560:	00001825 */ 	or	$v1,$zero,$zero
 /*    18564:	04a00017 */ 	bltz	$a1,.L000185c4
-/*    18568:	2529ac58 */ 	addiu	$t1,$t1,%lo(functions)
+/*    18568:	2529ac58 */ 	addiu	$t1,$t1,%lo(g_GlobalAilists)
 /*    1856c:	00653821 */ 	addu	$a3,$v1,$a1
 .L00018570:
 /*    18570:	04e10003 */ 	bgez	$a3,.L00018580

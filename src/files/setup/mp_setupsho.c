@@ -7,7 +7,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -16,7 +16,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -28,7 +28,7 @@ u8 intro[] = {
 	endintro
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ NULL, 0 },
 };
 

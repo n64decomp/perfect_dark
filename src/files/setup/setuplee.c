@@ -110,7 +110,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -119,7 +119,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -3777,7 +3777,7 @@ u8 func0428_set_uncloaked[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func1400_setup_counterop,                  0x1400 },
 	{ func1001_objectives_failed_msg,            0x1001 },
 	{ func1002_hangar_shuttle,                   0x1002 },

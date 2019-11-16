@@ -98,7 +98,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -107,7 +107,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -2331,7 +2331,7 @@ u8 func1009_msg_getoutofhere[] = {
 /**
  * Entry point for all of Joanna's teleports.
  *
- * Map of how these functions call each other:
+ * Map of how these ailists call each other:
  *
  * 100a func100a_bond_teleports
  * - calls 0414 teleport_bond_to_sapa
@@ -2701,7 +2701,7 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 /**
  * Entry point for all of Velvet's teleports.
  *
- * Map of how these functions call each other:
+ * Map of how these ailists call each other:
  *
  * 100b func100b_coop_teleports
  * - calls 0417 teleport_coop_to_sapa
@@ -4746,7 +4746,7 @@ u8 unregistered_function4[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func0401_unused,                                0x0401 },
 	{ func1400_setup_counterop,                       0x1400 },
 	{ func1001_objectives_failed_msg,                 0x1001 },

@@ -757,7 +757,7 @@ struct player {
 	/*0x480*/ u32 unk480;
 };
 
-struct ailists {
+struct ailist {
 	u8 *list;
 	u32 id;
 };

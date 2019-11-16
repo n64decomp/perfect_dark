@@ -97,7 +97,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -106,7 +106,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -5991,7 +5991,7 @@ u8 func1043_remove_hovercrate[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func1000_jo_typing,                      0x1000 },
 	{ func1001_set_jo_team,                    0x1001 },
 	{ func1002_devicetraining_camspy,          0x1002 },

@@ -95,7 +95,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -104,7 +104,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -3798,7 +3798,7 @@ u8 func1434_setup_lighting[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func1400_setup_counterop,                0x1400 },
 	{ func1001_objectives_failed_msg,          0x1001 },
 	{ func1002_intro,                          0x1002 },

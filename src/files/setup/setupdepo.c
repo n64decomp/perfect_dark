@@ -101,7 +101,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -110,7 +110,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -3094,7 +3094,7 @@ u8 func102c_set_lightswitch_guard_team[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func0401_init_swat1,                 0x0401 },
 	{ func0402_init_swat2,                 0x0402 },
 	{ func0403_walk_from_meeting,          0x0403 },

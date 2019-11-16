@@ -104,7 +104,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -113,7 +113,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -3912,7 +3912,7 @@ u8 func1028_buddybridge[] = {
 		if_timer_gt(300, /*goto*/ 0x2d)
 	endloop(0x04)
 
-	// This flag is set by global functions
+	// This flag is set by global ailists
 	label(0x2d)
 	if_stage_flag_eq(STAGEFLAG_AI_BUDDY_EXISTS, FALSE, /*goto*/ 0x2d)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -3926,7 +3926,7 @@ u8 func1028_buddybridge[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func0401_init_unarmed_skedar,           0x0401 },
 	{ func0402_unarmed_skedar,                0x0402 },
 	{ func0403_init_miniskedar,               0x0403 },

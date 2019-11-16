@@ -96,7 +96,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -105,7 +105,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -3245,7 +3245,7 @@ u8 func1027_untrack_dumpster[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func0401_3ae8,                            0x0401 },
 	{ func0402_3bb4,                            0x0402 },
 	{ func0403_3c74,                            0x0403 },

@@ -116,7 +116,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -125,7 +125,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -596,7 +596,7 @@ u8 func1024_give_objects[] = {
 	endfunction
 };
 
-u8 func1004_reassign_functions_during_conversation[] = {
+u8 func1004_reassign_ailists_during_conversation[] = {
 	// Wait until player in president's room
 	beginloop(0x04)
 		consider_coop_for_p1p2_chr(CHR_SELF)
@@ -3992,12 +3992,12 @@ u8 func1026_buddy_floor_hatch[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func1400_setup_counterop,                        0x1400 },
 	{ func1001_objectives_failed_msg,                  0x1001 },
 	{ func1002_intro,                                  0x1002 },
 	{ func1003_rebuild_groups,                         0x1003 },
-	{ func1004_reassign_functions_during_conversation, 0x1004 },
+	{ func1004_reassign_ailists_during_conversation, 0x1004 },
 	{ func1005_check_neutrals_killed,                  0x1005 },
 	{ func1006_hijack,                                 0x1006 },
 	{ func1007_check_pod_destroyed,                    0x1007 },

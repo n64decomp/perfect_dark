@@ -46,7 +46,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -55,7 +55,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -2165,7 +2165,7 @@ u8 func1012_chief_lift[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func0401_init_hovercar,          0x0401 },
 	{ func0402_start_path26,           0x0402 },
 	{ func0403_start_path27,           0x0403 },

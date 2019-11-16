@@ -584,6 +584,7 @@ extern u32 var8009cf10;
 extern u32 var8009cf88;
 extern u32 var8009d030;
 extern u32 *g_LvSetupPtr_8009d040;
+extern struct ailist *g_LvAilists;
 extern u32 var8009d050;
 extern u32 var8009d060;
 extern u32 var8009d088;

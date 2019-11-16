@@ -28,7 +28,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -37,7 +37,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -565,7 +565,7 @@ u8 func0407_trent_init[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func1000_counterop_setup,           0x1000 },
 	{ func1001_objectives_failed,         0x1001 },
 	{ func1002_first_walk,                0x1002 },

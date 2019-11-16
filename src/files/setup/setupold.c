@@ -7,7 +7,7 @@
 u8 intro[];
 u8 props[];
 struct aipaths paths[];
-struct ailists functions[];
+struct ailist ailists[];
 
 void *setup[] = {
 	NULL,
@@ -16,7 +16,7 @@ void *setup[] = {
 	intro,
 	props,
 	paths,
-	functions,
+	ailists,
 	NULL,
 };
 
@@ -163,7 +163,7 @@ u8 func0c00_017c[] = {
 	endfunction
 };
 
-struct ailists functions[] = {
+struct ailist ailists[] = {
 	{ func0c00_017c, 0x0401 },
 	{ func0c00_017c, 0x0c00 },
 	{ NULL, 0 },
