@@ -18438,7 +18438,7 @@ glabel func0f0c2364
 /*  f0c29ec:	33190004 */ 	andi	$t9,$t8,0x4
 /*  f0c29f0:	53200004 */ 	beqzl	$t9,.L0f0c2a04
 /*  f0c29f4:	8e020174 */ 	lw	$v0,0x174($s0)
-/*  f0c29f8:	0fc1ab4b */ 	jal	func0f06ad2c
+/*  f0c29f8:	0fc1ab4b */ 	jal	setupParseObject
 /*  f0c29fc:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0c2a00:	8e020174 */ 	lw	$v0,0x174($s0)
 .L0f0c2a04:
@@ -18450,7 +18450,7 @@ glabel func0f0c2364
 /*  f0c2a18:	31090004 */ 	andi	$t1,$t0,0x4
 /*  f0c2a1c:	51200004 */ 	beqzl	$t1,.L0f0c2a30
 /*  f0c2a20:	8faa0100 */ 	lw	$t2,0x100($sp)
-/*  f0c2a24:	0fc1ab4b */ 	jal	func0f06ad2c
+/*  f0c2a24:	0fc1ab4b */ 	jal	setupParseObject
 /*  f0c2a28:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0c2a2c:	8faa0100 */ 	lw	$t2,0x100($sp)
 .L0f0c2a30:

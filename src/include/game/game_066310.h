@@ -93,7 +93,7 @@ u32 func0f06a730(void);
 u32 func0f06ab60(void);
 u32 func0f06ac40(void);
 u32 func0f06ac90(void);
-void func0f06ad2c(u32 *ptr, bool arg1, bool arg2);
+void setupParseObject(u32 *ptr, bool arg1, bool arg2);
 void setupParseObjectWithArg2False(u32 *ptr, bool arg1);
 u32 func0f06b36c(void);
 u32 func0f06b39c(void);

@@ -6728,7 +6728,7 @@ glabel func0f06ac90
 );
 
 GLOBAL_ASM(
-glabel func0f06ad2c
+glabel setupParseObject
 /*  f06ad2c:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f06ad30:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f06ad34:	afb20020 */ 	sw	$s2,0x20($sp)
@@ -7169,7 +7169,7 @@ glabel func0f06ad2c
 
 void setupParseObjectWithArg2False(u32 *ptr, bool arg1)
 {
-	func0f06ad2c(ptr, arg1, false);
+	setupParseObject(ptr, arg1, false);
 }
 
 GLOBAL_ASM(
@@ -13035,7 +13035,7 @@ glabel func0f0706f8
 /*  f07072c:	00e02025 */ 	or	$a0,$a3,$zero
 /*  f070730:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f070734:	30d80004 */ 	andi	$t8,$a2,0x4
-/*  f070738:	0fc1ab4b */ 	jal	func0f06ad2c
+/*  f070738:	0fc1ab4b */ 	jal	setupParseObject
 /*  f07073c:	03003025 */ 	or	$a2,$t8,$zero
 /*  f070740:	10000011 */ 	beqz	$zero,.L0f070788
 /*  f070744:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -13084,7 +13084,7 @@ glabel func0f07079c
 /*  f0707d4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0707d8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0707dc:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f0707e0:	0fc1ab4b */ 	jal	func0f06ad2c
+/*  f0707e0:	0fc1ab4b */ 	jal	setupParseObject
 /*  f0707e4:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f0707e8:	1000004b */ 	beqz	$zero,.L0f070918
 /*  f0707ec:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -28752,7 +28752,7 @@ glabel func0f07e758
 /*  f07e93c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f07e940:	00002825 */ 	or	$a1,$zero,$zero
 /*  f07e944:	30d90004 */ 	andi	$t9,$a2,0x4
-/*  f07e948:	0fc1ab4b */ 	jal	func0f06ad2c
+/*  f07e948:	0fc1ab4b */ 	jal	setupParseObject
 /*  f07e94c:	03203025 */ 	or	$a2,$t9,$zero
 /*  f07e950:	1000035a */ 	beqz	$zero,.L0f07f6bc
 /*  f07e954:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -40450,7 +40450,7 @@ glabel func0f088840
 /*  f088fc4:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f088fc8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f088fcc:	30cf0004 */ 	andi	$t7,$a2,0x4
-/*  f088fd0:	0fc1ab4b */ 	jal	func0f06ad2c
+/*  f088fd0:	0fc1ab4b */ 	jal	setupParseObject
 /*  f088fd4:	01e03025 */ 	or	$a2,$t7,$zero
 /*  f088fd8:	1000000a */ 	beqz	$zero,.L0f089004
 /*  f088fdc:	24020001 */ 	addiu	$v0,$zero,0x1

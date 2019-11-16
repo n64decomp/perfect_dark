@@ -1,6 +1,7 @@
 #include "util.h"
 
 // Only used within this file
+// len 0x58
 #define generic_object(model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19) \
 	mkshort(model), \
 	mkshort(pad), \
@@ -53,18 +54,18 @@
 	mkword(u40), mkword(u41), mkword(u42), mkword(u43), \
 	mkword(u44), mkword(u45),
 
+#define ammocrate(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, ammotype) \
+	mkshort(scale), \
+	mkshort(0x07), \
+	generic_object(model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19), \
+	mkword(ammotype),
+
 #define weapon(scale, model, chr, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, weapon, u20, u21) \
 	mkshort(scale), \
 	mkshort(0x08), \
 	generic_object(model, chr, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19), \
 	weapon, 0x00, 0x00, 0x00, \
 	mkword(u20), mkword(u21),
-
-#define ammocrate(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, ammotype) \
-	mkshort(scale), \
-	mkshort(0x07), \
-	generic_object(model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19), \
-	mkword(ammotype),
 
 #define chr(unk1, id, pad, body, head, function, target_pad, target_chr, hear_dist, view_dist, props1, bank1flags, team, group, chair, group2, associated) \
 	mkshort(0), \
