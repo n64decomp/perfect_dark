@@ -66,10 +66,9 @@ const u32 var7f1a839c[] = {0x7f015068};
 const u32 var7f1a83a0[] = {0x7f01505c};
 const u32 var7f1a83a4[] = {0x7f015068};
 const u32 var7f1a83a8[] = {0x7f01505c};
-const u32 var7f1a83ac[] = {0x00000000};
 
 GLOBAL_ASM(
-glabel func0f015010
+glabel setupParseObjects
 /*  f015010:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f015014:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f015018:	3c10800a */ 	lui	$s0,0x800a
@@ -111,3 +110,49 @@ glabel func0f015010
 /*  f015098:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01509c:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because it uses $s1 for OBJTYPE_END instead of $at.
+//void setupParseObjects(void)
+//{
+//	u32 *ptr = g_LvSetupPtr_8009d040;
+//
+//	if (ptr) {
+//		u8 type = ptr[0];
+//
+//		while (type != OBJTYPE_END) {
+//			switch (type) {
+//			case OBJTYPE_DOOR:
+//			case OBJTYPE_BASIC:
+//			case OBJTYPE_KEY:
+//			case OBJTYPE_05:
+//			case OBJTYPE_CAMERA:
+//			case OBJTYPE_07:
+//			case OBJTYPE_WEAPON:
+//			case OBJTYPE_SINGLEMONITOR:
+//			case OBJTYPE_MULTIMONITOR:
+//			case OBJTYPE_0C:
+//			case OBJTYPE_11:
+//			case OBJTYPE_MULTIAMMOCRATE:
+//			case OBJTYPE_24:
+//			case OBJTYPE_27:
+//			case OBJTYPE_28:
+//			case OBJTYPE_29:
+//			case OBJTYPE_GLASS:
+//			case OBJTYPE_2B:
+//			case OBJTYPE_2D:
+//			case OBJTYPE_TINTEDGLASS:
+//			case OBJTYPE_LIFT:
+//			case OBJTYPE_HOVERBIKE:
+//			case OBJTYPE_HOVERPROP:
+//			case OBJTYPE_VENTFAN:
+//			case OBJTYPE_HOVERVEHICLE:
+//			case OBJTYPE_ARMEDVEHICLE:
+//			case OBJTYPE_ESCALATOR:
+//				func0f06b34c(ptr, 1);
+//			}
+//
+//			ptr = ptr + func0f091e10(ptr);
+//			type = ptr[0];
+//		}
+//	}
+//}
