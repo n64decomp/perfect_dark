@@ -1532,6 +1532,10 @@ glabel func0f01e6a4
 .L0f01e758:
 /*  f01e758:	03e00008 */ 	jr	$ra
 /*  f01e75c:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+GLOBAL_ASM(
+glabel func0f01e760
 /*  f01e760:	00802825 */ 	or	$a1,$a0,$zero
 /*  f01e764:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f01e768:	00042080 */ 	sll	$a0,$a0,0x2

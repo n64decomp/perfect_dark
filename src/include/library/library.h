@@ -216,7 +216,7 @@ u32 func000185d0(void);
 u32 func0001a3d0(void);
 u32 func0001a3dc(void);
 u32 func0001a50c(void);
-u32 func0001a518(void);
+void func0001a518(void *ptr);
 u32 func0001a524(void);
 u32 func0001a5cc(void);
 u32 func0001a60c(void);

@@ -1760,9 +1760,9 @@ glabel menuhandlerPdModeSetting
 /*  f10373c:	1000003b */ 	beqz	$zero,.L0f10382c
 /*  f103740:	00001025 */ 	or	$v0,$zero,$zero
 .L0f103744:
-/*  f103744:	3c02800a */ 	lui	$v0,%hi(var8009dfec)
+/*  f103744:	3c02800a */ 	lui	$v0,0x800a
 /*  f103748:	1000000c */ 	beqz	$zero,.L0f10377c
-/*  f10374c:	2442dfec */ 	addiu	$v0,$v0,%lo(var8009dfec)
+/*  f10374c:	2442dfec */ 	addiu	$v0,$v0,0xdfec
 .L0f103750:
 /*  f103750:	3c02800a */ 	lui	$v0,0x800a
 /*  f103754:	10000009 */ 	beqz	$zero,.L0f10377c

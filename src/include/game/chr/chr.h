@@ -857,5 +857,6 @@ s32 padResolve(struct chrdata *chr, s32 pad_id);
 float positionGetDistanceToPosition(struct position *a, struct position *b);
 u32 positionGetIndexByChrId(struct chrdata *chr, s32 chrnum);
 float positionGetLateralDistanceToPosition(struct position *a, struct position *b);
+void func0f01e760(void);
 
 #endif
