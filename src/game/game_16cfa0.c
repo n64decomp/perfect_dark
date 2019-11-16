@@ -1990,24 +1990,11 @@ glabel func0f16e6f4
 /*  f16e724:	00581021 */ 	addu	$v0,$v0,$t8
 );
 
-GLOBAL_ASM(
-glabel func0f16e728
-/*  f16e728:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16e72c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16e730:	0fc5b9bd */ 	jal	func0f16e6f4
-/*  f16e734:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f16e738:	00402025 */ 	or	$a0,$v0,$zero
-/*  f16e73c:	0fc59c3f */ 	jal	func0f1670fc
-/*  f16e740:	24050022 */ 	addiu	$a1,$zero,0x22
-/*  f16e744:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f16e748:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16e74c:	3c01800b */ 	lui	$at,0x800b
-/*  f16e750:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f16e754:	002f0821 */ 	addu	$at,$at,$t7
-/*  f16e758:	ac22aaa0 */ 	sw	$v0,-0x5560($at)
-/*  f16e75c:	03e00008 */ 	jr	$ra
-/*  f16e760:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void textSetBankSimple(s32 bank)
+{
+	void *ptr = func0f16e6f4(bank);
+	g_TextBanks[bank] = func0f1670fc(ptr, 0x22);
+}
 
 void textSetBank(s32 bank, s32 arg1, s32 arg2)
 {

@@ -44,7 +44,7 @@ u32 func0f16e1e0(s32 arg0);
 u32 func0f16e3fc(void);
 u32 func0f16e6d4(void);
 void *func0f16e6f4(s32 bank);
-u32 func0f16e728(void);
+void textSetBankSimple(s32 bank);
 void textSetBank(s32 bank, s32 arg1, s32 arg2);
 void textClearBank(s32 bank);
 u32 func0f16e818(void);
