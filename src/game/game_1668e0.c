@@ -26,7 +26,7 @@
 #include "game/game_015470.h"
 #include "game/game_01d860.h"
 #include "game/game_01d9f0.h"
-#include "game/game_01e050.h"
+#include "game/chr/chr.h"
 #include "game/game_0601b0.h"
 #include "game/game_066310.h"
 #include "game/game_097a50.h"

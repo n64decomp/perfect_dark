@@ -8,7 +8,7 @@
 #include "game/game_000920.h"
 #include "game/game_005fd0.h"
 #include "game/game_015470.h"
-#include "game/game_01e050.h"
+#include "game/chr/chr.h"
 #include "game/game_0601b0.h"
 #include "game/game_066310.h"
 #include "game/game_096750.h"
