@@ -1,11 +1,11 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "gvars/gvars.h"
-#include "game/chr/chrai.h"
-#include "game/game_000000.h"
-#include "game/game_0601b0.h"
-#include "library/library.h"
 #include "setup/setup_000000.h"
+#include "setup/setup_0160b0.h"
+#include "setup/setup_020df0.h"
+#include "types.h"
+#include "game/chr/chrai.h"
 
 GLOBAL_ASM(
 glabel chraiEndList

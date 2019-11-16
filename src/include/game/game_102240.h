@@ -1,0 +1,86 @@
+#ifndef IN_GAME_GAME_102240_H
+#define IN_GAME_GAME_102240_H
+#include <ultra64.h>
+#include "types.h"
+
+u32 func0f102240(void);
+u32 func0f10229c(void);
+u32 func0f102330(void);
+u32 func0f103550(void);
+u32 func0f1036ac(void);
+u32 func0f1038ec(void);
+u32 func0f103e68(void);
+u32 func0f10408c(void);
+u32 func0f104664(void);
+u32 func0f104720(void);
+u32 func0f105664(void);
+u32 func0f1056a0(void);
+u32 func0f105864(void);
+u32 func0f1058d0(void);
+u32 func0f105948(void);
+u32 func0f105d9c(void);
+u32 func0f105e04(void);
+u32 func0f105e80(void);
+u32 func0f106508(void);
+u32 func0f1065c0(void);
+u32 func0f106a7c(void);
+u32 func0f106b20(void);
+s32 menudialog00103368(u32, u32, u32 *);
+void menudialog00103608(void);
+s32 menudialog00104104(u32, u32, u32 *);
+s32 menudialog0010559c(u32, u32, u32 *);
+s32 menudialog00105c54(u32, u32, u32 *);
+s32 menudialog001063d4(u32, u32, u32 *);
+s32 menudialog001063e4(u32, u32, u32 *);
+s32 menudialog001069c0(u32, u32, u32 *);
+s32 menuhandler001024dc(u32, u32, u32 *);
+s32 menuhandler001024fc(u32, u32, u32 *);
+s32 menuhandler001033f8(u32, u32, u32 *);
+s32 menuhandler0010383c(u32, u32, u32 *);
+s32 menuhandler00104038(u32, u32, u32 *);
+s32 menuhandler00104538(u32, u32, u32 *);
+s32 menuhandler001045f0(u32, u32, u32 *);
+s32 menuhandler0010476c(u32, u32, u32 *);
+s32 menuhandler00105728(u32, u32, u32 *);
+s32 menuhandler00106028(u32, u32, u32 *);
+s32 menuhandler00106178(u32, u32, u32 *);
+s32 menuhandler00106394(u32, u32, u32 *);
+s32 menuhandler00106644(u32, u32, u32 *);
+s32 menuhandlerAimControl(u32, u32, u32 *);
+s32 menuhandlerAlternativeTitle(u32, u32, u32 *);
+s32 menuhandlerAlwaysShowTarget(u32, u32, u32 *);
+s32 menuhandlerAmmoOnScreen(u32, u32, u32 *);
+s32 menuhandlerAntiPlayer(u32, u32, u32 *);
+s32 menuhandlerAntiRadar(u32, u32, u32 *);
+s32 menuhandlerAutoAim(u32, u32, u32 *);
+s32 menuhandlerChangeAgent(u32, u32, u32 *);
+s32 menuhandlerCoopBuddy(u32, u32, u32 *);
+s32 menuhandlerCoopFriendlyFire(u32, u32, u32 *);
+s32 menuhandlerCoopRadar(u32, u32, u32 *);
+s32 menuhandlerCutsceneSubtitles(u32, u32, u32 *);
+s32 menuhandlerHeadRoll(u32, u32, u32 *);
+s32 menuhandlerHiRes(u32, u32, u32 *);
+s32 menuhandlerInGameSubtitles(u32, u32, u32 *);
+s32 menuhandlerLangFilter(u32 operation, u32 unk, u32 *value);
+s32 menuhandlerLookAhead(u32, u32, u32 *);
+s32 menuhandlerMainMenuCombatSimulator(u32, u32, u32 *);
+s32 menuhandlerMainMenuCooperative(u32, u32, u32 *);
+s32 menuhandlerMainMenuCounterOperative(u32, u32, u32 *);
+s32 menuhandlerMainMenuSoloMissions(u32, u32, u32 *);
+s32 menuhandlerMusicVolume(u32, u32, u32 *);
+s32 menuhandlerPaintball(u32, u32, u32 *);
+s32 menuhandlerPdMode(u32, u32, u32 *);
+s32 menuhandlerPdModeSetting(u32, u32, u32 *);
+s32 menuhandlerReversePitch(u32, u32, u32 *);
+s32 menuhandlerScreenRatio(u32, u32, u32 *);
+s32 menuhandlerScreenSize(u32, u32, u32 *);
+s32 menuhandlerScreenSplit(u32, u32, u32 *);
+s32 menuhandlerSfxVolume(u32, u32, u32 *);
+s32 menuhandlerShowGunFunction(u32, u32, u32 *);
+s32 menuhandlerShowMissionTime(u32, u32, u32 *);
+s32 menuhandlerShowZoomRange(u32, u32, u32 *);
+s32 menuhandlerSightOnScreen(u32, u32, u32 *);
+s32 menuhandlerSoloDifficulty(u32, u32, u32 *);
+s32 menuhandlerSoundMode(u32, u32, u32 *);
+
+#endif
