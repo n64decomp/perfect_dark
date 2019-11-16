@@ -3,7 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f000900(void);
-u32 func0f000910(void);
+void func0f000900(void);
 
 #endif

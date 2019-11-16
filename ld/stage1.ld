@@ -38,6 +38,7 @@ SECTIONS
 		src/game/game_000870.o (.text);
 		src/game/game_0008e0.o (.text);
 		src/game/game_000900.o (.text);
+		src/game/game_000910.o (.text);
 		src/game/game_000920.o (.text);
 		src/game/game_005fd0.o (.text);
 		src/game/game_00b190.o (.text);
@@ -116,6 +117,7 @@ SECTIONS
 		src/game/game_000870.o (.rodata);
 		src/game/game_0008e0.o (.rodata);
 		src/game/game_000900.o (.rodata);
+		src/game/game_000910.o (.rodata);
 		src/game/game_000920.o (.rodata);
 		src/game/game_005fd0.o (.rodata);
 		src/game/game_00b190.o (.rodata);
