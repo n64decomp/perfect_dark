@@ -7194,94 +7194,50 @@ glabel func0f16cb04
 /*  f16cb9c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f16cba0
-/*  f16cba0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16cba4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16cba8:	0fc4772c */ 	jal	func0f11dcb0
-/*  f16cbac:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f16cbb0:	3c048008 */ 	lui	$a0,0x8008
-/*  f16cbb4:	8c844034 */ 	lw	$a0,0x4034($a0)
-/*  f16cbb8:	10800007 */ 	beqz	$a0,.L0f16cbd8
-/*  f16cbbc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cbc0:	0c00cdfc */ 	jal	func000337f0
-/*  f16cbc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cbc8:	10400003 */ 	beqz	$v0,.L0f16cbd8
-/*  f16cbcc:	3c048008 */ 	lui	$a0,0x8008
-/*  f16cbd0:	0c00cec9 */ 	jal	func00033b24
-/*  f16cbd4:	8c844034 */ 	lw	$a0,0x4034($a0)
-.L0f16cbd8:
-/*  f16cbd8:	3c04800a */ 	lui	$a0,0x800a
-/*  f16cbdc:	8c84a474 */ 	lw	$a0,-0x5b8c($a0)
-/*  f16cbe0:	2881005a */ 	slti	$at,$a0,0x5a
-/*  f16cbe4:	10200007 */ 	beqz	$at,.L0f16cc04
-/*  f16cbe8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cbec:	0fc5b878 */ 	jal	func0f16e1e0
-/*  f16cbf0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cbf4:	0fc5b9ec */ 	jal	func0f16e7b0
-/*  f16cbf8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f16cbfc:	0fc0549c */ 	jal	func0f015270
-/*  f16cc00:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f16cc04:
-/*  f16cc04:	0fc053c4 */ 	jal	func0f014f10
-/*  f16cc08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc0c:	0fc054a0 */ 	jal	func0f015280
-/*  f16cc10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc14:	0fc054cc */ 	jal	func0f015330
-/*  f16cc18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc1c:	0fc05500 */ 	jal	func0f015400
-/*  f16cc20:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc24:	0fc05504 */ 	jal	func0f015410
-/*  f16cc28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc2c:	0fc05508 */ 	jal	func0f015420
-/*  f16cc30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc34:	0fc054fc */ 	jal	func0f0153f0
-/*  f16cc38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc3c:	0fc053f8 */ 	jal	func0f014fe0
-/*  f16cc40:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc44:	0fc05404 */ 	jal	setupParseObjects
-/*  f16cc48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc4c:	0fc4d6f6 */ 	jal	func0f135bd8
-/*  f16cc50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc54:	0fc0547c */ 	jal	func0f0151f0
-/*  f16cc58:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc5c:	0fc05498 */ 	jal	func0f015260
-/*  f16cc60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc64:	0fc0551c */ 	jal	func0f015470
-/*  f16cc68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc6c:	0fc05428 */ 	jal	func0f0150a0
-/*  f16cc70:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc74:	0fc5b67f */ 	jal	func0f16d9fc
-/*  f16cc78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc7c:	0fc381c9 */ 	jal	func0f0e0724
-/*  f16cc80:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc84:	3c0e800a */ 	lui	$t6,0x800a
-/*  f16cc88:	8dcea474 */ 	lw	$t6,-0x5b8c($t6)
-/*  f16cc8c:	29c1005a */ 	slti	$at,$t6,0x5a
-/*  f16cc90:	10200003 */ 	beqz	$at,.L0f16cca0
-/*  f16cc94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cc98:	0fc57214 */ 	jal	func0f15c850
-/*  f16cc9c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f16cca0:
-/*  f16cca0:	0c00cf76 */ 	jal	func00033dd8
-/*  f16cca4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cca8:	3c0f8006 */ 	lui	$t7,0x8006
-/*  f16ccac:	91ef2940 */ 	lbu	$t7,0x2940($t7)
-/*  f16ccb0:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f16ccb4:	15e10005 */ 	bne	$t7,$at,.L0f16cccc
-/*  f16ccb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16ccbc:	0fc3c27c */ 	jal	func0f0f09f0
-/*  f16ccc0:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f16ccc4:	3c018006 */ 	lui	$at,0x8006
-/*  f16ccc8:	a0202940 */ 	sb	$zero,0x2940($at)
-.L0f16cccc:
-/*  f16cccc:	0fc06fa8 */ 	jal	func0f01bea0
-/*  f16ccd0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16ccd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16ccd8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16ccdc:	03e00008 */ 	jr	$ra
-/*  f16cce0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void stageLoad(void)
+{
+	func0f11dcb0(1);
+
+	if (var80084034 != 0 && func000337f0(var80084034)) {
+		func00033b24(var80084034);
+	}
+
+	if (g_Vars.unk0004b4 < 0x5a) {
+		s32 bank = func0f16e1e0(g_Vars.unk0004b4);
+		func0f16e7b0(bank);
+		func0f015270();
+	}
+
+	func0f014f10();
+	func0f015280();
+	func0f015330();
+	func0f015400();
+	func0f015410();
+	func0f015420();
+	func0f0153f0();
+	func0f014fe0();
+	setupParseObjects();
+	func0f135bd8();
+	func0f0151f0();
+	func0f015260();
+	func0f015470();
+	func0f0150a0();
+	func0f16d9fc();
+	func0f0e0724();
+
+	if (g_Vars.unk0004b4 < 0x5a) {
+		func0f15c850();
+	}
+
+	func00033dd8();
+
+	if (var80062940 == 2) {
+		func0f0f09f0(5);
+		var80062940 = 0;
+	}
+
+	func0f01bea0();
+}
 
 GLOBAL_ASM(
 glabel func0f16cce4

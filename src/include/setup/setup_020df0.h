@@ -205,7 +205,7 @@ extern struct smallsky smallskies[];
 extern u32 var80082050;
 extern u32 filetable[];
 extern u32 var80084008;
-extern u32 var80084034;
+extern s32 var80084034;
 extern u32 var80084038;
 extern u32 var80084068;
 extern u32 var80084078;

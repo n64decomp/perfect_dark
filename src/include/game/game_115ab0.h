@@ -126,7 +126,7 @@ u32 func0f11d620(void);
 u32 func0f11d8b4(void);
 u32 func0f11d9c4(void);
 u32 func0f11dc04(void);
-u32 func0f11dcb0(void);
+void func0f11dcb0(s32 arg0);
 u32 func0f11dd58(void);
 u32 func0f11de20(void);
 u32 func0f11deb8(void);

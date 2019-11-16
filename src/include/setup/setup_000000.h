@@ -277,7 +277,7 @@ extern u32 var800628bc;
 extern u32 var800628c8;
 extern u32 var800628d4;
 extern u32 var80062914;
-extern u32 var80062940;
+extern u8 var80062940;
 extern u32 var80062944;
 extern u32 var80062948;
 extern u32 var80062950;

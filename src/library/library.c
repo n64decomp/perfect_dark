@@ -19251,7 +19251,7 @@ glabel func0000db3c
 /*     e29c:	5580ffd6 */ 	bnezl	$t4,.L0000e1f8
 /*     e2a0:	02602025 */ 	or	$a0,$s3,$zero
 .L0000e2a4:
-/*     e2a4:	0fc5b2e8 */ 	jal	func0f16cba0
+/*     e2a4:	0fc5b2e8 */ 	jal	stageLoad
 /*     e2a8:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e2ac:	0c004965 */ 	jal	func00012594
 /*     e2b0:	24040004 */ 	addiu	$a0,$zero,0x4

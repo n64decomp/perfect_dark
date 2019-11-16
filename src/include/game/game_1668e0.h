@@ -58,7 +58,7 @@ u32 func0f16b810(void);
 u32 func0f16b854(void);
 u32 func0f16b96c(void);
 u32 func0f16cb04(void);
-u32 func0f16cba0(void);
+void stageLoad(void);
 u32 func0f16cce4(void);
 u32 func0f16cd40(void);
 u32 func0f16cd90(void);
