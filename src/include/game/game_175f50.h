@@ -4,9 +4,8 @@
 #include "types.h"
 
 void func0f175f50(void);
-u32 func0f175f58(void);
-void func0f175f90(void);
-u32 func0f175f98(void);
-u32 func0f175fc8(void);
+void func0f175f58(s32 arg0, s32 arg1, s32 arg2);
+bool func0f175f68(s32 arg0, s32 arg1);
+void func0f175f78(s32 arg0, s32 arg1, s32 arg2);
 
 #endif
