@@ -1973,33 +1973,21 @@ glabel func0f16e6d4
 /*  f16e6f0:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f16e6f4
-/*  f16e6f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16e6f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16e6fc:	0fc5b9b5 */ 	jal	func0f16e6d4
-/*  f16e700:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f16e704:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f16e708:	3c188008 */ 	lui	$t8,0x8008
-/*  f16e70c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16e710:	000e7840 */ 	sll	$t7,$t6,0x1
-/*  f16e714:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f16e718:	97184124 */ 	lhu	$t8,0x4124($t8)
-/*  f16e71c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16e720:	03e00008 */ 	jr	$ra
-/*  f16e724:	00581021 */ 	addu	$v0,$v0,$t8
-);
+s32 textGetFileId(s32 bank)
+{
+	return langtable[bank] + func0f16e6d4();
+}
 
 void textSetBankSimple(s32 bank)
 {
-	void *ptr = func0f16e6f4(bank);
-	g_TextBanks[bank] = func0f1670fc(ptr, 0x22);
+	s32 file_id = textGetFileId(bank);
+	g_TextBanks[bank] = func0f1670fc(file_id, 0x22);
 }
 
 void textSetBank(s32 bank, s32 arg1, s32 arg2)
 {
-	void *ptr = func0f16e6f4(bank);
-	g_TextBanks[bank] = func0f167200(ptr, 0x22, arg1, arg2);
+	s32 file_id = textGetFileId(bank);
+	g_TextBanks[bank] = func0f167200(file_id, 0x22, arg1, arg2);
 }
 
 void textClearBank(s32 bank)
