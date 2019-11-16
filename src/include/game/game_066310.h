@@ -339,7 +339,7 @@ u32 func0f0910ac(void);
 u32 func0f091250(void);
 u32 func0f0912dc(void);
 u32 func0f091d84(struct defaultobj *obj, u32 arg1, u32 arg2);
-s32 func0f091e10(u32 *ptr);
+s32 setupGetCommandLength(u32 *ptr);
 u32 func0f092004(u32 arg0);
 u32 func0f092098(struct tag *tag);
 u32 func0f092124(void);

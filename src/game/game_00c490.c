@@ -929,7 +929,7 @@ glabel func0f00ce60
 /*  f00cea0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f00cea4:	26310001 */ 	addiu	$s1,$s1,0x1
 .L0f00cea8:
-/*  f00cea8:	0fc24784 */ 	jal	func0f091e10
+/*  f00cea8:	0fc24784 */ 	jal	setupGetCommandLength
 /*  f00ceac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f00ceb0:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f00ceb4:	01d08021 */ 	addu	$s0,$t6,$s0
@@ -2915,7 +2915,7 @@ glabel func0f00e980
 /*  f00eb18:	0238c821 */ 	addu	$t9,$s1,$t8
 /*  f00eb1c:	a72e000e */ 	sh	$t6,0xe($t9)
 .L0f00eb20:
-/*  f00eb20:	0fc24784 */ 	jal	func0f091e10
+/*  f00eb20:	0fc24784 */ 	jal	setupGetCommandLength
 /*  f00eb24:	02002025 */ 	or	$a0,$s0,$zero
 /*  f00eb28:	00024080 */ 	sll	$t0,$v0,0x2
 /*  f00eb2c:	01108021 */ 	addu	$s0,$t0,$s0
@@ -4514,7 +4514,7 @@ glabel func0f00f174
 /*  f010288:	0fc03666 */ 	jal	func0f00d998
 /*  f01028c:	02602825 */ 	or	$a1,$s3,$zero
 .L0f010290:
-/*  f010290:	0fc24784 */ 	jal	func0f091e10
+/*  f010290:	0fc24784 */ 	jal	setupGetCommandLength
 /*  f010294:	02402025 */ 	or	$a0,$s2,$zero
 /*  f010298:	00025880 */ 	sll	$t3,$v0,0x2
 /*  f01029c:	01729021 */ 	addu	$s2,$t3,$s2
@@ -4903,7 +4903,7 @@ glabel func0f00f174
 /*  f010848:	0c006174 */ 	jal	func000185d0
 /*  f01084c:	00002825 */ 	or	$a1,$zero,$zero
 .L0f010850:
-/*  f010850:	0fc24784 */ 	jal	func0f091e10
+/*  f010850:	0fc24784 */ 	jal	setupGetCommandLength
 /*  f010854:	02402025 */ 	or	$a0,$s2,$zero
 /*  f010858:	00027880 */ 	sll	$t7,$v0,0x2
 /*  f01085c:	01f29021 */ 	addu	$s2,$t7,$s2

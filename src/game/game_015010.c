@@ -93,7 +93,7 @@ glabel setupParseObjects
 /*  f015060:	0fc1acd3 */ 	jal	func0f06b34c
 /*  f015064:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f015068:
-/*  f015068:	0fc24784 */ 	jal	func0f091e10
+/*  f015068:	0fc24784 */ 	jal	setupGetCommandLength
 /*  f01506c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f015070:	00027880 */ 	sll	$t7,$v0,0x2
 /*  f015074:	01f08021 */ 	addu	$s0,$t7,$s0
@@ -151,7 +151,7 @@ glabel setupParseObjects
 //				func0f06b34c(ptr, 1);
 //			}
 //
-//			ptr = ptr + func0f091e10(ptr);
+//			ptr = ptr + setupGetCommandLength(ptr);
 //			type = ptr[0];
 //		}
 //	}

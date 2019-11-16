@@ -50636,7 +50636,7 @@ glabel func0f091d84
 );
 
 GLOBAL_ASM(
-glabel func0f091e10
+glabel setupGetCommandLength
 /*  f091e10:	908e0003 */ 	lbu	$t6,0x3($a0)
 /*  f091e14:	25cfffff */ 	addiu	$t7,$t6,-1
 /*  f091e18:	2de1003b */ 	sltiu	$at,$t7,0x3b
@@ -50790,7 +50790,7 @@ glabel func0f092004
 /*  f092050:	1000000a */ 	beqz	$zero,.L0f09207c
 /*  f092054:	02201025 */ 	or	$v0,$s1,$zero
 .L0f092058:
-/*  f092058:	0fc24784 */ 	jal	func0f091e10
+/*  f092058:	0fc24784 */ 	jal	setupGetCommandLength
 /*  f09205c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f092060:	00027880 */ 	sll	$t7,$v0,0x2
 /*  f092064:	01f18821 */ 	addu	$s1,$t7,$s1
@@ -50833,7 +50833,7 @@ glabel func0f092098
 /*  f0920dc:	1000000a */ 	beqz	$zero,.L0f092108
 /*  f0920e0:	02201025 */ 	or	$v0,$s1,$zero
 .L0f0920e4:
-/*  f0920e4:	0fc24784 */ 	jal	func0f091e10
+/*  f0920e4:	0fc24784 */ 	jal	setupGetCommandLength
 /*  f0920e8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0920ec:	00027880 */ 	sll	$t7,$v0,0x2
 /*  f0920f0:	01f08021 */ 	addu	$s0,$t7,$s0
@@ -50877,7 +50877,7 @@ glabel func0f092124
 /*  f09216c:	1000000a */ 	beqz	$zero,.L0f092198
 /*  f092170:	02201025 */ 	or	$v0,$s1,$zero
 .L0f092174:
-/*  f092174:	0fc24784 */ 	jal	func0f091e10
+/*  f092174:	0fc24784 */ 	jal	setupGetCommandLength
 /*  f092178:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09217c:	0002c080 */ 	sll	$t8,$v0,0x2
 /*  f092180:	03108021 */ 	addu	$s0,$t8,$s0
@@ -51188,7 +51188,7 @@ glabel func0f092484
 /*  f0925a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0925a8:	02009825 */ 	or	$s3,$s0,$zero
 .L0f0925ac:
-/*  f0925ac:	0fc24784 */ 	jal	func0f091e10
+/*  f0925ac:	0fc24784 */ 	jal	setupGetCommandLength
 /*  f0925b0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0925b4:	00027880 */ 	sll	$t7,$v0,0x2
 /*  f0925b8:	01f08021 */ 	addu	$s0,$t7,$s0
@@ -55104,7 +55104,7 @@ glabel func0f095684
 /*  f095b00:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f095b04:	0280b025 */ 	or	$s6,$s4,$zero
 .L0f095b08:
-/*  f095b08:	0fc24784 */ 	jal	func0f091e10
+/*  f095b08:	0fc24784 */ 	jal	setupGetCommandLength
 /*  f095b0c:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f095b10:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f095b14:	01d5a821 */ 	addu	$s5,$t6,$s5
