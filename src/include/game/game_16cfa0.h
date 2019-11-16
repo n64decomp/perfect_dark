@@ -42,7 +42,7 @@ u32 func0f16e0b4(u32 arg0);
 u32 func0f16e138(void);
 u32 func0f16e1e0(s32 arg0);
 u32 func0f16e3fc(void);
-u32 func0f16e6d4(void);
+s32 textGetLanguageId(void);
 s32 textGetFileId(s32 bank);
 void textSetBankSimple(s32 bank);
 void textSetBank(s32 bank, s32 arg1, s32 arg2);

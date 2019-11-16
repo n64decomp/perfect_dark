@@ -1960,22 +1960,31 @@ glabel func0f16e3fc
 /*  f16e6d0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f16e6d4
-/*  f16e6d4:	3c0e8008 */ 	lui	$t6,0x8008
-/*  f16e6d8:	8dce4120 */ 	lw	$t6,0x4120($t6)
-/*  f16e6dc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f16e6e0:	11c00002 */ 	beqz	$t6,.L0f16e6ec
-/*  f16e6e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16e6e8:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f16e6ec:
-/*  f16e6ec:	03e00008 */ 	jr	$ra
-/*  f16e6f0:	00601025 */ 	or	$v0,$v1,$zero
-);
+/**
+ * NTSC only supports English, while PAL supports 4 languages and JAP has its
+ * own. Each English file is followed immediately by the other translations.
+ *
+ * As it stands in the NTSC version, g_LanguageId is a flag that controls
+ * whether it uses English or Japanese text. This decomp is NTSC, so that's what
+ * you see here.
+ *
+ * For PAL, I suspect this function was adjusted to return values other than
+ * 0 and 1.
+ */
+s32 textGetLanguageId(void)
+{
+	bool ret = 0;
+
+	if (g_LanguageId != 0) {
+		ret = 1;
+	}
+
+	return ret;
+}
 
 s32 textGetFileId(s32 bank)
 {
-	return langtable[bank] + func0f16e6d4();
+	return langtable[bank] + textGetLanguageId();
 }
 
 void textSetBankSimple(s32 bank)
