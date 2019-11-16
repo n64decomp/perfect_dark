@@ -3,7 +3,7 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-void func0f000850(void)
+void func0f000860(void)
 {
 	// empty
 }
