@@ -6,6 +6,10 @@
 #include "setup/setup_020df0.h"
 #include "types.h"
 
+/**
+ * Iterates an array of structs and sets their unk04 value to 0.
+ * The array is stored at 800a45c4 and each struct is 0x6c long.
+ */
 GLOBAL_ASM(
 glabel func0f015420
 /*  f015420:	3c04800a */ 	lui	$a0,%hi(var800a45c0)
