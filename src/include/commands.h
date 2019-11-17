@@ -1674,6 +1674,11 @@
 	color, \
 	mkshort(text),
 
+#define if_target_y_difference_lt(distance, label) \
+	mkshort(0x01a6), \
+	distance / 10, \
+	label
+
 #define if_chr_propsoundcount_zero(chr, label) \
 	mkshort(0x01a7), \
 	chr, \

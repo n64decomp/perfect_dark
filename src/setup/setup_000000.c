@@ -14554,7 +14554,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01a3*/ ai01a3,
 	/*0x01a4*/ aiShowText,
 	/*0x01a5*/ ai01a5,
-	/*0x01a6*/ ai01a6,
+	/*0x01a6*/ aiIfTargetYDifferenceLessThan,
 	/*0x01a7*/ aiIfChrPropsoundcountZero,
 	/*0x01a8*/ NULL,
 	/*0x01a9*/ NULL,

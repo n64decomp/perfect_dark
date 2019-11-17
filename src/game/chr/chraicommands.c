@@ -14737,63 +14737,24 @@ bool ai01a5(void)
 /**
  * @cmd 01a6
  */
-GLOBAL_ASM(
-glabel ai01a6
-/*  f05df58:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05df5c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05df60:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05df64:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05df68:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05df6c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05df70:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f05df74:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f05df78:	0fc0a221 */ 	jal	chrGetTargetPosition
-/*  f05df7c:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05df80:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05df84:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05df88:	8c780424 */ 	lw	$t8,0x424($v1)
-/*  f05df8c:	c444000c */ 	lwc1	$f4,0xc($v0)
-/*  f05df90:	44801000 */ 	mtc1	$zero,$f2
-/*  f05df94:	8f19001c */ 	lw	$t9,0x1c($t8)
-/*  f05df98:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05df9c:	c726000c */ 	lwc1	$f6,0xc($t9)
-/*  f05dfa0:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f05dfa4:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f05dfa8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05dfac:	45020003 */ 	bc1fl	.L0f05dfbc
-/*  f05dfb0:	90e80002 */ 	lbu	$t0,0x2($a3)
-/*  f05dfb4:	46001001 */ 	sub.s	$f0,$f2,$f0
-/*  f05dfb8:	90e80002 */ 	lbu	$t0,0x2($a3)
-.L0f05dfbc:
-/*  f05dfbc:	3c014120 */ 	lui	$at,0x4120
-/*  f05dfc0:	44818000 */ 	mtc1	$at,$f16
-/*  f05dfc4:	44884000 */ 	mtc1	$t0,$f8
-/*  f05dfc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05dfcc:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f05dfd0:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f05dfd4:	4612003c */ 	c.lt.s	$f0,$f18
-/*  f05dfd8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05dfdc:	4502000a */ 	bc1fl	.L0f05e008
-/*  f05dfe0:	8c690438 */ 	lw	$t1,0x438($v1)
-/*  f05dfe4:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05dfe8:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05dfec:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05dff0:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f05dff4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05dff8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05dffc:	10000004 */ 	beqz	$zero,.L0f05e010
-/*  f05e000:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f05e004:	8c690438 */ 	lw	$t1,0x438($v1)
-.L0f05e008:
-/*  f05e008:	252a0004 */ 	addiu	$t2,$t1,0x4
-/*  f05e00c:	ac6a0438 */ 	sw	$t2,0x438($v1)
-.L0f05e010:
-/*  f05e010:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05e014:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05e018:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05e01c:	03e00008 */ 	jr	$ra
-/*  f05e020:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfTargetYDifferenceLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct position *pos = chrGetTargetPosition(g_Vars.chrdata);
+	float diff = pos->coord.y - g_Vars.chrdata->pos->coord.y;
+
+	if (diff < 0) {
+		diff = 0 - diff;
+	}
+
+	if (diff < (s32)cmd[2] * 10.0f) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 01aa
