@@ -910,7 +910,7 @@ glabel func0f0d2b40
 /*  f0d2c68:	45030007 */ 	bc1tl	.L0f0d2c88
 /*  f0d2c6c:	44812000 */ 	mtc1	$at,$f4
 .L0f0d2c70:
-/*  f0d2c70:	0c0011e4 */ 	jal	func00004790
+/*  f0d2c70:	0c0011e4 */ 	jal	scaleTo1
 /*  f0d2c74:	27a60098 */ 	addiu	$a2,$sp,0x98
 /*  f0d2c78:	44809000 */ 	mtc1	$zero,$f18
 /*  f0d2c7c:	10000004 */ 	beqz	$zero,.L0f0d2c90

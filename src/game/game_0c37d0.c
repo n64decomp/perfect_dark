@@ -359,7 +359,7 @@ glabel func0f0c3b38
 /*  f0c3bdc:	45030006 */ 	bc1tl	.L0f0c3bf8
 /*  f0c3be0:	44812000 */ 	mtc1	$at,$f4
 .L0f0c3be4:
-/*  f0c3be4:	0c0011e4 */ 	jal	func00004790
+/*  f0c3be4:	0c0011e4 */ 	jal	scaleTo1
 /*  f0c3be8:	27a60060 */ 	addiu	$a2,$sp,0x60
 /*  f0c3bec:	10000005 */ 	beqz	$zero,.L0f0c3c04
 /*  f0c3bf0:	27a80064 */ 	addiu	$t0,$sp,0x64
@@ -865,7 +865,7 @@ glabel func0f0c4250
 /*  f0c4334:	45010006 */ 	bc1t	.L0f0c4350
 .L0f0c4338:
 /*  f0c4338:	27a50094 */ 	addiu	$a1,$sp,0x94
-/*  f0c433c:	0c0011e4 */ 	jal	func00004790
+/*  f0c433c:	0c0011e4 */ 	jal	scaleTo1
 /*  f0c4340:	27a60098 */ 	addiu	$a2,$sp,0x98
 /*  f0c4344:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c4348:	10000004 */ 	beqz	$zero,.L0f0c435c
@@ -4062,7 +4062,7 @@ glabel func0f0c69b8
 /*  f0c7168:	246502a4 */ 	addiu	$a1,$v1,0x2a4
 /*  f0c716c:	51a0006a */ 	beqzl	$t5,.L0f0c7318
 /*  f0c7170:	8c640298 */ 	lw	$a0,0x298($v1)
-/*  f0c7174:	0c0011e4 */ 	jal	func00004790
+/*  f0c7174:	0c0011e4 */ 	jal	scaleTo1
 /*  f0c7178:	246602a8 */ 	addiu	$a2,$v1,0x2a8
 /*  f0c717c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c7180:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
