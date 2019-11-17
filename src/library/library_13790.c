@@ -11,41 +11,63 @@ void func00013790(void)
 	// empty
 }
 
+void func00013798(void)
+{
+	// empty
+}
+
+void func000137a0(void)
+{
+	// empty
+}
+
+void func000137a8(void)
+{
+	// empty
+}
+
+void func000137b0(s32 arg0, s32 arg1)
+{
+	// empty
+}
+
+void func000137bc(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+{
+	// empty
+}
+
+void func000137d0(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+{
+	// empty
+}
+
+void func000137e4(s32 arg0)
+{
+	// empty
+}
+
+void func000137ec(s32 arg0, s32 arg1, s32 arg2)
+{
+	// empty
+}
+
+void func000137fc(s32 arg0)
+{
+	// empty
+}
+
+void func00013804(s32 arg0, s32 arg1, s32 arg2)
+{
+	// empty
+}
+
+s32 func00013814(s32 arg0)
+{
+	return arg0;
+}
+
 GLOBAL_ASM(
-glabel func00013798
-/*    13798:	03e00008 */ 	jr	$ra
-/*    1379c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    137a0:	03e00008 */ 	jr	$ra
-/*    137a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    137a8:	03e00008 */ 	jr	$ra
-/*    137ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*    137b0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    137b4:	03e00008 */ 	jr	$ra
-/*    137b8:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    137bc:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    137c0:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    137c4:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    137c8:	03e00008 */ 	jr	$ra
-/*    137cc:	afa7000c */ 	sw	$a3,0xc($sp)
-/*    137d0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    137d4:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    137d8:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    137dc:	03e00008 */ 	jr	$ra
-/*    137e0:	afa7000c */ 	sw	$a3,0xc($sp)
-/*    137e4:	03e00008 */ 	jr	$ra
-/*    137e8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    137ec:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    137f0:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    137f4:	03e00008 */ 	jr	$ra
-/*    137f8:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    137fc:	03e00008 */ 	jr	$ra
-/*    13800:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    13804:	afa40000 */ 	sw	$a0,0x0($sp)
-/*    13808:	afa50004 */ 	sw	$a1,0x4($sp)
-/*    1380c:	03e00008 */ 	jr	$ra
-/*    13810:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    13814:	03e00008 */ 	jr	$ra
-/*    13818:	00801025 */ 	or	$v0,$a0,$zero
+glabel func0001381c
 /*    1381c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    13820:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    13824:	8fae0048 */ 	lw	$t6,0x48($sp)

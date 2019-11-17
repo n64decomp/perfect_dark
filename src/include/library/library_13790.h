@@ -4,6 +4,6 @@
 #include "types.h"
 
 void func00013790(void);
-u32 func00013798(void);
+void func00013798(void);
 
 #endif
