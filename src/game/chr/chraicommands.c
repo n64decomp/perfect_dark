@@ -14542,6 +14542,34 @@ glabel ai01a2
 /*  f05dcc0:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+//bool ai01a2(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//
+//	if (cmd[2] == 0) {
+//		s32 index = g_Vars.chrdata->morale * 6 + (random() % 3);
+//		audioPlayFromWorldPosition(cmd[3], ciquiptable_bank0[index], 0, g_Vars.chrdata->pos);
+//	}
+//
+//	if (cmd[2] == 1) {
+//		s32 index = g_Vars.chrdata->morale * 6 + (random() % 3);
+//		audioPlayFromWorldPosition(cmd[3], ciquiptable_bank1[index], 0, g_Vars.chrdata->pos);
+//	}
+//
+//	if (cmd[2] == 2) {
+//		s32 index = g_Vars.chrdata->morale * 6 + (random() % 3);
+//		audioPlayFromWorldPosition(cmd[3], ciquiptable_bank2[index], 0, g_Vars.chrdata->pos);
+//	}
+//
+//	if (cmd[2] == 3) {
+//		audioPlayFromWorldPosition(cmd[3], ciquiptable_bank3[g_Vars.chrdata->morale], 0, g_Vars.chrdata->pos);
+//	}
+//
+//	g_Vars.aioffset += 4;
+//
+//	return false;
+//}
+
 /**
  * @cmd 01a3
  */
