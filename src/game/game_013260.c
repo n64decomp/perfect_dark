@@ -28,6 +28,24 @@ glabel func0f013260
 /*  f01329c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch because the lui %hi instructions are swapped
+//void func0f013260(void)
+//{
+//	struct gvars800a3fc8 *current;
+//	struct gvars800a3fc8 *end;
+//	var800a3fc0 = 0;
+//	end = &var800a3fc8[10];
+//	current = &var800a3fc8[0];
+//
+//	while (current != end) {
+//		current->unk08 = 0;
+//		current++;
+//	}
+//
+//	var800a4130 = 0;
+//	var8007f0b8 = 0;
+//}
+
 GLOBAL_ASM(
 glabel func0f0132a0
 /*  f0132a0:	3c038008 */ 	lui	$v1,%hi(var8007f0c0)
