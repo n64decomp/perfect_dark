@@ -11,7 +11,6 @@
 #include "game/game_111600.h"
 #include "game/game_16cfa0.h"
 #include "game/game_19c990.h"
-#include "library/library.h"
 
 GLOBAL_ASM(
 glabel func0f111600

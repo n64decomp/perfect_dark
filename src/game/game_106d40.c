@@ -13,7 +13,6 @@
 #include "game/game_129900.h"
 #include "game/game_16cfa0.h"
 #include "game/game_19c990.h"
-#include "library/library.h"
 
 const char var7f1b2eb0[] = "%s: %s";
 const char var7f1b2eb8[] = "%s: %s\n";

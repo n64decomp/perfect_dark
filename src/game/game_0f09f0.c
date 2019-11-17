@@ -30,7 +30,8 @@
 #include "game/game_1999b0.h"
 #include "game/game_19c990.h"
 #include "game/game_1a3340.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
+#include "library/library_16110.h"
 
 const u32 var7f1b2120[] = {0xffffff00};
 const u32 var7f1b2124[] = {0xffffff00};

@@ -32,7 +32,7 @@
 #include "game/game_187770.h"
 #include "game/game_197600.h"
 #include "game/game_1999b0.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
 
 const char var7f1b7cb0[] = "UM_Make : In\n";
 const char var7f1b7cc0[] = "UM_Make : Out\n";

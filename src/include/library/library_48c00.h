@@ -1,0 +1,9 @@
+#ifndef IN_LIBRARY_LIBRARY_48C00_H
+#define IN_LIBRARY_LIBRARY_48C00_H
+#include <ultra64.h>
+#include "types.h"
+
+u32 func00048c00(void);
+u32 func00048c80(void);
+
+#endif

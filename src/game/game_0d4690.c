@@ -17,7 +17,6 @@
 #include "game/game_1668e0.h"
 #include "game/game_16cfa0.h"
 #include "game/game_176d70.h"
-#include "library/library.h"
 
 const u32 var7f1adba0[] = {0x74786d75};
 const u32 var7f1adba4[] = {0x6c000000};

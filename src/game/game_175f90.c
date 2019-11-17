@@ -7,7 +7,6 @@
 #include "types.h"
 #include "game/game_1668e0.h"
 #include "game/game_175f50.h"
-#include "library/library.h"
 
 void func0f175f90(void)
 {

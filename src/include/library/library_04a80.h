@@ -1,0 +1,21 @@
+#ifndef IN_LIBRARY_LIBRARY_04A80_H
+#define IN_LIBRARY_LIBRARY_04A80_H
+#include <ultra64.h>
+#include "types.h"
+
+u32 func00004a80(void);
+u32 func00004c04(void);
+u32 func00004c50(void);
+u32 func000050ec(void);
+u32 func000051a4(void);
+u32 func00005770(void);
+u32 func000058fc(void);
+u32 func000059b0(void);
+u32 func00005a60(void);
+u32 func00005a7c(void);
+u32 func00005b18(void);
+u32 func00005b30(void);
+u32 func00005b60(void);
+u32 func00005dc0(void);
+
+#endif

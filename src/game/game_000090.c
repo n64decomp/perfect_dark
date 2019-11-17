@@ -3,7 +3,6 @@
 #include "game/chr/chr.h"
 #include "game/game_000130.h"
 #include "gvars/gvars.h"
-#include "library/library.h"
 #include "setup/setup_000000.h"
 #include "types.h"
 

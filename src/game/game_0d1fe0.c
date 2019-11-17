@@ -16,7 +16,6 @@
 #include "game/game_113220.h"
 #include "game/game_152710.h"
 #include "game/game_1668e0.h"
-#include "library/library.h"
 
 const char var7f1adb10[] = "bondbike.c";
 const char var7f1adb1c[] = "bondbike.c";

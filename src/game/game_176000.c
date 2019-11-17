@@ -7,7 +7,6 @@
 #include "types.h"
 #include "game/game_1668e0.h"
 #include "game/game_175f50.h"
-#include "library/library.h"
 
 s32 func0f176000(s32 arg0)
 {

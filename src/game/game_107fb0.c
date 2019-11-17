@@ -16,7 +16,6 @@
 #include "game/game_176d70.h"
 #include "game/game_187770.h"
 #include "game/game_1999b0.h"
-#include "library/library.h"
 
 const char var7f1b2f00[] = "%s-";
 const char var7f1b2f04[] = "==:==";

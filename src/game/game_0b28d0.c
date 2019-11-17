@@ -38,7 +38,8 @@
 #include "game/game_187770.h"
 #include "game/game_19c990.h"
 #include "game/game_1a3340.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
+#include "library/library_16110.h"
 
 const u32 var7f1ad140[] = {0x42e52ee0};
 const u32 var7f1ad144[] = {0x3c0efa35};

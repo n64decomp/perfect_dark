@@ -30,7 +30,7 @@
 #include "game/game_187770.h"
 #include "game/game_197600.h"
 #include "game/game_1999b0.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
 
 const char var7f1b8a00[] = "||||||||||||| Starting game... players %d\n";
 const char var7f1b8a2c[] = "%s %d\n";

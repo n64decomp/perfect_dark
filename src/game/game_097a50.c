@@ -29,7 +29,7 @@
 #include "game/game_187770.h"
 #include "game/game_19c990.h"
 #include "game/game_1a3340.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
 
 const char var7f1ab890[] = "rontime";
 const char var7f1ab898[] = "rofftime";

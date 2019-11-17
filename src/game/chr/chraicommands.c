@@ -5,12 +5,13 @@
 #include "game/game_066310.h"
 #include "game/game_165670.h"
 #include "game/game_16cfa0.h"
-#include "library/library.h"
 #include "setup/setup_000000.h"
 #include "setup/setup_0160b0.h"
 #include "setup/setup_020df0.h"
 #include "types.h"
 #include "game/chr/chraicommands.h"
+#include "library/library_12dc0.h"
+#include "library/library_16110.h"
 
 /**
  * @cmd 0000

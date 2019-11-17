@@ -6,7 +6,6 @@
 #include "setup/setup_020df0.h"
 #include "types.h"
 #include "game/game_0b2150.h"
-#include "library/library.h"
 
 GLOBAL_ASM(
 glabel func0f0b2150

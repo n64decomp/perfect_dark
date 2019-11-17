@@ -6,7 +6,7 @@
 #include "setup/setup_020df0.h"
 #include "types.h"
 #include "game/game_01d9f0.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
 
 const u32 var7f1a8660[] = {0x3e8e38e4};
 const u32 var7f1a8664[] = {0x3f7ae148};

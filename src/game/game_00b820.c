@@ -9,7 +9,7 @@
 #include "game/chr/chr.h"
 #include "game/game_066310.h"
 #include "game/game_106d40.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
 
 GLOBAL_ASM(
 glabel func0f00b820

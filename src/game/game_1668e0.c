@@ -55,7 +55,7 @@
 #include "game/game_187770.h"
 #include "game/game_1999b0.h"
 #include "game/game_19c990.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
 
 const char var7f1b76f0[] = "-mgfx";
 const char var7f1b76f8[] = "-mgfx";

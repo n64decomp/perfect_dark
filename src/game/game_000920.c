@@ -14,7 +14,7 @@
 #include "game/game_1668e0.h"
 #include "game/game_176080.h"
 #include "game/game_176d70.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
 
 const char var7f1a78e0[] = "LIGHTS : Hit occured on light %d in room %d\n";
 const char var7f1a7910[] = "L2(%d) -> ";

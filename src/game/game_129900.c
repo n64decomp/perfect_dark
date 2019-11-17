@@ -29,7 +29,7 @@
 #include "game/game_16cfa0.h"
 #include "game/game_176d70.h"
 #include "game/game_187770.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
 
 const char var7f1b5570[] = "ecol";
 

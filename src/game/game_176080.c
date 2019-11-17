@@ -9,7 +9,6 @@
 #include "game/game_152710.h"
 #include "game/game_176080.h"
 #include "game/game_187770.h"
-#include "library/library.h"
 
 GLOBAL_ASM(
 glabel func0f176080

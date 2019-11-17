@@ -6,7 +6,6 @@
 #include "setup/setup_020df0.h"
 #include "types.h"
 #include "game/game_096750.h"
-#include "library/library.h"
 
 const u32 var7f1ab830[] = {0x40490fdb};
 const u32 var7f1ab834[] = {0x3fc90fdb};

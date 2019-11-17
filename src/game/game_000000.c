@@ -5,7 +5,6 @@
 #include "setup/setup_0160b0.h"
 #include "setup/setup_020df0.h"
 #include "types.h"
-#include "library/library.h"
 
 GLOBAL_ASM(
 glabel func0f000000

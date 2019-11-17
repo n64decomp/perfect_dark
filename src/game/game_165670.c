@@ -8,7 +8,6 @@
 #include "game/game_0b28d0.h"
 #include "game/game_157db0.h"
 #include "game/game_165670.h"
-#include "library/library.h"
 
 const u32 var7f1b76e0[] = {0x3a83126f};
 const u32 var7f1b76e4[] = {0x3a83126f};

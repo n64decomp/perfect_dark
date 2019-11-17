@@ -1,8 +1,8 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "gvars/gvars.h"
+#include "library/library_50090.h"
 #include "types.h"
-#include "library/library.h"
 
 void func0f000880(void)
 {

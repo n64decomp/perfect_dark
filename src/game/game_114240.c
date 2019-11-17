@@ -9,7 +9,7 @@
 #include "game/game_114240.h"
 #include "game/game_115ab0.h"
 #include "game/game_157db0.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
 
 const char var7f1b3a80[] = "padhalllv.c";
 

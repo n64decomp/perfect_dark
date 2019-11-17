@@ -6,6 +6,8 @@
 #include "setup/setup_020df0.h"
 #include "types.h"
 #include "game/chr/chrai.h"
+#include "library/library_12dc0.h"
+#include "library/library_16110.h"
 
 GLOBAL_ASM(
 glabel chraiEndList

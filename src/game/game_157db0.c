@@ -19,7 +19,7 @@
 #include "game/game_165670.h"
 #include "game/game_1668e0.h"
 #include "game/game_16cfa0.h"
-#include "library/library.h"
+#include "library/library_12dc0.h"
 
 const char var7f1b7420[] = "Checking Convex Room %d";
 const char var7f1b7438[] = " Portal %d %s%s%.1f < %.1f";

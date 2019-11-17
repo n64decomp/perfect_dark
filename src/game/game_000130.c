@@ -7,7 +7,6 @@
 #include "types.h"
 #include "game/game_000130.h"
 #include "game/game_097890.h"
-#include "library/library.h"
 
 const u32 var7f1a78c0[] = {0x40c907a9};
 const u32 var7f1a78c4[] = {0x38c907a9};
