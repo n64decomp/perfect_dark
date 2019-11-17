@@ -44,6 +44,7 @@ SECTIONS
 		src/library/library_13710.o (.text);
 		src/library/library_13750.o (.text);
 		src/library/library_13790.o (.text);
+		src/library/library_13820.o (.text);
 		src/library/library_13900.o (.text);
 		src/library/library_15860.o (.text);
 		src/library/library_159b0.o (.text);
@@ -186,6 +187,7 @@ SECTIONS
 		src/library/library_13710.o (.rodata);
 		src/library/library_13750.o (.rodata);
 		src/library/library_13790.o (.rodata);
+		src/library/library_13820.o (.rodata);
 		src/library/library_13900.o (.rodata);
 		src/library/library_15860.o (.rodata);
 		src/library/library_159b0.o (.rodata);
