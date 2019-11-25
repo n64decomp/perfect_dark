@@ -40405,7 +40405,7 @@ glabel func0f0404d4
 /*  f040c58:	45020164 */ 	bc1fl	.L0f0411ec
 /*  f040c5c:	afa00268 */ 	sw	$zero,0x268($sp)
 .L0f040c60:
-/*  f040c60:	0fc2c3f4 */ 	jal	inventoryFindById
+/*  f040c60:	0fc2c3f4 */ 	jal	weaponFindById
 /*  f040c64:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f040c68:	93ad0263 */ 	lbu	$t5,0x263($sp)
 /*  f040c6c:	93a40260 */ 	lbu	$a0,0x260($sp)

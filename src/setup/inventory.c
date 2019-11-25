@@ -163,7 +163,7 @@ struct inventory_ammo invammo_default = {
 };
 
 // 111b4
-struct inventory_item invitem_hammer = {
+struct weapon invitem_hammer = {
 	0x0000, // lo model
 	0x0000, // hi model
 	NULL, // equip animation
@@ -190,7 +190,7 @@ struct inventory_item invitem_hammer = {
 };
 
 // 11204
-struct inventory_item invitem_nothing = {
+struct weapon invitem_nothing = {
 	0x0000, // lo model
 	0x0000, // hi model
 	NULL, // equip animation
@@ -311,7 +311,7 @@ u32 var8006b354 = 0x40000000;
 u32 var8006b358 = 0x00000000;
 
 // 1137c
-struct inventory_item invitem_unarmed = {
+struct weapon invitem_unarmed = {
 	0x04e5, // lo model
 	0x04e5, // hi model
 	NULL, // equip animation
@@ -608,7 +608,7 @@ struct inventory_ammo invammo_falcon2scope = {
 };
 
 // 11748
-struct inventory_item invitem_falcon2 = {
+struct weapon invitem_falcon2 = {
 	0x0377, // lo model
 	0x039c, // hi model
 	invanim_falcon2_equip, // equip animation
@@ -635,7 +635,7 @@ struct inventory_item invitem_falcon2 = {
 };
 
 // 11798
-struct inventory_item invitem_falcon2scope = {
+struct weapon invitem_falcon2scope = {
 	0x0377, // lo model
 	0x039c, // hi model
 	invanim_falcon2_equip, // equip animation
@@ -662,7 +662,7 @@ struct inventory_item invitem_falcon2scope = {
 };
 
 // 117e8
-struct inventory_item invitem_falcon2silencer = {
+struct weapon invitem_falcon2silencer = {
 	0x0377, // lo model
 	0x039c, // hi model
 	invanim_falcon2_equip, // equip animation
@@ -830,7 +830,7 @@ struct inventory_ammo invammo_magsec = {
 };
 
 // 11a24
-struct inventory_item invitem_magsec = {
+struct weapon invitem_magsec = {
 	0x0378, // lo model
 	0x04c4, // hi model
 	invanim_magsec_equiporshoot, // equip animation
@@ -1048,7 +1048,7 @@ struct inventory_ammo invammo_dy357 = {
 };
 
 // 11d5c
-struct inventory_item invitem_dy357 = {
+struct weapon invitem_dy357 = {
 	0x037a, // lo model
 	0x04bd, // hi model
 	invanim_dy357_equiporshoot, // equip animation
@@ -1075,7 +1075,7 @@ struct inventory_item invitem_dy357 = {
 };
 
 // 11dac
-struct inventory_item invitem_dy357lx = {
+struct weapon invitem_dy357lx = {
 	0x037b, // lo model
 	0x04be, // hi model
 	invanim_dy357_equiporshoot, // equip animation
@@ -1216,7 +1216,7 @@ struct inventory_ammo invammo_phoenix = {
 };
 
 // 11f54
-struct inventory_item invitem_phoenix = {
+struct weapon invitem_phoenix = {
 	0x037c, // lo model
 	0x04c5, // hi model
 	invanim_phoenix_equiporreload, // equip animation
@@ -1377,7 +1377,7 @@ struct inventory_ammo invammo_mauler = {
 };
 
 // 12180
-struct inventory_item invitem_mauler = {
+struct weapon invitem_mauler = {
 	0x0379, // lo model
 	0x04cb, // hi model
 	invanim_mauler_equiporshoot, // equip animation
@@ -1556,7 +1556,7 @@ struct inventory_ammo invammo_cmp150 = {
 };
 
 // 123e4
-struct inventory_item invitem_cmp150 = {
+struct weapon invitem_cmp150 = {
 	0x037d, // lo model
 	0x04b9, // hi model
 	invanim_cmp150_equiporshoot, // equip animation
@@ -1703,7 +1703,7 @@ struct inventory_ammo invammo_cyclone = {
 };
 
 // 12590
-struct inventory_item invitem_cyclone = {
+struct weapon invitem_cyclone = {
 	0x0382, // lo model
 	0x04bb, // hi model
 	invanim_cyclone_equiporreload, // equip animation
@@ -1824,7 +1824,7 @@ struct inventory_ammo invammo_rcp120 = {
 };
 
 // 126f4
-struct inventory_item invitem_rcp120 = {
+struct weapon invitem_rcp120 = {
 	0x0384, // lo model
 	0x04c8, // hi model
 	invanim_rcp120_equiporshoot, // equip animation
@@ -1953,7 +1953,7 @@ struct inventory_ammo invammo_callisto = {
 };
 
 // 12868
-struct inventory_item invitem_callisto = {
+struct weapon invitem_callisto = {
 	0x0383, // lo model
 	0x04c6, // hi model
 	invanim_callisto_equiporreload, // equip animation
@@ -2072,7 +2072,7 @@ struct inventory_ammo invammo_dragon = {
 };
 
 // 129b8
-struct inventory_item invitem_dragon = {
+struct weapon invitem_dragon = {
 	0x037f, // lo model
 	0x04c0, // hi model
 	invanim_dragon_equiporshoot, // equip animation
@@ -2254,7 +2254,7 @@ struct inventory_ammo invammo_superdragon_grenades = {
 };
 
 // 12bf0
-struct inventory_item invitem_superdragon = {
+struct weapon invitem_superdragon = {
 	0x0380, // lo model
 	0x04c1, // hi model
 	invanim_superdragon_equiporshoot, // equip animation
@@ -2395,7 +2395,7 @@ struct inventory_ammo invammo_ar34 = {
 };
 
 // 12da0
-struct inventory_item invitem_ar34 = {
+struct weapon invitem_ar34 = {
 	0x037e, // lo model
 	0x04b7, // hi model
 	invanim_ar34_equiporreload, // equip animation
@@ -2552,7 +2552,7 @@ struct inventory_ammo invammo_k7avenger = {
 };
 
 // 12f78
-struct inventory_item invitem_k7avenger = {
+struct weapon invitem_k7avenger = {
 	0x0381, // lo model
 	0x04b8, // hi model
 	invanim_k7avenger_equip, // equip animation
@@ -2705,7 +2705,7 @@ struct inventory_ammo invammo_laptopgun = {
 };
 
 // 1318c
-struct inventory_item invitem_laptopgun = {
+struct weapon invitem_laptopgun = {
 	0x0385, // lo model
 	0x04c7, // hi model
 	invanim_laptopgun_equip, // equip animation
@@ -2835,7 +2835,7 @@ struct inventory_ammo invammo_shotgun = {
 };
 
 // 1330c
-struct inventory_item invitem_shotgun = {
+struct weapon invitem_shotgun = {
 	0x0386, // lo model
 	0x04ca, // hi model
 	invanim_shotgun_equiporsingleshot, // equip animation
@@ -3002,7 +3002,7 @@ struct inventory_ammo invammo_reaper = {
 };
 
 // 13510
-struct inventory_item invitem_reaper = {
+struct weapon invitem_reaper = {
 	0x0387, // lo model
 	0x039d, // hi model
 	invanim_reaper_equip, // equip animation
@@ -3156,7 +3156,7 @@ struct inventory_ammo invammo_rocketlauncher = {
 };
 
 // 136ec
-struct inventory_item invitem_rocketlauncher = {
+struct weapon invitem_rocketlauncher = {
 	0x0388, // lo model
 	0x04c9, // hi model
 	invanim_rockerlauncher_equiporshoot, // equip animation
@@ -3279,7 +3279,7 @@ struct inventory_ammo invammo_slayer = {
 };
 
 // 13860
-struct inventory_item invitem_slayer = {
+struct weapon invitem_slayer = {
 	0x038a, // lo model
 	0x04cc, // hi model
 	invanim_slayer_equiporshoot, // equip animation
@@ -3417,7 +3417,7 @@ struct inventory_ammo invammo_devastator = {
 s8 invg_00013a10[] = {41, 0, -1};
 
 // 13a14
-struct inventory_item invitem_devastator = {
+struct weapon invitem_devastator = {
 	0x0389, // lo model
 	0x04bf, // hi model
 	invanim_devastator_equiporshoot, // equip animation
@@ -3506,7 +3506,7 @@ struct inventory_ammo invammo_timedmine = {
 };
 
 // 13af0
-struct inventory_item invitem_timedmine = {
+struct weapon invitem_timedmine = {
 	0x0391, // lo model
 	0x0391, // hi model
 	inanim_mine_equiporreload, // equip animation
@@ -3621,7 +3621,7 @@ struct inventory_ammo invammo_remotemine = {
 s8 invg_00013c0c[] = {41, 0, -1};
 
 // 13c10
-struct inventory_item invitem_remotemine = {
+struct weapon invitem_remotemine = {
 	0x0393, // lo model
 	0x0393, // hi model
 	invanim_remotemine_equiporreload, // equip animation
@@ -3677,7 +3677,7 @@ struct inventory_ammo invammo_proximitymine = {
 };
 
 // 13c98
-struct inventory_item invitem_proximitymine = {
+struct weapon invitem_proximitymine = {
 	0x0392, // lo model
 	0x0392, // hi model
 	inanim_mine_equiporreload, // equip animation
@@ -3752,7 +3752,7 @@ struct inventory_ammo invammo_ecmmine = {
 };
 
 // 13d58
-struct inventory_item invitem_ecmmine = {
+struct weapon invitem_ecmmine = {
 	0x074d, // lo model
 	0x074d, // hi model
 	invanim_ecmmine_equiporreload, // equip animation
@@ -3872,7 +3872,7 @@ struct inventory_ammo invammo_grenade = {
 };
 
 // 13ea8
-struct inventory_item invitem_grenade = {
+struct weapon invitem_grenade = {
 	0x0390, // lo model
 	0x04fe, // hi model
 	invanim_grenade_equiporreload, // equip animation
@@ -3946,7 +3946,7 @@ struct inventory_ammo invammo_nbomb = {
 };
 
 // 13f54
-struct inventory_item invitem_nbomb = {
+struct weapon invitem_nbomb = {
 	0x04fc, // lo model
 	0x04fd, // hi model
 	invanim_grenade_equiporreload, // equip animation
@@ -4075,7 +4075,7 @@ struct inventory_ammo invammo_farsight = {
 s8 invg_000140ac[] = {40, 0, -1};
 
 // 140b0
-struct inventory_item invitem_farsight = {
+struct weapon invitem_farsight = {
 	0x038b, // lo model
 	0x04ce, // hi model
 	invanim_farsight_equiporshoot, // equip animation
@@ -4238,7 +4238,7 @@ struct inventory_ammo invammo_crossbow = {
 s8 invg_000142bc[] = {40, 0, 41, 0, 42, 0, -1};
 
 // 142c4
-struct inventory_item invitem_crossbow = {
+struct weapon invitem_crossbow = {
 	0x038d, // lo model
 	0x04ba, // hi model
 	invanim_crosbow_equip, // equip animation
@@ -4382,7 +4382,7 @@ struct inventory_ammo invammo_tranquilizer = {
 s8 invg_00014494[] = {40, 0, 41, 0, 42, 0, -1};
 
 // 1449c
-struct inventory_item invitem_tranquilizer = {
+struct weapon invitem_tranquilizer = {
 	0x038e, // lo model
 	0x04bc, // hi model
 	invanim_tranquilizer_equiporshoot, // equip animation
@@ -4445,7 +4445,7 @@ u32 var8006e518 = 0x00008057;
 u32 var8006e51c = 0x01000000;
 
 // 14540
-struct inventory_item invitem_psychosisgun = {
+struct weapon invitem_psychosisgun = {
 	0x038e, // lo model
 	0x04bc, // hi model
 	invanim_tranquilizer_equiporshoot, // equip animation
@@ -4571,7 +4571,7 @@ struct inventory_ammo invammo_sniperrifle = {
 s8 invg_000146a0[] = {41, 0, -1};
 
 // 146a4
-struct inventory_item invitem_sniperrifle = {
+struct weapon invitem_sniperrifle = {
 	0x038c, // lo model
 	0x04cd, // hi model
 	invanim_sniperrifle_equip, // equip animation
@@ -4665,7 +4665,7 @@ u32 var8006e780 = 0x00000000;
 u32 var8006e784 = 0x00000000;
 
 // 147a8
-struct inventory_item invitem_laser = {
+struct weapon invitem_laser = {
 	0x04df, // lo model
 	0x04c3, // hi model
 	invanim_laser_equip, // equip animation
@@ -4748,7 +4748,7 @@ struct inventory_ammo invammo_pp9i = {
 };
 
 // 1487c
-struct inventory_item invitem_pp9i = {
+struct weapon invitem_pp9i = {
 	0x0394, // lo model
 	0x0394, // hi model
 	invanim_pp9i_equiporshoot, // equip animation
@@ -4818,7 +4818,7 @@ struct inventory_ammo invammo_cc13 = {
 };
 
 // 14938
-struct inventory_item invitem_cc13 = {
+struct weapon invitem_cc13 = {
 	0x0395, // lo model
 	0x0395, // hi model
 	invanim_cc13_equiporshoot, // equip animation
@@ -4886,7 +4886,7 @@ struct inventory_ammo invammo_kl01313 = {
 };
 
 // 149f0
-struct inventory_item invitem_kl01313 = {
+struct weapon invitem_kl01313 = {
 	0x0396, // lo model
 	0x0396, // hi model
 	NULL, // equip animation
@@ -4954,7 +4954,7 @@ struct inventory_ammo invammo_kf7special = {
 };
 
 // 14aa8
-struct inventory_item invitem_kf7special = {
+struct weapon invitem_kf7special = {
 	0x0397, // lo model
 	0x0397, // hi model
 	NULL, // equip animation
@@ -5022,7 +5022,7 @@ struct inventory_ammo invammo_zzt9mm = {
 };
 
 // 14b60
-struct inventory_item invitem_zzt9mm = {
+struct weapon invitem_zzt9mm = {
 	0x0398, // lo model
 	0x0398, // hi model
 	NULL, // equip animation
@@ -5090,7 +5090,7 @@ struct inventory_ammo invammo_dmc = {
 };
 
 // 14c18
-struct inventory_item invitem_dmc = {
+struct weapon invitem_dmc = {
 	0x0399, // lo model
 	0x0399, // hi model
 	NULL, // equip animation
@@ -5158,7 +5158,7 @@ struct inventory_ammo invammo_ar53 = {
 };
 
 // 14cd0
-struct inventory_item invitem_ar53 = {
+struct weapon invitem_ar53 = {
 	0x039a, // lo model
 	0x039a, // hi model
 	NULL, // equip animation
@@ -5226,7 +5226,7 @@ struct inventory_ammo invammo_rcp45 = {
 };
 
 // 14d88
-struct inventory_item invitem_rcp45 = {
+struct weapon invitem_rcp45 = {
 	0x039b, // lo model
 	0x039b, // hi model
 	NULL, // equip animation
@@ -5272,7 +5272,7 @@ u32 var8006edd8 = 0x00000000;
 u32 var8006eddc = 0x00000000;
 
 // 14e00
-struct inventory_item invitem_briefcase2 = {
+struct weapon invitem_briefcase2 = {
 	0x039c, // lo model
 	0x039c, // hi model
 	NULL, // equip animation
@@ -5340,7 +5340,7 @@ struct inventory_ammo invammo_59 = {
 };
 
 // 14eb8
-struct inventory_item invitem_59 = {
+struct weapon invitem_59 = {
 	0x0000, // lo model
 	0x0000, // hi model
 	NULL, // equip animation
@@ -5408,7 +5408,7 @@ struct inventory_ammo invammo_5a = {
 };
 
 // 14f70
-struct inventory_item invitem_5a = {
+struct weapon invitem_5a = {
 	0x0000, // lo model
 	0x0000, // hi model
 	NULL, // equip animation
@@ -5560,7 +5560,7 @@ struct inventory_ammo invammo_combatknife = {
 };
 
 // 15130
-struct inventory_item invitem_combatknife = {
+struct weapon invitem_combatknife = {
 	0x038f, // lo model
 	0x04c2, // hi model
 	invanim_combatknife_equip, // equip animation
@@ -5634,7 +5634,7 @@ struct inventory_ammo invammo_bug = {
 };
 
 // 151dc
-struct inventory_item invitem_commsrider = {
+struct weapon invitem_commsrider = {
 	0x0087, // lo model
 	0x0087, // hi model
 	NULL, // equip animation
@@ -5661,7 +5661,7 @@ struct inventory_item invitem_commsrider = {
 };
 
 // 1522c
-struct inventory_item invitem_tracerbug = {
+struct weapon invitem_tracerbug = {
 	0x0087, // lo model
 	0x0087, // hi model
 	NULL, // equip animation
@@ -5688,7 +5688,7 @@ struct inventory_item invitem_tracerbug = {
 };
 
 // 1527c
-struct inventory_item invitem_targetamplifier = {
+struct weapon invitem_targetamplifier = {
 	0x07b2, // lo model
 	0x07b2, // hi model
 	NULL, // equip animation
@@ -5730,7 +5730,7 @@ struct inventory_function invfunc_nightvision_primary = {
 u32 var8006f2c0 = 0x00000001;
 
 // 152e4
-struct inventory_item invitem_nightvision = {
+struct weapon invitem_nightvision = {
 	0x0346, // lo model
 	0x0346, // hi model
 	NULL, // equip animation
@@ -5782,7 +5782,7 @@ struct inventory_typee inve_00015348 = {
 };
 
 // 15368
-struct inventory_item invitem_horizonscanner = {
+struct weapon invitem_horizonscanner = {
 	0x04e6, // lo model
 	0x04e6, // hi model
 	NULL, // equip animation
@@ -5835,7 +5835,7 @@ struct inventory_ammo invammo_cloakingdevice = {
 };
 
 // 153e4
-struct inventory_item invitem_cloakingdevice = {
+struct weapon invitem_cloakingdevice = {
 	0x04cf, // lo model
 	0x04cf, // hi model
 	NULL, // equip animation
@@ -5907,7 +5907,7 @@ struct inventory_ammo invammo_combatboost = {
 };
 
 // 15488
-struct inventory_item invitem_combatboost = {
+struct weapon invitem_combatboost = {
 	0x04d0, // lo model
 	0x04d0, // hi model
 	NULL, // equip animation
@@ -5949,7 +5949,7 @@ struct inventory_function invfunc_suicidepill_primary = {
 u32 var8006f4cc = 0x00000020;
 
 // 154f0
-struct inventory_item invitem_suicidepill = {
+struct weapon invitem_suicidepill = {
 	0x0000, // lo model
 	0x0000, // hi model
 	NULL, // equip animation
@@ -5991,7 +5991,7 @@ struct inventory_function invfunc_irscanner_primary = {
 u32 var8006f534 = 0x00000008;
 
 // 15558
-struct inventory_item invitem_irscanner = {
+struct weapon invitem_irscanner = {
 	0x074f, // lo model
 	0x074f, // hi model
 	NULL, // equip animation
@@ -6031,7 +6031,7 @@ struct inventory_function invfunc_disguise_primary = {
 };
 
 // 155bc
-struct inventory_item invitem_disguise40 = {
+struct weapon invitem_disguise40 = {
 	0x0000, // lo model
 	0x0000, // hi model
 	NULL, // equip animation
@@ -6058,7 +6058,7 @@ struct inventory_item invitem_disguise40 = {
 };
 
 // 1560c
-struct inventory_item invitem_disguise41 = {
+struct weapon invitem_disguise41 = {
 	0x0000, // lo model
 	0x0000, // hi model
 	NULL, // equip animation
@@ -6100,7 +6100,7 @@ struct inventory_function invfunc_camspy_deploy = {
 u32 var8006f650 = 0x00000004;
 
 // 15674
-struct inventory_item invitem_camspy = {
+struct weapon invitem_camspy = {
 	0x004b, // lo model
 	0x004b, // hi model
 	NULL, // equip animation
@@ -6142,7 +6142,7 @@ struct inventory_function invfunc_rtracker_primary = {
 u32 var8006f6b8 = 0x00000010;
 
 // 156dc
-struct inventory_item invitem_rtracker = {
+struct weapon invitem_rtracker = {
 	0x076f, // lo model
 	0x076f, // hi model
 	NULL, // equip animation
@@ -6184,7 +6184,7 @@ struct inventory_function invfunc_xray_primary = {
 u32 var8006f720 = 0x00000002;
 
 // 15744
-struct inventory_item invitem_xrayscanner = {
+struct weapon invitem_xrayscanner = {
 	0x0770, // lo model
 	0x0770, // hi model
 	NULL, // equip animation
@@ -6245,7 +6245,7 @@ u32 var8006f7bc = 0x0000001e;
 u32 var8006f7c0 = 0x00000000;
 
 // 157e4
-struct inventory_item invitem_datauplink = {
+struct weapon invitem_datauplink = {
 	0x074e, // lo model
 	0x074e, // hi model
 	invanim_datauplink_equip, // equip animation
@@ -6272,7 +6272,7 @@ struct inventory_item invitem_datauplink = {
 };
 
 // 15834
-struct inventory_item invitem_doordecoder = {
+struct weapon invitem_doordecoder = {
 	0x0772, // lo model
 	0x0772, // hi model
 	NULL, // equip animation
@@ -6299,7 +6299,7 @@ struct inventory_item invitem_doordecoder = {
 };
 
 // 15884
-struct inventory_item invitem_rocket = {
+struct weapon invitem_rocket = {
 	0x0382, // lo model
 	0x04bb, // hi model
 	NULL, // equip animation
@@ -6326,7 +6326,7 @@ struct inventory_item invitem_rocket = {
 };
 
 // 158d4
-struct inventory_item invitem_homingrocket = {
+struct weapon invitem_homingrocket = {
 	0x0382, // lo model
 	0x04bb, // hi model
 	NULL, // equip animation
@@ -6353,7 +6353,7 @@ struct inventory_item invitem_homingrocket = {
 };
 
 // 15924
-struct inventory_item invitem_grenaderound = {
+struct weapon invitem_grenaderound = {
 	0x0382, // lo model
 	0x04bb, // hi model
 	NULL, // equip animation
@@ -6380,7 +6380,7 @@ struct inventory_item invitem_grenaderound = {
 };
 
 // 15974
-struct inventory_item invitem_bolt = {
+struct weapon invitem_bolt = {
 	0x0382, // lo model
 	0x04bb, // hi model
 	NULL, // equip animation
@@ -6416,7 +6416,7 @@ u32 var8006f9bc = 0x0000001e;
 u32 var8006f9c0 = 0x00000000;
 
 // 159e4
-struct inventory_item invitem_skedarbomb = {
+struct weapon invitem_skedarbomb = {
 	0x075f, // lo model
 	0x075f, // hi model
 	NULL, // equip animation
@@ -6443,7 +6443,7 @@ struct inventory_item invitem_skedarbomb = {
 };
 
 // 15a34
-struct inventory_item invitem_explosives = {
+struct weapon invitem_explosives = {
 	0x0760, // lo model
 	0x0760, // hi model
 	NULL, // equip animation
@@ -6485,7 +6485,7 @@ struct inventory_function invfunc_presidentscanner_primary = {
 u32 var8006fa78 = 0x00000010;
 
 // 15a9c
-struct inventory_item invitem_presidentscanner = {
+struct weapon invitem_presidentscanner = {
 	0x076f, // lo model
 	0x076f, // hi model
 	NULL, // equip animation
@@ -6512,7 +6512,7 @@ struct inventory_item invitem_presidentscanner = {
 };
 
 // 15aec
-struct inventory_item invitem_autosurgeon = {
+struct weapon invitem_autosurgeon = {
 	0x049d, // lo model
 	0x049d, // hi model
 	NULL, // equip animation
@@ -6539,7 +6539,7 @@ struct inventory_item invitem_autosurgeon = {
 };
 
 // 15b3c
-struct inventory_item invitem_flightplans = {
+struct weapon invitem_flightplans = {
 	0x0763, // lo model
 	0x0763, // hi model
 	NULL, // equip animation
@@ -6566,7 +6566,7 @@ struct inventory_item invitem_flightplans = {
 };
 
 // 15b8c
-struct inventory_item invitem_researchtape = {
+struct weapon invitem_researchtape = {
 	0x0761, // lo model
 	0x0761, // hi model
 	NULL, // equip animation
@@ -6593,7 +6593,7 @@ struct inventory_item invitem_researchtape = {
 };
 
 // 15bdc
-struct inventory_item invitem_backupdisk = {
+struct weapon invitem_backupdisk = {
 	0x0762, // lo model
 	0x0762, // hi model
 	NULL, // equip animation
@@ -6620,7 +6620,7 @@ struct inventory_item invitem_backupdisk = {
 };
 
 // 15c2c
-struct inventory_item invitem_briefcase = {
+struct weapon invitem_briefcase = {
 	0x0563, // lo model
 	0x0563, // hi model
 	NULL, // equip animation
@@ -6647,7 +6647,7 @@ struct inventory_item invitem_briefcase = {
 };
 
 // 15c7c
-struct inventory_item invitem_suitcase = {
+struct weapon invitem_suitcase = {
 	0x0086, // lo model
 	0x0086, // hi model
 	NULL, // equip animation
@@ -6674,7 +6674,7 @@ struct inventory_item invitem_suitcase = {
 };
 
 // 15ccc
-struct inventory_item invitem_necklace = {
+struct weapon invitem_necklace = {
 	0x01c3, // lo model
 	0x01c3, // hi model
 	NULL, // equip animation
@@ -6701,7 +6701,7 @@ struct inventory_item invitem_necklace = {
 };
 
 // 15d1c
-struct inventory_item invitem_shield = {
+struct weapon invitem_shield = {
 	0x0347, // lo model
 	0x0347, // hi model
 	NULL, // equip animation
@@ -6728,7 +6728,7 @@ struct inventory_item invitem_shield = {
 };
 
 // 15d6c
-struct inventory_item invitem_keycard = {
+struct weapon invitem_keycard = {
 	0x0563, // lo model
 	0x0563, // hi model
 	NULL, // equip animation
@@ -6800,7 +6800,7 @@ struct inventory_ammo invammo_rocketlauncher34 = {
 };
 
 // 15e34
-struct inventory_item invitem_rocketlauncher_34 = {
+struct weapon invitem_rocketlauncher_34 = {
 	0x0388, // lo model
 	0x04c9, // hi model
 	NULL, // equip animation
@@ -6869,7 +6869,7 @@ struct inventory_ammo invammo_tester = {
 };
 
 // 15ee8
-struct inventory_item invitem_tester = {
+struct weapon invitem_tester = {
 	0x0193, // lo model
 	0x0193, // hi model
 	NULL, // equip animation
@@ -6896,7 +6896,7 @@ struct inventory_item invitem_tester = {
 };
 
 // 15f38
-struct inventory_item *inventorytable[] = {
+struct weapon *g_Weapons[] = {
 	&invitem_nothing,
 	&invitem_unarmed,
 	&invitem_falcon2,

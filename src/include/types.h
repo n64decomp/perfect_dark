@@ -823,7 +823,7 @@ struct inventory_ammo {
 	u32 style;
 };
 
-struct inventory_item {
+struct weapon {
 	/*0x00*/ u16 lo_model;
 	/*0x02*/ u16 hi_model;
 	/*0x04*/ u32 *equip_animation;
