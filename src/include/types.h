@@ -187,8 +187,7 @@ struct chrdata {
 	/*0x164*/ u32 aimendrshoulder;
 	/*0x168*/ u32 aimendback;
 	/*0x16c*/ u32 aimendsideback;
-	/*0x170*/ u32 unk170;
-	/*0x174*/ u32 unk174;
+	/*0x170*/ struct attachment *weapons_held[2];
 	/*0x178*/ u32 unk178;
 	/*0x17c*/ u16 fireslot;
 	/*0x17e*/ s16 target; // index into g_Vars.positions

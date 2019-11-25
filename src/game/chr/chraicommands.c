@@ -1031,6 +1031,41 @@ glabel ai001a
 /*  f04f050:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+//bool ai001a(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
+//	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
+//
+//	if (chr1 && chr2 && chr1->pos && chr2->pos) {
+//		struct attachment *attachment = func0f028834(chr1, 0);
+//		struct coord coord;
+//		coord.x = var80068fec.x;
+//		coord.y = var80068fec.y;
+//		coord.z = var80068fec.z;
+//
+//		if (!attachment) {
+//			attachment = func0f028834(chr1, 1);
+//		}
+//
+//		if (attachment) {
+//			s32 weapon_id;
+//			s32 thing;
+//			coord.x = chr2->pos->coord.x - chr1->pos->coord.x;
+//			coord.y = chr2->pos->coord.y - chr1->pos->coord.y;
+//			coord.x = chr2->pos->coord.z - chr1->pos->coord.z;
+//			scaleTo1(&coord.x, &coord.y, &coord.z);
+//			weapon_id = attachment->weapon->weapon_id;
+//			thing = func0f0b1d28(weapon_id);
+//			func0f034330(chr2, thing, &coord, weapon_id);
+//		}
+//	}
+//
+//	g_Vars.aioffset += 5;
+//
+//	return false;
+//}
+
 /**
  * @cmd 001b
  */
