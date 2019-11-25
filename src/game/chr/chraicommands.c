@@ -2223,6 +2223,21 @@ glabel ai004f
 /*  f050908:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch due to rodata address. Will match after all trailing rodata in this
+// file is matched.
+//bool ai004f(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//
+//	if (func0f048b4c(g_Vars.chrdata) > cmd[2] * 6.282185077f * 0.00390625f) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+//	} else {
+//		g_Vars.aioffset += 4;
+//	}
+//
+//	return false;
+//}
+
 /**
  * @cmd 0050
  */
