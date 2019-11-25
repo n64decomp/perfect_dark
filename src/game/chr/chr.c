@@ -49157,20 +49157,11 @@ glabel func0f048a84
 /*  f048b48:	46006006 */ 	mov.s	$f0,$f12
 );
 
-GLOBAL_ASM(
-glabel func0f048b4c
-/*  f048b4c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f048b50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f048b54:	0fc0a221 */ 	jal	chrGetTargetPosition
-/*  f048b58:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f048b5c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f048b60:	0fc122a1 */ 	jal	func0f048a84
-/*  f048b64:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f048b68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f048b6c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f048b70:	03e00008 */ 	jr	$ra
-/*  f048b74:	00000000 */ 	sll	$zero,$zero,0x0
-);
+float chrGetAngleToTarget(struct chrdata *chr)
+{
+	struct position *pos = chrGetTargetPosition(chr);
+	return func0f048a84(chr, &pos->coord);
+}
 
 GLOBAL_ASM(
 glabel func0f048b78

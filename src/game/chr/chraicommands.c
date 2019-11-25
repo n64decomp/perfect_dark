@@ -2105,7 +2105,7 @@ glabel ai004d
 /*  f0507a0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0507a4:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*  f0507a8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0507ac:	0fc122d3 */ 	jal	func0f048b4c
+/*  f0507ac:	0fc122d3 */ 	jal	chrGetAngleToTarget
 /*  f0507b0:	8c640424 */ 	lw	$a0,0x424($v1)
 /*  f0507b4:	8fa2001c */ 	lw	$v0,0x1c($sp)
 /*  f0507b8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -2156,7 +2156,7 @@ glabel ai004d
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //
-//	if (func0f048b4c(g_Vars.chrdata) < cmd[2] * 6.282185077f * 0.00390625f) {
+//	if (chrGetAngleToTarget(g_Vars.chrdata) < cmd[2] * 6.282185077f * 0.00390625f) {
 //		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 //	} else {
 //		g_Vars.aioffset += 4;
@@ -2178,7 +2178,7 @@ glabel ai004f
 /*  f050860:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f050864:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*  f050868:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f05086c:	0fc122d3 */ 	jal	func0f048b4c
+/*  f05086c:	0fc122d3 */ 	jal	chrGetAngleToTarget
 /*  f050870:	8c640424 */ 	lw	$a0,0x424($v1)
 /*  f050874:	8fa2001c */ 	lw	$v0,0x1c($sp)
 /*  f050878:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -2229,7 +2229,7 @@ glabel ai004f
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //
-//	if (func0f048b4c(g_Vars.chrdata) > cmd[2] * 6.282185077f * 0.00390625f) {
+//	if (chrGetAngleToTarget(g_Vars.chrdata) > cmd[2] * 6.282185077f * 0.00390625f) {
 //		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 //	} else {
 //		g_Vars.aioffset += 4;
