@@ -16,7 +16,7 @@ u32 func0f0b073c(void);
 u32 func0f0b0764(void);
 u32 func0f0b0818(void);
 u32 func0f0b09f4(void);
-u32 func0f0b0fd0(void);
+struct inventory_item *inventoryFindById(s32 itemid);
 u32 func0f0b1004(void);
 u32 func0f0b103c(void);
 u32 func0f0b107c(void);

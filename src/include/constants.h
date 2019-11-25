@@ -704,6 +704,8 @@
 #define WEAPON_5C                0x5c
 #define WEAPON_SUICIDEPILL       0x5d
 
+#define MAX_WEAPON_ID 0x5d
+
 // Heads and bodies
 #define HEAD_RANDOM           -1
 #define BODY_DJBOND           0x00
