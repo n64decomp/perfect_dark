@@ -19214,7 +19214,7 @@ glabel func0f0a7d98
 .L0f0a7ed8:
 /*  f0a7ed8:	8f040004 */ 	lw	$a0,0x4($t8)
 /*  f0a7edc:	afa000b0 */ 	sw	$zero,0xb0($sp)
-/*  f0a7ee0:	0fc0cfe8 */ 	jal	func0f033fa0
+/*  f0a7ee0:	0fc0cfe8 */ 	jal	chrGetShield
 /*  f0a7ee4:	afa700c8 */ 	sw	$a3,0xc8($sp)
 /*  f0a7ee8:	44802000 */ 	mtc1	$zero,$f4
 /*  f0a7eec:	8fa700c8 */ 	lw	$a3,0xc8($sp)

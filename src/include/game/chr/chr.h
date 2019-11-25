@@ -617,7 +617,7 @@ u32 func0f033654(void);
 u32 func0f0336a8(void);
 u32 func0f033728(void);
 u32 func0f0338e0(void);
-u32 func0f033fa0(void);
+float chrGetShield(struct chrdata *chr);
 u32 func0f033fa8(void);
 u32 func0f034080(void);
 u32 func0f034124(void);
