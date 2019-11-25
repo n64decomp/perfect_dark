@@ -2549,7 +2549,7 @@ glabel func0f19978c
 /*  f199824:	56af002b */ 	bnel	$s5,$t7,.L0f1998d4
 /*  f199828:	8e6402d4 */ 	lw	$a0,0x2d4($s3)
 .L0f19982c:
-/*  f19982c:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f19982c:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f199830:	86240004 */ 	lh	$a0,0x4($s1)
 /*  f199834:	1040000d */ 	beqz	$v0,.L0f19986c
 /*  f199838:	3c18800a */ 	lui	$t8,0x800a

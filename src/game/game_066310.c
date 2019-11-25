@@ -39718,21 +39718,21 @@ glabel func0f08841c
 .L0f088578:
 /*  f088578:	8fa40024 */ 	lw	$a0,0x24($sp)
 .L0f08857c:
-/*  f08857c:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f08857c:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f088580:	3c052000 */ 	lui	$a1,0x2000
 /*  f088584:	10400003 */ 	beqz	$v0,.L0f088594
 /*  f088588:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f08858c:	1000000d */ 	beqz	$zero,.L0f0885c4
 /*  f088590:	24045202 */ 	addiu	$a0,$zero,0x5202
 .L0f088594:
-/*  f088594:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f088594:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f088598:	3c050040 */ 	lui	$a1,0x40
 /*  f08859c:	10400003 */ 	beqz	$v0,.L0f0885ac
 /*  f0885a0:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f0885a4:	10000007 */ 	beqz	$zero,.L0f0885c4
 /*  f0885a8:	24045206 */ 	addiu	$a0,$zero,0x5206
 .L0f0885ac:
-/*  f0885ac:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f0885ac:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f0885b0:	3c050100 */ 	lui	$a1,0x100
 /*  f0885b4:	10400003 */ 	beqz	$v0,.L0f0885c4
 /*  f0885b8:	24045204 */ 	addiu	$a0,$zero,0x5204
@@ -39757,21 +39757,21 @@ glabel func0f08841c
 /*  f0885fc:	10000013 */ 	beqz	$zero,.L0f08864c
 /*  f088600:	24045233 */ 	addiu	$a0,$zero,0x5233
 .L0f088604:
-/*  f088604:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f088604:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f088608:	3c051000 */ 	lui	$a1,0x1000
 /*  f08860c:	10400003 */ 	beqz	$v0,.L0f08861c
 /*  f088610:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f088614:	1000000d */ 	beqz	$zero,.L0f08864c
 /*  f088618:	24045203 */ 	addiu	$a0,$zero,0x5203
 .L0f08861c:
-/*  f08861c:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f08861c:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f088620:	3c050020 */ 	lui	$a1,0x20
 /*  f088624:	10400003 */ 	beqz	$v0,.L0f088634
 /*  f088628:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f08862c:	10000007 */ 	beqz	$zero,.L0f08864c
 /*  f088630:	24045207 */ 	addiu	$a0,$zero,0x5207
 .L0f088634:
-/*  f088634:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f088634:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f088638:	3c050080 */ 	lui	$a1,0x80
 /*  f08863c:	10400003 */ 	beqz	$v0,.L0f08864c
 /*  f088640:	24045205 */ 	addiu	$a0,$zero,0x5205
@@ -39793,7 +39793,7 @@ glabel func0f08841c
 /*  f088678:	0c004c89 */ 	jal	func00013224
 /*  f08867c:	00402825 */ 	or	$a1,$v0,$zero
 /*  f088680:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f088684:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f088684:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f088688:	3c052000 */ 	lui	$a1,0x2000
 /*  f08868c:	10000009 */ 	beqz	$zero,.L0f0886b4
 /*  f088690:	00000000 */ 	sll	$zero,$zero,0x0
@@ -39804,7 +39804,7 @@ glabel func0f08841c
 /*  f0886a0:	0c004c89 */ 	jal	func00013224
 /*  f0886a4:	00402825 */ 	or	$a1,$v0,$zero
 /*  f0886a8:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0886ac:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f0886ac:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f0886b0:	3c051000 */ 	lui	$a1,0x1000
 .L0f0886b4:
 /*  f0886b4:	10400012 */ 	beqz	$v0,.L0f088700
@@ -40725,7 +40725,7 @@ glabel func0f089014
 /*  f089388:	11a0001a */ 	beqz	$t5,.L0f0893f4
 /*  f08938c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f089390:	90e4005c */ 	lbu	$a0,0x5c($a3)
-/*  f089394:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f089394:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f089398:	afa70080 */ 	sw	$a3,0x80($sp)
 /*  f08939c:	10400015 */ 	beqz	$v0,.L0f0893f4
 /*  f0893a0:	8fa70080 */ 	lw	$a3,0x80($sp)
@@ -49748,7 +49748,7 @@ glabel func0f0910ac
 /*  f09113c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f091140:	10400034 */ 	beqz	$v0,.L0f091214
 /*  f091144:	02002025 */ 	or	$a0,$s0,$zero
-/*  f091148:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f091148:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f09114c:	02802825 */ 	or	$a1,$s4,$zero
 /*  f091150:	5040000a */ 	beqzl	$v0,.L0f09117c
 /*  f091154:	8e680298 */ 	lw	$t0,0x298($s3)

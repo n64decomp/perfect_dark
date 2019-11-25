@@ -29,7 +29,7 @@ u32 func0f0b131c(void);
 u32 func0f0b14d8(void);
 u32 func0f0b1588(void);
 u32 func0f0b16a4(void);
-u32 func0f0b17c0(void);
+bool weaponHasFlag(s32 itemid, u32 flag);
 u32 func0f0b1804(void);
 u32 func0f0b184c(void);
 u32 func0f0b18bc(u32 arg0);

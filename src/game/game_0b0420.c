@@ -100,7 +100,7 @@ glabel func0f0b0420
 /*  f0b0424:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b0428:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0b042c:	90840000 */ 	lbu	$a0,0x0($a0)
-/*  f0b0430:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f0b0430:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f0b0434:	3c050010 */ 	lui	$a1,0x10
 /*  f0b0438:	14400008 */ 	bnez	$v0,.L0f0b045c
 /*  f0b043c:	3c0e800a */ 	lui	$t6,0x800a
@@ -127,7 +127,7 @@ glabel func0f0b046c
 /*  f0b047c:	00a03025 */ 	or	$a2,$a1,$zero
 /*  f0b0480:	90840000 */ 	lbu	$a0,0x0($a0)
 /*  f0b0484:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f0b0488:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f0b0488:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f0b048c:	3c050010 */ 	lui	$a1,0x10
 /*  f0b0490:	1440001f */ 	bnez	$v0,.L0f0b0510
 /*  f0b0494:	8fa6001c */ 	lw	$a2,0x1c($sp)
@@ -149,7 +149,7 @@ glabel func0f0b046c
 /*  f0b04d0:	51200010 */ 	beqzl	$t1,.L0f0b0514
 /*  f0b04d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0b04d8:	90e40000 */ 	lbu	$a0,0x0($a3)
-/*  f0b04dc:	0fc2c5f0 */ 	jal	func0f0b17c0
+/*  f0b04dc:	0fc2c5f0 */ 	jal	weaponHasFlag
 /*  f0b04e0:	afa6001c */ 	sw	$a2,0x1c($sp)
 /*  f0b04e4:	14400008 */ 	bnez	$v0,.L0f0b0508
 /*  f0b04e8:	8fa6001c */ 	lw	$a2,0x1c($sp)
@@ -1559,28 +1559,16 @@ glabel func0f0b16a4
 /*  f0b17bc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0b17c0
-/*  f0b17c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b17c4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b17c8:	0fc2c3f4 */ 	jal	inventoryFindById
-/*  f0b17cc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b17d0:	14400003 */ 	bnez	$v0,.L0f0b17e0
-/*  f0b17d4:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0b17d8:	10000006 */ 	beqz	$zero,.L0f0b17f4
-/*  f0b17dc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b17e0:
-/*  f0b17e0:	8c6e004c */ 	lw	$t6,0x4c($v1)
-/*  f0b17e4:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f0b17e8:	01cf1024 */ 	and	$v0,$t6,$t7
-/*  f0b17ec:	0002c02b */ 	sltu	$t8,$zero,$v0
-/*  f0b17f0:	03001025 */ 	or	$v0,$t8,$zero
-.L0f0b17f4:
-/*  f0b17f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b17f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b17fc:	03e00008 */ 	jr	$ra
-/*  f0b1800:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool weaponHasFlag(s32 itemid, u32 flag)
+{
+	struct inventory_item *weapon = inventoryFindById(itemid);
+
+	if (!weapon) {
+		return false;
+	}
+
+	return (weapon->flags & flag) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0b1804

@@ -825,29 +825,29 @@ struct inventory_ammo {
 };
 
 struct inventory_item {
-	u16 lo_model;
-	u16 hi_model;
-	u32 *equip_animation;
-	u32 *unequip_animation;
-	u32 *pritosec_animation;
-	u32 *sectopri_animation;
-	struct inventory_function *pri_function;
-	struct inventory_function *sec_function;
-	struct inventory_ammo *pri_ammo;
-	struct inventory_ammo *sec_ammo;
-	struct inventory_typee *eptr;
-	float sway;
-	float leftright;
-	float updown;
-	float frontback;
-	float unk38;
-	struct inventory_typef *fptr;
-	s8 *gptr;
-	u16 shortname;
-	u16 name;
-	u16 manufacturer;
-	u16 description;
-	u32 flags;
+	/*0x00*/ u16 lo_model;
+	/*0x02*/ u16 hi_model;
+	/*0x04*/ u32 *equip_animation;
+	/*0x08*/ u32 *unequip_animation;
+	/*0x0c*/ u32 *pritosec_animation;
+	/*0x10*/ u32 *sectopri_animation;
+	/*0x14*/ struct inventory_function *pri_function;
+	/*0x18*/ struct inventory_function *sec_function;
+	/*0x1c*/ struct inventory_ammo *pri_ammo;
+	/*0x20*/ struct inventory_ammo *sec_ammo;
+	/*0x24*/ struct inventory_typee *eptr;
+	/*0x28*/ float sway;
+	/*0x2c*/ float leftright;
+	/*0x30*/ float updown;
+	/*0x34*/ float frontback;
+	/*0x38*/ float unk38;
+	/*0x3c*/ struct inventory_typef *fptr;
+	/*0x40*/ s8 *gptr;
+	/*0x44*/ u16 shortname;
+	/*0x46*/ u16 name;
+	/*0x48*/ u16 manufacturer;
+	/*0x4a*/ u16 description;
+	/*0x4c*/ u32 flags;
 };
 
 struct cutsceneentry {
