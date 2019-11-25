@@ -958,7 +958,7 @@ glabel ai001a
 /*  f04ef38:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04ef3c:	5100003c */ 	beqzl	$t0,.L0f04f030
 /*  f04ef40:	8e4c0438 */ 	lw	$t4,0x438($s2)
-/*  f04ef44:	0fc0a20d */ 	jal	func0f028834
+/*  f04ef44:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
 /*  f04ef48:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04ef4c:	3c0a8007 */ 	lui	$t2,%hi(var80068fec)
 /*  f04ef50:	254a8fec */ 	addiu	$t2,$t2,%lo(var80068fec)
@@ -972,7 +972,7 @@ glabel ai001a
 /*  f04ef70:	14400005 */ 	bnez	$v0,.L0f04ef88
 /*  f04ef74:	ad210008 */ 	sw	$at,0x8($t1)
 /*  f04ef78:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04ef7c:	0fc0a20d */ 	jal	func0f028834
+/*  f04ef7c:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
 /*  f04ef80:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f04ef84:	00401825 */ 	or	$v1,$v0,$zero
 .L0f04ef88:
@@ -1038,14 +1038,14 @@ glabel ai001a
 //	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 //
 //	if (chr1 && chr2 && chr1->pos && chr2->pos) {
-//		struct attachment *attachment = func0f028834(chr1, 0);
+//		struct attachment *attachment = chrGetEquippedWeaponAttachmentWithCheck(chr1, 0);
 //		struct coord coord;
 //		coord.x = var80068fec.x;
 //		coord.y = var80068fec.y;
 //		coord.z = var80068fec.z;
 //
 //		if (!attachment) {
-//			attachment = func0f028834(chr1, 1);
+//			attachment = chrGetEquippedWeaponAttachmentWithCheck(chr1, 1);
 //		}
 //
 //		if (attachment) {
@@ -6637,7 +6637,7 @@ glabel ai00ca
 /*  f055c10:	860f0000 */ 	lh	$t7,0x0($s0)
 /*  f055c14:	02202025 */ 	or	$a0,$s1,$zero
 /*  f055c18:	00002825 */ 	or	$a1,$zero,$zero
-/*  f055c1c:	0fc0a209 */ 	jal	func0f028824
+/*  f055c1c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
 /*  f055c20:	a62f0132 */ 	sh	$t7,0x132($s1)
 /*  f055c24:	5040000d */ 	beqzl	$v0,.L0f055c5c
 /*  f055c28:	02202025 */ 	or	$a0,$s1,$zero
@@ -6654,7 +6654,7 @@ glabel ai00ca
 /*  f055c54:	afb8002c */ 	sw	$t8,0x2c($sp)
 /*  f055c58:	02202025 */ 	or	$a0,$s1,$zero
 .L0f055c5c:
-/*  f055c5c:	0fc0a209 */ 	jal	func0f028824
+/*  f055c5c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
 /*  f055c60:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f055c64:	5040000d */ 	beqzl	$v0,.L0f055c9c
 /*  f055c68:	8fa20048 */ 	lw	$v0,0x48($sp)
@@ -14664,11 +14664,11 @@ glabel ai01a3
 /*  f05dd8c:	240100fe */ 	addiu	$at,$zero,0xfe
 /*  f05dd90:	14610029 */ 	bne	$v1,$at,.L0f05de38
 /*  f05dd94:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f05dd98:	0fc0a209 */ 	jal	func0f028824
+/*  f05dd98:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
 /*  f05dd9c:	8e040424 */ 	lw	$a0,0x424($s0)
 /*  f05dda0:	afa20040 */ 	sw	$v0,0x40($sp)
 /*  f05dda4:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05dda8:	0fc0a209 */ 	jal	func0f028824
+/*  f05dda8:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
 /*  f05ddac:	00002825 */ 	or	$a1,$zero,$zero
 /*  f05ddb0:	afa2003c */ 	sw	$v0,0x3c($sp)
 /*  f05ddb4:	0fc0b849 */ 	jal	func0f02e124
