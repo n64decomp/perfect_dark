@@ -3097,7 +3097,7 @@ bool aiIfChrHasWeaponEquipped(void)
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
 
-		if (func0f0a19a8(0) == cmd[3]) {
+		if (getCurrentPlayerWeaponId(0) == cmd[3]) {
 			passes = true;
 		}
 
@@ -3542,7 +3542,7 @@ glabel ai0069
 /*  f051e10:	8c64001c */ 	lw	$a0,0x1c($v1)
 /*  f051e14:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f051e18:	00402025 */ 	or	$a0,$v0,$zero
-/*  f051e1c:	0fc2866a */ 	jal	func0f0a19a8
+/*  f051e1c:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f051e20:	00002025 */ 	or	$a0,$zero,$zero
 /*  f051e24:	0fc447a9 */ 	jal	func0f111ea4
 /*  f051e28:	00402025 */ 	or	$a0,$v0,$zero
@@ -10100,7 +10100,7 @@ glabel ai0120
 /*  f05935c:	24090004 */ 	addiu	$t1,$zero,0x4
 /*  f059360:	a3a9002b */ 	sb	$t1,0x2b($sp)
 .L0f059364:
-/*  f059364:	0fc2866a */ 	jal	func0f0a19a8
+/*  f059364:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f059368:	00002025 */ 	or	$a0,$zero,$zero
 /*  f05936c:	244afffe */ 	addiu	$t2,$v0,-2
 /*  f059370:	2d41001a */ 	sltiu	$at,$t2,0x1a
@@ -10312,7 +10312,7 @@ bool ai0126(void)
 	u32 arg = 0;
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	switch (func0f0a19a8(arg)) {
+	switch (getCurrentPlayerWeaponId(arg)) {
 		case 10:
 		case 17:
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);

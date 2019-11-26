@@ -4000,7 +4000,7 @@ glabel func0f169374
 /*  f169df4:	8e6a029c */ 	lw	$t2,0x29c($s3)
 /*  f169df8:	0543000c */ 	bgezl	$t2,.L0f169e2c
 /*  f169dfc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f169e00:	0fc2866a */ 	jal	func0f0a19a8
+/*  f169e00:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f169e04:	00002025 */ 	or	$a0,$zero,$zero
 /*  f169e08:	00402025 */ 	or	$a0,$v0,$zero
 /*  f169e0c:	0fc2c5f0 */ 	jal	weaponHasFlag
@@ -4111,7 +4111,7 @@ glabel func0f169374
 /*  f169f7c:	10000033 */ 	beqz	$zero,.L0f16a04c
 /*  f169f80:	8e700284 */ 	lw	$s0,0x284($s3)
 .L0f169f84:
-/*  f169f84:	0fc2866a */ 	jal	func0f0a19a8
+/*  f169f84:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f169f88:	00002025 */ 	or	$a0,$zero,$zero
 /*  f169f8c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f169f90:	0fc2c5f0 */ 	jal	weaponHasFlag

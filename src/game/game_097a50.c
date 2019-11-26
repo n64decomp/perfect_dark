@@ -2095,7 +2095,7 @@ glabel func0f098c4c
 /*  f098c50:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f098c54:	00803025 */ 	or	$a2,$a0,$zero
 /*  f098c58:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f098c5c:	0fc2867c */ 	jal	func0f0a19f0
+/*  f098c5c:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
 /*  f098c60:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f098c64:	8fa60018 */ 	lw	$a2,0x18($sp)
 /*  f098c68:	00027080 */ 	sll	$t6,$v0,0x2
@@ -7030,7 +7030,7 @@ glabel func0f09d140
 /*  f09d154:	afb00024 */ 	sw	$s0,0x24($sp)
 /*  f09d158:	f7b60018 */ 	sdc1	$f22,0x18($sp)
 /*  f09d15c:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f09d160:	0fc2866a */ 	jal	func0f0a19a8
+/*  f09d160:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f09d164:	afa40068 */ 	sw	$a0,0x68($sp)
 /*  f09d168:	0fc2c3f4 */ 	jal	weaponFindById
 /*  f09d16c:	00402025 */ 	or	$a0,$v0,$zero
@@ -11068,7 +11068,7 @@ glabel func0f0a0b30
 /*  f0a0b38:	e7ac0018 */ 	swc1	$f12,0x18($sp)
 /*  f0a0b3c:	e7ae001c */ 	swc1	$f14,0x1c($sp)
 /*  f0a0b40:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0a0b44:	0fc2866a */ 	jal	func0f0a19a8
+/*  f0a0b44:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f0a0b48:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0a0b4c:	0fc2c3f4 */ 	jal	weaponFindById
 /*  f0a0b50:	00402025 */ 	or	$a0,$v0,$zero
@@ -11098,7 +11098,7 @@ glabel func0f0a0b98
 /*  f0a0b9c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0a0ba0:	e7ac0018 */ 	swc1	$f12,0x18($sp)
 /*  f0a0ba4:	e7ae001c */ 	swc1	$f14,0x1c($sp)
-/*  f0a0ba8:	0fc2866a */ 	jal	func0f0a19a8
+/*  f0a0ba8:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f0a0bac:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0a0bb0:	0fc2c3f4 */ 	jal	weaponFindById
 /*  f0a0bb4:	00402025 */ 	or	$a0,$v0,$zero
@@ -11204,7 +11204,7 @@ glabel func0f0a0cb0
 .L0f0a0d04:
 /*  f0a0d04:	8fa40050 */ 	lw	$a0,0x50($sp)
 .L0f0a0d08:
-/*  f0a0d08:	0fc2867c */ 	jal	func0f0a19f0
+/*  f0a0d08:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
 /*  f0a0d0c:	e7a2003c */ 	swc1	$f2,0x3c($sp)
 /*  f0a0d10:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a0d14:	0fc2c601 */ 	jal	func0f0b1804
@@ -12096,7 +12096,7 @@ glabel func0f0a196c
 );
 
 GLOBAL_ASM(
-glabel func0f0a19a8
+glabel getCurrentPlayerWeaponId
 /*  f0a19a8:	00047100 */ 	sll	$t6,$a0,0x4
 /*  f0a19ac:	01c47023 */ 	subu	$t6,$t6,$a0
 /*  f0a19b0:	000e7080 */ 	sll	$t6,$t6,0x2
@@ -12118,17 +12118,10 @@ glabel func0f0a19a8
 /*  f0a19ec:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0a19f0
-/*  f0a19f0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a19f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a19f8:	0fc2866a */ 	jal	func0f0a19a8
-/*  f0a19fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a1a00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a1a04:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a1a08:	03e00008 */ 	jr	$ra
-/*  f0a1a0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 getCurrentPlayerWeaponIdWrapper(u32 arg0)
+{
+	return getCurrentPlayerWeaponId(arg0);
+}
 
 GLOBAL_ASM(
 glabel func0f0a1a10
@@ -12759,7 +12752,7 @@ glabel func0f0a2218
 /*  f0a2220:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0a2224:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0a2228:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0a222c:	0fc2866a */ 	jal	func0f0a19a8
+/*  f0a222c:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f0a2230:	afae001c */ 	sw	$t6,0x1c($sp)
 /*  f0a2234:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a2238:	0fc2a685 */ 	jal	func0f0a9a14
@@ -16367,7 +16360,7 @@ glabel func0f0a5550
 /*  f0a55dc:	afa001cc */ 	sw	$zero,0x1cc($sp)
 /*  f0a55e0:	afa30050 */ 	sw	$v1,0x50($sp)
 /*  f0a55e4:	afa40308 */ 	sw	$a0,0x308($sp)
-/*  f0a55e8:	0fc2867c */ 	jal	func0f0a19f0
+/*  f0a55e8:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
 /*  f0a55ec:	afa201d8 */ 	sw	$v0,0x1d8($sp)
 /*  f0a55f0:	afa201c4 */ 	sw	$v0,0x1c4($sp)
 /*  f0a55f4:	afa001b8 */ 	sw	$zero,0x1b8($sp)
@@ -16403,7 +16396,7 @@ glabel func0f0a5550
 /*  f0a5660:	8fac0308 */ 	lw	$t4,0x308($sp)
 /*  f0a5664:	1580002b */ 	bnez	$t4,.L0f0a5714
 /*  f0a5668:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a566c:	0fc2867c */ 	jal	func0f0a19f0
+/*  f0a566c:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
 /*  f0a5670:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0a5674:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a5678:	0fc2c5f0 */ 	jal	weaponHasFlag
@@ -16447,7 +16440,7 @@ glabel func0f0a5550
 /*  f0a570c:	1000002b */ 	beqz	$zero,.L0f0a57bc
 /*  f0a5710:	e60601bc */ 	swc1	$f6,0x1bc($s0)
 .L0f0a5714:
-/*  f0a5714:	0fc2867c */ 	jal	func0f0a19f0
+/*  f0a5714:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
 /*  f0a5718:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0a571c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0a5720:	0fc2c5f0 */ 	jal	weaponHasFlag
@@ -17950,7 +17943,7 @@ glabel func0f0a6c30
 .L0f0a6cd0:
 /*  f0a6cd0:	1300001f */ 	beqz	$t8,.L0f0a6d50
 /*  f0a6cd4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a6cd8:	0fc2866a */ 	jal	func0f0a19a8
+/*  f0a6cd8:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f0a6cdc:	afa3004c */ 	sw	$v1,0x4c($sp)
 /*  f0a6ce0:	24010016 */ 	addiu	$at,$zero,0x16
 /*  f0a6ce4:	14410004 */ 	bne	$v0,$at,.L0f0a6cf8
@@ -18470,7 +18463,7 @@ glabel func0f0a7138
 /*  f0a7410:	8fb500e4 */ 	lw	$s5,0xe4($sp)
 /*  f0a7414:	24120019 */ 	addiu	$s2,$zero,0x19
 .L0f0a7418:
-/*  f0a7418:	0fc2867c */ 	jal	func0f0a19f0
+/*  f0a7418:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
 /*  f0a741c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0a7420:	afa200ec */ 	sw	$v0,0xec($sp)
 /*  f0a7424:	820a0007 */ 	lb	$t2,0x7($s0)
@@ -19949,7 +19942,7 @@ glabel func0f0a895c
 /*  f0a8964:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0a8968:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f0a896c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a8970:	0fc2866a */ 	jal	func0f0a19a8
+/*  f0a8970:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f0a8974:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0a8978:	244efffa */ 	addiu	$t6,$v0,-6
 /*  f0a897c:	2dc1001d */ 	sltiu	$at,$t6,0x1d
@@ -20315,7 +20308,7 @@ glabel func0f0a8d34
 /*  f0a8e8c:	8f240000 */ 	lw	$a0,0x0($t9)
 /*  f0a8e90:	14400015 */ 	bnez	$v0,.L0f0a8ee8
 /*  f0a8e94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a8e98:	0fc2866a */ 	jal	func0f0a19a8
+/*  f0a8e98:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f0a8e9c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0a8ea0:	afa20050 */ 	sw	$v0,0x50($sp)
 /*  f0a8ea4:	0fc447a9 */ 	jal	func0f111ea4
@@ -20585,10 +20578,10 @@ glabel func0f0a8d34
 /*  f0a926c:	0fc1a5c4 */ 	jal	func0f069710
 /*  f0a9270:	02002825 */ 	or	$a1,$s0,$zero
 .L0f0a9274:
-/*  f0a9274:	0fc2866a */ 	jal	func0f0a19a8
+/*  f0a9274:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f0a9278:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0a927c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f0a9280:	0fc2866a */ 	jal	func0f0a19a8
+/*  f0a9280:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f0a9284:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0a9288:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a928c:	0fc44c1f */ 	jal	func0f11307c
@@ -20880,7 +20873,7 @@ glabel func0f0a9628
 /*  f0a9640:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0a9644:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f0a9648:	8e31a244 */ 	lw	$s1,-0x5dbc($s1)
-/*  f0a964c:	0fc2866a */ 	jal	func0f0a19a8
+/*  f0a964c:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f0a9650:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0a9654:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f0a9658:	2410ffff */ 	addiu	$s0,$zero,-1
