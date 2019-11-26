@@ -631,11 +631,11 @@ s32 path04[] = {
 };
 
 struct aipaths paths[] = {
-	{ path00, 0, 1 },
-	{ path01, 1, 0 },
-	{ path02, 2, 1 },
-	{ path03, 3, 1 },
-	{ path04, 4, 1 },
+	{ path00, 0, PATHTYPE_CIRCULAR },
+	{ path01, 1, PATHTYPE_BACKANDFORTH },
+	{ path02, 2, PATHTYPE_CIRCULAR },
+	{ path03, 3, PATHTYPE_CIRCULAR },
+	{ path04, 4, PATHTYPE_CIRCULAR },
 	{ NULL, 0, 0 },
 };
 

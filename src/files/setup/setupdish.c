@@ -6123,7 +6123,7 @@ struct ailist ailists[] = {
 };
 
 struct aipaths paths[] = {
-	{ path00, 0, 1 },
+	{ path00, 0, PATHTYPE_CIRCULAR },
 	{ NULL, 0, 0 },
 };
 

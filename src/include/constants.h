@@ -544,6 +544,10 @@
 #define PADEFFECT_SMOKE           0x04
 #define PADEFFECT_SMOKE_TEMPORARY 0x05
 
+#define PATHTYPE_BACKANDFORTH 0
+#define PATHTYPE_CIRCULAR     1
+#define PATHTYPE_FLYING       2
+
 #define SPEED_WALK 0
 #define SPEED_JOG  1
 #define SPEED_RUN  2

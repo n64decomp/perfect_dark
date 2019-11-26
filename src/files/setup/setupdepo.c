@@ -3161,10 +3161,10 @@ struct ailist ailists[] = {
 };
 
 struct aipaths paths[] = {
-	{ path00, 0, 1 },
-	{ path01, 1, 1 },
-	{ path02, 2, 1 },
-	{ path03, 3, 1 },
+	{ path00, 0, PATHTYPE_CIRCULAR },
+	{ path01, 1, PATHTYPE_CIRCULAR },
+	{ path02, 2, PATHTYPE_CIRCULAR },
+	{ path03, 3, PATHTYPE_CIRCULAR },
 	{ NULL, 0, 0 },
 };
 
