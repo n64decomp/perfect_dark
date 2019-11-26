@@ -294,7 +294,7 @@
 /*0x0123*/ bool ai0123(void);
 /*0x0124*/ bool ai0124(void);
 /*0x0125*/ bool ai0125(void);
-/*0x0126*/ bool ai0126(void);
+/*0x0126*/ bool aiIfPlayerUsingCmpOrAr34(void);
 /*0x0127*/ bool ai0127(void);
 /*0x0128*/ bool ai0128(void);
 /*0x0129*/ bool ai0129(void);

@@ -1185,10 +1185,7 @@
 	mkshort(0x0125), \
 	label,
 
-// Looks at the first element in some struct array,
-// and checks if field 0x640 is nonzero.
-// globals.s only
-#define cmd0126_if_something(label) \
+#define if_player_using_cmp150_or_ar34(label) \
 	mkshort(0x0126), \
 	label,
 

@@ -1436,7 +1436,7 @@ u8 func0007_alerted[] = {
 	if_within_units_of_sight(30, /*goto*/ 0x5f)
 	label(0x16)
 	if_within_units_of_sight(30, /*goto*/ 0x16)
-	cmd0126_if_something(/*goto*/ 0x69)
+	if_player_using_cmp150_or_ar34(/*goto*/ 0x69)
 	if_chr_distance_gt(2000, /*goto*/ 0x61)
 	goto_next(0x16)
 
@@ -1549,7 +1549,7 @@ u8 func0007_alerted[] = {
 	goto_next(0x16)
 
 	label(0x66)
-	cmd0126_if_something(/*goto*/ 0x69)
+	if_player_using_cmp150_or_ar34(/*goto*/ 0x69)
 	if_chr_distance_gt(2000, /*goto*/ 0x16)
 	goto_next(0x6a)
 
@@ -1572,7 +1572,7 @@ u8 func0007_alerted[] = {
 	beginloop(0x62)
 		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
 		if_in_disarm_range(/*goto*/ 0x5f)
-		cmd0126_if_something(/*goto*/ 0x69)
+		if_player_using_cmp150_or_ar34(/*goto*/ 0x69)
 		if_chr_distance_gt(2000, /*goto*/ 0x65)
 		goto_next(0x16)
 

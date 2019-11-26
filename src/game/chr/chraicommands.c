@@ -10307,14 +10307,14 @@ bool ai0125(void)
 /**
  * @cmd 0126
  */
-bool ai0126(void)
+bool aiIfPlayerUsingCmpOrAr34(void)
 {
 	u32 arg = 0;
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	switch (getCurrentPlayerWeaponId(arg)) {
-		case 10:
-		case 17:
+		case WEAPON_CMP150:
+		case WEAPON_AR34:
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 			break;
 		default:

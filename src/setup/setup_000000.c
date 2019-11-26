@@ -14426,7 +14426,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0123*/ ai0123,
 	/*0x0124*/ ai0124,
 	/*0x0125*/ ai0125,
-	/*0x0126*/ ai0126,
+	/*0x0126*/ aiIfPlayerUsingCmpOrAr34,
 	/*0x0127*/ ai0127,
 	/*0x0128*/ ai0128,
 	/*0x0129*/ ai0129,
