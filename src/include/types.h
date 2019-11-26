@@ -32,7 +32,7 @@ struct position {
 	u8 unk00;
 	u8 flags;
 	u16 unk02;
-	struct chrdata *chr;
+	void *master; // pointer to specific struct that has this position. eg. chrdata or weaponobj
 	struct coord coord;
 	u32 unk14;
 	u32 unk18; // related to gun recovery

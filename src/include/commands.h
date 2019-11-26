@@ -417,8 +417,7 @@
 	label,
 
 // If behavior is zero, go to label if object exists.
-// If behavior is nonzero, do something related to the current chr and ignore
-// the object parameter.
+// If behavior is nonzero, set flag on unclaimed gun.
 // In practice this is always called with object = -1 and behavior = 1.
 #define if_gun_unclaimed(object, behavior, label) \
 	mkshort(0x0061), \
