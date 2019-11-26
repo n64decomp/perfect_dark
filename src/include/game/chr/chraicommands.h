@@ -99,7 +99,7 @@
 /*0x005d*/ bool aiIfChrHasObject(void);
 /*0x005e*/ bool aiIfWeaponThrown(void);
 /*0x005f*/ bool aiIfWeaponThrownOnObject(void);
-/*0x0060*/ bool ai0060(void);
+/*0x0060*/ bool aiIfChrHasWeaponEquipped(void);
 /*0x0061*/ bool ai0061(void);
 /*0x0062*/ bool aiIfObjectHealthy(void);
 /*0x0063*/ bool ai0063(void);
