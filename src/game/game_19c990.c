@@ -3547,7 +3547,7 @@ GLOBAL_ASM(
 glabel func0f19f524
 /*  f19f524:	27bdfd40 */ 	addiu	$sp,$sp,-704
 /*  f19f528:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19f52c:	3c04800b */ 	lui	$a0,%hi(var800b0028)
+/*  f19f52c:	3c04800b */ 	lui	$a0,0x800b
 /*  f19f530:	0fc6749a */ 	jal	func0f19d268
 /*  f19f534:	9484d176 */ 	lhu	$a0,-0x2e8a($a0)
 /*  f19f538:	afa202bc */ 	sw	$v0,0x2bc($sp)
@@ -3646,7 +3646,7 @@ glabel func0f19f524
 /*  f19f698:	27a50064 */ 	addiu	$a1,$sp,0x64
 /*  f19f69c:	8de400bc */ 	lw	$a0,0xbc($t7)
 /*  f19f6a0:	0fc195e9 */ 	jal	func0f0657a4
-/*  f19f6a4:	24840028 */ 	addiu	$a0,$a0,%lo(var800b0028)
+/*  f19f6a4:	24840028 */ 	addiu	$a0,$a0,0x0028
 /*  f19f6a8:	3c18800a */ 	lui	$t8,0x800a
 /*  f19f6ac:	8f18a244 */ 	lw	$t8,-0x5dbc($t8)
 /*  f19f6b0:	2401ffff */ 	addiu	$at,$zero,-1

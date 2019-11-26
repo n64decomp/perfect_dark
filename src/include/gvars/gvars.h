@@ -882,20 +882,5 @@ extern u32 var800ad158;
 extern u32 var800ad1a0;
 extern u32 var800ad1b0;
 extern u32 var800ad1c0;
-extern u32 var800b0004;
-extern u32 var800b000c;
-extern u32 var800b0024;
-extern u32 var800b0028;
-extern u32 var800b0030;
-extern u32 var800b003c;
-extern u32 var800b0048;
-extern u32 var800b0078;
-extern u32 var800b0084;
-extern u32 var800b01a4;
-extern u32 var800b0234;
-extern u32 var800b024c;
-extern u32 var800b0294;
-extern u32 var800b0e70;
-extern u32 var800b7e50;
 
 #endif

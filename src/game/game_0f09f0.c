@@ -15010,7 +15010,7 @@ glabel menuhandler000fd6f0
 /*  f0fd740:	0338c821 */ 	addu	$t9,$t9,$t8
 /*  f0fd744:	93392103 */ 	lbu	$t9,0x2103($t9)
 /*  f0fd748:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
-/*  f0fd74c:	3c06800b */ 	lui	$a2,%hi(var800b0004)
+/*  f0fd74c:	3c06800b */ 	lui	$a2,0x800b
 /*  f0fd750:	1320004b */ 	beqz	$t9,.L0f0fd880
 /*  f0fd754:	3c0e800b */ 	lui	$t6,0x800b
 /*  f0fd758:	8d6e0284 */ 	lw	$t6,0x284($t3)
@@ -15134,7 +15134,7 @@ glabel menuhandler000fd6f0
 /*  f0fd8fc:	8f240004 */ 	lw	$a0,0x4($t9)
 .L0f0fd900:
 /*  f0fd900:	1100000a */ 	beqz	$t0,.L0f0fd92c
-/*  f0fd904:	24c60004 */ 	addiu	$a2,$a2,%lo(var800b0004)
+/*  f0fd904:	24c60004 */ 	addiu	$a2,$a2,0x0004
 /*  f0fd908:	8cc30000 */ 	lw	$v1,0x0($a2)
 /*  f0fd90c:	10830005 */ 	beq	$a0,$v1,.L0f0fd924
 /*  f0fd910:	00000000 */ 	sll	$zero,$zero,0x0

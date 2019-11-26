@@ -115,7 +115,7 @@ glabel func0f197600
 /*  f197698:	04400037 */ 	bltz	$v0,.L0f197778
 /*  f19769c:	0102c021 */ 	addu	$t8,$t0,$v0
 /*  f1976a0:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f1976a4:	3c0f800b */ 	lui	$t7,%hi(var800b7e50)
+/*  f1976a4:	3c0f800b */ 	lui	$t7,0x800b
 /*  f1976a8:	85b9017e */ 	lh	$t9,0x17e($t5)
 /*  f1976ac:	01ee7821 */ 	addu	$t7,$t7,$t6
 /*  f1976b0:	8defc4d0 */ 	lw	$t7,-0x3b30($t7)
@@ -170,7 +170,7 @@ glabel func0f197600
 /*  f197770:	1000001c */ 	beqz	$zero,.L0f1977e4
 /*  f197774:	8d090128 */ 	lw	$t1,0x128($t0)
 .L0f197778:
-/*  f197778:	25ef7e50 */ 	addiu	$t7,$t7,%lo(var800b7e50)
+/*  f197778:	25ef7e50 */ 	addiu	$t7,$t7,0x7e50
 /*  f19777c:	2401002f */ 	addiu	$at,$zero,0x2f
 /*  f197780:	1481000b */ 	bne	$a0,$at,.L0f1977b0
 /*  f197784:	01cf3021 */ 	addu	$a2,$t6,$t7
