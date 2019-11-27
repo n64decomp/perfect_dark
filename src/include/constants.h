@@ -458,6 +458,9 @@
 #define OBJECTFLAG2_40000000        0x40000000 // Not used in scripts
 #define OBJECTFLAG2_80000000        0x80000000 // Not used in scripts
 
+#define OBJHIDDENFLAG_ACTIVATED_BY_BOND 0x00004000
+#define OBJHIDDENFLAG_ACTIVATED_BY_COOP 0x00040000
+
 #define OBJTYPE_DOOR             0x01
 #define OBJTYPE_DOORSCALE        0x02
 #define OBJTYPE_BASIC            0x03

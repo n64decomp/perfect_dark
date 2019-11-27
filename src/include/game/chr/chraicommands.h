@@ -102,7 +102,7 @@
 /*0x0060*/ bool aiIfChrHasWeaponEquipped(void);
 /*0x0061*/ bool aiIfGunUnclaimed(void);
 /*0x0062*/ bool aiIfObjectHealthy(void);
-/*0x0063*/ bool ai0063(void);
+/*0x0063*/ bool aiIfChrActivatedObject(void);
 /*0x0065*/ bool ai0065(void);
 /*0x0066*/ bool ai0066(void);
 /*0x0067*/ bool ai0067(void);

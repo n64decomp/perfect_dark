@@ -3163,7 +3163,7 @@ bool aiIfObjectHealthy(void)
  * @cmd 0063
  */
 GLOBAL_ASM(
-glabel ai0063
+glabel aiIfChrActivatedObject
 /*  f051988:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f05198c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f051990:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -3259,6 +3259,45 @@ glabel ai0063
 /*  f051ae0:	03e00008 */ 	jr	$ra
 /*  f051ae4:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+// Mismatch because it saves pass to the stack before calling chrFindById.
+// Probably have to decompile chrFindById before this function can match.
+//bool aiIfChrActivatedObject(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct defaultobj *obj = objFindByTagId(cmd[3]);
+//	bool pass = false;
+//
+//	if (obj && obj->pos) {
+//		if (cmd[2] == CHR_F3) {
+//			if (obj->hidden & (OBJHIDDENFLAG_ACTIVATED_BY_BOND | OBJHIDDENFLAG_ACTIVATED_BY_COOP)) {
+//				pass = true;
+//				obj->hidden &= ~(OBJHIDDENFLAG_ACTIVATED_BY_BOND | OBJHIDDENFLAG_ACTIVATED_BY_COOP);
+//			}
+//		} else {
+//			struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+//			pass = false;
+//
+//			if (chr && chr->pos) {
+//				if (chr->pos == g_Vars.bond->targetpos && (obj->hidden & OBJHIDDENFLAG_ACTIVATED_BY_BOND)) {
+//					pass = true;
+//					obj->hidden &= ~OBJHIDDENFLAG_ACTIVATED_BY_BOND;
+//				} else if (g_Vars.coopplayernum >= 0 && chr->pos == g_Vars.coop->targetpos && (obj->hidden & OBJHIDDENFLAG_ACTIVATED_BY_COOP)) {
+//					pass = true;
+//					obj->hidden &= ~OBJHIDDENFLAG_ACTIVATED_BY_COOP;
+//				}
+//			}
+//		}
+//	}
+//
+//	if (pass) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+//	} else {
+//		g_Vars.aioffset += 5;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 0065
