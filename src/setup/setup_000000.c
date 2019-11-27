@@ -14246,7 +14246,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x006f*/ aiIfObjectIsDoor,
 	/*0x0070*/ aiLockDoor,
 	/*0x0071*/ aiUnlockDoor,
-	/*0x0072*/ ai0072,
+	/*0x0072*/ aiIfDoorLocked,
 	/*0x0073*/ ai0073,
 	/*0x0074*/ ai0074,
 	/*0x0075*/ ai0075,

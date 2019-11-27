@@ -3702,58 +3702,30 @@ bool aiUnlockDoor(void)
 /**
  * @cmd 0072
  */
-GLOBAL_ASM(
-glabel ai0072
-/*  f052568:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f05256c:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f052570:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f052574:	8cef0438 */ 	lw	$t7,0x438($a3)
-/*  f052578:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05257c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f052580:	01cf4021 */ 	addu	$t0,$t6,$t7
-/*  f052584:	91040002 */ 	lbu	$a0,0x2($t0)
-/*  f052588:	0fc2556c */ 	jal	objFindByTagId
-/*  f05258c:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f052590:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f052594:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f052598:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f05259c:	1040000e */ 	beqz	$v0,.L0f0525d8
-/*  f0525a0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0525a4:	8c430014 */ 	lw	$v1,0x14($v0)
-/*  f0525a8:	1060000b */ 	beqz	$v1,.L0f0525d8
-/*  f0525ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0525b0:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f0525b4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0525b8:	17010007 */ 	bne	$t8,$at,.L0f0525d8
-/*  f0525bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0525c0:	91030003 */ 	lbu	$v1,0x3($t0)
-/*  f0525c4:	8c440074 */ 	lw	$a0,0x74($v0)
-/*  f0525c8:	0083c824 */ 	and	$t9,$a0,$v1
-/*  f0525cc:	14790002 */ 	bne	$v1,$t9,.L0f0525d8
-/*  f0525d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0525d4:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0525d8:
-/*  f0525d8:	50a0000a */ 	beqzl	$a1,.L0f052604
-/*  f0525dc:	8ce90438 */ 	lw	$t1,0x438($a3)
-/*  f0525e0:	8ce40434 */ 	lw	$a0,0x434($a3)
-/*  f0525e4:	8ce50438 */ 	lw	$a1,0x438($a3)
-/*  f0525e8:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0525ec:	91060004 */ 	lbu	$a2,0x4($t0)
-/*  f0525f0:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f0525f4:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f0525f8:	10000004 */ 	beqz	$zero,.L0f05260c
-/*  f0525fc:	ace20438 */ 	sw	$v0,0x438($a3)
-/*  f052600:	8ce90438 */ 	lw	$t1,0x438($a3)
-.L0f052604:
-/*  f052604:	252a0005 */ 	addiu	$t2,$t1,0x5
-/*  f052608:	acea0438 */ 	sw	$t2,0x438($a3)
-.L0f05260c:
-/*  f05260c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f052610:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f052614:	00001025 */ 	or	$v0,$zero,$zero
-/*  f052618:	03e00008 */ 	jr	$ra
-/*  f05261c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfDoorLocked(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+	bool pass = false;
+
+	if (obj && obj->pos && obj->pos->type == POSITIONTYPE_DOOR) {
+		struct doorobj *door = (struct doorobj *) obj;
+		u32 bits = cmd[3];
+		u32 lockbits = door->lockbits;
+
+		if ((lockbits & bits) == bits) {
+			pass = true;
+		}
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0073
