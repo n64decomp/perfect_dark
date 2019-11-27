@@ -104,7 +104,7 @@
 /*0x0062*/ bool aiIfObjectHealthy(void);
 /*0x0063*/ bool aiIfChrActivatedObject(void);
 /*0x0065*/ bool ai0065(void);
-/*0x0066*/ bool ai0066(void);
+/*0x0066*/ bool aiDestroyObject(void);
 /*0x0067*/ bool ai0067(void);
 /*0x0068*/ bool ai0068(void);
 /*0x0069*/ bool ai0069(void);

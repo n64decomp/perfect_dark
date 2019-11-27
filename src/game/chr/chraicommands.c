@@ -3323,83 +3323,28 @@ bool ai0065(void)
 /**
  * @cmd 0066
  */
-GLOBAL_ASM(
-glabel ai0066
-/*  f051b84:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f051b88:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f051b8c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f051b90:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f051b94:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f051b98:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f051b9c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f051ba0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f051ba4:	0fc2556c */ 	jal	objFindByTagId
-/*  f051ba8:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f051bac:	10400033 */ 	beqz	$v0,.L0f051c7c
-/*  f051bb0:	00408025 */ 	or	$s0,$v0,$zero
-/*  f051bb4:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f051bb8:	13000030 */ 	beqz	$t8,.L0f051c7c
-/*  f051bbc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051bc0:	0fc1a1ee */ 	jal	func0f0687b8
-/*  f051bc4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f051bc8:	1440002c */ 	bnez	$v0,.L0f051c7c
-/*  f051bcc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051bd0:	8e020014 */ 	lw	$v0,0x14($s0)
-/*  f051bd4:	240100eb */ 	addiu	$at,$zero,0xeb
-/*  f051bd8:	24070003 */ 	addiu	$a3,$zero,0x3
-/*  f051bdc:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f051be0:	84790004 */ 	lh	$t9,0x4($v1)
-/*  f051be4:	57210015 */ 	bnel	$t9,$at,.L0f051c3c
-/*  f051be8:	860b004e */ 	lh	$t3,0x4e($s0)
-/*  f051bec:	8e080008 */ 	lw	$t0,0x8($s0)
-/*  f051bf0:	3c01fffe */ 	lui	$at,0xfffe
-/*  f051bf4:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f051bf8:	01014824 */ 	and	$t1,$t0,$at
-/*  f051bfc:	3c010002 */ 	lui	$at,0x2
-/*  f051c00:	01215025 */ 	or	$t2,$t1,$at
-/*  f051c04:	ae0a0008 */ 	sw	$t2,0x8($s0)
-/*  f051c08:	8c640014 */ 	lw	$a0,0x14($v1)
-/*  f051c0c:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f051c10:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f051c14:	24850008 */ 	addiu	$a1,$a0,0x8
-/*  f051c18:	0fc4a640 */ 	jal	func0f129900
-/*  f051c1c:	24860028 */ 	addiu	$a2,$a0,0x28
-/*  f051c20:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f051c24:	24050016 */ 	addiu	$a1,$zero,0x16
-/*  f051c28:	0fc4b9c5 */ 	jal	func0f12e714
-/*  f051c2c:	8c640014 */ 	lw	$a0,0x14($v1)
-/*  f051c30:	10000012 */ 	beqz	$zero,.L0f051c7c
-/*  f051c34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051c38:	860b004e */ 	lh	$t3,0x4e($s0)
-.L0f051c3c:
-/*  f051c3c:	860c004c */ 	lh	$t4,0x4c($s0)
-/*  f051c40:	3c01437a */ 	lui	$at,0x437a
-/*  f051c44:	44814000 */ 	mtc1	$at,$f8
-/*  f051c48:	016c6823 */ 	subu	$t5,$t3,$t4
-/*  f051c4c:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/*  f051c50:	448e2000 */ 	mtc1	$t6,$f4
-/*  f051c54:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f051c58:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f051c5c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f051c60:	02002025 */ 	or	$a0,$s0,$zero
-/*  f051c64:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f051c68:	24070022 */ 	addiu	$a3,$zero,0x22
-/*  f051c6c:	46083003 */ 	div.s	$f0,$f6,$f8
-/*  f051c70:	44050000 */ 	mfc1	$a1,$f0
-/*  f051c74:	0fc214ab */ 	jal	func0f0852ac
-/*  f051c78:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f051c7c:
-/*  f051c7c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f051c80:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f051c84:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f051c88:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f051c8c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f051c90:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f051c94:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f051c98:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f051c9c:	03e00008 */ 	jr	$ra
-/*  f051ca0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiDestroyObject(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos && func0f0687b8(obj) == 0) {
+		struct defaultobj *entity = obj->pos->entity;
+
+		if (entity->obj == 0xeb) {
+			obj->flags = (obj->flags & 0xfffeffff) | 0x20000;
+			func0f129900(entity->pos, &entity->pos->coord, &entity->pos->room, 3, 0);
+			func0f12e714(entity->pos, 0x16);
+		} else {
+			float damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
+			func0f0852ac(obj, damage, &obj->pos->coord, 0x22, -1);
+		}
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0067

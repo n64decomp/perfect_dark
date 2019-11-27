@@ -286,7 +286,7 @@ struct defaultobj {
 	/*0x00*/ u16 extrascale;
 	/*0x02*/ u8 hidden2;
 	/*0x03*/ u8 type;
-	/*0x04*/ u16 obj;
+	/*0x04*/ s16 obj;
 	/*0x06*/ s16 pad;
 	/*0x08*/ u32 flags;
 	/*0x0c*/ u32 flags2;
@@ -298,7 +298,7 @@ struct defaultobj {
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;
 	/*0x4c*/ s16 damage;
-	/*0x4e*/ u16 maxdamage;
+	/*0x4e*/ s16 maxdamage;
 	/*0x50*/ u32 shadecol;
 	/*0x54*/ u32 nextcol;
 	/*0x58*/ u16 floorcol;
