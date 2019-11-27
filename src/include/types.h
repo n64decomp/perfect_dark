@@ -25,14 +25,20 @@ struct attachment {
 	struct attachment *next;
 };
 
-// This might be a pad, but given that chrs have a gunground pointer to this
-// struct, I think it's more likely an ad hoc coordinate that can be created as
-// needed during gameplay.
+/**
+ * Most, if not all, entity types (chrs, objs, weapons etc) have a pointer to a
+ * position struct. The struct contains properties that most entities have in
+ * common such as coords and a room number. You can think of it as generic
+ * entity.
+ *
+ * The type field indicates what type it is (chr, obj etc) and the entity
+ * pointer points back to the proper entity struct.
+ */
 struct position {
-	u8 unk00;
+	u8 type;
 	u8 flags;
 	u16 unk02;
-	void *master; // pointer to specific struct that has this position. eg. chrdata or weaponobj
+	void *entity;
 	struct coord coord;
 	u32 unk14;
 	u32 unk18; // related to gun recovery

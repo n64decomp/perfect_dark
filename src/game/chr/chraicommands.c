@@ -627,7 +627,7 @@ glabel ai000b
 //		if (startframe == 0xfffe) {
 //			func0f0220ec(chr, 1, 1);
 //
-//			if (chr->pos->unk00 == 6) {
+//			if (chr->pos->type == POSITIONTYPE_PLAYER) {
 //				u32 playernum = posGetPlayerNum(chr->pos);
 //				struct player *player = g_Vars.players[playernum];
 //				player->unk078 = chr->ground;
@@ -706,7 +706,7 @@ bool aiIfChrDying(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if ((!chr || !chr->pos || chr->pos->unk00 != 6) && (!chr || !chr->unk020 || func0f039a94(chr))) {
+	if ((!chr || !chr->pos || chr->pos->type != POSITIONTYPE_PLAYER) && (!chr || !chr->unk020 || func0f039a94(chr))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -727,7 +727,7 @@ bool aiIfChrDeathAnimationFinished(void)
 	if (!chr || !chr->pos) {
 		pass = true;
 	} else {
-		if (chr->pos->unk00 == 6) {
+		if (chr->pos->type == POSITIONTYPE_PLAYER) {
 			u32 playernum = posGetPlayerNum(chr->pos);
 			pass = g_Vars.players[playernum]->unk0d8;
 		} else {
@@ -752,7 +752,7 @@ bool aiIfChrUnloaded(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if ((!chr || !chr->pos || chr->pos->unk00 != 6) &&
+	if ((!chr || !chr->pos || chr->pos->type != POSITIONTYPE_PLAYER) &&
 			(!chr || !chr->unk020 || chr->actiontype == 0x1f || chr->actiontype == 0x1e || chr->actiontype == 0x20)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
@@ -2958,7 +2958,7 @@ bool aiIfChrHasObject(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	s32 playernum = 0;
 
-	if (obj && obj->pos && chr && chr->pos && chr->pos->unk00 == 6) {
+	if (obj && obj->pos && chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
 		s32 prevplayernum = g_Vars.currentplayernum;
 		playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
@@ -3092,7 +3092,7 @@ bool aiIfChrHasWeaponEquipped(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool passes = false;
 
-	if (chr && chr->pos && chr->pos->unk00 == 6) {
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
@@ -3129,7 +3129,7 @@ bool aiIfGunUnclaimed(void)
 			g_Vars.aioffset += 5;
 		}
 	} else {
-		struct weaponobj *weapon = g_Vars.chrdata->gungroundpos->master;
+		struct weaponobj *weapon = g_Vars.chrdata->gungroundpos->entity;
 
 		if (weapon && weapon->pos) {
 			weapon->flags |= 0x00400000;
@@ -3766,7 +3766,7 @@ bool aiOpenDoor(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *door = objFindByTagId(cmd[2]);
 
-	if (door && door->pos && door->pos->unk00 == 2) {
+	if (door && door->pos && door->pos->type == POSITIONTYPE_DOOR) {
 		if (!func0f066310(door->pos, 0)) {
 			func0f08e488(door, DOORSTATE_OPEN);
 		}
@@ -3785,7 +3785,7 @@ bool aiCloseDoor(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *door = objFindByTagId(cmd[2]);
 
-	if (door && door->pos && door->pos->unk00 == 2) {
+	if (door && door->pos && door->pos->type == POSITIONTYPE_DOOR) {
 		func0f08e488(door, DOORSTATE_CLOSED);
 	}
 
@@ -6861,7 +6861,7 @@ bool aiMessage(void)
 	u32 prevplayernum = g_Vars.currentplayernum;
 	u32 playernum = g_Vars.currentplayernum;
 
-	if (chr && chr->pos && (chr->pos->unk00 & 0xff) == 6) {
+	if (chr && chr->pos && (chr->pos->type & 0xff) == POSITIONTYPE_PLAYER) {
 		playernum = posGetPlayerNum(chr->pos);
 	}
 
@@ -6913,7 +6913,7 @@ bool aiShowText2(void)
 	u32 prevplayernum = g_Vars.currentplayernum;
 	u32 playernum = g_Vars.currentplayernum;
 
-	if (chr && chr->pos && (chr->pos->unk00 & 0xff) == 6) {
+	if (chr && chr->pos && (chr->pos->type & 0xff) == POSITIONTYPE_PLAYER) {
 		playernum = posGetPlayerNum(chr->pos);
 	}
 
@@ -8325,7 +8325,7 @@ glabel aiRevokeControl
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 //
-//	if (chr && chr->pos && chr->pos->unk00 == 6) {
+//	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
 //		u32 prevplayernum = g_Vars.currentplayernum;
 //		setCurrentPlayerNum(posGetPlayerNum(chr->pos));
 //		func0f0abc74(4, false);
@@ -8356,7 +8356,7 @@ bool aiGrantControl(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->unk00 == 6) {
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		setCurrentPlayerNum(posGetPlayerNum(chr->pos));
 		func0f0abc74(4, true);
@@ -8836,7 +8836,7 @@ bool aiIfChrAmmoQuantityLessThan(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool passes = false;
 
-	if (chr && chr->pos && chr->pos->unk00 == 6) {
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
@@ -8865,7 +8865,7 @@ bool aiChrDrawWeapon(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->unk00 == 6) {
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
@@ -8887,7 +8887,7 @@ bool aiChrDrawWeaponInCutscene(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->unk00 == 6) {
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
@@ -8999,7 +8999,7 @@ bool aiChrSetInvincible(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->unk00 == 6) {
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
@@ -9301,7 +9301,7 @@ bool aiChrExplosions(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->unk00 == 6) {
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
@@ -9917,7 +9917,7 @@ bool ai010c(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 
-	if (!chr || (!chr->unk020 && chr->pos->unk00 != 6)) {
+	if (!chr || (!chr->unk020 && chr->pos->type != POSITIONTYPE_PLAYER)) {
 		chrSetChrPreset(g_Vars.chrdata, CHR_BOND);
 		chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 	}
@@ -13347,8 +13347,8 @@ bool aiIfY(void)
 		if (heli) {
 			struct position *target = heliGetTargetPosition(heli);
 
-			if (target && (target->unk00 == 3 || target->unk00 == 6)) {
-				chr = target->master;
+			if (target && (target->type == POSITIONTYPE_CHR || target->type == POSITIONTYPE_PLAYER)) {
+				chr = target->entity;
 			}
 		}
 	} else {
@@ -13706,7 +13706,7 @@ glabel ai0172
 //	struct position *pos = g_Vars.chrdata->gungroundpos;
 //	g_Vars.chrdata->gungroundpos = NULL;
 //
-//	if (pos && pos->unk04 && pos->unk18 == 0 && pos->unk00 == 4) {
+//	if (pos && pos->unk04 && pos->unk18 == 0 && pos->type == POSITIONTYPE_WEAPON) {
 //		func0f065c44(pos);
 //		func0f0605c4(pos);
 //		func0f060300(pos);
@@ -13973,7 +13973,7 @@ bool ai0183(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct position *target = chrGetTargetPosition(g_Vars.chrdata);
 
-	if (target->unk00 == 5 || target->unk00 == 6) {
+	if (target->type == POSITIONTYPE_5 || target->type == POSITIONTYPE_PLAYER) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -15062,7 +15062,7 @@ bool aiChrGrabObject(void)
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->unk00 == 6 && obj && obj->pos) {
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER && obj && obj->pos) {
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
@@ -15702,7 +15702,7 @@ bool aiIfChrWeaponEquipped(void)
 	struct position *pos = chr ? chr->pos : NULL;
 	u8 is_using_weapon = false;
 
-	if (pos && pos->unk00 == 6) {
+	if (pos && pos->type == POSITIONTYPE_PLAYER) {
 		u32 playernum = posGetPlayerNum(pos);
 		u32 prevplayernum = g_Vars.currentplayernum;
 		setCurrentPlayerNum(playernum);

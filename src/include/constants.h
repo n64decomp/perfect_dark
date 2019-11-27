@@ -548,6 +548,12 @@
 #define PATHTYPE_CIRCULAR     1
 #define PATHTYPE_FLYING       2
 
+#define POSITIONTYPE_DOOR   2
+#define POSITIONTYPE_CHR    3
+#define POSITIONTYPE_WEAPON 4
+#define POSITIONTYPE_5      5
+#define POSITIONTYPE_PLAYER 6
+
 #define SPEED_WALK 0
 #define SPEED_JOG  1
 #define SPEED_RUN  2
