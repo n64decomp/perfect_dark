@@ -551,6 +551,7 @@
 #define PATHTYPE_CIRCULAR     1
 #define PATHTYPE_FLYING       2
 
+#define POSITIONTYPE_1      1
 #define POSITIONTYPE_DOOR   2
 #define POSITIONTYPE_CHR    3
 #define POSITIONTYPE_WEAPON 4

@@ -3302,51 +3302,23 @@ glabel aiIfChrActivatedObject
 /**
  * @cmd 0065
  */
-GLOBAL_ASM(
-glabel ai0065
-/*  f051ae8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f051aec:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f051af0:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f051af4:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f051af8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f051afc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f051b00:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f051b04:	0fc2556c */ 	jal	objFindByTagId
-/*  f051b08:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f051b0c:	10400014 */ 	beqz	$v0,.L0f051b60
-/*  f051b10:	00403025 */ 	or	$a2,$v0,$zero
-/*  f051b14:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f051b18:	10800011 */ 	beqz	$a0,.L0f051b60
-/*  f051b1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051b20:	90830000 */ 	lbu	$v1,0x0($a0)
-/*  f051b24:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f051b28:	00002825 */ 	or	$a1,$zero,$zero
-/*  f051b2c:	54610006 */ 	bnel	$v1,$at,.L0f051b48
-/*  f051b30:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f051b34:	0fc23fba */ 	jal	func0f08fee8
-/*  f051b38:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f051b3c:	10000008 */ 	beqz	$zero,.L0f051b60
-/*  f051b40:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051b44:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f051b48:
-/*  f051b48:	10610003 */ 	beq	$v1,$at,.L0f051b58
-/*  f051b4c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f051b50:	14610003 */ 	bne	$v1,$at,.L0f051b60
-/*  f051b54:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f051b58:
-/*  f051b58:	0fc21bd0 */ 	jal	func0f086f40
-/*  f051b5c:	8cc40014 */ 	lw	$a0,0x14($a2)
-.L0f051b60:
-/*  f051b60:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f051b64:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f051b68:	8c780438 */ 	lw	$t8,0x438($v1)
-/*  f051b6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f051b70:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f051b74:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f051b78:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f051b7c:	03e00008 */ 	jr	$ra
-/*  f051b80:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai0065(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos) {
+		if (obj->pos->type == POSITIONTYPE_DOOR) {
+			func0f08fee8(obj->pos, 0);
+		} else if (obj->pos->type == POSITIONTYPE_1 || obj->pos->type == POSITIONTYPE_WEAPON) {
+			func0f086f40(obj->pos);
+		}
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0066

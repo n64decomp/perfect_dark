@@ -436,6 +436,11 @@
 	object, \
 	label,
 
+// Unused, and no idea what it does.
+#define cmd0065(object) \
+	mkshort(0x0065), \
+	object,
+
 #define destroy_object(object) \
 	mkshort(0x0066), \
 	object,
