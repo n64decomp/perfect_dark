@@ -3414,83 +3414,36 @@ bool aiChrDropItems(void)
 /**
  * @cmd 0069
  */
-GLOBAL_ASM(
-glabel ai0069
-/*  f051db4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f051db8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f051dbc:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f051dc0:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f051dc4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f051dc8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f051dcc:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f051dd0:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f051dd4:	0fc126d1 */ 	jal	chrFindById
-/*  f051dd8:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f051ddc:	10400019 */ 	beqz	$v0,.L0f051e44
-/*  f051de0:	00401825 */ 	or	$v1,$v0,$zero
-/*  f051de4:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f051de8:	10800016 */ 	beqz	$a0,.L0f051e44
-/*  f051dec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051df0:	90980000 */ 	lbu	$t8,0x0($a0)
-/*  f051df4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f051df8:	3c19800a */ 	lui	$t9,0x800a
-/*  f051dfc:	17010011 */ 	bne	$t8,$at,.L0f051e44
-/*  f051e00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051e04:	8f39a24c */ 	lw	$t9,-0x5db4($t9)
-/*  f051e08:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f051e0c:	0fc4a25f */ 	jal	posGetPlayerNum
-/*  f051e10:	8c64001c */ 	lw	$a0,0x1c($v1)
-/*  f051e14:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f051e18:	00402025 */ 	or	$a0,$v0,$zero
-/*  f051e1c:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
-/*  f051e20:	00002025 */ 	or	$a0,$zero,$zero
-/*  f051e24:	0fc447a9 */ 	jal	func0f111ea4
-/*  f051e28:	00402025 */ 	or	$a0,$v0,$zero
-/*  f051e2c:	0fc2870b */ 	jal	func0f0a1c2c
-/*  f051e30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051e34:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f051e38:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f051e3c:	1000001b */ 	beqz	$zero,.L0f051eac
-/*  f051e40:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f051e44:
-/*  f051e44:	10400019 */ 	beqz	$v0,.L0f051eac
-/*  f051e48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051e4c:	8c48001c */ 	lw	$t0,0x1c($v0)
-/*  f051e50:	11000016 */ 	beqz	$t0,.L0f051eac
-/*  f051e54:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051e58:	8c490170 */ 	lw	$t1,0x170($v0)
-/*  f051e5c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f051e60:	51200009 */ 	beqzl	$t1,.L0f051e88
-/*  f051e64:	8c640174 */ 	lw	$a0,0x174($v1)
-/*  f051e68:	8c640170 */ 	lw	$a0,0x170($v1)
-/*  f051e6c:	0fc20a59 */ 	jal	func0f082964
-/*  f051e70:	afa30020 */ 	sw	$v1,0x20($sp)
-/*  f051e74:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f051e78:	8c6a0014 */ 	lw	$t2,0x14($v1)
-/*  f051e7c:	354b0001 */ 	ori	$t3,$t2,0x1
-/*  f051e80:	ac6b0014 */ 	sw	$t3,0x14($v1)
-/*  f051e84:	8c640174 */ 	lw	$a0,0x174($v1)
-.L0f051e88:
-/*  f051e88:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f051e8c:	10800007 */ 	beqz	$a0,.L0f051eac
-/*  f051e90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051e94:	0fc20a59 */ 	jal	func0f082964
-/*  f051e98:	afa30020 */ 	sw	$v1,0x20($sp)
-/*  f051e9c:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f051ea0:	8c6c0014 */ 	lw	$t4,0x14($v1)
-/*  f051ea4:	358d0001 */ 	ori	$t5,$t4,0x1
-/*  f051ea8:	ac6d0014 */ 	sw	$t5,0x14($v1)
-.L0f051eac:
-/*  f051eac:	3c0e800a */ 	lui	$t6,0x800a
-/*  f051eb0:	8dcea3f8 */ 	lw	$t6,-0x5c08($t6)
-/*  f051eb4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f051eb8:	3c01800a */ 	lui	$at,0x800a
-/*  f051ebc:	25cf0003 */ 	addiu	$t7,$t6,0x3
-/*  f051ec0:	ac2fa3f8 */ 	sw	$t7,-0x5c08($at)
-/*  f051ec4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f051ec8:	03e00008 */ 	jr	$ra
-/*  f051ecc:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrDropWeapon(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+		u32 prevplayernum = g_Vars.currentplayernum;
+		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 weapon_id;
+		setCurrentPlayerNum(playernum);
+		weapon_id = getCurrentPlayerWeaponId(0);
+		func0f111ea4(weapon_id);
+		func0f0a1c2c();
+		setCurrentPlayerNum(prevplayernum);
+	} else if (chr && chr->pos) {
+		if (chr->weapons_held[0]) {
+			func0f082964(chr->weapons_held[0], 1);
+			chr->hidden = chr->hidden | 0x00000001;
+		}
+
+		if (chr->weapons_held[1]) {
+			func0f082964(chr->weapons_held[1], 1);
+			chr->hidden = chr->hidden | 0x00000001;
+		}
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 006a

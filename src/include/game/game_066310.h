@@ -202,7 +202,7 @@ u32 func0f081310(void);
 u32 func0f081c18(void);
 u32 func0f081ccc(void);
 u32 func0f0826cc(void);
-u32 func0f082964(void);
+void func0f082964(struct attachment *attachment, s32 arg1);
 u32 func0f082a1c(void);
 u32 func0f082d74(void);
 u32 func0f082e84(void);
