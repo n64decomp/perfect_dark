@@ -3448,123 +3448,50 @@ bool aiChrDropWeapon(void)
 /**
  * @cmd 006a
  */
-GLOBAL_ASM(
-glabel ai006a
-/*  f051ed0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f051ed4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f051ed8:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f051edc:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f051ee0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f051ee4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f051ee8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f051eec:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f051ef0:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f051ef4:	0fc2556c */ 	jal	objFindByTagId
-/*  f051ef8:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f051efc:	8fa30034 */ 	lw	$v1,0x34($sp)
-/*  f051f00:	3c04800a */ 	lui	$a0,0x800a
-/*  f051f04:	00408025 */ 	or	$s0,$v0,$zero
-/*  f051f08:	8c84a3e4 */ 	lw	$a0,-0x5c1c($a0)
-/*  f051f0c:	0fc126d1 */ 	jal	chrFindById
-/*  f051f10:	90650003 */ 	lbu	$a1,0x3($v1)
-/*  f051f14:	12000050 */ 	beqz	$s0,.L0f052058
-/*  f051f18:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f051f1c:	8e060014 */ 	lw	$a2,0x14($s0)
-/*  f051f20:	10c0004d */ 	beqz	$a2,.L0f052058
-/*  f051f24:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051f28:	1040004b */ 	beqz	$v0,.L0f052058
-/*  f051f2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051f30:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f051f34:	10600048 */ 	beqz	$v1,.L0f052058
-/*  f051f38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051f3c:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f051f40:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f051f44:	3c19800a */ 	lui	$t9,0x800a
-/*  f051f48:	5701002a */ 	bnel	$t8,$at,.L0f051ff4
-/*  f051f4c:	8cd80018 */ 	lw	$t8,0x18($a2)
-/*  f051f50:	8f39a24c */ 	lw	$t9,-0x5db4($t9)
-/*  f051f54:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f051f58:	8cc80004 */ 	lw	$t0,0x4($a2)
-/*  f051f5c:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f051f60:	0fc4a25f */ 	jal	posGetPlayerNum
-/*  f051f64:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f051f68:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f051f6c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f051f70:	8e060014 */ 	lw	$a2,0x14($s0)
-/*  f051f74:	8cca0018 */ 	lw	$t2,0x18($a2)
-/*  f051f78:	51400009 */ 	beqzl	$t2,.L0f051fa0
-/*  f051f7c:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f051f80:	0fc20be2 */ 	jal	func0f082f88
-/*  f051f84:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f051f88:	0fc1ab24 */ 	jal	func0f06ac90
-/*  f051f8c:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f051f90:	0fc1812f */ 	jal	func0f0604bc
-/*  f051f94:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f051f98:	8e060014 */ 	lw	$a2,0x14($s0)
-/*  f051f9c:	00c02025 */ 	or	$a0,$a2,$zero
-.L0f051fa0:
-/*  f051fa0:	0fc22210 */ 	jal	func0f088840
-/*  f051fa4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f051fa8:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f051fac:	0fc18ad9 */ 	jal	func0f062b64
-/*  f051fb0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f051fb4:	8fab002c */ 	lw	$t3,0x2c($sp)
-/*  f051fb8:	0fc4a25f */ 	jal	posGetPlayerNum
-/*  f051fbc:	8d64001c */ 	lw	$a0,0x1c($t3)
-/*  f051fc0:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f051fc4:	3c010fff */ 	lui	$at,0xfff
-/*  f051fc8:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f051fcc:	8c6d0040 */ 	lw	$t5,0x40($v1)
-/*  f051fd0:	00026700 */ 	sll	$t4,$v0,0x1c
-/*  f051fd4:	01a17024 */ 	and	$t6,$t5,$at
-/*  f051fd8:	018e7825 */ 	or	$t7,$t4,$t6
-/*  f051fdc:	ac6f0040 */ 	sw	$t7,0x40($v1)
-/*  f051fe0:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f051fe4:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f051fe8:	1000001b */ 	beqz	$zero,.L0f052058
-/*  f051fec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051ff0:	8cd80018 */ 	lw	$t8,0x18($a2)
-.L0f051ff4:
-/*  f051ff4:	13000005 */ 	beqz	$t8,.L0f05200c
-/*  f051ff8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051ffc:	0fc20be2 */ 	jal	func0f082f88
-/*  f052000:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f052004:	10000008 */ 	beqz	$zero,.L0f052028
-/*  f052008:	92190003 */ 	lbu	$t9,0x3($s0)
-.L0f05200c:
-/*  f05200c:	0fc19711 */ 	jal	func0f065c44
-/*  f052010:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f052014:	0fc18171 */ 	jal	func0f0605c4
-/*  f052018:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f05201c:	0fc180c0 */ 	jal	func0f060300
-/*  f052020:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f052024:	92190003 */ 	lbu	$t9,0x3($s0)
-.L0f052028:
-/*  f052028:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f05202c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f052030:	57210006 */ 	bnel	$t9,$at,.L0f05204c
-/*  f052034:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f052038:	0fc22b95 */ 	jal	func0f08ae54
-/*  f05203c:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f052040:	14400005 */ 	bnez	$v0,.L0f052058
-/*  f052044:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052048:	8fa8002c */ 	lw	$t0,0x2c($sp)
-.L0f05204c:
-/*  f05204c:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f052050:	0fc181a6 */ 	jal	func0f060698
-/*  f052054:	8d05001c */ 	lw	$a1,0x1c($t0)
-.L0f052058:
-/*  f052058:	3c09800a */ 	lui	$t1,0x800a
-/*  f05205c:	8d29a3f8 */ 	lw	$t1,-0x5c08($t1)
-/*  f052060:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f052064:	3c01800a */ 	lui	$at,0x800a
-/*  f052068:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f05206c:	252a0004 */ 	addiu	$t2,$t1,0x4
-/*  f052070:	ac2aa3f8 */ 	sw	$t2,-0x5c08($at)
-/*  f052074:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f052078:	03e00008 */ 	jr	$ra
-/*  f05207c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiGiveObjectToChr(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
+
+	if (obj && obj->pos && chr && chr->pos) {
+		if (chr->pos->type == POSITIONTYPE_PLAYER) {
+			u32 something;
+			u32 prevplayernum = g_Vars.currentplayernum;
+			struct defaultobj *obj2 = obj->pos->entity;
+			u32 playernum = posGetPlayerNum(chr->pos);
+			setCurrentPlayerNum(playernum);
+
+			if (obj->pos->unk18) {
+				func0f082f88(obj->pos);
+				func0f06ac90(obj->pos);
+				func0f0604bc(obj->pos);
+			}
+
+			something = func0f088840(obj->pos, 0);
+			func0f062b64(obj->pos, something);
+			playernum = posGetPlayerNum(chr->pos);
+			obj2->hidden = (playernum << 28) | (obj2->hidden & 0x0fffffff);
+			setCurrentPlayerNum(prevplayernum);
+		} else {
+			if (obj->pos->unk18) {
+				func0f082f88(obj->pos);
+			} else {
+				func0f065c44(obj->pos);
+				func0f0605c4(obj->pos);
+				func0f060300(obj->pos);
+			}
+
+			if (obj->type != OBJTYPE_WEAPON || func0f08ae54(obj, chr) == 0) {
+				func0f060698(obj->pos, chr->pos);
+			}
+		}
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 006b

@@ -294,7 +294,7 @@ struct defaultobj {
 	/*0x14*/ struct position *pos;
 	/*0x18*/ void *unk18; // probably same struct as chrdata->unk020
 	/*0x1c*/ float realrot[9];
-	/*0x40*/ u32 hidden;
+	/*0x40*/ u32 hidden; // most significant nibble is the playernum who holds the obj
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;
 	/*0x4c*/ s16 damage;

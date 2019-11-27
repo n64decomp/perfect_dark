@@ -108,7 +108,7 @@
 /*0x0067*/ bool ai0067(void);
 /*0x0068*/ bool aiChrDropItems(void);
 /*0x0069*/ bool aiChrDropWeapon(void);
-/*0x006a*/ bool ai006a(void);
+/*0x006a*/ bool aiGiveObjectToChr(void);
 /*0x006b*/ bool ai006b(void);
 /*0x006c*/ bool aiOpenDoor(void);
 /*0x006d*/ bool aiCloseDoor(void);
