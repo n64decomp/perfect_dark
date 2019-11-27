@@ -3683,44 +3683,21 @@ bool aiLockDoor(void)
 /**
  * @cmd 0071
  */
-GLOBAL_ASM(
-glabel ai0071
-/*  f0524e4:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f0524e8:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f0524ec:	8cce0434 */ 	lw	$t6,0x434($a2)
-/*  f0524f0:	8ccf0438 */ 	lw	$t7,0x438($a2)
-/*  f0524f4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0524f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0524fc:	01cf2821 */ 	addu	$a1,$t6,$t7
-/*  f052500:	90a40002 */ 	lbu	$a0,0x2($a1)
-/*  f052504:	0fc2556c */ 	jal	objFindByTagId
-/*  f052508:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f05250c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f052510:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f052514:	1040000d */ 	beqz	$v0,.L0f05254c
-/*  f052518:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f05251c:	8c430014 */ 	lw	$v1,0x14($v0)
-/*  f052520:	5060000b */ 	beqzl	$v1,.L0f052550
-/*  f052524:	8cca0438 */ 	lw	$t2,0x438($a2)
-/*  f052528:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f05252c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f052530:	57010007 */ 	bnel	$t8,$at,.L0f052550
-/*  f052534:	8cca0438 */ 	lw	$t2,0x438($a2)
-/*  f052538:	90a30003 */ 	lbu	$v1,0x3($a1)
-/*  f05253c:	8c590074 */ 	lw	$t9,0x74($v0)
-/*  f052540:	00604027 */ 	nor	$t0,$v1,$zero
-/*  f052544:	03284824 */ 	and	$t1,$t9,$t0
-/*  f052548:	ac490074 */ 	sw	$t1,0x74($v0)
-.L0f05254c:
-/*  f05254c:	8cca0438 */ 	lw	$t2,0x438($a2)
-.L0f052550:
-/*  f052550:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f052554:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f052558:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f05255c:	accb0438 */ 	sw	$t3,0x438($a2)
-/*  f052560:	03e00008 */ 	jr	$ra
-/*  f052564:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiUnlockDoor(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->pos && obj->pos->type == POSITIONTYPE_DOOR) {
+		struct doorobj *door = (struct doorobj *) obj;
+		u8 bits = cmd[3];
+		door->lockbits = door->lockbits & ~bits;
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0072

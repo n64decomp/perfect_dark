@@ -115,7 +115,7 @@
 /*0x006e*/ bool aiIfDoorState(void);
 /*0x006f*/ bool aiIfObjectIsDoor(void);
 /*0x0070*/ bool aiLockDoor(void);
-/*0x0071*/ bool ai0071(void);
+/*0x0071*/ bool aiUnlockDoor(void);
 /*0x0072*/ bool ai0072(void);
 /*0x0073*/ bool ai0073(void);
 /*0x0074*/ bool ai0074(void);
