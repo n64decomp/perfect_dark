@@ -510,7 +510,7 @@ u32 func0f022cc8(void);
 u32 func0f022d60(void);
 u32 func0f022fe0(void);
 u32 func0f023098(void);
-u32 func0f024524(void);
+void chrDropItems(struct chrdata *chr);
 u32 func0f0245c8(struct chrdata *chr, u32 arg1);
 u32 func0f024668(void);
 u32 func0f0246e4(void);

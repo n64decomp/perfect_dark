@@ -14236,7 +14236,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0065*/ ai0065,
 	/*0x0066*/ aiDestroyObject,
 	/*0x0067*/ ai0067,
-	/*0x0068*/ ai0068,
+	/*0x0068*/ aiChrDropItems,
 	/*0x0069*/ ai0069,
 	/*0x006a*/ ai006a,
 	/*0x006b*/ ai006b,
