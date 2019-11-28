@@ -6359,7 +6359,7 @@ bool aiShowText2(void)
  * @cmd 00cd
  */
 GLOBAL_ASM(
-glabel ai00cd
+glabel aiSpeak
 /*  f056040:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f056044:	afb10020 */ 	sw	$s1,0x20($sp)
 /*  f056048:	3c11800a */ 	lui	$s1,%hi(g_Vars)
@@ -6478,6 +6478,45 @@ glabel ai00cd
 /*  f0561f0:	03e00008 */ 	jr	$ra
 /*  f0561f4:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+// Mismatch due to different registers
+//bool aiSpeak(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+//	s16 audio_id = cmd[6] | (cmd[5] << 8);
+//	s16 text_id = cmd[4] | (cmd[3] << 8);
+//	s32 prevplayernum = g_Vars.currentplayernum;
+//	s32 playernum = g_Vars.currentplayernum;
+//	u32 audioref;
+//	char *text = text_id >= 0 ? textGet(text_id) : NULL;
+//
+//	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+//		playernum = posGetPlayerNum(chr->pos);
+//	}
+//
+//	setCurrentPlayerNum(playernum);
+//
+//	if (text && cmd[2] != CHR_P1P2) {
+//		func0f0926bc(g_Vars.chrdata->pos, 9, 0xffff);
+//	}
+//
+//	if (cmd[2] == CHR_P1P2) {
+//		audioref = audioPlayFromWorldPosition(cmd[7], audio_id, 0, g_Vars.chrdata->pos, 0, 512);
+//	} else {
+//		audioref = audioPlayFromWorldPosition(cmd[7], audio_id, 0, g_Vars.chrdata->pos, 9, 512);
+//	}
+//
+//	if (text && !audioIsFiltered(audio_id)) {
+//		func0f0de160(text, 6, cmd[8], audioref);
+//	}
+//
+//	setCurrentPlayerNum(prevplayernum);
+//
+//	g_Vars.aioffset += 9;
+//
+//	return false;
+//}
 
 /**
  * @cmd 00ce

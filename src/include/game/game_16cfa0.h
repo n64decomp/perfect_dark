@@ -47,6 +47,6 @@ s32 textGetFileId(s32 bank);
 void textSetBankSimple(s32 bank);
 void textSetBank(s32 bank, s32 arg1, s32 arg2);
 void textClearBank(s32 bank);
-char *textGet(u32 textid);
+char *textGet(s32 textid);
 
 #endif

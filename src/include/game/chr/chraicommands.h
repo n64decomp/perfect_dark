@@ -207,7 +207,7 @@
 /*0x00ca*/ bool aiDuplicateChr(void);
 /*0x00cb*/ bool aiMessage(void);
 /*0x00cc*/ bool aiShowText2(void);
-/*0x00cd*/ bool ai00cd(void);
+/*0x00cd*/ bool aiSpeak(void);
 /*0x00ce*/ bool aiPlaySound(void);
 /*0x00cf*/ bool ai00cf(void);
 /*0x00d0*/ bool ai00d0(void);
