@@ -6536,38 +6536,17 @@ bool aiPlaySound(void)
 /**
  * @cmd 017c
  */
-GLOBAL_ASM(
-glabel ai017c
-/*  f056268:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05626c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f056270:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f056274:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f056278:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05627c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f056280:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f056284:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f056288:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f05628c:	80440004 */ 	lb	$a0,0x4($v0)
-/*  f056290:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f056294:	03282825 */ 	or	$a1,$t9,$t0
-/*  f056298:	00054c00 */ 	sll	$t1,$a1,0x10
-/*  f05629c:	240b000b */ 	addiu	$t3,$zero,0xb
-/*  f0562a0:	00092c03 */ 	sra	$a1,$t1,0x10
-/*  f0562a4:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f0562a8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0562ac:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f0562b0:	0fc25010 */ 	jal	audioPlayFromWorldPosition
-/*  f0562b4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0562b8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0562bc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0562c0:	8c6c0438 */ 	lw	$t4,0x438($v1)
-/*  f0562c4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0562c8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0562cc:	258d0005 */ 	addiu	$t5,$t4,0x5
-/*  f0562d0:	ac6d0438 */ 	sw	$t5,0x438($v1)
-/*  f0562d4:	03e00008 */ 	jr	$ra
-/*  f0562d8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiAssignSound(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s16 audio_id = cmd[3] | (cmd[2] << 8);
+
+	audioPlayFromWorldPosition(cmd[4], audio_id, -1, NULL, 11, 0);
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 00d3

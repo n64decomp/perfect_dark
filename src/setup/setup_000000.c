@@ -14512,7 +14512,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0179*/ ai0179,
 	/*0x017a*/ ai017a,
 	/*0x017b*/ aiIfChrUnloaded,
-	/*0x017c*/ ai017c,
+	/*0x017c*/ aiAssignSound,
 	/*0x017d*/ aiAudioSetMusicTrack,
 	/*0x017e*/ aiAudioRestartDefaultMusic,
 	/*0x017f*/ aiAudioSetSfxTrack,

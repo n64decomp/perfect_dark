@@ -6,7 +6,7 @@
 void alarmActivate(void);
 void alarmDeactivate(void);
 bool alarmIsActive(void);
-bool audioPlayFromWorldPosition(s8 channel_id, s16 audio_id, u8 volumemaybe, struct position *pos, s32 arg4, s32 arg5);
+bool audioPlayFromWorldPosition(s8 channel_id, s16 audio_id, s32 volumemaybe, struct position *pos, s32 arg4, s32 arg5);
 float countdownTimerGetValue(void);
 bool countdownTimerIsHidden(void);
 bool countdownTimerIsRunning(void);

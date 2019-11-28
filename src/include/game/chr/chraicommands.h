@@ -357,7 +357,7 @@
 /*0x0179*/ bool ai0179(void);
 /*0x017a*/ bool ai017a(void);
 /*0x017b*/ bool aiIfChrUnloaded(void);
-/*0x017c*/ bool ai017c(void);
+/*0x017c*/ bool aiAssignSound(void);
 /*0x017d*/ bool aiAudioSetMusicTrack(void);
 /*0x017e*/ bool aiAudioRestartDefaultMusic(void);
 /*0x017f*/ bool aiAudioSetSfxTrack(void);
