@@ -5470,7 +5470,7 @@ bool aiIfTimerGreaterThanRandom(void)
  * @cmd 00bc
  */
 GLOBAL_ASM(
-glabel ai00bc
+glabel aiIfTimerLessThan
 /*  f05511c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f055120:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
 /*  f055124:	8c6e0434 */ 	lw	$t6,0x434($v1)
@@ -5513,7 +5513,7 @@ glabel ai00bc
 /*  f0551b0:	50800014 */ 	beqzl	$a0,.L0f055204
 /*  f0551b4:	8c6d0438 */ 	lw	$t5,0x438($v1)
 /*  f0551b8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0551bc:	0fc1ec48 */ 	jal	func0f07b120
+/*  f0551bc:	0fc1ec48 */ 	jal	heliGetTimer
 /*  f0551c0:	e7a20018 */ 	swc1	$f2,0x18($sp)
 /*  f0551c4:	c7a20018 */ 	lwc1	$f2,0x18($sp)
 /*  f0551c8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -5547,7 +5547,7 @@ glabel ai00bc
  * @cmd 00bd
  */
 GLOBAL_ASM(
-glabel ai00bd
+glabel aiIfTimerGreaterThan
 /*  f055220:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f055224:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f055228:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -5584,7 +5584,7 @@ glabel ai00bd
 /*  f05529c:	8e040430 */ 	lw	$a0,0x430($s0)
 /*  f0552a0:	50800005 */ 	beqzl	$a0,.L0f0552b8
 /*  f0552a4:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f0552a8:	0fc1ec48 */ 	jal	func0f07b120
+/*  f0552a8:	0fc1ec48 */ 	jal	heliGetTimer
 /*  f0552ac:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f0552b0:	8fa20024 */ 	lw	$v0,0x24($sp)
 /*  f0552b4:	8e040424 */ 	lw	$a0,0x424($s0)
@@ -5603,7 +5603,7 @@ glabel ai00bd
 .L0f0552e4:
 /*  f0552e4:	50800010 */ 	beqzl	$a0,.L0f055328
 /*  f0552e8:	8e0d0438 */ 	lw	$t5,0x438($s0)
-/*  f0552ec:	0fc1ec48 */ 	jal	func0f07b120
+/*  f0552ec:	0fc1ec48 */ 	jal	heliGetTimer
 /*  f0552f0:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f0552f4:	c7a40020 */ 	lwc1	$f4,0x20($sp)
 /*  f0552f8:	8fa20024 */ 	lw	$v0,0x24($sp)

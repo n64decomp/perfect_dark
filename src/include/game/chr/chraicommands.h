@@ -190,8 +190,8 @@
 /*0x00b9*/ bool aiResumeTimer(void);
 /*0x00ba*/ bool aiIfTimerStopped(void);
 /*0x00bb*/ bool aiIfTimerGreaterThanRandom(void);
-/*0x00bc*/ bool ai00bc(void);
-/*0x00bd*/ bool ai00bd(void);
+/*0x00bc*/ bool aiIfTimerLessThan(void);
+/*0x00bd*/ bool aiIfTimerGreaterThan(void);
 /*0x00be*/ bool aiShowCountdownTimer(void);
 /*0x00bf*/ bool aiHideCountdownTimer(void);
 /*0x00c0*/ bool aiSetCountdownTimerValue(void);

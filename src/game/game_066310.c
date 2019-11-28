@@ -24838,7 +24838,7 @@ glabel func0f07b0f4
 );
 
 GLOBAL_ASM(
-glabel func0f07b120
+glabel heliGetTimer
 /*  f07b120:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f07b124:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f07b128:	0fc1eb7d */ 	jal	func0f07adf4
