@@ -50627,11 +50627,10 @@ glabel func0f04a0e4
 /*  f04a0fc:	ac8f0018 */ 	sw	$t7,0x18($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f04a100
-/*  f04a100:	03e00008 */ 	jr	$ra
-/*  f04a104:	8082000b */ 	lb	$v0,0xb($a0)
-);
+s32 chrGetNumArghs(struct chrdata *chr)
+{
+	return chr->numarghs;
+}
 
 GLOBAL_ASM(
 glabel func0f04a108

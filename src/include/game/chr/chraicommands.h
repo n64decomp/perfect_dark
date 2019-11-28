@@ -127,8 +127,8 @@
 /*0x007a*/ bool aiIfUptimeGreaterThan(void);
 /*0x007b*/ bool aiIfStageIdLessThan(void);
 /*0x007c*/ bool aiIfStageIdGreaterThan(void);
-/*0x007d*/ bool ai007d(void);
-/*0x007e*/ bool ai007e(void);
+/*0x007d*/ bool aiIfNumArghsLessThan(void);
+/*0x007e*/ bool aiIfNumArghsGreaterThan(void);
 /*0x007f*/ bool ai007f(void);
 /*0x0080*/ bool ai0080(void);
 /*0x0081*/ bool ai0081(void);

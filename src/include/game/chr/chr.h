@@ -365,7 +365,7 @@ s32 func0f0495d0(struct chrdata *chr, s32 pad_id);
 u32 func0f049644(void);
 u32 func0f049fcc(struct chrdata *chr);
 u32 func0f04a0e4(struct chrdata *chr);
-u32 func0f04a100(void);
+s32 chrGetNumArghs(struct chrdata *chr);
 u32 func0f04a108(void);
 u32 func0f04a110(struct chrdata *chr, u32 arg1);
 u32 func0f04a1ac(struct chrdata *chr, u32 arg1);

@@ -89,8 +89,8 @@ struct chrdata {
 	/*0x007*/ s8 actiontype;
 	/*0x008*/ u8 sleep;
 	/*0x009*/ u8 invalidmove;
-	/*0x00a*/ u8 numclosearghs;
-	/*0x00b*/ u8 numarghs;
+	/*0x00a*/ s8 numclosearghs;
+	/*0x00b*/ s8 numarghs;
 	/*0x00c*/ u8 fadealpha;
 	/*0x00d*/ s8 arghrating;
 	/*0x00e*/ u8 aimendcount;
