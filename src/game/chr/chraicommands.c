@@ -4484,43 +4484,16 @@ bool aiIfAlertnessLessThanRandom(void)
 /**
  * @cmd 0092
  */
-GLOBAL_ASM(
-glabel aiSetHearDistance
-/*  f0537d4:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0537d8:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0537dc:	8c8e0434 */ 	lw	$t6,0x434($a0)
-/*  f0537e0:	8c8f0438 */ 	lw	$t7,0x438($a0)
-/*  f0537e4:	3c01447a */ 	lui	$at,0x447a
-/*  f0537e8:	44814000 */ 	mtc1	$at,$f8
-/*  f0537ec:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f0537f0:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f0537f4:	90680003 */ 	lbu	$t0,0x3($v1)
-/*  f0537f8:	8c8a0424 */ 	lw	$t2,0x424($a0)
-/*  f0537fc:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f053800:	03284825 */ 	or	$t1,$t9,$t0
-/*  f053804:	44892000 */ 	mtc1	$t1,$f4
-/*  f053808:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05380c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f053810:	46083003 */ 	div.s	$f0,$f6,$f8
-/*  f053814:	e54000f0 */ 	swc1	$f0,0xf0($t2)
-/*  f053818:	8c8b0438 */ 	lw	$t3,0x438($a0)
-/*  f05381c:	256c0004 */ 	addiu	$t4,$t3,0x4
-/*  f053820:	03e00008 */ 	jr	$ra
-/*  f053824:	ac8c0438 */ 	sw	$t4,0x438($a0)
-);
+bool aiSetHearDistance(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	float distance = (cmd[3] | (cmd[2] << 8)) / 1000.0f;
+	g_Vars.chrdata->hearingscale = distance;
 
-// Commented because it uses different float registers. Matches otherwise.
-//bool aiSetHearDistance(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	float distance = cmd[3] | (cmd[2] << 8);
-//	distance /= 1000;
-//	g_Vars.chrdata->hearingscale = distance;
-//
-//	g_Vars.aioffset += 4;
-//
-//	return false;
-//}
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0093
