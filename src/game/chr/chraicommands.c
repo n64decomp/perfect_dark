@@ -5742,7 +5742,7 @@ bool aiIfCountdownTimerGreaterThan(void)
  * @cmd 00c6
  */
 GLOBAL_ASM(
-glabel ai00c6
+glabel aiSpawnChr
 /*  f05565c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f055660:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f055664:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -5782,7 +5782,7 @@ glabel ai00c6
 /*  f0556ec:	afa20010 */ 	sw	$v0,0x10($sp)
 /*  f0556f0:	97a70032 */ 	lhu	$a3,0x32($sp)
 /*  f0556f4:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f0556f8:	0fc12d5e */ 	jal	func0f04b578
+/*  f0556f8:	0fc12d5e */ 	jal	chrSpawn
 /*  f0556fc:	afa80014 */ 	sw	$t0,0x14($sp)
 /*  f055700:	10400007 */ 	beqz	$v0,.L0f055720
 /*  f055704:	8fa30034 */ 	lw	$v1,0x34($sp)
@@ -5803,6 +5803,23 @@ glabel ai00c6
 /*  f055738:	03e00008 */ 	jr	$ra
 /*  f05573c:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+//bool aiSpawnChr(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	u16 pad = cmd[5] | (cmd[4] << 8);
+//	u32 flags = (cmd[9] << 16) | (cmd[10] << 8) | cmd[11] | (cmd[8] << 24);
+//	s32 ailistid = cmd[7] | (cmd[6] << 8);
+//	u8 *ailist = ailistFindById(ailistid & 0xffff);
+//
+//	if (chrSpawn(g_Vars.chrdata, cmd[2], (s8)cmd[3], pad, ailist, flags)) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[12]);
+//	} else {
+//		g_Vars.aioffset += 13;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 00c7

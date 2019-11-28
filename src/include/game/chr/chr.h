@@ -385,7 +385,7 @@ u32 func0f04ad08(struct chrdata *chr);
 u32 func0f04aeb0(void);
 u32 func0f04af84(void);
 u32 func0f04b2f4(void);
-u32 func0f04b578(void);
+u32 chrSpawn(struct chrdata *chr, s32 body, s32 head, u16 pad, u8 *ailist, u32 flags);
 u32 func0f04b5f4(void);
 u32 func0f04b658(struct chrdata *chr);
 u32 func0f04b748(void);

@@ -200,7 +200,7 @@
 /*0x00c3*/ bool aiIfCountdownTimerStopped(void);
 /*0x00c4*/ bool aiIfCountdownTimerLessThan(void);
 /*0x00c5*/ bool aiIfCountdownTimerGreaterThan(void);
-/*0x00c6*/ bool ai00c6(void);
+/*0x00c6*/ bool aiSpawnChr(void);
 /*0x00c7*/ bool ai00c7(void);
 /*0x00c8*/ bool ai00c8(void);
 /*0x00c9*/ bool ai00c9(void);

@@ -52067,7 +52067,7 @@ glabel func0f04b2f4
 );
 
 GLOBAL_ASM(
-glabel func0f04b578
+glabel chrSpawn
 /*  f04b578:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f04b57c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f04b580:	afa5008c */ 	sw	$a1,0x8c($sp)
