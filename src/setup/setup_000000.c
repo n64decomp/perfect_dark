@@ -14263,7 +14263,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0080*/ aiIfNumCloseArghsGreaterThan,
 	/*0x0081*/ ai0081,
 	/*0x0082*/ ai0082,
-	/*0x0083*/ ai0083,
+	/*0x0083*/ aiIfInjured,
 	/*0x0084*/ aiSetMorale,
 	/*0x0085*/ aiAddMorale,
 	/*0x0086*/ aiChrAddMorale,

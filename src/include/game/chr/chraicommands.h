@@ -133,7 +133,7 @@
 /*0x0080*/ bool aiIfNumCloseArghsGreaterThan(void);
 /*0x0081*/ bool ai0081(void);
 /*0x0082*/ bool ai0082(void);
-/*0x0083*/ bool ai0083(void);
+/*0x0083*/ bool aiIfInjured(void);
 /*0x0084*/ bool aiSetMorale(void);
 /*0x0085*/ bool aiAddMorale(void);
 /*0x0086*/ bool aiChrAddMorale(void);
