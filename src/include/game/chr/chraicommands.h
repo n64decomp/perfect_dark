@@ -159,7 +159,7 @@
 /*0x009a*/ bool aiSetAccuracy(void);
 /*0x009b*/ bool aiSetFlag(void);
 /*0x009c*/ bool aiUnsetFlag(void);
-/*0x009d*/ bool ai009d(void);
+/*0x009d*/ bool aiIfHasFlag(void);
 /*0x009e*/ bool aiChrSetFlag(void);
 /*0x009f*/ bool aiChrUnsetFlag(void);
 /*0x00a0*/ bool aiIfChrHasFlag(void);

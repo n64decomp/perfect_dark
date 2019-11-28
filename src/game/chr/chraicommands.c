@@ -4836,59 +4836,26 @@ bool aiUnsetFlag(void)
 /**
  * @cmd 009d
  */
-GLOBAL_ASM(
-glabel ai009d
-/*  f053e04:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f053e08:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f053e0c:	8cee0434 */ 	lw	$t6,0x434($a3)
-/*  f053e10:	8cef0438 */ 	lw	$t7,0x438($a3)
-/*  f053e14:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f053e18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f053e1c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f053e20:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f053e24:	90680003 */ 	lbu	$t0,0x3($v1)
-/*  f053e28:	906b0004 */ 	lbu	$t3,0x4($v1)
-/*  f053e2c:	0018ce00 */ 	sll	$t9,$t8,0x18
-/*  f053e30:	00084c00 */ 	sll	$t1,$t0,0x10
-/*  f053e34:	906e0005 */ 	lbu	$t6,0x5($v1)
-/*  f053e38:	03295025 */ 	or	$t2,$t9,$t1
-/*  f053e3c:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f053e40:	014c6825 */ 	or	$t5,$t2,$t4
-/*  f053e44:	90660007 */ 	lbu	$a2,0x7($v1)
-/*  f053e48:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f053e4c:	8ce40424 */ 	lw	$a0,0x424($a3)
-/*  f053e50:	0fc12790 */ 	jal	chrHasFlag
-/*  f053e54:	01ae2825 */ 	or	$a1,$t5,$t6
-/*  f053e58:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f053e5c:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f053e60:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f053e64:	906f0006 */ 	lbu	$t7,0x6($v1)
-/*  f053e68:	00402025 */ 	or	$a0,$v0,$zero
-/*  f053e6c:	15e00002 */ 	bnez	$t7,.L0f053e78
-/*  f053e70:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f053e74:	2c440001 */ 	sltiu	$a0,$v0,0x1
-.L0f053e78:
-/*  f053e78:	5080000a */ 	beqzl	$a0,.L0f053ea4
-/*  f053e7c:	8cf80438 */ 	lw	$t8,0x438($a3)
-/*  f053e80:	8ce40434 */ 	lw	$a0,0x434($a3)
-/*  f053e84:	8ce50438 */ 	lw	$a1,0x438($a3)
-/*  f053e88:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f053e8c:	90660008 */ 	lbu	$a2,0x8($v1)
-/*  f053e90:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f053e94:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f053e98:	10000004 */ 	beqz	$zero,.L0f053eac
-/*  f053e9c:	ace20438 */ 	sw	$v0,0x438($a3)
-/*  f053ea0:	8cf80438 */ 	lw	$t8,0x438($a3)
-.L0f053ea4:
-/*  f053ea4:	27080009 */ 	addiu	$t0,$t8,0x9
-/*  f053ea8:	ace80438 */ 	sw	$t0,0x438($a3)
-.L0f053eac:
-/*  f053eac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053eb0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f053eb4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f053eb8:	03e00008 */ 	jr	$ra
-/*  f053ebc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfHasFlag(void)
+{
+	bool result;
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
+
+	result = chrHasFlag(g_Vars.chrdata, flags, cmd[7]);
+
+	if (cmd[6] == 0) {
+		result = !result;
+	}
+
+	if (result) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
+	} else {
+		g_Vars.aioffset += 9;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 009e
