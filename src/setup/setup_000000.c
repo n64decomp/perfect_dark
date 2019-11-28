@@ -14313,7 +14313,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x00b2*/ aiSetPadPreset,
 	/*0x00b3*/ aiChrSetPadPreset,
 	/*0x00b4*/ aiChrCopyPadPreset,
-	/*0x00b5*/ ai00b5,
+	/*0x00b5*/ aiPrint,
 	/*0x00b6*/ aiRestartTimer,
 	/*0x00b7*/ aiResetTimer,
 	/*0x00b8*/ aiPauseTimer,

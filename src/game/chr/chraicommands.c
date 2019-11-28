@@ -5336,7 +5336,7 @@ bool aiChrCopyPadPreset(void)
  * @cmd 00b5
  */
 GLOBAL_ASM(
-glabel ai00b5
+glabel aiPrint
 /*  f054ec4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f054ec8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f054ecc:	0fc47bba */ 	jal	dprint
@@ -5358,6 +5358,22 @@ glabel ai00b5
 /*  f054f08:	03e00008 */ 	jr	$ra
 /*  f054f0c:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+// Mismatch because the if statement gets optimised out
+//bool aiPrint(void)
+//{
+//	u32 len;
+//
+//	if (dprint()) {
+//		// empty
+//	}
+//
+//	len = chraiGetCommandLength(g_Vars.ailist, g_Vars.aioffset);
+//
+//	g_Vars.aioffset += len;
+//
+//	return false;
+//}
 
 /**
  * @cmd 0091

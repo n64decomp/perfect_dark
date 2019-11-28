@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 calculatePlayerIndex(u32 playernum);
-u32 dprint();
+u32 dprint(char *);
 u32 func0f11ecf0(void);
 bool func0f11ed70(void);
 bool func0f11ed78(void);

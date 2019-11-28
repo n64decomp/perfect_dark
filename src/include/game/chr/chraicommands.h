@@ -183,7 +183,7 @@
 /*0x00b2*/ bool aiSetPadPreset(void);
 /*0x00b3*/ bool aiChrSetPadPreset(void);
 /*0x00b4*/ bool aiChrCopyPadPreset(void);
-/*0x00b5*/ bool ai00b5(void);
+/*0x00b5*/ bool aiPrint(void);
 /*0x00b6*/ bool aiRestartTimer(void);
 /*0x00b7*/ bool aiResetTimer(void);
 /*0x00b8*/ bool aiPauseTimer(void);
