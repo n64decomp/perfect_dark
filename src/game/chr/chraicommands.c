@@ -6079,7 +6079,7 @@ bool ai00c9(void)
  * @cmd 00ca
  */
 GLOBAL_ASM(
-glabel ai00ca
+glabel aiDuplicateChr
 /*  f055b18:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f055b1c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
 /*  f055b20:	8c6e0434 */ 	lw	$t6,0x434($v1)
