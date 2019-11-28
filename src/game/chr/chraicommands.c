@@ -4180,52 +4180,20 @@ bool aiIfInjured(void)
 /**
  * @cmd 0168
  */
-GLOBAL_ASM(
-glabel ai0168
-/*  f052f24:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f052f28:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f052f2c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f052f30:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f052f34:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f052f38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f052f3c:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f052f40:	90e50002 */ 	lbu	$a1,0x2($a3)
-/*  f052f44:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f052f48:	0fc126d1 */ 	jal	chrFindById
-/*  f052f4c:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f052f50:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f052f54:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f052f58:	10400012 */ 	beqz	$v0,.L0f052fa4
-/*  f052f5c:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f052f60:	8c580018 */ 	lw	$t8,0x18($v0)
-/*  f052f64:	0018c980 */ 	sll	$t9,$t8,0x6
-/*  f052f68:	0723000f */ 	bgezl	$t9,.L0f052fa8
-/*  f052f6c:	8c6b0438 */ 	lw	$t3,0x438($v1)
-/*  f052f70:	8c490018 */ 	lw	$t1,0x18($v0)
-/*  f052f74:	3c01fdff */ 	lui	$at,0xfdff
-/*  f052f78:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f052f7c:	01215024 */ 	and	$t2,$t1,$at
-/*  f052f80:	ac4a0018 */ 	sw	$t2,0x18($v0)
-/*  f052f84:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f052f88:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f052f8c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f052f90:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f052f94:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f052f98:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f052f9c:	10000004 */ 	beqz	$zero,.L0f052fb0
-/*  f052fa0:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f052fa4:
-/*  f052fa4:	8c6b0438 */ 	lw	$t3,0x438($v1)
-.L0f052fa8:
-/*  f052fa8:	256c0004 */ 	addiu	$t4,$t3,0x4
-/*  f052fac:	ac6c0438 */ 	sw	$t4,0x438($v1)
-.L0f052fb0:
-/*  f052fb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f052fb4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f052fb8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f052fbc:	03e00008 */ 	jr	$ra
-/*  f052fc0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai0168(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && (chr->chrflags & CHRFLAG3_02000000)) {
+		chr->chrflags &= ~CHRFLAG3_02000000;
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset = g_Vars.aioffset + 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0077
