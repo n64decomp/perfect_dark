@@ -6482,37 +6482,17 @@ glabel ai00cd
 /**
  * @cmd 00ce
  */
-GLOBAL_ASM(
-glabel ai00ce
-/*  f0561f8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0561fc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f056200:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f056204:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f056208:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05620c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f056210:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f056214:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f056218:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f05621c:	80440004 */ 	lb	$a0,0x4($v0)
-/*  f056220:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f056224:	03282825 */ 	or	$a1,$t9,$t0
-/*  f056228:	00054c00 */ 	sll	$t1,$a1,0x10
-/*  f05622c:	00092c03 */ 	sra	$a1,$t1,0x10
-/*  f056230:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f056234:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f056238:	00003025 */ 	or	$a2,$zero,$zero
-/*  f05623c:	0fc25010 */ 	jal	audioPlayFromWorldPosition
-/*  f056240:	00003825 */ 	or	$a3,$zero,$zero
-/*  f056244:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f056248:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05624c:	8c6b0438 */ 	lw	$t3,0x438($v1)
-/*  f056250:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f056254:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f056258:	256c0005 */ 	addiu	$t4,$t3,0x5
-/*  f05625c:	ac6c0438 */ 	sw	$t4,0x438($v1)
-/*  f056260:	03e00008 */ 	jr	$ra
-/*  f056264:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiPlaySound(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s16 audio_id = cmd[3] | (cmd[2] << 8);
+
+	audioPlayFromWorldPosition(cmd[4], audio_id, 0, NULL, 0, 0);
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 017c

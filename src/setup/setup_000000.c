@@ -14338,7 +14338,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x00cb*/ aiMessage,
 	/*0x00cc*/ aiShowText2,
 	/*0x00cd*/ ai00cd,
-	/*0x00ce*/ ai00ce,
+	/*0x00ce*/ aiPlaySound,
 	/*0x00cf*/ ai00cf,
 	/*0x00d0*/ ai00d0,
 	/*0x00d1*/ ai00d1,
