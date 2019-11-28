@@ -521,6 +521,10 @@
 #define OBJTYPE_MINE             0x3a
 #define OBJTYPE_ESCALATOR        0x3b
 
+#define OBJECTIVE_INCOMPLETE 0
+#define OBJECTIVE_COMPLETE   1
+#define OBJECTIVE_FAILED     2
+
 #define OPERATOR_LESS_THAN    0
 #define OPERATOR_GREATER_THAN 1
 

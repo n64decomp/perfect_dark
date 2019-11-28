@@ -3730,110 +3730,38 @@ bool aiIfDoorLocked(void)
 /**
  * @cmd 0073
  */
-GLOBAL_ASM(
-glabel ai0073
-/*  f052620:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f052624:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f052628:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f05262c:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f052630:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f052634:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f052638:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05263c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f052640:	0fc2557d */ 	jal	func0f0955f4
-/*  f052644:	afb80024 */ 	sw	$t8,0x24($sp)
-/*  f052648:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*  f05264c:	93240002 */ 	lbu	$a0,0x2($t9)
-/*  f052650:	0082082a */ 	slt	$at,$a0,$v0
-/*  f052654:	50200017 */ 	beqzl	$at,.L0f0526b4
-/*  f052658:	8e0e0438 */ 	lw	$t6,0x438($s0)
-/*  f05265c:	0fc255a1 */ 	jal	func0f095684
-/*  f052660:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052664:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f052668:	14410011 */ 	bne	$v0,$at,.L0f0526b0
-/*  f05266c:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f052670:	0fc25594 */ 	jal	func0f095650
-/*  f052674:	91040002 */ 	lbu	$a0,0x2($t0)
-/*  f052678:	0fc5b367 */ 	jal	getDifficulty
-/*  f05267c:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f052680:	8fab0020 */ 	lw	$t3,0x20($sp)
-/*  f052684:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f052688:	00495004 */ 	sllv	$t2,$t1,$v0
-/*  f05268c:	014b6024 */ 	and	$t4,$t2,$t3
-/*  f052690:	11800007 */ 	beqz	$t4,.L0f0526b0
-/*  f052694:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*  f052698:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f05269c:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f0526a0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0526a4:	91a60003 */ 	lbu	$a2,0x3($t5)
-/*  f0526a8:	10000004 */ 	beqz	$zero,.L0f0526bc
-/*  f0526ac:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f0526b0:
-/*  f0526b0:	8e0e0438 */ 	lw	$t6,0x438($s0)
-.L0f0526b4:
-/*  f0526b4:	25cf0004 */ 	addiu	$t7,$t6,0x4
-/*  f0526b8:	ae0f0438 */ 	sw	$t7,0x438($s0)
-.L0f0526bc:
-/*  f0526bc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0526c0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0526c4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0526c8:	03e00008 */ 	jr	$ra
-/*  f0526cc:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfObjectiveComplete(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (cmd[2] < func0f0955f4() &&
+			func0f095684(cmd[2]) == OBJECTIVE_COMPLETE &&
+			func0f095650(cmd[2]) & (1 << getDifficulty())) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0074
  */
-GLOBAL_ASM(
-glabel ai0074
-/*  f0526d0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0526d4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0526d8:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0526dc:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0526e0:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f0526e4:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f0526e8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0526ec:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0526f0:	0fc2557d */ 	jal	func0f0955f4
-/*  f0526f4:	afb80024 */ 	sw	$t8,0x24($sp)
-/*  f0526f8:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*  f0526fc:	93240002 */ 	lbu	$a0,0x2($t9)
-/*  f052700:	0082082a */ 	slt	$at,$a0,$v0
-/*  f052704:	50200017 */ 	beqzl	$at,.L0f052764
-/*  f052708:	8e0e0438 */ 	lw	$t6,0x438($s0)
-/*  f05270c:	0fc255a1 */ 	jal	func0f095684
-/*  f052710:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052714:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f052718:	14410011 */ 	bne	$v0,$at,.L0f052760
-/*  f05271c:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f052720:	0fc25594 */ 	jal	func0f095650
-/*  f052724:	91040002 */ 	lbu	$a0,0x2($t0)
-/*  f052728:	0fc5b367 */ 	jal	getDifficulty
-/*  f05272c:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f052730:	8fab0020 */ 	lw	$t3,0x20($sp)
-/*  f052734:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f052738:	00495004 */ 	sllv	$t2,$t1,$v0
-/*  f05273c:	014b6024 */ 	and	$t4,$t2,$t3
-/*  f052740:	11800007 */ 	beqz	$t4,.L0f052760
-/*  f052744:	8fad0024 */ 	lw	$t5,0x24($sp)
-/*  f052748:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f05274c:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f052750:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f052754:	91a60003 */ 	lbu	$a2,0x3($t5)
-/*  f052758:	10000004 */ 	beqz	$zero,.L0f05276c
-/*  f05275c:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f052760:
-/*  f052760:	8e0e0438 */ 	lw	$t6,0x438($s0)
-.L0f052764:
-/*  f052764:	25cf0004 */ 	addiu	$t7,$t6,0x4
-/*  f052768:	ae0f0438 */ 	sw	$t7,0x438($s0)
-.L0f05276c:
-/*  f05276c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f052770:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f052774:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f052778:	03e00008 */ 	jr	$ra
-/*  f05277c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfObjectiveFailed(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (cmd[2] < func0f0955f4() &&
+			func0f095684(cmd[2]) == OBJECTIVE_FAILED &&
+			func0f095650(cmd[2]) & (1 << getDifficulty())) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0075

@@ -117,8 +117,8 @@
 /*0x0070*/ bool aiLockDoor(void);
 /*0x0071*/ bool aiUnlockDoor(void);
 /*0x0072*/ bool aiIfDoorLocked(void);
-/*0x0073*/ bool ai0073(void);
-/*0x0074*/ bool ai0074(void);
+/*0x0073*/ bool aiIfObjectiveComplete(void);
+/*0x0074*/ bool aiIfObjectiveFailed(void);
 /*0x0075*/ bool ai0075(void);
 /*0x0076*/ bool ai0076(void);
 /*0x0077*/ bool aiIfDifficultyLessThan(void);
