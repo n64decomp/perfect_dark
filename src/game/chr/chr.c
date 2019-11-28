@@ -50632,11 +50632,10 @@ s32 chrGetNumArghs(struct chrdata *chr)
 	return chr->numarghs;
 }
 
-GLOBAL_ASM(
-glabel func0f04a108
-/*  f04a108:	03e00008 */ 	jr	$ra
-/*  f04a10c:	8082000a */ 	lb	$v0,0xa($a0)
-);
+s32 chrGetNumCloseArghs(struct chrdata *chr)
+{
+	return chr->numclosearghs;
+}
 
 GLOBAL_ASM(
 glabel func0f04a110

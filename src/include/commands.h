@@ -560,6 +560,16 @@
 	value, \
 	label,
 
+#define if_num_close_arghs_lt(value, label) \
+	mkshort(0x007f), \
+	value, \
+	label,
+
+#define if_num_close_arghs_gt(value, label) \
+	mkshort(0x0080), \
+	value, \
+	label,
+
 // Checks chr bank 3 0x00000100. If set, unsets it and follows label.
 #define if_just_injured(chr, label) \
 	mkshort(0x0083), \
