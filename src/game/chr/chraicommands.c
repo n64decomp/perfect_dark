@@ -6690,56 +6690,18 @@ bool ai0179(void)
 /**
  * @cmd 00d0
  */
-GLOBAL_ASM(
-glabel ai00d0
-/*  f0567cc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0567d0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0567d4:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f0567d8:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f0567dc:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0567e0:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f0567e4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0567e8:	90580003 */ 	lbu	$t8,0x3($v0)
-/*  f0567ec:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f0567f0:	904b0005 */ 	lbu	$t3,0x5($v0)
-/*  f0567f4:	904d0006 */ 	lbu	$t5,0x6($v0)
-/*  f0567f8:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0567fc:	44810000 */ 	mtc1	$at,$f0
-/*  f056800:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f056804:	03283825 */ 	or	$a3,$t9,$t0
-/*  f056808:	000b6200 */ 	sll	$t4,$t3,0x8
-/*  f05680c:	018d3025 */ 	or	$a2,$t4,$t5
-/*  f056810:	00074c00 */ 	sll	$t1,$a3,0x10
-/*  f056814:	00067400 */ 	sll	$t6,$a2,0x10
-/*  f056818:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f05681c:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f056820:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f056824:	00093c03 */ 	sra	$a3,$t1,0x10
-/*  f056828:	000e3403 */ 	sra	$a2,$t6,0x10
-/*  f05682c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f056830:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f056834:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*  f056838:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f05683c:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f056840:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f056844:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f056848:	00002025 */ 	or	$a0,$zero,$zero
-/*  f05684c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f056850:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f056854:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f056858:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f05685c:	0fc24e7e */ 	jal	func0f0939f8
-/*  f056860:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f056864:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f056868:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05686c:	8c690438 */ 	lw	$t1,0x438($v1)
-/*  f056870:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f056874:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f056878:	252a0007 */ 	addiu	$t2,$t1,0x7
-/*  f05687c:	ac6a0438 */ 	sw	$t2,0x438($v1)
-/*  f056880:	03e00008 */ 	jr	$ra
-/*  f056884:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai00d0(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s16 thing1 = cmd[4] | (cmd[3] << 8);
+	s16 thing2 = cmd[6] | (cmd[5] << 8);
+
+	func0f0939f8(0, NULL, thing2, thing1, -1, 2, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+
+	g_Vars.aioffset += 7;
+
+	return false;
+}
 
 /**
  * @cmd 00d4

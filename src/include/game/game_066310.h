@@ -363,7 +363,7 @@ u32 func0f093508(void);
 u32 func0f093630(void);
 u32 func0f093790(void);
 u32 func0f0938ec(void);
-u32 func0f0939f8(void);
+void func0f0939f8(s32 arg0, struct position *pos, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, float arg9, s32 arg10, s32 arg11, float arg12, float arg13, float arg14);
 void func0f0942d0(s32 channel);
 u32 func0f0943bc(s32 channel);
 bool audioPlayFromWorldPosition2(s8 channel_id, s32 audio_id, s32 volumemaybe, struct position *pos, u32 arg4, s32 arg5, s32 arg6, s32 arg7);
