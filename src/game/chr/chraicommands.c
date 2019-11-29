@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "gvars/gvars.h"
 #include "game/chr/chr.h"
+#include "game/game_000920.h"
 #include "game/game_066310.h"
 #include "game/game_0b28d0.h"
 #include "game/game_165670.h"
@@ -8427,58 +8428,29 @@ bool ai0101(void)
 /**
  * @cmd 0102
  */
-GLOBAL_ASM(
-glabel ai0102
-/*  f0589e8:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f0589ec:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f0589f0:	8cce0434 */ 	lw	$t6,0x434($a2)
-/*  f0589f4:	8ccf0438 */ 	lw	$t7,0x438($a2)
-/*  f0589f8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0589fc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f058a00:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f058a04:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f058a08:	90680003 */ 	lbu	$t0,0x3($v1)
-/*  f058a0c:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f058a10:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f058a14:	03281025 */ 	or	$v0,$t9,$t0
-/*  f058a18:	3045ffff */ 	andi	$a1,$v0,0xffff
-/*  f058a1c:	0fc12574 */ 	jal	func0f0495d0
-/*  f058a20:	8cc40424 */ 	lw	$a0,0x424($a2)
-/*  f058a24:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f058a28:	04400014 */ 	bltz	$v0,.L0f058a7c
-/*  f058a2c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f058a30:	90650004 */ 	lbu	$a1,0x4($v1)
-/*  f058a34:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f058a38:	10a10007 */ 	beq	$a1,$at,.L0f058a58
-/*  f058a3c:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f058a40:	54a1000a */ 	bnel	$a1,$at,.L0f058a6c
-/*  f058a44:	906a0007 */ 	lbu	$t2,0x7($v1)
-/*  f058a48:	0fc00ad6 */ 	jal	func0f002b58
-/*  f058a4c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f058a50:	1000000a */ 	beqz	$zero,.L0f058a7c
-/*  f058a54:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f058a58:
-/*  f058a58:	0fc00ad6 */ 	jal	func0f002b58
-/*  f058a5c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f058a60:	10000006 */ 	beqz	$zero,.L0f058a7c
-/*  f058a64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f058a68:	906a0007 */ 	lbu	$t2,0x7($v1)
-.L0f058a6c:
-/*  f058a6c:	90660005 */ 	lbu	$a2,0x5($v1)
-/*  f058a70:	90670006 */ 	lbu	$a3,0x6($v1)
-/*  f058a74:	0fc00b0a */ 	jal	func0f002c28
-/*  f058a78:	afaa0010 */ 	sw	$t2,0x10($sp)
-.L0f058a7c:
-/*  f058a7c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f058a80:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f058a84:	8c6b0438 */ 	lw	$t3,0x438($v1)
-/*  f058a88:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f058a8c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f058a90:	256c000b */ 	addiu	$t4,$t3,0xb
-/*  f058a94:	ac6c0438 */ 	sw	$t4,0x438($v1)
-/*  f058a98:	03e00008 */ 	jr	$ra
-/*  f058a9c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetLights(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 room_id = cmd[3] | (cmd[2] << 8);
+	s32 thing = func0f0495d0(g_Vars.chrdata, room_id);
+
+	if (thing >= 0) {
+		switch (cmd[4]) {
+		case 7:
+			func0f002b58(thing, false);
+			break;
+		case 6:
+			func0f002b58(thing, true);
+			break;
+		default:
+			func0f002c28(thing, cmd[4], cmd[5], cmd[6], cmd[7]);
+		}
+	}
+
+	g_Vars.aioffset += 11;
+
+	return false;
+}
 
 /**
  * @cmd 0103

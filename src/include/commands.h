@@ -1062,13 +1062,13 @@
 	value, \
 	label,
 
-#define set_lights_state(room, u1, u2, u3, u4) \
+#define set_lights_state(room, operation, u1, u2, u3) \
 	mkshort(0x0102), \
 	mkshort(room), \
+	operation, \
 	u1, \
 	u2, \
 	u3, \
-	u4, \
 	0x00, \
 	0x00, \
 	0x00,

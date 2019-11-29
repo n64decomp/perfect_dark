@@ -258,7 +258,7 @@
 /*0x00ff*/ bool ai00ff(void);
 /*0x0100*/ bool ai0100(void);
 /*0x0101*/ bool ai0101(void);
-/*0x0102*/ bool ai0102(void);
+/*0x0102*/ bool aiSetLights(void);
 /*0x0103*/ bool ai0103(void);
 /*0x0104*/ bool ai0104(void);
 /*0x0105*/ bool ai0105(void);
