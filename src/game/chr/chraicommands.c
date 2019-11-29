@@ -7991,6 +7991,29 @@ glabel ai00ee
 /*  f058050:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
+// Mismatch due to different registers
+//bool ai00ee(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+//
+//	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+//		u32 prevplayernum = g_Vars.currentplayernum;
+//		u32 playernum = posGetPlayerNum(chr->pos);
+//		setCurrentPlayerNum(playernum);
+//
+//		g_Vars.currentplayer->unk1b6c = (s8)cmd[3];
+//		g_Vars.currentplayer->unk1b70 = 0;
+//		g_Vars.currentplayer->unk1b74 = (s8)cmd[4];
+//
+//		setCurrentPlayerNum(prevplayernum);
+//	}
+//
+//	g_Vars.aioffset += 5;
+//
+//	return false;
+//}
+
 /**
  * @cmd 00ef
  */
