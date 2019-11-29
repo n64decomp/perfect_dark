@@ -273,7 +273,7 @@
 /*0x010e*/ bool ai010e(void);
 /*0x010f*/ bool ai010f(void);
 /*0x0110*/ bool ai0110(void);
-/*0x0111*/ bool ai0111(void);
+/*0x0111*/ bool aiSetCameraAnimation(void);
 /*0x0112*/ bool ai0112(void);
 /*0x0113*/ bool aiIfInCutscene(void);
 /*0x0114*/ bool aiShowChr(void);

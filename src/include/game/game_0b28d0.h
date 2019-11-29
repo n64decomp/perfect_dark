@@ -89,7 +89,7 @@ void func0f0b9bac(u32 arg0, u32 arg1, u32 arg3);
 u32 func0f0b9c1c(void);
 u32 func0f0b9cbc(void);
 u32 func0f0ba010(void);
-u32 func0f0ba0d4(void);
+void func0f0ba0d4(s16 anim_id);
 u32 func0f0ba190(u32 arg0);
 u32 func0f0ba29c(void);
 u32 func0f0ba838(void);

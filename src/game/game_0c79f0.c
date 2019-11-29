@@ -434,9 +434,9 @@ glabel func0f0c7cf0
 
 void func0f0c7d30(u32 arg)
 {
-	if (g_Vars.currentplayer->unk1b0 == 4) {
+	if (g_Vars.currentplayer->unk01b0 == 4) {
 		func0f0ccac4();
-	} else if (g_Vars.currentplayer->unk1b0 == 3) {
+	} else if (g_Vars.currentplayer->unk01b0 == 3) {
 		func0f0d2184();
 	}
 

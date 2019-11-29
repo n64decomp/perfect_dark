@@ -730,7 +730,7 @@ bool aiIfChrDeathAnimationFinished(void)
 	} else {
 		if (chr->pos->type == POSITIONTYPE_PLAYER) {
 			u32 playernum = posGetPlayerNum(chr->pos);
-			pass = g_Vars.players[playernum]->unk0d8;
+			pass = g_Vars.players[playernum]->unk00d8;
 		} else {
 			pass = (chr->actiontype == 5);
 		}
@@ -7006,41 +7006,21 @@ bool ai010d(void)
 /**
  * @cmd 0111
  */
-GLOBAL_ASM(
-glabel ai0111
-/*  f056db4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f056db8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f056dbc:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f056dc0:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f056dc4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f056dc8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f056dcc:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f056dd0:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f056dd4:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f056dd8:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f056ddc:	03282025 */ 	or	$a0,$t9,$t0
-/*  f056de0:	00044c00 */ 	sll	$t1,$a0,0x10
-/*  f056de4:	0fc2e835 */ 	jal	func0f0ba0d4
-/*  f056de8:	00092403 */ 	sra	$a0,$t1,0x10
-/*  f056dec:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f056df0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f056df4:	8c6b0284 */ 	lw	$t3,0x284($v1)
-/*  f056df8:	8d6c19c8 */ 	lw	$t4,0x19c8($t3)
-/*  f056dfc:	55800004 */ 	bnezl	$t4,.L0f056e10
-/*  f056e00:	8c6d0438 */ 	lw	$t5,0x438($v1)
-/*  f056e04:	10000005 */ 	beqz	$zero,.L0f056e1c
-/*  f056e08:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f056e0c:	8c6d0438 */ 	lw	$t5,0x438($v1)
-.L0f056e10:
-/*  f056e10:	00001025 */ 	or	$v0,$zero,$zero
-/*  f056e14:	25ae0004 */ 	addiu	$t6,$t5,0x4
-/*  f056e18:	ac6e0438 */ 	sw	$t6,0x438($v1)
-.L0f056e1c:
-/*  f056e1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f056e20:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f056e24:	03e00008 */ 	jr	$ra
-/*  f056e28:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiSetCameraAnimation(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s16 anim_id = cmd[3] | (cmd[2] << 8);
+
+	func0f0ba0d4(anim_id);
+
+	if (g_Vars.currentplayer->unk19c8 == 0) {
+		return true;
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0113
@@ -7309,7 +7289,7 @@ bool aiShowObj(void)
 		func0f0604bc(obj->pos);
 		func0f0602f0(obj->pos);
 
-		if (g_Vars.currentplayer->unk480 == 0 && obj->type == OBJTYPE_WEAPON) {
+		if (g_Vars.currentplayer->unk0480 == 0 && obj->type == OBJTYPE_WEAPON) {
 			struct weaponobj *weapon = (struct weaponobj *) obj;
 
 			if (weapon->weapon_id == WEAPON_CAMSPY) {
@@ -8492,7 +8472,7 @@ bool ai00fd(void)
  */
 bool ai00fe(void)
 {
-	g_Vars.bond->unk0d8 = 1;
+	g_Vars.bond->unk00d8 = 1;
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -14188,7 +14168,7 @@ bool aiChrGrabObject(void)
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
 
-		if (g_Vars.currentplayer->unk1b0 == 0 && func0f0cc680() == 2 && g_Vars.currentplayer->unk0b4 == 0) {
+		if (g_Vars.currentplayer->unk01b0 == 0 && func0f0cc680() == 2 && g_Vars.currentplayer->unk00b4 == 0) {
 			func0f0c7cf0(obj->pos);
 		}
 
@@ -14482,9 +14462,9 @@ glabel ai01b3
 //		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 //
 //		if (chr) {
-//			if (((u32)chr->BITFIELD >> 14) == g_Vars.bondplayernum && g_Vars.coop->unk0d8 == 0) {
+//			if (((u32)chr->BITFIELD >> 14) == g_Vars.bondplayernum && g_Vars.coop->unk00d8 == 0) {
 //				chr->bitfielddata.unk32e = (g_Vars.coopplayernum << 6) | (chr->bitfielddata.unk32e & 0xff3f);
-//			} else if (g_Vars.bond->unk0d8 == 0) {
+//			} else if (g_Vars.bond->unk00d8 == 0) {
 //				chr->bitfielddata.unk32e = (g_Vars.bondplayernum << 6) | (chr->bitfielddata.unk32e & 0xff3f);
 //			}
 //		}
