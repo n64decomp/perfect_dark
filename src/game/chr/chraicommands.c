@@ -6661,96 +6661,31 @@ bool ai016b(void)
 /**
  * @cmd 0179
  */
-GLOBAL_ASM(
-glabel ai0179
-/*  f056678:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f05667c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f056680:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f056684:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f056688:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f05668c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f056690:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f056694:	90780004 */ 	lbu	$t8,0x4($v1)
-/*  f056698:	906c0005 */ 	lbu	$t4,0x5($v1)
-/*  f05669c:	906e0006 */ 	lbu	$t6,0x6($v1)
-/*  f0566a0:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f0566a4:	90780007 */ 	lbu	$t8,0x7($v1)
-/*  f0566a8:	032c4025 */ 	or	$t0,$t9,$t4
-/*  f0566ac:	906c0008 */ 	lbu	$t4,0x8($v1)
-/*  f0566b0:	000e7a00 */ 	sll	$t7,$t6,0x8
-/*  f0566b4:	906e0009 */ 	lbu	$t6,0x9($v1)
-/*  f0566b8:	310dffff */ 	andi	$t5,$t0,0xffff
-/*  f0566bc:	01a04025 */ 	or	$t0,$t5,$zero
-/*  f0566c0:	01f84825 */ 	or	$t1,$t7,$t8
-/*  f0566c4:	9078000a */ 	lbu	$t8,0xa($v1)
-/*  f0566c8:	000c6a00 */ 	sll	$t5,$t4,0x8
-/*  f0566cc:	01ae5025 */ 	or	$t2,$t5,$t6
-/*  f0566d0:	3139ffff */ 	andi	$t9,$t1,0xffff
-/*  f0566d4:	314fffff */ 	andi	$t7,$t2,0xffff
-/*  f0566d8:	03204825 */ 	or	$t1,$t9,$zero
-/*  f0566dc:	1700001a */ 	bnez	$t8,.L0f056748
-/*  f0566e0:	01e05025 */ 	or	$t2,$t7,$zero
-/*  f0566e4:	90640003 */ 	lbu	$a0,0x3($v1)
-/*  f0566e8:	a7af002e */ 	sh	$t7,0x2e($sp)
-/*  f0566ec:	a7b90030 */ 	sh	$t9,0x30($sp)
-/*  f0566f0:	a7a80032 */ 	sh	$t0,0x32($sp)
-/*  f0566f4:	0fc2556c */ 	jal	objFindByTagId
-/*  f0566f8:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f0566fc:	8fa30034 */ 	lw	$v1,0x34($sp)
-/*  f056700:	97a80032 */ 	lhu	$t0,0x32($sp)
-/*  f056704:	97a90030 */ 	lhu	$t1,0x30($sp)
-/*  f056708:	10400027 */ 	beqz	$v0,.L0f0567a8
-/*  f05670c:	97aa002e */ 	lhu	$t2,0x2e($sp)
-/*  f056710:	8c590014 */ 	lw	$t9,0x14($v0)
-/*  f056714:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f056718:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f05671c:	13200022 */ 	beqz	$t9,.L0f0567a8
-/*  f056720:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f056724:	80640002 */ 	lb	$a0,0x2($v1)
-/*  f056728:	8c470014 */ 	lw	$a3,0x14($v0)
-/*  f05672c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f056730:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f056734:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f056738:	0fc25125 */ 	jal	audioPlayFromWorldPosition2
-/*  f05673c:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f056740:	10000019 */ 	beqz	$zero,.L0f0567a8
-/*  f056744:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f056748:
-/*  f056748:	90650003 */ 	lbu	$a1,0x3($v1)
-/*  f05674c:	a7aa002e */ 	sh	$t2,0x2e($sp)
-/*  f056750:	a7a90030 */ 	sh	$t1,0x30($sp)
-/*  f056754:	a7a80032 */ 	sh	$t0,0x32($sp)
-/*  f056758:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f05675c:	0fc126d1 */ 	jal	chrFindById
-/*  f056760:	8c440424 */ 	lw	$a0,0x424($v0)
-/*  f056764:	8fa30034 */ 	lw	$v1,0x34($sp)
-/*  f056768:	97a80032 */ 	lhu	$t0,0x32($sp)
-/*  f05676c:	97a90030 */ 	lhu	$t1,0x30($sp)
-/*  f056770:	1040000d */ 	beqz	$v0,.L0f0567a8
-/*  f056774:	97aa002e */ 	lhu	$t2,0x2e($sp)
-/*  f056778:	8c4c001c */ 	lw	$t4,0x1c($v0)
-/*  f05677c:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f056780:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f056784:	11800008 */ 	beqz	$t4,.L0f0567a8
-/*  f056788:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05678c:	80640002 */ 	lb	$a0,0x2($v1)
-/*  f056790:	8c47001c */ 	lw	$a3,0x1c($v0)
-/*  f056794:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f056798:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f05679c:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0567a0:	0fc25125 */ 	jal	audioPlayFromWorldPosition2
-/*  f0567a4:	afa80010 */ 	sw	$t0,0x10($sp)
-.L0f0567a8:
-/*  f0567a8:	3c0d800a */ 	lui	$t5,0x800a
-/*  f0567ac:	8dada3f8 */ 	lw	$t5,-0x5c08($t5)
-/*  f0567b0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0567b4:	3c01800a */ 	lui	$at,0x800a
-/*  f0567b8:	25ae000b */ 	addiu	$t6,$t5,0xb
-/*  f0567bc:	ac2ea3f8 */ 	sw	$t6,-0x5c08($at)
-/*  f0567c0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0567c4:	03e00008 */ 	jr	$ra
-/*  f0567c8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai0179(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 thing1 = cmd[5] | (cmd[4] << 8);
+	u16 thing2 = cmd[7] | (cmd[6] << 8);
+	u16 thing3 = cmd[9] | (cmd[8] << 8);
+
+	if (cmd[10] == 0) {
+		struct defaultobj *obj = objFindByTagId(cmd[3]);
+
+		if (obj && obj->pos) {
+			audioPlayFromWorldPosition2(cmd[2], -1, -1, obj->pos, thing1, thing2, thing3, 0);
+		}
+	} else {
+		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
+
+		if (chr && chr->pos) {
+			audioPlayFromWorldPosition2(cmd[2], -1, -1, chr->pos, thing1, thing2, thing3, 0);
+		}
+	}
+
+	g_Vars.aioffset += 11;
+
+	return false;
+}
 
 /**
  * @cmd 00d0
