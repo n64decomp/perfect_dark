@@ -3,6 +3,7 @@
 #include "gvars/gvars.h"
 #include "game/chr/chr.h"
 #include "game/game_066310.h"
+#include "game/game_0b28d0.h"
 #include "game/game_165670.h"
 #include "game/game_16cfa0.h"
 #include "setup/setup_000000.h"
@@ -6982,33 +6983,16 @@ bool ai00dd(void)
 /**
  * @cmd 00de
  */
-GLOBAL_ASM(
-glabel ai00de
-/*  f056d38:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f056d3c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f056d40:	8cae0434 */ 	lw	$t6,0x434($a1)
-/*  f056d44:	8caf0438 */ 	lw	$t7,0x438($a1)
-/*  f056d48:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f056d4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f056d50:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f056d54:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f056d58:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f056d5c:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f056d60:	03284825 */ 	or	$t1,$t9,$t0
-/*  f056d64:	00092400 */ 	sll	$a0,$t1,0x10
-/*  f056d68:	00045403 */ 	sra	$t2,$a0,0x10
-/*  f056d6c:	0fc2e6da */ 	jal	func0f0b9b68
-/*  f056d70:	01402025 */ 	or	$a0,$t2,$zero
-/*  f056d74:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f056d78:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f056d7c:	8cab0438 */ 	lw	$t3,0x438($a1)
-/*  f056d80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f056d84:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f056d88:	256c0004 */ 	addiu	$t4,$t3,0x4
-/*  f056d8c:	acac0438 */ 	sw	$t4,0x438($a1)
-/*  f056d90:	03e00008 */ 	jr	$ra
-/*  f056d94:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiWarpJoToPad(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 pad_id = cmd[3] | (cmd[2] << 8);
+	func0f0b9b68(pad_id);
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 010d

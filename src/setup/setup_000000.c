@@ -14354,7 +14354,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x00db*/ ai00db,
 	/*0x00dc*/ aiEndLevel,
 	/*0x00dd*/ ai00dd,
-	/*0x00de*/ ai00de,
+	/*0x00de*/ aiWarpJoToPad,
 	/*0x00df*/ ai00df,
 	/*0x00e0*/ aiRevokeControl,
 	/*0x00e1*/ aiGrantControl,

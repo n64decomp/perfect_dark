@@ -224,7 +224,7 @@
 /*0x00db*/ bool ai00db(void);
 /*0x00dc*/ bool aiEndLevel(void);
 /*0x00dd*/ bool ai00dd(void);
-/*0x00de*/ bool ai00de(void);
+/*0x00de*/ bool aiWarpJoToPad(void);
 /*0x00df*/ bool ai00df(void);
 /*0x00e0*/ bool aiRevokeControl(void);
 /*0x00e1*/ bool aiGrantControl(void);

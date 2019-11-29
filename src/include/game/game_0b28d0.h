@@ -84,7 +84,7 @@ u32 func0f0b9674(void);
 u32 func0f0b96e8(void);
 u32 func0f0b9a20(void);
 u32 func0f0b9afc(void);
-u32 func0f0b9b68(void);
+void func0f0b9b68(s16 pad_id);
 void func0f0b9bac(u32 arg0, u32 arg1, u32 arg3);
 u32 func0f0b9c1c(void);
 u32 func0f0b9cbc(void);
