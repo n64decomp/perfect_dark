@@ -106,7 +106,7 @@ u32 func0f0baf84(void);
 u32 func0f0bb04c(void);
 u32 func0f0bb2e8(void);
 void func0f0bb320(s32 arg0, s32 arg1, s32 arg2, float arg3);
-u32 func0f0bb350(void);
+void func0f0bb350(float arg0, s32 arg1, s32 arg2, s32 arg3, float arg4);
 void func0f0bb3c8(float arg0, float arg1);
 u32 func0f0bb3fc(void);
 u32 func0f0bb42c(void);

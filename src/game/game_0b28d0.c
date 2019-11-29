@@ -10104,39 +10104,19 @@ void func0f0bb320(s32 arg0, s32 arg1, s32 arg2, float arg3)
 	g_Vars.currentplayer->unk02e4 = arg3;
 }
 
-GLOBAL_ASM(
-glabel func0f0bb350
-/*  f0bb350:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0bb354:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0bb358:	8c6e0284 */ 	lw	$t6,0x284($v1)
-/*  f0bb35c:	44802000 */ 	mtc1	$zero,$f4
-/*  f0bb360:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bb364:	e5c402e8 */ 	swc1	$f4,0x2e8($t6)
-/*  f0bb368:	8c6f0284 */ 	lw	$t7,0x284($v1)
-/*  f0bb36c:	e5ec02ec */ 	swc1	$f12,0x2ec($t7)
-/*  f0bb370:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bb374:	8c5802d8 */ 	lw	$t8,0x2d8($v0)
-/*  f0bb378:	ac5802f0 */ 	sw	$t8,0x2f0($v0)
-/*  f0bb37c:	8c790284 */ 	lw	$t9,0x284($v1)
-/*  f0bb380:	af2502f4 */ 	sw	$a1,0x2f4($t9)
-/*  f0bb384:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bb388:	8c4802dc */ 	lw	$t0,0x2dc($v0)
-/*  f0bb38c:	ac4802f8 */ 	sw	$t0,0x2f8($v0)
-/*  f0bb390:	8c690284 */ 	lw	$t1,0x284($v1)
-/*  f0bb394:	ad2602fc */ 	sw	$a2,0x2fc($t1)
-/*  f0bb398:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bb39c:	8c4a02e0 */ 	lw	$t2,0x2e0($v0)
-/*  f0bb3a0:	ac4a0300 */ 	sw	$t2,0x300($v0)
-/*  f0bb3a4:	8c6b0284 */ 	lw	$t3,0x284($v1)
-/*  f0bb3a8:	ad670304 */ 	sw	$a3,0x304($t3)
-/*  f0bb3ac:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bb3b0:	c44602e4 */ 	lwc1	$f6,0x2e4($v0)
-/*  f0bb3b4:	e4460308 */ 	swc1	$f6,0x308($v0)
-/*  f0bb3b8:	8c6c0284 */ 	lw	$t4,0x284($v1)
-/*  f0bb3bc:	c7a80010 */ 	lwc1	$f8,0x10($sp)
-/*  f0bb3c0:	03e00008 */ 	jr	$ra
-/*  f0bb3c4:	e588030c */ 	swc1	$f8,0x30c($t4)
-);
+void func0f0bb350(float arg0, s32 arg1, s32 arg2, s32 arg3, float arg4)
+{
+	g_Vars.currentplayer->unk02e8 = 0;
+	g_Vars.currentplayer->unk02ec = arg0;
+	g_Vars.currentplayer->unk02f0 = g_Vars.currentplayer->unk02d8;
+	g_Vars.currentplayer->unk02f4 = arg1;
+	g_Vars.currentplayer->unk02f8 = g_Vars.currentplayer->unk02dc;
+	g_Vars.currentplayer->unk02fc = arg2;
+	g_Vars.currentplayer->unk0300 = g_Vars.currentplayer->unk02e0;
+	g_Vars.currentplayer->unk0304 = arg3;
+	g_Vars.currentplayer->unk0308 = g_Vars.currentplayer->unk02e4;
+	g_Vars.currentplayer->unk030c = arg4;
+}
 
 GLOBAL_ASM(
 glabel func0f0bb3c8
