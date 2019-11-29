@@ -6615,49 +6615,20 @@ bool ai00d2(void)
 /**
  * @cmd 00cf
  */
-GLOBAL_ASM(
-glabel ai00cf
-/*  f0564f8:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0564fc:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f056500:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f056504:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f056508:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f05650c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f056510:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f056514:	90640003 */ 	lbu	$a0,0x3($v1)
-/*  f056518:	0fc2556c */ 	jal	objFindByTagId
-/*  f05651c:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f056520:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f056524:	90780004 */ 	lbu	$t8,0x4($v1)
-/*  f056528:	906a0005 */ 	lbu	$t2,0x5($v1)
-/*  f05652c:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f056530:	032a4825 */ 	or	$t1,$t9,$t2
-/*  f056534:	1040000e */ 	beqz	$v0,.L0f056570
-/*  f056538:	312bffff */ 	andi	$t3,$t1,0xffff
-/*  f05653c:	8c4c0014 */ 	lw	$t4,0x14($v0)
-/*  f056540:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f056544:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f056548:	11800009 */ 	beqz	$t4,.L0f056570
-/*  f05654c:	240d09c4 */ 	addiu	$t5,$zero,0x9c4
-/*  f056550:	80640002 */ 	lb	$a0,0x2($v1)
-/*  f056554:	8c470014 */ 	lw	$a3,0x14($v0)
-/*  f056558:	240e0bb8 */ 	addiu	$t6,$zero,0xbb8
-/*  f05655c:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f056560:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f056564:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f056568:	0fc25125 */ 	jal	audioPlayFromWorldPosition2
-/*  f05656c:	afab0010 */ 	sw	$t3,0x10($sp)
-.L0f056570:
-/*  f056570:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f056574:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f056578:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05657c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f056580:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f056584:	25f80006 */ 	addiu	$t8,$t7,0x6
-/*  f056588:	ac780438 */ 	sw	$t8,0x438($v1)
-/*  f05658c:	03e00008 */ 	jr	$ra
-/*  f056590:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai00cf(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[3]);
+	u16 thing = cmd[5] | (cmd[4] << 8);
+
+	if (obj && obj->pos) {
+		audioPlayFromWorldPosition2(cmd[2], -1, -1, obj->pos, thing, 2500, 3000, 0);
+	}
+
+	g_Vars.aioffset += 6;
+
+	return false;
+}
 
 /**
  * @cmd 016b
