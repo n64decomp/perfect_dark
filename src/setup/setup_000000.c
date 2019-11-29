@@ -14380,7 +14380,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x00f5*/ ai00f5,
 	/*0x00f6*/ ai00f6,
 	/*0x00f7*/ aiIfAllObjectivesComplete,
-	/*0x00f8*/ ai00f8,
+	/*0x00f8*/ aiIfPlayerIsInvincible,
 	/*0x00f9*/ aiAudioPlayXMusic,
 	/*0x00fa*/ aiAudioStopChannel,
 	/*0x00fb*/ aiChrExplosions,

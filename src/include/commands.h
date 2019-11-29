@@ -1038,6 +1038,11 @@
 	mkshort(0x00f7), \
 	label,
 
+#define if_player_is_invincible(chr, label) \
+	mkshort(0x00f8), \
+	chr, \
+	label,
+
 #define play_x_music(channel, seconds) \
 	mkshort(0x00f9), \
 	0x01, \

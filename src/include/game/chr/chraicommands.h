@@ -248,7 +248,7 @@
 /*0x00f5*/ bool ai00f5(void);
 /*0x00f6*/ bool ai00f6(void);
 /*0x00f7*/ bool aiIfAllObjectivesComplete(void);
-/*0x00f8*/ bool ai00f8(void);
+/*0x00f8*/ bool aiIfPlayerIsInvincible(void);
 /*0x00f9*/ bool aiAudioPlayXMusic(void);
 /*0x00fa*/ bool aiAudioStopChannel(void);
 /*0x00fb*/ bool aiChrExplosions(void);

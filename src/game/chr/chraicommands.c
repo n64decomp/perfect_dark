@@ -8187,63 +8187,28 @@ bool aiIfAllObjectivesComplete(void)
 /**
  * @cmd 00f8
  */
-GLOBAL_ASM(
-glabel ai00f8
-/*  f0583f0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0583f4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0583f8:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0583fc:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f058400:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f058404:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f058408:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05840c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f058410:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f058414:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f058418:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f05841c:	0fc126d1 */ 	jal	chrFindById
-/*  f058420:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f058424:	50400014 */ 	beqzl	$v0,.L0f058478
-/*  f058428:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*  f05842c:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f058430:	50600011 */ 	beqzl	$v1,.L0f058478
-/*  f058434:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*  f058438:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f05843c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f058440:	5701000d */ 	bnel	$t8,$at,.L0f058478
-/*  f058444:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*  f058448:	8e19028c */ 	lw	$t9,0x28c($s0)
-/*  f05844c:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f058450:	0fc4a25f */ 	jal	posGetPlayerNum
-/*  f058454:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f058458:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f05845c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f058460:	3c088007 */ 	lui	$t0,0x8007
-/*  f058464:	8d080760 */ 	lw	$t0,0x760($t0)
-/*  f058468:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f05846c:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f058470:	afa80028 */ 	sw	$t0,0x28($sp)
-/*  f058474:	8fa90028 */ 	lw	$t1,0x28($sp)
-.L0f058478:
-/*  f058478:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*  f05847c:	51200008 */ 	beqzl	$t1,.L0f0584a0
-/*  f058480:	8e0b0438 */ 	lw	$t3,0x438($s0)
-/*  f058484:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f058488:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f05848c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f058490:	91460003 */ 	lbu	$a2,0x3($t2)
-/*  f058494:	10000004 */ 	beqz	$zero,.L0f0584a8
-/*  f058498:	ae020438 */ 	sw	$v0,0x438($s0)
-/*  f05849c:	8e0b0438 */ 	lw	$t3,0x438($s0)
-.L0f0584a0:
-/*  f0584a0:	256c0004 */ 	addiu	$t4,$t3,0x4
-/*  f0584a4:	ae0c0438 */ 	sw	$t4,0x438($s0)
-.L0f0584a8:
-/*  f0584a8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0584ac:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0584b0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0584b4:	03e00008 */ 	jr	$ra
-/*  f0584b8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfPlayerIsInvincible(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	bool pass = false;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+		u32 prevplayernum = g_Vars.currentplayernum;
+		u32 playernum = posGetPlayerNum(chr->pos);
+		setCurrentPlayerNum(playernum);
+		pass = g_PlayerInvincible;
+		setCurrentPlayerNum(prevplayernum);
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00f9
