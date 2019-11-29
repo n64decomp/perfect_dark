@@ -14366,7 +14366,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x00e7*/ NULL,
 	/*0x00e8*/ aiSetDoorClosed,
 	/*0x00e9*/ ai00e9,
-	/*0x00ea*/ ai00ea,
+	/*0x00ea*/ aiIfNumPlayersLessThan,
 	/*0x00eb*/ aiIfChrAmmoQuantityLessThan,
 	/*0x00ec*/ aiChrDrawWeapon,
 	/*0x00ed*/ aiChrDrawWeaponInCutscene,
