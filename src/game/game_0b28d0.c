@@ -10096,21 +10096,13 @@ glabel func0f0bb2e8
 /*  f0bb31c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0bb320
-/*  f0bb320:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0bb324:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0bb328:	8c4e0284 */ 	lw	$t6,0x284($v0)
-/*  f0bb32c:	44876000 */ 	mtc1	$a3,$f12
-/*  f0bb330:	adc402d8 */ 	sw	$a0,0x2d8($t6)
-/*  f0bb334:	8c4f0284 */ 	lw	$t7,0x284($v0)
-/*  f0bb338:	ade502dc */ 	sw	$a1,0x2dc($t7)
-/*  f0bb33c:	8c580284 */ 	lw	$t8,0x284($v0)
-/*  f0bb340:	af0602e0 */ 	sw	$a2,0x2e0($t8)
-/*  f0bb344:	8c590284 */ 	lw	$t9,0x284($v0)
-/*  f0bb348:	03e00008 */ 	jr	$ra
-/*  f0bb34c:	e72c02e4 */ 	swc1	$f12,0x2e4($t9)
-);
+void func0f0bb320(s32 arg0, s32 arg1, s32 arg2, float arg3)
+{
+	g_Vars.currentplayer->unk02d8 = arg0;
+	g_Vars.currentplayer->unk02dc = arg1;
+	g_Vars.currentplayer->unk02e0 = arg2;
+	g_Vars.currentplayer->unk02e4 = arg3;
+}
 
 GLOBAL_ASM(
 glabel func0f0bb350

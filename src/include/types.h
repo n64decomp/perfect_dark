@@ -656,7 +656,7 @@ struct player {
 	/*0x02d8*/ u32 unk02d8;
 	/*0x02dc*/ u32 unk02dc;
 	/*0x02e0*/ u32 unk02e0;
-	/*0x02e4*/ u32 unk02e4;
+	/*0x02e4*/ float unk02e4;
 	/*0x02e8*/ u32 unk02e8;
 	/*0x02ec*/ u32 unk02ec;
 	/*0x02f0*/ u32 unk02f0;
