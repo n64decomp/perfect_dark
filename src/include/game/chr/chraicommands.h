@@ -222,7 +222,7 @@
 /*0x00d9*/ bool ai00d9(void);
 /*0x00da*/ bool aiSetObjImage(void);
 /*0x00db*/ bool ai00db(void);
-/*0x00dc*/ bool ai00dc(void);
+/*0x00dc*/ bool aiEndLevel(void);
 /*0x00dd*/ bool ai00dd(void);
 /*0x00de*/ bool ai00de(void);
 /*0x00df*/ bool ai00df(void);
