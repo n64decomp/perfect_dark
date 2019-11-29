@@ -110,7 +110,7 @@ void func0f0bb350(float arg0, s32 arg1, s32 arg2, s32 arg3, float arg4);
 void func0f0bb3c8(float arg0, float arg1);
 bool func0f0bb3fc(void);
 u32 func0f0bb42c(void);
-u32 func0f0bb57c(void);
+void func0f0bb57c(float arg0, float arg1);
 u32 func0f0bb5ec(void);
 u32 func0f0bb69c(void);
 u32 func0f0bb814(void);

@@ -569,10 +569,10 @@ struct player {
 	/*0x017c*/ u32 unk017c;
 	/*0x0180*/ u32 unk0180;
 	/*0x0184*/ u32 unk0184;
-	/*0x0188*/ u32 unk0188;
-	/*0x018c*/ u32 unk018c;
-	/*0x0190*/ u32 unk0190;
-	/*0x0194*/ u32 unk0194;
+	/*0x0188*/ float unk0188;
+	/*0x018c*/ float unk018c;
+	/*0x0190*/ float unk0190;
+	/*0x0194*/ float unk0194;
 	/*0x0198*/ u32 unk0198;
 	/*0x019c*/ u32 unk019c;
 	/*0x01a0*/ u32 unk01a0;
