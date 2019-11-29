@@ -353,7 +353,7 @@ u32 func0f092484(void);
 u32 func0f092610(void);
 u32 func0f0926bc(struct position *pos, u32 arg1, u32 arg2);
 s32 func0f0927d4(float arg0, float arg1, float arg2, float arg3, s16 arg4);
-u32 func0f092914(void);
+s32 func0f092914(s32 arg0);
 u32 func0f09294c(void);
 u32 func0f092a98(void);
 u32 func0f092b50(void);

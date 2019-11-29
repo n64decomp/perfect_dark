@@ -6706,48 +6706,19 @@ bool ai00d0(void)
 /**
  * @cmd 00d4
  */
-GLOBAL_ASM(
-glabel ai00d4
-/*  f056888:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05688c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f056890:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f056894:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f056898:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05689c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0568a0:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f0568a4:	90f80003 */ 	lbu	$t8,0x3($a3)
-/*  f0568a8:	90e80004 */ 	lbu	$t0,0x4($a3)
-/*  f0568ac:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f0568b0:	03284825 */ 	or	$t1,$t9,$t0
-/*  f0568b4:	a7a9001a */ 	sh	$t1,0x1a($sp)
-/*  f0568b8:	80e40002 */ 	lb	$a0,0x2($a3)
-/*  f0568bc:	0fc24a45 */ 	jal	func0f092914
-/*  f0568c0:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f0568c4:	87aa001a */ 	lh	$t2,0x1a($sp)
-/*  f0568c8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0568cc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0568d0:	004a082a */ 	slt	$at,$v0,$t2
-/*  f0568d4:	10200009 */ 	beqz	$at,.L0f0568fc
-/*  f0568d8:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f0568dc:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f0568e0:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f0568e4:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0568e8:	90e60005 */ 	lbu	$a2,0x5($a3)
-/*  f0568ec:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0568f0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0568f4:	10000004 */ 	beqz	$zero,.L0f056908
-/*  f0568f8:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f0568fc:
-/*  f0568fc:	8c6b0438 */ 	lw	$t3,0x438($v1)
-/*  f056900:	256c0006 */ 	addiu	$t4,$t3,0x6
-/*  f056904:	ac6c0438 */ 	sw	$t4,0x438($v1)
-.L0f056908:
-/*  f056908:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05690c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f056910:	00001025 */ 	or	$v0,$zero,$zero
-/*  f056914:	03e00008 */ 	jr	$ra
-/*  f056918:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai00d4(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s16 thing = cmd[4] | (cmd[3] << 8);
+
+	if (func0f092914((s8)cmd[2]) < thing) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	} else {
+		g_Vars.aioffset += 6;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00d5
