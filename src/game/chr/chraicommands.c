@@ -8499,6 +8499,20 @@ glabel ai0104
 /*  f058b64:	acab0438 */ 	sw	$t3,0x438($a1)
 );
 
+// Mismatch due to temporary registers
+//bool ai0104(void)
+//{
+//	if (g_Vars.chrdata->proppreset1 >= 0) {
+//		struct defaultobj *obj = g_Vars.positions[g_Vars.chrdata->proppreset1].entity;
+//		obj->hidden &= ~OBJHIDDENFLAG_00200000;
+//	}
+//
+//	g_Vars.chrdata->proppreset1 = -1;
+//	g_Vars.aioffset += 2;
+//
+//	return false;
+//}
+
 /**
  * @cmd 0105
  */
