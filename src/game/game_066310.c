@@ -24801,25 +24801,17 @@ glabel func0f07b078
 /*  f07b0b8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f07b0bc
-/*  f07b0bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f07b0c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07b0c4:	0fc1eb7d */ 	jal	func0f07adf4
-/*  f07b0c8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f07b0cc:	10400004 */ 	beqz	$v0,.L0f07b0e0
-/*  f07b0d0:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f07b0d4:	a44e0090 */ 	sh	$t6,0x90($v0)
-/*  f07b0d8:	10000002 */ 	beqz	$zero,.L0f07b0e4
-/*  f07b0dc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f07b0e0:
-/*  f07b0e0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f07b0e4:
-/*  f07b0e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f07b0e8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f07b0ec:	03e00008 */ 	jr	$ra
-/*  f07b0f0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool heliSetField90(struct defaultobj *obj, bool value)
+{
+	struct heliobj *heli = func0f07adf4(obj);
+
+	if (heli) {
+		heli->unk90 = value;
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f07b0f4

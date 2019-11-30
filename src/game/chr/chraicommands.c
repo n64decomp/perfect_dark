@@ -11598,7 +11598,7 @@ bool aiSetPadPresetToInvestigationTerminal(void)
 bool ai0143(void)
 {
 	if (g_Vars.hovdata) {
-		func0f07b0bc(g_Vars.hovdata, true);
+		heliSetField90(&g_Vars.hovdata->base, true);
 	}
 
 	g_Vars.aioffset += 2;
@@ -11612,7 +11612,7 @@ bool ai0143(void)
 bool ai0144(void)
 {
 	if (g_Vars.hovdata) {
-		func0f07b0bc(g_Vars.hovdata, false);
+		heliSetField90(&g_Vars.hovdata->base, false);
 	}
 
 	g_Vars.aioffset += 2;

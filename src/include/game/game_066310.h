@@ -167,7 +167,7 @@ u32 func0f07af34(struct heliobj *heli);
 void func0f07afd0(struct heliobj *heli, s32 arg1);
 u32 func0f07b038(struct heliobj *heli);
 void func0f07b078(struct heliobj *heli);
-u32 func0f07b0bc(struct heliobj *heli, u32 arg1);
+bool heliSetField90(struct defaultobj *obj, u32 value);
 u32 func0f07b0f4(struct heliobj *heli);
 float heliGetTimer(struct heliobj *heli);
 u32 func0f07b158(void);
