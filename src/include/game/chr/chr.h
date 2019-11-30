@@ -399,7 +399,7 @@ s32 func0f04c580(struct chrdata *chr);
 u32 func0f04c6b4(struct chrdata *chr, u32 flags);
 u32 func0f04c71c(struct chrdata *chr, u32 flags);
 u32 func0f04c784(void);
-u32 func0f04c874(void);
+void func0f04c874(struct chrdata *chr, u32 flags, struct coord *coord, s32 arg3, s32 arg4);
 u32 func0f04cc04(void);
 u32 func0f04cd04(void);
 u32 func0f04ce00(void);
