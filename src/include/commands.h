@@ -1094,6 +1094,12 @@
 	anytarget, \
 	label,
 
+#define cmd0109(u1, distance, label) \
+	mkshort(0x0109), \
+	u1, \
+	mkshort(distance), \
+	label, \
+
 #define set_chr_team(chr, team) \
 	mkshort(0x010b), \
 	chr, \

@@ -8667,68 +8667,19 @@ bool aiIfChrTarget(void)
 /**
  * @cmd 0109
  */
-GLOBAL_ASM(
-glabel ai0109
-/*  f058f38:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f058f3c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f058f40:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f058f44:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f058f48:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f058f4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f058f50:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f058f54:	90f80003 */ 	lbu	$t8,0x3($a3)
-/*  f058f58:	90e80004 */ 	lbu	$t0,0x4($a3)
-/*  f058f5c:	3c014120 */ 	lui	$at,0x4120
-/*  f058f60:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f058f64:	03284825 */ 	or	$t1,$t9,$t0
-/*  f058f68:	44892000 */ 	mtc1	$t1,$f4
-/*  f058f6c:	44814000 */ 	mtc1	$at,$f8
-/*  f058f70:	90e40002 */ 	lbu	$a0,0x2($a3)
-/*  f058f74:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f058f78:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f058f7c:	8c650424 */ 	lw	$a1,0x424($v1)
-/*  f058f80:	46083002 */ 	mul.s	$f0,$f6,$f8
-/*  f058f84:	44060000 */ 	mfc1	$a2,$f0
-/*  f058f88:	0fc129e7 */ 	jal	func0f04a79c
-/*  f058f8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f058f90:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f058f94:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f058f98:	10400009 */ 	beqz	$v0,.L0f058fc0
-/*  f058f9c:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f058fa0:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f058fa4:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f058fa8:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f058fac:	90e60005 */ 	lbu	$a2,0x5($a3)
-/*  f058fb0:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f058fb4:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f058fb8:	10000004 */ 	beqz	$zero,.L0f058fcc
-/*  f058fbc:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f058fc0:
-/*  f058fc0:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f058fc4:	254b0006 */ 	addiu	$t3,$t2,0x6
-/*  f058fc8:	ac6b0438 */ 	sw	$t3,0x438($v1)
-.L0f058fcc:
-/*  f058fcc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f058fd0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f058fd4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f058fd8:	03e00008 */ 	jr	$ra
-/*  f058fdc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai0109(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	float distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
 
-// Mismatch because it uses different float registers.
-//bool ai0109(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	float distance = cmd[4] | (cmd[3] << 8);
-//
-//	if (func0f04a79c(cmd[2], g_Vars.chrdata, distance * 10)) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
-//	} else {
-//		g_Vars.aioffset += 6;
-//	}
-//
-//	return false;
-//}
+	if (func0f04a79c(cmd[2], g_Vars.chrdata, distance)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	} else {
+		g_Vars.aioffset += 6;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 010a
