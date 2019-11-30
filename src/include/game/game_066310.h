@@ -164,7 +164,7 @@ u32 func0f07accc(void);
 struct heliobj *func0f07adf4(struct defaultobj *obj);
 u32 func0f07ae18(struct heliobj *heli, u32 arg1);
 u32 func0f07af34(struct heliobj *heli);
-u32 func0f07afd0(void);
+void func0f07afd0(struct heliobj *heli, s32 arg1);
 u32 func0f07b038(struct heliobj *heli);
 void func0f07b078(struct heliobj *heli);
 u32 func0f07b0bc(struct heliobj *heli, u32 arg1);

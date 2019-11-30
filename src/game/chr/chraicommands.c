@@ -8578,85 +8578,36 @@ glabel ai0105
 /**
  * @cmd 0106
  */
-GLOBAL_ASM(
-glabel ai0106
-/*  f058c3c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f058c40:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f058c44:	8cc40424 */ 	lw	$a0,0x424($a2)
-/*  f058c48:	8cc30438 */ 	lw	$v1,0x438($a2)
-/*  f058c4c:	8cce0434 */ 	lw	$t6,0x434($a2)
-/*  f058c50:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f058c54:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f058c58:	1080002f */ 	beqz	$a0,.L0f058d18
-/*  f058c5c:	01c31021 */ 	addu	$v0,$t6,$v1
-/*  f058c60:	904f0003 */ 	lbu	$t7,0x3($v0)
-/*  f058c64:	55e0000c */ 	bnezl	$t7,.L0f058c98
-/*  f058c68:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f058c6c:	90580004 */ 	lbu	$t8,0x4($v0)
-/*  f058c70:	57000009 */ 	bnezl	$t8,.L0f058c98
-/*  f058c74:	90480004 */ 	lbu	$t0,0x4($v0)
-/*  f058c78:	0fc12705 */ 	jal	positionGetIndexByChrId
-/*  f058c7c:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f058c80:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f058c84:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f058c88:	8cc40424 */ 	lw	$a0,0x424($a2)
-/*  f058c8c:	1000000b */ 	beqz	$zero,.L0f058cbc
-/*  f058c90:	a7a2001a */ 	sh	$v0,0x1a($sp)
-/*  f058c94:	90480004 */ 	lbu	$t0,0x4($v0)
-.L0f058c98:
-/*  f058c98:	55000009 */ 	bnezl	$t0,.L0f058cc0
-/*  f058c9c:	87a3001a */ 	lh	$v1,0x1a($sp)
-/*  f058ca0:	0fc126d1 */ 	jal	chrFindById
-/*  f058ca4:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f058ca8:	8443017e */ 	lh	$v1,0x17e($v0)
-/*  f058cac:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f058cb0:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f058cb4:	8cc40424 */ 	lw	$a0,0x424($a2)
-/*  f058cb8:	a7a3001a */ 	sh	$v1,0x1a($sp)
-.L0f058cbc:
-/*  f058cbc:	87a3001a */ 	lh	$v1,0x1a($sp)
-.L0f058cc0:
-/*  f058cc0:	8489017e */ 	lh	$t1,0x17e($a0)
-/*  f058cc4:	10690012 */ 	beq	$v1,$t1,.L0f058d10
-/*  f058cc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f058ccc:	ac8000e4 */ 	sw	$zero,0xe4($a0)
-/*  f058cd0:	8cca0424 */ 	lw	$t2,0x424($a2)
-/*  f058cd4:	2401fffd */ 	addiu	$at,$zero,-3
-/*  f058cd8:	ad4000e0 */ 	sw	$zero,0xe0($t2)
-/*  f058cdc:	8ccb0424 */ 	lw	$t3,0x424($a2)
-/*  f058ce0:	ad6000f4 */ 	sw	$zero,0xf4($t3)
-/*  f058ce4:	8cc40424 */ 	lw	$a0,0x424($a2)
-/*  f058ce8:	8c8c0014 */ 	lw	$t4,0x14($a0)
-/*  f058cec:	01816824 */ 	and	$t5,$t4,$at
-/*  f058cf0:	ac8d0014 */ 	sw	$t5,0x14($a0)
-/*  f058cf4:	8cc40424 */ 	lw	$a0,0x424($a2)
-/*  f058cf8:	2401fffb */ 	addiu	$at,$zero,-5
-/*  f058cfc:	8c8e0018 */ 	lw	$t6,0x18($a0)
-/*  f058d00:	01c17824 */ 	and	$t7,$t6,$at
-/*  f058d04:	ac8f0018 */ 	sw	$t7,0x18($a0)
-/*  f058d08:	8cd80424 */ 	lw	$t8,0x424($a2)
-/*  f058d0c:	a703017e */ 	sh	$v1,0x17e($t8)
-.L0f058d10:
-/*  f058d10:	10000009 */ 	beqz	$zero,.L0f058d38
-/*  f058d14:	8cc30438 */ 	lw	$v1,0x438($a2)
-.L0f058d18:
-/*  f058d18:	8cc40430 */ 	lw	$a0,0x430($a2)
-/*  f058d1c:	50800007 */ 	beqzl	$a0,.L0f058d3c
-/*  f058d20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f058d24:	0fc1ebf4 */ 	jal	func0f07afd0
-/*  f058d28:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f058d2c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f058d30:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f058d34:	8cc30438 */ 	lw	$v1,0x438($a2)
-.L0f058d38:
-/*  f058d38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f058d3c:
-/*  f058d3c:	24790005 */ 	addiu	$t9,$v1,0x5
-/*  f058d40:	acd90438 */ 	sw	$t9,0x438($a2)
-/*  f058d44:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f058d48:	03e00008 */ 	jr	$ra
-/*  f058d4c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetTarget(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (g_Vars.chrdata) {
+		s16 prop_id;
+
+		if (!cmd[3] && !cmd[4]) {
+			prop_id = positionGetIndexByChrId(g_Vars.chrdata, cmd[2]);
+		} else if (!cmd[4]) {
+			struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+			prop_id = chr->target;
+		}
+
+		if (prop_id != g_Vars.chrdata->target) {
+			g_Vars.chrdata->lastvisibletarg = 0;
+			g_Vars.chrdata->lastseetarget60 = 0;
+			g_Vars.chrdata->lastheartarget60 = 0;
+			g_Vars.chrdata->hidden &= ~CHRFLAG2_00000002;
+			g_Vars.chrdata->chrflags &= ~CHRFLAG3_00000004;
+			g_Vars.chrdata->target = prop_id;
+		}
+	} else if (g_Vars.hovdata) {
+		func0f07afd0(g_Vars.hovdata, cmd[2]);
+	}
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 0107
