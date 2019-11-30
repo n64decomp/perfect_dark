@@ -12255,57 +12255,23 @@ bool aiIfChrHasGun(void)
 /**
  * @cmd 0170
  */
-GLOBAL_ASM(
-glabel ai0170
-/*  f05c894:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f05c898:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f05c89c:	8d070424 */ 	lw	$a3,0x424($t0)
-/*  f05c8a0:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f05c8a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05c8a8:	8d040434 */ 	lw	$a0,0x434($t0)
-/*  f05c8ac:	8d050438 */ 	lw	$a1,0x438($t0)
-/*  f05c8b0:	8cee0300 */ 	lw	$t6,0x300($a3)
-/*  f05c8b4:	00851821 */ 	addu	$v1,$a0,$a1
-/*  f05c8b8:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f05c8bc:	90620002 */ 	lbu	$v0,0x2($v1)
-/*  f05c8c0:	8dc60004 */ 	lw	$a2,0x4($t6)
-/*  f05c8c4:	10400009 */ 	beqz	$v0,.L0f05c8ec
-/*  f05c8c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05c8cc:	8cd80040 */ 	lw	$t8,0x40($a2)
-/*  f05c8d0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f05c8d4:	24a90004 */ 	addiu	$t1,$a1,0x4
-/*  f05c8d8:	33190080 */ 	andi	$t9,$t8,0x80
-/*  f05c8dc:	57200015 */ 	bnezl	$t9,.L0f05c934
-/*  f05c8e0:	ad090438 */ 	sw	$t1,0x438($t0)
-/*  f05c8e4:	54410013 */ 	bnel	$v0,$at,.L0f05c934
-/*  f05c8e8:	ad090438 */ 	sw	$t1,0x438($t0)
-.L0f05c8ec:
-/*  f05c8ec:	1440000a */ 	bnez	$v0,.L0f05c918
-/*  f05c8f0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f05c8f4:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f05c8f8:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f05c8fc:	0fc0eadd */ 	jal	func0f03ab74
-/*  f05c900:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f05c904:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f05c908:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f05c90c:	8d040434 */ 	lw	$a0,0x434($t0)
-/*  f05c910:	8d050438 */ 	lw	$a1,0x438($t0)
-/*  f05c914:	8fa3002c */ 	lw	$v1,0x2c($sp)
-.L0f05c918:
-/*  f05c918:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05c91c:	90660003 */ 	lbu	$a2,0x3($v1)
-/*  f05c920:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f05c924:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f05c928:	10000002 */ 	beqz	$zero,.L0f05c934
-/*  f05c92c:	ad020438 */ 	sw	$v0,0x438($t0)
-/*  f05c930:	ad090438 */ 	sw	$t1,0x438($t0)
-.L0f05c934:
-/*  f05c934:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05c938:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f05c93c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05c940:	03e00008 */ 	jr	$ra
-/*  f05c944:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai0170(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct weaponobj *weapon = g_Vars.chrdata->gungroundpos->weapon;
+
+	if (cmd[2] == 0 || ((weapon->hidden & OBJHIDDENFLAG_00000080) == 0 && cmd[2] == 1)) {
+		if (cmd[2] == 0) {
+			func0f03ab74(g_Vars.chrdata, g_Vars.chrdata->gungroundpos, 1);
+		}
+
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0171
