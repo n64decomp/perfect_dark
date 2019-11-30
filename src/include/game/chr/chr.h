@@ -411,7 +411,6 @@ u32 func0f04d000(struct chrdata *chr);
 u32 func0f04d44c(void);
 u32 func0f04d4bc(struct chrdata *chr);
 u32 func0f04e418(void);
-u32 func0f05abdc(void);
 u32 getNumChrs(void);
 void incrementByte(u8 *dst, u8 amount);
 s32 padResolve(struct chrdata *chr, s32 pad_id);

@@ -38,7 +38,13 @@ struct position {
 	u8 type;
 	u8 flags;
 	u16 unk02;
-	void *entity;
+
+	union {
+		struct chrdata *chr;
+		struct defaultobj *obj;
+		struct weaponobj *weapon;
+	};
+
 	struct coord coord;
 	u32 unk14;
 	u32 unk18; // related to gun recovery

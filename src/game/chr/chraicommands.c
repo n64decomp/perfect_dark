@@ -3131,7 +3131,7 @@ bool aiIfGunUnclaimed(void)
 			g_Vars.aioffset += 5;
 		}
 	} else {
-		struct weaponobj *weapon = g_Vars.chrdata->gungroundpos->entity;
+		struct weaponobj *weapon = g_Vars.chrdata->gungroundpos->weapon;
 
 		if (weapon && weapon->pos) {
 			weapon->flags |= 0x00400000;
@@ -3331,7 +3331,7 @@ bool aiDestroyObject(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->pos && func0f0687b8(obj) == 0) {
-		struct defaultobj *entity = obj->pos->entity;
+		struct defaultobj *entity = obj->pos->obj;
 
 		if (entity->obj == 0xeb) {
 			obj->flags = (obj->flags & 0xfffeffff) | 0x20000;
@@ -3460,7 +3460,7 @@ bool aiGiveObjectToChr(void)
 		if (chr->pos->type == POSITIONTYPE_PLAYER) {
 			u32 something;
 			u32 prevplayernum = g_Vars.currentplayernum;
-			struct defaultobj *obj2 = obj->pos->entity;
+			struct defaultobj *obj2 = obj->pos->obj;
 			u32 playernum = posGetPlayerNum(chr->pos);
 			setCurrentPlayerNum(playernum);
 
@@ -8503,7 +8503,7 @@ glabel ai0104
 //bool ai0104(void)
 //{
 //	if (g_Vars.chrdata->proppreset1 >= 0) {
-//		struct defaultobj *obj = g_Vars.positions[g_Vars.chrdata->proppreset1].entity;
+//		struct defaultobj *obj = g_Vars.positions[g_Vars.chrdata->proppreset1].obj;
 //		obj->hidden &= ~OBJHIDDENFLAG_00200000;
 //	}
 //
@@ -10381,24 +10381,12 @@ glabel ai0130
 /*  f05abd8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f05abdc
-/*  f05abdc:	1080000b */ 	beqz	$a0,.L0f05ac0c
-/*  f05abe0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05abe4:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f05abe8:	10400008 */ 	beqz	$v0,.L0f05ac0c
-/*  f05abec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05abf0:	8c4e0020 */ 	lw	$t6,0x20($v0)
-/*  f05abf4:	11c00005 */ 	beqz	$t6,.L0f05ac0c
-/*  f05abf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05abfc:	90430332 */ 	lbu	$v1,0x332($v0)
-/*  f05ac00:	18600002 */ 	blez	$v1,.L0f05ac0c
-/*  f05ac04:	246fffff */ 	addiu	$t7,$v1,-1
-/*  f05ac08:	a04f0332 */ 	sb	$t7,0x332($v0)
-.L0f05ac0c:
-/*  f05ac0c:	03e00008 */ 	jr	$ra
-/*  f05ac10:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f05abdc(struct position *pos)
+{
+	if (pos && pos->chr && pos->chr->unk020 && pos->chr->propsoundcount > 0) {
+		pos->chr->propsoundcount--;
+	}
+}
 
 /**
  * @cmd 01a7
@@ -12155,7 +12143,7 @@ bool aiIfY(void)
 			struct position *target = heliGetTargetPosition(heli);
 
 			if (target && (target->type == POSITIONTYPE_CHR || target->type == POSITIONTYPE_PLAYER)) {
-				chr = target->entity;
+				chr = target->chr;
 			}
 		}
 	} else {

@@ -445,4 +445,6 @@
 /*0x01df*/ bool aiIfChrSameFloorDistanceToPadLessThan(void);
 /*0x01e0*/ bool ai01e0(void);
 
+void func0f05abdc(struct position *pos);
+
 #endif

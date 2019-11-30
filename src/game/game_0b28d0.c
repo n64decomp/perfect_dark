@@ -10220,7 +10220,7 @@ glabel func0f0bb42c
 
 void func0f0bb57c(float arg0, float arg1)
 {
-	struct chrdata *chr = g_Vars.currentplayer->targetpos->entity;
+	struct chrdata *chr = g_Vars.currentplayer->targetpos->chr;
 
 	if (chr) {
 		g_Vars.currentplayer->unk0188 = 0;
