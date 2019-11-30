@@ -14396,7 +14396,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0105*/ ai0105,
 	/*0x0106*/ aiSetTarget,
 	/*0x0107*/ aiIfPresetsTargetIsNotMyTarget,
-	/*0x0108*/ ai0108,
+	/*0x0108*/ aiIfChrTarget,
 	/*0x0109*/ ai0109,
 	/*0x010a*/ ai010a,
 	/*0x010b*/ aiChrSetTeam,

@@ -1083,12 +1083,15 @@
 	mkshort(0x0107), \
 	label,
 
-// Used only in globals.s with CHR_SELF, CHR_P1P2, FALSE
-#define cmd0108_if_something(chr1, chr2, bool, label) \
+/**
+ * If anytarget is false, check if chr1's target is chr2.
+ * If anytarget is true, check if chr1 has any target at all.
+ */
+#define if_chr_target_eq(chr1, chr2, anytarget, label) \
 	mkshort(0x0108), \
 	chr1, \
 	chr2, \
-	bool, \
+	anytarget, \
 	label,
 
 #define set_chr_team(chr, team) \
