@@ -418,7 +418,7 @@ extern s16 ciquiptable_bank0[];
 extern s16 ciquiptable_bank1[];
 extern s16 ciquiptable_bank2[];
 extern s16 ciquiptable_bank3[];
-extern u32 var80069730;
+extern u16 g_InvestigationPadMap[40];
 extern u32 var80069780;
 extern u32 var8006978c;
 extern u16 special_animations[];

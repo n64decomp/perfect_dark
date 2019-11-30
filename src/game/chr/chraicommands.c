@@ -11571,51 +11571,26 @@ glabel aiShuffleInvestigationTerminals
 /**
  * @cmd 0142
  */
-GLOBAL_ASM(
-glabel ai0142
-/*  f05bd0c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f05bd10:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f05bd14:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f05bd18:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
-/*  f05bd1c:	8e6e0434 */ 	lw	$t6,0x434($s3)
-/*  f05bd20:	8e6f0438 */ 	lw	$t7,0x438($s3)
-/*  f05bd24:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f05bd28:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f05bd2c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f05bd30:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f05bd34:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05bd38:	0fc2556c */ 	jal	objFindByTagId
-/*  f05bd3c:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f05bd40:	1040000e */ 	beqz	$v0,.L0f05bd7c
-/*  f05bd44:	3c108007 */ 	lui	$s0,%hi(var80069730)
-/*  f05bd48:	3c128007 */ 	lui	$s2,%hi(var80069780)
-/*  f05bd4c:	84510006 */ 	lh	$s1,0x6($v0)
-/*  f05bd50:	26529780 */ 	addiu	$s2,$s2,%lo(var80069780)
-/*  f05bd54:	26109730 */ 	addiu	$s0,$s0,%lo(var80069730)
-/*  f05bd58:	96180000 */ 	lhu	$t8,0x0($s0)
-.L0f05bd5c:
-/*  f05bd5c:	56380005 */ 	bnel	$s1,$t8,.L0f05bd74
-/*  f05bd60:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f05bd64:	8e640424 */ 	lw	$a0,0x424($s3)
-/*  f05bd68:	0fc12b28 */ 	jal	chrSetPadPreset
-/*  f05bd6c:	96050002 */ 	lhu	$a1,0x2($s0)
-/*  f05bd70:	26100004 */ 	addiu	$s0,$s0,0x4
-.L0f05bd74:
-/*  f05bd74:	5612fff9 */ 	bnel	$s0,$s2,.L0f05bd5c
-/*  f05bd78:	96180000 */ 	lhu	$t8,0x0($s0)
-.L0f05bd7c:
-/*  f05bd7c:	8e790438 */ 	lw	$t9,0x438($s3)
-/*  f05bd80:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f05bd84:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f05bd88:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f05bd8c:	ae680438 */ 	sw	$t0,0x438($s3)
-/*  f05bd90:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f05bd94:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f05bd98:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f05bd9c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f05bda0:	03e00008 */ 	jr	$ra
-/*  f05bda4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetPadPresetToInvestigationTerminal(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj) {
+		s16 objpad = obj->pad;
+		s32 i;
+
+		for (i = 0; i < sizeof(g_InvestigationPadMap) / sizeof(g_InvestigationPadMap[0]); i += 2) {
+			if (objpad == g_InvestigationPadMap[i]) {
+				chrSetPadPreset(g_Vars.chrdata, g_InvestigationPadMap[i + 1]);
+			}
+		}
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0143

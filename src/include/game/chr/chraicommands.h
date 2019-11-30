@@ -320,7 +320,7 @@
 /*0x013f*/ bool ai013f(void);
 /*0x0140*/ bool ai0140(void);
 /*0x0141*/ bool aiShuffleInvestigationTerminals(void);
-/*0x0142*/ bool ai0142(void);
+/*0x0142*/ bool aiSetPadPresetToInvestigationTerminal(void);
 /*0x0143*/ bool ai0143(void);
 /*0x0144*/ bool ai0144(void);
 /*0x0145*/ bool aiRebuildTeams(void);

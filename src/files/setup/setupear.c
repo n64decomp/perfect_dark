@@ -1055,15 +1055,15 @@ u8 func0404_scientist[] = {
 	label(0x06)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x06)
 	if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x2f)
-	jog_to_object(OBJ_GOODTERM3)
+	set_pad_preset_to_investigation_terminal(OBJ_GOODTERM3)
 	goto_next(0x12)
 
 	label(0x06)
-	jog_to_object(OBJ_GOODTERM1)
+	set_pad_preset_to_investigation_terminal(OBJ_GOODTERM1)
 	goto_next(0x12)
 
 	label(0x2f)
-	jog_to_object(OBJ_GOODTERM2)
+	set_pad_preset_to_investigation_terminal(OBJ_GOODTERM2)
 	label(0x12)
 	go_to_target_pad(SPEED_JOG)
 
@@ -1176,15 +1176,15 @@ u8 func0406_nasty_scientist[] = {
 	label(0x06)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x06)
 	if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x2f)
-	jog_to_object(OBJ_ALARMTERM3)
+	set_pad_preset_to_investigation_terminal(OBJ_ALARMTERM3)
 	goto_next(0x12)
 
 	label(0x06)
-	jog_to_object(OBJ_ALARMTERM1)
+	set_pad_preset_to_investigation_terminal(OBJ_ALARMTERM1)
 	goto_next(0x12)
 
 	label(0x2f)
-	jog_to_object(OBJ_ALARMTERM2)
+	set_pad_preset_to_investigation_terminal(OBJ_ALARMTERM2)
 	label(0x12)
 	if_num_times_shot_lt(1, /*goto*/ 0x13)
 	go_to_target_pad(SPEED_JOG)

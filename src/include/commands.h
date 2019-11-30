@@ -1364,7 +1364,16 @@
 	src4, \
 	0x00,
 
-#define jog_to_object(object) \
+/**
+ * Takes the given object, looks at the pad ID that the object is sitting on,
+ * then uses a lookup table at g_InvestigationPadMap to decide which pad to set
+ * as the current chr's pad preset.
+ *
+ * It's only used for investigation scientists to run to a spot in front of the
+ * terminal. Due to the fact that this lookup table is hard coded in a global
+ * location, it's recommended to keep usage of this function to one stage only.
+ */
+#define set_pad_preset_to_investigation_terminal(object) \
 	mkshort(0x0142), \
 	object, \
 	0x00,

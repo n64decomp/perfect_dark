@@ -14454,7 +14454,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x013f*/ ai013f,
 	/*0x0140*/ ai0140,
 	/*0x0141*/ aiShuffleInvestigationTerminals,
-	/*0x0142*/ ai0142,
+	/*0x0142*/ aiSetPadPresetToInvestigationTerminal,
 	/*0x0143*/ ai0143,
 	/*0x0144*/ ai0144,
 	/*0x0145*/ aiRebuildTeams,
@@ -15015,26 +15015,35 @@ u16 quiptable_maian[] = {
 	0x0000, 0x0000, 0x0000, 0x0000,
 };
 
-u32 var80069730 = 0x0246007b;
-u32 var80069734 = 0x0247007d;
-u32 var80069738 = 0x0248007e;
-u32 var8006973c = 0x0249007c;
-u32 var80069740 = 0x024a0093;
-u32 var80069744 = 0x024b0091;
-u32 var80069748 = 0x024c0092;
-u32 var8006974c = 0x024d0093;
-u32 var80069750 = 0x024e00ae;
-u32 var80069754 = 0x024f00ac;
-u32 var80069758 = 0x025000ab;
-u32 var8006975c = 0x025100ad;
-u32 var80069760 = 0x025200a1;
-u32 var80069764 = 0x0253009f;
-u32 var80069768 = 0x025400a0;
-u32 var8006976c = 0x0255009e;
-u32 var80069770 = 0x025600bb;
-u32 var80069774 = 0x025700b8;
-u32 var80069778 = 0x025800b9;
-u32 var8006977c = 0x025900ba;
+/**
+ * Used by AI command 0142, which makes Investigation scientists run to the
+ * computer terminals. The number of the left is the pad that the terminal sits
+ * on, and the number on the right is the pad that the scientist will run to
+ * when running to the terminal.
+ */
+u16 g_InvestigationPadMap[40] = {
+	0x0246, 0x007b,
+	0x0247, 0x007d,
+	0x0248, 0x007e,
+	0x0249, 0x007c,
+	0x024a, 0x0093,
+	0x024b, 0x0091,
+	0x024c, 0x0092,
+	0x024d, 0x0093,
+	0x024e, 0x00ae,
+	0x024f, 0x00ac,
+	0x0250, 0x00ab,
+	0x0251, 0x00ad,
+	0x0252, 0x00a1,
+	0x0253, 0x009f,
+	0x0254, 0x00a0,
+	0x0255, 0x009e,
+	0x0256, 0x00bb,
+	0x0257, 0x00b8,
+	0x0258, 0x00b9,
+	0x0259, 0x00ba,
+};
+
 u32 var80069780 = 0x00000000;
 u32 var80069784 = 0x00000000;
 u32 var80069788 = 0x00000000;
