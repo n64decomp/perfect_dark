@@ -14501,7 +14501,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x016e*/ ai016e,
 	/*0x016f*/ aiIfChrHasGun,
 	/*0x0170*/ ai0170,
-	/*0x0171*/ ai0171,
+	/*0x0171*/ aiIfDistanceToGunLessThan,
 	/*0x0172*/ ai0172,
 	/*0x0173*/ aiChrCopyProperties,
 	/*0x0174*/ aiIfCutsceneButtonPressed,

@@ -1480,7 +1480,7 @@
 	bool, \
 	label,
 
-#define if_distance_to_target_position_lt(distance, label) \
+#define if_distance_to_gun_lt(distance, label) \
 	mkshort(0x0171), \
 	mkshort(distance / 10), \
 	label,

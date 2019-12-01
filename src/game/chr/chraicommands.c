@@ -12276,87 +12276,30 @@ bool ai0170(void)
 /**
  * @cmd 0171
  */
-GLOBAL_ASM(
-glabel ai0171
-/*  f05c948:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f05c94c:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f05c950:	8d0e0434 */ 	lw	$t6,0x434($t0)
-/*  f05c954:	8d050438 */ 	lw	$a1,0x438($t0)
-/*  f05c958:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f05c95c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05c960:	afae0018 */ 	sw	$t6,0x18($sp)
-/*  f05c964:	01c53821 */ 	addu	$a3,$t6,$a1
-/*  f05c968:	90f80002 */ 	lbu	$t8,0x2($a3)
-/*  f05c96c:	90e90003 */ 	lbu	$t1,0x3($a3)
-/*  f05c970:	8d040424 */ 	lw	$a0,0x424($t0)
-/*  f05c974:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f05c978:	03295025 */ 	or	$t2,$t9,$t1
-/*  f05c97c:	448a2000 */ 	mtc1	$t2,$f4
-/*  f05c980:	3c014120 */ 	lui	$at,0x4120
-/*  f05c984:	44814000 */ 	mtc1	$at,$f8
-/*  f05c988:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f05c98c:	44808000 */ 	mtc1	$zero,$f16
-/*  f05c990:	8c830300 */ 	lw	$v1,0x300($a0)
-/*  f05c994:	3c014348 */ 	lui	$at,0x4348
-/*  f05c998:	24ab0005 */ 	addiu	$t3,$a1,0x5
-/*  f05c99c:	46008386 */ 	mov.s	$f14,$f16
-/*  f05c9a0:	46083302 */ 	mul.s	$f12,$f6,$f8
-/*  f05c9a4:	1060000b */ 	beqz	$v1,.L0f05c9d4
-/*  f05c9a8:	46008006 */ 	mov.s	$f0,$f16
-/*  f05c9ac:	8c82001c */ 	lw	$v0,0x1c($a0)
-/*  f05c9b0:	c4720008 */ 	lwc1	$f18,0x8($v1)
-/*  f05c9b4:	c466000c */ 	lwc1	$f6,0xc($v1)
-/*  f05c9b8:	c44a0008 */ 	lwc1	$f10,0x8($v0)
-/*  f05c9bc:	c444000c */ 	lwc1	$f4,0xc($v0)
-/*  f05c9c0:	c4480010 */ 	lwc1	$f8,0x10($v0)
-/*  f05c9c4:	46125381 */ 	sub.s	$f14,$f10,$f18
-/*  f05c9c8:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f05c9cc:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f05c9d0:	460a4401 */ 	sub.s	$f16,$f8,$f10
-.L0f05c9d4:
-/*  f05c9d4:	44819000 */ 	mtc1	$at,$f18
-/*  f05c9d8:	3c01c348 */ 	lui	$at,0xc348
-/*  f05c9dc:	4612003c */ 	c.lt.s	$f0,$f18
-/*  f05c9e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05c9e4:	4502001f */ 	bc1fl	.L0f05ca64
-/*  f05c9e8:	ad0b0438 */ 	sw	$t3,0x438($t0)
-/*  f05c9ec:	44812000 */ 	mtc1	$at,$f4
-/*  f05c9f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05c9f4:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f05c9f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05c9fc:	45020019 */ 	bc1fl	.L0f05ca64
-/*  f05ca00:	ad0b0438 */ 	sw	$t3,0x438($t0)
-/*  f05ca04:	460c703c */ 	c.lt.s	$f14,$f12
-/*  f05ca08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05ca0c:	45020015 */ 	bc1fl	.L0f05ca64
-/*  f05ca10:	ad0b0438 */ 	sw	$t3,0x438($t0)
-/*  f05ca14:	46006007 */ 	neg.s	$f0,$f12
-/*  f05ca18:	460e003c */ 	c.lt.s	$f0,$f14
-/*  f05ca1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05ca20:	45020010 */ 	bc1fl	.L0f05ca64
-/*  f05ca24:	ad0b0438 */ 	sw	$t3,0x438($t0)
-/*  f05ca28:	460c803c */ 	c.lt.s	$f16,$f12
-/*  f05ca2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05ca30:	4502000c */ 	bc1fl	.L0f05ca64
-/*  f05ca34:	ad0b0438 */ 	sw	$t3,0x438($t0)
-/*  f05ca38:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f05ca3c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f05ca40:	45020008 */ 	bc1fl	.L0f05ca64
-/*  f05ca44:	ad0b0438 */ 	sw	$t3,0x438($t0)
-/*  f05ca48:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05ca4c:	90e60004 */ 	lbu	$a2,0x4($a3)
-/*  f05ca50:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f05ca54:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f05ca58:	10000002 */ 	beqz	$zero,.L0f05ca64
-/*  f05ca5c:	ad020438 */ 	sw	$v0,0x438($t0)
-/*  f05ca60:	ad0b0438 */ 	sw	$t3,0x438($t0)
-.L0f05ca64:
-/*  f05ca64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05ca68:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f05ca6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05ca70:	03e00008 */ 	jr	$ra
-/*  f05ca74:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfDistanceToGunLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	float distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
+	float xdiff = 0;
+	float ydiff = 0;
+	float zdiff = 0;
+
+	if (g_Vars.chrdata->gungroundpos) {
+		xdiff = g_Vars.chrdata->pos->coord.x - g_Vars.chrdata->gungroundpos->coord.x;
+		ydiff = g_Vars.chrdata->pos->coord.y - g_Vars.chrdata->gungroundpos->coord.y;
+		zdiff = g_Vars.chrdata->pos->coord.z - g_Vars.chrdata->gungroundpos->coord.z;
+	}
+
+	if (ydiff < 200 && ydiff > -200 &&
+			xdiff < distance && xdiff > -distance &&
+			zdiff < distance && zdiff > -distance) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0172

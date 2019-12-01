@@ -980,7 +980,7 @@ u8 func0007_alerted[] = {
 		if_gun_unclaimed(-1, TRUE, /*goto*/ 0x13)
 		goto_next(LABEL_GETGUN_FAILED)
 		label(0x13)
-		if_distance_to_target_position_lt(100, /*goto*/ 0x16)
+		if_distance_to_gun_lt(100, /*goto*/ 0x16)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0xad)
 
