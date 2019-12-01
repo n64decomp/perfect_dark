@@ -129,7 +129,7 @@ u32 func0f0bcaa0(void);
 u32 func0f0bce24(void);
 u32 func0f0bd358(void);
 u32 func0f0bd3c4(void);
-u32 func0f0bd434(void);
+void currentPlayerAutoWalk(s16 pad_id, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 u32 func0f0bd4a8(void);
 u32 func0f0bd4e4(void);
 u32 func0f0bd764(void);

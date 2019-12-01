@@ -12378,7 +12378,7 @@ glabel func0f0bd3c4
 );
 
 GLOBAL_ASM(
-glabel func0f0bd434
+glabel currentPlayerAutoWalk
 /*  f0bd434:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0bd438:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0bd43c:	afa40018 */ 	sw	$a0,0x18($sp)
