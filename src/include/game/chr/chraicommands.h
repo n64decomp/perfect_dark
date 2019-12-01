@@ -353,7 +353,7 @@
 /*0x0175*/ bool ai0175(void);
 /*0x0176*/ bool ai0176(void);
 /*0x0177*/ bool aiPlayerAutoWalk(void);
-/*0x0178*/ bool ai0178(void);
+/*0x0178*/ bool aiIfPlayerAutoWalkFinished(void);
 /*0x0179*/ bool ai0179(void);
 /*0x017a*/ bool ai017a(void);
 /*0x017b*/ bool aiIfChrUnloaded(void);
