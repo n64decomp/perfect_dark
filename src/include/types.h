@@ -1894,7 +1894,7 @@ struct player {
 	/*0x1618*/ u32 unk1618;
 	/*0x161c*/ u32 unk161c;
 	/*0x1620*/ u32 unk1620;
-	/*0x1624*/ u32 unk1624;
+	/*0x1624*/ struct position *lookingatprop;
 	/*0x1628*/ u32 unk1628;
 	/*0x162c*/ u32 unk162c;
 	/*0x1630*/ u32 unk1630;

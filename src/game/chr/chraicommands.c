@@ -12464,73 +12464,33 @@ bool aiIfPlayerAutoWalkFinished(void)
 /**
  * @cmd 0181
  */
-GLOBAL_ASM(
-glabel ai0181
-/*  f05ce08:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f05ce0c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f05ce10:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f05ce14:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f05ce18:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f05ce1c:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f05ce20:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05ce24:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05ce28:	90440003 */ 	lbu	$a0,0x3($v0)
-/*  f05ce2c:	0fc2556c */ 	jal	objFindByTagId
-/*  f05ce30:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f05ce34:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f05ce38:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f05ce3c:	afa0002c */ 	sw	$zero,0x2c($sp)
-/*  f05ce40:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05ce44:	0fc126d1 */ 	jal	chrFindById
-/*  f05ce48:	93050002 */ 	lbu	$a1,0x2($t8)
-/*  f05ce4c:	50400019 */ 	beqzl	$v0,.L0f05ceb4
-/*  f05ce50:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f05ce54:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f05ce58:	50600016 */ 	beqzl	$v1,.L0f05ceb4
-/*  f05ce5c:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f05ce60:	90790000 */ 	lbu	$t9,0x0($v1)
-/*  f05ce64:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f05ce68:	57210012 */ 	bnel	$t9,$at,.L0f05ceb4
-/*  f05ce6c:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f05ce70:	8e08028c */ 	lw	$t0,0x28c($s0)
-/*  f05ce74:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f05ce78:	0fc4a25f */ 	jal	posGetPlayerNum
-/*  f05ce7c:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f05ce80:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f05ce84:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05ce88:	8fa90030 */ 	lw	$t1,0x30($sp)
-/*  f05ce8c:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f05ce90:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f05ce94:	8d2a0014 */ 	lw	$t2,0x14($t1)
-/*  f05ce98:	8d6c1624 */ 	lw	$t4,0x1624($t3)
-/*  f05ce9c:	154c0002 */ 	bne	$t2,$t4,.L0f05cea8
-/*  f05cea0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05cea4:	afad002c */ 	sw	$t5,0x2c($sp)
-.L0f05cea8:
-/*  f05cea8:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f05ceac:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f05ceb0:	8fae002c */ 	lw	$t6,0x2c($sp)
-.L0f05ceb4:
-/*  f05ceb4:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f05ceb8:	51c00008 */ 	beqzl	$t6,.L0f05cedc
-/*  f05cebc:	8e180438 */ 	lw	$t8,0x438($s0)
-/*  f05cec0:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f05cec4:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f05cec8:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05cecc:	91e60004 */ 	lbu	$a2,0x4($t7)
-/*  f05ced0:	10000004 */ 	beqz	$zero,.L0f05cee4
-/*  f05ced4:	ae020438 */ 	sw	$v0,0x438($s0)
-/*  f05ced8:	8e180438 */ 	lw	$t8,0x438($s0)
-.L0f05cedc:
-/*  f05cedc:	27190005 */ 	addiu	$t9,$t8,0x5
-/*  f05cee0:	ae190438 */ 	sw	$t9,0x438($s0)
-.L0f05cee4:
-/*  f05cee4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f05cee8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f05ceec:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f05cef0:	03e00008 */ 	jr	$ra
-/*  f05cef4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfPlayerLookingAtObject(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[3]);
+	bool pass = false;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+		u32 prevplayernum = g_Vars.currentplayernum;
+		u32 playernum = posGetPlayerNum(chr->pos);
+		setCurrentPlayerNum(playernum);
+
+		if (g_Vars.currentplayer->lookingatprop == obj->pos) {
+			pass = true;
+		}
+
+		setCurrentPlayerNum(prevplayernum);
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0182
