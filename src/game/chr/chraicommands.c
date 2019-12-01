@@ -12779,53 +12779,20 @@ bool aiActivateLift(void)
 /**
  * @cmd 018e
  */
-GLOBAL_ASM(
-glabel ai018e
-/*  f05d540:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05d544:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05d548:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05d54c:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d550:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05d554:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f05d558:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05d55c:	01cf4021 */ 	addu	$t0,$t6,$t7
-/*  f05d560:	91180003 */ 	lbu	$t8,0x3($t0)
-/*  f05d564:	8c85032c */ 	lw	$a1,0x32c($a0)
-/*  f05d568:	91090004 */ 	lbu	$t1,0x4($t0)
-/*  f05d56c:	910e0005 */ 	lbu	$t6,0x5($t0)
-/*  f05d570:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f05d574:	00055a40 */ 	sll	$t3,$a1,0x9
-/*  f05d578:	000b6742 */ 	srl	$t4,$t3,0x1d
-/*  f05d57c:	91060002 */ 	lbu	$a2,0x2($t0)
-/*  f05d580:	03291025 */ 	or	$v0,$t9,$t1
-/*  f05d584:	3047ffff */ 	andi	$a3,$v0,0xffff
-/*  f05d588:	afa80024 */ 	sw	$t0,0x24($sp)
-/*  f05d58c:	318500ff */ 	andi	$a1,$t4,0xff
-/*  f05d590:	0fc11d9f */ 	jal	func0f04767c
-/*  f05d594:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f05d598:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05d59c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05d5a0:	10400009 */ 	beqz	$v0,.L0f05d5c8
-/*  f05d5a4:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f05d5a8:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05d5ac:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05d5b0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05d5b4:	91060006 */ 	lbu	$a2,0x6($t0)
-/*  f05d5b8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05d5bc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05d5c0:	10000004 */ 	beqz	$zero,.L0f05d5d4
-/*  f05d5c4:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05d5c8:
-/*  f05d5c8:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05d5cc:	25f80007 */ 	addiu	$t8,$t7,0x7
-/*  f05d5d0:	ac780438 */ 	sw	$t8,0x438($v1)
-.L0f05d5d4:
-/*  f05d5d4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f05d5d8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f05d5dc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05d5e0:	03e00008 */ 	jr	$ra
-/*  f05d5e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiMiniSkedarTryPounce(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 thing = cmd[4] | (cmd[3] << 8);
+
+	if (func0f04767c(g_Vars.chrdata, (g_Vars.chrdata->BITFIELD.word << 9) >> 29, cmd[2], thing, cmd[5])) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+	} else {
+		g_Vars.aioffset += 7;
+
+	}
+
+	return false;
+}
 
 /**
  * @cmd 018f

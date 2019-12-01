@@ -375,7 +375,7 @@
 /*0x018b*/ bool aiConfigureRain(void);
 /*0x018c*/ bool aiChrToggleProp(void);
 /*0x018d*/ bool aiActivateLift(void);
-/*0x018e*/ bool ai018e(void);
+/*0x018e*/ bool aiMiniSkedarTryPounce(void);
 /*0x018f*/ bool ai018f(void);
 /*0x0190*/ bool aiEepromSet(void);
 /*0x0191*/ bool aiEepromUnset(void);

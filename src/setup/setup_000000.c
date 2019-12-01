@@ -14530,7 +14530,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x018b*/ aiConfigureRain,
 	/*0x018c*/ aiChrToggleProp,
 	/*0x018d*/ aiActivateLift,
-	/*0x018e*/ ai018e,
+	/*0x018e*/ aiMiniSkedarTryPounce,
 	/*0x018f*/ ai018f,
 	/*0x0190*/ aiEepromSet,
 	/*0x0191*/ aiEepromUnset,
