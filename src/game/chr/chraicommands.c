@@ -12798,7 +12798,7 @@ bool aiMiniSkedarTryPounce(void)
  * @cmd 018f
  */
 GLOBAL_ASM(
-glabel ai018f
+glabel aiIfObjectDistanceToPadLessThan
 /*  f05d5e8:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f05d5ec:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f05d5f0:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -12912,6 +12912,45 @@ glabel ai018f
 /*  f05d794:	03e00008 */ 	jr	$ra
 /*  f05d798:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+// Mismatch due to different registers
+//bool aiIfObjectDistanceToPadLessThan(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	float distance = (float)(cmd[4] | (cmd[3] << 8)) * 10;
+//	float xdiff;
+//	float ydiff;
+//	float zdiff;
+//	s32 pad_id = (cmd[6] | (cmd[5] << 8)) & 0xffff;
+//	struct defaultobj *obj = objFindByTagId(cmd[2]);
+//	struct pad pad;
+//	bool pass = false;
+//
+//	if (obj && obj->pos) {
+//		pad_id = padResolve(g_Vars.chrdata, pad_id);
+//
+//		if (pad_id >= 0) {
+//			padUnpack(pad_id, 2, &pad);
+//			xdiff = obj->pos->coord.x - pad.coord.x;
+//			ydiff = obj->pos->coord.y - pad.coord.y;
+//			zdiff = obj->pos->coord.z - pad.coord.z;
+//
+//			if (ydiff < 200 && ydiff > -200 &&
+//					xdiff < distance && xdiff > -distance &&
+//					zdiff < distance && zdiff > -distance) {
+//				pass = true;
+//			}
+//		}
+//	}
+//
+//	if (pass) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+//	} else {
+//		g_Vars.aioffset += 8;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 0190

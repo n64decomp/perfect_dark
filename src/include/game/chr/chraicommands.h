@@ -376,7 +376,7 @@
 /*0x018c*/ bool aiChrToggleProp(void);
 /*0x018d*/ bool aiActivateLift(void);
 /*0x018e*/ bool aiMiniSkedarTryPounce(void);
-/*0x018f*/ bool ai018f(void);
+/*0x018f*/ bool aiIfObjectDistanceToPadLessThan(void);
 /*0x0190*/ bool aiEepromSet(void);
 /*0x0191*/ bool aiEepromUnset(void);
 /*0x0192*/ bool aiIfEepromSet(void);
