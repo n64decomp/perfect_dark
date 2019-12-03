@@ -15503,6 +15503,19 @@ glabel ai01de
 /*  f0600b0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch due to different temporary registers
+//bool ai01de(void)
+//{
+//	if (g_Vars.unk000318 == 0 && (s8)var8009dfe8[3] < 0) {
+//		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+//	} else {
+//		g_Vars.aioffset += 3;
+//	}
+//
+//	return false;
+//}
+
 /**
  * @cmd 01e0
  */
