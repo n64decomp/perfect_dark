@@ -14083,6 +14083,20 @@ glabel ai01bc
 /*  f05eb38:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch due to different temporary registers
+//bool ai01bc(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//
+//	if (cmd[2] == ((g_Vars.chrdata->BITFIELD.word << 9) >> 29)) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+//	} else {
+//		g_Vars.aioffset += 4;
+//	}
+//
+//	return false;
+//}
+
 /**
  * @cmd 01bd
  */
