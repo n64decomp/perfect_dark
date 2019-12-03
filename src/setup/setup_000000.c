@@ -14603,7 +14603,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01d4*/ ai01d4,
 	/*0x01d5*/ aiShowCutsceneChrs,
 	/*0x01d6*/ ai01d6,
-	/*0x01d7*/ ai01d7,
+	/*0x01d7*/ aiIfDistanceToTarget2LessThan,
 	/*0x01d8*/ ai01d8,
 	/*0x01d9*/ ai01d9,
 	/*0x01da*/ ai01da,
