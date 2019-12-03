@@ -7,6 +7,7 @@
 #include "game/game_0b28d0.h"
 #include "game/game_165670.h"
 #include "game/game_16cfa0.h"
+#include "game/game_19c990.h"
 #include "setup/setup_000000.h"
 #include "setup/setup_0160b0.h"
 #include "setup/setup_020df0.h"
@@ -14136,6 +14137,21 @@ glabel ai01bd
 /*  f05ebb0:	03e00008 */ 	jr	$ra
 /*  f05ebb4:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch due to different temporary registers
+//bool ai01bd(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	s32 *value = func0f1a1818();
+//
+//	if (*value * 16 < 0) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+//	} else {
+//		g_Vars.aioffset += 3;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 01be
