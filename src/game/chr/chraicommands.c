@@ -13885,6 +13885,32 @@ glabel ai01b5
 /*  f05e86c:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
+//bool ai01b5(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//
+//	if (g_Vars.coopplayernum >= 0) {
+//		struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
+//		struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
+//
+//		if (chr1 && chr2 && chr2->pos && chr2->pos->type == POSITIONTYPE_PLAYER) {
+//			u32 playernum = posGetPlayerNum(chr2->pos);
+//
+//			if (g_Vars.players[playernum]->unk00d8 == 0) {
+//				if (g_Vars.coop->targetpos == chr2->pos) {
+//					chr1->BITFIELD.bytes[2] = (g_Vars.coopplayernum << 6) | (chr1->BITFIELD.bytes[2] & 0xff3f);
+//				} else {
+//					chr1->BITFIELD.bytes[2] = (g_Vars.bondplayernum << 6) | (chr1->BITFIELD.bytes[2] & 0xff3f);
+//				}
+//			}
+//		}
+//	}
+//
+//	g_Vars.aioffset += 4;
+//
+//	return false;
+//}
+
 /**
  * @cmd 01b7
  */
