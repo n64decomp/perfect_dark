@@ -42,7 +42,7 @@ u32 func0f01e5d8(void);
 u32 func0f01e6a4(void);
 u32 func0f01e7bc(void);
 u32 func0f01e7f4(void);
-u32 func0f01f264(void);
+u32 func0f01f264(struct chrdata *chr, struct coord *coord, s16 *room, float arg3, s32 arg4);
 u32 func0f020538(void);
 u32 func0f020598(void);
 u32 func0f0205a4(void);
