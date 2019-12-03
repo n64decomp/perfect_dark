@@ -52,7 +52,7 @@ u32 func0f020668(void);
 u32 func0f020b14(void);
 u32 func0f020cc8(void);
 u32 func0f020d44(void);
-u32 func0f020f90(void);
+void func0f020f90(s32 positionnum);
 u32 func0f021258(void);
 u32 func0f02133c(void);
 u32 func0f0213a0(void);

@@ -15519,36 +15519,17 @@ glabel ai01de
 /**
  * @cmd 01e0
  */
-GLOBAL_ASM(
-glabel ai01e0
-/*  f0600b4:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0600b8:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0600bc:	8ca20424 */ 	lw	$v0,0x424($a1)
-/*  f0600c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0600c4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0600c8:	5040000e */ 	beqzl	$v0,.L0f060104
-/*  f0600cc:	8cb80438 */ 	lw	$t8,0x438($a1)
-/*  f0600d0:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f0600d4:	5060000b */ 	beqzl	$v1,.L0f060104
-/*  f0600d8:	8cb80438 */ 	lw	$t8,0x438($a1)
-/*  f0600dc:	8cae0338 */ 	lw	$t6,0x338($a1)
-/*  f0600e0:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f0600e4:	006e2023 */ 	subu	$a0,$v1,$t6
-/*  f0600e8:	0081001a */ 	div	$zero,$a0,$at
-/*  f0600ec:	00002012 */ 	mflo	$a0
-/*  f0600f0:	0fc083e4 */ 	jal	func0f020f90
-/*  f0600f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0600f8:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0600fc:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f060100:	8cb80438 */ 	lw	$t8,0x438($a1)
-.L0f060104:
-/*  f060104:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f060108:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f06010c:	27190002 */ 	addiu	$t9,$t8,0x2
-/*  f060110:	acb90438 */ 	sw	$t9,0x438($a1)
-/*  f060114:	03e00008 */ 	jr	$ra
-/*  f060118:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai01e0(void)
+{
+	if (g_Vars.chrdata && g_Vars.chrdata->pos) {
+		u32 index = ((s32)g_Vars.chrdata->pos - (s32)g_Vars.positions) / 0x48;
+		func0f020f90(index);
+	}
+
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 01b4
