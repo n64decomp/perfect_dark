@@ -260,7 +260,17 @@ struct chrdata {
 	/*0x314*/ u32 gunrotx[2];
 	/*0x31c*/ u32 onladder;
 	/*0x320*/ struct coord laddernormal;
+
+	/**
+	 * ........ .mmm..d. pp...... aaaaaaaa
+	 *
+	 * m = related to miniskedar pouncing
+	 * d = related to dark rooms
+	 * p = P1/P2 chr ID (0-3)
+	 * a = special death animation
+	 */
 	/*0x32c*/ struct bitfield BITFIELD;
+
 	/*0x330*/ u16 roomtosearch;
 	/*0x332*/ u8 propsoundcount;
 	/*0x333*/ u8 patrolnextstep;
