@@ -14912,6 +14912,20 @@ glabel ai01d4
 /*  f05f830:	aceb0438 */ 	sw	$t3,0x438($a3)
 );
 
+//bool ai01d4(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	s16 room_id = cmd[3] | (cmd[2] << 8);
+//	u32 value = cmd[5] | (cmd[4] << 8);
+//
+//	struct room *room = &g_RoomPtrs[room_id];
+//	room->unk00 |= value;
+//
+//	g_Vars.aioffset += 6;
+//
+//	return false;
+//}
+
 /**
  * @cmd 01d5
  */
@@ -15102,9 +15116,9 @@ glabel ai01d6
 /*  f05fa4c:	3c018007 */ 	lui	$at,0x8007
 /*  f05fa50:	10000085 */ 	beqz	$zero,.L0f05fc68
 /*  f05fa54:	a027ae28 */ 	sb	$a3,-0x51d8($at)
-/*  f05fa58:	3c05800a */ 	lui	$a1,%hi(var800a4928)
+/*  f05fa58:	3c05800a */ 	lui	$a1,%hi(g_RoomPtrs)
 /*  f05fa5c:	000418c0 */ 	sll	$v1,$a0,0x3
-/*  f05fa60:	24a54928 */ 	addiu	$a1,$a1,%lo(var800a4928)
+/*  f05fa60:	24a54928 */ 	addiu	$a1,$a1,%lo(g_RoomPtrs)
 /*  f05fa64:	00641821 */ 	addu	$v1,$v1,$a0
 /*  f05fa68:	8cac0000 */ 	lw	$t4,0x0($a1)
 /*  f05fa6c:	00031880 */ 	sll	$v1,$v1,0x2
@@ -15123,9 +15137,9 @@ glabel ai01d6
 .L0f05faa0:
 /*  f05faa0:	10000071 */ 	beqz	$zero,.L0f05fc68
 /*  f05faa4:	8d030438 */ 	lw	$v1,0x438($t0)
-/*  f05faa8:	3c05800a */ 	lui	$a1,%hi(var800a4928)
+/*  f05faa8:	3c05800a */ 	lui	$a1,%hi(g_RoomPtrs)
 /*  f05faac:	000418c0 */ 	sll	$v1,$a0,0x3
-/*  f05fab0:	24a54928 */ 	addiu	$a1,$a1,%lo(var800a4928)
+/*  f05fab0:	24a54928 */ 	addiu	$a1,$a1,%lo(g_RoomPtrs)
 /*  f05fab4:	00641821 */ 	addu	$v1,$v1,$a0
 /*  f05fab8:	8ca90000 */ 	lw	$t1,0x0($a1)
 /*  f05fabc:	00031880 */ 	sll	$v1,$v1,0x2
@@ -15144,9 +15158,9 @@ glabel ai01d6
 .L0f05faf0:
 /*  f05faf0:	1000005d */ 	beqz	$zero,.L0f05fc68
 /*  f05faf4:	8d030438 */ 	lw	$v1,0x438($t0)
-/*  f05faf8:	3c05800a */ 	lui	$a1,%hi(var800a4928)
+/*  f05faf8:	3c05800a */ 	lui	$a1,%hi(g_RoomPtrs)
 /*  f05fafc:	0004c0c0 */ 	sll	$t8,$a0,0x3
-/*  f05fb00:	24a54928 */ 	addiu	$a1,$a1,%lo(var800a4928)
+/*  f05fb00:	24a54928 */ 	addiu	$a1,$a1,%lo(g_RoomPtrs)
 /*  f05fb04:	0304c021 */ 	addu	$t8,$t8,$a0
 /*  f05fb08:	8caf0000 */ 	lw	$t7,0x0($a1)
 /*  f05fb0c:	0018c080 */ 	sll	$t8,$t8,0x2
@@ -15160,9 +15174,9 @@ glabel ai01d6
 /*  f05fb2c:	a04c004e */ 	sb	$t4,0x4e($v0)
 /*  f05fb30:	1000004d */ 	beqz	$zero,.L0f05fc68
 /*  f05fb34:	8d030438 */ 	lw	$v1,0x438($t0)
-/*  f05fb38:	3c05800a */ 	lui	$a1,%hi(var800a4928)
+/*  f05fb38:	3c05800a */ 	lui	$a1,%hi(g_RoomPtrs)
 /*  f05fb3c:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f05fb40:	24a54928 */ 	addiu	$a1,$a1,%lo(var800a4928)
+/*  f05fb40:	24a54928 */ 	addiu	$a1,$a1,%lo(g_RoomPtrs)
 /*  f05fb44:	01c47021 */ 	addu	$t6,$t6,$a0
 /*  f05fb48:	8cad0000 */ 	lw	$t5,0x0($a1)
 /*  f05fb4c:	000e7080 */ 	sll	$t6,$t6,0x2
@@ -15176,8 +15190,8 @@ glabel ai01d6
 /*  f05fb6c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f05fb70:	2b010002 */ 	slti	$at,$t8,0x2
 /*  f05fb74:	1420003c */ 	bnez	$at,.L0f05fc68
-/*  f05fb78:	3c05800a */ 	lui	$a1,%hi(var800a4928)
-/*  f05fb7c:	24a54928 */ 	addiu	$a1,$a1,%lo(var800a4928)
+/*  f05fb78:	3c05800a */ 	lui	$a1,%hi(g_RoomPtrs)
+/*  f05fb7c:	24a54928 */ 	addiu	$a1,$a1,%lo(g_RoomPtrs)
 /*  f05fb80:	2403008c */ 	addiu	$v1,$zero,0x8c
 /*  f05fb84:	2406bfff */ 	addiu	$a2,$zero,-16385
 .L0f05fb88:

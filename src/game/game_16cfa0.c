@@ -685,8 +685,8 @@ glabel func0f16d6c0
 /*  f16d774:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f16d778:
 /*  f16d778:	8cac0064 */ 	lw	$t4,0x64($a1)
-/*  f16d77c:	3c0a800a */ 	lui	$t2,%hi(var800a4928)
-/*  f16d780:	254a4928 */ 	addiu	$t2,$t2,%lo(var800a4928)
+/*  f16d77c:	3c0a800a */ 	lui	$t2,%hi(g_RoomPtrs)
+/*  f16d780:	254a4928 */ 	addiu	$t2,$t2,%lo(g_RoomPtrs)
 /*  f16d784:	11800003 */ 	beqz	$t4,.L0f16d794
 /*  f16d788:	240b008c */ 	addiu	$t3,$zero,0x8c
 /*  f16d78c:	10000001 */ 	beqz	$zero,.L0f16d794

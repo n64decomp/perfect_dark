@@ -4440,8 +4440,8 @@ glabel func0f0b6260
 /*  f0b628c:	00008825 */ 	or	$s1,$zero,$zero
 /*  f0b6290:	10d20036 */ 	beq	$a2,$s2,.L0f0b636c
 /*  f0b6294:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0b6298:	3c13800a */ 	lui	$s3,%hi(var800a4928)
-/*  f0b629c:	26734928 */ 	addiu	$s3,$s3,%lo(var800a4928)
+/*  f0b6298:	3c13800a */ 	lui	$s3,%hi(g_RoomPtrs)
+/*  f0b629c:	26734928 */ 	addiu	$s3,$s3,%lo(g_RoomPtrs)
 /*  f0b62a0:	2414008c */ 	addiu	$s4,$zero,0x8c
 .L0f0b62a4:
 /*  f0b62a4:	00d40019 */ 	multu	$a2,$s4
@@ -4831,10 +4831,10 @@ glabel func0f0b6764
 /*  f0b67c4:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0b67c8:	4481b000 */ 	mtc1	$at,$f22
 /*  f0b67cc:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f0b67d0:	3c09800a */ 	lui	$t1,%hi(var800a4928)
+/*  f0b67d0:	3c09800a */ 	lui	$t1,%hi(g_RoomPtrs)
 /*  f0b67d4:	44817000 */ 	mtc1	$at,$f14
 /*  f0b67d8:	44808000 */ 	mtc1	$zero,$f16
-/*  f0b67dc:	25294928 */ 	addiu	$t1,$t1,%lo(var800a4928)
+/*  f0b67dc:	25294928 */ 	addiu	$t1,$t1,%lo(g_RoomPtrs)
 /*  f0b67e0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0b67e4:	240c008c */ 	addiu	$t4,$zero,0x8c
 /*  f0b67e8:	240a000c */ 	addiu	$t2,$zero,0xc
@@ -17162,8 +17162,8 @@ glabel func0f0c1840
 /*  f0c1960:	8fad00bc */ 	lw	$t5,0xbc($sp)
 /*  f0c1964:	122f001e */ 	beq	$s1,$t7,.L0f0c19e0
 /*  f0c1968:	27b00054 */ 	addiu	$s0,$sp,0x54
-/*  f0c196c:	3c12800a */ 	lui	$s2,%hi(var800a4928)
-/*  f0c1970:	26524928 */ 	addiu	$s2,$s2,%lo(var800a4928)
+/*  f0c196c:	3c12800a */ 	lui	$s2,%hi(g_RoomPtrs)
+/*  f0c1970:	26524928 */ 	addiu	$s2,$s2,%lo(g_RoomPtrs)
 /*  f0c1974:	86050000 */ 	lh	$a1,0x0($s0)
 /*  f0c1978:	2413008c */ 	addiu	$s3,$zero,0x8c
 .L0f0c197c:
@@ -17196,8 +17196,8 @@ glabel func0f0c1840
 .L0f0c19e0:
 /*  f0c19e0:	8fad00bc */ 	lw	$t5,0xbc($sp)
 .L0f0c19e4:
-/*  f0c19e4:	3c12800a */ 	lui	$s2,%hi(var800a4928)
-/*  f0c19e8:	26524928 */ 	addiu	$s2,$s2,%lo(var800a4928)
+/*  f0c19e4:	3c12800a */ 	lui	$s2,%hi(g_RoomPtrs)
+/*  f0c19e8:	26524928 */ 	addiu	$s2,$s2,%lo(g_RoomPtrs)
 /*  f0c19ec:	15a0001f */ 	bnez	$t5,.L0f0c1a6c
 /*  f0c19f0:	2413008c */ 	addiu	$s3,$zero,0x8c
 /*  f0c19f4:	87ae0054 */ 	lh	$t6,0x54($sp)

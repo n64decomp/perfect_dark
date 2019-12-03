@@ -646,8 +646,8 @@ glabel func0f012d50
 /*  f012ecc:	0000f025 */ 	or	$s8,$zero,$zero
 .L0f012ed0:
 /*  f012ed0:	8ead02bc */ 	lw	$t5,0x2bc($s5)
-/*  f012ed4:	3c12800a */ 	lui	$s2,%hi(var800a4928)
-/*  f012ed8:	26524928 */ 	addiu	$s2,$s2,%lo(var800a4928)
+/*  f012ed4:	3c12800a */ 	lui	$s2,%hi(g_RoomPtrs)
+/*  f012ed8:	26524928 */ 	addiu	$s2,$s2,%lo(g_RoomPtrs)
 /*  f012edc:	19a0000e */ 	blez	$t5,.L0f012f18
 /*  f012ee0:	00001025 */ 	or	$v0,$zero,$zero
 /*  f012ee4:	8e4e0000 */ 	lw	$t6,0x0($s2)
@@ -666,8 +666,8 @@ glabel func0f012d50
 /*  f012f14:	0000f025 */ 	or	$s8,$zero,$zero
 .L0f012f18:
 /*  f012f18:	8fa90118 */ 	lw	$t1,0x118($sp)
-/*  f012f1c:	3c12800a */ 	lui	$s2,%hi(var800a4928)
-/*  f012f20:	26524928 */ 	addiu	$s2,$s2,%lo(var800a4928)
+/*  f012f1c:	3c12800a */ 	lui	$s2,%hi(g_RoomPtrs)
+/*  f012f20:	26524928 */ 	addiu	$s2,$s2,%lo(g_RoomPtrs)
 /*  f012f24:	1920002a */ 	blez	$t1,.L0f012fd0
 /*  f012f28:	2410ffff */ 	addiu	$s0,$zero,-1
 /*  f012f2c:	00008825 */ 	or	$s1,$zero,$zero

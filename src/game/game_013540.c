@@ -956,8 +956,8 @@ glabel func0f013ee0
 /*  f014204:	00002025 */ 	or	$a0,$zero,$zero
 .L0f014208:
 /*  f014208:	8d0f02bc */ 	lw	$t7,0x2bc($t0)
-/*  f01420c:	3c03800a */ 	lui	$v1,%hi(var800a4928)
-/*  f014210:	24634928 */ 	addiu	$v1,$v1,%lo(var800a4928)
+/*  f01420c:	3c03800a */ 	lui	$v1,%hi(g_RoomPtrs)
+/*  f014210:	24634928 */ 	addiu	$v1,$v1,%lo(g_RoomPtrs)
 /*  f014214:	19e0000a */ 	blez	$t7,.L0f014240
 /*  f014218:	00001025 */ 	or	$v0,$zero,$zero
 /*  f01421c:	8c780000 */ 	lw	$t8,0x0($v1)
