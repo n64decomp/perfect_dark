@@ -4226,7 +4226,7 @@ glabel func0f0099e4
 /*  f009cc8:	05e10004 */ 	bgez	$t7,.L0f009cdc
 /*  f009ccc:	ae0d0018 */ 	sw	$t5,0x18($s0)
 /*  f009cd0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f009cd4:	0fc08946 */ 	jal	func0f022518
+/*  f009cd4:	0fc08946 */ 	jal	chrUncloak
 /*  f009cd8:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f009cdc:
 /*  f009cdc:	86620002 */ 	lh	$v0,0x2($s3)

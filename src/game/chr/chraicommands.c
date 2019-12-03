@@ -13914,52 +13914,25 @@ glabel ai01b5
 /**
  * @cmd 01b7
  */
-GLOBAL_ASM(
-glabel ai01b7
-/*  f05e870:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f05e874:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f05e878:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f05e87c:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f05e880:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05e884:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05e888:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05e88c:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f05e890:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f05e894:	0fc126d1 */ 	jal	chrFindById
-/*  f05e898:	8c440424 */ 	lw	$a0,0x424($v0)
-/*  f05e89c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f05e8a0:	10400013 */ 	beqz	$v0,.L0f05e8f0
-/*  f05e8a4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05e8a8:	8c58001c */ 	lw	$t8,0x1c($v0)
-/*  f05e8ac:	13000010 */ 	beqz	$t8,.L0f05e8f0
-/*  f05e8b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e8b4:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f05e8b8:	0fc0e6a5 */ 	jal	func0f039a94
-/*  f05e8bc:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f05e8c0:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f05e8c4:	1440000a */ 	bnez	$v0,.L0f05e8f0
-/*  f05e8c8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f05e8cc:	90790003 */ 	lbu	$t9,0x3($v1)
-/*  f05e8d0:	13200005 */ 	beqz	$t9,.L0f05e8e8
-/*  f05e8d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e8d8:	0fc08921 */ 	jal	func0f022484
-/*  f05e8dc:	90650004 */ 	lbu	$a1,0x4($v1)
-/*  f05e8e0:	10000003 */ 	beqz	$zero,.L0f05e8f0
-/*  f05e8e4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f05e8e8:
-/*  f05e8e8:	0fc08946 */ 	jal	func0f022518
-/*  f05e8ec:	90650004 */ 	lbu	$a1,0x4($v1)
-.L0f05e8f0:
-/*  f05e8f0:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05e8f4:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05e8f8:	8c680438 */ 	lw	$t0,0x438($v1)
-/*  f05e8fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05e900:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05e904:	25090005 */ 	addiu	$t1,$t0,0x5
-/*  f05e908:	ac690438 */ 	sw	$t1,0x438($v1)
-/*  f05e90c:	03e00008 */ 	jr	$ra
-/*  f05e910:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrSetCloaked(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->pos) {
+		if (!func0f039a94(chr)) {
+			if (cmd[3]) {
+				chrCloak(chr, cmd[4]);
+			} else {
+				chrUncloak(chr, cmd[4]);
+			}
+		}
+	}
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 01b8

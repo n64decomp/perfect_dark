@@ -16807,7 +16807,7 @@ glabel func0f0c1404
 .L0f0c148c:
 /*  f0c148c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c1490:	8d6c00bc */ 	lw	$t4,0xbc($t3)
-/*  f0c1494:	0fc08946 */ 	jal	func0f022518
+/*  f0c1494:	0fc08946 */ 	jal	chrUncloak
 /*  f0c1498:	8d840004 */ 	lw	$a0,0x4($t4)
 /*  f0c149c:	8e0d0314 */ 	lw	$t5,0x314($s0)
 /*  f0c14a0:	51a0000d */ 	beqzl	$t5,.L0f0c14d8
