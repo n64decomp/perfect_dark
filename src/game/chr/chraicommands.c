@@ -15282,54 +15282,19 @@ bool aiIfDistanceToTarget2LessThan(void)
 /**
  * @cmd 01d8
  */
-GLOBAL_ASM(
-glabel ai01d8
-/*  f05fd2c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05fd30:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05fd34:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05fd38:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05fd3c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05fd40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05fd44:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05fd48:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f05fd4c:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f05fd50:	3c014120 */ 	lui	$at,0x4120
-/*  f05fd54:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f05fd58:	03284825 */ 	or	$t1,$t9,$t0
-/*  f05fd5c:	44892000 */ 	mtc1	$t1,$f4
-/*  f05fd60:	44814000 */ 	mtc1	$at,$f8
-/*  f05fd64:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f05fd68:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f05fd6c:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05fd70:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f05fd74:	0fc1247e */ 	jal	chrGetDistanceToTarget2
-/*  f05fd78:	e7aa0018 */ 	swc1	$f10,0x18($sp)
-/*  f05fd7c:	c7b00018 */ 	lwc1	$f16,0x18($sp)
-/*  f05fd80:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05fd84:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05fd88:	4600803c */ 	c.lt.s	$f16,$f0
-/*  f05fd8c:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f05fd90:	4502000a */ 	bc1fl	.L0f05fdbc
-/*  f05fd94:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f05fd98:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05fd9c:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05fda0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05fda4:	90460004 */ 	lbu	$a2,0x4($v0)
-/*  f05fda8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05fdac:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05fdb0:	10000004 */ 	beqz	$zero,.L0f05fdc4
-/*  f05fdb4:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f05fdb8:	8c6a0438 */ 	lw	$t2,0x438($v1)
-.L0f05fdbc:
-/*  f05fdbc:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f05fdc0:	ac6b0438 */ 	sw	$t3,0x438($v1)
-.L0f05fdc4:
-/*  f05fdc4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05fdc8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05fdcc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05fdd0:	03e00008 */ 	jr	$ra
-/*  f05fdd4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfDistanceToTarget2GreaterThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	float distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
+
+	if (chrGetDistanceToTarget2(g_Vars.chrdata) > distance) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 01d9
