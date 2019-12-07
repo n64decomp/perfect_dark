@@ -87,27 +87,36 @@ class Extractor:
                 return
             content = self.rom[offset:endoffset]
             name = names[index]
+
+            # If the content is zipped then the last byte might be padding. So
+            # unzip it to see.
+            unzipped = None
+            if content[0:2] == b'\x11\x73':
+                (unzipped, unused) = self.decompressandgetunused(content)
+                if len(unused):
+                    content = content[:-len(unused)]
+
             self.write('files/%s' % name, content)
 
             unzippedname = name[:-1] if name.endswith('Z') else name
 
             if name.endswith('tilesZ'):
-                self.write('files/bgdata/%s.bin' % unzippedname, self.decompress(content))
+                self.write('files/bgdata/%s.bin' % unzippedname, unzipped)
 
             if name.startswith('C'):
-                self.write('files/chrs/%s.bin' % unzippedname, self.decompress(content))
+                self.write('files/chrs/%s.bin' % unzippedname, unzipped)
 
             if name.startswith('G'):
-                self.write('files/guns/%s.bin' % unzippedname, self.decompress(content))
+                self.write('files/guns/%s.bin' % unzippedname, unzipped)
 
             if name.startswith('L'):
-                self.write('files/lang/%s.bin' % unzippedname, self.decompress(content))
+                self.write('files/lang/%s.bin' % unzippedname, unzipped)
 
             if name.startswith('P') and len(content):
-                self.write('files/props/%s.bin' % unzippedname, self.decompress(content))
+                self.write('files/props/%s.bin' % unzippedname, unzipped)
 
             if name.startswith('U'):
-                self.write('files/setup/%s.bin' % unzippedname, self.decompress(content))
+                self.write('files/setup/%s.bin' % unzippedname, unzipped)
 
     def get_file_offsets(self):
         i = self.val('files')
@@ -192,6 +201,13 @@ class Extractor:
         header = int.from_bytes(buffer[0:2], 'big')
         assert(header == 0x1173)
         return zlib.decompress(buffer[5:], wbits=-15)
+
+    def decompressandgetunused(self, buffer):
+        header = int.from_bytes(buffer[0:2], 'big')
+        assert(header == 0x1173)
+        obj = zlib.decompressobj(wbits=-15)
+        bin = obj.decompress(buffer[5:])
+        return (bin, obj.unused_data)
 
     def write(self, filename, data):
         filename = 'extracted/%s/%s' % (self.romid, filename)

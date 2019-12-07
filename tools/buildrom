@@ -19,7 +19,7 @@ def main():
     write_binary(fd, 0xcfbf30, get_seqctl())
     write_binary(fd, 0xd05f90, get_seqtbl())
     write_binary(fd, 0xe82000, get_midi())
-    write_binary(fd, 0xed83a0, get_files())
+    write_files(fd)
     write_binary(fd, 0x1d65f40, get_textures())
     fd.close()
 
@@ -83,8 +83,11 @@ def get_seqtbl():
 def get_midi():
     return getfilecontents('extracted/ntsc-final/audio/midi.bin')
 
-def get_files():
-    return getfrombaserom(0xed83a0, 0xe8d3a0)
+def write_files(fd):
+    start = getlinkervariable('_filesSegmentRomStart')
+    end = getlinkervariable('_filesSegmentRomEnd')
+
+    write_binary(fd, 0xed83a0, getfromstage1rom(start, end - start))
 
 def get_textures():
     return getfrombaserom(0x01d65f40, 0x29a0c0)
@@ -102,7 +105,20 @@ def getfrombaserom(offset, len):
     fd.close()
     return binary
 
+def getfromstage1rom(offset, len):
+    fd = open('build/ntsc-final/stage1.bin', 'rb')
+    fd.seek(offset)
+    binary = fd.read(len)
+    fd.close()
+    return binary
+
 def zip(filename):
     return subprocess.check_output(['tools/rarezip', filename])
+
+def getlinkervariable(varname):
+    objdump = subprocess.check_output(['mips64-elf-objdump', 'build/ntsc-final/stage1.elf', '-t']).decode('utf-8')
+
+    matches = re.findall(r'^([0-9a-f]+) .*? %s$' % varname, objdump, re.MULTILINE)
+    return int(matches[0], 16)
 
 main()

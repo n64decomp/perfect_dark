@@ -68,10 +68,10 @@ Before you do anything you need an existing ROM to extract assets from.
 The project can do the following:
 
 * Build individual ucode binaries (boot, library, setup, rarezip and game) which match the ones extracted from the base ROM.
-* Build a functioning ROM by splicing the C source into an existing ROM. Files in the "files" folder (eg. stage setup and lang) are not included yet. Additionally, the built ROM is not byte perfect yet, but is is functionally equivalent.
+* Build a functioning ROM by splicing the C source and assets into an existing ROM. The built ROM is not byte perfect yet, but is is functionally equivalent.
 
 * Run `make` to build the assets that will be included in the ROM. These files will be written to `build/ntsc-final` and are matching what's in the `extracted/ntsc-final` folder.
-* Run `make rom` to build a ROM from the C source. The ROM will be written to `build/ntsc-final/pd.z64`.
+* Run `make rom` to build the ROM. The ROM will be written to `build/ntsc-final/pd.z64`.
 
 ## How do I know the built files are matching?
 
