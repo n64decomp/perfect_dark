@@ -559,14 +559,3 @@ glabel func00012d48
 /*    12db8:	00000000 */ 	sll	$zero,$zero,0x0
 /*    12dbc:	00000000 */ 	sll	$zero,$zero,0x0
 );
-
-// func00012dc0
-// Commented because compiler won't bitshift a u64
-//u8 random(void)
-//{
-//	rand_seed = ((rand_seed << 63) >> 31 | (rand_seed << 31) >> 32) ^
-//		(rand_seed << 44) >> 32;
-//	rand_seed = rand_seed >> 20 & 0xfff ^ rand_seed;
-//
-//	return rand_seed;
-//}

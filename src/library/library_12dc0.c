@@ -5,6 +5,7 @@
 #include "library/library_2fa00.h"
 #include "library/library_4a5e0.h"
 #include "library/library_4e530.h"
+#include "setup/setup_000000.h"
 
 const u32 var70053ff0[] = {0x00000000};
 const char var70053ff4[] = "-d";
@@ -35,6 +36,15 @@ glabel random
 /*    12e00:	03e00008 */ 	jr	$ra
 /*    12e04:	0002103f */ 	dsra32	$v0,$v0,0x0
 );
+
+// Commented because ld isn't happy with bitshifting a u64.
+//u32 random(void)
+//{
+//	rand_seed = ((rand_seed << 63) >> 31 | (rand_seed << 31) >> 32) ^ (rand_seed << 44) >> 32;
+//	rand_seed = rand_seed >> 20 & 0xfff ^ rand_seed;
+//
+//	return rand_seed;
+//}
 
 GLOBAL_ASM(
 glabel func00012e08
