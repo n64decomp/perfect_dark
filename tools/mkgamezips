@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+
+"""
+mkgamezips - Creates the ucode/gamezips.bin from ucode/game.bin
+
+game.bin is the compiled game code from ld. This game code is split into
+4KB chunks. Each chunk is individually zipped.
+
+The format of the gamezips binary is:
+* Array of offsets to each zip, where each offset is 4 bytes and relative to the
+  start of the gamezips segment.
+* After the array of offsets comes the data it points to. Each data consists of:
+    * 2 bytes of probable garbage data (set to 0x0000 by this script)
+    * Zip data (starting with 0x1173001000)
+    * Optional single byte to align it to the next 2 byte boundary. The added
+      byte is probable garbage data (set to 0x00 by this script).
+"""
+def main():
+    zips = get_zips()
+
+    fd = open('build/ntsc-final/ucode/gamezips.bin', 'wb')
+    pos = len(zips) * 4 + 4
+
+    # Write pointer array
+    for zip in zips:
+        fd.write(pos.to_bytes(4, byteorder='big'))
+        pos += 2 + len(zip)
+        if pos % 2 == 1:
+            pos += 1
+
+    # Last pointer points to end
+    fd.write(pos.to_bytes(4, byteorder='big'))
+
+    # Write data
+    for index, zip in enumerate(zips):
+        if pos % 2 == 1:
+            fd.write(b'\x00')
+            pos += 1
+
+        fd.write(b'\x00\x00')
+        fd.write(zip)
+        pos += len(zip)
+
+    fd.close()
+
+def get_filecontents(filename):
+    fd = open(filename, 'rb')
+    binary = fd.read()
+    fd.close()
+    return binary
+
+def get_zips():
+    binary = get_filecontents('build/ntsc-final/ucode/game.bin')
+    parts = [binary[i:i+0x1000] for i in range(0, len(binary), 0x1000)]
+    return [zip(part) for part in parts]
+
+def zip(binary):
+    fd = open('build/part.bin', 'wb')
+    fd.write(binary)
+    fd.close()
+
+    zipped = subprocess.check_output(['tools/rarezip', 'build/part.bin'])
+    os.remove('build/part.bin')
+    return zipped
+
+main()

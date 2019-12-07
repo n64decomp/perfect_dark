@@ -1,0 +1,76 @@
+#!/usr/bin/python
+
+import sys;
+
+class Tool:
+
+    def ROL(self, i, b):
+        return ((i << b) | (i >> (32 - b))) & 0xffffffff
+
+    def R4(self, b):
+        return b[0]*0x1000000 + b[1]*0x10000 + b[2]*0x100 + b[3]
+
+    def crc(self, f):
+        seed = 0xdf26f436
+        t1 = t2 = t3 = t4 = t5 = t6 = seed
+
+        f.seek(0x0710 + 0x40)
+        lookup = f.read(0x100)
+
+        f.seek(0x1000)
+        for i in range(0x1000, 0x101000, 4):
+            d = self.R4(f.read(4))
+
+            if ((t6 + d) & 0xffffffff) < t6:
+                t4 += 1
+                t4 &= 0xffffffff
+
+            t6 += d
+            t6 &= 0xffffffff
+
+            t3 ^= d
+
+            r = self.ROL(d, d & 0x1F)
+
+            t5 += r
+            t5 &= 0xffffffff
+
+            if t2 > d:
+                t2 ^= r
+            else:
+                t2 ^= t6 ^ d
+
+            o = i & 0xFF
+            temp = self.R4(lookup[o:o + 4])
+            t1 += temp ^ d
+            t1 &= 0xffffffff
+
+        crc1 = t6 ^ t4 ^ t3
+        crc2 = t5 ^ t2 ^ t1
+
+        return crc1 & 0xffffffff, crc2 & 0xffffffff
+
+fd = open(sys.argv[1], 'rb')
+
+# Read existing CRC
+fd.seek(0x10)
+old = [
+    int.from_bytes(fd.read(4), 'big'),
+    int.from_bytes(fd.read(4), 'big'),
+]
+
+# Calculate new CRC
+tool = Tool()
+new = tool.crc(fd)
+fd.close()
+
+if '--verbose' in sys.argv:
+    print('Old CRCs: %08x %08x' % (old[0], old[1]))
+    print('New CRCs: %08x %08x' % (new[0], new[1]))
+
+if new != old and '--write' in sys.argv:
+    fd = open(sys.argv[1], 'r+b')
+    fd.seek(0x10)
+    fd.write(new[0].to_bytes(4, 'big'))
+    fd.write(new[1].to_bytes(4, 'big'))
+    fd.close()

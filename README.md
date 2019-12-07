@@ -11,7 +11,7 @@ This repository contains a work-in-progress decompilation of Perfect Dark for th
 | 0x3050 library  | 27/950 functions done (2.84%)             |
 | 0x39850 setup   | About 50% identified                      |
 | 0x4e850 rarezip | 2/8 functions done (25.00%)               |
-| 0x5032e game    | 478/4196 functions done (11.39%)          |
+| 0x4fc40 game    | 478/4196 functions done (11.39%)          |
 | Lang files      | Done                                      |
 | Setup files     | Done                                      |
 | Prop files      | Not started                               |
@@ -68,12 +68,10 @@ Before you do anything you need an existing ROM to extract assets from.
 The project can do the following:
 
 * Build individual ucode binaries (boot, library, setup, rarezip and game) which match the ones extracted from the base ROM.
-* Build a functioning ROM by splicing your stage setup and lang files into an existing ROM.
+* Build a functioning ROM by splicing the C source into an existing ROM. Files in the "files" folder (eg. stage setup and lang) are not included yet. Additionally, the built ROM is not byte perfect yet, but is is functionally equivalent.
 
-The project does NOT build a full ROM using the C code yet.
-
-* Run `make` to build the individual ucode binaries. These files will be written to `build/ntsc-final`.
-* Run `make rom` to build a ROM from the stage setup and lang files. The ROM will be written to `build/ntsc-final/pd.z64`.
+* Run `make` to build the assets that will be included in the ROM. These files will be written to `build/ntsc-final` and are matching what's in the `extracted/ntsc-final` folder.
+* Run `make rom` to build a ROM from the C source. The ROM will be written to `build/ntsc-final/pd.z64`.
 
 ## How do I know the built files are matching?
 

@@ -98,7 +98,14 @@ tiles: $(TILE_BIN_FILES)
 
 LANG_C_FILES := $(wildcard src/files/lang/*.c)
 LANG_BIN_FILES := $(patsubst src/files/lang/%.c, $(B_DIR)/files/lang/L%.bin, $(LANG_C_FILES))
-LANG_BINZ_FILES := $(patsubst src/files/lang/%.c, $(B_DIR)/files/L%, $(LANG_C_FILES))
+LANG_BINZ_FILES := \
+	$(patsubst src/files/lang/%E.c, $(B_DIR)/files/L%E, $(wildcard src/files/lang/*E.c)) \
+	$(patsubst src/files/lang/%J.c, $(B_DIR)/files/L%J, $(wildcard src/files/lang/*J.c)) \
+	$(patsubst src/files/lang/%P.c, $(B_DIR)/files/L%P, $(wildcard src/files/lang/*P.c)) \
+	$(patsubst src/files/lang/%_str_f.c, $(B_DIR)/files/L%_str_fZ, $(wildcard src/files/lang/*_str_f.c)) \
+	$(patsubst src/files/lang/%_str_g.c, $(B_DIR)/files/L%_str_gZ, $(wildcard src/files/lang/*_str_g.c)) \
+	$(patsubst src/files/lang/%_str_i.c, $(B_DIR)/files/L%_str_iZ, $(wildcard src/files/lang/*_str_i.c)) \
+	$(patsubst src/files/lang/%_str_s.c, $(B_DIR)/files/L%_str_sZ, $(wildcard src/files/lang/*_str_s.c))
 
 $(B_DIR)/files/lang/%.elf: src/files/lang/%.o
 	mkdir -p $(B_DIR)/files/lang
@@ -178,6 +185,12 @@ $(B_DIR)/ucode/gvars.bin: $(B_DIR)/stage1.bin
 gvars: $(B_DIR)/ucode/gvars.bin
 
 ################################################################################
+# Build related
+
+$(B_DIR)/ucode/gamezips.bin: $(B_DIR)/ucode/game.bin
+	tools/mkgamezips
+
+################################################################################
 # Test related
 
 test: all
@@ -204,8 +217,20 @@ $(B_DIR)/stage1.bin: $(B_DIR)/stage1.elf
 
 all: stagesetup lang boot library setup tiles rarezip game gvars
 
-rom: all
-	tools/inject pd.$(ROMID).z64
+UCODE_BIN_FILES := \
+	$(B_DIR)/ucode/boot.bin \
+	$(B_DIR)/ucode/game.bin \
+	$(B_DIR)/ucode/gamezips.bin \
+	$(B_DIR)/ucode/gvars.bin \
+	$(B_DIR)/ucode/library.bin \
+	$(B_DIR)/ucode/rarezip.bin \
+	$(B_DIR)/ucode/setup.bin
+
+FINAL_ASSET_FILES := $(SETUP_BINZ_FILES) $(LANG_BINZ_FILES) $(TILES_BINZ_FILES)
+
+rom: $(UCODE_BIN_FILES) $(FINAL_ASSET_FILES)
+	tools/buildrom
+	tools/checksum build/ntsc-final/pd.z64 --write
 
 clean:
 	rm -rf build/*

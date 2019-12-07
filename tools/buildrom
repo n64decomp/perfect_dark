@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+
+import re
+import subprocess
+
+def main():
+    fd = open('build/ntsc-final/pd.z64', 'wb+')
+    write_binary(fd, 0, get_header())
+    write_binary(fd, 0x40, get_rspboot())
+    write_binary(fd, 0x1000, get_boot())
+    write_binary(fd, 0x3050, get_library())
+    write_binary(fd, 0x39850, get_setup())
+    write_binary(fd, 0x4e850, get_rarezip())
+    write_binary(fd, 0x4fc40, get_gamezips())
+    write_binary(fd, 0x157810, get_unknown())
+    write_binary(fd, 0x7f2388, get_fonts())
+    write_binary(fd, 0x80a250, get_sfxctl())
+    write_binary(fd, 0x839dd0, get_sfxtbl())
+    write_binary(fd, 0xcfbf30, get_seqctl())
+    write_binary(fd, 0xd05f90, get_seqtbl())
+    write_binary(fd, 0xe82000, get_midi())
+    write_binary(fd, 0xed83a0, get_files())
+    write_binary(fd, 0x1d65f40, get_textures())
+    fd.close()
+
+def write_binary(fd, address, binary):
+    fd.seek(address)
+    fd.write(binary)
+
+def get_header():
+    binary = bytearray()
+    binary.extend(b'\x80\x37\x12\x40') # Identifier
+    binary.extend(b'\x00\x00\x00\x0f') # Clock rate
+    binary.extend(b'\x80\x00\x10\x00') # Program counter
+    binary.extend(b'\x00\x00\x14\x49') # Release address
+    binary.extend(b'\x00\x00\x00\x00') # CRC 1
+    binary.extend(b'\x00\x00\x00\x00') # CRC 2
+    binary.extend(b'\x00\x00\x00\x00')
+    binary.extend(b'\x00\x00\x00\x00')
+    binary.extend(b'Perfect Dark        ')
+    binary.extend(b'\x00\x00\x00\x00')
+    binary.extend(b'\x00\x00\x00')
+    binary.extend(b'NPDE')
+    binary.extend(b'\x01')
+    return binary
+
+def get_rspboot():
+    return getfilecontents('extracted/ntsc-final/ucode/rspboot.bin')
+
+def get_boot():
+    return getfilecontents('build/ntsc-final/ucode/boot.bin')
+
+def get_library():
+    return zip('build/ntsc-final/ucode/library.bin')
+
+def get_setup():
+    return zip('build/ntsc-final/ucode/setup.bin')
+
+def get_rarezip():
+    return getfilecontents('build/ntsc-final/ucode/rarezip.bin')
+
+def get_gamezips():
+    return getfilecontents('build/ntsc-final/ucode/gamezips.bin')
+
+def get_unknown():
+    return getfrombaserom(0x157810, 0x69ab78)
+
+def get_fonts():
+    return getfrombaserom(0x7f2388, 0x17ec8)
+
+def get_sfxctl():
+    return getfilecontents('extracted/ntsc-final/audio/sfx.ctl')
+
+def get_sfxtbl():
+    return getfilecontents('extracted/ntsc-final/audio/sfx.tbl')
+
+def get_seqctl():
+    return getfilecontents('extracted/ntsc-final/audio/music.ctl')
+
+def get_seqtbl():
+    return getfilecontents('extracted/ntsc-final/audio/music.tbl')
+
+def get_midi():
+    return getfilecontents('extracted/ntsc-final/audio/midi.bin')
+
+def get_files():
+    return getfrombaserom(0xed83a0, 0xe8d3a0)
+
+def get_textures():
+    return getfrombaserom(0x01d65f40, 0x29a0c0)
+
+def getfilecontents(filename):
+    fd = open(filename, 'rb')
+    binary = fd.read()
+    fd.close()
+    return binary
+
+def getfrombaserom(offset, len):
+    fd = open('pd.ntsc-final.z64', 'rb')
+    fd.seek(offset)
+    binary = fd.read(len)
+    fd.close()
+    return binary
+
+def zip(filename):
+    return subprocess.check_output(['tools/rarezip', filename])
+
+main()
