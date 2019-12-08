@@ -15,6 +15,10 @@ IRIX_ROOT := tools/irix/root
 
 ifeq ($(shell type mips-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
     TOOLCHAIN := mips-linux-gnu
+else ifeq ($(shell type mips64-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
+    TOOLCHAIN := mips64-linux-gnu
+else ifeq ($(shell type mips-elf-ld >/dev/null 2>/dev/null; echo $$?), 0)
+    TOOLCHAIN := mips-elf
 else
     TOOLCHAIN := mips64-elf
 endif
@@ -297,7 +301,7 @@ $(B_DIR)/stage1.bin: $(B_DIR)/stage1.elf
 all: $(UCODE_BIN_FILES) $(ASSET_O_FILES)
 
 rom: $(UCODE_BIN_FILES) $(B_DIR)/ucode/gamezips.bin $(ASSET_O_FILES)
-	tools/buildrom
+	TOOLCHAIN=$(TOOLCHAIN) tools/buildrom
 	tools/checksum build/ntsc-final/pd.z64 --write
 
 clean:

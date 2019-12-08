@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import re
 import subprocess
 
@@ -116,7 +117,12 @@ def zip(filename):
     return subprocess.check_output(['tools/rarezip', filename])
 
 def getlinkervariable(varname):
-    objdump = subprocess.check_output(['mips64-elf-objdump', 'build/ntsc-final/stage1.elf', '-t']).decode('utf-8')
+    if 'TOOLCHAIN' in os.environ:
+        cmd = '%s-objdump' % os.environ['TOOLCHAIN']
+    else:
+        cmd = 'mips64-elf-objdump'
+
+    objdump = subprocess.check_output([cmd, 'build/ntsc-final/stage1.elf', '-t']).decode('utf-8')
 
     matches = re.findall(r'^([0-9a-f]+) .*? %s$' % varname, objdump, re.MULTILINE)
     return int(matches[0], 16)
