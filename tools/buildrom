@@ -81,7 +81,7 @@ def get_seqtbl():
     return getfilecontents('extracted/ntsc-final/audio/music.tbl')
 
 def get_midi():
-    return getfilecontents('extracted/ntsc-final/audio/midi.bin')
+    return getfilecontents('extracted/ntsc-final/audio/sequences.bin')
 
 def write_files(fd):
     start = getlinkervariable('_filesSegmentRomStart')
