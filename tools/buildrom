@@ -6,6 +6,16 @@ import subprocess
 
 def main():
     fd = open('build/ntsc-final/pd.z64', 'wb+')
+
+    # The retail ROM contains truncated duplicates of some segments.
+    # For example, the real boot segment is at 0x1000 - 0x3050, but the tail end
+    # of it is repeated at 0x2ea6c - 0x30a60. The truncated parts are not read
+    # by the ROM; they are likely a side effect of Rare's linker copying things
+    # around in the ROM.
+    write_binary(fd, 0x2ea1c, get_boot())
+    write_binary(fd, 0x30a6c, get_library()[:0x8df0])
+    write_binary(fd, 0x157120, get_unknown())
+
     write_binary(fd, 0, get_header())
     write_binary(fd, 0x40, get_rspboot())
     write_binary(fd, 0x1000, get_boot())
@@ -13,7 +23,6 @@ def main():
     write_binary(fd, 0x39850, get_setup())
     write_binary(fd, 0x4e850, get_rarezip())
     write_binary(fd, 0x4fc40, get_gamezips())
-    write_binary(fd, 0x157810, get_unknown())
     write_binary(fd, 0x7f2388, get_fonts())
     write_binary(fd, 0x80a250, get_sfxctl())
     write_binary(fd, 0x839dd0, get_sfxtbl())
@@ -21,6 +30,7 @@ def main():
     write_binary(fd, 0xd05f90, get_seqtbl())
     write_binary(fd, 0xe82000, get_midi())
     write_files(fd)
+    write_binary(fd, 0x1d5ca00, get_filenames())
     write_binary(fd, 0x1d65f40, get_textures())
     fd.close()
 
@@ -64,7 +74,7 @@ def get_gamezips():
     return getfilecontents('build/ntsc-final/ucode/gamezips.bin')
 
 def get_unknown():
-    return getfrombaserom(0x157810, 0x69ab78)
+    return getfrombaserom(0x157120, 0x69b268)
 
 def get_fonts():
     return getfrombaserom(0x7f2388, 0x17ec8)
@@ -89,6 +99,9 @@ def write_files(fd):
     end = getlinkervariable('_filesSegmentRomEnd')
 
     write_binary(fd, 0xed83a0, getfromstage1rom(start, end - start))
+
+def get_filenames():
+    return getfilecontents('build/ntsc-final/ucode/filenames.bin')
 
 def get_textures():
     return getfrombaserom(0x01d65f40, 0x29a0c0)

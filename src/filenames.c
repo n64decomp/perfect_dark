@@ -1,13 +1,8 @@
 #include <ultra64.h>
 
-/**
- * This file is parsed by tools/build to determine which files to include in the
- * ROM image and in what order.
- *
- * This file is also compiled and included in the ROM image.
- */
+u32 nothing = 0;
+
 char *filenames[] = {
-	/*0x000*/ "",
 	/*0x001*/ "bgdata/bg_sev.seg",
 	/*0x002*/ "bgdata/bg_silo.seg",
 	/*0x003*/ "bgdata/bg_stat.seg",

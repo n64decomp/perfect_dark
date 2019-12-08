@@ -2529,11 +2529,6 @@ SECTIONS
 	FILE(07dd, Asaucerexp1M,            _file_Asaucerexp1M);
 
     _fileNameList = __rompos;
-	.filenames : {
-		src/filenames.o (.rodata);
-	}
-	__rompos += SIZEOF(.filenames);
-
 	_filesSegmentRomEnd = __rompos;
 
 	/DISCARD/ : {

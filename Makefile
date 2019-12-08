@@ -13,14 +13,14 @@ B_DIR := build/$(ROMID)
 QEMU_IRIX := tools/irix/qemu-irix
 IRIX_ROOT := tools/irix/root
 
-ifeq ($(shell type mips-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
+ifeq ($(shell type mips64-elf-ld >/dev/null 2>/dev/null; echo $$?), 0)
+    TOOLCHAIN := mips64-elf
+else ifeq ($(shell type mips-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
     TOOLCHAIN := mips-linux-gnu
 else ifeq ($(shell type mips64-linux-gnu-ld >/dev/null 2>/dev/null; echo $$?), 0)
     TOOLCHAIN := mips64-linux-gnu
-else ifeq ($(shell type mips-elf-ld >/dev/null 2>/dev/null; echo $$?), 0)
-    TOOLCHAIN := mips-elf
 else
-    TOOLCHAIN := mips64-elf
+    TOOLCHAIN := mips-elf
 endif
 
 ifeq ($(REGION),ntsc)
@@ -93,6 +93,7 @@ ASSET_O_FILES := $(patsubst %, %.o, $(ASSET_FILES))
 
 UCODE_BIN_FILES := \
 	$(B_DIR)/ucode/boot.bin \
+	$(B_DIR)/ucode/filenames.bin \
 	$(B_DIR)/ucode/game.bin \
 	$(B_DIR)/ucode/gvars.bin \
 	$(B_DIR)/ucode/library.bin \
@@ -276,7 +277,7 @@ test: all
 	@md5sum --quiet -c checksums.md5
 
 $(B_DIR)/files/%.o: $(B_DIR)/files/%
-	echo -e ".data\n.incbin \"$<\"" > $(B_DIR)/file.s
+	/bin/echo -e ".data\n.incbin \"$<\"" > $(B_DIR)/file.s
 	$(TOOLCHAIN)-as -mabi=32 -mips2 -I src/include -EB -o $@ $(B_DIR)/file.s
 	rm -f file.s
 
@@ -289,6 +290,15 @@ $(B_DIR)/files/%.bin: $(B_DIR)/files/%.elf
 
 $(B_DIR)/files/%Z: $(B_DIR)/files/%.bin
 	tools/rarezip $< > $@
+
+$(B_DIR)/ucode/filenames.elf: src/filenames.o
+	mkdir -p $(B_DIR)/ucode
+	cp $< build/zero.tmp.o
+	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
+	rm -f build/zero.tmp.o
+
+$(B_DIR)/ucode/filenames.bin: $(B_DIR)/ucode/filenames.elf
+	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
 $(B_DIR)/stage1.elf: $(O_FILES) $(ASSET_O_FILES) ld/stage1.ld
 	cpp -P ld/stage1.ld -o $(B_DIR)/stage1.ld

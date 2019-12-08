@@ -55,6 +55,7 @@ There is also a stagetable.txt in the repository root which includes multiplayer
 * make
 * mips build tools (Debian/Ubuntu: binutils-mips-linux-gnu, Arch: mips64-elf-binutils from AUR)
 * Python 3
+* pigz - a zlib compression tool
 
 ## Extracting the base ROM
 
