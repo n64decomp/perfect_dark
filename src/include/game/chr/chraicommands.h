@@ -421,7 +421,7 @@
 /*0x01c7*/ bool aiSetUnarmedDodgeRating(void);
 /*0x01c8*/ bool ai01c8(void);
 /*0x01c9*/ bool ai01c9(void);
-/*0x01ca*/ bool ai01ca(void);
+/*0x01ca*/ bool aiChrSetCutsceneWeapon(void);
 /*0x01cb*/ bool aiFadeScreen(void);
 /*0x01cc*/ bool ai01cc(void);
 /*0x01cd*/ bool ai01cd(void);

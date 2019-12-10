@@ -14590,7 +14590,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01c7*/ aiSetUnarmedDodgeRating,
 	/*0x01c8*/ ai01c8,
 	/*0x01c9*/ ai01c9,
-	/*0x01ca*/ ai01ca,
+	/*0x01ca*/ aiChrSetCutsceneWeapon,
 	/*0x01cb*/ aiFadeScreen,
 	/*0x01cc*/ ai01cc,
 	/*0x01cd*/ ai01cd,
