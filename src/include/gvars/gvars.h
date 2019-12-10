@@ -59,7 +59,7 @@ struct g_vars {
 	/*0002b0*/ s32 killcount;
 	/*0002b4*/ u32 unk0002b4;
 	/*0002b8*/ u32 unk0002b8;
-	/*0002bc*/ u32 unk0002bc;
+	/*0002bc*/ s32 roomcount;
 	/*0002c0*/ u32 unk0002c0;
 	/*0002c4*/ u32 unk0002c4;
 	/*0002c8*/ u32 unk0002c8;

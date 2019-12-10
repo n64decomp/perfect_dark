@@ -433,7 +433,7 @@
 /*0x01d3*/ bool ai01d3(void);
 /*0x01d4*/ bool ai01d4(void);
 /*0x01d5*/ bool aiShowCutsceneChrs(void);
-/*0x01d6*/ bool ai01d6(void);
+/*0x01d6*/ bool aiMiscellaneous(void);
 /*0x01d7*/ bool aiIfDistanceToTarget2LessThan(void);
 /*0x01d8*/ bool aiIfDistanceToTarget2GreaterThan(void);
 /*0x01d9*/ bool ai01d9(void);

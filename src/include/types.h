@@ -2643,8 +2643,13 @@ struct gvars800a3fc8 {
 	u32 unk20;
 };
 
+struct roombitfield {
+	u8 a : 4;
+	u8 b : 4;
+};
+
 struct room {
-	/*0x00*/ u16 unk00;
+	/*0x00*/ u16 flags;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
@@ -2663,7 +2668,9 @@ struct room {
 	/*0x40*/ u32 unk40;
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
+	/*0x4c*/ u8 unk4c;
+	/*0x4d*/ u8 unk4d;
+	/*0x4e*/ struct roombitfield bitfield;
 	/*0x50*/ u32 unk50;
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 unk58;

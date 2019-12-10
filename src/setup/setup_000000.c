@@ -14602,7 +14602,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01d3*/ ai01d3,
 	/*0x01d4*/ ai01d4,
 	/*0x01d5*/ aiShowCutsceneChrs,
-	/*0x01d6*/ ai01d6,
+	/*0x01d6*/ aiMiscellaneous,
 	/*0x01d7*/ aiIfDistanceToTarget2LessThan,
 	/*0x01d8*/ aiIfDistanceToTarget2GreaterThan,
 	/*0x01d9*/ ai01d9,
@@ -16511,11 +16511,11 @@ u32 var8006ae08 = 0x00000000;
 u32 var8006ae0c = 0x00000000;
 u32 var8006ae10 = 0x00000000;
 u32 var8006ae14 = 0x00000000;
-u32 var8006ae18 = 0x00000000;
-u32 var8006ae1c = 0x00000000;
-u32 var8006ae20 = 0x00000000;
-u32 var8006ae24 = 0x00000000;
-u32 var8006ae28 = 0x00000000;
+s8 var8006ae18 = 0;
+s8 var8006ae1c = 0;
+s8 var8006ae20 = 0;
+s8 var8006ae24 = 0;
+s8 var8006ae28 = 0;
 u32 var8006ae2c = 0x00000000;
 u32 var8006ae30 = 0x00000000;
 u32 var8006ae34 = 0x00000000;

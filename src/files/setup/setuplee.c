@@ -3606,7 +3606,7 @@ u8 unregistered_function1[] = {
 
 u8 func1423_setup_lighting[] = {
 	yield
-	set_lighting(0x0000, 0x09, 0x01)
+	misc_command(0x0000, 0x09, 0x01)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };

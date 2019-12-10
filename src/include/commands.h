@@ -1924,11 +1924,40 @@
 	mkshort(0x01d5), \
 	bool,
 
-#define set_lighting(room, operation, unknown) \
+/**
+ * Run a miscellaneous command.
+ *
+ * Operations 0 through 4 aren't known yet. They copy the given value to some
+ * global variables. Value is expected to be 0 or 1.
+ *
+ * Operation 5 is unknown but operates on the given room ID.
+ *
+ * Operation 6 marks a room as internal or external. External rooms don't light
+ * up when shots are fired. This operation expects the room ID to be supplied
+ * and for value to be 0 (for internal) or 1 (for external).
+ *
+ * Operations 7 and 8 are unknown.
+ *
+ * Operation 9 is the same as operation 5, but applies to all rooms.
+ *
+ * Operation 0xa plays the AF1 nosedive noise. In this operation value is the
+ * duration of the noise in seconds.
+ *
+ * Operation 0xb is unknown.
+ *
+ * Operation 0xc is related to the Rescue lights being overloaded, but specifics
+ * are not known.
+ *
+ * Operation 0xd is believed to stop the AF1 nosedive noise.
+ *
+ * Operation 0xe and 0xf are related to the UFO exit on Escape. They probably
+ * start and stop the UFO noise but this hasn't been tested.
+ */
+#define misc_command(room, operation, value) \
 	mkshort(0x01d6), \
 	mkshort(room), \
 	operation, \
-	unknown,
+	value,
 
 #define play_sound_from_object2(channel, object, sound, u1, u2) \
 	mkshort(0x01d9), \
