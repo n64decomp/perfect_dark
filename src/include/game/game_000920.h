@@ -46,7 +46,7 @@ u32 func0f004604(void);
 u32 func0f004c6c(void);
 u32 func0f00505c(void);
 u32 func0f0053d0(void);
-u32 func0f0056f4(void);
+void func0f0056f4(s32 room1, struct coord *coord1, s32 room2, struct coord *coord2, s32 arg4, float *arg5, s32 arg6);
 u32 func0f005bb0(void);
 
 #endif

@@ -111,9 +111,9 @@ const u32 var7f1a9d8c[] = {0x7f05b184};
 const u32 var7f1a9d90[] = {0x461c4000};
 const u32 var7f1a9d94[] = {0x455ac000};
 const u32 var7f1a9d98[] = {0x46f22fcd};
-const u32 var7f1a9d9c[] = {0x453b8000};
-const u32 var7f1a9da0[] = {0x453b8000};
 
+const float var7f1a9d9c[] = {3000};
+const float var7f1a9da0[] = {3000};
 const float var7f1a9da4[] = {0.1};
 const float var7f1a9da8[] = {0.4};
 const float var7f1a9dac[] = {0.4};
@@ -13286,60 +13286,26 @@ bool aiIfTargetYDifferenceLessThan(void)
 /**
  * @cmd 01aa
  */
-GLOBAL_ASM(
-glabel ai01aa
-/*  f05e024:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05e028:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05e02c:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05e030:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05e034:	3c017f1b */ 	lui	$at,%hi(var7f1a9d9c)
-/*  f05e038:	c4249d9c */ 	lwc1	$f4,%lo(var7f1a9d9c)($at)
-/*  f05e03c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f05e040:	8c790284 */ 	lw	$t9,0x284($v1)
-/*  f05e044:	8c690424 */ 	lw	$t1,0x424($v1)
-/*  f05e048:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f05e04c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f05e050:	afb80034 */ 	sw	$t8,0x34($sp)
-/*  f05e054:	e7a40030 */ 	swc1	$f4,0x30($sp)
-/*  f05e058:	8f2200bc */ 	lw	$v0,0xbc($t9)
-/*  f05e05c:	8d28001c */ 	lw	$t0,0x1c($t1)
-/*  f05e060:	27aa0030 */ 	addiu	$t2,$sp,0x30
-/*  f05e064:	84440028 */ 	lh	$a0,0x28($v0)
-/*  f05e068:	85060028 */ 	lh	$a2,0x28($t0)
-/*  f05e06c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f05e070:	afaa0014 */ 	sw	$t2,0x14($sp)
-/*  f05e074:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f05e078:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f05e07c:	0fc015bd */ 	jal	func0f0056f4
-/*  f05e080:	25070008 */ 	addiu	$a3,$t0,0x8
-/*  f05e084:	3c017f1b */ 	lui	$at,%hi(var7f1a9da0)
-/*  f05e088:	c4289da0 */ 	lwc1	$f8,%lo(var7f1a9da0)($at)
-/*  f05e08c:	c7a60030 */ 	lwc1	$f6,0x30($sp)
-/*  f05e090:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05e094:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05e098:	4608303c */ 	c.lt.s	$f6,$f8
-/*  f05e09c:	8fab0034 */ 	lw	$t3,0x34($sp)
-/*  f05e0a0:	4502000a */ 	bc1fl	.L0f05e0cc
-/*  f05e0a4:	8c6c0438 */ 	lw	$t4,0x438($v1)
-/*  f05e0a8:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05e0ac:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05e0b0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05e0b4:	91660002 */ 	lbu	$a2,0x2($t3)
-/*  f05e0b8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05e0bc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05e0c0:	10000004 */ 	beqz	$zero,.L0f05e0d4
-/*  f05e0c4:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f05e0c8:	8c6c0438 */ 	lw	$t4,0x438($v1)
-.L0f05e0cc:
-/*  f05e0cc:	258d0003 */ 	addiu	$t5,$t4,0x3
-/*  f05e0d0:	ac6d0438 */ 	sw	$t5,0x438($v1)
-.L0f05e0d4:
-/*  f05e0d4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f05e0d8:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f05e0dc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05e0e0:	03e00008 */ 	jr	$ra
-/*  f05e0e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai01aa(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	float a = var7f1a9d9c[0];
+
+	func0f0056f4(
+			g_Vars.currentplayer->targetpos->room,
+			&g_Vars.currentplayer->targetpos->coord,
+			g_Vars.chrdata->pos->room,
+			&g_Vars.chrdata->pos->coord,
+			0, &a, 0);
+
+	if (a < var7f1a9da0[0]) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 01ae
