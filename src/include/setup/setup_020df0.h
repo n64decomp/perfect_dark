@@ -54,6 +54,7 @@ extern struct stagethinglist stagethinglist_22f1c;
 extern struct bodytableentry bodytable[];
 extern u32 var8007dae4;
 extern u32 var8007db80;
+extern float var8007db84;
 extern u32 var8007db88;
 extern u32 var8007db94;
 extern u32 var8007dba0;

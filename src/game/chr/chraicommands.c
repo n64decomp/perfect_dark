@@ -113,8 +113,8 @@ const u32 var7f1a9d94[] = {0x455ac000};
 const u32 var7f1a9d98[] = {0x46f22fcd};
 const u32 var7f1a9d9c[] = {0x453b8000};
 const u32 var7f1a9da0[] = {0x453b8000};
-const u32 var7f1a9da4[] = {0x3dcccccd};
 
+const float var7f1a9da4[] = {0.1};
 const float var7f1a9da8[] = {0.4};
 const float var7f1a9dac[] = {0.4};
 
@@ -13687,26 +13687,15 @@ glabel ai01b1
 /**
  * @cmd 01b2
  */
-GLOBAL_ASM(
-glabel ai01b2
-/*  f05e65c:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f05e660:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f05e664:	8ca40438 */ 	lw	$a0,0x438($a1)
-/*  f05e668:	8cae0434 */ 	lw	$t6,0x434($a1)
-/*  f05e66c:	3c017f1b */ 	lui	$at,%hi(var7f1a9da4)
-/*  f05e670:	c4289da4 */ 	lwc1	$f8,%lo(var7f1a9da4)($at)
-/*  f05e674:	01c41821 */ 	addu	$v1,$t6,$a0
-/*  f05e678:	906f0002 */ 	lbu	$t7,0x2($v1)
-/*  f05e67c:	3c018008 */ 	lui	$at,0x8008
-/*  f05e680:	24980003 */ 	addiu	$t8,$a0,0x3
-/*  f05e684:	448f2000 */ 	mtc1	$t7,$f4
-/*  f05e688:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05e68c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f05e690:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f05e694:	e42adb84 */ 	swc1	$f10,-0x247c($at)
-/*  f05e698:	03e00008 */ 	jr	$ra
-/*  f05e69c:	acb80438 */ 	sw	$t8,0x438($a1)
-);
+bool ai01b2(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	var8007db84 = var7f1a9da4[0] * (s32)cmd[2];
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 01b3
