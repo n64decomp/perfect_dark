@@ -2278,7 +2278,10 @@ struct player {
 	/*0x1bf0*/ u32 unk1bf0;
 	/*0x1bf4*/ u32 unk1bf4;
 	/*0x1bf8*/ u32 unk1bf8;
-	/*0x1bfc*/ u8 unk1bfc;
+	/*0x1bfc*/ u8 unk1bfc; // teleport related
+	/*0x1bfd*/ u8 unk1bfd; // teleport related
+	/*0x1bfe*/ s16 teleportdstpad;
+	/*0x1c00*/ u16 unk1c00; // teleport related
 };
 
 struct ailist {
