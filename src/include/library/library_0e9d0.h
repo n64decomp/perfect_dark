@@ -33,13 +33,13 @@ u32 func00010360(void);
 u32 func0001036c(void);
 u32 func000104a0(void);
 u32 func00010718(void);
-u32 func00010904(void);
+s32 func00010904(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, float arg5, s32 arg6, s32 arg7);
 u32 func00010ae4(void);
-u32 func00010db0(void);
-u32 func00010de0(void);
+void func00010db0(s32 room_id);
+void func00010de0(s32 room_id);
 u32 func00010e10(void);
-u32 func000110bc(void);
-u32 func000110ec(void);
+void func000110bc(s32 value);
+void func000110ec(s32 room_id);
 u32 func0001111c(void);
 
 #endif

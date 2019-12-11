@@ -411,7 +411,7 @@
 /*0x01bd*/ bool ai01bd(void);
 /*0x01be*/ bool aiIfChrWeaponEquipped(void);
 /*0x01bf*/ bool ai01bf(void);
-/*0x01c0*/ bool ai01c0(void);
+/*0x01c0*/ bool aiIfChrTeleportFullWhite(void);
 /*0x01c1*/ bool aiSetPunchDodgeList(void);
 /*0x01c2*/ bool aiSetShootingAtMeList(void);
 /*0x01c3*/ bool aiSetDarkRoomList(void);

@@ -6,6 +6,6 @@
 u32 func00048830(void);
 u32 func00048870(void);
 u32 func000488b0(void);
-u32 func000488c0(void);
+s32 func000488c0(void *ptr);
 
 #endif
