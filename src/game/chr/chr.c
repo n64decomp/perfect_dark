@@ -53814,7 +53814,7 @@ glabel func0f04cd04
 );
 
 GLOBAL_ASM(
-glabel func0f04ce00
+glabel teamGetChrIds
 /*  f04ce00:	3c0f8007 */ 	lui	$t7,%hi(var80068464)
 /*  f04ce04:	25ef8464 */ 	addiu	$t7,$t7,%lo(var80068464)
 /*  f04ce08:	8de10000 */ 	lw	$at,0x0($t7)

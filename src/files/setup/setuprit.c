@@ -3303,7 +3303,7 @@ u8 func0407_stewardess[] = {
 	endloop(0x08)
 
 	label(0x06)
-	try_set_target_chr_to_teammate(/*goto*/ 0x2d)
+	try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ 0x2d)
 	goto_next(0x0a)
 
 	label(0x2d)

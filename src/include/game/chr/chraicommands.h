@@ -312,7 +312,7 @@
 /*0x0137*/ bool ai0137(void);
 /*0x0138*/ bool aiIfChannelIdle(void);
 /*0x0139*/ bool ai0139(void);
-/*0x013a*/ bool ai013a(void);
+/*0x013a*/ bool aiSetChrPresetToUnalertedTeammate(void);
 /*0x013b*/ bool aiSetSquadron(void);
 /*0x013c*/ bool ai013c(void);
 /*0x013d*/ bool ai013d(void);

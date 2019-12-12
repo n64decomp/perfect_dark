@@ -3436,7 +3436,7 @@ u8 func0419_ba8c[] = {
 	goto_first(0x09)
 
 	label(0x0b)
-	try_set_target_chr_to_teammate(/*goto*/ 0x02)
+	try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ 0x02)
 	goto_next(0x0e)
 	label(0x31)
 	goto_first(0x04)

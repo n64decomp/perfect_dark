@@ -1496,7 +1496,7 @@ u8 func0412_cia[] = {
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	rebuild_teams
 	rebuild_squadrons
-	try_set_target_chr_to_teammate(/*goto*/ 0x04)
+	try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ 0x04)
 	goto_next(0x0b)
 
 	label(0x03)
@@ -1651,7 +1651,7 @@ u8 func0413_bugspotter[] = {
 
 	// Find another guard and run to them
 	label(0x04)
-	try_set_target_chr_to_teammate(/*goto*/ 0x04)
+	try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ 0x04)
 	goto_next(0x0b)
 
 	label(0x04)

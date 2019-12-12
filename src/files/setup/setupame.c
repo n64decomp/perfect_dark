@@ -1734,7 +1734,7 @@ u8 func0414_programmer[] = {
 		label(0xa1)
 		restart_timer
 		set_stage_flag(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD)
-		try_set_target_chr_to_teammate(/*goto*/ LABEL_RUN_TO_GUARD)
+		try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ LABEL_RUN_TO_GUARD)
 		unset_object_flag_bank1(OBJ_LAPTOPGUNDOOR, OBJECTFLAG1_20000000)
 		jog_to_pad(0x0086)
 
@@ -3746,7 +3746,7 @@ u8 func042f_surrendering_guard[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	try_set_target_chr_to_teammate(/*goto*/ 0x54)
+	try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ 0x54)
 	goto_next(0x55)
 
 	label(0x54)

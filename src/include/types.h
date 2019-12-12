@@ -228,7 +228,7 @@ struct chrdata {
 	/*0x2a2*/ u8 squadron;
 	/*0x2a3*/ u8 listening;
 	/*0x2a4*/ u32 convtalk;
-	/*0x2a8*/ u32 talktimer;
+	/*0x2a8*/ s32 talktimer;
 	/*0x2ac*/ u8 question;
 	/*0x2ad*/ u8 talkgap;
 	/*0x2ae*/ u16 unk2ae;

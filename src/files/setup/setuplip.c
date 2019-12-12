@@ -1487,7 +1487,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	label(0x06)
 	restart_timer
 	speak(CHR_TARGET, 0x2a27, 0x1b2f, CHANNEL_4, COLOR_08_RED) // "Help - help!"
-	try_set_target_chr_to_teammate(/*goto*/ 0x06)
+	try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ 0x06)
 
 	// No chr in same group - run to pad instead
 	run_to_pad(0x0121)

@@ -4,7 +4,7 @@
 #include "types.h"
 
 struct chrdata *chrFindById(struct chrdata *data, u32 chrnum);
-struct chrdata *chrFindByLiteralId(u8 chrnum);
+struct chrdata *chrFindByLiteralId(s32 chrnum);
 float chrGetDistanceFromTargetToPad(struct chrdata *chr, s32 pad_id);
 float chrGetDistanceToChr(struct chrdata *chr1, s32 chr2num);
 float chrGetDistanceToCoord(struct chrdata *chr, struct coord *coord);
@@ -402,7 +402,7 @@ u32 func0f04c784(void);
 void func0f04c874(struct chrdata *chr, u32 flags, struct coord *coord, s32 arg3, s32 arg4);
 u32 func0f04cc04(void);
 u32 func0f04cd04(void);
-u32 func0f04ce00(void);
+s16 *teamGetChrIds(s32 team_id);
 u32 func0f04ce9c(void);
 u32 func0f04ceec(void);
 u32 func0f04cf34(void);

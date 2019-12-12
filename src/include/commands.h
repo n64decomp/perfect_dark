@@ -1327,9 +1327,15 @@
 	u1, \
 	bool,
 
-#define try_set_target_chr_to_teammate(label) \
+/**
+ * Set the current chr's chrpreset to an unalerted teammate. The teammate must
+ * be in the same squadron or have no squadron assigned.
+ *
+ * If distance is specified, limit search to chrs within that distance.
+ */
+#define try_set_chrpreset_to_unalerted_teammate(distance, label) \
 	mkshort(0x013a), \
-	0x00, \
+	distance, \
 	0x00, \
 	label,
 

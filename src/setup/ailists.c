@@ -2462,7 +2462,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	say_quip(CHR_BOND, 0x04, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00) // "Go to plan B","Get the hell out of here!","Retreat!"
-	try_set_target_chr_to_teammate(/*goto*/ 0x95)
+	try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ 0x95)
 	if_self_flag_bankx_eq(CHRFLAG1_00000002, TRUE, BANK_1, /*goto*/ 0x16)
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_00200000, TRUE, BANK_0, /*goto*/ 0x16)
