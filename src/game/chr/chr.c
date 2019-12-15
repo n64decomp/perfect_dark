@@ -53864,7 +53864,7 @@ glabel teamGetChrIds
 );
 
 GLOBAL_ASM(
-glabel func0f04ce9c
+glabel squadronGetChrIds
 /*  f04ce9c:	04800003 */ 	bltz	$a0,.L0f04ceac
 /*  f04cea0:	28810010 */ 	slti	$at,$a0,0x10
 /*  f04cea4:	14200003 */ 	bnez	$at,.L0f04ceb4

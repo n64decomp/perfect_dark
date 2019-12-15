@@ -109,8 +109,8 @@ const u32 var7f1a9d84[] = {0x7f05b100};
 const u32 var7f1a9d88[] = {0x7f05b140};
 const u32 var7f1a9d8c[] = {0x7f05b184};
 const u32 var7f1a9d90[] = {0x461c4000};
-const u32 var7f1a9d94[] = {0x455ac000};
 
+const float var7f1a9d94[] = {3500};
 const float var7f1a9d98[] = {30999.9};
 const float var7f1a9d9c[] = {3000};
 const float var7f1a9da0[] = {3000};
@@ -10524,7 +10524,7 @@ glabel ai0133
 /*  f05ae70:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f05ae74:	afb80048 */ 	sw	$t8,0x48($sp)
 /*  f05ae78:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f05ae7c:	0fc133a7 */ 	jal	func0f04ce9c
+/*  f05ae7c:	0fc133a7 */ 	jal	squadronGetChrIds
 /*  f05ae80:	932402a2 */ 	lbu	$a0,0x2a2($t9)
 /*  f05ae84:	8ea40424 */ 	lw	$a0,0x424($s5)
 /*  f05ae88:	00408825 */ 	or	$s1,$v0,$zero
@@ -10945,7 +10945,7 @@ glabel ai0137
 /*  f05b404:	afb10020 */ 	sw	$s1,0x20($sp)
 /*  f05b408:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*  f05b40c:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f05b410:	0fc133a7 */ 	jal	func0f04ce9c
+/*  f05b410:	0fc133a7 */ 	jal	squadronGetChrIds
 /*  f05b414:	91c402a2 */ 	lbu	$a0,0x2a2($t6)
 /*  f05b418:	8e450438 */ 	lw	$a1,0x438($s2)
 /*  f05b41c:	8e4f0434 */ 	lw	$t7,0x434($s2)
@@ -11032,6 +11032,41 @@ glabel ai0137
 /*  f05b54c:	03e00008 */ 	jr	$ra
 /*  f05b550:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+// Mismatches due to position of rodata. This function uses literal 3500, while
+// others below in this file use const float arrays, but const float arrays are
+// placed in .rodata before all literals.
+//bool ai0137(void)
+//{
+//	s32 ret;
+//	s16 *chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	ret = 1;
+//
+//	if (chrnums) {
+//		for (; *chrnums != -2; chrnums++) {
+//			struct chrdata *chr = chrFindByLiteralId(*chrnums);
+//
+//			if (chr && chr->unk020 && func0f039a94(chr) == false &&
+//					chr->actiontype != 5 &&
+//					func0f04aa8c(g_Vars.chrdata, chr, 1) &&
+//					g_Vars.chrdata->chrnum != chr->chrnum &&
+//					chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500 &&
+//					chr->myaction == cmd[2]) {
+//				ret = 2;
+//				break;
+//			}
+//		}
+//	}
+//
+//	if (ret != 1) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+//	} else {
+//		g_Vars.aioffset += 4;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 0139
@@ -11536,7 +11571,7 @@ glabel ai0147
 /*  f05bed0:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*  f05bed4:	90440002 */ 	lbu	$a0,0x2($v0)
 /*  f05bed8:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f05bedc:	0fc133a7 */ 	jal	func0f04ce9c
+/*  f05bedc:	0fc133a7 */ 	jal	squadronGetChrIds
 /*  f05bee0:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f05bee4:	1040001b */ 	beqz	$v0,.L0f05bf54
 /*  f05bee8:	00408825 */ 	or	$s1,$v0,$zero
@@ -11757,7 +11792,7 @@ glabel ai0152
 /*  f05c1d8:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*  f05c1dc:	90440003 */ 	lbu	$a0,0x3($v0)
 /*  f05c1e0:	00009025 */ 	or	$s2,$zero,$zero
-/*  f05c1e4:	0fc133a7 */ 	jal	func0f04ce9c
+/*  f05c1e4:	0fc133a7 */ 	jal	squadronGetChrIds
 /*  f05c1e8:	afa20044 */ 	sw	$v0,0x44($sp)
 /*  f05c1ec:	10400022 */ 	beqz	$v0,.L0f05c278
 /*  f05c1f0:	00408825 */ 	or	$s1,$v0,$zero

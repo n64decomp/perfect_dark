@@ -403,7 +403,7 @@ void func0f04c874(struct chrdata *chr, u32 flags, struct coord *coord, s32 arg3,
 u32 func0f04cc04(void);
 u32 func0f04cd04(void);
 s16 *teamGetChrIds(s32 team_id);
-u32 func0f04ce9c(void);
+s16 *squadronGetChrIds(s32 squadron_id);
 u32 func0f04ceec(void);
 u32 func0f04cf34(void);
 u32 func0f04cf90(struct chrdata *chr, u32 arg1);
