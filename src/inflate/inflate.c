@@ -448,7 +448,7 @@ glabel func70200000
 );
 
 GLOBAL_ASM(
-glabel func7020055c
+glabel inflateCodes
 /* 7020055c:	27bdfff0 */ 	addiu	$sp,$sp,-16
 /* 70200560:	3c0a7020 */ 	lui	$t2,0x7020
 /* 70200564:	254a13bc */ 	addiu	$t2,$t2,0x13bc
@@ -691,7 +691,7 @@ glabel func7020055c
 );
 
 GLOBAL_ASM(
-glabel func702008c0
+glabel inflateStored
 /* 702008c0:	3c097020 */ 	lui	$t1,0x7020
 /* 702008c4:	252913b8 */ 	addiu	$t1,$t1,0x13b8
 /* 702008c8:	8d240000 */ 	lw	$a0,0x0($t1)
@@ -788,7 +788,7 @@ glabel func702008c0
 );
 
 GLOBAL_ASM(
-glabel func70200a14
+glabel inflateFixed
 /* 70200a14:	27bdfb40 */ 	addiu	$sp,$sp,-1216
 /* 70200a18:	afbf0024 */ 	sw	$ra,0x24($sp)
 /* 70200a1c:	27a2002c */ 	addiu	$v0,$sp,0x2c
@@ -870,7 +870,7 @@ glabel func70200a14
 /* 70200b2c:	8fa404b8 */ 	lw	$a0,0x4b8($sp)
 /* 70200b30:	8fa504b4 */ 	lw	$a1,0x4b4($sp)
 /* 70200b34:	8fa604b0 */ 	lw	$a2,0x4b0($sp)
-/* 70200b38:	0c080157 */ 	jal	func7020055c
+/* 70200b38:	0c080157 */ 	jal	inflateCodes
 /* 70200b3c:	8fa704ac */ 	lw	$a3,0x4ac($sp)
 /* 70200b40:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /* 70200b44:	27bd04c0 */ 	addiu	$sp,$sp,0x4c0
@@ -880,7 +880,7 @@ glabel func70200a14
 );
 
 GLOBAL_ASM(
-glabel func70200b54
+glabel inflateDynamic
 /* 70200b54:	3c087020 */ 	lui	$t0,0x7020
 /* 70200b58:	8d0813b8 */ 	lw	$t0,0x13b8($t0)
 /* 70200b5c:	27bdfa98 */ 	addiu	$sp,$sp,-1384
@@ -1233,7 +1233,7 @@ glabel func70200b54
 /* 70201050:	8fa40550 */ 	lw	$a0,0x550($sp)
 /* 70201054:	8fa5054c */ 	lw	$a1,0x54c($sp)
 /* 70201058:	8fa60548 */ 	lw	$a2,0x548($sp)
-/* 7020105c:	0c080157 */ 	jal	func7020055c
+/* 7020105c:	0c080157 */ 	jal	inflateCodes
 /* 70201060:	8fa70544 */ 	lw	$a3,0x544($sp)
 /* 70201064:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /* 70201068:	8fb00028 */ 	lw	$s0,0x28($sp)
@@ -1243,7 +1243,7 @@ glabel func70200b54
 );
 
 GLOBAL_ASM(
-glabel inflate_block
+glabel inflateBlock
 /* 70201078:	3c097020 */ 	lui	$t1,0x7020
 /* 7020107c:	252913b8 */ 	addiu	$t1,$t1,0x13b8
 /* 70201080:	8d230000 */ 	lw	$v1,0x0($t1)
@@ -1299,21 +1299,21 @@ glabel inflate_block
 /* 70201138:	ad180000 */ 	sw	$t8,0x0($t0)
 /* 7020113c:	14410005 */ 	bne	$v0,$at,.L70201154
 /* 70201140:	ad230000 */ 	sw	$v1,0x0($t1)
-/* 70201144:	0c0802d5 */ 	jal	func70200b54
+/* 70201144:	0c0802d5 */ 	jal	inflateDynamic
 /* 70201148:	00000000 */ 	nop
 /* 7020114c:	1000000f */ 	b	.L7020118c
 /* 70201150:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L70201154:
 /* 70201154:	14400005 */ 	bnez	$v0,.L7020116c
 /* 70201158:	24010001 */ 	li	$at,0x1
-/* 7020115c:	0c080230 */ 	jal	func702008c0
+/* 7020115c:	0c080230 */ 	jal	inflateStored
 /* 70201160:	00000000 */ 	nop
 /* 70201164:	10000009 */ 	b	.L7020118c
 /* 70201168:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L7020116c:
 /* 7020116c:	54410006 */ 	bnel	$v0,$at,.L70201188
 /* 70201170:	24020002 */ 	li	$v0,0x2
-/* 70201174:	0c080285 */ 	jal	func70200a14
+/* 70201174:	0c080285 */ 	jal	inflateFixed
 /* 70201178:	00000000 */ 	nop
 /* 7020117c:	10000003 */ 	b	.L7020118c
 /* 70201180:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1340,7 +1340,7 @@ u32 inflate(void)
 
 	do {
 		hufts = 0;
-		r = inflate_block(&sp52);
+		r = inflateBlock(&sp52);
 
 		if (r != 0) {
 			return r;
@@ -1360,7 +1360,7 @@ u32 inflate(void)
 }
 
 // 70201268
-u32 rarezip_inflate(void *src, void *dst, void *buffer)
+u32 inflate1173(void *src, void *dst, void *buffer)
 {
 	g_pSrc = src;
 	g_pDst = dst;

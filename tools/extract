@@ -173,7 +173,7 @@ class Extractor:
         self.write('ucode/rspboot.bin', self.rom[0x40:0x1000])
         self.write('ucode/boot.bin', self.rom[0x1000:0x3050])
         self.write('ucode/library.bin', self.decompress(self.rom[0x3050:]))
-        self.write('ucode/rarezip.bin', self.rom[0x4e850:0x4fc40])
+        self.write('ucode/inflate.bin', self.rom[0x4e850:0x4fc40])
         self.extract_ucode_game()
 
     def extract_ucode_game(self):

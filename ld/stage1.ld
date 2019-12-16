@@ -14,7 +14,7 @@ SECTIONS
 {
 	setupSegmentStart = 0x80059fe0;
 	setupSegmentRomStart = 0x39850;
-	rarezipSegmentRomStart = 0x4e850;
+	inflateSegmentRomStart = 0x4e850;
 	ziplistSegmentRomStart = 0x4fc40;
 
 	__rompos = 0;
@@ -504,11 +504,11 @@ SECTIONS
 	}
 	__rompos += SIZEOF(.game);
 
-	.rarezip 0x70200000 : AT(__rompos) {
-		src/rarezip/rarezip.o (.text);
-		src/rarezip/rarezip.o (.data);
+	.inflate 0x70200000 : AT(__rompos) {
+		src/inflate/inflate.o (.text);
+		src/inflate/inflate.o (.data);
 	}
-	__rompos += SIZEOF(.rarezip);
+	__rompos += SIZEOF(.inflate);
 
 	__rompos = 0xed83a0;
 	_filesSegmentRomStart = __rompos;

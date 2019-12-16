@@ -97,7 +97,7 @@ UCODE_BIN_FILES := \
 	$(B_DIR)/ucode/game.bin \
 	$(B_DIR)/ucode/gvars.bin \
 	$(B_DIR)/ucode/library.bin \
-	$(B_DIR)/ucode/rarezip.bin \
+	$(B_DIR)/ucode/inflate.bin \
 	$(B_DIR)/ucode/setup.bin
 
 default: all
@@ -238,13 +238,13 @@ $(B_DIR)/ucode/setup.bin: $(B_DIR)/stage1.bin
 setup: $(B_DIR)/ucode/setup.bin
 
 ################################################################################
-# Rarezip
+# Inflate
 
-$(B_DIR)/ucode/rarezip.bin: $(B_DIR)/stage1.bin
+$(B_DIR)/ucode/inflate.bin: $(B_DIR)/stage1.bin
 	mkdir -p $(B_DIR)/ucode
-	B_DIR=$(B_DIR) tools/extract-segment rarezip
+	B_DIR=$(B_DIR) tools/extract-segment inflate
 
-rarezip: $(B_DIR)/ucode/rarezip.bin
+inflate: $(B_DIR)/ucode/inflate.bin
 
 ################################################################################
 # Main game
@@ -320,4 +320,4 @@ clean:
 
 binclean:
 	rm -f build/ntsc-final/ucode/*.bin
-	find src/{boot,game,gvars,library,rarezip,setup} -name '*.o' -delete
+	find src/{boot,game,gvars,library,inflate,setup} -name '*.o' -delete

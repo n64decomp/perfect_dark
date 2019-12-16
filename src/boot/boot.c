@@ -479,18 +479,18 @@ void *getSetupRomAddr(void)
 	return &setupSegmentRomStart;
 }
 
-extern void *rarezipSegmentRomStart;
+extern void *inflateSegmentRomStart;
 
 // func0001688
-void *getRarezipRomAddr(void)
+void *getInflateRomAddr(void)
 {
-	return &rarezipSegmentRomStart;
+	return &inflateSegmentRomStart;
 }
 
 // func0001694
-void *getRarezipRomAddr2(void)
+void *getInflateRomAddr2(void)
 {
-	return &rarezipSegmentRomStart;
+	return &inflateSegmentRomStart;
 }
 
 extern void *ziplistSegmentRomStart;

@@ -21,7 +21,7 @@ def main():
     write_binary(fd, 0x1000, get_boot())
     write_binary(fd, 0x3050, get_library())
     write_binary(fd, 0x39850, get_setup())
-    write_binary(fd, 0x4e850, get_rarezip())
+    write_binary(fd, 0x4e850, get_inflate())
     write_binary(fd, 0x4fc40, get_gamezips())
     write_binary(fd, 0x7f2388, get_fonts())
     write_binary(fd, 0x80a250, get_sfxctl())
@@ -67,8 +67,8 @@ def get_library():
 def get_setup():
     return zip('build/ntsc-final/ucode/setup.bin')
 
-def get_rarezip():
-    return getfilecontents('build/ntsc-final/ucode/rarezip.bin')
+def get_inflate():
+    return getfilecontents('build/ntsc-final/ucode/inflate.bin')
 
 def get_gamezips():
     return getfilecontents('build/ntsc-final/ucode/gamezips.bin')

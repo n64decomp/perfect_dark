@@ -10,7 +10,7 @@ This repository contains a work-in-progress decompilation of Perfect Dark for th
 | 0x1000 boot     | 22/52 functions done (42.31%)             |
 | 0x3050 library  | 27/950 functions done (2.84%)             |
 | 0x39850 setup   | About 50% identified                      |
-| 0x4e850 rarezip | 2/8 functions done (25.00%)               |
+| 0x4e850 inflate | 2/8 functions done (25.00%)               |
 | 0x4fc40 game    | 478/4196 functions done (11.39%)          |
 | Lang files      | Done                                      |
 | Setup files     | Done                                      |
@@ -68,7 +68,7 @@ Before you do anything you need an existing ROM to extract assets from.
 
 The project can do the following:
 
-* Build individual ucode binaries (boot, library, setup, rarezip and game) which match the ones extracted from the base ROM.
+* Build individual ucode binaries (boot, library, setup, inflate and game) which match the ones extracted from the base ROM.
 * Build a functioning ROM by splicing the C source and assets into an existing ROM. The built ROM is not byte perfect yet, but is is functionally equivalent.
 
 * Run `make` to build the assets that will be included in the ROM. These files will be written to `build/ntsc-final` and are matching what's in the `extracted/ntsc-final` folder.
