@@ -398,7 +398,7 @@
 /*0x01af*/ bool aiChrGrabObject(void);
 /*0x01b1*/ bool ai01b1(void);
 /*0x01b2*/ bool ai01b2(void);
-/*0x01b3*/ bool ai01b3(void);
+/*0x01b3*/ bool aiToggleP1P2(void);
 /*0x01b4*/ bool ai01b4(void);
 /*0x01b5*/ bool ai01b5(void);
 /*0x01b6*/ bool aiConfigureSnow(void);

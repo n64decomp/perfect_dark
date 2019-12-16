@@ -78,14 +78,6 @@ struct pad {
 	/*0x50*/ u32 unk50;
 };
 
-struct bitfield {
-	union {
-		u8 bytes[4];
-		u16 shorts[2];
-		u32 word;
-	};
-};
-
 struct chrdata {
 	/*0x000*/ s16 chrnum;
 	/*0x002*/ s8 accuracyrating;
@@ -261,15 +253,19 @@ struct chrdata {
 	/*0x31c*/ u32 onladder;
 	/*0x320*/ struct coord laddernormal;
 
-	/**
-	 * ........ .mmm..d. pp...... aaaaaaaa
-	 *
-	 * m = related to miniskedar pouncing
-	 * d = related to dark rooms
-	 * p = P1/P2 chr ID (0-3)
-	 * a = special death animation
-	 */
-	/*0x32c*/ struct bitfield BITFIELD;
+	/*0x32c*/
+	u8 unk32c_00 : 8;
+
+	u8 unk32c_08 : 1;
+	u8 pouncebits : 3;
+	u8 unk32c_12 : 2;
+	u8 darkroomthing : 1;
+	u8 unk32c_15 : 1;
+
+	u8 p1p2 : 2;
+	u8 unk32c_18 : 6;
+
+	u8 specialdie : 8;
 
 	/*0x330*/ u16 roomtosearch;
 	/*0x332*/ u8 propsoundcount;

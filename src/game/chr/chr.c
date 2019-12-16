@@ -12702,7 +12702,7 @@ struct position *chrGetTargetPosition(struct chrdata *chr)
 	struct position *ret;
 
 	if (chr->target == -1) {
-		ret = g_Vars.players[(u32)chr->BITFIELD.shorts[1] >> 14]->targetpos;
+		ret = g_Vars.players[chr->p1p2]->targetpos;
 	} else {
 		ret = g_Vars.positions + chr->target;
 	}
@@ -50233,7 +50233,7 @@ glabel chrResolveId
 //			break;
 //		case 0xf2:
 //			{
-//				u32 index = g_Vars.coopplayernum >= 0 ? (u32)ref->BITFIELD.shorts[1] >> 14 : g_Vars.bondplayernum;
+//				u32 index = g_Vars.coopplayernum >= 0 ? ref->p1p2 : g_Vars.bondplayernum;
 //				struct player *player = g_Vars.players[index];
 //				if (player && player->targetpos && player->targetpos->chr) {
 //					id = player->targetpos->chr->chrnum;
@@ -50242,7 +50242,7 @@ glabel chrResolveId
 //			break;
 //		case 0xf1:
 //			if (g_Vars.coopplayernum >= 0) {
-//				struct player *player = g_Vars.players[1 - ((u32)ref->BITFIELD.shorts[1] >> 14)];
+//				struct player *player = g_Vars.players[1 - ref->p1p2];
 //				if (player && player->targetpos && player->targetpos->chr) {
 //					id = player->targetpos->chr->chrnum;
 //				}
