@@ -369,8 +369,9 @@ bool aiReturn(void)
  */
 bool aiEndList(void)
 {
-	u64 unk;
-	chraiEndList(g_Vars.ailist, &unk);
+	s32 ailistid;
+	bool is_global;
+	ailistid = chraiGetListIdByList(g_Vars.ailist, &is_global);
 
 	return true;
 }

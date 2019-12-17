@@ -90,7 +90,7 @@ u8 props[];
 struct aipaths paths[];
 struct ailist ailists[];
 
-void *setup[] = {
+struct stagesetup setup = {
 	NULL,
 	NULL,
 	NULL,

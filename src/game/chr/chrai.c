@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "gvars/gvars.h"
+#include "setup/ailists.h"
 #include "setup/setup_000000.h"
 #include "setup/setup_0160b0.h"
 #include "setup/setup_020df0.h"
@@ -9,58 +10,28 @@
 #include "library/library_12dc0.h"
 #include "library/library_16110.h"
 
-GLOBAL_ASM(
-glabel chraiEndList
-/*  f04d560:	3c08800a */ 	lui	$t0,%hi(var8009d030)
-/*  f04d564:	2508d030 */ 	addiu	$t0,$t0,%lo(var8009d030)
-/*  f04d568:	8d020018 */ 	lw	$v0,0x18($t0)
-/*  f04d56c:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f04d570:	3c198008 */ 	lui	$t9,0x8008
-/*  f04d574:	10400013 */ 	beqz	$v0,.L0f04d5c4
-/*  f04d578:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04d57c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f04d580:	00001825 */ 	or	$v1,$zero,$zero
-/*  f04d584:	00402825 */ 	or	$a1,$v0,$zero
-/*  f04d588:	11c0000e */ 	beqz	$t6,.L0f04d5c4
-/*  f04d58c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04d590:	8c460000 */ 	lw	$a2,0x0($v0)
-.L0f04d594:
-/*  f04d594:	54860007 */ 	bnel	$a0,$a2,.L0f04d5b4
-/*  f04d598:	8ca60008 */ 	lw	$a2,0x8($a1)
-/*  f04d59c:	ace00000 */ 	sw	$zero,0x0($a3)
-/*  f04d5a0:	8d0f0018 */ 	lw	$t7,0x18($t0)
-/*  f04d5a4:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f04d5a8:	03e00008 */ 	jr	$ra
-/*  f04d5ac:	8f020004 */ 	lw	$v0,0x4($t8)
-/*  f04d5b0:	8ca60008 */ 	lw	$a2,0x8($a1)
-.L0f04d5b4:
-/*  f04d5b4:	24630008 */ 	addiu	$v1,$v1,0x8
-/*  f04d5b8:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f04d5bc:	14c0fff5 */ 	bnez	$a2,.L0f04d594
-/*  f04d5c0:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04d5c4:
-/*  f04d5c4:	8f39ac58 */ 	lw	$t9,-0x53a8($t9)
-/*  f04d5c8:	3c098008 */ 	lui	$t1,0x8008
-/*  f04d5cc:	2523ac58 */ 	addiu	$v1,$t1,-21416
-/*  f04d5d0:	1320000b */ 	beqz	$t9,.L0f04d600
-/*  f04d5d4:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f04d5d8:	8c620000 */ 	lw	$v0,0x0($v1)
-.L0f04d5dc:
-/*  f04d5dc:	54820005 */ 	bnel	$a0,$v0,.L0f04d5f4
-/*  f04d5e0:	8c620008 */ 	lw	$v0,0x8($v1)
-/*  f04d5e4:	acea0000 */ 	sw	$t2,0x0($a3)
-/*  f04d5e8:	03e00008 */ 	jr	$ra
-/*  f04d5ec:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f04d5f0:	8c620008 */ 	lw	$v0,0x8($v1)
-.L0f04d5f4:
-/*  f04d5f4:	24630008 */ 	addiu	$v1,$v1,0x8
-/*  f04d5f8:	1440fff8 */ 	bnez	$v0,.L0f04d5dc
-/*  f04d5fc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04d600:
-/*  f04d600:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f04d604:	03e00008 */ 	jr	$ra
-/*  f04d608:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 chraiGetListIdByList(u8 *ailist, bool *is_global)
+{
+	s32 i;
+
+	if (g_StageSetup.ailists) {
+		for (i = 0; g_StageSetup.ailists[i].list != NULL; i++) {
+			if (g_StageSetup.ailists[i].list == ailist) {
+				*is_global = false;
+				return g_StageSetup.ailists[i].id;
+			}
+		}
+	}
+
+	for (i = 0; g_GlobalAilists[i].list != NULL; i++) {
+		if (g_GlobalAilists[i].list == ailist) {
+			*is_global = true;
+			return g_GlobalAilists[i].id;
+		}
+	}
+
+	return -1;
+}
 
 u32 chraiGoToLabel(u8 *ailist, u32 aioffset, u8 label)
 {

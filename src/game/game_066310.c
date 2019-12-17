@@ -15234,8 +15234,8 @@ glabel func0f072144
 
 GLOBAL_ASM(
 glabel func0f072650
-/*  f072650:	3c09800a */ 	lui	$t1,%hi(var8009d030)
-/*  f072654:	2529d030 */ 	addiu	$t1,$t1,%lo(var8009d030)
+/*  f072650:	3c09800a */ 	lui	$t1,%hi(g_StageSetup)
+/*  f072654:	2529d030 */ 	addiu	$t1,$t1,%lo(g_StageSetup)
 /*  f072658:	8d250014 */ 	lw	$a1,0x14($t1)
 /*  f07265c:	8c830088 */ 	lw	$v1,0x88($a0)
 /*  f072660:	00651023 */ 	subu	$v0,$v1,$a1

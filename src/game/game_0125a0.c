@@ -352,8 +352,8 @@ GLOBAL_ASM(
 glabel func0f012aa0
 /*  f012aa0:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f012aa4:	afb5003c */ 	sw	$s5,0x3c($sp)
-/*  f012aa8:	3c15800a */ 	lui	$s5,%hi(var8009d030)
-/*  f012aac:	26b5d030 */ 	addiu	$s5,$s5,%lo(var8009d030)
+/*  f012aa8:	3c15800a */ 	lui	$s5,%hi(g_StageSetup)
+/*  f012aac:	26b5d030 */ 	addiu	$s5,$s5,%lo(g_StageSetup)
 /*  f012ab0:	8ea2001c */ 	lw	$v0,0x1c($s5)
 /*  f012ab4:	3c04800a */ 	lui	$a0,%hi(var800a2350)
 /*  f012ab8:	3c07800a */ 	lui	$a3,%hi(var800a2354)

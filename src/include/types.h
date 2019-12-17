@@ -2291,6 +2291,17 @@ struct aipaths {
 	u8 type;
 };
 
+struct stagesetup {
+	/*0x00*/ void *unk00;
+	/*0x04*/ void *unk04;
+	/*0x08*/ void *unk08;
+	/*0x0c*/ u8 *intro;
+	/*0x10*/ u8 *props;
+	/*0x14*/ struct aipaths *paths;
+	/*0x18*/ struct ailist *ailists;
+	/*0x1c*/ void *unk1c;
+};
+
 struct inventory_menupos {
 	float x;
 	float y;

@@ -114,7 +114,7 @@ glabel setupParseObjects
 // Mismatch because it uses $s1 for OBJTYPE_END instead of $at.
 //void setupParseObjects(void)
 //{
-//	u32 *ptr = g_LvSetupPtr_8009d040;
+//	u32 *ptr = g_StageSetup.props;
 //
 //	if (ptr) {
 //		u8 type = ptr[0];

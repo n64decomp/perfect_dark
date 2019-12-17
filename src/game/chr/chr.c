@@ -50867,8 +50867,8 @@ glabel func0f04a37c
 /*  f04a448:	8e620000 */ 	lw	$v0,0x0($s3)
 /*  f04a44c:	8e6e0004 */ 	lw	$t6,0x4($s3)
 .L0f04a450:
-/*  f04a450:	3c12800a */ 	lui	$s2,%hi(var8009d030)
-/*  f04a454:	2652d030 */ 	addiu	$s2,$s2,%lo(var8009d030)
+/*  f04a450:	3c12800a */ 	lui	$s2,%hi(g_StageSetup)
+/*  f04a454:	2652d030 */ 	addiu	$s2,$s2,%lo(g_StageSetup)
 /*  f04a458:	8dd00000 */ 	lw	$s0,0x0($t6)
 /*  f04a45c:	00008825 */ 	or	$s1,$zero,$zero
 /*  f04a460:	06000018 */ 	bltz	$s0,.L0f04a4c4
