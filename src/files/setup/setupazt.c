@@ -784,7 +784,7 @@ u8 func0406_init_stripes[] = {
 
 u8 func1003_msg_therestheescapepod[] = {
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 1000, 0x01d8, /*goto*/ 0x31)
 	endloop(0x06)
 
@@ -810,7 +810,7 @@ u8 func1005_msg_thejamming[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x0f)
 
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_objective_complete(2, /*goto*/ 0x0f)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0029, /*goto*/ 0x31)
 	endloop(0x06)
@@ -824,7 +824,7 @@ u8 func1005_msg_thejamming[] = {
 
 u8 func1006_msg_elvisbeable[] = {
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 1000, 0x0105, /*goto*/ 0x31)
 	endloop(0x06)
 
@@ -1049,7 +1049,7 @@ u8 func0416_spawned_guard[] = {
 
 u8 func1008_escapepod[] = {
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_ESCAPEPOD, /*goto*/ 0x31)
 
 		// Pod destroyed
@@ -1270,7 +1270,7 @@ u8 func0418_robot[] = {
 
 	beginloop(0x04)
 		dprint 'P','A','R','T',' ','1','\n',0,
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x0d)
 		if_target_chr_in_sight(/*goto*/ 0x0d)
@@ -1324,10 +1324,10 @@ u8 func0418_robot[] = {
 		if_chr_distance_gt(1000, /*goto*/ 0x15)
 		dprint 'P','A','R','T',' ','2','\n',0,
 		if_target_chr_in_sight(/*goto*/ 0x13)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x13)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		label(0x15)
 	endloop(0x0a)
@@ -1361,7 +1361,7 @@ u8 func0414_spawner[] = {
 	set_self_flag_bank3(CHRFLAG3_00000002)
 
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x0a)
 		// Room 0x0029 is the skedar shuttle area
@@ -1416,7 +1416,7 @@ u8 func041a_pres_clone[] = {
 	set_self_flag_bank3(CHRFLAG3_00080000)
 
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x31)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x08)
@@ -1475,7 +1475,7 @@ u8 func041c_president_waiting[] = {
 
 	// Wait until trigger and can see player
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_PRESIDENT_RUNNING, TRUE, /*goto*/ 0x31)
 		goto_first(0x06)
@@ -1711,7 +1711,7 @@ u8 func041e_trent_waiting[] = {
 	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_10000000)
 
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x08)
 	endloop(0x06)
@@ -1735,7 +1735,7 @@ u8 func041f_trent_shooting[] = {
 	stop_chr
 
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		try_unset_chr_flag_bank3_02000000(CHR_SELF, /*goto*/ 0x31)
 		if_target_chr_in_sight(/*goto*/ 0x08)
@@ -1793,7 +1793,7 @@ u8 func0420_trent_running[] = {
 	endloop(0x0a)
 
 	label(0x31)
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_chr_sees_player(/*goto*/ 0x31)
 	goto_next(0x08)

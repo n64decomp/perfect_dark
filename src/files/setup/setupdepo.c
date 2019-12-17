@@ -533,7 +533,7 @@ u8 func040c_start_path03[] = {
 
 u8 func1008_check_generator[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_GENERATOR, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_GENERATOR, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_GENERATOR_SHUT_DOWN, TRUE, /*goto*/ 0x2c)
@@ -574,7 +574,7 @@ u8 func1003_laser_switch_1[] = {
 	play_sound_from_object(CHANNEL_0, OBJ_LASER_1A, 0x012c, 0x0190)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH1, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH1, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET1_DISABLED, TRUE, /*goto*/ 0x2c)
@@ -640,7 +640,7 @@ u8 func1004_laser_switch_2[] = {
 	play_sound_from_object(CHANNEL_1, OBJ_LASER_2A, 0x012c, 0x0190)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH2, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH2, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET2_DISABLED, TRUE, /*goto*/ 0x2c)
@@ -707,7 +707,7 @@ u8 func1005_laser_switch_3[] = {
 	play_sound_from_object(CHANNEL_2, OBJ_LASER_3A, 0x012c, 0x0190)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH3, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH3, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, TRUE, /*goto*/ 0x2c)
@@ -773,7 +773,7 @@ u8 func1006_laser_switch_4[] = {
 	play_sound_from_object(CHANNEL_3, OBJ_LASER_4A, 0x012c, 0x0190)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH4, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH4, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET4_DISABLED, TRUE, /*goto*/ 0x2c)
@@ -1068,7 +1068,7 @@ u8 func0401_init_swat1[] = {
 	init_swat
 
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x2c)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x2c)
@@ -1092,7 +1092,7 @@ u8 func0402_init_swat2[] = {
 	init_swat
 
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x2c)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x2c)
@@ -1212,7 +1212,7 @@ u8 func100a_give_keycards[] = {
 
 u8 func100b_check_backup_collected[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_has_object(CHR_P1P2, OBJ_BACKUPDISK, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -1289,7 +1289,7 @@ u8 func100e_check_conspirators_alerted[] = {
 u8 func100f_alarm_switches[] = {
 	// Wait until player activated alarm switch
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_ALARM1, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, OBJ_ALARM2, /*goto*/ 0x2c)
 		reloop(0x04)
@@ -1313,7 +1313,7 @@ u8 func100f_alarm_switches[] = {
 u8 func1010_safe_cracking[] = {
 	// Wait for player to activate keypad or for it to be destroyed
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_SAFEKEYPAD, /*goto*/ 0x2c)
 		message(CHR_BOND, 0x1840) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_SAFEKEYPAD_DESTROYED)
@@ -1385,7 +1385,7 @@ u8 func1010_safe_cracking[] = {
 u8 func1012_check_for_end[] = {
 	// Wait until player on ending catwalk
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0060, /*goto*/ 0x06)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0061, /*goto*/ 0x06)
 		reloop(0x08)
@@ -1463,7 +1463,7 @@ u8 func1013_check_escape_doors[] = {
 
 u8 func1014_check_camspy_location[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(0x00, /*camspy*/ 0x02, 0x0094, /*goto*/ 0x06)
 	endloop(0x04)
 
@@ -2255,7 +2255,7 @@ u8 func0412_cloak_guard[] = {
 
 	// Choose target
 	label(0x03)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		label(0x06)
 		restart_timer
@@ -2329,7 +2329,7 @@ u8 func0413_cloak1_guard[] = {
 	restart_timer
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_distance_lt(400, /*goto*/ 0x06)
 		if_jo_front_direction_lt(30, /*goto*/ 0x06)
@@ -2368,7 +2368,7 @@ u8 func0414_init_cloak2_guard[] = {
 u8 func101b_cloak2_entry[] = {
 	// Wait until in glass area of second cloak room
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x001a, /*goto*/ 0x06)
 	endloop(0x08)
 
@@ -2524,7 +2524,7 @@ u8 func101c_check_visited_top_door[] = {
 
 	// Wait until player gone near top fire escape door
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 400, 0x0058, /*goto*/ 0x06)
 	endloop(0x08)
 
@@ -2588,7 +2588,7 @@ u8 func0408_init_cloak1_guard[] = {
 
 u8 func101e_msg_nowaythrough[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_LASERSET1_DISABLED, FALSE, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET2_DISABLED, FALSE, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, FALSE, /*goto*/ 0x2c)
@@ -2611,7 +2611,7 @@ u8 func101f_msg_meetingroomahead[] = {
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_MEETING_HOLOGRAPHED, TRUE, /*goto*/ 0x0d)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x004c, /*goto*/ 0x2c)
 		reloop(0x04)
 
@@ -2631,7 +2631,7 @@ u8 func101f_msg_meetingroomahead[] = {
 
 u8 func1020_msg_heavilyencrypted[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0050, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -2644,7 +2644,7 @@ u8 func1020_msg_heavilyencrypted[] = {
 u8 func1021_blow_mines[] = {
 	// Wait for backup collected
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_BACKUP_COLLECTED, TRUE, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -2695,7 +2695,7 @@ u8 func1021_blow_mines[] = {
 
 u8 func1022_light_switch[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_LIGHTSWITCH, /*goto*/ 0x2c)
 		reloop(0x04)
 

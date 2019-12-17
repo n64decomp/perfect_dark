@@ -400,7 +400,7 @@
 /*0x01b2*/ bool ai01b2(void);
 /*0x01b3*/ bool aiToggleP1P2(void);
 /*0x01b4*/ bool ai01b4(void);
-/*0x01b5*/ bool ai01b5(void);
+/*0x01b5*/ bool aiChrSetP1P2(void);
 /*0x01b6*/ bool aiConfigureSnow(void);
 /*0x01b7*/ bool aiChrSetCloaked(void);
 /*0x01b8*/ bool aiSetAutogunType(void);

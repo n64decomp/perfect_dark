@@ -964,7 +964,7 @@ u8 func140e_check_interceptors_destroyed[] = {
 
 u8 func100c_maingate_switch[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_door_state(OBJ_MAINGATE1, DOORSTATEBIT_CLOSING, /*goto*/ 0x2e)
 		goto_next(0x06)
 
@@ -1107,7 +1107,7 @@ u8 func1405_antenna_switch[] = {
 	set_object_flag_bank0(OBJ_ANTENNA, OBJECTFLAG0_DEACTIVATED)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_ANTENNA_SWITCH, /*goto*/ 0x2e)
 		reloop(0x04)
 
@@ -1163,7 +1163,7 @@ u8 func1405_antenna_switch[] = {
 
 u8 func1006_lift_switches[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_LIFT1_SWITCH, /*goto*/ 0x09)
 		if_chr_activated_object(CHR_P1P2, OBJ_LIFT2_SWITCH, /*goto*/ 0x0a)
 		reloop(0x04)
@@ -1229,7 +1229,7 @@ u8 func1006_lift_switches[] = {
 
 u8 func1007_check_hangar_accessed[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0042, /*goto*/ 0x06)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0043, /*goto*/ 0x06)
 	endloop(0x04)
@@ -1248,7 +1248,7 @@ u8 func1008_check_end_level[] = {
 	endloop(0x04)
 
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0060, /*goto*/ 0x06)
 	endloop(0x09)
 
@@ -1296,7 +1296,7 @@ u8 func1009_check_radar_shut_down[] = {
 
 u8 func100b_final_hangar[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_objective_complete(0, /*goto*/ 0x2e)
 		reloop(0x04)
 
@@ -1521,9 +1521,9 @@ u8 func0417_traitor[] = {
 		goto_next(0x0c)
 
 		beginloop(0x0b)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			if_chr_y(CHR_P1P2, -1373, OPERATOR_LESS_THAN, /*goto*/ 0x10)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			if_chr_y(CHR_P1P2, -1373, OPERATOR_LESS_THAN, /*goto*/ 0x10)
 			if_chr_stopped(/*goto*/ 0x0c)
 		endloop(0x0b)
@@ -1593,7 +1593,7 @@ u8 func0416_mechanic[] = {
 		animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 		beginloop(0x09)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_stage_flag_eq(STAGEFLAG_TRIGGER_INTERCEPTOR, TRUE, /*goto*/ 0x2f)
 			if_just_injured(CHR_SELF, /*goto*/ 0x2e)
@@ -1616,7 +1616,7 @@ u8 func0416_mechanic[] = {
 		animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 		beginloop(0x0d)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_shot_at_close_range(/*goto*/ 0x2e)
 			if_target_chr_in_sight(/*goto*/ 0x2e)
@@ -1680,7 +1680,7 @@ u8 func040a_top_interceptor[] = {
 	set_chr_health(CHR_SELF, 5000)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x59)
 	endloop(0x04)
@@ -1691,7 +1691,7 @@ u8 func040a_top_interceptor[] = {
 	begin_hovercar_path(0x22)
 
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		label(0x06)
 		if_chr_sees_player(/*goto*/ 0x59)
@@ -2364,7 +2364,7 @@ u8 func1013_bunker_lasers[] = {
 
 u8 func1011_bunker_explosives[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_RADAR_TERMINAL, /*goto*/ 0x2e)
 		reloop(0x04)
 
@@ -2597,7 +2597,7 @@ u8 func1018_unhide_guards[] = {
 
 	// Wait until player in room 0x0044 (first hangar ramp)
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0044, /*goto*/ 0x2e)
 	endloop(0x09)
 
@@ -2823,7 +2823,7 @@ u8 func101a_check_mechanic_dead[] = {
  */
 u8 func101b_msg_airinterceptradar[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0001, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -2838,7 +2838,7 @@ u8 func101c_msg_cantthrow[] = {
 	restart_timer
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0013, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -2855,7 +2855,7 @@ u8 func101c_msg_cantthrow[] = {
 u8 func101d_msg_hangarlift[] = {
 	// Wait for radar shut down and player in room 0x0001 (which is impossible)
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_objective_complete(0, /*goto*/ 0x2e)
 		reloop(0x04)
 
@@ -2871,7 +2871,7 @@ u8 func101d_msg_hangarlift[] = {
 
 u8 func101e_msg_triggerfinger[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0051, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -2885,7 +2885,7 @@ u8 func0421_activate_autogun[] = {
 	set_onshot_function(GFUNC_ALERTED)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2e)
 		if_shot_at_close_range(/*goto*/ 0x2e)
@@ -2983,7 +2983,7 @@ u8 func1022_check_lift_switches_destroyed[] = {
 
 u8 func1024_lift_door_sounds[] = {
 	beginloop(0x7e)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x3c, /*goto*/ 0x0a)
 		if_chr_activated_object(CHR_P1P2, 0x3e, /*goto*/ 0x0b)
 		if_chr_activated_object(CHR_P1P2, 0x3d, /*goto*/ 0x41)

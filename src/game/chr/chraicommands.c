@@ -3252,7 +3252,7 @@ glabel aiIfChrActivatedObject
 //	bool pass = false;
 //
 //	if (obj && obj->pos) {
-//		if (cmd[2] == CHR_F3) {
+//		if (cmd[2] == CHR_ANY) {
 //			if (obj->hidden & (OBJHIDDENFLAG_ACTIVATED_BY_BOND | OBJHIDDENFLAG_ACTIVATED_BY_COOP)) {
 //				pass = true;
 //				obj->hidden &= ~(OBJHIDDENFLAG_ACTIVATED_BY_BOND | OBJHIDDENFLAG_ACTIVATED_BY_COOP);
@@ -13618,7 +13618,7 @@ bool aiToggleP1P2(void)
 /**
  * @cmd 01b5
  */
-bool ai01b5(void)
+bool aiChrSetP1P2(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 

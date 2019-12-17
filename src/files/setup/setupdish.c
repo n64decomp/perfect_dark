@@ -983,7 +983,7 @@ u8 func1003_devicetraining_nightvision[] = {
 		label(0x57)
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
-		if_chr_activated_object(CHR_F3, OBJ_LIGHTSWITCH, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_ANY, OBJ_LIGHTSWITCH, /*goto*/ 0x2f)
 	endloop(0x82)
 
 	label(0x2f)
@@ -3548,7 +3548,7 @@ u8 func101c_holo1_main[] = {
 	unset_object_flag_bank1(object, OBJECTFLAG1_00040000) \
  \
 	beginloop(0x04) \
-		if_chr_activated_object(CHR_F3, object, /*goto*/ 0x2f) \
+		if_chr_activated_object(CHR_ANY, object, /*goto*/ 0x2f) \
 		reloop(0x04) \
  \
 		label(0x2f) \
@@ -3590,7 +3590,7 @@ u8 func1020_holo1_monitor_switches[] = {
 	unset_object_flag_bank1(0x4f, OBJECTFLAG1_00040000)
 
 	beginloop(0x04)
-		if_chr_activated_object(CHR_F3, 0x4f, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_ANY, 0x4f, /*goto*/ 0x2f)
 		reloop(0x04)
 
 		label(0x2f)
@@ -3889,7 +3889,7 @@ u8 func1022_holo2_main[] = {
 #define holo2_do_thing(object, function) \
 	restart_timer \
 	beginloop(0x04) \
-		if_chr_activated_object(CHR_F3, object, /*goto*/ 0x2f) \
+		if_chr_activated_object(CHR_ANY, object, /*goto*/ 0x2f) \
 		if_object_flag_bank1(object, OBJECTFLAG1_00000001, /*goto*/ 0x06) \
 		reloop(0x04) \
  \
@@ -4273,7 +4273,7 @@ u8 func102b_holo3_part2[] = {
 
 u8 func102c_holo3_object1[] = {
 	beginloop(0x04)
-		if_chr_activated_object(CHR_F3, 0x65, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_ANY, 0x65, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -4288,7 +4288,7 @@ u8 func102c_holo3_object1[] = {
 
 u8 func102d_holo3_object2[] = {
 	beginloop(0x04)
-		if_chr_activated_object(CHR_F3, 0x66, /*goto*/ 0x2f)
+		if_chr_activated_object(CHR_ANY, 0x66, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
@@ -5684,7 +5684,7 @@ u8 func1035_manage_music[] = {
 
 #define do_gun_msg(object, text) \
 	beginloop(0x03) \
-		if_chr_activated_object(CHR_F3, object, /*goto*/ 0x2f) \
+		if_chr_activated_object(CHR_ANY, object, /*goto*/ 0x2f) \
 		reloop(0x03) \
  \
 		label(0x2f) \
@@ -5818,7 +5818,7 @@ u8 func1040_lift_door_sounds[] = {
 
 	// Play sounds when lift doors activated
 	beginloop(0x8f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x80, /*goto*/ 0x2f)
 		if_chr_activated_object(CHR_P1P2, 0x81, /*goto*/ 0x2f)
 		if_chr_activated_object(CHR_P1P2, 0x82, /*goto*/ 0x2f)

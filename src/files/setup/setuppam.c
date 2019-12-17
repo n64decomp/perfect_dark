@@ -3117,7 +3117,7 @@ u8 func041b_sniper_wait_for_detection[] = {
 	restart_timer
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x2e)
 		if_enemy_distance_lt_and_los(1000, /*goto*/ 0x2e)
@@ -3162,7 +3162,7 @@ u8 func041d_sniper[] = {
 	cmd0139(70, 0x02, TRUE)
 
 	beginloop(0x63)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_sees_player(/*goto*/ 0x2e)
 		dprint 'N','O',' ','P','L','A','Y','E','R',' ','T','A','R','G','E','T','\n',0,
 		if_enemy_distance_lt_and_los(1000, /*goto*/ 0x2f)
@@ -3251,7 +3251,7 @@ u8 func041d_sniper[] = {
 
 u8 func040c_blonde[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x004c, /*goto*/ 0x06)
 	endloop(0x04)
 
@@ -3285,7 +3285,7 @@ u8 func100c_countdown_timer[] = {
 	start_countdown_timer
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_countdown_timer_lt(1, /*goto*/ 0x06)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x000c, /*goto*/ 0x2e)
 	endloop(0x04)
@@ -3516,7 +3516,7 @@ u8 func1010_agent_hallway_spawner[] = {
 
 	// Wait until player in a certain room
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0054, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -3529,7 +3529,7 @@ u8 func1010_agent_hallway_spawner[] = {
 
 	// Wait until player in a certain room
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_P1P2)
+		chr_toggle_p1p2(CHR_P1P2)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x005a, /*goto*/ 0x2e)
 	endloop(0x08)
 
@@ -3542,7 +3542,7 @@ u8 func1010_agent_hallway_spawner[] = {
 
 	// Wait until player in a certain room
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0067, /*goto*/ 0x2e)
 	endloop(0x09)
 
@@ -3990,7 +3990,7 @@ u8 func040a_check_pa_canisters_destroyed[] = {
  */
 u8 func101f_pa_circleroom_spawner[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_door_state(0x09, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x008b, /*goto*/ 0x2e)
 	endloop(0x04)
@@ -4007,7 +4007,7 @@ u8 func101f_pa_circleroom_spawner[] = {
 	restart_timer
 
 	beginloop(0x20)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x008c, /*goto*/ 0x58)
 		dprint 'T','I','M','E','\n',0,
 		if_timer_lt(300, /*goto*/ 0x21)
@@ -4045,7 +4045,7 @@ u8 func041f_init_pa_circleroom_miniskedar[] = {
 
 u8 func1020_pa_deadendroom_spawner[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x00b4, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x00b8, /*goto*/ 0x2e)
 	endloop(0x04)
@@ -4193,7 +4193,7 @@ u8 func1022_control_room[] = {
 
 	// SA and PA
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x004c, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -4228,7 +4228,7 @@ u8 func1023_check_drcaroll_restored[] = {
 		if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x0d)
 		if_chr_dying(CHR_ELVIS, /*goto*/ 0x0d)
 		if_chr_unloaded(CHR_ELVIS, /*goto*/ 0x0d)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 200, 0x0193, /*goto*/ 0x2e)
 		reloop(0x04)
 
@@ -4516,7 +4516,7 @@ u8 func040f_miniskedar_unalerted[] = {
 	rebuild_squadrons
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x2e)
 	endloop(0x04)
@@ -4583,7 +4583,7 @@ u8 func042c_elvis_stop[] = {
 u8 func102f_unlock_drcaroll_door[] = {
 	// Wait until player in Dr Caroll room
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x004c, /*goto*/ 0x2e)
 	endloop(0x08)
 
@@ -4693,7 +4693,7 @@ u8 func1034_enable_blondes[] = {
 	hide_chr(CHR_BLONDE2)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x004c, /*goto*/ 0x2e)
 	endloop(0x04)
 

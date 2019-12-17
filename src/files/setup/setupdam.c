@@ -1011,7 +1011,7 @@ u8 unregistered_function1[] = {
 u8 func1004_msg_controlledfrom[] = {
 	restart_timer
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0027, /*goto*/ 0x07)
 	endloop(0x00)
 
@@ -1023,7 +1023,7 @@ u8 func1004_msg_controlledfrom[] = {
 
 u8 func1005_msg_withoutautopilot[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x007e, /*goto*/ 0x07)
 	endloop(0x00)
 
@@ -1035,7 +1035,7 @@ u8 func1005_msg_withoutautopilot[] = {
 
 u8 func1006_msg_conductoperations[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x007f, /*goto*/ 0x07)
 	endloop(0x00)
 
@@ -1068,7 +1068,7 @@ u8 unregistered_function2[] = {
 u8 func1009_open_reactor_hatch[] = {
 	// Wait for all switches active
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_HATCHSWITCH1_ACTIVATED, TRUE, /*goto*/ 0x07)
 		reloop(0x00)
 
@@ -1095,7 +1095,7 @@ u8 func1009_open_reactor_hatch[] = {
 
 u8 func100a_reactor_switch[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_REACTOR_SWITCH, /*goto*/ 0x07)
 		message(CHR_BOND, 0x1624) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_REACTOR_SWITCH_DESTROYED)
@@ -1126,7 +1126,7 @@ u8 func100a_reactor_switch[] = {
 
 u8 func100b_check_diving_area_located[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_MET_ELVIS, TRUE, /*goto*/ 0x07)
 		reloop(0x00)
 
@@ -1179,7 +1179,7 @@ u8 func100c_check_end_level[] = {
 	set_function(CHR_ELVIS, FUNC_ELVIS_AT_MOONPOOL)
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0064, /*goto*/ 0x07)
 		reloop(0x00)
 
@@ -1356,7 +1356,7 @@ u8 func040b_labtech1[] = {
 	label(0x04)
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x0f)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x0f)
@@ -1431,7 +1431,7 @@ u8 func040c_labtech2[] = {
 	label(0x04)
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x0f)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x0f)
@@ -1510,7 +1510,7 @@ u8 func040d_labtech3[] = {
 	label(0x04)
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x0f)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x10)
@@ -1624,7 +1624,7 @@ u8 func0411_labtech_alerted[] = {
 	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x11)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_timer_gt(1200, /*goto*/ 0x0d)
 		if_chr_sees_player(/*goto*/ 0x07)
@@ -1885,7 +1885,7 @@ u8 func0401_pilot[] = {
 
 	// Alive - wait for player to arrive
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x07)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x04)
@@ -1901,7 +1901,7 @@ u8 func0401_pilot[] = {
 
 	beginloop(0x0b)
 		// Wait for Jo nearby
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_distance_lt(200, /*goto*/ 0x07)
 		reloop(0x0b)
@@ -2228,7 +2228,7 @@ u8 func0404_angry_pilot[] = {
 
 u8 func1013_lift_switch[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_LIFT_SWITCH, /*goto*/ 0x07)
 	endloop(0x00)
 
@@ -2245,7 +2245,7 @@ u8 func1013_lift_switch[] = {
 
 u8 func1014_moonpool_switch[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_MOONPOOL_SWITCH, /*goto*/ 0x08)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x10)
 		message(CHR_P1P2, 0x1624) // "Critical mission object has been destroyed."
@@ -2309,7 +2309,7 @@ u8 func1015_shuffle_hatchswitches[] = {
 	yield \
  \
 	beginloop(0x00) \
-		consider_coop_for_p1p2_chr(CHR_SELF) \
+		chr_toggle_p1p2(CHR_SELF) \
 		if_chr_activated_object(CHR_P1P2, switch, /*goto*/ 0x07) \
 	endloop(0x00) \
  \
@@ -2682,7 +2682,7 @@ u8 func0418_elvis_at_moonpool[] = {
 	set_onshot_function(FUNC_ELVIS_LEADING)
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x07)
 	endloop(0x00)
@@ -2801,7 +2801,7 @@ u8 func0417_elvis_prepare_leading[] = {
 
 u8 func101d_alarm_switches[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x21, /*goto*/ 0x07)
 		if_chr_activated_object(CHR_P1P2, 0x22, /*goto*/ 0x07)
 		if_chr_activated_object(CHR_P1P2, 0x23, /*goto*/ 0x07)

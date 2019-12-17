@@ -852,7 +852,7 @@ u8 func0407_init_cloaked_skedar[] = {
 
 	beginloop(0x04)
 		// Wait until clone dead - which it would be immediately?
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		label(0x4f)
 		if_chr_death_animation_finished(CHR_CLONE, /*goto*/ 0x4f)
 		reloop(0x04)
@@ -886,7 +886,7 @@ u8 func0408_cloaked_skedar[] = {
 		if_objective_complete(4, /*goto*/ 0x0e)
 
 		// King is alive
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 300, TARGET_PAD, /*goto*/ 0x2d)
 
 		// 1 in 256 chance of making skedar roar sound
@@ -919,7 +919,7 @@ u8 func0404_miniskedar_spawner[] = {
 
 	// Wait until player near trigger pad
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 300, TARGET_PAD, /*goto*/ 0x4f)
 		endloop(0x04)
 
@@ -1065,7 +1065,7 @@ u8 func1005_5e0c[] = {
 	yield
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_object_distance_to_pad_lt(OBJ_PUZZLEROCK, 50, 0x00d4, /*goto*/ 0x2d)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 50, 0x00d4, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x005f, /*goto*/ 0x2e)
@@ -1440,7 +1440,7 @@ u8 func1009_altar[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0f)
 
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_object_flag_bank1(OBJ_ALTAR, OBJECTFLAG1_00002000, /*goto*/ 0x2d)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 300, 0x0137, /*goto*/ 0x2e)
 		label(0x2d)
@@ -1688,7 +1688,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	kneel
 
 	beginloop(0x5f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		label(0x2d)
 		set_target_chr(CHR_P1P2)
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x2e)
@@ -1756,7 +1756,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 
 	label(0x6a)
 	call_rng
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
 	if_target_chr_in_sight(/*goto*/ 0x6b)
@@ -1776,7 +1776,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	restart_timer
 
 	beginloop(0x6e)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x6b)
 		if_timer_gt(300, /*goto*/ 0x06)
@@ -1814,7 +1814,7 @@ u8 func100a_army_room[] = {
 	set_lights_state(0x0087, 0x01, 0x06, 0x00, 0x00)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0082, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -1851,7 +1851,7 @@ u8 func100a_army_room[] = {
 
 u8 func100b_check_sanctum_accessed[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x007a, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -1929,7 +1929,7 @@ u8 func040c_king_waiting[] = {
 	set_morale(0)
 
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0088, /*goto*/ 0x2d)
 	endloop(0x08)
 
@@ -1961,7 +1961,7 @@ u8 func040d_king_combat[] = {
 #define LABEL_LOW_SHIELD       0x7c
 
 	beginloop(0x59)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_in_disarm_range(/*goto*/ 0x03)
 		if_chr_shield_lt(CHR_SELF, 20, /*goto*/ LABEL_LOW_SHIELD)
@@ -1969,7 +1969,7 @@ u8 func040d_king_combat[] = {
 
 	// Main loop
 	label(LABEL_MAINLOOP)
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x04)
 
@@ -2991,7 +2991,7 @@ u8 func0413_hide[] = {
 
 u8 func1015_msg_specialpillars[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0026, /*goto*/ 0x91)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0031, /*goto*/ 0x92)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0035, /*goto*/ 0x93)
@@ -3039,7 +3039,7 @@ u8 func1016_msg_powersmoreconstant[] = {
 	restart_timer
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0077, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -3051,7 +3051,7 @@ u8 func1016_msg_powersmoreconstant[] = {
 
 u8 func1017_msg_skedararmy[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0082, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -3063,7 +3063,7 @@ u8 func1017_msg_skedararmy[] = {
 
 u8 func1018_msg_cutoffthehead[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0088, /*goto*/ 0x2d)
 	endloop(0x04)
 

@@ -942,7 +942,7 @@ u8 func0406_general_combat[] = {
 			set_view_distance(100)
 
 			label(0x20)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_stage_flag_eq(STAGEFLAG_FOYER_LIGHTS_RESTORED, TRUE, /*goto*/ 0x00)
 			if_target_chr_in_sight(/*goto*/ 0x15)
@@ -1027,7 +1027,7 @@ u8 func0406_general_combat[] = {
 	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 
 	beginloop(0x1c)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		call_rng
 		if_target_chr_in_sight(/*goto*/ 0x19)
@@ -1046,7 +1046,7 @@ u8 func0406_general_combat[] = {
 	restart_timer
 
 	beginloop(0x1b)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x19)
 		if_timer_gt(300, /*goto*/ 0x00)
@@ -1318,7 +1318,7 @@ u8 func0408_hovercopter[] = {
 
 u8 func1002_check_accessed_foyer_elevator[] = {
 	beginloop(0x21)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_y(CHR_TARGET, -8155, OPERATOR_LESS_THAN, /*goto*/ 0x20)
 		if_chr_distance_to_pad_lt(CHR_TARGET, 300, 0x021a, /*goto*/ 0x00)
@@ -1334,7 +1334,7 @@ u8 func1002_check_accessed_foyer_elevator[] = {
 
 u8 func1003_check_end_level[] = {
 	beginloop(0x21)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 200, 0x0002, /*goto*/ 0x00)
 		reloop(0x21)
@@ -1381,7 +1381,7 @@ u8 func1004_elevator_unlocking[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x1f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_activated_object(CHR_TARGET, 0x01, /*goto*/ 0x20)
 		if_object_in_good_condition(0x01, /*goto*/ 0x00)
@@ -1578,7 +1578,7 @@ u8 func1009_init_top_room[] = {
 	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 
 	beginloop(0x1f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0039, /*goto*/ 0x00)
 		if_chr_activated_object(CHR_P1P2, OBJ_TOPROOMDOOR, /*goto*/ 0x00)
 	endloop(0x1f)
@@ -1630,7 +1630,7 @@ u8 func0409_tech_conversation[] = {
 	set_onshot_function(GFUNC_IDLE)
 
 	beginloop(0x01)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_activated_object(CHR_TARGET, 0x11, /*goto*/ 0x00)
 		if_door_state(0x11, DOORSTATEBIT_OPEN, /*goto*/ 0x00)
@@ -1671,7 +1671,7 @@ u8 func0409_tech_conversation[] = {
 	beginloop(0x21)
 		if_shot_near_chr(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 		if_target_chr_in_sight(/*goto*/ 0x33)
@@ -1692,7 +1692,7 @@ u8 func0409_tech_conversation[] = {
 	beginloop(0x22)
 		if_shot_near_chr(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 		if_target_chr_in_sight(/*goto*/ 0x33)
@@ -1713,7 +1713,7 @@ u8 func0409_tech_conversation[] = {
 	beginloop(0x23)
 		if_shot_near_chr(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 		if_target_chr_in_sight(/*goto*/ 0x33)
@@ -1734,7 +1734,7 @@ u8 func0409_tech_conversation[] = {
 	beginloop(0x24)
 		if_shot_near_chr(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 		if_target_chr_in_sight(/*goto*/ 0x33)
@@ -1756,7 +1756,7 @@ u8 func0409_tech_conversation[] = {
 	beginloop(0x25)
 		if_shot_near_chr(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 		if_target_chr_in_sight(/*goto*/ 0x33)
@@ -1776,7 +1776,7 @@ u8 func0409_tech_conversation[] = {
 	beginloop(0x26)
 		if_shot_near_chr(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 		if_chr_sees_player(/*goto*/ 0x20)
@@ -1847,7 +1847,7 @@ u8 func040a_tech2[] = {
 	stop_chr
 
 	beginloop(0x1f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TECHS_FINISHED, TRUE, /*goto*/ 0x20)
 		if_target_chr_in_sight(/*goto*/ 0x33)
@@ -1858,7 +1858,7 @@ u8 func040a_tech2[] = {
 	stop_chr
 
 	beginloop(0x21)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x00)
 		reloop(0x21)
@@ -2077,7 +2077,7 @@ u8 func040d_cass[] = {
 
 		// And not in sight
 		label(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_within_units_of_sight(30, /*goto*/ 0x20)
 		set_target_chr(CHR_ANTI)
@@ -2102,7 +2102,7 @@ u8 func040d_cass[] = {
 
 u8 func101f_unlock_top_door[] = {
 	beginloop(0x1f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x003b, /*goto*/ 0x20)
 	endloop(0x1f)
 
@@ -2123,7 +2123,7 @@ u8 func040e_noop2[] = {
 
 u8 func100a_lightswitch[] = {
 	beginloop(0x1f)
-		if_chr_activated_object(CHR_F3, OBJ_LIGHTSWITCH, /*goto*/ 0x20)
+		if_chr_activated_object(CHR_ANY, OBJ_LIGHTSWITCH, /*goto*/ 0x20)
 		reloop(0x1f)
 
 		label(0x20)
@@ -2633,7 +2633,7 @@ u8 func0413_defend_pad[] = {
 	set_onshot_function(FUNC_GENERAL_COMBAT)
 
 	beginloop(0x1f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x21)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x21)
@@ -2940,7 +2940,7 @@ u8 func101a_set_rocketlauncher_flag[] = {
 
 u8 func101b_lift_door_sounds[] = {
 	beginloop(0x8d)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x23, /*goto*/ 0x20)
 		if_chr_activated_object(CHR_P1P2, 0x27, /*goto*/ 0x5e)
 		if_chr_activated_object(CHR_P1P2, 0x20, /*goto*/ 0x20)

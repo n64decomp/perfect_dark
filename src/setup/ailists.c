@@ -145,7 +145,7 @@ u8 func0006_unalerted[] = {
 	set_action(ACTION_SCAN, TRUE)
 	yield
 	dprint 'S','2',0,
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	label(0x13)
 	if_alertness(100, OPERATOR_LESS_THAN, /*goto*/ 0x16)
@@ -540,7 +540,7 @@ u8 func0006_unalerted[] = {
 		dprint 'S','9',0,
 		dprint 'W','A','L','K','I','N','G','\n',0,
 		if_shot_near_chr(0x00, /*goto*/ 0x16)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x13)
 		if_target_chr_in_sight(/*goto*/ 0x16)
@@ -562,7 +562,7 @@ u8 func0006_unalerted[] = {
 		dprint 'E','X','A','M',' ','B','O','D','Y','\n',0,
 		if_shot_near_chr(0x00, /*goto*/ 0x16)
 		set_hear_distance(10000)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_hears_gunfire(/*goto*/ 0x16)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x13)
@@ -1178,12 +1178,12 @@ u8 func0007_alerted[] = {
 		goto_next(0xef)
 
 		label(0xee)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 		set_target_chr(CHR_P1P2)
 		if_in_disarm_range(/*goto*/ 0x9a)
 		label(0xee)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		label(0xef)
 	endloop(0x03)
@@ -1215,7 +1215,7 @@ u8 func0007_alerted[] = {
 		dprint 'A','M','B','1','\n',0,
 		if_distance_from_target_to_pad_lt(200, TARGET_PAD, /*goto*/ 0x13)
 		dprint 'A','M','B','2','\n',0,
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_enemy_distance_lt_and_los(1200, /*goto*/ 0xee)
 	endloop(0xa2)
@@ -1265,7 +1265,7 @@ u8 func0007_alerted[] = {
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0xa9)
 
 	beginloop(0xa9)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_near_miss(/*goto*/ 0x13)
 		if_shot_near_chr(0x00, /*goto*/ 0x13)
@@ -1347,12 +1347,12 @@ u8 func0007_alerted[] = {
 	goto_next(0xef)
 
 	label(0xee)
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 	set_target_chr(CHR_P1P2)
 	if_in_disarm_range(/*goto*/ 0x13)
 	label(0xee)
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	label(0xef)
 	goto_first(LABEL_SNIPE)
@@ -1531,7 +1531,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x59)
 		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_within_units_of_sight(30, /*goto*/ 0x5f)
 		if_timer_gt(240, /*goto*/ 0x61)
@@ -1885,13 +1885,13 @@ u8 func0007_alerted[] = {
 		goto_next(0xef)
 
 		label(0xee)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 		set_target_chr(CHR_P1P2)
 		if_within_units_of_sight(30, /*goto*/ 0x42)
 		if_chr_in_view(/*goto*/ 0x42)
 		label(0xee)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		label(0xef)
 		if_timer_gt(240, /*goto*/ 0x49)
@@ -1921,12 +1921,12 @@ u8 func0007_alerted[] = {
 		if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 		goto_next(0xef)
 		label(0xee)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_target_eq(CHR_SELF, CHR_P1P2, FALSE, /*goto*/ 0xee)
 		set_target_chr(CHR_P1P2)
 		if_within_units_of_sight(30, /*goto*/ 0x42)
 		label(0xee)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		label(0xef)
 		if_timer_gt(600, /*goto*/ 0x3d)
@@ -2178,7 +2178,7 @@ u8 func0007_alerted[] = {
 		set_function(CHR_SELF, GFUNC_HAND_COMBAT)
 
 		label(0x13)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_distance_gt(1300, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_01000000, TRUE, BANK_1, /*goto*/ 0x16)
@@ -2491,7 +2491,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x6e)
 		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_distance_lt(3000, /*goto*/ 0x6f)
 	endloop(0x6e)
@@ -2514,7 +2514,7 @@ u8 func0007_alerted[] = {
 	beginloop(0x71)
 		if_chr_dying(CHR_SELF, /*goto*/ 0x88)
 		if_timer_gt(300, /*goto*/ 0x16)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_in_view(/*goto*/ 0x72)
 		if_bitcheck_in_position_struct(/*goto*/ 0x13)
@@ -2696,7 +2696,7 @@ u8 func000a_do_idle_animation[] = {
 
 	// Nothing jumps to here or below
 	beginloop(0x15)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x16)
@@ -3515,7 +3515,7 @@ u8 func000e_see_then_attack[] = {
 	set_onshot_function(GFUNC_ALERTED)
 
 	beginloop(0x0c)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x16)
 	endloop(0x0c)
@@ -4153,7 +4153,7 @@ u8 func001b_observe_camspy[] = {
 	beginloop(0x0c)
 		if_timer_gt(60, /*goto*/ 0x0b)
 		if_chr_distance_lt(300, /*goto*/ 0x13)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
 		if_target_chr_in_sight(/*goto*/ 0x0b)
@@ -4173,7 +4173,7 @@ u8 func001b_observe_camspy[] = {
 	beginloop(0x03)
 		if_timer_gt(300, /*goto*/ 0x04)
 		if_chr_distance_gt(400, /*goto*/ 0x13)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
 		if_target_chr_in_sight(/*goto*/ 0x0b)
@@ -4195,7 +4195,7 @@ u8 func001b_observe_camspy[] = {
 		if_chr_idle(/*goto*/ 0x13)
 		if_timer_gt(300, /*goto*/ 0x06)
 		label(0x13)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
 		if_target_chr_in_sight(/*goto*/ 0x0b)
@@ -4291,7 +4291,7 @@ u8 func001d_search_for_player[] = {
 
 	beginloop(0x03)
 		dprint 'S','E','A','R','C','H','I','N','I','T','\n',0,
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x12)
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x13)
@@ -4319,7 +4319,7 @@ u8 func001d_search_for_player[] = {
 		goto_next(0x05)
 
 		label(0x13)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x15)
 		if_target_chr_in_sight(/*goto*/ 0x12)
@@ -4384,7 +4384,7 @@ u8 func001d_search_for_player[] = {
 		if_self_flag_bankx_eq(CHRFLAG1_00000400, FALSE, BANK_1, /*goto*/ 0x13)
 		if_chr_distance_lt(500, /*goto*/ 0x13)
 		label(0x13)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		dprint '1','\n',0,
 		if_timer_gt(600, /*goto*/ 0x0b)
@@ -4470,7 +4470,7 @@ u8 func001f_related_to_spawning[] = {
 	label(0x1a)
 	set_action(ACTION_SCAN, TRUE)
 	yield
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_alertness(100, OPERATOR_LESS_THAN, /*goto*/ 0x16)
 	goto_next(0x78)

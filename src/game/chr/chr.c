@@ -50201,37 +50201,37 @@ glabel chrResolveId
 //{
 //	if (ref) {
 //		switch (id) {
-//		case 0xfa:
+//		case CHR_SEESHOT:
 //			id = ref->chrseeshot;
 //			break;
-//		case 0xfb:
+//		case CHR_SEEDIE:
 //			id = ref->chrseedie;
 //			break;
-//		case 0xfc:
+//		case CHR_PRESET:
 //			id = ref->chrpreset1;
 //			break;
-//		case 0xfd:
+//		case CHR_SELF:
 //			id = ref->chrnum;
 //			break;
-//		case 0xf9:
+//		case CHR_CLONE:
 //			id = ref->chrdup;
 //			break;
-//		case 0xf8:
+//		case CHR_BOND:
 //			if (g_Vars.bond && g_Vars.bond->targetpos && g_Vars.bond->targetpos->chr) {
 //				id = g_Vars.bond->targetpos->chr->chrnum;
 //			}
 //			break;
-//		case 0xf5:
+//		case CHR_COOP:
 //			if (g_Vars.coop && g_Vars.coop->targetpos && g_Vars.coop->targetpos->chr) {
 //				id = g_Vars.coop->targetpos->chr->chrnum;
 //			}
 //			break;
-//		case 0xf4:
+//		case CHR_ANTI:
 //			if (g_Vars.anti && g_Vars.anti->targetpos && g_Vars.anti->targetpos->chr) {
 //				id = g_Vars.anti->targetpos->chr->chrnum;
 //			}
 //			break;
-//		case 0xf2:
+//		case CHR_P1P2:
 //			{
 //				u32 index = g_Vars.coopplayernum >= 0 ? ref->p1p2 : g_Vars.bondplayernum;
 //				struct player *player = g_Vars.players[index];
@@ -50240,7 +50240,7 @@ glabel chrResolveId
 //				}
 //			}
 //			break;
-//		case 0xf1:
+//		case CHR_P1P2_OPPOSITE:
 //			if (g_Vars.coopplayernum >= 0) {
 //				struct player *player = g_Vars.players[1 - ref->p1p2];
 //				if (player && player->targetpos && player->targetpos->chr) {
@@ -50248,7 +50248,7 @@ glabel chrResolveId
 //				}
 //			}
 //			break;
-//		case 0xf6:
+//		case CHR_TARGET:
 //			{
 //				struct position *target = chrGetTargetPosition(ref);
 //				if ((target->unk00 == 3 || target->unk00 == 6) && target->chr) {
@@ -50259,22 +50259,22 @@ glabel chrResolveId
 //		}
 //	} else { // ref is NULL
 //		switch (id) {
-//		case 0xf8:
+//		case CHR_BOND:
 //			if (g_Vars.bond && g_Vars.bond->targetpos && g_Vars.bond->targetpos->chr) {
 //				id = g_Vars.bond->targetpos->chr->chrnum;
 //			}
 //			break;
-//		case 0xf5:
+//		case CHR_COOP:
 //			if (g_Vars.coop && g_Vars.coop->targetpos && g_Vars.coop->targetpos->chr) {
 //				id = g_Vars.coop->targetpos->chr->chrnum;
 //			}
 //			break;
-//		case 0xf4:
+//		case CHR_ANTI:
 //			if (g_Vars.anti && g_Vars.anti->targetpos && g_Vars.anti->targetpos->chr) {
 //				id = g_Vars.anti->targetpos->chr->chrnum;
 //			}
 //			break;
-//		case 0xf2: // P1/P2
+//		case CHR_P1P2:
 //			{
 //				struct player *player = g_Vars.players[g_Vars.bondplayernum];
 //				if (player && player->targetpos && player->targetpos->chr) {
@@ -50282,7 +50282,7 @@ glabel chrResolveId
 //				}
 //			}
 //			break;
-//		case 0xf1: // P1/P2 inverse?
+//		case CHR_P1P2_OPPOSITE:
 //			if (g_Vars.coopplayernum >= 0) {
 //				struct player *player = g_Vars.players[g_Vars.coopplayernum];
 //				if (player && player->targetpos && player->targetpos->chr) {

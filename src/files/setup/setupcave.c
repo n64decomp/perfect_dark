@@ -1179,7 +1179,7 @@ u8 func0407_stewardess[] = {
 	restart_timer
 
 	beginloop(0x11)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_MSG_NOWSYOURCHANCE, TRUE, /*goto*/ 0x75)
 		if_chr_distance_gt(200, /*goto*/ 0x75)
@@ -1208,7 +1208,7 @@ u8 func0407_stewardess[] = {
 
 	// Walking
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_MSG_NOWSYOURCHANCE, TRUE, /*goto*/ 0x75)
 		if_chr_distance_gt(200, /*goto*/ 0x75)
@@ -1281,7 +1281,7 @@ u8 func0407_stewardess[] = {
 	dprint 'W','A','L','K','F','A','I','L','\n',0,
 
 	beginloop(0x49)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_MSG_NOWSYOURCHANCE, TRUE, /*goto*/ 0x75)
 		if_chr_distance_gt(200, /*goto*/ 0x75)
@@ -1303,7 +1303,7 @@ u8 func0407_stewardess[] = {
 	restart_timer
 
 	beginloop(0x4b)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_MSG_NOWSYOURCHANCE, TRUE, /*goto*/ 0x75)
 		if_chr_distance_gt(200, /*goto*/ 0x75)
@@ -1319,7 +1319,7 @@ u8 func0407_stewardess[] = {
 	stop_chr
 
 	beginloop(0x10)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_MSG_NOWSYOURCHANCE, TRUE, /*goto*/ 0x75)
 		if_chr_distance_gt(200, /*goto*/ 0x75)
@@ -1510,7 +1510,7 @@ u8 func0408_secretary[] = {
 	// MAIN LOOP
 	//
 	beginloop(LABEL_MAIN_LOOP)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		set_view_distance(100)
 		if_shot_near_chr(0x00, /*goto*/ LABEL_BECOME_ALERT1)
@@ -1706,7 +1706,7 @@ u8 func0408_secretary[] = {
 
 u8 unregistered_function2[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_flag_bank2(CHR_P1P2, CHRFLAG2_DISGUISED, /*goto*/ 0x02)
 	endloop(0x00)
 
@@ -1722,7 +1722,7 @@ u8 unregistered_function2[] = {
 
 u8 func1007_console_activation[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_CONSOLE, /*goto*/ 0x31)
 		goto_next(0x0c)
 
@@ -1768,7 +1768,7 @@ u8 func1007_console_activation[] = {
 	play_x_music(0x58, 88) // @bug? Invalid channel
 
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, -2000, OPERATOR_LESS_THAN, /*goto*/ 0x02)
 	endloop(0x06)
 
@@ -1943,7 +1943,7 @@ u8 func1021_weapon_scanning_coop[] = {
 
 u8 func1009_carousel_activation[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_BAGGAGE_CARRIER, /*goto*/ 0x02)
 		if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x31)
 		reloop(0x00)
@@ -2063,7 +2063,7 @@ u8 func0409_office1[] = {
 	animation(ANIM_SITTING_DORMANT, 0, -1, 0x14, 0x10, CHR_SELF, 2)
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x02)
 		if_shot_near_chr(0x00, /*goto*/ LABEL_RUN_TO_FOYER)
@@ -2213,7 +2213,7 @@ u8 func040a_office2[] = {
 	label(0x02)
 
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x02)
 		if_shot_near_chr(0x00, /*goto*/ 0x02)
@@ -2270,7 +2270,7 @@ u8 func040a_office2[] = {
 
 u8 func100c_check_end_level[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_objective_complete(0, /*goto*/ 0x31)
 		goto_first(0x00)
 
@@ -2347,7 +2347,7 @@ u8 func100c_check_end_level[] = {
 
 u8 func100d_laser_panel[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_LASER_PANEL, /*goto*/ 0x04)
 		if_object_in_good_condition(OBJ_LASER_PANEL, /*goto*/ 0x02)
 		goto_next(0x05)
@@ -2434,7 +2434,7 @@ u8 func040f_nsa[] = {
 
 	beginloop(0x06)
 		dprint 'G','O',' ','F','O','R',' ','P','A','D','\n',0,
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_distance_lt(250, /*goto*/ 0x64)
 		if_self_flag_bankx_eq(CHRFLAG0_00000080, TRUE, BANK_0, /*goto*/ 0x33)
@@ -2465,7 +2465,7 @@ u8 func040f_nsa[] = {
 	stop_chr
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		dprint 'W','A','I','T',' ','F','O','R',' ','C','H','R','\n',0,
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x0b)
@@ -2614,7 +2614,7 @@ u8 func0411_takeover_lackey[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_dying(0x0c, /*goto*/ 0x7b)
 		if_chr_death_animation_finished(0x0c, /*goto*/ 0x7b)
@@ -2686,7 +2686,7 @@ u8 func0414_officeworker[] = {
 	animation(ANIM_SITTING_DORMANT, -1, 60, 0x14, 0x00, CHR_SELF, 2)
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x07)
 		if_chr_idle(/*goto*/ 0x02)
@@ -2730,7 +2730,7 @@ u8 func0414_officeworker[] = {
 	animation(ANIM_COWER_0229, -1, 60, 0x14, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x02)
 		if_chr_idle(/*goto*/ 0x31)
@@ -3144,7 +3144,7 @@ u8 func042a_foyer_spawner[] = {
 	set_self_flag_bank3(CHRFLAG3_00040000)
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x02)
 		if_chr_y(CHR_TARGET, -4800, OPERATOR_LESS_THAN, /*goto*/ 0x09)
@@ -3369,7 +3369,7 @@ u8 func0419_ba8c[] = {
 	restart_timer
 	label(0x72)
 	yield
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_saw_death(0x00, /*goto*/ 0x4f)
 	if_shot_near_chr(0x00, /*goto*/ 0x0f)
@@ -3491,7 +3491,7 @@ u8 func1018_safe_switch[] = {
 
 	// Wait for player to activate switch
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_SAFE_SWITCH, /*goto*/ 0x31)
 	endloop(0x00)
 
@@ -3508,7 +3508,7 @@ u8 func1018_safe_switch[] = {
 
 	// Wait for player to press button again
 	beginloop(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_SAFE_SWITCH, /*goto*/ 0x31)
 	endloop(0x06)
 
@@ -3555,7 +3555,7 @@ u8 func1018_safe_switch_cover[] = {
 	set_object_flag_bank0(OBJ_SAFE_SWITCH_COVER, OBJECTFLAG0_DEACTIVATED)
 
 	beginloop(0x00)
-		if_chr_activated_object(CHR_F3, OBJ_SAFE_SWITCH_COVER, /*goto*/ 0x31)
+		if_chr_activated_object(CHR_ANY, OBJ_SAFE_SWITCH_COVER, /*goto*/ 0x31)
 	endloop(0x00)
 
 	label(0x31)
@@ -3575,7 +3575,7 @@ u8 func1018_safe_switch_cover[] = {
 
 u8 func101a_check_disguise_used[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_flag_bank2(CHR_P1P2, CHRFLAG2_DISGUISED, /*goto*/ 0x31)
 	endloop(0x00)
 
@@ -3872,7 +3872,7 @@ u8 func101d_msg_usethatcase[] = {
 	restart_timer
 
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_has_object(CHR_P1P2, OBJ_BRIEFCASE1, /*goto*/ 0x31)
 	endloop(0x00)
 
@@ -3915,7 +3915,7 @@ u8 func101e_msg_casewillgetstopped[] = {
 
 u8 func101f_msg_smallerthanithought[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0025, /*goto*/ 0x31)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x001c, /*goto*/ 0x31)
 	endloop(0x00)
@@ -3993,7 +3993,7 @@ u8 func0416_watch_flag[] = {
 
 u8 func101a_check_disguise_used2[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_has_object(CHR_P1P2, OBJ_UNIFORM, /*goto*/ 0x02)
 	endloop(0x00)
 
@@ -4139,7 +4139,7 @@ u8 func141b_setup_lifts_and_doors[] = {
 
 u8 func1029_lift_doors[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x37, /*goto*/ 0x31)
 		if_chr_activated_object(CHR_P1P2, 0x38, /*goto*/ 0x31)
 		if_chr_activated_object(CHR_P1P2, 0x39, /*goto*/ 0x31)
@@ -4235,7 +4235,7 @@ u8 func102d_check_console_destroyed[] = {
 
 u8 func102e_check_base_entered[] = {
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x002e, /*goto*/ 0x31)
 	endloop(0x00)
 
@@ -4311,7 +4311,7 @@ u8 func1032_unhide_guards_near_plane[] = {
 	// elevator all the way to the bottom, then come out and turn left, you'll
 	// walk through these rooms before reaching the stairs.
 	beginloop(0x00)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0016, /*goto*/ 0x31)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0017, /*goto*/ 0x31)
 	endloop(0x00)

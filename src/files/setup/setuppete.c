@@ -710,7 +710,7 @@ u8 func100f_check_mine[] = {
 	// SA and PA
 	yield
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_has_object(CHR_P1P2, OBJ_BRIEFCASE1, /*goto*/ 0x03)
 		reloop(0x08)
 
@@ -800,7 +800,7 @@ u8 func100f_check_mine[] = {
 
 u8 func1026_uplink[] = {
 	beginloop(0x10)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_TAXI, /*goto*/ 0x03)
 		reloop(0x10)
 
@@ -888,7 +888,7 @@ u8 func040d_limo[] = {
 
 	// Wait until not in room
 	beginloop(0x2d)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0002, /*goto*/ 0x03)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0010, /*goto*/ 0x03)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0012, /*goto*/ 0x03)
@@ -1131,7 +1131,7 @@ u8 func1005_check_things_destroyed[] = {
 
 u8 func1006_check_for_end[] = {
 	beginloop(0x05)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_objective_complete(0, /*goto*/ 0x03)
 		reloop(0x05)
 
@@ -1335,7 +1335,7 @@ u8 func0412_cia[] = {
 	// Not shot, not a patroller, or patroller who has started his path
 	label(0x10)
 	yield
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x37)
 	call_rng
@@ -1395,7 +1395,7 @@ u8 func0412_cia[] = {
 	go_to_target_pad(SPEED_WALK)
 
 	beginloop(0x36)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_saw_death(0x00, /*goto*/ 0x1d)
 		if_shot_near_chr(0x00, /*goto*/ 0x1e)
@@ -1572,7 +1572,7 @@ u8 func0413_bugspotter[] = {
 
 	// Wait until player in sight (mainly)
 	beginloop(0x10)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x04)
 		if_stage_flag_eq(STAGEFLAG_LIMO_READY_TO_LEAVE, TRUE, /*goto*/ LABEL_RUN_AWAY)
@@ -1613,10 +1613,10 @@ u8 func0413_bugspotter[] = {
 		goto_next(LABEL_RUN_AWAY)
 
 		label(0x03)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x03)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x03)
 		goto_next(0x0a)
@@ -1683,10 +1683,10 @@ u8 func0413_bugspotter[] = {
 		if_object_in_good_condition(OBJ_LIMO, /*goto*/ 0x03)
 		goto_next(LABEL_RUN_AWAY)
 		label(0x03)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_within_units_of_sight(30, /*goto*/ 0x03)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_within_units_of_sight(30, /*goto*/ 0x03)
 		goto_next(0x04)
@@ -1701,7 +1701,7 @@ u8 func0413_bugspotter[] = {
 	endloop(0x0e)
 
 	label(0x03)
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_within_units_of_sight(30, /*goto*/ 0x03)
 	goto_next(0x04)
@@ -1822,7 +1822,7 @@ u8 func041d_fbi[] = {
 	label(0x19)
 		set_action(ACTION_SCAN, TRUE)
 		yield
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(100, OPERATOR_LESS_THAN, /*goto*/ 0x04)
 		goto_next(0x16)
@@ -1853,10 +1853,10 @@ u8 func041d_fbi[] = {
 	beginloop(0x06)
 		if_chr_distance_lt(500, /*goto*/ 0x18)
 		if_target_chr_in_sight(/*goto*/ 0x18)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x18)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 	endloop(0x06)
 
@@ -1974,7 +1974,7 @@ u8 func041a_robot[] = {
 		set_stage_flag(STAGEFLAG_ROBOT_NEAR_HOME)
 
 		label(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_CRASH, TRUE, /*goto*/ 0x01)
 		if_target_chr_in_sight(/*goto*/ 0x08)
@@ -2096,7 +2096,7 @@ u8 func041e_sealer1[] = {
 	set_onshot_function(GFUNC_IDLE)
 
 	beginloop(0x19)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_CRASH_FINISHED, TRUE, /*goto*/ 0x03)
 		if_alertness(100, OPERATOR_LESS_THAN, /*goto*/ 0x04)
@@ -2460,7 +2460,7 @@ u8 func1010_elevator_switch[] = {
 	yield
 
 	beginloop(0x10)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_SWITCH, /*goto*/ 0x03)
 		if_stage_flag_eq(STAGEFLAG_ELEVATOR_SEALED, TRUE, /*goto*/ 0x04)
 		label(0x04)
@@ -2949,7 +2949,7 @@ u8 func0411_60f4[] = {
 
 u8 func101a_msg_onlyplace[] = {
 	beginloop(0x10)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0014, /*goto*/ 0x03)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0026, /*goto*/ 0x03)
 	endloop(0x10)
@@ -2970,7 +2970,7 @@ u8 func101b_msg_blockedupdoors[] = {
 	endloop(0x10)
 
 	beginloop(0x05)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x003a, /*goto*/ 0x03)
 	endloop(0x05)
 
@@ -2993,7 +2993,7 @@ u8 func101c_msg_reprogramthattaxi[] = {
 
 		label(0x03)
 		if_stage_flag_eq(STAGEFLAG_TAXI_REPROGRAMMED, TRUE, /*goto*/ 0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x004a, /*goto*/ 0x03)
 	endloop(0x05)
 
@@ -3006,7 +3006,7 @@ u8 func101c_msg_reprogramthattaxi[] = {
 
 u8 func101d_msg_pointofingress[] = {
 	beginloop(0x10)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0059, /*goto*/ 0x03)
 	endloop(0x10)
 
@@ -3074,7 +3074,7 @@ u8 func1020_elevator_doors[] = {
  */
 u8 func1021_check_topstairs_guy[] = {
 	beginloop(0x10)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, 500, OPERATOR_LESS_THAN, /*goto*/ 0x03)
 		goto_next(0x04)
 		label(0x03)
@@ -3097,7 +3097,7 @@ u8 func040d_limo_flags[] = {
 
 	// Wait until player not in certain rooms
 	beginloop(0x2f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0002, /*goto*/ 0x03)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0010, /*goto*/ 0x03)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0012, /*goto*/ 0x03)

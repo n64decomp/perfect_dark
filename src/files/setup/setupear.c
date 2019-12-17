@@ -938,7 +938,7 @@ u8 func0404_scientist[] = {
 	stop_chr
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2f)
 		if_chr_distance_lt(500, /*goto*/ 0x2f)
@@ -1296,7 +1296,7 @@ u8 func0406_nasty_scientist[] = {
 
 u8 func1009_weaponscache[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_activated_object(CHR_TARGET, OBJ_CACHETERMINAL, /*goto*/ 0x2f)
 	endloop(0x04)
@@ -1343,7 +1343,7 @@ u8 func1002_bot_activation_terminal[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_activated_object(CHR_TARGET, OBJ_BOT_ACTIVATION_TERMINAL, /*goto*/ 0x2f)
 		reloop(0x04)
@@ -1421,7 +1421,7 @@ u8 func1003_bot_programming_terminal[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_activated_object(CHR_TARGET, OBJ_BOT_PROGRAMMING_TERMINAL, /*goto*/ 0x2f)
 		reloop(0x04)
@@ -1505,7 +1505,7 @@ u8 func1018_item_pickup_messages[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x0d)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_HAS_K7AVENGER, TRUE, /*goto*/ 0x2f)
 		if_chr_has_object(CHR_P1P2, OBJ_K7AVENGER, /*goto*/ 0x06)
 		goto_next(0x2f)
@@ -1596,7 +1596,7 @@ u8 func1005_check_unacceptable_casualties[] = {
 
 u8 func1006_terminal_activation[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_activated_object(CHR_TARGET, OBJ_GOODTERM1, /*goto*/ 0x08)
 		if_chr_activated_object(CHR_TARGET, OBJ_ALARMTERM1, /*goto*/ 0x09)
@@ -1783,7 +1783,7 @@ u8 func1007_uplink[] = {
 		goto_next(0x0d)
 
 		label(0x30)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_activated_object(CHR_TARGET, OBJ_UPLINKPC, /*goto*/ 0x2f)
 		reloop(0x04)
@@ -2602,7 +2602,7 @@ u8 func1415_outro_audio[] = {
 
 u8 func100f_check_for_end_level[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0063, /*goto*/ 0x2f)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0065, /*goto*/ 0x2f)
 		reloop(0x04)
@@ -2722,7 +2722,7 @@ u8 func1012_start_laser_sound[] = {
 
 u8 func1013_hatch_pc[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_activated_object(CHR_TARGET, OBJ_HATCHPC, /*goto*/ 0x06)
 		reloop(0x04)
@@ -2823,7 +2823,7 @@ u8 func0402_k7_guard[] = {
 	set_onshot_function(GFUNC_ALERTED)
 
 	beginloop(0x0f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		set_follow_chr(CHR_P1P2)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0036, /*goto*/ 0x03)
@@ -2840,7 +2840,7 @@ u8 func0402_k7_guard[] = {
 		label(0x06)
 
 		beginloop(0x04)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_target_chr_in_sight(/*goto*/ 0x0c)
 			if_near_miss(/*goto*/ 0x0c)
@@ -2858,7 +2858,7 @@ u8 func0402_k7_guard[] = {
 		say_quip(CHR_BOND, 0x00, 0x32, 0x02, 0xff, BANK_0, 0x00, 0x00)
 
 		beginloop(0x08)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_target_chr_in_sight(/*goto*/ 0x0c)
 			if_near_miss(/*goto*/ 0x0c)
@@ -2894,7 +2894,7 @@ u8 func0402_k7_guard[] = {
 	restart_timer
 
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x0c)
 		if_near_miss(/*goto*/ 0x0c)
@@ -2908,7 +2908,7 @@ u8 func0402_k7_guard[] = {
 	restart_timer
 
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x0c)
 		if_near_miss(/*goto*/ 0x0c)
@@ -2928,7 +2928,7 @@ u8 func0402_k7_guard[] = {
 
 u8 func0403_k7_scientist[] = {
 	beginloop(0x14)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0035, /*goto*/ 0x03)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0036, /*goto*/ 0x03)
@@ -2941,7 +2941,7 @@ u8 func0403_k7_scientist[] = {
 		restart_timer
 
 		beginloop(0x08)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_target_chr_in_sight(/*goto*/ 0x0c)
 			if_near_miss(/*goto*/ 0x0c)
@@ -2971,7 +2971,7 @@ u8 func0403_k7_scientist[] = {
 		goto_next(0x0f)
 
 		beginloop(0x0f)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_target_chr_in_sight(/*goto*/ 0x0c)
 			if_near_miss(/*goto*/ 0x0c)
@@ -3040,7 +3040,7 @@ u8 func040b_init_shock_guard[] = {
 
 u8 func1019_msg_securitysector[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0052, /*goto*/ 0x2f)
 	endloop(0x04)
 
@@ -3052,7 +3052,7 @@ u8 func1019_msg_securitysector[] = {
 
 u8 func101a_msg_lotofpower[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0031, /*goto*/ 0x2f)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0042, /*goto*/ 0x2f)
 	endloop(0x04)
@@ -3067,7 +3067,7 @@ u8 func101b_msg_reprogram[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x08)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0026, /*goto*/ 0x2f)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0024, /*goto*/ 0x2f)
 	endloop(0x04)
@@ -3082,7 +3082,7 @@ u8 func101b_msg_reprogram[] = {
 u8 func101c_msg_radioactive[] = {
 	beginloop(0x04)
 		if_objective_complete(0, /*goto*/ 0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0014, /*goto*/ 0x2f)
 	endloop(0x04)
 

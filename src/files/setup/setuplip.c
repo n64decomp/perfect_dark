@@ -858,7 +858,7 @@ u8 func1400_give_datauplinks[] = {
 
 u8 func1007_check_disguise_collected[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_has_object(CHR_P1P2, OBJ_LABCOAT1, /*goto*/ 0x06)
 		if_chr_has_object(CHR_P1P2, OBJ_LABCOAT2, /*goto*/ 0x06)
 		if_chr_has_object(CHR_P1P2, OBJ_LABCOAT3, /*goto*/ 0x06)
@@ -893,7 +893,7 @@ u8 func1026_check_records_destroyed[] = {
 
 u8 func1003_uplink_doors[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x02, /*goto*/ 0x2d)
 		reloop(0x04)
 
@@ -970,7 +970,7 @@ u8 func1003_uplink_doors[] = {
 
 u8 func1004_uplink_lights[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x01, /*goto*/ 0x2d)
 		reloop(0x04)
 
@@ -1061,7 +1061,7 @@ u8 func1004_uplink_lights[] = {
 
 u8 func1005_uplink_autoguns[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x03, /*goto*/ 0x2d)
 		reloop(0x04)
 
@@ -1142,7 +1142,7 @@ u8 func1005_uplink_autoguns[] = {
 
 u8 func1006_check_lab_accessed[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x008f, /*goto*/ 0x06)
 	endloop(0x04)
 
@@ -1342,7 +1342,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	stop_chr
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2d)
 		if_chr_distance_lt(500, /*goto*/ 0x03)
@@ -1716,7 +1716,7 @@ u8 func0418_doorman[] = {
 	stop_chr
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x03)
 		if_chr_distance_lt(500, /*goto*/ 0x03)
@@ -1850,7 +1850,7 @@ u8 func0418_doorman[] = {
 
 u8 func100b_check_doorman_dead[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_dying(CHR_DOORMAN, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_DOORMAN, /*goto*/ 0x2d)
 		if_chr_unloaded(CHR_DOORMAN, /*goto*/ 0x2d)
@@ -1944,7 +1944,7 @@ u8 func041a_labtech_harrysmate[] = {
 	stop_chr
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0083, /*goto*/ 0x08)
 	endloop(0x04)
@@ -2045,7 +2045,7 @@ u8 func041b_labtech_keycardguy[] = {
 	// Not injured, or recovered
 	// Waiting to detect Jo
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2d)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2d)
@@ -2103,7 +2103,7 @@ u8 func100c_keycardguy_lights[] = {
 
 u8 func100d_check_entered_lab[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0083, /*goto*/ 0x06)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0084, /*goto*/ 0x06)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0085, /*goto*/ 0x06)
@@ -2153,7 +2153,7 @@ u8 func100e_elvis_timer[] = {
 
 u8 func100f_check_end_level[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 300, 0x02a1, /*goto*/ 0x06)
 		reloop(0x04)
 
@@ -2298,7 +2298,7 @@ u8 func0413_mechanic[] = {
 
 	// Wait for player to attempt to open door
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x0a)
 		if_chr_activated_object(CHR_P1P2, 0x14, /*goto*/ 0x2d)
@@ -2319,7 +2319,7 @@ u8 func0413_mechanic[] = {
 	open_door(0x15)
 
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x06)
 	endloop(0x0a)
@@ -2370,7 +2370,7 @@ u8 func0413_mechanic[] = {
 u8 func1011_unhide_warehouse_spawner[] = {
 	// Wait until player near second elevator
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x00f8, /*goto*/ 0x06)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x00f7, /*goto*/ 0x06)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x00f6, /*goto*/ 0x06)
@@ -2391,7 +2391,7 @@ u8 func0415_warehouse_spawner[] = {
 	restart_timer
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x08)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x00f8, /*goto*/ 0x08)
@@ -2545,7 +2545,7 @@ u8 func041e_unused_041e[] = {
 
 u8 func1016_check_undisguised[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_DISGUISE_UNCOVERED, TRUE, /*goto*/ 0x06)
 		if_chr_dying(CHR_LABTECH_HARRYSMATE, /*goto*/ 0x06)
 		if_chr_dying(CHR_LABTECH_KEYCARDGUY, /*goto*/ 0x06)
@@ -2615,7 +2615,7 @@ u8 func041f_labtech_lights[] = {
 	goto_next(0x04)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x53)
 		if_target_chr_in_sight(/*goto*/ 0x03)
@@ -2701,7 +2701,7 @@ u8 func041f_labtech_lights[] = {
 	walk_to_pad(0x020d)
 
 	beginloop(0x0d)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2d)
 		if_shot_near_chr(0x00, /*goto*/ 0x0f)
@@ -2739,7 +2739,7 @@ u8 func041f_labtech_lights[] = {
 	animation(ANIM_OPERATE_0223, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x0e)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2d)
 		if_shot_near_chr(0x00, /*goto*/ 0x0f)
@@ -2822,7 +2822,7 @@ u8 func0420_labtech_doors[] = {
 	label(0x6f)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		set_target_chr(CHR_BOND)
 		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISE_UNCOVERED, /*goto*/ 0x06)
@@ -3063,7 +3063,7 @@ u8 func0422_labtech_records[] = {
 	goto_first(0x5e)
 
 	label(0x2d)
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_target_chr_in_sight(/*goto*/ 0x03)
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x03)
@@ -3152,7 +3152,7 @@ u8 func1018_disable_chambers[] = {
 #define chamber_logic(switch, chamber, stageflag) \
 	/* Wait for player to activate chamber switch */ \
 	beginloop(0x04) \
-		consider_coop_for_p1p2_chr(CHR_SELF) \
+		chr_toggle_p1p2(CHR_SELF) \
 		if_chr_activated_object(CHR_P1P2, switch, /*goto*/ 0x06) \
 		reloop(0x04) \
  \
@@ -3214,7 +3214,7 @@ u8 func1018_disable_chambers[] = {
 u8 func1019_chamber1[] = {
 	// Wait for player to activate chamber switch
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_CHAMBER1_SWITCH, /*goto*/ 0x06)
 		reloop(0x04)
 
@@ -3285,7 +3285,7 @@ u8 func1019_chamber1[] = {
 u8 func101a_chamber2[] = {
 	// Wait for player to activate chamber switch
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_CHAMBER2_SWITCH, /*goto*/ 0x06)
 		reloop(0x04)
 
@@ -3371,7 +3371,7 @@ u8 func1020_chamber8[] = {
 	// Wait for player to activate chamber switch
 	beginloop(0x04)
 		// Likely @bug: Chamber 8 is the only chamber that doesn't call
-		// consider_coop_for_p1p2_chr here.
+		// chr_toggle_p1p2 here.
 		// Co-op player might not be able to activate chamber 8.
 		if_chr_activated_object(CHR_P1P2, OBJ_CHAMBER8_SWITCH, /*goto*/ 0x06)
 		reloop(0x04)
@@ -3488,7 +3488,7 @@ u8 func1021_xray_scanning[] = {
 	beginloop(0x04)
 		// @bug? In co-op, the player wearing the xray may be the player who is
 		// not looking at the alien.
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_has_weapon_equipped(CHR_P1P2, WEAPON_XRAYSCANNER, /*goto*/ 0x06)
 		reloop(0x04)
 
@@ -3528,7 +3528,7 @@ u8 unregistered_function1[] = {
 	restart_timer
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_timer_gt(600, /*goto*/ 0x08)
 		pause_timer
 		if_chr_in_room(CHR_P1P2, 0x00, 0x010d, /*goto*/ 0x06)
@@ -3591,7 +3591,7 @@ u8 func0427_shock_clone[] = {
 
 	label(0x04)
 	yield
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	if_chr_in_room(CHR_P1P2, 0x00, 0x010d, /*goto*/ 0x06)
 	if_chr_in_room(CHR_P1P2, 0x00, 0x0102, /*goto*/ 0x06)
 	if_chr_in_room(CHR_P1P2, 0x00, 0x0103, /*goto*/ 0x06)
@@ -3967,7 +3967,7 @@ u8 func1025_toggle_guards[] = {
 	set_chr_flag_bank3(0x32, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2d)
 	endloop(0x08)
 
@@ -4022,14 +4022,14 @@ u8 func0429_spawn_while_xraying[] = {
 	restart_timer
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_flag_bank2(CHR_P1P2, CHRFLAG2_DISGUISED, /*goto*/ 0x0d)
 		if_timer_gt(1800, /*goto*/ 0x2d)
 		reloop(0x04)
 
 		// 30 seconds passed and not disguised
 		label(0x2d)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_flag_bank2(CHR_P1P2, CHRFLAG2_DISGUISED, /*goto*/ 0x0d)
 
 		// Xray area
@@ -4403,7 +4403,7 @@ u8 func102f_shuffle_disguise[] = {
 
 u8 func1030_lift_door_sounds[] = {
 	beginloop(0x5e)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x46, /*goto*/ 0x2d)
 		if_chr_activated_object(CHR_P1P2, 0x47, /*goto*/ 0x2d)
 		if_chr_activated_object(CHR_P1P2, 0x48, /*goto*/ 0x2d)
@@ -4497,7 +4497,7 @@ u8 func1032_count_last_room_guards[] = {
  */
 u8 func1033_update_buddy_placed_flag[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_flag_bank2(CHR_P1P2, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x2d)
 	endloop(0x04)
 

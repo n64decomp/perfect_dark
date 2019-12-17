@@ -1770,13 +1770,25 @@
 	mkshort(0x01b2), \
 	value,
 
-#define consider_coop_for_p1p2_chr(chr) \
+/**
+ * Toggle which player (Bond or Coop) is referenced by the chr's CHR_P1P2
+ * identifier. This should be called inside a loop to give the illusion of
+ * referencing both players.
+ *
+ * This is safe to use in solo mode; it will not set it to coop if they don't exist.
+ */
+#define chr_toggle_p1p2(chr) \
 	mkshort(0x01b3), \
 	chr,
 
 #define cmd01b4_if_something(label) \
 	mkshort(0x01b4), \
 	label,
+
+#define chr_set_p1p2(chr, p1p2_chr) \
+	mkshort(0x01b5), \
+	chr, \
+	p1p2_chr,
 
 #define enable_snow(bool) \
 	mkshort(0x01b6), \

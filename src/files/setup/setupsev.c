@@ -1166,7 +1166,7 @@ u8 func1005_check_experiemnt_destroyed_pointless[] = {
 u8 func1006_activate_alarm[] = {
 	// Wait until player is in crate room
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x003f, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -1309,7 +1309,7 @@ u8 func1007_disable_pods[] = {
 u8 func1008_check_console[] = {
 	// Wait for console activated or destroyed
 	beginloop(0x04)
-		if_chr_activated_object(CHR_F3, OBJ_CONSOLE, /*goto*/ 0x2c)
+		if_chr_activated_object(CHR_ANY, OBJ_CONSOLE, /*goto*/ 0x2c)
 		if_object_in_good_condition(OBJ_CONSOLE, /*goto*/ 0x06)
 		goto_next(0x08)
 		label(0x06)
@@ -1383,7 +1383,7 @@ u8 func1009_check_for_exit[] = {
 u8 func100a_vertical_door_sounds[] = {
 	// Wait for player to activate vertical doors
 	beginloop(0x5d)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x46, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, 0x47, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, 0x48, /*goto*/ 0x2c)
@@ -1835,7 +1835,7 @@ u8 func100f_init_lighting[] = {
 u8 func1010_unload_part1_chrs[] = {
 	// Wait until player is in room 0x0067 - probably crate room or so
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0067, /*goto*/ 0x2c)
 	endloop(0x04)
 

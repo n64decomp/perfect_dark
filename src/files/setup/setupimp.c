@@ -803,7 +803,7 @@ u8 func1005_check_safeinfo_destroyed[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0e) \
  \
 	beginloop(0x04) \
-		consider_coop_for_p1p2_chr(CHR_SELF) \
+		chr_toggle_p1p2(CHR_SELF) \
 		if_object_in_good_condition(switch, /*goto*/ 0x2e) \
 		goto_next(0x0b) \
  \
@@ -1650,7 +1650,7 @@ u8 func100e_setup_firingrange[] = {
 
 	// Wait until guns complete or failed, or skip this check if Agent
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x2e)
 		if_objective_complete(0, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_AUTOGUN_SWITCH_DESTROYED, TRUE, /*goto*/ 0x2e)
@@ -1673,7 +1673,7 @@ u8 func100e_setup_firingrange[] = {
 
 	// Wait until player in firing range entrance or door is opening
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0007, /*goto*/ 0x08)
 		if_door_state(0x23, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2f)
 	endloop(0x0a)
@@ -1683,7 +1683,7 @@ u8 func100e_setup_firingrange[] = {
 	restart_timer
 
 	beginloop(0x71)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0007, /*goto*/ 0x08)
 		if_timer_gt(600, /*goto*/ 0x08)
 	endloop(0x71)
@@ -1728,7 +1728,7 @@ u8 func041a_hostage_holo[] = {
 
 	// Alive - wait until holo room door opened
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_door_state(0x43, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 		if_door_state(0x44, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
 	endloop(0x04)
@@ -2250,7 +2250,7 @@ u8 func042e_taker_device_m[] = {
 	set_self_flag_bank3(CHRFLAG3_00020000)
 
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x08)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x08)
@@ -2302,7 +2302,7 @@ u8 func0430_taker_device_f[] = {
 	set_self_flag_bank3(CHRFLAG3_00020000)
 
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x08)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x08)
@@ -2892,7 +2892,7 @@ u8 func1014_carrington_messages[] = {
 	endloop(0xca)
 
 	beginloop(0xcb)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_all_objectives_complete(/*goto*/ 0x2e)
 		reloop(0xcb)
 
@@ -2928,7 +2928,7 @@ u8 func1014_carrington_messages[] = {
 
 u8 func1015_firingrange_pc[] = {
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_FR_PC, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_FR_PC, /*goto*/ 0x2e)
 		goto_next(0x2f)
@@ -3108,7 +3108,7 @@ u8 func0410_spawner6[] = {
 	set_self_flag_bank3(CHRFLAG3_00040000)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_objective_complete(2, /*goto*/ 0x2e)
 		reloop(0x04)
 
@@ -3477,7 +3477,7 @@ u8 func101c_msg_fosterworkingon[] = {
 		reloop(0x04)
 
 		label(0x2f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0009, /*goto*/ 0x2e)
 	endloop(0x0a)
 
@@ -3652,7 +3652,7 @@ u8 func1024_setup_lifts[] = {
 
 u8 func1025_lift_door_sounds[] = {
 	beginloop(0xe4)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x46, /*goto*/ 0x2e)
 		if_chr_activated_object(CHR_P1P2, 0x47, /*goto*/ 0x2e)
 		if_chr_activated_object(CHR_P1P2, 0x48, /*goto*/ 0x2e)
@@ -3698,7 +3698,7 @@ u8 func1027_uplink[] = {
 		goto_next(0x0f)
 
 		label(0x2f)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_activated_object(CHR_TARGET, OBJ_SKEDAR_SHUTTLE, /*goto*/ 0x2e)
 		reloop(0x04)
@@ -3796,7 +3796,7 @@ u8 func1027_uplink[] = {
 u8 func1028_shuttle_immunity[] = {
 	beginloop(0xe4)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_SHUTTLE_TAKEOFF, TRUE, /*goto*/ 0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0045, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0046, /*goto*/ 0x2e)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0047, /*goto*/ 0x2e)

@@ -1549,7 +1549,7 @@ u8 func0402_taker[] = {
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x04)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		dprint 'A','I','M','I','N','G',' ','A','T',' ','M','E','\n',0,
 		if_chr_distance_to_pad_lt(CHR_P1P2, 200, 0x0236, /*goto*/ 0x06)
 		label(0x2d)
@@ -1704,7 +1704,7 @@ u8 func1005_toggle_snipers[] = {
 	hide_chr(CHR_SNIPER8)
 
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x002b, /*goto*/ 0x06)
 	endloop(0x08)
 
@@ -1723,7 +1723,7 @@ u8 func1005_toggle_snipers[] = {
 	// @bug: When using small characters or play as Elvis cheats, the height
 	// criteria is not met so the snipers cannot be unhidden.
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, -500, OPERATOR_LESS_THAN, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x004e, /*goto*/ 0x06)
 		label(0x2d)
@@ -1791,7 +1791,7 @@ u8 func0404_sniper[] = {
 	endloop(0x11)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		dprint 'S','T','A','R','T','\n',0,
 		if_target_chr_in_sight(/*goto*/ 0x58)
@@ -1823,7 +1823,7 @@ u8 func0404_sniper[] = {
 		restart_timer
 
 		beginloop(0x0a)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_target_chr_in_sight(/*goto*/ 0x58)
 			if_saw_death(0x00, /*goto*/ 0x58)
@@ -1858,7 +1858,7 @@ u8 func0404_sniper[] = {
 
 			label(0x0b)
 			yield
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_target_chr_in_sight(/*goto*/ 0x58)
 			if_saw_death(0x00, /*goto*/ 0x58)
@@ -1957,7 +1957,7 @@ u8 func1006_check_snipers_dead[] = {
 
 u8 func1007_cooling_switch[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_COOLING_SWITCH, /*goto*/ 0x06)
 		reloop(0x04)
 
@@ -2007,7 +2007,7 @@ u8 func1007_cooling_switch[] = {
 
 u8 func1008_power_switch[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_POWER_SWITCH, /*goto*/ 0x06)
 		reloop(0x04)
 
@@ -2057,7 +2057,7 @@ u8 func1008_power_switch[] = {
 
 u8 func1009_windmill_switch[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_WINDMILL_SWITCH, /*goto*/ 0x06)
 		reloop(0x04)
 
@@ -2211,7 +2211,7 @@ u8 func0405_hacker[] = {
 	animation(ANIM_SITTING_TYPING, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_HACKERS_SUCCEEDED, TRUE, /*goto*/ 0x2d)
 		if_chr_sees_player(/*goto*/ 0x09)
@@ -2222,7 +2222,7 @@ u8 func0405_hacker[] = {
 	run_to_pad(0x0070)
 
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x09)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -2290,7 +2290,7 @@ u8 func100e_check_objectives_complete[] = {
 	// player to enter the cellar while closing the door behind them and then
 	// mess with Carrington.
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_door_state(0x09, DOORSTATEBIT_OPEN, /*goto*/ 0x2d)
 		if_door_state(0x08, DOORSTATEBIT_OPEN, /*goto*/ 0x2d)
 	endloop(0x04)
@@ -2532,7 +2532,7 @@ u8 func040b_init_basement_guard[] = {
 
 u8 func1016_msg_generator[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0077, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -2578,7 +2578,7 @@ u8 func1018_msg_hidingdaniel[] = {
 	endloop(0x04)
 
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0088, /*goto*/ 0x2d)
 	endloop(0x08)
 
@@ -2637,7 +2637,7 @@ u8 func101b_toggle_basement_chrs[] = {
 
 	// Not sure which room 0x0087 is
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0087, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -2836,7 +2836,7 @@ u8 func101c_toggle_villa_guards[] = {
 	// @bug: It is possible to cross room 0x002a in a single frame on coop if
 	// hugging the corner tightly, which means the guards will not be unhidden.
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x002a, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -3201,7 +3201,7 @@ u8 func1025_check_basement_entered_without_subdue[] = {
 
 	beginloop(0x04)
 		if_objective_complete(4, /*goto*/ 0x0c)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0087, /*goto*/ 0x06)
 		label(0x0c)
 	endloop(0x04)

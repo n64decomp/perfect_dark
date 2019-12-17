@@ -816,7 +816,7 @@ u8 func0402_jonathan_waiting_for_meetup[] = {
 	set_self_flag_bank3(CHRFLAG3_00080000)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x06)
 	endloop(0x04)
@@ -1496,7 +1496,7 @@ u8 func0406_unused_0406[] = {
 u8 func1008_spawngroup1[] = {
 	// Wait until meeting done and player in the T-junction corridor
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_MET_JON, TRUE, /*goto*/ 0x06)
 		reloop(0x04)
 
@@ -1852,7 +1852,7 @@ u8 func1009_blow_up_wall[] = {
 
 u8 func100a_check_hangar_accessed[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x00e7, /*goto*/ 0x06)
 	endloop(0x04)
 
@@ -1900,7 +1900,7 @@ u8 func100c_medpack_activation[] = {
 	endloop(0x67)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x0c)
 		if_chr_activated_object(CHR_P1P2, OBJ_HOVERBED, /*goto*/ 0x06)
 		reloop(0x04)
@@ -1938,7 +1938,7 @@ u8 func100c_medpack_activation[] = {
 	yield
 
 	beginloop(0x0c)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x00df, /*goto*/ 0x32)
 	endloop(0x0c)
 
@@ -2030,7 +2030,7 @@ u8 func040b_elvis_follow[] = {
 
 u8 func100f_terminals[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_TERMINAL1, /*goto*/ 0x08)
 		if_chr_activated_object(CHR_P1P2, OBJ_TERMINAL2, /*goto*/ 0x0a)
 		reloop(0x04)
@@ -2222,7 +2222,7 @@ u8 func1011_unlock_doors_when_jo_escaping[] = {
 
 u8 func1012_hoverbike_auto_doors[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_JO_ESCAPE_STARTED, TRUE, /*goto*/ 0x06)
 		reloop(0x04)
 
@@ -3133,7 +3133,7 @@ u8 func1021_jo_escaping[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_JETBIKE_MESSAGE)
 
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0014, /*goto*/ 0x06)
 	endloop(0x0a)
 
@@ -3288,7 +3288,7 @@ u8 func041a_init_superdragon_guard[] = {
 
 u8 func101a_medpack_switch[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_MEDPACK_SWITCH, /*goto*/ 0x32)
 		if_difficulty_lt(DIFF_PA, /*goto*/ 0x06)
 		set_stage_flag(STAGEFLAG_MEDPACK_SWITCH_DESTROYED)
@@ -3321,7 +3321,7 @@ u8 unregistered_function1[] = {
 
 	// Wait until player in mine room
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x00dc, /*goto*/ 0x32)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x00dd, /*goto*/ 0x32)
 	endloop(0x08)
@@ -3354,7 +3354,7 @@ u8 func040f_warp_jon_to_catwalk[] = {
 u8 func101d_msg_medpackaroundhere[] = {
 	beginloop(0x04)
 		if_difficulty_lt(DIFF_PA, /*goto*/ 0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x00d2, /*goto*/ 0x32)
 	endloop(0x04)
 
@@ -3391,7 +3391,7 @@ u8 func101e_msg_hookup[] = {
 
 u8 func101f_msg_oil[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_JON_SAID_MAINT_HATCH, TRUE, /*goto*/ 0x32)
 		reloop(0x04)
 

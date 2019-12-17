@@ -82,16 +82,18 @@
 #define CHANNEL_9  9
 #define CHANNEL_10 10
 
-#define CHR_P1P2   0xf2
-#define CHR_F3     0xf3
-#define CHR_ANTI   0xf4
-#define CHR_COOP   0xf5
-#define CHR_TARGET 0xf6
-#define CHR_BOND   0xf8
-#define CHR_CLONE  0xf9
-#define CHR_SEEDIE 0xfb
-#define CHR_PRESET 0xfc
-#define CHR_SELF   0xfd
+#define CHR_P1P2_OPPOSITE 0xf1
+#define CHR_P1P2          0xf2
+#define CHR_ANY           0xf3 // Only supported by if_chr_activated_object command
+#define CHR_ANTI          0xf4
+#define CHR_COOP          0xf5
+#define CHR_TARGET        0xf6
+#define CHR_BOND          0xf8
+#define CHR_CLONE         0xf9
+#define CHR_SEESHOT       0xfa
+#define CHR_SEEDIE        0xfb
+#define CHR_PRESET        0xfc
+#define CHR_SELF          0xfd
 
 // Character flags - bank 0 (chr struct offset 0x114 - chr->flags)
 #define CHRFLAG0_CANT_ALERT_GROUP   0x00000001 // Don't set group alertness when becoming aware

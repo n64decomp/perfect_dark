@@ -581,7 +581,7 @@ u8 func1004_check_hangar_doors_opened[] = {
 	set_object_flag_bank0(OBJ_HANGARDOOR4, OBJECTFLAG0_02000000)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_difficulty_lt(DIFF_PA, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, OBJ_HANGARDOORCONSOLE, /*goto*/ 0x06)
 		if_object_in_good_condition(OBJ_HANGARDOORCONSOLE, /*goto*/ 0x2d)
@@ -711,7 +711,7 @@ u8 func040e_elvis_give_ar34[] = {
 
 	// Wait until player in sight
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		set_follow_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x2c)
@@ -1157,7 +1157,7 @@ u8 func0410_wake_suspendedanim_skedar[] = {
 
 u8 func1006_wake_slayer_skedar[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0033, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -1202,7 +1202,7 @@ u8 func1006_wake_slayer_skedar[] = {
 	label(0x2c)
 
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_ENTERED_SLAYER_AREA, TRUE, /*goto*/ 0x2c)
 		reloop(0x0a)
 
@@ -1297,7 +1297,7 @@ u8 func1008_hangar_lifts[] = {
 
 	beginloop(0x67)
 		dprint 'T','R','\n',0,
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
 		if_chr_in_room(CHR_BOND, 0x00, 0x0018, /*goto*/ 0x2c)
 		if_door_state(0x39, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x2d)
@@ -1327,7 +1327,7 @@ u8 func1008_hangar_lifts[] = {
 	// Wait until Y coordinate >= 400
 	beginloop(0x09)
 		dprint 'P','U','\n',0,
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ 0x2c)
 		if_chr_y(CHR_P1P2, 400, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		goto_next(0x0a)
@@ -1407,7 +1407,7 @@ u8 func1008_hangar_lifts[] = {
 	// For buddy or counterop who might still be in the hangar,
 	// wait for lift to be called from hangar
 	beginloop(0x68)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x3b, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, 0x3c, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_ANTI, 0x3b, /*goto*/ 0x2c)
@@ -1483,7 +1483,7 @@ u8 func0408_knifeable_skedar[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x04)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_CASS_AT_PAD, TRUE, /*goto*/ 0x06)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x0c)
@@ -1505,7 +1505,7 @@ u8 func0408_knifeable_skedar[] = {
 	jog_to_pad(0x00dd)
 
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_stopped(/*goto*/ 0x06)
 		if_target_chr_in_sight(/*goto*/ 0x0c)
@@ -1519,7 +1519,7 @@ u8 func0408_knifeable_skedar[] = {
 	try_face_entity(ENTITYTYPE_PAD, 0x00ef, /*goto*/ 0x0b)
 
 	beginloop(0x0b)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_timer_gt(600, /*goto*/ 0x06)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x0c)
@@ -1533,7 +1533,7 @@ u8 func0408_knifeable_skedar[] = {
 	jog_to_pad(0x00d9)
 
 	beginloop(0x0a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_just_injured(CHR_SELF, /*goto*/ 0x0c)
 		dprint 'W','A','I','T','I','N','G',' ','T','W','O','\n',0,
@@ -1958,7 +1958,7 @@ u8 func100c_engineroom[] = {
 u8 func100d_prebridgelift[] = {
 	// Wait until Y >= 2600
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, 2600, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		goto_next(0x0a)
 
@@ -1979,7 +1979,7 @@ u8 func100d_prebridgelift[] = {
 
 	// Wait until lift called at bottom by buddy or counterop
 	beginloop(0x68)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x3d, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, 0x3e, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_ANTI, 0x3d, /*goto*/ 0x2c)
@@ -2038,7 +2038,7 @@ u8 func100d_prebridgelift[] = {
 u8 func100e_bridgelift[] = {
 	// Wait until Y >= 3600
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, 3600, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		goto_next(0x0a)
 
@@ -2061,7 +2061,7 @@ u8 func100e_bridgelift[] = {
 
 	// Wait until lift called from below by buddy or counterop
 	beginloop(0x68)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x2f, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, 0x30, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_ANTI, 0x2f, /*goto*/ 0x2c)
@@ -2986,7 +2986,7 @@ u8 func0421_bridge_skedar[] = {
 	kneel
 
 	beginloop(0xc7)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		label(0x2c)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
@@ -3042,7 +3042,7 @@ u8 func0421_bridge_skedar[] = {
 
 	label(0xcd)
 	call_rng
-	consider_coop_for_p1p2_chr(CHR_SELF)
+	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
 	if_target_chr_in_sight(/*goto*/ 0xce)
@@ -3062,7 +3062,7 @@ u8 func0421_bridge_skedar[] = {
 	restart_timer
 
 	beginloop(0xd1)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0xce)
 		if_timer_gt(300, /*goto*/ 0x06)
@@ -3137,7 +3137,7 @@ u8 func1014_msg_hangarbaydoors[] = {
 
 u8 func1015_msg_starmaps[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x003e, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -3149,7 +3149,7 @@ u8 func1015_msg_starmaps[] = {
 
 u8 func1016_msg_ifwecontrolthebridge[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x006f, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -3234,7 +3234,7 @@ u8 func0423_shy_skedar[] = {
 	run_to_pad(0x00da)
 
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2d)
 		if_chr_distance_to_pad_lt(CHR_SELF, 200, 0x00da, /*goto*/ 0x2d)
@@ -3401,7 +3401,7 @@ u8 func101a_kill_maian[] = {
 
 u8 func101c_lift_door_sounds[] = {
 	beginloop(0xc2)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x2f, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, 0x30, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, 0x31, /*goto*/ 0x2c)
@@ -3454,7 +3454,7 @@ u8 func101d_unlock_doors[] = {
 
 u8 func101e_bridge_music[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_BOND, 0x00, 0x006e, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -3534,7 +3534,7 @@ u8 func1020_engine_hum_noise[] = {
 u8 func1021_check_ammo_wasted[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_SHIELDS_DISABLED, TRUE, /*goto*/ 0x0d)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_MAULER, /*goto*/ 0x65)
 	endloop(0x04)
 
@@ -3650,7 +3650,7 @@ u8 func1025_toggle_chrs[] = {
 	hide_chr(CHR_BRIDGESPAWNER2)
 
 	beginloop(0x08)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, 450, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		goto_next(0x06)
 
@@ -3724,7 +3724,7 @@ u8 func1025_toggle_chrs[] = {
 	rebuild_squadrons
 
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, 550, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		goto_next(0x06)
 

@@ -1157,7 +1157,7 @@ u8 func040d_start_path37[] = {
 u8 func1002_lightswitch[] = {
 	// Wait until switch activated
 	beginloop(0x04)
-		if_chr_activated_object(CHR_F3, OBJ_LIGHTSWITCH, /*goto*/ 0x2c)
+		if_chr_activated_object(CHR_ANY, OBJ_LIGHTSWITCH, /*goto*/ 0x2c)
 		reloop(0x04)
 
 		label(0x2c)
@@ -1303,7 +1303,7 @@ u8 func0411_cass_in_office[] = {
 	animation(0x00a0, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x54)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x55)
 	endloop(0x54)
@@ -1340,7 +1340,7 @@ u8 func0411_cass_in_office[] = {
 
 	// Wait until player in disarm range
 	beginloop(0x5a)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_in_disarm_range(/*goto*/ 0x83)
 		reloop(0x5a)
@@ -1417,7 +1417,7 @@ u8 func0413_cass_running[] = {
 		stop_chr
 
 		beginloop(0x09)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_chr_sees_player(/*goto*/ 0x2c)
 		endloop(0x09)
@@ -1505,7 +1505,7 @@ u8 func1006_lift_disabling[] = {
 
 	// Wait until player Y above -4300
 	beginloop(0x03)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, -4300, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		goto_next(0x06)
 		label(0x2c)
@@ -1573,7 +1573,7 @@ u8 func0415_chief[] = {
 
 	// Wait until player in sight
 	beginloop(0x03)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
 		if_target_chr_in_sight(/*goto*/ 0x2c)
@@ -1602,7 +1602,7 @@ u8 func100f_disable_chiefs_lift[] = {
 
 	// Wait until player above -4400
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, -4400, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		goto_next(0x06)
 		label(0x2c)
@@ -1636,7 +1636,7 @@ u8 func100f_disable_chiefs_lift[] = {
 u8 func1007_bomb_logic[] = {
 	// Wait until in lab elevator and has bomb equipped
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x002b, /*goto*/ 0x2c)
 		reloop(0x04)
 
@@ -1731,7 +1731,7 @@ u8 func1008_check_bomb_unplantable[] = {
 			// Door is closed
 			label(0xb2)
 			yield
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			if_stage_flag_eq(STAGEFLAG_BOMB_PLANTED, TRUE, /*goto*/ 0x0d)
 			if_chr_in_room(CHR_BOND, 0x00, 0x002b, /*goto*/ 0x06)
 			if_chr_in_room(CHR_COOP, 0x00, 0x002b, /*goto*/ 0x06)
@@ -1778,7 +1778,7 @@ u8 func1009_toggle_top_guards[] = {
 
 	// Wait until player above -4100
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, -4100, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 		goto_next(0x06)
 		label(0x2c)
@@ -1837,7 +1837,7 @@ u8 func100a_check_for_completion[] = {
 
 		// Wait until player at helipad
 		label(0x2c)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, 0, OPERATOR_LESS_THAN, /*goto*/ 0x2d)
 
 		// Wait 1 second
@@ -1889,7 +1889,7 @@ u8 func100b_start_lifts[] = {
 u8 func100c_lift_doors[] = {
 	// Wait until player activated a lift door
 	beginloop(0xc1)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, 0x57, /*goto*/ 0xb1)
 		if_chr_activated_object(CHR_P1P2, 0x58, /*goto*/ 0xb1)
 		if_chr_activated_object(CHR_P1P2, 0x59, /*goto*/ 0xb1)

@@ -2110,7 +2110,7 @@ u8 func100e_check_ecm_mines[] = {
 
 u8 func1004_check_lab_lift_located[] = {
 	beginloop(0x52)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_LABLIFTDOOR1, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, OBJ_LABLIFTDOOR2, /*goto*/ 0x2c)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x002b, /*goto*/ 0x2c)
@@ -2302,7 +2302,7 @@ u8 func1008_doorswitch[] = {
 
 	// PA
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_DOORSWITCH, /*goto*/ 0x2c)
 		label(0x06)
 	endloop(0x04)
@@ -2376,7 +2376,7 @@ u8 func100a_alarm_guard[] = {
 
 u8 func100b_lightswitch[] = {
 	beginloop(0x04)
-		if_chr_activated_object(CHR_F3, OBJ_LIGHTSWITCH, /*goto*/ 0x2c)
+		if_chr_activated_object(CHR_ANY, OBJ_LIGHTSWITCH, /*goto*/ 0x2c)
 		reloop(0x04)
 
 		label(0x2c)
@@ -3284,8 +3284,8 @@ u8 func1010_start_hub_humms[] = {
 
 u8 func1011_check_hubs_activated[] = {
 	beginloop(0x04)
-		if_chr_activated_object(CHR_F3, OBJ_SECURITYHUB, /*goto*/ 0x08)
-		if_chr_activated_object(CHR_F3, OBJ_EXTCOMMSHUB, /*goto*/ 0x0a)
+		if_chr_activated_object(CHR_ANY, OBJ_SECURITYHUB, /*goto*/ 0x08)
+		if_chr_activated_object(CHR_ANY, OBJ_EXTCOMMSHUB, /*goto*/ 0x0a)
 		reloop(0x04)
 
 		label(0x08)
@@ -3557,7 +3557,7 @@ u8 func1019_toggle_guards[] = {
 	hide_chr(0x16)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, -2000, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -3685,7 +3685,7 @@ u8 unregistered_function7[] = {
 
 u8 func101e_lift_door_sounds[] = {
 	beginloop(0xc4)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_LIFT1DOOR1, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, OBJ_LIFT1DOOR2, /*goto*/ 0x2c)
 		if_chr_activated_object(CHR_P1P2, OBJ_LIFT1DOOR3, /*goto*/ 0x2c)
@@ -3726,7 +3726,7 @@ u8 func042e_init_surrendering_guard[] = {
 u8 func042f_surrendering_guard[] = {
 	// Wait for player detection
 	beginloop(0xc4)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2c)
 		if_enemy_distance_lt_and_los(500, /*goto*/ 0x2c)
@@ -3774,7 +3774,7 @@ u8 func042f_surrendering_guard[] = {
 		if_chr_distance_gt(300, /*goto*/ 0x06)
 		if_chr_in_view(/*goto*/ 0x28)
 		label(0x06)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x58)
 	endloop(0x55)

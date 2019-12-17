@@ -581,7 +581,7 @@ u8 func1024_give_objects[] = {
 	set_object_flag_bank0(OBJ_REMOTEMINE_COOP, OBJECTFLAG0_00100000)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_has_object(CHR_P1P2, OBJ_EQUIPMENT, /*goto*/ 0x06)
 	endloop(0x04)
 
@@ -599,7 +599,7 @@ u8 func1024_give_objects[] = {
 u8 func1004_reassign_ailists_during_conversation[] = {
 	// Wait until player in president's room
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0055, /*goto*/ 0x06)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0056, /*goto*/ 0x06)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0057, /*goto*/ 0x06)
@@ -1121,7 +1121,7 @@ u8 func1009_check_end_level[] = {
 
 u8 func100a_autopilot_switch[] = {
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_AUTOPILOT_SWITCH, /*goto*/ 0x2d)
 		goto_next(0x08)
 
@@ -1678,7 +1678,7 @@ u8 func100c_cockpit_stripes[] = {
 	set_self_flag_bank3(CHRFLAG3_00000040)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x06)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x06)
@@ -2204,7 +2204,7 @@ u8 func1010_dumbwaiter1[] = {
 	set_object_image(OBJ_DUMBWAITER1_SWITCH, 0x00, 0x12)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_DUMBWAITER1_SWITCH, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -2265,7 +2265,7 @@ u8 func1011_dumbwaiter2[] = {
 	set_object_image(OBJ_DUMBWAITER2_SWITCH, 0x00, 0x12)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_DUMBWAITER2_SWITCH, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -2436,7 +2436,7 @@ u8 func0415_cloner1[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_UFO_ATTACHMENT_DAMAGED, TRUE, /*goto*/ 0x0e)
 		// These rooms are the attachment area
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0017, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0018, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0019, /*goto*/ 0x2d)
@@ -2532,7 +2532,7 @@ u8 func0418_cloner2[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_UFO_ATTACHMENT_DAMAGED, TRUE, /*goto*/ 0x0e)
 		// These rooms are the attachment area
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0017, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0018, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0019, /*goto*/ 0x2d)
@@ -2631,7 +2631,7 @@ u8 func041b_cloner3[] = {
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_UFO_ATTACHMENT_DAMAGED, TRUE, /*goto*/ 0x0e)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0017, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0018, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0019, /*goto*/ 0x2d)
@@ -2753,7 +2753,7 @@ u8 func041e_blonde[] = {
 
 	beginloop(0x75)
 		label(0x2d)
-		consider_coop_for_p1p2_chr(CHR_P1P2)
+		chr_toggle_p1p2(CHR_P1P2)
 		set_target_chr(CHR_BOND)
 		if_target_chr_in_sight(/*goto*/ 0x6a)
 		if_near_miss(/*goto*/ 0x6b)
@@ -2865,7 +2865,7 @@ u8 func0421_trent_waiting[] = {
 	set_chr_flag_bank3(CHR_TRENT, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x06)
 	endloop(0x04)
@@ -2889,7 +2889,7 @@ u8 func0420_trent_attacking[] = {
 	stop_chr
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		try_unset_chr_flag_bank3_02000000(CHR_SELF, /*goto*/ 0x2d)
 		set_target_chr(CHR_PRESIDENT)
@@ -3001,7 +3001,7 @@ u8 func1013_unhide_trent_and_blondes[] = {
 	hide_chr(CHR_BLONDE2)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_PRESIDENT_STARTED_RUNNING, TRUE, /*goto*/ 0x2d)
 		reloop(0x04)
 
@@ -3128,7 +3128,7 @@ u8 func0407_steward[] = {
 	set_onshot_function(FUNC_STEWARD_SHOT)
 
 	beginloop(0x03)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_idle(/*goto*/ 0x2d)
 		call_rng
@@ -3203,7 +3203,7 @@ u8 func0407_steward[] = {
 		goto_first(0x79)
 
 		beginloop(0x87)
-			consider_coop_for_p1p2_chr(CHR_SELF)
+			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_target_chr_in_sight(/*goto*/ 0x89)
 			if_shot_near_chr(0x00, /*goto*/ 0x89)
@@ -3357,7 +3357,7 @@ u8 func1016_msg_onthislevel[] = {
 	restart_timer
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_y(CHR_P1P2, 440, OPERATOR_LESS_THAN, /*goto*/ 0x06)
 		goto_next(0x2d)
 
@@ -3400,7 +3400,7 @@ u8 func1017_msg_gettothecockpit[] = {
 u8 func1018_msg_maybeamine[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_ALL_OBJECTIVES_COMPLETE, TRUE, /*goto*/ 0x0e)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_objective_complete(2, /*goto*/ 0x2d)
 		reloop(0x04)
 
@@ -3617,7 +3617,7 @@ u8 func101a_equipment_switch[] = {
 	set_object_image(OBJ_EQUIPMENT_SWITCH, 0x00, 0x12)
 
 	beginloop(0x04)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_chr_activated_object(CHR_P1P2, OBJ_EQUIPMENT_SWITCH, /*goto*/ 0x2d)
 		reloop(0x04)
 
@@ -3678,7 +3678,7 @@ u8 func101b_hoverbike_switch[] = {
 	open_door(0x20)
 
 	beginloop(0x09)
-		consider_coop_for_p1p2_chr(CHR_SELF)
+		chr_toggle_p1p2(CHR_SELF)
 		if_door_state(0x20, DOORSTATEBIT_CLOSING, /*goto*/ 0x2d)
 		if_chr_activated_object(CHR_P1P2, OBJ_HOVERBIKE_SWITCH, /*goto*/ 0x0a)
 		reloop(0x09)
