@@ -221,10 +221,10 @@ u32 func0f03843c(struct chrdata *chr, struct coord *coord, s16 *room_id, u32 spe
 struct path *pathFindById(u32 path_id);
 u32 func0f038868(void);
 void func0f038b9c(struct chrdata *chr, struct path *path);
-u32 func0f038f30(void);
+void func0f038f30(struct chrdata *chr);
 u32 func0f038f40(void);
 u32 func0f0391ec(struct chrdata *chr, struct coord *coord, s16 *room, u32 arg3);
-u32 func0f03922c(void);
+u32 func0f03922c(struct chrdata *chr, void *arg1, s32 arg2);
 u32 func0f039368(struct chrdata *chr);
 u32 func0f0393b4(struct chrdata *chr, struct coord *coord, s16 *room);
 u32 func0f039474(void);

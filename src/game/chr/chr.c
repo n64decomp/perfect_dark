@@ -31553,29 +31553,18 @@ glabel func0f03922c
 /*  f039364:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-GLOBAL_ASM(
-glabel func0f039368
-/*  f039368:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03936c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f039370:	0fc0a221 */ 	jal	chrGetTargetPosition
-/*  f039374:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f039378:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f03937c:	8c450004 */ 	lw	$a1,0x4($v0)
-/*  f039380:	0fc0e48b */ 	jal	func0f03922c
-/*  f039384:	00003025 */ 	or	$a2,$zero,$zero
-/*  f039388:	10400005 */ 	beqz	$v0,.L0f0393a0
-/*  f03938c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f039390:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f039394:	0fc0e3cc */ 	jal	func0f038f30
-/*  f039398:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f03939c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.L0f0393a0:
-/*  f0393a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0393a4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0393a8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0393ac:	03e00008 */ 	jr	$ra
-/*  f0393b0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f039368(struct chrdata *chr)
+{
+	u32 result;
+	struct position *pos = chrGetTargetPosition(chr);
+	result = func0f03922c(chr, pos->chr, 0);
+
+	if (result) {
+		func0f038f30(chr);
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0393b4
