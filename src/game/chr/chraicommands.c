@@ -630,7 +630,7 @@ glabel ai000b
  */
 bool aiIfIdle(void)
 {
-	if (g_Vars.chrdata->actiontype == 3) {
+	if (g_Vars.chrdata->actiontype == ACT_ANIM) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -715,7 +715,7 @@ bool aiIfChrDeathAnimationFinished(void)
 			u32 playernum = posGetPlayerNum(chr->pos);
 			pass = g_Vars.players[playernum]->isdead;
 		} else {
-			pass = (chr->actiontype == 5);
+			pass = (chr->actiontype == ACT_DEAD);
 		}
 	}
 
@@ -737,7 +737,7 @@ bool aiIfChrUnloaded(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if ((!chr || !chr->pos || chr->pos->type != POSITIONTYPE_PLAYER) &&
-			(!chr || !chr->unk020 || chr->actiontype == 0x1f || chr->actiontype == 0x1e || chr->actiontype == 0x20)) {
+			(!chr || !chr->unk020 || chr->actiontype == ACT_31 || chr->actiontype == ACT_30 || chr->actiontype == ACT_32)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -912,7 +912,7 @@ bool ai00f0(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->actiontype == 8 && !g_Vars.chrdata->unk058 && g_Vars.chrdata->unk04c & 0x40) {
+	if (g_Vars.chrdata->actiontype == ACT_ATTACK && !g_Vars.chrdata->unk058 && g_Vars.chrdata->unk04c & 0x40) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -928,7 +928,7 @@ bool ai00f1(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->actiontype == 8) {
+	if (g_Vars.chrdata->actiontype == ACT_ATTACK) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -1566,7 +1566,7 @@ bool aiIfPathStarted(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->actiontype == 0x0e || (g_Vars.chrdata->actiontype == 0x0f && (g_Vars.chrdata->unk065 & 8))) {
+	if (g_Vars.chrdata->actiontype == ACT_PATROL || (g_Vars.chrdata->actiontype == ACT_GOPOS && (g_Vars.chrdata->unk065 & 8))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -11049,7 +11049,7 @@ glabel ai0137
 //			struct chrdata *chr = chrFindByLiteralId(*chrnums);
 //
 //			if (chr && chr->unk020 && chrIsDead(chr) == false &&
-//					chr->actiontype != 5 &&
+//					chr->actiontype != ACT_DEAD &&
 //					func0f04aa8c(g_Vars.chrdata, chr, 1) &&
 //					g_Vars.chrdata->chrnum != chr->chrnum &&
 //					chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500 &&
@@ -11104,11 +11104,11 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 
 		if (cmd[3] == 0 && chr && chr->unk020 &&
 				chrIsDead(chr) == false &&
-				chr->actiontype != 5 &&
-				chr->actiontype != 4 &&
-				chr->actiontype != 0x1f &&
-				chr->actiontype != 0x1e &&
-				chr->actiontype != 0x20 &&
+				chr->actiontype != ACT_DEAD &&
+				chr->actiontype != ACT_DIE &&
+				chr->actiontype != ACT_31 &&
+				chr->actiontype != ACT_30 &&
+				chr->actiontype != ACT_32 &&
 				chr->alertness < 100 &&
 				(g_Vars.chrdata->squadron == chr->squadron || g_Vars.chrdata->squadron == 0xff) &&
 				g_Vars.chrdata->chrnum != chr->chrnum) {
@@ -14837,7 +14837,7 @@ bool aiChrKill(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
-		chr->actiontype = 5;
+		chr->actiontype = ACT_DEAD;
 		chr->unk038 = -1;
 		chr->unk02c = 0;
 		chr->unk030 = 0;

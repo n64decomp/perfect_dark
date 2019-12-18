@@ -114,13 +114,13 @@ void chraiExecute(void *entity, s32 entity_type)
 					&& chrHasFlag(g_Vars.chrdata, 0x00000400, BANK_1) == 0
 					&& chrHasFlag(g_Vars.chrdata, 0x00010000, BANK_0) == 0
 					&& ailistFindById(g_Vars.chrdata->aishootingatmelist) != g_Vars.chrdata->ailist
-					&& g_Vars.chrdata->actiontype != 8
-					&& g_Vars.chrdata->actiontype != 9
-					&& g_Vars.chrdata->actiontype != 4
-					&& g_Vars.chrdata->actiontype != 5
-					&& g_Vars.chrdata->actiontype != 6
-					&& g_Vars.chrdata->actiontype != 7
-					&& g_Vars.chrdata->actiontype != 10) {
+					&& g_Vars.chrdata->actiontype != ACT_ATTACK
+					&& g_Vars.chrdata->actiontype != ACT_ATTACKWALK
+					&& g_Vars.chrdata->actiontype != ACT_DIE
+					&& g_Vars.chrdata->actiontype != ACT_DEAD
+					&& g_Vars.chrdata->actiontype != ACT_ARGH
+					&& g_Vars.chrdata->actiontype != ACT_PREARGH
+					&& g_Vars.chrdata->actiontype != ACT_ATTACKROLL) {
 				// Set shooting at me list
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishootingatmelist);
 				g_Vars.aioffset = 0;
@@ -141,9 +141,9 @@ void chraiExecute(void *entity, s32 entity_type)
 			g_Vars.chrdata->darkroomthing = 0;
 
 			if (g_Vars.chrdata->aidarkroomlist >= 0
-					&& g_Vars.chrdata->actiontype != 4
-					&& g_Vars.chrdata->actiontype != 5
-					&& g_Vars.chrdata->actiontype != 6) {
+					&& g_Vars.chrdata->actiontype != ACT_DIE
+					&& g_Vars.chrdata->actiontype != ACT_DEAD
+					&& g_Vars.chrdata->actiontype != ACT_ARGH) {
 				// Set darkroom list
 				chrSetFlags(g_Vars.chrdata, 0x00000400, BANK_1);
 				chrSetFlags(g_Vars.chrdata, 0x10000000, BANK_1);

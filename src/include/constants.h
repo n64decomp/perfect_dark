@@ -4,6 +4,68 @@
 #define false 0
 #define true  1
 
+// These actions are assigned to chr->actiontype
+#define ACT_STAND      1
+#define ACT_KNEEL      2
+#define ACT_ANIM       3
+#define ACT_DIE        4
+#define ACT_DEAD       5
+#define ACT_ARGH       6
+#define ACT_PREARGH    7
+#define ACT_ATTACK     8
+#define ACT_ATTACKWALK 9
+#define ACT_ATTACKROLL 10
+#define ACT_11         11
+#define ACT_12         12
+#define ACT_13         13
+#define ACT_PATROL     14
+#define ACT_GOPOS      15
+#define ACT_SURRENDER  16
+#define ACT_17         17
+#define ACT_18         18
+#define ACT_19         19
+#define ACT_20         20
+#define ACT_21         21
+#define ACT_22         22
+#define ACT_23         23
+#define ACT_24         24
+#define ACT_25         25
+#define ACT_26         26
+#define ACT_27         27
+#define ACT_28         28
+#define ACT_29         29
+#define ACT_30         30
+#define ACT_31         31
+#define ACT_32         32
+#define ACT_33         33
+
+// These numbers aren't right, but the names are here for reference
+// and the order of them might be useful too.
+//#define ACT_RUNPOS           11
+//#define ACT_PATROL           12
+//#define ACT_GOPOS            13
+//#define ACT_SURRENDER        14
+//#define ACT_LOOKATTARGET     15
+//#define ACT_SURPRISED        16
+//#define ACT_STARTALARM       17
+//#define ACT_THROWGRENADE     18
+//#define ACT_TURNDIR          19
+//#define ACT_TEST             20
+//#define ACT_BONDINTRO        21
+//#define ACT_BONDDIE          22
+//#define ACT_BONDMULTI        23
+//#define ACT_NULL             24
+//#define ACT_BOT_ATTACKSTAND  25
+//#define ACT_BOT_ATTACKKNEEL  26
+//#define ACT_BOT_ATTACKSTRAFE 27
+//#define ACT_DRUGGEDDROP      28
+//#define ACT_DRUGGEDKO        29
+//#define ACT_DRUGGEDCOMINGUP  30
+//#define ACT_ATTACKAMOUNT     31
+//#define ACT_ROBOTATTACK      32
+//#define ACT_SKJUMP           33
+
+// These actions are assigned to chr->myaction
 #define ACTION_SCAN               0x01
 #define ACTION_UNDER_COVER        0x02
 #define ACTION_GRENADE_STOP       0x03

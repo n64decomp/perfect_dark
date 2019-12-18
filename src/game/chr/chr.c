@@ -32060,7 +32060,7 @@ glabel func0f039a18
 
 bool chrIsDead(struct chrdata *chr)
 {
-	if (!chr || chr->actiontype == 4 || chr->actiontype == 5) {
+	if (!chr || chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD) {
 		return true;
 	}
 
@@ -35437,14 +35437,14 @@ glabel func0f03cb74
 
 void func0f03ccdc(struct chrdata *chr)
 {
-	if (chr->actiontype == 5 || chr->actiontype == 0x1f) {
+	if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_31) {
 		chr->unk02c = 1;
 	}
 }
 
 void func0f03cd04(struct chrdata *chr)
 {
-	if (chr->actiontype == 5) {
+	if (chr->actiontype == ACT_DEAD) {
 		chr->unk030 = 1;
 	}
 }
