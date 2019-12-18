@@ -1458,7 +1458,7 @@ u8 func0412_cia[] = {
 	set_squadron_alertness(100)
 
 	beginloop(0x38)
-		if_any_chr_doing_action(ACTION_COWER, /*goto*/ 0x04)
+		if_any_chr_doing_action(MA_TALKING, /*goto*/ 0x04)
 		goto_next(0x03)
 
 		// A civilian is cowering
@@ -1477,7 +1477,7 @@ u8 func0412_cia[] = {
 	label(0x03)
 	rebuild_teams
 	rebuild_squadrons
-	set_action(ACTION_COWER, FALSE)
+	set_action(MA_TALKING, FALSE)
 	say_quip(CHR_BOND, 0x18, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	animation(ANIM_SURRENDER_002E, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
@@ -1487,7 +1487,7 @@ u8 func0412_cia[] = {
 
 	// Alerted
 	label(0x0c)
-	set_action(ACTION_SCAN, FALSE)
+	set_action(MA_NORMAL, FALSE)
 	if_self_flag_bankx_eq(CHRFLAG0_00000080, FALSE, BANK_0, /*goto*/ 0x03)
 	set_squadron(SQUADRON_04)
 	rebuild_teams
@@ -1820,7 +1820,7 @@ u8 func041d_fbi[] = {
 
 	// Not shot
 	label(0x19)
-		set_action(ACTION_SCAN, TRUE)
+		set_action(MA_NORMAL, TRUE)
 		yield
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)

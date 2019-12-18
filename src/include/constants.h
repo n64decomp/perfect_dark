@@ -44,33 +44,6 @@
 #define ACT_PUNCH            36
 #define ACT_CUTFIRE          37
 
-// These actions are assigned to chr->myaction
-#define ACTION_SCAN               0x01
-#define ACTION_UNDER_COVER        0x02
-#define ACTION_GRENADE_STOP       0x03
-#define ACTION_WAIT               0x04
-#define ACTION_GO_TO_COVER        0x05
-#define ACTION_BREAKING_COVER     0x06
-#define ACTION_SEE_COVER          0x07
-#define ACTION_FLANK_LEFT         0x08
-#define ACTION_FLANK_RIGHT        0x09
-#define ACTION_DODGE              0x0a
-#define ACTION_THROW_GRENADE      0x0b
-#define ACTION_SEEWAIT            0x0c
-#define ACTION_BACKOFF            0x0d
-#define ACTION_SYNC_SHOOT         0x0e
-#define ACTION_16                 0x10 // unknown
-#define ACTION_FOLLOW             0x12
-#define ACTION_RETREAT            0x13
-#define ACTION_SURRENDER          0x14
-#define ACTION_COWER              0x15
-#define ACTION_WARN_OTHERS        0x17
-#define ACTION_RUN_AWAY           0x1f
-#define ACTION_FLEE_GRENADE       0x20
-#define ACTION_HAND_COMBAT        0x21
-#define ACTION_FACING_TARGET      0x35
-#define ACTION_HAND_COMBAT_SKEDAR 0x36
-
 #define AMMOTYPE_PISTOL      0x01
 #define AMMOTYPE_SMG         0x02
 #define AMMOTYPE_CROSSBOW    0x03
@@ -398,6 +371,63 @@
 #define IDLEACTION_SITTING_DORMANT 0x03
 #define IDLEACTION_OPERATING       0x04
 #define IDLEACTION_OPERATING_PAD   0x05
+
+// These actions are assigned to chr->myaction
+#define MA_NONE            0
+#define MA_NORMAL          1
+#define MA_COVERWAIT       2
+#define MA_GRENADEWAIT     3
+#define MA_WAITING         4
+#define MA_COVERGOTO       5
+#define MA_COVERBREAK      6
+#define MA_COVERSEEN       7
+#define MA_FLANKLEFT       8
+#define MA_FLANKRIGHT      9
+#define MA_DODGE           10
+#define MA_GRENADE         11
+#define MA_WAITSEEN        12
+#define MA_WITHDRAW        13
+#define MA_SHOOTING        14
+#define MA_SYNCSHOOT       15
+#define MA_WAITTIMEOUT     16
+#define MA_COVERTIMEOUT    17
+#define MA_TRACKING        18
+#define MA_RETREAT         19
+#define MA_SURRENDER       20
+#define MA_TALKING         21
+#define MA_LISTENING       22
+#define MA_GOTOALARM       23
+#define MA_BOTFRIENDFOLLOW 24
+#define MA_BOTHIDE         25
+#define MA_BOTPATH         26
+#define MA_BOTINJURED      27
+#define MA_BOTNORMAL       28
+#define MA_BOTSHOOTING     29
+#define MA_DRUGGED         30
+#define MA_PANIC           31
+#define MA_RUNFROMGRENADE  32
+#define MA_UNARMEDATTACK   33
+#define MA_SKJUMP_START    34
+#define MA_SKJUMP_AIR      35
+#define MA_SKJUMP_LAND     36
+#define MA_SKJUMP_LANDLOOP 37
+#define MA_SKJUMP_SHOT     38
+#define MA_AIBOTDEADLIST   39
+#define MA_AIBOTINIT       40
+#define MA_AIBOTMAINLOOP   41
+#define MA_AIBOTGETITEM    42
+#define MA_AIBOTGOTOPOS    43
+#define MA_AIBOTGOTOPROP   44
+#define MA_AIBOTRUNAWAY    45
+#define MA_AIBOTDOWNLOAD   46
+#define MA_AIBOTATTACK     47
+#define MA_UNUSED1         48
+#define MA_UNUSED2         49
+#define MA_AIBOTFOLLOW     50
+#define MA_AIBOTDEFEND     51
+#define MA_FLANKBEST       52
+#define MA_FACING          53
+#define MA_PUNCHING        54
 
 // Object flags - bank 0 (object struct offset 0x08)
 #define OBJECTFLAG0_00000001             0x00000001 // Not used in scripts

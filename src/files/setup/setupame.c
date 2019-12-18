@@ -1481,7 +1481,7 @@ u8 func0411_secretary[] = {
 	endloop(0x75)
 
 	label(0x76)
-	set_action(ACTION_RUN_AWAY, FALSE)
+	set_action(MA_PANIC, FALSE)
 	jog_to_pad(0x0047)
 
 	beginloop(0x77)

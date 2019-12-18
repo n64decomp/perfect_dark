@@ -5071,7 +5071,7 @@ u8 func0415_holo_guard_unarmed_unalert[] = {
 	yield
 	yield
 	yield
-	set_action(ACTION_SCAN, FALSE)
+	set_action(MA_NORMAL, FALSE)
 	set_onshot_function(FUNC_HOLO_GUARD_UNARMED_ALERT)
 	restart_timer
 
@@ -5094,7 +5094,7 @@ u8 func0415_holo_guard_unarmed_unalert[] = {
 
 u8 func0416_holo_guard_unarmed_alert[] = {
 	set_onshot_function(FUNC_HOLO_GUARD_UNARMED_ALERT)
-	set_action(ACTION_HAND_COMBAT, FALSE)
+	set_action(MA_UNARMEDATTACK, FALSE)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x09)
 	label(0x8f)
 	restart_timer
@@ -5135,7 +5135,7 @@ u8 func0416_holo_guard_unarmed_alert[] = {
 };
 
 u8 func0416_holo_guard_unarmed_alert2[] = {
-	set_action(ACTION_HAND_COMBAT, FALSE)
+	set_action(MA_UNARMEDATTACK, FALSE)
 	restart_timer
 
 	beginloop(0x04)
@@ -5498,7 +5498,7 @@ u8 func0418_holo_guard_armed_unalert[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_action(ACTION_SCAN, FALSE)
+	set_action(MA_NORMAL, FALSE)
 	set_onshot_function(FUNC_HOLO_GUARD_UNARMED_ALERT)
 	restart_timer
 

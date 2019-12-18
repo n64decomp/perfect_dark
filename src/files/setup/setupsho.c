@@ -500,7 +500,7 @@ u8 func0401_init_unarmed_skedar[] = {
 
 u8 func0402_unarmed_skedar[] = {
 	set_onshot_function(FUNC_UNARMED_SKEDAR)
-	set_action(ACTION_SCAN, TRUE)
+	set_action(MA_NORMAL, TRUE)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2d)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2d)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2d)
@@ -523,10 +523,10 @@ u8 func0402_unarmed_skedar[] = {
 
 	// Alive
 	label(0x06)
-	set_action(ACTION_SCAN, TRUE)
+	set_action(MA_NORMAL, TRUE)
 	stop_chr
 	if_self_flag_bankx_eq(CHRFLAG0_00000004, FALSE, BANK_0, /*goto*/ 0x03)
-	set_action(ACTION_FOLLOW, TRUE)
+	set_action(MA_TRACKING, TRUE)
 	try_run_to_target_chr(/*goto*/ 0x03)
 
 	beginloop(0x03)
@@ -568,7 +568,7 @@ u8 func0402_unarmed_skedar[] = {
 	label(0x2d)
 	label(0x2d)
 	restart_timer
-	set_action(ACTION_WAIT, TRUE)
+	set_action(MA_WAITING, TRUE)
 	say_quip(CHR_BOND, 0x03, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	try_walk_to_target_chr(/*goto*/ 0x08)
 
@@ -587,7 +587,7 @@ u8 func0402_unarmed_skedar[] = {
 	say_quip(CHR_BOND, 0x01, 0x20, 0x00, 0xff, BANK_0, 0x00, 0x00)
 	label(0x2d)
 	restart_timer
-	set_action(ACTION_FOLLOW, TRUE)
+	set_action(MA_TRACKING, TRUE)
 	try_run_to_target_chr(/*goto*/ 0x0b)
 
 	beginloop(0x0b)
@@ -613,7 +613,7 @@ u8 func0402_unarmed_skedar[] = {
 	if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 	if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 	stop_chr
-	set_action(ACTION_FACING_TARGET, TRUE)
+	set_action(MA_FACING, TRUE)
 	try_face_entity(0x0200, 0x0001, /*goto*/ 0x0c)
 
 	beginloop(0x0c)
@@ -629,7 +629,7 @@ u8 func0402_unarmed_skedar[] = {
 	endloop(0x0c)
 
 	label(0x06)
-	set_action(ACTION_HAND_COMBAT_SKEDAR, TRUE)
+	set_action(MA_PUNCHING, TRUE)
 	try_punch_or_kick(/*goto*/ 0x31)
 	goto_first(0xd9)
 

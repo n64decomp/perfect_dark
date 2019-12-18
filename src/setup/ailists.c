@@ -142,7 +142,7 @@ u8 func0006_unalerted[] = {
 	// Armed
 	label(LABEL_SCAN_START)
 	dprint 'S','C','A','N',' ','S','T','A','R','T','\n',0,
-	set_action(ACTION_SCAN, TRUE)
+	set_action(MA_NORMAL, TRUE)
 	yield
 	dprint 'S','2',0,
 	chr_toggle_p1p2(CHR_SELF)
@@ -364,7 +364,7 @@ u8 func0006_unalerted[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_UNSURPRISABLE, TRUE, BANK_0, /*goto*/ 0x94)
 	label(0x16)
 	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x14)
-	if_any_chr_doing_action(ACTION_WARN_OTHERS, /*goto*/ 0x16)
+	if_any_chr_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_RUN_FOR_ALARM, TRUE, BANK_0, /*goto*/ 0x9f)
 	label(0x16)
 	say_quip(CHR_BOND, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
@@ -752,7 +752,7 @@ u8 func0006_unalerted[] = {
 	endloop(0x75)
 
 	label(0x77)
-	if_any_chr_doing_action(ACTION_WARN_OTHERS, /*goto*/ 0x16)
+	if_any_chr_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_RUN_FOR_ALARM, TRUE, BANK_0, /*goto*/ 0x13)
 	label(0x16)
 	set_function(CHR_SELF, GFUNC_INIT_COMBAT)
@@ -1075,7 +1075,7 @@ u8 func0007_alerted[] = {
 	// Consider warning others in team
 	dprint 'B','4',' ','T','E','A','M',' ','C','H','E','C','K','\n',0,
 	if_alarm_active(/*goto*/ 0x16)
-	if_any_chr_doing_action(ACTION_WARN_OTHERS, /*goto*/ 0x16)
+	if_any_chr_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_RUN_FOR_ALARM, TRUE, BANK_0, /*goto*/ LABEL_RUN_FOR_ALARM)
 
 	// No need to warn
@@ -1095,8 +1095,8 @@ u8 func0007_alerted[] = {
 	// something different.
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x93)
-	if_orders_eq(ACTION_FLANK_LEFT, /*goto*/ 0x13)
-	if_orders_eq(ACTION_FLANK_RIGHT, /*goto*/ 0x15)
+	if_orders_eq(MA_FLANKLEFT, /*goto*/ 0x13)
+	if_orders_eq(MA_FLANKRIGHT, /*goto*/ 0x15)
 	goto_next(0x93)
 
 	label(0x13)
@@ -1248,7 +1248,7 @@ u8 func0007_alerted[] = {
 
 	label(0xa5)
 	dprint 'G','O',' ','T','O',' ','P','O','P','P','E','R','\n',0,
-	set_action(ACTION_GO_TO_COVER, FALSE)
+	set_action(MA_COVERGOTO, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	label(0x16)
@@ -1485,18 +1485,18 @@ u8 func0007_alerted[] = {
 
 	label(0x53)
 	dprint 'G','O',' ','T','O',' ','C','O','V','E','R','\n',0,
-	set_action(ACTION_GO_TO_COVER, FALSE)
+	set_action(MA_COVERGOTO, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	set_orders(ACTION_SYNC_SHOOT, /*goto*/ 0x16)
+	set_orders(MA_SHOOTING, /*goto*/ 0x16)
 	label(0x16)
 	say_quip(CHR_BOND, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	restart_timer
-	cmd0124_run_for_cover_maybe(ACTION_UNDER_COVER)
+	cmd0124_run_for_cover_maybe(MA_COVERWAIT)
 
 	beginloop(0x55)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
@@ -1523,14 +1523,14 @@ u8 func0007_alerted[] = {
 	label(0x58)
 	set_follow_chr(CHR_TARGET)
 	restart_timer
-	set_action(ACTION_UNDER_COVER, TRUE)
+	set_action(MA_COVERWAIT, TRUE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x59)
 
 	beginloop(0x59)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_within_units_of_sight(30, /*goto*/ 0x5f)
@@ -1559,18 +1559,18 @@ u8 func0007_alerted[] = {
 	if_player_looking_at_something_maybe(0x11, 0x01, 0x00, /*goto*/ 0x63)
 	label(0x16)
 	label(0x64)
-	set_action(ACTION_BREAKING_COVER, FALSE)
+	set_action(MA_COVERBREAK, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	set_orders(ACTION_BREAKING_COVER, /*goto*/ 0x16)
+	set_orders(MA_COVERBREAK, /*goto*/ 0x16)
 	label(0x16)
 	cmd012f
 	restart_timer
 	try_run_to_target_chr(/*goto*/ 0x62)
 
 	beginloop(0x62)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_in_disarm_range(/*goto*/ 0x5f)
 		if_player_using_cmp150_or_ar34(/*goto*/ 0x69)
 		if_chr_distance_gt(2000, /*goto*/ 0x65)
@@ -1595,18 +1595,18 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	stop_chr
 	yield
-	cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+	cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 	dprint 'B','A','C','K',' ','T','O',' ','C','O','V','E','R','\n',0,
 	goto_first(0x52)
 
 	label(0x5f)
 	cmd012f
 	dprint 'S','E','E','C','O','V','E','R','\n',0,
-	set_action(ACTION_SEE_COVER, FALSE)
+	set_action(MA_COVERSEEN, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	set_orders(ACTION_SEE_COVER, /*goto*/ 0x16)
+	set_orders(MA_COVERSEEN, /*goto*/ 0x16)
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x93)
 	if_has_orders(/*goto*/ 0x84)
@@ -1669,7 +1669,7 @@ u8 func0007_alerted[] = {
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x60)
 
 	beginloop(0x60)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x5e)
 	endloop(0x60)
 
@@ -1745,25 +1745,25 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	cmd0139(25, 0x02, TRUE)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	set_orders(ACTION_FLANK_LEFT, /*goto*/ 0x16)
-	set_orders(ACTION_FLANK_RIGHT, /*goto*/ 0x16)
+	set_orders(MA_FLANKLEFT, /*goto*/ 0x16)
+	set_orders(MA_FLANKRIGHT, /*goto*/ 0x16)
 	label(0x16)
 	goto_next(0x33)
 
 	label(LABEL_FLANK_LEFT)
 	dprint 'F','L','A','N','K',' ','L','E','F','T','\n',0,
-	set_action(ACTION_FLANK_LEFT, FALSE)
+	set_action(MA_FLANKLEFT, FALSE)
 	cmd0139(335, 0x02, FALSE)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	set_orders(ACTION_FLANK_LEFT, /*goto*/ 0x16)
+	set_orders(MA_FLANKLEFT, /*goto*/ 0x16)
 	label(0x16)
 	goto_next(0x33)
 
 	label(LABEL_FLANK_RIGHT)
 	dprint 'F','L','A','N','K',' ','R','I','G','H','T','\n',0,
-	set_action(ACTION_FLANK_RIGHT, FALSE)
+	set_action(MA_FLANKRIGHT, FALSE)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	set_orders(ACTION_FLANK_RIGHT, /*goto*/ 0x16)
+	set_orders(MA_FLANKRIGHT, /*goto*/ 0x16)
 	label(0x16)
 	cmd0139(25, 0x02, FALSE)
 	label(0x33)
@@ -1771,7 +1771,7 @@ u8 func0007_alerted[] = {
 	restart_timer
 
 	beginloop(0x30)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
@@ -1834,7 +1834,7 @@ u8 func0007_alerted[] = {
 	dprint 'C',' ','4','\n',0,
 	kneel
 	yield
-	cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+	cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 	label(0x48)
 	dprint 'G','R','E','N','A','D','E','P','\n',0,
 	set_grenade_probability_out_of_255(255)
@@ -1846,9 +1846,9 @@ u8 func0007_alerted[] = {
 	if_chr_distance_lt(500, /*goto*/ 0x4c)
 	dprint 'G','R','E','N','A','D','E','\n',0,
 	restart_timer
-	if_any_chr_doing_action(ACTION_THROW_GRENADE, /*goto*/ 0x4c)
+	if_any_chr_doing_action(MA_GRENADE, /*goto*/ 0x4c)
 	dprint 'A','C','T','I','O','N',' ','G','R','E','N','A','D','E','\n',0,
-	set_action(ACTION_THROW_GRENADE, FALSE)
+	set_action(MA_GRENADE, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	consider_throwing_grenade(0x0200, 0x0000, /*goto*/ 0x46)
@@ -1862,7 +1862,7 @@ u8 func0007_alerted[] = {
 
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x47)
-	set_orders(ACTION_THROW_GRENADE, /*goto*/ 0x47)
+	set_orders(MA_GRENADE, /*goto*/ 0x47)
 
 	beginloop(0x47)
 		say_quip(CHR_BOND, 0x05, 0xff, 0x07, 0x00, BANK_0, 0x00, 0x00)
@@ -1872,7 +1872,7 @@ u8 func0007_alerted[] = {
 	label(0x4a)
 	if_timer_lt(60, /*goto*/ 0x49)
 	dprint 'G','R','E','N','A','D','E','S','T','O','P','\n',0,
-	set_action(ACTION_GRENADE_STOP, FALSE)
+	set_action(MA_GRENADEWAIT, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	restart_timer
@@ -1901,14 +1901,14 @@ u8 func0007_alerted[] = {
 	label(0x4c)
 	restart_timer
 	dprint 'W','A','I','T','I','N','G','\n',0,
-	set_action(ACTION_WAIT, TRUE)
+	set_action(MA_WAITING, TRUE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x40)
 
 	beginloop(0x40)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x91)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x16)
 		label(0x91)
@@ -1940,12 +1940,12 @@ u8 func0007_alerted[] = {
 
 	label(0x42)
 	dprint 'S','E','E','W','A','I','T','\n',0,
-	set_action(ACTION_SEEWAIT, FALSE)
+	set_action(MA_WAITSEEN, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	dprint 'S','E','E','W','A','I','T','2','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	set_orders(ACTION_SEEWAIT, /*goto*/ 0x16)
+	set_orders(MA_WAITSEEN, /*goto*/ 0x16)
 	label(0x16)
 	dprint 'S','E','E','W','A','I','T','3','\n',0,
 	if_in_disarm_range(/*goto*/ 0x8a)
@@ -1953,7 +1953,7 @@ u8 func0007_alerted[] = {
 	try_run_to_target_chr(/*goto*/ 0x89)
 
 	beginloop(0x89)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x91)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x16)
 		label(0x91)
@@ -2019,7 +2019,7 @@ u8 func0007_alerted[] = {
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x43)
 
 	beginloop(0x43)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x29)
 	endloop(0x43)
 
@@ -2071,7 +2071,7 @@ u8 func0007_alerted[] = {
 	goto_next(0x50)
 
 	label(0x16)
-	set_action(ACTION_BACKOFF, FALSE)
+	set_action(MA_WITHDRAW, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	restart_timer
@@ -2079,7 +2079,7 @@ u8 func0007_alerted[] = {
 	cmd012f
 
 	beginloop(0x4f)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_timer_gt(120, /*goto*/ 0x50)
 		if_chr_stopped(/*goto*/ 0x50)
 	endloop(0x4f)
@@ -2101,7 +2101,7 @@ u8 func0007_alerted[] = {
 	set_function(CHR_SELF, GFUNC_HAND_COMBAT)
 
 	label(0x13)
-	cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+	cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	goto_next(0x16)
 
@@ -2124,11 +2124,11 @@ u8 func0007_alerted[] = {
 	goto_first(0x1b)
 
 	label(0x13)
-	set_action(ACTION_16, FALSE)
+	set_action(MA_WAITTIMEOUT, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	set_orders(ACTION_16, /*goto*/ 0x16)
+	set_orders(MA_WAITTIMEOUT, /*goto*/ 0x16)
 	label(0x16)
 	goto_next(0x3f)
 
@@ -2137,7 +2137,7 @@ u8 func0007_alerted[] = {
 	try_run_sideways(/*goto*/ 0x3e)
 
 	beginloop(0x3e)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x3f)
 	endloop(0x3e)
 
@@ -2150,7 +2150,7 @@ u8 func0007_alerted[] = {
 	label(LABEL_TRACK)
 	set_follow_chr(CHR_TARGET)
 	dprint 'T','R','A','C','K','\n',0,
-	set_action(ACTION_FOLLOW, FALSE)
+	set_action(MA_TRACKING, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	restart_timer
@@ -2161,7 +2161,7 @@ u8 func0007_alerted[] = {
 		if_chr_flag_bank2(CHR_SELF, CHRFLAG2_00002000, /*goto*/ 0x13)
 		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x01)
 		label(0x13)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
@@ -2261,14 +2261,14 @@ u8 func0007_alerted[] = {
 	label(0x87)
 	dprint 'S','Y','N','C',' ','S','H','O','O','T','\n',0,
 	cmd012f
-	set_action(ACTION_SYNC_SHOOT, FALSE)
+	set_action(MA_SHOOTING, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	restart_timer
 	try_run_to_target_chr(/*goto*/ 0x85)
 
 	beginloop(0x85)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
@@ -2313,7 +2313,7 @@ u8 func0007_alerted[] = {
 	dprint 't','a','r','g','e','t','\n',0,
 	restart_timer
 	stop_chr
-	set_action(ACTION_SYNC_SHOOT, FALSE)
+	set_action(MA_SHOOTING, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG1_00002000, FALSE, BANK_1, /*goto*/ 0x13)
@@ -2353,7 +2353,7 @@ u8 func0007_alerted[] = {
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x28)
 	dprint 'S','H','O','O','T','F','A','I','L','E','D','\n',0,
 	yield
-	cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+	cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 	goto_first(0x8b)
 
 	label(0x28)
@@ -2365,7 +2365,7 @@ u8 func0007_alerted[] = {
 	say_quip(CHR_BOND, 0x01, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
 	beginloop(0x45)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x2a)
 	endloop(0x45)
 
@@ -2419,11 +2419,11 @@ u8 func0007_alerted[] = {
 	//
 	label(0x18)
 	dprint 'D','o','d','g','e','\n',0,
-	set_action(ACTION_DODGE, FALSE)
+	set_action(MA_DODGE, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	set_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
-	set_orders(ACTION_DODGE, /*goto*/ 0x16)
+	set_orders(MA_DODGE, /*goto*/ 0x16)
 	label(0x16)
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x2d)
@@ -2438,7 +2438,7 @@ u8 func0007_alerted[] = {
 	set_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 
 	beginloop(0x2c)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x2e)
 	endloop(0x2c)
 
@@ -2458,7 +2458,7 @@ u8 func0007_alerted[] = {
 	set_chr_dodge_rating(0, 0x00)
 	set_chr_dodge_rating(1, 0x00)
 	dprint 'R','O','U','T','E','D','\n',0,
-	set_action(ACTION_RETREAT, FALSE)
+	set_action(MA_RETREAT, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	say_quip(CHR_BOND, 0x04, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00) // "Go to plan B","Get the hell out of here!","Retreat!"
@@ -2479,7 +2479,7 @@ u8 func0007_alerted[] = {
 	retreat(0x02, 0x01)
 
 	beginloop(0x6c)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_distance_gt(300, /*goto*/ 0x16)
 		if_chr_in_view(/*goto*/ 0x70)
 		label(0x16)
@@ -2490,7 +2490,7 @@ u8 func0007_alerted[] = {
 	stop_chr
 
 	beginloop(0x6e)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_distance_lt(3000, /*goto*/ 0x6f)
@@ -2504,7 +2504,7 @@ u8 func0007_alerted[] = {
 	//
 	label(0x70)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x88)
-	set_action(ACTION_SURRENDER, FALSE)
+	set_action(MA_SURRENDER, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	say_quip(CHR_BOND, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00) // "Please! Don't shoot me!","I give up!","You win! I surrender"
@@ -2540,7 +2540,7 @@ u8 func0007_alerted[] = {
 	try_run_to_chr(CHR_PRESET, /*goto*/ 0x96)
 
 	beginloop(0x96)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_death_animation_finished(CHR_PRESET, /*goto*/ 0x84)
 		if_chr_unloaded(CHR_PRESET, /*goto*/ 0x84)
 		if_detected_chr(CHR_PRESET, /*goto*/ 0x97)
@@ -2561,14 +2561,14 @@ u8 func0007_alerted[] = {
 	// RUN FOR ALARM
 	//
 	label(LABEL_RUN_FOR_ALARM)
-	set_action(ACTION_WARN_OTHERS, FALSE)
+	set_action(MA_GOTOALARM, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	say_quip(CHR_BOND, 0x22, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Trigger the alarm"
 	go_to_target_pad(SPEED_JOG)
 
 	beginloop(0x9d)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0x9d)
 
@@ -2584,7 +2584,7 @@ u8 func0007_alerted[] = {
 	activate_alarm
 
 	beginloop(0x9e)
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ LABEL_FLEE_GRENADE)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0x9e)
 
@@ -2768,7 +2768,7 @@ u8 func000b_choose_target_chr[] = {
 
 	// Hasn't been shot, or can't engage target chr
 	label(0xd3)
-	set_action(ACTION_SCAN, FALSE)
+	set_action(MA_NORMAL, FALSE)
 	yield
 	dprint 'S','C','A','N','\n',0,
 
@@ -3137,8 +3137,8 @@ u8 func000c_combat_with_target_chr[] = {
 	if_something_hypotenuse(0, /*goto*/ 0xc2)
 	dprint 'G','R','E','N','A','D','E','\n',0,
 	restart_timer
-	if_any_chr_doing_action(ACTION_THROW_GRENADE, /*goto*/ 0xc2)
-	set_action(ACTION_THROW_GRENADE, FALSE)
+	if_any_chr_doing_action(MA_GRENADE, /*goto*/ 0xc2)
+	set_action(MA_GRENADE, FALSE)
 	consider_throwing_grenade(0x0200, 0x0000, /*goto*/ 0x16)
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
@@ -3289,7 +3289,7 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0x53)
 	dprint 'G','O',' ','T','O',' ','C','O','V','E','R','\n',0,
 	say_quip(CHR_BOND, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	cmd0124_run_for_cover_maybe(ACTION_UNDER_COVER)
+	cmd0124_run_for_cover_maybe(MA_COVERWAIT)
 	restart_timer
 
 	beginloop(0xc7)
@@ -3498,7 +3498,7 @@ u8 unregistered_function3[] = {
  */
 u8 func0000_idle_0009[] = {
 	dprint 'S','T','A','R','T',' ','L','I','S','T','\n',0,
-	set_action(ACTION_SCAN, FALSE)
+	set_action(MA_NORMAL, FALSE)
 	set_return_function(CHR_SELF, GFUNC_IDLE_0009)
 	stop_chr
 
@@ -3774,7 +3774,7 @@ u8 func000f_hand_combat[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x16)
-	set_action(ACTION_HAND_COMBAT, FALSE)
+	set_action(MA_UNARMEDATTACK, FALSE)
 	restart_timer
 
 	// If current chr doesn't have this flag and isn't idle, stop them
@@ -4114,7 +4114,7 @@ u8 func001c_surprised[] = {
 };
 
 u8 func0011_flee_from_grenade[] = {
-	set_action(ACTION_FLEE_GRENADE, FALSE)
+	set_action(MA_RUNFROMGRENADE, FALSE)
 	dprint 'N','E','A','R',' ','D','A','N','G','E','R','\n',0,
 	run_from_grenade
 	say_quip(CHR_BOND, 0x03, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00) // "Look out, look out!","It's a grenade!","Clear the area!"
@@ -4122,7 +4122,7 @@ u8 func0011_flee_from_grenade[] = {
 
 	beginloop(0x0c)
 		dprint 'D','A','N','G','E','R',' ','L','O','O','P','\n',0,
-		cmd013d_if_grenade_thrown_nearby_maybe(ACTION_GRENADE_STOP, /*goto*/ 0x13)
+		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ 0x13)
 		goto_next(0x16)
 
 		label(0x13)
@@ -4468,7 +4468,7 @@ u8 func001f_related_to_spawning[] = {
 	set_onshot_function(GFUNC_RELATED_TO_SPAWNING)
 	if_num_times_shot_lt(1, /*goto*/ 0x1a) // pointless check
 	label(0x1a)
-	set_action(ACTION_SCAN, TRUE)
+	set_action(MA_NORMAL, TRUE)
 	yield
 	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
@@ -5079,7 +5079,7 @@ u8 func0024_follow_bond[] = {
 	try_run_to_target_chr(/*goto*/ 0x04)
 
 	beginloop(0x04)
-		set_action(ACTION_FOLLOW, FALSE)
+		set_action(MA_TRACKING, FALSE)
 		if_chr_distance_lt(200, /*goto*/ 0x16)
 		if_timer_gt(120, /*goto*/ 0x13)
 		if_chr_stopped(/*goto*/ 0x13)
@@ -5095,7 +5095,7 @@ u8 func0024_follow_bond[] = {
 
 	// Wait here until 300 units away, then follow again
 	beginloop(0x05)
-		set_action(ACTION_WAIT, FALSE)
+		set_action(MA_WAITING, FALSE)
 		if_chr_distance_gt(300, /*goto*/ 0x16)
 	endloop(0x05)
 
