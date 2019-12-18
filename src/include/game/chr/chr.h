@@ -218,7 +218,7 @@ u32 func0f0375e8(void);
 u32 func0f0379b0(void);
 u32 func0f037b70(void);
 u32 func0f03843c(struct chrdata *chr, struct coord *coord, s16 *room_id, u32 speed);
-struct path *pathFindById(s32 path_id);
+struct path *pathFindById(u32 path_id);
 u32 func0f038868(void);
 void func0f038b9c(struct chrdata *chr, struct path *path);
 u32 func0f038f30(void);

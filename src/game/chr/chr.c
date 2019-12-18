@@ -30756,32 +30756,18 @@ glabel func0f03843c
 /*  f038814:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel pathFindById
-/*  f038818:	3c05800a */ 	lui	$a1,0x800a
-/*  f03881c:	8ca5d044 */ 	lw	$a1,-0x2fbc($a1)
-/*  f038820:	00001825 */ 	or	$v1,$zero,$zero
-/*  f038824:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f038828:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f03882c:	51c0000c */ 	beqzl	$t6,.L0f038860
-/*  f038830:	00001025 */ 	or	$v0,$zero,$zero
-/*  f038834:	904f0004 */ 	lbu	$t7,0x4($v0)
-.L0f038838:
-/*  f038838:	148f0003 */ 	bne	$a0,$t7,.L0f038848
-/*  f03883c:	0003c0c0 */ 	sll	$t8,$v1,0x3
-/*  f038840:	03e00008 */ 	jr	$ra
-/*  f038844:	03051021 */ 	addu	$v0,$t8,$a1
-.L0f038848:
-/*  f038848:	8c590008 */ 	lw	$t9,0x8($v0)
-/*  f03884c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f038850:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f038854:	5720fff8 */ 	bnezl	$t9,.L0f038838
-/*  f038858:	904f0004 */ 	lbu	$t7,0x4($v0)
-/*  f03885c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f038860:
-/*  f038860:	03e00008 */ 	jr	$ra
-/*  f038864:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct path *pathFindById(u32 path_id)
+{
+	s32 i = 0;
+
+	for (i = 0; g_StageSetup.paths[i].pads; i++) {
+		if (path_id == g_StageSetup.paths[i].id) {
+			return &g_StageSetup.paths[i];
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f038868
