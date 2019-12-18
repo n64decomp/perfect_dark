@@ -275,7 +275,7 @@ u32 func0f03c8b4(void);
 u32 func0f03c91c(void);
 u32 func0f03cb74(void);
 void func0f03ccdc(struct chrdata *chr);
-u32 func0f03cd04(void);
+void func0f03cd04(struct chrdata *chr);
 u32 func0f03cd24(void);
 u32 func0f03ce8c(void);
 u32 func0f03d0b0(void);

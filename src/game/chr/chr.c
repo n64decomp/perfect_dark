@@ -35604,18 +35604,12 @@ void func0f03ccdc(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f03cd04
-/*  f03cd04:	808e0007 */ 	lb	$t6,0x7($a0)
-/*  f03cd08:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f03cd0c:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f03cd10:	15c10002 */ 	bne	$t6,$at,.L0f03cd1c
-/*  f03cd14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03cd18:	ac8f0030 */ 	sw	$t7,0x30($a0)
-.L0f03cd1c:
-/*  f03cd1c:	03e00008 */ 	jr	$ra
-/*  f03cd20:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f03cd04(struct chrdata *chr)
+{
+	if (chr->actiontype == 5) {
+		chr->unk030 = 1;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f03cd24
