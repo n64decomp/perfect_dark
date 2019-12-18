@@ -229,7 +229,7 @@ u32 func0f039368(struct chrdata *chr);
 u32 func0f0393b4(struct chrdata *chr, struct coord *coord, s16 *room);
 u32 func0f039474(void);
 u32 func0f039558(void);
-u32 func0f0395ac(void);
+void chrSaveLastSeeTarget(struct chrdata *chr);
 u32 func0f0395bc(void);
 u32 func0f0395d8(struct chrdata *chr);
 u32 func0f03978c(struct chrdata *chr);
