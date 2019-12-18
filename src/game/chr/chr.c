@@ -29630,7 +29630,7 @@ glabel func0f0375e8
 /*  f037868:	316c0008 */ 	andi	$t4,$t3,0x8
 /*  f03786c:	11800005 */ 	beqz	$t4,.L0f037884
 /*  f037870:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f037874:	0fc0ea5a */ 	jal	func0f03a968
+/*  f037874:	0fc0ea5a */ 	jal	chrStartPath
 /*  f037878:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03787c:	10000045 */ 	beqz	$zero,.L0f037994
 /*  f037880:	02002025 */ 	or	$a0,$s0,$zero
@@ -30757,7 +30757,7 @@ glabel func0f03843c
 );
 
 GLOBAL_ASM(
-glabel func0f038818
+glabel pathFindById
 /*  f038818:	3c05800a */ 	lui	$a1,0x800a
 /*  f03881c:	8ca5d044 */ 	lw	$a1,-0x2fbc($a1)
 /*  f038820:	00001825 */ 	or	$v1,$zero,$zero
@@ -33190,31 +33190,17 @@ bool chrSetPath(struct chrdata *chr, u32 path_id)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f03a968
-/*  f03a968:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03a96c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03a970:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f03a974:	0fc0e206 */ 	jal	func0f038818
-/*  f03a978:	80840013 */ 	lb	$a0,0x13($a0)
-/*  f03a97c:	10400009 */ 	beqz	$v0,.L0f03a9a4
-/*  f03a980:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f03a984:	0fc0e686 */ 	jal	func0f039a18
-/*  f03a988:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f03a98c:	10400005 */ 	beqz	$v0,.L0f03a9a4
-/*  f03a990:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f03a994:	0fc0e2e7 */ 	jal	func0f038b9c
-/*  f03a998:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f03a99c:	10000002 */ 	beqz	$zero,.L0f03a9a8
-/*  f03a9a0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a9a4:
-/*  f03a9a4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a9a8:
-/*  f03a9a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03a9ac:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f03a9b0:	03e00008 */ 	jr	$ra
-/*  f03a9b4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrStartPath(struct chrdata *chr)
+{
+	struct path *path = pathFindById(chr->path);
+
+	if (path && func0f039a18(chr)) {
+		func0f038b9c(chr, path);
+		return true;
+	}
+
+	return false;
+}
 
 bool func0f03a9b8(struct chrdata *chr)
 {
@@ -46882,7 +46868,7 @@ glabel func0f046a8c
 /*  f046ec4:	31ed0008 */ 	andi	$t5,$t7,0x8
 /*  f046ec8:	11a00005 */ 	beqz	$t5,.L0f046ee0
 /*  f046ecc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f046ed0:	0fc0ea5a */ 	jal	func0f03a968
+/*  f046ed0:	0fc0ea5a */ 	jal	chrStartPath
 /*  f046ed4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f046ed8:	10000138 */ 	beqz	$zero,.L0f0473bc
 /*  f046edc:	8fbf002c */ 	lw	$ra,0x2c($sp)

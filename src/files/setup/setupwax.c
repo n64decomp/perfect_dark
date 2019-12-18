@@ -45,7 +45,7 @@
 
 u8 intro[];
 u8 props[];
-struct aipaths paths[];
+struct path paths[];
 struct ailist ailists[];
 
 struct stagesetup setup = {
@@ -951,7 +951,7 @@ s32 path29[] = {
 	-1,
 };
 
-struct aipaths paths[] = {
+struct path paths[] = {
 	{ path00, 0, PATHTYPE_BACKANDFORTH },
 	{ path01, 1, PATHTYPE_FLYING },
 	{ path02, 2, PATHTYPE_FLYING },

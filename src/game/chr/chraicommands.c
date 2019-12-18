@@ -1538,7 +1538,7 @@ bool aiSetPath(void)
  */
 bool aiStartPath(void)
 {
-	func0f03a968(g_Vars.chrdata);
+	chrStartPath(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -6716,7 +6716,7 @@ glabel ai00d5
 /*  f05692c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f056930:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f056934:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f056938:	0fc0e206 */ 	jal	func0f038818
+/*  f056938:	0fc0e206 */ 	jal	pathFindById
 /*  f05693c:	90440002 */ 	lbu	$a0,0x2($v0)
 /*  f056940:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f056944:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)

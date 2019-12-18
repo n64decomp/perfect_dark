@@ -6,7 +6,7 @@
 
 u8 intro[];
 u8 props[];
-struct aipaths paths[];
+struct path paths[];
 struct ailist ailists[];
 
 struct stagesetup setup = {
@@ -34,7 +34,7 @@ s32 path00[] = {
 	-1,
 };
 
-struct aipaths paths[] = {
+struct path paths[] = {
 	{ NULL, 0, 0 },
 };
 

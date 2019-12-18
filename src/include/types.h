@@ -95,7 +95,7 @@ struct chrdata {
 	/*0x00f*/ u8 grenadeprob;
 	/*0x010*/ u16 bodynum;
 	/*0x012*/ u8 flinchcnt;
-	/*0x013*/ u8 path;
+	/*0x013*/ s8 path;
 	/*0x014*/ u32 hidden;
 	/*0x018*/ u32 chrflags;
 	/*0x01c*/ struct position *pos;
@@ -2285,7 +2285,7 @@ struct ailist {
 	u32 id;
 };
 
-struct aipaths {
+struct path {
 	s32 *pads;
 	u8 id;
 	u8 type;
@@ -2297,7 +2297,7 @@ struct stagesetup {
 	/*0x08*/ void *unk08;
 	/*0x0c*/ u8 *intro;
 	/*0x10*/ u8 *props;
-	/*0x14*/ struct aipaths *paths;
+	/*0x14*/ struct path *paths;
 	/*0x18*/ struct ailist *ailists;
 	/*0x1c*/ void *unk1c;
 };
