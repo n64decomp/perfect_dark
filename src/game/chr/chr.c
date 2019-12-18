@@ -12577,7 +12577,7 @@ glabel func0f028590
 /*  f0286c8:	8fcf0000 */ 	lw	$t7,0x0($s8)
 /*  f0286cc:	8ecc0000 */ 	lw	$t4,0x0($s6)
 /*  f0286d0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0286d4:	0fc0e56f */ 	jal	func0f0395bc
+/*  f0286d4:	0fc0e56f */ 	jal	chrSaveLastHearTarget
 /*  f0286d8:	02ac2021 */ 	addu	$a0,$s5,$t4
 /*  f0286dc:	0274082b */ 	sltu	$at,$s3,$s4
 /*  f0286e0:	50200008 */ 	beqzl	$at,.L0f028704
@@ -31715,17 +31715,11 @@ void chrSaveLastSeeTarget(struct chrdata *chr)
 	chr->lastseetarget60 = g_Vars.unk000008;
 }
 
-
-GLOBAL_ASM(
-glabel func0f0395bc
-/*  f0395bc:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f0395c0:	3c18800a */ 	lui	$t8,0x800a
-/*  f0395c4:	35cf0002 */ 	ori	$t7,$t6,0x2
-/*  f0395c8:	ac8f0014 */ 	sw	$t7,0x14($a0)
-/*  f0395cc:	8f189fc8 */ 	lw	$t8,-0x6038($t8)
-/*  f0395d0:	03e00008 */ 	jr	$ra
-/*  f0395d4:	ac9800f4 */ 	sw	$t8,0xf4($a0)
-);
+void chrSaveLastHearTarget(struct chrdata *chr)
+{
+	chr->hidden |= CHRFLAG2_00000002;
+	chr->lastheartarget60 = g_Vars.unk000008;
+}
 
 GLOBAL_ASM(
 glabel func0f0395d8

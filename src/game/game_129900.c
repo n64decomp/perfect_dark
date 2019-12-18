@@ -1200,7 +1200,7 @@ glabel func0f129cfc
 /*  f129e38:	45020005 */ 	bc1fl	.L0f129e50
 /*  f129e3c:	8eb90000 */ 	lw	$t9,0x0($s5)
 /*  f129e40:	8e380000 */ 	lw	$t8,0x0($s1)
-/*  f129e44:	0fc0e56f */ 	jal	func0f0395bc
+/*  f129e44:	0fc0e56f */ 	jal	chrSaveLastHearTarget
 /*  f129e48:	02182021 */ 	addu	$a0,$s0,$t8
 /*  f129e4c:	8eb90000 */ 	lw	$t9,0x0($s5)
 .L0f129e50:
