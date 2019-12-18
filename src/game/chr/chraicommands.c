@@ -1368,7 +1368,7 @@ bool aiJogToChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f03aac8(g_Vars.chrdata, cmd[2], SPEED_JOG)) {
+	if (chrGoToChr(g_Vars.chrdata, cmd[2], SPEED_JOG)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1384,7 +1384,7 @@ bool aiWalkToChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f03aac8(g_Vars.chrdata, cmd[2], SPEED_WALK)) {
+	if (chrGoToChr(g_Vars.chrdata, cmd[2], SPEED_WALK)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1400,7 +1400,7 @@ bool aiRunToChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f03aac8(g_Vars.chrdata, cmd[2], SPEED_RUN)) {
+	if (chrGoToChr(g_Vars.chrdata, cmd[2], SPEED_RUN)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;

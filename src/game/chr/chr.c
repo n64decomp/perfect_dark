@@ -33303,55 +33303,22 @@ glabel func0f03aa38
 /*  f03aac4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03aac8
-/*  f03aac8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03aacc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03aad0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f03aad4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f03aad8:	0fc0e686 */ 	jal	func0f039a18
-/*  f03aadc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03aae0:	1040001f */ 	beqz	$v0,.L0f03ab60
-/*  f03aae4:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f03aae8:	3c0e8006 */ 	lui	$t6,0x8006
-/*  f03aaec:	8dce2cbc */ 	lw	$t6,0x2cbc($t6)
-/*  f03aaf0:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f03aaf4:	29c10009 */ 	slti	$at,$t6,0x9
-/*  f03aaf8:	14200009 */ 	bnez	$at,.L0f03ab20
-/*  f03aafc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03ab00:	8c8f0014 */ 	lw	$t7,0x14($a0)
-/*  f03ab04:	000fc240 */ 	sll	$t8,$t7,0x9
-/*  f03ab08:	07010005 */ 	bgez	$t8,.L0f03ab20
-/*  f03ab0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03ab10:	8c990114 */ 	lw	$t9,0x114($a0)
-/*  f03ab14:	00194340 */ 	sll	$t0,$t9,0xd
-/*  f03ab18:	05030012 */ 	bgezl	$t0,.L0f03ab64
-/*  f03ab1c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03ab20:
-/*  f03ab20:	0fc126d1 */ 	jal	chrFindById
-/*  f03ab24:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03ab28:	1040000d */ 	beqz	$v0,.L0f03ab60
-/*  f03ab2c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f03ab30:	8c49001c */ 	lw	$t1,0x1c($v0)
-/*  f03ab34:	5120000b */ 	beqzl	$t1,.L0f03ab64
-/*  f03ab38:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03ab3c:	8c42001c */ 	lw	$v0,0x1c($v0)
-/*  f03ab40:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f03ab44:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f03ab48:	0fc0e10f */ 	jal	func0f03843c
-/*  f03ab4c:	24460028 */ 	addiu	$a2,$v0,0x28
-/*  f03ab50:	50400004 */ 	beqzl	$v0,.L0f03ab64
-/*  f03ab54:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03ab58:	10000002 */ 	beqz	$zero,.L0f03ab64
-/*  f03ab5c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03ab60:
-/*  f03ab60:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03ab64:
-/*  f03ab64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03ab68:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03ab6c:	03e00008 */ 	jr	$ra
-/*  f03ab70:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
+{
+	if (func0f039a18(chr)) {
+		if (var80062cbc <= 8 ||
+				(chr->hidden & CHRFLAG2_00400000) == 0 ||
+				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
+			struct chrdata *dstchr = chrFindById(chr, dst_chrnum);
+
+			if (dstchr && dstchr->pos && func0f03843c(chr, &dstchr->pos->coord, &dstchr->pos->room, speed)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f03ab74
