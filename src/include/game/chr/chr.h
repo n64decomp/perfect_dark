@@ -234,7 +234,7 @@ void chrSaveLastHearTarget(struct chrdata *chr);
 u32 func0f0395d8(struct chrdata *chr);
 u32 func0f03978c(struct chrdata *chr);
 u32 func0f039a18(struct chrdata *chr);
-u32 func0f039a94(struct chrdata *chr);
+bool chrIsDead(struct chrdata *chr);
 u32 func0f039b20(struct chrdata *chr);
 u32 func0f039ca8(struct chrdata *chr);
 u32 func0f039e28(struct chrdata *chr);

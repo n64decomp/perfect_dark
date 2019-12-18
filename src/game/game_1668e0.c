@@ -2584,7 +2584,7 @@ glabel func0f1688fc
 /*  f168970:	8d020000 */ 	lw	$v0,0x0($t0)
 .L0f168974:
 /*  f168974:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f168978:	0fc0e6a5 */ 	jal	func0f039a94
+/*  f168978:	0fc0e6a5 */ 	jal	chrIsDead
 /*  f16897c:	afa40038 */ 	sw	$a0,0x38($sp)
 /*  f168980:	8fa80050 */ 	lw	$t0,0x50($sp)
 /*  f168984:	1040001a */ 	beqz	$v0,.L0f1689f0
