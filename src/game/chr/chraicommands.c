@@ -1223,7 +1223,7 @@ bool aiSurrender(void)
  */
 bool aiFadeOut(void)
 {
-	func0f03aa0c(g_Vars.chrdata);
+	chrFadeOut(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;

@@ -33245,20 +33245,13 @@ glabel func0f03a9b8
 /*  f03aa08:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03aa0c
-/*  f03aa0c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03aa10:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03aa14:	0fc0c467 */ 	jal	func0f03119c
-/*  f03aa18:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03aa1c:	0fc0f337 */ 	jal	func0f03ccdc
-/*  f03aa20:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f03aa24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03aa28:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03aa2c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f03aa30:	03e00008 */ 	jr	$ra
-/*  f03aa34:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrFadeOut(struct chrdata *chr)
+{
+	func0f03119c();
+	func0f03ccdc(chr);
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f03aa38
