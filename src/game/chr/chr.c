@@ -33963,50 +33963,25 @@ glabel func0f03b1e0
 /*  f03b5ec:	27bd02b8 */ 	addiu	$sp,$sp,0x2b8
 );
 
-GLOBAL_ASM(
-glabel func0f03b5f0
-/*  f03b5f0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03b5f4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03b5f8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03b5fc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03b600:	10800003 */ 	beqz	$a0,.L0f03b610
-/*  f03b604:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f03b608:	10000002 */ 	beqz	$zero,.L0f03b614
-/*  f03b60c:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f03b610:
-/*  f03b610:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03b614:
-/*  f03b614:	54400016 */ 	bnezl	$v0,.L0f03b670
-/*  f03b618:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03b61c:	0fc0e686 */ 	jal	func0f039a18
-/*  f03b620:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b624:	10400011 */ 	beqz	$v0,.L0f03b66c
-/*  f03b628:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b62c:	0fc1258b */ 	jal	padResolve
-/*  f03b630:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f03b634:	0440000d */ 	bltz	$v0,.L0f03b66c
-/*  f03b638:	00402025 */ 	or	$a0,$v0,$zero
-/*  f03b63c:	0fc1a070 */ 	jal	func0f0681c0
-/*  f03b640:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03b644:	10400009 */ 	beqz	$v0,.L0f03b66c
-/*  f03b648:	00402025 */ 	or	$a0,$v0,$zero
-/*  f03b64c:	0fc21a6a */ 	jal	func0f0869a8
-/*  f03b650:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03b654:	50400006 */ 	beqzl	$v0,.L0f03b670
-/*  f03b658:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03b65c:	0fc0bbff */ 	jal	func0f02effc
-/*  f03b660:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b664:	10000002 */ 	beqz	$zero,.L0f03b670
-/*  f03b668:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03b66c:
-/*  f03b66c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03b670:
-/*  f03b670:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03b674:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03b678:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f03b67c:	03e00008 */ 	jr	$ra
-/*  f03b680:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f03b5f0(struct chrdata *chr, s32 pad_id)
+{
+	s32 race = chr ? chr->race : 0;
+
+	if (race == 0 && func0f039a18(chr)) {
+		pad_id = padResolve(chr, pad_id);
+
+		if (pad_id >= 0) {
+			struct defaultobj *obj = func0f0681c0(pad_id);
+
+			if (obj && func0f0869a8(obj)) {
+				func0f02effc(chr);
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f03b684

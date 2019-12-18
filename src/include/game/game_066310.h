@@ -51,7 +51,7 @@ u32 func0f067d88(void);
 u32 func0f067dc4(void);
 u32 func0f068018(void);
 u32 func0f06803c(void);
-u32 func0f0681c0(void);
+struct defaultobj *func0f0681c0(s32 pad_id);
 u32 func0f068218(void);
 u32 func0f0682dc(void);
 u32 func0f0682fc(void);
