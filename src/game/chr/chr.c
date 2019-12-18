@@ -33216,34 +33216,17 @@ glabel func0f03a968
 /*  f03a9b4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03a9b8
-/*  f03a9b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03a9bc:	10800003 */ 	beqz	$a0,.L0f03a9cc
-/*  f03a9c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03a9c4:	10000002 */ 	beqz	$zero,.L0f03a9d0
-/*  f03a9c8:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f03a9cc:
-/*  f03a9cc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a9d0:
-/*  f03a9d0:	5440000a */ 	bnezl	$v0,.L0f03a9fc
-/*  f03a9d4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a9d8:	0fc0e686 */ 	jal	func0f039a18
-/*  f03a9dc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03a9e0:	10400005 */ 	beqz	$v0,.L0f03a9f8
-/*  f03a9e4:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f03a9e8:	0fc0be07 */ 	jal	func0f02f81c
-/*  f03a9ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a9f0:	10000002 */ 	beqz	$zero,.L0f03a9fc
-/*  f03a9f4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a9f8:
-/*  f03a9f8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a9fc:
-/*  f03a9fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03aa00:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03aa04:	03e00008 */ 	jr	$ra
-/*  f03aa08:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f03a9b8(struct chrdata *chr)
+{
+	s32 race = chr ? chr->race : 0;
+
+	if (race == 0 && func0f039a18(chr)) {
+		func0f02f81c(chr);
+		return true;
+	}
+
+	return false;
+}
 
 bool chrFadeOut(struct chrdata *chr)
 {

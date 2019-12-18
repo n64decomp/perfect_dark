@@ -151,7 +151,7 @@ void func0f02f530(struct chrdata *chr);
 void func0f02f60c(struct chrdata *chr);
 void func0f02f688(struct chrdata *chr);
 u32 func0f02f704(void);
-u32 func0f02f81c(void);
+void func0f02f81c(struct chrdata *chr);
 u32 func0f02f8a4(void);
 u32 func0f02fbac(void);
 u32 func0f02fc2c(void);
