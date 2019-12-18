@@ -35437,7 +35437,7 @@ glabel func0f03cb74
 
 void func0f03ccdc(struct chrdata *chr)
 {
-	if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_31) {
+	if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DRUGGEDKO) {
 		chr->unk02c = 1;
 	}
 }

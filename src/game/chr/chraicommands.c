@@ -737,7 +737,7 @@ bool aiIfChrUnloaded(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if ((!chr || !chr->pos || chr->pos->type != POSITIONTYPE_PLAYER) &&
-			(!chr || !chr->unk020 || chr->actiontype == ACT_31 || chr->actiontype == ACT_30 || chr->actiontype == ACT_32)) {
+			(!chr || !chr->unk020 || chr->actiontype == ACT_DRUGGEDKO || chr->actiontype == ACT_DRUGGEDDROP || chr->actiontype == ACT_DRUGGEDCOMINGUP)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -11106,9 +11106,9 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 				chrIsDead(chr) == false &&
 				chr->actiontype != ACT_DEAD &&
 				chr->actiontype != ACT_DIE &&
-				chr->actiontype != ACT_31 &&
-				chr->actiontype != ACT_30 &&
-				chr->actiontype != ACT_32 &&
+				chr->actiontype != ACT_DRUGGEDKO &&
+				chr->actiontype != ACT_DRUGGEDDROP &&
+				chr->actiontype != ACT_DRUGGEDCOMINGUP &&
 				chr->alertness < 100 &&
 				(g_Vars.chrdata->squadron == chr->squadron || g_Vars.chrdata->squadron == 0xff) &&
 				g_Vars.chrdata->chrnum != chr->chrnum) {
