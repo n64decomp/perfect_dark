@@ -33320,34 +33320,16 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f03ab74
-/*  f03ab74:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03ab78:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03ab7c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03ab80:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f03ab84:	0fc0e686 */ 	jal	func0f039a18
-/*  f03ab88:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f03ab8c:	1040000b */ 	beqz	$v0,.L0f03abbc
-/*  f03ab90:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f03ab94:	10600009 */ 	beqz	$v1,.L0f03abbc
-/*  f03ab98:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f03ab9c:	24650008 */ 	addiu	$a1,$v1,0x8
-/*  f03aba0:	24660028 */ 	addiu	$a2,$v1,0x28
-/*  f03aba4:	0fc0e10f */ 	jal	func0f03843c
-/*  f03aba8:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f03abac:	50400004 */ 	beqzl	$v0,.L0f03abc0
-/*  f03abb0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03abb4:	10000002 */ 	beqz	$zero,.L0f03abc0
-/*  f03abb8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03abbc:
-/*  f03abbc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03abc0:
-/*  f03abc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03abc4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03abc8:	03e00008 */ 	jr	$ra
-/*  f03abcc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f03ab74(struct chrdata *chr, struct position *pos, s32 arg2)
+{
+	if (func0f039a18(chr) && pos) {
+		if (func0f03843c(chr, &pos->coord, &pos->room, arg2)) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f03abd0
