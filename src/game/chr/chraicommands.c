@@ -1306,7 +1306,7 @@ bool ai002a(void)
  */
 bool ai002b(void)
 {
-	if (func0f03aa38(g_Vars.chrdata, 1)) {
+	if (chrGoToTarget(g_Vars.chrdata, 1)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1321,7 +1321,7 @@ bool ai002b(void)
  */
 bool ai002c(void)
 {
-	if (func0f03aa38(g_Vars.chrdata, 0)) {
+	if (chrGoToTarget(g_Vars.chrdata, 0)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1336,7 +1336,7 @@ bool ai002c(void)
  */
 bool ai002d(void)
 {
-	if (func0f03aa38(g_Vars.chrdata, 2)) {
+	if (chrGoToTarget(g_Vars.chrdata, 2)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

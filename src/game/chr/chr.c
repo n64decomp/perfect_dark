@@ -33253,48 +33253,22 @@ bool chrFadeOut(struct chrdata *chr)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f03aa38
-/*  f03aa38:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03aa3c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03aa40:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f03aa44:	0fc0e686 */ 	jal	func0f039a18
-/*  f03aa48:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03aa4c:	10400019 */ 	beqz	$v0,.L0f03aab4
-/*  f03aa50:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f03aa54:	3c0e8006 */ 	lui	$t6,0x8006
-/*  f03aa58:	8dce2cbc */ 	lw	$t6,0x2cbc($t6)
-/*  f03aa5c:	29c10009 */ 	slti	$at,$t6,0x9
-/*  f03aa60:	14200009 */ 	bnez	$at,.L0f03aa88
-/*  f03aa64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03aa68:	8c8f0014 */ 	lw	$t7,0x14($a0)
-/*  f03aa6c:	000fc240 */ 	sll	$t8,$t7,0x9
-/*  f03aa70:	07010005 */ 	bgez	$t8,.L0f03aa88
-/*  f03aa74:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03aa78:	8c990114 */ 	lw	$t9,0x114($a0)
-/*  f03aa7c:	00194340 */ 	sll	$t0,$t9,0xd
-/*  f03aa80:	0503000d */ 	bgezl	$t0,.L0f03aab8
-/*  f03aa84:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03aa88:
-/*  f03aa88:	0fc0a221 */ 	jal	chrGetTargetPosition
-/*  f03aa8c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03aa90:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f03aa94:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f03aa98:	24460028 */ 	addiu	$a2,$v0,0x28
-/*  f03aa9c:	0fc0e10f */ 	jal	func0f03843c
-/*  f03aaa0:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f03aaa4:	50400004 */ 	beqzl	$v0,.L0f03aab8
-/*  f03aaa8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03aaac:	10000002 */ 	beqz	$zero,.L0f03aab8
-/*  f03aab0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03aab4:
-/*  f03aab4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03aab8:
-/*  f03aab8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03aabc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03aac0:	03e00008 */ 	jr	$ra
-/*  f03aac4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrGoToTarget(struct chrdata *chr, u32 speed)
+{
+	if (func0f039a18(chr)) {
+		if (var80062cbc <= 8 ||
+				(chr->hidden & CHRFLAG2_00400000) == 0 ||
+				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
+			struct position *pos = chrGetTargetPosition(chr);
+
+			if (func0f03843c(chr, &pos->coord, &pos->room, speed)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 {

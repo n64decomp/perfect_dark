@@ -251,7 +251,7 @@ u32 func0f03a894(struct chrdata *chr, s32 pad, s32 arg2);
 u32 func0f03a968(struct chrdata *chr);
 u32 func0f03a9b8(struct chrdata *chr);
 bool chrFadeOut(struct chrdata *chr);
-u32 func0f03aa38(struct chrdata *chr, u32 arg1);
+bool chrGoToTarget(struct chrdata *chr, u32 speed);
 bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed);
 bool func0f03ab74(struct chrdata *chr, struct position *pos, s32 arg2);
 u32 func0f03abd0(void);
