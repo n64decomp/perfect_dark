@@ -21057,7 +21057,7 @@ glabel func0f02fe18
 );
 
 GLOBAL_ASM(
-glabel func0f030078
+glabel chrRunToPos
 /*  f030078:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f03007c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f030080:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -32268,7 +32268,7 @@ glabel func0f039e28
 /*  f039f30:	10400006 */ 	beqz	$v0,.L0f039f4c
 /*  f039f34:	c7b00030 */ 	lwc1	$f16,0x30($sp)
 /*  f039f38:	02202025 */ 	or	$a0,$s1,$zero
-/*  f039f3c:	0fc0c01e */ 	jal	func0f030078
+/*  f039f3c:	0fc0c01e */ 	jal	chrRunToPos
 /*  f039f40:	27a50024 */ 	addiu	$a1,$sp,0x24
 /*  f039f44:	1000001c */ 	beqz	$zero,.L0f039fb8
 /*  f039f48:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -32295,7 +32295,7 @@ glabel func0f039e28
 /*  f039f98:	e7a4002c */ 	swc1	$f4,0x2c($sp)
 /*  f039f9c:	10400005 */ 	beqz	$v0,.L0f039fb4
 /*  f039fa0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f039fa4:	0fc0c01e */ 	jal	func0f030078
+/*  f039fa4:	0fc0c01e */ 	jal	chrRunToPos
 /*  f039fa8:	27a50024 */ 	addiu	$a1,$sp,0x24
 /*  f039fac:	10000002 */ 	beqz	$zero,.L0f039fb8
 /*  f039fb0:	24020001 */ 	addiu	$v0,$zero,0x1
