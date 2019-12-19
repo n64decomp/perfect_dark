@@ -20753,43 +20753,20 @@ glabel func0f02f8a4
 /*  f02fba8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f02fbac
-/*  f02fbac:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f02fbb0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02fbb4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f02fbb8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02fbbc:	0fc0fe3d */ 	jal	func0f03f8f4
-/*  f02fbc0:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f02fbc4:	240e000b */ 	addiu	$t6,$zero,0xb
-/*  f02fbc8:	a20e0007 */ 	sb	$t6,0x7($s0)
-/*  f02fbcc:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f02fbd0:	a2000008 */ 	sb	$zero,0x8($s0)
-/*  f02fbd4:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02fbd8:	0c0076e5 */ 	jal	func0001db94
-/*  f02fbdc:	ae0f002c */ 	sw	$t7,0x2c($s0)
-/*  f02fbe0:	10400006 */ 	beqz	$v0,.L0f02fbfc
-/*  f02fbe4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02fbe8:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f02fbec:	3c010020 */ 	lui	$at,0x20
-/*  f02fbf0:	0301c825 */ 	or	$t9,$t8,$at
-/*  f02fbf4:	10000008 */ 	beqz	$zero,.L0f02fc18
-/*  f02fbf8:	ae190014 */ 	sw	$t9,0x14($s0)
-.L0f02fbfc:
-/*  f02fbfc:	0fc0be29 */ 	jal	func0f02f8a4
-/*  f02fc00:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02fc04:	8e080014 */ 	lw	$t0,0x14($s0)
-/*  f02fc08:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f02fc0c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f02fc10:	01014824 */ 	and	$t1,$t0,$at
-/*  f02fc14:	ae090014 */ 	sw	$t1,0x14($s0)
-.L0f02fc18:
-/*  f02fc18:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02fc1c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f02fc20:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02fc24:	03e00008 */ 	jr	$ra
-/*  f02fc28:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrSidestep(struct chrdata *chr, s32 arg1)
+{
+	func0f03f8f4(chr);
+	chr->actiontype = ACT_SIDESTEP;
+	chr->unk02c = arg1;
+	chr->sleep = 0;
+
+	if (func0001db94(chr->unk020)) {
+		chr->hidden |= CHRFLAG2_00200000;
+	} else {
+		func0f02f8a4(chr);
+		chr->hidden &= ~CHRFLAG2_00200000;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f02fc2c
@@ -32023,7 +32000,7 @@ bool chrIsDead(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f039b20
+glabel chrTrySidestep
 /*  f039b20:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f039b24:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f039b28:	00808025 */ 	or	$s0,$a0,$zero
@@ -32106,7 +32083,7 @@ glabel func0f039b20
 /*  f039c48:	10400006 */ 	beqz	$v0,.L0f039c64
 /*  f039c4c:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f039c50:	02002025 */ 	or	$a0,$s0,$zero
-/*  f039c54:	0fc0beeb */ 	jal	func0f02fbac
+/*  f039c54:	0fc0beeb */ 	jal	chrSidestep
 /*  f039c58:	00e02825 */ 	or	$a1,$a3,$zero
 /*  f039c5c:	1000000d */ 	beqz	$zero,.L0f039c94
 /*  f039c60:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -32118,7 +32095,7 @@ glabel func0f039b20
 /*  f039c74:	3c0642c8 */ 	lui	$a2,0x42c8
 /*  f039c78:	10400005 */ 	beqz	$v0,.L0f039c90
 /*  f039c7c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f039c80:	0fc0beeb */ 	jal	func0f02fbac
+/*  f039c80:	0fc0beeb */ 	jal	chrSidestep
 /*  f039c84:	02002025 */ 	or	$a0,$s0,$zero
 /*  f039c88:	10000002 */ 	beqz	$zero,.L0f039c94
 /*  f039c8c:	24020001 */ 	addiu	$v0,$zero,0x1
