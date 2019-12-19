@@ -395,7 +395,7 @@ glabel func0f197600
 /*  f197a98:	10000010 */ 	beqz	$zero,.L0f197adc
 /*  f197a9c:	8fa80054 */ 	lw	$t0,0x54($sp)
 .L0f197aa0:
-/*  f197aa0:	0fc0eb63 */ 	jal	func0f03ad8c
+/*  f197aa0:	0fc0eb63 */ 	jal	chrTryStop
 /*  f197aa4:	afa80054 */ 	sw	$t0,0x54($sp)
 /*  f197aa8:	1000000c */ 	beqz	$zero,.L0f197adc
 /*  f197aac:	8fa80054 */ 	lw	$t0,0x54($sp)

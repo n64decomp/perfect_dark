@@ -382,7 +382,7 @@ bool aiEndList(void)
 bool aiStop(void)
 {
 	if (g_Vars.chrdata) {
-		func0f03ad8c(g_Vars.chrdata);
+		chrTryStop(g_Vars.chrdata);
 	} else if (g_Vars.hovdata) {
 		func0f07b078(g_Vars.hovdata);
 	}

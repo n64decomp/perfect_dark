@@ -19769,20 +19769,11 @@ glabel func0f02ed28
 /*  f02ed58:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f02ed5c
-/*  f02ed5c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f02ed60:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02ed64:	0fc0baaf */ 	jal	func0f02eabc
-/*  f02ed68:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f02ed6c:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f02ed70:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f02ed74:	adee0040 */ 	sw	$t6,0x40($t7)
-/*  f02ed78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f02ed7c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f02ed80:	03e00008 */ 	jr	$ra
-/*  f02ed84:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrStop(struct chrdata *chr)
+{
+	func0f02eabc(chr);
+	chr->unk040 = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f02ed88
@@ -29647,7 +29638,7 @@ glabel func0f0375e8
 /*  f0378f8:	54410026 */ 	bnel	$v0,$at,.L0f037994
 /*  f0378fc:	02002025 */ 	or	$a0,$s0,$zero
 .L0f037900:
-/*  f037900:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f037900:	0fc0bb57 */ 	jal	chrStop
 /*  f037904:	02002025 */ 	or	$a0,$s0,$zero
 /*  f037908:	10000022 */ 	beqz	$zero,.L0f037994
 /*  f03790c:	02002025 */ 	or	$a0,$s0,$zero
@@ -33316,7 +33307,7 @@ glabel func0f03aca0
 /*  f03ad88:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool func0f03ad8c(struct chrdata *chr)
+bool chrTryStop(struct chrdata *chr)
 {
 	s32 race = chr ? chr->race : 0;
 
@@ -33326,7 +33317,7 @@ bool func0f03ad8c(struct chrdata *chr)
 	}
 
 	if (func0f039a18(chr)) {
-		func0f02ed5c(chr);
+		chrStop(chr);
 		return true;
 	}
 
@@ -36651,7 +36642,7 @@ glabel func0f03ddf8
 /*  f03de94:	332800f0 */ 	andi	$t0,$t9,0xf0
 /*  f03de98:	a2080362 */ 	sb	$t0,0x362($s0)
 .L0f03de9c:
-/*  f03de9c:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f03de9c:	0fc0bb57 */ 	jal	chrStop
 /*  f03dea0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03dea4:	02002025 */ 	or	$a0,$s0,$zero
 .L0f03dea8:
@@ -36787,7 +36778,7 @@ glabel func0f03dff4
 /*  f03e06c:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f03e070:	0fc0e56b */ 	jal	chrSaveLastSeeTarget
 /*  f03e074:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e078:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f03e078:	0fc0bb57 */ 	jal	chrStop
 /*  f03e07c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03e080:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f03e084:
@@ -36868,7 +36859,7 @@ glabel func0f03e0e4
 /*  f03e180:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03e184:	45020004 */ 	bc1fl	.L0f03e198
 /*  f03e188:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03e18c:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f03e18c:	0fc0bb57 */ 	jal	chrStop
 /*  f03e190:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03e194:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f03e198:
@@ -36938,7 +36929,7 @@ glabel func0f03e1a8
 /*  f03e278:	10000004 */ 	beqz	$zero,.L0f03e28c
 /*  f03e27c:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f03e280:
-/*  f03e280:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f03e280:	0fc0bb57 */ 	jal	chrStop
 /*  f03e284:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03e288:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f03e28c:
@@ -41292,7 +41283,7 @@ glabel func0f041e48
 /*  f042060:	0fc0e56b */ 	jal	chrSaveLastSeeTarget
 /*  f042064:	02002025 */ 	or	$a0,$s0,$zero
 .L0f042068:
-/*  f042068:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f042068:	0fc0bb57 */ 	jal	chrStop
 /*  f04206c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f042070:	10000165 */ 	beqz	$zero,.L0f042608
 /*  f042074:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -43276,7 +43267,7 @@ glabel func0f0439f8
 /*  f043c7c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f043c80:	45020006 */ 	bc1fl	.L0f043c9c
 /*  f043c84:	44813000 */ 	mtc1	$at,$f6
-/*  f043c88:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f043c88:	0fc0bb57 */ 	jal	chrStop
 /*  f043c8c:	8fa40040 */ 	lw	$a0,0x40($sp)
 /*  f043c90:	10000042 */ 	beqz	$zero,.L0f043d9c
 /*  f043c94:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -43762,7 +43753,7 @@ glabel func0f044208
 .L0f04434c:
 /*  f04434c:	0fc0e56b */ 	jal	chrSaveLastSeeTarget
 /*  f044350:	02002025 */ 	or	$a0,$s0,$zero
-/*  f044354:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f044354:	0fc0bb57 */ 	jal	chrStop
 /*  f044358:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04435c:	10000094 */ 	beqz	$zero,.L0f0445b0
 /*  f044360:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -43797,7 +43788,7 @@ glabel func0f044208
 /*  f0443d0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0443d4:	0fc0e56b */ 	jal	chrSaveLastSeeTarget
 /*  f0443d8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0443dc:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f0443dc:	0fc0bb57 */ 	jal	chrStop
 /*  f0443e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0443e4:	10000072 */ 	beqz	$zero,.L0f0445b0
 /*  f0443e8:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -44274,7 +44265,7 @@ glabel func0f0448a0
 /*  f044a7c:	0c0077c1 */ 	jal	func0001df04
 /*  f044a80:	3c064180 */ 	lui	$a2,0x4180
 .L0f044a84:
-/*  f044a84:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f044a84:	0fc0bb57 */ 	jal	chrStop
 /*  f044a88:	02002025 */ 	or	$a0,$s0,$zero
 /*  f044a8c:	10000032 */ 	beqz	$zero,.L0f044b58
 /*  f044a90:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -46615,7 +46606,7 @@ glabel func0f046a8c
 /*  f046c4c:	000ec340 */ 	sll	$t8,$t6,0xd
 /*  f046c50:	07020006 */ 	bltzl	$t8,.L0f046c6c
 /*  f046c54:	8602019e */ 	lh	$v0,0x19e($s0)
-/*  f046c58:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f046c58:	0fc0bb57 */ 	jal	chrStop
 /*  f046c5c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f046c60:	100001d6 */ 	beqz	$zero,.L0f0473bc
 /*  f046c64:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -46630,7 +46621,7 @@ glabel func0f046a8c
 /*  f046c84:	8608019e */ 	lh	$t0,0x19e($s0)
 /*  f046c88:	05030006 */ 	bgezl	$t0,.L0f046ca4
 /*  f046c8c:	820a0068 */ 	lb	$t2,0x68($s0)
-/*  f046c90:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f046c90:	0fc0bb57 */ 	jal	chrStop
 /*  f046c94:	02002025 */ 	or	$a0,$s0,$zero
 /*  f046c98:	100001c8 */ 	beqz	$zero,.L0f0473bc
 /*  f046c9c:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -46792,7 +46783,7 @@ glabel func0f046a8c
 /*  f046ed8:	10000138 */ 	beqz	$zero,.L0f0473bc
 /*  f046edc:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f046ee0:
-/*  f046ee0:	0fc0bb57 */ 	jal	func0f02ed5c
+/*  f046ee0:	0fc0bb57 */ 	jal	chrStop
 /*  f046ee4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f046ee8:	10000134 */ 	beqz	$zero,.L0f0473bc
 /*  f046eec:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -47730,7 +47721,7 @@ glabel func0f047934
 /*  f047c5c:	10000003 */ 	beqz	$zero,.L0f047c6c
 /*  f047c60:	ae0d003c */ 	sw	$t5,0x3c($s0)
 .L0f047c64:
-/*  f047c64:	0fc0eb63 */ 	jal	func0f03ad8c
+/*  f047c64:	0fc0eb63 */ 	jal	chrTryStop
 /*  f047c68:	02002025 */ 	or	$a0,$s0,$zero
 .L0f047c6c:
 /*  f047c6c:	8fbf004c */ 	lw	$ra,0x4c($sp)
