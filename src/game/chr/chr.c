@@ -20553,46 +20553,23 @@ glabel func0f02f704
 /*  f02f818:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f02f81c
-/*  f02f81c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f02f820:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02f824:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f02f828:	808e0007 */ 	lb	$t6,0x7($a0)
-/*  f02f82c:	24020010 */ 	addiu	$v0,$zero,0x10
-/*  f02f830:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02f834:	504e0017 */ 	beql	$v0,$t6,.L0f02f894
-/*  f02f838:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02f83c:	0fc0fe3d */ 	jal	func0f03f8f4
-/*  f02f840:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02f844:	24020010 */ 	addiu	$v0,$zero,0x10
-/*  f02f848:	a2020007 */ 	sb	$v0,0x7($s0)
-/*  f02f84c:	a2020008 */ 	sb	$v0,0x8($s0)
-/*  f02f850:	0c0076e5 */ 	jal	func0001db94
-/*  f02f854:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02f858:	10400006 */ 	beqz	$v0,.L0f02f874
-/*  f02f85c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02f860:	8e0f0014 */ 	lw	$t7,0x14($s0)
-/*  f02f864:	3c010020 */ 	lui	$at,0x20
-/*  f02f868:	01e1c025 */ 	or	$t8,$t7,$at
-/*  f02f86c:	10000008 */ 	beqz	$zero,.L0f02f890
-/*  f02f870:	ae180014 */ 	sw	$t8,0x14($s0)
-.L0f02f874:
-/*  f02f874:	0fc0bdc1 */ 	jal	func0f02f704
-/*  f02f878:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02f87c:	8e190014 */ 	lw	$t9,0x14($s0)
-/*  f02f880:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f02f884:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f02f888:	03214024 */ 	and	$t0,$t9,$at
-/*  f02f88c:	ae080014 */ 	sw	$t0,0x14($s0)
-.L0f02f890:
-/*  f02f890:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f02f894:
-/*  f02f894:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f02f898:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02f89c:	03e00008 */ 	jr	$ra
-/*  f02f8a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrSurrender(struct chrdata *chr)
+{
+	u32 action = ACT_SURRENDER;
+
+	if (chr->actiontype != action) {
+		func0f03f8f4(chr);
+		chr->actiontype = action;
+		chr->sleep = action;
+
+		if (func0001db94(chr->unk020)) {
+			chr->hidden |= CHRFLAG2_00200000;
+		} else {
+			func0f02f704(chr);
+			chr->hidden &= ~CHRFLAG2_00200000;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f02f8a4
@@ -33144,12 +33121,12 @@ bool chrStartPath(struct chrdata *chr)
 	return false;
 }
 
-bool func0f03a9b8(struct chrdata *chr)
+bool chrTrySurrender(struct chrdata *chr)
 {
 	s32 race = chr ? chr->race : 0;
 
 	if (race == 0 && func0f039a18(chr)) {
-		func0f02f81c(chr);
+		chrSurrender(chr);
 		return true;
 	}
 

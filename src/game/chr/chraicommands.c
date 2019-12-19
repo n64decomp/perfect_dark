@@ -1212,7 +1212,7 @@ bool ai001c(void)
  */
 bool aiSurrender(void)
 {
-	func0f03a9b8(g_Vars.chrdata);
+	chrTrySurrender(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;
