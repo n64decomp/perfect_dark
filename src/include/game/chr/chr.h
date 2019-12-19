@@ -239,7 +239,7 @@ u32 chrTrySidestep(struct chrdata *chr);
 u32 chrTryJumpOut(struct chrdata *chr);
 u32 func0f039e28(struct chrdata *chr);
 u32 chrTryAttackWalk(struct chrdata *chr);
-u32 func0f03a124(struct chrdata *chr);
+u32 chrTryAttackRun(struct chrdata *chr);
 u32 func0f03a27c(struct chrdata *chr);
 u32 func0f03a3ec(struct chrdata *chr, u32 arg1, u32 arg2, u32 arg3, u32 arg4);
 u32 func0f03a578(struct chrdata *chr, u32 thingtype, u32 thingid);

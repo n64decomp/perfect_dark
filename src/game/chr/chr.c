@@ -32407,7 +32407,7 @@ glabel chrTryAttackWalk
 );
 
 GLOBAL_ASM(
-glabel func0f03a124
+glabel chrTryAttackRun
 /*  f03a124:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f03a128:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f03a12c:	00808025 */ 	or	$s0,$a0,$zero
