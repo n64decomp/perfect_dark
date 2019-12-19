@@ -21444,7 +21444,7 @@ glabel func0f030584
 );
 
 GLOBAL_ASM(
-glabel func0f0305e0
+glabel chrAttackWalk
 /*  f0305e0:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f0305e4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0305e8:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -32310,7 +32310,7 @@ glabel func0f039e28
 );
 
 GLOBAL_ASM(
-glabel func0f039fcc
+glabel chrTryAttackWalk
 /*  f039fcc:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f039fd0:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f039fd4:	00808025 */ 	or	$s0,$a0,$zero
@@ -32392,7 +32392,7 @@ glabel func0f039fcc
 /*  f03a0f0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03a0f4:	45020006 */ 	bc1fl	.L0f03a110
 /*  f03a0f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a0fc:	0fc0c178 */ 	jal	func0f0305e0
+/*  f03a0fc:	0fc0c178 */ 	jal	chrAttackWalk
 /*  f03a100:	00002825 */ 	or	$a1,$zero,$zero
 /*  f03a104:	10000002 */ 	beqz	$zero,.L0f03a110
 /*  f03a108:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -32489,7 +32489,7 @@ glabel func0f03a124
 /*  f03a248:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03a24c:	45020006 */ 	bc1fl	.L0f03a268
 /*  f03a250:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a254:	0fc0c178 */ 	jal	func0f0305e0
+/*  f03a254:	0fc0c178 */ 	jal	chrAttackWalk
 /*  f03a258:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03a25c:	10000002 */ 	beqz	$zero,.L0f03a268
 /*  f03a260:	24020001 */ 	addiu	$v0,$zero,0x1

@@ -811,7 +811,7 @@ bool aiRunSideways(void)
  */
 bool aiWalkAndFire(void)
 {
-	if (func0f039fcc(g_Vars.chrdata)) {
+	if (chrTryAttackWalk(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
