@@ -19867,40 +19867,19 @@ glabel func0f02ed88
 /*  f02eec8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f02eecc
-/*  f02eecc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f02eed0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02eed4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f02eed8:	0fc0fe3d */ 	jal	func0f03f8f4
-/*  f02eedc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02eee0:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f02eee4:	a20e0007 */ 	sb	$t6,0x7($s0)
-/*  f02eee8:	a2000008 */ 	sb	$zero,0x8($s0)
-/*  f02eeec:	0c0076e5 */ 	jal	func0001db94
-/*  f02eef0:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02eef4:	10400006 */ 	beqz	$v0,.L0f02ef10
-/*  f02eef8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02eefc:	8e0f0014 */ 	lw	$t7,0x14($s0)
-/*  f02ef00:	3c010020 */ 	lui	$at,0x20
-/*  f02ef04:	01e1c025 */ 	or	$t8,$t7,$at
-/*  f02ef08:	10000008 */ 	beqz	$zero,.L0f02ef2c
-/*  f02ef0c:	ae180014 */ 	sw	$t8,0x14($s0)
-.L0f02ef10:
-/*  f02ef10:	0fc0bb62 */ 	jal	func0f02ed88
-/*  f02ef14:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02ef18:	8e190014 */ 	lw	$t9,0x14($s0)
-/*  f02ef1c:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f02ef20:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f02ef24:	03214024 */ 	and	$t0,$t9,$at
-/*  f02ef28:	ae080014 */ 	sw	$t0,0x14($s0)
-.L0f02ef2c:
-/*  f02ef2c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02ef30:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f02ef34:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02ef38:	03e00008 */ 	jr	$ra
-/*  f02ef3c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrKneel(struct chrdata *chr)
+{
+	func0f03f8f4(chr);
+	chr->actiontype = ACT_KNEEL;
+	chr->sleep = 0;
+
+	if (func0001db94(chr->unk020)) {
+		chr->hidden |= CHRFLAG2_00200000;
+	} else {
+		func0f02ed88(chr);
+		chr->hidden &= ~CHRFLAG2_00200000;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f02ef40
@@ -33360,12 +33339,12 @@ bool func0f03ae9c(struct chrdata *chr)
 	return false;
 }
 
-bool func0f03aef0(struct chrdata *chr)
+bool chrTryKneel(struct chrdata *chr)
 {
 	s32 race = chr ? chr->race : 0;
 
 	if (race == 0 && func0f039a18(chr)) {
-		func0f02eecc(chr);
+		chrKneel(chr);
 		return true;
 	}
 

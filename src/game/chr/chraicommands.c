@@ -397,7 +397,7 @@ bool aiStop(void)
  */
 bool aiKneel(void)
 {
-	func0f03aef0(g_Vars.chrdata);
+	chrTryKneel(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;
