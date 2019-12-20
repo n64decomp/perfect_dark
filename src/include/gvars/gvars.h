@@ -563,7 +563,7 @@ extern u32 var8009cd20;
 extern u32 var8009cd28;
 extern u32 var8009cd48;
 extern s32 var8009cd70[5];
-extern u32 var8009cd98;
+extern u8 var8009cd98;
 extern u32 var8009cda0;
 extern u32 var8009cda4;
 extern u32 var8009cdac;

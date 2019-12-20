@@ -53476,28 +53476,14 @@ glabel squadronGetChrIds
 /*  f04cee8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04ceec
-/*  f04ceec:	3c03800a */ 	lui	$v1,%hi(var8009cd98)
-/*  f04cef0:	2463cd98 */ 	addiu	$v1,$v1,%lo(var8009cd98)
-/*  f04cef4:	90620000 */ 	lbu	$v0,0x0($v1)
-/*  f04cef8:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f04cefc:	3c01800a */ 	lui	$at,0x800a
-/*  f04cf00:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f04cf04:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*  f04cf08:	00380821 */ 	addu	$at,$at,$t8
-/*  f04cf0c:	24590001 */ 	addiu	$t9,$v0,0x1
-/*  f04cf10:	ac2fcd70 */ 	sw	$t7,-0x3290($at)
-/*  f04cf14:	332800ff */ 	andi	$t0,$t9,0xff
-/*  f04cf18:	29010005 */ 	slti	$at,$t0,0x5
-/*  f04cf1c:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f04cf20:	14200002 */ 	bnez	$at,.L0f04cf2c
-/*  f04cf24:	a0790000 */ 	sb	$t9,0x0($v1)
-/*  f04cf28:	a0600000 */ 	sb	$zero,0x0($v1)
-.L0f04cf2c:
-/*  f04cf2c:	03e00008 */ 	jr	$ra
-/*  f04cf30:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f04ceec(s16 value)
+{
+	var8009cd70[var8009cd98++] = value;
+
+	if (var8009cd98 > 4) {
+		var8009cd98 = 0;
+	}
+}
 
 bool func0f04cf34(s16 value)
 {
