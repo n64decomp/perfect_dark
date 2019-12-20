@@ -898,7 +898,7 @@ u8 func0414_walk_3_pads[] = {
  * Unused.
  */
 u8 func0401_init_chr_with_flag[] = {
-	set_self_flag_bank3(CHRFLAG3_00000200)
+	set_self_chrflag(CHRCFLAG_00000200)
 	set_function(CHR_SELF, GFUNC_UNALERTED_0001)
 	endfunction
 };
@@ -1302,7 +1302,7 @@ u8 func1009_weaponscache[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	if_chr_flag_bank2(CHR_BOND, CHRFLAG2_PSYCHOSISED, /*goto*/ 0x2f)
+	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_PSYCHOSISED, /*goto*/ 0x2f)
 	message(CHR_TARGET, 0x1e62) // "Secret weapons compartment opened."
 	play_sound(0x00f7, -1)
 	assign_sound(0x043b, CHANNEL_5)
@@ -1937,10 +1937,10 @@ u8 func1008_check_bot_terminals_destroyed[] = {
 u8 func1001_objectives_failed_msg[] = {
 	yield
 	// These are scientist chrs
-	set_chr_flag_bank3(0x35, CHRFLAG3_04000000)
-	set_chr_flag_bank3(0x36, CHRFLAG3_04000000)
-	set_chr_flag_bank3(0x37, CHRFLAG3_04000000)
-	set_chr_flag_bank3(0x38, CHRFLAG3_04000000)
+	set_chr_chrflag(0x35, CHRCFLAG_04000000)
+	set_chr_chrflag(0x36, CHRCFLAG_04000000)
+	set_chr_chrflag(0x37, CHRCFLAG_04000000)
+	set_chr_chrflag(0x38, CHRCFLAG_04000000)
 	set_function(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
 	endfunction
 };
@@ -2016,7 +2016,7 @@ u8 func0408_alarm_responder[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	set_alertness(90)
-	set_self_flag_bank3(CHRFLAG3_00000200)
+	set_self_chrflag(CHRCFLAG_00000200)
 
 	// Run to scientist based on which alarm was triggered
 	if_stage_flag_eq(STAGEFLAG_ALARM1_ACTIVE, TRUE, /*goto*/ 0x08)
@@ -2217,18 +2217,18 @@ u8 func0416_intro[] = {
 	set_music_track(MUSIC_INVESTIGATION_INTRO)
 	camera_movement(0x00f5)
 	cmd0175(60)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_00010000)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_00010000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x00f6, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
-	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_00010000)
-	unset_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_INTRO_GUARD, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_UNPLAYABLE)
+	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_00010000)
+	unset_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_INTRO_GUARD, CHRHFLAG_00020000)
 	animation(0x00f7, -1, -1, 0x06, 0x00, CHR_INTRO_GUARD, 4)
 
 	restart_timer
@@ -2316,18 +2316,18 @@ u8 func0416_intro[] = {
 	label(0x77)
 	open_door2(0x24)
 	open_door2(0x40)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_00010000)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_00010000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x00f6, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 
-	unset_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank3(CHR_INTRO_GUARD, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_chr_flag_bank2(CHR_INTRO_GUARD, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_UNPLAYABLE)
+	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_hiddenflag(CHR_INTRO_GUARD, CHRHFLAG_00020000)
 	animation(0x00f7, -2, -1, 0x06, 0x00, CHR_INTRO_GUARD, 2)
 
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	restart_default_music
 	reset_ambience
 	enter_firstperson
@@ -2341,13 +2341,13 @@ u8 func0416_intro[] = {
 
 u8 func0417_outro[] = {
 	set_music_track(MUSIC_INVESTIGATION_OUTRO)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(0xf1, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_stage_flag(STAGEFLAG_TRIGGER_OUTRO_AUDIO)
 
-	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
 
 	set_function(CHR_DRCAROLL, GFUNC_IDLE)
 	set_function(CHR_K7_GUARD, GFUNC_IDLE)
@@ -2415,9 +2415,9 @@ u8 func0417_outro[] = {
 	label(0x06)
 	dprint 's','h','o','t',' ','5',0,
 	if_controller_button_pressed(/*goto*/ 0x06)
-	unset_chr_flag_bank3(CHR_DRCAROLL, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_DRCAROLL, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_DRCAROLL, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00020000)
 	camera_movement(0x0149)
 	animation(0x014a, -1, -1, 0x06, 0x00, CHR_P1P2, 2)
 	animation(0x014b, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 2)
@@ -2693,7 +2693,7 @@ u8 func0409_uplink_responder[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	set_alertness(110)
-	set_self_flag_bank3(CHRFLAG3_00000200)
+	set_self_chrflag(CHRCFLAG_00000200)
 	label(0x06)
 	rebuild_teams
 	rebuild_squadrons
@@ -3008,7 +3008,7 @@ u8 func0403_k7_scientist[] = {
 };
 
 u8 func1016_setup_drcaroll[] = {
-	set_chr_flag_bank3(CHR_DRCAROLL, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_HIDDEN)
 	set_function(CHR_DRCAROLL, GFUNC_INVINCIBLE_AND_IDLE)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction

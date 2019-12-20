@@ -707,7 +707,7 @@
 	mkword(flag), \
 	bank,
 
-#define if_chr_flag_bankx(chr, flag, bank, label) \
+#define if_chr_has_flag_bankx(chr, flag, bank, label) \
 	mkshort(0x00a0), \
 	chr, \
 	mkword(flag), \
@@ -728,30 +728,30 @@
 	bool, \
 	label,
 
-#define set_self_flag_bank3(chrflag3) \
+#define set_self_chrflag(chrflag3) \
 	mkshort(0x00a4), \
 	mkword(chrflag3),
 
-#define unset_self_flag_bank3(chrflag3) \
+#define unset_self_chrflag(chrflag3) \
 	mkshort(0x00a5), \
 	mkword(chrflag3),
 
-#define if_self_flag_bank3(chrflag3, label) \
+#define if_self_has_chrflag(chrflag3, label) \
 	mkshort(0x00a6), \
 	mkword(chrflag3), \
 	label,
 
-#define set_chr_flag_bank3(chr, chrflag3) \
+#define set_chr_chrflag(chr, chrflag3) \
 	mkshort(0x00a7), \
 	chr, \
 	mkword(chrflag3),
 
-#define unset_chr_flag_bank3(chr, chrflag3) \
+#define unset_chr_chrflag(chr, chrflag3) \
 	mkshort(0x00a8), \
 	chr, \
 	mkword(chrflag3),
 
-#define if_chr_flag_bank3(chr, chrflag3, label) \
+#define if_chr_has_chrflag(chr, chrflag3, label) \
 	mkshort(0x00a9), \
 	chr, \
 	mkword(chrflag3), \
@@ -1162,17 +1162,17 @@
 	mkword(objectflag2), \
 	label,
 
-#define set_chr_flag_bank2(chr, chrflag2) \
+#define set_chr_hiddenflag(chr, chrflag2) \
 	mkshort(0x011b), \
 	chr, \
 	mkword(chrflag2),
 
-#define unset_chr_flag_bank2(chr, chrflag2) \
+#define unset_chr_hiddenflag(chr, chrflag2) \
 	mkshort(0x011c), \
 	chr, \
 	mkword(chrflag2),
 
-#define if_chr_flag_bank2(chr, chrflag2, label) \
+#define if_chr_has_hiddenflag(chr, chrflag2, label) \
 	mkshort(0x011d), \
 	chr, \
 	mkword(chrflag2), \

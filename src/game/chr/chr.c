@@ -19874,10 +19874,10 @@ void chrKneel(struct chrdata *chr)
 	chr->sleep = 0;
 
 	if (func0001db94(chr->unk020)) {
-		chr->hidden |= CHRFLAG2_00200000;
+		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02ed88(chr);
-		chr->hidden &= ~CHRFLAG2_00200000;
+		chr->hidden &= ~CHRHFLAG_00200000;
 	}
 }
 
@@ -20533,10 +20533,10 @@ void chrSurrender(struct chrdata *chr)
 		chr->sleep = action;
 
 		if (func0001db94(chr->unk020)) {
-			chr->hidden |= CHRFLAG2_00200000;
+			chr->hidden |= CHRHFLAG_00200000;
 		} else {
 			func0f02f704(chr);
-			chr->hidden &= ~CHRFLAG2_00200000;
+			chr->hidden &= ~CHRHFLAG_00200000;
 		}
 	}
 }
@@ -20761,10 +20761,10 @@ void chrSidestep(struct chrdata *chr, s32 arg1)
 	chr->sleep = 0;
 
 	if (func0001db94(chr->unk020)) {
-		chr->hidden |= CHRFLAG2_00200000;
+		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02f8a4(chr);
-		chr->hidden &= ~CHRFLAG2_00200000;
+		chr->hidden &= ~CHRHFLAG_00200000;
 	}
 }
 
@@ -20880,10 +20880,10 @@ void chrJumpOut(struct chrdata *chr, s32 arg1)
 	chr->sleep = 0;
 
 	if (func0001db94(chr->unk020)) {
-		chr->hidden |= CHRFLAG2_00200000;
+		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02fc2c(chr);
-		chr->hidden &= ~CHRFLAG2_00200000;
+		chr->hidden &= ~CHRHFLAG_00200000;
 	}
 }
 
@@ -31618,7 +31618,7 @@ void chrSaveLastSeeTarget(struct chrdata *chr)
 
 void chrSaveLastHearTarget(struct chrdata *chr)
 {
-	chr->hidden |= CHRFLAG2_00000002;
+	chr->hidden |= CHRHFLAG_00000002;
 	chr->lastheartarget60 = g_Vars.unk000008;
 }
 
@@ -33096,7 +33096,7 @@ bool chrGoToTarget(struct chrdata *chr, u32 speed)
 {
 	if (func0f039a18(chr)) {
 		if (var80062cbc <= 8 ||
-				(chr->hidden & CHRFLAG2_00400000) == 0 ||
+				(chr->hidden & CHRHFLAG_00400000) == 0 ||
 				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
 			struct position *pos = chrGetTargetPosition(chr);
 
@@ -33113,7 +33113,7 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 {
 	if (func0f039a18(chr)) {
 		if (var80062cbc <= 8 ||
-				(chr->hidden & CHRFLAG2_00400000) == 0 ||
+				(chr->hidden & CHRHFLAG_00400000) == 0 ||
 				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
 			struct chrdata *dstchr = chrFindById(chr, dst_chrnum);
 
@@ -35095,9 +35095,9 @@ void func0f03c8b4(struct chrdata *chr)
 {
 	chr->sleep = 0;
 
-	if ((chr->hidden & CHRFLAG2_00200000) && func0001db94(chr->unk020) == 0) {
+	if ((chr->hidden & CHRHFLAG_00200000) && func0001db94(chr->unk020) == 0) {
 		func0f02ed88(chr);
-		chr->hidden &= ~CHRFLAG2_00200000;
+		chr->hidden &= ~CHRHFLAG_00200000;
 	}
 }
 
@@ -50106,7 +50106,7 @@ bool chrHasHiddenFlag00000002(struct chrdata *chr)
 void chrRestartTimer(struct chrdata *chr)
 {
 	chr->timer60 = 0;
-	chr->hidden |= CHRFLAG2_TIMER_RUNNING;
+	chr->hidden |= CHRHFLAG_TIMER_RUNNING;
 }
 
 GLOBAL_ASM(
@@ -53858,11 +53858,11 @@ glabel func0f04d000
 bool func0f04d44c(struct chrdata *chr)
 {
 	s32 val = func0001d13c(chr->unk020);
-	chr->chrflags &= ~CHRFLAG3_10000000;
+	chr->chrflags &= ~CHRCFLAG_10000000;
 
 	// Possible @bug or just sloppy code: The flag check below can never pass
 	// because that flag was just turned off above.
-	if (val == 100 || val == 101 || val == 102 || val == 103 || (chr->chrflags & CHRFLAG3_10000000)) {
+	if (val == 100 || val == 101 || val == 102 || val == 103 || (chr->chrflags & CHRCFLAG_10000000)) {
 		return true;
 	}
 

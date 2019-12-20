@@ -109,7 +109,7 @@
 #define CHR_PRESET        0xfc
 #define CHR_SELF          0xfd
 
-// Character flags - bank 0 (chr struct offset 0x114 - chr->flags)
+// chr->flags
 #define CHRFLAG0_CANT_ALERT_GROUP   0x00000001 // Don't set group alertness when becoming aware
 #define CHRFLAG0_00000002           0x00000002 // Not used in scripts
 #define CHRFLAG0_00000004           0x00000004 // Can search for player when heard?
@@ -143,7 +143,7 @@
 #define CHRFLAG0_NOHEAR             0x40000000 // Globals, Villa
 #define CHRFLAG0_80000000           0x80000000 // Globals, Villa, Chicago, CI Training
 
-// Character flags - bank 1 (chr struct offset 0x118 - chr->flags2)
+// chr->flags2
 #define CHRFLAG1_00000001                  0x00000001 // Globals, Extraction, Air Base, Deep Sea
 #define CHRFLAG1_00000002                  0x00000002 // Globals
 #define CHRFLAG1_00000004                  0x00000004 // Globals - If set, avoids cmd0184
@@ -177,73 +177,73 @@
 #define CHRFLAG1_40000000                  0x40000000 // Globals
 #define CHRFLAG1_80000000                  0x80000000 // Globals
 
-// Character flags - bank 2 (chr struct offset 0x14 - chr->hidden)
-#define CHRFLAG2_00000001           0x00000001 // Not used in scripts - sunglasses?
-#define CHRFLAG2_00000002           0x00000002 // Not used in scripts
-#define CHRFLAG2_00000004           0x00000004 // Not used in scripts
-#define CHRFLAG2_00000008           0x00000008 // Not used in scripts
-#define CHRFLAG2_00000010           0x00000010 // Not used in scripts
-#define CHRFLAG2_00000020           0x00000020 // Not used in scripts
-#define CHRFLAG2_TIMER_RUNNING      0x00000040
-#define CHRFLAG2_00000080           0x00000080 // Not used in scripts
-#define CHRFLAG2_00000100           0x00000100 // Not used in scripts
-#define CHRFLAG2_00000200           0x00000200 // Not used in scripts
-#define CHRFLAG2_00000400           0x00000400 // Related to coop buddy? Also used in Chicago
-#define CHRFLAG2_KEEP_CORPSE        0x00000800
-#define CHRFLAG2_BUDDY_PLACED       0x00001000
-#define CHRFLAG2_00002000           0x00002000 // Globals, Rescue guards once disguised
-#define CHRFLAG2_TRIGGER_BUDDY_WARP 0x00004000
-#define CHRFLAG2_00008000           0x00008000 // Duel only. Set on each opponent when they start combat.
-#define CHRFLAG2_DISGUISE_UNCOVERED 0x00010000
-#define CHRFLAG2_00020000           0x00020000 // Used in every stage, on Jo and other chrs. Only ever set, never unset or read.
-#define CHRFLAG2_00040000           0x00040000 // Not used in scripts
-#define CHRFLAG2_DISGUISED          0x00080000
-#define CHRFLAG2_00100000           0x00100000 // Set before warping to pad, never unset or read
-#define CHRFLAG2_00200000           0x00200000 // Not used in scripts
-#define CHRFLAG2_00400000           0x00400000 // Set in Chicago, G5, AF1, Defense, Attack Ship, Skedar Ruins, Maian SOS, WAR
-#define CHRFLAG2_00800000           0x00800000 // Not used in scripts
-#define CHRFLAG2_01000000           0x01000000 // Globals - asked about gun (eg. "where did you get that?")
-#define CHRFLAG2_02000000           0x02000000 // Similar to DISGUISED flag, but not sure where set
-#define CHRFLAG2_04000000           0x04000000 // Related to disguise and detection
-#define CHRFLAG2_08000000           0x08000000 // Globals, Villa and G5
-#define CHRFLAG2_10000000           0x10000000 // Related to invincible flag
-#define CHRFLAG2_CLOAKED            0x20000000
-#define CHRFLAG2_40000000           0x40000000 // Air Base and AF1
-#define CHRFLAG2_PSYCHOSISED        0x80000000
+// chr->hidden
+#define CHRHFLAG_00000001           0x00000001 // Not used in scripts - sunglasses?
+#define CHRHFLAG_00000002           0x00000002 // Not used in scripts
+#define CHRHFLAG_00000004           0x00000004 // Not used in scripts
+#define CHRHFLAG_00000008           0x00000008 // Not used in scripts
+#define CHRHFLAG_00000010           0x00000010 // Not used in scripts
+#define CHRHFLAG_00000020           0x00000020 // Not used in scripts
+#define CHRHFLAG_TIMER_RUNNING      0x00000040
+#define CHRHFLAG_00000080           0x00000080 // Not used in scripts
+#define CHRHFLAG_00000100           0x00000100 // Not used in scripts
+#define CHRHFLAG_00000200           0x00000200 // Not used in scripts
+#define CHRHFLAG_00000400           0x00000400 // Related to coop buddy? Also used in Chicago
+#define CHRHFLAG_KEEP_CORPSE        0x00000800
+#define CHRHFLAG_BUDDY_PLACED       0x00001000
+#define CHRHFLAG_00002000           0x00002000 // Globals, Rescue guards once disguised
+#define CHRHFLAG_TRIGGER_BUDDY_WARP 0x00004000
+#define CHRHFLAG_00008000           0x00008000 // Duel only. Set on each opponent when they start combat.
+#define CHRHFLAG_DISGUISE_UNCOVERED 0x00010000
+#define CHRHFLAG_00020000           0x00020000 // Used in every stage, on Jo and other chrs. Only ever set, never unset or read.
+#define CHRHFLAG_00040000           0x00040000 // Not used in scripts
+#define CHRHFLAG_DISGUISED          0x00080000
+#define CHRHFLAG_00100000           0x00100000 // Set before warping to pad, never unset or read
+#define CHRHFLAG_00200000           0x00200000 // Not used in scripts
+#define CHRHFLAG_00400000           0x00400000 // Set in Chicago, G5, AF1, Defense, Attack Ship, Skedar Ruins, Maian SOS, WAR
+#define CHRHFLAG_00800000           0x00800000 // Not used in scripts
+#define CHRHFLAG_01000000           0x01000000 // Globals - asked about gun (eg. "where did you get that?")
+#define CHRHFLAG_02000000           0x02000000 // Similar to DISGUISED flag, but not sure where set
+#define CHRHFLAG_04000000           0x04000000 // Related to disguise and detection
+#define CHRHFLAG_08000000           0x08000000 // Globals, Villa and G5
+#define CHRHFLAG_10000000           0x10000000 // Related to invincible flag
+#define CHRHFLAG_CLOAKED            0x20000000
+#define CHRHFLAG_40000000           0x40000000 // Air Base and AF1
+#define CHRHFLAG_PSYCHOSISED        0x80000000
 
-// Character flags - bank 3 (chr struct offset 0x18 - chr->chrflags)
-#define CHRFLAG3_00000001                    0x00000001 // Villa takers, Attack Ship Cass and skedar - both set at end of intros
-#define CHRFLAG3_00000002                    0x00000002 // Seems to be set on guards who can spawn clones?
-#define CHRFLAG3_00000004                    0x00000004 // Not used in scripts
-#define CHRFLAG3_NEVER_BEEN_ON_SCREEN        0x00000008
-#define CHRFLAG3_INVINCIBLE_TO_GUNFIRE       0x00000010
-#define CHRFLAG3_00000020                    0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR
-#define CHRFLAG3_00000040                    0x00000040 // Used quite a lot
-#define CHRFLAG3_00000080                    0x00000080 // Defection programmer, Rescue lab techs, globals when doing idle animation
-#define CHRFLAG3_JUST_INJURED                0x00000100
-#define CHRFLAG3_00000200                    0x00000200 // Set on clones
-#define CHRFLAG3_HIDDEN                      0x00000400
-#define CHRFLAG3_NOAUTOAIM                   0x00000800
-#define CHRFLAG3_UNEXPLODABLE                0x00001000
-#define CHRFLAG3_00002000                    0x00002000 // Not used in scripts
-#define CHRFLAG3_HAS_SPECIAL_DEATH_ANIMATION 0x00004000
-#define CHRFLAG3_00008000                    0x00008000 // Not used in scripts
-#define CHRFLAG3_00010000                    0x00010000 // Related to dead people in intro cutscenes
-#define CHRFLAG3_00020000                    0x00020000 // Chicago, Crash Site, Deep Sea, Defense, Ruins
-#define CHRFLAG3_00040000                    0x00040000 // Used a lot
-#define CHRFLAG3_00080000                    0x00080000
-#define CHRFLAG3_KILLCOUNTABLE               0x00100000
-#define CHRFLAG3_00200000                    0x00200000 // Unset by cmd 00fd
-#define CHRFLAG3_00400000                    0x00400000 // Not used in scripts
-#define CHRFLAG3_UNPLAYABLE                  0x00800000
-#define CHRFLAG3_01000000                    0x01000000 // Typically set on allies during init
-#define CHRFLAG3_02000000                    0x02000000 // can be unset by cmd0168
-#define CHRFLAG3_04000000                    0x04000000 // Set by aiChrKill command
-#define CHRFLAG3_08000000                    0x08000000 // Not used in scripts
-#define CHRFLAG3_10000000                    0x10000000 // Not used in scripts
-#define CHRFLAG3_20000000                    0x20000000 // Not used in scripts
-#define CHRFLAG3_40000000                    0x40000000 // Not used in scripts
-#define CHRFLAG3_INJURED                     0x80000000
+// chr->chrflags
+#define CHRCFLAG_00000001                    0x00000001 // Villa takers, Attack Ship Cass and skedar - both set at end of intros
+#define CHRCFLAG_00000002                    0x00000002 // Seems to be set on guards who can spawn clones?
+#define CHRCFLAG_00000004                    0x00000004 // Not used in scripts
+#define CHRCFLAG_NEVER_BEEN_ON_SCREEN        0x00000008
+#define CHRCFLAG_INVINCIBLE_TO_GUNFIRE       0x00000010
+#define CHRCFLAG_00000020                    0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR
+#define CHRCFLAG_00000040                    0x00000040 // Used quite a lot
+#define CHRCFLAG_00000080                    0x00000080 // Defection programmer, Rescue lab techs, globals when doing idle animation
+#define CHRCFLAG_JUST_INJURED                0x00000100
+#define CHRCFLAG_00000200                    0x00000200 // Set on clones
+#define CHRCFLAG_HIDDEN                      0x00000400
+#define CHRCFLAG_NOAUTOAIM                   0x00000800
+#define CHRCFLAG_UNEXPLODABLE                0x00001000
+#define CHRCFLAG_00002000                    0x00002000 // Not used in scripts
+#define CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION 0x00004000
+#define CHRCFLAG_00008000                    0x00008000 // Not used in scripts
+#define CHRCFLAG_00010000                    0x00010000 // Related to dead people in intro cutscenes
+#define CHRCFLAG_00020000                    0x00020000 // Chicago, Crash Site, Deep Sea, Defense, Ruins
+#define CHRCFLAG_00040000                    0x00040000 // Used a lot
+#define CHRCFLAG_00080000                    0x00080000
+#define CHRCFLAG_KILLCOUNTABLE               0x00100000
+#define CHRCFLAG_00200000                    0x00200000 // Unset by cmd 00fd
+#define CHRCFLAG_00400000                    0x00400000 // Not used in scripts
+#define CHRCFLAG_UNPLAYABLE                  0x00800000
+#define CHRCFLAG_01000000                    0x01000000 // Typically set on allies during init
+#define CHRCFLAG_02000000                    0x02000000 // can be unset by cmd0168
+#define CHRCFLAG_04000000                    0x04000000 // Set by aiChrKill command
+#define CHRCFLAG_08000000                    0x08000000 // Not used in scripts
+#define CHRCFLAG_10000000                    0x10000000 // Not used in scripts
+#define CHRCFLAG_20000000                    0x20000000 // Not used in scripts
+#define CHRCFLAG_40000000                    0x40000000 // Not used in scripts
+#define CHRCFLAG_INJURED                     0x80000000
 
 #define CMD_LABEL 0x0002
 #define CMD_END   0x0004

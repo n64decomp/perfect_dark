@@ -1050,7 +1050,7 @@ u8 unregistered_function[] = {
  */
 u8 func0402_guard_with_chrflag[] = {
 	set_return_function(CHR_SELF, 0x0402)
-	set_self_flag_bank3(CHRFLAG3_00000200)
+	set_self_chrflag(CHRCFLAG_00000200)
 	set_function(CHR_SELF, GFUNC_UNALERTED_0001)
 	endfunction
 };
@@ -1060,7 +1060,7 @@ u8 func0402_guard_with_chrflag[] = {
  */
 u8 func0403_shielded_guard[] = {
 	set_shield(200)
-	set_self_flag_bank3(CHRFLAG3_00000200)
+	set_self_chrflag(CHRCFLAG_00000200)
 	set_function(CHR_SELF, GFUNC_CHOOSE_TARGET)
 	endfunction
 };
@@ -1423,7 +1423,7 @@ u8 func0412_init_secretary[] = {
 u8 func0411_secretary[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x06)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	set_chr_flag_bank2(CHR_SECRETARY, CHRFLAG2_00100000)
+	set_chr_hiddenflag(CHR_SECRETARY, CHRHFLAG_00100000)
 	chr_move_to_pad(CHR_SECRETARY, 0x01c3, 0x00, /*goto*/ 0x2c)
 	dprint 'D','E','T','E','C','T',' ','4',0,
 	label(0x2c)
@@ -1548,7 +1548,7 @@ u8 func0414_programmer[] = {
 	label(0x2c)
 	set_reaction_speed(100)
 	set_onshot_function(FUNC_PROGRAMMER)
-	set_chr_flag_bank3(CHR_PROGRAMMER, CHRFLAG3_00000080)
+	set_chr_chrflag(CHR_PROGRAMMER, CHRCFLAG_00000080)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
@@ -1959,7 +1959,7 @@ u8 func0413_c318[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	set_alertness(255)
-	set_self_flag_bank3(CHRFLAG3_00000200)
+	set_self_chrflag(CHRCFLAG_00000200)
 	rebuild_teams
 	rebuild_squadrons
 	set_function(CHR_SELF, GFUNC_UNALERTED_0001)
@@ -2476,9 +2476,9 @@ u8 func100d_check_objects_destroyed[] = {
 
 u8 func1002_objectives_failed_msg[] = {
 	yield
-	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_04000000)
-	set_chr_flag_bank3(CHR_SECRETARY, CHRFLAG3_04000000)
-	set_chr_flag_bank3(CHR_PROGRAMMER, CHRFLAG3_04000000)
+	set_chr_chrflag(CHR_CASS, CHRCFLAG_04000000)
+	set_chr_chrflag(CHR_SECRETARY, CHRCFLAG_04000000)
+	set_chr_chrflag(CHR_PROGRAMMER, CHRCFLAG_04000000)
 	set_function(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
 	endfunction
 };
@@ -2496,9 +2496,9 @@ u8 func1002_objectives_failed_msg[] = {
 u8 func041b_intro_041b[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00c9)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP2)
 	set_object_flag_bank2(OBJ_JUMPSHIP2, OBJECTFLAG2_00000010)
 	object_do_animation(0x00ca, OBJ_JUMPSHIP2, 0x04ff, 0xff)
@@ -2526,9 +2526,9 @@ u8 func041b_intro_041b[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP2)
 	hide_object(OBJ_POLICECAR)
 	hide_object(OBJ_HOVERCOP3)
@@ -2543,9 +2543,9 @@ u8 func041b_intro_041b[] = {
 u8 func041a_intro_041a[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00c7)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP2)
 	set_object_flag_bank2(OBJ_JUMPSHIP2, OBJECTFLAG2_00000010)
 	object_do_animation(0x00c8, OBJ_JUMPSHIP2, 0x04ff, 0xff)
@@ -2571,9 +2571,9 @@ u8 func041a_intro_041a[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP2)
 	hide_object(OBJ_HOVERTAXI2)
 	hide_object(OBJ_HOVERCOP3)
@@ -2589,9 +2589,9 @@ u8 func041a_intro_041a[] = {
 u8 func0419_intro_0419[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00c5)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP2)
 	set_object_flag_bank2(OBJ_JUMPSHIP2, OBJECTFLAG2_00000010)
 	object_do_animation(0x00c6, OBJ_JUMPSHIP2, 0x04ff, 0xff)
@@ -2608,9 +2608,9 @@ u8 func0419_intro_0419[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP2)
 	hide_object(OBJ_HOVERTAXI1)
 	hide_object(OBJ_HOVERCOP3)
@@ -2623,9 +2623,9 @@ u8 func0419_intro_0419[] = {
 u8 func041c_intro_041c[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00cb)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP2)
 	set_object_flag_bank2(OBJ_JUMPSHIP2, OBJECTFLAG2_00000010)
 	object_do_animation(0x00cc, OBJ_JUMPSHIP2, 0x04ff, 0xff)
@@ -2651,9 +2651,9 @@ u8 func041c_intro_041c[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP2)
 	hide_object(OBJ_HOVERTAXI1)
 	hide_object(0x1d)
@@ -2671,9 +2671,9 @@ u8 func041c_intro_041c[] = {
 u8 func041d_intro_041d[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00cd)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP2)
 	set_object_flag_bank2(OBJ_JUMPSHIP2, OBJECTFLAG2_00000010)
 	object_do_animation(0x00ce, OBJ_JUMPSHIP2, 0x01ff, 0xff)
@@ -2687,9 +2687,9 @@ u8 func041d_intro_041d[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP2)
 	hide_object(OBJ_HOVERTAXI1)
 	hide_object(0x1d)
@@ -2817,9 +2817,9 @@ u8 func0421_intro_0421[] = {
 u8 func0422_intro_0423[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00ee)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x00ef, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2828,9 +2828,9 @@ u8 func0422_intro_0423[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	set_tinted_glass_enabled(FALSE)
 	label(0x36)
@@ -2841,27 +2841,27 @@ u8 func0422_intro_0423[] = {
 u8 func0422_intro_0424[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00fc)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x00fd, OBJ_JUMPSHIP1, 0x04ff, 0xff)
-	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_SECRETARY, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_SECRETARY, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_SECRETARY, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_CASS, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_SECRETARY, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_SECRETARY, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_SECRETARY, CHRHFLAG_00020000)
 	animation(0x00fe, -1, -1, 0x06, 0x00, CHR_SECRETARY, 4)
 
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
-	unset_chr_flag_bank3(CHR_CASS, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_SECRETARY, CHRFLAG3_UNPLAYABLE)
+	unset_chr_chrflag(CHR_CASS, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_SECRETARY, CHRCFLAG_UNPLAYABLE)
 	label(0x36)
 	set_function(CHR_SELF, FUNC_INTRO_0425)
 	endfunction
@@ -2870,9 +2870,9 @@ u8 func0422_intro_0424[] = {
 u8 func0422_intro_0425[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x00ff)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0100, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2882,9 +2882,9 @@ u8 func0422_intro_0425[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	hide_object(OBJ_BANNER1)
 	hide_object(OBJ_BANNER2)
@@ -2896,9 +2896,9 @@ u8 func0422_intro_0425[] = {
 u8 func0422_intro_0426[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x012e)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x012f, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2912,9 +2912,9 @@ u8 func0422_intro_0426[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	hide_object(OBJ_BANNER1)
 	hide_object(OBJ_BANNER2)
@@ -2926,9 +2926,9 @@ u8 func0422_intro_0426[] = {
 u8 func0422_intro_0427[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x0133)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0134, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2945,9 +2945,9 @@ u8 func0422_intro_0427[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	hide_object(OBJ_ROPE)
 	hide_object(OBJ_BANNER1)
@@ -2960,9 +2960,9 @@ u8 func0422_intro_0427[] = {
 u8 func0422_intro_0428[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x0103)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0104, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -2980,9 +2980,9 @@ u8 func0422_intro_0428[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	unset_object_flag_bank1(OBJ_HOVERCOP1, OBJECTFLAG1_INVISIBLE)
 	unset_object_flag_bank1(OBJ_HOVERCOP2, OBJECTFLAG1_INVISIBLE)
@@ -3002,9 +3002,9 @@ u8 func0422_intro_0428[] = {
 u8 func0422_intro_0429[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x0105)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0106, OBJ_JUMPSHIP1, 0x04ff, 0xff)
@@ -3013,9 +3013,9 @@ u8 func0422_intro_0429[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	set_tinted_glass_enabled(FALSE)
 	label(0x36)
@@ -3026,13 +3026,13 @@ u8 func0422_intro_0429[] = {
 u8 func0422_intro_042a[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x0107)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0108, OBJ_JUMPSHIP1, 0x04ff, 0xff)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x0109, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_hud_visible(CHR_BOND, TRUE)
 	show_object(OBJ_ROPE)
@@ -3042,8 +3042,8 @@ u8 func0422_intro_042a[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	hide_object(OBJ_ROPE)
 	label(0x36)
@@ -3054,13 +3054,13 @@ u8 func0422_intro_042a[] = {
 u8 func0422_intro_042b[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(0x010b)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	show_object(OBJ_JUMPSHIP1)
 	set_object_flag_bank2(OBJ_JUMPSHIP1, OBJECTFLAG2_00000010)
 	object_do_animation(0x010c, OBJ_JUMPSHIP1, 0x04ff, 0xff)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x010d, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_hud_visible(CHR_BOND, TRUE)
 	show_object(OBJ_ROPE)
@@ -3076,8 +3076,8 @@ u8 func0422_intro_042b[] = {
 	wait_for_camera_finished
 
 	label(0x06)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	hide_object(OBJ_JUMPSHIP1)
 	hide_object(OBJ_ROPE)
 	hide_object(OBJ_BANNER1)
@@ -3096,10 +3096,10 @@ u8 func0422_intro_042d[] = {
 	camera_movement(0x0155)
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x36)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x0156, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_hud_visible(CHR_BOND, FALSE)
 
@@ -3115,10 +3115,10 @@ u8 func0422_intro_042d[] = {
 	// @bug: Copy/paste error - should be banner 2
 	set_object_flag_bank2(OBJ_BANNER1, OBJECTFLAG2_00000010)
 	object_do_animation(0x0162, OBJ_BANNER2, 0x08ff, 0xff)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x0156, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	set_chr_hud_visible(CHR_BOND, FALSE)
 	mute_channel(CHANNEL_7)
@@ -3149,12 +3149,12 @@ u8 func0416_outro_from_menu[] = {
 u8 func0416_outro[] = {
 	camera_movement(0x00f2)
 	set_music_track(MUSIC_DEFECTION_OUTRO)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(0xf1, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_function(CHR_P1P2, GFUNC_IDLE)
-	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
 	animation(0x00f3, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 	restart_timer
 	unset_stage_flag(STAGEFLAG_LAB_ELEVATOR_CLOSED)

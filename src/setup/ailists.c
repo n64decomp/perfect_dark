@@ -53,7 +53,7 @@ u8 func0006_unalerted[] = {
 #define LABEL_HEARD_ALARM  0x23
 #define LABEL_HEARSPAWN    0xda
 
-	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_PSYCHOSISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -105,16 +105,16 @@ u8 func0006_unalerted[] = {
 	label(0x06)
 	dprint 'B','E','E','N',' ','S','H','O','T','\n',0,
 	// if 01000000, set 04000000
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_01000000, /*goto*/ 0x14)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_01000000, /*goto*/ 0x14)
 	goto_next(0x13)
 
 	label(0x14)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_04000000)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_04000000)
 
 	// Stop chr, either immediately or by waiting for their animation to end.
 	// I think the animation is their injured animation.
 	label(0x13)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	if_chr_idle(/*goto*/ 0x13)
 	goto_next(0x03)
 
@@ -289,9 +289,9 @@ u8 func0006_unalerted[] = {
 	// Handle seeing player
 	label(LABEL_SEE_DETECT)
 	dprint 'S','E','E',' ','D','E','T','E','C','T','\n',0,
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISE_UNCOVERED, /*goto*/ LABEL_DISGUISE_UNCOVERED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISE_UNCOVERED, /*goto*/ LABEL_DISGUISE_UNCOVERED)
 	label(0x13)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000, /*goto*/ 0x14)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_02000000, /*goto*/ 0x14)
 	goto_next(0x13)
 
 	label(0x14)
@@ -301,13 +301,13 @@ u8 func0006_unalerted[] = {
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_HORIZONSCANNER, /*goto*/ 0x15)
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_SUITCASE, /*goto*/ 0x15)
 	if_chr_in_view(/*goto*/ LABEL_DISGUISE_UNCOVERED)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_04000000, /*goto*/ LABEL_DISGUISE_UNCOVERED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_04000000, /*goto*/ LABEL_DISGUISE_UNCOVERED)
 
 	label(0x15)
 	dprint 'N','O','T',' ','A','I','M','I','N','G',' ','A','T',' ','M','E','\n',0,
 
 	label(0x13)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x13)
 	goto_next(LABEL_DISGUISE_UNCOVERED)
 
 	label(0x13)
@@ -323,8 +323,8 @@ u8 func0006_unalerted[] = {
 	goto_next(0xea)
 
 	label(0x14)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000, /*goto*/ 0xe8)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_01000000, /*goto*/ 0xe8)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_02000000, /*goto*/ 0xe8)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_01000000, /*goto*/ 0xe8)
 
 	label(0xea)
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0xe6)
@@ -363,7 +363,7 @@ u8 func0006_unalerted[] = {
 	if_near_miss(/*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_UNSURPRISABLE, TRUE, BANK_0, /*goto*/ 0x94)
 	label(0x16)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x14)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x14)
 	if_any_chr_doing_action(MA_GOTOALARM, /*goto*/ 0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_RUN_FOR_ALARM, TRUE, BANK_0, /*goto*/ 0x9f)
 	label(0x16)
@@ -389,7 +389,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x94)
 	label(0x16)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_PSYCHOSISED)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_PSYCHOSISED)
 	dprint 'S','U','R','P','R','I','S','E','D','!','\n',0,
 	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "What the?!","Who the?!"
 	restart_timer
@@ -488,11 +488,11 @@ u8 func0006_unalerted[] = {
 	goto_next(0x16)
 
 	label(0x13)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	goto_next(0x94)
 
 	label(0x16)
@@ -502,11 +502,11 @@ u8 func0006_unalerted[] = {
 	goto_next(0x16)
 
 	label(0x13)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	goto_next(0x94)
 
 	label(0x16)
@@ -579,13 +579,13 @@ u8 func0006_unalerted[] = {
 	// Heard gunfire
 	label(0x16)
 	set_alertness(100)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	goto_first(LABEL_SCAN_START)
 
 	// Saw player
 	label(0x17)
 	set_alertness(100)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	goto_first(LABEL_SCAN_START)
 
 	// Examination finished
@@ -597,7 +597,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x13)
 	set_alertness(100)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	goto_first(0xdb)
 
 	// Can't see Jonna
@@ -609,7 +609,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x13)
 	set_alertness(100)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	goto_first(0xdb)
 
 	label(0x16)
@@ -780,8 +780,8 @@ u8 unregistered_function1[] = {
 };
 
 u8 func0008_wakeup[] = {
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_PSYCHOSISED)
-	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED, /*goto*/ 0x13)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_PSYCHOSISED)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_PSYCHOSISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	// Psychosised
@@ -853,8 +853,8 @@ u8 func0007_alerted[] = {
 #define LABEL_SNIPE         0xde
 #define LABEL_FLEE_GRENADE  0xe4
 
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_PSYCHOSISED)
-	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED, /*goto*/ 0x13)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_PSYCHOSISED)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_PSYCHOSISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -1066,8 +1066,8 @@ u8 func0007_alerted[] = {
 	label(0x1b)
 	yield
 	label(0x16)
-	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_00002000, /*goto*/ 0x13)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x01)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00002000, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x01)
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ LABEL_TRACK)
 	dprint 'C','H','E','C','K','I','N','J','U','R','Y','E','N','D','\n',0,
@@ -1080,7 +1080,7 @@ u8 func0007_alerted[] = {
 
 	// No need to warn
 	label(0x16)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	goto_next(0x16)
 
 	// Unreachable - nothing jumps here
@@ -1169,7 +1169,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	dprint 'A','T',' ','T','R','A','P',' ','P','A','D','\n',0,
 	label(0x9b)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x03)
 
 	beginloop(0x03)
@@ -1261,7 +1261,7 @@ u8 func0007_alerted[] = {
 	label(0xa7)
 	dprint 'U','N','D','E','R',' ','P','O','P','P','E','R','\n',0,
 	label(0xa8)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0xa9)
 
 	beginloop(0xa9)
@@ -1298,7 +1298,7 @@ u8 func0007_alerted[] = {
 	endloop(0xab)
 
 	label(0x13)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x13)
 	goto_first(0xa8)
 
@@ -1370,7 +1370,7 @@ u8 func0007_alerted[] = {
 
 	label(0x13)
 	restart_timer
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	cmd01ba(0x0022, 0x0000, /*goto*/ 0xdf)
 
 	beginloop(0xdf)
@@ -1497,7 +1497,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x55)
 		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 		if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -1526,7 +1526,7 @@ u8 func0007_alerted[] = {
 	set_action(MA_COVERWAIT, TRUE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x59)
 
 	beginloop(0x59)
@@ -1614,7 +1614,7 @@ u8 func0007_alerted[] = {
 	if_in_disarm_range(/*goto*/ 0x26)
 	goto_next(0x87)
 
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 	if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -1635,7 +1635,7 @@ u8 func0007_alerted[] = {
 	goto_next(0x48)
 
 	label(0x13)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	call_rng
 	if_rand_lt(10, /*goto*/ 0x57)
 	if_rand_gt(64, /*goto*/ 0x16)
@@ -1772,7 +1772,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x30)
 		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 		if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -1904,7 +1904,7 @@ u8 func0007_alerted[] = {
 	set_action(MA_WAITING, TRUE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x40)
 
 	beginloop(0x40)
@@ -1964,7 +1964,7 @@ u8 func0007_alerted[] = {
 	endloop(0x89)
 
 	label(0x8a)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 	if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -1985,7 +1985,7 @@ u8 func0007_alerted[] = {
 	goto_first(0x48)
 
 	label(0x13)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	call_rng
 	if_rand_lt(10, /*goto*/ 0x57)
 	if_rand_gt(64, /*goto*/ 0x16)
@@ -2085,7 +2085,7 @@ u8 func0007_alerted[] = {
 	endloop(0x4f)
 
 	label(0x50)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 	if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -2102,7 +2102,7 @@ u8 func0007_alerted[] = {
 
 	label(0x13)
 	cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	goto_next(0x16)
 
 	label(0x13)
@@ -2158,11 +2158,11 @@ u8 func0007_alerted[] = {
 	try_run_to_target_chr(/*goto*/ 0x35)
 
 	beginloop(0x35)
-		if_chr_flag_bank2(CHR_SELF, CHRFLAG2_00002000, /*goto*/ 0x13)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x01)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00002000, /*goto*/ 0x13)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x01)
 		label(0x13)
 		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 		if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -2269,7 +2269,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x85)
 		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 		if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -2294,7 +2294,7 @@ u8 func0007_alerted[] = {
 
 	label(0x26)
 	dprint 'I','C','A','N','S','E',' ','P','L','A','Y','E','R','\n',0,
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 	if_chr_distance_lt(120, /*goto*/ 0x16)
@@ -2321,7 +2321,7 @@ u8 func0007_alerted[] = {
 	goto_first(0x48)
 
 	label(0x13)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ LABEL_CLOAKED)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	call_rng
 	if_rand_lt(10, /*goto*/ 0x57)
 	if_rand_gt(64, /*goto*/ 0x16)
@@ -2607,7 +2607,7 @@ u8 func0007_alerted[] = {
 	set_function(CHR_SELF, GFUNC_SEARCH_FOR_PLAYER)
 
 	label(0x01)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_00002000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00002000)
 	stop_chr
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x16)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x16)
@@ -2627,15 +2627,15 @@ u8 func0007_alerted[] = {
 };
 
 u8 func000a_do_idle_animation[] = {
-	set_chr_flag_bank3(CHR_SELF, CHRFLAG3_00000080)
-	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
+	set_chr_chrflag(CHR_SELF, CHRCFLAG_00000080)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
 	if_chr_idle_action_eq(IDLEACTION_SITTING_TYPING, /*goto*/ 0x16)
 	if_chr_idle_action_eq(IDLEACTION_SITTING_DORMANT, /*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
 	set_chr_health(CHR_SELF, 1)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_TRIGGER_BUDDY_WARP)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_TRIGGER_BUDDY_WARP)
 
 	label(0x13)
 	set_onshot_function(GFUNC_UNALERTED)
@@ -2891,7 +2891,7 @@ u8 func000c_combat_with_target_chr[] = {
 	// Co-op with friend or counter-op on any of the above stages
 	// Or follow through if chr still has target
 	label(0x16)
-	set_self_flag_bank3(CHRFLAG3_00000040)
+	set_self_chrflag(CHRCFLAG_00000040)
 	dprint 'D','E','T','E','C','T','\n',0,
 	if_chr_dying(CHR_SELF, /*goto*/ 0x16)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x16)
@@ -2950,7 +2950,7 @@ u8 func000c_combat_with_target_chr[] = {
 	dprint 'D','E','T','E','C','T','3','\n',0,
 	label(0xb2)
 	yield
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_08000000, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_08000000, /*goto*/ 0x13)
 	unset_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	goto_next(0x16)
 
@@ -2962,7 +2962,7 @@ u8 func000c_combat_with_target_chr[] = {
 	dprint 'A','L','E','R','T','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0xb3)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
-	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_PSYCHOSISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -3107,7 +3107,7 @@ u8 func000c_combat_with_target_chr[] = {
 		goto_next(0xc0)
 
 		label(0x13)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ 0x13)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x13)
 		if_in_disarm_range(/*goto*/ 0xbf)
 		label(0x13)
 		if_timer_gt(120, /*goto*/ 0xc0)
@@ -3121,7 +3121,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0xb6)
 	set_grenade_probability_out_of_255(255)
-	set_self_flag_bank3(CHRFLAG3_00000040)
+	set_self_chrflag(CHRCFLAG_00000040)
 	if_chr_dying(CHR_TARGET, /*goto*/ 0xc1)
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
 	if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc1)
@@ -3319,7 +3319,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 		label(0x13)
 		if_enemy_distance_lt_and_los(400, /*goto*/ 0x15)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_CLOAKED, /*goto*/ 0x13)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x13)
 		if_in_disarm_range(/*goto*/ 0xca)
 		label(0x13)
 		if_timer_gt(200, /*goto*/ 0x16)
@@ -3715,11 +3715,11 @@ u8 func001a_maybe_unset_disspee[] = {
 	// then they must not have a gun equipped.
 	label(0x00)
 	yield
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x14)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x14)
 	goto_next(0x13)
 
 	label(0x14)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000, /*goto*/ 0xe8)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_02000000, /*goto*/ 0xe8)
 	goto_next(0x13)
 
 	label(0xe8)
@@ -3960,7 +3960,7 @@ u8 func000f_hand_combat[] = {
  * The chr will make one comment, then it returns to the previous function.
  */
 u8 func0010_civilian_say_comment[] = {
-	set_self_flag_bank3(CHRFLAG3_00040000)
+	set_self_chrflag(CHRCFLAG_00040000)
 	set_onshot_function(GFUNC_SURPRISED)
 	label(0x0c)
 	yield
@@ -4000,7 +4000,7 @@ u8 func0010_civilian_say_comment[] = {
 	// Unarmed
 	label(0x07)
 	restart_timer
-	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_01000000, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_01000000, /*goto*/ 0x13)
 	do_special_animation(-1)
 	say_quip(CHR_BOND, 0x1d, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "How's things?","Hey there","Hi, how are you?"
 	yield
@@ -4012,13 +4012,13 @@ u8 func0010_civilian_say_comment[] = {
 	set_self_flag_bankx(CHRFLAG1_DISSPEE, BANK_1)
 
 	label(0x13)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_01000000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_01000000)
 	return
 
 	// Armed
 	label(0x05)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_01000000, /*goto*/ 0x06)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_01000000)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_01000000, /*goto*/ 0x06)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_01000000)
 	say_quip(CHR_BOND, 0x1e, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "Where did you get that?","Should you have that?","What are you doing with that weapon?"
 	do_special_animation(6)
 	restart_timer
@@ -4038,7 +4038,7 @@ u8 func0010_civilian_say_comment[] = {
 	return
 
 	label(0x13)
-	set_chr_flag_bank2(CHR_TARGET, CHRFLAG2_02000000)
+	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	dprint 'D','O','N','T',' ','P','O','I','N','T','\n',0,
 	say_quip(CHR_BOND, 0x1f, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Don't point that at me","Watch where you're pointing that"
 	do_special_animation(-1)
@@ -4219,7 +4219,7 @@ u8 func001b_observe_camspy[] = {
 
 	// Shoot camspy
 	label(0x09)
-	set_self_flag_bank3(CHRFLAG3_00000040)
+	set_self_chrflag(CHRCFLAG_00000040)
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x16)
 	label(0x16)
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0xc3)
@@ -4414,7 +4414,7 @@ u8 func001d_search_for_player[] = {
 	label(0x28)
 	dprint 'E','Y','E',' ','S','P','Y','\n',0,
 	label(0x12)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -4434,7 +4434,7 @@ u8 func001d_search_for_player[] = {
 	goto_first(0x05)
 
 	label(0xc3)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -4565,11 +4565,11 @@ u8 func001f_related_to_spawning[] = {
  * Not used?
  */
 u8 func0012_init_coop_100[] = {
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_00000400)
-	set_self_flag_bank3(CHRFLAG3_00040000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00000400)
+	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	set_self_flag_bank3(CHRFLAG3_01000000)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED)
+	set_self_chrflag(CHRCFLAG_01000000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PSYCHOSISED)
 	set_alertness(100)
 	set_follow_chr(CHR_BOND)
 	yield
@@ -4639,11 +4639,11 @@ u8 func0012_init_coop_100[] = {
  * Not used?
  */
 u8 func0013_init_coop_200[] = {
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_00000400)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00000400)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_self_flag_bank3(CHRFLAG3_01000000)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED)
+	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_01000000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PSYCHOSISED)
 	set_alertness(200)
 	yield
 	yield
@@ -4654,7 +4654,7 @@ u8 func0013_init_coop_200[] = {
 	yield
 	yield
 	yield
-	set_self_flag_bank3(CHRFLAG3_00080000)
+	set_self_chrflag(CHRCFLAG_00080000)
 
 	// Wait for intro to finish
 	beginloop(0x03)
@@ -4698,7 +4698,7 @@ u8 func0014_coop_buddy[] = {
 	set_return_function(CHR_SELF, GFUNC_COOP_BUDDY)
 	set_onshot_function(GFUNC_COOP_BUDDY)
 	dprint 'B','A','C','K',' ','T','O',' ','B','U','D','D','Y','\n',0,
-	unset_self_flag_bank3(CHRFLAG3_00040000)
+	unset_self_chrflag(CHRCFLAG_00040000)
 	set_self_flag_bankx(CHRFLAG1_00100000, BANK_1)
 	set_morale(0)
 	set_onshot_function(GFUNC_COOP_BUDDY)
@@ -4724,12 +4724,12 @@ u8 func0014_coop_buddy[] = {
 	dprint 'B','U','D','D','Y',' ','W','O','U','N','D','\n',0,
 
 	beginloop(0xf2)
-		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
-		unset_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED)
+		if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
+		unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED)
 		goto_next(0x15)
 
 		label(0x13)
-		if_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x15)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x15)
 		goto_next(LABEL_PLACE_BUDDY)
 
 		label(0x15)
@@ -4738,14 +4738,14 @@ u8 func0014_coop_buddy[] = {
 
 	// Healthy
 	label(0x16)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_08000000, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_08000000, /*goto*/ 0x13)
 	unset_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	goto_next(0x16)
 
 	label(0x13)
 	set_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	label(0x16)
-	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_00000400, /*goto*/ 0xdc)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00000400, /*goto*/ 0xdc)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 	label(0xdc)
 	set_target_chr(CHR_BOND)
@@ -4762,24 +4762,24 @@ u8 func0014_coop_buddy[] = {
 	try_run_to_target_chr(/*goto*/ 0x0c)
 
 	beginloop(0x0c)
-		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
-		unset_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED)
+		if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
+		unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED)
 		goto_next(0x15)
 
 		label(0x13)
-		if_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x15)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x15)
 		goto_next(LABEL_PLACE_BUDDY)
 
 		label(0x15)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x06)
 		goto_next(0x07)
 
 		label(0x06)
-		set_chr_flag_bank2(CHR_SELF, CHRFLAG2_DISGUISED)
+		set_chr_hiddenflag(CHR_SELF, CHRHFLAG_DISGUISED)
 		label(0x07)
 		set_target_chr(CHR_BOND)
 		if_chr_sees_player(/*goto*/ 0xdd)
-		if_chr_flag_bank2(CHR_SELF, CHRFLAG2_00000400, /*goto*/ 0xdc)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00000400, /*goto*/ 0xdc)
 		label(0xdd)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 		label(0xdc)
@@ -4797,23 +4797,23 @@ u8 func0014_coop_buddy[] = {
 	stop_chr
 
 	beginloop(0x04)
-		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
-		unset_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED)
+		if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
+		unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED)
 		goto_next(0x15)
 
 		label(0x13)
-		if_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED, /*goto*/ 0x15)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x15)
 		goto_next(LABEL_PLACE_BUDDY)
 
 		label(0x15)
 		label(0x13)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x06)
 		goto_next(0x07)
 
 		label(0x06)
-		set_chr_flag_bank2(CHR_SELF, CHRFLAG2_DISGUISED)
+		set_chr_hiddenflag(CHR_SELF, CHRHFLAG_DISGUISED)
 		label(0x07)
-		if_chr_flag_bank2(CHR_SELF, CHRFLAG2_00000400, /*goto*/ 0xdc)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00000400, /*goto*/ 0xdc)
 		if_stage_is_not(STAGE_G5BUILDING, /*goto*/ 0x15)
 		goto_next(0x13)
 
@@ -4854,7 +4854,7 @@ u8 func0014_coop_buddy[] = {
 
 	// Found chr in group from non G5 or Deep Sea stage
 	label(0x0b)
-	if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_08000000, /*goto*/ 0x13)
+	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_08000000, /*goto*/ 0x13)
 	unset_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	goto_next(0x16)
 
@@ -4994,8 +4994,8 @@ u8 func0015_test_cutscene_buddy[] = {
 	// Hide chr
 	label(0x16)
 	cmd01e0
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3((CHRFLAG3_HIDDEN | CHRFLAG3_00010000 | CHRFLAG3_00040000))
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag((CHRCFLAG_HIDDEN | CHRCFLAG_00010000 | CHRCFLAG_00040000))
 
 	// Wait 3 seconds
 	restart_timer
@@ -5043,14 +5043,14 @@ u8 func0015_test_cutscene_buddy[] = {
 	// This will execute every second after the initial 7ish seconds and while
 	// cutscene is not running. The chr is being moved back to the same pad
 	// repeatedly, so this is surely some kind of debug function.
-	set_chr_flag_bank2(CHR_SELF, 0x00100200)
+	set_chr_hiddenflag(CHR_SELF, 0x00100200)
 	chr_move_to_pad(CHR_SELF, 0x00f8, 0x58, /*goto*/ 0x17)
 	goto_first(0x19)
 
 	label(0x17)
-	unset_self_flag_bank3(0x00050400)
-	unset_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank2(CHR_SELF, 0x00100200)
+	unset_self_chrflag(0x00050400)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_hiddenflag(CHR_SELF, 0x00100200)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	set_return_function(CHR_SELF, GFUNC_COOP_BUDDY)
 	set_onshot_function(GFUNC_COOP_BUDDY)
@@ -5134,11 +5134,11 @@ u8 func0026_init_psychosis[] = {
 	set_onshot_function(GFUNC_INIT_PSYCHOSIS)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
 	set_self_flag_bankx(CHRFLAG1_80000000, BANK_1)
-	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_self_flag_bank3(CHRFLAG3_01000000)
+	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_01000000)
 	set_self_flag_bankx(CHRFLAG1_00100000, BANK_1)
 	set_self_flag_bankx(CHRFLAG1_40000000, BANK_1)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_PSYCHOSISED)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PSYCHOSISED)
 	set_alertness(100)
 	set_follow_chr(CHR_BOND)
 	yield
@@ -5215,11 +5215,11 @@ u8 func0027_psychosised[] = {
 	try_run_to_target_chr(/*goto*/ 0x0c)
 
 	beginloop(0x0c)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x06)
 		goto_next(0x07)
 
 		label(0x06)
-		set_chr_flag_bank2(CHR_SELF, CHRFLAG2_DISGUISED)
+		set_chr_hiddenflag(CHR_SELF, CHRHFLAG_DISGUISED)
 		label(0x07)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 		set_target_chr(CHR_PRESET)
@@ -5235,11 +5235,11 @@ u8 func0027_psychosised[] = {
 	stop_chr
 
 	beginloop(0x04)
-		if_chr_flag_bank2(CHR_TARGET, CHRFLAG2_DISGUISED, /*goto*/ 0x06)
+		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x06)
 		goto_next(0x07)
 
 		label(0x06)
-		set_chr_flag_bank2(CHR_SELF, CHRFLAG2_DISGUISED)
+		set_chr_hiddenflag(CHR_SELF, CHRHFLAG_DISGUISED)
 		label(0x07)
 		try_find_chr_in_team(/*goto*/ 0x03)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
@@ -5273,16 +5273,16 @@ u8 func0027_psychosised[] = {
 };
 
 u8 func002d_invincible_and_idle[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
 
 u8 func0020_place_coop_buddy[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_CLOAKED)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_00040000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
 	stop_chr
 	set_target_chr(CHR_BOND)
 	yield
@@ -5332,11 +5332,11 @@ u8 func0020_place_coop_buddy[] = {
 
 	// Move to pad worked
 	label(0x13)
-	unset_self_flag_bank3(CHRFLAG3_HIDDEN)
-	unset_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_HIDDEN)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	stop_chr
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED)
 	set_return_function(CHR_SELF, GFUNC_COOP_BUDDY)
 	set_function(CHR_SELF, GFUNC_COOP_BUDDY)
 
@@ -5369,14 +5369,14 @@ u8 func0020_place_coop_buddy[] = {
 	// Move to pad worked
 	label(0x13)
 	stop_chr
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_00020000)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_BUDDY_PLACED)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_BUDDY_PLACED)
 
 	// Wait until flag unset (timer is not checked)
 	restart_timer
 
 	beginloop(0xef)
-		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
+		if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
 		goto_next(0x16)
 
 		label(0x13)
@@ -5384,8 +5384,8 @@ u8 func0020_place_coop_buddy[] = {
 
 	// Unhide
 	label(0x16)
-	unset_self_flag_bank3(CHRFLAG3_HIDDEN)
-	unset_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_HIDDEN)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	stop_chr
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	set_return_function(CHR_SELF, GFUNC_COOP_BUDDY)

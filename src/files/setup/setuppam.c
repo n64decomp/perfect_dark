@@ -738,9 +738,9 @@ u8 func1400_setup_counterop[] = {
 };
 
 u8 func040b_init_elvis[] = {
-	set_self_flag_bank3(CHRFLAG3_00080000)
-	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_self_flag_bank3(CHRFLAG3_01000000)
+	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_01000000)
 	set_accuracy(100)
 	set_reaction_speed(100)
 	set_alertness(100)
@@ -882,7 +882,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 
 	label(0x6f)
 	label(0x2e)
-	unset_self_flag_bank3(CHRFLAG3_01000000)
+	unset_self_chrflag(CHRCFLAG_01000000)
 	animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 
 	beginloop(0x10)
@@ -893,15 +893,15 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 	message(CHR_BOND, 0x301e) // "Teleportals have been reactivated."
 	set_stage_flag(STAGEFLAG_TELEPORTALS_ACTIVATED)
-	set_self_flag_bank3(CHRFLAG3_01000000)
+	set_self_chrflag(CHRCFLAG_01000000)
 	play_sound(0x8148, -1)
 	set_lights_state(0x003c, 0x04, 0x00, 0xff, 0xb4)
-	set_chr_flag_bank3(0x14, CHRFLAG3_00040000)
-	set_chr_flag_bank3(0x15, CHRFLAG3_00040000)
-	set_chr_flag_bank3(0x16, CHRFLAG3_00040000)
-	unset_chr_flag_bank3(0x14, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(0x15, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(0x16, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(0x14, CHRCFLAG_00040000)
+	set_chr_chrflag(0x15, CHRCFLAG_00040000)
+	set_chr_chrflag(0x16, CHRCFLAG_00040000)
+	unset_chr_chrflag(0x14, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x15, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x16, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_function(0x14, FUNC_TELEPORT_ACTIVATION_RESPONDER)
 	set_function(0x15, FUNC_TELEPORT_ACTIVATION_RESPONDER)
 	set_function(0x16, FUNC_TELEPORT_ACTIVATION_RESPONDER)
@@ -936,7 +936,7 @@ u8 func0433_unused[] = {
  * function because he can't enter the agent megaweapon room on PA.
  */
 u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
-	set_self_flag_bank3(CHRFLAG3_00080000)
+	set_self_chrflag(CHRCFLAG_00080000)
 	unset_self_flag_bankx(CHRFLAG1_00200000, BANK_1)
 	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
 	set_target_chr(CHR_PRESET)
@@ -1044,7 +1044,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 
 	label(0x6f)
 	label(0x2e)
-	unset_self_flag_bank3(CHRFLAG3_01000000)
+	unset_self_chrflag(CHRCFLAG_01000000)
 	restart_timer
 	animation(ANIM_OPERATE_0205, -1, -1, 0x00, 0x10, CHR_SELF, 2)
 
@@ -1054,7 +1054,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
-	set_self_flag_bank3(CHRFLAG3_01000000)
+	set_self_chrflag(CHRCFLAG_01000000)
 	message(CHR_BOND, 0x3014) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_AGENT_MEGAWEAPON_DISABLED)
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
@@ -1077,7 +1077,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
  * @unused
  */
 u8 func0405_elvis_follow_nocombat[] = {
-	set_self_flag_bank3(CHRFLAG3_00080000)
+	set_self_chrflag(CHRCFLAG_00080000)
 	unset_self_flag_bankx(CHRFLAG1_00200000, BANK_1)
 	set_onshot_function(0x0405)
 	set_target_chr(CHR_PRESET)
@@ -1216,7 +1216,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 
 	label(0x1b)
 	set_stage_flag(STAGEFLAG_ELVIS_STARTED_SA_MEGAWEAPON)
-	unset_self_flag_bank3(CHRFLAG3_01000000)
+	unset_self_chrflag(CHRCFLAG_01000000)
 	call_rng
 	if_rand_lt(86, /*goto*/ 0x63)
 	if_rand_lt(172, /*goto*/ 0x64)
@@ -1245,7 +1245,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 
 	label(0x2e)
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
-	set_self_flag_bank3(CHRFLAG3_01000000)
+	set_self_chrflag(CHRCFLAG_01000000)
 	message(CHR_BOND, 0x3014) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	try_draw_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x04)
@@ -1482,22 +1482,22 @@ u8 func0c01_midcutscene[] = {
 	remove_weapon_from_inventory(WEAPON_BACKUPDISK)
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 15)
-	set_chr_flag_bank3(0xf1, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_function(CHR_ELVIS, GFUNC_IDLE)
 	set_music_track(MUSIC_DEEPSEA_MIDCUTSCENE)
 	camera_movement(0x01d4)
-	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
 	animation(0x01d5, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
-	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	animation(0x01d6, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
-	set_chr_flag_bank3(CHR_DRCAROLL, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_DRCAROLL, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_DRCAROLL, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00020000)
 	animation(0x01d7, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 4)
 	show_object(0xbb)
 	set_object_flag_bank1(0xbb, OBJECTFLAG1_04000000)
@@ -1814,16 +1814,16 @@ u8 func0c01_midcutscene[] = {
 	fade_to_color(0xffffffff, 0)
 	fade_to_color(0x00000000, 15)
 	hide_object(0xbb)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
 	animation(0x01d5, -2, -1, 0x06, 0x00, CHR_P1P2, 2)
-	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	animation(0x01d6, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
-	unset_chr_flag_bank3(CHR_DRCAROLL, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_DRCAROLL, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00020000)
 	animation(0x01d7, -2, -1, 0x06, 0x00, CHR_DRCAROLL, 2)
 	set_cutscene_weapon(CHR_ELVIS, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -1832,10 +1832,10 @@ u8 func0c01_midcutscene[] = {
 	yield
 	chr_move_to_pad(CHR_ELVIS, 0x0013, 0x01, /*goto*/ 0x2e)
 	label(0x2e)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	chr_move_to_pad(CHR_BOND, 0x019f, 0x01, /*goto*/ 0x2e)
 	label(0x2e)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	restart_default_music
 	reset_ambience
 	play_x_music(CHANNEL_10, 60)
@@ -1860,7 +1860,7 @@ u8 func042d_elvis_warp_to_outside_drcaroll[] = {
 
 	label(0x2e)
 	dprint 'T','E','L','E','P','O','R','T',' ','G','O','O','D','\n',0,
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	stop_chr
 	set_function(CHR_SELF, FUNC_ELVIS_RUN_TO_EXIT)
 	endfunction
@@ -1869,18 +1869,18 @@ u8 func042d_elvis_warp_to_outside_drcaroll[] = {
 u8 func0c02_outro[] = {
 	show_nonessential_chrs(FALSE)
 	hide_countdown_timer
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_music_track(MUSIC_DEEPSEA_OUTRO)
 	camera_movement(0x02d7)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	restart_timer
 
 	// @bug: Missing button checks makes the outro unskippable until a certain
@@ -1983,13 +1983,13 @@ u8 func0c02_outro[] = {
 
 	label(0x57)
 	if_all_objectives_complete(/*goto*/ 0x06)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	explosions_around_chr(CHR_BOND)
 	label(0x2e)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	enter_firstperson
 	grant_control(CHR_BOND)
 	restart_timer
@@ -2020,25 +2020,25 @@ u8 func0c02_outro[] = {
 u8 func1002_intro[] = {
 	set_drcaroll_image(CHR_DRCAROLL, 0x02, 0x02)
 	chr_draw_weapon_in_cutscene(CHR_BOND, WEAPON_FALCON2_SCOPE)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_music_track(MUSIC_DEEPSEA_INTRO)
 	camera_movement(0x01ef)
 	cmd0175(60)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x01f0, -1, -1, 0x06, 0x00, CHR_BOND, 4)
-	set_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	animation(0x01f1, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 	set_object_flag_bank0(0x07, OBJECTFLAG0_DEACTIVATED)
 	set_object_flag_bank1(0x07, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x07, OBJECTFLAG2_00000010)
 	object_do_animation(0x01f2, 0x07, 0x04ff, 0xff)
-	set_chr_flag_bank3(0x40, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(0x40, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(0x40, CHRFLAG2_00020000)
+	set_chr_chrflag(0x40, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(0x40, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(0x40, CHRHFLAG_00020000)
 	animation(0x0471, -1, -1, 0x06, 0x00, 0x40, 4)
 	restart_timer
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
@@ -2056,7 +2056,7 @@ u8 func1002_intro[] = {
 
 	wait_until(300, 0x89)
 	play_sound(0x005b, CHANNEL_7)
-	set_chr_flag_bank2(0x40, CHRFLAG2_CLOAKED)
+	set_chr_hiddenflag(0x40, CHRHFLAG_CLOAKED)
 	play_sound(0x80d7, CHANNEL_10)
 
 	wait_until(320, 0x8c)
@@ -2181,13 +2181,13 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_4)
 	mute_channel(CHANNEL_10)
 	remove_chr(0x40)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x01f0, -2, -1, 0x06, 0x00, CHR_BOND, 2)
-	unset_chr_flag_bank3(CHR_ELVIS, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	animation(0x01f1, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
 	if_coop_mode(/*goto*/ 0x45)
 	unset_object_flag_bank0(0x07, OBJECTFLAG0_DEACTIVATED)
@@ -2497,7 +2497,7 @@ u8 func100a_bond_teleports[] = {
 };
 
 u8 func0414_teleport_bond_to_sapa[] = {
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
 	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
@@ -2517,7 +2517,7 @@ u8 func0414_teleport_bond_to_sapa[] = {
 	endloop(0x63)
 
 	label(0x06)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	label(0x62)
 
 	beginloop(0x64)
@@ -2541,7 +2541,7 @@ u8 func0414_teleport_bond_to_sapa[] = {
 };
 
 u8 func0415_teleport_bond_to_drcaroll[] = {
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
 	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
@@ -2559,7 +2559,7 @@ u8 func0415_teleport_bond_to_drcaroll[] = {
 	endloop(0x65)
 
 	label(0x06)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	goto_next(0x63)
 	label(0x07)
 	message(CHR_BOND, 0x300e) // "Elvis has been killed."
@@ -2594,7 +2594,7 @@ u8 func0415_teleport_bond_to_drcaroll[] = {
  * If PA: Warp to PA area
  */
 u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_FOLLOWING_COOP, FALSE, /*goto*/ 0x61)
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x61)
 	if_chr_dying(CHR_COOP, /*goto*/ 0x61)
@@ -2625,7 +2625,7 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	endloop(0x66)
 
 	label(0x06)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	label(0x62)
 	label(0x07)
 
@@ -2672,7 +2672,7 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	endloop(0x6b)
 
 	label(0x06)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	label(0x62)
 	label(0x07)
 
@@ -2886,7 +2886,7 @@ u8 func0417_teleport_coop_to_sapa[] = {
 	endloop(0x63)
 
 	label(0x06)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	label(0x62)
 
 	beginloop(0x64)
@@ -2929,7 +2929,7 @@ u8 func0418_teleport_coop_to_drcaroll[] = {
 	endloop(0x65)
 
 	label(0x06)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	goto_next(0x63)
 
 	label(0x07)
@@ -2992,7 +2992,7 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	endloop(0x66)
 
 	label(0x06)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	label(0x62)
 	label(0x07)
 
@@ -3037,7 +3037,7 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	endloop(0x6b)
 
 	label(0x06)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	label(0x62)
 	label(0x07)
 
@@ -3075,7 +3075,7 @@ u8 func041c_teleport_activation_responder[] = {
 		if_chr_sees_player(/*goto*/ 0x2e)
 		set_target_chr(CHR_COOP)
 		if_chr_sees_player(/*goto*/ 0x2e)
-		unset_self_flag_bank3(CHRFLAG3_HIDDEN)
+		unset_self_chrflag(CHRCFLAG_HIDDEN)
 		set_function(CHR_SELF, FUNC_INIT_SNIPER)
 		label(0x2e)
 	endloop(0x04)
@@ -3108,7 +3108,7 @@ u8 func041a_init_sniper[] = {
 };
 
 u8 func041b_sniper_wait_for_detection[] = {
-	unset_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	unset_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	yield
 	set_onshot_function(FUNC_SNIPER)
 	label(0x06)
@@ -3137,14 +3137,14 @@ u8 func041b_sniper_wait_for_detection[] = {
 
 	label(0x06)
 	set_squadron_alertness(100)
-	set_self_flag_bank3(CHRFLAG3_00040000)
+	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 	set_function(CHR_SELF, FUNC_SNIPER)
 	endfunction
 };
 
 u8 func041d_sniper[] = {
-	set_self_flag_bank3(CHRFLAG3_00000040)
+	set_self_chrflag(CHRCFLAG_00000040)
 	set_onshot_function(FUNC_SNIPER)
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
@@ -3241,7 +3241,7 @@ u8 func041d_sniper[] = {
 	goto_first(0x03)
 
 	label(0x10)
-	if_chr_flag_bank2(CHR_SELF, CHRFLAG2_CLOAKED, /*goto*/ 0x2e)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED, /*goto*/ 0x2e)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	label(0x2e)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
@@ -3256,7 +3256,7 @@ u8 func040c_blonde[] = {
 	endloop(0x04)
 
 	label(0x06)
-	unset_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	unset_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
@@ -3326,8 +3326,8 @@ u8 func100c_countdown_timer[] = {
 
 	// Mission complete
 	label(0x06)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_function(CHR_SELF, FUNC_OUTRO)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -3363,9 +3363,9 @@ u8 func100f_check_drcaroll_dead[] = {
 
 u8 func040f_miniskedar_send_clones[] = {
 	dprint 'D','E','T','E','C','T','E','D','\n',0,
-	set_self_flag_bank3(CHRFLAG3_00000002)
-	set_self_flag_bank3(CHRFLAG3_HIDDEN)
-	set_self_flag_bank3(CHRFLAG3_00040000)
+	set_self_chrflag(CHRCFLAG_00000002)
+	set_self_chrflag(CHRCFLAG_HIDDEN)
+	set_self_chrflag(CHRCFLAG_00040000)
 
 	beginloop(0x04)
 		goto_next(0x52)
@@ -3387,15 +3387,15 @@ u8 func040f_miniskedar_send_clones[] = {
 };
 
 u8 func040e_init_miniskedar[] = {
-	set_self_flag_bank3(CHRFLAG3_00080000)
-	set_self_flag_bank3(CHRFLAG3_00020000)
+	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_00020000)
 	set_accuracy(0)
 	set_reaction_speed(65)
 	set_chr_health(CHR_SELF, 20)
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_self_flag_bank3(CHRFLAG3_00080000)
+	set_self_chrflag(CHRCFLAG_00080000)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
@@ -3552,15 +3552,15 @@ u8 func1010_agent_hallway_spawner[] = {
 };
 
 u8 func0411_hide[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_self_flag_bank3(CHRFLAG3_HIDDEN)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
 
 u8 func0412_unused[] = {
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_CLOAKED)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -3572,9 +3572,9 @@ u8 func0413_cloak_and_hide[] = {
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
 	stop_chr
 	yield
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_00040000)
-	set_self_flag_bank3(CHRFLAG3_HIDDEN)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_00040000)
+	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -4282,7 +4282,7 @@ u8 unregistered_function1[] = {
 	label(0x04)
 	chr_move_to_pad(CHR_ELVIS, 0x01bf, 0x01, /*goto*/ 0x06)
 	label(0x06)
-	set_chr_flag_bank2(CHR_ELVIS, CHRFLAG2_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	set_function(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
@@ -4298,7 +4298,7 @@ u8 func1026_setup_autoguns[] = {
 };
 
 u8 func042e_elvis_run_to_exit[] = {
-	set_self_flag_bank3(CHRFLAG3_00080000)
+	set_self_chrflag(CHRCFLAG_00080000)
 	set_onshot_function(FUNC_ELVIS_RUN_TO_EXIT)
 	set_return_function(CHR_SELF, FUNC_ELVIS_RUN_TO_EXIT)
 	set_target_chr(CHR_PRESET)
@@ -4418,12 +4418,12 @@ u8 func1028_enable_last_3_guards[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	unset_chr_flag_bank3(0x3c, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(0x3d, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(0x3e, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(0x3c, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(0x3d, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(0x3e, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x3c, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(0x3d, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(0x3e, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(0x3c, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x3d, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(0x3e, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_function(0x3c, FUNC_RUN_TO_EXIT)
 	set_function(0x3d, FUNC_RUN_TO_EXIT)
 	set_function(0x3e, FUNC_RUN_TO_EXIT)
@@ -4502,15 +4502,15 @@ u8 func102c_lock_doors[] = {
 
 u8 func040f_miniskedar_unalerted[] = {
 	set_onshot_function(FUNC_MINISKEDAR)
-	set_self_flag_bank3(CHRFLAG3_00080000)
-	set_self_flag_bank3(CHRFLAG3_00020000)
+	set_self_chrflag(CHRCFLAG_00080000)
+	set_self_chrflag(CHRCFLAG_00020000)
 	set_accuracy(0)
 	set_reaction_speed(65)
 	set_chr_health(CHR_SELF, 20)
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_self_flag_bank3(CHRFLAG3_00080000)
+	set_self_chrflag(CHRCFLAG_00080000)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
@@ -4527,7 +4527,7 @@ u8 func040f_miniskedar_unalerted[] = {
 };
 
 u8 func0432_dead_skedar[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 
 	label(0x08)
 	yield
@@ -4616,7 +4616,7 @@ u8 func1030_unlock_agent_teleport_door[] = {
  */
 u8 func1031_unset_trigger_buddy_warp[] = {
 	beginloop(0x08)
-		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP, /*goto*/ 0x2e)
+		if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x2e)
 		reloop(0x08)
 
 		label(0x2e)
@@ -4627,7 +4627,7 @@ u8 func1031_unset_trigger_buddy_warp[] = {
 		endloop(0x09)
 
 		label(0x2e)
-		unset_chr_flag_bank2(CHR_BOND, CHRFLAG2_TRIGGER_BUDDY_WARP)
+		unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 	endloop(0x08)
 
 	set_function(CHR_SELF, GFUNC_IDLE)

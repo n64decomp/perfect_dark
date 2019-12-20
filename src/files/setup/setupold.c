@@ -44,8 +44,8 @@ struct path paths[] = {
  * to the next camera animation rather than ending the cutscene.
  */
 u8 func0c00_017c[] = {
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_music_track(MUSIC_G5_INTRO)
 	camera_movement(0x045d)
 	cmd01c8(2)
@@ -147,8 +147,8 @@ u8 func0c00_017c[] = {
 	endloop(0x0e)
 
 	label(0x59)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	cmd01c8(5)
 
 	beginloop(0x15)

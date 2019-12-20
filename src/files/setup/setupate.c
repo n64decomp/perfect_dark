@@ -96,12 +96,12 @@ u8 func1001_objectives_failed[] = {
 };
 
 u8 func1002_first_walk[] = {
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	camera_movement(0x0488)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	display_text(0x00, COLOR_02_WHITE, 0x5e07) // "THE DUEL"
 	animation(ANIM_RELOAD, -1, -1, 0x06, 0x00, CHR_GUARD, 2)
 	label(0x2d)
@@ -159,13 +159,13 @@ u8 func1007_second_walk[] = {
 	goto_first(0x8f)
 
 	label(0x2d)
-	unset_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(CHR_JONATHAN, CHRFLAG3_UNEXPLODABLE)
+	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_UNEXPLODABLE)
 	yield
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(ANIM_GRAB_CROTCH, -1, -1, 0x06, 0x00, CHR_JONATHAN, 2)
 
 	label(0x2d)
@@ -240,13 +240,13 @@ u8 func1008_third_walk[] = {
 	goto_first(0x8f)
 
 	label(0x2d)
-	unset_chr_flag_bank3(CHR_TRENT, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_TRENT, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	unset_chr_flag_bank3(CHR_TRENT, CHRFLAG3_UNEXPLODABLE)
+	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_TRENT, CHRCFLAG_UNEXPLODABLE)
 	yield
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(ANIM_HEAD_ROLL, -1, -1, 0x06, 0x00, CHR_TRENT, 2)
 	label(0x2d)
 	message(CHR_BOND, 0x5e0e) // "Opponent skill level: PERFECT AGENT"
@@ -393,7 +393,7 @@ u8 func1006_check_objectives_complete[] = {
 u8 func0402_guard_combat[] = {
 	set_onshot_function(FUNC_GUARD_COMBAT)
 	if_just_injured(CHR_SELF, /*goto*/ 0x03)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_00008000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00008000)
 
 	// Wait 2 seconds or for guard to come into view
 	restart_timer
@@ -447,7 +447,7 @@ u8 func0402_guard_combat[] = {
 u8 func0403_jon_combat[] = {
 	set_onshot_function(FUNC_JON_COMBAT)
 	if_just_injured(CHR_SELF, /*goto*/ 0x58)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_00008000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00008000)
 	restart_timer
 
 	beginloop(0x04)
@@ -486,7 +486,7 @@ u8 func0403_jon_combat[] = {
 u8 func0404_trent_combat[] = {
 	set_onshot_function(FUNC_TRENT_COMBAT)
 	if_just_injured(CHR_SELF, /*goto*/ 0x03)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_00008000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00008000)
 	restart_timer
 
 	beginloop(0x04)
@@ -524,7 +524,7 @@ u8 func0404_trent_combat[] = {
 };
 
 u8 func0405_guard_init[] = {
-	set_self_flag_bank3(CHRFLAG3_NOAUTOAIM)
+	set_self_chrflag(CHRCFLAG_NOAUTOAIM)
 	set_accuracy(200)
 	set_reaction_speed(50)
 	set_chr_health(CHR_SELF, 20)
@@ -536,31 +536,31 @@ u8 func0405_guard_init[] = {
 };
 
 u8 func0406_jon_init[] = {
-	set_self_flag_bank3(CHRFLAG3_NOAUTOAIM)
+	set_self_chrflag(CHRCFLAG_NOAUTOAIM)
 	set_accuracy(200)
 	set_reaction_speed(75)
 	set_chr_health(CHR_SELF, 40)
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_self_flag_bank3(CHRFLAG3_HIDDEN)
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_HIDDEN)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
 
 u8 func0407_trent_init[] = {
-	set_self_flag_bank3(CHRFLAG3_NOAUTOAIM)
+	set_self_chrflag(CHRCFLAG_NOAUTOAIM)
 	set_accuracy(200)
 	set_reaction_speed(75)
 	set_chr_health(CHR_SELF, 40)
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_self_flag_bank3(CHRFLAG3_HIDDEN)
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_HIDDEN)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };

@@ -1790,7 +1790,7 @@ bool ai0045(void)
  */
 bool aiIfNeverBeenOnScreen(void)
 {
-	if ((g_Vars.chrdata->chrflags & CHRFLAG3_NEVER_BEEN_ON_SCREEN) == 0) {
+	if ((g_Vars.chrdata->chrflags & CHRCFLAG_NEVER_BEEN_ON_SCREEN) == 0) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -4151,8 +4151,8 @@ bool aiIfInjured(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && (chr->chrflags & CHRFLAG3_JUST_INJURED)) {
-		chr->chrflags &= ~CHRFLAG3_JUST_INJURED;
+	if (chr && (chr->chrflags & CHRCFLAG_JUST_INJURED)) {
+		chr->chrflags &= ~CHRCFLAG_JUST_INJURED;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset = g_Vars.aioffset + 4;
@@ -4169,8 +4169,8 @@ bool ai0168(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && (chr->chrflags & CHRFLAG3_02000000)) {
-		chr->chrflags &= ~CHRFLAG3_02000000;
+	if (chr && (chr->chrflags & CHRCFLAG_02000000)) {
+		chr->chrflags &= ~CHRCFLAG_02000000;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset = g_Vars.aioffset + 4;
@@ -5400,7 +5400,7 @@ bool aiResetTimer(void)
  */
 bool aiPauseTimer(void)
 {
-	g_Vars.chrdata->hidden &= ~CHRFLAG2_TIMER_RUNNING;
+	g_Vars.chrdata->hidden &= ~CHRHFLAG_TIMER_RUNNING;
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -5411,7 +5411,7 @@ bool aiPauseTimer(void)
  */
 bool aiResumeTimer(void)
 {
-	g_Vars.chrdata->hidden |= CHRFLAG2_TIMER_RUNNING;
+	g_Vars.chrdata->hidden |= CHRHFLAG_TIMER_RUNNING;
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -5424,7 +5424,7 @@ bool aiIfTimerStopped(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if ((g_Vars.chrdata->hidden & CHRFLAG2_TIMER_RUNNING) == 0) {
+	if ((g_Vars.chrdata->hidden & CHRHFLAG_TIMER_RUNNING) == 0) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -8578,8 +8578,8 @@ bool aiSetTarget(void)
 			g_Vars.chrdata->lastvisibletarg = 0;
 			g_Vars.chrdata->lastseetarget60 = 0;
 			g_Vars.chrdata->lastheartarget60 = 0;
-			g_Vars.chrdata->hidden &= ~CHRFLAG2_00000002;
-			g_Vars.chrdata->chrflags &= ~CHRFLAG3_00000004;
+			g_Vars.chrdata->hidden &= ~CHRHFLAG_00000002;
+			g_Vars.chrdata->chrflags &= ~CHRCFLAG_00000004;
 			g_Vars.chrdata->target = prop_id;
 		}
 	} else if (g_Vars.hovdata) {
@@ -11873,8 +11873,8 @@ bool aiIfChrInjured(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && (chr->chrflags & CHRFLAG3_INJURED)) {
-		chr->chrflags &= ~CHRFLAG3_INJURED;
+	if (chr && (chr->chrflags & CHRCFLAG_INJURED)) {
+		chr->chrflags &= ~CHRCFLAG_INJURED;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;

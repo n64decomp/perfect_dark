@@ -711,80 +711,80 @@ u8 func041e_colleague[] = {
 };
 
 u8 func041f_colleague1[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(0)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
 
 u8 func0420_colleague2[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(1)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
 
 u8 func0421_colleague3[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(2)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
 
 u8 func0422_colleague4[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(3)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
 
 u8 func0423_colleague5[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(4)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
 
 u8 func0424_colleague6[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(5)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
 
 u8 func0425_colleague7[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(6)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
 
 u8 func0426_colleague8[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(7)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
 
 u8 func0427_colleague9[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(8)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
 };
 
 u8 func0428_colleague10[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(9)
 	set_function(CHR_SELF, FUNC_COLLEAGUE)
 	endfunction
@@ -1424,7 +1424,7 @@ u8 func1006_devicetraining_disguise[] = {
 	endloop(0x08)
 
 	label(0x81)
-	unset_chr_flag_bank2(CHR_BOND, CHRFLAG2_DISGUISED)
+	unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED)
 	unset_stage_flag(STAGEFLAG_DISGUISE_FAILED)
 	unset_stage_flag(STAGEFLAG_DISGUISE_COMPLETE)
 	lock_door(0x31, 0x40)
@@ -1473,14 +1473,14 @@ u8 func1006_devicetraining_disguise[] = {
 	label(0x2f)
 	label(0x8d)
 	remove_displayed_text
-	if_chr_flag_bank2(CHR_BOND, CHRFLAG2_DISGUISED, /*goto*/ 0x2f)
+	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED, /*goto*/ 0x2f)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c3d) // "Select the Disguise. - Hold A Button. - Use Control Stick to change selection. - Highlight Disguise and release A Button."
 	restart_timer
 
 	beginloop(0x8e)
 		if_stage_flag_eq(STAGEFLAG_DISGUISE_FAILED, TRUE, /*goto*/ 0x0a)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_chr_flag_bank2(CHR_BOND, CHRFLAG2_DISGUISED, /*goto*/ 0x2f)
+		if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED, /*goto*/ 0x2f)
 		if_timer_gt(1200, /*goto*/ 0x06)
 	endloop(0x8e)
 
@@ -2509,7 +2509,7 @@ u8 func0429_grimshaw_disguise[] = {
 	endloop(0x5b)
 
 	label(0x06)
-	if_chr_flag_bank2(CHR_BOND, CHRFLAG2_DISGUISED, /*goto*/ 0x2f)
+	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED, /*goto*/ 0x2f)
 	do_special_animation(-1)
 	speak(CHR_TARGET, 0x1c2c, 0x1518, CHANNEL_6, COLOR_05_GREEN) // "Go away, Joanna. You're not fooling anybody!"
 
@@ -2572,7 +2572,7 @@ u8 func100c_cloak_detection[] = {
 
 	label(0x06)
 	dprint 'G','O','T','T','H','R','U',0,
-	if_chr_flag_bank2(CHR_BOND, CHRFLAG2_CLOAKED, /*goto*/ 0x30)
+	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_CLOAKED, /*goto*/ 0x30)
 	activate_alarm
 	yield
 	restart_timer
@@ -2874,8 +2874,8 @@ u8 func101b_ir_door[] = {
 };
 
 u8 func042b_init_carrington[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	yield
 	set_morale(0)
 	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
@@ -2906,7 +2906,7 @@ u8 func042b_init_carrington[] = {
 
 u8 func1019_setup_carrington[] = {
 	beginloop(0x04)
-		if_chr_flag_bank2(CHR_CARRINGTON, CHRFLAG2_10000000, /*goto*/ 0x06)
+		if_chr_has_hiddenflag(CHR_CARRINGTON, CHRHFLAG_10000000, /*goto*/ 0x06)
 		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x2f)
 	endloop(0x04)
 
@@ -2921,7 +2921,7 @@ u8 func1019_setup_carrington[] = {
 
 u8 func042c_carrington_tour[] = {
 	set_return_function(CHR_SELF, FUNC_CARRINGTON_TOUR)
-	set_self_flag_bank3(CHRFLAG3_00040000)
+	set_self_chrflag(CHRCFLAG_00040000)
 	restart_timer
 	try_face_entity(ENTITYTYPE_PAD, 0x0054, /*goto*/ 0x04)
 
@@ -2947,7 +2947,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x08)
 
 	label(0x06)
-	set_chr_flag_bank2(CHR_SELF, CHRFLAG2_10000000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
 	set_eeprom_flag(EEPROMFLAG_CI_TOUR_STARTED)
 	do_special_animation(-1)
 	remove_displayed_text
@@ -3204,7 +3204,7 @@ u8 func042c_carrington_tour[] = {
 
 u8 func042d_unused[] = {
 	set_alertness(1)
-	set_self_flag_bank3(CHRFLAG3_00040000)
+	set_self_chrflag(CHRCFLAG_00040000)
 	restart_timer
 	try_face_entity(ENTITYTYPE_CHR, CHR_CARRINGTON, /*goto*/ 0x5f)
 
@@ -3233,7 +3233,7 @@ u8 func042d_unused[] = {
 
 u8 func042e_devicegirl_reply_to_carrington[] = {
 	set_alertness(1)
-	set_self_flag_bank3(CHRFLAG3_00040000)
+	set_self_chrflag(CHRCFLAG_00040000)
 	restart_timer
 	try_face_entity(ENTITYTYPE_CHR, CHR_CARRINGTON, /*goto*/ 0x5f)
 
@@ -4358,12 +4358,12 @@ u8 func1028_holo4_main[] = {
 	label(0x91)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
 	remove_displayed_text
-	if_chr_flag_bank3(0x0d, CHRFLAG3_00000040, /*goto*/ 0x61)
+	if_chr_has_chrflag(0x0d, CHRCFLAG_00000040, /*goto*/ 0x61)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c6b) // "Unarmed combat - knock out the target. - Press Z Button repeatedly to punch."
 	goto_next(0x2f)
 
 	label(0x61)
-	if_chr_flag_bank3(0x0e, CHRFLAG3_00000040, /*goto*/ 0x62)
+	if_chr_has_chrflag(0x0e, CHRCFLAG_00000040, /*goto*/ 0x62)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c6c) // "Now try against a moving target..."
 	goto_next(0x2f)
@@ -4443,7 +4443,7 @@ u8 func0403_holo4_guard1[] = {
 	endloop(0x04)
 
 	label(0x2f)
-	set_self_flag_bank3(CHRFLAG3_00000040)
+	set_self_chrflag(CHRCFLAG_00000040)
 	try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0277, FUNC_HOLO4_GUARD2, 0x00002210, /*goto*/ 0x08)
 	label(0x08)
 	remove_displayed_text
@@ -4464,7 +4464,7 @@ u8 func0404_holo4_guard2[] = {
 	goto_next(0x06)
 
 	label(0x2f)
-	set_self_flag_bank3(CHRFLAG3_00000040)
+	set_self_chrflag(CHRCFLAG_00000040)
 	try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x027a, FUNC_HOLO4_GUARD3, 0x00002210, /*goto*/ 0x0a)
 	label(0x0a)
 	remove_displayed_text
@@ -4600,12 +4600,12 @@ u8 func1029_holo5_main[] = {
 	label(0x91)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x2f)
 	remove_displayed_text
-	if_chr_flag_bank3(0x10, CHRFLAG3_00000040, /*goto*/ 0x61)
+	if_chr_has_chrflag(0x10, CHRCFLAG_00000040, /*goto*/ 0x61)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c5c) // "Disarm this live target if you can."
 	goto_next(0x2f)
 
 	label(0x61)
-	if_chr_flag_bank3(0x11, CHRFLAG3_00000040, /*goto*/ 0x62)
+	if_chr_has_chrflag(0x11, CHRCFLAG_00000040, /*goto*/ 0x62)
 	display_text(0x01, COLOR_04_ORANGE, 0x1c5d) // "Knock out this target - stealth is the key."
 	goto_next(0x2f)
 
@@ -4698,12 +4698,12 @@ u8 func0407_holo5_guard1[] = {
 	if_has_gun(CHR_SELF, /*goto*/ 0x06)
 	label(0x2f)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
-	set_self_flag_bank3(CHRFLAG3_00000040)
+	set_self_chrflag(CHRCFLAG_00000040)
 	set_onshot_function(GFUNC_IDLE)
 	goto_next(0x0a)
 	label(0x30)
 	restart_timer
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 
 	beginloop(0x62)
 		if_timer_gt(60, /*goto*/ 0x63)
@@ -4716,7 +4716,7 @@ u8 func0407_holo5_guard1[] = {
 	set_function(CHR_SELF, GFUNC_IDLE)
 
 	label(0x0a)
-	set_self_flag_bank3(CHRFLAG3_00000040)
+	set_self_chrflag(CHRCFLAG_00000040)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	surrender
 	message(CHR_BOND, 0x1c5a) // "Guard has been successfully disarmed."
@@ -4783,13 +4783,13 @@ u8 func0409_holo5_guard2[] = {
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2f)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2f)
 	if_target_chr_in_sight(/*goto*/ 0x09)
-	unset_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_alertness(0)
 	goto_first(0x08)
 
 	label(0x06)
 	label(0x09)
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
@@ -4800,8 +4800,8 @@ u8 func0409_holo5_guard2[] = {
 	endloop(0x0a)
 
 	label(0x2f)
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_00000040)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_00000040)
 
 	beginloop(0x57)
 		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0125, FUNC_HOLO5_INIT_GUARD3, 0x00002210, /*goto*/ 0x06)
@@ -4871,7 +4871,7 @@ u8 func1034_holo5_part1[] = {
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0d)
-		if_chr_flag_bankx(0x10, CHRFLAG0_00008000, BANK_0, /*goto*/ 0x2f)
+		if_chr_has_flag_bankx(0x10, CHRFLAG0_00008000, BANK_0, /*goto*/ 0x2f)
 		dprint 'C','H','R',' ','4','F','D',0,
 		label(0x06)
 	endloop(0x04)
@@ -5741,15 +5741,15 @@ u8 func103f_msg_fnp90[] = {
 };
 
 u8 func1000_jo_typing[] = {
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	camera_movement(0x0484)
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x7b)
 	set_music_track(MUSIC_CI_INTRO)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x0485, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -5781,11 +5781,11 @@ u8 func1000_jo_typing[] = {
 	endloop(0x08)
 
 	label(0x7b)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x0485, -2, -1, 0x06, 0x00, CHR_BOND, 2)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enter_firstperson
 	passive_mode(TRUE)
 	fade_to_color(0x00000000, 0)

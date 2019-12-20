@@ -1253,7 +1253,7 @@ u8 func0410_init_searching_guard[] = {
 
 u8 func0412_init_cass[] = {
 	set_chr_health(CHR_SELF, 40)
-	set_self_flag_bank3(CHRFLAG3_01000000)
+	set_self_chrflag(CHRCFLAG_01000000)
 	set_function(CHR_SELF, FUNC_CASS_IN_OFFICE)
 	endfunction
 };
@@ -1272,7 +1272,7 @@ u8 func0411_cass_in_office[] = {
 	// Not dying
 	label(0x06)
 	if_has_gun(CHR_SELF, /*goto*/ 0x2c)
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_stage_flag(STAGEFLAG_TRIGGER_YWSM)
 	set_onshot_function(FUNC_CASS_RUNNING)
 	restart_timer
@@ -1286,14 +1286,14 @@ u8 func0411_cass_in_office[] = {
 	endloop(0x08)
 
 	label(0x06)
-	unset_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_function(CHR_SELF, FUNC_CASS_RUNNING)
 
 	// Waiting for player to enter office
 	label(0x2c)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x5a)
 	set_onshot_function(FUNC_CASS_IN_OFFICE)
-	set_self_flag_bank3(CHRFLAG3_00040000)
+	set_self_chrflag(CHRCFLAG_00040000)
 	if_chr_dying(CHR_CASS, /*goto*/ 0x06)
 	if_chr_unloaded(CHR_CASS, /*goto*/ 0x06)
 	goto_next(0x2c)
@@ -1363,7 +1363,7 @@ u8 func0411_cass_in_office[] = {
 
 u8 func0413_cass_running[] = {
 	remove_cass_necklace(CHR_CASS)
-	unset_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_onshot_function(FUNC_CASS_RUNNING)
 	if_chr_dying(CHR_CASS, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_CASS, /*goto*/ 0x06)
@@ -1518,7 +1518,7 @@ u8 func1006_lift_disabling[] = {
 	set_object_flag_bank0(OBJ_BLONDE_LIFT, OBJECTFLAG0_DEACTIVATED)
 	unlock_door(0x50, 0x40)
 	unset_object_flag_bank0(OBJ_CHIEF_LIFT, OBJECTFLAG0_DEACTIVATED)
-	unset_chr_flag_bank3(CHR_CHIEF, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_CHIEF, CHRCFLAG_HIDDEN)
 	set_function(CHR_CHIEF, FUNC_CHIEF)
 	message(CHR_BOND, 0x4a19) // "Lift has been disabled."
 
@@ -1555,7 +1555,7 @@ u8 func0414_init_chief[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	set_morale(0)
-	set_self_flag_bank3(CHRFLAG3_HIDDEN)
+	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -1931,13 +1931,13 @@ u8 func0416_intro[] = {
 	set_object_flag_bank1(0x62, OBJECTFLAG1_INVISIBLE)
 	unset_object_flag_bank0(0x61, OBJECTFLAG0_00000100)
 	unset_object_flag_bank0(0x62, OBJECTFLAG0_00000100)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_music_track(MUSIC_G5_INTRO)
 	camera_movement(0x0472)
 	cmd0175(60)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x0473, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -1995,10 +1995,10 @@ u8 func0416_intro[] = {
 	set_object_flag_bank0(0x61, OBJECTFLAG0_00000100)
 	set_object_flag_bank0(0x62, OBJECTFLAG0_00000100)
 	mute_channel(CHANNEL_10)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x0473, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	restart_default_music
 	reset_ambience
@@ -2010,15 +2010,15 @@ u8 func0416_intro[] = {
 u8 func0417_outro[] = {
 	set_invincible(CHR_BOND)
 	hide_object(OBJ_SHUTTLE1)
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_music_track(MUSIC_G5_OUTRO)
 	camera_movement(0x0474)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_CASS, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_CASS, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	show_object(OBJ_SHUTTLE2)
 	set_object_flag_bank1(OBJ_SHUTTLE2, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(OBJ_SHUTTLE2, OBJECTFLAG2_00000010)

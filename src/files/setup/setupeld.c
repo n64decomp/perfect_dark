@@ -773,11 +773,11 @@ u8 func1002_intro_from_menu[] = {
 };
 
 u8 func1002_intro[] = {
-	set_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	camera_movement(0x0171)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	if_stage_flag_eq(STAGEFLAG_PLAYING_INTRO_FROM_MENU, TRUE, /*goto*/ 0x2e)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)
 	label(0x2e)
@@ -789,13 +789,13 @@ u8 func1002_intro[] = {
 	set_music_track(MUSIC_VILLA_INTRO2)
 	animation(0x0172, -1, -1, 0x06, 0x00, CHR_NEGOTIATOR, 4)
 	label(0x06)
-	set_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_TAKER1, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
 	animation(0x0173, -1, -1, 0x06, 0x00, CHR_TAKER1, 4)
-	set_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_TAKER2, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
 	animation(0x0174, -1, -1, 0x06, 0x00, CHR_TAKER2, 4)
 	show_object(OBJ_DROPSHIP)
 	set_object_flag_bank1(OBJ_DROPSHIP, OBJECTFLAG1_04000000)
@@ -937,8 +937,8 @@ u8 func1002_intro[] = {
 	label(0x56)
 	if_controller_button_pressed(/*goto*/ 0x56)
 	camera_movement(0x01b7)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	if_stage_flag_eq(STAGEFLAG_PLAYING_INTRO_FROM_MENU, TRUE, /*goto*/ 0x2e)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)
 	label(0x2e)
@@ -948,14 +948,14 @@ u8 func1002_intro[] = {
 	animation(0x01b8, -1, -1, 0x06, 0x00, CHR_NEGOTIATOR, 4)
 	label(0x06)
 
-	set_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_TAKER1, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
 	animation(0x01b9, -1, -1, 0x06, 0x00, CHR_TAKER1, 4)
 
-	set_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_TAKER2, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
 	animation(0x01ba, -1, -1, 0x06, 0x00, CHR_TAKER2, 4)
 
 	restart_timer
@@ -1030,22 +1030,22 @@ u8 func1002_intro[] = {
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x56)
 
-	set_chr_flag_bank3(CHR_NEGOTIATOR, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_NEGOTIATOR, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_NEGOTIATOR, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_NEGOTIATOR, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_NEGOTIATOR, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_NEGOTIATOR, CHRHFLAG_00020000)
 	animation(0x0001, -1, -1, 0x06, 0x00, CHR_NEGOTIATOR, 4)
 
-	set_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_TAKER1, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
 	animation(0x0001, -1, -1, 0x06, 0x00, CHR_TAKER1, 4)
 
-	set_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_HIDDEN)
 	animation(0x0001, -1, -1, 0x06, 0x00, CHR_TAKER2, 4)
 
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x01bc, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	show_object(OBJ_DROPSHIP)
@@ -1099,20 +1099,20 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_7)
 
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x01bc, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 
-	unset_chr_flag_bank3(CHR_NEGOTIATOR, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_NEGOTIATOR, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_NEGOTIATOR, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_NEGOTIATOR, CHRHFLAG_00020000)
 	animation(0x01b8, -2, -1, 0x06, 0x00, CHR_NEGOTIATOR, 2)
 
-	unset_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_TAKER1, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
 	animation(0x01b9, -2, -1, 0x06, 0x00, CHR_TAKER1, 2)
 
-	unset_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_TAKER2, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
 	animation(0x01ba, -2, -1, 0x06, 0x00, CHR_TAKER2, 2)
 
 	hide_object(OBJ_DROPSHIP)
@@ -1128,24 +1128,24 @@ u8 func1002_intro[] = {
 	set_function(CHR_TAKER1, FUNC_INIT_TAKER)
 	set_function(CHR_TAKER2, FUNC_INIT_TAKER)
 	set_function(CHR_NEGOTIATOR, FUNC_NEGOTIATOR)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	label(0x4f)
 	camera_movement(0x01be)
 	cmd0175(60)
 	hide_object(OBJ_DROPSHIP)
 	if_controller_button_pressed(/*goto*/ 0x56)
-	set_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x01bf, -1, -1, 0x06, 0x00, CHR_BOND, 4)
-	set_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_TAKER1, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
 	animation(0x01c0, -1, -1, 0x06, 0x00, CHR_TAKER1, 4)
-	set_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_TAKER2, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
 	animation(0x01c1, -1, -1, 0x06, 0x00, CHR_TAKER2, 4)
 	restart_timer
 	label(0xa6)
@@ -1200,16 +1200,16 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_5)
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_7)
-	unset_chr_flag_bank3(CHR_BOND, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_BOND, CHRFLAG2_00020000)
+	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	animation(0x01bf, -2, -1, 0x06, 0x00, CHR_BOND, 2)
-	unset_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_TAKER1, CHRFLAG2_00020000)
-	set_chr_flag_bank3(CHR_TAKER1, CHRFLAG3_00000001)
+	unset_chr_chrflag(CHR_TAKER1, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_00020000)
+	set_chr_chrflag(CHR_TAKER1, CHRCFLAG_00000001)
 	animation(0x01c0, -2, -1, 0x06, 0x00, CHR_TAKER1, 2)
-	unset_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_UNPLAYABLE)
-	set_chr_flag_bank2(CHR_TAKER2, CHRFLAG2_00020000)
-	set_chr_flag_bank3(CHR_TAKER2, CHRFLAG3_00000001)
+	unset_chr_chrflag(CHR_TAKER2, CHRCFLAG_UNPLAYABLE)
+	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
+	set_chr_chrflag(CHR_TAKER2, CHRCFLAG_00000001)
 	animation(0x01c1, -2, -1, 0x06, 0x00, CHR_TAKER2, 2)
 	hide_object(OBJ_DROPSHIP)
 	restart_default_music
@@ -1219,8 +1219,8 @@ u8 func1002_intro[] = {
 	yield
 	set_function(CHR_TAKER1, FUNC_TAKER)
 	set_function(CHR_TAKER2, FUNC_TAKER)
-	unset_chr_flag_bank3(CHR_COOP, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -1234,20 +1234,20 @@ u8 func0c02_outro_from_menu[] = {
 u8 func0408_outro[] = {
 	camera_movement(0x017a)
 	set_music_track(MUSIC_VILLA_OUTRO)
-	set_chr_flag_bank3(CHR_ANTI, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(0xf1, CHRFLAG3_HIDDEN)
+	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_function(CHR_P1P2, GFUNC_IDLE)
-	set_chr_flag_bank3(CHR_CARRINGTON, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_chr_flag_bank3(CHR_CARRINGTON, CHRFLAG3_UNEXPLODABLE)
+	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_UNEXPLODABLE)
 
-	set_chr_flag_bank3(CHR_P1P2, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_P1P2, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_P1P2, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
 	animation(0x017c, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 
-	set_chr_flag_bank3(CHR_CARRINGTON, CHRFLAG3_UNPLAYABLE)
-	unset_chr_flag_bank3(CHR_CARRINGTON, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank2(CHR_CARRINGTON, CHRFLAG2_00020000)
+	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_UNPLAYABLE)
+	unset_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_HIDDEN)
+	set_chr_hiddenflag(CHR_CARRINGTON, CHRHFLAG_00020000)
 	animation(0x017b, -1, -1, 0x06, 0x00, CHR_CARRINGTON, 4)
 
 	show_nonessential_chrs(FALSE)
@@ -1457,7 +1457,7 @@ u8 func0401_init_taker[] = {
 };
 
 u8 func0402_taker[] = {
-	set_self_flag_bank3(CHRFLAG3_00000040)
+	set_self_chrflag(CHRCFLAG_00000040)
 	yield
 	yield
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)
@@ -2174,9 +2174,9 @@ u8 func100b_invoke_hackers[] = {
 	set_function(CHR_HACKER1, FUNC_HACKER)
 	set_function(CHR_HACKER2, FUNC_HACKER)
 	set_function(CHR_HACKER3, FUNC_HACKER)
-	unset_chr_flag_bank3(CHR_HACKER1, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_HACKER2, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_HACKER3, CHRFLAG3_HIDDEN)
+	unset_chr_chrflag(CHR_HACKER1, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_HACKER2, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_HACKER3, CHRCFLAG_HIDDEN)
 	rebuild_teams
 	rebuild_squadrons
 	play_x_music(CHANNEL_10, 60)
@@ -2202,7 +2202,7 @@ u8 func100b_invoke_hackers[] = {
 };
 
 u8 func0406_init_hacker[] = {
-	set_self_flag_bank3(CHRFLAG3_HIDDEN)
+	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -2368,14 +2368,14 @@ u8 func1011_setup_snipers[] = {
 	set_chr_special_death_animation(CHR_SNIPER4, 0x02)
 	set_chr_special_death_animation(CHR_SNIPER5, 0x03)
 	set_chr_special_death_animation(CHR_SNIPER3, 0x04)
-	set_chr_flag_bank3(CHR_SNIPER3, CHRFLAG3_HAS_SPECIAL_DEATH_ANIMATION)
-	set_chr_flag_bank3(CHR_SNIPER4, CHRFLAG3_HAS_SPECIAL_DEATH_ANIMATION)
-	set_chr_flag_bank3(CHR_SNIPER5, CHRFLAG3_HAS_SPECIAL_DEATH_ANIMATION)
-	set_chr_flag_bank3(CHR_SNIPER7, CHRFLAG3_HAS_SPECIAL_DEATH_ANIMATION)
-	set_chr_flag_bank3(CHR_SNIPER1, CHRFLAG3_HAS_SPECIAL_DEATH_ANIMATION)
-	set_chr_flag_bank3(CHR_SNIPER2, CHRFLAG3_HAS_SPECIAL_DEATH_ANIMATION)
-	set_chr_flag_bank3(CHR_SNIPER6, CHRFLAG3_HAS_SPECIAL_DEATH_ANIMATION)
-	set_chr_flag_bank3(CHR_SNIPER8, CHRFLAG3_HAS_SPECIAL_DEATH_ANIMATION)
+	set_chr_chrflag(CHR_SNIPER3, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
+	set_chr_chrflag(CHR_SNIPER4, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
+	set_chr_chrflag(CHR_SNIPER5, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
+	set_chr_chrflag(CHR_SNIPER7, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
+	set_chr_chrflag(CHR_SNIPER1, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
+	set_chr_chrflag(CHR_SNIPER2, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
+	set_chr_chrflag(CHR_SNIPER6, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
+	set_chr_chrflag(CHR_SNIPER8, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -2414,15 +2414,15 @@ u8 func1013_check_guard_subdued[] = {
 };
 
 u8 func1014_give_keycard[] = {
-	set_chr_flag_bank3(CHR_BASEMENT1, CHRFLAG3_KILLCOUNTABLE)
-	set_chr_flag_bank3(CHR_BASEMENT2, CHRFLAG3_KILLCOUNTABLE)
-	set_chr_flag_bank3(CHR_BASEMENT3, CHRFLAG3_KILLCOUNTABLE)
-	set_chr_flag_bank3(CHR_BASEMENT4, CHRFLAG3_KILLCOUNTABLE)
-	set_chr_flag_bank3(CHR_BASEMENT5, CHRFLAG3_KILLCOUNTABLE)
-	set_chr_flag_bank3(CHR_BASEMENT6, CHRFLAG3_KILLCOUNTABLE)
-	set_chr_flag_bank3(CHR_BASEMENT7, CHRFLAG3_KILLCOUNTABLE)
-	set_chr_flag_bank3(CHR_BASEMENT8, CHRFLAG3_KILLCOUNTABLE)
-	set_chr_flag_bank3(CHR_BASEMENT9, CHRFLAG3_KILLCOUNTABLE)
+	set_chr_chrflag(CHR_BASEMENT1, CHRCFLAG_KILLCOUNTABLE)
+	set_chr_chrflag(CHR_BASEMENT2, CHRCFLAG_KILLCOUNTABLE)
+	set_chr_chrflag(CHR_BASEMENT3, CHRCFLAG_KILLCOUNTABLE)
+	set_chr_chrflag(CHR_BASEMENT4, CHRCFLAG_KILLCOUNTABLE)
+	set_chr_chrflag(CHR_BASEMENT5, CHRCFLAG_KILLCOUNTABLE)
+	set_chr_chrflag(CHR_BASEMENT6, CHRCFLAG_KILLCOUNTABLE)
+	set_chr_chrflag(CHR_BASEMENT7, CHRCFLAG_KILLCOUNTABLE)
+	set_chr_chrflag(CHR_BASEMENT8, CHRCFLAG_KILLCOUNTABLE)
+	set_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_KILLCOUNTABLE)
 	set_object_flag_bank0(OBJ_KEYCARD, OBJECTFLAG0_00100000)
 	set_object_flag_bank1(OBJ_KEYCARD, OBJECTFLAG1_INVISIBLE)
 
@@ -2950,8 +2950,8 @@ u8 func0407_init_sniper[] = {
 
 u8 func0410_carrington[] = {
 	yield
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
-	set_self_flag_bank3(CHRFLAG3_UNEXPLODABLE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_chr_health(CHR_SELF, 1)
 	animation(0x017b, 1, 1, 0x06, 0x00, CHR_CARRINGTON, 2)
 	set_function(CHR_SELF, GFUNC_IDLE)
@@ -3117,8 +3117,8 @@ u8 func1423_setup_lighting[] = {
 };
 
 u8 func1021_toggle_last_basement_guard[] = {
-	set_chr_flag_bank3(CHR_BASEMENT9, CHRFLAG3_HIDDEN)
-	set_chr_flag_bank3(CHR_BASEMENT9, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_HIDDEN)
+	set_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 
 	beginloop(0x04)
 		if_difficulty_gt(DIFF_SA, /*goto*/ 0x2d)
@@ -3145,8 +3145,8 @@ u8 func1021_toggle_last_basement_guard[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	unset_chr_flag_bank3(CHR_BASEMENT9, CHRFLAG3_HIDDEN)
-	unset_chr_flag_bank3(CHR_BASEMENT9, CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	unset_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_HIDDEN)
+	unset_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
 };
@@ -3161,7 +3161,7 @@ u8 func1022_setup_rtracker[] = {
 };
 
 u8 func0411_cisoldier[] = {
-	set_self_flag_bank3(CHRFLAG3_INVINCIBLE_TO_GUNFIRE)
+	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	chr_drop_weapon(CHR_SELF)
 	label(0x08)
 	yield
@@ -3181,15 +3181,15 @@ u8 func0411_cisoldier[] = {
 u8 func1024_set_chr_flags_on_pa[] = {
 	yield
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x2d)
-	set_chr_flag_bank2(CHR_TAKER1, CHRFLAG2_08000000)
-	set_chr_flag_bank2(0x0a, CHRFLAG2_08000000)
-	set_chr_flag_bank2(0x23, CHRFLAG2_08000000)
-	set_chr_flag_bank2(0x2f, CHRFLAG2_08000000)
-	set_chr_flag_bank2(0x34, CHRFLAG2_08000000)
-	set_chr_flag_bank2(0x37, CHRFLAG2_08000000)
-	set_chr_flag_bank2(0x3e, CHRFLAG2_08000000)
-	set_chr_flag_bank2(CHR_BASEMENT6, CHRFLAG2_08000000)
-	set_chr_flag_bank2(CHR_BASEMENT8, CHRFLAG2_08000000)
+	set_chr_hiddenflag(CHR_TAKER1, CHRHFLAG_08000000)
+	set_chr_hiddenflag(0x0a, CHRHFLAG_08000000)
+	set_chr_hiddenflag(0x23, CHRHFLAG_08000000)
+	set_chr_hiddenflag(0x2f, CHRHFLAG_08000000)
+	set_chr_hiddenflag(0x34, CHRHFLAG_08000000)
+	set_chr_hiddenflag(0x37, CHRHFLAG_08000000)
+	set_chr_hiddenflag(0x3e, CHRHFLAG_08000000)
+	set_chr_hiddenflag(CHR_BASEMENT6, CHRHFLAG_08000000)
+	set_chr_hiddenflag(CHR_BASEMENT8, CHRHFLAG_08000000)
 	label(0x2d)
 	set_function(CHR_SELF, GFUNC_IDLE)
 	endfunction
