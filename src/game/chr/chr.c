@@ -53499,34 +53499,23 @@ glabel func0f04ceec
 /*  f04cf30:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04cf34
-/*  f04cf34:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f04cf38:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f04cf3c:	3c03800a */ 	lui	$v1,%hi(var8009cd70)
-/*  f04cf40:	000e2403 */ 	sra	$a0,$t6,0x10
-/*  f04cf44:	2463cd70 */ 	addiu	$v1,$v1,%lo(var8009cd70)
-/*  f04cf48:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04cf4c:
-/*  f04cf4c:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f04cf50:	0078c821 */ 	addu	$t9,$v1,$t8
-/*  f04cf54:	8f280000 */ 	lw	$t0,0x0($t9)
-/*  f04cf58:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f04cf5c:	304900ff */ 	andi	$t1,$v0,0xff
-/*  f04cf60:	14880003 */ 	bne	$a0,$t0,.L0f04cf70
-/*  f04cf64:	29210005 */ 	slti	$at,$t1,0x5
-/*  f04cf68:	03e00008 */ 	jr	$ra
-/*  f04cf6c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04cf70:
-/*  f04cf70:	1420fff6 */ 	bnez	$at,.L0f04cf4c
-/*  f04cf74:	01201025 */ 	or	$v0,$t1,$zero
-/*  f04cf78:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04cf7c:	03e00008 */ 	jr	$ra
-/*  f04cf80:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04cf84:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f04cf88:	03e00008 */ 	jr	$ra
-/*  f04cf8c:	00801025 */ 	or	$v0,$a0,$zero
-);
+bool func0f04cf34(s16 value)
+{
+	u8 i;
+
+	for (i = 0; i < 5; i++) {
+		if (var8009cd70[i] == value) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+s32 func0f004cd84(s32 arg0, s32 arg1)
+{
+	return arg0;
+}
 
 void func0f04cf90(struct chrdata *chr, s32 arg1)
 {
