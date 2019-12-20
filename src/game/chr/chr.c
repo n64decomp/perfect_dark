@@ -53855,39 +53855,19 @@ glabel func0f04d000
 /*  f04d448:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04d44c
-/*  f04d44c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04d450:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04d454:	00802825 */ 	or	$a1,$a0,$zero
-/*  f04d458:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f04d45c:	0c00744f */ 	jal	func0001d13c
-/*  f04d460:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f04d464:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f04d468:	3c01efff */ 	lui	$at,0xefff
-/*  f04d46c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f04d470:	8cae0018 */ 	lw	$t6,0x18($a1)
-/*  f04d474:	01c17824 */ 	and	$t7,$t6,$at
-/*  f04d478:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f04d47c:	acaf0018 */ 	sw	$t7,0x18($a1)
-/*  f04d480:	1041000a */ 	beq	$v0,$at,.L0f04d4ac
-/*  f04d484:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04d488:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f04d48c:	10410007 */ 	beq	$v0,$at,.L0f04d4ac
-/*  f04d490:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f04d494:	10410005 */ 	beq	$v0,$at,.L0f04d4ac
-/*  f04d498:	24010067 */ 	addiu	$at,$zero,0x67
-/*  f04d49c:	10410003 */ 	beq	$v0,$at,.L0f04d4ac
-/*  f04d4a0:	000fc8c0 */ 	sll	$t9,$t7,0x3
-/*  f04d4a4:	07210003 */ 	bgez	$t9,.L0f04d4b4
-/*  f04d4a8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04d4ac:
-/*  f04d4ac:	10000001 */ 	beqz	$zero,.L0f04d4b4
-/*  f04d4b0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04d4b4:
-/*  f04d4b4:	03e00008 */ 	jr	$ra
-/*  f04d4b8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool func0f04d44c(struct chrdata *chr)
+{
+	s32 val = func0001d13c(chr->unk020);
+	chr->chrflags &= ~CHRFLAG3_10000000;
+
+	// Possible @bug or just sloppy code: The flag check below can never pass
+	// because that flag was just turned off above.
+	if (val == 100 || val == 101 || val == 102 || val == 103 || (chr->chrflags & CHRFLAG3_10000000)) {
+		return true;
+	}
+
+	return false;
+}
 
 void chrEmitSparks(struct chrdata *chr)
 {
