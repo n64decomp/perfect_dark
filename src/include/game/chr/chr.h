@@ -406,7 +406,7 @@ s16 *teamGetChrIds(s32 team_id);
 s16 *squadronGetChrIds(s32 squadron_id);
 u32 func0f04ceec(void);
 u32 func0f04cf34(void);
-u32 func0f04cf90(struct chrdata *chr, u32 arg1);
+void func0f04cf90(struct chrdata *chr, s32 arg1);
 u32 func0f04d000(struct chrdata *chr);
 bool func0f04d44c(struct chrdata *chr);
 void chrEmitSparks(struct chrdata *chr);

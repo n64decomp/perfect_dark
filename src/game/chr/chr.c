@@ -40,6 +40,7 @@
 #include "game/game_1a3340.h"
 #include "library/library_12dc0.h"
 #include "library/library_16110.h"
+#include "library/library_1a500.h"
 
 const u32 var7f1a8680[] = {0xb8d1b717};
 const u32 var7f1a8684[] = {0x00000000};
@@ -53527,40 +53528,22 @@ glabel func0f04cf34
 /*  f04cf8c:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f04cf90
-/*  f04cf90:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04cf94:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04cf98:	10800015 */ 	beqz	$a0,.L0f04cff0
-/*  f04cf9c:	00803025 */ 	or	$a2,$a0,$zero
-/*  f04cfa0:	8c820020 */ 	lw	$v0,0x20($a0)
-/*  f04cfa4:	50400013 */ 	beqzl	$v0,.L0f04cff4
-/*  f04cfa8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04cfac:	8c440008 */ 	lw	$a0,0x8($v0)
-/*  f04cfb0:	50800010 */ 	beqzl	$a0,.L0f04cff4
-/*  f04cfb4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04cfb8:	0c006a47 */ 	jal	func0001a91c
-/*  f04cfbc:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f04cfc0:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f04cfc4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f04cfc8:	10400004 */ 	beqz	$v0,.L0f04cfdc
-/*  f04cfcc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f04cfd0:	0c006a87 */ 	jal	func0001aa1c
-/*  f04cfd4:	8cc40020 */ 	lw	$a0,0x20($a2)
-/*  f04cfd8:	00401825 */ 	or	$v1,$v0,$zero
-.L0f04cfdc:
-/*  f04cfdc:	50600005 */ 	beqzl	$v1,.L0f04cff4
-/*  f04cfe0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04cfe4:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f04cfe8:	2c4e0001 */ 	sltiu	$t6,$v0,0x1
-/*  f04cfec:	ac6e0000 */ 	sw	$t6,0x0($v1)
-.L0f04cff0:
-/*  f04cff0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f04cff4:
-/*  f04cff4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04cff8:	03e00008 */ 	jr	$ra
-/*  f04cffc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f04cf90(struct chrdata *chr, s32 arg1)
+{
+	if (chr && chr->unk020 && chr->unk020->unk08) {
+		s32 value = func0001a91c(chr->unk020->unk08, arg1);
+		u32 *ptr = NULL;
+
+		if (value != 0) {
+			ptr = func0001aa1c(chr->unk020, value);
+		}
+
+		if (ptr) {
+			u32 value = *ptr;
+			*ptr = (value == 0);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f04d000

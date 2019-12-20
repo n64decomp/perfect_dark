@@ -78,6 +78,12 @@ struct pad {
 	/*0x50*/ u32 unk50;
 };
 
+struct chr020 {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+};
+
 struct chrdata {
 	/*0x000*/ s16 chrnum;
 	/*0x002*/ s8 accuracyrating;
@@ -99,7 +105,7 @@ struct chrdata {
 	/*0x014*/ u32 hidden;
 	/*0x018*/ u32 chrflags;
 	/*0x01c*/ struct position *pos;
-	/*0x020*/ void *unk020;
+	/*0x020*/ struct chr020 *unk020;
 	/*0x024*/ u32 chrwidth;
 	/*0x028*/ u32 chrheight;
 	/*0x02c*/ u32 unk02c;
