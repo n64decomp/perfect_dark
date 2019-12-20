@@ -965,7 +965,7 @@ bool aiFaceEntity(void)
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
-	if (func0f03a7e8(g_Vars.chrdata, thingtype, thingid)) {
+	if (chrFaceEntity(g_Vars.chrdata, thingtype, thingid)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;

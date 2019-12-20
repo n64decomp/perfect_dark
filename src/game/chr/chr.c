@@ -32919,7 +32919,7 @@ glabel func0f03a76c
 );
 
 GLOBAL_ASM(
-glabel func0f03a7e8
+glabel chrFaceEntity
 /*  f03a7e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f03a7ec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f03a7f0:	afa5001c */ 	sw	$a1,0x1c($sp)
@@ -32969,6 +32969,33 @@ glabel func0f03a7e8
 /*  f03a88c:	03e00008 */ 	jr	$ra
 /*  f03a890:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Matches if chr->unk04c is turned into a bitfield, but that causes ai00f0 to
+// mismatch.
+//bool chrFaceEntity(struct chrdata *chr, u32 entity_type, u32 entity_id)
+//{
+//	if (func0f039a18(chr)) {
+//		if (chr->actiontype != ACT_STAND) {
+//			func0f02eabc(chr);
+//		}
+//
+//		if (entity_type != chr->unk030 || entity_id != chr->unk034) {
+//			chr->unk030 = entity_type;
+//			chr->unk034 = entity_id;
+//			chr->unk038 = 0;
+//			chr->unk040 = 0;
+//
+//			if (entity_type == 0x200 && entity_id == 1) {
+//				chr->unk04c = 1;
+//				chr->unk034 = 0;
+//			}
+//		}
+//
+//		return true;
+//	}
+//
+//	return false;
+//}
 
 GLOBAL_ASM(
 glabel func0f03a894
@@ -35049,7 +35076,7 @@ glabel func0f03c138
 /*  f03c880:	46061202 */ 	mul.s	$f8,$f2,$f6
 /*  f03c884:	4600428d */ 	trunc.w.s	$f10,$f8
 /*  f03c888:	44065000 */ 	mfc1	$a2,$f10
-/*  f03c88c:	0fc0e9fa */ 	jal	func0f03a7e8
+/*  f03c88c:	0fc0e9fa */ 	jal	chrFaceEntity
 /*  f03c890:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03c894:	10000003 */ 	beqz	$zero,.L0f03c8a4
 /*  f03c898:	8fbf0024 */ 	lw	$ra,0x24($sp)
