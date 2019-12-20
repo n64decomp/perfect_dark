@@ -53889,49 +53889,10 @@ glabel func0f04d44c
 /*  f04d4b8:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f04d4bc
-/*  f04d4bc:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f04d4c0:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f04d4c4:	1080001f */ 	beqz	$a0,.L0f04d544
-/*  f04d4c8:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f04d4cc:	8c85001c */ 	lw	$a1,0x1c($a0)
-/*  f04d4d0:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f04d4d4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f04d4d8:	10a0001a */ 	beqz	$a1,.L0f04d544
-/*  f04d4dc:	24060064 */ 	addiu	$a2,$zero,0x64
-/*  f04d4e0:	44810000 */ 	mtc1	$at,$f0
-/*  f04d4e4:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f04d4e8:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f04d4ec:	afb8002c */ 	sw	$t8,0x2c($sp)
-/*  f04d4f0:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f04d4f4:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f04d4f8:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f04d4fc:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f04d500:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f04d504:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f04d508:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f04d50c:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f04d510:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f04d514:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f04d518:	0fc24e7e */ 	jal	func0f0939f8
-/*  f04d51c:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f04d520:	8fb90048 */ 	lw	$t9,0x48($sp)
-/*  f04d524:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f04d528:	00003825 */ 	or	$a3,$zero,$zero
-/*  f04d52c:	8f25001c */ 	lw	$a1,0x1c($t9)
-/*  f04d530:	84a40028 */ 	lh	$a0,0x28($a1)
-/*  f04d534:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f04d538:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f04d53c:	0fc4be7c */ 	jal	func0f12f9f0
-/*  f04d540:	24a60008 */ 	addiu	$a2,$a1,0x8
-.L0f04d544:
-/*  f04d544:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f04d548:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f04d54c:	03e00008 */ 	jr	$ra
-/*  f04d550:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04d554:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04d558:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04d55c:	00000000 */ 	sll	$zero,$zero,0x0
-);
-
+void chrEmitSparks(struct chrdata *chr)
+{
+	if (chr && chr->pos) {
+		func0f0939f8(0, chr->pos, 100, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		func0f12f9f0(chr->pos->room, chr->pos, &chr->pos->coord, 0, 0, 1);
+	}
+}

@@ -14295,7 +14295,7 @@ bool aiChrEmitSparks(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
-		func0f04d4bc(chr);
+		chrEmitSparks(chr);
 	}
 
 	g_Vars.aioffset += 3;

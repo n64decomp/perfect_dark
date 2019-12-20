@@ -31,7 +31,7 @@ u32 func0f12f230(void);
 u32 func0f12f5f8(void);
 u32 func0f12f6c0(void);
 u32 func0f12f95c(void);
-u32 func0f12f9f0(void);
+void func0f12f9f0(s32 room, struct position *pos, struct coord *coord, s32 arg3, s32 arg4, s32 arg5);
 u32 func0f130044(void);
 u32 func0f131060(void);
 u32 func0f1312d8(void);
