@@ -392,7 +392,7 @@ u32 func0f04b748(void);
 u32 func0f04b950(struct chrdata *chr, u32 cover, u32 arg2);
 u32 func0f04ba34(struct chrdata *chr, u16 arg1, u32 arg2);
 u32 func0f04bffc(struct chrdata *chr, u32 arg1, u32 arg2);
-void func0f04c268(struct chrdata *chr, u32 arg1);
+s16 func0f04c268(struct chrdata *chr, u8 speed);
 u32 func0f04c2e8(void);
 u32 func0f04c444(void);
 s32 func0f04c580(struct chrdata *chr);

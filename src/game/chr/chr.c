@@ -52572,44 +52572,25 @@ glabel func0f04bffc
 /*  f04c264:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel func0f04c268
-/*  f04c268:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f04c26c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04c270:	00808025 */ 	or	$s0,$a0,$zero
-/*  f04c274:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04c278:	14800003 */ 	bnez	$a0,.L0f04c288
-/*  f04c27c:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f04c280:	10000014 */ 	beqz	$zero,.L0f04c2d4
-/*  f04c284:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04c288:
-/*  f04c288:	0fc0e686 */ 	jal	func0f039a18
-/*  f04c28c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04c290:	50400010 */ 	beqzl	$v0,.L0f04c2d4
-/*  f04c294:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f04c298:	86040292 */ 	lh	$a0,0x292($s0)
-/*  f04c29c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04c2a0:	5081000c */ 	beql	$a0,$at,.L0f04c2d4
-/*  f04c2a4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f04c2a8:	0fc458b8 */ 	jal	func0f1162e0
-/*  f04c2ac:	27a50028 */ 	addiu	$a1,$sp,0x28
-/*  f04c2b0:	10400007 */ 	beqz	$v0,.L0f04c2d0
-/*  f04c2b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04c2b8:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f04c2bc:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f04c2c0:	0fc0e10f */ 	jal	func0f03843c
-/*  f04c2c4:	93a7003f */ 	lbu	$a3,0x3f($sp)
-/*  f04c2c8:	10000002 */ 	beqz	$zero,.L0f04c2d4
-/*  f04c2cc:	86020292 */ 	lh	$v0,0x292($s0)
-.L0f04c2d0:
-/*  f04c2d0:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f04c2d4:
-/*  f04c2d4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04c2d8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f04c2dc:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f04c2e0:	03e00008 */ 	jr	$ra
-/*  f04c2e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s16 func0f04c268(struct chrdata *chr, u8 speed)
+{
+	s32 a;
+	s16 b;
+	s16 room;
+	s32 c;
+	struct coord *coordptr;
+
+	if (!chr) {
+		return 0;
+	}
+
+	if (func0f039a18(chr) && chr->cover != -1 && func0f1162e0(chr->cover, &coordptr)) {
+		func0f03843c(chr, coordptr, &room, speed);
+		return chr->cover;
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f04c2e8

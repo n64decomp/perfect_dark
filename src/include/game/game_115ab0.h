@@ -10,7 +10,7 @@ u32 func0f116190(void);
 u32 func0f116240(void);
 u32 func0f116280(void);
 u32 func0f1162d0(void);
-u32 func0f1162e0(void);
+u32 func0f1162e0(s16 cover, struct coord **coord);
 u32 func0f11645c(void);
 void func0f1164a4(s16 cover, u32 arg1);
 u32 func0f116508(void);
