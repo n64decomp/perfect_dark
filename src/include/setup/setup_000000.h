@@ -361,7 +361,7 @@ extern u32 var80067e58;
 extern u32 var80067e5c;
 extern u32 var80067e60;
 extern u32 var80067e64;
-extern u32 var80067e68;
+extern s16 *g_SquadronList;
 extern u32 var80067fdc;
 extern u32 var80067ff0;
 extern u32 var80068008;

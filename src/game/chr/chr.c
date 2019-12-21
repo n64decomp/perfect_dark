@@ -53332,10 +53332,10 @@ glabel func0f04cd04
 /*  f04cd0c:	0fc07934 */ 	jal	getNumChrs
 /*  f04cd10:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f04cd14:	3c0c8006 */ 	lui	$t4,%hi(g_Chrs)
-/*  f04cd18:	3c0a8006 */ 	lui	$t2,%hi(var80067e68)
+/*  f04cd18:	3c0a8006 */ 	lui	$t2,%hi(g_SquadronList)
 /*  f04cd1c:	00405825 */ 	or	$t3,$v0,$zero
 /*  f04cd20:	2408000f */ 	addiu	$t0,$zero,0xf
-/*  f04cd24:	254a7e68 */ 	addiu	$t2,$t2,%lo(var80067e68)
+/*  f04cd24:	254a7e68 */ 	addiu	$t2,$t2,%lo(g_SquadronList)
 /*  f04cd28:	258c2988 */ 	addiu	$t4,$t4,%lo(g_Chrs)
 /*  f04cd2c:	00004825 */ 	or	$t1,$zero,$zero
 /*  f04cd30:	24100010 */ 	addiu	$s0,$zero,0x10
@@ -53449,32 +53449,18 @@ glabel teamGetChrIds
 /*  f04ce98:	27bd0010 */ 	addiu	$sp,$sp,0x10
 );
 
-GLOBAL_ASM(
-glabel squadronGetChrIds
-/*  f04ce9c:	04800003 */ 	bltz	$a0,.L0f04ceac
-/*  f04cea0:	28810010 */ 	slti	$at,$a0,0x10
-/*  f04cea4:	14200003 */ 	bnez	$at,.L0f04ceb4
-/*  f04cea8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04ceac:
-/*  f04ceac:	03e00008 */ 	jr	$ra
-/*  f04ceb0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04ceb4:
-/*  f04ceb4:	10800009 */ 	beqz	$a0,.L0f04cedc
-/*  f04ceb8:	3c028006 */ 	lui	$v0,0x8006
-/*  f04cebc:	3c038006 */ 	lui	$v1,0x8006
-/*  f04cec0:	8c637e68 */ 	lw	$v1,0x7e68($v1)
-/*  f04cec4:	00047040 */ 	sll	$t6,$a0,0x1
-/*  f04cec8:	006e7821 */ 	addu	$t7,$v1,$t6
-/*  f04cecc:	85f8fffe */ 	lh	$t8,-0x2($t7)
-/*  f04ced0:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f04ced4:	03e00008 */ 	jr	$ra
-/*  f04ced8:	03231021 */ 	addu	$v0,$t9,$v1
-.L0f04cedc:
-/*  f04cedc:	8c427e68 */ 	lw	$v0,0x7e68($v0)
-/*  f04cee0:	2442001e */ 	addiu	$v0,$v0,0x1e
-/*  f04cee4:	03e00008 */ 	jr	$ra
-/*  f04cee8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s16 *squadronGetChrIds(s32 squadron_id)
+{
+	if (squadron_id < 0 || squadron_id >= 16) {
+		return NULL;
+	}
+
+	if (squadron_id != 0) {
+		return &g_SquadronList[g_SquadronList[squadron_id - 1]];
+	}
+
+	return &g_SquadronList[15];
+}
 
 void func0f04ceec(s16 value)
 {
