@@ -5294,7 +5294,7 @@ bool aiChrSetPadPreset(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[4] | (cmd[3] << 8);
 
-	func0f04acc8(g_Vars.chrdata, cmd[2], pad_id);
+	chrSetPadPresetByChrnum(g_Vars.chrdata, cmd[2], pad_id);
 
 	g_Vars.aioffset += 5;
 

@@ -51033,26 +51033,14 @@ void chrSetPadPreset(struct chrdata *chr, s32 pad_id)
 	chr->padpreset1 = padResolve(chr, pad_id);
 }
 
-GLOBAL_ASM(
-glabel func0f04acc8
-/*  f04acc8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04accc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04acd0:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f04acd4:	0fc126d1 */ 	jal	chrFindById
-/*  f04acd8:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f04acdc:	10400006 */ 	beqz	$v0,.L0f04acf8
-/*  f04ace0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f04ace4:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f04ace8:	0fc1258b */ 	jal	padResolve
-/*  f04acec:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f04acf0:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f04acf4:	a4620128 */ 	sh	$v0,0x128($v1)
-.L0f04acf8:
-/*  f04acf8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04acfc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f04ad00:	03e00008 */ 	jr	$ra
-/*  f04ad04:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrSetPadPresetByChrnum(struct chrdata *basechr, s32 chrnum, s32 pad_id)
+{
+	struct chrdata *chr = chrFindById(basechr, chrnum);
+
+	if (chr) {
+		chr->padpreset1 = padResolve(basechr, pad_id);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f04ad08
