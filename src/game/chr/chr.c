@@ -51687,34 +51687,17 @@ glabel chrSpawn
 /*  f04b5f0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04b5f4
-/*  f04b5f4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f04b5f8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f04b5fc:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f04b600:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f04b604:	0fc126d1 */ 	jal	chrFindById
-/*  f04b608:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f04b60c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f04b610:	0fc0f917 */ 	jal	func0f03e45c
-/*  f04b614:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f04b618:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f04b61c:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f04b620:	8fb80044 */ 	lw	$t8,0x44($sp)
-/*  f04b624:	8dc2001c */ 	lw	$v0,0x1c($t6)
-/*  f04b628:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f04b62c:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f04b630:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*  f04b634:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f04b638:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f04b63c:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f04b640:	0fc12cbd */ 	jal	func0f04b2f4
-/*  f04b644:	24470028 */ 	addiu	$a3,$v0,0x28
-/*  f04b648:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f04b64c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f04b650:	03e00008 */ 	jr	$ra
-/*  f04b654:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f04b5f4(struct chrdata *basechr, s32 arg1, s32 arg2, u32 chrnum, s32 arg4, s32 arg5)
+{
+	struct chrdata *chr = chrFindById(basechr, chrnum);
+	float fvalue;
+
+	if (1) {
+		fvalue = func0f03e45c(chr);
+	}
+
+	return func0f04b2f4(arg1, arg2, &chr->pos->coord, &chr->pos->room, fvalue, arg4, arg5);
+}
 
 GLOBAL_ASM(
 glabel func0f04b658
