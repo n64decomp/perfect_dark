@@ -49419,7 +49419,7 @@ s32 func0f0495d0(struct chrdata *chr, s32 pad_id)
 
 		if (resolved_pad_id >= 0) {
 			padUnpack(resolved_pad_id, 0x40, &pad);
-			ret = pad.padnum;
+			ret = pad.room;
 		}
 	} else {
 		ret = pad_id;
@@ -51475,7 +51475,7 @@ glabel func0f04af84
 );
 
 GLOBAL_ASM(
-glabel func0f04b2f4
+glabel chrSpawnAtCoord
 /*  f04b2f4:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f04b2f8:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f04b2fc:	afa40078 */ 	sw	$a0,0x78($sp)
@@ -51652,42 +51652,21 @@ glabel func0f04b2f4
 /*  f04b574:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrSpawn
-/*  f04b578:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f04b57c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f04b580:	afa5008c */ 	sw	$a1,0x8c($sp)
-/*  f04b584:	afa60090 */ 	sw	$a2,0x90($sp)
-/*  f04b588:	0fc1258b */ 	jal	padResolve
-/*  f04b58c:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f04b590:	00402025 */ 	or	$a0,$v0,$zero
-/*  f04b594:	24050046 */ 	addiu	$a1,$zero,0x46
-/*  f04b598:	0fc456ac */ 	jal	padUnpack
-/*  f04b59c:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f04b5a0:	c7ac003c */ 	lwc1	$f12,0x3c($sp)
-/*  f04b5a4:	0fc259d4 */ 	jal	func0f096750
-/*  f04b5a8:	c7ae0044 */ 	lwc1	$f14,0x44($sp)
-/*  f04b5ac:	8fae0078 */ 	lw	$t6,0x78($sp)
-/*  f04b5b0:	8fb80098 */ 	lw	$t8,0x98($sp)
-/*  f04b5b4:	8fb9009c */ 	lw	$t9,0x9c($sp)
-/*  f04b5b8:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f04b5bc:	a7af002e */ 	sh	$t7,0x2e($sp)
-/*  f04b5c0:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f04b5c4:	8fa50090 */ 	lw	$a1,0x90($sp)
-/*  f04b5c8:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f04b5cc:	27a7002c */ 	addiu	$a3,$sp,0x2c
-/*  f04b5d0:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f04b5d4:	a7ae002c */ 	sh	$t6,0x2c($sp)
-/*  f04b5d8:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f04b5dc:	0fc12cbd */ 	jal	func0f04b2f4
-/*  f04b5e0:	afb90018 */ 	sw	$t9,0x18($sp)
-/*  f04b5e4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f04b5e8:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f04b5ec:	03e00008 */ 	jr	$ra
-/*  f04b5f0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *ailist, u32 flags)
+{
+	s32 resolved_pad_id = padResolve(basechr, pad_id);
+	struct pad pad;
+	s16 room[2];
+	float fvalue;
+	padUnpack(resolved_pad_id, 0x46, &pad);
+	fvalue = func0f096750(pad.look.x, pad.look.z);
+	room[0] = pad.room;
+	room[1] = -1;
 
-s32 func0f04b5f4(struct chrdata *basechr, s32 arg1, s32 arg2, u32 chrnum, s32 arg4, s32 arg5)
+	return chrSpawnAtCoord(body, head, &pad.coord, &room[0], fvalue, ailist, flags);
+}
+
+bool chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 flags)
 {
 	struct chrdata *chr = chrFindById(basechr, chrnum);
 	float fvalue;
@@ -51696,7 +51675,7 @@ s32 func0f04b5f4(struct chrdata *basechr, s32 arg1, s32 arg2, u32 chrnum, s32 ar
 		fvalue = func0f03e45c(chr);
 	}
 
-	return func0f04b2f4(arg1, arg2, &chr->pos->coord, &chr->pos->room, fvalue, arg4, arg5);
+	return chrSpawnAtCoord(body, head, &chr->pos->coord, &chr->pos->room, fvalue, ailist, flags);
 }
 
 GLOBAL_ASM(

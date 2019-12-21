@@ -73,9 +73,11 @@ struct pad {
 	/*0x3c*/ float ymax;
 	/*0x40*/ float zmin;
 	/*0x44*/ float zmax;
-	/*0x48*/ s32 padnum;
-	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
+	/*0x48*/ s32 room;
+	/*0x4c*/ s16 unk4c;
+	/*0x4e*/ s16 unk4e;
+	/*0x50*/ s16 unk50;
+	/*0x52*/ s16 unk52;
 };
 
 struct chr020 {
