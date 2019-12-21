@@ -4162,9 +4162,9 @@ glabel func0f020d44
 .L0f020f64:
 /*  f020f64:	8fa8004c */ 	lw	$t0,0x4c($sp)
 .L0f020f68:
-/*  f020f68:	0fc13301 */ 	jal	func0f04cc04
+/*  f020f68:	0fc13301 */ 	jal	rebuildTeams
 /*  f020f6c:	a5100000 */ 	sh	$s0,0x0($t0)
-/*  f020f70:	0fc13341 */ 	jal	func0f04cd04
+/*  f020f70:	0fc13341 */ 	jal	rebuildSquadrons
 /*  f020f74:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f020f78:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f020f7c:
@@ -53252,7 +53252,7 @@ glabel func0f04c874
 );
 
 GLOBAL_ASM(
-glabel func0f04cc04
+glabel rebuildTeams
 /*  f04cc04:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f04cc08:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f04cc0c:	0fc07934 */ 	jal	getNumChrs
@@ -53326,7 +53326,7 @@ glabel func0f04cc04
 );
 
 GLOBAL_ASM(
-glabel func0f04cd04
+glabel rebuildSquadrons
 /*  f04cd04:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f04cd08:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f04cd0c:	0fc07934 */ 	jal	getNumChrs

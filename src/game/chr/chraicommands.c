@@ -6227,9 +6227,9 @@ glabel aiDuplicateChr
 /*  f055d7c:	922e02a2 */ 	lbu	$t6,0x2a2($s1)
 /*  f055d80:	a20e02a2 */ 	sb	$t6,0x2a2($s0)
 /*  f055d84:	922f02b1 */ 	lbu	$t7,0x2b1($s1)
-/*  f055d88:	0fc13301 */ 	jal	func0f04cc04
+/*  f055d88:	0fc13301 */ 	jal	rebuildTeams
 /*  f055d8c:	a20f02b1 */ 	sb	$t7,0x2b1($s0)
-/*  f055d90:	0fc13341 */ 	jal	func0f04cd04
+/*  f055d90:	0fc13341 */ 	jal	rebuildSquadrons
 /*  f055d94:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f055d98:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f055d9c:	afb80054 */ 	sw	$t8,0x54($sp)
@@ -11535,7 +11535,7 @@ bool ai0144(void)
  */
 bool aiRebuildTeams(void)
 {
-	func0f04cc04();
+	rebuildTeams();
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -11546,7 +11546,7 @@ bool aiRebuildTeams(void)
  */
 bool aiRebuildSquadrons(void)
 {
-	func0f04cd04();
+	rebuildSquadrons();
 	g_Vars.aioffset += 2;
 
 	return false;
