@@ -46412,23 +46412,10 @@ glabel func0f046648
 /*  f046a2c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f046a30
-/*  f046a30:	80830007 */ 	lb	$v1,0x7($a0)
-/*  f046a34:	3862000f */ 	xori	$v0,$v1,0xf
-/*  f046a38:	10400004 */ 	beqz	$v0,.L0f046a4c
-/*  f046a3c:	3862000e */ 	xori	$v0,$v1,0xe
-/*  f046a40:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f046a44:	10400004 */ 	beqz	$v0,.L0f046a58
-/*  f046a48:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f046a4c:
-/*  f046a4c:	9082032c */ 	lbu	$v0,0x32c($a0)
-/*  f046a50:	0002702a */ 	slt	$t6,$zero,$v0
-/*  f046a54:	01c01025 */ 	or	$v0,$t6,$zero
-.L0f046a58:
-/*  f046a58:	03e00008 */ 	jr	$ra
-/*  f046a5c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f046a30(struct chrdata *chr)
+{
+	return (chr->actiontype == ACT_GOPOS || chr->actiontype == ACT_PATROL) && chr->unk32c_00 > 0;
+}
 
 GLOBAL_ASM(
 glabel func0f046a60
