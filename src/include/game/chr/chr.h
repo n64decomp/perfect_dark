@@ -368,7 +368,7 @@ u32 func0f04a0e4(struct chrdata *chr);
 s32 chrGetNumArghs(struct chrdata *chr);
 s32 chrGetNumCloseArghs(struct chrdata *chr);
 u32 func0f04a110(struct chrdata *chr, u32 arg1);
-u32 func0f04a1ac(struct chrdata *chr, u32 arg1);
+bool chrSawDeath(struct chrdata *chr, u8 arg1);
 bool func0f04a2b4(struct chrdata *chr);
 u32 func0f04a2d4(void);
 u32 func0f04a37c(void);

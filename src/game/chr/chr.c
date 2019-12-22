@@ -50270,7 +50270,7 @@ glabel func0f04a110
 );
 
 GLOBAL_ASM(
-glabel func0f04a1ac
+glabel chrSawDeath
 /*  f04a1ac:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f04a1b0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f04a1b4:	afa50024 */ 	sw	$a1,0x24($sp)
@@ -50317,6 +50317,27 @@ glabel func0f04a1ac
 /*  f04a248:	03e00008 */ 	jr	$ra
 /*  f04a24c:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because it uses the wrong register for chr->chrseedie
+//bool chrSawDeath(struct chrdata *chr, u8 arg1)
+//{
+//	bool saw_death = chr->chrseedie >= 0;
+//
+//	if (!saw_death || arg1) {
+//		if (saw_death && arg1 == 1) {
+//			struct chrdata *victim = chrFindById(chr, chr->chrseedie);
+//
+//			if (victim && !func0f04aa8c(chr, victim, 1)) {
+//				saw_death = false;
+//				chr->chrseedie = -1;
+//			}
+//		} else {
+//			chr->chrseedie = -1;
+//		}
+//	}
+//
+//	return saw_death;
+//}
 
 void decrementByte(u8 *dst, u8 amount)
 {

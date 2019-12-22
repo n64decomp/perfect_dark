@@ -1646,7 +1646,7 @@ bool aiIfSawDeath(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f04a1ac(g_Vars.chrdata, cmd[2])) {
+	if (chrSawDeath(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
