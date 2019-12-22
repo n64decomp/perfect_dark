@@ -86,6 +86,63 @@ struct chr020 {
 	/*0x08*/ u32 unk08;
 };
 
+struct chr2d4 {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ u8 unk4c_00 : 1;
+	/*0x4c*/ u8 unk4c_01 : 1;
+	/*0x4c*/ u8 unk4c_02 : 1;
+	/*0x4c*/ u8 unk4c_03 : 1;
+	/*0x4c*/ u8 unk4c_04 : 1;
+	/*0x4c*/ u8 unk4c_05 : 1;
+	/*0x4c*/ u8 unk4c_06 : 1;
+	/*0x4c*/ u8 unk4c_07 : 1;
+	/*0x50*/ u32 unk50;
+	/*0x54*/ u32 unk54;
+	/*0x58*/ u32 unk58;
+	/*0x5c*/ u32 unk5c;
+	/*0x60*/ u32 unk60;
+	/*0x64*/ u32 unk64;
+	/*0x68*/ u32 unk68;
+	/*0x6c*/ u32 unk6c;
+	/*0x70*/ u32 unk70;
+	/*0x74*/ u32 unk74;
+	/*0x78*/ u32 unk78;
+	/*0x7c*/ u32 unk7c;
+	/*0x80*/ u32 unk80;
+	/*0x84*/ u32 unk84;
+	/*0x88*/ u32 unk88;
+	/*0x8c*/ u32 unk8c;
+	/*0x90*/ u32 unk90;
+	/*0x94*/ u32 unk94;
+	/*0x98*/ u32 unk98;
+	/*0x9c*/ u8 unk9c_00 : 1;
+	/*0x9c*/ u8 unk9c_01 : 1;
+	/*0x9c*/ u8 unk9c_02 : 1;
+	/*0x9c*/ u8 unk9c_03 : 1;
+	/*0x9c*/ u8 unk9c_04 : 1;
+	/*0x9c*/ u8 unk9c_05 : 1;
+	/*0x9c*/ u8 unk9c_06 : 1;
+	/*0x9c*/ u8 unk9c_07 : 1;
+};
+
 struct chrdata {
 	/*0x000*/ s16 chrnum;
 	/*0x002*/ s8 accuracyrating;
@@ -111,9 +168,22 @@ struct chrdata {
 	/*0x024*/ u32 chrwidth;
 	/*0x028*/ u32 chrheight;
 	/*0x02c*/ u32 unk02c;
-	/*0x030*/ u32 unk030;
-	/*0x034*/ u32 unk034;
-	/*0x038*/ s32 unk038;
+
+	union {
+		/*0x030*/ u32 unk030;
+		/*0x030*/ float unk030_float;
+	};
+
+	union {
+		/*0x034*/ u32 unk034;
+		/*0x034*/ float unk034_float;
+	};
+
+	union {
+		/*0x038*/ s32 unk038;
+		/*0x038*/ float unk038_float;
+	};
+
 	/*0x03c*/ u32 unk03c;
 	/*0x040*/ u32 unk040;
 	/*0x044*/ u32 unk044;
@@ -238,7 +308,7 @@ struct chrdata {
 	/*0x2b4*/ u32 unk2b4;
 	/*0x2b8*/ u16 oldrooms[8];
 	/*0x2c8*/ struct coord runfrompos;
-	/*0x2d4*/ u32 unk2d4;
+	/*0x2d4*/ struct chr2d4 *unk2d4;
 	/*0x2d8*/ s16 blurdrugamount;
 	/*0x2da*/ u16 cloakpause;
 	/*0x2dc*/ u32 drugheadsway;

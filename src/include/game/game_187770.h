@@ -92,7 +92,7 @@ u32 func0f18cc8c(void);
 u32 func0f18ccf8(void);
 u32 func0f18cd68(void);
 u32 func0f18cddc(void);
-u32 func0f18cff8(void);
+s32 func0f18cff8(struct chrdata *chr);
 u32 func0f18d040(void);
 u32 func0f18d074(void);
 u32 func0f18d0e8(void);

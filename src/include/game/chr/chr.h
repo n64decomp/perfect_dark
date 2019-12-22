@@ -188,7 +188,7 @@ u32 func0f034330(struct chrdata *chr, s32 arg1, struct coord *coord, s32 arg3);
 u32 func0f034410(void);
 u32 func0f034480(void);
 u32 func0f034524(void);
-u32 func0f036358(void);
+void func0f036358(struct chrdata *chr, s32 arg1);
 u32 func0f03645c(void);
 u32 func0f03654c(void);
 u32 func0f0368b8(void);
