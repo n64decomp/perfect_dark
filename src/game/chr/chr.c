@@ -47272,47 +47272,18 @@ glabel func0f0473cc
 /*  f047678:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04767c
-/*  f04767c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f047680:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f047684:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f047688:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f04768c:	10800017 */ 	beqz	$a0,.L0f0476ec
-/*  f047690:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f047694:	808e0007 */ 	lb	$t6,0x7($a0)
-/*  f047698:	24010023 */ 	addiu	$at,$zero,0x23
-/*  f04769c:	51c10014 */ 	beql	$t6,$at,.L0f0476f0
-/*  f0476a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0476a4:	0fc0e686 */ 	jal	func0f039a18
-/*  f0476a8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0476ac:	1040000f */ 	beqz	$v0,.L0f0476ec
-/*  f0476b0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f0476b4:	10800003 */ 	beqz	$a0,.L0f0476c4
-/*  f0476b8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0476bc:	10000002 */ 	beqz	$zero,.L0f0476c8
-/*  f0476c0:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f0476c4:
-/*  f0476c4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0476c8:
-/*  f0476c8:	14410008 */ 	bne	$v0,$at,.L0f0476ec
-/*  f0476cc:	93a50027 */ 	lbu	$a1,0x27($sp)
-/*  f0476d0:	93af0033 */ 	lbu	$t7,0x33($sp)
-/*  f0476d4:	93a6002b */ 	lbu	$a2,0x2b($sp)
-/*  f0476d8:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f0476dc:	0fc11dc0 */ 	jal	func0f047700
-/*  f0476e0:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0476e4:	10000003 */ 	beqz	$zero,.L0f0476f4
-/*  f0476e8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0476ec:
-/*  f0476ec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0476f0:
-/*  f0476f0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0476f4:
-/*  f0476f4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0476f8:	03e00008 */ 	jr	$ra
-/*  f0476fc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f04767c(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
+{
+	if (chr && chr->actiontype != ACT_SKJUMP && func0f039a18(chr)) {
+		u8 race = chr ? chr->race : 0;
+
+		if (race == 1) {
+			return func0f047700(chr, arg1, arg2, arg3, arg4);
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f047700
