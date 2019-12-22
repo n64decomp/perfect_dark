@@ -70,8 +70,8 @@
 /*0x0040*/ bool ai0040(void);
 /*0x0041*/ bool ai0041(void);
 /*0x0042*/ bool aiIfInLoadedRoom(void);
-/*0x0043*/ bool ai0043(void);
-/*0x0044*/ bool aiIfShotAtCloseRange(void);
+/*0x0043*/ bool aiIfSawTargetRecently(void);
+/*0x0044*/ bool aiIfHeardTargetRecently(void);
 /*0x0045*/ bool ai0045(void);
 /*0x0046*/ bool aiIfNeverBeenOnScreen(void);
 /*0x0047*/ bool ai0047(void);

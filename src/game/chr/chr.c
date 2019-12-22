@@ -31614,13 +31614,13 @@ glabel func0f039558
 
 void chrSaveLastSeeTarget(struct chrdata *chr)
 {
-	chr->lastseetarget60 = g_Vars.unk000008;
+	chr->lastseetarget60 = g_Vars.tickcount;
 }
 
 void chrSaveLastHearTarget(struct chrdata *chr)
 {
 	chr->hidden |= CHRHFLAG_00000002;
-	chr->lastheartarget60 = g_Vars.unk000008;
+	chr->lastheartarget60 = g_Vars.tickcount;
 }
 
 GLOBAL_ASM(
@@ -48648,43 +48648,23 @@ glabel func0f048398
 /*  f048a10:	27bd00e8 */ 	addiu	$sp,$sp,0xe8
 );
 
-GLOBAL_ASM(
-glabel func0f048a14
-/*  f048a14:	8c8200e0 */ 	lw	$v0,0xe0($a0)
-/*  f048a18:	3c0e800a */ 	lui	$t6,0x800a
-/*  f048a1c:	58400009 */ 	blezl	$v0,.L0f048a44
-/*  f048a20:	00001025 */ 	or	$v0,$zero,$zero
-/*  f048a24:	8dce9fc8 */ 	lw	$t6,-0x6038($t6)
-/*  f048a28:	01c27823 */ 	subu	$t7,$t6,$v0
-/*  f048a2c:	29e10258 */ 	slti	$at,$t7,0x258
-/*  f048a30:	50200004 */ 	beqzl	$at,.L0f048a44
-/*  f048a34:	00001025 */ 	or	$v0,$zero,$zero
-/*  f048a38:	03e00008 */ 	jr	$ra
-/*  f048a3c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f048a40:	00001025 */ 	or	$v0,$zero,$zero
-.L0f048a44:
-/*  f048a44:	03e00008 */ 	jr	$ra
-/*  f048a48:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrSawTargetRecently(struct chrdata *chr)
+{
+	if (chr->lastseetarget60 > 0 && g_Vars.tickcount - chr->lastseetarget60 < 600) {
+		return true;
+	}
 
-GLOBAL_ASM(
-glabel func0f048a4c
-/*  f048a4c:	8c8200f4 */ 	lw	$v0,0xf4($a0)
-/*  f048a50:	3c0e800a */ 	lui	$t6,0x800a
-/*  f048a54:	58400009 */ 	blezl	$v0,.L0f048a7c
-/*  f048a58:	00001025 */ 	or	$v0,$zero,$zero
-/*  f048a5c:	8dce9fc8 */ 	lw	$t6,-0x6038($t6)
-/*  f048a60:	01c27823 */ 	subu	$t7,$t6,$v0
-/*  f048a64:	29e10258 */ 	slti	$at,$t7,0x258
-/*  f048a68:	50200004 */ 	beqzl	$at,.L0f048a7c
-/*  f048a6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f048a70:	03e00008 */ 	jr	$ra
-/*  f048a74:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f048a78:	00001025 */ 	or	$v0,$zero,$zero
-.L0f048a7c:
-/*  f048a7c:	03e00008 */ 	jr	$ra
-/*  f048a80:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	return false;
+}
+
+bool chrHeardTargetRecently(struct chrdata *chr)
+{
+	if (chr->lastheartarget60 > 0 && g_Vars.tickcount - chr->lastheartarget60 < 600) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f048a84

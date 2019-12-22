@@ -279,7 +279,17 @@
 	mkword(value), \
 	label,
 
-#define if_shot_at_close_range(label) \
+/**
+ * Go to the label if the chr saw their target within the last 10 seconds.
+ */
+#define if_saw_target_recently(label) \
+	mkshort(0x0043), \
+	label,
+
+/**
+ * Go to the label if the chr heard their target within the last 10 seconds.
+ */
+#define if_heard_target_recently(label) \
 	mkshort(0x0044), \
 	label,
 

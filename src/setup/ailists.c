@@ -188,7 +188,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x16)
 	dprint 'C','H','E','K','H','E','A','R','\n',0,
-	if_shot_at_close_range(/*goto*/ LABEL_HEAR_DETECT)
+	if_heard_target_recently(/*goto*/ LABEL_HEAR_DETECT)
 	label(0x13)
 	dprint 'N','O','T','H','E','A','R','D','\n',0,
 
@@ -4497,7 +4497,7 @@ u8 func001f_related_to_spawning[] = {
 	goto_next(0x13)
 
 	label(0x16)
-	if_shot_at_close_range(/*goto*/ 0x1f)
+	if_heard_target_recently(/*goto*/ 0x1f)
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_HEAR_ALARMS, FALSE, BANK_0, /*goto*/ 0x16)
 	if_alarm_active(/*goto*/ 0x23)

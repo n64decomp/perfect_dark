@@ -1741,9 +1741,9 @@ bool aiIfInLoadedRoom(void)
 /**
  * @cmd 0043
  */
-bool ai0043(void)
+bool aiIfSawTargetRecently(void)
 {
-	if (func0f048a14(g_Vars.chrdata)) {
+	if (chrSawTargetRecently(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1756,9 +1756,9 @@ bool ai0043(void)
 /**
  * @cmd 0044
  */
-bool aiIfShotAtCloseRange(void)
+bool aiIfHeardTargetRecently(void)
 {
-	if (func0f048a4c(g_Vars.chrdata)) {
+	if (chrHeardTargetRecently(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -7746,7 +7746,7 @@ bool aiSetDoorClosed(void)
 		struct doorobj *door = (struct doorobj *) obj;
 		door->speed = door->unk5c;
 		door->unk80 = 0;
-		door->unkc0 = g_Vars.unk000008;
+		door->unkc0 = g_Vars.tickcount;
 		door->state = 0;
 		func0f08c54c(door);
 		func0f08d4e8(door);

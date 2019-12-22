@@ -1618,7 +1618,7 @@ u8 func0416_mechanic[] = {
 		beginloop(0x0d)
 			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
-			if_shot_at_close_range(/*goto*/ 0x2e)
+			if_heard_target_recently(/*goto*/ 0x2e)
 			if_target_chr_in_sight(/*goto*/ 0x2e)
 			if_chr_stopped(/*goto*/ 0x06)
 		endloop(0x0d)
@@ -2888,7 +2888,7 @@ u8 func0421_activate_autogun[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2e)
-		if_shot_at_close_range(/*goto*/ 0x2e)
+		if_heard_target_recently(/*goto*/ 0x2e)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2e)
 	endloop(0x04)
 
