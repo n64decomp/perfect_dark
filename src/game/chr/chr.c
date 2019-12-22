@@ -33025,7 +33025,7 @@ glabel func0f03a894
 /*  f03a8ec:	05030016 */ 	bgezl	$t0,.L0f03a948
 /*  f03a8f0:	00001025 */ 	or	$v0,$zero,$zero
 .L0f03a8f4:
-/*  f03a8f4:	0fc1258b */ 	jal	padResolve
+/*  f03a8f4:	0fc1258b */ 	jal	chrResolvePadId
 /*  f03a8f8:	00e02825 */ 	or	$a1,$a3,$zero
 /*  f03a8fc:	04400011 */ 	bltz	$v0,.L0f03a944
 /*  f03a900:	00402025 */ 	or	$a0,$v0,$zero
@@ -33782,7 +33782,7 @@ bool func0f03b5f0(struct chrdata *chr, s32 pad_id)
 	s32 race = chr ? chr->race : 0;
 
 	if (race == 0 && func0f039a18(chr)) {
-		pad_id = padResolve(chr, pad_id);
+		pad_id = chrResolvePadId(chr, pad_id);
 
 		if (pad_id >= 0) {
 			struct defaultobj *obj = func0f0681c0(pad_id);
@@ -48793,7 +48793,7 @@ glabel func0f048b78
 /*  f048c00:	30a90008 */ 	andi	$t1,$a1,0x8
 /*  f048c04:	11200014 */ 	beqz	$t1,.L0f048c58
 /*  f048c08:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f048c0c:	0fc1258b */ 	jal	padResolve
+/*  f048c0c:	0fc1258b */ 	jal	chrResolvePadId
 /*  f048c10:	afa7008c */ 	sw	$a3,0x8c($sp)
 /*  f048c14:	00402025 */ 	or	$a0,$v0,$zero
 /*  f048c18:	24050042 */ 	addiu	$a1,$zero,0x42
@@ -49258,7 +49258,7 @@ float chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
 	float xdiff, ydiff, zdiff;
 	float distance = 0;
 	struct pad pad;
-	pad_id = padResolve(chr, pad_id);
+	pad_id = chrResolvePadId(chr, pad_id);
 
 	if (pad_id >= 0) {
 		padUnpack(pad_id, 2, &pad);
@@ -49276,7 +49276,7 @@ glabel chrGetSameFloorDistanceToPad
 /*  f049380:   27bdff78 */     addiu   $sp,$sp,-136
 /*  f049384:   afbf0014 */     sw      $ra,0x14($sp)
 /*  f049388:   8c83001c */     lw      $v1,0x1c($a0)
-/*  f04938c:   0fc1258b */     jal     padResolve
+/*  f04938c:   0fc1258b */     jal     chrResolvePadId
 /*  f049390:   afa30084 */     sw      $v1,0x84($sp)
 /*  f049394:   00402025 */     or      $a0,$v0,$zero
 /*  f049398:   24050002 */     addiu   $a1,$zero,0x2
@@ -49334,7 +49334,7 @@ glabel chrGetSameFloorDistanceToPad
 //	struct pad pad;
 //	float ret;
 //
-//	pad_id = padResolve(chr, pad_id);
+//	pad_id = chrResolvePadId(chr, pad_id);
 //	padUnpack(pad_id, 2, &pad);
 //	xdiff = pad.coord.x - pos->coord.x;
 //	ydiff = pad.coord.y - pos->coord.y;
@@ -49378,7 +49378,7 @@ float chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
 	float xdiff, zdiff;
 	struct pad pad;
 	float distance = 0;
-	pad_id = padResolve(chr, pad_id);
+	pad_id = chrResolvePadId(chr, pad_id);
 
 	if (pad_id >= 0) {
 		padUnpack(pad_id, 2, &pad);
@@ -49408,14 +49408,14 @@ float coordGetSquaredDistanceToCoord(struct coord *a, struct coord *b)
 	return xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 }
 
-s32 func0f0495d0(struct chrdata *chr, s32 pad_id)
+s32 chrGetPadRoom(struct chrdata *chr, s32 pad_id)
 {
 	s32 ret = -1;
 	s32 pad_id_backup = pad_id;
 	struct pad pad;
 
 	if (pad_id >= 10000) {
-		s32 resolved_pad_id = padResolve(chr, pad_id - 10000);
+		s32 resolved_pad_id = chrResolvePadId(chr, pad_id - 10000);
 
 		if (resolved_pad_id >= 0) {
 			padUnpack(resolved_pad_id, 0x40, &pad);
@@ -49428,7 +49428,7 @@ s32 func0f0495d0(struct chrdata *chr, s32 pad_id)
 	return ret;
 }
 
-s32 padResolve(struct chrdata *chr, s32 pad_id)
+s32 chrResolvePadId(struct chrdata *chr, s32 pad_id)
 {
 	if (pad_id == 9000) {
 		pad_id = chr->padpreset1;
@@ -50015,7 +50015,7 @@ float chrGetDistanceFromTargetToPad(struct chrdata *chr, s32 pad_id)
 	float xdiff, ydiff, zdiff;
 	struct pad pad;
 	float distance = 0;
-	pad_id = padResolve(chr, pad_id);
+	pad_id = chrResolvePadId(chr, pad_id);
 
 	if (pad_id >= 0) {
 		padUnpack(pad_id, 2, &pad);
@@ -50738,7 +50738,7 @@ glabel func0f04a7dc
 /*  f04a7e8:	afa5007c */ 	sw	$a1,0x7c($sp)
 /*  f04a7ec:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f04a7f0:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f04a7f4:	0fc1258b */ 	jal	padResolve
+/*  f04a7f4:	0fc1258b */ 	jal	chrResolvePadId
 /*  f04a7f8:	00e02825 */ 	or	$a1,$a3,$zero
 /*  f04a7fc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f04a800:	24050042 */ 	addiu	$a1,$zero,0x42
@@ -50984,7 +50984,7 @@ void chrSetChrPresetByChrnum(struct chrdata *basechr, s32 chrnum, s32 chrpreset)
 
 void chrSetPadPreset(struct chrdata *chr, s32 pad_id)
 {
-	chr->padpreset1 = padResolve(chr, pad_id);
+	chr->padpreset1 = chrResolvePadId(chr, pad_id);
 }
 
 void chrSetPadPresetByChrnum(struct chrdata *basechr, s32 chrnum, s32 pad_id)
@@ -50992,7 +50992,7 @@ void chrSetPadPresetByChrnum(struct chrdata *basechr, s32 chrnum, s32 pad_id)
 	struct chrdata *chr = chrFindById(basechr, chrnum);
 
 	if (chr) {
-		chr->padpreset1 = padResolve(basechr, pad_id);
+		chr->padpreset1 = chrResolvePadId(basechr, pad_id);
 	}
 }
 
@@ -51596,7 +51596,7 @@ glabel chrSpawnAtCoord
 
 bool chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *ailist, u32 flags)
 {
-	s32 resolved_pad_id = padResolve(basechr, pad_id);
+	s32 resolved_pad_id = chrResolvePadId(basechr, pad_id);
 	struct pad pad;
 	s16 room[2];
 	float fvalue;

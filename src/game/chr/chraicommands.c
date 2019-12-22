@@ -1893,7 +1893,7 @@ bool ai0049(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 value1 = cmd[3] | (cmd[2] << 8);
-	s32 value2 = func0f0495d0(g_Vars.chrdata, value1);
+	s32 value2 = chrGetPadRoom(g_Vars.chrdata, value1);
 
 	if (value2 >= 0 && func0f15d6e8(value2)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -2691,7 +2691,7 @@ glabel ai005b
 /*  f051200:	0018ca00 */ 	sll	$t9,$t8,0x8
 /*  f051204:	032a1825 */ 	or	$v1,$t9,$t2
 /*  f051208:	3065ffff */ 	andi	$a1,$v1,0xffff
-/*  f05120c:	0fc12574 */ 	jal	func0f0495d0
+/*  f05120c:	0fc12574 */ 	jal	chrGetPadRoom
 /*  f051210:	afa50034 */ 	sw	$a1,0x34($sp)
 /*  f051214:	8fa7005c */ 	lw	$a3,0x5c($sp)
 /*  f051218:	8fa60058 */ 	lw	$a2,0x58($sp)
@@ -2886,7 +2886,7 @@ glabel aiIfTargetInRoom
 /*  f0514a4:	afa20020 */ 	sw	$v0,0x20($sp)
 /*  f0514a8:	00194200 */ 	sll	$t0,$t9,0x8
 /*  f0514ac:	01091825 */ 	or	$v1,$t0,$t1
-/*  f0514b0:	0fc12574 */ 	jal	func0f0495d0
+/*  f0514b0:	0fc12574 */ 	jal	chrGetPadRoom
 /*  f0514b4:	3065ffff */ 	andi	$a1,$v1,0xffff
 /*  f0514b8:	0440000d */ 	bltz	$v0,.L0f0514f0
 /*  f0514bc:	8fa60020 */ 	lw	$a2,0x20($sp)
@@ -2921,7 +2921,7 @@ glabel aiIfTargetInRoom
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	struct position *pos = chrGetTargetPosition(g_Vars.chrdata);
 //	s32 room_id = cmd[3] | (cmd[2] << 8);
-//	room_id = func0f0495d0(g_Vars.chrdata, room_id & 0xffff);
+//	room_id = chrGetPadRoom(g_Vars.chrdata, room_id & 0xffff);
 //
 //	if (room_id >= 0 && pos && room_id == pos->room) {
 //		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -7511,7 +7511,7 @@ glabel ai00e2
 /*  f057780:	920c0004 */ 	lbu	$t4,0x4($s0)
 /*  f057784:	afa30094 */ 	sw	$v1,0x94($sp)
 /*  f057788:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*  f05778c:	0fc1258b */ 	jal	padResolve
+/*  f05778c:	0fc1258b */ 	jal	chrResolvePadId
 /*  f057790:	016c2825 */ 	or	$a1,$t3,$t4
 /*  f057794:	04400014 */ 	bltz	$v0,.L0f0577e8
 /*  f057798:	8fa30094 */ 	lw	$v1,0x94($sp)
@@ -8005,7 +8005,7 @@ bool aiIfObjInRoom(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	u16 room_id = cmd[4] | (cmd[3] << 8);
-	s32 room_something = func0f0495d0(g_Vars.chrdata, room_id);
+	s32 room_something = chrGetPadRoom(g_Vars.chrdata, room_id);
 
 	if (room_something >= 0 && obj && obj->pos && room_something == obj->pos->room) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
@@ -8414,7 +8414,7 @@ bool aiSetLights(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 room_id = cmd[3] | (cmd[2] << 8);
-	s32 thing = func0f0495d0(g_Vars.chrdata, room_id);
+	s32 thing = chrGetPadRoom(g_Vars.chrdata, room_id);
 
 	if (thing >= 0) {
 		switch (cmd[4]) {
@@ -12747,7 +12747,7 @@ glabel aiIfObjectDistanceToPadLessThan
 /*  f05d674:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05d678:	8e040424 */ 	lw	$a0,0x424($s0)
 /*  f05d67c:	afa30094 */ 	sw	$v1,0x94($sp)
-/*  f05d680:	0fc1258b */ 	jal	padResolve
+/*  f05d680:	0fc1258b */ 	jal	chrResolvePadId
 /*  f05d684:	afa00024 */ 	sw	$zero,0x24($sp)
 /*  f05d688:	8fa30094 */ 	lw	$v1,0x94($sp)
 /*  f05d68c:	8fa70024 */ 	lw	$a3,0x24($sp)
@@ -12837,7 +12837,7 @@ glabel aiIfObjectDistanceToPadLessThan
 //	bool pass = false;
 //
 //	if (obj && obj->pos) {
-//		pad_id = padResolve(g_Vars.chrdata, pad_id);
+//		pad_id = chrResolvePadId(g_Vars.chrdata, pad_id);
 //
 //		if (pad_id >= 0) {
 //			padUnpack(pad_id, 2, &pad);
