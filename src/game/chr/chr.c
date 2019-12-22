@@ -20096,46 +20096,21 @@ glabel func0f02f070
 /*  f02f284:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f02f288
-/*  f02f288:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f02f28c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02f290:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f02f294:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02f298:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f02f29c:	0fc0fe3d */ 	jal	func0f03f8f4
-/*  f02f2a0:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f02f2a4:	240e0014 */ 	addiu	$t6,$zero,0x14
-/*  f02f2a8:	a20e0007 */ 	sb	$t6,0x7($s0)
-/*  f02f2ac:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f02f2b0:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02f2b4:	ae0f0034 */ 	sw	$t7,0x34($s0)
-/*  f02f2b8:	8fb80028 */ 	lw	$t8,0x28($sp)
-/*  f02f2bc:	a2000008 */ 	sb	$zero,0x8($s0)
-/*  f02f2c0:	0c0076e5 */ 	jal	func0001db94
-/*  f02f2c4:	ae180038 */ 	sw	$t8,0x38($s0)
-/*  f02f2c8:	10400006 */ 	beqz	$v0,.L0f02f2e4
-/*  f02f2cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02f2d0:	8e190014 */ 	lw	$t9,0x14($s0)
-/*  f02f2d4:	3c010020 */ 	lui	$at,0x20
-/*  f02f2d8:	03214025 */ 	or	$t0,$t9,$at
-/*  f02f2dc:	10000008 */ 	beqz	$zero,.L0f02f300
-/*  f02f2e0:	ae080014 */ 	sw	$t0,0x14($s0)
-.L0f02f2e4:
-/*  f02f2e4:	0fc0bc1c */ 	jal	func0f02f070
-/*  f02f2e8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02f2ec:	8e090014 */ 	lw	$t1,0x14($s0)
-/*  f02f2f0:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f02f2f4:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f02f2f8:	01215024 */ 	and	$t2,$t1,$at
-/*  f02f2fc:	ae0a0014 */ 	sw	$t2,0x14($s0)
-.L0f02f300:
-/*  f02f300:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02f304:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f02f308:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02f30c:	03e00008 */ 	jr	$ra
-/*  f02f310:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f02f288(struct chrdata *chr, s32 arg1, s32 arg2)
+{
+	func0f03f8f4(chr);
+	chr->actiontype = ACT_THROWGRENADE;
+	chr->unk034 = arg1;
+	chr->unk038 = arg2;
+	chr->sleep = 0;
+
+	if (func0001db94(chr->unk020)) {
+		chr->hidden |= CHRHFLAG_00200000;
+	} else {
+		func0f02f070(chr);
+		chr->hidden &= ~CHRHFLAG_00200000;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f02f314
