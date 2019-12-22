@@ -1922,9 +1922,9 @@ bool ai004a(void)
 /**
  * @cmd 004b
  */
-bool ai004b(void)
+bool aiIfNearMiss(void)
 {
-	if (func0f04a0e4(g_Vars.chrdata)) {
+	if (chrResetNearMiss(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -8579,7 +8579,7 @@ bool aiSetTarget(void)
 			g_Vars.chrdata->lastseetarget60 = 0;
 			g_Vars.chrdata->lastheartarget60 = 0;
 			g_Vars.chrdata->hidden &= ~CHRHFLAG_00000002;
-			g_Vars.chrdata->chrflags &= ~CHRCFLAG_00000004;
+			g_Vars.chrdata->chrflags &= ~CHRCFLAG_NEAR_MISS;
 			g_Vars.chrdata->target = prop_id;
 		}
 	} else if (g_Vars.hovdata) {

@@ -78,7 +78,7 @@
 /*0x0048*/ bool ai0048(void);
 /*0x0049*/ bool ai0049(void);
 /*0x004a*/ bool ai004a(void);
-/*0x004b*/ bool ai004b(void);
+/*0x004b*/ bool aiIfNearMiss(void);
 /*0x004c*/ bool ai004c(void);
 /*0x004d*/ bool ai004d(void);
 /*0x004e*/ bool ai004e(void);

@@ -214,7 +214,7 @@
 // chr->chrflags
 #define CHRCFLAG_00000001                    0x00000001 // Villa takers, Attack Ship Cass and skedar - both set at end of intros
 #define CHRCFLAG_00000002                    0x00000002 // Seems to be set on guards who can spawn clones?
-#define CHRCFLAG_00000004                    0x00000004 // Not used in scripts
+#define CHRCFLAG_NEAR_MISS                   0x00000004
 #define CHRCFLAG_NEVER_BEEN_ON_SCREEN        0x00000008
 #define CHRCFLAG_INVINCIBLE_TO_GUNFIRE       0x00000010
 #define CHRCFLAG_00000020                    0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR

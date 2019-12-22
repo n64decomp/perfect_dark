@@ -50202,16 +50202,13 @@ glabel func0f049fcc
 /*  f04a0e0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04a0e4
-/*  f04a0e4:	8c850018 */ 	lw	$a1,0x18($a0)
-/*  f04a0e8:	2401fffb */ 	addiu	$at,$zero,-5
-/*  f04a0ec:	30a30004 */ 	andi	$v1,$a1,0x4
-/*  f04a0f0:	00a17824 */ 	and	$t7,$a1,$at
-/*  f04a0f4:	0003102b */ 	sltu	$v0,$zero,$v1
-/*  f04a0f8:	03e00008 */ 	jr	$ra
-/*  f04a0fc:	ac8f0018 */ 	sw	$t7,0x18($a0)
-);
+bool chrResetNearMiss(struct chrdata *chr)
+{
+	bool has_flag = (chr->chrflags & CHRCFLAG_NEAR_MISS) != 0;
+	chr->chrflags &= ~CHRCFLAG_NEAR_MISS;
+
+	return has_flag;
+}
 
 s32 chrGetNumArghs(struct chrdata *chr)
 {

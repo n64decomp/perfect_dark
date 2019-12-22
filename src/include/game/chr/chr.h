@@ -364,7 +364,7 @@ u32 func0f04911c(void);
 s32 func0f0495d0(struct chrdata *chr, s32 pad_id);
 u32 func0f049644(void);
 u32 func0f049fcc(struct chrdata *chr);
-u32 func0f04a0e4(struct chrdata *chr);
+u32 chrResetNearMiss(struct chrdata *chr);
 s32 chrGetNumArghs(struct chrdata *chr);
 s32 chrGetNumCloseArghs(struct chrdata *chr);
 bool chrSawInjury(struct chrdata *chr, u8 arg1);
