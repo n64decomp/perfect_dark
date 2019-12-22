@@ -3263,7 +3263,7 @@ u8 func040c_blonde[] = {
 	set_onshot_function(GFUNC_ALERTED)
 
 	beginloop(0x08)
-		if_shot_near_chr(0x00, /*goto*/ 0x06)
+		if_saw_injury(0x00, /*goto*/ 0x06)
 		if_saw_death(0x00, /*goto*/ 0x06)
 		if_chr_sees_player(/*goto*/ 0x06)
 	endloop(0x08)

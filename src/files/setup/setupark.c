@@ -1657,7 +1657,7 @@ u8 func0409_tech_conversation[] = {
 	animation(0x0204, -1, -1, 0x02, 0x14, 0x10, 2)
 
 	beginloop(0x28)
-		if_shot_near_chr(0x00, /*goto*/ 0x33)
+		if_saw_injury(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
 		if_timer_gt(30, /*goto*/ 0x20)
 	endloop(0x28)
@@ -1669,7 +1669,7 @@ u8 func0409_tech_conversation[] = {
 	restart_timer
 
 	beginloop(0x21)
-		if_shot_near_chr(0x00, /*goto*/ 0x33)
+		if_saw_injury(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
@@ -1690,7 +1690,7 @@ u8 func0409_tech_conversation[] = {
 	speak(CHR_PRESET, 0x0626, 0x8120, CHANNEL_7, COLOR_08_RED) // "Yes, it is."
 
 	beginloop(0x22)
-		if_shot_near_chr(0x00, /*goto*/ 0x33)
+		if_saw_injury(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
@@ -1711,7 +1711,7 @@ u8 func0409_tech_conversation[] = {
 	speak(CHR_PRESET, 0x0627, 0x811e, CHANNEL_7, COLOR_06_WHITE) // "Give it to me - you're doing it wrong."
 
 	beginloop(0x23)
-		if_shot_near_chr(0x00, /*goto*/ 0x33)
+		if_saw_injury(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
@@ -1732,7 +1732,7 @@ u8 func0409_tech_conversation[] = {
 	speak(CHR_PRESET, 0x0628, 0x8121, CHANNEL_7, COLOR_08_RED) // "Stop annoying me."
 
 	beginloop(0x24)
-		if_shot_near_chr(0x00, /*goto*/ 0x33)
+		if_saw_injury(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
@@ -1754,7 +1754,7 @@ u8 func0409_tech_conversation[] = {
 	speak(CHR_PRESET, 0x0629, 0x8123, CHANNEL_7, COLOR_09_BLUE) // "Will you just hurry up!"
 
 	beginloop(0x25)
-		if_shot_near_chr(0x00, /*goto*/ 0x33)
+		if_saw_injury(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
@@ -1774,7 +1774,7 @@ u8 func0409_tech_conversation[] = {
 	stop_chr
 
 	beginloop(0x26)
-		if_shot_near_chr(0x00, /*goto*/ 0x33)
+		if_saw_injury(0x00, /*goto*/ 0x33)
 		if_saw_death(0x00, /*goto*/ 0x33)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)

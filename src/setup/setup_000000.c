@@ -14193,7 +14193,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x003a*/ aiIfAlarmActive,
 	/*0x003b*/ aiIfAlarmInactive,
 	/*0x003c*/ ai003c,
-	/*0x003d*/ ai003d,
+	/*0x003d*/ aiIfSawInjury,
 	/*0x003e*/ aiIfSawDeath,
 	/*0x003f*/ aiIfSeesPlayer,
 	/*0x0040*/ ai0040,

@@ -50224,7 +50224,7 @@ s32 chrGetNumCloseArghs(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f04a110
+glabel chrSawInjury
 /*  f04a110:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f04a114:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f04a118:	afa50024 */ 	sw	$a1,0x24($sp)
@@ -50268,6 +50268,26 @@ glabel func0f04a110
 /*  f04a1a4:	03e00008 */ 	jr	$ra
 /*  f04a1a8:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because it uses the wrong register for chr->chrseeshot
+//bool chrSawInjury(struct chrdata *chr, u8 arg1)
+//{
+//	bool saw_injury = chr->chrseeshot >= 0;
+//
+//	if (saw_injury && arg1 == 0) {
+//		chr->chrseeshot = -1;
+//	} else if (saw_injury && arg1 == 1) {
+//		struct chrdata *victim = chrFindById(chr, chr->chrseeshot);
+//
+//		if (victim && !chrCompareTeams(chr, victim, 1)) {
+//			saw_injury = false;
+//		}
+//	} else {
+//		chr->chrseeshot = -1;
+//	}
+//
+//	return saw_injury;
+//}
 
 GLOBAL_ASM(
 glabel chrSawDeath
@@ -50323,17 +50343,19 @@ glabel chrSawDeath
 //{
 //	bool saw_death = chr->chrseedie >= 0;
 //
-//	if (!saw_death || arg1) {
-//		if (saw_death && arg1 == 1) {
-//			struct chrdata *victim = chrFindById(chr, chr->chrseedie);
+//	// The commented line below was likely originally there but removed before
+//	// the final version. Compare with chrSawInjury above.
+//	if (saw_death && arg1 == 0) {
+//		//chr->chrseedie = -1;
+//	} else if (saw_death && arg1 == 1) {
+//		struct chrdata *victim = chrFindById(chr, chr->chrseedie);
 //
-//			if (victim && !chrCompareTeams(chr, victim, 1)) {
-//				saw_death = false;
-//				chr->chrseedie = -1;
-//			}
-//		} else {
+//		if (victim && !chrCompareTeams(chr, victim, 1)) {
+//			saw_death = false;
 //			chr->chrseedie = -1;
 //		}
+//	} else {
+//		chr->chrseedie = -1;
 //	}
 //
 //	return saw_death;

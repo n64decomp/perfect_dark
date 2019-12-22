@@ -1513,7 +1513,7 @@ u8 func0408_secretary[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		set_view_distance(100)
-		if_shot_near_chr(0x00, /*goto*/ LABEL_BECOME_ALERT1)
+		if_saw_injury(0x00, /*goto*/ LABEL_BECOME_ALERT1)
 		if_saw_death(0x00, /*goto*/ LABEL_BECOME_ALERT1)
 		set_view_distance(14)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_BECOME_ALERT1)
@@ -1585,7 +1585,7 @@ u8 func0408_secretary[] = {
 	set_morale(2)
 
 	beginloop(0x08)
-		if_shot_near_chr(0x00, /*goto*/ LABEL_BECOME_ALERT2)
+		if_saw_injury(0x00, /*goto*/ LABEL_BECOME_ALERT2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_BECOME_ALERT2)
 		if_timer_gt(60, /*goto*/ 0x02)
 		if_chr_sees_player(/*goto*/ 0x31)
@@ -1615,7 +1615,7 @@ u8 func0408_secretary[] = {
 	set_morale(3)
 
 	beginloop(0x09)
-		if_shot_near_chr(0x00, /*goto*/ LABEL_BECOME_ALERT2)
+		if_saw_injury(0x00, /*goto*/ LABEL_BECOME_ALERT2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_BECOME_ALERT2)
 		if_timer_gt(400, /*goto*/ 0x02)
 		if_chr_sees_player(/*goto*/ 0x31)
@@ -1640,7 +1640,7 @@ u8 func0408_secretary[] = {
 	set_morale(4)
 
 	beginloop(0x0a)
-		if_shot_near_chr(0x00, /*goto*/ LABEL_BECOME_ALERT2)
+		if_saw_injury(0x00, /*goto*/ LABEL_BECOME_ALERT2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_BECOME_ALERT2)
 		if_timer_gt(400, /*goto*/ 0x0c)
 		if_chr_sees_player(/*goto*/ 0x31)
@@ -1690,7 +1690,7 @@ u8 func0408_secretary[] = {
 	unlock_door(0x18, 0x02)
 
 	beginloop(0x0e)
-		if_shot_near_chr(0x00, /*goto*/ LABEL_BECOME_ALERT2)
+		if_saw_injury(0x00, /*goto*/ LABEL_BECOME_ALERT2)
 		if_saw_death(0x00, /*goto*/ LABEL_BECOME_ALERT2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_BECOME_ALERT2)
 	endloop(0x0e)
@@ -2066,7 +2066,7 @@ u8 func0409_office1[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x02)
-		if_shot_near_chr(0x00, /*goto*/ LABEL_RUN_TO_FOYER)
+		if_saw_injury(0x00, /*goto*/ LABEL_RUN_TO_FOYER)
 		if_stage_flag_eq(STAGEFLAG_OFFICE2_DEAD, TRUE, /*goto*/ LABEL_RUN_TO_FOYER)
 		if_object_in_good_condition(0x45, /*goto*/ 0x33)
 		goto_next(LABEL_RUN_TO_FOYER)
@@ -2094,7 +2094,7 @@ u8 func0409_office1[] = {
 	speak(CHR_TARGET, 0x0e29, 0x1ae6, CHANNEL_4, COLOR_08_RED) // "Are you new around here?"
 
 	beginloop(0x09)
-		if_shot_near_chr(0x00, /*goto*/ LABEL_RUN_TO_FOYER)
+		if_saw_injury(0x00, /*goto*/ LABEL_RUN_TO_FOYER)
 		if_stage_flag_eq(STAGEFLAG_OFFICE2_DEAD, TRUE, /*goto*/ LABEL_RUN_TO_FOYER)
 		if_chr_has_object(CHR_TARGET, OBJ_BRIEFCASE1, /*goto*/ 0x02)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x31)
@@ -2201,7 +2201,7 @@ u8 func040a_office2[] = {
 
 	beginloop(0x00)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x02)
-		if_shot_near_chr(0x00, /*goto*/ 0x72)
+		if_saw_injury(0x00, /*goto*/ 0x72)
 		if_stage_flag_eq(STAGEFLAG_OFFICE1_DEAD, TRUE, /*goto*/ 0x72)
 		if_chr_idle(/*goto*/ 0x31)
 		goto_first(0x42)
@@ -2216,7 +2216,7 @@ u8 func040a_office2[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x02)
-		if_shot_near_chr(0x00, /*goto*/ 0x02)
+		if_saw_injury(0x00, /*goto*/ 0x02)
 		if_stage_flag_eq(STAGEFLAG_OFFICE1_DEAD, TRUE, /*goto*/ 0x72)
 	endloop(0x09)
 
@@ -3296,7 +3296,7 @@ u8 func0419_ba8c[] = {
 
 	beginloop(0x6b)
 		if_saw_death(0x00, /*goto*/ 0x4f)
-		if_shot_near_chr(0x00, /*goto*/ 0x0f)
+		if_saw_injury(0x00, /*goto*/ 0x0f)
 		dprint 'D','U','R','I','N','G','T','A','L','K','\n',0,
 		if_timer_gt(180, /*goto*/ 0x02)
 	endloop(0x6b)
@@ -3372,7 +3372,7 @@ u8 func0419_ba8c[] = {
 	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_saw_death(0x00, /*goto*/ 0x4f)
-	if_shot_near_chr(0x00, /*goto*/ 0x0f)
+	if_saw_injury(0x00, /*goto*/ 0x0f)
 	if_target_chr_in_sight(/*goto*/ 0x02)
 	if_chr_stopped(/*goto*/ 0x73)
 	if_chr_idle(/*goto*/ 0x31)
@@ -3385,7 +3385,7 @@ u8 func0419_ba8c[] = {
 
 	label(0x6c)
 	if_saw_death(0x00, /*goto*/ 0x4f)
-	if_shot_near_chr(0x00, /*goto*/ 0x0f)
+	if_saw_injury(0x00, /*goto*/ 0x0f)
 	if_target_chr_in_sight(/*goto*/ 0x02)
 	goto_first(0x00)
 
@@ -3394,7 +3394,7 @@ u8 func0419_ba8c[] = {
 	label(0x04)
 	yield
 	if_saw_death(0x00, /*goto*/ 0x4f)
-	if_shot_near_chr(0x00, /*goto*/ 0x0f)
+	if_saw_injury(0x00, /*goto*/ 0x0f)
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x31)
 	goto_next(0x02)
 	label(0x31)

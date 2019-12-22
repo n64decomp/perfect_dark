@@ -1626,11 +1626,11 @@ bool ai003c(void)
 /**
  * @cmd 003d
  */
-bool ai003d(void)
+bool aiIfSawInjury(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f04a110(g_Vars.chrdata, cmd[2])) {
+	if (chrSawInjury(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;

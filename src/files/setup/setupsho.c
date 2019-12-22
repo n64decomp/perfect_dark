@@ -1699,7 +1699,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 		label(0x06)
 		if_just_injured(CHR_SELF, /*goto*/ 0x58)
 		label(0x2d)
-		if_shot_near_chr(0x00, /*goto*/ 0x60)
+		if_saw_injury(0x00, /*goto*/ 0x60)
 		if_near_miss(/*goto*/ 0x61)
 		label(0x2d)
 		set_target_chr(CHR_P1P2)

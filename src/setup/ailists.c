@@ -156,7 +156,7 @@ u8 func0006_unalerted[] = {
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_WARNED, TRUE, BANK_1, /*goto*/ 0x13)
 	if_saw_death(0x01, /*goto*/ LABEL_SEEFRIENDDIE)
-	if_shot_near_chr(0x01, /*goto*/ LABEL_NEAR_MISS)
+	if_saw_injury(0x01, /*goto*/ LABEL_NEAR_MISS)
 
 	// Warned
 	label(0x13)
@@ -539,7 +539,7 @@ u8 func0006_unalerted[] = {
 	beginloop(0x7e)
 		dprint 'S','9',0,
 		dprint 'W','A','L','K','I','N','G','\n',0,
-		if_shot_near_chr(0x00, /*goto*/ 0x16)
+		if_saw_injury(0x00, /*goto*/ 0x16)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x13)
@@ -560,7 +560,7 @@ u8 func0006_unalerted[] = {
 	beginloop(0x7c)
 		dprint 'T','1',0,
 		dprint 'E','X','A','M',' ','B','O','D','Y','\n',0,
-		if_shot_near_chr(0x00, /*goto*/ 0x16)
+		if_saw_injury(0x00, /*goto*/ 0x16)
 		set_hear_distance(10000)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
@@ -1268,7 +1268,7 @@ u8 func0007_alerted[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_near_miss(/*goto*/ 0x13)
-		if_shot_near_chr(0x00, /*goto*/ 0x13)
+		if_saw_injury(0x00, /*goto*/ 0x13)
 		if_saw_death(0x00, /*goto*/ 0x13)
 		if_in_disarm_range(/*goto*/ 0x13)
 	endloop(0xa9)
@@ -2782,7 +2782,7 @@ u8 func000b_choose_target_chr[] = {
 
 	// Scan failed
 	label(0x04)
-	if_shot_near_chr(0x00, /*goto*/ 0x13)
+	if_saw_injury(0x00, /*goto*/ 0x13)
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x13)
 	goto_first(0xd3)
 
@@ -3973,7 +3973,7 @@ u8 func0010_civilian_say_comment[] = {
 	// Wait until facing target, or a second has passed, or something else
 	// happens such as hearing gunfire or seeing someone die.
 	beginloop(0x04)
-		if_shot_near_chr(0x01, /*goto*/ 0x83)
+		if_saw_injury(0x01, /*goto*/ 0x83)
 		if_saw_death(0x01, /*goto*/ 0x83)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x13)
 		if_jo_ccw_direction_gt(246, /*goto*/ 0x13)
@@ -4024,7 +4024,7 @@ u8 func0010_civilian_say_comment[] = {
 	restart_timer
 
 	beginloop(0x08)
-		if_shot_near_chr(0x01, /*goto*/ 0x83)
+		if_saw_injury(0x01, /*goto*/ 0x83)
 		if_saw_death(0x01, /*goto*/ 0x83)
 		if_timer_gt(180, /*goto*/ 0x16)
 	endloop(0x08)
@@ -4046,7 +4046,7 @@ u8 func0010_civilian_say_comment[] = {
 
 	// Wait 3 seconds, or for see/hear gunfire
 	beginloop(0x09)
-		if_shot_near_chr(0x01, /*goto*/ 0x83)
+		if_saw_injury(0x01, /*goto*/ 0x83)
 		if_saw_death(0x01, /*goto*/ 0x83)
 		if_timer_gt(180, /*goto*/ 0x16)
 	endloop(0x09)
@@ -4478,7 +4478,7 @@ u8 func001f_related_to_spawning[] = {
 	// Not alert
 	label(0x16)
 	if_saw_death(0x01, /*goto*/ 0x1e)
-	if_shot_near_chr(0x01, /*goto*/ 0x1e)
+	if_saw_injury(0x01, /*goto*/ 0x1e)
 	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
 	if_target_chr_in_sight(/*goto*/ 0x1e)
 	label(0x16)

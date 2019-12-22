@@ -234,14 +234,40 @@
 	mkshort(0x003c), \
 	label,
 
-#define if_shot_near_chr(u1, label) \
+/**
+ * Go to label if the chr has witnessed another chr being injured.
+ *
+ * The behaviour of the checktype argument is:
+ *
+ * |-----------|-------|-------------------------|
+ * | Checktype | Teams | Reset "Saw injury" flag |
+ * |-----------|-------|-------------------------|
+ * | 0         | Any   | Yes                     |
+ * | 1         | Same  | No                      |
+ * | 2+        | Any   | Yes                     |
+ * |-----------|-------|-------------------------|
+ */
+#define if_saw_injury(checktype, label) \
 	mkshort(0x003d), \
-	u1, \
+	checktype, \
 	label,
 
-#define if_saw_death(u1, label) \
+/**
+ * Go to label if the chr has witnessed another chr dying.
+ *
+ * The behaviour of the checktype argument is:
+ *
+ * |-----------|-------|------------------------|
+ * | Checktype | Teams | Reset "Saw death" flag |
+ * |-----------|-------|------------------------|
+ * | 0         | Any   | No                     |
+ * | 1         | Same  | Yes                    |
+ * | 2+        | Any   | Yes                    |
+ * |-----------|-------|------------------------|
+ */
+#define if_saw_death(checktype, label) \
 	mkshort(0x003e), \
-	u1, \
+	checktype, \
 	label,
 
 #define if_chr_sees_player(label) \

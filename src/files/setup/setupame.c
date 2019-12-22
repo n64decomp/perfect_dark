@@ -1681,7 +1681,7 @@ u8 func0414_programmer[] = {
 		beginloop(0x93)
 			if_target_chr_in_sight(/*goto*/ 0x96)
 			if_near_miss(/*goto*/ 0x96)
-			if_shot_near_chr(0x00, /*goto*/ 0x96)
+			if_saw_injury(0x00, /*goto*/ 0x96)
 			if_saw_death(0x00, /*goto*/ 0x96)
 			if_hears_gunfire(/*goto*/ 0x96)
 			if_stage_flag_eq(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD, TRUE, /*goto*/ 0x2c)
@@ -3731,7 +3731,7 @@ u8 func042f_surrendering_guard[] = {
 		if_target_chr_in_sight(/*goto*/ 0x2c)
 		if_enemy_distance_lt_and_los(500, /*goto*/ 0x2c)
 		if_near_miss(/*goto*/ 0x2c)
-		if_shot_near_chr(0x00, /*goto*/ 0x2c)
+		if_saw_injury(0x00, /*goto*/ 0x2c)
 	endloop(0xc4)
 
 	// Be surprised

@@ -64,7 +64,7 @@
 /*0x003a*/ bool aiIfAlarmActive(void);
 /*0x003b*/ bool aiIfAlarmInactive(void);
 /*0x003c*/ bool ai003c(void);
-/*0x003d*/ bool ai003d(void);
+/*0x003d*/ bool aiIfSawInjury(void);
 /*0x003e*/ bool aiIfSawDeath(void);
 /*0x003f*/ bool aiIfSeesPlayer(void);
 /*0x0040*/ bool ai0040(void);

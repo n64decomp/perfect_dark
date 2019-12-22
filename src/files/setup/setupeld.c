@@ -1618,7 +1618,7 @@ u8 func0402_taker[] = {
 	animation(0x0232, 0, -1, 0x00, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x0e)
-		if_shot_near_chr(0x00, /*goto*/ 0x2e)
+		if_saw_injury(0x00, /*goto*/ 0x2e)
 		if_chr_stopped(/*goto*/ 0x2d)
 	endloop(0x0e)
 
@@ -1630,7 +1630,7 @@ u8 func0402_taker[] = {
 	walk_to_pad(0x004f)
 
 	beginloop(0x11)
-		if_shot_near_chr(0x00, /*goto*/ 0x2e)
+		if_saw_injury(0x00, /*goto*/ 0x2e)
 		if_chr_stopped(/*goto*/ 0x2d)
 	endloop(0x11)
 
@@ -1827,7 +1827,7 @@ u8 func0404_sniper[] = {
 			set_target_chr(CHR_P1P2)
 			if_target_chr_in_sight(/*goto*/ 0x58)
 			if_saw_death(0x00, /*goto*/ 0x58)
-			if_shot_near_chr(0x00, /*goto*/ 0x58)
+			if_saw_injury(0x00, /*goto*/ 0x58)
 			dprint 'F','A','C','E','\n',0,
 			if_timer_gt(120, /*goto*/ 0x06)
 		endloop(0x0a)
@@ -1862,7 +1862,7 @@ u8 func0404_sniper[] = {
 			set_target_chr(CHR_P1P2)
 			if_target_chr_in_sight(/*goto*/ 0x58)
 			if_saw_death(0x00, /*goto*/ 0x58)
-			if_shot_near_chr(0x00, /*goto*/ 0x58)
+			if_saw_injury(0x00, /*goto*/ 0x58)
 			dprint 'R','U','N','\n',0,
 			call_rng
 			if_rand_gt(3, /*goto*/ 0x2d)

@@ -1226,7 +1226,7 @@ u8 func0405_president_in_room[] = {
 		goto_next(0x86)
 
 		label(0x2d)
-		if_shot_near_chr(0x00, /*goto*/ 0x86)
+		if_saw_injury(0x00, /*goto*/ 0x86)
 		if_hears_gunfire(/*goto*/ 0x86)
 		if_timer_lt(120, /*goto*/ 0x2d)
 		if_chr_in_view(/*goto*/ 0x06)
@@ -1249,7 +1249,7 @@ u8 func0405_president_in_room[] = {
 		goto_next(0x86)
 
 		label(0x2d)
-		if_shot_near_chr(0x00, /*goto*/ 0x86)
+		if_saw_injury(0x00, /*goto*/ 0x86)
 		if_hears_gunfire(/*goto*/ 0x86)
 		if_timer_lt(240, /*goto*/ 0x2d)
 		if_chr_in_view(/*goto*/ 0x06)
@@ -1269,7 +1269,7 @@ u8 func0405_president_in_room[] = {
 		goto_next(0x86)
 
 		label(0x2d)
-		if_shot_near_chr(0x00, /*goto*/ 0x86)
+		if_saw_injury(0x00, /*goto*/ 0x86)
 		if_hears_gunfire(/*goto*/ 0x86)
 		if_timer_lt(400, /*goto*/ 0x2d)
 		goto_next(0x84)
@@ -1342,7 +1342,7 @@ u8 func0405_president_in_room[] = {
 		goto_next(0x86)
 
 		label(0x2d)
-		if_shot_near_chr(0x00, /*goto*/ 0x86)
+		if_saw_injury(0x00, /*goto*/ 0x86)
 		if_hears_gunfire(/*goto*/ 0x86)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x06)
 	goto_first(0x0b)
@@ -1360,7 +1360,7 @@ u8 func0405_president_in_room[] = {
 		goto_next(0x86)
 
 		label(0x2d)
-		if_shot_near_chr(0x00, /*goto*/ 0x86)
+		if_saw_injury(0x00, /*goto*/ 0x86)
 		if_hears_gunfire(/*goto*/ 0x86)
 		if_timer_gt(400, /*goto*/ 0x06)
 	endloop(0x7a)
@@ -3206,7 +3206,7 @@ u8 func0407_steward[] = {
 			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_target_chr_in_sight(/*goto*/ 0x89)
-			if_shot_near_chr(0x00, /*goto*/ 0x89)
+			if_saw_injury(0x00, /*goto*/ 0x89)
 			if_chr_stopped(/*goto*/ 0x06)
 		endloop(0x87)
 
@@ -3223,7 +3223,7 @@ u8 func0407_steward[] = {
 		animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 		label(0x2d)
 		if_target_chr_in_sight(/*goto*/ 0x89)
-		if_shot_near_chr(0x00, /*goto*/ 0x89)
+		if_saw_injury(0x00, /*goto*/ 0x89)
 	endloop(0x03)
 
 	// Detected player
@@ -3278,7 +3278,7 @@ u8 func0407_stewardess[] = {
 		animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 		label(0x2d)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2d)
-		if_shot_near_chr(0x00, /*goto*/ 0x2d)
+		if_saw_injury(0x00, /*goto*/ 0x2d)
 		if_chr_dying(CHR_STEWARD, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_STEWARD, /*goto*/ 0x2d)
 		if_chr_unloaded(CHR_STEWARD, /*goto*/ 0x2d)

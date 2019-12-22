@@ -1821,7 +1821,7 @@ u8 func0418_doorman[] = {
 
 	beginloop(0x0f)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x06)
-		if_shot_near_chr(0x00, /*goto*/ 0x06)
+		if_saw_injury(0x00, /*goto*/ 0x06)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x2d)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x2d)
 		goto_next(0x06)
@@ -2704,7 +2704,7 @@ u8 func041f_labtech_lights[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2d)
-		if_shot_near_chr(0x00, /*goto*/ 0x0f)
+		if_saw_injury(0x00, /*goto*/ 0x0f)
 		label(0x2d)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x2d)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x2d)
@@ -2742,7 +2742,7 @@ u8 func041f_labtech_lights[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_chr_in_sight(/*goto*/ 0x2d)
-		if_shot_near_chr(0x00, /*goto*/ 0x0f)
+		if_saw_injury(0x00, /*goto*/ 0x0f)
 		label(0x2d)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x2d)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x2d)
@@ -2838,7 +2838,7 @@ u8 func0420_labtech_doors[] = {
 		if_chr_sees_player(/*goto*/ 0x03)
 		label(0x06)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x03)
-		if_shot_near_chr(0x00, /*goto*/ 0x03)
+		if_saw_injury(0x00, /*goto*/ 0x03)
 		if_saw_death(0x00, /*goto*/ 0x03)
 		if_chr_idle(/*goto*/ 0x2d)
 		goto_first(0x5e)
@@ -2852,7 +2852,7 @@ u8 func0420_labtech_doors[] = {
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x09)
 
 	beginloop(0x09)
-		if_shot_near_chr(0x00, /*goto*/ 0x89)
+		if_saw_injury(0x00, /*goto*/ 0x89)
 		if_saw_death(0x00, /*goto*/ 0x89)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
@@ -2879,7 +2879,7 @@ u8 func0420_labtech_doors[] = {
 	set_self_flag_bankx(CHRFLAG0_08000000, BANK_0)
 
 	beginloop(0x7b)
-		if_shot_near_chr(0x00, /*goto*/ 0x89)
+		if_saw_injury(0x00, /*goto*/ 0x89)
 		if_saw_death(0x00, /*goto*/ 0x89)
 		dprint 'T','A','L','K',' ','5','\n',0,
 		if_chr_propsoundcount_zero(CHR_SELF, /*goto*/ 0x2d)

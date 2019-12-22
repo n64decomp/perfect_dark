@@ -1315,7 +1315,7 @@ u8 func0412_cia[] = {
 	// Chr is idle
 	beginloop(0x43)
 		if_saw_death(0x00, /*goto*/ 0x1d)
-		if_shot_near_chr(0x00, /*goto*/ 0x1e)
+		if_saw_injury(0x00, /*goto*/ 0x1e)
 		dprint 'D','U','R','I','N','G','T','A','L','K','\n',0,
 		if_timer_gt(180, /*goto*/ 0x04)
 	endloop(0x43)
@@ -1398,7 +1398,7 @@ u8 func0412_cia[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_saw_death(0x00, /*goto*/ 0x1d)
-		if_shot_near_chr(0x00, /*goto*/ 0x1e)
+		if_saw_injury(0x00, /*goto*/ 0x1e)
 		if_target_chr_in_sight(/*goto*/ 0x04)
 		if_chr_stopped(/*goto*/ 0x35)
 	endloop(0x36)
@@ -1408,7 +1408,7 @@ u8 func0412_cia[] = {
 
 	label(0x37)
 	if_saw_death(0x00, /*goto*/ 0x1d)
-	if_shot_near_chr(0x00, /*goto*/ 0x1e)
+	if_saw_injury(0x00, /*goto*/ 0x1e)
 	if_target_chr_in_sight(/*goto*/ 0x04)
 	goto_first(0x10)
 
@@ -1417,7 +1417,7 @@ u8 func0412_cia[] = {
 	label(0x05)
 	yield
 	if_saw_death(0x00, /*goto*/ 0x1d)
-	if_shot_near_chr(0x00, /*goto*/ 0x1e)
+	if_saw_injury(0x00, /*goto*/ 0x1e)
 	if_chr_weapon_equipped(CHR_P1P2, WEAPON_UNARMED, /*goto*/ 0x03)
 	goto_next(0x04)
 
@@ -1832,7 +1832,7 @@ u8 func041d_fbi[] = {
 		if_near_miss(/*goto*/ 0x18)
 		if_num_times_shot_gt(0, /*goto*/ 0x18)
 		if_hears_gunfire(/*goto*/ 0x16)
-		if_shot_near_chr(0x00, /*goto*/ 0x16)
+		if_saw_injury(0x00, /*goto*/ 0x16)
 		if_saw_death(0x00, /*goto*/ 0x16)
 		if_dying(/*goto*/ 0x16)
 	endloop(0x19)
@@ -2107,7 +2107,7 @@ u8 func041e_sealer1[] = {
 		if_near_miss(/*goto*/ LABEL_ALERTED)
 		if_num_times_shot_gt(0, /*goto*/ LABEL_ALERTED)
 		if_hears_gunfire(/*goto*/ LABEL_ALERTED)
-		if_shot_near_chr(0x00, /*goto*/ LABEL_ALERTED)
+		if_saw_injury(0x00, /*goto*/ LABEL_ALERTED)
 		if_saw_death(0x00, /*goto*/ LABEL_ALERTED)
 		if_dying(/*goto*/ LABEL_ALERTED)
 	endloop(0x19)
@@ -2192,7 +2192,7 @@ u8 func041e_sealer1[] = {
 
 	beginloop(0x0b)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x04)
-		if_shot_near_chr(0x00, /*goto*/ 0x04)
+		if_saw_injury(0x00, /*goto*/ 0x04)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x04)
 	endloop(0x0b)
 

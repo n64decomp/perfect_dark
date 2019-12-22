@@ -2992,7 +2992,7 @@ u8 func0421_bridge_skedar[] = {
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
 		if_target_chr_in_sight(/*goto*/ 0xc8)
 		label(0x06)
-		if_shot_near_chr(0x00, /*goto*/ 0xc8)
+		if_saw_injury(0x00, /*goto*/ 0xc8)
 		if_near_miss(/*goto*/ 0xc9)
 		label(0x2c)
 		set_target_chr(CHR_P1P2)
