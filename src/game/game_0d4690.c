@@ -3131,7 +3131,7 @@ glabel func0f0d7070
 /*  f0d7138:	8ce50004 */ 	lw	$a1,0x4($a3)
 /*  f0d713c:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f0d7140:	8d4b00bc */ 	lw	$t3,0xbc($t2)
-/*  f0d7144:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f0d7144:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f0d7148:	8d640004 */ 	lw	$a0,0x4($t3)
 .L0f0d714c:
 /*  f0d714c:	8fbf0014 */ 	lw	$ra,0x14($sp)

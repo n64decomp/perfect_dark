@@ -91,7 +91,7 @@ struct chrdata {
 	/*0x002*/ s8 accuracyrating;
 	/*0x003*/ s8 speedrating;
 	/*0x004*/ u16 firecount;
-	/*0x006*/ u8 headnum;
+	/*0x006*/ s8 headnum;
 	/*0x007*/ s8 actiontype;
 	/*0x008*/ u8 sleep;
 	/*0x009*/ u8 invalidmove;

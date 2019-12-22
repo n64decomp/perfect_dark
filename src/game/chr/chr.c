@@ -40281,7 +40281,7 @@ glabel func0f0404d4
 /*  f04129c:	8faa025c */ 	lw	$t2,0x25c($sp)
 /*  f0412a0:	8d440004 */ 	lw	$a0,0x4($t2)
 /*  f0412a4:	8fa50278 */ 	lw	$a1,0x278($sp)
-/*  f0412a8:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f0412a8:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f0412ac:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f0412b0:	1040003c */ 	beqz	$v0,.L0f0413a4
 /*  f0412b4:	3c014170 */ 	lui	$at,0x4170
@@ -40518,7 +40518,7 @@ glabel func0f0404d4
 /*  f041610:	31ab0040 */ 	andi	$t3,$t5,0x40
 /*  f041614:	11600045 */ 	beqz	$t3,.L0f04172c
 /*  f041618:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f04161c:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f04161c:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f041620:	8d440004 */ 	lw	$a0,0x4($t2)
 /*  f041624:	10400041 */ 	beqz	$v0,.L0f04172c
 .L0f041628:
@@ -48262,7 +48262,7 @@ glabel func0f048398
 /*  f0484a4:	50490006 */ 	beql	$v0,$t1,.L0f0484c0
 /*  f0484a8:	8e220004 */ 	lw	$v0,0x4($s1)
 .L0f0484ac:
-/*  f0484ac:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f0484ac:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f0484b0:	8e250004 */ 	lw	$a1,0x4($s1)
 /*  f0484b4:	5440000a */ 	bnezl	$v0,.L0f0484e0
 /*  f0484b8:	8fca0000 */ 	lw	$t2,0x0($s8)
@@ -50252,7 +50252,7 @@ glabel func0f04a110
 /*  f04a16c:	1040000a */ 	beqz	$v0,.L0f04a198
 /*  f04a170:	00402825 */ 	or	$a1,$v0,$zero
 /*  f04a174:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f04a178:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f04a178:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f04a17c:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f04a180:	14400005 */ 	bnez	$v0,.L0f04a198
 /*  f04a184:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -50297,7 +50297,7 @@ glabel chrSawDeath
 /*  f04a204:	00402825 */ 	or	$a1,$v0,$zero
 /*  f04a208:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f04a20c:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f04a210:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f04a210:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f04a214:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f04a218:	8fa3001c */ 	lw	$v1,0x1c($sp)
 /*  f04a21c:	14400007 */ 	bnez	$v0,.L0f04a23c
@@ -50327,7 +50327,7 @@ glabel chrSawDeath
 //		if (saw_death && arg1 == 1) {
 //			struct chrdata *victim = chrFindById(chr, chr->chrseedie);
 //
-//			if (victim && !func0f04aa8c(chr, victim, 1)) {
+//			if (victim && !chrCompareTeams(chr, victim, 1)) {
 //				saw_death = false;
 //				chr->chrseedie = -1;
 //			}
@@ -50862,7 +50862,7 @@ glabel func0f04a848
 /*  f04aa04:	02802825 */ 	or	$a1,$s4,$zero
 /*  f04aa08:	4502000a */ 	bc1fl	.L0f04aa34
 /*  f04aa0c:	86420002 */ 	lh	$v0,0x2($s2)
-/*  f04aa10:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f04aa10:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f04aa14:	33c600ff */ 	andi	$a2,$s8,0xff
 /*  f04aa18:	50400006 */ 	beqzl	$v0,.L0f04aa34
 /*  f04aa1c:	86420002 */ 	lh	$v0,0x2($s2)
@@ -50898,130 +50898,56 @@ glabel func0f04a848
 /*  f04aa88:	27bd02e8 */ 	addiu	$sp,$sp,0x2e8
 );
 
-GLOBAL_ASM(
-glabel func0f04aa8c
-/*  f04aa8c:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f04aa90:	10800066 */ 	beqz	$a0,.L0f04ac2c
-/*  f04aa94:	30ce00ff */ 	andi	$t6,$a2,0xff
-/*  f04aa98:	8c8f001c */ 	lw	$t7,0x1c($a0)
-/*  f04aa9c:	51e00064 */ 	beqzl	$t7,.L0f04ac30
-/*  f04aaa0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04aaa4:	15c00003 */ 	bnez	$t6,.L0f04aab4
-/*  f04aaa8:	01c01025 */ 	or	$v0,$t6,$zero
-/*  f04aaac:	03e00008 */ 	jr	$ra
-/*  f04aab0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04aab4:
-/*  f04aab4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f04aab8:	1441002c */ 	bne	$v0,$at,.L0f04ab6c
-/*  f04aabc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f04aac0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f04aac4:	8c780318 */ 	lw	$t8,0x318($v1)
-/*  f04aac8:	3c19800b */ 	lui	$t9,0x800b
-/*  f04aacc:	5300000c */ 	beqzl	$t8,.L0f04ab00
-/*  f04aad0:	8c6202a0 */ 	lw	$v0,0x2a0($v1)
-/*  f04aad4:	8f39cb94 */ 	lw	$t9,-0x346c($t9)
-/*  f04aad8:	33280002 */ 	andi	$t0,$t9,0x2
-/*  f04aadc:	11000051 */ 	beqz	$t0,.L0f04ac24
-/*  f04aae0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04aae4:	90890125 */ 	lbu	$t1,0x125($a0)
-/*  f04aae8:	90aa0125 */ 	lbu	$t2,0x125($a1)
-/*  f04aaec:	152a004d */ 	bne	$t1,$t2,.L0f04ac24
-/*  f04aaf0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04aaf4:	03e00008 */ 	jr	$ra
-/*  f04aaf8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04aafc:	8c6202a0 */ 	lw	$v0,0x2a0($v1)
-.L0f04ab00:
-/*  f04ab00:	50400014 */ 	beqzl	$v0,.L0f04ab54
-/*  f04ab04:	90ad0125 */ 	lbu	$t5,0x125($a1)
-/*  f04ab08:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f04ab0c:	50600011 */ 	beqzl	$v1,.L0f04ab54
-/*  f04ab10:	90ad0125 */ 	lbu	$t5,0x125($a1)
-/*  f04ab14:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f04ab18:	14a20005 */ 	bne	$a1,$v0,.L0f04ab30
-/*  f04ab1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04ab20:	808b0006 */ 	lb	$t3,0x6($a0)
-/*  f04ab24:	24010028 */ 	addiu	$at,$zero,0x28
-/*  f04ab28:	11610007 */ 	beq	$t3,$at,.L0f04ab48
-/*  f04ab2c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04ab30:
-/*  f04ab30:	54820008 */ 	bnel	$a0,$v0,.L0f04ab54
-/*  f04ab34:	90ad0125 */ 	lbu	$t5,0x125($a1)
-/*  f04ab38:	80ac0006 */ 	lb	$t4,0x6($a1)
-/*  f04ab3c:	24010028 */ 	addiu	$at,$zero,0x28
-/*  f04ab40:	55810004 */ 	bnel	$t4,$at,.L0f04ab54
-/*  f04ab44:	90ad0125 */ 	lbu	$t5,0x125($a1)
-.L0f04ab48:
-/*  f04ab48:	03e00008 */ 	jr	$ra
-/*  f04ab4c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04ab50:	90ad0125 */ 	lbu	$t5,0x125($a1)
-.L0f04ab54:
-/*  f04ab54:	908e0125 */ 	lbu	$t6,0x125($a0)
-/*  f04ab58:	01ae7824 */ 	and	$t7,$t5,$t6
-/*  f04ab5c:	11e00031 */ 	beqz	$t7,.L0f04ac24
-/*  f04ab60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04ab64:	03e00008 */ 	jr	$ra
-/*  f04ab68:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04ab6c:
-/*  f04ab6c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f04ab70:	1441002c */ 	bne	$v0,$at,.L0f04ac24
-/*  f04ab74:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f04ab78:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f04ab7c:	8c780318 */ 	lw	$t8,0x318($v1)
-/*  f04ab80:	3c19800b */ 	lui	$t9,0x800b
-/*  f04ab84:	5300000c */ 	beqzl	$t8,.L0f04abb8
-/*  f04ab88:	8c6202a0 */ 	lw	$v0,0x2a0($v1)
-/*  f04ab8c:	8f39cb94 */ 	lw	$t9,-0x346c($t9)
-/*  f04ab90:	33280002 */ 	andi	$t0,$t9,0x2
-/*  f04ab94:	11000005 */ 	beqz	$t0,.L0f04abac
-/*  f04ab98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04ab9c:	90890125 */ 	lbu	$t1,0x125($a0)
-/*  f04aba0:	90aa0125 */ 	lbu	$t2,0x125($a1)
-/*  f04aba4:	112a001f */ 	beq	$t1,$t2,.L0f04ac24
-/*  f04aba8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04abac:
-/*  f04abac:	03e00008 */ 	jr	$ra
-/*  f04abb0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f04abb4:	8c6202a0 */ 	lw	$v0,0x2a0($v1)
-.L0f04abb8:
-/*  f04abb8:	50400014 */ 	beqzl	$v0,.L0f04ac0c
-/*  f04abbc:	90ad0125 */ 	lbu	$t5,0x125($a1)
-/*  f04abc0:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f04abc4:	50600011 */ 	beqzl	$v1,.L0f04ac0c
-/*  f04abc8:	90ad0125 */ 	lbu	$t5,0x125($a1)
-/*  f04abcc:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f04abd0:	14a20005 */ 	bne	$a1,$v0,.L0f04abe8
-/*  f04abd4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04abd8:	808b0006 */ 	lb	$t3,0x6($a0)
-/*  f04abdc:	24010028 */ 	addiu	$at,$zero,0x28
-/*  f04abe0:	11610007 */ 	beq	$t3,$at,.L0f04ac00
-/*  f04abe4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04abe8:
-/*  f04abe8:	54820008 */ 	bnel	$a0,$v0,.L0f04ac0c
-/*  f04abec:	90ad0125 */ 	lbu	$t5,0x125($a1)
-/*  f04abf0:	80ac0006 */ 	lb	$t4,0x6($a1)
-/*  f04abf4:	24010028 */ 	addiu	$at,$zero,0x28
-/*  f04abf8:	55810004 */ 	bnel	$t4,$at,.L0f04ac0c
-/*  f04abfc:	90ad0125 */ 	lbu	$t5,0x125($a1)
-.L0f04ac00:
-/*  f04ac00:	03e00008 */ 	jr	$ra
-/*  f04ac04:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04ac08:	90ad0125 */ 	lbu	$t5,0x125($a1)
-.L0f04ac0c:
-/*  f04ac0c:	908e0125 */ 	lbu	$t6,0x125($a0)
-/*  f04ac10:	01ae7824 */ 	and	$t7,$t5,$t6
-/*  f04ac14:	15e00003 */ 	bnez	$t7,.L0f04ac24
-/*  f04ac18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04ac1c:	03e00008 */ 	jr	$ra
-/*  f04ac20:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f04ac24:
-/*  f04ac24:	03e00008 */ 	jr	$ra
-/*  f04ac28:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04ac2c:
-/*  f04ac2c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04ac30:
-/*  f04ac30:	03e00008 */ 	jr	$ra
-/*  f04ac34:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
+{
+	if (chr1 && chr1->pos) {
+		if (checktype == 0) {
+			return true;
+		}
+
+		if (checktype == 1) { // Return true if chrs are friends
+			if (g_Vars.unk000318) {
+				if ((var800acb94 & 2) && chr2->team == chr1->team) {
+					return true;
+				}
+			} else {
+				if (g_Vars.bond && g_Vars.bond->targetpos) {
+					struct chrdata *playerchr = g_Vars.bond->targetpos->chr;
+					if ((chr2 == playerchr && chr1->headnum == HEAD_JONATHAN) ||
+							(chr1 == playerchr && chr2->headnum == HEAD_JONATHAN)) {
+						return true;
+					}
+				}
+
+				if ((chr2->team & chr1->team) != 0) {
+					return true;
+				}
+			}
+		} else if (checktype == 2) { // Return true if chrs are enemies
+			if (g_Vars.unk000318) {
+				if ((var800acb94 & 2) == 0 || chr2->team != chr1->team) {
+					return true;
+				}
+			} else {
+				if (g_Vars.bond && g_Vars.bond->targetpos) {
+					struct chrdata *playerchr = g_Vars.bond->targetpos->chr;
+					if ((chr2 == playerchr && chr1->headnum == HEAD_JONATHAN) ||
+							(chr1 == playerchr && chr2->headnum == HEAD_JONATHAN)) {
+						return false;
+					}
+				}
+
+				if ((chr2->team & chr1->team) == 0) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	return false;
+}
 
 void chrSetChrPreset(struct chrdata *chr, s32 chrpreset)
 {

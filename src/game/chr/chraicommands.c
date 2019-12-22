@@ -8711,7 +8711,7 @@ bool ai010c(void)
 		chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 	}
 
-	if (func0f04aa8c(chr, g_Vars.chrdata, cmd[2])) {
+	if (chrCompareTeams(chr, g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -9168,7 +9168,7 @@ glabel ai0127
 /*  f0599e8:	10410045 */ 	beq	$v0,$at,.L0f059b00
 /*  f0599ec:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0599f0:	8e440424 */ 	lw	$a0,0x424($s2)
-/*  f0599f4:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f0599f4:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f0599f8:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f0599fc:	10400040 */ 	beqz	$v0,.L0f059b00
 /*  f059a00:	00000000 */ 	sll	$zero,$zero,0x0
@@ -9369,7 +9369,7 @@ glabel ai0128
 /*  f059cc4:	10410050 */ 	beq	$v0,$at,.L0f059e08
 /*  f059cc8:	02202825 */ 	or	$a1,$s1,$zero
 /*  f059ccc:	8e640424 */ 	lw	$a0,0x424($s3)
-/*  f059cd0:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f059cd0:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f059cd4:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f059cd8:	5040004c */ 	beqzl	$v0,.L0f059e0c
 /*  f059cdc:	86840002 */ 	lh	$a0,0x2($s4)
@@ -10557,7 +10557,7 @@ glabel ai0133
 /*  f05aeec:	02002825 */ 	or	$a1,$s0,$zero
 /*  f05aef0:	11810022 */ 	beq	$t4,$at,.L0f05af7c
 /*  f05aef4:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f05aef8:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f05aef8:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f05aefc:	8ea40424 */ 	lw	$a0,0x424($s5)
 /*  f05af00:	5040001f */ 	beqzl	$v0,.L0f05af80
 /*  f05af04:	86240002 */ 	lh	$a0,0x2($s1)
@@ -10979,7 +10979,7 @@ glabel ai0137
 /*  f05b484:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f05b488:	52690018 */ 	beql	$s3,$t1,.L0f05b4ec
 /*  f05b48c:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f05b490:	0fc12aa3 */ 	jal	func0f04aa8c
+/*  f05b490:	0fc12aa3 */ 	jal	chrCompareTeams
 /*  f05b494:	8e440424 */ 	lw	$a0,0x424($s2)
 /*  f05b498:	50400014 */ 	beqzl	$v0,.L0f05b4ec
 /*  f05b49c:	86240002 */ 	lh	$a0,0x2($s1)
@@ -11050,7 +11050,7 @@ glabel ai0137
 //
 //			if (chr && chr->unk020 && chrIsDead(chr) == false &&
 //					chr->actiontype != ACT_DEAD &&
-//					func0f04aa8c(g_Vars.chrdata, chr, 1) &&
+//					chrCompareTeams(g_Vars.chrdata, chr, 1) &&
 //					g_Vars.chrdata->chrnum != chr->chrnum &&
 //					chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500 &&
 //					chr->myaction == cmd[2]) {
