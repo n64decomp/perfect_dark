@@ -146,7 +146,7 @@ u32 func0f02ef40(void);
 void func0f02effc(struct chrdata *chr);
 u32 func0f02f070(void);
 u32 func0f02f288(void);
-u32 func0f02f314(void);
+void func0f02f314(struct chrdata *chr);
 void func0f02f530(struct chrdata *chr);
 void func0f02f60c(struct chrdata *chr);
 void func0f02f688(struct chrdata *chr);
