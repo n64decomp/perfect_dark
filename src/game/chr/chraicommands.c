@@ -5261,7 +5261,7 @@ bool aiSetChrPreset(void)
 bool aiSetChrTarget(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f04ac60(g_Vars.chrdata, cmd[2], cmd[3]);
+	chrSetChrPresetByChrnum(g_Vars.chrdata, cmd[2], cmd[3]);
 	g_Vars.aioffset += 4;
 
 	return false;

@@ -51007,26 +51007,14 @@ void chrSetChrPreset(struct chrdata *chr, s32 chrpreset)
 	chr->chrpreset1 = chrResolveId(chr, chrpreset);
 }
 
-GLOBAL_ASM(
-glabel func0f04ac60
-/*  f04ac60:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04ac64:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04ac68:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f04ac6c:	0fc126d1 */ 	jal	chrFindById
-/*  f04ac70:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f04ac74:	10400006 */ 	beqz	$v0,.L0f04ac90
-/*  f04ac78:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f04ac7c:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f04ac80:	0fc12604 */ 	jal	chrResolveId
-/*  f04ac84:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f04ac88:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f04ac8c:	a462012a */ 	sh	$v0,0x12a($v1)
-.L0f04ac90:
-/*  f04ac90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04ac94:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f04ac98:	03e00008 */ 	jr	$ra
-/*  f04ac9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrSetChrPresetByChrnum(struct chrdata *basechr, s32 chrnum, s32 chrpreset)
+{
+	struct chrdata *chr = chrFindById(basechr, chrnum);
+
+	if (chr) {
+		chr->chrpreset1 = chrResolveId(basechr, chrpreset);
+	}
+}
 
 void chrSetPadPreset(struct chrdata *chr, s32 pad_id)
 {

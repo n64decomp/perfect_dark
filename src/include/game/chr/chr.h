@@ -379,7 +379,7 @@ bool func0f04a79c(u8 chrnum, struct chrdata *chr, float distance);
 bool func0f04a7dc(u8 arg0, struct chrdata *chr, float distance, s32 arg3);
 bool func0f04a848(u8 chrnum, struct chrdata *chr, float distance, struct coord *coord, s16 *room);
 u32 func0f04aa8c(struct chrdata *a, struct chrdata *b, u32 arg2);
-u32 func0f04ac60(struct chrdata *chr, u32 arg1, u32 arg2);
+void chrSetChrPresetByChrnum(struct chrdata *chr, s32 chrnum, s32 chrpreset);
 void chrSetPadPresetByChrnum(struct chrdata *chr, s32 chrnum, s32 pad_id);
 u32 func0f04ad08(struct chrdata *chr);
 u32 func0f04aeb0(void);
