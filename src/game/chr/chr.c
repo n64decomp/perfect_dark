@@ -22196,60 +22196,30 @@ glabel func0f030ff8
 /*  f031198:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03119c
-/*  f03119c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0311a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0311a4:	808e0007 */ 	lb	$t6,0x7($a0)
-/*  f0311a8:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f0311ac:	00803025 */ 	or	$a2,$a0,$zero
-/*  f0311b0:	51c10025 */ 	beql	$t6,$at,.L0f031248
-/*  f0311b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0311b8:	0fc0fe3d */ 	jal	func0f03f8f4
-/*  f0311bc:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f0311c0:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f0311c4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0311c8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0311cc:	84c40292 */ 	lh	$a0,0x292($a2)
-/*  f0311d0:	50440007 */ 	beql	$v0,$a0,.L0f0311f0
-/*  f0311d4:	8cd802d4 */ 	lw	$t8,0x2d4($a2)
-/*  f0311d8:	0fc45929 */ 	jal	func0f1164a4
-/*  f0311dc:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f0311e0:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f0311e4:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0311e8:	a4c20292 */ 	sh	$v0,0x292($a2)
-/*  f0311ec:	8cd802d4 */ 	lw	$t8,0x2d4($a2)
-.L0f0311f0:
-/*  f0311f0:	240f0005 */ 	addiu	$t7,$zero,0x5
-/*  f0311f4:	a0cf0007 */ 	sb	$t7,0x7($a2)
-/*  f0311f8:	13000003 */ 	beqz	$t8,.L0f031208
-/*  f0311fc:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f031200:	10000002 */ 	beqz	$zero,.L0f03120c
-/*  f031204:	acc00038 */ 	sw	$zero,0x38($a2)
-.L0f031208:
-/*  f031208:	acc20038 */ 	sw	$v0,0x38($a2)
-.L0f03120c:
-/*  f03120c:	90d902fe */ 	lbu	$t9,0x2fe($a2)
-/*  f031210:	acc0002c */ 	sw	$zero,0x2c($a2)
-/*  f031214:	acc00030 */ 	sw	$zero,0x30($a2)
-/*  f031218:	acc00034 */ 	sw	$zero,0x34($a2)
-/*  f03121c:	acc0003c */ 	sw	$zero,0x3c($a2)
-/*  f031220:	17210008 */ 	bne	$t9,$at,.L0f031244
-/*  f031224:	a0c00008 */ 	sb	$zero,0x8($a2)
-/*  f031228:	90c80362 */ 	lbu	$t0,0x362($a2)
-/*  f03122c:	3109ff0f */ 	andi	$t1,$t0,0xff0f
-/*  f031230:	352b0040 */ 	ori	$t3,$t1,0x40
-/*  f031234:	316c00f0 */ 	andi	$t4,$t3,0xf0
-/*  f031238:	a0cb0362 */ 	sb	$t3,0x362($a2)
-/*  f03123c:	358d0004 */ 	ori	$t5,$t4,0x4
-/*  f031240:	a0cd0362 */ 	sb	$t5,0x362($a2)
-.L0f031244:
-/*  f031244:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f031248:
-/*  f031248:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03124c:	03e00008 */ 	jr	$ra
-/*  f031250:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f03119c(struct chrdata *chr)
+{
+	if (chr->actiontype != ACT_DEAD) {
+		func0f03f8f4(chr);
+
+		if (chr->cover != -1) {
+			func0f1164a4(chr->cover, 0);
+			chr->cover = -1;
+		}
+
+		chr->actiontype = ACT_DEAD;
+		chr->unk038 = chr->unk2d4 ? 0 : -1;
+		chr->unk02c = 0;
+		chr->unk030 = 0;
+		chr->unk034 = 0;
+		chr->unk03c = 0;
+		chr->sleep = 0;
+
+		if (chr->race == RACE_MAIAN) {
+			chr->onlift_00 = 4;
+			chr->onlift_04 = 4;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f031254
@@ -32997,7 +32967,7 @@ bool chrTrySurrender(struct chrdata *chr)
 
 bool chrFadeOut(struct chrdata *chr)
 {
-	func0f03119c();
+	func0f03119c(chr);
 	func0f03ccdc(chr);
 
 	return true;

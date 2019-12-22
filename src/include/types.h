@@ -113,7 +113,7 @@ struct chrdata {
 	/*0x02c*/ u32 unk02c;
 	/*0x030*/ u32 unk030;
 	/*0x034*/ u32 unk034;
-	/*0x038*/ u32 unk038;
+	/*0x038*/ s32 unk038;
 	/*0x03c*/ u32 unk03c;
 	/*0x040*/ u32 unk040;
 	/*0x044*/ u32 unk044;
@@ -298,7 +298,8 @@ struct chrdata {
 	/*0x35f*/ u8 maxdodgerating;
 	/*0x360*/ u8 unarmeddodgerating;
 	/*0x361*/ u8 lastfootsample;
-	/*0x362*/ u8 onlift;
+	/*0x362*/ u8 onlift_00 : 4;
+	/*0x362*/ u8 onlift_04 : 4;
 	/*0x364*/ u32 unk364;
 };
 

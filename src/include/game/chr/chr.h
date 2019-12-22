@@ -166,7 +166,7 @@ u32 chrAttackWalk(void);
 u32 func0f030a40(void);
 u32 chrAttackRoll(void);
 void func0f030ff8(struct chrdata *chr, u32 anim_id, float fstartframe, float fendframe, u8 flags, u32 transition, float result);
-u32 func0f03119c(void);
+void func0f03119c(struct chrdata *chr);
 u32 func0f031254(void);
 u32 func0f031384(void);
 u32 func0f0318b8(void);
