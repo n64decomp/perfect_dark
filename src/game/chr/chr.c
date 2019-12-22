@@ -33075,9 +33075,9 @@ bool chrStartPath(struct chrdata *chr)
 
 bool chrTrySurrender(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : 0;
+	s32 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race == 0 && func0f039a18(chr)) {
+	if (race == RACE_HUMAN && func0f039a18(chr)) {
 		chrSurrender(chr);
 		return true;
 	}
@@ -33270,9 +33270,9 @@ glabel func0f03aca0
 
 bool chrTryStop(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : 0;
+	s32 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race == 3) {
+	if (race == RACE_ROBOT) {
 		func0f02e9a0(chr, 0);
 		return true;
 	}
@@ -33287,9 +33287,9 @@ bool chrTryStop(struct chrdata *chr)
 
 bool func0f03adf4(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : 0;
+	s32 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race == 0 && func0f039a18(chr)) {
+	if (race == RACE_HUMAN && func0f039a18(chr)) {
 		func0f02f530(chr);
 		return true;
 	}
@@ -33299,9 +33299,9 @@ bool func0f03adf4(struct chrdata *chr)
 
 bool func0f03ae48(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : 0;
+	s32 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race == 0 && func0f039a18(chr)) {
+	if (race == RACE_HUMAN && func0f039a18(chr)) {
 		func0f02f60c(chr);
 		return true;
 	}
@@ -33311,9 +33311,9 @@ bool func0f03ae48(struct chrdata *chr)
 
 bool func0f03ae9c(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : 0;
+	s32 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race == 0 && func0f039a18(chr)) {
+	if (race == RACE_HUMAN && func0f039a18(chr)) {
 		func0f02f688(chr);
 		return true;
 	}
@@ -33323,9 +33323,9 @@ bool func0f03ae9c(struct chrdata *chr)
 
 bool chrTryKneel(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : 0;
+	s32 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race == 0 && func0f039a18(chr)) {
+	if (race == RACE_HUMAN && func0f039a18(chr)) {
 		chrKneel(chr);
 		return true;
 	}
@@ -33779,9 +33779,9 @@ glabel func0f03b1e0
 
 bool func0f03b5f0(struct chrdata *chr, s32 pad_id)
 {
-	s32 race = chr ? chr->race : 0;
+	s32 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race == 0 && func0f039a18(chr)) {
+	if (race == RACE_HUMAN && func0f039a18(chr)) {
 		pad_id = chrResolvePadId(chr, pad_id);
 
 		if (pad_id >= 0) {
@@ -47275,9 +47275,9 @@ glabel func0f0473cc
 bool func0f04767c(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 {
 	if (chr && chr->actiontype != ACT_SKJUMP && func0f039a18(chr)) {
-		u8 race = chr ? chr->race : 0;
+		u8 race = chr ? chr->race : RACE_HUMAN;
 
-		if (race == 1) {
+		if (race == RACE_SKEDAR) {
 			return func0f047700(chr, arg1, arg2, arg3, arg4);
 		}
 	}

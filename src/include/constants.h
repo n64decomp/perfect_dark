@@ -637,6 +637,11 @@
 #define POSITIONTYPE_5      5
 #define POSITIONTYPE_PLAYER 6
 
+#define RACE_HUMAN  0
+#define RACE_SKEDAR 1
+#define RACE_MAIAN  2
+#define RACE_ROBOT  3
+
 #define SPEED_WALK 0
 #define SPEED_JOG  1
 #define SPEED_RUN  2
