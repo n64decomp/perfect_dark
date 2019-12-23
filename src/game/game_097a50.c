@@ -18212,17 +18212,10 @@ glabel func0f0a6c30
 /*  f0a70a4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0a70a8
-/*  f0a70a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a70ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a70b0:	0fc29c32 */ 	jal	freeFireslot
-/*  f0a70b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a70b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a70bc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a70c0:	03e00008 */ 	jr	$ra
-/*  f0a70c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s8 freeFireslotWrapper(s32 fireslot_id)
+{
+	return freeFireslot(fireslot_id);
+}
 
 s8 freeFireslot(s32 fireslot_id)
 {
