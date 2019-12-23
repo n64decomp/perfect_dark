@@ -265,10 +265,10 @@ struct chrdata {
 	/*0x154*/ u32 aimuprshoulder;
 	/*0x158*/ u32 aimupback;
 	/*0x15c*/ u32 aimsideback;
-	/*0x160*/ u32 aimendlshoulder;
-	/*0x164*/ u32 aimendrshoulder;
-	/*0x168*/ u32 aimendback;
-	/*0x16c*/ u32 aimendsideback;
+	/*0x160*/ float aimendlshoulder;
+	/*0x164*/ float aimendrshoulder;
+	/*0x168*/ float aimendback;
+	/*0x16c*/ float aimendsideback;
 	/*0x170*/ struct attachment *weapons_held[2];
 	/*0x178*/ u32 unk178;
 	/*0x17c*/ s8 fireslot[2];

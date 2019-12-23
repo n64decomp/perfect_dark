@@ -38262,17 +38262,14 @@ glabel func0f03f778
 /*  f03f824:	e4820168 */ 	swc1	$f2,0x168($a0)
 );
 
-GLOBAL_ASM(
-glabel chrResetAimProperties
-/*  f03f828:	44800000 */ 	mtc1	$zero,$f0
-/*  f03f82c:	240e000a */ 	addiu	$t6,$zero,0xa
-/*  f03f830:	a08e000e */ 	sb	$t6,0xe($a0)
-/*  f03f834:	e4800164 */ 	swc1	$f0,0x164($a0)
-/*  f03f838:	e4800160 */ 	swc1	$f0,0x160($a0)
-/*  f03f83c:	e4800168 */ 	swc1	$f0,0x168($a0)
-/*  f03f840:	03e00008 */ 	jr	$ra
-/*  f03f844:	e480016c */ 	swc1	$f0,0x16c($a0)
-);
+void chrResetAimEndProperties(struct chrdata *chr)
+{
+	chr->aimendcount = 10;
+	chr->aimendrshoulder = 0;
+	chr->aimendlshoulder = 0;
+	chr->aimendback = 0;
+	chr->aimendsideback = 0;
+}
 
 GLOBAL_ASM(
 glabel chrSetFiring
@@ -38333,7 +38330,7 @@ void chrStopFiring(struct chrdata *chr)
 	if (race != RACE_MAIAN && race != RACE_ROBOT && chr->unk2d4 == NULL) {
 		chrSetFiring(chr, 0, false);
 		chrSetFiring(chr, 1, false);
-		chrResetAimProperties(chr);
+		chrResetAimEndProperties(chr);
 		chr->fireslot[0] = freeFireslot(chr->fireslot[0]);
 		chr->fireslot[1] = freeFireslot(chr->fireslot[1]);
 	}
@@ -41249,7 +41246,7 @@ glabel func0f041e48
 /*  f042334:	10000004 */ 	beqz	$zero,.L0f042348
 /*  f042338:	00008825 */ 	or	$s1,$zero,$zero
 .L0f04233c:
-/*  f04233c:	0fc0fe0a */ 	jal	chrResetAimProperties
+/*  f04233c:	0fc0fe0a */ 	jal	chrResetAimEndProperties
 /*  f042340:	02002025 */ 	or	$a0,$s0,$zero
 /*  f042344:	00008825 */ 	or	$s1,$zero,$zero
 .L0f042348:
@@ -41507,7 +41504,7 @@ glabel func0f04262c
 /*  f0426dc:	10000004 */ 	beqz	$zero,.L0f0426f0
 /*  f0426e0:	8e2e002c */ 	lw	$t6,0x2c($s1)
 .L0f0426e4:
-/*  f0426e4:	0fc0fe0a */ 	jal	chrResetAimProperties
+/*  f0426e4:	0fc0fe0a */ 	jal	chrResetAimEndProperties
 /*  f0426e8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0426ec:	8e2e002c */ 	lw	$t6,0x2c($s1)
 .L0f0426f0:
@@ -42266,7 +42263,7 @@ glabel func0f042ffc
 /*  f0431c0:	240d0002 */ 	addiu	$t5,$zero,0x2
 .L0f0431c4:
 /*  f0431c4:	ae0d0058 */ 	sw	$t5,0x58($s0)
-/*  f0431c8:	0fc0fe0a */ 	jal	chrResetAimProperties
+/*  f0431c8:	0fc0fe0a */ 	jal	chrResetAimEndProperties
 /*  f0431cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0431d0:	1000007f */ 	beqz	$zero,.L0f0433d0
 /*  f0431d4:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -43580,7 +43577,7 @@ glabel func0f044208
 /*  f04442c:	10000004 */ 	beqz	$zero,.L0f044440
 /*  f044430:	8e0b0038 */ 	lw	$t3,0x38($s0)
 .L0f044434:
-/*  f044434:	0fc0fe0a */ 	jal	chrResetAimProperties
+/*  f044434:	0fc0fe0a */ 	jal	chrResetAimEndProperties
 /*  f044438:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04443c:	8e0b0038 */ 	lw	$t3,0x38($s0)
 .L0f044440:

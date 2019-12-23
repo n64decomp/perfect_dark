@@ -12312,7 +12312,7 @@ glabel func0f1918d0
 /*  f191e8c:	10000006 */ 	beqz	$zero,.L0f191ea8
 /*  f191e90:	82220007 */ 	lb	$v0,0x7($s1)
 .L0f191e94:
-/*  f191e94:	0fc0fe0a */ 	jal	chrResetAimProperties
+/*  f191e94:	0fc0fe0a */ 	jal	chrResetAimEndProperties
 /*  f191e98:	02202025 */ 	or	$a0,$s1,$zero
 /*  f191e9c:	44809000 */ 	mtc1	$zero,$f18
 /*  f191ea0:	00000000 */ 	sll	$zero,$zero,0x0

@@ -299,7 +299,7 @@ u32 func0f03e754(void);
 u32 func0f03e788(void);
 u32 func0f03e9f4(void);
 u32 func0f03f778(void);
-void chrResetAimProperties(struct chrdata *chr);
+void chrResetAimEndProperties(struct chrdata *chr);
 void chrSetFiring(struct chrdata *chr, s32 hand, bool firing);
 void chrStopFiring(struct chrdata *chr);
 u32 func0f03f988(void);
