@@ -18166,11 +18166,11 @@ glabel func0f0c2364
 /*  f0c2710:	a20d000e */ 	sb	$t5,0xe($s0)
 /*  f0c2714:	8226063d */ 	lb	$a2,0x63d($s1)
 /*  f0c2718:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0c271c:	0fc0fe12 */ 	jal	func0f03f848
+/*  f0c271c:	0fc0fe12 */ 	jal	chrSetFiring
 /*  f0c2720:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0c2724:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0c2728:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0c272c:	0fc0fe12 */ 	jal	func0f03f848
+/*  f0c272c:	0fc0fe12 */ 	jal	chrSetFiring
 /*  f0c2730:	82260de1 */ 	lb	$a2,0xde1($s1)
 .L0f0c2734:
 /*  f0c2734:	8fae0100 */ 	lw	$t6,0x100($sp)

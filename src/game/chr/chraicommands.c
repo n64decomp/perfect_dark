@@ -14210,7 +14210,7 @@ glabel ai01cf
 /*  f05f450:	1100000f */ 	beqz	$t0,.L0f05f490
 /*  f05f454:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05f458:	00002825 */ 	or	$a1,$zero,$zero
-/*  f05f45c:	0fc0fe12 */ 	jal	func0f03f848
+/*  f05f45c:	0fc0fe12 */ 	jal	chrSetFiring
 /*  f05f460:	afa20038 */ 	sw	$v0,0x38($sp)
 /*  f05f464:	27b8002c */ 	addiu	$t8,$sp,0x2c
 /*  f05f468:	27b90020 */ 	addiu	$t9,$sp,0x20
@@ -14224,7 +14224,7 @@ glabel ai01cf
 /*  f05f488:	10000003 */ 	beqz	$zero,.L0f05f498
 /*  f05f48c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f05f490:
-/*  f05f490:	0fc0fe12 */ 	jal	func0f03f848
+/*  f05f490:	0fc0fe12 */ 	jal	chrSetFiring
 /*  f05f494:	00003025 */ 	or	$a2,$zero,$zero
 .L0f05f498:
 /*  f05f498:	3c03800a */ 	lui	$v1,%hi(g_Vars)

@@ -139,7 +139,7 @@ u32 func0f0a5550(void);
 u32 func0f0a695c(void);
 u32 func0f0a6c30(void);
 u32 func0f0a70a8(void);
-u32 func0f0a70c8(void);
+s8 freeFireslot(s8 fireslot);
 u32 func0f0a70f8(void);
 u32 func0f0a7138(void);
 u32 func0f0a7d5c(void);

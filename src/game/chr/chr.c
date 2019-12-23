@@ -19507,7 +19507,7 @@ glabel func0f02e9a0
 /*  f02e9a4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f02e9a8:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f02e9ac:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02e9b0:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f02e9b0:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f02e9b4:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f02e9b8:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f02e9bc:	240f0002 */ 	addiu	$t7,$zero,0x2
@@ -19595,7 +19595,7 @@ glabel func0f02eabc
 /*  f02eadc:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f02eae0:	10410067 */ 	beq	$v0,$at,.L0f02ec80
 /*  f02eae4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02eae8:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f02eae8:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f02eaec:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*  f02eaf0:	8fa2002c */ 	lw	$v0,0x2c($sp)
 /*  f02eaf4:	54400047 */ 	bnezl	$v0,.L0f02ec14
@@ -19604,7 +19604,7 @@ glabel func0f02eabc
 /*  f02eb00:	24030002 */ 	addiu	$v1,$zero,0x2
 /*  f02eb04:	546e0043 */ 	bnel	$v1,$t6,.L0f02ec14
 /*  f02eb08:	24030002 */ 	addiu	$v1,$zero,0x2
-/*  f02eb0c:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f02eb0c:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f02eb10:	02002025 */ 	or	$a0,$s0,$zero
 /*  f02eb14:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f02eb18:	24030002 */ 	addiu	$v1,$zero,0x2
@@ -19870,7 +19870,7 @@ glabel func0f02ed88
 
 void chrKneel(struct chrdata *chr)
 {
-	func0f03f8f4(chr);
+	chrStopFiring(chr);
 	chr->actiontype = ACT_KNEEL;
 	chr->sleep = 0;
 
@@ -19940,7 +19940,7 @@ glabel func0f02ef40
 
 void func0f02effc(struct chrdata *chr)
 {
-	func0f03f8f4(chr);
+	chrStopFiring(chr);
 	chr->actiontype = ACT_STARTALARM;
 	chr->sleep = 0;
 
@@ -20098,7 +20098,7 @@ glabel func0f02f070
 
 void func0f02f288(struct chrdata *chr, s32 arg1, s32 arg2)
 {
-	func0f03f8f4(chr);
+	chrStopFiring(chr);
 	chr->actiontype = ACT_THROWGRENADE;
 	chr->unk034 = arg1;
 	chr->unk038 = arg2;
@@ -20284,7 +20284,7 @@ glabel func0f02f530
 /*  f02f578:	45000019 */ 	bc1f	.L0f02f5e0
 /*  f02f57c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f02f580:
-/*  f02f580:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f02f580:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f02f584:	02002025 */ 	or	$a0,$s0,$zero
 /*  f02f588:	240e0012 */ 	addiu	$t6,$zero,0x12
 /*  f02f58c:	240f0001 */ 	addiu	$t7,$zero,0x1
@@ -20327,7 +20327,7 @@ glabel func0f02f530
 
 void func0f02f60c(struct chrdata *chr)
 {
-	func0f03f8f4(chr);
+	chrStopFiring(chr);
 	chr->actiontype = ACT_SURPRISED;
 	chr->unk02c = 2;
 	chr->sleep = 0;
@@ -20342,7 +20342,7 @@ void func0f02f60c(struct chrdata *chr)
 
 void func0f02f688(struct chrdata *chr)
 {
-	func0f03f8f4(chr);
+	chrStopFiring(chr);
 	chr->actiontype = ACT_SURPRISED;
 	chr->unk02c = 3;
 	chr->sleep = 0;
@@ -20439,7 +20439,7 @@ void chrSurrender(struct chrdata *chr)
 	u32 action = ACT_SURRENDER;
 
 	if (chr->actiontype != action) {
-		func0f03f8f4(chr);
+		chrStopFiring(chr);
 		chr->actiontype = action;
 		chr->sleep = action;
 
@@ -20666,7 +20666,7 @@ glabel func0f02f8a4
 
 void chrSidestep(struct chrdata *chr, s32 arg1)
 {
-	func0f03f8f4(chr);
+	chrStopFiring(chr);
 	chr->actiontype = ACT_SIDESTEP;
 	chr->unk02c = arg1;
 	chr->sleep = 0;
@@ -20785,7 +20785,7 @@ glabel func0f02fc2c
 
 void chrJumpOut(struct chrdata *chr, s32 arg1)
 {
-	func0f03f8f4(chr);
+	chrStopFiring(chr);
 	chr->actiontype = ACT_JUMPOUT;
 	chr->unk02c = arg1;
 	chr->sleep = 0;
@@ -20973,7 +20973,7 @@ glabel chrRunToPos
 /*  f03007c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f030080:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f030084:	00808025 */ 	or	$s0,$a0,$zero
-/*  f030088:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f030088:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f03008c:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f030090:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*  f030094:	240e000d */ 	addiu	$t6,$zero,0xd
@@ -22105,7 +22105,7 @@ glabel func0f030ff8
 .L0f03104c:
 /*  f03104c:	10610004 */ 	beq	$v1,$at,.L0f031060
 /*  f031050:	02002025 */ 	or	$a0,$s0,$zero
-/*  f031054:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f031054:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f031058:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*  f03105c:	8fa2002c */ 	lw	$v0,0x2c($sp)
 .L0f031060:
@@ -22199,7 +22199,7 @@ glabel func0f030ff8
 void func0f03119c(struct chrdata *chr)
 {
 	if (chr->actiontype != ACT_DEAD) {
-		func0f03f8f4(chr);
+		chrStopFiring(chr);
 
 		if (chr->cover != -1) {
 			func0f1164a4(chr->cover, 0);
@@ -23035,7 +23035,7 @@ glabel func0f0319a8
 /*  f031da4:	a60002d8 */ 	sh	$zero,0x2d8($s0)
 .L0f031da8:
 /*  f031da8:	afa80040 */ 	sw	$t0,0x40($sp)
-/*  f031dac:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f031dac:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f031db0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f031db4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f031db8:	0fc08946 */ 	jal	chrUncloak
@@ -24094,7 +24094,7 @@ glabel func0f032ac4
 /*  f032d0c:	8d2b0004 */ 	lw	$t3,0x4($t1)
 /*  f032d10:	02002025 */ 	or	$a0,$s0,$zero
 /*  f032d14:	af210000 */ 	sw	$at,0x0($t9)
-/*  f032d18:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f032d18:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f032d1c:	af2b0004 */ 	sw	$t3,0x4($t9)
 /*  f032d20:	240c0006 */ 	addiu	$t4,$zero,0x6
 /*  f032d24:	a20c0007 */ 	sb	$t4,0x7($s0)
@@ -24222,7 +24222,7 @@ glabel func0f032ac4
 /*  f032efc:	0007000d */ 	break	0x7
 .L0f032f00:
 /*  f032f00:	014b4021 */ 	addu	$t0,$t2,$t3
-/*  f032f04:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f032f04:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f032f08:	afa80048 */ 	sw	$t0,0x48($sp)
 /*  f032f0c:	8fa80048 */ 	lw	$t0,0x48($sp)
 /*  f032f10:	24090006 */ 	addiu	$t1,$zero,0x6
@@ -24626,7 +24626,7 @@ glabel func0f03323c
 /*  f0334c0:	014b6021 */ 	addu	$t4,$t2,$t3
 /*  f0334c4:	afac0040 */ 	sw	$t4,0x40($sp)
 .L0f0334c8:
-/*  f0334c8:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f0334c8:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f0334cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0334d0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0334d4:	0fc08946 */ 	jal	chrUncloak
@@ -27897,7 +27897,7 @@ glabel func0f034524
 void func0f036358(struct chrdata *chr, s32 arg1)
 {
 	if (chr->actiontype != ACT_DIE) {
-		func0f03f8f4(chr);
+		chrStopFiring(chr);
 		chrUncloak(chr, 1);
 
 		chr->actiontype = ACT_DIE;
@@ -30364,7 +30364,7 @@ glabel func0f03843c
 /*  f038628:	e7a80040 */ 	swc1	$f8,0x40($sp)
 .L0f03862c:
 /*  f03862c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f038630:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f038630:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f038634:	afaa0030 */ 	sw	$t2,0x30($sp)
 /*  f038638:	240c000f */ 	addiu	$t4,$zero,0xf
 /*  f03863c:	a20c0007 */ 	sb	$t4,0x7($s0)
@@ -30887,7 +30887,7 @@ glabel func0f038b9c
 /*  f038dbc:	e7aa0018 */ 	swc1	$f10,0x18($sp)
 /*  f038dc0:	1040004a */ 	beqz	$v0,.L0f038eec
 /*  f038dc4:	8fa900f0 */ 	lw	$t1,0xf0($sp)
-/*  f038dc8:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f038dc8:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f038dcc:	02602025 */ 	or	$a0,$s3,$zero
 /*  f038dd0:	240d000e */ 	addiu	$t5,$zero,0xe
 /*  f038dd4:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -31486,7 +31486,7 @@ glabel func0f0395d8
 /*  f039620:	01cf082a */ 	slt	$at,$t6,$t7
 /*  f039624:	54200006 */ 	bnezl	$at,.L0f039640
 /*  f039628:	82020007 */ 	lb	$v0,0x7($s0)
-/*  f03962c:	0fc0fe3d */ 	jal	func0f03f8f4
+/*  f03962c:	0fc0fe3d */ 	jal	chrStopFiring
 /*  f039630:	02002025 */ 	or	$a0,$s0,$zero
 /*  f039634:	10000050 */ 	beqz	$zero,.L0f039778
 /*  f039638:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -35089,11 +35089,11 @@ glabel func0f03c91c
 /*  f03cb3c:	14410008 */ 	bne	$v0,$at,.L0f03cb60
 /*  f03cb40:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03cb44:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03cb48:	0fc0fe12 */ 	jal	func0f03f848
+/*  f03cb48:	0fc0fe12 */ 	jal	chrSetFiring
 /*  f03cb4c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f03cb50:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03cb54:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03cb58:	0fc0fe12 */ 	jal	func0f03f848
+/*  f03cb58:	0fc0fe12 */ 	jal	chrSetFiring
 /*  f03cb5c:	00003025 */ 	or	$a2,$zero,$zero
 .L0f03cb60:
 /*  f03cb60:	8fbf004c */ 	lw	$ra,0x4c($sp)
@@ -38263,7 +38263,7 @@ glabel func0f03f778
 );
 
 GLOBAL_ASM(
-glabel func0f03f828
+glabel chrResetAimProperties
 /*  f03f828:	44800000 */ 	mtc1	$zero,$f0
 /*  f03f82c:	240e000a */ 	addiu	$t6,$zero,0xa
 /*  f03f830:	a08e000e */ 	sb	$t6,0xe($a0)
@@ -38275,7 +38275,7 @@ glabel func0f03f828
 );
 
 GLOBAL_ASM(
-glabel func0f03f848
+glabel chrSetFiring
 /*  f03f848:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f03f84c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f03f850:	afa60020 */ 	sw	$a2,0x20($sp)
@@ -38326,50 +38326,18 @@ glabel func0f03f848
 /*  f03f8f0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03f8f4
-/*  f03f8f4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03f8f8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03f8fc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03f900:	10800003 */ 	beqz	$a0,.L0f03f910
-/*  f03f904:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03f908:	10000002 */ 	beqz	$zero,.L0f03f914
-/*  f03f90c:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f03f910:
-/*  f03f910:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03f914:
-/*  f03f914:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f03f918:	10410016 */ 	beq	$v0,$at,.L0f03f974
-/*  f03f91c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f03f920:	50410015 */ 	beql	$v0,$at,.L0f03f978
-/*  f03f924:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03f928:	8e0e02d4 */ 	lw	$t6,0x2d4($s0)
-/*  f03f92c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03f930:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03f934:	55c00010 */ 	bnezl	$t6,.L0f03f978
-/*  f03f938:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03f93c:	0fc0fe12 */ 	jal	func0f03f848
-/*  f03f940:	00003025 */ 	or	$a2,$zero,$zero
-/*  f03f944:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03f948:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03f94c:	0fc0fe12 */ 	jal	func0f03f848
-/*  f03f950:	00003025 */ 	or	$a2,$zero,$zero
-/*  f03f954:	0fc0fe0a */ 	jal	func0f03f828
-/*  f03f958:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03f95c:	0fc29c32 */ 	jal	func0f0a70c8
-/*  f03f960:	8204017c */ 	lb	$a0,0x17c($s0)
-/*  f03f964:	a202017c */ 	sb	$v0,0x17c($s0)
-/*  f03f968:	0fc29c32 */ 	jal	func0f0a70c8
-/*  f03f96c:	8204017d */ 	lb	$a0,0x17d($s0)
-/*  f03f970:	a202017d */ 	sb	$v0,0x17d($s0)
-.L0f03f974:
-/*  f03f974:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f03f978:
-/*  f03f978:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03f97c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f03f980:	03e00008 */ 	jr	$ra
-/*  f03f984:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrStopFiring(struct chrdata *chr)
+{
+	u8 race = chr ? chr->race : RACE_HUMAN;
+
+	if (race != RACE_MAIAN && race != RACE_ROBOT && chr->unk2d4 == NULL) {
+		chrSetFiring(chr, 0, false);
+		chrSetFiring(chr, 1, false);
+		chrResetAimProperties(chr);
+		chr->fireslot[0] = freeFireslot(chr->fireslot[0]);
+		chr->fireslot[1] = freeFireslot(chr->fireslot[1]);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f03f988
@@ -38405,7 +38373,7 @@ glabel func0f03f988
 .L0f03f9f0:
 /*  f03f9f0:	54c00004 */ 	bnezl	$a2,.L0f03fa04
 /*  f03f9f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03f9f8:	0fc0fe12 */ 	jal	func0f03f848
+/*  f03f9f8:	0fc0fe12 */ 	jal	chrSetFiring
 /*  f03f9fc:	00003025 */ 	or	$a2,$zero,$zero
 /*  f03fa00:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f03fa04:
@@ -40649,12 +40617,12 @@ glabel func0f0404d4
 /*  f041a44:	0006502b */ 	sltu	$t2,$zero,$a2
 /*  f041a48:	01403025 */ 	or	$a2,$t2,$zero
 .L0f041a4c:
-/*  f041a4c:	0fc0fe12 */ 	jal	func0f03f848
+/*  f041a4c:	0fc0fe12 */ 	jal	chrSetFiring
 /*  f041a50:	8fa5027c */ 	lw	$a1,0x27c($sp)
 /*  f041a54:	10000004 */ 	beqz	$zero,.L0f041a68
 /*  f041a58:	8fbf0044 */ 	lw	$ra,0x44($sp)
 .L0f041a5c:
-/*  f041a5c:	0fc0fe12 */ 	jal	func0f03f848
+/*  f041a5c:	0fc0fe12 */ 	jal	chrSetFiring
 /*  f041a60:	8fa60268 */ 	lw	$a2,0x268($sp)
 /*  f041a64:	8fbf0044 */ 	lw	$ra,0x44($sp)
 .L0f041a68:
@@ -41281,7 +41249,7 @@ glabel func0f041e48
 /*  f042334:	10000004 */ 	beqz	$zero,.L0f042348
 /*  f042338:	00008825 */ 	or	$s1,$zero,$zero
 .L0f04233c:
-/*  f04233c:	0fc0fe0a */ 	jal	func0f03f828
+/*  f04233c:	0fc0fe0a */ 	jal	chrResetAimProperties
 /*  f042340:	02002025 */ 	or	$a0,$s0,$zero
 /*  f042344:	00008825 */ 	or	$s1,$zero,$zero
 .L0f042348:
@@ -41539,7 +41507,7 @@ glabel func0f04262c
 /*  f0426dc:	10000004 */ 	beqz	$zero,.L0f0426f0
 /*  f0426e0:	8e2e002c */ 	lw	$t6,0x2c($s1)
 .L0f0426e4:
-/*  f0426e4:	0fc0fe0a */ 	jal	func0f03f828
+/*  f0426e4:	0fc0fe0a */ 	jal	chrResetAimProperties
 /*  f0426e8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0426ec:	8e2e002c */ 	lw	$t6,0x2c($s1)
 .L0f0426f0:
@@ -42298,7 +42266,7 @@ glabel func0f042ffc
 /*  f0431c0:	240d0002 */ 	addiu	$t5,$zero,0x2
 .L0f0431c4:
 /*  f0431c4:	ae0d0058 */ 	sw	$t5,0x58($s0)
-/*  f0431c8:	0fc0fe0a */ 	jal	func0f03f828
+/*  f0431c8:	0fc0fe0a */ 	jal	chrResetAimProperties
 /*  f0431cc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0431d0:	1000007f */ 	beqz	$zero,.L0f0433d0
 /*  f0431d4:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -43612,7 +43580,7 @@ glabel func0f044208
 /*  f04442c:	10000004 */ 	beqz	$zero,.L0f044440
 /*  f044430:	8e0b0038 */ 	lw	$t3,0x38($s0)
 .L0f044434:
-/*  f044434:	0fc0fe0a */ 	jal	func0f03f828
+/*  f044434:	0fc0fe0a */ 	jal	chrResetAimProperties
 /*  f044438:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04443c:	8e0b0038 */ 	lw	$t3,0x38($s0)
 .L0f044440:

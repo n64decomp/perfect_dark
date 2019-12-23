@@ -18216,7 +18216,7 @@ GLOBAL_ASM(
 glabel func0f0a70a8
 /*  f0a70a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0a70ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a70b0:	0fc29c32 */ 	jal	func0f0a70c8
+/*  f0a70b0:	0fc29c32 */ 	jal	freeFireslot
 /*  f0a70b4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a70b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0a70bc:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -18225,7 +18225,7 @@ glabel func0f0a70a8
 );
 
 GLOBAL_ASM(
-glabel func0f0a70c8
+glabel freeFireslot
 /*  f0a70c8:	04800009 */ 	bltz	$a0,.L0f0a70f0
 /*  f0a70cc:	28810014 */ 	slti	$at,$a0,0x14
 /*  f0a70d0:	10200007 */ 	beqz	$at,.L0f0a70f0
