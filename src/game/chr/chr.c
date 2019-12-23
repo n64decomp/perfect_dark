@@ -38271,39 +38271,19 @@ void chrResetAimEndProperties(struct chrdata *chr)
 	chr->aimendsideback = 0;
 }
 
+void chrSetFiring(struct chrdata *chr, s32 hand, bool firing)
+{
+	struct attachment *attachment = chrGetEquippedWeaponAttachment(chr, hand);
+
+	chr->pos->unk3f_02 = firing ? 1 : 0;
+
+	if (attachment) {
+		func0f08bb5c(attachment, firing, chr->pos->room);
+	}
+}
+
 GLOBAL_ASM(
-glabel chrSetFiring
-/*  f03f848:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03f84c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03f850:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f03f854:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
-/*  f03f858:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03f85c:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f03f860:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f03f864:	00402025 */ 	or	$a0,$v0,$zero
-/*  f03f868:	50a00007 */ 	beqzl	$a1,.L0f03f888
-/*  f03f86c:	8ce3001c */ 	lw	$v1,0x1c($a3)
-/*  f03f870:	8ce3001c */ 	lw	$v1,0x1c($a3)
-/*  f03f874:	906f003f */ 	lbu	$t7,0x3f($v1)
-/*  f03f878:	35f80020 */ 	ori	$t8,$t7,0x20
-/*  f03f87c:	10000005 */ 	beqz	$zero,.L0f03f894
-/*  f03f880:	a078003f */ 	sb	$t8,0x3f($v1)
-/*  f03f884:	8ce3001c */ 	lw	$v1,0x1c($a3)
-.L0f03f888:
-/*  f03f888:	9079003f */ 	lbu	$t9,0x3f($v1)
-/*  f03f88c:	3328ffdf */ 	andi	$t0,$t9,0xffdf
-/*  f03f890:	a068003f */ 	sb	$t0,0x3f($v1)
-.L0f03f894:
-/*  f03f894:	50400005 */ 	beqzl	$v0,.L0f03f8ac
-/*  f03f898:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03f89c:	8ce9001c */ 	lw	$t1,0x1c($a3)
-/*  f03f8a0:	0fc22ed7 */ 	jal	func0f08bb5c
-/*  f03f8a4:	85260028 */ 	lh	$a2,0x28($t1)
-/*  f03f8a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f03f8ac:
-/*  f03f8ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03f8b0:	03e00008 */ 	jr	$ra
-/*  f03f8b4:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f03f8b8
 /*  f03f8b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f03f8bc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f03f8c0:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment

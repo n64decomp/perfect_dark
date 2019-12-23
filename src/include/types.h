@@ -57,7 +57,17 @@ struct position {
 	u32 unk34;
 	s16 unk38;
 	s16 unk3a;
-	u32 unk3c;
+	u8 unk3c;
+	u8 unk3d;
+	u8 unk3e;
+	u8 unk3f_00 : 1;
+	u8 unk3f_01 : 1;
+	u8 unk3f_02 : 1;
+	u8 unk3f_03 : 1;
+	u8 unk3f_04 : 1;
+	u8 unk3f_05 : 1;
+	u8 unk3f_06 : 1;
+	u8 unk3f_07 : 1;
 	u32 unk40;
 	u32 unk44;
 };
