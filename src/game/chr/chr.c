@@ -19753,22 +19753,11 @@ glabel func0f02ec94
 /*  f02ed24:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f02ed28
-/*  f02ed28:	44856000 */ 	mtc1	$a1,$f12
-/*  f02ed2c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f02ed30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02ed34:	44056000 */ 	mfc1	$a1,$f12
-/*  f02ed38:	0fc0ba68 */ 	jal	func0f02e9a0
-/*  f02ed3c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f02ed40:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f02ed44:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f02ed48:	adee0040 */ 	sw	$t6,0x40($t7)
-/*  f02ed4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f02ed50:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f02ed54:	03e00008 */ 	jr	$ra
-/*  f02ed58:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f02ed28(struct chrdata *chr, float arg1)
+{
+	func0f02e9a0(chr, arg1);
+	chr->unk040 = 1;
+}
 
 void chrStop(struct chrdata *chr)
 {

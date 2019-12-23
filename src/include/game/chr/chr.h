@@ -138,7 +138,7 @@ u32 func0f02e6dc(void);
 void func0f02e9a0(struct chrdata *chr, float arg1);
 void func0f02eabc(struct chrdata *chr);
 u32 func0f02ec94(struct chrdata *chr);
-u32 func0f02ed28(void);
+void func0f02ed28(struct chrdata *chr, float arg1);
 void chrStop(struct chrdata *chr);
 void func0f02ed88(struct chrdata *chr);
 void chrKneel(struct chrdata *chr);
