@@ -155,11 +155,11 @@ glabel func0f010b20
 /*  f010b6c:	1420fffd */ 	bnez	$at,.L0f010b64
 /*  f010b70:	ac60fffc */ 	sw	$zero,-0x4($v1)
 /*  f010b74:	3c018007 */ 	lui	$at,0x8007
-/*  f010b78:	3c03800a */ 	lui	$v1,%hi(var8009d150)
+/*  f010b78:	3c03800a */ 	lui	$v1,%hi(g_Fireslots)
 /*  f010b7c:	3c04800a */ 	lui	$a0,%hi(var8009d510)
 /*  f010b80:	ac200524 */ 	sw	$zero,0x524($at)
 /*  f010b84:	2484d510 */ 	addiu	$a0,$a0,%lo(var8009d510)
-/*  f010b88:	2463d150 */ 	addiu	$v1,$v1,%lo(var8009d150)
+/*  f010b88:	2463d150 */ 	addiu	$v1,$v1,%lo(g_Fireslots)
 /*  f010b8c:	2402ffff */ 	addiu	$v0,$zero,-1
 .L0f010b90:
 /*  f010b90:	24630030 */ 	addiu	$v1,$v1,0x30

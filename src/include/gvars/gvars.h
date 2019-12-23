@@ -601,7 +601,7 @@ extern u32 var8009d0d8;
 extern u32 var8009d0e0;
 extern u32 var8009d0f0;
 extern u32 var8009d144;
-extern u32 var8009d150;
+extern struct fireslot g_Fireslots[];
 extern u32 var8009d510;
 extern u32 var8009da60;
 extern u32 var8009dbe0;

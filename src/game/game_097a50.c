@@ -18224,28 +18224,20 @@ glabel func0f0a70a8
 /*  f0a70c4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel freeFireslot
-/*  f0a70c8:	04800009 */ 	bltz	$a0,.L0f0a70f0
-/*  f0a70cc:	28810014 */ 	slti	$at,$a0,0x14
-/*  f0a70d0:	10200007 */ 	beqz	$at,.L0f0a70f0
-/*  f0a70d4:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0a70d8:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f0a70dc:	01e47823 */ 	subu	$t7,$t7,$a0
-/*  f0a70e0:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0a70e4:	3c01800a */ 	lui	$at,0x800a
-/*  f0a70e8:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0a70ec:	ac2ed150 */ 	sw	$t6,-0x2eb0($at)
-.L0f0a70f0:
-/*  f0a70f0:	03e00008 */ 	jr	$ra
-/*  f0a70f4:	2402ffff */ 	addiu	$v0,$zero,-1
-);
+s8 freeFireslot(s32 fireslot_id)
+{
+	if (fireslot_id >= 0 && fireslot_id < 20) {
+		g_Fireslots[fireslot_id].unk00 = -1;
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f0a70f8
-/*  f0a70f8:	3c04800a */ 	lui	$a0,%hi(var8009d150)
+/*  f0a70f8:	3c04800a */ 	lui	$a0,%hi(g_Fireslots)
 /*  f0a70fc:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f0a7100:	2484d150 */ 	addiu	$a0,$a0,%lo(var8009d150)
+/*  f0a7100:	2484d150 */ 	addiu	$a0,$a0,%lo(g_Fireslots)
 /*  f0a7104:	00001025 */ 	or	$v0,$zero,$zero
 /*  f0a7108:	24050014 */ 	addiu	$a1,$zero,0x14
 .L0f0a710c:
