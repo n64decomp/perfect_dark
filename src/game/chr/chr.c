@@ -42857,11 +42857,10 @@ glabel func0f043da8
 /*  f043f20:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0f043f24
-/*  f043f24:	03e00008 */ 	jr	$ra
-/*  f043f28:	afa40000 */ 	sw	$a0,0x0($sp)
-);
+void func0f043f24(s32 arg0)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f043f2c
