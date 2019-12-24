@@ -36354,30 +36354,14 @@ glabel func0f03dff4
 /*  f03e090:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03e094
-/*  f03e094:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03e098:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03e09c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f03e0a0:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f03e0a4:	0c00745f */ 	jal	func0001d17c
-/*  f03e0a8:	afa4001c */ 	sw	$a0,0x1c($sp)
-/*  f03e0ac:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f03e0b0:	0c007468 */ 	jal	func0001d1a0
-/*  f03e0b4:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f03e0b8:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*  f03e0bc:	4604003e */ 	c.le.s	$f0,$f4
-/*  f03e0c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e0c4:	45020004 */ 	bc1fl	.L0f03e0d8
-/*  f03e0c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03e0cc:	0fc0baaf */ 	jal	func0f02eabc
-/*  f03e0d0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f03e0d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f03e0d8:
-/*  f03e0d8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f03e0dc:	03e00008 */ 	jr	$ra
-/*  f03e0e0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f03e094(struct chrdata *chr)
+{
+	struct chr020 *chr020 = chr->unk020;
+
+	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+		func0f02eabc(chr);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f03e0e4
