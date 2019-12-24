@@ -32506,69 +32506,31 @@ glabel func0f03a3ec
 /*  f03a574:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03a578
-/*  f03a578:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03a57c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03a580:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f03a584:	10800003 */ 	beqz	$a0,.L0f03a594
-/*  f03a588:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f03a58c:	10000002 */ 	beqz	$zero,.L0f03a598
-/*  f03a590:	908302fe */ 	lbu	$v1,0x2fe($a0)
-.L0f03a594:
-/*  f03a594:	00001825 */ 	or	$v1,$zero,$zero
-.L0f03a598:
-/*  f03a598:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f03a59c:	10610003 */ 	beq	$v1,$at,.L0f03a5ac
-/*  f03a5a0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f03a5a4:	54610004 */ 	bnel	$v1,$at,.L0f03a5b8
-/*  f03a5a8:	afa3001c */ 	sw	$v1,0x1c($sp)
-.L0f03a5ac:
-/*  f03a5ac:	10000021 */ 	beqz	$zero,.L0f03a634
-/*  f03a5b0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a5b4:	afa3001c */ 	sw	$v1,0x1c($sp)
-.L0f03a5b8:
-/*  f03a5b8:	0fc0e686 */ 	jal	func0f039a18
-/*  f03a5bc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f03a5c0:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f03a5c4:	1040001a */ 	beqz	$v0,.L0f03a630
-/*  f03a5c8:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f03a5cc:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f03a5d0:	14610005 */ 	bne	$v1,$at,.L0f03a5e8
-/*  f03a5d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a5d8:	0fc10a02 */ 	jal	func0f042808
-/*  f03a5dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a5e0:	10000014 */ 	beqz	$zero,.L0f03a634
-/*  f03a5e4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a5e8:
-/*  f03a5e8:	10600002 */ 	beqz	$v1,.L0f03a5f4
-/*  f03a5ec:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f03a5f0:	1461000f */ 	bne	$v1,$at,.L0f03a630
-.L0f03a5f4:
-/*  f03a5f4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03a5f8:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
-/*  f03a5fc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f03a600:	14400006 */ 	bnez	$v0,.L0f03a61c
-/*  f03a604:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f03a608:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03a60c:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
-/*  f03a610:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f03a614:	10400006 */ 	beqz	$v0,.L0f03a630
-/*  f03a618:	8fa40020 */ 	lw	$a0,0x20($sp)
-.L0f03a61c:
-/*  f03a61c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f03a620:	0fc0c048 */ 	jal	func0f030120
-/*  f03a624:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f03a628:	10000002 */ 	beqz	$zero,.L0f03a634
-/*  f03a62c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a630:
-/*  f03a630:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a634:
-/*  f03a634:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03a638:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f03a63c:	03e00008 */ 	jr	$ra
-/*  f03a640:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f03a578(struct chrdata *chr, s32 thingtype, s32 thingid)
+{
+	s32 race = chr ? chr->race : RACE_HUMAN;
+
+	if (race == RACE_MAIAN || race == RACE_ROBOT) {
+		return false;
+	}
+
+	if (func0f039a18(chr)) {
+		if (race == RACE_4) {
+			func0f042808(chr);
+			return true;
+		}
+
+		if (race == RACE_HUMAN || race == RACE_SKEDAR) {
+			if (chrGetEquippedWeaponAttachmentWithCheck(chr, 0) ||
+					(chrGetEquippedWeaponAttachmentWithCheck(chr, 1))) {
+				func0f030120(chr, thingtype, thingid);
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
 
 bool func0f03a644(struct chrdata *chr, s32 thingtype, s32 thingid)
 {

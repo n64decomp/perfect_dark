@@ -641,6 +641,7 @@
 #define RACE_SKEDAR 1
 #define RACE_MAIAN  2
 #define RACE_ROBOT  3
+#define RACE_4      4
 
 #define SPEED_WALK 0
 #define SPEED_JOG  1
