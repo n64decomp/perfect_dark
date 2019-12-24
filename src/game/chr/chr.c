@@ -36675,27 +36675,14 @@ glabel func0f03e45c
 /*  f03e534:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03e538
-/*  f03e538:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03e53c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03e540:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
-/*  f03e544:	44856000 */ 	mtc1	$a1,$f12
-/*  f03e548:	00803025 */ 	or	$a2,$a0,$zero
-/*  f03e54c:	50400004 */ 	beqzl	$v0,.L0f03e560
-/*  f03e550:	44056000 */ 	mfc1	$a1,$f12
-/*  f03e554:	10000004 */ 	beqz	$zero,.L0f03e568
-/*  f03e558:	e44c00b0 */ 	swc1	$f12,0xb0($v0)
-/*  f03e55c:	44056000 */ 	mfc1	$a1,$f12
-.L0f03e560:
-/*  f03e560:	0c006ba4 */ 	jal	func0001ae90
-/*  f03e564:	8cc40020 */ 	lw	$a0,0x20($a2)
-.L0f03e568:
-/*  f03e568:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03e56c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03e570:	03e00008 */ 	jr	$ra
-/*  f03e574:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f03e538(struct chrdata *chr, float arg1)
+{
+	if (chr->unk2d4) {
+		chr->unk2d4->unkb0 = arg1;
+	} else {
+		func0001ae90(chr->unk020, arg1);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f03e578

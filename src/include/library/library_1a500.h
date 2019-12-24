@@ -24,7 +24,7 @@ u32 func0001ad0c(void);
 u32 func0001ad34(void);
 u32 func0001ad5c(void);
 u32 func0001ae44(void);
-u32 func0001ae90(void);
+void func0001ae90(struct chr020 *chr020, float arg1);
 u32 func0001af58(void);
 u32 func0001af64(void);
 u32 func0001af80(void);
