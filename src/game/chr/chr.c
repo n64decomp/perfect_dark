@@ -37996,26 +37996,16 @@ void chrSetFiring(struct chrdata *chr, s32 hand, bool firing)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f03f8b8
-/*  f03f8b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03f8bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03f8c0:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
-/*  f03f8c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03f8c8:	10400005 */ 	beqz	$v0,.L0f03f8e0
-/*  f03f8cc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f03f8d0:	0fc22f17 */ 	jal	func0f08bc5c
-/*  f03f8d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03f8d8:	10000003 */ 	beqz	$zero,.L0f03f8e8
-/*  f03f8dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f03f8e0:
-/*  f03f8e0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03f8e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f03f8e8:
-/*  f03f8e8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03f8ec:	03e00008 */ 	jr	$ra
-/*  f03f8f0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f03f8b8(struct chrdata *chr, s32 hand)
+{
+	struct attachment *attachment = chrGetEquippedWeaponAttachment(chr, hand);
+
+	if (attachment) {
+		return func0f08bc5c(attachment);
+	}
+
+	return 0;
+}
 
 void chrStopFiring(struct chrdata *chr)
 {

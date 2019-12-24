@@ -280,7 +280,7 @@ void func0f08b8e8(struct chrdata *chr, s32 weapon_id, s32 arg2, u32 flags, s32 a
 u32 func0f08bad0(void);
 u32 func0f08bb3c(void);
 void func0f08bb5c(struct attachment *attachment, bool firing, s32 room);
-u32 func0f08bc5c(void);
+s32 func0f08bc5c(struct attachment *attachment);
 u32 func0f08bcf4(void);
 u32 func0f08bd00(void);
 u32 func0f08bdd4(void);
