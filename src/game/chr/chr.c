@@ -32704,84 +32704,30 @@ glabel func0f03a76c
 /*  f03a7e4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrFaceEntity
-/*  f03a7e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03a7ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03a7f0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f03a7f4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f03a7f8:	0fc0e686 */ 	jal	func0f039a18
-/*  f03a7fc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03a800:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f03a804:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f03a808:	1040001d */ 	beqz	$v0,.L0f03a880
-/*  f03a80c:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f03a810:	808e0007 */ 	lb	$t6,0x7($a0)
-/*  f03a814:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f03a818:	51c10007 */ 	beql	$t6,$at,.L0f03a838
-/*  f03a81c:	8c8f0030 */ 	lw	$t7,0x30($a0)
-/*  f03a820:	0fc0baaf */ 	jal	func0f02eabc
-/*  f03a824:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f03a828:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f03a82c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f03a830:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f03a834:	8c8f0030 */ 	lw	$t7,0x30($a0)
-.L0f03a838:
-/*  f03a838:	24010200 */ 	addiu	$at,$zero,0x200
-/*  f03a83c:	546f0005 */ 	bnel	$v1,$t7,.L0f03a854
-/*  f03a840:	ac830030 */ 	sw	$v1,0x30($a0)
-/*  f03a844:	8c980034 */ 	lw	$t8,0x34($a0)
-/*  f03a848:	10b8000b */ 	beq	$a1,$t8,.L0f03a878
-/*  f03a84c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a850:	ac830030 */ 	sw	$v1,0x30($a0)
-.L0f03a854:
-/*  f03a854:	ac850034 */ 	sw	$a1,0x34($a0)
-/*  f03a858:	ac800038 */ 	sw	$zero,0x38($a0)
-/*  f03a85c:	14610006 */ 	bne	$v1,$at,.L0f03a878
-/*  f03a860:	ac800040 */ 	sw	$zero,0x40($a0)
-/*  f03a864:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f03a868:	14a10003 */ 	bne	$a1,$at,.L0f03a878
-/*  f03a86c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f03a870:	a099004c */ 	sb	$t9,0x4c($a0)
-/*  f03a874:	ac800034 */ 	sw	$zero,0x34($a0)
-.L0f03a878:
-/*  f03a878:	10000002 */ 	beqz	$zero,.L0f03a884
-/*  f03a87c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a880:
-/*  f03a880:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a884:
-/*  f03a884:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03a888:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03a88c:	03e00008 */ 	jr	$ra
-/*  f03a890:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrFaceEntity(struct chrdata *chr, u32 entity_type, u32 entity_id)
+{
+	if (func0f039a18(chr)) {
+		if (chr->actiontype != ACT_STAND) {
+			func0f02eabc(chr);
+		}
 
-// Matches if chr->unk04c is turned into a bitfield, but that causes ai00f0 to
-// mismatch.
-//bool chrFaceEntity(struct chrdata *chr, u32 entity_type, u32 entity_id)
-//{
-//	if (func0f039a18(chr)) {
-//		if (chr->actiontype != ACT_STAND) {
-//			func0f02eabc(chr);
-//		}
-//
-//		if (entity_type != chr->unk030 || entity_id != chr->unk034) {
-//			chr->unk030 = entity_type;
-//			chr->unk034 = entity_id;
-//			chr->unk038 = 0;
-//			chr->unk040 = 0;
-//
-//			if (entity_type == 0x200 && entity_id == 1) {
-//				chr->unk04c = 1;
-//				chr->unk034 = 0;
-//			}
-//		}
-//
-//		return true;
-//	}
-//
-//	return false;
-//}
+		if (entity_type != chr->act_stand.unk030 || entity_id != chr->act_stand.unk034) {
+			chr->act_stand.unk030 = entity_type;
+			chr->act_stand.unk034 = entity_id;
+			chr->act_stand.unk038 = 0;
+			chr->act_stand.unk040 = 0;
+
+			if (entity_type == 0x200 && entity_id == 1) {
+				chr->act_stand.unk04c = 1;
+				chr->act_stand.unk034 = 0;
+			}
+		}
+
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f03a894
