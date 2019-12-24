@@ -19501,10 +19501,10 @@ glabel func0f02e6dc
 /*  f02e99c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f02e9a0(struct chrdata *chr, float arg1)
+void func0f02e9a0(struct chrdata *chr, f32 arg1)
 {
-	float limit = 127;
-	float fsleep;
+	f32 limit = 127;
+	f32 fsleep;
 
 	chrStopFiring(chr);
 	chr->actiontype = ACT_STAND;
@@ -19711,7 +19711,7 @@ glabel func0f02ec94
 /*  f02ed24:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f02ed28(struct chrdata *chr, float arg1)
+void func0f02ed28(struct chrdata *chr, f32 arg1)
 {
 	func0f02e9a0(chr, arg1);
 	chr->act_stand.unk040 = 1;
@@ -25335,7 +25335,7 @@ glabel func0f0338e0
 /*  f033f9c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-float chrGetShield(struct chrdata *chr)
+f32 chrGetShield(struct chrdata *chr)
 {
 	return chr->cshield;
 }
@@ -32938,7 +32938,7 @@ bool chrTryKneel(struct chrdata *chr)
 	return false;
 }
 
-bool func0f03af44(struct chrdata *chr, u32 anim_id, float fstartframe, float fendframe, u8 flags, u32 transition, float result)
+bool func0f03af44(struct chrdata *chr, u32 anim_id, f32 fstartframe, f32 fendframe, u8 flags, u32 transition, f32 result)
 {
 	if (func0f039a18(chr)) {
 		func0f030ff8(chr, anim_id, fstartframe, fendframe, flags, transition, result);
@@ -36675,7 +36675,7 @@ glabel func0f03e45c
 /*  f03e534:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f03e538(struct chrdata *chr, float arg1)
+void func0f03e538(struct chrdata *chr, f32 arg1)
 {
 	if (chr->unk2d4) {
 		chr->unk2d4->unkb0 = arg1;
@@ -36684,7 +36684,7 @@ void func0f03e538(struct chrdata *chr, float arg1)
 	}
 }
 
-float func0f03e578(struct chrdata *chr)
+f32 func0f03e578(struct chrdata *chr)
 {
 	if (chr->unk2d4) {
 		return chr->unk2d4->unka4;
@@ -36693,7 +36693,7 @@ float func0f03e578(struct chrdata *chr)
 	return func0001ae44(chr->unk020);
 }
 
-void func0f03e5b0(struct chrdata *chr, float arg1)
+void func0f03e5b0(struct chrdata *chr, f32 arg1)
 {
 	if (chr->unk2d4) {
 		chr->unk2d4->unka4 = arg1;
@@ -41377,11 +41377,11 @@ glabel func0f042808
 /*  f0429d4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f0429d8(struct chrdata *chr, float arg1, float arg2)
+void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
 {
 	struct position *pos = chrGetTargetPosition(chr);
-	float distance = func0f096750(pos->coord.x - chr->pos->coord.x, pos->coord.z - chr->pos->coord.z);
-	float value = func0001afe8(arg2, distance, arg1);
+	f32 distance = func0f096750(pos->coord.x - chr->pos->coord.x, pos->coord.z - chr->pos->coord.z);
+	f32 value = func0001afe8(arg2, distance, arg1);
 	func0f03e538(chr, value);
 }
 
@@ -48123,7 +48123,7 @@ glabel func0f048a84
 /*  f048b48:	46006006 */ 	mov.s	$f0,$f12
 );
 
-float chrGetAngleToTarget(struct chrdata *chr)
+f32 chrGetAngleToTarget(struct chrdata *chr)
 {
 	struct position *pos = chrGetTargetPosition(chr);
 	return func0f048a84(chr, &pos->coord);
@@ -48597,46 +48597,46 @@ glabel func0f04911c
 /*  f0491c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-float chrGetDistanceToTarget(struct chrdata *chr)
+f32 chrGetDistanceToTarget(struct chrdata *chr)
 {
 	struct position *targetpos = chrGetTargetPosition(chr);
 	return positionGetDistanceToPosition(chr->pos, targetpos);
 }
 
 // Redundant function - it's the same as above
-float chrGetDistanceToTarget2(struct chrdata *chr)
+f32 chrGetDistanceToTarget2(struct chrdata *chr)
 {
 	struct position *targetpos = chrGetTargetPosition(chr);
 	return positionGetDistanceToPosition(chr->pos, targetpos);
 }
 
-float chrGetDistanceToCurrentPlayer(struct chrdata *chr)
+f32 chrGetDistanceToCurrentPlayer(struct chrdata *chr)
 {
 	return positionGetDistanceToPosition(chr->pos, g_Vars.currentplayer->targetpos);
 }
 
-float positionGetDistanceToPosition(struct position *a, struct position *b)
+f32 positionGetDistanceToPosition(struct position *a, struct position *b)
 {
-	float xdiff = a->coord.x - b->coord.x;
-	float ydiff = a->coord.y - b->coord.y;
-	float zdiff = a->coord.z - b->coord.z;
+	f32 xdiff = a->coord.x - b->coord.x;
+	f32 ydiff = a->coord.y - b->coord.y;
+	f32 zdiff = a->coord.z - b->coord.z;
 
 	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 }
 
-float positionGetLateralDistanceToPosition(struct position *a, struct position *b)
+f32 positionGetLateralDistanceToPosition(struct position *a, struct position *b)
 {
-	float xdiff = a->coord.x - b->coord.x;
-	float zdiff = a->coord.z - b->coord.z;
+	f32 xdiff = a->coord.x - b->coord.x;
+	f32 zdiff = a->coord.z - b->coord.z;
 
 	return sqrtf(xdiff * xdiff + zdiff * zdiff);
 }
 
-float chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
+f32 chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
 {
 	struct position *pos = chr->pos;
-	float xdiff, ydiff, zdiff;
-	float distance = 0;
+	f32 xdiff, ydiff, zdiff;
+	f32 distance = 0;
 	struct pad pad;
 	pad_id = chrResolvePadId(chr, pad_id);
 
@@ -48707,12 +48707,12 @@ glabel chrGetSameFloorDistanceToPad
 // Matches, but commented because it puts rodata out of order. Will be safe to
 // uncomment once all functions either above or below it which contain rodata
 // have been decompiled.
-//float chrGetSameFloorDistanceToPad(struct chrdata *chr, s32 pad_id)
+//f32 chrGetSameFloorDistanceToPad(struct chrdata *chr, s32 pad_id)
 //{
 //	struct position *pos = chr->pos;
-//	float xdiff, ydiff, zdiff, ydiff_absolute;
+//	f32 xdiff, ydiff, zdiff, ydiff_absolute;
 //	struct pad pad;
-//	float ret;
+//	f32 ret;
 //
 //	pad_id = chrResolvePadId(chr, pad_id);
 //	padUnpack(pad_id, 2, &pad);
@@ -48735,29 +48735,29 @@ glabel chrGetSameFloorDistanceToPad
 //	return ret;
 //}
 
-float chrGetDistanceToCoord(struct chrdata *chr, struct coord *coord)
+f32 chrGetDistanceToCoord(struct chrdata *chr, struct coord *coord)
 {
-	float xdiff = coord->x - chr->pos->coord.x;
-	float ydiff = coord->y - chr->pos->coord.y;
-	float zdiff = coord->z - chr->pos->coord.z;
+	f32 xdiff = coord->x - chr->pos->coord.x;
+	f32 ydiff = coord->y - chr->pos->coord.y;
+	f32 zdiff = coord->z - chr->pos->coord.z;
 
 	return sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 }
 
-float chrGetLateralDistanceToCoord(struct chrdata *chr, struct coord *coord)
+f32 chrGetLateralDistanceToCoord(struct chrdata *chr, struct coord *coord)
 {
-	float xdiff = coord->x - chr->pos->coord.x;
-	float zdiff = coord->z - chr->pos->coord.z;
+	f32 xdiff = coord->x - chr->pos->coord.x;
+	f32 zdiff = coord->z - chr->pos->coord.z;
 
 	return sqrtf(xdiff * xdiff + zdiff * zdiff);
 }
 
-float chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
+f32 chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
 {
 	struct position *pos = chr->pos;
-	float xdiff, zdiff;
+	f32 xdiff, zdiff;
 	struct pad pad;
-	float distance = 0;
+	f32 distance = 0;
 	pad_id = chrResolvePadId(chr, pad_id);
 
 	if (pad_id >= 0) {
@@ -48770,20 +48770,20 @@ float chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
 	return distance;
 }
 
-float chrGetSquaredDistanceToCoord(struct chrdata *chr, struct coord *coord)
+f32 chrGetSquaredDistanceToCoord(struct chrdata *chr, struct coord *coord)
 {
-	float xdiff = coord->x - chr->pos->coord.x;
-	float ydiff = coord->y - chr->pos->coord.y;
-	float zdiff = coord->z - chr->pos->coord.z;
+	f32 xdiff = coord->x - chr->pos->coord.x;
+	f32 ydiff = coord->y - chr->pos->coord.y;
+	f32 zdiff = coord->z - chr->pos->coord.z;
 
 	return xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 }
 
-float coordGetSquaredDistanceToCoord(struct coord *a, struct coord *b)
+f32 coordGetSquaredDistanceToCoord(struct coord *a, struct coord *b)
 {
-	float xdiff = a->x - b->x;
-	float ydiff = a->y - b->y;
-	float zdiff = a->z - b->z;
+	f32 xdiff = a->x - b->x;
+	f32 ydiff = a->y - b->y;
+	f32 zdiff = a->z - b->z;
 
 	return xdiff * xdiff + ydiff * ydiff + zdiff * zdiff;
 }
@@ -49373,28 +49373,28 @@ glabel positionGetIndexByChrId
 /*  f049cac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-float chrGetDistanceToChr(struct chrdata *chr1, s32 chr2num)
+f32 chrGetDistanceToChr(struct chrdata *chr1, s32 chr2num)
 {
 	struct position *pos1 = chr1->pos;
 	struct chrdata *chr2 = chrFindById(chr1, chr2num);
-	float distance = 0;
+	f32 distance = 0;
 
 	if (chr2 && chr2->pos) {
-		float xdiff = chr2->pos->coord.x - pos1->coord.x;
-		float ydiff = chr2->pos->coord.y - pos1->coord.y;
-		float zdiff = chr2->pos->coord.z - pos1->coord.z;
+		f32 xdiff = chr2->pos->coord.x - pos1->coord.x;
+		f32 ydiff = chr2->pos->coord.y - pos1->coord.y;
+		f32 zdiff = chr2->pos->coord.z - pos1->coord.z;
 		distance = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 	}
 
 	return distance;
 }
 
-float chrGetDistanceFromTargetToPad(struct chrdata *chr, s32 pad_id)
+f32 chrGetDistanceFromTargetToPad(struct chrdata *chr, s32 pad_id)
 {
 	struct position *targetpos = chrGetTargetPosition(chr);
-	float xdiff, ydiff, zdiff;
+	f32 xdiff, ydiff, zdiff;
 	struct pad pad;
-	float distance = 0;
+	f32 distance = 0;
 	pad_id = chrResolvePadId(chr, pad_id);
 
 	if (pad_id >= 0) {
@@ -50100,12 +50100,12 @@ glabel func0f04a674
 /*  f04a768:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool func0f04a76c(struct chrdata *chr, float distance)
+bool func0f04a76c(struct chrdata *chr, f32 distance)
 {
 	return func0f04a79c(0, chr, distance);
 }
 
-bool func0f04a79c(u8 chrnum, struct chrdata *chr, float distance)
+bool func0f04a79c(u8 chrnum, struct chrdata *chr, f32 distance)
 {
 	return func0f04a848(chrnum, chr, distance, &chr->pos->coord, &chr->pos->room);
 }
@@ -50979,7 +50979,7 @@ bool chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *
 	s32 resolved_pad_id = chrResolvePadId(basechr, pad_id);
 	struct pad pad;
 	s16 room[2];
-	float fvalue;
+	f32 fvalue;
 	padUnpack(resolved_pad_id, 0x46, &pad);
 	fvalue = func0f096750(pad.look.x, pad.look.z);
 	room[0] = pad.room;
@@ -50991,7 +50991,7 @@ bool chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *
 bool chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 flags)
 {
 	struct chrdata *chr = chrFindById(basechr, chrnum);
-	float fvalue;
+	f32 fvalue;
 
 	if (1) {
 		fvalue = func0f03e45c(chr);

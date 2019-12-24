@@ -4,6 +4,6 @@
 #include "types.h"
 
 u32 func00050090(void);
-void func000500e4(u32 *ptr, float arg1, float arg2, float arg3);
+void func000500e4(u32 *ptr, f32 arg1, f32 arg2, f32 arg3);
 
 #endif

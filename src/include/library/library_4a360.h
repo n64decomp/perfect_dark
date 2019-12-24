@@ -5,6 +5,6 @@
 
 u32 func0004a360(void);
 u32 func0004a460(void);
-float sqrtf(float value);
+f32 sqrtf(f32 value);
 
 #endif

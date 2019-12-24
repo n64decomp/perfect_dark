@@ -33,7 +33,7 @@ s32 func0f176044(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 	return arg0;
 }
 
-void func0f176058(float arg0)
+void func0f176058(f32 arg0)
 {
 	// empty
 }

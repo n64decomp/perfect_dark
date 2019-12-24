@@ -5672,7 +5672,7 @@ u32 var8007db74 = 0x00000000;
 u32 var8007db78 = 0x00000000;
 u32 var8007db7c = 0x00000000;
 u32 var8007db80 = 0x00000000;
-float var8007db84 = 1;
+f32 var8007db84 = 1;
 u32 var8007db88 = 0x00000000;
 u32 var8007db8c = 0x00000000;
 u32 var8007db90 = 0x00000000;
@@ -9594,7 +9594,7 @@ u32 var80084050 = 0x00000000;
 s16 g_FadeNumFrames = 0;
 
 // 80084058
-float fade80084058 = -1;
+f32 fade80084058 = -1;
 u32 g_FadePrevColor = 0;
 u32 g_FadeColor = 0;
 

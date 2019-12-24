@@ -2,12 +2,12 @@
 #include "types.h"
 #include "library/library_4a360.h"
 
-void scaleTo1(float *x, float *y, float *z)
+void scaleTo1(f32 *x, f32 *y, f32 *z)
 {
-	float hyp = sqrtf(*x * *x + *y * *y + *z * *z);
+	f32 hyp = sqrtf(*x * *x + *y * *y + *z * *z);
 
 	if (hyp > 0.0f) {
-		float hyp2 = 1.0f / hyp;
+		f32 hyp2 = 1.0f / hyp;
 		*x = *x * hyp2;
 		*y = *y * hyp2;
 		*z = *z * hyp2;

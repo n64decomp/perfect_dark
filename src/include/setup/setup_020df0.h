@@ -25,7 +25,7 @@ extern struct menu_dialog menudialog_mpquickteam;
 extern s32 g_Difficulty;
 
 extern s16 g_FadeNumFrames;
-extern float fade80084058;
+extern f32 fade80084058;
 extern u32 g_FadePrevColor;
 extern u32 g_FadeColor;
 extern u16 fade80084064;
@@ -54,7 +54,7 @@ extern struct stagethinglist stagethinglist_22f1c;
 extern struct bodytableentry bodytable[];
 extern u32 var8007dae4;
 extern u32 var8007db80;
-extern float var8007db84;
+extern f32 var8007db84;
 extern u32 var8007db88;
 extern u32 var8007db94;
 extern u32 var8007dba0;

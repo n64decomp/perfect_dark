@@ -10096,7 +10096,7 @@ glabel func0f0bb2e8
 /*  f0bb31c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f0bb320(s32 arg0, s32 arg1, s32 arg2, float arg3)
+void func0f0bb320(s32 arg0, s32 arg1, s32 arg2, f32 arg3)
 {
 	g_Vars.currentplayer->unk02d8 = arg0;
 	g_Vars.currentplayer->unk02dc = arg1;
@@ -10104,7 +10104,7 @@ void func0f0bb320(s32 arg0, s32 arg1, s32 arg2, float arg3)
 	g_Vars.currentplayer->unk02e4 = arg3;
 }
 
-void func0f0bb350(float arg0, s32 arg1, s32 arg2, s32 arg3, float arg4)
+void func0f0bb350(f32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4)
 {
 	g_Vars.currentplayer->unk02e8 = 0;
 	g_Vars.currentplayer->unk02ec = arg0;
@@ -10118,7 +10118,7 @@ void func0f0bb350(float arg0, s32 arg1, s32 arg2, s32 arg3, float arg4)
 	g_Vars.currentplayer->unk030c = arg4;
 }
 
-void func0f0bb3c8(float arg0, float arg1)
+void func0f0bb3c8(f32 arg0, f32 arg1)
 {
 	func0f0bb350(arg0,g_Vars.currentplayer->unk02d8, g_Vars.currentplayer->unk02dc, g_Vars.currentplayer->unk02e0, arg1);
 }
@@ -10218,7 +10218,7 @@ glabel func0f0bb42c
 /*  f0bb578:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f0bb57c(float arg0, float arg1)
+void func0f0bb57c(f32 arg0, f32 arg1)
 {
 	struct chrdata *chr = g_Vars.currentplayer->targetpos->chr;
 

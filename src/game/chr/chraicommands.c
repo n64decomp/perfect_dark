@@ -110,13 +110,13 @@ const u32 var7f1a9d88[] = {0x7f05b140};
 const u32 var7f1a9d8c[] = {0x7f05b184};
 const u32 var7f1a9d90[] = {0x461c4000};
 
-const float var7f1a9d94[] = {3500};
-const float var7f1a9d98[] = {30999.9};
-const float var7f1a9d9c[] = {3000};
-const float var7f1a9da0[] = {3000};
-const float var7f1a9da4[] = {0.1};
-const float var7f1a9da8[] = {0.4};
-const float var7f1a9dac[] = {0.4};
+const f32 var7f1a9d94[] = {3500};
+const f32 var7f1a9d98[] = {30999.9};
+const f32 var7f1a9d9c[] = {3000};
+const f32 var7f1a9da0[] = {3000};
+const f32 var7f1a9da4[] = {0.1};
+const f32 var7f1a9da8[] = {0.4};
+const f32 var7f1a9dac[] = {0.4};
 
 /**
  * @cmd 0000
@@ -574,8 +574,8 @@ glabel ai000b
 //	struct chrdata *chr = NULL;
 //	s32 startframe = cmd[5] | (cmd[4] << 8);
 //	s32 endframe = cmd[7] | (cmd[6] << 8);
-//	float fstartframe;
-//	float fendframe;
+//	f32 fstartframe;
+//	f32 fendframe;
 //
 //	if (g_Vars.chrdata) {
 //		chr = chrFindById(g_Vars.chrdata, cmd[10]);
@@ -596,7 +596,7 @@ glabel ai000b
 //	}
 //
 //	if (chr && chr->unk020) {
-//		float result = 1.0 / cmd[11];
+//		f32 result = 1.0 / cmd[11];
 //
 //		if (g_Vars.in_cutscene) {
 //			if (startframe != 0xfffe) {
@@ -2260,7 +2260,7 @@ bool ai0051(void)
 bool aiIfDistanceToTargetLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float distance = (cmd[3] | (cmd[2] << 8)) * (float)10;
+	f32 distance = (cmd[3] | (cmd[2] << 8)) * (f32)10;
 
 	if (chrGetDistanceToTarget(g_Vars.chrdata) < distance) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -2277,7 +2277,7 @@ bool aiIfDistanceToTargetLessThan(void)
 bool aiIfDistanceToTargetGreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float distance = (cmd[3] | (cmd[2] << 8)) * (float)10;
+	f32 distance = (cmd[3] | (cmd[2] << 8)) * (f32)10;
 
 	if (chrGetDistanceToTarget(g_Vars.chrdata) > distance) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -2507,7 +2507,7 @@ glabel aiIfChrDistanceToPadGreaterThan
 bool aiIfDistanceToChrLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
+	f32 cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToChr(g_Vars.chrdata, cmd[4]) < cutoff) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
@@ -2524,7 +2524,7 @@ bool aiIfDistanceToChrLessThan(void)
 bool aiIfDistanceToChrGreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
+	f32 cutoff = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToChr(g_Vars.chrdata, cmd[4]) > cutoff) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
@@ -2541,7 +2541,7 @@ bool aiIfDistanceToChrGreaterThan(void)
 bool ai0058(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
+	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (func0f04a76c(g_Vars.chrdata, distance)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -3320,7 +3320,7 @@ bool aiDestroyObject(void)
 			func0f129900(entity->pos, &entity->pos->coord, &entity->pos->room, 3, 0);
 			func0f12e714(entity->pos, 0x16);
 		} else {
-			float damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
+			f32 damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
 			func0f0852ac(obj, damage, &obj->pos->coord, 0x22, -1);
 		}
 	}
@@ -4211,7 +4211,7 @@ bool aiIfDifficultyGreaterThan(void)
 	return false;
 }
 
-float func0f16cdec(void);
+f32 func0f16cdec(void);
 
 /**
  * @cmd 0079
@@ -4219,8 +4219,8 @@ float func0f16cdec(void);
 bool aiIfUptimeLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float target = (float)(cmd[3] | (cmd[2] << 8));
-	float uptime = func0f16cdec();
+	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
+	f32 uptime = func0f16cdec();
 
 	if (uptime < target) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -4237,8 +4237,8 @@ bool aiIfUptimeLessThan(void)
 bool aiIfUptimeGreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float target = (float)(cmd[3] | (cmd[2] << 8));
-	float uptime = func0f16cdec();
+	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
+	f32 uptime = func0f16cdec();
 
 	if (uptime > target) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -4471,7 +4471,7 @@ bool aiIfAlertnessLessThanRandom(void)
 bool aiSetHearDistance(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float distance = (cmd[3] | (cmd[2] << 8)) / 1000.0f;
+	f32 distance = (cmd[3] | (cmd[2] << 8)) / 1000.0f;
 	g_Vars.chrdata->hearingscale = distance;
 
 	g_Vars.aioffset += 4;
@@ -5439,7 +5439,7 @@ bool aiIfTimerStopped(void)
 bool aiIfTimerGreaterThanRandom(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float timer = chrGetTimer(g_Vars.chrdata);
+	f32 timer = chrGetTimer(g_Vars.chrdata);
 
 	if (g_Vars.chrdata->random < timer) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -5642,7 +5642,7 @@ bool aiHideCountdownTimer(void)
 bool aiSetCountdownTimerValue(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float seconds = cmd[3] | (cmd[2] << 8);
+	f32 seconds = cmd[3] | (cmd[2] << 8);
 
 	countdownTimerSetValue(seconds * 60);
 	g_Vars.aioffset += 4;
@@ -5694,7 +5694,7 @@ bool aiIfCountdownTimerStopped(void)
 bool aiIfCountdownTimerLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float value = cmd[3] | (cmd[2] << 8);
+	f32 value = cmd[3] | (cmd[2] << 8);
 
 	if (countdownTimerGetValue() < value * 60) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -5711,7 +5711,7 @@ bool aiIfCountdownTimerLessThan(void)
 bool aiIfCountdownTimerGreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float value = cmd[3] | (cmd[2] << 8);
+	f32 value = cmd[3] | (cmd[2] << 8);
 
 	if (countdownTimerGetValue() > value * 60) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -6585,7 +6585,7 @@ bool ai00d1(void)
 bool ai00d2(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float thing1 = cmd[4] | (cmd[3] << 8);
+	f32 thing1 = cmd[4] | (cmd[3] << 8);
 	u16 thing2 = cmd[6] | (cmd[5] << 8);
 	s32 audio_id = func0f0927d4(thing1, 400, 2500, 3000, 32767);
 
@@ -8652,7 +8652,7 @@ bool aiIfChrTarget(void)
 bool ai0109(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
+	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
 
 	if (func0f04a79c(cmd[2], g_Vars.chrdata, distance)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
@@ -8669,7 +8669,7 @@ bool ai0109(void)
 bool ai010a(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
+	f32 distance = (cmd[4] | (cmd[3] << 8)) * 10.0f;
 	u16 thing = cmd[6] | (cmd[5] << 8);
 
 	if (func0f04a7dc(cmd[2], g_Vars.chrdata, distance, thing)) {
@@ -11035,7 +11035,7 @@ glabel ai0137
 );
 
 // Mismatches due to position of rodata. This function uses literal 3500, while
-// others below in this file use const float arrays, but const float arrays are
+// others below in this file use const f32 arrays, but const f32 arrays are
 // placed in .rodata before all literals.
 //bool ai0137(void)
 //{
@@ -11090,7 +11090,7 @@ bool ai0139(void)
  */
 bool aiSetChrPresetToUnalertedTeammate(void)
 {
-	float closest_distance = var7f1a9d98[0];
+	f32 closest_distance = var7f1a9d98[0];
 	s16 candidate_chrnum = -1;
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
@@ -11113,7 +11113,7 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 				(g_Vars.chrdata->squadron == chr->squadron || g_Vars.chrdata->squadron == 0xff) &&
 				g_Vars.chrdata->chrnum != chr->chrnum) {
 
-			float distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
+			f32 distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
 
 			if (distance < closest_distance &&
 					(distance < 100.0f * (s32)cmd[2] || cmd[2] == 0) &&
@@ -11996,7 +11996,7 @@ bool aiIfY(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = NULL;
-	float cutoff_y = ((cmd[4] | (cmd[3] << 8)) << 16) >> 16;
+	f32 cutoff_y = ((cmd[4] | (cmd[3] << 8)) << 16) >> 16;
 
 	if (cmd[2] == CHR_TARGET && g_Vars.hovdata) {
 		struct heliobj *heli = func0f07adf4(&g_Vars.hovdata->base);
@@ -12189,10 +12189,10 @@ bool ai0170(void)
 bool aiIfDistanceToGunLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
-	float xdiff = 0;
-	float ydiff = 0;
-	float zdiff = 0;
+	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
+	f32 xdiff = 0;
+	f32 ydiff = 0;
+	f32 zdiff = 0;
 
 	if (g_Vars.chrdata->gungroundpos) {
 		xdiff = g_Vars.chrdata->pos->coord.x - g_Vars.chrdata->gungroundpos->coord.x;
@@ -12827,10 +12827,10 @@ glabel aiIfObjectDistanceToPadLessThan
 //bool aiIfObjectDistanceToPadLessThan(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	float distance = (float)(cmd[4] | (cmd[3] << 8)) * 10;
-//	float xdiff;
-//	float ydiff;
-//	float zdiff;
+//	f32 distance = (f32)(cmd[4] | (cmd[3] << 8)) * 10;
+//	f32 xdiff;
+//	f32 ydiff;
+//	f32 zdiff;
 //	s32 pad_id = (cmd[6] | (cmd[5] << 8)) & 0xffff;
 //	struct defaultobj *obj = objFindByTagId(cmd[2]);
 //	struct pad pad;
@@ -13197,7 +13197,7 @@ bool aiIfTargetYDifferenceLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct position *pos = chrGetTargetPosition(g_Vars.chrdata);
-	float diff = pos->coord.y - g_Vars.chrdata->pos->coord.y;
+	f32 diff = pos->coord.y - g_Vars.chrdata->pos->coord.y;
 
 	if (diff < 0) {
 		diff = 0 - diff;
@@ -13218,7 +13218,7 @@ bool aiIfTargetYDifferenceLessThan(void)
 bool ai01aa(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float a = var7f1a9d9c[0];
+	f32 a = var7f1a9d9c[0];
 
 	func0f0056f4(
 			g_Vars.currentplayer->targetpos->room,
@@ -13924,7 +13924,7 @@ bool aiChrBeginOrEndTeleport(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
-	float fvalue = var7f1a9da8[0];
+	f32 fvalue = var7f1a9da8[0];
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[4]);
 	s32 a;
 	u32 playernum;
@@ -13974,7 +13974,7 @@ bool aiIfChrTeleportFullWhite(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 	u32 prevplayernum = g_Vars.currentplayernum;
 	s32 a;
-	float fvalue;
+	f32 fvalue;
 	s32 b;
 	s32 c;
 
@@ -14717,7 +14717,7 @@ bool aiMiscellaneous(void)
 bool aiIfDistanceToTarget2LessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
+	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToTarget2(g_Vars.chrdata) < distance) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -14734,7 +14734,7 @@ bool aiIfDistanceToTarget2LessThan(void)
 bool aiIfDistanceToTarget2GreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	float distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
+	f32 distance = (cmd[3] | (cmd[2] << 8)) * 10.0f;
 
 	if (chrGetDistanceToTarget2(g_Vars.chrdata) > distance) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);

@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-float scaleTo1(float *x, float *y, float *z);
+f32 scaleTo1(f32 *x, f32 *y, f32 *z);
 
 #endif

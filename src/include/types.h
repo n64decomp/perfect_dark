@@ -6,9 +6,9 @@
 #define bool u32
 
 struct coord {
-	float x;
-	float y;
-	float z;
+	f32 x;
+	f32 y;
+	f32 z;
 };
 
 struct weaponobj;
@@ -77,12 +77,12 @@ struct pad {
 	/*0x0c*/ struct coord look;
 	/*0x18*/ struct coord up;
 	/*0x24*/ struct coord normal;
-	/*0x30*/ float xmin;
-	/*0x34*/ float xmax;
-	/*0x38*/ float ymin;
-	/*0x3c*/ float ymax;
-	/*0x40*/ float zmin;
-	/*0x44*/ float zmax;
+	/*0x30*/ f32 xmin;
+	/*0x34*/ f32 xmax;
+	/*0x38*/ f32 ymin;
+	/*0x3c*/ f32 ymax;
+	/*0x40*/ f32 zmin;
+	/*0x44*/ f32 zmax;
 	/*0x48*/ s32 room;
 	/*0x4c*/ s16 unk4c;
 	/*0x4e*/ s16 unk4e;
@@ -120,7 +120,7 @@ struct chr020_20 {
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u32 unk6c;
 	/*0x70*/ u32 unk70;
-	/*0x74*/ float unk74;
+	/*0x74*/ f32 unk74;
 };
 
 struct chr020 {
@@ -191,10 +191,10 @@ struct chr2d4 {
 	/*0x9c*/ u8 unk9c_06 : 1;
 	/*0x9c*/ u8 unk9c_07 : 1;
 	/*0xa0*/ u32 unka0;
-	/*0xa4*/ float unka4;
+	/*0xa4*/ f32 unka4;
 	/*0xa8*/ u32 unka8;
 	/*0xac*/ u32 unkac;
-	/*0xb0*/ float unkb0;
+	/*0xb0*/ f32 unkb0;
 };
 
 struct act_stand {
@@ -205,15 +205,15 @@ struct act_stand {
 	/*0x3c*/ u32 unk03c;
 	/*0x40*/ u32 unk040;
 	/*0x44*/ u32 unk044;
-	/*0x48*/ float unk048;
+	/*0x48*/ f32 unk048;
 	/*0x4c*/ s8 unk04c;
 };
 
 struct act_die {
 	/*0x2c*/ u32 unk02c;
-	/*0x30*/ float unk030;
-	/*0x34*/ float unk034;
-	/*0x38*/ float unk038;
+	/*0x30*/ f32 unk030;
+	/*0x34*/ f32 unk034;
+	/*0x38*/ f32 unk038;
 };
 
 struct act_dead {
@@ -320,23 +320,23 @@ struct chrdata {
 	/*0x0ac*/ u32 unk0ac;
 	/*0x0b0*/ u32 sumground;
 	/*0x0b4*/ u32 manground;
-	/*0x0b8*/ float ground;
+	/*0x0b8*/ f32 ground;
 	/*0x0bc*/ struct coord fallspeed;
 	/*0x0c8*/ struct coord prevpos;
 	/*0x0d4*/ u32 lastwalk60;
 	/*0x0d8*/ u32 lastmoveok60;
-	/*0x0dc*/ float visionrange;
+	/*0x0dc*/ f32 visionrange;
 	/*0x0e0*/ s32 lastseetarget60;
 	/*0x0e4*/ u32 lastvisibletarg;
 	/*0x0e8*/ void *unk0e8;
 	/*0x0ec*/ u16 lastshooter;
 	/*0x0ee*/ u16 timeshooter;
-	/*0x0f0*/ float hearingscale;
+	/*0x0f0*/ f32 hearingscale;
 	/*0x0f4*/ s32 lastheartarget60;
 	/*0x0f8*/ u32 shadecol;
 	/*0x0fc*/ u32 nextcol;
-	/*0x100*/ float damage;
-	/*0x104*/ float maxdamage;
+	/*0x100*/ f32 damage;
+	/*0x104*/ f32 maxdamage;
 	/*0x108*/ u8 *ailist;
 	/*0x10c*/ u16 aioffset;
 	/*0x10e*/ s16 aireturnlist;
@@ -367,15 +367,15 @@ struct chrdata {
 	/*0x154*/ u32 aimuprshoulder;
 	/*0x158*/ u32 aimupback;
 	/*0x15c*/ u32 aimsideback;
-	/*0x160*/ float aimendlshoulder;
-	/*0x164*/ float aimendrshoulder;
-	/*0x168*/ float aimendback;
-	/*0x16c*/ float aimendsideback;
+	/*0x160*/ f32 aimendlshoulder;
+	/*0x164*/ f32 aimendrshoulder;
+	/*0x168*/ f32 aimendback;
+	/*0x16c*/ f32 aimendsideback;
 	/*0x170*/ struct attachment *weapons_held[2];
 	/*0x178*/ u32 unk178;
 	/*0x17c*/ s8 fireslot[2];
 	/*0x17e*/ s16 target; // index into g_Vars.positions
-	/*0x180*/ float cshield;
+	/*0x180*/ f32 cshield;
 	/*0x184*/ u8 cmnum;
 	/*0x185*/ u8 cmnum2;
 	/*0x186*/ u8 cmnum3;
@@ -486,7 +486,7 @@ struct defaultobj {
 	/*0x10*/ u32 flags3;
 	/*0x14*/ struct position *pos;
 	/*0x18*/ void *unk18; // probably same struct as chrdata->unk020
-	/*0x1c*/ float realrot[9];
+	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden; // most significant nibble is the playernum who holds the obj
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;
@@ -500,7 +500,7 @@ struct defaultobj {
 
 struct doorobj { // objtype 0x01
 	struct defaultobj base;
-	/*0x5c*/ float unk5c;
+	/*0x5c*/ f32 unk5c;
 	/*0x60*/ u32 unk60;
 	/*0x64*/ u32 unk64;
 	/*0x68*/ u32 unk68;
@@ -508,8 +508,8 @@ struct doorobj { // objtype 0x01
 	/*0x70*/ u32 unk70;
 	/*0x74*/ u32 lockbits;
 	/*0x78*/ u32 unk78;
-	/*0x7c*/ float speed;
-	/*0x80*/ float unk80;
+	/*0x7c*/ f32 speed;
+	/*0x80*/ f32 unk80;
 	/*0x84*/ s8 state;
 	/*0x88*/ u32 unk88;
 	/*0x8c*/ u32 unk8c;
@@ -555,7 +555,7 @@ struct weaponobj { // objtype 0x08
 	/*0x10*/ u32 flags3;
 	/*0x14*/ struct position *pos;
 	/*0x18*/ u32 unk18;
-	/*0x1c*/ float realrot[9];
+	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden;
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;
@@ -580,7 +580,7 @@ struct singlemonitorobj { // objtype 0x0a
 	/*0x10*/ u32 flags3;
 	/*0x14*/ struct position *pos;
 	/*0x18*/ u32 unk18;
-	/*0x1c*/ float realrot[9];
+	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden;
 	/*0x44*/ u32 unk44;
 	/*0x48*/ u32 unk48;
@@ -629,7 +629,7 @@ struct liftobj { // objtype 30
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u32 unk6c;
 	/*0x70*/ u32 unk70;
-	/*0x74*/ float unk74;
+	/*0x74*/ f32 unk74;
 };
 
 struct heliobj {
@@ -693,8 +693,8 @@ struct player {
 	/*0x0068*/ u32 unk0068;
 	/*0x006c*/ u32 unk006c;
 	/*0x0070*/ u32 unk0070;
-	/*0x0074*/ float unk0074;
-	/*0x0078*/ float unk0078;
+	/*0x0074*/ f32 unk0074;
+	/*0x0078*/ f32 unk0078;
 	/*0x007c*/ u32 unk007c;
 	/*0x0080*/ u32 unk0080;
 	/*0x0084*/ u32 unk0084;
@@ -709,7 +709,7 @@ struct player {
 	/*0x00a8*/ u32 unk00a8;
 	/*0x00ac*/ u32 unk00ac;
 	/*0x00b0*/ u32 unk00b0;
-	/*0x00b4*/ float unk00b4;
+	/*0x00b4*/ f32 unk00b4;
 	/*0x00b8*/ u32 unk00b8;
 	/*0x00bc*/ struct position *targetpos;
 	/*0x00c0*/ u32 unk00c0;
@@ -762,10 +762,10 @@ struct player {
 	/*0x017c*/ u32 unk017c;
 	/*0x0180*/ u32 unk0180;
 	/*0x0184*/ u32 unk0184;
-	/*0x0188*/ float unk0188;
-	/*0x018c*/ float unk018c;
-	/*0x0190*/ float unk0190;
-	/*0x0194*/ float unk0194;
+	/*0x0188*/ f32 unk0188;
+	/*0x018c*/ f32 unk018c;
+	/*0x0190*/ f32 unk0190;
+	/*0x0194*/ f32 unk0194;
 	/*0x0198*/ u32 unk0198;
 	/*0x019c*/ u32 unk019c;
 	/*0x01a0*/ u32 unk01a0;
@@ -849,17 +849,17 @@ struct player {
 	/*0x02d8*/ u32 unk02d8;
 	/*0x02dc*/ u32 unk02dc;
 	/*0x02e0*/ u32 unk02e0;
-	/*0x02e4*/ float unk02e4;
-	/*0x02e8*/ float unk02e8;
-	/*0x02ec*/ float unk02ec;
+	/*0x02e4*/ f32 unk02e4;
+	/*0x02e8*/ f32 unk02e8;
+	/*0x02ec*/ f32 unk02ec;
 	/*0x02f0*/ u32 unk02f0;
 	/*0x02f4*/ u32 unk02f4;
 	/*0x02f8*/ u32 unk02f8;
 	/*0x02fc*/ u32 unk02fc;
 	/*0x0300*/ u32 unk0300;
 	/*0x0304*/ u32 unk0304;
-	/*0x0308*/ float unk0308;
-	/*0x030c*/ float unk030c;
+	/*0x0308*/ f32 unk0308;
+	/*0x030c*/ f32 unk030c;
 	/*0x0310*/ u32 unk0310;
 	/*0x0314*/ u32 unk0314;
 	/*0x0318*/ u32 unk0318;
@@ -2419,9 +2419,9 @@ struct player {
 	/*0x1b60*/ u32 unk1b60;
 	/*0x1b64*/ u32 unk1b64;
 	/*0x1b68*/ u32 unk1b68;
-	/*0x1b6c*/ float unk1b6c;
-	/*0x1b70*/ float unk1b70;
-	/*0x1b74*/ float unk1b74;
+	/*0x1b6c*/ f32 unk1b6c;
+	/*0x1b70*/ f32 unk1b70;
+	/*0x1b74*/ f32 unk1b74;
 	/*0x1b78*/ u32 unk1b78;
 	/*0x1b7c*/ u32 unk1b7c;
 	/*0x1b80*/ u32 unk1b80;
@@ -2484,11 +2484,11 @@ struct stagesetup {
 };
 
 struct inventory_menupos {
-	float x;
-	float y;
-	float z;
-	float rotation;
-	float size;
+	f32 x;
+	f32 y;
+	f32 z;
+	f32 rotation;
+	f32 size;
 };
 
 struct inventory_typee {
@@ -2551,11 +2551,11 @@ struct weapon {
 	/*0x1c*/ struct inventory_ammo *pri_ammo;
 	/*0x20*/ struct inventory_ammo *sec_ammo;
 	/*0x24*/ struct inventory_typee *eptr;
-	/*0x28*/ float sway;
-	/*0x2c*/ float leftright;
-	/*0x30*/ float updown;
-	/*0x34*/ float frontback;
-	/*0x38*/ float unk38;
+	/*0x28*/ f32 sway;
+	/*0x2c*/ f32 leftright;
+	/*0x30*/ f32 updown;
+	/*0x34*/ f32 frontback;
+	/*0x38*/ f32 unk38;
 	/*0x3c*/ struct inventory_typef *fptr;
 	/*0x40*/ s8 *gptr;
 	/*0x44*/ u16 shortname;
@@ -2593,8 +2593,8 @@ struct cheatspec {
 struct bodytableentry {
 	u16 unk00;
 	u16 bodyfileid;
-	float unk04;
-	float unk08;
+	f32 unk04;
+	f32 unk08;
 	u32 unk0c;
 	u16 handfileid;
 };
@@ -2611,9 +2611,9 @@ struct stagetableentry {
 	u16 padsfileid;
 	u16 setupfileid;
 	u16 mpsetupfileid;
-	float unk14;
-	float unk18;
-	float unk1c;
+	f32 unk14;
+	f32 unk18;
+	f32 unk1c;
 	u16 unk20;
 	u8 unk22;
 	s8 unk23;
@@ -2622,7 +2622,7 @@ struct stagetableentry {
 	s16 unk2c;
 	u16 unk2e;
 	u16 unk30;
-	float unk34;
+	f32 unk34;
 };
 
 struct mpweaponset {
@@ -2696,9 +2696,9 @@ struct sun {
 	u8 red;
 	u8 green;
 	u8 blue;
-	float x;
-	float y;
-	float z;
+	f32 x;
+	f32 y;
+	f32 z;
 	u16 texture_size;
 	u16 orb_size;
 };
@@ -2750,13 +2750,13 @@ struct sky {
 	u8 clouds_r;
 	u8 clouds_g;
 	u8 clouds_b;
-	float clouds_scale;
+	f32 clouds_scale;
 	u16 unk20;
 	u8 water_enabled;
 	u8 water_r;
 	u8 water_g;
 	u8 water_b;
-	float water_scale;
+	f32 water_scale;
 	u16 water_type;
 	u32 unk30;
 	u32 unk34;
@@ -2831,10 +2831,10 @@ struct audiodefinition {
 };
 
 struct audioconfig {
-	float unk00;
-	float unk04;
-	float unk08;
-	float unk0c;
+	f32 unk00;
+	f32 unk04;
+	f32 unk08;
+	f32 unk0c;
 	u32 unk10;
 	s32 unk14;
 	u32 unk18;

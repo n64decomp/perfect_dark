@@ -49110,12 +49110,12 @@ bool countdownTimerIsHidden(void)
 	return g_CountdownTimerVisible < 1;
 }
 
-void countdownTimerSetValue(float frames)
+void countdownTimerSetValue(f32 frames)
 {
 	g_CountdownTimerValue = frames;
 }
 
-float countdownTimerGetValue(void)
+f32 countdownTimerGetValue(void)
 {
 	return g_CountdownTimerValue;
 }

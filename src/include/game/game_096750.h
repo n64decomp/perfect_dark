@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-float func0f096750(float x, float z);
+f32 func0f096750(f32 x, f32 z);
 u32 func0f096890(void);
 u32 func0f096910(void);
 u32 func0f096964(void);
