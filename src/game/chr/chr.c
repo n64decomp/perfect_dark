@@ -38020,48 +38020,26 @@ void chrStopFiring(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f03f988
-/*  f03f988:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03f98c:	10c0000c */ 	beqz	$a2,.L0f03f9c0
-/*  f03f990:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03f994:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f03f998:	54a10006 */ 	bnel	$a1,$at,.L0f03f9b4
-/*  f03f99c:	8c980014 */ 	lw	$t8,0x14($a0)
-/*  f03f9a0:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f03f9a4:	35cf0004 */ 	ori	$t7,$t6,0x4
-/*  f03f9a8:	10000011 */ 	beqz	$zero,.L0f03f9f0
-/*  f03f9ac:	ac8f0014 */ 	sw	$t7,0x14($a0)
-/*  f03f9b0:	8c980014 */ 	lw	$t8,0x14($a0)
-.L0f03f9b4:
-/*  f03f9b4:	37190008 */ 	ori	$t9,$t8,0x8
-/*  f03f9b8:	1000000d */ 	beqz	$zero,.L0f03f9f0
-/*  f03f9bc:	ac990014 */ 	sw	$t9,0x14($a0)
-.L0f03f9c0:
-/*  f03f9c0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f03f9c4:	54a10007 */ 	bnel	$a1,$at,.L0f03f9e4
-/*  f03f9c8:	8c8a0014 */ 	lw	$t2,0x14($a0)
-/*  f03f9cc:	8c880014 */ 	lw	$t0,0x14($a0)
-/*  f03f9d0:	2401fffb */ 	addiu	$at,$zero,-5
-/*  f03f9d4:	01014824 */ 	and	$t1,$t0,$at
-/*  f03f9d8:	10000005 */ 	beqz	$zero,.L0f03f9f0
-/*  f03f9dc:	ac890014 */ 	sw	$t1,0x14($a0)
-/*  f03f9e0:	8c8a0014 */ 	lw	$t2,0x14($a0)
-.L0f03f9e4:
-/*  f03f9e4:	2401fff7 */ 	addiu	$at,$zero,-9
-/*  f03f9e8:	01415824 */ 	and	$t3,$t2,$at
-/*  f03f9ec:	ac8b0014 */ 	sw	$t3,0x14($a0)
-.L0f03f9f0:
-/*  f03f9f0:	54c00004 */ 	bnezl	$a2,.L0f03fa04
-/*  f03f9f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03f9f8:	0fc0fe12 */ 	jal	chrSetFiring
-/*  f03f9fc:	00003025 */ 	or	$a2,$zero,$zero
-/*  f03fa00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f03fa04:
-/*  f03fa04:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03fa08:	03e00008 */ 	jr	$ra
-/*  f03fa0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f03f988(struct chrdata *chr, s32 hand, s32 arg2)
+{
+	if (arg2) {
+		if (hand == 1) {
+			chr->hidden |= CHRHFLAG_00000004;
+		} else {
+			chr->hidden |= CHRHFLAG_00000008;
+		}
+	} else {
+		if (hand == 1) {
+			chr->hidden &= ~CHRHFLAG_00000004;
+		} else {
+			chr->hidden &= ~CHRHFLAG_00000008;
+		}
+	}
+
+	if (arg2 == 0) {
+		chrSetFiring(chr, hand, false);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f03fa10
