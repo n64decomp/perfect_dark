@@ -19501,84 +19501,42 @@ glabel func0f02e6dc
 /*  f02e99c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f02e9a0
-/*  f02e9a0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f02e9a4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f02e9a8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f02e9ac:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02e9b0:	0fc0fe3d */ 	jal	chrStopFiring
-/*  f02e9b4:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f02e9b8:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f02e9bc:	240f0002 */ 	addiu	$t7,$zero,0x2
-/*  f02e9c0:	a20e0007 */ 	sb	$t6,0x7($s0)
-/*  f02e9c4:	ae00002c */ 	sw	$zero,0x2c($s0)
-/*  f02e9c8:	ae000030 */ 	sw	$zero,0x30($s0)
-/*  f02e9cc:	ae000034 */ 	sw	$zero,0x34($s0)
-/*  f02e9d0:	ae000038 */ 	sw	$zero,0x38($s0)
-/*  f02e9d4:	ae0f003c */ 	sw	$t7,0x3c($s0)
-/*  f02e9d8:	0c004b70 */ 	jal	random
-/*  f02e9dc:	ae000040 */ 	sw	$zero,0x40($s0)
-/*  f02e9e0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f02e9e4:	44817000 */ 	mtc1	$at,$f14
-/*  f02e9e8:	24010078 */ 	addiu	$at,$zero,0x78
-/*  f02e9ec:	0041001b */ 	divu	$zero,$v0,$at
-/*  f02e9f0:	c7ac0024 */ 	lwc1	$f12,0x24($sp)
-/*  f02e9f4:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f02e9f8:	0000c010 */ 	mfhi	$t8
-/*  f02e9fc:	271900b4 */ 	addiu	$t9,$t8,0xb4
-/*  f02ea00:	ae190044 */ 	sw	$t9,0x44($s0)
-/*  f02ea04:	a200004c */ 	sb	$zero,0x4c($s0)
-/*  f02ea08:	e60c0048 */ 	swc1	$f12,0x48($s0)
-/*  f02ea0c:	8c880020 */ 	lw	$t0,0x20($a0)
-/*  f02ea10:	3c0142fe */ 	lui	$at,0x42fe
-/*  f02ea14:	46006006 */ 	mov.s	$f0,$f12
-/*  f02ea18:	c5020074 */ 	lwc1	$f2,0x74($t0)
-/*  f02ea1c:	46027032 */ 	c.eq.s	$f14,$f2
-/*  f02ea20:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02ea24:	45030005 */ 	bc1tl	.L0f02ea3c
-/*  f02ea28:	44811000 */ 	mtc1	$at,$f2
-/*  f02ea2c:	46027103 */ 	div.s	$f4,$f14,$f2
-/*  f02ea30:	46046002 */ 	mul.s	$f0,$f12,$f4
-/*  f02ea34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02ea38:	44811000 */ 	mtc1	$at,$f2
-.L0f02ea3c:
-/*  f02ea3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02ea40:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f02ea44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02ea48:	45020003 */ 	bc1fl	.L0f02ea58
-/*  f02ea4c:	4600018d */ 	trunc.w.s	$f6,$f0
-/*  f02ea50:	46001006 */ 	mov.s	$f0,$f2
-/*  f02ea54:	4600018d */ 	trunc.w.s	$f6,$f0
-.L0f02ea58:
-/*  f02ea58:	440a3000 */ 	mfc1	$t2,$f6
-/*  f02ea5c:	0c0076e5 */ 	jal	func0001db94
-/*  f02ea60:	a20a0008 */ 	sb	$t2,0x8($s0)
-/*  f02ea64:	10400009 */ 	beqz	$v0,.L0f02ea8c
-/*  f02ea68:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02ea6c:	8e0b02d4 */ 	lw	$t3,0x2d4($s0)
-/*  f02ea70:	15600006 */ 	bnez	$t3,.L0f02ea8c
-/*  f02ea74:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02ea78:	8e0c0014 */ 	lw	$t4,0x14($s0)
-/*  f02ea7c:	3c010020 */ 	lui	$at,0x20
-/*  f02ea80:	01816825 */ 	or	$t5,$t4,$at
-/*  f02ea84:	10000008 */ 	beqz	$zero,.L0f02eaa8
-/*  f02ea88:	ae0d0014 */ 	sw	$t5,0x14($s0)
-.L0f02ea8c:
-/*  f02ea8c:	0fc0b9b7 */ 	jal	func0f02e6dc
-/*  f02ea90:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f02ea94:	8e0e0014 */ 	lw	$t6,0x14($s0)
-/*  f02ea98:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f02ea9c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f02eaa0:	01c17824 */ 	and	$t7,$t6,$at
-/*  f02eaa4:	ae0f0014 */ 	sw	$t7,0x14($s0)
-.L0f02eaa8:
-/*  f02eaa8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f02eaac:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f02eab0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02eab4:	03e00008 */ 	jr	$ra
-/*  f02eab8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f02e9a0(struct chrdata *chr, float arg1)
+{
+	float limit = 127;
+	float fsleep;
+
+	chrStopFiring(chr);
+	chr->actiontype = ACT_STAND;
+	chr->act_stand.unk02c = 0;
+	chr->act_stand.unk030 = 0;
+	chr->act_stand.unk034 = 0;
+	chr->act_stand.unk038 = 0;
+	chr->act_stand.unk03c = 2;
+	chr->act_stand.unk040 = 0;
+	chr->act_stand.unk044 = random() % 120 + 180; // 180 to 299
+	chr->act_stand.unk048 = arg1;
+	chr->act_stand.unk04c = 0;
+
+	fsleep = arg1;
+
+	if (chr->unk020->unk20->unk74 != 1.0f) {
+		fsleep *= 1.0f / chr->unk020->unk20->unk74;
+	}
+
+	if (fsleep > limit) {
+		fsleep = limit;
+	}
+
+	chr->sleep = fsleep;
+
+	if (func0001db94(chr->unk020) && !chr->unk2d4) {
+		chr->hidden |= CHRHFLAG_00200000;
+	} else {
+		func0f02e6dc(chr, arg1);
+		chr->hidden &= ~CHRHFLAG_00200000;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f02eabc
@@ -19756,13 +19714,13 @@ glabel func0f02ec94
 void func0f02ed28(struct chrdata *chr, float arg1)
 {
 	func0f02e9a0(chr, arg1);
-	chr->unk040 = 1;
+	chr->act_stand.unk040 = 1;
 }
 
 void chrStop(struct chrdata *chr)
 {
 	func0f02eabc(chr);
-	chr->unk040 = 1;
+	chr->act_stand.unk040 = 1;
 }
 
 GLOBAL_ASM(
@@ -20089,8 +20047,8 @@ void func0f02f288(struct chrdata *chr, s32 arg1, s32 arg2)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_THROWGRENADE;
-	chr->unk034 = arg1;
-	chr->unk038 = arg2;
+	chr->act_throwgrenade.unk034 = arg1;
+	chr->act_throwgrenade.unk038 = arg2;
 	chr->sleep = 0;
 
 	if (func0001db94(chr->unk020)) {
@@ -20318,7 +20276,7 @@ void func0f02f60c(struct chrdata *chr)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_SURPRISED;
-	chr->unk02c = 2;
+	chr->act_surprised.unk02c = 2;
 	chr->sleep = 0;
 
 	if (func0001db94(chr->unk020)) {
@@ -20333,7 +20291,7 @@ void func0f02f688(struct chrdata *chr)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_SURPRISED;
-	chr->unk02c = 3;
+	chr->act_surprised.unk02c = 3;
 	chr->sleep = 0;
 
 	if (func0001db94(chr->unk020)) {
@@ -20657,7 +20615,7 @@ void chrSidestep(struct chrdata *chr, s32 arg1)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_SIDESTEP;
-	chr->unk02c = arg1;
+	chr->act_sidestep.unk02c = arg1;
 	chr->sleep = 0;
 
 	if (func0001db94(chr->unk020)) {
@@ -20776,7 +20734,7 @@ void chrJumpOut(struct chrdata *chr, s32 arg1)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_JUMPOUT;
-	chr->unk02c = arg1;
+	chr->act_jumpout.unk02c = arg1;
 	chr->sleep = 0;
 
 	if (func0001db94(chr->unk020)) {
@@ -22196,11 +22154,11 @@ void func0f03119c(struct chrdata *chr)
 		}
 
 		chr->actiontype = ACT_DEAD;
-		chr->unk038 = chr->unk2d4 ? 0 : -1;
-		chr->unk02c = 0;
-		chr->unk030 = 0;
-		chr->unk034 = 0;
-		chr->unk03c = 0;
+		chr->act_dead.unk038 = chr->unk2d4 ? 0 : -1;
+		chr->act_dead.unk02c = 0;
+		chr->act_dead.unk030 = 0;
+		chr->act_dead.unk034 = 0;
+		chr->act_dead.unk03c = 0;
 		chr->sleep = 0;
 
 		if (chr->race == RACE_MAIAN) {
@@ -27890,12 +27848,12 @@ void func0f036358(struct chrdata *chr, s32 arg1)
 		chrUncloak(chr, 1);
 
 		chr->actiontype = ACT_DIE;
-		chr->unk02c = 0;
+		chr->act_die.unk02c = 0;
 		chr->sleep = 0;
 		chr->blurnumtimesdied++;
-		chr->unk030_float = -1;
-		chr->unk034_float = -1;
-		chr->unk038_float = 0;
+		chr->act_die.unk030 = -1;
+		chr->act_die.unk034 = -1;
+		chr->act_die.unk038 = 0;
 
 		chr->ailist = ailistFindById(GFUNC_AI_BOT_DEAD);
 		chr->aioffset = 0;
@@ -35194,14 +35152,14 @@ glabel func0f03cb74
 void func0f03ccdc(struct chrdata *chr)
 {
 	if (chr->actiontype == ACT_DEAD || chr->actiontype == ACT_DRUGGEDKO) {
-		chr->unk02c = 1;
+		chr->act_dead.unk02c = 1;
 	}
 }
 
 void func0f03cd04(struct chrdata *chr)
 {
 	if (chr->actiontype == ACT_DEAD) {
-		chr->unk030 = 1;
+		chr->act_dead.unk030 = 1;
 	}
 }
 

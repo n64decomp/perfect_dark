@@ -90,10 +90,49 @@ struct pad {
 	/*0x52*/ s16 unk52;
 };
 
+struct chr020_20 {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ u32 unk4c;
+	/*0x50*/ u32 unk50;
+	/*0x54*/ u32 unk54;
+	/*0x58*/ u32 unk58;
+	/*0x5c*/ u32 unk5c;
+	/*0x60*/ u32 unk60;
+	/*0x64*/ u32 unk64;
+	/*0x68*/ u32 unk68;
+	/*0x6c*/ u32 unk6c;
+	/*0x70*/ u32 unk70;
+	/*0x74*/ float unk74;
+};
+
 struct chr020 {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ struct chr020_20 *unk20;
 };
 
 struct chr2d4 {
@@ -153,6 +192,64 @@ struct chr2d4 {
 	/*0x9c*/ u8 unk9c_07 : 1;
 };
 
+struct act_stand {
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ u32 unk030;
+	/*0x34*/ u32 unk034;
+	/*0x38*/ u32 unk038;
+	/*0x3c*/ u32 unk03c;
+	/*0x40*/ u32 unk040;
+	/*0x44*/ u32 unk044;
+	/*0x48*/ float unk048;
+	/*0x4c*/ s8 unk04c;
+};
+
+struct act_die {
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ float unk030;
+	/*0x34*/ float unk034;
+	/*0x38*/ float unk038;
+};
+
+struct act_dead {
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ u32 unk030;
+	/*0x34*/ u32 unk034;
+	/*0x38*/ s32 unk038;
+	/*0x3c*/ u32 unk03c;
+};
+
+struct act_attack {
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ u32 unk030;
+	/*0x34*/ u32 unk034;
+	/*0x38*/ u32 unk038;
+	/*0x3c*/ u32 unk03c;
+	/*0x40*/ u32 unk040;
+	/*0x44*/ u32 unk044;
+	/*0x48*/ u32 unk048;
+	/*0x4c*/ u32 unk04c;
+};
+
+struct act_sidestep {
+	/*0x2c*/ u32 unk02c;
+};
+
+struct act_jumpout {
+	/*0x2c*/ u32 unk02c;
+};
+
+struct act_surprised {
+	/*0x2c*/ u32 unk02c;
+};
+
+struct act_throwgrenade {
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ u32 unk030;
+	/*0x34*/ u32 unk034;
+	/*0x38*/ u32 unk038;
+};
+
 struct chrdata {
 	/*0x000*/ s16 chrnum;
 	/*0x002*/ s8 accuracyrating;
@@ -160,7 +257,7 @@ struct chrdata {
 	/*0x004*/ u16 firecount;
 	/*0x006*/ s8 headnum;
 	/*0x007*/ s8 actiontype;
-	/*0x008*/ u8 sleep;
+	/*0x008*/ s8 sleep;
 	/*0x009*/ u8 invalidmove;
 	/*0x00a*/ s8 numclosearghs;
 	/*0x00b*/ s8 numarghs;
@@ -177,28 +274,18 @@ struct chrdata {
 	/*0x020*/ struct chr020 *unk020;
 	/*0x024*/ u32 chrwidth;
 	/*0x028*/ u32 chrheight;
-	/*0x02c*/ u32 unk02c;
 
 	union {
-		/*0x030*/ u32 unk030;
-		/*0x030*/ float unk030_float;
+		struct act_stand act_stand;
+		struct act_die act_die;
+		struct act_dead act_dead;
+		struct act_attack act_attack;
+		struct act_sidestep act_sidestep;
+		struct act_jumpout act_jumpout;
+		struct act_surprised act_surprised;
+		struct act_throwgrenade act_throwgrenade;
 	};
 
-	union {
-		/*0x034*/ u32 unk034;
-		/*0x034*/ float unk034_float;
-	};
-
-	union {
-		/*0x038*/ s32 unk038;
-		/*0x038*/ float unk038_float;
-	};
-
-	/*0x03c*/ u32 unk03c;
-	/*0x040*/ u32 unk040;
-	/*0x044*/ u32 unk044;
-	/*0x048*/ u32 unk048;
-	/*0x04c*/ u32 unk04c;
 	/*0x050*/ u32 unk050;
 	/*0x054*/ u32 unk054;
 	/*0x058*/ void *unk058;

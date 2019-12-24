@@ -912,7 +912,7 @@ bool ai00f0(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->actiontype == ACT_ATTACK && !g_Vars.chrdata->unk058 && g_Vars.chrdata->unk04c & 0x40) {
+	if (g_Vars.chrdata->actiontype == ACT_ATTACK && !g_Vars.chrdata->unk058 && g_Vars.chrdata->act_attack.unk04c & 0x40) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -14838,11 +14838,11 @@ bool aiChrKill(void)
 
 	if (chr) {
 		chr->actiontype = ACT_DEAD;
-		chr->unk038 = -1;
-		chr->unk02c = 0;
-		chr->unk030 = 0;
-		chr->unk034 = 0;
-		chr->unk03c = 0;
+		chr->act_dead.unk038 = -1;
+		chr->act_dead.unk02c = 0;
+		chr->act_dead.unk030 = 0;
+		chr->act_dead.unk034 = 0;
+		chr->act_dead.unk03c = 0;
 		chr->sleep = 0;
 		chr->chrflags |= 0x04000000 | 0x00010000;
 	}
