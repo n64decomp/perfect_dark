@@ -36693,27 +36693,14 @@ float func0f03e578(struct chrdata *chr)
 	return func0001ae44(chr->unk020);
 }
 
-GLOBAL_ASM(
-glabel func0f03e5b0
-/*  f03e5b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03e5b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03e5b8:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
-/*  f03e5bc:	44856000 */ 	mtc1	$a1,$f12
-/*  f03e5c0:	00803025 */ 	or	$a2,$a0,$zero
-/*  f03e5c4:	50400004 */ 	beqzl	$v0,.L0f03e5d8
-/*  f03e5c8:	44056000 */ 	mfc1	$a1,$f12
-/*  f03e5cc:	10000004 */ 	beqz	$zero,.L0f03e5e0
-/*  f03e5d0:	e44c00a4 */ 	swc1	$f12,0xa4($v0)
-/*  f03e5d4:	44056000 */ 	mfc1	$a1,$f12
-.L0f03e5d8:
-/*  f03e5d8:	0c006ba4 */ 	jal	func0001ae90
-/*  f03e5dc:	8cc40020 */ 	lw	$a0,0x20($a2)
-.L0f03e5e0:
-/*  f03e5e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03e5e4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03e5e8:	03e00008 */ 	jr	$ra
-/*  f03e5ec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f03e5b0(struct chrdata *chr, float arg1)
+{
+	if (chr->unk2d4) {
+		chr->unk2d4->unka4 = arg1;
+	} else {
+		func0001ae90(chr->unk020, arg1);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f03e5f0
