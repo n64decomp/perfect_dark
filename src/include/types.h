@@ -229,6 +229,7 @@ struct act_attack {
 	/*0x44*/ u32 unk044;
 	/*0x48*/ u32 unk048;
 	/*0x4c*/ u32 unk04c;
+	/*0x50*/ u32 unk050;
 };
 
 struct act_sidestep {
@@ -286,7 +287,6 @@ struct chrdata {
 		struct act_throwgrenade act_throwgrenade;
 	};
 
-	/*0x050*/ u32 unk050;
 	/*0x054*/ u32 unk054;
 	/*0x058*/ void *unk058;
 	/*0x05c*/ u32 unk05c;

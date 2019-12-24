@@ -245,7 +245,7 @@ u32 func0f03a3ec(struct chrdata *chr, u32 arg1, u32 arg2, u32 arg3, u32 arg4);
 u32 func0f03a578(struct chrdata *chr, u32 thingtype, u32 thingid);
 u32 func0f03a644(struct chrdata *chr, u32 thingtype, u32 thingid);
 u32 func0f03a6d8(struct chrdata *chr, u32 thingtype, u32 thingid);
-u32 func0f03a76c(struct chrdata *chr, u32 thingtype, u32 thingid);
+bool func0f03a76c(struct chrdata *chr, u32 thingtype, s32 thingid);
 bool chrFaceEntity(struct chrdata *chr, u32 entity_type, u32 entity_id);
 u32 func0f03a894(struct chrdata *chr, s32 pad, s32 arg2);
 u32 chrStartPath(struct chrdata *chr);

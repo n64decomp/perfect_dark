@@ -32664,45 +32664,23 @@ glabel func0f03a6d8
 /*  f03a768:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03a76c
-/*  f03a76c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03a770:	10800003 */ 	beqz	$a0,.L0f03a780
-/*  f03a774:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03a778:	10000002 */ 	beqz	$zero,.L0f03a784
-/*  f03a77c:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f03a780:
-/*  f03a780:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a784:
-/*  f03a784:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f03a788:	10410003 */ 	beq	$v0,$at,.L0f03a798
-/*  f03a78c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f03a790:	54410004 */ 	bnel	$v0,$at,.L0f03a7a4
-/*  f03a794:	808e0007 */ 	lb	$t6,0x7($a0)
-.L0f03a798:
-/*  f03a798:	1000000f */ 	beqz	$zero,.L0f03a7d8
-/*  f03a79c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a7a0:	808e0007 */ 	lb	$t6,0x7($a0)
-.L0f03a7a4:
-/*  f03a7a4:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f03a7a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03a7ac:	15c1000a */ 	bne	$t6,$at,.L0f03a7d8
-/*  f03a7b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a7b4:	8c8f004c */ 	lw	$t7,0x4c($a0)
-/*  f03a7b8:	31f80060 */ 	andi	$t8,$t7,0x60
-/*  f03a7bc:	13000006 */ 	beqz	$t8,.L0f03a7d8
-/*  f03a7c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03a7c4:	ac85004c */ 	sw	$a1,0x4c($a0)
-/*  f03a7c8:	0fc0c495 */ 	jal	func0f031254
-/*  f03a7cc:	ac860050 */ 	sw	$a2,0x50($a0)
-/*  f03a7d0:	10000001 */ 	beqz	$zero,.L0f03a7d8
-/*  f03a7d4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a7d8:
-/*  f03a7d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03a7dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03a7e0:	03e00008 */ 	jr	$ra
-/*  f03a7e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f03a76c(struct chrdata *chr, u32 thingtype, s32 thingid)
+{
+	u8 race = chr ? chr->race : RACE_HUMAN;
+
+	if (race == RACE_MAIAN || race == RACE_ROBOT) {
+		return false;
+	}
+
+	if (chr->actiontype == ACT_ATTACK && (chr->act_attack.unk04c & 0x60)) {
+		chr->act_attack.unk04c = thingtype;
+		chr->act_attack.unk050 = thingid;
+		func0f031254();
+		return true;
+	}
+
+	return false;
+}
 
 bool chrFaceEntity(struct chrdata *chr, u32 entity_type, u32 entity_id)
 {
