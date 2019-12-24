@@ -32617,56 +32617,23 @@ glabel func0f03a644
 /*  f03a6d4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03a6d8
-/*  f03a6d8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03a6dc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03a6e0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03a6e4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03a6e8:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f03a6ec:	10800003 */ 	beqz	$a0,.L0f03a6fc
-/*  f03a6f0:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f03a6f4:	10000002 */ 	beqz	$zero,.L0f03a700
-/*  f03a6f8:	908202fe */ 	lbu	$v0,0x2fe($a0)
-.L0f03a6fc:
-/*  f03a6fc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a700:
-/*  f03a700:	10400003 */ 	beqz	$v0,.L0f03a710
-/*  f03a704:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f03a708:	54410013 */ 	bnel	$v0,$at,.L0f03a758
-/*  f03a70c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a710:
-/*  f03a710:	0fc0e686 */ 	jal	func0f039a18
-/*  f03a714:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a718:	1040000e */ 	beqz	$v0,.L0f03a754
-/*  f03a71c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a720:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
-/*  f03a724:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03a728:	14400004 */ 	bnez	$v0,.L0f03a73c
-/*  f03a72c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a730:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
-/*  f03a734:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03a738:	10400006 */ 	beqz	$v0,.L0f03a754
-.L0f03a73c:
-/*  f03a73c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03a740:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f03a744:	0fc0c0c2 */ 	jal	func0f030308
-/*  f03a748:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f03a74c:	10000002 */ 	beqz	$zero,.L0f03a758
-/*  f03a750:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f03a754:
-/*  f03a754:	00001025 */ 	or	$v0,$zero,$zero
-.L0f03a758:
-/*  f03a758:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03a75c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03a760:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f03a764:	03e00008 */ 	jr	$ra
-/*  f03a768:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f03a6d8(struct chrdata *chr, s32 thingtype, s32 thingid)
+{
+	s32 race = chr ? chr->race : RACE_HUMAN;
+
+	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
+		if (func0f039a18(chr) && (chrGetEquippedWeaponAttachmentWithCheck(chr, 0) || chrGetEquippedWeaponAttachmentWithCheck(chr, 1))) {
+			func0f030308(chr, thingtype, thingid);
+			return true;
+		}
+	}
+
+	return false;
+}
 
 bool func0f03a76c(struct chrdata *chr, u32 thingtype, s32 thingid)
 {
-	u8 race = chr ? chr->race : RACE_HUMAN;
+	s32 race = chr ? chr->race : RACE_HUMAN;
 
 	if (race == RACE_MAIAN || race == RACE_ROBOT) {
 		return false;
