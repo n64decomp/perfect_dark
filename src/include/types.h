@@ -191,7 +191,7 @@ struct chr2d4 {
 	/*0x9c*/ u8 unk9c_06 : 1;
 	/*0x9c*/ u8 unk9c_07 : 1;
 	/*0xa0*/ u32 unka0;
-	/*0xa4*/ u32 unka4;
+	/*0xa4*/ float unka4;
 	/*0xa8*/ u32 unka8;
 	/*0xac*/ u32 unkac;
 	/*0xb0*/ float unkb0;

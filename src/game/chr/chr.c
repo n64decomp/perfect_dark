@@ -36684,25 +36684,14 @@ void func0f03e538(struct chrdata *chr, float arg1)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f03e578
-/*  f03e578:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03e57c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03e580:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
-/*  f03e584:	00802825 */ 	or	$a1,$a0,$zero
-/*  f03e588:	10400003 */ 	beqz	$v0,.L0f03e598
-/*  f03e58c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e590:	10000003 */ 	beqz	$zero,.L0f03e5a0
-/*  f03e594:	c44000a4 */ 	lwc1	$f0,0xa4($v0)
-.L0f03e598:
-/*  f03e598:	0c006b91 */ 	jal	func0001ae44
-/*  f03e59c:	8ca40020 */ 	lw	$a0,0x20($a1)
-.L0f03e5a0:
-/*  f03e5a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03e5a4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03e5a8:	03e00008 */ 	jr	$ra
-/*  f03e5ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+float func0f03e578(struct chrdata *chr)
+{
+	if (chr->unk2d4) {
+		return chr->unk2d4->unka4;
+	}
+
+	return func0001ae44(chr->unk020);
+}
 
 GLOBAL_ASM(
 glabel func0f03e5b0

@@ -23,7 +23,7 @@ u32 func0001abc4(void);
 u32 func0001ad0c(void);
 u32 func0001ad34(void);
 u32 func0001ad5c(void);
-u32 func0001ae44(void);
+float func0001ae44(struct chr020 *chr020);
 void func0001ae90(struct chr020 *chr020, float arg1);
 u32 func0001af58(void);
 u32 func0001af64(void);
