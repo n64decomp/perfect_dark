@@ -41377,35 +41377,13 @@ glabel func0f042808
 /*  f0429d4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0429d8
-/*  f0429d8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0429dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0429e0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0429e4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0429e8:	0fc0a221 */ 	jal	chrGetTargetPosition
-/*  f0429ec:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0429f0:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f0429f4:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f0429f8:	c4480010 */ 	lwc1	$f8,0x10($v0)
-/*  f0429fc:	8dc3001c */ 	lw	$v1,0x1c($t6)
-/*  f042a00:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f042a04:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f042a08:	46062301 */ 	sub.s	$f12,$f4,$f6
-/*  f042a0c:	0fc259d4 */ 	jal	func0f096750
-/*  f042a10:	460a4381 */ 	sub.s	$f14,$f8,$f10
-/*  f042a14:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*  f042a18:	46000386 */ 	mov.s	$f14,$f0
-/*  f042a1c:	0c006bfa */ 	jal	func0001afe8
-/*  f042a20:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f042a24:	44050000 */ 	mfc1	$a1,$f0
-/*  f042a28:	0fc0f94e */ 	jal	func0f03e538
-/*  f042a2c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f042a30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f042a34:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f042a38:	03e00008 */ 	jr	$ra
-/*  f042a3c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0429d8(struct chrdata *chr, float arg1, float arg2)
+{
+	struct position *pos = chrGetTargetPosition(chr);
+	float distance = func0f096750(pos->coord.x - chr->pos->coord.x, pos->coord.z - chr->pos->coord.z);
+	float value = func0001afe8(arg2, distance, arg1);
+	func0f03e538(chr, value);
+}
 
 GLOBAL_ASM(
 glabel func0f042a40

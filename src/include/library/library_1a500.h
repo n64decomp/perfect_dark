@@ -29,7 +29,7 @@ u32 func0001af58(void);
 u32 func0001af64(void);
 u32 func0001af80(void);
 u32 func0001af98(void);
-u32 func0001afe8(void);
+float func0001afe8(float arg0, float distance, float arg2);
 u32 func0001b07c(void);
 u32 func0001b0e8(void);
 u32 func0001b3bc(void);

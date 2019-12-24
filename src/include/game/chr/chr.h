@@ -316,7 +316,7 @@ u32 func0f041e48(void);
 u32 func0f04262c(void);
 u32 func0f04279c(void);
 void func0f042808(struct chrdata *chr);
-u32 func0f0429d8(void);
+void func0f0429d8(struct chrdata *chr, float arg1, float arg2);
 u32 func0f042a40(void);
 u32 func0f042ffc(void);
 u32 func0f0433e0(void);
