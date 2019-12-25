@@ -4,7 +4,7 @@
 #include "types.h"
 
 struct chrdata *chrFindById(struct chrdata *data, u32 chrnum);
-struct chrdata *chrFindByLiteralId(s32 chrnum);
+struct chrdata *chrFindByLiteralId(s16 chrnum);
 f32 chrGetDistanceFromTargetToPad(struct chrdata *chr, s32 pad_id);
 f32 chrGetDistanceToChr(struct chrdata *chr1, s32 chr2num);
 f32 chrGetDistanceToCoord(struct chrdata *chr, struct coord *pos);
@@ -48,7 +48,7 @@ void chrSetMaxDamage(struct chrdata *chr, f32 maxdamage);
 f32 chrGetMaxDamage(struct chrdata *chr);
 void chrAddHealth(struct chrdata *chr, f32 health);
 f32 chrGetArmor(struct chrdata *chr);
-u32 func0f0205ec(void);
+s32 getLowestUnusedChrId(void);
 u32 func0f020668(void);
 u32 func0f020b14(void);
 u32 func0f020cc8(void);

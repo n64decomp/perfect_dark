@@ -3494,7 +3494,7 @@ f32 chrGetArmor(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f0205ec
+glabel getLowestUnusedChrId
 /*  f0205ec:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f0205f0:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f0205f4:	afb30020 */ 	sw	$s3,0x20($sp)
@@ -3530,6 +3530,27 @@ glabel func0f0205ec
 /*  f020664:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
+// Mismatch due to different registers
+//s32 getLowestUnusedChrId(void)
+//{
+//	s32 chr_id;
+//	struct chrdata *chr;
+//
+//	do {
+//		chr_id = var80062984 + 1;
+//		var80062984 = chr_id;
+//
+//		if (chr_id > 32767) {
+//			var80062984 = 5000;
+//			chr_id = 5000;
+//		}
+//
+//		chr = chrFindByLiteralId(chr_id);
+//	} while (chr);
+//
+//	return chr_id;
+//}
+
 GLOBAL_ASM(
 glabel func0f020668
 /*  f020668:	3c078006 */ 	lui	$a3,0x8006
@@ -3561,7 +3582,7 @@ glabel func0f020668
 .L0f0206c8:
 /*  f0206c8:	8faf0028 */ 	lw	$t7,0x28($sp)
 /*  f0206cc:	adf00004 */ 	sw	$s0,0x4($t7)
-/*  f0206d0:	0fc0817b */ 	jal	func0f0205ec
+/*  f0206d0:	0fc0817b */ 	jal	getLowestUnusedChrId
 /*  f0206d4:	afa60024 */ 	sw	$a2,0x24($sp)
 /*  f0206d8:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*  f0206dc:	a6020000 */ 	sh	$v0,0x0($s0)
@@ -18457,7 +18478,7 @@ glabel func0f02dbac
 /*  f02dc7c:	0fc180bc */ 	jal	func0f0602f0
 /*  f02dc80:	8fa40078 */ 	lw	$a0,0x78($sp)
 /*  f02dc84:	8faa0078 */ 	lw	$t2,0x78($sp)
-/*  f02dc88:	0fc0817b */ 	jal	func0f0205ec
+/*  f02dc88:	0fc0817b */ 	jal	getLowestUnusedChrId
 /*  f02dc8c:	8d500004 */ 	lw	$s0,0x4($t2)
 /*  f02dc90:	00022c00 */ 	sll	$a1,$v0,0x10
 /*  f02dc94:	00055c03 */ 	sra	$t3,$a1,0x10
