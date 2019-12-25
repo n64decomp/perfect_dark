@@ -6383,7 +6383,7 @@ glabel func0f0b7c60
 /*  f0b7e28:	8c790284 */ 	lw	$t9,0x284($v1)
 /*  f0b7e2c:	0fc2a660 */ 	jal	func0f0a9980
 /*  f0b7e30:	a722024e */ 	sh	$v0,0x24e($t9)
-/*  f0b7e34:	0fc08169 */ 	jal	func0f0205a4
+/*  f0b7e34:	0fc08169 */ 	jal	chrGetMaxDamage
 /*  f0b7e38:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0b7e3c:	c6060100 */ 	lwc1	$f6,0x100($s0)
 /*  f0b7e40:	3c013f80 */ 	lui	$at,0x3f80
@@ -14168,7 +14168,7 @@ glabel func0f0bd904
 /*  f0bee40:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bee44:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0bee48:
-/*  f0bee48:	0fc08166 */ 	jal	func0f020598
+/*  f0bee48:	0fc08166 */ 	jal	chrSetMaxDamage
 /*  f0bee4c:	3c054080 */ 	lui	$a1,0x4080
 /*  f0bee50:	8e180018 */ 	lw	$t8,0x18($s0)
 /*  f0bee54:	920d02e1 */ 	lbu	$t5,0x2e1($s0)
@@ -14282,7 +14282,7 @@ glabel func0f0bd904
 /*  f0beff0:	ae090018 */ 	sw	$t1,0x18($s0)
 /*  f0beff4:	ae0b0014 */ 	sw	$t3,0x14($s0)
 /*  f0beff8:	a21802e1 */ 	sb	$t8,0x2e1($s0)
-/*  f0beffc:	0fc08166 */ 	jal	func0f020598
+/*  f0beffc:	0fc08166 */ 	jal	chrSetMaxDamage
 /*  f0bf000:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0bf004:
 /*  f0bf004:	0fc41b99 */ 	jal	func0f106e64
@@ -14366,7 +14366,7 @@ glabel func0f0bd904
 /*  f0bf130:	3c054120 */ 	lui	$a1,0x4120
 /*  f0bf134:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0bf138:
-/*  f0bf138:	0fc08166 */ 	jal	func0f020598
+/*  f0bf138:	0fc08166 */ 	jal	chrSetMaxDamage
 /*  f0bf13c:	3c054120 */ 	lui	$a1,0x4120
 /*  f0bf140:	8e0b0018 */ 	lw	$t3,0x18($s0)
 /*  f0bf144:	921802e1 */ 	lbu	$t8,0x2e1($s0)
@@ -14467,7 +14467,7 @@ glabel func0f0bd904
 /*  f0bf2b0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bf2b4:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0bf2b8:
-/*  f0bf2b8:	0fc08166 */ 	jal	func0f020598
+/*  f0bf2b8:	0fc08166 */ 	jal	chrSetMaxDamage
 /*  f0bf2bc:	3c054120 */ 	lui	$a1,0x4120
 /*  f0bf2c0:	8e0c0018 */ 	lw	$t4,0x18($s0)
 /*  f0bf2c4:	920902e1 */ 	lbu	$t1,0x2e1($s0)
@@ -14572,7 +14572,7 @@ glabel func0f0bd904
 /*  f0bf440:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0bf444:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0bf448:
-/*  f0bf448:	0fc08166 */ 	jal	func0f020598
+/*  f0bf448:	0fc08166 */ 	jal	chrSetMaxDamage
 /*  f0bf44c:	3c054120 */ 	lui	$a1,0x4120
 /*  f0bf450:	8e0e0018 */ 	lw	$t6,0x18($s0)
 /*  f0bf454:	920a02e1 */ 	lbu	$t2,0x2e1($s0)

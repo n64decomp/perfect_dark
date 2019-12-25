@@ -4616,7 +4616,7 @@ glabel ai0096
 /*  f053a84:	50410005 */ 	beql	$v0,$at,.L0f053a9c
 /*  f053a88:	8e0d0438 */ 	lw	$t5,0x438($s0)
 /*  f053a8c:	44050000 */ 	mfc1	$a1,$f0
-/*  f053a90:	0fc08166 */ 	jal	func0f020598
+/*  f053a90:	0fc08166 */ 	jal	chrSetMaxDamage
 /*  f053a94:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f053a98:
 /*  f053a98:	8e0d0438 */ 	lw	$t5,0x438($s0)

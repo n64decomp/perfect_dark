@@ -3480,18 +3480,15 @@ glabel func0f020538
 /*  f020594:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f020598
-/*  f020598:	44856000 */ 	mtc1	$a1,$f12
-/*  f02059c:	03e00008 */ 	jr	$ra
-/*  f0205a0:	e48c0104 */ 	swc1	$f12,0x104($a0)
-);
+void chrSetMaxDamage(struct chrdata *chr, f32 maxdamage)
+{
+	chr->maxdamage = maxdamage;
+}
 
-GLOBAL_ASM(
-glabel func0f0205a4
-/*  f0205a4:	03e00008 */ 	jr	$ra
-/*  f0205a8:	c4800104 */ 	lwc1	$f0,0x104($a0)
-);
+f32 chrGetMaxDamage(struct chrdata *chr)
+{
+	return chr->maxdamage;
+}
 
 GLOBAL_ASM(
 glabel func0f0205ac
@@ -12418,11 +12415,10 @@ glabel func0f027e1c
 /*  f02848c:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
 );
 
-GLOBAL_ASM(
-glabel func0f028490
-/*  f028490:	03e00008 */ 	jr	$ra
-/*  f028494:	e7ac0000 */ 	swc1	$f12,0x0($sp)
-);
+void func0f028490(f32 arg1)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f028498
@@ -28852,11 +28848,10 @@ glabel func0f037124
 /*  f037218:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f03721c
-/*  f03721c:	03e00008 */ 	jr	$ra
-/*  f037220:	a4800066 */ 	sh	$zero,0x66($a0)
-);
+void chrSetField66To0(struct chrdata *chr)
+{
+	chr->unk066 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f037224
@@ -28934,7 +28929,7 @@ glabel func0f0372e8
 /*  f037318:	c7a60030 */ 	lwc1	$f6,0x30($sp)
 /*  f03731c:	e4860070 */ 	swc1	$f6,0x70($a0)
 /*  f037320:	c7a80034 */ 	lwc1	$f8,0x34($sp)
-/*  f037324:	0fc0dc87 */ 	jal	func0f03721c
+/*  f037324:	0fc0dc87 */ 	jal	chrSetField66To0
 /*  f037328:	e4880074 */ 	swc1	$f8,0x74($a0)
 /*  f03732c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f037330:	27bd0038 */ 	addiu	$sp,$sp,0x38
@@ -44812,7 +44807,7 @@ glabel func0f045a70
 /*  f045b38:	11400010 */ 	beqz	$t2,.L0f045b7c
 /*  f045b3c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f045b40:
-/*  f045b40:	0fc0dc87 */ 	jal	func0f03721c
+/*  f045b40:	0fc0dc87 */ 	jal	chrSetField66To0
 /*  f045b44:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f045b48:	8fab0030 */ 	lw	$t3,0x30($sp)
 /*  f045b4c:	8e050004 */ 	lw	$a1,0x4($s0)
