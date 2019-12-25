@@ -26,13 +26,13 @@ u8 props[] = {
 };
 
 u8 unregistered_func1[] = {
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 unregistered_func2[] = {
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 intro[] = {

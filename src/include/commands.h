@@ -15,20 +15,20 @@
 #define yield \
 	mkshort(0x0003),
 
-#define endfunction \
+#define endlist \
 	mkshort(0x0004),
 
-#define set_function(chr, function) \
+#define set_ailist(chr, function) \
 	mkshort(0x0005), \
 	chr, \
 	mkshort(function),
 
-#define set_return_function(chr, function) \
+#define set_returnlist(chr, function) \
 	mkshort(0x0006), \
 	chr, \
 	mkshort(function),
 
-#define set_onshot_function(function) \
+#define set_shotlist(function) \
 	mkshort(0x0007), \
 	mkshort(function),
 
@@ -41,9 +41,9 @@
 #define kneel \
 	mkshort(0x000a),
 
-#define animation(animation, startframe, endframe, flags, transition, chr, animspeed) \
+#define chr_do_animation(chr_do_animation, startframe, endframe, flags, transition, chr, animspeed) \
 	mkshort(0x000b), \
-	mkshort(animation), \
+	mkshort(chr_do_animation), \
 	mkshort(startframe), \
 	mkshort(endframe), \
 	flags, \
@@ -55,10 +55,10 @@
 	mkshort(0x000c), \
 	label,
 
-#define cmd000d \
+#define be_surprised_000d \
 	mkshort(0x000d),
 
-#define cmd000e \
+#define be_surprised_000e \
 	mkshort(0x000e),
 
 #define try_jump_sideways(label) \
@@ -179,9 +179,9 @@
 	mkshort(0x0026), \
 	chr,
 
-#define cmd0027(u1, label) \
+#define cmd0027(pad, label) \
 	mkshort(0x0027), \
-	mkshort(u1), \
+	mkshort(pad), \
 	label,
 
 #define activate_alarm \
@@ -359,9 +359,9 @@
 	label,
 
 // Used by CIA guards in chicago
-#define cmd0049(u1, label) \
+#define cmd0049(pad, label) \
 	mkshort(0x0049), \
-	mkshort(u1), \
+	mkshort(pad), \
 	label,
 
 #define if_chr_in_view(label) \
@@ -995,7 +995,7 @@
 	mkshort(value), \
 	label,
 
-#define try_spawn_chr(body, head, pad, function, props, label) \
+#define try_spawn_chr_at_pad(body, head, pad, function, props, label) \
 	mkshort(0x00c6), \
 	body, \
 	head, \
@@ -1004,7 +1004,7 @@
 	mkword(props), \
 	label,
 
-#define try_spawn_clone(body, head, u1, function, props, label) \
+#define try_spawn_chr_at_chr(body, head, u1, function, props, label) \
 	mkshort(0x00c7), \
 	body, \
 	head, \
@@ -1282,7 +1282,7 @@
 #define kill_bond \
 	mkshort(0x00fe),
 
-#define cmd00ff \
+#define be_surprised_00ff \
 	mkshort(0x00ff),
 
 #define cmd0100_noop(u1) \
@@ -1592,7 +1592,7 @@
 	u1, \
 	u2,
 
-#define if_any_chr_doing_action(action, label) \
+#define if_chr_in_squadron_doing_action(action, label) \
 	mkshort(0x0137), \
 	action, \
 	label,

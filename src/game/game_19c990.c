@@ -2037,7 +2037,7 @@ glabel func0f19df58
 /*  f19e008:	0fc677c6 */ 	jal	func0f19df18
 /*  f19e00c:	90c40001 */ 	lbu	$a0,0x1($a2)
 /*  f19e010:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19e014:	0fc377c7 */ 	jal	func0f0ddf1c
+/*  f19e014:	0fc377c7 */ 	jal	currentPlayerQueueMessage
 /*  f19e018:	2405000a */ 	addiu	$a1,$zero,0xa
 /*  f19e01c:	3c07800b */ 	lui	$a3,%hi(var800acd20)
 /*  f19e020:	24e7cd20 */ 	addiu	$a3,$a3,%lo(var800acd20)
@@ -2536,7 +2536,7 @@ glabel func0f19e6fc
 /*  f19e730:	8c4f0074 */ 	lw	$t7,0x74($v0)
 /*  f19e734:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f19e738:	35f80040 */ 	ori	$t8,$t7,0x40
-/*  f19e73c:	0fc23922 */ 	jal	func0f08e488
+/*  f19e73c:	0fc23922 */ 	jal	doorActivate
 /*  f19e740:	ac580074 */ 	sw	$t8,0x74($v0)
 .L0f19e744:
 /*  f19e744:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -3894,7 +3894,7 @@ glabel func0f19f994
 /*  f19fa08:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19fa0c:	0fc6749a */ 	jal	func0f19d268
 /*  f19fa10:	96a40456 */ 	lhu	$a0,0x456($s5)
-/*  f19fa14:	0fc2865b */ 	jal	func0f0a196c
+/*  f19fa14:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
 /*  f19fa18:	00402025 */ 	or	$a0,$v0,$zero
 .L0f19fa1c:
 /*  f19fa1c:	3c15800b */ 	lui	$s5,%hi(var800acd20)

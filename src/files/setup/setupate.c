@@ -85,14 +85,14 @@ struct path paths[] = {
 u8 func1000_counterop_setup[] = {
 	yield
 	set_chr_team(CHR_ANTI, TEAM_ENEMY)
-	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_REBUILD_GROUPS)
+	endlist
 };
 
 u8 func1001_objectives_failed[] = {
 	yield
-	set_function(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
+	endlist
 };
 
 u8 func1002_first_walk[] = {
@@ -103,7 +103,7 @@ u8 func1002_first_walk[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	display_text(0x00, COLOR_02_WHITE, 0x5e07) // "THE DUEL"
-	animation(ANIM_RELOAD, -1, -1, 0x06, 0x00, CHR_GUARD, 2)
+	chr_do_animation(ANIM_RELOAD, -1, -1, 0x06, 0x00, CHR_GUARD, 2)
 	label(0x2d)
 	message(CHR_BOND, 0x5e0c) // "Opponent skill level: AGENT"
 
@@ -131,9 +131,9 @@ u8 func1002_first_walk[] = {
 
 	label(0x0c)
 	grant_control(CHR_BOND)
-	set_function(CHR_GUARD, FUNC_GUARD_COMBAT)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_GUARD, FUNC_GUARD_COMBAT)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1007_second_walk[] = {
@@ -146,14 +146,14 @@ u8 func1007_second_walk[] = {
 
 	// Begin cutscene
 	label(0x2d)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x06)
 	revoke_control(CHR_BOND, 0)
 	camera_movement(0x0488)
 
 	// Place chrs
 	label(0x8f)
-	set_function(CHR_P1P2, FUNC_MOVE_TO_PAD)
+	set_ailist(CHR_P1P2, FUNC_MOVE_TO_PAD)
 	chr_move_to_pad(CHR_JONATHAN, 0x0279, 0x01, /*goto*/ 0x2d)
 	yield
 	goto_first(0x8f)
@@ -166,7 +166,7 @@ u8 func1007_second_walk[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(ANIM_GRAB_CROTCH, -1, -1, 0x06, 0x00, CHR_JONATHAN, 2)
+	chr_do_animation(ANIM_GRAB_CROTCH, -1, -1, 0x06, 0x00, CHR_JONATHAN, 2)
 
 	label(0x2d)
 	message(CHR_BOND, 0x5e0d) // "Opponent skill level: SPECIAL AGENT"
@@ -202,9 +202,9 @@ u8 func1007_second_walk[] = {
 	// Give control back to Jo
 	label(0x0c)
 	grant_control(CHR_BOND)
-	set_function(CHR_JONATHAN, FUNC_JON_COMBAT)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_JONATHAN, FUNC_JON_COMBAT)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0401_move_to_pad[] = {
@@ -212,8 +212,8 @@ u8 func0401_move_to_pad[] = {
 	label(0x06)
 	yield
 	stop_chr
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1008_third_walk[] = {
@@ -226,7 +226,7 @@ u8 func1008_third_walk[] = {
 
 	// Jo dead
 	label(0x2d)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Do cutscene
 	label(0x06)
@@ -234,7 +234,7 @@ u8 func1008_third_walk[] = {
 	camera_movement(0x0488)
 
 	label(0x8f)
-	set_function(CHR_P1P2, FUNC_MOVE_TO_PAD)
+	set_ailist(CHR_P1P2, FUNC_MOVE_TO_PAD)
 	chr_move_to_pad(CHR_TRENT, 0x0279, 0x01, /*goto*/ 0x2d)
 	yield
 	goto_first(0x8f)
@@ -247,7 +247,7 @@ u8 func1008_third_walk[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(ANIM_HEAD_ROLL, -1, -1, 0x06, 0x00, CHR_TRENT, 2)
+	chr_do_animation(ANIM_HEAD_ROLL, -1, -1, 0x06, 0x00, CHR_TRENT, 2)
 	label(0x2d)
 	message(CHR_BOND, 0x5e0e) // "Opponent skill level: PERFECT AGENT"
 
@@ -273,17 +273,17 @@ u8 func1008_third_walk[] = {
 	endloop(0x0b)
 
 	label(0x0c)
-	set_function(CHR_TRENT, FUNC_TRENT_COMBAT)
+	set_ailist(CHR_TRENT, FUNC_TRENT_COMBAT)
 	grant_control(CHR_BOND)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1004_revoke_control[] = {
 	yield
 	revoke_control(CHR_BOND, 0)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1005_main[] = {
@@ -309,7 +309,7 @@ u8 func1005_main[] = {
 	goto_next(0x06)
 
 	label(0x2d)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_SA_WALK_TRIGGER)
@@ -336,7 +336,7 @@ u8 func1005_main[] = {
 	goto_next(0x06)
 
 	label(0x2d)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_PA_WALK_TRIGGER)
@@ -358,15 +358,15 @@ u8 func1005_main[] = {
 	endloop(0x0d)
 
 	label(0x2d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1003_init_audio[] = {
 	restart_default_music
 	reset_ambience
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1006_check_objectives_complete[] = {
@@ -386,12 +386,12 @@ u8 func1006_check_objectives_complete[] = {
 	// End level
 	label(0x2d)
 	end_level
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0402_guard_combat[] = {
-	set_onshot_function(FUNC_GUARD_COMBAT)
+	set_shotlist(FUNC_GUARD_COMBAT)
 	if_just_injured(CHR_SELF, /*goto*/ 0x03)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00008000)
 
@@ -435,17 +435,17 @@ u8 func0402_guard_combat[] = {
 
 	// Dying
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Hand combat
 	label(0x0e)
-	set_return_function(CHR_SELF, FUNC_TRENT_COMBAT)
-	set_function(CHR_SELF, GFUNC_HAND_COMBAT)
-	endfunction
+	set_returnlist(CHR_SELF, FUNC_TRENT_COMBAT)
+	set_ailist(CHR_SELF, GFUNC_HAND_COMBAT)
+	endlist
 };
 
 u8 func0403_jon_combat[] = {
-	set_onshot_function(FUNC_JON_COMBAT)
+	set_shotlist(FUNC_JON_COMBAT)
 	if_just_injured(CHR_SELF, /*goto*/ 0x58)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00008000)
 	restart_timer
@@ -477,14 +477,14 @@ u8 func0403_jon_combat[] = {
 	endloop(0x58)
 
 	label(0x0e)
-	set_return_function(CHR_SELF, FUNC_JON_COMBAT)
-	set_function(CHR_SELF, GFUNC_HAND_COMBAT)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_returnlist(CHR_SELF, FUNC_JON_COMBAT)
+	set_ailist(CHR_SELF, GFUNC_HAND_COMBAT)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0404_trent_combat[] = {
-	set_onshot_function(FUNC_TRENT_COMBAT)
+	set_shotlist(FUNC_TRENT_COMBAT)
 	if_just_injured(CHR_SELF, /*goto*/ 0x03)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00008000)
 	restart_timer
@@ -516,11 +516,11 @@ u8 func0404_trent_combat[] = {
 
 	// Hand combat
 	label(0x0e)
-	set_return_function(CHR_SELF, FUNC_TRENT_COMBAT)
-	set_function(CHR_SELF, GFUNC_HAND_COMBAT)
+	set_returnlist(CHR_SELF, FUNC_TRENT_COMBAT)
+	set_ailist(CHR_SELF, GFUNC_HAND_COMBAT)
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0405_guard_init[] = {
@@ -531,8 +531,8 @@ u8 func0405_guard_init[] = {
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0406_jon_init[] = {
@@ -546,8 +546,8 @@ u8 func0406_jon_init[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0407_trent_init[] = {
@@ -561,8 +561,8 @@ u8 func0407_trent_init[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 struct ailist ailists[] = {

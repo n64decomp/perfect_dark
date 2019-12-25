@@ -219,7 +219,7 @@ glabel func0f0b0574
 );
 
 GLOBAL_ASM(
-glabel func0f0b058c
+glabel getNumKnockedOutChrs
 /*  f0b058c:	3c02800a */ 	lui	$v0,0x800a
 /*  f0b0590:	03e00008 */ 	jr	$ra
 /*  f0b0594:	9042a277 */ 	lbu	$v0,-0x5d89($v0)
@@ -260,7 +260,7 @@ glabel func0f0b05a4
 /*  f0b0610:	0c004dad */ 	jal	func000136b4
 /*  f0b0614:	8d47001c */ 	lw	$a3,0x1c($t2)
 /*  f0b0618:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f0b061c:	0fc377c7 */ 	jal	func0f0ddf1c
+/*  f0b061c:	0fc377c7 */ 	jal	currentPlayerQueueMessage
 /*  f0b0620:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0b0624:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0b0628:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -396,7 +396,7 @@ glabel func0f0b0764
 /*  f0b07f8:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*  f0b07fc:	27a40030 */ 	addiu	$a0,$sp,0x30
 .L0f0b0800:
-/*  f0b0800:	0fc377c7 */ 	jal	func0f0ddf1c
+/*  f0b0800:	0fc377c7 */ 	jal	currentPlayerQueueMessage
 /*  f0b0804:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0b0808:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f0b080c:
@@ -456,7 +456,7 @@ glabel func0f0b0818
 /*  f0b08c8:	0c004dad */ 	jal	func000136b4
 /*  f0b08cc:	00403025 */ 	or	$a2,$v0,$zero
 /*  f0b08d0:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f0b08d4:	0fc377c7 */ 	jal	func0f0ddf1c
+/*  f0b08d4:	0fc377c7 */ 	jal	currentPlayerQueueMessage
 /*  f0b08d8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0b08dc:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0b08e0:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
@@ -753,7 +753,7 @@ glabel func0f0b09f4
 /*  f0b0cf8:	0c004dad */ 	jal	func000136b4
 /*  f0b0cfc:	00403025 */ 	or	$a2,$v0,$zero
 /*  f0b0d00:	27a4003c */ 	addiu	$a0,$sp,0x3c
-/*  f0b0d04:	0fc377c7 */ 	jal	func0f0ddf1c
+/*  f0b0d04:	0fc377c7 */ 	jal	currentPlayerQueueMessage
 /*  f0b0d08:	00002825 */ 	or	$a1,$zero,$zero
 .L0f0b0d0c:
 /*  f0b0d0c:	0fc2c1d9 */ 	jal	func0f0b0764
@@ -836,7 +836,7 @@ glabel func0f0b09f4
 /*  f0b0e1c:	0c004dad */ 	jal	func000136b4
 /*  f0b0e20:	00403025 */ 	or	$a2,$v0,$zero
 /*  f0b0e24:	27a4003c */ 	addiu	$a0,$sp,0x3c
-/*  f0b0e28:	0fc377c7 */ 	jal	func0f0ddf1c
+/*  f0b0e28:	0fc377c7 */ 	jal	currentPlayerQueueMessage
 /*  f0b0e2c:	00002825 */ 	or	$a1,$zero,$zero
 .L0f0b0e30:
 /*  f0b0e30:	0fc2c169 */ 	jal	func0f0b05a4
@@ -1629,7 +1629,7 @@ glabel func0f0b184c
 );
 
 GLOBAL_ASM(
-glabel func0f0b18bc
+glabel currentPlayerHasWeaponEquipped
 /*  f0b18bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b18c0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b18c4:	0fc2c3f4 */ 	jal	weaponFindById

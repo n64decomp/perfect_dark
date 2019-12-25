@@ -39,7 +39,7 @@ struct path paths[] = {
 };
 
 u8 func0000_004c[] = {
-	endfunction
+	endlist
 };
 
 struct ailist ailists[] = {

@@ -135,7 +135,7 @@ struct inventory_function invfunc_00011160 = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -158,7 +158,7 @@ struct inventory_ammo invammo_default = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -166,10 +166,10 @@ struct inventory_ammo invammo_default = {
 struct weapon invitem_hammer = {
 	0x0000, // lo model
 	0x0000, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	&invammo_default, // pri ammo
@@ -193,10 +193,10 @@ struct weapon invitem_hammer = {
 struct weapon invitem_nothing = {
 	0x0000, // lo model
 	0x0000, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -263,7 +263,7 @@ struct inventory_function invfunc_unarmed_punch = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_punch, // fire animation
+	invanim_punch, // fire chr_do_animation
 	0x0041a200, // flags
 };
 
@@ -291,7 +291,7 @@ struct inventory_function invfunc_unarmed_disarm = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_punch, // fire animation
+	invanim_punch, // fire chr_do_animation
 	0x0041a600, // flags
 };
 
@@ -314,10 +314,10 @@ u32 var8006b358 = 0x00000000;
 struct weapon invitem_unarmed = {
 	0x04e5, // lo model
 	0x04e5, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_unarmed_punch, // pri function
 	&invfunc_unarmed_disarm, // sec function
 	NULL, // pri ammo
@@ -516,7 +516,7 @@ struct inventory_function invfunc_falcon2_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_falcon2_shoot, // fire animation
+	invanim_falcon2_shoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -541,7 +541,7 @@ struct inventory_function invfunc_falcon2silenced_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
-	invanim_falcon2_shoot, // fire animation
+	invanim_falcon2_shoot, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -566,7 +566,7 @@ struct inventory_function invfunc_falcon2_pistolwhip = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_falcon2_pistolwhip, // fire animation
+	invanim_falcon2_pistolwhip, // fire chr_do_animation
 	0x0041a200, // flags
 };
 
@@ -592,7 +592,7 @@ struct inventory_ammo invammo_falcon2 = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
-	invanim_falcon2_reload, // reload animation
+	invanim_falcon2_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -603,7 +603,7 @@ struct inventory_ammo invammo_falcon2scope = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
-	invanim_falcon2scope_reload, // reload animation
+	invanim_falcon2scope_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -611,10 +611,10 @@ struct inventory_ammo invammo_falcon2scope = {
 struct weapon invitem_falcon2 = {
 	0x0377, // lo model
 	0x039c, // hi model
-	invanim_falcon2_equip, // equip animation
-	invanim_falcon2_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_falcon2_equip, // equip chr_do_animation
+	invanim_falcon2_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_falcon2_singleshot, // pri function
 	&invfunc_falcon2_pistolwhip, // sec function
 	&invammo_falcon2, // pri ammo
@@ -638,10 +638,10 @@ struct weapon invitem_falcon2 = {
 struct weapon invitem_falcon2scope = {
 	0x0377, // lo model
 	0x039c, // hi model
-	invanim_falcon2_equip, // equip animation
-	invanim_falcon2_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_falcon2_equip, // equip chr_do_animation
+	invanim_falcon2_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_falcon2_singleshot, // pri function
 	&invfunc_falcon2_pistolwhip, // sec function
 	&invammo_falcon2scope, // pri ammo
@@ -665,10 +665,10 @@ struct weapon invitem_falcon2scope = {
 struct weapon invitem_falcon2silencer = {
 	0x0377, // lo model
 	0x039c, // hi model
-	invanim_falcon2_equip, // equip animation
-	invanim_falcon2_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_falcon2_equip, // equip chr_do_animation
+	invanim_falcon2_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_falcon2silenced_singleshot, // pri function
 	&invfunc_falcon2_pistolwhip, // sec function
 	&invammo_falcon2, // pri ammo
@@ -777,7 +777,7 @@ struct inventory_function invfunc_magsec_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_magsec_equiporshoot, // fire animation
+	invanim_magsec_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -802,7 +802,7 @@ struct inventory_function invfunc_magsec_burst = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_magsec_equiporshoot, // fire animation
+	invanim_magsec_equiporshoot, // fire chr_do_animation
 	0x00000002, // flags
 };
 
@@ -825,7 +825,7 @@ struct inventory_ammo invammo_magsec = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	9, // clip size
-	invanim_magsec_reload, // reload animation
+	invanim_magsec_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -833,10 +833,10 @@ struct inventory_ammo invammo_magsec = {
 struct weapon invitem_magsec = {
 	0x0378, // lo model
 	0x04c4, // hi model
-	invanim_magsec_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_magsec_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_magsec_singleshot, // pri function
 	&invfunc_magsec_burst, // sec function
 	&invammo_magsec, // pri ammo
@@ -967,7 +967,7 @@ struct inventory_function invfunc_dy357_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
-	invanim_dy357_equiporshoot, // fire animation
+	invanim_dy357_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -992,7 +992,7 @@ struct inventory_function invfunc_dy357lx_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
-	invanim_dy357_equiporshoot, // fire animation
+	invanim_dy357_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -1017,7 +1017,7 @@ struct inventory_function invfunc_dy357_pistolwhip = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_dy357_pistolwhip, // fire animation
+	invanim_dy357_pistolwhip, // fire chr_do_animation
 	0x0041a200, // flags
 };
 
@@ -1043,7 +1043,7 @@ struct inventory_ammo invammo_dy357 = {
 	AMMOTYPE_MAGNUM,
 	CASING_STANDARD,
 	6, // clip size
-	invanim_dy357_reload, // reload animation
+	invanim_dy357_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -1051,10 +1051,10 @@ struct inventory_ammo invammo_dy357 = {
 struct weapon invitem_dy357 = {
 	0x037a, // lo model
 	0x04bd, // hi model
-	invanim_dy357_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_dy357_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_dy357_singleshot, // pri function
 	&invfunc_dy357_pistolwhip, // sec function
 	&invammo_dy357, // pri ammo
@@ -1078,10 +1078,10 @@ struct weapon invitem_dy357 = {
 struct weapon invitem_dy357lx = {
 	0x037b, // lo model
 	0x04be, // hi model
-	invanim_dy357_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_dy357_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_dy357lx_singleshot, // pri function
 	&invfunc_dy357_pistolwhip, // sec function
 	&invammo_dy357, // pri ammo
@@ -1163,7 +1163,7 @@ struct inventory_function invfunc_phoenix_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_phoenix_shoot, // fire animation
+	invanim_phoenix_shoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -1188,7 +1188,7 @@ struct inventory_function invfunc_phoenix_explosiveshells = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_phoenix_shoot, // fire animation
+	invanim_phoenix_shoot, // fire chr_do_animation
 	0x00004000, // flags
 };
 
@@ -1211,7 +1211,7 @@ struct inventory_ammo invammo_phoenix = {
 	AMMOTYPE_PISTOL,
 	CASING_NONE,
 	8, // clip size
-	invanim_phoenix_equiporreload, // reload animation
+	invanim_phoenix_equiporreload, // reload chr_do_animation
 	0, // style
 };
 
@@ -1219,10 +1219,10 @@ struct inventory_ammo invammo_phoenix = {
 struct weapon invitem_phoenix = {
 	0x037c, // lo model
 	0x04c5, // hi model
-	invanim_phoenix_equiporreload, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_phoenix_equiporreload, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_phoenix_singleshot, // pri function
 	&invfunc_phoenix_explosiveshells, // sec function
 	&invammo_phoenix, // pri ammo
@@ -1324,7 +1324,7 @@ struct inventory_function invfunc_mauler_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
-	invanim_mauler_equiporshoot, // fire animation
+	invanim_mauler_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -1349,7 +1349,7 @@ struct inventory_function invfunc_mauler_chargeshot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
-	invanim_mauler_equiporshoot, // fire animation
+	invanim_mauler_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -1372,7 +1372,7 @@ struct inventory_ammo invammo_mauler = {
 	AMMOTYPE_PISTOL,
 	CASING_NONE,
 	20, // clip size
-	invanim_mauler_reload, // reload animation
+	invanim_mauler_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -1380,10 +1380,10 @@ struct inventory_ammo invammo_mauler = {
 struct weapon invitem_mauler = {
 	0x0379, // lo model
 	0x04cb, // hi model
-	invanim_mauler_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_mauler_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_mauler_singleshot, // pri function
 	&invfunc_mauler_chargeshot, // sec function
 	&invammo_mauler, // pri ammo
@@ -1493,7 +1493,7 @@ struct inventory_function invfunc_cmp150_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
-	invanim_cmp150_equiporshoot, // fire animation
+	invanim_cmp150_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -1523,7 +1523,7 @@ struct inventory_function invfunc_cmp150_followlockon = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
-	invanim_cmp150_equiporshoot, // fire animation
+	invanim_cmp150_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -1551,7 +1551,7 @@ struct inventory_ammo invammo_cmp150 = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	32, // clip size
-	invanim_cmp150_reload, // reload animation
+	invanim_cmp150_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -1559,10 +1559,10 @@ struct inventory_ammo invammo_cmp150 = {
 struct weapon invitem_cmp150 = {
 	0x037d, // lo model
 	0x04b9, // hi model
-	invanim_cmp150_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_cmp150_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_cmp150_rapidfire, // pri function
 	&invfunc_cmp150_followlockon, // sec function
 	&invammo_cmp150, // pri ammo
@@ -1640,7 +1640,7 @@ struct inventory_function invfunc_cyclone_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
-	invanim_cyclone_shoot, // fire animation
+	invanim_cyclone_shoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -1670,7 +1670,7 @@ struct inventory_function invfunc_cyclone_magazinedischarge = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
-	invanim_cyclone_shoot, // fire animation
+	invanim_cyclone_shoot, // fire chr_do_animation
 	0x00000020, // flags
 };
 
@@ -1698,7 +1698,7 @@ struct inventory_ammo invammo_cyclone = {
 	AMMOTYPE_SMG,
 	CASING_NONE,
 	50, // clip size
-	invanim_cyclone_equiporreload, // reload animation
+	invanim_cyclone_equiporreload, // reload chr_do_animation
 	0, // style
 };
 
@@ -1706,10 +1706,10 @@ struct inventory_ammo invammo_cyclone = {
 struct weapon invitem_cyclone = {
 	0x0382, // lo model
 	0x04bb, // hi model
-	invanim_cyclone_equiporreload, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_cyclone_equiporreload, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_cyclone_rapidfire, // pri function
 	&invfunc_cyclone_magazinedischarge, // sec function
 	&invammo_cyclone, // pri ammo
@@ -1774,7 +1774,7 @@ struct inventory_function invfunc_rcp120_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_rcp120_equiporshoot, // fire animation
+	invanim_rcp120_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -1804,7 +1804,7 @@ struct inventory_function invfunc_rcp120_cloak = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00102000, // flags
 };
 
@@ -1819,7 +1819,7 @@ struct inventory_ammo invammo_rcp120 = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	120, // clip size
-	invanim_rcp120_reload, // reload animation
+	invanim_rcp120_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -1827,10 +1827,10 @@ struct inventory_ammo invammo_rcp120 = {
 struct weapon invitem_rcp120 = {
 	0x0384, // lo model
 	0x04c8, // hi model
-	invanim_rcp120_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_rcp120_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_rcp120_rapidfire, // pri function
 	&invfunc_rcp120_cloak, // sec function
 	&invammo_rcp120, // pri ammo
@@ -1890,7 +1890,7 @@ struct inventory_function invfunc_callisto_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_callisto_shoot, // fire animation
+	invanim_callisto_shoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -1920,7 +1920,7 @@ struct inventory_function invfunc_callisto_highimpactshells = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_callisto_shoot, // fire animation
+	invanim_callisto_shoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -1948,7 +1948,7 @@ struct inventory_ammo invammo_callisto = {
 	AMMOTYPE_SMG,
 	CASING_NONE,
 	32, // clip size
-	invanim_callisto_equiporreload, // reload animation
+	invanim_callisto_equiporreload, // reload chr_do_animation
 	0, // style
 };
 
@@ -1956,10 +1956,10 @@ struct inventory_ammo invammo_callisto = {
 struct weapon invitem_callisto = {
 	0x0383, // lo model
 	0x04c6, // hi model
-	invanim_callisto_equiporreload, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_callisto_equiporreload, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_callisto_rapidfire, // pri function
 	&invfunc_callisto_highimpactshells, // sec function
 	&invammo_callisto, // pri ammo
@@ -2021,7 +2021,7 @@ struct inventory_function invfunc_dragon_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
-	invanim_dragon_equiporshoot, // fire animation
+	invanim_dragon_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -2051,7 +2051,7 @@ struct inventory_function invfunc_dragon_selfdestruct = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00042040, // flags
 };
 
@@ -2067,7 +2067,7 @@ struct inventory_ammo invammo_dragon = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
-	invanim_dragon_reload, // reload animation
+	invanim_dragon_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -2075,10 +2075,10 @@ struct inventory_ammo invammo_dragon = {
 struct weapon invitem_dragon = {
 	0x037f, // lo model
 	0x04c0, // hi model
-	invanim_dragon_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_dragon_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_dragon_rapidfire, // pri function
 	&invfunc_dragon_selfdestruct, // sec function
 	&invammo_dragon, // pri ammo
@@ -2176,7 +2176,7 @@ struct inventory_function invfunc_superdragon_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
-	invanim_superdragon_equiporshoot, // fire animation
+	invanim_superdragon_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -2206,7 +2206,7 @@ struct inventory_function invfunc_superdragon_grenadelauncher = {
 	0x00, // unk06
 	1, // unk07
 	&invmenupos_00011048, // menupos
-	invanim_superdragon_shootgrenade, // fire animation
+	invanim_superdragon_shootgrenade, // fire chr_do_animation
 	0x30000040, // flags
 };
 
@@ -2238,7 +2238,7 @@ struct inventory_ammo invammo_superdragon = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
-	invanim_superdragon_reload, // reload animation
+	invanim_superdragon_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -2249,7 +2249,7 @@ struct inventory_ammo invammo_superdragon_grenades = {
 	AMMOTYPE_DEVASTATOR,
 	CASING_NONE,
 	6, // clip size
-	invanim_superdragon_grenadereload, // reload animation
+	invanim_superdragon_grenadereload, // reload chr_do_animation
 	0, // style
 };
 
@@ -2257,10 +2257,10 @@ struct inventory_ammo invammo_superdragon_grenades = {
 struct weapon invitem_superdragon = {
 	0x0380, // lo model
 	0x04c1, // hi model
-	invanim_superdragon_equiporshoot, // equip animation
-	NULL, // unequip animation
-	invanim_superdragon_pritosec, // pritosec animation
-	invanim_superdragon_sectopri, // sectopri animation
+	invanim_superdragon_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	invanim_superdragon_pritosec, // pritosec chr_do_animation
+	invanim_superdragon_sectopri, // sectopri chr_do_animation
 	&invfunc_superdragon_rapidfire, // pri function
 	&invfunc_superdragon_grenadelauncher, // sec function
 	&invammo_superdragon, // pri ammo
@@ -2332,7 +2332,7 @@ struct inventory_function invfunc_ar34_burstfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000002, // flags
 };
 
@@ -2362,7 +2362,7 @@ struct inventory_function invfunc_ar34_usescope = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000002, // flags
 };
 
@@ -2390,7 +2390,7 @@ struct inventory_ammo invammo_ar34 = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
-	invanim_ar34_equiporreload, // reload animation
+	invanim_ar34_equiporreload, // reload chr_do_animation
 	0, // style
 };
 
@@ -2398,10 +2398,10 @@ struct inventory_ammo invammo_ar34 = {
 struct weapon invitem_ar34 = {
 	0x037e, // lo model
 	0x04b7, // hi model
-	invanim_ar34_equiporreload, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_ar34_equiporreload, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_ar34_burstfire, // pri function
 	&invfunc_ar34_usescope, // sec function
 	&invammo_ar34, // pri ammo
@@ -2489,7 +2489,7 @@ struct inventory_function invfunc_k7avenger_burstfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000002, // flags
 };
 
@@ -2519,7 +2519,7 @@ struct inventory_function invfunc_k7avenger_threatdetector = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00082002, // flags
 };
 
@@ -2547,7 +2547,7 @@ struct inventory_ammo invammo_k7avenger = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	25, // clip size
-	invanim_k7avenger_reload, // reload animation
+	invanim_k7avenger_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -2555,10 +2555,10 @@ struct inventory_ammo invammo_k7avenger = {
 struct weapon invitem_k7avenger = {
 	0x0381, // lo model
 	0x04b8, // hi model
-	invanim_k7avenger_equip, // equip animation
-	invanim_k7avenger_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_k7avenger_equip, // equip chr_do_animation
+	invanim_k7avenger_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_k7avenger_burstfire, // pri function
 	&invfunc_k7avenger_threatdetector, // sec function
 	&invammo_k7avenger, // pri ammo
@@ -2654,7 +2654,7 @@ struct inventory_function invfunc_laptopgun_burstfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
-	invanim_laptopgun_shoot, // fire animation
+	invanim_laptopgun_shoot, // fire chr_do_animation
 	0x00000002, // flags
 };
 
@@ -2684,7 +2684,7 @@ struct inventory_function invfunc_laptopgun_deploy = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00842140, // flags
 };
 
@@ -2700,7 +2700,7 @@ struct inventory_ammo invammo_laptopgun = {
 	AMMOTYPE_SMG,
 	CASING_NONE,
 	50, // clip size
-	invanim_laptopgun_reload, // reload animation
+	invanim_laptopgun_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -2708,10 +2708,10 @@ struct inventory_ammo invammo_laptopgun = {
 struct weapon invitem_laptopgun = {
 	0x0385, // lo model
 	0x04c7, // hi model
-	invanim_laptopgun_equip, // equip animation
-	invanim_laptopgun_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_laptopgun_equip, // equip chr_do_animation
+	invanim_laptopgun_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_laptopgun_burstfire, // pri function
 	&invfunc_laptopgun_deploy, // sec function
 	&invammo_laptopgun, // pri ammo
@@ -2782,7 +2782,7 @@ struct inventory_function invfunc_shotgun_single = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
-	invanim_shotgun_equiporsingleshot, // fire animation
+	invanim_shotgun_equiporsingleshot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -2807,7 +2807,7 @@ struct inventory_function invfunc_shotgun_double = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
-	invanim_shotgun_doubleshot, // fire animation
+	invanim_shotgun_doubleshot, // fire chr_do_animation
 	0x00001000, // flags
 };
 
@@ -2830,7 +2830,7 @@ struct inventory_ammo invammo_shotgun = {
 	AMMOTYPE_SHOTGUN,
 	CASING_SHOTGUN,
 	9, // clip size
-	invanim_shotgun_reload, // reload animation
+	invanim_shotgun_reload, // reload chr_do_animation
 	67108864, // style
 };
 
@@ -2838,10 +2838,10 @@ struct inventory_ammo invammo_shotgun = {
 struct weapon invitem_shotgun = {
 	0x0386, // lo model
 	0x04ca, // hi model
-	invanim_shotgun_equiporsingleshot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_shotgun_equiporsingleshot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_shotgun_single, // pri function
 	&invfunc_shotgun_double, // sec function
 	&invammo_shotgun, // pri ammo
@@ -2941,7 +2941,7 @@ struct inventory_function invfunc_reaper_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001105c, // menupos
-	invanim_reaper_shoot, // fire animation
+	invanim_reaper_shoot, // fire chr_do_animation
 	0x00000002, // flags
 };
 
@@ -2971,7 +2971,7 @@ struct inventory_function invfunc_reaper_grind = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -2997,7 +2997,7 @@ struct inventory_ammo invammo_reaper = {
 	AMMOTYPE_REAPER,
 	CASING_REAPER,
 	200, // clip size
-	invanim_reaper_reload, // reload animation
+	invanim_reaper_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -3005,10 +3005,10 @@ struct inventory_ammo invammo_reaper = {
 struct weapon invitem_reaper = {
 	0x0387, // lo model
 	0x039d, // hi model
-	invanim_reaper_equip, // equip animation
-	invanim_reaper_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_reaper_equip, // equip chr_do_animation
+	invanim_reaper_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_reaper_shoot, // pri function
 	&invfunc_reaper_grind, // sec function
 	&invammo_reaper, // pri ammo
@@ -3085,7 +3085,7 @@ struct inventory_function invfunc_rockerlauncher_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
-	invanim_rockerlauncher_equiporshoot, // fire animation
+	invanim_rockerlauncher_equiporshoot, // fire chr_do_animation
 	0x08000040, // flags
 };
 
@@ -3119,7 +3119,7 @@ struct inventory_function invfunc_rocketlauncher_homing = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
-	invanim_rockerlauncher_equiporshoot, // fire animation
+	invanim_rockerlauncher_equiporshoot, // fire chr_do_animation
 	0x48000040, // flags
 };
 
@@ -3151,7 +3151,7 @@ struct inventory_ammo invammo_rocketlauncher = {
 	AMMOTYPE_ROCKET,
 	CASING_NONE,
 	1, // clip size
-	invanim_rocketlauncher_reload, // reload animation
+	invanim_rocketlauncher_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -3159,10 +3159,10 @@ struct inventory_ammo invammo_rocketlauncher = {
 struct weapon invitem_rocketlauncher = {
 	0x0388, // lo model
 	0x04c9, // hi model
-	invanim_rockerlauncher_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_rockerlauncher_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_rockerlauncher_shoot, // pri function
 	&invfunc_rocketlauncher_homing, // sec function
 	&invammo_rocketlauncher, // pri ammo
@@ -3208,7 +3208,7 @@ struct inventory_function invfunc_slayer_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
-	invanim_slayer_equiporshoot, // fire animation
+	invanim_slayer_equiporshoot, // fire chr_do_animation
 	0x08000040, // flags
 };
 
@@ -3242,7 +3242,7 @@ struct inventory_function invfunc_slayer_flybywire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x28000840, // flags
 };
 
@@ -3274,7 +3274,7 @@ struct inventory_ammo invammo_slayer = {
 	AMMOTYPE_ROCKET,
 	CASING_NONE,
 	1, // clip size
-	invanim_slayer_reload, // reload animation
+	invanim_slayer_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -3282,10 +3282,10 @@ struct inventory_ammo invammo_slayer = {
 struct weapon invitem_slayer = {
 	0x038a, // lo model
 	0x04cc, // hi model
-	invanim_slayer_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_slayer_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_slayer_shoot, // pri function
 	&invfunc_slayer_flybywire, // sec function
 	&invammo_slayer, // pri ammo
@@ -3342,7 +3342,7 @@ struct inventory_function invfunc_devastator_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
-	invanim_devastator_equiporshoot, // fire animation
+	invanim_devastator_equiporshoot, // fire chr_do_animation
 	0x30000040, // flags
 };
 
@@ -3376,7 +3376,7 @@ struct inventory_function invfunc_devastator_wallhugger = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
-	invanim_devastator_equiporshoot, // fire animation
+	invanim_devastator_equiporshoot, // fire chr_do_animation
 	0x30000140, // flags
 };
 
@@ -3408,7 +3408,7 @@ struct inventory_ammo invammo_devastator = {
 	AMMOTYPE_DEVASTATOR,
 	CASING_NONE,
 	8, // clip size
-	invanim_devastator_reload, // reload animation
+	invanim_devastator_reload, // reload chr_do_animation
 	134217728, // style
 };
 
@@ -3420,10 +3420,10 @@ s8 invg_00013a10[] = {41, 0, -1};
 struct weapon invitem_devastator = {
 	0x0389, // lo model
 	0x04bf, // hi model
-	invanim_devastator_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_devastator_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_devastator_shoot, // pri function
 	&invfunc_devastator_wallhugger, // sec function
 	&invammo_devastator, // pri ammo
@@ -3452,7 +3452,7 @@ struct inventory_function invfunc_mine_threatdetector = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00080000, // flags
 };
 
@@ -3485,7 +3485,7 @@ struct inventory_function invfunc_timedmine_throw = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_mine_throw, // fire animation
+	invanim_mine_throw, // fire chr_do_animation
 	0x00802040, // flags
 };
 
@@ -3501,7 +3501,7 @@ struct inventory_ammo invammo_timedmine = {
 	AMMOTYPE_TIMED_MINE,
 	CASING_NONE,
 	1, // clip size
-	inanim_mine_equiporreload, // reload animation
+	inanim_mine_equiporreload, // reload chr_do_animation
 	33554432, // style
 };
 
@@ -3509,10 +3509,10 @@ struct inventory_ammo invammo_timedmine = {
 struct weapon invitem_timedmine = {
 	0x0391, // lo model
 	0x0391, // hi model
-	inanim_mine_equiporreload, // equip animation
-	invanim_mine_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	inanim_mine_equiporreload, // equip chr_do_animation
+	invanim_mine_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_timedmine_throw, // pri function
 	&invfunc_mine_threatdetector, // sec function
 	&invammo_timedmine, // pri ammo
@@ -3579,7 +3579,7 @@ struct inventory_function invfunc_remotemine_throw = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_remotemine_throw, // fire animation
+	invanim_remotemine_throw, // fire chr_do_animation
 	0x00802040, // flags
 };
 
@@ -3597,7 +3597,7 @@ struct inventory_function invfunc_remotemine_detonate = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00102000, // flags
 };
 
@@ -3612,7 +3612,7 @@ struct inventory_ammo invammo_remotemine = {
 	AMMOTYPE_REMOTE_MINE,
 	CASING_NONE,
 	1, // clip size
-	invanim_remotemine_equiporreload, // reload animation
+	invanim_remotemine_equiporreload, // reload chr_do_animation
 	33554432, // style
 };
 
@@ -3624,10 +3624,10 @@ s8 invg_00013c0c[] = {41, 0, -1};
 struct weapon invitem_remotemine = {
 	0x0393, // lo model
 	0x0393, // hi model
-	invanim_remotemine_equiporreload, // equip animation
-	invanim_remotemine_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_remotemine_equiporreload, // equip chr_do_animation
+	invanim_remotemine_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_remotemine_throw, // pri function
 	&invfunc_remotemine_detonate, // sec function
 	&invammo_remotemine, // pri ammo
@@ -3656,7 +3656,7 @@ struct inventory_function invfunc_proxymine_throw = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_mine_throw, // fire animation
+	invanim_mine_throw, // fire chr_do_animation
 	0x00802040, // flags
 };
 
@@ -3672,7 +3672,7 @@ struct inventory_ammo invammo_proximitymine = {
 	AMMOTYPE_PROXY_MINE,
 	CASING_NONE,
 	1, // clip size
-	inanim_mine_equiporreload, // reload animation
+	inanim_mine_equiporreload, // reload chr_do_animation
 	33554432, // style
 };
 
@@ -3680,10 +3680,10 @@ struct inventory_ammo invammo_proximitymine = {
 struct weapon invitem_proximitymine = {
 	0x0392, // lo model
 	0x0392, // hi model
-	inanim_mine_equiporreload, // equip animation
-	invanim_mine_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	inanim_mine_equiporreload, // equip chr_do_animation
+	invanim_mine_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_proxymine_throw, // pri function
 	&invfunc_mine_threatdetector, // sec function
 	&invammo_proximitymine, // pri ammo
@@ -3731,7 +3731,7 @@ struct inventory_function invfunc_ecmmine_throw = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_ecmmine_throw, // fire animation
+	invanim_ecmmine_throw, // fire chr_do_animation
 	0x00802040, // flags
 };
 
@@ -3747,7 +3747,7 @@ struct inventory_ammo invammo_ecmmine = {
 	AMMOTYPE_ECM_MINE,
 	CASING_NONE,
 	1, // clip size
-	invanim_ecmmine_equiporreload, // reload animation
+	invanim_ecmmine_equiporreload, // reload chr_do_animation
 	33554432, // style
 };
 
@@ -3755,10 +3755,10 @@ struct inventory_ammo invammo_ecmmine = {
 struct weapon invitem_ecmmine = {
 	0x074d, // lo model
 	0x074d, // hi model
-	invanim_ecmmine_equiporreload, // equip animation
-	invanim_ecmmine_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_ecmmine_equiporreload, // equip chr_do_animation
+	invanim_ecmmine_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_ecmmine_throw, // pri function
 	NULL, // sec function
 	&invammo_ecmmine, // pri ammo
@@ -3833,7 +3833,7 @@ struct inventory_function invfunc_grenade_throw = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_grenade_throw, // fire animation
+	invanim_grenade_throw, // fire chr_do_animation
 	0x00002040, // flags
 };
 
@@ -3851,7 +3851,7 @@ struct inventory_function invfunc_grenade_pinball = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_grenade_throw, // fire animation
+	invanim_grenade_throw, // fire chr_do_animation
 	0x00002040, // flags
 };
 
@@ -3867,7 +3867,7 @@ struct inventory_ammo invammo_grenade = {
 	AMMOTYPE_GRENADE,
 	CASING_NONE,
 	1, // clip size
-	invanim_grenade_equiporreload, // reload animation
+	invanim_grenade_equiporreload, // reload chr_do_animation
 	167772160, // style
 };
 
@@ -3875,10 +3875,10 @@ struct inventory_ammo invammo_grenade = {
 struct weapon invitem_grenade = {
 	0x0390, // lo model
 	0x04fe, // hi model
-	invanim_grenade_equiporreload, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_grenade_equiporreload, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_grenade_throw, // pri function
 	&invfunc_grenade_pinball, // sec function
 	&invammo_grenade, // pri ammo
@@ -3907,7 +3907,7 @@ struct inventory_function invfunc_nbomb_throw = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_grenade_throw, // fire animation
+	invanim_grenade_throw, // fire chr_do_animation
 	0x00002640, // flags
 };
 
@@ -3925,7 +3925,7 @@ struct inventory_function invfunc_nbomb_proxy = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_grenade_throw, // fire animation
+	invanim_grenade_throw, // fire chr_do_animation
 	0x00002640, // flags
 };
 
@@ -3941,7 +3941,7 @@ struct inventory_ammo invammo_nbomb = {
 	AMMOTYPE_NBOMB,
 	CASING_NONE,
 	1, // clip size
-	invanim_grenade_equiporreload, // reload animation
+	invanim_grenade_equiporreload, // reload chr_do_animation
 	167772160, // style
 };
 
@@ -3949,10 +3949,10 @@ struct inventory_ammo invammo_nbomb = {
 struct weapon invitem_nbomb = {
 	0x04fc, // lo model
 	0x04fd, // hi model
-	invanim_grenade_equiporreload, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_grenade_equiporreload, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_nbomb_throw, // pri function
 	&invfunc_nbomb_proxy, // sec function
 	&invammo_nbomb, // pri ammo
@@ -4018,7 +4018,7 @@ struct inventory_function invfunc_farsight_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
-	invanim_farsight_equiporshoot, // fire animation
+	invanim_farsight_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -4043,7 +4043,7 @@ struct inventory_function invfunc_farsight_targetlocator = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
-	invanim_farsight_equiporshoot, // fire animation
+	invanim_farsight_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -4066,7 +4066,7 @@ struct inventory_ammo invammo_farsight = {
 	AMMOTYPE_FARSIGHT,
 	CASING_NONE,
 	8, // clip size
-	invanim_farsight_reload, // reload animation
+	invanim_farsight_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -4078,10 +4078,10 @@ s8 invg_000140ac[] = {40, 0, -1};
 struct weapon invitem_farsight = {
 	0x038b, // lo model
 	0x04ce, // hi model
-	invanim_farsight_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_farsight_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_farsight_shoot, // pri function
 	&invfunc_farsight_targetlocator, // sec function
 	&invammo_farsight, // pri ammo
@@ -4163,7 +4163,7 @@ struct inventory_function invfunc_crossbow_lethal = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
-	invanim_crossbow_shoot, // fire animation
+	invanim_crossbow_shoot, // fire chr_do_animation
 	0x00802000, // flags
 };
 
@@ -4197,7 +4197,7 @@ struct inventory_function invfunc_crossbow_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
-	invanim_crossbow_shoot, // fire animation
+	invanim_crossbow_shoot, // fire chr_do_animation
 	0x00802200, // flags
 };
 
@@ -4229,7 +4229,7 @@ struct inventory_ammo invammo_crossbow = {
 	AMMOTYPE_CROSSBOW,
 	CASING_NONE,
 	5, // clip size
-	invanim_crossbow_reload, // reload animation
+	invanim_crossbow_reload, // reload chr_do_animation
 	67108864, // style
 };
 
@@ -4241,10 +4241,10 @@ s8 invg_000142bc[] = {40, 0, 41, 0, 42, 0, -1};
 struct weapon invitem_crossbow = {
 	0x038d, // lo model
 	0x04ba, // hi model
-	invanim_crosbow_equip, // equip animation
-	invanim_crossbow_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_crosbow_equip, // equip chr_do_animation
+	invanim_crossbow_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_crossbow_shoot, // pri function
 	&invfunc_crossbow_lethal, // sec function
 	&invammo_crossbow, // pri ammo
@@ -4322,7 +4322,7 @@ struct inventory_function invfunc_tranquilizer_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
-	invanim_tranquilizer_equiporshoot, // fire animation
+	invanim_tranquilizer_equiporshoot, // fire chr_do_animation
 	0x00000200, // flags
 };
 
@@ -4347,7 +4347,7 @@ struct inventory_function invfunc_tranquilizer_lethal = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
-	invanim_tranquilizer_lethalinject, // fire animation
+	invanim_tranquilizer_lethalinject, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -4373,7 +4373,7 @@ struct inventory_ammo invammo_tranquilizer = {
 	AMMOTYPE_SEDATIVE,
 	CASING_NONE,
 	8, // clip size
-	invanim_tranquilizer_reload, // reload animation
+	invanim_tranquilizer_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -4385,10 +4385,10 @@ s8 invg_00014494[] = {40, 0, 41, 0, 42, 0, -1};
 struct weapon invitem_tranquilizer = {
 	0x038e, // lo model
 	0x04bc, // hi model
-	invanim_tranquilizer_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_tranquilizer_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_tranquilizer_shoot, // pri function
 	&invfunc_tranquilizer_lethal, // sec function
 	&invammo_tranquilizer, // pri ammo
@@ -4415,7 +4415,7 @@ struct inventory_ammo invammo_psychosisgun = {
 	AMMOTYPE_PSYCHOSIS,
 	CASING_NONE,
 	8, // clip size
-	invanim_tranquilizer_reload, // reload animation
+	invanim_tranquilizer_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -4428,7 +4428,7 @@ struct inventory_function invfunc_psychosisgun_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
-	invanim_tranquilizer_equiporshoot, // fire animation
+	invanim_tranquilizer_equiporshoot, // fire chr_do_animation
 	0x00200200, // flags
 };
 
@@ -4448,10 +4448,10 @@ u32 var8006e51c = 0x01000000;
 struct weapon invitem_psychosisgun = {
 	0x038e, // lo model
 	0x04bc, // hi model
-	invanim_tranquilizer_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_tranquilizer_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_psychosisgun_shoot, // pri function
 	NULL, // sec function
 	&invammo_psychosisgun, // pri ammo
@@ -4522,7 +4522,7 @@ struct inventory_function invfunc_sniperrifle_singleshot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010ff8, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -4547,7 +4547,7 @@ struct inventory_function invfunc_sniperrifle_crouch = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00102000, // flags
 };
 
@@ -4562,7 +4562,7 @@ struct inventory_ammo invammo_sniperrifle = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	8, // clip size
-	invanim_sniperrifle_reload, // reload animation
+	invanim_sniperrifle_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -4574,10 +4574,10 @@ s8 invg_000146a0[] = {41, 0, -1};
 struct weapon invitem_sniperrifle = {
 	0x038c, // lo model
 	0x04cd, // hi model
-	invanim_sniperrifle_equip, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_sniperrifle_equip, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_sniperrifle_singleshot, // pri function
 	&invfunc_sniperrifle_crouch, // sec function
 	&invammo_sniperrifle, // pri ammo
@@ -4618,7 +4618,7 @@ struct inventory_function invfunc_laser_pulse = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -4643,7 +4643,7 @@ struct inventory_function invfunc_laser_stream = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -4668,10 +4668,10 @@ u32 var8006e784 = 0x00000000;
 struct weapon invitem_laser = {
 	0x04df, // lo model
 	0x04c3, // hi model
-	invanim_laser_equip, // equip animation
-	invanim_laser_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_laser_equip, // equip chr_do_animation
+	invanim_laser_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_laser_pulse, // pri function
 	&invfunc_laser_stream, // sec function
 	NULL, // pri ammo
@@ -4720,7 +4720,7 @@ struct inventory_function invfunc_pp9i_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_pp9i_equiporshoot, // fire animation
+	invanim_pp9i_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -4743,7 +4743,7 @@ struct inventory_ammo invammo_pp9i = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	7, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -4751,10 +4751,10 @@ struct inventory_ammo invammo_pp9i = {
 struct weapon invitem_pp9i = {
 	0x0394, // lo model
 	0x0394, // hi model
-	invanim_pp9i_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_pp9i_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_pp9i_shoot, // pri function
 	NULL, // sec function
 	&invammo_pp9i, // pri ammo
@@ -4790,7 +4790,7 @@ struct inventory_function invfunc_cc13_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_cc13_equiporshoot, // fire animation
+	invanim_cc13_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -4813,7 +4813,7 @@ struct inventory_ammo invammo_cc13 = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -4821,10 +4821,10 @@ struct inventory_ammo invammo_cc13 = {
 struct weapon invitem_cc13 = {
 	0x0395, // lo model
 	0x0395, // hi model
-	invanim_cc13_equiporshoot, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_cc13_equiporshoot, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_cc13_shoot, // pri function
 	NULL, // sec function
 	&invammo_cc13, // pri ammo
@@ -4853,7 +4853,7 @@ struct inventory_function invfunc_kl01313_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -4881,7 +4881,7 @@ struct inventory_ammo invammo_kl01313 = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	20, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -4889,10 +4889,10 @@ struct inventory_ammo invammo_kl01313 = {
 struct weapon invitem_kl01313 = {
 	0x0396, // lo model
 	0x0396, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_kl01313_shoot, // pri function
 	NULL, // sec function
 	&invammo_kl01313, // pri ammo
@@ -4921,7 +4921,7 @@ struct inventory_function invfunc_kf7special_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000002, // flags
 };
 
@@ -4949,7 +4949,7 @@ struct inventory_ammo invammo_kf7special = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -4957,10 +4957,10 @@ struct inventory_ammo invammo_kf7special = {
 struct weapon invitem_kf7special = {
 	0x0397, // lo model
 	0x0397, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_kf7special_shoot, // pri function
 	NULL, // sec function
 	&invammo_kf7special, // pri ammo
@@ -4989,7 +4989,7 @@ struct inventory_function invfunc_zzt9mm_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -5017,7 +5017,7 @@ struct inventory_ammo invammo_zzt9mm = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	32, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -5025,10 +5025,10 @@ struct inventory_ammo invammo_zzt9mm = {
 struct weapon invitem_zzt9mm = {
 	0x0398, // lo model
 	0x0398, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_zzt9mm_shoot, // pri function
 	NULL, // sec function
 	&invammo_zzt9mm, // pri ammo
@@ -5057,7 +5057,7 @@ struct inventory_function invfunc_dmc_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -5085,7 +5085,7 @@ struct inventory_ammo invammo_dmc = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	30, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -5093,10 +5093,10 @@ struct inventory_ammo invammo_dmc = {
 struct weapon invitem_dmc = {
 	0x0399, // lo model
 	0x0399, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_dmc_shoot, // pri function
 	NULL, // sec function
 	&invammo_dmc, // pri ammo
@@ -5125,7 +5125,7 @@ struct inventory_function invfunc_ar53_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000002, // flags
 };
 
@@ -5153,7 +5153,7 @@ struct inventory_ammo invammo_ar53 = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -5161,10 +5161,10 @@ struct inventory_ammo invammo_ar53 = {
 struct weapon invitem_ar53 = {
 	0x039a, // lo model
 	0x039a, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_ar53_shoot, // pri function
 	NULL, // sec function
 	&invammo_ar53, // pri ammo
@@ -5193,7 +5193,7 @@ struct inventory_function invfunc_rcp45_shoot = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -5221,7 +5221,7 @@ struct inventory_ammo invammo_rcp45 = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	80, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -5229,10 +5229,10 @@ struct inventory_ammo invammo_rcp45 = {
 struct weapon invitem_rcp45 = {
 	0x039b, // lo model
 	0x039b, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_rcp45_shoot, // pri function
 	NULL, // sec function
 	&invammo_rcp45, // pri ammo
@@ -5261,7 +5261,7 @@ struct inventory_function invfunc_briefcase_use = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -5275,10 +5275,10 @@ u32 var8006eddc = 0x00000000;
 struct weapon invitem_briefcase2 = {
 	0x039c, // lo model
 	0x039c, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_briefcase_use, // pri function
 	&invfunc_briefcase_use, // sec function
 	NULL, // pri ammo
@@ -5307,7 +5307,7 @@ struct inventory_function invfunc_59_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -5335,7 +5335,7 @@ struct inventory_ammo invammo_59 = {
 	AMMOTYPE_SMG,
 	CASING_RIFLE,
 	27, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -5343,10 +5343,10 @@ struct inventory_ammo invammo_59 = {
 struct weapon invitem_59 = {
 	0x0000, // lo model
 	0x0000, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_59_rapidfire, // pri function
 	NULL, // sec function
 	&invammo_59, // pri ammo
@@ -5375,7 +5375,7 @@ struct inventory_function invfunc_5a_rapidfire = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -5403,7 +5403,7 @@ struct inventory_ammo invammo_5a = {
 	AMMOTYPE_SMG,
 	CASING_RIFLE,
 	27, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -5411,10 +5411,10 @@ struct inventory_ammo invammo_5a = {
 struct weapon invitem_5a = {
 	0x0000, // lo model
 	0x0000, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_5a_rapidfire, // pri function
 	NULL, // sec function
 	&invammo_5a, // pri ammo
@@ -5511,7 +5511,7 @@ struct inventory_function invfunc_combatknife_slash = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_combatknife_slash, // fire animation
+	invanim_combatknife_slash, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -5539,7 +5539,7 @@ struct inventory_function invfunc_combatknife_throw = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	invanim_combatknife_throw, // fire animation
+	invanim_combatknife_throw, // fire chr_do_animation
 	0x00802000, // flags
 };
 
@@ -5555,7 +5555,7 @@ struct inventory_ammo invammo_combatknife = {
 	AMMOTYPE_KNIFE,
 	CASING_NONE,
 	1, // clip size
-	invanim_combatknife_reload, // reload animation
+	invanim_combatknife_reload, // reload chr_do_animation
 	167772160, // style
 };
 
@@ -5563,10 +5563,10 @@ struct inventory_ammo invammo_combatknife = {
 struct weapon invitem_combatknife = {
 	0x038f, // lo model
 	0x04c2, // hi model
-	invanim_combatknife_equip, // equip animation
-	NULL, // unequip animation
-	invanim_combatknife_pritosec, // pritosec animation
-	invanim_combatknife_sectopri, // sectopri animation
+	invanim_combatknife_equip, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	invanim_combatknife_pritosec, // pritosec chr_do_animation
+	invanim_combatknife_sectopri, // sectopri chr_do_animation
 	&invfunc_combatknife_slash, // pri function
 	&invfunc_combatknife_throw, // sec function
 	&invammo_combatknife, // pri ammo
@@ -5595,7 +5595,7 @@ struct inventory_function invfunc_bug_throw = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00802040, // flags
 };
 
@@ -5613,7 +5613,7 @@ struct inventory_function invfunc_targetamplifier_throw = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00802040, // flags
 };
 
@@ -5629,7 +5629,7 @@ struct inventory_ammo invammo_bug = {
 	AMMOTYPE_BUG,
 	CASING_NONE,
 	1, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	33554432, // style
 };
 
@@ -5637,10 +5637,10 @@ struct inventory_ammo invammo_bug = {
 struct weapon invitem_commsrider = {
 	0x0087, // lo model
 	0x0087, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_bug_throw, // pri function
 	NULL, // sec function
 	&invammo_bug, // pri ammo
@@ -5664,10 +5664,10 @@ struct weapon invitem_commsrider = {
 struct weapon invitem_tracerbug = {
 	0x0087, // lo model
 	0x0087, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_bug_throw, // pri function
 	NULL, // sec function
 	&invammo_bug, // pri ammo
@@ -5691,10 +5691,10 @@ struct weapon invitem_tracerbug = {
 struct weapon invitem_targetamplifier = {
 	0x07b2, // lo model
 	0x07b2, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_targetamplifier_throw, // pri function
 	NULL, // sec function
 	&invammo_bug, // pri ammo
@@ -5723,7 +5723,7 @@ struct inventory_function invfunc_nightvision_primary = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -5733,10 +5733,10 @@ u32 var8006f2c0 = 0x00000001;
 struct weapon invitem_nightvision = {
 	0x0346, // lo model
 	0x0346, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_nightvision_primary, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -5765,7 +5765,7 @@ struct inventory_function invfunc_horizonscanner_primary = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -5785,10 +5785,10 @@ struct inventory_typee inve_00015348 = {
 struct weapon invitem_horizonscanner = {
 	0x04e6, // lo model
 	0x04e6, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_horizonscanner_primary, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -5817,7 +5817,7 @@ struct inventory_function invfunc_cloak_primary = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -5830,7 +5830,7 @@ struct inventory_ammo invammo_cloakingdevice = {
 	AMMOTYPE_CLOAK,
 	CASING_NONE,
 	10, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	16777216, // style
 };
 
@@ -5838,10 +5838,10 @@ struct inventory_ammo invammo_cloakingdevice = {
 struct weapon invitem_cloakingdevice = {
 	0x04cf, // lo model
 	0x04cf, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_cloak_primary, // pri function
 	NULL, // sec function
 	&invammo_cloakingdevice, // pri ammo
@@ -5870,7 +5870,7 @@ struct inventory_function invfunc_combatboost_boost = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -5887,7 +5887,7 @@ struct inventory_function invfunc_combatboost_revert = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -5902,7 +5902,7 @@ struct inventory_ammo invammo_combatboost = {
 	AMMOTYPE_BOOST,
 	CASING_NONE,
 	4, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	16777216, // style
 };
 
@@ -5910,10 +5910,10 @@ struct inventory_ammo invammo_combatboost = {
 struct weapon invitem_combatboost = {
 	0x04d0, // lo model
 	0x04d0, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_combatboost_boost, // pri function
 	&invfunc_combatboost_revert, // sec function
 	&invammo_combatboost, // pri ammo
@@ -5942,7 +5942,7 @@ struct inventory_function invfunc_suicidepill_primary = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -5952,10 +5952,10 @@ u32 var8006f4cc = 0x00000020;
 struct weapon invitem_suicidepill = {
 	0x0000, // lo model
 	0x0000, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_suicidepill_primary, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -5984,7 +5984,7 @@ struct inventory_function invfunc_irscanner_primary = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -5994,10 +5994,10 @@ u32 var8006f534 = 0x00000008;
 struct weapon invitem_irscanner = {
 	0x074f, // lo model
 	0x074f, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_irscanner_primary, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6026,7 +6026,7 @@ struct inventory_function invfunc_disguise_primary = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -6034,10 +6034,10 @@ struct inventory_function invfunc_disguise_primary = {
 struct weapon invitem_disguise40 = {
 	0x0000, // lo model
 	0x0000, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_disguise_primary, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6061,10 +6061,10 @@ struct weapon invitem_disguise40 = {
 struct weapon invitem_disguise41 = {
 	0x0000, // lo model
 	0x0000, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_disguise_primary, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6093,7 +6093,7 @@ struct inventory_function invfunc_camspy_deploy = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -6103,10 +6103,10 @@ u32 var8006f650 = 0x00000004;
 struct weapon invitem_camspy = {
 	0x004b, // lo model
 	0x004b, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_camspy_deploy, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6135,7 +6135,7 @@ struct inventory_function invfunc_rtracker_primary = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -6145,10 +6145,10 @@ u32 var8006f6b8 = 0x00000010;
 struct weapon invitem_rtracker = {
 	0x076f, // lo model
 	0x076f, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_rtracker_primary, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6177,7 +6177,7 @@ struct inventory_function invfunc_xray_primary = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -6187,10 +6187,10 @@ u32 var8006f720 = 0x00000002;
 struct weapon invitem_xrayscanner = {
 	0x0770, // lo model
 	0x0770, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_xray_primary, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6236,7 +6236,7 @@ struct inventory_function invfunc_datauplink_primary = {
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00102000, // flags
 };
 
@@ -6248,10 +6248,10 @@ u32 var8006f7c0 = 0x00000000;
 struct weapon invitem_datauplink = {
 	0x074e, // lo model
 	0x074e, // hi model
-	invanim_datauplink_equip, // equip animation
-	invanim_datauplink_unequip, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	invanim_datauplink_equip, // equip chr_do_animation
+	invanim_datauplink_unequip, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_datauplink_primary, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6275,10 +6275,10 @@ struct weapon invitem_datauplink = {
 struct weapon invitem_doordecoder = {
 	0x0772, // lo model
 	0x0772, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6302,10 +6302,10 @@ struct weapon invitem_doordecoder = {
 struct weapon invitem_rocket = {
 	0x0382, // lo model
 	0x04bb, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	&invammo_default, // pri ammo
@@ -6329,10 +6329,10 @@ struct weapon invitem_rocket = {
 struct weapon invitem_homingrocket = {
 	0x0382, // lo model
 	0x04bb, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	&invammo_default, // pri ammo
@@ -6356,10 +6356,10 @@ struct weapon invitem_homingrocket = {
 struct weapon invitem_grenaderound = {
 	0x0382, // lo model
 	0x04bb, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_devastator_shoot, // pri function
 	&invfunc_devastator_wallhugger, // sec function
 	&invammo_default, // pri ammo
@@ -6383,10 +6383,10 @@ struct weapon invitem_grenaderound = {
 struct weapon invitem_bolt = {
 	0x0382, // lo model
 	0x04bb, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_crossbow_shoot, // pri function
 	&invfunc_crossbow_lethal, // sec function
 	&invammo_default, // pri ammo
@@ -6419,10 +6419,10 @@ u32 var8006f9c0 = 0x00000000;
 struct weapon invitem_skedarbomb = {
 	0x075f, // lo model
 	0x075f, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6446,10 +6446,10 @@ struct weapon invitem_skedarbomb = {
 struct weapon invitem_explosives = {
 	0x0760, // lo model
 	0x0760, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6478,7 +6478,7 @@ struct inventory_function invfunc_presidentscanner_primary = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fd0, // menupos
-	NULL, // fire animation
+	NULL, // fire chr_do_animation
 	0x00002000, // flags
 };
 
@@ -6488,10 +6488,10 @@ u32 var8006fa78 = 0x00000010;
 struct weapon invitem_presidentscanner = {
 	0x076f, // lo model
 	0x076f, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_presidentscanner_primary, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6515,10 +6515,10 @@ struct weapon invitem_presidentscanner = {
 struct weapon invitem_autosurgeon = {
 	0x049d, // lo model
 	0x049d, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6542,10 +6542,10 @@ struct weapon invitem_autosurgeon = {
 struct weapon invitem_flightplans = {
 	0x0763, // lo model
 	0x0763, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6569,10 +6569,10 @@ struct weapon invitem_flightplans = {
 struct weapon invitem_researchtape = {
 	0x0761, // lo model
 	0x0761, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6596,10 +6596,10 @@ struct weapon invitem_researchtape = {
 struct weapon invitem_backupdisk = {
 	0x0762, // lo model
 	0x0762, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6623,10 +6623,10 @@ struct weapon invitem_backupdisk = {
 struct weapon invitem_briefcase = {
 	0x0563, // lo model
 	0x0563, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6650,10 +6650,10 @@ struct weapon invitem_briefcase = {
 struct weapon invitem_suitcase = {
 	0x0086, // lo model
 	0x0086, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6677,10 +6677,10 @@ struct weapon invitem_suitcase = {
 struct weapon invitem_necklace = {
 	0x01c3, // lo model
 	0x01c3, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6704,10 +6704,10 @@ struct weapon invitem_necklace = {
 struct weapon invitem_shield = {
 	0x0347, // lo model
 	0x0347, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6731,10 +6731,10 @@ struct weapon invitem_shield = {
 struct weapon invitem_keycard = {
 	0x0563, // lo model
 	0x0563, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	NULL, // pri function
 	NULL, // sec function
 	NULL, // pri ammo
@@ -6763,7 +6763,7 @@ struct inventory_function invfunc_rocketlauncher34_primary = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
-	invanim_rockerlauncher_equiporshoot, // fire animation
+	invanim_rockerlauncher_equiporshoot, // fire chr_do_animation
 	0x08000040, // flags
 };
 
@@ -6795,7 +6795,7 @@ struct inventory_ammo invammo_rocketlauncher34 = {
 	AMMOTYPE_ROCKET,
 	CASING_NONE,
 	1, // clip size
-	invanim_rocketlauncher_reload, // reload animation
+	invanim_rocketlauncher_reload, // reload chr_do_animation
 	0, // style
 };
 
@@ -6803,10 +6803,10 @@ struct inventory_ammo invammo_rocketlauncher34 = {
 struct weapon invitem_rocketlauncher_34 = {
 	0x0388, // lo model
 	0x04c9, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_rocketlauncher34_primary, // pri function
 	NULL, // sec function
 	&invammo_rocketlauncher34, // pri ammo
@@ -6841,7 +6841,7 @@ struct inventory_function invfunc_tester_primary = {
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
-	invanim_tester_shoot, // fire animation
+	invanim_tester_shoot, // fire chr_do_animation
 	0x00000000, // flags
 };
 
@@ -6864,7 +6864,7 @@ struct inventory_ammo invammo_tester = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
-	NULL, // reload animation
+	NULL, // reload chr_do_animation
 	0, // style
 };
 
@@ -6872,10 +6872,10 @@ struct inventory_ammo invammo_tester = {
 struct weapon invitem_tester = {
 	0x0193, // lo model
 	0x0193, // hi model
-	NULL, // equip animation
-	NULL, // unequip animation
-	NULL, // pritosec animation
-	NULL, // sectopri animation
+	NULL, // equip chr_do_animation
+	NULL, // unequip chr_do_animation
+	NULL, // pritosec chr_do_animation
+	NULL, // sectopri chr_do_animation
 	&invfunc_tester_primary, // pri function
 	NULL, // sec function
 	&invammo_tester, // pri ammo

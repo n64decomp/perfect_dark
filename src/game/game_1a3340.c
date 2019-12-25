@@ -182,7 +182,7 @@ glabel menuhandler001a3340
 /*  f1a33d4:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*  f1a33d8:	10450004 */ 	beq	$v0,$a1,.L0f1a33ec
 /*  f1a33dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a33e0:	0fc28824 */ 	jal	func0f0a2090
+/*  f1a33e0:	0fc28824 */ 	jal	currentPlayerEquipWeapon
 /*  f1a33e4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a33e8:	8fa50018 */ 	lw	$a1,0x18($sp)
 .L0f1a33ec:

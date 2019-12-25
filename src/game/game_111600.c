@@ -296,7 +296,7 @@ glabel func0f111980
 /*  f11199c:	8defa244 */ 	lw	$t7,-0x5dbc($t7)
 /*  f1119a0:	0fc44b11 */ 	jal	func0f112c44
 /*  f1119a4:	8de41874 */ 	lw	$a0,0x1874($t7)
-/*  f1119a8:	0fc2865b */ 	jal	func0f0a196c
+/*  f1119a8:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
 /*  f1119ac:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1119b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1119b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -1458,7 +1458,7 @@ glabel func0f112884
 );
 
 GLOBAL_ASM(
-glabel func0f1128cc
+glabel currentPlayerHasProp
 /*  f1128cc:	3c03800a */ 	lui	$v1,0x800a
 /*  f1128d0:	8c63a244 */ 	lw	$v1,-0x5dbc($v1)
 /*  f1128d4:	24060002 */ 	addiu	$a2,$zero,0x2

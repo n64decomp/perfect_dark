@@ -721,20 +721,20 @@ u8 func0401_unused[] = {
 	beginloop(0x04)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1001_objectives_failed_msg[] = {
 	yield
-	set_function(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
+	endlist
 };
 
 u8 func1400_setup_counterop[] = {
 	yield
 	set_chr_team(CHR_ANTI, TEAM_ENEMY)
-	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_REBUILD_GROUPS)
+	endlist
 };
 
 u8 func040b_init_elvis[] = {
@@ -746,14 +746,14 @@ u8 func040b_init_elvis[] = {
 	set_alertness(100)
 	set_chr_health(CHR_SELF, 1)
 	set_armor(900)
-	set_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	endlist
 };
 
 u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	dprint 'B','A','C','K',' ','T','O',' ','E','L','V','I','S','\n',0,
-	set_return_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
-	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	set_returnlist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	set_shotlist(FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
@@ -762,7 +762,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 
 	// Dying
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
 	if_just_injured(CHR_SELF, /*goto*/ 0x2e)
@@ -866,9 +866,9 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	label(0x64)
 	say_quip(CHR_BOND, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	label(0x2e)
-	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
-	set_return_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+	set_shotlist(FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	set_returnlist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	// In teleport control room
 	label(0x5f)
@@ -883,7 +883,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	label(0x6f)
 	label(0x2e)
 	unset_self_chrflag(CHRCFLAG_01000000)
-	animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -902,14 +902,14 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	unset_chr_chrflag(0x14, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x15, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x16, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(0x14, FUNC_TELEPORT_ACTIVATION_RESPONDER)
-	set_function(0x15, FUNC_TELEPORT_ACTIVATION_RESPONDER)
-	set_function(0x16, FUNC_TELEPORT_ACTIVATION_RESPONDER)
+	set_ailist(0x14, FUNC_TELEPORT_ACTIVATION_RESPONDER)
+	set_ailist(0x15, FUNC_TELEPORT_ACTIVATION_RESPONDER)
+	set_ailist(0x16, FUNC_TELEPORT_ACTIVATION_RESPONDER)
 	goto_first(0x03)
 
 	label(0x60)
-	set_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	endlist
 };
 
 u8 func0433_unused[] = {
@@ -927,8 +927,8 @@ u8 func0433_unused[] = {
 
 	label(0x2e)
 	unset_self_flag_bankx(CHRFLAG0_UNSURPRISABLE, BANK_0)
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 /**
@@ -938,7 +938,7 @@ u8 func0433_unused[] = {
 u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	set_self_chrflag(CHRCFLAG_00080000)
 	unset_self_flag_bankx(CHRFLAG1_00200000, BANK_1)
-	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
+	set_shotlist(FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
 	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
@@ -947,7 +947,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 
 	// Dying
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x06)
@@ -1026,9 +1026,9 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	say_quip(CHR_BOND, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 
 	label(0x2e)
-	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
-	set_return_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+	set_shotlist(FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
+	set_returnlist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
+	set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
 	// In Agent megaweapon room
 	label(0x1d)
@@ -1046,7 +1046,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	label(0x2e)
 	unset_self_chrflag(CHRCFLAG_01000000)
 	restart_timer
-	animation(ANIM_OPERATE_0205, -1, -1, 0x00, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0205, -1, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x10)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1066,8 +1066,8 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	goto_first(0x03)
 
 	label(0x60)
-	set_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
+	endlist
 };
 
 /**
@@ -1079,7 +1079,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 u8 func0405_elvis_follow_nocombat[] = {
 	set_self_chrflag(CHRCFLAG_00080000)
 	unset_self_flag_bankx(CHRFLAG1_00200000, BANK_1)
-	set_onshot_function(0x0405)
+	set_shotlist(0x0405)
 	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
@@ -1088,7 +1088,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 
 	// Dying
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x06)
@@ -1155,11 +1155,11 @@ u8 func0405_elvis_follow_nocombat[] = {
 	label(0x2e)
 	goto_first(0x03)
 
-	endfunction
+	endlist
 };
 
 u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
-	set_onshot_function(FUNC_ELVIS_FOLLOW_AND_DO_SA_MEGAWEAPON)
+	set_shotlist(FUNC_ELVIS_FOLLOW_AND_DO_SA_MEGAWEAPON)
 	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
@@ -1168,7 +1168,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 
 	// Dying
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x06)
@@ -1221,15 +1221,15 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 	if_rand_lt(86, /*goto*/ 0x63)
 	if_rand_lt(172, /*goto*/ 0x64)
 
-	animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 	goto_next(0x11)
 
 	label(0x63)
-	animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 	goto_next(0x11)
 
 	label(0x64)
-	animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 	goto_next(0x11)
 
 	beginloop(0x11)
@@ -1250,16 +1250,16 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	try_draw_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x04)
 	label(0x04)
-	set_function(CHR_SELF, FUNC_ELVIS_GO_TO_SA_TELEPORT)
+	set_ailist(CHR_SELF, FUNC_ELVIS_GO_TO_SA_TELEPORT)
 	goto_first(0x03)
 
 	label(0x60)
-	set_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_SA_MEGAWEAPON)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_SA_MEGAWEAPON)
+	endlist
 };
 
 u8 func0407_elvis_go_to_sa_teleport[] = {
-	set_onshot_function(FUNC_ELVIS_GO_TO_SA_TELEPORT)
+	set_shotlist(FUNC_ELVIS_GO_TO_SA_TELEPORT)
 	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
@@ -1268,7 +1268,7 @@ u8 func0407_elvis_go_to_sa_teleport[] = {
 
 	// Dying
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x06)
@@ -1327,14 +1327,14 @@ u8 func0407_elvis_go_to_sa_teleport[] = {
 	label(0x64)
 	say_quip(CHR_BOND, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	label(0x2e)
-	set_onshot_function(FUNC_ELVIS_GO_TO_SA_TELEPORT)
-	set_return_function(CHR_SELF, FUNC_ELVIS_GO_TO_SA_TELEPORT)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
-	endfunction
+	set_shotlist(FUNC_ELVIS_GO_TO_SA_TELEPORT)
+	set_returnlist(CHR_SELF, FUNC_ELVIS_GO_TO_SA_TELEPORT)
+	set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+	endlist
 };
 
 u8 func0403_elvis_give_farsight[] = {
-	set_onshot_function(FUNC_ELVIS_GIVE_FARSIGHT)
+	set_shotlist(FUNC_ELVIS_GIVE_FARSIGHT)
 	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
@@ -1343,7 +1343,7 @@ u8 func0403_elvis_give_farsight[] = {
 
 	// Dying
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x06)
@@ -1403,19 +1403,19 @@ u8 func0403_elvis_give_farsight[] = {
 	yield
 	try_draw_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x2f)
 	label(0x2f)
-	set_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
+	set_ailist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
 
 	// SA
 	label(0x06)
-	set_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_SA_MEGAWEAPON)
+	set_ailist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_SA_MEGAWEAPON)
 
 	// Agent
 	label(0x2e)
 	yield
 	try_draw_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x2e)
 	label(0x2e)
-	set_function(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
+	endlist
 };
 
 u8 func1003_powernode1[] = {
@@ -1435,7 +1435,7 @@ u8 func1003_powernode1[] = {
 
 	label(0x2e)
 	goto_first(0x04)
-	endfunction
+	endlist
 };
 
 u8 func1004_powernode2[] = {
@@ -1455,7 +1455,7 @@ u8 func1004_powernode2[] = {
 
 	label(0x2e)
 	goto_first(0x04)
-	endfunction
+	endlist
 };
 
 u8 func1005_powernode3[] = {
@@ -1475,7 +1475,7 @@ u8 func1005_powernode3[] = {
 
 	label(0x2e)
 	goto_first(0x04)
-	endfunction
+	endlist
 };
 
 u8 func0c01_midcutscene[] = {
@@ -1484,21 +1484,21 @@ u8 func0c01_midcutscene[] = {
 	fade_to_color(0x00000000, 15)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
-	set_function(CHR_ELVIS, GFUNC_IDLE)
+	set_ailist(CHR_ELVIS, GFUNC_IDLE)
 	set_music_track(MUSIC_DEEPSEA_MIDCUTSCENE)
 	camera_movement(0x01d4)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	animation(0x01d5, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
+	chr_do_animation(0x01d5, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	animation(0x01d6, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
+	chr_do_animation(0x01d6, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 	set_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00020000)
-	animation(0x01d7, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 4)
+	chr_do_animation(0x01d7, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 4)
 	show_object(0xbb)
 	set_object_flag_bank1(0xbb, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0xbb, OBJECTFLAG2_00000010)
@@ -1818,17 +1818,17 @@ u8 func0c01_midcutscene[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	animation(0x01d5, -2, -1, 0x06, 0x00, CHR_P1P2, 2)
+	chr_do_animation(0x01d5, -2, -1, 0x06, 0x00, CHR_P1P2, 2)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	animation(0x01d6, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
+	chr_do_animation(0x01d6, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
 	unset_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00020000)
-	animation(0x01d7, -2, -1, 0x06, 0x00, CHR_DRCAROLL, 2)
+	chr_do_animation(0x01d7, -2, -1, 0x06, 0x00, CHR_DRCAROLL, 2)
 	set_cutscene_weapon(CHR_ELVIS, WEAPON_NONE, WEAPON_NONE)
 	yield
 	set_cutscene_weapon(CHR_ELVIS, WEAPON_PHOENIX, WEAPON_NONE)
-	set_function(CHR_ELVIS, GFUNC_IDLE)
+	set_ailist(CHR_ELVIS, GFUNC_IDLE)
 	yield
 	chr_move_to_pad(CHR_ELVIS, 0x0013, 0x01, /*goto*/ 0x2e)
 	label(0x2e)
@@ -1839,15 +1839,15 @@ u8 func0c01_midcutscene[] = {
 	restart_default_music
 	reset_ambience
 	play_x_music(CHANNEL_10, 60)
-	set_function(CHR_ELVIS, GFUNC_IDLE)
+	set_ailist(CHR_ELVIS, GFUNC_IDLE)
 	chr_move_to_pad(CHR_ELVIS, 0x0017, 0x01, /*goto*/ 0x2e)
 	label(0x2e)
 	remove_weapon_from_inventory(WEAPON_BACKUPDISK)
-	set_function(CHR_ELVIS, FUNC_ELVIS_WARP_TO_OUTSIDE_DRCAROLL)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_WARP_TO_OUTSIDE_DRCAROLL)
 	show_nonessential_chrs(TRUE)
 	set_stage_flag(STAGEFLAG_MIDCUTSCENE_FINISHED)
-	set_function(CHR_SELF, GFUNC_END_CINEMA)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_END_CINEMA)
+	endlist
 };
 
 u8 func042d_elvis_warp_to_outside_drcaroll[] = {
@@ -1862,8 +1862,8 @@ u8 func042d_elvis_warp_to_outside_drcaroll[] = {
 	dprint 'T','E','L','E','P','O','R','T',' ','G','O','O','D','\n',0,
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	stop_chr
-	set_function(CHR_SELF, FUNC_ELVIS_RUN_TO_EXIT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ELVIS_RUN_TO_EXIT)
+	endlist
 };
 
 u8 func0c02_outro[] = {
@@ -2009,12 +2009,12 @@ u8 func0c02_outro[] = {
 
 	label(0x06)
 	end_level
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2e)
 	end_level
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1002_intro[] = {
@@ -2027,11 +2027,11 @@ u8 func1002_intro[] = {
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(0x01f0, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x01f0, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	animation(0x01f1, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
+	chr_do_animation(0x01f1, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 	set_object_flag_bank0(0x07, OBJECTFLAG0_DEACTIVATED)
 	set_object_flag_bank1(0x07, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x07, OBJECTFLAG2_00000010)
@@ -2039,7 +2039,7 @@ u8 func1002_intro[] = {
 	set_chr_chrflag(0x40, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x40, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x40, CHRHFLAG_00020000)
-	animation(0x0471, -1, -1, 0x06, 0x00, 0x40, 4)
+	chr_do_animation(0x0471, -1, -1, 0x06, 0x00, 0x40, 4)
 	restart_timer
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -2185,10 +2185,10 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(0x01f0, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x01f0, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	animation(0x01f1, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
+	chr_do_animation(0x01f1, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
 	if_coop_mode(/*goto*/ 0x45)
 	unset_object_flag_bank0(0x07, OBJECTFLAG0_DEACTIVATED)
 	unset_object_flag_bank1(0x07, OBJECTFLAG1_04000000)
@@ -2204,9 +2204,9 @@ u8 func1002_intro[] = {
 	label(0x0d)
 	enter_firstperson
 	yield
-	set_function(CHR_ELVIS, FUNC_INIT_ELVIS)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_ELVIS, FUNC_INIT_ELVIS)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func042f_init_pelagic_guard[] = {
@@ -2217,8 +2217,8 @@ u8 func042f_init_pelagic_guard[] = {
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
+	endlist
 };
 
 u8 func0430_unused[] = {
@@ -2228,8 +2228,8 @@ u8 func0430_unused[] = {
 	set_armor(70)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
+	endlist
 };
 
 u8 func1006_msg_thiswillhelpus[] = {
@@ -2253,8 +2253,8 @@ u8 func1006_msg_thiswillhelpus[] = {
 	label(0x2e)
 	speak(CHR_P1P2, 0x300a, 0x73d4, CHANNEL_6, COLOR_04_ORANGE) // "This will help us to get round the ship quicker."
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1007_msg_antibodymasking[] = {
@@ -2271,8 +2271,8 @@ u8 func1007_msg_antibodymasking[] = {
 	speak(CHR_BOND, 0x300b, 0x73d5, CHANNEL_6, COLOR_09_BLUE) // "This antibody masking will protect us from the aut..."
 
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1008_msg_theresdrcaroll[] = {
@@ -2301,8 +2301,8 @@ u8 func1008_msg_theresdrcaroll[] = {
 
 	// Elvis dead, Dr Caroll dead, or Elvis didn't get teleported
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1009_msg_getoutofhere[] = {
@@ -2324,8 +2324,8 @@ u8 func1009_msg_getoutofhere[] = {
 	speak(CHR_BOND, 0x300d, 0x73d7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
 
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -2386,11 +2386,11 @@ u8 func100a_bond_teleports[] = {
 	goto_first(0x5b)
 
 	label(0x5e)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 
 	label(0x2e)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x64)
-	set_function(CHR_BOND, FUNC_TELEPORT_BOND_TO_SAPA)
+	set_ailist(CHR_BOND, FUNC_TELEPORT_BOND_TO_SAPA)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x31)
@@ -2427,7 +2427,7 @@ u8 func100a_bond_teleports[] = {
 	goto_first(0x5c)
 
 	label(0x5e)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x64)
 	goto_next(0x2e)
 
@@ -2438,7 +2438,7 @@ u8 func100a_bond_teleports[] = {
 	goto_next(0x2e)
 
 	label(0x2e)
-	set_function(CHR_BOND, FUNC_TELEPORT_BOND_TO_A_PA_DRCAROLL)
+	set_ailist(CHR_BOND, FUNC_TELEPORT_BOND_TO_A_PA_DRCAROLL)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x32)
@@ -2454,7 +2454,7 @@ u8 func100a_bond_teleports[] = {
 	goto_first(0x04)
 
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	//
 	// At Agent or PA teleport
@@ -2481,8 +2481,8 @@ u8 func100a_bond_teleports[] = {
 	goto_first(0x5d)
 
 	label(0x5e)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
-	set_function(CHR_BOND, FUNC_TELEPORT_BOND_TO_DRCAROLL)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_BOND, FUNC_TELEPORT_BOND_TO_DRCAROLL)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x33)
@@ -2492,8 +2492,8 @@ u8 func100a_bond_teleports[] = {
 	label(0x2e)
 	grant_control(CHR_BOND)
 	teleport_to_pad(0x0000, CHR_BOND)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0414_teleport_bond_to_sapa[] = {
@@ -2505,7 +2505,7 @@ u8 func0414_teleport_bond_to_sapa[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 
 	label(0x08)
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x06)
@@ -2534,10 +2534,10 @@ u8 func0414_teleport_bond_to_sapa[] = {
 	if_chr_unloaded(CHR_COOP, /*goto*/ 0x61)
 	goto_next(0x62)
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_GIVE_FARSIGHT)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_GIVE_FARSIGHT)
 	label(0x62)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0415_teleport_bond_to_drcaroll[] = {
@@ -2549,7 +2549,7 @@ u8 func0415_teleport_bond_to_drcaroll[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x07)
 	if_chr_dying(CHR_ELVIS, /*goto*/ 0x07)
 	if_chr_unloaded(CHR_ELVIS, /*goto*/ 0x07)
@@ -2581,11 +2581,11 @@ u8 func0415_teleport_bond_to_drcaroll[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 
 	label(0x62)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -2602,7 +2602,7 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 
 	label(0x62)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x09)
@@ -2644,15 +2644,15 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 
 	label(0x62)
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// SA
 	label(0x08)
-	set_function(CHR_SELF, FUNC_TELEPORT_BOND_TO_DRCAROLL)
+	set_ailist(CHR_SELF, FUNC_TELEPORT_BOND_TO_DRCAROLL)
 
 	// Agent
 	label(0x09)
@@ -2692,10 +2692,10 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_GIVE_FARSIGHT)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_GIVE_FARSIGHT)
 	label(0x62)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -2714,7 +2714,7 @@ u8 func100b_coop_teleports[] = {
 	goto_next(0x1f)
 
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x1f)
 		if_stage_flag_eq(STAGEFLAG_TELEPORTALS_ACTIVATED, TRUE, /*goto*/ 0x04)
@@ -2746,11 +2746,11 @@ u8 func100b_coop_teleports[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 	label(0x62)
 	label(0x2e)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x64)
-	set_function(CHR_COOP, FUNC_TELEPORT_COOP_TO_SAPA)
+	set_ailist(CHR_COOP, FUNC_TELEPORT_COOP_TO_SAPA)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x31)
@@ -2792,7 +2792,7 @@ u8 func100b_coop_teleports[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 	label(0x62)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x64)
 	goto_next(0x2e)
@@ -2801,7 +2801,7 @@ u8 func100b_coop_teleports[] = {
 	goto_next(0x2e)
 
 	label(0x2e)
-	set_function(CHR_COOP, FUNC_TELEPORT_COOP_TO_A_PA_DRCAROLL)
+	set_ailist(CHR_COOP, FUNC_TELEPORT_COOP_TO_A_PA_DRCAROLL)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x32)
@@ -2817,7 +2817,7 @@ u8 func100b_coop_teleports[] = {
 	goto_first(0x04)
 
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	//
 	// At Agent or PA area teleport
@@ -2850,9 +2850,9 @@ u8 func100b_coop_teleports[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 	label(0x62)
-	set_function(CHR_COOP, FUNC_TELEPORT_COOP_TO_DRCAROLL)
+	set_ailist(CHR_COOP, FUNC_TELEPORT_COOP_TO_DRCAROLL)
 	unset_stage_flag(STAGEFLAG_TELEPORT_DONE)
 
 	beginloop(0x33)
@@ -2862,8 +2862,8 @@ u8 func100b_coop_teleports[] = {
 	label(0x2e)
 	grant_control(CHR_COOP)
 	teleport_to_pad(0x0000, CHR_COOP)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0417_teleport_coop_to_sapa[] = {
@@ -2874,7 +2874,7 @@ u8 func0417_teleport_coop_to_sapa[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 
 	label(0x08)
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x06)
@@ -2904,11 +2904,11 @@ u8 func0417_teleport_coop_to_sapa[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_GIVE_FARSIGHT)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_GIVE_FARSIGHT)
 
 	label(0x62)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0418_teleport_coop_to_drcaroll[] = {
@@ -2919,7 +2919,7 @@ u8 func0418_teleport_coop_to_drcaroll[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x07)
 	if_chr_dying(CHR_ELVIS, /*goto*/ 0x07)
 	if_chr_unloaded(CHR_ELVIS, /*goto*/ 0x07)
@@ -2951,10 +2951,10 @@ u8 func0418_teleport_coop_to_drcaroll[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	label(0x62)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -2970,7 +2970,7 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_STOP)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_STOP)
 	label(0x62)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x09)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x08)
@@ -3011,14 +3011,14 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	label(0x62)
 	set_stage_flag(STAGEFLAG_TELEPORT_DONE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// SA
 	label(0x08)
-	set_function(CHR_SELF, FUNC_TELEPORT_COOP_TO_DRCAROLL)
+	set_ailist(CHR_SELF, FUNC_TELEPORT_COOP_TO_DRCAROLL)
 
 	// Agent
 	label(0x09)
@@ -3057,10 +3057,10 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	goto_next(0x62)
 
 	label(0x61)
-	set_function(CHR_ELVIS, FUNC_ELVIS_GIVE_FARSIGHT)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_GIVE_FARSIGHT)
 	label(0x62)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -3076,11 +3076,11 @@ u8 func041c_teleport_activation_responder[] = {
 		set_target_chr(CHR_COOP)
 		if_chr_sees_player(/*goto*/ 0x2e)
 		unset_self_chrflag(CHRCFLAG_HIDDEN)
-		set_function(CHR_SELF, FUNC_INIT_SNIPER)
+		set_ailist(CHR_SELF, FUNC_INIT_SNIPER)
 		label(0x2e)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func041a_init_sniper[] = {
@@ -3093,7 +3093,7 @@ u8 func041a_init_sniper[] = {
 	set_armor(70)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_function(CHR_SELF, FUNC_SNIPER_WAIT_FOR_DETECTION)
+	set_ailist(CHR_SELF, FUNC_SNIPER_WAIT_FOR_DETECTION)
 
 	// Agent
 	label(0x2e)
@@ -3103,17 +3103,17 @@ u8 func041a_init_sniper[] = {
 	set_armor(70)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_function(CHR_SELF, FUNC_SNIPER_WAIT_FOR_DETECTION)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_SNIPER_WAIT_FOR_DETECTION)
+	endlist
 };
 
 u8 func041b_sniper_wait_for_detection[] = {
 	unset_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	yield
-	set_onshot_function(FUNC_SNIPER)
+	set_shotlist(FUNC_SNIPER)
 	label(0x06)
 	set_reaction_speed(100)
-	set_onshot_function(FUNC_SNIPER)
+	set_shotlist(FUNC_SNIPER)
 	restart_timer
 
 	beginloop(0x04)
@@ -3139,13 +3139,13 @@ u8 func041b_sniper_wait_for_detection[] = {
 	set_squadron_alertness(100)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
-	set_function(CHR_SELF, FUNC_SNIPER)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_SNIPER)
+	endlist
 };
 
 u8 func041d_sniper[] = {
 	set_self_chrflag(CHRCFLAG_00000040)
-	set_onshot_function(FUNC_SNIPER)
+	set_shotlist(FUNC_SNIPER)
 	set_chr_cloaked(CHR_SELF, TRUE, FALSE)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
@@ -3242,11 +3242,11 @@ u8 func041d_sniper[] = {
 
 	label(0x10)
 	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x2e)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func040c_blonde[] = {
@@ -3260,7 +3260,7 @@ u8 func040c_blonde[] = {
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
-	set_onshot_function(GFUNC_ALERTED)
+	set_shotlist(GFUNC_ALERTED)
 
 	beginloop(0x08)
 		if_saw_injury(0x00, /*goto*/ 0x06)
@@ -3269,9 +3269,9 @@ u8 func040c_blonde[] = {
 	endloop(0x08)
 
 	label(0x06)
-	set_return_function(CHR_SELF, GFUNC_ALERTED)
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_returnlist(CHR_SELF, GFUNC_ALERTED)
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 u8 func100c_countdown_timer[] = {
@@ -3294,8 +3294,8 @@ u8 func100c_countdown_timer[] = {
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TIMER_EXPIRED)
 	yield
-	set_function(CHR_SELF, FUNC_OUTRO)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, FUNC_OUTRO)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Player escaped
 	label(0x2e)
@@ -3322,15 +3322,15 @@ u8 func100c_countdown_timer[] = {
 	// Both players dead
 	label(0x2e)
 	end_level
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Mission complete
 	label(0x06)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(CHR_SELF, FUNC_OUTRO)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_OUTRO)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100e_check_elvis_dead[] = {
@@ -3343,8 +3343,8 @@ u8 func100e_check_elvis_dead[] = {
 	label(0x2e)
 	message(CHR_BOND, 0x300e) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ALLY_DEAD)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100f_check_drcaroll_dead[] = {
@@ -3357,8 +3357,8 @@ u8 func100f_check_drcaroll_dead[] = {
 	label(0x2e)
 	message(CHR_BOND, 0x300f) // "Dr. Caroll has been killed."
 	set_stage_flag(STAGEFLAG_ALLY_DEAD)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func040f_miniskedar_send_clones[] = {
@@ -3383,7 +3383,7 @@ u8 func040f_miniskedar_send_clones[] = {
 		yield
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func040e_init_miniskedar[] = {
@@ -3399,12 +3399,12 @@ u8 func040e_init_miniskedar[] = {
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	rebuild_teams
 	rebuild_squadrons
-	set_function(CHR_SELF, FUNC_MINISKEDAR)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_MINISKEDAR)
+	endlist
 };
 
 u8 func040f_miniskedar[] = {
-	set_onshot_function(FUNC_MINISKEDAR)
+	set_shotlist(FUNC_MINISKEDAR)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
@@ -3421,7 +3421,7 @@ u8 func040f_miniskedar[] = {
 
 	label(0x2e)
 	say_quip(CHR_BOND, 0x05, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x06)
@@ -3497,7 +3497,7 @@ u8 func040f_miniskedar[] = {
 		label(0x06)
 	endloop(0x03)
 
-	endfunction
+	endlist
 };
 
 u8 func1010_agent_hallway_spawner[] = {
@@ -3511,8 +3511,8 @@ u8 func1010_agent_hallway_spawner[] = {
 	endloop(0x03)
 
 	label(0x2e)
-	set_function(0x25, FUNC_MINISKEDAR_SEND_CLONES)
-	set_function(0x26, FUNC_MINISKEDAR_SEND_CLONES)
+	set_ailist(0x25, FUNC_MINISKEDAR_SEND_CLONES)
+	set_ailist(0x26, FUNC_MINISKEDAR_SEND_CLONES)
 
 	// Wait until player in a certain room
 	beginloop(0x04)
@@ -3524,8 +3524,8 @@ u8 func1010_agent_hallway_spawner[] = {
 	label(0x2e)
 	remove_chr(0x25)
 	remove_chr(0x26)
-	set_function(0x27, FUNC_MINISKEDAR_SEND_CLONES)
-	set_function(0x28, FUNC_MINISKEDAR_SEND_CLONES)
+	set_ailist(0x27, FUNC_MINISKEDAR_SEND_CLONES)
+	set_ailist(0x28, FUNC_MINISKEDAR_SEND_CLONES)
 
 	// Wait until player in a certain room
 	beginloop(0x08)
@@ -3537,8 +3537,8 @@ u8 func1010_agent_hallway_spawner[] = {
 	label(0x2e)
 	remove_chr(0x27)
 	remove_chr(0x28)
-	set_function(0x2b, FUNC_MINISKEDAR_SEND_CLONES)
-	set_function(0x2a, FUNC_MINISKEDAR_SEND_CLONES)
+	set_ailist(0x2b, FUNC_MINISKEDAR_SEND_CLONES)
+	set_ailist(0x2a, FUNC_MINISKEDAR_SEND_CLONES)
 
 	// Wait until player in a certain room
 	beginloop(0x09)
@@ -3547,22 +3547,22 @@ u8 func1010_agent_hallway_spawner[] = {
 	endloop(0x09)
 
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0411_hide[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0412_unused[] = {
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -3575,8 +3575,8 @@ u8 func0413_cloak_and_hide[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1012_sa_megaweapon_spawner[] = {
@@ -3606,15 +3606,15 @@ u8 func1012_sa_megaweapon_spawner[] = {
 		call_rng
 		if_rand_gt(86, /*goto*/ 0x63)
 		if_rand_gt(172, /*goto*/ 0x64)
-		try_spawn_chr(BODY_MINISKEDAR, HEAD_RANDOM, 0x01f4, FUNC_INIT_SA_MEGAWEAPON_MINISKEDAR, 0x00000010, /*goto*/ 0x22)
+		try_spawn_chr_at_pad(BODY_MINISKEDAR, HEAD_RANDOM, 0x01f4, FUNC_INIT_SA_MEGAWEAPON_MINISKEDAR, 0x00000010, /*goto*/ 0x22)
 		goto_next(0x21)
 
 		label(0x63)
-		try_spawn_chr(BODY_MINISKEDAR, HEAD_RANDOM, 0x01f5, FUNC_INIT_SA_MEGAWEAPON_MINISKEDAR, 0x00000010, /*goto*/ 0x22)
+		try_spawn_chr_at_pad(BODY_MINISKEDAR, HEAD_RANDOM, 0x01f5, FUNC_INIT_SA_MEGAWEAPON_MINISKEDAR, 0x00000010, /*goto*/ 0x22)
 		goto_next(0x21)
 
 		label(0x64)
-		try_spawn_chr(BODY_MINISKEDAR, HEAD_RANDOM, 0x01f6, FUNC_INIT_SA_MEGAWEAPON_MINISKEDAR, 0x00000010, /*goto*/ 0x22)
+		try_spawn_chr_at_pad(BODY_MINISKEDAR, HEAD_RANDOM, 0x01f6, FUNC_INIT_SA_MEGAWEAPON_MINISKEDAR, 0x00000010, /*goto*/ 0x22)
 		goto_next(0x21)
 
 		label(0x21)
@@ -3626,7 +3626,7 @@ u8 func1012_sa_megaweapon_spawner[] = {
 	rebuild_squadrons
 	goto_first(0x1f)
 
-	endfunction
+	endlist
 };
 
 // SA megaweapon miniskedar
@@ -3634,8 +3634,8 @@ u8 func041e_init_sa_megaweapon_miniskedar[] = {
 	set_squadron(SQUADRON_0E)
 	rebuild_teams
 	rebuild_squadrons
-	set_function(CHR_SELF, FUNC_INIT_MINISKEDAR)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_INIT_MINISKEDAR)
+	endlist
 };
 
 /**
@@ -3663,7 +3663,7 @@ u8 func041e_init_sa_megaweapon_miniskedar[] = {
 	destroy_object(glass2) \
 	destroy_object(glass3) \
 	set_stage_flag(stageflag) \
-	set_function(CHR_SELF, 0x0408)
+	set_ailist(CHR_SELF, 0x0408)
 
 
 
@@ -3681,46 +3681,46 @@ u8 func1013_pa_doorcylinder1[] = {
 	set_lights_state(0x006c, 0x04, 0x00, 0xff, 0xf0)
 
 	doorcylinder_logic(0x11, 0x12, 0x13, 0x9c, STAGEFLAG_PA_EARLYDOORCYLINDER1_DESTROYED)
-	endfunction
+	endlist
 };
 
 u8 func1014_pa_doorcylinder2[] = {
 	doorcylinder_logic(0x14, 0x15, 0x16, 0x9d, STAGEFLAG_PA_EARLYDOORCYLINDER2_DESTROYED)
-	endfunction
+	endlist
 };
 
 u8 func1015_pa_doorcylinder3[] = {
 	doorcylinder_logic(0x17, 0x18, 0x19, 0x9e, STAGEFLAG_PA_EARLYDOORCYLINDER3_DESTROYED)
-	endfunction
+	endlist
 };
 
 u8 func1016_pa_doorcylinder4[] = {
 	doorcylinder_logic(0x1a, 0x1b, 0x1c, 0x9f, STAGEFLAG_PA_EARLYDOORCYLINDER4_DESTROYED)
-	endfunction
+	endlist
 };
 
 u8 func1017_pa_doorcylinder5[] = {
 	doorcylinder_logic(0x1d, 0x1e, 0x1f, 0xa0, STAGEFLAG_PA_EARLYDOORCYLINDER5_DESTROYED)
-	endfunction
+	endlist
 };
 
 u8 func0408_check_pa_earlydoorcylinders_destroyed[] = {
 	label(0x04)
 	yield
 	if_stage_flag_eq(STAGEFLAG_PA_EARLYDOORCYLINDER1_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_EARLYDOORCYLINDER2_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_EARLYDOORCYLINDER3_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_EARLYDOORCYLINDER4_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_EARLYDOORCYLINDER5_DESTROYED, TRUE, /*goto*/ 0x08)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x08)
 		if_door_state(0x09, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
@@ -3737,7 +3737,7 @@ u8 func0408_check_pa_earlydoorcylinders_destroyed[] = {
 	open_door(0x0a)
 	goto_first(0x08)
 
-	endfunction
+	endlist
 };
 
 #define pa_cylinder(glass, mine) \
@@ -3812,7 +3812,7 @@ u8 func1018_pa_door1[] = {
 		open_door(0x0c)
 	endloop(0x08)
 
-	endfunction
+	endlist
 };
 
 /**
@@ -3823,16 +3823,16 @@ u8 func0409_check_pa_latedoorcylinders_destroyed[] = {
 	label(0x04)
 	yield
 	if_stage_flag_eq(STAGEFLAG_PA_LATEDOORCYLINDER1_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_LATEDOORCYLINDER2_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_LATEDOORCYLINDER3_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_LATEDOORCYLINDER4_DESTROYED, TRUE, /*goto*/ 0x08)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x08)
 		if_door_state(0x0d, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x06)
@@ -3843,7 +3843,7 @@ u8 func0409_check_pa_latedoorcylinders_destroyed[] = {
 	open_door(0x0e)
 	goto_first(0x08)
 
-	endfunction
+	endlist
 };
 
 u8 func1019_pa_door2[] = {
@@ -3851,8 +3851,8 @@ u8 func1019_pa_door2[] = {
 	set_lights_state(0x00a9, 0x03, 0xff, 0x0a, 0x78)
 	label(0x08)
 	set_stage_flag(STAGEFLAG_PA_LATEDOORCYLINDER1_DESTROYED)
-	set_function(CHR_SELF, 0x0409)
-	endfunction
+	set_ailist(CHR_SELF, 0x0409)
+	endlist
 };
 
 u8 func101a_pa_door3[] = {
@@ -3860,8 +3860,8 @@ u8 func101a_pa_door3[] = {
 	set_lights_state(0x00ac, 0x03, 0xff, 0x0a, 0x78)
 	label(0x08)
 	set_stage_flag(STAGEFLAG_PA_LATEDOORCYLINDER2_DESTROYED)
-	set_function(CHR_SELF, 0x0409)
-	endfunction
+	set_ailist(CHR_SELF, 0x0409)
+	endlist
 };
 
 u8 func101b_pa_door4[] = {
@@ -3869,8 +3869,8 @@ u8 func101b_pa_door4[] = {
 	set_lights_state(0x00b4, 0x03, 0xff, 0x0a, 0x78)
 	label(0x08)
 	set_stage_flag(STAGEFLAG_PA_LATEDOORCYLINDER3_DESTROYED)
-	set_function(CHR_SELF, 0x0409)
-	endfunction
+	set_ailist(CHR_SELF, 0x0409)
+	endlist
 };
 
 u8 func101c_pa_door5[] = {
@@ -3935,34 +3935,34 @@ u8 func101c_pa_door5[] = {
 	set_lights_state(0x00b7, 0x03, 0xff, 0x0a, 0x78)
 	label(0x08)
 	set_stage_flag(STAGEFLAG_PA_LATEDOORCYLINDER4_DESTROYED)
-	set_function(CHR_SELF, 0x0409)
-	endfunction
+	set_ailist(CHR_SELF, 0x0409)
+	endlist
 };
 
 u8 func101d_pa_canister1[] = {
 	pa_cylinder(0x5b, 0xa6)
 	label(0x08)
 	set_stage_flag(STAGEFLAG_PA_CANISTER1_DESTROYED)
-	set_function(CHR_SELF, 0x040a)
-	endfunction
+	set_ailist(CHR_SELF, 0x040a)
+	endlist
 };
 
 u8 func101e_pa_canister2[] = {
 	pa_cylinder(0x67, 0xa7)
 	label(0x08)
 	set_stage_flag(STAGEFLAG_PA_CANISDER2_DESTROYED)
-	set_function(CHR_SELF, 0x040a)
-	endfunction
+	set_ailist(CHR_SELF, 0x040a)
+	endlist
 };
 
 u8 func040a_check_pa_canisters_destroyed[] = {
 	label(0x04)
 	yield
 	if_stage_flag_eq(STAGEFLAG_PA_CANISTER1_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_PA_CANISDER2_DESTROYED, TRUE, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Both canisters destroyed
 	label(0x2e)
@@ -3982,7 +3982,7 @@ u8 func040a_check_pa_canisters_destroyed[] = {
 	open_door(0x10)
 	goto_first(0x08)
 
-	endfunction
+	endlist
 };
 
 /**
@@ -4016,10 +4016,10 @@ u8 func101f_pa_circleroom_spawner[] = {
 		if_num_chrs_in_squadron_gt(3, 0x0d, /*goto*/ 0x21)
 		call_rng
 		if_rand_gt(128, /*goto*/ 0x63)
-		try_spawn_chr(BODY_MINISKEDAR, HEAD_RANDOM, 0x00dd, FUNC_INIT_PA_CIRCLEROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
+		try_spawn_chr_at_pad(BODY_MINISKEDAR, HEAD_RANDOM, 0x00dd, FUNC_INIT_PA_CIRCLEROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
 		goto_next(0x21)
 		label(0x63)
-		try_spawn_chr(BODY_MINISKEDAR, HEAD_RANDOM, 0x00dd, FUNC_INIT_PA_CIRCLEROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
+		try_spawn_chr_at_pad(BODY_MINISKEDAR, HEAD_RANDOM, 0x00dd, FUNC_INIT_PA_CIRCLEROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
 		goto_next(0x21)
 		label(0x21)
 	endloop(0x20)
@@ -4031,16 +4031,16 @@ u8 func101f_pa_circleroom_spawner[] = {
 	goto_first(0x1f)
 
 	label(0x58)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func041f_init_pa_circleroom_miniskedar[] = {
 	set_squadron(SQUADRON_0D)
 	rebuild_teams
 	rebuild_squadrons
-	set_function(CHR_SELF, FUNC_INIT_MINISKEDAR)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_INIT_MINISKEDAR)
+	endlist
 };
 
 u8 func1020_pa_deadendroom_spawner[] = {
@@ -4051,10 +4051,10 @@ u8 func1020_pa_deadendroom_spawner[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	set_function(0x38, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR)
-	set_function(0x39, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR)
-	set_function(0x3a, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR)
-	set_function(0x3b, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR)
+	set_ailist(0x38, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR)
+	set_ailist(0x39, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR)
+	set_ailist(0x3a, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR)
+	set_ailist(0x3b, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR)
 	label(0x1f)
 	restart_timer
 
@@ -4068,16 +4068,16 @@ u8 func1020_pa_deadendroom_spawner[] = {
 		if_rand_gt(64, /*goto*/ 0x63)
 		if_rand_gt(128, /*goto*/ 0x64)
 		if_rand_gt(196, /*goto*/ 0x65)
-		try_spawn_chr(BODY_MINISKEDAR, HEAD_RANDOM, 0x01af, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
+		try_spawn_chr_at_pad(BODY_MINISKEDAR, HEAD_RANDOM, 0x01af, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
 		goto_next(0x21)
 		label(0x63)
-		try_spawn_chr(BODY_MINISKEDAR, HEAD_RANDOM, 0x01b0, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
+		try_spawn_chr_at_pad(BODY_MINISKEDAR, HEAD_RANDOM, 0x01b0, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
 		goto_next(0x21)
 		label(0x64)
-		try_spawn_chr(BODY_MINISKEDAR, HEAD_RANDOM, 0x01b1, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
+		try_spawn_chr_at_pad(BODY_MINISKEDAR, HEAD_RANDOM, 0x01b1, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
 		goto_next(0x21)
 		label(0x65)
-		try_spawn_chr(BODY_MINISKEDAR, HEAD_RANDOM, 0x01b2, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
+		try_spawn_chr_at_pad(BODY_MINISKEDAR, HEAD_RANDOM, 0x01b2, FUNC_INIT_PA_DEADENDROOM_MINISKEDAR, 0x00000000, /*goto*/ 0x22)
 		goto_next(0x21)
 		label(0x21)
 	endloop(0x20)
@@ -4088,15 +4088,15 @@ u8 func1020_pa_deadendroom_spawner[] = {
 	rebuild_squadrons
 	goto_first(0x1f)
 
-	endfunction
+	endlist
 };
 
 u8 func0420_init_pa_deadendroom_miniskedar[] = {
 	set_squadron(SQUADRON_0B)
 	rebuild_teams
 	rebuild_squadrons
-	set_function(CHR_SELF, FUNC_INIT_MINISKEDAR)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_INIT_MINISKEDAR)
+	endlist
 };
 
 u8 func1021_c6c4[] = {
@@ -4111,14 +4111,14 @@ u8 func1021_c6c4[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	set_function(0x30, FUNC_INIT_MINISKEDAR)
-	set_function(0x31, FUNC_INIT_MINISKEDAR)
-	set_function(0x32, FUNC_INIT_MINISKEDAR)
-	set_function(0x33, FUNC_INIT_MINISKEDAR)
-	set_function(0x34, FUNC_INIT_MINISKEDAR)
-	set_function(0x35, FUNC_INIT_MINISKEDAR)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(0x30, FUNC_INIT_MINISKEDAR)
+	set_ailist(0x31, FUNC_INIT_MINISKEDAR)
+	set_ailist(0x32, FUNC_INIT_MINISKEDAR)
+	set_ailist(0x33, FUNC_INIT_MINISKEDAR)
+	set_ailist(0x34, FUNC_INIT_MINISKEDAR)
+	set_ailist(0x35, FUNC_INIT_MINISKEDAR)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 #define init_path(pathid, function) \
@@ -4129,56 +4129,56 @@ u8 func1021_c6c4[] = {
 	set_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0) \
-	set_return_function(CHR_SELF, function) \
+	set_returnlist(CHR_SELF, function) \
 	assign_path(pathid) \
 	start_path \
-	set_function(CHR_SELF, GFUNC_UNALERTED_0004)
+	set_ailist(CHR_SELF, GFUNC_UNALERTED_0004)
 
 
 
 u8 func0421_start_path02[] = {
 	init_path(2, 0x0421)
-	endfunction
+	endlist
 };
 
 u8 func0422_start_path03[] = {
 	init_path(3, 0x0422)
-	endfunction
+	endlist
 };
 
 u8 func0423_start_path04[] = {
 	init_path(4, 0x0423)
-	endfunction
+	endlist
 };
 
 u8 func0424_start_path05[] = {
 	init_path(5, 0x0424)
-	endfunction
+	endlist
 };
 
 u8 func0425_start_path06[] = {
 	init_path(6, 0x0425)
-	endfunction
+	endlist
 };
 
 u8 func0426_start_path07[] = {
 	init_path(7, 0x0426)
-	endfunction
+	endlist
 };
 
 u8 func0427_start_path08[] = {
 	init_path(8, 0x0427)
-	endfunction
+	endlist
 };
 
 u8 func0428_start_path09[] = {
 	init_path(9, 0x0428)
-	endfunction
+	endlist
 };
 
 u8 func0429_start_path10[] = {
 	init_path(10, 0x0429)
-	endfunction
+	endlist
 };
 
 u8 func1022_control_room[] = {
@@ -4189,7 +4189,7 @@ u8 func1022_control_room[] = {
 	label(0x2e)
 	remove_chr(CHR_BLONDE1)
 	remove_chr(CHR_BLONDE2)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// SA and PA
 	beginloop(0x04)
@@ -4212,8 +4212,8 @@ u8 func1022_control_room[] = {
 	label(0x2e)
 	message(CHR_P1P2, 0x3015) // "Control Room has been secured."
 	set_stage_flag(STAGEFLAG_BLONDES_DEAD)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1023_check_drcaroll_restored[] = {
@@ -4249,10 +4249,10 @@ u8 func1023_check_drcaroll_restored[] = {
 	label(0x2e)
 	set_stage_flag(STAGEFLAG_DRCAROLL_RESTORED)
 	label(0x08)
-	set_function(CHR_SELF, FUNC_MIDCUTSCENE)
+	set_ailist(CHR_SELF, FUNC_MIDCUTSCENE)
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1024_update_elvis_target_chr[] = {
@@ -4275,7 +4275,7 @@ u8 func1024_update_elvis_target_chr[] = {
 	label(0x2e)
 	goto_first(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 unregistered_function1[] = {
@@ -4283,9 +4283,9 @@ u8 unregistered_function1[] = {
 	chr_move_to_pad(CHR_ELVIS, 0x01bf, 0x01, /*goto*/ 0x06)
 	label(0x06)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	set_function(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1026_setup_autoguns[] = {
@@ -4293,14 +4293,14 @@ u8 func1026_setup_autoguns[] = {
 	set_autoturret_type(0xa8, 0x12)
 	set_autoturret_type(0xa9, 0x12)
 	set_autoturret_type(0xaa, 0x12)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func042e_elvis_run_to_exit[] = {
 	set_self_chrflag(CHRCFLAG_00080000)
-	set_onshot_function(FUNC_ELVIS_RUN_TO_EXIT)
-	set_return_function(CHR_SELF, FUNC_ELVIS_RUN_TO_EXIT)
+	set_shotlist(FUNC_ELVIS_RUN_TO_EXIT)
+	set_returnlist(CHR_SELF, FUNC_ELVIS_RUN_TO_EXIT)
 	set_target_chr(CHR_PRESET)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
@@ -4309,7 +4309,7 @@ u8 func042e_elvis_run_to_exit[] = {
 
 	// Dying
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x06)
@@ -4371,10 +4371,10 @@ u8 func042e_elvis_run_to_exit[] = {
 	label(0x64)
 	say_quip(CHR_BOND, 0x28, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	label(0x2e)
-	set_onshot_function(FUNC_ELVIS_RUN_TO_EXIT)
-	set_return_function(CHR_SELF, FUNC_ELVIS_RUN_TO_EXIT)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
-	endfunction
+	set_shotlist(FUNC_ELVIS_RUN_TO_EXIT)
+	set_returnlist(CHR_SELF, FUNC_ELVIS_RUN_TO_EXIT)
+	set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+	endlist
 };
 
 u8 func1027_powernode_illumination[] = {
@@ -4401,8 +4401,8 @@ u8 func1027_powernode_illumination[] = {
 		label(0x06)
 	endloop(0x04)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -4424,11 +4424,11 @@ u8 func1028_enable_last_3_guards[] = {
 	unset_chr_chrflag(0x3c, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x3d, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x3e, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(0x3c, FUNC_RUN_TO_EXIT)
-	set_function(0x3d, FUNC_RUN_TO_EXIT)
-	set_function(0x3e, FUNC_RUN_TO_EXIT)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(0x3c, FUNC_RUN_TO_EXIT)
+	set_ailist(0x3d, FUNC_RUN_TO_EXIT)
+	set_ailist(0x3e, FUNC_RUN_TO_EXIT)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func042b_run_to_exit[] = {
@@ -4441,16 +4441,16 @@ u8 func042b_run_to_exit[] = {
 	set_shield(0)
 	label(0x04)
 	run_to_pad(0x0000)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
+	endlist
 };
 
 u8 func1429_start_lift[] = {
 	if_coop_mode(/*goto*/ 0x45)
 	activate_lift(1, 0x07)
 	label(0x45)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102a_kill_pelagic_guard[] = {
@@ -4462,8 +4462,8 @@ u8 func102a_kill_pelagic_guard[] = {
 	damage_chr(0x3f, 18)
 	yield
 	damage_chr(0x3f, 18)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102b_proxymines[] = {
@@ -4479,8 +4479,8 @@ u8 func102b_proxymines[] = {
 	set_object_flag_bank1(OBJ_PROXYMINES, OBJECTFLAG1_INVISIBLE)
 
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102c_lock_doors[] = {
@@ -4496,12 +4496,12 @@ u8 func102c_lock_doors[] = {
 
 	// A and SA
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func040f_miniskedar_unalerted[] = {
-	set_onshot_function(FUNC_MINISKEDAR)
+	set_shotlist(FUNC_MINISKEDAR)
 	set_self_chrflag(CHRCFLAG_00080000)
 	set_self_chrflag(CHRCFLAG_00020000)
 	set_accuracy(0)
@@ -4522,8 +4522,8 @@ u8 func040f_miniskedar_unalerted[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	set_function(CHR_SELF, FUNC_MINISKEDAR)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_MINISKEDAR)
+	endlist
 };
 
 u8 func0432_dead_skedar[] = {
@@ -4531,10 +4531,10 @@ u8 func0432_dead_skedar[] = {
 
 	label(0x08)
 	yield
-	animation(ANIM_SKEDAR_COLLAPSE, -1, -1, 0x06, 0x00, 0x21, 2)
+	chr_do_animation(ANIM_SKEDAR_COLLAPSE, -1, -1, 0x06, 0x00, 0x21, 2)
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 unregistered_function2[] = {
@@ -4544,13 +4544,13 @@ u8 unregistered_function2[] = {
 	endloop(0x08)
 
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102e_open_powernode_doors_on_agent[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x08)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Agent
 	label(0x08)
@@ -4561,8 +4561,8 @@ u8 func102e_open_powernode_doors_on_agent[] = {
 	open_door(0x05)
 	set_object_flag_bank0(0x05, OBJECTFLAG0_40000000)
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -4576,8 +4576,8 @@ u8 func042c_elvis_stop[] = {
 	// his function will be reassigned if he takes damage between here and the
 	// teleport. This causes him to not teleport.
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102f_unlock_drcaroll_door[] = {
@@ -4593,8 +4593,8 @@ u8 func102f_unlock_drcaroll_door[] = {
 	unlock_door(0x76, 0x02)
 	unset_object_flag_bank1(0x75, OBJECTFLAG1_20000000)
 	unset_object_flag_bank1(0x76, OBJECTFLAG1_20000000)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1030_unlock_agent_teleport_door[] = {
@@ -4606,8 +4606,8 @@ u8 func1030_unlock_agent_teleport_door[] = {
 	label(0x2e)
 	unlock_door(0xb7, 0x02)
 	unlock_door(0xb8, 0x02)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -4630,8 +4630,8 @@ u8 func1031_unset_trigger_buddy_warp[] = {
 		unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 	endloop(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -4660,15 +4660,15 @@ u8 unregistered_function3[] = {
 	set_stage_flag(STAGEFLAG_SA_EXIT_TELEPORT_DISABLED)
 	goto_first(0x1f)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1032_setup_rtracker[] = {
 	yield
 	set_object_flag_bank2(OBJ_PROXYMINES, OBJECTFLAG2_RTRACKED_BLUE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1433_setup_lighting[] = {
@@ -4682,8 +4682,8 @@ u8 func1433_setup_lighting[] = {
 	misc_command(0x0008, 0x05, 0x00)
 	misc_command(0x000c, 0x05, 0x00)
 	misc_command(0x000d, 0x05, 0x00)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1034_enable_blondes[] = {
@@ -4700,11 +4700,11 @@ u8 func1034_enable_blondes[] = {
 	label(0x2e)
 	show_chr(CHR_BLONDE1)
 	show_chr(CHR_BLONDE2)
-	set_function(CHR_BLONDE1, FUNC_BLONDE)
-	set_function(CHR_BLONDE2, FUNC_BLONDE)
+	set_ailist(CHR_BLONDE1, FUNC_BLONDE)
+	set_ailist(CHR_BLONDE2, FUNC_BLONDE)
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102d_check_farsight_ammo_wasted[] = {
@@ -4732,18 +4732,18 @@ u8 func102d_check_farsight_ammo_wasted[] = {
 	label(0x2e)
 	message(CHR_BOND, 0x302c) // "Ammo wasted - unable to disable megaweapon."
 	set_stage_flag(STAGEFLAG_FARSIGHT_AMMO_WASTED)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 unregistered_function4[] = {
 	cmd0185_mponly
 	rebuild_teams
 	rebuild_squadrons
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 struct ailist ailists[] = {

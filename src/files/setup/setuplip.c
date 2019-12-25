@@ -852,8 +852,8 @@ u8 func1400_give_datauplinks[] = {
 	set_chr_team(CHR_ANTI, TEAM_22)
 	give_object_to_chr(OBJ_DATAUPLINK_BOND, CHR_BOND)
 	give_object_to_chr(OBJ_DATAUPLINK_COOP, CHR_COOP)
-	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_REBUILD_GROUPS)
+	endlist
 };
 
 u8 func1007_check_disguise_collected[] = {
@@ -875,8 +875,8 @@ u8 func1007_check_disguise_collected[] = {
 
 	label(0x2d)
 	set_stage_flag(STAGEFLAG_USED_DISGUISE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1026_check_records_destroyed[] = {
@@ -884,11 +884,11 @@ u8 func1026_check_records_destroyed[] = {
 		if_object_in_good_condition(0x04, /*goto*/ 0x06)
 		message(CHR_BOND, 0x2a0e) // "Research records destroyed."
 		set_stage_flag(STAGEFLAG_RECORDS_DESTROYED)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 		label(0x06)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1003_uplink_doors[] = {
@@ -940,7 +940,7 @@ u8 func1003_uplink_doors[] = {
 		label(0x06)
 		mute_channel(CHANNEL_5)
 		if_object_in_good_condition(0x02, /*goto*/ 0x2d)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x2d)
 		assign_sound(0x01c1, CHANNEL_5)
@@ -965,7 +965,7 @@ u8 func1003_uplink_doors[] = {
 		mute_channel(CHANNEL_6)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1004_uplink_lights[] = {
@@ -1017,7 +1017,7 @@ u8 func1004_uplink_lights[] = {
 		label(0x06)
 		mute_channel(CHANNEL_5)
 		if_object_in_good_condition(0x01, /*goto*/ 0x2d)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x2d)
 		assign_sound(0x01c1, CHANNEL_5)
@@ -1056,7 +1056,7 @@ u8 func1004_uplink_lights[] = {
 		mute_channel(CHANNEL_6)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1005_uplink_autoguns[] = {
@@ -1108,7 +1108,7 @@ u8 func1005_uplink_autoguns[] = {
 		label(0x06)
 		mute_channel(CHANNEL_5)
 		if_object_in_good_condition(0x03, /*goto*/ 0x2d)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 		label(0x2d)
 		assign_sound(0x01c1, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x00, TRUE)
@@ -1137,7 +1137,7 @@ u8 func1005_uplink_autoguns[] = {
 		set_stage_flag(STAGEFLAG_AUTOGUN_VIRUS_DONE)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1006_check_lab_accessed[] = {
@@ -1149,8 +1149,8 @@ u8 func1006_check_lab_accessed[] = {
 	label(0x06)
 	message(CHR_P1P2, 0x2a1d) // "Laboratory accessed successfully."
 	set_stage_flag(STAGEFLAG_ENTERED_LAB)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 #define init_path(accuracy, health, recovery, pathid) \
@@ -1163,83 +1163,83 @@ u8 func1006_check_lab_accessed[] = {
 	set_shield(0) \
 	assign_path(pathid) \
 	start_path \
-	set_function(CHR_SELF, GFUNC_UNALERTED_0004)
+	set_ailist(CHR_SELF, GFUNC_UNALERTED_0004)
 
 
 
 u8 func0401_start_path00[] = {
 	init_path(8, 50, 35, 0x00)
-	endfunction
+	endlist
 };
 
 u8 func0402_start_path01[] = {
 	init_path(8, 50, 35, 0x01)
-	endfunction
+	endlist
 };
 
 u8 func0403_start_path02[] = {
 	init_path(8, 50, 35, 0x02)
-	endfunction
+	endlist
 };
 
 u8 func0404_start_path03[] = {
 	init_path(8, 50, 35, 0x03)
-	endfunction
+	endlist
 };
 
 u8 func0405_start_path04[] = {
 	init_path(8, 50, 35, 0x04)
-	endfunction
+	endlist
 };
 
 u8 func0406_start_path05[] = {
 	init_path(8, 50, 35, 0x05)
-	endfunction
+	endlist
 };
 
 u8 func0407_start_path06[] = {
 	init_path(10, 80, 0, 0x06)
-	endfunction
+	endlist
 };
 
 u8 func0408_start_path07[] = {
 	init_path(10, 80, 0, 0x07)
-	endfunction
+	endlist
 };
 
 u8 func0409_start_path08[] = {
 	init_path(10, 80, 0, 0x08)
-	endfunction
+	endlist
 };
 
 u8 func040a_start_path09[] = {
 	init_path(10, 80, 0, 0x09)
-	endfunction
+	endlist
 };
 
 u8 func040b_start_path10[] = {
 	init_path(10, 80, 0, 0x0a)
-	endfunction
+	endlist
 };
 
 u8 func040c_start_path11[] = {
 	init_path(10, 80, 0, 0x0b)
-	endfunction
+	endlist
 };
 
 u8 func040d_start_path12[] = {
 	init_path(10, 80, 0, 0x0c)
-	endfunction
+	endlist
 };
 
 u8 func040e_start_path13[] = {
 	init_path(10, 80, 0, 0x0d)
-	endfunction
+	endlist
 };
 
 u8 func040f_start_path14[] = {
 	init_path(10, 80, 0, 0x0e)
-	endfunction
+	endlist
 };
 
 u8 func1001_objectives_failed_msg[] = {
@@ -1254,8 +1254,8 @@ u8 func1001_objectives_failed_msg[] = {
 	set_chr_chrflag(CHR_BIOTECH2, CHRCFLAG_04000000)
 	set_chr_chrflag(CHR_LABTECH_DOORS2, CHRCFLAG_04000000)
 	set_chr_chrflag(CHR_MECHANIC, CHRCFLAG_04000000)
-	set_function(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
+	endlist
 };
 
 u8 func0411_labtech_showers_agent[] = {
@@ -1272,8 +1272,8 @@ u8 func0411_labtech_showers_agent[] = {
 	endloop(0x64)
 
 	label(0x2d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0412_init_labtech_showers[] = {
@@ -1289,23 +1289,23 @@ u8 func0412_init_labtech_showers[] = {
 	endloop(0x08)
 
 	label(0x2e)
-	set_function(CHR_SELF, FUNC_LABTECH_AGENT)
+	set_ailist(CHR_SELF, FUNC_LABTECH_AGENT)
 
 	// SA and PA
 	label(0x06)
-	set_function(CHR_SELF, FUNC_LABTECH_SA_PA)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_LABTECH_SA_PA)
+	endlist
 };
 
 u8 func0410_labtech_showers_sa_pa[] = {
-	set_onshot_function(FUNC_LABTECH_SA_PA)
+	set_shotlist(FUNC_LABTECH_SA_PA)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x2d)
 
 	label(0x06)
-	set_onshot_function(GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
 	set_stage_flag(STAGEFLAG_LABTECH_DEAD)
 	restart_timer
 
@@ -1315,8 +1315,8 @@ u8 func0410_labtech_showers_sa_pa[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2d)
 	if_just_injured(CHR_SELF, /*goto*/ 0x06)
@@ -1461,8 +1461,8 @@ u8 func0410_labtech_showers_sa_pa[] = {
 		endloop(0x6f)
 
 		label(0x2d)
-		set_return_function(CHR_SELF, FUNC_LABTECH_SA_PA)
-		set_function(CHR_SELF, GFUNC_HAND_COMBAT)
+		set_returnlist(CHR_SELF, FUNC_LABTECH_SA_PA)
+		set_ailist(CHR_SELF, GFUNC_HAND_COMBAT)
 
 		// Chasing Jo for over 10 seconds - do room check again
 		label(0x06)
@@ -1474,7 +1474,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 
 	// Tech saw weapon
 	label(0x53)
-	animation(ANIM_SURPRISED_0202, 0, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	dprint 'T','A','L','K',' ','1','\n',0,
 	speak(CHR_TARGET, 0x2a29, 0x8156, CHANNEL_4, COLOR_08_RED) // "Oh, my God - a gun!"
 	restart_timer
@@ -1512,8 +1512,8 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	beginloop(0x0c)
 	endloop(0x0c)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1009_disguise_timer[] = {
@@ -1573,7 +1573,7 @@ u8 func1009_disguise_timer[] = {
 	label(0x2d)
 	stop_countdown_timer
 	hide_countdown_timer
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Timer expired
 	label(0x06)
@@ -1587,8 +1587,8 @@ u8 func1009_disguise_timer[] = {
 	message(CHR_BOND, 0x2a2f) // "The enemy has discovered the disguise."
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
 	hide_countdown_timer
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100a_random_doors[] = {
@@ -1666,7 +1666,7 @@ u8 func100a_random_doors[] = {
 		close_door(0x0e)
 	endloop(0x03)
 
-	endfunction
+	endlist
 };
 
 u8 func0419_init_doorman[] = {
@@ -1676,19 +1676,19 @@ u8 func0419_init_doorman[] = {
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_function(CHR_SELF, FUNC_DOORMAN)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_DOORMAN)
+	endlist
 };
 
 u8 func0418_doorman[] = {
-	set_onshot_function(GFUNC_ALERTED)
+	set_shotlist(GFUNC_ALERTED)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x2d)
 
 	label(0x06)
-	set_onshot_function(GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
 	restart_timer
 
 	beginloop(0x54)
@@ -1697,8 +1697,8 @@ u8 func0418_doorman[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x2d)
@@ -1709,7 +1709,7 @@ u8 func0418_doorman[] = {
 	label(0x06)
 	set_squadron_alertness(100)
 	set_target_chr(CHR_BOND)
-	set_function(CHR_SELF, GFUNC_ALERTED)
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
 
 	// Waiting for Jo to arrive
 	label(0x2d)
@@ -1838,14 +1838,14 @@ u8 func0418_doorman[] = {
 	label(0x06)
 	set_squadron_alertness(100)
 	set_target_chr(CHR_BOND)
-	set_function(CHR_SELF, GFUNC_ALERTED)
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
 
 	label(0x64)
 	yield
 	goto_first(0x64)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100b_check_doorman_dead[] = {
@@ -1889,25 +1889,25 @@ u8 func100b_check_doorman_dead[] = {
 
 		label(0x2d)
 		label(0x0d)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 		label(0x06)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 /**
  * The lab guy who stands in the room behind the doorman.
  */
 u8 func041a_labtech_harrysmate[] = {
-	set_onshot_function(FUNC_LABTECH_HARRYSMATE)
+	set_shotlist(FUNC_LABTECH_HARRYSMATE)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x2d)
 
 	label(0x06)
-	set_onshot_function(GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
 	restart_timer
 
 	beginloop(0x54)
@@ -1916,8 +1916,8 @@ u8 func041a_labtech_harrysmate[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2d)
 	if_just_injured(CHR_SELF, /*goto*/ 0x06)
@@ -1969,7 +1969,7 @@ u8 func041a_labtech_harrysmate[] = {
 	speak(CHR_TARGET, 0x2a3a, 0x1abb, CHANNEL_4, COLOR_08_RED) // "Hey, that's not Harry. It's an intruder."
 	set_squadron_alertness(120)
 	restart_timer
-	animation(0x002e, 0, -1, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(0x002e, 0, -1, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0a)
 		if_timer_gt(120, /*goto*/ 0x06)
@@ -1983,7 +1983,7 @@ u8 func041a_labtech_harrysmate[] = {
 	endloop(0x0b)
 
 	label(0x5a)
-	animation(ANIM_DRAW_PISTOL_0288, 0, -1, 0x00, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_DRAW_PISTOL_0288, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0c)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1994,12 +1994,12 @@ u8 func041a_labtech_harrysmate[] = {
 	try_draw_weapon(MODEL_CHRDRUGGUN, WEAPON_TRANQUILIZER, 0x10000000, /*goto*/ 0x06)
 	label(0x06)
 	set_target_chr(CHR_BOND)
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 u8 func041b_labtech_keycardguy[] = {
-	set_onshot_function(FUNC_LABTECH_KEYCARDGUY)
+	set_shotlist(FUNC_LABTECH_KEYCARDGUY)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
@@ -2007,7 +2007,7 @@ u8 func041b_labtech_keycardguy[] = {
 
 	// Dying
 	label(0x06)
-	set_onshot_function(GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
 	restart_timer
 
 	beginloop(0x54)
@@ -2016,8 +2016,8 @@ u8 func041b_labtech_keycardguy[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x2d)
@@ -2061,7 +2061,7 @@ u8 func041b_labtech_keycardguy[] = {
 
 	label(0x2d)
 	restart_timer
-	animation(ANIM_SURRENDER_002E, 0, 190, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURRENDER_002E, 0, 190, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x09)
 		if_timer_gt(60, /*goto*/ 0x06)
@@ -2073,7 +2073,7 @@ u8 func041b_labtech_keycardguy[] = {
 	endloop(0x09)
 
 	label(0x5a)
-	animation(ANIM_DRAW_PISTOL_0288, 0, -1, 0x00, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_DRAW_PISTOL_0288, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0a)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -2084,8 +2084,8 @@ u8 func041b_labtech_keycardguy[] = {
 	try_draw_weapon(MODEL_CHRDRUGGUN, WEAPON_TRANQUILIZER, 0x10000000, /*goto*/ 0x06)
 	label(0x06)
 	set_target_chr(CHR_BOND)
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 u8 func100c_keycardguy_lights[] = {
@@ -2097,8 +2097,8 @@ u8 func100c_keycardguy_lights[] = {
 
 	label(0x2d)
 	set_lights_state(0x0088, 0x01, 0x64, 0x00, 0x00)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100d_check_entered_lab[] = {
@@ -2116,8 +2116,8 @@ u8 func100d_check_entered_lab[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_ENTERED_LAB)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100e_elvis_timer[] = {
@@ -2142,13 +2142,13 @@ u8 func100e_elvis_timer[] = {
 	hide_countdown_timer
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
 	message(CHR_BOND, 0x2a40) // "Elvis has been killed."
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2d)
 	stop_countdown_timer
 	hide_countdown_timer
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100f_check_end_level[] = {
@@ -2185,17 +2185,17 @@ u8 func100f_check_end_level[] = {
 
 		label(0x2d)
 		end_level
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x06)
-		set_function(CHR_SELF, FUNC_OUTRO)
+		set_ailist(CHR_SELF, FUNC_OUTRO)
 		if_timer_gt(280, /*goto*/ 0x5b)
 	endloop(0x5c)
 
 	label(0x5b)
 	end_level
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1010_give_keycard[] = {
@@ -2241,26 +2241,26 @@ u8 func1010_give_keycard[] = {
 
 	label(0x2d)
 	unset_object_flag_bank1(0x10, OBJECTFLAG1_INVISIBLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0414_init_mechanic[] = {
 	set_chr_health(CHR_SELF, 1)
-	set_function(CHR_SELF, FUNC_MECHANIC)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_MECHANIC)
+	endlist
 };
 
 u8 func0413_mechanic[] = {
-	set_onshot_function(FUNC_MECHANIC)
+	set_shotlist(FUNC_MECHANIC)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x2d)
 
 	label(0x06)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	restart_timer
 
@@ -2270,8 +2270,8 @@ u8 func0413_mechanic[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2d)
 	if_just_injured(CHR_SELF, /*goto*/ 0x06)
@@ -2339,7 +2339,7 @@ u8 func0413_mechanic[] = {
 	dprint 'T','A','L','K',' ','1','\n',0,
 	speak(CHR_BOND, 0x2a41, 0x80fb, CHANNEL_4, COLOR_08_RED) // "Get the hell out of here!"
 	restart_timer
-	animation(ANIM_SURRENDER_002E, 0, -1, 0x18, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURRENDER_002E, 0, -1, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x64)
 		if_timer_gt(120, /*goto*/ 0x2d)
@@ -2355,7 +2355,7 @@ u8 func0413_mechanic[] = {
 
 	label(0x06)
 	label(0x0f)
-		animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
+		chr_do_animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 		beginloop(0x8a)
 			if_chr_stopped(/*goto*/ 0x2d)
@@ -2364,7 +2364,7 @@ u8 func0413_mechanic[] = {
 		label(0x2d)
 	goto_first(0x0f)
 
-	endfunction
+	endlist
 };
 
 u8 func1011_unhide_warehouse_spawner[] = {
@@ -2381,9 +2381,9 @@ u8 func1011_unhide_warehouse_spawner[] = {
 	label(0x06)
 	unset_chr_chrflag(0x44, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x44, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(0x44, FUNC_WAREHOUSE_SPAWNER)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(0x44, FUNC_WAREHOUSE_SPAWNER)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0415_warehouse_spawner[] = {
@@ -2411,7 +2411,7 @@ u8 func0415_warehouse_spawner[] = {
 
 		label(0x08)
 		set_target_chr(CHR_BOND)
-		set_function(CHR_SELF, GFUNC_ALERTED)
+		set_ailist(CHR_SELF, GFUNC_ALERTED)
 
 		label(0x4e)
 		dprint 'C','H','E','C','K',' ','D','U','P','E','\n',0,
@@ -2429,8 +2429,8 @@ u8 func0415_warehouse_spawner[] = {
 		yield
 	endloop(0x04)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0417_warehouse_clone[] = {
@@ -2438,9 +2438,9 @@ u8 func0417_warehouse_clone[] = {
 	set_alertness(100)
 	try_run_to_target_chr(/*goto*/ 0x2d)
 	label(0x2d)
-	set_return_function(CHR_SELF, GFUNC_UNALERTED)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
-	endfunction
+	set_returnlist(CHR_SELF, GFUNC_UNALERTED)
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
+	endlist
 };
 
 u8 func1013_check_chamber_switch_destroyed[] = {
@@ -2451,7 +2451,7 @@ u8 func1013_check_chamber_switch_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_CHAMBER1_RAISED, TRUE, /*goto*/ 0x2d)
 		message(CHR_BOND, 0x2a44) // "Mission critical equipment destroyed."
 		set_stage_flag(STAGEFLAG_CHAMBER_SWITCH_DESTROYED)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x2d)
 		reloop(0x04)
@@ -2460,8 +2460,8 @@ u8 func1013_check_chamber_switch_destroyed[] = {
 	endloop(0x04)
 
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1014_check_crate_destroyed[] = {
@@ -2482,7 +2482,7 @@ u8 func1014_check_crate_destroyed[] = {
 		yield
 		yield
 		if_object_in_good_condition(OBJ_WALL, /*goto*/ 0x2d)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x2d)
 		message(CHR_BOND, 0x2a44) // "Mission critical equipment destroyed."
@@ -2498,12 +2498,12 @@ u8 func1014_check_crate_destroyed[] = {
 		label(0x2e)
 		unset_stage_flag(STAGEFLAG_CRATE_DESTROYED)
 		message(CHR_BOND, 0x2a59) // "Alternative entrance to medlabs created."
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x06)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 /**
@@ -2512,8 +2512,8 @@ u8 func1014_check_crate_destroyed[] = {
 u8 func041c_unused_041c[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -2522,8 +2522,8 @@ u8 func041c_unused_041c[] = {
 u8 func041d_unused_041d[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -2539,8 +2539,8 @@ u8 func041e_unused_041e[] = {
 	set_shield(0)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1016_check_undisguised[] = {
@@ -2556,12 +2556,12 @@ u8 func1016_check_undisguised[] = {
 	label(0x06)
 	unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED)
 	unset_chr_hiddenflag(CHR_COOP, CHRHFLAG_DISGUISED)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func041f_labtech_lights[] = {
-	set_onshot_function(FUNC_LABTECH_LIGHTS)
+	set_shotlist(FUNC_LABTECH_LIGHTS)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
@@ -2576,8 +2576,8 @@ u8 func041f_labtech_lights[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2d)
 	if_just_injured(CHR_SELF, /*goto*/ 0x06)
@@ -2603,15 +2603,15 @@ u8 func041f_labtech_lights[] = {
 	call_rng
 	if_rand_lt(86, /*goto*/ 0x69)
 	if_rand_lt(172, /*goto*/ 0x6a)
-	animation(ANIM_SITTING_DORMANT, -1, -1, 0x14, 0x01, CHR_SELF, 2)
+	chr_do_animation(ANIM_SITTING_DORMANT, -1, -1, 0x14, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 
 	label(0x69)
-	animation(ANIM_SITTING_DORMANT, -1, -1, 0x14, 0x01, CHR_SELF, 2)
+	chr_do_animation(ANIM_SITTING_DORMANT, -1, -1, 0x14, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 
 	label(0x6a)
-	animation(ANIM_SITTING_DORMANT, -1, -1, 0x14, 0x01, CHR_SELF, 2)
+	chr_do_animation(ANIM_SITTING_DORMANT, -1, -1, 0x14, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 
 	beginloop(0x04)
@@ -2694,8 +2694,8 @@ u8 func041f_labtech_lights[] = {
 
 	label(0x2d)
 	set_self_flag_bankx(CHRFLAG0_00000004, BANK_0)
-	set_return_function(CHR_SELF, FUNC_LABTECH_LIGHTS)
-	set_function(CHR_SELF, GFUNC_HAND_COMBAT)
+	set_returnlist(CHR_SELF, FUNC_LABTECH_LIGHTS)
+	set_ailist(CHR_SELF, GFUNC_HAND_COMBAT)
 
 	label(0x0c)
 	walk_to_pad(0x020d)
@@ -2728,15 +2728,15 @@ u8 func041f_labtech_lights[] = {
 	call_rng
 	if_rand_lt(86, /*goto*/ 0x64)
 	if_rand_lt(172, /*goto*/ 0x66)
-	animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x0e)
 
 	label(0x64)
-	animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x0e)
 
 	label(0x66)
-	animation(ANIM_OPERATE_0223, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0223, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x0e)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2758,7 +2758,7 @@ u8 func041f_labtech_lights[] = {
 	label(0x0f)
 	speak(CHR_TARGET, 0x2a54, 0x8124, CHANNEL_4, COLOR_08_RED) // "Holy..."
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	animation(ANIM_SURPRISED_0202, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURPRISED_0202, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x10)
@@ -2769,18 +2769,18 @@ u8 func041f_labtech_lights[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	goto_first(0x53)
 
-	endfunction
+	endlist
 };
 
 u8 func0421_init_labtech_doors[] = {
 	set_chr_health(CHR_SELF, 1)
-	set_function(CHR_SELF, FUNC_LABTECH_DOORS)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_LABTECH_DOORS)
+	endlist
 };
 
 u8 func0420_labtech_doors[] = {
 	set_self_chrflag(CHRCFLAG_00000080)
-	set_onshot_function(FUNC_LABTECH_DOORS)
+	set_shotlist(FUNC_LABTECH_DOORS)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
@@ -2788,8 +2788,8 @@ u8 func0420_labtech_doors[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2d)
 	if_just_injured(CHR_SELF, /*goto*/ 0x06)
@@ -2810,15 +2810,15 @@ u8 func0420_labtech_doors[] = {
 	endloop(0x55)
 
 	label(0x5e)
-	animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	goto_next(0x6f)
 
 	label(0x64)
-	animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	goto_next(0x6f)
 
 	label(0x66)
-	animation(ANIM_OPERATE_0223, -1, -1, 0x10, 0x01, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0223, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	label(0x6f)
 
 	beginloop(0x04)
@@ -2924,7 +2924,7 @@ u8 func0420_labtech_doors[] = {
 	endloop(0x70)
 
 	label(0x2d)
-	animation(ANIM_OPERATE_0221, -1, 120, 0x10, 0x01, CHR_SELF, 2)
+	chr_do_animation(ANIM_OPERATE_0221, -1, 120, 0x10, 0x01, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x71)
@@ -2955,7 +2955,7 @@ u8 func0420_labtech_doors[] = {
 	label(0x06)
 	dprint 'F','L','A','G',' ','S','E','T','\n',0,
 	label(0x10)
-	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x77)
 		if_chr_stopped(/*goto*/ 0x2d)
@@ -2964,7 +2964,7 @@ u8 func0420_labtech_doors[] = {
 	label(0x2d)
 	goto_first(0x10)
 
-	endfunction
+	endlist
 };
 
 u8 func1017_activate_autogun[] = {
@@ -2981,24 +2981,24 @@ u8 func1017_activate_autogun[] = {
 	label(0x2d)
 	unset_object_flag_bank0(OBJ_AUTOGUN, OBJECTFLAG0_DEACTIVATED)
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0423_init_labtech_records[] = {
 	set_chr_health(CHR_SELF, 1)
-	set_function(CHR_SELF, FUNC_LABTECH_RECORDS)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_LABTECH_RECORDS)
+	endlist
 };
 
 u8 func0422_labtech_records[] = {
-	set_onshot_function(FUNC_LABTECH_RECORDS)
+	set_shotlist(FUNC_LABTECH_RECORDS)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x06)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x06)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x2d)
 	label(0x06)
-	set_onshot_function(GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
 	restart_timer
 	label(0x54)
 	yield
@@ -3007,8 +3007,8 @@ u8 func0422_labtech_records[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x19, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x2d)
 	if_just_injured(CHR_SELF, /*goto*/ 0x06)
 	goto_next(0x5e)
@@ -3035,28 +3035,28 @@ u8 func0422_labtech_records[] = {
 	if_rand_lt(160, /*goto*/ 0x6a)
 	if_rand_lt(192, /*goto*/ 0x6b)
 	if_rand_lt(224, /*goto*/ 0x6c)
-	animation(0x0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
+	chr_do_animation(0x0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x64)
-	animation(0x0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
+	chr_do_animation(0x0221, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x66)
-	animation(0x0223, -1, -1, 0x10, 0x01, CHR_SELF, 2)
+	chr_do_animation(0x0223, -1, -1, 0x10, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x68)
-	animation(0x0221, -1, -1, 0x11, 0x01, CHR_SELF, 2)
+	chr_do_animation(0x0221, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x69)
-	animation(0x0221, -1, -1, 0x11, 0x01, CHR_SELF, 2)
+	chr_do_animation(0x0221, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x6a)
-	animation(0x0223, -1, -1, 0x11, 0x01, CHR_SELF, 2)
+	chr_do_animation(0x0223, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x6b)
-	animation(0x023a, -1, -1, 0x11, 0x01, CHR_SELF, 2)
+	chr_do_animation(0x023a, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 	goto_next(0x04)
 	label(0x6c)
-	animation(0x023b, -1, -1, 0x11, 0x01, CHR_SELF, 2)
+	chr_do_animation(0x023b, -1, -1, 0x11, 0x01, CHR_SELF, 2)
 	label(0x04)
 	yield
 	if_chr_idle(/*goto*/ 0x2d)
@@ -3096,7 +3096,7 @@ u8 func0422_labtech_records[] = {
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2d)
 	set_squadron_alertness(100)
 	speak(CHR_TARGET, 0x2a57, 0x1aa5, CHANNEL_4, COLOR_08_RED) // "Imposter!"
-	animation(0x0202, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
+	chr_do_animation(0x0202, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
 	restart_timer
 	label(0x79)
 	yield
@@ -3117,7 +3117,7 @@ u8 func0422_labtech_records[] = {
 	label(0x06)
 	dprint 'F','L','A','G',' ','S','E','T','\n',0,
 	label(0x10)
-	animation(0x0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(0x0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 	label(0x0e)
 	yield
 	if_chr_stopped(/*goto*/ 0x2d)
@@ -3126,7 +3126,7 @@ u8 func0422_labtech_records[] = {
 	label(0x2d)
 	goto_first(0x10)
 
-	endfunction
+	endlist
 };
 
 /**
@@ -3142,8 +3142,8 @@ u8 func1018_disable_chambers[] = {
 	set_object_flag_bank0(OBJ_CHAMBER6, OBJECTFLAG0_DEACTIVATED)
 	set_object_flag_bank0(OBJ_CHAMBER7, OBJECTFLAG0_DEACTIVATED)
 	set_object_flag_bank0(OBJ_CHAMBER8, OBJECTFLAG0_DEACTIVATED)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 // This macro is here is reduce the amount of duplicate code. However, each
@@ -3250,7 +3250,7 @@ u8 func1019_chamber1[] = {
 		label(0x06)
 		yield
 		unset_chr_chrflag(CHR_ALIEN, CHRCFLAG_HIDDEN)
-		set_function(CHR_ALIEN, FUNC_CHECK_LOOKING_AT_ALIEN)
+		set_ailist(CHR_ALIEN, FUNC_CHECK_LOOKING_AT_ALIEN)
 		label(0x06)
 		set_object_flag_bank0(OBJ_CHAMBER1, OBJECTFLAG0_DEACTIVATED)
 		reloop(0x04)
@@ -3279,7 +3279,7 @@ u8 func1019_chamber1[] = {
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
 		set_object_flag_bank0(OBJ_CHAMBER1, OBJECTFLAG0_DEACTIVATED)
 	endloop(0x04)
-	endfunction
+	endlist
 };
 
 u8 func101a_chamber2[] = {
@@ -3339,32 +3339,32 @@ u8 func101a_chamber2[] = {
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
 		set_object_flag_bank0(OBJ_CHAMBER2, OBJECTFLAG0_DEACTIVATED)
 	endloop(0x04)
-	endfunction
+	endlist
 };
 
 u8 func101b_chamber3[] = {
 	chamber_logic(OBJ_CHAMBER3_SWITCH, OBJ_CHAMBER3, STAGEFLAG_CHAMBER3_RAISED)
-	endfunction
+	endlist
 };
 
 u8 func101c_chamber4[] = {
 	chamber_logic(OBJ_CHAMBER4_SWITCH, OBJ_CHAMBER4, STAGEFLAG_CHAMBER4_RAISED)
-	endfunction
+	endlist
 };
 
 u8 func101d_chamber5[] = {
 	chamber_logic(OBJ_CHAMBER5_SWITCH, OBJ_CHAMBER5, STAGEFLAG_CHAMBER5_RAISED)
-	endfunction
+	endlist
 };
 
 u8 func101e_chamber6[] = {
 	chamber_logic(OBJ_CHAMBER6_SWITCH, OBJ_CHAMBER6, STAGEFLAG_CHAMBER6_RAISED)
-	endfunction
+	endlist
 };
 
 u8 func101f_chamber7[] = {
 	chamber_logic(OBJ_CHAMBER7_SWITCH, OBJ_CHAMBER7, STAGEFLAG_CHAMBER7_RAISED)
-	endfunction
+	endlist
 };
 
 u8 func1020_chamber8[] = {
@@ -3427,14 +3427,14 @@ u8 func1020_chamber8[] = {
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 		set_object_flag_bank0(OBJ_CHAMBER8, OBJECTFLAG0_DEACTIVATED)
 	endloop(0x04)
-	endfunction
+	endlist
 };
 
 u8 func0424_alien[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(CHR_SELF, FUNC_CHECK_LOOKING_AT_ALIEN)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_CHECK_LOOKING_AT_ALIEN)
+	endlist
 };
 
 /**
@@ -3444,8 +3444,8 @@ u8 func0424_alien[] = {
 u8 func0425_hiddenguy[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0426_check_looking_at_alien[] = {
@@ -3481,7 +3481,7 @@ u8 func0426_check_looking_at_alien[] = {
 		set_stage_flag(STAGEFLAG_LOOKING_AT_CHAMBER)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1021_xray_scanning[] = {
@@ -3508,13 +3508,13 @@ u8 func1021_xray_scanning[] = {
 		label(0x06)
 		message(CHR_P1P2, 0x2a4b) // "Target ID confirmed - XT origin."
 		set_stage_flag(STAGEFLAG_XRAY_DONE)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x2d)
 		message(CHR_P1P2, 0x2a4c) // "Scanner lock lost."
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 /**
@@ -3561,7 +3561,7 @@ u8 unregistered_function1[] = {
 		reloop(0x04)
 
 		label(0x2d)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_DDSHOCK, 0x0101, 0x0427, 0x00000200, /*goto*/ 0x06)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_DDSHOCK, 0x0101, 0x0427, 0x00000200, /*goto*/ 0x06)
 		goto_next(0x2d)
 
 		label(0x06)
@@ -3571,7 +3571,7 @@ u8 unregistered_function1[] = {
 		label(0x2d)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 /**
@@ -3602,12 +3602,12 @@ u8 func0427_shock_clone[] = {
 	if_chr_in_room(CHR_P1P2, 0x00, 0x0108, /*goto*/ 0x06)
 	if_chr_in_room(CHR_P1P2, 0x00, 0x0109, /*goto*/ 0x06)
 	run_to_pad(0x0184)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
 
 	label(0x06)
 	run_to_pad(0x013b)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
+	endlist
 };
 
 u8 func1023_setup_door_locks[] = {
@@ -3615,13 +3615,13 @@ u8 func1023_setup_door_locks[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x09)
 
 	// PA
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Agent - lock big door at bottom of ramp near showers
 	label(0x06)
 	lock_door(0x44, 0x80)
 	lock_door(0x45, 0x80)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// SA - unlock the small shower doors
 	label(0x09)
@@ -3629,8 +3629,8 @@ u8 func1023_setup_door_locks[] = {
 	unlock_door(0x2c, 0x80)
 	unlock_door(0x2d, 0x80)
 	unlock_door(0x2e, 0x80)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0c01_outro[] = {
@@ -3639,25 +3639,25 @@ u8 func0c01_outro[] = {
 	set_music_track(MUSIC_RESCUE_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
-	set_function(CHR_P1P2, GFUNC_IDLE)
-	set_function(CHR_BIOTECH1, GFUNC_IDLE)
-	set_function(CHR_BIOTECH2, GFUNC_IDLE)
+	set_ailist(CHR_P1P2, GFUNC_IDLE)
+	set_ailist(CHR_BIOTECH1, GFUNC_IDLE)
+	set_ailist(CHR_BIOTECH2, GFUNC_IDLE)
 	set_invincible(CHR_BOND)
 
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	animation(0x0199, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
+	chr_do_animation(0x0199, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 
 	set_chr_chrflag(CHR_BIOTECH1, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_BIOTECH1, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_BIOTECH1, CHRHFLAG_00020000)
-	animation(0x019a, -1, -1, 0x06, 0x00, CHR_BIOTECH1, 4)
+	chr_do_animation(0x019a, -1, -1, 0x06, 0x00, CHR_BIOTECH1, 4)
 
 	set_chr_chrflag(CHR_BIOTECH2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_BIOTECH2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_BIOTECH2, CHRHFLAG_00020000)
-	animation(0x019b, -1, -1, 0x06, 0x00, CHR_BIOTECH2, 4)
+	chr_do_animation(0x019b, -1, -1, 0x06, 0x00, CHR_BIOTECH2, 4)
 
 	set_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x2f, OBJECTFLAG2_00000010)
@@ -3736,8 +3736,8 @@ u8 func0c01_outro[] = {
 	restart_default_music
 	reset_ambience
 	end_level
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1002_intro[] = {
@@ -3749,17 +3749,17 @@ u8 func1002_intro[] = {
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(0x01c8, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x01c8, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	set_chr_chrflag(CHR_JONATHAN, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_JONATHAN, CHRHFLAG_00020000)
-	animation(0x01c7, -1, -1, 0x06, 0x00, CHR_JONATHAN, 4)
+	chr_do_animation(0x01c7, -1, -1, 0x06, 0x00, CHR_JONATHAN, 4)
 
 	set_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_INTRO_DEAD_GUARD, CHRHFLAG_00020000)
-	animation(0x01c9, -1, -1, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 4)
+	chr_do_animation(0x01c9, -1, -1, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 4)
 
 	set_object_flag_bank1(OBJ_CRATE, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(OBJ_CRATE, OBJECTFLAG2_00000010)
@@ -3902,7 +3902,7 @@ u8 func1002_intro[] = {
 	control_sound_from_object(CHANNEL_1, OBJ_CRATE, TRUE)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(0x01c8, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x01c8, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_UNPLAYABLE)
@@ -3910,7 +3910,7 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_UNPLAYABLE)
 	set_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_chr_hiddenflag(CHR_INTRO_DEAD_GUARD, CHRHFLAG_00020000)
-	animation(0x01c9, -2, -1, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 2)
+	chr_do_animation(0x01c9, -2, -1, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 2)
 	mute_channel(CHANNEL_10)
 	unset_object_flag_bank1(OBJ_CRATE, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(OBJ_CRATE, OBJECTFLAG2_00000010)
@@ -3922,12 +3922,12 @@ u8 func1002_intro[] = {
 	enter_firstperson
 	yield
 	set_chr_chrflag(CHR_INTRO_DEAD_GUARD, CHRCFLAG_00010000)
-	animation(0x01c9, 2, 3, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 2)
-	set_function(CHR_INTRO_DEAD_GUARD, GFUNC_IDLE)
+	chr_do_animation(0x01c9, 2, 3, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 2)
+	set_ailist(CHR_INTRO_DEAD_GUARD, GFUNC_IDLE)
 	yield
 	kill(CHR_INTRO_DEAD_GUARD)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1024_noop[] = {
@@ -3936,8 +3936,8 @@ u8 func1024_noop[] = {
 	endloop(0x04)
 
 	label(0x03)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -3977,8 +3977,8 @@ u8 func1025_toggle_guards[] = {
 	unset_chr_chrflag(0x34, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x33, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x34, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(0x33, FUNC_BIOTECH_GUARD_ALERTED)
-	set_function(0x34, FUNC_BIOTECH_GUARD_ALERTED)
+	set_ailist(0x33, FUNC_BIOTECH_GUARD_ALERTED)
+	set_ailist(0x34, FUNC_BIOTECH_GUARD_ALERTED)
 	unset_chr_chrflag(0x37, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x2c, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x2d, CHRCFLAG_HIDDEN)
@@ -3987,10 +3987,10 @@ u8 func1025_toggle_guards[] = {
 	unset_chr_chrflag(0x2c, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x2d, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x2e, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(0x37, FUNC_SUPERDRAGON_GUARD)
-	set_function(0x2c, FUNC_SUPERDRAGON_GUARD)
-	set_function(0x2d, FUNC_SUPERDRAGON_GUARD)
-	set_function(0x2e, FUNC_SUPERDRAGON_GUARD)
+	set_ailist(0x37, FUNC_SUPERDRAGON_GUARD)
+	set_ailist(0x2c, FUNC_SUPERDRAGON_GUARD)
+	set_ailist(0x2d, FUNC_SUPERDRAGON_GUARD)
+	set_ailist(0x2e, FUNC_SUPERDRAGON_GUARD)
 	unset_chr_chrflag(0x2f, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x30, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x31, CHRCFLAG_HIDDEN)
@@ -3999,12 +3999,12 @@ u8 func1025_toggle_guards[] = {
 	unset_chr_chrflag(0x30, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x31, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x32, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(0x2f, FUNC_BIOTECH_GUARD)
-	set_function(0x30, FUNC_SUPERDRAGON_GUARD)
-	set_function(0x31, FUNC_SUPERDRAGON_GUARD)
-	set_function(0x32, FUNC_SUPERDRAGON_GUARD)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(0x2f, FUNC_BIOTECH_GUARD)
+	set_ailist(0x30, FUNC_SUPERDRAGON_GUARD)
+	set_ailist(0x31, FUNC_SUPERDRAGON_GUARD)
+	set_ailist(0x32, FUNC_SUPERDRAGON_GUARD)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0429_spawn_while_xraying[] = {
@@ -4067,8 +4067,8 @@ u8 func0429_spawn_while_xraying[] = {
 	endloop(0x04)
 
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func042a_init_xray_clone[] = {
@@ -4078,14 +4078,14 @@ u8 func042a_init_xray_clone[] = {
 	rebuild_squadrons
 	try_inherit_properties(0x47, /*goto*/ 0x06)
 	label(0x06)
-	set_function(CHR_SELF, 0x042b)
-	endfunction
+	set_ailist(CHR_SELF, 0x042b)
+	endlist
 };
 
 u8 func042b_xray_clone[] = {
 	set_target_chr(CHR_BOND)
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 u8 func042c_dragon_guard[] = {
@@ -4096,8 +4096,8 @@ u8 func042c_dragon_guard[] = {
 	set_armor(0)
 	set_recovery_speed(35)
 	set_shield(0)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
+	endlist
 };
 
 u8 func042d_superdragon_guard[] = {
@@ -4108,8 +4108,8 @@ u8 func042d_superdragon_guard[] = {
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
+	endlist
 };
 
 u8 func042e_biotech_guard[] = {
@@ -4120,8 +4120,8 @@ u8 func042e_biotech_guard[] = {
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
+	endlist
 };
 
 u8 func042e_biotech_guard_alerted[] = {
@@ -4133,16 +4133,16 @@ u8 func042e_biotech_guard_alerted[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	set_target_chr(CHR_BOND)
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 u8 func142d_start_lifts[] = {
 	activate_lift(1, 0x35)
 	activate_lift(4, 0x38)
 	activate_lift(5, 0x39)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1027_check_disguise_worn[] = {
@@ -4152,94 +4152,94 @@ u8 func1027_check_disguise_worn[] = {
 
 	label(0x2d)
 	message(CHR_BOND, 0x2a4d) // "Disguise has been worn."
-	set_return_function(0x00, 0x0401)
-	set_return_function(0x01, 0x0402)
-	set_return_function(0x02, 0x0403)
-	set_return_function(0x03, 0x0404)
-	set_return_function(0x04, 0x0405)
-	set_return_function(0x05, FUNC_DRAGON_GUARD)
-	set_return_function(0x06, FUNC_DRAGON_GUARD)
-	set_return_function(0x07, FUNC_DRAGON_GUARD)
-	set_return_function(0x08, FUNC_DRAGON_GUARD)
-	set_return_function(0x09, FUNC_DRAGON_GUARD)
-	set_return_function(0x0a, FUNC_DRAGON_GUARD)
-	set_return_function(0x0b, FUNC_DRAGON_GUARD)
-	set_return_function(0x0c, 0x0406)
-	set_return_function(0x0d, 0x0406)
-	set_return_function(0x0e, 0x0406)
-	set_return_function(0x0f, 0x0407)
-	set_return_function(0x10, 0x0408)
-	set_return_function(0x11, FUNC_DRAGON_GUARD)
-	set_return_function(0x27, FUNC_DRAGON_GUARD)
-	set_return_function(0x28, FUNC_DRAGON_GUARD)
-	set_return_function(0x12, FUNC_DRAGON_GUARD)
-	set_return_function(0x13, FUNC_DRAGON_GUARD)
-	set_return_function(0x14, 0x0409)
-	set_return_function(0x15, 0x040a)
-	set_return_function(0x16, FUNC_DRAGON_GUARD)
-	set_return_function(0x17, FUNC_DRAGON_GUARD)
-	set_return_function(0x18, FUNC_DRAGON_GUARD)
-	set_return_function(0x1e, FUNC_DRAGON_GUARD)
-	set_return_function(0x19, FUNC_DRAGON_GUARD)
-	set_return_function(0x1a, FUNC_DRAGON_GUARD)
-	set_return_function(0x1d, FUNC_DRAGON_GUARD)
-	set_return_function(0x1b, 0x040b)
-	set_return_function(0x1c, 0x040c)
-	set_return_function(0x1f, FUNC_DRAGON_GUARD)
-	set_return_function(0x20, FUNC_DRAGON_GUARD)
-	set_return_function(0x21, FUNC_DRAGON_GUARD)
-	set_return_function(0x22, FUNC_DRAGON_GUARD)
-	set_function(0x00, FUNC_BECOME_UNAWARE)
-	set_function(0x01, FUNC_BECOME_UNAWARE)
-	set_function(0x02, FUNC_BECOME_UNAWARE)
-	set_function(0x03, FUNC_BECOME_UNAWARE)
-	set_function(0x04, FUNC_BECOME_UNAWARE)
-	set_function(0x05, FUNC_BECOME_UNAWARE)
-	set_function(0x06, FUNC_BECOME_UNAWARE)
-	set_function(0x07, FUNC_BECOME_UNAWARE)
-	set_function(0x08, FUNC_BECOME_UNAWARE)
-	set_function(0x09, FUNC_BECOME_UNAWARE)
-	set_function(0x0a, FUNC_BECOME_UNAWARE)
-	set_function(0x0b, FUNC_BECOME_UNAWARE)
-	set_function(0x0c, FUNC_BECOME_UNAWARE)
-	set_function(0x0d, FUNC_BECOME_UNAWARE)
-	set_function(0x0e, FUNC_BECOME_UNAWARE)
-	set_function(0x0f, FUNC_BECOME_UNAWARE)
-	set_function(0x10, FUNC_BECOME_UNAWARE)
-	set_function(0x11, FUNC_BECOME_UNAWARE)
-	set_function(0x27, FUNC_BECOME_UNAWARE)
-	set_function(0x28, FUNC_BECOME_UNAWARE)
-	set_function(0x12, FUNC_BECOME_UNAWARE)
-	set_function(0x13, FUNC_BECOME_UNAWARE)
-	set_function(0x14, FUNC_BECOME_UNAWARE)
-	set_function(0x15, FUNC_BECOME_UNAWARE)
-	set_function(0x16, FUNC_BECOME_UNAWARE)
-	set_function(0x17, FUNC_BECOME_UNAWARE)
-	set_function(0x18, FUNC_BECOME_UNAWARE)
-	set_function(0x1e, FUNC_BECOME_UNAWARE)
-	set_function(0x19, FUNC_BECOME_UNAWARE)
-	set_function(0x1a, FUNC_BECOME_UNAWARE)
-	set_function(0x1d, FUNC_BECOME_UNAWARE)
-	set_function(0x1b, FUNC_BECOME_UNAWARE)
-	set_function(0x1c, FUNC_BECOME_UNAWARE)
-	set_function(0x1f, FUNC_BECOME_UNAWARE)
-	set_function(0x20, FUNC_BECOME_UNAWARE)
-	set_function(0x21, FUNC_BECOME_UNAWARE)
-	set_function(0x22, FUNC_BECOME_UNAWARE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_returnlist(0x00, 0x0401)
+	set_returnlist(0x01, 0x0402)
+	set_returnlist(0x02, 0x0403)
+	set_returnlist(0x03, 0x0404)
+	set_returnlist(0x04, 0x0405)
+	set_returnlist(0x05, FUNC_DRAGON_GUARD)
+	set_returnlist(0x06, FUNC_DRAGON_GUARD)
+	set_returnlist(0x07, FUNC_DRAGON_GUARD)
+	set_returnlist(0x08, FUNC_DRAGON_GUARD)
+	set_returnlist(0x09, FUNC_DRAGON_GUARD)
+	set_returnlist(0x0a, FUNC_DRAGON_GUARD)
+	set_returnlist(0x0b, FUNC_DRAGON_GUARD)
+	set_returnlist(0x0c, 0x0406)
+	set_returnlist(0x0d, 0x0406)
+	set_returnlist(0x0e, 0x0406)
+	set_returnlist(0x0f, 0x0407)
+	set_returnlist(0x10, 0x0408)
+	set_returnlist(0x11, FUNC_DRAGON_GUARD)
+	set_returnlist(0x27, FUNC_DRAGON_GUARD)
+	set_returnlist(0x28, FUNC_DRAGON_GUARD)
+	set_returnlist(0x12, FUNC_DRAGON_GUARD)
+	set_returnlist(0x13, FUNC_DRAGON_GUARD)
+	set_returnlist(0x14, 0x0409)
+	set_returnlist(0x15, 0x040a)
+	set_returnlist(0x16, FUNC_DRAGON_GUARD)
+	set_returnlist(0x17, FUNC_DRAGON_GUARD)
+	set_returnlist(0x18, FUNC_DRAGON_GUARD)
+	set_returnlist(0x1e, FUNC_DRAGON_GUARD)
+	set_returnlist(0x19, FUNC_DRAGON_GUARD)
+	set_returnlist(0x1a, FUNC_DRAGON_GUARD)
+	set_returnlist(0x1d, FUNC_DRAGON_GUARD)
+	set_returnlist(0x1b, 0x040b)
+	set_returnlist(0x1c, 0x040c)
+	set_returnlist(0x1f, FUNC_DRAGON_GUARD)
+	set_returnlist(0x20, FUNC_DRAGON_GUARD)
+	set_returnlist(0x21, FUNC_DRAGON_GUARD)
+	set_returnlist(0x22, FUNC_DRAGON_GUARD)
+	set_ailist(0x00, FUNC_BECOME_UNAWARE)
+	set_ailist(0x01, FUNC_BECOME_UNAWARE)
+	set_ailist(0x02, FUNC_BECOME_UNAWARE)
+	set_ailist(0x03, FUNC_BECOME_UNAWARE)
+	set_ailist(0x04, FUNC_BECOME_UNAWARE)
+	set_ailist(0x05, FUNC_BECOME_UNAWARE)
+	set_ailist(0x06, FUNC_BECOME_UNAWARE)
+	set_ailist(0x07, FUNC_BECOME_UNAWARE)
+	set_ailist(0x08, FUNC_BECOME_UNAWARE)
+	set_ailist(0x09, FUNC_BECOME_UNAWARE)
+	set_ailist(0x0a, FUNC_BECOME_UNAWARE)
+	set_ailist(0x0b, FUNC_BECOME_UNAWARE)
+	set_ailist(0x0c, FUNC_BECOME_UNAWARE)
+	set_ailist(0x0d, FUNC_BECOME_UNAWARE)
+	set_ailist(0x0e, FUNC_BECOME_UNAWARE)
+	set_ailist(0x0f, FUNC_BECOME_UNAWARE)
+	set_ailist(0x10, FUNC_BECOME_UNAWARE)
+	set_ailist(0x11, FUNC_BECOME_UNAWARE)
+	set_ailist(0x27, FUNC_BECOME_UNAWARE)
+	set_ailist(0x28, FUNC_BECOME_UNAWARE)
+	set_ailist(0x12, FUNC_BECOME_UNAWARE)
+	set_ailist(0x13, FUNC_BECOME_UNAWARE)
+	set_ailist(0x14, FUNC_BECOME_UNAWARE)
+	set_ailist(0x15, FUNC_BECOME_UNAWARE)
+	set_ailist(0x16, FUNC_BECOME_UNAWARE)
+	set_ailist(0x17, FUNC_BECOME_UNAWARE)
+	set_ailist(0x18, FUNC_BECOME_UNAWARE)
+	set_ailist(0x1e, FUNC_BECOME_UNAWARE)
+	set_ailist(0x19, FUNC_BECOME_UNAWARE)
+	set_ailist(0x1a, FUNC_BECOME_UNAWARE)
+	set_ailist(0x1d, FUNC_BECOME_UNAWARE)
+	set_ailist(0x1b, FUNC_BECOME_UNAWARE)
+	set_ailist(0x1c, FUNC_BECOME_UNAWARE)
+	set_ailist(0x1f, FUNC_BECOME_UNAWARE)
+	set_ailist(0x20, FUNC_BECOME_UNAWARE)
+	set_ailist(0x21, FUNC_BECOME_UNAWARE)
+	set_ailist(0x22, FUNC_BECOME_UNAWARE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1028_toggle_mechanic[] = {
 	if_eeprom_flag_is_set(EEPROMFLAG_RESCUE_MECHANIC_DEAD, /*goto*/ 0x06)
 	dprint 'K','E','E','P',' ','M','E','C','H','\n',0,
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
 	dprint 'D','E','L','E','T','E',' ','M','E','C','H','\n',0,
 	hide_chr(CHR_MECHANIC)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1029_msg_showers[] = {
@@ -4255,8 +4255,8 @@ u8 func1029_msg_showers[] = {
 
 	label(0x2d)
 	speak(CHR_BOND, 0x2a4e, 0x73bc, CHANNEL_6, COLOR_09_BLUE) // "The showers... Now, if I can convince someone to p..."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102a_msg_temperaturedropping[] = {
@@ -4268,8 +4268,8 @@ u8 func102a_msg_temperaturedropping[] = {
 
 	label(0x2d)
 	speak(CHR_BOND, 0x2a4f, 0x8180, CHANNEL_6, COLOR_09_BLUE) // "The temperature's dropping... You must be close to..."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102b_msg_airrecycled[] = {
@@ -4279,8 +4279,8 @@ u8 func102b_msg_airrecycled[] = {
 
 	label(0x2d)
 	speak(CHR_BOND, 0x2a50, 0x73be, CHANNEL_6, COLOR_09_BLUE) // "The air's heavily recycled around here - must be n..."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102c_msg_hurry[] = {
@@ -4290,8 +4290,8 @@ u8 func102c_msg_hurry[] = {
 
 	label(0x2d)
 	speak(CHR_BOND, 0x2a51, 0x8181, CHANNEL_6, COLOR_09_BLUE) // "There he is, Jo! Hurry or you'll be too late!"
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -4308,12 +4308,12 @@ u8 func0416_become_unaware[] = {
 
 	label(0x2d)
 	set_target_chr(CHR_BOND)
-	set_function(CHR_SELF, GFUNC_ALERTED)
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
 
 	// Dying/dead
 	label(0x0f)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 unregistered_function2[] = {
@@ -4329,8 +4329,8 @@ u8 unregistered_function2[] = {
 	// Crate destroyed
 	label(0x06)
 	unset_object_flag_bank0(OBJ_WALL, OBJECTFLAG0_INVINCIBLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102f_shuffle_disguise[] = {
@@ -4348,7 +4348,7 @@ u8 func102f_shuffle_disguise[] = {
 	hide_object(OBJ_LABCOAT2)
 	hide_object(OBJ_LABCOAT3)
 	hide_object(OBJ_LABCOAT4)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Rand < 51 (51 out of 256 chance)
 	label(0x08)
@@ -4356,7 +4356,7 @@ u8 func102f_shuffle_disguise[] = {
 	hide_object(OBJ_LABCOAT3)
 	hide_object(OBJ_LABCOAT4)
 	hide_object(OBJ_LABCOAT5)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Rand >= 51 and < 102 (51 out of 256 chance)
 	label(0x09)
@@ -4364,7 +4364,7 @@ u8 func102f_shuffle_disguise[] = {
 	hide_object(OBJ_LABCOAT3)
 	hide_object(OBJ_LABCOAT4)
 	hide_object(OBJ_LABCOAT5)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Rand >= 102 and < 153 (51 out of 256 chance)
 	label(0x0a)
@@ -4372,7 +4372,7 @@ u8 func102f_shuffle_disguise[] = {
 	hide_object(OBJ_LABCOAT2)
 	hide_object(OBJ_LABCOAT4)
 	hide_object(OBJ_LABCOAT5)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Rand >= 153 and < 204 (51 out of 256 chance)
 	label(0x0b)
@@ -4380,7 +4380,7 @@ u8 func102f_shuffle_disguise[] = {
 	hide_object(OBJ_LABCOAT2)
 	hide_object(OBJ_LABCOAT3)
 	hide_object(OBJ_LABCOAT5)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// A and SA
 	label(0x0c)
@@ -4389,7 +4389,7 @@ u8 func102f_shuffle_disguise[] = {
 	hide_object(OBJ_LABCOAT3)
 	hide_object(OBJ_LABCOAT4)
 	hide_object(OBJ_LABCOAT5)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Unreachable
 	label(0x0d)
@@ -4397,8 +4397,8 @@ u8 func102f_shuffle_disguise[] = {
 	hide_object(OBJ_LABCOAT2)
 	hide_object(OBJ_LABCOAT4)
 	hide_object(OBJ_LABCOAT5)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1030_lift_door_sounds[] = {
@@ -4421,7 +4421,7 @@ u8 func1030_lift_door_sounds[] = {
 		label(0x06)
 	endloop(0x5e)
 
-	endfunction
+	endlist
 };
 
 u8 func1031_toggle_doorman[] = {
@@ -4443,8 +4443,8 @@ u8 func1031_toggle_doorman[] = {
 	label(0x2d)
 	unset_chr_chrflag(CHR_DOORMAN, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_DOORMAN, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1032_count_last_room_guards[] = {
@@ -4484,12 +4484,12 @@ u8 func1032_count_last_room_guards[] = {
 		label(0x06)
 		if_morale_lt(3, /*goto*/ 0x2d)
 		set_stage_flag(STAGEFLAG_ONE_KEYCARD_GUARD_REMAINING)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x2d)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 /**
@@ -4510,8 +4510,8 @@ u8 func1033_update_buddy_placed_flag[] = {
 
 	label(0x2d)
 	unset_chr_hiddenflag(CHR_P1P2, CHRHFLAG_BUDDY_PLACED)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1034_setup_rtracker[] = {
@@ -4519,8 +4519,8 @@ u8 func1034_setup_rtracker[] = {
 	set_object_flag_bank2(OBJ_FALCON2SILENCED1, OBJECTFLAG2_RTRACKED_BLUE)
 	set_object_flag_bank2(OBJ_FALCON2SILENCED2, OBJECTFLAG2_RTRACKED_BLUE)
 	set_object_flag_bank2(OBJ_PHOENIX, OBJECTFLAG2_RTRACKED_BLUE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1435_setup_lighting[] = {
@@ -4616,22 +4616,22 @@ u8 func1435_setup_lighting[] = {
 	misc_command(0x010c, 0x05, 0x01)
 	misc_command(0x010d, 0x05, 0x01)
 	misc_command(0x010e, 0x05, 0x01)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0432_init_biotech1[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_function(CHR_SELF, FUNC_BIOTECH1)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_BIOTECH1)
+	endlist
 };
 
 u8 func0433_init_biotech2[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_function(CHR_SELF, FUNC_BIOTECH2)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_BIOTECH2)
+	endlist
 };
 
 u8 func0430_biotech2[] = {
@@ -4640,15 +4640,15 @@ u8 func0430_biotech2[] = {
 		if_rand_gt(85, /*goto*/ 0x62)
 		if_rand_gt(170, /*goto*/ 0x63)
 
-		animation(ANIM_OPERATE_0221, 0, -1, 0x10, 0x00, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0221, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		label(0x62)
-		animation(ANIM_OPERATE_0222, 0, -1, 0x10, 0x00, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0222, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		label(0x63)
-		animation(ANIM_OPERATE_0223, 0, -1, 0x10, 0x00, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0223, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		beginloop(0x04)
@@ -4658,7 +4658,7 @@ u8 func0430_biotech2[] = {
 		label(0x2d)
 	goto_first(0x0b)
 
-	endfunction
+	endlist
 };
 
 u8 func0431_biotech1[] = {
@@ -4667,15 +4667,15 @@ u8 func0431_biotech1[] = {
 		if_rand_gt(85, /*goto*/ 0x62)
 		if_rand_gt(170, /*goto*/ 0x63)
 
-		animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x00, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		label(0x62)
-		animation(ANIM_OPERATE_0205, 0, -1, 0x10, 0x00, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0205, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		label(0x63)
-		animation(ANIM_OPERATE_0206, 0, -1, 0x10, 0x00, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0206, 0, -1, 0x10, 0x00, CHR_SELF, 2)
 		goto_next(0x04)
 
 		beginloop(0x04)
@@ -4685,7 +4685,7 @@ u8 func0431_biotech1[] = {
 		label(0x2d)
 	goto_first(0x0b)
 
-	endfunction
+	endlist
 };
 
 u8 func1036_check_door_terminal_destroyed[] = {
@@ -4697,12 +4697,12 @@ u8 func1036_check_door_terminal_destroyed[] = {
 		message(CHR_BOND, 0x2a44) // "Mission critical equipment destroyed."
 		set_stage_flag(STAGEFLAG_UPLINK_TERMINAL_DESTROYED)
 		label(0x2e)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x2d)
 	endloop(0x0b)
 
-	endfunction
+	endlist
 };
 
 struct ailist ailists[] = {

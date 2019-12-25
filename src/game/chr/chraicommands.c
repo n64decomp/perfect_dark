@@ -236,7 +236,7 @@ bool aiSetReturnList(void)
  * @cmd 0007
  */
 GLOBAL_ASM(
-glabel ai0007
+glabel aiSetShotList
 /*  f04de88:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f04de8c:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
 /*  f04de90:	8cc30438 */ 	lw	$v1,0x438($a2)
@@ -259,7 +259,7 @@ glabel ai0007
 /*  f04ded0:	acca0438 */ 	sw	$t2,0x438($a2)
 );
 
-//bool ai0007(void)
+//bool aiSetShotList(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	u16 ailistid = cmd[3] | (cmd[2] << 8);
@@ -407,7 +407,7 @@ bool aiKneel(void)
  * @cmd 000b
  */
 GLOBAL_ASM(
-glabel ai000b
+glabel aiChrDoAnimation
 /*  f04e174:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f04e178:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
 /*  f04e17c:	8d2e0434 */ 	lw	$t6,0x434($t1)
@@ -567,7 +567,7 @@ glabel ai000b
 // Mismatch because the compiler adds divide-by-zero checks to the division.
 // We need something like -mno-check-zero-division but that option doesn't exist
 // in our version of the compiler.
-//bool ai000b(void)
+//bool aiChrDoAnimation(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	u32 anim_id = cmd[3] | (cmd[2] << 8);
@@ -648,7 +648,7 @@ bool func0f04e418(void)
 /**
  * @cmd 000d
  */
-bool ai000d(void)
+bool aiBeSurprised000d(void)
 {
 	func0f03adf4(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
@@ -659,7 +659,7 @@ bool ai000d(void)
 /**
  * @cmd 000e
  */
-bool ai000e(void)
+bool aiBeSurprised000e(void)
 {
 	func0f03ae9c(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
@@ -1181,7 +1181,7 @@ bool aiConsiderGrenadeThrow(void)
 	u32 value2 = cmd[5] | (cmd[4] << 8);
 	u32 value1 = cmd[3] | (cmd[2] << 8);
 
-	if (func0f03b684(g_Vars.chrdata, value1, value2)) {
+	if (chrConsiderGrenadeThrow(g_Vars.chrdata, value1, value2)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -1253,9 +1253,9 @@ bool aiRemoveChr(void)
 bool ai0027(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u16 value = cmd[3] | (cmd[2] << 8);
+	u16 pad_id = cmd[3] | (cmd[2] << 8);
 
-	if (func0f03b5f0(g_Vars.chrdata, value)) {
+	if (func0f03b5f0(g_Vars.chrdata, pad_id)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -1728,7 +1728,7 @@ bool ai0041(void)
  */
 bool aiIfInLoadedRoom(void)
 {
-	if (func0f04ad08(g_Vars.chrdata)) {
+	if (chrIsInLoadedRoom(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1892,8 +1892,8 @@ glabel ai0048
 bool ai0049(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	u16 value1 = cmd[3] | (cmd[2] << 8);
-	s32 value2 = chrGetPadRoom(g_Vars.chrdata, value1);
+	u16 pad_id = cmd[3] | (cmd[2] << 8);
+	s32 value2 = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
 	if (value2 >= 0 && func0f15d6e8(value2)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -1995,7 +1995,7 @@ glabel ai004c
 /*  f050600:	01736024 */ 	and	$t4,$t3,$s3
 /*  f050604:	15800005 */ 	bnez	$t4,.L0f05061c
 /*  f050608:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05060c:	0fc21a6a */ 	jal	func0f0869a8
+/*  f05060c:	0fc21a6a */ 	jal	objIsHealthy
 /*  f050610:	afa5024c */ 	sw	$a1,0x24c($sp)
 /*  f050614:	1440000e */ 	bnez	$v0,.L0f050650
 /*  f050618:	8fa5024c */ 	lw	$a1,0x24c($sp)
@@ -2946,7 +2946,7 @@ bool aiIfChrHasObject(void)
 		s32 prevplayernum = g_Vars.currentplayernum;
 		playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
-		playernum = func0f1128cc(obj->pos);
+		playernum = currentPlayerHasProp(obj->pos);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
@@ -2966,7 +2966,7 @@ bool aiIfWeaponThrown(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f08aaf4(cmd[2])) {
+	if (weaponIsThrown(cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -3134,7 +3134,7 @@ bool aiIfObjectHealthy(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && func0f0869a8(obj)) {
+	if (obj && obj->pos && objIsHealthy(obj)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -3568,7 +3568,7 @@ bool aiOpenDoor(void)
 
 	if (door && door->pos && door->pos->type == POSITIONTYPE_DOOR) {
 		if (!func0f066310(door->pos, 0)) {
-			func0f08e488(door, DOORSTATE_OPEN);
+			doorActivate(door, DOORSTATE_OPEN);
 		}
 	}
 
@@ -3586,7 +3586,7 @@ bool aiCloseDoor(void)
 	struct defaultobj *door = objFindByTagId(cmd[2]);
 
 	if (door && door->pos && door->pos->type == POSITIONTYPE_DOOR) {
-		func0f08e488(door, DOORSTATE_CLOSED);
+		doorActivate(door, DOORSTATE_CLOSED);
 	}
 
 	g_Vars.aioffset += 3;
@@ -3718,9 +3718,9 @@ bool aiIfObjectiveComplete(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (cmd[2] < func0f0955f4() &&
-			func0f095684(cmd[2]) == OBJECTIVE_COMPLETE &&
-			func0f095650(cmd[2]) & (1 << getDifficulty())) {
+	if (cmd[2] < objectiveGetCount() &&
+			objectiveGetStatus(cmd[2]) == OBJECTIVE_COMPLETE &&
+			objectiveGetDifficultyBits(cmd[2]) & (1 << getDifficulty())) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -3736,9 +3736,9 @@ bool aiIfObjectiveFailed(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (cmd[2] < func0f0955f4() &&
-			func0f095684(cmd[2]) == OBJECTIVE_FAILED &&
-			func0f095650(cmd[2]) & (1 << getDifficulty())) {
+	if (cmd[2] < objectiveGetCount() &&
+			objectiveGetStatus(cmd[2]) == OBJECTIVE_FAILED &&
+			objectiveGetDifficultyBits(cmd[2]) & (1 << getDifficulty())) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -4211,7 +4211,7 @@ bool aiIfDifficultyGreaterThan(void)
 	return false;
 }
 
-f32 func0f16cdec(void);
+f32 getUptime(void);
 
 /**
  * @cmd 0079
@@ -4220,7 +4220,7 @@ bool aiIfUptimeLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
-	f32 uptime = func0f16cdec();
+	f32 uptime = getUptime();
 
 	if (uptime < target) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -4238,7 +4238,7 @@ bool aiIfUptimeGreaterThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 target = (f32)(cmd[3] | (cmd[2] << 8));
-	f32 uptime = func0f16cdec();
+	f32 uptime = getUptime();
 
 	if (uptime > target) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
@@ -4514,7 +4514,7 @@ bool aiSetChrNum(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	func0f01e4dc(g_Vars.chrdata, cmd[2]);
+	chrSetChrnum(g_Vars.chrdata, cmd[2]);
 	g_Vars.chrdata->chrnum = cmd[2];
 	g_Vars.aioffset += 3;
 
@@ -5376,7 +5376,7 @@ bool aiRestartTimer(void)
 	if (g_Vars.chrdata) {
 		chrRestartTimer(g_Vars.chrdata);
 	} else if (g_Vars.hovdata) {
-		func0f07b0f4(g_Vars.hovdata);
+		heliRestartTimer(g_Vars.hovdata);
 	}
 
 	g_Vars.aioffset += 2;
@@ -5726,7 +5726,7 @@ bool aiIfCountdownTimerGreaterThan(void)
  * @cmd 00c6
  */
 GLOBAL_ASM(
-glabel aiSpawnChr
+glabel aiSpawnChrAtPad
 /*  f05565c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f055660:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f055664:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -5788,7 +5788,7 @@ glabel aiSpawnChr
 /*  f05573c:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-//bool aiSpawnChr(void)
+//bool aiSpawnChrAtPad(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	u16 pad = cmd[5] | (cmd[4] << 8);
@@ -5809,7 +5809,7 @@ glabel aiSpawnChr
  * @cmd 00c7
  */
 GLOBAL_ASM(
-glabel ai00c7
+glabel aiSpawnChrAtChr
 /*  f055740:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f055744:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f055748:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -5866,7 +5866,7 @@ glabel ai00c7
 );
 
 // Mismatch due to different temporary registers
-//bool ai00c7(void)
+//bool aiSpawnChrAtChr(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	u32 flags = (cmd[8] << 16) | (cmd[9] << 8) | cmd[10] | (cmd[7] << 24);
@@ -6124,7 +6124,7 @@ glabel aiDuplicateChr
 /*  f055bfc:	00022c00 */ 	sll	$a1,$v0,0x10
 /*  f055c00:	00057403 */ 	sra	$t6,$a1,0x10
 /*  f055c04:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f055c08:	0fc07937 */ 	jal	func0f01e4dc
+/*  f055c08:	0fc07937 */ 	jal	chrSetChrnum
 /*  f055c0c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f055c10:	860f0000 */ 	lh	$t7,0x0($s0)
 /*  f055c14:	02202025 */ 	or	$a0,$s1,$zero
@@ -6279,7 +6279,7 @@ bool aiMessage(void)
 	}
 
 	setCurrentPlayerNum(playernum);
-	func0f0ddf1c(text, 0);
+	currentPlayerQueueMessage(text, 0);
 	setCurrentPlayerNum(prevplayernum);
 
 	g_Vars.aioffset += 5;
@@ -6540,7 +6540,7 @@ bool aiAudioMuteChannel(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s8 channel = (s8)cmd[2];
 
-	func0f0942d0(channel);
+	audioMuteChannel(channel);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -6554,7 +6554,7 @@ bool aiIfChannelIdle(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s8 channel = (s8) cmd[2];
 
-	if (func0f0943bc(channel)) {
+	if (audioIfChannelIdle(channel)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -6731,7 +6731,7 @@ glabel ai00d5
 .L0f056968:
 /*  f056968:	50800032 */ 	beqzl	$a0,.L0f056a34
 /*  f05696c:	8cb80438 */ 	lw	$t8,0x438($a1)
-/*  f056970:	0fc1eb7d */ 	jal	func0f07adf4
+/*  f056970:	0fc1eb7d */ 	jal	objGetHeli
 /*  f056974:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f056978:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f05697c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
@@ -6909,12 +6909,12 @@ bool aiSetObjImage(void)
 	if (obj && obj->pos) {
 		if (obj->type == OBJTYPE_SINGLEMONITOR) {
 			struct singlemonitorobj *sm = (struct singlemonitorobj *) obj;
-			func0f07f924(&sm->image, cmd[4], obj);
+			imageSlotSetImage(&sm->image, cmd[4], obj);
 		} else if (obj->type == OBJTYPE_MULTIMONITOR) {
 			u8 slot = cmd[3];
 			if (slot < 4) {
 				struct multimonitorobj *mm = (struct multimonitorobj *) obj;
-				func0f07f924(&mm->subobjs[slot].image, cmd[4], obj);
+				imageSlotSetImage(&mm->subobjs[slot].image, cmd[4], obj);
 			}
 		}
 	}
@@ -6970,7 +6970,7 @@ bool aiWarpJoToPad(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
-	func0f0b9b68(pad_id);
+	warpBondToPad(pad_id);
 
 	g_Vars.aioffset += 4;
 
@@ -6994,7 +6994,7 @@ bool aiSetCameraAnimation(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 anim_id = cmd[3] | (cmd[2] << 8);
 
-	func0f0ba0d4(anim_id);
+	cameraDoAnimation(anim_id);
 
 	if (g_Vars.currentplayer->unk19c8 == 0) {
 		return true;
@@ -7854,7 +7854,7 @@ bool aiIfChrAmmoQuantityLessThan(void)
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
 
-		if (func0f0a9868((s8)cmd[3]) < (s8)cmd[4]) {
+		if (currentPlayerGetAmmoCount((s8)cmd[3]) < (s8)cmd[4]) {
 			passes = true;
 		}
 
@@ -7882,8 +7882,8 @@ bool aiChrDrawWeapon(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
-		func0f0a2090(0, (s8)cmd[3]);
-		func0f0a2090(1, 0);
+		currentPlayerEquipWeapon(0, (s8)cmd[3]);
+		currentPlayerEquipWeapon(1, 0);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
@@ -7904,7 +7904,7 @@ bool aiChrDrawWeaponInCutscene(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
-		func0f0a196c((s8)cmd[3]);
+		currentPlayerEquipWeaponInCutscene((s8)cmd[3]);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
@@ -8129,7 +8129,7 @@ glabel ai00f4
  */
 bool ai00f5(void)
 {
-	g_8007073c = true;
+	g_8007073c = 1;
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -8158,7 +8158,7 @@ bool aiIfAllObjectivesComplete(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f095b64()) {
+	if (objectiveIsAllComplete()) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset = g_Vars.aioffset + 3;
@@ -8200,7 +8200,7 @@ bool aiAudioPlayXMusic(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	g_Vars.aioffset += 5;
-	func0f16e058((s8)cmd[2], cmd[3], cmd[4]);
+	audioPlayXTrack((s8)cmd[2], cmd[3], cmd[4]);
 
 	return false;
 }
@@ -8212,7 +8212,7 @@ bool aiAudioStopChannel(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	g_Vars.aioffset += 3;
-	func0f16e0b4((s8)cmd[2]);
+	audioStopTrack((s8)cmd[2]);
 
 	return false;
 }
@@ -8226,10 +8226,10 @@ bool aiAudioPlayMusic(void)
 
 	if (cmd[2] == MUSIC_CI_TRAINING) {
 		u16 something = func0f152f50();
-		func0f16de0c(cmd[2]);
+		audioPlayTrack(cmd[2]);
 		func0f152f70(something);
 	} else {
-		func0f16de0c(cmd[2]);
+		audioPlayTrack(cmd[2]);
 	}
 
 	g_Vars.aioffset += 3;
@@ -8243,7 +8243,7 @@ bool aiAudioPlayMusic(void)
 bool aiAudioRestartMusic(void)
 {
 	g_Vars.aioffset += 2;
-	func0f16de80();
+	audioRestartTrack();
 
 	return false;
 }
@@ -8254,7 +8254,7 @@ bool aiAudioRestartMusic(void)
 bool aiAudioSetMusicTrack(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f16def8(cmd[2]);
+	audioSetTrack(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -8266,7 +8266,7 @@ bool aiAudioSetMusicTrack(void)
 bool aiAudioRestartDefaultMusic(void)
 {
 	g_Vars.aioffset += 2;
-	func0f16df84();
+	audioRestartDefaultTrack();
 
 	return false;
 }
@@ -8277,7 +8277,7 @@ bool aiAudioRestartDefaultMusic(void)
 bool aiAudioSetSfxTrack(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f16dfd0(cmd[2]);
+	audioSetAuxTrack(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -8289,7 +8289,7 @@ bool aiAudioSetSfxTrack(void)
 bool aiAudioRestartSfx(void)
 {
 	g_Vars.aioffset += 2;
-	func0f16e02c();
+	audioRestartAuxTrack();
 
 	return false;
 }
@@ -8306,7 +8306,7 @@ bool aiChrExplosions(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		u32 playernum = posGetPlayerNum(chr->pos);
 		setCurrentPlayerNum(playernum);
-		func0f0bc0f0(0);
+		currentPlayerSurroundWithExplosions(0);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
@@ -8338,9 +8338,9 @@ bool aiIfNumKnockedOutChrs(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (cmd[2] < func0f0b058c() && cmd[3] == 0) {
+	if (cmd[2] < getNumKnockedOutChrs() && cmd[3] == 0) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
-	} else if (func0f0b058c() < cmd[2] && cmd[3] == 1) {
+	} else if (getNumKnockedOutChrs() < cmd[2] && cmd[3] == 1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -8381,7 +8381,7 @@ bool aiKillBond(void)
 /**
  * @cmd 00ff
  */
-bool ai00ff(void)
+bool aiBeSurprised00ff(void)
 {
 	func0f03ae48(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
@@ -8583,7 +8583,7 @@ bool aiSetTarget(void)
 			g_Vars.chrdata->target = prop_id;
 		}
 	} else if (g_Vars.hovdata) {
-		func0f07afd0(g_Vars.hovdata, cmd[2]);
+		heliSetTarget(g_Vars.hovdata, cmd[2]);
 	}
 
 	g_Vars.aioffset += 5;
@@ -10789,7 +10789,7 @@ glabel ai0133
  * @cmd 0134
  */
 GLOBAL_ASM(
-glabel ai0134
+glabel aiIfOrders
 /*  f05b220:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f05b224:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
 /*  f05b228:	8c640434 */ 	lw	$a0,0x434($v1)
@@ -10826,7 +10826,7 @@ glabel ai0134
 );
 
 // Mismatch because it uses different temporary registers
-//bool ai0134(void)
+//bool aiIfOrders(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //
@@ -10933,7 +10933,7 @@ glabel ai0136
  * @cmd 0137
  */
 GLOBAL_ASM(
-glabel ai0137
+glabel aiIfChrInSquadronDoingAction
 /*  f05b3e0:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f05b3e4:	afb20024 */ 	sw	$s2,0x24($sp)
 /*  f05b3e8:	3c12800a */ 	lui	$s2,%hi(g_Vars)
@@ -11037,7 +11037,7 @@ glabel ai0137
 // Mismatches due to position of rodata. This function uses literal 3500, while
 // others below in this file use const f32 arrays, but const f32 arrays are
 // placed in .rodata before all literals.
-//bool ai0137(void)
+//bool aiIfChrInSquadronDoingAction(void)
 //{
 //	s32 ret;
 //	s16 *chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
@@ -11936,7 +11936,7 @@ glabel aiIfAction
 bool aiHovercopterFireRocket(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f07b290(g_Vars.hovdata, cmd[2]);
+	heliFireRocket(g_Vars.hovdata, cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -11999,7 +11999,7 @@ bool aiIfY(void)
 	f32 cutoff_y = ((cmd[4] | (cmd[3] << 8)) << 16) >> 16;
 
 	if (cmd[2] == CHR_TARGET && g_Vars.hovdata) {
-		struct heliobj *heli = func0f07adf4(&g_Vars.hovdata->base);
+		struct heliobj *heli = objGetHeli(&g_Vars.hovdata->base);
 
 		if (heli) {
 			struct position *target = heliGetTargetPosition(heli);
@@ -12409,7 +12409,7 @@ bool aiPunchOrKick(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata && func0f03bbc8(g_Vars.chrdata, cmd[2])) {
+	if (g_Vars.chrdata && chrTryPunchOrKick(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -12634,7 +12634,7 @@ glabel ai018a
 bool aiConfigureRain(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f1329bc(cmd[2]);
+	rainConfigure(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -12646,7 +12646,7 @@ bool aiConfigureRain(void)
 bool aiConfigureSnow(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f1329ec(cmd[2]);
+	snowConfigure(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -12678,7 +12678,7 @@ bool aiActivateLift(void)
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 
 	if (obj && obj->pos) {
-		func0f070e2c(obj->pos, cmd[2]);
+		liftActivate(obj->pos, cmd[2]);
 	}
 
 	g_Vars.aioffset += 4;
@@ -12694,7 +12694,7 @@ bool aiMiniSkedarTryPounce(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 thing = cmd[4] | (cmd[3] << 8);
 
-	if (func0f04767c(g_Vars.chrdata, g_Vars.chrdata->pouncebits, cmd[2], thing, cmd[5])) {
+	if (skedarTryPounce(g_Vars.chrdata, g_Vars.chrdata->pouncebits, cmd[2], thing, cmd[5])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -13299,7 +13299,7 @@ glabel ai01ae
 /*  f05e1a8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f05e1ac:	0fc44762 */ 	jal	func0f111d88
 /*  f05e1b0:	adc000c4 */ 	sw	$zero,0xc4($t6)
-/*  f05e1b4:	0fc2865b */ 	jal	func0f0a196c
+/*  f05e1b4:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
 /*  f05e1b8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f05e1bc:	8e0f006c */ 	lw	$t7,0x6c($s0)
 .L0f05e1c0:
@@ -13355,7 +13355,7 @@ glabel ai01ae
  */
 bool aiReleaseObject(void)
 {
-	func0f0c7dec(0);
+	releaseObj(0);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -13376,7 +13376,7 @@ bool aiChrGrabObject(void)
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.currentplayer->unk01b0 == 0 && func0f0cc680() == 2 && g_Vars.currentplayer->unk00b4 == 0) {
-			func0f0c7cf0(obj->pos);
+			currentPlayerGrabProp(obj->pos);
 		}
 
 		setCurrentPlayerNum(prevplayernum);
@@ -13901,7 +13901,7 @@ bool aiIfChrWeaponEquipped(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		setCurrentPlayerNum(playernum);
 
-		if (func0f0b18bc(cmd[3]) == 1) {
+		if (currentPlayerHasWeaponEquipped(cmd[3]) == 1) {
 			is_using_weapon = true;
 		}
 
@@ -14064,15 +14064,15 @@ bool aiChrSetCutsceneWeapon(void)
 					bool valid = true;
 
 					switch (weapon->weapon_id) {
-					case 2:
-					case 3:
-					case 4:
-					case 5:
-					case 6:
-					case 7:
-					case 8:
-					case 9:
-					case 10:
+					case WEAPON_FALCON2:
+					case WEAPON_FALCON2_SILENCER:
+					case WEAPON_FALCON2_SCOPE:
+					case WEAPON_MAGSEC4:
+					case WEAPON_MAULER:
+					case WEAPON_PHOENIX:
+					case WEAPON_DY357MAGNUM:
+					case WEAPON_DY357LX:
+					case WEAPON_CMP150:
 						valid = false;
 					}
 
@@ -14278,7 +14278,7 @@ bool aiSetObjPartVisible(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->pos) {
-		func0f091d84(obj, cmd[3], cmd[4]);
+		objSetPartVisible(obj, cmd[3], cmd[4]);
 	}
 
 	g_Vars.aioffset += 5;

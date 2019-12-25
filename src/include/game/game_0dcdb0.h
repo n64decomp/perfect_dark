@@ -13,7 +13,7 @@ u32 func0f0ddd44(void);
 u32 func0f0ddda0(void);
 u32 func0f0dde60(void);
 u32 func0f0ddeac(void);
-void func0f0ddf1c(char *text, u32 arg1);
+void currentPlayerQueueMessage(char *text, u32 arg1);
 u32 func0f0ddfa4(void);
 void func0f0de034(char *text, u32 arg1, u32 arg2);
 u32 func0f0de0d4(void);

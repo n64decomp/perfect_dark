@@ -583,7 +583,7 @@ glabel func0f16d548
 /*  f16d61c:	3c04800b */ 	lui	$a0,0x800b
 /*  f16d620:	0fc5db36 */ 	jal	func0f176cd8
 /*  f16d624:	8c84a5d0 */ 	lw	$a0,-0x5a30($a0)
-/*  f16d628:	0fc5b7f4 */ 	jal	func0f16dfd0
+/*  f16d628:	0fc5b7f4 */ 	jal	audioSetAuxTrack
 /*  f16d62c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16d630:	10000020 */ 	beqz	$zero,.L0f16d6b4
 /*  f16d634:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1021,7 +1021,7 @@ glabel func0f16dba4
 /*  f16dbc0:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f16dbc4:	0fc5b490 */ 	jal	func0f16d240
 /*  f16dbc8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f16dbcc:	0fc5b82d */ 	jal	func0f16e0b4
+/*  f16dbcc:	0fc5b82d */ 	jal	audioStopTrack
 /*  f16dbd0:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f16dbd4:	0fc5b490 */ 	jal	func0f16d240
 /*  f16dbd8:	24040002 */ 	addiu	$a0,$zero,0x2
@@ -1192,7 +1192,7 @@ glabel func0f16ddb0
 );
 
 GLOBAL_ASM(
-glabel func0f16de0c
+glabel audioPlayTrack
 /*  f16de0c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f16de10:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16de14:	0fc5b50c */ 	jal	func0f16d430
@@ -1201,7 +1201,7 @@ glabel func0f16de0c
 /*  f16de20:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f16de24:	0fc5b490 */ 	jal	func0f16d240
 /*  f16de28:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f16de2c:	0fc5b82d */ 	jal	func0f16e0b4
+/*  f16de2c:	0fc5b82d */ 	jal	audioStopTrack
 /*  f16de30:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f16de34:	0fc5b490 */ 	jal	func0f16d240
 /*  f16de38:	24040002 */ 	addiu	$a0,$zero,0x2
@@ -1225,7 +1225,7 @@ glabel func0f16de0c
 );
 
 GLOBAL_ASM(
-glabel func0f16de80
+glabel audioRestartTrack
 /*  f16de80:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f16de84:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16de88:	0fc5b490 */ 	jal	func0f16d240
@@ -1263,7 +1263,7 @@ glabel func0f16deb8
 );
 
 GLOBAL_ASM(
-glabel func0f16def8
+glabel audioSetTrack
 /*  f16def8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f16defc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16df00:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -1271,7 +1271,7 @@ glabel func0f16def8
 /*  f16df08:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f16df0c:	0fc5b490 */ 	jal	func0f16d240
 /*  f16df10:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f16df14:	0fc5b82d */ 	jal	func0f16e0b4
+/*  f16df14:	0fc5b82d */ 	jal	audioStopTrack
 /*  f16df18:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f16df1c:	0fc5b490 */ 	jal	func0f16d240
 /*  f16df20:	24040002 */ 	addiu	$a0,$zero,0x2
@@ -1303,7 +1303,7 @@ glabel func0f16def8
 );
 
 GLOBAL_ASM(
-glabel func0f16df84
+glabel audioRestartDefaultTrack
 /*  f16df84:	3c0e8006 */ 	lui	$t6,0x8006
 /*  f16df88:	8dce24a4 */ 	lw	$t6,0x24a4($t6)
 /*  f16df8c:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1327,7 +1327,7 @@ glabel func0f16df84
 );
 
 GLOBAL_ASM(
-glabel func0f16dfd0
+glabel audioSetAuxTrack
 /*  f16dfd0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f16dfd4:	3c018008 */ 	lui	$at,0x8008
 /*  f16dfd8:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -1356,7 +1356,7 @@ glabel func0f16dfd0
 );
 
 GLOBAL_ASM(
-glabel func0f16e02c
+glabel audioRestartAuxTrack
 /*  f16e02c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f16e030:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16e034:	240effff */ 	addiu	$t6,$zero,-1
@@ -1371,7 +1371,7 @@ glabel func0f16e02c
 );
 
 GLOBAL_ASM(
-glabel func0f16e058
+glabel audioPlayXTrack
 /*  f16e058:	3c0e800b */ 	lui	$t6,%hi(var800aaa68)
 /*  f16e05c:	25ceaa68 */ 	addiu	$t6,$t6,%lo(var800aaa68)
 /*  f16e060:	00041080 */ 	sll	$v0,$a0,0x2
@@ -1399,7 +1399,7 @@ glabel func0f16e058
 );
 
 GLOBAL_ASM(
-glabel func0f16e0b4
+glabel audioStopTrack
 /*  f16e0b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f16e0b8:	04800006 */ 	bltz	$a0,.L0f16e0d4
 /*  f16e0bc:	afbf0014 */ 	sw	$ra,0x14($sp)

@@ -30,7 +30,7 @@ u32 func0f11253c(void);
 u32 func0f112790(void);
 u32 func0f112844(void);
 u32 func0f112884(void);
-u32 func0f1128cc(struct position *pos);
+u32 currentPlayerHasProp(struct position *pos);
 u32 func0f112950(void);
 u32 func0f112a58(void);
 u32 func0f112bc0(void);

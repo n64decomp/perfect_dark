@@ -2934,7 +2934,7 @@ glabel func0f12b0e0
 /*  f12b77c:	10000102 */ 	beqz	$zero,.L0f12bb88
 /*  f12b780:	86820002 */ 	lh	$v0,0x2($s4)
 .L0f12b784:
-/*  f12b784:	0fc21a6a */ 	jal	func0f0869a8
+/*  f12b784:	0fc21a6a */ 	jal	objIsHealthy
 /*  f12b788:	02202025 */ 	or	$a0,$s1,$zero
 /*  f12b78c:	104000fd */ 	beqz	$v0,.L0f12bb84
 /*  f12b790:	3c017f1b */ 	lui	$at,%hi(var7f1b5598)
@@ -10873,7 +10873,7 @@ glabel func0f1321d0
 );
 
 GLOBAL_ASM(
-glabel func0f1329bc
+glabel rainConfigure
 /*  f1329bc:	3c028008 */ 	lui	$v0,0x8008
 /*  f1329c0:	8c42f0c0 */ 	lw	$v0,-0xf40($v0)
 /*  f1329c4:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -10890,7 +10890,7 @@ glabel func0f1329bc
 );
 
 GLOBAL_ASM(
-glabel func0f1329ec
+glabel snowConfigure
 /*  f1329ec:	3c028008 */ 	lui	$v0,0x8008
 /*  f1329f0:	8c42f0c0 */ 	lw	$v0,-0xf40($v0)
 /*  f1329f4:	27bdffe8 */ 	addiu	$sp,$sp,-24

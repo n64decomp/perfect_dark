@@ -122,16 +122,16 @@ struct path paths[] = {
 
 u8 func1001_1dc0[] = {
 	cmd01b2_mponly(8)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1000_1dcc[] = {
 	cmd0185_mponly
 	rebuild_teams
 	rebuild_squadrons
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 struct ailist ailists[] = {

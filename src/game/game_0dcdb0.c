@@ -5534,7 +5534,7 @@ glabel func0f0ddeac
 );
 
 GLOBAL_ASM(
-glabel func0f0ddf1c
+glabel currentPlayerQueueMessage
 /*  f0ddf1c:	3c0f8007 */ 	lui	$t7,%hi(var80070ff0)
 /*  f0ddf20:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(var80070ff0)
 /*  f0ddf24:	00057140 */ 	sll	$t6,$a1,0x5
@@ -7373,7 +7373,7 @@ glabel func0f0df364
 /*  f0df8d8:	03195021 */ 	addu	$t2,$t8,$t9
 /*  f0df8dc:	0480000f */ 	bltz	$a0,.L0f0df91c
 /*  f0df8e0:	a60a0006 */ 	sh	$t2,0x6($s0)
-/*  f0df8e4:	0fc250ef */ 	jal	func0f0943bc
+/*  f0df8e4:	0fc250ef */ 	jal	audioIfChannelIdle
 /*  f0df8e8:	afa0004c */ 	sw	$zero,0x4c($sp)
 /*  f0df8ec:	10400003 */ 	beqz	$v0,.L0f0df8fc
 /*  f0df8f0:	8fa3004c */ 	lw	$v1,0x4c($sp)
@@ -18496,7 +18496,7 @@ glabel func0f0e98ac
 /*  f0e9ba4:	27a500c4 */ 	addiu	$a1,$sp,0xc4
 /*  f0e9ba8:	11a00141 */ 	beqz	$t5,.L0f0ea0b0
 /*  f0e9bac:	3c078008 */ 	lui	$a3,0x8008
-/*  f0e9bb0:	0fc255a1 */ 	jal	func0f095684
+/*  f0e9bb0:	0fc255a1 */ 	jal	objectiveGetStatus
 /*  f0e9bb4:	8fa40138 */ 	lw	$a0,0x138($sp)
 /*  f0e9bb8:	10400007 */ 	beqz	$v0,.L0f0e9bd8
 /*  f0e9bbc:	24010001 */ 	addiu	$at,$zero,0x1

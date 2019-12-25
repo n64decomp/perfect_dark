@@ -649,15 +649,15 @@ u8 func1001_objectives_failed_msg[] = {
 	set_chr_chrflag(CHR_PILOT1, CHRCFLAG_04000000)
 	set_chr_chrflag(CHR_PILOT2, CHRCFLAG_04000000)
 	set_chr_chrflag(CHR_PILOT3, CHRCFLAG_04000000)
-	set_function(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
+	endlist
 };
 
 u8 func1400_setup_counterop[] = {
 	yield
 	set_chr_team(CHR_ANTI, TEAM_ENEMY)
-	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_REBUILD_GROUPS)
+	endlist
 };
 
 u8 func0408_guard_unalerted[] = {
@@ -669,8 +669,8 @@ u8 func0408_guard_unalerted[] = {
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
+	endlist
 };
 
 u8 func1002_intro[] = {
@@ -681,15 +681,15 @@ u8 func1002_intro[] = {
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(0x02cf, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x02cf, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	animation(0x02d0, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
+	chr_do_animation(0x02d0, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 	set_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_INTRO_GUARD, CHRHFLAG_00020000)
-	animation(0x02d1, -1, -1, 0x06, 0x00, CHR_INTRO_GUARD, 4)
+	chr_do_animation(0x02d1, -1, -1, 0x06, 0x00, CHR_INTRO_GUARD, 4)
 	restart_timer
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -803,15 +803,15 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(0x02cf, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x02cf, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	animation(0x02d0, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
+	chr_do_animation(0x02d0, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
 	unset_chr_chrflag(CHR_INTRO_GUARD, CHRCFLAG_UNPLAYABLE)
 	hide_chr(CHR_INTRO_GUARD)
 	enter_firstperson
 	yield
-	set_function(CHR_ELVIS, FUNC_ELVIS_AT_START)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_AT_START)
 	restart_timer
 
 	beginloop(0x0c)
@@ -821,8 +821,8 @@ u8 func1002_intro[] = {
 	label(0x04)
 	restart_default_music
 	reset_ambience
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0c01_outro[] = {
@@ -830,17 +830,17 @@ u8 func0c01_outro[] = {
 	set_music_track(MUSIC_PELAGIC_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
-	set_function(CHR_P1P2, GFUNC_IDLE)
+	set_ailist(CHR_P1P2, GFUNC_IDLE)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	animation(0x02e3, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
-	set_function(CHR_ELVIS, GFUNC_IDLE)
+	chr_do_animation(0x02e3, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
+	set_ailist(CHR_ELVIS, GFUNC_IDLE)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	animation(0x02e4, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
+	chr_do_animation(0x02e4, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 
 	show_object(OBJ_OUTRO_SUBMARINE)
 	set_object_flag_bank1(OBJ_OUTRO_SUBMARINE, OBJECTFLAG1_04000000)
@@ -992,20 +992,20 @@ u8 func0c01_outro[] = {
 	label(0x39)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	animation(0x02cf, -2, -1, 0x06, 0x00, CHR_P1P2, 2)
+	chr_do_animation(0x02cf, -2, -1, 0x06, 0x00, CHR_P1P2, 2)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
-	animation(0x02d0, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
+	chr_do_animation(0x02d0, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
 	end_level
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 unregistered_function1[] = {
 	label(0x00)
 	yield
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1004_msg_controlledfrom[] = {
@@ -1017,8 +1017,8 @@ u8 func1004_msg_controlledfrom[] = {
 
 	label(0x07)
 	speak(CHR_P1P2, 0x160b, 0x73d1, CHANNEL_6, COLOR_09_BLUE) // "This must be where the sub's controlled from."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1005_msg_withoutautopilot[] = {
@@ -1029,8 +1029,8 @@ u8 func1005_msg_withoutautopilot[] = {
 
 	label(0x07)
 	speak(CHR_P1P2, 0x160c, 0x73d2, CHANNEL_6, COLOR_09_BLUE) // "Without the autopilot and the GPS, the ship will w..."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1006_msg_conductoperations[] = {
@@ -1041,8 +1041,8 @@ u8 func1006_msg_conductoperations[] = {
 
 	label(0x07)
 	speak(CHR_P1P2, 0x160d, 0x73d3, CHANNEL_6, COLOR_09_BLUE) // "They'll be unable to conduct any operations withou..."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 unregistered_function2[] = {
@@ -1061,8 +1061,8 @@ u8 unregistered_function2[] = {
 	label(0x04)
 	message(CHR_BOND, 0x1610) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_00000400)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1009_open_reactor_hatch[] = {
@@ -1089,8 +1089,8 @@ u8 func1009_open_reactor_hatch[] = {
 	set_object_flag_bank1(OBJ_REACTOR_HATCH, OBJECTFLAG1_INVISIBLE)
 	message(CHR_P1P2, 0x1611) // "Reactor shutdown control hatch opened."
 	set_stage_flag(STAGEFLAG_REACTOR_HATCH_OPEN)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100a_reactor_switch[] = {
@@ -1099,7 +1099,7 @@ u8 func100a_reactor_switch[] = {
 		if_object_in_good_condition(OBJ_REACTOR_SWITCH, /*goto*/ 0x07)
 		message(CHR_BOND, 0x1624) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_REACTOR_SWITCH_DESTROYED)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x07)
 		if_chr_activated_object(CHR_P1P2, OBJ_REACTOR_SWITCH, /*goto*/ 0x07)
@@ -1120,8 +1120,8 @@ u8 func100a_reactor_switch[] = {
 	set_object_image(OBJ_REACTOR_SWITCH, 0x02, 0x12)
 	message(CHR_P1P2, 0x1612) // "Reactor has been shut down."
 	set_stage_flag(STAGEFLAG_REACTOR_SHUT_DOWN)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100b_check_diving_area_located[] = {
@@ -1142,8 +1142,8 @@ u8 func100b_check_diving_area_located[] = {
 	label(0x07)
 	message(CHR_P1P2, 0x1613) // "Diving control center has been located."
 	set_stage_flag(STAGEFLAG_LOCATED_DIVING_AREA)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100c_check_end_level[] = {
@@ -1176,7 +1176,7 @@ u8 func100c_check_end_level[] = {
 	set_stage_flag(STAGEFLAG_ELVIS_APPEARED_AT_MOONPOOL)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(CHR_ELVIS, FUNC_ELVIS_AT_MOONPOOL)
+	set_ailist(CHR_ELVIS, FUNC_ELVIS_AT_MOONPOOL)
 
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1231,17 +1231,17 @@ u8 func100c_check_end_level[] = {
 	// Both players dead
 	label(0x07)
 	end_level
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Mission complete
 	label(0x04)
 	set_invincible(CHR_BOND)
-	set_function(CHR_SELF, FUNC_OUTRO)
+	set_ailist(CHR_SELF, FUNC_OUTRO)
 
 	// Elvis dead
 	label(0x08)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100e_check_labtech_dead[] = {
@@ -1260,8 +1260,8 @@ u8 func100e_check_labtech_dead[] = {
 	message(CHR_BOND, 0x1614) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_LABTECH_DEAD)
 	label(0x0b)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100f_check_researchdata_collected[] = {
@@ -1283,8 +1283,8 @@ u8 func100f_check_researchdata_collected[] = {
 	label(0x07)
 	message(CHR_BOND, 0x1615) // "Research data has been secured."
 	set_stage_flag(STAGEFLAG_COLLECTED_RESEARCH_DATA)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 #define init_path(pathid) \
@@ -1297,35 +1297,35 @@ u8 func100f_check_researchdata_collected[] = {
 	set_shield(0) \
 	assign_path(pathid) \
 	start_path \
-	set_function(CHR_SELF, GFUNC_UNALERTED_0004)
+	set_ailist(CHR_SELF, GFUNC_UNALERTED_0004)
 
 
 
 u8 func0405_start_path00[] = {
 	init_path(0)
-	endfunction
+	endlist
 };
 
 u8 func0409_start_path03[] = {
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	init_path(3)
-	endfunction
+	endlist
 };
 
 u8 func040a_start_path04[] = {
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	init_path(4)
-	endfunction
+	endlist
 };
 
 u8 func0406_start_path01[] = {
 	init_path(1)
-	endfunction
+	endlist
 };
 
 u8 func0407_start_path02[] = {
 	init_path(2)
-	endfunction
+	endlist
 };
 
 #define labtech_logic(function, pad1, pad2, pad3) \
@@ -1336,12 +1336,12 @@ u8 func0407_start_path02[] = {
 u8 func040e_init_labtech1[] = {
 	set_self_chrflag(CHRCFLAG_04000000)
 	set_chr_health(CHR_SELF, 1)
-	set_function(CHR_SELF, FUNC_LABTECH1)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_LABTECH1)
+	endlist
 };
 
 u8 func040b_labtech1[] = {
-	set_onshot_function(FUNC_LABTECH1)
+	set_shotlist(FUNC_LABTECH1)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x07)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x07)
@@ -1349,8 +1349,8 @@ u8 func040b_labtech1[] = {
 
 	// Dying
 	label(0x07)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x04)
@@ -1370,15 +1370,15 @@ u8 func040b_labtech1[] = {
 		if_rand_lt(86, /*goto*/ 0x3b)
 		if_rand_lt(172, /*goto*/ 0x3c)
 
-		animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3b)
-		animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3c)
-		animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x27)
@@ -1404,19 +1404,19 @@ u8 func040b_labtech1[] = {
 	endloop(0x00)
 
 	label(0x0f)
-	set_function(CHR_SELF, FUNC_LABTECH_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_LABTECH_ALERTED)
+	endlist
 };
 
 u8 func040f_init_labtech2[] = {
 	set_self_chrflag(CHRCFLAG_04000000)
 	set_chr_health(CHR_SELF, 1)
-	set_function(CHR_SELF, FUNC_LABTECH2)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_LABTECH2)
+	endlist
 };
 
 u8 func040c_labtech2[] = {
-	set_onshot_function(FUNC_LABTECH2)
+	set_shotlist(FUNC_LABTECH2)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x07)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x07)
@@ -1424,8 +1424,8 @@ u8 func040c_labtech2[] = {
 
 	// Dying
 	label(0x07)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x04)
@@ -1445,15 +1445,15 @@ u8 func040c_labtech2[] = {
 		if_rand_lt(86, /*goto*/ 0x3b)
 		if_rand_lt(172, /*goto*/ 0x3c)
 
-		animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3b)
-		animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3c)
-		animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x27)
@@ -1479,15 +1479,15 @@ u8 func040c_labtech2[] = {
 	endloop(0x00)
 
 	label(0x0f)
-	set_function(CHR_SELF, FUNC_LABTECH_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_LABTECH_ALERTED)
+	endlist
 };
 
 u8 func0410_init_labtech3[] = {
 	set_self_chrflag(CHRCFLAG_04000000)
 	set_chr_health(CHR_SELF, 1)
-	set_function(CHR_SELF, FUNC_LABTECH3)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_LABTECH3)
+	endlist
 };
 
 u8 func040d_labtech3[] = {
@@ -1495,7 +1495,7 @@ u8 func040d_labtech3[] = {
 	// anyway and will die in one shot. Theroetically, if you use PD mode with
 	// max health and shoot him with a weak weapon then he will start running to
 	// lab tech 1's pads.
-	set_onshot_function(FUNC_LABTECH1)
+	set_shotlist(FUNC_LABTECH1)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x07)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x07)
@@ -1503,8 +1503,8 @@ u8 func040d_labtech3[] = {
 
 	// Dying
 	label(0x07)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x04)
@@ -1524,15 +1524,15 @@ u8 func040d_labtech3[] = {
 		if_rand_lt(86, /*goto*/ 0x3b)
 		if_rand_lt(172, /*goto*/ 0x3c)
 
-		animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0206, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3b)
-		animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0204, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x3c)
-		animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_OPERATE_0205, -1, -1, 0x02, 0x10, CHR_SELF, 2)
 		goto_next(0x07)
 
 		label(0x27)
@@ -1561,8 +1561,8 @@ u8 func040d_labtech3[] = {
 	set_alertness(100)
 
 	label(0x0f)
-	set_function(CHR_SELF, FUNC_LABTECH_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_LABTECH_ALERTED)
+	endlist
 };
 
 u8 func0411_labtech_alerted[] = {
@@ -1580,7 +1580,7 @@ u8 func0411_labtech_alerted[] = {
 	set_alertness(100)
 	dprint 'T','A','L','K',' ','1','\n',0,
 	say_quip(CHR_BOND, 0x2a, 0xff, 0x02, 0xff, BANK_1, 0x00, 0x00)
-	animation(ANIM_SURRENDER_002E, 0, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURRENDER_002E, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x3e)
 		if_timer_gt(90, /*goto*/ 0x04)
@@ -1621,7 +1621,7 @@ u8 func0411_labtech_alerted[] = {
 	if_chr_distance_lt(300, /*goto*/ 0x04)
 
 	label(0x00)
-	animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
 
 	beginloop(0x11)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1653,15 +1653,15 @@ u8 func0411_labtech_alerted[] = {
 	label(0x07)
 	goto_first(0x13)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0412_hide[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1010_alarm_responders[] = {
@@ -1779,31 +1779,31 @@ u8 func1010_alarm_responders[] = {
 	rebuild_teams
 	rebuild_squadrons
 	yield
-	set_function(0x57, 0x0409)
-	set_function(0x58, 0x0409)
-	set_function(0x59, 0x040a)
-	set_function(0x5a, 0x040a)
-	set_function(0x5b, FUNC_GUARD_ALERTED)
-	set_function(0x5c, FUNC_GUARD_ALERTED)
-	set_function(0x5d, FUNC_GUARD_ALERTED)
-	set_function(0x5e, FUNC_GUARD_ALERTED)
-	set_function(0x04, FUNC_GUARD_UNALERTED)
-	set_function(0x25, FUNC_GUARD_UNALERTED)
-	set_function(0x06, FUNC_GUARD_UNALERTED)
-	set_function(0x08, FUNC_GUARD_UNALERTED)
-	set_function(0x0a, FUNC_GUARD_UNALERTED)
-	set_function(0x0c, FUNC_GUARD_UNALERTED)
-	set_function(0x0e, FUNC_GUARD_UNALERTED)
-	set_function(0x10, FUNC_GUARD_UNALERTED)
-	set_function(0x12, FUNC_GUARD_UNALERTED)
-	set_function(0x14, FUNC_GUARD_UNALERTED)
-	set_function(0x16, FUNC_GUARD_UNALERTED)
-	set_function(0x18, FUNC_GUARD_UNALERTED)
-	set_function(0x1a, FUNC_GUARD_UNALERTED)
-	set_function(0x1c, FUNC_GUARD_UNALERTED)
-	set_function(0x1e, FUNC_GUARD_UNALERTED)
-	set_function(0x20, FUNC_GUARD_UNALERTED)
-	set_function(0x22, FUNC_GUARD_UNALERTED)
+	set_ailist(0x57, 0x0409)
+	set_ailist(0x58, 0x0409)
+	set_ailist(0x59, 0x040a)
+	set_ailist(0x5a, 0x040a)
+	set_ailist(0x5b, FUNC_GUARD_ALERTED)
+	set_ailist(0x5c, FUNC_GUARD_ALERTED)
+	set_ailist(0x5d, FUNC_GUARD_ALERTED)
+	set_ailist(0x5e, FUNC_GUARD_ALERTED)
+	set_ailist(0x04, FUNC_GUARD_UNALERTED)
+	set_ailist(0x25, FUNC_GUARD_UNALERTED)
+	set_ailist(0x06, FUNC_GUARD_UNALERTED)
+	set_ailist(0x08, FUNC_GUARD_UNALERTED)
+	set_ailist(0x0a, FUNC_GUARD_UNALERTED)
+	set_ailist(0x0c, FUNC_GUARD_UNALERTED)
+	set_ailist(0x0e, FUNC_GUARD_UNALERTED)
+	set_ailist(0x10, FUNC_GUARD_UNALERTED)
+	set_ailist(0x12, FUNC_GUARD_UNALERTED)
+	set_ailist(0x14, FUNC_GUARD_UNALERTED)
+	set_ailist(0x16, FUNC_GUARD_UNALERTED)
+	set_ailist(0x18, FUNC_GUARD_UNALERTED)
+	set_ailist(0x1a, FUNC_GUARD_UNALERTED)
+	set_ailist(0x1c, FUNC_GUARD_UNALERTED)
+	set_ailist(0x1e, FUNC_GUARD_UNALERTED)
+	set_ailist(0x20, FUNC_GUARD_UNALERTED)
+	set_ailist(0x22, FUNC_GUARD_UNALERTED)
 	yield
 	unset_chr_chrflag(0x57, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x58, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
@@ -1855,25 +1855,25 @@ u8 func1010_alarm_responders[] = {
 	unset_chr_chrflag(0x1e, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x20, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x22, CHRCFLAG_HIDDEN)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0402_init_pilot[] = {
 	set_chr_health(CHR_SELF, 1)
-	set_function(CHR_SELF, FUNC_PILOT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_PILOT)
+	endlist
 };
 
 u8 func0401_pilot_dying[] = {
 	unset_stage_flag(STAGEFLAG_SAID_PULLTHEPLUG)
 	unset_stage_flag(STAGEFLAG_SAID_SWITCHTHINGOFF)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0401_pilot[] = {
-	set_onshot_function(FUNC_PILOT)
+	set_shotlist(FUNC_PILOT)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x07)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x07)
@@ -1881,7 +1881,7 @@ u8 func0401_pilot[] = {
 
 	// Dying
 	label(0x07)
-	set_function(CHR_SELF, FUNC_PILOT_DYING)
+	set_ailist(CHR_SELF, FUNC_PILOT_DYING)
 
 	// Alive - wait for player to arrive
 	beginloop(0x00)
@@ -1982,7 +1982,7 @@ u8 func0401_pilot[] = {
 
 	// Push button
 	label(0x07)
-	animation(ANIM_PUSH_BUTTON, 0, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_PUSH_BUTTON, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x0e)
@@ -2021,8 +2021,8 @@ u8 func0401_pilot[] = {
 	surrender
 	goto_first(0x0b)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1011_check_pilots_dead[] = {
@@ -2052,13 +2052,13 @@ u8 func1011_check_pilots_dead[] = {
 	label(0x08)
 	if_stage_flag_eq(STAGEFLAG_AUTOPILOT_DISABLED, FALSE, /*goto*/ 0x07)
 	if_stage_flag_eq(STAGEFLAG_GPS_DISABLED, FALSE, /*goto*/ 0x07)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x07)
 	message(CHR_BOND, 0x161b) // "Critical mission personnel have been killed."
 	set_stage_flag(STAGEFLAG_PILOT_DEAD)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -2087,24 +2087,24 @@ u8 func1012_choose_angry_pilot[] = {
 		if_chr_death_animation_finished(CHR_PILOT1, /*goto*/ 0x3b)
 		if_chr_unloaded(CHR_PILOT1, /*goto*/ 0x3b)
 		if_chr_has_flag_bankx(CHR_PILOT1, CHRFLAG0_08000000, BANK_0, /*goto*/ 0x3b)
-		set_function(CHR_PILOT1, FUNC_ANGRY_PILOT)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_PILOT1, FUNC_ANGRY_PILOT)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x3b)
 		if_chr_dying(CHR_PILOT2, /*goto*/ 0x3c)
 		if_chr_death_animation_finished(CHR_PILOT2, /*goto*/ 0x3c)
 		if_chr_unloaded(CHR_PILOT2, /*goto*/ 0x3c)
 		if_chr_has_flag_bankx(CHR_PILOT2, CHRFLAG0_08000000, BANK_0, /*goto*/ 0x3c)
-		set_function(CHR_PILOT2, FUNC_ANGRY_PILOT)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_PILOT2, FUNC_ANGRY_PILOT)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x3c)
 		if_chr_dying(CHR_PILOT3, /*goto*/ 0x04)
 		if_chr_death_animation_finished(CHR_PILOT3, /*goto*/ 0x04)
 		if_chr_unloaded(CHR_PILOT3, /*goto*/ 0x04)
 		if_chr_has_flag_bankx(CHR_PILOT3, CHRFLAG0_08000000, BANK_0, /*goto*/ 0x04)
-		set_function(CHR_PILOT3, FUNC_ANGRY_PILOT)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_PILOT3, FUNC_ANGRY_PILOT)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x04)
 	endloop(0x03)
@@ -2113,8 +2113,8 @@ u8 func1012_choose_angry_pilot[] = {
 	label(0x08)
 	message(CHR_BOND, 0x1623) // "Civilians have been killed."
 	set_stage_flag(STAGEFLAG_JO_KILLED_A_PILOT)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0404_angry_pilot[] = {
@@ -2126,7 +2126,7 @@ u8 func0404_angry_pilot[] = {
 	rebuild_squadrons
 	unset_self_flag_bankx(CHRFLAG0_00100000, BANK_0)
 	set_self_chrflag(CHRCFLAG_00000040)
-	set_onshot_function(FUNC_ANGRY_PILOT)
+	set_shotlist(FUNC_ANGRY_PILOT)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x07)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x07)
@@ -2134,14 +2134,14 @@ u8 func0404_angry_pilot[] = {
 
 	// Dying
 	label(0x07)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x04)
 	set_self_flag_bankx(CHRFLAG0_00000004, BANK_0)
 	speak(CHR_TARGET, 0x162f, 0x14dd, CHANNEL_7, COLOR_04_ORANGE) // "Die, you traitors."
-	animation(ANIM_DRAW_PISTOL_0245, -1, 120, 0x06, 0x00, CHR_SELF, 3)
+	chr_do_animation(ANIM_DRAW_PISTOL_0245, -1, 120, 0x06, 0x00, CHR_SELF, 3)
 	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x6c)
 
 	beginloop(0x6c)
@@ -2196,8 +2196,8 @@ u8 func0404_angry_pilot[] = {
 	if_chr_lost_track_of_target_maybe(/*goto*/ 0x07)
 	goto_next(0x04)
 	label(0x07)
-	set_onshot_function(GFUNC_ALERTED)
-	set_function(CHR_SELF, GFUNC_ALERTED)
+	set_shotlist(GFUNC_ALERTED)
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
 
 	label(0x04)
 	restart_timer
@@ -2223,7 +2223,7 @@ u8 func0404_angry_pilot[] = {
 	label(0x07)
 	goto_first(0x03)
 
-	endfunction
+	endlist
 };
 
 u8 func1013_lift_switch[] = {
@@ -2239,8 +2239,8 @@ u8 func1013_lift_switch[] = {
 	open_door(0x18)
 	open_door(0x19)
 	set_stage_flag(STAGEFLAG_LIFT_UNLOCKED)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1014_moonpool_switch[] = {
@@ -2252,7 +2252,7 @@ u8 func1014_moonpool_switch[] = {
 		set_stage_flag(STAGEFLAG_MOONPOOL_SWITCH_DESTROYED)
 
 		label(0x10)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 
 		label(0x08)
 		if_chr_activated_object(CHR_P1P2, OBJ_MOONPOOL_SWITCH, /*goto*/ 0x07)
@@ -2262,8 +2262,8 @@ u8 func1014_moonpool_switch[] = {
 	label(0x07)
 	message(CHR_P1P2, 0x161d) // "Lift has been activated."
 	set_stage_flag(STAGEFLAG_MOONPOOL_ACTIVATED)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0413_guard_alerted[] = {
@@ -2275,8 +2275,8 @@ u8 func0413_guard_alerted[] = {
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 u8 func1015_shuffle_hatchswitches[] = {
@@ -2300,8 +2300,8 @@ u8 func1015_shuffle_hatchswitches[] = {
 	yield
 	set_object_image(OBJ_HATCHSWITCH4, 0x00, 0x13)
 	yield
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 #define hatchswitch_logic(switch, flag) \
@@ -2340,22 +2340,22 @@ u8 func1015_shuffle_hatchswitches[] = {
 
 u8 func1016_hatchswitch1[] = {
 	hatchswitch_logic(OBJ_HATCHSWITCH1, STAGEFLAG_HATCHSWITCH1_ACTIVATED)
-	endfunction
+	endlist
 };
 
 u8 func1017_hatchswitch2[] = {
 	hatchswitch_logic(OBJ_HATCHSWITCH2, STAGEFLAG_HATCHSWITCH2_ACTIVATED)
-	endfunction
+	endlist
 };
 
 u8 func1018_hatchswitch3[] = {
 	hatchswitch_logic(OBJ_HATCHSWITCH3, STAGEFLAG_HATCHSWITCH3_ACTIVATED)
-	endfunction
+	endlist
 };
 
 u8 func1019_hatchswitch4[] = {
 	hatchswitch_logic(OBJ_HATCHSWITCH4, STAGEFLAG_HATCHSWITCH4_ACTIVATED)
-	endfunction
+	endlist
 };
 
 u8 func101a_badhatchswitches[] = {
@@ -2427,19 +2427,19 @@ u8 func101a_badhatchswitches[] = {
 	set_object_image(OBJ_BADHATCHSWITCH4, 0x00, 0x12)
 	goto_first(0x00)
 
-	endfunction
+	endlist
 };
 
 u8 func101b_reactor_hum[] = {
 	yield
 	assign_sound(0x8146, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, OBJ_REACTOR_SWITCH, 0x07d0, 0x0bb8)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0415_elvis_at_start[] = {
-	set_onshot_function(FUNC_ELVIS_AT_START)
+	set_shotlist(FUNC_ELVIS_AT_START)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x07)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x07)
@@ -2450,7 +2450,7 @@ u8 func0415_elvis_at_start[] = {
 	if_sound_finished(CHANNEL_6, /*goto*/ 0x08)
 	mute_channel(CHANNEL_6)
 	label(0x08)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x04)
@@ -2485,30 +2485,30 @@ u8 func0415_elvis_at_start[] = {
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x07)
 
-	// 50% chance of doing an idle animation
+	// 50% chance of doing an idle chr_do_animation
 	call_rng
 	if_rand_lt(64, /*goto*/ 0x44)
 	if_rand_lt(128, /*goto*/ 0x45)
 	if_rand_lt(196, /*goto*/ 0x46)
 
 	set_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
-	animation(ANIM_SMOKE_CIGARETTE, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_SMOKE_CIGARETTE, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x4c)
 
 	label(0x44)
-	animation(ANIM_SCRATCH_HEAD, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_SCRATCH_HEAD, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x4c)
 
 	label(0x45)
-	animation(ANIM_YAWN, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_YAWN, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x4c)
 
 	label(0x46)
-	animation(ANIM_GRAB_CROTCH, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_GRAB_CROTCH, 0, -1, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x4c)
 
 	label(0x47)
-	animation(ANIM_TWO_GUN_HOLD, 0, 100, 0x10, 0x0a, CHR_SELF, 2)
+	chr_do_animation(ANIM_TWO_GUN_HOLD, 0, 100, 0x10, 0x0a, CHR_SELF, 2)
 	goto_next(0x4c)
 
 	// 50% chance
@@ -2575,15 +2575,15 @@ u8 func0415_elvis_at_start[] = {
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_armor(2000)
 	set_chr_health(CHR_SELF, 1)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
  * Elvis leading the way from the moon pool to the diving area.
  */
 u8 func0416_elvis_leading[] = {
-	set_onshot_function(FUNC_ELVIS_LEADING)
+	set_shotlist(FUNC_ELVIS_LEADING)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x07)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x07)
@@ -2591,8 +2591,8 @@ u8 func0416_elvis_leading[] = {
 
 	// Dying
 	label(0x07)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Alive
 	label(0x04)
@@ -2654,10 +2654,10 @@ u8 func0416_elvis_leading[] = {
 	say_quip(CHR_BOND, 0x28, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 
 	label(0x07)
-	set_onshot_function(FUNC_ELVIS_LEADING)
-	set_return_function(CHR_SELF, FUNC_ELVIS_LEADING)
-	set_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
-	endfunction
+	set_shotlist(FUNC_ELVIS_LEADING)
+	set_returnlist(CHR_SELF, FUNC_ELVIS_LEADING)
+	set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+	endlist
 };
 
 u8 func101c_check_elvis_dead[] = {
@@ -2670,8 +2670,8 @@ u8 func101c_check_elvis_dead[] = {
 	label(0x07)
 	message(CHR_BOND, 0x1621) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0418_elvis_at_moonpool[] = {
@@ -2679,7 +2679,7 @@ u8 func0418_elvis_at_moonpool[] = {
 	// he'll jump straight to leading the way without enabling AIVSAI on
 	// everyone. This may allow him to run past guards without engaging in
 	// combat.
-	set_onshot_function(FUNC_ELVIS_LEADING)
+	set_shotlist(FUNC_ELVIS_LEADING)
 
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2700,8 +2700,8 @@ u8 func0418_elvis_at_moonpool[] = {
 	endloop(0x0b)
 
 	label(0x07)
-	set_function(CHR_SELF, FUNC_ELVIS_PREPARE_LEADING)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ELVIS_PREPARE_LEADING)
+	endlist
 };
 
 u8 func0417_elvis_prepare_leading[] = {
@@ -2795,8 +2795,8 @@ u8 func0417_elvis_prepare_leading[] = {
 	set_chr_flag_bankx(0x5c, CHRFLAG0_AIVSAI, BANK_0)
 	set_chr_flag_bankx(0x5d, CHRFLAG0_AIVSAI, BANK_0)
 	set_chr_flag_bankx(0x5e, CHRFLAG0_AIVSAI, BANK_0)
-	set_function(CHR_SELF, FUNC_ELVIS_LEADING)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ELVIS_LEADING)
+	endlist
 };
 
 u8 func101d_alarm_switches[] = {
@@ -2833,8 +2833,8 @@ u8 func101d_alarm_switches[] = {
 	// @bug: This function is surely not meant to be assigned here. But it has
 	// no consequences because the function will bail because CHR_SELF doesn't
 	// exist.
-	set_function(CHR_SELF, FUNC_ELVIS_LEADING)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ELVIS_LEADING)
+	endlist
 };
 
 u8 func101e_alarm_images[] = {
@@ -2868,7 +2868,7 @@ u8 func101e_alarm_images[] = {
 	set_object_image(0x25, 0x00, 0x14)
 	goto_first(0x00)
 
-	endfunction
+	endlist
 };
 
 u8 func101f_unlock_doors[] = {
@@ -2887,16 +2887,16 @@ u8 func101f_unlock_doors[] = {
 
 	// A + SA + PA
 	label(0x0b)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1020_setup_rtracker[] = {
 	yield
 	set_object_flag_bank2(0x27, OBJECTFLAG2_RTRACKED_BLUE)
 	set_object_flag_bank2(0x28, OBJECTFLAG2_RTRACKED_BLUE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1421_setup_lighting[] = {
@@ -2931,8 +2931,8 @@ u8 func1421_setup_lighting[] = {
 	misc_command(0x0072, 0x06, 0x01)
 	misc_command(0x0073, 0x05, 0x01)
 	misc_command(0x0077, 0x05, 0x01)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 struct ailist ailists[] = {

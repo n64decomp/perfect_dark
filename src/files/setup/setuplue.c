@@ -843,8 +843,8 @@ struct path paths[] = {
 u8 func0426_8420[] = {
 	try_inherit_properties(0x04, /*goto*/ 0x2e)
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_UNALERTED_0004)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED_0004)
+	endlist
 };
 
 #define init_path(pathid) \
@@ -857,52 +857,52 @@ u8 func0426_8420[] = {
 	set_shield(0) \
 	assign_path(pathid) \
 	start_path \
-	set_function(CHR_SELF, GFUNC_UNALERTED_0004)
+	set_ailist(CHR_SELF, GFUNC_UNALERTED_0004)
 
 
 
 u8 func0401_start_path00[] = {
 	init_path(0)
-	endfunction
+	endlist
 };
 
 u8 func0402_start_path01[] = {
 	init_path(1)
-	endfunction
+	endlist
 };
 
 u8 func0403_start_path02[] = {
 	init_path(2)
-	endfunction
+	endlist
 };
 
 u8 func0404_start_path03[] = {
 	init_path(3)
-	endfunction
+	endlist
 };
 
 u8 func0405_start_path04[] = {
 	init_path(4)
-	endfunction
+	endlist
 };
 
 u8 func0406_start_path05[] = {
 	init_path(5)
-	endfunction
+	endlist
 };
 
 u8 func0407_start_path06[] = {
 	assign_path(6)
 	start_path
-	set_function(CHR_SELF, GFUNC_UNALERTED_0004)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED_0004)
+	endlist
 };
 
 u8 func0408_start_path07[] = {
 	assign_path(7)
 	start_path
-	set_function(CHR_SELF, GFUNC_UNALERTED_0004)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED_0004)
+	endlist
 };
 
 u8 func0409_set_rotor_speed[] = {
@@ -910,7 +910,7 @@ u8 func0409_set_rotor_speed[] = {
 	beginloop(0x04)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func040b_stop_vehicle[] = {
@@ -919,13 +919,13 @@ u8 func040b_stop_vehicle[] = {
 	beginloop(0x04)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func0c00_init_intro[] = {
-	set_return_function(CHR_SELF, GFUNC_END_CINEMA)
-	set_function(CHR_SELF, FUNC_INTRO)
-	endfunction
+	set_returnlist(CHR_SELF, GFUNC_END_CINEMA)
+	set_ailist(CHR_SELF, FUNC_INTRO)
+	endlist
 };
 
 u8 func140e_check_interceptors_destroyed[] = {
@@ -955,11 +955,11 @@ u8 func140e_check_interceptors_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR3_DESTROYED, FALSE, /*goto*/ 0x2e)
 		message(CHR_BOND, 0x2c14) // "All robot interceptors disabled."
 
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 		label(0x2e)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func100c_maingate_switch[] = {
@@ -1007,7 +1007,7 @@ u8 func100c_maingate_switch[] = {
 		label(0x06)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1400_give_bugs[] = {
@@ -1022,10 +1022,10 @@ u8 func1400_give_bugs[] = {
 	give_object_to_chr(OBJ_BUG1_COOP, CHR_COOP)
 	label(0x2e)
 	give_object_to_chr(OBJ_BUG2_COOP, CHR_COOP)
-	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
+	set_ailist(CHR_SELF, GFUNC_REBUILD_GROUPS)
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_REBUILD_GROUPS)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_REBUILD_GROUPS)
+	endlist
 };
 
 #define check_bug_wasted(chr) \
@@ -1049,17 +1049,17 @@ u8 func1400_give_bugs[] = {
 	label(0x0a) \
 	set_stage_flag(STAGEFLAG_COMMSBUG_PLACED) \
 	message(chr, 0x2c1a) /* "Communications bug placed correctly." */ \
-	set_function(CHR_SELF, GFUNC_IDLE) \
+	set_ailist(CHR_SELF, GFUNC_IDLE) \
  \
 	label(0x0b) \
 	if_stage_flag_eq(STAGEFLAG_ONE_BUG_WASTED, TRUE, /*goto*/ 0x2e) \
 	set_stage_flag(STAGEFLAG_ONE_BUG_WASTED) \
-	set_function(CHR_SELF, GFUNC_IDLE) \
+	set_ailist(CHR_SELF, GFUNC_IDLE) \
  \
 	label(0x2e) \
 	set_stage_flag(STAGEFLAG_COMMSBUG_MISPLACED) \
 	message(chr, 0x2c1b) /* "Communications bug placed incorrectly." */ \
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 
 
@@ -1068,13 +1068,13 @@ u8 func1400_give_bugs[] = {
  */
 u8 func0422_check_bug_wasted_target[] = {
 	check_bug_wasted(CHR_TARGET)
-	endfunction
+	endlist
 };
 
 u8 func1003_check_bug_wasted_bond[] = {
 	set_target_chr(CHR_BOND)
 	check_bug_wasted(CHR_BOND)
-	endfunction
+	endlist
 };
 
 u8 func1023_check_bug_wasted_coop[] = {
@@ -1084,11 +1084,11 @@ u8 func1023_check_bug_wasted_coop[] = {
 
 	label(0x2e)
 	set_stage_flag(STAGEFLAG_ONE_BUG_WASTED)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
 	check_bug_wasted(CHR_COOP)
-	endfunction
+	endlist
 };
 
 u8 func1004_check_antenna_destroyed[] = {
@@ -1096,11 +1096,11 @@ u8 func1004_check_antenna_destroyed[] = {
 		if_object_in_good_condition(OBJ_ANTENNA, /*goto*/ 0x2e)
 		message(CHR_BOND, 0x2c1c) // "Antenna has been destroyed."
 		set_stage_flag(STAGEFLAG_ANTENNA_DESTROYED)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 		label(0x2e)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1405_antenna_switch[] = {
@@ -1158,7 +1158,7 @@ u8 func1405_antenna_switch[] = {
 		set_object_flag_bank0(OBJ_ANTENNA, OBJECTFLAG0_DEACTIVATED)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1006_lift_switches[] = {
@@ -1224,7 +1224,7 @@ u8 func1006_lift_switches[] = {
 		label(0x06)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1007_check_hangar_accessed[] = {
@@ -1237,8 +1237,8 @@ u8 func1007_check_hangar_accessed[] = {
 	label(0x06)
 	set_stage_flag(STAGEFLAG_HANGAR_ACCESSED)
 	message(CHR_P1P2, 0x2c27) // "Hangar has been accessed."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1008_check_end_level[] = {
@@ -1270,13 +1270,13 @@ u8 func1008_check_end_level[] = {
 
 	label(0x2e)
 	end_level
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
 	set_invincible(CHR_BOND)
-	set_function(CHR_SELF, FUNC_OUTRO)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_OUTRO)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1009_check_radar_shut_down[] = {
@@ -1290,8 +1290,8 @@ u8 func1009_check_radar_shut_down[] = {
 	message(CHR_BOND, 0x2c29) // "Air intercept radar shut down."
 	mute_channel(CHANNEL_0)
 	set_stage_flag(STAGEFLAG_RADAR_SHUT_DOWN)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100b_final_hangar[] = {
@@ -1324,28 +1324,28 @@ u8 func100b_final_hangar[] = {
 	restart_timer
 	unlock_door(0x11, 0x08)
 	unlock_door(0x12, 0x08)
-	try_spawn_chr(BODY_A51AIRMAN, HEAD_RANDOM, 0x01c6, 0x0411, 0x00000210, /*goto*/ 0x09)
+	try_spawn_chr_at_pad(BODY_A51AIRMAN, HEAD_RANDOM, 0x01c6, 0x0411, 0x00000210, /*goto*/ 0x09)
 
 	beginloop(0x09)
 		if_timer_gt(30, /*goto*/ 0x06)
 	endloop(0x09)
 
 	label(0x06)
-	try_spawn_chr(BODY_A51AIRMAN, HEAD_RANDOM, 0x01c6, 0x0412, 0x00000210, /*goto*/ 0x0a)
+	try_spawn_chr_at_pad(BODY_A51AIRMAN, HEAD_RANDOM, 0x01c6, 0x0412, 0x00000210, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x0a)
 
 	label(0x06)
-	try_spawn_chr(BODY_A51AIRMAN, HEAD_RANDOM, 0x01c6, 0x0413, 0x00000210, /*goto*/ 0x0b)
+	try_spawn_chr_at_pad(BODY_A51AIRMAN, HEAD_RANDOM, 0x01c6, 0x0413, 0x00000210, /*goto*/ 0x0b)
 
 	beginloop(0x0b)
 		if_timer_gt(90, /*goto*/ 0x06)
 	endloop(0x0b)
 
 	label(0x06)
-	try_spawn_chr(BODY_A51AIRMAN, HEAD_RANDOM, 0x01c6, 0x0414, 0x00000210, /*goto*/ 0x0c)
+	try_spawn_chr_at_pad(BODY_A51AIRMAN, HEAD_RANDOM, 0x01c6, 0x0414, 0x00000210, /*goto*/ 0x0c)
 
 	// @bug: This timer check will pass immediately.
 	// It was probably intended to be 120.
@@ -1357,13 +1357,13 @@ u8 func100b_final_hangar[] = {
 
 	// This guard will shoot the spawned guards above, but this guard is NOT Jon
 	beginloop(0x60)
-		try_spawn_chr(BODY_A51AIRMAN, HEAD_RANDOM, 0x01c6, FUNC_TRAITOR, 0x00000210, /*goto*/ 0x0d)
+		try_spawn_chr_at_pad(BODY_A51AIRMAN, HEAD_RANDOM, 0x01c6, FUNC_TRAITOR, 0x00000210, /*goto*/ 0x0d)
 	endloop(0x60)
 
 	label(0x0d)
 	yield
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0411_init_hangar_guard1[] = {
@@ -1384,8 +1384,8 @@ u8 func0411_init_hangar_guard1[] = {
 	label(0x06)
 	jog_to_pad(0x0420)
 	yield
-	set_function(CHR_SELF, FUNC_ALERT_WHEN_STOPPED)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ALERT_WHEN_STOPPED)
+	endlist
 };
 
 u8 func0412_init_hangar_guard2[] = {
@@ -1406,8 +1406,8 @@ u8 func0412_init_hangar_guard2[] = {
 	label(0x06)
 	jog_to_pad(0x041f)
 	yield
-	set_function(CHR_SELF, FUNC_ALERT_WHEN_STOPPED)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ALERT_WHEN_STOPPED)
+	endlist
 };
 
 u8 func0413_init_hangar_guard3[] = {
@@ -1428,8 +1428,8 @@ u8 func0413_init_hangar_guard3[] = {
 	label(0x06)
 	jog_to_pad(0x041e)
 	yield
-	set_function(CHR_SELF, FUNC_ALERT_WHEN_STOPPED)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ALERT_WHEN_STOPPED)
+	endlist
 };
 
 u8 func0414_init_hangar_guard4[] = {
@@ -1451,8 +1451,8 @@ u8 func0414_init_hangar_guard4[] = {
 	jog_to_pad(0x041d)
 	yield
 	set_target_chr(CHR_BOND)
-	set_function(CHR_SELF, FUNC_ALERT_WHEN_STOPPED)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ALERT_WHEN_STOPPED)
+	endlist
 };
 
 u8 func0415_alert_when_stopped[] = {
@@ -1464,8 +1464,8 @@ u8 func0415_alert_when_stopped[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 /**
@@ -1558,20 +1558,20 @@ u8 func0417_traitor[] = {
 	endloop(0x60)
 
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0416_mechanic[] = {
-	set_onshot_function(FUNC_MECHANIC)
+	set_shotlist(FUNC_MECHANIC)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
 	goto_next(0x06)
 
 	label(0x2e)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
 	if_just_injured(CHR_SELF, /*goto*/ 0x2e)
@@ -1590,7 +1590,7 @@ u8 func0416_mechanic[] = {
 	// Not alert - at interceptor
 	label(0x04)
 		call_rng
-		animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 		beginloop(0x09)
 			chr_toggle_p1p2(CHR_SELF)
@@ -1613,7 +1613,7 @@ u8 func0416_mechanic[] = {
 
 	// In bunker
 	label(0x0e)
-		animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
+		chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 		beginloop(0x0d)
 			chr_toggle_p1p2(CHR_SELF)
@@ -1642,9 +1642,9 @@ u8 func0416_mechanic[] = {
 	rebuild_squadrons
 	play_sound(0x80f7, CHANNEL_7)
 	label(0x06)
-	set_return_function(CHR_SELF, GFUNC_ALERTED)
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_returnlist(CHR_SELF, GFUNC_ALERTED)
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 u8 func1001_objectives_failed_msg[] = {
@@ -1657,8 +1657,8 @@ u8 func1001_objectives_failed_msg[] = {
 	set_object_flag_bank1(OBJ_MINE5, OBJECTFLAG1_INVISIBLE)
 	set_object_flag_bank1(OBJ_MINE6, OBJECTFLAG1_INVISIBLE)
 	set_chr_chrflag(CHR_MECHANIC, CHRCFLAG_04000000)
-	set_function(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
+	endlist
 };
 
 u8 func040a_top_interceptor[] = {
@@ -1668,7 +1668,7 @@ u8 func040a_top_interceptor[] = {
 
 	beginloop(0x03)
 		if_object_in_good_condition(OBJ_INTERCEPTOR3, /*goto*/ 0x2e)
-		set_function(CHR_SELF, GFUNC_IDLE)
+		set_ailist(CHR_SELF, GFUNC_IDLE)
 		label(0x2e)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_INTERCEPTOR, TRUE, /*goto*/ 0x06)
 	endloop(0x03)
@@ -1723,7 +1723,7 @@ u8 func040a_top_interceptor[] = {
 	label(0x5c)
 	goto_first(0x5b)
 
-	endfunction
+	endlist
 };
 
 u8 func040c_init_bottom_interceptors[] = {
@@ -1734,14 +1734,14 @@ u8 func040c_init_bottom_interceptors[] = {
 	beginloop(0x04)
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func040d_90c8[] = {
 	set_self_chrflag(CHRCFLAG_00000020)
 	set_accuracy(30)
-	set_function(CHR_SELF, GFUNC_UNALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_UNALERTED)
+	endlist
 };
 
 u8 func040e_outro[] = {
@@ -1751,25 +1751,25 @@ u8 func040e_outro[] = {
 	set_music_track(MUSIC_INFILTRATION_OUTRO)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
-	set_function(CHR_P1P2, GFUNC_IDLE)
+	set_ailist(CHR_P1P2, GFUNC_IDLE)
 	set_chr_chrflag(CHR_JONATHAN, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_chr_chrflag(CHR_OUTRO_GUARD, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
-	animation(0x017f, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
+	chr_do_animation(0x017f, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 	set_chr_hud_visible(CHR_P1P2, TRUE)
 
 	set_chr_chrflag(CHR_JONATHAN, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_JONATHAN, CHRHFLAG_00020000)
-	animation(0x017e, -1, -1, 0x06, 0x00, CHR_JONATHAN, 4)
+	chr_do_animation(0x017e, -1, -1, 0x06, 0x00, CHR_JONATHAN, 4)
 
 	set_chr_chrflag(CHR_OUTRO_GUARD, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_OUTRO_GUARD, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_OUTRO_GUARD, CHRHFLAG_00020000)
-	animation(0x0180, -1, -1, 0x06, 0x00, CHR_OUTRO_GUARD, 4)
+	chr_do_animation(0x0180, -1, -1, 0x06, 0x00, CHR_OUTRO_GUARD, 4)
 
 	restart_timer
 	show_nonessential_chrs(FALSE)
@@ -1884,8 +1884,8 @@ u8 func040e_outro[] = {
 	remove_chr(CHR_OUTRO_GUARD)
 	set_chr_hud_visible(CHR_P1P2, FALSE)
 	end_level
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0410_intro[] = {
@@ -1899,7 +1899,7 @@ u8 func0410_intro[] = {
 	set_chr_chrflag(0x32, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x32, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x32, CHRHFLAG_00020000)
-	animation(0x0182, -1, -1, 0x06, 0x00, 0x32, 4)
+	chr_do_animation(0x0182, -1, -1, 0x06, 0x00, 0x32, 4)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -1943,17 +1943,17 @@ u8 func0410_intro[] = {
 	set_chr_chrflag(0x29, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x29, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x29, CHRHFLAG_00020000)
-	animation(0x0184, -1, -1, 0x06, 0x00, 0x29, 4)
+	chr_do_animation(0x0184, -1, -1, 0x06, 0x00, 0x29, 4)
 
 	set_chr_chrflag(0x2a, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2a, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x2a, CHRHFLAG_00020000)
-	animation(0x0185, -1, -1, 0x06, 0x00, 0x2a, 4)
+	chr_do_animation(0x0185, -1, -1, 0x06, 0x00, 0x2a, 4)
 
 	set_chr_chrflag(0x2b, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2b, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x2b, CHRHFLAG_00020000)
-	animation(0x0186, -1, -1, 0x06, 0x00, 0x2b, 4)
+	chr_do_animation(0x0186, -1, -1, 0x06, 0x00, 0x2b, 4)
 
 	set_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x2f, OBJECTFLAG2_00000010)
@@ -1989,12 +1989,12 @@ u8 func0410_intro[] = {
 	set_chr_chrflag(0x2a, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2a, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x2a, CHRHFLAG_00020000)
-	animation(0x0189, -1, -1, 0x06, 0x00, 0x2a, 4)
+	chr_do_animation(0x0189, -1, -1, 0x06, 0x00, 0x2a, 4)
 
 	set_chr_chrflag(0x2b, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2b, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x2b, CHRHFLAG_00020000)
-	animation(0x018a, -1, -1, 0x06, 0x00, 0x2b, 4)
+	chr_do_animation(0x018a, -1, -1, 0x06, 0x00, 0x2b, 4)
 
 	set_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
 	set_object_flag_bank2(0x2f, OBJECTFLAG2_00000010)
@@ -2027,7 +2027,7 @@ u8 func0410_intro[] = {
 	if_controller_button_pressed(/*goto*/ 0x54)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(0x00f1, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x00f1, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_chr_chrflag(0x03, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(0x03, CHRHFLAG_00020000)
 	unset_chr_chrflag(0x03, CHRCFLAG_HIDDEN)
@@ -2095,10 +2095,10 @@ u8 func0410_intro[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(0x00f1, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x00f1, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_chr_chrflag(0x03, CHRCFLAG_UNPLAYABLE)
-	set_function(0x02, 0x0426)
-	set_function(0x03, 0x0426)
+	set_ailist(0x02, 0x0426)
+	set_ailist(0x03, 0x0426)
 	unset_object_flag_bank1(OBJ_INTERCEPTOR1, OBJECTFLAG1_INVISIBLE)
 	unset_object_flag_bank1(OBJ_INTERCEPTOR2, OBJECTFLAG1_INVISIBLE)
 	unset_object_flag_bank1(OBJ_INTERCEPTOR3, OBJECTFLAG1_INVISIBLE)
@@ -2106,8 +2106,8 @@ u8 func0410_intro[] = {
 	reset_ambience
 	enter_firstperson
 	set_stage_flag(STAGEFLAG_INTRO_FINISHED)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -2121,7 +2121,7 @@ u8 func0418_walk_to_pad[] = {
 	beginloop(0x09)
 	endloop(0x09)
 
-	endfunction
+	endlist
 };
 
 u8 func1010_bunker_lighting[] = {
@@ -2155,13 +2155,13 @@ u8 func1010_bunker_lighting[] = {
 
 	label(0x2e)
 	label(0x0e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1012_bunker_laser1[] = {
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// SA and PA only
 	label(0x2e)
@@ -2194,13 +2194,13 @@ u8 func1012_bunker_laser1[] = {
 	goto_first(0x0a)
 
 	label(0x10)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1013_bunker_lasers234[] = {
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2e)
 	restart_timer
@@ -2236,13 +2236,13 @@ u8 func1013_bunker_lasers234[] = {
 	goto_first(0x0a)
 
 	label(0x10)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1013_bunker_lasers56[] = {
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2e)
 	restart_timer
@@ -2296,8 +2296,8 @@ u8 func1013_bunker_lasers56[] = {
 	goto_first(0x0a)
 
 	label(0x10)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1013_bunker_lasers[] = {
@@ -2311,7 +2311,7 @@ u8 func1013_bunker_lasers[] = {
 	hide_object(0x22)
 	hide_object(0x23)
 	hide_object(0x24)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// SA and PA
 	label(0x03)
@@ -2358,8 +2358,8 @@ u8 func1013_bunker_lasers[] = {
 	open_door(0x22)
 	open_door(0x23)
 	open_door(0x24)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1011_bunker_explosives[] = {
@@ -2501,8 +2501,8 @@ u8 func1011_bunker_explosives[] = {
 	endloop(0x10)
 
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1016_trigger_interceptor[] = {
@@ -2532,16 +2532,16 @@ u8 func1016_trigger_interceptor[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TRIGGER_INTERCEPTOR)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1017_radar_terminal_noise[] = {
 	yield
 	assign_sound(0x8146, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_RADAR_TERMINAL, 0x0320, 0x044c)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1018_unhide_guards[] = {
@@ -2590,10 +2590,10 @@ u8 func1018_unhide_guards[] = {
 	unset_chr_chrflag(0x20, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x21, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x22, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(0x1f, FUNC_TROOPER_ALERTED)
-	set_function(0x20, FUNC_TROOPER_ALERTED)
-	set_function(0x21, FUNC_TROOPER_ALERTED)
-	set_function(0x22, FUNC_TROOPER_ALERTED)
+	set_ailist(0x1f, FUNC_TROOPER_ALERTED)
+	set_ailist(0x20, FUNC_TROOPER_ALERTED)
+	set_ailist(0x21, FUNC_TROOPER_ALERTED)
+	set_ailist(0x22, FUNC_TROOPER_ALERTED)
 
 	// Wait until player in room 0x0044 (first hangar ramp)
 	beginloop(0x09)
@@ -2607,10 +2607,10 @@ u8 func1018_unhide_guards[] = {
 	unset_chr_chrflag(0x24, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x23, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(0x24, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(0x23, FUNC_DRAGON_ALERTED)
-	set_function(0x24, FUNC_DRAGON_ALERTED)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(0x23, FUNC_DRAGON_ALERTED)
+	set_ailist(0x24, FUNC_DRAGON_ALERTED)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0419_clone_spawner[] = {
@@ -2637,7 +2637,7 @@ u8 func0419_clone_spawner[] = {
 		reloop(0x04)
 
 		label(0x09)
-		set_function(CHR_SELF, FUNC_ALERTED_SPAWNED_GUARD)
+		set_ailist(CHR_SELF, FUNC_ALERTED_SPAWNED_GUARD)
 
 		label(0x4f)
 		unset_self_chrflag(CHRCFLAG_HIDDEN)
@@ -2647,13 +2647,13 @@ u8 func0419_clone_spawner[] = {
 
 		label(0x4f)
 		try_spawn_clone2(CHR_SELF, FUNC_INIT_ALERTED_SPAWNED_GUARD, 0x00000000, /*goto*/ 0x2e)
-		set_function(CHR_SELF, FUNC_ALERTED_SPAWNED_GUARD)
+		set_ailist(CHR_SELF, FUNC_ALERTED_SPAWNED_GUARD)
 
 		label(0x2e)
 		yield
 	endloop(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func041a_init_alerted_spawned_guard[] = {
@@ -2663,13 +2663,13 @@ u8 func041a_init_alerted_spawned_guard[] = {
 	rebuild_squadrons
 	try_inherit_properties(0x25, /*goto*/ 0x06)
 	label(0x06)
-	set_function(CHR_SELF, FUNC_ALERTED_SPAWNED_GUARD)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_ALERTED_SPAWNED_GUARD)
+	endlist
 };
 
 u8 func041b_alerted_spawned_guard[] = {
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 u8 func1019_spawn_guards_at_antenna[] = {
@@ -2702,7 +2702,7 @@ u8 func1019_spawn_guards_at_antenna[] = {
 	beginloop(0x56)
 		dprint 'T','R','Y',' ','C','R','E','A','T','E','\n',0,
 		if_morale_lt(1, /*goto*/ 0x06)
-		try_spawn_chr(BODY_A51TROOPER, HEAD_RANDOM, 0x00a0, FUNC_SPAWNED_GUARD, 0x00000200, /*goto*/ 0x57)
+		try_spawn_chr_at_pad(BODY_A51TROOPER, HEAD_RANDOM, 0x00a0, FUNC_SPAWNED_GUARD, 0x00000200, /*goto*/ 0x57)
 		reloop(0x56)
 
 		label(0x57)
@@ -2726,11 +2726,11 @@ u8 func1019_spawn_guards_at_antenna[] = {
 	yield
 	unset_chr_chrflag(0x35, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x35, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_function(0x35, GFUNC_SEARCH_FOR_PLAYER)
+	set_ailist(0x35, GFUNC_SEARCH_FOR_PLAYER)
 	rebuild_teams
 	rebuild_squadrons
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func040f_spawned_guard[] = {
@@ -2757,8 +2757,8 @@ u8 func040f_spawned_guard[] = {
 	endloop(0x09)
 
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_SEARCH_FOR_PLAYER)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_SEARCH_FOR_PLAYER)
+	endlist
 };
 
 #define init_guard(accuracy, reaction, armor, recovery, function) \
@@ -2768,38 +2768,38 @@ u8 func040f_spawned_guard[] = {
 	set_armor(armor) \
 	set_recovery_speed(recovery) \
 	set_shield(0) \
-	set_function(CHR_SELF, function)
+	set_ailist(CHR_SELF, function)
 
 
 
 u8 func041d_trooper_unalerted[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	init_guard(6, 50, 0, 0, GFUNC_UNALERTED)
-	endfunction
+	endlist
 };
 
 u8 func041f_trooper_alerted[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	init_guard(6, 50, 0, 0, GFUNC_ALERTED)
-	endfunction
+	endlist
 };
 
 u8 func041e_dragon_unalerted[] = {
 	init_guard(8, 30, 10, 35, GFUNC_UNALERTED)
-	endfunction
+	endlist
 };
 
 u8 func0420_dragon_alerted[] = {
 	init_guard(8, 30, 10, 35, GFUNC_ALERTED)
-	endfunction
+	endlist
 };
 
 u8 func141f_start_lifts[] = {
 	activate_lift(2, 0x31)
 	activate_lift(3, 0x32)
 	activate_lift(4, 0x33)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func101a_check_mechanic_dead[] = {
@@ -2813,8 +2813,8 @@ u8 func101a_check_mechanic_dead[] = {
 	label(0x2e)
 	set_eeprom_flag(EEPROMFLAG_RESCUE_MECHANIC_DEAD)
 	dprint 'D','E','L','E','T','E',' ','M','E','C','H','\n',0,
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -2829,8 +2829,8 @@ u8 func101b_msg_airinterceptradar[] = {
 
 	label(0x2e)
 	speak(CHR_P1P2, 0x2c35, 0x817d, CHANNEL_6, COLOR_09_BLUE) // "The air intercept radar is controlled from that bu..."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func101c_msg_cantthrow[] = {
@@ -2845,8 +2845,8 @@ u8 func101c_msg_cantthrow[] = {
 	label(0x2e)
 	speak(CHR_P1P2, 0x2c36, 0x73b9, CHANNEL_6, COLOR_09_BLUE) // "There's the antenna, but... I can't throw a bug th..."
 	label(0x0e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -2865,8 +2865,8 @@ u8 func101d_msg_hangarlift[] = {
 
 	label(0x2e)
 	speak(CHR_P1P2, 0x2c37, 0x817e, CHANNEL_6, COLOR_09_BLUE) // "The hangar lift is on the other side of that huge ..."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func101e_msg_triggerfinger[] = {
@@ -2877,12 +2877,12 @@ u8 func101e_msg_triggerfinger[] = {
 
 	label(0x2e)
 	speak(CHR_P1P2, 0x2c38, 0x817f, CHANNEL_6, COLOR_09_BLUE) // "Careful with that trigger finger, Agent Dark - you..."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0421_activate_autogun[] = {
-	set_onshot_function(GFUNC_ALERTED)
+	set_shotlist(GFUNC_ALERTED)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -2904,7 +2904,7 @@ u8 func0421_activate_autogun[] = {
 	endloop(0x09)
 
 	label(0x2e)
-	animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 120, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 120, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x0a)
 		if_chr_stopped(/*goto*/ 0x2e)
@@ -2917,20 +2917,20 @@ u8 func0421_activate_autogun[] = {
 	label(0x2e)
 	unset_object_flag_bank0(OBJ_AUTOGUN_AT_START, OBJECTFLAG0_DEACTIVATED)
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_ALERTED)
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
 
 	label(0x0e)
 	say_quip(CHR_BOND, 0x12, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	restart_timer
-	animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
 
 	beginloop(0x7c)
 		if_timer_gt(60, /*goto*/ 0x7d)
 	endloop(0x7c)
 
 	label(0x7d)
-	set_function(CHR_SELF, GFUNC_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_ALERTED)
+	endlist
 };
 
 /**
@@ -2941,13 +2941,13 @@ u8 func1020_choose_autogun_guard[] = {
 	yield
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x2e)
-	set_function(0x00, FUNC_ACTIVATE_AUTOGUN)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(0x00, FUNC_ACTIVATE_AUTOGUN)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2e)
-	set_function(0x01, FUNC_ACTIVATE_AUTOGUN)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(0x01, FUNC_ACTIVATE_AUTOGUN)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1021_damage_rl_guard[] = {
@@ -2959,8 +2959,8 @@ u8 func1021_damage_rl_guard[] = {
 	damage_chr(CHR_ROCKETLAUNCHER_GUARD, 18)
 	yield
 	damage_chr(CHR_ROCKETLAUNCHER_GUARD, 18)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1022_check_lift_switches_destroyed[] = {
@@ -2977,8 +2977,8 @@ u8 func1022_check_lift_switches_destroyed[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1024_lift_door_sounds[] = {
@@ -3022,7 +3022,7 @@ u8 func1024_lift_door_sounds[] = {
 		label(0x06)
 	endloop(0x7e)
 
-	endfunction
+	endlist
 };
 
 u8 func1025_spawn_bunker_guards[] = {
@@ -3050,7 +3050,7 @@ u8 func1025_spawn_bunker_guards[] = {
 	restart_timer
 
 	beginloop(0x60)
-		try_spawn_chr(BODY_A51AIRMAN, HEAD_RANDOM, 0x0057, 0x0423, 0x00000300, /*goto*/ 0x0a)
+		try_spawn_chr_at_pad(BODY_A51AIRMAN, HEAD_RANDOM, 0x0057, 0x0423, 0x00000300, /*goto*/ 0x0a)
 	endloop(0x60)
 
 	beginloop(0x0a)
@@ -3060,7 +3060,7 @@ u8 func1025_spawn_bunker_guards[] = {
 	label(0x06)
 
 	beginloop(0x61)
-		try_spawn_chr(BODY_A51AIRMAN, HEAD_RANDOM, 0x0050, 0x0423, 0x00000300, /*goto*/ 0x0b)
+		try_spawn_chr_at_pad(BODY_A51AIRMAN, HEAD_RANDOM, 0x0050, 0x0423, 0x00000300, /*goto*/ 0x0b)
 	endloop(0x61)
 
 	beginloop(0x0b)
@@ -3069,8 +3069,8 @@ u8 func1025_spawn_bunker_guards[] = {
 
 	label(0x06)
 	label(0x0e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0423_a5e8[] = {
@@ -3095,13 +3095,13 @@ u8 func0423_a5e8[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_function(CHR_SELF, FUNC_TROOPER_ALERTED)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_TROOPER_ALERTED)
+	endlist
 };
 
 #define watch_for_laser_broken(crate1, crate2, laser) \
 	if_difficulty_gt(DIFF_A, /*goto*/ 0x7e) \
-	set_function(CHR_SELF, GFUNC_IDLE) \
+	set_ailist(CHR_SELF, GFUNC_IDLE) \
  \
 	/* SA and PA */ \
 	beginloop(0x7e) \
@@ -3117,43 +3117,43 @@ u8 func0423_a5e8[] = {
  \
 	label(0x06) \
 	hide_object(laser) \
-	set_function(CHR_SELF, FUNC_ACTIVATE_LASERS)
+	set_ailist(CHR_SELF, FUNC_ACTIVATE_LASERS)
 
 
 
 u8 func1026_check_laser1_broken[] = {
 	watch_for_laser_broken(0x44, 0x45, 0x1e)
-	endfunction
+	endlist
 };
 
 u8 func1027_check_laser2_broken[] = {
 	watch_for_laser_broken(0x46, 0x47, 0x1f)
-	endfunction
+	endlist
 };
 
 u8 func1028_check_laser3_broken[] = {
 	watch_for_laser_broken(0x48, 0x49, 0x20)
-	endfunction
+	endlist
 };
 
 u8 func1029_check_laser4_broken[] = {
 	watch_for_laser_broken(0x4a, 0x4b, 0x21)
-	endfunction
+	endlist
 };
 
 u8 func102a_check_laser5_broken[] = {
 	watch_for_laser_broken(0x4c, 0x4d, 0x22)
-	endfunction
+	endlist
 };
 
 u8 func102b_check_laser6_broken[] = {
 	watch_for_laser_broken(0x4e, 0x4f, 0x23)
-	endfunction
+	endlist
 };
 
 u8 func102c_check_laser7_broken[] = {
 	watch_for_laser_broken(0x50, 0x52, 0x24)
-	endfunction
+	endlist
 };
 
 u8 func0424_activate_lasers[] = {
@@ -3168,8 +3168,8 @@ u8 func0424_activate_lasers[] = {
 
 	// A and SA
 	label(0x2e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0425_a7d4[] = {
@@ -3177,8 +3177,8 @@ u8 func0425_a7d4[] = {
 	yield
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 /**
@@ -3189,8 +3189,8 @@ u8 func041c_template_guard[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102d_check_antenna_switch_destroyed[] = {
@@ -3209,15 +3209,15 @@ u8 func102d_check_antenna_switch_destroyed[] = {
 	set_stage_flag(STAGEFLAG_ANTENNA_DESTROYED)
 	label(0x2e)
 	label(0x0e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102e_setup_rtracker[] = {
 	yield
 	set_object_flag_bank2(OBJ_ROCKETLAUNCHER, OBJECTFLAG2_RTRACKED_BLUE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func142f_setup_lighting[] = {
@@ -3266,8 +3266,8 @@ u8 func142f_setup_lighting[] = {
 	misc_command(0x0020, 0x05, 0x01)
 	misc_command(0x0020, 0x06, 0x01)
 	misc_command(0x0017, 0x05, 0x01)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 struct ailist ailists[] = {

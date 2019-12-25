@@ -2459,7 +2459,7 @@ glabel func0f0990b0
 /*  f099150:	8f03001c */ 	lw	$v1,0x1c($t8)
 /*  f099154:	50600008 */ 	beqzl	$v1,.L0f099178
 /*  f099158:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09915c:	0fc2a61a */ 	jal	func0f0a9868
+/*  f09915c:	0fc2a61a */ 	jal	currentPlayerGetAmmoCount
 /*  f099160:	8c640000 */ 	lw	$a0,0x0($v1)
 /*  f099164:	5c400004 */ 	bgtzl	$v0,.L0f099178
 /*  f099168:	00001025 */ 	or	$v0,$zero,$zero
@@ -11801,7 +11801,7 @@ glabel func0f0a1528
 /*  f0a1580:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f0a1584:	82b01580 */ 	lb	$s0,0x1580($s5)
 /*  f0a1588:	82b10de4 */ 	lb	$s1,0xde4($s5)
-/*  f0a158c:	0fc2c62f */ 	jal	func0f0b18bc
+/*  f0a158c:	0fc2c62f */ 	jal	currentPlayerHasWeaponEquipped
 /*  f0a1590:	82840002 */ 	lb	$a0,0x2($s4)
 /*  f0a1594:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f0a1598:	10410002 */ 	beq	$v0,$at,.L0f0a15a4
@@ -12075,7 +12075,7 @@ glabel func0f0a1528
 );
 
 GLOBAL_ASM(
-glabel func0f0a196c
+glabel currentPlayerEquipWeaponInCutscene
 /*  f0a196c:	3c02800a */ 	lui	$v0,0x800a
 /*  f0a1970:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
 /*  f0a1974:	804e1580 */ 	lb	$t6,0x1580($v0)
@@ -12191,7 +12191,7 @@ glabel func0f0a1ab0
 /*  f0a1ad8:	82041581 */ 	lb	$a0,0x1581($s0)
 /*  f0a1adc:	10400015 */ 	beqz	$v0,.L0f0a1b34
 /*  f0a1ae0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a1ae4:	0fc28824 */ 	jal	func0f0a2090
+/*  f0a1ae4:	0fc28824 */ 	jal	currentPlayerEquipWeapon
 /*  f0a1ae8:	82051581 */ 	lb	$a1,0x1581($s0)
 /*  f0a1aec:	82041581 */ 	lb	$a0,0x1581($s0)
 /*  f0a1af0:	0fc4473e */ 	jal	func0f111cf8
@@ -12207,7 +12207,7 @@ glabel func0f0a1ab0
 /*  f0a1b18:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a1b1c:	03090019 */ 	multu	$t8,$t1
 /*  f0a1b20:	00002812 */ 	mflo	$a1
-/*  f0a1b24:	0fc28824 */ 	jal	func0f0a2090
+/*  f0a1b24:	0fc28824 */ 	jal	currentPlayerEquipWeapon
 /*  f0a1b28:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a1b2c:	10000004 */ 	beqz	$zero,.L0f0a1b40
 /*  f0a1b30:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -12279,7 +12279,7 @@ glabel func0f0a1b50
 /*  f0a1c0c:	35090080 */ 	ori	$t1,$t0,0x80
 /*  f0a1c10:	a0691583 */ 	sb	$t1,0x1583($v1)
 .L0f0a1c14:
-/*  f0a1c14:	0fc2865b */ 	jal	func0f0a196c
+/*  f0a1c14:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
 /*  f0a1c18:	8fa40024 */ 	lw	$a0,0x24($sp)
 .L0f0a1c1c:
 /*  f0a1c1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -12348,7 +12348,7 @@ glabel func0f0a1c2c
 /*  f0a1cf4:	37290080 */ 	ori	$t1,$t9,0x80
 /*  f0a1cf8:	a0691583 */ 	sb	$t1,0x1583($v1)
 .L0f0a1cfc:
-/*  f0a1cfc:	0fc2865b */ 	jal	func0f0a196c
+/*  f0a1cfc:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
 /*  f0a1d00:	8fa40024 */ 	lw	$a0,0x24($sp)
 .L0f0a1d04:
 /*  f0a1d04:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -12392,7 +12392,7 @@ glabel func0f0a1d14
 /*  f0a1d84:	50600008 */ 	beqzl	$v1,.L0f0a1da8
 /*  f0a1d88:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f0a1d8c:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f0a1d90:	0fc2a61a */ 	jal	func0f0a9868
+/*  f0a1d90:	0fc2a61a */ 	jal	currentPlayerGetAmmoCount
 /*  f0a1d94:	8c640000 */ 	lw	$a0,0x0($v1)
 /*  f0a1d98:	58400003 */ 	blezl	$v0,.L0f0a1da8
 /*  f0a1d9c:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -12588,7 +12588,7 @@ glabel func0f0a1df4
 /*  f0a2030:	31cfff7f */ 	andi	$t7,$t6,0xff7f
 /*  f0a2034:	a04f1583 */ 	sb	$t7,0x1583($v0)
 .L0f0a2038:
-/*  f0a2038:	0fc2865b */ 	jal	func0f0a196c
+/*  f0a2038:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
 /*  f0a203c:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f0a2040:	8fb80040 */ 	lw	$t8,0x40($sp)
 /*  f0a2044:	3c02800a */ 	lui	$v0,0x800a
@@ -12615,7 +12615,7 @@ glabel func0f0a1df4
 );
 
 GLOBAL_ASM(
-glabel func0f0a2090
+glabel currentPlayerEquipWeapon
 /*  f0a2090:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0a2094:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0a2098:	1481000e */ 	bne	$a0,$at,.L0f0a20d4
@@ -12640,7 +12640,7 @@ glabel func0f0a2090
 /*  f0a20dc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a20e0:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f0a20e4:
-/*  f0a20e4:	0fc2865b */ 	jal	func0f0a196c
+/*  f0a20e4:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
 /*  f0a20e8:	00a02025 */ 	or	$a0,$a1,$zero
 .L0f0a20ec:
 /*  f0a20ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -13335,10 +13335,10 @@ glabel func0f0a29c8
 /*  f0a2a74:	1632fff8 */ 	bne	$s1,$s2,.L0f0a2a58
 /*  f0a2a78:	261007a4 */ 	addiu	$s0,$s0,0x7a4
 /*  f0a2a7c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0a2a80:	0fc28824 */ 	jal	func0f0a2090
+/*  f0a2a80:	0fc28824 */ 	jal	currentPlayerEquipWeapon
 /*  f0a2a84:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a2a88:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a2a8c:	0fc28824 */ 	jal	func0f0a2090
+/*  f0a2a8c:	0fc28824 */ 	jal	currentPlayerEquipWeapon
 /*  f0a2a90:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a2a94:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f0a2a98:
@@ -13546,10 +13546,10 @@ glabel func0f0a2ae4
 /*  f0a2d6c:	a6800010 */ 	sh	$zero,0x10($s4)
 .L0f0a2d70:
 /*  f0a2d70:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a2d74:	0fc28824 */ 	jal	func0f0a2090
+/*  f0a2d74:	0fc28824 */ 	jal	currentPlayerEquipWeapon
 /*  f0a2d78:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0a2d7c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0a2d80:	0fc28824 */ 	jal	func0f0a2090
+/*  f0a2d80:	0fc28824 */ 	jal	currentPlayerEquipWeapon
 /*  f0a2d84:	00002825 */ 	or	$a1,$zero,$zero
 .L0f0a2d88:
 /*  f0a2d88:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -20242,7 +20242,7 @@ glabel func0f0a8d34
 /*  f0a8dcc:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0a8dd0:	51a10006 */ 	beql	$t5,$at,.L0f0a8dec
 /*  f0a8dd4:	90591583 */ 	lbu	$t9,0x1583($v0)
-/*  f0a8dd8:	0fc2865b */ 	jal	func0f0a196c
+/*  f0a8dd8:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
 /*  f0a8ddc:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0a8de0:	3c02800a */ 	lui	$v0,0x800a
 /*  f0a8de4:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
@@ -20289,7 +20289,7 @@ glabel func0f0a8d34
 /*  f0a8e7c:	8c59001c */ 	lw	$t9,0x1c($v0)
 /*  f0a8e80:	13200019 */ 	beqz	$t9,.L0f0a8ee8
 /*  f0a8e84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a8e88:	0fc2a61a */ 	jal	func0f0a9868
+/*  f0a8e88:	0fc2a61a */ 	jal	currentPlayerGetAmmoCount
 /*  f0a8e8c:	8f240000 */ 	lw	$a0,0x0($t9)
 /*  f0a8e90:	14400015 */ 	bnez	$v0,.L0f0a8ee8
 /*  f0a8e94:	00000000 */ 	sll	$zero,$zero,0x0
@@ -20311,7 +20311,7 @@ glabel func0f0a8d34
 /*  f0a8ed4:	8defa244 */ 	lw	$t7,-0x5dbc($t7)
 /*  f0a8ed8:	0fc44b11 */ 	jal	func0f112c44
 /*  f0a8edc:	8de41874 */ 	lw	$a0,0x1874($t7)
-/*  f0a8ee0:	0fc2865b */ 	jal	func0f0a196c
+/*  f0a8ee0:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
 /*  f0a8ee4:	00402025 */ 	or	$a0,$v0,$zero
 .L0f0a8ee8:
 /*  f0a8ee8:	0fc44a54 */ 	jal	func0f112950
@@ -21012,7 +21012,7 @@ glabel func0f0a9770
 );
 
 GLOBAL_ASM(
-glabel func0f0a9868
+glabel currentPlayerGetAmmoCount
 /*  f0a9868:	3c02800a */ 	lui	$v0,0x800a
 /*  f0a986c:	8c47a244 */ 	lw	$a3,-0x5dbc($v0)
 /*  f0a9870:	00047080 */ 	sll	$t6,$a0,0x2

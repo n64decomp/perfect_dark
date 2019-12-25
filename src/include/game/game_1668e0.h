@@ -66,7 +66,7 @@ u32 func0f16cda8(void);
 u32 func0f16cdc8(void);
 u32 func0f16cdd4(void);
 u32 func0f16cde0(void);
-f32 func0f16cdec(void);
+f32 getUptime(void);
 u32 func0f16cdf8(void);
 u32 func0f16ce10(void);
 u32 func0f16ce3c(void);

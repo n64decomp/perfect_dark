@@ -412,7 +412,7 @@ glabel func0f0c7cc4
 );
 
 GLOBAL_ASM(
-glabel func0f0c7cf0
+glabel currentPlayerGrabProp
 /*  f0c7cf0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0c7cf4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0c7cf8:	8c820004 */ 	lw	$v0,0x4($a0)
@@ -452,7 +452,7 @@ void func0f0c7d30(u32 arg)
 }
 
 GLOBAL_ASM(
-glabel func0f0c7dec
+glabel releaseObj
 /*  f0c7dec:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f0c7df0:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0c7df4:	3c10800a */ 	lui	$s0,%hi(g_Vars)

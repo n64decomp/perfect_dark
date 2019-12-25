@@ -1224,7 +1224,7 @@ u32 getNumChrs(void)
 }
 
 GLOBAL_ASM(
-glabel func0f01e4dc
+glabel chrSetChrnum
 /*  f01e4dc:	3c03800a */ 	lui	$v1,0x800a
 /*  f01e4e0:	8c63cd10 */ 	lw	$v1,-0x32f0($v1)
 /*  f01e4e4:	00053c00 */ 	sll	$a3,$a1,0x10
@@ -18146,7 +18146,7 @@ glabel func0f02d4fc
 /*  f02d758:	8fae0050 */ 	lw	$t6,0x50($sp)
 /*  f02d75c:	86050008 */ 	lh	$a1,0x8($s0)
 /*  f02d760:	8dc40004 */ 	lw	$a0,0x4($t6)
-/*  f02d764:	0fc07937 */ 	jal	func0f01e4dc
+/*  f02d764:	0fc07937 */ 	jal	chrSetChrnum
 /*  f02d768:	afa4005c */ 	sw	$a0,0x5c($sp)
 /*  f02d76c:	960f0014 */ 	lhu	$t7,0x14($s0)
 /*  f02d770:	8fa6005c */ 	lw	$a2,0x5c($sp)
@@ -18511,7 +18511,7 @@ glabel func0f02dbac
 /*  f02dc90:	00022c00 */ 	sll	$a1,$v0,0x10
 /*  f02dc94:	00055c03 */ 	sra	$t3,$a1,0x10
 /*  f02dc98:	01602825 */ 	or	$a1,$t3,$zero
-/*  f02dc9c:	0fc07937 */ 	jal	func0f01e4dc
+/*  f02dc9c:	0fc07937 */ 	jal	chrSetChrnum
 /*  f02dca0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f02dca4:	44800000 */ 	mtc1	$zero,$f0
 /*  f02dca8:	240c006c */ 	addiu	$t4,$zero,0x6c
@@ -22891,7 +22891,7 @@ glabel func0f0319a8
 .L0f031cec:
 /*  f031cec:	05e0000a */ 	bltz	$t7,.L0f031d18
 /*  f031cf0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f031cf4:	0fc255a1 */ 	jal	func0f095684
+/*  f031cf4:	0fc255a1 */ 	jal	objectiveGetStatus
 /*  f031cf8:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f031cfc:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f031d00:	10410005 */ 	beq	$v0,$at,.L0f031d18
@@ -24685,7 +24685,7 @@ glabel func0f0336a8
 /*  f0336d0:	2401001f */ 	addiu	$at,$zero,0x1f
 /*  f0336d4:	50410011 */ 	beql	$v0,$at,.L0f03371c
 /*  f0336d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0336dc:	0fc2c163 */ 	jal	func0f0b058c
+/*  f0336dc:	0fc2c163 */ 	jal	getNumKnockedOutChrs
 /*  f0336e0:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0336e4:	28410002 */ 	slti	$at,$v0,0x2
 /*  f0336e8:	10200005 */ 	beqz	$at,.L0f033700
@@ -33336,7 +33336,7 @@ bool func0f03b5f0(struct chrdata *chr, s32 pad_id)
 		if (pad_id >= 0) {
 			struct defaultobj *obj = func0f0681c0(pad_id);
 
-			if (obj && func0f0869a8(obj)) {
+			if (obj && objIsHealthy(obj)) {
 				func0f02effc(chr);
 				return true;
 			}
@@ -33347,7 +33347,7 @@ bool func0f03b5f0(struct chrdata *chr, s32 pad_id)
 }
 
 GLOBAL_ASM(
-glabel func0f03b684
+glabel chrConsiderGrenadeThrow
 /*  f03b684:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f03b688:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f03b68c:	00808025 */ 	or	$s0,$a0,$zero
@@ -33723,7 +33723,7 @@ glabel func0f03ba44
 );
 
 GLOBAL_ASM(
-glabel func0f03bbc8
+glabel chrTryPunchOrKick
 /*  f03bbc8:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f03bbcc:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f03bbd0:	00808025 */ 	or	$s0,$a0,$zero
@@ -44767,7 +44767,7 @@ glabel func0f045a70
 /*  f045b60:	00002825 */ 	or	$a1,$zero,$zero
 /*  f045b64:	14400008 */ 	bnez	$v0,.L0f045b88
 /*  f045b68:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f045b6c:	0fc23922 */ 	jal	func0f08e488
+/*  f045b6c:	0fc23922 */ 	jal	doorActivate
 /*  f045b70:	8e040004 */ 	lw	$a0,0x4($s0)
 /*  f045b74:	10000005 */ 	beqz	$zero,.L0f045b8c
 /*  f045b78:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -46645,7 +46645,7 @@ glabel func0f0473cc
 /*  f047678:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool func0f04767c(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
+bool skedarTryPounce(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 {
 	if (chr && chr->actiontype != ACT_SKJUMP && func0f039a18(chr)) {
 		u8 race = chr ? chr->race : RACE_HUMAN;
@@ -50321,7 +50321,7 @@ void chrSetPadPresetByChrnum(struct chrdata *basechr, s32 chrnum, s32 pad_id)
 }
 
 GLOBAL_ASM(
-glabel func0f04ad08
+glabel chrIsInLoadedRoom
 /*  f04ad08:	27bdff28 */ 	addiu	$sp,$sp,-216
 /*  f04ad0c:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f04ad10:	afb60030 */ 	sw	$s6,0x30($sp)

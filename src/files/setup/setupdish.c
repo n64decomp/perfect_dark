@@ -556,16 +556,16 @@ u8 func041d_init_collegue_when_sighted[] = {
 	yield
 	yield
 	if_stage_flag_eq(STAGEFLAG_TRIGGER_CLOAK, TRUE, /*goto*/ 0x2f)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
 
 	label(0x2f)
 	goto_first(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func041e_colleague[] = {
-	set_return_function(CHR_SELF, FUNC_COLLEAGUE)
+	set_returnlist(CHR_SELF, FUNC_COLLEAGUE)
 	if_alertness(1, OPERATOR_LESS_THAN, /*goto*/ 0x04)
 	if_alertness(2, OPERATOR_LESS_THAN, /*goto*/ 0x7c)
 	if_alertness(3, OPERATOR_LESS_THAN, /*goto*/ 0x7d)
@@ -575,14 +575,14 @@ u8 func041e_colleague[] = {
 		if_target_chr_in_sight(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
 		if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x7f)
-		animation(0x0227, 0, -1, 0x14, 0x00, CHR_SELF, 2)
+		chr_do_animation(0x0227, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 		reloop(0x04)
 
-		// Player not in sight - 2 in 255 chance of doing a bored animation
+		// Player not in sight - 2 in 255 chance of doing a bored chr_do_animation
 		label(0x7f)
 		call_rng
 		if_rand_gt(1, /*goto*/ 0x06)
-		set_function(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
+		set_ailist(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
 		label(0x06)
 		reloop(0x04)
 
@@ -604,7 +604,7 @@ u8 func041e_colleague[] = {
 		goto_next(0x2f)
 
 		label(0x7f)
-		animation(ANIM_SITTING_0265, 0, -1, 0x14, 0x00, CHR_SELF, 2)
+		chr_do_animation(ANIM_SITTING_0265, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 		label(0x2f)
 		play_cistaff_quip(BANK_0, CHANNEL_6)
 		restart_timer
@@ -662,13 +662,13 @@ u8 func041e_colleague[] = {
 			label(0x2f)
 			if_chr_idle(/*goto*/ 0x06)
 			if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x7f)
-			set_function(CHR_SELF, GFUNC_DO_SITTING_ANIMATION)
+			set_ailist(CHR_SELF, GFUNC_DO_SITTING_ANIMATION)
 			reloop(0x04)
 
 			label(0x7f)
 			call_rng
 			if_rand_gt(1, /*goto*/ 0x06)
-			set_function(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
+			set_ailist(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
 			label(0x06)
 		endloop(0x0a)
 
@@ -678,7 +678,7 @@ u8 func041e_colleague[] = {
 		goto_next(0x06)
 
 		label(0x7f)
-		animation(ANIM_SITTING_0265, 0, -1, 0x14, 0x00, CHR_SELF, 2)
+		chr_do_animation(ANIM_SITTING_0265, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 		label(0x06)
 		play_cistaff_quip(BANK_2, CHANNEL_6)
 		restart_timer
@@ -696,105 +696,105 @@ u8 func041e_colleague[] = {
 		yield
 		if_chr_idle(/*goto*/ 0x06)
 		if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x7f)
-		set_function(CHR_SELF, GFUNC_DO_SITTING_ANIMATION)
+		set_ailist(CHR_SELF, GFUNC_DO_SITTING_ANIMATION)
 	endloop(0x04)
 
 	label(0x7f)
 	call_rng
 	if_rand_gt(1, /*goto*/ 0x06)
-	set_function(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
+	set_ailist(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
 
 	label(0x06)
 	goto_first(0x7d)
 
-	endfunction
+	endlist
 };
 
 u8 func041f_colleague1[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(0)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
+	endlist
 };
 
 u8 func0420_colleague2[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(1)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
+	endlist
 };
 
 u8 func0421_colleague3[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(2)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
+	endlist
 };
 
 u8 func0422_colleague4[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(3)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
+	endlist
 };
 
 u8 func0423_colleague5[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(4)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
+	endlist
 };
 
 u8 func0424_colleague6[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(5)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
+	endlist
 };
 
 u8 func0425_colleague7[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(6)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
+	endlist
 };
 
 u8 func0426_colleague8[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(7)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
+	endlist
 };
 
 u8 func0427_colleague9[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(8)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
+	endlist
 };
 
 u8 func0428_colleague10[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	set_morale(9)
-	set_function(CHR_SELF, FUNC_COLLEAGUE)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_COLLEAGUE)
+	endlist
 };
 
 u8 func1001_set_jo_team[] = {
 	yield
 	set_chr_team(CHR_BOND, TEAM_32)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1002_devicetraining_camspy[] = {
@@ -898,8 +898,8 @@ u8 func1002_devicetraining_camspy[] = {
 	hide_object(OBJ_CAMSPY)
 	goto_first(0x0f)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1003_devicetraining_nightvision[] = {
@@ -1039,8 +1039,8 @@ u8 func1003_devicetraining_nightvision[] = {
 	label(0x2f)
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1004_devicetraining_doordecoder[] = {
@@ -1204,8 +1204,8 @@ u8 func1004_devicetraining_doordecoder[] = {
 	hide_object(0x28)
 	goto_first(0x0f)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1005_devicetraining_xray[] = {
@@ -1413,8 +1413,8 @@ u8 func1005_devicetraining_xray[] = {
 	hide_object(0x29)
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1006_devicetraining_disguise[] = {
@@ -1435,7 +1435,7 @@ u8 func1006_devicetraining_disguise[] = {
 	move_object_to_pad(0x2a, 0x011d)
 	unset_object_flag_bank0(0x2a, OBJECTFLAG0_00100000)
 	unset_object_flag_bank1(0x2a, OBJECTFLAG1_INVISIBLE)
-	set_function(0x03, FUNC_GRIMSHAW_DISGUISE)
+	set_ailist(0x03, FUNC_GRIMSHAW_DISGUISE)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
 	close_door(0x8a)
@@ -1554,11 +1554,11 @@ u8 func1006_devicetraining_disguise[] = {
 	endloop(0x6d)
 
 	label(0x2f)
-	set_function(0x03, FUNC_INIT_COLLEAGUE_WHEN_SIGHTED)
+	set_ailist(0x03, FUNC_INIT_COLLEAGUE_WHEN_SIGHTED)
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1007_devicetrainign_ir[] = {
@@ -1697,8 +1697,8 @@ u8 func1007_devicetrainign_ir[] = {
 	hide_object(0x2b)
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1008_devicetraining_rtracker[] = {
@@ -1823,8 +1823,8 @@ u8 func1008_devicetraining_rtracker[] = {
 	hide_object(0x36)
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1009_devicetraining_cloak[] = {
@@ -1884,7 +1884,7 @@ u8 func1009_devicetraining_cloak[] = {
 	goto_first(0x8c)
 
 	label(0x2f)
-	set_function(CHR_CARRINGTON, FUNC_CARRINGTON_CLOAK)
+	set_ailist(CHR_CARRINGTON, FUNC_CARRINGTON_CLOAK)
 	label(0x8d)
 	remove_displayed_text
 	if_chr_has_weapon_equipped(CHR_BOND, WEAPON_CLOAKINGDEVICE, /*goto*/ 0x2f)
@@ -1975,11 +1975,11 @@ u8 func1009_devicetraining_cloak[] = {
 	endloop(0x5c)
 
 	label(0x2f)
-	set_function(CHR_CARRINGTON, FUNC_INIT_COLLEAGUE_WHEN_SIGHTED)
+	set_ailist(CHR_CARRINGTON, FUNC_INIT_COLLEAGUE_WHEN_SIGHTED)
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100a_devicetraining_ecmmine[] = {
@@ -2122,8 +2122,8 @@ u8 func100a_devicetraining_ecmmine[] = {
 	hide_object(0x2e)
 	goto_first(0x0f)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100b_devicetraining_uplink[] = {
@@ -2334,8 +2334,8 @@ u8 func100b_devicetraining_uplink[] = {
 	hide_object(0x2f)
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func101a_move_jo_to_training_room[] = {
@@ -2386,12 +2386,12 @@ u8 func101a_move_jo_to_training_room[] = {
 	if_chr_in_room(CHR_BOND, 0x00, 0x0019, /*goto*/ 0x2f)
 	if_chr_in_room(CHR_BOND, 0x00, 0x0014, /*goto*/ 0x2f)
 	enter_camera_and_move_to_pad(0x0151)
-	set_function(CHR_P1P2, FUNC_MOVE_TO_DEVICEROOM)
+	set_ailist(CHR_P1P2, FUNC_MOVE_TO_DEVICEROOM)
 	goto_next(0x06)
 
 	label(0x2f)
 	enter_camera_and_move_to_pad(0x020a)
-	set_function(CHR_P1P2, FUNC_MOVE_TO_HOLOROOM)
+	set_ailist(CHR_P1P2, FUNC_MOVE_TO_HOLOROOM)
 
 	label(0x06)
 	yield
@@ -2413,7 +2413,7 @@ u8 func101a_move_jo_to_training_room[] = {
 	unset_stage_flag(STAGEFLAG_CONSIDER_WARP)
 	goto_first(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func0401_move_to_deviceroom[] = {
@@ -2421,8 +2421,8 @@ u8 func0401_move_to_deviceroom[] = {
 	label(0x06)
 	stop_chr
 	yield
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0402_move_to_holoroom[] = {
@@ -2430,12 +2430,12 @@ u8 func0402_move_to_holoroom[] = {
 	label(0x06)
 	stop_chr
 	yield
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0429_grimshaw_disguise[] = {
-	set_return_function(CHR_SELF, FUNC_GRIMSHAW_DISGUISE)
+	set_returnlist(CHR_SELF, FUNC_GRIMSHAW_DISGUISE)
 	dprint 'I','n','i','t','i','a','l','i','s','e','a',0,
 	restart_timer
 
@@ -2455,7 +2455,7 @@ u8 func0429_grimshaw_disguise[] = {
 		label(0x7f)
 		call_rng
 		if_rand_gt(1, /*goto*/ 0x06)
-		set_function(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
+		set_ailist(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
 		label(0x06)
 	endloop(0x04)
 
@@ -2535,8 +2535,8 @@ u8 func0429_grimshaw_disguise[] = {
 	give_object_to_chr(0x3c, CHR_BOND)
 	set_stage_flag(STAGEFLAG_DISGUISE_COMPLETE)
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100c_cloak_detection[] = {
@@ -2625,11 +2625,11 @@ u8 func100c_cloak_detection[] = {
 	label(0x06)
 	goto_first(0x8f)
 
-	endfunction
+	endlist
 };
 
 u8 func042a_carrington_cloak[] = {
-	set_return_function(CHR_SELF, FUNC_CARRINGTON_CLOAK)
+	set_returnlist(CHR_SELF, FUNC_CARRINGTON_CLOAK)
 
 	beginloop(0x8f)
 		chr_move_to_pad(CHR_SELF, PAD_CARRINGTON_OFFICE, 0x01, /*goto*/ 0x06)
@@ -2644,7 +2644,7 @@ u8 func042a_carrington_cloak[] = {
 		label(0x7f)
 		call_rng
 		if_rand_gt(1, /*goto*/ 0x06)
-		set_function(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
+		set_ailist(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
 
 		label(0x06)
 	endloop(0x04)
@@ -2666,7 +2666,7 @@ u8 func042a_carrington_cloak[] = {
 	label(0x06)
 	dprint 'I','n','i','t','i','a','l','i','s','e','c',0,
 	restart_timer
-	animation(ANIM_WALK_BACKWARDS, -1, -1, 0x10, 0x10, CHR_SELF, 2)
+	chr_do_animation(ANIM_WALK_BACKWARDS, -1, -1, 0x10, 0x10, CHR_SELF, 2)
 	restart_timer
 
 	beginloop(0x57)
@@ -2699,8 +2699,8 @@ u8 func042a_carrington_cloak[] = {
 	label(0x06)
 	stop_chr
 	set_stage_flag(STAGEFLAG_CLOAK_COMPLETE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func100e_training_unlockables[] = {
@@ -2762,8 +2762,8 @@ u8 func100e_training_unlockables[] = {
 	label(0x2f)
 	hide_object(0x3a)
 	hide_object(0x3b)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 #define do_door_proxy(eepromflag, pad, door) \
@@ -2793,24 +2793,24 @@ u8 func100e_training_unlockables[] = {
 
 
 u8 func100f_doorproxy_unused1[] = {
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Unreachable
 	do_door_proxy(EEPROMFLAG_CI_ECMMINE_DONE, 0x0185, 0x3d)
-	endfunction
+	endlist
 };
 
 u8 func1010_doorproxy[] = {
 	do_door_proxy(EEPROMFLAG_CI_UPLINK_DONE, 0x0186, 0x3e)
-	endfunction
+	endlist
 };
 
 u8 func1010_doorproxy_unused2[] = {
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Unreachable
 	do_door_proxy(EEPROMFLAG_CI_ECMMINE_DONE, 0x0187, 0x3f)
-	endfunction
+	endlist
 };
 
 u8 func1012_cloak_doorproxy[] = {
@@ -2842,7 +2842,7 @@ u8 func1012_cloak_doorproxy[] = {
 	label(0x2f)
 	goto_first(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func101b_ir_door[] = {
@@ -2870,7 +2870,7 @@ u8 func101b_ir_door[] = {
 	label(0x2f)
 	goto_first(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func042b_init_carrington[] = {
@@ -2887,7 +2887,7 @@ u8 func042b_init_carrington[] = {
 	endloop(0x08)
 
 	label(0x2f)
-	set_function(CHR_SELF, 0x041e)
+	set_ailist(CHR_SELF, 0x041e)
 
 	label(0x06)
 	dprint 'E','E','P','R','O','M',' ','N','O','T','S','E','T',0,
@@ -2900,8 +2900,8 @@ u8 func042b_init_carrington[] = {
 
 	label(0x2f)
 	stop_chr
-	set_function(CHR_SELF, FUNC_CARRINGTON_TOUR)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_CARRINGTON_TOUR)
+	endlist
 };
 
 u8 func1019_setup_carrington[] = {
@@ -2911,16 +2911,16 @@ u8 func1019_setup_carrington[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2f)
-	set_function(CHR_CARRINGTON, FUNC_INIT_CARRINGTON)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_CARRINGTON, FUNC_INIT_CARRINGTON)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func042c_carrington_tour[] = {
-	set_return_function(CHR_SELF, FUNC_CARRINGTON_TOUR)
+	set_returnlist(CHR_SELF, FUNC_CARRINGTON_TOUR)
 	set_self_chrflag(CHRCFLAG_00040000)
 	restart_timer
 	try_face_entity(ENTITYTYPE_PAD, 0x0054, /*goto*/ 0x04)
@@ -2933,7 +2933,7 @@ u8 func042c_carrington_tour[] = {
 		label(0x7f)
 		call_rng
 		if_rand_gt(1, /*goto*/ 0x06)
-		set_function(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
+		set_ailist(CHR_SELF, GFUNC_DO_BORED_ANIMATION)
 
 		label(0x06)
 	endloop(0x04)
@@ -3018,7 +3018,7 @@ u8 func042c_carrington_tour[] = {
 	goto_first(0x63)
 
 	label(0x2f)
-	set_function(0x01, GFUNC_IDLE)
+	set_ailist(0x01, GFUNC_IDLE)
 	do_special_animation(-1)
 	speak(CHR_TARGET, 0x1c45, 0x151f, CHANNEL_6, COLOR_06_WHITE) // "In here we have the device lab."
 	restart_timer
@@ -3038,7 +3038,7 @@ u8 func042c_carrington_tour[] = {
 	label(0x06)
 	do_special_animation(-1)
 	play_sound(0x8028, CHANNEL_6)
-	set_function(0x01, FUNC_DEVICEGIRL_REPLY_TO_CARRINGTON)
+	set_ailist(0x01, FUNC_DEVICEGIRL_REPLY_TO_CARRINGTON)
 	restart_timer
 
 	beginloop(0x66)
@@ -3197,9 +3197,9 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x76)
 
 	label(0x06)
-	set_function(CHR_SELF, 0x041e)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, 0x041e)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func042d_unused[] = {
@@ -3227,8 +3227,8 @@ u8 func042d_unused[] = {
 	endloop(0x61)
 
 	label(0x06)
-	set_function(CHR_SELF, 0x041e)
-	endfunction
+	set_ailist(CHR_SELF, 0x041e)
+	endlist
 };
 
 u8 func042e_devicegirl_reply_to_carrington[] = {
@@ -3259,13 +3259,13 @@ u8 func042e_devicegirl_reply_to_carrington[] = {
 	endloop(0x61)
 
 	label(0x06)
-	set_function(CHR_SELF, 0x041e)
-	endfunction
+	set_ailist(CHR_SELF, 0x041e)
+	endlist
 };
 
 u8 func1013_msg_hovercrate[] = {
 	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
 		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
@@ -3273,7 +3273,7 @@ u8 func1013_msg_hovercrate[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2f)
 	remove_displayed_text
@@ -3287,13 +3287,13 @@ u8 func1013_msg_hovercrate[] = {
 	label(0x06)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c4a) // "Press B Button when crate grabbed to release it."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1014_msg_hoverbike[] = {
 	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
 		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
@@ -3301,7 +3301,7 @@ u8 func1014_msg_hoverbike[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2f)
 	remove_displayed_text
@@ -3315,20 +3315,20 @@ u8 func1014_msg_hoverbike[] = {
 	label(0x06)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c4c) // "Double tap B Button when on Hovbike to dismount."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1015_msg_doors[] = {
 	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
 		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 	endloop(0x04)
 
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x2f)
 	remove_displayed_text
@@ -3342,13 +3342,13 @@ u8 func1015_msg_doors[] = {
 	label(0x06)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c4e) // "B Button will also activate any object nearby."
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1016_msg_elevators[] = {
 	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
 		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
@@ -3360,13 +3360,13 @@ u8 func1016_msg_elevators[] = {
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c4f) // "ELEVATORS Press B Button next to door to call elevator."
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1017_msg_terminals[] = {
 	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
 		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
@@ -3383,8 +3383,8 @@ u8 func1017_msg_terminals[] = {
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c72) // "TERMINALS - Press B Button next to terminal to use it."
 	label(0x06)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1018_lightswitch[] = {
@@ -3398,8 +3398,8 @@ u8 func1018_lightswitch[] = {
 		unset_object_flag_bank1(OBJ_LIGHTSWITCH, OBJECTFLAG1_INVISIBLE)
 	endloop(0x04)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func101c_holo1_main[] = {
@@ -3534,8 +3534,8 @@ u8 func101c_holo1_main[] = {
 	remove_displayed_text
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 #define holo1_some_terminal(object, function) \
@@ -3560,24 +3560,24 @@ u8 func101c_holo1_main[] = {
 	set_object_flag_bank1(object, OBJECTFLAG1_00040000) \
 	assign_sound(0x043a, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, object, TRUE) \
-	set_return_function(CHR_SELF, function) \
-	set_function(CHR_SELF, FUNC_HOLO1_CHECK_DONE)
+	set_returnlist(CHR_SELF, function) \
+	set_ailist(CHR_SELF, FUNC_HOLO1_CHECK_DONE)
 
 
 
 u8 func101d_holo1_switch1[] = {
 	holo1_some_terminal(0x4c, FUNC_HOLO1_SWITCH1)
-	endfunction
+	endlist
 };
 
 u8 func101e_holo1_switch2[] = {
 	holo1_some_terminal(0x4d, FUNC_HOLO1_SWITCH2)
-	endfunction
+	endlist
 };
 
 u8 func101f_holo1_switch3[] = {
 	holo1_some_terminal(0x4e, FUNC_HOLO1_SWITCH3)
-	endfunction
+	endlist
 };
 
 u8 func1020_holo1_monitor_switches[] = {
@@ -3602,9 +3602,9 @@ u8 func1020_holo1_monitor_switches[] = {
 	set_object_flag_bank1(0x4f, OBJECTFLAG1_00040000)
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x4f, TRUE)
-	set_return_function(CHR_SELF, FUNC_HOLO1_MONITOR_SWITCHES)
-	set_function(CHR_SELF, FUNC_HOLO1_CHECK_DONE)
-	endfunction
+	set_returnlist(CHR_SELF, FUNC_HOLO1_MONITOR_SWITCHES)
+	set_ailist(CHR_SELF, FUNC_HOLO1_CHECK_DONE)
+	endlist
 };
 
 #define holo1_code_thing_p1(object1, object2, pad) \
@@ -3680,7 +3680,7 @@ u8 func1021_holo1_code1[] = {
 	// 0x1c65 = "Code 1 has been obtained."
 	holo1_code_thing_p2(0x48, 0x4c, 0x1c55, 0x1c65)
 
-	endfunction
+	endlist
 };
 
 u8 func1021_holo1_code2[] = {
@@ -3695,7 +3695,7 @@ u8 func1021_holo1_code2[] = {
 	// 0x1c56 = "LOOK DOWN - Press Up C Button to look down at the target."
 	// 0x1c66 = "Code 2 has been obtained."
 	holo1_code_thing_p2(0x49, 0x4d, 0x1c56, 0x1c66)
-	endfunction
+	endlist
 };
 
 u8 func1021_holo1_code3[] = {
@@ -3710,7 +3710,7 @@ u8 func1021_holo1_code3[] = {
 	// 0x1c55 = "LOOK UP - Press Down C Button to look up at the target."
 	// 0x1c67 = "Code 3 has been obtained."
 	holo1_code_thing_p2(0x4a, 0x4e, 0x1c55, 0x1c67)
-	endfunction
+	endlist
 };
 
 u8 func1021_holo1_code4[] = {
@@ -3725,7 +3725,7 @@ u8 func1021_holo1_code4[] = {
 	// 0x1c55 = "LOOK UP - Press Down C Button to look up at the target."
 	// 0x1c68 = "Code 4 has been obtained."
 	holo1_code_thing_p2(0x4b, 0x4f, 0x1c55, 0x1c68)
-	endfunction
+	endlist
 };
 
 u8 func0430_holo1_check_done[] = {
@@ -3772,8 +3772,8 @@ u8 func0430_holo1_check_done[] = {
 	label(0x2f)
 	return
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1022_holo2_main[] = {
@@ -3882,8 +3882,8 @@ u8 func1022_holo2_main[] = {
 	remove_displayed_text
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 #define holo2_do_thing(object, function) \
@@ -3907,29 +3907,29 @@ u8 func1022_holo2_main[] = {
 	control_sound_from_object(CHANNEL_7, object, TRUE) \
 	set_object_image(object, 0x00, 0x13) \
 	set_object_flag_bank1(object, OBJECTFLAG1_00000001) \
-	set_return_function(CHR_SELF, function) \
-	set_function(CHR_SELF, 0x041b)
+	set_returnlist(CHR_SELF, function) \
+	set_ailist(CHR_SELF, 0x041b)
 
 
 
 u8 func1023_holo2_object1[] = {
 	holo2_do_thing(0x54, 0x0431)
-	endfunction
+	endlist
 };
 
 u8 func1024_holo2_object2[] = {
 	holo2_do_thing(0x55, 0x0432)
-	endfunction
+	endlist
 };
 
 u8 func1025_holo2_object3[] = {
 	holo2_do_thing(0x56, 0x0433)
-	endfunction
+	endlist
 };
 
 u8 func1026_holo2_object4[] = {
 	holo2_do_thing(0x57, 0x0434)
-	endfunction
+	endlist
 };
 
 u8 func041b_holo2_part1[] = {
@@ -3967,7 +3967,7 @@ u8 func041b_holo2_part1[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	label(0x06)
 	return
-	endfunction
+	endlist
 };
 
 u8 func042f_holo2_part2[] = {
@@ -3989,7 +3989,7 @@ u8 func042f_holo2_part2[] = {
 	restart_timer
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c69) // "Training failed - you must face forward."
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	set_object_image(0x54, 0x00, 0x12)
 	set_object_image(0x55, 0x00, 0x12)
 	set_object_image(0x56, 0x00, 0x12)
@@ -4009,7 +4009,7 @@ u8 func042f_holo2_part2[] = {
 	label(0x2f)
 	goto_first(0x08)
 
-	endfunction
+	endlist
 };
 
 u8 func1027_holo3_main[] = {
@@ -4215,8 +4215,8 @@ u8 func1027_holo3_main[] = {
 	remove_displayed_text
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102a_holo3_part1[] = {
@@ -4241,8 +4241,8 @@ u8 func102a_holo3_part1[] = {
 	label(0x06)
 	goto_first(0x04)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102b_holo3_part2[] = {
@@ -4267,8 +4267,8 @@ u8 func102b_holo3_part2[] = {
 	label(0x06)
 	goto_first(0x04)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102c_holo3_object1[] = {
@@ -4281,9 +4281,9 @@ u8 func102c_holo3_object1[] = {
 	control_sound_from_object(CHANNEL_7, 0x65, TRUE)
 	set_object_image(0x65, 0x00, 0x13)
 	set_object_flag_bank1(0x65, OBJECTFLAG1_00000001)
-	set_return_function(CHR_SELF, FUNC_HOLO3_OBJECT1)
-	set_function(CHR_SELF, FUNC_HOLO3_CHECK_DONE)
-	endfunction
+	set_returnlist(CHR_SELF, FUNC_HOLO3_OBJECT1)
+	set_ailist(CHR_SELF, FUNC_HOLO3_CHECK_DONE)
+	endlist
 };
 
 u8 func102d_holo3_object2[] = {
@@ -4296,9 +4296,9 @@ u8 func102d_holo3_object2[] = {
 	control_sound_from_object(CHANNEL_7, 0x65, TRUE)
 	set_object_image(0x66, 0x00, 0x13)
 	set_object_flag_bank1(0x66, OBJECTFLAG1_00000001)
-	set_return_function(CHR_SELF, FUNC_HOLO3_OBJECT2)
-	set_function(CHR_SELF, FUNC_HOLO3_CHECK_DONE)
-	endfunction
+	set_returnlist(CHR_SELF, FUNC_HOLO3_OBJECT2)
+	set_ailist(CHR_SELF, FUNC_HOLO3_CHECK_DONE)
+	endlist
 };
 
 u8 func041c_holo3_check_done[] = {
@@ -4326,8 +4326,8 @@ u8 func041c_holo3_check_done[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	label(0x06)
 	return
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1028_holo4_main[] = {
@@ -4352,7 +4352,7 @@ u8 func1028_holo4_main[] = {
 	unset_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	hide_object(0x45)
 	hide_chr(0x04)
-	try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0274, FUNC_HOLO4_GUARD1, 0x00002210, /*goto*/ 0x08)
+	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x0274, FUNC_HOLO4_GUARD1, 0x00002210, /*goto*/ 0x08)
 	label(0x08)
 	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x91)
@@ -4428,13 +4428,13 @@ u8 func1028_holo4_main[] = {
 	label(0x2f)
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0403_holo4_guard1[] = {
 	set_chr_id(0x0d)
-	set_onshot_function(FUNC_HOLO4_GUARD1)
+	set_shotlist(FUNC_HOLO4_GUARD1)
 
 	beginloop(0x04)
 		if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
@@ -4444,18 +4444,18 @@ u8 func0403_holo4_guard1[] = {
 
 	label(0x2f)
 	set_self_chrflag(CHRCFLAG_00000040)
-	try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0277, FUNC_HOLO4_GUARD2, 0x00002210, /*goto*/ 0x08)
+	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x0277, FUNC_HOLO4_GUARD2, 0x00002210, /*goto*/ 0x08)
 	label(0x08)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c6c) // "Now try against a moving target..."
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0404_holo4_guard2[] = {
 	set_chr_id(0x0e)
-	set_onshot_function(FUNC_HOLO4_GUARD2)
+	set_shotlist(FUNC_HOLO4_GUARD2)
 	label(0x04)
 	yield
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
@@ -4465,12 +4465,12 @@ u8 func0404_holo4_guard2[] = {
 
 	label(0x2f)
 	set_self_chrflag(CHRCFLAG_00000040)
-	try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x027a, FUNC_HOLO4_GUARD3, 0x00002210, /*goto*/ 0x0a)
+	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x027a, FUNC_HOLO4_GUARD3, 0x00002210, /*goto*/ 0x0a)
 	label(0x0a)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c6d) // "And finally against a target that fights back."
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 	label(0x06)
 	if_chr_distance_lt(500, /*goto*/ 0x2f)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x08)
@@ -4490,12 +4490,12 @@ u8 func0404_holo4_guard2[] = {
 	label(0x06)
 	goto_first(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func0405_holo4_guard3[] = {
 	set_chr_id(0x0f)
-	set_onshot_function(FUNC_HOLO4_GUARD3)
+	set_shotlist(FUNC_HOLO4_GUARD3)
 	restart_timer
 
 	beginloop(0x04)
@@ -4503,8 +4503,8 @@ u8 func0405_holo4_guard3[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
+	endlist
 };
 
 u8 func1033_holo4_part1[] = {
@@ -4567,8 +4567,8 @@ u8 func1033_holo4_part1[] = {
 	label(0x2f)
 	goto_first(0x8f)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1029_holo5_main[] = {
@@ -4593,7 +4593,7 @@ u8 func1029_holo5_main[] = {
 	unset_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
 	hide_object(0x45)
 	hide_chr(0x04)
-	try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0126, FUNC_HOLO5_INIT_GUARD1, 0x00002210, /*goto*/ 0x06)
+	try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x0126, FUNC_HOLO5_INIT_GUARD1, 0x00002210, /*goto*/ 0x06)
 	label(0x06)
 	yield
 	dprint 't','r','a','i','n','i','n','g',0,
@@ -4671,7 +4671,7 @@ u8 func1029_holo5_main[] = {
 	label(0x2f)
 	goto_first(0x08)
 
-	endfunction
+	endlist
 };
 
 u8 func0406_holo5_init_guard1[] = {
@@ -4679,14 +4679,14 @@ u8 func0406_holo5_init_guard1[] = {
 	set_chr_id(0x10)
 	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x40000000, /*goto*/ 0x06)
 	label(0x06)
-	set_function(CHR_SELF, FUNC_HOLO5_GUARD1)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO5_GUARD1)
+	endlist
 };
 
 u8 func0407_holo5_guard1[] = {
 	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
 	dprint 'C','R','E','A','T','E','D',' ','4',0,
-	set_onshot_function(FUNC_HOLO5_GUARD1)
+	set_shotlist(FUNC_HOLO5_GUARD1)
 	set_chr_health(CHR_SELF, 300)
 	set_armor(300)
 	label(0x04)
@@ -4699,7 +4699,7 @@ u8 func0407_holo5_guard1[] = {
 	label(0x2f)
 	set_self_flag_bankx(CHRFLAG0_00008000, BANK_0)
 	set_self_chrflag(CHRCFLAG_00000040)
-	set_onshot_function(GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
 	goto_next(0x0a)
 	label(0x30)
 	restart_timer
@@ -4712,8 +4712,8 @@ u8 func0407_holo5_guard1[] = {
 	label(0x63)
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	set_stage_flag(STAGEFLAG_GENERAL_PURPOSE)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x0a)
 	set_self_chrflag(CHRCFLAG_00000040)
@@ -4722,11 +4722,11 @@ u8 func0407_holo5_guard1[] = {
 	message(CHR_BOND, 0x1c5a) // "Guard has been successfully disarmed."
 
 	beginloop(0x59)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0272, FUNC_HOLO5_INIT_GUARD2, 0x00002210, /*goto*/ 0x2f)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x0272, FUNC_HOLO5_INIT_GUARD2, 0x00002210, /*goto*/ 0x2f)
 	endloop(0x59)
 
 	label(0x2f)
-	set_onshot_function(GFUNC_IDLE)
+	set_shotlist(GFUNC_IDLE)
 
 	beginloop(0x0b)
 	endloop(0x0b)
@@ -4750,7 +4750,7 @@ u8 func0407_holo5_guard1[] = {
 	label(0x06)
 	goto_first(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func0408_holo5_init_guard2[] = {
@@ -4761,13 +4761,13 @@ u8 func0408_holo5_init_guard2[] = {
 	label(0x06)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c5d) // "Knock out this target - stealth is the key."
-	set_function(CHR_SELF, FUNC_HOLO5_GUARD2)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO5_GUARD2)
+	endlist
 };
 
 u8 func0409_holo5_guard2[] = {
 	dprint 'C','R','E','A','T','E','D',' ','5',0,
-	set_onshot_function(FUNC_HOLO5_GUARD2)
+	set_shotlist(FUNC_HOLO5_GUARD2)
 	label(0x04)
 	yield
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
@@ -4804,13 +4804,13 @@ u8 func0409_holo5_guard2[] = {
 	set_self_chrflag(CHRCFLAG_00000040)
 
 	beginloop(0x57)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0125, FUNC_HOLO5_INIT_GUARD3, 0x00002210, /*goto*/ 0x06)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x0125, FUNC_HOLO5_INIT_GUARD3, 0x00002210, /*goto*/ 0x06)
 	endloop(0x57)
 
 	label(0x06)
-	set_onshot_function(GFUNC_IDLE)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_shotlist(GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func040a_holo5_init_guard3[] = {
@@ -4821,13 +4821,13 @@ u8 func040a_holo5_init_guard3[] = {
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c5e) // "And the final guard..."
 	set_alertness(100)
-	set_function(CHR_SELF, FUNC_HOLO5_GUARD3)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO5_GUARD3)
+	endlist
 };
 
 u8 func040b_holo5_guard3[] = {
 	dprint 'C','R','E','A','T','E','D',' ','6',0,
-	set_onshot_function(FUNC_HOLO_GUARD_ARMED_UNALERT)
+	set_shotlist(FUNC_HOLO_GUARD_ARMED_UNALERT)
 	restart_timer
 
 	beginloop(0x08)
@@ -4835,7 +4835,7 @@ u8 func040b_holo5_guard3[] = {
 	endloop(0x08)
 
 	label(0x06)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
 
 	beginloop(0x04)
 		if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
@@ -4854,8 +4854,8 @@ u8 func040b_holo5_guard3[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1034_holo5_part1[] = {
@@ -4924,8 +4924,8 @@ u8 func1034_holo5_part1[] = {
 	label(0x2f)
 	goto_first(0x8f)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func102e_holo6_main[] = {
@@ -4952,19 +4952,19 @@ u8 func102e_holo6_main[] = {
 	hide_chr(0x04)
 
 	beginloop(0x57)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0127, FUNC_HOLO6_INIT_GUARD1, 0x00002210, /*goto*/ 0x59)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x0127, FUNC_HOLO6_INIT_GUARD1, 0x00002210, /*goto*/ 0x59)
 	endloop(0x57)
 
 	beginloop(0x59)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0128, FUNC_HOLO6_INIT_GUARD2, 0x00002210, /*goto*/ 0x5b)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x0128, FUNC_HOLO6_INIT_GUARD2, 0x00002210, /*goto*/ 0x5b)
 	endloop(0x59)
 
 	beginloop(0x5b)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x0129, FUNC_HOLO6_INIT_GUARD3, 0x00002210, /*goto*/ 0x5c)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x0129, FUNC_HOLO6_INIT_GUARD3, 0x00002210, /*goto*/ 0x5c)
 	endloop(0x5b)
 
 	beginloop(0x5c)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x012a, FUNC_HOLO6_INIT_GUARD4, 0x00002210, /*goto*/ 0x5d)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x012a, FUNC_HOLO6_INIT_GUARD4, 0x00002210, /*goto*/ 0x5d)
 	endloop(0x5c)
 
 	label(0x5d)
@@ -5031,32 +5031,32 @@ u8 func102e_holo6_main[] = {
 	label(0x2f)
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func040c_holo6_init_guard1[] = {
 	set_chr_id(0x13)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
+	endlist
 };
 
 u8 func040d_holo6_init_guard2[] = {
 	set_chr_id(0x14)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
+	endlist
 };
 
 u8 func040e_holo6_init_guard3[] = {
 	set_chr_id(0x15)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
+	endlist
 };
 
 u8 func040f_holo6_init_guard4[] = {
 	set_chr_id(0x16)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
+	endlist
 };
 
 u8 func0415_holo_guard_unarmed_unalert[] = {
@@ -5072,7 +5072,7 @@ u8 func0415_holo_guard_unarmed_unalert[] = {
 	yield
 	yield
 	set_action(MA_NORMAL, FALSE)
-	set_onshot_function(FUNC_HOLO_GUARD_UNARMED_ALERT)
+	set_shotlist(FUNC_HOLO_GUARD_UNARMED_ALERT)
 	restart_timer
 
 	beginloop(0x08)
@@ -5088,12 +5088,12 @@ u8 func0415_holo_guard_unarmed_unalert[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_ALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_ALERT)
+	endlist
 };
 
 u8 func0416_holo_guard_unarmed_alert[] = {
-	set_onshot_function(FUNC_HOLO_GUARD_UNARMED_ALERT)
+	set_shotlist(FUNC_HOLO_GUARD_UNARMED_ALERT)
 	set_action(MA_UNARMEDATTACK, FALSE)
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x09)
 	label(0x8f)
@@ -5110,8 +5110,8 @@ u8 func0416_holo_guard_unarmed_alert[] = {
 	goto_first(0x8f)
 
 	label(0x2f)
-	set_return_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_ALERT)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_ALERT2)
+	set_returnlist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_ALERT)
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_ALERT2)
 
 	label(0x09)
 	if_stage_flag_eq(STAGEFLAG_GENERAL_PURPOSE, TRUE, /*goto*/ 0x0a)
@@ -5120,7 +5120,7 @@ u8 func0416_holo_guard_unarmed_alert[] = {
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c6f) // "Training failed - you have been hit."
 	restart_timer
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x5e)
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x2f)
@@ -5130,8 +5130,8 @@ u8 func0416_holo_guard_unarmed_alert[] = {
 	label(0x2f)
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	label(0x0a)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0416_holo_guard_unarmed_alert2[] = {
@@ -5215,7 +5215,7 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c6f) // "Training failed - you have been hit."
 	restart_timer
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x5e)
 		if_timer_gt(180, /*goto*/ 0x2f)
@@ -5224,13 +5224,13 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	label(0x2f)
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	label(0x0f)
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)
 	label(0x57)
 	label(0x10)
 	return
-	endfunction
+	endlist
 };
 
 u8 func041a_handle_holo_failure[] = {
@@ -5252,7 +5252,7 @@ u8 func041a_handle_holo_failure[] = {
 	unset_stage_flag(STAGEFLAG_HOLO_FAILED)
 	goto_first(0x8f)
 
-	endfunction
+	endlist
 };
 
 u8 func102f_holo1_part1[] = {
@@ -5333,8 +5333,8 @@ u8 func102f_holo1_part1[] = {
 	label(0x2f)
 	goto_first(0x8f)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1030_holo7_main[] = {
@@ -5361,23 +5361,23 @@ u8 func1030_holo7_main[] = {
 	hide_chr(0x04)
 
 	beginloop(0x57)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x012b, FUNC_HOLO7_INIT_GUARD1, 0x00002210, /*goto*/ 0x59)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x012b, FUNC_HOLO7_INIT_GUARD1, 0x00002210, /*goto*/ 0x59)
 	endloop(0x57)
 
 	beginloop(0x59)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x012c, FUNC_HOLO7_INIT_GUARD2, 0x00002210, /*goto*/ 0x5b)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x012c, FUNC_HOLO7_INIT_GUARD2, 0x00002210, /*goto*/ 0x5b)
 	endloop(0x59)
 
 	beginloop(0x5b)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x012d, FUNC_HOLO7_INIT_GUARD3, 0x00002210, /*goto*/ 0x5c)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x012d, FUNC_HOLO7_INIT_GUARD3, 0x00002210, /*goto*/ 0x5c)
 	endloop(0x5b)
 
 	beginloop(0x5c)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x012e, FUNC_HOLO7_INIT_GUARD4, 0x00002210, /*goto*/ 0x5d)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x012e, FUNC_HOLO7_INIT_GUARD4, 0x00002210, /*goto*/ 0x5d)
 	endloop(0x5c)
 
 	beginloop(0x5d)
-		try_spawn_chr(BODY_DDSHOCK, HEAD_RANDOM, 0x012f, FUNC_HOLO7_INIT_GUARD5, 0x00002210, /*goto*/ 0x5e)
+		try_spawn_chr_at_pad(BODY_DDSHOCK, HEAD_RANDOM, 0x012f, FUNC_HOLO7_INIT_GUARD5, 0x00002210, /*goto*/ 0x5e)
 	endloop(0x5d)
 
 	label(0x5e)
@@ -5446,8 +5446,8 @@ u8 func1030_holo7_main[] = {
 	label(0x2f)
 	goto_first(0x08)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func0412_holo7_init_guard1[] = {
@@ -5455,8 +5455,8 @@ u8 func0412_holo7_init_guard1[] = {
 	set_chr_id(0x19)
 	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
+	endlist
 };
 
 u8 func0413_holo7_init_guard2[] = {
@@ -5464,8 +5464,8 @@ u8 func0413_holo7_init_guard2[] = {
 	set_chr_id(0x1a)
 	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
+	endlist
 };
 
 u8 func0414_holo7_init_guard3[] = {
@@ -5473,20 +5473,20 @@ u8 func0414_holo7_init_guard3[] = {
 	set_chr_id(0x1b)
 	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
+	endlist
 };
 
 u8 func0410_holo7_init_guard4[] = {
 	set_chr_id(0x17)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
+	endlist
 };
 
 u8 func0411_holo7_init_guard5[] = {
 	set_chr_id(0x18)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_UNALERT)
+	endlist
 };
 
 u8 func0418_holo_guard_armed_unalert[] = {
@@ -5499,7 +5499,7 @@ u8 func0418_holo_guard_armed_unalert[] = {
 	rebuild_teams
 	rebuild_squadrons
 	set_action(MA_NORMAL, FALSE)
-	set_onshot_function(FUNC_HOLO_GUARD_UNARMED_ALERT)
+	set_shotlist(FUNC_HOLO_GUARD_UNARMED_ALERT)
 	restart_timer
 
 	beginloop(0x04)
@@ -5516,16 +5516,16 @@ u8 func0418_holo_guard_armed_unalert[] = {
 	goto_first(0x04)
 
 	label(0x06)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_ARMED_ALERT)
-	endfunction
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_ARMED_ALERT)
+	endlist
 };
 
 u8 func0419_holo_guard_armed_alert[] = {
-	set_onshot_function(FUNC_HOLO_GUARD_ARMED_ALERT)
+	set_shotlist(FUNC_HOLO_GUARD_ARMED_ALERT)
 	if_has_gun(CHR_SELF, /*goto*/ 0x2f)
 	set_squadron_alertness(100)
-	set_return_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_ALERT)
-	set_function(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_ALERT)
+	set_returnlist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_ALERT)
+	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_UNARMED_ALERT)
 	label(0x2f)
 	label(0x8f)
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x04)
@@ -5554,7 +5554,7 @@ u8 func0419_holo_guard_armed_alert[] = {
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c6f) // "Training failed - you have been hit."
 	restart_timer
-	set_function(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x5e)
 		if_stage_flag_eq(STAGEFLAG_HOLO_ABORTING, TRUE, /*goto*/ 0x2f)
@@ -5564,8 +5564,8 @@ u8 func0419_holo_guard_armed_alert[] = {
 	label(0x2f)
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_FAILURE)
 	label(0x0d)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1031_holo7_part1[] = {
@@ -5658,8 +5658,8 @@ u8 func1031_holo7_part1[] = {
 	label(0x2f)
 	goto_first(0x8f)
 
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1035_manage_music[] = {
@@ -5679,7 +5679,7 @@ u8 func1035_manage_music[] = {
 		reset_ambience
 	endloop(0x8f)
 
-	endfunction
+	endlist
 };
 
 #define do_gun_msg(object, text) \
@@ -5702,42 +5702,42 @@ u8 func1035_manage_music[] = {
 
 u8 func1038_msg_pp7[] = {
 	do_gun_msg(0x1e, 0x1c74) // "PP7"
-	endfunction
+	endlist
 };
 
 u8 func1039_msg_tt33[] = {
 	do_gun_msg(0x1f, 0x1c75) // "TT33"
-	endfunction
+	endlist
 };
 
 u8 func103a_msg_skorpion[] = {
 	do_gun_msg(0x20, 0x1c76) // "Skorpion"
-	endfunction
+	endlist
 };
 
 u8 func103b_msg_ak47[] = {
 	do_gun_msg(0x21, 0x1c77) // "AK47"
-	endfunction
+	endlist
 };
 
 u8 func103c_msg_uzi9mm[] = {
 	do_gun_msg(0x22, 0x1c78) // "Uzi 9mm"
-	endfunction
+	endlist
 };
 
 u8 func103d_msg_mp5k[] = {
 	do_gun_msg(0x23, 0x1c79) // "MP5K"
-	endfunction
+	endlist
 };
 
 u8 func103e_msg_m16[] = {
 	do_gun_msg(0x24, 0x1c7a) // "M-16"
-	endfunction
+	endlist
 };
 
 u8 func103f_msg_fnp90[] = {
 	do_gun_msg(0x25, 0x1c7b) // "FNP90"
-	endfunction
+	endlist
 };
 
 u8 func1000_jo_typing[] = {
@@ -5750,7 +5750,7 @@ u8 func1000_jo_typing[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(0x0485, -1, -1, 0x06, 0x00, CHR_BOND, 4)
+	chr_do_animation(0x0485, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
@@ -5783,7 +5783,7 @@ u8 func1000_jo_typing[] = {
 	label(0x7b)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	animation(0x0485, -2, -1, 0x06, 0x00, CHR_BOND, 2)
+	chr_do_animation(0x0485, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	enter_firstperson
@@ -5795,8 +5795,8 @@ u8 func1000_jo_typing[] = {
 	yield
 	restart_default_music
 	reset_ambience
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1040_lift_door_sounds[] = {
@@ -5840,7 +5840,7 @@ u8 func1040_lift_door_sounds[] = {
 		label(0x06)
 	endloop(0x8f)
 
-	endfunction
+	endlist
 };
 
 u8 intro[] = {
@@ -5862,8 +5862,8 @@ u8 func1032_setup_lifts[] = {
 	set_lights_state(0x0008, 0x01, 0x32, 0x00, 0x00)
 	set_lights_state(0x0009, 0x01, 0x32, 0x00, 0x00)
 	set_lights_state(0x000a, 0x01, 0x19, 0x00, 0x00)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1042_check_jo_in_training_room[] = {
@@ -5950,7 +5950,7 @@ u8 func1042_check_jo_in_training_room[] = {
 	label(0x2f)
 	goto_first(0x04)
 
-	endfunction
+	endlist
 };
 
 u8 func1041_setup_lighting[] = {
@@ -5961,8 +5961,8 @@ u8 func1041_setup_lighting[] = {
 	misc_command(0x0048, 0x06, 0x01)
 	misc_command(0x0055, 0x06, 0x01)
 	misc_command(0x0056, 0x06, 0x01)
-	set_function(CHR_SELF, GFUNC_IDLE)
-	endfunction
+	set_ailist(CHR_SELF, GFUNC_IDLE)
+	endlist
 };
 
 u8 func1043_remove_hovercrate[] = {
@@ -5988,7 +5988,7 @@ u8 func1043_remove_hovercrate[] = {
 		move_object_to_pad(OBJ_HOVERCRATE, 0x0141)
 	endloop(0x8f)
 
-	endfunction
+	endlist
 };
 
 struct ailist ailists[] = {
