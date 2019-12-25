@@ -3636,7 +3636,7 @@ u8 func1003_intro[] = {
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 
 	wait_until(30, 0x6d)
-	speak(CHR_BOND, 0x0e37, 0x7447, CHANNEL_7, COLOR_09_BLUE) // "Agent Dark in position. I can see the main entranc..."
+	speak(CHR_BOND, 0x0e37, 0x7447, CHANNEL_7, COLOR_09_BLUE) // "Agent Dark in prop. I can see the main entranc..."
 
 	wait_until(312, 0x89)
 	play_sound(0x0594, CHANNEL_10)

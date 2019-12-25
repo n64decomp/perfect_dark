@@ -98,7 +98,7 @@ void chraiExecute(void *entity, s32 entity_type)
 			u32 animationmaybe = func0001d13c(g_Vars.chrdata->unk020);
 			if (g_Vars.chrdata->aishotlist >= 0
 					&& g_Vars.chrdata->cshield <= 0
-					&& (0 <= g_Vars.chrdata->damage || g_Vars.chrdata->gungroundpos != NULL)
+					&& (0 <= g_Vars.chrdata->damage || g_Vars.chrdata->gunprop != NULL)
 					&& animationmaybe != 0x269 && animationmaybe != 0x26b && animationmaybe != 0x26a) {
 				// Set shot list
 				g_Vars.chrdata->chrflags &= ~0x00200000;
@@ -180,13 +180,13 @@ u32 chraiGetCommandLength(u8 *ailist, u32 aioffset)
 	s32 type = (cmd[0] << 8) + cmd[1];
 
 	if (type == CMD_PRINT) {
-		u32 pos = aioffset + 2;
+		u32 prop = aioffset + 2;
 
-		while (ailist[pos] != 0) {
-			++pos;
+		while (ailist[prop] != 0) {
+			++prop;
 		}
 
-		return (pos - aioffset) + 1;
+		return (prop - aioffset) + 1;
 	}
 
 	if (type >= 0 && type < 0x1e1) {

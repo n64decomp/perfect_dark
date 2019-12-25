@@ -16,7 +16,7 @@ u32 func0f0c7bd0(void);
 u32 func0f0c7c34(void);
 u32 func0f0c7c98(void);
 u32 func0f0c7cc4(void);
-void currentPlayerGrabProp(struct position *pos);
+void currentPlayerGrabProp(struct prop *prop);
 void func0f0c7d30(u32 arg0);
 void releaseObj(u32 arg0);
 u32 func0f0c7f2c(void);

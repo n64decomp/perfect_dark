@@ -207,7 +207,7 @@ u8 func0006_unalerted[] = {
 	label(0x13)
 	dprint 'A','L',' ','O','N','A','R','D','\n',0,
 	if_stage_is_not(STAGE_PELAGIC, /*goto*/ 0x16)
-	if_bitcheck_in_position_struct(/*goto*/ LABEL_HEARD_ALARM)
+	if_bitcheck_in_prop_struct(/*goto*/ LABEL_HEARD_ALARM)
 
 	// Check if can see camspy
 	label(0x16)
@@ -2517,7 +2517,7 @@ u8 func0007_alerted[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_in_view(/*goto*/ 0x72)
-		if_bitcheck_in_position_struct(/*goto*/ 0x13)
+		if_bitcheck_in_prop_struct(/*goto*/ 0x13)
 	endloop(0x71)
 
 	// Out of view for 5 seconds - remove

@@ -1550,7 +1550,7 @@ u8 func0404_president_running[] = {
 	say_quip(CHR_BOND, 0x21, 0xff, 0x02, 0xff, BANK_1, 0x00, 0x00)
 	goto_first(0x58)
 
-	// Stopped because president is close to player's sampled position
+	// Stopped because president is close to player's sampled prop
 	label(0x5b)
 	goto_first(0x55)
 

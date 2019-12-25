@@ -64,7 +64,7 @@ u32 func0f128cf0(void);
 u32 func0f128d20(void);
 u32 func0f128dbc(void);
 u32 func0f128ec8(void);
-u32 posGetPlayerNum(struct position *pos);
+u32 propGetPlayerNum(struct prop *prop);
 void setCurrentPlayerNum(u32 playernum);
 
 #endif

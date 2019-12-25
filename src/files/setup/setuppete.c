@@ -2767,7 +2767,7 @@ u8 func040b_outro[] = {
 	endlist
 };
 
-u8 func1012_update_robot_position_flags[] = {
+u8 func1012_update_robot_prop_flags[] = {
 	// pad 0x00d4 = corner
 	// pad 0x00d9 = next to limo
 
@@ -3297,7 +3297,7 @@ struct ailist ailists[] = {
 	{ func100f_check_mine,                      0x100f },
 	{ func1010_elevator_switch,                 0x1010 },
 	{ func1011_trackerbug_coop,                 0x1011 },
-	{ func1012_update_robot_position_flags,     0x1012 },
+	{ func1012_update_robot_prop_flags,     0x1012 },
 	{ func1014_crash,                           0x1014 },
 	{ func040a_intro_sfx,                       0x1415 },
 	{ func1416_setup_rain,                      0x1416 },

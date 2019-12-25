@@ -630,12 +630,12 @@
 #define PATHTYPE_CIRCULAR     1
 #define PATHTYPE_FLYING       2
 
-#define POSITIONTYPE_1      1
-#define POSITIONTYPE_DOOR   2
-#define POSITIONTYPE_CHR    3
-#define POSITIONTYPE_WEAPON 4
-#define POSITIONTYPE_5      5
-#define POSITIONTYPE_PLAYER 6
+#define PROPTYPE_1      1
+#define PROPTYPE_DOOR   2
+#define PROPTYPE_CHR    3
+#define PROPTYPE_WEAPON 4
+#define PROPTYPE_5      5
+#define PROPTYPE_PLAYER 6
 
 #define RACE_HUMAN  0
 #define RACE_SKEDAR 1

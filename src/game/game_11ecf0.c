@@ -10681,7 +10681,7 @@ void setCurrentPlayerNum(u32 playernum)
 }
 
 GLOBAL_ASM(
-glabel posGetPlayerNum
+glabel propGetPlayerNum
 /*  f12897c:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f128980:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 /*  f128984:	8d42006c */ 	lw	$v0,0x6c($t2)

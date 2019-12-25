@@ -4,13 +4,13 @@
 #include "types.h"
 
 u32 func0f0601b0(void);
-u32 func0f0602f0(struct position *pos);
-u32 func0f060300(struct position *pos);
+u32 func0f0602f0(struct prop *prop);
+u32 func0f060300(struct prop *prop);
 u32 func0f060358(void);
 u32 func0f060438(void);
-void func0f0604bc(struct position *pos);
+void func0f0604bc(struct prop *prop);
 u32 func0f060538(void);
-u32 func0f0605c4(struct position *pos);
+u32 func0f0605c4(struct prop *prop);
 u32 func0f060698(void);
 u32 func0f0606c0(void);
 u32 func0f06071c(void);
@@ -46,8 +46,8 @@ u32 func0f0658e8(void);
 u32 func0f06593c(void);
 u32 func0f0659e4(void);
 u32 func0f065ae0(void);
-void func0f065c44(struct position *pos);
-void func0f065cb0(struct position *pos);
+void func0f065c44(struct prop *prop);
+void func0f065cb0(struct prop *prop);
 u32 func0f065d1c(void);
 u32 func0f065dd8(void);
 u32 func0f065dfc(void);

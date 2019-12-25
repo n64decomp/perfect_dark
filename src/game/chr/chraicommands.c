@@ -541,7 +541,7 @@ glabel aiChrDoAnimation
 /*  f04e358:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
 /*  f04e35c:	5541000d */ 	bnel	$t2,$at,.L0f04e394
 /*  f04e360:	8d2d0438 */ 	lw	$t5,0x438($t1)
-/*  f04e364:	0fc4a25f */ 	jal	posGetPlayerNum
+/*  f04e364:	0fc4a25f */ 	jal	propGetPlayerNum
 /*  f04e368:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f04e36c:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f04e370:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
@@ -603,7 +603,7 @@ glabel aiChrDoAnimation
 //				fstartframe += var8009de20 * result * 0.25;
 //			}
 //
-//			chr->pos->unk3a = 0;
+//			chr->prop->unk3a = 0;
 //		}
 //
 //		func0f03af44(chr, anim_id, fstartframe, fendframe, cmd[8], cmd[9], result);
@@ -611,8 +611,8 @@ glabel aiChrDoAnimation
 //		if (startframe == 0xfffe) {
 //			func0f0220ec(chr, 1, 1);
 //
-//			if (chr->pos->type == POSITIONTYPE_PLAYER) {
-//				u32 playernum = posGetPlayerNum(chr->pos);
+//			if (chr->prop->type == PROPTYPE_PLAYER) {
+//				u32 playernum = propGetPlayerNum(chr->prop);
 //				struct player *player = g_Vars.players[playernum];
 //				player->unk078 = chr->ground;
 //				player->unk074 = chr->ground;
@@ -690,7 +690,7 @@ bool aiIfChrDying(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if ((!chr || !chr->pos || chr->pos->type != POSITIONTYPE_PLAYER) && (!chr || !chr->unk020 || chrIsDead(chr))) {
+	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) && (!chr || !chr->unk020 || chrIsDead(chr))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -708,11 +708,11 @@ bool aiIfChrDeathAnimationFinished(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool pass;
 
-	if (!chr || !chr->pos) {
+	if (!chr || !chr->prop) {
 		pass = true;
 	} else {
-		if (chr->pos->type == POSITIONTYPE_PLAYER) {
-			u32 playernum = posGetPlayerNum(chr->pos);
+		if (chr->prop->type == PROPTYPE_PLAYER) {
+			u32 playernum = propGetPlayerNum(chr->prop);
 			pass = g_Vars.players[playernum]->isdead;
 		} else {
 			pass = (chr->actiontype == ACT_DEAD);
@@ -736,7 +736,7 @@ bool aiIfChrUnloaded(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if ((!chr || !chr->pos || chr->pos->type != POSITIONTYPE_PLAYER) &&
+	if ((!chr || !chr->prop || chr->prop->type != PROPTYPE_PLAYER) &&
 			(!chr || !chr->unk020 || chr->actiontype == ACT_DRUGGEDKO || chr->actiontype == ACT_DRUGGEDDROP || chr->actiontype == ACT_DRUGGEDCOMINGUP)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
@@ -1143,7 +1143,7 @@ glabel ai001a
 //	struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
 //	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 //
-//	if (chr1 && chr2 && chr1->pos && chr2->pos) {
+//	if (chr1 && chr2 && chr1->prop && chr2->prop) {
 //		struct attachment *attachment = chrGetEquippedWeaponAttachmentWithCheck(chr1, 0);
 //		struct coord coord;
 //		coord.x = var80068fec.x;
@@ -1157,9 +1157,9 @@ glabel ai001a
 //		if (attachment) {
 //			s32 weapon_id;
 //			s32 thing;
-//			coord.x = chr2->pos->coord.x - chr1->pos->coord.x;
-//			coord.y = chr2->pos->coord.y - chr1->pos->coord.y;
-//			coord.x = chr2->pos->coord.z - chr1->pos->coord.z;
+//			coord.x = chr2->prop->coord.x - chr1->prop->coord.x;
+//			coord.y = chr2->prop->coord.y - chr1->prop->coord.y;
+//			coord.x = chr2->prop->coord.z - chr1->prop->coord.z;
 //			scaleTo1(&coord.x, &coord.y, &coord.z);
 //			weapon_id = attachment->weapon->weapon_id;
 //			thing = func0f0b1d28(weapon_id);
@@ -1238,7 +1238,7 @@ bool aiRemoveChr(void)
 
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos) {
+	if (chr && chr->prop) {
 		chr->hidden |= 0x20;
 	}
 
@@ -1676,7 +1676,7 @@ bool aiIfSeesPlayer(void)
  */
 bool ai017a(void)
 {
-	if ((g_Vars.chrdata && g_Vars.chrdata->pos && func0f0391ec(g_Vars.chrdata, &g_Vars.chrdata->pos->coord, &g_Vars.chrdata->pos->room, 1))
+	if ((g_Vars.chrdata && g_Vars.chrdata->prop && func0f0391ec(g_Vars.chrdata, &g_Vars.chrdata->prop->coord, &g_Vars.chrdata->prop->room, 1))
 			|| (g_Vars.hovdata && func0f07ae18(g_Vars.hovdata, 0x40) && func0f07af34(g_Vars.hovdata))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -1776,7 +1776,7 @@ bool ai0045(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && func0f0393b4(g_Vars.chrdata, &chr->pos->coord, &chr->pos->room)) {
+	if (chr && chr->prop && func0f0393b4(g_Vars.chrdata, &chr->prop->coord, &chr->prop->room)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1805,7 +1805,7 @@ bool aiIfNeverBeenOnScreen(void)
  */
 bool ai0047(void)
 {
-	if (g_Vars.chrdata->pos->flags & 0xc2) {
+	if (g_Vars.chrdata->prop->flags & 0xc2) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -2877,7 +2877,7 @@ glabel aiIfTargetInRoom
 /*  f051480:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f051484:	8e040424 */ 	lw	$a0,0x424($s0)
 /*  f051488:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f05148c:	0fc0a221 */ 	jal	chrGetTargetPosition
+/*  f05148c:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f051490:	afb80024 */ 	sw	$t8,0x24($sp)
 /*  f051494:	8fa70024 */ 	lw	$a3,0x24($sp)
 /*  f051498:	8e040424 */ 	lw	$a0,0x424($s0)
@@ -2919,11 +2919,11 @@ glabel aiIfTargetInRoom
 //bool aiIfTargetInRoom(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct position *pos = chrGetTargetPosition(g_Vars.chrdata);
+//	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
 //	s32 room_id = cmd[3] | (cmd[2] << 8);
 //	room_id = chrGetPadRoom(g_Vars.chrdata, room_id & 0xffff);
 //
-//	if (room_id >= 0 && pos && room_id == pos->room) {
+//	if (room_id >= 0 && prop && room_id == prop->room) {
 //		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 //	} else {
 //		g_Vars.aioffset += 5;
@@ -2942,11 +2942,11 @@ bool aiIfChrHasObject(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	s32 playernum = 0;
 
-	if (obj && obj->pos && chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (obj && obj->prop && chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		s32 prevplayernum = g_Vars.currentplayernum;
-		playernum = posGetPlayerNum(chr->pos);
+		playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
-		playernum = currentPlayerHasProp(obj->pos);
+		playernum = currentPlayerHasProp(obj->prop);
 		setCurrentPlayerNum(prevplayernum);
 	}
 
@@ -3046,8 +3046,8 @@ glabel aiIfWeaponThrownOnObject
 //	struct defaultobj *obj = objFindByTagId(cmd[3]);
 //	bool pass = false;
 //
-//	if (obj && obj->pos) {
-//		struct attachment *attachment = obj->pos->attachments;
+//	if (obj && obj->prop) {
+//		struct attachment *attachment = obj->prop->attachments;
 //
 //		while (attachment) {
 //			if (attachment->type == ATTACHMENTTYPE_WEAPON && attachment->weapon->weapon_id == cmd[2]) {
@@ -3076,9 +3076,9 @@ bool aiIfChrHasWeaponEquipped(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool passes = false;
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (getCurrentPlayerWeaponId(0) == cmd[3]) {
@@ -3107,15 +3107,15 @@ bool aiIfGunUnclaimed(void)
 	if (cmd[3] == 0) {
 		struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-		if (obj && obj->pos) {
+		if (obj && obj->prop) {
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 		} else {
 			g_Vars.aioffset += 5;
 		}
 	} else {
-		struct weaponobj *weapon = g_Vars.chrdata->gungroundpos->weapon;
+		struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
-		if (weapon && weapon->pos) {
+		if (weapon && weapon->prop) {
 			weapon->flags |= 0x00400000;
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 		} else {
@@ -3134,7 +3134,7 @@ bool aiIfObjectHealthy(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && objIsHealthy(obj)) {
+	if (obj && obj->prop && objIsHealthy(obj)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -3252,7 +3252,7 @@ glabel aiIfChrActivatedObject
 //	struct defaultobj *obj = objFindByTagId(cmd[3]);
 //	bool pass = false;
 //
-//	if (obj && obj->pos) {
+//	if (obj && obj->prop) {
 //		if (cmd[2] == CHR_ANY) {
 //			if (obj->hidden & (OBJHIDDENFLAG_ACTIVATED_BY_BOND | OBJHIDDENFLAG_ACTIVATED_BY_COOP)) {
 //				pass = true;
@@ -3262,11 +3262,11 @@ glabel aiIfChrActivatedObject
 //			struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 //			pass = false;
 //
-//			if (chr && chr->pos) {
-//				if (chr->pos == g_Vars.bond->targetpos && (obj->hidden & OBJHIDDENFLAG_ACTIVATED_BY_BOND)) {
+//			if (chr && chr->prop) {
+//				if (chr->prop == g_Vars.bond->prop && (obj->hidden & OBJHIDDENFLAG_ACTIVATED_BY_BOND)) {
 //					pass = true;
 //					obj->hidden &= ~OBJHIDDENFLAG_ACTIVATED_BY_BOND;
-//				} else if (g_Vars.coopplayernum >= 0 && chr->pos == g_Vars.coop->targetpos && (obj->hidden & OBJHIDDENFLAG_ACTIVATED_BY_COOP)) {
+//				} else if (g_Vars.coopplayernum >= 0 && chr->prop == g_Vars.coop->prop && (obj->hidden & OBJHIDDENFLAG_ACTIVATED_BY_COOP)) {
 //					pass = true;
 //					obj->hidden &= ~OBJHIDDENFLAG_ACTIVATED_BY_COOP;
 //				}
@@ -3291,11 +3291,11 @@ bool ai0065(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
-		if (obj->pos->type == POSITIONTYPE_DOOR) {
-			func0f08fee8(obj->pos, 0);
-		} else if (obj->pos->type == POSITIONTYPE_1 || obj->pos->type == POSITIONTYPE_WEAPON) {
-			func0f086f40(obj->pos);
+	if (obj && obj->prop) {
+		if (obj->prop->type == PROPTYPE_DOOR) {
+			func0f08fee8(obj->prop, 0);
+		} else if (obj->prop->type == PROPTYPE_1 || obj->prop->type == PROPTYPE_WEAPON) {
+			func0f086f40(obj->prop);
 		}
 	}
 
@@ -3312,16 +3312,16 @@ bool aiDestroyObject(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && func0f0687b8(obj) == 0) {
-		struct defaultobj *entity = obj->pos->obj;
+	if (obj && obj->prop && func0f0687b8(obj) == 0) {
+		struct defaultobj *entity = obj->prop->obj;
 
 		if (entity->obj == 0xeb) {
 			obj->flags = (obj->flags & 0xfffeffff) | 0x20000;
-			func0f129900(entity->pos, &entity->pos->coord, &entity->pos->room, 3, 0);
-			func0f12e714(entity->pos, 0x16);
+			func0f129900(entity->prop, &entity->prop->coord, &entity->prop->room, 3, 0);
+			func0f12e714(entity->prop, 0x16);
 		} else {
 			f32 damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
-			func0f0852ac(obj, damage, &obj->pos->coord, 0x22, -1);
+			func0f0852ac(obj, damage, &obj->prop->coord, 0x22, -1);
 		}
 	}
 
@@ -3386,7 +3386,7 @@ bool aiChrDropItems(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos) {
+	if (chr && chr->prop) {
 		chrDropItems(chr);
 	}
 
@@ -3403,16 +3403,16 @@ bool aiChrDropWeapon(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		u32 weapon_id;
 		setCurrentPlayerNum(playernum);
 		weapon_id = getCurrentPlayerWeaponId(0);
 		func0f111ea4(weapon_id);
 		func0f0a1c2c();
 		setCurrentPlayerNum(prevplayernum);
-	} else if (chr && chr->pos) {
+	} else if (chr && chr->prop) {
 		if (chr->weapons_held[0]) {
 			func0f082964(chr->weapons_held[0], 1);
 			chr->hidden = chr->hidden | 0x00000001;
@@ -3438,36 +3438,36 @@ bool aiGiveObjectToChr(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
-	if (obj && obj->pos && chr && chr->pos) {
-		if (chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (obj && obj->prop && chr && chr->prop) {
+		if (chr->prop->type == PROPTYPE_PLAYER) {
 			u32 something;
 			u32 prevplayernum = g_Vars.currentplayernum;
-			struct defaultobj *obj2 = obj->pos->obj;
-			u32 playernum = posGetPlayerNum(chr->pos);
+			struct defaultobj *obj2 = obj->prop->obj;
+			u32 playernum = propGetPlayerNum(chr->prop);
 			setCurrentPlayerNum(playernum);
 
-			if (obj->pos->unk18) {
-				func0f082f88(obj->pos);
-				func0f06ac90(obj->pos);
-				func0f0604bc(obj->pos);
+			if (obj->prop->unk18) {
+				func0f082f88(obj->prop);
+				func0f06ac90(obj->prop);
+				func0f0604bc(obj->prop);
 			}
 
-			something = func0f088840(obj->pos, 0);
-			func0f062b64(obj->pos, something);
-			playernum = posGetPlayerNum(chr->pos);
+			something = func0f088840(obj->prop, 0);
+			func0f062b64(obj->prop, something);
+			playernum = propGetPlayerNum(chr->prop);
 			obj2->hidden = (playernum << 28) | (obj2->hidden & 0x0fffffff);
 			setCurrentPlayerNum(prevplayernum);
 		} else {
-			if (obj->pos->unk18) {
-				func0f082f88(obj->pos);
+			if (obj->prop->unk18) {
+				func0f082f88(obj->prop);
 			} else {
-				func0f065c44(obj->pos);
-				func0f0605c4(obj->pos);
-				func0f060300(obj->pos);
+				func0f065c44(obj->prop);
+				func0f0605c4(obj->prop);
+				func0f060300(obj->prop);
 			}
 
 			if (obj->type != OBJTYPE_WEAPON || func0f08ae54(obj, chr) == 0) {
-				func0f060698(obj->pos, chr->pos);
+				func0f060698(obj->prop, chr->prop);
 			}
 		}
 	}
@@ -3566,8 +3566,8 @@ bool aiOpenDoor(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *door = objFindByTagId(cmd[2]);
 
-	if (door && door->pos && door->pos->type == POSITIONTYPE_DOOR) {
-		if (!func0f066310(door->pos, 0)) {
+	if (door && door->prop && door->prop->type == PROPTYPE_DOOR) {
+		if (!func0f066310(door->prop, 0)) {
 			doorActivate(door, DOORSTATE_OPEN);
 		}
 	}
@@ -3585,7 +3585,7 @@ bool aiCloseDoor(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *door = objFindByTagId(cmd[2]);
 
-	if (door && door->pos && door->pos->type == POSITIONTYPE_DOOR) {
+	if (door && door->prop && door->prop->type == PROPTYPE_DOOR) {
 		doorActivate(door, DOORSTATE_CLOSED);
 	}
 
@@ -3603,7 +3603,7 @@ bool aiIfDoorState(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	bool pass = false;
 
-	if (obj && obj->pos && obj->type == OBJTYPE_DOOR) {
+	if (obj && obj->prop && obj->type == OBJTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
 
 		if (door->state == 0) {
@@ -3636,7 +3636,7 @@ bool aiIfObjectIsDoor(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && obj->type == OBJTYPE_DOOR && (obj->hidden & 0x200)) {
+	if (obj && obj->prop && obj->type == OBJTYPE_DOOR && (obj->hidden & 0x200)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -3653,7 +3653,7 @@ bool aiLockDoor(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && obj->pos->type == POSITIONTYPE_DOOR) {
+	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
 		u8 bits = cmd[3];
 		door->lockbits = door->lockbits | bits;
@@ -3672,7 +3672,7 @@ bool aiUnlockDoor(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && obj->pos->type == POSITIONTYPE_DOOR) {
+	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
 		u8 bits = cmd[3];
 		door->lockbits = door->lockbits & ~bits;
@@ -3692,7 +3692,7 @@ bool aiIfDoorLocked(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	bool pass = false;
 
-	if (obj && obj->pos && obj->pos->type == POSITIONTYPE_DOOR) {
+	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
 		u32 bits = cmd[3];
 		u32 lockbits = door->lockbits;
@@ -3885,7 +3885,7 @@ glabel aiIfChrHealthLessThan
 /*  f052b0c:	57210016 */ 	bnel	$t9,$at,.L0f052b68
 /*  f052b10:	c44a0104 */ 	lwc1	$f10,0x104($v0)
 /*  f052b14:	8ca4001c */ 	lw	$a0,0x1c($a1)
-/*  f052b18:	0fc4a25f */ 	jal	posGetPlayerNum
+/*  f052b18:	0fc4a25f */ 	jal	propGetPlayerNum
 /*  f052b1c:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f052b20:	00024080 */ 	sll	$t0,$v0,0x2
 /*  f052b24:	02084821 */ 	addu	$t1,$s0,$t0
@@ -3978,7 +3978,7 @@ glabel aiIfChrHealthGreaterThan
 /*  f052c50:	57210016 */ 	bnel	$t9,$at,.L0f052cac
 /*  f052c54:	c44a0104 */ 	lwc1	$f10,0x104($v0)
 /*  f052c58:	8ca4001c */ 	lw	$a0,0x1c($a1)
-/*  f052c5c:	0fc4a25f */ 	jal	posGetPlayerNum
+/*  f052c5c:	0fc4a25f */ 	jal	propGetPlayerNum
 /*  f052c60:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f052c64:	00024080 */ 	sll	$t0,$v0,0x2
 /*  f052c68:	02084821 */ 	addu	$t1,$s0,$t0
@@ -4394,7 +4394,7 @@ bool aiChrAddAlertness(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
-	if (chr && chr->pos) {
+	if (chr && chr->prop) {
 		incrementByte(&chr->alertness, cmd[2]);
 	}
 
@@ -5090,7 +5090,7 @@ bool aiSetObjFlag(void)
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		obj->flags |= flags;
 	}
 
@@ -5108,7 +5108,7 @@ bool aiUnsetObjFlag(void)
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		obj->flags &= ~flags;
 	}
 
@@ -5126,7 +5126,7 @@ bool aiIfObjHasFlag(void)
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && (obj->flags & flags) == flags) {
+	if (obj && obj->prop && (obj->flags & flags) == flags) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
 	} else {
 		g_Vars.aioffset += 8;
@@ -5144,7 +5144,7 @@ bool aiSetObjFlag2(void)
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		obj->flags2 |= flags;
 	}
 
@@ -5162,7 +5162,7 @@ bool aiUnsetObjFlag2(void)
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		obj->flags2 &= ~flags;
 	}
 
@@ -5180,7 +5180,7 @@ bool aiIfObjHasFlag2(void)
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && (obj->flags2 & flags) == flags) {
+	if (obj && obj->prop && (obj->flags2 & flags) == flags) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
 	} else {
 		g_Vars.aioffset += 8;
@@ -5198,7 +5198,7 @@ bool aiSetObjFlag3(void)
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		obj->flags3 |= flags;
 	}
 
@@ -5216,7 +5216,7 @@ bool aiUnsetObjFlag3(void)
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		obj->flags3 &= ~flags;
 	}
 
@@ -5234,7 +5234,7 @@ bool aiIfObjHasFlag3(void)
 	u32 flags = (cmd[4] << 16) | (cmd[5] << 8) | cmd[6] | (cmd[3] << 24);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && (obj->flags3 & flags) == flags) {
+	if (obj && obj->prop && (obj->flags3 & flags) == flags) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
 	} else {
 		g_Vars.aioffset += 8;
@@ -6046,7 +6046,7 @@ bool ai00c9(void)
 	u32 thing = cmd[3] | (cmd[2] << 8);
 	bool ok = false;
 
-	if (g_Vars.chrdata && g_Vars.chrdata->pos && g_Vars.chrdata->unk020) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop && g_Vars.chrdata->unk020) {
 		ok = func0f089dd8(g_Vars.chrdata, thing, flags);
 	}
 
@@ -6274,8 +6274,8 @@ bool aiMessage(void)
 	u32 prevplayernum = g_Vars.currentplayernum;
 	u32 playernum = g_Vars.currentplayernum;
 
-	if (chr && chr->pos && (chr->pos->type & 0xff) == POSITIONTYPE_PLAYER) {
-		playernum = posGetPlayerNum(chr->pos);
+	if (chr && chr->prop && (chr->prop->type & 0xff) == PROPTYPE_PLAYER) {
+		playernum = propGetPlayerNum(chr->prop);
 	}
 
 	setCurrentPlayerNum(playernum);
@@ -6294,7 +6294,7 @@ bool aiShowText(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	// cmd[2] = position
+	// cmd[2] = prop
 	// cmd[3] = color
 
 	if (cmd[2] == 0) {
@@ -6326,8 +6326,8 @@ bool aiShowText2(void)
 	u32 prevplayernum = g_Vars.currentplayernum;
 	u32 playernum = g_Vars.currentplayernum;
 
-	if (chr && chr->pos && (chr->pos->type & 0xff) == POSITIONTYPE_PLAYER) {
-		playernum = posGetPlayerNum(chr->pos);
+	if (chr && chr->prop && (chr->prop->type & 0xff) == PROPTYPE_PLAYER) {
+		playernum = propGetPlayerNum(chr->prop);
 	}
 
 	setCurrentPlayerNum(playernum);
@@ -6391,7 +6391,7 @@ glabel aiSpeak
 /*  f0560e8:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f0560ec:	15e10004 */ 	bne	$t7,$at,.L0f056100
 /*  f0560f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0560f4:	0fc4a25f */ 	jal	posGetPlayerNum
+/*  f0560f4:	0fc4a25f */ 	jal	propGetPlayerNum
 /*  f0560f8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0560fc:	00403025 */ 	or	$a2,$v0,$zero
 .L0f056100:
@@ -6422,7 +6422,7 @@ glabel aiSpeak
 /*  f05615c:	afab0014 */ 	sw	$t3,0x14($sp)
 /*  f056160:	afa00010 */ 	sw	$zero,0x10($sp)
 /*  f056164:	87a5003e */ 	lh	$a1,0x3e($sp)
-/*  f056168:	0fc25010 */ 	jal	audioPlayFromWorldPosition
+/*  f056168:	0fc25010 */ 	jal	audioPlayFromProp
 /*  f05616c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f056170:	1000000a */ 	beqz	$zero,.L0f05619c
 /*  f056174:	00403825 */ 	or	$a3,$v0,$zero
@@ -6433,7 +6433,7 @@ glabel aiSpeak
 /*  f056184:	240e0200 */ 	addiu	$t6,$zero,0x200
 /*  f056188:	8d87001c */ 	lw	$a3,0x1c($t4)
 /*  f05618c:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f056190:	0fc25010 */ 	jal	audioPlayFromWorldPosition
+/*  f056190:	0fc25010 */ 	jal	audioPlayFromProp
 /*  f056194:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f056198:	00403825 */ 	or	$a3,$v0,$zero
 .L0f05619c:
@@ -6475,20 +6475,20 @@ glabel aiSpeak
 //	u32 audioref;
 //	char *text = text_id >= 0 ? textGet(text_id) : NULL;
 //
-//	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
-//		playernum = posGetPlayerNum(chr->pos);
+//	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+//		playernum = propGetPlayerNum(chr->prop);
 //	}
 //
 //	setCurrentPlayerNum(playernum);
 //
 //	if (text && cmd[2] != CHR_P1P2) {
-//		func0f0926bc(g_Vars.chrdata->pos, 9, 0xffff);
+//		func0f0926bc(g_Vars.chrdata->prop, 9, 0xffff);
 //	}
 //
 //	if (cmd[2] == CHR_P1P2) {
-//		audioref = audioPlayFromWorldPosition(cmd[7], audio_id, 0, g_Vars.chrdata->pos, 0, 512);
+//		audioref = audioPlayFromProp(cmd[7], audio_id, 0, g_Vars.chrdata->prop, 0, 512);
 //	} else {
-//		audioref = audioPlayFromWorldPosition(cmd[7], audio_id, 0, g_Vars.chrdata->pos, 9, 512);
+//		audioref = audioPlayFromProp(cmd[7], audio_id, 0, g_Vars.chrdata->prop, 9, 512);
 //	}
 //
 //	if (text && !audioIsFiltered(audio_id)) {
@@ -6510,7 +6510,7 @@ bool aiPlaySound(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
-	audioPlayFromWorldPosition(cmd[4], audio_id, 0, NULL, 0, 0);
+	audioPlayFromProp(cmd[4], audio_id, 0, NULL, 0, 0);
 
 	g_Vars.aioffset += 5;
 
@@ -6525,7 +6525,7 @@ bool aiAssignSound(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
-	audioPlayFromWorldPosition(cmd[4], audio_id, -1, NULL, 11, 0);
+	audioPlayFromProp(cmd[4], audio_id, -1, NULL, 11, 0);
 
 	g_Vars.aioffset += 5;
 
@@ -6572,7 +6572,7 @@ bool ai00d1(void)
 	s16 audio_id = cmd[4] | (cmd[3] << 8);
 	u16 thing = cmd[6] | (cmd[5] << 8);
 
-	audioPlayFromWorldPosition2(cmd[2], audio_id, -1, NULL, thing, 2500, 3000, 0);
+	audioPlayFromProp2(cmd[2], audio_id, -1, NULL, thing, 2500, 3000, 0);
 
 	g_Vars.aioffset += 7;
 
@@ -6589,7 +6589,7 @@ bool ai00d2(void)
 	u16 thing2 = cmd[6] | (cmd[5] << 8);
 	s32 audio_id = func0f0927d4(thing1, 400, 2500, 3000, 32767);
 
-	audioPlayFromWorldPosition2(cmd[2], audio_id, -1, NULL, thing2, 2500, 3000, 0);
+	audioPlayFromProp2(cmd[2], audio_id, -1, NULL, thing2, 2500, 3000, 0);
 
 	g_Vars.aioffset += 7;
 
@@ -6605,8 +6605,8 @@ bool ai00cf(void)
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	u16 thing = cmd[5] | (cmd[4] << 8);
 
-	if (obj && obj->pos) {
-		audioPlayFromWorldPosition2(cmd[2], -1, -1, obj->pos, thing, 2500, 3000, 0);
+	if (obj && obj->prop) {
+		audioPlayFromProp2(cmd[2], -1, -1, obj->prop, thing, 2500, 3000, 0);
 	}
 
 	g_Vars.aioffset += 6;
@@ -6625,7 +6625,7 @@ bool ai016b(void)
 	u16 thing2 = cmd[7] | (cmd[6] << 8);
 	u16 thing3 = cmd[9] | (cmd[8] << 8);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		s32 thing1again;
 
 		if (thing1 == 0) {
@@ -6634,7 +6634,7 @@ bool ai016b(void)
 			thing1again = thing1;
 		}
 
-		audioPlayFromWorldPosition2(cmd[2], -1, -1, obj->pos, thing1again, thing2, thing3, 2);
+		audioPlayFromProp2(cmd[2], -1, -1, obj->prop, thing1again, thing2, thing3, 2);
 	}
 
 	g_Vars.aioffset += 10;
@@ -6655,14 +6655,14 @@ bool ai0179(void)
 	if (cmd[10] == 0) {
 		struct defaultobj *obj = objFindByTagId(cmd[3]);
 
-		if (obj && obj->pos) {
-			audioPlayFromWorldPosition2(cmd[2], -1, -1, obj->pos, thing1, thing2, thing3, 0);
+		if (obj && obj->prop) {
+			audioPlayFromProp2(cmd[2], -1, -1, obj->prop, thing1, thing2, thing3, 0);
 		}
 	} else {
 		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 
-		if (chr && chr->pos) {
-			audioPlayFromWorldPosition2(cmd[2], -1, -1, chr->pos, thing1, thing2, thing3, 0);
+		if (chr && chr->prop) {
+			audioPlayFromProp2(cmd[2], -1, -1, chr->prop, thing1, thing2, thing3, 0);
 		}
 	}
 
@@ -6906,7 +6906,7 @@ bool aiSetObjImage(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		if (obj->type == OBJTYPE_SINGLEMONITOR) {
 			struct singlemonitorobj *sm = (struct singlemonitorobj *) obj;
 			imageSlotSetImage(&sm->image, cmd[4], obj);
@@ -7230,9 +7230,9 @@ bool aiShowChr(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->unk020) {
-		func0f0604bc(chr->pos);
-		func0f0602f0(chr->pos);
+	if (chr && chr->prop && chr->unk020) {
+		func0f0604bc(chr->prop);
+		func0f0602f0(chr->prop);
 		func0f0220ac(chr);
 	}
 
@@ -7249,10 +7249,10 @@ bool aiHideChr(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->unk020) {
-		func0f065c44(chr->pos);
-		func0f0605c4(chr->pos);
-		func0f060300(chr->pos);
+	if (chr && chr->prop && chr->unk020) {
+		func0f065c44(chr->prop);
+		func0f0605c4(chr->prop);
+		func0f060300(chr->prop);
 	}
 
 	g_Vars.aioffset += 3;
@@ -7268,9 +7268,9 @@ bool aiShowObj(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && obj->unk18) {
-		func0f0604bc(obj->pos);
-		func0f0602f0(obj->pos);
+	if (obj && obj->prop && obj->unk18) {
+		func0f0604bc(obj->prop);
+		func0f0602f0(obj->prop);
 
 		if (g_Vars.currentplayer->unk0480 == 0 && obj->type == OBJTYPE_WEAPON) {
 			struct weaponobj *weapon = (struct weaponobj *) obj;
@@ -7294,13 +7294,13 @@ bool aiHideObj(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && obj->unk18) {
-		if (obj->pos->unk18) {
-			func0f082f88(obj->pos);
+	if (obj && obj->prop && obj->unk18) {
+		if (obj->prop->unk18) {
+			func0f082f88(obj->prop);
 		} else {
-			func0f065c44(obj->pos);
-			func0f0605c4(obj->pos);
-			func0f060300(obj->pos);
+			func0f065c44(obj->prop);
+			func0f0605c4(obj->prop);
+			func0f060300(obj->prop);
 		}
 	}
 
@@ -7359,7 +7359,7 @@ glabel aiRevokeControl
 /*  f05754c:	8e0e0438 */ 	lw	$t6,0x438($s0)
 /*  f057550:	8e19028c */ 	lw	$t9,0x28c($s0)
 /*  f057554:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f057558:	0fc4a25f */ 	jal	posGetPlayerNum
+/*  f057558:	0fc4a25f */ 	jal	propGetPlayerNum
 /*  f05755c:	8c44001c */ 	lw	$a0,0x1c($v0)
 /*  f057560:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f057564:	00402025 */ 	or	$a0,$v0,$zero
@@ -7409,9 +7409,9 @@ glabel aiRevokeControl
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 //
-//	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+//	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 //		u32 prevplayernum = g_Vars.currentplayernum;
-//		setCurrentPlayerNum(posGetPlayerNum(chr->pos));
+//		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
 //		func0f0abc74(4, false);
 //		func0f0a95ec(2, false);
 //
@@ -7440,9 +7440,9 @@ bool aiGrantControl(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		setCurrentPlayerNum(posGetPlayerNum(chr->pos));
+		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
 		func0f0abc74(4, true);
 		func0f0a95ec(2, true);
 		func0f0dfa1c(2);
@@ -7564,9 +7564,9 @@ bool ai00e3(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (var8007074c != 2) {
@@ -7717,8 +7717,8 @@ bool ai00e5(void)
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
-		u32 playernum = posGetPlayerNum(chr->pos);
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+		u32 playernum = propGetPlayerNum(chr->prop);
 
 		if (g_Vars.players[playernum]->unk02ec < 0) {
 			pass = true;
@@ -7742,7 +7742,7 @@ bool aiSetDoorClosed(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		struct doorobj *door = (struct doorobj *) obj;
 		door->speed = door->unk5c;
 		door->unk80 = 0;
@@ -7750,7 +7750,7 @@ bool aiSetDoorClosed(void)
 		door->state = 0;
 		func0f08c54c(door);
 		func0f08d4e8(door);
-		func0f0926bc(door->base.pos, 1, 0xffff);
+		func0f0926bc(door->base.prop, 1, 0xffff);
 	}
 
 	g_Vars.aioffset += 3;
@@ -7849,9 +7849,9 @@ bool aiIfChrAmmoQuantityLessThan(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool passes = false;
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (currentPlayerGetAmmoCount((s8)cmd[3]) < (s8)cmd[4]) {
@@ -7878,9 +7878,9 @@ bool aiChrDrawWeapon(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 		currentPlayerEquipWeapon(0, (s8)cmd[3]);
 		currentPlayerEquipWeapon(1, 0);
@@ -7900,9 +7900,9 @@ bool aiChrDrawWeaponInCutscene(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 		currentPlayerEquipWeaponInCutscene((s8)cmd[3]);
 		setCurrentPlayerNum(prevplayernum);
@@ -7941,7 +7941,7 @@ glabel ai00ee
 /*  f057fd0:	8e0d0438 */ 	lw	$t5,0x438($s0)
 /*  f057fd4:	8e19028c */ 	lw	$t9,0x28c($s0)
 /*  f057fd8:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f057fdc:	0fc4a25f */ 	jal	posGetPlayerNum
+/*  f057fdc:	0fc4a25f */ 	jal	propGetPlayerNum
 /*  f057fe0:	8c44001c */ 	lw	$a0,0x1c($v0)
 /*  f057fe4:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f057fe8:	00402025 */ 	or	$a0,$v0,$zero
@@ -7980,9 +7980,9 @@ glabel ai00ee
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 //
-//	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+//	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 //		u32 prevplayernum = g_Vars.currentplayernum;
-//		u32 playernum = posGetPlayerNum(chr->pos);
+//		u32 playernum = propGetPlayerNum(chr->prop);
 //		setCurrentPlayerNum(playernum);
 //
 //		g_Vars.currentplayer->unk1b6c = (s8)cmd[3];
@@ -8007,7 +8007,7 @@ bool aiIfObjInRoom(void)
 	u16 room_id = cmd[4] | (cmd[3] << 8);
 	s32 room_something = chrGetPadRoom(g_Vars.chrdata, room_id);
 
-	if (room_something >= 0 && obj && obj->pos && room_something == obj->pos->room) {
+	if (room_something >= 0 && obj && obj->prop && room_something == obj->prop->room) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
 	} else {
 		g_Vars.aioffset += 6;
@@ -8035,9 +8035,9 @@ bool aiChrSetInvincible(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 		g_PlayerInvincible = true;
 		setCurrentPlayerNum(prevplayernum);
@@ -8176,9 +8176,9 @@ bool aiIfPlayerIsInvincible(void)
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 		pass = g_PlayerInvincible;
 		setCurrentPlayerNum(prevplayernum);
@@ -8302,9 +8302,9 @@ bool aiChrExplosions(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 		currentPlayerSurroundWithExplosions(0);
 		setCurrentPlayerNum(prevplayernum);
@@ -8485,7 +8485,7 @@ glabel aiRemoveObjectAtPropPreset
 //bool aiRemoveObjectAtPropPreset(void)
 //{
 //	if (g_Vars.chrdata->proppreset1 >= 0) {
-//		struct defaultobj *obj = g_Vars.positions[g_Vars.chrdata->proppreset1].obj;
+//		struct defaultobj *obj = g_Vars.props[g_Vars.chrdata->proppreset1].obj;
 //		obj->hidden &= ~OBJHIDDENFLAG_00200000;
 //	}
 //
@@ -8568,7 +8568,7 @@ bool aiSetTarget(void)
 		s16 prop_id;
 
 		if (!cmd[3] && !cmd[4]) {
-			prop_id = positionGetIndexByChrId(g_Vars.chrdata, cmd[2]);
+			prop_id = propGetIndexByChrId(g_Vars.chrdata, cmd[2]);
 		} else if (!cmd[4]) {
 			struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 			prop_id = chr->target;
@@ -8600,7 +8600,7 @@ bool aiIfPresetsTargetIsNotMyTarget(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (g_Vars.chrdata->chrpreset1 != -1) {
-		mypresetchrstarget = positionGetIndexByChrId(g_Vars.chrdata, g_Vars.chrdata->chrpreset1);
+		mypresetchrstarget = propGetIndexByChrId(g_Vars.chrdata, g_Vars.chrdata->chrpreset1);
 	}
 
 	if (g_Vars.chrdata->target != -1 && mypresetchrstarget != g_Vars.chrdata->target) {
@@ -8621,17 +8621,17 @@ bool aiIfChrTarget(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	bool pass = false;
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		// empty
 	} else if (cmd[2] != CHR_BOND) {
 		if (cmd[4] == 0) {
 			struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 
-			if (chr2 && chr2->pos && chrGetTargetPosition(chr) == chr2->pos) {
+			if (chr2 && chr2->prop && chrGetTargetProp(chr) == chr2->prop) {
 				pass = true;
 			}
 		} else {
-			if (chr->target != -1 && chr && chr->pos) {
+			if (chr->target != -1 && chr && chr->prop) {
 				pass = true;
 			}
 		}
@@ -8706,7 +8706,7 @@ bool aiIfCompareChrPresetsTeam(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 
-	if (!chr || (!chr->unk020 && chr->pos->type != POSITIONTYPE_PLAYER)) {
+	if (!chr || (!chr->unk020 && chr->prop->type != PROPTYPE_PLAYER)) {
 		chrSetChrPreset(g_Vars.chrdata, CHR_BOND);
 		chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
 	}
@@ -8740,8 +8740,8 @@ glabel ai011e
 /*  f0591f0:	24639fc0 */ 	addiu	$v1,$v1,-24640  # v1 = g_Vars
 /*  f0591f4:	10400012 */ 	beqz	$v0,.L0f059240  # if (chr == 0) goto 40
 /*  f0591f8:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f0591fc:	8c58001c */ 	lw	$t8,0x1c($v0)       # t8 = chr->pos
-/*  f059200:	53000010 */ 	beqzl	$t8,.L0f059244  # if (chr->pos == 0) goto 44
+/*  f0591fc:	8c58001c */ 	lw	$t8,0x1c($v0)       # t8 = chr->prop
+/*  f059200:	53000010 */ 	beqzl	$t8,.L0f059244  # if (chr->prop == 0) goto 44
 /*  f059204:	8c790438 */ 	lw	$t9,0x438($v1)      # t9 = g_Vars.aioffset
 /*  f059208:	10400003 */ 	beqz	$v0,.L0f059218   # if (v0 == 0) goto 18
 /*  f05920c:	00002025 */ 	or	$a0,$zero,$zero      # a0 = 0
@@ -8984,7 +8984,7 @@ bool ai0121(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 someshort = cmd[3] | (cmd[2] << 8);
 
-	if (g_Vars.chrdata && g_Vars.chrdata->pos && func0f04ba34(g_Vars.chrdata, someshort, 0) != -1) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop && func0f04ba34(g_Vars.chrdata, someshort, 0) != -1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -9002,7 +9002,7 @@ bool ai0122(void)
 	u16 thing = cmd[3] | (cmd[2] << 8);
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
-	if (g_Vars.chrdata && g_Vars.chrdata->pos && func0f04ba34(g_Vars.chrdata, thing, flags) != -1) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop && func0f04ba34(g_Vars.chrdata, thing, flags) != -1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
 	} else {
 		g_Vars.aioffset += 9;
@@ -9020,7 +9020,7 @@ bool ai0123(void)
 	u16 thing = cmd[3] | (cmd[2] << 8);
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
 
-	if (g_Vars.chrdata && g_Vars.chrdata->pos && func0f04ba34(g_Vars.chrdata, thing, -flags) != -1) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop && func0f04ba34(g_Vars.chrdata, thing, -flags) != -1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[8]);
 	} else {
 		g_Vars.aioffset += 9;
@@ -9251,7 +9251,7 @@ glabel ai0127
 /*  f059b1c:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f059b20:	1281000c */ 	beq	$s4,$at,.L0f059b54
 /*  f059b24:	02802825 */ 	or	$a1,$s4,$zero
-/*  f059b28:	0fc12705 */ 	jal	positionGetIndexByChrId
+/*  f059b28:	0fc12705 */ 	jal	propGetIndexByChrId
 /*  f059b2c:	8e440424 */ 	lw	$a0,0x424($s2)
 /*  f059b30:	8e490424 */ 	lw	$t1,0x424($s2)
 /*  f059b34:	a522017e */ 	sh	$v0,0x17e($t1)
@@ -9435,7 +9435,7 @@ glabel ai0128
 /*  f059dc8:	86350000 */ 	lh	$s5,0x0($s1)
 /*  f059dcc:	8612017e */ 	lh	$s2,0x17e($s0)
 .L0f059dd0:
-/*  f059dd0:	0fc12705 */ 	jal	positionGetIndexByChrId
+/*  f059dd0:	0fc12705 */ 	jal	propGetIndexByChrId
 /*  f059dd4:	86250000 */ 	lh	$a1,0x0($s1)
 /*  f059dd8:	8e680424 */ 	lw	$t0,0x424($s3)
 /*  f059ddc:	a502017e */ 	sh	$v0,0x17e($t0)
@@ -9474,7 +9474,7 @@ glabel ai0128
 /*  f059e4c:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f059e50:	12a1000c */ 	beq	$s5,$at,.L0f059e84
 /*  f059e54:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f059e58:	0fc12705 */ 	jal	positionGetIndexByChrId
+/*  f059e58:	0fc12705 */ 	jal	propGetIndexByChrId
 /*  f059e5c:	8e640424 */ 	lw	$a0,0x424($s3)
 /*  f059e60:	8e6f0424 */ 	lw	$t7,0x424($s3)
 /*  f059e64:	a5e2017e */ 	sh	$v0,0x17e($t7)
@@ -9840,7 +9840,7 @@ glabel ai0130
 /*  f05a438:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f05a43c:	55610015 */ 	bnel	$t3,$at,.L0f05a494
 /*  f05a440:	90e20126 */ 	lbu	$v0,0x126($a3)
-/*  f05a444:	0fc4a25f */ 	jal	posGetPlayerNum
+/*  f05a444:	0fc4a25f */ 	jal	propGetPlayerNum
 /*  f05a448:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05a44c:	8e030298 */ 	lw	$v1,0x298($s0)
 /*  f05a450:	00026080 */ 	sll	$t4,$v0,0x2
@@ -10363,10 +10363,10 @@ glabel ai0130
 /*  f05abd8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f05abdc(struct position *pos)
+void func0f05abdc(struct prop *prop)
 {
-	if (pos && pos->chr && pos->chr->unk020 && pos->chr->propsoundcount > 0) {
-		pos->chr->propsoundcount--;
+	if (prop && prop->chr && prop->chr->unk020 && prop->chr->propsoundcount > 0) {
+		prop->chr->propsoundcount--;
 	}
 }
 
@@ -10898,7 +10898,7 @@ glabel ai0136
 /*  f05b368:	1441000d */ 	bne	$v0,$at,.L0f05b3a0
 /*  f05b36c:	2405090a */ 	addiu	$a1,$zero,0x90a
 /*  f05b370:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05b374:	0fc0a221 */ 	jal	chrGetTargetPosition
+/*  f05b374:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f05b378:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f05b37c:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f05b380:	3c06461c */ 	lui	$a2,0x461c
@@ -11034,7 +11034,7 @@ glabel aiIfChrInSquadronDoingAction
 /*  f05b550:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-// Mismatches due to position of rodata. This function uses literal 3500, while
+// Mismatches due to prop of rodata. This function uses literal 3500, while
 // others below in this file use const f32 arrays, but const f32 arrays are
 // placed in .rodata before all literals.
 //bool aiIfChrInSquadronDoingAction(void)
@@ -12002,9 +12002,9 @@ bool aiIfY(void)
 		struct heliobj *heli = objGetHeli(&g_Vars.hovdata->base);
 
 		if (heli) {
-			struct position *target = heliGetTargetPosition(heli);
+			struct prop *target = heliGetTargetProp(heli);
 
-			if (target && (target->type == POSITIONTYPE_CHR || target->type == POSITIONTYPE_PLAYER)) {
+			if (target && (target->type == PROPTYPE_CHR || target->type == PROPTYPE_PLAYER)) {
 				chr = target->chr;
 			}
 		}
@@ -12012,9 +12012,9 @@ bool aiIfY(void)
 		chr = chrFindById(g_Vars.chrdata, cmd[2]);
 	}
 
-	if (chr && chr->pos && (
-				(chr->pos->coord.y < cutoff_y && cmd[5] == 0) ||
-				(chr->pos->coord.y > cutoff_y && cmd[5] == 1))) {
+	if (chr && chr->prop && (
+				(chr->prop->coord.y < cutoff_y && cmd[5] == 0) ||
+				(chr->prop->coord.y > cutoff_y && cmd[5] == 1))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -12153,7 +12153,7 @@ bool aiIfChrHasGun(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->unk020 && chr->gungroundpos == NULL) {
+	if (chr && chr->unk020 && chr->gunprop == NULL) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -12168,11 +12168,11 @@ bool aiIfChrHasGun(void)
 bool ai0170(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct weaponobj *weapon = g_Vars.chrdata->gungroundpos->weapon;
+	struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
 	if (cmd[2] == 0 || ((weapon->hidden & OBJHIDDENFLAG_00000080) == 0 && cmd[2] == 1)) {
 		if (cmd[2] == 0) {
-			func0f03ab74(g_Vars.chrdata, g_Vars.chrdata->gungroundpos, 1);
+			func0f03ab74(g_Vars.chrdata, g_Vars.chrdata->gunprop, 1);
 		}
 
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -12194,10 +12194,10 @@ bool aiIfDistanceToGunLessThan(void)
 	f32 ydiff = 0;
 	f32 zdiff = 0;
 
-	if (g_Vars.chrdata->gungroundpos) {
-		xdiff = g_Vars.chrdata->pos->coord.x - g_Vars.chrdata->gungroundpos->coord.x;
-		ydiff = g_Vars.chrdata->pos->coord.y - g_Vars.chrdata->gungroundpos->coord.y;
-		zdiff = g_Vars.chrdata->pos->coord.z - g_Vars.chrdata->gungroundpos->coord.z;
+	if (g_Vars.chrdata->gunprop) {
+		xdiff = g_Vars.chrdata->prop->coord.x - g_Vars.chrdata->gunprop->coord.x;
+		ydiff = g_Vars.chrdata->prop->coord.y - g_Vars.chrdata->gunprop->coord.y;
+		zdiff = g_Vars.chrdata->prop->coord.z - g_Vars.chrdata->gunprop->coord.z;
 	}
 
 	if (ydiff < 200 && ydiff > -200 &&
@@ -12269,14 +12269,14 @@ glabel ai0172
 //bool ai0172(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct position *pos = g_Vars.chrdata->gungroundpos;
-//	g_Vars.chrdata->gungroundpos = NULL;
+//	struct prop *prop = g_Vars.chrdata->gunprop;
+//	g_Vars.chrdata->gunprop = NULL;
 //
-//	if (pos && pos->unk04 && pos->unk18 == 0 && pos->type == POSITIONTYPE_WEAPON) {
-//		func0f065c44(pos);
-//		func0f0605c4(pos);
-//		func0f060300(pos);
-//		func0f08ae54(pos->unk04, g_Vars.chrdata);
+//	if (prop && prop->unk04 && prop->unk18 == 0 && prop->type == PROPTYPE_WEAPON) {
+//		func0f065c44(prop);
+//		func0f0605c4(prop);
+//		func0f060300(prop);
+//		func0f08ae54(prop->unk04, g_Vars.chrdata);
 //	}
 //
 //	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -12328,9 +12328,9 @@ bool aiPlayerAutoWalk(void)
 	s16 pad_id = cmd[4] | (cmd[3] << 8);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 		currentPlayerAutoWalk(pad_id, cmd[5], cmd[6], cmd[7], cmd[8]);
 		setCurrentPlayerNum(prevplayernum);
@@ -12350,9 +12350,9 @@ bool aiIfPlayerAutoWalkFinished(void)
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.unk0002ac == 7) {
@@ -12381,12 +12381,12 @@ bool aiIfPlayerLookingAtObject(void)
 	bool pass = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
-		if (g_Vars.currentplayer->lookingatprop == obj->pos) {
+		if (g_Vars.currentplayer->lookingatprop == obj->prop) {
 			pass = true;
 		}
 
@@ -12424,9 +12424,9 @@ bool aiPunchOrKick(void)
 bool ai0183(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct position *target = chrGetTargetPosition(g_Vars.chrdata);
+	struct prop *target = chrGetTargetProp(g_Vars.chrdata);
 
-	if (target->type == POSITIONTYPE_5 || target->type == POSITIONTYPE_PLAYER) {
+	if (target->type == PROPTYPE_5 || target->type == PROPTYPE_PLAYER) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -12493,7 +12493,7 @@ glabel ai0187
 /*  f05d14c:	ae090438 */ 	sw	$t1,0x438($s0)
 /*  f05d150:	8c6c0000 */ 	lw	$t4,0x0($v1)
 /*  f05d154:	8d820004 */ 	lw	$v0,0x4($t4)
-/*  f05d158:	0fc12705 */ 	jal	positionGetIndexByChrId
+/*  f05d158:	0fc12705 */ 	jal	propGetIndexByChrId
 /*  f05d15c:	84450000 */ 	lh	$a1,0x0($v0)
 /*  f05d160:	8e0d0424 */ 	lw	$t5,0x424($s0)
 /*  f05d164:	a5a2017e */ 	sh	$v0,0x17e($t5)
@@ -12533,7 +12533,7 @@ bool aiIfLiftStationary(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 	bool pass = false;
 
-	if (obj && obj->pos && obj->type == OBJTYPE_LIFT) {
+	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
 		struct liftobj *lift = (struct liftobj *)obj;
 
 		if ((obj->flags & OBJECTFLAG0_DEACTIVATED) || !lift->unk74) {
@@ -12558,7 +12558,7 @@ bool ai0189(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && obj->type == OBJTYPE_LIFT) {
+	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
 		func0f0710ec(obj, cmd[3]);
 	}
 
@@ -12677,8 +12677,8 @@ bool aiActivateLift(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 
-	if (obj && obj->pos) {
-		liftActivate(obj->pos, cmd[2]);
+	if (obj && obj->prop) {
+		liftActivate(obj->prop, cmd[2]);
 	}
 
 	g_Vars.aioffset += 4;
@@ -12836,14 +12836,14 @@ glabel aiIfObjectDistanceToPadLessThan
 //	struct pad pad;
 //	bool pass = false;
 //
-//	if (obj && obj->pos) {
+//	if (obj && obj->prop) {
 //		pad_id = chrResolvePadId(g_Vars.chrdata, pad_id);
 //
 //		if (pad_id >= 0) {
 //			padUnpack(pad_id, 2, &pad);
-//			xdiff = obj->pos->coord.x - pad.coord.x;
-//			ydiff = obj->pos->coord.y - pad.coord.y;
-//			zdiff = obj->pos->coord.z - pad.coord.z;
+//			xdiff = obj->prop->coord.x - pad.coord.x;
+//			ydiff = obj->prop->coord.y - pad.coord.y;
+//			zdiff = obj->prop->coord.z - pad.coord.z;
 //
 //			if (ydiff < 200 && ydiff > -200 &&
 //					xdiff < distance && xdiff > -distance &&
@@ -12929,7 +12929,7 @@ bool aiIfObjHealthLessThan(void)
 
 	bool condition_passes = false;
 
-	if (obj && obj->pos && obj->damage < damage) {
+	if (obj && obj->prop && obj->damage < damage) {
 		condition_passes = true;
 	}
 
@@ -12951,7 +12951,7 @@ bool aiSetObjHealth(void)
 	s32 damage = cmd[4] | (cmd[3] << 8);
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		obj->damage = damage;
 	}
 
@@ -12984,8 +12984,8 @@ bool aiSetRoomToSearch(void)
 {
 	struct chrdata *target = chrFindById(g_Vars.chrdata, CHR_TARGET);
 
-	if (target && target->pos) {
-		g_Vars.chrdata->roomtosearch = target->pos->room;
+	if (target && target->prop) {
+		g_Vars.chrdata->roomtosearch = target->prop->room;
 	}
 
 	g_Vars.aioffset += 2;
@@ -13003,22 +13003,22 @@ bool aiSayCiStaffQuip(void)
 
 	if (cmd[2] == 0) {
 		quip = ciquiptable_bank0[g_Vars.chrdata->morale][random() % 3];
-		audioPlayFromWorldPosition(cmd[3], quip, 0, g_Vars.chrdata->pos, 9, 0);
+		audioPlayFromProp(cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
 	if (cmd[2] == 1) {
 		quip = ciquiptable_bank1[g_Vars.chrdata->morale][random() % 3];
-		audioPlayFromWorldPosition(cmd[3], quip, 0, g_Vars.chrdata->pos, 9, 0);
+		audioPlayFromProp(cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
 	if (cmd[2] == 2) {
 		quip = ciquiptable_bank2[g_Vars.chrdata->morale][random() % 3];
-		audioPlayFromWorldPosition(cmd[3], quip, 0, g_Vars.chrdata->pos, 9, 0);
+		audioPlayFromProp(cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
 	if (cmd[2] == 3) {
 		quip = ciquiptable_bank3[g_Vars.chrdata->morale];
-		audioPlayFromWorldPosition(cmd[3], quip, 0, g_Vars.chrdata->pos, 9, 0);
+		audioPlayFromProp(cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
 	g_Vars.aioffset += 4;
@@ -13196,8 +13196,8 @@ bool ai01a5(void)
 bool aiIfTargetYDifferenceLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct position *pos = chrGetTargetPosition(g_Vars.chrdata);
-	f32 diff = pos->coord.y - g_Vars.chrdata->pos->coord.y;
+	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
+	f32 diff = prop->coord.y - g_Vars.chrdata->prop->coord.y;
 
 	if (diff < 0) {
 		diff = 0 - diff;
@@ -13221,10 +13221,10 @@ bool ai01aa(void)
 	f32 a = var7f1a9d9c[0];
 
 	func0f0056f4(
-			g_Vars.currentplayer->targetpos->room,
-			&g_Vars.currentplayer->targetpos->coord,
-			g_Vars.chrdata->pos->room,
-			&g_Vars.chrdata->pos->coord,
+			g_Vars.currentplayer->prop->room,
+			&g_Vars.currentplayer->prop->coord,
+			g_Vars.chrdata->prop->room,
+			&g_Vars.chrdata->prop->coord,
 			0, &a, 0);
 
 	if (a < var7f1a9da0[0]) {
@@ -13370,13 +13370,13 @@ bool aiChrGrabObject(void)
 	struct defaultobj *obj = objFindByTagId(cmd[3]);
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER && obj && obj->pos) {
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER && obj && obj->prop) {
 		u32 prevplayernum = g_Vars.currentplayernum;
-		u32 playernum = posGetPlayerNum(chr->pos);
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.currentplayer->unk01b0 == 0 && func0f0cc680() == 2 && g_Vars.currentplayer->unk00b4 == 0) {
-			currentPlayerGrabProp(obj->pos);
+			currentPlayerGrabProp(obj->prop);
 		}
 
 		setCurrentPlayerNum(prevplayernum);
@@ -13627,11 +13627,11 @@ bool aiChrSetP1P2(void)
 		struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
 		struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 
-		if (chr1 && chr2 && chr2->pos && chr2->pos->type == POSITIONTYPE_PLAYER) {
-			u32 playernum = posGetPlayerNum(chr2->pos);
+		if (chr1 && chr2 && chr2->prop && chr2->prop->type == PROPTYPE_PLAYER) {
+			u32 playernum = propGetPlayerNum(chr2->prop);
 
 			if (!g_Vars.players[playernum]->isdead) {
-				if (chr2->pos == g_Vars.coop->targetpos) {
+				if (chr2->prop == g_Vars.coop->prop) {
 					chr1->p1p2 = g_Vars.coopplayernum;
 				} else {
 					chr1->p1p2 = g_Vars.bondplayernum;
@@ -13653,7 +13653,7 @@ bool aiChrSetCloaked(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos) {
+	if (chr && chr->prop) {
 		if (!chrIsDead(chr)) {
 			if (cmd[3]) {
 				chrCloak(chr, cmd[4]);
@@ -13676,7 +13676,7 @@ bool aiSetAutogunType(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos && obj->type == OBJTYPE_AUTOGUN) {
+	if (obj && obj->prop && obj->type == OBJTYPE_AUTOGUN) {
 		struct autogunobj *autogun = (struct autogunobj *)obj;
 		autogun->autogun_type = cmd[3];
 		autogun->unka4 = 0;
@@ -13893,11 +13893,11 @@ bool aiIfChrWeaponEquipped(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-	struct position *pos = chr ? chr->pos : NULL;
+	struct prop *prop = chr ? chr->prop : NULL;
 	u8 is_using_weapon = false;
 
-	if (pos && pos->type == POSITIONTYPE_PLAYER) {
-		u32 playernum = posGetPlayerNum(pos);
+	if (prop && prop->type == PROPTYPE_PLAYER) {
+		u32 playernum = propGetPlayerNum(prop);
 		u32 prevplayernum = g_Vars.currentplayernum;
 		setCurrentPlayerNum(playernum);
 
@@ -13932,8 +13932,8 @@ bool aiChrBeginOrEndTeleport(void)
 	s32 b;
 	s32 c;
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
-		playernum = posGetPlayerNum(chr->pos);
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+		playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 	}
 
@@ -13978,8 +13978,8 @@ bool aiIfChrTeleportFullWhite(void)
 	s32 b;
 	s32 c;
 
-	if (chr && chr->pos && chr->pos->type == POSITIONTYPE_PLAYER) {
-		u32 playernum = posGetPlayerNum(chr->pos);
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 	}
 
@@ -14143,7 +14143,7 @@ bool ai01cd(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->pos && chr->unk020) {
+	if (chr && chr->prop && chr->unk020) {
 		func0f0245c8(chr, cmd[3]);
 	}
 
@@ -14277,7 +14277,7 @@ bool aiSetObjPartVisible(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (obj && obj->pos) {
+	if (obj && obj->prop) {
 		objSetPartVisible(obj, cmd[3], cmd[4]);
 	}
 
@@ -14611,7 +14611,7 @@ glabel aiShowCutsceneChrs
 //		for (i = getNumChrs() - 1; i >= 0; i--) {
 //			chr = &g_Chrs[i];
 //
-//			if (chr->chrnum >= 0 && chr->pos && (chr->hidden2 & 1)) {
+//			if (chr->chrnum >= 0 && chr->prop && (chr->hidden2 & 1)) {
 //				chr->hidden2 = chr->hidden2 & ~1;
 //				chr->chrflags = chr->chrflags & ~0x00000400;
 //			}
@@ -14621,7 +14621,7 @@ glabel aiShowCutsceneChrs
 //		for (i = getNumChrs() - 1; i >= 0; i--) {
 //			chr = &g_Chrs[i];
 //
-//			if (chr->chrnum >= 0 && chr->pos && (chr->chrflags & 0x00800400) == 0) {
+//			if (chr->chrnum >= 0 && chr->prop && (chr->chrflags & 0x00800400) == 0) {
 //				chr->hidden2 = chr->hidden2 | 1;
 //				chr->chrflags = chr->chrflags | 0x00000400;
 //			}
@@ -14784,7 +14784,7 @@ glabel ai01d9
 /*  f05fe54:   87a50032 */     lh      $a1,0x32($sp)
 /*  f05fe58:   8fa6002c */     lw      $a2,0x2c($sp)
 /*  f05fe5c:   afa80010 */     sw      $t0,0x10($sp)
-/*  f05fe60:   0fc25010 */     jal     audioPlayFromWorldPosition
+/*  f05fe60:   0fc25010 */     jal     audioPlayFromProp
 /*  f05fe64:   afa90014 */     sw      $t1,0x14($sp)
 /*  f05fe68:   3c03800a */     lui     $v1,%hi(g_Vars)
 /*  f05fe6c:   24639fc0 */     addiu   $v1,$v1,%lo(g_Vars)
@@ -14797,7 +14797,7 @@ glabel ai01d9
 /*  f05fe88:   00001025 */     or      $v0,$zero,$zero
 );
 
-// Matches if channel argument to audioPlayFromWorldPosition is changed to s32,
+// Matches if channel argument to audioPlayFromProp is changed to s32,
 // but this causes other code to mismatch.
 //bool ai01d9(void)
 //{
@@ -14809,7 +14809,7 @@ glabel ai01d9
 //	s16 unk2 = cmd[8];
 //	struct defaultobj *obj = objFindByTagId(cmd[3]);
 //
-//	audioPlayFromWorldPosition(channel, audio_id, volumemaybe, obj->pos, unk2, unk1);
+//	audioPlayFromProp(channel, audio_id, volumemaybe, obj->prop, unk2, unk1);
 //
 //	g_Vars.aioffset += 11;
 //
@@ -14970,8 +14970,8 @@ glabel ai01de
  */
 bool ai01e0(void)
 {
-	if (g_Vars.chrdata && g_Vars.chrdata->pos) {
-		u32 index = ((s32)g_Vars.chrdata->pos - (s32)g_Vars.positions) / 0x48;
+	if (g_Vars.chrdata && g_Vars.chrdata->prop) {
+		u32 index = ((s32)g_Vars.chrdata->prop - (s32)g_Vars.props) / 0x48;
 		func0f020f90(index);
 	}
 
@@ -14985,8 +14985,8 @@ bool ai01e0(void)
  */
 bool ai01b4(void)
 {
-	if (g_Vars.chrdata && g_Vars.chrdata->pos &&
-			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->pos->coord, &g_Vars.chrdata->pos->room, 0, 0)) {
+	if (g_Vars.chrdata && g_Vars.chrdata->prop &&
+			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->coord, &g_Vars.chrdata->prop->room, 0, 0)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

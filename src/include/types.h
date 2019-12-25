@@ -27,14 +27,14 @@ struct attachment {
 
 /**
  * Most, if not all, entity types (chrs, objs, weapons etc) have a pointer to a
- * position struct. The struct contains properties that most entities have in
+ * prop struct. The struct contains properties that most entities have in
  * common such as coords and a room number. You can think of it as generic
  * entity.
  *
  * The type field indicates what type it is (chr, obj etc) and the entity
  * pointer points back to the proper entity struct.
  */
-struct position {
+struct prop {
 	u8 type;
 	u8 flags;
 	u16 unk02;
@@ -276,7 +276,7 @@ struct chrdata {
 	/*0x013*/ s8 path;
 	/*0x014*/ u32 hidden;
 	/*0x018*/ u32 chrflags;
-	/*0x01c*/ struct position *pos;
+	/*0x01c*/ struct prop *prop;
 	/*0x020*/ struct chr020 *unk020;
 	/*0x024*/ u32 chrwidth;
 	/*0x028*/ u32 chrheight;
@@ -373,7 +373,7 @@ struct chrdata {
 	/*0x170*/ struct attachment *weapons_held[2];
 	/*0x178*/ u32 unk178;
 	/*0x17c*/ s8 fireslot[2];
-	/*0x17e*/ s16 target; // index into g_Vars.positions
+	/*0x17e*/ s16 target; // index into g_Vars.props
 	/*0x180*/ f32 cshield;
 	/*0x184*/ u8 cmnum;
 	/*0x185*/ u8 cmnum2;
@@ -425,7 +425,7 @@ struct chrdata {
 	/*0x2fd*/ u8 ivebeenhit;
 	/*0x2fe*/ u8 race;
 	/*0x2ff*/ u8 blurnumtimesdied;
-	/*0x300*/ struct position *gungroundpos;
+	/*0x300*/ struct prop *gunprop;
 	/*0x304*/ u32 pushspeed[2];
 	/*0x30c*/ u32 gunroty[2];
 	/*0x314*/ u32 gunrotx[2];
@@ -483,7 +483,7 @@ struct defaultobj {
 	/*0x08*/ u32 flags;
 	/*0x0c*/ u32 flags2;
 	/*0x10*/ u32 flags3;
-	/*0x14*/ struct position *pos;
+	/*0x14*/ struct prop *prop;
 	/*0x18*/ void *unk18; // probably same struct as chrdata->unk020
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden; // most significant nibble is the playernum who holds the obj
@@ -552,7 +552,7 @@ struct weaponobj { // objtype 0x08
 	/*0x08*/ u32 flags;
 	/*0x0c*/ u32 flags2;
 	/*0x10*/ u32 flags3;
-	/*0x14*/ struct position *pos;
+	/*0x14*/ struct prop *prop;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden;
@@ -577,7 +577,7 @@ struct singlemonitorobj { // objtype 0x0a
 	/*0x08*/ u32 flags;
 	/*0x0c*/ u32 flags2;
 	/*0x10*/ u32 flags3;
-	/*0x14*/ struct position *pos;
+	/*0x14*/ struct prop *prop;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden;
@@ -710,7 +710,7 @@ struct player {
 	/*0x00b0*/ u32 unk00b0;
 	/*0x00b4*/ f32 unk00b4;
 	/*0x00b8*/ u32 unk00b8;
-	/*0x00bc*/ struct position *targetpos;
+	/*0x00bc*/ struct prop *prop;
 	/*0x00c0*/ u32 unk00c0;
 	/*0x00c4*/ u32 unk00c4;
 	/*0x00c8*/ u32 unk00c8;
@@ -2080,7 +2080,7 @@ struct player {
 	/*0x1618*/ u32 unk1618;
 	/*0x161c*/ u32 unk161c;
 	/*0x1620*/ u32 unk1620;
-	/*0x1624*/ struct position *lookingatprop;
+	/*0x1624*/ struct prop *lookingatprop;
 	/*0x1628*/ u32 unk1628;
 	/*0x162c*/ u32 unk162c;
 	/*0x1630*/ u32 unk1630;

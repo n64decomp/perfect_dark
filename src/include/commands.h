@@ -349,7 +349,7 @@
 	mkshort(0x0046), \
 	label,
 
-#define if_bitcheck_in_position_struct(label) \
+#define if_bitcheck_in_prop_struct(label) \
 	mkshort(0x0047), \
 	label,
 
@@ -1604,7 +1604,7 @@
 
 // value is either 25, 70 or 335.
 // u1 is either 1 or 2.
-// It seems related to the chr's position properties
+// It seems related to the chr's prop properties
 // Used by G5 cloaked guards, Deep Sea cloaked purple guards and globals.s
 // I think this is related to flanking, where the value arg is the angle
 // relative to the player's direction. 335 is the same as 25 degress to the
@@ -1814,9 +1814,9 @@
 	label,
 
 // If bool is false, run some function on the chr and their gun ground
-// position, then follow the label.
+// prop, then follow the label.
 // If bool is true, don't call the function, and only follow the label if field
-// 0x4 in the gun ground position struct is less than 64.
+// 0x4 in the gun ground prop struct is less than 64.
 #define if_gun_landed(bool, label) \
 	mkshort(0x0170), \
 	bool, \
@@ -2055,9 +2055,9 @@
 	mkshort(0x01a3), \
 	value,
 
-#define display_text(position, color, text) \
+#define display_text(prop, color, text) \
 	mkshort(0x01a4), \
-	position, \
+	prop, \
 	color, \
 	mkshort(text),
 
@@ -2407,7 +2407,7 @@
 	mkshort(0x01de), \
 	label,
 
-// Something to do with the chr's position struct
+// Something to do with the chr's prop struct
 #define cmd01e0 \
 	mkshort(0x01e0),
 

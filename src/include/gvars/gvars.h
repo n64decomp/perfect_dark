@@ -90,7 +90,7 @@ struct g_vars {
 	/*00032c*/ u32 unk00032c;
 	/*000330*/ u32 unk000330;
 	/*000334*/ u32 unk000334;
-	/*000338*/ struct position *positions;
+	/*000338*/ struct prop *props;
 	/*00033c*/ u32 unk00033c;
 	/*000340*/ u32 unk000340;
 	/*000344*/ u32 unk000344;

@@ -9222,7 +9222,7 @@ glabel func0f09ee18
 /*  f09f044:	10000004 */ 	beqz	$zero,.L0f09f058
 /*  f09f048:	8e0f0040 */ 	lw	$t7,0x40($s0)
 .L0f09f04c:
-/*  f09f04c:	0fc4a25f */ 	jal	posGetPlayerNum
+/*  f09f04c:	0fc4a25f */ 	jal	propGetPlayerNum
 /*  f09f050:	8dc4001c */ 	lw	$a0,0x1c($t6)
 /*  f09f054:	8e0f0040 */ 	lw	$t7,0x40($s0)
 .L0f09f058:
