@@ -245,6 +245,13 @@ struct act_jumpout {
 	/*0x2c*/ u32 unk02c;
 };
 
+struct act_runpos {
+	/*0x2c*/ struct coord pos;
+	/*0x38*/ f32 unk038;
+	/*0x3c*/ u32 unk03c;
+	/*0x40*/ f32 unk040;
+};
+
 struct act_surprised {
 	/*0x2c*/ u32 unk02c;
 };
@@ -288,6 +295,7 @@ struct chrdata {
 		struct act_attack act_attack;
 		struct act_sidestep act_sidestep;
 		struct act_jumpout act_jumpout;
+		struct act_runpos act_runpos;
 		struct act_surprised act_surprised;
 		struct act_throwgrenade act_throwgrenade;
 	};

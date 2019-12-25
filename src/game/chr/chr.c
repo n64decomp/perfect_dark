@@ -20876,53 +20876,24 @@ glabel func0f02fe18
 /*  f030074:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrRunToProp
-/*  f030078:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03007c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f030080:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f030084:	00808025 */ 	or	$s0,$a0,$zero
-/*  f030088:	0fc0fe3d */ 	jal	chrStopFiring
-/*  f03008c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f030090:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f030094:	240e000d */ 	addiu	$t6,$zero,0xd
-/*  f030098:	a20e0007 */ 	sb	$t6,0x7($s0)
-/*  f03009c:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f0300a0:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f0300a4:	44815000 */ 	mtc1	$at,$f10
-/*  f0300a8:	e604002c */ 	swc1	$f4,0x2c($s0)
-/*  f0300ac:	c4a60004 */ 	lwc1	$f6,0x4($a1)
-/*  f0300b0:	44808000 */ 	mtc1	$zero,$f16
-/*  f0300b4:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f0300b8:	e6060030 */ 	swc1	$f6,0x30($s0)
-/*  f0300bc:	c4a80008 */ 	lwc1	$f8,0x8($a1)
-/*  f0300c0:	a2000008 */ 	sb	$zero,0x8($s0)
-/*  f0300c4:	e60a0038 */ 	swc1	$f10,0x38($s0)
-/*  f0300c8:	e6100040 */ 	swc1	$f16,0x40($s0)
-/*  f0300cc:	0c0076e5 */ 	jal	func0001db94
-/*  f0300d0:	e6080034 */ 	swc1	$f8,0x34($s0)
-/*  f0300d4:	10400006 */ 	beqz	$v0,.L0f0300f0
-/*  f0300d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0300dc:	8e0f0014 */ 	lw	$t7,0x14($s0)
-/*  f0300e0:	3c010020 */ 	lui	$at,0x20
-/*  f0300e4:	01e1c025 */ 	or	$t8,$t7,$at
-/*  f0300e8:	10000008 */ 	beqz	$zero,.L0f03010c
-/*  f0300ec:	ae180014 */ 	sw	$t8,0x14($s0)
-.L0f0300f0:
-/*  f0300f0:	0fc0bf86 */ 	jal	func0f02fe18
-/*  f0300f4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0300f8:	8e190014 */ 	lw	$t9,0x14($s0)
-/*  f0300fc:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f030100:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f030104:	03214024 */ 	and	$t0,$t9,$at
-/*  f030108:	ae080014 */ 	sw	$t0,0x14($s0)
-.L0f03010c:
-/*  f03010c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f030110:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f030114:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f030118:	03e00008 */ 	jr	$ra
-/*  f03011c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrRunToPos(struct chrdata *chr, struct coord *pos)
+{
+	chrStopFiring(chr);
+	chr->actiontype = ACT_RUNPOS;
+	chr->act_runpos.pos.x = pos->x;
+	chr->act_runpos.pos.y = pos->y;
+	chr->act_runpos.pos.z = pos->z;
+	chr->sleep = 0;
+	chr->act_runpos.unk038 = 30; // float
+	chr->act_runpos.unk040 = 0;
+
+	if (func0001db94(chr->unk020)) {
+		chr->hidden |= CHRHFLAG_00200000;
+	} else {
+		func0f02fe18(chr);
+		chr->hidden &= ~CHRHFLAG_00200000;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f030120
@@ -31998,7 +31969,7 @@ glabel func0f039e28
 /*  f039f30:	10400006 */ 	beqz	$v0,.L0f039f4c
 /*  f039f34:	c7b00030 */ 	lwc1	$f16,0x30($sp)
 /*  f039f38:	02202025 */ 	or	$a0,$s1,$zero
-/*  f039f3c:	0fc0c01e */ 	jal	chrRunToProp
+/*  f039f3c:	0fc0c01e */ 	jal	chrRunToPos
 /*  f039f40:	27a50024 */ 	addiu	$a1,$sp,0x24
 /*  f039f44:	1000001c */ 	beqz	$zero,.L0f039fb8
 /*  f039f48:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -32025,7 +31996,7 @@ glabel func0f039e28
 /*  f039f98:	e7a4002c */ 	swc1	$f4,0x2c($sp)
 /*  f039f9c:	10400005 */ 	beqz	$v0,.L0f039fb4
 /*  f039fa0:	02202025 */ 	or	$a0,$s1,$zero
-/*  f039fa4:	0fc0c01e */ 	jal	chrRunToProp
+/*  f039fa4:	0fc0c01e */ 	jal	chrRunToPos
 /*  f039fa8:	27a50024 */ 	addiu	$a1,$sp,0x24
 /*  f039fac:	10000002 */ 	beqz	$zero,.L0f039fb8
 /*  f039fb0:	24020001 */ 	addiu	$v0,$zero,0x1

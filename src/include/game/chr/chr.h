@@ -157,7 +157,7 @@ void chrSidestep(struct chrdata *chr, s32 arg1);
 void func0f02fc2c(struct chrdata *chr);
 void chrJumpOut(struct chrdata *chr, s32 arg1);
 void func0f02fe18(struct chrdata *chr);
-void chrRunToProp(struct chrdata *chr, struct coord *pos);
+void chrRunToPos(struct chrdata *chr, struct coord *pos);
 void func0f030120(struct chrdata *chr, s32 thingtype, s32 thingid);
 void func0f030308(struct chrdata *chr, s32 thingtype, s32 thingid);
 void func0f0303a0(struct chrdata *chr, s32 thingtype, s32 thingid);
