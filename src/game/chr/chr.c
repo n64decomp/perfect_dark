@@ -49241,52 +49241,24 @@ glabel chrFindById
 /*  f049c10:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel propGetIndexByChrId
-/*  f049c14:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f049c18:	240200f8 */ 	addiu	$v0,$zero,0xf8
-/*  f049c1c:	10a20003 */ 	beq	$a1,$v0,.L0f049c2c
-/*  f049c20:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049c24:	14a2000c */ 	bne	$a1,$v0,.L0f049c58
-/*  f049c28:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f049c2c:
-/*  f049c2c:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f049c30:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f049c34:	8cae02a0 */ 	lw	$t6,0x2a0($a1)
-/*  f049c38:	8cb80338 */ 	lw	$t8,0x338($a1)
-/*  f049c3c:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f049c40:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f049c44:	01f81823 */ 	subu	$v1,$t7,$t8
-/*  f049c48:	0061001a */ 	div	$zero,$v1,$at
-/*  f049c4c:	00001812 */ 	mflo	$v1
-/*  f049c50:	10000013 */ 	beqz	$zero,.L0f049ca0
-/*  f049c54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f049c58:
-/*  f049c58:	0fc126d1 */ 	jal	chrFindById
-/*  f049c5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f049c60:	5040000e */ 	beqzl	$v0,.L0f049c9c
-/*  f049c64:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f049c68:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f049c6c:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f049c70:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f049c74:	50800009 */ 	beqzl	$a0,.L0f049c9c
-/*  f049c78:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f049c7c:	8ca80338 */ 	lw	$t0,0x338($a1)
-/*  f049c80:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f049c84:	00881823 */ 	subu	$v1,$a0,$t0
-/*  f049c88:	0061001a */ 	div	$zero,$v1,$at
-/*  f049c8c:	00001812 */ 	mflo	$v1
-/*  f049c90:	10000003 */ 	beqz	$zero,.L0f049ca0
-/*  f049c94:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049c98:	2403ffff */ 	addiu	$v1,$zero,-1
-.L0f049c9c:
-/*  f049c9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f049ca0:
-/*  f049ca0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f049ca4:	00601025 */ 	or	$v0,$v1,$zero
-/*  f049ca8:	03e00008 */ 	jr	$ra
-/*  f049cac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 propGetIndexByChrId(struct chrdata *basechr, s32 chrnum)
+{
+	s32 index;
+
+	if (chrnum == CHR_BOND || chrnum == CHR_BOND) {
+		index = g_Vars.bond->prop - g_Vars.props;
+	} else {
+		struct chrdata *chr = chrFindById(basechr, chrnum);
+
+		if (chr && chr->prop) {
+			index = chr->prop - g_Vars.props;
+		} else {
+			index = -1;
+		}
+	}
+
+	return index;
+}
 
 f32 chrGetDistanceToChr(struct chrdata *chr1, s32 chr2num)
 {

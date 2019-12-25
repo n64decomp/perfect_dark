@@ -416,7 +416,7 @@ u32 getNumChrs(void);
 void incrementByte(u8 *dst, u8 amount);
 s32 chrResolvePadId(struct chrdata *chr, s32 pad_id);
 f32 propGetDistanceToProp(struct prop *a, struct prop *b);
-u32 propGetIndexByChrId(struct chrdata *chr, s32 chrnum);
+s32 propGetIndexByChrId(struct chrdata *chr, s32 chrnum);
 f32 propGetLateralDistanceToProp(struct prop *a, struct prop *b);
 void func0f01e760(void);
 
