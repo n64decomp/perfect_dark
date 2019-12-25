@@ -5771,21 +5771,11 @@ glabel chrUncloak
 /*  f0225f0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0225f4
-/*  f0225f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0225f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0225fc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f022600:	0fc08946 */ 	jal	chrUncloak
-/*  f022604:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f022608:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f02260c:	240e0078 */ 	addiu	$t6,$zero,0x78
-/*  f022610:	a5ee02da */ 	sh	$t6,0x2da($t7)
-/*  f022614:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f022618:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f02261c:	03e00008 */ 	jr	$ra
-/*  f022620:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrUncloakTemporarily(struct chrdata *chr)
+{
+	chrUncloak(chr, true);
+	chr->cloakpause = 120;
+}
 
 GLOBAL_ASM(
 glabel func0f022624
