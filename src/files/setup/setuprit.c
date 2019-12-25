@@ -1519,7 +1519,7 @@ u8 func0404_president_running[] = {
 	label(0x58)
 	restart_timer
 	label(0x2d)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x59)
+	try_jog_to_target_chr(/*goto*/ 0x59)
 
 	beginloop(0x59)
 		// @bug: This FALSE should be TRUE instead. This causes the president
@@ -2377,7 +2377,7 @@ u8 func040b_defend_president[] = {
 	if_self_distance_to_chr_lt(200, CHR_PRESIDENT, /*goto*/ 0x06)
 
 	label(0x03)
-	try_run_to_chr_with_hand_up(CHR_PRESIDENT, /*goto*/ 0x04)
+	try_jog_to_chr(CHR_PRESIDENT, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,

@@ -1848,7 +1848,7 @@ u8 func041d_fbi[] = {
 
 	label(0x04)
 	dprint 'T','R','A','C','K',' ','P','L','A','Y','E','R','\n',0,
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x06)
+	try_jog_to_target_chr(/*goto*/ 0x06)
 
 	beginloop(0x06)
 		if_chr_distance_lt(500, /*goto*/ 0x18)

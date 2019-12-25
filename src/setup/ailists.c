@@ -533,7 +533,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x17)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_EXAMINE_BODY, FALSE, BANK_0, /*goto*/ 0x7d)
-	try_run_to_chr_with_hand_up(CHR_SEEDIE, /*goto*/ 0x7e)
+	try_jog_to_chr(CHR_SEEDIE, /*goto*/ 0x7e)
 	dprint 'W','A','L','K','F','A','I','L','\n',0,
 
 	beginloop(0x7e)
@@ -3402,7 +3402,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	// Unreachable - no label
 	if_rand_gt(128, /*goto*/ 0xd1)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0xd0)
+	try_jog_to_target_chr(/*goto*/ 0xd0)
 
 	beginloop(0xd0)
 		if_timer_gt(120, /*goto*/ 0xd2)
@@ -4147,7 +4147,7 @@ u8 func001b_observe_camspy[] = {
 	label(0x00)
 	set_target_chr(CHR_PRESET)
 	if_chr_distance_lt(300, /*goto*/ 0x13)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x0c)
+	try_jog_to_target_chr(/*goto*/ 0x0c)
 	restart_timer
 
 	beginloop(0x0c)
@@ -4285,7 +4285,7 @@ u8 func001d_search_for_player[] = {
 	if_self_flag_bankx_eq(CHRFLAG1_10000000, TRUE, BANK_1, /*goto*/ 0x16)
 	set_chr_roomtosearch
 	if_chr_distance_gt(1000, /*goto*/ 0x13)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x03)
+	try_jog_to_target_chr(/*goto*/ 0x03)
 	label(0x13)
 	try_run_to_target_chr(/*goto*/ 0x03)
 
@@ -4757,7 +4757,7 @@ u8 func0014_coop_buddy[] = {
 	set_target_chr(CHR_BOND)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x16)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x0c)
+	try_jog_to_target_chr(/*goto*/ 0x0c)
 	label(0x16)
 	try_run_to_target_chr(/*goto*/ 0x0c)
 
@@ -5209,7 +5209,7 @@ u8 func0027_psychosised[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x16)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x0c)
+	try_jog_to_target_chr(/*goto*/ 0x0c)
 	label(0x16)
 	if_chr_distance_lt(200, /*goto*/ 0x16)
 	try_run_to_target_chr(/*goto*/ 0x0c)

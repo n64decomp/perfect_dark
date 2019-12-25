@@ -825,7 +825,7 @@ u8 func0409_elvis_follow[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(500, /*goto*/ 0x06)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x04)
+	try_jog_to_target_chr(/*goto*/ 0x04)
 
 	// Distance < 200 or distance > 500
 	label(0x06)

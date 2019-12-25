@@ -542,7 +542,7 @@ u8 func0401_drcaroll_following[] = {
 	set_self_chrflag(CHRCFLAG_00040000)
 	stop_chr
 	set_target_chr(CHR_BOND)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x00)
+	try_jog_to_target_chr(/*goto*/ 0x00)
 	label(0x00)
 	yield
 	set_target_chr(CHR_BOND)
@@ -620,7 +620,7 @@ u8 func0401_drcaroll_following[] = {
 		if_chr_distance_lt(200, /*goto*/ 0x20)
 		try_run_to_target_chr(/*goto*/ 0x05)
 		label(0x20)
-		try_run_to_target_chr_with_hand_up(/*goto*/ 0x05)
+		try_jog_to_target_chr(/*goto*/ 0x05)
 
 		beginloop(0x05)
 			if_chr_in_room(CHR_TARGET, 0x00, 0x0094, /*goto*/ 0x00)
@@ -1071,7 +1071,7 @@ u8 func0406_general_combat[] = {
 	goto_first(0x13)
 
 	label(0x29)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x20)
+	try_jog_to_target_chr(/*goto*/ 0x20)
 	label(0x20)
 	dprint 'U','N',' ','E','N','T','R','Y','\n',0,
 	set_return_function(CHR_SELF, FUNC_GENERAL_COMBAT)

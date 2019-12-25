@@ -924,7 +924,7 @@ bool ai00f0(void)
 /**
  * @cmd 00f1
  */
-bool ai00f1(void)
+bool aiIfAttacking(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
@@ -1304,9 +1304,9 @@ bool ai002a(void)
 /**
  * @cmd 002b
  */
-bool ai002b(void)
+bool aiTryJogToTargetChr(void)
 {
-	if (chrGoToTarget(g_Vars.chrdata, 1)) {
+	if (chrGoToTarget(g_Vars.chrdata, SPEED_JOG)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1319,9 +1319,9 @@ bool ai002b(void)
 /**
  * @cmd 002c
  */
-bool ai002c(void)
+bool aiTryWalkToTargetChr(void)
 {
-	if (chrGoToTarget(g_Vars.chrdata, 0)) {
+	if (chrGoToTarget(g_Vars.chrdata, SPEED_WALK)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1334,9 +1334,9 @@ bool ai002c(void)
 /**
  * @cmd 002d
  */
-bool ai002d(void)
+bool aiTryRunToTargetChr(void)
 {
-	if (chrGoToTarget(g_Vars.chrdata, 2)) {
+	if (chrGoToTarget(g_Vars.chrdata, SPEED_RUN)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1364,7 +1364,7 @@ bool ai002e(void)
 /**
  * @cmd 002f
  */
-bool aiJogToChr(void)
+bool aiTryJogToChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
@@ -1380,7 +1380,7 @@ bool aiJogToChr(void)
 /**
  * @cmd 0030
  */
-bool aiWalkToChr(void)
+bool aiTryWalkToChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
@@ -1396,7 +1396,7 @@ bool aiWalkToChr(void)
 /**
  * @cmd 0031
  */
-bool aiRunToChr(void)
+bool aiTryRunToChr(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
@@ -3847,7 +3847,7 @@ bool aiIfNumCloseArghsGreaterThan(void)
  * @cmd 0081
  */
 GLOBAL_ASM(
-glabel ai0081
+glabel aiIfChrHealthLessThan
 /*  f052a88:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f052a8c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f052a90:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -3940,7 +3940,7 @@ glabel ai0081
  * @cmd 0082
  */
 GLOBAL_ASM(
-glabel ai0082
+glabel aiIfChrHealthGreaterThan
 /*  f052bcc:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f052bd0:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f052bd4:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -4033,7 +4033,7 @@ glabel ai0082
  * @cmd 010f
  */
 GLOBAL_ASM(
-glabel ai010f
+glabel aiIfChrShieldLessThan
 /*  f052d10:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f052d14:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f052d18:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -4090,7 +4090,7 @@ glabel ai010f
  * @cmd 0110
  */
 GLOBAL_ASM(
-glabel ai0110
+glabel aiIfChrShieldGreaterThan
 /*  f052dcc:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f052dd0:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f052dd4:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -5362,7 +5362,7 @@ glabel aiPrint
 /**
  * @cmd 0091
  */
-bool ai0091(void)
+bool aiNoOp0091(void)
 {
 	g_Vars.aioffset += 2;
 	return false;
@@ -6883,7 +6883,7 @@ glabel ai00d7
 /**
  * @cmd 00d8
  */
-bool ai00d8(void)
+bool aiNoOp00d8(void)
 {
 	g_Vars.aioffset += 3;
 	return false;
@@ -6892,7 +6892,7 @@ bool ai00d8(void)
 /**
  * @cmd 00d9
  */
-bool ai00d9(void)
+bool aiNoOp00d9(void)
 {
 	g_Vars.aioffset += 3;
 	return false;
@@ -6927,7 +6927,7 @@ bool aiSetObjImage(void)
 /**
  * @cmd 00db
  */
-bool ai00db(void)
+bool aiNoOp00db(void)
 {
 	g_Vars.aioffset += 3;
 	return false;
@@ -6980,7 +6980,7 @@ bool aiWarpJoToPad(void)
 /**
  * @cmd 010d
  */
-bool ai010d(void)
+bool aiNoOp010d(void)
 {
 	g_Vars.aioffset += 2;
 	return false;
@@ -8022,7 +8022,7 @@ bool aiIfObjInRoom(void)
 bool ai00f2(void)
 {
 	func0f1660a4(1);
-	g_Vars.aioffset += + 2;
+	g_Vars.aioffset += 2;
 
 	return false;
 }
@@ -8357,8 +8357,8 @@ bool ai00fd(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && (chr->chrflags & 0x00200000)) {
-		chr->chrflags &= 0xffdfffff;
+	if (chr && (chr->chrflags & CHRCFLAG_00200000)) {
+		chr->chrflags &= ~CHRCFLAG_00200000;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -8370,7 +8370,7 @@ bool ai00fd(void)
 /**
  * @cmd 00fe
  */
-bool ai00fe(void)
+bool aiKillBond(void)
 {
 	g_Vars.bond->isdead = true;
 	g_Vars.aioffset += 2;
@@ -8392,7 +8392,7 @@ bool ai00ff(void)
 /**
  * @cmd 0100
  */
-bool ai0100(void)
+bool aiNoOp0100(void)
 {
 	g_Vars.aioffset += 3;
 	return false;
@@ -8401,7 +8401,7 @@ bool ai0100(void)
 /**
  * @cmd 0101
  */
-bool ai0101(void)
+bool aiNoOp0101(void)
 {
 	g_Vars.aioffset += 3;
 	return false;
@@ -8453,7 +8453,7 @@ bool ai0103(void)
  * @cmd 0104
  */
 GLOBAL_ASM(
-glabel ai0104
+glabel aiRemoveObjectAtPropPreset
 /*  f058b08:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f058b0c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
 /*  f058b10:	8ca30424 */ 	lw	$v1,0x424($a1)
@@ -8482,7 +8482,7 @@ glabel ai0104
 );
 
 // Mismatch due to temporary registers
-//bool ai0104(void)
+//bool aiRemoveObjectAtPropPreset(void)
 //{
 //	if (g_Vars.chrdata->proppreset1 >= 0) {
 //		struct defaultobj *obj = g_Vars.positions[g_Vars.chrdata->proppreset1].obj;
@@ -8575,7 +8575,7 @@ bool aiSetTarget(void)
 		}
 
 		if (prop_id != g_Vars.chrdata->target) {
-			g_Vars.chrdata->lastvisibletarg = 0;
+			g_Vars.chrdata->lastvisibletarget60 = 0;
 			g_Vars.chrdata->lastseetarget60 = 0;
 			g_Vars.chrdata->lastheartarget60 = 0;
 			g_Vars.chrdata->hidden &= ~CHRHFLAG_00000002;
@@ -8701,7 +8701,7 @@ bool aiChrSetTeam(void)
 /**
  * @cmd 010c
  */
-bool ai010c(void)
+bool aiIfCompareChrPresetsTeam(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, CHR_PRESET);
@@ -11652,7 +11652,7 @@ bool aiChrSetListening(void)
  * @cmd 0149
  */
 GLOBAL_ASM(
-glabel ai0149
+glabel aiIfChrListening
 /*  f05c014:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f05c018:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f05c01c:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -11709,7 +11709,7 @@ glabel ai0149
 
 // Mismatch because chr->listening and cmd[3] registers are loaded to registers
 // in the wrong order. The function is functionally identical though.
-//bool ai0149(void)
+//bool aiIfChrListening(void)
 //{
 //	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
@@ -11734,7 +11734,7 @@ glabel ai0149
 /**
  * @cmd 014a
  */
-bool ai014a(void)
+bool aiIfTrue(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
@@ -12026,7 +12026,7 @@ bool aiIfY(void)
 /**
  * @cmd 016c
  */
-bool ai016c(void)
+bool aiNoOp016c(void)
 {
 	g_Vars.aioffset += 2;
 	return false;
@@ -13776,7 +13776,7 @@ glabel ai01b9
 /**
  * @cmd 01bb
  */
-bool ai01bb(void)
+bool aiNoOp01bb(void)
 {
 	g_Vars.aioffset += 4;
 	return false;

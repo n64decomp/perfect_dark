@@ -2940,7 +2940,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	if_chr_sees_player(/*goto*/ 0x06)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x08)
+	try_jog_to_target_chr(/*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_sees_player(/*goto*/ 0x06)

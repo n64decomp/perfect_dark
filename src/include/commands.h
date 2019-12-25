@@ -55,6 +55,12 @@
 	mkshort(0x000c), \
 	label,
 
+#define cmd000d \
+	mkshort(0x000d),
+
+#define cmd000e \
+	mkshort(0x000e),
+
 #define try_jump_sideways(label) \
 	mkshort(0x000f), \
 	label,
@@ -69,6 +75,10 @@
 
 #define try_walk_and_shoot(label) \
 	mkshort(0x0012), \
+	label,
+
+#define try_run_and_shoot(label) \
+	mkshort(0x0013), \
 	label,
 
 #define try_roll_and_shoot(label) \
@@ -126,6 +136,12 @@
 	mkshort(value_2), \
 	label,
 
+#define cmd001c(u1, u2, label) \
+	mkshort(0x001c), \
+	mkshort(u1), \
+	u2, \
+	label,
+
 #define jog_to_pad(pad) \
 	mkshort(0x001d), \
 	mkshort(pad),
@@ -163,13 +179,22 @@
 	mkshort(0x0026), \
 	chr,
 
+#define cmd0027(u1, label) \
+	mkshort(0x0027), \
+	mkshort(u1), \
+	label,
+
 #define activate_alarm \
 	mkshort(0x0028),
 
 #define deactivate_alarm \
 	mkshort(0x0029),
 
-#define try_run_to_target_chr_with_hand_up(label) \
+#define cmd002a(label) \
+	mkshort(0x002a), \
+	label,
+
+#define try_jog_to_target_chr(label) \
 	mkshort(0x002b), \
 	label,
 
@@ -181,8 +206,17 @@
 	mkshort(0x002d), \
 	label,
 
-#define try_run_to_chr_with_hand_up(chr, label) \
+#define cmd002e(label) \
+	mkshort(0x002e), \
+	label,
+
+#define try_jog_to_chr(chr, label) \
 	mkshort(0x002f), \
+	chr, \
+	label,
+
+#define try_walk_to_chr(chr, label) \
+	mkshort(0x0030), \
 	chr, \
 	label,
 
@@ -230,6 +264,10 @@
 	mkshort(0x003a), \
 	label,
 
+#define if_alarm_inactive(label) \
+	mkshort(0x003b), \
+	label,
+
 #define if_hears_gunfire(label) \
 	mkshort(0x003c), \
 	label,
@@ -274,9 +312,18 @@
 	mkshort(0x003f), \
 	label,
 
+#define cmd0040(flags, label) \
+	mkshort(0x0040), \
+	mkword(flags), \
+	label,
+
 #define if_within_units_of_sight(value, label) \
 	mkshort(0x0041), \
 	mkword(value), \
+	label,
+
+#define if_in_loaded_room(label) \
+	mkshort(0x0042), \
 	label,
 
 /**
@@ -304,6 +351,11 @@
 
 #define if_bitcheck_in_position_struct(label) \
 	mkshort(0x0047), \
+	label,
+
+#define cmd0048(u1, label) \
+	mkshort(0x0048), \
+	u1, \
 	label,
 
 // Used by CIA guards in chicago
@@ -402,6 +454,11 @@
 	chr, \
 	label,
 
+#define cmd0058(distance, label) \
+	mkshort(0x0058), \
+	mkshort(distance / 10), \
+	label,
+
 #define if_distance_from_target_to_pad_lt(distance, pad, label) \
 	mkshort(0x0059), \
 	mkshort(distance / 10), \
@@ -481,6 +538,10 @@
 	mkshort(0x0066), \
 	object,
 
+#define cmd0067(object) \
+	mkshort(0x0067), \
+	object,
+
 #define drop_concealed_items(chr) \
 	mkshort(0x0068), \
 	chr,
@@ -511,6 +572,11 @@
 	mkshort(0x006e), \
 	door, \
 	doorstate, \
+	label,
+
+#define if_object_is_door(object, label) \
+	mkshort(0x006f), \
+	object, \
 	label,
 
 #define lock_door(door, bits) \
@@ -606,6 +672,18 @@
 	value, \
 	label,
 
+#define if_chr_health_lt(chr, health, label) \
+	mkshort(0x0081), \
+	chr, \
+	health, \
+	label,
+
+#define if_chr_health_gt(chr, health, label) \
+	mkshort(0x0082), \
+	chr, \
+	health, \
+	label,
+
 // Checks chr bank 3 0x00000100. If set, unsets it and follows label.
 #define if_just_injured(chr, label) \
 	mkshort(0x0083), \
@@ -621,7 +699,7 @@
 	value,
 
 #define chr_add_morale(chr, value) \
-	mkshort(0x0085), \
+	mkshort(0x0086), \
 	chr, \
 	value,
 
@@ -672,8 +750,8 @@
 	mkshort(0x0090), \
 	label,
 
-#define cmd0091_noop \
-	mkdir(0x0091),
+#define noop0091 \
+	mkshort(0x0091),
 
 // Set their hear distance to value divided by 1000.
 // Only ever called with distance = 10,000, so it gets set to 10.
@@ -802,6 +880,12 @@
 	mkshort(0x00ab), \
 	object, \
 	mkword(objectflag0),
+
+#define if_object_has_flag(object, flag, label) \
+	mkshort(0x00ac), \
+	object, \
+	mkword(flag), \
+	label,
 
 #define set_object_flag_bank1(object, objectflag1) \
 	mkshort(0x00ad), \
@@ -936,6 +1020,12 @@
 	mkword(u1), \
 	label,
 
+#define cmd00c9(u1, flags, label) \
+	mkshort(0x00c9), \
+	mkshort(u1), \
+	mkword(flags), \
+	label,
+
 #define try_spawn_clone2(chr, function, u1, label) \
 	mkshort(0x00ca), \
 	chr, \
@@ -980,9 +1070,27 @@
 	mkshort(pad), \
 	mkshort(sound),
 
+#define cmd00d1(channel, audio_id, u1) \
+	mkshort(0x00d1), \
+	channel, \
+	mkshort(audio_id), \
+	mkshort(u1),
+
+#define cmd00d2(channel, audio_id, u1) \
+	mkshort(0x00d2), \
+	channel, \
+	mkshort(audio_id), \
+	mkshort(u1),
+
 #define mute_channel(channel) \
 	mkshort(0x00d3), \
 	channel,
+
+#define cmd00d4(u1, u2, label) \
+	mkshort(0x00d4), \
+	u1, \
+	mkshort(u2), \
+	label,
 
 #define begin_hovercar_path(path) \
 	mkshort(0x00d5), \
@@ -999,11 +1107,23 @@
 	u1, \
 	u2,
 
+#define noop00d8(u1) \
+	mkshort(0x00d8), \
+	u1,
+
+#define noop00d9(u1) \
+	mkshort(0x00d9), \
+	u1,
+
 #define set_object_image(object, slot, image) \
 	mkshort(0x00da), \
 	object, \
 	slot, \
 	image,
+
+#define noop00db(u1) \
+	mkshort(0x00db), \
+	u1,
 
 #define end_level \
 	mkshort(0x00dc),
@@ -1014,6 +1134,12 @@
 #define enter_camera_and_move_to_pad(pad) \
 	mkshort(0x00de), \
 	mkshort(pad),
+
+#define cmd00df(object, u1, u2) \
+	mkshort(0x00df), \
+	object, \
+	mkshort(u1), \
+	mkshort(u2),
 
 #define revoke_control(chr, value) \
 	mkshort(0x00e0), \
@@ -1031,9 +1157,27 @@
 	unknown, \
 	label,
 
+#define cmd00e3(chr) \
+	mkshort(0x00e3), \
+	chr,
+
+#define cmd00e4(u1) \
+	mkshort(0x00e4), \
+	u1,
+
+#define cmd00e5(chr, label) \
+	mkshort(0x00e5), \
+	chr, \
+	label,
+
 #define open_door2(door) \
 	mkshort(0x00e8), \
 	door,
+
+#define cmd00e9(chr, u1) \
+	mkshort(0x00e9), \
+	chr, \
+	u1,
 
 // Reads 4 global values and counts how many are nonzero.
 // If number of nonzeroes is less than given value, goto label.
@@ -1060,15 +1204,47 @@
 	chr, \
 	weapon,
 
+#define cmd00ee(chr, x, z) \
+	mkshort(0x00ee), \
+	x, \
+	z,
+
 #define if_object_in_room(object, room, label) \
 	mkshort(0x00ef), \
 	object, \
 	mkshort(room), \
 	label,
 
+#define cmd00f0(label) \
+	mkshort(0x00f0), \
+	label,
+
+#define if_attacking(label) \
+	mkshort(0x00f1), \
+	label,
+
+#define cmd00f2 \
+	mkshort(0x00f2),
+
 #define set_invincible(chr) \
 	mkshort(0x00f3), \
 	chr,
+
+#define cmd00f4(u1, u2, u3, u4, u5, u6) \
+	mkshort(0x00f4), \
+	mkshort(u1), \
+	mkshort(u2), \
+	mkshort(u3), \
+	mkshort(u4), \
+	mkshort(u5), \
+	mkshort(u6),
+
+#define cmd00f5 \
+	mkshort(0x00f5),
+
+#define cmd00f6(label) \
+	mkshort(0x00f6), \
+	label,
 
 #define if_all_objectives_complete(label) \
 	mkshort(0x00f7), \
@@ -1098,6 +1274,25 @@
 	value, \
 	label,
 
+#define cmd00fd(chr, label) \
+	mkshort(0x00fd), \
+	chr, \
+	label,
+
+#define kill_bond \
+	mkshort(0x00fe),
+
+#define cmd00ff \
+	mkshort(0x00ff),
+
+#define cmd0100_noop(u1) \
+	mkshort(0x0100), \
+	u1,
+
+#define cmd0101_noop(u1) \
+	mkshort(0x0101), \
+	u1,
+
 #define set_lights_state(room, operation, u1, u2, u3) \
 	mkshort(0x0102), \
 	mkshort(room), \
@@ -1108,6 +1303,18 @@
 	0x00, \
 	0x00, \
 	0x00,
+
+#define cmd0103(label) \
+	mkshort(0x0103), \
+	label,
+
+#define remove_object_at_proppreset \
+	mkshort(0x0104),
+
+#define cmd0105(u1, label) \
+	mkshort(0x0105), \
+	mkshort(u1), \
+	label,
 
 #define set_target_chr(chr) \
 	mkshort(0x0106), \
@@ -1136,10 +1343,31 @@
 	mkshort(distance), \
 	label, \
 
+#define cmd010a(u1, distance, u2, label) \
+	mkshort(0x010a), \
+	u1, \
+	mkshort(distance / 10), \
+	mkshort(u2), \
+	label,
+
 #define set_chr_team(chr, team) \
 	mkshort(0x010b), \
 	chr, \
 	team,
+
+/**
+ * Compare current chr's chrpreset's team with our own.
+ *
+ * checktype 1 = if friendly
+ * checktype 2 = if enemies
+ */
+#define if_compare_chrpresets_team(checktype, label) \
+	mkshort(0x010c), \
+	checktype, \
+	label,
+
+#define noop010d \
+	mkshort(0x010d),
 
 #define set_shield(value) \
 	mkshort(0x010e), \
@@ -1149,6 +1377,12 @@
 	mkshort(0x010f), \
 	chr, \
 	mkshort(value), \
+	label,
+
+#define if_chr_shield_gt(chr, u1, label) \
+	mkshort(0x0110), \
+	chr, \
+	mkshort(u1), \
 	label,
 
 #define camera_movement(animation) \
@@ -1239,6 +1473,18 @@
 	mkshort(u1), \
 	label,
 
+#define cmd0122(u1, flags, label) \
+	mkshort(0x0122), \
+	mkshort(u1), \
+	mkword(flags), \
+	label,
+
+#define cmd0123(u1, flags, label) \
+	mkshort(0x0123), \
+	mkshort(u1), \
+	mkword(flags), \
+	label,
+
 #define cmd0124_run_for_cover_maybe(action) \
 	mkshort(0x0124), \
 	action,
@@ -1264,6 +1510,12 @@
 #define if_enemy_distance_lt_and_los(distance, label) \
 	mkshort(0x0128), \
 	distance / 10, \
+	label,
+
+// If risk less than?
+#define cmd0129(score, label) \
+	mkshort(0x0129), \
+	score, \
 	label,
 
 // If value is nonzero then it's an chr ID. If zero then use current chr.
@@ -1379,6 +1631,10 @@
 	mkshort(0x013b), \
 	id,
 
+#define cmd013c(label) \
+	mkshort(0x013c), \
+	label,
+
 // Value is only ever 3. The function checks bits 0x01 and 0x02 to decide what
 // to do, so in all cases it does both paths.
 // globals.s only
@@ -1389,6 +1645,10 @@
 
 #define run_from_grenade \
 	mkshort(0x013e),
+
+#define cmd013f(label) \
+	mkshort(0x013f), \
+	label,
 
 #define if_hoverbot_path_finished(u1, u2, label) \
 	mkshort(0x0140), \
@@ -1425,6 +1685,11 @@
 #define cmd0143 \
 	mkshort(0x0143),
 
+// Sets heli field 0x90
+#define cmd0144 \
+	mkshort(0x0144), \
+	label,
+
 // Rebuild an array of teams containing chr IDs in that team
 #define rebuild_teams \
 	mkshort(0x0145),
@@ -1436,6 +1701,37 @@
 #define if_all_chrs_in_squadron_are_dead(squadron, label) \
 	mkshort(0x0147), \
 	squadron, \
+	label,
+
+#define chr_set_listening(chr, value) \
+	mkshort(0x0148), \
+	chr, \
+	value,
+
+/**
+ * checktype 0 = if chr's listening value is listenvalue
+ * checktype 1 = if chr's convtalk value is zero
+ */
+#define if_chr_listening(chr, listenvalue, checktype, label) \
+	mkshort(0x0149), \
+	chr, \
+	listenvalue, \
+	checktype, \
+	label,
+
+/**
+ * Always goes to label. Other arguments are unused. Probably has a purpose in
+ * debug.
+ */
+#define if_true(u1, u2, u3, label) \
+	mkshort(0x014a), \
+	u1, \
+	u2, \
+	u3, \
+	label,
+
+#define if_not_listening(label) \
+	mkshort(0x014b), \
 	label,
 
 #define if_num_chrs_in_squadron_gt(value, squadron, label) \
@@ -1458,6 +1754,10 @@
 #define if_chr_injured_target(chr, label) \
 	mkshort(0x0165), \
 	chr, \
+	label,
+
+#define if_action_eq(action, label) \
+	mkshort(0x0166), \
 	label,
 
 #define hovercopter_fire_rocket(side) \
@@ -1662,6 +1962,17 @@
 	lift, \
 	label,
 
+#define cmd0189(lift, u1) \
+	mkshort(0x0189), \
+	lift, \
+	u1,
+
+#define cmd018a(object, u1, label) \
+	mkshort(0x018a), \
+	object, \
+	u1, \
+	label,
+
 #define enable_rain(value) \
 	mkshort(0x018b), \
 	value,
@@ -1750,6 +2061,10 @@
 	color, \
 	mkshort(text),
 
+#define cmd01a5(label) \
+	mkshort(0x01a5), \
+	label,
+
 #define if_target_y_difference_lt(distance, label) \
 	mkshort(0x01a6), \
 	distance / 10, \
@@ -1758,6 +2073,10 @@
 #define if_chr_propsoundcount_zero(chr, label) \
 	mkshort(0x01a7), \
 	chr, \
+	label,
+
+#define cmd01aa(label) \
+	mkshort(0x01aa), \
 	label,
 
 #define if_num_subdued(value, operator, label) \
@@ -1852,6 +2171,15 @@
 	mkshort(u2), \
 	label,
 
+#define noop01bb \
+	mkshort(0x01bb), \
+	mkshort(0),
+
+#define cmd01bc(u1, label) \
+	mkshort(0x01bc), \
+	u1, \
+	label,
+
 #define if_training_pc_holographed(label) \
 	mkshort(0x01bd), \
 	label,
@@ -1931,6 +2259,10 @@
 	mkshort(0x01cb), \
 	mkword(rgba), \
 	mkshort(num_frames),
+
+#define cmd01cc(label) \
+	mkshort(0x01cc), \
+	label,
 
 #define set_chr_hud_visible(chr, bool) \
 	mkshort(0x01cd), \
@@ -2012,6 +2344,22 @@
 	mkshort(room), \
 	operation, \
 	value,
+
+/**
+ * Redundant command. Use if_distance_to_target_lt.
+ */
+#define if_distance_to_target2_lt(distance, label) \
+	mkshort(0x01d7), \
+	mkshort(distance / 10), \
+	label,
+
+/**
+ * Redundant command. Use if_distance_to_target_gt.
+ */
+#define if_distance_to_target2_gt(distance, label) \
+	mkshort(0x01d8), \
+	mkshort(distance / 10), \
+	label,
 
 #define play_sound_from_object2(channel, object, sound, u1, u2) \
 	mkshort(0x01d9), \

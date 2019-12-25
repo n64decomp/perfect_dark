@@ -801,7 +801,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x04)
+	try_jog_to_target_chr(/*goto*/ 0x04)
 
 	// Jo distance < 200 or distance > 300
 	label(0x06)
@@ -974,7 +974,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x04)
+	try_jog_to_target_chr(/*goto*/ 0x04)
 	label(0x06)
 	try_run_to_target_chr(/*goto*/ 0x04)
 
@@ -1111,7 +1111,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x04)
+	try_jog_to_target_chr(/*goto*/ 0x04)
 	label(0x06)
 	try_run_to_target_chr(/*goto*/ 0x04)
 
@@ -1367,7 +1367,7 @@ u8 func0403_elvis_give_farsight[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x04)
+	try_jog_to_target_chr(/*goto*/ 0x04)
 	label(0x06)
 	try_run_to_target_chr(/*goto*/ 0x04)
 

@@ -1307,7 +1307,7 @@ u8 func0418_robot[] = {
 
 	// Distance > 1000 or not in sight
 	label(0x15)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x08)
+	try_jog_to_target_chr(/*goto*/ 0x08)
 
 	// Distance < 300
 	label(0x31)
@@ -1578,7 +1578,7 @@ u8 func041d_president_running[] = {
 	restart_timer
 	label(0x31)
 	if_chr_distance_gt(300, /*goto*/ 0x31)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0xa1)
+	try_jog_to_target_chr(/*goto*/ 0xa1)
 	label(0x31)
 	try_run_to_target_chr(/*goto*/ 0xa1)
 

@@ -1878,7 +1878,7 @@ u8 func040b_mauler_skedar[] = {
 	label(0x2d)
 	set_alertness(100)
 	set_target_chr(CHR_BOND)
-	try_run_to_target_chr_with_hand_up(/*goto*/ 0x2d)
+	try_jog_to_target_chr(/*goto*/ 0x2d)
 	label(0x2d)
 	set_onshot_function(GFUNC_COMBAT_WITH_TARGET)
 	set_return_function(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
