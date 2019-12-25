@@ -5653,47 +5653,16 @@ glabel func0f022214
 /*  f022480:	27bd0118 */ 	addiu	$sp,$sp,0x118
 );
 
-GLOBAL_ASM(
-glabel chrCloak
-/*  f022484:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f022488:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f02248c:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f022490:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f022494:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f022498:	1440001b */ 	bnez	$v0,.L0f022508
-/*  f02249c:	8fa30048 */ 	lw	$v1,0x48($sp)
-/*  f0224a0:	8c6e0014 */ 	lw	$t6,0x14($v1)
-/*  f0224a4:	3c012000 */ 	lui	$at,0x2000
-/*  f0224a8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0224ac:	01c17825 */ 	or	$t7,$t6,$at
-/*  f0224b0:	ac6f0014 */ 	sw	$t7,0x14($v1)
-/*  f0224b4:	8fb8004c */ 	lw	$t8,0x4c($sp)
-/*  f0224b8:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f0224bc:	2406005b */ 	addiu	$a2,$zero,0x5b
-/*  f0224c0:	13000011 */ 	beqz	$t8,.L0f022508
-/*  f0224c4:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f0224c8:	8c65001c */ 	lw	$a1,0x1c($v1)
-/*  f0224cc:	44810000 */ 	mtc1	$at,$f0
-/*  f0224d0:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f0224d4:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f0224d8:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*  f0224dc:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f0224e0:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f0224e4:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f0224e8:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0224ec:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f0224f0:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0224f4:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f0224f8:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f0224fc:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f022500:	0fc24e7e */ 	jal	func0f0939f8
-/*  f022504:	e7a00038 */ 	swc1	$f0,0x38($sp)
-.L0f022508:
-/*  f022508:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f02250c:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f022510:	03e00008 */ 	jr	$ra
-/*  f022514:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrCloak(struct chrdata *chr, bool value)
+{
+	if (!chrIsDead(chr)) {
+		chr->hidden |= CHRHFLAG_CLOAKED;
+
+		if (value) {
+			func0f0939f8(0, chr->prop, 0x5b, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel chrUncloak
