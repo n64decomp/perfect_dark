@@ -5385,30 +5385,17 @@ glabel func0f021fa8
 /*  f022080:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f022084(struct chrdata *chr, s32 arg1)
+void func0f022084(struct chrdata *chr, s16 *room)
 {
-	func0f021fa8(chr, &chr->pos->coord, arg1);
+	func0f021fa8(chr, &chr->pos->coord, room);
 }
 
-GLOBAL_ASM(
-glabel func0f0220ac
-/*  f0220ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0220b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0220b4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0220b8:	0fc19711 */ 	jal	func0f065c44
-/*  f0220bc:	8c84001c */ 	lw	$a0,0x1c($a0)
-/*  f0220c0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0220c4:	8c85001c */ 	lw	$a1,0x1c($a0)
-/*  f0220c8:	0fc08821 */ 	jal	func0f022084
-/*  f0220cc:	24a50028 */ 	addiu	$a1,$a1,0x28
-/*  f0220d0:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f0220d4:	0fc1972c */ 	jal	func0f065cb0
-/*  f0220d8:	8de4001c */ 	lw	$a0,0x1c($t7)
-/*  f0220dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0220e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0220e4:	03e00008 */ 	jr	$ra
-/*  f0220e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0220ac(struct chrdata *chr)
+{
+	func0f065c44(chr->pos);
+	func0f022084(chr, &chr->pos->room);
+	func0f065cb0(chr->pos);
+}
 
 GLOBAL_ASM(
 glabel func0f0220ec
