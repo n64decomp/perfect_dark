@@ -7341,12 +7341,10 @@ glabel func0f16cde0
 /*  f16cde8:	ac244030 */ 	sw	$a0,0x4030($at)
 );
 
-GLOBAL_ASM(
-glabel getUptime
-/*  f16cdec:	3c018008 */ 	lui	$at,0x8008
-/*  f16cdf0:	03e00008 */ 	jr	$ra
-/*  f16cdf4:	c420403c */ 	lwc1	$f0,0x403c($at)
-);
+f32 getUptime(void)
+{
+	return g_Uptime;
+}
 
 GLOBAL_ASM(
 glabel func0f16cdf8

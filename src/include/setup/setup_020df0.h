@@ -208,6 +208,7 @@ extern void *filetable[];
 extern u32 var80084008;
 extern s32 var80084034;
 extern u32 var80084038;
+extern f32 g_Uptime;
 extern u32 var80084068;
 extern u32 var80084078;
 extern u32 var80084088;
