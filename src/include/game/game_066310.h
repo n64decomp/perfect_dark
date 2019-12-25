@@ -221,7 +221,7 @@ u32 func0f085050(void);
 u32 func0f085194(void);
 u32 func0f0851ec(void);
 u32 func0f085270(void);
-void func0f0852ac(struct defaultobj *obj, f32 damage, struct coord *coord, s32 arg3, s32 arg4);
+void func0f0852ac(struct defaultobj *obj, f32 damage, struct coord *pos, s32 arg3, s32 arg4);
 u32 func0f0859a0(void);
 u32 func0f085e00(void);
 u32 func0f085eac(void);

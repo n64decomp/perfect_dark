@@ -1145,10 +1145,10 @@ glabel ai001a
 //
 //	if (chr1 && chr2 && chr1->prop && chr2->prop) {
 //		struct attachment *attachment = chrGetEquippedWeaponAttachmentWithCheck(chr1, 0);
-//		struct coord coord;
-//		coord.x = var80068fec.x;
-//		coord.y = var80068fec.y;
-//		coord.z = var80068fec.z;
+//		struct coord pos;
+//		pos.x = var80068fec.x;
+//		pos.y = var80068fec.y;
+//		pos.z = var80068fec.z;
 //
 //		if (!attachment) {
 //			attachment = chrGetEquippedWeaponAttachmentWithCheck(chr1, 1);
@@ -1157,13 +1157,13 @@ glabel ai001a
 //		if (attachment) {
 //			s32 weapon_id;
 //			s32 thing;
-//			coord.x = chr2->prop->coord.x - chr1->prop->coord.x;
-//			coord.y = chr2->prop->coord.y - chr1->prop->coord.y;
-//			coord.x = chr2->prop->coord.z - chr1->prop->coord.z;
-//			scaleTo1(&coord.x, &coord.y, &coord.z);
+//			pos.x = chr2->prop->pos.x - chr1->prop->pos.x;
+//			pos.y = chr2->prop->pos.y - chr1->prop->pos.y;
+//			pos.x = chr2->prop->pos.z - chr1->prop->pos.z;
+//			scaleTo1(&pos.x, &pos.y, &pos.z);
 //			weapon_id = attachment->weapon->weapon_id;
 //			thing = func0f0b1d28(weapon_id);
-//			func0f034330(chr2, thing, &coord, weapon_id);
+//			func0f034330(chr2, thing, &pos, weapon_id);
 //		}
 //	}
 //
@@ -1676,7 +1676,7 @@ bool aiIfSeesPlayer(void)
  */
 bool ai017a(void)
 {
-	if ((g_Vars.chrdata && g_Vars.chrdata->prop && func0f0391ec(g_Vars.chrdata, &g_Vars.chrdata->prop->coord, &g_Vars.chrdata->prop->room, 1))
+	if ((g_Vars.chrdata && g_Vars.chrdata->prop && func0f0391ec(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->room, 1))
 			|| (g_Vars.hovdata && func0f07ae18(g_Vars.hovdata, 0x40) && func0f07af34(g_Vars.hovdata))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -1776,7 +1776,7 @@ bool ai0045(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->prop && func0f0393b4(g_Vars.chrdata, &chr->prop->coord, &chr->prop->room)) {
+	if (chr && chr->prop && func0f0393b4(g_Vars.chrdata, &chr->prop->pos, &chr->prop->room)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -3317,11 +3317,11 @@ bool aiDestroyObject(void)
 
 		if (entity->obj == 0xeb) {
 			obj->flags = (obj->flags & 0xfffeffff) | 0x20000;
-			func0f129900(entity->prop, &entity->prop->coord, &entity->prop->room, 3, 0);
+			func0f129900(entity->prop, &entity->prop->pos, &entity->prop->room, 3, 0);
 			func0f12e714(entity->prop, 0x16);
 		} else {
 			f32 damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
-			func0f0852ac(obj, damage, &obj->prop->coord, 0x22, -1);
+			func0f0852ac(obj, damage, &obj->prop->pos, 0x22, -1);
 		}
 	}
 
@@ -11076,9 +11076,9 @@ bool ai0139(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 flags = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
-	struct coord coord;
+	struct coord pos;
 
-	func0f04c874(g_Vars.chrdata, flags, &coord, cmd[7], cmd[6]);
+	func0f04c874(g_Vars.chrdata, flags, &pos, cmd[7], cmd[6]);
 
 	g_Vars.aioffset += 8;
 
@@ -12013,8 +12013,8 @@ bool aiIfY(void)
 	}
 
 	if (chr && chr->prop && (
-				(chr->prop->coord.y < cutoff_y && cmd[5] == 0) ||
-				(chr->prop->coord.y > cutoff_y && cmd[5] == 1))) {
+				(chr->prop->pos.y < cutoff_y && cmd[5] == 0) ||
+				(chr->prop->pos.y > cutoff_y && cmd[5] == 1))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -12195,9 +12195,9 @@ bool aiIfDistanceToGunLessThan(void)
 	f32 zdiff = 0;
 
 	if (g_Vars.chrdata->gunprop) {
-		xdiff = g_Vars.chrdata->prop->coord.x - g_Vars.chrdata->gunprop->coord.x;
-		ydiff = g_Vars.chrdata->prop->coord.y - g_Vars.chrdata->gunprop->coord.y;
-		zdiff = g_Vars.chrdata->prop->coord.z - g_Vars.chrdata->gunprop->coord.z;
+		xdiff = g_Vars.chrdata->prop->pos.x - g_Vars.chrdata->gunprop->pos.x;
+		ydiff = g_Vars.chrdata->prop->pos.y - g_Vars.chrdata->gunprop->pos.y;
+		zdiff = g_Vars.chrdata->prop->pos.z - g_Vars.chrdata->gunprop->pos.z;
 	}
 
 	if (ydiff < 200 && ydiff > -200 &&
@@ -12841,9 +12841,9 @@ glabel aiIfObjectDistanceToPadLessThan
 //
 //		if (pad_id >= 0) {
 //			padUnpack(pad_id, 2, &pad);
-//			xdiff = obj->prop->coord.x - pad.coord.x;
-//			ydiff = obj->prop->coord.y - pad.coord.y;
-//			zdiff = obj->prop->coord.z - pad.coord.z;
+//			xdiff = obj->prop->pos.x - pad.pos.x;
+//			ydiff = obj->prop->pos.y - pad.pos.y;
+//			zdiff = obj->prop->pos.z - pad.pos.z;
 //
 //			if (ydiff < 200 && ydiff > -200 &&
 //					xdiff < distance && xdiff > -distance &&
@@ -13197,7 +13197,7 @@ bool aiIfTargetYDifferenceLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
-	f32 diff = prop->coord.y - g_Vars.chrdata->prop->coord.y;
+	f32 diff = prop->pos.y - g_Vars.chrdata->prop->pos.y;
 
 	if (diff < 0) {
 		diff = 0 - diff;
@@ -13222,9 +13222,9 @@ bool ai01aa(void)
 
 	func0f0056f4(
 			g_Vars.currentplayer->prop->room,
-			&g_Vars.currentplayer->prop->coord,
+			&g_Vars.currentplayer->prop->pos,
 			g_Vars.chrdata->prop->room,
-			&g_Vars.chrdata->prop->coord,
+			&g_Vars.chrdata->prop->pos,
 			0, &a, 0);
 
 	if (a < var7f1a9da0[0]) {
@@ -14986,7 +14986,7 @@ bool ai01e0(void)
 bool ai01b4(void)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop &&
-			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->coord, &g_Vars.chrdata->prop->room, 0, 0)) {
+			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->room, 0, 0)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

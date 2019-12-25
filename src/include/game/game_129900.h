@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f129900(struct prop *prop, struct coord *coord, s16 room, s32 arg3, s32 arg4);
+void func0f129900(struct prop *prop, struct coord *pos, s16 room, s32 arg3, s32 arg4);
 u32 func0f129940(void);
 u32 func0f129b08(void);
 u32 func0f129ba4(void);
@@ -31,7 +31,7 @@ u32 func0f12f230(void);
 u32 func0f12f5f8(void);
 u32 func0f12f6c0(void);
 u32 func0f12f95c(void);
-void func0f12f9f0(s32 room, struct prop *prop, struct coord *coord, s32 arg3, s32 arg4, s32 arg5);
+void func0f12f9f0(s32 room, struct prop *prop, struct coord *pos, s32 arg3, s32 arg4, s32 arg5);
 u32 func0f130044(void);
 u32 func0f131060(void);
 u32 func0f1312d8(void);

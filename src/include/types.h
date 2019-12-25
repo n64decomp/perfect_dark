@@ -45,7 +45,7 @@ struct prop {
 		struct weaponobj *weapon;
 	};
 
-	struct coord coord;
+	struct coord pos;
 	u32 unk14;
 	u32 unk18; // related to gun recovery
 	struct attachment *attachments;
@@ -73,7 +73,7 @@ struct prop {
 };
 
 struct pad {
-	/*0x00*/ struct coord coord;
+	/*0x00*/ struct coord pos;
 	/*0x0c*/ struct coord look;
 	/*0x18*/ struct coord up;
 	/*0x24*/ struct coord normal;

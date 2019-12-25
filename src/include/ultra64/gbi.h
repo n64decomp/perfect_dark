@@ -8,7 +8,7 @@ typedef struct
 {
     short          ob[3];  /* x, y, z */
     unsigned short flag;
-    short          tc[2];  /* texture coord */
+    short          tc[2];  /* texture pos */
     unsigned char  cn[4];  /* color & alpha */
 } Vtx_t;
 
@@ -17,7 +17,7 @@ typedef struct
 {
     short          ob[3];  /* x, y, z */
     unsigned short flag;
-    short          tc[2];  /* texture coord */
+    short          tc[2];  /* texture pos */
     signed char    n[3];   /* normal */
     unsigned char  a;      /* alpha  */
 } Vtx_tn;
