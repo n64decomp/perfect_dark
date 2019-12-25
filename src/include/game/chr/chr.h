@@ -419,6 +419,6 @@ s32 chrResolvePadId(struct chrdata *chr, s32 pad_id);
 f32 propGetDistanceToProp(struct prop *a, struct prop *b);
 s32 propGetIndexByChrId(struct chrdata *chr, s32 chrnum);
 f32 propGetLateralDistanceToProp(struct prop *a, struct prop *b);
-void func0f01e760(void);
+void func0f01e760(s32 arg0);
 
 #endif

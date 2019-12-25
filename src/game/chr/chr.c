@@ -1411,19 +1411,13 @@ glabel func0f01e6a4
 /*  f01e75c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+void func0f01e760(s32 arg0)
+{
+	func0f1679f4(arg0 * 12);
+}
+
 GLOBAL_ASM(
-glabel func0f01e760
-/*  f01e760:	00802825 */ 	or	$a1,$a0,$zero
-/*  f01e764:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f01e768:	00042080 */ 	sll	$a0,$a0,0x2
-/*  f01e76c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f01e770:	00852023 */ 	subu	$a0,$a0,$a1
-/*  f01e774:	0fc59e7d */ 	jal	func0f1679f4
-/*  f01e778:	00042080 */ 	sll	$a0,$a0,0x2
-/*  f01e77c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01e780:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f01e784:	03e00008 */ 	jr	$ra
-/*  f01e788:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f01e790
 /*  f01e78c:	3c018006 */ 	lui	$at,0x8006
 /*  f01e790:	03e00008 */ 	jr	$ra
 /*  f01e794:	ac24297c */ 	sw	$a0,0x297c($at)
