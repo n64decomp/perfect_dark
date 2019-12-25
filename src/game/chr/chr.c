@@ -3495,21 +3495,14 @@ void chrAddHealth(struct chrdata *chr, f32 health)
 	chr->damage -= health;
 }
 
-GLOBAL_ASM(
-glabel func0f0205c0
-/*  f0205c0:	44806000 */ 	mtc1	$zero,$f12
-/*  f0205c4:	c4820100 */ 	lwc1	$f2,0x100($a0)
-/*  f0205c8:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f0205cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0205d0:	45020004 */ 	bc1fl	.L0f0205e4
-/*  f0205d4:	46006006 */ 	mov.s	$f0,$f12
-/*  f0205d8:	03e00008 */ 	jr	$ra
-/*  f0205dc:	46001007 */ 	neg.s	$f0,$f2
-/*  f0205e0:	46006006 */ 	mov.s	$f0,$f12
-.L0f0205e4:
-/*  f0205e4:	03e00008 */ 	jr	$ra
-/*  f0205e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 chrGetArmor(struct chrdata *chr)
+{
+	if (chr->damage < 0) {
+		return -chr->damage;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0205ec
