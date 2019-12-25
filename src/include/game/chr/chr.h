@@ -46,7 +46,7 @@ u32 func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, s3
 u32 func0f020538(void);
 void chrSetMaxDamage(struct chrdata *chr, f32 maxdamage);
 f32 chrGetMaxDamage(struct chrdata *chr);
-u32 func0f0205ac(void);
+void chrAddHealth(struct chrdata *chr, f32 health);
 u32 func0f0205ec(void);
 u32 func0f020668(void);
 u32 func0f020b14(void);

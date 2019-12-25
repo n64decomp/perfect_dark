@@ -3490,13 +3490,13 @@ f32 chrGetMaxDamage(struct chrdata *chr)
 	return chr->maxdamage;
 }
 
+void chrAddHealth(struct chrdata *chr, f32 health)
+{
+	chr->damage -= health;
+}
+
 GLOBAL_ASM(
-glabel func0f0205ac
-/*  f0205ac:	44856000 */ 	mtc1	$a1,$f12
-/*  f0205b0:	c4840100 */ 	lwc1	$f4,0x100($a0)
-/*  f0205b4:	460c2181 */ 	sub.s	$f6,$f4,$f12
-/*  f0205b8:	03e00008 */ 	jr	$ra
-/*  f0205bc:	e4860100 */ 	swc1	$f6,0x100($a0)
+glabel func0f0205c0
 /*  f0205c0:	44806000 */ 	mtc1	$zero,$f12
 /*  f0205c4:	c4820100 */ 	lwc1	$f2,0x100($a0)
 /*  f0205c8:	460c103c */ 	c.lt.s	$f2,$f12
