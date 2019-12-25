@@ -6030,7 +6030,7 @@ glabel func0f16b96c
 /*  f16bb34:	5420ffde */ 	bnezl	$at,.L0f16bab0
 /*  f16bb38:	8cce0064 */ 	lw	$t6,0x64($a2)
 .L0f16bb3c:
-/*  f16bb3c:	0fc5b364 */ 	jal	func0f16cd90
+/*  f16bb3c:	0fc5b364 */ 	jal	getVar80084014
 /*  f16bb40:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16bb44:	10400003 */ 	beqz	$v0,.L0f16bb54
 /*  f16bb48:	00000000 */ 	sll	$zero,$zero,0x0
@@ -6759,7 +6759,7 @@ glabel func0f16b96c
 /*  f16c57c:	8e0d0000 */ 	lw	$t5,0x0($s0)
 /*  f16c580:	55a00019 */ 	bnezl	$t5,.L0f16c5e8
 /*  f16c584:	8e8d0034 */ 	lw	$t5,0x34($s4)
-/*  f16c588:	0fc5b364 */ 	jal	func0f16cd90
+/*  f16c588:	0fc5b364 */ 	jal	getVar80084014
 /*  f16c58c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c590:	14400014 */ 	bnez	$v0,.L0f16c5e4
 /*  f16c594:	3c0e8008 */ 	lui	$t6,0x8008
@@ -7294,12 +7294,10 @@ glabel func0f16cd40
 /*  f16cd8c:	ac2f4014 */ 	sw	$t7,0x4014($at)
 );
 
-GLOBAL_ASM(
-glabel func0f16cd90
-/*  f16cd90:	3c028008 */ 	lui	$v0,0x8008
-/*  f16cd94:	03e00008 */ 	jr	$ra
-/*  f16cd98:	8c424014 */ 	lw	$v0,0x4014($v0)
-);
+u32 getVar80084014(void)
+{
+	return var80084014;
+}
 
 s32 getDifficulty(void)
 {
@@ -7320,37 +7318,33 @@ glabel func0f16cda8
 /*  f16cdc4:	ac244020 */ 	sw	$a0,0x4020($at)
 );
 
-GLOBAL_ASM(
-glabel func0f16cdc8
-/*  f16cdc8:	3c018008 */ 	lui	$at,0x8008
-/*  f16cdcc:	03e00008 */ 	jr	$ra
-/*  f16cdd0:	ac244028 */ 	sw	$a0,0x4028($at)
-);
+void setVar80084028(u32 arg0)
+{
+	var80084028 = arg0;
+}
 
-GLOBAL_ASM(
-glabel func0f16cdd4
-/*  f16cdd4:	3c018008 */ 	lui	$at,0x8008
-/*  f16cdd8:	03e00008 */ 	jr	$ra
-/*  f16cddc:	ac24402c */ 	sw	$a0,0x402c($at)
-);
+void setVar8008402c(u32 arg0)
+{
+	var8008402c = arg0;
+}
 
-GLOBAL_ASM(
-glabel func0f16cde0
-/*  f16cde0:	3c018008 */ 	lui	$at,0x8008
-/*  f16cde4:	03e00008 */ 	jr	$ra
-/*  f16cde8:	ac244030 */ 	sw	$a0,0x4030($at)
-);
+void setVar80084030(u32 arg0)
+{
+	var80084030 = arg0;
+}
 
 f32 getUptime(void)
 {
 	return g_Uptime;
 }
 
+u32 getVar80084024(void)
+{
+	return var80084024;
+}
+
 GLOBAL_ASM(
-glabel func0f16cdf8
-/*  f16cdf8:	3c028008 */ 	lui	$v0,0x8008
-/*  f16cdfc:	03e00008 */ 	jr	$ra
-/*  f16ce00:	8c424024 */ 	lw	$v0,0x4024($v0)
+glabel func0f16ce04
 /*  f16ce04:	03e00008 */ 	jr	$ra
 /*  f16ce08:	00801025 */ 	or	$v0,$a0,$zero
 /*  f16ce0c:	00000000 */ 	sll	$zero,$zero,0x0

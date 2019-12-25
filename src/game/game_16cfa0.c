@@ -642,7 +642,7 @@ glabel func0f16d6c0
 /*  f16d6dc:	1000006b */ 	beqz	$zero,.L0f16d88c
 /*  f16d6e0:	00001025 */ 	or	$v0,$zero,$zero
 .L0f16d6e4:
-/*  f16d6e4:	0fc5b364 */ 	jal	func0f16cd90
+/*  f16d6e4:	0fc5b364 */ 	jal	getVar80084014
 /*  f16d6e8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16d6ec:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f16d6f0:	10400003 */ 	beqz	$v0,.L0f16d700

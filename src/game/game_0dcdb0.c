@@ -7270,7 +7270,7 @@ glabel func0f0df364
 .L0f0df75c:
 /*  f0df75c:	55600038 */ 	bnezl	$t3,.L0f0df840
 /*  f0df760:	9602001c */ 	lhu	$v0,0x1c($s0)
-/*  f0df764:	0fc5b364 */ 	jal	func0f16cd90
+/*  f0df764:	0fc5b364 */ 	jal	getVar80084014
 /*  f0df768:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0df76c:	54400034 */ 	bnezl	$v0,.L0f0df840
 /*  f0df770:	9602001c */ 	lhu	$v0,0x1c($s0)

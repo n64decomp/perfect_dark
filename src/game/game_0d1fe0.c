@@ -551,7 +551,7 @@ glabel func0f0d26ac
 /*  f0d2738:	14400011 */ 	bnez	$v0,.L0f0d2780
 /*  f0d273c:	8fa70060 */ 	lw	$a3,0x60($sp)
 .L0f0d2740:
-/*  f0d2740:	0fc5b364 */ 	jal	func0f16cd90
+/*  f0d2740:	0fc5b364 */ 	jal	getVar80084014
 /*  f0d2744:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0d2748:	1440000d */ 	bnez	$v0,.L0f0d2780
 /*  f0d274c:	8fa70060 */ 	lw	$a3,0x60($sp)

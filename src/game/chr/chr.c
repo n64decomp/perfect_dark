@@ -27087,7 +27087,7 @@ glabel func0f034524
 /*  f0359fc:	25f80001 */ 	addiu	$t8,$t7,0x1
 /*  f035a00:	a21802ff */ 	sb	$t8,0x2ff($s0)
 .L0f035a04:
-/*  f035a04:	0fc5b364 */ 	jal	func0f16cd90
+/*  f035a04:	0fc5b364 */ 	jal	getVar80084014
 /*  f035a08:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f035a0c:	14400005 */ 	bnez	$v0,.L0f035a24
 /*  f035a10:	8fad00f4 */ 	lw	$t5,0xf4($sp)
