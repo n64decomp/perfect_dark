@@ -1416,21 +1416,25 @@ void func0f01e760(s32 arg0)
 	func0f1679f4(arg0 * 12);
 }
 
-GLOBAL_ASM(
-glabel func0f01e790
-/*  f01e78c:	3c018006 */ 	lui	$at,0x8006
-/*  f01e790:	03e00008 */ 	jr	$ra
-/*  f01e794:	ac24297c */ 	sw	$a0,0x297c($at)
-/*  f01e798:	3c028006 */ 	lui	$v0,0x8006
-/*  f01e79c:	03e00008 */ 	jr	$ra
-/*  f01e7a0:	8c42297c */ 	lw	$v0,0x297c($v0)
-/*  f01e7a4:	3c018006 */ 	lui	$at,0x8006
-/*  f01e7a8:	03e00008 */ 	jr	$ra
-/*  f01e7ac:	ac242980 */ 	sw	$a0,0x2980($at)
-/*  f01e7b0:	3c028006 */ 	lui	$v0,0x8006
-/*  f01e7b4:	03e00008 */ 	jr	$ra
-/*  f01e7b8:	8c422980 */ 	lw	$v0,0x2980($v0)
-);
+void setVar8006297c(u32 arg0)
+{
+	var8006297c = arg0;
+}
+
+u32 getVar8006297c(void)
+{
+	return var8006297c;
+}
+
+void setVar80062980(u32 arg0)
+{
+	var80062980 = arg0;
+}
+
+u32 getVar80062980(void)
+{
+	return var80062980;
+}
 
 void chrSetOrUnsetHiddenFlag00000100(struct chrdata *chr, bool unset)
 {

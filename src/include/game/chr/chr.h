@@ -420,5 +420,9 @@ f32 propGetDistanceToProp(struct prop *a, struct prop *b);
 s32 propGetIndexByChrId(struct chrdata *chr, s32 chrnum);
 f32 propGetLateralDistanceToProp(struct prop *a, struct prop *b);
 void func0f01e760(s32 arg0);
+void setVar8006297c(u32 arg0);
+u32 getVar8006297c(void);
+void setVar80062980(u32 arg0);
+u32 getVar80062980(void);
 
 #endif
