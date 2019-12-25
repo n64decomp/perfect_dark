@@ -326,7 +326,7 @@ struct chrdata {
 	/*0x0d8*/ u32 lastmoveok60;
 	/*0x0dc*/ f32 visionrange;
 	/*0x0e0*/ s32 lastseetarget60;
-	/*0x0e4*/ u32 lastvisibletarg;
+	/*0x0e4*/ s32 lastvisibletarget60;
 	/*0x0e8*/ void *unk0e8;
 	/*0x0ec*/ u16 lastshooter;
 	/*0x0ee*/ u16 timeshooter;
