@@ -8125,12 +8125,10 @@ glabel func0f0246e4
 /*  f024728:	a0980002 */ 	sb	$t8,0x2($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f02472c
-/*  f02472c:	3c018006 */ 	lui	$at,0x8006
-/*  f024730:	03e00008 */ 	jr	$ra
-/*  f024734:	ac202964 */ 	sw	$zero,0x2964($at)
-);
+void func0f02472c(void)
+{
+	var80062964 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f024738
