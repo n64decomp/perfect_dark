@@ -5385,19 +5385,10 @@ glabel func0f021fa8
 /*  f022080:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f022084
-/*  f022084:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f022088:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02208c:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f022090:	8c85001c */ 	lw	$a1,0x1c($a0)
-/*  f022094:	0fc087ea */ 	jal	func0f021fa8
-/*  f022098:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f02209c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0220a0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0220a4:	03e00008 */ 	jr	$ra
-/*  f0220a8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f022084(struct chrdata *chr, s32 arg1)
+{
+	func0f021fa8(chr, &chr->pos->coord, arg1);
+}
 
 GLOBAL_ASM(
 glabel func0f0220ac
