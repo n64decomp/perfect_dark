@@ -17551,7 +17551,7 @@ glabel func0f0c1e54
 /*  f0c1e84:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*  f0c1e88:	13000003 */ 	beqz	$t8,.L0f0c1e98
 /*  f0c1e8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c1e90:	0fc079ef */ 	jal	func0f01e7bc
+/*  f0c1e90:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
 /*  f0c1e94:	8f240004 */ 	lw	$a0,0x4($t9)
 .L0f0c1e98:
 /*  f0c1e98:	3c02800a */ 	lui	$v0,0x800a

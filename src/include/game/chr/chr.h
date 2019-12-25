@@ -40,7 +40,7 @@ u32 func0f01e250(void);
 u32 chrSetChrnum(struct chrdata *chr, u32 arg1);
 u32 func0f01e5d8(void);
 u32 func0f01e6a4(void);
-u32 func0f01e7bc(void);
+void chrSetOrUnsetHiddenFlag00000100(struct chrdata *chr, bool unset);
 u32 func0f01e7f4(void);
 u32 func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, s32 arg4);
 u32 func0f020538(void);
