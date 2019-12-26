@@ -3740,7 +3740,7 @@ glabel func0f020668
 .L0f020934:
 /*  f020934:	a2070013 */ 	sb	$a3,0x13($s0)
 /*  f020938:	a2080125 */ 	sb	$t0,0x125($s0)
-/*  f02093c:	0fc0cfea */ 	jal	func0f033fa8
+/*  f02093c:	0fc0cfea */ 	jal	chrSetShield
 /*  f020940:	afa60024 */ 	sw	$a2,0x24($sp)
 /*  f020944:	a2000184 */ 	sb	$zero,0x184($s0)
 /*  f020948:	a2000185 */ 	sb	$zero,0x185($s0)
@@ -3976,41 +3976,20 @@ glabel func0f020b14
 /*  f020cc4:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel func0f020cc8
-/*  f020cc8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f020ccc:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f020cd0:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f020cd4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f020cd8:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f020cdc:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f020ce0:	0fc180d6 */ 	jal	func0f060358
-/*  f020ce4:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f020ce8:	10400011 */ 	beqz	$v0,.L0f020d30
-/*  f020cec:	00408025 */ 	or	$s0,$v0,$zero
-/*  f020cf0:	c7a40034 */ 	lwc1	$f4,0x34($sp)
-/*  f020cf4:	8fae0038 */ 	lw	$t6,0x38($sp)
-/*  f020cf8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f020cfc:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f020d00:	8fa6002c */ 	lw	$a2,0x2c($sp)
-/*  f020d04:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f020d08:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f020d0c:	0fc082c5 */ 	jal	func0f020b14
-/*  f020d10:	afae0014 */ 	sw	$t6,0x14($sp)
-/*  f020d14:	00408025 */ 	or	$s0,$v0,$zero
-/*  f020d18:	0fc41b99 */ 	jal	cheatIsEnabled
-/*  f020d1c:	2404000c */ 	addiu	$a0,$zero,0xc
-/*  f020d20:	10400003 */ 	beqz	$v0,.L0f020d30
-/*  f020d24:	3c054100 */ 	lui	$a1,0x4100
-/*  f020d28:	0fc0cfea */ 	jal	func0f033fa8
-/*  f020d2c:	8e040004 */ 	lw	$a0,0x4($s0)
-.L0f020d30:
-/*  f020d30:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f020d34:	02001025 */ 	or	$v0,$s0,$zero
-/*  f020d38:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f020d3c:	03e00008 */ 	jr	$ra
-/*  f020d40:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+struct prop *func0f020cc8(s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4)
+{
+	struct prop *prop = func0f060358();
+
+	if (prop) {
+		prop = func0f020b14(prop, arg0, arg1, arg2, arg3, arg4);
+
+		if (cheatIsEnabled(CHEAT_ENEMYSHIELDS)) {
+			chrSetShield(prop->chr, 8);
+		}
+	}
+
+	return prop;
+}
 
 GLOBAL_ASM(
 glabel func0f020d44
@@ -25246,7 +25225,7 @@ f32 chrGetShield(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f033fa8
+glabel chrSetShield
 /*  f033fa8:	44856000 */ 	mtc1	$a1,$f12
 /*  f033fac:	44800000 */ 	mtc1	$zero,$f0
 /*  f033fb0:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -26451,7 +26430,7 @@ glabel func0f034524
 /*  f0350d0:	53000007 */ 	beqzl	$t8,.L0f0350f0
 /*  f0350d4:	4606a003 */ 	div.s	$f0,$f20,$f6
 /*  f0350d8:	4480a000 */ 	mtc1	$zero,$f20
-/*  f0350dc:	0fc0cfea */ 	jal	func0f033fa8
+/*  f0350dc:	0fc0cfea */ 	jal	chrSetShield
 /*  f0350e0:	24050000 */ 	addiu	$a1,$zero,0x0
 /*  f0350e4:	10000013 */ 	beqz	$zero,.L0f035134
 /*  f0350e8:	240f0001 */ 	addiu	$t7,$zero,0x1
@@ -26466,13 +26445,13 @@ glabel func0f034524
 /*  f035108:	4480a000 */ 	mtc1	$zero,$f20
 /*  f03510c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f035110:	44051000 */ 	mfc1	$a1,$f2
-/*  f035114:	0fc0cfea */ 	jal	func0f033fa8
+/*  f035114:	0fc0cfea */ 	jal	chrSetShield
 /*  f035118:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03511c:	10000005 */ 	beqz	$zero,.L0f035134
 /*  f035120:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f035124:	4480a000 */ 	mtc1	$zero,$f20
 .L0f035128:
-/*  f035128:	0fc0cfea */ 	jal	func0f033fa8
+/*  f035128:	0fc0cfea */ 	jal	chrSetShield
 /*  f03512c:	24050000 */ 	addiu	$a1,$zero,0x0
 /*  f035130:	240f0001 */ 	addiu	$t7,$zero,0x1
 .L0f035134:

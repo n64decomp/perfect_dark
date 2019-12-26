@@ -6,7 +6,7 @@
 u32 func0f0601b0(void);
 u32 func0f0602f0(struct prop *prop);
 u32 func0f060300(struct prop *prop);
-u32 func0f060358(void);
+struct prop *func0f060358(void);
 u32 func0f060438(void);
 void func0f0604bc(struct prop *prop);
 u32 func0f060538(void);

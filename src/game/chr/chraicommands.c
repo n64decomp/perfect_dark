@@ -4703,7 +4703,7 @@ glabel ai010e
 .L0f053ba0:
 /*  f053ba0:	3c04800a */ 	lui	$a0,0x800a
 /*  f053ba4:	44050000 */ 	mfc1	$a1,$f0
-/*  f053ba8:	0fc0cfea */ 	jal	func0f033fa8
+/*  f053ba8:	0fc0cfea */ 	jal	chrSetShield
 /*  f053bac:	8c84a3e4 */ 	lw	$a0,-0x5c1c($a0)
 /*  f053bb0:	3c0a800a */ 	lui	$t2,0x800a
 /*  f053bb4:	8d4aa3f8 */ 	lw	$t2,-0x5c08($t2)
