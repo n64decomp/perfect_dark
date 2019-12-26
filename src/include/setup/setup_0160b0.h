@@ -51,6 +51,7 @@ extern u32 var80070580;
 extern u32 var80070584;
 extern u32 var800705a0;
 extern u32 var800705a4;
+extern s32 var800705a8;
 extern u32 var800705ac;
 extern u32 var800705b0;
 extern u32 var800705b4;

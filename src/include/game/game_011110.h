@@ -3,8 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f011110(void);
-u32 func0f011124(void);
+void func0f011110(void);
+void func0f011124(s32 value);
 u32 func0f011130(void);
 u32 func0f011560(void);
 u32 func0f011630(void);
