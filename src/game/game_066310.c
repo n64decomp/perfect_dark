@@ -24779,7 +24779,7 @@ glabel func0f07b038
 );
 
 GLOBAL_ASM(
-glabel func0f07b078
+glabel heliTryStop
 /*  f07b078:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f07b07c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f07b080:	0fc1eb7d */ 	jal	objGetHeli

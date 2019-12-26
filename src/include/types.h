@@ -209,6 +209,12 @@ struct act_stand {
 	/*0x4c*/ s8 unk04c;
 };
 
+struct act_anim {
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ u32 unk030;
+	/*0x34*/ u32 unk034;
+};
+
 struct act_die {
 	/*0x2c*/ u32 unk02c;
 	/*0x30*/ f32 unk030;
@@ -226,8 +232,10 @@ struct act_dead {
 
 struct act_attack {
 	/*0x2c*/ u32 unk02c;
-	/*0x30*/ u32 unk030;
-	/*0x34*/ u32 unk034;
+	/*0x30*/ u16 unk030;
+	/*0x32*/ u8 unk032;
+	/*0x33*/ s8 unk033;
+	/*0x34*/ s8 unk034;
 	/*0x38*/ u32 unk038;
 	/*0x3c*/ u32 unk03c;
 	/*0x40*/ u32 unk040;
@@ -263,6 +271,14 @@ struct act_throwgrenade {
 	/*0x38*/ u32 unk038;
 };
 
+struct act_attackamount {
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ u16 unk030;
+	/*0x32*/ u8 unk032;
+	/*0x33*/ s8 unk033;
+	/*0x34*/ s8 unk034;
+};
+
 struct chrdata {
 	/*0x000*/ s16 chrnum;
 	/*0x002*/ s8 accuracyrating;
@@ -290,6 +306,7 @@ struct chrdata {
 
 	union {
 		struct act_stand act_stand;
+		struct act_anim act_anim;
 		struct act_die act_die;
 		struct act_dead act_dead;
 		struct act_attack act_attack;
@@ -298,6 +315,7 @@ struct chrdata {
 		struct act_runpos act_runpos;
 		struct act_surprised act_surprised;
 		struct act_throwgrenade act_throwgrenade;
+		struct act_attackamount act_attackamount;
 	};
 
 	/*0x054*/ u32 unk054;
@@ -308,7 +326,8 @@ struct chrdata {
 	/*0x066*/ u8 unk065;
 	/*0x066*/ s16 unk066;
 	/*0x068*/ u32 unk068;
-	/*0x06c*/ u32 unk06c;
+	/*0x06c*/ u16 unk06c;
+	/*0x06e*/ u8 unk06e;
 	/*0x070*/ u32 unk070;
 	/*0x074*/ u32 unk074;
 	/*0x078*/ u32 unk078;

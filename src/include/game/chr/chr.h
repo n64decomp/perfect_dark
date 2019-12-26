@@ -232,7 +232,7 @@ u32 func0f039474(void);
 u32 func0f039558(void);
 void chrRecordLastSeeTargetTime(struct chrdata *chr);
 void chrRecordLastHearTargetTime(struct chrdata *chr);
-u32 func0f0395d8(struct chrdata *chr);
+bool chrIsStopped(struct chrdata *chr);
 u32 func0f03978c(struct chrdata *chr);
 u32 func0f039a18(struct chrdata *chr);
 bool chrIsDead(struct chrdata *chr);

@@ -384,7 +384,7 @@ bool aiStop(void)
 	if (g_Vars.chrdata) {
 		chrTryStop(g_Vars.chrdata);
 	} else if (g_Vars.hovdata) {
-		func0f07b078(g_Vars.hovdata);
+		heliTryStop(g_Vars.hovdata);
 	}
 
 	g_Vars.aioffset += 2;
@@ -672,7 +672,7 @@ bool aiBeSurprised000e(void)
  */
 bool aiIfStopped(void)
 {
-	if (func0f0395d8(g_Vars.chrdata)) {
+	if (chrIsStopped(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

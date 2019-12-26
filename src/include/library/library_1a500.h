@@ -55,7 +55,7 @@ u32 func0001d15c(void);
 f32 func0001d17c(struct chr020 *chr020);
 f32 func0001d1a0(struct chr020 *chr020);
 u32 func0001d218(void);
-u32 func0001d260(void);
+f32 func0001d260(struct chr020 *chr020);
 u32 func0001d288(void);
 u32 func0001d320(void);
 u32 func0001d4fc(void);

@@ -20191,7 +20191,7 @@ glabel func0f02f530
 /*  f02f5d8:	10000007 */ 	beqz	$zero,.L0f02f5f8
 /*  f02f5dc:	ae090014 */ 	sw	$t1,0x14($s0)
 .L0f02f5e0:
-/*  f02f5e0:	0fc0e576 */ 	jal	func0f0395d8
+/*  f02f5e0:	0fc0e576 */ 	jal	chrIsStopped
 /*  f02f5e4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f02f5e8:	54400004 */ 	bnezl	$v0,.L0f02f5fc
 /*  f02f5ec:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -31296,7 +31296,7 @@ void chrRecordLastHearTargetTime(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f0395d8
+glabel chrIsStopped
 /*  f0395d8:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f0395dc:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0395e0:	00808025 */ 	or	$s0,$a0,$zero
@@ -31417,6 +31417,52 @@ glabel func0f0395d8
 /*  f039784:	03e00008 */ 	jr	$ra
 /*  f039788:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+//bool chrIsStopped(struct chrdata *chr)
+//{
+//	u32 anim = func0001d13c(chr->unk020);
+//
+//	if (anim == 0x269 || anim == 0x26b) {
+//		return false;
+//	}
+//
+//	if (anim == 0x26a && chr->act_attack.unk034 <= chr->act_attack.unk033) {
+//		chrStopFiring(chr);
+//		return true;
+//	}
+//
+//	if (chr->actiontype == ACT_ROBOTATTACK && chr->unk06e) {
+//		return true;
+//	}
+//
+//	if (chr->actiontype == ACT_ATTACKAMOUNT && chr->act_attackamount.unk034 <= chr->act_attackamount.unk033) {
+//		return true;
+//	}
+//
+//	if (chr->actiontype == ACT_STAND && chr->act_stand.unk02c == 0 && chr->act_stand.unk038 == 0 && chr->act_stand.unk03c != 1) {
+//		return true;
+//	}
+//
+//	if (chr->actiontype == ACT_ANIM) {
+//		if (chr->act_anim.unk034) {
+//			return true;
+//		}
+//
+//		if (func0001d260(chr->unk020) >= 0 && func0001d17c(chr->unk020) >= func0001d1a0(chr->unk020)) {
+//			return true;
+//		}
+//
+//		if (func0001d260(chr->unk020) >= 0 || func0001d17c(chr->unk020) > 0) {
+//			return false;
+//		}
+//	}
+//
+//	if (chr->actiontype == ACT_PATROL) {
+//		return true;
+//	}
+//
+//	return false;
+//}
 
 GLOBAL_ASM(
 glabel func0f03978c
