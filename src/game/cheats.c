@@ -827,6 +827,54 @@ glabel menuhandlerCheat
 /*  f107830:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch due to different registers in case 6 (v1/a0)
+//s32 menuhandlerCheat(u32 arg0, struct menu_item *item, s32 arg2)
+//{
+//	switch (arg0) {
+//	case 8:
+//		if (item->param < 32) {
+//			if (var800a21d8 & (1 << item->param)) {
+//				return true;
+//			}
+//
+//			return false;
+//		}
+//
+//		if (var800a21dc & (1 << item->param)) {
+//			return true;
+//		}
+//
+//		return false;
+//	case 6:
+//		if (cheatIsUnlocked(item->param)) {
+//			if (item->param < 32) { // Bank 0
+//				if (var800a21d8 & (1 << item->param)) { // Turning off
+//					var800a21d8 = var800a21d8 & ~(1 << item->param);
+//				} else { // Turning on
+//					// If enabling Marquis or enemy rockets, turn off the other
+//					if (item->param == CHEAT_MARQUIS) {
+//						var800a21d8 = var800a21d8 & ~(1 << CHEAT_ENEMYROCKETS);
+//					}
+//
+//					if (item->param == CHEAT_ENEMYROCKETS) {
+//						var800a21d8 = var800a21d8 & ~(1 << CHEAT_MARQUIS);
+//					}
+//
+//					var800a21d8 = var800a21d8 | (1 << item->param);
+//				}
+//			} else { // Bank 1
+//				if ((1 << item->param) & var800a21dc) { // Turning off
+//					var800a21dc = var800a21dc & ~(1 << item->param);
+//				} else { // Turning on
+//					var800a21dc = var800a21dc | (1 << item->param);
+//				}
+//			}
+//		}
+//	}
+//
+//	return 0;
+//}
+
 s32 menuhandlerCheatBuddy(s32 arg0, struct menu_item *item, s32 arg2)
 {
 	switch (arg0) {
