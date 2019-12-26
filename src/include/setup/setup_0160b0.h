@@ -205,7 +205,7 @@ extern u16 mainmenulabels_nocheats[];
 extern u16 mainmenulabels_withcheats[];
 extern struct menu_dialog menudialog_mainmenu;
 extern struct menu_dialog menudialog_mainmenu2;
-extern struct cheatspec cheatspecs[];
+extern struct cheatspec g_CheatSpecs[];
 extern struct menu_item menuitems_cheats_buddies[];
 extern struct menu_dialog menudialog_cheats_buddies;
 extern u16 iomessages[];

@@ -2959,7 +2959,7 @@ struct menu_dialog menudialog_mainmenu2 = {
 u32 var80073a8c = 0x00000000;
 
 // 19ab0
-struct cheatspec cheatspecs[] = {
+struct cheatspec g_CheatSpecs[] = {
 	// name, time, stage index, difficulty, method
 	{ 0x544b, 123, 2,  DIFF_A,  CHEATMETHOD_TIMED | CHEATMETHOD_TRANSFERPAK    },
 	{ 0x544c, 100, 5,  DIFF_A,  CHEATMETHOD_TIMED | CHEATMETHOD_TRANSFERPAK    },

@@ -13,7 +13,7 @@ u32 func0f10793c(void);
 u32 func0f107a78(void);
 u32 func0f107eb8(void);
 u32 func0f107f18(void);
-u32 func0f107f64(void);
+s32 cheatGetTime(s32 cheat_id);
 u32 func0f107f78(void);
 s32 menudialog00107990(u32, u32, u32 *);
 s32 menuhandlerCheat(u32, u32, u32 *);

@@ -24,8 +24,8 @@ const char var7f1b2efc[] = "";
 
 GLOBAL_ASM(
 glabel func0f106d40
-/*  f106d40:	3c0f8007 */ 	lui	$t7,%hi(cheatspecs)
-/*  f106d44:	25ef3a90 */ 	addiu	$t7,$t7,%lo(cheatspecs)
+/*  f106d40:	3c0f8007 */ 	lui	$t7,%hi(g_CheatSpecs)
+/*  f106d44:	25ef3a90 */ 	addiu	$t7,$t7,%lo(g_CheatSpecs)
 /*  f106d48:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f106d4c:	01cf1821 */ 	addu	$v1,$t6,$t7
 /*  f106d50:	90660006 */ 	lbu	$a2,0x6($v1)
@@ -654,8 +654,8 @@ glabel func0f107510
 /*  f1075c0:	ae400000 */ 	sw	$zero,0x0($s2)
 /*  f1075c4:	ae600000 */ 	sw	$zero,0x0($s3)
 .L0f1075c8:
-/*  f1075c8:	3c118007 */ 	lui	$s1,%hi(cheatspecs)
-/*  f1075cc:	26313a90 */ 	addiu	$s1,$s1,%lo(cheatspecs)
+/*  f1075c8:	3c118007 */ 	lui	$s1,%hi(g_CheatSpecs)
+/*  f1075cc:	26313a90 */ 	addiu	$s1,$s1,%lo(g_CheatSpecs)
 /*  f1075d0:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1075d4:	2414002a */ 	addiu	$s4,$zero,0x2a
 .L0f1075d8:
@@ -1103,8 +1103,8 @@ glabel func0f107a78
 /*  f107be0:	100000a7 */ 	beqz	$zero,.L0f107e80
 /*  f107be4:	2442dec0 */ 	addiu	$v0,$v0,%lo(var8009dec0)
 .L0f107be8:
-/*  f107be8:	3c0c8007 */ 	lui	$t4,%hi(cheatspecs)
-/*  f107bec:	258c3a90 */ 	addiu	$t4,$t4,%lo(cheatspecs)
+/*  f107be8:	3c0c8007 */ 	lui	$t4,%hi(g_CheatSpecs)
+/*  f107bec:	258c3a90 */ 	addiu	$t4,$t4,%lo(g_CheatSpecs)
 /*  f107bf0:	000950c0 */ 	sll	$t2,$t1,0x3
 /*  f107bf4:	014c1021 */ 	addu	$v0,$t2,$t4
 /*  f107bf8:	94440000 */ 	lhu	$a0,0x0($v0)
@@ -1303,8 +1303,8 @@ glabel menuhandlerTurnOffAllCheats
 
 GLOBAL_ASM(
 glabel func0f107eb8
-/*  f107eb8:	3c028007 */ 	lui	$v0,%hi(cheatspecs)
-/*  f107ebc:	24423a90 */ 	addiu	$v0,$v0,%lo(cheatspecs)
+/*  f107eb8:	3c028007 */ 	lui	$v0,%hi(g_CheatSpecs)
+/*  f107ebc:	24423a90 */ 	addiu	$v0,$v0,%lo(g_CheatSpecs)
 /*  f107ec0:	00001825 */ 	or	$v1,$zero,$zero
 /*  f107ec4:	2407002a */ 	addiu	$a3,$zero,0x2a
 .L0f107ec8:
@@ -1334,8 +1334,8 @@ glabel func0f107eb8
 
 GLOBAL_ASM(
 glabel func0f107f18
-/*  f107f18:	3c028007 */ 	lui	$v0,%hi(cheatspecs)
-/*  f107f1c:	24423a90 */ 	addiu	$v0,$v0,%lo(cheatspecs)
+/*  f107f18:	3c028007 */ 	lui	$v0,%hi(g_CheatSpecs)
+/*  f107f1c:	24423a90 */ 	addiu	$v0,$v0,%lo(g_CheatSpecs)
 /*  f107f20:	00001825 */ 	or	$v1,$zero,$zero
 /*  f107f24:	2405002a */ 	addiu	$a1,$zero,0x2a
 .L0f107f28:
@@ -1357,14 +1357,10 @@ glabel func0f107f18
 /*  f107f60:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f107f64
-/*  f107f64:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f107f68:	3c028007 */ 	lui	$v0,0x8007
-/*  f107f6c:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f107f70:	03e00008 */ 	jr	$ra
-/*  f107f74:	94423a92 */ 	lhu	$v0,0x3a92($v0)
-);
+s32 cheatGetTime(s32 cheat_id)
+{
+	return g_CheatSpecs[cheat_id].time;
+}
 
 GLOBAL_ASM(
 glabel func0f107f78
