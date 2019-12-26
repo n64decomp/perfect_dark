@@ -3025,14 +3025,14 @@ struct menu_dialog menudialog_cheatwarning = {
 
 // 19c68
 struct menu_item menuitems_cheats_fun[] = {
-	{ MENUITEMTYPE_CHECKBOX,     7, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    10, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    11, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    16, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    17, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     6, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     7, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    10, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    11, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    16, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    17, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     6, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, 0x7f107a78, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -3050,16 +3050,16 @@ struct menu_dialog menudialog_cheats_fun = {
 
 // 19d5c
 struct menu_item menuitems_cheats_gameplay[] = {
-	{ MENUITEMTYPE_CHECKBOX,     2, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     1, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    20, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    13, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    14, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    12, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    18, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    21, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     2, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     1, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    20, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    13, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    14, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    12, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    18, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    21, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, 0x7f107a78, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -3077,16 +3077,16 @@ struct menu_dialog menudialog_cheats_gameplay = {
 
 // 19e78
 struct menu_item menuitems_cheats_soloweapons[] = {
-	{ MENUITEMTYPE_CHECKBOX,    27, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    28, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    30, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    31, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    32, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    33, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     8, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     9, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    27, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    28, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    30, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    31, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    32, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    33, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     8, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     9, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, 0x7f107a78, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -3104,14 +3104,14 @@ struct menu_dialog menudialog_cheats_soloweapons = {
 
 // 19f94
 struct menu_item menuitems_cheats_classicweapons[] = {
-	{ MENUITEMTYPE_CHECKBOX,    34, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    35, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    36, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    37, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    38, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    39, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    40, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    41, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    34, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    35, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    36, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    37, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    38, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    39, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    40, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    41, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x000000c8, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, 0x00005490, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x000000c8, 0x00000000, NULL },
@@ -3131,16 +3131,16 @@ struct menu_dialog menudialog_cheats_classicweapons = {
 
 // 1a0b0
 struct menu_item menuitems_cheats_weapons[] = {
-	{ MENUITEMTYPE_CHECKBOX,    15, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    19, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     0, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     4, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     5, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    29, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    26, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     3, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    15, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    19, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     0, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     4, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     5, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    29, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    26, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     3, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, 0x7f107a78, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -3159,12 +3159,12 @@ struct menu_dialog menudialog_cheats_weapons = {
 // 1a1cc
 struct menu_item menuitems_cheats_buddies[] = {
 	{ MENUITEMTYPE_CHECKBOX,     0, 0x00000000, 0x00005475, 0x00000000, menuhandlerCheatBuddy }, // "Velvet Dark"
-	{ MENUITEMTYPE_CHECKBOX,    22, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheatBuddy },
-	{ MENUITEMTYPE_CHECKBOX,    23, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheatBuddy },
-	{ MENUITEMTYPE_CHECKBOX,    24, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheatBuddy },
-	{ MENUITEMTYPE_CHECKBOX,    25, 0x00000000, 0x7f10793c, 0x00000000, menuhandlerCheatBuddy },
+	{ MENUITEMTYPE_CHECKBOX,    22, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheatBuddy },
+	{ MENUITEMTYPE_CHECKBOX,    23, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheatBuddy },
+	{ MENUITEMTYPE_CHECKBOX,    24, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheatBuddy },
+	{ MENUITEMTYPE_CHECKBOX,    25, 0x00000000, cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheatBuddy },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, 0x7f107a78, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },

@@ -983,7 +983,7 @@ glabel menudialog00107990
 );
 
 GLOBAL_ASM(
-glabel func0f107a78
+glabel cheatGetMarquee
 /*  f107a78:	3c0e8007 */ 	lui	$t6,0x8007
 /*  f107a7c:	8dce1448 */ 	lw	$t6,0x1448($t6)
 /*  f107a80:	3c03800a */ 	lui	$v1,0x800a
