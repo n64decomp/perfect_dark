@@ -7,7 +7,7 @@ u32 func0f106d40(void);
 bool cheatIsEnabled(s32 cheat_id);
 u32 func0f106ea0(void);
 u32 func0f1071c4(void);
-u32 func0f1074ec(void);
+void func0f1074ec(void);
 u32 func0f107510(void);
 u32 func0f10793c(void);
 u32 func0f107a78(void);
