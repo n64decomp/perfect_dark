@@ -17,7 +17,7 @@ s32 cheatGetTime(s32 cheat_id);
 char *cheatGetName(s32 cheat_id);
 s32 menudialog00107990(u32, u32, u32 *);
 s32 menuhandlerCheat(u32, u32, u32 *);
-s32 menuhandlerCheatBuddy(u32, u32, u32 *);
+s32 menuhandlerCheatBuddy(s32 arg0, struct menu_item *item, s32 arg2);
 bool menuhandlerTurnOffAllCheats(u32 arg0, u32 arg1, u32 *arg2);
 
 #endif

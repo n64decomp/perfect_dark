@@ -827,82 +827,34 @@ glabel menuhandlerCheat
 /*  f107830:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerCheatBuddy
-/*  f107834:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f107838:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10783c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f107840:	1081001e */ 	beq	$a0,$at,.L0f1078bc
-/*  f107844:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f107848:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f10784c:	54810037 */ 	bnel	$a0,$at,.L0f10792c
-/*  f107850:	00001025 */ 	or	$v0,$zero,$zero
-/*  f107854:	90a40001 */ 	lbu	$a0,0x1($a1)
-/*  f107858:	3c02800a */ 	lui	$v0,%hi(var800a21d8)
-/*  f10785c:	244221d8 */ 	addiu	$v0,$v0,%lo(var800a21d8)
-/*  f107860:	5480000d */ 	bnezl	$a0,.L0f107898
-/*  f107864:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f107868:	3c02800a */ 	lui	$v0,%hi(var800a21d8)
-/*  f10786c:	244221d8 */ 	addiu	$v0,$v0,%lo(var800a21d8)
-/*  f107870:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f107874:	3c0103c0 */ 	lui	$at,0x3c0
-/*  f107878:	01c17824 */ 	and	$t7,$t6,$at
-/*  f10787c:	11e00003 */ 	beqz	$t7,.L0f10788c
-/*  f107880:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107884:	10000029 */ 	beqz	$zero,.L0f10792c
-/*  f107888:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10788c:
-/*  f10788c:	10000027 */ 	beqz	$zero,.L0f10792c
-/*  f107890:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f107894:	8c480000 */ 	lw	$t0,0x0($v0)
-.L0f107898:
-/*  f107898:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f10789c:	0098c804 */ 	sllv	$t9,$t8,$a0
-/*  f1078a0:	03284824 */ 	and	$t1,$t9,$t0
-/*  f1078a4:	11200003 */ 	beqz	$t1,.L0f1078b4
-/*  f1078a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1078ac:	1000001f */ 	beqz	$zero,.L0f10792c
-/*  f1078b0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1078b4:
-/*  f1078b4:	1000001d */ 	beqz	$zero,.L0f10792c
-/*  f1078b8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1078bc:
-/*  f1078bc:	90a40001 */ 	lbu	$a0,0x1($a1)
-/*  f1078c0:	3c02800a */ 	lui	$v0,%hi(var800a21d8)
-/*  f1078c4:	244221d8 */ 	addiu	$v0,$v0,%lo(var800a21d8)
-/*  f1078c8:	14800007 */ 	bnez	$a0,.L0f1078e8
-/*  f1078cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1078d0:	8c4a0000 */ 	lw	$t2,0x0($v0)
-/*  f1078d4:	3c01fc3f */ 	lui	$at,0xfc3f
-/*  f1078d8:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f1078dc:	01415824 */ 	and	$t3,$t2,$at
-/*  f1078e0:	10000011 */ 	beqz	$zero,.L0f107928
-/*  f1078e4:	ac4b0000 */ 	sw	$t3,0x0($v0)
-.L0f1078e8:
-/*  f1078e8:	0fc41b50 */ 	jal	cheatIsUnlocked
-/*  f1078ec:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1078f0:	1040000d */ 	beqz	$v0,.L0f107928
-/*  f1078f4:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f1078f8:	3c02800a */ 	lui	$v0,%hi(var800a21d8)
-/*  f1078fc:	244221d8 */ 	addiu	$v0,$v0,%lo(var800a21d8)
-/*  f107900:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*  f107904:	3c01fc3f */ 	lui	$at,0xfc3f
-/*  f107908:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f10790c:	01816824 */ 	and	$t5,$t4,$at
-/*  f107910:	ac4d0000 */ 	sw	$t5,0x0($v0)
-/*  f107914:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f107918:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f10791c:	01cfc004 */ 	sllv	$t8,$t7,$t6
-/*  f107920:	030d4025 */ 	or	$t0,$t8,$t5
-/*  f107924:	ac480000 */ 	sw	$t0,0x0($v0)
-.L0f107928:
-/*  f107928:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10792c:
-/*  f10792c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f107930:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f107934:	03e00008 */ 	jr	$ra
-/*  f107938:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerCheatBuddy(s32 arg0, struct menu_item *item, s32 arg2)
+{
+	switch (arg0) {
+	case 8:
+		if (item->param == 0) {
+			if ((var800a21d8 & 0x3c00000) != 0) {
+				return false;
+			}
+
+			return true;
+		}
+
+		if ((var800a21d8 & (1 << item->param)) != 0) {
+			return true;
+		}
+
+		return false;
+	case 6:
+		if (item->param == 0) {
+			var800a21d8 &= 0xfc3fffff;
+		} else if (cheatIsUnlocked(item->param)) {
+			var800a21d8 = var800a21d8 & 0xfc3fffff;
+			var800a21d8 = var800a21d8 | (1 << item->param);
+		}
+	}
+
+	return 0;
+}
 
 char *cheatGetNameIfUnlocked(struct cheatthing *thing)
 {
