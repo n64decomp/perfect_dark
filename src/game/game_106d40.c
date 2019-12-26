@@ -1273,36 +1273,21 @@ bool menuhandlerTurnOffAllCheats(u32 arg0, u32 arg1, u32 *arg2)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f107eb8
-/*  f107eb8:	3c028007 */ 	lui	$v0,%hi(g_CheatSpecs)
-/*  f107ebc:	24423a90 */ 	addiu	$v0,$v0,%lo(g_CheatSpecs)
-/*  f107ec0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f107ec4:	2407002a */ 	addiu	$a3,$zero,0x2a
-.L0f107ec8:
-/*  f107ec8:	904e0004 */ 	lbu	$t6,0x4($v0)
-/*  f107ecc:	548e000d */ 	bnel	$a0,$t6,.L0f107f04
-/*  f107ed0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f107ed4:	904f0005 */ 	lbu	$t7,0x5($v0)
-/*  f107ed8:	54af000a */ 	bnel	$a1,$t7,.L0f107f04
-/*  f107edc:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f107ee0:	90460006 */ 	lbu	$a2,0x6($v0)
-/*  f107ee4:	30d80004 */ 	andi	$t8,$a2,0x4
-/*  f107ee8:	17000005 */ 	bnez	$t8,.L0f107f00
-/*  f107eec:	30d90008 */ 	andi	$t9,$a2,0x8
-/*  f107ef0:	57200004 */ 	bnezl	$t9,.L0f107f04
-/*  f107ef4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f107ef8:	03e00008 */ 	jr	$ra
-/*  f107efc:	00601025 */ 	or	$v0,$v1,$zero
-.L0f107f00:
-/*  f107f00:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f107f04:
-/*  f107f04:	1467fff0 */ 	bne	$v1,$a3,.L0f107ec8
-/*  f107f08:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f107f0c:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f107f10:	03e00008 */ 	jr	$ra
-/*  f107f14:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 cheatGetByTimedStageIndex(s32 stage_index, s32 difficulty)
+{
+	s32 cheat_id;
+
+	for (cheat_id = 0; cheat_id < 0x2a; cheat_id++) {
+		if (g_CheatSpecs[cheat_id].stage_index == stage_index &&
+				g_CheatSpecs[cheat_id].difficulty == difficulty &&
+				(g_CheatSpecs[cheat_id].method & CHEATMETHOD_COMPLETE) == 0 &&
+				(g_CheatSpecs[cheat_id].method & CHEATMETHOD_FIRINGRANGE) == 0) {
+			return cheat_id;
+		}
+	}
+
+	return -1;
+}
 
 s32 cheatGetByCompletedStageIndex(s32 stage_index)
 {

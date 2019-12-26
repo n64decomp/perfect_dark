@@ -11,7 +11,7 @@ void func0f1074ec(void);
 u32 func0f107510(void);
 char *cheatGetNameIfUnlocked(struct cheatthing *thing);
 u32 func0f107a78(void);
-u32 func0f107eb8(void);
+s32 cheatGetByTimedStageIndex(s32 stage_index, s32 difficulty);
 s32 cheatGetByCompletedStageIndex(s32 stage_index);
 s32 cheatGetTime(s32 cheat_id);
 char *cheatGetName(s32 cheat_id);
