@@ -1352,20 +1352,7 @@ s32 cheatGetTime(s32 cheat_id)
 	return g_CheatSpecs[cheat_id].time;
 }
 
-GLOBAL_ASM(
-glabel func0f107f78
-/*  f107f78:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f107f7c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f107f80:	3c048007 */ 	lui	$a0,0x8007
-/*  f107f84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f107f88:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f107f8c:	0fc5b9f1 */ 	jal	textGet
-/*  f107f90:	94843a90 */ 	lhu	$a0,0x3a90($a0)
-/*  f107f94:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f107f98:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f107f9c:	03e00008 */ 	jr	$ra
-/*  f107fa0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107fa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107fa8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107fac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *cheatGetName(s32 cheat_id)
+{
+	return textGet(g_CheatSpecs[cheat_id].nametextid);
+}
