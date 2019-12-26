@@ -2603,11 +2603,6 @@ struct cutscenegroup {
 	u16 namefileid;
 };
 
-#define CHEATMETHOD_TIMED       0
-#define CHEATMETHOD_TRANSFERPAK 2
-#define CHEATMETHOD_COMPLETE    4
-#define CHEATMETHOD_FIRINGRANGE 8
-
 struct cheatspec {
 	u16 nametextid;
 	u16 time;

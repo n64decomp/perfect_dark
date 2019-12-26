@@ -1322,30 +1322,18 @@ glabel func0f107eb8
 /*  f107f14:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f107f18
-/*  f107f18:	3c028007 */ 	lui	$v0,%hi(g_CheatSpecs)
-/*  f107f1c:	24423a90 */ 	addiu	$v0,$v0,%lo(g_CheatSpecs)
-/*  f107f20:	00001825 */ 	or	$v1,$zero,$zero
-/*  f107f24:	2405002a */ 	addiu	$a1,$zero,0x2a
-.L0f107f28:
-/*  f107f28:	904e0004 */ 	lbu	$t6,0x4($v0)
-/*  f107f2c:	548e0008 */ 	bnel	$a0,$t6,.L0f107f50
-/*  f107f30:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f107f34:	904f0006 */ 	lbu	$t7,0x6($v0)
-/*  f107f38:	31f80004 */ 	andi	$t8,$t7,0x4
-/*  f107f3c:	53000004 */ 	beqzl	$t8,.L0f107f50
-/*  f107f40:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f107f44:	03e00008 */ 	jr	$ra
-/*  f107f48:	00601025 */ 	or	$v0,$v1,$zero
-/*  f107f4c:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f107f50:
-/*  f107f50:	1465fff5 */ 	bne	$v1,$a1,.L0f107f28
-/*  f107f54:	24420008 */ 	addiu	$v0,$v0,0x8
-/*  f107f58:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f107f5c:	03e00008 */ 	jr	$ra
-/*  f107f60:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 cheatGetByCompletedStageIndex(s32 stage_index)
+{
+	s32 cheat_id;
+
+	for (cheat_id = 0; cheat_id < 0x2a; cheat_id++) {
+		if (g_CheatSpecs[cheat_id].stage_index == stage_index && (g_CheatSpecs[cheat_id].method & CHEATMETHOD_COMPLETE)) {
+			return cheat_id;
+		}
+	}
+
+	return -1;
+}
 
 s32 cheatGetTime(s32 cheat_id)
 {

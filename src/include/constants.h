@@ -139,6 +139,11 @@
 #define CHEAT_AR53                   40
 #define CHEAT_RCP45                  41
 
+#define CHEATMETHOD_TIMED       0
+#define CHEATMETHOD_TRANSFERPAK 2
+#define CHEATMETHOD_COMPLETE    4
+#define CHEATMETHOD_FIRINGRANGE 8
+
 #define CHR_P1P2_OPPOSITE 0xf1
 #define CHR_P1P2          0xf2
 #define CHR_ANY           0xf3 // Only supported by if_chr_activated_object command
