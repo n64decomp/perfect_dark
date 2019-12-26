@@ -9,7 +9,7 @@ u32 func0f106ea0(void);
 u32 func0f1071c4(void);
 void func0f1074ec(void);
 u32 func0f107510(void);
-char *cheatGetNameIfUnlocked(struct cheatthing *thing);
+char *cheatGetNameIfUnlocked(struct menu_item *item);
 u32 cheatGetMarquee(void);
 s32 cheatGetByTimedStageIndex(s32 stage_index, s32 difficulty);
 s32 cheatGetByCompletedStageIndex(s32 stage_index);

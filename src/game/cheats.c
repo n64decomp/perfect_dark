@@ -904,10 +904,10 @@ s32 menuhandlerCheatBuddy(s32 arg0, struct menu_item *item, s32 arg2)
 	return 0;
 }
 
-char *cheatGetNameIfUnlocked(struct cheatthing *thing)
+char *cheatGetNameIfUnlocked(struct menu_item *item)
 {
-	if (cheatIsUnlocked(thing->cheat_id)) {
-		return textGet(g_CheatSpecs[thing->cheat_id].nametextid);
+	if (cheatIsUnlocked(item->param)) {
+		return textGet(g_CheatSpecs[item->param].nametextid);
 	}
 
 	return textGet(0x544a); // "----------"

@@ -2603,11 +2603,6 @@ struct cutscenegroup {
 	u16 namefileid;
 };
 
-struct cheatthing {
-	u8 unk00;
-	u8 cheat_id;
-};
-
 struct cheatspec {
 	u16 nametextid;
 	u16 time;
