@@ -5,7 +5,7 @@
 #include "setup/setup_0160b0.h"
 #include "setup/setup_020df0.h"
 #include "types.h"
-#include "game/game_106d40.h"
+#include "game/cheats.h"
 #include "game/game_10ccd0.h"
 #include "game/game_111600.h"
 #include "game/game_115ab0.h"

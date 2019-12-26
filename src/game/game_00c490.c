@@ -16,7 +16,7 @@
 #include "game/game_0601b0.h"
 #include "game/game_066310.h"
 #include "game/game_096750.h"
-#include "game/game_106d40.h"
+#include "game/cheats.h"
 #include "game/game_111600.h"
 #include "game/game_115ab0.h"
 #include "game/game_11ecf0.h"

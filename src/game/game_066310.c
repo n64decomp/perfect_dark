@@ -22,7 +22,7 @@
 #include "game/game_0c79f0.h"
 #include "game/game_0dcdb0.h"
 #include "game/game_0f09f0.h"
-#include "game/game_106d40.h"
+#include "game/cheats.h"
 #include "game/game_111600.h"
 #include "game/game_115ab0.h"
 #include "game/game_11ecf0.h"

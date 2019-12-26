@@ -7,7 +7,7 @@
 #include "types.h"
 #include "game/game_097a50.h"
 #include "game/game_0b0420.h"
-#include "game/game_106d40.h"
+#include "game/cheats.h"
 #include "game/game_111600.h"
 #include "game/game_16cfa0.h"
 #include "game/game_19c990.h"

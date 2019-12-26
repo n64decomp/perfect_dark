@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_106D40_H
-#define IN_GAME_GAME_106D40_H
+#ifndef IN_GAME_CHEATS_H
+#define IN_GAME_CHEATS_H
 #include <ultra64.h>
 #include "types.h"
 

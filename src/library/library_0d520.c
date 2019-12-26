@@ -17,7 +17,7 @@
 #include "game/game_00b200.h"
 #include "game/game_015470.h"
 #include "game/game_066310.h"
-#include "game/game_106d40.h"
+#include "game/cheats.h"
 #include "game/game_10ccd0.h"
 #include "game/game_115ab0.h"
 #include "game/game_11ecf0.h"

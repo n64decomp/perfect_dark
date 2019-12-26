@@ -8,7 +8,7 @@
 #include "game/game_000920.h"
 #include "game/game_066310.h"
 #include "game/game_0b28d0.h"
-#include "game/game_106d40.h"
+#include "game/cheats.h"
 #include "game/game_129900.h"
 #include "game/game_157db0.h"
 #include "game/game_1668e0.h"

@@ -385,7 +385,7 @@ SECTIONS
 		src/game/game_0dcdb0.o (.text);
 		src/game/game_0f09f0.o (.text);
 		src/game/game_102240.o (.text);
-		src/game/game_106d40.o (.text);
+		src/game/cheats.o (.text);
 		src/game/game_107fb0.o (.text);
 		src/game/game_10ccd0.o (.text);
 		src/game/game_111600.o (.text);
@@ -472,7 +472,7 @@ SECTIONS
 		src/game/game_0dcdb0.o (.rodata);
 		src/game/game_0f09f0.o (.rodata);
 		src/game/game_102240.o (.rodata);
-		src/game/game_106d40.o (.rodata);
+		src/game/cheats.o (.rodata);
 		src/game/game_107fb0.o (.rodata);
 		src/game/game_10ccd0.o (.rodata);
 		src/game/game_111600.o (.rodata);

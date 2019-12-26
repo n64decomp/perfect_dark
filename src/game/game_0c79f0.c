@@ -18,7 +18,7 @@
 #include "game/game_0c79f0.h"
 #include "game/game_0d1fe0.h"
 #include "game/game_0f09f0.h"
-#include "game/game_106d40.h"
+#include "game/cheats.h"
 #include "game/game_113220.h"
 #include "game/game_11ecf0.h"
 #include "game/game_152710.h"
