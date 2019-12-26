@@ -4486,7 +4486,7 @@ bool aiSetViewDistance(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (!func0f106e64(21)) {
+	if (!cheatIsEnabled(CHEAT_PERFECTDARKNESS)) {
 		g_Vars.chrdata->visionrange = cmd[2];
 	}
 
@@ -4688,7 +4688,7 @@ glabel ai010e
 /*  f053b64:	2404000c */ 	addiu	$a0,$zero,0xc
 /*  f053b68:	468021a0 */ 	cvt.s.w	$f6,$f4
 /*  f053b6c:	46083002 */ 	mul.s	$f0,$f6,$f8
-/*  f053b70:	0fc41b99 */ 	jal	func0f106e64
+/*  f053b70:	0fc41b99 */ 	jal	cheatIsEnabled
 /*  f053b74:	e7a00018 */ 	swc1	$f0,0x18($sp)
 /*  f053b78:	10400009 */ 	beqz	$v0,.L0f053ba0
 /*  f053b7c:	c7a00018 */ 	lwc1	$f0,0x18($sp)
@@ -5920,7 +5920,7 @@ glabel ai00c8
 /*  f055884:	11a0005e */ 	beqz	$t5,.L0f055a00
 /*  f055888:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05588c:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f055890:	0fc41b99 */ 	jal	func0f106e64
+/*  f055890:	0fc41b99 */ 	jal	cheatIsEnabled
 /*  f055894:	afa80024 */ 	sw	$t0,0x24($sp)
 /*  f055898:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f05589c:	10400012 */ 	beqz	$v0,.L0f0558e8
@@ -5944,7 +5944,7 @@ glabel ai00c8
 /*  f0558e4:	8fa80024 */ 	lw	$t0,0x24($sp)
 .L0f0558e8:
 /*  f0558e8:	24040012 */ 	addiu	$a0,$zero,0x12
-/*  f0558ec:	0fc41b99 */ 	jal	func0f106e64
+/*  f0558ec:	0fc41b99 */ 	jal	cheatIsEnabled
 /*  f0558f0:	afa70020 */ 	sw	$a3,0x20($sp)
 /*  f0558f4:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f0558f8:	10400036 */ 	beqz	$v0,.L0f0559d4

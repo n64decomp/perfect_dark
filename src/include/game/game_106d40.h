@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f106d40(void);
-u32 func0f106e64(u32 arg0);
+bool cheatIsEnabled(s32 cheat_id);
 u32 func0f106ea0(void);
 u32 func0f1071c4(void);
 u32 func0f1074ec(void);

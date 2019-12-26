@@ -96,6 +96,8 @@
 #define CHANNEL_9  9
 #define CHANNEL_10 10
 
+#define CHEAT_PERFECTDARKNESS 21
+
 #define CHR_P1P2_OPPOSITE 0xf1
 #define CHR_P1P2          0xf2
 #define CHR_ANY           0xf3 // Only supported by if_chr_activated_object command

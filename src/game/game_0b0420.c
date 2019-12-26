@@ -2167,7 +2167,7 @@ glabel func0f0b1f58
 /*  f0b1f90:	1000001e */ 	beqz	$zero,.L0f0b200c
 /*  f0b1f94:	24020007 */ 	addiu	$v0,$zero,0x7
 .L0f0b1f98:
-/*  f0b1f98:	0fc41b99 */ 	jal	func0f106e64
+/*  f0b1f98:	0fc41b99 */ 	jal	cheatIsEnabled
 /*  f0b1f9c:	2404000f */ 	addiu	$a0,$zero,0xf
 /*  f0b1fa0:	10400003 */ 	beqz	$v0,.L0f0b1fb0
 /*  f0b1fa4:	3c18800a */ 	lui	$t8,0x800a

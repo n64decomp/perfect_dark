@@ -107,25 +107,14 @@ glabel func0f106d40
 /*  f106e60:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f106e64
-/*  f106e64:	28810020 */ 	slti	$at,$a0,0x20
-/*  f106e68:	10200007 */ 	beqz	$at,.L0f106e88
-/*  f106e6c:	3c09800a */ 	lui	$t1,0x800a
-/*  f106e70:	3c18800a */ 	lui	$t8,0x800a
-/*  f106e74:	8f1821d0 */ 	lw	$t8,0x21d0($t8)
-/*  f106e78:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f106e7c:	008e7804 */ 	sllv	$t7,$t6,$a0
-/*  f106e80:	03e00008 */ 	jr	$ra
-/*  f106e84:	01f81024 */ 	and	$v0,$t7,$t8
-.L0f106e88:
-/*  f106e88:	8d2921d4 */ 	lw	$t1,0x21d4($t1)
-/*  f106e8c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f106e90:	00994004 */ 	sllv	$t0,$t9,$a0
-/*  f106e94:	01091024 */ 	and	$v0,$t0,$t1
-/*  f106e98:	03e00008 */ 	jr	$ra
-/*  f106e9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool cheatIsEnabled(s32 cheat_id)
+{
+	if (cheat_id < 32) {
+		return g_CheatsEnabledBank0 & (1 << cheat_id);
+	}
+
+	return g_CheatsEnabledBank1 & (1 << cheat_id);
+}
 
 GLOBAL_ASM(
 glabel func0f106ea0
@@ -335,8 +324,8 @@ glabel func0f106ea0
 /*  f10715c:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f107160:	8faf0028 */ 	lw	$t7,0x28($sp)
 .L0f107164:
-/*  f107164:	3c02800a */ 	lui	$v0,%hi(var800a21d0)
-/*  f107168:	244221d0 */ 	addiu	$v0,$v0,%lo(var800a21d0)
+/*  f107164:	3c02800a */ 	lui	$v0,%hi(g_CheatsEnabledBank0)
+/*  f107168:	244221d0 */ 	addiu	$v0,$v0,%lo(g_CheatsEnabledBank0)
 /*  f10716c:	29e10020 */ 	slti	$at,$t7,0x20
 /*  f107170:	10200007 */ 	beqz	$at,.L0f107190
 /*  f107174:	00000000 */ 	sll	$zero,$zero,0x0
@@ -347,9 +336,9 @@ glabel func0f106ea0
 /*  f107188:	10000009 */ 	beqz	$zero,.L0f1071b0
 /*  f10718c:	ac4b0000 */ 	sw	$t3,0x0($v0)
 .L0f107190:
-/*  f107190:	3c02800a */ 	lui	$v0,%hi(var800a21d4)
+/*  f107190:	3c02800a */ 	lui	$v0,%hi(g_CheatsEnabledBank1)
 /*  f107194:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*  f107198:	244221d4 */ 	addiu	$v0,$v0,%lo(var800a21d4)
+/*  f107198:	244221d4 */ 	addiu	$v0,$v0,%lo(g_CheatsEnabledBank1)
 /*  f10719c:	8c580000 */ 	lw	$t8,0x0($v0)
 /*  f1071a0:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f1071a4:	018d7004 */ 	sllv	$t6,$t5,$t4
@@ -571,8 +560,8 @@ glabel func0f1071c4
 /*  f107480:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f107484:	8faf0028 */ 	lw	$t7,0x28($sp)
 .L0f107488:
-/*  f107488:	3c02800a */ 	lui	$v0,%hi(var800a21d0)
-/*  f10748c:	244221d0 */ 	addiu	$v0,$v0,%lo(var800a21d0)
+/*  f107488:	3c02800a */ 	lui	$v0,%hi(g_CheatsEnabledBank0)
+/*  f10748c:	244221d0 */ 	addiu	$v0,$v0,%lo(g_CheatsEnabledBank0)
 /*  f107490:	29e10020 */ 	slti	$at,$t7,0x20
 /*  f107494:	10200007 */ 	beqz	$at,.L0f1074b4
 /*  f107498:	24180001 */ 	addiu	$t8,$zero,0x1
@@ -584,8 +573,8 @@ glabel func0f1071c4
 /*  f1074b0:	ac4c0000 */ 	sw	$t4,0x0($v0)
 .L0f1074b4:
 /*  f1074b4:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*  f1074b8:	3c02800a */ 	lui	$v0,%hi(var800a21d4)
-/*  f1074bc:	244221d4 */ 	addiu	$v0,$v0,%lo(var800a21d4)
+/*  f1074b8:	3c02800a */ 	lui	$v0,%hi(g_CheatsEnabledBank1)
+/*  f1074bc:	244221d4 */ 	addiu	$v0,$v0,%lo(g_CheatsEnabledBank1)
 /*  f1074c0:	8c590000 */ 	lw	$t9,0x0($v0)
 /*  f1074c4:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f1074c8:	01aec004 */ 	sllv	$t8,$t6,$t5
@@ -629,14 +618,14 @@ glabel func0f107510
 /*  f10753c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f107540:	3c0f800a */ 	lui	$t7,0x800a
 /*  f107544:	8def21d8 */ 	lw	$t7,0x21d8($t7)
-/*  f107548:	3c12800a */ 	lui	$s2,%hi(var800a21d0)
-/*  f10754c:	265221d0 */ 	addiu	$s2,$s2,%lo(var800a21d0)
+/*  f107548:	3c12800a */ 	lui	$s2,%hi(g_CheatsEnabledBank0)
+/*  f10754c:	265221d0 */ 	addiu	$s2,$s2,%lo(g_CheatsEnabledBank0)
 /*  f107550:	8c590298 */ 	lw	$t9,0x298($v0)
 /*  f107554:	3c18800a */ 	lui	$t8,0x800a
 /*  f107558:	ae4f0000 */ 	sw	$t7,0x0($s2)
 /*  f10755c:	8f1821dc */ 	lw	$t8,0x21dc($t8)
-/*  f107560:	3c13800a */ 	lui	$s3,%hi(var800a21d4)
-/*  f107564:	267321d4 */ 	addiu	$s3,$s3,%lo(var800a21d4)
+/*  f107560:	3c13800a */ 	lui	$s3,%hi(g_CheatsEnabledBank1)
+/*  f107564:	267321d4 */ 	addiu	$s3,$s3,%lo(g_CheatsEnabledBank1)
 /*  f107568:	07210007 */ 	bgez	$t9,.L0f107588
 /*  f10756c:	ae780000 */ 	sw	$t8,0x0($s3)
 /*  f107570:	8c48029c */ 	lw	$t0,0x29c($v0)
@@ -658,10 +647,10 @@ glabel func0f107510
 /*  f1075a8:	10000007 */ 	beqz	$zero,.L0f1075c8
 /*  f1075ac:	ae6d0000 */ 	sw	$t5,0x0($s3)
 .L0f1075b0:
-/*  f1075b0:	3c12800a */ 	lui	$s2,%hi(var800a21d0)
-/*  f1075b4:	3c13800a */ 	lui	$s3,%hi(var800a21d4)
-/*  f1075b8:	267321d4 */ 	addiu	$s3,$s3,%lo(var800a21d4)
-/*  f1075bc:	265221d0 */ 	addiu	$s2,$s2,%lo(var800a21d0)
+/*  f1075b0:	3c12800a */ 	lui	$s2,%hi(g_CheatsEnabledBank0)
+/*  f1075b4:	3c13800a */ 	lui	$s3,%hi(g_CheatsEnabledBank1)
+/*  f1075b8:	267321d4 */ 	addiu	$s3,$s3,%lo(g_CheatsEnabledBank1)
+/*  f1075bc:	265221d0 */ 	addiu	$s2,$s2,%lo(g_CheatsEnabledBank0)
 /*  f1075c0:	ae400000 */ 	sw	$zero,0x0($s2)
 /*  f1075c4:	ae600000 */ 	sw	$zero,0x0($s3)
 .L0f1075c8:
@@ -711,7 +700,7 @@ glabel func0f107510
 /*  f107664:	016c6824 */ 	and	$t5,$t3,$t4
 /*  f107668:	ae6d0000 */ 	sw	$t5,0x0($s3)
 .L0f10766c:
-/*  f10766c:	0fc41b99 */ 	jal	func0f106e64
+/*  f10766c:	0fc41b99 */ 	jal	cheatIsEnabled
 /*  f107670:	02002025 */ 	or	$a0,$s0,$zero
 /*  f107674:	50400004 */ 	beqzl	$v0,.L0f107688
 /*  f107678:	26100001 */ 	addiu	$s0,$s0,0x1

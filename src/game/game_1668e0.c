@@ -5865,7 +5865,7 @@ glabel func0f16b854
 /*  f16b900:	10000016 */ 	beqz	$zero,.L0f16b95c
 /*  f16b904:	24020002 */ 	addiu	$v0,$zero,0x2
 .L0f16b908:
-/*  f16b908:	0fc41b99 */ 	jal	func0f106e64
+/*  f16b908:	0fc41b99 */ 	jal	cheatIsEnabled
 /*  f16b90c:	24040006 */ 	addiu	$a0,$zero,0x6
 /*  f16b910:	10400003 */ 	beqz	$v0,.L0f16b920
 /*  f16b914:	00000000 */ 	sll	$zero,$zero,0x0
