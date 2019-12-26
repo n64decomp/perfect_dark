@@ -23,7 +23,7 @@ const char var7f1b2ef8[] = "";
 const char var7f1b2efc[] = "";
 
 GLOBAL_ASM(
-glabel func0f106d40
+glabel cheatIsUnlocked
 /*  f106d40:	3c0f8007 */ 	lui	$t7,%hi(g_CheatSpecs)
 /*  f106d44:	25ef3a90 */ 	addiu	$t7,$t7,%lo(g_CheatSpecs)
 /*  f106d48:	000470c0 */ 	sll	$t6,$a0,0x3
@@ -658,7 +658,7 @@ glabel func0f107510
 /*  f1075dc:	31cf0001 */ 	andi	$t7,$t6,0x1
 /*  f1075e0:	11e00022 */ 	beqz	$t7,.L0f10766c
 /*  f1075e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1075e8:	0fc41b50 */ 	jal	func0f106d40
+/*  f1075e8:	0fc41b50 */ 	jal	cheatIsUnlocked
 /*  f1075ec:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1075f0:	10400010 */ 	beqz	$v0,.L0f107634
 /*  f1075f4:	2a010020 */ 	slti	$at,$s0,0x20
@@ -759,7 +759,7 @@ glabel menuhandlerCheat
 /*  f107740:	00001025 */ 	or	$v0,$zero,$zero
 .L0f107744:
 /*  f107744:	90c40001 */ 	lbu	$a0,0x1($a2)
-/*  f107748:	0fc41b50 */ 	jal	func0f106d40
+/*  f107748:	0fc41b50 */ 	jal	cheatIsUnlocked
 /*  f10774c:	afa6001c */ 	sw	$a2,0x1c($sp)
 /*  f107750:	10400033 */ 	beqz	$v0,.L0f107820
 /*  f107754:	8fa6001c */ 	lw	$a2,0x1c($sp)
@@ -879,7 +879,7 @@ glabel menuhandlerCheatBuddy
 /*  f1078e0:	10000011 */ 	beqz	$zero,.L0f107928
 /*  f1078e4:	ac4b0000 */ 	sw	$t3,0x0($v0)
 .L0f1078e8:
-/*  f1078e8:	0fc41b50 */ 	jal	func0f106d40
+/*  f1078e8:	0fc41b50 */ 	jal	cheatIsUnlocked
 /*  f1078ec:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f1078f0:	1040000d */ 	beqz	$v0,.L0f107928
 /*  f1078f4:	8fa5001c */ 	lw	$a1,0x1c($sp)
@@ -904,32 +904,14 @@ glabel menuhandlerCheatBuddy
 /*  f107938:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f10793c
-/*  f10793c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f107940:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f107944:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f107948:	0fc41b50 */ 	jal	func0f106d40
-/*  f10794c:	90840001 */ 	lbu	$a0,0x1($a0)
-/*  f107950:	10400009 */ 	beqz	$v0,.L0f107978
-/*  f107954:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f107958:	91f80001 */ 	lbu	$t8,0x1($t7)
-/*  f10795c:	3c048007 */ 	lui	$a0,0x8007
-/*  f107960:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f107964:	00992021 */ 	addu	$a0,$a0,$t9
-/*  f107968:	0fc5b9f1 */ 	jal	textGet
-/*  f10796c:	94843a90 */ 	lhu	$a0,0x3a90($a0)
-/*  f107970:	10000004 */ 	beqz	$zero,.L0f107984
-/*  f107974:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f107978:
-/*  f107978:	0fc5b9f1 */ 	jal	textGet
-/*  f10797c:	2404544a */ 	addiu	$a0,$zero,0x544a
-/*  f107980:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f107984:
-/*  f107984:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f107988:	03e00008 */ 	jr	$ra
-/*  f10798c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *cheatGetNameIfUnlocked(struct cheatthing *thing)
+{
+	if (cheatIsUnlocked(thing->cheat_id)) {
+		return textGet(g_CheatSpecs[thing->cheat_id].nametextid);
+	}
+
+	return textGet(0x544a); // "----------"
+}
 
 GLOBAL_ASM(
 glabel menudialog00107990
@@ -1051,7 +1033,7 @@ glabel func0f107a78
 /*  f107b30:	100000d3 */ 	beqz	$zero,.L0f107e80
 /*  f107b34:	2442dec0 */ 	addiu	$v0,$v0,%lo(var8009dec0)
 .L0f107b38:
-/*  f107b38:	0fc41b50 */ 	jal	func0f106d40
+/*  f107b38:	0fc41b50 */ 	jal	cheatIsUnlocked
 /*  f107b3c:	afa4025c */ 	sw	$a0,0x25c($sp)
 /*  f107b40:	10400029 */ 	beqz	$v0,.L0f107be8
 /*  f107b44:	8fa9025c */ 	lw	$t1,0x25c($sp)
