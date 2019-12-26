@@ -107,6 +107,46 @@ glabel cheatIsUnlocked
 /*  f106e60:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch due to incorrect jump address for g_BestTimes.
+// It appears to be in a struct that starts 0x20 earlier, but this means other
+// variables like g_EepromFlags are in the struct too. Resolving this will be
+// done separately.
+//bool cheatIsUnlocked(s32 cheat_id)
+//{
+//	struct cheatspec *spec = &g_CheatSpecs[cheat_id];
+//	bool unlocked = false;
+//
+//	if (spec->method & CHEATMETHOD_FIRINGRANGE) {
+//		if (func0f19cf20(spec->time)) {
+//			unlocked = true;
+//		}
+//	} else if (spec->method & CHEATMETHOD_COMPLETE) {
+//		if (g_BestTimes[spec->stage_index * 3]) {
+//			unlocked++;
+//		}
+//		if (g_BestTimes[spec->stage_index * 3 + 1]) {
+//			unlocked++;
+//		}
+//		if (g_BestTimes[spec->stage_index * 3 + 2]) {
+//			unlocked++;
+//		}
+//	} else {
+//		s32 mytime = g_BestTimes[spec->stage_index * 3 + spec->difficulty];
+//
+//		if (mytime && mytime <= spec->time) {
+//			unlocked = true;
+//		}
+//	}
+//
+//	if (spec->method & CHEATMETHOD_TRANSFERPAK) {
+//		if (eepromGet(0x23)) {
+//			unlocked++;
+//		}
+//	}
+//
+//	return unlocked;
+//}
+
 bool cheatIsEnabled(s32 cheat_id)
 {
 	if (cheat_id < 32) {
