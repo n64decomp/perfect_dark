@@ -18,6 +18,6 @@ u32 func0f107f78(void);
 s32 menudialog00107990(u32, u32, u32 *);
 s32 menuhandlerCheat(u32, u32, u32 *);
 s32 menuhandlerCheatBuddy(u32, u32, u32 *);
-s32 menuhandlerTurnOffAllCheats(u32, u32, u32 *);
+bool menuhandlerTurnOffAllCheats(u32 arg0, u32 arg1, u32 *arg2);
 
 #endif

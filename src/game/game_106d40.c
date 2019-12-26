@@ -1281,20 +1281,15 @@ glabel func0f107a78
 /*  f107e8c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerTurnOffAllCheats
-/*  f107e90:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f107e94:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f107e98:	14810005 */ 	bne	$a0,$at,.L0f107eb0
-/*  f107e9c:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f107ea0:	3c01800a */ 	lui	$at,0x800a
-/*  f107ea4:	ac2021d8 */ 	sw	$zero,0x21d8($at)
-/*  f107ea8:	3c01800a */ 	lui	$at,0x800a
-/*  f107eac:	ac2021dc */ 	sw	$zero,0x21dc($at)
-.L0f107eb0:
-/*  f107eb0:	03e00008 */ 	jr	$ra
-/*  f107eb4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool menuhandlerTurnOffAllCheats(u32 arg0, u32 arg1, u32 *arg2)
+{
+	if (arg0 == 6) {
+		var800a21d8 = 0;
+		var800a21dc = 0;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f107eb8
