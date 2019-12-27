@@ -16784,8 +16784,8 @@ glabel func0f0c1404
 /*  f0c1434:	904f1922 */ 	lbu	$t7,0x1922($v0)
 /*  f0c1438:	15e0006f */ 	bnez	$t7,.L0f0c15f8
 .L0f0c143c:
-/*  f0c143c:	3c028007 */ 	lui	$v0,%hi(var80071448)
-/*  f0c1440:	24421448 */ 	addiu	$v0,$v0,%lo(var80071448)
+/*  f0c143c:	3c028007 */ 	lui	$v0,%hi(g_MenuStackDepth)
+/*  f0c1440:	24421448 */ 	addiu	$v0,$v0,%lo(g_MenuStackDepth)
 /*  f0c1444:	8c580000 */ 	lw	$t8,0x0($v0)
 /*  f0c1448:	8e190288 */ 	lw	$t9,0x288($s0)
 /*  f0c144c:	afb80024 */ 	sw	$t8,0x24($sp)

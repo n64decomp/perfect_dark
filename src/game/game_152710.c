@@ -572,9 +572,9 @@ glabel func0f152d80
 .L0f152da0:
 /*  f152da0:	8c4219c4 */ 	lw	$v0,0x19c4($v0)
 /*  f152da4:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f152da8:	3c048007 */ 	lui	$a0,%hi(var80071448)
+/*  f152da8:	3c048007 */ 	lui	$a0,%hi(g_MenuStackDepth)
 /*  f152dac:	14410012 */ 	bne	$v0,$at,.L0f152df8
-/*  f152db0:	24841448 */ 	addiu	$a0,$a0,%lo(var80071448)
+/*  f152db0:	24841448 */ 	addiu	$a0,$a0,%lo(g_MenuStackDepth)
 /*  f152db4:	0000c0c0 */ 	sll	$t8,$zero,0x3
 /*  f152db8:	0300c023 */ 	subu	$t8,$t8,$zero
 /*  f152dbc:	0018c140 */ 	sll	$t8,$t8,0x5
@@ -593,8 +593,8 @@ glabel func0f152d80
 /*  f152df0:	03e00008 */ 	jr	$ra
 /*  f152df4:	00001025 */ 	or	$v0,$zero,$zero
 .L0f152df8:
-/*  f152df8:	3c048007 */ 	lui	$a0,%hi(var80071448)
-/*  f152dfc:	24841448 */ 	addiu	$a0,$a0,%lo(var80071448)
+/*  f152df8:	3c048007 */ 	lui	$a0,%hi(g_MenuStackDepth)
+/*  f152dfc:	24841448 */ 	addiu	$a0,$a0,%lo(g_MenuStackDepth)
 /*  f152e00:	8c890000 */ 	lw	$t1,0x0($a0)
 /*  f152e04:	3c03800a */ 	lui	$v1,0x800a
 /*  f152e08:	3c06800a */ 	lui	$a2,%hi(g_Vars)
