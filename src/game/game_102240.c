@@ -2946,7 +2946,7 @@ glabel func0f104664
 /*  f1046dc:	10000008 */ 	beqz	$zero,.L0f104700
 /*  f1046e0:	00009025 */ 	or	$s2,$zero,$zero
 .L0f1046e4:
-/*  f1046e4:	0fc6726c */ 	jal	func0f19c9b0
+/*  f1046e4:	0fc6726c */ 	jal	ciGetFiringRangeScore
 /*  f1046e8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1046ec:	1c400002 */ 	bgtz	$v0,.L0f1046f8
 /*  f1046f0:	26100001 */ 	addiu	$s0,$s0,0x1

@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f19c990(void);
-u32 func0f19c9b0(void);
+u8 ciGetFiringRangeScore(s32 weapon_id);
 u32 func0f19c9e4(void);
 u32 func0f19cad4(void);
 u32 func0f19cb38(void);

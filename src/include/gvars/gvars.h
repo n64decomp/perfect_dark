@@ -704,6 +704,7 @@ extern u32 var800a2204;
 extern u32 var800a2208;
 extern u32 var800a220c;
 extern u16 g_BestTimes[];
+extern u8 g_FiringRangeScores[];
 extern u32 var800a22c0;
 extern u32 var800a22d0;
 extern u32 var800a2330;
