@@ -1045,9 +1045,9 @@ u8 func0007_alerted[] = {
 
 	label(0x16)
 	if_stage_is_not(STAGE_AIRFORCEONE, /*goto*/ 0x13)
-	try_draw_weapon(MODEL_CHRCYCLONE, WEAPON_CYCLONE, 0x00000000, /*goto*/ 0xe5)
+	try_equip_weapon(MODEL_CHRCYCLONE, WEAPON_CYCLONE, 0x00000000, /*goto*/ 0xe5)
 	label(0x13)
-	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0xe5)
+	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0xe5)
 
 	beginloop(0xe5)
 		if_chr_stopped(/*goto*/ 0x16)

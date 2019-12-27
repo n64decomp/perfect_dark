@@ -2142,7 +2142,7 @@ u8 func0404_angry_pilot[] = {
 	set_self_flag_bankx(CHRFLAG0_00000004, BANK_0)
 	speak(CHR_TARGET, 0x162f, 0x14dd, CHANNEL_7, COLOR_04_ORANGE) // "Die, you traitors."
 	chr_do_animation(ANIM_DRAW_PISTOL_0245, -1, 120, 0x06, 0x00, CHR_SELF, 3)
-	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x6c)
+	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x6c)
 
 	beginloop(0x6c)
 		if_chr_stopped(/*goto*/ 0x03)

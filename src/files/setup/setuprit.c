@@ -2431,7 +2431,7 @@ u8 func0415_cloner1[] = {
 	label(0x06)
 
 	set_chr_team(CHR_SELF, TEAM_04)
-	try_draw_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
+	try_equip_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_UFO_ATTACHMENT_DAMAGED, TRUE, /*goto*/ 0x0e)
@@ -2488,7 +2488,7 @@ u8 func0416_init_clone1[] = {
 	set_recovery_speed(30)
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
-	try_draw_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
+	try_equip_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
 	label(0x04)
 	rebuild_teams
 	rebuild_squadrons
@@ -2522,7 +2522,7 @@ u8 func0418_cloner2[] = {
 	label(0x06)
 
 	set_chr_team(CHR_SELF, TEAM_04)
-	try_draw_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
+	try_equip_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
 	yield
 	yield
 	yield
@@ -2584,7 +2584,7 @@ u8 func0419_init_clone2[] = {
 	set_recovery_speed(30)
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
-	try_draw_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
+	try_equip_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
 	label(0x04)
 	rebuild_teams
 	rebuild_squadrons
@@ -2627,7 +2627,7 @@ u8 func041b_cloner3[] = {
 	yield
 	yield
 	set_chr_team(CHR_SELF, TEAM_04)
-	try_draw_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
+	try_equip_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_UFO_ATTACHMENT_DAMAGED, TRUE, /*goto*/ 0x0e)
@@ -2676,7 +2676,7 @@ u8 func041c_init_clone3[] = {
 	set_recovery_speed(30)
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
-	try_draw_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
+	try_equip_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x10000000, /*goto*/ 0x04)
 	label(0x04)
 	rebuild_teams
 	rebuild_squadrons
@@ -3751,7 +3751,7 @@ u8 func040c_init_defend_pad[] = {
 	rebuild_squadrons
 	set_target_chr(-1)
 	label(0x04)
-	try_draw_weapon(MODEL_CHRCYCLONE, WEAPON_CYCLONE, 0x00000000, /*goto*/ 0x2d)
+	try_equip_weapon(MODEL_CHRCYCLONE, WEAPON_CYCLONE, 0x00000000, /*goto*/ 0x2d)
 	label(0x2d)
 	set_ailist(CHR_SELF, FUNC_DEFEND_PAD)
 	endlist
@@ -3759,7 +3759,7 @@ u8 func040c_init_defend_pad[] = {
 
 u8 func040e_unused[] = {
 	label(0x04)
-	try_draw_weapon(MODEL_CHRCYCLONE, WEAPON_CYCLONE, 0x00000000, /*goto*/ 0x2d)
+	try_equip_weapon(MODEL_CHRCYCLONE, WEAPON_CYCLONE, 0x00000000, /*goto*/ 0x2d)
 	label(0x2d)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
 	endlist
@@ -3770,7 +3770,7 @@ u8 func040e_unused[] = {
  */
 u8 func040d_init_defend_president[] = {
 	label(0x04)
-	try_draw_weapon(MODEL_CHRCYCLONE, WEAPON_CYCLONE, 0x00000000, /*goto*/ 0x2d)
+	try_equip_weapon(MODEL_CHRCYCLONE, WEAPON_CYCLONE, 0x00000000, /*goto*/ 0x2d)
 	label(0x2d)
 	set_ailist(CHR_SELF, FUNC_DEFEND_PRESIDENT)
 	endlist

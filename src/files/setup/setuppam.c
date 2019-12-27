@@ -1248,7 +1248,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 	set_self_chrflag(CHRCFLAG_01000000)
 	message(CHR_BOND, 0x3014) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
-	try_draw_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x04)
+	try_equip_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x04)
 	label(0x04)
 	set_ailist(CHR_SELF, FUNC_ELVIS_GO_TO_SA_TELEPORT)
 	goto_first(0x03)
@@ -1401,7 +1401,7 @@ u8 func0403_elvis_give_farsight[] = {
 	// PA
 	unset_self_flag_bankx(CHRFLAG1_00200000, BANK_1)
 	yield
-	try_draw_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x2f)
+	try_equip_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x2f)
 	label(0x2f)
 	set_ailist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
 
@@ -1412,7 +1412,7 @@ u8 func0403_elvis_give_farsight[] = {
 	// Agent
 	label(0x2e)
 	yield
-	try_draw_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x2e)
+	try_equip_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x2e)
 	label(0x2e)
 	set_ailist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_DO_AGENT_MEGAWEAPON)
 	endlist

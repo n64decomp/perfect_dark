@@ -4677,7 +4677,7 @@ u8 func1029_holo5_main[] = {
 u8 func0406_holo5_init_guard1[] = {
 	set_alertness(100)
 	set_chr_id(0x10)
-	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x40000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x40000000, /*goto*/ 0x06)
 	label(0x06)
 	set_ailist(CHR_SELF, FUNC_HOLO5_GUARD1)
 	endlist
@@ -4757,7 +4757,7 @@ u8 func0408_holo5_init_guard2[] = {
 	set_chr_health(CHR_SELF, 200)
 	set_alertness(100)
 	set_chr_id(0x11)
-	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x40000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x40000000, /*goto*/ 0x06)
 	label(0x06)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c5d) // "Knock out this target - stealth is the key."
@@ -4816,7 +4816,7 @@ u8 func0409_holo5_guard2[] = {
 u8 func040a_holo5_init_guard3[] = {
 	set_reaction_speed(100)
 	set_chr_id(0x12)
-	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x40000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x40000000, /*goto*/ 0x06)
 	label(0x06)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c5e) // "And the final guard..."
@@ -5453,7 +5453,7 @@ u8 func1030_holo7_main[] = {
 u8 func0412_holo7_init_guard1[] = {
 	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
 	set_chr_id(0x19)
-	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
 	endlist
@@ -5462,7 +5462,7 @@ u8 func0412_holo7_init_guard1[] = {
 u8 func0413_holo7_init_guard2[] = {
 	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
 	set_chr_id(0x1a)
-	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
 	endlist
@@ -5471,7 +5471,7 @@ u8 func0413_holo7_init_guard2[] = {
 u8 func0414_holo7_init_guard3[] = {
 	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
 	set_chr_id(0x1b)
-	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	set_ailist(CHR_SELF, FUNC_HOLO_GUARD_ARMED_UNALERT)
 	endlist

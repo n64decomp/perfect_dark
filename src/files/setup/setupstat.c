@@ -494,7 +494,7 @@ u8 func0405_init_maian[] = {
 	set_squadron(GROUP_MAIANS)
 	rebuild_teams
 	rebuild_squadrons
-	try_draw_weapon(MODEL_CHRMAIANSMG, WEAPON_CALLISTONTG, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRMAIANSMG, WEAPON_CALLISTONTG, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	try_inherit_properties(CHR_MAIAN_TEMPLATE, /*goto*/ 0x2d)
 	label(0x2d)
@@ -815,7 +815,7 @@ u8 func100c_spawn_king3_skedar[] = {
 };
 
 u8 func0407_king1_skedar[] = {
-	try_draw_weapon(MODEL_CHRMAULER, WEAPON_MAULER, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRMAULER, WEAPON_MAULER, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	try_inherit_properties(CHR_SKEDAR_TEMPLATE, /*goto*/ 0x2d)
 	label(0x2d)
@@ -836,7 +836,7 @@ u8 func0407_king1_skedar[] = {
 };
 
 u8 func0408_king2_skedar[] = {
-	try_draw_weapon(MODEL_CHRMAULER, WEAPON_MAULER, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRMAULER, WEAPON_MAULER, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	try_inherit_properties(CHR_SKEDAR_TEMPLATE, /*goto*/ 0x2d)
 	label(0x2d)
@@ -857,7 +857,7 @@ u8 func0408_king2_skedar[] = {
 };
 
 u8 func0409_king3_skedar[] = {
-	try_draw_weapon(MODEL_CHRMAULER, WEAPON_MAULER, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRMAULER, WEAPON_MAULER, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	try_inherit_properties(CHR_SKEDAR_TEMPLATE, /*goto*/ 0x2d)
 	label(0x2d)

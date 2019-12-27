@@ -1013,14 +1013,14 @@
 	mkword(props), \
 	label,
 
-#define try_draw_weapon(model, weapon, u1, label) \
+#define try_equip_weapon(model, weapon, flags, label) \
 	mkshort(0x00c8), \
 	mkshort(model), \
 	weapon, \
-	mkword(u1), \
+	mkword(flags), \
 	label,
 
-#define cmd00c9(u1, flags, label) \
+#define try_equip_hat(u1, flags, label) \
 	mkshort(0x00c9), \
 	mkshort(u1), \
 	mkword(flags), \

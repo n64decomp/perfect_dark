@@ -3466,7 +3466,7 @@ u8 func0419_ba8c[] = {
 
 u8 func041a_draw_magnum[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
-	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x00)
+	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x00)
 	label(0x00)
 	unset_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	set_self_flag_bankx(CHRFLAG0_AIVSAI, BANK_0)

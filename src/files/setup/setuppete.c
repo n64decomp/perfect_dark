@@ -1842,7 +1842,7 @@ u8 func041d_fbi[] = {
 
 	// Draw magnum and go after player
 	label(0x17)
-	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x03)
+	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x03)
 	label(0x03)
 	set_ailist(CHR_SELF, GFUNC_ALERTED)
 
@@ -1862,7 +1862,7 @@ u8 func041d_fbi[] = {
 
 	label(0x18)
 	if_stage_flag_eq(STAGEFLAG_ALARM_SOUNDED, FALSE, /*goto*/ 0x04)
-	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x03)
+	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x03)
 	label(0x03)
 	set_ailist(CHR_SELF, GFUNC_ALERTED)
 
@@ -1888,7 +1888,7 @@ u8 func041d_fbi[] = {
 
 	label(0x04)
 	dprint 'C','R','E','A','T','E','D',' ','W','E','A','P','\n',0,
-	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x04)
+	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x04)
 	label(0x04)
 	yield
 	set_stage_flag(STAGEFLAG_ALARM_SOUNDED)
@@ -2364,7 +2364,7 @@ u8 func041f_alarm_responder[] = {
 	set_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
-	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x04)
+	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x04)
 	label(0x04)
 	set_chr_team(CHR_SELF, TEAM_20)
 	set_squadron(GROUP_ALARM_RESPONDER)

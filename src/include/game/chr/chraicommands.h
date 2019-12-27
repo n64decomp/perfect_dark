@@ -202,8 +202,8 @@
 /*0x00c5*/ bool aiIfCountdownTimerGreaterThan(void);
 /*0x00c6*/ bool aiSpawnChrAtPad(void);
 /*0x00c7*/ bool aiSpawnChrAtChr(void);
-/*0x00c8*/ bool ai00c8(void);
-/*0x00c9*/ bool ai00c9(void);
+/*0x00c8*/ bool aiTryEquipWeapon(void);
+/*0x00c9*/ bool aiTryEquipHat(void);
 /*0x00ca*/ bool aiDuplicateChr(void);
 /*0x00cb*/ bool aiMessage(void);
 /*0x00cc*/ bool aiShowText2(void);

@@ -2009,7 +2009,7 @@ u8 func0408_alarm_responder[] = {
 	label(0x06)
 	try_inherit_properties(0x19, /*goto*/ 0x06)
 	label(0x06)
-	try_draw_weapon(MODEL_CHRCMP150, WEAPON_CMP150, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRCMP150, WEAPON_CMP150, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	set_squadron(SQUADRON_09)
@@ -2686,7 +2686,7 @@ u8 func0409_uplink_responder[] = {
 	set_accuracy(10)
 
 	label(0x06)
-	try_draw_weapon(MODEL_CHRCMP150, WEAPON_CMP150, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRCMP150, WEAPON_CMP150, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	set_squadron(SQUADRON_09)

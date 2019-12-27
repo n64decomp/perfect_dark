@@ -1952,7 +1952,7 @@ u8 func0415_set_idle[] = {
  */
 u8 func0413_c318[] = {
 	set_accuracy(10)
-	try_draw_weapon(MODEL_CHRCMP150, WEAPON_CMP150, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRCMP150, WEAPON_CMP150, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	set_squadron(SQUADRON_09)

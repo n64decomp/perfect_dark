@@ -1991,7 +1991,7 @@ u8 func041a_labtech_harrysmate[] = {
 
 	label(0x06)
 	dprint 'C','R','E','A','T','E','D',' ','W','E','A','P','\n',0,
-	try_draw_weapon(MODEL_CHRDRUGGUN, WEAPON_TRANQUILIZER, 0x10000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRDRUGGUN, WEAPON_TRANQUILIZER, 0x10000000, /*goto*/ 0x06)
 	label(0x06)
 	set_target_chr(CHR_BOND)
 	set_ailist(CHR_SELF, GFUNC_ALERTED)
@@ -2081,7 +2081,7 @@ u8 func041b_labtech_keycardguy[] = {
 
 	label(0x06)
 	dprint 'C','R','E','A','T','E','D',' ','W','E','A','P','\n',0,
-	try_draw_weapon(MODEL_CHRDRUGGUN, WEAPON_TRANQUILIZER, 0x10000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRDRUGGUN, WEAPON_TRANQUILIZER, 0x10000000, /*goto*/ 0x06)
 	label(0x06)
 	set_target_chr(CHR_BOND)
 	set_ailist(CHR_SELF, GFUNC_ALERTED)
@@ -3587,7 +3587,7 @@ u8 func0427_shock_clone[] = {
 	set_chr_id(0x46)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
-	try_draw_weapon(MODEL_CHRSUPERDRAGON, WEAPON_SUPERDRAGON, 0x10000000, /*goto*/ 0x04)
+	try_equip_weapon(MODEL_CHRSUPERDRAGON, WEAPON_SUPERDRAGON, 0x10000000, /*goto*/ 0x04)
 
 	label(0x04)
 	yield

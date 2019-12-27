@@ -1323,7 +1323,7 @@ u8 func0411_cass_in_office[] = {
 	label(0x57)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	chr_do_animation(0x0245, 0, -1, 0x10, 0x10, CHR_SELF, 2)
-	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x2c)
+	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x2c)
 	label(0x2c)
 	speak(CHR_TARGET, 0x4a07, 0x81a3, CHANNEL_6, COLOR_04_ORANGE) // "Get the hell out of my office..."
 

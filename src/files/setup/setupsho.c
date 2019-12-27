@@ -2314,7 +2314,7 @@ u8 func0410_init_king_skedar_clone[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
 	yield
-	try_draw_weapon(MODEL_CHRMAULER, WEAPON_MAULER, 0x20000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRMAULER, WEAPON_MAULER, 0x20000000, /*goto*/ 0x06)
 	label(0x06)
 	yield
 	yield
@@ -2373,7 +2373,7 @@ u8 func0412_init_king_miniskedar_clone[] = {
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_CLOAKED)
 	yield
-	try_draw_weapon(MODEL_CHRMAULER, WEAPON_MAULER, 0x20000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRMAULER, WEAPON_MAULER, 0x20000000, /*goto*/ 0x06)
 	label(0x06)
 	yield
 	yield

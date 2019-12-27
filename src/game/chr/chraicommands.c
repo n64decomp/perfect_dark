@@ -5886,7 +5886,7 @@ glabel aiSpawnChrAtChr
  * @cmd 00c8
  */
 GLOBAL_ASM(
-glabel ai00c8
+glabel aiTryEquipWeapon
 /*  f05580c:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f055810:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
 /*  f055814:	8d250438 */ 	lw	$a1,0x438($t1)
@@ -6039,7 +6039,7 @@ glabel ai00c8
 /**
  * @cmd 00c9
  */
-bool ai00c9(void)
+bool aiTryEquipHat(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 flags = (cmd[5] << 16) | (cmd[6] << 8) | cmd[7] | (cmd[4] << 24);
@@ -6047,7 +6047,7 @@ bool ai00c9(void)
 	bool ok = false;
 
 	if (g_Vars.chrdata && g_Vars.chrdata->prop && g_Vars.chrdata->unk020) {
-		ok = func0f089dd8(g_Vars.chrdata, thing, flags);
+		ok = chrTryEquipHat(g_Vars.chrdata, thing, flags);
 	}
 
 	if (ok) {
@@ -6189,7 +6189,7 @@ glabel aiDuplicateChr
 /*  f055cf0:	8e2b0114 */ 	lw	$t3,0x114($s1)
 /*  f055cf4:	8c620004 */ 	lw	$v0,0x4($v1)
 /*  f055cf8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f055cfc:	0fc22776 */ 	jal	func0f089dd8
+/*  f055cfc:	0fc22776 */ 	jal	chrTryEquipHat
 /*  f055d00:	84450004 */ 	lh	$a1,0x4($v0)
 /*  f055d04:	8e2b0114 */ 	lw	$t3,0x114($s1)
 .L0f055d08:

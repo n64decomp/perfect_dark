@@ -1049,7 +1049,7 @@ u8 func1009_spawner_during_decode[] = {
 	set_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0) \
-	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x06) \
+	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x06) \
 	label(0x06) \
 	set_chr_team(CHR_SELF, TEAM_ENEMY) \
 	set_squadron(SQUADRON_09) \

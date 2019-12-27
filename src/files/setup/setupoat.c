@@ -79,7 +79,7 @@ u8 func0404_spawn_enemies[] = {
 };
 
 u8 func0401_init_enemy[] = {
-	try_draw_weapon(MODEL_CHRCMP150, WEAPON_CMP150, 0x00000000, /*goto*/ 0x01)
+	try_equip_weapon(MODEL_CHRCMP150, WEAPON_CMP150, 0x00000000, /*goto*/ 0x01)
 	label(0x01)
 	try_inherit_properties(0x06, /*goto*/ 0x01)
 	label(0x01)
@@ -120,7 +120,7 @@ u8 func0405_spawn_maians[] = {
 
 u8 func0402_init_maian[] = {
 	set_chr_team(CHR_SELF, TEAM_ALLY)
-	try_draw_weapon(MODEL_CHRFALCON2, WEAPON_MAGSEC4, 0x00000000, /*goto*/ 0x01)
+	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_MAGSEC4, 0x00000000, /*goto*/ 0x01)
 	label(0x01)
 	try_inherit_properties(0x07, /*goto*/ 0x01)
 	label(0x01)

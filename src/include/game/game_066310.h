@@ -253,7 +253,7 @@ u32 func0f089a94(void);
 u32 func0f089c70(void);
 u32 func0f089d64(void);
 u32 func0f089db8(void);
-u32 func0f089dd8(struct chrdata *chr, u32 thing, u32 flags);
+u32 chrTryEquipHat(struct chrdata *chr, u32 thing, u32 flags);
 u32 func0f089f8c(void);
 u32 func0f08a38c(void);
 u32 func0f08a724(void);

@@ -41460,7 +41460,7 @@ glabel func0f089db8
 );
 
 GLOBAL_ASM(
-glabel func0f089dd8
+glabel chrTryEquipHat
 /*  f089dd8:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f089ddc:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f089de0:	afa400a0 */ 	sw	$a0,0xa0($sp)

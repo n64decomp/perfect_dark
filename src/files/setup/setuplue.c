@@ -1380,7 +1380,7 @@ u8 func0411_init_hangar_guard1[] = {
 	set_chr_id(0x2c)
 	set_self_flag_bankx(CHRFLAG0_10000000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	try_draw_weapon(MODEL_CHRDRAGON, WEAPON_DRAGON, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRDRAGON, WEAPON_DRAGON, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	jog_to_pad(0x0420)
 	yield
@@ -1402,7 +1402,7 @@ u8 func0412_init_hangar_guard2[] = {
 	set_chr_id(0x2d)
 	set_self_flag_bankx(CHRFLAG0_10000000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	try_draw_weapon(MODEL_CHRDRAGON, WEAPON_DRAGON, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRDRAGON, WEAPON_DRAGON, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	jog_to_pad(0x041f)
 	yield
@@ -1424,7 +1424,7 @@ u8 func0413_init_hangar_guard3[] = {
 	set_chr_id(0x2e)
 	set_self_flag_bankx(CHRFLAG0_10000000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	try_draw_weapon(MODEL_CHRDRAGON, WEAPON_DRAGON, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRDRAGON, WEAPON_DRAGON, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	jog_to_pad(0x041e)
 	yield
@@ -1446,7 +1446,7 @@ u8 func0414_init_hangar_guard4[] = {
 	set_chr_id(0x2f)
 	set_self_flag_bankx(CHRFLAG0_10000000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
-	try_draw_weapon(MODEL_CHRDRAGON, WEAPON_DRAGON, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRDRAGON, WEAPON_DRAGON, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	jog_to_pad(0x041d)
 	yield
@@ -1477,7 +1477,7 @@ u8 func0417_traitor[] = {
 	set_accuracy(100)
 	set_reaction_speed(100)
 	restart_timer
-	try_draw_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x03)
+	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x03)
 
 	beginloop(0x03)
 		if_timer_gt(300, /*goto*/ 0x09)
@@ -2734,7 +2734,7 @@ u8 func1019_spawn_guards_at_antenna[] = {
 };
 
 u8 func040f_spawned_guard[] = {
-	try_draw_weapon(MODEL_CHRLEEGUN1, WEAPON_MAGSEC4, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRLEEGUN1, WEAPON_MAGSEC4, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
@@ -3081,7 +3081,7 @@ u8 func0423_a5e8[] = {
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_AIVSAI, BANK_0)
 	set_self_flag_bankx(CHRFLAG0_CAN_HEARSPAWN, BANK_0)
-	try_draw_weapon(MODEL_CHRDRAGON, WEAPON_DRAGON, 0x00000000, /*goto*/ 0x06)
+	try_equip_weapon(MODEL_CHRDRAGON, WEAPON_DRAGON, 0x00000000, /*goto*/ 0x06)
 	label(0x06)
 	set_chr_team(CHR_SELF, TEAM_ENEMY)
 	yield
