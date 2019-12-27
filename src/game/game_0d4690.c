@@ -1576,7 +1576,7 @@ glabel func0f0d57e0
 /*  f0d5a00:	12400006 */ 	beqz	$s2,.L0f0d5a1c
 /*  f0d5a04:	02702021 */ 	addu	$a0,$s3,$s0
 /*  f0d5a08:	02802825 */ 	or	$a1,$s4,$zero
-/*  f0d5a0c:	0c004dad */ 	jal	func000136b4
+/*  f0d5a0c:	0c004dad */ 	jal	sprintf
 /*  f0d5a10:	8e260000 */ 	lw	$a2,0x0($s1)
 /*  f0d5a14:	1000000b */ 	beqz	$zero,.L0f0d5a44
 /*  f0d5a18:	02028021 */ 	addu	$s0,$s0,$v0
@@ -1589,7 +1589,7 @@ glabel func0f0d57e0
 /*  f0d5a30:	54200005 */ 	bnezl	$at,.L0f0d5a48
 /*  f0d5a34:	26310004 */ 	addiu	$s1,$s1,0x4
 .L0f0d5a38:
-/*  f0d5a38:	0c004dad */ 	jal	func000136b4
+/*  f0d5a38:	0c004dad */ 	jal	sprintf
 /*  f0d5a3c:	24120001 */ 	addiu	$s2,$zero,0x1
 /*  f0d5a40:	02028021 */ 	addu	$s0,$s0,$v0
 .L0f0d5a44:

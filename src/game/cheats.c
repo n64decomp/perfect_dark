@@ -14,12 +14,6 @@
 #include "game/game_16cfa0.h"
 #include "game/game_19c990.h"
 
-//const char var7f1b2eb0[] = "%s: %s";
-//const char var7f1b2eb8[] = "%s: %s\n";
-//const char var7f1b2ec0[] = "%s %s: %s %s %s";
-//const char var7f1b2ed0[] = "%s %s: %s %s %s %s %d:%02d %s %s";
-//const char var7f1b2ef4[] = "\n";
-
 GLOBAL_ASM(
 glabel cheatIsUnlocked
 /*  f106d40:	3c0f8007 */ 	lui	$t7,%hi(g_CheatSpecs)
@@ -1032,13 +1026,13 @@ char *cheatGetMarquee(struct menu_item *arg0)
 
 		if (g_MenuStack[g_MenuStackDepth].unk00->dialog == &menudialog_cheats_buddies && g_MenuStack[g_MenuStackDepth].unk00->item == &menuitems_cheats_buddies[0]) {
 			// Velvet
-			func000136b4(&g_CheatMarqueeString, "%s: %s", textGet(0x548f), textGet(0x5475)); // "Buddy Available", "Velvet Dark"
+			sprintf(&g_CheatMarqueeString, "%s: %s", textGet(0x548f), textGet(0x5475)); // "Buddy Available", "Velvet Dark"
 			return g_CheatMarqueeString;
 		}
 
 		if (cheatIsUnlocked(cheat_id)) {
 			// Show cheat name
-			func000136b4(&g_CheatMarqueeString, "%s: %s\n",
+			sprintf(&g_CheatMarqueeString, "%s: %s\n",
 					g_MenuStack[g_MenuStackDepth].unk00->dialog == &menudialog_cheats_buddies ? textGet(0x548f) : textGet(0x5488), // "Buddy Available", "Cheat available"
 					textGet(g_CheatSpecs[cheat_id].nametextid)
 			);
@@ -1046,7 +1040,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 		}
 
 		// Locked
-		func00013130(&cheatname, textGet(g_CheatSpecs[cheat_id].nametextid));
+		strcpy(&cheatname, textGet(g_CheatSpecs[cheat_id].nametextid));
 		ptr = cheatname;
 
 		while (*ptr != '\n') {
@@ -1056,7 +1050,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 		*ptr = '\0';
 
 		if (g_CheatSpecs[cheat_id].method & CHEATMETHOD_COMPLETE) {
-			func000136b4(&g_CheatMarqueeString, "%s %s: %s %s %s",
+			sprintf(&g_CheatMarqueeString, "%s %s: %s %s %s",
 					textGet(0x5489), // "Complete"
 					textGet(g_StageNames[g_CheatSpecs[cheat_id].stage_index].name1),
 					textGet(g_StageNames[g_CheatSpecs[cheat_id].stage_index].name2),
@@ -1065,7 +1059,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 			);
 		} else {
 			// Timed
-			func00013130(&difficultyname, textGet(0x56fb + g_CheatSpecs[cheat_id].difficulty));
+			strcpy(&difficultyname, textGet(0x56fb + g_CheatSpecs[cheat_id].difficulty));
 			ptr = difficultyname;
 
 			while (*ptr != '\n') {
@@ -1074,7 +1068,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 
 			*ptr = '\0';
 
-			func000136b4(&g_CheatMarqueeString, "%s %s: %s %s %s %s %d:%02d %s %s",
+			sprintf(&g_CheatMarqueeString, "%s %s: %s %s %s %s %d:%02d %s %s",
 					textGet(0x5489), // "Complete"
 					textGet(g_StageNames[g_CheatSpecs[cheat_id].stage_index].name1),
 					textGet(g_StageNames[g_CheatSpecs[cheat_id].stage_index].name2),

@@ -13,7 +13,7 @@ const char var70054028[] = "";
 const char var7005402c[] = "";
 
 GLOBAL_ASM(
-glabel func00013130
+glabel strcpy
 /*    13130:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    13134:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    13138:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -461,7 +461,7 @@ glabel func00013408
 );
 
 GLOBAL_ASM(
-glabel func000136b4
+glabel sprintf
 /*    136b4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    136b8:	afa40020 */ 	sw	$a0,0x20($sp)
 /*    136bc:	afbf0014 */ 	sw	$ra,0x14($sp)

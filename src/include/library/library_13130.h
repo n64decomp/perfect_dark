@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00013130(void);
+char *strcpy(char *dest, const char *src);
 u32 func000131c8(void);
 u32 func00013224(void);
 u32 func00013274(void);
@@ -14,6 +14,6 @@ u32 func00013358(void);
 u32 func00013378(void);
 u32 func000133b4(void);
 u32 func00013408(void);
-u32 func000136b4(void);
+int sprintf(char *dest, const char *format, ...);
 
 #endif
