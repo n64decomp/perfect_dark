@@ -398,17 +398,10 @@ const u32 var7f1b97c4[] = {0x7f1a2d14};
 const u32 var7f1b97c8[] = {0x7f1a2d38};
 const u32 var7f1b97cc[] = {0x4019999a};
 
-GLOBAL_ASM(
-glabel func0f19c990
-/*  f19c990:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19c994:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19c998:	0fc43c63 */ 	jal	eepromGet
-/*  f19c99c:	24040024 */ 	addiu	$a0,$zero,0x24
-/*  f19c9a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19c9a4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19c9a8:	03e00008 */ 	jr	$ra
-/*  f19c9ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ciIsTourDone(void)
+{
+	return eepromGet(EEPROMFLAG_CI_TOUR_DONE);
+}
 
 u8 ciGetFiringRangeScore(s32 weapon_id)
 {

@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f19c990(void);
+bool ciIsTourDone(void);
 u8 ciGetFiringRangeScore(s32 weapon_id);
 u32 func0f19c9e4(void);
 u32 func0f19cad4(void);
