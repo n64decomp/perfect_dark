@@ -172,7 +172,7 @@ void cheatActivate(s32 cheat_id)
 
 			for (playernum = 0; playernum < (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0); playernum++) {
 				setCurrentPlayerNum(playernum);
-				currentPlayerGiveAllGuns(1);
+				currentPlayerSetAllGuns(true);
 			}
 
 			setCurrentPlayerNum(prevplayernum);
@@ -187,242 +187,42 @@ void cheatActivate(s32 cheat_id)
 	}
 }
 
-GLOBAL_ASM(
-glabel cheatDeactivate
-/*  f1071c4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1071c8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1071cc:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1071d0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1071d4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1071d8:	10810006 */ 	beq	$a0,$at,.L0f1071f4
-/*  f1071dc:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f1071e0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f1071e4:	1081004a */ 	beq	$a0,$at,.L0f107310
-/*  f1071e8:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f1071ec:	100000a6 */ 	beqz	$zero,.L0f107488
-/*  f1071f0:	8faf0028 */ 	lw	$t7,0x28($sp)
-.L0f1071f4:
-/*  f1071f4:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f1071f8:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f1071fc:	8e38006c */ 	lw	$t8,0x6c($s1)
-/*  f107200:	8e2f028c */ 	lw	$t7,0x28c($s1)
-/*  f107204:	00008025 */ 	or	$s0,$zero,$zero
-/*  f107208:	13000003 */ 	beqz	$t8,.L0f107218
-/*  f10720c:	afaf0024 */ 	sw	$t7,0x24($sp)
-/*  f107210:	10000002 */ 	beqz	$zero,.L0f10721c
-/*  f107214:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f107218:
-/*  f107218:	00002825 */ 	or	$a1,$zero,$zero
-.L0f10721c:
-/*  f10721c:	8e390068 */ 	lw	$t9,0x68($s1)
-/*  f107220:	00002025 */ 	or	$a0,$zero,$zero
-/*  f107224:	00001825 */ 	or	$v1,$zero,$zero
-/*  f107228:	13200003 */ 	beqz	$t9,.L0f107238
-/*  f10722c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f107230:	10000001 */ 	beqz	$zero,.L0f107238
-/*  f107234:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f107238:
-/*  f107238:	8e2a0064 */ 	lw	$t2,0x64($s1)
-/*  f10723c:	11400003 */ 	beqz	$t2,.L0f10724c
-/*  f107240:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107244:	10000001 */ 	beqz	$zero,.L0f10724c
-/*  f107248:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f10724c:
-/*  f10724c:	8e2b0070 */ 	lw	$t3,0x70($s1)
-/*  f107250:	11600003 */ 	beqz	$t3,.L0f107260
-/*  f107254:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107258:	10000001 */ 	beqz	$zero,.L0f107260
-/*  f10725c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f107260:
-/*  f107260:	00436021 */ 	addu	$t4,$v0,$v1
-/*  f107264:	01846821 */ 	addu	$t5,$t4,$a0
-/*  f107268:	01a57021 */ 	addu	$t6,$t5,$a1
-/*  f10726c:	19c00024 */ 	blez	$t6,.L0f107300
-/*  f107270:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f107274:
-/*  f107274:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f107278:	02002025 */ 	or	$a0,$s0,$zero
-/*  f10727c:	8e380284 */ 	lw	$t8,0x284($s1)
-/*  f107280:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f107284:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f107288:	a30f1922 */ 	sb	$t7,0x1922($t8)
-/*  f10728c:	8e39006c */ 	lw	$t9,0x6c($s1)
-/*  f107290:	00002825 */ 	or	$a1,$zero,$zero
-/*  f107294:	00002025 */ 	or	$a0,$zero,$zero
-/*  f107298:	13200003 */ 	beqz	$t9,.L0f1072a8
-/*  f10729c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1072a0:	10000001 */ 	beqz	$zero,.L0f1072a8
-/*  f1072a4:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f1072a8:
-/*  f1072a8:	8e2a0068 */ 	lw	$t2,0x68($s1)
-/*  f1072ac:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1072b0:	11400003 */ 	beqz	$t2,.L0f1072c0
-/*  f1072b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1072b8:	10000001 */ 	beqz	$zero,.L0f1072c0
-/*  f1072bc:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f1072c0:
-/*  f1072c0:	8e2b0064 */ 	lw	$t3,0x64($s1)
-/*  f1072c4:	11600003 */ 	beqz	$t3,.L0f1072d4
-/*  f1072c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1072cc:	10000001 */ 	beqz	$zero,.L0f1072d4
-/*  f1072d0:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f1072d4:
-/*  f1072d4:	8e2c0070 */ 	lw	$t4,0x70($s1)
-/*  f1072d8:	11800003 */ 	beqz	$t4,.L0f1072e8
-/*  f1072dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1072e0:	10000001 */ 	beqz	$zero,.L0f1072e8
-/*  f1072e4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1072e8:
-/*  f1072e8:	00436821 */ 	addu	$t5,$v0,$v1
-/*  f1072ec:	01a47021 */ 	addu	$t6,$t5,$a0
-/*  f1072f0:	01c57821 */ 	addu	$t7,$t6,$a1
-/*  f1072f4:	020f082a */ 	slt	$at,$s0,$t7
-/*  f1072f8:	1420ffde */ 	bnez	$at,.L0f107274
-/*  f1072fc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f107300:
-/*  f107300:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f107304:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f107308:	1000005f */ 	beqz	$zero,.L0f107488
-/*  f10730c:	8faf0028 */ 	lw	$t7,0x28($sp)
-.L0f107310:
-/*  f107310:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f107314:	8e26006c */ 	lw	$a2,0x6c($s1)
-/*  f107318:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10731c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f107320:	10c00003 */ 	beqz	$a2,.L0f107330
-/*  f107324:	00002025 */ 	or	$a0,$zero,$zero
-/*  f107328:	10000001 */ 	beqz	$zero,.L0f107330
-/*  f10732c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f107330:
-/*  f107330:	8e270068 */ 	lw	$a3,0x68($s1)
-/*  f107334:	00001825 */ 	or	$v1,$zero,$zero
-/*  f107338:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10733c:	10e00003 */ 	beqz	$a3,.L0f10734c
-/*  f107340:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107344:	10000001 */ 	beqz	$zero,.L0f10734c
-/*  f107348:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f10734c:
-/*  f10734c:	8e280064 */ 	lw	$t0,0x64($s1)
-/*  f107350:	11000003 */ 	beqz	$t0,.L0f107360
-/*  f107354:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107358:	10000001 */ 	beqz	$zero,.L0f107360
-/*  f10735c:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f107360:
-/*  f107360:	8e290070 */ 	lw	$t1,0x70($s1)
-/*  f107364:	11200003 */ 	beqz	$t1,.L0f107374
-/*  f107368:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10736c:	10000001 */ 	beqz	$zero,.L0f107374
-/*  f107370:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f107374:
-/*  f107374:	0043c021 */ 	addu	$t8,$v0,$v1
-/*  f107378:	0304c821 */ 	addu	$t9,$t8,$a0
-/*  f10737c:	03255021 */ 	addu	$t2,$t9,$a1
-/*  f107380:	55410041 */ 	bnel	$t2,$at,.L0f107488
-/*  f107384:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*  f107388:	8e2b0318 */ 	lw	$t3,0x318($s1)
-/*  f10738c:	5560003e */ 	bnezl	$t3,.L0f107488
-/*  f107390:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*  f107394:	8e2c028c */ 	lw	$t4,0x28c($s1)
-/*  f107398:	00008025 */ 	or	$s0,$zero,$zero
-/*  f10739c:	10c00003 */ 	beqz	$a2,.L0f1073ac
-/*  f1073a0:	afac0024 */ 	sw	$t4,0x24($sp)
-/*  f1073a4:	10000002 */ 	beqz	$zero,.L0f1073b0
-/*  f1073a8:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f1073ac:
-/*  f1073ac:	00002825 */ 	or	$a1,$zero,$zero
-.L0f1073b0:
-/*  f1073b0:	10e00003 */ 	beqz	$a3,.L0f1073c0
-/*  f1073b4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1073b8:	10000001 */ 	beqz	$zero,.L0f1073c0
-/*  f1073bc:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f1073c0:
-/*  f1073c0:	11000003 */ 	beqz	$t0,.L0f1073d0
-/*  f1073c4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1073c8:	10000001 */ 	beqz	$zero,.L0f1073d0
-/*  f1073cc:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f1073d0:
-/*  f1073d0:	11200003 */ 	beqz	$t1,.L0f1073e0
-/*  f1073d4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1073d8:	10000001 */ 	beqz	$zero,.L0f1073e0
-/*  f1073dc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1073e0:
-/*  f1073e0:	00436821 */ 	addu	$t5,$v0,$v1
-/*  f1073e4:	01a47021 */ 	addu	$t6,$t5,$a0
-/*  f1073e8:	01c57821 */ 	addu	$t7,$t6,$a1
-/*  f1073ec:	19e00023 */ 	blez	$t7,.L0f10747c
-/*  f1073f0:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1073f4:
-/*  f1073f4:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f1073f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1073fc:	0fc44660 */ 	jal	currentPlayerGiveAllGuns
-/*  f107400:	00002025 */ 	or	$a0,$zero,$zero
-/*  f107404:	8e38006c */ 	lw	$t8,0x6c($s1)
-/*  f107408:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10740c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f107410:	13000003 */ 	beqz	$t8,.L0f107420
-/*  f107414:	00002025 */ 	or	$a0,$zero,$zero
-/*  f107418:	10000001 */ 	beqz	$zero,.L0f107420
-/*  f10741c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f107420:
-/*  f107420:	8e390068 */ 	lw	$t9,0x68($s1)
-/*  f107424:	00001825 */ 	or	$v1,$zero,$zero
-/*  f107428:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10742c:	13200003 */ 	beqz	$t9,.L0f10743c
-/*  f107430:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107434:	10000001 */ 	beqz	$zero,.L0f10743c
-/*  f107438:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f10743c:
-/*  f10743c:	8e2a0064 */ 	lw	$t2,0x64($s1)
-/*  f107440:	11400003 */ 	beqz	$t2,.L0f107450
-/*  f107444:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107448:	10000001 */ 	beqz	$zero,.L0f107450
-/*  f10744c:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f107450:
-/*  f107450:	8e2b0070 */ 	lw	$t3,0x70($s1)
-/*  f107454:	11600003 */ 	beqz	$t3,.L0f107464
-/*  f107458:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10745c:	10000001 */ 	beqz	$zero,.L0f107464
-/*  f107460:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f107464:
-/*  f107464:	00436021 */ 	addu	$t4,$v0,$v1
-/*  f107468:	01846821 */ 	addu	$t5,$t4,$a0
-/*  f10746c:	01a57021 */ 	addu	$t6,$t5,$a1
-/*  f107470:	020e082a */ 	slt	$at,$s0,$t6
-/*  f107474:	1420ffdf */ 	bnez	$at,.L0f1073f4
-/*  f107478:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f10747c:
-/*  f10747c:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f107480:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f107484:	8faf0028 */ 	lw	$t7,0x28($sp)
-.L0f107488:
-/*  f107488:	3c02800a */ 	lui	$v0,%hi(g_CheatsActiveBank0)
-/*  f10748c:	244221d0 */ 	addiu	$v0,$v0,%lo(g_CheatsActiveBank0)
-/*  f107490:	29e10020 */ 	slti	$at,$t7,0x20
-/*  f107494:	10200007 */ 	beqz	$at,.L0f1074b4
-/*  f107498:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f10749c:	8c4b0000 */ 	lw	$t3,0x0($v0)
-/*  f1074a0:	01f8c804 */ 	sllv	$t9,$t8,$t7
-/*  f1074a4:	03205027 */ 	nor	$t2,$t9,$zero
-/*  f1074a8:	014b6024 */ 	and	$t4,$t2,$t3
-/*  f1074ac:	1000000a */ 	beqz	$zero,.L0f1074d8
-/*  f1074b0:	ac4c0000 */ 	sw	$t4,0x0($v0)
-.L0f1074b4:
-/*  f1074b4:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*  f1074b8:	3c02800a */ 	lui	$v0,%hi(g_CheatsActiveBank1)
-/*  f1074bc:	244221d4 */ 	addiu	$v0,$v0,%lo(g_CheatsActiveBank1)
-/*  f1074c0:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f1074c4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f1074c8:	01aec004 */ 	sllv	$t8,$t6,$t5
-/*  f1074cc:	03007827 */ 	nor	$t7,$t8,$zero
-/*  f1074d0:	01f95024 */ 	and	$t2,$t7,$t9
-/*  f1074d4:	ac4a0000 */ 	sw	$t2,0x0($v0)
-.L0f1074d8:
-/*  f1074d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1074dc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1074e0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1074e4:	03e00008 */ 	jr	$ra
-/*  f1074e8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void cheatDeactivate(s32 cheat_id)
+{
+	u32 prevplayernum;
+	s32 playernum;
+
+	switch (cheat_id) {
+	case CHEAT_INVINCIBLE:
+		prevplayernum = g_Vars.currentplayernum;
+
+		for (playernum = 0; playernum < (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0); playernum++) {
+			setCurrentPlayerNum(playernum);
+			g_Vars.currentplayer->invincible = 1; // @bug?
+		}
+
+		setCurrentPlayerNum(prevplayernum);
+		break;
+	case CHEAT_ALLGUNS:
+		if ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0) == 1 && g_Vars.unk000318 == 0) {
+			prevplayernum = g_Vars.currentplayernum;
+
+			for (playernum = 0; playernum < (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0); playernum++) {
+				setCurrentPlayerNum(playernum);
+				currentPlayerSetAllGuns(false);
+			}
+
+			setCurrentPlayerNum(prevplayernum);
+		}
+		break;
+	}
+
+	if (cheat_id < 32) {
+		g_CheatsActiveBank0 = g_CheatsActiveBank0 & ~(1 << cheat_id);
+	} else {
+		g_CheatsActiveBank1 = g_CheatsActiveBank1 & ~(1 << cheat_id);
+	}
+}
 
 void cheatsDisableAll(void)
 {

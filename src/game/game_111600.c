@@ -285,7 +285,7 @@ glabel func0f111928
 );
 
 GLOBAL_ASM(
-glabel currentPlayerGiveAllGuns
+glabel currentPlayerSetAllGuns
 /*  f111980:	3c0e800a */ 	lui	$t6,0x800a
 /*  f111984:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
 /*  f111988:	27bdffe8 */ 	addiu	$sp,$sp,-24
