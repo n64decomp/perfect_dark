@@ -394,7 +394,7 @@
 /*0x01aa*/ bool ai01aa(void);
 /*0x01ab*/ bool aiIfNumKnockedOutChrs(void);
 /*0x01ad*/ bool aiReleaseObject(void);
-/*0x01ae*/ bool ai01ae(void);
+/*0x01ae*/ bool aiClearInventory(void);
 /*0x01af*/ bool aiChrGrabObject(void);
 /*0x01b1*/ bool ai01b1(void);
 /*0x01b2*/ bool ai01b2(void);

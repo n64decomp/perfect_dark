@@ -14562,7 +14562,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01ab*/ aiIfNumKnockedOutChrs,
 	/*0x01ac*/ NULL,
 	/*0x01ad*/ aiReleaseObject,
-	/*0x01ae*/ ai01ae,
+	/*0x01ae*/ aiClearInventory,
 	/*0x01af*/ aiChrGrabObject,
 	/*0x01b0*/ NULL,
 	/*0x01b1*/ ai01b1,
