@@ -8,7 +8,7 @@ u32 func0f11165c(void);
 u32 func0f11179c(void);
 u32 func0f1118cc(void);
 u32 func0f111928(void);
-u32 func0f111980(void);
+void currentPlayerGiveAllGuns(s32 arg0);
 u32 func0f1119d0(void);
 u32 func0f111a28(void);
 u32 func0f111a4c(void);

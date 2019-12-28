@@ -2298,7 +2298,8 @@ struct player {
 	/*0x1914*/ u32 unk1914;
 	/*0x1918*/ u32 unk1918;
 	/*0x191c*/ u32 unk191c;
-	/*0x1920*/ u32 unk1920;
+	/*0x1920*/ u16 unk1920;
+	/*0x1922*/ u8 invincible;
 	/*0x1924*/ u32 unk1924;
 	/*0x1928*/ u32 unk1928;
 	/*0x192c*/ u32 unk192c;
