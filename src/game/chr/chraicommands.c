@@ -3294,7 +3294,7 @@ bool ai0065(void)
 	if (obj && obj->prop) {
 		if (obj->prop->type == PROPTYPE_DOOR) {
 			func0f08fee8(obj->prop, 0);
-		} else if (obj->prop->type == PROPTYPE_1 || obj->prop->type == PROPTYPE_WEAPON) {
+		} else if (obj->prop->type == PROPTYPE_OBJ || obj->prop->type == PROPTYPE_WEAPON) {
 			func0f086f40(obj->prop);
 		}
 	}
@@ -12277,7 +12277,7 @@ bool ai0183(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct prop *target = chrGetTargetProp(g_Vars.chrdata);
 
-	if (target->type == PROPTYPE_5 || target->type == PROPTYPE_PLAYER) {
+	if (target->type == PROPTYPE_EYESPY || target->type == PROPTYPE_PLAYER) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;

@@ -289,7 +289,7 @@
 #define CHRCFLAG_01000000                    0x01000000 // Typically set on allies during init
 #define CHRCFLAG_02000000                    0x02000000 // can be unset by cmd0168
 #define CHRCFLAG_04000000                    0x04000000 // Set by aiChrKill command
-#define CHRCFLAG_08000000                    0x08000000 // Not used in scripts
+#define CHRCFLAG_CONSIDER_DODGE              0x08000000
 #define CHRCFLAG_10000000                    0x10000000 // Not used in scripts
 #define CHRCFLAG_20000000                    0x20000000 // Not used in scripts
 #define CHRCFLAG_40000000                    0x40000000 // Not used in scripts
@@ -684,11 +684,11 @@
 #define PATHTYPE_CIRCULAR     1
 #define PATHTYPE_FLYING       2
 
-#define PROPTYPE_1      1
+#define PROPTYPE_OBJ    1
 #define PROPTYPE_DOOR   2
 #define PROPTYPE_CHR    3
 #define PROPTYPE_WEAPON 4
-#define PROPTYPE_5      5
+#define PROPTYPE_EYESPY 5
 #define PROPTYPE_PLAYER 6
 
 #define RACE_HUMAN  0
@@ -1668,6 +1668,9 @@
 #define ANIM_LOOK_AROUND_FRANTIC 0x025f
 #define ANIM_SITTING_0265 0x0265
 //.set ANIM_, 0x0266: covering mouth looking
+#define ANIM_SNIPING_0269 0x269
+#define ANIM_SNIPING_026A 0x26a
+#define ANIM_SNIPING_026B 0x26b
 #define ANIM_DRAW_PISTOL_0288 0x0288
 #define ANIM_DRAW_PISTOL_0289 0x0289
 //.set ANIM_, 0x02c4: Jo in Defense intro

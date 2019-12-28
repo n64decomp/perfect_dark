@@ -51,7 +51,7 @@ u32 chraiGoToLabel(u8 *ailist, u32 aioffset, u8 label)
 	} while (true);
 }
 
-void chraiExecute(void *entity, s32 entity_type)
+void chraiExecute(void *entity, s32 proptype)
 {
 	g_Vars.chrdata = NULL;
 	g_Vars.objdata = NULL;
@@ -60,14 +60,14 @@ void chraiExecute(void *entity, s32 entity_type)
 	g_Vars.ailist = NULL;
 	g_Vars.aioffset = 0;
 
-	if (entity_type == 3) {
+	if (proptype == PROPTYPE_CHR) {
 		g_Vars.chrdata = entity;
-	} else if (entity_type == 1) {
+	} else if (proptype == PROPTYPE_OBJ) {
 		struct defaultobj *obj = entity;
 
-		if (obj->type == 0x27) {
+		if (obj->type == OBJTYPE_27) {
 			g_Vars.objdata = entity;
-		} else if (obj->type == 0x28) {
+		} else if (obj->type == OBJTYPE_28) {
 			g_Vars.aicdata = entity;
 		} else if (obj->type == OBJTYPE_HOVERVEHICLE || obj->type == OBJTYPE_ARMEDVEHICLE) {
 			g_Vars.hovdata = entity;
@@ -94,25 +94,27 @@ void chraiExecute(void *entity, s32 entity_type)
 		}
 
 		// Check if the ailist should be switched to a different one
-		if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & 0x00200000)) {
-			u32 animationmaybe = func0001d13c(g_Vars.chrdata->unk020);
+		if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & CHRCFLAG_00200000)) {
+			u32 anim = func0001d13c(g_Vars.chrdata->unk020);
 			if (g_Vars.chrdata->aishotlist >= 0
 					&& g_Vars.chrdata->cshield <= 0
 					&& (0 <= g_Vars.chrdata->damage || g_Vars.chrdata->gunprop != NULL)
-					&& animationmaybe != 0x269 && animationmaybe != 0x26b && animationmaybe != 0x26a) {
+					&& anim != ANIM_SNIPING_0269
+					&& anim != ANIM_SNIPING_026B
+					&& anim != ANIM_SNIPING_026A) {
 				// Set shot list
-				g_Vars.chrdata->chrflags &= ~0x00200000;
+				g_Vars.chrdata->chrflags &= ~CHRCFLAG_00200000;
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aishotlist);
 				g_Vars.aioffset = 0;
 			}
-		} else if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & 0x08000000)) {
-			g_Vars.chrdata->chrflags &= ~0x08000000;
+		} else if (g_Vars.chrdata && (g_Vars.chrdata->chrflags & CHRCFLAG_CONSIDER_DODGE)) {
+			g_Vars.chrdata->chrflags &= ~CHRCFLAG_CONSIDER_DODGE;
 
 			if (g_Vars.chrdata->aishootingatmelist >= 0
 					&& ailistFindById(g_Vars.chrdata->aishootingatmelist) != g_Vars.chrdata->ailist
 					&& g_Vars.chrdata->dodgerating > (u32)random() % 100
-					&& chrHasFlag(g_Vars.chrdata, 0x00000400, BANK_1) == 0
-					&& chrHasFlag(g_Vars.chrdata, 0x00010000, BANK_0) == 0
+					&& chrHasFlag(g_Vars.chrdata, CHRFLAG1_00000400, BANK_1) == 0
+					&& chrHasFlag(g_Vars.chrdata, CHRFLAG0_AIVSAI, BANK_0) == 0
 					&& ailistFindById(g_Vars.chrdata->aishootingatmelist) != g_Vars.chrdata->ailist
 					&& g_Vars.chrdata->actiontype != ACT_ATTACK
 					&& g_Vars.chrdata->actiontype != ACT_ATTACKWALK
@@ -135,7 +137,7 @@ void chraiExecute(void *entity, s32 entity_type)
 			}
 		} else if (g_Vars.chrdata
 				&& g_Vars.chrdata->darkroomthing
-				&& chrHasFlag(g_Vars.chrdata, 0x00000400, BANK_1) == 0
+				&& chrHasFlag(g_Vars.chrdata, CHRFLAG1_00000400, BANK_1) == 0
 				&& ailistFindById(g_Vars.chrdata->aidarkroomlist) != g_Vars.chrdata->ailist
 				&& g_Vars.unk0004b4 != 0x1c) {
 			g_Vars.chrdata->darkroomthing = 0;
@@ -145,8 +147,8 @@ void chraiExecute(void *entity, s32 entity_type)
 					&& g_Vars.chrdata->actiontype != ACT_DEAD
 					&& g_Vars.chrdata->actiontype != ACT_ARGH) {
 				// Set darkroom list
-				chrSetFlags(g_Vars.chrdata, 0x00000400, BANK_1);
-				chrSetFlags(g_Vars.chrdata, 0x10000000, BANK_1);
+				chrSetFlags(g_Vars.chrdata, CHRFLAG1_00000400, BANK_1);
+				chrSetFlags(g_Vars.chrdata, CHRFLAG1_10000000, BANK_1);
 				g_Vars.chrdata->alertness = 0;
 				g_Vars.ailist = ailistFindById(g_Vars.chrdata->aidarkroomlist);
 				g_Vars.aioffset = 0;

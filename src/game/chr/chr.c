@@ -31401,11 +31401,11 @@ glabel chrIsStopped
 //{
 //	u32 anim = func0001d13c(chr->unk020);
 //
-//	if (anim == 0x269 || anim == 0x26b) {
+//	if (anim == ANIM_SNIPING_0269 || anim == ANIM_SNIPING_026B) {
 //		return false;
 //	}
 //
-//	if (anim == 0x26a && chr->act_attack.unk034 <= chr->act_attack.unk033) {
+//	if (anim == ANIM_SNIPING_026A && chr->act_attack.unk034 <= chr->act_attack.unk033) {
 //		chrStopFiring(chr);
 //		return true;
 //	}
