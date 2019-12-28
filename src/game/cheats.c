@@ -14,130 +14,38 @@
 #include "game/game_16cfa0.h"
 #include "game/game_19c990.h"
 
-GLOBAL_ASM(
-glabel cheatIsUnlocked
-/*  f106d40:	3c0f8007 */ 	lui	$t7,%hi(g_Cheats)
-/*  f106d44:	25ef3a90 */ 	addiu	$t7,$t7,%lo(g_Cheats)
-/*  f106d48:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f106d4c:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f106d50:	90660006 */ 	lbu	$a2,0x6($v1)
-/*  f106d54:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f106d58:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f106d5c:	30d80008 */ 	andi	$t8,$a2,0x8
-/*  f106d60:	1300000b */ 	beqz	$t8,.L0f106d90
-/*  f106d64:	00002825 */ 	or	$a1,$zero,$zero
-/*  f106d68:	94640002 */ 	lhu	$a0,0x2($v1)
-/*  f106d6c:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f106d70:	0fc673c8 */ 	jal	func0f19cf20
-/*  f106d74:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f106d78:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f106d7c:	10400002 */ 	beqz	$v0,.L0f106d88
-/*  f106d80:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f106d84:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106d88:
-/*  f106d88:	10000029 */ 	beqz	$zero,.L0f106e30
-/*  f106d8c:	90660006 */ 	lbu	$a2,0x6($v1)
-.L0f106d90:
-/*  f106d90:	30d90004 */ 	andi	$t9,$a2,0x4
-/*  f106d94:	53200016 */ 	beqzl	$t9,.L0f106df0
-/*  f106d98:	906e0004 */ 	lbu	$t6,0x4($v1)
-/*  f106d9c:	90680004 */ 	lbu	$t0,0x4($v1)
-/*  f106da0:	3c0a800a */ 	lui	$t2,%hi(var800a2200)
-/*  f106da4:	254a2200 */ 	addiu	$t2,$t2,%lo(var800a2200)
-/*  f106da8:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f106dac:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f106db0:	00094840 */ 	sll	$t1,$t1,0x1
-/*  f106db4:	012a1021 */ 	addu	$v0,$t1,$t2
-/*  f106db8:	944b0020 */ 	lhu	$t3,0x20($v0)
-/*  f106dbc:	51600003 */ 	beqzl	$t3,.L0f106dcc
-/*  f106dc0:	944c0022 */ 	lhu	$t4,0x22($v0)
-/*  f106dc4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f106dc8:	944c0022 */ 	lhu	$t4,0x22($v0)
-.L0f106dcc:
-/*  f106dcc:	51800003 */ 	beqzl	$t4,.L0f106ddc
-/*  f106dd0:	944d0024 */ 	lhu	$t5,0x24($v0)
-/*  f106dd4:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f106dd8:	944d0024 */ 	lhu	$t5,0x24($v0)
-.L0f106ddc:
-/*  f106ddc:	51a00015 */ 	beqzl	$t5,.L0f106e34
-/*  f106de0:	30ca0002 */ 	andi	$t2,$a2,0x2
-/*  f106de4:	10000012 */ 	beqz	$zero,.L0f106e30
-/*  f106de8:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f106dec:	906e0004 */ 	lbu	$t6,0x4($v1)
-.L0f106df0:
-/*  f106df0:	90780005 */ 	lbu	$t8,0x5($v1)
-/*  f106df4:	3c02800a */ 	lui	$v0,0x800a
-/*  f106df8:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f106dfc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f106e00:	000f7840 */ 	sll	$t7,$t7,0x1
-/*  f106e04:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f106e08:	01f94021 */ 	addu	$t0,$t7,$t9
-/*  f106e0c:	00481021 */ 	addu	$v0,$v0,$t0
-/*  f106e10:	94422220 */ 	lhu	$v0,0x2220($v0)
-/*  f106e14:	50400007 */ 	beqzl	$v0,.L0f106e34
-/*  f106e18:	30ca0002 */ 	andi	$t2,$a2,0x2
-/*  f106e1c:	94690002 */ 	lhu	$t1,0x2($v1)
-/*  f106e20:	0122082a */ 	slt	$at,$t1,$v0
-/*  f106e24:	54200003 */ 	bnezl	$at,.L0f106e34
-/*  f106e28:	30ca0002 */ 	andi	$t2,$a2,0x2
-/*  f106e2c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106e30:
-/*  f106e30:	30ca0002 */ 	andi	$t2,$a2,0x2
-.L0f106e34:
-/*  f106e34:	11400006 */ 	beqz	$t2,.L0f106e50
-/*  f106e38:	24040023 */ 	addiu	$a0,$zero,0x23
-/*  f106e3c:	0fc43c63 */ 	jal	eepromGet
-/*  f106e40:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f106e44:	10400002 */ 	beqz	$v0,.L0f106e50
-/*  f106e48:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f106e4c:	24a50001 */ 	addiu	$a1,$a1,0x1
-.L0f106e50:
-/*  f106e50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f106e54:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f106e58:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f106e5c:	03e00008 */ 	jr	$ra
-/*  f106e60:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 cheatIsUnlocked(s32 cheat_id)
+{
+	struct cheat *cheat = &g_Cheats[cheat_id];
+	u32 unlocked = 0;
 
-// Mismatch due to incorrect jump address for g_BestTimes.
-// It appears to be in a struct that starts 0x20 earlier, but this means other
-// variables like g_EepromFlags are in the struct too. Resolving this will be
-// done separately.
-//bool cheatIsUnlocked(s32 cheat_id)
-//{
-//	struct cheat *cheat = &g_Cheats[cheat_id];
-//	bool unlocked = false;
-//
-//	if (cheat->flags & CHEATFLAG_FIRINGRANGE) {
-//		if (func0f19cf20(cheat->time)) {
-//			unlocked = true;
-//		}
-//	} else if (cheat->flags & CHEATFLAG_COMPLETION) {
-//		if (g_BestTimes[cheat->stage_index * 3]) {
-//			unlocked++;
-//		}
-//		if (g_BestTimes[cheat->stage_index * 3 + 1]) {
-//			unlocked++;
-//		}
-//		if (g_BestTimes[cheat->stage_index * 3 + 2]) {
-//			unlocked++;
-//		}
-//	} else {
-//		s32 mytime = g_BestTimes[cheat->stage_index * 3 + cheat->difficulty];
-//
-//		if (mytime && mytime <= cheat->time) {
-//			unlocked = true;
-//		}
-//	}
-//
-//	if (cheat->flags & CHEATFLAG_TRANSFERPAK) {
-//		if (eepromGet(0x23)) {
-//			unlocked++;
-//		}
-//	}
-//
-//	return unlocked;
-//}
+	if (cheat->flags & CHEATFLAG_FIRINGRANGE) {
+		if (func0f19cf20(cheat->time)) {
+			unlocked++;
+		}
+	} else if (cheat->flags & CHEATFLAG_COMPLETION) {
+		if (g_SoloSaveFile.besttimes[cheat->stage_index][0]) {
+			unlocked++;
+		}
+		if (g_SoloSaveFile.besttimes[cheat->stage_index][1]) {
+			unlocked++;
+		}
+		if (g_SoloSaveFile.besttimes[cheat->stage_index][2]) {
+			unlocked++;
+		}
+	} else {
+		if (g_SoloSaveFile.besttimes[cheat->stage_index][cheat->difficulty] &&
+				g_SoloSaveFile.besttimes[cheat->stage_index][cheat->difficulty] <= cheat->time) {
+			unlocked++;
+		}
+	}
+
+	if ((cheat->flags & CHEATFLAG_TRANSFERPAK) && eepromGet(EEPROMFLAG_USED_TRANSFERPAK)) {
+		unlocked++;
+	}
+
+	return unlocked;
+}
 
 bool cheatIsActive(s32 cheat_id)
 {

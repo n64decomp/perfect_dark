@@ -20326,24 +20326,7 @@ u32 var800a21f0 = 0;
 u32 var800a21f4 = 0;
 u32 var800a21f8 = 0;
 u32 var800a21fc = 0;
-u32 var800a2200 = 0;
-u32 var800a2204 = 0;
-u32 var800a2208 = 0;
-u32 var800a220c = 0;
-u32 var800a2210 = 0;
-
-// 800a2214
-u32 g_EepromFlags = 0;
-
-u32 var800a2218 = 0;
-u32 var800a221c = 0;
-
-u16 g_BestTimes[63] = {0};
-
-u32 var800a22a0 = 0;
-u32 var800a22a4 = 0;
-u32 var800a22a8 = 0;
-u8 g_FiringRangeScores[] = {0, 0, 0, 0};
+struct savefile_solo g_SoloSaveFile = {0};
 u32 var800a22b0 = 0;
 u32 var800a22b4 = 0;
 u32 var800a22b8 = 0;

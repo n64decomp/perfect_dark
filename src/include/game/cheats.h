@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-bool cheatIsUnlocked(s32 cheat_id);
+u32 cheatIsUnlocked(s32 cheat_id);
 bool cheatIsActive(s32 cheat_id);
 void cheatActivate(s32 cheat_id);
 void cheatDeactivate(s32 cheat_id);

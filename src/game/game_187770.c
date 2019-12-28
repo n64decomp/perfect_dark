@@ -5628,8 +5628,8 @@ glabel func0f18c0c0
 .L0f18c0f4:
 /*  f18c0f4:	00027880 */ 	sll	$t7,$v0,0x2
 /*  f18c0f8:	01e27823 */ 	subu	$t7,$t7,$v0
-/*  f18c0fc:	3c18800a */ 	lui	$t8,%hi(var800a2200)
-/*  f18c100:	27182200 */ 	addiu	$t8,$t8,%lo(var800a2200)
+/*  f18c0fc:	3c18800a */ 	lui	$t8,0x800a
+/*  f18c100:	27182200 */ 	addiu	$t8,$t8,0x2200
 /*  f18c104:	000f7840 */ 	sll	$t7,$t7,0x1
 /*  f18c108:	01f83021 */ 	addu	$a2,$t7,$t8
 /*  f18c10c:	24020006 */ 	addiu	$v0,$zero,0x6

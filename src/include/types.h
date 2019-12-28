@@ -3883,4 +3883,20 @@ struct menustackitem {
 	/*0xe6c*/ u32 unke6c;
 };
 
+struct savefile_solo {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 eepromflags;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u16 besttimes[21][3];
+	/*0xa0*/ u32 var800a22a0;
+	/*0xa4*/ u32 var800a22a4;
+	/*0xa8*/ u32 var800a22a8;
+	/*0xac*/ u8 firingrangescores[4];
+};
+
 #endif

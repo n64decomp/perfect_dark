@@ -405,8 +405,8 @@ bool ciIsTourDone(void)
 
 u8 ciGetFiringRangeScore(s32 weapon_id)
 {
-	// Data at g_FiringRangeScores is a u8 array where each score uses 2 bits
-	return (g_FiringRangeScores[weapon_id >> 2] >> (weapon_id % 4) * 2) & 3;
+	// Data at firingrangescores is a u8 array where each score uses 2 bits
+	return (g_SoloSaveFile.firingrangescores[weapon_id >> 2] >> (weapon_id % 4) * 2) & 3;
 }
 
 GLOBAL_ASM(
@@ -418,11 +418,11 @@ glabel func0f19c9e4
 /*  f19c9f4:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f19c9f8:	8fa7001c */ 	lw	$a3,0x1c($sp)
 /*  f19c9fc:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f19ca00:	3c0f800a */ 	lui	$t7,%hi(var800a2200)
+/*  f19ca00:	3c0f800a */ 	lui	$t7,0x800a
 /*  f19ca04:	0047082a */ 	slt	$at,$v0,$a3
 /*  f19ca08:	10200017 */ 	beqz	$at,.L0f19ca68
 /*  f19ca0c:	00067083 */ 	sra	$t6,$a2,0x2
-/*  f19ca10:	25ef2200 */ 	addiu	$t7,$t7,%lo(var800a2200)
+/*  f19ca10:	25ef2200 */ 	addiu	$t7,$t7,0x2200
 /*  f19ca14:	01cf2021 */ 	addu	$a0,$t6,$t7
 /*  f19ca18:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f19ca1c:	240a0001 */ 	addiu	$t2,$zero,0x1
@@ -515,8 +515,8 @@ glabel func0f19cb38
 /*  f19cb38:	28810030 */ 	slti	$at,$a0,0x30
 /*  f19cb3c:	1020000e */ 	beqz	$at,.L0f19cb78
 /*  f19cb40:	000470c3 */ 	sra	$t6,$a0,0x3
-/*  f19cb44:	3c0f800a */ 	lui	$t7,%hi(var800a2200)
-/*  f19cb48:	25ef2200 */ 	addiu	$t7,$t7,%lo(var800a2200)
+/*  f19cb44:	3c0f800a */ 	lui	$t7,0x800a
+/*  f19cb48:	25ef2200 */ 	addiu	$t7,$t7,0x2200
 /*  f19cb4c:	01cf1821 */ 	addu	$v1,$t6,$t7
 /*  f19cb50:	906200b5 */ 	lbu	$v0,0xb5($v1)
 /*  f19cb54:	04810004 */ 	bgez	$a0,.L0f19cb68
@@ -538,8 +538,8 @@ GLOBAL_ASM(
 glabel func0f19cb80
 /*  f19cb80:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f19cb84:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f19cb88:	3c0f800a */ 	lui	$t7,%hi(var800a2200)
-/*  f19cb8c:	25ef2200 */ 	addiu	$t7,$t7,%lo(var800a2200)
+/*  f19cb88:	3c0f800a */ 	lui	$t7,0x800a
+/*  f19cb8c:	25ef2200 */ 	addiu	$t7,$t7,0x2200
 /*  f19cb90:	000e7040 */ 	sll	$t6,$t6,0x1
 /*  f19cb94:	01cf1821 */ 	addu	$v1,$t6,$t7
 /*  f19cb98:	94620020 */ 	lhu	$v0,0x20($v1)
