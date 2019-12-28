@@ -5317,7 +5317,7 @@ glabel func0f0cc19c
 /*  f0cc264:	46043200 */ 	add.s	$f8,$f6,$f4
 /*  f0cc268:	e4480380 */ 	swc1	$f8,0x380($v0)
 .L0f0cc26c:
-/*  f0cc26c:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f0cc26c:	0fc41b99 */ 	jal	cheatIsActive
 /*  f0cc270:	2404000a */ 	addiu	$a0,$zero,0xa
 /*  f0cc274:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f0cc278:	10400040 */ 	beqz	$v0,.L0f0cc37c
@@ -8183,7 +8183,7 @@ glabel func0f0ce924
 /*  f0ceb48:	c44003c0 */ 	lwc1	$f0,0x3c0($v0)
 /*  f0ceb4c:	c44203c8 */ 	lwc1	$f2,0x3c8($v0)
 /*  f0ceb50:	e7a00084 */ 	swc1	$f0,0x84($sp)
-/*  f0ceb54:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f0ceb54:	0fc41b99 */ 	jal	cheatIsActive
 /*  f0ceb58:	e7a20080 */ 	swc1	$f2,0x80($sp)
 /*  f0ceb5c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0ceb60:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)

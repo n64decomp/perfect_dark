@@ -2603,12 +2603,12 @@ struct cutscenegroup {
 	u16 namefileid;
 };
 
-struct cheatspec {
+struct cheat {
 	u16 nametextid;
 	u16 time;
 	u8 stage_index;
 	u8 difficulty;
-	u8 method;
+	u8 flags;
 };
 
 struct bodytableentry {

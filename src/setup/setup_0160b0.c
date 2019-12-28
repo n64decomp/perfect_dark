@@ -2960,50 +2960,50 @@ struct menu_dialog menudialog_mainmenu2 = {
 u32 var80073a8c = 0x00000000;
 
 // 19ab0
-struct cheatspec g_CheatSpecs[] = {
-	// name, time, stage index, difficulty, method
-	{ 0x544b, 123, 2,  DIFF_A,  CHEATMETHOD_TIMED | CHEATMETHOD_TRANSFERPAK    }, // Hurricane Fists
-	{ 0x544c, 100, 5,  DIFF_A,  CHEATMETHOD_TIMED | CHEATMETHOD_TRANSFERPAK    }, // Cloaking Device
-	{ 0x544d, 230, 8,  DIFF_A,  CHEATMETHOD_TIMED                              }, // Invincible
-	{ 0x544e, 331, 16, DIFF_PA, CHEATMETHOD_TIMED | CHEATMETHOD_TRANSFERPAK    }, // All Guns in Solo
-	{ 0x544f, 427, 12, DIFF_SA, CHEATMETHOD_TIMED                              }, // Unlimited Ammo
-	{ 0x5450, 191, 9,  DIFF_SA, CHEATMETHOD_TIMED                              }, // Unlimited Ammo, No Reloads
-	{ 0x5451, 0,   1,  DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Slo-mo Single Player
-	{ 0x5452, 0,   4,  DIFF_A,  CHEATMETHOD_COMPLETE                           }, // DK Mode
-	{ 0x5453, 170, 11, DIFF_A,  CHEATMETHOD_TIMED                              }, // Trent's Magnum
-	{ 0x5454, 447, 13, DIFF_PA, CHEATMETHOD_TIMED                              }, // FarSight
-	{ 0x5455, 0,   5,  DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Small Jo
-	{ 0x5456, 0,   6,  DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Small Characters
-	{ 0x5457, 0,   14, DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Enemy Shields
-	{ 0x5458, 0,   13, DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Jo Shield
-	{ 0x5459, 105, 14, DIFF_A,  CHEATMETHOD_TIMED                              }, // Super Shield
-	{ 0x545a, 0,   0,  DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Classic Sight
-	{ 0x545b, 0,   9,  DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Team Heads Only
-	{ 0x545c, 479, 7,  DIFF_PA, CHEATMETHOD_TIMED                              }, // Play as Elvis
-	{ 0x545d, 0,   12, DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Enemy Rockets
-	{ 0x545e, 235, 10, DIFF_PA, CHEATMETHOD_TIMED                              }, // Unlimited Ammo - Laptop Sentry Gun
-	{ 0x545f, 90,  0,  DIFF_SA, CHEATMETHOD_TIMED                              }, // Marquis of Queensbury Rules
-	{ 0x5460, 0,   11, DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Perfect Darkness
-	{ 0x5461, 390, 1,  DIFF_PA, CHEATMETHOD_TIMED                              }, // Pugilist
-	{ 0x5462, 300, 6,  DIFF_SA, CHEATMETHOD_TIMED                              }, // Hotshot
-	{ 0x5463, 150, 3,  DIFF_SA, CHEATMETHOD_TIMED                              }, // Hit and Run
-	{ 0x5464, 317, 15, DIFF_SA, CHEATMETHOD_TIMED                              }, // Alien
-	{ 0x5465, 0,   16, DIFF_A,  CHEATMETHOD_COMPLETE | CHEATMETHOD_TRANSFERPAK }, // R-Tracker/Weapon Cache Locations
-	{ 0x5466, 0,   2,  DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Rocket Launcher
-	{ 0x5467, 0,   3,  DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Sniper Rifle
-	{ 0x5468, 0,   7,  DIFF_A,  CHEATMETHOD_COMPLETE                           }, // X-Ray Scanner
-	{ 0x5469, 0,   8,  DIFF_A,  CHEATMETHOD_COMPLETE                           }, // SuperDragon
-	{ 0x546a, 0,   10, DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Laptop Gun
-	{ 0x546b, 0,   15, DIFF_A,  CHEATMETHOD_COMPLETE                           }, // Phoenix
-	{ 0x546c, 120, 4,  DIFF_PA, CHEATMETHOD_TIMED                              }, // Psychosis Gun
-	{ 0x546d, 36,  0,  DIFF_A,  CHEATMETHOD_FIRINGRANGE                        }, // PP9i
-	{ 0x546e, 37,  0,  DIFF_A,  CHEATMETHOD_FIRINGRANGE                        }, // CC13
-	{ 0x546f, 38,  0,  DIFF_A,  CHEATMETHOD_FIRINGRANGE                        }, // KLO1313
-	{ 0x5470, 39,  0,  DIFF_A,  CHEATMETHOD_FIRINGRANGE                        }, // KF7 Special
-	{ 0x5471, 40,  0,  DIFF_A,  CHEATMETHOD_FIRINGRANGE                        }, // ZZT (9mm)
-	{ 0x5472, 41,  0,  DIFF_A,  CHEATMETHOD_FIRINGRANGE                        }, // DMC
-	{ 0x5473, 42,  0,  DIFF_A,  CHEATMETHOD_FIRINGRANGE                        }, // AR53
-	{ 0x5474, 43,  0,  DIFF_A,  CHEATMETHOD_FIRINGRANGE                        }, // RC-P45
+struct cheat g_Cheats[] = {
+	// name, time, stage index, difficulty, flags
+	{ 0x544b, 123, 2,  DIFF_A,  CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK    }, // Hurricane Fists
+	{ 0x544c, 100, 5,  DIFF_A,  CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK    }, // Cloaking Device
+	{ 0x544d, 230, 8,  DIFF_A,  CHEATFLAG_TIMED                              }, // Invincible
+	{ 0x544e, 331, 16, DIFF_PA, CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK    }, // All Guns in Solo
+	{ 0x544f, 427, 12, DIFF_SA, CHEATFLAG_TIMED                              }, // Unlimited Ammo
+	{ 0x5450, 191, 9,  DIFF_SA, CHEATFLAG_TIMED                              }, // Unlimited Ammo, No Reloads
+	{ 0x5451, 0,   1,  DIFF_A,  CHEATFLAG_COMPLETION                           }, // Slo-mo Single Player
+	{ 0x5452, 0,   4,  DIFF_A,  CHEATFLAG_COMPLETION                           }, // DK Mode
+	{ 0x5453, 170, 11, DIFF_A,  CHEATFLAG_TIMED                              }, // Trent's Magnum
+	{ 0x5454, 447, 13, DIFF_PA, CHEATFLAG_TIMED                              }, // FarSight
+	{ 0x5455, 0,   5,  DIFF_A,  CHEATFLAG_COMPLETION                           }, // Small Jo
+	{ 0x5456, 0,   6,  DIFF_A,  CHEATFLAG_COMPLETION                           }, // Small Characters
+	{ 0x5457, 0,   14, DIFF_A,  CHEATFLAG_COMPLETION                           }, // Enemy Shields
+	{ 0x5458, 0,   13, DIFF_A,  CHEATFLAG_COMPLETION                           }, // Jo Shield
+	{ 0x5459, 105, 14, DIFF_A,  CHEATFLAG_TIMED                              }, // Super Shield
+	{ 0x545a, 0,   0,  DIFF_A,  CHEATFLAG_COMPLETION                           }, // Classic Sight
+	{ 0x545b, 0,   9,  DIFF_A,  CHEATFLAG_COMPLETION                           }, // Team Heads Only
+	{ 0x545c, 479, 7,  DIFF_PA, CHEATFLAG_TIMED                              }, // Play as Elvis
+	{ 0x545d, 0,   12, DIFF_A,  CHEATFLAG_COMPLETION                           }, // Enemy Rockets
+	{ 0x545e, 235, 10, DIFF_PA, CHEATFLAG_TIMED                              }, // Unlimited Ammo - Laptop Sentry Gun
+	{ 0x545f, 90,  0,  DIFF_SA, CHEATFLAG_TIMED                              }, // Marquis of Queensbury Rules
+	{ 0x5460, 0,   11, DIFF_A,  CHEATFLAG_COMPLETION                           }, // Perfect Darkness
+	{ 0x5461, 390, 1,  DIFF_PA, CHEATFLAG_TIMED                              }, // Pugilist
+	{ 0x5462, 300, 6,  DIFF_SA, CHEATFLAG_TIMED                              }, // Hotshot
+	{ 0x5463, 150, 3,  DIFF_SA, CHEATFLAG_TIMED                              }, // Hit and Run
+	{ 0x5464, 317, 15, DIFF_SA, CHEATFLAG_TIMED                              }, // Alien
+	{ 0x5465, 0,   16, DIFF_A,  CHEATFLAG_COMPLETION | CHEATFLAG_TRANSFERPAK }, // R-Tracker/Weapon Cache Locations
+	{ 0x5466, 0,   2,  DIFF_A,  CHEATFLAG_COMPLETION                           }, // Rocket Launcher
+	{ 0x5467, 0,   3,  DIFF_A,  CHEATFLAG_COMPLETION                           }, // Sniper Rifle
+	{ 0x5468, 0,   7,  DIFF_A,  CHEATFLAG_COMPLETION                           }, // X-Ray Scanner
+	{ 0x5469, 0,   8,  DIFF_A,  CHEATFLAG_COMPLETION                           }, // SuperDragon
+	{ 0x546a, 0,   10, DIFF_A,  CHEATFLAG_COMPLETION                           }, // Laptop Gun
+	{ 0x546b, 0,   15, DIFF_A,  CHEATFLAG_COMPLETION                           }, // Phoenix
+	{ 0x546c, 120, 4,  DIFF_PA, CHEATFLAG_TIMED                              }, // Psychosis Gun
+	{ 0x546d, 36,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // PP9i
+	{ 0x546e, 37,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // CC13
+	{ 0x546f, 38,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // KLO1313
+	{ 0x5470, 39,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // KF7 Special
+	{ 0x5471, 40,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // ZZT (9mm)
+	{ 0x5472, 41,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // DMC
+	{ 0x5473, 42,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // AR53
+	{ 0x5474, 43,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // RC-P45
 };
 
 // 19c00
@@ -3026,12 +3026,12 @@ struct menu_dialog menudialog_cheatwarning = {
 
 // 19c68
 struct menu_item menuitems_cheats_fun[] = {
-	{ MENUITEMTYPE_CHECKBOX,     7, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    10, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    11, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    16, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    17, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     6, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     7, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    10, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    11, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    16, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    17, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,     6, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, (u32) &cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
@@ -3044,21 +3044,21 @@ struct menu_dialog menudialog_cheats_fun = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5476, // "Fun"
 	menuitems_cheats_fun,
-	menudialog00107990,
+	cheatMenuHandleDialog,
 	0x00000000,
 	NULL,
 };
 
 // 19d5c
 struct menu_item menuitems_cheats_gameplay[] = {
-	{ MENUITEMTYPE_CHECKBOX,     2, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     1, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    20, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    13, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    14, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    12, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    18, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    21, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,     2, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,     1, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    20, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    13, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    14, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    12, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    18, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    21, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, (u32) &cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
@@ -3071,21 +3071,21 @@ struct menu_dialog menudialog_cheats_gameplay = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5477, // "Gameplay"
 	menuitems_cheats_gameplay,
-	menudialog00107990,
+	cheatMenuHandleDialog,
 	0x00000000,
 	NULL,
 };
 
 // 19e78
 struct menu_item menuitems_cheats_soloweapons[] = {
-	{ MENUITEMTYPE_CHECKBOX,    27, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    28, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    30, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    31, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    32, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    33, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     8, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     9, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    27, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    28, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    30, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    31, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    32, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    33, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,     8, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,     9, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, (u32) &cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
@@ -3098,21 +3098,21 @@ struct menu_dialog menudialog_cheats_soloweapons = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x547a, // "Weapons for Jo in Solo"
 	menuitems_cheats_soloweapons,
-	menudialog00107990,
+	cheatMenuHandleDialog,
 	0x00000000,
 	NULL,
 };
 
 // 19f94
 struct menu_item menuitems_cheats_classicweapons[] = {
-	{ MENUITEMTYPE_CHECKBOX,    34, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    35, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    36, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    37, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    38, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    39, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    40, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    41, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    34, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    35, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    36, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    37, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    38, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    39, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    40, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    41, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x000000c8, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, 0x00005490, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x000000c8, 0x00000000, NULL },
@@ -3125,21 +3125,21 @@ struct menu_dialog menudialog_cheats_classicweapons = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x547b, // "Classic Weapons for Jo in Solo"
 	menuitems_cheats_classicweapons,
-	menudialog00107990,
+	cheatMenuHandleDialog,
 	0x00000000,
 	NULL,
 };
 
 // 1a0b0
 struct menu_item menuitems_cheats_weapons[] = {
-	{ MENUITEMTYPE_CHECKBOX,    15, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    19, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     0, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     4, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     5, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    29, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,    26, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
-	{ MENUITEMTYPE_CHECKBOX,     3, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheat },
+	{ MENUITEMTYPE_CHECKBOX,    15, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    19, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,     0, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,     4, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,     5, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    29, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    26, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,     3, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleCheatCheckbox },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, (u32) &cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
@@ -3152,18 +3152,18 @@ struct menu_dialog menudialog_cheats_weapons = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5478, // "Weapons"
 	menuitems_cheats_weapons,
-	menudialog00107990,
+	cheatMenuHandleDialog,
 	0x00000000,
 	NULL,
 };
 
 // 1a1cc
 struct menu_item menuitems_cheats_buddies[] = {
-	{ MENUITEMTYPE_CHECKBOX,     0, 0x00000000, 0x00005475, 0x00000000, menuhandlerCheatBuddy }, // "Velvet Dark"
-	{ MENUITEMTYPE_CHECKBOX,    22, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheatBuddy },
-	{ MENUITEMTYPE_CHECKBOX,    23, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheatBuddy },
-	{ MENUITEMTYPE_CHECKBOX,    24, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheatBuddy },
-	{ MENUITEMTYPE_CHECKBOX,    25, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, menuhandlerCheatBuddy },
+	{ MENUITEMTYPE_CHECKBOX,     0, 0x00000000, 0x00005475, 0x00000000, cheatMenuHandleBuddyCheckbox }, // "Velvet Dark"
+	{ MENUITEMTYPE_CHECKBOX,    22, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    23, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    24, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
+	{ MENUITEMTYPE_CHECKBOX,    25, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, (u32) &cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
@@ -3176,7 +3176,7 @@ struct menu_dialog menudialog_cheats_buddies = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5479, // "Buddies"
 	menuitems_cheats_buddies,
-	menudialog00107990,
+	cheatMenuHandleDialog,
 	0x00000000,
 	NULL,
 };
@@ -3190,7 +3190,7 @@ struct menu_item menuitems_cheats[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005478, 0x00000000, &menudialog_cheats_weapons }, // "Weapons"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005479, 0x00000000, &menudialog_cheats_buddies }, // "Buddies"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054d9, 0x00000000, menuhandlerTurnOffAllCheats }, // "Turn of all Cheats"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054d9, 0x00000000, cheatMenuHandleTurnOffAllCheats }, // "Turn of all Cheats"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -3201,7 +3201,7 @@ struct menu_dialog menudialog_cheats = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51dc, // "Cheats"
 	menuitems_cheats,
-	menudialog00107990,
+	cheatMenuHandleDialog,
 	0x00000000,
 	NULL,
 };

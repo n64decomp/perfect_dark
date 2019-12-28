@@ -3604,7 +3604,7 @@ glabel func0f020668
 /*  f02071c:	44812000 */ 	mtc1	$at,$f4
 /*  f020720:	24040015 */ 	addiu	$a0,$zero,0x15
 /*  f020724:	ae1900d8 */ 	sw	$t9,0xd8($s0)
-/*  f020728:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f020728:	0fc41b99 */ 	jal	cheatIsActive
 /*  f02072c:	e60400dc */ 	swc1	$f4,0xdc($s0)
 /*  f020730:	10400005 */ 	beqz	$v0,.L0f020748
 /*  f020734:	8fa60024 */ 	lw	$a2,0x24($sp)
@@ -3983,7 +3983,7 @@ struct prop *func0f020cc8(s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4)
 	if (prop) {
 		prop = func0f020b14(prop, arg0, arg1, arg2, arg3, arg4);
 
-		if (cheatIsEnabled(CHEAT_ENEMYSHIELDS)) {
+		if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
 			chrSetShield(prop->chr, 8);
 		}
 	}
@@ -4723,7 +4723,7 @@ glabel func0f02143c
 /*  f021774:	afa70158 */ 	sw	$a3,0x158($sp)
 /*  f021778:	afa8014c */ 	sw	$t0,0x14c($sp)
 /*  f02177c:	afa90144 */ 	sw	$t1,0x144($sp)
-/*  f021780:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f021780:	0fc41b99 */ 	jal	cheatIsActive
 /*  f021784:	afaa0148 */ 	sw	$t2,0x148($sp)
 /*  f021788:	8fa50150 */ 	lw	$a1,0x150($sp)
 /*  f02178c:	8fa70158 */ 	lw	$a3,0x158($sp)
@@ -7366,7 +7366,7 @@ glabel func0f023098
 /*  f023d74:	01416825 */ 	or	$t5,$t2,$at
 /*  f023d78:	ae0d0014 */ 	sw	$t5,0x14($s0)
 .L0f023d7c:
-/*  f023d7c:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f023d7c:	0fc41b99 */ 	jal	cheatIsActive
 /*  f023d80:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f023d84:	10400004 */ 	beqz	$v0,.L0f023d98
 /*  f023d88:	3c013ea0 */ 	lui	$at,0x3ea0
@@ -9588,7 +9588,7 @@ glabel func0f025288
 /*  f025d78:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f025d7c:	afa30058 */ 	sw	$v1,0x58($sp)
 .L0f025d80:
-/*  f025d80:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f025d80:	0fc41b99 */ 	jal	cheatIsActive
 /*  f025d84:	e7a20050 */ 	swc1	$f2,0x50($sp)
 /*  f025d88:	8fa30058 */ 	lw	$v1,0x58($sp)
 /*  f025d8c:	10400005 */ 	beqz	$v0,.L0f025da4
@@ -17493,7 +17493,7 @@ glabel func0f02ce8c
 /*  f02ced4:	e7a80044 */ 	swc1	$f8,0x44($sp)
 /*  f02ced8:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f02cedc:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f02cee0:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f02cee0:	0fc41b99 */ 	jal	cheatIsActive
 /*  f02cee4:	e7aa0040 */ 	swc1	$f10,0x40($sp)
 /*  f02cee8:	10400005 */ 	beqz	$v0,.L0f02cf00
 /*  f02ceec:	c7b00044 */ 	lwc1	$f16,0x44($sp)
@@ -17651,7 +17651,7 @@ glabel func0f02ce8c
 .L0f02d130:
 /*  f02d130:	15800013 */ 	bnez	$t4,.L0f02d180
 /*  f02d134:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02d138:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f02d138:	0fc41b99 */ 	jal	cheatIsActive
 /*  f02d13c:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f02d140:	10400005 */ 	beqz	$v0,.L0f02d158
 /*  f02d144:	c7a40044 */ 	lwc1	$f4,0x44($sp)
@@ -17660,7 +17660,7 @@ glabel func0f02ce8c
 /*  f02d150:	46062282 */ 	mul.s	$f10,$f4,$f6
 /*  f02d154:	e7aa0044 */ 	swc1	$f10,0x44($sp)
 .L0f02d158:
-/*  f02d158:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f02d158:	0fc41b99 */ 	jal	cheatIsActive
 /*  f02d15c:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f02d160:	10400033 */ 	beqz	$v0,.L0f02d230
 /*  f02d164:	c7b00044 */ 	lwc1	$f16,0x44($sp)
@@ -17671,7 +17671,7 @@ glabel func0f02ce8c
 /*  f02d178:	1000002d */ 	beqz	$zero,.L0f02d230
 /*  f02d17c:	e7b20044 */ 	swc1	$f18,0x44($sp)
 .L0f02d180:
-/*  f02d180:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f02d180:	0fc41b99 */ 	jal	cheatIsActive
 /*  f02d184:	2404000a */ 	addiu	$a0,$zero,0xa
 /*  f02d188:	10400029 */ 	beqz	$v0,.L0f02d230
 /*  f02d18c:	c7a40044 */ 	lwc1	$f4,0x44($sp)
@@ -18271,7 +18271,7 @@ glabel func0f02d4fc
 /*  f02d9e0:	accf0114 */ 	sw	$t7,0x114($a2)
 /*  f02d9e4:	8e19001c */ 	lw	$t9,0x1c($s0)
 /*  f02d9e8:	acd90118 */ 	sw	$t9,0x118($a2)
-/*  f02d9ec:	0fc41b99 */ 	jal	cheatIsEnabled
+/*  f02d9ec:	0fc41b99 */ 	jal	cheatIsActive
 /*  f02d9f0:	afa6005c */ 	sw	$a2,0x5c($sp)
 /*  f02d9f4:	10400007 */ 	beqz	$v0,.L0f02da14
 /*  f02d9f8:	8fa6005c */ 	lw	$a2,0x5c($sp)

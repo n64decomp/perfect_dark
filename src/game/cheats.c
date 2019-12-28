@@ -16,8 +16,8 @@
 
 GLOBAL_ASM(
 glabel cheatIsUnlocked
-/*  f106d40:	3c0f8007 */ 	lui	$t7,%hi(g_CheatSpecs)
-/*  f106d44:	25ef3a90 */ 	addiu	$t7,$t7,%lo(g_CheatSpecs)
+/*  f106d40:	3c0f8007 */ 	lui	$t7,%hi(g_Cheats)
+/*  f106d44:	25ef3a90 */ 	addiu	$t7,$t7,%lo(g_Cheats)
 /*  f106d48:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f106d4c:	01cf1821 */ 	addu	$v1,$t6,$t7
 /*  f106d50:	90660006 */ 	lbu	$a2,0x6($v1)
@@ -105,32 +105,32 @@ glabel cheatIsUnlocked
 // done separately.
 //bool cheatIsUnlocked(s32 cheat_id)
 //{
-//	struct cheatspec *spec = &g_CheatSpecs[cheat_id];
+//	struct cheat *cheat = &g_Cheats[cheat_id];
 //	bool unlocked = false;
 //
-//	if (spec->method & CHEATMETHOD_FIRINGRANGE) {
-//		if (func0f19cf20(spec->time)) {
+//	if (cheat->flags & CHEATFLAG_FIRINGRANGE) {
+//		if (func0f19cf20(cheat->time)) {
 //			unlocked = true;
 //		}
-//	} else if (spec->method & CHEATMETHOD_COMPLETE) {
-//		if (g_BestTimes[spec->stage_index * 3]) {
+//	} else if (cheat->flags & CHEATFLAG_COMPLETION) {
+//		if (g_BestTimes[cheat->stage_index * 3]) {
 //			unlocked++;
 //		}
-//		if (g_BestTimes[spec->stage_index * 3 + 1]) {
+//		if (g_BestTimes[cheat->stage_index * 3 + 1]) {
 //			unlocked++;
 //		}
-//		if (g_BestTimes[spec->stage_index * 3 + 2]) {
+//		if (g_BestTimes[cheat->stage_index * 3 + 2]) {
 //			unlocked++;
 //		}
 //	} else {
-//		s32 mytime = g_BestTimes[spec->stage_index * 3 + spec->difficulty];
+//		s32 mytime = g_BestTimes[cheat->stage_index * 3 + cheat->difficulty];
 //
-//		if (mytime && mytime <= spec->time) {
+//		if (mytime && mytime <= cheat->time) {
 //			unlocked = true;
 //		}
 //	}
 //
-//	if (spec->method & CHEATMETHOD_TRANSFERPAK) {
+//	if (cheat->flags & CHEATFLAG_TRANSFERPAK) {
 //		if (eepromGet(0x23)) {
 //			unlocked++;
 //		}
@@ -139,17 +139,17 @@ glabel cheatIsUnlocked
 //	return unlocked;
 //}
 
-bool cheatIsEnabled(s32 cheat_id)
+bool cheatIsActive(s32 cheat_id)
 {
 	if (cheat_id < 32) {
-		return g_CheatsEnabledBank0 & (1 << cheat_id);
+		return g_CheatsActiveBank0 & (1 << cheat_id);
 	}
 
-	return g_CheatsEnabledBank1 & (1 << cheat_id);
+	return g_CheatsActiveBank1 & (1 << cheat_id);
 }
 
 GLOBAL_ASM(
-glabel func0f106ea0
+glabel cheatActivate
 /*  f106ea0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f106ea4:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f106ea8:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -356,8 +356,8 @@ glabel func0f106ea0
 /*  f10715c:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f107160:	8faf0028 */ 	lw	$t7,0x28($sp)
 .L0f107164:
-/*  f107164:	3c02800a */ 	lui	$v0,%hi(g_CheatsEnabledBank0)
-/*  f107168:	244221d0 */ 	addiu	$v0,$v0,%lo(g_CheatsEnabledBank0)
+/*  f107164:	3c02800a */ 	lui	$v0,%hi(g_CheatsActiveBank0)
+/*  f107168:	244221d0 */ 	addiu	$v0,$v0,%lo(g_CheatsActiveBank0)
 /*  f10716c:	29e10020 */ 	slti	$at,$t7,0x20
 /*  f107170:	10200007 */ 	beqz	$at,.L0f107190
 /*  f107174:	00000000 */ 	sll	$zero,$zero,0x0
@@ -368,9 +368,9 @@ glabel func0f106ea0
 /*  f107188:	10000009 */ 	beqz	$zero,.L0f1071b0
 /*  f10718c:	ac4b0000 */ 	sw	$t3,0x0($v0)
 .L0f107190:
-/*  f107190:	3c02800a */ 	lui	$v0,%hi(g_CheatsEnabledBank1)
+/*  f107190:	3c02800a */ 	lui	$v0,%hi(g_CheatsActiveBank1)
 /*  f107194:	8fac0028 */ 	lw	$t4,0x28($sp)
-/*  f107198:	244221d4 */ 	addiu	$v0,$v0,%lo(g_CheatsEnabledBank1)
+/*  f107198:	244221d4 */ 	addiu	$v0,$v0,%lo(g_CheatsActiveBank1)
 /*  f10719c:	8c580000 */ 	lw	$t8,0x0($v0)
 /*  f1071a0:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f1071a4:	018d7004 */ 	sllv	$t6,$t5,$t4
@@ -385,7 +385,7 @@ glabel func0f106ea0
 );
 
 GLOBAL_ASM(
-glabel func0f1071c4
+glabel cheatDeactivate
 /*  f1071c4:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f1071c8:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f1071cc:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -592,8 +592,8 @@ glabel func0f1071c4
 /*  f107480:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f107484:	8faf0028 */ 	lw	$t7,0x28($sp)
 .L0f107488:
-/*  f107488:	3c02800a */ 	lui	$v0,%hi(g_CheatsEnabledBank0)
-/*  f10748c:	244221d0 */ 	addiu	$v0,$v0,%lo(g_CheatsEnabledBank0)
+/*  f107488:	3c02800a */ 	lui	$v0,%hi(g_CheatsActiveBank0)
+/*  f10748c:	244221d0 */ 	addiu	$v0,$v0,%lo(g_CheatsActiveBank0)
 /*  f107490:	29e10020 */ 	slti	$at,$t7,0x20
 /*  f107494:	10200007 */ 	beqz	$at,.L0f1074b4
 /*  f107498:	24180001 */ 	addiu	$t8,$zero,0x1
@@ -605,8 +605,8 @@ glabel func0f1071c4
 /*  f1074b0:	ac4c0000 */ 	sw	$t4,0x0($v0)
 .L0f1074b4:
 /*  f1074b4:	8fad0028 */ 	lw	$t5,0x28($sp)
-/*  f1074b8:	3c02800a */ 	lui	$v0,%hi(g_CheatsEnabledBank1)
-/*  f1074bc:	244221d4 */ 	addiu	$v0,$v0,%lo(g_CheatsEnabledBank1)
+/*  f1074b8:	3c02800a */ 	lui	$v0,%hi(g_CheatsActiveBank1)
+/*  f1074bc:	244221d4 */ 	addiu	$v0,$v0,%lo(g_CheatsActiveBank1)
 /*  f1074c0:	8c590000 */ 	lw	$t9,0x0($v0)
 /*  f1074c4:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f1074c8:	01aec004 */ 	sllv	$t8,$t6,$t5
@@ -621,134 +621,76 @@ glabel func0f1071c4
 /*  f1074e8:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-void func0f1074ec(void)
+void cheatsDisableAll(void)
 {
+	g_CheatsActiveBank0 = 0;
+	g_CheatsActiveBank1 = 0;
 	g_CheatsEnabledBank0 = 0;
 	g_CheatsEnabledBank1 = 0;
-	var800a21d8 = 0;
-	var800a21dc = 0;
+}
+
+void cheatsActivate(void)
+{
+	s32 cheat_id;
+
+	if (g_Vars.unk0004b4 != 38) {
+		g_CheatsActiveBank0 = g_CheatsEnabledBank0;
+		g_CheatsActiveBank1 = g_CheatsEnabledBank1;
+
+		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0 || g_Vars.unk000318) {
+			// Co-op/counter-op - deactivate "Weapons for Jo in Solo" cheats
+			g_CheatsActiveBank0 &= ~(
+				(1 << CHEAT_TRENTSMAGNUM) |
+				(1 << CHEAT_FARSIGHT) |
+				(1 << CHEAT_ROCKETLAUNCHER) |
+				(1 << CHEAT_SNIPERRIFLE) |
+				(1 << CHEAT_XRAYSCANNER) |
+				(1 << CHEAT_SUPERDRAGON) |
+				(1 << CHEAT_LAPTOPGUN)
+			);
+			g_CheatsActiveBank1 &= ~(
+				(1 << CHEAT_PHOENIX - 32) |
+				(1 << CHEAT_PSYCHOSISGUN - 32) |
+				(1 << CHEAT_PP9I - 32) |
+				(1 << CHEAT_CC13 - 32) |
+				(1 << CHEAT_KLO1313 - 32) |
+				(1 << CHEAT_KF7SPECIAL - 32) |
+				(1 << CHEAT_ZZT - 32) |
+				(1 << CHEAT_DMC - 32) |
+				(1 << CHEAT_AR53 - 32) |
+				(1 << CHEAT_RCP45 - 32)
+			);
+		}
+	} else {
+		g_CheatsActiveBank0 = 0;
+		g_CheatsActiveBank1 = 0;
+	}
+
+	for (cheat_id = 0; cheat_id != NUM_CHEATS; cheat_id++) {
+		if (g_Cheats[cheat_id].flags & CHEATFLAG_ALWAYSON) {
+			if (cheatIsUnlocked(cheat_id)) {
+				if (cheat_id < 32) {
+					g_CheatsActiveBank0 = g_CheatsActiveBank0 | (1 << cheat_id);
+				} else {
+					g_CheatsActiveBank1 = g_CheatsActiveBank1 | (1 << cheat_id);
+				}
+			} else {
+				if (cheat_id < 32) {
+					g_CheatsActiveBank0 = g_CheatsActiveBank0 & ~(1 << cheat_id);
+				} else {
+					g_CheatsActiveBank1 = g_CheatsActiveBank1 & ~(1 << cheat_id);
+				}
+			}
+		}
+
+		if (cheatIsActive(cheat_id)) {
+			cheatActivate(cheat_id);
+		}
+	}
 }
 
 GLOBAL_ASM(
-glabel func0f107510
-/*  f107510:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f107514:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f107518:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f10751c:	8c4e04b4 */ 	lw	$t6,0x4b4($v0)
-/*  f107520:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f107524:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f107528:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f10752c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f107530:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f107534:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f107538:	11c1001d */ 	beq	$t6,$at,.L0f1075b0
-/*  f10753c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f107540:	3c0f800a */ 	lui	$t7,0x800a
-/*  f107544:	8def21d8 */ 	lw	$t7,0x21d8($t7)
-/*  f107548:	3c12800a */ 	lui	$s2,%hi(g_CheatsEnabledBank0)
-/*  f10754c:	265221d0 */ 	addiu	$s2,$s2,%lo(g_CheatsEnabledBank0)
-/*  f107550:	8c590298 */ 	lw	$t9,0x298($v0)
-/*  f107554:	3c18800a */ 	lui	$t8,0x800a
-/*  f107558:	ae4f0000 */ 	sw	$t7,0x0($s2)
-/*  f10755c:	8f1821dc */ 	lw	$t8,0x21dc($t8)
-/*  f107560:	3c13800a */ 	lui	$s3,%hi(g_CheatsEnabledBank1)
-/*  f107564:	267321d4 */ 	addiu	$s3,$s3,%lo(g_CheatsEnabledBank1)
-/*  f107568:	07210007 */ 	bgez	$t9,.L0f107588
-/*  f10756c:	ae780000 */ 	sw	$t8,0x0($s3)
-/*  f107570:	8c48029c */ 	lw	$t0,0x29c($v0)
-/*  f107574:	05030005 */ 	bgezl	$t0,.L0f10758c
-/*  f107578:	8e4a0000 */ 	lw	$t2,0x0($s2)
-/*  f10757c:	8c490318 */ 	lw	$t1,0x318($v0)
-/*  f107580:	11200011 */ 	beqz	$t1,.L0f1075c8
-/*  f107584:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f107588:
-/*  f107588:	8e4a0000 */ 	lw	$t2,0x0($s2)
-.L0f10758c:
-/*  f10758c:	3c0107ff */ 	lui	$at,0x7ff
-/*  f107590:	8e6c0000 */ 	lw	$t4,0x0($s3)
-/*  f107594:	3421fcff */ 	ori	$at,$at,0xfcff
-/*  f107598:	01415824 */ 	and	$t3,$t2,$at
-/*  f10759c:	2401fc00 */ 	addiu	$at,$zero,-1024
-/*  f1075a0:	01816824 */ 	and	$t5,$t4,$at
-/*  f1075a4:	ae4b0000 */ 	sw	$t3,0x0($s2)
-/*  f1075a8:	10000007 */ 	beqz	$zero,.L0f1075c8
-/*  f1075ac:	ae6d0000 */ 	sw	$t5,0x0($s3)
-.L0f1075b0:
-/*  f1075b0:	3c12800a */ 	lui	$s2,%hi(g_CheatsEnabledBank0)
-/*  f1075b4:	3c13800a */ 	lui	$s3,%hi(g_CheatsEnabledBank1)
-/*  f1075b8:	267321d4 */ 	addiu	$s3,$s3,%lo(g_CheatsEnabledBank1)
-/*  f1075bc:	265221d0 */ 	addiu	$s2,$s2,%lo(g_CheatsEnabledBank0)
-/*  f1075c0:	ae400000 */ 	sw	$zero,0x0($s2)
-/*  f1075c4:	ae600000 */ 	sw	$zero,0x0($s3)
-.L0f1075c8:
-/*  f1075c8:	3c118007 */ 	lui	$s1,%hi(g_CheatSpecs)
-/*  f1075cc:	26313a90 */ 	addiu	$s1,$s1,%lo(g_CheatSpecs)
-/*  f1075d0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1075d4:	2414002a */ 	addiu	$s4,$zero,0x2a
-.L0f1075d8:
-/*  f1075d8:	922e0006 */ 	lbu	$t6,0x6($s1)
-/*  f1075dc:	31cf0001 */ 	andi	$t7,$t6,0x1
-/*  f1075e0:	11e00022 */ 	beqz	$t7,.L0f10766c
-/*  f1075e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1075e8:	0fc41b50 */ 	jal	cheatIsUnlocked
-/*  f1075ec:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1075f0:	10400010 */ 	beqz	$v0,.L0f107634
-/*  f1075f4:	2a010020 */ 	slti	$at,$s0,0x20
-/*  f1075f8:	2a010020 */ 	slti	$at,$s0,0x20
-/*  f1075fc:	50200008 */ 	beqzl	$at,.L0f107620
-/*  f107600:	8e6c0000 */ 	lw	$t4,0x0($s3)
-/*  f107604:	8e480000 */ 	lw	$t0,0x0($s2)
-/*  f107608:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f10760c:	0218c804 */ 	sllv	$t9,$t8,$s0
-/*  f107610:	03284825 */ 	or	$t1,$t9,$t0
-/*  f107614:	10000015 */ 	beqz	$zero,.L0f10766c
-/*  f107618:	ae490000 */ 	sw	$t1,0x0($s2)
-/*  f10761c:	8e6c0000 */ 	lw	$t4,0x0($s3)
-.L0f107620:
-/*  f107620:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f107624:	020a5804 */ 	sllv	$t3,$t2,$s0
-/*  f107628:	016c6825 */ 	or	$t5,$t3,$t4
-/*  f10762c:	1000000f */ 	beqz	$zero,.L0f10766c
-/*  f107630:	ae6d0000 */ 	sw	$t5,0x0($s3)
-.L0f107634:
-/*  f107634:	10200008 */ 	beqz	$at,.L0f107658
-/*  f107638:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f10763c:	8e590000 */ 	lw	$t9,0x0($s2)
-/*  f107640:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f107644:	020e7804 */ 	sllv	$t7,$t6,$s0
-/*  f107648:	01e0c027 */ 	nor	$t8,$t7,$zero
-/*  f10764c:	03194024 */ 	and	$t0,$t8,$t9
-/*  f107650:	10000006 */ 	beqz	$zero,.L0f10766c
-/*  f107654:	ae480000 */ 	sw	$t0,0x0($s2)
-.L0f107658:
-/*  f107658:	8e6c0000 */ 	lw	$t4,0x0($s3)
-/*  f10765c:	02095004 */ 	sllv	$t2,$t1,$s0
-/*  f107660:	01405827 */ 	nor	$t3,$t2,$zero
-/*  f107664:	016c6824 */ 	and	$t5,$t3,$t4
-/*  f107668:	ae6d0000 */ 	sw	$t5,0x0($s3)
-.L0f10766c:
-/*  f10766c:	0fc41b99 */ 	jal	cheatIsEnabled
-/*  f107670:	02002025 */ 	or	$a0,$s0,$zero
-/*  f107674:	50400004 */ 	beqzl	$v0,.L0f107688
-/*  f107678:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10767c:	0fc41ba8 */ 	jal	func0f106ea0
-/*  f107680:	02002025 */ 	or	$a0,$s0,$zero
-/*  f107684:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f107688:
-/*  f107688:	1614ffd3 */ 	bne	$s0,$s4,.L0f1075d8
-/*  f10768c:	26310008 */ 	addiu	$s1,$s1,0x8
-/*  f107690:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f107694:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f107698:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f10769c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1076a0:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f1076a4:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f1076a8:	03e00008 */ 	jr	$ra
-/*  f1076ac:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
-
-GLOBAL_ASM(
-glabel menuhandlerCheat
+glabel cheatMenuHandleCheatCheckbox
 /*  f1076b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1076b4:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f1076b8:	24010006 */ 	addiu	$at,$zero,0x6
@@ -760,12 +702,12 @@ glabel menuhandlerCheat
 /*  f1076d0:	54810054 */ 	bnel	$a0,$at,.L0f107824
 /*  f1076d4:	00001025 */ 	or	$v0,$zero,$zero
 /*  f1076d8:	90a20001 */ 	lbu	$v0,0x1($a1)
-/*  f1076dc:	3c06800a */ 	lui	$a2,%hi(var800a21dc)
-/*  f1076e0:	3c05800a */ 	lui	$a1,%hi(var800a21d8)
+/*  f1076dc:	3c06800a */ 	lui	$a2,%hi(g_CheatsEnabledBank1)
+/*  f1076e0:	3c05800a */ 	lui	$a1,%hi(g_CheatsEnabledBank0)
 /*  f1076e4:	28410020 */ 	slti	$at,$v0,0x20
 /*  f1076e8:	1020000c */ 	beqz	$at,.L0f10771c
-/*  f1076ec:	24c621dc */ 	addiu	$a2,$a2,%lo(var800a21dc)
-/*  f1076f0:	24a521d8 */ 	addiu	$a1,$a1,%lo(var800a21d8)
+/*  f1076ec:	24c621dc */ 	addiu	$a2,$a2,%lo(g_CheatsEnabledBank1)
+/*  f1076f0:	24a521d8 */ 	addiu	$a1,$a1,%lo(g_CheatsEnabledBank0)
 /*  f1076f4:	8cb80000 */ 	lw	$t8,0x0($a1)
 /*  f1076f8:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f1076fc:	004e7804 */ 	sllv	$t7,$t6,$v0
@@ -796,8 +738,8 @@ glabel menuhandlerCheat
 /*  f107750:	10400033 */ 	beqz	$v0,.L0f107820
 /*  f107754:	8fa6001c */ 	lw	$a2,0x1c($sp)
 /*  f107758:	90c20001 */ 	lbu	$v0,0x1($a2)
-/*  f10775c:	3c05800a */ 	lui	$a1,%hi(var800a21d8)
-/*  f107760:	24a521d8 */ 	addiu	$a1,$a1,%lo(var800a21d8)
+/*  f10775c:	3c05800a */ 	lui	$a1,%hi(g_CheatsEnabledBank0)
+/*  f107760:	24a521d8 */ 	addiu	$a1,$a1,%lo(g_CheatsEnabledBank0)
 /*  f107764:	28410020 */ 	slti	$at,$v0,0x20
 /*  f107768:	1020001f */ 	beqz	$at,.L0f1077e8
 /*  f10776c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -835,8 +777,8 @@ glabel menuhandlerCheat
 /*  f1077e0:	1000000f */ 	beqz	$zero,.L0f107820
 /*  f1077e4:	acaa0000 */ 	sw	$t2,0x0($a1)
 .L0f1077e8:
-/*  f1077e8:	3c06800a */ 	lui	$a2,%hi(var800a21dc)
-/*  f1077ec:	24c621dc */ 	addiu	$a2,$a2,%lo(var800a21dc)
+/*  f1077e8:	3c06800a */ 	lui	$a2,%hi(g_CheatsEnabledBank1)
+/*  f1077ec:	24c621dc */ 	addiu	$a2,$a2,%lo(g_CheatsEnabledBank1)
 /*  f1077f0:	8cc30000 */ 	lw	$v1,0x0($a2)
 /*  f1077f4:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f1077f8:	004b2004 */ 	sllv	$a0,$t3,$v0
@@ -860,19 +802,19 @@ glabel menuhandlerCheat
 );
 
 // Mismatch due to different registers in case 6 (v1/a0)
-//s32 menuhandlerCheat(u32 arg0, struct menu_item *item, s32 arg2)
+//s32 cheatMenuHandleCheatCheckbox(u32 arg0, struct menu_item *item, s32 arg2)
 //{
 //	switch (arg0) {
 //	case 8:
 //		if (item->param < 32) {
-//			if (var800a21d8 & (1 << item->param)) {
+//			if (g_CheatsEnabledBank0 & (1 << item->param)) {
 //				return true;
 //			}
 //
 //			return false;
 //		}
 //
-//		if (var800a21dc & (1 << item->param)) {
+//		if (g_CheatsEnabledBank1 & (1 << item->param)) {
 //			return true;
 //		}
 //
@@ -880,25 +822,25 @@ glabel menuhandlerCheat
 //	case 6:
 //		if (cheatIsUnlocked(item->param)) {
 //			if (item->param < 32) { // Bank 0
-//				if (var800a21d8 & (1 << item->param)) { // Turning off
-//					var800a21d8 = var800a21d8 & ~(1 << item->param);
+//				if (g_CheatsEnabledBank0 & (1 << item->param)) { // Turning off
+//					g_CheatsEnabledBank0 = g_CheatsEnabledBank0 & ~(1 << item->param);
 //				} else { // Turning on
 //					// If enabling Marquis or enemy rockets, turn off the other
 //					if (item->param == CHEAT_MARQUIS) {
-//						var800a21d8 = var800a21d8 & ~(1 << CHEAT_ENEMYROCKETS);
+//						g_CheatsEnabledBank0 = g_CheatsEnabledBank0 & ~(1 << CHEAT_ENEMYROCKETS);
 //					}
 //
 //					if (item->param == CHEAT_ENEMYROCKETS) {
-//						var800a21d8 = var800a21d8 & ~(1 << CHEAT_MARQUIS);
+//						g_CheatsEnabledBank0 = g_CheatsEnabledBank0 & ~(1 << CHEAT_MARQUIS);
 //					}
 //
-//					var800a21d8 = var800a21d8 | (1 << item->param);
+//					g_CheatsEnabledBank0 = g_CheatsEnabledBank0 | (1 << item->param);
 //				}
 //			} else { // Bank 1
-//				if ((1 << item->param) & var800a21dc) { // Turning off
-//					var800a21dc = var800a21dc & ~(1 << item->param);
+//				if ((1 << item->param) & g_CheatsEnabledBank1) { // Turning off
+//					g_CheatsEnabledBank1 = g_CheatsEnabledBank1 & ~(1 << item->param);
 //				} else { // Turning on
-//					var800a21dc = var800a21dc | (1 << item->param);
+//					g_CheatsEnabledBank1 = g_CheatsEnabledBank1 | (1 << item->param);
 //				}
 //			}
 //		}
@@ -907,29 +849,41 @@ glabel menuhandlerCheat
 //	return 0;
 //}
 
-s32 menuhandlerCheatBuddy(s32 arg0, struct menu_item *item, s32 arg2)
+s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menu_item *item, s32 arg2)
 {
-	switch (arg0) {
-	case 8:
+	switch (operation) {
+	case MENUOP_GET:
 		if (item->param == 0) {
-			if ((var800a21d8 & 0x3c00000) != 0) {
+			if (g_CheatsEnabledBank0 & (1 << CHEAT_PUGILIST | 1 << CHEAT_HOTSHOT | 1 << CHEAT_HITANDRUN | 1 << CHEAT_ALIEN)) {
 				return false;
 			}
 
 			return true;
 		}
 
-		if ((var800a21d8 & (1 << item->param)) != 0) {
+		if (g_CheatsEnabledBank0 & (1 << item->param)) {
 			return true;
 		}
 
 		return false;
-	case 6:
+	case MENUOP_SET:
 		if (item->param == 0) {
-			var800a21d8 &= 0xfc3fffff;
+			// Velvet
+			g_CheatsEnabledBank0 &= ~(
+				(1 << CHEAT_PUGILIST) |
+				(1 << CHEAT_HOTSHOT) |
+				(1 << CHEAT_HITANDRUN) |
+				(1 << CHEAT_ALIEN)
+			);
 		} else if (cheatIsUnlocked(item->param)) {
-			var800a21d8 = var800a21d8 & 0xfc3fffff;
-			var800a21d8 = var800a21d8 | (1 << item->param);
+			// Not Velvet
+			g_CheatsEnabledBank0 = g_CheatsEnabledBank0 & ~(
+				(1 << CHEAT_PUGILIST) |
+				(1 << CHEAT_HOTSHOT) |
+				(1 << CHEAT_HITANDRUN) |
+				(1 << CHEAT_ALIEN)
+			);
+			g_CheatsEnabledBank0 = g_CheatsEnabledBank0 | (1 << item->param);
 		}
 	}
 
@@ -939,14 +893,14 @@ s32 menuhandlerCheatBuddy(s32 arg0, struct menu_item *item, s32 arg2)
 char *cheatGetNameIfUnlocked(struct menu_item *item)
 {
 	if (cheatIsUnlocked(item->param)) {
-		return textGet(g_CheatSpecs[item->param].nametextid);
+		return textGet(g_Cheats[item->param].nametextid);
 	}
 
 	return textGet(0x544a); // "----------"
 }
 
 GLOBAL_ASM(
-glabel menudialog00107990
+glabel cheatMenuHandleDialog
 /*  f107990:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f107994:	24010064 */ 	addiu	$at,$zero,0x64
 /*  f107998:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -1026,21 +980,21 @@ char *cheatGetMarquee(struct menu_item *arg0)
 
 		if (g_MenuStack[g_MenuStackDepth].unk00->dialog == &menudialog_cheats_buddies && g_MenuStack[g_MenuStackDepth].unk00->item == &menuitems_cheats_buddies[0]) {
 			// Velvet
-			sprintf(&g_CheatMarqueeString, "%s: %s", textGet(0x548f), textGet(0x5475)); // "Buddy Available", "Velvet Dark"
+			sprintf(g_CheatMarqueeString, "%s: %s", textGet(0x548f), textGet(0x5475)); // "Buddy Available", "Velvet Dark"
 			return g_CheatMarqueeString;
 		}
 
 		if (cheatIsUnlocked(cheat_id)) {
 			// Show cheat name
-			sprintf(&g_CheatMarqueeString, "%s: %s\n",
+			sprintf(g_CheatMarqueeString, "%s: %s\n",
 					g_MenuStack[g_MenuStackDepth].unk00->dialog == &menudialog_cheats_buddies ? textGet(0x548f) : textGet(0x5488), // "Buddy Available", "Cheat available"
-					textGet(g_CheatSpecs[cheat_id].nametextid)
+					textGet(g_Cheats[cheat_id].nametextid)
 			);
 			return g_CheatMarqueeString;
 		}
 
 		// Locked
-		strcpy(&cheatname, textGet(g_CheatSpecs[cheat_id].nametextid));
+		strcpy(&cheatname, textGet(g_Cheats[cheat_id].nametextid));
 		ptr = cheatname;
 
 		while (*ptr != '\n') {
@@ -1049,17 +1003,17 @@ char *cheatGetMarquee(struct menu_item *arg0)
 
 		*ptr = '\0';
 
-		if (g_CheatSpecs[cheat_id].method & CHEATMETHOD_COMPLETE) {
-			sprintf(&g_CheatMarqueeString, "%s %s: %s %s %s",
+		if (g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION) {
+			sprintf(g_CheatMarqueeString, "%s %s: %s %s %s",
 					textGet(0x5489), // "Complete"
-					textGet(g_StageNames[g_CheatSpecs[cheat_id].stage_index].name1),
-					textGet(g_StageNames[g_CheatSpecs[cheat_id].stage_index].name2),
+					textGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
+					textGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
 					textGet(0x548a), // "for cheat:"
 					&cheatname
 			);
 		} else {
 			// Timed
-			strcpy(&difficultyname, textGet(0x56fb + g_CheatSpecs[cheat_id].difficulty));
+			strcpy(&difficultyname, textGet(0x56fb + g_Cheats[cheat_id].difficulty));
 			ptr = difficultyname;
 
 			while (*ptr != '\n') {
@@ -1068,21 +1022,21 @@ char *cheatGetMarquee(struct menu_item *arg0)
 
 			*ptr = '\0';
 
-			sprintf(&g_CheatMarqueeString, "%s %s: %s %s %s %s %d:%02d %s %s",
+			sprintf(g_CheatMarqueeString, "%s %s: %s %s %s %s %d:%02d %s %s",
 					textGet(0x5489), // "Complete"
-					textGet(g_StageNames[g_CheatSpecs[cheat_id].stage_index].name1),
-					textGet(g_StageNames[g_CheatSpecs[cheat_id].stage_index].name2),
+					textGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
+					textGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
 					textGet(0x548b), // "on"
 					&difficultyname,
 					textGet(0x548c), // "in under"
-					g_CheatSpecs[cheat_id].time / 60,
-					g_CheatSpecs[cheat_id].time % 60,
+					g_Cheats[cheat_id].time / 60,
+					g_Cheats[cheat_id].time % 60,
 					textGet(0x548a), // "for cheat:"
 					&cheatname
 			);
 		}
 
-		if (g_CheatSpecs[cheat_id].method & CHEATMETHOD_TRANSFERPAK) {
+		if (g_Cheats[cheat_id].flags & CHEATFLAG_TRANSFERPAK) {
 			func00013224(&g_CheatMarqueeString, textGet(0x548d)); // " or insert Game Boy ..."
 		}
 
@@ -1094,11 +1048,11 @@ char *cheatGetMarquee(struct menu_item *arg0)
 	return textGet(0x548e); // "Select cheat for information"
 }
 
-bool menuhandlerTurnOffAllCheats(u32 arg0, u32 arg1, u32 *arg2)
+bool cheatMenuHandleTurnOffAllCheats(u32 operation, u32 arg1, u32 *arg2)
 {
-	if (arg0 == 6) {
-		var800a21d8 = 0;
-		var800a21dc = 0;
+	if (operation == MENUOP_SET) {
+		g_CheatsEnabledBank0 = 0;
+		g_CheatsEnabledBank1 = 0;
 	}
 
 	return false;
@@ -1108,11 +1062,11 @@ s32 cheatGetByTimedStageIndex(s32 stage_index, s32 difficulty)
 {
 	s32 cheat_id;
 
-	for (cheat_id = 0; cheat_id < 0x2a; cheat_id++) {
-		if (g_CheatSpecs[cheat_id].stage_index == stage_index &&
-				g_CheatSpecs[cheat_id].difficulty == difficulty &&
-				(g_CheatSpecs[cheat_id].method & CHEATMETHOD_COMPLETE) == 0 &&
-				(g_CheatSpecs[cheat_id].method & CHEATMETHOD_FIRINGRANGE) == 0) {
+	for (cheat_id = 0; cheat_id < NUM_CHEATS; cheat_id++) {
+		if (g_Cheats[cheat_id].stage_index == stage_index &&
+				g_Cheats[cheat_id].difficulty == difficulty &&
+				(g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION) == 0 &&
+				(g_Cheats[cheat_id].flags & CHEATFLAG_FIRINGRANGE) == 0) {
 			return cheat_id;
 		}
 	}
@@ -1124,8 +1078,8 @@ s32 cheatGetByCompletedStageIndex(s32 stage_index)
 {
 	s32 cheat_id;
 
-	for (cheat_id = 0; cheat_id < 0x2a; cheat_id++) {
-		if (g_CheatSpecs[cheat_id].stage_index == stage_index && (g_CheatSpecs[cheat_id].method & CHEATMETHOD_COMPLETE)) {
+	for (cheat_id = 0; cheat_id < NUM_CHEATS; cheat_id++) {
+		if (g_Cheats[cheat_id].stage_index == stage_index && (g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION)) {
 			return cheat_id;
 		}
 	}
@@ -1135,10 +1089,10 @@ s32 cheatGetByCompletedStageIndex(s32 stage_index)
 
 s32 cheatGetTime(s32 cheat_id)
 {
-	return g_CheatSpecs[cheat_id].time;
+	return g_Cheats[cheat_id].time;
 }
 
 char *cheatGetName(s32 cheat_id)
 {
-	return textGet(g_CheatSpecs[cheat_id].nametextid);
+	return textGet(g_Cheats[cheat_id].nametextid);
 }

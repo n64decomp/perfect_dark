@@ -138,11 +138,13 @@
 #define CHEAT_DMC                    39
 #define CHEAT_AR53                   40
 #define CHEAT_RCP45                  41
+#define NUM_CHEATS                   42
 
-#define CHEATMETHOD_TIMED       0
-#define CHEATMETHOD_TRANSFERPAK 2
-#define CHEATMETHOD_COMPLETE    4
-#define CHEATMETHOD_FIRINGRANGE 8
+#define CHEATFLAG_TIMED       0
+#define CHEATFLAG_ALWAYSON           1
+#define CHEATFLAG_TRANSFERPAK 2
+#define CHEATFLAG_COMPLETION    4
+#define CHEATFLAG_FIRINGRANGE 8
 
 #define CHR_P1P2_OPPOSITE 0xf1
 #define CHR_P1P2          0xf2
@@ -477,6 +479,9 @@
 #define MA_FLANKBEST       52
 #define MA_FACING          53
 #define MA_PUNCHING        54
+
+#define MENUOP_SET 6
+#define MENUOP_GET 8
 
 // Object flags - bank 0 (object struct offset 0x08)
 #define OBJECTFLAG0_00000001             0x00000001 // Not used in scripts
