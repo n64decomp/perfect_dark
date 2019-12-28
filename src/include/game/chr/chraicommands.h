@@ -364,7 +364,7 @@
 /*0x0180*/ bool aiAudioRestartSfx(void);
 /*0x0181*/ bool aiIfPlayerLookingAtObject(void);
 /*0x0182*/ bool aiPunchOrKick(void);
-/*0x0183*/ bool ai0183(void);
+/*0x0183*/ bool aiIfTargetIsPlayer(void);
 /*0x0184*/ bool ai0184(void);
 /*0x0185*/ bool ai0185(void);
 /*0x0186*/ bool aiIfSoundTimer(void);

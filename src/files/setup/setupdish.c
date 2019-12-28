@@ -5157,7 +5157,7 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x57)
 		if_timer_gt(20, /*goto*/ 0x10)
 		if_chr_stopped(/*goto*/ 0x10)
-		if_chr_lost_track_of_target_maybe(/*goto*/ 0x0e)
+		if_target_is_player(/*goto*/ 0x0e)
 		label(0x0e)
 		if_chr_distance_gt(400, /*goto*/ 0x10)
 		if_chr_distance_lt(100, /*goto*/ 0x06)

@@ -961,7 +961,7 @@ u8 func0406_general_combat[] = {
 			goto_next(0x5e)
 
 			label(0x20)
-			if_chr_lost_track_of_target_maybe(/*goto*/ 0x5e)
+			if_target_is_player(/*goto*/ 0x5e)
 			goto_next(0x15)
 
 			label(0x5e)
@@ -979,7 +979,7 @@ u8 func0406_general_combat[] = {
 			goto_next(0x5e)
 
 			label(0x20)
-			if_chr_lost_track_of_target_maybe(/*goto*/ 0x5e)
+			if_target_is_player(/*goto*/ 0x5e)
 			goto_next(0x15)
 
 			label(0x5e)
@@ -1079,7 +1079,7 @@ u8 func0406_general_combat[] = {
 
 	label(0x2a)
 	label(0x20)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x20)
+	if_target_is_player(/*goto*/ 0x20)
 	set_shotlist(GFUNC_COMBAT_WITH_TARGET)
 	set_returnlist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)

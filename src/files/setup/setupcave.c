@@ -1348,7 +1348,7 @@ u8 func0406_become_unalerted[] = {
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
 
 	label(0x02)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x02)
+	if_target_is_player(/*goto*/ 0x02)
 	if_chr_dying(CHR_TARGET, /*goto*/ 0x02)
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x02)
 	if_chr_unloaded(CHR_TARGET, /*goto*/ 0x02)

@@ -1919,8 +1919,7 @@
 	0x00, \
 	label,
 
-// In practice, scripts will assign function unalerted guard if this passes
-#define if_chr_lost_track_of_target_maybe(label) \
+#define if_target_is_player(label) \
 	mkshort(0x0183), \
 	label,
 

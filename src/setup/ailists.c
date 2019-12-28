@@ -173,7 +173,7 @@ u8 func0006_unalerted[] = {
 
 	label(0x13)
 	dprint 'A','I','V','S','A','I','P','A','S','S','\n',0,
-	if_chr_lost_track_of_target_maybe(/*goto*/ LABEL_AIVSAIFAIL)
+	if_target_is_player(/*goto*/ LABEL_AIVSAIFAIL)
 	goto_next(0x12)
 
 	// Check see and hear
@@ -1221,7 +1221,7 @@ u8 func0007_alerted[] = {
 	endloop(0xa2)
 
 	label(0xee)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
+	if_target_is_player(/*goto*/ 0x13)
 	set_returnlist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 	set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
@@ -2199,7 +2199,7 @@ u8 func0007_alerted[] = {
 		goto_next(0x13)
 
 		label(0x16)
-		if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
+		if_target_is_player(/*goto*/ 0x13)
 		set_returnlist(CHR_SELF, GFUNC_UNALERTED)
 		set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
 
@@ -2842,7 +2842,7 @@ u8 func000c_combat_with_target_chr[] = {
 	dprint 'S','E','E',' ','E','N','E','M','Y','\n',0,
 	if_num_human_players_lt(2, /*goto*/ 0x16)
 	label(0x13)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
+	if_target_is_player(/*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -2882,7 +2882,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	// Solo mode, or co-op/counter-op on any other stage
 	label(0x13)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
+	if_target_is_player(/*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -2975,7 +2975,7 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0xb3)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x16)
 	label(0x13)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
+	if_target_is_player(/*goto*/ 0x13)
 	goto_next(0x16)
 
 	label(0x13)
@@ -3256,7 +3256,7 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0x16)
 	dprint 'B','O','N','N','D',' ','3','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG1_00000800, FALSE, BANK_1, /*goto*/ 0x13)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
+	if_target_is_player(/*goto*/ 0x13)
 	damage_chr(CHR_TARGET, 18)
 	unset_self_flag_bankx(CHRFLAG1_00000800, BANK_1)
 	label(0x13)
@@ -3437,7 +3437,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0xcf)
 	if_self_flag_bankx_eq(CHRFLAG0_10000000, FALSE, BANK_0, /*goto*/ 0x13)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x16)
+	if_target_is_player(/*goto*/ 0x16)
 	goto_next(0x13)
 
 	label(0x16)
@@ -3810,7 +3810,7 @@ u8 func000f_hand_combat[] = {
 	goto_first(0x0c)
 
 	label(0x13)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x0a)
+	if_target_is_player(/*goto*/ 0x0a)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
 	if_chr_distance_gt(400, /*goto*/ 0x0b)
 	label(0x13)
@@ -3832,7 +3832,7 @@ u8 func000f_hand_combat[] = {
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xfa)
 		label(0x13)
 		if_timer_gt(90, /*goto*/ 0x0b)
-		if_chr_lost_track_of_target_maybe(/*goto*/ 0x09)
+		if_target_is_player(/*goto*/ 0x09)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
 		if_chr_distance_gt(400, /*goto*/ 0x0b)
 		label(0x13)
@@ -4249,7 +4249,7 @@ u8 func001b_observe_camspy[] = {
 
 	label(0x16)
 	dprint 'E','6','\n',0,
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x13)
+	if_target_is_player(/*goto*/ 0x13)
 	dprint 'E','7','\n',0,
 	goto_first(0x09)
 

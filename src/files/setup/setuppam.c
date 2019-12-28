@@ -3172,7 +3172,7 @@ u8 func041d_sniper[] = {
 		label(0x2e)
 		set_target_chr(CHR_P1P2)
 		label(0x2f)
-		if_chr_lost_track_of_target_maybe(/*goto*/ 0x2f)
+		if_target_is_player(/*goto*/ 0x2f)
 		goto_next(0x2e)
 
 		label(0x2f)
@@ -3198,7 +3198,7 @@ u8 func041d_sniper[] = {
 	goto_next(0x06)
 
 	// Unreachable
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x2e)
+	if_target_is_player(/*goto*/ 0x2e)
 	goto_next(0x06)
 
 	label(0x2e)
@@ -3225,7 +3225,7 @@ u8 func041d_sniper[] = {
 	endloop(0x0b)
 
 	label(0x0c)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x2e)
+	if_target_is_player(/*goto*/ 0x2e)
 	goto_next(0x06)
 
 	label(0x2e)
@@ -4353,7 +4353,7 @@ u8 func042e_elvis_run_to_exit[] = {
 	label(0x06)
 	restart_timer
 	label(0x08)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x06)
+	if_target_is_player(/*goto*/ 0x06)
 	goto_next(0x2e)
 	label(0x06)
 	goto_first(0x1f)

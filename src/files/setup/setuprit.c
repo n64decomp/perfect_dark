@@ -846,7 +846,7 @@ u8 func0403_stripes[] = {
 
 		// Got target
 		label(0x06)
-		if_chr_lost_track_of_target_maybe(/*goto*/ 0x06)
+		if_target_is_player(/*goto*/ 0x06)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2d)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x2d)
@@ -1642,7 +1642,7 @@ u8 func0409_unused[] = {
 		reloop(0x04)
 
 		label(0x06)
-		if_chr_lost_track_of_target_maybe(/*goto*/ 0x06)
+		if_target_is_player(/*goto*/ 0x06)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2d)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x2d)
@@ -1685,7 +1685,7 @@ u8 func100c_cockpit_stripes[] = {
 		reloop(0x04)
 
 		label(0x06)
-		if_chr_lost_track_of_target_maybe(/*goto*/ 0x06)
+		if_target_is_player(/*goto*/ 0x06)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x2d)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2d)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x2d)
@@ -1779,7 +1779,7 @@ u8 func0413_taker[] = {
 	endloop(0x09)
 
 	label(0x2d)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x11)
+	if_target_is_player(/*goto*/ 0x11)
 	if_target_chrs_target_is_different(/*goto*/ 0x2d)
 	goto_next(0x11)
 

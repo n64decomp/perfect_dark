@@ -12272,7 +12272,7 @@ bool aiPunchOrKick(void)
 /**
  * @cmd 0183
  */
-bool ai0183(void)
+bool aiIfTargetIsPlayer(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct prop *target = chrGetTargetProp(g_Vars.chrdata);

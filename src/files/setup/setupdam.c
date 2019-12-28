@@ -2193,7 +2193,7 @@ u8 func0404_angry_pilot[] = {
 
 	// Got target (other pilot or Jo)
 	label(0x00)
-	if_chr_lost_track_of_target_maybe(/*goto*/ 0x07)
+	if_target_is_player(/*goto*/ 0x07)
 	goto_next(0x04)
 	label(0x07)
 	set_shotlist(GFUNC_ALERTED)
