@@ -69,7 +69,7 @@ void chraiExecute(void *entity, s32 proptype)
 			g_Vars.objdata = entity;
 		} else if (obj->type == OBJTYPE_28) {
 			g_Vars.aicdata = entity;
-		} else if (obj->type == OBJTYPE_HOVERVEHICLE || obj->type == OBJTYPE_ARMEDVEHICLE) {
+		} else if (obj->type == OBJTYPE_HOVERVEHICLE || obj->type == OBJTYPE_HELI) {
 			g_Vars.hovdata = entity;
 		}
 	}

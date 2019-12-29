@@ -646,7 +646,7 @@
 #define OBJTYPE_VENTFAN          0x36
 #define OBJTYPE_HOVERVEHICLE     0x37
 #define OBJTYPE_PADEFFECT        0x38
-#define OBJTYPE_ARMEDVEHICLE     0x39
+#define OBJTYPE_HELI             0x39
 #define OBJTYPE_MINE             0x3a
 #define OBJTYPE_ESCALATOR        0x3b
 

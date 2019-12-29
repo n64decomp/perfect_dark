@@ -146,7 +146,7 @@ glabel setupParseObjects
 //			case OBJTYPE_HOVERPROP:
 //			case OBJTYPE_VENTFAN:
 //			case OBJTYPE_HOVERVEHICLE:
-//			case OBJTYPE_ARMEDVEHICLE:
+//			case OBJTYPE_HELI:
 //			case OBJTYPE_ESCALATOR:
 //				setupParseObjectWithArg2False(ptr, 1);
 //			}

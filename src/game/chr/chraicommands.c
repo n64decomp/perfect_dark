@@ -6575,7 +6575,7 @@ glabel ai00d5
 .L0f056968:
 /*  f056968:	50800032 */ 	beqzl	$a0,.L0f056a34
 /*  f05696c:	8cb80438 */ 	lw	$t8,0x438($a1)
-/*  f056970:	0fc1eb7d */ 	jal	objGetHeli
+/*  f056970:	0fc1eb7d */ 	jal	heliFromObj
 /*  f056974:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f056978:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f05697c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
@@ -11694,7 +11694,7 @@ bool aiIfY(void)
 	f32 cutoff_y = ((cmd[4] | (cmd[3] << 8)) << 16) >> 16;
 
 	if (cmd[2] == CHR_TARGET && g_Vars.hovdata) {
-		struct heliobj *heli = objGetHeli(&g_Vars.hovdata->base);
+		struct heliobj *heli = heliFromObj(&g_Vars.hovdata->base);
 
 		if (heli) {
 			struct prop *target = heliGetTargetProp(heli);

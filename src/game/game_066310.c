@@ -24583,25 +24583,20 @@ struct prop *heliGetTargetProp(struct heliobj *heli)
 	return g_Vars.props + heli->target;
 }
 
-GLOBAL_ASM(
-glabel objGetHeli
-/*  f07adf4:	908e0003 */ 	lbu	$t6,0x3($a0)
-/*  f07adf8:	24010039 */ 	addiu	$at,$zero,0x39
-/*  f07adfc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f07ae00:	15c10003 */ 	bne	$t6,$at,.L0f07ae10
-/*  f07ae04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07ae08:	03e00008 */ 	jr	$ra
-/*  f07ae0c:	00801025 */ 	or	$v0,$a0,$zero
-.L0f07ae10:
-/*  f07ae10:	03e00008 */ 	jr	$ra
-/*  f07ae14:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct heliobj *heliFromObj(struct defaultobj *obj)
+{
+	if (obj->type == OBJTYPE_HELI) {
+		return (struct heliobj *) obj;
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f07ae18
 /*  f07ae18:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f07ae1c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07ae20:	0fc1eb7d */ 	jal	objGetHeli
+/*  f07ae20:	0fc1eb7d */ 	jal	heliFromObj
 /*  f07ae24:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*  f07ae28:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07ae2c:	1040003c */ 	beqz	$v0,.L0f07af20
@@ -24681,7 +24676,7 @@ GLOBAL_ASM(
 glabel func0f07af34
 /*  f07af34:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f07af38:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f07af3c:	0fc1eb7d */ 	jal	objGetHeli
+/*  f07af3c:	0fc1eb7d */ 	jal	heliFromObj
 /*  f07af40:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07af44:	1040001d */ 	beqz	$v0,.L0f07afbc
 /*  f07af48:	00402025 */ 	or	$a0,$v0,$zero
@@ -24728,7 +24723,7 @@ GLOBAL_ASM(
 glabel heliSetTarget
 /*  f07afd0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f07afd4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07afd8:	0fc1eb7d */ 	jal	objGetHeli
+/*  f07afd8:	0fc1eb7d */ 	jal	heliFromObj
 /*  f07afdc:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f07afe0:	10400011 */ 	beqz	$v0,.L0f07b028
 /*  f07afe4:	00002025 */ 	or	$a0,$zero,$zero
@@ -24760,7 +24755,7 @@ GLOBAL_ASM(
 glabel func0f07b038
 /*  f07b038:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f07b03c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07b040:	0fc1eb7d */ 	jal	objGetHeli
+/*  f07b040:	0fc1eb7d */ 	jal	heliFromObj
 /*  f07b044:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07b048:	10400006 */ 	beqz	$v0,.L0f07b064
 /*  f07b04c:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -24782,7 +24777,7 @@ GLOBAL_ASM(
 glabel heliTryStop
 /*  f07b078:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f07b07c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07b080:	0fc1eb7d */ 	jal	objGetHeli
+/*  f07b080:	0fc1eb7d */ 	jal	heliFromObj
 /*  f07b084:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07b088:	10400007 */ 	beqz	$v0,.L0f07b0a8
 /*  f07b08c:	240e0078 */ 	addiu	$t6,$zero,0x78
@@ -24803,7 +24798,7 @@ glabel heliTryStop
 
 bool heliSetField90(struct defaultobj *obj, bool value)
 {
-	struct heliobj *heli = objGetHeli(obj);
+	struct heliobj *heli = heliFromObj(obj);
 
 	if (heli) {
 		heli->unk90 = value;
@@ -24817,7 +24812,7 @@ GLOBAL_ASM(
 glabel heliRestartTimer
 /*  f07b0f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f07b0f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07b0fc:	0fc1eb7d */ 	jal	objGetHeli
+/*  f07b0fc:	0fc1eb7d */ 	jal	heliFromObj
 /*  f07b100:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07b104:	50400003 */ 	beqzl	$v0,.L0f07b114
 /*  f07b108:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -24833,7 +24828,7 @@ GLOBAL_ASM(
 glabel heliGetTimer
 /*  f07b120:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f07b124:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07b128:	0fc1eb7d */ 	jal	objGetHeli
+/*  f07b128:	0fc1eb7d */ 	jal	heliFromObj
 /*  f07b12c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07b130:	8c4e00c0 */ 	lw	$t6,0xc0($v0)
 /*  f07b134:	3c017f1b */ 	lui	$at,%hi(var7f1aa5c8)
@@ -50084,7 +50079,7 @@ glabel func0f0912dc
 /*  f091638:	8fae0200 */ 	lw	$t6,0x200($sp)
 /*  f09163c:	15a1006d */ 	bne	$t5,$at,.L0f0917f4
 /*  f091640:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f091644:	0fc1eb7d */ 	jal	objGetHeli
+/*  f091644:	0fc1eb7d */ 	jal	heliFromObj
 /*  f091648:	8dc40004 */ 	lw	$a0,0x4($t6)
 /*  f09164c:	104001c9 */ 	beqz	$v0,.L0f091d74
 /*  f091650:	3c017f1b */ 	lui	$at,%hi(var7f1ab20c)

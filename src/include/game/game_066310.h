@@ -161,7 +161,7 @@ u32 func0f078c78(void);
 u32 func0f079ca4(void);
 u32 func0f079f1c(void);
 u32 func0f07accc(void);
-struct heliobj *objGetHeli(struct defaultobj *obj);
+struct heliobj *heliFromObj(struct defaultobj *obj);
 u32 func0f07ae18(struct heliobj *heli, u32 arg1);
 u32 func0f07af34(struct heliobj *heli);
 void heliSetTarget(struct heliobj *heli, s32 arg1);
