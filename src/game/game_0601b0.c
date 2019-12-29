@@ -501,70 +501,44 @@ glabel func0f060538
 /*  f0605c0:	a08d003f */ 	sb	$t5,0x3f($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f0605c4
-/*  f0605c4:	8c8e003c */ 	lw	$t6,0x3c($a0)
-/*  f0605c8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0605cc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0605d0:	000ec6c0 */ 	sll	$t8,$t6,0x1b
-/*  f0605d4:	07030015 */ 	bgezl	$t8,.L0f06062c
-/*  f0605d8:	8c620354 */ 	lw	$v0,0x354($v1)
-/*  f0605dc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0605e0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0605e4:	8c79033c */ 	lw	$t9,0x33c($v1)
-/*  f0605e8:	54990004 */ 	bnel	$a0,$t9,.L0f0605fc
-/*  f0605ec:	8c690340 */ 	lw	$t1,0x340($v1)
-/*  f0605f0:	8c880020 */ 	lw	$t0,0x20($a0)
-/*  f0605f4:	ac68033c */ 	sw	$t0,0x33c($v1)
-/*  f0605f8:	8c690340 */ 	lw	$t1,0x340($v1)
-.L0f0605fc:
-/*  f0605fc:	54890016 */ 	bnel	$a0,$t1,.L0f060658
-/*  f060600:	8c820020 */ 	lw	$v0,0x20($a0)
-/*  f060604:	8c620354 */ 	lw	$v0,0x354($v1)
-/*  f060608:	8c6a033c */ 	lw	$t2,0x33c($v1)
-/*  f06060c:	544a0004 */ 	bnel	$v0,$t2,.L0f060620
-/*  f060610:	8c8b0024 */ 	lw	$t3,0x24($a0)
-/*  f060614:	1000000f */ 	beqz	$zero,.L0f060654
-/*  f060618:	ac620340 */ 	sw	$v0,0x340($v1)
-/*  f06061c:	8c8b0024 */ 	lw	$t3,0x24($a0)
-.L0f060620:
-/*  f060620:	1000000c */ 	beqz	$zero,.L0f060654
-/*  f060624:	ac6b0340 */ 	sw	$t3,0x340($v1)
-/*  f060628:	8c620354 */ 	lw	$v0,0x354($v1)
-.L0f06062c:
-/*  f06062c:	5482000a */ 	bnel	$a0,$v0,.L0f060658
-/*  f060630:	8c820020 */ 	lw	$v0,0x20($a0)
-/*  f060634:	8c6c033c */ 	lw	$t4,0x33c($v1)
-/*  f060638:	544c0005 */ 	bnel	$v0,$t4,.L0f060650
-/*  f06063c:	8c8f0020 */ 	lw	$t7,0x20($a0)
-/*  f060640:	8c8d0020 */ 	lw	$t5,0x20($a0)
-/*  f060644:	ac6d0340 */ 	sw	$t5,0x340($v1)
-/*  f060648:	ac6d033c */ 	sw	$t5,0x33c($v1)
-/*  f06064c:	8c8f0020 */ 	lw	$t7,0x20($a0)
-.L0f060650:
-/*  f060650:	ac6f0354 */ 	sw	$t7,0x354($v1)
-.L0f060654:
-/*  f060654:	8c820020 */ 	lw	$v0,0x20($a0)
-.L0f060658:
-/*  f060658:	50400004 */ 	beqzl	$v0,.L0f06066c
-/*  f06065c:	8c820024 */ 	lw	$v0,0x24($a0)
-/*  f060660:	8c980024 */ 	lw	$t8,0x24($a0)
-/*  f060664:	ac580024 */ 	sw	$t8,0x24($v0)
-/*  f060668:	8c820024 */ 	lw	$v0,0x24($a0)
-.L0f06066c:
-/*  f06066c:	50400004 */ 	beqzl	$v0,.L0f060680
-/*  f060670:	9088003f */ 	lbu	$t0,0x3f($a0)
-/*  f060674:	8c990020 */ 	lw	$t9,0x20($a0)
-/*  f060678:	ac590020 */ 	sw	$t9,0x20($v0)
-/*  f06067c:	9088003f */ 	lbu	$t0,0x3f($a0)
-.L0f060680:
-/*  f060680:	ac800020 */ 	sw	$zero,0x20($a0)
-/*  f060684:	ac800024 */ 	sw	$zero,0x24($a0)
-/*  f060688:	3109ffef */ 	andi	$t1,$t0,0xffef
-/*  f06068c:	a089003f */ 	sb	$t1,0x3f($a0)
-/*  f060690:	03e00008 */ 	jr	$ra
-/*  f060694:	a080003e */ 	sb	$zero,0x3e($a0)
-);
+void func0f0605c4(struct prop *prop)
+{
+	if (prop->unk3f_03) {
+		if (prop == g_Vars.unk00033c) {
+			g_Vars.unk00033c = prop->next;
+		}
+
+		if (prop == g_Vars.unk000340) {
+			if (g_Vars.unk00033c == g_Vars.unk000354) {
+				g_Vars.unk000340 = g_Vars.unk000354;
+			} else {
+				g_Vars.unk000340 = prop->prev;
+			}
+		}
+	} else {
+		if (prop == g_Vars.unk000354) {
+			if (g_Vars.unk00033c == g_Vars.unk000354) {
+				g_Vars.unk000340 = prop->next;
+				g_Vars.unk00033c = g_Vars.unk000340;
+			}
+
+			g_Vars.unk000354 = prop->next;
+		}
+	}
+
+	if (prop->next) {
+		prop->next->prev = prop->prev;
+	}
+
+	if (prop->prev) {
+		prop->prev->next = prop->next;
+	}
+
+	prop->next = NULL;
+	prop->prev = NULL;
+	prop->unk3f_03 = 0;
+	prop->unk3e = 0;
+}
 
 void propReparent(struct prop *mover, struct prop *adopter)
 {
@@ -581,11 +555,9 @@ void propReparent(struct prop *mover, struct prop *adopter)
 
 void propDetach(struct prop *prop)
 {
-	struct prop *parent = prop->parent;
-
-	if (parent) {
-		if (prop == parent->child) {
-			parent->child = prop->next;
+	if (prop->parent) {
+		if (prop == prop->parent->child) {
+			prop->parent->child = prop->next;
 		}
 
 		if (prop->next) {

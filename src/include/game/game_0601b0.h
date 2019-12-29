@@ -10,7 +10,7 @@ struct prop *func0f060358(void);
 u32 func0f060438(void);
 void func0f0604bc(struct prop *prop);
 u32 func0f060538(void);
-u32 func0f0605c4(struct prop *prop);
+void func0f0605c4(struct prop *prop);
 void propReparent(struct prop *mover, struct prop *adopter);
 void propDetach(struct prop *prop);
 u32 func0f06071c(void);
