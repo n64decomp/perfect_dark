@@ -2626,7 +2626,7 @@ struct bodytableentry {
 };
 
 struct stagetableentry {
-	u16 id;
+	s16 id;
 	u8 light_type;
 	u8 light_alpha;
 	u8 light_width;

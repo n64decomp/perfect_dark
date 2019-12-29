@@ -304,8 +304,8 @@ glabel func0f166a6c
 /*  f166a98:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f166a9c:	8fa2001c */ 	lw	$v0,0x1c($sp)
 /*  f166aa0:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f166aa4:	3c038008 */ 	lui	$v1,%hi(stagetable)
-/*  f166aa8:	2463fcc0 */ 	addiu	$v1,$v1,%lo(stagetable)
+/*  f166aa4:	3c038008 */ 	lui	$v1,%hi(g_Stages)
+/*  f166aa8:	2463fcc0 */ 	addiu	$v1,$v1,%lo(g_Stages)
 /*  f166aac:	e4800000 */ 	swc1	$f0,0x0($a0)
 /*  f166ab0:	e4800014 */ 	swc1	$f0,0x14($a0)
 /*  f166ab4:	e4800028 */ 	swc1	$f0,0x28($a0)
@@ -7202,8 +7202,8 @@ void stageLoad(void)
 		func00033b24(var80084034);
 	}
 
-	if (g_Vars.unk0004b4 < 0x5a) {
-		s32 bank = func0f16e1e0(g_Vars.unk0004b4);
+	if (g_Vars.stagenum < NUM_STAGES) {
+		s32 bank = func0f16e1e0(g_Vars.stagenum);
 		textClearBank(bank);
 		func0f015270();
 	}
@@ -7225,7 +7225,7 @@ void stageLoad(void)
 	func0f16d9fc();
 	func0f0e0724();
 
-	if (g_Vars.unk0004b4 < 0x5a) {
+	if (g_Vars.stagenum < NUM_STAGES) {
 		func0f15c850();
 	}
 

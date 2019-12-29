@@ -199,7 +199,7 @@ extern u32 var8007fca8;
 extern u32 var8007fcac;
 extern u32 var8007fcb0;
 extern u32 var8007fcb4;
-extern struct stagetableentry stagetable[];
+extern struct stagetableentry g_Stages[61];
 extern u32 var80081018;
 extern u32 var80081058;
 extern struct smallsky smallskies[];

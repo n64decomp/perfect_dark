@@ -3083,8 +3083,8 @@ glabel func0f15a6f4
 /*  f15a8bc:	318d0008 */ 	andi	$t5,$t4,0x8
 /*  f15a8c0:	15a000ac */ 	bnez	$t5,.L0f15ab74
 .L0f15a8c4:
-/*  f15a8c4:	3c108008 */ 	lui	$s0,%hi(stagetable)
-/*  f15a8c8:	2610fcc0 */ 	addiu	$s0,$s0,%lo(stagetable)
+/*  f15a8c4:	3c108008 */ 	lui	$s0,%hi(g_Stages)
+/*  f15a8c8:	2610fcc0 */ 	addiu	$s0,$s0,%lo(g_Stages)
 /*  f15a8cc:	860e05e8 */ 	lh	$t6,0x5e8($s0)
 /*  f15a8d0:	126e001f */ 	beq	$s3,$t6,.L0f15a950
 /*  f15a8d4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3752,9 +3752,9 @@ glabel func0f15b1c4
 
 GLOBAL_ASM(
 glabel func0f15b23c
-/*  f15b23c:	3c058008 */ 	lui	$a1,%hi(stagetable)
+/*  f15b23c:	3c058008 */ 	lui	$a1,%hi(g_Stages)
 /*  f15b240:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f15b244:	24a5fcc0 */ 	addiu	$a1,$a1,%lo(stagetable)
+/*  f15b244:	24a5fcc0 */ 	addiu	$a1,$a1,%lo(g_Stages)
 /*  f15b248:	00001025 */ 	or	$v0,$zero,$zero
 /*  f15b24c:	2406003d */ 	addiu	$a2,$zero,0x3d
 .L0f15b250:
@@ -4350,9 +4350,9 @@ glabel func0f15b908
 /*  f15bac4:	2631fc00 */ 	addiu	$s1,$s1,%lo(var8007fc00)
 /*  f15bac8:	8e2e0000 */ 	lw	$t6,0x0($s1)
 /*  f15bacc:	24120038 */ 	addiu	$s2,$zero,0x38
-/*  f15bad0:	3c108008 */ 	lui	$s0,%hi(stagetable)
+/*  f15bad0:	3c108008 */ 	lui	$s0,%hi(g_Stages)
 /*  f15bad4:	01d20019 */ 	multu	$t6,$s2
-/*  f15bad8:	2610fcc0 */ 	addiu	$s0,$s0,%lo(stagetable)
+/*  f15bad8:	2610fcc0 */ 	addiu	$s0,$s0,%lo(g_Stages)
 /*  f15badc:	00007812 */ 	mflo	$t7
 /*  f15bae0:	020fc021 */ 	addu	$t8,$s0,$t7
 /*  f15bae4:	0fc57220 */ 	jal	func0f15c880
@@ -5312,8 +5312,8 @@ GLOBAL_ASM(
 glabel func0f15c888
 /*  f15c888:	3c0e8008 */ 	lui	$t6,0x8008
 /*  f15c88c:	8dcefc00 */ 	lw	$t6,-0x400($t6)
-/*  f15c890:	3c188008 */ 	lui	$t8,%hi(stagetable)
-/*  f15c894:	2718fcc0 */ 	addiu	$t8,$t8,%lo(stagetable)
+/*  f15c890:	3c188008 */ 	lui	$t8,%hi(g_Stages)
+/*  f15c894:	2718fcc0 */ 	addiu	$t8,$t8,%lo(g_Stages)
 /*  f15c898:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f15c89c:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f15c8a0:	000f78c0 */ 	sll	$t7,$t7,0x3
@@ -15381,7 +15381,7 @@ glabel func0f1655c0
 );
 
 GLOBAL_ASM(
-glabel func0f165614
+glabel stageGetIndex
 /*  f165614:	3c078008 */ 	lui	$a3,0x8008
 /*  f165618:	24e2fcc0 */ 	addiu	$v0,$a3,-832
 /*  f16561c:	3c0e8008 */ 	lui	$t6,0x8008

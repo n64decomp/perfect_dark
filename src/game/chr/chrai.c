@@ -139,7 +139,7 @@ void chraiExecute(void *entity, s32 proptype)
 				&& g_Vars.chrdata->darkroomthing
 				&& chrHasFlag(g_Vars.chrdata, CHRFLAG1_00000400, BANK_1) == 0
 				&& ailistFindById(g_Vars.chrdata->aidarkroomlist) != g_Vars.chrdata->ailist
-				&& g_Vars.unk0004b4 != 0x1c) {
+				&& g_Vars.stagenum != STAGE_CRASHSITE) {
 			g_Vars.chrdata->darkroomthing = 0;
 
 			if (g_Vars.chrdata->aidarkroomlist >= 0

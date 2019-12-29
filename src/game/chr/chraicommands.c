@@ -2682,7 +2682,7 @@ bool aiIfChrInRoom(void)
 		return false;
 	}
 
-	if (cmd[3] == 2 && func0f165614(g_Vars.unk0004b4) == 10) {
+	if (cmd[3] == 2 && stageGetIndex(g_Vars.stagenum) == STAGEINDEX_G5BUILDING) {
 		s32 i;
 		bool pass = false;
 
@@ -6873,7 +6873,7 @@ bool aiIfCutsceneButtonPressed(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if ((g_Vars.in_cutscene && var8009de24) ||
-			(g_Vars.unk0004b4 == 0x26 && var80087260 > 0)) {
+			(g_Vars.stagenum == STAGE_CITRAINING && var80087260 > 0)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -8922,7 +8922,7 @@ glabel ai0127
 /*  f059acc:	45030007 */ 	bc1tl	.L0f059aec
 /*  f059ad0:	4614103c */ 	c.lt.s	$f2,$f20
 /*  f059ad4:	8e4404b4 */ 	lw	$a0,0x4b4($s2)
-/*  f059ad8:	0fc59585 */ 	jal	func0f165614
+/*  f059ad8:	0fc59585 */ 	jal	stageGetIndex
 /*  f059adc:	e7a20054 */ 	swc1	$f2,0x54($sp)
 /*  f059ae0:	14400007 */ 	bnez	$v0,.L0f059b00
 /*  f059ae4:	c7a20054 */ 	lwc1	$f2,0x54($sp)

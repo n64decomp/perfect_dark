@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-extern s32 levelnum;
+extern s32 g_StageNum;
 extern u64 rand_seed;
 
 extern struct chrdata *g_Chrs; // pointer to first element of chrs array

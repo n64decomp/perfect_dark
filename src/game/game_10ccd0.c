@@ -1222,7 +1222,7 @@ glabel func0f10d910
 .L0f10dc60:
 /*  f10dc60:	3c04800a */ 	lui	$a0,0x800a
 /*  f10dc64:	9084dfe9 */ 	lbu	$a0,-0x2017($a0)
-/*  f10dc68:	0fc59585 */ 	jal	func0f165614
+/*  f10dc68:	0fc59585 */ 	jal	stageGetIndex
 /*  f10dc6c:	afa70018 */ 	sw	$a3,0x18($sp)
 /*  f10dc70:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f10dc74:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
@@ -1483,7 +1483,7 @@ glabel menudialog0010de58
 .L0f10dfec:
 /*  f10dfec:	3c04800a */ 	lui	$a0,0x800a
 /*  f10dff0:	9084dfe9 */ 	lbu	$a0,-0x2017($a0)
-/*  f10dff4:	0fc59585 */ 	jal	func0f165614
+/*  f10dff4:	0fc59585 */ 	jal	stageGetIndex
 /*  f10dff8:	afa6001c */ 	sw	$a2,0x1c($sp)
 /*  f10dffc:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f10e000:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)

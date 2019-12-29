@@ -471,9 +471,13 @@
 	mkshort(pad), \
 	label,
 
-// type 0 = if <chr> is in <room>
-// type 1 = if <chr> is in same room that self is searching
-// type 2 = if <chr>'s camspy is within 150 units of <pad>
+/**
+ * type 0 = if <chr> is in <room>
+ * type 1 = if <chr> is in same room that self is searching
+ * type 2 = if <chr>'s camspy is within 150 units of <pad>
+ *
+ * Type 2 is hard coded to only work in G5 Building.
+ */
 #define if_chr_in_room(chr, type, room_or_pad, label) \
 	mkshort(0x005b), \
 	chr, \

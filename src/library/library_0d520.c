@@ -626,14 +626,14 @@ glabel func0000db3c
 /*     dbb4:	0fc5d7e6 */ 	jal	func0f175f98
 /*     dbb8:	adc10018 */ 	sw	$at,0x18($t6)
 /*     dbbc:	3c018006 */ 	lui	$at,0x8006
-/*     dbc0:	3c048006 */ 	lui	$a0,%hi(levelnum)
+/*     dbc0:	3c048006 */ 	lui	$a0,%hi(g_StageNum)
 /*     dbc4:	ac20d9c4 */ 	sw	$zero,-0x263c($at)
 /*     dbc8:	0c004c35 */ 	jal	func000130d4
-/*     dbcc:	2484d9b4 */ 	addiu	$a0,$a0,%lo(levelnum)
+/*     dbcc:	2484d9b4 */ 	addiu	$a0,$a0,%lo(g_StageNum)
 /*     dbd0:	3c098006 */ 	lui	$t1,0x8006
 /*     dbd4:	8d29d9d4 */ 	lw	$t1,-0x262c($t1)
-/*     dbd8:	3c028006 */ 	lui	$v0,%hi(levelnum)
-/*     dbdc:	2442d9b4 */ 	addiu	$v0,$v0,%lo(levelnum)
+/*     dbd8:	3c028006 */ 	lui	$v0,%hi(g_StageNum)
+/*     dbdc:	2442d9b4 */ 	addiu	$v0,$v0,%lo(g_StageNum)
 /*     dbe0:	11200006 */ 	beqz	$t1,.L0000dbfc
 /*     dbe4:	3c12800a */ 	lui	$s2,%hi(g_Vars)
 /*     dbe8:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
@@ -642,8 +642,8 @@ glabel func0000db3c
 /*     dbf4:	a64a04e4 */ 	sh	$t2,0x4e4($s2)
 /*     dbf8:	ac4b0000 */ 	sw	$t3,0x0($v0)
 .L0000dbfc:
-/*     dbfc:	3c028006 */ 	lui	$v0,%hi(levelnum)
-/*     dc00:	2442d9b4 */ 	addiu	$v0,$v0,%lo(levelnum)
+/*     dbfc:	3c028006 */ 	lui	$v0,%hi(g_StageNum)
+/*     dc00:	2442d9b4 */ 	addiu	$v0,$v0,%lo(g_StageNum)
 /*     dc04:	8c440000 */ 	lw	$a0,0x0($v0)
 /*     dc08:	3c12800a */ 	lui	$s2,%hi(g_Vars)
 /*     dc0c:	2401005a */ 	addiu	$at,$zero,0x5a
@@ -671,8 +671,8 @@ glabel func0000db3c
 /*     dc64:	0fc5b36a */ 	jal	func0f16cda8
 /*     dc68:	2484ffd0 */ 	addiu	$a0,$a0,-48
 .L0000dc6c:
-/*     dc6c:	3c028006 */ 	lui	$v0,%hi(levelnum)
-/*     dc70:	2442d9b4 */ 	addiu	$v0,$v0,%lo(levelnum)
+/*     dc6c:	3c028006 */ 	lui	$v0,%hi(g_StageNum)
+/*     dc70:	2442d9b4 */ 	addiu	$v0,$v0,%lo(g_StageNum)
 /*     dc74:	8c4d0000 */ 	lw	$t5,0x0($v0)
 /*     dc78:	24010026 */ 	addiu	$at,$zero,0x26
 /*     dc7c:	3c198009 */ 	lui	$t9,0x8009
@@ -1612,7 +1612,7 @@ glabel func0000e95c
 // func0000e984
 s32 getCurrentStageId(void)
 {
-	return levelnum;
+	return g_StageNum;
 }
 
 GLOBAL_ASM(

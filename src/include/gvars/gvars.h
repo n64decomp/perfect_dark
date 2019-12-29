@@ -185,7 +185,7 @@ struct g_vars {
 	/*0004a8*/ u32 unk0004a8;
 	/*0004ac*/ u32 unk0004ac;
 	/*0004b0*/ u32 unk0004b0;
-	/*0004b4*/ s32 unk0004b4;
+	/*0004b4*/ s32 stagenum;
 	/*0004b8*/ u32 unk0004b8;
 	/*0004bc*/ u32 unk0004bc;
 	/*0004c0*/ u32 unk0004c0;

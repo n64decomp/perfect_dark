@@ -144,7 +144,7 @@ void cheatsActivate(void)
 {
 	s32 cheat_id;
 
-	if (g_Vars.unk0004b4 != 38) {
+	if (g_Vars.stagenum != STAGE_CITRAINING) {
 		g_CheatsActiveBank0 = g_CheatsEnabledBank0;
 		g_CheatsActiveBank1 = g_CheatsEnabledBank1;
 

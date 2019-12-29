@@ -22762,7 +22762,7 @@ glabel func0f0319a8
 /*  f031c38:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f031c3c:	8fa400e4 */ 	lw	$a0,0xe4($sp)
 /*  f031c40:	3c04800a */ 	lui	$a0,0x800a
-/*  f031c44:	0fc59585 */ 	jal	func0f165614
+/*  f031c44:	0fc59585 */ 	jal	stageGetIndex
 /*  f031c48:	8c84a474 */ 	lw	$a0,-0x5b8c($a0)
 /*  f031c4c:	2401000a */ 	addiu	$at,$zero,0xa
 /*  f031c50:	10410005 */ 	beq	$v0,$at,.L0f031c68
@@ -29858,7 +29858,7 @@ glabel func0f037b70
 .L0f0381bc:
 /*  f0381bc:	8c84a474 */ 	lw	$a0,-0x5b8c($a0)
 /*  f0381c0:	afa90054 */ 	sw	$t1,0x54($sp)
-/*  f0381c4:	0fc59585 */ 	jal	func0f165614
+/*  f0381c4:	0fc59585 */ 	jal	stageGetIndex
 /*  f0381c8:	e7a20040 */ 	swc1	$f2,0x40($sp)
 /*  f0381cc:	24010009 */ 	addiu	$at,$zero,0x9
 /*  f0381d0:	8fa90054 */ 	lw	$t1,0x54($sp)
@@ -33480,7 +33480,7 @@ glabel chrConsiderGrenadeThrow
 /*  f03b8d4:	3c071000 */ 	lui	$a3,0x1000
 /*  f03b8d8:	8d0404b4 */ 	lw	$a0,0x4b4($t0)
 .L0f03b8dc:
-/*  f03b8dc:	0fc59585 */ 	jal	func0f165614
+/*  f03b8dc:	0fc59585 */ 	jal	stageGetIndex
 /*  f03b8e0:	afa70030 */ 	sw	$a3,0x30($sp)
 /*  f03b8e4:	24010023 */ 	addiu	$at,$zero,0x23
 /*  f03b8e8:	14410007 */ 	bne	$v0,$at,.L0f03b908
