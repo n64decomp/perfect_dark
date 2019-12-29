@@ -57,7 +57,10 @@ struct g_vars {
 	/*0002a8*/ struct player *anti; // Counter-op
 	/*0002ac*/ u32 unk0002ac; // 7 if currentplayer has finished auto walking
 	/*0002b0*/ s32 killcount;
-	/*0002b4*/ u32 unk0002b4;
+	/*0002b4*/ u8 unk0002b4;
+	/*0002b5*/ u8 unk0002b5;
+	/*0002b6*/ u8 unk0002b6;
+	/*0002b7*/ u8 knockoutcount;
 	/*0002b8*/ u32 unk0002b8;
 	/*0002bc*/ s32 roomcount;
 	/*0002c0*/ u32 unk0002c0;

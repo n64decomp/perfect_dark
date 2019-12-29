@@ -10,7 +10,7 @@ u32 func0f0b052c(void);
 u32 func0f0b0544(void);
 u32 func0f0b055c(void);
 u32 func0f0b0574(void);
-u32 getNumKnockedOutChrs(void);
+u8 getKnockoutCount(void);
 u32 func0f0b05a4(void);
 u32 func0f0b073c(void);
 u32 func0f0b0764(void);

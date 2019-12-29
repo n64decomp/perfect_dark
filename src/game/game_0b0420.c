@@ -218,15 +218,15 @@ glabel func0f0b0574
 /*  f0b0588:	ac4f02b4 */ 	sw	$t7,0x2b4($v0)
 );
 
-GLOBAL_ASM(
-glabel getNumKnockedOutChrs
-/*  f0b058c:	3c02800a */ 	lui	$v0,0x800a
-/*  f0b0590:	03e00008 */ 	jr	$ra
-/*  f0b0594:	9042a277 */ 	lbu	$v0,-0x5d89($v0)
-/*  f0b0598:	3c02800a */ 	lui	$v0,0x800a
-/*  f0b059c:	03e00008 */ 	jr	$ra
-/*  f0b05a0:	8c42a270 */ 	lw	$v0,-0x5d90($v0)
-);
+u8 getKnockoutCount(void)
+{
+	return g_Vars.knockoutcount;
+}
+
+u32 getKillCount(void)
+{
+	return g_Vars.killcount;
+}
 
 GLOBAL_ASM(
 glabel func0f0b05a4

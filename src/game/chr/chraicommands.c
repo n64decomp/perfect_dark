@@ -8033,9 +8033,9 @@ bool aiIfNumKnockedOutChrs(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (cmd[2] < getNumKnockedOutChrs() && cmd[3] == 0) {
+	if (cmd[2] < getKnockoutCount() && cmd[3] == 0) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
-	} else if (getNumKnockedOutChrs() < cmd[2] && cmd[3] == 1) {
+	} else if (getKnockoutCount() < cmd[2] && cmd[3] == 1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
