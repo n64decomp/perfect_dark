@@ -379,44 +379,20 @@ glabel func0f060358
 /*  f060434:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f060438
-/*  f060438:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f06043c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f060440:	55c1000d */ 	bnel	$t6,$at,.L0f060478
-/*  f060444:	9089003d */ 	lbu	$t1,0x3d($a0)
-/*  f060448:	908f003d */ 	lbu	$t7,0x3d($a0)
-/*  f06044c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f060450:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f060454:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f060458:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f06045c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f060460:	00781021 */ 	addu	$v0,$v1,$t8
-/*  f060464:	94590362 */ 	lhu	$t9,0x362($v0)
-/*  f060468:	2728ffff */ 	addiu	$t0,$t9,-1
-/*  f06046c:	1000000b */ 	beqz	$zero,.L0f06049c
-/*  f060470:	a4480362 */ 	sh	$t0,0x362($v0)
-/*  f060474:	9089003d */ 	lbu	$t1,0x3d($a0)
-.L0f060478:
-/*  f060478:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f06047c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f060480:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f060484:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f060488:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f06048c:	006a1021 */ 	addu	$v0,$v1,$t2
-/*  f060490:	944b0360 */ 	lhu	$t3,0x360($v0)
-/*  f060494:	256cffff */ 	addiu	$t4,$t3,-1
-/*  f060498:	a44c0360 */ 	sh	$t4,0x360($v0)
-.L0f06049c:
-/*  f06049c:	8c6d0344 */ 	lw	$t5,0x344($v1)
-/*  f0604a0:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0604a4:	ac800024 */ 	sw	$zero,0x24($a0)
-/*  f0604a8:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f0604ac:	a48e0028 */ 	sh	$t6,0x28($a0)
-/*  f0604b0:	ac8d0020 */ 	sw	$t5,0x20($a0)
-/*  f0604b4:	03e00008 */ 	jr	$ra
-/*  f0604b8:	ac640344 */ 	sw	$a0,0x344($v1)
-);
+void func0f060438(struct prop *prop)
+{
+	if (prop->type == PROPTYPE_CHR) {
+		g_Vars.unk000360[prop->index].chrpropcount--;
+	} else {
+		g_Vars.unk000360[prop->index].nonchrpropcount--;
+	}
+
+	prop->next = g_Vars.unk000344;
+	prop->prev = NULL;
+	prop->chr = NULL;
+	prop->room = -1;
+	g_Vars.unk000344 = prop;
+}
 
 GLOBAL_ASM(
 glabel func0f0604bc
