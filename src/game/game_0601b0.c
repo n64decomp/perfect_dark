@@ -579,36 +579,28 @@ void propReparent(struct prop *mover, struct prop *adopter)
 	adopter->child = mover;
 }
 
-GLOBAL_ASM(
-glabel func0f0606c0
-/*  f0606c0:	8c820018 */ 	lw	$v0,0x18($a0)
-/*  f0606c4:	10400013 */ 	beqz	$v0,.L0f060714
-/*  f0606c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0606cc:	8c4e001c */ 	lw	$t6,0x1c($v0)
-/*  f0606d0:	548e0004 */ 	bnel	$a0,$t6,.L0f0606e4
-/*  f0606d4:	8c820020 */ 	lw	$v0,0x20($a0)
-/*  f0606d8:	8c8f0020 */ 	lw	$t7,0x20($a0)
-/*  f0606dc:	ac4f001c */ 	sw	$t7,0x1c($v0)
-/*  f0606e0:	8c820020 */ 	lw	$v0,0x20($a0)
-.L0f0606e4:
-/*  f0606e4:	50400004 */ 	beqzl	$v0,.L0f0606f8
-/*  f0606e8:	8c820024 */ 	lw	$v0,0x24($a0)
-/*  f0606ec:	8c980024 */ 	lw	$t8,0x24($a0)
-/*  f0606f0:	ac580024 */ 	sw	$t8,0x24($v0)
-/*  f0606f4:	8c820024 */ 	lw	$v0,0x24($a0)
-.L0f0606f8:
-/*  f0606f8:	50400004 */ 	beqzl	$v0,.L0f06070c
-/*  f0606fc:	ac800018 */ 	sw	$zero,0x18($a0)
-/*  f060700:	8c990020 */ 	lw	$t9,0x20($a0)
-/*  f060704:	ac590020 */ 	sw	$t9,0x20($v0)
-/*  f060708:	ac800018 */ 	sw	$zero,0x18($a0)
-.L0f06070c:
-/*  f06070c:	ac800020 */ 	sw	$zero,0x20($a0)
-/*  f060710:	ac800024 */ 	sw	$zero,0x24($a0)
-.L0f060714:
-/*  f060714:	03e00008 */ 	jr	$ra
-/*  f060718:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void propDetach(struct prop *prop)
+{
+	struct prop *parent = prop->parent;
+
+	if (parent) {
+		if (prop == parent->child) {
+			parent->child = prop->next;
+		}
+
+		if (prop->next) {
+			prop->next->prev = prop->prev;
+		}
+
+		if (prop->prev) {
+			prop->prev->next = prop->next;
+		}
+
+		prop->parent = NULL;
+		prop->next = NULL;
+		prop->prev = NULL;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f06071c
