@@ -188,35 +188,20 @@ glabel func0f0b052c
 /*  f0b0540:	8f020000 */ 	lw	$v0,0x0($t8)
 );
 
-GLOBAL_ASM(
-glabel func0f0b0544
-/*  f0b0544:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0b0548:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0b054c:	8c4e02b0 */ 	lw	$t6,0x2b0($v0)
-/*  f0b0550:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f0b0554:	03e00008 */ 	jr	$ra
-/*  f0b0558:	ac4f02b0 */ 	sw	$t7,0x2b0($v0)
-);
+void incrementKillCount(void)
+{
+	g_Vars.killcount++;
+}
 
-GLOBAL_ASM(
-glabel func0f0b055c
-/*  f0b055c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0b0560:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0b0564:	8c4e02b4 */ 	lw	$t6,0x2b4($v0)
-/*  f0b0568:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f0b056c:	03e00008 */ 	jr	$ra
-/*  f0b0570:	ac4f02b4 */ 	sw	$t7,0x2b4($v0)
-);
+void incrementKnockoutCount(void)
+{
+	g_Vars.knockoutcount++;
+}
 
-GLOBAL_ASM(
-glabel func0f0b0574
-/*  f0b0574:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0b0578:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0b057c:	8c4e02b4 */ 	lw	$t6,0x2b4($v0)
-/*  f0b0580:	25cfffff */ 	addiu	$t7,$t6,-1
-/*  f0b0584:	03e00008 */ 	jr	$ra
-/*  f0b0588:	ac4f02b4 */ 	sw	$t7,0x2b4($v0)
-);
+void decrementKnockoutCount(void)
+{
+	g_Vars.knockoutcount--;
+}
 
 u8 getKnockoutCount(void)
 {

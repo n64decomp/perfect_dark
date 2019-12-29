@@ -22610,7 +22610,7 @@ glabel func0f0319a8
 /*  f031a18:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f031a1c:	afb900e8 */ 	sw	$t9,0xe8($sp)
 .L0f031a20:
-/*  f031a20:	0fc2c15d */ 	jal	func0f0b0574
+/*  f031a20:	0fc2c15d */ 	jal	decrementKnockoutCount
 /*  f031a24:	afa700ec */ 	sw	$a3,0xec($sp)
 /*  f031a28:	8fa700ec */ 	lw	$a3,0xec($sp)
 .L0f031a2c:
@@ -23712,7 +23712,7 @@ glabel func0f0319a8
 /*  f032a0c:	000ecac0 */ 	sll	$t9,$t6,0xb
 /*  f032a10:	07210004 */ 	bgez	$t9,.L0f032a24
 /*  f032a14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f032a18:	0fc2c151 */ 	jal	func0f0b0544
+/*  f032a18:	0fc2c151 */ 	jal	incrementKillCount
 /*  f032a1c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f032a20:	8fa20040 */ 	lw	$v0,0x40($sp)
 .L0f032a24:
@@ -24617,7 +24617,7 @@ glabel func0f0336a8
 /*  f0336f8:	01c17825 */ 	or	$t7,$t6,$at
 /*  f0336fc:	ac8f0018 */ 	sw	$t7,0x18($a0)
 .L0f033700:
-/*  f033700:	0fc2c157 */ 	jal	func0f0b055c
+/*  f033700:	0fc2c157 */ 	jal	incrementKnockoutCount
 /*  f033704:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f033708:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f03370c:	24180020 */ 	addiu	$t8,$zero,0x20
@@ -27508,7 +27508,7 @@ glabel func0f034524
 /*  f03602c:	000a5ac0 */ 	sll	$t3,$t2,0xb
 /*  f036030:	05630004 */ 	bgezl	$t3,.L0f036044
 /*  f036034:	8e0202d4 */ 	lw	$v0,0x2d4($s0)
-/*  f036038:	0fc2c151 */ 	jal	func0f0b0544
+/*  f036038:	0fc2c151 */ 	jal	incrementKillCount
 /*  f03603c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f036040:	8e0202d4 */ 	lw	$v0,0x2d4($s0)
 .L0f036044:
