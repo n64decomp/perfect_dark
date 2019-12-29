@@ -14223,7 +14223,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0058*/ ai0058,
 	/*0x0059*/ aiIfDistanceFromTargetToPadLessThan,
 	/*0x005a*/ aiIfDistanceFromTargetToPadGreaterThan,
-	/*0x005b*/ ai005b,
+	/*0x005b*/ aiIfChrInRoom,
 	/*0x005c*/ aiIfTargetInRoom,
 	/*0x005d*/ aiIfChrHasObject,
 	/*0x005e*/ aiIfWeaponThrown,

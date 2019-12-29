@@ -471,14 +471,14 @@
 	mkshort(pad), \
 	label,
 
-// type 0 = if <chr> in <room>
-// type 1 = if <chr> in same room as self
-// type 2 = if <chr>'s camspy in <room>
-#define if_chr_in_room(chr, type, room, label) \
+// type 0 = if <chr> is in <room>
+// type 1 = if <chr> is in same room that self is searching
+// type 2 = if <chr>'s camspy is within 150 units of <pad>
+#define if_chr_in_room(chr, type, room_or_pad, label) \
 	mkshort(0x005b), \
 	chr, \
 	type, \
-	mkshort(room), \
+	mkshort(room_or_pad), \
 	label,
 
 #define if_target_in_room(room, label) \

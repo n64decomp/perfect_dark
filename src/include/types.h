@@ -689,6 +689,10 @@ struct tag {
 	struct defaultobj *obj;
 };
 
+struct eyespy {
+	struct prop *prop;
+};
+
 struct player {
 	/*0x0000*/ u32 unk0000;
 	/*0x0004*/ u32 unk0004;
@@ -978,7 +982,7 @@ struct player {
 	/*0x0474*/ u32 unk0474;
 	/*0x0478*/ u32 unk0478;
 	/*0x047c*/ u32 unk047c;
-	/*0x0480*/ u32 unk0480;
+	/*0x0480*/ struct eyespy *eyespy;
 	/*0x0484*/ u32 unk0484;
 	/*0x0488*/ u32 unk0488;
 	/*0x048c*/ u32 unk048c;
