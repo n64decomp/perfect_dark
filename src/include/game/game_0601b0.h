@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f0601b0(void);
-u32 func0f0602f0(struct prop *prop);
+void propHide(struct prop *prop);
 u32 func0f060300(struct prop *prop);
 struct prop *func0f060358(void);
 u32 func0f060438(void);

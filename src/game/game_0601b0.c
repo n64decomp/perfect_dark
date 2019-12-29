@@ -283,13 +283,10 @@ glabel func0f0601b0
 /*  f0602ec:	27bd0348 */ 	addiu	$sp,$sp,0x348
 );
 
-GLOBAL_ASM(
-glabel func0f0602f0
-/*  f0602f0:	908e0001 */ 	lbu	$t6,0x1($a0)
-/*  f0602f4:	35cf0004 */ 	ori	$t7,$t6,0x4
-/*  f0602f8:	03e00008 */ 	jr	$ra
-/*  f0602fc:	a08f0001 */ 	sb	$t7,0x1($a0)
-);
+void propHide(struct prop *prop)
+{
+	prop->flags |= PROPFLAG_HIDDEN;
+}
 
 GLOBAL_ASM(
 glabel func0f060300

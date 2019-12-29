@@ -684,6 +684,8 @@
 #define PATHTYPE_CIRCULAR     1
 #define PATHTYPE_FLYING       2
 
+#define PROPFLAG_HIDDEN 0x04
+
 #define PROPTYPE_OBJ    1
 #define PROPTYPE_DOOR   2
 #define PROPTYPE_CHR    3

@@ -1470,7 +1470,7 @@ glabel func0f00cee4
 /*  f00d64c:	0fc1812f */ 	jal	func0f0604bc
 /*  f00d650:	8fa4007c */ 	lw	$a0,0x7c($sp)
 .L0f00d654:
-/*  f00d654:	0fc180bc */ 	jal	func0f0602f0
+/*  f00d654:	0fc180bc */ 	jal	propHide
 /*  f00d658:	8fa4007c */ 	lw	$a0,0x7c($sp)
 .L0f00d65c:
 /*  f00d65c:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -2755,7 +2755,7 @@ glabel func0f00e368
 .L0f00e8dc:
 /*  f00e8dc:	0fc1812f */ 	jal	func0f0604bc
 /*  f00e8e0:	8fa4010c */ 	lw	$a0,0x10c($sp)
-/*  f00e8e4:	0fc180bc */ 	jal	func0f0602f0
+/*  f00e8e4:	0fc180bc */ 	jal	propHide
 /*  f00e8e8:	8fa4010c */ 	lw	$a0,0x10c($sp)
 /*  f00e8ec:	10000003 */ 	beqz	$zero,.L0f00e8fc
 /*  f00e8f0:	8fbf0034 */ 	lw	$ra,0x34($sp)
