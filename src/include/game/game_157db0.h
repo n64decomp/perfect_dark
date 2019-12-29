@@ -102,7 +102,7 @@ u32 func0f164f9c(void);
 u32 func0f165004(void);
 u32 func0f1650d0(void);
 u32 func0f165360(void);
-u32 func0f1655c0(void);
+u32 stageFindById(void);
 s32 stageGetIndex(s32 stagenum);
 
 #endif

@@ -1997,7 +1997,7 @@ glabel func0f1598b4
 /*  f1598e0:	afb20040 */ 	sw	$s2,0x40($sp)
 /*  f1598e4:	afb1003c */ 	sw	$s1,0x3c($sp)
 /*  f1598e8:	afa403d8 */ 	sw	$a0,0x3d8($sp)
-/*  f1598ec:	0fc59570 */ 	jal	func0f1655c0
+/*  f1598ec:	0fc59570 */ 	jal	stageFindById
 /*  f1598f0:	afa603e0 */ 	sw	$a2,0x3e0($sp)
 /*  f1598f4:	3c03800a */ 	lui	$v1,0x800a
 /*  f1598f8:	8c63a244 */ 	lw	$v1,-0x5dbc($v1)
@@ -12611,7 +12611,7 @@ glabel func0f162d9c
 /*  f162ee4:	c7a8009c */ 	lwc1	$f8,0x9c($sp)
 /*  f162ee8:	0c0036cc */ 	jal	func0000db30
 /*  f162eec:	e6c80020 */ 	swc1	$f8,0x20($s6)
-/*  f162ef0:	0fc59570 */ 	jal	func0f1655c0
+/*  f162ef0:	0fc59570 */ 	jal	stageFindById
 /*  f162ef4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162ef8:	844e002e */ 	lh	$t6,0x2e($v0)
 /*  f162efc:	3c148008 */ 	lui	$s4,%hi(var8007fc2c)
@@ -15353,7 +15353,7 @@ glabel func0f165360
 );
 
 GLOBAL_ASM(
-glabel func0f1655c0
+glabel stageFindById
 /*  f1655c0:	3c068008 */ 	lui	$a2,0x8008
 /*  f1655c4:	24c3fcc0 */ 	addiu	$v1,$a2,-832
 /*  f1655c8:	3c0e8008 */ 	lui	$t6,0x8008

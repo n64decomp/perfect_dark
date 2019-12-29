@@ -9631,7 +9631,7 @@ glabel func0f0baac0
 .L0f0bac88:
 /*  f0bac88:	c422d5fc */ 	lwc1	$f2,%lo(var7f1ad5fc)($at)
 .L0f0bac8c:
-/*  f0bac8c:	0fc59570 */ 	jal	func0f1655c0
+/*  f0bac8c:	0fc59570 */ 	jal	stageFindById
 /*  f0bac90:	e7a2001c */ 	swc1	$f2,0x1c($sp)
 /*  f0bac94:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0bac98:	44810000 */ 	mtc1	$at,$f0
