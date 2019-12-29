@@ -24847,12 +24847,10 @@ glabel heliGetTimer
 /*  f07b154:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f07b158
-/*  f07b158:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f07b15c:	03e00008 */ 	jr	$ra
-/*  f07b160:	a485004e */ 	sh	$a1,0x4e($a0)
-);
+void heliSetMaxDamage(struct heliobj *heli, s16 health)
+{
+	heli->base.maxdamage = health;
+}
 
 GLOBAL_ASM(
 glabel func0f07b164

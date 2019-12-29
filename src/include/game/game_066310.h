@@ -170,7 +170,7 @@ void heliTryStop(struct heliobj *heli);
 bool heliSetField90(struct defaultobj *obj, u32 value);
 u32 heliRestartTimer(struct heliobj *heli);
 f32 heliGetTimer(struct heliobj *heli);
-u32 func0f07b158(void);
+void heliSetMaxDamage(struct heliobj *heli, s16 health);
 u32 func0f07b164(void);
 u32 heliFireRocket(struct heliobj *heli, u32 arg1);
 u32 func0f07b3f0(void);

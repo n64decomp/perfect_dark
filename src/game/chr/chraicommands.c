@@ -4426,7 +4426,7 @@ glabel ai0096
 .L0f053a04:
 /*  f053a04:	44caf800 */ 	ctc1	$t2,$31
 /*  f053a08:	30abffff */ 	andi	$t3,$a1,0xffff
-/*  f053a0c:	0fc1ec56 */ 	jal	func0f07b158
+/*  f053a0c:	0fc1ec56 */ 	jal	heliSetMaxDamage
 /*  f053a10:	01602825 */ 	or	$a1,$t3,$zero
 /*  f053a14:	10000021 */ 	beqz	$zero,.L0f053a9c
 /*  f053a18:	8e0d0438 */ 	lw	$t5,0x438($s0)
