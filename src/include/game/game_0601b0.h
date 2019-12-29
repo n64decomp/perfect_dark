@@ -11,7 +11,7 @@ u32 func0f060438(void);
 void func0f0604bc(struct prop *prop);
 u32 func0f060538(void);
 u32 func0f0605c4(struct prop *prop);
-u32 func0f060698(void);
+void propReparent(struct prop *a, struct prop *b);
 u32 func0f0606c0(void);
 u32 func0f06071c(void);
 u32 func0f0607c8(void);

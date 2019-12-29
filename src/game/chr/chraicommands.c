@@ -1064,7 +1064,7 @@ glabel ai001a
 /*  f04ef38:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04ef3c:	5100003c */ 	beqzl	$t0,.L0f04f030
 /*  f04ef40:	8e4c0438 */ 	lw	$t4,0x438($s2)
-/*  f04ef44:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f04ef44:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f04ef48:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04ef4c:	3c0a8007 */ 	lui	$t2,%hi(var80068fec)
 /*  f04ef50:	254a8fec */ 	addiu	$t2,$t2,%lo(var80068fec)
@@ -1078,7 +1078,7 @@ glabel ai001a
 /*  f04ef70:	14400005 */ 	bnez	$v0,.L0f04ef88
 /*  f04ef74:	ad210008 */ 	sw	$at,0x8($t1)
 /*  f04ef78:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04ef7c:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f04ef7c:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f04ef80:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f04ef84:	00401825 */ 	or	$v1,$v0,$zero
 .L0f04ef88:
@@ -1144,24 +1144,24 @@ glabel ai001a
 //	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 //
 //	if (chr1 && chr2 && chr1->prop && chr2->prop) {
-//		struct attachment *attachment = chrGetEquippedWeaponAttachmentWithCheck(chr1, 0);
+//		struct prop *prop = chrGetEquippedWeaponPropWithCheck(chr1, 0);
 //		struct coord pos;
 //		pos.x = var80068fec.x;
 //		pos.y = var80068fec.y;
 //		pos.z = var80068fec.z;
 //
-//		if (!attachment) {
-//			attachment = chrGetEquippedWeaponAttachmentWithCheck(chr1, 1);
+//		if (!prop) {
+//			prop = chrGetEquippedWeaponPropWithCheck(chr1, 1);
 //		}
 //
-//		if (attachment) {
+//		if (prop) {
 //			s32 weapon_id;
 //			s32 thing;
 //			pos.x = chr2->prop->pos.x - chr1->prop->pos.x;
 //			pos.y = chr2->prop->pos.y - chr1->prop->pos.y;
 //			pos.x = chr2->prop->pos.z - chr1->prop->pos.z;
 //			scaleTo1(&pos.x, &pos.y, &pos.z);
-//			weapon_id = attachment->weapon->weapon_id;
+//			weapon_id = prop->weapon->weapon_id;
 //			thing = func0f0b1d28(weapon_id);
 //			func0f034330(chr2, thing, &pos, weapon_id);
 //		}
@@ -2891,14 +2891,14 @@ glabel aiIfWeaponThrownOnObject
 //	bool pass = false;
 //
 //	if (obj && obj->prop) {
-//		struct attachment *attachment = obj->prop->attachments;
+//		struct prop *prop = obj->prop->child;
 //
-//		while (attachment) {
-//			if (attachment->type == ATTACHMENTTYPE_WEAPON && attachment->weapon->weapon_id == cmd[2]) {
+//		while (prop) {
+//			if (prop->type == PROPTYPE_WEAPON && prop->weapon->weapon_id == cmd[2]) {
 //				pass = true;
 //			}
 //
-//			attachment = attachment->next;
+//			prop = prop->child;
 //		}
 //	}
 //
@@ -3290,7 +3290,7 @@ bool aiGiveObjectToChr(void)
 			u32 playernum = propGetPlayerNum(chr->prop);
 			setCurrentPlayerNum(playernum);
 
-			if (obj->prop->unk18) {
+			if (obj->prop->parent) {
 				func0f082f88(obj->prop);
 				func0f06ac90(obj->prop);
 				func0f0604bc(obj->prop);
@@ -3302,7 +3302,7 @@ bool aiGiveObjectToChr(void)
 			obj2->hidden = (playernum << 28) | (obj2->hidden & 0x0fffffff);
 			setCurrentPlayerNum(prevplayernum);
 		} else {
-			if (obj->prop->unk18) {
+			if (obj->prop->parent) {
 				func0f082f88(obj->prop);
 			} else {
 				func0f065c44(obj->prop);
@@ -3311,7 +3311,7 @@ bool aiGiveObjectToChr(void)
 			}
 
 			if (obj->type != OBJTYPE_WEAPON || func0f08ae54(obj, chr) == 0) {
-				func0f060698(obj->prop, chr->prop);
+				propReparent(obj->prop, chr->prop);
 			}
 		}
 	}
@@ -5973,7 +5973,7 @@ glabel aiDuplicateChr
 /*  f055c10:	860f0000 */ 	lh	$t7,0x0($s0)
 /*  f055c14:	02202025 */ 	or	$a0,$s1,$zero
 /*  f055c18:	00002825 */ 	or	$a1,$zero,$zero
-/*  f055c1c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f055c1c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f055c20:	a62f0132 */ 	sh	$t7,0x132($s1)
 /*  f055c24:	5040000d */ 	beqzl	$v0,.L0f055c5c
 /*  f055c28:	02202025 */ 	or	$a0,$s1,$zero
@@ -5990,7 +5990,7 @@ glabel aiDuplicateChr
 /*  f055c54:	afb8002c */ 	sw	$t8,0x2c($sp)
 /*  f055c58:	02202025 */ 	or	$a0,$s1,$zero
 .L0f055c5c:
-/*  f055c5c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f055c5c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f055c60:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f055c64:	5040000d */ 	beqzl	$v0,.L0f055c9c
 /*  f055c68:	8fa20048 */ 	lw	$v0,0x48($sp)
@@ -7139,7 +7139,7 @@ bool aiHideObj(void)
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->unk18) {
-		if (obj->prop->unk18) {
+		if (obj->prop->parent) {
 			func0f082f88(obj->prop);
 		} else {
 			func0f065c44(obj->prop);
@@ -11967,11 +11967,11 @@ glabel ai0172
 //	struct prop *prop = g_Vars.chrdata->gunprop;
 //	g_Vars.chrdata->gunprop = NULL;
 //
-//	if (prop && prop->unk04 && prop->unk18 == 0 && prop->type == PROPTYPE_WEAPON) {
+//	if (prop && prop->weapon && prop->parent == NULL && prop->type == PROPTYPE_WEAPON) {
 //		func0f065c44(prop);
 //		func0f0605c4(prop);
 //		func0f060300(prop);
-//		func0f08ae54(prop->unk04, g_Vars.chrdata);
+//		func0f08ae54(prop->weapon, g_Vars.chrdata);
 //	}
 //
 //	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
@@ -12780,11 +12780,11 @@ glabel ai01a3
 /*  f05dd8c:	240100fe */ 	addiu	$at,$zero,0xfe
 /*  f05dd90:	14610029 */ 	bne	$v1,$at,.L0f05de38
 /*  f05dd94:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f05dd98:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f05dd98:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f05dd9c:	8e040424 */ 	lw	$a0,0x424($s0)
 /*  f05dda0:	afa20040 */ 	sw	$v0,0x40($sp)
 /*  f05dda4:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05dda8:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f05dda8:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f05ddac:	00002825 */ 	or	$a1,$zero,$zero
 /*  f05ddb0:	afa2003c */ 	sw	$v0,0x3c($sp)
 /*  f05ddb4:	0fc0b849 */ 	jal	func0f02e124

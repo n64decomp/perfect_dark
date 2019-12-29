@@ -566,20 +566,18 @@ glabel func0f0605c4
 /*  f060694:	a080003e */ 	sb	$zero,0x3e($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f060698
-/*  f060698:	ac850018 */ 	sw	$a1,0x18($a0)
-/*  f06069c:	8ca2001c */ 	lw	$v0,0x1c($a1)
-/*  f0606a0:	50400004 */ 	beqzl	$v0,.L0f0606b4
-/*  f0606a4:	ac820020 */ 	sw	$v0,0x20($a0)
-/*  f0606a8:	ac440024 */ 	sw	$a0,0x24($v0)
-/*  f0606ac:	8ca2001c */ 	lw	$v0,0x1c($a1)
-/*  f0606b0:	ac820020 */ 	sw	$v0,0x20($a0)
-.L0f0606b4:
-/*  f0606b4:	ac800024 */ 	sw	$zero,0x24($a0)
-/*  f0606b8:	03e00008 */ 	jr	$ra
-/*  f0606bc:	aca4001c */ 	sw	$a0,0x1c($a1)
-);
+void propReparent(struct prop *mover, struct prop *adopter)
+{
+	mover->parent = adopter;
+
+	if (adopter->child) {
+		adopter->child->prev = mover;
+	}
+
+	mover->next = adopter->child;
+	mover->prev = NULL;
+	adopter->child = mover;
+}
 
 GLOBAL_ASM(
 glabel func0f0606c0
@@ -3256,7 +3254,7 @@ glabel func0f062b64
 /*  f062c94:	3c18800a */ 	lui	$t8,0x800a
 /*  f062c98:	8f18a244 */ 	lw	$t8,-0x5dbc($t8)
 /*  f062c9c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062ca0:	0fc181a6 */ 	jal	func0f060698
+/*  f062ca0:	0fc181a6 */ 	jal	propReparent
 /*  f062ca4:	8f0500bc */ 	lw	$a1,0xbc($t8)
 /*  f062ca8:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f062cac:
@@ -5938,11 +5936,11 @@ glabel func0f064ce8
 /*  f065268:	8f040004 */ 	lw	$a0,0x4($t8)
 /*  f06526c:	1440002d */ 	bnez	$v0,.L0f065324
 /*  f065270:	02002025 */ 	or	$a0,$s0,$zero
-/*  f065274:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f065274:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f065278:	00002825 */ 	or	$a1,$zero,$zero
 /*  f06527c:	1440000b */ 	bnez	$v0,.L0f0652ac
 /*  f065280:	02002025 */ 	or	$a0,$s0,$zero
-/*  f065284:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f065284:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f065288:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f06528c:	54400008 */ 	bnezl	$v0,.L0f0652b0
 /*  f065290:	02202025 */ 	or	$a0,$s1,$zero

@@ -71,8 +71,6 @@
 // 0x19
 #define AMMOTYPE_ECM_MINE    0x20
 
-#define ATTACHMENTTYPE_WEAPON 0x04
-
 #define BANK_0 0
 #define BANK_1 1
 #define BANK_2 2

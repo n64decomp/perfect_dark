@@ -12591,24 +12591,24 @@ glabel chrFindByLiteralId
 /*  f028820:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-struct attachment *chrGetEquippedWeaponAttachment(struct chrdata *chr, s32 hand)
+struct prop *chrGetEquippedWeaponProp(struct chrdata *chr, s32 hand)
 {
 	return chr->weapons_held[hand];
 }
 
-struct attachment *chrGetEquippedWeaponAttachmentWithCheck(struct chrdata *chr, s32 hand)
+struct prop *chrGetEquippedWeaponPropWithCheck(struct chrdata *chr, s32 hand)
 {
-	struct attachment *attachment = chr->weapons_held[hand];
+	struct prop *prop = chr->weapons_held[hand];
 
-	if (attachment) {
-		struct weaponobj *weapon = attachment->weapon;
+	if (prop) {
+		struct weaponobj *weapon = prop->weapon;
 
 		if (!weaponHasFlag(weapon->weapon_id, 0x00000010)) {
-			attachment = NULL;
+			prop = NULL;
 		}
 	}
 
-	return attachment;
+	return prop;
 }
 
 struct prop *chrGetTargetProp(struct chrdata *chr)
@@ -19224,11 +19224,11 @@ glabel func0f02e6dc
 /*  f02e6e4:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f02e6e8:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f02e6ec:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02e6f0:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02e6f0:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02e6f4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f02e6f8:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f02e6fc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02e700:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02e700:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02e704:	00002825 */ 	or	$a1,$zero,$zero
 /*  f02e708:	12000003 */ 	beqz	$s0,.L0f02e718
 /*  f02e70c:	00402825 */ 	or	$a1,$v0,$zero
@@ -19642,11 +19642,11 @@ glabel func0f02ed88
 /*  f02ed8c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f02ed90:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f02ed94:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02ed98:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02ed98:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02ed9c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f02eda0:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f02eda4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02eda8:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02eda8:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02edac:	00002825 */ 	or	$a1,$zero,$zero
 /*  f02edb0:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f02edb4:	8e0e02d4 */ 	lw	$t6,0x2d4($s0)
@@ -19747,11 +19747,11 @@ glabel func0f02ef40
 /*  f02ef40:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f02ef44:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f02ef48:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f02ef4c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02ef4c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02ef50:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f02ef54:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f02ef58:	00002825 */ 	or	$a1,$zero,$zero
-/*  f02ef5c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02ef5c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02ef60:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f02ef64:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f02ef68:	00003025 */ 	or	$a2,$zero,$zero
@@ -19982,11 +19982,11 @@ glabel func0f02f314
 /*  f02f328:	00808025 */ 	or	$s0,$a0,$zero
 /*  f02f32c:	54410030 */ 	bnel	$v0,$at,.L0f02f3f0
 /*  f02f330:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f02f334:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02f334:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02f338:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f02f33c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f02f340:	00002825 */ 	or	$a1,$zero,$zero
-/*  f02f344:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02f344:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02f348:	afa2003c */ 	sw	$v0,0x3c($sp)
 /*  f02f34c:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f02f350:	afa00034 */ 	sw	$zero,0x34($sp)
@@ -20221,11 +20221,11 @@ glabel func0f02f704
 /*  f02f708:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f02f70c:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f02f710:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02f714:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02f714:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02f718:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f02f71c:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*  f02f720:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02f724:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02f724:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02f728:	00002825 */ 	or	$a1,$zero,$zero
 /*  f02f72c:	14400004 */ 	bnez	$v0,.L0f02f740
 /*  f02f730:	afa20028 */ 	sw	$v0,0x28($sp)
@@ -20318,11 +20318,11 @@ glabel func0f02f8a4
 /*  f02f8a8:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f02f8ac:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f02f8b0:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02f8b4:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02f8b4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02f8b8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f02f8bc:	afa2003c */ 	sw	$v0,0x3c($sp)
 /*  f02f8c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02f8c4:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02f8c4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02f8c8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f02f8cc:	afa20038 */ 	sw	$v0,0x38($sp)
 /*  f02f8d0:	afa00034 */ 	sw	$zero,0x34($sp)
@@ -20545,11 +20545,11 @@ glabel func0f02fc2c
 /*  f02fc30:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f02fc34:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f02fc38:	00808025 */ 	or	$s0,$a0,$zero
-/*  f02fc3c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02fc3c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02fc40:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f02fc44:	02002025 */ 	or	$a0,$s0,$zero
 /*  f02fc48:	00002825 */ 	or	$a1,$zero,$zero
-/*  f02fc4c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02fc4c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02fc50:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f02fc54:	8fa60034 */ 	lw	$a2,0x34($sp)
 /*  f02fc58:	00402825 */ 	or	$a1,$v0,$zero
@@ -20678,11 +20678,11 @@ glabel func0f02fe18
 /*  f02fe54:	46128300 */ 	add.s	$f12,$f16,$f18
 /*  f02fe58:	e7a00040 */ 	swc1	$f0,0x40($sp)
 /*  f02fe5c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02fe60:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02fe60:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02fe64:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f02fe68:	02002025 */ 	or	$a0,$s0,$zero
 /*  f02fe6c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f02fe70:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f02fe70:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f02fe74:	afa2003c */ 	sw	$v0,0x3c($sp)
 /*  f02fe78:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f02fe7c:	8fa7003c */ 	lw	$a3,0x3c($sp)
@@ -20853,11 +20853,11 @@ glabel func0f030120
 /*  f030128:	afa5005c */ 	sw	$a1,0x5c($sp)
 /*  f03012c:	afa40058 */ 	sw	$a0,0x58($sp)
 /*  f030130:	afa60060 */ 	sw	$a2,0x60($sp)
-/*  f030134:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f030134:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f030138:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03013c:	afa20054 */ 	sw	$v0,0x54($sp)
 /*  f030140:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f030144:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f030144:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f030148:	00002825 */ 	or	$a1,$zero,$zero
 /*  f03014c:	3c0f8007 */ 	lui	$t7,%hi(var8006801c)
 /*  f030150:	25ef801c */ 	addiu	$t7,$t7,%lo(var8006801c)
@@ -20881,11 +20881,11 @@ glabel func0f030120
 /*  f030190:	afa50050 */ 	sw	$a1,0x50($sp)
 /*  f030194:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f030198:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03019c:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f03019c:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f0301a0:	afa7003c */ 	sw	$a3,0x3c($sp)
 /*  f0301a4:	afa20038 */ 	sw	$v0,0x38($sp)
 /*  f0301a8:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f0301ac:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f0301ac:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f0301b0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0301b4:	8fa90038 */ 	lw	$t1,0x38($sp)
 /*  f0301b8:	8fa7003c */ 	lw	$a3,0x3c($sp)
@@ -20987,7 +20987,7 @@ glabel func0f030308
 /*  f030310:	afa5004c */ 	sw	$a1,0x4c($sp)
 /*  f030314:	afa60050 */ 	sw	$a2,0x50($sp)
 /*  f030318:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03031c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f03031c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f030320:	afa40048 */ 	sw	$a0,0x48($sp)
 /*  f030324:	3c0e8007 */ 	lui	$t6,%hi(var80068024)
 /*  f030328:	25ce8024 */ 	addiu	$t6,$t6,%lo(var80068024)
@@ -21031,11 +21031,11 @@ glabel func0f0303a0
 /*  f0303a8:	afa5005c */ 	sw	$a1,0x5c($sp)
 /*  f0303ac:	afa40058 */ 	sw	$a0,0x58($sp)
 /*  f0303b0:	afa60060 */ 	sw	$a2,0x60($sp)
-/*  f0303b4:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f0303b4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f0303b8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0303bc:	afa20054 */ 	sw	$v0,0x54($sp)
 /*  f0303c0:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f0303c4:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f0303c4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f0303c8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0303cc:	3c0f8007 */ 	lui	$t7,%hi(var8006802c)
 /*  f0303d0:	25ef802c */ 	addiu	$t7,$t7,%lo(var8006802c)
@@ -21059,11 +21059,11 @@ glabel func0f0303a0
 /*  f030410:	afa50050 */ 	sw	$a1,0x50($sp)
 /*  f030414:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f030418:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03041c:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f03041c:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f030420:	afa7003c */ 	sw	$a3,0x3c($sp)
 /*  f030424:	afa20038 */ 	sw	$v0,0x38($sp)
 /*  f030428:	8fa40058 */ 	lw	$a0,0x58($sp)
-/*  f03042c:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f03042c:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f030430:	00002825 */ 	or	$a1,$zero,$zero
 /*  f030434:	8fa90038 */ 	lw	$t1,0x38($sp)
 /*  f030438:	8fa7003c */ 	lw	$a3,0x3c($sp)
@@ -21193,11 +21193,11 @@ glabel chrAttackWalk
 /*  f0305ec:	afa5007c */ 	sw	$a1,0x7c($sp)
 /*  f0305f0:	00808825 */ 	or	$s1,$a0,$zero
 /*  f0305f4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0305f8:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f0305f8:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f0305fc:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f030600:	00408025 */ 	or	$s0,$v0,$zero
 /*  f030604:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030608:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f030608:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f03060c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f030610:	3c0f8007 */ 	lui	$t7,%hi(var80068034)
 /*  f030614:	25ef8034 */ 	addiu	$t7,$t7,%lo(var80068034)
@@ -21224,11 +21224,11 @@ glabel chrAttackWalk
 /*  f030668:	af210000 */ 	sw	$at,0x0($t9)
 /*  f03066c:	10400046 */ 	beqz	$v0,.L0f030788
 /*  f030670:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030674:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f030674:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f030678:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03067c:	00408025 */ 	or	$s0,$v0,$zero
 /*  f030680:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030684:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f030684:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f030688:	00002825 */ 	or	$a1,$zero,$zero
 /*  f03068c:	1200000d */ 	beqz	$s0,.L0f0306c4
 /*  f030690:	00001825 */ 	or	$v1,$zero,$zero
@@ -21369,7 +21369,7 @@ glabel chrAttackWalk
 /*  f030850:	51600032 */ 	beqzl	$t3,.L0f03091c
 /*  f030854:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f030858:	afa60034 */ 	sw	$a2,0x34($sp)
-/*  f03085c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f03085c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f030860:	afa70030 */ 	sw	$a3,0x30($sp)
 /*  f030864:	8c430004 */ 	lw	$v1,0x4($v0)
 /*  f030868:	9064005c */ 	lbu	$a0,0x5c($v1)
@@ -21585,11 +21585,11 @@ glabel chrAttackRoll
 /*  f030b5c:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f030b60:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*  f030b64:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f030b68:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f030b68:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f030b6c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f030b70:	00408025 */ 	or	$s0,$v0,$zero
 /*  f030b74:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030b78:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f030b78:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f030b7c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f030b80:	3c0f8007 */ 	lui	$t7,%hi(var8006804c)
 /*  f030b84:	afa00074 */ 	sw	$zero,0x74($sp)
@@ -21619,11 +21619,11 @@ glabel chrAttackRoll
 /*  f030be4:	af210000 */ 	sw	$at,0x0($t9)
 /*  f030be8:	10400027 */ 	beqz	$v0,.L0f030c88
 /*  f030bec:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030bf0:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f030bf0:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f030bf4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f030bf8:	00408025 */ 	or	$s0,$v0,$zero
 /*  f030bfc:	02202025 */ 	or	$a0,$s1,$zero
-/*  f030c00:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f030c00:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f030c04:	00002825 */ 	or	$a1,$zero,$zero
 /*  f030c08:	12000018 */ 	beqz	$s0,.L0f030c6c
 /*  f030c0c:	2c430001 */ 	sltiu	$v1,$v0,0x1
@@ -21740,7 +21740,7 @@ glabel chrAttackRoll
 /*  f030d8c:	51400038 */ 	beqzl	$t2,.L0f030e70
 /*  f030d90:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f030d94:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f030d98:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f030d98:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f030d9c:	afa70034 */ 	sw	$a3,0x34($sp)
 /*  f030da0:	8c430004 */ 	lw	$v1,0x4($v0)
 /*  f030da4:	9064005c */ 	lbu	$a0,0x5c($v1)
@@ -22291,7 +22291,7 @@ glabel func0f031384
 /*  f0315a4:	51a00043 */ 	beqzl	$t5,.L0f0316b4
 /*  f0315a8:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f0315ac:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f0315b0:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f0315b0:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f0315b4:	afa80040 */ 	sw	$t0,0x40($sp)
 /*  f0315b8:	8fa70044 */ 	lw	$a3,0x44($sp)
 /*  f0315bc:	8fa80040 */ 	lw	$t0,0x40($sp)
@@ -22515,7 +22515,7 @@ glabel func0f0318b8
 /*  f0318c8:	00808025 */ 	or	$s0,$a0,$zero
 /*  f0318cc:	afa60050 */ 	sw	$a2,0x50($sp)
 /*  f0318d0:	afa70054 */ 	sw	$a3,0x54($sp)
-/*  f0318d4:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f0318d4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f0318d8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0318dc:	3c0f8007 */ 	lui	$t7,%hi(var80068074)
 /*  f0318e0:	25ef8074 */ 	addiu	$t7,$t7,%lo(var80068074)
@@ -24006,11 +24006,11 @@ glabel func0f032ac4
 /*  f032e48:	2f0a0001 */ 	sltiu	$t2,$t8,0x1
 /*  f032e4c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f032e50:	afaa0038 */ 	sw	$t2,0x38($sp)
-/*  f032e54:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f032e54:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f032e58:	afa60034 */ 	sw	$a2,0x34($sp)
 /*  f032e5c:	afa20054 */ 	sw	$v0,0x54($sp)
 /*  f032e60:	02002025 */ 	or	$a0,$s0,$zero
-/*  f032e64:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f032e64:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f032e68:	00002825 */ 	or	$a1,$zero,$zero
 /*  f032e6c:	8fab003c */ 	lw	$t3,0x3c($sp)
 /*  f032e70:	3c098006 */ 	lui	$t1,%hi(var800652b8)
@@ -26763,11 +26763,11 @@ glabel func0f034524
 /*  f03559c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0355a0:	afad013c */ 	sw	$t5,0x13c($sp)
 .L0f0355a4:
-/*  f0355a4:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f0355a4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f0355a8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0355ac:	14400010 */ 	bnez	$v0,.L0f0355f0
 /*  f0355b0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0355b4:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f0355b4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f0355b8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0355bc:	5440000d */ 	bnezl	$v0,.L0f0355f4
 /*  f0355c0:	24190001 */ 	addiu	$t9,$zero,0x1
@@ -27182,7 +27182,7 @@ glabel func0f034524
 /*  f035b90:	10000017 */ 	beqz	$zero,.L0f035bf0
 /*  f035b94:	c6040100 */ 	lwc1	$f4,0x100($s0)
 .L0f035b98:
-/*  f035b98:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f035b98:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f035b9c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f035ba0:	10400007 */ 	beqz	$v0,.L0f035bc0
 /*  f035ba4:	00402025 */ 	or	$a0,$v0,$zero
@@ -27194,7 +27194,7 @@ glabel func0f034524
 /*  f035bbc:	ae0a0014 */ 	sw	$t2,0x14($s0)
 .L0f035bc0:
 /*  f035bc0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f035bc4:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f035bc4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f035bc8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f035bcc:	10400007 */ 	beqz	$v0,.L0f035bec
 /*  f035bd0:	00402025 */ 	or	$a0,$v0,$zero
@@ -29414,11 +29414,11 @@ glabel func0f037b70
 /*  f037ba0:	00195fc2 */ 	srl	$t3,$t9,0x1f
 /*  f037ba4:	afab0060 */ 	sw	$t3,0x60($sp)
 /*  f037ba8:	afa40068 */ 	sw	$a0,0x68($sp)
-/*  f037bac:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f037bac:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f037bb0:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f037bb4:	afa2005c */ 	sw	$v0,0x5c($sp)
 /*  f037bb8:	8fa40068 */ 	lw	$a0,0x68($sp)
-/*  f037bbc:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f037bbc:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f037bc0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f037bc4:	8faa0068 */ 	lw	$t2,0x68($sp)
 /*  f037bc8:	8fa70064 */ 	lw	$a3,0x64($sp)
@@ -30330,11 +30330,11 @@ glabel func0f038868
 /*  f038868:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f03886c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f038870:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f038874:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f038874:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f038878:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03887c:	8fa40050 */ 	lw	$a0,0x50($sp)
 /*  f038880:	00002825 */ 	or	$a1,$zero,$zero
-/*  f038884:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f038884:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f038888:	afa2004c */ 	sw	$v0,0x4c($sp)
 /*  f03888c:	8fa80050 */ 	lw	$t0,0x50($sp)
 /*  f038890:	8fa7004c */ 	lw	$a3,0x4c($sp)
@@ -30825,11 +30825,11 @@ glabel func0f038f40
 /*  f038f74:	2419083f */ 	addiu	$t9,$zero,0x83f
 /*  f038f78:	afb9004c */ 	sw	$t9,0x4c($sp)
 /*  f038f7c:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f038f80:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f038f80:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f038f84:	00002825 */ 	or	$a1,$zero,$zero
 /*  f038f88:	14400003 */ 	bnez	$v0,.L0f038f98
 /*  f038f8c:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f038f90:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f038f90:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f038f94:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f038f98:
 /*  f038f98:	1040000e */ 	beqz	$v0,.L0f038fd4
@@ -32045,13 +32045,13 @@ glabel chrTryAttackWalk
 /*  f03a040:	8fa30020 */ 	lw	$v1,0x20($sp)
 /*  f03a044:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03a048:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03a04c:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f03a04c:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f03a050:	afa30020 */ 	sw	$v1,0x20($sp)
 /*  f03a054:	14400007 */ 	bnez	$v0,.L0f03a074
 /*  f03a058:	8fa30020 */ 	lw	$v1,0x20($sp)
 /*  f03a05c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03a060:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03a064:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f03a064:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f03a068:	afa30020 */ 	sw	$v1,0x20($sp)
 /*  f03a06c:	10400027 */ 	beqz	$v0,.L0f03a10c
 /*  f03a070:	8fa30020 */ 	lw	$v1,0x20($sp)
@@ -32142,13 +32142,13 @@ glabel chrTryAttackRun
 /*  f03a198:	8fa30020 */ 	lw	$v1,0x20($sp)
 /*  f03a19c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03a1a0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03a1a4:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f03a1a4:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f03a1a8:	afa30020 */ 	sw	$v1,0x20($sp)
 /*  f03a1ac:	14400007 */ 	bnez	$v0,.L0f03a1cc
 /*  f03a1b0:	8fa30020 */ 	lw	$v1,0x20($sp)
 /*  f03a1b4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03a1b8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03a1bc:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f03a1bc:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f03a1c0:	afa30020 */ 	sw	$v1,0x20($sp)
 /*  f03a1c4:	10400027 */ 	beqz	$v0,.L0f03a264
 /*  f03a1c8:	8fa30020 */ 	lw	$v1,0x20($sp)
@@ -32230,13 +32230,13 @@ glabel chrTryAttackRoll
 /*  f03a2d4:	8fa30044 */ 	lw	$v1,0x44($sp)
 /*  f03a2d8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03a2dc:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03a2e0:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f03a2e0:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f03a2e4:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f03a2e8:	14400007 */ 	bnez	$v0,.L0f03a308
 /*  f03a2ec:	8fa30044 */ 	lw	$v1,0x44($sp)
 /*  f03a2f0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03a2f4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03a2f8:	0fc0a20d */ 	jal	chrGetEquippedWeaponAttachmentWithCheck
+/*  f03a2f8:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
 /*  f03a2fc:	afa30044 */ 	sw	$v1,0x44($sp)
 /*  f03a300:	10400034 */ 	beqz	$v0,.L0f03a3d4
 /*  f03a304:	8fa30044 */ 	lw	$v1,0x44($sp)
@@ -32433,8 +32433,8 @@ bool func0f03a578(struct chrdata *chr, s32 thingtype, s32 thingid)
 		}
 
 		if (race == RACE_HUMAN || race == RACE_SKEDAR) {
-			if (chrGetEquippedWeaponAttachmentWithCheck(chr, 0) ||
-					(chrGetEquippedWeaponAttachmentWithCheck(chr, 1))) {
+			if (chrGetEquippedWeaponPropWithCheck(chr, 0) ||
+					(chrGetEquippedWeaponPropWithCheck(chr, 1))) {
 				func0f030120(chr, thingtype, thingid);
 				return true;
 			}
@@ -32449,7 +32449,7 @@ bool func0f03a644(struct chrdata *chr, s32 thingtype, s32 thingid)
 	s32 race = chr ? chr->race : RACE_HUMAN;
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
-		if (func0f039a18(chr) && (chrGetEquippedWeaponAttachmentWithCheck(chr, 0) || chrGetEquippedWeaponAttachmentWithCheck(chr, 1))) {
+		if (func0f039a18(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
 			func0f0303a0(chr, thingtype, thingid);
 			return true;
 		}
@@ -32463,7 +32463,7 @@ bool func0f03a6d8(struct chrdata *chr, s32 thingtype, s32 thingid)
 	s32 race = chr ? chr->race : RACE_HUMAN;
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
-		if (func0f039a18(chr) && (chrGetEquippedWeaponAttachmentWithCheck(chr, 0) || chrGetEquippedWeaponAttachmentWithCheck(chr, 1))) {
+		if (func0f039a18(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
 			func0f030308(chr, thingtype, thingid);
 			return true;
 		}
@@ -33374,11 +33374,11 @@ glabel chrConsiderGrenadeThrow
 /*  f03b754:	24450028 */ 	addiu	$a1,$v0,0x28
 /*  f03b758:	10400083 */ 	beqz	$v0,.L0f03b968
 /*  f03b75c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b760:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f03b760:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f03b764:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03b768:	afa20050 */ 	sw	$v0,0x50($sp)
 /*  f03b76c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03b770:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f03b770:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f03b774:	00002825 */ 	or	$a1,$zero,$zero
 /*  f03b778:	3c037f16 */ 	lui	$v1,0x7f16
 /*  f03b77c:	3c077f16 */ 	lui	$a3,0x7f16
@@ -33564,7 +33564,7 @@ glabel func0f03b97c
 /*  f03b9ec:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f03b9f0:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f03b9f4:	8e05001c */ 	lw	$a1,0x1c($s0)
-/*  f03b9f8:	0fc181a6 */ 	jal	func0f060698
+/*  f03b9f8:	0fc181a6 */ 	jal	propReparent
 /*  f03b9fc:	8c640014 */ 	lw	$a0,0x14($v1)
 /*  f03ba00:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f03ba04:	240f02d0 */ 	addiu	$t7,$zero,0x2d0
@@ -34235,11 +34235,11 @@ glabel func0f03c138
 .L0f03c35c:
 /*  f03c35c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f03c360:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03c364:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f03c364:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f03c368:	afa300b4 */ 	sw	$v1,0xb4($sp)
 /*  f03c36c:	afa200a4 */ 	sw	$v0,0xa4($sp)
 /*  f03c370:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03c374:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f03c374:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f03c378:	00002825 */ 	or	$a1,$zero,$zero
 /*  f03c37c:	8fa300b4 */ 	lw	$v1,0xb4($sp)
 /*  f03c380:	afa200a0 */ 	sw	$v0,0xa0($sp)
@@ -36409,7 +36409,7 @@ glabel func0f03e29c
 /*  f03e2a8:	afa5006c */ 	sw	$a1,0x6c($sp)
 /*  f03e2ac:	afa60070 */ 	sw	$a2,0x70($sp)
 /*  f03e2b0:	afa70074 */ 	sw	$a3,0x74($sp)
-/*  f03e2b4:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f03e2b4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f03e2b8:	afa00058 */ 	sw	$zero,0x58($sp)
 /*  f03e2bc:	50400064 */ 	beqzl	$v0,.L0f03e450
 /*  f03e2c0:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -37467,12 +37467,12 @@ glabel func0f03e9f4
 /*  f03f214:	11e00006 */ 	beqz	$t7,.L0f03f230
 /*  f03f218:	8fa40190 */ 	lw	$a0,0x190($sp)
 /*  f03f21c:	8fa40190 */ 	lw	$a0,0x190($sp)
-/*  f03f220:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f03f220:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f03f224:	00002825 */ 	or	$a1,$zero,$zero
 /*  f03f228:	10000004 */ 	beqz	$zero,.L0f03f23c
 /*  f03f22c:	00404025 */ 	or	$t0,$v0,$zero
 .L0f03f230:
-/*  f03f230:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f03f230:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f03f234:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f03f238:	00404025 */ 	or	$t0,$v0,$zero
 .L0f03f23c:
@@ -37899,21 +37899,21 @@ void chrResetAimEndProperties(struct chrdata *chr)
 
 void chrSetFiring(struct chrdata *chr, s32 hand, bool firing)
 {
-	struct attachment *attachment = chrGetEquippedWeaponAttachment(chr, hand);
+	struct prop *prop = chrGetEquippedWeaponProp(chr, hand);
 
 	chr->prop->unk3f_02 = firing ? 1 : 0;
 
-	if (attachment) {
-		func0f08bb5c(attachment, firing, chr->prop->room);
+	if (prop) {
+		func0f08bb5c(prop, firing, chr->prop->room);
 	}
 }
 
 s32 func0f03f8b8(struct chrdata *chr, s32 hand)
 {
-	struct attachment *attachment = chrGetEquippedWeaponAttachment(chr, hand);
+	struct prop *prop = chrGetEquippedWeaponProp(chr, hand);
 
-	if (attachment) {
-		return func0f08bc5c(attachment);
+	if (prop) {
+		return func0f08bc5c(prop);
 	}
 
 	return 0;
@@ -38231,7 +38231,7 @@ glabel func0f03fde4
 /*  f03fde8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f03fdec:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f03fdf0:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f03fdf4:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f03fdf4:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f03fdf8:	afa400c8 */ 	sw	$a0,0xc8($sp)
 /*  f03fdfc:	10400046 */ 	beqz	$v0,.L0f03ff18
 /*  f03fe00:	00003025 */ 	or	$a2,$zero,$zero
@@ -38727,7 +38727,7 @@ glabel func0f0404d4
 /*  f040504:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f040508:	a3a2026f */ 	sb	$v0,0x26f($sp)
 .L0f04050c:
-/*  f04050c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f04050c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f040510:	afa40278 */ 	sw	$a0,0x278($sp)
 /*  f040514:	50400554 */ 	beqzl	$v0,.L0f041a68
 /*  f040518:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -42438,7 +42438,7 @@ glabel func0f0439f8
 /*  f043a74:	10000001 */ 	beqz	$zero,.L0f043a7c
 /*  f043a78:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f043a7c:
-/*  f043a7c:	0fc0a209 */ 	jal	chrGetEquippedWeaponAttachment
+/*  f043a7c:	0fc0a209 */ 	jal	chrGetEquippedWeaponProp
 /*  f043a80:	e7a20038 */ 	swc1	$f2,0x38($sp)
 /*  f043a84:	3c0141a0 */ 	lui	$at,0x41a0
 /*  f043a88:	c7a20038 */ 	lwc1	$f2,0x38($sp)

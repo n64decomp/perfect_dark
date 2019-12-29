@@ -12,18 +12,7 @@ struct coord {
 };
 
 struct weaponobj;
-
-struct attachment {
-	u8 type;
-	struct weaponobj *weapon;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	struct attachment *next;
-};
+struct prop;
 
 /**
  * Most, if not all, entity types (chrs, objs, weapons etc) have a pointer to a
@@ -47,10 +36,10 @@ struct prop {
 
 	struct coord pos;
 	u32 unk14;
-	u32 unk18; // related to gun recovery
-	struct attachment *attachments;
-	u32 unk20;
-	u32 unk24;
+	/*0x18*/ struct prop *parent;
+	/*0x1c*/ struct prop *child;
+	/*0x20*/ struct prop *next;
+	/*0x24*/ struct prop *prev;
 	s16 room;
 	u32 unk2c;
 	u32 unk30;
@@ -397,7 +386,7 @@ struct chrdata {
 	/*0x164*/ f32 aimendrshoulder;
 	/*0x168*/ f32 aimendback;
 	/*0x16c*/ f32 aimendsideback;
-	/*0x170*/ struct attachment *weapons_held[2];
+	/*0x170*/ struct prop *weapons_held[2];
 	/*0x178*/ u32 unk178;
 	/*0x17c*/ s8 fireslot[2];
 	/*0x17e*/ s16 target; // index into g_Vars.props
