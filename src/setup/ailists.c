@@ -94,7 +94,7 @@ u8 func0006_unalerted[] = {
 	label(0x05)
 	dprint 'N','O','G','U','N','2','\n',0,
 	dprint 'A','N','I','M',' ','O','B','J','E','C','T',' ','N','O','W','\n',0,
-	set_chr_health(CHR_SELF, 40)
+	set_chr_maxdamage(CHR_SELF, 40)
 	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
 	chr_do_animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x02, 0x10, CHR_SELF, 2)
 	unset_self_flag_bankx(CHRFLAG1_DOINGIDLEANIMATION, BANK_1)
@@ -399,7 +399,7 @@ u8 func0006_unalerted[] = {
 	goto_next(0x16)
 
 	label(0x13)
-	set_chr_health(CHR_SELF, 40)
+	set_chr_maxdamage(CHR_SELF, 40)
 	goto_next(0x73)
 
 	label(0x16)
@@ -819,7 +819,7 @@ u8 func0008_wakeup[] = {
 
 	// Stand up
 	label(0x15)
-	set_chr_health(CHR_SELF, 40)
+	set_chr_maxdamage(CHR_SELF, 40)
 	chr_do_animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x02, 0x10, CHR_SELF, 2)
 	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
 	goto_next(0x0c)
@@ -2634,7 +2634,7 @@ u8 func000a_do_idle_animation[] = {
 	goto_next(0x13)
 
 	label(0x16)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_TRIGGER_BUDDY_WARP)
 
 	label(0x13)
@@ -2822,7 +2822,7 @@ u8 func000d_init_combat[] = {
 
 	// Stand up
 	label(0x05)
-	set_chr_health(CHR_SELF, 40)
+	set_chr_maxdamage(CHR_SELF, 40)
 	chr_do_animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x02, 0x10, CHR_SELF, 2)
 	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
 
@@ -5405,7 +5405,7 @@ u8 func0021_stop_and_idle[] = {
  */
 u8 func0029_ai_bot_init[] = {
 	dprint 'l','i','s','t',':',' ','a','i','b','o','t','i','n','i','t',0,
-	set_chr_health(CHR_SELF, 80)
+	set_chr_maxdamage(CHR_SELF, 80)
 	set_reaction_speed(100)
 	set_returnlist(CHR_SELF, GFUNC_AI_BOT_ALIVE)
 

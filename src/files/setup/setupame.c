@@ -1134,8 +1134,8 @@ u8 func040a_start_path31[] = {
 	set_unarmeddodgerating(0)
 	set_accuracy(0)
 	set_reaction_speed(0)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_returnlist(CHR_SELF, 0x040a)
@@ -1150,8 +1150,8 @@ u8 func040b_start_path32[] = {
 	set_unarmeddodgerating(0)
 	set_accuracy(0)
 	set_reaction_speed(0)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(32)
@@ -1165,8 +1165,8 @@ u8 func040c_start_path33[] = {
 	set_unarmeddodgerating(0)
 	set_accuracy(0)
 	set_reaction_speed(0)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(33)
@@ -1180,8 +1180,8 @@ u8 func040d_start_path34[] = {
 	set_unarmeddodgerating(0)
 	set_accuracy(10)
 	set_reaction_speed(0)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(34)
@@ -1198,7 +1198,7 @@ u8 func040e_start_path35[] = {
 };
 
 u8 func0410_init_cass[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_CASS)
 	endlist
 };
@@ -1415,7 +1415,7 @@ u8 func040f_cass[] = {
 };
 
 u8 func0412_init_secretary[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_SECRETARY)
 	endlist
 };
@@ -1890,7 +1890,7 @@ u8 func0414_programmer[] = {
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
 	set_stage_flag(STAGEFLAG_PERSONALITY_DELETED)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	chr_do_animation(ANIM_TALKING_003D, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	speak(CHR_TARGET, 0x022a, 0x1303, CHANNEL_3, COLOR_03_RED) // "Goodbye, Dr. Caroll."
 	if_stage_flag_eq(STAGEFLAG_DOWNLOAD_COMPLETE, TRUE, /*goto*/ 0x2c)
@@ -3336,8 +3336,8 @@ u8 func1012_trigger_x_music[] = {
 	set_unarmeddodgerating(0) \
 	set_accuracy(accuracy) \
 	set_reaction_speed(0) \
-	set_chr_health(CHR_SELF, health) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, health) \
+	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0)
 
@@ -3715,7 +3715,7 @@ u8 func101e_lift_door_sounds[] = {
  */
 u8 func042e_init_surrendering_guard[] = {
 	label(0xc4)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_SURRENDERING_GUARD)
 	endlist
 };

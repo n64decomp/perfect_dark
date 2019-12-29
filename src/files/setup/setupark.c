@@ -565,7 +565,7 @@ u8 func0401_drcaroll_following[] = {
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 	set_target_chr(CHR_BOND)
 	set_shield(100)
-	set_chr_health(CHR_SELF, 100)
+	set_chr_maxdamage(CHR_SELF, 100)
 	label(0x20)
 	dprint 'b','4',' ','s','h','i','e','l','d',' ','c','h','e','c','k','\n',0,
 	try_unset_chr_flag_bank3_02000000(CHR_SELF, /*goto*/ 0x00)
@@ -793,8 +793,8 @@ u8 func0410_init_top_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(80)
 	set_reaction_speed(10)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	goto_next(0x00)
@@ -804,8 +804,8 @@ u8 func0410_init_top_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(12)
 	set_reaction_speed(10)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 
@@ -1096,7 +1096,7 @@ u8 func0408_hovercopter[] = {
 	move_object_to_pad(OBJ_HOVERCOPTER, 0x0199)
 	begin_hovercar_path(0x02)
 	restart_timer
-	set_chr_health(CHR_SELF, 42320)
+	set_chr_maxdamage(CHR_SELF, 42320)
 
 	beginloop(0x1f)
 		if_timer_gt(120, /*goto*/ 0x42)
@@ -1621,7 +1621,7 @@ u8 func1009_init_top_room[] = {
 };
 
 u8 func040b_init_tech1[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, 0x0409)
 	endlist
 };
@@ -1837,7 +1837,7 @@ u8 func040d_cass_necklace[] = {
 };
 
 u8 func040c_init_tech2[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, 0x040a)
 	endlist
 };
@@ -2626,8 +2626,8 @@ u8 func0413_defend_pad[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(12)
 	set_reaction_speed(10)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_shotlist(FUNC_GENERAL_COMBAT)
@@ -2687,8 +2687,8 @@ u8 func0414_init_shock[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(12)
 	set_reaction_speed(10)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(10)
 	set_shield(0)
 	set_ailist(CHR_SELF, FUNC_GENERAL_COMBAT)
@@ -2702,8 +2702,8 @@ u8 func0415_init_10hp[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(12)
 	set_reaction_speed(10)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, FUNC_GENERAL_COMBAT)

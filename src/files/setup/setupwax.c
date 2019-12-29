@@ -1071,8 +1071,8 @@ u8 func0406_start_path30[] = {
 u8 func0407_start_path31[] = {
 	set_accuracy(40)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_returnlist(CHR_SELF, 0x0407)
@@ -1085,8 +1085,8 @@ u8 func0407_start_path31[] = {
 u8 func0408_start_path32[] = {
 	set_accuracy(40)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(32)
@@ -1098,8 +1098,8 @@ u8 func0408_start_path32[] = {
 u8 func0409_start_path33[] = {
 	set_accuracy(40)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(33)
@@ -1111,8 +1111,8 @@ u8 func0409_start_path33[] = {
 u8 func040a_start_path34[] = {
 	set_accuracy(40)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(34)
@@ -1124,8 +1124,8 @@ u8 func040a_start_path34[] = {
 u8 func040b_start_path35[] = {
 	set_accuracy(40)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(35)
@@ -1137,8 +1137,8 @@ u8 func040b_start_path35[] = {
 u8 func040c_start_path36[] = {
 	set_accuracy(40)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(36)
@@ -1220,8 +1220,8 @@ u8 func1000_setup_counterop[] = {
 u8 func040e_init_60hp_guard[] = {
 	set_accuracy(40)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -1231,8 +1231,8 @@ u8 func040e_init_60hp_guard[] = {
 u8 func040f_init_40hp_guard[] = {
 	set_accuracy(40)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -1242,8 +1242,8 @@ u8 func040f_init_40hp_guard[] = {
 u8 func0410_init_searching_guard[] = {
 	set_accuracy(40)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_returnlist(CHR_SELF, GFUNC_SEARCH_FOR_PLAYER)
@@ -1252,7 +1252,7 @@ u8 func0410_init_searching_guard[] = {
 };
 
 u8 func0412_init_cass[] = {
-	set_chr_health(CHR_SELF, 40)
+	set_chr_maxdamage(CHR_SELF, 40)
 	set_self_chrflag(CHRCFLAG_01000000)
 	set_ailist(CHR_SELF, FUNC_CASS_IN_OFFICE)
 	endlist
@@ -1550,8 +1550,8 @@ u8 func1006_lift_disabling[] = {
 u8 func0414_init_chief[] = {
 	set_accuracy(40)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(40)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_morale(0)

@@ -744,8 +744,8 @@ u8 func040b_init_elvis[] = {
 	set_accuracy(100)
 	set_reaction_speed(100)
 	set_alertness(100)
-	set_chr_health(CHR_SELF, 1)
-	set_armor(900)
+	set_chr_maxdamage(CHR_SELF, 1)
+	add_health_or_armor(900)
 	set_ailist(CHR_SELF, FUNC_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	endlist
 };
@@ -2213,8 +2213,8 @@ u8 func042f_init_pelagic_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(20)
 	set_reaction_speed(65)
-	set_chr_health(CHR_SELF, 70)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 70)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -2224,8 +2224,8 @@ u8 func042f_init_pelagic_guard[] = {
 u8 func0430_unused[] = {
 	set_accuracy(20)
 	set_reaction_speed(65)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(70)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(70)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -3089,8 +3089,8 @@ u8 func041a_init_sniper[] = {
 	// SA and PA
 	set_accuracy(30)
 	set_reaction_speed(65)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(70)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(70)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, FUNC_SNIPER_WAIT_FOR_DETECTION)
@@ -3099,8 +3099,8 @@ u8 func041a_init_sniper[] = {
 	label(0x2e)
 	set_accuracy(20)
 	set_reaction_speed(65)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(70)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(70)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, FUNC_SNIPER_WAIT_FOR_DETECTION)
@@ -3391,8 +3391,8 @@ u8 func040e_init_miniskedar[] = {
 	set_self_chrflag(CHRCFLAG_00020000)
 	set_accuracy(0)
 	set_reaction_speed(65)
-	set_chr_health(CHR_SELF, 20)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 20)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_00080000)
@@ -4125,8 +4125,8 @@ u8 func1021_c6c4[] = {
 	set_chr_dodge_rating(2, 0x0a) \
 	set_accuracy(20) \
 	set_reaction_speed(65) \
-	set_chr_health(CHR_SELF, 70) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, 70) \
+	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0) \
 	set_returnlist(CHR_SELF, function) \
@@ -4435,8 +4435,8 @@ u8 func042b_run_to_exit[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(40)
 	set_reaction_speed(65)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(70)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(70)
 	set_recovery_speed(0)
 	set_shield(0)
 	label(0x04)
@@ -4506,8 +4506,8 @@ u8 func040f_miniskedar_unalerted[] = {
 	set_self_chrflag(CHRCFLAG_00020000)
 	set_accuracy(0)
 	set_reaction_speed(65)
-	set_chr_health(CHR_SELF, 20)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 20)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_00080000)

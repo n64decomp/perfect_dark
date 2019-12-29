@@ -825,8 +825,8 @@ s32 path13[] = {
 	set_chr_dodge_rating(2, 0x0a) \
 	set_accuracy(1) \
 	set_reaction_speed(20) \
-	set_chr_health(CHR_SELF, 40) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, 40) \
+	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0) \
 	assign_path(pathid) \
@@ -904,7 +904,7 @@ u8 func0401_init_chr_with_flag[] = {
 };
 
 u8 func0405_init_scientist[] = {
-	set_chr_health(CHR_SELF, 20)
+	set_chr_maxdamage(CHR_SELF, 20)
 	set_ailist(CHR_SELF, FUNC_SCIENTIST)
 	endlist
 };
@@ -3018,8 +3018,8 @@ u8 func040a_init_basic_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(1)
 	set_reaction_speed(20)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -3030,8 +3030,8 @@ u8 func040b_init_shock_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(11)
 	set_reaction_speed(20)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(10)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)

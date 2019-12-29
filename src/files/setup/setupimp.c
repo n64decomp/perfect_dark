@@ -613,8 +613,8 @@ u8 func1400_setup_counterop[] = {
 	set_chr_dodge_rating(2, 0x00) \
 	set_accuracy(20) \
 	set_reaction_speed(70) \
-	set_chr_health(CHR_SELF, 40) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, 40) \
+	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(90) \
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1) \
@@ -1575,7 +1575,7 @@ u8 func100c_check_carrington_dead[] = {
 
 u8 func0415_init_hostage_fr1[] = {
 	set_morale(5)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_accuracy(0)
 	set_ailist(CHR_SELF, FUNC_FIRINGRANGE_HOSTAGE)
 	endlist
@@ -1583,7 +1583,7 @@ u8 func0415_init_hostage_fr1[] = {
 
 u8 func0416_init_hostage_fr2[] = {
 	set_morale(7)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_accuracy(0)
 	set_ailist(CHR_SELF, FUNC_FIRINGRANGE_HOSTAGE)
 	endlist
@@ -1707,7 +1707,7 @@ u8 func0419_init_firingrange_taker[] = {
 
 u8 func041b_init_hostage_holo[] = {
 	set_morale(3)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_HOSTAGE_HOLO)
 	endlist
 };
@@ -1816,7 +1816,7 @@ u8 func041c_init_holoclone1[] = {
 	rebuild_squadrons
 	play_sound(0x05bc, CHANNEL_9)
 	set_shotlist(FUNC_HOLOCLONE_ONSHOT)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_chr_id(CHR_HOLOCLONE1)
 	jog_to_pad(0x0108)
 	set_ailist(CHR_SELF, FUNC_HOLOCLONE)
@@ -1829,7 +1829,7 @@ u8 func041d_init_holoclone2[] = {
 	rebuild_squadrons
 	play_sound(0x05bc, CHANNEL_5)
 	set_shotlist(FUNC_HOLOCLONE_ONSHOT)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_chr_id(CHR_HOLOCLONE2)
 	jog_to_pad(0x0109)
 	set_ailist(CHR_SELF, FUNC_HOLOCLONE)
@@ -1842,7 +1842,7 @@ u8 func041e_init_holoclone3[] = {
 	rebuild_squadrons
 	play_sound(0x05bc, CHANNEL_6)
 	set_shotlist(FUNC_HOLOCLONE_ONSHOT)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_chr_id(CHR_HOLOCLONE3)
 	jog_to_pad(0x010a)
 	set_ailist(CHR_SELF, FUNC_HOLOCLONE)
@@ -1934,8 +1934,8 @@ u8 func0423_init_shock[] = {
 	set_chr_dodge_rating(2, 0x00)
 	set_accuracy(20)
 	set_reaction_speed(70)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(90)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
@@ -1948,8 +1948,8 @@ u8 func0426_init_saved_hostage[] = {
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2e)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2e)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
-	set_armor(80)
-	set_chr_health(CHR_SELF, 1)
+	add_health_or_armor(80)
+	set_chr_maxdamage(CHR_SELF, 1)
 	rebuild_teams
 	rebuild_squadrons
 	set_ailist(CHR_SELF, FUNC_HOSTAGE_THANK_AND_RUN)
@@ -2036,7 +2036,7 @@ u8 func0428_init_drop_devastator[] = {
 	unset_self_chrflag(CHRCFLAG_KILLCOUNTABLE)
 	set_shotlist(FUNC_HOSTAGE_THANK_AND_RUN)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
-	set_chr_health(CHR_SELF, 40)
+	set_chr_maxdamage(CHR_SELF, 40)
 	rebuild_teams
 	rebuild_squadrons
 	set_ailist(CHR_SELF, FUNC_DROP_DEVASTATOR)
@@ -2180,14 +2180,14 @@ u8 func1011_check_info_takers_dead[] = {
 
 u8 func042c_init_hostage_device_f[] = {
 	set_morale(1)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_DEVICEROOM_HOSTAGE)
 	endlist
 };
 
 u8 func042d_init_hostage_device_m[] = {
 	set_morale(6)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_DEVICEROOM_HOSTAGE)
 	endlist
 };
@@ -2228,7 +2228,7 @@ u8 func042b_deviceroom_hostage[] = {
 };
 
 u8 func042f_init_taker_device_m[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_TAKER_DEVICE_M)
 	endlist
 };
@@ -2280,7 +2280,7 @@ u8 func042e_taker_device_m[] = {
 };
 
 u8 func0431_init_taker_device_f[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_TAKER_DEVICE_F)
 	endlist
 };
@@ -2380,16 +2380,16 @@ u8 func0432_taker_attack[] = {
 
 u8 func0434_init_hostage_info_m[] = {
 	set_morale(2)
-	set_armor(10)
-	set_chr_health(CHR_SELF, 1)
+	add_health_or_armor(10)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_INFOROOM_HOSTAGE)
 	endlist
 };
 
 u8 func0435_init_hostage_info_f[] = {
 	set_morale(8)
-	set_armor(10)
-	set_chr_health(CHR_SELF, 1)
+	add_health_or_armor(10)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_INFOROOM_HOSTAGE)
 	endlist
 };
@@ -2470,14 +2470,14 @@ u8 func1012_info_room[] = {
 	set_chr_flag_bankx(CHR_HOSTAGE_INFO_M, CHRFLAG0_00002000, BANK_0)
 	set_chr_flag_bankx(CHR_HOSTAGE_INFO_F, CHRFLAG0_00002000, BANK_0)
 	set_chr_flag_bankx(CHR_HOSTAGE_INFO_M, CHRFLAG0_00000004, BANK_0)
-	set_chr_health(CHR_TAKER_INFO_M, 10)
+	set_chr_maxdamage(CHR_TAKER_INFO_M, 10)
 	goto_next(0x2e)
 
 	label(0x0a)
 	set_chr_flag_bankx(CHR_HOSTAGE_INFO_M, CHRFLAG0_00002000, BANK_0)
 	set_chr_flag_bankx(CHR_HOSTAGE_INFO_F, CHRFLAG0_00002000, BANK_0)
 	set_chr_flag_bankx(CHR_HOSTAGE_INFO_F, CHRFLAG0_00000004, BANK_0)
-	set_chr_health(CHR_TAKER_INFO_F, 10)
+	set_chr_maxdamage(CHR_TAKER_INFO_F, 10)
 
 	label(0x2e)
 	restart_timer
@@ -2494,7 +2494,7 @@ u8 func1012_info_room[] = {
 };
 
 u8 func0437_init_taker_info_m[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_TAKER_INFO_M)
 	endlist
 };
@@ -2527,7 +2527,7 @@ u8 func0436_taker_info_m[] = {
 };
 
 u8 func0439_init_taker_info_f[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_TAKER_INFO_F)
 	endlist
 };
@@ -3000,8 +3000,8 @@ u8 func1015_firingrange_pc[] = {
 	set_chr_dodge_rating(2, 0x00) \
 	set_accuracy(20) \
 	set_reaction_speed(70) \
-	set_chr_health(CHR_SELF, 40) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, 40) \
+	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(90) \
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1) \
@@ -3297,7 +3297,7 @@ u8 func1022_skedar_shuttle[] = {
 };
 
 u8 func043a_unused[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 
 	beginloop(0x12)
 		if_objective_complete(3, /*goto*/ 0x08)
@@ -3355,8 +3355,8 @@ u8 func043b_init_blonde[] = {
 	set_chr_dodge_rating(2, 0x00)
 	set_accuracy(20)
 	set_reaction_speed(70)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(90)
 	set_returnlist(CHR_SELF, GFUNC_UNALERTED)
@@ -3368,8 +3368,8 @@ u8 func043c_init_cisolder[] = {
 	set_chr_dodge_rating(2, 0x00)
 	set_accuracy(20)
 	set_reaction_speed(70)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(90)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(90)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, FUNC_DEFEND_PAD)
@@ -3380,8 +3380,8 @@ u8 func043d_unused[] = {
 	set_chr_dodge_rating(2, 0x00)
 	set_accuracy(30)
 	set_reaction_speed(70)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(90)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(90)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -3409,8 +3409,8 @@ u8 func0429_skedar4[] = {
 	stop_chr
 	set_accuracy(40)
 	set_reaction_speed(70)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(160)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(160)
 	set_recovery_speed(0)
 	set_shield(0)
 	jog_to_pad(0x000c)
@@ -3566,8 +3566,8 @@ u8 func1020_trigger_spawning[] = {
 u8 func042a_init_jonathan[] = {
 	set_accuracy(100)
 	set_reaction_speed(100)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(1200)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(1200)
 	set_recovery_speed(100)
 	set_ailist(CHR_SELF, FUNC_DEFEND_PAD)
 	endlist

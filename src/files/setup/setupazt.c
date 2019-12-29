@@ -762,8 +762,8 @@ u8 func0402_outro[] = {
 u8 func0407_init_blonde[] = {
 	set_accuracy(20)
 	set_reaction_speed(55)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(60)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(60)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -774,8 +774,8 @@ u8 func0406_init_stripes[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(16)
 	set_reaction_speed(55)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(0)
 	set_recovery_speed(30)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -838,8 +838,8 @@ u8 func1006_msg_elvisbeable[] = {
 	set_chr_dodge_rating(2, 0x0a) \
 	set_accuracy(16) \
 	set_reaction_speed(55) \
-	set_chr_health(CHR_SELF, 60) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, 60) \
+	add_health_or_armor(0) \
 	set_recovery_speed(30) \
 	set_shield(0) \
 	set_returnlist(CHR_SELF, function) \
@@ -944,8 +944,8 @@ u8 func0415_unused[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(16)
 	set_reaction_speed(55)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(0)
 	set_recovery_speed(30)
 	set_shield(0)
 	try_equip_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x00000000, /*goto*/ 0x08)
@@ -1028,8 +1028,8 @@ u8 func0416_spawned_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(16)
 	set_reaction_speed(55)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(0)
 	set_recovery_speed(30)
 	set_shield(0)
 	try_equip_weapon(MODEL_CHRAVENGER, WEAPON_K7AVENGER, 0x00000000, /*goto*/ 0x08)
@@ -1128,8 +1128,8 @@ u8 func0403_init_elvis[] = {
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_accuracy(100)
 	set_reaction_speed(100)
-	set_armor(1000)
-	set_chr_health(CHR_SELF, 1000)
+	add_health_or_armor(1000)
+	set_chr_maxdamage(CHR_SELF, 1000)
 	set_self_chrflag(CHRCFLAG_00080000)
 	assign_path(12)
 	start_path
@@ -1250,7 +1250,7 @@ u8 func0405_unused[] = {
 u8 func0417_init_robot[] = {
 	set_accuracy(40)
 	set_self_chrflag(CHRCFLAG_00020000)
-	set_chr_health(CHR_SELF, 250)
+	set_chr_maxdamage(CHR_SELF, 250)
 	set_ailist(CHR_SELF, FUNC_ROBOT)
 	endlist
 };
@@ -1451,7 +1451,7 @@ u8 func041a_pres_clone[] = {
 
 u8 func041b_init_president[] = {
 	set_self_chrflag(CHRCFLAG_00080000)
-	set_chr_health(CHR_SELF, 300)
+	set_chr_maxdamage(CHR_SELF, 300)
 	set_shield(0)
 	set_ailist(CHR_SELF, FUNC_PRESIDENT_WAITING)
 	endlist

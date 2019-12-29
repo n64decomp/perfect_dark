@@ -479,8 +479,8 @@ u8 func0409_start_path00[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(5)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(0)
@@ -493,8 +493,8 @@ u8 func040a_start_path01[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(5)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(1)
@@ -507,8 +507,8 @@ u8 func040b_start_path02[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(5)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(2)
@@ -521,8 +521,8 @@ u8 func040c_start_path03[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(5)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	assign_path(3)
@@ -1045,8 +1045,8 @@ u8 func1009_spawner_during_decode[] = {
 	set_chr_dodge_rating(2, 0x0a) \
 	set_accuracy(15) \
 	set_reaction_speed(25) \
-	set_chr_health(CHR_SELF, 40) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, 40) \
+	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0) \
 	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x10000000, /*goto*/ 0x06) \
@@ -2354,8 +2354,8 @@ u8 func0414_init_cloak2_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(5)
 	set_reaction_speed(25)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
@@ -2562,8 +2562,8 @@ u8 func101d_init_mines[] = {
 	set_chr_dodge_rating(2, 0x0a) \
 	set_accuracy(accuracy) \
 	set_reaction_speed(reaction) \
-	set_chr_health(CHR_SELF, 40) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, 40) \
+	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0) \
 	set_ailist(CHR_SELF, function)

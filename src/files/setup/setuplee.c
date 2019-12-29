@@ -654,7 +654,7 @@ u8 func040d_elvis_wait_for_hangar_entry[] = {
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_accuracy(100)
 	set_reaction_speed(100)
-	set_armor(200)
+	add_health_or_armor(200)
 	set_alertness(100)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
@@ -935,7 +935,7 @@ u8 func0409_elvis_follow[] = {
 
 u8 func041d_init_elvis_outside_prebridgelift[] = {
 	set_shotlist(FUNC_ELVIS_OUTSIDE_PREBRIDGELIFT)
-	set_armor(600)
+	add_health_or_armor(600)
 	set_ailist(CHR_SELF, FUNC_ELVIS_OUTSIDE_PREBRIDGELIFT)
 	endlist
 };
@@ -1117,8 +1117,8 @@ u8 func040f_init_skedar[] = {
 	// Alive
 	set_accuracy(20)
 	set_reaction_speed(75)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(190)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(190)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_RELATED_TO_SPAWNING)
@@ -1142,8 +1142,8 @@ u8 func0410_wake_suspendedanim_skedar[] = {
 	label(0x06)
 	set_accuracy(20)
 	set_reaction_speed(75)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(190)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(190)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_target_chr(CHR_BOND)
@@ -1465,7 +1465,7 @@ u8 func1008_hangar_lifts[] = {
 };
 
 u8 func0407_init_knifeable_skedar[] = {
-	set_armor(160)
+	add_health_or_armor(160)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_ailist(CHR_SELF, FUNC_KNIFEABLE_SKEDAR)
@@ -1605,8 +1605,8 @@ u8 func1009_keep_door_open_in_intro[] = {
 #define init_path(pathid) \
 	set_accuracy(20) \
 	set_reaction_speed(75) \
-	set_chr_health(CHR_SELF, 10) \
-	set_armor(190) \
+	set_chr_maxdamage(CHR_SELF, 10) \
+	add_health_or_armor(190) \
 	set_recovery_speed(0) \
 	set_shield(0) \
 	assign_path(pathid) \
@@ -1818,7 +1818,7 @@ u8 func0418_init_hangar_maian[] = {
 
 	label(0x06)
 	unset_self_chrflag(CHRCFLAG_HIDDEN)
-	set_armor(200)
+	add_health_or_armor(200)
 	set_reaction_speed(100)
 	set_ailist(CHR_SELF, FUNC_HANGAR_MAIAN)
 	endlist
@@ -2124,8 +2124,8 @@ u8 func100e_bridgelift[] = {
 u8 func0415_bridgespawner[] = {
 	set_accuracy(20)
 	set_reaction_speed(75)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(190)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(190)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_KILLCOUNTABLE)
@@ -2212,8 +2212,8 @@ u8 func0416_init_bridgeclone[] = {
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00400000)
 	set_accuracy(20)
 	set_reaction_speed(75)
-	set_chr_health(CHR_SELF, 10)
-	set_armor(190)
+	set_chr_maxdamage(CHR_SELF, 10)
+	add_health_or_armor(190)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_KILLCOUNTABLE)
@@ -2232,7 +2232,7 @@ u8 func0416_init_bridgeclone[] = {
 	try_inherit_properties(CHR_BRIDGESPAWNER2, /*goto*/ 0x06)
 
 	label(0x06)
-	set_armor(40)
+	add_health_or_armor(40)
 	set_ailist(CHR_SELF, FUNC_BRIDGECLONE)
 	endlist
 };
@@ -2919,8 +2919,8 @@ u8 func0c01_outro[] = {
 #define init_skedar(function) \
 	set_accuracy(20) \
 	set_reaction_speed(75) \
-	set_chr_health(CHR_SELF, 10) \
-	set_armor(190) \
+	set_chr_maxdamage(CHR_SELF, 10) \
+	add_health_or_armor(190) \
 	set_recovery_speed(0) \
 	set_shield(0) \
 	set_ailist(CHR_SELF, function)
@@ -3572,7 +3572,7 @@ u8 func1022_setup_rtracker[] = {
 };
 
 u8 func040b_init_cass[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 	endlist
 };

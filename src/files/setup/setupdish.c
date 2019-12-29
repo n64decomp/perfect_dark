@@ -4687,8 +4687,8 @@ u8 func0407_holo5_guard1[] = {
 	set_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
 	dprint 'C','R','E','A','T','E','D',' ','4',0,
 	set_shotlist(FUNC_HOLO5_GUARD1)
-	set_chr_health(CHR_SELF, 300)
-	set_armor(300)
+	set_chr_maxdamage(CHR_SELF, 300)
+	add_health_or_armor(300)
 	label(0x04)
 	yield
 	label(0x2f)
@@ -4754,7 +4754,7 @@ u8 func0407_holo5_guard1[] = {
 };
 
 u8 func0408_holo5_init_guard2[] = {
-	set_chr_health(CHR_SELF, 200)
+	set_chr_maxdamage(CHR_SELF, 200)
 	set_alertness(100)
 	set_chr_id(0x11)
 	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x40000000, /*goto*/ 0x06)
@@ -5061,7 +5061,7 @@ u8 func040f_holo6_init_guard4[] = {
 
 u8 func0415_holo_guard_unarmed_unalert[] = {
 	set_alertness(100)
-	set_chr_health(CHR_SELF, 100)
+	set_chr_maxdamage(CHR_SELF, 100)
 	yield
 	yield
 	yield
@@ -5492,7 +5492,7 @@ u8 func0411_holo7_init_guard5[] = {
 u8 func0418_holo_guard_armed_unalert[] = {
 	set_accuracy(50)
 	set_reaction_speed(20)
-	set_chr_health(CHR_SELF, 40)
+	set_chr_maxdamage(CHR_SELF, 40)
 	yield
 	yield
 	yield

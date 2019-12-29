@@ -865,12 +865,12 @@ u8 func040d_limo[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x03)
 
 	// SA and PA
-	set_chr_health(CHR_SELF, 34464)
+	set_chr_maxdamage(CHR_SELF, 34464)
 	goto_next(0x04)
 
 	// A
 	label(0x03)
-	set_chr_health(CHR_SELF, 65456)
+	set_chr_maxdamage(CHR_SELF, 65456)
 
 	// All difficulties
 	label(0x04)
@@ -916,12 +916,12 @@ u8 func040c_taxi[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x03)
 
 	// SA and PA
-	set_chr_health(CHR_SELF, 34464)
+	set_chr_maxdamage(CHR_SELF, 34464)
 	goto_next(0x04)
 
 	// A
 	label(0x03)
-	set_chr_health(CHR_SELF, 65456)
+	set_chr_maxdamage(CHR_SELF, 65456)
 	begin_hovercar_path(0x04)
 	set_vehicle_speed(SPEED_WALK, 0)
 
@@ -1732,8 +1732,8 @@ u8 func0413_bugspotter[] = {
 	set_chr_dodge_rating(2, 0x0a) \
 	set_accuracy(4) \
 	set_reaction_speed(30) \
-	set_chr_health(CHR_SELF, 40) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, 40) \
+	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0) \
 	assign_path(pathid) \
@@ -1959,7 +1959,7 @@ u8 func041b_init_robot[] = {
 
 u8 func041a_robot[] = {
 	set_self_chrflag(CHRCFLAG_00040000)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x0c)
 	assign_path(0)
 	start_path
@@ -2089,8 +2089,8 @@ u8 func041e_sealer1[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(4)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_shotlist(GFUNC_IDLE)
@@ -2360,8 +2360,8 @@ u8 func041f_alarm_responder[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(14)
 	set_reaction_speed(20)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x04)
@@ -2892,8 +2892,8 @@ u8 func040e_6064[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(4)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -2905,8 +2905,8 @@ u8 func040f_6088[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(20)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -2914,8 +2914,8 @@ u8 func040f_6088[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(4)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -2926,8 +2926,8 @@ u8 func0410_60d0[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(14)
 	set_reaction_speed(20)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -2939,8 +2939,8 @@ u8 func0411_60f4[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(14)
 	set_reaction_speed(20)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(40)
 	set_shield(0)
 	set_ailist(CHR_SELF, FUNC_FBI)

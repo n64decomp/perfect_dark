@@ -1157,8 +1157,8 @@ u8 func1006_check_lab_accessed[] = {
 	set_chr_dodge_rating(2, 0x0a) \
 	set_accuracy(accuracy) \
 	set_reaction_speed(35) \
-	set_chr_health(CHR_SELF, health) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, health) \
+	add_health_or_armor(0) \
 	set_recovery_speed(recovery) \
 	set_shield(0) \
 	assign_path(pathid) \
@@ -1672,8 +1672,8 @@ u8 func100a_random_doors[] = {
 u8 func0419_init_doorman[] = {
 	set_accuracy(10)
 	set_reaction_speed(35)
-	set_chr_health(CHR_SELF, 1)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 1)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, FUNC_DOORMAN)
@@ -2246,7 +2246,7 @@ u8 func1010_give_keycard[] = {
 };
 
 u8 func0414_init_mechanic[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_MECHANIC)
 	endlist
 };
@@ -2533,8 +2533,8 @@ u8 func041e_unused_041e[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(10)
 	set_reaction_speed(35)
-	set_chr_health(CHR_SELF, 80)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 80)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
@@ -2773,7 +2773,7 @@ u8 func041f_labtech_lights[] = {
 };
 
 u8 func0421_init_labtech_doors[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_LABTECH_DOORS)
 	endlist
 };
@@ -2986,7 +2986,7 @@ u8 func1017_activate_autogun[] = {
 };
 
 u8 func0423_init_labtech_records[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_LABTECH_RECORDS)
 	endlist
 };
@@ -4011,8 +4011,8 @@ u8 func0429_spawn_while_xraying[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(8)
 	set_reaction_speed(35)
-	set_chr_health(CHR_SELF, 50)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 50)
+	add_health_or_armor(0)
 	set_recovery_speed(35)
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_00000002)
@@ -4092,8 +4092,8 @@ u8 func042c_dragon_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(8)
 	set_reaction_speed(35)
-	set_chr_health(CHR_SELF, 50)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 50)
+	add_health_or_armor(0)
 	set_recovery_speed(35)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -4104,8 +4104,8 @@ u8 func042d_superdragon_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(10)
 	set_reaction_speed(35)
-	set_chr_health(CHR_SELF, 80)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 80)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -4116,8 +4116,8 @@ u8 func042e_biotech_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(18)
 	set_reaction_speed(35)
-	set_chr_health(CHR_SELF, 80)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 80)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -4128,8 +4128,8 @@ u8 func042e_biotech_guard_alerted[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(18)
 	set_reaction_speed(35)
-	set_chr_health(CHR_SELF, 80)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 80)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_target_chr(CHR_BOND)

@@ -775,12 +775,30 @@
 	mkshort(0x0095), \
 	newid,
 
-#define set_chr_health(chr, value) \
+/**
+ * Sets the limit of how much health a chr or heli can take before they die.
+ *
+ * In most cases the value is assigned to the chr given by the chr argument,
+ * however if the command is run by an object (eg. hovercar or heli) it will be
+ * assigned to the object itself.
+ */
+#define set_chr_maxdamage(chr, value) \
 	mkshort(0x0096), \
 	chr, \
 	mkshort(value),
 
-#define set_armor(value) \
+/**
+ * Easy to understand, but technically incorrect explanation:
+ *
+ *     Adds health to the chr. If this causes the chr to exceed full health
+ *     (ie. maxdamage) then the remainder is applied as armor.
+ *
+ * Relatively difficult to understand, but technically correct explanation:
+ *
+ *     Reduces the damage that the chr has taken by the given value. This value
+ *     may become negative, which has the effect of having body armor.
+ */
+#define add_health_or_armor(value) \
 	mkshort(0x0097), \
 	mkshort(value),
 

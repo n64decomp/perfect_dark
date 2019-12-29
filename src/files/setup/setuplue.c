@@ -851,8 +851,8 @@ u8 func0426_8420[] = {
 	set_chr_dodge_rating(2, 0x0a) \
 	set_accuracy(6) \
 	set_reaction_speed(50) \
-	set_chr_health(CHR_SELF, 40) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, 40) \
+	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0) \
 	assign_path(pathid) \
@@ -1370,8 +1370,8 @@ u8 func0411_init_hangar_guard1[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(8)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(10)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(10)
 	set_recovery_speed(35)
 	set_shield(0)
 	set_squadron(SQUADRON_0B)
@@ -1392,8 +1392,8 @@ u8 func0412_init_hangar_guard2[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(8)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(10)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(10)
 	set_recovery_speed(35)
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
@@ -1414,8 +1414,8 @@ u8 func0413_init_hangar_guard3[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(8)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(10)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(10)
 	set_recovery_speed(35)
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
@@ -1436,8 +1436,8 @@ u8 func0414_init_hangar_guard4[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(8)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(10)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(10)
 	set_recovery_speed(35)
 	set_shield(0)
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
@@ -1662,7 +1662,7 @@ u8 func1001_objectives_failed_msg[] = {
 };
 
 u8 func040a_top_interceptor[] = {
-	set_chr_health(CHR_SELF, 5000)
+	set_chr_maxdamage(CHR_SELF, 5000)
 	set_object_flag_bank0(OBJ_INTERCEPTOR3, OBJECTFLAG0_INTERCEPTOR_DISABLED)
 	restart_timer
 
@@ -1677,7 +1677,7 @@ u8 func040a_top_interceptor[] = {
 	unset_object_flag_bank0(OBJ_INTERCEPTOR3, OBJECTFLAG0_INTERCEPTOR_DISABLED)
 	cmd0143
 	begin_hovercar_path(0x22)
-	set_chr_health(CHR_SELF, 5000)
+	set_chr_maxdamage(CHR_SELF, 5000)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1727,7 +1727,7 @@ u8 func040a_top_interceptor[] = {
 };
 
 u8 func040c_init_bottom_interceptors[] = {
-	set_chr_health(CHR_SELF, 5000)
+	set_chr_maxdamage(CHR_SELF, 5000)
 	set_object_flag_bank0(OBJ_INTERCEPTOR1, OBJECTFLAG0_INTERCEPTOR_DISABLED)
 	set_object_flag_bank0(OBJ_INTERCEPTOR2, OBJECTFLAG0_INTERCEPTOR_DISABLED)
 
@@ -2617,8 +2617,8 @@ u8 func0419_clone_spawner[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(8)
 	set_reaction_speed(30)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(10)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(10)
 	set_recovery_speed(35)
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_00000002)
@@ -2764,8 +2764,8 @@ u8 func040f_spawned_guard[] = {
 #define init_guard(accuracy, reaction, armor, recovery, function) \
 	set_accuracy(accuracy) \
 	set_reaction_speed(reaction) \
-	set_chr_health(CHR_SELF, 40) \
-	set_armor(armor) \
+	set_chr_maxdamage(CHR_SELF, 40) \
+	add_health_or_armor(armor) \
 	set_recovery_speed(recovery) \
 	set_shield(0) \
 	set_ailist(CHR_SELF, function)

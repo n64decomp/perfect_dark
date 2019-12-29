@@ -1448,7 +1448,7 @@ u8 func1004_check_negotiator[] = {
 };
 
 u8 func0401_init_taker[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	if_difficulty_gt(DIFF_SA, /*goto*/ 0x2d)
 	unset_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
 	label(0x2d)
@@ -1664,7 +1664,7 @@ u8 func100f_check_takers_dead[] = {
 };
 
 u8 func0403_negotiator[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	stop_chr
 
 	beginloop(0x09)
@@ -2494,8 +2494,8 @@ u8 func1015_check_computers_destroyed[] = {
 	set_chr_dodge_rating(2, 0x0a) \
 	set_accuracy(accuracy) \
 	set_reaction_speed(reaction) \
-	set_chr_health(CHR_SELF, health) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, health) \
+	add_health_or_armor(0) \
 	set_recovery_speed(recovery) \
 	set_shield(0)
 
@@ -2942,7 +2942,7 @@ u8 func101d_dual_cmp150[] = {
 };
 
 u8 func0407_init_sniper[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	stop_chr
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 	endlist
@@ -2952,7 +2952,7 @@ u8 func0410_carrington[] = {
 	yield
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	chr_do_animation(0x017b, 1, 1, 0x06, 0x00, CHR_CARRINGTON, 2)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 	endlist

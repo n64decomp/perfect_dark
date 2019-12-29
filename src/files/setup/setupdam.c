@@ -665,8 +665,8 @@ u8 func0408_guard_unalerted[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(18)
 	set_reaction_speed(60)
-	set_chr_health(CHR_SELF, 70)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 70)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -1291,8 +1291,8 @@ u8 func100f_check_researchdata_collected[] = {
 	set_chr_dodge_rating(2, 0x0a) \
 	set_accuracy(18) \
 	set_reaction_speed(60) \
-	set_chr_health(CHR_SELF, 70) \
-	set_armor(0) \
+	set_chr_maxdamage(CHR_SELF, 70) \
+	add_health_or_armor(0) \
 	set_recovery_speed(0) \
 	set_shield(0) \
 	assign_path(pathid) \
@@ -1335,7 +1335,7 @@ u8 func0407_start_path02[] = {
 
 u8 func040e_init_labtech1[] = {
 	set_self_chrflag(CHRCFLAG_04000000)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_LABTECH1)
 	endlist
 };
@@ -1410,7 +1410,7 @@ u8 func040b_labtech1[] = {
 
 u8 func040f_init_labtech2[] = {
 	set_self_chrflag(CHRCFLAG_04000000)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_LABTECH2)
 	endlist
 };
@@ -1485,7 +1485,7 @@ u8 func040c_labtech2[] = {
 
 u8 func0410_init_labtech3[] = {
 	set_self_chrflag(CHRCFLAG_04000000)
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_LABTECH3)
 	endlist
 };
@@ -1860,7 +1860,7 @@ u8 func1010_alarm_responders[] = {
 };
 
 u8 func0402_init_pilot[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_PILOT)
 	endlist
 };
@@ -2271,8 +2271,8 @@ u8 func0413_guard_alerted[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(18)
 	set_reaction_speed(60)
-	set_chr_health(CHR_SELF, 70)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 70)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_ALERTED)
@@ -2455,7 +2455,7 @@ u8 func0415_elvis_at_start[] = {
 	// Alive
 	label(0x04)
 	stop_chr
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	restart_timer
 
 	beginloop(0x0b)
@@ -2573,8 +2573,8 @@ u8 func0415_elvis_at_start[] = {
 	set_stage_flag(STAGEFLAG_ELVIS_WARPED_FROM_START)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
-	set_armor(2000)
-	set_chr_health(CHR_SELF, 1)
+	add_health_or_armor(2000)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 	endlist
 };

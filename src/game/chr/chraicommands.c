@@ -4369,7 +4369,7 @@ bool aiSetChrNum(void)
  * @cmd 0096
  */
 GLOBAL_ASM(
-glabel ai0096
+glabel aiSetMaxDamage
 /*  f053938:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f05393c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f053940:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -4478,7 +4478,7 @@ glabel ai0096
  * @cmd 0097
  */
 GLOBAL_ASM(
-glabel ai0097
+glabel aiAddHealth
 /*  f053ab8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f053abc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
 /*  f053ac0:	8c6e0434 */ 	lw	$t6,0x434($v1)

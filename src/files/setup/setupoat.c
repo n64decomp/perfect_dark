@@ -46,7 +46,7 @@ u8 func0406_idle[] = {
 };
 
 u8 func0408_idle_with_10_health[] = {
-	set_chr_health(CHR_SELF, 10)
+	set_chr_maxdamage(CHR_SELF, 10)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 	endlist
 };

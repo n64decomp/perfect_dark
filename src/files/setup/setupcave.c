@@ -1109,8 +1109,8 @@ u8 func0405_start_path15[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(12)
 	set_reaction_speed(70)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	restart_timer
@@ -1130,7 +1130,7 @@ u8 func0405_start_path15[] = {
  * Assigned to the stewardess from another unused function.
  */
 u8 func040b_unused[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, 0x040b)
 	endlist
 };
@@ -1384,8 +1384,8 @@ u8 func1005_check_civilians_killed[] = {
 #define init_path(reaction, health, armor, recovery, pathid) \
 	set_accuracy(12) \
 	set_reaction_speed(reaction) \
-	set_chr_health(CHR_SELF, health) \
-	set_armor(armor) \
+	set_chr_maxdamage(CHR_SELF, health) \
+	add_health_or_armor(armor) \
 	set_recovery_speed(recovery) \
 	set_shield(0) \
 	assign_path(pathid) \
@@ -1436,8 +1436,8 @@ u8 func0422_start_path13[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
 	set_accuracy(12)
 	set_reaction_speed(45)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(40)
 	set_recovery_speed(30)
 	set_shield(0)
 	rebuild_teams
@@ -1452,8 +1452,8 @@ u8 func0423_start_path14[] = {
 	set_chr_team(CHR_SELF, TEAM_04)
 	set_accuracy(12)
 	set_reaction_speed(45)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(40)
 	set_recovery_speed(30)
 	set_shield(0)
 	rebuild_teams
@@ -1467,8 +1467,8 @@ u8 func0423_start_path14[] = {
 u8 func0424_start_path15_unused[] = {
 	set_accuracy(12)
 	set_reaction_speed(45)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(40)
 	set_recovery_speed(30)
 	set_shield(0)
 	assign_path(15)
@@ -1478,7 +1478,7 @@ u8 func0424_start_path15_unused[] = {
 };
 
 u8 func040c_init_secretary[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_SECRETARY)
 	endlist
 };
@@ -2040,7 +2040,7 @@ u8 func100b_suitcase_scanning[] = {
 };
 
 u8 func040d_init_office1[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_OFFICE1)
 	endlist
 };
@@ -2179,7 +2179,7 @@ u8 func0409_office1[] = {
 };
 
 u8 func040e_init_office2[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_OFFICE2)
 	endlist
 };
@@ -2406,8 +2406,8 @@ u8 func0410_unused[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(22)
 	set_reaction_speed(80)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_00000040)
@@ -2595,8 +2595,8 @@ u8 func0412_init_takeover_lackey[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(60)
 	set_reaction_speed(80)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, FUNC_TAKEOVER_LACKEY)
@@ -2661,13 +2661,13 @@ u8 func0411_takeover_lackey[] = {
 };
 
 u8 func0413_alaskan_console_guard[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
 	endlist
 };
 
 u8 unregistered_function3[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, FUNC_OFFICEWORKER)
 	endlist
 };
@@ -2780,7 +2780,7 @@ u8 func0414_officeworker[] = {
 };
 
 u8 func0415_alaskan_mountainlift_guard[] = {
-	set_chr_health(CHR_SELF, 1)
+	set_chr_maxdamage(CHR_SELF, 1)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
 	endlist
 };
@@ -2893,8 +2893,8 @@ u8 func0403_unused[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(12)
 	set_reaction_speed(45)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(40)
 	set_recovery_speed(30)
 	set_shield(0)
 	set_chr_chrflag(CHR_SELF, CHRCFLAG_HIDDEN)
@@ -3050,8 +3050,8 @@ u8 func0426_init_alaskan_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(12)
 	set_reaction_speed(70)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -3068,8 +3068,8 @@ u8 func0427_init_posttakeover_guard[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(12)
 	set_reaction_speed(45)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(40)
 	set_recovery_speed(30)
 	set_shield(0)
 	rebuild_teams
@@ -3120,8 +3120,8 @@ u8 func0429_unused[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(22)
 	set_reaction_speed(80)
-	set_chr_health(CHR_SELF, 40)
-	set_armor(0)
+	set_chr_maxdamage(CHR_SELF, 40)
+	add_health_or_armor(0)
 	set_recovery_speed(0)
 	set_shield(0)
 	set_ailist(CHR_SELF, GFUNC_UNALERTED)
@@ -3135,8 +3135,8 @@ u8 func042a_foyer_spawner[] = {
 	set_chr_dodge_rating(2, 0x0a)
 	set_accuracy(12)
 	set_reaction_speed(45)
-	set_chr_health(CHR_SELF, 60)
-	set_armor(40)
+	set_chr_maxdamage(CHR_SELF, 60)
+	add_health_or_armor(40)
 	set_recovery_speed(30)
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_00000002)
