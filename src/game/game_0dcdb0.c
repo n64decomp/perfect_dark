@@ -7459,26 +7459,15 @@ glabel func0f0df364
 /*  f0dfa18:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-GLOBAL_ASM(
-glabel func0f0dfa1c
-/*  f0dfa1c:	3c02800a */ 	lui	$v0,0x800a
-/*  f0dfa20:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0dfa24:	00807827 */ 	nor	$t7,$a0,$zero
-/*  f0dfa28:	8c4e185c */ 	lw	$t6,0x185c($v0)
-/*  f0dfa2c:	01cfc024 */ 	and	$t8,$t6,$t7
-/*  f0dfa30:	03e00008 */ 	jr	$ra
-/*  f0dfa34:	ac58185c */ 	sw	$t8,0x185c($v0)
-);
+void currentPlayerUnsetFlag(u32 flag)
+{
+	g_Vars.currentplayer->flags &= ~flag;
+}
 
-GLOBAL_ASM(
-glabel func0f0dfa38
-/*  f0dfa38:	3c02800a */ 	lui	$v0,0x800a
-/*  f0dfa3c:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0dfa40:	8c4e185c */ 	lw	$t6,0x185c($v0)
-/*  f0dfa44:	01c47825 */ 	or	$t7,$t6,$a0
-/*  f0dfa48:	03e00008 */ 	jr	$ra
-/*  f0dfa4c:	ac4f185c */ 	sw	$t7,0x185c($v0)
-);
+void currentPlayerSetFlag(u32 flag)
+{
+	g_Vars.currentplayer->flags |= flag;
+}
 
 GLOBAL_ASM(
 glabel func0f0dfa50

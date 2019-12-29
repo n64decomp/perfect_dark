@@ -7218,7 +7218,7 @@ glabel aiRevokeControl
 /*  f057588:	30490002 */ 	andi	$t1,$v0,0x2
 /*  f05758c:	55200006 */ 	bnezl	$t1,.L0f0575a8
 /*  f057590:	304b0004 */ 	andi	$t3,$v0,0x4
-/*  f057594:	0fc37e8e */ 	jal	func0f0dfa38
+/*  f057594:	0fc37e8e */ 	jal	currentPlayerSetFlag
 /*  f057598:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f05759c:	8faa002c */ 	lw	$t2,0x2c($sp)
 /*  f0575a0:	91420003 */ 	lbu	$v0,0x3($t2)
@@ -7260,7 +7260,7 @@ glabel aiRevokeControl
 //		func0f0a95ec(2, false);
 //
 //		if ((cmd[3] & 2) == 0) {
-//			func0f0dfa38(2);
+//			currentPlayerSetFlag(PLAYERFLAG_NOCONTROL);
 //		}
 //
 //		if ((cmd[3] & 4) == 0) {
@@ -7289,7 +7289,7 @@ bool aiGrantControl(void)
 		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
 		func0f0abc74(4, true);
 		func0f0a95ec(2, true);
-		func0f0dfa1c(2);
+		currentPlayerUnsetFlag(PLAYERFLAG_NOCONTROL);
 		countdownTimerSetVisible(16, true);
 		g_PlayersWithControl[g_Vars.currentplayernum] = true;
 		setCurrentPlayerNum(prevplayernum);
