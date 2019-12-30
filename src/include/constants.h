@@ -482,6 +482,7 @@
 
 #define MENUOP_SET 6
 #define MENUOP_GET 8
+#define MENUOP_12  12
 
 // Object flags - bank 0 (object struct offset 0x08)
 #define OBJECTFLAG0_00000001             0x00000001 // Not used in scripts

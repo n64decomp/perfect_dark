@@ -1045,58 +1045,31 @@ s32 menuhandlerAmmoOnScreen(u32 operation, struct menu_item *item, bool *enable)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerShowGunFunction
-/*  f102e5c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102e60:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102e64:	8c4e0298 */ 	lw	$t6,0x298($v0)
-/*  f102e68:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f102e6c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102e70:	05c10004 */ 	bgez	$t6,.L0f102e84
-/*  f102e74:	00803825 */ 	or	$a3,$a0,$zero
-/*  f102e78:	8c4f029c */ 	lw	$t7,0x29c($v0)
-/*  f102e7c:	05e20005 */ 	bltzl	$t7,.L0f102e94
-/*  f102e80:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102e84:
-/*  f102e84:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f102e88:	10000002 */ 	beqz	$zero,.L0f102e94
-/*  f102e8c:	8f040070 */ 	lw	$a0,0x70($t8)
-/*  f102e90:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102e94:
-/*  f102e94:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f102e98:	10e1000f */ 	beq	$a3,$at,.L0f102ed8
-/*  f102e9c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f102ea0:	10e10009 */ 	beq	$a3,$at,.L0f102ec8
-/*  f102ea4:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f102ea8:	54e10013 */ 	bnel	$a3,$at,.L0f102ef8
-/*  f102eac:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102eb0:	0fc54a0d */ 	jal	func0f152834
-/*  f102eb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102eb8:	5440000f */ 	bnezl	$v0,.L0f102ef8
-/*  f102ebc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102ec0:	1000000d */ 	beqz	$zero,.L0f102ef8
-/*  f102ec4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f102ec8:
-/*  f102ec8:	0fc54a16 */ 	jal	func0f152858
-/*  f102ecc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102ed0:	1000000a */ 	beqz	$zero,.L0f102efc
-/*  f102ed4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102ed8:
-/*  f102ed8:	0fc54ad6 */ 	jal	func0f152b58
-/*  f102edc:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f102ee0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102ee4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102ee8:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f102eec:	37280001 */ 	ori	$t0,$t9,0x1
-/*  f102ef0:	ac480458 */ 	sw	$t0,0x458($v0)
-/*  f102ef4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102ef8:
-/*  f102ef8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102efc:
-/*  f102efc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f102f00:	03e00008 */ 	jr	$ra
-/*  f102f04:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enable)
+{
+	u32 optionsindex;
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		optionsindex = g_Vars.unk000288->optionsindex;
+	} else {
+		optionsindex = item->right;
+	}
+
+	switch (operation) {
+	case MENUOP_12:
+		if (func0f152834(optionsindex) == 0) {
+			return true;
+		}
+		break;
+	case MENUOP_GET:
+		return func0f152858(optionsindex);
+	case MENUOP_SET:
+		func0f152b58(optionsindex, *enable);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerShowMissionTime
