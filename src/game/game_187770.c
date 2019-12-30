@@ -9758,7 +9758,7 @@ glabel func0f18f874
 /*  f18fa7c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f18fa80:	50410008 */ 	beql	$v0,$at,.L0f18faa4
 /*  f18fa84:	8fb90078 */ 	lw	$t9,0x78($sp)
-/*  f18fa88:	0fc54bcd */ 	jal	func0f152f34
+/*  f18fa88:	0fc54bcd */ 	jal	optionsGetScreenSplit
 /*  f18fa8c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18fa90:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f18fa94:	1441000f */ 	bne	$v0,$at,.L0f18fad4
@@ -9819,7 +9819,7 @@ glabel func0f18f874
 /*  f18fb58:	10000023 */ 	beqz	$zero,.L0f18fbe8
 /*  f18fb5c:	ae0b0000 */ 	sw	$t3,0x0($s0)
 .L0f18fb60:
-/*  f18fb60:	0fc54bcd */ 	jal	func0f152f34
+/*  f18fb60:	0fc54bcd */ 	jal	optionsGetScreenSplit
 /*  f18fb64:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18fb68:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f18fb6c:	1041001e */ 	beq	$v0,$at,.L0f18fbe8

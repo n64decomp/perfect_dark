@@ -2879,7 +2879,7 @@ glabel func0f178dbc
 /*  f178e8c:	10000012 */ 	beqz	$zero,.L0f178ed8
 /*  f178e90:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MenuStackDepth)
 .L0f178e94:
-/*  f178e94:	0fc54bcd */ 	jal	func0f152f34
+/*  f178e94:	0fc54bcd */ 	jal	optionsGetScreenSplit
 /*  f178e98:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f178e9c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f178ea0:	14410008 */ 	bne	$v0,$at,.L0f178ec4
@@ -3380,14 +3380,14 @@ glabel menuhandlerMpControlStyle
 .L0f179530:
 /*  f179530:	3c048007 */ 	lui	$a0,0x8007
 /*  f179534:	8c841448 */ 	lw	$a0,0x1448($a0)
-/*  f179538:	0fc549cb */ 	jal	func0f15272c
+/*  f179538:	0fc549cb */ 	jal	optionsSetControlMode
 /*  f17953c:	8cc50000 */ 	lw	$a1,0x0($a2)
 /*  f179540:	10000008 */ 	beqz	$zero,.L0f179564
 /*  f179544:	00001025 */ 	or	$v0,$zero,$zero
 .L0f179548:
 /*  f179548:	3c048007 */ 	lui	$a0,0x8007
 /*  f17954c:	8c841448 */ 	lw	$a0,0x1448($a0)
-/*  f179550:	0fc549c4 */ 	jal	func0f152710
+/*  f179550:	0fc549c4 */ 	jal	optionsGetControlMode
 /*  f179554:	afa60030 */ 	sw	$a2,0x30($sp)
 /*  f179558:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f17955c:	acc20000 */ 	sw	$v0,0x0($a2)

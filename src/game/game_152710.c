@@ -8,7 +8,7 @@
 #include "game/game_16cfa0.h"
 
 GLOBAL_ASM(
-glabel func0f152710
+glabel optionsGetControlMode
 /*  f152710:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f152714:	01c47021 */ 	addu	$t6,$t6,$a0
 /*  f152718:	000e7140 */ 	sll	$t6,$t6,0x5
@@ -19,7 +19,7 @@ glabel func0f152710
 );
 
 GLOBAL_ASM(
-glabel func0f15272c
+glabel optionsSetControlMode
 /*  f15272c:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f152730:	01c47021 */ 	addu	$t6,$t6,$a0
 /*  f152734:	000e7140 */ 	sll	$t6,$t6,0x5
@@ -107,14 +107,14 @@ s32 optionsGetShowMissionTime(s32 optionsindex)
 }
 
 GLOBAL_ASM(
-glabel func0f15290c
+glabel optionsGetInGameSubtitles
 /*  f15290c:	3c028008 */ 	lui	$v0,0x8008
 /*  f152910:	03e00008 */ 	jr	$ra
 /*  f152914:	9042fa90 */ 	lbu	$v0,-0x570($v0)
 );
 
 GLOBAL_ASM(
-glabel func0f152918
+glabel optionsGetCutsceneSubtitles
 /*  f152918:	3c028008 */ 	lui	$v0,0x8008
 /*  f15291c:	03e00008 */ 	jr	$ra
 /*  f152920:	9042fa94 */ 	lbu	$v0,-0x56c($v0)
@@ -225,14 +225,14 @@ void optionsSetShowMissionTime(s32 optionsindex, bool enable)
 }
 
 GLOBAL_ASM(
-glabel func0f152d10
+glabel optionsSetInGameSubtitles
 /*  f152d10:	3c018008 */ 	lui	$at,0x8008
 /*  f152d14:	03e00008 */ 	jr	$ra
 /*  f152d18:	a024fa90 */ 	sb	$a0,-0x570($at)
 );
 
 GLOBAL_ASM(
-glabel func0f152d1c
+glabel optionsSetCutsceneSubtitles
 /*  f152d1c:	3c018008 */ 	lui	$at,0x8008
 /*  f152d20:	03e00008 */ 	jr	$ra
 /*  f152d24:	a024fa94 */ 	sb	$a0,-0x56c($at)
@@ -359,42 +359,42 @@ glabel func0f152d80
 );
 
 GLOBAL_ASM(
-glabel func0f152f04
+glabel optionsGetScreenMode
 /*  f152f04:	3c028008 */ 	lui	$v0,0x8008
 /*  f152f08:	03e00008 */ 	jr	$ra
 /*  f152f0c:	8c42fab0 */ 	lw	$v0,-0x550($v0)
 );
 
 GLOBAL_ASM(
-glabel func0f152f10
+glabel optionsSetScreenMode
 /*  f152f10:	3c018008 */ 	lui	$at,0x8008
 /*  f152f14:	03e00008 */ 	jr	$ra
 /*  f152f18:	ac24fab0 */ 	sw	$a0,-0x550($at)
 );
 
 GLOBAL_ASM(
-glabel func0f152f1c
+glabel optionsGetScreenRatio
 /*  f152f1c:	3c028008 */ 	lui	$v0,0x8008
 /*  f152f20:	03e00008 */ 	jr	$ra
 /*  f152f24:	8c42fab4 */ 	lw	$v0,-0x54c($v0)
 );
 
 GLOBAL_ASM(
-glabel func0f152f28
+glabel optionsSetScreenRatio
 /*  f152f28:	3c018008 */ 	lui	$at,0x8008
 /*  f152f2c:	03e00008 */ 	jr	$ra
 /*  f152f30:	ac24fab4 */ 	sw	$a0,-0x54c($at)
 );
 
 GLOBAL_ASM(
-glabel func0f152f34
+glabel optionsGetScreenSplit
 /*  f152f34:	3c028008 */ 	lui	$v0,0x8008
 /*  f152f38:	03e00008 */ 	jr	$ra
 /*  f152f3c:	9042fab8 */ 	lbu	$v0,-0x548($v0)
 );
 
 GLOBAL_ASM(
-glabel func0f152f40
+glabel optionsSetScreenSplit
 /*  f152f40:	3c018008 */ 	lui	$at,0x8008
 /*  f152f44:	afa40000 */ 	sw	$a0,0x0($sp)
 /*  f152f48:	03e00008 */ 	jr	$ra
