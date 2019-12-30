@@ -46,7 +46,7 @@ s32 menuhandler00106028(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler00106178(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler00106394(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler00106644(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandlerAimControl(u32 operation, struct menu_item *item, bool *enable);
+char *menuhandlerAimControl(u32 operation, struct menu_item *item, bool *value);
 s32 menuhandlerAlternativeTitle(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerAlwaysShowTarget(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerAmmoOnScreen(u32 operation, struct menu_item *item, bool *enable);

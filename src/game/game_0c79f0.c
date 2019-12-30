@@ -1843,7 +1843,7 @@ glabel func0f0c8b90
 /*  f0c916c:	a7ae00ea */ 	sh	$t6,0xea($sp)
 .L0f0c9170:
 /*  f0c9170:	8e4f0288 */ 	lw	$t7,0x288($s2)
-/*  f0c9174:	0fc549fb */ 	jal	func0f1527ec
+/*  f0c9174:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f0c9178:	8de40070 */ 	lw	$a0,0x70($t7)
 /*  f0c917c:	1440001f */ 	bnez	$v0,.L0f0c91fc
 /*  f0c9180:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1886,7 +1886,7 @@ glabel func0f0c8b90
 /*  f0c9204:	54400243 */ 	bnezl	$v0,.L0f0c9b14
 /*  f0c9208:	8e450284 */ 	lw	$a1,0x284($s2)
 /*  f0c920c:	8e4d0288 */ 	lw	$t5,0x288($s2)
-/*  f0c9210:	0fc549fb */ 	jal	func0f1527ec
+/*  f0c9210:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f0c9214:	8da40070 */ 	lw	$a0,0x70($t5)
 /*  f0c9218:	1040001f */ 	beqz	$v0,.L0f0c9298
 /*  f0c921c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2392,7 +2392,7 @@ glabel func0f0c8b90
 .L0f0c9924:
 /*  f0c9924:	8e4a0288 */ 	lw	$t2,0x288($s2)
 .L0f0c9928:
-/*  f0c9928:	0fc549fb */ 	jal	func0f1527ec
+/*  f0c9928:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f0c992c:	8d440070 */ 	lw	$a0,0x70($t2)
 /*  f0c9930:	14400019 */ 	bnez	$v0,.L0f0c9998
 /*  f0c9934:	00105880 */ 	sll	$t3,$s0,0x2
@@ -2627,7 +2627,7 @@ glabel func0f0c8b90
 /*  f0c9c5c:	a7aa00ca */ 	sh	$t2,0xca($sp)
 .L0f0c9c60:
 /*  f0c9c60:	8e4b0288 */ 	lw	$t3,0x288($s2)
-/*  f0c9c64:	0fc549fb */ 	jal	func0f1527ec
+/*  f0c9c64:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f0c9c68:	8d640070 */ 	lw	$a0,0x70($t3)
 /*  f0c9c6c:	14400021 */ 	bnez	$v0,.L0f0c9cf4
 /*  f0c9c70:	00000000 */ 	sll	$zero,$zero,0x0
@@ -2672,7 +2672,7 @@ glabel func0f0c8b90
 /*  f0c9cfc:	544002ba */ 	bnezl	$v0,.L0f0ca7e8
 /*  f0c9d00:	8e450284 */ 	lw	$a1,0x284($s2)
 /*  f0c9d04:	8e490288 */ 	lw	$t1,0x288($s2)
-/*  f0c9d08:	0fc549fb */ 	jal	func0f1527ec
+/*  f0c9d08:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f0c9d0c:	8d240070 */ 	lw	$a0,0x70($t1)
 /*  f0c9d10:	10400021 */ 	beqz	$v0,.L0f0c9d98
 /*  f0c9d14:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3300,7 +3300,7 @@ glabel func0f0c8b90
 .L0f0ca5f0:
 /*  f0ca5f0:	8e4e0288 */ 	lw	$t6,0x288($s2)
 .L0f0ca5f4:
-/*  f0ca5f4:	0fc549fb */ 	jal	func0f1527ec
+/*  f0ca5f4:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f0ca5f8:	8dc40070 */ 	lw	$a0,0x70($t6)
 /*  f0ca5fc:	14400019 */ 	bnez	$v0,.L0f0ca664
 /*  f0ca600:	00107880 */ 	sll	$t7,$s0,0x2

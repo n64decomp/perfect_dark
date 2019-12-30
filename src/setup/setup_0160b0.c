@@ -1549,7 +1549,7 @@ u16 options_controlmode[] = {
 };
 
 // 17a04
-u16 options_aimcontrol[] = {
+u16 g_AimControlOptions[] = {
 	0x56c9, // "Hold"
 	0x56ca, // "Toggle"
 };

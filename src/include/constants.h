@@ -44,6 +44,9 @@
 #define ACT_PUNCH            36
 #define ACT_CUTFIRE          37
 
+#define AIMCONTROL_HOLD   0
+#define AIMCONTROL_TOGGLE 1
+
 #define AMMOTYPE_PISTOL      0x01
 #define AMMOTYPE_SMG         0x02
 #define AMMOTYPE_CROSSBOW    0x03
@@ -480,6 +483,8 @@
 #define MA_FACING          53
 #define MA_PUNCHING        54
 
+#define MENUOP_GETOPTIONCOUNT 1
+#define MENUOP_GETOPTIONTEXT  3
 #define MENUOP_SET            6
 #define MENUOP_GET            8
 #define MENUOP_CHECKDISABLED  12
@@ -662,6 +667,7 @@
 #define OPTION_LOOKAHEAD        0x0002
 #define OPTION_SIGHTONSCREEN    0x0004
 #define OPTION_AUTOAIM          0x0008
+#define OPTION_AIMCONTROL       0x0010
 #define OPTION_AMMOONSCREEN     0x0020
 #define OPTION_SHOWGUNFUNCTION  0x0040
 #define OPTION_HEADROLL         0x0080

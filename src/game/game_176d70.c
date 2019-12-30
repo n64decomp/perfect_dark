@@ -3629,14 +3629,14 @@ glabel menuhandlerMpAimControl
 .L0f179854:
 /*  f179854:	3c048007 */ 	lui	$a0,0x8007
 /*  f179858:	8c841448 */ 	lw	$a0,0x1448($a0)
-/*  f17985c:	0fc54a94 */ 	jal	func0f152a50
+/*  f17985c:	0fc54a94 */ 	jal	optionsSetAimControl
 /*  f179860:	8cc50000 */ 	lw	$a1,0x0($a2)
 /*  f179864:	10000008 */ 	beqz	$zero,.L0f179888
 /*  f179868:	00001025 */ 	or	$v0,$zero,$zero
 .L0f17986c:
 /*  f17986c:	3c048007 */ 	lui	$a0,0x8007
 /*  f179870:	8c841448 */ 	lw	$a0,0x1448($a0)
-/*  f179874:	0fc549fb */ 	jal	func0f1527ec
+/*  f179874:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f179878:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f17987c:	8fa60028 */ 	lw	$a2,0x28($sp)
 /*  f179880:	acc20000 */ 	sw	$v0,0x0($a2)

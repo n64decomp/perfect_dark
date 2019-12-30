@@ -381,8 +381,8 @@ glabel menuhandlerAimControl
 /*  f1025e4:	8f040070 */ 	lw	$a0,0x70($t8)
 /*  f1025e8:	8ca4000c */ 	lw	$a0,0xc($a1)
 .L0f1025ec:
-/*  f1025ec:	3c198007 */ 	lui	$t9,%hi(options_aimcontrol)
-/*  f1025f0:	273919e4 */ 	addiu	$t9,$t9,%lo(options_aimcontrol)
+/*  f1025ec:	3c198007 */ 	lui	$t9,%hi(g_AimControlOptions)
+/*  f1025f0:	273919e4 */ 	addiu	$t9,$t9,%lo(g_AimControlOptions)
 /*  f1025f4:	8f210000 */ 	lw	$at,0x0($t9)
 /*  f1025f8:	27a30020 */ 	addiu	$v1,$sp,0x20
 /*  f1025fc:	240a0002 */ 	addiu	$t2,$zero,0x2
@@ -410,7 +410,7 @@ glabel menuhandlerAimControl
 /*  f10264c:	1000000f */ 	beqz	$zero,.L0f10268c
 /*  f102650:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f102654:
-/*  f102654:	0fc54a94 */ 	jal	func0f152a50
+/*  f102654:	0fc54a94 */ 	jal	optionsSetAimControl
 /*  f102658:	8cc50000 */ 	lw	$a1,0x0($a2)
 /*  f10265c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f102660:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -419,7 +419,7 @@ glabel menuhandlerAimControl
 /*  f10266c:	10000005 */ 	beqz	$zero,.L0f102684
 /*  f102670:	ac4f0458 */ 	sw	$t7,0x458($v0)
 .L0f102674:
-/*  f102674:	0fc549fb */ 	jal	func0f1527ec
+/*  f102674:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f102678:	afa60030 */ 	sw	$a2,0x30($sp)
 /*  f10267c:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f102680:	acc20000 */ 	sw	$v0,0x0($a2)
