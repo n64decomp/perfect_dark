@@ -494,10 +494,10 @@ glabel menuhandlerSoundMode
 GLOBAL_ASM(
 glabel menuhandlerScreenSize
 /*  f102754:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f102758:	3c0e8007 */ 	lui	$t6,%hi(options_screenmode)
+/*  f102758:	3c0e8007 */ 	lui	$t6,%hi(g_ScreenSizeOptions)
 /*  f10275c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f102760:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f102764:	25ce19f0 */ 	addiu	$t6,$t6,%lo(options_screenmode)
+/*  f102764:	25ce19f0 */ 	addiu	$t6,$t6,%lo(g_ScreenSizeOptions)
 /*  f102768:	8dc10000 */ 	lw	$at,0x0($t6)
 /*  f10276c:	27a20020 */ 	addiu	$v0,$sp,0x20
 /*  f102770:	24080003 */ 	addiu	$t0,$zero,0x3
@@ -527,7 +527,7 @@ glabel menuhandlerScreenSize
 /*  f1027c8:	1000000f */ 	beqz	$zero,.L0f102808
 /*  f1027cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f1027d0:
-/*  f1027d0:	0fc54bc4 */ 	jal	optionsSetScreenMode
+/*  f1027d0:	0fc54bc4 */ 	jal	optionsSetScreenSize
 /*  f1027d4:	8cc40000 */ 	lw	$a0,0x0($a2)
 /*  f1027d8:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f1027dc:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -553,10 +553,10 @@ glabel menuhandlerScreenSize
 GLOBAL_ASM(
 glabel menuhandlerScreenRatio
 /*  f102814:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f102818:	3c0e8007 */ 	lui	$t6,%hi(options_screenratio)
+/*  f102818:	3c0e8007 */ 	lui	$t6,%hi(g_ScreenRatioOptions)
 /*  f10281c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f102820:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f102824:	25ce19f8 */ 	addiu	$t6,$t6,%lo(options_screenratio)
+/*  f102824:	25ce19f8 */ 	addiu	$t6,$t6,%lo(g_ScreenRatioOptions)
 /*  f102828:	8dc10000 */ 	lw	$at,0x0($t6)
 /*  f10282c:	27a2001c */ 	addiu	$v0,$sp,0x1c
 /*  f102830:	24080002 */ 	addiu	$t0,$zero,0x2
@@ -610,10 +610,10 @@ glabel menuhandlerScreenRatio
 GLOBAL_ASM(
 glabel menuhandlerScreenSplit
 /*  f1028cc:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1028d0:	3c0e8007 */ 	lui	$t6,%hi(options_screensplit)
+/*  f1028d0:	3c0e8007 */ 	lui	$t6,%hi(g_ScreenSplitOptions)
 /*  f1028d4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1028d8:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f1028dc:	25ce19fc */ 	addiu	$t6,$t6,%lo(options_screensplit)
+/*  f1028dc:	25ce19fc */ 	addiu	$t6,$t6,%lo(g_ScreenSplitOptions)
 /*  f1028e0:	8dc10000 */ 	lw	$at,0x0($t6)
 /*  f1028e4:	27a20034 */ 	addiu	$v0,$sp,0x34
 /*  f1028e8:	24080002 */ 	addiu	$t0,$zero,0x2

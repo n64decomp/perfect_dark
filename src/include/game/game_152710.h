@@ -37,12 +37,12 @@ u32 optionsSetInGameSubtitles(void);
 u32 optionsSetCutsceneSubtitles(void);
 void optionsSetHeadRoll(s32 optionsindex, bool enable);
 u32 func0f152d80(void);
-u32 optionsGetScreenMode(void);
-u32 optionsSetScreenMode(void);
-u32 optionsGetScreenRatio(void);
-u32 optionsSetScreenRatio(void);
-u32 optionsGetScreenSplit(void);
-u32 optionsSetScreenSplit(void);
+s32 optionsGetScreenSize(void);
+void optionsSetScreenSize(s32 size);
+s32 optionsGetScreenRatio(void);
+void optionsSetScreenRatio(s32 ratio);
+u8 optionsGetScreenSplit(void);
+void optionsSetScreenSplit(u8 split);
 u32 func0f152f50(void);
 void func0f152f70(u32 arg0);
 

@@ -358,48 +358,35 @@ glabel func0f152d80
 /*  f152f00:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel optionsGetScreenMode
-/*  f152f04:	3c028008 */ 	lui	$v0,0x8008
-/*  f152f08:	03e00008 */ 	jr	$ra
-/*  f152f0c:	8c42fab0 */ 	lw	$v0,-0x550($v0)
-);
+s32 optionsGetScreenSize(void)
+{
+	return g_ScreenSize;
+}
 
-GLOBAL_ASM(
-glabel optionsSetScreenMode
-/*  f152f10:	3c018008 */ 	lui	$at,0x8008
-/*  f152f14:	03e00008 */ 	jr	$ra
-/*  f152f18:	ac24fab0 */ 	sw	$a0,-0x550($at)
-);
+void optionsSetScreenSize(s32 size)
+{
+	g_ScreenSize = size;
+}
 
-GLOBAL_ASM(
-glabel optionsGetScreenRatio
-/*  f152f1c:	3c028008 */ 	lui	$v0,0x8008
-/*  f152f20:	03e00008 */ 	jr	$ra
-/*  f152f24:	8c42fab4 */ 	lw	$v0,-0x54c($v0)
-);
+s32 optionsGetScreenRatio(void)
+{
+	return g_ScreenRatio;
+}
 
-GLOBAL_ASM(
-glabel optionsSetScreenRatio
-/*  f152f28:	3c018008 */ 	lui	$at,0x8008
-/*  f152f2c:	03e00008 */ 	jr	$ra
-/*  f152f30:	ac24fab4 */ 	sw	$a0,-0x54c($at)
-);
+void optionsSetScreenRatio(s32 ratio)
+{
+	g_ScreenRatio = ratio;
+}
 
-GLOBAL_ASM(
-glabel optionsGetScreenSplit
-/*  f152f34:	3c028008 */ 	lui	$v0,0x8008
-/*  f152f38:	03e00008 */ 	jr	$ra
-/*  f152f3c:	9042fab8 */ 	lbu	$v0,-0x548($v0)
-);
+u8 optionsGetScreenSplit(void)
+{
+	return g_ScreenSplit;
+}
 
-GLOBAL_ASM(
-glabel optionsSetScreenSplit
-/*  f152f40:	3c018008 */ 	lui	$at,0x8008
-/*  f152f44:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f152f48:	03e00008 */ 	jr	$ra
-/*  f152f4c:	a024fab8 */ 	sb	$a0,-0x548($at)
-);
+void optionsSetScreenSplit(u8 split)
+{
+	g_ScreenSplit = split;
+}
 
 GLOBAL_ASM(
 glabel func0f152f50

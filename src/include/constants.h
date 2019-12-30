@@ -720,6 +720,16 @@
 #define SAVEFILEFLAG_RESCUE_MECHANIC_DEAD 0x3e
 #define SAVEFILEFLAG_G5_MINE              0x3f // true if thrown on top door
 
+#define SCREENRATIO_NORMAL 0
+#define SCREENRATIO_16_9   1
+
+#define SCREENSIZE_FULL   0
+#define SCREENSIZE_WIDE   1
+#define SCREENSIZE_CINEMA 2
+
+#define SCREENSPLIT_HORIZONTAL 0
+#define SCREENSPLIT_VERTICAL   1
+
 #define SPEED_WALK 0
 #define SPEED_JOG  1
 #define SPEED_RUN  2

@@ -1563,7 +1563,7 @@ u16 options_soundmode[] = {
 };
 
 // 17a10
-u16 options_screenmode[] = {
+u16 g_ScreenSizeOptions[] = {
 	0x56dc, // "Full"
 	0x56dd, // "Wide"
 	0x56de, // "Cinema"
@@ -1571,13 +1571,13 @@ u16 options_screenmode[] = {
 };
 
 // 17a18
-u16 options_screenratio[] = {
+u16 g_ScreenRatioOptions[] = {
 	0x56df, // "Normal"
 	0x56e0, // "16:9"
 };
 
 // 17a1c
-u16 options_screensplit[] = {
+u16 g_ScreenSplitOptions[] = {
 	0x56e1, // "Horizontal"
 	0x56e2, // "Vertical"
 };
