@@ -23859,7 +23859,7 @@ glabel func0f13e4a8
 /*  f13e598:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
 .L0f13e59c:
 /*  f13e59c:	8cee0288 */ 	lw	$t6,0x288($a3)
-/*  f13e5a0:	0fc54a31 */ 	jal	func0f1528c4
+/*  f13e5a0:	0fc54a31 */ 	jal	optionsGetPaintball
 /*  f13e5a4:	8dc40070 */ 	lw	$a0,0x70($t6)
 /*  f13e5a8:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f13e5ac:	0fc4a24b */ 	jal	setCurrentPlayerNum

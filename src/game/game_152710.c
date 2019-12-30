@@ -136,18 +136,10 @@ s32 optionsGetShowZoomRange(s32 optionsindex)
 	return (g_Options[optionsindex].unk48 & OPTION_SHOWZOOMRANGE) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1528c4
-/*  f1528c4:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1528c8:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f1528cc:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f1528d0:	3c02800b */ 	lui	$v0,0x800b
-/*  f1528d4:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f1528d8:	9442c800 */ 	lhu	$v0,-0x3800($v0)
-/*  f1528dc:	304f0800 */ 	andi	$t7,$v0,0x800
-/*  f1528e0:	03e00008 */ 	jr	$ra
-/*  f1528e4:	000f102b */ 	sltu	$v0,$zero,$t7
-);
+s32 optionsGetPaintball(s32 optionsindex)
+{
+	return (g_Options[optionsindex].unk48 & OPTION_PAINTBALL) != 0;
+}
 
 s32 optionsGetShowMissionTime(s32 optionsindex)
 {
@@ -352,32 +344,14 @@ void optionsSetShowZoomRange(s32 optionsindex, bool enable)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f152c60
-/*  f152c60:	10a0000b */ 	beqz	$a1,.L0f152c90
-/*  f152c64:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f152c68:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152c6c:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152c70:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f152c74:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f152c78:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152c7c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f152c80:	94580048 */ 	lhu	$t8,0x48($v0)
-/*  f152c84:	37190800 */ 	ori	$t9,$t8,0x800
-/*  f152c88:	03e00008 */ 	jr	$ra
-/*  f152c8c:	a4590048 */ 	sh	$t9,0x48($v0)
-.L0f152c90:
-/*  f152c90:	01044021 */ 	addu	$t0,$t0,$a0
-/*  f152c94:	3c09800b */ 	lui	$t1,%hi(g_Options)
-/*  f152c98:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_Options)
-/*  f152c9c:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f152ca0:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f152ca4:	944a0048 */ 	lhu	$t2,0x48($v0)
-/*  f152ca8:	314bf7ff */ 	andi	$t3,$t2,0xf7ff
-/*  f152cac:	a44b0048 */ 	sh	$t3,0x48($v0)
-/*  f152cb0:	03e00008 */ 	jr	$ra
-/*  f152cb4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void optionsSetPaintball(s32 optionsindex, bool enable)
+{
+	if (enable) {
+		g_Options[optionsindex].unk48 |= OPTION_PAINTBALL;
+	} else {
+		g_Options[optionsindex].unk48 &= ~OPTION_PAINTBALL;
+	}
+}
 
 void optionsSetShowMissionTime(s32 optionsindex, bool enable)
 {
