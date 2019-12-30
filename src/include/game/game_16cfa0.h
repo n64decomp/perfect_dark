@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f16cfa0(void);
-u32 func0f16cfe8(void);
+void func0f16cfe8(u16 volume);
 u32 func0f16d0a8(void);
 u32 func0f16d124(void);
 u32 func0f16d1bc(void);

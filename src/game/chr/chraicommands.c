@@ -7920,9 +7920,9 @@ bool aiAudioPlayMusic(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (cmd[2] == MUSIC_CI_TRAINING) {
-		u16 something = func0f152f50();
+		u16 volume = optionsGetMusicVolume();
 		audioPlayTrack(cmd[2]);
-		func0f152f70(something);
+		optionsSetMusicVolume(volume);
 	} else {
 		audioPlayTrack(cmd[2]);
 	}

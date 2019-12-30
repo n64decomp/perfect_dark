@@ -43,7 +43,7 @@ s32 optionsGetScreenRatio(void);
 void optionsSetScreenRatio(s32 ratio);
 u8 optionsGetScreenSplit(void);
 void optionsSetScreenSplit(u8 split);
-u32 func0f152f50(void);
-void func0f152f70(u32 arg0);
+s32 optionsGetMusicVolume(void);
+void optionsSetMusicVolume(u16 volume);
 
 #endif

@@ -388,30 +388,12 @@ void optionsSetScreenSplit(u8 split)
 	g_ScreenSplit = split;
 }
 
-GLOBAL_ASM(
-glabel func0f152f50
-/*  f152f50:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f152f54:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f152f58:	0fc5b3e8 */ 	jal	func0f16cfa0
-/*  f152f5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f152f60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f152f64:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f152f68:	03e00008 */ 	jr	$ra
-/*  f152f6c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 optionsGetMusicVolume(void)
+{
+	return func0f16cfa0();
+}
 
-GLOBAL_ASM(
-glabel func0f152f70
-/*  f152f70:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f152f74:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f152f78:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f152f7c:	308effff */ 	andi	$t6,$a0,0xffff
-/*  f152f80:	0fc5b3fa */ 	jal	func0f16cfe8
-/*  f152f84:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f152f88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f152f8c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f152f90:	03e00008 */ 	jr	$ra
-/*  f152f94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f152f98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f152f9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void optionsSetMusicVolume(u16 volume)
+{
+	func0f16cfe8(volume);
+}

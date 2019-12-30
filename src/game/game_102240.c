@@ -1146,13 +1146,13 @@ glabel menuhandlerMusicVolume
 /*  f1032a4:	24010009 */ 	addiu	$at,$zero,0x9
 /*  f1032a8:	5481000e */ 	bnel	$a0,$at,.L0f1032e4
 /*  f1032ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1032b0:	0fc54bd4 */ 	jal	func0f152f50
+/*  f1032b0:	0fc54bd4 */ 	jal	optionsGetMusicVolume
 /*  f1032b4:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f1032b8:	8fa60020 */ 	lw	$a2,0x20($sp)
 /*  f1032bc:	10000008 */ 	beqz	$zero,.L0f1032e0
 /*  f1032c0:	acc20000 */ 	sw	$v0,0x0($a2)
 .L0f1032c4:
-/*  f1032c4:	0fc54bdc */ 	jal	func0f152f70
+/*  f1032c4:	0fc54bdc */ 	jal	optionsSetMusicVolume
 /*  f1032c8:	94c40002 */ 	lhu	$a0,0x2($a2)
 /*  f1032cc:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f1032d0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
