@@ -740,49 +740,26 @@ glabel menuhandlerScreenSplit
 /*  f102a3c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerLookAhead
-/*  f102a40:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102a44:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102a48:	8c4e0298 */ 	lw	$t6,0x298($v0)
-/*  f102a4c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f102a50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102a54:	05c10004 */ 	bgez	$t6,.L0f102a68
-/*  f102a58:	00803825 */ 	or	$a3,$a0,$zero
-/*  f102a5c:	8c4f029c */ 	lw	$t7,0x29c($v0)
-/*  f102a60:	05e20005 */ 	bltzl	$t7,.L0f102a78
-/*  f102a64:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102a68:
-/*  f102a68:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f102a6c:	10000002 */ 	beqz	$zero,.L0f102a78
-/*  f102a70:	8f040070 */ 	lw	$a0,0x70($t8)
-/*  f102a74:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102a78:
-/*  f102a78:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f102a7c:	10e10007 */ 	beq	$a3,$at,.L0f102a9c
-/*  f102a80:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f102a84:	54e1000d */ 	bnel	$a3,$at,.L0f102abc
-/*  f102a88:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102a8c:	0fc549f2 */ 	jal	func0f1527c8
-/*  f102a90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102a94:	1000000a */ 	beqz	$zero,.L0f102ac0
-/*  f102a98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102a9c:
-/*  f102a9c:	0fc54a7e */ 	jal	func0f1529f8
-/*  f102aa0:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f102aa4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102aa8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102aac:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f102ab0:	37280001 */ 	ori	$t0,$t9,0x1
-/*  f102ab4:	ac480458 */ 	sw	$t0,0x458($v0)
-/*  f102ab8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102abc:
-/*  f102abc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102ac0:
-/*  f102ac0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f102ac4:	03e00008 */ 	jr	$ra
-/*  f102ac8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerLookAhead(u32 operation, struct menu_item *item, bool *enable)
+{
+	u32 optionsindex;
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		optionsindex = g_Vars.unk000288->optionsindex;
+	} else {
+		optionsindex = item->right;
+	}
+
+	switch (operation) {
+	case MENUOP_GET:
+		return optionsGetLookAhead(optionsindex);
+	case MENUOP_SET:
+		optionsSetLookAhead(optionsindex, *enable);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerHeadRoll(u32 operation, struct menu_item *item, bool *enable)
 {
