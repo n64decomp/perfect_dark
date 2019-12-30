@@ -40,7 +40,7 @@ u32 cheatIsUnlocked(s32 cheat_id)
 		}
 	}
 
-	if ((cheat->flags & CHEATFLAG_TRANSFERPAK) && eepromGet(EEPROMFLAG_USED_TRANSFERPAK)) {
+	if ((cheat->flags & CHEATFLAG_TRANSFERPAK) && savefileHasFlag(SAVEFILEFLAG_USED_TRANSFERPAK)) {
 		unlocked++;
 	}
 
@@ -425,7 +425,7 @@ glabel cheatMenuHandleDialog
 /*  f1079b8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1079bc:	10400003 */ 	beqz	$v0,.L0f1079cc
 /*  f1079c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1079c4:	0fc43c4f */ 	jal	eepromSet
+/*  f1079c4:	0fc43c4f */ 	jal	savefileSetFlag
 /*  f1079c8:	24040023 */ 	addiu	$a0,$zero,0x23
 .L0f1079cc:
 /*  f1079cc:	3c067000 */ 	lui	$a2,0x7000
@@ -466,7 +466,7 @@ glabel cheatMenuHandleDialog
 /*  f107a48:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f107a4c:	10400003 */ 	beqz	$v0,.L0f107a5c
 /*  f107a50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f107a54:	0fc43c4f */ 	jal	eepromSet
+/*  f107a54:	0fc43c4f */ 	jal	savefileSetFlag
 /*  f107a58:	24040023 */ 	addiu	$a0,$zero,0x23
 .L0f107a5c:
 /*  f107a5c:	0fc52958 */ 	jal	func0f14a560

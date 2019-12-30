@@ -1923,7 +1923,7 @@ u8 func1013_setup_rtracker[] = {
 
 u8 func1016_hide_hoverbike[] = {
 	yield
-	if_eeprom_flag_is_set(EEPROMFLAG_CRASHSITE_BIKE, /*goto*/ 0x08)
+	if_savefile_flag_is_set(SAVEFILEFLAG_CRASHSITE_BIKE, /*goto*/ 0x08)
 	hide_object(OBJ_HOVERBIKE)
 	label(0x08)
 	set_ailist(CHR_SELF, GFUNC_IDLE)

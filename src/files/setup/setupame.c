@@ -3136,7 +3136,7 @@ u8 func0422_intro_042d[] = {
 	label(0x06)
 	restart_default_music
 	reset_ambience
-	set_eeprom_flag(EEPROMFLAG_CI_TOUR_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_DONE)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 	endlist
 };

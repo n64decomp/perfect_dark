@@ -2707,19 +2707,19 @@ glabel func0f10ef10
 /*  f10f138:	24422214 */ 	addiu	$v0,$v0,0x2214
 );
 
-void eepromSet(u32 value)
+void savefileSetFlag(u32 value)
 {
-	func0f11e530(value, &g_SoloSaveFile.eepromflags, true);
+	func0f11e530(value, &g_SoloSaveFile.flags, true);
 }
 
-void eepromUnset(u32 value)
+void savefileUnsetFlag(u32 value)
 {
-	func0f11e530(value, &g_SoloSaveFile.eepromflags, false);
+	func0f11e530(value, &g_SoloSaveFile.flags, false);
 }
 
-u32 eepromGet(u32 value)
+u32 savefileHasFlag(u32 value)
 {
-	return func0f11e584(value, &g_SoloSaveFile.eepromflags);
+	return func0f11e584(value, &g_SoloSaveFile.flags);
 }
 
 GLOBAL_ASM(

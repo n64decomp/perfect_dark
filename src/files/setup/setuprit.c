@@ -2117,7 +2117,7 @@ u8 func1002_intro[] = {
 	if_chr_death_animation_finished(CHR_COOP, /*goto*/ 0x2d)
 	set_chr_hiddenflag(CHR_COOP, CHRHFLAG_DISGUISED)
 	label(0x2d)
-	if_eeprom_flag_is_set(EEPROMFLAG_AF1_ENTRY, /*goto*/ 0x06)
+	if_savefile_flag_is_set(SAVEFILEFLAG_AF1_ENTRY, /*goto*/ 0x06)
 	goto_next(0x7e)
 	label(0x06)
 	camera_movement(0x01d0)
@@ -2168,7 +2168,7 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	if_eeprom_flag_is_set(EEPROMFLAG_AF1_ENTRY, /*goto*/ 0x06)
+	if_savefile_flag_is_set(SAVEFILEFLAG_AF1_ENTRY, /*goto*/ 0x06)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 	chr_do_animation(0x01d3, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	goto_next(0x2d)
@@ -3671,7 +3671,7 @@ u8 func101a_equipment_switch[] = {
 };
 
 u8 func101b_hoverbike_switch[] = {
-	unset_eeprom_flag(EEPROMFLAG_CRASHSITE_BIKE)
+	unset_savefile_flag(SAVEFILEFLAG_CRASHSITE_BIKE)
 	set_object_flag_bank0(0x1f, OBJECTFLAG0_DEACTIVATED)
 	set_object_image(OBJ_HOVERBIKE_SWITCH, 0x00, 0x12)
 	label(0x08)
@@ -3703,7 +3703,7 @@ u8 func101b_hoverbike_switch[] = {
 	label(0x2d)
 	set_object_image(OBJ_HOVERBIKE_SWITCH, 0x00, 0x13)
 	message(CHR_P1P2, 0x363c) // "Cargo bay has been lowered."
-	set_eeprom_flag(EEPROMFLAG_CRASHSITE_BIKE)
+	set_savefile_flag(SAVEFILEFLAG_CRASHSITE_BIKE)
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_HOVERBIKE_SWITCH, TRUE)
 	unset_object_flag_bank0(0x1f, OBJECTFLAG0_DEACTIVATED)

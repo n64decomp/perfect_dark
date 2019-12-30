@@ -400,7 +400,7 @@ const u32 var7f1b97cc[] = {0x4019999a};
 
 bool ciIsTourDone(void)
 {
-	return eepromGet(EEPROMFLAG_CI_TOUR_DONE);
+	return savefileHasFlag(SAVEFILEFLAG_CI_TOUR_DONE);
 }
 
 u8 ciGetFiringRangeScore(s32 weapon_id)
@@ -6398,7 +6398,7 @@ glabel func0f1a1c98
 .L0f1a1cdc:
 /*  f1a1cdc:	04a00005 */ 	bltz	$a1,.L0f1a1cf4
 /*  f1a1ce0:	00454021 */ 	addu	$t0,$v0,$a1
-/*  f1a1ce4:	0fc43c63 */ 	jal	eepromGet
+/*  f1a1ce4:	0fc43c63 */ 	jal	savefileHasFlag
 /*  f1a1ce8:	91040000 */ 	lbu	$a0,0x0($t0)
 /*  f1a1cec:	50400004 */ 	beqzl	$v0,.L0f1a1d00
 /*  f1a1cf0:	00001025 */ 	or	$v0,$zero,$zero

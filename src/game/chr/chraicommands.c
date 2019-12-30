@@ -12560,10 +12560,10 @@ glabel aiIfObjectDistanceToPadLessThan
 /**
  * @cmd 0190
  */
-bool aiEepromSet(void)
+bool aiSetSavefileFlag(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	eepromSet(cmd[2]);
+	savefileSetFlag(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -12572,10 +12572,10 @@ bool aiEepromSet(void)
 /**
  * @cmd 0191
  */
-bool aiEepromUnset(void)
+bool aiUnsetSavefileFlag(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	eepromUnset(cmd[2]);
+	savefileUnsetFlag(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -12584,11 +12584,11 @@ bool aiEepromUnset(void)
 /**
  * @cmd 0192
  */
-bool aiIfEepromSet(void)
+bool aiIfSavefileFlagIsSet(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (eepromGet(cmd[2])) {
+	if (savefileHasFlag(cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -12600,11 +12600,11 @@ bool aiIfEepromSet(void)
 /**
  * @cmd 0193
  */
-bool aiIfEepromUnset(void)
+bool aiIfSavefileFlagIsUnset(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (!eepromGet(cmd[2])) {
+	if (!savefileHasFlag(cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;

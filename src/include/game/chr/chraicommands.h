@@ -377,10 +377,10 @@
 /*0x018d*/ bool aiActivateLift(void);
 /*0x018e*/ bool aiMiniSkedarTryPounce(void);
 /*0x018f*/ bool aiIfObjectDistanceToPadLessThan(void);
-/*0x0190*/ bool aiEepromSet(void);
-/*0x0191*/ bool aiEepromUnset(void);
-/*0x0192*/ bool aiIfEepromSet(void);
-/*0x0193*/ bool aiIfEepromUnset(void);
+/*0x0190*/ bool aiSetSavefileFlag(void);
+/*0x0191*/ bool aiUnsetSavefileFlag(void);
+/*0x0192*/ bool aiIfSavefileFlagIsSet(void);
+/*0x0193*/ bool aiIfSavefileFlagIsUnset(void);
 /*0x019e*/ bool aiIfObjHealthLessThan(void);
 /*0x019f*/ bool aiSetObjHealth(void);
 /*0x01a0*/ bool aiSetChrSpecialDeathAnimation(void);

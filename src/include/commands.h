@@ -2022,22 +2022,22 @@
 	mkshort(pad), \
 	label,
 
-#define set_eeprom_flag(eeprom_flag) \
+#define set_savefile_flag(flag) \
 	mkshort(0x0190), \
-	eeprom_flag,
+	flag,
 
-#define unset_eeprom_flag(eeprom_flag) \
+#define unset_savefile_flag(flag) \
 	mkshort(0x0191), \
-	eeprom_flag,
+	flag,
 
-#define if_eeprom_flag_is_set(eeprom_flag, label) \
+#define if_savefile_flag_is_set(flag, label) \
 	mkshort(0x0192), \
-	eeprom_flag, \
+	flag, \
 	label,
 
-#define if_eeprom_flag_is_unset(eeprom_flag, label) \
+#define if_savefile_flag_is_unset(flag, label) \
 	mkshort(0x0193), \
-	eeprom_flag, \
+	flag, \
 	label,
 
 #define if_object_health_lt(object, value, label) \

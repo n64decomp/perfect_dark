@@ -3,9 +3,9 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 eepromGet(u32 value);
-void eepromSet(u32 value);
-void eepromUnset(u32 value);
+u32 savefileHasFlag(u32 value);
+void savefileSetFlag(u32 value);
+void savefileUnsetFlag(u32 value);
 u32 func0f10ce74(void);
 u32 func0f10cf2c(void);
 u32 func0f10d044(void);

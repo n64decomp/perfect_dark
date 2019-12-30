@@ -2545,7 +2545,7 @@ u8 func101d_init_mines[] = {
 	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 
 	label(0x06)
-	if_eeprom_flag_is_unset(EEPROMFLAG_G5_MINE, /*goto*/ 0x06)
+	if_savefile_flag_is_unset(SAVEFILEFLAG_G5_MINE, /*goto*/ 0x06)
 
 	hide_object(OBJ_MINE1)
 	dprint 'E','P','R','O','M','F','L','A','G',' ','N','O','T','S','E','T',0,
@@ -2829,7 +2829,7 @@ u8 func1022_light_switch[] = {
 };
 
 u8 func1023_hide_nbomb_crate[] = {
-	if_eeprom_flag_is_unset(EEPROMFLAG_G5_MINE, /*goto*/ 0x06)
+	if_savefile_flag_is_unset(SAVEFILEFLAG_G5_MINE, /*goto*/ 0x06)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	label(0x06)

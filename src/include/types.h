@@ -3913,7 +3913,7 @@ struct savefile_solo {
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 eepromflags;
+	/*0x14*/ u32 flags;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u16 besttimes[21][3];

@@ -3575,7 +3575,7 @@ u8 func042a_init_jonathan[] = {
 
 u8 func1021_setup_jonathan[] = {
 	yield
-	if_eeprom_flag_is_set(EEPROMFLAG_DEFENSE_JON, /*goto*/ 0x08)
+	if_savefile_flag_is_set(SAVEFILEFLAG_DEFENSE_JON, /*goto*/ 0x08)
 	remove_chr(CHR_JONATHAN)
 	label(0x08)
 	set_ailist(CHR_SELF, GFUNC_IDLE)

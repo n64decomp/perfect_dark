@@ -2804,14 +2804,14 @@ u8 func141f_start_lifts[] = {
 
 u8 func101a_check_mechanic_dead[] = {
 	yield
-	unset_eeprom_flag(EEPROMFLAG_RESCUE_MECHANIC_DEAD)
+	unset_savefile_flag(SAVEFILEFLAG_RESCUE_MECHANIC_DEAD)
 
 	beginloop(0x04)
 		if_chr_dying(CHR_MECHANIC, /*goto*/ 0x2e)
 	endloop(0x04)
 
 	label(0x2e)
-	set_eeprom_flag(EEPROMFLAG_RESCUE_MECHANIC_DEAD)
+	set_savefile_flag(SAVEFILEFLAG_RESCUE_MECHANIC_DEAD)
 	dprint 'D','E','L','E','T','E',' ','M','E','C','H','\n',0,
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 	endlist

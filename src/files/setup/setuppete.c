@@ -767,10 +767,10 @@ u8 func100f_check_mine[] = {
 	endloop(0x05)
 
 	label(0x08)
-	unset_eeprom_flag(EEPROMFLAG_G5_MINE)
+	unset_savefile_flag(SAVEFILEFLAG_G5_MINE)
 	goto_next(0x03)
 	label(0x06)
-	set_eeprom_flag(EEPROMFLAG_G5_MINE)
+	set_savefile_flag(SAVEFILEFLAG_G5_MINE)
 
 	label(0x03)
 	set_stage_flag(STAGEFLAG_MINE_PLACED)

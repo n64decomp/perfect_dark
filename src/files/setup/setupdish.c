@@ -886,7 +886,7 @@ u8 func1002_devicetraining_camspy[] = {
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
-	set_eeprom_flag(EEPROMFLAG_CI_CAMSPY_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_CAMSPY_DONE)
 	label(0x84)
 	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
@@ -1010,7 +1010,7 @@ u8 func1003_devicetraining_nightvision[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_NIGHTVISION_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_NIGHTVISION_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	set_lights_state(0x0030, 0x01, 0xff, 0x00, 0x00)
@@ -1187,7 +1187,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_DOORDECODER_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_DOORDECODER_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -1398,7 +1398,7 @@ u8 func1005_devicetraining_xray[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_XRAY_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_XRAY_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -1535,7 +1535,7 @@ u8 func1006_devicetraining_disguise[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_DISGUISE_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_DISGUISE_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -1682,7 +1682,7 @@ u8 func1007_devicetrainign_ir[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_IR_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_IR_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -1807,7 +1807,7 @@ u8 func1008_devicetraining_rtracker[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_RTRACKER_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_RTRACKER_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -1956,7 +1956,7 @@ u8 func1009_devicetraining_cloak[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_CLOAK_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_CLOAK_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -2107,7 +2107,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_ECMMINE_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_ECMMINE_DONE)
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
@@ -2313,7 +2313,7 @@ u8 func100b_devicetraining_uplink[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_UPLINK_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_UPLINK_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	yield
@@ -2705,14 +2705,14 @@ u8 func042a_carrington_cloak[] = {
 
 u8 func100e_training_unlockables[] = {
 	beginloop(0x04)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_UPLINK_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_UPLINK_DONE, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
 	unlock_door(0x3e, 0x40)
 
 	beginloop(0x08)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_ECMMINE_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_ECMMINE_DONE, /*goto*/ 0x2f)
 	endloop(0x08)
 
 	label(0x2f)
@@ -2721,14 +2721,14 @@ u8 func100e_training_unlockables[] = {
 	goto_next(0x2f)
 
 	beginloop(0x09)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_CAMSPY_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_CAMSPY_DONE, /*goto*/ 0x2f)
 	endloop(0x09)
 
 	label(0x2f)
 	unset_object_flag_bank1(OBJ_LIGHTSWITCH, OBJECTFLAG1_INVISIBLE)
 
 	beginloop(0x0a)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_NIGHTVISION_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_NIGHTVISION_DONE, /*goto*/ 0x2f)
 	endloop(0x0a)
 
 	label(0x2f)
@@ -2742,21 +2742,21 @@ u8 func100e_training_unlockables[] = {
 	set_lights_state(0x0022, 0x01, 0xff, 0x00, 0x00)
 
 	beginloop(0x0b)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_DOORDECODER_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_DOORDECODER_DONE, /*goto*/ 0x2f)
 	endloop(0x0b)
 
 	label(0x2f)
 	unlock_door(0x41, 0x40)
 
 	beginloop(0x0e)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_IR_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_IR_DONE, /*goto*/ 0x2f)
 	endloop(0x0e)
 
 	label(0x2f)
 	unlock_door(0x37, 0x40)
 
 	beginloop(0x0f)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_XRAY_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_XRAY_DONE, /*goto*/ 0x2f)
 	endloop(0x0f)
 
 	label(0x2f)
@@ -2769,7 +2769,7 @@ u8 func100e_training_unlockables[] = {
 #define do_door_proxy(eepromflag, pad, door) \
 	/* If training flag is done, open/close a door automatically as Jo nears it */ \
 	beginloop(0x04) \
-		if_eeprom_flag_is_set(eepromflag, /*goto*/ 0x2f) \
+		if_savefile_flag_is_set(eepromflag, /*goto*/ 0x2f) \
 		reloop(0x04) \
  \
 		label(0x2f) \
@@ -2796,12 +2796,12 @@ u8 func100f_doorproxy_unused1[] = {
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Unreachable
-	do_door_proxy(EEPROMFLAG_CI_ECMMINE_DONE, 0x0185, 0x3d)
+	do_door_proxy(SAVEFILEFLAG_CI_ECMMINE_DONE, 0x0185, 0x3d)
 	endlist
 };
 
 u8 func1010_doorproxy[] = {
-	do_door_proxy(EEPROMFLAG_CI_UPLINK_DONE, 0x0186, 0x3e)
+	do_door_proxy(SAVEFILEFLAG_CI_UPLINK_DONE, 0x0186, 0x3e)
 	endlist
 };
 
@@ -2809,7 +2809,7 @@ u8 func1010_doorproxy_unused2[] = {
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	// Unreachable
-	do_door_proxy(EEPROMFLAG_CI_ECMMINE_DONE, 0x0187, 0x3f)
+	do_door_proxy(SAVEFILEFLAG_CI_ECMMINE_DONE, 0x0187, 0x3f)
 	endlist
 };
 
@@ -2848,7 +2848,7 @@ u8 func1012_cloak_doorproxy[] = {
 u8 func101b_ir_door[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_IR, TRUE, /*goto*/ 0x06)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_IR_DONE, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_IR_DONE, /*goto*/ 0x2f)
 		label(0x06)
 		reloop(0x04)
 
@@ -2878,8 +2878,8 @@ u8 func042b_init_carrington[] = {
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
 	yield
 	set_morale(0)
-	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
-	set_eeprom_flag(EEPROMFLAG_CI_TOUR_DONE)
+	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_DONE)
 	dprint 'E','E','P','R','O','M',' ','S','E','T',0,
 
 	beginloop(0x08)
@@ -2891,7 +2891,7 @@ u8 func042b_init_carrington[] = {
 
 	label(0x06)
 	dprint 'E','E','P','R','O','M',' ','N','O','T','S','E','T',0,
-	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_DONE, /*goto*/ 0x8f)
+	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_DONE, /*goto*/ 0x8f)
 	goto_first(0x08)
 
 	beginloop(0x8f)
@@ -2907,7 +2907,7 @@ u8 func042b_init_carrington[] = {
 u8 func1019_setup_carrington[] = {
 	beginloop(0x04)
 		if_chr_has_hiddenflag(CHR_CARRINGTON, CHRHFLAG_10000000, /*goto*/ 0x06)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x2f)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x06)
@@ -2948,7 +2948,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x06)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
-	set_eeprom_flag(EEPROMFLAG_CI_TOUR_STARTED)
+	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_STARTED)
 	do_special_animation(-1)
 	remove_displayed_text
 	speak(CHR_TARGET, 0x1c42, 0x8029, CHANNEL_6, COLOR_06_WHITE) // "Joanna, it's good to see you."
@@ -3189,7 +3189,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x7a)
 
 	label(0x2f)
-	set_eeprom_flag(EEPROMFLAG_CI_TOUR_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_DONE)
 	walk_to_pad(PAD_CARRINGTON_OFFICE)
 
 	beginloop(0x76)
@@ -3264,11 +3264,11 @@ u8 func042e_devicegirl_reply_to_carrington[] = {
 };
 
 u8 func1013_msg_hovercrate[] = {
-	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
+	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0141, /*goto*/ 0x2f)
 	endloop(0x04)
 
@@ -3292,11 +3292,11 @@ u8 func1013_msg_hovercrate[] = {
 };
 
 u8 func1014_msg_hoverbike[] = {
-	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
+	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x01f9, /*goto*/ 0x2f)
 	endloop(0x04)
 
@@ -3320,11 +3320,11 @@ u8 func1014_msg_hoverbike[] = {
 };
 
 u8 func1015_msg_doors[] = {
-	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
+	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 	endloop(0x04)
 
 	label(0x06)
@@ -3347,11 +3347,11 @@ u8 func1015_msg_doors[] = {
 };
 
 u8 func1016_msg_elevators[] = {
-	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
+	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0160, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0162, /*goto*/ 0x2f)
 	endloop(0x04)
@@ -3365,11 +3365,11 @@ u8 func1016_msg_elevators[] = {
 };
 
 u8 func1017_msg_terminals[] = {
-	if_eeprom_flag_is_unset(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
+	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GFUNC_IDLE)
 
 	beginloop(0x04)
-		if_eeprom_flag_is_set(EEPROMFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
+		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0227, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x022a, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x021c, /*goto*/ 0x2f)
@@ -3504,7 +3504,7 @@ u8 func101c_holo1_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_HOLO1_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_HOLO1_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -3850,7 +3850,7 @@ u8 func1022_holo2_main[] = {
 	goto_next(0x90)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_HOLO2_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_HOLO2_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -4158,7 +4158,7 @@ u8 func1027_holo3_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_HOLO3_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_HOLO3_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -4398,7 +4398,7 @@ u8 func1028_holo4_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_HOLO4_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_HOLO4_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -4641,7 +4641,7 @@ u8 func1029_holo5_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_HOLO5_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_HOLO5_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -4999,7 +4999,7 @@ u8 func102e_holo6_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_HOLO6_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_HOLO6_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
@@ -5414,7 +5414,7 @@ u8 func1030_holo7_main[] = {
 	goto_next(0x84)
 
 	label(0x83)
-	set_eeprom_flag(EEPROMFLAG_CI_HOLO7_DONE)
+	set_savefile_flag(SAVEFILEFLAG_CI_HOLO7_DONE)
 	dprint 'd','o','n','e',0,
 	set_stage_flag(STAGEFLAG_TRIGGER_HOLO_SUCCESS)
 	yield
