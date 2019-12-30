@@ -131,18 +131,10 @@ s32 optionsGetAlwaysShowTarget(s32 optionsindex)
 	return (g_Options[optionsindex].unk48 & OPTION_ALWAYSSHOWTARGET) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1528a0
-/*  f1528a0:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1528a4:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f1528a8:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f1528ac:	3c02800b */ 	lui	$v0,0x800b
-/*  f1528b0:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f1528b4:	9442c800 */ 	lhu	$v0,-0x3800($v0)
-/*  f1528b8:	304f0400 */ 	andi	$t7,$v0,0x400
-/*  f1528bc:	03e00008 */ 	jr	$ra
-/*  f1528c0:	000f102b */ 	sltu	$v0,$zero,$t7
-);
+s32 optionsGetShowZoomRange(s32 optionsindex)
+{
+	return (g_Options[optionsindex].unk48 & OPTION_SHOWZOOMRANGE) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f1528c4
@@ -351,32 +343,14 @@ void optionsSetAlwaysShowTarget(s32 optionsindex, bool enable)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f152c08
-/*  f152c08:	10a0000b */ 	beqz	$a1,.L0f152c38
-/*  f152c0c:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f152c10:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152c14:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152c18:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f152c1c:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f152c20:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152c24:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f152c28:	94580048 */ 	lhu	$t8,0x48($v0)
-/*  f152c2c:	37190400 */ 	ori	$t9,$t8,0x400
-/*  f152c30:	03e00008 */ 	jr	$ra
-/*  f152c34:	a4590048 */ 	sh	$t9,0x48($v0)
-.L0f152c38:
-/*  f152c38:	01044021 */ 	addu	$t0,$t0,$a0
-/*  f152c3c:	3c09800b */ 	lui	$t1,%hi(g_Options)
-/*  f152c40:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_Options)
-/*  f152c44:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f152c48:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f152c4c:	944a0048 */ 	lhu	$t2,0x48($v0)
-/*  f152c50:	314bfbff */ 	andi	$t3,$t2,0xfbff
-/*  f152c54:	a44b0048 */ 	sh	$t3,0x48($v0)
-/*  f152c58:	03e00008 */ 	jr	$ra
-/*  f152c5c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void optionsSetShowZoomRange(s32 optionsindex, bool enable)
+{
+	if (enable) {
+		g_Options[optionsindex].unk48 |= OPTION_SHOWZOOMRANGE;
+	} else {
+		g_Options[optionsindex].unk48 &= ~OPTION_SHOWZOOMRANGE;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f152c60

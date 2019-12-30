@@ -1118,58 +1118,31 @@ s32 menuhandlerAlwaysShowTarget(u32 operation, struct menu_item *item, bool *ena
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerShowZoomRange
-/*  f103040:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f103044:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f103048:	8c4e0298 */ 	lw	$t6,0x298($v0)
-/*  f10304c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f103050:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f103054:	05c10004 */ 	bgez	$t6,.L0f103068
-/*  f103058:	00803825 */ 	or	$a3,$a0,$zero
-/*  f10305c:	8c4f029c */ 	lw	$t7,0x29c($v0)
-/*  f103060:	05e20005 */ 	bltzl	$t7,.L0f103078
-/*  f103064:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f103068:
-/*  f103068:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f10306c:	10000002 */ 	beqz	$zero,.L0f103078
-/*  f103070:	8f040070 */ 	lw	$a0,0x70($t8)
-/*  f103074:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f103078:
-/*  f103078:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10307c:	10e1000f */ 	beq	$a3,$at,.L0f1030bc
-/*  f103080:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f103084:	10e10009 */ 	beq	$a3,$at,.L0f1030ac
-/*  f103088:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f10308c:	54e10013 */ 	bnel	$a3,$at,.L0f1030dc
-/*  f103090:	00001025 */ 	or	$v0,$zero,$zero
-/*  f103094:	0fc54a04 */ 	jal	func0f152810
-/*  f103098:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10309c:	5440000f */ 	bnezl	$v0,.L0f1030dc
-/*  f1030a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1030a4:	1000000d */ 	beqz	$zero,.L0f1030dc
-/*  f1030a8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1030ac:
-/*  f1030ac:	0fc54a28 */ 	jal	func0f1528a0
-/*  f1030b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1030b4:	1000000a */ 	beqz	$zero,.L0f1030e0
-/*  f1030b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1030bc:
-/*  f1030bc:	0fc54b02 */ 	jal	func0f152c08
-/*  f1030c0:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f1030c4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1030c8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f1030cc:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f1030d0:	37280001 */ 	ori	$t0,$t9,0x1
-/*  f1030d4:	ac480458 */ 	sw	$t0,0x458($v0)
-/*  f1030d8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1030dc:
-/*  f1030dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1030e0:
-/*  f1030e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1030e4:	03e00008 */ 	jr	$ra
-/*  f1030e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerShowZoomRange(u32 operation, struct menu_item *item, bool *enable)
+{
+	u32 optionsindex;
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		optionsindex = g_Vars.unk000288->optionsindex;
+	} else {
+		optionsindex = item->right;
+	}
+
+	switch (operation) {
+	case MENUOP_CHECKDISABLED:
+		if (func0f152810(optionsindex) == 0) {
+			return true;
+		}
+		break;
+	case MENUOP_GET:
+		return optionsGetShowZoomRange(optionsindex);
+	case MENUOP_SET:
+		optionsSetShowZoomRange(optionsindex, *enable);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerPaintball
