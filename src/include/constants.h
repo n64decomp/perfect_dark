@@ -337,6 +337,8 @@
 #define DOORSTATEBIT_CLOSING 4
 #define DOORSTATEBIT_OPENING 8
 
+#define DRCAROLLIMAGE_DEAD 4
+
 #define EEPROMFLAG_USED_TRANSFERPAK     0x23
 #define EEPROMFLAG_CI_TOUR_DONE         0x24
 #define EEPROMFLAG_CI_HOLO7_DONE        0x29
@@ -693,11 +695,11 @@
 #define PROPTYPE_EYESPY 5
 #define PROPTYPE_PLAYER 6
 
-#define RACE_HUMAN  0
-#define RACE_SKEDAR 1
-#define RACE_MAIAN  2
-#define RACE_ROBOT  3
-#define RACE_4      4
+#define RACE_HUMAN    0
+#define RACE_SKEDAR   1
+#define RACE_DRCAROLL 2
+#define RACE_ROBOT    3
+#define RACE_4        4
 
 #define SPEED_WALK 0
 #define SPEED_JOG  1

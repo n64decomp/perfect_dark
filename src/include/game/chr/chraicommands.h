@@ -430,7 +430,7 @@
 /*0x01d0*/ bool ai01d0(void);
 /*0x01d1*/ bool aiSetObjPartVisible(void);
 /*0x01d2*/ bool aiChrEmitSparks(void);
-/*0x01d3*/ bool ai01d3(void);
+/*0x01d3*/ bool aiSetDrCarollImages(void);
 /*0x01d4*/ bool ai01d4(void);
 /*0x01d5*/ bool aiShowCutsceneChrs(void);
 /*0x01d6*/ bool aiMiscellaneous(void);

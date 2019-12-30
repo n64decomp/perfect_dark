@@ -1523,7 +1523,7 @@ u8 func0c01_midcutscene[] = {
 
 	#define wait_until_with_images(time, loopid, image1, image2) \
 		beginloop(loopid) \
-			set_drcaroll_image(CHR_DRCAROLL, image1, image2) \
+			set_drcaroll_images(CHR_DRCAROLL, image1, image2) \
 			if_controller_button_pressed(/*goto*/ 0x57) \
 			if_timer_gt(time, /*goto*/ 0x06) \
 		endloop(loopid) \
@@ -1552,16 +1552,16 @@ u8 func0c01_midcutscene[] = {
 	wait_until(570, 0x69)
 
 	label(0x6c)
-	set_drcaroll_image(CHR_DRCAROLL, 0x02, 0x03)
+	set_drcaroll_images(CHR_DRCAROLL, 0x02, 0x03)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x03, 0x02)
+	set_drcaroll_images(CHR_DRCAROLL, 0x03, 0x02)
 	yield
 	if_controller_button_pressed(/*goto*/ 0x57)
 	if_timer_gt(600, /*goto*/ 0x06)
 	goto_first(0x6c)
 
 	label(0x06)
-	set_drcaroll_image(CHR_DRCAROLL, 0x02, 0x02)
+	set_drcaroll_images(CHR_DRCAROLL, 0x02, 0x02)
 	speak(CHR_BOND, 0x3025, 0x746f, CHANNEL_10, COLOR_09_BLUE) // "Me and my big mouth."
 
 	wait_until(700, 0x6d)
@@ -1575,7 +1575,7 @@ u8 func0c01_midcutscene[] = {
 
 	label(0x71)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x07, 0x07)
+	set_drcaroll_images(CHR_DRCAROLL, 0x07, 0x07)
 	if_controller_button_pressed(/*goto*/ 0x57)
 	if_timer_gt(742, /*goto*/ 0x06)
 	goto_first(0x71)
@@ -1628,7 +1628,7 @@ u8 func0c01_midcutscene[] = {
 
 	wait_until_with_images(1034, 0x94, 0x08, 0x00)
 	play_sound(0x0176, CHANNEL_2)
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
 
 	wait_until_with_images(1036, 0x95, 0x08, 0x08)
 	emit_sparks(CHR_DRCAROLL)
@@ -1688,7 +1688,7 @@ u8 func0c01_midcutscene[] = {
 
 	wait_until_with_images(1500, 0xd4, 0x08, 0x00)
 	speak(CHR_BOND, 0x3027, 0x7471, CHANNEL_10, COLOR_09_BLUE) // "Dr. Caroll? Are you in control again? Can you stop..."
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
 
 	wait_until(1534, 0xd6)
 	play_sound(0x04f9, CHANNEL_6)
@@ -1721,46 +1721,46 @@ u8 func0c01_midcutscene[] = {
 	wait_until(3156, 0xf6)
 	emit_sparks(CHR_DRCAROLL)
 
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
 
 	wait_until(3266, 0xf7)
 	emit_sparks(CHR_DRCAROLL)
 
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
 
 	wait_until(3556, 0xf8)
 
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
 	emit_sparks(CHR_DRCAROLL)
 
 	wait_until(3606, 0xf9)
 	emit_sparks(CHR_DRCAROLL)
 
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
 
 	wait_until(3985, 0x10)
 	play_sound(0x0424, CHANNEL_1)
@@ -1768,13 +1768,13 @@ u8 func0c01_midcutscene[] = {
 	wait_until(4046, 0xfa)
 	emit_sparks(CHR_DRCAROLL)
 
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
 	yield
-	set_drcaroll_image(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
 
 	wait_until(4106, 0xfb)
 	emit_sparks(CHR_DRCAROLL)
@@ -2018,7 +2018,7 @@ u8 func0c02_outro[] = {
 };
 
 u8 func1002_intro[] = {
-	set_drcaroll_image(CHR_DRCAROLL, 0x02, 0x02)
+	set_drcaroll_images(CHR_DRCAROLL, 0x02, 0x02)
 	chr_draw_weapon_in_cutscene(CHR_BOND, WEAPON_FALCON2_SCOPE)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)

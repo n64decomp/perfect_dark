@@ -14600,7 +14600,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01d0*/ ai01d0,
 	/*0x01d1*/ aiSetObjPartVisible,
 	/*0x01d2*/ aiChrEmitSparks,
-	/*0x01d3*/ ai01d3,
+	/*0x01d3*/ aiSetDrCarollImages,
 	/*0x01d4*/ ai01d4,
 	/*0x01d5*/ aiShowCutsceneChrs,
 	/*0x01d6*/ aiMiscellaneous,

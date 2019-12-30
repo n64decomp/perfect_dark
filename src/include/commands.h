@@ -2315,7 +2315,16 @@
 	mkshort(0x01d2), \
 	chr,
 
-#define set_drcaroll_image(chr, left, right) \
+/**
+ * Set the images for Dr Caroll.
+ *
+ * The chr argument must be Dr Caroll. The left and right arguments can be:
+ *
+ * 0-6 = set directly to that image ID
+ * 7 = 25% chance of changing the image to a random one in range 0-5
+ * 8 = 100% chance of changing the image to a random one in range 0-5
+ */
+#define set_drcaroll_images(chr, left, right) \
 	mkshort(0x01d3), \
 	chr, \
 	left, \

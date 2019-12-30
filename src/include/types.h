@@ -485,8 +485,8 @@ struct chrdata {
 	/*0x35f*/ u8 maxdodgerating;
 	/*0x360*/ u8 unarmeddodgerating;
 	/*0x361*/ u8 lastfootsample;
-	/*0x362*/ u8 onlift_00 : 4;
-	/*0x362*/ u8 onlift_04 : 4;
+	/*0x362*/ u8 drcarollimage_left : 4;
+	/*0x362*/ u8 drcarollimage_right : 4;
 	/*0x364*/ u32 unk364;
 };
 
