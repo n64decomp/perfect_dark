@@ -160,18 +160,10 @@ glabel func0f152918
 /*  f152920:	9042fa94 */ 	lbu	$v0,-0x56c($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f152924
-/*  f152924:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152928:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f15292c:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152930:	3c02800b */ 	lui	$v0,0x800b
-/*  f152934:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f152938:	9442c800 */ 	lhu	$v0,-0x3800($v0)
-/*  f15293c:	304f0080 */ 	andi	$t7,$v0,0x80
-/*  f152940:	03e00008 */ 	jr	$ra
-/*  f152944:	000f102b */ 	sltu	$v0,$zero,$t7
-);
+s32 optionsGetHeadRoll(s32 optionsindex)
+{
+	return (g_Options[optionsindex].unk48 & OPTION_HEADROLL) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f152948
@@ -376,32 +368,14 @@ glabel func0f152d1c
 /*  f152d24:	a024fa94 */ 	sb	$a0,-0x56c($at)
 );
 
-GLOBAL_ASM(
-glabel func0f152d28
-/*  f152d28:	10a0000b */ 	beqz	$a1,.L0f152d58
-/*  f152d2c:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f152d30:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152d34:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152d38:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f152d3c:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f152d40:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152d44:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f152d48:	94580048 */ 	lhu	$t8,0x48($v0)
-/*  f152d4c:	37190080 */ 	ori	$t9,$t8,0x80
-/*  f152d50:	03e00008 */ 	jr	$ra
-/*  f152d54:	a4590048 */ 	sh	$t9,0x48($v0)
-.L0f152d58:
-/*  f152d58:	01044021 */ 	addu	$t0,$t0,$a0
-/*  f152d5c:	3c09800b */ 	lui	$t1,%hi(g_Options)
-/*  f152d60:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_Options)
-/*  f152d64:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f152d68:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f152d6c:	944a0048 */ 	lhu	$t2,0x48($v0)
-/*  f152d70:	314bff7f */ 	andi	$t3,$t2,0xff7f
-/*  f152d74:	a44b0048 */ 	sh	$t3,0x48($v0)
-/*  f152d78:	03e00008 */ 	jr	$ra
-/*  f152d7c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void optionsSetHeadRoll(s32 optionsindex, bool enable)
+{
+	if (enable) {
+		g_Options[optionsindex].unk48 |= OPTION_HEADROLL;
+	} else {
+		g_Options[optionsindex].unk48 &= ~OPTION_HEADROLL;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f152d80

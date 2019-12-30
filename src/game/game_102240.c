@@ -784,49 +784,26 @@ glabel menuhandlerLookAhead
 /*  f102ac8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerHeadRoll
-/*  f102acc:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102ad0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102ad4:	8c4e0298 */ 	lw	$t6,0x298($v0)
-/*  f102ad8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f102adc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102ae0:	05c10004 */ 	bgez	$t6,.L0f102af4
-/*  f102ae4:	00803825 */ 	or	$a3,$a0,$zero
-/*  f102ae8:	8c4f029c */ 	lw	$t7,0x29c($v0)
-/*  f102aec:	05e20005 */ 	bltzl	$t7,.L0f102b04
-/*  f102af0:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102af4:
-/*  f102af4:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f102af8:	10000002 */ 	beqz	$zero,.L0f102b04
-/*  f102afc:	8f040070 */ 	lw	$a0,0x70($t8)
-/*  f102b00:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102b04:
-/*  f102b04:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f102b08:	10e10007 */ 	beq	$a3,$at,.L0f102b28
-/*  f102b0c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f102b10:	54e1000d */ 	bnel	$a3,$at,.L0f102b48
-/*  f102b14:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102b18:	0fc54a49 */ 	jal	func0f152924
-/*  f102b1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102b20:	1000000a */ 	beqz	$zero,.L0f102b4c
-/*  f102b24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102b28:
-/*  f102b28:	0fc54b4a */ 	jal	func0f152d28
-/*  f102b2c:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f102b30:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102b34:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102b38:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f102b3c:	37280001 */ 	ori	$t0,$t9,0x1
-/*  f102b40:	ac480458 */ 	sw	$t0,0x458($v0)
-/*  f102b44:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102b48:
-/*  f102b48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102b4c:
-/*  f102b4c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f102b50:	03e00008 */ 	jr	$ra
-/*  f102b54:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerHeadRoll(u32 operation, struct menu_item *item, bool *enable)
+{
+	u32 optionsindex;
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		optionsindex = g_Vars.unk000288->optionsindex;
+	} else {
+		optionsindex = item->right;
+	}
+
+	switch (operation) {
+	case MENUOP_GET:
+		return optionsGetHeadRoll(optionsindex);
+	case MENUOP_SET:
+		optionsSetHeadRoll(optionsindex, *enable);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerInGameSubtitles
