@@ -1062,9 +1062,9 @@ s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enab
 		}
 		break;
 	case MENUOP_GET:
-		return func0f152858(optionsindex);
+		return optionsGetShowGunFunction(optionsindex);
 	case MENUOP_SET:
-		func0f152b58(optionsindex, *enable);
+		optionsSetShowGunFunction(optionsindex, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 

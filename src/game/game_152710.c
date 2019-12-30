@@ -121,18 +121,10 @@ s32 optionsGetAmmoOnScreen(s32 optionsindex)
 	return (g_Options[optionsindex].unk48 & OPTION_AMMOONSCREEN) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f152858
-/*  f152858:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f15285c:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152860:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152864:	3c02800b */ 	lui	$v0,0x800b
-/*  f152868:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f15286c:	9442c800 */ 	lhu	$v0,-0x3800($v0)
-/*  f152870:	304f0040 */ 	andi	$t7,$v0,0x40
-/*  f152874:	03e00008 */ 	jr	$ra
-/*  f152878:	000f102b */ 	sltu	$v0,$zero,$t7
-);
+s32 optionsGetShowGunFunction(s32 optionsindex)
+{
+	return (g_Options[optionsindex].unk48 & OPTION_SHOWGUNFUNCTION) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f15287c
@@ -357,32 +349,14 @@ void optionsSetAmmoOnScreen(s32 optionsindex, bool enable)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f152b58
-/*  f152b58:	10a0000b */ 	beqz	$a1,.L0f152b88
-/*  f152b5c:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f152b60:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152b64:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152b68:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f152b6c:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f152b70:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152b74:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f152b78:	94580048 */ 	lhu	$t8,0x48($v0)
-/*  f152b7c:	37190040 */ 	ori	$t9,$t8,0x40
-/*  f152b80:	03e00008 */ 	jr	$ra
-/*  f152b84:	a4590048 */ 	sh	$t9,0x48($v0)
-.L0f152b88:
-/*  f152b88:	01044021 */ 	addu	$t0,$t0,$a0
-/*  f152b8c:	3c09800b */ 	lui	$t1,%hi(g_Options)
-/*  f152b90:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_Options)
-/*  f152b94:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f152b98:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f152b9c:	944a0048 */ 	lhu	$t2,0x48($v0)
-/*  f152ba0:	314bffbf */ 	andi	$t3,$t2,0xffbf
-/*  f152ba4:	a44b0048 */ 	sh	$t3,0x48($v0)
-/*  f152ba8:	03e00008 */ 	jr	$ra
-/*  f152bac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void optionsSetShowGunFunction(s32 optionsindex, bool enable)
+{
+	if (enable) {
+		g_Options[optionsindex].unk48 |= OPTION_SHOWGUNFUNCTION;
+	} else {
+		g_Options[optionsindex].unk48 &= ~OPTION_SHOWGUNFUNCTION;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f152bb0
