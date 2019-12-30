@@ -165,18 +165,10 @@ glabel func0f1528c4
 /*  f1528e4:	000f102b */ 	sltu	$v0,$zero,$t7
 );
 
-GLOBAL_ASM(
-glabel func0f1528e8
-/*  f1528e8:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1528ec:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f1528f0:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f1528f4:	3c02800b */ 	lui	$v0,0x800b
-/*  f1528f8:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f1528fc:	9442c800 */ 	lhu	$v0,-0x3800($v0)
-/*  f152900:	304f8000 */ 	andi	$t7,$v0,0x8000
-/*  f152904:	03e00008 */ 	jr	$ra
-/*  f152908:	000f102b */ 	sltu	$v0,$zero,$t7
-);
+s32 optionsGetShowMissionTime(s32 optionsindex)
+{
+	return (g_Options[optionsindex].unk48 & OPTION_SHOWMISSIONTIME) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f15290c
@@ -439,32 +431,14 @@ glabel func0f152c60
 /*  f152cb4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f152cb8
-/*  f152cb8:	10a0000b */ 	beqz	$a1,.L0f152ce8
-/*  f152cbc:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f152cc0:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152cc4:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152cc8:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f152ccc:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f152cd0:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152cd4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f152cd8:	94580048 */ 	lhu	$t8,0x48($v0)
-/*  f152cdc:	37198000 */ 	ori	$t9,$t8,0x8000
-/*  f152ce0:	03e00008 */ 	jr	$ra
-/*  f152ce4:	a4590048 */ 	sh	$t9,0x48($v0)
-.L0f152ce8:
-/*  f152ce8:	01044021 */ 	addu	$t0,$t0,$a0
-/*  f152cec:	3c09800b */ 	lui	$t1,%hi(g_Options)
-/*  f152cf0:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_Options)
-/*  f152cf4:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f152cf8:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f152cfc:	944a0048 */ 	lhu	$t2,0x48($v0)
-/*  f152d00:	314b7fff */ 	andi	$t3,$t2,0x7fff
-/*  f152d04:	a44b0048 */ 	sh	$t3,0x48($v0)
-/*  f152d08:	03e00008 */ 	jr	$ra
-/*  f152d0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void optionsSetShowMissionTime(s32 optionsindex, bool enable)
+{
+	if (enable) {
+		g_Options[optionsindex].unk48 |= OPTION_SHOWMISSIONTIME;
+	} else {
+		g_Options[optionsindex].unk48 &= ~OPTION_SHOWMISSIONTIME;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f152d10

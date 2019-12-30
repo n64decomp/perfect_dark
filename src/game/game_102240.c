@@ -1071,49 +1071,26 @@ s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enab
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerShowMissionTime
-/*  f102f08:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102f0c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102f10:	8c4e0298 */ 	lw	$t6,0x298($v0)
-/*  f102f14:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f102f18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102f1c:	05c10004 */ 	bgez	$t6,.L0f102f30
-/*  f102f20:	00803825 */ 	or	$a3,$a0,$zero
-/*  f102f24:	8c4f029c */ 	lw	$t7,0x29c($v0)
-/*  f102f28:	05e20005 */ 	bltzl	$t7,.L0f102f40
-/*  f102f2c:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102f30:
-/*  f102f30:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f102f34:	10000002 */ 	beqz	$zero,.L0f102f40
-/*  f102f38:	8f040070 */ 	lw	$a0,0x70($t8)
-/*  f102f3c:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102f40:
-/*  f102f40:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f102f44:	10e10007 */ 	beq	$a3,$at,.L0f102f64
-/*  f102f48:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f102f4c:	54e1000d */ 	bnel	$a3,$at,.L0f102f84
-/*  f102f50:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102f54:	0fc54a3a */ 	jal	func0f1528e8
-/*  f102f58:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102f5c:	1000000a */ 	beqz	$zero,.L0f102f88
-/*  f102f60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102f64:
-/*  f102f64:	0fc54b2e */ 	jal	func0f152cb8
-/*  f102f68:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f102f6c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102f70:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102f74:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f102f78:	37280001 */ 	ori	$t0,$t9,0x1
-/*  f102f7c:	ac480458 */ 	sw	$t0,0x458($v0)
-/*  f102f80:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102f84:
-/*  f102f84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102f88:
-/*  f102f88:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f102f8c:	03e00008 */ 	jr	$ra
-/*  f102f90:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerShowMissionTime(u32 operation, struct menu_item *item, bool *enable)
+{
+	u32 optionsindex;
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		optionsindex = g_Vars.unk000288->optionsindex;
+	} else {
+		optionsindex = item->right;
+	}
+
+	switch (operation) {
+	case MENUOP_GET:
+		return optionsGetShowMissionTime(optionsindex);
+	case MENUOP_SET:
+		optionsSetShowMissionTime(optionsindex, *enable);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerAlwaysShowTarget

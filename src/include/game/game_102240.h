@@ -77,7 +77,7 @@ s32 menuhandlerScreenSize(u32, u32, u32 *);
 s32 menuhandlerScreenSplit(u32, u32, u32 *);
 s32 menuhandlerSfxVolume(u32, u32, u32 *);
 s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandlerShowMissionTime(u32, u32, u32 *);
+s32 menuhandlerShowMissionTime(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerShowZoomRange(u32, u32, u32 *);
 s32 menuhandlerSightOnScreen(u32, u32, u32 *);
 s32 menuhandlerSoloDifficulty(u32, u32, u32 *);
