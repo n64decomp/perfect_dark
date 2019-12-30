@@ -480,9 +480,9 @@
 #define MA_FACING          53
 #define MA_PUNCHING        54
 
-#define MENUOP_SET 6
-#define MENUOP_GET 8
-#define MENUOP_12  12
+#define MENUOP_SET            6
+#define MENUOP_GET            8
+#define MENUOP_CHECKDISABLED  12
 
 // Object flags - bank 0 (object struct offset 0x08)
 #define OBJECTFLAG0_00000001             0x00000001 // Not used in scripts
@@ -657,6 +657,8 @@
 
 #define OPERATOR_LESS_THAN    0
 #define OPERATOR_GREATER_THAN 1
+
+#define OPTION_AMMOONSCREEN 0x0020
 
 #define OUTFIT_DEFAULT      0x00
 #define OUTFIT_ELVIS        0x01

@@ -1036,9 +1036,9 @@ s32 menuhandlerAmmoOnScreen(u32 operation, struct menu_item *item, bool *enable)
 
 	switch (operation) {
 	case MENUOP_GET:
-		return func0f152834(optionsindex);
+		return optionsGetAmmoOnScreen(optionsindex);
 	case MENUOP_SET:
-		func0f152b00(optionsindex, *enable);
+		optionsSetAmmoOnScreen(optionsindex, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -1056,8 +1056,8 @@ s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enab
 	}
 
 	switch (operation) {
-	case MENUOP_12:
-		if (func0f152834(optionsindex) == 0) {
+	case MENUOP_CHECKDISABLED:
+		if (optionsGetAmmoOnScreen(optionsindex) == 0) {
 			return true;
 		}
 		break;

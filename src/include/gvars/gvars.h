@@ -846,7 +846,7 @@ extern u32 var800ac500;
 extern u32 var800ac530;
 extern u32 var800ac538;
 extern u32 var800ac798;
-extern u32 var800ac7b8;
+extern struct options g_Options[];
 extern u32 var800ac858;
 extern u32 var800aca38;
 extern u32 var800acad8;
