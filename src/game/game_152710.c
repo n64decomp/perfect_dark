@@ -87,18 +87,10 @@ glabel func0f1527ec
 /*  f15280c:	000f102b */ 	sltu	$v0,$zero,$t7
 );
 
-GLOBAL_ASM(
-glabel func0f152810
-/*  f152810:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152814:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152818:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f15281c:	3c02800b */ 	lui	$v0,0x800b
-/*  f152820:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f152824:	9442c800 */ 	lhu	$v0,-0x3800($v0)
-/*  f152828:	304f0004 */ 	andi	$t7,$v0,0x4
-/*  f15282c:	03e00008 */ 	jr	$ra
-/*  f152830:	000f102b */ 	sltu	$v0,$zero,$t7
-);
+s32 optionsGetSightOnScreen(s32 optionsindex)
+{
+	return (g_Options[optionsindex].unk48 & OPTION_SIGHTONSCREEN) != 0;
+}
 
 s32 optionsGetAmmoOnScreen(s32 optionsindex)
 {
@@ -221,32 +213,14 @@ glabel func0f152a50
 /*  f152aa4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f152aa8
-/*  f152aa8:	10a0000b */ 	beqz	$a1,.L0f152ad8
-/*  f152aac:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f152ab0:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152ab4:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152ab8:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f152abc:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f152ac0:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152ac4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f152ac8:	94580048 */ 	lhu	$t8,0x48($v0)
-/*  f152acc:	37190004 */ 	ori	$t9,$t8,0x4
-/*  f152ad0:	03e00008 */ 	jr	$ra
-/*  f152ad4:	a4590048 */ 	sh	$t9,0x48($v0)
-.L0f152ad8:
-/*  f152ad8:	01044021 */ 	addu	$t0,$t0,$a0
-/*  f152adc:	3c09800b */ 	lui	$t1,%hi(g_Options)
-/*  f152ae0:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_Options)
-/*  f152ae4:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f152ae8:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f152aec:	944a0048 */ 	lhu	$t2,0x48($v0)
-/*  f152af0:	314bfffb */ 	andi	$t3,$t2,0xfffb
-/*  f152af4:	a44b0048 */ 	sh	$t3,0x48($v0)
-/*  f152af8:	03e00008 */ 	jr	$ra
-/*  f152afc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void optionsSetSightOnScreen(s32 optionsindex, bool enable)
+{
+	if (enable) {
+		g_Options[optionsindex].unk48 |= OPTION_SIGHTONSCREEN;
+	} else {
+		g_Options[optionsindex].unk48 &= ~OPTION_SIGHTONSCREEN;
+	}
+}
 
 void optionsSetAmmoOnScreen(s32 optionsindex, bool enable)
 {

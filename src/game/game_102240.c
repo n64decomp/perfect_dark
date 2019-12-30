@@ -1033,7 +1033,7 @@ s32 menuhandlerAlwaysShowTarget(u32 operation, struct menu_item *item, bool *ena
 
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
-		if (func0f152810(optionsindex) == 0) {
+		if (optionsGetSightOnScreen(optionsindex) == 0) {
 			return true;
 		}
 		break;
@@ -1059,7 +1059,7 @@ s32 menuhandlerShowZoomRange(u32 operation, struct menu_item *item, bool *enable
 
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
-		if (func0f152810(optionsindex) == 0) {
+		if (optionsGetSightOnScreen(optionsindex) == 0) {
 			return true;
 		}
 		break;
@@ -1072,50 +1072,6 @@ s32 menuhandlerShowZoomRange(u32 operation, struct menu_item *item, bool *enable
 
 	return 0;
 }
-
-//GLOBAL_ASM(
-//glabel menuhandlerPaintball
-///*  f1030ec:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-///*  f1030f0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-///*  f1030f4:	8c4e0298 */ 	lw	$t6,0x298($v0)
-///*  f1030f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-///*  f1030fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-///*  f103100:	05c10004 */ 	bgez	$t6,.L0f103114
-///*  f103104:	00803825 */ 	or	$a3,$a0,$zero
-///*  f103108:	8c4f029c */ 	lw	$t7,0x29c($v0)
-///*  f10310c:	05e20005 */ 	bltzl	$t7,.L0f103124
-///*  f103110:	8ca4000c */ 	lw	$a0,0xc($a1)
-//.L0f103114:
-///*  f103114:	8c580288 */ 	lw	$t8,0x288($v0)
-///*  f103118:	10000002 */ 	beqz	$zero,.L0f103124
-///*  f10311c:	8f040070 */ 	lw	$a0,0x70($t8)
-///*  f103120:	8ca4000c */ 	lw	$a0,0xc($a1)
-//.L0f103124:
-///*  f103124:	24010006 */ 	addiu	$at,$zero,0x6
-///*  f103128:	10e10007 */ 	beq	$a3,$at,.L0f103148
-///*  f10312c:	24010008 */ 	addiu	$at,$zero,0x8
-///*  f103130:	54e1000d */ 	bnel	$a3,$at,.L0f103168
-///*  f103134:	00001025 */ 	or	$v0,$zero,$zero
-///*  f103138:	0fc54a31 */ 	jal	optionsGetPaintball
-///*  f10313c:	00000000 */ 	sll	$zero,$zero,0x0
-///*  f103140:	1000000a */ 	beqz	$zero,.L0f10316c
-///*  f103144:	8fbf0014 */ 	lw	$ra,0x14($sp)
-//.L0f103148:
-///*  f103148:	0fc54b18 */ 	jal	optionsSetPaintball
-///*  f10314c:	8cc50000 */ 	lw	$a1,0x0($a2)
-///*  f103150:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-///*  f103154:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-///*  f103158:	8c590458 */ 	lw	$t9,0x458($v0)
-///*  f10315c:	37280001 */ 	ori	$t0,$t9,0x1
-///*  f103160:	ac480458 */ 	sw	$t0,0x458($v0)
-///*  f103164:	00001025 */ 	or	$v0,$zero,$zero
-//.L0f103168:
-///*  f103168:	8fbf0014 */ 	lw	$ra,0x14($sp)
-//.L0f10316c:
-///*  f10316c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-///*  f103170:	03e00008 */ 	jr	$ra
-///*  f103174:	00000000 */ 	sll	$zero,$zero,0x0
-//);
 
 s32 menuhandlerPaintball(u32 operation, struct menu_item *item, bool *enable)
 {
@@ -1138,49 +1094,26 @@ s32 menuhandlerPaintball(u32 operation, struct menu_item *item, bool *enable)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerSightOnScreen
-/*  f103178:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f10317c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f103180:	8c4e0298 */ 	lw	$t6,0x298($v0)
-/*  f103184:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f103188:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10318c:	05c10004 */ 	bgez	$t6,.L0f1031a0
-/*  f103190:	00803825 */ 	or	$a3,$a0,$zero
-/*  f103194:	8c4f029c */ 	lw	$t7,0x29c($v0)
-/*  f103198:	05e20005 */ 	bltzl	$t7,.L0f1031b0
-/*  f10319c:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f1031a0:
-/*  f1031a0:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f1031a4:	10000002 */ 	beqz	$zero,.L0f1031b0
-/*  f1031a8:	8f040070 */ 	lw	$a0,0x70($t8)
-/*  f1031ac:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f1031b0:
-/*  f1031b0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1031b4:	10e10007 */ 	beq	$a3,$at,.L0f1031d4
-/*  f1031b8:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f1031bc:	54e1000d */ 	bnel	$a3,$at,.L0f1031f4
-/*  f1031c0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1031c4:	0fc54a04 */ 	jal	func0f152810
-/*  f1031c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1031cc:	1000000a */ 	beqz	$zero,.L0f1031f8
-/*  f1031d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1031d4:
-/*  f1031d4:	0fc54aaa */ 	jal	func0f152aa8
-/*  f1031d8:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f1031dc:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1031e0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f1031e4:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f1031e8:	37280001 */ 	ori	$t0,$t9,0x1
-/*  f1031ec:	ac480458 */ 	sw	$t0,0x458($v0)
-/*  f1031f0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1031f4:
-/*  f1031f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1031f8:
-/*  f1031f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1031fc:	03e00008 */ 	jr	$ra
-/*  f103200:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerSightOnScreen(u32 operation, struct menu_item *item, bool *enable)
+{
+	u32 optionsindex;
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		optionsindex = g_Vars.unk000288->optionsindex;
+	} else {
+		optionsindex = item->right;
+	}
+
+	switch (operation) {
+	case MENUOP_GET:
+		return optionsGetSightOnScreen(optionsindex);
+	case MENUOP_SET:
+		optionsSetSightOnScreen(optionsindex, *enable);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerAutoAim
