@@ -8,7 +8,7 @@ u32 func0f15272c(void);
 u32 func0f152748(void);
 u32 func0f152764(void);
 s32 optionsGetForwardPitch(s32 optionsindex);
-u32 func0f1527a4(void);
+s32 optionsGetAutoAim(s32 optionsindex);
 s32 optionsGetLookAhead(s32 optionsindex);
 u32 func0f1527ec(void);
 s32 optionsGetSightOnScreen(s32 optionsindex);
@@ -23,7 +23,7 @@ u32 func0f152918(void);
 s32 optionsGetHeadRoll(s32 optionsindex);
 
 void optionsSetForwardPitch(s32 optionsindex, bool enable);
-u32 func0f1529a0(void);
+void optionsSetAutoAim(s32 optionsindex, bool enable);
 void optionsSetLookAhead(s32 optionsindex, bool enable);
 u32 func0f152a50(void);
 void optionsSetSightOnScreen(s32 optionsindex, bool enable);

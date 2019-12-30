@@ -198,7 +198,7 @@ glabel func0f0c7a30
 /*  f0c7a6c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f0c7a70:	8c680288 */ 	lw	$t0,0x288($v1)
 .L0f0c7a74:
-/*  f0c7a74:	0fc549e9 */ 	jal	func0f1527a4
+/*  f0c7a74:	0fc549e9 */ 	jal	optionsGetAutoAim
 /*  f0c7a78:	8d040070 */ 	lw	$a0,0x70($t0)
 .L0f0c7a7c:
 /*  f0c7a7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -307,7 +307,7 @@ glabel func0f0c7b74
 /*  f0c7bb0:	00001025 */ 	or	$v0,$zero,$zero
 /*  f0c7bb4:	8c680288 */ 	lw	$t0,0x288($v1)
 .L0f0c7bb8:
-/*  f0c7bb8:	0fc549e9 */ 	jal	func0f1527a4
+/*  f0c7bb8:	0fc549e9 */ 	jal	optionsGetAutoAim
 /*  f0c7bbc:	8d040070 */ 	lw	$a0,0x70($t0)
 .L0f0c7bc0:
 /*  f0c7bc0:	8fbf0014 */ 	lw	$ra,0x14($sp)

@@ -56,18 +56,10 @@ s32 optionsGetForwardPitch(s32 optionsindex)
 	return (g_Options[optionsindex].unk48 & OPTION_FORWARDPITCH) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1527a4
-/*  f1527a4:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1527a8:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f1527ac:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f1527b0:	3c02800b */ 	lui	$v0,0x800b
-/*  f1527b4:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f1527b8:	9442c800 */ 	lhu	$v0,-0x3800($v0)
-/*  f1527bc:	304f0008 */ 	andi	$t7,$v0,0x8
-/*  f1527c0:	03e00008 */ 	jr	$ra
-/*  f1527c4:	000f102b */ 	sltu	$v0,$zero,$t7
-);
+s32 optionsGetAutoAim(s32 optionsindex)
+{
+	return (g_Options[optionsindex].unk48 & OPTION_AUTOAIM) != 0;
+}
 
 s32 optionsGetLookAhead(s32 optionsindex)
 {
@@ -150,32 +142,14 @@ void optionsSetForwardPitch(s32 optionsindex, bool enable)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f1529a0
-/*  f1529a0:	10a0000b */ 	beqz	$a1,.L0f1529d0
-/*  f1529a4:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f1529a8:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1529ac:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f1529b0:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f1529b4:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f1529b8:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f1529bc:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f1529c0:	94580048 */ 	lhu	$t8,0x48($v0)
-/*  f1529c4:	37190008 */ 	ori	$t9,$t8,0x8
-/*  f1529c8:	03e00008 */ 	jr	$ra
-/*  f1529cc:	a4590048 */ 	sh	$t9,0x48($v0)
-.L0f1529d0:
-/*  f1529d0:	01044021 */ 	addu	$t0,$t0,$a0
-/*  f1529d4:	3c09800b */ 	lui	$t1,%hi(g_Options)
-/*  f1529d8:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_Options)
-/*  f1529dc:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f1529e0:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f1529e4:	944a0048 */ 	lhu	$t2,0x48($v0)
-/*  f1529e8:	314bfff7 */ 	andi	$t3,$t2,0xfff7
-/*  f1529ec:	a44b0048 */ 	sh	$t3,0x48($v0)
-/*  f1529f0:	03e00008 */ 	jr	$ra
-/*  f1529f4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void optionsSetAutoAim(s32 optionsindex, bool enable)
+{
+	if (enable) {
+		g_Options[optionsindex].unk48 |= OPTION_AUTOAIM;
+	} else {
+		g_Options[optionsindex].unk48 &= ~OPTION_AUTOAIM;
+	}
+}
 
 void optionsSetLookAhead(s32 optionsindex, bool enable)
 {

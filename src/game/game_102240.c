@@ -1115,49 +1115,26 @@ s32 menuhandlerSightOnScreen(u32 operation, struct menu_item *item, bool *enable
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerAutoAim
-/*  f103204:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f103208:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f10320c:	8c4e0298 */ 	lw	$t6,0x298($v0)
-/*  f103210:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f103214:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f103218:	05c10004 */ 	bgez	$t6,.L0f10322c
-/*  f10321c:	00803825 */ 	or	$a3,$a0,$zero
-/*  f103220:	8c4f029c */ 	lw	$t7,0x29c($v0)
-/*  f103224:	05e20005 */ 	bltzl	$t7,.L0f10323c
-/*  f103228:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f10322c:
-/*  f10322c:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f103230:	10000002 */ 	beqz	$zero,.L0f10323c
-/*  f103234:	8f040070 */ 	lw	$a0,0x70($t8)
-/*  f103238:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f10323c:
-/*  f10323c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f103240:	10e10007 */ 	beq	$a3,$at,.L0f103260
-/*  f103244:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f103248:	54e1000d */ 	bnel	$a3,$at,.L0f103280
-/*  f10324c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f103250:	0fc549e9 */ 	jal	func0f1527a4
-/*  f103254:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103258:	1000000a */ 	beqz	$zero,.L0f103284
-/*  f10325c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f103260:
-/*  f103260:	0fc54a68 */ 	jal	func0f1529a0
-/*  f103264:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f103268:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f10326c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f103270:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f103274:	37280001 */ 	ori	$t0,$t9,0x1
-/*  f103278:	ac480458 */ 	sw	$t0,0x458($v0)
-/*  f10327c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f103280:
-/*  f103280:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f103284:
-/*  f103284:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f103288:	03e00008 */ 	jr	$ra
-/*  f10328c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerAutoAim(u32 operation, struct menu_item *item, bool *enable)
+{
+	u32 optionsindex;
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		optionsindex = g_Vars.unk000288->optionsindex;
+	} else {
+		optionsindex = item->right;
+	}
+
+	switch (operation) {
+	case MENUOP_GET:
+		return optionsGetAutoAim(optionsindex);
+	case MENUOP_SET:
+		optionsSetAutoAim(optionsindex, *enable);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMusicVolume
