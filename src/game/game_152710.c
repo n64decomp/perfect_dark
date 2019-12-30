@@ -126,18 +126,10 @@ s32 optionsGetShowGunFunction(s32 optionsindex)
 	return (g_Options[optionsindex].unk48 & OPTION_SHOWGUNFUNCTION) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f15287c
-/*  f15287c:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152880:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152884:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152888:	3c02800b */ 	lui	$v0,0x800b
-/*  f15288c:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f152890:	9442c800 */ 	lhu	$v0,-0x3800($v0)
-/*  f152894:	304f0200 */ 	andi	$t7,$v0,0x200
-/*  f152898:	03e00008 */ 	jr	$ra
-/*  f15289c:	000f102b */ 	sltu	$v0,$zero,$t7
-);
+s32 optionsGetAlwaysShowTarget(s32 optionsindex)
+{
+	return (g_Options[optionsindex].unk48 & OPTION_ALWAYSSHOWTARGET) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f1528a0
@@ -350,32 +342,14 @@ void optionsSetShowGunFunction(s32 optionsindex, bool enable)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f152bb0
-/*  f152bb0:	10a0000b */ 	beqz	$a1,.L0f152be0
-/*  f152bb4:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f152bb8:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152bbc:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152bc0:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f152bc4:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f152bc8:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152bcc:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f152bd0:	94580048 */ 	lhu	$t8,0x48($v0)
-/*  f152bd4:	37190200 */ 	ori	$t9,$t8,0x200
-/*  f152bd8:	03e00008 */ 	jr	$ra
-/*  f152bdc:	a4590048 */ 	sh	$t9,0x48($v0)
-.L0f152be0:
-/*  f152be0:	01044021 */ 	addu	$t0,$t0,$a0
-/*  f152be4:	3c09800b */ 	lui	$t1,%hi(g_Options)
-/*  f152be8:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_Options)
-/*  f152bec:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f152bf0:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f152bf4:	944a0048 */ 	lhu	$t2,0x48($v0)
-/*  f152bf8:	314bfdff */ 	andi	$t3,$t2,0xfdff
-/*  f152bfc:	a44b0048 */ 	sh	$t3,0x48($v0)
-/*  f152c00:	03e00008 */ 	jr	$ra
-/*  f152c04:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void optionsSetAlwaysShowTarget(s32 optionsindex, bool enable)
+{
+	if (enable) {
+		g_Options[optionsindex].unk48 |= OPTION_ALWAYSSHOWTARGET;
+	} else {
+		g_Options[optionsindex].unk48 &= ~OPTION_ALWAYSSHOWTARGET;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f152c08

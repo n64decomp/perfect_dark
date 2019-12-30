@@ -1092,58 +1092,31 @@ s32 menuhandlerShowMissionTime(u32 operation, struct menu_item *item, bool *enab
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerAlwaysShowTarget
-/*  f102f94:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102f98:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102f9c:	8c4e0298 */ 	lw	$t6,0x298($v0)
-/*  f102fa0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f102fa4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102fa8:	05c10004 */ 	bgez	$t6,.L0f102fbc
-/*  f102fac:	00803825 */ 	or	$a3,$a0,$zero
-/*  f102fb0:	8c4f029c */ 	lw	$t7,0x29c($v0)
-/*  f102fb4:	05e20005 */ 	bltzl	$t7,.L0f102fcc
-/*  f102fb8:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102fbc:
-/*  f102fbc:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f102fc0:	10000002 */ 	beqz	$zero,.L0f102fcc
-/*  f102fc4:	8f040070 */ 	lw	$a0,0x70($t8)
-/*  f102fc8:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102fcc:
-/*  f102fcc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f102fd0:	10e1000f */ 	beq	$a3,$at,.L0f103010
-/*  f102fd4:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f102fd8:	10e10009 */ 	beq	$a3,$at,.L0f103000
-/*  f102fdc:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f102fe0:	54e10013 */ 	bnel	$a3,$at,.L0f103030
-/*  f102fe4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102fe8:	0fc54a04 */ 	jal	func0f152810
-/*  f102fec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102ff0:	5440000f */ 	bnezl	$v0,.L0f103030
-/*  f102ff4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102ff8:	1000000d */ 	beqz	$zero,.L0f103030
-/*  f102ffc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f103000:
-/*  f103000:	0fc54a1f */ 	jal	func0f15287c
-/*  f103004:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103008:	1000000a */ 	beqz	$zero,.L0f103034
-/*  f10300c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f103010:
-/*  f103010:	0fc54aec */ 	jal	func0f152bb0
-/*  f103014:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f103018:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f10301c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f103020:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f103024:	37280001 */ 	ori	$t0,$t9,0x1
-/*  f103028:	ac480458 */ 	sw	$t0,0x458($v0)
-/*  f10302c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f103030:
-/*  f103030:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f103034:
-/*  f103034:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f103038:	03e00008 */ 	jr	$ra
-/*  f10303c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerAlwaysShowTarget(u32 operation, struct menu_item *item, bool *enable)
+{
+	u32 optionsindex;
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		optionsindex = g_Vars.unk000288->optionsindex;
+	} else {
+		optionsindex = item->right;
+	}
+
+	switch (operation) {
+	case MENUOP_CHECKDISABLED:
+		if (func0f152810(optionsindex) == 0) {
+			return true;
+		}
+		break;
+	case MENUOP_GET:
+		return optionsGetAlwaysShowTarget(optionsindex);
+	case MENUOP_SET:
+		optionsSetAlwaysShowTarget(optionsindex, *enable);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerShowZoomRange
