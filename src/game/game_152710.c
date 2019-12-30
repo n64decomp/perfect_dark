@@ -51,18 +51,10 @@ glabel func0f152764
 /*  f15277c:	8042c7fe */ 	lb	$v0,-0x3802($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f152780
-/*  f152780:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152784:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152788:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f15278c:	3c02800b */ 	lui	$v0,0x800b
-/*  f152790:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f152794:	9442c800 */ 	lhu	$v0,-0x3800($v0)
-/*  f152798:	304f0001 */ 	andi	$t7,$v0,0x1
-/*  f15279c:	03e00008 */ 	jr	$ra
-/*  f1527a0:	000f102b */ 	sltu	$v0,$zero,$t7
-);
+s32 optionsGetForwardPitch(s32 optionsindex)
+{
+	return (g_Options[optionsindex].unk48 & OPTION_FORWARDPITCH) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f1527a4
@@ -157,32 +149,14 @@ s32 optionsGetHeadRoll(s32 optionsindex)
 	return (g_Options[optionsindex].unk48 & OPTION_HEADROLL) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f152948
-/*  f152948:	10a0000b */ 	beqz	$a1,.L0f152978
-/*  f15294c:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f152950:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152954:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152958:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f15295c:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f152960:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152964:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f152968:	94580048 */ 	lhu	$t8,0x48($v0)
-/*  f15296c:	37190001 */ 	ori	$t9,$t8,0x1
-/*  f152970:	03e00008 */ 	jr	$ra
-/*  f152974:	a4590048 */ 	sh	$t9,0x48($v0)
-.L0f152978:
-/*  f152978:	01044021 */ 	addu	$t0,$t0,$a0
-/*  f15297c:	3c09800b */ 	lui	$t1,%hi(g_Options)
-/*  f152980:	2529c7b8 */ 	addiu	$t1,$t1,%lo(g_Options)
-/*  f152984:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f152988:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f15298c:	944a0048 */ 	lhu	$t2,0x48($v0)
-/*  f152990:	314bfffe */ 	andi	$t3,$t2,0xfffe
-/*  f152994:	a44b0048 */ 	sh	$t3,0x48($v0)
-/*  f152998:	03e00008 */ 	jr	$ra
-/*  f15299c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void optionsSetForwardPitch(s32 optionsindex, bool enable)
+{
+	if (enable) {
+		g_Options[optionsindex].unk48 |= OPTION_FORWARDPITCH;
+	} else {
+		g_Options[optionsindex].unk48 &= ~OPTION_FORWARDPITCH;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1529a0

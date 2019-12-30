@@ -7,7 +7,7 @@ u32 func0f152710(void);
 u32 func0f15272c(void);
 u32 func0f152748(void);
 u32 func0f152764(void);
-u32 func0f152780(void);
+s32 optionsGetForwardPitch(s32 optionsindex);
 u32 func0f1527a4(void);
 s32 optionsGetLookAhead(s32 optionsindex);
 u32 func0f1527ec(void);
@@ -21,7 +21,8 @@ s32 optionsGetShowMissionTime(s32 optionsindex);
 u32 func0f15290c(void);
 u32 func0f152918(void);
 s32 optionsGetHeadRoll(s32 optionsindex);
-u32 func0f152948(void);
+
+void optionsSetForwardPitch(s32 optionsindex, bool enable);
 u32 func0f1529a0(void);
 void optionsSetLookAhead(s32 optionsindex, bool enable);
 u32 func0f152a50(void);

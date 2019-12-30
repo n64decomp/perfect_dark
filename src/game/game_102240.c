@@ -342,51 +342,26 @@ glabel menuhandler001024fc
 /*  f102518:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerReversePitch
-/*  f10251c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102520:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102524:	8c4e0298 */ 	lw	$t6,0x298($v0)
-/*  f102528:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10252c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102530:	05c10004 */ 	bgez	$t6,.L0f102544
-/*  f102534:	00803825 */ 	or	$a3,$a0,$zero
-/*  f102538:	8c4f029c */ 	lw	$t7,0x29c($v0)
-/*  f10253c:	05e20005 */ 	bltzl	$t7,.L0f102554
-/*  f102540:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102544:
-/*  f102544:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f102548:	10000002 */ 	beqz	$zero,.L0f102554
-/*  f10254c:	8f040070 */ 	lw	$a0,0x70($t8)
-/*  f102550:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f102554:
-/*  f102554:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f102558:	10e10008 */ 	beq	$a3,$at,.L0f10257c
-/*  f10255c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f102560:	54e10010 */ 	bnel	$a3,$at,.L0f1025a4
-/*  f102564:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102568:	0fc549e0 */ 	jal	func0f152780
-/*  f10256c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102570:	2c590001 */ 	sltiu	$t9,$v0,0x1
-/*  f102574:	1000000b */ 	beqz	$zero,.L0f1025a4
-/*  f102578:	03201025 */ 	or	$v0,$t9,$zero
-.L0f10257c:
-/*  f10257c:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f102580:	2ca80001 */ 	sltiu	$t0,$a1,0x1
-/*  f102584:	0fc54a52 */ 	jal	func0f152948
-/*  f102588:	01002825 */ 	or	$a1,$t0,$zero
-/*  f10258c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102590:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102594:	8c490458 */ 	lw	$t1,0x458($v0)
-/*  f102598:	352a0001 */ 	ori	$t2,$t1,0x1
-/*  f10259c:	ac4a0458 */ 	sw	$t2,0x458($v0)
-/*  f1025a0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1025a4:
-/*  f1025a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1025a8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1025ac:	03e00008 */ 	jr	$ra
-/*  f1025b0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerReversePitch(u32 operation, struct menu_item *item, bool *enable)
+{
+	u32 optionsindex;
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		optionsindex = g_Vars.unk000288->optionsindex;
+	} else {
+		optionsindex = item->right;
+	}
+
+	switch (operation) {
+	case MENUOP_GET:
+		return !optionsGetForwardPitch(optionsindex);
+	case MENUOP_SET:
+		optionsSetForwardPitch(optionsindex, *enable == false);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerAimControl
