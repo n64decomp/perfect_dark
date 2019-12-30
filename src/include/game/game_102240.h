@@ -49,7 +49,7 @@ s32 menuhandler00106644(u32, u32, u32 *);
 s32 menuhandlerAimControl(u32, u32, u32 *);
 s32 menuhandlerAlternativeTitle(u32, u32, u32 *);
 s32 menuhandlerAlwaysShowTarget(u32, u32, u32 *);
-s32 menuhandlerAmmoOnScreen(u32, u32, u32 *);
+s32 menuhandlerAmmoOnScreen(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerAntiPlayer(u32, u32, u32 *);
 s32 menuhandlerAntiRadar(u32, u32, u32 *);
 s32 menuhandlerAutoAim(u32, u32, u32 *);
