@@ -1117,8 +1117,8 @@ GLOBAL_ASM(
 glabel func0f129cfc
 /*  f129cfc:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f129d00:	afb5004c */ 	sw	$s5,0x4c($sp)
-/*  f129d04:	3c158006 */ 	lui	$s5,%hi(g_NumChrs)
-/*  f129d08:	26b5298c */ 	addiu	$s5,$s5,%lo(g_NumChrs)
+/*  f129d04:	3c158006 */ 	lui	$s5,%hi(g_NumChrsA)
+/*  f129d08:	26b5298c */ 	addiu	$s5,$s5,%lo(g_NumChrsA)
 /*  f129d0c:	8eaf0000 */ 	lw	$t7,0x0($s5)
 /*  f129d10:	afbe0058 */ 	sw	$s8,0x58($sp)
 /*  f129d14:	3c0e7f08 */ 	lui	$t6,0x7f08
@@ -1146,10 +1146,10 @@ glabel func0f129cfc
 /*  f129d6c:	4481c000 */ 	mtc1	$at,$f24
 /*  f129d70:	3c014000 */ 	lui	$at,0x4000
 /*  f129d74:	3c16800a */ 	lui	$s6,%hi(g_Vars)
-/*  f129d78:	3c118006 */ 	lui	$s1,%hi(g_Chrs)
+/*  f129d78:	3c118006 */ 	lui	$s1,%hi(g_ChrsA)
 /*  f129d7c:	4481b000 */ 	mtc1	$at,$f22
 /*  f129d80:	4480a000 */ 	mtc1	$zero,$f20
-/*  f129d84:	26312988 */ 	addiu	$s1,$s1,%lo(g_Chrs)
+/*  f129d84:	26312988 */ 	addiu	$s1,$s1,%lo(g_ChrsA)
 /*  f129d88:	26d69fc0 */ 	addiu	$s6,$s6,%lo(g_Vars)
 /*  f129d8c:	00008025 */ 	or	$s0,$zero,$zero
 /*  f129d90:	24170003 */ 	addiu	$s7,$zero,0x3

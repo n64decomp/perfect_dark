@@ -2,11 +2,14 @@
 #include "types.h"
 #include "game/game_096750.h"
 #include "game/game_114240.h"
+#include "gvars/gvars.h"
 #include "library/library_04790.h"
 #include "library/library_159b0.h"
 #include "library/library_16110.h"
 #include "library/library_4a360.h"
 #include "library/library_4f5e0.h"
+#include "setup/ailists.h"
+#include "setup/setup_000000.h"
 
 const u32 var70054200[] = {0x42652ee0};
 const u32 var70054204[] = {0x00000000};
@@ -2541,84 +2544,54 @@ glabel func00018148
 /*    184cc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel ailistFindById
-/*    184d0:	28810401 */ 	slti	$at,$a0,0x401
-/*    184d4:	14200020 */ 	bnez	$at,.L00018558
-/*    184d8:	3c058006 */ 	lui	$a1,0x8006
-/*    184dc:	3c02800a */ 	lui	$v0,0x800a
-/*    184e0:	8c42d048 */ 	lw	$v0,-0x2fb8($v0)
-/*    184e4:	3c058006 */ 	lui	$a1,0x8006
-/*    184e8:	50400037 */ 	beqzl	$v0,.L000185c8
-/*    184ec:	00001025 */ 	or	$v0,$zero,$zero
-/*    184f0:	8ca5ef34 */ 	lw	$a1,-0x10cc($a1)
-/*    184f4:	00001825 */ 	or	$v1,$zero,$zero
-/*    184f8:	04a00032 */ 	bltz	$a1,.L000185c4
-/*    184fc:	00653821 */ 	addu	$a3,$v1,$a1
-.L00018500:
-/*    18500:	04e10003 */ 	bgez	$a3,.L00018510
-/*    18504:	00077043 */ 	sra	$t6,$a3,0x1
-/*    18508:	24e10001 */ 	addiu	$at,$a3,0x1
-/*    1850c:	00017043 */ 	sra	$t6,$at,0x1
-.L00018510:
-/*    18510:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*    18514:	004f4021 */ 	addu	$t0,$v0,$t7
-/*    18518:	8d090004 */ 	lw	$t1,0x4($t0)
-/*    1851c:	01c03025 */ 	or	$a2,$t6,$zero
-/*    18520:	14890003 */ 	bne	$a0,$t1,.L00018530
-/*    18524:	0089082a */ 	slt	$at,$a0,$t1
-/*    18528:	03e00008 */ 	jr	$ra
-/*    1852c:	8d020000 */ 	lw	$v0,0x0($t0)
-.L00018530:
-/*    18530:	50200004 */ 	beqzl	$at,.L00018544
-/*    18534:	24c30001 */ 	addiu	$v1,$a2,0x1
-/*    18538:	10000002 */ 	beqz	$zero,.L00018544
-/*    1853c:	24c5ffff */ 	addiu	$a1,$a2,-1
-/*    18540:	24c30001 */ 	addiu	$v1,$a2,0x1
-.L00018544:
-/*    18544:	00a3082a */ 	slt	$at,$a1,$v1
-/*    18548:	5020ffed */ 	beqzl	$at,.L00018500
-/*    1854c:	00653821 */ 	addu	$a3,$v1,$a1
-/*    18550:	1000001d */ 	beqz	$zero,.L000185c8
-/*    18554:	00001025 */ 	or	$v0,$zero,$zero
-.L00018558:
-/*    18558:	8ca5ef30 */ 	lw	$a1,-0x10d0($a1)
-/*    1855c:	3c098008 */ 	lui	$t1,%hi(g_GlobalAilists)
-/*    18560:	00001825 */ 	or	$v1,$zero,$zero
-/*    18564:	04a00017 */ 	bltz	$a1,.L000185c4
-/*    18568:	2529ac58 */ 	addiu	$t1,$t1,%lo(g_GlobalAilists)
-/*    1856c:	00653821 */ 	addu	$a3,$v1,$a1
-.L00018570:
-/*    18570:	04e10003 */ 	bgez	$a3,.L00018580
-/*    18574:	0007c043 */ 	sra	$t8,$a3,0x1
-/*    18578:	24e10001 */ 	addiu	$at,$a3,0x1
-/*    1857c:	0001c043 */ 	sra	$t8,$at,0x1
-.L00018580:
-/*    18580:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*    18584:	01394021 */ 	addu	$t0,$t1,$t9
-/*    18588:	8d020004 */ 	lw	$v0,0x4($t0)
-/*    1858c:	03003025 */ 	or	$a2,$t8,$zero
-/*    18590:	54820004 */ 	bnel	$a0,$v0,.L000185a4
-/*    18594:	0082082a */ 	slt	$at,$a0,$v0
-/*    18598:	03e00008 */ 	jr	$ra
-/*    1859c:	8d020000 */ 	lw	$v0,0x0($t0)
-/*    185a0:	0082082a */ 	slt	$at,$a0,$v0
-.L000185a4:
-/*    185a4:	50200004 */ 	beqzl	$at,.L000185b8
-/*    185a8:	24c30001 */ 	addiu	$v1,$a2,0x1
-/*    185ac:	10000002 */ 	beqz	$zero,.L000185b8
-/*    185b0:	24c5ffff */ 	addiu	$a1,$a2,-1
-/*    185b4:	24c30001 */ 	addiu	$v1,$a2,0x1
-.L000185b8:
-/*    185b8:	00a3082a */ 	slt	$at,$a1,$v1
-/*    185bc:	5020ffec */ 	beqzl	$at,.L00018570
-/*    185c0:	00653821 */ 	addu	$a3,$v1,$a1
-.L000185c4:
-/*    185c4:	00001025 */ 	or	$v0,$zero,$zero
-.L000185c8:
-/*    185c8:	03e00008 */ 	jr	$ra
-/*    185cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u8 *ailistFindById(s32 ailistid)
+{
+	s32 lower;
+	s32 upper;
+	s32 index;
+
+	if (ailistid >= 0x401) {
+		if (g_StageSetup.ailists) {
+			lower = 0;
+			upper = g_NumLvAilists;
+			index;
+
+			while (upper >= lower) {
+				index = (lower + upper) / 2;
+
+				if (g_StageSetup.ailists[index].id == ailistid) {
+					return g_StageSetup.ailists[index].list;
+				}
+
+				if (ailistid < g_StageSetup.ailists[index].id) {
+					upper = index - 1;
+				} else {
+					lower = index + 1;
+				}
+			}
+		}
+	} else {
+		lower = 0;
+		upper = g_NumGlobalAilists;
+		index;
+
+		while (upper >= lower) {
+			index = (lower + upper) / 2;
+
+			if (g_GlobalAilists[index].id == ailistid) {
+				return g_GlobalAilists[index].list;
+			}
+
+			if (ailistid < g_GlobalAilists[index].id) {
+				upper = index - 1;
+			} else {
+				lower = index + 1;
+			}
+		}
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func000185d0

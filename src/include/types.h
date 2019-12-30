@@ -2483,7 +2483,7 @@ struct player {
 
 struct ailist {
 	u8 *list;
-	u32 id;
+	s32 id;
 };
 
 struct path {

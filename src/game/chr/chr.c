@@ -1220,7 +1220,7 @@ glabel func0f01e250
 
 u32 getNumChrs(void)
 {
-	return g_NumChrs;
+	return g_NumChrsA;
 }
 
 GLOBAL_ASM(
@@ -1251,10 +1251,10 @@ glabel chrSetChrnum
 /*  f01e52c:	a4870000 */ 	sh	$a3,0x0($a0)
 /*  f01e530:	3c08800a */ 	lui	$t0,0x800a
 /*  f01e534:	8d08cd10 */ 	lw	$t0,-0x32f0($t0)
-/*  f01e538:	3c0c800a */ 	lui	$t4,%hi(var8009cd18)
-/*  f01e53c:	3c0b800a */ 	lui	$t3,%hi(var8009cd14)
-/*  f01e540:	256bcd14 */ 	addiu	$t3,$t3,%lo(var8009cd14)
-/*  f01e544:	258ccd18 */ 	addiu	$t4,$t4,%lo(var8009cd18)
+/*  f01e538:	3c0c800a */ 	lui	$t4,%hi(g_ChrIndexesC)
+/*  f01e53c:	3c0b800a */ 	lui	$t3,%hi(g_ChrnumsC)
+/*  f01e540:	256bcd14 */ 	addiu	$t3,$t3,%lo(g_ChrnumsC)
+/*  f01e544:	258ccd18 */ 	addiu	$t4,$t4,%lo(g_ChrIndexesC)
 /*  f01e548:	2508ffff */ 	addiu	$t0,$t0,-1
 /*  f01e54c:	00002825 */ 	or	$a1,$zero,$zero
 .L0f01e550:
@@ -1299,18 +1299,18 @@ glabel chrSetChrnum
 
 GLOBAL_ASM(
 glabel func0f01e5d8
-/*  f01e5d8:	3c0a800a */ 	lui	$t2,%hi(var8009cd10)
-/*  f01e5dc:	254acd10 */ 	addiu	$t2,$t2,%lo(var8009cd10)
+/*  f01e5d8:	3c0a800a */ 	lui	$t2,%hi(g_NumChrsC)
+/*  f01e5dc:	254acd10 */ 	addiu	$t2,$t2,%lo(g_NumChrsC)
 /*  f01e5e0:	8d430000 */ 	lw	$v1,0x0($t2)
 /*  f01e5e4:	27bdfff8 */ 	addiu	$sp,$sp,-8
 /*  f01e5e8:	afb00004 */ 	sw	$s0,0x4($sp)
 /*  f01e5ec:	00a08025 */ 	or	$s0,$a1,$zero
 /*  f01e5f0:	18600019 */ 	blez	$v1,.L0f01e658
 /*  f01e5f4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f01e5f8:	3c0c800a */ 	lui	$t4,%hi(var8009cd18)
-/*  f01e5fc:	3c0b800a */ 	lui	$t3,%hi(var8009cd14)
-/*  f01e600:	256bcd14 */ 	addiu	$t3,$t3,%lo(var8009cd14)
-/*  f01e604:	258ccd18 */ 	addiu	$t4,$t4,%lo(var8009cd18)
+/*  f01e5f8:	3c0c800a */ 	lui	$t4,%hi(g_ChrIndexesC)
+/*  f01e5fc:	3c0b800a */ 	lui	$t3,%hi(g_ChrnumsC)
+/*  f01e600:	256bcd14 */ 	addiu	$t3,$t3,%lo(g_ChrnumsC)
+/*  f01e604:	258ccd18 */ 	addiu	$t4,$t4,%lo(g_ChrIndexesC)
 /*  f01e608:	00002825 */ 	or	$a1,$zero,$zero
 .L0f01e60c:
 /*  f01e60c:	8d6e0000 */ 	lw	$t6,0x0($t3)
@@ -1334,15 +1334,15 @@ glabel func0f01e5d8
 /*  f01e650:	1420ffee */ 	bnez	$at,.L0f01e60c
 /*  f01e654:	24a50002 */ 	addiu	$a1,$a1,0x2
 .L0f01e658:
-/*  f01e658:	3c0b800a */ 	lui	$t3,%hi(var8009cd14)
-/*  f01e65c:	256bcd14 */ 	addiu	$t3,$t3,%lo(var8009cd14)
+/*  f01e658:	3c0b800a */ 	lui	$t3,%hi(g_ChrnumsC)
+/*  f01e65c:	256bcd14 */ 	addiu	$t3,$t3,%lo(g_ChrnumsC)
 /*  f01e660:	8d790000 */ 	lw	$t9,0x0($t3)
 /*  f01e664:	00036840 */ 	sll	$t5,$v1,0x1
-/*  f01e668:	3c0c800a */ 	lui	$t4,%hi(var8009cd18)
+/*  f01e668:	3c0c800a */ 	lui	$t4,%hi(g_ChrIndexesC)
 /*  f01e66c:	032d7021 */ 	addu	$t6,$t9,$t5
 /*  f01e670:	a5c40000 */ 	sh	$a0,0x0($t6)
 /*  f01e674:	8d580000 */ 	lw	$t8,0x0($t2)
-/*  f01e678:	258ccd18 */ 	addiu	$t4,$t4,%lo(var8009cd18)
+/*  f01e678:	258ccd18 */ 	addiu	$t4,$t4,%lo(g_ChrIndexesC)
 /*  f01e67c:	8d8f0000 */ 	lw	$t7,0x0($t4)
 /*  f01e680:	0018c840 */ 	sll	$t9,$t8,0x1
 /*  f01e684:	01f96821 */ 	addu	$t5,$t7,$t9
@@ -1357,8 +1357,8 @@ glabel func0f01e5d8
 
 GLOBAL_ASM(
 glabel func0f01e6a4
-/*  f01e6a4:	3c08800a */ 	lui	$t0,%hi(var8009cd10)
-/*  f01e6a8:	2508cd10 */ 	addiu	$t0,$t0,%lo(var8009cd10)
+/*  f01e6a4:	3c08800a */ 	lui	$t0,%hi(g_NumChrsC)
+/*  f01e6a8:	2508cd10 */ 	addiu	$t0,$t0,%lo(g_NumChrsC)
 /*  f01e6ac:	8d030000 */ 	lw	$v1,0x0($t0)
 /*  f01e6b0:	00001025 */ 	or	$v0,$zero,$zero
 /*  f01e6b4:	00002825 */ 	or	$a1,$zero,$zero
@@ -1374,10 +1374,10 @@ glabel func0f01e6a4
 /*  f01e6d8:	00c3082a */ 	slt	$at,$a2,$v1
 /*  f01e6dc:	10200017 */ 	beqz	$at,.L0f01e73c
 /*  f01e6e0:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f01e6e4:	3c0a800a */ 	lui	$t2,%hi(var8009cd18)
-/*  f01e6e8:	3c09800a */ 	lui	$t1,%hi(var8009cd14)
-/*  f01e6ec:	2529cd14 */ 	addiu	$t1,$t1,%lo(var8009cd14)
-/*  f01e6f0:	254acd18 */ 	addiu	$t2,$t2,%lo(var8009cd18)
+/*  f01e6e4:	3c0a800a */ 	lui	$t2,%hi(g_ChrIndexesC)
+/*  f01e6e8:	3c09800a */ 	lui	$t1,%hi(g_ChrnumsC)
+/*  f01e6ec:	2529cd14 */ 	addiu	$t1,$t1,%lo(g_ChrnumsC)
+/*  f01e6f0:	254acd18 */ 	addiu	$t2,$t2,%lo(g_ChrIndexesC)
 /*  f01e6f4:	00063040 */ 	sll	$a2,$a2,0x1
 /*  f01e6f8:	8d220000 */ 	lw	$v0,0x0($t1)
 .L0f01e6fc:
@@ -4171,8 +4171,8 @@ glabel func0f020f90
 /*  f020fc0:	00004825 */ 	or	$t1,$zero,$zero
 /*  f020fc4:	18a00021 */ 	blez	$a1,.L0f02104c
 /*  f020fc8:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f020fcc:	3c068006 */ 	lui	$a2,%hi(g_Chrs)
-/*  f020fd0:	24c62988 */ 	addiu	$a2,$a2,%lo(g_Chrs)
+/*  f020fcc:	3c068006 */ 	lui	$a2,%hi(g_ChrsA)
+/*  f020fd0:	24c62988 */ 	addiu	$a2,$a2,%lo(g_ChrsA)
 /*  f020fd4:	00008025 */ 	or	$s0,$zero,$zero
 .L0f020fd8:
 /*  f020fd8:	8cc20000 */ 	lw	$v0,0x0($a2)
@@ -4185,8 +4185,8 @@ glabel func0f020f90
 /*  f020ff4:	afa9002c */ 	sw	$t1,0x2c($sp)
 /*  f020ff8:	0fc12705 */ 	jal	propGetIndexByChrId
 /*  f020ffc:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f021000:	3c068006 */ 	lui	$a2,%hi(g_Chrs)
-/*  f021004:	24c62988 */ 	addiu	$a2,$a2,%lo(g_Chrs)
+/*  f021000:	3c068006 */ 	lui	$a2,%hi(g_ChrsA)
+/*  f021004:	24c62988 */ 	addiu	$a2,$a2,%lo(g_ChrsA)
 /*  f021008:	8fa70024 */ 	lw	$a3,0x24($sp)
 /*  f02100c:	2408ffff */ 	addiu	$t0,$zero,-1
 /*  f021010:	14510004 */ 	bne	$v0,$s1,.L0f021024
@@ -4323,9 +4323,9 @@ glabel func0f020f90
 /*  f0211d8:	18400014 */ 	blez	$v0,.L0f02122c
 /*  f0211dc:	00008825 */ 	or	$s1,$zero,$zero
 /*  f0211e0:	3c014416 */ 	lui	$at,0x4416
-/*  f0211e4:	3c128006 */ 	lui	$s2,%hi(g_Chrs)
+/*  f0211e4:	3c128006 */ 	lui	$s2,%hi(g_ChrsA)
 /*  f0211e8:	4481a000 */ 	mtc1	$at,$f20
-/*  f0211ec:	26522988 */ 	addiu	$s2,$s2,%lo(g_Chrs)
+/*  f0211ec:	26522988 */ 	addiu	$s2,$s2,%lo(g_ChrsA)
 /*  f0211f0:	00008025 */ 	or	$s0,$zero,$zero
 .L0f0211f4:
 /*  f0211f4:	8e4e0000 */ 	lw	$t6,0x0($s2)
@@ -12409,8 +12409,8 @@ GLOBAL_ASM(
 glabel func0f028590
 /*  f028590:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f028594:	afbe0068 */ 	sw	$s8,0x68($sp)
-/*  f028598:	3c1e8006 */ 	lui	$s8,%hi(g_NumChrs)
-/*  f02859c:	27de298c */ 	addiu	$s8,$s8,%lo(g_NumChrs)
+/*  f028598:	3c1e8006 */ 	lui	$s8,%hi(g_NumChrsA)
+/*  f02859c:	27de298c */ 	addiu	$s8,$s8,%lo(g_NumChrsA)
 /*  f0285a0:	8fce0000 */ 	lw	$t6,0x0($s8)
 /*  f0285a4:	afb70064 */ 	sw	$s7,0x64($sp)
 /*  f0285a8:	f7b60020 */ 	sdc1	$f22,0x20($sp)
@@ -12437,10 +12437,10 @@ glabel func0f028590
 /*  f0285fc:	3c014000 */ 	lui	$at,0x4000
 /*  f028600:	4481d000 */ 	mtc1	$at,$f26
 /*  f028604:	3c013f80 */ 	lui	$at,0x3f80
-/*  f028608:	3c168006 */ 	lui	$s6,%hi(g_Chrs)
+/*  f028608:	3c168006 */ 	lui	$s6,%hi(g_ChrsA)
 /*  f02860c:	4481a000 */ 	mtc1	$at,$f20
 /*  f028610:	4480c000 */ 	mtc1	$zero,$f24
-/*  f028614:	26d62988 */ 	addiu	$s6,$s6,%lo(g_Chrs)
+/*  f028614:	26d62988 */ 	addiu	$s6,$s6,%lo(g_ChrsA)
 /*  f028618:	0000a825 */ 	or	$s5,$zero,$zero
 /*  f02861c:	8ec20000 */ 	lw	$v0,0x0($s6)
 .L0f028620:
@@ -12538,58 +12538,28 @@ glabel func0f028590
 /*  f028770:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-GLOBAL_ASM(
-glabel chrFindByLiteralId
-/*  f028774:	3c03800a */ 	lui	$v1,0x800a
-/*  f028778:	8c63cd10 */ 	lw	$v1,-0x32f0($v1)
-/*  f02877c:	00803025 */ 	or	$a2,$a0,$zero
-/*  f028780:	00001025 */ 	or	$v0,$zero,$zero
-/*  f028784:	04600024 */ 	bltz	$v1,.L0f028818
-/*  f028788:	3c07800a */ 	lui	$a3,0x800a
-/*  f02878c:	8ce7cd14 */ 	lw	$a3,-0x32ec($a3)
-/*  f028790:	00432821 */ 	addu	$a1,$v0,$v1
-.L0f028794:
-/*  f028794:	04a10003 */ 	bgez	$a1,.L0f0287a4
-/*  f028798:	00057043 */ 	sra	$t6,$a1,0x1
-/*  f02879c:	24a10001 */ 	addiu	$at,$a1,0x1
-/*  f0287a0:	00017043 */ 	sra	$t6,$at,0x1
-.L0f0287a4:
-/*  f0287a4:	000e4040 */ 	sll	$t0,$t6,0x1
-/*  f0287a8:	00e87821 */ 	addu	$t7,$a3,$t0
-/*  f0287ac:	85e90000 */ 	lh	$t1,0x0($t7)
-/*  f0287b0:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f0287b4:	14c90010 */ 	bne	$a2,$t1,.L0f0287f8
-/*  f0287b8:	00c9082a */ 	slt	$at,$a2,$t1
-/*  f0287bc:	3c18800a */ 	lui	$t8,0x800a
-/*  f0287c0:	8f18cd18 */ 	lw	$t8,-0x32e8($t8)
-/*  f0287c4:	3c0c8006 */ 	lui	$t4,0x8006
-/*  f0287c8:	8d8c2988 */ 	lw	$t4,0x2988($t4)
-/*  f0287cc:	0308c821 */ 	addu	$t9,$t8,$t0
-/*  f0287d0:	872a0000 */ 	lh	$t2,0x0($t9)
-/*  f0287d4:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f0287d8:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f0287dc:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f0287e0:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f0287e4:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f0287e8:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f0287ec:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f0287f0:	03e00008 */ 	jr	$ra
-/*  f0287f4:	016c1021 */ 	addu	$v0,$t3,$t4
-.L0f0287f8:
-/*  f0287f8:	50200004 */ 	beqzl	$at,.L0f02880c
-/*  f0287fc:	24820001 */ 	addiu	$v0,$a0,0x1
-/*  f028800:	10000002 */ 	beqz	$zero,.L0f02880c
-/*  f028804:	2483ffff */ 	addiu	$v1,$a0,-1
-/*  f028808:	24820001 */ 	addiu	$v0,$a0,0x1
-.L0f02880c:
-/*  f02880c:	0062082a */ 	slt	$at,$v1,$v0
-/*  f028810:	5020ffe0 */ 	beqzl	$at,.L0f028794
-/*  f028814:	00432821 */ 	addu	$a1,$v0,$v1
-.L0f028818:
-/*  f028818:	00001025 */ 	or	$v0,$zero,$zero
-/*  f02881c:	03e00008 */ 	jr	$ra
-/*  f028820:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct chrdata *chrFindByLiteralId(s32 chrnum)
+{
+	s32 lower = 0;
+	s32 upper = g_NumChrsC;
+	s32 i;
+
+	while (upper >= lower) {
+		i = (lower + upper) / 2;
+
+		if (chrnum == g_ChrnumsC[i]) {
+			return &g_ChrsA[g_ChrIndexesC[i]];
+		}
+
+		if (chrnum < g_ChrnumsC[i]) {
+			upper = i - 1;
+		} else {
+			lower = i + 1;
+		}
+	}
+
+	return NULL;
+}
 
 struct prop *chrGetEquippedWeaponProp(struct chrdata *chr, s32 hand)
 {
@@ -35032,9 +35002,9 @@ glabel func0f03ce8c
 /*  f03cef8:	82830007 */ 	lb	$v1,0x7($s4)
 .L0f03cefc:
 /*  f03cefc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f03cf00:	3c158006 */ 	lui	$s5,%hi(g_Chrs)
+/*  f03cf00:	3c158006 */ 	lui	$s5,%hi(g_ChrsA)
 /*  f03cf04:	14610003 */ 	bne	$v1,$at,.L0f03cf14
-/*  f03cf08:	26b52988 */ 	addiu	$s5,$s5,%lo(g_Chrs)
+/*  f03cf08:	26b52988 */ 	addiu	$s5,$s5,%lo(g_ChrsA)
 /*  f03cf0c:	1000000c */ 	beqz	$zero,.L0f03cf40
 /*  f03cf10:	8e93002c */ 	lw	$s3,0x2c($s4)
 .L0f03cf14:
@@ -47470,13 +47440,13 @@ glabel func0f0482cc
 .L0f048320:
 /*  f048320:	0c006134 */ 	jal	ailistFindById
 /*  f048324:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f048328:	3c048006 */ 	lui	$a0,%hi(var80067e60)
-/*  f04832c:	24847e60 */ 	addiu	$a0,$a0,%lo(var80067e60)
+/*  f048328:	3c048006 */ 	lui	$a0,%hi(g_NumChrsB)
+/*  f04832c:	24847e60 */ 	addiu	$a0,$a0,%lo(g_NumChrsB)
 /*  f048330:	8c8f0000 */ 	lw	$t7,0x0($a0)
 /*  f048334:	24050368 */ 	addiu	$a1,$zero,0x368
-/*  f048338:	3c038006 */ 	lui	$v1,%hi(var80067e58)
+/*  f048338:	3c038006 */ 	lui	$v1,%hi(g_ChrsB)
 /*  f04833c:	01e50019 */ 	multu	$t7,$a1
-/*  f048340:	24637e58 */ 	addiu	$v1,$v1,%lo(var80067e58)
+/*  f048340:	24637e58 */ 	addiu	$v1,$v1,%lo(g_ChrsB)
 /*  f048344:	8c6e0000 */ 	lw	$t6,0x0($v1)
 /*  f048348:	240cffff */ 	addiu	$t4,$zero,-1
 /*  f04834c:	0000c012 */ 	mflo	$t8
@@ -48779,8 +48749,8 @@ glabel func0f049644
 /*  f0496f0:	02118023 */ 	subu	$s0,$s0,$s1
 /*  f0496f4:	00108080 */ 	sll	$s0,$s0,0x2
 /*  f0496f8:	02118021 */ 	addu	$s0,$s0,$s1
-/*  f0496fc:	3c168006 */ 	lui	$s6,%hi(g_Chrs)
-/*  f049700:	26d62988 */ 	addiu	$s6,$s6,%lo(g_Chrs)
+/*  f0496fc:	3c168006 */ 	lui	$s6,%hi(g_ChrsA)
+/*  f049700:	26d62988 */ 	addiu	$s6,$s6,%lo(g_ChrsA)
 /*  f049704:	001080c0 */ 	sll	$s0,$s0,0x3
 /*  f049708:	2412ffff */ 	addiu	$s2,$zero,-1
 /*  f04970c:	8ecc0000 */ 	lw	$t4,0x0($s6)
@@ -48811,14 +48781,14 @@ glabel func0f049644
 /*  f049764:	8ecc0000 */ 	lw	$t4,0x0($s6)
 /*  f049768:	00008825 */ 	or	$s1,$zero,$zero
 .L0f04976c:
-/*  f04976c:	3c048006 */ 	lui	$a0,%hi(var80067e60)
-/*  f049770:	24847e60 */ 	addiu	$a0,$a0,%lo(var80067e60)
+/*  f04976c:	3c048006 */ 	lui	$a0,%hi(g_NumChrsB)
+/*  f049770:	24847e60 */ 	addiu	$a0,$a0,%lo(g_NumChrsB)
 /*  f049774:	8c8d0000 */ 	lw	$t5,0x0($a0)
 /*  f049778:	2412ffff */ 	addiu	$s2,$zero,-1
 /*  f04977c:	00008025 */ 	or	$s0,$zero,$zero
 /*  f049780:	19a00019 */ 	blez	$t5,.L0f0497e8
-/*  f049784:	3c038006 */ 	lui	$v1,%hi(var80067e58)
-/*  f049788:	24637e58 */ 	addiu	$v1,$v1,%lo(var80067e58)
+/*  f049784:	3c038006 */ 	lui	$v1,%hi(g_ChrsB)
+/*  f049788:	24637e58 */ 	addiu	$v1,$v1,%lo(g_ChrsB)
 /*  f04978c:	8c6e0000 */ 	lw	$t6,0x0($v1)
 .L0f049790:
 /*  f049790:	01d01021 */ 	addu	$v0,$t6,$s0
@@ -49174,69 +49144,39 @@ glabel chrResolveId
 //	return id;
 //}
 
-GLOBAL_ASM(
-glabel chrFindById
-/*  f049b44:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f049b48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049b4c:	0fc12604 */ 	jal	chrResolveId
-/*  f049b50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f049b54:	00402025 */ 	or	$a0,$v0,$zero
-/*  f049b58:	0fc0a1dd */ 	jal	chrFindByLiteralId
-/*  f049b5c:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f049b60:	10400003 */ 	beqz	$v0,.L0f049b70
-/*  f049b64:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f049b68:	10000027 */ 	beqz	$zero,.L0f049c08
-/*  f049b6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f049b70:
-/*  f049b70:	3c058006 */ 	lui	$a1,0x8006
-/*  f049b74:	8ca57e60 */ 	lw	$a1,0x7e60($a1)
-/*  f049b78:	00003025 */ 	or	$a2,$zero,$zero
-/*  f049b7c:	3c088006 */ 	lui	$t0,0x8006
-/*  f049b80:	04a0001f */ 	bltz	$a1,.L0f049c00
-/*  f049b84:	3c098006 */ 	lui	$t1,0x8006
-/*  f049b88:	8d087e5c */ 	lw	$t0,0x7e5c($t0)
-/*  f049b8c:	00c51821 */ 	addu	$v1,$a2,$a1
-.L0f049b90:
-/*  f049b90:	04610003 */ 	bgez	$v1,.L0f049ba0
-/*  f049b94:	00037043 */ 	sra	$t6,$v1,0x1
-/*  f049b98:	24610001 */ 	addiu	$at,$v1,0x1
-/*  f049b9c:	00017043 */ 	sra	$t6,$at,0x1
-.L0f049ba0:
-/*  f049ba0:	000e7840 */ 	sll	$t7,$t6,0x1
-/*  f049ba4:	010fc021 */ 	addu	$t8,$t0,$t7
-/*  f049ba8:	87040000 */ 	lh	$a0,0x0($t8)
-/*  f049bac:	01c01025 */ 	or	$v0,$t6,$zero
-/*  f049bb0:	14e4000b */ 	bne	$a3,$a0,.L0f049be0
-/*  f049bb4:	00e4082a */ 	slt	$at,$a3,$a0
-/*  f049bb8:	000ec8c0 */ 	sll	$t9,$t6,0x3
-/*  f049bbc:	032ec823 */ 	subu	$t9,$t9,$t6
-/*  f049bc0:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f049bc4:	032ec823 */ 	subu	$t9,$t9,$t6
-/*  f049bc8:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f049bcc:	8d297e58 */ 	lw	$t1,0x7e58($t1)
-/*  f049bd0:	032ec821 */ 	addu	$t9,$t9,$t6
-/*  f049bd4:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f049bd8:	1000000a */ 	beqz	$zero,.L0f049c04
-/*  f049bdc:	03291021 */ 	addu	$v0,$t9,$t1
-.L0f049be0:
-/*  f049be0:	50200004 */ 	beqzl	$at,.L0f049bf4
-/*  f049be4:	24460001 */ 	addiu	$a2,$v0,0x1
-/*  f049be8:	10000002 */ 	beqz	$zero,.L0f049bf4
-/*  f049bec:	2445ffff */ 	addiu	$a1,$v0,-1
-/*  f049bf0:	24460001 */ 	addiu	$a2,$v0,0x1
-.L0f049bf4:
-/*  f049bf4:	00a6082a */ 	slt	$at,$a1,$a2
-/*  f049bf8:	5020ffe5 */ 	beqzl	$at,.L0f049b90
-/*  f049bfc:	00c51821 */ 	addu	$v1,$a2,$a1
-.L0f049c00:
-/*  f049c00:	00001025 */ 	or	$v0,$zero,$zero
-.L0f049c04:
-/*  f049c04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f049c08:
-/*  f049c08:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f049c0c:	03e00008 */ 	jr	$ra
-/*  f049c10:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct chrdata *chrFindById(struct chrdata *basechr, s32 chrnum)
+{
+	struct chrdata *chr;
+	s32 lower;
+	s32 upper;
+	s32 i;
+
+	chrnum = chrResolveId(basechr, chrnum);
+	chr = chrFindByLiteralId(chrnum);
+
+	if (chr) {
+		return chr;
+	}
+
+	lower = 0;
+	upper = g_NumChrsB;
+
+	while (upper >= lower) {
+		i = (lower + upper) / 2;
+
+		if (chrnum == g_ChrnumsB[i]) {
+			return &g_ChrsB[i];
+		}
+
+		if (chrnum < g_ChrnumsB[i]) {
+			upper = i - 1;
+		} else {
+			lower = i + 1;
+		}
+	}
+
+	return NULL;
+}
 
 s32 propGetIndexByChrId(struct chrdata *basechr, s32 chrnum)
 {
@@ -52410,14 +52350,14 @@ glabel rebuildTeams
 /*  f04cc18:	25ce845c */ 	addiu	$t6,$t6,%lo(var8006845c)
 /*  f04cc1c:	8dc10000 */ 	lw	$at,0x0($t6)
 /*  f04cc20:	27ab0024 */ 	addiu	$t3,$sp,0x24
-/*  f04cc24:	3c0c8006 */ 	lui	$t4,%hi(g_Chrs)
+/*  f04cc24:	3c0c8006 */ 	lui	$t4,%hi(g_ChrsA)
 /*  f04cc28:	ad610000 */ 	sw	$at,0x0($t3)
 /*  f04cc2c:	8dd90004 */ 	lw	$t9,0x4($t6)
 /*  f04cc30:	3c098006 */ 	lui	$t1,%hi(var80067e64)
 /*  f04cc34:	00405025 */ 	or	$t2,$v0,$zero
 /*  f04cc38:	24070007 */ 	addiu	$a3,$zero,0x7
 /*  f04cc3c:	25297e64 */ 	addiu	$t1,$t1,%lo(var80067e64)
-/*  f04cc40:	258c2988 */ 	addiu	$t4,$t4,%lo(g_Chrs)
+/*  f04cc40:	258c2988 */ 	addiu	$t4,$t4,%lo(g_ChrsA)
 /*  f04cc44:	00004025 */ 	or	$t0,$zero,$zero
 /*  f04cc48:	241f0008 */ 	addiu	$ra,$zero,0x8
 /*  f04cc4c:	240dfffe */ 	addiu	$t5,$zero,-2
@@ -52480,12 +52420,12 @@ glabel rebuildSquadrons
 /*  f04cd08:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f04cd0c:	0fc07934 */ 	jal	getNumChrs
 /*  f04cd10:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f04cd14:	3c0c8006 */ 	lui	$t4,%hi(g_Chrs)
+/*  f04cd14:	3c0c8006 */ 	lui	$t4,%hi(g_ChrsA)
 /*  f04cd18:	3c0a8006 */ 	lui	$t2,%hi(g_SquadronList)
 /*  f04cd1c:	00405825 */ 	or	$t3,$v0,$zero
 /*  f04cd20:	2408000f */ 	addiu	$t0,$zero,0xf
 /*  f04cd24:	254a7e68 */ 	addiu	$t2,$t2,%lo(g_SquadronList)
-/*  f04cd28:	258c2988 */ 	addiu	$t4,$t4,%lo(g_Chrs)
+/*  f04cd28:	258c2988 */ 	addiu	$t4,$t4,%lo(g_ChrsA)
 /*  f04cd2c:	00004825 */ 	or	$t1,$zero,$zero
 /*  f04cd30:	24100010 */ 	addiu	$s0,$zero,0x10
 /*  f04cd34:	241ffffe */ 	addiu	$ra,$zero,-2

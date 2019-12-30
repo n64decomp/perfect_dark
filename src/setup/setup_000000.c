@@ -8297,10 +8297,10 @@ u32 var80062980 = 0;
 s32 var80062984 = 5000;
 
 // 80062988
-struct chrdata *g_Chrs = NULL;
+struct chrdata *g_ChrsA = NULL;
 
 // 8006298c
-u32 g_NumChrs = 0;
+u32 g_NumChrsA = 0;
 
 u32 var80062990 = 0x00000000;
 u32 var80062994 = 0x00000000;
@@ -13731,9 +13731,10 @@ u32 var80067e50 = (u32) &var80067e48;
 // 80067e54
 u32 g_StageFlags = 0;
 
-u32 var80067e58 = 0x00000000;
-u32 var80067e5c = 0x00000000;
-u32 var80067e60 = 0x00000000;
+struct chrdata *g_ChrsB = NULL;
+s16 *g_ChrnumsB = NULL;
+s32 g_NumChrsB = 0;
+
 u32 var80067e64 = 0x00000000;
 s16 *g_SquadronList = NULL;
 u32 var80067e6c = 0x00280000;

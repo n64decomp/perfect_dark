@@ -21,8 +21,8 @@ glabel func0f014f10
 /*  f014f2c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f014f30:	18600024 */ 	blez	$v1,.L0f014fc4
 /*  f014f34:	00009025 */ 	or	$s2,$zero,$zero
-/*  f014f38:	3c118006 */ 	lui	$s1,%hi(g_Chrs)
-/*  f014f3c:	26312988 */ 	addiu	$s1,$s1,%lo(g_Chrs)
+/*  f014f38:	3c118006 */ 	lui	$s1,%hi(g_ChrsA)
+/*  f014f3c:	26312988 */ 	addiu	$s1,$s1,%lo(g_ChrsA)
 /*  f014f40:	00008025 */ 	or	$s0,$zero,$zero
 /*  f014f44:	24130003 */ 	addiu	$s3,$zero,0x3
 .L0f014f48:

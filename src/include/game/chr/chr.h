@@ -3,8 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
-struct chrdata *chrFindById(struct chrdata *data, u32 chrnum);
-struct chrdata *chrFindByLiteralId(s16 chrnum);
+struct chrdata *chrFindById(struct chrdata *data, s32 chrnum);
+struct chrdata *chrFindByLiteralId(s32 chrnum);
 f32 chrGetDistanceFromTargetToPad(struct chrdata *chr, s32 pad_id);
 f32 chrGetDistanceToChr(struct chrdata *chr1, s32 chr2num);
 f32 chrGetDistanceToCoord(struct chrdata *chr, struct coord *pos);

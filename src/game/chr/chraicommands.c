@@ -14121,8 +14121,8 @@ glabel aiShowCutsceneChrs
 /*  f05f884:	00641823 */ 	subu	$v1,$v1,$a0
 /*  f05f888:	00031880 */ 	sll	$v1,$v1,0x2
 /*  f05f88c:	00641821 */ 	addu	$v1,$v1,$a0
-/*  f05f890:	3c058006 */ 	lui	$a1,%hi(g_Chrs)
-/*  f05f894:	24a52988 */ 	addiu	$a1,$a1,%lo(g_Chrs)
+/*  f05f890:	3c058006 */ 	lui	$a1,%hi(g_ChrsA)
+/*  f05f894:	24a52988 */ 	addiu	$a1,$a1,%lo(g_ChrsA)
 /*  f05f898:	000318c0 */ 	sll	$v1,$v1,0x3
 /*  f05f89c:	2407fbff */ 	addiu	$a3,$zero,-1025
 /*  f05f8a0:	2406fffe */ 	addiu	$a2,$zero,-2
@@ -14167,8 +14167,8 @@ glabel aiShowCutsceneChrs
 /*  f05f92c:	00031880 */ 	sll	$v1,$v1,0x2
 /*  f05f930:	00641821 */ 	addu	$v1,$v1,$a0
 /*  f05f934:	3c040080 */ 	lui	$a0,0x80
-/*  f05f938:	3c058006 */ 	lui	$a1,%hi(g_Chrs)
-/*  f05f93c:	24a52988 */ 	addiu	$a1,$a1,%lo(g_Chrs)
+/*  f05f938:	3c058006 */ 	lui	$a1,%hi(g_ChrsA)
+/*  f05f93c:	24a52988 */ 	addiu	$a1,$a1,%lo(g_ChrsA)
 /*  f05f940:	34840400 */ 	ori	$a0,$a0,0x400
 /*  f05f944:	000318c0 */ 	sll	$v1,$v1,0x3
 /*  f05f948:	8caf0000 */ 	lw	$t7,0x0($a1)
@@ -14216,7 +14216,7 @@ glabel aiShowCutsceneChrs
 //	if (cmd[2]) {
 //		// Show chrs
 //		for (i = getNumChrs() - 1; i >= 0; i--) {
-//			chr = &g_Chrs[i];
+//			chr = &g_ChrsA[i];
 //
 //			if (chr->chrnum >= 0 && chr->prop && (chr->hidden2 & 1)) {
 //				chr->hidden2 = chr->hidden2 & ~1;
@@ -14226,7 +14226,7 @@ glabel aiShowCutsceneChrs
 //	} else {
 //		// Hide chrs
 //		for (i = getNumChrs() - 1; i >= 0; i--) {
-//			chr = &g_Chrs[i];
+//			chr = &g_ChrsA[i];
 //
 //			if (chr->chrnum >= 0 && chr->prop && (chr->chrflags & 0x00800400) == 0) {
 //				chr->hidden2 = chr->hidden2 | 1;

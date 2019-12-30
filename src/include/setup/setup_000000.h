@@ -6,8 +6,8 @@
 extern s32 g_StageNum;
 extern u64 rand_seed;
 
-extern struct chrdata *g_Chrs; // pointer to first element of chrs array
-extern u32 g_NumChrs;
+extern struct chrdata *g_ChrsA; // pointer to first element of chrs array
+extern u32 g_NumChrsA;
 extern u32 var8005ce60;
 extern u32 var8005ce64;
 extern u32 var8005ce68;
@@ -359,9 +359,9 @@ extern u32 var80067c08;
 extern u32 var80067d28;
 extern u32 var80067d70;
 extern u32 var80067e50;
-extern u32 var80067e58;
-extern u32 var80067e5c;
-extern u32 var80067e60;
+extern struct chrdata *g_ChrsB;
+extern s16 *g_ChrnumsB;
+extern s32 g_NumChrsB;
 extern u32 var80067e64;
 extern s16 *g_SquadronList;
 extern u32 var80067fdc;
