@@ -106,19 +106,15 @@ s32 optionsGetShowMissionTime(s32 optionsindex)
 	return (g_Options[optionsindex].unk48 & OPTION_SHOWMISSIONTIME) != 0;
 }
 
-GLOBAL_ASM(
-glabel optionsGetInGameSubtitles
-/*  f15290c:	3c028008 */ 	lui	$v0,0x8008
-/*  f152910:	03e00008 */ 	jr	$ra
-/*  f152914:	9042fa90 */ 	lbu	$v0,-0x570($v0)
-);
+u8 optionsGetInGameSubtitles(void)
+{
+	return g_InGameSubtitles;
+}
 
-GLOBAL_ASM(
-glabel optionsGetCutsceneSubtitles
-/*  f152918:	3c028008 */ 	lui	$v0,0x8008
-/*  f15291c:	03e00008 */ 	jr	$ra
-/*  f152920:	9042fa94 */ 	lbu	$v0,-0x56c($v0)
-);
+u8 optionsGetCutsceneSubtitles(void)
+{
+	return g_CutsceneSubtitles;
+}
 
 s32 optionsGetHeadRoll(s32 optionsindex)
 {
@@ -224,19 +220,15 @@ void optionsSetShowMissionTime(s32 optionsindex, bool enable)
 	}
 }
 
-GLOBAL_ASM(
-glabel optionsSetInGameSubtitles
-/*  f152d10:	3c018008 */ 	lui	$at,0x8008
-/*  f152d14:	03e00008 */ 	jr	$ra
-/*  f152d18:	a024fa90 */ 	sb	$a0,-0x570($at)
-);
+void optionsSetInGameSubtitles(s32 enable)
+{
+	g_InGameSubtitles = enable;
+}
 
-GLOBAL_ASM(
-glabel optionsSetCutsceneSubtitles
-/*  f152d1c:	3c018008 */ 	lui	$at,0x8008
-/*  f152d20:	03e00008 */ 	jr	$ra
-/*  f152d24:	a024fa94 */ 	sb	$a0,-0x56c($at)
-);
+void optionsSetCutsceneSubtitles(s32 enable)
+{
+	g_CutsceneSubtitles = enable;
+}
 
 void optionsSetHeadRoll(s32 optionsindex, bool enable)
 {
