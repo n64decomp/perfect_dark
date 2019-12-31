@@ -687,6 +687,8 @@ extern u32 var800a21f0;
 extern struct savefile_solo g_SoloSaveFile;
 extern u32 var800a22c0;
 extern u32 var800a22d0;
+extern u8 var800a2328[4];
+extern u8 g_AltTitle;
 extern u32 var800a2330;
 extern u32 var800a2344;
 extern u32 var800a2350;

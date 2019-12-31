@@ -783,47 +783,24 @@ s32 menuhandlerCutsceneSubtitles(u32 operation, struct menu_item *item, bool *en
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerAlternativeTitle
-/*  f102c18:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f102c1c:	10810014 */ 	beq	$a0,$at,.L0f102c70
-/*  f102c20:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f102c24:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f102c28:	1081000f */ 	beq	$a0,$at,.L0f102c68
-/*  f102c2c:	3c02800a */ 	lui	$v0,0x800a
-/*  f102c30:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f102c34:	14810016 */ 	bne	$a0,$at,.L0f102c90
-/*  f102c38:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102c3c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102c40:	8c4e04b4 */ 	lw	$t6,0x4b4($v0)
-/*  f102c44:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f102c48:	3c0f800a */ 	lui	$t7,0x800a
-/*  f102c4c:	15c10004 */ 	bne	$t6,$at,.L0f102c60
-/*  f102c50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102c54:	91ef232b */ 	lbu	$t7,0x232b($t7)
-/*  f102c58:	55e0000e */ 	bnezl	$t7,.L0f102c94
-/*  f102c5c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102c60:
-/*  f102c60:	03e00008 */ 	jr	$ra
-/*  f102c64:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f102c68:
-/*  f102c68:	03e00008 */ 	jr	$ra
-/*  f102c6c:	9042232c */ 	lbu	$v0,0x232c($v0)
-.L0f102c70:
-/*  f102c70:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f102c74:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102c78:	3c01800a */ 	lui	$at,0x800a
-/*  f102c7c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102c80:	a038232c */ 	sb	$t8,0x232c($at)
-/*  f102c84:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f102c88:	37280004 */ 	ori	$t0,$t9,0x4
-/*  f102c8c:	ac480458 */ 	sw	$t0,0x458($v0)
-.L0f102c90:
-/*  f102c90:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102c94:
-/*  f102c94:	03e00008 */ 	jr	$ra
-/*  f102c98:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerAlternativeTitle(u32 operation, struct menu_item *item, bool *enable)
+{
+	switch (operation) {
+	case MENUOP_24:
+		if (g_Vars.stagenum != STAGE_CITRAINING || var800a2328[3] == 0) {
+			return true;
+		}
+		break;
+	case MENUOP_GET:
+		return g_AltTitle;
+	case MENUOP_SET:
+		g_AltTitle = *enable;
+		g_Vars.unk000458 |= 4;
+		break;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerHiRes
