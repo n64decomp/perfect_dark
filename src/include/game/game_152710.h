@@ -5,8 +5,8 @@
 
 s32 optionsGetControlMode(s32 optionsindex);
 void optionsSetControlMode(s32 optionsindex, s32 mode);
-u32 func0f152748(void);
-u32 func0f152764(void);
+s32 optionsGetUnk45(s32 optionsindex);
+s32 optionsGetUnk46(s32 optionsindex);
 s32 optionsGetForwardPitch(s32 optionsindex);
 s32 optionsGetAutoAim(s32 optionsindex);
 s32 optionsGetLookAhead(s32 optionsindex);

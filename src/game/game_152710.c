@@ -17,27 +17,15 @@ void optionsSetControlMode(s32 optionsindex, s32 mode)
 	g_Options[optionsindex].controlmode = mode;
 }
 
-GLOBAL_ASM(
-glabel func0f152748
-/*  f152748:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f15274c:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f152750:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152754:	3c02800b */ 	lui	$v0,0x800b
-/*  f152758:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f15275c:	03e00008 */ 	jr	$ra
-/*  f152760:	8042c7fd */ 	lb	$v0,-0x3803($v0)
-);
+s32 optionsGetUnk45(s32 optionsindex)
+{
+	return g_Options[optionsindex].unk45;
+}
 
-GLOBAL_ASM(
-glabel func0f152764
-/*  f152764:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f152768:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f15276c:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f152770:	3c02800b */ 	lui	$v0,0x800b
-/*  f152774:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f152778:	03e00008 */ 	jr	$ra
-/*  f15277c:	8042c7fe */ 	lb	$v0,-0x3802($v0)
-);
+s32 optionsGetUnk46(s32 optionsindex)
+{
+	return g_Options[optionsindex].unk46;
+}
 
 s32 optionsGetForwardPitch(s32 optionsindex)
 {
