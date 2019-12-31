@@ -3,8 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 optionsGetControlMode(void);
-u32 optionsSetControlMode(void);
+s32 optionsGetControlMode(s32 optionsindex);
+void optionsSetControlMode(s32 optionsindex, s32 mode);
 u32 func0f152748(void);
 u32 func0f152764(void);
 s32 optionsGetForwardPitch(s32 optionsindex);

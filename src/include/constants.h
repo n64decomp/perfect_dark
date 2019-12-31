@@ -310,6 +310,9 @@
 #define COLOR_08_RED    0x08
 #define COLOR_09_BLUE   0x09
 
+#define CONTROLMODE_SINGLE 0
+#define CONTROLMODE_DOUBLE 1
+
 // L/C/R = left/centered/right
 // big/med/sml is the font size
 #define CREDITSTYLE_R_BIG_R_MED 1

@@ -3952,8 +3952,11 @@ struct options {
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
 	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u16 unk48;
+	/*0x44*/ u8 controlmode;
+	/*0x45*/ u8 unk45;
+	/*0x46*/ u8 unk46;
+	/*0x47*/ u8 unk47;
+	/*0x48*/ u16 booleans;
 	/*0x4c*/ u32 unk4c;
 	/*0x50*/ u32 unk50;
 	/*0x54*/ u32 unk54;
