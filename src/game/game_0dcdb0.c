@@ -4553,7 +4553,7 @@ glabel func0f0dcef4
 /*  f0dd14c:	24e70002 */ 	addiu	$a3,$a3,0x2
 .L0f0dd150:
 /*  f0dd150:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0dd154:	0fc54b60 */ 	jal	func0f152d80
+/*  f0dd154:	0fc54b60 */ 	jal	optionsGetEffectiveScreenSize
 /*  f0dd158:	afa70080 */ 	sw	$a3,0x80($sp)
 /*  f0dd15c:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f0dd160:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -4785,7 +4785,7 @@ glabel func0f0dd2ac
 /*  f0dd48c:	10000006 */ 	beqz	$zero,.L0f0dd4a8
 /*  f0dd490:	26100002 */ 	addiu	$s0,$s0,0x2
 .L0f0dd494:
-/*  f0dd494:	0fc54b60 */ 	jal	func0f152d80
+/*  f0dd494:	0fc54b60 */ 	jal	optionsGetEffectiveScreenSize
 /*  f0dd498:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0dd49c:	10400002 */ 	beqz	$v0,.L0f0dd4a8
 /*  f0dd4a0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -6616,7 +6616,7 @@ glabel func0f0de7fc
 /*  f0dee1c:	24840003 */ 	addiu	$a0,$a0,0x3
 .L0f0dee20:
 /*  f0dee20:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f0dee24:	0fc54b60 */ 	jal	func0f152d80
+/*  f0dee24:	0fc54b60 */ 	jal	optionsGetEffectiveScreenSize
 /*  f0dee28:	afa90034 */ 	sw	$t1,0x34($sp)
 /*  f0dee2c:	8fa40030 */ 	lw	$a0,0x30($sp)
 /*  f0dee30:	10400002 */ 	beqz	$v0,.L0f0dee3c

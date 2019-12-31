@@ -9849,7 +9849,7 @@ glabel func0f18f874
 /*  f18fbc4:	10000008 */ 	beqz	$zero,.L0f18fbe8
 /*  f18fbc8:	ae0c0000 */ 	sw	$t4,0x0($s0)
 .L0f18fbcc:
-/*  f18fbcc:	0fc54b60 */ 	jal	func0f152d80
+/*  f18fbcc:	0fc54b60 */ 	jal	optionsGetEffectiveScreenSize
 /*  f18fbd0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18fbd4:	50400005 */ 	beqzl	$v0,.L0f18fbec
 /*  f18fbd8:	24180010 */ 	addiu	$t8,$zero,0x10

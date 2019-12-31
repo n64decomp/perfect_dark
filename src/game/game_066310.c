@@ -49225,7 +49225,7 @@ glabel func0f0908b8
 /*  f0909fc:	10000006 */ 	beqz	$zero,.L0f090a18
 /*  f090a00:	24f00002 */ 	addiu	$s0,$a3,0x2
 .L0f090a04:
-/*  f090a04:	0fc54b60 */ 	jal	func0f152d80
+/*  f090a04:	0fc54b60 */ 	jal	optionsGetEffectiveScreenSize
 /*  f090a08:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f090a0c:	10400002 */ 	beqz	$v0,.L0f090a18
 /*  f090a10:	00000000 */ 	sll	$zero,$zero,0x0

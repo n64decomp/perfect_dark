@@ -22318,7 +22318,7 @@ glabel func0f0aa86c
 /*  f0aaa7c:	10000007 */ 	beqz	$zero,.L0f0aaa9c
 /*  f0aaa80:	afb90128 */ 	sw	$t9,0x128($sp)
 .L0f0aaa84:
-/*  f0aaa84:	0fc54b60 */ 	jal	func0f152d80
+/*  f0aaa84:	0fc54b60 */ 	jal	optionsGetEffectiveScreenSize
 /*  f0aaa88:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0aaa8c:	10400003 */ 	beqz	$v0,.L0f0aaa9c
 /*  f0aaa90:	8fae0128 */ 	lw	$t6,0x128($sp)

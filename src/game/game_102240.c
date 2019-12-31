@@ -536,7 +536,7 @@ glabel menuhandlerScreenSize
 /*  f1027e8:	10000005 */ 	beqz	$zero,.L0f102800
 /*  f1027ec:	ac4d0458 */ 	sw	$t5,0x458($v0)
 .L0f1027f0:
-/*  f1027f0:	0fc54b60 */ 	jal	func0f152d80
+/*  f1027f0:	0fc54b60 */ 	jal	optionsGetEffectiveScreenSize
 /*  f1027f4:	afa60030 */ 	sw	$a2,0x30($sp)
 /*  f1027f8:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f1027fc:	acc20000 */ 	sw	$v0,0x0($a2)

@@ -36,7 +36,7 @@ void optionsSetShowMissionTime(s32 optionsindex, bool enable);
 void optionsSetInGameSubtitles(s32 enable);
 void optionsSetCutsceneSubtitles(s32 enable);
 void optionsSetHeadRoll(s32 optionsindex, bool enable);
-u32 func0f152d80(void);
+s32 optionsGetEffectiveScreenSize(void);
 s32 optionsGetScreenSize(void);
 void optionsSetScreenSize(s32 size);
 s32 optionsGetScreenRatio(void);
