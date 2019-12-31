@@ -2953,17 +2953,17 @@ glabel func0f10f204
 /*  f10f510:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f10f514:	15210005 */ 	bne	$t1,$at,.L0f10f52c
 /*  f10f518:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10f51c:	0fc2f110 */ 	jal	func0f0bc440
+/*  f10f51c:	0fc2f110 */ 	jal	optionsSetHiRes
 /*  f10f520:	00002025 */ 	or	$a0,$zero,$zero
 /*  f10f524:	10000007 */ 	beqz	$zero,.L0f10f544
 /*  f10f528:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f10f52c:
-/*  f10f52c:	0fc2f110 */ 	jal	func0f0bc440
+/*  f10f52c:	0fc2f110 */ 	jal	optionsSetHiRes
 /*  f10f530:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f10f534:	10000003 */ 	beqz	$zero,.L0f10f544
 /*  f10f538:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f10f53c:
-/*  f10f53c:	0fc2f110 */ 	jal	func0f0bc440
+/*  f10f53c:	0fc2f110 */ 	jal	optionsSetHiRes
 /*  f10f540:	00002025 */ 	or	$a0,$zero,$zero
 .L0f10f544:
 /*  f10f544:	3c0a8009 */ 	lui	$t2,0x8009

@@ -11219,12 +11219,10 @@ glabel func0f0bc3f0
 /*  f0bc43c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0bc440
-/*  f0bc440:	3c018007 */ 	lui	$at,0x8007
-/*  f0bc444:	03e00008 */ 	jr	$ra
-/*  f0bc448:	ac2406cc */ 	sw	$a0,0x6cc($at)
-);
+void optionsSetHiRes(bool enable)
+{
+	g_HiRes = enable;
+}
 
 GLOBAL_ASM(
 glabel func0f0bc44c

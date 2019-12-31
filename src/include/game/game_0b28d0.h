@@ -119,7 +119,7 @@ u32 func0f0bbf78(void);
 void currentPlayerSurroundWithExplosions(u32 arg0);
 u32 func0f0bc120(void);
 u32 func0f0bc3f0(void);
-u32 func0f0bc440(void);
+void optionsSetHiRes(bool enable);
 u32 func0f0bc44c(void);
 u32 func0f0bc478(void);
 u32 func0f0bc4c0(void);
