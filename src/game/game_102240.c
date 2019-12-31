@@ -757,67 +757,31 @@ s32 menuhandlerHeadRoll(u32 operation, struct menu_item *item, bool *enable)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerInGameSubtitles
-/*  f102b58:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f102b5c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f102b60:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102b64:	10810008 */ 	beq	$a0,$at,.L0f102b88
-/*  f102b68:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f102b6c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f102b70:	5481000d */ 	bnel	$a0,$at,.L0f102ba8
-/*  f102b74:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102b78:	0fc54a43 */ 	jal	optionsGetInGameSubtitles
-/*  f102b7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102b80:	1000000a */ 	beqz	$zero,.L0f102bac
-/*  f102b84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102b88:
-/*  f102b88:	0fc54b44 */ 	jal	optionsSetInGameSubtitles
-/*  f102b8c:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f102b90:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102b94:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102b98:	8c4e0458 */ 	lw	$t6,0x458($v0)
-/*  f102b9c:	35cf0001 */ 	ori	$t7,$t6,0x1
-/*  f102ba0:	ac4f0458 */ 	sw	$t7,0x458($v0)
-/*  f102ba4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102ba8:
-/*  f102ba8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102bac:
-/*  f102bac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f102bb0:	03e00008 */ 	jr	$ra
-/*  f102bb4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerInGameSubtitles(u32 operation, struct menu_item *item, bool *enable)
+{
+	switch (operation) {
+	case MENUOP_GET:
+		return optionsGetInGameSubtitles();
+	case MENUOP_SET:
+		optionsSetInGameSubtitles(*enable);
+		g_Vars.unk000458 |= 1;
+	}
 
-GLOBAL_ASM(
-glabel menuhandlerCutsceneSubtitles
-/*  f102bb8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f102bbc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f102bc0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102bc4:	10810008 */ 	beq	$a0,$at,.L0f102be8
-/*  f102bc8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f102bcc:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f102bd0:	5481000d */ 	bnel	$a0,$at,.L0f102c08
-/*  f102bd4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102bd8:	0fc54a46 */ 	jal	optionsGetCutsceneSubtitles
-/*  f102bdc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102be0:	1000000a */ 	beqz	$zero,.L0f102c0c
-/*  f102be4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102be8:
-/*  f102be8:	0fc54b47 */ 	jal	optionsSetCutsceneSubtitles
-/*  f102bec:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f102bf0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102bf4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102bf8:	8c4e0458 */ 	lw	$t6,0x458($v0)
-/*  f102bfc:	35cf0001 */ 	ori	$t7,$t6,0x1
-/*  f102c00:	ac4f0458 */ 	sw	$t7,0x458($v0)
-/*  f102c04:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102c08:
-/*  f102c08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102c0c:
-/*  f102c0c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f102c10:	03e00008 */ 	jr	$ra
-/*  f102c14:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	return 0;
+}
+
+s32 menuhandlerCutsceneSubtitles(u32 operation, struct menu_item *item, bool *enable)
+{
+	switch (operation) {
+	case MENUOP_GET:
+		return optionsGetCutsceneSubtitles();
+	case MENUOP_SET:
+		optionsSetCutsceneSubtitles(*enable);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerAlternativeTitle
