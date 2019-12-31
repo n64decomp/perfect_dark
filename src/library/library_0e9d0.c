@@ -744,7 +744,7 @@ glabel func0000f228
 );
 
 GLOBAL_ASM(
-glabel func0000f38c
+glabel audioSetSoundMode
 /*     f38c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     f390:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*     f394:	3c018006 */ 	lui	$at,0x8006
@@ -1299,7 +1299,7 @@ glabel func0000f804
 /*     fb78:	0c00243b */ 	jal	func000090ec
 /*     fb7c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     fb80:	3c048006 */ 	lui	$a0,0x8006
-/*     fb84:	0c003ce3 */ 	jal	func0000f38c
+/*     fb84:	0c003ce3 */ 	jal	audioSetSoundMode
 /*     fb88:	8c84ddcc */ 	lw	$a0,-0x2234($a0)
 /*     fb8c:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0000fb90:

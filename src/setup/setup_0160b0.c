@@ -1555,7 +1555,7 @@ u16 g_AimControlOptions[] = {
 };
 
 // 17a08
-u16 options_soundmode[] = {
+u16 g_SoundModeOptions[] = {
 	0x56e8, // "Mono"
 	0x56e9, // "Stereo"
 	0x56ea, // "Headphone"

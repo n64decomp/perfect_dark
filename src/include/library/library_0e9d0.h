@@ -16,7 +16,7 @@ u32 func0000ee88(void);
 u32 func0000efa8(void);
 u32 func0000f0d4(void);
 u32 func0000f228(void);
-u32 func0000f38c(void);
+u32 audioSetSoundMode(void);
 u32 func0000f49c(void);
 u32 func0000f67c(void);
 u32 func0000f804(void);

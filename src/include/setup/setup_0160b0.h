@@ -175,7 +175,7 @@ extern u32 var800719bc;
 extern u32 var800719c0;
 extern u16 options_controlmode[];
 extern u16 g_AimControlOptions[];
-extern u16 options_soundmode[];
+extern u16 g_SoundModeOptions[];
 extern u16 g_ScreenSizeOptions[];
 extern u16 g_ScreenRatioOptions[];
 extern u16 g_ScreenSplitOptions[];

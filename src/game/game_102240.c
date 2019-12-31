@@ -436,10 +436,10 @@ glabel menuhandlerAimControl
 GLOBAL_ASM(
 glabel menuhandlerSoundMode
 /*  f102698:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f10269c:	3c0e8007 */ 	lui	$t6,%hi(options_soundmode)
+/*  f10269c:	3c0e8007 */ 	lui	$t6,%hi(g_SoundModeOptions)
 /*  f1026a0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1026a4:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f1026a8:	25ce19e8 */ 	addiu	$t6,$t6,%lo(options_soundmode)
+/*  f1026a8:	25ce19e8 */ 	addiu	$t6,$t6,%lo(g_SoundModeOptions)
 /*  f1026ac:	8dc10000 */ 	lw	$at,0x0($t6)
 /*  f1026b0:	27a20020 */ 	addiu	$v0,$sp,0x20
 /*  f1026b4:	24080004 */ 	addiu	$t0,$zero,0x4
@@ -469,7 +469,7 @@ glabel menuhandlerSoundMode
 /*  f10270c:	1000000e */ 	beqz	$zero,.L0f102748
 /*  f102710:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f102714:
-/*  f102714:	0c003ce3 */ 	jal	func0000f38c
+/*  f102714:	0c003ce3 */ 	jal	audioSetSoundMode
 /*  f102718:	8cc40000 */ 	lw	$a0,0x0($a2)
 /*  f10271c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f102720:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)

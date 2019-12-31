@@ -97,6 +97,7 @@ extern u32 var8005ddb4;
 extern u32 var8005ddb8;
 extern u32 var8005ddc0;
 extern u32 var8005ddc4;
+extern u32 g_SoundMode;
 extern u32 var8005ddd4;
 extern u32 var8005ddd8;
 extern u32 var8005dde0;
