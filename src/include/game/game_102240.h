@@ -67,7 +67,7 @@ s32 menuhandlerMainMenuCombatSimulator(u32 operation, struct menu_item *item, bo
 s32 menuhandlerMainMenuCooperative(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerMainMenuCounterOperative(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerMainMenuSoloMissions(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandlerMusicVolume(u32 operation, struct menu_item *item, bool *enable);
+s32 menuhandlerMusicVolume(u32 operation, struct menu_item *item, u32 *volume);
 s32 menuhandlerPaintball(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerPdMode(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerPdModeSetting(u32 operation, struct menu_item *item, bool *enable);

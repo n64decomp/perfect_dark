@@ -464,6 +464,7 @@
 #define MENUOP_GETOPTIONTEXT  3
 #define MENUOP_SET            6
 #define MENUOP_GET            8
+#define MENUOP_GETSLIDER      9
 #define MENUOP_CHECKDISABLED  12
 #define MENUOP_CHECKHIDDEN    24
 

@@ -1010,37 +1010,19 @@ s32 menuhandlerAutoAim(u32 operation, struct menu_item *item, bool *enable)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerMusicVolume
-/*  f103290:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f103294:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f103298:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10329c:	10810009 */ 	beq	$a0,$at,.L0f1032c4
-/*  f1032a0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1032a4:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f1032a8:	5481000e */ 	bnel	$a0,$at,.L0f1032e4
-/*  f1032ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1032b0:	0fc54bd4 */ 	jal	optionsGetMusicVolume
-/*  f1032b4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1032b8:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f1032bc:	10000008 */ 	beqz	$zero,.L0f1032e0
-/*  f1032c0:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f1032c4:
-/*  f1032c4:	0fc54bdc */ 	jal	optionsSetMusicVolume
-/*  f1032c8:	94c40002 */ 	lhu	$a0,0x2($a2)
-/*  f1032cc:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1032d0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f1032d4:	8c4e0458 */ 	lw	$t6,0x458($v0)
-/*  f1032d8:	35cf0001 */ 	ori	$t7,$t6,0x1
-/*  f1032dc:	ac4f0458 */ 	sw	$t7,0x458($v0)
-.L0f1032e0:
-/*  f1032e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1032e4:
-/*  f1032e4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1032e8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1032ec:	03e00008 */ 	jr	$ra
-/*  f1032f0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMusicVolume(u32 operation, struct menu_item *item, u32 *volume)
+{
+	switch (operation) {
+	case MENUOP_GETSLIDER:
+		*volume = optionsGetMusicVolume();
+		break;
+	case MENUOP_SET:
+		optionsSetMusicVolume(*volume);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerSfxVolume
