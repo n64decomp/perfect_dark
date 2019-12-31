@@ -3822,24 +3822,14 @@ glabel func0f1057ec
 /*  f105828:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerChangeAgent
-/*  f10582c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f105830:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f105834:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f105838:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10583c:	14810004 */ 	bne	$a0,$at,.L0f105850
-/*  f105840:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f105844:	00002025 */ 	or	$a0,$zero,$zero
-/*  f105848:	0fc3e083 */ 	jal	func0f0f820c
-/*  f10584c:	2405fff9 */ 	addiu	$a1,$zero,-7
-.L0f105850:
-/*  f105850:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f105854:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f105858:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10585c:	03e00008 */ 	jr	$ra
-/*  f105860:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f0f820c(0, -7);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f105864

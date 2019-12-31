@@ -53,7 +53,7 @@ s32 menuhandlerAmmoOnScreen(u32 operation, struct menu_item *item, bool *enable)
 s32 menuhandlerAntiPlayer(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerAntiRadar(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerAutoAim(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandlerChangeAgent(u32 operation, struct menu_item *item, bool *enable);
+s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerCoopBuddy(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerCoopFriendlyFire(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerCoopRadar(u32 operation, struct menu_item *item, bool *enable);
