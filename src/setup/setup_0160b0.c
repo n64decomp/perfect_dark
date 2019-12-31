@@ -2083,7 +2083,7 @@ struct menu_dialog menudialog_displayplayer2 = {
 
 // 1885c
 struct menu_item menuitems_controloptions[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056c2, 0x7f105664, menuhandler00105728 }, // "Control Style"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056c2, 0x7f105664, menuhandlerControlStyle }, // "Control Style"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c3, 0x00000004, menuhandlerReversePitch }, // "Reverse Pitch"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c4, 0x00000004, menuhandlerLookAhead }, // "Look Ahead"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c5, 0x00000004, menuhandlerHeadRoll }, // "Head Roll"

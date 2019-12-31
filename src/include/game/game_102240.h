@@ -41,7 +41,7 @@ s32 menuhandler00104038(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler00104538(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler001045f0(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler0010476c(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandler00105728(u32 operation, struct menu_item *item, bool *enable);
+s32 menuhandlerControlStyle(s32 operation, struct menu_item *item, u32 *value);
 s32 menuhandler00106028(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler00106178(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler00106394(u32 operation, struct menu_item *item, bool *enable);
