@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "gvars/gvars.h"
+#include "library/library_0e9d0.h"
 #include "setup/setup_000000.h"
 #include "setup/setup_0160b0.h"
 #include "setup/setup_020df0.h"
@@ -1024,41 +1025,23 @@ s32 menuhandlerMusicVolume(u32 operation, struct menu_item *item, u32 *volume)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerSfxVolume
-/*  f1032f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1032f8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1032fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f103300:	1081000d */ 	beq	$a0,$at,.L0f103338
-/*  f103304:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f103308:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f10330c:	14810011 */ 	bne	$a0,$at,.L0f103354
-/*  f103310:	3c028006 */ 	lui	$v0,0x8006
-/*  f103314:	9442ddc8 */ 	lhu	$v0,-0x2238($v0)
-/*  f103318:	240e5000 */ 	addiu	$t6,$zero,0x5000
-/*  f10331c:	28415001 */ 	slti	$at,$v0,0x5001
-/*  f103320:	14200003 */ 	bnez	$at,.L0f103330
-/*  f103324:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103328:	1000000a */ 	beqz	$zero,.L0f103354
-/*  f10332c:	acce0000 */ 	sw	$t6,0x0($a2)
-.L0f103330:
-/*  f103330:	10000008 */ 	beqz	$zero,.L0f103354
-/*  f103334:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f103338:
-/*  f103338:	0c003a87 */ 	jal	func0000ea1c
-/*  f10333c:	94c40002 */ 	lhu	$a0,0x2($a2)
-/*  f103340:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f103344:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f103348:	8c4f0458 */ 	lw	$t7,0x458($v0)
-/*  f10334c:	35f80001 */ 	ori	$t8,$t7,0x1
-/*  f103350:	ac580458 */ 	sw	$t8,0x458($v0)
-.L0f103354:
-/*  f103354:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f103358:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10335c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f103360:	03e00008 */ 	jr	$ra
-/*  f103364:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerSfxVolume(u32 operation, struct menu_item *item, u32 *volume)
+{
+	switch (operation) {
+	case MENUOP_GETSLIDER:
+		if (g_SfxVolume > 0x5000) {
+			*volume = 0x5000;
+		} else {
+			*volume = g_SfxVolume;
+		}
+		break;
+	case MENUOP_SET:
+		audioSetSfxVolume(*volume);
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menudialog00103368

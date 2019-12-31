@@ -6,7 +6,7 @@
 u32 audioIsFiltered(void);
 u32 func0000e9d0(void);
 u32 func0000e9dc(void);
-u32 func0000ea1c(void);
+void audioSetSfxVolume(u16 volume);
 u32 func0000ea80(void);
 u32 func0000eadc(void);
 u32 func0000eb2c(void);

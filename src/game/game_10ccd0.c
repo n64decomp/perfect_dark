@@ -3107,7 +3107,7 @@ glabel func0f10f698
 /*  f10f718:	3308ff07 */ 	andi	$t0,$t8,0xff07
 /*  f10f71c:	310900f8 */ 	andi	$t1,$t0,0xf8
 /*  f10f720:	a048000b */ 	sb	$t0,0xb($v0)
-/*  f10f724:	0c003a87 */ 	jal	func0000ea1c
+/*  f10f724:	0c003a87 */ 	jal	audioSetSfxVolume
 /*  f10f728:	a049000b */ 	sb	$t1,0xb($v0)
 /*  f10f72c:	0fc54bdc */ 	jal	optionsSetMusicVolume
 /*  f10f730:	24045000 */ 	addiu	$a0,$zero,0x5000
@@ -3444,7 +3444,7 @@ glabel func0f10fac8
 /*  f10fc20:	00a02025 */ 	or	$a0,$a1,$zero
 .L0f10fc24:
 /*  f10fc24:	000441c0 */ 	sll	$t0,$a0,0x7
-/*  f10fc28:	0c003a87 */ 	jal	func0000ea1c
+/*  f10fc28:	0c003a87 */ 	jal	audioSetSfxVolume
 /*  f10fc2c:	3104ffff */ 	andi	$a0,$t0,0xffff
 /*  f10fc30:	02802025 */ 	or	$a0,$s4,$zero
 /*  f10fc34:	0fc354fe */ 	jal	func0f0d53f8

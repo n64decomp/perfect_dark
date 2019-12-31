@@ -68,7 +68,7 @@ glabel func0000e9dc
 );
 
 GLOBAL_ASM(
-glabel func0000ea1c
+glabel audioSetSfxVolume
 /*     ea1c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*     ea20:	afb10018 */ 	sw	$s1,0x18($sp)
 /*     ea24:	3091ffff */ 	andi	$s1,$a0,0xffff

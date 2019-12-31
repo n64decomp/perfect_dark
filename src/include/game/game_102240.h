@@ -75,7 +75,7 @@ s32 menuhandlerReversePitch(u32 operation, struct menu_item *item, bool *enable)
 s32 menuhandlerScreenRatio(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerScreenSize(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerScreenSplit(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandlerSfxVolume(u32 operation, struct menu_item *item, bool *enable);
+s32 menuhandlerSfxVolume(u32 operation, struct menu_item *item, u32 *volume);
 s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerShowMissionTime(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerShowZoomRange(u32 operation, struct menu_item *item, bool *enable);
