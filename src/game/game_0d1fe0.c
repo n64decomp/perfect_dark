@@ -14,7 +14,7 @@
 #include "game/game_0c79f0.h"
 #include "game/game_0d1fe0.h"
 #include "game/game_113220.h"
-#include "game/game_152710.h"
+#include "game/pdoptions.h"
 #include "game/game_1668e0.h"
 
 const char var7f1adb10[] = "bondbike.c";

@@ -20,7 +20,7 @@
 #include "game/game_111600.h"
 #include "game/game_115ab0.h"
 #include "game/game_129900.h"
-#include "game/game_152710.h"
+#include "game/pdoptions.h"
 #include "game/game_152fa0.h"
 #include "game/game_1668e0.h"
 #include "game/game_16cfa0.h"

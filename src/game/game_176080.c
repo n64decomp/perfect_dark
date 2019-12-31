@@ -6,7 +6,7 @@
 #include "setup/setup_020df0.h"
 #include "types.h"
 #include "game/game_0b28d0.h"
-#include "game/game_152710.h"
+#include "game/pdoptions.h"
 #include "game/game_176080.h"
 #include "game/game_187770.h"
 

@@ -12,7 +12,7 @@
 #include "game/game_0dcdb0.h"
 #include "game/cheats.h"
 #include "game/game_11ecf0.h"
-#include "game/game_152710.h"
+#include "game/pdoptions.h"
 #include "game/game_16cfa0.h"
 #include "game/game_176d70.h"
 #include "game/game_187770.h"

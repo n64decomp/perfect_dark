@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_152710_H
-#define IN_GAME_GAME_152710_H
+#ifndef IN_GAME_PDOPTIONS_H
+#define IN_GAME_PDOPTIONS_H
 #include <ultra64.h>
 #include "types.h"
 

@@ -21,7 +21,7 @@
 #include "game/cheats.h"
 #include "game/game_113220.h"
 #include "game/game_11ecf0.h"
-#include "game/game_152710.h"
+#include "game/pdoptions.h"
 #include "game/game_157db0.h"
 #include "game/game_1668e0.h"
 #include "game/game_176d70.h"
