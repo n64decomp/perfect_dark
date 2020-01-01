@@ -244,7 +244,7 @@ s32 menuhandlerMpOneHitKills(u32, u32, u32 *);
 s32 menuhandlerMpOpenOptions(u32, u32, u32 *);
 s32 menuhandlerMpQuickteamOption(u32, u32, u32 *);
 s32 menuhandlerMpRestoreHandicapDefaults(u32, u32, u32 *);
-s32 menuhandlerMpRestoreScoreDefaults(u32, u32, u32 *);
+s32 menuhandlerMpRestoreScoreDefaults(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpSaveSettings(u32, u32, u32 *);
 s32 menuhandlerMpScore(u32, u32, u32 *);
 s32 menuhandlerMpSimulantBody(u32, u32, u32 *);

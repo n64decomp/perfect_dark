@@ -6751,23 +6751,14 @@ glabel menuhandlerMpTeamScore
 /*  f17c3e4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpRestoreScoreDefaults
-/*  f17c3e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17c3ec:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17c3f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17c3f4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17c3f8:	14810003 */ 	bne	$a0,$at,.L0f17c408
-/*  f17c3fc:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17c400:	0fc61ffb */ 	jal	func0f187fec
-/*  f17c404:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17c408:
-/*  f17c408:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17c40c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17c410:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17c414:	03e00008 */ 	jr	$ra
-/*  f17c418:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpRestoreScoreDefaults(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f187fec();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMpHandicapPlayer
