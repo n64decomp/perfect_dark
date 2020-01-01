@@ -232,7 +232,7 @@ s32 optionsGetEffectiveScreenSize(void)
 	if (g_MenuStack[g_MenuStackDepth].unk00 && (
 				g_MenuStack[g_MenuStackDepth].unk00->dialog == &menudialog_control4 ||
 				g_MenuStack[g_MenuStackDepth].unk00->dialog == &menudialog_control3 ||
-				g_MenuStack[g_MenuStackDepth].unk00->dialog == &menudialog_control2)) {
+				g_MenuStack[g_MenuStackDepth].unk00->dialog == &g_ControlStyleSingleMenuDialog)) {
 		return SCREENSIZE_FULL;
 	}
 

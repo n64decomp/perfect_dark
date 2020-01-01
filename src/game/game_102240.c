@@ -3543,9 +3543,9 @@ s32 menuhandlerControlStyle(s32 operation, struct menu_item *item, u32 *value)
 				(g_Vars.players[1] ? 1 : 0) +
 				(g_Vars.players[2] ? 1 : 0) +
 				(g_Vars.players[3] ? 1 : 0) >= 2) {
-			menuPushDialog(&menudialog_control);
+			menuPushDialog(&g_ControlStyleMultiMenuDialog);
 		} else {
-			menuPushDialog(&menudialog_control2);
+			menuPushDialog(&g_ControlStyleSingleMenuDialog);
 		}
 	}
 

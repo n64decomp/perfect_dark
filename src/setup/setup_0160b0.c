@@ -1831,7 +1831,7 @@ struct menu_item menuitems_control[] = {
 };
 
 // 18098
-struct menu_dialog menudialog_control = {
+struct menu_dialog g_ControlStyleMultiMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56ec, // "Control"
 	menuitems_control,
@@ -1848,7 +1848,7 @@ struct menu_item menuitems_control2[] = {
 };
 
 // 180ec
-struct menu_dialog menudialog_control2 = {
+struct menu_dialog g_ControlStyleSingleMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56ec, // "Control"
 	menuitems_control2,
