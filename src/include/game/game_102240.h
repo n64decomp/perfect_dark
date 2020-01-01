@@ -5,7 +5,7 @@
 
 u32 func0f102240(void);
 char *menutextDifficulty(s32 arg0);
-u32 func0f102330(void);
+s32 func0f102330(u32 operation, struct menu_item *item, s32 *value, s32 arg3);
 u32 func0f103550(void);
 f32 func0f1036ac(s32 arg0, s32 arg1);
 bool isStageDifficultyUnlocked(s32 stagenum, s32 difficulty);
@@ -33,8 +33,8 @@ s32 menudialog00105c54(u32, u32, u32 *);
 s32 menudialog001063d4(u32, u32, u32 *);
 s32 menudialog001063e4(u32, u32, u32 *);
 s32 menudialog001069c0(u32, u32, u32 *);
-s32 menuhandler001024dc(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandler001024fc(u32 operation, struct menu_item *item, bool *enable);
+s32 menuhandler001024dc(u32 operation, struct menu_item *item, s32 *value);
+s32 menuhandler001024fc(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerAcceptMission(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerAcceptPdModeSettings(s32 operation, struct menu_item *item, bool *value);
 s32 menuhandlerBuddyOptionsContinue(u32 operation, struct menu_item *item, s32 *value);
