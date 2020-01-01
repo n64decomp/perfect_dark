@@ -14466,7 +14466,7 @@ glabel ai01de
 // Mismatch due to different temporary registers
 //bool ai01de(void)
 //{
-//	if (g_Vars.unk000318 == 0 && (s8)var8009dfe8[3] < 0) {
+//	if (g_Vars.unk000318 == 0 && (s8)g_MissionConfig[3] < 0) {
 //		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 //		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 //	} else {

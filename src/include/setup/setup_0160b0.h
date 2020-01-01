@@ -180,7 +180,7 @@ extern u16 g_SoundModeOptions[];
 extern u16 g_ScreenSizeOptions[];
 extern u16 g_ScreenRatioOptions[];
 extern u16 g_ScreenSplitOptions[];
-extern struct menu_dialog menudialog_objectives;
+extern struct menu_dialog g_ObjectivesMenuDialog;
 extern struct menu_dialog menudialog_perfectdarkmodesettings;
 extern struct menu_dialog menudialog_selectdifficulty;
 extern struct menu_dialog menudialog_cooperativeoptions;

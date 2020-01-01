@@ -17,10 +17,10 @@ void func0f000090(void)
 	var800624ec = 0;
 	var800624f0 = 0;
 	var800624f4 = 1;
-	var8009dfe8[4] = 0;
-	var8009dfe8[5] = 0x80;
-	var8009dfe8[6] = 0x80;
-	var8009dfe8[7] = 0x80;
+	g_MissionConfig.unk04 = 0;
+	g_MissionConfig.updmodehealth = 128;
+	g_MissionConfig.updmodedamage = 128;
+	g_MissionConfig.updmodeaccuracy = 128;
 }
 
 void func0f000100(void)

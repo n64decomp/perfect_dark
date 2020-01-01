@@ -1607,7 +1607,7 @@ struct menu_item menuitems_objectives[] = {
 };
 
 // 17ab0
-struct menu_dialog menudialog_objectives = {
+struct menu_dialog g_ObjectivesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x7f103550,
 	menuitems_objectives,
@@ -1623,7 +1623,7 @@ struct menu_item menuitems_perfectdarkmodesettings[] = {
 	{ MENUITEMTYPE_SLIDER,      2, 0x00100000, 0x000054e1, 0x000000ff, menuhandlerPdModeSetting }, // "Enemy Damage"
 	{ MENUITEMTYPE_SLIDER,      3, 0x00100000, 0x000054e2, 0x000000ff, menuhandlerPdModeSetting }, // "Enemy Accuracy"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x000000b4, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054e3, 0x00000000, menuhandler0010383c }, // "OK"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054e3, 0x00000000, menuhandlerAcceptPdModeSettings }, // "OK"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000054e4, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
