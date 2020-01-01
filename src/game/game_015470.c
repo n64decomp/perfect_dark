@@ -5599,18 +5599,18 @@ glabel func0f019d38
 /*  f01a344:	27bd01a0 */ 	addiu	$sp,$sp,0x1a0
 );
 
-GLOBAL_ASM(
-glabel func0f01a348
-/*  f01a348:	3c028006 */ 	lui	$v0,0x8006
-/*  f01a34c:	03e00008 */ 	jr	$ra
-/*  f01a350:	8c422924 */ 	lw	$v0,0x2924($v0)
-);
+s32 getNumPlayers(void)
+{
+	return g_NumPlayers;
+}
+
+void setNumPlayers(s32 numplayers)
+{
+	g_NumPlayers = numplayers;
+}
 
 GLOBAL_ASM(
-glabel setNumPlayers
-/*  f01a354:	3c018006 */ 	lui	$at,0x8006
-/*  f01a358:	03e00008 */ 	jr	$ra
-/*  f01a35c:	ac242924 */ 	sw	$a0,0x2924($at)
+glabel func0f01a360
 /*  f01a360:	000471c0 */ 	sll	$t6,$a0,0x7
 /*  f01a364:	3c0f800a */ 	lui	$t7,0x800a
 /*  f01a368:	01ee7821 */ 	addu	$t7,$t7,$t6

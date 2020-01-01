@@ -36,7 +36,7 @@ u32 func0f019b74(void);
 u32 func0f019ba0(void);
 u32 func0f019d0c(void);
 u32 func0f019d38(void);
-u32 func0f01a348(void);
+s32 getNumPlayers(void);
 void setNumPlayers(s32 numplayers);
 u32 func0f01a3b8(void);
 u32 func0f01a494(void);
