@@ -8107,8 +8107,8 @@ glabel func0f01bf28
 .L0f01c5a0:
 /*  f01c5a0:	3c068007 */ 	lui	$a2,%hi(g_MenuStackDepth)
 /*  f01c5a4:	3c05800a */ 	lui	$a1,%hi(var8009e000)
-/*  f01c5a8:	3c038008 */ 	lui	$v1,%hi(menudialog_mpready)
-/*  f01c5ac:	246357b8 */ 	addiu	$v1,$v1,%lo(menudialog_mpready)
+/*  f01c5a8:	3c038008 */ 	lui	$v1,%hi(g_MpReadyMenuDialog)
+/*  f01c5ac:	246357b8 */ 	addiu	$v1,$v1,%lo(g_MpReadyMenuDialog)
 /*  f01c5b0:	24a5e000 */ 	addiu	$a1,$a1,%lo(var8009e000)
 /*  f01c5b4:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MenuStackDepth)
 /*  f01c5b8:	00008825 */ 	or	$s1,$zero,$zero

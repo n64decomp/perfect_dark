@@ -15,7 +15,7 @@ extern struct menu_dialog menudialog_mploadplayer;
 extern struct menu_dialog menudialog_mparena;
 extern struct menu_dialog menudialog_mplimits;
 extern struct menu_dialog menudialog_mpplayerhandicaps;
-extern struct menu_dialog menudialog_mpready;
+extern struct menu_dialog g_MpReadyMenuDialog;
 extern struct menu_dialog menudialog_mpsimulants;
 extern struct menu_dialog menudialog_mpteamcontrol;
 extern struct menu_dialog menudialog_mpchallengedetails;

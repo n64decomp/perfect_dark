@@ -10715,7 +10715,7 @@ struct menu_item menuitems_mpready[] = {
 };
 
 // 2b7d8
-struct menu_dialog menudialog_mpready = {
+struct menu_dialog g_MpReadyMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x5069,
 	menuitems_mpready,
@@ -11073,7 +11073,7 @@ struct menu_item menuitems_mpstuff[] = {
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000056d8, 0x00000000, menuhandlerScreenRatio }, // "Ratio"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x0000549a, 0x00000000, menuhandlerScreenSplit }, // "Split"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005024, 0x00000000, &menudialog_mpready }, // "Start Game"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005024, 0x00000000, &g_MpReadyMenuDialog }, // "Start Game"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005025, 0x00000000, &menudialog_2aba0 }, // "Drop Out"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501b, 0x00000000, &menudialog_mpabort2 }, // "Abort Game"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -11200,7 +11200,7 @@ struct menu_dialog menudialog_mpgamesetup2 = {
 
 // 2c4bc
 struct menu_item menuitems_mpquickgo[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000059c8, 0x00000000, &menudialog_mpready }, // "Start Game"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000059c8, 0x00000000, &g_MpReadyMenuDialog }, // "Start Game"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501d, 0x00000000, &menudialog_mploadplayer }, // "Load Player"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000059ca, 0x00000000, &menudialog_mpplayersetup3 }, // "Player Settings"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000059c9, 0x00000000, &menudialog_2aba0 }, // "Drop Out"
