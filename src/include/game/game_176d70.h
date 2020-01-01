@@ -257,7 +257,7 @@ s32 menuhandlerMpStartChallenge(u32 operation, struct menu_item *item, s32 *valu
 s32 menuhandlerMpTeamNameSlot(u32, u32, u32 *);
 s32 menuhandlerMpTeamScore(u32, u32, u32 *);
 s32 menuhandlerMpTeamSlot(u32, u32, u32 *);
-s32 menuhandlerMpTeamsEnabled(u32, u32, u32 *);
+s32 menuhandlerMpTeamsEnabled(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpThreeTeams(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpTime(u32, u32, u32 *);
 s32 menuhandlerMpTwoTeams(u32 operation, struct menu_item *item, s32 *value);

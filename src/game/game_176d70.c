@@ -3657,34 +3657,18 @@ s32 menuhandlerMpCheckboxOption(u32 operation, struct menu_item *item, s32 *valu
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerMpTeamsEnabled
-/*  f179914:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f179918:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f17991c:	1481000c */ 	bne	$a0,$at,.L0f179950
-/*  f179920:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f179924:	3c02800b */ 	lui	$v0,0x800b
-/*  f179928:	9042cb98 */ 	lbu	$v0,-0x3468($v0)
-/*  f17992c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f179930:	10410003 */ 	beq	$v0,$at,.L0f179940
-/*  f179934:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f179938:	14410003 */ 	bne	$v0,$at,.L0f179948
-/*  f17993c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f179940:
-/*  f179940:	10000005 */ 	beqz	$zero,.L0f179958
-/*  f179944:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f179948:
-/*  f179948:	10000003 */ 	beqz	$zero,.L0f179958
-/*  f17994c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f179950:
-/*  f179950:	0fc5e626 */ 	jal	menuhandlerMpCheckboxOption
-/*  f179954:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f179958:
-/*  f179958:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17995c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f179960:	03e00008 */ 	jr	$ra
-/*  f179964:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpTeamsEnabled(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKDISABLED) {
+		if (var800acb98 == 5 || var800acb98 == 4) {
+			return true;
+		}
+
+		return false;
+	}
+
+	return menuhandlerMpCheckboxOption(operation, item, value);
+}
 
 GLOBAL_ASM(
 glabel menuhandler00179968

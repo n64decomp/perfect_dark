@@ -851,6 +851,7 @@ extern u32 var800aca38;
 extern u32 var800acad8;
 extern u32 var800acb78;
 extern struct mpsetup g_MpSetup;
+extern u8 var800acb98;
 extern u32 var800acba8;
 extern u32 var800acbb0;
 extern u8 var800acc10;
