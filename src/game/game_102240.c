@@ -4652,42 +4652,22 @@ s32 menuhandlerMainMenuCooperative(u32 operation, struct menu_item *item, s32 *v
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerMainMenuCounterOperative
-/*  f106948:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10694c:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f106950:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f106954:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f106958:	14810008 */ 	bne	$a0,$at,.L0f10697c
-/*  f10695c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f106960:	0c005013 */ 	jal	func0001404c
-/*  f106964:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f106968:	304e0002 */ 	andi	$t6,$v0,0x2
-/*  f10696c:	15c00003 */ 	bnez	$t6,.L0f10697c
-/*  f106970:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f106974:	1000000e */ 	beqz	$zero,.L0f1069b0
-/*  f106978:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f10697c:
-/*  f10697c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f106980:	1481000a */ 	bne	$a0,$at,.L0f1069ac
-/*  f106984:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f106988:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f10698c:	904f0003 */ 	lbu	$t7,0x3($v0)
-/*  f106990:	3c048007 */ 	lui	$a0,%hi(g_SelectMissionMenuDialog)
-/*  f106994:	248439a8 */ 	addiu	$a0,$a0,%lo(g_SelectMissionMenuDialog)
-/*  f106998:	31e8ff7f */ 	andi	$t0,$t7,0xff7f
-/*  f10699c:	a0480003 */ 	sb	$t0,0x3($v0)
-/*  f1069a0:	35090040 */ 	ori	$t1,$t0,0x40
-/*  f1069a4:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1069a8:	a0490003 */ 	sb	$t1,0x3($v0)
-.L0f1069ac:
-/*  f1069ac:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1069b0:
-/*  f1069b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1069b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1069b8:	03e00008 */ 	jr	$ra
-/*  f1069bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMainMenuCounterOperative(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKDISABLED) {
+		if ((func0001404c() & 2) == 0) {
+			return true;
+		}
+	}
+
+	if (operation == MENUOP_SET) {
+		g_MissionConfig.iscoop = false;
+		g_MissionConfig.isanti = true;
+		menuPushDialog(&g_SelectMissionMenuDialog);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menudialog001069c0
