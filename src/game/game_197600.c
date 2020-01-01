@@ -2461,7 +2461,7 @@ glabel func0f1994b0
 .L0f1996f8:
 /*  f1996f8:	8fa40064 */ 	lw	$a0,0x64($sp)
 .L0f1996fc:
-/*  f1996fc:	0fc2c401 */ 	jal	func0f0b1004
+/*  f1996fc:	0fc2c401 */ 	jal	weaponGetFunctionById
 /*  f199700:	8fa50068 */ 	lw	$a1,0x68($sp)
 /*  f199704:	0002202b */ 	sltu	$a0,$zero,$v0
 /*  f199708:	10800004 */ 	beqz	$a0,.L0f19971c

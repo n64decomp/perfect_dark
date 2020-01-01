@@ -954,7 +954,7 @@ struct weapon *weaponFindById(s32 itemid)
 }
 
 GLOBAL_ASM(
-glabel func0f0b1004
+glabel weaponGetFunctionById
 /*  f0b1004:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b1008:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b100c:	0fc2c3f4 */ 	jal	weaponFindById
@@ -1122,7 +1122,7 @@ glabel func0f0b11ec
 /*  f0b11fc:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f0b1200:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f0b1204:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0b1208:	0fc2c401 */ 	jal	func0f0b1004
+/*  f0b1208:	0fc2c401 */ 	jal	weaponGetFunctionById
 /*  f0b120c:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f0b1210:	1040000b */ 	beqz	$v0,.L0f0b1240
 /*  f0b1214:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -2140,7 +2140,7 @@ glabel func0f0b1f58
 /*  f0b1f60:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b1f64:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b1f68:	9045063b */ 	lbu	$a1,0x63b($v0)
-/*  f0b1f6c:	0fc2c401 */ 	jal	func0f0b1004
+/*  f0b1f6c:	0fc2c401 */ 	jal	weaponGetFunctionById
 /*  f0b1f70:	90440638 */ 	lbu	$a0,0x638($v0)
 /*  f0b1f74:	10400008 */ 	beqz	$v0,.L0f0b1f98
 /*  f0b1f78:	00000000 */ 	sll	$zero,$zero,0x0

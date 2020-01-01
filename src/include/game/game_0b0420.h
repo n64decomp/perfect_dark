@@ -18,7 +18,7 @@ u32 func0f0b0764(void);
 u32 func0f0b0818(void);
 s32 func0f0b09f4(s32 arg0, s32 arg1);
 struct weapon *weaponFindById(s32 itemid);
-u32 func0f0b1004(void);
+struct inventory_function *weaponGetFunctionById(s32 weapon_id, s32 which);
 u32 func0f0b103c(void);
 u32 func0f0b107c(void);
 u32 func0f0b10b8(void);

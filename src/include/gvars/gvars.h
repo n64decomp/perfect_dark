@@ -673,7 +673,7 @@ extern u32 var800a20d0;
 extern u32 var800a21b0;
 extern u32 var800a21b4;
 extern u32 var800a21b8;
-extern u32 var800a21c0;
+extern u8 var800a21c0;
 extern u32 g_CheatsActiveBank0;
 extern u32 g_CheatsActiveBank1;
 extern u32 g_CheatsEnabledBank0;

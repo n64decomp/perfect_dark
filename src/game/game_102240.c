@@ -3570,38 +3570,17 @@ s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f105864
-/*  f105864:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f105868:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f10586c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f105870:	3c04800a */ 	lui	$a0,0x800a
-/*  f105874:	908421c0 */ 	lbu	$a0,0x21c0($a0)
-/*  f105878:	0fc2c401 */ 	jal	func0f0b1004
-/*  f10587c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f105880:	3c04800a */ 	lui	$a0,0x800a
-/*  f105884:	908421c0 */ 	lbu	$a0,0x21c0($a0)
-/*  f105888:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f10588c:	0fc2c401 */ 	jal	func0f0b1004
-/*  f105890:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f105894:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f105898:	10600007 */ 	beqz	$v1,.L0f1058b8
-/*  f10589c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1058a0:	10400005 */ 	beqz	$v0,.L0f1058b8
-/*  f1058a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1058a8:	0fc5b9f1 */ 	jal	textGet
-/*  f1058ac:	94640004 */ 	lhu	$a0,0x4($v1)
-/*  f1058b0:	10000004 */ 	beqz	$zero,.L0f1058c4
-/*  f1058b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1058b8:
-/*  f1058b8:	0fc5b9f1 */ 	jal	textGet
-/*  f1058bc:	24045603 */ 	addiu	$a0,$zero,0x5603
-/*  f1058c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1058c4:
-/*  f1058c4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1058c8:	03e00008 */ 	jr	$ra
-/*  f1058cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *func0f105864(s32 arg0)
+{
+	struct inventory_function *primaryfunc = weaponGetFunctionById(var800a21c0, 0);
+	struct inventory_function *secondaryfunc = weaponGetFunctionById(var800a21c0, 1);
+
+	if (primaryfunc && secondaryfunc) {
+		return textGet(primaryfunc->name);
+	}
+
+	return textGet(0x5603); // "\n"
+}
 
 GLOBAL_ASM(
 glabel func0f1058d0
@@ -3610,12 +3589,12 @@ glabel func0f1058d0
 /*  f1058d8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1058dc:	3c04800a */ 	lui	$a0,0x800a
 /*  f1058e0:	908421c0 */ 	lbu	$a0,0x21c0($a0)
-/*  f1058e4:	0fc2c401 */ 	jal	func0f0b1004
+/*  f1058e4:	0fc2c401 */ 	jal	weaponGetFunctionById
 /*  f1058e8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1058ec:	3c04800a */ 	lui	$a0,0x800a
 /*  f1058f0:	908421c0 */ 	lbu	$a0,0x21c0($a0)
 /*  f1058f4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1058f8:	0fc2c401 */ 	jal	func0f0b1004
+/*  f1058f8:	0fc2c401 */ 	jal	weaponGetFunctionById
 /*  f1058fc:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f105900:	10400005 */ 	beqz	$v0,.L0f105918
 /*  f105904:	8fa3001c */ 	lw	$v1,0x1c($sp)
