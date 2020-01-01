@@ -1692,7 +1692,7 @@ struct menu_item menuitems_counteroperativeoptions[] = {
 };
 
 // 17d54
-struct menu_dialog menudialog_counteroperativeoptions = {
+struct menu_dialog g_AntiOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x570a, // "Counter-Operative Options"
 	menuitems_counteroperativeoptions,
@@ -1723,9 +1723,9 @@ struct menu_dialog menudialog_selectdifficulty2 = {
 
 // 17dfc
 struct menu_item menuitems_selectdifficulty3[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056fb, 0x00000000, menuhandler001045f0 }, // "Agent"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x000056fc, 0x00000000, menuhandler001045f0 }, // "Special Agent"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x000056fd, 0x00000000, menuhandler001045f0 }, // "Perfect Agent"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056fb, 0x00000000, menuhandlerAntiDifficulty }, // "Agent"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x000056fc, 0x00000000, menuhandlerAntiDifficulty }, // "Special Agent"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x000056fd, 0x00000000, menuhandlerAntiDifficulty }, // "Perfect Agent"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000056fe, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

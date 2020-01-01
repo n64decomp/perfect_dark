@@ -184,7 +184,7 @@ extern struct menu_dialog g_ObjectivesMenuDialog;
 extern struct menu_dialog g_PdModeSettingsDialog;
 extern struct menu_dialog menudialog_selectdifficulty;
 extern struct menu_dialog g_CoopOptionsMenuDialog;
-extern struct menu_dialog menudialog_counteroperativeoptions;
+extern struct menu_dialog g_AntiOptionsMenuDialog;
 extern struct menu_dialog menudialog_selectdifficulty2;
 extern struct menu_dialog menudialog_selectdifficulty3;
 extern struct stageoverviewentry g_StageNames[];
