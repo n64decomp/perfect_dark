@@ -1862,7 +1862,7 @@ glabel isStageDifficultyUnlocked
 s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value)
 {
 	switch (operation) {
-	case MENUOP_15:
+	case MENUOP_CHECKPREFOCUSED:
 		if (isStageDifficultyUnlocked(g_MissionConfig.unk02, item->param)) {
 			if (item->right == 0) {
 				return true;
@@ -2047,7 +2047,7 @@ s32 menuhandlerBuddyOptionsContinue(u32 operation, struct menu_item *item, s32 *
 		menuPushDialog(&g_ObjectivesMenuDialog);
 	}
 
-	if (operation == MENUOP_15) {
+	if (operation == MENUOP_CHECKPREFOCUSED) {
 		return true;
 	}
 
@@ -4609,46 +4609,22 @@ glabel menuhandler00106644
 /*  f1067f8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMainMenuSoloMissions
-/*  f1067fc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f106800:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f106804:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f106808:	00802825 */ 	or	$a1,$a0,$zero
-/*  f10680c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f106810:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f106814:	1481000d */ 	bne	$a0,$at,.L0f10684c
-/*  f106818:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10681c:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f106820:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f106824:	904e0003 */ 	lbu	$t6,0x3($v0)
-/*  f106828:	3c048007 */ 	lui	$a0,%hi(menudialog_missionselect)
-/*  f10682c:	248439a8 */ 	addiu	$a0,$a0,%lo(menudialog_missionselect)
-/*  f106830:	31d8ff7f */ 	andi	$t8,$t6,0xff7f
-/*  f106834:	a0580003 */ 	sb	$t8,0x3($v0)
-/*  f106838:	331900bf */ 	andi	$t9,$t8,0xbf
-/*  f10683c:	a0590003 */ 	sb	$t9,0x3($v0)
-/*  f106840:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f106844:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f106848:	8fa50018 */ 	lw	$a1,0x18($sp)
-.L0f10684c:
-/*  f10684c:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f106850:	14a10007 */ 	bne	$a1,$at,.L0f106870
-/*  f106854:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f106858:	0fc40e3b */ 	jal	isStageDifficultyUnlocked
-/*  f10685c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f106860:	50400004 */ 	beqzl	$v0,.L0f106874
-/*  f106864:	00001025 */ 	or	$v0,$zero,$zero
-/*  f106868:	10000002 */ 	beqz	$zero,.L0f106874
-/*  f10686c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f106870:
-/*  f106870:	00001025 */ 	or	$v0,$zero,$zero
-.L0f106874:
-/*  f106874:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f106878:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10687c:	03e00008 */ 	jr	$ra
-/*  f106880:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMainMenuSoloMissions(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		g_MissionConfig.iscoop = false;
+		g_MissionConfig.isanti = false;
+		menuPushDialog(&menudialog_missionselect);
+	}
+
+	if (operation == MENUOP_CHECKPREFOCUSED) {
+		if (isStageDifficultyUnlocked(1, DIFF_A)) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMainMenuCombatSimulator
