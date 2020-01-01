@@ -1629,7 +1629,7 @@ struct menu_item menuitems_perfectdarkmodesettings[] = {
 };
 
 // 17b68
-struct menu_dialog menudialog_perfectdarkmodesettings = {
+struct menu_dialog g_PdModeSettingsDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x54dd, // "Perfect Dark"
 	menuitems_perfectdarkmodesettings,

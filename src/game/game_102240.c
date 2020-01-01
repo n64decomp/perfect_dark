@@ -1888,38 +1888,20 @@ s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerPdMode
-/*  f103e00:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f103e04:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f103e08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f103e0c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f103e10:	10810006 */ 	beq	$a0,$at,.L0f103e2c
-/*  f103e14:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f103e18:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f103e1c:	10810008 */ 	beq	$a0,$at,.L0f103e40
-/*  f103e20:	3c0e800a */ 	lui	$t6,0x800a
-/*  f103e24:	1000000c */ 	beqz	$zero,.L0f103e58
-/*  f103e28:	00001025 */ 	or	$v0,$zero,$zero
-.L0f103e2c:
-/*  f103e2c:	3c048007 */ 	lui	$a0,%hi(menudialog_perfectdarkmodesettings)
-/*  f103e30:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f103e34:	24841b48 */ 	addiu	$a0,$a0,%lo(menudialog_perfectdarkmodesettings)
-/*  f103e38:	10000007 */ 	beqz	$zero,.L0f103e58
-/*  f103e3c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f103e40:
-/*  f103e40:	95ce2284 */ 	lhu	$t6,0x2284($t6)
-/*  f103e44:	55c00004 */ 	bnezl	$t6,.L0f103e58
-/*  f103e48:	00001025 */ 	or	$v0,$zero,$zero
-/*  f103e4c:	10000002 */ 	beqz	$zero,.L0f103e58
-/*  f103e50:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f103e54:	00001025 */ 	or	$v0,$zero,$zero
-.L0f103e58:
-/*  f103e58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f103e5c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f103e60:	03e00008 */ 	jr	$ra
-/*  f103e64:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerPdMode(u32 operation, struct menu_item *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_SET:
+		menuPushDialog(&g_PdModeSettingsDialog);
+		break;
+	case MENUOP_CHECKHIDDEN:
+		if (g_SoloSaveFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][DIFF_PA] == 0) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f103e68

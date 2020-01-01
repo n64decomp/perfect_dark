@@ -69,7 +69,7 @@ s32 menuhandlerMainMenuCounterOperative(u32 operation, struct menu_item *item, b
 s32 menuhandlerMainMenuSoloMissions(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerMusicVolume(u32 operation, struct menu_item *item, u32 *volume);
 s32 menuhandlerPaintball(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandlerPdMode(u32 operation, struct menu_item *item, bool *enable);
+s32 menuhandlerPdMode(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerPdModeSetting(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerReversePitch(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerScreenRatio(u32 operation, struct menu_item *item, bool *enable);
