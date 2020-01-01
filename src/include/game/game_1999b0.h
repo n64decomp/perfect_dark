@@ -59,6 +59,6 @@ u32 func0f19c47c(void);
 u32 func0f19c4b8(void);
 u32 func0f19c53c(void);
 u32 func0f19c6bc(void);
-u32 func0f19c910(void);
+s32 mpIsOptionAvailable(s32 arg0);
 
 #endif
