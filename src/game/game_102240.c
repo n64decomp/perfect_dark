@@ -3895,38 +3895,20 @@ glabel menudialog00105c54
 /*  f105d98:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f105d9c
-/*  f105d9c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f105da0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f105da4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f105da8:	3c04800a */ 	lui	$a0,0x800a
-/*  f105dac:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f105db0:	908421c0 */ 	lbu	$a0,0x21c0($a0)
-/*  f105db4:	1040000d */ 	beqz	$v0,.L0f105dec
-/*  f105db8:	00401825 */ 	or	$v1,$v0,$zero
-/*  f105dbc:	944e0048 */ 	lhu	$t6,0x48($v0)
-/*  f105dc0:	24014c00 */ 	addiu	$at,$zero,0x4c00
-/*  f105dc4:	15c10005 */ 	bne	$t6,$at,.L0f105ddc
-/*  f105dc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f105dcc:	0fc5b9f1 */ 	jal	textGet
-/*  f105dd0:	24045603 */ 	addiu	$a0,$zero,0x5603
-/*  f105dd4:	10000008 */ 	beqz	$zero,.L0f105df8
-/*  f105dd8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105ddc:
-/*  f105ddc:	0fc5b9f1 */ 	jal	textGet
-/*  f105de0:	94640046 */ 	lhu	$a0,0x46($v1)
-/*  f105de4:	10000004 */ 	beqz	$zero,.L0f105df8
-/*  f105de8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105dec:
-/*  f105dec:	0fc5b9f1 */ 	jal	textGet
-/*  f105df0:	24045603 */ 	addiu	$a0,$zero,0x5603
-/*  f105df4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105df8:
-/*  f105df8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f105dfc:	03e00008 */ 	jr	$ra
-/*  f105e00:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *func0f105d9c(s32 arg0)
+{
+	struct weapon *weapon = weaponFindById(var800a21c0);
+
+	if (weapon) {
+		if (weapon->manufacturer == 0x4c00) { // "\n"
+			return textGet(0x5603); // "\n"
+		}
+
+		return textGet(weapon->name);
+	}
+
+	return textGet(0x5603); // "\n"
+}
 
 GLOBAL_ASM(
 glabel func0f105e04
