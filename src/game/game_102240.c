@@ -3552,26 +3552,14 @@ s32 menuhandlerControlStyle(s32 operation, struct menu_item *item, u32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1057ec
-/*  f1057ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1057f0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1057f4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1057f8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1057fc:	14810006 */ 	bne	$a0,$at,.L0f105818
-/*  f105800:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f105804:	3c04800a */ 	lui	$a0,%hi(var800a22c0)
-/*  f105808:	248422c0 */ 	addiu	$a0,$a0,%lo(var800a22c0)
-/*  f10580c:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f105810:	0fc42539 */ 	jal	func0f1094e4
-/*  f105814:	00003025 */ 	or	$a2,$zero,$zero
-.L0f105818:
-/*  f105818:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10581c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f105820:	00001025 */ 	or	$v0,$zero,$zero
-/*  f105824:	03e00008 */ 	jr	$ra
-/*  f105828:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandler001057ec(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f1094e4(&var800a22c0, 2, 0);
+	}
+
+	return 0;
+}
 
 s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value)
 {
