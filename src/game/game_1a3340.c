@@ -3048,7 +3048,7 @@ glabel menuhandler001a5d5c
 /*  f1a5d9c:	10000004 */ 	beqz	$zero,.L0f1a5db0
 /*  f1a5da0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f1a5da4:
-/*  f1a5da4:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f1a5da4:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f1a5da8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1a5dac:
 /*  f1a5dac:	8fbf0014 */ 	lw	$ra,0x14($sp)

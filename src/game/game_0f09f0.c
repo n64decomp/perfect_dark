@@ -3743,7 +3743,7 @@ glabel func0f0f361c
 );
 
 GLOBAL_ASM(
-glabel func0f0f36dc
+glabel menuPopDialog
 /*  f0f36dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0f36e0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0f36e4:	0fc3ccef */ 	jal	func0f0f33bc
@@ -8910,7 +8910,7 @@ glabel func0f0f8120
 /*  f0f81c4:	5920000b */ 	blezl	$t1,.L0f0f81f4
 /*  f0f81c8:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f0f81cc:
-/*  f0f81cc:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f0f81cc:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f0f81d0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0f81d4:	8e4a0000 */ 	lw	$t2,0x0($s2)
 /*  f0f81d8:	01530019 */ 	multu	$t2,$s3
@@ -11193,7 +11193,7 @@ glabel func0f0f935c
 .L0f0fa25c:
 /*  f0fa25c:	55c00019 */ 	bnezl	$t6,.L0f0fa2c4
 /*  f0fa260:	8fd00008 */ 	lw	$s0,0x8($s8)
-/*  f0fa264:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f0fa264:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f0fa268:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0fa26c:	10000015 */ 	beqz	$zero,.L0f0fa2c4
 /*  f0fa270:	8fd00008 */ 	lw	$s0,0x8($s8)
@@ -11216,7 +11216,7 @@ glabel func0f0f935c
 /*  f0fa2b0:	55610004 */ 	bnel	$t3,$at,.L0f0fa2c4
 /*  f0fa2b4:	8fd00008 */ 	lw	$s0,0x8($s8)
 .L0f0fa2b8:
-/*  f0fa2b8:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f0fa2b8:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f0fa2bc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0fa2c0:
 /*  f0fa2c0:	8fd00008 */ 	lw	$s0,0x8($s8)
@@ -14245,7 +14245,7 @@ glabel menuhandler000fcc34
 /*  f0fccfc:	17220003 */ 	bne	$t9,$v0,.L0f0fcd0c
 /*  f0fcd00:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0fcd04:
-/*  f0fcd04:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f0fcd04:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f0fcd08:	00008025 */ 	or	$s0,$zero,$zero
 .L0f0fcd0c:
 /*  f0fcd0c:	5200ffe8 */ 	beqzl	$s0,.L0f0fccb0
@@ -14499,7 +14499,7 @@ glabel menuhandlerRetrySavePak
 /*  f0fd058:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0fd05c:	1481001b */ 	bne	$a0,$at,.L0f0fd0cc
 /*  f0fd060:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0fd064:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f0fd064:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f0fd068:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0fd06c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f0fd070:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -15189,7 +15189,7 @@ glabel menuhandler000fd6f0
 /*  f0fd9c0:	0fc6490e */ 	jal	func0f192438
 /*  f0fd9c4:	8c65001c */ 	lw	$a1,0x1c($v1)
 .L0f0fd9c8:
-/*  f0fd9c8:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f0fd9c8:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f0fd9cc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0fd9d0:	100000a4 */ 	beqz	$zero,.L0f0fdc64
 /*  f0fd9d4:	00001025 */ 	or	$v0,$zero,$zero

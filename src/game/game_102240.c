@@ -1431,8 +1431,8 @@ s32 menuhandlerAcceptPdModeSettings(s32 operation, struct menu_item *item, bool 
 		g_MissionConfig.fpdmodeaccuracy = func0f1036ac(g_MissionConfig.updmodeaccuracy, 3);
 		g_MissionConfig.difficulty = DIFF_PA;
 		setDifficulty(g_MissionConfig.difficulty);
-		func0f0f36dc();
-		func0f0f36dc();
+		menuPopDialog();
+		menuPopDialog();
 		menuPushDialog(&g_ObjectivesMenuDialog);
 	}
 
@@ -1756,7 +1756,7 @@ s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value)
 		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
 		setDifficulty(g_MissionConfig.difficulty);
-		func0f0f36dc();
+		menuPopDialog();
 		menuPushDialog(&g_ObjectivesMenuDialog);
 		break;
 	case MENUOP_CHECKDISABLED:
@@ -1923,7 +1923,7 @@ glabel func0f103e68
 s32 menuhandlerBuddyOptionsContinue(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		func0f0f36dc();
+		menuPopDialog();
 		menuPushDialog(&g_ObjectivesMenuDialog);
 	}
 
@@ -2246,7 +2246,7 @@ s32 menuhandlerCoopDifficulty(u32 operation, struct menu_item *item, s32 *value)
 		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
 		setDifficulty(g_MissionConfig.difficulty);
-		func0f0f36dc();
+		menuPopDialog();
 		menuPushDialog(&g_CoopOptionsMenuDialog);
 		break;
 	case MENUOP_CHECKDISABLED:
@@ -2265,7 +2265,7 @@ s32 menuhandlerAntiDifficulty(u32 operation, struct menu_item *item, s32 *value)
 		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
 		setDifficulty(g_MissionConfig.difficulty);
-		func0f0f36dc();
+		menuPopDialog();
 		menuPushDialog(&g_AntiOptionsMenuDialog);
 	}
 
@@ -4445,7 +4445,7 @@ glabel menuhandler00106644
 /*  f106758:	a06004d4 */ 	sb	$zero,0x4d4($v1)
 /*  f10675c:	01f87821 */ 	addu	$t7,$t7,$t8
 /*  f106760:	8def38a0 */ 	lw	$t7,0x38a0($t7)
-/*  f106764:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f106764:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f106768:	a06f04d5 */ 	sb	$t7,0x4d5($v1)
 /*  f10676c:	0fc06fa8 */ 	jal	func0f01bea0
 /*  f106770:	00000000 */ 	sll	$zero,$zero,0x0
@@ -4454,7 +4454,7 @@ glabel menuhandler00106644
 .L0f10677c:
 /*  f10677c:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f106780:	a07904d4 */ 	sb	$t9,0x4d4($v1)
-/*  f106784:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f106784:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f106788:	a06e04d5 */ 	sb	$t6,0x4d5($v1)
 /*  f10678c:	0fc06fa8 */ 	jal	func0f01bea0
 /*  f106790:	00000000 */ 	sll	$zero,$zero,0x0

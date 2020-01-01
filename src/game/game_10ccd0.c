@@ -76,25 +76,15 @@ const u32 var7f1b3a04[] = {0x00000000};
 const char var7f1b3a08[] = "tc != NULL";
 const char var7f1b3a14[] = "gamefile.c";
 
-GLOBAL_ASM(
-glabel menuhandler0010ccd0
-/*  f10ccd0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10ccd4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10ccd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10ccdc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10cce0:	14810005 */ 	bne	$a0,$at,.L0f10ccf8
-/*  f10cce4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10cce8:	0fc3cdb7 */ 	jal	func0f0f36dc
-/*  f10ccec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10ccf0:	0fc3cdb7 */ 	jal	func0f0f36dc
-/*  f10ccf4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f10ccf8:
-/*  f10ccf8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10ccfc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10cd00:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10cd04:	03e00008 */ 	jr	$ra
-/*  f10cd08:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerDeclineMission(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		menuPopDialog();
+		menuPopDialog();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menudialog0010cd0c
@@ -136,9 +126,9 @@ glabel menudialog0010cd0c
 /*  f10cd94:	8089000a */ 	lb	$t1,0xa($a0)
 /*  f10cd98:	afa4003c */ 	sw	$a0,0x3c($sp)
 /*  f10cd9c:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f10cda0:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10cda0:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10cda4:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f10cda8:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10cda8:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10cdac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10cdb0:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f10cdb4:	8fa50038 */ 	lw	$a1,0x38($sp)
@@ -996,7 +986,7 @@ glabel func0f10d910
 /*  f10d920:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10d924:	05c00005 */ 	bltz	$t6,.L0f10d93c
 /*  f10d928:	00803825 */ 	or	$a3,$a0,$zero
-/*  f10d92c:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10d92c:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10d930:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10d934:	100000f9 */ 	beqz	$zero,.L0f10dd1c
 /*  f10d938:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1039,7 +1029,7 @@ glabel func0f10d910
 /*  f10d9b8:	8c6204b4 */ 	lw	$v0,0x4b4($v1)
 /*  f10d9bc:	54e00006 */ 	bnezl	$a3,.L0f10d9d8
 /*  f10d9c0:	8c6204b4 */ 	lw	$v0,0x4b4($v1)
-/*  f10d9c4:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10d9c4:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10d9c8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10d9cc:	100000d3 */ 	beqz	$zero,.L0f10dd1c
 /*  f10d9d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1081,9 +1071,9 @@ glabel func0f10d910
 /*  f10da54:	24840001 */ 	addiu	$a0,$a0,0x1
 /*  f10da58:	14400007 */ 	bnez	$v0,.L0f10da78
 /*  f10da5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10da60:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10da60:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10da64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10da68:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10da68:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10da6c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10da70:	100000aa */ 	beqz	$zero,.L0f10dd1c
 /*  f10da74:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1190,7 +1180,7 @@ glabel func0f10d910
 /*  f10dbe8:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f10dbec:	14e10004 */ 	bne	$a3,$at,.L0f10dc00
 /*  f10dbf0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10dbf4:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10dbf4:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10dbf8:	afa70018 */ 	sw	$a3,0x18($sp)
 /*  f10dbfc:	8fa70018 */ 	lw	$a3,0x18($sp)
 .L0f10dc00:
@@ -1208,9 +1198,9 @@ glabel func0f10d910
 /*  f10dc2c:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f10dc30:	14e10007 */ 	bne	$a3,$at,.L0f10dc50
 /*  f10dc34:	3c048007 */ 	lui	$a0,%hi(menudialog_1b7a4)
-/*  f10dc38:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10dc38:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10dc3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10dc40:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10dc40:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10dc44:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10dc48:	10000034 */ 	beqz	$zero,.L0f10dd1c
 /*  f10dc4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1241,9 +1231,9 @@ glabel func0f10d910
 .L0f10dca4:
 /*  f10dca4:	14e10007 */ 	bne	$a3,$at,.L0f10dcc4
 /*  f10dca8:	3c048007 */ 	lui	$a0,%hi(menudialog_1b7a4)
-/*  f10dcac:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10dcac:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10dcb0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10dcb4:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10dcb4:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10dcb8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10dcbc:	10000017 */ 	beqz	$zero,.L0f10dd1c
 /*  f10dcc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1494,7 +1484,7 @@ glabel menudialog0010de58
 /*  f10e014:	15c10005 */ 	bne	$t6,$at,.L0f10e02c
 /*  f10e018:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f10e01c:
-/*  f10e01c:	0fc3cdb7 */ 	jal	func0f0f36dc
+/*  f10e01c:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f10e020:	afa6001c */ 	sw	$a2,0x1c($sp)
 /*  f10e024:	10000007 */ 	beqz	$zero,.L0f10e044
 /*  f10e028:	8fa6001c */ 	lw	$a2,0x1c($sp)

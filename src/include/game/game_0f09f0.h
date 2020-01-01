@@ -37,7 +37,7 @@ void menuPushDialog(struct menu_dialog *dialog);
 u32 func0f0f3220(void);
 u32 func0f0f33bc(void);
 u32 func0f0f361c(void);
-void func0f0f36dc(void);
+void menuPopDialog(void);
 u32 func0f0f3704(void);
 u32 func0f0f372c(void);
 u32 func0f0f37a4(void);
