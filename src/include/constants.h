@@ -466,6 +466,7 @@
 #define MENUOP_GET            8
 #define MENUOP_GETSLIDER      9
 #define MENUOP_CHECKDISABLED  12
+#define MENUOP_15             15
 #define MENUOP_CHECKHIDDEN    24
 
 // Object flags - bank 0 (object struct offset 0x08)

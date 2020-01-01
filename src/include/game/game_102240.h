@@ -8,7 +8,7 @@ u32 func0f10229c(void);
 u32 func0f102330(void);
 u32 func0f103550(void);
 f32 func0f1036ac(s32 arg0, s32 arg1);
-u32 func0f1038ec(void);
+bool isStageDifficultyUnlocked(s32 stagenum, s32 difficulty);
 u32 func0f103e68(void);
 u32 func0f10408c(void);
 u32 func0f104664(void);
@@ -80,7 +80,7 @@ s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enab
 s32 menuhandlerShowMissionTime(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerShowZoomRange(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerSightOnScreen(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, bool *enable);
+s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerSoundMode(u32 operation, struct menu_item *item, bool *enable);
 
 #endif

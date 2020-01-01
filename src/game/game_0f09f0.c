@@ -3212,7 +3212,7 @@ glabel func0f0f2cf4
 );
 
 GLOBAL_ASM(
-glabel func0f0f2f4c
+glabel menuPushDialog
 /*  f0f2f4c:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f0f2f50:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f0f2f54:	afbe0038 */ 	sw	$s8,0x38($sp)
@@ -3762,7 +3762,7 @@ glabel func0f0f3704
 /*  f0f3708:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0f370c:	0fc3ccef */ 	jal	func0f0f33bc
 /*  f0f3710:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0f3714:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f0f3714:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f0f3718:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f0f371c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0f3720:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -9145,7 +9145,7 @@ glabel func0f0f8330
 .L0f0f84f8:
 /*  f0f84f8:	8fa40020 */ 	lw	$a0,0x20($sp)
 .L0f0f84fc:
-/*  f0f84fc:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f0f84fc:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f0f8500:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f0f8504:	8fa60018 */ 	lw	$a2,0x18($sp)
 /*  f0f8508:	3c03800a */ 	lui	$v1,%hi(var800a19c0)
@@ -11181,12 +11181,12 @@ glabel func0f0f935c
 /*  f0fa230:	15a10006 */ 	bne	$t5,$at,.L0f0fa24c
 /*  f0fa234:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0fa238:	3c048007 */ 	lui	$a0,%hi(menudialog_mpdropout)
-/*  f0fa23c:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f0fa23c:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f0fa240:	248452fc */ 	addiu	$a0,$a0,%lo(menudialog_mpdropout)
 /*  f0fa244:	1000001f */ 	beqz	$zero,.L0f0fa2c4
 /*  f0fa248:	8fd00008 */ 	lw	$s0,0x8($s8)
 .L0f0fa24c:
-/*  f0fa24c:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f0fa24c:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f0fa250:	24844b80 */ 	addiu	$a0,$a0,%lo(menudialog_2aba0)
 /*  f0fa254:	1000001b */ 	beqz	$zero,.L0f0fa2c4
 /*  f0fa258:	8fd00008 */ 	lw	$s0,0x8($s8)
@@ -12455,7 +12455,7 @@ glabel func0f0fa704
 /*  f0fb388:	248457b8 */ 	addiu	$a0,$a0,%lo(menudialog_mpready)
 /*  f0fb38c:	10820005 */ 	beq	$a0,$v0,.L0f0fb3a4
 /*  f0fb390:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fb394:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f0fb394:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f0fb398:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0fb39c:	1000002f */ 	beqz	$zero,.L0f0fb45c
 /*  f0fb3a0:	8fbf003c */ 	lw	$ra,0x3c($sp)
@@ -14436,7 +14436,7 @@ glabel func0f0fce8c
 /*  f0fcf90:	10000004 */ 	beqz	$zero,.L0f0fcfa4
 /*  f0fcf94:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f0fcf98:
-/*  f0fcf98:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f0fcf98:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f0fcf9c:	00e02025 */ 	or	$a0,$a3,$zero
 .L0f0fcfa0:
 /*  f0fcfa0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -14542,7 +14542,7 @@ glabel menuhandlerWarnRepairPak
 /*  f0fd0f0:	14810004 */ 	bne	$a0,$at,.L0f0fd104
 /*  f0fd0f4:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f0fd0f8:	3c048007 */ 	lui	$a0,%hi(menudialog_pakattemptrepair)
-/*  f0fd0fc:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f0fd0fc:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f0fd100:	248416a8 */ 	addiu	$a0,$a0,%lo(menudialog_pakattemptrepair)
 .L0f0fd104:
 /*  f0fd104:	8fbf0014 */ 	lw	$ra,0x14($sp)

@@ -9021,7 +9021,7 @@ glabel func0f01bf28
 .L0f01d26c:
 /*  f01d26c:	24440001 */ 	addiu	$a0,$v0,0x1
 /*  f01d270:	0005ce42 */ 	srl	$t9,$a1,0x19
-/*  f01d274:	0fc40e3b */ 	jal	func0f1038ec
+/*  f01d274:	0fc40e3b */ 	jal	isStageDifficultyUnlocked
 /*  f01d278:	03202825 */ 	or	$a1,$t9,$zero
 /*  f01d27c:	50400006 */ 	beqzl	$v0,.L0f01d298
 /*  f01d280:	8e6f046c */ 	lw	$t7,0x46c($s3)

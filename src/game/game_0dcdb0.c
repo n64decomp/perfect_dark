@@ -20185,7 +20185,7 @@ glabel func0f0eb46c
 .L0f0eb4c0:
 /*  f0eb4c0:	53200006 */ 	beqzl	$t9,.L0f0eb4dc
 /*  f0eb4c4:	8ce20010 */ 	lw	$v0,0x10($a3)
-/*  f0eb4c8:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f0eb4c8:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f0eb4cc:	8ce40010 */ 	lw	$a0,0x10($a3)
 /*  f0eb4d0:	10000009 */ 	beqz	$zero,.L0f0eb4f8
 /*  f0eb4d4:	8fbf0014 */ 	lw	$ra,0x14($sp)

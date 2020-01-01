@@ -3984,9 +3984,8 @@ struct missionconfig {
 	u8 difficulty : 7;
 	u8 bits0_07 : 1;
 
-	u8 stagenum : 8;
-
-	u8 bits2_00 : 8;
+	/*0x01*/ u8 stagenum;
+	/*0x02*/ u8 unk02;
 
 	u8 iscoop : 1;
 	u8 isanti : 1;

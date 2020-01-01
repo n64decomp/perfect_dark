@@ -1476,14 +1476,14 @@ s32 menuhandlerAcceptPdModeSettings(s32 operation, struct menu_item *item, bool 
 		setDifficulty(g_MissionConfig.difficulty);
 		func0f0f36dc();
 		func0f0f36dc();
-		func0f0f2f4c(&g_ObjectivesMenuDialog);
+		menuPushDialog(&g_ObjectivesMenuDialog);
 	}
 
 	return 0;
 }
 
 GLOBAL_ASM(
-glabel func0f1038ec
+glabel isStageDifficultyUnlocked
 /*  f1038ec:	28810011 */ 	slti	$at,$a0,0x11
 /*  f1038f0:	14200024 */ 	bnez	$at,.L0f103984
 /*  f1038f4:	00a03025 */ 	or	$a2,$a1,$zero
@@ -1782,82 +1782,111 @@ glabel func0f1038ec
 /*  f103cec:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerSoloDifficulty
-/*  f103cf0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f103cf4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f103cf8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f103cfc:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f103d00:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f103d04:	1081001c */ 	beq	$a0,$at,.L0f103d78
-/*  f103d08:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f103d0c:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f103d10:	1081002e */ 	beq	$a0,$at,.L0f103dcc
-/*  f103d14:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f103d18:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f103d1c:	14810033 */ 	bne	$a0,$at,.L0f103dec
-/*  f103d20:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f103d24:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f103d28:	90a50001 */ 	lbu	$a1,0x1($a1)
-/*  f103d2c:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f103d30:	0fc40e3b */ 	jal	func0f1038ec
-/*  f103d34:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f103d38:	1040002c */ 	beqz	$v0,.L0f103dec
-/*  f103d3c:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f103d40:	8cce000c */ 	lw	$t6,0xc($a2)
-/*  f103d44:	3c0f800a */ 	lui	$t7,0x800a
-/*  f103d48:	15c00003 */ 	bnez	$t6,.L0f103d58
-/*  f103d4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103d50:	10000027 */ 	beqz	$zero,.L0f103df0
-/*  f103d54:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f103d58:
-/*  f103d58:	8def2208 */ 	lw	$t7,0x2208($t7)
-/*  f103d5c:	90d90001 */ 	lbu	$t9,0x1($a2)
-/*  f103d60:	31f80007 */ 	andi	$t8,$t7,0x7
-/*  f103d64:	0319082b */ 	sltu	$at,$t8,$t9
-/*  f103d68:	54200021 */ 	bnezl	$at,.L0f103df0
-/*  f103d6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f103d70:	1000001f */ 	beqz	$zero,.L0f103df0
-/*  f103d74:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f103d78:
-/*  f103d78:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f103d7c:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f103d80:	90480000 */ 	lbu	$t0,0x0($v0)
-/*  f103d84:	310efffe */ 	andi	$t6,$t0,0xfffe
-/*  f103d88:	a04e0000 */ 	sb	$t6,0x0($v0)
-/*  f103d8c:	90cb0001 */ 	lbu	$t3,0x1($a2)
-/*  f103d90:	31cf0001 */ 	andi	$t7,$t6,0x1
-/*  f103d94:	000b6840 */ 	sll	$t5,$t3,0x1
-/*  f103d98:	01afc025 */ 	or	$t8,$t5,$t7
-/*  f103d9c:	a0580000 */ 	sb	$t8,0x0($v0)
-/*  f103da0:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f103da4:	0004ce42 */ 	srl	$t9,$a0,0x19
-/*  f103da8:	0fc5b36a */ 	jal	setDifficulty
-/*  f103dac:	03202025 */ 	or	$a0,$t9,$zero
-/*  f103db0:	0fc3cdb7 */ 	jal	func0f0f36dc
-/*  f103db4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103db8:	3c048007 */ 	lui	$a0,%hi(g_ObjectivesMenuDialog)
-/*  f103dbc:	0fc3cbd3 */ 	jal	func0f0f2f4c
-/*  f103dc0:	24841a90 */ 	addiu	$a0,$a0,%lo(g_ObjectivesMenuDialog)
-/*  f103dc4:	1000000a */ 	beqz	$zero,.L0f103df0
-/*  f103dc8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f103dcc:
-/*  f103dcc:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f103dd0:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f103dd4:	0fc40e3b */ 	jal	func0f1038ec
-/*  f103dd8:	90c50001 */ 	lbu	$a1,0x1($a2)
-/*  f103ddc:	54400004 */ 	bnezl	$v0,.L0f103df0
-/*  f103de0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f103de4:	10000002 */ 	beqz	$zero,.L0f103df0
-/*  f103de8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f103dec:
-/*  f103dec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f103df0:
-/*  f103df0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f103df4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f103df8:	03e00008 */ 	jr	$ra
-/*  f103dfc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+//GLOBAL_ASM(
+//glabel menuhandlerSoloDifficulty
+///*  f103cf0:	27bdffe8 */ 	addiu	$sp,$sp,-24
+///*  f103cf4:	afa60020 */ 	sw	$a2,0x20($sp)
+///*  f103cf8:	24010006 */ 	addiu	$at,$zero,0x6
+///*  f103cfc:	00a03025 */ 	or	$a2,$a1,$zero
+///*  f103d00:	afbf0014 */ 	sw	$ra,0x14($sp)
+///*  f103d04:	1081001c */ 	beq	$a0,$at,.L0f103d78
+///*  f103d08:	afa5001c */ 	sw	$a1,0x1c($sp)
+///*  f103d0c:	2401000c */ 	addiu	$at,$zero,0xc
+///*  f103d10:	1081002e */ 	beq	$a0,$at,.L0f103dcc
+///*  f103d14:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
+///*  f103d18:	2401000f */ 	addiu	$at,$zero,0xf
+///*  f103d1c:	14810033 */ 	bne	$a0,$at,.L0f103dec
+///*  f103d20:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
+///*  f103d24:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
+///*  f103d28:	90a50001 */ 	lbu	$a1,0x1($a1)
+///*  f103d2c:	afa6001c */ 	sw	$a2,0x1c($sp)
+///*  f103d30:	0fc40e3b */ 	jal	isStageDifficultyUnlocked
+///*  f103d34:	90440002 */ 	lbu	$a0,0x2($v0)
+///*  f103d38:	1040002c */ 	beqz	$v0,.L0f103dec
+///*  f103d3c:	8fa6001c */ 	lw	$a2,0x1c($sp)
+///*  f103d40:	8cce000c */ 	lw	$t6,0xc($a2)
+///*  f103d44:	3c0f800a */ 	lui	$t7,0x800a
+///*  f103d48:	15c00003 */ 	bnez	$t6,.L0f103d58
+///*  f103d4c:	00000000 */ 	sll	$zero,$zero,0x0
+///*  f103d50:	10000027 */ 	beqz	$zero,.L0f103df0
+///*  f103d54:	24020001 */ 	addiu	$v0,$zero,0x1
+//.L0f103d58:
+///*  f103d58:	8def2208 */ 	lw	$t7,0x2208($t7)
+///*  f103d5c:	90d90001 */ 	lbu	$t9,0x1($a2)
+///*  f103d60:	31f80007 */ 	andi	$t8,$t7,0x7
+///*  f103d64:	0319082b */ 	sltu	$at,$t8,$t9
+///*  f103d68:	54200021 */ 	bnezl	$at,.L0f103df0
+///*  f103d6c:	00001025 */ 	or	$v0,$zero,$zero
+///*  f103d70:	1000001f */ 	beqz	$zero,.L0f103df0
+///*  f103d74:	24020001 */ 	addiu	$v0,$zero,0x1
+//.L0f103d78:
+///*  f103d78:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
+///*  f103d7c:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
+///*  f103d80:	90480000 */ 	lbu	$t0,0x0($v0)                      # t0 = config.difficulty (byte)
+///*  f103d84:	310efffe */ 	andi	$t6,$t0,0xfffe                # t6 = config.difficulty & 0xfe
+///*  f103d88:	a04e0000 */ 	sb	$t6,0x0($v0)                      # config.difficulty = t6
+///*  f103d8c:	90cb0001 */ 	lbu	$t3,0x1($a2)
+///*  f103d90:	31cf0001 */ 	andi	$t7,$t6,0x1
+///*  f103d94:	000b6840 */ 	sll	$t5,$t3,0x1
+///*  f103d98:	01afc025 */ 	or	$t8,$t5,$t7
+///*  f103d9c:	a0580000 */ 	sb	$t8,0x0($v0)
+///*  f103da0:	8c440000 */ 	lw	$a0,0x0($v0)
+///*  f103da4:	0004ce42 */ 	srl	$t9,$a0,0x19
+///*  f103da8:	0fc5b36a */ 	jal	setDifficulty
+///*  f103dac:	03202025 */ 	or	$a0,$t9,$zero
+///*  f103db0:	0fc3cdb7 */ 	jal	func0f0f36dc
+///*  f103db4:	00000000 */ 	sll	$zero,$zero,0x0
+///*  f103db8:	3c048007 */ 	lui	$a0,%hi(g_ObjectivesMenuDialog)
+///*  f103dbc:	0fc3cbd3 */ 	jal	menuPushDialog
+///*  f103dc0:	24841a90 */ 	addiu	$a0,$a0,%lo(g_ObjectivesMenuDialog)
+///*  f103dc4:	1000000a */ 	beqz	$zero,.L0f103df0
+///*  f103dc8:	00001025 */ 	or	$v0,$zero,$zero
+//.L0f103dcc:
+///*  f103dcc:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
+///*  f103dd0:	90440002 */ 	lbu	$a0,0x2($v0)
+///*  f103dd4:	0fc40e3b */ 	jal	isStageDifficultyUnlocked
+///*  f103dd8:	90c50001 */ 	lbu	$a1,0x1($a2)
+///*  f103ddc:	54400004 */ 	bnezl	$v0,.L0f103df0
+///*  f103de0:	00001025 */ 	or	$v0,$zero,$zero
+///*  f103de4:	10000002 */ 	beqz	$zero,.L0f103df0
+///*  f103de8:	24020001 */ 	addiu	$v0,$zero,0x1
+//.L0f103dec:
+///*  f103dec:	00001025 */ 	or	$v0,$zero,$zero
+//.L0f103df0:
+///*  f103df0:	8fbf0014 */ 	lw	$ra,0x14($sp)
+///*  f103df4:	27bd0018 */ 	addiu	$sp,$sp,0x18
+///*  f103df8:	03e00008 */ 	jr	$ra
+///*  f103dfc:	00000000 */ 	sll	$zero,$zero,0x0
+//);
+
+s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_15:
+		if (isStageDifficultyUnlocked(g_MissionConfig.unk02, item->param)) {
+			if (item->right == 0) {
+				return true;
+			}
+			if ((g_SoloSaveFile.unk08 & 7) >= item->param) {
+				return true;
+			}
+		}
+		break;
+	case MENUOP_SET:
+		g_MissionConfig.bits0_07 = 0;
+		g_MissionConfig.difficulty = item->param;
+		setDifficulty(g_MissionConfig.difficulty);
+		func0f0f36dc();
+		menuPushDialog(&g_ObjectivesMenuDialog);
+		break;
+	case MENUOP_CHECKDISABLED:
+		if (!isStageDifficultyUnlocked(g_MissionConfig.unk02, item->param)) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerPdMode
@@ -1874,7 +1903,7 @@ glabel menuhandlerPdMode
 /*  f103e28:	00001025 */ 	or	$v0,$zero,$zero
 .L0f103e2c:
 /*  f103e2c:	3c048007 */ 	lui	$a0,%hi(menudialog_perfectdarkmodesettings)
-/*  f103e30:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f103e30:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f103e34:	24841b48 */ 	addiu	$a0,$a0,%lo(menudialog_perfectdarkmodesettings)
 /*  f103e38:	10000007 */ 	beqz	$zero,.L0f103e58
 /*  f103e3c:	00001025 */ 	or	$v0,$zero,$zero
@@ -2041,7 +2070,7 @@ glabel menuhandler00104038
 /*  f104054:	0fc3cdb7 */ 	jal	func0f0f36dc
 /*  f104058:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10405c:	3c048007 */ 	lui	$a0,%hi(g_ObjectivesMenuDialog)
-/*  f104060:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f104060:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f104064:	24841a90 */ 	addiu	$a0,$a0,%lo(g_ObjectivesMenuDialog)
 .L0f104068:
 /*  f104068:	8faf0018 */ 	lw	$t7,0x18($sp)
@@ -2453,14 +2482,14 @@ glabel menuhandler00104538
 /*  f1045a0:	0fc3cdb7 */ 	jal	func0f0f36dc
 /*  f1045a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1045a8:	3c048007 */ 	lui	$a0,%hi(menudialog_cooperativeoptions)
-/*  f1045ac:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f1045ac:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f1045b0:	24841ca4 */ 	addiu	$a0,$a0,%lo(menudialog_cooperativeoptions)
 /*  f1045b4:	1000000a */ 	beqz	$zero,.L0f1045e0
 /*  f1045b8:	00001025 */ 	or	$v0,$zero,$zero
 .L0f1045bc:
 /*  f1045bc:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
 /*  f1045c0:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f1045c4:	0fc40e3b */ 	jal	func0f1038ec
+/*  f1045c4:	0fc40e3b */ 	jal	isStageDifficultyUnlocked
 /*  f1045c8:	90c50001 */ 	lbu	$a1,0x1($a2)
 /*  f1045cc:	54400004 */ 	bnezl	$v0,.L0f1045e0
 /*  f1045d0:	00001025 */ 	or	$v0,$zero,$zero
@@ -2498,7 +2527,7 @@ glabel menuhandler001045f0
 /*  f10463c:	0fc3cdb7 */ 	jal	func0f0f36dc
 /*  f104640:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f104644:	3c048007 */ 	lui	$a0,%hi(menudialog_counteroperativeoptions)
-/*  f104648:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f104648:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f10464c:	24841d34 */ 	addiu	$a0,$a0,%lo(menudialog_counteroperativeoptions)
 .L0f104650:
 /*  f104650:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -2756,7 +2785,7 @@ glabel menuhandler0010476c
 /*  f1049c0:	05e10006 */ 	bgez	$t7,.L0f1049dc
 /*  f1049c4:	a1180001 */ 	sb	$t8,0x1($t0)
 /*  f1049c8:	3c048007 */ 	lui	$a0,%hi(menudialog_selectdifficulty2)
-/*  f1049cc:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f1049cc:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f1049d0:	24841dc4 */ 	addiu	$a0,$a0,%lo(menudialog_selectdifficulty2)
 /*  f1049d4:	100002ec */ 	beqz	$zero,.L0f105588
 /*  f1049d8:	00001025 */ 	or	$v0,$zero,$zero
@@ -2767,12 +2796,12 @@ glabel menuhandler0010476c
 /*  f1049e8:	07210006 */ 	bgez	$t9,.L0f104a04
 /*  f1049ec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1049f0:	3c048007 */ 	lui	$a0,%hi(menudialog_selectdifficulty3)
-/*  f1049f4:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f1049f4:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f1049f8:	24841e54 */ 	addiu	$a0,$a0,%lo(menudialog_selectdifficulty3)
 /*  f1049fc:	100002e2 */ 	beqz	$zero,.L0f105588
 /*  f104a00:	00001025 */ 	or	$v0,$zero,$zero
 .L0f104a04:
-/*  f104a04:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f104a04:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f104a08:	24841c00 */ 	addiu	$a0,$a0,%lo(menudialog_selectdifficulty)
 /*  f104a0c:	100002de */ 	beqz	$zero,.L0f105588
 /*  f104a10:	00001025 */ 	or	$v0,$zero,$zero
@@ -3659,9 +3688,9 @@ s32 menuhandlerControlStyle(s32 operation, struct menu_item *item, u32 *value)
 				(g_Vars.players[1] ? 1 : 0) +
 				(g_Vars.players[2] ? 1 : 0) +
 				(g_Vars.players[3] ? 1 : 0) >= 2) {
-			func0f0f2f4c(&menudialog_control);
+			menuPushDialog(&menudialog_control);
 		} else {
-			func0f0f2f4c(&menudialog_control2);
+			menuPushDialog(&menudialog_control2);
 		}
 	}
 
@@ -4841,14 +4870,14 @@ glabel menuhandlerMainMenuSoloMissions
 /*  f106834:	a0580003 */ 	sb	$t8,0x3($v0)
 /*  f106838:	331900bf */ 	andi	$t9,$t8,0xbf
 /*  f10683c:	a0590003 */ 	sb	$t9,0x3($v0)
-/*  f106840:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f106840:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f106844:	afa50018 */ 	sw	$a1,0x18($sp)
 /*  f106848:	8fa50018 */ 	lw	$a1,0x18($sp)
 .L0f10684c:
 /*  f10684c:	2401000f */ 	addiu	$at,$zero,0xf
 /*  f106850:	14a10007 */ 	bne	$a1,$at,.L0f106870
 /*  f106854:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f106858:	0fc40e3b */ 	jal	func0f1038ec
+/*  f106858:	0fc40e3b */ 	jal	isStageDifficultyUnlocked
 /*  f10685c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f106860:	50400004 */ 	beqzl	$v0,.L0f106874
 /*  f106864:	00001025 */ 	or	$v0,$zero,$zero
@@ -4912,7 +4941,7 @@ glabel menuhandlerMainMenuCooperative
 /*  f106920:	35f90080 */ 	ori	$t9,$t7,0x80
 /*  f106924:	a0590003 */ 	sb	$t9,0x3($v0)
 /*  f106928:	332800bf */ 	andi	$t0,$t9,0xbf
-/*  f10692c:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f10692c:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f106930:	a0480003 */ 	sb	$t0,0x3($v0)
 .L0f106934:
 /*  f106934:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -4948,7 +4977,7 @@ glabel menuhandlerMainMenuCounterOperative
 /*  f106998:	31e8ff7f */ 	andi	$t0,$t7,0xff7f
 /*  f10699c:	a0480003 */ 	sb	$t0,0x3($v0)
 /*  f1069a0:	35090040 */ 	ori	$t1,$t0,0x40
-/*  f1069a4:	0fc3cbd3 */ 	jal	func0f0f2f4c
+/*  f1069a4:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f1069a8:	a0490003 */ 	sb	$t1,0x3($v0)
 .L0f1069ac:
 /*  f1069ac:	00001025 */ 	or	$v0,$zero,$zero
