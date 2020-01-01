@@ -7558,7 +7558,7 @@ glabel menuhandlerMpDeleteSimulant
 /*  f17cf90:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f17cf94:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f17cf98:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f17cf9c:	0fc632ff */ 	jal	func0f18cbfc
+/*  f17cf9c:	0fc632ff */ 	jal	mpRemoveSimulant
 /*  f17cfa0:	8c84ee1c */ 	lw	$a0,-0x11e4($a0)
 /*  f17cfa4:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f17cfa8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -7685,32 +7685,17 @@ glabel menuhandlerMpChangeSimulantType
 /*  f17d158:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpClearAllSimulants
-/*  f17d15c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17d160:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17d164:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f17d168:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f17d16c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f17d170:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f17d174:	14810008 */ 	bne	$a0,$at,.L0f17d198
-/*  f17d178:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f17d17c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f17d180:	24110008 */ 	addiu	$s1,$zero,0x8
-.L0f17d184:
-/*  f17d184:	0fc632ff */ 	jal	func0f18cbfc
-/*  f17d188:	02002025 */ 	or	$a0,$s0,$zero
-/*  f17d18c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f17d190:	1611fffc */ 	bne	$s0,$s1,.L0f17d184
-/*  f17d194:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17d198:
-/*  f17d198:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f17d19c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f17d1a0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f17d1a4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f17d1a8:	03e00008 */ 	jr	$ra
-/*  f17d1ac:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 menuhandlerMpClearAllSimulants(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		s32 i;
+		for (i = 0; i < 8; i++) {
+			mpRemoveSimulant(i);
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMpAddSimulant
@@ -10008,7 +9993,7 @@ glabel func0f17f100
 /*  f17f118:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f17f11c:	00008025 */ 	or	$s0,$zero,$zero
 .L0f17f120:
-/*  f17f120:	0fc632ff */ 	jal	func0f18cbfc
+/*  f17f120:	0fc632ff */ 	jal	mpRemoveSimulant
 /*  f17f124:	02002025 */ 	or	$a0,$s0,$zero
 /*  f17f128:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f17f12c:	2a010008 */ 	slti	$at,$s0,0x8

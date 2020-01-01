@@ -6494,7 +6494,7 @@ glabel func0f18cbb8
 );
 
 GLOBAL_ASM(
-glabel func0f18cbfc
+glabel mpRemoveSimulant
 /*  f18cbfc:	3c02800b */ 	lui	$v0,%hi(g_MpSetup)
 /*  f18cc00:	2442cb88 */ 	addiu	$v0,$v0,%lo(g_MpSetup)
 /*  f18cc04:	00045080 */ 	sll	$t2,$a0,0x2

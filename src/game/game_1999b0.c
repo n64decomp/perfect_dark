@@ -2044,7 +2044,7 @@ glabel func0f19afdc
 /*  f19b4d8:	01e84824 */ 	and	$t1,$t7,$t0
 /*  f19b4dc:	51200004 */ 	beqzl	$t1,.L0f19b4f0
 /*  f19b4e0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19b4e4:	0fc632ff */ 	jal	func0f18cbfc
+/*  f19b4e4:	0fc632ff */ 	jal	mpRemoveSimulant
 /*  f19b4e8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f19b4ec:	26100001 */ 	addiu	$s0,$s0,0x1
 .L0f19b4f0:
