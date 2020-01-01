@@ -230,7 +230,7 @@ s32 menuhandlerMpControlStyle(u32, u32, u32 *);
 s32 menuhandlerMpDeleteSimulant(u32, u32, u32 *);
 s32 menuhandlerMpDisplayTeam(u32, u32, u32 *);
 s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMpFinishedSetup(u32, u32, u32 *);
+s32 menuhandlerMpFinishedSetup(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpFourTeams(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpHandicapPlayer(u32, u32, u32 *);
 s32 menuhandlerMpHumanSimulantPairs(u32, u32, u32 *);

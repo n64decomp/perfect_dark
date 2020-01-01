@@ -10292,29 +10292,18 @@ glabel func0f17f428
 /*  f17f47c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpFinishedSetup
-/*  f17f480:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17f484:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f17f488:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17f48c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17f490:	14810003 */ 	bne	$a0,$at,.L0f17f4a0
-/*  f17f494:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17f498:	10000007 */ 	beqz	$zero,.L0f17f4b8
-/*  f17f49c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f17f4a0:
-/*  f17f4a0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17f4a4:	54810004 */ 	bnel	$a0,$at,.L0f17f4b8
-/*  f17f4a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17f4ac:	0fc5fd0a */ 	jal	func0f17f428
-/*  f17f4b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17f4b4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17f4b8:
-/*  f17f4b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17f4bc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17f4c0:	03e00008 */ 	jr	$ra
-/*  f17f4c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpFinishedSetup(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKPREFOCUSED) {
+		return true;
+	}
+
+	if (operation == MENUOP_SET) {
+		func0f17f428();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler0017f4c8
