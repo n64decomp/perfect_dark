@@ -8192,41 +8192,20 @@ glabel func0f17d4b0
 /*  f17d75c:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpTwoTeams
-/*  f17d760:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17d764:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17d768:	0fc5f52c */ 	jal	func0f17d4b0
-/*  f17d76c:	24070002 */ 	addiu	$a3,$zero,0x2
-/*  f17d770:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17d774:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17d778:	03e00008 */ 	jr	$ra
-/*  f17d77c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpTwoTeams(u32 operation, struct menu_item *item, s32 *value)
+{
+	return func0f17d4b0(operation, item, value, 2);
+}
 
-GLOBAL_ASM(
-glabel menuhandlerMpThreeTeams
-/*  f17d780:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17d784:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17d788:	0fc5f52c */ 	jal	func0f17d4b0
-/*  f17d78c:	24070003 */ 	addiu	$a3,$zero,0x3
-/*  f17d790:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17d794:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17d798:	03e00008 */ 	jr	$ra
-/*  f17d79c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpThreeTeams(u32 operation, struct menu_item *item, s32 *value)
+{
+	return func0f17d4b0(operation, item, value, 3);
+}
 
-GLOBAL_ASM(
-glabel menuhandlerMpFourTeams
-/*  f17d7a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17d7a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17d7a8:	0fc5f52c */ 	jal	func0f17d4b0
-/*  f17d7ac:	24070004 */ 	addiu	$a3,$zero,0x4
-/*  f17d7b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17d7b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17d7b8:	03e00008 */ 	jr	$ra
-/*  f17d7bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpFourTeams(u32 operation, struct menu_item *item, s32 *value)
+{
+	return func0f17d4b0(operation, item, value, 4);
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMpMaximumTeams
