@@ -2,6 +2,8 @@
 #include "game/chr/chraicommands.h"
 #include "game/game_000000.h"
 #include "game/game_0601b0.h"
+#include "game/game_015470.h"
+#include "game/game_0dcdb0.h"
 #include "setup/setup_000000.h"
 #include "stagesetup.h"
 #include "types.h"
@@ -6744,8 +6746,8 @@ u32 var8006113c = 0x7ecd7ed4;
 u32 var80061140 = 0x7edb7ee1;
 u32 var80061144 = 0x7ee87eee;
 u32 var80061148 = 0x7ef57efb;
-u32 var8006114c = 0x7f017f08;
-u32 var80061150 = 0x7f0e7f14;
+u32 var8006114c = (u32)&func0f017f08;
+u32 var80061150 = (u32)&func0f0e7f14;
 u32 var80061154 = 0x7f1a7f20;
 u32 var80061158 = 0x7f257f2b;
 u32 var8006115c = 0x7f317f36;

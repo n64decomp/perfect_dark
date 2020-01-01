@@ -1409,7 +1409,7 @@ u16 savelocations[] = {
 
 // 176ec
 struct menu_item menuitems_damagedcontrollerpak[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, 0x7f0fcfb8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f0fcfb8, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, 0x00005441, 0x00000000, NULL }, // "is damaged or"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, 0x00005442, 0x00000000, NULL }, // "inserted incorrectly"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
@@ -1431,7 +1431,7 @@ struct menu_dialog menudialog_damagedcontrollerpak = {
 
 // 177a4
 struct menu_item menuitems_fullcontrollerpak[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, 0x7f0fcfb8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f0fcfb8, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000210, 0x00005447, 0x00000000, NULL }, // "is too full to save note - 1 note and 28 pages required to save"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000220, 0x00005603, 0x00000000, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x02000210, 0x00005448, 0x00000000, NULL }, // "Enter the Controller Pak Menu to free some space (hold START while powering up.)"
@@ -1470,7 +1470,7 @@ struct menu_dialog menudialog_cannotreadgameboy = {
 
 // 178b0
 struct menu_item menuitems_datalost[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, 0x7f0fcfb8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f0fcfb8, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, 0x00005501, 0x00000000, NULL }, // "The saved data has"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, 0x00005502, 0x00000000, NULL }, // "been erased due to"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, 0x00005503, 0x00000000, NULL }, // "corruption or damage."
@@ -1609,7 +1609,7 @@ struct menu_item menuitems_objectives[] = {
 // 17ab0
 struct menu_dialog g_ObjectivesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x7f103550,
+	(u32)&func0f103550,
 	menuitems_objectives,
 	menudialog00103608,
 	0x0000000c,
@@ -1641,9 +1641,9 @@ struct menu_dialog g_PdModeSettingsDialog = {
 // 17b80
 struct menu_item menuitems_selectdifficulty[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, 0x000056f9, 0x000056fa, NULL }, // "Difficulty"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056fb, 0x7f103e68, menuhandlerSoloDifficulty }, // "Agent"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x000056fc, 0x7f103e68, menuhandlerSoloDifficulty }, // "Special Agent"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x000056fd, 0x7f103e68, menuhandlerSoloDifficulty }, // "Perfect Agent"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056fb, (u32)&func0f103e68, menuhandlerSoloDifficulty }, // "Agent"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x000056fc, (u32)&func0f103e68, menuhandlerSoloDifficulty }, // "Special Agent"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x000056fd, (u32)&func0f103e68, menuhandlerSoloDifficulty }, // "Perfect Agent"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054dd, 0x00000000, menuhandlerPdMode }, // "Perfect Dark"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000056fe, 0x00000000, NULL }, // "Cancel"
@@ -2083,7 +2083,7 @@ struct menu_dialog menudialog_displayplayer2 = {
 
 // 1885c
 struct menu_item menuitems_controloptions[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056c2, 0x7f105664, menuhandlerControlStyle }, // "Control Style"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056c2, (u32)&func0f105664, menuhandlerControlStyle }, // "Control Style"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c3, 0x00000004, menuhandlerReversePitch }, // "Reverse Pitch"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c4, 0x00000004, menuhandlerLookAhead }, // "Look Ahead"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c5, 0x00000004, menuhandlerHeadRoll }, // "Head Roll"
@@ -2106,7 +2106,7 @@ struct menu_dialog menudialog_controloptions = {
 
 // 18928
 struct menu_item menuitems_18928[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056c2, 0x7f105664, &menudialog_control3 }, // "Control Style"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056c2, (u32)&func0f105664, &menudialog_control3 }, // "Control Style"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c3, 0x00000004, menuhandlerReversePitch }, // "Reverse Pitch"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c4, 0x00000004, menuhandlerLookAhead }, // "Look Ahead"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c5, 0x00000004, menuhandlerHeadRoll }, // "Head Roll"
@@ -2131,7 +2131,7 @@ struct menu_dialog menudialog_189dc = {
 
 // 189f4
 struct menu_item menuitems_189f4[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056c2, 0x7f1056a0, &menudialog_control4 },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056c2, (u32)&func0f1056a0, &menudialog_control4 },
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c3, 0x00000005, menuhandlerReversePitch },
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c4, 0x00000005, menuhandlerLookAhead },
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000056c5, 0x00000005, menuhandlerHeadRoll },
@@ -2186,7 +2186,7 @@ struct menu_item menuitems_18b8c[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056b7, 0x00000000, &menudialog_controloptions }, // "Control"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056b8, 0x00000000, &menudialog_displayoptions }, // "Display"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000064, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x7f1782b8, 0x00000000, menuhandler001781ac },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&func0f1782b8, 0x00000000, menuhandler001781ac },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2197,7 +2197,7 @@ struct menu_item menuitems_18c18[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056b7, 0x00000000, &menudialog_controloptions }, // "Control"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056b8, 0x00000000, &menudialog_displayoptionsshort }, // "Display"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000064, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x7f1782b8, 0x00000000, menuhandler001781ac },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&func0f1782b8, 0x00000000, menuhandler001781ac },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2672,24 +2672,24 @@ u32 var800733d0 = 0x69380000;
 // 193f4
 struct menu_item menuitems_inventory[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106178 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000203, 0x00005603, 0x7f105e04, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, 0x00000302, 0x00005603, 0x7f105d9c, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000203, 0x00005603, (u32)&func0f105e04, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000302, 0x00005603, (u32)&func0f105d9c, NULL }, // ""
 	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000202, 0x00005603, 0x7f105864, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, 0x00000202, 0x00005603, 0x7f1058d0, NULL }, // ""
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, 0x7f105e80, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000202, 0x00005603, (u32)&func0f105864, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000202, 0x00005603, (u32)&func0f1058d0, NULL }, // ""
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f105e80, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 19494
 struct menu_item menuitems_weaponsavailable[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106028 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000213, 0x00005603, 0x7f105e04, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, 0x00000312, 0x00005603, 0x7f105d9c, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000213, 0x00005603, (u32)&func0f105e04, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000312, 0x00005603, (u32)&func0f105d9c, NULL }, // ""
 	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000212, 0x00005603, 0x7f105864, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, 0x00000212, 0x00005603, 0x7f1058d0, NULL }, // ""
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, 0x7f105e80, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000212, 0x00005603, (u32)&func0f105864, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000212, 0x00005603, (u32)&func0f1058d0, NULL }, // ""
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f105e80, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2768,7 +2768,7 @@ struct menu_item menuitems_19674[] = {
 // 196b0
 struct menu_dialog menudialog_196b0 = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x7f106508,
+	(u32)&func0f106508,
 	menuitems_19674,
 	menudialog001063e4,
 	0x00000048,
@@ -2778,7 +2778,7 @@ struct menu_dialog menudialog_196b0 = {
 // 196c8
 struct menu_dialog menudialog_196c8 = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x7f106508,
+	(u32)&func0f106508,
 	menuitems_19674,
 	menudialog001063e4,
 	0x00000048,
@@ -2929,10 +2929,10 @@ u16 mainmenulabels_withcheats[] = {
 // 199f0
 struct menu_item menuitems_mainmenu[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400008, 0x000059be, 0x00000001, NULL }, // "Carrington Institute"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, 0x7f106a7c, 0x00000002, menuhandlerMainMenuSoloMissions },
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, 0x7f106a7c, 0x00000003, menuhandlerMainMenuCombatSimulator },
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, 0x7f106a7c, 0x00000004, menuhandlerMainMenuCooperative },
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, 0x7f106a7c, 0x00000005, menuhandlerMainMenuCounterOperative },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, (u32)&func0f106a7c, 0x00000002, menuhandlerMainMenuSoloMissions },
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, (u32)&func0f106a7c, 0x00000003, menuhandlerMainMenuCombatSimulator },
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, (u32)&func0f106a7c, 0x00000004, menuhandlerMainMenuCooperative },
+	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, (u32)&func0f106a7c, 0x00000005, menuhandlerMainMenuCounterOperative },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056bb, 0x00000006, &menudialog_changeagent }, // "Change Agent..."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -3228,8 +3228,8 @@ u16 iomessages[] = {
 
 // 1a3c0
 struct menu_item menuitems_1a3c0[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x7f108550, 0x00000000, menuhandler001084b8 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x7f108424, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108550, 0x00000000, menuhandler001084b8 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108424, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x00005741, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -3295,7 +3295,7 @@ struct menu_dialog menudialog_filesaved = {
 
 // 1a4a4
 struct menu_item menuitems_saveerror[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x7f108078, 0x00000000, menuhandler00108014 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108078, 0x00000000, menuhandler00108014 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x0000575c, 0x00000000, NULL }, // "An error occurred while trying to save"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000575d, 0x00000000, menuhandler00108bf0 }, // "Try Again"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000575e, 0x00000000, menuhandlerSaveElsewhere }, // "Save Elsewhere"
@@ -3306,7 +3306,7 @@ struct menu_item menuitems_saveerror[] = {
 // 1a51c
 struct menu_dialog menudialog_saveerror = {
 	MENUDIALOGTYPE_DANGER,
-	0x7f10876c,
+	(u32)&func0f10876c,
 	menuitems_saveerror,
 	NULL,
 	0x000000a0,
@@ -3315,7 +3315,7 @@ struct menu_dialog menudialog_saveerror = {
 
 // 1a534
 struct menu_item menuitems_savelost[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x7f108078, 0x00000000, menuhandler00108014 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108078, 0x00000000, menuhandler00108014 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000054fb, 0x00000000, NULL }, // "The saved file has been erased due to corruption or damage."
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005762, 0x00000000, menuhandler00108d48 }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -3324,7 +3324,7 @@ struct menu_item menuitems_savelost[] = {
 // 1a584
 struct menu_dialog menudialog_savelost = {
 	MENUDIALOGTYPE_DANGER,
-	0x7f10876c,
+	(u32)&func0f10876c,
 	menuitems_savelost,
 	NULL,
 	0x000000a0,
@@ -3351,7 +3351,7 @@ struct menu_dialog menudialog_saveelsewhere = {
 
 // 1a604
 struct menu_item menuitems_1a604[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x7f108f90, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108f90, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000576d, 0x00000000, menuhandler00108ecc }, // "OK"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000576e, 0x00000000, menuhandler00108f08 }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -3360,7 +3360,7 @@ struct menu_item menuitems_1a604[] = {
 // 1a654
 struct menu_dialog menudialog_1a654 = {
 	MENUDIALOGTYPE_DANGER,
-	0x7f10876c,
+	(u32)&func0f10876c,
 	menuitems_1a604,
 	menudialog00108e58,
 	0x000000a0,
@@ -3393,10 +3393,10 @@ struct menu_dialog menudialog_changefilename = {
 
 // 1a6d8
 struct menu_item menuitems_duplicatefilename[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, 0x7f10a19c, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f10a19c, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, 0x000054e9, 0x00000000, NULL }, // "already contains"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, 0x000054ea, 0x00000000, NULL }, // "a file named"
-	{ MENUITEMTYPE_LABEL,       0, 0x02000030, 0x7f10a1ec, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, (u32)&func0f10a1ec, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054eb, 0x00000000, menuhandler0010a120 }, // "Rename File"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000054ec, 0x00000000, NULL }, // "Change Location"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054ed, 0x00000000, menuhandler0010a160 }, // "Cancel"
@@ -3427,11 +3427,11 @@ u16 savelocations3[] = {
 struct menu_item menuitems_selectlocation[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x00005770, 0x00005771, NULL }, // "Where", "Spaces"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  4, 0x00000000, 0x7f10a22c, 0x7f10a2ec, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x7f10a22c, 0x7f10a2ec, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x7f10a22c, 0x7f10a2ec, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x7f10a22c, 0x7f10a2ec, menuhandlerSaveLocation },
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, 0x7f10a22c, 0x7f10a2ec, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  4, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
+	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005772, 0x00000000, menuhandler0010a488 }, // "Delete Files..."
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005773, 0x00000000, menuhandler0010a454 }, // "Cancel"
@@ -3450,8 +3450,8 @@ struct menu_dialog menudialog_selectlocation = {
 
 // 1a890
 struct menu_item menuitems_confirmdelete[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, 0x7f1082b0, 0x00000000, menuhandler00108254 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000230, 0x7f108078, 0x00000000, menuhandler00108014 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f1082b0, 0x00000000, menuhandler00108254 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&func0f108078, 0x00000000, menuhandler00108014 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x0000577c, 0x00000000, NULL }, // "Are you sure you want to delete this file?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x0000577d, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000577e, 0x00000000, menuhandler0010a5ac }, // "OK"
@@ -3470,9 +3470,9 @@ struct menu_dialog menudialog_confirmdelete = {
 
 // 1a920
 struct menu_item menuitems_1a920[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, 0x7f1082b0, 0x00000000, menuhandler00108254 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000230, 0x7f108078, 0x00000000, menuhandler00108014 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x7f10a5e8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f1082b0, 0x00000000, menuhandler00108254 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&func0f108078, 0x00000000, menuhandler00108014 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f10a5e8, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x000054a1, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -3545,12 +3545,12 @@ struct menu_dialog menudialog_deletegamenote = {
 
 // 1aad8
 struct menu_item menuitems_gamenotes[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x00005784, 0x7f10b924, NULL }, // "Delete Game Notes:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x00005784, (u32)&func0f10b924, NULL }, // "Delete Game Notes:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x0000010e, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x00005785, 0x00005786, NULL }, // "Note", "Pages"
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x000000c8, 0x0000006e, menucustomDeleteGameNote },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x7f10b75c, 0x7f10b7cc, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x7f10b83c, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f10b75c, (u32)&func0f10b7cc, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f10b83c, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000030, 0x00005787, 0x00000000, NULL }, // "Press the B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -3717,13 +3717,13 @@ struct menu_dialog menudialog_1b00c = {
 
 // 1b024
 struct menu_item menuitems_mpplayersetup[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501e, 0x7f17909c, &menudialog_mpplayername }, // "Name"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501e, (u32)&func0f17909c, &menudialog_mpplayername }, // "Name"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005021, 0x00000000, &menudialog_mpcontrol }, // "Control"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005022, 0x00000000, &menudialog_mpoptions }, // "Player Options"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005023, 0x00000000, &menudialog_mpplayerstats }, // "Statistics"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501d, 0x00000000, &menudialog_mploadplayer }, // "Load Player"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x7f17eed4, 0x00000000, menuhandler0017ee60 },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&func0f17eed4, 0x00000000, menuhandler0017ee60 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -3770,7 +3770,7 @@ struct menu_item menuitems_1b158[] = {
 // 1b1bc
 struct menu_dialog menudialog_1b1bc = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x7f17e318,
+	(u32)&func0f17e318,
 	menuitems_1b158,
 	menudialog0017e3fc,
 	0x00000000,
@@ -3864,7 +3864,7 @@ struct menu_item menuitems_1b39c[] = {
 // 1b414
 struct menu_dialog menudialog_1b414 = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x7f17cfc0,
+	(u32)&func0f17cfc0,
 	menuitems_1b39c,
 	menudialog0017c618,
 	0x00000010,
@@ -3873,9 +3873,9 @@ struct menu_dialog menudialog_1b414 = {
 
 // 1b42c
 struct menu_item menuitems_mpgamesetup[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, 0x00005013, 0x7f184fb0, &menudialog_mpscenario }, // "Scenario"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, 0x00005013, (u32)&func0f184fb0, &menudialog_mpscenario }, // "Scenario"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005015, 0x00000000, menuhandlerMpOpenOptions }, // "Options"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005014, 0x7f17f024, &menudialog_mparena }, // "Arena"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005014, (u32)&func0f17f024, &menudialog_mparena }, // "Arena"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, 0x0000502c, 0x00000000, menuhandlerMpLock }, // "Lock"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005017, 0x00000000, &menudialog_mpweapons }, // "Weapons"
@@ -3911,7 +3911,7 @@ struct menu_item menuitems_1b570[] = {
 // 1b5c0
 struct menu_dialog menudialog_1b5c0 = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x7f10ce74,
+	(u32)&func0f10ce74,
 	menuitems_1b570,
 	menudialog0010cd0c,
 	0x0000000c,
@@ -3931,7 +3931,7 @@ struct menu_item menuitems_promptnextmission[] = {
 // 1b650
 struct menu_dialog menudialog_promptnextmission = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x7f10cf2c,
+	(u32)&func0f10cf2c,
 	menuitems_promptnextmission,
 	menudialog0010cd0c,
 	0x0000000c,
@@ -4004,7 +4004,7 @@ struct menu_item menuitems_1b768[] = {
 // 1b7a4
 struct menu_dialog menudialog_1b7a4 = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x7f10d61c,
+	(u32)&func0f10d61c,
 	menuitems_1b768,
 	NULL,
 	0x00000004,
@@ -4014,25 +4014,25 @@ struct menu_dialog menudialog_1b7a4 = {
 // 1b7bc
 struct menu_item menuitems_1b7bc[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005716, 0x00000000, NULL }, // "Mission Status:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, 0x7f10d2e0, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f10d2e0, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005717, 0x00000000, NULL }, // "Agent Status:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, 0x7f10d4d4, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f10d4d4, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005718, 0x00000000, NULL }, // "Mission Time:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, 0x7f10d6e4, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f10d6e4, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005481, 0x00000000, NULL }, // "Difficulty"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)menutextDifficulty, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005719, 0x00000000, NULL }, // "Weapon of Choice:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, 0x7f178450, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f178450, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571a, 0x7f10d044, NULL }, // "Kills:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571b, 0x7f10d1d0, NULL }, // "Accuracy:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571a, (u32)&func0f10d044, NULL }, // "Kills:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571b, (u32)&func0f10d1d0, NULL }, // "Accuracy:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571c, 0x7f10d080, NULL }, // "Shot Total:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000200, 0x0000571d, 0x7f10d0c0, NULL }, // "Head Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000200, 0x0000571e, 0x7f10d100, NULL }, // "Body Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000200, 0x0000571f, 0x7f10d140, NULL }, // "Limb Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000200, 0x00005720, 0x7f10d180, NULL }, // "Others:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571c, (u32)&func0f10d080, NULL }, // "Shot Total:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, 0x0000571d, (u32)&func0f10d0c0, NULL }, // "Head Shots:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, 0x0000571e, (u32)&func0f10d100, NULL }, // "Body Shots:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, 0x0000571f, (u32)&func0f10d140, NULL }, // "Limb Shots:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, 0x00005720, (u32)&func0f10d180, NULL }, // "Others:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005721, 0x00000000, NULL }, // "Press START"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -4042,25 +4042,25 @@ u32 var80075968 = 0xff7f7fff;
 
 // 1b98c
 struct menu_item menuitems_1b98c[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005716, 0x7f10d2e0, NULL }, // "Mission Status:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005717, 0x7f10d4d4, NULL }, // "Agent Status:"
-	{ MENUITEMTYPE_LABEL,       0, 0x01000000, 0x00005718, 0x7f10d6e4, menuhandler0010e064 }, // "Mission Time:"
-	{ MENUITEMTYPE_LABEL,       1, 0x01000000, 0x000054f2, 0x7f10e4d8, menuhandler0010e064 }, // "Target Time:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005716, (u32)&func0f10d2e0, NULL }, // "Mission Status:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005717, (u32)&func0f10d4d4, NULL }, // "Agent Status:"
+	{ MENUITEMTYPE_LABEL,       0, 0x01000000, 0x00005718, (u32)&func0f10d6e4, menuhandler0010e064 }, // "Mission Time:"
+	{ MENUITEMTYPE_LABEL,       1, 0x01000000, 0x000054f2, (u32)&func0f10e4d8, menuhandler0010e064 }, // "Target Time:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005481, (u32)&menutextDifficulty, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_SEPARATOR,   2, 0x00000000, 0x00000000, 0x00000000, menuhandler0010e064 },
 	{ MENUITEMTYPE_LABEL,       2, 0x00000000, 0x000054f3, 0x00000000, menuhandler0010e064 }, // "New Cheat Available!:"
-	{ MENUITEMTYPE_LABEL,       3, 0x01000020, 0x7f10e3fc, 0x00000000, menuhandler0010e064 },
-	{ MENUITEMTYPE_LABEL,       5, 0x01000020, 0x7f10e468, 0x00000000, menuhandler0010e064 },
+	{ MENUITEMTYPE_LABEL,       3, 0x01000020, (u32)&func0f10e3fc, 0x00000000, menuhandler0010e064 },
+	{ MENUITEMTYPE_LABEL,       5, 0x01000020, (u32)&func0f10e468, 0x00000000, menuhandler0010e064 },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005719, 0x7f178450, NULL }, // "Weapon of Choice"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571a, 0x7f10d044, NULL }, // "Kills:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571b, 0x7f10d1d0, NULL }, // "Accuracy:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005719, (u32)&func0f178450, NULL }, // "Weapon of Choice"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571a, (u32)&func0f10d044, NULL }, // "Kills:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571b, (u32)&func0f10d1d0, NULL }, // "Accuracy:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571c, 0x7f10d080, NULL }, // "Shot Total:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571d, 0x7f10d0c0, NULL }, // "Head Shots:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571e, 0x7f10d100, NULL }, // "Body Shots:"
-	{ MENUITEMTYPE_LABEL,       6, 0x00000000, 0x0000571f, 0x7f10d140, menuhandler0010e064 }, // "Limb Shots:"
-	{ MENUITEMTYPE_LABEL,       4, 0x00000000, 0x00005720, 0x7f10d180, menuhandler0010e064 }, // "Others:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571c, (u32)&func0f10d080, NULL }, // "Shot Total:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571d, (u32)&func0f10d0c0, NULL }, // "Head Shots:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000571e, (u32)&func0f10d100, NULL }, // "Body Shots:"
+	{ MENUITEMTYPE_LABEL,       6, 0x00000000, 0x0000571f, (u32)&func0f10d140, menuhandler0010e064 }, // "Limb Shots:"
+	{ MENUITEMTYPE_LABEL,       4, 0x00000000, 0x00005720, (u32)&func0f10d180, menuhandler0010e064 }, // "Others:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005721, 0x00000000, NULL }, // "Press START"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -4069,7 +4069,7 @@ struct menu_item menuitems_1b98c[] = {
 // 1bb44
 struct menu_dialog menudialog_1bb44 = {
 	MENUDIALOGTYPE_SUCCESS,
-	0x7f10d588,
+	(u32)&func0f10d588,
 	menuitems_1b98c,
 	menudialog0010dd28,
 	0x00000048,
@@ -4079,7 +4079,7 @@ struct menu_dialog menudialog_1bb44 = {
 // 1bb5c
 struct menu_dialog menudialog_1bb5c = {
 	MENUDIALOGTYPE_DANGER,
-	0x7f10d678,
+	(u32)&func0f10d678,
 	menuitems_1b98c,
 	menudialog0010de58,
 	0x00000048,
@@ -4089,7 +4089,7 @@ struct menu_dialog menudialog_1bb5c = {
 // 1bb74
 struct menu_dialog menudialog_1bb74 = {
 	MENUDIALOGTYPE_SUCCESS,
-	0x7f10d588,
+	(u32)&func0f10d588,
 	menuitems_1b98c,
 	menudialog0010dd28,
 	0x00000048,
@@ -4099,7 +4099,7 @@ struct menu_dialog menudialog_1bb74 = {
 // 1bb8c
 struct menu_dialog menudialog_1bb8c = {
 	MENUDIALOGTYPE_DANGER,
-	0x7f10d678,
+	(u32)&func0f10d678,
 	menuitems_1b98c,
 	menudialog0010de58,
 	0x00000048,
