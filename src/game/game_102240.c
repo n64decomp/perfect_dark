@@ -3582,42 +3582,21 @@ char *func0f105864(s32 arg0)
 	return textGet(0x5603); // "\n"
 }
 
-GLOBAL_ASM(
-glabel func0f1058d0
-/*  f1058d0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1058d4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f1058d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1058dc:	3c04800a */ 	lui	$a0,0x800a
-/*  f1058e0:	908421c0 */ 	lbu	$a0,0x21c0($a0)
-/*  f1058e4:	0fc2c401 */ 	jal	weaponGetFunctionById
-/*  f1058e8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1058ec:	3c04800a */ 	lui	$a0,0x800a
-/*  f1058f0:	908421c0 */ 	lbu	$a0,0x21c0($a0)
-/*  f1058f4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1058f8:	0fc2c401 */ 	jal	weaponGetFunctionById
-/*  f1058fc:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f105900:	10400005 */ 	beqz	$v0,.L0f105918
-/*  f105904:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f105908:	0fc5b9f1 */ 	jal	textGet
-/*  f10590c:	94440004 */ 	lhu	$a0,0x4($v0)
-/*  f105910:	1000000a */ 	beqz	$zero,.L0f10593c
-/*  f105914:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105918:
-/*  f105918:	10600005 */ 	beqz	$v1,.L0f105930
-/*  f10591c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f105920:	0fc5b9f1 */ 	jal	textGet
-/*  f105924:	94640004 */ 	lhu	$a0,0x4($v1)
-/*  f105928:	10000004 */ 	beqz	$zero,.L0f10593c
-/*  f10592c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105930:
-/*  f105930:	0fc5b9f1 */ 	jal	textGet
-/*  f105934:	24045603 */ 	addiu	$a0,$zero,0x5603
-/*  f105938:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10593c:
-/*  f10593c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f105940:	03e00008 */ 	jr	$ra
-/*  f105944:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *func0f1058d0(s32 arg0)
+{
+	struct inventory_function *primaryfunc = weaponGetFunctionById(var800a21c0, 0);
+	struct inventory_function *secondaryfunc = weaponGetFunctionById(var800a21c0, 1);
+
+	if (secondaryfunc) {
+		return textGet(secondaryfunc->name);
+	}
+
+	if (primaryfunc) {
+		return textGet(primaryfunc->name);
+	}
+
+	return textGet(0x5603); // "\n"
+}
 
 GLOBAL_ASM(
 glabel func0f105948
