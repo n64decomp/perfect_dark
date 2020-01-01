@@ -4290,26 +4290,15 @@ glabel menuhandler00106178
 /*  f106390:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00106394
-/*  f106394:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f106398:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10639c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1063a0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1063a4:	14810006 */ 	bne	$a0,$at,.L0f1063c0
-/*  f1063a8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1063ac:	3c0f800a */ 	lui	$t7,0x800a
-/*  f1063b0:	8defa244 */ 	lw	$t7,-0x5dbc($t7)
-/*  f1063b4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f1063b8:	0c0039a1 */ 	jal	func0000e684
-/*  f1063bc:	adee048c */ 	sw	$t6,0x48c($t7)
-.L0f1063c0:
-/*  f1063c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1063c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1063c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1063cc:	03e00008 */ 	jr	$ra
-/*  f1063d0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerAbortMission(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		g_Vars.currentplayer->aborted = true;
+		func0000e684();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menudialog001063d4

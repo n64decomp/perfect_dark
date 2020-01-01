@@ -2719,7 +2719,7 @@ u32 var80073544 = 0x00000000;
 struct menu_item menuitems_abort[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, 0x000056af, 0x00000000, NULL }, // "Do you want to abort the mission?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000056b0, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056b1, 0x00000000, menuhandler00106394 }, // "Abort"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056b1, 0x00000000, menuhandlerAbortMission }, // "Abort"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2737,7 +2737,7 @@ struct menu_dialog menudialog_abort = {
 struct menu_item menuitems_abortshort[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, 0x0000549b, 0x00000000, NULL }, // "Do you want to abort the mission"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000056b0, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056b1, 0x00000000, menuhandler00106394 }, // "Abort"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056b1, 0x00000000, menuhandlerAbortMission }, // "Abort"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

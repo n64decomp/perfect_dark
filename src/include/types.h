@@ -974,7 +974,7 @@ struct player {
 	/*0x0480*/ struct eyespy *eyespy;
 	/*0x0484*/ u32 unk0484;
 	/*0x0488*/ u32 unk0488;
-	/*0x048c*/ u32 unk048c;
+	/*0x048c*/ bool aborted;
 	/*0x0490*/ u32 unk0490;
 	/*0x0494*/ u32 unk0494;
 	/*0x0498*/ u32 unk0498;
