@@ -1666,7 +1666,7 @@ struct menu_item menuitems_cooperativeoptions[] = {
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x00005701, 0x00000000, menuhandlerCoopFriendlyFire }, // "Friendly Fire"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x00005702, 0x00000000, menuhandlerCoopBuddy }, // "Perfect Buddy"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL }, // ""
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005703, 0x00000000, menuhandler00104038 }, // "Continue"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005703, 0x00000000, menuhandlerBuddyOptionsContinue }, // "Continue"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x00005704, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL }, // ""
 };
@@ -1686,7 +1686,7 @@ struct menu_item menuitems_counteroperativeoptions[] = {
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x0000570b, 0x00000000, menuhandlerAntiRadar }, // "Radar On"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x0000570c, 0x00000000, menuhandlerAntiPlayer }, // "Counter-Operative"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x0000570d, 0x00000000, menuhandler00104038 }, // "Continue"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x0000570d, 0x00000000, menuhandlerBuddyOptionsContinue }, // "Continue"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x0000570e, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };

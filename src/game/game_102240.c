@@ -2040,32 +2040,19 @@ glabel func0f103e68
 /*  f104034:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00104038
-/*  f104038:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10403c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f104040:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f104044:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f104048:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10404c:	14810006 */ 	bne	$a0,$at,.L0f104068
-/*  f104050:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f104054:	0fc3cdb7 */ 	jal	func0f0f36dc
-/*  f104058:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10405c:	3c048007 */ 	lui	$a0,%hi(g_ObjectivesMenuDialog)
-/*  f104060:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f104064:	24841a90 */ 	addiu	$a0,$a0,%lo(g_ObjectivesMenuDialog)
-.L0f104068:
-/*  f104068:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f10406c:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f104070:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f104074:	15e10003 */ 	bne	$t7,$at,.L0f104084
-/*  f104078:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10407c:	10000001 */ 	beqz	$zero,.L0f104084
-/*  f104080:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f104084:
-/*  f104084:	03e00008 */ 	jr	$ra
-/*  f104088:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+s32 menuhandlerBuddyOptionsContinue(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f0f36dc();
+		menuPushDialog(&g_ObjectivesMenuDialog);
+	}
+
+	if (operation == MENUOP_15) {
+		return true;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f10408c
@@ -2151,7 +2138,7 @@ glabel menudialog00104104
 /*  f1041a4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1041a8:	51400005 */ 	beqzl	$t2,.L0f1041c0
 /*  f1041ac:	a060000a */ 	sb	$zero,0xa($v1)
-/*  f1041b0:	0fc4100e */ 	jal	menuhandler00104038
+/*  f1041b0:	0fc4100e */ 	jal	menuhandlerBuddyOptionsContinue
 /*  f1041b4:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f1041b8:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f1041bc:	a060000a */ 	sb	$zero,0xa($v1)

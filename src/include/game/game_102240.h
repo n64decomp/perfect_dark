@@ -37,7 +37,7 @@ s32 menuhandler001024dc(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler001024fc(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerAcceptMission(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerAcceptPdModeSettings(s32 operation, struct menu_item *item, bool *value);
-s32 menuhandler00104038(u32 operation, struct menu_item *item, bool *enable);
+s32 menuhandlerBuddyOptionsContinue(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler00104538(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler001045f0(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler0010476c(u32 operation, struct menu_item *item, bool *enable);
