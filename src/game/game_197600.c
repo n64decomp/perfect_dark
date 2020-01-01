@@ -871,7 +871,7 @@ glabel func0f198068
 /*  f198080:	afb30034 */ 	sw	$s3,0x34($sp)
 /*  f198084:	afb20030 */ 	sw	$s2,0x30($sp)
 /*  f198088:	afb1002c */ 	sw	$s1,0x2c($sp)
-/*  f19808c:	3c16800b */ 	lui	$s6,%hi(var800acb88)
+/*  f19808c:	3c16800b */ 	lui	$s6,%hi(g_MpSetup)
 /*  f198090:	3c1e8008 */ 	lui	$s8,%hi(mpweaponstable)
 /*  f198094:	00c08825 */ 	or	$s1,$a2,$zero
 /*  f198098:	0080b825 */ 	or	$s7,$a0,$zero
@@ -880,7 +880,7 @@ glabel func0f198068
 /*  f1980a4:	afa5008c */ 	sw	$a1,0x8c($sp)
 /*  f1980a8:	afa70094 */ 	sw	$a3,0x94($sp)
 /*  f1980ac:	27de7268 */ 	addiu	$s8,$s8,%lo(mpweaponstable)
-/*  f1980b0:	26d6cb88 */ 	addiu	$s6,$s6,%lo(var800acb88)
+/*  f1980b0:	26d6cb88 */ 	addiu	$s6,$s6,%lo(g_MpSetup)
 /*  f1980b4:	00009025 */ 	or	$s2,$zero,$zero
 /*  f1980b8:	00c09825 */ 	or	$s3,$a2,$zero
 /*  f1980bc:	00e0a025 */ 	or	$s4,$a3,$zero
@@ -1007,12 +1007,12 @@ glabel func0f198068
 
 GLOBAL_ASM(
 glabel func0f198278
-/*  f198278:	3c03800b */ 	lui	$v1,%hi(var800acb88)
+/*  f198278:	3c03800b */ 	lui	$v1,%hi(g_MpSetup)
 /*  f19827c:	3c07800b */ 	lui	$a3,0x800b
 /*  f198280:	3c048008 */ 	lui	$a0,%hi(mpweaponstable)
 /*  f198284:	24847268 */ 	addiu	$a0,$a0,%lo(mpweaponstable)
 /*  f198288:	24e7cb8e */ 	addiu	$a3,$a3,-13426
-/*  f19828c:	2463cb88 */ 	addiu	$v1,$v1,%lo(var800acb88)
+/*  f19828c:	2463cb88 */ 	addiu	$v1,$v1,%lo(g_MpSetup)
 /*  f198290:	2406005b */ 	addiu	$a2,$zero,0x5b
 /*  f198294:	2405000a */ 	addiu	$a1,$zero,0xa
 /*  f198298:	906e0018 */ 	lbu	$t6,0x18($v1)
@@ -1036,11 +1036,11 @@ glabel func0f198278
 
 GLOBAL_ASM(
 glabel func0f1982d4
-/*  f1982d4:	3c05800b */ 	lui	$a1,%hi(var800acb88)
+/*  f1982d4:	3c05800b */ 	lui	$a1,%hi(g_MpSetup)
 /*  f1982d8:	3c068008 */ 	lui	$a2,%hi(mpweaponstable)
 /*  f1982dc:	2403ffff */ 	addiu	$v1,$zero,-1
 /*  f1982e0:	24c67268 */ 	addiu	$a2,$a2,%lo(mpweaponstable)
-/*  f1982e4:	24a5cb88 */ 	addiu	$a1,$a1,%lo(var800acb88)
+/*  f1982e4:	24a5cb88 */ 	addiu	$a1,$a1,%lo(g_MpSetup)
 /*  f1982e8:	00001025 */ 	or	$v0,$zero,$zero
 /*  f1982ec:	24080006 */ 	addiu	$t0,$zero,0x6
 /*  f1982f0:	2407000a */ 	addiu	$a3,$zero,0xa

@@ -50130,7 +50130,7 @@ bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
 
 		if (checktype == 1) { // Return true if chrs are friends
 			if (g_Vars.unk000318) {
-				if ((var800acb94 & 2) && chr2->team == chr1->team) {
+				if ((g_MpSetup.options & 2) && chr2->team == chr1->team) {
 					return true;
 				}
 			} else {
@@ -50148,7 +50148,7 @@ bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
 			}
 		} else if (checktype == 2) { // Return true if chrs are enemies
 			if (g_Vars.unk000318) {
-				if ((var800acb94 & 2) == 0 || chr2->team != chr1->team) {
+				if ((g_MpSetup.options & 2) == 0 || chr2->team != chr1->team) {
 					return true;
 				}
 			} else {

@@ -8071,14 +8071,14 @@ glabel func0f01bf28
 /*  f01c520:	ae800000 */ 	sw	$zero,0x0($s4)
 /*  f01c524:	14c50006 */ 	bne	$a2,$a1,.L0f01c540
 /*  f01c528:	3c03800a */ 	lui	$v1,%hi(var8009e000)
-/*  f01c52c:	3c04800b */ 	lui	$a0,%hi(var800acb88)
-/*  f01c530:	2484cb88 */ 	addiu	$a0,$a0,%lo(var800acb88)
+/*  f01c52c:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
+/*  f01c530:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
 /*  f01c534:	948f0016 */ 	lhu	$t7,0x16($a0)
 /*  f01c538:	31f8fff0 */ 	andi	$t8,$t7,0xfff0
 /*  f01c53c:	a4980016 */ 	sh	$t8,0x16($a0)
 .L0f01c540:
-/*  f01c540:	3c04800b */ 	lui	$a0,%hi(var800acb88)
-/*  f01c544:	2484cb88 */ 	addiu	$a0,$a0,%lo(var800acb88)
+/*  f01c540:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
+/*  f01c544:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
 /*  f01c548:	2463e000 */ 	addiu	$v1,$v1,%lo(var8009e000)
 .L0f01c54c:
 /*  f01c54c:	8c7904f8 */ 	lw	$t9,0x4f8($v1)

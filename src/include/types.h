@@ -4000,4 +4000,11 @@ struct missionconfig {
 	/*0x14*/ f32 fpdmodeaccuracy;
 };
 
+struct mpsetup {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 options;
+};
+
 #endif

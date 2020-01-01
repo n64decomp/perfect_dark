@@ -4551,8 +4551,8 @@ glabel func0f00f174
 /*  f010304:	ac40fffc */ 	sw	$zero,-0x4($v0)
 /*  f010308:	1a40003d */ 	blez	$s2,.L0f010400
 /*  f01030c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f010310:	3c14800b */ 	lui	$s4,%hi(var800acb88)
-/*  f010314:	2694cb88 */ 	addiu	$s4,$s4,%lo(var800acb88)
+/*  f010310:	3c14800b */ 	lui	$s4,%hi(g_MpSetup)
+/*  f010314:	2694cb88 */ 	addiu	$s4,$s4,%lo(g_MpSetup)
 /*  f010318:	27b10100 */ 	addiu	$s1,$sp,0x100
 .L0f01031c:
 /*  f01031c:	0c004b70 */ 	jal	random
