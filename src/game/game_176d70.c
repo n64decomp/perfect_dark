@@ -8485,7 +8485,7 @@ GLOBAL_ASM(
 glabel func0f17dc44
 /*  f17dc44:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f17dc48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17dc4c:	0fc630a9 */ 	jal	func0f18c2a4
+/*  f17dc4c:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
 /*  f17dc50:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f17dc54:	10400005 */ 	beqz	$v0,.L0f17dc6c
 /*  f17dc58:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8520,7 +8520,7 @@ glabel menuhandler0017dc84
 /*  f17dcb4:	0fc63080 */ 	jal	func0f18c200
 /*  f17dcb8:	afa60038 */ 	sw	$a2,0x38($sp)
 /*  f17dcbc:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f17dcc0:	0fc630a9 */ 	jal	func0f18c2a4
+/*  f17dcc0:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
 /*  f17dcc4:	acc20000 */ 	sw	$v0,0x0($a2)
 /*  f17dcc8:	10400005 */ 	beqz	$v0,.L0f17dce0
 /*  f17dccc:	8fa60038 */ 	lw	$a2,0x38($sp)
@@ -8547,7 +8547,7 @@ glabel menuhandler0017dc84
 /*  f17dd1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f17dd20:	afa5002c */ 	sw	$a1,0x2c($sp)
 .L0f17dd24:
-/*  f17dd24:	0fc630a9 */ 	jal	func0f18c2a4
+/*  f17dd24:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
 /*  f17dd28:	afa60038 */ 	sw	$a2,0x38($sp)
 /*  f17dd2c:	8fa5002c */ 	lw	$a1,0x2c($sp)
 /*  f17dd30:	1040000c */ 	beqz	$v0,.L0f17dd64
@@ -8597,7 +8597,7 @@ glabel menuhandler0017dc84
 /*  f17ddd8:	ac4a0458 */ 	sw	$t2,0x458($v0)
 /*  f17dddc:	afa40028 */ 	sw	$a0,0x28($sp)
 .L0f17dde0:
-/*  f17dde0:	0fc630a9 */ 	jal	func0f18c2a4
+/*  f17dde0:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
 /*  f17dde4:	afa60038 */ 	sw	$a2,0x38($sp)
 /*  f17dde8:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f17ddec:	10400024 */ 	beqz	$v0,.L0f17de80
@@ -8649,7 +8649,7 @@ glabel menuhandler0017dc84
 /*  f17de94:	352b0002 */ 	ori	$t3,$t1,0x2
 /*  f17de98:	10000031 */ 	beqz	$zero,.L0f17df60
 /*  f17de9c:	ac4b0458 */ 	sw	$t3,0x458($v0)
-/*  f17dea0:	0fc630a9 */ 	jal	func0f18c2a4
+/*  f17dea0:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
 /*  f17dea4:	afa60038 */ 	sw	$a2,0x38($sp)
 /*  f17dea8:	10400005 */ 	beqz	$v0,.L0f17dec0
 /*  f17deac:	8fa60038 */ 	lw	$a2,0x38($sp)
@@ -8685,7 +8685,7 @@ glabel menuhandler0017dc84
 /*  f17df1c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f17df20:	0fc63080 */ 	jal	func0f18c200
 /*  f17df24:	afa60038 */ 	sw	$a2,0x38($sp)
-/*  f17df28:	0fc630a9 */ 	jal	func0f18c2a4
+/*  f17df28:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
 /*  f17df2c:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f17df30:	1040000b */ 	beqz	$v0,.L0f17df60
 /*  f17df34:	8fa60038 */ 	lw	$a2,0x38($sp)
@@ -8733,7 +8733,7 @@ GLOBAL_ASM(
 glabel func0f17dfac
 /*  f17dfac:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f17dfb0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17dfb4:	0fc630a9 */ 	jal	func0f18c2a4
+/*  f17dfb4:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
 /*  f17dfb8:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f17dfbc:	10400005 */ 	beqz	$v0,.L0f17dfd4
 /*  f17dfc0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8760,36 +8760,18 @@ glabel func0f17dfac
 /*  f17e008:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpMultipleTunes
-/*  f17e00c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17e010:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17e014:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17e018:	10810008 */ 	beq	$a0,$at,.L0f17e03c
-/*  f17e01c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17e020:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f17e024:	5481000d */ 	bnel	$a0,$at,.L0f17e05c
-/*  f17e028:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17e02c:	0fc630a9 */ 	jal	func0f18c2a4
-/*  f17e030:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17e034:	1000000a */ 	beqz	$zero,.L0f17e060
-/*  f17e038:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17e03c:
-/*  f17e03c:	0fc630a6 */ 	jal	func0f18c298
-/*  f17e040:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f17e044:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f17e048:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f17e04c:	8c4e0458 */ 	lw	$t6,0x458($v0)
-/*  f17e050:	35cf0002 */ 	ori	$t7,$t6,0x2
-/*  f17e054:	ac4f0458 */ 	sw	$t7,0x458($v0)
-/*  f17e058:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17e05c:
-/*  f17e05c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17e060:
-/*  f17e060:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17e064:	03e00008 */ 	jr	$ra
-/*  f17e068:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpMultipleTunes(u32 operation, struct menu_item *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_GET:
+		return mpGetUsingMultipleTunes();
+	case MENUOP_SET:
+		mpSetUsingMultipleTunes(*value);
+		g_Vars.unk000458 |= 2;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler0017e06c

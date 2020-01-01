@@ -238,7 +238,7 @@ s32 menuhandlerMpHumansVsSimulants(u32, u32, u32 *);
 s32 menuhandlerMpLock(u32, u32, u32 *);
 s32 menuhandlerMpMaximumTeams(u32, u32, u32 *);
 s32 menuhandlerMpMedal(u32, u32, u32 *);
-s32 menuhandlerMpMultipleTunes(u32, u32, u32 *);
+s32 menuhandlerMpMultipleTunes(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpNumberOfSimulants(u32, u32, u32 *);
 s32 menuhandlerMpOneHitKills(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpOpenOptions(u32 operation, struct menu_item *item, s32 *value);
