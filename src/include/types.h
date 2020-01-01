@@ -3982,7 +3982,7 @@ struct options {
 
 struct missionconfig {
 	u8 difficulty : 7;
-	u8 bits0_07 : 1;
+	u8 pdmode : 1;
 
 	/*0x01*/ u8 stagenum;
 	/*0x02*/ u8 unk02;

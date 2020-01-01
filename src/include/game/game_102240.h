@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f102240(void);
-u32 func0f10229c(void);
+char *menutextDifficulty(s32 arg0);
 u32 func0f102330(void);
 u32 func0f103550(void);
 f32 func0f1036ac(s32 arg0, s32 arg1);

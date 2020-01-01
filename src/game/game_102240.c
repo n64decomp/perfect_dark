@@ -158,51 +158,22 @@ glabel func0f102240
 /*  f102298:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f10229c
-/*  f10229c:	3c03800a */ 	lui	$v1,%hi(g_MissionConfig)
-/*  f1022a0:	2463dfe8 */ 	addiu	$v1,$v1,%lo(g_MissionConfig)
-/*  f1022a4:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*  f1022a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1022ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1022b0:	31cf0001 */ 	andi	$t7,$t6,0x1
-/*  f1022b4:	11e00005 */ 	beqz	$t7,.L0f1022cc
-/*  f1022b8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1022bc:	0fc5b9f1 */ 	jal	textGet
-/*  f1022c0:	240454dd */ 	addiu	$a0,$zero,0x54dd
-/*  f1022c4:	10000017 */ 	beqz	$zero,.L0f102324
-/*  f1022c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1022cc:
-/*  f1022cc:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f1022d0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1022d4:	0002c642 */ 	srl	$t8,$v0,0x19
-/*  f1022d8:	1300000f */ 	beqz	$t8,.L0f102318
-/*  f1022dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1022e0:	13010005 */ 	beq	$t8,$at,.L0f1022f8
-/*  f1022e4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1022e8:	13010007 */ 	beq	$t8,$at,.L0f102308
-/*  f1022ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1022f0:	10000009 */ 	beqz	$zero,.L0f102318
-/*  f1022f4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1022f8:
-/*  f1022f8:	0fc5b9f1 */ 	jal	textGet
-/*  f1022fc:	240456fc */ 	addiu	$a0,$zero,0x56fc
-/*  f102300:	10000008 */ 	beqz	$zero,.L0f102324
-/*  f102304:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102308:
-/*  f102308:	0fc5b9f1 */ 	jal	textGet
-/*  f10230c:	240456fd */ 	addiu	$a0,$zero,0x56fd
-/*  f102310:	10000004 */ 	beqz	$zero,.L0f102324
-/*  f102314:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102318:
-/*  f102318:	0fc5b9f1 */ 	jal	textGet
-/*  f10231c:	240456fb */ 	addiu	$a0,$zero,0x56fb
-/*  f102320:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102324:
-/*  f102324:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f102328:	03e00008 */ 	jr	$ra
-/*  f10232c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menutextDifficulty(s32 arg0)
+{
+	if (g_MissionConfig.pdmode) {
+		return textGet(0x54dd);
+	}
+
+	switch (g_MissionConfig.difficulty) {
+	case DIFF_SA:
+		return textGet(0x56fc);
+	case DIFF_PA:
+		return textGet(0x56fd);
+	case DIFF_A:
+	default:
+		return textGet(0x56fb);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f102330
@@ -1468,7 +1439,7 @@ glabel menuhandlerPdModeSetting
 s32 menuhandlerAcceptPdModeSettings(s32 operation, struct menu_item *item, bool *value)
 {
 	if (operation == MENUOP_SET) {
-		g_MissionConfig.bits0_07 = 1;
+		g_MissionConfig.pdmode = true;
 		g_MissionConfig.fpdmodehealth = func0f1036ac(g_MissionConfig.updmodehealth, 1);
 		g_MissionConfig.fpdmodedamage = func0f1036ac(g_MissionConfig.updmodedamage, 2);
 		g_MissionConfig.fpdmodeaccuracy = func0f1036ac(g_MissionConfig.updmodeaccuracy, 3);
@@ -1873,7 +1844,7 @@ s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value)
 		}
 		break;
 	case MENUOP_SET:
-		g_MissionConfig.bits0_07 = 0;
+		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
 		setDifficulty(g_MissionConfig.difficulty);
 		func0f0f36dc();
@@ -2363,7 +2334,7 @@ s32 menuhandlerCoopDifficulty(u32 operation, struct menu_item *item, s32 *value)
 {
 	switch (operation) {
 	case MENUOP_SET:
-		g_MissionConfig.bits0_07 = 0;
+		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
 		setDifficulty(g_MissionConfig.difficulty);
 		func0f0f36dc();
@@ -2382,7 +2353,7 @@ s32 menuhandlerAntiDifficulty(u32 operation, struct menu_item *item, s32 *value)
 {
 	switch (operation) {
 	case MENUOP_SET:
-		g_MissionConfig.bits0_07 = 0;
+		g_MissionConfig.pdmode = false;
 		g_MissionConfig.difficulty = item->param;
 		setDifficulty(g_MissionConfig.difficulty);
 		func0f0f36dc();

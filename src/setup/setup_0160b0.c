@@ -4020,7 +4020,7 @@ struct menu_item menuitems_1b7bc[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005718, 0x00000000, NULL }, // "Mission Time:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, 0x7f10d6e4, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005481, 0x00000000, NULL }, // "Difficulty"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, 0x7f10229c, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)menutextDifficulty, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005719, 0x00000000, NULL }, // "Weapon of Choice:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, 0x7f178450, 0x00000000, NULL },
@@ -4046,7 +4046,7 @@ struct menu_item menuitems_1b98c[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005717, 0x7f10d4d4, NULL }, // "Agent Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x01000000, 0x00005718, 0x7f10d6e4, menuhandler0010e064 }, // "Mission Time:"
 	{ MENUITEMTYPE_LABEL,       1, 0x01000000, 0x000054f2, 0x7f10e4d8, menuhandler0010e064 }, // "Target Time:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005481, 0x7f10229c, NULL }, // "Difficulty:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005481, (u32)&menutextDifficulty, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_SEPARATOR,   2, 0x00000000, 0x00000000, 0x00000000, menuhandler0010e064 },
 	{ MENUITEMTYPE_LABEL,       2, 0x00000000, 0x000054f3, 0x00000000, menuhandler0010e064 }, // "New Cheat Available!:"
 	{ MENUITEMTYPE_LABEL,       3, 0x01000020, 0x7f10e3fc, 0x00000000, menuhandler0010e064 },
