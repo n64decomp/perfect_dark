@@ -2359,58 +2359,24 @@ glabel menuhandlerAntiPlayer
 /*  f104534:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00104538
-/*  f104538:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10453c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f104540:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f104544:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f104548:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10454c:	10810006 */ 	beq	$a0,$at,.L0f104568
-/*  f104550:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f104554:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f104558:	10810018 */ 	beq	$a0,$at,.L0f1045bc
-/*  f10455c:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f104560:	1000001f */ 	beqz	$zero,.L0f1045e0
-/*  f104564:	00001025 */ 	or	$v0,$zero,$zero
-.L0f104568:
-/*  f104568:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f10456c:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f104570:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f104574:	31cafffe */ 	andi	$t2,$t6,0xfffe
-/*  f104578:	a04a0000 */ 	sb	$t2,0x0($v0)
-/*  f10457c:	90d90001 */ 	lbu	$t9,0x1($a2)
-/*  f104580:	314b0001 */ 	andi	$t3,$t2,0x1
-/*  f104584:	00194840 */ 	sll	$t1,$t9,0x1
-/*  f104588:	012b6025 */ 	or	$t4,$t1,$t3
-/*  f10458c:	a04c0000 */ 	sb	$t4,0x0($v0)
-/*  f104590:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f104594:	00046e42 */ 	srl	$t5,$a0,0x19
-/*  f104598:	0fc5b36a */ 	jal	setDifficulty
-/*  f10459c:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f1045a0:	0fc3cdb7 */ 	jal	func0f0f36dc
-/*  f1045a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1045a8:	3c048007 */ 	lui	$a0,%hi(menudialog_cooperativeoptions)
-/*  f1045ac:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1045b0:	24841ca4 */ 	addiu	$a0,$a0,%lo(menudialog_cooperativeoptions)
-/*  f1045b4:	1000000a */ 	beqz	$zero,.L0f1045e0
-/*  f1045b8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1045bc:
-/*  f1045bc:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f1045c0:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f1045c4:	0fc40e3b */ 	jal	isStageDifficultyUnlocked
-/*  f1045c8:	90c50001 */ 	lbu	$a1,0x1($a2)
-/*  f1045cc:	54400004 */ 	bnezl	$v0,.L0f1045e0
-/*  f1045d0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1045d4:	10000002 */ 	beqz	$zero,.L0f1045e0
-/*  f1045d8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1045dc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1045e0:
-/*  f1045e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1045e4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1045e8:	03e00008 */ 	jr	$ra
-/*  f1045ec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerCoopDifficulty(u32 operation, struct menu_item *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_SET:
+		g_MissionConfig.bits0_07 = 0;
+		g_MissionConfig.difficulty = item->param;
+		setDifficulty(g_MissionConfig.difficulty);
+		func0f0f36dc();
+		menuPushDialog(&g_CoopOptionsMenuDialog);
+		break;
+	case MENUOP_CHECKDISABLED:
+		if (!isStageDifficultyUnlocked(g_MissionConfig.unk02, item->param)) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler001045f0

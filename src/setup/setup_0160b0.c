@@ -1672,7 +1672,7 @@ struct menu_item menuitems_cooperativeoptions[] = {
 };
 
 // 17cc4
-struct menu_dialog menudialog_cooperativeoptions = {
+struct menu_dialog g_CoopOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56ff, // "Co-Operative Options"
 	menuitems_cooperativeoptions,
@@ -1703,9 +1703,9 @@ struct menu_dialog menudialog_counteroperativeoptions = {
 
 // 17d6c
 struct menu_item menuitems_selectdifficulty2[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056fb, 0x00000000, menuhandler00104538 }, // "Agent"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x000056fc, 0x00000000, menuhandler00104538 }, // "Special Agent"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x000056fd, 0x00000000, menuhandler00104538 }, // "Perfect Agent"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000056fb, 0x00000000, menuhandlerCoopDifficulty }, // "Agent"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x000056fc, 0x00000000, menuhandlerCoopDifficulty }, // "Special Agent"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x000056fd, 0x00000000, menuhandlerCoopDifficulty }, // "Perfect Agent"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000056fe, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
