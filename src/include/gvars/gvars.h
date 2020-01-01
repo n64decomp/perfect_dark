@@ -854,7 +854,7 @@ extern u32 var800acb88;
 extern u32 var800acb94;
 extern u32 var800acba8;
 extern u32 var800acbb0;
-extern u32 var800acc10;
+extern u8 var800acc10;
 extern u32 var800acc20;
 extern u32 var800acc28;
 extern u32 var800acc70;

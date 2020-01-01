@@ -9564,35 +9564,20 @@ glabel menuhandler0017e9d8
 /*  f17ea0c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpAbortChallenge
-/*  f17ea10:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17ea14:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f17ea18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17ea1c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17ea20:	14810008 */ 	bne	$a0,$at,.L0f17ea44
-/*  f17ea24:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17ea28:	3c0e800b */ 	lui	$t6,0x800b
-/*  f17ea2c:	91cecc10 */ 	lbu	$t6,-0x33f0($t6)
-/*  f17ea30:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17ea34:	51c10004 */ 	beql	$t6,$at,.L0f17ea48
-/*  f17ea38:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17ea3c:	10000007 */ 	beqz	$zero,.L0f17ea5c
-/*  f17ea40:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f17ea44:
-/*  f17ea44:	24010006 */ 	addiu	$at,$zero,0x6
-.L0f17ea48:
-/*  f17ea48:	54810004 */ 	bnel	$a0,$at,.L0f17ea5c
-/*  f17ea4c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17ea50:	0fc67088 */ 	jal	func0f19c220
-/*  f17ea54:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17ea58:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17ea5c:
-/*  f17ea5c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17ea60:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17ea64:	03e00008 */ 	jr	$ra
-/*  f17ea68:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpAbortChallenge(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKHIDDEN) {
+		if (var800acc10 != 5) {
+			return true;
+		}
+	}
+
+	if (operation == MENUOP_SET) {
+		func0f19c220();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMpStartChallenge

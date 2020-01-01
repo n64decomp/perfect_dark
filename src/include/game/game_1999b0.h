@@ -44,7 +44,7 @@ u32 func0f19bd4c(void);
 u32 func0f19bfa0(void);
 u32 func0f19c190(void);
 u32 func0f19c1cc(void);
-u32 func0f19c220(void);
+void func0f19c220(void);
 u32 func0f19c244(void);
 u32 func0f19c268(void);
 u32 func0f19c274(void);
