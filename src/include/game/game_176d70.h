@@ -218,7 +218,7 @@ s32 menuhandler00181a98(u32, u32, u32 *);
 s32 menuhandler00185068(u32, u32, u32 *);
 s32 menuhandlerMpAbortChallenge(u32, u32, u32 *);
 s32 menuhandlerMpAddSimulant(u32, u32, u32 *);
-s32 menuhandlerMpAdvancedSetup(u32, u32, u32 *);
+s32 menuhandlerMpAdvancedSetup(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpAimControl(u32, u32, u32 *);
 s32 menuhandlerMpChangeSimulantType(u32, u32, u32 *);
 s32 menuhandlerMpCharacterBody(u32, u32, u32 *);
