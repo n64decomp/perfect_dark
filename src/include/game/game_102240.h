@@ -64,7 +64,7 @@ s32 menuhandlerInGameSubtitles(u32 operation, struct menu_item *item, bool *enab
 s32 menuhandlerLangFilter(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerLookAhead(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerMainMenuCombatSimulator(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMainMenuCooperative(u32 operation, struct menu_item *item, bool *enable);
+s32 menuhandlerMainMenuCooperative(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMainMenuCounterOperative(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerMainMenuSoloMissions(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMusicVolume(u32 operation, struct menu_item *item, u32 *volume);
