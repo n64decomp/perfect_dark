@@ -11546,13 +11546,13 @@ struct menu_dialog menudialog_mppopacapoptions = {
 };
 
 // 2cfb8
-u32 var80086f98[] = {
-	(u32) &menudialog_mpcombatoptions,    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-	(u32) &menudialog_mpbriefcaseoptions, (u32)&func0f17ff80, (u32)&func0f17ffdc, (u32)&func0f1802bc, (u32)&func0f1802e0, (u32)&func0f180600, (u32)&func0f18079c, (u32)&func0f180960, (u32)&func0f180a68, (u32)&func0f180b1c, (u32)&func0f180c48, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-	(u32) &menudialog_mphackeroptions,    (u32)&func0f182b90, (u32)&func0f182b9c, (u32)&func0f182e98, (u32)&func0f1830a4, (u32)&func0f183380, (u32)&func0f1839a8, (u32)&func0f183bb4, (u32)&func0f183d10, (u32)&func0f184218, (u32)&func0f184344, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-	(u32) &menudialog_mppopacapoptions,   (u32)&func0f1844ec, 0x00000000, (u32)&func0f18450c, (u32)&func0f1848c0, 0x00000000, (u32)&func0f184a18, (u32)&func0f184c18, (u32)&func0f184d84, (u32)&func0f184d8c, (u32)&func0f18452c, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-	(u32) &menudialog_mphilloptions,      (u32)&func0f181b70, 0x00000000, (u32)&func0f181bfc, (u32)&func0f181cf0, 0x00000000, (u32)&func0f182670, (u32)&func0f182908, (u32)&func0f1829e4, 0x00000000, 0x00000000, 0x00000000, 0x00000000, (u32)&func0f182ae8, (u32)&func0f182b08, 0x00000000, (u32)&func0f181b24, (u32)&func0f181b48,
-	(u32) &menudialog_mpcaptureoptions,   (u32)&func0f180c98, (u32)&func0f180e1c, (u32)&func0f180e34, (u32)&func0f180e24, (u32)&func0f180e2c, 0x00000000, (u32)&func0f1813d8, (u32)&func0f1814bc, (u32)&func0f181608, (u32)&func0f181764, (u32)&func0f18189c, (u32)&func0f181944, (u32)&func0f18194c, (u32)&func0f1819a4, 0x00000000, 0x00000000, 0x00000000,
+struct mpoptionsdialoginfo g_MpOptionsDialogs[] = {
+	{ &menudialog_mpcombatoptions,    NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL, NULL,         NULL },
+	{ &menudialog_mpbriefcaseoptions, func0f17ff80, func0f17ffdc, func0f1802bc, func0f1802e0, func0f180600, func0f18079c, func0f180960, func0f180a68, func0f180b1c, func0f180c48, NULL,         NULL,         NULL,         NULL,         NULL, NULL,         NULL },
+	{ &menudialog_mphackeroptions,    func0f182b90, func0f182b9c, func0f182e98, func0f1830a4, func0f183380, func0f1839a8, func0f183bb4, func0f183d10, func0f184218, func0f184344, NULL,         NULL,         NULL,         NULL,         NULL, NULL,         NULL },
+	{ &menudialog_mppopacapoptions,   func0f1844ec, NULL,         func0f18450c, func0f1848c0, NULL,         func0f184a18, func0f184c18, func0f184d84, func0f184d8c, func0f18452c, NULL,         NULL,         NULL,         NULL,         NULL, NULL,         NULL },
+	{ &menudialog_mphilloptions,      func0f181b70, NULL,         func0f181bfc, func0f181cf0, NULL,         func0f182670, func0f182908, func0f1829e4, NULL,         NULL,         NULL,         NULL,         func0f182ae8, func0f182b08, NULL, func0f181b24, func0f181b48 },
+	{ &menudialog_mpcaptureoptions,   func0f180c98, func0f180e1c, func0f180e34, func0f180e24, func0f180e2c, NULL,         func0f1813d8, func0f1814bc, func0f181608, func0f181764, func0f18189c, func0f181944, func0f18194c, func0f1819a4, NULL, NULL,         NULL },
 };
 
 // 2d168

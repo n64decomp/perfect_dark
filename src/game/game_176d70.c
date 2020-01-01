@@ -16806,10 +16806,10 @@ glabel menudialog00184ec0
 /*  f184f08:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f184f0c:	001940c0 */ 	sll	$t0,$t9,0x3
 /*  f184f10:	8f18e4f8 */ 	lw	$t8,-0x1b08($t8)
-/*  f184f14:	3c098008 */ 	lui	$t1,%hi(var80086f98)
+/*  f184f14:	3c098008 */ 	lui	$t1,%hi(g_MpOptionsDialogs)
 /*  f184f18:	01194021 */ 	addu	$t0,$t0,$t9
 /*  f184f1c:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f184f20:	25296f98 */ 	addiu	$t1,$t1,%lo(var80086f98)
+/*  f184f20:	25296f98 */ 	addiu	$t1,$t1,%lo(g_MpOptionsDialogs)
 /*  f184f24:	01095021 */ 	addu	$t2,$t0,$t1
 /*  f184f28:	8d4b0000 */ 	lw	$t3,0x0($t2)
 /*  f184f2c:	8f040000 */ 	lw	$a0,0x0($t8)
@@ -17132,30 +17132,14 @@ glabel menuhandler00185068
 /*  f18537c:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpOpenOptions
-/*  f185380:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f185384:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f185388:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18538c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f185390:	1481000a */ 	bne	$a0,$at,.L0f1853bc
-/*  f185394:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f185398:	3c0e800b */ 	lui	$t6,0x800b
-/*  f18539c:	91cecb98 */ 	lbu	$t6,-0x3468($t6)
-/*  f1853a0:	3c048008 */ 	lui	$a0,0x8008
-/*  f1853a4:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1853a8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1853ac:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1853b0:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f1853b4:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f1853b8:	8c846f98 */ 	lw	$a0,0x6f98($a0)
-.L0f1853bc:
-/*  f1853bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1853c0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1853c4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1853c8:	03e00008 */ 	jr	$ra
-/*  f1853cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpOpenOptions(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		menuPushDialog(g_MpOptionsDialogs[var800acb98].dialog);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f1853d0
@@ -17451,9 +17435,9 @@ glabel func0f185774
 /*  f185794:	254acb88 */ 	addiu	$t2,$t2,%lo(g_MpSetup)
 /*  f185798:	914f0010 */ 	lbu	$t7,0x10($t2)
 /*  f18579c:	240b0048 */ 	addiu	$t3,$zero,0x48
-/*  f1857a0:	3c088008 */ 	lui	$t0,%hi(var80086f98)
+/*  f1857a0:	3c088008 */ 	lui	$t0,%hi(g_MpOptionsDialogs)
 /*  f1857a4:	01eb0019 */ 	multu	$t7,$t3
-/*  f1857a8:	25086f98 */ 	addiu	$t0,$t0,%lo(var80086f98)
+/*  f1857a8:	25086f98 */ 	addiu	$t0,$t0,%lo(g_MpOptionsDialogs)
 /*  f1857ac:	0000c012 */ 	mflo	$t8
 /*  f1857b0:	0118c821 */ 	addu	$t9,$t0,$t8
 /*  f1857b4:	8f2c0018 */ 	lw	$t4,0x18($t9)

@@ -4007,4 +4007,25 @@ struct mpsetup {
 	u32 options;
 };
 
+struct mpoptionsdialoginfo {
+	struct menu_dialog *dialog;
+	void *unk04;
+	void *unk08;
+	void *unk0c;
+	void *unk10;
+	void *unk14;
+	void *unk18;
+	void *unk1c;
+	void *unk20;
+	void *unk24;
+	void *unk28;
+	void *unk2c;
+	void *unk30;
+	void *unk34;
+	void *unk38;
+	void *unk3c;
+	void *unk40;
+	void *unk44;
+};
+
 #endif
