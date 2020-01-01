@@ -58,6 +58,6 @@ s32 menuhandlerDeclineMission(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandler0010e064(u32, u32, u32 *);
 s32 menuhandlerContinueToCredits(u32, u32, u32 *);
 s32 menuhandlerReplyLastLevel(u32, u32, u32 *);
-s32 menuhandlerReplyPreviousMission(u32, u32, u32 *);
+s32 menuhandlerReplayPreviousMission(u32 operation, struct menu_item *item, s32 *value);
 
 #endif

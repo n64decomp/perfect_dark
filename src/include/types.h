@@ -3985,7 +3985,7 @@ struct missionconfig {
 	u8 pdmode : 1;
 
 	/*0x01*/ u8 stagenum;
-	/*0x02*/ u8 unk02;
+	/*0x02*/ u8 stageindex;
 
 	u8 iscoop : 1;
 	u8 isanti : 1;

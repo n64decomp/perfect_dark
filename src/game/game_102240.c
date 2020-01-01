@@ -1743,7 +1743,7 @@ s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value)
 {
 	switch (operation) {
 	case MENUOP_CHECKPREFOCUSED:
-		if (isStageDifficultyUnlocked(g_MissionConfig.unk02, item->param)) {
+		if (isStageDifficultyUnlocked(g_MissionConfig.stageindex, item->param)) {
 			if (item->right == 0) {
 				return true;
 			}
@@ -1760,7 +1760,7 @@ s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value)
 		menuPushDialog(&g_ObjectivesMenuDialog);
 		break;
 	case MENUOP_CHECKDISABLED:
-		if (!isStageDifficultyUnlocked(g_MissionConfig.unk02, item->param)) {
+		if (!isStageDifficultyUnlocked(g_MissionConfig.stageindex, item->param)) {
 			return true;
 		}
 	}
@@ -2250,7 +2250,7 @@ s32 menuhandlerCoopDifficulty(u32 operation, struct menu_item *item, s32 *value)
 		menuPushDialog(&g_CoopOptionsMenuDialog);
 		break;
 	case MENUOP_CHECKDISABLED:
-		if (!isStageDifficultyUnlocked(g_MissionConfig.unk02, item->param)) {
+		if (!isStageDifficultyUnlocked(g_MissionConfig.stageindex, item->param)) {
 			return true;
 		}
 	}
