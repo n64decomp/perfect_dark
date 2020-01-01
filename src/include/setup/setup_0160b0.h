@@ -202,7 +202,7 @@ extern struct menu_dialog menudialog_196c8;
 extern struct menu_dialog menudialog_status;
 extern struct cutsceneentry cutscenetable[];
 extern struct cutscenegroup cutscenegrouptable[];
-extern struct menu_dialog menudialog_missionselect;
+extern struct menu_dialog g_SelectMissionMenuDialog;
 extern u16 mainmenulabels_nocheats[];
 extern u16 mainmenulabels_withcheats[];
 extern struct menu_dialog menudialog_mainmenu;

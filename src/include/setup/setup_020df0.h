@@ -274,7 +274,7 @@ extern u16 mplockoptions[];
 extern struct menu_dialog menudialog_mpgamesetup3;
 extern struct menu_dialog menudialog_mpquickgo;
 extern struct menu_dialog menudialog_2c6a0;
-extern struct menu_dialog menudialog_mpcombatsimulator;
+extern struct menu_dialog g_CombatSimulatorMenuDialog;
 extern u16 mpslowmotionoptions[];
 extern struct menu_dialog menudialog_mpcombatoptions;
 extern struct menu_dialog menudialog_mpbriefcaseoptions;

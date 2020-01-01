@@ -11282,7 +11282,7 @@ struct menu_item menuitems_mpcombatsimulator[] = {
 };
 
 // 2c7c0
-struct menu_dialog menudialog_mpcombatsimulator = {
+struct menu_dialog g_CombatSimulatorMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x59bd,
 	menuitems_mpcombatsimulator,

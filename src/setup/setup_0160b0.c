@@ -2901,7 +2901,7 @@ struct menu_item menuitems_missionselect[] = {
 };
 
 // 199c8
-struct menu_dialog menudialog_missionselect = {
+struct menu_dialog g_SelectMissionMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x567a, // "Mission Select"
 	menuitems_missionselect,
