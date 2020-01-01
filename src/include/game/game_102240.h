@@ -35,7 +35,7 @@ s32 menudialog001063e4(u32, u32, u32 *);
 s32 menudialog001069c0(u32, u32, u32 *);
 s32 menuhandler001024dc(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler001024fc(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandler001033f8(u32 operation, struct menu_item *item, bool *enable);
+s32 menuhandlerAcceptMission(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0010383c(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler00104038(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandler00104538(u32 operation, struct menu_item *item, bool *enable);

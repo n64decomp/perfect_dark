@@ -62,7 +62,7 @@ void stageLoad(void);
 u32 func0f16cce4(void);
 u32 func0f16cd40(void);
 u32 getVar80084014(void);
-u32 func0f16cda8(void);
+void setDifficulty(s32 arg0);
 void setVar80084028(u32 arg0);
 void setVar8008402c(u32 arg0);
 void setVar80084030(u32 arg0);

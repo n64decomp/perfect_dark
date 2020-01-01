@@ -668,7 +668,7 @@ glabel func0000db3c
 /*     dc58:	0c004c04 */ 	jal	func00013010
 /*     dc5c:	24a53adc */ 	addiu	$a1,$a1,%lo(var70053adc)
 /*     dc60:	90440000 */ 	lbu	$a0,0x0($v0)
-/*     dc64:	0fc5b36a */ 	jal	func0f16cda8
+/*     dc64:	0fc5b36a */ 	jal	setDifficulty
 /*     dc68:	2484ffd0 */ 	addiu	$a0,$a0,-48
 .L0000dc6c:
 /*     dc6c:	3c028006 */ 	lui	$v0,%hi(g_StageNum)

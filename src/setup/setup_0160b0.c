@@ -1601,7 +1601,7 @@ struct menu_dialog menudialog_briefing = {
 // 17a60
 struct menu_item menuitems_objectives[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005712, 0x00000000, menuhandler001033f8 }, // "Accept"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005712, 0x00000000, menuhandlerAcceptMission }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x00005713, 0x00000000, NULL }, // "Decline"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -3903,7 +3903,7 @@ struct menu_dialog menudialog_mpgamesetup = {
 // 1b570
 struct menu_item menuitems_1b570[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x0000572a, 0x00000000, menuhandler001033f8 }, // "Accept"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x0000572a, 0x00000000, menuhandlerAcceptMission }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x0000572b, 0x00000000, menuhandler0010ccd0 }, // "Decline"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -3921,7 +3921,7 @@ struct menu_dialog menudialog_1b5c0 = {
 // 1b5d8
 struct menu_item menuitems_promptnextmission[] = {
 	{ MENUITEMTYPE_OBJECTIVES,  1, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x0000572a, 0x00000000, menuhandler001033f8 }, // "Accept"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x0000572a, 0x00000000, menuhandlerAcceptMission }, // "Accept"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x0000572b, 0x00000000, menuhandler0010ccd0 }, // "Decline"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000059d6, 0x00000000, menuhandlerReplyPreviousMission }, // "Replay Previous Mission"

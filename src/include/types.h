@@ -3980,4 +3980,16 @@ struct options {
 	/*0x9c*/ u32 unk9c;
 };
 
+struct var8009dfe8 {
+	u8 difficulty : 7;
+	u8 bits0_07 : 1;
+
+	u8 stagenum : 8;
+
+	u8 bits2_00 : 8;
+
+	u8 iscoop : 1;
+	u8 isanti : 1;
+};
+
 #endif

@@ -5220,14 +5220,14 @@ glabel func0f169374
 /*  f16af94:	ae770298 */ 	sw	$s7,0x298($s3)
 /*  f16af98:	ae77029c */ 	sw	$s7,0x29c($s3)
 /*  f16af9c:	a20a0003 */ 	sb	$t2,0x3($s0)
-/*  f16afa0:	0fc068d5 */ 	jal	func0f01a354
+/*  f16afa0:	0fc068d5 */ 	jal	setNumPlayers
 /*  f16afa4:	a26f04d2 */ 	sb	$t7,0x4d2($s3)
 /*  f16afa8:	0fc069f9 */ 	jal	func0f01a7e4
 /*  f16afac:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f16afb0:	920e0000 */ 	lbu	$t6,0x0($s0)
 /*  f16afb4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f16afb8:	31d8ff01 */ 	andi	$t8,$t6,0xff01
-/*  f16afbc:	0fc5b36a */ 	jal	func0f16cda8
+/*  f16afbc:	0fc5b36a */ 	jal	setDifficulty
 /*  f16afc0:	a2180000 */ 	sb	$t8,0x0($s0)
 /*  f16afc4:	826d04d4 */ 	lb	$t5,0x4d4($s3)
 /*  f16afc8:	01b40019 */ 	multu	$t5,$s4
@@ -7305,7 +7305,7 @@ s32 getDifficulty(void)
 }
 
 GLOBAL_ASM(
-glabel func0f16cda8
+glabel setDifficulty
 /*  f16cda8:	04800003 */ 	bltz	$a0,.L0f16cdb8
 /*  f16cdac:	28810004 */ 	slti	$at,$a0,0x4
 /*  f16cdb0:	14200002 */ 	bnez	$at,.L0f16cdbc
