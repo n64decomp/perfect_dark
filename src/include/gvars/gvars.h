@@ -15,7 +15,6 @@ struct g_vars {
 	//g_Vars.antibodynum
 	//g_Vars.antiheadnum
 	//g_Vars.coopfriendlyfire
-	//g_Vars.coopradaron
 
 	/*000000*/ u32 unk000000;
 	/*000004*/ u32 unk000004;
@@ -145,7 +144,7 @@ struct g_vars {
 	/*00043c*/ u32 unk00043c;
 	/*000440*/ u32 unk000440;
 	/*000444*/ u32 unk000444;
-	/*000448*/ u32 unk000448;
+	/*000448*/ bool coopradaron;
 	/*00044c*/ u32 unk00044c;
 	/*000450*/ u32 pendingantiplayernum;
 	/*000454*/ u32 unk000454;

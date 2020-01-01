@@ -2151,38 +2151,18 @@ glabel menudialog00104104
 /*  f1041d0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerCoopRadar
-/*  f1041d4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1041d8:	10810007 */ 	beq	$a0,$at,.L0f1041f8
-/*  f1041dc:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f1041e0:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f1041e4:	14810011 */ 	bne	$a0,$at,.L0f10422c
-/*  f1041e8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f1041ec:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f1041f0:	03e00008 */ 	jr	$ra
-/*  f1041f4:	8c620448 */ 	lw	$v0,0x448($v1)
-.L0f1041f8:
-/*  f1041f8:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f1041fc:	11c00005 */ 	beqz	$t6,.L0f104214
-/*  f104200:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f104204:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f104208:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f10420c:	10000004 */ 	beqz	$zero,.L0f104220
-/*  f104210:	ac6f0448 */ 	sw	$t7,0x448($v1)
-.L0f104214:
-/*  f104214:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f104218:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f10421c:	ac600448 */ 	sw	$zero,0x448($v1)
-.L0f104220:
-/*  f104220:	8c780458 */ 	lw	$t8,0x458($v1)
-/*  f104224:	37190001 */ 	ori	$t9,$t8,0x1
-/*  f104228:	ac790458 */ 	sw	$t9,0x458($v1)
-.L0f10422c:
-/*  f10422c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f104230:	03e00008 */ 	jr	$ra
-/*  f104234:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerCoopRadar(u32 operation, struct menu_item *item, bool *enable)
+{
+	switch (operation) {
+	case MENUOP_GET:
+		return g_Vars.coopradaron;
+	case MENUOP_SET:
+		g_Vars.coopradaron = *enable ? 1 : 0;
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerCoopFriendlyFire
