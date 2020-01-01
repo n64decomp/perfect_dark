@@ -910,35 +910,15 @@ glabel func0f10d770
 /*  f10d878:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel menuhandlerReplyLastLevel
-/*  f10d87c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10d880:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10d884:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d888:	1481000f */ 	bne	$a0,$at,.L0f10d8c8
-/*  f10d88c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10d890:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f10d894:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f10d898:	904e0002 */ 	lbu	$t6,0x2($v0)
-/*  f10d89c:	3c188007 */ 	lui	$t8,0x8007
-/*  f10d8a0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10d8a4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f10d8a8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10d8ac:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10d8b0:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f10d8b4:	8f181e6c */ 	lw	$t8,0x1e6c($t8)
-/*  f10d8b8:	0fc40cfe */ 	jal	menuhandlerAcceptMission
-/*  f10d8bc:	a0580001 */ 	sb	$t8,0x1($v0)
-/*  f10d8c0:	10000003 */ 	beqz	$zero,.L0f10d8d0
-/*  f10d8c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10d8c8:
-/*  f10d8c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10d8cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10d8d0:
-/*  f10d8d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10d8d4:	03e00008 */ 	jr	$ra
-/*  f10d8d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerReplayLastLevel(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		g_MissionConfig.stagenum = g_StageNames[g_MissionConfig.stageindex].stage_id;
+		return menuhandlerAcceptMission(operation, NULL, value);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerContinueToCredits

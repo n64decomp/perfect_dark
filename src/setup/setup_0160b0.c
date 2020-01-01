@@ -3997,7 +3997,7 @@ struct menu_dialog menudialog_1b750 = {
 // 1b768
 struct menu_item menuitems_1b768[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x000054f4, 0x00000000, menuhandlerContinueToCredits }, // "Continue"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x000054f5, 0x00000000, menuhandlerReplyLastLevel }, // "Replay Last Level"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x000054f5, 0x00000000, menuhandlerReplayLastLevel }, // "Replay Last Level"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
