@@ -3910,44 +3910,30 @@ char *func0f105d9c(s32 arg0)
 	return textGet(0x5603); // "\n"
 }
 
-GLOBAL_ASM(
-glabel func0f105e04
-/*  f105e04:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f105e08:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f105e0c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f105e10:	3c04800a */ 	lui	$a0,0x800a
-/*  f105e14:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f105e18:	908421c0 */ 	lbu	$a0,0x21c0($a0)
-/*  f105e1c:	10400002 */ 	beqz	$v0,.L0f105e28
-/*  f105e20:	24044c00 */ 	addiu	$a0,$zero,0x4c00
-/*  f105e24:	94440048 */ 	lhu	$a0,0x48($v0)
-.L0f105e28:
-/*  f105e28:	24014c00 */ 	addiu	$at,$zero,0x4c00
-/*  f105e2c:	10810005 */ 	beq	$a0,$at,.L0f105e44
-/*  f105e30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f105e34:	0fc5b9f1 */ 	jal	textGet
-/*  f105e38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f105e3c:	1000000d */ 	beqz	$zero,.L0f105e74
-/*  f105e40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105e44:
-/*  f105e44:	3c04800a */ 	lui	$a0,0x800a
-/*  f105e48:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f105e4c:	908421c0 */ 	lbu	$a0,0x21c0($a0)
-/*  f105e50:	10400005 */ 	beqz	$v0,.L0f105e68
-/*  f105e54:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f105e58:	0fc5b9f1 */ 	jal	textGet
-/*  f105e5c:	94440046 */ 	lhu	$a0,0x46($v0)
-/*  f105e60:	10000004 */ 	beqz	$zero,.L0f105e74
-/*  f105e64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105e68:
-/*  f105e68:	0fc5b9f1 */ 	jal	textGet
-/*  f105e6c:	24045603 */ 	addiu	$a0,$zero,0x5603
-/*  f105e70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105e74:
-/*  f105e74:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f105e78:	03e00008 */ 	jr	$ra
-/*  f105e7c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * Return manufacturer, with fallback to weapon name if manufacturer is blank.
+ */
+char *func0f105e04(s32 arg0)
+{
+	struct weapon *weapon = weaponFindById(var800a21c0);
+	u32 textid = 0x4c00; // "\n"
+
+	if (weapon) {
+		textid = weapon->manufacturer;
+	}
+
+	if (textid != 0x4c00) {
+		return textGet(textid);
+	}
+
+	weapon = weaponFindById(var800a21c0);
+
+	if (weapon) {
+		return textGet(weapon->name);
+	}
+
+	return textGet(0x5603); // "\n"
+}
 
 GLOBAL_ASM(
 glabel func0f105e80
