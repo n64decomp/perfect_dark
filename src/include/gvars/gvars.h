@@ -11,7 +11,6 @@ struct g_vars {
 	//g_Vars.playersperm[1]
 	//g_Vars.PropState.propznum
 	//g_Vars.PropState
-	//g_Vars.antiradaron
 	//g_Vars.antibodynum
 	//g_Vars.antiheadnum
 
@@ -144,7 +143,7 @@ struct g_vars {
 	/*000440*/ u32 unk000440;
 	/*000444*/ u32 unk000444;
 	/*000448*/ bool coopradaron;
-	/*00044c*/ u32 unk00044c;
+	/*00044c*/ bool antiradaron;
 	/*000450*/ u32 pendingantiplayernum;
 	/*000454*/ bool coopfriendlyfire;
 	/*000458*/ u32 unk000458;

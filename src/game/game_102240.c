@@ -2290,38 +2290,18 @@ glabel menuhandlerCoopBuddy
 /*  f10441c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerAntiRadar
-/*  f104420:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f104424:	10810007 */ 	beq	$a0,$at,.L0f104444
-/*  f104428:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f10442c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f104430:	14810011 */ 	bne	$a0,$at,.L0f104478
-/*  f104434:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f104438:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f10443c:	03e00008 */ 	jr	$ra
-/*  f104440:	8c62044c */ 	lw	$v0,0x44c($v1)
-.L0f104444:
-/*  f104444:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f104448:	11c00005 */ 	beqz	$t6,.L0f104460
-/*  f10444c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f104450:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f104454:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f104458:	10000004 */ 	beqz	$zero,.L0f10446c
-/*  f10445c:	ac6f044c */ 	sw	$t7,0x44c($v1)
-.L0f104460:
-/*  f104460:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f104464:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f104468:	ac60044c */ 	sw	$zero,0x44c($v1)
-.L0f10446c:
-/*  f10446c:	8c780458 */ 	lw	$t8,0x458($v1)
-/*  f104470:	37190001 */ 	ori	$t9,$t8,0x1
-/*  f104474:	ac790458 */ 	sw	$t9,0x458($v1)
-.L0f104478:
-/*  f104478:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10447c:	03e00008 */ 	jr	$ra
-/*  f104480:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerAntiRadar(u32 operation, struct menu_item *item, bool *enable)
+{
+	switch (operation) {
+	case MENUOP_GET:
+		return g_Vars.antiradaron;
+	case MENUOP_SET:
+		g_Vars.antiradaron = *enable ? 1 : 0;
+		g_Vars.unk000458 |= 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerAntiPlayer
