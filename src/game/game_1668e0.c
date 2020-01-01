@@ -7304,19 +7304,14 @@ s32 getDifficulty(void)
 	return g_Difficulty;
 }
 
-GLOBAL_ASM(
-glabel setDifficulty
-/*  f16cda8:	04800003 */ 	bltz	$a0,.L0f16cdb8
-/*  f16cdac:	28810004 */ 	slti	$at,$a0,0x4
-/*  f16cdb0:	14200002 */ 	bnez	$at,.L0f16cdbc
-/*  f16cdb4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f16cdb8:
-/*  f16cdb8:	00002025 */ 	or	$a0,$zero,$zero
-.L0f16cdbc:
-/*  f16cdbc:	3c018008 */ 	lui	$at,0x8008
-/*  f16cdc0:	03e00008 */ 	jr	$ra
-/*  f16cdc4:	ac244020 */ 	sw	$a0,0x4020($at)
-);
+void setDifficulty(s32 difficulty)
+{
+	if (difficulty < DIFF_A || difficulty > DIFF_PD) {
+		difficulty = DIFF_A;
+	}
+
+	g_Difficulty = difficulty;
+}
 
 void setVar80084028(u32 arg0)
 {
