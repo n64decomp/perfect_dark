@@ -10444,54 +10444,28 @@ glabel menuhandler0017f74c
 /*  f17f88c:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpQuickteamOption
-/*  f17f890:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17f894:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17f898:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17f89c:	1481001f */ 	bne	$a0,$at,.L0f17f91c
-/*  f17f8a0:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f17f8a4:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f17f8a8:	3c01800a */ 	lui	$at,0x800a
-/*  f17f8ac:	0fc62587 */ 	jal	func0f18961c
-/*  f17f8b0:	ac2ea470 */ 	sw	$t6,-0x5b90($at)
-/*  f17f8b4:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f17f8b8:	0fc62416 */ 	jal	func0f189058
-/*  f17f8bc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f17f8c0:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f17f8c4:	01e2082a */ 	slt	$at,$t7,$v0
-/*  f17f8c8:	14200003 */ 	bnez	$at,.L0f17f8d8
-/*  f17f8cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17f8d0:	0fc6256f */ 	jal	func0f1895bc
-/*  f17f8d4:	00002025 */ 	or	$a0,$zero,$zero
-.L0f17f8d8:
-/*  f17f8d8:	3c02800a */ 	lui	$v0,0x800a
-/*  f17f8dc:	8c42a470 */ 	lw	$v0,-0x5b90($v0)
-/*  f17f8e0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17f8e4:	3c03800b */ 	lui	$v1,%hi(g_MpSetup)
-/*  f17f8e8:	10400002 */ 	beqz	$v0,.L0f17f8f4
-/*  f17f8ec:	3c048008 */ 	lui	$a0,%hi(menudialog_2c6a0)
-/*  f17f8f0:	14410008 */ 	bne	$v0,$at,.L0f17f914
-.L0f17f8f4:
-/*  f17f8f4:	2463cb88 */ 	addiu	$v1,$v1,%lo(g_MpSetup)
-/*  f17f8f8:	90620010 */ 	lbu	$v0,0x10($v1)
-/*  f17f8fc:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f17f900:	10410003 */ 	beq	$v0,$at,.L0f17f910
-/*  f17f904:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17f908:	14410002 */ 	bne	$v0,$at,.L0f17f914
-/*  f17f90c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17f910:
-/*  f17f910:	a0600010 */ 	sb	$zero,0x10($v1)
-.L0f17f914:
-/*  f17f914:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f17f918:	24846680 */ 	addiu	$a0,$a0,%lo(menudialog_2c6a0)
-.L0f17f91c:
-/*  f17f91c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17f920:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f17f924:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17f928:	03e00008 */ 	jr	$ra
-/*  f17f92c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpQuickteamOption(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		g_Vars.mpquickteam = item->param;
+
+		if (func0f18961c() >= func0f189058(0)) {
+			func0f1895bc(0);
+		}
+
+		if (g_Vars.mpquickteam == MPQUICKTEAM_PLAYERSONLY ||
+				g_Vars.mpquickteam == MPQUICKTEAM_PLAYERSANDSIMS) {
+			if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL ||
+					g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
+				g_MpSetup.scenario = MPSCENARIO_COMBAT;
+			}
+		}
+
+		menuPushDialog(&menudialog_2c6a0);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menudialog0017f930
