@@ -843,7 +843,7 @@ extern u32 var800ac4cc;
 extern u32 var800ac4d0;
 extern u32 var800ac500;
 extern u32 var800ac530;
-extern u32 var800ac538;
+extern struct mpsim g_MpSimulants[8];
 extern u32 var800ac798;
 extern struct options g_Options[];
 extern u32 var800ac858;
