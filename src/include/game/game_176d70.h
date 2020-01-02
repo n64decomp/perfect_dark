@@ -246,7 +246,7 @@ s32 menuhandlerMpQuickteamOption(u32 operation, struct menu_item *item, s32 *val
 s32 menuhandlerMpRestoreHandicapDefaults(u32, u32, u32 *);
 s32 menuhandlerMpRestoreScoreDefaults(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpSaveSettings(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMpScore(u32, u32, u32 *);
+s32 menuhandlerMpScore(u32 operation, struct menu_item *item, struct numandtext *value);
 s32 menuhandlerMpSimulantBody(u32, u32, u32 *);
 s32 menuhandlerMpSimulantDifficulty(u32, u32, u32 *);
 s32 menuhandlerMpSimulantHead(u32, u32, u32 *);

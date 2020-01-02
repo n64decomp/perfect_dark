@@ -4006,6 +4006,9 @@ struct mpsetup {
 	/*0x8009cb90*/ u32 unk08;
 	/*0x8009cb94*/ u32 options;
 	/*0x8009cb98*/ u8 scenario;
+	/*0x8009cb98*/ u8 unk11;
+	/*0x8009cb98*/ u8 unk12;
+	/*0x8009cb98*/ u8 scorelimit;
 	/*0x8009cb9c*/ u32 unk14;
 	/*0x8009cba0*/ u32 unk18;
 	/*0x8009cba4*/ u32 unk1c;
@@ -4032,6 +4035,12 @@ struct mpscenario {
 	void *unk3c;
 	void *unk40;
 	void *unk44;
+};
+
+// Throwaway struct for passing two values to menu handlers
+struct numandtext {
+	s32 num;
+	char *text;
 };
 
 #endif

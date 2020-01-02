@@ -6567,63 +6567,25 @@ glabel menuhandlerMpTime
 /*  f17c260:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpScore
-/*  f17c264:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17c268:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17c26c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17c270:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17c274:	1081000c */ 	beq	$a0,$at,.L0f17c2a8
-/*  f17c278:	00c03825 */ 	or	$a3,$a2,$zero
-/*  f17c27c:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f17c280:	10810006 */ 	beq	$a0,$at,.L0f17c29c
-/*  f17c284:	3c0e800b */ 	lui	$t6,0x800b
-/*  f17c288:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f17c28c:	5081000b */ 	beql	$a0,$at,.L0f17c2bc
-/*  f17c290:	8cf80000 */ 	lw	$t8,0x0($a3)
-/*  f17c294:	1000001f */ 	beqz	$zero,.L0f17c314
-/*  f17c298:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17c29c:
-/*  f17c29c:	91cecb9b */ 	lbu	$t6,-0x3465($t6)
-/*  f17c2a0:	1000001b */ 	beqz	$zero,.L0f17c310
-/*  f17c2a4:	acee0000 */ 	sw	$t6,0x0($a3)
-.L0f17c2a8:
-/*  f17c2a8:	8cef0000 */ 	lw	$t7,0x0($a3)
-/*  f17c2ac:	3c01800b */ 	lui	$at,0x800b
-/*  f17c2b0:	10000017 */ 	beqz	$zero,.L0f17c310
-/*  f17c2b4:	a02fcb9b */ 	sb	$t7,-0x3465($at)
-/*  f17c2b8:	8cf80000 */ 	lw	$t8,0x0($a3)
-.L0f17c2bc:
-/*  f17c2bc:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f17c2c0:	24045071 */ 	addiu	$a0,$zero,0x5071
-/*  f17c2c4:	1701000a */ 	bne	$t8,$at,.L0f17c2f0
-/*  f17c2c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17c2cc:	24045070 */ 	addiu	$a0,$zero,0x5070
-/*  f17c2d0:	0fc5b9f1 */ 	jal	textGet
-/*  f17c2d4:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f17c2d8:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f17c2dc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f17c2e0:	0c004dad */ 	jal	sprintf
-/*  f17c2e4:	8ce40004 */ 	lw	$a0,0x4($a3)
-/*  f17c2e8:	1000000a */ 	beqz	$zero,.L0f17c314
-/*  f17c2ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17c2f0:
-/*  f17c2f0:	0fc5b9f1 */ 	jal	textGet
-/*  f17c2f4:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f17c2f8:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f17c2fc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f17c300:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f17c304:	8ce40004 */ 	lw	$a0,0x4($a3)
-/*  f17c308:	0c004dad */ 	jal	sprintf
-/*  f17c30c:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f17c310:
-/*  f17c310:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17c314:
-/*  f17c314:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17c318:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17c31c:	03e00008 */ 	jr	$ra
-/*  f17c320:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpScore(u32 operation, struct menu_item *item, struct numandtext *value)
+{
+	switch (operation) {
+	case MENUOP_GETSLIDER:
+		value->num = g_MpSetup.scorelimit;
+		break;
+	case MENUOP_SET:
+		g_MpSetup.scorelimit = value->num;
+		break;
+	case MENUOP_GETSLIDERLABEL:
+		if (value->num == 100) {
+			sprintf(value->text, textGet(0x5070)); // "No Limit"
+		} else {
+			sprintf(value->text, textGet(0x5071), value->num + 1); // "%d"
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMpTeamScore
