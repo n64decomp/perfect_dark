@@ -4009,7 +4009,7 @@ struct mpsetup {
 	/*0x8009cb98*/ u8 unk11;
 	/*0x8009cb98*/ u8 unk12;
 	/*0x8009cb98*/ u8 scorelimit;
-	/*0x8009cb9c*/ u32 unk14;
+	/*0x8009cb9c*/ u16 teamscorelimit;
 	/*0x8009cba0*/ u32 unk18;
 	/*0x8009cba4*/ u32 unk1c;
 	/*0x8009cba8*/ bool saved;

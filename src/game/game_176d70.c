@@ -6587,64 +6587,25 @@ s32 menuhandlerMpScore(u32 operation, struct menu_item *item, struct numandtext 
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerMpTeamScore
-/*  f17c324:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17c328:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17c32c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17c330:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17c334:	1081000d */ 	beq	$a0,$at,.L0f17c36c
-/*  f17c338:	00c03825 */ 	or	$a3,$a2,$zero
-/*  f17c33c:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f17c340:	10810005 */ 	beq	$a0,$at,.L0f17c358
-/*  f17c344:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f17c348:	5081000d */ 	beql	$a0,$at,.L0f17c380
-/*  f17c34c:	8cef0000 */ 	lw	$t7,0x0($a3)
-/*  f17c350:	10000021 */ 	beqz	$zero,.L0f17c3d8
-/*  f17c354:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17c358:
-/*  f17c358:	0fc62113 */ 	jal	func0f18844c
-/*  f17c35c:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f17c360:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f17c364:	1000001b */ 	beqz	$zero,.L0f17c3d4
-/*  f17c368:	ace20000 */ 	sw	$v0,0x0($a3)
-.L0f17c36c:
-/*  f17c36c:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f17c370:	3c01800b */ 	lui	$at,0x800b
-/*  f17c374:	10000017 */ 	beqz	$zero,.L0f17c3d4
-/*  f17c378:	a42ecb9c */ 	sh	$t6,-0x3464($at)
-/*  f17c37c:	8cef0000 */ 	lw	$t7,0x0($a3)
-.L0f17c380:
-/*  f17c380:	24010190 */ 	addiu	$at,$zero,0x190
-/*  f17c384:	24045071 */ 	addiu	$a0,$zero,0x5071
-/*  f17c388:	15e1000a */ 	bne	$t7,$at,.L0f17c3b4
-/*  f17c38c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17c390:	24045070 */ 	addiu	$a0,$zero,0x5070
-/*  f17c394:	0fc5b9f1 */ 	jal	textGet
-/*  f17c398:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f17c39c:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f17c3a0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f17c3a4:	0c004dad */ 	jal	sprintf
-/*  f17c3a8:	8ce40004 */ 	lw	$a0,0x4($a3)
-/*  f17c3ac:	1000000a */ 	beqz	$zero,.L0f17c3d8
-/*  f17c3b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17c3b4:
-/*  f17c3b4:	0fc5b9f1 */ 	jal	textGet
-/*  f17c3b8:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f17c3bc:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f17c3c0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f17c3c4:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f17c3c8:	8ce40004 */ 	lw	$a0,0x4($a3)
-/*  f17c3cc:	0c004dad */ 	jal	sprintf
-/*  f17c3d0:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f17c3d4:
-/*  f17c3d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17c3d8:
-/*  f17c3d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17c3dc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17c3e0:	03e00008 */ 	jr	$ra
-/*  f17c3e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpTeamScore(u32 operation, struct menu_item *item, struct numandtext *value)
+{
+	switch (operation) {
+	case MENUOP_GETSLIDER:
+		value->num = func0f18844c();
+		break;
+	case MENUOP_SET:
+		g_MpSetup.teamscorelimit = value->num;
+		break;
+	case MENUOP_GETSLIDERLABEL:
+		if (value->num == 400) {
+			sprintf(value->text, textGet(0x5070)); // "No Limit"
+		} else {
+			sprintf(value->text, textGet(0x5071), value->num + 1); // "%d"
+		}
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpRestoreScoreDefaults(u32 operation, struct menu_item *item, s32 *value)
 {
