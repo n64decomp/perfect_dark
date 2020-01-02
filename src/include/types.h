@@ -4013,6 +4013,7 @@ struct mpsetup {
 	/*0x8009cb9a*/ u8 timelimit;
 	/*0x8009cb9b*/ u8 scorelimit;
 	/*0x8009cb9c*/ u16 teamscorelimit;
+	/*0x8009cb9e*/ u16 simslots;
 	/*0x8009cba0*/ u32 unk18;
 	/*0x8009cba4*/ u32 unk1c;
 	/*0x8009cba8*/ bool saved;

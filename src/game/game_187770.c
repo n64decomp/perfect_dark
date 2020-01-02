@@ -6576,7 +6576,7 @@ glabel func0f18cc8c
 );
 
 GLOBAL_ASM(
-glabel func0f18ccf8
+glabel mpIsSimSlotEnabled
 /*  f18ccf8:	3c03800b */ 	lui	$v1,0x800b
 /*  f18ccfc:	9463cb9e */ 	lhu	$v1,-0x3462($v1)
 /*  f18cd00:	248e0004 */ 	addiu	$t6,$a0,0x4

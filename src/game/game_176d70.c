@@ -7522,89 +7522,33 @@ s32 menuhandlerMpAddSimulant(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerMpSimulantSlot
-/*  f17d250:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17d254:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17d258:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17d25c:	10810008 */ 	beq	$a0,$at,.L0f17d280
-/*  f17d260:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17d264:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f17d268:	10810038 */ 	beq	$a0,$at,.L0f17d34c
-/*  f17d26c:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f17d270:	5081002d */ 	beql	$a0,$at,.L0f17d328
-/*  f17d274:	90af0001 */ 	lbu	$t7,0x1($a1)
-/*  f17d278:	1000003b */ 	beqz	$zero,.L0f17d368
-/*  f17d27c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17d280:
-/*  f17d280:	3c0f8007 */ 	lui	$t7,0x8007
-/*  f17d284:	8def1448 */ 	lw	$t7,0x1448($t7)
-/*  f17d288:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f17d28c:	3c01800a */ 	lui	$at,0x800a
-/*  f17d290:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f17d294:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f17d298:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f17d29c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17d2a0:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f17d2a4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f17d2a8:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f17d2ac:	00380821 */ 	addu	$at,$at,$t8
-/*  f17d2b0:	ac2eee1c */ 	sw	$t6,-0x11e4($at)
-/*  f17d2b4:	90a80001 */ 	lbu	$t0,0x1($a1)
-/*  f17d2b8:	3c19800b */ 	lui	$t9,0x800b
-/*  f17d2bc:	9739cb9e */ 	lhu	$t9,-0x3462($t9)
-/*  f17d2c0:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f17d2c4:	25090004 */ 	addiu	$t1,$t0,0x4
-/*  f17d2c8:	012a5804 */ 	sllv	$t3,$t2,$t1
-/*  f17d2cc:	032b6024 */ 	and	$t4,$t9,$t3
-/*  f17d2d0:	15800006 */ 	bnez	$t4,.L0f17d2ec
-/*  f17d2d4:	3c0d8009 */ 	lui	$t5,0x8009
-/*  f17d2d8:	3c048008 */ 	lui	$a0,%hi(g_MpAddSimulantMenuDialog)
-/*  f17d2dc:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f17d2e0:	2484581c */ 	addiu	$a0,$a0,%lo(g_MpAddSimulantMenuDialog)
-/*  f17d2e4:	10000020 */ 	beqz	$zero,.L0f17d368
-/*  f17d2e8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17d2ec:
-/*  f17d2ec:	91ad0af0 */ 	lbu	$t5,0xaf0($t5)
-/*  f17d2f0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17d2f4:	3c048008 */ 	lui	$a0,%hi(menudialog_mpeditsimulant)
-/*  f17d2f8:	15a10006 */ 	bne	$t5,$at,.L0f17d314
-/*  f17d2fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17d300:	3c048007 */ 	lui	$a0,%hi(menudialog_1b414)
-/*  f17d304:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f17d308:	248453f4 */ 	addiu	$a0,$a0,%lo(menudialog_1b414)
-/*  f17d30c:	10000016 */ 	beqz	$zero,.L0f17d368
-/*  f17d310:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17d314:
-/*  f17d314:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f17d318:	2484592c */ 	addiu	$a0,$a0,%lo(menudialog_mpeditsimulant)
-/*  f17d31c:	10000012 */ 	beqz	$zero,.L0f17d368
-/*  f17d320:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17d324:	90af0001 */ 	lbu	$t7,0x1($a1)
-.L0f17d328:
-/*  f17d328:	29e10004 */ 	slti	$at,$t7,0x4
-/*  f17d32c:	5420000e */ 	bnezl	$at,.L0f17d368
-/*  f17d330:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17d334:	0fc67244 */ 	jal	mpIsOptionAvailable
-/*  f17d338:	24040040 */ 	addiu	$a0,$zero,0x40
-/*  f17d33c:	5440000a */ 	bnezl	$v0,.L0f17d368
-/*  f17d340:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17d344:	10000008 */ 	beqz	$zero,.L0f17d368
-/*  f17d348:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f17d34c:
-/*  f17d34c:	0fc6333e */ 	jal	func0f18ccf8
-/*  f17d350:	90a40001 */ 	lbu	$a0,0x1($a1)
-/*  f17d354:	54400004 */ 	bnezl	$v0,.L0f17d368
-/*  f17d358:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17d35c:	10000002 */ 	beqz	$zero,.L0f17d368
-/*  f17d360:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f17d364:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17d368:
-/*  f17d368:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17d36c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17d370:	03e00008 */ 	jr	$ra
-/*  f17d374:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpSimulantSlot(u32 operation, struct menu_item *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_SET:
+		g_MenuStack[g_MenuStackDepth].slotindex = item->param;
+
+		if ((g_MpSetup.simslots & (1 << (item->param + 4))) == 0) {
+			menuPushDialog(&g_MpAddSimulantMenuDialog);
+		} else if (var80090af0 == 1) {
+			menuPushDialog(&menudialog_1b414);
+		} else {
+			menuPushDialog(&menudialog_mpeditsimulant);
+		}
+		break;
+	case MENUOP_CHECKHIDDEN:
+		if (item->param >= 4 && !mpIsOptionAvailable(0x40)) {
+			return true;
+		}
+		break;
+	case MENUOP_CHECKDISABLED:
+		if (!mpIsSimSlotEnabled(item->param)) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f17d378
