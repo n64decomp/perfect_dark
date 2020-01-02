@@ -3390,62 +3390,31 @@ glabel menuhandlerMpControlStyle
 /*  f179570:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpWeaponSlot
-/*  f179574:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f179578:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17957c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f179580:	1081000a */ 	beq	$a0,$at,.L0f1795ac
-/*  f179584:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f179588:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f17958c:	1081000c */ 	beq	$a0,$at,.L0f1795c0
-/*  f179590:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f179594:	1081000e */ 	beq	$a0,$at,.L0f1795d0
-/*  f179598:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f17959c:	50810012 */ 	beql	$a0,$at,.L0f1795e8
-/*  f1795a0:	8ce4000c */ 	lw	$a0,0xc($a3)
-/*  f1795a4:	10000015 */ 	beqz	$zero,.L0f1795fc
-/*  f1795a8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1795ac:
-/*  f1795ac:	0fc622f5 */ 	jal	func0f188bd4
-/*  f1795b0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1795b4:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f1795b8:	1000000f */ 	beqz	$zero,.L0f1795f8
-/*  f1795bc:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f1795c0:
-/*  f1795c0:	0fc6230f */ 	jal	func0f188c3c
-/*  f1795c4:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f1795c8:	1000000d */ 	beqz	$zero,.L0f179600
-/*  f1795cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1795d0:
-/*  f1795d0:	8ce4000c */ 	lw	$a0,0xc($a3)
-/*  f1795d4:	0fc62346 */ 	jal	func0f188d18
-/*  f1795d8:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f1795dc:	10000007 */ 	beqz	$zero,.L0f1795fc
-/*  f1795e0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1795e4:	8ce4000c */ 	lw	$a0,0xc($a3)
-.L0f1795e8:
-/*  f1795e8:	0fc62365 */ 	jal	func0f188d94
-/*  f1795ec:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1795f0:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f1795f4:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f1795f8:
-/*  f1795f8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1795fc:
-/*  f1795fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179600:
-/*  f179600:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f179604:	03e00008 */ 	jr	$ra
-/*  f179608:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menuhandlerMpWeaponSlot(u32 operation, struct menu_item *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = mpGetNumWeaponOptions();
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return mpGetWeaponLabel(*value);
+	case MENUOP_SET:
+		mpSetWeaponSlot(item->right, *value);
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = mpGetWeaponSlot(item->right);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f17960c
 /*  f17960c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f179610:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f179614:	0fc62365 */ 	jal	func0f188d94
+/*  f179614:	0fc62365 */ 	jal	mpGetWeaponSlot
 /*  f179618:	90840001 */ 	lbu	$a0,0x1($a0)
-/*  f17961c:	0fc6230f */ 	jal	func0f188c3c
+/*  f17961c:	0fc6230f */ 	jal	mpGetWeaponLabel
 /*  f179620:	00402025 */ 	or	$a0,$v0,$zero
 /*  f179624:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f179628:	27bd0018 */ 	addiu	$sp,$sp,0x18

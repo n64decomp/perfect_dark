@@ -1721,7 +1721,7 @@ u32 func0f188bcc(void)
 }
 
 GLOBAL_ASM(
-glabel func0f188bd4
+glabel mpGetNumWeaponOptions
 /*  f188bd4:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f188bd8:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f188bdc:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -1753,7 +1753,7 @@ glabel func0f188bd4
 );
 
 GLOBAL_ASM(
-glabel func0f188c3c
+glabel mpGetWeaponLabel
 /*  f188c3c:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f188c40:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f188c44:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -1819,7 +1819,7 @@ glabel func0f188c3c
 );
 
 GLOBAL_ASM(
-glabel func0f188d18
+glabel mpSetWeaponSlot
 /*  f188d18:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f188d1c:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f188d20:	afb1001c */ 	sw	$s1,0x1c($sp)
@@ -1857,7 +1857,7 @@ glabel func0f188d18
 );
 
 GLOBAL_ASM(
-glabel func0f188d94
+glabel mpGetWeaponSlot
 /*  f188d94:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f188d98:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup)
 /*  f188d9c:	afb30020 */ 	sw	$s3,0x20($sp)
@@ -2399,7 +2399,7 @@ glabel func0f1892dc
 /*  f1894d4:	2401000d */ 	addiu	$at,$zero,0xd
 /*  f1894d8:	54410017 */ 	bnel	$v0,$at,.L0f189538
 /*  f1894dc:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f1894e0:	0fc622f5 */ 	jal	func0f188bd4
+/*  f1894e0:	0fc622f5 */ 	jal	mpGetNumWeaponOptions
 /*  f1894e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1894e8:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f1894ec:	00008025 */ 	or	$s0,$zero,$zero
@@ -2414,7 +2414,7 @@ glabel func0f1892dc
 /*  f18950c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f189510:	0007000d */ 	break	0x7
 .L0f189514:
-/*  f189514:	0fc62346 */ 	jal	func0f188d18
+/*  f189514:	0fc62346 */ 	jal	mpSetWeaponSlot
 /*  f189518:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18951c:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f189520:	24010006 */ 	addiu	$at,$zero,0x6
@@ -2426,7 +2426,7 @@ glabel func0f1892dc
 .L0f189538:
 /*  f189538:	5441001c */ 	bnel	$v0,$at,.L0f1895ac
 /*  f18953c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f189540:	0fc622f5 */ 	jal	func0f188bd4
+/*  f189540:	0fc622f5 */ 	jal	mpGetNumWeaponOptions
 /*  f189544:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f189548:	2458fffe */ 	addiu	$t8,$v0,-2
 /*  f18954c:	afb80030 */ 	sw	$t8,0x30($sp)
@@ -2443,16 +2443,16 @@ glabel func0f1892dc
 /*  f189574:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f189578:	0007000d */ 	break	0x7
 .L0f18957c:
-/*  f18957c:	0fc62346 */ 	jal	func0f188d18
+/*  f18957c:	0fc62346 */ 	jal	mpSetWeaponSlot
 /*  f189580:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f189584:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f189588:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f18958c:	1601fff1 */ 	bne	$s0,$at,.L0f189554
 /*  f189590:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f189594:	0fc622f5 */ 	jal	func0f188bd4
+/*  f189594:	0fc622f5 */ 	jal	mpGetNumWeaponOptions
 /*  f189598:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18959c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1895a0:	0fc62346 */ 	jal	func0f188d18
+/*  f1895a0:	0fc62346 */ 	jal	mpSetWeaponSlot
 /*  f1895a4:	2445ffff */ 	addiu	$a1,$v0,-1
 .L0f1895a8:
 /*  f1895a8:	8fbf001c */ 	lw	$ra,0x1c($sp)

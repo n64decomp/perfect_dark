@@ -261,6 +261,6 @@ s32 menuhandlerMpTeamsEnabled(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandlerMpThreeTeams(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpTime(u32, u32, u32 *);
 s32 menuhandlerMpTwoTeams(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMpWeaponSlot(u32, u32, u32 *);
+char *menuhandlerMpWeaponSlot(u32 operation, struct menu_item *item, s32 *value);
 
 #endif
