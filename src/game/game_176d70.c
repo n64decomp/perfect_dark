@@ -3469,87 +3469,42 @@ glabel menuhandler00179634
 /*  f1796c0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpControlCheckbox
-/*  f1796c4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1796c8:	10810025 */ 	beq	$a0,$at,.L0f179760
-/*  f1796cc:	3c0d8007 */ 	lui	$t5,0x8007
-/*  f1796d0:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f1796d4:	54810040 */ 	bnel	$a0,$at,.L0f1797d8
-/*  f1796d8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1796dc:	8ca2000c */ 	lw	$v0,0xc($a1)
-/*  f1796e0:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f1796e4:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f1796e8:	1462000f */ 	bne	$v1,$v0,.L0f179728
-/*  f1796ec:	3c088007 */ 	lui	$t0,0x8007
-/*  f1796f0:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f1796f4:	3c18800b */ 	lui	$t8,0x800b
-/*  f1796f8:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f1796fc:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f179700:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f179704:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f179708:	9718c800 */ 	lhu	$t8,-0x3800($t8)
-/*  f17970c:	0302c824 */ 	and	$t9,$t8,$v0
-/*  f179710:	17200003 */ 	bnez	$t9,.L0f179720
-/*  f179714:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f179718:	03e00008 */ 	jr	$ra
-/*  f17971c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f179720:
-/*  f179720:	03e00008 */ 	jr	$ra
-/*  f179724:	00001025 */ 	or	$v0,$zero,$zero
-.L0f179728:
-/*  f179728:	8d081448 */ 	lw	$t0,0x1448($t0)
-/*  f17972c:	3c0a800b */ 	lui	$t2,0x800b
-/*  f179730:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f179734:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f179738:	00094940 */ 	sll	$t1,$t1,0x5
-/*  f17973c:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f179740:	954ac800 */ 	lhu	$t2,-0x3800($t2)
-/*  f179744:	01425824 */ 	and	$t3,$t2,$v0
-/*  f179748:	15600003 */ 	bnez	$t3,.L0f179758
-/*  f17974c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f179750:	03e00008 */ 	jr	$ra
-/*  f179754:	00001025 */ 	or	$v0,$zero,$zero
-.L0f179758:
-/*  f179758:	03e00008 */ 	jr	$ra
-/*  f17975c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f179760:
-/*  f179760:	8ca2000c */ 	lw	$v0,0xc($a1)
-/*  f179764:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f179768:	14620009 */ 	bne	$v1,$v0,.L0f179790
-/*  f17976c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f179770:	8ccc0000 */ 	lw	$t4,0x0($a2)
-/*  f179774:	55800005 */ 	bnezl	$t4,.L0f17978c
-/*  f179778:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f17977c:	acc30000 */ 	sw	$v1,0x0($a2)
-/*  f179780:	10000003 */ 	beqz	$zero,.L0f179790
-/*  f179784:	8ca2000c */ 	lw	$v0,0xc($a1)
-/*  f179788:	acc00000 */ 	sw	$zero,0x0($a2)
-.L0f17978c:
-/*  f17978c:	8ca2000c */ 	lw	$v0,0xc($a1)
-.L0f179790:
-/*  f179790:	8dad1448 */ 	lw	$t5,0x1448($t5)
-/*  f179794:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f179798:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f17979c:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f1797a0:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f1797a4:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f1797a8:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f1797ac:	94780048 */ 	lhu	$t8,0x48($v1)
-/*  f1797b0:	0040c827 */ 	nor	$t9,$v0,$zero
-/*  f1797b4:	03194024 */ 	and	$t0,$t8,$t9
-/*  f1797b8:	a4680048 */ 	sh	$t0,0x48($v1)
-/*  f1797bc:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f1797c0:	51200005 */ 	beqzl	$t1,.L0f1797d8
-/*  f1797c4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1797c8:	8cab000c */ 	lw	$t3,0xc($a1)
-/*  f1797cc:	010b6025 */ 	or	$t4,$t0,$t3
-/*  f1797d0:	a46c0048 */ 	sh	$t4,0x48($v1)
-/*  f1797d4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1797d8:
-/*  f1797d8:	03e00008 */ 	jr	$ra
-/*  f1797dc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpControlCheckbox(u32 operation, struct menu_item *item, s32 *value)
+{
+	u32 val;
+
+	switch (operation) {
+	case MENUOP_GET:
+		if (item->right == OPTION_FORWARDPITCH) {
+			if ((g_Options[g_MenuStackDepth].booleans & item->right) == 0) {
+				return true;
+			}
+			return false;
+		}
+		if ((g_Options[g_MenuStackDepth].booleans & item->right) == 0) {
+			return false;
+		}
+		return true;
+	case MENUOP_SET:
+		val = OPTION_FORWARDPITCH;
+
+		if (item->right == val) {
+			if (*value == 0) {
+				*value = val;
+			} else {
+				*value = 0;
+			}
+		}
+
+		g_Options[g_MenuStackDepth].booleans &= ~item->right;
+
+		if (*value) {
+			g_Options[g_MenuStackDepth].booleans |= item->right;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMpAimControl
