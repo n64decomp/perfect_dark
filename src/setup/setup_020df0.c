@@ -10667,9 +10667,9 @@ struct menu_dialog menudialog_mparena = {
 
 // 2b654
 struct menu_item menuitems_mplimits[] = {
-	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x0000506c, 0x0000003c, menuhandlerMpTime }, // "Time"
-	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x0000506d, 0x00000064, menuhandlerMpScore }, // "Score"
-	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x000059bf, 0x00000190, menuhandlerMpTeamScore }, // "Team Score"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x0000506c, 0x0000003c, menuhandlerMpTimeLimitSlider }, // "Time"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x0000506d, 0x00000064, menuhandlerMpScoreLimitSlider }, // "Score"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00020010, 0x000059bf, 0x00000190, menuhandlerMpTeamScoreLimitSlider }, // "Team Score"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00060000, 0x0000506e, 0x00000000, menuhandlerMpRestoreScoreDefaults }, // "Restore Defaults"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x0000506f, 0x00000000, NULL }, // "Back"

@@ -246,7 +246,7 @@ s32 menuhandlerMpQuickteamOption(u32 operation, struct menu_item *item, s32 *val
 s32 menuhandlerMpRestoreHandicapDefaults(u32, u32, u32 *);
 s32 menuhandlerMpRestoreScoreDefaults(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpSaveSettings(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMpScore(u32 operation, struct menu_item *item, struct numandtext *value);
+s32 menuhandlerMpScoreLimitSlider(u32 operation, struct menu_item *item, struct numandtext *value);
 s32 menuhandlerMpSimulantBody(u32, u32, u32 *);
 s32 menuhandlerMpSimulantDifficulty(u32, u32, u32 *);
 s32 menuhandlerMpSimulantHead(u32, u32, u32 *);
@@ -255,11 +255,11 @@ s32 menuhandlerMpSimulantsPerTeam(u32, u32, u32 *);
 s32 menuhandlerMpSlowMotion(u32, u32, u32 *);
 s32 menuhandlerMpStartChallenge(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpTeamNameSlot(u32, u32, u32 *);
-s32 menuhandlerMpTeamScore(u32 operation, struct menu_item *item, struct numandtext *value);
+s32 menuhandlerMpTeamScoreLimitSlider(u32 operation, struct menu_item *item, struct numandtext *value);
 s32 menuhandlerMpTeamSlot(u32, u32, u32 *);
 s32 menuhandlerMpTeamsEnabled(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpThreeTeams(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMpTime(u32, u32, u32 *);
+s32 menuhandlerMpTimeLimitSlider(u32 operation, struct menu_item *item, struct numandtext *value);
 s32 menuhandlerMpTwoTeams(u32 operation, struct menu_item *item, s32 *value);
 char *menuhandlerMpWeaponSlot(u32 operation, struct menu_item *item, s32 *value);
 
