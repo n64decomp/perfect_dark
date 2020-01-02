@@ -254,7 +254,7 @@ s32 menuhandlerMpSimulantSlot(u32, u32, u32 *);
 s32 menuhandlerMpSimulantsPerTeam(u32, u32, u32 *);
 s32 menuhandlerMpSlowMotion(u32, u32, u32 *);
 s32 menuhandlerMpStartChallenge(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMpTeamNameSlot(u32, u32, u32 *);
+s32 menuhandlerMpTeamNameSlot(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpTeamScoreLimitSlider(u32 operation, struct menu_item *item, struct numandtext *value);
 s32 menuhandlerMpTeamSlot(u32, u32, u32 *);
 s32 menuhandlerMpTeamsEnabled(u32 operation, struct menu_item *item, s32 *value);

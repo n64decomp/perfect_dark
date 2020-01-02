@@ -267,7 +267,7 @@ extern struct menu_dialog menudialog_mpchangesimulant;
 extern struct menu_dialog menudialog_mpeditsimulant;
 extern u32 var80085a74;
 extern u32 var80085a84;
-extern struct menu_dialog menudialog_mpchangeteamname;
+extern struct menu_dialog g_MpChangeTeamNameMenuDialog;
 extern struct menu_dialog menudialog_2bfa8;
 extern struct menu_dialog menudialog_mpchallengedetails2;
 extern struct menu_dialog menudialog_2c0cc;

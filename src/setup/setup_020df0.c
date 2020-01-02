@@ -10934,7 +10934,7 @@ struct menu_item menuitems_mpchangeteamname[] = {
 };
 
 // 2be38
-struct menu_dialog menudialog_mpchangeteamname = {
+struct menu_dialog g_MpChangeTeamNameMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x503d,
 	menuitems_mpchangeteamname,

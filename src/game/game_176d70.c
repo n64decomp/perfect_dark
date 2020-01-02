@@ -7396,7 +7396,7 @@ glabel menuhandlerMpSimulantDifficulty
 s32 menuhandlerMpDeleteSimulant(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		mpRemoveSimulant(g_MenuStack[g_MenuStackDepth].simulantindex);
+		mpRemoveSimulant(g_MenuStack[g_MenuStackDepth].slotindex);
 		menuPopDialog();
 	}
 
@@ -7534,7 +7534,7 @@ s32 menuhandlerMpAddSimulant(u32 operation, struct menu_item *item, s32 *value)
 {
 	switch (operation) {
 	case MENUOP_SET:
-		g_MenuStack[g_MenuStackDepth].simulantindex = -1;
+		g_MenuStack[g_MenuStackDepth].slotindex = -1;
 		menuPushDialog(&g_MpAddSimulantMenuDialog);
 		break;
 	case MENUOP_CHECKDISABLED:
@@ -8738,37 +8738,15 @@ glabel func0f17e288
 /*  f17e2a8:	01cf1021 */ 	addu	$v0,$t6,$t7
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpTeamNameSlot
-/*  f17e2ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17e2b0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17e2b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17e2b8:	14810012 */ 	bne	$a0,$at,.L0f17e304
-/*  f17e2bc:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17e2c0:	3c188007 */ 	lui	$t8,0x8007
-/*  f17e2c4:	8f181448 */ 	lw	$t8,0x1448($t8)
-/*  f17e2c8:	8cae0008 */ 	lw	$t6,0x8($a1)
-/*  f17e2cc:	3c01800a */ 	lui	$at,0x800a
-/*  f17e2d0:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f17e2d4:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f17e2d8:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f17e2dc:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f17e2e0:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f17e2e4:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f17e2e8:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f17e2ec:	00390821 */ 	addu	$at,$at,$t9
-/*  f17e2f0:	3c048008 */ 	lui	$a0,%hi(menudialog_mpchangeteamname)
-/*  f17e2f4:	25cfa9f8 */ 	addiu	$t7,$t6,-22024
-/*  f17e2f8:	ac2fee1c */ 	sw	$t7,-0x11e4($at)
-/*  f17e2fc:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f17e300:	24845e18 */ 	addiu	$a0,$a0,%lo(menudialog_mpchangeteamname)
-.L0f17e304:
-/*  f17e304:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17e308:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17e30c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17e310:	03e00008 */ 	jr	$ra
-/*  f17e314:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpTeamNameSlot(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		g_MenuStack[g_MenuStackDepth].slotindex = item->left - 0x5608;
+		menuPushDialog(&g_MpChangeTeamNameMenuDialog);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f17e318
