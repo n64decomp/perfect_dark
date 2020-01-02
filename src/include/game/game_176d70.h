@@ -55,7 +55,7 @@ u32 func0f17af1c(void);
 u32 func0f17af9c(void);
 u32 func0f17b360(void);
 u32 func0f17b408(void);
-u32 func0f17b4f8(void);
+s32 func0f17b4f8(u32 operation, struct menu_item *item, s32 *value, s32 arg3, s32 arg4);
 u32 func0f17b8b0(void);
 u32 func0f17b8f0(void);
 u32 func0f17be2c(void);
@@ -222,7 +222,7 @@ s32 menuhandlerMpAdvancedSetup(u32 operation, struct menu_item *item, s32 *value
 s32 menuhandlerMpAimControl(u32, u32, u32 *);
 s32 menuhandlerMpChangeSimulantType(u32, u32, u32 *);
 s32 menuhandlerMpCharacterBody(u32, u32, u32 *);
-s32 menuhandlerMpCharacterHead(u32, u32, u32 *);
+s32 menuhandlerMpCharacterHead(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpCheckboxOption(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpClearAllSimulants(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpControlCheckbox(u32, u32, u32 *);

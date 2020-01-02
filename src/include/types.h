@@ -3938,7 +3938,10 @@ struct options {
 	/*0x00*/ u16 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
+	/*0x0c*/ u8 unk0c;
+	/*0x0d*/ u8 unk0d;
+	/*0x0e*/ u8 unk0e;
+	/*0x0f*/ u8 mphead;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;

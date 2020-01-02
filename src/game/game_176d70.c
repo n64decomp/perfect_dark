@@ -5845,38 +5845,14 @@ glabel func0f17b4f8
 /*  f17b83c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpCharacterHead
-/*  f17b840:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17b844:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17b848:	1481000a */ 	bne	$a0,$at,.L0f17b874
-/*  f17b84c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f17b850:	3c0f8007 */ 	lui	$t7,0x8007
-/*  f17b854:	8def1448 */ 	lw	$t7,0x1448($t7)
-/*  f17b858:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f17b85c:	3c01800b */ 	lui	$at,0x800b
-/*  f17b860:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f17b864:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17b868:	0018c140 */ 	sll	$t8,$t8,0x5
-/*  f17b86c:	00380821 */ 	addu	$at,$at,$t8
-/*  f17b870:	a02ec7c7 */ 	sb	$t6,-0x3839($at)
-.L0f17b874:
-/*  f17b874:	3c198007 */ 	lui	$t9,0x8007
-/*  f17b878:	8f391448 */ 	lw	$t9,0x1448($t9)
-/*  f17b87c:	3c07800b */ 	lui	$a3,0x800b
-/*  f17b880:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f17b884:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f17b888:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f17b88c:	00084140 */ 	sll	$t0,$t0,0x5
-/*  f17b890:	00e83821 */ 	addu	$a3,$a3,$t0
-/*  f17b894:	90e7c7c7 */ 	lbu	$a3,-0x3839($a3)
-/*  f17b898:	0fc5ed3e */ 	jal	func0f17b4f8
-/*  f17b89c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f17b8a0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f17b8a4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f17b8a8:	03e00008 */ 	jr	$ra
-/*  f17b8ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpCharacterHead(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		g_Options[g_MenuStackDepth].mphead = *value;
+	}
+
+	return func0f17b4f8(operation, item, value, g_Options[g_MenuStackDepth].mphead, 1);
+}
 
 GLOBAL_ASM(
 glabel func0f17b8b0
