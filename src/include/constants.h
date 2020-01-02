@@ -469,6 +469,13 @@
 #define MENUOP_CHECKPREFOCUSED 15
 #define MENUOP_CHECKHIDDEN     24
 
+#define MPSCENARIO_COMBAT           0
+#define MPSCENARIO_HOLDTHEBRIEFCASE 1
+#define MPSCENARIO_HACKERCENTRAL    2
+#define MPSCENARIO_POPACAP          3
+#define MPSCENARIO_KINGOFTHEHILL    4
+#define MPSCENARIO_CAPTURETHECASE   5
+
 // Object flags - bank 0 (object struct offset 0x08)
 #define OBJECTFLAG0_00000001             0x00000001 // Not used in scripts
 #define OBJECTFLAG0_00000002             0x00000002 // Not used in scripts

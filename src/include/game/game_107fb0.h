@@ -7,7 +7,7 @@ u32 func0f107fb0(void);
 u32 func0f108078(void);
 u32 func0f1080d0(void);
 u32 func0f1082b0(void);
-u32 func0f108324(void);
+void func0f108324(s32 arg0);
 u32 func0f1083b0(void);
 u32 func0f1083d0(void);
 u32 func0f108424(void);

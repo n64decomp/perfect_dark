@@ -11546,7 +11546,7 @@ struct menu_dialog menudialog_mppopacapoptions = {
 };
 
 // 2cfb8
-struct mpoptionsdialoginfo g_MpOptionsDialogs[] = {
+struct mpscenario g_MpScenarios[] = {
 	{ &menudialog_mpcombatoptions,    NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL,         NULL, NULL,         NULL },
 	{ &menudialog_mpbriefcaseoptions, func0f17ff80, func0f17ffdc, func0f1802bc, func0f1802e0, func0f180600, func0f18079c, func0f180960, func0f180a68, func0f180b1c, func0f180c48, NULL,         NULL,         NULL,         NULL,         NULL, NULL,         NULL },
 	{ &menudialog_mphackeroptions,    func0f182b90, func0f182b9c, func0f182e98, func0f1830a4, func0f183380, func0f1839a8, func0f183bb4, func0f183d10, func0f184218, func0f184344, NULL,         NULL,         NULL,         NULL,         NULL, NULL,         NULL },

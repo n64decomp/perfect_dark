@@ -3660,7 +3660,8 @@ s32 menuhandlerMpCheckboxOption(u32 operation, struct menu_item *item, s32 *valu
 s32 menuhandlerMpTeamsEnabled(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
-		if (var800acb98 == 5 || var800acb98 == 4) {
+		if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE ||
+				g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
 			return true;
 		}
 
@@ -3791,8 +3792,8 @@ glabel menuhandler00179ad0
 /*  f179ae4:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f179ae8:	0fc3cdb7 */ 	jal	menuPopDialog
 /*  f179aec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f179af0:	3c04800b */ 	lui	$a0,%hi(var800acba8)
-/*  f179af4:	2484cba8 */ 	addiu	$a0,$a0,%lo(var800acba8)
+/*  f179af0:	3c04800b */ 	lui	$a0,0x800b
+/*  f179af4:	2484cba8 */ 	addiu	$a0,$a0,-13400
 /*  f179af8:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f179afc:	0fc42539 */ 	jal	func0f1094e4
 /*  f179b00:	00003025 */ 	or	$a2,$zero,$zero
@@ -9855,38 +9856,19 @@ glabel menuhandler0017ef30
 /*  f17efb8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpSaveSettings
-/*  f17efbc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17efc0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17efc4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17efc8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17efcc:	14810010 */ 	bne	$a0,$at,.L0f17f010
-/*  f17efd0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17efd4:	3c02800b */ 	lui	$v0,%hi(g_MpSetup)
-/*  f17efd8:	2442cb88 */ 	addiu	$v0,$v0,%lo(g_MpSetup)
-/*  f17efdc:	8c4e0020 */ 	lw	$t6,0x20($v0)
-/*  f17efe0:	3c048008 */ 	lui	$a0,%hi(menudialog_mpsavesetupname)
-/*  f17efe4:	15c00005 */ 	bnez	$t6,.L0f17effc
-/*  f17efe8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17efec:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f17eff0:	24844cdc */ 	addiu	$a0,$a0,%lo(menudialog_mpsavesetupname)
-/*  f17eff4:	10000007 */ 	beqz	$zero,.L0f17f014
-/*  f17eff8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17effc:
-/*  f17effc:	0fc420c9 */ 	jal	func0f108324
-/*  f17f000:	94440024 */ 	lhu	$a0,0x24($v0)
-/*  f17f004:	3c048008 */ 	lui	$a0,%hi(menudialog_mpsavesetup)
-/*  f17f008:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f17f00c:	24844d80 */ 	addiu	$a0,$a0,%lo(menudialog_mpsavesetup)
-.L0f17f010:
-/*  f17f010:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17f014:
-/*  f17f014:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17f018:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17f01c:	03e00008 */ 	jr	$ra
-/*  f17f020:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpSaveSettings(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		if (g_MpSetup.saved == false) {
+			menuPushDialog(&menudialog_mpsavesetupname);
+		} else {
+			func0f108324(g_MpSetup.unk24);
+			menuPushDialog(&menudialog_mpsavesetup);
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f17f024
@@ -16757,10 +16739,10 @@ glabel menudialog00184ec0
 /*  f184f08:	030fc021 */ 	addu	$t8,$t8,$t7
 /*  f184f0c:	001940c0 */ 	sll	$t0,$t9,0x3
 /*  f184f10:	8f18e4f8 */ 	lw	$t8,-0x1b08($t8)
-/*  f184f14:	3c098008 */ 	lui	$t1,%hi(g_MpOptionsDialogs)
+/*  f184f14:	3c098008 */ 	lui	$t1,%hi(g_MpScenarios)
 /*  f184f18:	01194021 */ 	addu	$t0,$t0,$t9
 /*  f184f1c:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f184f20:	25296f98 */ 	addiu	$t1,$t1,%lo(g_MpOptionsDialogs)
+/*  f184f20:	25296f98 */ 	addiu	$t1,$t1,%lo(g_MpScenarios)
 /*  f184f24:	01095021 */ 	addu	$t2,$t0,$t1
 /*  f184f28:	8d4b0000 */ 	lw	$t3,0x0($t2)
 /*  f184f2c:	8f040000 */ 	lw	$a0,0x0($t8)
@@ -17086,7 +17068,7 @@ glabel menuhandler00185068
 s32 menuhandlerMpOpenOptions(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		menuPushDialog(g_MpOptionsDialogs[var800acb98].dialog);
+		menuPushDialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);
 	}
 
 	return 0;
@@ -17386,9 +17368,9 @@ glabel func0f185774
 /*  f185794:	254acb88 */ 	addiu	$t2,$t2,%lo(g_MpSetup)
 /*  f185798:	914f0010 */ 	lbu	$t7,0x10($t2)
 /*  f18579c:	240b0048 */ 	addiu	$t3,$zero,0x48
-/*  f1857a0:	3c088008 */ 	lui	$t0,%hi(g_MpOptionsDialogs)
+/*  f1857a0:	3c088008 */ 	lui	$t0,%hi(g_MpScenarios)
 /*  f1857a4:	01eb0019 */ 	multu	$t7,$t3
-/*  f1857a8:	25086f98 */ 	addiu	$t0,$t0,%lo(g_MpOptionsDialogs)
+/*  f1857a8:	25086f98 */ 	addiu	$t0,$t0,%lo(g_MpScenarios)
 /*  f1857ac:	0000c012 */ 	mflo	$t8
 /*  f1857b0:	0118c821 */ 	addu	$t9,$t0,$t8
 /*  f1857b4:	8f2c0018 */ 	lw	$t4,0x18($t9)
