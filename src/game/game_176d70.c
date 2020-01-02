@@ -7540,36 +7540,15 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f17cf54:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpDeleteSimulant
-/*  f17cf58:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17cf5c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17cf60:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17cf64:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17cf68:	14810010 */ 	bne	$a0,$at,.L0f17cfac
-/*  f17cf6c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17cf70:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f17cf74:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f17cf78:	3c04800a */ 	lui	$a0,0x800a
-/*  f17cf7c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17cf80:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17cf84:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17cf88:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17cf8c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17cf90:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17cf94:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17cf98:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f17cf9c:	0fc632ff */ 	jal	mpRemoveSimulant
-/*  f17cfa0:	8c84ee1c */ 	lw	$a0,-0x11e4($a0)
-/*  f17cfa4:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f17cfa8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17cfac:
-/*  f17cfac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17cfb0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17cfb4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17cfb8:	03e00008 */ 	jr	$ra
-/*  f17cfbc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpDeleteSimulant(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		mpRemoveSimulant(g_MenuStack[g_MenuStackDepth].simulantindex);
+		menuPopDialog();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f17cfc0
@@ -7702,7 +7681,7 @@ s32 menuhandlerMpAddSimulant(u32 operation, struct menu_item *item, s32 *value)
 {
 	switch (operation) {
 	case MENUOP_SET:
-		g_MenuStack[g_MenuStackDepth].unk924 = -1;
+		g_MenuStack[g_MenuStackDepth].simulantindex = -1;
 		menuPushDialog(&g_MpAddSimulantMenuDialog);
 		break;
 	case MENUOP_CHECKDISABLED:
