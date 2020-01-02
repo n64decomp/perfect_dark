@@ -7698,52 +7698,21 @@ s32 menuhandlerMpClearAllSimulants(u32 operation, struct menu_item *item, s32 *v
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerMpAddSimulant
-/*  f17d1b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17d1b4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17d1b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17d1bc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17d1c0:	10810006 */ 	beq	$a0,$at,.L0f17d1dc
-/*  f17d1c4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17d1c8:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f17d1cc:	10810015 */ 	beq	$a0,$at,.L0f17d224
-/*  f17d1d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17d1d4:	1000001a */ 	beqz	$zero,.L0f17d240
-/*  f17d1d8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17d1dc:
-/*  f17d1dc:	3c0f8007 */ 	lui	$t7,0x8007
-/*  f17d1e0:	8def1448 */ 	lw	$t7,0x1448($t7)
-/*  f17d1e4:	3c01800a */ 	lui	$at,0x800a
-/*  f17d1e8:	240effff */ 	addiu	$t6,$zero,-1
-/*  f17d1ec:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f17d1f0:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f17d1f4:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f17d1f8:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17d1fc:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f17d200:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f17d204:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f17d208:	00380821 */ 	addu	$at,$at,$t8
-/*  f17d20c:	3c048008 */ 	lui	$a0,%hi(menudialog_mpaddsimulant)
-/*  f17d210:	ac2eee1c */ 	sw	$t6,-0x11e4($at)
-/*  f17d214:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f17d218:	2484581c */ 	addiu	$a0,$a0,%lo(menudialog_mpaddsimulant)
-/*  f17d21c:	10000008 */ 	beqz	$zero,.L0f17d240
-/*  f17d220:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17d224:
-/*  f17d224:	0fc63323 */ 	jal	func0f18cc8c
-/*  f17d228:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17d22c:	54400004 */ 	bnezl	$v0,.L0f17d240
-/*  f17d230:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17d234:	10000002 */ 	beqz	$zero,.L0f17d240
-/*  f17d238:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f17d23c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17d240:
-/*  f17d240:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17d244:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17d248:	03e00008 */ 	jr	$ra
-/*  f17d24c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpAddSimulant(u32 operation, struct menu_item *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_SET:
+		g_MenuStack[g_MenuStackDepth].unk924 = -1;
+		menuPushDialog(&g_MpAddSimulantMenuDialog);
+		break;
+	case MENUOP_CHECKDISABLED:
+		if (func0f18cc8c() == 0) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMpSimulantSlot
@@ -7782,9 +7751,9 @@ glabel menuhandlerMpSimulantSlot
 /*  f17d2cc:	032b6024 */ 	and	$t4,$t9,$t3
 /*  f17d2d0:	15800006 */ 	bnez	$t4,.L0f17d2ec
 /*  f17d2d4:	3c0d8009 */ 	lui	$t5,0x8009
-/*  f17d2d8:	3c048008 */ 	lui	$a0,%hi(menudialog_mpaddsimulant)
+/*  f17d2d8:	3c048008 */ 	lui	$a0,%hi(g_MpAddSimulantMenuDialog)
 /*  f17d2dc:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f17d2e0:	2484581c */ 	addiu	$a0,$a0,%lo(menudialog_mpaddsimulant)
+/*  f17d2e0:	2484581c */ 	addiu	$a0,$a0,%lo(g_MpAddSimulantMenuDialog)
 /*  f17d2e4:	10000020 */ 	beqz	$zero,.L0f17d368
 /*  f17d2e8:	00001025 */ 	or	$v0,$zero,$zero
 .L0f17d2ec:
@@ -10625,7 +10594,7 @@ glabel func0f17fa28
 /*  f17fa58:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f17fa5c:	3c118008 */ 	lui	$s1,%hi(menudialog_mpsavesetupname)
 /*  f17fa60:	3c128008 */ 	lui	$s2,%hi(menudialog_mpsavesetup)
-/*  f17fa64:	3c138008 */ 	lui	$s3,%hi(menudialog_mpaddsimulant)
+/*  f17fa64:	3c138008 */ 	lui	$s3,%hi(g_MpAddSimulantMenuDialog)
 /*  f17fa68:	3c148008 */ 	lui	$s4,%hi(menudialog_mpchangesimulant)
 /*  f17fa6c:	3c158008 */ 	lui	$s5,%hi(menudialog_mpeditsimulant)
 /*  f17fa70:	3c168008 */ 	lui	$s6,%hi(menudialog_mpcombatoptions)
@@ -10643,7 +10612,7 @@ glabel func0f17fa28
 /*  f17faa0:	26d668b8 */ 	addiu	$s6,$s6,%lo(menudialog_mpcombatoptions)
 /*  f17faa4:	26b5592c */ 	addiu	$s5,$s5,%lo(menudialog_mpeditsimulant)
 /*  f17faa8:	26945834 */ 	addiu	$s4,$s4,%lo(menudialog_mpchangesimulant)
-/*  f17faac:	2673581c */ 	addiu	$s3,$s3,%lo(menudialog_mpaddsimulant)
+/*  f17faac:	2673581c */ 	addiu	$s3,$s3,%lo(g_MpAddSimulantMenuDialog)
 /*  f17fab0:	26524d80 */ 	addiu	$s2,$s2,%lo(menudialog_mpsavesetup)
 /*  f17fab4:	26314cdc */ 	addiu	$s1,$s1,%lo(menudialog_mpsavesetupname)
 /*  f17fab8:	00001025 */ 	or	$v0,$zero,$zero

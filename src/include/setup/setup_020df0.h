@@ -262,7 +262,7 @@ extern u32 var800851cc;
 extern u32 var80085448;
 extern struct menu_item menuitems_mpcharacter[];
 extern u32 var800857d0;
-extern struct menu_dialog menudialog_mpaddsimulant;
+extern struct menu_dialog g_MpAddSimulantMenuDialog;
 extern struct menu_dialog menudialog_mpchangesimulant;
 extern struct menu_dialog menudialog_mpeditsimulant;
 extern u32 var80085a74;

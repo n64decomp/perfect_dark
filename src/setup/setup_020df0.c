@@ -10737,7 +10737,7 @@ struct menu_item menuitems_mpaddchangesimulant[] = {
 };
 
 // 2b83c
-struct menu_dialog menudialog_mpaddsimulant = {
+struct menu_dialog g_MpAddSimulantMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5065,
 	menuitems_mpaddchangesimulant,
