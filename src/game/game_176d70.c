@@ -4087,97 +4087,29 @@ glabel func0f179da4
 /*  f17a024:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpCharacterBody
-/*  f17a028:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f17a02c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f17a030:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17a034:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f17a038:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f17a03c:	10810006 */ 	beq	$a0,$at,.L0f17a058
-/*  f17a040:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f17a044:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f17a048:	10810024 */ 	beq	$a0,$at,.L0f17a0dc
-/*  f17a04c:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f17a050:	10000033 */ 	beqz	$zero,.L0f17a120
-/*  f17a054:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17a058:
-/*  f17a058:	0fc62ec9 */ 	jal	func0f18bb24
-/*  f17a05c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f17a060:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f17a064:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f17a068:	3c18800b */ 	lui	$t8,%hi(g_Options)
-/*  f17a06c:	2718c7b8 */ 	addiu	$t8,$t8,%lo(g_Options)
-/*  f17a070:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17a074:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17a078:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17a07c:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f17a080:	9079000f */ 	lbu	$t9,0xf($v1)
-/*  f17a084:	0322082a */ 	slt	$at,$t9,$v0
-/*  f17a088:	50200010 */ 	beqzl	$at,.L0f17a0cc
-/*  f17a08c:	8e0c0000 */ 	lw	$t4,0x0($s0)
-/*  f17a090:	8e080004 */ 	lw	$t0,0x4($s0)
-/*  f17a094:	5500000d */ 	bnezl	$t0,.L0f17a0cc
-/*  f17a098:	8e0c0000 */ 	lw	$t4,0x0($s0)
-/*  f17a09c:	0fc62f27 */ 	jal	func0f18bc9c
-/*  f17a0a0:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f17a0a4:	3c098007 */ 	lui	$t1,0x8007
-/*  f17a0a8:	8d291448 */ 	lw	$t1,0x1448($t1)
-/*  f17a0ac:	3c0b800b */ 	lui	$t3,%hi(g_Options)
-/*  f17a0b0:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_Options)
-/*  f17a0b4:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f17a0b8:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f17a0bc:	000a5140 */ 	sll	$t2,$t2,0x5
-/*  f17a0c0:	014b1821 */ 	addu	$v1,$t2,$t3
-/*  f17a0c4:	a062000f */ 	sb	$v0,0xf($v1)
-/*  f17a0c8:	8e0c0000 */ 	lw	$t4,0x0($s0)
-.L0f17a0cc:
-/*  f17a0cc:	0fc5ee3c */ 	jal	func0f17b8f0
-/*  f17a0d0:	a06c0010 */ 	sb	$t4,0x10($v1)
-/*  f17a0d4:	10000012 */ 	beqz	$zero,.L0f17a120
-/*  f17a0d8:	8fa40028 */ 	lw	$a0,0x28($sp)
-.L0f17a0dc:
-/*  f17a0dc:	3c0d8007 */ 	lui	$t5,0x8007
-/*  f17a0e0:	8dad1448 */ 	lw	$t5,0x1448($t5)
-/*  f17a0e4:	3c0f800b */ 	lui	$t7,%hi(g_Options)
-/*  f17a0e8:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_Options)
-/*  f17a0ec:	000d7080 */ 	sll	$t6,$t5,0x2
-/*  f17a0f0:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f17a0f4:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f17a0f8:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f17a0fc:	9078000f */ 	lbu	$t8,0xf($v1)
-/*  f17a100:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f17a104:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f17a108:	90670010 */ 	lbu	$a3,0x10($v1)
-/*  f17a10c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f17a110:	0fc5e769 */ 	jal	func0f179da4
-/*  f17a114:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f17a118:	10000011 */ 	beqz	$zero,.L0f17a160
-/*  f17a11c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f17a120:
-/*  f17a120:	3c088007 */ 	lui	$t0,0x8007
-/*  f17a124:	8d081448 */ 	lw	$t0,0x1448($t0)
-/*  f17a128:	3c0a800b */ 	lui	$t2,%hi(g_Options)
-/*  f17a12c:	254ac7b8 */ 	addiu	$t2,$t2,%lo(g_Options)
-/*  f17a130:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f17a134:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f17a138:	00094940 */ 	sll	$t1,$t1,0x5
-/*  f17a13c:	012a1821 */ 	addu	$v1,$t1,$t2
-/*  f17a140:	906b000f */ 	lbu	$t3,0xf($v1)
-/*  f17a144:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f17a148:	afac0014 */ 	sw	$t4,0x14($sp)
-/*  f17a14c:	90670010 */ 	lbu	$a3,0x10($v1)
-/*  f17a150:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f17a154:	02003025 */ 	or	$a2,$s0,$zero
-/*  f17a158:	0fc5e769 */ 	jal	func0f179da4
-/*  f17a15c:	afab0010 */ 	sw	$t3,0x10($sp)
-.L0f17a160:
-/*  f17a160:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f17a164:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f17a168:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f17a16c:	03e00008 */ 	jr	$ra
-/*  f17a170:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpCharacterBody(u32 operation, struct menu_item *item, struct numandtext *value)
+{
+	switch (operation) {
+	case MENUOP_SET:
+		if (g_Options[g_MenuStackDepth].mphead < mpGetNumHeads()) {
+			if (!value->text) {
+				g_Options[g_MenuStackDepth].mphead = func0f18bc9c(value->num);
+			}
+		}
+		g_Options[g_MenuStackDepth].mpbody = value->num;
+		func0f17b8f0();
+		break;
+	case MENUOP_CHECKPREFOCUSED:
+		func0f179da4(operation, item, &value->num,
+				g_Options[g_MenuStackDepth].mpbody,
+				g_Options[g_MenuStackDepth].mphead, 1);
+		return true;
+	}
+
+	return func0f179da4(operation, item, &value->num,
+			g_Options[g_MenuStackDepth].mpbody,
+			g_Options[g_MenuStackDepth].mphead, 1);
+}
 
 GLOBAL_ASM(
 glabel menudialog0017a174
@@ -6993,7 +6925,7 @@ glabel menuhandlerMpSimulantHead
 /*  f17caac:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f17cab0:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f17cab4:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f17cab8:	0fc62ec9 */ 	jal	func0f18bb24
+/*  f17cab8:	0fc62ec9 */ 	jal	mpGetNumHeads
 /*  f17cabc:	afa60028 */ 	sw	$a2,0x28($sp)
 /*  f17cac0:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f17cac4:	8fa50024 */ 	lw	$a1,0x24($sp)

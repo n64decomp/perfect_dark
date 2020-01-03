@@ -3942,7 +3942,7 @@ struct options {
 	/*0x0d*/ u8 unk0d;
 	/*0x0e*/ u8 unk0e;
 	/*0x0f*/ u8 mphead;
-	/*0x10*/ u32 unk10;
+	/*0x10*/ u8 mpbody;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;

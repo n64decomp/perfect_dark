@@ -5155,7 +5155,7 @@ u32 func0f18bb1c(void)
 	return 75;
 }
 
-u32 func0f18bb24(void)
+s32 mpGetNumHeads(void)
 {
 	return 75;
 }
