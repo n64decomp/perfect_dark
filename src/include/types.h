@@ -679,7 +679,37 @@ struct tag {
 };
 
 struct eyespy {
-	struct prop *prop;
+	/*0x00*/ struct prop *prop;
+	/*0x04*/ struct coord look;
+	/*0x10*/ struct coord up;
+	/*0x1c*/ s32 theta;
+	/*0x20*/ s32 costheta;
+	/*0x24*/ s32 sintheta;
+	/*0x28*/ s32 verta;
+	/*0x2c*/ s32 cosverta;
+	/*0x30*/ s32 sinverta;
+	/*0x34*/ u8 init;
+	/*0x35*/ u8 initialised;
+	/*0x36*/ u8 startuptimer60;
+	/*0x37*/ u8 active;
+	/*0x38*/ u8 buttonheld;
+	/*0x39*/ u8 camerabuttonheld;
+	/*0x3a*/ s16 bobdir;
+	/*0x3c*/ u8 bobtimer;
+	/*0x3d*/ u8 bobactive;
+	/*0x40*/ struct coord vel;
+	/*0x4c*/ struct coord unk4c;
+	/*0x58*/ s32 speed;
+	/*0x5c*/ s32 oldground;
+	/*0x60*/ s32 height;
+	/*0x64*/ s32 gravity;
+	/*0x68*/ u8 camerashuttertime;
+	/*0x69*/ u8 hit;
+	/*0x6a*/ u8 opendoor;
+	/*0x6b*/ u8 mode;
+	/*0x6c*/ s32 velf[2];
+	/*0x74*/ s32 vels[2];
+	/*0x7c*/ s32 pitch;
 };
 
 struct player {
