@@ -12182,49 +12182,22 @@ glabel func0f1819a4
 /*  f181a94:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00181a98
-/*  f181a98:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f181a9c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f181aa0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f181aa4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f181aa8:	1081000c */ 	beq	$a0,$at,.L0f181adc
-/*  f181aac:	00c03825 */ 	or	$a3,$a2,$zero
-/*  f181ab0:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f181ab4:	10810006 */ 	beq	$a0,$at,.L0f181ad0
-/*  f181ab8:	3c0e800a */ 	lui	$t6,0x800a
-/*  f181abc:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f181ac0:	5081000b */ 	beql	$a0,$at,.L0f181af0
-/*  f181ac4:	24045417 */ 	addiu	$a0,$zero,0x5417
-/*  f181ac8:	10000012 */ 	beqz	$zero,.L0f181b14
-/*  f181acc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f181ad0:
-/*  f181ad0:	8dcea444 */ 	lw	$t6,-0x5bbc($t6)
-/*  f181ad4:	1000000e */ 	beqz	$zero,.L0f181b10
-/*  f181ad8:	acee0000 */ 	sw	$t6,0x0($a3)
-.L0f181adc:
-/*  f181adc:	90ef0003 */ 	lbu	$t7,0x3($a3)
-/*  f181ae0:	3c01800a */ 	lui	$at,0x800a
-/*  f181ae4:	1000000a */ 	beqz	$zero,.L0f181b10
-/*  f181ae8:	ac2fa444 */ 	sw	$t7,-0x5bbc($at)
-/*  f181aec:	24045417 */ 	addiu	$a0,$zero,0x5417
-.L0f181af0:
-/*  f181af0:	0fc5b9f1 */ 	jal	textGet
-/*  f181af4:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f181af8:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f181afc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f181b00:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f181b04:	8ce40004 */ 	lw	$a0,0x4($a3)
-/*  f181b08:	0c004dad */ 	jal	sprintf
-/*  f181b0c:	24c6000a */ 	addiu	$a2,$a2,0xa
-.L0f181b10:
-/*  f181b10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f181b14:
-/*  f181b14:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f181b18:	00001025 */ 	or	$v0,$zero,$zero
-/*  f181b1c:	03e00008 */ 	jr	$ra
-/*  f181b20:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpHillTime(u32 operation, struct menu_item *item, struct numandtext *value)
+{
+	switch (operation) {
+	case MENUOP_GETSLIDER:
+		value->num = g_Vars.mphilltime;
+		break;
+	case MENUOP_SET:
+		g_Vars.mphilltime = (u8)value->num;
+		break;
+	case MENUOP_GETSLIDERLABEL:
+		sprintf(value->text, textGet(0x5417), value->num + 10); // "%ds/Point"
+		break;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f181b24

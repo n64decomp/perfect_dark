@@ -157,7 +157,7 @@ struct g_vars {
 	/*000478*/ u32 unk000478;
 	/*00047c*/ u32 unk00047c;
 	/*000480*/ u32 unk000480;
-	/*000484*/ u32 unk000484;
+	/*000484*/ u32 mphilltime;
 	/*000488*/ u32 unk000488;
 	/*00048c*/ u32 unk00048c;
 	/*000490*/ u32 unk000490; // set to 2 when entering combat simulator
