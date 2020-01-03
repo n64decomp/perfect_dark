@@ -4012,9 +4012,7 @@ struct missionconfig {
 };
 
 struct mpsetup {
-	/*0x8009cb88*/ u32 unk00;
-	/*0x8009cb8c*/ u32 unk04;
-	/*0x8009cb90*/ u32 unk08;
+	/*0x8009cb88*/ char namebuffer[12];
 	/*0x8009cb94*/ u32 options;
 	/*0x8009cb98*/ u8 scenario;
 	/*0x8009cb99*/ u8 unk11;

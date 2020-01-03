@@ -3630,45 +3630,24 @@ s32 menuhandlerMpConfirmSaveChr(u32 operation, struct menu_item *item, s32 *valu
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandler00179a50
-/*  f179a50:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f179a54:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f179a58:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f179a5c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f179a60:	10810013 */ 	beq	$a0,$at,.L0f179ab0
-/*  f179a64:	8cc70000 */ 	lw	$a3,0x0($a2)
-/*  f179a68:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f179a6c:	10810006 */ 	beq	$a0,$at,.L0f179a88
-/*  f179a70:	3c05800b */ 	lui	$a1,%hi(g_MpSetup)
-/*  f179a74:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f179a78:	10810008 */ 	beq	$a0,$at,.L0f179a9c
-/*  f179a7c:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f179a80:	1000000f */ 	beqz	$zero,.L0f179ac0
-/*  f179a84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179a88:
-/*  f179a88:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f179a8c:	0c004c4c */ 	jal	strcpy
-/*  f179a90:	24a5cb88 */ 	addiu	$a1,$a1,%lo(g_MpSetup)
-/*  f179a94:	1000000a */ 	beqz	$zero,.L0f179ac0
-/*  f179a98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179a9c:
-/*  f179a9c:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f179aa0:	0c004c4c */ 	jal	strcpy
-/*  f179aa4:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f179aa8:	10000005 */ 	beqz	$zero,.L0f179ac0
-/*  f179aac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179ab0:
-/*  f179ab0:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f179ab4:	0fc42947 */ 	jal	func0f10a51c
-/*  f179ab8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f179abc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179ac0:
-/*  f179ac0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f179ac4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f179ac8:	03e00008 */ 	jr	$ra
-/*  f179acc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpPlayerName(u32 operation, struct menu_item *item, char **value)
+{
+	char *ptr = *value;
+
+	switch (operation) {
+	case MENUOP_GETTEXT:
+		strcpy(ptr, &g_MpSetup.namebuffer);
+		break;
+	case MENUOP_SETTEXT:
+		strcpy(&g_MpSetup.namebuffer, ptr);
+		break;
+	case MENUOP_SET:
+		func0f10a51c(7, 1);
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpSaveSetupOverwrite(u32 operation, struct menu_item *item, s32 *value)
 {

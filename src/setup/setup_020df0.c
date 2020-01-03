@@ -10357,7 +10357,7 @@ struct menu_dialog g_MpSaveChrMenuDialog = {
 // 2acc0
 struct menu_item menuitems_mpsavesetupname[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000050bd, 0x00000000, NULL }, // "Enter a name for your game setup file:"
-	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandler00179a50 },
+	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandlerMpPlayerName },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

@@ -470,6 +470,8 @@
 #define MENUOP_CHECKDISABLED   12
 #define MENUOP_13              13
 #define MENUOP_CHECKPREFOCUSED 15
+#define MENUOP_GETTEXT         17
+#define MENUOP_SETTEXT         18
 #define MENUOP_CHECKHIDDEN     24
 
 #define MPOPTION_TEAMSENABLED       0x00000002
