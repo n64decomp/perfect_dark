@@ -904,6 +904,10 @@
 
 #define TARGET_PAD 0x2328
 
+#define TELEPORTSTATE_STARTING 1
+#define TELEPORTSTATE_3 3
+#define TELEPORTSTATE_4 4
+
 #define WEAPON_NONE              0x00
 #define WEAPON_UNARMED           0x01
 #define WEAPON_FALCON2           0x02

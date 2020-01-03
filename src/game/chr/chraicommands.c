@@ -13545,13 +13545,13 @@ bool aiChrBeginOrEndTeleport(void)
 	}
 
 	if (pad_id == 0) {
-		g_Vars.currentplayer->unk1bfc = 4;
-		g_Vars.currentplayer->unk1bfd = 0;
+		g_Vars.currentplayer->teleportstate = TELEPORTSTATE_4;
+		g_Vars.currentplayer->teleporttime = 0;
 	} else {
-		g_Vars.currentplayer->unk1bfd = 0;
-		g_Vars.currentplayer->unk1bfc = 1;
-		g_Vars.currentplayer->teleportdstpad = pad_id;
-		g_Vars.currentplayer->unk1c00 = 0;
+		g_Vars.currentplayer->teleporttime = 0;
+		g_Vars.currentplayer->teleportstate = TELEPORTSTATE_STARTING;
+		g_Vars.currentplayer->teleportpad = pad_id;
+		g_Vars.currentplayer->teleportcamerapad = 0;
 
 		a = func000488c0(0);
 		b = func000488c0(&var800915e0);
@@ -13590,7 +13590,7 @@ bool aiIfChrTeleportFullWhite(void)
 		setCurrentPlayerNum(playernum);
 	}
 
-	if (g_Vars.currentplayer->unk1bfc < 3) {
+	if (g_Vars.currentplayer->teleportstate < TELEPORTSTATE_3) {
 		g_Vars.aioffset += 4;
 	} else {
 		fvalue = var7f1a9dac[0];
@@ -13604,7 +13604,7 @@ bool aiIfChrTeleportFullWhite(void)
 		}
 
 		func00048430(0, a);
-		g_Vars.currentplayer->unk1bfc = 3;
+		g_Vars.currentplayer->teleportstate = TELEPORTSTATE_3;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	}
 
