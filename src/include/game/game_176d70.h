@@ -205,7 +205,7 @@ s32 menuhandler0017bfc0(u32, u32, u32 *);
 s32 menuhandler0017c6a4(u32, u32, u32 *);
 s32 menuhandler0017dc84(u32, u32, u32 *);
 s32 menuhandler0017e06c(u32, u32, u32 *);
-s32 menuhandler0017e38c(u32, u32, u32 *);
+s32 menuhandler0017e38c(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0017e4d4(u32, u32, u32 *);
 s32 menuhandler0017e9d8(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0017ec64(u32, u32, u32 *);
