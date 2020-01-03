@@ -193,7 +193,7 @@ s32 menuhandlerMpTeamsLabel(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler001791c8(u32, u32, u32 *);
 s32 menuhandler00179634(u32, u32, u32 *);
 s32 menuhandler00179968(u32, u32, u32 *);
-s32 menuhandler00179a10(u32, u32, u32 *);
+s32 menuhandlerMpConfirmSaveChr(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler00179a50(u32, u32, u32 *);
 s32 menuhandler00179ad0(u32, u32, u32 *);
 s32 menuhandler00179b18(u32, u32, u32 *);

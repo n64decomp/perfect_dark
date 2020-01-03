@@ -10340,7 +10340,7 @@ struct menu_item menuitems_mpsavechr[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000050bf, 0x00000000, NULL }, // "Your player file is always saved automatically."
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000050c0, 0x00000000, NULL }, // "Save a copy now?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050c1, 0x00000000, NULL }, // "No"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000050c2, 0x00000000, menuhandler00179a10 }, // "Yes"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000050c2, 0x00000000, menuhandlerMpConfirmSaveChr }, // "Yes"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

@@ -3620,26 +3620,15 @@ glabel menuhandler00179968
 /*  f179a0c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00179a10
-/*  f179a10:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f179a14:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f179a18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f179a1c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f179a20:	14810006 */ 	bne	$a0,$at,.L0f179a3c
-/*  f179a24:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f179a28:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f179a2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f179a30:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f179a34:	0fc42947 */ 	jal	func0f10a51c
-/*  f179a38:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f179a3c:
-/*  f179a3c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f179a40:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f179a44:	00001025 */ 	or	$v0,$zero,$zero
-/*  f179a48:	03e00008 */ 	jr	$ra
-/*  f179a4c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpConfirmSaveChr(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		menuPopDialog();
+		func0f10a51c(6, 2);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler00179a50
