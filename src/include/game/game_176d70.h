@@ -192,7 +192,7 @@ s32 menuhandlerMpDropOut(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpTeamsLabel(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler001791c8(u32, u32, u32 *);
 s32 menuhandlerMpWeaponSetDropdown(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandler00179968(u32, u32, u32 *);
+s32 menuhandlerMpDisplayOptionCheckbox(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpConfirmSaveChr(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpPlayerName(u32 operation, struct menu_item *item, char **value);
 s32 menuhandlerMpSaveSetupOverwrite(u32 operation, struct menu_item *item, s32 *value);

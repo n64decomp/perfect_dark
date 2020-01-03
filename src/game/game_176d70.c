@@ -3510,55 +3510,25 @@ s32 menuhandlerMpTeamsEnabled(u32 operation, struct menu_item *item, s32 *value)
 	return menuhandlerMpCheckboxOption(operation, item, value);
 }
 
-GLOBAL_ASM(
-glabel menuhandler00179968
-/*  f179968:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17996c:	10810013 */ 	beq	$a0,$at,.L0f1799bc
-/*  f179970:	3c098007 */ 	lui	$t1,0x8007
-/*  f179974:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f179978:	14810022 */ 	bne	$a0,$at,.L0f179a04
-/*  f17997c:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f179980:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f179984:	3c18800b */ 	lui	$t8,0x800b
-/*  f179988:	8cb9000c */ 	lw	$t9,0xc($a1)
-/*  f17998c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f179990:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f179994:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f179998:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17999c:	8f18c7cc */ 	lw	$t8,-0x3834($t8)
-/*  f1799a0:	03194024 */ 	and	$t0,$t8,$t9
-/*  f1799a4:	15000003 */ 	bnez	$t0,.L0f1799b4
-/*  f1799a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1799ac:	03e00008 */ 	jr	$ra
-/*  f1799b0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1799b4:
-/*  f1799b4:	03e00008 */ 	jr	$ra
-/*  f1799b8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1799bc:
-/*  f1799bc:	8d291448 */ 	lw	$t1,0x1448($t1)
-/*  f1799c0:	3c0b800b */ 	lui	$t3,%hi(g_MpChrs)
-/*  f1799c4:	256bc7b8 */ 	addiu	$t3,$t3,%lo(g_MpChrs)
-/*  f1799c8:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f1799cc:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f1799d0:	000a5140 */ 	sll	$t2,$t2,0x5
-/*  f1799d4:	90ad000f */ 	lbu	$t5,0xf($a1)
-/*  f1799d8:	014b1021 */ 	addu	$v0,$t2,$t3
-/*  f1799dc:	8c4c0014 */ 	lw	$t4,0x14($v0)
-/*  f1799e0:	01a07027 */ 	nor	$t6,$t5,$zero
-/*  f1799e4:	018e7824 */ 	and	$t7,$t4,$t6
-/*  f1799e8:	ac4f0014 */ 	sw	$t7,0x14($v0)
-/*  f1799ec:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f1799f0:	53000005 */ 	beqzl	$t8,.L0f179a08
-/*  f1799f4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1799f8:	90a8000f */ 	lbu	$t0,0xf($a1)
-/*  f1799fc:	01e84825 */ 	or	$t1,$t7,$t0
-/*  f179a00:	ac490014 */ 	sw	$t1,0x14($v0)
-.L0f179a04:
-/*  f179a04:	00001025 */ 	or	$v0,$zero,$zero
-.L0f179a08:
-/*  f179a08:	03e00008 */ 	jr	$ra
-/*  f179a0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpDisplayOptionCheckbox(u32 operation, struct menu_item *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_GET:
+		if ((g_MpChrs[g_MpPlayerNum].displayoptions & item->param3) == 0) {
+			return false;
+		}
+		return true;
+	case MENUOP_SET:
+		g_MpChrs[g_MpPlayerNum].displayoptions &= ~(u8)item->param3;
+
+		if (*value) {
+			g_MpChrs[g_MpPlayerNum].displayoptions |= (u8)item->param3;
+		}
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpConfirmSaveChr(u32 operation, struct menu_item *item, s32 *value)
 {

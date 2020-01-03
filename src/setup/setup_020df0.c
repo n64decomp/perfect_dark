@@ -10444,10 +10444,10 @@ struct menu_dialog menudialog_mpweapons2 = {
 
 // 2afa0
 struct menu_item menuitems_mpoptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050a8, 0x00000002, menuhandler00179968 }, // "Highlight Pickups"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050a9, 0x00000001, menuhandler00179968 }, // "Highlight Players"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050aa, 0x00000008, menuhandler00179968 }, // "Highlight Teams"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050ab, 0x00000004, menuhandler00179968 }, // "Radar"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050a8, 0x00000002, menuhandlerMpDisplayOptionCheckbox }, // "Highlight Pickups"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050a9, 0x00000001, menuhandlerMpDisplayOptionCheckbox }, // "Highlight Players"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050aa, 0x00000008, menuhandlerMpDisplayOptionCheckbox }, // "Highlight Teams"
+	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, 0x000050ab, 0x00000004, menuhandlerMpDisplayOptionCheckbox }, // "Radar"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050ac, 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

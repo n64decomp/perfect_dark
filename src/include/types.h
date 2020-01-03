@@ -3950,7 +3950,7 @@ struct mpchr {
 	/*0x0e*/ u8 unk0e;
 	/*0x0f*/ u8 headnum;
 	/*0x10*/ u8 bodynum;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ u32 displayoptions;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
