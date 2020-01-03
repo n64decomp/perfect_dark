@@ -196,7 +196,7 @@ s32 menuhandler00179968(u32, u32, u32 *);
 s32 menuhandlerMpConfirmSaveChr(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler00179a50(u32, u32, u32 *);
 s32 menuhandler00179ad0(u32, u32, u32 *);
-s32 menuhandler00179b18(u32, u32, u32 *);
+s32 menuhandlerMpSaveSetupCopy(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0017a20c(u32, u32, u32 *);
 s32 menuhandler0017b3b8(u32, u32, u32 *);
 s32 menuhandler0017b91c(u32, u32, u32 *);
