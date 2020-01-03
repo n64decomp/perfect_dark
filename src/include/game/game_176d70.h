@@ -208,7 +208,7 @@ s32 menuhandler0017e06c(u32, u32, u32 *);
 s32 menuhandler0017e38c(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0017e4d4(u32, u32, u32 *);
 s32 menuhandler0017e9d8(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandler0017ec64(u32, u32, u32 *);
+s32 menuhandler0017ec64(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0017ee60(u32, u32, u32 *);
 s32 menuhandler0017ef30(u32, u32, u32 *);
 s32 menuhandlerQuickTeamSeparator(u32 operation, struct menu_item *item, s32 *value);

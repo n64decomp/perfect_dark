@@ -5933,10 +5933,10 @@ glabel menuhandler0017bab4
 /*  f17bc64:	5458006d */ 	bnel	$v0,$t8,.L0f17be1c
 /*  f17bc68:	00001025 */ 	or	$v0,$zero,$zero
 /*  f17bc6c:	91080af0 */ 	lbu	$t0,0xaf0($t0)
-/*  f17bc70:	3c048008 */ 	lui	$a0,%hi(menudialog_mpquickgo)
+/*  f17bc70:	3c048008 */ 	lui	$a0,%hi(g_MpQuickGoMenuDialog)
 /*  f17bc74:	2405000b */ 	addiu	$a1,$zero,0xb
 /*  f17bc78:	14480006 */ 	bne	$v0,$t0,.L0f17bc94
-/*  f17bc7c:	24846500 */ 	addiu	$a0,$a0,%lo(menudialog_mpquickgo)
+/*  f17bc7c:	24846500 */ 	addiu	$a0,$a0,%lo(g_MpQuickGoMenuDialog)
 /*  f17bc80:	3c048007 */ 	lui	$a0,%hi(menudialog_mpquickgo2)
 /*  f17bc84:	0fc3e083 */ 	jal	func0f0f820c
 /*  f17bc88:	24845120 */ 	addiu	$a0,$a0,%lo(menudialog_mpquickgo2)
@@ -8956,38 +8956,15 @@ glabel menudialog0017eb34
 /*  f17ec60:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler0017ec64
-/*  f17ec64:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17ec68:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17ec6c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17ec70:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17ec74:	14810012 */ 	bne	$a0,$at,.L0f17ecc0
-/*  f17ec78:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17ec7c:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f17ec80:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f17ec84:	3c04800a */ 	lui	$a0,0x800a
-/*  f17ec88:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17ec8c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17ec90:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17ec94:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17ec98:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17ec9c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17eca0:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17eca4:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f17eca8:	0fc66ddf */ 	jal	func0f19b77c
-/*  f17ecac:	8c84ee1c */ 	lw	$a0,-0x11e4($a0)
-/*  f17ecb0:	3c048008 */ 	lui	$a0,%hi(menudialog_mpquickgo)
-/*  f17ecb4:	24846500 */ 	addiu	$a0,$a0,%lo(menudialog_mpquickgo)
-/*  f17ecb8:	0fc3e083 */ 	jal	func0f0f820c
-/*  f17ecbc:	24050003 */ 	addiu	$a1,$zero,0x3
-.L0f17ecc0:
-/*  f17ecc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17ecc4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17ecc8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17eccc:	03e00008 */ 	jr	$ra
-/*  f17ecd0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandler0017ec64(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f19b77c(g_MenuStack[g_MpPlayerNum].slotindex);
+		func0f0f820c(&g_MpQuickGoMenuDialog, 3);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMpLock
@@ -9542,9 +9519,9 @@ glabel func0f17f428
 /*  f17f438:	3c0e8009 */ 	lui	$t6,0x8009
 /*  f17f43c:	91ce0af0 */ 	lbu	$t6,0xaf0($t6)
 /*  f17f440:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17f444:	3c048008 */ 	lui	$a0,%hi(menudialog_mpquickgo)
+/*  f17f444:	3c048008 */ 	lui	$a0,%hi(g_MpQuickGoMenuDialog)
 /*  f17f448:	15c10007 */ 	bne	$t6,$at,.L0f17f468
-/*  f17f44c:	24846500 */ 	addiu	$a0,$a0,%lo(menudialog_mpquickgo)
+/*  f17f44c:	24846500 */ 	addiu	$a0,$a0,%lo(g_MpQuickGoMenuDialog)
 /*  f17f450:	3c048007 */ 	lui	$a0,%hi(menudialog_mpquickgo2)
 /*  f17f454:	24845120 */ 	addiu	$a0,$a0,%lo(menudialog_mpquickgo2)
 /*  f17f458:	0fc3e083 */ 	jal	func0f0f820c
