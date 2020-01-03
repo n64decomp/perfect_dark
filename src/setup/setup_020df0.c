@@ -10394,7 +10394,7 @@ struct menu_dialog menudialog_mpsavesetup = {
 
 // 2adb8
 struct menu_item menuitems_mpweapons[] = {
-	{ MENUITEMTYPE_DROPDOWN,    1, 0x00020090, 0x000050ae, 0x00000000, menuhandler00179634 }, // "Set:"
+	{ MENUITEMTYPE_DROPDOWN,    1, 0x00020090, 0x000050ae, 0x00000000, menuhandlerMpWeaponSetDropdown }, // "Set:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000212, 0x000050af, 0x00000000, NULL }, // "Current Weapon Setup:"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x000a0080, 0x000050b0, 0x00000000, menuhandlerMpWeaponSlot }, // "1:"
@@ -10420,7 +10420,7 @@ struct menu_dialog menudialog_mpweapons = {
 
 // 2aec0
 struct menu_item menuitems_mpweapons2[] = {
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020090, 0x000050ae, 0x00000000, menuhandler00179634 }, // "Set:"
+	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020090, 0x000050ae, 0x00000000, menuhandlerMpWeaponSetDropdown }, // "Set:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, 0x000050b0, (u32)&func0f17960c, NULL }, // "1:"
 	{ MENUITEMTYPE_LABEL,       1, 0x00000002, 0x000050b1, (u32)&func0f17960c, NULL }, // "2:"

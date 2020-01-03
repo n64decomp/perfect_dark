@@ -29,7 +29,7 @@ u32 func0f188ed4(void);
 u32 func0f188f9c(void);
 s32 func0f189058(s32 arg0);
 u32 func0f189088(void);
-u32 func0f1890a8(void);
+s32 func0f1890a8(s32 arg0);
 u32 func0f18913c(void);
 u32 func0f1892dc(void);
 void func0f1895bc(s32 arg0);

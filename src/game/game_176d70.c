@@ -3365,52 +3365,24 @@ glabel func0f17960c
 /*  f179630:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00179634
-/*  f179634:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f179638:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17963c:	1081000a */ 	beq	$a0,$at,.L0f179668
-/*  f179640:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f179644:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f179648:	1081000d */ 	beq	$a0,$at,.L0f179680
-/*  f17964c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f179650:	1081000f */ 	beq	$a0,$at,.L0f179690
-/*  f179654:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f179658:	10810011 */ 	beq	$a0,$at,.L0f1796a0
-/*  f17965c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f179660:	10000014 */ 	beqz	$zero,.L0f1796b4
-/*  f179664:	00001025 */ 	or	$v0,$zero,$zero
-.L0f179668:
-/*  f179668:	90a40001 */ 	lbu	$a0,0x1($a1)
-/*  f17966c:	0fc62416 */ 	jal	func0f189058
-/*  f179670:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f179674:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f179678:	1000000d */ 	beqz	$zero,.L0f1796b0
-/*  f17967c:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f179680:
-/*  f179680:	0fc6242a */ 	jal	func0f1890a8
-/*  f179684:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f179688:	1000000b */ 	beqz	$zero,.L0f1796b8
-/*  f17968c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179690:
-/*  f179690:	0fc6256f */ 	jal	func0f1895bc
-/*  f179694:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f179698:	10000006 */ 	beqz	$zero,.L0f1796b4
-/*  f17969c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1796a0:
-/*  f1796a0:	0fc62587 */ 	jal	func0f18961c
-/*  f1796a4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1796a8:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f1796ac:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f1796b0:
-/*  f1796b0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1796b4:
-/*  f1796b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1796b8:
-/*  f1796b8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1796bc:	03e00008 */ 	jr	$ra
-/*  f1796c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpWeaponSetDropdown(u32 operation, struct menu_item *item, s32 *value)
+{
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = func0f189058(item->param);
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return func0f1890a8(*value);
+	case MENUOP_SET:
+		func0f1895bc(*value);
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = func0f18961c();
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpControlCheckbox(u32 operation, struct menu_item *item, s32 *value)
 {
