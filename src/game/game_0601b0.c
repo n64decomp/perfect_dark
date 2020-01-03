@@ -390,7 +390,7 @@ void func0f060438(struct prop *prop)
 	prop->next = g_Vars.unk000344;
 	prop->prev = NULL;
 	prop->chr = NULL;
-	prop->room = -1;
+	prop->rooms[0] = -1;
 	g_Vars.unk000344 = prop;
 }
 

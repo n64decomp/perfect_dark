@@ -5375,7 +5375,7 @@ void func0f022084(struct chrdata *chr, s16 *room)
 void func0f0220ac(struct chrdata *chr)
 {
 	func0f065c44(chr->prop);
-	func0f022084(chr, &chr->prop->room);
+	func0f022084(chr, &chr->prop->rooms[0]);
 	func0f065cb0(chr->prop);
 }
 
@@ -32588,7 +32588,7 @@ bool chrGoToTarget(struct chrdata *chr, u32 speed)
 				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
 			struct prop *prop = chrGetTargetProp(chr);
 
-			if (func0f03843c(chr, &prop->pos, &prop->room, speed)) {
+			if (func0f03843c(chr, &prop->pos, &prop->rooms[0], speed)) {
 				return true;
 			}
 		}
@@ -32605,7 +32605,7 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
 			struct chrdata *dstchr = chrFindById(chr, dst_chrnum);
 
-			if (dstchr && dstchr->prop && func0f03843c(chr, &dstchr->prop->pos, &dstchr->prop->room, speed)) {
+			if (dstchr && dstchr->prop && func0f03843c(chr, &dstchr->prop->pos, &dstchr->prop->rooms[0], speed)) {
 				return true;
 			}
 		}
@@ -32617,7 +32617,7 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 bool func0f03ab74(struct chrdata *chr, struct prop *prop, s32 arg2)
 {
 	if (func0f039a18(chr) && prop) {
-		if (func0f03843c(chr, &prop->pos, &prop->room, arg2)) {
+		if (func0f03843c(chr, &prop->pos, &prop->rooms[0], arg2)) {
 			return true;
 		}
 	}
@@ -37874,7 +37874,7 @@ void chrSetFiring(struct chrdata *chr, s32 hand, bool firing)
 	chr->prop->unk3f_02 = firing ? 1 : 0;
 
 	if (prop) {
-		func0f08bb5c(prop, firing, chr->prop->room);
+		func0f08bb5c(prop, firing, chr->prop->rooms[0]);
 	}
 }
 
@@ -49931,7 +49931,7 @@ bool func0f04a76c(struct chrdata *chr, f32 distance)
 
 bool func0f04a79c(u8 chrnum, struct chrdata *chr, f32 distance)
 {
-	return func0f04a848(chrnum, chr, distance, &chr->prop->pos, &chr->prop->room);
+	return func0f04a848(chrnum, chr, distance, &chr->prop->pos, &chr->prop->rooms[0]);
 }
 
 GLOBAL_ASM(
@@ -50821,7 +50821,7 @@ bool chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *
 		fvalue = func0f03e45c(chr);
 	}
 
-	return chrSpawnAtCoord(body, head, &chr->prop->pos, &chr->prop->room, fvalue, ailist, flags);
+	return chrSpawnAtCoord(body, head, &chr->prop->pos, &chr->prop->rooms[0], fvalue, ailist, flags);
 }
 
 GLOBAL_ASM(
@@ -52906,6 +52906,6 @@ void chrEmitSparks(struct chrdata *chr)
 {
 	if (chr && chr->prop) {
 		func0f0939f8(0, chr->prop, 100, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1);
-		func0f12f9f0(chr->prop->room, chr->prop, &chr->prop->pos, 0, 0, 1);
+		func0f12f9f0(chr->prop->rooms[0], chr->prop, &chr->prop->pos, 0, 0, 1);
 	}
 }

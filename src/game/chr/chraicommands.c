@@ -1676,7 +1676,7 @@ bool aiIfSeesPlayer(void)
  */
 bool ai017a(void)
 {
-	if ((g_Vars.chrdata && g_Vars.chrdata->prop && func0f0391ec(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->room, 1))
+	if ((g_Vars.chrdata && g_Vars.chrdata->prop && func0f0391ec(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->rooms[0], 1))
 			|| (g_Vars.hovdata && func0f07ae18(g_Vars.hovdata, 0x40) && func0f07af34(g_Vars.hovdata))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
@@ -1776,7 +1776,7 @@ bool ai0045(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->prop && func0f0393b4(g_Vars.chrdata, &chr->prop->pos, &chr->prop->room)) {
+	if (chr && chr->prop && func0f0393b4(g_Vars.chrdata, &chr->prop->pos, &chr->prop->rooms[0])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2676,8 +2676,8 @@ bool aiIfChrInRoom(void)
 	u16 pad_id = cmd[5] | (cmd[4] << 8);
 	s32 room = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
-	if ((cmd[3] == 0 && room >= 0 && chr && chr->prop && chr->prop->room == room) ||
-			(cmd[3] == 1 && chr && chr->prop && chr->prop->room == g_Vars.chrdata->roomtosearch)) {
+	if ((cmd[3] == 0 && room >= 0 && chr && chr->prop && chr->prop->rooms[0] == room) ||
+			(cmd[3] == 1 && chr && chr->prop && chr->prop->rooms[0] == g_Vars.chrdata->roomtosearch)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 		return false;
 	}
@@ -2767,7 +2767,7 @@ glabel aiIfTargetInRoom
 //	s32 room_id = cmd[3] | (cmd[2] << 8);
 //	room_id = chrGetPadRoom(g_Vars.chrdata, room_id & 0xffff);
 //
-//	if (room_id >= 0 && prop && room_id == prop->room) {
+//	if (room_id >= 0 && prop && room_id == prop->rooms[0]) {
 //		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 //	} else {
 //		g_Vars.aioffset += 5;
@@ -3161,7 +3161,7 @@ bool aiDestroyObject(void)
 
 		if (entity->obj == 0xeb) {
 			obj->flags = (obj->flags & 0xfffeffff) | 0x20000;
-			func0f129900(entity->prop, &entity->prop->pos, &entity->prop->room, 3, 0);
+			func0f129900(entity->prop, &entity->prop->pos, &entity->prop->rooms[0], 3, 0);
 			func0f12e714(entity->prop, 0x16);
 		} else {
 			f32 damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
@@ -7702,7 +7702,7 @@ bool aiIfObjInRoom(void)
 	u16 room_id = cmd[4] | (cmd[3] << 8);
 	s32 room_something = chrGetPadRoom(g_Vars.chrdata, room_id);
 
-	if (room_something >= 0 && obj && obj->prop && room_something == obj->prop->room) {
+	if (room_something >= 0 && obj && obj->prop && room_something == obj->prop->rooms[0]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
 	} else {
 		g_Vars.aioffset += 6;
@@ -12680,7 +12680,7 @@ bool aiSetRoomToSearch(void)
 	struct chrdata *target = chrFindById(g_Vars.chrdata, CHR_TARGET);
 
 	if (target && target->prop) {
-		g_Vars.chrdata->roomtosearch = target->prop->room;
+		g_Vars.chrdata->roomtosearch = target->prop->rooms[0];
 	}
 
 	g_Vars.aioffset += 2;
@@ -12916,9 +12916,9 @@ bool ai01aa(void)
 	f32 a = var7f1a9d9c[0];
 
 	func0f0056f4(
-			g_Vars.currentplayer->prop->room,
+			g_Vars.currentplayer->prop->rooms[0],
 			&g_Vars.currentplayer->prop->pos,
-			g_Vars.chrdata->prop->room,
+			g_Vars.chrdata->prop->rooms[0],
 			&g_Vars.chrdata->prop->pos,
 			0, &a, 0);
 
@@ -14497,7 +14497,7 @@ bool ai01e0(void)
 bool ai01b4(void)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop &&
-			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->room, 0, 0)) {
+			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->rooms[0], 0, 0)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
