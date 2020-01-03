@@ -19403,8 +19403,8 @@ void func0f02e9a0(struct chrdata *chr, f32 arg1)
 
 	fsleep = arg1;
 
-	if (chr->unk020->unk20->unk74 != 1.0f) {
-		fsleep *= 1.0f / chr->unk020->unk20->unk74;
+	if (chr->unk020->anim->playspeed != 1.0f) {
+		fsleep *= 1.0f / chr->unk020->anim->playspeed;
 	}
 
 	if (fsleep > limit) {

@@ -77,37 +77,48 @@ struct pad {
 	/*0x52*/ s16 unk52;
 };
 
-struct chr020_20 {
-	/*0x00*/ u32 unk00;
+struct anim {
+	/*0x00*/ u16 animnum;
+	/*0x02*/ u16 animnum2;
 	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
-	/*0x54*/ u32 unk54;
-	/*0x58*/ u32 unk58;
-	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u32 unk60;
-	/*0x64*/ u32 unk64;
+	/*0x08*/ u8 flip;
+	/*0x09*/ u8 flip2;
+	/*0x0a*/ u8 looping;
+	/*0x0b*/ u8 average;
+	/*0x0c*/ u32 frame;
+	/*0x10*/ u32 frac;
+	/*0x14*/ u16 framea;
+	/*0x16*/ u16 frameb;
+	/*0x18*/ u32 endrame;
+	/*0x1c*/ u32 speed;
+	/*0x20*/ u32 newspeed;
+	/*0x24*/ u32 oldspeed;
+	/*0x28*/ u32 timespeed;
+	/*0x2c*/ u32 elapsespeed;
+	/*0x30*/ u32 frame2;
+	/*0x34*/ u32 frac2;
+	/*0x38*/ u16 frame2a;
+	/*0x3a*/ u16 frame2b;
+	/*0x3c*/ u32 endframe2;
+	/*0x40*/ u32 speed2;
+	/*0x44*/ u32 newspeed2;
+	/*0x48*/ u32 oldspeed2;
+	/*0x4c*/ u32 timespeed2;
+	/*0x50*/ u32 elapsespeed2;
+	/*0x54*/ u32 fracmerge;
+	/*0x58*/ u32 timemerge;
+	/*0x5c*/ u32 elapsemerge;
+	/*0x60*/ u32 loopframe;
+	/*0x64*/ u32 loopmerge;
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u32 unk6c;
 	/*0x70*/ u32 unk70;
-	/*0x74*/ f32 unk74;
+	/*0x74*/ f32 playspeed;
+	/*0x78*/ u32 newplay;
+	/*0x7c*/ u32 oldplay;
+	/*0x80*/ u32 timeplay;
+	/*0x84*/ u32 elapseplay;
+	/*0x88*/ u32 animscale;
 };
 
 struct chr020 {
@@ -119,7 +130,7 @@ struct chr020 {
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
-	/*0x20*/ struct chr020_20 *unk20;
+	/*0x20*/ struct anim *anim;
 };
 
 struct chr2d4 {
