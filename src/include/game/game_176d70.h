@@ -188,7 +188,7 @@ s32 menuhandler001785c4(u32, u32, u32 *);
 s32 menuhandler001786d8(u32, u32, u32 *);
 s32 menuhandler00178a94(u32, u32, u32 *);
 s32 menuhandler00178bf4(u32, u32, u32 *);
-s32 menuhandler00179060(u32, u32, u32 *);
+s32 menuhandlerMpDropOut(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpTeamsLabel(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler001791c8(u32, u32, u32 *);
 s32 menuhandler00179634(u32, u32, u32 *);

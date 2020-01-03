@@ -2996,25 +2996,15 @@ glabel func0f178ef0
 /*  f17905c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00179060
-/*  f179060:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f179064:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f179068:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17906c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f179070:	14810005 */ 	bne	$a0,$at,.L0f179088
-/*  f179074:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f179078:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f17907c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f179080:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f179084:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f179088:
-/*  f179088:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17908c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f179090:	00001025 */ 	or	$v0,$zero,$zero
-/*  f179094:	03e00008 */ 	jr	$ra
-/*  f179098:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpDropOut(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		menuPopDialog();
+		menuPopDialog();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f17909c
