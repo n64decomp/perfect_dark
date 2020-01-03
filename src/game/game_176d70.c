@@ -9103,48 +9103,22 @@ glabel func0f17eed4
 /*  f17ef2c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler0017ef30
-/*  f17ef30:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17ef34:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17ef38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17ef3c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17ef40:	14810019 */ 	bne	$a0,$at,.L0f17efa8
-/*  f17ef44:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17ef48:	3c0e800a */ 	lui	$t6,0x800a
-/*  f17ef4c:	8dcea474 */ 	lw	$t6,-0x5b8c($t6)
-/*  f17ef50:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f17ef54:	3c048007 */ 	lui	$a0,%hi(menudialog_196b0)
-/*  f17ef58:	15c10011 */ 	bne	$t6,$at,.L0f17efa0
-/*  f17ef5c:	24843690 */ 	addiu	$a0,$a0,%lo(menudialog_196b0)
-/*  f17ef60:	3c0f8009 */ 	lui	$t7,0x8009
-/*  f17ef64:	91ef0af0 */ 	lbu	$t7,0xaf0($t7)
-/*  f17ef68:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17ef6c:	3c048007 */ 	lui	$a0,%hi(menudialog_mainmenu)
-/*  f17ef70:	15e10007 */ 	bne	$t7,$at,.L0f17ef90
-/*  f17ef74:	24843a5c */ 	addiu	$a0,$a0,%lo(menudialog_mainmenu)
-/*  f17ef78:	3c048007 */ 	lui	$a0,%hi(menudialog_mainmenu2)
-/*  f17ef7c:	24843a74 */ 	addiu	$a0,$a0,%lo(menudialog_mainmenu2)
-/*  f17ef80:	0fc3e083 */ 	jal	func0f0f820c
-/*  f17ef84:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f17ef88:	10000008 */ 	beqz	$zero,.L0f17efac
-/*  f17ef8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17ef90:
-/*  f17ef90:	0fc3e083 */ 	jal	func0f0f820c
-/*  f17ef94:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f17ef98:	10000004 */ 	beqz	$zero,.L0f17efac
-/*  f17ef9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17efa0:
-/*  f17efa0:	0fc3e083 */ 	jal	func0f0f820c
-/*  f17efa4:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f17efa8:
-/*  f17efa8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17efac:
-/*  f17efac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17efb0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17efb4:	03e00008 */ 	jr	$ra
-/*  f17efb8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandler0017ef30(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		if (g_Vars.stagenum == STAGE_CITRAINING) {
+			if (var80090af0 == 1) {
+				func0f0f820c(&menudialog_mainmenu2, 2);
+			} else {
+				func0f0f820c(&menudialog_mainmenu, 2);
+			}
+		} else {
+			func0f0f820c(&menudialog_196b0, 2);
+		}
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpSaveSettings(u32 operation, struct menu_item *item, s32 *value)
 {
