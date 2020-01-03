@@ -14,30 +14,30 @@ struct g_vars {
 	//g_Vars.antibodynum
 	//g_Vars.antiheadnum
 
-	/*000000*/ u32 unk000000;
-	/*000004*/ u32 unk000004;
-	/*000008*/ s32 tickcount;
-	/*00000c*/ s32 unk00000c;
-	/*000010*/ u32 unk000010;
-	/*000014*/ u32 unk000014;
-	/*000018*/ u32 unk000018;
-	/*00001c*/ u32 unk00001c;
-	/*000020*/ u32 unk000020;
-	/*000024*/ u32 unk000024;
-	/*000028*/ u32 unk000028;
-	/*00002c*/ u32 unk00002c;
-	/*000030*/ u32 unk000030;
-	/*000034*/ u32 unk000034;
-	/*000038*/ u32 unk000038;
-	/*00003c*/ u32 unk00003c;
-	/*000040*/ u32 unk000040;
-	/*000044*/ u32 unk000044;
-	/*000048*/ u32 unk000048;
-	/*00004c*/ f32 countdowntimerstep; // probably a generic lastframems field
-	/*000050*/ u32 unk000050;
-	/*000054*/ u32 unk000054;
-	/*000058*/ u32 unk000058;
-	/*00005c*/ u32 unk00005c;
+	/*000000*/ s32 diffframe60;
+	/*000004*/ f32 diffframe60f;
+	/*000008*/ s32 lvframe60;
+	/*00000c*/ s32 lvframenum;
+	/*000010*/ f32 diffframe60freal;
+	/*000014*/ s32 lastframetime;
+	/*000018*/ s32 thisframetime;
+	/*00001c*/ s32 thisframeticks;
+	/*000020*/ s32 lostframetime;
+	/*000024*/ s32 lostframetime240;
+	/*000028*/ s32 mininc60;
+	/*00002c*/ s32 roomportalrecursionlimit;
+	/*000030*/ s32 lvframe240;
+	/*000034*/ s32 lvupdate240;
+	/*000038*/ s32 lvupdate240_60;
+	/*00003c*/ s32 lvupdate240_60error;
+	/*000040*/ s32 diffframe240;
+	/*000044*/ f32 lvupdate240f;
+	/*000048*/ f32 diffframe240f;
+	/*00004c*/ f32 lvupdate240freal;
+	/*000050*/ f32 lvupdate240frealprev;
+	/*000054*/ s32 lastframe240;
+	/*000058*/ s32 thisframe240;
+	/*00005c*/ f32 diffframe240freal;
 	/*000060*/ u32 unk000060;
 	/*000064*/ struct player *players[4];
 	/*000074*/ struct gvars74 unk000074[4];
@@ -52,7 +52,7 @@ struct g_vars {
 	/*0002a0*/ struct player *bond; // Joanna
 	/*0002a4*/ struct player *coop; // Co-op buddy when controlled by human
 	/*0002a8*/ struct player *anti; // Counter-op
-	/*0002ac*/ u32 unk0002ac; // 7 if currentplayer has finished auto walking
+	/*0002ac*/ u32 tickmode; // 7 if mission timer running
 	/*0002b0*/ s32 killcount;
 	/*0002b4*/ u32 knockoutcount;
 	/*0002b8*/ u32 unk0002b8;
@@ -147,12 +147,12 @@ struct g_vars {
 	/*000450*/ u32 pendingantiplayernum;
 	/*000454*/ bool coopfriendlyfire;
 	/*000458*/ u32 unk000458;
-	/*00045c*/ u32 unk00045c;
-	/*000460*/ u32 unk000460;
-	/*000464*/ u32 unk000464;
-	/*000468*/ u32 unk000468;
-	/*00046c*/ bool isreplayingmission;
-	/*000470*/ u32 unk000470;
+	/*00045c*/ u32 speedpilltime;
+	/*000460*/ u32 speedpillchange;
+	/*000464*/ u32 speedpillwant;
+	/*000468*/ bool speedpillon;
+	/*00046c*/ bool restartlevel;
+	/*000470*/ u32 perfectbuddynum;
 	/*000474*/ u32 numaibuddies;
 	/*000478*/ u32 unk000478;
 	/*00047c*/ u32 unk00047c;

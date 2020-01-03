@@ -1153,7 +1153,7 @@ glabel menuhandlerAcceptMission
 //		func0f01bea0();
 //
 //		if (g_Vars.stagenum == g_MissionConfig.stagenum) {
-//			g_Vars.isreplayingmission = true;
+//			g_Vars.restartlevel = true;
 //		}
 //
 //		func0f01b154(g_MissionConfig.stagenum);

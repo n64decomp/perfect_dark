@@ -30773,7 +30773,7 @@ glabel func0f038b9c
 
 void chrRecordLastVisibleTargetTime(struct chrdata *chr)
 {
-	chr->lastvisibletarget60 = g_Vars.tickcount;
+	chr->lastvisibletarget60 = g_Vars.lvframe60;
 }
 
 GLOBAL_ASM(
@@ -31235,13 +31235,13 @@ glabel func0f039558
 
 void chrRecordLastSeeTargetTime(struct chrdata *chr)
 {
-	chr->lastseetarget60 = g_Vars.tickcount;
+	chr->lastseetarget60 = g_Vars.lvframe60;
 }
 
 void chrRecordLastHearTargetTime(struct chrdata *chr)
 {
 	chr->hidden |= CHRHFLAG_00000002;
-	chr->lastheartarget60 = g_Vars.tickcount;
+	chr->lastheartarget60 = g_Vars.lvframe60;
 }
 
 GLOBAL_ASM(
@@ -47932,7 +47932,7 @@ glabel func0f048398
 
 bool chrSawTargetRecently(struct chrdata *chr)
 {
-	if (chr->lastseetarget60 > 0 && g_Vars.tickcount - chr->lastseetarget60 < 600) {
+	if (chr->lastseetarget60 > 0 && g_Vars.lvframe60 - chr->lastseetarget60 < 600) {
 		return true;
 	}
 
@@ -47941,7 +47941,7 @@ bool chrSawTargetRecently(struct chrdata *chr)
 
 bool chrHeardTargetRecently(struct chrdata *chr)
 {
-	if (chr->lastheartarget60 > 0 && g_Vars.tickcount - chr->lastheartarget60 < 600) {
+	if (chr->lastheartarget60 > 0 && g_Vars.lvframe60 - chr->lastheartarget60 < 600) {
 		return true;
 	}
 

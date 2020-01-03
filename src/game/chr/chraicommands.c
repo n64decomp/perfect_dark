@@ -7487,7 +7487,7 @@ bool aiSetDoorClosed(void)
 		struct doorobj *door = (struct doorobj *) obj;
 		door->speed = door->unk5c;
 		door->unk80 = 0;
-		door->unkc0 = g_Vars.tickcount;
+		door->unkc0 = g_Vars.lvframe60;
 		door->state = 0;
 		func0f08c54c(door);
 		func0f08d4e8(door);
@@ -12050,7 +12050,7 @@ bool aiIfPlayerAutoWalkFinished(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
-		if (g_Vars.unk0002ac == 7) {
+		if (g_Vars.tickmode == 7) {
 			pass = true;
 		}
 
@@ -13920,7 +13920,7 @@ bool aiSetDrCarollImages(void)
 
 	if (drcaroll) {
 		if (cmd[4] == 7) {
-			if ((g_Vars.unk00000c % 4) == 2) {
+			if ((g_Vars.lvframenum % 4) == 2) {
 				drcaroll->drcarollimage_left = random() % 6;
 			}
 		} else if (cmd[4] == 8) {
@@ -13930,7 +13930,7 @@ bool aiSetDrCarollImages(void)
 		}
 
 		if (cmd[3] == 7) {
-			if ((g_Vars.unk00000c % 4) == 2) {
+			if ((g_Vars.lvframenum % 4) == 2) {
 				drcaroll->drcarollimage_right = random() % 6;
 			}
 		} else if (cmd[3] == 8) {

@@ -49126,7 +49126,7 @@ bool countdownTimerIsRunning(void)
 void countdownTimerTick(void)
 {
 	if (g_CountdownTimerRunning) {
-		g_CountdownTimerValue -= g_Vars.countdowntimerstep;
+		g_CountdownTimerValue -= g_Vars.lvupdate240freal;
 	}
 }
 
