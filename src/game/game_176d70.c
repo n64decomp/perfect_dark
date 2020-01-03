@@ -8884,25 +8884,20 @@ glabel menuhandler0017e4d4
 /*  f17e9d4:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
 
-GLOBAL_ASM(
-glabel menuhandler0017e9d8
-/*  f17e9d8:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f17e9dc:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f17e9e0:	14810008 */ 	bne	$a0,$at,.L0f17ea04
-/*  f17e9e4:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f17e9e8:	3c0e800b */ 	lui	$t6,0x800b
-/*  f17e9ec:	91cecc10 */ 	lbu	$t6,-0x33f0($t6)
-/*  f17e9f0:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17e9f4:	51c10004 */ 	beql	$t6,$at,.L0f17ea08
-/*  f17e9f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17e9fc:	03e00008 */ 	jr	$ra
-/*  f17ea00:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f17ea04:
-/*  f17ea04:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17ea08:
-/*  f17ea08:	03e00008 */ 	jr	$ra
-/*  f17ea0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * This is for a separator and fixed height thing in the dialog at:
+ * Combat Simulator > Advanced Setup > Challenges > pick one > Accept
+ */
+s32 menuhandler0017e9d8(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKHIDDEN) {
+		if (var800acc10 != 5) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpAbortChallenge(u32 operation, struct menu_item *item, s32 *value)
 {
