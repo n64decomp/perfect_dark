@@ -3985,7 +3985,8 @@ struct options {
 	/*0x88*/ u32 unk88;
 	/*0x8c*/ u32 unk8c;
 	/*0x90*/ u32 unk90;
-	/*0x94*/ u32 unk94;
+	/*0x94*/ u8 unk94;
+	/*0x95*/ u8 mptitle;
 	/*0x98*/ u32 unk98;
 	/*0x9c*/ u32 unk9c;
 };
