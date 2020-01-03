@@ -254,7 +254,7 @@ extern u32 var80084bf8;
 extern u32 var80084c00[];
 extern u16 mpcontrolstyles[];
 extern u16 mpaimmodes[];
-extern struct menu_dialog menudialog_mpsavechr;
+extern struct menu_dialog g_MpSaveChrMenuDialog;
 extern struct menu_dialog menudialog_mpsavesetupname;
 extern struct menu_dialog menudialog_mpsavesetup;
 extern u32 var800851bc;
