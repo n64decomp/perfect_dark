@@ -1808,25 +1808,19 @@ s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandler00178018
-/*  f178018:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f17801c:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f178020:	14810008 */ 	bne	$a0,$at,.L0f178044
-/*  f178024:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f178028:	3c0e800b */ 	lui	$t6,0x800b
-/*  f17802c:	91cecc10 */ 	lbu	$t6,-0x33f0($t6)
-/*  f178030:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f178034:	51c10004 */ 	beql	$t6,$at,.L0f178048
-/*  f178038:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17803c:	03e00008 */ 	jr	$ra
-/*  f178040:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f178044:
-/*  f178044:	00001025 */ 	or	$v0,$zero,$zero
-.L0f178048:
-/*  f178048:	03e00008 */ 	jr	$ra
-/*  f17804c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * This is something near the top of the "End Game" dialog during gameplay.
+ */
+s32 menuhandler00178018(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKHIDDEN) {
+		if (var800acc10 != 5) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f178050
