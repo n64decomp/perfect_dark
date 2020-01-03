@@ -97,7 +97,7 @@ struct g_vars {
 	/*000354*/ struct prop *unk000354;
 	/*000358*/ u32 unk000358;
 	/*00035c*/ u32 unk00035c;
-	/*000360*/ struct gvars360 unk000360[2]; // may also start at 35c or 358 with props moved forward
+	/*000360*/ struct propstate propstates[2];
 	/*000398*/ u32 unk000398;
 	/*00039c*/ u32 unk00039c;
 	/*0003a0*/ u32 unk0003a0;

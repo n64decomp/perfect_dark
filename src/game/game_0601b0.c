@@ -382,9 +382,9 @@ glabel func0f060358
 void func0f060438(struct prop *prop)
 {
 	if (prop->type == PROPTYPE_CHR) {
-		g_Vars.unk000360[prop->index].chrpropcount--;
+		g_Vars.propstates[prop->propstateindex].chrpropcount--;
 	} else {
-		g_Vars.unk000360[prop->index].nonchrpropcount--;
+		g_Vars.propstates[prop->propstateindex].propcount--;
 	}
 
 	prop->next = g_Vars.unk000344;

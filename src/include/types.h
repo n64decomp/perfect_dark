@@ -47,7 +47,7 @@ struct prop {
 	s16 unk38;
 	s16 unk3a;
 	u8 unk3c;
-	u8 index;
+	u8 propstateindex;
 	u8 unk3e;
 	u8 unk3f_00 : 1;
 	u8 unk3f_01 : 1;
@@ -3923,15 +3923,16 @@ struct savefile_solo {
 	/*0xac*/ u8 firingrangescores[4];
 };
 
-struct gvars360 {
-	u16 nonchrpropcount;
-	u16 chrpropcount;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
+struct propstate {
+	/*0x00*/ u16 propcount;
+	/*0x02*/ u16 chrpropcount;
+	/*0x04*/ u16 foregroundpropcount;
+	/*0x06*/ u16 foregroundchrpropcount;
+	/*0x08*/ u32 updatetime;
+	/*0x0c*/ u32 chrupdatetime;
+	/*0x10*/ u32 slotupdate240;
+	/*0x14*/ u32 slotupdate60error;
+	/*0x18*/ u32 lastupdateframe;
 };
 
 struct options {
