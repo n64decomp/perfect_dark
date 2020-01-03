@@ -10855,7 +10855,7 @@ struct menu_dialog menudialog_mpautoteam = {
 struct menu_item menuitems_mpteamcontrol[] = {
 	{ MENUITEMTYPE_CHECKBOX,     0, 0x00020000, 0x00005047, 0x00000002, menuhandlerMpTeamsEnabled }, // "Teams Enabled"
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,        0, 0x00000010, 0x00005048, 0x00000000, menuhandler001790c4 }, // "Teams:"
+	{ MENUITEMTYPE_LABEL,        0, 0x00000010, 0x00005048, 0x00000000, menuhandlerMpTeamsLabel }, // "Teams:"
 	{ MENUITEMTYPE_DROPDOWN,     0, 0x00020000, (u32)&func0f17da94, 0x00000000, menuhandlerMpTeamSlot },
 	{ MENUITEMTYPE_DROPDOWN,     1, 0x00020000, (u32)&func0f17da94, 0x00000000, menuhandlerMpTeamSlot },
 	{ MENUITEMTYPE_DROPDOWN,     2, 0x00020000, (u32)&func0f17da94, 0x00000000, menuhandlerMpTeamSlot },

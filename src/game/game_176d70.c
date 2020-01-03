@@ -3030,25 +3030,16 @@ glabel func0f17909c
 /*  f1790c0:	01f81021 */ 	addu	$v0,$t7,$t8
 );
 
-GLOBAL_ASM(
-glabel menuhandler001790c4
-/*  f1790c4:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f1790c8:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f1790cc:	14810008 */ 	bne	$a0,$at,.L0f1790f0
-/*  f1790d0:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f1790d4:	3c0e800b */ 	lui	$t6,0x800b
-/*  f1790d8:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
-/*  f1790dc:	31cf0002 */ 	andi	$t7,$t6,0x2
-/*  f1790e0:	55e00004 */ 	bnezl	$t7,.L0f1790f4
-/*  f1790e4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1790e8:	03e00008 */ 	jr	$ra
-/*  f1790ec:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1790f0:
-/*  f1790f0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1790f4:
-/*  f1790f4:	03e00008 */ 	jr	$ra
-/*  f1790f8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpTeamsLabel(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKDISABLED) {
+		if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) == 0) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 u32 func0f1790fc(void)
 {
@@ -7874,7 +7865,7 @@ glabel func0f17dac4
 /*  f17db3c:	10000003 */ 	beqz	$zero,.L0f17db4c
 /*  f17db40:	03281021 */ 	addu	$v0,$t9,$t0
 .L0f17db44:
-/*  f17db44:	0fc5e431 */ 	jal	menuhandler001790c4
+/*  f17db44:	0fc5e431 */ 	jal	menuhandlerMpTeamsLabel
 /*  f17db48:	8fa5001c */ 	lw	$a1,0x1c($sp)
 .L0f17db4c:
 /*  f17db4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -7936,7 +7927,7 @@ glabel menuhandlerMpTeamSlot
 /*  f17dc0c:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f17dc10:
 /*  f17dc10:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f17dc14:	0fc5e431 */ 	jal	menuhandler001790c4
+/*  f17dc14:	0fc5e431 */ 	jal	menuhandlerMpTeamsLabel
 /*  f17dc18:	02002825 */ 	or	$a1,$s0,$zero
 /*  f17dc1c:	10000005 */ 	beqz	$zero,.L0f17dc34
 /*  f17dc20:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -10280,7 +10271,7 @@ glabel func0f17fcb0
 s32 menuhandlerMpDisplayTeam(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
-		if (g_MpSetup.options & 2) {
+		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 			return false;
 		}
 
