@@ -1881,50 +1881,18 @@ glabel func0f178050
 /*  f178118:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel menuhandler0017811c
-/*  f17811c:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f178120:	1481001f */ 	bne	$a0,$at,.L0f1781a0
-/*  f178124:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f178128:	90a20001 */ 	lbu	$v0,0x1($a1)
-/*  f17812c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f178130:	3c0e800b */ 	lui	$t6,0x800b
-/*  f178134:	10400008 */ 	beqz	$v0,.L0f178158
-/*  f178138:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17813c:	1041000c */ 	beq	$v0,$at,.L0f178170
-/*  f178140:	3c0f800b */ 	lui	$t7,0x800b
-/*  f178144:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f178148:	1041000f */ 	beq	$v0,$at,.L0f178188
-/*  f17814c:	3c18800b */ 	lui	$t8,0x800b
-/*  f178150:	10000014 */ 	beqz	$zero,.L0f1781a4
-/*  f178154:	00001025 */ 	or	$v0,$zero,$zero
-.L0f178158:
-/*  f178158:	91cecb9a */ 	lbu	$t6,-0x3466($t6)
-/*  f17815c:	2401003c */ 	addiu	$at,$zero,0x3c
-/*  f178160:	55c10010 */ 	bnel	$t6,$at,.L0f1781a4
-/*  f178164:	00001025 */ 	or	$v0,$zero,$zero
-/*  f178168:	03e00008 */ 	jr	$ra
-/*  f17816c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f178170:
-/*  f178170:	91efcb9b */ 	lbu	$t7,-0x3465($t7)
-/*  f178174:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f178178:	55e1000a */ 	bnel	$t7,$at,.L0f1781a4
-/*  f17817c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f178180:	03e00008 */ 	jr	$ra
-/*  f178184:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f178188:
-/*  f178188:	9718cb9c */ 	lhu	$t8,-0x3464($t8)
-/*  f17818c:	24010190 */ 	addiu	$at,$zero,0x190
-/*  f178190:	57010004 */ 	bnel	$t8,$at,.L0f1781a4
-/*  f178194:	00001025 */ 	or	$v0,$zero,$zero
-/*  f178198:	03e00008 */ 	jr	$ra
-/*  f17819c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1781a0:
-/*  f1781a0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1781a4:
-/*  f1781a4:	03e00008 */ 	jr	$ra
-/*  f1781a8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKHIDDEN) {
+		switch (item->param) {
+		case 0: if (g_MpSetup.timelimit == 60) return true; break;
+		case 1: if (g_MpSetup.scorelimit == 100) return true; break;
+		case 2: if (g_MpSetup.teamscorelimit == 400) return true; break;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler001781ac

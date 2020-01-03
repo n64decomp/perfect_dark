@@ -10020,9 +10020,9 @@ struct menu_dialog menudialog_mpendgame = {
 struct menu_item menuitems_2a6cc[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f17eac8, 0x00000000, menuhandler00178018 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f18500c, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000200, 0x000054a2, (u32)&func0f178050, menuhandler0017811c }, // "Time Limit:"
-	{ MENUITEMTYPE_LABEL,       1, 0x00000200, 0x000054a3, (u32)&func0f178050, menuhandler0017811c }, // "Score Limit:"
-	{ MENUITEMTYPE_LABEL,       2, 0x00000200, 0x000054a4, (u32)&func0f178050, menuhandler0017811c }, // "Team Score Limit:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000200, 0x000054a2, (u32)&func0f178050, menuhandlerMpInGameLimitLabel }, // "Time Limit:"
+	{ MENUITEMTYPE_LABEL,       1, 0x00000200, 0x000054a3, (u32)&func0f178050, menuhandlerMpInGameLimitLabel }, // "Score Limit:"
+	{ MENUITEMTYPE_LABEL,       2, 0x00000200, 0x000054a4, (u32)&func0f178050, menuhandlerMpInGameLimitLabel }, // "Team Score Limit:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000511e, (u32)&func0f1782f8, NULL }, // "Game Time:"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, (u32)&func0f1782b8, 0x00000000, menuhandler001781ac },
