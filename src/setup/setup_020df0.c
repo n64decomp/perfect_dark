@@ -10376,7 +10376,7 @@ struct menu_item menuitems_mpsavesetup[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x000054e6, (u32)&func0f179b58, NULL }, // "Name:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&func0f108078, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000050b8, 0x00000000, NULL }, // "Do you want to save over your original game file?"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000050b9, 0x00000000, menuhandler00179ad0 }, // "Save Over Original"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000050b9, 0x00000000, menuhandlerMpSaveSetupOverwrite }, // "Save Over Original"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000050ba, 0x00000000, menuhandlerMpSaveSetupCopy }, // "Save Copy"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050bb, 0x00000000, NULL }, // "Do Not Save"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
