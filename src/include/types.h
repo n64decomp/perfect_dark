@@ -4061,7 +4061,7 @@ struct mpsim {
 	/*0x0c*/ u8 unk0c;
 	/*0x0d*/ u8 unk0d;
 	/*0x0e*/ u8 unk0e;
-	/*0x0f*/ u8 unk0f;
+	/*0x0f*/ u8 headnum;
 	/*0x10*/ u8 bodynum;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
