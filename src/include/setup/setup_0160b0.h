@@ -143,7 +143,7 @@ extern u32 var800711e8;
 extern u32 var800711f4;
 extern u32 var8007142c;
 extern u32 var80071440;
-extern u32 g_MenuStackDepth;
+extern u32 g_MpPlayerNum;
 extern u32 var8007144c;
 extern u32 var80071468;
 extern u32 var80071470;

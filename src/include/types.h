@@ -2678,7 +2678,7 @@ struct mpsimulant {
 	u8 unlockvalue;
 };
 
-struct mpbody {
+struct bodynum {
 	u16 slot;
 	u16 name;
 	u16 unk04;
@@ -2811,8 +2811,8 @@ struct menu_item {
 	u8 type;
 	u8 param;
 	u32 flags;
-	u32 left;
-	u32 right;
+	u32 param2;
+	u32 param3;
 	void *handler;
 };
 
@@ -2895,7 +2895,7 @@ struct gvars74 {
 	/*0x64*/ u32 unk64;
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u32 unk6c;
-	/*0x70*/ u32 optionsindex;
+	/*0x70*/ u32 mpchrnum;
 	/*0x74*/ u32 unk74;
 	/*0x78*/ u32 unk78;
 	/*0x7c*/ u32 unk7c;
@@ -3941,15 +3941,15 @@ struct propstate {
 	/*0x18*/ u32 lastupdateframe;
 };
 
-struct options {
+struct mpchr {
 	/*0x00*/ u16 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u8 unk0c;
 	/*0x0d*/ u8 unk0d;
 	/*0x0e*/ u8 unk0e;
-	/*0x0f*/ u8 mphead;
-	/*0x10*/ u8 mpbody;
+	/*0x0f*/ u8 headnum;
+	/*0x10*/ u8 bodynum;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
@@ -3966,7 +3966,7 @@ struct options {
 	/*0x45*/ s8 unk45;
 	/*0x46*/ s8 unk46;
 	/*0x47*/ u8 unk47;
-	/*0x48*/ u16 booleans;
+	/*0x48*/ u16 options;
 	/*0x4c*/ u32 unk4c;
 	/*0x50*/ u32 unk50;
 	/*0x54*/ u32 unk54;
@@ -3986,7 +3986,7 @@ struct options {
 	/*0x8c*/ u32 unk8c;
 	/*0x90*/ u32 unk90;
 	/*0x94*/ u8 unk94;
-	/*0x95*/ u8 mptitle;
+	/*0x95*/ u8 title;
 	/*0x98*/ u32 unk98;
 	/*0x9c*/ u32 unk9c;
 };

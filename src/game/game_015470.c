@@ -8105,12 +8105,12 @@ glabel func0f01bf28
 /*  f01c598:	0fc66d50 */ 	jal	func0f19b540
 /*  f01c59c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f01c5a0:
-/*  f01c5a0:	3c068007 */ 	lui	$a2,%hi(g_MenuStackDepth)
+/*  f01c5a0:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
 /*  f01c5a4:	3c05800a */ 	lui	$a1,%hi(var8009e000)
 /*  f01c5a8:	3c038008 */ 	lui	$v1,%hi(g_MpReadyMenuDialog)
 /*  f01c5ac:	246357b8 */ 	addiu	$v1,$v1,%lo(g_MpReadyMenuDialog)
 /*  f01c5b0:	24a5e000 */ 	addiu	$a1,$a1,%lo(var8009e000)
-/*  f01c5b4:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MenuStackDepth)
+/*  f01c5b4:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
 /*  f01c5b8:	00008825 */ 	or	$s1,$zero,$zero
 /*  f01c5bc:	24040e70 */ 	addiu	$a0,$zero,0xe70
 .L0f01c5c0:
@@ -8147,8 +8147,8 @@ glabel func0f01bf28
 /*  f01c630:	000d6900 */ 	sll	$t5,$t5,0x4
 /*  f01c634:	01af1821 */ 	addu	$v1,$t5,$t7
 /*  f01c638:	8c6e04f8 */ 	lw	$t6,0x4f8($v1)
-/*  f01c63c:	3c068007 */ 	lui	$a2,%hi(g_MenuStackDepth)
-/*  f01c640:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MenuStackDepth)
+/*  f01c63c:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
+/*  f01c640:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
 /*  f01c644:	11c00025 */ 	beqz	$t6,.L0f01c6dc
 /*  f01c648:	acd10000 */ 	sw	$s1,0x0($a2)
 /*  f01c64c:	8e78006c */ 	lw	$t8,0x6c($s3)
@@ -8727,8 +8727,8 @@ glabel func0f01bf28
 .L0f01ce44:
 /*  f01ce44:	00116880 */ 	sll	$t5,$s1,0x2
 /*  f01ce48:	01b16821 */ 	addu	$t5,$t5,$s1
-/*  f01ce4c:	3c19800b */ 	lui	$t9,%hi(g_Options)
-/*  f01ce50:	2739c7b8 */ 	addiu	$t9,$t9,%lo(g_Options)
+/*  f01ce4c:	3c19800b */ 	lui	$t9,%hi(g_MpChrs)
+/*  f01ce50:	2739c7b8 */ 	addiu	$t9,$t9,%lo(g_MpChrs)
 /*  f01ce54:	000d6940 */ 	sll	$t5,$t5,0x5
 /*  f01ce58:	01b91021 */ 	addu	$v0,$t5,$t9
 /*  f01ce5c:	afa20058 */ 	sw	$v0,0x58($sp)
@@ -8908,8 +8908,8 @@ glabel func0f01bf28
 .L0f01d0c8:
 /*  f01d0c8:	3c05800b */ 	lui	$a1,%hi(var800acad8)
 /*  f01d0cc:	3c06800b */ 	lui	$a2,0x800b
-/*  f01d0d0:	3c07800b */ 	lui	$a3,%hi(g_Options)
-/*  f01d0d4:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_Options)
+/*  f01d0d0:	3c07800b */ 	lui	$a3,%hi(g_MpChrs)
+/*  f01d0d4:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_MpChrs)
 /*  f01d0d8:	24c6c858 */ 	addiu	$a2,$a2,-14248
 /*  f01d0dc:	24a5cad8 */ 	addiu	$a1,$a1,%lo(var800acad8)
 /*  f01d0e0:	00807825 */ 	or	$t7,$a0,$zero

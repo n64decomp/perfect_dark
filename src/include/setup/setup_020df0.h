@@ -301,7 +301,7 @@ extern struct mpheadentry mpheadstable[];
 extern u32 table_0x2d678[];
 extern struct mpsimulant mpgeneralsimulants[];
 extern struct mpsimulant mpspecialsimulants[];
-extern struct mpbody mpbodytable[];
+extern struct bodynum mpbodytable[];
 extern u32 mppresets[];
 extern u32 mpteamcolors[];
 extern u32 var80087d10;

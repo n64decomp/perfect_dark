@@ -304,19 +304,19 @@ s32 menuhandler001024fc(u32 operation, struct menu_item *item, s32 *value)
 
 s32 menuhandlerReversePitch(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_GET:
-		return !optionsGetForwardPitch(optionsindex);
+		return !optionsGetForwardPitch(mpchrnum);
 	case MENUOP_SET:
-		optionsSetForwardPitch(optionsindex, *enable == false);
+		optionsSetForwardPitch(mpchrnum, *enable == false);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -646,8 +646,8 @@ glabel menuhandlerScreenSplit
 /*  f1029d8:	01255021 */ 	addu	$t2,$t1,$a1
 /*  f1029dc:	29410002 */ 	slti	$at,$t2,0x2
 /*  f1029e0:	14200012 */ 	bnez	$at,.L0f102a2c
-/*  f1029e4:	3c028007 */ 	lui	$v0,%hi(g_MenuStackDepth)
-/*  f1029e8:	24421448 */ 	addiu	$v0,$v0,%lo(g_MenuStackDepth)
+/*  f1029e4:	3c028007 */ 	lui	$v0,%hi(g_MpPlayerNum)
+/*  f1029e8:	24421448 */ 	addiu	$v0,$v0,%lo(g_MpPlayerNum)
 /*  f1029ec:	8c4b0000 */ 	lw	$t3,0x0($v0)
 /*  f1029f0:	ac400000 */ 	sw	$zero,0x0($v0)
 /*  f1029f4:	0fc3e048 */ 	jal	func0f0f8120
@@ -677,19 +677,19 @@ glabel menuhandlerScreenSplit
 
 s32 menuhandlerLookAhead(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_GET:
-		return optionsGetLookAhead(optionsindex);
+		return optionsGetLookAhead(mpchrnum);
 	case MENUOP_SET:
-		optionsSetLookAhead(optionsindex, *enable);
+		optionsSetLookAhead(mpchrnum, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -698,19 +698,19 @@ s32 menuhandlerLookAhead(u32 operation, struct menu_item *item, bool *enable)
 
 s32 menuhandlerHeadRoll(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_GET:
-		return optionsGetHeadRoll(optionsindex);
+		return optionsGetHeadRoll(mpchrnum);
 	case MENUOP_SET:
-		optionsSetHeadRoll(optionsindex, *enable);
+		optionsSetHeadRoll(mpchrnum, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -789,19 +789,19 @@ s32 menuhandlerHiRes(u32 operation, struct menu_item *item, bool *enable)
 
 s32 menuhandlerAmmoOnScreen(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_GET:
-		return optionsGetAmmoOnScreen(optionsindex);
+		return optionsGetAmmoOnScreen(mpchrnum);
 	case MENUOP_SET:
-		optionsSetAmmoOnScreen(optionsindex, *enable);
+		optionsSetAmmoOnScreen(mpchrnum, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -810,24 +810,24 @@ s32 menuhandlerAmmoOnScreen(u32 operation, struct menu_item *item, bool *enable)
 
 s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
-		if (optionsGetAmmoOnScreen(optionsindex) == 0) {
+		if (optionsGetAmmoOnScreen(mpchrnum) == 0) {
 			return true;
 		}
 		break;
 	case MENUOP_GET:
-		return optionsGetShowGunFunction(optionsindex);
+		return optionsGetShowGunFunction(mpchrnum);
 	case MENUOP_SET:
-		optionsSetShowGunFunction(optionsindex, *enable);
+		optionsSetShowGunFunction(mpchrnum, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -836,19 +836,19 @@ s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enab
 
 s32 menuhandlerShowMissionTime(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_GET:
-		return optionsGetShowMissionTime(optionsindex);
+		return optionsGetShowMissionTime(mpchrnum);
 	case MENUOP_SET:
-		optionsSetShowMissionTime(optionsindex, *enable);
+		optionsSetShowMissionTime(mpchrnum, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -857,24 +857,24 @@ s32 menuhandlerShowMissionTime(u32 operation, struct menu_item *item, bool *enab
 
 s32 menuhandlerAlwaysShowTarget(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
-		if (optionsGetSightOnScreen(optionsindex) == 0) {
+		if (optionsGetSightOnScreen(mpchrnum) == 0) {
 			return true;
 		}
 		break;
 	case MENUOP_GET:
-		return optionsGetAlwaysShowTarget(optionsindex);
+		return optionsGetAlwaysShowTarget(mpchrnum);
 	case MENUOP_SET:
-		optionsSetAlwaysShowTarget(optionsindex, *enable);
+		optionsSetAlwaysShowTarget(mpchrnum, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -883,24 +883,24 @@ s32 menuhandlerAlwaysShowTarget(u32 operation, struct menu_item *item, bool *ena
 
 s32 menuhandlerShowZoomRange(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
-		if (optionsGetSightOnScreen(optionsindex) == 0) {
+		if (optionsGetSightOnScreen(mpchrnum) == 0) {
 			return true;
 		}
 		break;
 	case MENUOP_GET:
-		return optionsGetShowZoomRange(optionsindex);
+		return optionsGetShowZoomRange(mpchrnum);
 	case MENUOP_SET:
-		optionsSetShowZoomRange(optionsindex, *enable);
+		optionsSetShowZoomRange(mpchrnum, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -909,19 +909,19 @@ s32 menuhandlerShowZoomRange(u32 operation, struct menu_item *item, bool *enable
 
 s32 menuhandlerPaintball(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_GET:
-		return optionsGetPaintball(optionsindex);
+		return optionsGetPaintball(mpchrnum);
 	case MENUOP_SET:
-		optionsSetPaintball(optionsindex, *enable);
+		optionsSetPaintball(mpchrnum, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -930,19 +930,19 @@ s32 menuhandlerPaintball(u32 operation, struct menu_item *item, bool *enable)
 
 s32 menuhandlerSightOnScreen(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_GET:
-		return optionsGetSightOnScreen(optionsindex);
+		return optionsGetSightOnScreen(mpchrnum);
 	case MENUOP_SET:
-		optionsSetSightOnScreen(optionsindex, *enable);
+		optionsSetSightOnScreen(mpchrnum, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -951,19 +951,19 @@ s32 menuhandlerSightOnScreen(u32 operation, struct menu_item *item, bool *enable
 
 s32 menuhandlerAutoAim(u32 operation, struct menu_item *item, bool *enable)
 {
-	u32 optionsindex;
+	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		optionsindex = g_Vars.unk000288->optionsindex;
+		mpchrnum = g_Vars.unk000288->mpchrnum;
 	} else {
-		optionsindex = item->right;
+		mpchrnum = item->param3;
 	}
 
 	switch (operation) {
 	case MENUOP_GET:
-		return optionsGetAutoAim(optionsindex);
+		return optionsGetAutoAim(mpchrnum);
 	case MENUOP_SET:
-		optionsSetAutoAim(optionsindex, *enable);
+		optionsSetAutoAim(mpchrnum, *enable);
 		g_Vars.unk000458 |= 1;
 	}
 
@@ -1744,7 +1744,7 @@ s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value)
 	switch (operation) {
 	case MENUOP_CHECKPREFOCUSED:
 		if (isStageDifficultyUnlocked(g_MissionConfig.stageindex, item->param)) {
-			if (item->right == 0) {
+			if (item->param3 == 0) {
 				return true;
 			}
 			if ((g_SoloSaveFile.unk08 & 7) >= item->param) {
