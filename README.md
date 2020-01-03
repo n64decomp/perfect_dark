@@ -8,10 +8,10 @@ This repository contains a work-in-progress decompilation of Perfect Dark for th
 | --------------- | ----------------------------------------- |
 | 0x40 rspboot    | Won't disassemble as source is likely ASM |
 | 0x1000 boot     | 22/52 functions done (42.31%)             |
-| 0x3050 library  | 27/950 functions done (2.84%)             |
+| 0x3050 library  | 28/950 functions done (2.95%)             |
 | 0x39850 setup   | About 50% identified                      |
 | 0x4e850 inflate | 2/8 functions done (25.00%)               |
-| 0x4fc40 game    | 478/4196 functions done (11.39%)          |
+| 0x4fc40 game    | 786/4207 functions done (18.68%)          |
 | Lang files      | Done                                      |
 | Setup files     | Done                                      |
 | Prop files      | Not started                               |
