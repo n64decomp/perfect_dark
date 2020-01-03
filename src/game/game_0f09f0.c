@@ -12460,8 +12460,8 @@ glabel func0f0fa704
 /*  f0fb39c:	1000002f */ 	beqz	$zero,.L0f0fb45c
 /*  f0fb3a0:	8fbf003c */ 	lw	$ra,0x3c($sp)
 .L0f0fb3a4:
-/*  f0fb3a4:	3c0e8008 */ 	lui	$t6,%hi(menudialog_2c6a0)
-/*  f0fb3a8:	25ce6680 */ 	addiu	$t6,$t6,%lo(menudialog_2c6a0)
+/*  f0fb3a4:	3c0e8008 */ 	lui	$t6,%hi(g_MpQuickTeamGameSetupMenuDialog)
+/*  f0fb3a8:	25ce6680 */ 	addiu	$t6,$t6,%lo(g_MpQuickTeamGameSetupMenuDialog)
 /*  f0fb3ac:	55c2002b */ 	bnel	$t6,$v0,.L0f0fb45c
 /*  f0fb3b0:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*  f0fb3b4:	0fc5fd0a */ 	jal	func0f17f428

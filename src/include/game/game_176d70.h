@@ -211,7 +211,7 @@ s32 menuhandler0017e9d8(u32, u32, u32 *);
 s32 menuhandler0017ec64(u32, u32, u32 *);
 s32 menuhandler0017ee60(u32, u32, u32 *);
 s32 menuhandler0017ef30(u32, u32, u32 *);
-s32 menuhandler0017f4c8(u32, u32, u32 *);
+s32 menuhandlerQuickTeamSeparator(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0017f4fc(u32, u32, u32 *);
 s32 menuhandler0017f74c(u32, u32, u32 *);
 s32 menuhandler00181a98(u32, u32, u32 *);
@@ -242,7 +242,7 @@ s32 menuhandlerMpMultipleTunes(u32 operation, struct menu_item *item, s32 *value
 s32 menuhandlerMpNumberOfSimulants(u32, u32, u32 *);
 s32 menuhandlerMpOneHitKills(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpOpenOptions(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMpQuickteamOption(u32 operation, struct menu_item *item, s32 *value);
+s32 menuhandlerMpQuickTeamOption(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpRestoreHandicapDefaults(u32, u32, u32 *);
 s32 menuhandlerMpRestoreScoreDefaults(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpSaveSettings(u32 operation, struct menu_item *item, s32 *value);

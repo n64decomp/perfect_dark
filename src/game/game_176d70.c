@@ -9673,24 +9673,16 @@ s32 menuhandlerMpFinishedSetup(u32 operation, struct menu_item *item, s32 *value
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandler0017f4c8
-/*  f17f4c8:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f17f4cc:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f17f4d0:	14810007 */ 	bne	$a0,$at,.L0f17f4f0
-/*  f17f4d4:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f17f4d8:	3c0e800a */ 	lui	$t6,0x800a
-/*  f17f4dc:	8dcea470 */ 	lw	$t6,-0x5b90($t6)
-/*  f17f4e0:	55c00004 */ 	bnezl	$t6,.L0f17f4f4
-/*  f17f4e4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17f4e8:	03e00008 */ 	jr	$ra
-/*  f17f4ec:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f17f4f0:
-/*  f17f4f0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17f4f4:
-/*  f17f4f4:	03e00008 */ 	jr	$ra
-/*  f17f4f8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerQuickTeamSeparator(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKHIDDEN) {
+		if (g_Vars.mpquickteam == MPQUICKTEAM_PLAYERSONLY) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler0017f4fc
@@ -9952,7 +9944,7 @@ glabel menuhandler0017f74c
 /*  f17f88c:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-s32 menuhandlerMpQuickteamOption(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerMpQuickTeamOption(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		g_Vars.mpquickteam = item->param;
@@ -9969,7 +9961,7 @@ s32 menuhandlerMpQuickteamOption(u32 operation, struct menu_item *item, s32 *val
 			}
 		}
 
-		menuPushDialog(&menudialog_2c6a0);
+		menuPushDialog(&g_MpQuickTeamGameSetupMenuDialog);
 	}
 
 	return 0;

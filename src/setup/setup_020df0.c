@@ -11220,13 +11220,13 @@ struct menu_dialog menudialog_mpquickgo = {
 struct menu_dialog menudialog_mpscenario2;
 
 // 2c538
-struct menu_item menuitems_2c538[] = {
+struct menu_item menuitems_mpquickteamgamesetup[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, 0x00005013, (u32)&func0f184fb0, &menudialog_mpscenario2 }, // "Scenario"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005015, 0x00000000, menuhandlerMpOpenOptions }, // "Options"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005014, (u32)&func0f17f024, &menudialog_mparena }, // "Arena"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005017, (u32)&func0f17f088, &menudialog_mpweapons2 }, // "Weapons"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005018, 0x00000000, &menudialog_mplimits }, // "Limits"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, menuhandler0017f4c8 },
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, menuhandlerQuickTeamSeparator },
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, 0x000059c1, 0x00000000, menuhandler0017f4fc }, // "Player 1 Team"
 	{ MENUITEMTYPE_DROPDOWN,    1, 0x00000000, 0x000059c2, 0x00000000, menuhandler0017f4fc }, // "Player 2 Team"
 	{ MENUITEMTYPE_DROPDOWN,    2, 0x00000000, 0x000059c3, 0x00000000, menuhandler0017f4fc }, // "Player 3 Team"
@@ -11242,10 +11242,10 @@ struct menu_item menuitems_2c538[] = {
 };
 
 // 2c6a0
-struct menu_dialog menudialog_2c6a0 = {
+struct menu_dialog g_MpQuickTeamGameSetupMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5011, // "Game Setup"
-	menuitems_2c538,
+	menuitems_mpquickteamgamesetup,
 	NULL,
 	0x00000000,
 	NULL,
@@ -11253,12 +11253,12 @@ struct menu_dialog menudialog_2c6a0 = {
 
 // 2c6b8
 struct menu_item menuitems_mpquickteam[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, 0x000059cf, 0x00000000, menuhandlerMpQuickteamOption }, // "Players Only"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, 0x000059d0, 0x00000000, menuhandlerMpQuickteamOption }, // "Players and Simulants"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, 0x000059cf, 0x00000000, menuhandlerMpQuickTeamOption }, // "Players Only"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, 0x000059d0, 0x00000000, menuhandlerMpQuickTeamOption }, // "Players and Simulants"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, 0x000059d1, 0x00000000, menuhandlerMpQuickteamOption }, // "Player Teams"
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, 0x000059d2, 0x00000000, menuhandlerMpQuickteamOption }, // "Players vs. Simulants"
-	{ MENUITEMTYPE_SELECTABLE,  4, 0x00400000, 0x000059d3, 0x00000000, menuhandlerMpQuickteamOption }, // "Player-Simulant Teams"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, 0x000059d1, 0x00000000, menuhandlerMpQuickTeamOption }, // "Player Teams"
+	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, 0x000059d2, 0x00000000, menuhandlerMpQuickTeamOption }, // "Players vs. Simulants"
+	{ MENUITEMTYPE_SELECTABLE,  4, 0x00400000, 0x000059d3, 0x00000000, menuhandlerMpQuickTeamOption }, // "Player-Simulant Teams"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
