@@ -4425,53 +4425,17 @@ glabel menuhandlerOpenCopyFile
 /*  f10bbe8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerOpenDeleteFile
-/*  f10bbec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10bbf0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10bbf4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10bbf8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10bbfc:	14810021 */ 	bne	$a0,$at,.L0f10bc84
-/*  f10bc00:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10bc04:	3c188007 */ 	lui	$t8,0x8007
-/*  f10bc08:	8f181448 */ 	lw	$t8,0x1448($t8)
-/*  f10bc0c:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f10bc10:	3c01800a */ 	lui	$at,0x800a
-/*  f10bc14:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f10bc18:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10bc1c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f10bc20:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f10bc24:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f10bc28:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10bc2c:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f10bc30:	00390821 */ 	addu	$at,$at,$t9
-/*  f10bc34:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f10bc38:	ac2fee1c */ 	sw	$t7,-0x11e4($at)
-/*  f10bc3c:	90a50001 */ 	lbu	$a1,0x1($a1)
-/*  f10bc40:	0fc44317 */ 	jal	func0f110c5c
-/*  f10bc44:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10bc48:	3c098007 */ 	lui	$t1,0x8007
-/*  f10bc4c:	8d291448 */ 	lw	$t1,0x1448($t1)
-/*  f10bc50:	3c01800a */ 	lui	$at,0x800a
-/*  f10bc54:	240800ff */ 	addiu	$t0,$zero,0xff
-/*  f10bc58:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f10bc5c:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f10bc60:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f10bc64:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f10bc68:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f10bc6c:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f10bc70:	000a5100 */ 	sll	$t2,$t2,0x4
-/*  f10bc74:	002a0821 */ 	addu	$at,$at,$t2
-/*  f10bc78:	a028ee3e */ 	sb	$t0,-0x11c2($at)
-/*  f10bc7c:	0fc42c31 */ 	jal	func0f10b0c4
-/*  f10bc80:	00002025 */ 	or	$a0,$zero,$zero
-.L0f10bc84:
-/*  f10bc84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10bc88:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10bc8c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10bc90:	03e00008 */ 	jr	$ra
-/*  f10bc94:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerOpenDeleteFile(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		g_MenuStack[g_MpPlayerNum].slotindex = item->param + 1;
+		func0f110c5c(0, item->param);
+		g_MenuStack[g_MpPlayerNum].unk946 = -1;
+		func0f10b0c4(0);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler0010bc98
