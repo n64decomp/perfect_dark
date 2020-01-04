@@ -2518,21 +2518,10 @@ glabel func0f19ba94
 /*  f19bb1c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f19bb20
-/*  f19bb20:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19bb24:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f19bb28:	00802825 */ 	or	$a1,$a0,$zero
-/*  f19bb2c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f19bb30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19bb34:	3c048009 */ 	lui	$a0,0x8009
-/*  f19bb38:	0fc66e96 */ 	jal	func0f19ba58
-/*  f19bb3c:	8c8484b0 */ 	lw	$a0,-0x7b50($a0)
-/*  f19bb40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19bb44:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19bb48:	03e00008 */ 	jr	$ra
-/*  f19bb4c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f19bb20(s32 arg0, s32 arg1)
+{
+	return func0f19ba58(g_MpChallengeIndex, arg0, arg1);
+}
 
 GLOBAL_ASM(
 glabel func0f19bb50
@@ -3032,9 +3021,9 @@ s32 func0f19c220(void)
 	return func0f18bf70(0, 0);
 }
 
-void mpCalculateVar800884b4(void)
+void mpCalculateVar800884b4(s32 arg0, s32 arg1)
 {
-	var800884b4 = func0f19bb20();
+	var800884b4 = func0f19bb20(arg0, arg1);
 }
 
 void mpResetVar800884b4(void)
