@@ -5525,38 +5525,15 @@ s32 menuhandler4MbAdvancedSetup(u32 operation, struct menu_item *item, s32 *valu
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandler0010cabc
-/*  f10cabc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10cac0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10cac4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10cac8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10cacc:	14810012 */ 	bne	$a0,$at,.L0f10cb18
-/*  f10cad0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10cad4:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f10cad8:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f10cadc:	3c04800a */ 	lui	$a0,0x800a
-/*  f10cae0:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10cae4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10cae8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10caec:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10caf0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10caf4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10caf8:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10cafc:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f10cb00:	0fc66ddf */ 	jal	func0f19b77c
-/*  f10cb04:	8c84ee1c */ 	lw	$a0,-0x11e4($a0)
-/*  f10cb08:	3c048007 */ 	lui	$a0,%hi(menudialog_mpquickgo2)
-/*  f10cb0c:	24845120 */ 	addiu	$a0,$a0,%lo(menudialog_mpquickgo2)
-/*  f10cb10:	0fc3e083 */ 	jal	func0f0f820c
-/*  f10cb14:	2405000b */ 	addiu	$a1,$zero,0xb
-.L0f10cb18:
-/*  f10cb18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10cb1c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10cb20:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10cb24:	03e00008 */ 	jr	$ra
-/*  f10cb28:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandler0010cabc(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f19b77c(g_MenuStack[g_MpPlayerNum].slotindex);
+		func0f0f820c(&menudialog_mpquickgo2, 11);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f10cb2c
