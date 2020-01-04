@@ -51,7 +51,7 @@ u32 func0f19c274(void);
 u32 func0f19c288(void);
 u32 func0f19c2b0(void);
 u32 func0f19c2cc(void);
-u32 func0f19c37c(void);
+char *mpChallengeGetName(s32 arg0, s32 challengeindex);
 bool func0f19c3bc(s32 mpchrnum, s32 index, s32 numplayers);
 bool mpIsChallengeCompletedByAnyChrWithNumPlayers(s32 index, s32 numplayers);
 void mpSetChallengeCompletedByAnyChrWithNumPlayers(s32 index, s32 numplayers, bool completed);

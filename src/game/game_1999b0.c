@@ -3159,25 +3159,10 @@ glabel func0f19c2cc
 /*  f19c378:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f19c37c
-/*  f19c37c:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f19c380:	01c57023 */ 	subu	$t6,$t6,$a1
-/*  f19c384:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19c388:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19c38c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f19c390:	01c57021 */ 	addu	$t6,$t6,$a1
-/*  f19c394:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f19c398:	3c048009 */ 	lui	$a0,0x8009
-/*  f19c39c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19c3a0:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f19c3a4:	0fc5b9f1 */ 	jal	textGet
-/*  f19c3a8:	948484b8 */ 	lhu	$a0,-0x7b48($a0)
-/*  f19c3ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19c3b0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19c3b4:	03e00008 */ 	jr	$ra
-/*  f19c3b8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpChallengeGetName(s32 arg0, s32 challengeindex)
+{
+	return textGet(g_MpChallenges[challengeindex].name);
+}
 
 bool func0f19c3bc(s32 mpchrnum, s32 index, s32 numplayers)
 {
