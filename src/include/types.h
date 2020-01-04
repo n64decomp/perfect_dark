@@ -4277,8 +4277,8 @@ struct challenge {
 	/*0x00*/ u16 name;
 	/*0x02*/ u16 unk02;
 
-	// One byte for each player's profile, and 4 bits in each
-	// to mark how many players it wash completed with
+	// One byte for each number of players,
+	// and 4 bits in each to mark which players completed it
 	/*0x04*/ u8 completions[4];
 
 	/*0x08*/ u16 unk08;

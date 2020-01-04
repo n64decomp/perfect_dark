@@ -3247,7 +3247,7 @@ glabel func0f10f698
 /*  f10fa18:	02402025 */ 	or	$a0,$s2,$zero
 .L0f10fa1c:
 /*  f10fa1c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10fa20:	0fc67103 */ 	jal	func0f19c40c
+/*  f10fa20:	0fc67103 */ 	jal	mpSetChallengeCompletedByAnyChrWithNumPlayers
 /*  f10fa24:	00003025 */ 	or	$a2,$zero,$zero
 /*  f10fa28:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f10fa2c:	5611fffb */ 	bnel	$s0,$s1,.L0f10fa1c
@@ -3468,7 +3468,7 @@ glabel func0f10fac8
 /*  f10fd40:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f10fd44:	02202025 */ 	or	$a0,$s1,$zero
 /*  f10fd48:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10fd4c:	0fc67103 */ 	jal	func0f19c40c
+/*  f10fd4c:	0fc67103 */ 	jal	mpSetChallengeCompletedByAnyChrWithNumPlayers
 /*  f10fd50:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10fd54:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f10fd58:	5612fff8 */ 	bnel	$s0,$s2,.L0f10fd3c
@@ -3962,7 +3962,7 @@ glabel func0f10feac
 .L0f1104a0:
 /*  f1104a0:	02202025 */ 	or	$a0,$s1,$zero
 .L0f1104a4:
-/*  f1104a4:	0fc670f7 */ 	jal	func0f19c3dc
+/*  f1104a4:	0fc670f7 */ 	jal	mpIsChallengeCompletedByAnyChrWithNumPlayers
 /*  f1104a8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1104ac:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1104b0:	00402825 */ 	or	$a1,$v0,$zero
