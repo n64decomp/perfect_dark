@@ -7970,7 +7970,7 @@ glabel func0f11bc54
 );
 
 GLOBAL_ASM(
-glabel func0f11c2ac
+glabel pakRepair
 /*  f11c2ac:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f11c2b0:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f11c2b4:	83ae002b */ 	lb	$t6,0x2b($sp)

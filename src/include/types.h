@@ -3592,7 +3592,7 @@ struct menustackitem {
 	/*0x968*/ u32 unk968;
 	/*0x96c*/ u32 unk96c;
 	/*0x970*/ u32 unk970;
-	/*0x974*/ u32 unk974;
+	/*0x974*/ s8 unk974;
 	/*0x978*/ u32 unk978;
 	/*0x97c*/ u32 unk97c;
 	/*0x980*/ u32 unk980;

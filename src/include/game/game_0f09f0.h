@@ -38,7 +38,7 @@ u32 func0f0f3220(void);
 u32 func0f0f33bc(void);
 u32 func0f0f361c(void);
 void menuPopDialog(void);
-u32 func0f0f3704(void);
+void func0f0f3704(struct menu_dialog *dialog);
 u32 func0f0f372c(void);
 u32 func0f0f37a4(void);
 u32 func0f0f38b0(void);
@@ -102,7 +102,7 @@ s32 menudialog000fcd48(u32, u32, u32 *);
 s32 menudialog000fdc74(u32, u32, u32 *);
 s32 menuhandler000fcc34(u32, u32, u32 *);
 s32 menuhandler000fd6f0(u32, u32, u32 *);
-s32 menuhandlerRepairPak(u32, u32, u32 *);
+s32 menuhandlerRepairPak(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerRetrySavePak(u32, u32, u32 *);
 s32 menuhandlerWarnRepairPak(u32 operation, struct menu_item *item, s32 *value);
 

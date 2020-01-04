@@ -103,7 +103,7 @@ u32 func0f11b75c(void);
 u32 func0f11b86c(void);
 u32 func0f11bbd8(void);
 u32 func0f11bc54(void);
-u32 func0f11c2ac(void);
+bool pakRepair(s32 arg0);
 u32 func0f11c39c(void);
 u32 func0f11c54c(void);
 u32 func0f11c6d0(void);

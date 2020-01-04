@@ -1350,7 +1350,7 @@ struct menu_item menuitems_pakrepaired[] = {
 };
 
 // 175d0
-struct menu_dialog menudialog_pakrepaired = {
+struct menu_dialog g_PakRepairSuccessMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x54b4,
 	menuitems_pakrepaired,
@@ -1368,7 +1368,7 @@ struct menu_item menuitems_pakrepairfailed[] = {
 };
 
 // 17638
-struct menu_dialog menudialog_pakrepairfailed = {
+struct menu_dialog g_PakRepairFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	0x54b6,
 	menuitems_pakrepairfailed,
