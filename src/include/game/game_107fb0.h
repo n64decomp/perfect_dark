@@ -66,7 +66,7 @@ s32 menuhandler00108cd0(u32, u32, u32 *);
 s32 menuhandler00108d48(u32, u32, u32 *);
 s32 menuhandler00108ecc(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler00108f08(u32, u32, u32 *);
-s32 menuhandler0010a120(u32, u32, u32 *);
+s32 menuhandlerPakRenameDuplicateSave(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerPakCancelDuplicateSave(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerPakCancelSave(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0010a488(u32, u32, u32 *);

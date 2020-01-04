@@ -2714,26 +2714,15 @@ glabel menuhandlerRenameFile
 /*  f10a11c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler0010a120
-/*  f10a120:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10a124:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10a128:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a12c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10a130:	14810006 */ 	bne	$a0,$at,.L0f10a14c
-/*  f10a134:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10a138:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10a13c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10a140:	3c048007 */ 	lui	$a0,%hi(menudialog_changefilename)
-/*  f10a144:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10a148:	248446a0 */ 	addiu	$a0,$a0,%lo(menudialog_changefilename)
-.L0f10a14c:
-/*  f10a14c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10a150:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10a154:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10a158:	03e00008 */ 	jr	$ra
-/*  f10a15c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerPakRenameDuplicateSave(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		menuPopDialog();
+		menuPushDialog(&menudialog_changefilename);
+	}
+
+	return 0;
+}
 
 s32 menuhandlerPakCancelDuplicateSave(u32 operation, struct menu_item *item, s32 *value)
 {

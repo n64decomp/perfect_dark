@@ -3397,7 +3397,7 @@ struct menu_item menuitems_duplicatefilename[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, 0x000054e9, 0x00000000, NULL }, // "already contains"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, 0x000054ea, 0x00000000, NULL }, // "a file named"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, (u32)&func0f10a1ec, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054eb, 0x00000000, menuhandler0010a120 }, // "Rename File"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054eb, 0x00000000, menuhandlerPakRenameDuplicateSave }, // "Rename File"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000054ec, 0x00000000, NULL }, // "Change Location"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054ed, 0x00000000, menuhandlerPakCancelDuplicateSave }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
