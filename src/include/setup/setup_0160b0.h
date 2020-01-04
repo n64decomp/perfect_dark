@@ -160,7 +160,7 @@ extern u32 var800714f4;
 extern struct menu_dialog menudialog_pakremoved;
 extern struct menu_dialog menudialog_pakrepaired;
 extern struct menu_dialog menudialog_pakrepairfailed;
-extern struct menu_dialog menudialog_pakattemptrepair;
+extern struct menu_dialog g_PakAttemptRepairMenuDialog;
 extern u16 savelocations[];
 extern struct menu_dialog menudialog_damagedcontrollerpak;
 extern struct menu_dialog menudialog_fullcontrollerpak;

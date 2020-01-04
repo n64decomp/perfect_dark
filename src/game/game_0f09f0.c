@@ -14207,7 +14207,7 @@ glabel menuhandler000fcc34
 /*  f0fcc68:	1481002a */ 	bne	$a0,$at,.L0f0fcd14
 /*  f0fcc6c:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f0fcc70:	3c1e8007 */ 	lui	$s8,%hi(menudialog_damagedcontrollerpak)
-/*  f0fcc74:	3c178007 */ 	lui	$s7,%hi(menudialog_pakattemptrepair)
+/*  f0fcc74:	3c178007 */ 	lui	$s7,%hi(g_PakAttemptRepairMenuDialog)
 /*  f0fcc78:	3c168007 */ 	lui	$s6,%hi(menudialog_pakrepairfailed)
 /*  f0fcc7c:	3c158007 */ 	lui	$s5,%hi(menudialog_pakremoved)
 /*  f0fcc80:	3c148007 */ 	lui	$s4,%hi(menudialog_pakrepaired)
@@ -14218,7 +14218,7 @@ glabel menuhandler000fcc34
 /*  f0fcc94:	269415b0 */ 	addiu	$s4,$s4,%lo(menudialog_pakrepaired)
 /*  f0fcc98:	26b51548 */ 	addiu	$s5,$s5,%lo(menudialog_pakremoved)
 /*  f0fcc9c:	26d61618 */ 	addiu	$s6,$s6,%lo(menudialog_pakrepairfailed)
-/*  f0fcca0:	26f716a8 */ 	addiu	$s7,$s7,%lo(menudialog_pakattemptrepair)
+/*  f0fcca0:	26f716a8 */ 	addiu	$s7,$s7,%lo(g_PakAttemptRepairMenuDialog)
 /*  f0fcca4:	27de176c */ 	addiu	$s8,$s8,%lo(menudialog_damagedcontrollerpak)
 /*  f0fcca8:	24130e70 */ 	addiu	$s3,$zero,0xe70
 /*  f0fccac:	8e4e0000 */ 	lw	$t6,0x0($s2)
@@ -14533,24 +14533,14 @@ glabel menuhandlerRetrySavePak
 /*  f0fd0dc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerWarnRepairPak
-/*  f0fd0e0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0fd0e4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0fd0e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0fd0ec:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0fd0f0:	14810004 */ 	bne	$a0,$at,.L0f0fd104
-/*  f0fd0f4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0fd0f8:	3c048007 */ 	lui	$a0,%hi(menudialog_pakattemptrepair)
-/*  f0fd0fc:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f0fd100:	248416a8 */ 	addiu	$a0,$a0,%lo(menudialog_pakattemptrepair)
-.L0f0fd104:
-/*  f0fd104:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fd108:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0fd10c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fd110:	03e00008 */ 	jr	$ra
-/*  f0fd114:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerWarnRepairPak(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		menuPushDialog(&g_PakAttemptRepairMenuDialog);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0fd118
@@ -14669,8 +14659,8 @@ glabel func0f0fd1f4
 /*  f0fd2a0:	3c0b8007 */ 	lui	$t3,%hi(menudialog_fullcontrollerpak)
 /*  f0fd2a4:	256b1810 */ 	addiu	$t3,$t3,%lo(menudialog_fullcontrollerpak)
 /*  f0fd2a8:	1163000d */ 	beq	$t3,$v1,.L0f0fd2e0
-/*  f0fd2ac:	3c0c8007 */ 	lui	$t4,%hi(menudialog_pakattemptrepair)
-/*  f0fd2b0:	258c16a8 */ 	addiu	$t4,$t4,%lo(menudialog_pakattemptrepair)
+/*  f0fd2ac:	3c0c8007 */ 	lui	$t4,%hi(g_PakAttemptRepairMenuDialog)
+/*  f0fd2b0:	258c16a8 */ 	addiu	$t4,$t4,%lo(g_PakAttemptRepairMenuDialog)
 /*  f0fd2b4:	1183000a */ 	beq	$t4,$v1,.L0f0fd2e0
 /*  f0fd2b8:	3c0d8007 */ 	lui	$t5,%hi(menudialog_pakremoved)
 /*  f0fd2bc:	25ad1548 */ 	addiu	$t5,$t5,%lo(menudialog_pakremoved)

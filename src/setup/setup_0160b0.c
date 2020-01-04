@@ -1388,7 +1388,7 @@ struct menu_item menuitems_pakattemptrepair[] = {
 };
 
 // 176c8
-struct menu_dialog menudialog_pakattemptrepair = {
+struct menu_dialog g_PakAttemptRepairMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	0x54af, // "Attempt Repair"
 	menuitems_pakattemptrepair,
