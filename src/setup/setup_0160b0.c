@@ -3299,7 +3299,7 @@ struct menu_item menuitems_saveerror[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x0000575c, 0x00000000, NULL }, // "An error occurred while trying to save"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000575d, 0x00000000, menuhandlerPakErrorTryAgain }, // "Try Again"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000575e, 0x00000000, menuhandlerSaveElsewhere }, // "Save Elsewhere"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000575f, 0x00000000, menuhandler00108cd0 }, // "Cancel"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000575f, 0x00000000, menuhandlerPakCancelSave2 }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -3335,7 +3335,7 @@ struct menu_dialog menudialog_savelost = {
 struct menu_item menuitems_saveelsewhere[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x00005768, 0x00000000, NULL }, // "Would you like to save your file elsewhere?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005769, 0x00000000, menuhandlerSaveElsewhere }, // "Yes"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000576a, 0x00000000, menuhandler00108cd0 }, // "No"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000576a, 0x00000000, menuhandlerPakCancelSave2 }, // "No"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

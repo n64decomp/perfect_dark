@@ -1229,26 +1229,19 @@ glabel menuhandlerSaveElsewhere
 /*  f108ccc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+s32 menuhandlerPakCancelSave2(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f0f33bc();
+		func0f10898c();
+		func0f0f361c();
+	}
+
+	return 0;
+}
+
 GLOBAL_ASM(
-glabel menuhandler00108cd0
-/*  f108cd0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108cd4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f108cd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108cdc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f108ce0:	14810007 */ 	bne	$a0,$at,.L0f108d00
-/*  f108ce4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f108ce8:	0fc3ccef */ 	jal	func0f0f33bc
-/*  f108cec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108cf0:	0fc42263 */ 	jal	func0f10898c
-/*  f108cf4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108cf8:	0fc3cd87 */ 	jal	func0f0f361c
-/*  f108cfc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f108d00:
-/*  f108d00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108d04:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f108d08:	00001025 */ 	or	$v0,$zero,$zero
-/*  f108d0c:	03e00008 */ 	jr	$ra
-/*  f108d10:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f108d14
 /*  f108d14:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f108d18:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f108d1c:	afbf0014 */ 	sw	$ra,0x14($sp)
