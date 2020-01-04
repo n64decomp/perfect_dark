@@ -59,6 +59,6 @@ u32 func0f19c47c(void);
 void func0f19c4b8(s32 arg0, s32 arg1, s32 numplayers, s32 arg3);
 u32 func0f19c53c(void);
 void func0f19c6bc(void);
-bool mpIsOptionAvailable(s32 option);
+bool mpIsChallengeComplete(s32 challenge);
 
 #endif

@@ -88,6 +88,10 @@
 #define CASING_RIFLE    2
 #define CASING_SHOTGUN  3
 
+// Challenge numbers don't appear to be a 1:1 mapping :(
+#define CHALLENGE_7     30
+#define CHALLENGE_UNK64 64
+
 #define CHANNEL_0  0
 #define CHANNEL_1  1
 #define CHANNEL_2  2
