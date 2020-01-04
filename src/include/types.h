@@ -4273,4 +4273,23 @@ struct savelocation {
 	/*0x2d2*/ s8 unk2d2[4];
 };
 
+struct challenge {
+	/*0x00*/ u16 name;
+	/*0x02*/ u16 unk02;
+
+	// One byte for each player's profile, and 4 bits in each
+	// to mark how many players it wash completed with
+	/*0x04*/ u8 completions[4];
+
+	/*0x08*/ u16 unk08;
+	/*0x0a*/ u16 unk0a;
+	/*0x0c*/ u16 unk0c;
+	/*0x0e*/ u16 unk0e;
+	/*0x10*/ u16 unk10;
+	/*0x12*/ u16 unk12;
+	/*0x14*/ u16 unk14;
+	/*0x16*/ u16 unk16;
+	/*0x18*/ u16 unk18;
+};
+
 #endif

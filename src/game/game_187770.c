@@ -955,7 +955,7 @@ glabel func0f18800c
 .L0f188154:
 /*  f188154:	02202825 */ 	or	$a1,$s1,$zero
 /*  f188158:	02003025 */ 	or	$a2,$s0,$zero
-/*  f18815c:	0fc6712e */ 	jal	func0f19c4b8
+/*  f18815c:	0fc6712e */ 	jal	mpSetChallengeCompletionStatus
 /*  f188160:	00003825 */ 	or	$a3,$zero,$zero
 /*  f188164:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f188168:	5612fffa */ 	bnel	$s0,$s2,.L0f188154
@@ -5135,7 +5135,7 @@ glabel func0f18b9e4
 /*  f18bae0:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f18bae4:	55c10004 */ 	bnel	$t6,$at,.L0f18baf8
 /*  f18bae8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f18baec:	0fc671af */ 	jal	func0f19c6bc
+/*  f18baec:	0fc671af */ 	jal	mpConsiderMarkingCurrentChallengeComplete
 /*  f18baf0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18baf4:	00002025 */ 	or	$a0,$zero,$zero
 .L0f18baf8:
@@ -7195,7 +7195,7 @@ glabel func0f18d2b8
 /*  f18d554:	02802025 */ 	or	$a0,$s4,$zero
 /*  f18d558:	02202825 */ 	or	$a1,$s1,$zero
 /*  f18d55c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f18d560:	0fc6712e */ 	jal	func0f19c4b8
+/*  f18d560:	0fc6712e */ 	jal	mpSetChallengeCompletionStatus
 /*  f18d564:	00403825 */ 	or	$a3,$v0,$zero
 /*  f18d568:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f18d56c:	5612fff7 */ 	bnel	$s0,$s2,.L0f18d54c

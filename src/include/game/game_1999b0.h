@@ -56,9 +56,9 @@ u32 func0f19c3bc(void);
 u32 func0f19c3dc(void);
 void func0f19c40c(s32 arg0, s32 numplayers, s32 arg2);
 u32 func0f19c47c(void);
-void func0f19c4b8(s32 arg0, s32 arg1, s32 numplayers, s32 arg3);
+void mpSetChallengeCompletionStatus(u32 mpchrnum, s32 index, s32 numplayers, bool completed);
 bool func0f19c53c(void);
-void func0f19c6bc(void);
+void mpConsiderMarkingCurrentChallengeComplete(void);
 bool mpIsChallengeComplete(s32 challenge);
 
 #endif

@@ -27,11 +27,11 @@ glabel func0f00b210
 /*  f00b218:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f00b21c:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f00b220:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f00b224:	3c108009 */ 	lui	$s0,%hi(challenges)
+/*  f00b224:	3c108009 */ 	lui	$s0,%hi(g_MpChallenges)
 /*  f00b228:	3c128009 */ 	lui	$s2,%hi(var80090018)
 /*  f00b22c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f00b230:	265284c1 */ 	addiu	$s2,$s2,-31551
-/*  f00b234:	261084b8 */ 	addiu	$s0,$s0,%lo(challenges)
+/*  f00b234:	261084b8 */ 	addiu	$s0,$s0,%lo(g_MpChallenges)
 /*  f00b238:	00008825 */ 	or	$s1,$zero,$zero
 /*  f00b23c:	27b30038 */ 	addiu	$s3,$sp,0x38
 .L0f00b240:
