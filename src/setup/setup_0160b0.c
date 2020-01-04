@@ -3433,7 +3433,7 @@ struct menu_item menuitems_selectlocation[] = {
 	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
 	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, (u32)&func0f10a22c, (u32)&func0f10a2ec, menuhandlerSaveLocation },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005772, 0x00000000, menuhandler0010a488 }, // "Delete Files..."
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005772, 0x00000000, menuhandlerDeleteFiles }, // "Delete Files..."
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005773, 0x00000000, menuhandlerPakCancelSave }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };

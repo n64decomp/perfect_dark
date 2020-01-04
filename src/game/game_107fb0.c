@@ -2848,47 +2848,15 @@ s32 menuhandlerPakCancelSave(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandler0010a488
-/*  f10a488:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10a48c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10a490:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a494:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10a498:	1481001b */ 	bne	$a0,$at,.L0f10a508
-/*  f10a49c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10a4a0:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f10a4a4:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f10a4a8:	3c04800a */ 	lui	$a0,0x800a
-/*  f10a4ac:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10a4b0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10a4b4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10a4b8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10a4bc:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10a4c0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10a4c4:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10a4c8:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f10a4cc:	0fc42c31 */ 	jal	func0f10b0c4
-/*  f10a4d0:	9084ee3f */ 	lbu	$a0,-0x11c1($a0)
-/*  f10a4d4:	3c198007 */ 	lui	$t9,0x8007
-/*  f10a4d8:	8f391448 */ 	lw	$t9,0x1448($t9)
-/*  f10a4dc:	3c01800a */ 	lui	$at,0x800a
-/*  f10a4e0:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f10a4e4:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f10a4e8:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f10a4ec:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f10a4f0:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f10a4f4:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f10a4f8:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f10a4fc:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f10a500:	00280821 */ 	addu	$at,$at,$t0
-/*  f10a504:	ac38ee28 */ 	sw	$t8,-0x11d8($at)
-.L0f10a508:
-/*  f10a508:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10a50c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10a510:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10a514:	03e00008 */ 	jr	$ra
-/*  f10a518:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerDeleteFiles(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f10b0c4(g_MenuStack[g_MpPlayerNum].unk947);
+		g_MenuStack[g_MpPlayerNum].unk930 = 1;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f10a51c
