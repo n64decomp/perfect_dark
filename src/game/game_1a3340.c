@@ -3015,37 +3015,18 @@ glabel menuhandler001a44c0
 /*  f1a5d58:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler001a5d5c
-/*  f1a5d5c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a5d60:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1a5d64:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a5d68:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a5d6c:	1481000f */ 	bne	$a0,$at,.L0f1a5dac
-/*  f1a5d70:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1a5d74:	3c0e800a */ 	lui	$t6,0x800a
-/*  f1a5d78:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f1a5d7c:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f1a5d80:	3c048009 */ 	lui	$a0,%hi(menudialog_frweapon)
-/*  f1a5d84:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f1a5d88:	85f80028 */ 	lh	$t8,0x28($t7)
-/*  f1a5d8c:	17010005 */ 	bne	$t8,$at,.L0f1a5da4
-/*  f1a5d90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a5d94:	0fc3cdc1 */ 	jal	func0f0f3704
-/*  f1a5d98:	24848d78 */ 	addiu	$a0,$a0,%lo(menudialog_frweapon)
-/*  f1a5d9c:	10000004 */ 	beqz	$zero,.L0f1a5db0
-/*  f1a5da0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a5da4:
-/*  f1a5da4:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f1a5da8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a5dac:
-/*  f1a5dac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a5db0:
-/*  f1a5db0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a5db4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a5db8:	03e00008 */ 	jr	$ra
-/*  f1a5dbc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerFrFailedContinue(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		if (g_Vars.currentplayer->prop->rooms[0] == 0xa) {
+			func0f0f3704(&g_frWeaponMenuDialog);
+		} else {
+			menuPopDialog();
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler001a5dc0
@@ -4714,9 +4695,9 @@ glabel menudialog001a737c
 
 GLOBAL_ASM(
 glabel func0f1a7554
-/*  f1a7554:	3c028009 */ 	lui	$v0,%hi(menudialog_frweapon)
+/*  f1a7554:	3c028009 */ 	lui	$v0,%hi(g_frWeaponMenuDialog)
 /*  f1a7558:	03e00008 */ 	jr	$ra
-/*  f1a755c:	24428d78 */ 	addiu	$v0,$v0,%lo(menudialog_frweapon)
+/*  f1a755c:	24428d78 */ 	addiu	$v0,$v0,%lo(g_frWeaponMenuDialog)
 );
 
 GLOBAL_ASM(

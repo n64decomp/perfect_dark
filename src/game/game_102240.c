@@ -4769,7 +4769,7 @@ glabel func0f106b20
 /*  f106cc0:	0fc6830c */ 	jal	func0f1a0c30
 /*  f106cc4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f106cc8:	10400007 */ 	beqz	$v0,.L0f106ce8
-/*  f106ccc:	3c048009 */ 	lui	$a0,%hi(menudialog_frweapon)
+/*  f106ccc:	3c048009 */ 	lui	$a0,%hi(g_frWeaponMenuDialog)
 /*  f106cd0:	3c048009 */ 	lui	$a0,%hi(menudialog_frtraininginfo)
 /*  f106cd4:	24848e6c */ 	addiu	$a0,$a0,%lo(menudialog_frtraininginfo)
 /*  f106cd8:	0fc3e0cc */ 	jal	func0f0f8330
@@ -4777,7 +4777,7 @@ glabel func0f106b20
 /*  f106ce0:	10000005 */ 	beqz	$zero,.L0f106cf8
 /*  f106ce4:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f106ce8:
-/*  f106ce8:	24848d78 */ 	addiu	$a0,$a0,%lo(menudialog_frweapon)
+/*  f106ce8:	24848d78 */ 	addiu	$a0,$a0,%lo(g_frWeaponMenuDialog)
 /*  f106cec:	0fc3e0cc */ 	jal	func0f0f8330
 /*  f106cf0:	2405000d */ 	addiu	$a1,$zero,0xd
 /*  f106cf4:	24050001 */ 	addiu	$a1,$zero,0x1

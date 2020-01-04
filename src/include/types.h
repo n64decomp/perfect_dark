@@ -3921,7 +3921,12 @@ struct menustackitem {
 };
 
 struct savefile_solo {
-	/*0x00*/ char name[12];
+	/**
+	 * This is a little weird. The name entry is clearly 10 characters plus a
+	 * null byte, but there is other code that uses unk08 for other purposes.
+	 */
+	/*0x00*/ char name[8];
+	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 flags;

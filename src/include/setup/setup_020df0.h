@@ -352,7 +352,7 @@ extern u32 var80088ca0;
 extern u32 var80088ca4;
 extern u32 var80088ca8;
 extern struct menu_dialog menudialog_frdifficulty;
-extern struct menu_dialog menudialog_frweapon;
+extern struct menu_dialog g_frWeaponMenuDialog;
 extern struct menu_dialog menudialog_frtraininginfo;
 extern struct menu_dialog menudialog_frtraininginfo2;
 extern struct menu_dialog menudialog_frtrainingstats;

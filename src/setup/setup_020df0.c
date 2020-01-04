@@ -13021,7 +13021,7 @@ struct menu_item menuitems_frweapon[] = {
 };
 
 // 2ed98
-struct menu_dialog menudialog_frweapon = {
+struct menu_dialog g_frWeaponMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51be, // "Weapon"
 	menuitems_frweapon,
@@ -13093,7 +13093,7 @@ struct menu_item menuitems_frtrainingstats[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, 0x000051c7, (u32)&func0f1a402c, NULL }, // "Accuracy:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_MODEL,       0, 0x00200002, 0x000000d2, 0x00000050, menuhandler001a44c0 },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x000054fc, 0x00000000, menuhandler001a5d5c }, // "Continue"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x000054fc, 0x00000000, menuhandlerFrFailedContinue }, // "Continue"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -13120,7 +13120,7 @@ struct menu_item menuitems_frtrainingstats2[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, 0x000051c7, (u32)&func0f1a402c, NULL }, // "Accuracy:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_MODEL,       0, 0x00200002, 0x000000d2, 0x00000050, menuhandler001a44c0 },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x000054fc, 0x00000000, menuhandler001a5d5c }, // "Continue"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x000054fc, 0x00000000, menuhandlerFrFailedContinue }, // "Continue"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
