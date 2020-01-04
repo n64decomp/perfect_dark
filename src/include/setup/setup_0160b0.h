@@ -238,7 +238,7 @@ extern struct menu_dialog menudialog_fileselect;
 extern struct menu_dialog menudialog_fileselect2;
 extern struct menu_dialog menudialog_mpquickgo2;
 extern struct menu_dialog menudialog_1b1bc;
-extern struct menu_dialog menudialog_smallbutperfectmenu;
+extern struct menu_dialog g_4MbMainMenu;
 extern struct menu_dialog menudialog_mpdropout;
 extern struct menu_dialog menudialog_1b414;
 extern struct menu_dialog g_4MbAdvancedSetupMenuDialog;

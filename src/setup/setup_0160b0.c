@@ -3806,7 +3806,7 @@ struct menu_item menuitems_smallbutperfectmenu[] = {
 };
 
 // 1b2b4
-struct menu_dialog menudialog_smallbutperfectmenu = {
+struct menu_dialog g_4MbMainMenu = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x572e, // "Small but Perfect Menu"
 	menuitems_smallbutperfectmenu,
@@ -3818,7 +3818,7 @@ struct menu_dialog menudialog_smallbutperfectmenu = {
 // 1b2cc
 struct menu_item menuitems_mpdropout[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000050c4, 0x00000000, NULL }, // "Are you sure you want to drop out?"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000050c5, 0x00000000, menuhandlerDropOut }, // "Drop Out"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000050c5, 0x00000000, menuhandler4MbDropOut }, // "Drop Out"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000050c6, 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
