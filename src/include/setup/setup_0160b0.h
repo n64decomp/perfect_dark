@@ -241,7 +241,7 @@ extern struct menu_dialog menudialog_1b1bc;
 extern struct menu_dialog menudialog_smallbutperfectmenu;
 extern struct menu_dialog menudialog_mpdropout;
 extern struct menu_dialog menudialog_1b414;
-extern struct menu_dialog menudialog_mpgamesetup;
+extern struct menu_dialog g_4MbAdvancedSetupMenuDialog;
 extern struct menu_dialog menudialog_1b5c0;
 extern struct menu_dialog menudialog_promptnextmission;
 extern struct menu_dialog menudialog_1b7a4;

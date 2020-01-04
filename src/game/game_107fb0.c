@@ -5619,25 +5619,14 @@ glabel menuhandler0010ca1c
 /*  f10ca7c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler4MbAdvanceSetup
-/*  f10ca80:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10ca84:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10ca88:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10ca8c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10ca90:	14810005 */ 	bne	$a0,$at,.L0f10caa8
-/*  f10ca94:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10ca98:	3c048007 */ 	lui	$a0,%hi(menudialog_mpgamesetup)
-/*  f10ca9c:	24845538 */ 	addiu	$a0,$a0,%lo(menudialog_mpgamesetup)
-/*  f10caa0:	0fc3e083 */ 	jal	func0f0f820c
-/*  f10caa4:	2405000b */ 	addiu	$a1,$zero,0xb
-.L0f10caa8:
-/*  f10caa8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10caac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10cab0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10cab4:	03e00008 */ 	jr	$ra
-/*  f10cab8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandler4MbAdvancedSetup(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f0f820c(&g_4MbAdvancedSetupMenuDialog, 11);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler0010cabc

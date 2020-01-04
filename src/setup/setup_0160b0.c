@@ -3798,7 +3798,7 @@ struct menu_item menuitems_smallbutperfectmenu[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059b9, 0x00000000, &menudialog_mpcombatchallenges }, // "Challenges"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059ba, 0x00000001, &menudialog_mploadgamesettingstype1 }, // "Load/Preset Games"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000059bb, 0x00000002, &menudialog_mpquickteam }, // "Quick Start"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, 0x000059bc, 0x00000003, menuhandler4MbAdvanceSetup }, // "Advanced Setup"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, 0x000059bc, 0x00000003, menuhandler4MbAdvancedSetup }, // "Advanced Setup"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x00005731, 0x00000000, &menudialog_1b00c }, // "Audio/Video"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x00005732, 0x00000000, &menudialog_changeagent }, // "Change Agent"
@@ -3891,7 +3891,7 @@ struct menu_item menuitems_mpgamesetup[] = {
 };
 
 // 1b558
-struct menu_dialog menudialog_mpgamesetup = {
+struct menu_dialog g_4MbAdvancedSetupMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5011,
 	menuitems_mpgamesetup,
