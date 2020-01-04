@@ -4474,64 +4474,29 @@ s32 menuhandlerOpenDeleteFile(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandler0010bc98
-/*  f10bc98:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f10bc9c:	8dce5bc0 */ 	lw	$t6,0x5bc0($t6)
-/*  f10bca0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10bca4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10bca8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10bcac:	15c00003 */ 	bnez	$t6,.L0f10bcbc
-/*  f10bcb0:	8cc70000 */ 	lw	$a3,0x0($a2)
-/*  f10bcb4:	10000026 */ 	beqz	$zero,.L0f10bd50
-/*  f10bcb8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10bcbc:
-/*  f10bcbc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10bcc0:	10810013 */ 	beq	$a0,$at,.L0f10bd10
-/*  f10bcc4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10bcc8:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f10bccc:	10810006 */ 	beq	$a0,$at,.L0f10bce8
-/*  f10bcd0:	3c05800a */ 	lui	$a1,0x800a
-/*  f10bcd4:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f10bcd8:	10810008 */ 	beq	$a0,$at,.L0f10bcfc
-/*  f10bcdc:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f10bce0:	1000001b */ 	beqz	$zero,.L0f10bd50
-/*  f10bce4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10bce8:
-/*  f10bce8:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f10bcec:	0c004c4c */ 	jal	strcpy
-/*  f10bcf0:	24a52200 */ 	addiu	$a1,$a1,0x2200
-/*  f10bcf4:	10000016 */ 	beqz	$zero,.L0f10bd50
-/*  f10bcf8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10bcfc:
-/*  f10bcfc:	3c04800a */ 	lui	$a0,0x800a
-/*  f10bd00:	0c004c4c */ 	jal	strcpy
-/*  f10bd04:	24842200 */ 	addiu	$a0,$a0,0x2200
-/*  f10bd08:	10000011 */ 	beqz	$zero,.L0f10bd50
-/*  f10bd0c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10bd10:
-/*  f10bd10:	0fc42947 */ 	jal	func0f10a51c
-/*  f10bd14:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10bd18:	3c188007 */ 	lui	$t8,0x8007
-/*  f10bd1c:	8f181448 */ 	lw	$t8,0x1448($t8)
-/*  f10bd20:	3c01800a */ 	lui	$at,0x800a
-/*  f10bd24:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f10bd28:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f10bd2c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10bd30:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f10bd34:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f10bd38:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f10bd3c:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10bd40:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f10bd44:	00390821 */ 	addu	$at,$at,$t9
-/*  f10bd48:	ac2fee2c */ 	sw	$t7,-0x11d4($at)
-/*  f10bd4c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10bd50:
-/*  f10bd50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10bd54:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10bd58:	03e00008 */ 	jr	$ra
-/*  f10bd5c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerAgentName(u32 operation, struct menu_item *item, s32 *value)
+{
+	s32 val = *value;
+
+	if (!g_SaveLocations[0]) {
+		return 0;
+	}
+
+	switch (operation) {
+	case MENUOP_GETTEXT:
+		strcpy(val, &g_SoloSaveFile.name);
+		break;
+	case MENUOP_SETTEXT:
+		strcpy(&g_SoloSaveFile.name, val);
+		break;
+	case MENUOP_SET:
+		func0f10a51c(0, 0);
+		g_MenuStack[g_MpPlayerNum].unk934 = 1;
+		break;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menucustomChooseAgent

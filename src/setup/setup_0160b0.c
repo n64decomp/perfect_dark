@@ -3617,7 +3617,7 @@ struct menu_dialog menudialog_gamefiles = {
 
 // 1ad78
 struct menu_item menuitems_enteragentname[] = {
-	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000001, menuhandler0010bc98 },
+	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000001, menuhandlerAgentName },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
