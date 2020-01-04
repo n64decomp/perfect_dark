@@ -1209,23 +1209,14 @@ glabel func0f108a80
 /*  f108bec:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00108bf0
-/*  f108bf0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108bf4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f108bf8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108bfc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f108c00:	14810003 */ 	bne	$a0,$at,.L0f108c10
-/*  f108c04:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f108c08:	0fc4240e */ 	jal	func0f109038
-/*  f108c0c:	24040002 */ 	addiu	$a0,$zero,0x2
-.L0f108c10:
-/*  f108c10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108c14:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f108c18:	00001025 */ 	or	$v0,$zero,$zero
-/*  f108c1c:	03e00008 */ 	jr	$ra
-/*  f108c20:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerPakErrorTryAgain(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f109038(2);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerSaveElsewhere
