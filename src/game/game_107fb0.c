@@ -1372,46 +1372,18 @@ s32 menuhandler00108ecc(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandler00108f08
-/*  f108f08:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108f0c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f108f10:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108f14:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f108f18:	14810018 */ 	bne	$a0,$at,.L0f108f7c
-/*  f108f1c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f108f20:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f108f24:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f108f28:	3c02800a */ 	lui	$v0,0x800a
-/*  f108f2c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f108f30:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108f34:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f108f38:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f108f3c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f108f40:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108f44:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f108f48:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f108f4c:	9042ee42 */ 	lbu	$v0,-0x11be($v0)
-/*  f108f50:	28410064 */ 	slti	$at,$v0,0x64
-/*  f108f54:	10200007 */ 	beqz	$at,.L0f108f74
-/*  f108f58:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f108f5c:	10410005 */ 	beq	$v0,$at,.L0f108f74
-/*  f108f60:	3c048007 */ 	lui	$a0,%hi(menudialog_saveelsewhere)
-/*  f108f64:	0fc3cdc1 */ 	jal	func0f0f3704
-/*  f108f68:	248445cc */ 	addiu	$a0,$a0,%lo(menudialog_saveelsewhere)
-/*  f108f6c:	10000004 */ 	beqz	$zero,.L0f108f80
-/*  f108f70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f108f74:
-/*  f108f74:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f108f78:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f108f7c:
-/*  f108f7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f108f80:
-/*  f108f80:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f108f84:	00001025 */ 	or	$v0,$zero,$zero
-/*  f108f88:	03e00008 */ 	jr	$ra
-/*  f108f8c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandler00108f08(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		if (g_MenuStack[g_MpPlayerNum].unk94a < 100 && g_MenuStack[g_MpPlayerNum].unk94a != 1) {
+			func0f0f3704(&g_SaveElsewhereMenuDialog);
+		} else {
+			menuPopDialog();
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f108f90

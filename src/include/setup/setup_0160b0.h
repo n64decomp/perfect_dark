@@ -218,7 +218,7 @@ extern u16 filetypenames[];
 extern struct menu_dialog menudialog_filesaved;
 extern struct menu_dialog menudialog_saveerror;
 extern struct menu_dialog menudialog_savelost;
-extern struct menu_dialog menudialog_saveelsewhere;
+extern struct menu_dialog g_SaveElsewhereMenuDialog;
 extern struct menu_dialog menudialog_1a654;
 extern u32 var8007464c;
 extern struct menu_dialog menudialog_changefilename;

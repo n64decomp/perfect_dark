@@ -3340,7 +3340,7 @@ struct menu_item menuitems_saveelsewhere[] = {
 };
 
 // 1a5ec
-struct menu_dialog menudialog_saveelsewhere = {
+struct menu_dialog g_SaveElsewhereMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	0x5767, // "Save"
 	menuitems_saveelsewhere,
