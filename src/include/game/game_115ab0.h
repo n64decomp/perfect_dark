@@ -22,7 +22,7 @@ u32 func0f1165f8(void);
 u32 func0f116658(void);
 u32 func0f116684(void);
 u32 func0f11668c(void);
-u32 func0f116720(void);
+bool pakIsConnected(s32 paknum);
 u32 func0f1167b0(void);
 u32 func0f1167d8(void);
 u32 func0f116800(void);

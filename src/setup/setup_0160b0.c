@@ -3570,10 +3570,10 @@ struct menu_item menuitems_controllerpakmenu[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x0000566c, 0x00000000, NULL }, // "Use this menu to delete game notes from your Controller Pak"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x0000566d, 0x00000000, NULL }, // "Choose Controller Pak to Edit:"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005670, 0x00000000, menuhandler0010b974 }, // "Controller Pak 1"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x00005671, 0x00000000, menuhandler0010b974 }, // "Controller Pak 2"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x00005672, 0x00000000, menuhandler0010b974 }, // "Controller Pak 3"
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, 0x00005673, 0x00000000, menuhandler0010b974 }, // "Controller Pak 4"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x00005670, 0x00000000, menuhandlerPakSelection }, // "Controller Pak 1"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, 0x00005671, 0x00000000, menuhandlerPakSelection }, // "Controller Pak 2"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, 0x00005672, 0x00000000, menuhandlerPakSelection }, // "Controller Pak 3"
+	{ MENUITEMTYPE_SELECTABLE,  3, 0x00000000, 0x00005673, 0x00000000, menuhandlerPakSelection }, // "Controller Pak 4"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x0000566e, 0x00000000, NULL }, // "Exit"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

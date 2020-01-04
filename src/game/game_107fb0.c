@@ -4273,51 +4273,21 @@ glabel func0f10b924
 /*  f10b970:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler0010b974
-/*  f10b974:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10b978:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10b97c:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f10b980:	00803025 */ 	or	$a2,$a0,$zero
-/*  f10b984:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10b988:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10b98c:	14810008 */ 	bne	$a0,$at,.L0f10b9b0
-/*  f10b990:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10b994:	80a40001 */ 	lb	$a0,0x1($a1)
-/*  f10b998:	0fc459c8 */ 	jal	func0f116720
-/*  f10b99c:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f10b9a0:	14400003 */ 	bnez	$v0,.L0f10b9b0
-/*  f10b9a4:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f10b9a8:	10000015 */ 	beqz	$zero,.L0f10ba00
-/*  f10b9ac:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f10b9b0:
-/*  f10b9b0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10b9b4:	14c10011 */ 	bne	$a2,$at,.L0f10b9fc
-/*  f10b9b8:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f10b9bc:	3c198007 */ 	lui	$t9,0x8007
-/*  f10b9c0:	8f391448 */ 	lw	$t9,0x1448($t9)
-/*  f10b9c4:	91f80001 */ 	lbu	$t8,0x1($t7)
-/*  f10b9c8:	3c01800a */ 	lui	$at,0x800a
-/*  f10b9cc:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f10b9d0:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f10b9d4:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f10b9d8:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f10b9dc:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f10b9e0:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f10b9e4:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f10b9e8:	00280821 */ 	addu	$at,$at,$t0
-/*  f10b9ec:	3c048007 */ 	lui	$a0,%hi(menudialog_gamenotes)
-/*  f10b9f0:	24844b58 */ 	addiu	$a0,$a0,%lo(menudialog_gamenotes)
-/*  f10b9f4:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10b9f8:	ac38ee20 */ 	sw	$t8,-0x11e0($at)
-.L0f10b9fc:
-/*  f10b9fc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10ba00:
-/*  f10ba00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10ba04:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10ba08:	03e00008 */ 	jr	$ra
-/*  f10ba0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerPakSelection(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKDISABLED) {
+		if (pakIsConnected((s8)item->param) == 0) {
+			return true;
+		}
+	}
+
+	if (operation == MENUOP_SET) {
+		g_MenuStack[g_MpPlayerNum].paknum = item->param;
+		menuPushDialog(&menudialog_gamenotes);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menudialog0010ba10

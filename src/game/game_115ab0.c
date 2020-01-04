@@ -1339,7 +1339,7 @@ glabel func0f11668c
 );
 
 GLOBAL_ASM(
-glabel func0f116720
+glabel pakIsConnected
 /*  f116720:	00047600 */ 	sll	$t6,$a0,0x18
 /*  f116724:	000e7e03 */ 	sra	$t7,$t6,0x18
 /*  f116728:	000fc080 */ 	sll	$t8,$t7,0x2
