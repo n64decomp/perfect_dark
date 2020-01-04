@@ -3317,7 +3317,7 @@ struct menu_dialog menudialog_saveerror = {
 struct menu_item menuitems_savelost[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108078, 0x00000000, menuhandler00108014 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000054fb, 0x00000000, NULL }, // "The saved file has been erased due to corruption or damage."
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005762, 0x00000000, menuhandler00108d48 }, // "Cancel"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005762, 0x00000000, menuhandlerAcknowledgePakFileLost }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

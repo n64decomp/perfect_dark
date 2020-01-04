@@ -1303,27 +1303,16 @@ glabel menuhandler00108cd0
 /*  f108d44:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00108d48
-/*  f108d48:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108d4c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f108d50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108d54:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f108d58:	14810007 */ 	bne	$a0,$at,.L0f108d78
-/*  f108d5c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f108d60:	0fc3ccef */ 	jal	func0f0f33bc
-/*  f108d64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108d68:	0fc42263 */ 	jal	func0f10898c
-/*  f108d6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108d70:	0fc3cd87 */ 	jal	func0f0f361c
-/*  f108d74:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f108d78:
-/*  f108d78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108d7c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f108d80:	00001025 */ 	or	$v0,$zero,$zero
-/*  f108d84:	03e00008 */ 	jr	$ra
-/*  f108d88:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerAcknowledgePakFileLost(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f0f33bc();
+		func0f10898c();
+		func0f0f361c();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f108d8c
