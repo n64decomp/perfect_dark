@@ -2456,24 +2456,10 @@ glabel func0f19b914
 /*  f19ba54:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19ba58
-/*  f19ba58:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f19ba5c:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f19ba60:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19ba64:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f19ba68:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19ba6c:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f19ba70:	3c048009 */ 	lui	$a0,0x8009
-/*  f19ba74:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19ba78:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f19ba7c:	0fc66e45 */ 	jal	func0f19b914
-/*  f19ba80:	848484ba */ 	lh	$a0,-0x7b46($a0)
-/*  f19ba84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ba88:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19ba8c:	03e00008 */ 	jr	$ra
-/*  f19ba90:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f19ba58(s32 challengeindex, s32 arg1, s32 arg2)
+{
+	return func0f19b914(g_MpChallenges[challengeindex].unk02, arg1, arg2);
+}
 
 s32 mpGetNthCompletedChallengeSomething(s32 n, s32 arg1, s32 arg2)
 {
