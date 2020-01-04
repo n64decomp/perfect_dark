@@ -1803,22 +1803,22 @@ glabel func0f19afdc
 /*  f19b174:	00009025 */ 	or	$s2,$zero,$zero
 /*  f19b178:	02602025 */ 	or	$a0,$s3,$zero
 /*  f19b17c:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19b180:	0fc6711f */ 	jal	func0f19c47c
+/*  f19b180:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19b184:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f19b188:	14400010 */ 	bnez	$v0,.L0f19b1cc
 /*  f19b18c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f19b190:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19b194:	0fc6711f */ 	jal	func0f19c47c
+/*  f19b194:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19b198:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f19b19c:	1440000b */ 	bnez	$v0,.L0f19b1cc
 /*  f19b1a0:	02602025 */ 	or	$a0,$s3,$zero
 /*  f19b1a4:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19b1a8:	0fc6711f */ 	jal	func0f19c47c
+/*  f19b1a8:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19b1ac:	24060003 */ 	addiu	$a2,$zero,0x3
 /*  f19b1b0:	14400006 */ 	bnez	$v0,.L0f19b1cc
 /*  f19b1b4:	02602025 */ 	or	$a0,$s3,$zero
 /*  f19b1b8:	02a02825 */ 	or	$a1,$s5,$zero
-/*  f19b1bc:	0fc6711f */ 	jal	func0f19c47c
+/*  f19b1bc:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19b1c0:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f19b1c4:	10400006 */ 	beqz	$v0,.L0f19b1e0
 /*  f19b1c8:	2aa10004 */ 	slti	$at,$s5,0x4
@@ -1841,22 +1841,22 @@ glabel func0f19afdc
 /*  f19b200:	02602025 */ 	or	$a0,$s3,$zero
 /*  f19b204:	26b0ffff */ 	addiu	$s0,$s5,-1
 /*  f19b208:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19b20c:	0fc6711f */ 	jal	func0f19c47c
+/*  f19b20c:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19b210:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f19b214:	1440000f */ 	bnez	$v0,.L0f19b254
 /*  f19b218:	02602025 */ 	or	$a0,$s3,$zero
 /*  f19b21c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19b220:	0fc6711f */ 	jal	func0f19c47c
+/*  f19b220:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19b224:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f19b228:	1440000a */ 	bnez	$v0,.L0f19b254
 /*  f19b22c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f19b230:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19b234:	0fc6711f */ 	jal	func0f19c47c
+/*  f19b234:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19b238:	24060003 */ 	addiu	$a2,$zero,0x3
 /*  f19b23c:	14400005 */ 	bnez	$v0,.L0f19b254
 /*  f19b240:	02602025 */ 	or	$a0,$s3,$zero
 /*  f19b244:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19b248:	0fc6711f */ 	jal	func0f19c47c
+/*  f19b248:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19b24c:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f19b250:	10400005 */ 	beqz	$v0,.L0f19b268
 .L0f19b254:
@@ -2348,7 +2348,7 @@ glabel func0f19b800
 /*  f19b8c8:	26310001 */ 	addiu	$s1,$s1,0x1
 /*  f19b8cc:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*  f19b8d0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19b8d4:	0fc6711f */ 	jal	func0f19c47c
+/*  f19b8d4:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19b8d8:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f19b8dc:	10000007 */ 	beqz	$zero,.L0f19b8fc
 /*  f19b8e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -3119,22 +3119,22 @@ glabel func0f19c2cc
 /*  f19c2ec:	02202025 */ 	or	$a0,$s1,$zero
 .L0f19c2f0:
 /*  f19c2f0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19c2f4:	0fc6711f */ 	jal	func0f19c47c
+/*  f19c2f4:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19c2f8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*  f19c2fc:	14400010 */ 	bnez	$v0,.L0f19c340
 /*  f19c300:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19c304:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19c308:	0fc6711f */ 	jal	func0f19c47c
+/*  f19c308:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19c30c:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f19c310:	1440000b */ 	bnez	$v0,.L0f19c340
 /*  f19c314:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19c318:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19c31c:	0fc6711f */ 	jal	func0f19c47c
+/*  f19c31c:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19c320:	24060003 */ 	addiu	$a2,$zero,0x3
 /*  f19c324:	14400006 */ 	bnez	$v0,.L0f19c340
 /*  f19c328:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19c32c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19c330:	0fc6711f */ 	jal	func0f19c47c
+/*  f19c330:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19c334:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f19c338:	50400004 */ 	beqzl	$v0,.L0f19c34c
 /*  f19c33c:	2610ffff */ 	addiu	$s0,$s0,-1
@@ -3183,7 +3183,7 @@ GLOBAL_ASM(
 glabel func0f19c3bc
 /*  f19c3bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f19c3c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19c3c4:	0fc6711f */ 	jal	func0f19c47c
+/*  f19c3c4:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f19c3c8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19c3cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f19c3d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -3240,26 +3240,12 @@ glabel func0f19c40c
 /*  f19c478:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19c47c
-/*  f19c47c:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f19c480:	01c57023 */ 	subu	$t6,$t6,$a1
-/*  f19c484:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19c488:	01c57021 */ 	addu	$t6,$t6,$a1
-/*  f19c48c:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f19c490:	01c67821 */ 	addu	$t7,$t6,$a2
-/*  f19c494:	3c188009 */ 	lui	$t8,0x8009
-/*  f19c498:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f19c49c:	931884bc */ 	lbu	$t8,-0x7b44($t8)
-/*  f19c4a0:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f19c4a4:	00994004 */ 	sllv	$t0,$t9,$a0
-/*  f19c4a8:	03081024 */ 	and	$v0,$t8,$t0
-/*  f19c4ac:	0002482b */ 	sltu	$t1,$zero,$v0
-/*  f19c4b0:	03e00008 */ 	jr	$ra
-/*  f19c4b4:	01201025 */ 	or	$v0,$t1,$zero
-);
+bool mpIsChallengeCompletedByChrWithNumPlayers(s32 mpchrnum, s32 index, s32 numplayers)
+{
+	return (g_MpChallenges[index].completions[numplayers] & (2 << mpchrnum)) != 0;
+}
 
-void mpSetChallengeCompletionStatus(u32 mpchrnum, s32 index, s32 numplayers, bool completed)
+void mpSetChallengeCompletedByChrWithNumPlayers(u32 mpchrnum, s32 index, s32 numplayers, bool completed)
 {
 	if (completed) {
 		g_MpChallenges[index].completions[numplayers] |= 2 << mpchrnum;
@@ -3423,7 +3409,7 @@ void mpConsiderMarkingCurrentChallengeComplete(void)
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			setCurrentPlayerNum(i);
-			mpSetChallengeCompletionStatus(g_Vars.unk000288->mpchrnum, g_MpChallengeIndex, PLAYERCOUNT(), true);
+			mpSetChallengeCompletedByChrWithNumPlayers(g_Vars.unk000288->mpchrnum, g_MpChallengeIndex, PLAYERCOUNT(), true);
 		}
 
 		setCurrentPlayerNum(prevplayernum);

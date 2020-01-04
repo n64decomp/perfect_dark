@@ -955,7 +955,7 @@ glabel func0f18800c
 .L0f188154:
 /*  f188154:	02202825 */ 	or	$a1,$s1,$zero
 /*  f188158:	02003025 */ 	or	$a2,$s0,$zero
-/*  f18815c:	0fc6712e */ 	jal	mpSetChallengeCompletionStatus
+/*  f18815c:	0fc6712e */ 	jal	mpSetChallengeCompletedByChrWithNumPlayers
 /*  f188160:	00003825 */ 	or	$a3,$zero,$zero
 /*  f188164:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f188168:	5612fffa */ 	bnel	$s0,$s2,.L0f188154
@@ -7195,7 +7195,7 @@ glabel func0f18d2b8
 /*  f18d554:	02802025 */ 	or	$a0,$s4,$zero
 /*  f18d558:	02202825 */ 	or	$a1,$s1,$zero
 /*  f18d55c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f18d560:	0fc6712e */ 	jal	mpSetChallengeCompletionStatus
+/*  f18d560:	0fc6712e */ 	jal	mpSetChallengeCompletedByChrWithNumPlayers
 /*  f18d564:	00403825 */ 	or	$a3,$v0,$zero
 /*  f18d568:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f18d56c:	5612fff7 */ 	bnel	$s0,$s2,.L0f18d54c
@@ -7468,7 +7468,7 @@ glabel func0f18d5c4
 /*  f18d93c:	02802025 */ 	or	$a0,$s4,$zero
 .L0f18d940:
 /*  f18d940:	02202825 */ 	or	$a1,$s1,$zero
-/*  f18d944:	0fc6711f */ 	jal	func0f19c47c
+/*  f18d944:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
 /*  f18d948:	02003025 */ 	or	$a2,$s0,$zero
 /*  f18d94c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f18d950:	00402825 */ 	or	$a1,$v0,$zero
