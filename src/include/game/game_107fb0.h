@@ -74,7 +74,7 @@ s32 menuhandlerPakConfirmDelete(u32 operation, struct menu_item *item, s32 *valu
 s32 menuhandler0010b14c(u32, u32, u32 *);
 s32 menuhandler0010b974(u32, u32, u32 *);
 s32 menuhandler0010bc98(u32, u32, u32 *);
-s32 menuhandler0010ca1c(u32, u32, u32 *);
+s32 menuhandler0010ca1c(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0010cabc(u32, u32, u32 *);
 s32 menuhandler4MbAdvancedSetup(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler4MbDropOut(u32 operation, struct menu_item *item, s32 *value);
