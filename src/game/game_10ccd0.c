@@ -4493,11 +4493,11 @@ glabel func0f110bf8
 /*  f110bf8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f110bfc:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f110c00:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f110c04:	3c108007 */ 	lui	$s0,%hi(var80075bc0)
+/*  f110c04:	3c108007 */ 	lui	$s0,%hi(g_SaveLocations)
 /*  f110c08:	3c118007 */ 	lui	$s1,%hi(var80075bd0)
 /*  f110c0c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f110c10:	26315bd0 */ 	addiu	$s1,$s1,%lo(var80075bd0)
-/*  f110c14:	26105bc0 */ 	addiu	$s0,$s0,%lo(var80075bc0)
+/*  f110c14:	26105bc0 */ 	addiu	$s0,$s0,%lo(g_SaveLocations)
 /*  f110c18:	8e0e0000 */ 	lw	$t6,0x0($s0)
 .L0f110c1c:
 /*  f110c1c:	51c00008 */ 	beqzl	$t6,.L0f110c40
@@ -4521,8 +4521,8 @@ glabel func0f110bf8
 
 GLOBAL_ASM(
 glabel func0f110c5c
-/*  f110c5c:	3c0f8007 */ 	lui	$t7,%hi(var80075bc0)
-/*  f110c60:	25ef5bc0 */ 	addiu	$t7,$t7,%lo(var80075bc0)
+/*  f110c5c:	3c0f8007 */ 	lui	$t7,%hi(g_SaveLocations)
+/*  f110c60:	25ef5bc0 */ 	addiu	$t7,$t7,%lo(g_SaveLocations)
 /*  f110c64:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f110c68:	01cf3021 */ 	addu	$a2,$t6,$t7
 /*  f110c6c:	8cc30000 */ 	lw	$v1,0x0($a2)
@@ -4570,10 +4570,10 @@ glabel func0f110cf8
 /*  f110cfc:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f110d00:	309000ff */ 	andi	$s0,$a0,0xff
 /*  f110d04:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f110d08:	3c058007 */ 	lui	$a1,%hi(var80075bc0)
+/*  f110d08:	3c058007 */ 	lui	$a1,%hi(g_SaveLocations)
 /*  f110d0c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f110d10:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f110d14:	24a55bc0 */ 	addiu	$a1,$a1,%lo(var80075bc0)
+/*  f110d14:	24a55bc0 */ 	addiu	$a1,$a1,%lo(g_SaveLocations)
 /*  f110d18:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f110d1c:	00001825 */ 	or	$v1,$zero,$zero
 /*  f110d20:	2407ffff */ 	addiu	$a3,$zero,-1
@@ -4677,12 +4677,12 @@ glabel func0f110da8
 /*  f110e68:	2a410005 */ 	slti	$at,$s2,0x5
 /*  f110e6c:	5420ffe6 */ 	bnezl	$at,.L0f110e08
 /*  f110e70:	00128e00 */ 	sll	$s1,$s2,0x18
-/*  f110e74:	3c108007 */ 	lui	$s0,%hi(var80075bc0)
+/*  f110e74:	3c108007 */ 	lui	$s0,%hi(g_SaveLocations)
 /*  f110e78:	3c148007 */ 	lui	$s4,%hi(var80075bd0)
 /*  f110e7c:	3c118007 */ 	lui	$s1,%hi(var80075bd0)
 /*  f110e80:	26315bd0 */ 	addiu	$s1,$s1,%lo(var80075bd0)
 /*  f110e84:	26945bd0 */ 	addiu	$s4,$s4,%lo(var80075bd0)
-/*  f110e88:	26105bc0 */ 	addiu	$s0,$s0,%lo(var80075bc0)
+/*  f110e88:	26105bc0 */ 	addiu	$s0,$s0,%lo(g_SaveLocations)
 /*  f110e8c:	24120001 */ 	addiu	$s2,$zero,0x1
 /*  f110e90:	8e040000 */ 	lw	$a0,0x0($s0)
 .L0f110e94:

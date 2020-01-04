@@ -1304,10 +1304,10 @@ glabel func0f108d8c
 /*  f108e04:	0fc45a18 */ 	jal	func0f116860
 /*  f108e08:	03002025 */ 	or	$a0,$t8,$zero
 .L0f108e0c:
-/*  f108e0c:	3c028007 */ 	lui	$v0,%hi(var80075bc0)
+/*  f108e0c:	3c028007 */ 	lui	$v0,%hi(g_SaveLocations)
 /*  f108e10:	3c058007 */ 	lui	$a1,%hi(var80075bd0)
 /*  f108e14:	24a55bd0 */ 	addiu	$a1,$a1,%lo(var80075bd0)
-/*  f108e18:	24425bc0 */ 	addiu	$v0,$v0,%lo(var80075bc0)
+/*  f108e18:	24425bc0 */ 	addiu	$v0,$v0,%lo(g_SaveLocations)
 /*  f108e1c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f108e20:	8c430000 */ 	lw	$v1,0x0($v0)
 .L0f108e24:
@@ -2475,8 +2475,8 @@ glabel func0f109ec4
 /*  f109eec:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f109ef0:	01f81821 */ 	addu	$v1,$t7,$t8
 /*  f109ef4:	90790e3f */ 	lbu	$t9,0xe3f($v1)
-/*  f109ef8:	3c088007 */ 	lui	$t0,%hi(var80075bc0)
-/*  f109efc:	25085bc0 */ 	addiu	$t0,$t0,%lo(var80075bc0)
+/*  f109ef8:	3c088007 */ 	lui	$t0,%hi(g_SaveLocations)
+/*  f109efc:	25085bc0 */ 	addiu	$t0,$t0,%lo(g_SaveLocations)
 /*  f109f00:	00194880 */ 	sll	$t1,$t9,0x2
 /*  f109f04:	01095021 */ 	addu	$t2,$t0,$t1
 /*  f109f08:	8d4b0000 */ 	lw	$t3,0x0($t2)
@@ -2511,8 +2511,8 @@ glabel func0f109ec4
 /*  f109f78:	000e7100 */ 	sll	$t6,$t6,0x4
 /*  f109f7c:	01cf1821 */ 	addu	$v1,$t6,$t7
 /*  f109f80:	90620e3e */ 	lbu	$v0,0xe3e($v1)
-/*  f109f84:	3c088007 */ 	lui	$t0,%hi(var80075bc0)
-/*  f109f88:	25085bc0 */ 	addiu	$t0,$t0,%lo(var80075bc0)
+/*  f109f84:	3c088007 */ 	lui	$t0,%hi(g_SaveLocations)
+/*  f109f88:	25085bc0 */ 	addiu	$t0,$t0,%lo(g_SaveLocations)
 /*  f109f8c:	14400005 */ 	bnez	$v0,.L0f109fa4
 /*  f109f90:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f109f94:	0fc42655 */ 	jal	func0f109954
@@ -2838,6 +2838,28 @@ glabel menuhandlerSaveLocation
 /*  f10a44c:	03e00008 */ 	jr	$ra
 /*  f10a450:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because the game's code calculates g_MenuStack by loading a lower
+// number into %hi then compensating with a larger number in %lo.
+//s32 menuhandlerSaveLocation(u32 operation, struct menu_item *item, s32 *value)
+//{
+//	if (g_SaveLocations[g_MenuStack[g_MpPlayerNum].unk947] == NULL) {
+//		return 0;
+//	}
+//
+//	if (operation == MENUOP_CHECKDISABLED) {
+//		if (g_SaveLocations[g_MenuStack[g_MpPlayerNum].unk947]->unk2d2[item->param] < 1) {
+//			return true;
+//		}
+//	}
+//
+//	if (operation == MENUOP_SET) {
+//		g_MenuStack[g_MpPlayerNum].unk95a = item->param;
+//		func0f109ec4();
+//	}
+//
+//	return 0;
+//}
 
 s32 menuhandlerPakCancelSave(u32 operation, struct menu_item *item, s32 *value)
 {
@@ -3257,8 +3279,8 @@ glabel func0f10aad8
 /*  f10aae4:	afb00034 */ 	sw	$s0,0x34($sp)
 /*  f10aae8:	afa40088 */ 	sw	$a0,0x88($sp)
 /*  f10aaec:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f10aaf0:	3c088007 */ 	lui	$t0,%hi(var80075bc0)
-/*  f10aaf4:	25085bc0 */ 	addiu	$t0,$t0,%lo(var80075bc0)
+/*  f10aaf0:	3c088007 */ 	lui	$t0,%hi(g_SaveLocations)
+/*  f10aaf4:	25085bc0 */ 	addiu	$t0,$t0,%lo(g_SaveLocations)
 /*  f10aaf8:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f10aafc:	00c08025 */ 	or	$s0,$a2,$zero
 /*  f10ab00:	8d030000 */ 	lw	$v1,0x0($t0)
@@ -3446,8 +3468,8 @@ glabel menucustomFileToDelete
 /*  f10ada8:	3c07800a */ 	lui	$a3,%hi(var8009e000)
 /*  f10adac:	01c90019 */ 	multu	$t6,$t1
 /*  f10adb0:	24e7e000 */ 	addiu	$a3,$a3,%lo(var8009e000)
-/*  f10adb4:	3c038007 */ 	lui	$v1,%hi(var80075bc0)
-/*  f10adb8:	24635bc0 */ 	addiu	$v1,$v1,%lo(var80075bc0)
+/*  f10adb4:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations)
+/*  f10adb8:	24635bc0 */ 	addiu	$v1,$v1,%lo(g_SaveLocations)
 /*  f10adbc:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f10adc0:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f10adc4:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -3477,12 +3499,12 @@ glabel menucustomFileToDelete
 /*  f10ae20:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f10ae24:	0fc42a5f */ 	jal	func0f10a97c
 /*  f10ae28:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f10ae2c:	3c038007 */ 	lui	$v1,%hi(var80075bc0)
+/*  f10ae2c:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations)
 /*  f10ae30:	3c07800a */ 	lui	$a3,%hi(var8009e000)
 /*  f10ae34:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
 /*  f10ae38:	25081448 */ 	addiu	$t0,$t0,%lo(g_MpPlayerNum)
 /*  f10ae3c:	24e7e000 */ 	addiu	$a3,$a3,%lo(var8009e000)
-/*  f10ae40:	24635bc0 */ 	addiu	$v1,$v1,%lo(var80075bc0)
+/*  f10ae40:	24635bc0 */ 	addiu	$v1,$v1,%lo(g_SaveLocations)
 /*  f10ae44:	8fa6001c */ 	lw	$a2,0x1c($sp)
 /*  f10ae48:	10400011 */ 	beqz	$v0,.L0f10ae90
 /*  f10ae4c:	24090e70 */ 	addiu	$t1,$zero,0xe70

@@ -82,6 +82,6 @@ s32 menuhandlerOpenCopyFile(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerOpenDeleteFile(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerRenameFile(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerSaveElsewhere(u32, u32, u32 *);
-s32 menuhandlerSaveLocation(u32, u32, u32 *);
+s32 menuhandlerSaveLocation(u32 operation, struct menu_item *item, s32 *value);
 
 #endif

@@ -4129,10 +4129,9 @@ struct menu_dialog menudialog_1bbbc = {
 u32 var80075bb4 = 0x00000000;
 u32 var80075bb8 = 0x00000000;
 u32 var80075bbc = 0x00000000;
-u32 var80075bc0 = 0x00000000;
-u32 var80075bc4 = 0x00000000;
-u32 var80075bc8 = 0x00000000;
-u32 var80075bcc = 0x00000000;
+
+struct savelocation *g_SaveLocations[] = {NULL, NULL, NULL, NULL};
+
 u32 var80075bd0 = 0x00000001;
 u32 var80075bd4 = 0x00000001;
 u32 var80075bd8 = 0x00000001;
