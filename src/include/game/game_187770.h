@@ -57,7 +57,7 @@ u32 func0f18bc30(void);
 u32 func0f18bc70(void);
 s32 func0f18bc9c(s32 arg0);
 u32 func0f18bee8(void);
-u32 func0f18bf70(void);
+s32 func0f18bf70(s32 arg0, s32 arg1);
 u32 func0f18bfc0(void);
 u32 func0f18bfcc(void);
 u32 func0f18bfd8(void);

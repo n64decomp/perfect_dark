@@ -3037,18 +3037,10 @@ glabel func0f19c1cc
 /*  f19c21c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19c220
-/*  f19c220:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19c224:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19c228:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19c22c:	0fc62fdc */ 	jal	func0f18bf70
-/*  f19c230:	00002825 */ 	or	$a1,$zero,$zero
-/*  f19c234:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19c238:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19c23c:	03e00008 */ 	jr	$ra
-/*  f19c240:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f19c220(void)
+{
+	return func0f18bf70(0, 0);
+}
 
 void mpCalculateVar800884b4(void)
 {
