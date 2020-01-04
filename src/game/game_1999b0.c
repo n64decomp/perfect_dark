@@ -3590,25 +3590,20 @@ bool mpIsOptionAvailable(s32 option)
 		return true;
 	}
 
-	return ((g_MpAvailableOptions[option] & 1) != 0);
+	return (g_MpAvailableOptions[option] & 1) != 0;
+}
+
+bool func0f19c938(u32 shiftamount, s32 option)
+{
+	if (option == 0) {
+		return true;
+	}
+
+	return (g_MpAvailableOptions[option] & (2 << shiftamount)) != 0;
 }
 
 GLOBAL_ASM(
-glabel func0f19c938
-/*  f19c938:	14a00003 */ 	bnez	$a1,.L0f19c948
-/*  f19c93c:	3c0e800b */ 	lui	$t6,0x800b
-/*  f19c940:	03e00008 */ 	jr	$ra
-/*  f19c944:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19c948:
-/*  f19c948:	01c57021 */ 	addu	$t6,$t6,$a1
-/*  f19c94c:	91ceccc8 */ 	lbu	$t6,-0x3338($t6)
-/*  f19c950:	240f0002 */ 	addiu	$t7,$zero,0x2
-/*  f19c954:	008fc004 */ 	sllv	$t8,$t7,$a0
-/*  f19c958:	01d81024 */ 	and	$v0,$t6,$t8
-/*  f19c95c:	0002c82b */ 	sltu	$t9,$zero,$v0
-/*  f19c960:	03201025 */ 	or	$v0,$t9,$zero
-/*  f19c964:	03e00008 */ 	jr	$ra
-/*  f19c968:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f19c96c
 /*  f19c96c:	10800003 */ 	beqz	$a0,.L0f19c97c
 /*  f19c970:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f19c974:	03e00008 */ 	jr	$ra
