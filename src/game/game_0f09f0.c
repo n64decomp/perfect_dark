@@ -14464,47 +14464,17 @@ glabel func0f0fcfb8
 /*  f0fd048:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerRetrySavePak
-/*  f0fd04c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0fd050:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0fd054:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0fd058:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0fd05c:	1481001b */ 	bne	$a0,$at,.L0f0fd0cc
-/*  f0fd060:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0fd064:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f0fd068:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fd06c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0fd070:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0fd074:	944e04e4 */ 	lhu	$t6,0x4e4($v0)
-/*  f0fd078:	3c098007 */ 	lui	$t1,0x8007
-/*  f0fd07c:	3c0b800a */ 	lui	$t3,0x800a
-/*  f0fd080:	31d8fff0 */ 	andi	$t8,$t6,0xfff0
-/*  f0fd084:	a45804e4 */ 	sh	$t8,0x4e4($v0)
-/*  f0fd088:	37080008 */ 	ori	$t0,$t8,0x8
-/*  f0fd08c:	a44804e4 */ 	sh	$t0,0x4e4($v0)
-/*  f0fd090:	8d291448 */ 	lw	$t1,0x1448($t1)
-/*  f0fd094:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f0fd098:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f0fd09c:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f0fd0a0:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0fd0a4:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f0fd0a8:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f0fd0ac:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f0fd0b0:	000a5100 */ 	sll	$t2,$t2,0x4
-/*  f0fd0b4:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f0fd0b8:	916bee6c */ 	lbu	$t3,-0x1194($t3)
-/*  f0fd0bc:	256c0008 */ 	addiu	$t4,$t3,0x8
-/*  f0fd0c0:	018d7004 */ 	sllv	$t6,$t5,$t4
-/*  f0fd0c4:	010e7825 */ 	or	$t7,$t0,$t6
-/*  f0fd0c8:	a44f04e4 */ 	sh	$t7,0x4e4($v0)
-.L0f0fd0cc:
-/*  f0fd0cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fd0d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0fd0d4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fd0d8:	03e00008 */ 	jr	$ra
-/*  f0fd0dc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerRetrySavePak(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		menuPopDialog();
+		g_Vars.unk0004e4 &= 0xfff0;
+		g_Vars.unk0004e4 |= 8;
+		g_Vars.unk0004e4 |= 1 << ((u8)g_MenuStack[g_MpPlayerNum].unk974 + 8);
+	}
+
+	return 0;
+}
 
 s32 menuhandlerWarnRepairPak(u32 operation, struct menu_item *item, s32 *value)
 {

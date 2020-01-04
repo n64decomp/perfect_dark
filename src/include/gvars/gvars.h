@@ -189,7 +189,7 @@ struct g_vars {
 	/*0004e1*/ u8 unk0004e1;
 	/*0004e2*/ u8 unk0004e2;
 	/*0004e3*/ u8 langFilterActive;
-	/*0004e4*/ u32 unk0004e4;
+	/*0004e4*/ u16 unk0004e4;
 	/*0004e8*/ u32 unk0004e8;
 	/*0004ec*/ u32 unk0004ec;
 	/*0004f0*/ u32 unk0004f0;

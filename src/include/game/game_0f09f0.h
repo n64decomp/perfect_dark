@@ -103,7 +103,7 @@ s32 menudialog000fdc74(u32, u32, u32 *);
 s32 menuhandler000fcc34(u32, u32, u32 *);
 s32 menuhandler000fd6f0(u32, u32, u32 *);
 s32 menuhandlerRepairPak(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerRetrySavePak(u32, u32, u32 *);
+s32 menuhandlerRetrySavePak(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerWarnRepairPak(u32 operation, struct menu_item *item, s32 *value);
 
 #endif
