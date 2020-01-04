@@ -3602,16 +3602,11 @@ bool func0f19c938(u32 shiftamount, s32 option)
 	return (g_MpAvailableOptions[option] & (2 << shiftamount)) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f19c96c
-/*  f19c96c:	10800003 */ 	beqz	$a0,.L0f19c97c
-/*  f19c970:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f19c974:	03e00008 */ 	jr	$ra
-/*  f19c978:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19c97c:
-/*  f19c97c:	03e00008 */ 	jr	$ra
-/*  f19c980:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19c984:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19c988:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19c98c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f19c96c(s32 option)
+{
+	if (option) {
+		return false;
+	}
+
+	return true;
+}
