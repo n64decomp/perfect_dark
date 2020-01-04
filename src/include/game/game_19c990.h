@@ -42,7 +42,7 @@ u32 func0f19e7a8(void);
 u32 func0f19e900(void);
 u32 func0f19e9c0(void);
 u32 func0f19ea80(void);
-u32 func0f19ecdc(void);
+void func0f19ecdc(s32 arg0);
 u32 func0f19f07c(void);
 u32 func0f19f124(void);
 u32 func0f19f18c(void);

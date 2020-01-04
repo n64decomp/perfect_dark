@@ -214,28 +214,16 @@ glabel menuhandler001a3340
 /*  f1a3444:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler001a3448
-/*  f1a3448:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a344c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1a3450:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3454:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a3458:	14810007 */ 	bne	$a0,$at,.L0f1a3478
-/*  f1a345c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1a3460:	0fc6830c */ 	jal	func0f1a0c30
-/*  f1a3464:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a3468:	50400004 */ 	beqzl	$v0,.L0f1a347c
-/*  f1a346c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3470:	0fc67b37 */ 	jal	func0f19ecdc
-/*  f1a3474:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f1a3478:
-/*  f1a3478:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a347c:
-/*  f1a347c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a3480:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a3484:	03e00008 */ 	jr	$ra
-/*  f1a3488:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandler001a3448(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		if (func0f1a0c30()) {
+			func0f19ecdc(1);
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler001a348c

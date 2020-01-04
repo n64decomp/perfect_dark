@@ -46,7 +46,7 @@ s32 menudialog001a6aa4(u32, u32, u32 *);
 s32 menudialog001a6c54(u32, u32, u32 *);
 s32 menudialog001a737c(u32, u32, u32 *);
 s32 menuhandler001a3340(u32, u32, u32 *);
-s32 menuhandler001a3448(u32, u32, u32 *);
+s32 menuhandler001a3448(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler001a348c(u32, u32, u32 *);
 s32 menuhandler001a44c0(u32, u32, u32 *);
 s32 menuhandler001a5d5c(u32, u32, u32 *);
