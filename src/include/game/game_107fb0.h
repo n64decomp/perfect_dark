@@ -68,7 +68,7 @@ s32 menuhandler00108ecc(u32, u32, u32 *);
 s32 menuhandler00108f08(u32, u32, u32 *);
 s32 menuhandler0010a120(u32, u32, u32 *);
 s32 menuhandler0010a160(u32, u32, u32 *);
-s32 menuhandler0010a454(u32, u32, u32 *);
+s32 menuhandlerPakCancelSave(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0010a488(u32, u32, u32 *);
 s32 menuhandler0010a5ac(u32, u32, u32 *);
 s32 menuhandler0010b14c(u32, u32, u32 *);
