@@ -1418,25 +1418,15 @@ glabel menudialog00108e58
 /*  f108ec8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00108ecc
-/*  f108ecc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108ed0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f108ed4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108ed8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f108edc:	14810005 */ 	bne	$a0,$at,.L0f108ef4
-/*  f108ee0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f108ee4:	0fc471e8 */ 	jal	func0f11c7a0
-/*  f108ee8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f108eec:	0fc4240e */ 	jal	func0f109038
-/*  f108ef0:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f108ef4:
-/*  f108ef4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108ef8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f108efc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f108f00:	03e00008 */ 	jr	$ra
-/*  f108f04:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandler00108ecc(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f11c7a0();
+		func0f109038(1);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandler00108f08
