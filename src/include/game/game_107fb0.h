@@ -27,10 +27,10 @@ u32 pakDeleteFile(void);
 u32 func0f1097d0(void);
 u32 func0f109954(void);
 u32 func0f1099a8(void);
-u32 func0f109a68(void);
-u32 func0f109bb4(void);
+void func0f109a68(s32 arg0);
+void func0f109bb4(s32 arg0);
 u32 func0f109c8c(void);
-u32 func0f109ec4(void);
+void func0f109ec4(void);
 u32 func0f10a19c(void);
 u32 func0f10a1ec(void);
 u32 func0f10a22c(void);
@@ -80,7 +80,7 @@ s32 menuhandler4MbAdvancedSetup(u32 operation, struct menu_item *item, s32 *valu
 s32 menuhandler4MbDropOut(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerOpenCopyFile(u32, u32, u32 *);
 s32 menuhandlerOpenDeleteFile(u32, u32, u32 *);
-s32 menuhandlerRenameFile(u32, u32, u32 *);
+s32 menuhandlerRenameFile(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerSaveElsewhere(u32, u32, u32 *);
 s32 menuhandlerSaveLocation(u32, u32, u32 *);
 

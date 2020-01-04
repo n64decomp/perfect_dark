@@ -2629,41 +2629,24 @@ glabel func0f109ec4
 /*  f10a0ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerRenameFile
-/*  f10a0b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10a0b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a0b8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10a0bc:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10a0c0:	10810010 */ 	beq	$a0,$at,.L0f10a104
-/*  f10a0c4:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f10a0c8:	24010011 */ 	addiu	$at,$zero,0x11
-/*  f10a0cc:	10810005 */ 	beq	$a0,$at,.L0f10a0e4
-/*  f10a0d0:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f10a0d4:	10810007 */ 	beq	$a0,$at,.L0f10a0f4
-/*  f10a0d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10a0dc:	1000000c */ 	beqz	$zero,.L0f10a110
-/*  f10a0e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10a0e4:
-/*  f10a0e4:	0fc4269a */ 	jal	func0f109a68
-/*  f10a0e8:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f10a0ec:	10000008 */ 	beqz	$zero,.L0f10a110
-/*  f10a0f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10a0f4:
-/*  f10a0f4:	0fc426ed */ 	jal	func0f109bb4
-/*  f10a0f8:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f10a0fc:	10000004 */ 	beqz	$zero,.L0f10a110
-/*  f10a100:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10a104:
-/*  f10a104:	0fc427b1 */ 	jal	func0f109ec4
-/*  f10a108:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10a10c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10a110:
-/*  f10a110:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10a114:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10a118:	03e00008 */ 	jr	$ra
-/*  f10a11c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerRenameFile(u32 operation, struct menu_item *item, s32 *value)
+{
+	s32 val = *value;
+
+	switch (operation) {
+	case MENUOP_GETTEXT:
+		func0f109a68(val);
+		break;
+	case MENUOP_SETTEXT:
+		func0f109bb4(val);
+		break;
+	case MENUOP_SET:
+		func0f109ec4();
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerPakRenameDuplicateSave(u32 operation, struct menu_item *item, s32 *value)
 {
