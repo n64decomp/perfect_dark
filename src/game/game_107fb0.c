@@ -4425,6 +4425,21 @@ glabel menuhandlerOpenCopyFile
 /*  f10bbe8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch because the game's code calculates g_MenuStack by loading a lower
+// number into %hi then compensating with a larger number in %lo.
+//s32 menuhandlerOpenCopyFile(u32 operation, struct menu_item *item, s32 *value)
+//{
+//	if (operation == MENUOP_SET) {
+//		g_MenuStack[g_MpPlayerNum].slotindex = item->param + 1;
+//		func0f110c5c(0, item->param);
+//		g_MenuStack[g_MpPlayerNum].unk947 = 0;
+//		g_MenuStack[g_MpPlayerNum].unk930 = 0;
+//		menuPushDialog(&menudialog_copyfile);
+//	}
+//
+//	return 0;
+//}
+
 s32 menuhandlerOpenDeleteFile(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {

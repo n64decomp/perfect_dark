@@ -78,7 +78,7 @@ s32 menuhandler0010ca1c(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0010cabc(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler4MbAdvancedSetup(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler4MbDropOut(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerOpenCopyFile(u32, u32, u32 *);
+s32 menuhandlerOpenCopyFile(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerOpenDeleteFile(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerRenameFile(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerSaveElsewhere(u32, u32, u32 *);
