@@ -1969,7 +1969,7 @@ glabel func0f1094e4
 );
 
 GLOBAL_ASM(
-glabel func0f1096a0
+glabel pakDeleteFile
 /*  f1096a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f1096a4:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f1096a8:	3c13800a */ 	lui	$s3,%hi(var800a21f0)
@@ -3062,25 +3062,15 @@ glabel func0f10a51c
 /*  f10a5a8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler0010a5ac
-/*  f10a5ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10a5b0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10a5b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a5b8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10a5bc:	14810005 */ 	bne	$a0,$at,.L0f10a5d4
-/*  f10a5c0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10a5c4:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10a5c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10a5cc:	0fc425a8 */ 	jal	func0f1096a0
-/*  f10a5d0:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f10a5d4:
-/*  f10a5d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10a5d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10a5dc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10a5e0:	03e00008 */ 	jr	$ra
-/*  f10a5e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerPakConfirmDelete(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		menuPopDialog();
+		pakDeleteFile();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f10a5e8

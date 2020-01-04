@@ -3454,7 +3454,7 @@ struct menu_item menuitems_confirmdelete[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000230, (u32)&func0f108078, 0x00000000, menuhandler00108014 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x0000577c, 0x00000000, NULL }, // "Are you sure you want to delete this file?"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x0000577d, 0x00000000, NULL }, // "Cancel"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000577e, 0x00000000, menuhandler0010a5ac }, // "OK"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x0000577e, 0x00000000, menuhandlerPakConfirmDelete }, // "OK"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
