@@ -3410,6 +3410,34 @@ glabel func0f19c53c
 /*  f19c6b8:	27bd0140 */ 	addiu	$sp,$sp,0x140
 );
 
+/**
+ * This uses about 256 extra bytes of stack and passes it to func0f188a84.
+ * Should decompile func0f188a84 first.
+ */
+//bool func0f19c53c(void)
+//{
+//	bool result = false;
+//	bool aborting = false;
+//	s32 i;
+//	u32 prevplayernum = g_Vars.currentplayernum;
+//
+//	for (i = 0; i < PLAYERCOUNT(); i++) {
+//		setCurrentPlayerNum(i);
+//
+//		if (g_Vars.currentplayer->aborted) {
+//			aborting = true;
+//		}
+//	}
+//
+//	setCurrentPlayerNum(prevplayernum);
+//
+//	if (!aborting && func0f188a84() == 0) {
+//		result = true;
+//	}
+//
+//	return result;
+//}
+
 void func0f19c6bc(void)
 {
 	bool result = func0f19c53c();
