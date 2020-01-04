@@ -858,7 +858,7 @@ extern u32 var800acc70;
 extern u32 var800acc74;
 extern u32 var800acc80;
 extern u32 var800acca0;
-extern u32 var800accc8;
+extern u8 g_MpAvailableOptions[];
 extern u32 var800acd20;
 extern u32 var800ad158;
 extern u32 var800ad1a0;
