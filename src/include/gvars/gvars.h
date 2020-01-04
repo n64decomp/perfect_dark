@@ -857,7 +857,7 @@ extern u32 var800acc28;
 extern u32 var800acc70;
 extern u32 var800acc74;
 extern u32 var800acc80;
-extern u32 var800acca0;
+extern u8 var800acca0[40];
 extern u8 g_MpChallengesCompleted[];
 extern u32 var800acd20;
 extern u32 var800ad158;

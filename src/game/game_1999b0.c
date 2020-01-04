@@ -2991,25 +2991,15 @@ glabel func0f19bfa0
 /*  f19c18c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0f19c190
-/*  f19c190:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19c194:	3c02800b */ 	lui	$v0,%hi(var800acca0)
-/*  f19c198:	3c03800b */ 	lui	$v1,%hi(g_MpChallengesCompleted)
-/*  f19c19c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19c1a0:	2463ccc8 */ 	addiu	$v1,$v1,%lo(g_MpChallengesCompleted)
-/*  f19c1a4:	2442cca0 */ 	addiu	$v0,$v0,%lo(var800acca0)
-.L0f19c1a8:
-/*  f19c1a8:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f19c1ac:	1443fffe */ 	bne	$v0,$v1,.L0f19c1a8
-/*  f19c1b0:	a040ffff */ 	sb	$zero,-0x1($v0)
-/*  f19c1b4:	0fc66bf7 */ 	jal	func0f19afdc
-/*  f19c1b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19c1bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19c1c0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19c1c4:	03e00008 */ 	jr	$ra
-/*  f19c1c8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f19c190(void)
+{
+	s32 i;
+	for (i = 0; i < 40; i++) {
+		var800acca0[i] = 0;
+	}
+
+	func0f19afdc();
+}
 
 GLOBAL_ASM(
 glabel func0f19c1cc

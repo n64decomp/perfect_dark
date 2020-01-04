@@ -42,7 +42,7 @@ u32 func0f19bb50(void);
 u32 func0f19bb98(void);
 u32 func0f19bd4c(void);
 u32 func0f19bfa0(void);
-u32 func0f19c190(void);
+void func0f19c190(void);
 u32 func0f19c1cc(void);
 s32 func0f19c220(void);
 void mpCalculateVar800884b4(void);
