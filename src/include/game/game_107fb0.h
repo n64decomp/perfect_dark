@@ -58,7 +58,7 @@ s32 menudialog0010b674(u32, u32, u32 *);
 s32 menudialog0010ba10(u32, u32, u32 *);
 s32 menudialog0010c804(u32, u32, u32 *);
 s32 menudialog0010cc08(u32, u32, u32 *);
-s32 menuhandler00108014(u32, u32, u32 *);
+s32 menuhandler00108014(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler00108254(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler001084b8(u32, u32, u32 *);
 s32 menuhandlerPakErrorTryAgain(u32 operation, struct menu_item *item, s32 *value);

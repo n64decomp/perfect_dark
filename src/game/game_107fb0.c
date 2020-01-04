@@ -341,36 +341,16 @@ glabel func0f107fb0
 /*  f108010:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler00108014
-/*  f108014:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f108018:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f10801c:	14810013 */ 	bne	$a0,$at,.L0f10806c
-/*  f108020:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f108024:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f108028:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f10802c:	3c18800a */ 	lui	$t8,0x800a
-/*  f108030:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f108034:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108038:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10803c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f108040:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f108044:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108048:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10804c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f108050:	9318ee3c */ 	lbu	$t8,-0x11c4($t8)
-/*  f108054:	3319007f */ 	andi	$t9,$t8,0x7f
-/*  f108058:	2b210005 */ 	slti	$at,$t9,0x5
-/*  f10805c:	54200004 */ 	bnezl	$at,.L0f108070
-/*  f108060:	00001025 */ 	or	$v0,$zero,$zero
-/*  f108064:	03e00008 */ 	jr	$ra
-/*  f108068:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f10806c:
-/*  f10806c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f108070:
-/*  f108070:	03e00008 */ 	jr	$ra
-/*  f108074:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandler00108014(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_CHECKHIDDEN) {
+		if (g_MenuStack[g_MpPlayerNum].unk944_01 > 4) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f108078
