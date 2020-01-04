@@ -8743,7 +8743,7 @@ glabel func0f17eac8
 /*  f17eaec:	1000000e */ 	beqz	$zero,.L0f17eb28
 /*  f17eaf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f17eaf4:
-/*  f17eaf4:	0fc66dfd */ 	jal	func0f19b7f4
+/*  f17eaf4:	0fc66dfd */ 	jal	mpGetCurrentChallengeIndex
 /*  f17eaf8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17eafc:	0fc66daf */ 	jal	func0f19b6bc
 /*  f17eb00:	00402025 */ 	or	$a0,$v0,$zero
@@ -16334,7 +16334,7 @@ glabel func0f185568
 /*  f18559c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f1855a0:	166f000a */ 	bne	$s3,$t7,.L0f1855cc
 /*  f1855a4:	afae00b8 */ 	sw	$t6,0xb8($sp)
-/*  f1855a8:	0fc66dfd */ 	jal	func0f19b7f4
+/*  f1855a8:	0fc66dfd */ 	jal	mpGetCurrentChallengeIndex
 /*  f1855ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1855b0:	0fc66dbe */ 	jal	func0f19b6f8
 /*  f1855b4:	00402025 */ 	or	$a0,$v0,$zero

@@ -2281,12 +2281,10 @@ glabel func0f19b77c
 /*  f19b7f0:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f19b7f4
-/*  f19b7f4:	3c028009 */ 	lui	$v0,0x8009
-/*  f19b7f8:	03e00008 */ 	jr	$ra
-/*  f19b7fc:	8c4284b0 */ 	lw	$v0,-0x7b50($v0)
-);
+s32 mpGetCurrentChallengeIndex(void)
+{
+	return g_MpChallengeIndex;
+}
 
 GLOBAL_ASM(
 glabel func0f19b800

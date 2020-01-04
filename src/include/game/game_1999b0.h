@@ -32,7 +32,7 @@ u32 func0f19b664(void);
 u32 func0f19b6bc(void);
 u32 func0f19b6f8(void);
 void func0f19b77c(u32 options);
-u32 func0f19b7f4(void);
+s32 mpGetCurrentChallengeIndex(void);
 u32 func0f19b800(void);
 s32 func0f19b914(s16 arg0, s32 arg1, s32 arg2);
 s32 func0f19ba58(s32 challengeindex, s32 arg1, s32 arg2);
