@@ -3106,58 +3106,27 @@ glabel func0f19c2b0
 /*  f19c2c8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19c2cc
-/*  f19c2cc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f19c2d0:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f19c2d4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f19c2d8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19c2dc:	00808825 */ 	or	$s1,$a0,$zero
-/*  f19c2e0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f19c2e4:	00009025 */ 	or	$s2,$zero,$zero
-/*  f19c2e8:	2410001d */ 	addiu	$s0,$zero,0x1d
-/*  f19c2ec:	02202025 */ 	or	$a0,$s1,$zero
-.L0f19c2f0:
-/*  f19c2f0:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19c2f4:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19c2f8:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f19c2fc:	14400010 */ 	bnez	$v0,.L0f19c340
-/*  f19c300:	02202025 */ 	or	$a0,$s1,$zero
-/*  f19c304:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19c308:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19c30c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f19c310:	1440000b */ 	bnez	$v0,.L0f19c340
-/*  f19c314:	02202025 */ 	or	$a0,$s1,$zero
-/*  f19c318:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19c31c:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19c320:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f19c324:	14400006 */ 	bnez	$v0,.L0f19c340
-/*  f19c328:	02202025 */ 	or	$a0,$s1,$zero
-/*  f19c32c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f19c330:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19c334:	24060004 */ 	addiu	$a2,$zero,0x4
-/*  f19c338:	50400004 */ 	beqzl	$v0,.L0f19c34c
-/*  f19c33c:	2610ffff */ 	addiu	$s0,$s0,-1
-.L0f19c340:
-/*  f19c340:	10000004 */ 	beqz	$zero,.L0f19c354
-/*  f19c344:	26120001 */ 	addiu	$s2,$s0,0x1
-/*  f19c348:	2610ffff */ 	addiu	$s0,$s0,-1
-.L0f19c34c:
-/*  f19c34c:	0603ffe8 */ 	bgezl	$s0,.L0f19c2f0
-/*  f19c350:	02202025 */ 	or	$a0,$s1,$zero
-.L0f19c354:
-/*  f19c354:	2a410004 */ 	slti	$at,$s2,0x4
-/*  f19c358:	10200002 */ 	beqz	$at,.L0f19c364
-/*  f19c35c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19c360:	24120004 */ 	addiu	$s2,$zero,0x4
-.L0f19c364:
-/*  f19c364:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f19c368:	02401025 */ 	or	$v0,$s2,$zero
-/*  f19c36c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f19c370:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f19c374:	03e00008 */ 	jr	$ra
-/*  f19c378:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 mpGetNumChallengesAvailable(s32 mpchrnum)
+{
+	s32 challengeindex;
+	s32 numavail = 0;
+
+	for (challengeindex = 29; challengeindex >= 0; challengeindex--) {
+		if (mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, challengeindex, 1) ||
+				mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, challengeindex, 2) ||
+				mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, challengeindex, 3) ||
+				mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, challengeindex, 4)) {
+			numavail = challengeindex + 1;
+			break;
+		}
+	}
+
+	if (numavail < 4) {
+		numavail = 4;
+	}
+
+	return numavail;
+}
 
 char *mpChallengeGetName(s32 arg0, s32 challengeindex)
 {

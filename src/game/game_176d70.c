@@ -4011,7 +4011,7 @@ glabel menuhandler0017a20c
 /*  f17a264:	00001025 */ 	or	$v0,$zero,$zero
 .L0f17a268:
 /*  f17a268:	3c048007 */ 	lui	$a0,0x8007
-/*  f17a26c:	0fc670b3 */ 	jal	func0f19c2cc
+/*  f17a26c:	0fc670b3 */ 	jal	mpGetNumChallengesAvailable
 /*  f17a270:	8c841448 */ 	lw	$a0,0x1448($a0)
 /*  f17a274:	100000eb */ 	beqz	$zero,.L0f17a624
 /*  f17a278:	ae020000 */ 	sw	$v0,0x0($s0)
