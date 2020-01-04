@@ -3399,7 +3399,7 @@ struct menu_item menuitems_duplicatefilename[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, (u32)&func0f10a1ec, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054eb, 0x00000000, menuhandler0010a120 }, // "Rename File"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, 0x000054ec, 0x00000000, NULL }, // "Change Location"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054ed, 0x00000000, menuhandler0010a160 }, // "Cancel"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054ed, 0x00000000, menuhandlerPakCancelDuplicateSave }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

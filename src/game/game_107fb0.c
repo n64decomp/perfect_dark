@@ -2735,25 +2735,15 @@ glabel menuhandler0010a120
 /*  f10a15c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandler0010a160
-/*  f10a160:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10a164:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10a168:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a16c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10a170:	14810005 */ 	bne	$a0,$at,.L0f10a188
-/*  f10a174:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10a178:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10a17c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10a180:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10a184:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f10a188:
-/*  f10a188:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10a18c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10a190:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10a194:	03e00008 */ 	jr	$ra
-/*  f10a198:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerPakCancelDuplicateSave(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		menuPopDialog();
+		menuPopDialog();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f10a19c
