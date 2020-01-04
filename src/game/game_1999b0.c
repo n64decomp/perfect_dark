@@ -3050,34 +3050,20 @@ glabel func0f19c220
 /*  f19c240:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19c244
-/*  f19c244:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19c248:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19c24c:	0fc66ec8 */ 	jal	func0f19bb20
-/*  f19c250:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19c254:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19c258:	3c018009 */ 	lui	$at,0x8009
-/*  f19c25c:	ac2284b4 */ 	sw	$v0,-0x7b4c($at)
-/*  f19c260:	03e00008 */ 	jr	$ra
-/*  f19c264:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void mpCalculateVar800884b4(void)
+{
+	var800884b4 = func0f19bb20();
+}
 
-GLOBAL_ASM(
-glabel func0f19c268
-/*  f19c268:	3c018009 */ 	lui	$at,0x8009
-/*  f19c26c:	03e00008 */ 	jr	$ra
-/*  f19c270:	ac2084b4 */ 	sw	$zero,-0x7b4c($at)
-);
+void mpResetVar800884b4(void)
+{
+	var800884b4 = 0;
+}
 
-GLOBAL_ASM(
-glabel func0f19c274
-/*  f19c274:	3c028009 */ 	lui	$v0,0x8009
-/*  f19c278:	8c4284b4 */ 	lw	$v0,-0x7b4c($v0)
-/*  f19c27c:	0002702b */ 	sltu	$t6,$zero,$v0
-/*  f19c280:	03e00008 */ 	jr	$ra
-/*  f19c284:	01c01025 */ 	or	$v0,$t6,$zero
-);
+bool mpIsVar800884b4NonZero(void)
+{
+	return var800884b4 != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f19c288

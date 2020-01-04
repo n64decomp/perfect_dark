@@ -12710,7 +12710,7 @@ u32 var800884a4 = 0x00000000;
 u32 var800884a8 = 0x00000000;
 u32 var800884ac = 0x00000000;
 u32 g_MpChallengeIndex = 0;
-u32 var800884b4 = 0x00000000;
+u32 var800884b4 = 0;
 
 // 2e4d8
 struct challenge g_MpChallenges[] = {
