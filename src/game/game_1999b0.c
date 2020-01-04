@@ -3179,17 +3179,10 @@ glabel func0f19c37c
 /*  f19c3b8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19c3bc
-/*  f19c3bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19c3c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19c3c4:	0fc6711f */ 	jal	mpIsChallengeCompletedByChrWithNumPlayers
-/*  f19c3c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19c3cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19c3d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19c3d4:	03e00008 */ 	jr	$ra
-/*  f19c3d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f19c3bc(s32 mpchrnum, s32 index, s32 numplayers)
+{
+	return mpIsChallengeCompletedByChrWithNumPlayers(mpchrnum, index, numplayers);
+}
 
 bool mpIsChallengeCompletedByAnyChrWithNumPlayers(s32 index, s32 numplayers)
 {
