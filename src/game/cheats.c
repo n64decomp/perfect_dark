@@ -66,7 +66,7 @@ void cheatActivate(s32 cheat_id)
 		// Make all players invincible
 		prevplayernum = g_Vars.currentplayernum;
 
-		for (playernum = 0; playernum < (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0); playernum++) {
+		for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
 			setCurrentPlayerNum(playernum);
 			g_Vars.currentplayer->invincible = 1;
 		}
@@ -75,10 +75,10 @@ void cheatActivate(s32 cheat_id)
 		break;
 	case CHEAT_ALLGUNS:
 		// Give all guns if only one player playing
-		if ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0) == 1 && g_Vars.unk000318 == 0) {
+		if (PLAYERCOUNT() == 1 && g_Vars.unk000318 == 0) {
 			prevplayernum = g_Vars.currentplayernum;
 
-			for (playernum = 0; playernum < (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0); playernum++) {
+			for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
 				setCurrentPlayerNum(playernum);
 				currentPlayerSetAllGuns(true);
 			}
@@ -104,7 +104,7 @@ void cheatDeactivate(s32 cheat_id)
 	case CHEAT_INVINCIBLE:
 		prevplayernum = g_Vars.currentplayernum;
 
-		for (playernum = 0; playernum < (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0); playernum++) {
+		for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
 			setCurrentPlayerNum(playernum);
 			g_Vars.currentplayer->invincible = 1; // @bug?
 		}
@@ -112,10 +112,10 @@ void cheatDeactivate(s32 cheat_id)
 		setCurrentPlayerNum(prevplayernum);
 		break;
 	case CHEAT_ALLGUNS:
-		if ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0) == 1 && g_Vars.unk000318 == 0) {
+		if (PLAYERCOUNT() == 1 && g_Vars.unk000318 == 0) {
 			prevplayernum = g_Vars.currentplayernum;
 
-			for (playernum = 0; playernum < (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0); playernum++) {
+			for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
 				setCurrentPlayerNum(playernum);
 				currentPlayerSetAllGuns(false);
 			}

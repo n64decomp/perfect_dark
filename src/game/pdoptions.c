@@ -236,11 +236,7 @@ s32 optionsGetEffectiveScreenSize(void)
 		return SCREENSIZE_FULL;
 	}
 
-	if ((g_Vars.players[0] ? 1 : 0) +
-			(g_Vars.players[1] ? 1 : 0) +
-			(g_Vars.players[2] ? 1 : 0) +
-			(g_Vars.players[3] ? 1 : 0) >= 2 ||
-			var800a19c4 == 3) {
+	if (PLAYERCOUNT() >= 2 || var800a19c4 == 3) {
 		return SCREENSIZE_FULL;
 	}
 

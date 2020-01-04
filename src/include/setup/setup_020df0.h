@@ -313,6 +313,7 @@ extern u32 var80087eb0;
 extern u32 var80088490;
 extern u32 var80088494;
 extern u32 var800884a4;
+extern u32 var800884b0;
 extern u16 challenges[];
 extern u32 var800887c4;
 extern u32 var80088800;

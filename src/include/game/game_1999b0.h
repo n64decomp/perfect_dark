@@ -54,11 +54,11 @@ u32 func0f19c2cc(void);
 u32 func0f19c37c(void);
 u32 func0f19c3bc(void);
 u32 func0f19c3dc(void);
-u32 func0f19c40c(void);
+void func0f19c40c(s32 arg0, s32 numplayers, s32 arg2);
 u32 func0f19c47c(void);
-u32 func0f19c4b8(void);
+void func0f19c4b8(s32 arg0, s32 arg1, s32 numplayers, s32 arg3);
 u32 func0f19c53c(void);
-u32 func0f19c6bc(void);
+void func0f19c6bc(void);
 bool mpIsOptionAvailable(s32 option);
 
 #endif

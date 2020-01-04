@@ -2686,7 +2686,7 @@ bool aiIfChrInRoom(void)
 		s32 i;
 		bool pass = false;
 
-		for (i = 0; i < (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0); i++) {
+		for (i = 0; i < PLAYERCOUNT(); i++) {
 			if (g_Vars.players[i]->eyespy && g_Vars.players[i]->eyespy->prop &&
 					chrGetDistanceToPad(g_Vars.players[i]->eyespy->prop->chr, pad_id) < 150.0f) {
 				pass = true;
@@ -7434,7 +7434,7 @@ bool ai00e4(void)
 	s32 playernum;
 	u32 prevplayernum = g_Vars.currentplayernum;
 
-	for (playernum = 0; playernum < (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0); playernum++) {
+	for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
 		setCurrentPlayerNum(playernum);
 
 		if (var8007074c != 2) {
@@ -7523,10 +7523,7 @@ bool aiIfNumPlayersLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if ((g_Vars.players[3] ? 1 : 0) +
-			(g_Vars.players[0] ? 1 : 0) +
-			(g_Vars.players[1] ? 1 : 0) +
-			(g_Vars.players[2] ? 1 : 0) < (s8)cmd[2]) {
+	if (PLAYERCOUNT3012() < (s8)cmd[2]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -12940,7 +12937,7 @@ bool aiClearInventory(void)
 	u32 prevplayernum = g_Vars.currentplayernum;
 	s32 playernum;
 
-	for (playernum = 0; playernum < (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0); playernum++) {
+	for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.currentplayer == g_Vars.bond || g_Vars.currentplayer == g_Vars.coop) {

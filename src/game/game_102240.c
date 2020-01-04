@@ -769,10 +769,7 @@ s32 menuhandlerHiRes(u32 operation, struct menu_item *item, bool *enable)
 			return true;
 		}
 		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-			if ((g_Vars.players[0] ? 1 : 0) +
-					(g_Vars.players[1] ? 1 : 0) +
-					(g_Vars.players[2] ? 1 : 0) +
-					(g_Vars.players[3] ? 1 : 0) >= 2) {
+			if (PLAYERCOUNT() >= 2) {
 				return true;
 			}
 		}
@@ -3419,10 +3416,7 @@ s32 menuhandlerLangFilter(u32 operation, struct menu_item *item, u32 *enable)
 s32 menuhandlerControlStyle(s32 operation, struct menu_item *item, u32 *value)
 {
 	if (operation == MENUOP_SET) {
-		if ((g_Vars.players[0] ? 1 : 0) +
-				(g_Vars.players[1] ? 1 : 0) +
-				(g_Vars.players[2] ? 1 : 0) +
-				(g_Vars.players[3] ? 1 : 0) >= 2) {
+		if (PLAYERCOUNT() >= 2) {
 			menuPushDialog(&g_ControlStyleMultiMenuDialog);
 		} else {
 			menuPushDialog(&g_ControlStyleSingleMenuDialog);
