@@ -2183,24 +2183,10 @@ glabel func0f19b664
 /*  f19b6b8:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f19b6bc
-/*  f19b6bc:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f19b6c0:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f19b6c4:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19b6c8:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f19b6cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19b6d0:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f19b6d4:	3c048009 */ 	lui	$a0,0x8009
-/*  f19b6d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19b6dc:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f19b6e0:	0fc5b9f1 */ 	jal	textGet
-/*  f19b6e4:	948484b8 */ 	lhu	$a0,-0x7b48($a0)
-/*  f19b6e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19b6ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19b6f0:	03e00008 */ 	jr	$ra
-/*  f19b6f4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpChallengeGetName(s32 challengeindex)
+{
+	return textGet(g_MpChallenges[challengeindex].name);
+}
 
 GLOBAL_ASM(
 glabel func0f19b6f8
@@ -2221,7 +2207,7 @@ glabel func0f19b6f8
 /*  f19b72c:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f19b730:	56330006 */ 	bnel	$s1,$s3,.L0f19b74c
 /*  f19b734:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19b738:	0fc66daf */ 	jal	func0f19b6bc
+/*  f19b738:	0fc66daf */ 	jal	mpChallengeGetName
 /*  f19b73c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f19b740:	10000008 */ 	beqz	$zero,.L0f19b764
 /*  f19b744:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -3025,7 +3011,7 @@ s32 mpGetNumChallengesAvailable(s32 mpchrnum)
 	return numavail;
 }
 
-char *mpChallengeGetName(s32 arg0, s32 challengeindex)
+char *mpChallengeGetNameWithArg(s32 arg0, s32 challengeindex)
 {
 	return textGet(g_MpChallenges[challengeindex].name);
 }

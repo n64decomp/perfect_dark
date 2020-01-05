@@ -4038,7 +4038,7 @@ glabel menuhandler0017a20c
 /*  f17a2c4:	3c048007 */ 	lui	$a0,0x8007
 /*  f17a2c8:	afa200c4 */ 	sw	$v0,0xc4($sp)
 /*  f17a2cc:	8c841448 */ 	lw	$a0,0x1448($a0)
-/*  f17a2d0:	0fc670df */ 	jal	mpChallengeGetName
+/*  f17a2d0:	0fc670df */ 	jal	mpChallengeGetNameWithArg
 /*  f17a2d4:	8fa500bc */ 	lw	$a1,0xbc($sp)
 /*  f17a2d8:	0c002f02 */ 	jal	func0000bc08
 /*  f17a2dc:	00408025 */ 	or	$s0,$v0,$zero
@@ -8745,7 +8745,7 @@ glabel func0f17eac8
 .L0f17eaf4:
 /*  f17eaf4:	0fc66dfd */ 	jal	mpGetCurrentChallengeIndex
 /*  f17eaf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17eafc:	0fc66daf */ 	jal	func0f19b6bc
+/*  f17eafc:	0fc66daf */ 	jal	mpChallengeGetName
 /*  f17eb00:	00402025 */ 	or	$a0,$v0,$zero
 /*  f17eb04:	3c048007 */ 	lui	$a0,0x8007
 /*  f17eb08:	3c057f1c */ 	lui	$a1,0x7f1c
