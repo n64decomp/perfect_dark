@@ -27,7 +27,7 @@ u32 func0f19ab70(void);
 u32 func0f19af3c(void);
 bool mpIsChallengeAvailable(s32 challengeindex);
 void func0f19afdc(void);
-u32 func0f19b540(void);
+void func0f19b540(void);
 s32 mpGetNumAvailableChallenges(void);
 char *mpChallengeGetName(s32 challengeindex);
 u32 func0f19b6f8(void);

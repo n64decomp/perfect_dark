@@ -2155,6 +2155,46 @@ glabel func0f19b540
 /*  f19b660:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch because it's doing something weird with the chrslots, and also
+// writing to negative mpsim offsets. This code below might not be functionally
+// identical.
+//void func0f19b540(void)
+//{
+//	if (var800acc10 == 5) {
+//		s32 slot = 0;
+//		s32 i;
+//		u32 *ptr;
+//
+//		for (i = 0; i < 4; i++) {
+//			if (g_MpSetup.chrslots & (1 << i)) {
+//				g_MpChrs[i].unk9d = 0x80;
+//				slot++;
+//			}
+//		}
+//
+//		g_MpSetup.chrslots &= 0x000f;
+//		ptr = &var800ac798[slot];
+//
+//		for (i = 0; i != 8; i++) {
+//			g_MpSimulants[i].unk48 = *(ptr - 1);
+//
+//			if (*(ptr - 1) != 6) {
+//				g_MpSetup.chrslots |= 1 << (i + 4);
+//			}
+//
+//			ptr++;
+//		}
+//
+//		if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
+//			g_Vars.mphilltime = 10;
+//		}
+//	} else {
+//		if (!mpIsChallengeComplete(CHALLENGE_UNK64)) {
+//			g_MpSetup.chrslots &= 0x00ff;
+//		}
+//	}
+//}
+
 s32 mpGetNumAvailableChallenges(void)
 {
 	s32 challengeindex;

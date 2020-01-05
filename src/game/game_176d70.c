@@ -7099,7 +7099,7 @@ s32 menuhandlerMpSimulantSlot(u32 operation, struct menu_item *item, s32 *value)
 	case MENUOP_SET:
 		g_MenuStack[g_MpPlayerNum].slotindex = item->param;
 
-		if ((g_MpSetup.simslots & (1 << (item->param + 4))) == 0) {
+		if ((g_MpSetup.chrslots & (1 << (item->param + 4))) == 0) {
 			menuPushDialog(&g_MpAddSimulantMenuDialog);
 		} else if (var80090af0 == 1) {
 			menuPushDialog(&menudialog_1b414);

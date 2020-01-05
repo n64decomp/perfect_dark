@@ -844,7 +844,7 @@ extern u32 var800ac4d0;
 extern u32 var800ac500;
 extern u32 var800ac530;
 extern struct mpsim g_MpSimulants[8];
-extern u32 var800ac798;
+extern u32 var800ac798[8];
 extern struct mpchr g_MpChrs[];
 extern u32 var800aca38;
 extern u32 var800acad8;

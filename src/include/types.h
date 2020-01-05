@@ -3998,7 +3998,7 @@ struct mpchr {
 	/*0x94*/ u8 unk94;
 	/*0x95*/ u8 title;
 	/*0x98*/ u32 unk98;
-	/*0x9c*/ u32 unk9c;
+	/*0x9c*/ u8 unk9c;
 };
 
 struct missionconfig {
@@ -4029,7 +4029,16 @@ struct mpsetup {
 	/*0x8009cb9a*/ u8 timelimit;
 	/*0x8009cb9b*/ u8 scorelimit;
 	/*0x8009cb9c*/ u16 teamscorelimit;
-	/*0x8009cb9e*/ u16 simslots;
+
+	/**
+	 * Each bit signifies that a player or sim is participating.
+	 *
+	 * Bits 0x000f are for players
+	 * Bits 0x0ff0 are for sims
+	 * Bits 0xf000 are probably not used
+	 */
+	/*0x8009cb9e*/ u16 chrslots;
+
 	/*0x8009cba0*/ u32 unk18;
 	/*0x8009cba4*/ u32 unk1c;
 	/*0x8009cba8*/ bool saved;
@@ -4085,7 +4094,7 @@ struct mpsim {
 	/*0x3c*/ u32 unk3c;
 	/*0x40*/ u32 unk40;
 	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
+	/*0x48*/ u8 unk48;
 };
 
 struct savelocation {
