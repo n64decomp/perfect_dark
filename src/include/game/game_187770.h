@@ -153,7 +153,7 @@ u32 func0f192a74(void);
 u32 func0f192d64(void);
 u32 func0f192dc0(void);
 u32 func0f192e90(void);
-bool func0f1934dc(struct chrdata *chr, struct chrdata *player);
+bool mpIsChrFollowedByChr(struct chrdata *leader, struct chrdata *follower);
 s32 func0f193530(struct chrdata *chr, f32 arg1);
 u32 func0f19369c(void);
 s32 func0f1937a4(struct chrdata *chr, s32 arg1);

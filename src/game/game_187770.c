@@ -13920,32 +13920,27 @@ glabel func0f192e90
 /*  f1934d8:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel func0f1934dc
-/*  f1934dc:	3c08800b */ 	lui	$t0,%hi(g_MpPlayerChrs)
-/*  f1934e0:	00803025 */ 	or	$a2,$a0,$zero
-/*  f1934e4:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f1934e8:	2508c4d0 */ 	addiu	$t0,$t0,%lo(g_MpPlayerChrs)
-/*  f1934ec:	24070032 */ 	addiu	$a3,$zero,0x32
-/*  f1934f0:	8ca202d4 */ 	lw	$v0,0x2d4($a1)
-.L0f1934f4:
-/*  f1934f4:	1040000c */ 	beqz	$v0,.L0f193528
-/*  f1934f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1934fc:	90ae02a0 */ 	lbu	$t6,0x2a0($a1)
-/*  f193500:	14ee0009 */ 	bne	$a3,$t6,.L0f193528
-/*  f193504:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f193508:	8444000a */ 	lh	$a0,0xa($v0)
-/*  f19350c:	04800006 */ 	bltz	$a0,.L0f193528
-/*  f193510:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f193514:	010fc021 */ 	addu	$t8,$t0,$t7
-/*  f193518:	8f050000 */ 	lw	$a1,0x0($t8)
-/*  f19351c:	54a6fff5 */ 	bnel	$a1,$a2,.L0f1934f4
-/*  f193520:	8ca202d4 */ 	lw	$v0,0x2d4($a1)
-/*  f193524:	00001825 */ 	or	$v1,$zero,$zero
-.L0f193528:
-/*  f193528:	03e00008 */ 	jr	$ra
-/*  f19352c:	00601025 */ 	or	$v0,$v1,$zero
-);
+bool mpIsChrFollowedByChr(struct chrdata *leader, struct chrdata *follower)
+{
+	bool result = true;
+
+	while (true) {
+		struct chr2d4 *chr2d4 = follower->unk2d4;
+
+		if (!chr2d4 || follower->myaction != MA_AIBOTFOLLOW || chr2d4->followingplayernum < 0) {
+			break;
+		}
+
+		follower = g_MpPlayerChrs[chr2d4->followingplayernum];
+
+		if (follower == leader) {
+			result = false;
+			break;
+		}
+	}
+
+	return result;
+}
 
 s32 func0f193530(struct chrdata *chr, f32 arg1)
 {
@@ -13961,7 +13956,7 @@ s32 func0f193530(struct chrdata *chr, f32 arg1)
 				if (chr != g_MpPlayerChrs[i] &&
 						!chrIsDead(g_MpPlayerChrs[i]) &&
 						chr->team == g_MpPlayerChrs[i]->team &&
-						func0f1934dc(chr, g_MpPlayerChrs[i])) {
+						mpIsChrFollowedByChr(chr, g_MpPlayerChrs[i])) {
 					f32 value = chr->unk2d4->unk13c[i];
 
 					if (bestindex < 0 || value < bestvalue) {
@@ -16271,7 +16266,7 @@ glabel func0f194b40
 /*  f1958c8:	10000181 */ 	beqz	$zero,.L0f195ed0
 /*  f1958cc:	ae420010 */ 	sw	$v0,0x10($s2)
 .L0f1958d0:
-/*  f1958d0:	0fc64d37 */ 	jal	func0f1934dc
+/*  f1958d0:	0fc64d37 */ 	jal	mpIsChrFollowedByChr
 /*  f1958d4:	8c450004 */ 	lw	$a1,0x4($v0)
 /*  f1958d8:	1040000a */ 	beqz	$v0,.L0f195904
 /*  f1958dc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -16314,7 +16309,7 @@ glabel func0f194b40
 /*  f195964:	920b0125 */ 	lbu	$t3,0x125($s0)
 /*  f195968:	154b000e */ 	bne	$t2,$t3,.L0f1959a4
 /*  f19596c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f195970:	0fc64d37 */ 	jal	func0f1934dc
+/*  f195970:	0fc64d37 */ 	jal	mpIsChrFollowedByChr
 /*  f195974:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195978:	10400155 */ 	beqz	$v0,.L0f195ed0
 /*  f19597c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -16517,7 +16512,7 @@ glabel func0f194b40
 /*  f195c74:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195c78:	15cc000e */ 	bne	$t6,$t4,.L0f195cb4
 /*  f195c7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f195c80:	0fc64d37 */ 	jal	func0f1934dc
+/*  f195c80:	0fc64d37 */ 	jal	mpIsChrFollowedByChr
 /*  f195c84:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195c88:	10400091 */ 	beqz	$v0,.L0f195ed0
 /*  f195c8c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -16581,7 +16576,7 @@ glabel func0f194b40
 /*  f195d64:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195d68:	156e000e */ 	bne	$t3,$t6,.L0f195da4
 /*  f195d6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f195d70:	0fc64d37 */ 	jal	func0f1934dc
+/*  f195d70:	0fc64d37 */ 	jal	mpIsChrFollowedByChr
 /*  f195d74:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195d78:	10400055 */ 	beqz	$v0,.L0f195ed0
 /*  f195d7c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -16647,7 +16642,7 @@ glabel func0f194b40
 /*  f195e60:	02002825 */ 	or	$a1,$s0,$zero
 /*  f195e64:	15f8000e */ 	bne	$t7,$t8,.L0f195ea0
 /*  f195e68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f195e6c:	0fc64d37 */ 	jal	func0f1934dc
+/*  f195e6c:	0fc64d37 */ 	jal	mpIsChrFollowedByChr
 /*  f195e70:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195e74:	10400016 */ 	beqz	$v0,.L0f195ed0
 /*  f195e78:	00000000 */ 	sll	$zero,$zero,0x0
