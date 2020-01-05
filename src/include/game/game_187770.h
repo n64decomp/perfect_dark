@@ -164,7 +164,7 @@ u32 func0f1946d4(void);
 u32 func0f194724(void);
 u32 func0f194834(void);
 u32 func0f19489c(void);
-u32 func0f194904(void);
+s32 mpGetNumTeammatesInRoomDoingSomething(struct chrdata *bot);
 u32 func0f194990(void);
 u32 func0f194b40(void);
 void func0f197544(struct chrdata *chr);

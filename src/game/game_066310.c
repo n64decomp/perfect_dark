@@ -6817,8 +6817,8 @@ glabel setupParseObject
 /*  f06ae64:	51200044 */ 	beqzl	$t1,.L0f06af78
 /*  f06ae68:	8e2c0014 */ 	lw	$t4,0x14($s1)
 /*  f06ae6c:	8c84c530 */ 	lw	$a0,-0x3ad0($a0)
-/*  f06ae70:	3c03800b */ 	lui	$v1,%hi(var800ac4d0)
-/*  f06ae74:	2463c4d0 */ 	addiu	$v1,$v1,%lo(var800ac4d0)
+/*  f06ae70:	3c03800b */ 	lui	$v1,%hi(g_MpPlayerChrs)
+/*  f06ae74:	2463c4d0 */ 	addiu	$v1,$v1,%lo(g_MpPlayerChrs)
 /*  f06ae78:	1880003e */ 	blez	$a0,.L0f06af74
 /*  f06ae7c:	00002825 */ 	or	$a1,$zero,$zero
 .L0f06ae80:
@@ -7052,8 +7052,8 @@ glabel setupParseObject
 /*  f06b1a8:	11c00015 */ 	beqz	$t6,.L0f06b200
 /*  f06b1ac:	3406ffff */ 	dli	$a2,0xffff
 /*  f06b1b0:	8c84c530 */ 	lw	$a0,-0x3ad0($a0)
-/*  f06b1b4:	3c03800b */ 	lui	$v1,%hi(var800ac4d0)
-/*  f06b1b8:	2463c4d0 */ 	addiu	$v1,$v1,%lo(var800ac4d0)
+/*  f06b1b4:	3c03800b */ 	lui	$v1,%hi(g_MpPlayerChrs)
+/*  f06b1b8:	2463c4d0 */ 	addiu	$v1,$v1,%lo(g_MpPlayerChrs)
 /*  f06b1bc:	18800010 */ 	blez	$a0,.L0f06b200
 /*  f06b1c0:	00002825 */ 	or	$a1,$zero,$zero
 .L0f06b1c4:

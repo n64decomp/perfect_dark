@@ -591,11 +591,11 @@ glabel func0f199f84
 /*  f19a058:	2414001e */ 	addiu	$s4,$zero,0x1e
 /*  f19a05c:	19600074 */ 	blez	$t3,.L0f19a230
 /*  f19a060:	0000a825 */ 	or	$s5,$zero,$zero
-/*  f19a064:	3c16800b */ 	lui	$s6,%hi(var800ac4d0)
+/*  f19a064:	3c16800b */ 	lui	$s6,%hi(g_MpPlayerChrs)
 /*  f19a068:	3c017f1c */ 	lui	$at,%hi(var7f1b90a0)
 /*  f19a06c:	4480a000 */ 	mtc1	$zero,$f20
 /*  f19a070:	c43690a0 */ 	lwc1	$f22,%lo(var7f1b90a0)($at)
-/*  f19a074:	26d6c4d0 */ 	addiu	$s6,$s6,%lo(var800ac4d0)
+/*  f19a074:	26d6c4d0 */ 	addiu	$s6,$s6,%lo(g_MpPlayerChrs)
 /*  f19a078:	8ed00000 */ 	lw	$s0,0x0($s6)
 .L0f19a07c:
 /*  f19a07c:	24010006 */ 	addiu	$at,$zero,0x6

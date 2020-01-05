@@ -1545,7 +1545,7 @@ glabel func0f014848
 .L0f014a50:
 /*  f014a50:	000e6fc2 */ 	srl	$t5,$t6,0x1f
 /*  f014a54:	15a00002 */ 	bnez	$t5,.L0f014a60
-/*  f014a58:	3c08800b */ 	lui	$t0,%hi(var800ac530)
+/*  f014a58:	3c08800b */ 	lui	$t0,%hi(g_MpNumPlayers)
 /*  f014a5c:	a20302b1 */ 	sb	$v1,0x2b1($s0)
 .L0f014a60:
 /*  f014a60:	240c0029 */ 	addiu	$t4,$zero,0x29
@@ -1557,7 +1557,7 @@ glabel func0f014848
 /*  f014a78:	ae0002a4 */ 	sw	$zero,0x2a4($s0)
 /*  f014a7c:	a20c02a0 */ 	sb	$t4,0x2a0($s0)
 /*  f014a80:	8faf007c */ 	lw	$t7,0x7c($sp)
-/*  f014a84:	2508c530 */ 	addiu	$t0,$t0,%lo(var800ac530)
+/*  f014a84:	2508c530 */ 	addiu	$t0,$t0,%lo(g_MpNumPlayers)
 /*  f014a88:	8d020000 */ 	lw	$v0,0x0($t0)
 /*  f014a8c:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f014a90:	3c01800b */ 	lui	$at,0x800b

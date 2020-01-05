@@ -171,7 +171,8 @@ struct chr2d4 {
 	/*0x6c*/ u32 unk6c;
 	/*0x70*/ u32 unk70;
 	/*0x74*/ u32 unk74;
-	/*0x78*/ u32 unk78;
+	/*0x78*/ u8 unk78;
+	/*0x79*/ u8 unk79;
 	/*0x7c*/ u32 unk7c;
 	/*0x80*/ u32 unk80;
 	/*0x84*/ u32 unk84;

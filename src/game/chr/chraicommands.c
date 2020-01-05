@@ -1566,7 +1566,7 @@ bool aiIfPathStarted(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->actiontype == ACT_PATROL || (g_Vars.chrdata->actiontype == ACT_GOPOS && (g_Vars.chrdata->unk065 & 8))) {
+	if (g_Vars.chrdata->actiontype == ACT_PATROL || (g_Vars.chrdata->actiontype == ACT_GOPOS && (g_Vars.chrdata->speed & 8))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
