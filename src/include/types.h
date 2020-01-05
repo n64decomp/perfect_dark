@@ -4330,4 +4330,13 @@ struct challenge {
 	/*0x18*/ u16 unk18;
 };
 
+struct var800ac500 {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u8 unk10;
+	u8 propindex;
+};
+
 #endif

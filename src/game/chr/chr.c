@@ -3241,7 +3241,7 @@ glabel func0f01f264
 /*  f020260:	10000004 */ 	beqz	$zero,.L0f020274
 /*  f020264:	00402825 */ 	or	$a1,$v0,$zero
 .L0f020268:
-/*  f020268:	0fc633fe */ 	jal	func0f18cff8
+/*  f020268:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f02026c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f020270:	00402825 */ 	or	$a1,$v0,$zero
 .L0f020274:
@@ -23659,7 +23659,7 @@ glabel func0f0319a8
 /*  f0329b8:	8fa40128 */ 	lw	$a0,0x128($sp)
 /*  f0329bc:	13000008 */ 	beqz	$t8,.L0f0329e0
 /*  f0329c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0329c4:	0fc633fe */ 	jal	func0f18cff8
+/*  f0329c4:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f0329c8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0329cc:	8fa40128 */ 	lw	$a0,0x128($sp)
 /*  f0329d0:	0fc2c27d */ 	jal	func0f0b09f4
@@ -26182,7 +26182,7 @@ glabel func0f034524
 /*  f034da0:	14410010 */ 	bne	$v0,$at,.L0f034de4
 /*  f034da4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f034da8:
-/*  f034da8:	0fc633fe */ 	jal	func0f18cff8
+/*  f034da8:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f034dac:	8e240004 */ 	lw	$a0,0x4($s1)
 /*  f034db0:	afa200f0 */ 	sw	$v0,0xf0($sp)
 /*  f034db4:	1000000b */ 	beqz	$zero,.L0f034de4
@@ -27448,7 +27448,7 @@ glabel func0f034524
 /*  f035fbc:	8f39a2d4 */ 	lw	$t9,-0x5d2c($t9)
 /*  f035fc0:	13200008 */ 	beqz	$t9,.L0f035fe4
 /*  f035fc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f035fc8:	0fc633fe */ 	jal	func0f18cff8
+/*  f035fc8:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f035fcc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f035fd0:	8fa400f0 */ 	lw	$a0,0xf0($sp)
 /*  f035fd4:	0fc2c27d */ 	jal	func0f0b09f4
@@ -27712,7 +27712,7 @@ void func0f036358(struct chrdata *chr, s32 arg1)
 		chr->ailist = ailistFindById(GFUNC_AI_BOT_DEAD);
 		chr->aioffset = 0;
 
-		func0f0b09f4(arg1, func0f18cff8(chr));
+		func0f0b09f4(arg1, mpPlayerGetIndex(chr));
 		func0f199964(chr, chr->unk2d4->unk20);
 
 		chr->unk2d4->unk9c_00 = 0;
@@ -39956,7 +39956,7 @@ glabel func0f0404d4
 /*  f041764:	afb90068 */ 	sw	$t9,0x68($sp)
 /*  f041768:	11a00004 */ 	beqz	$t5,.L0f04177c
 /*  f04176c:	afac006c */ 	sw	$t4,0x6c($sp)
-/*  f041770:	0fc633fe */ 	jal	func0f18cff8
+/*  f041770:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f041774:	8fa40278 */ 	lw	$a0,0x278($sp)
 /*  f041778:	afa20068 */ 	sw	$v0,0x68($sp)
 .L0f04177c:
@@ -40067,7 +40067,7 @@ glabel func0f0404d4
 /*  f041900:	3c03800a */ 	lui	$v1,0x800a
 /*  f041904:	11600005 */ 	beqz	$t3,.L0f04191c
 /*  f041908:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04190c:	0fc633fe */ 	jal	func0f18cff8
+/*  f04190c:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f041910:	01a02025 */ 	or	$a0,$t5,$zero
 /*  f041914:	10000002 */ 	beqz	$zero,.L0f041920
 /*  f041918:	00401825 */ 	or	$v1,$v0,$zero
