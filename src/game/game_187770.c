@@ -15169,42 +15169,20 @@ glabel func0f1937a4
 /*  f19466c:	27bd0278 */ 	addiu	$sp,$sp,0x278
 );
 
-GLOBAL_ASM(
-glabel func0f194670
-/*  f194670:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f194674:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f194678:	0fc64de9 */ 	jal	func0f1937a4
-/*  f19467c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f194680:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f194684:	0002702b */ 	sltu	$t6,$zero,$v0
-/*  f194688:	01c01025 */ 	or	$v0,$t6,$zero
-/*  f19468c:	03e00008 */ 	jr	$ra
-/*  f194690:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool func0f194670(struct chrdata *chr)
+{
+	return func0f1937a4(chr, 1) != 0;
+}
 
-GLOBAL_ASM(
-glabel func0f194694
-/*  f194694:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f194698:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19469c:	0fc64de9 */ 	jal	func0f1937a4
-/*  f1946a0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1946a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1946a8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1946ac:	03e00008 */ 	jr	$ra
-/*  f1946b0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f194694(struct chrdata *chr)
+{
+	return func0f1937a4(chr, 0);
+}
 
-GLOBAL_ASM(
-glabel func0f1946b4
-/*  f1946b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1946b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1946bc:	0fc64de9 */ 	jal	func0f1937a4
-/*  f1946c0:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f1946c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1946c8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1946cc:	03e00008 */ 	jr	$ra
-/*  f1946d0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f1946b4(struct chrdata *chr)
+{
+	return func0f1937a4(chr, 2);
+}
 
 s32 mpGetNumPlayerTeammates(struct chrdata *chr)
 {
