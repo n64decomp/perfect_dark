@@ -18471,57 +18471,27 @@ glabel func0f194b40
 /*  f197540:	27bd02f8 */ 	addiu	$sp,$sp,0x2f8
 );
 
-GLOBAL_ASM(
-glabel func0f197544
-/*  f197544:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f197548:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19754c:	908e02a0 */ 	lbu	$t6,0x2a0($a0)
-/*  f197550:	2401002a */ 	addiu	$at,$zero,0x2a
-/*  f197554:	00001025 */ 	or	$v0,$zero,$zero
-/*  f197558:	15c1001d */ 	bne	$t6,$at,.L0f1975d0
-/*  f19755c:	8c8502d4 */ 	lw	$a1,0x2d4($a0)
-/*  f197560:	908f0064 */ 	lbu	$t7,0x64($a0)
-/*  f197564:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f197568:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f19756c:	0098c821 */ 	addu	$t9,$a0,$t8
-/*  f197570:	8f28004c */ 	lw	$t0,0x4c($t9)
-/*  f197574:	55000015 */ 	bnezl	$t0,.L0f1975cc
-/*  f197578:	acad00d8 */ 	sw	$t5,0xd8($a1)
-/*  f19757c:	8ca30010 */ 	lw	$v1,0x10($a1)
-/*  f197580:	50600012 */ 	beqzl	$v1,.L0f1975cc
-/*  f197584:	acad00d8 */ 	sw	$t5,0xd8($a1)
-/*  f197588:	8c690018 */ 	lw	$t1,0x18($v1)
-/*  f19758c:	5520000f */ 	bnezl	$t1,.L0f1975cc
-/*  f197590:	acad00d8 */ 	sw	$t5,0xd8($a1)
-/*  f197594:	846a0002 */ 	lh	$t2,0x2($v1)
-/*  f197598:	5540000c */ 	bnezl	$t2,.L0f1975cc
-/*  f19759c:	acad00d8 */ 	sw	$t5,0xd8($a1)
-/*  f1975a0:	90620000 */ 	lbu	$v0,0x0($v1)
-/*  f1975a4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f1975a8:	10410003 */ 	beq	$v0,$at,.L0f1975b8
-/*  f1975ac:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1975b0:	54410006 */ 	bnel	$v0,$at,.L0f1975cc
-/*  f1975b4:	acad00d8 */ 	sw	$t5,0xd8($a1)
-.L0f1975b8:
-/*  f1975b8:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f1975bc:	8c4b0010 */ 	lw	$t3,0x10($v0)
-/*  f1975c0:	356c4000 */ 	ori	$t4,$t3,0x4000
-/*  f1975c4:	ac4c0010 */ 	sw	$t4,0x10($v0)
-/*  f1975c8:	acad00d8 */ 	sw	$t5,0xd8($a1)
-.L0f1975cc:
-/*  f1975cc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1975d0:
-/*  f1975d0:	14400004 */ 	bnez	$v0,.L0f1975e4
-/*  f1975d4:	2485002c */ 	addiu	$a1,$a0,0x2c
-/*  f1975d8:	24860038 */ 	addiu	$a2,$a0,0x38
-/*  f1975dc:	0fc0e10f */ 	jal	func0f03843c
-/*  f1975e0:	90870065 */ 	lbu	$a3,0x65($a0)
-.L0f1975e4:
-/*  f1975e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1975e8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1975ec:	03e00008 */ 	jr	$ra
-/*  f1975f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1975f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1975f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1975fc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f197544(struct chrdata *chr)
+{
+	bool pass = false;
+	struct chr2d4 *chr2d4 = chr->unk2d4;
+
+	if (chr->myaction == MA_AIBOTGETITEM) {
+		if (chr->act_aibotgetitem.unk4c[chr->unk064] == 0) {
+			struct prop *prop = chr2d4->prop;
+
+			if (prop && !prop->parent && prop->timetoregen == 0) {
+				if (prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ) {
+					prop->obj->flags3 |= OBJECTFLAG2_00004000;
+				}
+			}
+		}
+
+		chr2d4->unkd8 = 1;
+		pass = true;
+	}
+
+	if (!pass) {
+		func0f03843c(chr, &chr->act_aibotgetitem.pos, &chr->act_aibotgetitem.rooms[0], chr->speed);
+	}
+}

@@ -167,6 +167,6 @@ u32 func0f19489c(void);
 u32 func0f194904(void);
 u32 func0f194990(void);
 u32 func0f194b40(void);
-u32 func0f197544(void);
+void func0f197544(struct chrdata *chr);
 
 #endif

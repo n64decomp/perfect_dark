@@ -26,7 +26,7 @@ struct prop;
 struct prop {
 	/*0x00*/ u8 type;
 	/*0x01*/ u8 flags;
-	/*0x02*/ u16 timetoregen;
+	/*0x02*/ s16 timetoregen;
 
 	/*0x04*/
 	union {
@@ -138,7 +138,7 @@ struct chr2d4 {
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
-	/*0x10*/ u32 unk10;
+	/*0x10*/ struct prop *prop;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
@@ -193,6 +193,16 @@ struct chr2d4 {
 	/*0xa8*/ u32 unka8;
 	/*0xac*/ u32 unkac;
 	/*0xb0*/ f32 unkb0;
+	/*0xb4*/ u32 unkb4;
+	/*0xb8*/ u32 unkb8;
+	/*0xbc*/ u32 unkbc;
+	/*0xc0*/ u32 unkc0;
+	/*0xc4*/ u32 unkc4;
+	/*0xc8*/ u32 unkc8;
+	/*0xcc*/ u32 unkcc;
+	/*0xd0*/ u32 unkd0;
+	/*0xd4*/ u32 unkd4;
+	/*0xd8*/ u32 unkd8;
 };
 
 struct act_stand {
@@ -277,6 +287,13 @@ struct act_attackamount {
 	/*0x34*/ s8 unk034;
 };
 
+struct act_aibotgetitem {
+	/*0x2c*/ struct coord pos;
+	/*0x38*/ s16 rooms[8];
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ s32 unk4c[1];
+};
+
 struct chrdata {
 	/*0x000*/ s16 chrnum;
 	/*0x002*/ s8 accuracyrating;
@@ -314,6 +331,7 @@ struct chrdata {
 		struct act_surprised act_surprised;
 		struct act_throwgrenade act_throwgrenade;
 		struct act_attackamount act_attackamount;
+		struct act_aibotgetitem act_aibotgetitem;
 	};
 
 	/*0x054*/ u32 unk054;
@@ -321,7 +339,7 @@ struct chrdata {
 	/*0x05c*/ u32 unk05c;
 	/*0x060*/ u32 unk060;
 	/*0x064*/ u8 unk064;
-	/*0x066*/ u8 unk065;
+	/*0x065*/ u8 speed;
 	/*0x066*/ s16 unk066;
 	/*0x068*/ u32 unk068;
 	/*0x06c*/ u16 unk06c;

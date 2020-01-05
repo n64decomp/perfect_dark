@@ -533,7 +533,7 @@
 #define MPSCENARIO_KINGOFTHEHILL    4
 #define MPSCENARIO_CAPTURETHECASE   5
 
-// Object flags - bank 0 (object struct offset 0x08)
+// obj->flags
 #define OBJECTFLAG0_00000001             0x00000001 // Not used in scripts
 #define OBJECTFLAG0_00000002             0x00000002 // Not used in scripts
 #define OBJECTFLAG0_00000004             0x00000004 // Not used in scripts
@@ -567,7 +567,7 @@
 #define OBJECTFLAG0_40000000             0x40000000 // Used quite a lot
 #define OBJECTFLAG0_INTERCEPTOR_DISABLED 0x80000000
 
-// Object flags - bank 1 (object struct offset 0x0c)
+// obj->flags2
 #define OBJECTFLAG1_00000001  0x00000001 // Used only in CI Training
 #define OBJECTFLAG1_00000002  0x00000002 // Ruins spikes
 #define OBJECTFLAG1_00000004  0x00000004 // Defense hostage doors - openable by AI?
@@ -601,7 +601,7 @@
 #define OBJECTFLAG1_40000000  0x40000000 // Not used in scripts
 #define OBJECTFLAG1_80000000  0x80000000 // Attack Ship glass
 
-// Object flags - bank 2 (object struct offset 0x10)
+// obj->flags3
 #define OBJECTFLAG2_PUSHABLE        0x00000001
 #define OBJECTFLAG2_GRABBABLE       0x00000002
 #define OBJECTFLAG2_00000004        0x00000004 // Not used in scripts
@@ -635,6 +635,7 @@
 #define OBJECTFLAG2_40000000        0x40000000 // Not used in scripts
 #define OBJECTFLAG2_80000000        0x80000000 // Not used in scripts
 
+// obj->hidden
 #define OBJHIDDENFLAG_00000080          0x00000080
 #define OBJHIDDENFLAG_ACTIVATED_BY_BOND 0x00004000
 #define OBJHIDDENFLAG_ACTIVATED_BY_COOP 0x00040000
