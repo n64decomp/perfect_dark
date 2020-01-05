@@ -134,7 +134,7 @@ struct chr020 {
 };
 
 struct chr2d4 {
-	/*0x00*/ u32 unk00;
+	/*0x00*/ u8 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
@@ -214,6 +214,31 @@ struct chr2d4 {
 	/*0xd0*/ u32 unkd0;
 	/*0xd4*/ u32 unkd4;
 	/*0xd8*/ u32 unkd8;
+	/*0x0dc*/ u32 unk0dc;
+	/*0x0e0*/ u32 unk0e0;
+	/*0x0e4*/ u32 unk0e4;
+	/*0x0e8*/ u32 unk0e8;
+	/*0x0ec*/ u32 unk0ec;
+	/*0x0f0*/ u32 unk0f0;
+	/*0x0f4*/ u32 unk0f4;
+	/*0x0f8*/ u32 unk0f8;
+	/*0x0fc*/ u32 unk0fc;
+	/*0x100*/ u32 unk100;
+	/*0x104*/ u32 unk104;
+	/*0x108*/ u32 unk108;
+	/*0x10c*/ u32 unk10c;
+	/*0x110*/ u32 unk110;
+	/*0x114*/ u32 unk114;
+	/*0x118*/ u32 unk118;
+	/*0x11c*/ u32 unk11c;
+	/*0x120*/ u32 unk120;
+	/*0x124*/ u32 unk124;
+	/*0x128*/ u32 unk128;
+	/*0x12c*/ u32 unk12c;
+	/*0x130*/ u32 unk130;
+	/*0x134*/ u32 unk134;
+	/*0x138*/ u32 unk138;
+	/*0x13c*/ f32 unk13c[1];
 };
 
 struct act_stand {
