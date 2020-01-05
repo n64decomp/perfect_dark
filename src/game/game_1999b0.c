@@ -1662,26 +1662,10 @@ glabel func0f19af3c
 /*  f19af94:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel mpIsChallengeAvailable
-/*  f19af98:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f19af9c:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f19afa0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19afa4:	3c18800b */ 	lui	$t8,0x800b
-/*  f19afa8:	9718cb9e */ 	lhu	$t8,-0x3462($t8)
-/*  f19afac:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f19afb0:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f19afb4:	3c0f8009 */ 	lui	$t7,0x8009
-/*  f19afb8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f19afbc:	91ef84bc */ 	lbu	$t7,-0x7b44($t7)
-/*  f19afc0:	3319000f */ 	andi	$t9,$t8,0xf
-/*  f19afc4:	00194040 */ 	sll	$t0,$t9,0x1
-/*  f19afc8:	35090001 */ 	ori	$t1,$t0,0x1
-/*  f19afcc:	01e91024 */ 	and	$v0,$t7,$t1
-/*  f19afd0:	0002502b */ 	sltu	$t2,$zero,$v0
-/*  f19afd4:	03e00008 */ 	jr	$ra
-/*  f19afd8:	01401025 */ 	or	$v0,$t2,$zero
-);
+bool mpIsChallengeAvailable(s32 challengeindex)
+{
+	return (g_MpChallenges[challengeindex].completions[0] & (((g_MpSetup.chrslots & 0xf) << 1) | 1)) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f19afdc
