@@ -1634,33 +1634,14 @@ glabel func0f19ab70
 /*  f19af38:	000f102b */ 	sltu	$v0,$zero,$t7
 );
 
-GLOBAL_ASM(
-glabel func0f19af3c
-/*  f19af3c:	3c0e800b */ 	lui	$t6,0x800b
-/*  f19af40:	95cecb9e */ 	lhu	$t6,-0x3462($t6)
-/*  f19af44:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f19af48:	008fc004 */ 	sllv	$t8,$t7,$a0
-/*  f19af4c:	01d8c824 */ 	and	$t9,$t6,$t8
-/*  f19af50:	17200003 */ 	bnez	$t9,.L0f19af60
-/*  f19af54:	00054080 */ 	sll	$t0,$a1,0x2
-/*  f19af58:	03e00008 */ 	jr	$ra
-/*  f19af5c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19af60:
-/*  f19af60:	01054023 */ 	subu	$t0,$t0,$a1
-/*  f19af64:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f19af68:	01054021 */ 	addu	$t0,$t0,$a1
-/*  f19af6c:	00084040 */ 	sll	$t0,$t0,0x1
-/*  f19af70:	3c098009 */ 	lui	$t1,0x8009
-/*  f19af74:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f19af78:	912984bc */ 	lbu	$t1,-0x7b44($t1)
-/*  f19af7c:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f19af80:	008a5804 */ 	sllv	$t3,$t2,$a0
-/*  f19af84:	012b1024 */ 	and	$v0,$t1,$t3
-/*  f19af88:	0002602b */ 	sltu	$t4,$zero,$v0
-/*  f19af8c:	01801025 */ 	or	$v0,$t4,$zero
-/*  f19af90:	03e00008 */ 	jr	$ra
-/*  f19af94:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f19af3c(s32 chrnum, s32 challengeindex)
+{
+	if ((g_MpSetup.chrslots & (1 << chrnum)) == 0) {
+		return 0;
+	}
+
+	return ((g_MpChallenges[challengeindex].completions[0] & (2 << chrnum)) != 0);
+}
 
 bool mpIsChallengeAvailable(s32 challengeindex)
 {

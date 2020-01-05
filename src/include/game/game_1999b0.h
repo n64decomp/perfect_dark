@@ -24,7 +24,7 @@ u32 func0f19a7d0(void);
 u32 func0f19a850(void);
 void func0f19ab40(void);
 u32 func0f19ab70(void);
-u32 func0f19af3c(void);
+bool func0f19af3c(s32 chrnum, s32 challengeindex);
 bool mpIsChallengeAvailable(s32 challengeindex);
 void func0f19afdc(void);
 void func0f19b540(void);
