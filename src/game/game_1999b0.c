@@ -2155,33 +2155,19 @@ glabel func0f19b540
 /*  f19b660:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19b664
-/*  f19b664:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f19b668:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f19b66c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f19b670:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19b674:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f19b678:	00008825 */ 	or	$s1,$zero,$zero
-/*  f19b67c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19b680:	2412001e */ 	addiu	$s2,$zero,0x1e
-.L0f19b684:
-/*  f19b684:	0fc66be6 */ 	jal	mpIsChallengeAvailable
-/*  f19b688:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b68c:	10400002 */ 	beqz	$v0,.L0f19b698
-/*  f19b690:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19b694:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f19b698:
-/*  f19b698:	1612fffa */ 	bne	$s0,$s2,.L0f19b684
-/*  f19b69c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19b6a0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f19b6a4:	02201025 */ 	or	$v0,$s1,$zero
-/*  f19b6a8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f19b6ac:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19b6b0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f19b6b4:	03e00008 */ 	jr	$ra
-/*  f19b6b8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 mpGetNumAvailableChallenges(void)
+{
+	s32 challengeindex;
+	s32 count = 0;
+
+	for (challengeindex = 0; challengeindex != 30; challengeindex++) {
+		if (mpIsChallengeAvailable(challengeindex)) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 char *mpChallengeGetName(s32 challengeindex)
 {
