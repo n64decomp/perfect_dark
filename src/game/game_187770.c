@@ -15207,7 +15207,7 @@ glabel func0f1946b4
 );
 
 GLOBAL_ASM(
-glabel func0f1946d4
+glabel mpGetNumPlayerTeammates
 /*  f1946d4:	3c05800b */ 	lui	$a1,0x800b
 /*  f1946d8:	8ca5c530 */ 	lw	$a1,-0x3ad0($a1)
 /*  f1946dc:	3c0e800b */ 	lui	$t6,0x800b
@@ -15345,37 +15345,16 @@ glabel func0f194834
 /*  f194898:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f19489c
-/*  f19489c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1948a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1948a4:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
-/*  f1948a8:	8c4e009c */ 	lw	$t6,0x9c($v0)
-/*  f1948ac:	000ec040 */ 	sll	$t8,$t6,0x1
-/*  f1948b0:	07030010 */ 	bgezl	$t8,.L0f1948f4
-/*  f1948b4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1948b8:	8048004f */ 	lb	$t0,0x4f($v0)
-/*  f1948bc:	0501000a */ 	bgez	$t0,.L0f1948e8
-/*  f1948c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1948c4:	0fc651b5 */ 	jal	func0f1946d4
-/*  f1948c8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1948cc:	28410002 */ 	slti	$at,$v0,0x2
-/*  f1948d0:	10200005 */ 	beqz	$at,.L0f1948e8
-/*  f1948d4:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1948d8:	0fc6520d */ 	jal	func0f194834
-/*  f1948dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1948e0:	54400004 */ 	bnezl	$v0,.L0f1948f4
-/*  f1948e4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1948e8:
-/*  f1948e8:	10000002 */ 	beqz	$zero,.L0f1948f4
-/*  f1948ec:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1948f0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1948f4:
-/*  f1948f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1948f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1948fc:	03e00008 */ 	jr	$ra
-/*  f194900:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f19489c(struct chrdata *chr)
+{
+	if (chr->unk2d4->unk9c_01) {
+		if (chr->unk2d4->unk4f_00 == 0 || mpGetNumPlayerTeammates(chr) >= 2 || !func0f194834(chr)) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 s32 mpGetNumTeammatesInRoomDoingSomething(struct chrdata *bot)
 {
@@ -15876,7 +15855,7 @@ glabel func0f194b40
 .L0f19505c:
 /*  f19505c:	5c40013a */ 	bgtzl	$v0,.L0f195548
 /*  f195060:	928d02a0 */ 	lbu	$t5,0x2a0($s4)
-/*  f195064:	0fc651b5 */ 	jal	func0f1946d4
+/*  f195064:	0fc651b5 */ 	jal	mpGetNumPlayerTeammates
 /*  f195068:	02802025 */ 	or	$a0,$s4,$zero
 /*  f19506c:	3c03800b */ 	lui	$v1,0x800b
 /*  f195070:	9063cb98 */ 	lbu	$v1,-0x3468($v1)
