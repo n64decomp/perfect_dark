@@ -15233,86 +15233,23 @@ glabel mpGetNumPlayerTeammates
 /*  f194720:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f194724
-/*  f194724:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f194728:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f19472c:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*  f194730:	8cee006c */ 	lw	$t6,0x6c($a3)
-/*  f194734:	afb2000c */ 	sw	$s2,0xc($sp)
-/*  f194738:	afb10008 */ 	sw	$s1,0x8($sp)
-/*  f19473c:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f194740:	00808025 */ 	or	$s0,$a0,$zero
-/*  f194744:	00c08825 */ 	or	$s1,$a2,$zero
-/*  f194748:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f19474c:	11c00003 */ 	beqz	$t6,.L0f19475c
-/*  f194750:	00001825 */ 	or	$v1,$zero,$zero
-/*  f194754:	10000002 */ 	beqz	$zero,.L0f194760
-/*  f194758:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19475c:
-/*  f19475c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f194760:
-/*  f194760:	8cef0068 */ 	lw	$t7,0x68($a3)
-/*  f194764:	3c09800b */ 	lui	$t1,0x800b
-/*  f194768:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19476c:	11e00003 */ 	beqz	$t7,.L0f19477c
-/*  f194770:	00002825 */ 	or	$a1,$zero,$zero
-/*  f194774:	10000001 */ 	beqz	$zero,.L0f19477c
-/*  f194778:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f19477c:
-/*  f19477c:	8cf80064 */ 	lw	$t8,0x64($a3)
-/*  f194780:	3c0d800b */ 	lui	$t5,%hi(g_MpPlayerChrs)
-/*  f194784:	25adc4d0 */ 	addiu	$t5,$t5,%lo(g_MpPlayerChrs)
-/*  f194788:	13000003 */ 	beqz	$t8,.L0f194798
-/*  f19478c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f194790:	10000001 */ 	beqz	$zero,.L0f194798
-/*  f194794:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f194798:
-/*  f194798:	8cf90070 */ 	lw	$t9,0x70($a3)
-/*  f19479c:	13200003 */ 	beqz	$t9,.L0f1947ac
-/*  f1947a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1947a4:	10000001 */ 	beqz	$zero,.L0f1947ac
-/*  f1947a8:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f1947ac:
-/*  f1947ac:	8d29c530 */ 	lw	$t1,-0x3ad0($t1)
-/*  f1947b0:	00c55021 */ 	addu	$t2,$a2,$a1
-/*  f1947b4:	01445821 */ 	addu	$t3,$t2,$a0
-/*  f1947b8:	01624021 */ 	addu	$t0,$t3,$v0
-/*  f1947bc:	0109082a */ 	slt	$at,$t0,$t1
-/*  f1947c0:	10200016 */ 	beqz	$at,.L0f19481c
-/*  f1947c4:	00086080 */ 	sll	$t4,$t0,0x2
-/*  f1947c8:	00097080 */ 	sll	$t6,$t1,0x2
-/*  f1947cc:	01cd3021 */ 	addu	$a2,$t6,$t5
-/*  f1947d0:	92020125 */ 	lbu	$v0,0x125($s0)
-/*  f1947d4:	018d2021 */ 	addu	$a0,$t4,$t5
-/*  f1947d8:	8c850000 */ 	lw	$a1,0x0($a0)
-.L0f1947dc:
-/*  f1947dc:	24840004 */ 	addiu	$a0,$a0,0x4
-/*  f1947e0:	0086082b */ 	sltu	$at,$a0,$a2
-/*  f1947e4:	90af0125 */ 	lbu	$t7,0x125($a1)
-/*  f1947e8:	144f000a */ 	bne	$v0,$t7,.L0f194814
-/*  f1947ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1947f0:	56200004 */ 	bnezl	$s1,.L0f194804
-/*  f1947f4:	8cb802d4 */ 	lw	$t8,0x2d4($a1)
-/*  f1947f8:	12050006 */ 	beq	$s0,$a1,.L0f194814
-/*  f1947fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f194800:	8cb802d4 */ 	lw	$t8,0x2d4($a1)
-.L0f194804:
-/*  f194804:	93190079 */ 	lbu	$t9,0x79($t8)
-/*  f194808:	16590002 */ 	bne	$s2,$t9,.L0f194814
-/*  f19480c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f194810:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f194814:
-/*  f194814:	5420fff1 */ 	bnezl	$at,.L0f1947dc
-/*  f194818:	8c850000 */ 	lw	$a1,0x0($a0)
-.L0f19481c:
-/*  f19481c:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f194820:	8fb10008 */ 	lw	$s1,0x8($sp)
-/*  f194824:	8fb2000c */ 	lw	$s2,0xc($sp)
-/*  f194828:	27bd0010 */ 	addiu	$sp,$sp,0x10
-/*  f19482c:	03e00008 */ 	jr	$ra
-/*  f194830:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 func0f194724(struct chrdata *self, s32 arg1, bool includeself)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
+		if (self->team == g_MpPlayerChrs[i]->team) {
+			if (includeself || self != g_MpPlayerChrs[i]) {
+				if (arg1 == g_MpPlayerChrs[i]->unk2d4->unk79) {
+					count++;
+				}
+			}
+		}
+	}
+
+	return count;
+}
 
 s32 func0f194834(struct chrdata *chr)
 {
