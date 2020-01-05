@@ -5380,7 +5380,7 @@ s32 menuhandler4MbAdvancedSetup(u32 operation, struct menu_item *item, s32 *valu
 s32 menuhandler0010cabc(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		func0f19b77c(g_MenuStack[g_MpPlayerNum].slotindex);
+		mpSetCurrentChallenge(g_MenuStack[g_MpPlayerNum].slotindex);
 		func0f0f820c(&menudialog_mpquickgo2, 11);
 	}
 

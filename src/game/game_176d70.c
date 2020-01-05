@@ -8273,14 +8273,14 @@ glabel func0f17e318
 );
 
 /**
- * An "Accept" item somewhere.
+ * An "Accept" item somewhere. Probably accepting a challenge.
  */
 s32 menuhandler0017e38c(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		mpResetVar800884b4();
 		menuPopDialog();
-		func0f19b77c(g_MenuStack[g_MpPlayerNum].slotindex);
+		mpSetCurrentChallenge(g_MenuStack[g_MpPlayerNum].slotindex);
 	}
 
 	return 0;
@@ -8317,7 +8317,7 @@ glabel menudialog0017e3fc
 /*  f17e460:	ac400850 */ 	sw	$zero,0x850($v0)
 /*  f17e464:	8c440e1c */ 	lw	$a0,0xe1c($v0)
 /*  f17e468:	8c450844 */ 	lw	$a1,0x844($v0)
-/*  f17e46c:	0fc66ea5 */ 	jal	mpGetNthCompletedChallengeSomething
+/*  f17e46c:	0fc66ea5 */ 	jal	mpGetNthAvailableChallengeSomething
 /*  f17e470:	8c460848 */ 	lw	$a2,0x848($v0)
 /*  f17e474:	3c198007 */ 	lui	$t9,0x8007
 /*  f17e478:	8f391448 */ 	lw	$t9,0x1448($t9)
@@ -8848,7 +8848,7 @@ glabel menudialog0017eb34
 s32 menuhandler0017ec64(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		func0f19b77c(g_MenuStack[g_MpPlayerNum].slotindex);
+		mpSetCurrentChallenge(g_MenuStack[g_MpPlayerNum].slotindex);
 		func0f0f820c(&g_MpQuickGoMenuDialog, 3);
 	}
 
