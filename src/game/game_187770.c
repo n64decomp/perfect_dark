@@ -15206,32 +15206,19 @@ glabel func0f1946b4
 /*  f1946d0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel mpGetNumPlayerTeammates
-/*  f1946d4:	3c05800b */ 	lui	$a1,0x800b
-/*  f1946d8:	8ca5c530 */ 	lw	$a1,-0x3ad0($a1)
-/*  f1946dc:	3c0e800b */ 	lui	$t6,0x800b
-/*  f1946e0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1946e4:	18a0000d */ 	blez	$a1,.L0f19471c
-/*  f1946e8:	25c6c4d0 */ 	addiu	$a2,$t6,-15152
-/*  f1946ec:	00057880 */ 	sll	$t7,$a1,0x2
-/*  f1946f0:	01e63821 */ 	addu	$a3,$t7,$a2
-/*  f1946f4:	90820125 */ 	lbu	$v0,0x125($a0)
-/*  f1946f8:	8cd80000 */ 	lw	$t8,0x0($a2)
-.L0f1946fc:
-/*  f1946fc:	24c60004 */ 	addiu	$a2,$a2,0x4
-/*  f194700:	00c7082b */ 	sltu	$at,$a2,$a3
-/*  f194704:	93190125 */ 	lbu	$t9,0x125($t8)
-/*  f194708:	14590002 */ 	bne	$v0,$t9,.L0f194714
-/*  f19470c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f194710:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f194714:
-/*  f194714:	5420fff9 */ 	bnezl	$at,.L0f1946fc
-/*  f194718:	8cd80000 */ 	lw	$t8,0x0($a2)
-.L0f19471c:
-/*  f19471c:	03e00008 */ 	jr	$ra
-/*  f194720:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 mpGetNumPlayerTeammates(struct chrdata *chr)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = 0; i < g_MpNumPlayers; i++) {
+		if (chr->team == g_MpPlayerChrs[i]->team) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 s32 func0f194724(struct chrdata *self, s32 arg1, bool includeself)
 {
