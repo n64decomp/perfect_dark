@@ -12,7 +12,7 @@ u32 func0f0d4c80(void);
 u32 func0f0d4d0c(void);
 void scenarioDefaultCallback44(s32 *arg0, s32 arg1, s32 arg2);
 u32 func0f0d5360(void);
-u32 func0f0d53f8(void);
+void scenarioDefaultCallback40(s32 *arg0, s32 arg1);
 u32 func0f0d545c(void);
 u32 func0f0d5484(void);
 u32 func0f0d54c4(void);
