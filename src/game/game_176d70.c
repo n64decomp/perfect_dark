@@ -17296,32 +17296,16 @@ glabel func0f186408
 /*  f186450:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f186454:	03e00008 */ 	jr	$ra
 /*  f186458:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18645c:	3c18800b */ 	lui	$t8,0x800b
-/*  f186460:	9318cb98 */ 	lbu	$t8,-0x3468($t8)
-/*  f186464:	3c028008 */ 	lui	$v0,0x8008
-/*  f186468:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18646c:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f186470:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f186474:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f186478:	00591021 */ 	addu	$v0,$v0,$t9
-/*  f18647c:	8c426fcc */ 	lw	$v0,0x6fcc($v0)
-/*  f186480:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f186484:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f186488:	000e2403 */ 	sra	$a0,$t6,0x10
-/*  f18648c:	10400005 */ 	beqz	$v0,.L0f1864a4
-/*  f186490:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f186494:	0040f809 */ 	jalr	$v0
-/*  f186498:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18649c:	10000003 */ 	beqz	$zero,.L0f1864ac
-/*  f1864a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1864a4:
-/*  f1864a4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1864a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1864ac:
-/*  f1864ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1864b0:	03e00008 */ 	jr	$ra
-/*  f1864b4:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+bool scenarioCallback34(s16 arg0)
+{
+	if (g_MpScenarios[g_MpSetup.scenario].unk34) {
+		return g_MpScenarios[g_MpSetup.scenario].unk34(arg0);
+	}
+
+	return false;
+}
 
 void scenarioCallback38(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3)
 {
