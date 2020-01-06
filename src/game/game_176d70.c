@@ -17323,30 +17323,12 @@ glabel func0f186408
 /*  f1864b4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1864b8
-/*  f1864b8:	3c18800b */ 	lui	$t8,0x800b
-/*  f1864bc:	9318cb98 */ 	lbu	$t8,-0x3468($t8)
-/*  f1864c0:	3c028008 */ 	lui	$v0,0x8008
-/*  f1864c4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1864c8:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f1864cc:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f1864d0:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f1864d4:	00591021 */ 	addu	$v0,$v0,$t9
-/*  f1864d8:	8c426fd0 */ 	lw	$v0,0x6fd0($v0)
-/*  f1864dc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1864e0:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f1864e4:	000e2403 */ 	sra	$a0,$t6,0x10
-/*  f1864e8:	10400003 */ 	beqz	$v0,.L0f1864f8
-/*  f1864ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1864f0:	0040f809 */ 	jalr	$v0
-/*  f1864f4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1864f8:
-/*  f1864f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1864fc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f186500:	03e00008 */ 	jr	$ra
-/*  f186504:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void scenarioCallback38(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3)
+{
+	if (g_MpScenarios[g_MpSetup.scenario].unk38) {
+		g_MpScenarios[g_MpSetup.scenario].unk38(arg0, arg1, arg2, arg3);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f186508

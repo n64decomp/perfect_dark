@@ -4115,7 +4115,7 @@ struct mpscenario {
 	void *unk2c;
 	void *unk30;
 	void *unk34;
-	void *unk38;
+	void (*unk38)(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 	void *unk3c;
 	void (*unk40)(s32 *arg0);
 	void (*unk44)(s32 *arg0);
