@@ -4102,9 +4102,9 @@ struct mpsetup {
 
 struct mpscenario {
 	struct menu_dialog *optionsdialog;
-	void *unk04;
-	void *unk08;
-	void *unk0c;
+	void (*unk04)(void);
+	s32 (*unk08)(void);
+	void (*unk0c)(void);
 	void *unk10;
 	void *unk14;
 	void *unk18;

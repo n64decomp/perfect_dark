@@ -10151,9 +10151,9 @@ glabel func0f17ff8c
 /*  f17ffd8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool scenarioBriefcaseCallback08(void)
+s32 scenarioBriefcaseCallback08(void)
 {
-	return true;
+	return 1;
 }
 
 GLOBAL_ASM(
@@ -11190,7 +11190,7 @@ glabel scenarioCaptureCallback04
 /*  f180e18:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-u32 scenarioCaptureCallback08(void)
+s32 scenarioCaptureCallback08(void)
 {
 	return 4;
 }
@@ -13302,7 +13302,7 @@ glabel scenarioHackerCallback04
 /*  f182b98:	ac20c24c */ 	sw	$zero,-0x3db4($at)
 );
 
-u32 scenarioHackerCallback08(void)
+s32 scenarioHackerCallback08(void)
 {
 	return 2;
 }
@@ -16076,7 +16076,7 @@ glabel menuhandler00185068
 /*  f185214:	1633ffef */ 	bne	$s1,$s3,.L0f1851d4
 /*  f185218:	26100006 */ 	addiu	$s0,$s0,0x6
 .L0f18521c:
-/*  f18521c:	0fc61521 */ 	jal	func0f185484
+/*  f18521c:	0fc61521 */ 	jal	scenarioCallback04
 /*  f185220:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f185224:	1000004d */ 	beqz	$zero,.L0f18535c
 /*  f185228:	00001025 */ 	or	$v0,$zero,$zero
@@ -16244,77 +16244,30 @@ glabel func0f185428
 /*  f185480:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f185484
-/*  f185484:	3c0e800b */ 	lui	$t6,0x800b
-/*  f185488:	91cecb98 */ 	lbu	$t6,-0x3468($t6)
-/*  f18548c:	3c028008 */ 	lui	$v0,0x8008
-/*  f185490:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f185494:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f185498:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f18549c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1854a0:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f1854a4:	8c426f9c */ 	lw	$v0,0x6f9c($v0)
-/*  f1854a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1854ac:	50400004 */ 	beqzl	$v0,.L0f1854c0
-/*  f1854b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1854b4:	0040f809 */ 	jalr	$v0
-/*  f1854b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1854bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1854c0:
-/*  f1854c0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1854c4:	03e00008 */ 	jr	$ra
-/*  f1854c8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void scenarioCallback04(void)
+{
+	if (g_MpScenarios[g_MpSetup.scenario].unk04) {
+		g_MpScenarios[g_MpSetup.scenario].unk04();
+	}
+}
 
-GLOBAL_ASM(
-glabel func0f1854cc
-/*  f1854cc:	3c0e800b */ 	lui	$t6,0x800b
-/*  f1854d0:	91cecb98 */ 	lbu	$t6,-0x3468($t6)
-/*  f1854d4:	3c028008 */ 	lui	$v0,0x8008
-/*  f1854d8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1854dc:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1854e0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1854e4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1854e8:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f1854ec:	8c426fa0 */ 	lw	$v0,0x6fa0($v0)
-/*  f1854f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1854f4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1854f8:	50400005 */ 	beqzl	$v0,.L0f185510
-/*  f1854fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f185500:	0040f809 */ 	jalr	$v0
-/*  f185504:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f185508:	00401825 */ 	or	$v1,$v0,$zero
-/*  f18550c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f185510:
-/*  f185510:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f185514:	00601025 */ 	or	$v0,$v1,$zero
-/*  f185518:	03e00008 */ 	jr	$ra
-/*  f18551c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 scenarioCallback08(void)
+{
+	s32 result = 0;
 
-GLOBAL_ASM(
-glabel func0f185520
-/*  f185520:	3c0e800b */ 	lui	$t6,0x800b
-/*  f185524:	91cecb98 */ 	lbu	$t6,-0x3468($t6)
-/*  f185528:	3c028008 */ 	lui	$v0,0x8008
-/*  f18552c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f185530:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f185534:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f185538:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f18553c:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f185540:	8c426fa4 */ 	lw	$v0,0x6fa4($v0)
-/*  f185544:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f185548:	50400004 */ 	beqzl	$v0,.L0f18555c
-/*  f18554c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f185550:	0040f809 */ 	jalr	$v0
-/*  f185554:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f185558:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f18555c:
-/*  f18555c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f185560:	03e00008 */ 	jr	$ra
-/*  f185564:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	if (g_MpScenarios[g_MpSetup.scenario].unk08) {
+		result = g_MpScenarios[g_MpSetup.scenario].unk08();
+	}
+
+	return result;
+}
+
+void scenarioCallback0c(void)
+{
+	if (g_MpScenarios[g_MpSetup.scenario].unk0c) {
+		g_MpScenarios[g_MpSetup.scenario].unk0c();
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f185568

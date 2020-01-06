@@ -3313,7 +3313,7 @@ glabel func0f00eb64
 /*  f00f0d8:	02028021 */ 	addu	$s0,$s0,$v0
 /*  f00f0dc:	51e00005 */ 	beqzl	$t7,.L0f00f0f4
 /*  f00f0e0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f00f0e4:	0fc61533 */ 	jal	func0f1854cc
+/*  f00f0e4:	0fc61533 */ 	jal	scenarioCallback08
 /*  f00f0e8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f00f0ec:	02028021 */ 	addu	$s0,$s0,$v0
 /*  f00f0f0:	02002025 */ 	or	$a0,$s0,$zero
@@ -4623,7 +4623,7 @@ glabel func0f00f174
 /*  f010404:	8defa2d8 */ 	lw	$t7,-0x5d28($t7)
 /*  f010408:	11e00003 */ 	beqz	$t7,.L0f010418
 /*  f01040c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f010410:	0fc61548 */ 	jal	func0f185520
+/*  f010410:	0fc61548 */ 	jal	scenarioCallback0c
 /*  f010414:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f010418:
 /*  f010418:	3c12800a */ 	lui	$s2,0x800a
