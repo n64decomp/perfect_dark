@@ -12128,7 +12128,7 @@ glabel scenarioHillCallback44
 /*  f181b4c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f181b50:	3c05800a */ 	lui	$a1,0x800a
 /*  f181b54:	8ca5a444 */ 	lw	$a1,-0x5bbc($a1)
-/*  f181b58:	0fc354be */ 	jal	func0f0d52f8
+/*  f181b58:	0fc354be */ 	jal	scenarioDefaultCallback44
 /*  f181b5c:	24060008 */ 	addiu	$a2,$zero,0x8
 /*  f181b60:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f181b64:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -16215,34 +16215,14 @@ glabel func0f1853d0
 /*  f185424:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f185428
-/*  f185428:	3c0e800b */ 	lui	$t6,0x800b
-/*  f18542c:	91cecb98 */ 	lbu	$t6,-0x3468($t6)
-/*  f185430:	3c028008 */ 	lui	$v0,0x8008
-/*  f185434:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f185438:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f18543c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f185440:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f185444:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f185448:	8c426fdc */ 	lw	$v0,0x6fdc($v0)
-/*  f18544c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f185450:	00002825 */ 	or	$a1,$zero,$zero
-/*  f185454:	10400005 */ 	beqz	$v0,.L0f18546c
-/*  f185458:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18545c:	0040f809 */ 	jalr	$v0
-/*  f185460:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f185464:	10000004 */ 	beqz	$zero,.L0f185478
-/*  f185468:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f18546c:
-/*  f18546c:	0fc354be */ 	jal	func0f0d52f8
-/*  f185470:	24060008 */ 	addiu	$a2,$zero,0x8
-/*  f185474:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f185478:
-/*  f185478:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18547c:	03e00008 */ 	jr	$ra
-/*  f185480:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void scenarioCallback44(s32 *arg0)
+{
+	if (g_MpScenarios[g_MpSetup.scenario].unk44) {
+		g_MpScenarios[g_MpSetup.scenario].unk44(arg0);
+	} else {
+		scenarioDefaultCallback44(arg0, 0, 8);
+	}
+}
 
 void scenarioCallback04(void)
 {

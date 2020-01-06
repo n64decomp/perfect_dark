@@ -4118,7 +4118,7 @@ struct mpscenario {
 	void *unk38;
 	void *unk3c;
 	void *unk40;
-	void *unk44;
+	void (*unk44)(s32 *arg0);
 };
 
 // Throwaway struct for passing two values to menu handlers
