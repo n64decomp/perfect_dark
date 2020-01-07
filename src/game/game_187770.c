@@ -12370,7 +12370,7 @@ glabel func0f1918d0
 /*  f191f54:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*  f191f58:	51c00004 */ 	beqzl	$t6,.L0f191f6c
 /*  f191f5c:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f191f60:	0fc615c8 */ 	jal	func0f185720
+/*  f191f60:	0fc615c8 */ 	jal	scenarioCallback14
 /*  f191f64:	02202025 */ 	or	$a0,$s1,$zero
 /*  f191f68:	8faf0058 */ 	lw	$t7,0x58($sp)
 .L0f191f6c:

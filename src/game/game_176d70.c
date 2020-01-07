@@ -11200,7 +11200,7 @@ void scenarioCaptureCallback10(void)
 	// empty
 }
 
-void scenarioCaptureCallback14(void)
+void scenarioCaptureCallback14()
 {
 	// empty
 }
@@ -16355,32 +16355,12 @@ glabel func0f1856ac
 /*  f18571c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f185720
-/*  f185720:	3c0e800a */ 	lui	$t6,0x800a
-/*  f185724:	8dcea2d8 */ 	lw	$t6,-0x5d28($t6)
-/*  f185728:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18572c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f185730:	11c0000c */ 	beqz	$t6,.L0f185764
-/*  f185734:	3c0f800b */ 	lui	$t7,0x800b
-/*  f185738:	91efcb98 */ 	lbu	$t7,-0x3468($t7)
-/*  f18573c:	3c028008 */ 	lui	$v0,0x8008
-/*  f185740:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f185744:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f185748:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f18574c:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f185750:	8c426fac */ 	lw	$v0,0x6fac($v0)
-/*  f185754:	50400004 */ 	beqzl	$v0,.L0f185768
-/*  f185758:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18575c:	0040f809 */ 	jalr	$v0
-/*  f185760:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f185764:
-/*  f185764:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f185768:
-/*  f185768:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18576c:	03e00008 */ 	jr	$ra
-/*  f185770:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void scenarioCallback14(struct chrdata *chr)
+{
+	if (g_Vars.unk000318 && g_MpScenarios[g_MpSetup.scenario].unk14) {
+		g_MpScenarios[g_MpSetup.scenario].unk14(chr);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f185774
