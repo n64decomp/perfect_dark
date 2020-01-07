@@ -10119,7 +10119,7 @@ glabel menuhandlerMpSlowMotion
 /*  f17ff7c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void scenarioBriefcaseCallback04(void)
+void scenarioHtbInit(void)
 {
 	g_ScenarioData.briefcase.unk04 = 0;
 }
@@ -10149,7 +10149,7 @@ glabel func0f17ff8c
 /*  f17ffd8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s32 scenarioBriefcaseCallback08(void)
+s32 scenarioHtbCallback08(void)
 {
 	return 1;
 }
@@ -10364,7 +10364,7 @@ glabel func0f1800a8
 );
 
 GLOBAL_ASM(
-glabel scenarioBriefcaseCallback0c
+glabel scenarioHtbCallback0c
 /*  f1802bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1802c0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1802c4:	3c018008 */ 	lui	$at,0x8008
@@ -10377,7 +10377,7 @@ glabel scenarioBriefcaseCallback0c
 );
 
 GLOBAL_ASM(
-glabel scenarioBriefcaseCallback10
+glabel scenarioHtbCallback10
 /*  f1802e0:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f1802e4:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f1802e8:	3c048008 */ 	lui	$a0,%hi(var800869ec)
@@ -10609,7 +10609,7 @@ glabel scenarioBriefcaseCallback10
 );
 
 GLOBAL_ASM(
-glabel scenarioBriefcaseCallback14
+glabel scenarioHtbCallback14
 /*  f180600:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f180604:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f180608:	00808025 */ 	or	$s0,$a0,$zero
@@ -10720,7 +10720,7 @@ glabel scenarioBriefcaseCallback14
 );
 
 GLOBAL_ASM(
-glabel scenarioBriefcaseCallback18
+glabel scenarioHtbCallback18
 /*  f18079c:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f1807a0:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f1807a4:	afb00038 */ 	sw	$s0,0x38($sp)
@@ -10842,7 +10842,7 @@ glabel scenarioBriefcaseCallback18
 );
 
 GLOBAL_ASM(
-glabel scenarioBriefcaseCallback1c
+glabel scenarioHtbCallback1c
 /*  f180960:	afa7000c */ 	sw	$a3,0xc($sp)
 /*  f180964:	acc00000 */ 	sw	$zero,0x0($a2)
 /*  f180968:	848e003e */ 	lh	$t6,0x3e($a0)
@@ -10920,7 +10920,7 @@ glabel scenarioBriefcaseCallback1c
 );
 
 GLOBAL_ASM(
-glabel scenarioBriefcaseCallback20
+glabel scenarioHtbCallback20
 /*  f180a68:	3c0e800b */ 	lui	$t6,0x800b
 /*  f180a6c:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
 /*  f180a70:	27bdffc8 */ 	addiu	$sp,$sp,-56
@@ -10971,7 +10971,7 @@ glabel scenarioBriefcaseCallback20
 );
 
 GLOBAL_ASM(
-glabel scenarioBriefcaseCallback24
+glabel scenarioHtbCallback24
 /*  f180b1c:	3c03800b */ 	lui	$v1,0x800b
 /*  f180b20:	8c63cb94 */ 	lw	$v1,-0x346c($v1)
 /*  f180b24:	27bdffc0 */ 	addiu	$sp,$sp,-64
@@ -11054,7 +11054,7 @@ glabel scenarioBriefcaseCallback24
 );
 
 GLOBAL_ASM(
-glabel scenarioBriefcaseCallback28
+glabel scenarioHtbCallback28
 /*  f180c48:	3c0e800b */ 	lui	$t6,0x800b
 /*  f180c4c:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
 /*  f180c50:	3c18800b */ 	lui	$t8,0x800b
@@ -11079,7 +11079,7 @@ glabel scenarioBriefcaseCallback28
 );
 
 GLOBAL_ASM(
-glabel scenarioCaptureCallback04
+glabel scenarioCtcInit
 /*  f180c98:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f180c9c:	afb70030 */ 	sw	$s7,0x30($sp)
 /*  f180ca0:	3c17800b */ 	lui	$s7,%hi(g_MpSetup)
@@ -11188,23 +11188,23 @@ glabel scenarioCaptureCallback04
 /*  f180e18:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-s32 scenarioCaptureCallback08(void)
+s32 scenarioCtcCallback08(void)
 {
 	return 4;
 }
 
-void scenarioCaptureCallback10(void)
+void scenarioCtcCallback10(void)
 {
 	// empty
 }
 
-void scenarioCaptureCallback14()
+void scenarioCtcCallback14()
 {
 	// empty
 }
 
 GLOBAL_ASM(
-glabel scenarioCaptureCallback0c
+glabel scenarioCtcCallback0c
 /*  f180e34:	27bdff28 */ 	addiu	$sp,$sp,-216
 /*  f180e38:	3c0f8008 */ 	lui	$t7,%hi(var80086b60)
 /*  f180e3c:	25ef6b60 */ 	addiu	$t7,$t7,%lo(var80086b60)
@@ -11598,7 +11598,7 @@ glabel scenarioCaptureCallback0c
 );
 
 GLOBAL_ASM(
-glabel scenarioCaptureCallback1c
+glabel scenarioCtcCallback1c
 /*  f1813d8:	afa7000c */ 	sw	$a3,0xc($sp)
 /*  f1813dc:	acc00000 */ 	sw	$zero,0x0($a2)
 /*  f1813e0:	848e003e */ 	lh	$t6,0x3e($a0)
@@ -11666,7 +11666,7 @@ glabel scenarioCaptureCallback1c
 );
 
 GLOBAL_ASM(
-glabel scenarioCaptureCallback20
+glabel scenarioCtcCallback20
 /*  f1814bc:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f1814c0:	3c0e800b */ 	lui	$t6,0x800b
 /*  f1814c4:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
@@ -11756,7 +11756,7 @@ glabel scenarioCaptureCallback20
 );
 
 GLOBAL_ASM(
-glabel scenarioCaptureCallback24
+glabel scenarioCtcCallback24
 /*  f181608:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f18160c:	3c0e800b */ 	lui	$t6,0x800b
 /*  f181610:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
@@ -11852,7 +11852,7 @@ glabel scenarioCaptureCallback24
 );
 
 GLOBAL_ASM(
-glabel scenarioCaptureCallback28
+glabel scenarioCtcCallback28
 /*  f181764:	90860000 */ 	lbu	$a2,0x0($a0)
 /*  f181768:	8c830004 */ 	lw	$v1,0x4($a0)
 /*  f18176c:	24010001 */ 	addiu	$at,$zero,0x1
@@ -11944,7 +11944,7 @@ glabel func0f181800
 );
 
 GLOBAL_ASM(
-glabel scenarioCaptureCallback2c
+glabel scenarioCtcCallback2c
 /*  f18189c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f1818a0:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f1818a4:	e7ac0020 */ 	swc1	$f12,0x20($sp)
@@ -11990,13 +11990,13 @@ glabel scenarioCaptureCallback2c
 /*  f181940:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s32 scenarioCaptureCallback30(void)
+s32 scenarioCtcCallback30(void)
 {
 	return 4;
 }
 
 GLOBAL_ASM(
-glabel scenarioCaptureCallback34
+glabel scenarioCtcCallback34
 /*  f18194c:	afa40000 */ 	sw	$a0,0x0($sp)
 /*  f181950:	00047400 */ 	sll	$t6,$a0,0x10
 /*  f181954:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
@@ -12024,7 +12024,7 @@ glabel scenarioCaptureCallback34
 );
 
 GLOBAL_ASM(
-glabel scenarioCaptureCallback38
+glabel scenarioCtcCallback38
 /*  f1819a4:	afa40000 */ 	sw	$a0,0x0($sp)
 /*  f1819a8:	00047400 */ 	sll	$t6,$a0,0x10
 /*  f1819ac:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
@@ -12108,7 +12108,7 @@ s32 menuhandlerMpHillTime(u32 operation, struct menu_item *item, struct numandte
 }
 
 GLOBAL_ASM(
-glabel scenarioHillCallback40
+glabel scenarioKohCallback40
 /*  f181b24:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f181b28:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f181b2c:	0fc354fe */ 	jal	scenarioDefaultCallback40
@@ -12121,7 +12121,7 @@ glabel scenarioHillCallback40
 );
 
 GLOBAL_ASM(
-glabel scenarioHillCallback44
+glabel scenarioKohCallback44
 /*  f181b48:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f181b4c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f181b50:	3c05800a */ 	lui	$a1,0x800a
@@ -12134,7 +12134,7 @@ glabel scenarioHillCallback44
 /*  f181b6c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void scenarioHillCallback04(void)
+void scenarioKohInit(void)
 {
 	s32 i;
 
@@ -12159,7 +12159,7 @@ void scenarioHillCallback04(void)
 }
 
 GLOBAL_ASM(
-glabel scenarioHillCallback0c
+glabel scenarioKohCallback0c
 /*  f181bfc:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
 /*  f181c00:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
 /*  f181c04:	846e000c */ 	lh	$t6,0xc($v1)
@@ -12227,7 +12227,7 @@ glabel scenarioHillCallback0c
 );
 
 GLOBAL_ASM(
-glabel scenarioHillCallback10
+glabel scenarioKohCallback10
 /*  f181cf0:	27bdfe78 */ 	addiu	$sp,$sp,-392
 /*  f181cf4:	afb30034 */ 	sw	$s3,0x34($sp)
 /*  f181cf8:	3c13800b */ 	lui	$s3,%hi(g_ScenarioData)
@@ -12903,7 +12903,7 @@ glabel scenarioHillCallback10
 );
 
 GLOBAL_ASM(
-glabel scenarioHillCallback18
+glabel scenarioKohCallback18
 /*  f182670:	3c0e800a */ 	lui	$t6,0x800a
 /*  f182674:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
 /*  f182678:	27bdff50 */ 	addiu	$sp,$sp,-176
@@ -13084,7 +13084,7 @@ glabel scenarioHillCallback18
 );
 
 GLOBAL_ASM(
-glabel scenarioHillCallback1c
+glabel scenarioKohCallback1c
 /*  f182908:	afa7000c */ 	sw	$a3,0xc($sp)
 /*  f18290c:	acc00000 */ 	sw	$zero,0x0($a2)
 /*  f182910:	848e003e */ 	lh	$t6,0x3e($a0)
@@ -13150,7 +13150,7 @@ glabel scenarioHillCallback1c
 );
 
 GLOBAL_ASM(
-glabel scenarioHillCallback20
+glabel scenarioKohCallback20
 /*  f1829e4:	3c0e800b */ 	lui	$t6,0x800b
 /*  f1829e8:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
 /*  f1829ec:	27bdffc8 */ 	addiu	$sp,$sp,-56
@@ -13227,7 +13227,7 @@ glabel func0f182aac
 );
 
 GLOBAL_ASM(
-glabel scenarioHillCallback34
+glabel scenarioKohCallback34
 /*  f182ae8:	3c18800b */ 	lui	$t8,0x800b
 /*  f182aec:	8718c11e */ 	lh	$t8,-0x3ee2($t8)
 /*  f182af0:	00047400 */ 	sll	$t6,$a0,0x10
@@ -13239,7 +13239,7 @@ glabel scenarioHillCallback34
 );
 
 GLOBAL_ASM(
-glabel scenarioHillCallback38
+glabel scenarioKohCallback38
 /*  f182b08:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
 /*  f182b0c:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
 /*  f182b10:	8458000e */ 	lh	$t8,0xe($v0)
@@ -13277,12 +13277,12 @@ glabel scenarioHillCallback38
 /*  f182b8c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void scenarioHackerCallback04(void)
+void scenarioHtmInit(void)
 {
 	var800ac24c = 0;
 }
 
-s32 scenarioHackerCallback08(void)
+s32 scenarioHtmCallback08(void)
 {
 	return 2;
 }
@@ -13503,7 +13503,7 @@ glabel func0f182c98
 );
 
 GLOBAL_ASM(
-glabel scenarioHackerCallback0c
+glabel scenarioHtmCallback0c
 /*  f182e98:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f182e9c:	afb1002c */ 	sw	$s1,0x2c($sp)
 /*  f182ea0:	3c11800a */ 	lui	$s1,0x800a
@@ -13547,10 +13547,10 @@ glabel scenarioHackerCallback0c
 /*  f182f2c:	922e0000 */ 	lbu	$t6,0x0($s1)
 /*  f182f30:	00009025 */ 	or	$s2,$zero,$zero
 .L0f182f34:
-/*  f182f34:	0fc60ae7 */ 	jal	scenarioHackerCallback08
+/*  f182f34:	0fc60ae7 */ 	jal	scenarioHtmCallback08
 /*  f182f38:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f182f3c:	3c01800b */ 	lui	$at,0x800b
-/*  f182f40:	0fc60ae7 */ 	jal	scenarioHackerCallback08
+/*  f182f40:	0fc60ae7 */ 	jal	scenarioHtmCallback08
 /*  f182f44:	a420c112 */ 	sh	$zero,-0x3eee($at)
 /*  f182f48:	3c18800b */ 	lui	$t8,0x800b
 /*  f182f4c:	8718c112 */ 	lh	$t8,-0x3eee($t8)
@@ -13586,14 +13586,14 @@ glabel scenarioHackerCallback0c
 /*  f182fbc:	858cc112 */ 	lh	$t4,-0x3eee($t4)
 /*  f182fc0:	258d0001 */ 	addiu	$t5,$t4,0x1
 /*  f182fc4:	a42dc112 */ 	sh	$t5,-0x3eee($at)
-/*  f182fc8:	0fc60ae7 */ 	jal	scenarioHackerCallback08
+/*  f182fc8:	0fc60ae7 */ 	jal	scenarioHtmCallback08
 /*  f182fcc:	a4b30004 */ 	sh	$s3,0x4($a1)
 /*  f182fd0:	86ce0002 */ 	lh	$t6,0x2($s6)
 /*  f182fd4:	01c2082a */ 	slt	$at,$t6,$v0
 /*  f182fd8:	1420ffe2 */ 	bnez	$at,.L0f182f64
 /*  f182fdc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f182fe0:
-/*  f182fe0:	0fc60ae7 */ 	jal	scenarioHackerCallback08
+/*  f182fe0:	0fc60ae7 */ 	jal	scenarioHtmCallback08
 /*  f182fe4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f182fe8:	3c0f800b */ 	lui	$t7,0x800b
 /*  f182fec:	85efc112 */ 	lh	$t7,-0x3eee($t7)
@@ -13648,7 +13648,7 @@ glabel scenarioHackerCallback0c
 );
 
 GLOBAL_ASM(
-glabel scenarioHackerCallback10
+glabel scenarioHtmCallback10
 /*  f1830a4:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f1830a8:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f1830ac:	3c048008 */ 	lui	$a0,%hi(var800869ec)
@@ -13861,7 +13861,7 @@ glabel scenarioHackerCallback10
 );
 
 GLOBAL_ASM(
-glabel scenarioHackerCallback14
+glabel scenarioHtmCallback14
 /*  f183380:	27bdff40 */ 	addiu	$sp,$sp,-192
 /*  f183384:	afb4005c */ 	sw	$s4,0x5c($sp)
 /*  f183388:	0080a025 */ 	or	$s4,$a0,$zero
@@ -14284,7 +14284,7 @@ glabel scenarioHackerCallback14
 );
 
 GLOBAL_ASM(
-glabel scenarioHackerCallback18
+glabel scenarioHtmCallback18
 /*  f1839a8:	3c02800a */ 	lui	$v0,0x800a
 /*  f1839ac:	8c42a24c */ 	lw	$v0,-0x5db4($v0)
 /*  f1839b0:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
@@ -14425,7 +14425,7 @@ glabel scenarioHackerCallback18
 );
 
 GLOBAL_ASM(
-glabel scenarioHackerCallback1c
+glabel scenarioHtmCallback1c
 /*  f183bb4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f183bb8:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f183bbc:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -14525,7 +14525,7 @@ glabel scenarioHackerCallback1c
 );
 
 GLOBAL_ASM(
-glabel scenarioHackerCallback20
+glabel scenarioHtmCallback20
 /*  f183d10:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f183d14:	afb70048 */ 	sw	$s7,0x48($sp)
 /*  f183d18:	3c17800b */ 	lui	$s7,%hi(g_MpSetup)
@@ -14879,7 +14879,7 @@ glabel scenarioHackerCallback20
 );
 
 GLOBAL_ASM(
-glabel scenarioHackerCallback24
+glabel scenarioHtmCallback24
 /*  f184218:	3c03800b */ 	lui	$v1,0x800b
 /*  f18421c:	8c63cb94 */ 	lw	$v1,-0x346c($v1)
 /*  f184220:	27bdffc0 */ 	addiu	$sp,$sp,-64
@@ -14962,7 +14962,7 @@ glabel scenarioHackerCallback24
 );
 
 GLOBAL_ASM(
-glabel scenarioHackerCallback28
+glabel scenarioHtmCallback28
 /*  f184344:	3c0e800b */ 	lui	$t6,0x800b
 /*  f184348:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
 /*  f18434c:	00a03025 */ 	or	$a2,$a1,$zero
@@ -15091,13 +15091,13 @@ glabel func0f1843d4
 /*  f1844e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-void scenarioPopacapCallback04(void)
+void scenarioPacInit(void)
 {
 	func0f1843d4();
 }
 
 GLOBAL_ASM(
-glabel scenarioPopacapCallback0c
+glabel scenarioPacCallback0c
 /*  f18450c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f184510:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f184514:	0fc610f5 */ 	jal	func0f1843d4
@@ -15109,7 +15109,7 @@ glabel scenarioPopacapCallback0c
 );
 
 GLOBAL_ASM(
-glabel scenarioPopacapCallback28
+glabel scenarioPacCallback28
 /*  f18452c:	3c0e800b */ 	lui	$t6,0x800b
 /*  f184530:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
 /*  f184534:	000e7b00 */ 	sll	$t7,$t6,0xc
@@ -15373,7 +15373,7 @@ glabel func0f1847b8
 );
 
 GLOBAL_ASM(
-glabel scenarioPopacapCallback10
+glabel scenarioPacCallback10
 /*  f1848c0:	3c09800b */ 	lui	$t1,%hi(g_ScenarioData)
 /*  f1848c4:	2529c110 */ 	addiu	$t1,$t1,%lo(g_ScenarioData)
 /*  f1848c8:	8d2e0004 */ 	lw	$t6,0x4($t1)
@@ -15471,7 +15471,7 @@ glabel scenarioPopacapCallback10
 );
 
 GLOBAL_ASM(
-glabel scenarioPopacapCallback18
+glabel scenarioPacCallback18
 /*  f184a18:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
 /*  f184a1c:	2442c110 */ 	addiu	$v0,$v0,%lo(g_ScenarioData)
 /*  f184a20:	8c4f0004 */ 	lw	$t7,0x4($v0)
@@ -15610,7 +15610,7 @@ glabel scenarioPopacapCallback18
 );
 
 GLOBAL_ASM(
-glabel scenarioPopacapCallback1c
+glabel scenarioPacCallback1c
 /*  f184c18:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f184c1c:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f184c20:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -15713,13 +15713,13 @@ glabel scenarioPopacapCallback1c
 /*  f184d80:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-s32 scenarioPopacapCallback20(s32 value)
+s32 scenarioPacCallback20(s32 value)
 {
 	return value;
 }
 
 GLOBAL_ASM(
-glabel scenarioPopacapCallback24
+glabel scenarioPacCallback24
 /*  f184d8c:	3c03800b */ 	lui	$v1,0x800b
 /*  f184d90:	8c63cb94 */ 	lw	$v1,-0x346c($v1)
 /*  f184d94:	27bdffb8 */ 	addiu	$sp,$sp,-72
@@ -16049,7 +16049,7 @@ glabel menuhandler00185068
 /*  f185214:	1633ffef */ 	bne	$s1,$s3,.L0f1851d4
 /*  f185218:	26100006 */ 	addiu	$s0,$s0,0x6
 .L0f18521c:
-/*  f18521c:	0fc61521 */ 	jal	scenarioCallback04
+/*  f18521c:	0fc61521 */ 	jal	scenarioInit
 /*  f185220:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f185224:	1000004d */ 	beqz	$zero,.L0f18535c
 /*  f185228:	00001025 */ 	or	$v0,$zero,$zero
@@ -16178,10 +16178,10 @@ void scenarioCallback44(s32 *arg0)
 	}
 }
 
-void scenarioCallback04(void)
+void scenarioInit(void)
 {
-	if (g_MpScenarios[g_MpSetup.scenario].unk04) {
-		g_MpScenarios[g_MpSetup.scenario].unk04();
+	if (g_MpScenarios[g_MpSetup.scenario].initfunc) {
+		g_MpScenarios[g_MpSetup.scenario].initfunc();
 	}
 }
 
