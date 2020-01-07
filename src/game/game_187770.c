@@ -10093,7 +10093,7 @@ glabel func0f18f874
 /*  f18ff58:	1420ffc1 */ 	bnez	$at,.L0f18fe60
 /*  f18ff5c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f18ff60:
-/*  f18ff60:	0fc61758 */ 	jal	func0f185d60
+/*  f18ff60:	0fc61758 */ 	jal	scenarioCallback20
 /*  f18ff64:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f18ff68:	8e480284 */ 	lw	$t0,0x284($s2)
 /*  f18ff6c:	afa20088 */ 	sw	$v0,0x88($sp)
