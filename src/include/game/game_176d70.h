@@ -131,7 +131,7 @@ u32 scenarioHackerCallback1c(void);
 s32 scenarioHackerCallback20(s32 value);
 bool scenarioHackerCallback24(void *arg0, struct prop *prop);
 u32 scenarioHackerCallback28(void);
-u32 func0f1843d4(void);
+void func0f1843d4(void);
 void scenarioPopacapCallback04(void);
 void scenarioPopacapCallback0c(void);
 u32 scenarioPopacapCallback28(void);

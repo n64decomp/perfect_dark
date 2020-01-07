@@ -4365,4 +4365,58 @@ struct var800ac500 {
 	u8 propindex;
 };
 
+struct scenariodata_combat {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u16 unk0c;
+	s16 unk0e[1]; // possibly for a different scenario - see mpGetNumTeammatesInRoomDoingSomething
+};
+
+struct scenariodata_briefcase {
+	u32 unk00;
+	u32 unk04;
+};
+
+struct scenariodata_hacker {
+	u32 unk00;
+};
+
+struct scenariodata_popacap {
+	u32 unk00;
+};
+
+struct scenariodata_hill {
+	/*0x800ac110*/ u32 unk00;
+	/*0x800ac114*/ s16 unk04;
+	/*0x800ac116*/ s16 unk06;
+	/*0x800ac118*/ s16 unk08;
+	/*0x800ac11a*/ s16 unk0a;
+	/*0x800ac11c*/ s16 unk0c;
+	/*0x800ac11e*/ s16 unk0e;
+	/*0x800ac120*/ s16 unk10;
+	/*0x800ac122*/ s16 unk12[9];
+	/*0x800ac134*/ f32 unk24;
+	/*0x800ac138*/ f32 unk28;
+	/*0x800ac13c*/ f32 unk2c;
+	/*0x800ac140*/ f32 unk30;
+	/*0x800ac144*/ f32 unk34;
+	/*0x800ac148*/ f32 unk38;
+};
+
+struct scenariodata_capture {
+	u32 unk00;
+};
+
+struct scenariodata {
+	union {
+		struct scenariodata_combat combat;
+		struct scenariodata_briefcase briefcase;
+		struct scenariodata_hacker hacker;
+		struct scenariodata_popacap popacap;
+		struct scenariodata_hill hill;
+		struct scenariodata_capture capture;
+	};
+};
+
 #endif

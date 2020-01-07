@@ -12023,9 +12023,9 @@ glabel func0f1918d0
 /*  f191a7c:	922402a0 */ 	lbu	$a0,0x2a0($s1)
 .L0f191a80:
 /*  f191a80:	2401002e */ 	addiu	$at,$zero,0x2e
-/*  f191a84:	3c03800b */ 	lui	$v1,%hi(var800ac110)
+/*  f191a84:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
 /*  f191a88:	1481000f */ 	bne	$a0,$at,.L0f191ac8
-/*  f191a8c:	2463c110 */ 	addiu	$v1,$v1,%lo(var800ac110)
+/*  f191a8c:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
 /*  f191a90:	8c6200d4 */ 	lw	$v0,0xd4($v1)
 /*  f191a94:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f191a98:	1041000b */ 	beq	$v0,$at,.L0f191ac8
@@ -15168,7 +15168,7 @@ s32 mpGetNumTeammatesInRoomDoingSomething(struct chrdata *bot)
 	s32 i;
 
 	for (i = 0; i < g_MpNumPlayers; i++) {
-		if (bot->team == g_MpPlayerChrs[i]->team && g_MpPlayerChrs[i]->prop->rooms[0] == var800ac110[7]) {
+		if (bot->team == g_MpPlayerChrs[i]->team && g_MpPlayerChrs[i]->prop->rooms[0] == g_ScenarioData.combat.unk0e[0]) {
 			if (g_MpPlayerChrs[i]->unk2d4->unk79 == 9 || g_MpPlayerChrs[i]->unk2d4->unk79 == 10) {
 				count++;
 			}
@@ -15225,8 +15225,8 @@ glabel func0f194990
 /*  f194a38:	2417004c */ 	addiu	$s7,$zero,0x4c
 /*  f194a3c:	3c16800b */ 	lui	$s6,%hi(g_MpSimulants)
 /*  f194a40:	3c14800b */ 	lui	$s4,%hi(g_MpChrs)
-/*  f194a44:	3c13800b */ 	lui	$s3,%hi(var800ac110)
-/*  f194a48:	2673c110 */ 	addiu	$s3,$s3,%lo(var800ac110)
+/*  f194a44:	3c13800b */ 	lui	$s3,%hi(g_ScenarioData)
+/*  f194a48:	2673c110 */ 	addiu	$s3,$s3,%lo(g_ScenarioData)
 /*  f194a4c:	2694c7b8 */ 	addiu	$s4,$s4,%lo(g_MpChrs)
 /*  f194a50:	26d6c538 */ 	addiu	$s6,$s6,%lo(g_MpSimulants)
 /*  f194a54:	241500a0 */ 	addiu	$s5,$zero,0xa0
@@ -16138,9 +16138,9 @@ glabel func0f194b40
 /*  f195708:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19570c:	0fc63a5a */ 	jal	func0f18e968
 /*  f195710:	92840125 */ 	lbu	$a0,0x125($s4)
-/*  f195714:	3c07800b */ 	lui	$a3,%hi(var800ac110)
+/*  f195714:	3c07800b */ 	lui	$a3,%hi(g_ScenarioData)
 /*  f195718:	00003025 */ 	or	$a2,$zero,$zero
-/*  f19571c:	24e7c110 */ 	addiu	$a3,$a3,%lo(var800ac110)
+/*  f19571c:	24e7c110 */ 	addiu	$a3,$a3,%lo(g_ScenarioData)
 /*  f195720:	00002825 */ 	or	$a1,$zero,$zero
 /*  f195724:	27b00298 */ 	addiu	$s0,$sp,0x298
 /*  f195728:	24080003 */ 	addiu	$t0,$zero,0x3
@@ -16751,8 +16751,8 @@ glabel func0f194b40
 /*  f195ffc:	92840125 */ 	lbu	$a0,0x125($s4)
 /*  f196000:	0fc63a5a */ 	jal	func0f18e968
 /*  f196004:	2415002b */ 	addiu	$s5,$zero,0x2b
-/*  f196008:	3c07800b */ 	lui	$a3,%hi(var800ac110)
-/*  f19600c:	24e7c110 */ 	addiu	$a3,$a3,%lo(var800ac110)
+/*  f196008:	3c07800b */ 	lui	$a3,%hi(g_ScenarioData)
+/*  f19600c:	24e7c110 */ 	addiu	$a3,$a3,%lo(g_ScenarioData)
 /*  f196010:	00026040 */ 	sll	$t4,$v0,0x1
 /*  f196014:	00ec7821 */ 	addu	$t7,$a3,$t4
 /*  f196018:	85e30008 */ 	lh	$v1,0x8($t7)
@@ -16785,8 +16785,8 @@ glabel func0f194b40
 /*  f196080:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f196084:	0fc633fe */ 	jal	mpPlayerGetIndex
 /*  f196088:	02802025 */ 	or	$a0,$s4,$zero
-/*  f19608c:	3c03800b */ 	lui	$v1,%hi(var800ac110)
-/*  f196090:	2463c110 */ 	addiu	$v1,$v1,%lo(var800ac110)
+/*  f19608c:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
+/*  f196090:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
 /*  f196094:	846c00d2 */ 	lh	$t4,0xd2($v1)
 /*  f196098:	2415002e */ 	addiu	$s5,$zero,0x2e
 /*  f19609c:	104c0005 */ 	beq	$v0,$t4,.L0f1960b4
