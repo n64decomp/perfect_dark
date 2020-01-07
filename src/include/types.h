@@ -4112,7 +4112,7 @@ struct mpscenario {
 	void *unk20;
 	void *unk24;
 	void *unk28;
-	void *unk2c;
+	bool (*unk2c)(f32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 *arg4);
 	s32 (*unk30)(void);
 	bool (*unk34)(s16 arg0);
 	void (*unk38)(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);

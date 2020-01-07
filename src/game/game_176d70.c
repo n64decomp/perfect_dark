@@ -17084,48 +17084,17 @@ glabel func0f185e20
 /*  f186178:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18617c
-/*  f18617c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f186180:	3c0e800a */ 	lui	$t6,0x800a
-/*  f186184:	8dcea2d8 */ 	lw	$t6,-0x5d28($t6)
-/*  f186188:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f18618c:	e7ac0028 */ 	swc1	$f12,0x28($sp)
-/*  f186190:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f186194:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f186198:	11c00013 */ 	beqz	$t6,.L0f1861e8
-/*  f18619c:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f1861a0:	3c0f800b */ 	lui	$t7,0x800b
-/*  f1861a4:	91efcb98 */ 	lbu	$t7,-0x3468($t7)
-/*  f1861a8:	3c028008 */ 	lui	$v0,0x8008
-/*  f1861ac:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
-/*  f1861b0:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f1861b4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1861b8:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f1861bc:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f1861c0:	8c426fc4 */ 	lw	$v0,0x6fc4($v0)
-/*  f1861c4:	27b90024 */ 	addiu	$t9,$sp,0x24
-/*  f1861c8:	50400008 */ 	beqzl	$v0,.L0f1861ec
-/*  f1861cc:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
-/*  f1861d0:	0040f809 */ 	jalr	$v0
-/*  f1861d4:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f1861d8:	50400004 */ 	beqzl	$v0,.L0f1861ec
-/*  f1861dc:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
-/*  f1861e0:	10000006 */ 	beqz	$zero,.L0f1861fc
-/*  f1861e4:	c7a00024 */ 	lwc1	$f0,0x24($sp)
-.L0f1861e8:
-/*  f1861e8:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
-.L0f1861ec:
-/*  f1861ec:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f1861f0:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f1861f4:	0fc2dcaa */ 	jal	func0f0b72a8
-/*  f1861f8:	8fa70034 */ 	lw	$a3,0x34($sp)
-.L0f1861fc:
-/*  f1861fc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f186200:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f186204:	03e00008 */ 	jr	$ra
-/*  f186208:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 scenarioCallback2c(f32 arg0, s32 arg1, s32 arg2, s32 arg3)
+{
+	f32 result;
+
+	if (g_Vars.unk000318 && g_MpScenarios[g_MpSetup.scenario].unk2c &&
+			g_MpScenarios[g_MpSetup.scenario].unk2c(arg0, arg1, arg2, arg3, &result)) {
+		return result;
+	}
+
+	return func0f0b72a8(arg0, arg1, arg2, arg3);
+}
 
 GLOBAL_ASM(
 glabel func0f18620c
