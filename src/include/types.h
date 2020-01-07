@@ -4105,7 +4105,7 @@ struct mpscenario {
 	void (*unk04)(void);
 	s32 (*unk08)(void);
 	void (*unk0c)(void);
-	void *unk10;
+	void (*unk10)(void);
 	void (*unk14)(struct chrdata *chr);
 	void *unk18;
 	void *unk1c;

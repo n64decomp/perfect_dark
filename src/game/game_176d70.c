@@ -16320,40 +16320,18 @@ glabel func0f185568
 /*  f1856a8:	27bd00c0 */ 	addiu	$sp,$sp,0xc0
 );
 
-GLOBAL_ASM(
-glabel func0f1856ac
-/*  f1856ac:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1856b0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f1856b4:	8c4e0318 */ 	lw	$t6,0x318($v0)
-/*  f1856b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1856bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1856c0:	51c00014 */ 	beqzl	$t6,.L0f185714
-/*  f1856c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1856c8:	8c4f000c */ 	lw	$t7,0xc($v0)
-/*  f1856cc:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f1856d0:	15e10003 */ 	bne	$t7,$at,.L0f1856e0
-/*  f1856d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1856d8:	0fc6155a */ 	jal	func0f185568
-/*  f1856dc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1856e0:
-/*  f1856e0:	3c18800b */ 	lui	$t8,0x800b
-/*  f1856e4:	9318cb98 */ 	lbu	$t8,-0x3468($t8)
-/*  f1856e8:	3c028008 */ 	lui	$v0,0x8008
-/*  f1856ec:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f1856f0:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f1856f4:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f1856f8:	00591021 */ 	addu	$v0,$v0,$t9
-/*  f1856fc:	8c426fa8 */ 	lw	$v0,0x6fa8($v0)
-/*  f185700:	50400004 */ 	beqzl	$v0,.L0f185714
-/*  f185704:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f185708:	0040f809 */ 	jalr	$v0
-/*  f18570c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f185710:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f185714:
-/*  f185714:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f185718:	03e00008 */ 	jr	$ra
-/*  f18571c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void scenarioCallback10(void)
+{
+	if (g_Vars.unk000318 != 0) {
+		if (g_Vars.lvframenum == 5) {
+			func0f185568();
+		}
+
+		if (g_MpScenarios[g_MpSetup.scenario].unk10) {
+			g_MpScenarios[g_MpSetup.scenario].unk10();
+		}
+	}
+}
 
 void scenarioCallback14(struct chrdata *chr)
 {
