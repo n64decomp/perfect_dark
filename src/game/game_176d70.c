@@ -10363,18 +10363,11 @@ glabel func0f1800a8
 /*  f1802b8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel scenarioHtbCallback0c
-/*  f1802bc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1802c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1802c4:	3c018008 */ 	lui	$at,0x8008
-/*  f1802c8:	0fc6002a */ 	jal	func0f1800a8
-/*  f1802cc:	ac2069ec */ 	sw	$zero,0x69ec($at)
-/*  f1802d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1802d4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1802d8:	03e00008 */ 	jr	$ra
-/*  f1802dc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void scenarioHtbCallback0c(void)
+{
+	var800869ec = 0;
+	func0f1800a8();
+}
 
 GLOBAL_ASM(
 glabel scenarioHtbCallback10

@@ -84,7 +84,7 @@ u32 func0f17ff8c(void);
 s32 scenarioHtbCallback08(void);
 u32 func0f17ffe4(void);
 u32 func0f180078(void);
-u32 func0f1800a8(void);
+void func0f1800a8(void);
 void scenarioHtbCallback0c(void);
 void scenarioHtbCallback10(void);
 void scenarioHtbCallback14(struct chrdata *chr);
