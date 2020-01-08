@@ -4127,7 +4127,7 @@ struct mpscenario {
 	struct menu_dialog *optionsdialog;
 	void (*initfunc)(void);
 	s32 (*unk08)(void);
-	void (*unk0c)(void);
+	void (*resetfunc)(void);
 	void (*unk10)(void);
 	void (*unk14)(struct chrdata *chr);
 	void *unk18;

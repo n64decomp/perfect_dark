@@ -10364,7 +10364,7 @@ glabel func0f1800a8
 /*  f1802b8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void scenarioHtbCallback0c(void)
+void scenarioHtbReset(void)
 {
 	var800869ec = 0;
 	func0f1800a8();
@@ -11125,7 +11125,7 @@ void scenarioCtcCallback14()
 }
 
 GLOBAL_ASM(
-glabel scenarioCtcCallback0c
+glabel scenarioCtcReset
 /*  f180e34:	27bdff28 */ 	addiu	$sp,$sp,-216
 /*  f180e38:	3c0f8008 */ 	lui	$t7,%hi(var80086b60)
 /*  f180e3c:	25ef6b60 */ 	addiu	$t7,$t7,%lo(var80086b60)
@@ -12079,7 +12079,7 @@ void scenarioKohInit(void)
 	}
 }
 
-void scenarioKohCallback0c(void)
+void scenarioKohReset(void)
 {
 	s16 pad_id = 0;
 	struct pad pad;
@@ -13381,7 +13381,7 @@ glabel func0f182c98
 );
 
 GLOBAL_ASM(
-glabel scenarioHtmCallback0c
+glabel scenarioHtmReset
 /*  f182e98:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f182e9c:	afb1002c */ 	sw	$s1,0x2c($sp)
 /*  f182ea0:	3c11800a */ 	lui	$s1,0x800a
@@ -14974,17 +14974,10 @@ void scenarioPacInit(void)
 	func0f1843d4();
 }
 
-GLOBAL_ASM(
-glabel scenarioPacCallback0c
-/*  f18450c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f184510:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f184514:	0fc610f5 */ 	jal	func0f1843d4
-/*  f184518:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18451c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f184520:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f184524:	03e00008 */ 	jr	$ra
-/*  f184528:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void scenarioPacReset(void)
+{
+	func0f1843d4();
+}
 
 GLOBAL_ASM(
 glabel scenarioPacCallback28
@@ -16074,10 +16067,10 @@ s32 scenarioCallback08(void)
 	return result;
 }
 
-void scenarioCallback0c(void)
+void scenarioReset(void)
 {
-	if (g_MpScenarios[g_MpSetup.scenario].unk0c) {
-		g_MpScenarios[g_MpSetup.scenario].unk0c();
+	if (g_MpScenarios[g_MpSetup.scenario].resetfunc) {
+		g_MpScenarios[g_MpSetup.scenario].resetfunc();
 	}
 }
 

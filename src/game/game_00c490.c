@@ -4623,7 +4623,7 @@ glabel func0f00f174
 /*  f010404:	8defa2d8 */ 	lw	$t7,-0x5d28($t7)
 /*  f010408:	11e00003 */ 	beqz	$t7,.L0f010418
 /*  f01040c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f010410:	0fc61548 */ 	jal	scenarioCallback0c
+/*  f010410:	0fc61548 */ 	jal	scenarioReset
 /*  f010414:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f010418:
 /*  f010418:	3c12800a */ 	lui	$s2,0x800a
