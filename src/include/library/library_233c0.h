@@ -79,7 +79,7 @@ u32 func00029ffc(void);
 u32 func0002a13c(void);
 u32 func0002a1b0(void);
 u32 func0002a330(void);
-u32 func0002a36c(void);
+f32 func0002a36c(struct coord *coord, s16 *arg1, s32 arg2, s32 arg3);
 u32 func0002a400(void);
 u32 func0002a440(void);
 u32 func0002a4d0(void);

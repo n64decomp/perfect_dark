@@ -33,6 +33,7 @@
 #include "game/game_197600.h"
 #include "game/game_1999b0.h"
 #include "library/library_12dc0.h"
+#include "library/library_233c0.h"
 
 const char var7f1b7cb0[] = "UM_Make : In\n";
 const char var7f1b7cc0[] = "UM_Make : Out\n";
@@ -12059,92 +12060,49 @@ void scenarioKohInit(void)
 	s32 i;
 
 	g_MpSetup.options |= MPOPTION_TEAMSENABLED;
-	g_ScenarioData.koh.unk0a = -1;
-	g_ScenarioData.koh.unk0c = 0;
+	g_ScenarioData.koh.hillindex = -1;
+	g_ScenarioData.koh.hillcount = 0;
 	g_ScenarioData.koh.unk00 = 0;
 	g_ScenarioData.koh.unk04 = -1;
 	g_ScenarioData.koh.unk06 = 0;
-	g_ScenarioData.koh.unk0e = -1;
+	g_ScenarioData.koh.hillroom = -1;
 	g_ScenarioData.koh.unk10 = -1;
-	g_ScenarioData.koh.unk24 = 0;
-	g_ScenarioData.koh.unk28 = 0;
-	g_ScenarioData.koh.unk2c = 0;
+	g_ScenarioData.koh.hillpos.x = 0;
+	g_ScenarioData.koh.hillpos.y = 0;
+	g_ScenarioData.koh.hillpos.z = 0;
 	g_ScenarioData.koh.unk30 = 0.25;
 	g_ScenarioData.koh.unk34 = 1;
 	g_ScenarioData.koh.unk38 = 0.25;
 
 	for (i = 0; i < 9; i++) {
-		g_ScenarioData.koh.unk12[i] = -1;
+		g_ScenarioData.koh.hillpads[i] = -1;
 	}
 }
 
-GLOBAL_ASM(
-glabel scenarioKohCallback0c
-/*  f181bfc:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f181c00:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f181c04:	846e000c */ 	lh	$t6,0xc($v1)
-/*  f181c08:	27bdff88 */ 	addiu	$sp,$sp,-120
-/*  f181c0c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f181c10:	29c10002 */ 	slti	$at,$t6,0x2
-/*  f181c14:	14200011 */ 	bnez	$at,.L0f181c5c
-/*  f181c18:	00002025 */ 	or	$a0,$zero,$zero
-/*  f181c1c:	0c004b70 */ 	jal	random
-/*  f181c20:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f181c24:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f181c28:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f181c2c:	846f000c */ 	lh	$t7,0xc($v1)
-/*  f181c30:	004f001b */ 	divu	$zero,$v0,$t7
-/*  f181c34:	0000c010 */ 	mfhi	$t8
-/*  f181c38:	a478000a */ 	sh	$t8,0xa($v1)
-/*  f181c3c:	8479000a */ 	lh	$t9,0xa($v1)
-/*  f181c40:	15e00002 */ 	bnez	$t7,.L0f181c4c
-/*  f181c44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f181c48:	0007000d */ 	break	0x7
-.L0f181c4c:
-/*  f181c4c:	00194040 */ 	sll	$t0,$t9,0x1
-/*  f181c50:	00684821 */ 	addu	$t1,$v1,$t0
-/*  f181c54:	10000002 */ 	beqz	$zero,.L0f181c60
-/*  f181c58:	85240012 */ 	lh	$a0,0x12($t1)
-.L0f181c5c:
-/*  f181c5c:	a460000a */ 	sh	$zero,0xa($v1)
-.L0f181c60:
-/*  f181c60:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f181c64:	0fc456ac */ 	jal	padUnpack
-/*  f181c68:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f181c6c:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f181c70:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f181c74:	8faa0068 */ 	lw	$t2,0x68($sp)
-/*  f181c78:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f181c7c:	c7a60024 */ 	lwc1	$f6,0x24($sp)
-/*  f181c80:	c7a80028 */ 	lwc1	$f8,0x28($sp)
-/*  f181c84:	240bffff */ 	addiu	$t3,$zero,-1
-/*  f181c88:	3c04800b */ 	lui	$a0,0x800b
-/*  f181c8c:	3c05800b */ 	lui	$a1,0x800b
-/*  f181c90:	a46b0010 */ 	sh	$t3,0x10($v1)
-/*  f181c94:	24a5c11e */ 	addiu	$a1,$a1,-16098
-/*  f181c98:	2484c134 */ 	addiu	$a0,$a0,-16076
-/*  f181c9c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f181ca0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f181ca4:	a46a000e */ 	sh	$t2,0xe($v1)
-/*  f181ca8:	e4640024 */ 	swc1	$f4,0x24($v1)
-/*  f181cac:	e4660028 */ 	swc1	$f6,0x28($v1)
-/*  f181cb0:	0c00a8db */ 	jal	func0002a36c
-/*  f181cb4:	e468002c */ 	swc1	$f8,0x2c($v1)
-/*  f181cb8:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f181cbc:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f181cc0:	e4600028 */ 	swc1	$f0,0x28($v1)
-/*  f181cc4:	a4600008 */ 	sh	$zero,0x8($v1)
-/*  f181cc8:	8464000e */ 	lh	$a0,0xe($v1)
-/*  f181ccc:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f181cd0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f181cd4:	00003825 */ 	or	$a3,$zero,$zero
-/*  f181cd8:	0fc00b0a */ 	jal	func0f002c28
-/*  f181cdc:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f181ce0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f181ce4:	27bd0078 */ 	addiu	$sp,$sp,0x78
-/*  f181ce8:	03e00008 */ 	jr	$ra
-/*  f181cec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void scenarioKohCallback0c(void)
+{
+	s16 pad_id = 0;
+	struct pad pad;
+
+	if (g_ScenarioData.koh.hillcount > 1) {
+		g_ScenarioData.koh.hillindex = random() % g_ScenarioData.koh.hillcount;
+		pad_id = g_ScenarioData.koh.hillpads[g_ScenarioData.koh.hillindex];
+	} else {
+		// @bug: If a stage setup file only has one hill, pad_id is not assigned
+		// so it will always use the room that contains pad zero.
+		g_ScenarioData.koh.hillindex = 0;
+	}
+
+	padUnpack(pad_id, 0x42, &pad);
+	g_ScenarioData.koh.hillroom = pad.room;
+	g_ScenarioData.koh.unk10 = -1;
+	g_ScenarioData.koh.hillpos.x = pad.pos.x;
+	g_ScenarioData.koh.hillpos.y = pad.pos.y;
+	g_ScenarioData.koh.hillpos.z = pad.pos.z;
+	g_ScenarioData.koh.hillpos.y = func0002a36c(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillroom, 0, 0);
+	g_ScenarioData.koh.unk08 = 0;
+	func0f002c28(g_ScenarioData.koh.hillroom, 5, 0, 0, 0);
+}
 
 GLOBAL_ASM(
 glabel scenarioKohCallback10
