@@ -131,7 +131,7 @@ u32 scenarioHtmCallback1c(void);
 s32 scenarioHtmCallback20(s32 value);
 bool scenarioHtmCallback24(void *arg0, struct prop *prop);
 u32 scenarioHtmCallback28(void);
-void func0f1843d4(void);
+void scenarioPacChooseVictims(void);
 void scenarioPacInit(void);
 void scenarioPacReset(void);
 u32 scenarioPacCallback28(void);

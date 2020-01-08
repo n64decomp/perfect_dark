@@ -14886,7 +14886,7 @@ glabel scenarioHtmCallback28
 );
 
 GLOBAL_ASM(
-glabel func0f1843d4
+glabel scenarioPacChooseVictims
 /*  f1843d4:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f1843d8:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f1843dc:	3c14800b */ 	lui	$s4,%hi(g_ScenarioData)
@@ -14969,14 +14969,51 @@ glabel func0f1843d4
 /*  f1844e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
+//void scenarioPacChooseVictims(void)
+//{
+//	s32 i;
+//	s32 j;
+//
+//	g_ScenarioData.pac.unk04 = -1;
+//	g_ScenarioData.pac.unk02 = 0;
+//
+//	for (i = 0; i != 12; i++) {
+//		g_ScenarioData.pac.unk20[i] = 0;
+//		g_ScenarioData.pac.unk34[i] = 0;
+//	}
+//
+//	i = 0;
+//
+//	while (i < g_MpNumPlayers) {
+//		bool isnew = true;
+//		s32 victimplayernum = random() % g_MpNumPlayers;
+//
+//		for (j = 0; j < i; j++) {
+//			if (g_ScenarioData.pac.victims[j] == victimplayernum) {
+//				isnew = false;
+//				break;
+//			}
+//		}
+//
+//		if (isnew) {
+//			g_ScenarioData.pac.victims[i] = victimplayernum;
+//			i++;
+//		}
+//	}
+//
+//	for (i = 0; i < g_MpNumPlayers; i++) {
+//		// This loop probably printed debug messages
+//	}
+//}
+
 void scenarioPacInit(void)
 {
-	func0f1843d4();
+	scenarioPacChooseVictims();
 }
 
 void scenarioPacReset(void)
 {
-	func0f1843d4();
+	scenarioPacChooseVictims();
 }
 
 GLOBAL_ASM(
