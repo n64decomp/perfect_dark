@@ -4015,6 +4015,11 @@ struct mpchr {
 	/*0x0e*/ u8 unk0e;
 	/*0x0f*/ u8 headnum;
 	/*0x10*/ u8 bodynum;
+	/*0x11*/ u8 unk11;
+};
+
+struct mpplayer {
+	/*0x00*/ struct mpchr base;
 	/*0x14*/ u32 displayoptions;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
@@ -4054,6 +4059,24 @@ struct mpchr {
 	/*0x95*/ u8 title;
 	/*0x98*/ u32 unk98;
 	/*0x9c*/ u8 unk9c;
+};
+
+struct mpsim {
+	/*0x00*/ struct mpchr base;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u8 unk48;
 };
 
 struct missionconfig {
@@ -4125,31 +4148,6 @@ struct mpscenario {
 struct numandtext {
 	s32 num;
 	char *text;
-};
-
-struct mpsim {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u8 unk0c;
-	/*0x0d*/ u8 unk0d;
-	/*0x0e*/ u8 unk0e;
-	/*0x0f*/ u8 headnum;
-	/*0x10*/ u8 bodynum;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u8 unk48;
 };
 
 struct savelocation {
@@ -4365,7 +4363,7 @@ struct var800ac500 {
 	u8 propindex;
 };
 
-struct scenariodata_combat {
+struct scenariodata_cbt {
 	u32 unk00;
 	u32 unk04;
 	u32 unk08;
@@ -4373,20 +4371,20 @@ struct scenariodata_combat {
 	s16 unk0e[1]; // possibly for a different scenario - see mpGetNumTeammatesInRoomDoingSomething
 };
 
-struct scenariodata_briefcase {
+struct scenariodata_htb {
 	u32 unk00;
 	u32 unk04;
 };
 
-struct scenariodata_hacker {
+struct scenariodata_htm {
 	u32 unk00;
 };
 
-struct scenariodata_popacap {
+struct scenariodata_pac {
 	u32 unk00;
 };
 
-struct scenariodata_hill {
+struct scenariodata_koh {
 	/*0x800ac110*/ u32 unk00;
 	/*0x800ac114*/ s16 unk04;
 	/*0x800ac116*/ s16 unk06;
@@ -4404,18 +4402,28 @@ struct scenariodata_hill {
 	/*0x800ac148*/ f32 unk38;
 };
 
-struct scenariodata_capture {
-	u32 unk00;
+struct ctcthing {
+	s16 unk00;
+	s16 unk02;
+	s16 unk04[6];
+};
+
+struct scenariodata_ctc {
+	s16 unk00[4];
+	s16 unk08[4];
+	s32 unk10;
+	s32 unk14;
+	struct ctcthing unk18[4];
 };
 
 struct scenariodata {
 	union {
-		struct scenariodata_combat combat;
-		struct scenariodata_briefcase briefcase;
-		struct scenariodata_hacker hacker;
-		struct scenariodata_popacap popacap;
-		struct scenariodata_hill hill;
-		struct scenariodata_capture capture;
+		struct scenariodata_cbt cbt;
+		struct scenariodata_htb htb;
+		struct scenariodata_htm htm;
+		struct scenariodata_pac pac;
+		struct scenariodata_koh koh;
+		struct scenariodata_ctc ctc;
 	};
 };
 

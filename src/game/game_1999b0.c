@@ -2046,9 +2046,9 @@ glabel func0f19b540
 /*  f19b550:	15c10038 */ 	bne	$t6,$at,.L0f19b634
 /*  f19b554:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f19b558:	3c07800b */ 	lui	$a3,0x800b
-/*  f19b55c:	3c03800b */ 	lui	$v1,%hi(g_MpChrs)
+/*  f19b55c:	3c03800b */ 	lui	$v1,%hi(g_MpPlayers)
 /*  f19b560:	00002825 */ 	or	$a1,$zero,$zero
-/*  f19b564:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_MpChrs)
+/*  f19b564:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_MpPlayers)
 /*  f19b568:	94e7cb9e */ 	lhu	$a3,-0x3462($a3)
 /*  f19b56c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f19b570:	24060080 */ 	addiu	$a2,$zero,0x80
@@ -2132,7 +2132,7 @@ glabel func0f19b540
 //
 //		for (i = 0; i < 4; i++) {
 //			if (g_MpSetup.chrslots & (1 << i)) {
-//				g_MpChrs[i].unk9d = 0x80;
+//				g_MpPlayers[i].unk9d = 0x80;
 //				slot++;
 //			}
 //		}
@@ -2919,10 +2919,10 @@ glabel func0f19c1cc
 /*  f19c1e8:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f19c1ec:	0fc62fdc */ 	jal	func0f18bf70
 /*  f19c1f0:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f19c1f4:	3c03800b */ 	lui	$v1,%hi(g_MpChrs)
+/*  f19c1f4:	3c03800b */ 	lui	$v1,%hi(g_MpPlayers)
 /*  f19c1f8:	3c02800b */ 	lui	$v0,%hi(var800aca38)
 /*  f19c1fc:	2442ca38 */ 	addiu	$v0,$v0,%lo(var800aca38)
-/*  f19c200:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_MpChrs)
+/*  f19c200:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_MpPlayers)
 .L0f19c204:
 /*  f19c204:	246300a0 */ 	addiu	$v1,$v1,0xa0
 /*  f19c208:	1462fffe */ 	bne	$v1,$v0,.L0f19c204
