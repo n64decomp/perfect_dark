@@ -279,7 +279,7 @@ extern struct menu_dialog g_CombatSimulatorMenuDialog;
 extern u16 mpslowmotionoptions[];
 extern struct menu_dialog menudialog_mpcombatoptions;
 extern struct menu_dialog menudialog_mpbriefcaseoptions;
-extern u32 var800869ec;
+extern struct defaultobj *var800869ec;
 extern u32 var800869f0;
 extern struct menu_dialog menudialog_mpcaptureoptions;
 extern u32 var80086b60;

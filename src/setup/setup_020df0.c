@@ -11355,7 +11355,7 @@ struct menu_dialog menudialog_mpbriefcaseoptions = {
 	NULL,
 };
 
-u32 var800869ec = 0x00000000;
+struct defaultobj *var800869ec = NULL;
 u32 var800869f0 = 0x01000008;
 u32 var800869f4 = 0x00110000;
 u32 var800869f8 = 0x00420001;

@@ -4373,7 +4373,8 @@ struct scenariodata_cbt {
 
 struct scenariodata_htb {
 	u32 unk00;
-	u32 unk04;
+	struct prop *token; // Briefcase or chr
+	struct coord pos;
 };
 
 struct scenariodata_htm {

@@ -40,7 +40,7 @@ def main():
         if pos % 2 == 1:
             try:
                 pad_value = padding[padding_index]
-            except KeyError:
+            except IndexError:
                 pad_value = 0
             fd.write(pad_value.to_bytes(1, 'big'))
 
@@ -49,7 +49,7 @@ def main():
 
         try:
             checksum = checksumsmaybe[index]
-        except KeyError:
+        except IndexError:
             checksum = 0
         fd.write(checksum.to_bytes(2, 'big'))
 
