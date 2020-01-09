@@ -4459,11 +4459,11 @@ struct scenariodata_htm {
 
 struct scenariodata_pac {
 	s16 unk00;
-	s16 unk02;
-	s32 unk04;
+	u16 age240;
+	s32 victimindex;
 	s16 victims[12]; // shuffled list of player numbers
 	s16 unk20[12];
-	s16 unk34[12];
+	s16 wincounts[12]; // indexed by player num
 };
 
 struct scenariodata_koh {

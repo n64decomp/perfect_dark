@@ -7,6 +7,8 @@
 #define PLAYERCOUNT() ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
 #define PLAYERCOUNT3012() ((g_Vars.players[3] ? 1 : 0) + (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0))
 
+#define SECSTOFRAMES240(secs) (secs * 240)
+
 // These actions are assigned to chr->actiontype
 #define ACT_INIT             0
 #define ACT_STAND            1

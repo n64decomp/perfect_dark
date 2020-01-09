@@ -15065,6 +15065,26 @@ glabel scenarioPacCallback10
 /*  f184a14:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+//void scenarioPacCallback10(void)
+//{
+//	if (g_ScenarioData.pac.victimindex == -1) {
+//		func0f1845bc();
+//	}
+//
+//	if (g_ScenarioData.pac.victimindex >= 0) {
+//		if (PLAYERCOUNT() <= g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex] ||
+//				g_Vars.players[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]->isdead == false) {
+//			g_ScenarioData.pac.age240 += g_Vars.lvupdate240;
+//
+//			if (g_ScenarioData.pac.age240 > SECSTOFRAMES240(60)) {
+//				g_ScenarioData.pac.age240 = 0;
+//				g_ScenarioData.pac.wincounts[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]++;
+//				func0f1866b8(g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex], textGet(0x5407)); // "Have a point for living!"
+//			}
+//		}
+//	}
+//}
+
 GLOBAL_ASM(
 glabel scenarioPacCallback18
 /*  f184a18:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
