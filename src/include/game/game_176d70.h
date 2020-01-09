@@ -122,7 +122,7 @@ void scenarioHtmInit(void);
 s32 scenarioHtmCallback08(void);
 u32 func0f182ba4(void);
 u32 func0f182bf4(void);
-u32 func0f182c98(void);
+void func0f182c98(void);
 void scenarioHtmReset(void);
 void scenarioHtmCallback10(void);
 void scenarioHtmCallback14(struct chrdata *chr);

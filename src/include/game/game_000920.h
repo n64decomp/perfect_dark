@@ -32,7 +32,7 @@ u32 func0f00259c(void);
 u32 func0f002844(void);
 u32 func0f002a98(void);
 void func0f002b58(s32 roomthing, bool enable);
-void func0f002c28(s16 room_id, s32 operation, s32 arg2, s32 arg3, s32 arg4);
+void func0f002c28(s32 room_id, s32 operation, s32 arg2, s32 arg3, s32 arg4);
 u32 func0f002ef8(void);
 u32 func0f0033b0(void);
 u32 func0f003444(void);

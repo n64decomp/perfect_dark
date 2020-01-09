@@ -15146,7 +15146,7 @@ s32 func0f194724(struct chrdata *self, s32 arg1, bool includeself)
 s32 func0f194834(struct chrdata *chr)
 {
 	struct var800ac500 *thing = var800ac500[mpPlayerGetIndex(chr)];
-	struct prop *prop = var800ac168[thing->propindex];
+	struct prop *prop = g_ScenarioData.htm.props[thing->propindex];
 
 	return prop && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER);
 }
