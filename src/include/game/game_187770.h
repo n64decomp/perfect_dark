@@ -117,7 +117,7 @@ u32 func0f18e4c8(void);
 u32 func0f18e558(void);
 u32 func0f18e57c(void);
 u32 func0f18e5ac(void);
-u32 func0f18e968(void);
+s32 teamGetIndex(s32 team);
 s32 func0f18e9ec(s32 arg0, struct prop *token, struct coord *dist, s32 colour, s32 arg4, s32 arg5);
 u32 func0f18f874(void);
 u32 func0f190060(void);
