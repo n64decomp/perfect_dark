@@ -14965,109 +14965,44 @@ glabel scenarioPacCallback18
 /*  f184c14:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel scenarioPacKill
-/*  f184c18:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f184c1c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f184c20:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f184c24:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f184c28:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f184c2c:	00808825 */ 	or	$s1,$a0,$zero
-/*  f184c30:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f184c34:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f184c38:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f184c3c:	0fc6343a */ 	jal	func0f18d0e8
-/*  f184c40:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f184c44:	0440000d */ 	bltz	$v0,.L0f184c7c
-/*  f184c48:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f184c4c:	3c0f800b */ 	lui	$t7,%hi(g_ScenarioData)
-/*  f184c50:	25efc110 */ 	addiu	$t7,$t7,%lo(g_ScenarioData)
-/*  f184c54:	00027040 */ 	sll	$t6,$v0,0x1
-/*  f184c58:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f184c5c:	84790020 */ 	lh	$t9,0x20($v1)
-/*  f184c60:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f184c64:	00196040 */ 	sll	$t4,$t9,0x1
-/*  f184c68:	030c6821 */ 	addu	$t5,$t8,$t4
-/*  f184c6c:	accd0000 */ 	sw	$t5,0x0($a2)
-/*  f184c70:	846f0038 */ 	lh	$t7,0x38($v1)
-/*  f184c74:	01afc821 */ 	addu	$t9,$t5,$t7
-/*  f184c78:	acd90000 */ 	sw	$t9,0x0($a2)
-.L0f184c7c:
-/*  f184c7c:	3c0b800b */ 	lui	$t3,%hi(g_MpSetup)
-/*  f184c80:	256bcb88 */ 	addiu	$t3,$t3,%lo(g_MpSetup)
-/*  f184c84:	8d78000c */ 	lw	$t8,0xc($t3)
-/*  f184c88:	00001025 */ 	or	$v0,$zero,$zero
-/*  f184c8c:	02201825 */ 	or	$v1,$s1,$zero
-/*  f184c90:	330c0400 */ 	andi	$t4,$t8,0x400
-/*  f184c94:	11800033 */ 	beqz	$t4,.L0f184d64
-/*  f184c98:	240a004c */ 	addiu	$t2,$zero,0x4c
-/*  f184c9c:	3c09800b */ 	lui	$t1,%hi(g_MpSimulants)
-/*  f184ca0:	3c07800b */ 	lui	$a3,%hi(g_MpPlayers)
-/*  f184ca4:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_MpPlayers)
-/*  f184ca8:	2529c538 */ 	addiu	$t1,$t1,%lo(g_MpSimulants)
-/*  f184cac:	240800a0 */ 	addiu	$t0,$zero,0xa0
-/*  f184cb0:	2405000c */ 	addiu	$a1,$zero,0xc
-.L0f184cb4:
-/*  f184cb4:	54500007 */ 	bnel	$v0,$s0,.L0f184cd4
-/*  f184cb8:	8d79000c */ 	lw	$t9,0xc($t3)
-/*  f184cbc:	8ccd0000 */ 	lw	$t5,0x0($a2)
-/*  f184cc0:	846e0024 */ 	lh	$t6,0x24($v1)
-/*  f184cc4:	01ae7823 */ 	subu	$t7,$t5,$t6
-/*  f184cc8:	10000023 */ 	beqz	$zero,.L0f184d58
-/*  f184ccc:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f184cd0:	8d79000c */ 	lw	$t9,0xc($t3)
-.L0f184cd4:
-/*  f184cd4:	28410004 */ 	slti	$at,$v0,0x4
-/*  f184cd8:	33380002 */ 	andi	$t8,$t9,0x2
-/*  f184cdc:	5300001b */ 	beqzl	$t8,.L0f184d4c
-/*  f184ce0:	8cd90000 */ 	lw	$t9,0x0($a2)
-/*  f184ce4:	10200006 */ 	beqz	$at,.L0f184d00
-/*  f184ce8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f184cec:	00480019 */ 	multu	$v0,$t0
-/*  f184cf0:	00006012 */ 	mflo	$t4
-/*  f184cf4:	00ec2021 */ 	addu	$a0,$a3,$t4
-/*  f184cf8:	10000006 */ 	beqz	$zero,.L0f184d14
-/*  f184cfc:	922e0011 */ 	lbu	$t6,0x11($s1)
-.L0f184d00:
-/*  f184d00:	004a0019 */ 	multu	$v0,$t2
-/*  f184d04:	00006812 */ 	mflo	$t5
-/*  f184d08:	012d2021 */ 	addu	$a0,$t1,$t5
-/*  f184d0c:	2484fed0 */ 	addiu	$a0,$a0,-304
-/*  f184d10:	922e0011 */ 	lbu	$t6,0x11($s1)
-.L0f184d14:
-/*  f184d14:	908f0011 */ 	lbu	$t7,0x11($a0)
-/*  f184d18:	55cf0007 */ 	bnel	$t6,$t7,.L0f184d38
-/*  f184d1c:	8ccd0000 */ 	lw	$t5,0x0($a2)
-/*  f184d20:	8cd90000 */ 	lw	$t9,0x0($a2)
-/*  f184d24:	84780024 */ 	lh	$t8,0x24($v1)
-/*  f184d28:	03386023 */ 	subu	$t4,$t9,$t8
-/*  f184d2c:	1000000a */ 	beqz	$zero,.L0f184d58
-/*  f184d30:	accc0000 */ 	sw	$t4,0x0($a2)
-/*  f184d34:	8ccd0000 */ 	lw	$t5,0x0($a2)
-.L0f184d38:
-/*  f184d38:	846e0024 */ 	lh	$t6,0x24($v1)
-/*  f184d3c:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f184d40:	10000005 */ 	beqz	$zero,.L0f184d58
-/*  f184d44:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f184d48:	8cd90000 */ 	lw	$t9,0x0($a2)
-.L0f184d4c:
-/*  f184d4c:	84780024 */ 	lh	$t8,0x24($v1)
-/*  f184d50:	03386021 */ 	addu	$t4,$t9,$t8
-/*  f184d54:	accc0000 */ 	sw	$t4,0x0($a2)
-.L0f184d58:
-/*  f184d58:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f184d5c:	1445ffd5 */ 	bne	$v0,$a1,.L0f184cb4
-/*  f184d60:	24630002 */ 	addiu	$v1,$v1,0x2
-.L0f184d64:
-/*  f184d64:	862d003c */ 	lh	$t5,0x3c($s1)
-/*  f184d68:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f184d6c:	adcd0000 */ 	sw	$t5,0x0($t6)
-/*  f184d70:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f184d74:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f184d78:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f184d7c:	03e00008 */ 	jr	$ra
-/*  f184d80:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void scenarioPacKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
+{
+	struct mpchr *loopmpchr;
+	s32 i;
+	s32 index;
+
+	*score = 0;
+	index = func0f18d0e8(arg1);
+
+	if (index >= 0) {
+		*score += g_ScenarioData.pac.unk20[index] * 2;
+		*score += g_ScenarioData.pac.wincounts[index];
+	}
+
+	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
+		for (i = 0; i != 12; i++) {
+			if (i == arg1) {
+				*score -= mpchr->unk24[i];
+			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+				if (i < 4) {
+					loopmpchr = &g_MpPlayers[i].base;
+				} else {
+					loopmpchr = &g_MpSimulants[i - 4].base;
+				}
+
+				if (loopmpchr->team == mpchr->team) {
+					*score -= mpchr->unk24[i];
+				} else {
+					*score += mpchr->unk24[i];
+				}
+			} else {
+				*score += mpchr->unk24[i];
+			}
+		}
+	}
+
+	*arg3 = mpchr->unk3c;
+}
 
 s32 scenarioPacCallback20(s32 value)
 {
