@@ -11636,7 +11636,7 @@ void scenarioKohInit(void)
 	g_ScenarioData.koh.hillindex = -1;
 	g_ScenarioData.koh.hillcount = 0;
 	g_ScenarioData.koh.unk00 = 0;
-	g_ScenarioData.koh.unk04 = -1;
+	g_ScenarioData.koh.occupiedteam = -1;
 	g_ScenarioData.koh.unk06 = 0;
 	g_ScenarioData.koh.hillroom = -1;
 	g_ScenarioData.koh.unk10 = -1;
@@ -12565,62 +12565,26 @@ void scenarioKohKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 	*arg3 = mpchr->unk3c;
 }
 
-GLOBAL_ASM(
-glabel scenarioKohRadar
-/*  f1829e4:	3c0e800b */ 	lui	$t6,0x800b
-/*  f1829e8:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
-/*  f1829ec:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1829f0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1829f4:	31cf4000 */ 	andi	$t7,$t6,0x4000
-/*  f1829f8:	11e00027 */ 	beqz	$t7,.L0f182a98
-/*  f1829fc:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f182a00:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f182a04:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f182a08:	84780008 */ 	lh	$t8,0x8($v1)
-/*  f182a0c:	3c02800a */ 	lui	$v0,0x800a
-/*  f182a10:	00002825 */ 	or	$a1,$zero,$zero
-/*  f182a14:	17000020 */ 	bnez	$t8,.L0f182a98
-/*  f182a18:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f182a1c:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f182a20:	c4640024 */ 	lwc1	$f4,0x24($v1)
-/*  f182a24:	c46a0028 */ 	lwc1	$f10,0x28($v1)
-/*  f182a28:	8c5900bc */ 	lw	$t9,0xbc($v0)
-/*  f182a2c:	84640004 */ 	lh	$a0,0x4($v1)
-/*  f182a30:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f182a34:	c7260008 */ 	lwc1	$f6,0x8($t9)
-/*  f182a38:	3c078008 */ 	lui	$a3,0x8008
-/*  f182a3c:	00045080 */ 	sll	$t2,$a0,0x2
-/*  f182a40:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f182a44:	c464002c */ 	lwc1	$f4,0x2c($v1)
-/*  f182a48:	00ea3821 */ 	addu	$a3,$a3,$t2
-/*  f182a4c:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f182a50:	e7a8002c */ 	swc1	$f8,0x2c($sp)
-/*  f182a54:	8c4800bc */ 	lw	$t0,0xbc($v0)
-/*  f182a58:	c510000c */ 	lwc1	$f16,0xc($t0)
-/*  f182a5c:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f182a60:	e7b20030 */ 	swc1	$f18,0x30($sp)
-/*  f182a64:	8c4900bc */ 	lw	$t1,0xbc($v0)
-/*  f182a68:	c5260010 */ 	lwc1	$f6,0x10($t1)
-/*  f182a6c:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f182a70:	14810003 */ 	bne	$a0,$at,.L0f182a80
-/*  f182a74:	e7a80034 */ 	swc1	$f8,0x34($sp)
-/*  f182a78:	10000002 */ 	beqz	$zero,.L0f182a84
-/*  f182a7c:	3c0700ff */ 	lui	$a3,0xff
-.L0f182a80:
-/*  f182a80:	8ce77cc4 */ 	lw	$a3,0x7cc4($a3)
-.L0f182a84:
-/*  f182a84:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f182a88:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f182a8c:	0fc63a7b */ 	jal	func0f18e9ec
-/*  f182a90:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f182a94:	afa20038 */ 	sw	$v0,0x38($sp)
-.L0f182a98:
-/*  f182a98:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f182a9c:	8fa20038 */ 	lw	$v0,0x38($sp)
-/*  f182aa0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f182aa4:	03e00008 */ 	jr	$ra
-/*  f182aa8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 scenarioKohRadar(s32 value)
+{
+	if (g_MpSetup.options & MPOPTION_HILLONRADAR && g_ScenarioData.koh.unk08 == 0) {
+		struct coord dist;
+		u32 colour;
+		dist.x = g_ScenarioData.koh.hillpos.x - g_Vars.currentplayer->prop->pos.x;
+		dist.y = g_ScenarioData.koh.hillpos.y - g_Vars.currentplayer->prop->pos.y;
+		dist.z = g_ScenarioData.koh.hillpos.z - g_Vars.currentplayer->prop->pos.z;
+
+		if (g_ScenarioData.koh.occupiedteam == -1) {
+			colour = 0xff0000;
+		} else {
+			colour = g_TeamColours[g_ScenarioData.koh.occupiedteam];
+		}
+
+		value = func0f18e9ec(value, NULL, &dist, colour, 0, 1);
+	}
+
+	return value;
+}
 
 GLOBAL_ASM(
 glabel func0f182aac

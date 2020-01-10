@@ -12240,7 +12240,7 @@ u32 var80087cc0 = 0x00000001;
 u32 g_TeamColours[] = {
 	0xff000000, // Red
 	0xffff0000, // Yellow
-	0x0000ff00, // lue
+	0x0000ff00, // Blue
 	0xff00ff00, // Magenta
 	0x00ffff00, // Cyan
 	0xff885500, // Orange
