@@ -4015,27 +4015,23 @@ struct mpchr {
 	/*0x0e*/ u8 unk0e;
 	/*0x0f*/ u8 headnum;
 	/*0x10*/ u8 bodynum;
-	/*0x11*/ u8 unk11;
-};
-
-struct mpplayer {
-	/*0x00*/ struct mpchr base;
+	/*0x11*/ u8 team;
 	/*0x14*/ u32 displayoptions;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
+	/*0x24*/ s16 unk24[12];
+	/*0x3c*/ s16 unk3c;
+	/*0x3c*/ s16 unk3e;
 	/*0x40*/ u32 unk40;
 	/*0x44*/ u8 controlmode;
 	/*0x45*/ s8 unk45;
 	/*0x46*/ s8 unk46;
 	/*0x47*/ u8 unk47;
+};
+
+struct mpplayer {
+	/*0x00*/ struct mpchr base;
 	/*0x48*/ u16 options;
 	/*0x4c*/ u32 unk4c;
 	/*0x50*/ u32 unk50;
@@ -4063,19 +4059,6 @@ struct mpplayer {
 
 struct mpsim {
 	/*0x00*/ struct mpchr base;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
 	/*0x48*/ u8 unk48;
 };
 
@@ -4131,7 +4114,7 @@ struct mpscenario {
 	void (*unk10)(void);
 	void (*unk14)(struct chrdata *chr);
 	void *unk18;
-	void *unk1c;
+	void (*killfunc)(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
 	s32 (*unk20)(s32 value);
 	bool (*unk24)(void *arg0, struct prop *prop);
 	void *unk28;
@@ -4354,27 +4337,6 @@ struct challenge {
 	/*0x18*/ u16 unk18;
 };
 
-struct var800ac500 {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u8 unk10;
-	u8 propindex;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	u32 unk20;
-	u32 unk24;
-	u32 unk28;
-	u32 unk2c;
-	u32 unk30;
-	u32 unk34;
-	u32 unk38;
-	u16 unk3c;
-	s16 unk3e;
-};
-
 struct scenariodata_cbt {
 	u32 unk00;
 	u32 unk04;
@@ -4412,7 +4374,7 @@ struct scenariodata_htm {
 	/*0x800ac15c*/ u32 unk04c;
 	/*0x800ac160*/ u32 unk050;
 	/*0x800ac164*/ u32 unk054;
-	/*0x800ac168*/ struct prop *props[4];
+	/*0x800ac168*/ struct prop *props[4]; // probably a team list, not props
 	/*0x800ac178*/ u32 unk068;
 	/*0x800ac17c*/ u32 unk06c;
 	/*0x800ac180*/ u32 unk070;

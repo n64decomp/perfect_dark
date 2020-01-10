@@ -9,22 +9,22 @@
 
 s32 optionsGetControlMode(s32 mpchrnum)
 {
-	return g_MpPlayers[mpchrnum].controlmode;
+	return g_MpPlayers[mpchrnum].base.controlmode;
 }
 
 void optionsSetControlMode(s32 mpchrnum, s32 mode)
 {
-	g_MpPlayers[mpchrnum].controlmode = mode;
+	g_MpPlayers[mpchrnum].base.controlmode = mode;
 }
 
 s32 optionsGetUnk45(s32 mpchrnum)
 {
-	return g_MpPlayers[mpchrnum].unk45;
+	return g_MpPlayers[mpchrnum].base.unk45;
 }
 
 s32 optionsGetUnk46(s32 mpchrnum)
 {
-	return g_MpPlayers[mpchrnum].unk46;
+	return g_MpPlayers[mpchrnum].base.unk46;
 }
 
 s32 optionsGetForwardPitch(s32 mpchrnum)
