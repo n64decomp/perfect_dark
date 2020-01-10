@@ -10627,56 +10627,21 @@ void scenarioHtbKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 	*arg3 = mpchr->unk3c;
 }
 
-GLOBAL_ASM(
-glabel scenarioHtbCallback20
-/*  f180a68:	3c0e800b */ 	lui	$t6,0x800b
-/*  f180a6c:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
-/*  f180a70:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f180a74:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f180a78:	31cf1000 */ 	andi	$t7,$t6,0x1000
-/*  f180a7c:	11e00022 */ 	beqz	$t7,.L0f180b08
-/*  f180a80:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f180a84:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f180a88:	8c650004 */ 	lw	$a1,0x4($v1)
-/*  f180a8c:	50a0001f */ 	beqzl	$a1,.L0f180b0c
-/*  f180a90:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f180a94:	90a20000 */ 	lbu	$v0,0x0($a1)
-/*  f180a98:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f180a9c:	1041001a */ 	beq	$v0,$at,.L0f180b08
-/*  f180aa0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f180aa4:	10410018 */ 	beq	$v0,$at,.L0f180b08
-/*  f180aa8:	3c02800a */ 	lui	$v0,0x800a
-/*  f180aac:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f180ab0:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f180ab4:	c46a000c */ 	lwc1	$f10,0xc($v1)
-/*  f180ab8:	8c5800bc */ 	lw	$t8,0xbc($v0)
-/*  f180abc:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f180ac0:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f180ac4:	c7060008 */ 	lwc1	$f6,0x8($t8)
-/*  f180ac8:	3c0700ff */ 	lui	$a3,0xff
-/*  f180acc:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f180ad0:	c4640010 */ 	lwc1	$f4,0x10($v1)
-/*  f180ad4:	e7a8002c */ 	swc1	$f8,0x2c($sp)
-/*  f180ad8:	8c5900bc */ 	lw	$t9,0xbc($v0)
-/*  f180adc:	c730000c */ 	lwc1	$f16,0xc($t9)
-/*  f180ae0:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f180ae4:	e7b20030 */ 	swc1	$f18,0x30($sp)
-/*  f180ae8:	8c4800bc */ 	lw	$t0,0xbc($v0)
-/*  f180aec:	c5060010 */ 	lwc1	$f6,0x10($t0)
-/*  f180af0:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f180af4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f180af8:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f180afc:	0fc63a7b */ 	jal	func0f18e9ec
-/*  f180b00:	e7a80034 */ 	swc1	$f8,0x34($sp)
-/*  f180b04:	00402025 */ 	or	$a0,$v0,$zero
-.L0f180b08:
-/*  f180b08:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f180b0c:
-/*  f180b0c:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f180b10:	00801025 */ 	or	$v0,$a0,$zero
-/*  f180b14:	03e00008 */ 	jr	$ra
-/*  f180b18:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 scenarioHtbCallback20(s32 arg0)
+{
+	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR1) &&
+			g_ScenarioData.htb.token != NULL &&
+			g_ScenarioData.htb.token->type != PROPTYPE_PLAYER &&
+			g_ScenarioData.htb.token->type != PROPTYPE_CHR) {
+		struct coord dist;
+		dist.x = g_ScenarioData.htb.pos.x - g_Vars.currentplayer->prop->pos.x;
+		dist.y = g_ScenarioData.htb.pos.y - g_Vars.currentplayer->prop->pos.y;
+		dist.z = g_ScenarioData.htb.pos.z - g_Vars.currentplayer->prop->pos.z;
+		arg0 = func0f18e9ec(arg0, g_ScenarioData.htb.token, &dist, 0xff0000, 0, 1);
+	}
+
+	return arg0;
+}
 
 GLOBAL_ASM(
 glabel scenarioHtbCallback24
