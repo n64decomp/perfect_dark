@@ -200,7 +200,7 @@ struct chr2d4 {
 	/*0x9c*/ u8 unk9c_05 : 1;
 	/*0x9c*/ u8 unk9c_06 : 1;
 	/*0x9c*/ u8 unk9c_07 : 1;
-	/*0xa0*/ u32 unka0;
+	/*0xa0*/ s32 unka0;
 	/*0xa4*/ f32 unka4;
 	/*0xa8*/ u32 unka8;
 	/*0xac*/ u32 unkac;
@@ -2946,7 +2946,7 @@ struct gvars74 {
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 unk58;
 	/*0x5c*/ u32 unk5c;
-	/*0x60*/ u32 unk60;
+	/*0x60*/ s32 unk60;
 	/*0x64*/ u32 unk64;
 	/*0x68*/ u32 unk68;
 	/*0x6c*/ u32 unk6c;
@@ -4361,6 +4361,18 @@ struct var800ac500 {
 	u32 unk0c;
 	u8 unk10;
 	u8 propindex;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	u32 unk28;
+	u32 unk2c;
+	u32 unk30;
+	u32 unk34;
+	u32 unk38;
+	u16 unk3c;
+	s16 unk3e;
 };
 
 struct scenariodata_cbt {
