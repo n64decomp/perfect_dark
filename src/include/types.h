@@ -4374,7 +4374,10 @@ struct scenariodata_htm {
 	/*0x800ac15c*/ u32 unk04c;
 	/*0x800ac160*/ u32 unk050;
 	/*0x800ac164*/ u32 unk054;
-	/*0x800ac168*/ struct prop *props[4]; // probably a team list, not props
+	/*0x800ac168*/ s32 unk058;
+	/*0x800ac16c*/ s32 unk05c;
+	/*0x800ac170*/ s32 unk060;
+	/*0x800ac174*/ s32 unk064;
 	/*0x800ac178*/ u32 unk068;
 	/*0x800ac17c*/ u32 unk06c;
 	/*0x800ac180*/ u32 unk070;
@@ -4468,6 +4471,7 @@ struct scenariodata_ctc {
 	s32 unk10;
 	s32 unk14;
 	struct ctcthing unk18[4];
+	struct prop *tokens[4];
 };
 
 struct scenariodata {

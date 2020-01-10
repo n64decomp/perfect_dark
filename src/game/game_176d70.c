@@ -11234,14 +11234,14 @@ s32 scenarioCtcRadar(s32 value)
 		s32 i;
 
 		for (i = 0; i < scenarioCallback30(); i++) {
-			if (g_ScenarioData.htm.props[i] &&
-					g_ScenarioData.htm.props[i]->type != PROPTYPE_CHR &&
-					g_ScenarioData.htm.props[i]->type != PROPTYPE_PLAYER) {
+			if (g_ScenarioData.ctc.tokens[i] &&
+					g_ScenarioData.ctc.tokens[i]->type != PROPTYPE_CHR &&
+					g_ScenarioData.ctc.tokens[i]->type != PROPTYPE_PLAYER) {
 				struct coord dist;
-				dist.x = g_ScenarioData.htm.props[i]->pos.x - g_Vars.currentplayer->prop->pos.x;
-				dist.y = g_ScenarioData.htm.props[i]->pos.y - g_Vars.currentplayer->prop->pos.y;
-				dist.z = g_ScenarioData.htm.props[i]->pos.z - g_Vars.currentplayer->prop->pos.z;
-				value = func0f18e9ec(value, g_ScenarioData.htm.props[i], &dist, g_TeamColours[i], 0, 1);
+				dist.x = g_ScenarioData.ctc.tokens[i]->pos.x - g_Vars.currentplayer->prop->pos.x;
+				dist.y = g_ScenarioData.ctc.tokens[i]->pos.y - g_Vars.currentplayer->prop->pos.y;
+				dist.z = g_ScenarioData.ctc.tokens[i]->pos.z - g_Vars.currentplayer->prop->pos.z;
+				value = func0f18e9ec(value, g_ScenarioData.ctc.tokens[i], &dist, g_TeamColours[i], 0, 1);
 			}
 		}
 	}

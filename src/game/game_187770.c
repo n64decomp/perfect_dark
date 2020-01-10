@@ -15143,10 +15143,10 @@ s32 func0f194724(struct chrdata *self, s32 arg1, bool includeself)
 	return count;
 }
 
-s32 func0f194834(struct chrdata *chr)
+s32 scenarioCtcIsChrsTokenHeld(struct chrdata *chr)
 {
 	struct mpchr *mpchr = var800ac500[mpPlayerGetIndex(chr)];
-	struct prop *prop = g_ScenarioData.htm.props[mpchr->team];
+	struct prop *prop = g_ScenarioData.ctc.tokens[mpchr->team];
 
 	return prop && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER);
 }
@@ -15154,7 +15154,7 @@ s32 func0f194834(struct chrdata *chr)
 bool func0f19489c(struct chrdata *chr)
 {
 	if (chr->unk2d4->unk9c_01) {
-		if (chr->unk2d4->unk4f_00 == 0 || mpGetNumPlayerTeammates(chr) >= 2 || !func0f194834(chr)) {
+		if (chr->unk2d4->unk4f_00 == 0 || mpGetNumPlayerTeammates(chr) >= 2 || !scenarioCtcIsChrsTokenHeld(chr)) {
 			return true;
 		}
 	}
@@ -15859,7 +15859,7 @@ glabel func0f194b40
 /*  f195318:	10000083 */ 	beqz	$zero,.L0f195528
 /*  f19531c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f195320:
-/*  f195320:	0fc6520d */ 	jal	func0f194834
+/*  f195320:	0fc6520d */ 	jal	scenarioCtcIsChrsTokenHeld
 /*  f195324:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195328:	10400012 */ 	beqz	$v0,.L0f195374
 /*  f19532c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -15921,7 +15921,7 @@ glabel func0f194b40
 /*  f1953f8:	1000004b */ 	beqz	$zero,.L0f195528
 /*  f1953fc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f195400:
-/*  f195400:	0fc6520d */ 	jal	func0f194834
+/*  f195400:	0fc6520d */ 	jal	scenarioCtcIsChrsTokenHeld
 /*  f195404:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195408:	10400014 */ 	beqz	$v0,.L0f19545c
 /*  f19540c:	00000000 */ 	sll	$zero,$zero,0x0

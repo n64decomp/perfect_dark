@@ -162,7 +162,7 @@ s32 func0f194694(struct chrdata *chr);
 s32 func0f1946b4(struct chrdata *chr);
 s32 mpGetNumPlayerTeammates(struct chrdata *chr);
 s32 func0f194724(struct chrdata *self, s32 arg1, bool includeself);
-s32 func0f194834(struct chrdata *chr);
+s32 scenarioCtcIsChrsTokenHeld(struct chrdata *chr);
 bool func0f19489c(struct chrdata *chr);
 s32 mpGetNumTeammatesInRoomDoingSomething(struct chrdata *bot);
 u32 func0f194990(void);
