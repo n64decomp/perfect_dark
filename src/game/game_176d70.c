@@ -10627,7 +10627,7 @@ void scenarioHtbKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 	*arg3 = mpchr->unk3c;
 }
 
-s32 scenarioHtbCallback20(s32 arg0)
+s32 scenarioHtbRadar(s32 value)
 {
 	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR1) &&
 			g_ScenarioData.htb.token != NULL &&
@@ -10637,10 +10637,10 @@ s32 scenarioHtbCallback20(s32 arg0)
 		dist.x = g_ScenarioData.htb.pos.x - g_Vars.currentplayer->prop->pos.x;
 		dist.y = g_ScenarioData.htb.pos.y - g_Vars.currentplayer->prop->pos.y;
 		dist.z = g_ScenarioData.htb.pos.z - g_Vars.currentplayer->prop->pos.z;
-		arg0 = func0f18e9ec(arg0, g_ScenarioData.htb.token, &dist, 0xff0000, 0, 1);
+		value = func0f18e9ec(value, g_ScenarioData.htb.token, &dist, 0xff0000, 0, 1);
 	}
 
-	return arg0;
+	return value;
 }
 
 GLOBAL_ASM(
@@ -11229,7 +11229,7 @@ void scenarioCtcKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 }
 
 GLOBAL_ASM(
-glabel scenarioCtcCallback20
+glabel scenarioCtcRadar
 /*  f1814bc:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f1814c0:	3c0e800b */ 	lui	$t6,0x800b
 /*  f1814c4:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
@@ -12635,7 +12635,7 @@ void scenarioKohKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 }
 
 GLOBAL_ASM(
-glabel scenarioKohCallback20
+glabel scenarioKohRadar
 /*  f1829e4:	3c0e800b */ 	lui	$t6,0x800b
 /*  f1829e8:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
 /*  f1829ec:	27bdffc8 */ 	addiu	$sp,$sp,-56
@@ -13796,7 +13796,7 @@ void scenarioHtmKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 }
 
 GLOBAL_ASM(
-glabel scenarioHtmCallback20
+glabel scenarioHtmRadar
 /*  f183d10:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f183d14:	afb70048 */ 	sw	$s7,0x48($sp)
 /*  f183d18:	3c17800b */ 	lui	$s7,%hi(g_MpSetup)
@@ -14969,7 +14969,7 @@ void scenarioPacKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 	*arg3 = mpchr->unk3c;
 }
 
-s32 scenarioPacCallback20(s32 value)
+s32 scenarioPacRadar(s32 value)
 {
 	return value;
 }
@@ -15976,10 +15976,10 @@ glabel func0f185c14
 /*  f185d5c:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-s32 scenarioCallback20(s32 value)
+s32 scenarioRadar(s32 value)
 {
-	if (g_Vars.unk000318 && g_MpScenarios[g_MpSetup.scenario].unk20) {
-		return g_MpScenarios[g_MpSetup.scenario].unk20(value);
+	if (g_Vars.unk000318 && g_MpScenarios[g_MpSetup.scenario].radarfunc) {
+		return g_MpScenarios[g_MpSetup.scenario].radarfunc(value);
 	}
 
 	return value;

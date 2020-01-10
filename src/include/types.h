@@ -4115,7 +4115,7 @@ struct mpscenario {
 	void (*unk14)(struct chrdata *chr);
 	void *unk18;
 	void (*killfunc)(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
-	s32 (*unk20)(s32 value);
+	s32 (*radarfunc)(s32 value);
 	bool (*unk24)(void *arg0, struct prop *prop);
 	void *unk28;
 	bool (*unk2c)(f32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 *arg4);
