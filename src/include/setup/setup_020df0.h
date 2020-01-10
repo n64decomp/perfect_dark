@@ -303,7 +303,7 @@ extern struct mpsimulant mpgeneralsimulants[];
 extern struct mpsimulant mpspecialsimulants[];
 extern struct bodynum mpbodytable[];
 extern u32 mppresets[];
-extern u32 mpteamcolors[];
+extern u32 g_TeamColours[];
 extern u32 var80087d10;
 extern u32 var80087d14[];
 extern u32 var80087e2c;

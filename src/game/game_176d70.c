@@ -11228,95 +11228,26 @@ void scenarioCtcKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 	*arg3 = mpchr->unk3c;
 }
 
-GLOBAL_ASM(
-glabel scenarioCtcRadar
-/*  f1814bc:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f1814c0:	3c0e800b */ 	lui	$t6,0x800b
-/*  f1814c4:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
-/*  f1814c8:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f1814cc:	00809825 */ 	or	$s3,$a0,$zero
-/*  f1814d0:	31cf2000 */ 	andi	$t7,$t6,0x2000
-/*  f1814d4:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f1814d8:	afbe0040 */ 	sw	$s8,0x40($sp)
-/*  f1814dc:	afb7003c */ 	sw	$s7,0x3c($sp)
-/*  f1814e0:	afb60038 */ 	sw	$s6,0x38($sp)
-/*  f1814e4:	afb50034 */ 	sw	$s5,0x34($sp)
-/*  f1814e8:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f1814ec:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f1814f0:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f1814f4:	11e00037 */ 	beqz	$t7,.L0f1815d4
-/*  f1814f8:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f1814fc:	0fc61902 */ 	jal	scenarioCallback30
-/*  f181500:	00009025 */ 	or	$s2,$zero,$zero
-/*  f181504:	18400033 */ 	blez	$v0,.L0f1815d4
-/*  f181508:	00128080 */ 	sll	$s0,$s2,0x2
-/*  f18150c:	3c18800b */ 	lui	$t8,%hi(g_ScenarioData)
-/*  f181510:	2718c110 */ 	addiu	$t8,$t8,%lo(g_ScenarioData)
-/*  f181514:	3c1e8008 */ 	lui	$s8,%hi(mpteamcolors)
-/*  f181518:	3c16800a */ 	lui	$s6,%hi(g_Vars)
-/*  f18151c:	26d69fc0 */ 	addiu	$s6,$s6,%lo(g_Vars)
-/*  f181520:	27de7cc4 */ 	addiu	$s8,$s8,%lo(mpteamcolors)
-/*  f181524:	02188821 */ 	addu	$s1,$s0,$t8
-/*  f181528:	27b70058 */ 	addiu	$s7,$sp,0x58
-/*  f18152c:	24150006 */ 	addiu	$s5,$zero,0x6
-/*  f181530:	24140003 */ 	addiu	$s4,$zero,0x3
-/*  f181534:	8e250058 */ 	lw	$a1,0x58($s1)
-.L0f181538:
-/*  f181538:	50a00020 */ 	beqzl	$a1,.L0f1815bc
-/*  f18153c:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f181540:	90a20000 */ 	lbu	$v0,0x0($a1)
-/*  f181544:	5282001d */ 	beql	$s4,$v0,.L0f1815bc
-/*  f181548:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f18154c:	52a2001b */ 	beql	$s5,$v0,.L0f1815bc
-/*  f181550:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f181554:	8ec20284 */ 	lw	$v0,0x284($s6)
-/*  f181558:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f18155c:	03d05021 */ 	addu	$t2,$s8,$s0
-/*  f181560:	8c5900bc */ 	lw	$t9,0xbc($v0)
-/*  f181564:	8d470000 */ 	lw	$a3,0x0($t2)
-/*  f181568:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f18156c:	c7260008 */ 	lwc1	$f6,0x8($t9)
-/*  f181570:	02602025 */ 	or	$a0,$s3,$zero
-/*  f181574:	02e03025 */ 	or	$a2,$s7,$zero
-/*  f181578:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f18157c:	e7a80058 */ 	swc1	$f8,0x58($sp)
-/*  f181580:	8c4800bc */ 	lw	$t0,0xbc($v0)
-/*  f181584:	c4aa000c */ 	lwc1	$f10,0xc($a1)
-/*  f181588:	c510000c */ 	lwc1	$f16,0xc($t0)
-/*  f18158c:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f181590:	e7b2005c */ 	swc1	$f18,0x5c($sp)
-/*  f181594:	8c4900bc */ 	lw	$t1,0xbc($v0)
-/*  f181598:	c4a40010 */ 	lwc1	$f4,0x10($a1)
-/*  f18159c:	c5260010 */ 	lwc1	$f6,0x10($t1)
-/*  f1815a0:	afab0014 */ 	sw	$t3,0x14($sp)
-/*  f1815a4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f1815a8:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f1815ac:	0fc63a7b */ 	jal	func0f18e9ec
-/*  f1815b0:	e7a80060 */ 	swc1	$f8,0x60($sp)
-/*  f1815b4:	00409825 */ 	or	$s3,$v0,$zero
-/*  f1815b8:	26520001 */ 	addiu	$s2,$s2,0x1
-.L0f1815bc:
-/*  f1815bc:	26100004 */ 	addiu	$s0,$s0,0x4
-/*  f1815c0:	0fc61902 */ 	jal	scenarioCallback30
-/*  f1815c4:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f1815c8:	0242082a */ 	slt	$at,$s2,$v0
-/*  f1815cc:	5420ffda */ 	bnezl	$at,.L0f181538
-/*  f1815d0:	8e250058 */ 	lw	$a1,0x58($s1)
-.L0f1815d4:
-/*  f1815d4:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f1815d8:	02601025 */ 	or	$v0,$s3,$zero
-/*  f1815dc:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f1815e0:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f1815e4:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f1815e8:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f1815ec:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f1815f0:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*  f1815f4:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*  f1815f8:	8fb7003c */ 	lw	$s7,0x3c($sp)
-/*  f1815fc:	8fbe0040 */ 	lw	$s8,0x40($sp)
-/*  f181600:	03e00008 */ 	jr	$ra
-/*  f181604:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+s32 scenarioCtcRadar(s32 value)
+{
+	if (g_MpSetup.options & MPOPTION_SHOWONRADAR2) {
+		s32 i;
+
+		for (i = 0; i < scenarioCallback30(); i++) {
+			if (g_ScenarioData.htm.props[i] &&
+					g_ScenarioData.htm.props[i]->type != PROPTYPE_CHR &&
+					g_ScenarioData.htm.props[i]->type != PROPTYPE_PLAYER) {
+				struct coord dist;
+				dist.x = g_ScenarioData.htm.props[i]->pos.x - g_Vars.currentplayer->prop->pos.x;
+				dist.y = g_ScenarioData.htm.props[i]->pos.y - g_Vars.currentplayer->prop->pos.y;
+				dist.z = g_ScenarioData.htm.props[i]->pos.z - g_Vars.currentplayer->prop->pos.z;
+				value = func0f18e9ec(value, g_ScenarioData.htm.props[i], &dist, g_TeamColours[i], 0, 1);
+			}
+		}
+	}
+
+	return value;
+}
 
 GLOBAL_ASM(
 glabel scenarioCtcCallback24
@@ -11360,10 +11291,10 @@ glabel scenarioCtcCallback24
 /*  f181694:	3c03800a */ 	lui	$v1,0x800a
 /*  f181698:	8c63a244 */ 	lw	$v1,-0x5dbc($v1)
 /*  f18169c:	8e250058 */ 	lw	$a1,0x58($s1)
-/*  f1816a0:	3c098008 */ 	lui	$t1,%hi(mpteamcolors)
+/*  f1816a0:	3c098008 */ 	lui	$t1,%hi(g_TeamColours)
 /*  f1816a4:	8c6c00bc */ 	lw	$t4,0xbc($v1)
 /*  f1816a8:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f1816ac:	25297cc4 */ 	addiu	$t1,$t1,%lo(mpteamcolors)
+/*  f1816ac:	25297cc4 */ 	addiu	$t1,$t1,%lo(g_TeamColours)
 /*  f1816b0:	c5860008 */ 	lwc1	$f6,0x8($t4)
 /*  f1816b4:	00025080 */ 	sll	$t2,$v0,0x2
 /*  f1816b8:	012a5821 */ 	addu	$t3,$t1,$t2
@@ -13855,13 +13786,13 @@ glabel scenarioHtmRadar
 .L0f183de8:
 /*  f183de8:	3c16800a */ 	lui	$s6,%hi(g_Vars)
 /*  f183dec:	3c10800b */ 	lui	$s0,%hi(g_ScenarioData)
-/*  f183df0:	3c158008 */ 	lui	$s5,%hi(mpteamcolors)
+/*  f183df0:	3c158008 */ 	lui	$s5,%hi(g_TeamColours)
 /*  f183df4:	3c14800b */ 	lui	$s4,0x800b
 /*  f183df8:	4481b000 */ 	mtc1	$at,$f22
 /*  f183dfc:	4480a000 */ 	mtc1	$zero,$f20
 /*  f183e00:	26d69fc0 */ 	addiu	$s6,$s6,%lo(g_Vars)
 /*  f183e04:	2694c11c */ 	addiu	$s4,$s4,-16100
-/*  f183e08:	26b57cc4 */ 	addiu	$s5,$s5,%lo(mpteamcolors)
+/*  f183e08:	26b57cc4 */ 	addiu	$s5,$s5,%lo(g_TeamColours)
 /*  f183e0c:	2610c110 */ 	addiu	$s0,$s0,%lo(g_ScenarioData)
 /*  f183e10:	27b30088 */ 	addiu	$s3,$sp,0x88
 /*  f183e14:	241200ff */ 	addiu	$s2,$zero,0xff

@@ -12237,7 +12237,7 @@ u32 var80087cbc = 0x00000000;
 u32 var80087cc0 = 0x00000001;
 
 // 2dce4
-u32 mpteamcolors[] = {
+u32 g_TeamColours[] = {
 	0xff000000, // Red
 	0xffff0000, // Yellow
 	0x0000ff00, // lue
