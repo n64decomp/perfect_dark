@@ -4403,7 +4403,7 @@ struct scenariodata_htm {
 	/*0x800ac1dc*/ u32 unk0cc;
 	/*0x800ac1e0*/ u32 unk0d0;
 	/*0x800ac1e4*/ u32 unk0d4;
-	/*0x800ac1e8*/ u32 unk0d8;
+	/*0x800ac1e8*/ u32 unk0d8[1];
 	/*0x800ac1ec*/ u32 unk0dc;
 	/*0x800ac1f0*/ u32 unk0e0;
 	/*0x800ac1f4*/ u32 unk0e4;

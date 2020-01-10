@@ -95,7 +95,7 @@ u32 func0f18cddc(void);
 s32 mpPlayerGetIndex(struct chrdata *chr);
 u32 func0f18d040(void);
 u32 func0f18d074(void);
-u32 func0f18d0e8(void);
+s32 func0f18d0e8(s32 arg0);
 u32 func0f18d1b8(void);
 u32 func0f18d238(void);
 u32 func0f18d2b8(void);
