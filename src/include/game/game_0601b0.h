@@ -39,7 +39,7 @@ u32 func0f064a24(void);
 u32 func0f064ce8(void);
 u32 func0f0654e8(void);
 u32 func0f06554c(void);
-u32 func0f0657a4(void);
+void func0f0657a4(s32 *arg0, s8 *arg1);
 u32 func0f0657d8(void);
 u32 func0f065880(void);
 u32 func0f0658e8(void);

@@ -12657,46 +12657,16 @@ void func0f1924ac(struct chrdata *chr, struct prop *prop)
 	chr->unk2d4->unkd8 = 1;
 }
 
-GLOBAL_ASM(
-glabel func0f1924e8
-/*  f1924e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1924ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1924f0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1924f4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1924f8:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f1924fc:	8c8f02d4 */ 	lw	$t7,0x2d4($a0)
-/*  f192500:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f192504:	00803825 */ 	or	$a3,$a0,$zero
-/*  f192508:	a1ee0079 */ 	sb	$t6,0x79($t7)
-/*  f19250c:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f192510:	8c9902d4 */ 	lw	$t9,0x2d4($a0)
-/*  f192514:	c7040000 */ 	lwc1	$f4,0x0($t8)
-/*  f192518:	e724008c */ 	swc1	$f4,0x8c($t9)
-/*  f19251c:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f192520:	8c8902d4 */ 	lw	$t1,0x2d4($a0)
-/*  f192524:	c5060004 */ 	lwc1	$f6,0x4($t0)
-/*  f192528:	e5260090 */ 	swc1	$f6,0x90($t1)
-/*  f19252c:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*  f192530:	8c8b02d4 */ 	lw	$t3,0x2d4($a0)
-/*  f192534:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f192538:	c5480008 */ 	lwc1	$f8,0x8($t2)
-/*  f19253c:	e5680094 */ 	swc1	$f8,0x94($t3)
-/*  f192540:	8ce502d4 */ 	lw	$a1,0x2d4($a3)
-/*  f192544:	afa70018 */ 	sw	$a3,0x18($sp)
-/*  f192548:	0fc195e9 */ 	jal	func0f0657a4
-/*  f19254c:	24a5007a */ 	addiu	$a1,$a1,0x7a
-/*  f192550:	8fa70018 */ 	lw	$a3,0x18($sp)
-/*  f192554:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*  f192558:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f19255c:	8cec02d4 */ 	lw	$t4,0x2d4($a3)
-/*  f192560:	e58a0098 */ 	swc1	$f10,0x98($t4)
-/*  f192564:	8cee02d4 */ 	lw	$t6,0x2d4($a3)
-/*  f192568:	adcd00d8 */ 	sw	$t5,0xd8($t6)
-/*  f19256c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f192570:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f192574:	03e00008 */ 	jr	$ra
-/*  f192578:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f1924e8(struct chrdata *chr, struct coord *pos, s32 *arg2, f32 arg3)
+{
+	chr->unk2d4->unk79 = 2;
+	chr->unk2d4->unk8c.x = pos->x;
+	chr->unk2d4->unk8c.y = pos->y;
+	chr->unk2d4->unk8c.z = pos->z;
+	func0f0657a4(arg2, &chr->unk2d4->unk7a);
+	chr->unk2d4->unk98 = arg3;
+	chr->unk2d4->unkd8 = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f19257c

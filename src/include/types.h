@@ -184,14 +184,13 @@ struct chr2d4 {
 	/*0x74*/ u32 unk74;
 	/*0x78*/ u8 unk78;
 	/*0x79*/ u8 unk79;
+	/*0x7a*/ s8 unk7a;
 	/*0x7c*/ u32 unk7c;
 	/*0x80*/ u32 unk80;
 	/*0x84*/ u32 unk84;
 	/*0x88*/ u32 unk88;
-	/*0x8c*/ u32 unk8c;
-	/*0x90*/ u32 unk90;
-	/*0x94*/ u32 unk94;
-	/*0x98*/ u32 unk98;
+	/*0x8c*/ struct coord unk8c;
+	/*0x98*/ f32 unk98;
 	/*0x9c*/ u8 unk9c_00 : 1;
 	/*0x9c*/ u8 unk9c_01 : 1;
 	/*0x9c*/ u8 unk9c_02 : 1;
