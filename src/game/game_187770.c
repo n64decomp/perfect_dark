@@ -11611,30 +11611,14 @@ glabel func0f191448
 /*  f1915b0:	27bd0050 */ 	addiu	$sp,$sp,0x50
 );
 
-GLOBAL_ASM(
-glabel func0f1915b4
-/*  f1915b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1915b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1915bc:	8c8302d4 */ 	lw	$v1,0x2d4($a0)
-/*  f1915c0:	00802825 */ 	or	$a1,$a0,$zero
-/*  f1915c4:	10600003 */ 	beqz	$v1,.L0f1915d4
-/*  f1915c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1915cc:	10000008 */ 	beqz	$zero,.L0f1915f0
-/*  f1915d0:	8c620020 */ 	lw	$v0,0x20($v1)
-.L0f1915d4:
-/*  f1915d4:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f1915d8:	8ca4001c */ 	lw	$a0,0x1c($a1)
-/*  f1915dc:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f1915e0:	3c0f800a */ 	lui	$t7,0x800a
-/*  f1915e4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1915e8:	8defa024 */ 	lw	$t7,-0x5fdc($t7)
-/*  f1915ec:	91e20638 */ 	lbu	$v0,0x638($t7)
-.L0f1915f0:
-/*  f1915f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1915f4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1915f8:	03e00008 */ 	jr	$ra
-/*  f1915fc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f1915b4(struct chrdata *chr)
+{
+	if (chr->unk2d4) {
+		return chr->unk2d4->unk20;
+	}
+
+	return g_Vars.players[propGetPlayerNum(chr->prop)]->unk0638;
+}
 
 u8 func0f191600(struct chrdata *chr)
 {
