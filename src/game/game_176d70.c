@@ -1807,7 +1807,7 @@ s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandler00178018(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpLock != MPLOCK_CHALLENGE) {
+		if (g_MpLockType != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -8335,7 +8335,7 @@ glabel menuhandler0017e4d4
 s32 menuhandler0017e9d8(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpLock != MPLOCK_CHALLENGE) {
+		if (g_MpLockType != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -8346,7 +8346,7 @@ s32 menuhandler0017e9d8(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandlerMpAbortChallenge(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpLock != MPLOCK_CHALLENGE) {
+		if (g_MpLockType != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -8361,7 +8361,7 @@ s32 menuhandlerMpAbortChallenge(u32 operation, struct menu_item *item, s32 *valu
 s32 menuhandlerMpStartChallenge(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpLock != MPLOCK_CHALLENGE) {
+		if (g_MpLockType != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -8504,34 +8504,34 @@ char *menuhandlerMpLock(u32 operation, struct menu_item *item, s32 *value)
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		if (mpGetLock() == MPLOCK_CHALLENGE) {
+		if (mpGetLockType() == MPLOCKTYPE_CHALLENGE) {
 			*value = 1;
 		} else {
 			*value = 5;
 		}
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		if (mpGetLock() == MPLOCK_CHALLENGE) {
+		if (mpGetLockType() == MPLOCKTYPE_CHALLENGE) {
 			return textGet(0x5031); // "Challenge"
 		}
 		if ((u32)*value <= 3) {
 			return textGet(labels[*value]);
 		}
-		if (mpGetLock() == MPLOCK_PLAYER) {
+		if (mpGetLockType() == MPLOCKTYPE_PLAYER) {
 			return g_MpPlayers[mpGetLockPlayerNum()].base.name;
 		}
 		return mpGetCurrentPlayerName(item);
 	case MENUOP_SET:
-		if (mpGetLock() != MPLOCK_CHALLENGE) {
+		if (mpGetLockType() != MPLOCKTYPE_CHALLENGE) {
 			mpSetLock(*value, g_MpPlayerNum);
 		}
 		g_Vars.unk000458 |= 2;
 		break;
 	case MENUOP_GETOPTIONVALUE:
-		if (mpGetLock() == MPLOCK_CHALLENGE) {
+		if (mpGetLockType() == MPLOCKTYPE_CHALLENGE) {
 			*value = 0;
 		} else {
-			*value = mpGetLock();
+			*value = mpGetLockType();
 		}
 		break;
 	}

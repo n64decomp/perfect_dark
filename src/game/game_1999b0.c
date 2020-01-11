@@ -2125,7 +2125,7 @@ glabel func0f19b540
 // identical.
 //void func0f19b540(void)
 //{
-//	if (g_MpLock == MPLOCK_CHALLENGE) {
+//	if (g_MpLockType == MPLOCKTYPE_CHALLENGE) {
 //		s32 slot = 0;
 //		s32 i;
 //		u32 *ptr;

@@ -5463,12 +5463,12 @@ glabel mpSetLock
 /*  f18bfbc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-u8 mpGetLock(void)
+u32 mpGetLockType(void)
 {
-	return g_MpLock;
+	return g_MpLockType;
 }
 
-s8 mpGetLockPlayerNum(void)
+u32 mpGetLockPlayerNum(void)
 {
 	return g_MpLockPlayerNum;
 }
