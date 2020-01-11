@@ -14763,6 +14763,34 @@ glabel scenarioPacCallback24
 /*  f184ebc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch because the game jumps to pac properties directly
+// while decomp loads the base pac address then uses offsets.
+//bool scenarioPacCallback24(s32 *displaylist, struct prop *prop)
+//{
+//	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR4) && g_ScenarioData.pac.victimindex >= 0) {
+//		s32 index = g_ScenarioData.pac.victimindex;
+//		struct prop *thing = g_MpPlayerChrs[g_ScenarioData.pac.victims[index]]->prop;
+//
+//		if (thing == prop) {
+//			struct coord dist;
+//			dist.x = prop->pos.x - g_Vars.currentplayer->prop->pos.x;
+//			dist.y = prop->pos.y - g_Vars.currentplayer->prop->pos.y;
+//			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
+//
+//			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+//				u32 colour = g_TeamColours[teamGetIndex(prop->chr->team)];
+//				*displaylist = func0f18e9ec(*displaylist, thing, &dist, colour, 0, 1);
+//			} else {
+//				*displaylist = func0f18e9ec(*displaylist, thing, &dist, 0xff0000, 0, 1);
+//			}
+//
+//			return true;
+//		}
+//	}
+//
+//	return false;
+//}
+
 GLOBAL_ASM(
 glabel menudialog00184ec0
 /*  f184ec0:	27bdffe8 */ 	addiu	$sp,$sp,-24

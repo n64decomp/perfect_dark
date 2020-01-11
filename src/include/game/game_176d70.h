@@ -141,7 +141,7 @@ void scenarioPacCallback10(void);
 u32 scenarioPacCallback18(void);
 void scenarioPacKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
 s32 scenarioPacRadar(s32 value);
-bool scenarioPacCallback24(void *arg0, struct prop *prop);
+bool scenarioPacCallback24(s32 *displaylist, struct prop *prop);
 u32 func0f184fb0(void);
 u32 func0f18500c(void);
 void scenarioCallback40(s32 *arg0);
