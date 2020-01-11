@@ -10643,7 +10643,7 @@ s32 scenarioHtbRadar(s32 value)
 	return value;
 }
 
-bool scenarioHtbCallback24(s32 *displaylist, struct prop *prop)
+bool scenarioHtbRadar2(s32 *displaylist, struct prop *prop)
 {
 	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR1) &&
 			g_ScenarioData.htb.token &&
@@ -10668,7 +10668,7 @@ bool scenarioHtbCallback24(s32 *displaylist, struct prop *prop)
 	return false;
 }
 
-bool scenarioHtbCallback28(struct prop *prop, u32 *colour)
+bool scenarioHtbHighlight(struct prop *prop, u32 *colour)
 {
 	if ((g_MpSetup.options & MPOPTION_HIGHLIGHTBRIEFCASE) && prop == g_ScenarioData.htb.token) {
 		colour[0] = 0;
@@ -11180,7 +11180,7 @@ s32 scenarioCtcRadar(s32 value)
 	return value;
 }
 
-bool scenarioCtcCallback24(s32 *displaylist, struct prop *prop)
+bool scenarioCtcRadar2(s32 *displaylist, struct prop *prop)
 {
 	s32 i;
 
@@ -11204,7 +11204,7 @@ bool scenarioCtcCallback24(s32 *displaylist, struct prop *prop)
 }
 
 GLOBAL_ASM(
-glabel scenarioCtcCallback28
+glabel scenarioCtcHighlight
 /*  f181764:	90860000 */ 	lbu	$a2,0x0($a0)
 /*  f181768:	8c830004 */ 	lw	$v1,0x4($a0)
 /*  f18176c:	24010001 */ 	addiu	$at,$zero,0x1
@@ -11248,7 +11248,7 @@ glabel scenarioCtcCallback28
 /*  f1817fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-//bool scenarioCtcCallback28(struct prop *prop, u32 *colour)
+//bool scenarioCtcHighlight(struct prop *prop, u32 *colour)
 //{
 //	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
 //		if (prop->obj->type == OBJTYPE_WEAPON && prop->weapon->weapon_id == WEAPON_BRIEFCASE2) {
@@ -13920,7 +13920,7 @@ glabel scenarioHtmRadar
 /*  f184214:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-bool scenarioHtmCallback24(s32 *displaylist, struct prop *prop)
+bool scenarioHtmRadar2(s32 *displaylist, struct prop *prop)
 {
 	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR3) && g_ScenarioData.htm.uplink) {
 		if (prop == g_ScenarioData.htm.uplink &&
@@ -13944,51 +13944,36 @@ bool scenarioHtmCallback24(s32 *displaylist, struct prop *prop)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel scenarioHtmCallback28
-/*  f184344:	3c0e800b */ 	lui	$t6,0x800b
-/*  f184348:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
-/*  f18434c:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f184350:	3c18800b */ 	lui	$t8,0x800b
-/*  f184354:	000e7b80 */ 	sll	$t7,$t6,0xe
-/*  f184358:	05e3001c */ 	bgezl	$t7,.L0f1843cc
-/*  f18435c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f184360:	8f18c24c */ 	lw	$t8,-0x3db4($t8)
-/*  f184364:	3c05800b */ 	lui	$a1,%hi(g_ScenarioData)
-/*  f184368:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18436c:	14980003 */ 	bne	$a0,$t8,.L0f18437c
-/*  f184370:	24a5c110 */ 	addiu	$a1,$a1,%lo(g_ScenarioData)
-/*  f184374:	1000000b */ 	beqz	$zero,.L0f1843a4
-/*  f184378:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18437c:
-/*  f18437c:	3c03800b */ 	lui	$v1,0x800b
-/*  f184380:	2463c11c */ 	addiu	$v1,$v1,-16100
-/*  f184384:	8cb90080 */ 	lw	$t9,0x80($a1)
-.L0f184388:
-/*  f184388:	24a5000c */ 	addiu	$a1,$a1,0xc
-/*  f18438c:	14990003 */ 	bne	$a0,$t9,.L0f18439c
-/*  f184390:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f184394:	10000003 */ 	beqz	$zero,.L0f1843a4
-/*  f184398:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18439c:
-/*  f18439c:	54a3fffa */ 	bnel	$a1,$v1,.L0f184388
-/*  f1843a0:	8cb90080 */ 	lw	$t9,0x80($a1)
-.L0f1843a4:
-/*  f1843a4:	10400008 */ 	beqz	$v0,.L0f1843c8
-/*  f1843a8:	240800ff */ 	addiu	$t0,$zero,0xff
-/*  f1843ac:	24090040 */ 	addiu	$t1,$zero,0x40
-/*  f1843b0:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f1843b4:	acc80004 */ 	sw	$t0,0x4($a2)
-/*  f1843b8:	acc00008 */ 	sw	$zero,0x8($a2)
-/*  f1843bc:	acc9000c */ 	sw	$t1,0xc($a2)
-/*  f1843c0:	03e00008 */ 	jr	$ra
-/*  f1843c4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1843c8:
-/*  f1843c8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1843cc:
-/*  f1843cc:	03e00008 */ 	jr	$ra
-/*  f1843d0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool scenarioHtmHighlight(struct prop *prop, u32 *colour)
+{
+	if (g_MpSetup.options & MPOPTION_HIGHLIGHTTERMINAL) {
+		bool highlight = false;
+
+		if (prop == g_ScenarioData.htm.uplink) {
+			highlight = true;
+		} else {
+			s32 i;
+
+			for (i = 0; i < 1; i++) {
+				if (g_ScenarioData.htm.unk080[i].prop == prop) {
+					highlight = true;
+					break;
+				}
+			}
+		}
+
+		if (highlight) {
+			colour[0] = 0;
+			colour[1] = 0xff;
+			colour[2] = 0;
+			colour[3] = 0x40;
+
+			return true;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel scenarioPacChooseVictims
@@ -14122,7 +14107,7 @@ void scenarioPacReset(void)
 }
 
 GLOBAL_ASM(
-glabel scenarioPacCallback28
+glabel scenarioPacHighlight
 /*  f18452c:	3c0e800b */ 	lui	$t6,0x800b
 /*  f184530:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
 /*  f184534:	000e7b00 */ 	sll	$t7,$t6,0xc
@@ -14687,7 +14672,7 @@ s32 scenarioPacRadar(s32 value)
 }
 
 GLOBAL_ASM(
-glabel scenarioPacCallback24
+glabel scenarioPacRadar2
 /*  f184d8c:	3c03800b */ 	lui	$v1,0x800b
 /*  f184d90:	8c63cb94 */ 	lw	$v1,-0x346c($v1)
 /*  f184d94:	27bdffb8 */ 	addiu	$sp,$sp,-72
@@ -14772,7 +14757,7 @@ glabel scenarioPacCallback24
 
 // Mismatch because the game jumps to pac properties directly
 // while decomp loads the base pac address then uses offsets.
-//bool scenarioPacCallback24(s32 *displaylist, struct prop *prop)
+//bool scenarioPacRadar2(s32 *displaylist, struct prop *prop)
 //{
 //	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR4) && g_ScenarioData.pac.victimindex >= 0) {
 //		s32 index = g_ScenarioData.pac.victimindex;
@@ -15725,10 +15710,10 @@ s32 scenarioRadar(s32 value)
 	return value;
 }
 
-bool scenarioCallback24(void *arg0, struct prop *prop)
+bool scenarioRadar2(s32 *displaylist, struct prop *prop)
 {
-	if (g_Vars.unk000318 && g_MpScenarios[g_MpSetup.scenario].unk24) {
-		return g_MpScenarios[g_MpSetup.scenario].unk24(arg0, prop);
+	if (g_Vars.unk000318 && g_MpScenarios[g_MpSetup.scenario].radar2func) {
+		return g_MpScenarios[g_MpSetup.scenario].radar2func(displaylist, prop);
 	}
 
 	return false;

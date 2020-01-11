@@ -4119,8 +4119,8 @@ struct mpscenario {
 	void *unk18;
 	void (*killfunc)(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
 	s32 (*radarfunc)(s32 value);
-	bool (*unk24)(void *arg0, struct prop *prop);
-	bool (*unk28)(struct prop *prop, u32 *colour);
+	bool (*radar2func)(s32 *displaylist, struct prop *prop);
+	bool (*highlightfunc)(struct prop *prop, u32 *colour);
 	bool (*unk2c)(f32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 *arg4);
 	s32 (*unk30)(void);
 	bool (*unk34)(s16 arg0);
@@ -4354,6 +4354,12 @@ struct scenariodata_htb {
 	struct coord pos;
 };
 
+struct htmthing {
+	struct prop *prop;
+	u32 unk04;
+	u32 unk08;
+};
+
 struct scenariodata_htm {
 	/*0x800ac110*/ u32 unk000;
 	/*0x800ac114*/ u32 unk004;
@@ -4387,9 +4393,7 @@ struct scenariodata_htm {
 	/*0x800ac184*/ u32 unk074;
 	/*0x800ac188*/ u32 unk078;
 	/*0x800ac18c*/ u32 unk07c;
-	/*0x800ac190*/ u32 unk080;
-	/*0x800ac194*/ u32 unk084;
-	/*0x800ac198*/ u32 unk088;
+	/*0x800ac190*/ struct htmthing unk080[1];
 	/*0x800ac19c*/ u32 unk08c;
 	/*0x800ac1a0*/ u32 unk090;
 	/*0x800ac1a4*/ u32 unk094;
