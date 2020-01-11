@@ -92,7 +92,7 @@ u32 scenarioHtbCallback18(void);
 void scenarioHtbKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
 s32 scenarioHtbRadar(s32 value);
 bool scenarioHtbCallback24(s32 *displaylist, struct prop *prop);
-u32 scenarioHtbCallback28(void);
+bool scenarioHtbCallback28(struct prop *prop, u32 *colour);
 void scenarioCtcInit(void);
 s32 scenarioCtcCallback08(void);
 void scenarioCtcCallback10(void);

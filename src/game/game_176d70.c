@@ -10668,30 +10668,19 @@ bool scenarioHtbCallback24(s32 *displaylist, struct prop *prop)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel scenarioHtbCallback28
-/*  f180c48:	3c0e800b */ 	lui	$t6,0x800b
-/*  f180c4c:	8dcecb94 */ 	lw	$t6,-0x346c($t6)
-/*  f180c50:	3c18800b */ 	lui	$t8,0x800b
-/*  f180c54:	00001025 */ 	or	$v0,$zero,$zero
-/*  f180c58:	31cf0800 */ 	andi	$t7,$t6,0x800
-/*  f180c5c:	11e0000c */ 	beqz	$t7,.L0f180c90
-/*  f180c60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f180c64:	8f18c114 */ 	lw	$t8,-0x3eec($t8)
-/*  f180c68:	241900ff */ 	addiu	$t9,$zero,0xff
-/*  f180c6c:	24080040 */ 	addiu	$t0,$zero,0x40
-/*  f180c70:	14980007 */ 	bne	$a0,$t8,.L0f180c90
-/*  f180c74:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f180c78:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f180c7c:	acb90004 */ 	sw	$t9,0x4($a1)
-/*  f180c80:	aca00008 */ 	sw	$zero,0x8($a1)
-/*  f180c84:	aca8000c */ 	sw	$t0,0xc($a1)
-/*  f180c88:	03e00008 */ 	jr	$ra
-/*  f180c8c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f180c90:
-/*  f180c90:	03e00008 */ 	jr	$ra
-/*  f180c94:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool scenarioHtbCallback28(struct prop *prop, u32 *colour)
+{
+	if ((g_MpSetup.options & MPOPTION_HIGHLIGHTBRIEFCASE) && prop == g_ScenarioData.htb.token) {
+		colour[0] = 0;
+		colour[1] = 0xff;
+		colour[2] = 0;
+		colour[3] = 0x40;
+
+		return true;
+	}
+
+	return false;
+}
 
 void scenarioCtcInit(void)
 {
