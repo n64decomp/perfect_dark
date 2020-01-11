@@ -4466,12 +4466,12 @@ struct ctcthing {
 };
 
 struct scenariodata_ctc {
-	s16 unk00[4];
-	s16 unk08[4];
-	s32 unk10;
-	s32 unk14;
-	struct ctcthing unk18[4];
-	struct prop *tokens[4];
+	/*0x00*/ s16 unk00[4];
+	/*0x08*/ s16 unk08[4];
+	/*0x10*/ s32 unk10;
+	/*0x14*/ s32 unk14;
+	/*0x18*/ struct ctcthing unk18[4];
+	/*0x58*/ struct prop *tokens[4];
 };
 
 struct scenariodata {
