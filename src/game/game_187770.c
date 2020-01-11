@@ -1067,8 +1067,8 @@ glabel func0f188210
 /*  f1882dc:	0fc6256f */ 	jal	func0f1895bc
 /*  f1882e0:	00002025 */ 	or	$a0,$zero,$zero
 .L0f1882e4:
-/*  f1882e4:	3c02800b */ 	lui	$v0,%hi(var800acc20)
-/*  f1882e8:	2442cc20 */ 	addiu	$v0,$v0,%lo(var800acc20)
+/*  f1882e4:	3c02800b */ 	lui	$v0,%hi(g_MpLockPlayerNum)
+/*  f1882e8:	2442cc20 */ 	addiu	$v0,$v0,%lo(g_MpLockPlayerNum)
 /*  f1882ec:	2403ffff */ 	addiu	$v1,$zero,-1
 /*  f1882f0:	3c04800a */ 	lui	$a0,%hi(g_Vars)
 /*  f1882f4:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
@@ -1505,8 +1505,8 @@ glabel func0f1885e4
 /*  f1888d4:	1490ffcf */ 	bne	$a0,$s0,.L0f188814
 /*  f1888d8:	24c60004 */ 	addiu	$a2,$a2,0x4
 .L0f1888dc:
-/*  f1888dc:	3c11800b */ 	lui	$s1,%hi(var800acc20)
-/*  f1888e0:	2631cc20 */ 	addiu	$s1,$s1,%lo(var800acc20)
+/*  f1888dc:	3c11800b */ 	lui	$s1,%hi(g_MpLockPlayerNum)
+/*  f1888e0:	2631cc20 */ 	addiu	$s1,$s1,%lo(g_MpLockPlayerNum)
 /*  f1888e4:	a22d0001 */ 	sb	$t5,0x1($s1)
 /*  f1888e8:	a23f0002 */ 	sb	$ra,0x2($s1)
 /*  f1888ec:	3c19800b */ 	lui	$t9,0x800b
@@ -5463,17 +5463,15 @@ glabel mpSetLock
 /*  f18bfbc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-u32 mpGetLock(void)
+u8 mpGetLock(void)
 {
 	return g_MpLock;
 }
 
-GLOBAL_ASM(
-glabel mpGetLockPlayerNum
-/*  f18bfcc:	3c02800b */ 	lui	$v0,0x800b
-/*  f18bfd0:	03e00008 */ 	jr	$ra
-/*  f18bfd4:	8042cc20 */ 	lb	$v0,-0x33e0($v0)
-);
+s8 mpGetLockPlayerNum(void)
+{
+	return g_MpLockPlayerNum;
+}
 
 GLOBAL_ASM(
 glabel func0f18bfd8
@@ -5504,17 +5502,17 @@ glabel func0f18c014
 /*  f18c020:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f18c024:	14810007 */ 	bne	$a0,$at,.L0f18c044
 /*  f18c028:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c02c:	3c03800b */ 	lui	$v1,%hi(var800acc20)
-/*  f18c030:	2463cc20 */ 	addiu	$v1,$v1,%lo(var800acc20)
+/*  f18c02c:	3c03800b */ 	lui	$v1,%hi(g_MpLockPlayerNum)
+/*  f18c030:	2463cc20 */ 	addiu	$v1,$v1,%lo(g_MpLockPlayerNum)
 /*  f18c034:	80620001 */ 	lb	$v0,0x1($v1)
 /*  f18c038:	04400002 */ 	bltz	$v0,.L0f18c044
 /*  f18c03c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c040:	a0620000 */ 	sb	$v0,0x0($v1)
 .L0f18c044:
-/*  f18c044:	3c03800b */ 	lui	$v1,%hi(var800acc20)
+/*  f18c044:	3c03800b */ 	lui	$v1,%hi(g_MpLockPlayerNum)
 /*  f18c048:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f18c04c:	14810005 */ 	bne	$a0,$at,.L0f18c064
-/*  f18c050:	2463cc20 */ 	addiu	$v1,$v1,%lo(var800acc20)
+/*  f18c050:	2463cc20 */ 	addiu	$v1,$v1,%lo(g_MpLockPlayerNum)
 /*  f18c054:	80620002 */ 	lb	$v0,0x2($v1)
 /*  f18c058:	04420003 */ 	bltzl	$v0,.L0f18c068
 /*  f18c05c:	80620000 */ 	lb	$v0,0x0($v1)
@@ -5537,8 +5535,8 @@ glabel func0f18c014
 /*  f18c098:	80690002 */ 	lb	$t1,0x2($v1)
 /*  f18c09c:	0fc62fba */ 	jal	func0f18bee8
 /*  f18c0a0:	a0690001 */ 	sb	$t1,0x1($v1)
-/*  f18c0a4:	3c03800b */ 	lui	$v1,%hi(var800acc20)
-/*  f18c0a8:	2463cc20 */ 	addiu	$v1,$v1,%lo(var800acc20)
+/*  f18c0a4:	3c03800b */ 	lui	$v1,%hi(g_MpLockPlayerNum)
+/*  f18c0a8:	2463cc20 */ 	addiu	$v1,$v1,%lo(g_MpLockPlayerNum)
 /*  f18c0ac:	a0620000 */ 	sb	$v0,0x0($v1)
 .L0f18c0b0:
 /*  f18c0b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -5921,8 +5919,8 @@ glabel func0f18c4c0
 /*  f18c524:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f18c528:
 /*  f18c528:	16a0001e */ 	bnez	$s5,.L0f18c5a4
-/*  f18c52c:	3c16800b */ 	lui	$s6,%hi(var800acc20)
-/*  f18c530:	26d6cc20 */ 	addiu	$s6,$s6,%lo(var800acc20)
+/*  f18c52c:	3c16800b */ 	lui	$s6,%hi(g_MpLockPlayerNum)
+/*  f18c530:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockPlayerNum)
 .L0f18c534:
 /*  f18c534:	0c004b70 */ 	jal	random
 /*  f18c538:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5954,8 +5952,8 @@ glabel func0f18c4c0
 /*  f18c59c:	10000073 */ 	beqz	$zero,.L0f18c76c
 /*  f18c5a0:	00031242 */ 	srl	$v0,$v1,0x9
 .L0f18c5a4:
-/*  f18c5a4:	3c16800b */ 	lui	$s6,%hi(var800acc20)
-/*  f18c5a8:	26d6cc20 */ 	addiu	$s6,$s6,%lo(var800acc20)
+/*  f18c5a4:	3c16800b */ 	lui	$s6,%hi(g_MpLockPlayerNum)
+/*  f18c5a8:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockPlayerNum)
 /*  f18c5ac:	00008025 */ 	or	$s0,$zero,$zero
 .L0f18c5b0:
 /*  f18c5b0:	0c004b70 */ 	jal	random
@@ -6028,9 +6026,9 @@ glabel func0f18c4c0
 /*  f18c69c:	00409825 */ 	or	$s3,$v0,$zero
 /*  f18c6a0:	0fc63080 */ 	jal	func0f18c200
 /*  f18c6a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18c6a8:	3c16800b */ 	lui	$s6,%hi(var800acc20)
+/*  f18c6a8:	3c16800b */ 	lui	$s6,%hi(g_MpLockPlayerNum)
 /*  f18c6ac:	00408025 */ 	or	$s0,$v0,$zero
-/*  f18c6b0:	26d6cc20 */ 	addiu	$s6,$s6,%lo(var800acc20)
+/*  f18c6b0:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockPlayerNum)
 .L0f18c6b4:
 /*  f18c6b4:	0c004b70 */ 	jal	random
 /*  f18c6b8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -6065,9 +6063,9 @@ glabel func0f18c4c0
 /*  f18c724:	0fc63065 */ 	jal	func0f18c194
 /*  f18c728:	02602025 */ 	or	$a0,$s3,$zero
 /*  f18c72c:	00024080 */ 	sll	$t0,$v0,0x2
-/*  f18c730:	3c16800b */ 	lui	$s6,%hi(var800acc20)
+/*  f18c730:	3c16800b */ 	lui	$s6,%hi(g_MpLockPlayerNum)
 /*  f18c734:	01024023 */ 	subu	$t0,$t0,$v0
-/*  f18c738:	26d6cc20 */ 	addiu	$s6,$s6,%lo(var800acc20)
+/*  f18c738:	26d6cc20 */ 	addiu	$s6,$s6,%lo(g_MpLockPlayerNum)
 /*  f18c73c:	00084040 */ 	sll	$t0,$t0,0x1
 /*  f18c740:	3c038008 */ 	lui	$v1,0x8008
 /*  f18c744:	aec20004 */ 	sw	$v0,0x4($s6)
