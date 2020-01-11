@@ -7480,7 +7480,7 @@ glabel menuhandlerMpMaximumTeams
 .L0f17d86c:
 /*  f17d86c:	26310001 */ 	addiu	$s1,$s1,0x1
 /*  f17d870:	322a00ff */ 	andi	$t2,$s1,0xff
-/*  f17d874:	0fc61902 */ 	jal	scenarioCallback30
+/*  f17d874:	0fc61902 */ 	jal	scenarioGetMaxTeams
 /*  f17d878:	01408825 */ 	or	$s1,$t2,$zero
 /*  f17d87c:	0222082a */ 	slt	$at,$s1,$v0
 /*  f17d880:	54200003 */ 	bnezl	$at,.L0f17d890
@@ -7672,7 +7672,7 @@ glabel func0f17dac4
 /*  f17dae8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f17daec:
 /*  f17daec:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17daf0:	0fc61902 */ 	jal	scenarioCallback30
+/*  f17daf0:	0fc61902 */ 	jal	scenarioGetMaxTeams
 /*  f17daf4:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f17daf8:	8fa60020 */ 	lw	$a2,0x20($sp)
 /*  f17dafc:	8fa40018 */ 	lw	$a0,0x18($sp)
@@ -10712,8 +10712,8 @@ void scenarioCtcInit(void)
 				basedata = &g_MpSimulants[k - 4].base;
 			}
 
-			while (scenarioCallback30() <= basedata->team) {
-				basedata->team -= scenarioCallback30();
+			while (basedata->team >= scenarioGetMaxTeams()) {
+				basedata->team -= scenarioGetMaxTeams();
 			}
 		}
 	}
@@ -10836,18 +10836,18 @@ glabel scenarioCtcReset
 /*  f180f9c:	258dfed0 */ 	addiu	$t5,$t4,-304
 /*  f180fa0:	01b98021 */ 	addu	$s0,$t5,$t9
 .L0f180fa4:
-/*  f180fa4:	0fc61902 */ 	jal	scenarioCallback30
+/*  f180fa4:	0fc61902 */ 	jal	scenarioGetMaxTeams
 /*  f180fa8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f180fac:	92090011 */ 	lbu	$t1,0x11($s0)
 /*  f180fb0:	0122082a */ 	slt	$at,$t1,$v0
 /*  f180fb4:	1420000b */ 	bnez	$at,.L0f180fe4
 /*  f180fb8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f180fbc:
-/*  f180fbc:	0fc61902 */ 	jal	scenarioCallback30
+/*  f180fbc:	0fc61902 */ 	jal	scenarioGetMaxTeams
 /*  f180fc0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f180fc4:	92180011 */ 	lbu	$t8,0x11($s0)
 /*  f180fc8:	03027823 */ 	subu	$t7,$t8,$v0
-/*  f180fcc:	0fc61902 */ 	jal	scenarioCallback30
+/*  f180fcc:	0fc61902 */ 	jal	scenarioGetMaxTeams
 /*  f180fd0:	a20f0011 */ 	sb	$t7,0x11($s0)
 /*  f180fd4:	920e0011 */ 	lbu	$t6,0x11($s0)
 /*  f180fd8:	01c2082a */ 	slt	$at,$t6,$v0
@@ -11164,7 +11164,7 @@ s32 scenarioCtcRadar(s32 value)
 	if (g_MpSetup.options & MPOPTION_SHOWONRADAR2) {
 		s32 i;
 
-		for (i = 0; i < scenarioCallback30(); i++) {
+		for (i = 0; i < scenarioGetMaxTeams(); i++) {
 			if (g_ScenarioData.ctc.tokens[i] &&
 					g_ScenarioData.ctc.tokens[i]->type != PROPTYPE_CHR &&
 					g_ScenarioData.ctc.tokens[i]->type != PROPTYPE_PLAYER) {
@@ -11185,7 +11185,7 @@ bool scenarioCtcRadar2(s32 *displaylist, struct prop *prop)
 	s32 i;
 
 	if (g_MpSetup.options & MPOPTION_SHOWONRADAR2) {
-		for (i = 0; i < scenarioCallback30(); i++) {
+		for (i = 0; i < scenarioGetMaxTeams(); i++) {
 			if (prop == g_ScenarioData.ctc.tokens[i] &&
 					(g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_CHR || g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_PLAYER)) {
 				struct coord dist;
@@ -11328,7 +11328,7 @@ bool scenarioCtcCallback2c(f32 arg0, s32 arg1, s32 arg2, struct prop *prop, f32 
 	return false;
 }
 
-s32 scenarioCtcCallback30(void)
+s32 scenarioCtcGetMaxTeams(void)
 {
 	return 4;
 }
@@ -16093,10 +16093,10 @@ glabel func0f18620c
 /*  f186404:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-s32 scenarioCallback30(void)
+s32 scenarioGetMaxTeams(void)
 {
-	if (g_MpScenarios[g_MpSetup.scenario].unk30) {
-		return g_MpScenarios[g_MpSetup.scenario].unk30();
+	if (g_MpScenarios[g_MpSetup.scenario].maxteamsfunc) {
+		return g_MpScenarios[g_MpSetup.scenario].maxteamsfunc();
 	}
 
 	return 8;

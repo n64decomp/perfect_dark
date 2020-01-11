@@ -4122,7 +4122,7 @@ struct mpscenario {
 	bool (*radar2func)(s32 *displaylist, struct prop *prop);
 	bool (*highlightfunc)(struct prop *prop, u32 *colour);
 	bool (*unk2c)(f32 arg0, s32 arg1, s32 arg2, struct prop *prop, f32 *arg4);
-	s32 (*unk30)(void);
+	s32 (*maxteamsfunc)(void);
 	bool (*unk34)(s16 arg0);
 	void (*unk38)(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 	void *unk3c;
