@@ -140,7 +140,7 @@ u32 func0f191fa4(void);
 u32 func0f1921f8(void);
 char *mpGetBotCommandName(s32 command);
 void func0f192438(struct chrdata *chr, struct prop *prop);
-u32 func0f192474(void);
+void func0f192474(struct chrdata *chr, struct prop *prop);
 u32 func0f1924ac(void);
 u32 func0f1924e8(void);
 u32 func0f19257c(void);
