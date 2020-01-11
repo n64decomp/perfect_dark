@@ -4058,6 +4058,7 @@ struct mpplayer {
 	/*0x95*/ u8 title;
 	/*0x98*/ u32 unk98;
 	/*0x9c*/ u8 unk9c;
+	/*0x9d*/ u8 handicap;
 };
 
 struct mpsim {

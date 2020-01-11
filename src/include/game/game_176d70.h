@@ -243,7 +243,7 @@ s32 menuhandlerMpNumberOfSimulants(u32, u32, u32 *);
 s32 menuhandlerMpOneHitKills(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpOpenOptions(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpQuickTeamOption(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMpRestoreHandicapDefaults(u32, u32, u32 *);
+s32 menuhandlerMpRestoreHandicapDefaults(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpRestoreScoreDefaults(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpSaveSettings(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpScoreLimitSlider(u32 operation, struct menu_item *item, struct numandtext *value);

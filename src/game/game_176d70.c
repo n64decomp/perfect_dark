@@ -6345,25 +6345,18 @@ glabel func0f17c524
 /*  f17c568:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpRestoreHandicapDefaults
-/*  f17c56c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17c570:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f17c574:	14810009 */ 	bne	$a0,$at,.L0f17c59c
-/*  f17c578:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f17c57c:	3c03800b */ 	lui	$v1,%hi(g_MpPlayers)
-/*  f17c580:	3c04800b */ 	lui	$a0,%hi(var800aca38)
-/*  f17c584:	2484ca38 */ 	addiu	$a0,$a0,%lo(var800aca38)
-/*  f17c588:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_MpPlayers)
-/*  f17c58c:	24020080 */ 	addiu	$v0,$zero,0x80
-.L0f17c590:
-/*  f17c590:	246300a0 */ 	addiu	$v1,$v1,0xa0
-/*  f17c594:	1464fffe */ 	bne	$v1,$a0,.L0f17c590
-/*  f17c598:	a062fffd */ 	sb	$v0,-0x3($v1)
-.L0f17c59c:
-/*  f17c59c:	03e00008 */ 	jr	$ra
-/*  f17c5a0:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 menuhandlerMpRestoreHandicapDefaults(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		s32 i;
+
+		for (i = 0; i < 4; i++) {
+			g_MpPlayers[i].handicap = 0x80;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menudialog0017c5a4
