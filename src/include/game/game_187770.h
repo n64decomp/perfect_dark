@@ -36,7 +36,7 @@ void func0f1895bc(s32 arg0);
 u32 func0f1895e8(void);
 s32 func0f18961c(void);
 u32 mpIsPaused(void);
-void mpSetPaused(bool pause);
+void mpSetPaused(u8 pause);
 u32 func0f18973c(void);
 u32 func0f189cc0(void);
 u32 func0f189dc8(void);

@@ -2522,13 +2522,10 @@ bool mpIsPaused(void)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel mpSetPaused
-/*  f18972c:	3c01800b */ 	lui	$at,0x800b
-/*  f189730:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f189734:	03e00008 */ 	jr	$ra
-/*  f189738:	a024cba6 */ 	sb	$a0,-0x345a($at)
-);
+void mpSetPaused(u8 pause)
+{
+	g_MpSetup.paused = pause;
+}
 
 GLOBAL_ASM(
 glabel func0f18973c
