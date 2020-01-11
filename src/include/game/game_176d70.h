@@ -226,7 +226,7 @@ s32 menuhandlerMpCharacterHead(u32 operation, struct menu_item *item, s32 *value
 s32 menuhandlerMpCheckboxOption(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpClearAllSimulants(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpControlCheckbox(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMpControlStyle(u32, u32, u32 *);
+char *menuhandlerMpControlStyle(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpDeleteSimulant(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpDisplayTeam(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value);

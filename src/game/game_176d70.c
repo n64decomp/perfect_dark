@@ -3267,64 +3267,26 @@ glabel menuhandler001791c8
 /*  f1794b0:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpControlStyle
-/*  f1794b4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1794b8:	3c0e8008 */ 	lui	$t6,%hi(mpcontrolstyles)
-/*  f1794bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1794c0:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f1794c4:	25ce4c18 */ 	addiu	$t6,$t6,%lo(mpcontrolstyles)
-/*  f1794c8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1794cc:	27a20020 */ 	addiu	$v0,$sp,0x20
-/*  f1794d0:	24080004 */ 	addiu	$t0,$zero,0x4
-/*  f1794d4:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f1794d8:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f1794dc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1794e0:	1081000a */ 	beq	$a0,$at,.L0f17950c
-/*  f1794e4:	ac590004 */ 	sw	$t9,0x4($v0)
-/*  f1794e8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f1794ec:	10810009 */ 	beq	$a0,$at,.L0f179514
-/*  f1794f0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1794f4:	1081000e */ 	beq	$a0,$at,.L0f179530
-/*  f1794f8:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f1794fc:	10810012 */ 	beq	$a0,$at,.L0f179548
-/*  f179500:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f179504:	10000017 */ 	beqz	$zero,.L0f179564
-/*  f179508:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17950c:
-/*  f17950c:	10000014 */ 	beqz	$zero,.L0f179560
-/*  f179510:	acc80000 */ 	sw	$t0,0x0($a2)
-.L0f179514:
-/*  f179514:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f179518:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f17951c:	004a5821 */ 	addu	$t3,$v0,$t2
-/*  f179520:	0fc5b9f1 */ 	jal	textGet
-/*  f179524:	95640000 */ 	lhu	$a0,0x0($t3)
-/*  f179528:	1000000f */ 	beqz	$zero,.L0f179568
-/*  f17952c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179530:
-/*  f179530:	3c048007 */ 	lui	$a0,0x8007
-/*  f179534:	8c841448 */ 	lw	$a0,0x1448($a0)
-/*  f179538:	0fc549cb */ 	jal	optionsSetControlMode
-/*  f17953c:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f179540:	10000008 */ 	beqz	$zero,.L0f179564
-/*  f179544:	00001025 */ 	or	$v0,$zero,$zero
-.L0f179548:
-/*  f179548:	3c048007 */ 	lui	$a0,0x8007
-/*  f17954c:	8c841448 */ 	lw	$a0,0x1448($a0)
-/*  f179550:	0fc549c4 */ 	jal	optionsGetControlMode
-/*  f179554:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f179558:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f17955c:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f179560:
-/*  f179560:	00001025 */ 	or	$v0,$zero,$zero
-.L0f179564:
-/*  f179564:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179568:
-/*  f179568:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f17956c:	03e00008 */ 	jr	$ra
-/*  f179570:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menuhandlerMpControlStyle(u32 operation, struct menu_item *item, s32 *value)
+{
+	u16 labels[4] = g_MpControlStyleLabels;
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = 4;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return textGet(labels[*value]);
+	case MENUOP_SET:
+		optionsSetControlMode(g_MpPlayerNum, *value);
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = optionsGetControlMode(g_MpPlayerNum);
+		break;
+	}
+
+	return NULL;
+}
 
 char *menuhandlerMpWeaponSlot(u32 operation, struct menu_item *item, s32 *value)
 {

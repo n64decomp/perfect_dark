@@ -10322,7 +10322,7 @@ u32 var80084c00[] = {
 };
 
 // 2ac38
-u16 mpcontrolstyles[] = {
+u16 g_MpControlStyleLabels[] = {
 	0x56ef, // "1.1"
 	0x56f0, // "1.2"
 	0x56f1, // "1.3"
