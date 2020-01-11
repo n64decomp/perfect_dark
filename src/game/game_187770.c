@@ -12679,15 +12679,11 @@ void func0f19257c(struct chrdata *chr, struct coord *pos, s32 *arg2, f32 arg3)
 	chr->unk2d4->unkd8 = 1;
 }
 
-GLOBAL_ASM(
-glabel func0f192610
-/*  f192610:	8c8e02d4 */ 	lw	$t6,0x2d4($a0)
-/*  f192614:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f192618:	a1c50079 */ 	sb	$a1,0x79($t6)
-/*  f19261c:	8c9802d4 */ 	lw	$t8,0x2d4($a0)
-/*  f192620:	03e00008 */ 	jr	$ra
-/*  f192624:	af0f00d8 */ 	sw	$t7,0xd8($t8)
-);
+void func0f192610(struct chrdata *chr, s32 arg1)
+{
+	chr->unk2d4->unk79 = arg1;
+	chr->unk2d4->unkd8 = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f192628
