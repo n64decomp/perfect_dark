@@ -1807,7 +1807,7 @@ s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandler00178018(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (var800acc10 != 5) {
+		if (g_MpLock != MPLOCK_CHALLENGE) {
 			return true;
 		}
 	}
@@ -8335,7 +8335,7 @@ glabel menuhandler0017e4d4
 s32 menuhandler0017e9d8(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (var800acc10 != 5) {
+		if (g_MpLock != MPLOCK_CHALLENGE) {
 			return true;
 		}
 	}
@@ -8346,7 +8346,7 @@ s32 menuhandler0017e9d8(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandlerMpAbortChallenge(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (var800acc10 != 5) {
+		if (g_MpLock != MPLOCK_CHALLENGE) {
 			return true;
 		}
 	}
@@ -8361,7 +8361,7 @@ s32 menuhandlerMpAbortChallenge(u32 operation, struct menu_item *item, s32 *valu
 s32 menuhandlerMpStartChallenge(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (var800acc10 != 5) {
+		if (g_MpLock != MPLOCK_CHALLENGE) {
 			return true;
 		}
 	}

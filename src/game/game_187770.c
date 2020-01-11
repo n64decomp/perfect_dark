@@ -5463,12 +5463,10 @@ glabel mpSetLock
 /*  f18bfbc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel mpGetLock
-/*  f18bfc0:	3c02800b */ 	lui	$v0,0x800b
-/*  f18bfc4:	03e00008 */ 	jr	$ra
-/*  f18bfc8:	9042cc10 */ 	lbu	$v0,-0x33f0($v0)
-);
+u32 mpGetLock(void)
+{
+	return g_MpLock;
+}
 
 GLOBAL_ASM(
 glabel mpGetLockPlayerNum

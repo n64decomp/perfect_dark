@@ -4257,10 +4257,10 @@ glabel func0f11080c
 /*  f1108b4:	0fc354fe */ 	jal	scenarioDefaultCallback40
 /*  f1108b8:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1108bc:	a6220482 */ 	sh	$v0,0x482($s1)
-/*  f1108c0:	3c11800b */ 	lui	$s1,%hi(var800acc10)
+/*  f1108c0:	3c11800b */ 	lui	$s1,%hi(g_MpLock)
 /*  f1108c4:	3c10800b */ 	lui	$s0,%hi(var800acbb0)
 /*  f1108c8:	2610cbb0 */ 	addiu	$s0,$s0,%lo(var800acbb0)
-/*  f1108cc:	2631cc10 */ 	addiu	$s1,$s1,%lo(var800acc10)
+/*  f1108cc:	2631cc10 */ 	addiu	$s1,$s1,%lo(g_MpLock)
 /*  f1108d0:	02402025 */ 	or	$a0,$s2,$zero
 .L0f1108d4:
 /*  f1108d4:	02002825 */ 	or	$a1,$s0,$zero
@@ -4359,8 +4359,8 @@ glabel func0f1109c0
 /*  f110a24:	0fc354be */ 	jal	scenarioDefaultCallback44
 /*  f110a28:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f110a2c:	3c10800b */ 	lui	$s0,%hi(var800acbb0)
-/*  f110a30:	3c11800b */ 	lui	$s1,%hi(var800acc10)
-/*  f110a34:	2631cc10 */ 	addiu	$s1,$s1,%lo(var800acc10)
+/*  f110a30:	3c11800b */ 	lui	$s1,%hi(g_MpLock)
+/*  f110a34:	2631cc10 */ 	addiu	$s1,$s1,%lo(g_MpLock)
 /*  f110a38:	2610cbb0 */ 	addiu	$s0,$s0,%lo(var800acbb0)
 /*  f110a3c:	02402025 */ 	or	$a0,$s2,$zero
 .L0f110a40:
