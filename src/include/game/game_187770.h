@@ -79,7 +79,7 @@ u32 func0f18c430(void);
 u32 func0f18c478(void);
 u32 func0f18c488(void);
 u32 func0f18c4c0(void);
-u32 func0f18c794(void);
+struct mpchr *func0f18c794(s32 index);
 u32 func0f18c828(void);
 u32 func0f18c87c(void);
 u32 func0f18c8b8(void);
