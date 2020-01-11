@@ -234,7 +234,7 @@ s32 menuhandlerMpFinishedSetup(u32 operation, struct menu_item *item, s32 *value
 s32 menuhandlerMpFourTeams(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpHandicapPlayer(u32, u32, u32 *);
 s32 menuhandlerMpHumanSimulantPairs(u32, u32, u32 *);
-s32 menuhandlerMpHumansVsSimulants(u32, u32, u32 *);
+s32 menuhandlerMpHumansVsSimulants(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpLock(u32, u32, u32 *);
 s32 menuhandlerMpMaximumTeams(u32, u32, u32 *);
 s32 menuhandlerMpMedal(u32, u32, u32 *);

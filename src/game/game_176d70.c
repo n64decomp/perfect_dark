@@ -7418,64 +7418,30 @@ glabel menuhandlerMpMaximumTeams
 /*  f17d8cc:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpHumansVsSimulants
-/*  f17d8d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17d8d4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17d8d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17d8dc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17d8e0:	14810028 */ 	bne	$a0,$at,.L0f17d984
-/*  f17d8e4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17d8e8:	3c09800b */ 	lui	$t1,%hi(g_MpSimulants)
-/*  f17d8ec:	3c05800b */ 	lui	$a1,%hi(g_MpPlayers)
-/*  f17d8f0:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f17d8f4:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f17d8f8:	24a5c7b8 */ 	addiu	$a1,$a1,%lo(g_MpPlayers)
-/*  f17d8fc:	2529c538 */ 	addiu	$t1,$t1,%lo(g_MpSimulants)
-/*  f17d900:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17d904:	240a004c */ 	addiu	$t2,$zero,0x4c
-/*  f17d908:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f17d90c:	2407000c */ 	addiu	$a3,$zero,0xc
-/*  f17d910:	240600a0 */ 	addiu	$a2,$zero,0xa0
-/*  f17d914:	948e0016 */ 	lhu	$t6,0x16($a0)
-.L0f17d918:
-/*  f17d918:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f17d91c:	004fc004 */ 	sllv	$t8,$t7,$v0
-/*  f17d920:	01d8c824 */ 	and	$t9,$t6,$t8
-/*  f17d924:	13200012 */ 	beqz	$t9,.L0f17d970
-/*  f17d928:	28410004 */ 	slti	$at,$v0,0x4
-/*  f17d92c:	10200006 */ 	beqz	$at,.L0f17d948
-/*  f17d930:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17d934:	00460019 */ 	multu	$v0,$a2
-/*  f17d938:	00005812 */ 	mflo	$t3
-/*  f17d93c:	00ab1821 */ 	addu	$v1,$a1,$t3
-/*  f17d940:	10000006 */ 	beqz	$zero,.L0f17d95c
-/*  f17d944:	28410004 */ 	slti	$at,$v0,0x4
-.L0f17d948:
-/*  f17d948:	004a0019 */ 	multu	$v0,$t2
-/*  f17d94c:	00006012 */ 	mflo	$t4
-/*  f17d950:	012c1821 */ 	addu	$v1,$t1,$t4
-/*  f17d954:	2463fed0 */ 	addiu	$v1,$v1,-304
-/*  f17d958:	28410004 */ 	slti	$at,$v0,0x4
-.L0f17d95c:
-/*  f17d95c:	50200004 */ 	beqzl	$at,.L0f17d970
-/*  f17d960:	a0680011 */ 	sb	$t0,0x11($v1)
-/*  f17d964:	10000002 */ 	beqz	$zero,.L0f17d970
-/*  f17d968:	a0600011 */ 	sb	$zero,0x11($v1)
-/*  f17d96c:	a0680011 */ 	sb	$t0,0x11($v1)
-.L0f17d970:
-/*  f17d970:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f17d974:	5447ffe8 */ 	bnel	$v0,$a3,.L0f17d918
-/*  f17d978:	948e0016 */ 	lhu	$t6,0x16($a0)
-/*  f17d97c:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f17d980:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17d984:
-/*  f17d984:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17d988:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17d98c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17d990:	03e00008 */ 	jr	$ra
-/*  f17d994:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerMpHumansVsSimulants(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		s32 i;
+
+		for (i = 0; i != 12; i++) {
+			if (g_MpSetup.chrslots & (1 << i)) {
+				struct mpchr *mpchr;
+
+				if (i < 4) {
+					mpchr = &g_MpPlayers[i].base;
+				} else {
+					mpchr = &g_MpSimulants[i - 4].base;
+				}
+
+				mpchr->team = i < 4 ? 0 : 1;
+			}
+		}
+
+		menuPopDialog();
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel menuhandlerMpHumanSimulantPairs
