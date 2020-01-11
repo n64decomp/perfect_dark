@@ -128,7 +128,7 @@ u32 func0f190708(void);
 u32 func0f190774(void);
 u32 func0f190784(void);
 u32 func0f190be4(void);
-u32 func0f191194(void);
+s32 mpObjIsSafe(struct defaultobj *obj);
 u32 func0f19124c(void);
 u32 func0f1913f8(void);
 u32 func0f191448(void);

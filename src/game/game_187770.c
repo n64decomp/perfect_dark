@@ -11308,61 +11308,35 @@ glabel func0f190be4
 /*  f191190:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f191194
-/*  f191194:	54800004 */ 	bnezl	$a0,.L0f1911a8
-/*  f191198:	90820003 */ 	lbu	$v0,0x3($a0)
-/*  f19119c:	03e00008 */ 	jr	$ra
-/*  f1911a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1911a4:	90820003 */ 	lbu	$v0,0x3($a0)
-.L0f1911a8:
-/*  f1911a8:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f1911ac:	10410005 */ 	beq	$v0,$at,.L0f1911c4
-/*  f1911b0:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f1911b4:	10410003 */ 	beq	$v0,$at,.L0f1911c4
-/*  f1911b8:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f1911bc:	54410004 */ 	bnel	$v0,$at,.L0f1911d0
-/*  f1911c0:	24010008 */ 	addiu	$at,$zero,0x8
-.L0f1911c4:
-/*  f1911c4:	03e00008 */ 	jr	$ra
-/*  f1911c8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1911cc:	24010008 */ 	addiu	$at,$zero,0x8
-.L0f1911d0:
-/*  f1911d0:	5441001c */ 	bnel	$v0,$at,.L0f191244
-/*  f1911d4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1911d8:	9082005c */ 	lbu	$v0,0x5c($a0)
-/*  f1911dc:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f1911e0:	10410013 */ 	beq	$v0,$at,.L0f191230
-/*  f1911e4:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f1911e8:	10410011 */ 	beq	$v0,$at,.L0f191230
-/*  f1911ec:	24010055 */ 	addiu	$at,$zero,0x55
-/*  f1911f0:	1041000f */ 	beq	$v0,$at,.L0f191230
-/*  f1911f4:	24010021 */ 	addiu	$at,$zero,0x21
-/*  f1911f8:	1041000d */ 	beq	$v0,$at,.L0f191230
-/*  f1911fc:	24010022 */ 	addiu	$at,$zero,0x22
-/*  f191200:	1041000b */ 	beq	$v0,$at,.L0f191230
-/*  f191204:	24010020 */ 	addiu	$at,$zero,0x20
-/*  f191208:	10410009 */ 	beq	$v0,$at,.L0f191230
-/*  f19120c:	24010058 */ 	addiu	$at,$zero,0x58
-/*  f191210:	10410007 */ 	beq	$v0,$at,.L0f191230
-/*  f191214:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f191218:	14410007 */ 	bne	$v0,$at,.L0f191238
-/*  f19121c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f191220:	908e005f */ 	lbu	$t6,0x5f($a0)
-/*  f191224:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f191228:	15c10003 */ 	bne	$t6,$at,.L0f191238
-/*  f19122c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f191230:
-/*  f191230:	03e00008 */ 	jr	$ra
-/*  f191234:	00001025 */ 	or	$v0,$zero,$zero
-.L0f191238:
-/*  f191238:	03e00008 */ 	jr	$ra
-/*  f19123c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f191240:	00001025 */ 	or	$v0,$zero,$zero
-.L0f191244:
-/*  f191244:	03e00008 */ 	jr	$ra
-/*  f191248:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 mpObjIsSafe(struct defaultobj *obj)
+{
+	if (!obj) {
+		return false;
+	}
+
+	if (obj->type == OBJTYPE_07 || obj->type == OBJTYPE_MULTIAMMOCRATE || obj->type == OBJTYPE_SHIELD) {
+		return true;
+	}
+
+	if (obj->type == OBJTYPE_WEAPON) {
+		struct weaponobj *weapon = (struct weaponobj *)obj;
+
+		if (weapon->weapon_id == WEAPON_NBOMB ||
+				weapon->weapon_id == WEAPON_GRENADE ||
+				weapon->weapon_id == WEAPON_GRENADEROUND ||
+				weapon->weapon_id == WEAPON_PROXIMITYMINE ||
+				weapon->weapon_id == WEAPON_REMOTEMINE ||
+				weapon->weapon_id == WEAPON_TIMEDMINE ||
+				weapon->weapon_id == WEAPON_ROCKET2 ||
+				(weapon->weapon_id == WEAPON_DRAGON && weapon->dragonthrown == 1)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f19124c
@@ -11450,7 +11424,7 @@ glabel func0f19124c
 /*  f191380:	51e00010 */ 	beqzl	$t7,.L0f1913c4
 /*  f191384:	86220002 */ 	lh	$v0,0x2($s1)
 .L0f191388:
-/*  f191388:	0fc64465 */ 	jal	func0f191194
+/*  f191388:	0fc64465 */ 	jal	mpObjIsSafe
 /*  f19138c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f191390:	1040000b */ 	beqz	$v0,.L0f1913c0
 /*  f191394:	02002025 */ 	or	$a0,$s0,$zero
