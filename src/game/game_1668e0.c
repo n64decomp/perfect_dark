@@ -6037,7 +6037,7 @@ glabel func0f16b96c
 /*  f16bb4c:	1000011a */ 	beqz	$zero,.L0f16bfb8
 /*  f16bb50:	ae800034 */ 	sw	$zero,0x34($s4)
 .L0f16bb54:
-/*  f16bb54:	0fc62590 */ 	jal	func0f189640
+/*  f16bb54:	0fc62590 */ 	jal	mpIsPaused
 /*  f16bb58:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16bb5c:	10400044 */ 	beqz	$v0,.L0f16bc70
 /*  f16bb60:	00000000 */ 	sll	$zero,$zero,0x0
@@ -7243,7 +7243,7 @@ GLOBAL_ASM(
 glabel func0f16cce4
 /*  f16cce4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f16cce8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16ccec:	0fc62590 */ 	jal	func0f189640
+/*  f16ccec:	0fc62590 */ 	jal	mpIsPaused
 /*  f16ccf0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16ccf4:	3c0e8008 */ 	lui	$t6,0x8008
 /*  f16ccf8:	8dce4010 */ 	lw	$t6,0x4010($t6)

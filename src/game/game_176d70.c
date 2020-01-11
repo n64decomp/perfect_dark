@@ -1887,92 +1887,36 @@ s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menu_item *item, s32 *va
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandler001781ac
-/*  f1781ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1781b0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1781b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1781b8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1781bc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1781c0:	1481000b */ 	bne	$a0,$at,.L0f1781f0
-/*  f1781c4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1781c8:	0fc62590 */ 	jal	func0f189640
-/*  f1781cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1781d0:	10400005 */ 	beqz	$v0,.L0f1781e8
-/*  f1781d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1781d8:	0fc625cb */ 	jal	func0f18972c
-/*  f1781dc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1781e0:	10000004 */ 	beqz	$zero,.L0f1781f4
-/*  f1781e4:	8faf0018 */ 	lw	$t7,0x18($sp)
-.L0f1781e8:
-/*  f1781e8:	0fc625cb */ 	jal	func0f18972c
-/*  f1781ec:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f1781f0:
-/*  f1781f0:	8faf0018 */ 	lw	$t7,0x18($sp)
-.L0f1781f4:
-/*  f1781f4:	24010018 */ 	addiu	$at,$zero,0x18
-/*  f1781f8:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1781fc:	15e10021 */ 	bne	$t7,$at,.L0f178284
-/*  f178200:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f178204:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f178208:	8c58006c */ 	lw	$t8,0x6c($v0)
-/*  f17820c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f178210:	00002825 */ 	or	$a1,$zero,$zero
-/*  f178214:	13000003 */ 	beqz	$t8,.L0f178224
-/*  f178218:	00001825 */ 	or	$v1,$zero,$zero
-/*  f17821c:	10000001 */ 	beqz	$zero,.L0f178224
-/*  f178220:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f178224:
-/*  f178224:	8c590068 */ 	lw	$t9,0x68($v0)
-/*  f178228:	00002025 */ 	or	$a0,$zero,$zero
-/*  f17822c:	13200003 */ 	beqz	$t9,.L0f17823c
-/*  f178230:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f178234:	10000001 */ 	beqz	$zero,.L0f17823c
-/*  f178238:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f17823c:
-/*  f17823c:	8c480064 */ 	lw	$t0,0x64($v0)
-/*  f178240:	11000003 */ 	beqz	$t0,.L0f178250
-/*  f178244:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f178248:	10000001 */ 	beqz	$zero,.L0f178250
-/*  f17824c:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f178250:
-/*  f178250:	8c490070 */ 	lw	$t1,0x70($v0)
-/*  f178254:	00001025 */ 	or	$v0,$zero,$zero
-/*  f178258:	11200003 */ 	beqz	$t1,.L0f178268
-/*  f17825c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f178260:	10000001 */ 	beqz	$zero,.L0f178268
-/*  f178264:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f178268:
-/*  f178268:	00445021 */ 	addu	$t2,$v0,$a0
-/*  f17826c:	01435821 */ 	addu	$t3,$t2,$v1
-/*  f178270:	01656021 */ 	addu	$t4,$t3,$a1
-/*  f178274:	55810004 */ 	bnel	$t4,$at,.L0f178288
-/*  f178278:	8fad0018 */ 	lw	$t5,0x18($sp)
-/*  f17827c:	1000000c */ 	beqz	$zero,.L0f1782b0
-/*  f178280:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f178284:
-/*  f178284:	8fad0018 */ 	lw	$t5,0x18($sp)
-.L0f178288:
-/*  f178288:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f17828c:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f178290:	15a10007 */ 	bne	$t5,$at,.L0f1782b0
-/*  f178294:	00001025 */ 	or	$v0,$zero,$zero
-/*  f178298:	91cf0001 */ 	lbu	$t7,0x1($t6)
-/*  f17829c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1782a0:	15e10003 */ 	bne	$t7,$at,.L0f1782b0
-/*  f1782a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1782a8:	10000001 */ 	beqz	$zero,.L0f1782b0
-/*  f1782ac:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1782b0:
-/*  f1782b0:	03e00008 */ 	jr	$ra
-/*  f1782b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+s32 menuhandlerMpPause(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		if (mpIsPaused()) {
+			mpSetPaused(false);
+		} else {
+			mpSetPaused(true);
+		}
+	}
+
+	if (operation == MENUOP_CHECKHIDDEN) {
+		if (PLAYERCOUNT() == 1) {
+			return true;
+		}
+	}
+
+	if (operation == MENUOP_CHECKPREFOCUSED) {
+		if (item->param == 1) {
+			return true;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f1782b8
 /*  f1782b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1782bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1782c0:	0fc62590 */ 	jal	func0f189640
+/*  f1782c0:	0fc62590 */ 	jal	mpIsPaused
 /*  f1782c4:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f1782c8:	10400005 */ 	beqz	$v0,.L0f1782e0
 /*  f1782cc:	00000000 */ 	sll	$zero,$zero,0x0

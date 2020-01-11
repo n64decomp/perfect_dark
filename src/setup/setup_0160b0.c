@@ -2186,7 +2186,7 @@ struct menu_item menuitems_18b8c[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056b7, 0x00000000, &menudialog_controloptions }, // "Control"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056b8, 0x00000000, &menudialog_displayoptions }, // "Display"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000064, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&func0f1782b8, 0x00000000, menuhandler001781ac },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&func0f1782b8, 0x00000000, menuhandlerMpPause },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2197,7 +2197,7 @@ struct menu_item menuitems_18c18[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056b7, 0x00000000, &menudialog_controloptions }, // "Control"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x000056b8, 0x00000000, &menudialog_displayoptionsshort }, // "Display"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000064, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&func0f1782b8, 0x00000000, menuhandler001781ac },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&func0f1782b8, 0x00000000, menuhandlerMpPause },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
