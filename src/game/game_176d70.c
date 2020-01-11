@@ -11248,6 +11248,24 @@ glabel scenarioCtcCallback28
 /*  f1817fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+//bool scenarioCtcCallback28(struct prop *prop, u32 *colour)
+//{
+//	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
+//		if (prop->obj->type == OBJTYPE_WEAPON && prop->weapon->weapon_id == WEAPON_BRIEFCASE2) {
+//			u32 teamcolour = g_TeamColours[prop->weapon->team];
+//
+//			colour[0] = teamcolour >> 24 & 0xff;
+//			colour[1] = teamcolour >> 16 & 0xff;
+//			colour[2] = teamcolour >> 8 & 0xff;
+//			colour[3] = 75;
+//
+//			return true;
+//		}
+//	}
+//
+//	return false;
+//}
+
 GLOBAL_ASM(
 glabel func0f181800
 /*  f181800:	8c820000 */ 	lw	$v0,0x0($a0)

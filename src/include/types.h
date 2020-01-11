@@ -646,6 +646,9 @@ struct weaponobj { // objtype 0x08
 	/*0x5a*/ u8 numtiles;
 	/*0x5b*/ u8 unk5b;
 	/*0x5c*/ u8 weapon_id;
+	/*0x5e*/ s16 unk5e;
+	/*0x60*/ s16 unk60;
+	/*0x62*/ s16 team;
 };
 
 struct singlemonitorobj { // objtype 0x0a
@@ -4117,7 +4120,7 @@ struct mpscenario {
 	void (*killfunc)(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
 	s32 (*radarfunc)(s32 value);
 	bool (*unk24)(void *arg0, struct prop *prop);
-	void *unk28;
+	bool (*unk28)(struct prop *prop, u32 *colour);
 	bool (*unk2c)(f32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 *arg4);
 	s32 (*unk30)(void);
 	bool (*unk34)(s16 arg0);

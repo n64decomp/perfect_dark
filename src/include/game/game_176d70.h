@@ -101,7 +101,7 @@ void scenarioCtcReset(void);
 void scenarioCtcKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
 s32 scenarioCtcRadar(s32 value);
 bool scenarioCtcCallback24(s32 *displaylist, struct prop *prop);
-u32 scenarioCtcCallback28(void);
+bool scenarioCtcCallback28(struct prop *prop, u32 *colour);
 u32 func0f181800(void);
 bool scenarioCtcCallback2c(f32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 *arg4);
 s32 scenarioCtcCallback30(void);
