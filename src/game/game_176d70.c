@@ -11333,33 +11333,18 @@ s32 scenarioCtcGetMaxTeams(void)
 	return 4;
 }
 
-GLOBAL_ASM(
-glabel scenarioCtcCallback34
-/*  f18194c:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f181950:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f181954:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f181958:	3c05800b */ 	lui	$a1,0x800b
-/*  f18195c:	000e2403 */ 	sra	$a0,$t6,0x10
-/*  f181960:	24a5c118 */ 	addiu	$a1,$a1,-16104
-/*  f181964:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f181968:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f18196c:	84780010 */ 	lh	$t8,0x10($v1)
-.L0f181970:
-/*  f181970:	54980007 */ 	bnel	$a0,$t8,.L0f181990
-/*  f181974:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f181978:	84790008 */ 	lh	$t9,0x8($v1)
-/*  f18197c:	50590004 */ 	beql	$v0,$t9,.L0f181990
-/*  f181980:	24630002 */ 	addiu	$v1,$v1,0x2
-/*  f181984:	03e00008 */ 	jr	$ra
-/*  f181988:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f18198c:	24630002 */ 	addiu	$v1,$v1,0x2
-.L0f181990:
-/*  f181990:	5465fff7 */ 	bnel	$v1,$a1,.L0f181970
-/*  f181994:	84780010 */ 	lh	$t8,0x10($v1)
-/*  f181998:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18199c:	03e00008 */ 	jr	$ra
-/*  f1819a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool scenarioCtcIsRoomHighlighted(s16 room)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		if (g_ScenarioData.ctc.baserooms[i] == room && g_ScenarioData.ctc.unk08[i] != -1) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel scenarioCtcCallback38
@@ -12450,17 +12435,10 @@ glabel func0f182aac
 /*  f182ae4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel scenarioKohCallback34
-/*  f182ae8:	3c18800b */ 	lui	$t8,0x800b
-/*  f182aec:	8718c11e */ 	lh	$t8,-0x3ee2($t8)
-/*  f182af0:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f182af4:	000e7c03 */ 	sra	$t7,$t6,0x10
-/*  f182af8:	01f81026 */ 	xor	$v0,$t7,$t8
-/*  f182afc:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f182b00:	03e00008 */ 	jr	$ra
-/*  f182b04:	2c420001 */ 	sltiu	$v0,$v0,0x1
-);
+bool scenarioKohIsRoomHighlighted(s16 room)
+{
+	return room == g_ScenarioData.koh.hillroom;
+}
 
 GLOBAL_ASM(
 glabel scenarioKohCallback38
@@ -16102,10 +16080,10 @@ s32 scenarioGetMaxTeams(void)
 	return 8;
 }
 
-bool scenarioCallback34(s16 arg0)
+bool scenarioIsRoomHighlighted(s16 room)
 {
-	if (g_MpScenarios[g_MpSetup.scenario].unk34) {
-		return g_MpScenarios[g_MpSetup.scenario].unk34(arg0);
+	if (g_MpScenarios[g_MpSetup.scenario].isroomhighlightedfunc) {
+		return g_MpScenarios[g_MpSetup.scenario].isroomhighlightedfunc(room);
 	}
 
 	return false;

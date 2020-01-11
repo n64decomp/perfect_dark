@@ -4123,7 +4123,7 @@ struct mpscenario {
 	bool (*highlightfunc)(struct prop *prop, u32 *colour);
 	bool (*unk2c)(f32 arg0, s32 arg1, s32 arg2, struct prop *prop, f32 *arg4);
 	s32 (*maxteamsfunc)(void);
-	bool (*unk34)(s16 arg0);
+	bool (*isroomhighlightedfunc)(s16 room);
 	void (*unk38)(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 	void *unk3c;
 	void (*unk40)(s32 *arg0);
@@ -4475,8 +4475,7 @@ struct ctcthing {
 struct scenariodata_ctc {
 	/*0x00*/ s16 unk00[4];
 	/*0x08*/ s16 unk08[4];
-	/*0x10*/ s32 unk10;
-	/*0x14*/ s32 unk14;
+	/*0x10*/ s16 baserooms[4];
 	/*0x18*/ struct ctcthing unk18[4];
 	/*0x58*/ struct prop *tokens[4];
 };
