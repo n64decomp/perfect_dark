@@ -12636,24 +12636,12 @@ char *mpGetBotCommandName(s32 command)
 	return textGet(g_MpBotCommands[command]);
 }
 
-GLOBAL_ASM(
-glabel func0f192438
-/*  f192438:	8c8f02d4 */ 	lw	$t7,0x2d4($a0)
-/*  f19243c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f192440:	3c18800a */ 	lui	$t8,0x800a
-/*  f192444:	a1ee0079 */ 	sb	$t6,0x79($t7)
-/*  f192448:	8f18a2f8 */ 	lw	$t8,-0x5d08($t8)
-/*  f19244c:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f192450:	8c8902d4 */ 	lw	$t1,0x2d4($a0)
-/*  f192454:	00b8c823 */ 	subu	$t9,$a1,$t8
-/*  f192458:	0321001a */ 	div	$zero,$t9,$at
-/*  f19245c:	00004012 */ 	mflo	$t0
-/*  f192460:	ad2800c0 */ 	sw	$t0,0xc0($t1)
-/*  f192464:	8c8b02d4 */ 	lw	$t3,0x2d4($a0)
-/*  f192468:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f19246c:	03e00008 */ 	jr	$ra
-/*  f192470:	ad6a00d8 */ 	sw	$t2,0xd8($t3)
-);
+void func0f192438(struct chrdata *chr, struct prop *prop)
+{
+	chr->unk2d4->unk79 = 1;
+	chr->unk2d4->unkc0_propindex = prop - g_Vars.props;
+	chr->unk2d4->unkd8 = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f192474

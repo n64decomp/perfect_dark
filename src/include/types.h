@@ -208,13 +208,13 @@ struct chr2d4 {
 	/*0xb4*/ u32 unkb4;
 	/*0xb8*/ u32 unkb8;
 	/*0xbc*/ u32 unkbc;
-	/*0xc0*/ u32 unkc0;
+	/*0xc0*/ s32 unkc0_propindex;
 	/*0xc4*/ u32 unkc4;
 	/*0xc8*/ u32 unkc8;
 	/*0xcc*/ u32 unkcc;
 	/*0xd0*/ u32 unkd0;
 	/*0xd4*/ u32 unkd4;
-	/*0xd8*/ u32 unkd8;
+	/*0xd8*/ s32 unkd8;
 	/*0x0dc*/ u32 unk0dc;
 	/*0x0e0*/ u32 unk0e0;
 	/*0x0e4*/ u32 unk0e4;
