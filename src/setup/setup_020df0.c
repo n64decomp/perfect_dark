@@ -10747,7 +10747,7 @@ struct menu_dialog g_MpAddSimulantMenuDialog = {
 };
 
 // 2b854
-struct menu_dialog menudialog_mpchangesimulant = {
+struct menu_dialog g_MpChangeSimulantMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5066,
 	menuitems_mpaddchangesimulant,
@@ -12024,7 +12024,7 @@ u32 table_0x2d678[] = {
 };
 
 // 2d74c
-struct mpsimulant mpgeneralsimulants[] = {
+struct mpsimulant g_MpGeneralSimulants[] = {
 	// type,       skill,   name,   body, unlock value
 	{ SIMTYPE_GENERAL, 0, 0x5858, 0x001a, 0x00 },
 	{ SIMTYPE_GENERAL, 1, 0x5859, 0x0019, 0x00 },

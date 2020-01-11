@@ -3631,7 +3631,7 @@ struct menustackitem {
 	/*0x91c*/ u32 unk91c;
 	/*0x920*/ u32 unk920;
 	/*0x924*/ s32 slotindex;
-	/*0x928*/ u32 paknum;
+	/*0x928*/ u32 slotcount;
 	/*0x92c*/ u32 unk92c;
 	/*0x930*/ u32 unk930;
 	/*0x934*/ u32 unk934;

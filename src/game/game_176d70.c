@@ -6392,10 +6392,10 @@ glabel menuhandler0017c6a4
 /*  f17c710:	8c2881ac */ 	lw	$t0,%lo(var7f1b81ac)($at)
 /*  f17c714:	01000008 */ 	jr	$t0
 /*  f17c718:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17c71c:	3c108008 */ 	lui	$s0,%hi(mpgeneralsimulants)
+/*  f17c71c:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
 /*  f17c720:	3c118008 */ 	lui	$s1,%hi(mpbodytable)
 /*  f17c724:	263177bc */ 	addiu	$s1,$s1,%lo(mpbodytable)
-/*  f17c728:	2610772c */ 	addiu	$s0,$s0,%lo(mpgeneralsimulants)
+/*  f17c728:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
 .L0f17c72c:
 /*  f17c72c:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f17c730:	92040006 */ 	lbu	$a0,0x6($s0)
@@ -6407,10 +6407,10 @@ glabel menuhandler0017c6a4
 /*  f17c744:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17c748:	100000b4 */ 	beqz	$zero,.L0f17ca1c
 /*  f17c74c:	ae920000 */ 	sw	$s2,0x0($s4)
-/*  f17c750:	3c108008 */ 	lui	$s0,%hi(mpgeneralsimulants)
+/*  f17c750:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
 /*  f17c754:	3c118008 */ 	lui	$s1,%hi(mpbodytable)
 /*  f17c758:	263177bc */ 	addiu	$s1,$s1,%lo(mpbodytable)
-/*  f17c75c:	2610772c */ 	addiu	$s0,$s0,%lo(mpgeneralsimulants)
+/*  f17c75c:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
 .L0f17c760:
 /*  f17c760:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f17c764:	92040006 */ 	lbu	$a0,0x6($s0)
@@ -6464,8 +6464,8 @@ glabel menuhandler0017c6a4
 /*  f17c818:	240a0001 */ 	addiu	$t2,$zero,0x1
 /*  f17c81c:	afaa0038 */ 	sw	$t2,0x38($sp)
 .L0f17c820:
-/*  f17c820:	3c108008 */ 	lui	$s0,%hi(mpgeneralsimulants)
-/*  f17c824:	2610772c */ 	addiu	$s0,$s0,%lo(mpgeneralsimulants)
+/*  f17c820:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
+/*  f17c824:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
 /*  f17c828:	00008825 */ 	or	$s1,$zero,$zero
 /*  f17c82c:	24130012 */ 	addiu	$s3,$zero,0x12
 .L0f17c830:
@@ -6522,8 +6522,8 @@ glabel menuhandler0017c6a4
 /*  f17c8e8:	002a0821 */ 	addu	$at,$at,$t2
 /*  f17c8ec:	1000004b */ 	beqz	$zero,.L0f17ca1c
 /*  f17c8f0:	ac28ee20 */ 	sw	$t0,-0x11e0($at)
-/*  f17c8f4:	3c108008 */ 	lui	$s0,%hi(mpgeneralsimulants)
-/*  f17c8f8:	2610772c */ 	addiu	$s0,$s0,%lo(mpgeneralsimulants)
+/*  f17c8f4:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
+/*  f17c8f8:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
 /*  f17c8fc:	00008825 */ 	or	$s1,$zero,$zero
 /*  f17c900:	24130012 */ 	addiu	$s3,$zero,0x12
 .L0f17c904:
@@ -6576,8 +6576,8 @@ glabel menuhandler0017c6a4
 /*  f17c9b4:	1000001b */ 	beqz	$zero,.L0f17ca24
 /*  f17c9b8:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f17c9bc:	8e8b0000 */ 	lw	$t3,0x0($s4)
-/*  f17c9c0:	3c108008 */ 	lui	$s0,%hi(mpgeneralsimulants)
-/*  f17c9c4:	2610772c */ 	addiu	$s0,$s0,%lo(mpgeneralsimulants)
+/*  f17c9c0:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
+/*  f17c9c4:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
 /*  f17c9c8:	000b60c0 */ 	sll	$t4,$t3,0x3
 /*  f17c9cc:	026c6821 */ 	addu	$t5,$s3,$t4
 /*  f17c9d0:	8daf0000 */ 	lw	$t7,0x0($t5)
@@ -6798,10 +6798,10 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f17cea4:	10000023 */ 	beqz	$zero,.L0f17cf34
 /*  f17cea8:	ae800000 */ 	sw	$zero,0x0($s4)
 .L0f17ceac:
-/*  f17ceac:	3c108008 */ 	lui	$s0,%hi(mpgeneralsimulants)
+/*  f17ceac:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
 /*  f17ceb0:	3c118008 */ 	lui	$s1,%hi(mpspecialsimulants)
 /*  f17ceb4:	2631775c */ 	addiu	$s1,$s1,%lo(mpspecialsimulants)
-/*  f17ceb8:	2610772c */ 	addiu	$s0,$s0,%lo(mpgeneralsimulants)
+/*  f17ceb8:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
 .L0f17cebc:
 /*  f17cebc:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f17cec0:	92040006 */ 	lbu	$a0,0x6($s0)
@@ -6814,8 +6814,8 @@ glabel menuhandlerMpSimulantDifficulty
 /*  f17ced8:	10000016 */ 	beqz	$zero,.L0f17cf34
 /*  f17cedc:	ae920000 */ 	sw	$s2,0x0($s4)
 .L0f17cee0:
-/*  f17cee0:	3c108008 */ 	lui	$s0,%hi(mpgeneralsimulants)
-/*  f17cee4:	2610772c */ 	addiu	$s0,$s0,%lo(mpgeneralsimulants)
+/*  f17cee0:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
+/*  f17cee4:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
 /*  f17cee8:	24130006 */ 	addiu	$s3,$zero,0x6
 .L0f17ceec:
 /*  f17ceec:	0fc67244 */ 	jal	mpIsChallengeComplete
@@ -6899,83 +6899,28 @@ glabel func0f17cfc0
 /*  f17d040:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel menuhandlerMpChangeSimulantType
-/*  f17d044:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f17d048:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17d04c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f17d050:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f17d054:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f17d058:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f17d05c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f17d060:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f17d064:	14810035 */ 	bne	$a0,$at,.L0f17d13c
-/*  f17d068:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f17d06c:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f17d070:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f17d074:	3c18800a */ 	lui	$t8,0x800a
-/*  f17d078:	3c08800b */ 	lui	$t0,%hi(g_MpSimulants)
-/*  f17d07c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17d080:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17d084:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17d088:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17d08c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17d090:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17d094:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17d098:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17d09c:	8f18ee1c */ 	lw	$t8,-0x11e4($t8)
-/*  f17d0a0:	2508c538 */ 	addiu	$t0,$t0,%lo(g_MpSimulants)
-/*  f17d0a4:	00008825 */ 	or	$s1,$zero,$zero
-/*  f17d0a8:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f17d0ac:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f17d0b0:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f17d0b4:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f17d0b8:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f17d0bc:	03281021 */ 	addu	$v0,$t9,$t0
-/*  f17d0c0:	90440047 */ 	lbu	$a0,0x47($v0)
-/*  f17d0c4:	0fc6335a */ 	jal	func0f18cd68
-/*  f17d0c8:	90450048 */ 	lbu	$a1,0x48($v0)
-/*  f17d0cc:	1840000c */ 	blez	$v0,.L0f17d100
-/*  f17d0d0:	3c098008 */ 	lui	$t1,0x8008
-/*  f17d0d4:	2530772c */ 	addiu	$s0,$t1,0x772c
-/*  f17d0d8:	000250c0 */ 	sll	$t2,$v0,0x3
-/*  f17d0dc:	01509021 */ 	addu	$s2,$t2,$s0
-.L0f17d0e0:
-/*  f17d0e0:	0fc67244 */ 	jal	mpIsChallengeComplete
-/*  f17d0e4:	92040006 */ 	lbu	$a0,0x6($s0)
-/*  f17d0e8:	10400002 */ 	beqz	$v0,.L0f17d0f4
-/*  f17d0ec:	26100008 */ 	addiu	$s0,$s0,0x8
-/*  f17d0f0:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f17d0f4:
-/*  f17d0f4:	0212082b */ 	sltu	$at,$s0,$s2
-/*  f17d0f8:	1420fff9 */ 	bnez	$at,.L0f17d0e0
-/*  f17d0fc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17d100:
-/*  f17d100:	3c0b8007 */ 	lui	$t3,0x8007
-/*  f17d104:	8d6b1448 */ 	lw	$t3,0x1448($t3)
-/*  f17d108:	3c01800a */ 	lui	$at,0x800a
-/*  f17d10c:	3c048008 */ 	lui	$a0,%hi(menudialog_mpchangesimulant)
-/*  f17d110:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f17d114:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f17d118:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f17d11c:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f17d120:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f17d124:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f17d128:	000c6100 */ 	sll	$t4,$t4,0x4
-/*  f17d12c:	002c0821 */ 	addu	$at,$at,$t4
-/*  f17d130:	ac31ee20 */ 	sw	$s1,-0x11e0($at)
-/*  f17d134:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f17d138:	24845834 */ 	addiu	$a0,$a0,%lo(menudialog_mpchangesimulant)
-.L0f17d13c:
-/*  f17d13c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f17d140:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f17d144:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f17d148:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f17d14c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f17d150:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f17d154:	03e00008 */ 	jr	$ra
-/*  f17d158:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 menuhandlerMpChangeSimulantType(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		s32 i;
+		s32 count = 0;
+		s32 maxunlocked = func0f18cd68(
+				g_MpSimulants[g_MenuStack[g_MpPlayerNum].slotindex].base.unk47,
+				g_MpSimulants[g_MenuStack[g_MpPlayerNum].slotindex].unk48);
+
+		for (i = 0; i < maxunlocked; i++) {
+			if (mpIsChallengeComplete(g_MpGeneralSimulants[i].unlockvalue)) {
+				count++;
+			}
+		}
+
+		g_MenuStack[g_MpPlayerNum].slotcount = count;
+
+		menuPushDialog(&g_MpChangeSimulantMenuDialog);
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpClearAllSimulants(u32 operation, struct menu_item *item, s32 *value)
 {
@@ -9344,10 +9289,10 @@ glabel menuhandler0017f74c
 /*  f17f78c:	8c2e83d4 */ 	lw	$t6,%lo(var7f1b83d4)($at)
 /*  f17f790:	01c00008 */ 	jr	$t6
 /*  f17f794:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17f798:	3c108008 */ 	lui	$s0,%hi(mpgeneralsimulants)
+/*  f17f798:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
 /*  f17f79c:	3c118008 */ 	lui	$s1,%hi(mpspecialsimulants)
 /*  f17f7a0:	2631775c */ 	addiu	$s1,$s1,%lo(mpspecialsimulants)
-/*  f17f7a4:	2610772c */ 	addiu	$s0,$s0,%lo(mpgeneralsimulants)
+/*  f17f7a4:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
 .L0f17f7a8:
 /*  f17f7a8:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f17f7ac:	92040006 */ 	lbu	$a0,0x6($s0)
@@ -9359,8 +9304,8 @@ glabel menuhandler0017f74c
 /*  f17f7c0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17f7c4:	10000029 */ 	beqz	$zero,.L0f17f86c
 /*  f17f7c8:	ae920000 */ 	sw	$s2,0x0($s4)
-/*  f17f7cc:	3c108008 */ 	lui	$s0,%hi(mpgeneralsimulants)
-/*  f17f7d0:	2610772c */ 	addiu	$s0,$s0,%lo(mpgeneralsimulants)
+/*  f17f7cc:	3c108008 */ 	lui	$s0,%hi(g_MpGeneralSimulants)
+/*  f17f7d0:	2610772c */ 	addiu	$s0,$s0,%lo(g_MpGeneralSimulants)
 /*  f17f7d4:	00008825 */ 	or	$s1,$zero,$zero
 /*  f17f7d8:	24130006 */ 	addiu	$s3,$zero,0x6
 .L0f17f7dc:
@@ -9520,7 +9465,7 @@ glabel func0f17fa28
 /*  f17fa5c:	3c118008 */ 	lui	$s1,%hi(menudialog_mpsavesetupname)
 /*  f17fa60:	3c128008 */ 	lui	$s2,%hi(menudialog_mpsavesetup)
 /*  f17fa64:	3c138008 */ 	lui	$s3,%hi(g_MpAddSimulantMenuDialog)
-/*  f17fa68:	3c148008 */ 	lui	$s4,%hi(menudialog_mpchangesimulant)
+/*  f17fa68:	3c148008 */ 	lui	$s4,%hi(g_MpChangeSimulantMenuDialog)
 /*  f17fa6c:	3c158008 */ 	lui	$s5,%hi(menudialog_mpeditsimulant)
 /*  f17fa70:	3c168008 */ 	lui	$s6,%hi(menudialog_mpcombatoptions)
 /*  f17fa74:	3c178008 */ 	lui	$s7,%hi(menudialog_mpbriefcaseoptions)
@@ -9536,7 +9481,7 @@ glabel func0f17fa28
 /*  f17fa9c:	26f769d4 */ 	addiu	$s7,$s7,%lo(menudialog_mpbriefcaseoptions)
 /*  f17faa0:	26d668b8 */ 	addiu	$s6,$s6,%lo(menudialog_mpcombatoptions)
 /*  f17faa4:	26b5592c */ 	addiu	$s5,$s5,%lo(menudialog_mpeditsimulant)
-/*  f17faa8:	26945834 */ 	addiu	$s4,$s4,%lo(menudialog_mpchangesimulant)
+/*  f17faa8:	26945834 */ 	addiu	$s4,$s4,%lo(g_MpChangeSimulantMenuDialog)
 /*  f17faac:	2673581c */ 	addiu	$s3,$s3,%lo(g_MpAddSimulantMenuDialog)
 /*  f17fab0:	26524d80 */ 	addiu	$s2,$s2,%lo(menudialog_mpsavesetup)
 /*  f17fab4:	26314cdc */ 	addiu	$s1,$s1,%lo(menudialog_mpsavesetupname)

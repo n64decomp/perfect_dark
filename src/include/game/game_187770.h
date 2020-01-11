@@ -90,7 +90,7 @@ void mpRemoveSimulant(s32 slotindex);
 u32 func0f18cc64(void);
 u32 func0f18cc8c(void);
 bool mpIsSimSlotEnabled(s32 slotindex);
-u32 func0f18cd68(void);
+s32 func0f18cd68(s32 arg0, s32 arg1);
 u32 func0f18cddc(void);
 s32 mpPlayerGetIndex(struct chrdata *chr);
 u32 func0f18d040(void);

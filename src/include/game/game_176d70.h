@@ -220,7 +220,7 @@ s32 menuhandlerMpAbortChallenge(u32 operation, struct menu_item *item, s32 *valu
 s32 menuhandlerMpAddSimulant(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpAdvancedSetup(u32 operation, struct menu_item *item, s32 *value);
 char *menuhandlerMpAimControl(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerMpChangeSimulantType(u32, u32, u32 *);
+s32 menuhandlerMpChangeSimulantType(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpCharacterBody(u32 operation, struct menu_item *item, struct numandtext *value);
 s32 menuhandlerMpCharacterHead(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpCheckboxOption(u32 operation, struct menu_item *item, s32 *value);

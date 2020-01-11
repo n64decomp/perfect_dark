@@ -6332,8 +6332,8 @@ glabel func0f18c984
 /*  f18c9c0:	afa0005c */ 	sw	$zero,0x5c($sp)
 /*  f18c9c4:	2415004c */ 	addiu	$s5,$zero,0x4c
 /*  f18c9c8:	02150019 */ 	multu	$s0,$s5
-/*  f18c9cc:	3c188008 */ 	lui	$t8,%hi(mpgeneralsimulants)
-/*  f18c9d0:	2718772c */ 	addiu	$t8,$t8,%lo(mpgeneralsimulants)
+/*  f18c9cc:	3c188008 */ 	lui	$t8,%hi(g_MpGeneralSimulants)
+/*  f18c9d0:	2718772c */ 	addiu	$t8,$t8,%lo(g_MpGeneralSimulants)
 /*  f18c9d4:	001278c0 */ 	sll	$t7,$s2,0x3
 /*  f18c9d8:	01f83821 */ 	addu	$a3,$t7,$t8
 /*  f18c9dc:	90e80001 */ 	lbu	$t0,0x1($a3)
@@ -6615,8 +6615,8 @@ GLOBAL_ASM(
 glabel func0f18cd68
 /*  f18cd68:	1480000d */ 	bnez	$a0,.L0f18cda0
 /*  f18cd6c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18cd70:	3c028008 */ 	lui	$v0,%hi(mpgeneralsimulants)
-/*  f18cd74:	2442772c */ 	addiu	$v0,$v0,%lo(mpgeneralsimulants)
+/*  f18cd70:	3c028008 */ 	lui	$v0,%hi(g_MpGeneralSimulants)
+/*  f18cd74:	2442772c */ 	addiu	$v0,$v0,%lo(g_MpGeneralSimulants)
 /*  f18cd78:	00001825 */ 	or	$v1,$zero,$zero
 /*  f18cd7c:	24060012 */ 	addiu	$a2,$zero,0x12
 .L0f18cd80:
@@ -6629,8 +6629,8 @@ glabel func0f18cd68
 /*  f18cd98:	1000000b */ 	beqz	$zero,.L0f18cdc8
 /*  f18cd9c:	28610012 */ 	slti	$at,$v1,0x12
 .L0f18cda0:
-/*  f18cda0:	3c028008 */ 	lui	$v0,%hi(mpgeneralsimulants)
-/*  f18cda4:	2442772c */ 	addiu	$v0,$v0,%lo(mpgeneralsimulants)
+/*  f18cda0:	3c028008 */ 	lui	$v0,%hi(g_MpGeneralSimulants)
+/*  f18cda4:	2442772c */ 	addiu	$v0,$v0,%lo(g_MpGeneralSimulants)
 /*  f18cda8:	24060012 */ 	addiu	$a2,$zero,0x12
 .L0f18cdac:
 /*  f18cdac:	904f0000 */ 	lbu	$t7,0x0($v0)
@@ -6719,8 +6719,8 @@ glabel func0f18cddc
 /*  f18cec8:	0044082b */ 	sltu	$at,$v0,$a0
 /*  f18cecc:	5420fff7 */ 	bnezl	$at,.L0f18ceac
 /*  f18ced0:	8c4c0000 */ 	lw	$t4,0x0($v0)
-/*  f18ced4:	3c148008 */ 	lui	$s4,%hi(mpgeneralsimulants)
-/*  f18ced8:	2694772c */ 	addiu	$s4,$s4,%lo(mpgeneralsimulants)
+/*  f18ced4:	3c148008 */ 	lui	$s4,%hi(g_MpGeneralSimulants)
+/*  f18ced8:	2694772c */ 	addiu	$s4,$s4,%lo(g_MpGeneralSimulants)
 /*  f18cedc:	24110004 */ 	addiu	$s1,$zero,0x4
 /*  f18cee0:	27b30050 */ 	addiu	$s3,$sp,0x50
 /*  f18cee4:	96cd0016 */ 	lhu	$t5,0x16($s6)

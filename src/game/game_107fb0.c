@@ -4304,7 +4304,7 @@ s32 menuhandlerPakSelection(u32 operation, struct menu_item *item, s32 *value)
 	}
 
 	if (operation == MENUOP_SET) {
-		g_MenuStack[g_MpPlayerNum].paknum = item->param;
+		g_MenuStack[g_MpPlayerNum].slotcount = item->param;
 		menuPushDialog(&menudialog_gamenotes);
 	}
 
