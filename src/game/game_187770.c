@@ -12650,24 +12650,12 @@ void func0f192474(struct chrdata *chr, struct prop *prop)
 	chr->unk2d4->unkd8 = 1;
 }
 
-GLOBAL_ASM(
-glabel func0f1924ac
-/*  f1924ac:	8c8f02d4 */ 	lw	$t7,0x2d4($a0)
-/*  f1924b0:	240e000d */ 	addiu	$t6,$zero,0xd
-/*  f1924b4:	3c18800a */ 	lui	$t8,0x800a
-/*  f1924b8:	a1ee0079 */ 	sb	$t6,0x79($t7)
-/*  f1924bc:	8f18a2f8 */ 	lw	$t8,-0x5d08($t8)
-/*  f1924c0:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f1924c4:	8c8902d4 */ 	lw	$t1,0x2d4($a0)
-/*  f1924c8:	00b8c823 */ 	subu	$t9,$a1,$t8
-/*  f1924cc:	0321001a */ 	div	$zero,$t9,$at
-/*  f1924d0:	00004012 */ 	mflo	$t0
-/*  f1924d4:	ad2800d4 */ 	sw	$t0,0xd4($t1)
-/*  f1924d8:	8c8b02d4 */ 	lw	$t3,0x2d4($a0)
-/*  f1924dc:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f1924e0:	03e00008 */ 	jr	$ra
-/*  f1924e4:	ad6a00d8 */ 	sw	$t2,0xd8($t3)
-);
+void func0f1924ac(struct chrdata *chr, struct prop *prop)
+{
+	chr->unk2d4->unk79 = 13;
+	chr->unk2d4->unkd4_propindex = prop - g_Vars.props;
+	chr->unk2d4->unkd8 = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f1924e8
