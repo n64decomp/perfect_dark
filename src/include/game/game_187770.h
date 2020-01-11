@@ -143,7 +143,7 @@ void func0f192438(struct chrdata *chr, struct prop *prop);
 void func0f192474(struct chrdata *chr, struct prop *prop);
 void func0f1924ac(struct chrdata *chr, struct prop *prop);
 void func0f1924e8(struct chrdata *chr, struct coord *pos, s32 *arg2, f32 arg3);
-u32 func0f19257c(void);
+void func0f19257c(struct chrdata *chr, struct coord *pos, s32 *arg2, f32 arg3);
 u32 func0f192610(void);
 u32 func0f192628(void);
 u32 func0f19277c(void);
