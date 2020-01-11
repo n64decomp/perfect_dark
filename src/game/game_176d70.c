@@ -13913,88 +13913,29 @@ glabel scenarioHtmRadar
 /*  f184214:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel scenarioHtmCallback24
-/*  f184218:	3c03800b */ 	lui	$v1,0x800b
-/*  f18421c:	8c63cb94 */ 	lw	$v1,-0x346c($v1)
-/*  f184220:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f184224:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f184228:	00037340 */ 	sll	$t6,$v1,0xd
-/*  f18422c:	05c10040 */ 	bgez	$t6,.L0f184330
-/*  f184230:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f184234:	3c0f800b */ 	lui	$t7,0x800b
-/*  f184238:	8defc24c */ 	lw	$t7,-0x3db4($t7)
-/*  f18423c:	11e0003c */ 	beqz	$t7,.L0f184330
-/*  f184240:	afaf0024 */ 	sw	$t7,0x24($sp)
-/*  f184244:	54af003b */ 	bnel	$a1,$t7,.L0f184334
-/*  f184248:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18424c:	90a20000 */ 	lbu	$v0,0x0($a1)
-/*  f184250:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f184254:	10410002 */ 	beq	$v0,$at,.L0f184260
-/*  f184258:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f18425c:	14410034 */ 	bne	$v0,$at,.L0f184330
-.L0f184260:
-/*  f184260:	3c02800a */ 	lui	$v0,0x800a
-/*  f184264:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f184268:	c4a40008 */ 	lwc1	$f4,0x8($a1)
-/*  f18426c:	30690002 */ 	andi	$t1,$v1,0x2
-/*  f184270:	8c5800bc */ 	lw	$t8,0xbc($v0)
-/*  f184274:	8faf0040 */ 	lw	$t7,0x40($sp)
-/*  f184278:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f18427c:	c7060008 */ 	lwc1	$f6,0x8($t8)
-/*  f184280:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f184284:	3c0700ff */ 	lui	$a3,0xff
-/*  f184288:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f18428c:	e7a80034 */ 	swc1	$f8,0x34($sp)
-/*  f184290:	8c5900bc */ 	lw	$t9,0xbc($v0)
-/*  f184294:	c4aa000c */ 	lwc1	$f10,0xc($a1)
-/*  f184298:	c730000c */ 	lwc1	$f16,0xc($t9)
-/*  f18429c:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f1842a0:	e7b20038 */ 	swc1	$f18,0x38($sp)
-/*  f1842a4:	8c4800bc */ 	lw	$t0,0xbc($v0)
-/*  f1842a8:	c4a40010 */ 	lwc1	$f4,0x10($a1)
-/*  f1842ac:	c5060010 */ 	lwc1	$f6,0x10($t0)
-/*  f1842b0:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f1842b4:	11200015 */ 	beqz	$t1,.L0f18430c
-/*  f1842b8:	e7a8003c */ 	swc1	$f8,0x3c($sp)
-/*  f1842bc:	8caa0004 */ 	lw	$t2,0x4($a1)
-/*  f1842c0:	0fc63a5a */ 	jal	teamGetIndex
-/*  f1842c4:	91440125 */ 	lbu	$a0,0x125($t2)
-/*  f1842c8:	8fac0040 */ 	lw	$t4,0x40($sp)
-/*  f1842cc:	00025880 */ 	sll	$t3,$v0,0x2
-/*  f1842d0:	3c078008 */ 	lui	$a3,0x8008
-/*  f1842d4:	00eb3821 */ 	addu	$a3,$a3,$t3
-/*  f1842d8:	3c05800b */ 	lui	$a1,0x800b
-/*  f1842dc:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f1842e0:	8d840000 */ 	lw	$a0,0x0($t4)
-/*  f1842e4:	8ce77cc4 */ 	lw	$a3,0x7cc4($a3)
-/*  f1842e8:	afad0014 */ 	sw	$t5,0x14($sp)
-/*  f1842ec:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f1842f0:	8ca5c24c */ 	lw	$a1,-0x3db4($a1)
-/*  f1842f4:	0fc63a7b */ 	jal	func0f18e9ec
-/*  f1842f8:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f1842fc:	8fae0040 */ 	lw	$t6,0x40($sp)
-/*  f184300:	adc20000 */ 	sw	$v0,0x0($t6)
-/*  f184304:	1000000b */ 	beqz	$zero,.L0f184334
-/*  f184308:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18430c:
-/*  f18430c:	8de40000 */ 	lw	$a0,0x0($t7)
-/*  f184310:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f184314:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f184318:	0fc63a7b */ 	jal	func0f18e9ec
-/*  f18431c:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f184320:	8fb90040 */ 	lw	$t9,0x40($sp)
-/*  f184324:	af220000 */ 	sw	$v0,0x0($t9)
-/*  f184328:	10000002 */ 	beqz	$zero,.L0f184334
-/*  f18432c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f184330:
-/*  f184330:	00001025 */ 	or	$v0,$zero,$zero
-.L0f184334:
-/*  f184334:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f184338:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f18433c:	03e00008 */ 	jr	$ra
-/*  f184340:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool scenarioHtmCallback24(s32 *displaylist, struct prop *prop)
+{
+	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR3) && g_ScenarioData.htm.uplink) {
+		if (prop == g_ScenarioData.htm.uplink &&
+				(prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR)) {
+			struct coord dist;
+			dist.x = prop->pos.x - g_Vars.currentplayer->prop->pos.x;
+			dist.y = prop->pos.y - g_Vars.currentplayer->prop->pos.y;
+			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
+
+			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+				u32 colour = g_TeamColours[teamGetIndex(prop->chr->team)];
+				*displaylist = func0f18e9ec(*displaylist, g_ScenarioData.htm.uplink, &dist, colour, 0, 1);
+			} else {
+				*displaylist = func0f18e9ec(*displaylist, g_ScenarioData.htm.uplink, &dist, 0xff0000, 0, 1);
+			}
+
+			return true;
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel scenarioHtmCallback28

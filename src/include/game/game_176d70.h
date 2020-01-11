@@ -129,7 +129,7 @@ void scenarioHtmCallback14(struct chrdata *chr);
 u32 scenarioHtmCallback18(void);
 void scenarioHtmKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3);
 s32 scenarioHtmRadar(s32 value);
-bool scenarioHtmCallback24(void *arg0, struct prop *prop);
+bool scenarioHtmCallback24(s32 *displaylist, struct prop *prop);
 u32 scenarioHtmCallback28(void);
 void scenarioPacChooseVictims(void);
 void scenarioPacInit(void);
