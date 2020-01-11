@@ -138,7 +138,7 @@ u32 func0f191638(void);
 u32 func0f1918d0(void);
 u32 func0f191fa4(void);
 u32 func0f1921f8(void);
-u32 func0f1923ec(void);
+char *mpGetBotCommandName(s32 command);
 u32 func0f192438(void);
 u32 func0f192474(void);
 u32 func0f1924ac(void);

@@ -16137,7 +16137,7 @@ glabel func0f0fe280
 /*  f0fe81c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f0fe820:
 /*  f0fe820:	00872021 */ 	addu	$a0,$a0,$a3
-/*  f0fe824:	0fc648fb */ 	jal	func0f1923ec
+/*  f0fe824:	0fc648fb */ 	jal	mpGetBotCommandName
 /*  f0fe828:	9084cb78 */ 	lbu	$a0,-0x3488($a0)
 /*  f0fe82c:	8fa40038 */ 	lw	$a0,0x38($sp)
 /*  f0fe830:	0c004c4c */ 	jal	strcpy

@@ -307,6 +307,7 @@ extern u32 mppresets[];
 extern u32 g_TeamColours[];
 extern u32 var80087d10;
 extern u32 var80087d14[];
+extern u32 g_MpBotCommands[];
 extern u32 var80087e2c;
 extern u32 var80087e50;
 extern u32 var80087e98;

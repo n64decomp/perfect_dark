@@ -12275,7 +12275,7 @@ u32 var80087d14[] = {
 };
 
 // 2de14
-u32 mpsimulantcommands[] = {
+u32 g_MpBotCommands[] = {
 	0x58af, // "Follow"
 	0x58b0, // "Attack"
 	0x58b1, // "Defend"

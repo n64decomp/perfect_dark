@@ -12627,31 +12627,14 @@ glabel func0f1921f8
 /*  f1923e8:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel func0f1923ec
-/*  f1923ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1923f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1923f4:	04800004 */ 	bltz	$a0,.L0f192408
-/*  f1923f8:	00802825 */ 	or	$a1,$a0,$zero
-/*  f1923fc:	2881000e */ 	slti	$at,$a0,0xe
-/*  f192400:	14200005 */ 	bnez	$at,.L0f192418
-/*  f192404:	00057080 */ 	sll	$t6,$a1,0x2
-.L0f192408:
-/*  f192408:	0fc5b9f1 */ 	jal	textGet
-/*  f19240c:	240458b3 */ 	addiu	$a0,$zero,0x58b3
-/*  f192410:	10000006 */ 	beqz	$zero,.L0f19242c
-/*  f192414:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f192418:
-/*  f192418:	3c048008 */ 	lui	$a0,0x8008
-/*  f19241c:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f192420:	0fc5b9f1 */ 	jal	textGet
-/*  f192424:	8c847df4 */ 	lw	$a0,0x7df4($a0)
-/*  f192428:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19242c:
-/*  f19242c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f192430:	03e00008 */ 	jr	$ra
-/*  f192434:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpGetBotCommandName(s32 command)
+{
+	if (command < 0 || command > 13) {
+		return textGet(0x58b3); // "Normal"
+	}
+
+	return textGet(g_MpBotCommands[command]);
+}
 
 GLOBAL_ASM(
 glabel func0f192438
