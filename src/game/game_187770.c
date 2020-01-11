@@ -5438,7 +5438,7 @@ glabel func0f18bee8
 );
 
 GLOBAL_ASM(
-glabel func0f18bf70
+glabel mpSetLock
 /*  f18bf70:	3c02800b */ 	lui	$v0,%hi(var800acbb0)
 /*  f18bf74:	2442cbb0 */ 	addiu	$v0,$v0,%lo(var800acbb0)
 /*  f18bf78:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -5464,14 +5464,14 @@ glabel func0f18bf70
 );
 
 GLOBAL_ASM(
-glabel func0f18bfc0
+glabel mpGetLock
 /*  f18bfc0:	3c02800b */ 	lui	$v0,0x800b
 /*  f18bfc4:	03e00008 */ 	jr	$ra
 /*  f18bfc8:	9042cc10 */ 	lbu	$v0,-0x33f0($v0)
 );
 
 GLOBAL_ASM(
-glabel func0f18bfcc
+glabel mpGetLockPlayerNum
 /*  f18bfcc:	3c02800b */ 	lui	$v0,0x800b
 /*  f18bfd0:	03e00008 */ 	jr	$ra
 /*  f18bfd4:	8042cc20 */ 	lb	$v0,-0x33e0($v0)

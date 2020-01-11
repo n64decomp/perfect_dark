@@ -2917,7 +2917,7 @@ glabel func0f19c1cc
 /*  f19c1e0:	0fc6373b */ 	jal	func0f18dcec
 /*  f19c1e4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f19c1e8:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f19c1ec:	0fc62fdc */ 	jal	func0f18bf70
+/*  f19c1ec:	0fc62fdc */ 	jal	mpSetLock
 /*  f19c1f0:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f19c1f4:	3c03800b */ 	lui	$v1,%hi(g_MpPlayers)
 /*  f19c1f8:	3c02800b */ 	lui	$v0,%hi(var800aca38)
@@ -2935,7 +2935,7 @@ glabel func0f19c1cc
 
 s32 func0f19c220(void)
 {
-	return func0f18bf70(0, 0);
+	return mpSetLock(0, 0);
 }
 
 void mpCalculateVar800884b4(s32 arg0, s32 arg1)

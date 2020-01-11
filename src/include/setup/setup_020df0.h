@@ -272,7 +272,7 @@ extern struct menu_dialog g_MpChangeTeamNameMenuDialog;
 extern struct menu_dialog menudialog_2bfa8;
 extern struct menu_dialog menudialog_mpchallengedetails2;
 extern struct menu_dialog menudialog_2c0cc;
-extern u16 mplockoptions[];
+extern u16 mplockoptions[4];
 extern struct menu_dialog menudialog_mpgamesetup3;
 extern struct menu_dialog g_MpQuickGoMenuDialog;
 extern struct menu_dialog g_MpQuickTeamGameSetupMenuDialog;

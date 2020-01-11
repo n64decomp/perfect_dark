@@ -2912,7 +2912,7 @@ s32 menuhandlerMpDropOut(u32 operation, struct menu_item *item, s32 *value)
 }
 
 GLOBAL_ASM(
-glabel func0f17909c
+glabel mpGetCurrentPlayerName
 /*  f17909c:	3c0e8007 */ 	lui	$t6,0x8007
 /*  f1790a0:	8dce1448 */ 	lw	$t6,0x1448($t6)
 /*  f1790a4:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers)
@@ -8498,121 +8498,46 @@ s32 menuhandler0017ec64(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerMpLock
-/*  f17ecd4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f17ecd8:	3c0f8008 */ 	lui	$t7,%hi(mplockoptions)
-/*  f17ecdc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17ece0:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f17ece4:	25ef6104 */ 	addiu	$t7,$t7,%lo(mplockoptions)
-/*  f17ece8:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f17ecec:	27ae0020 */ 	addiu	$t6,$sp,0x20
-/*  f17ecf0:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f17ecf4:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f17ecf8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17ecfc:	1081000a */ 	beq	$a0,$at,.L0f17ed28
-/*  f17ed00:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f17ed04:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f17ed08:	10810012 */ 	beq	$a0,$at,.L0f17ed54
-/*  f17ed0c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17ed10:	10810034 */ 	beq	$a0,$at,.L0f17ede4
-/*  f17ed14:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f17ed18:	10810041 */ 	beq	$a0,$at,.L0f17ee20
-/*  f17ed1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17ed20:	1000004b */ 	beqz	$zero,.L0f17ee50
-/*  f17ed24:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17ed28:
-/*  f17ed28:	0fc62ff0 */ 	jal	func0f18bfc0
-/*  f17ed2c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f17ed30:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17ed34:	14410004 */ 	bne	$v0,$at,.L0f17ed48
-/*  f17ed38:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f17ed3c:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f17ed40:	10000042 */ 	beqz	$zero,.L0f17ee4c
-/*  f17ed44:	acc90000 */ 	sw	$t1,0x0($a2)
-.L0f17ed48:
-/*  f17ed48:	240a0005 */ 	addiu	$t2,$zero,0x5
-/*  f17ed4c:	1000003f */ 	beqz	$zero,.L0f17ee4c
-/*  f17ed50:	acca0000 */ 	sw	$t2,0x0($a2)
-.L0f17ed54:
-/*  f17ed54:	0fc62ff0 */ 	jal	func0f18bfc0
-/*  f17ed58:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f17ed5c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17ed60:	14410005 */ 	bne	$v0,$at,.L0f17ed78
-/*  f17ed64:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f17ed68:	0fc5b9f1 */ 	jal	textGet
-/*  f17ed6c:	24045031 */ 	addiu	$a0,$zero,0x5031
-/*  f17ed70:	10000038 */ 	beqz	$zero,.L0f17ee54
-/*  f17ed74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17ed78:
-/*  f17ed78:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f17ed7c:	2c410004 */ 	sltiu	$at,$v0,0x4
-/*  f17ed80:	10200006 */ 	beqz	$at,.L0f17ed9c
-/*  f17ed84:	00025840 */ 	sll	$t3,$v0,0x1
-/*  f17ed88:	03ab2021 */ 	addu	$a0,$sp,$t3
-/*  f17ed8c:	0fc5b9f1 */ 	jal	textGet
-/*  f17ed90:	94840020 */ 	lhu	$a0,0x20($a0)
-/*  f17ed94:	1000002f */ 	beqz	$zero,.L0f17ee54
-/*  f17ed98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17ed9c:
-/*  f17ed9c:	0fc62ff0 */ 	jal	func0f18bfc0
-/*  f17eda0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17eda4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f17eda8:	1441000a */ 	bne	$v0,$at,.L0f17edd4
-/*  f17edac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17edb0:	0fc62ff3 */ 	jal	func0f18bfcc
-/*  f17edb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17edb8:	00026080 */ 	sll	$t4,$v0,0x2
-/*  f17edbc:	01826021 */ 	addu	$t4,$t4,$v0
-/*  f17edc0:	3c0d800b */ 	lui	$t5,%hi(g_MpPlayers)
-/*  f17edc4:	25adc7b8 */ 	addiu	$t5,$t5,%lo(g_MpPlayers)
-/*  f17edc8:	000c6140 */ 	sll	$t4,$t4,0x5
-/*  f17edcc:	10000020 */ 	beqz	$zero,.L0f17ee50
-/*  f17edd0:	018d1021 */ 	addu	$v0,$t4,$t5
-.L0f17edd4:
-/*  f17edd4:	0fc5e427 */ 	jal	func0f17909c
-/*  f17edd8:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f17eddc:	1000001d */ 	beqz	$zero,.L0f17ee54
-/*  f17ede0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17ede4:
-/*  f17ede4:	0fc62ff0 */ 	jal	func0f18bfc0
-/*  f17ede8:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f17edec:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17edf0:	10410005 */ 	beq	$v0,$at,.L0f17ee08
-/*  f17edf4:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f17edf8:	3c058007 */ 	lui	$a1,0x8007
-/*  f17edfc:	8ca51448 */ 	lw	$a1,0x1448($a1)
-/*  f17ee00:	0fc62fdc */ 	jal	func0f18bf70
-/*  f17ee04:	8cc40000 */ 	lw	$a0,0x0($a2)
-.L0f17ee08:
-/*  f17ee08:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f17ee0c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f17ee10:	8c590458 */ 	lw	$t9,0x458($v0)
-/*  f17ee14:	37380002 */ 	ori	$t8,$t9,0x2
-/*  f17ee18:	1000000c */ 	beqz	$zero,.L0f17ee4c
-/*  f17ee1c:	ac580458 */ 	sw	$t8,0x458($v0)
-.L0f17ee20:
-/*  f17ee20:	0fc62ff0 */ 	jal	func0f18bfc0
-/*  f17ee24:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f17ee28:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17ee2c:	14410003 */ 	bne	$v0,$at,.L0f17ee3c
-/*  f17ee30:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f17ee34:	10000005 */ 	beqz	$zero,.L0f17ee4c
-/*  f17ee38:	acc00000 */ 	sw	$zero,0x0($a2)
-.L0f17ee3c:
-/*  f17ee3c:	0fc62ff0 */ 	jal	func0f18bfc0
-/*  f17ee40:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f17ee44:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f17ee48:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f17ee4c:
-/*  f17ee4c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17ee50:
-/*  f17ee50:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17ee54:
-/*  f17ee54:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f17ee58:	03e00008 */ 	jr	$ra
-/*  f17ee5c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menuhandlerMpLock(u32 operation, struct menu_item *item, s32 *value)
+{
+	u16 labels[4] = mplockoptions;
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		if (mpGetLock() == MPLOCK_CHALLENGE) {
+			*value = 1;
+		} else {
+			*value = 5;
+		}
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		if (mpGetLock() == MPLOCK_CHALLENGE) {
+			return textGet(0x5031); // "Challenge"
+		}
+		if ((u32)*value <= 3) {
+			return textGet(labels[*value]);
+		}
+		if (mpGetLock() == MPLOCK_PLAYER) {
+			return g_MpPlayers[mpGetLockPlayerNum()].base.name;
+		}
+		return mpGetCurrentPlayerName(item);
+	case MENUOP_SET:
+		if (mpGetLock() != MPLOCK_CHALLENGE) {
+			mpSetLock(*value, g_MpPlayerNum);
+		}
+		g_Vars.unk000458 |= 2;
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		if (mpGetLock() == MPLOCK_CHALLENGE) {
+			*value = 0;
+		} else {
+			*value = mpGetLock();
+		}
+		break;
+	}
+
+	return NULL;
+}
 
 s32 menuhandlerMpSavePlayer(u32 operation, struct menu_item *item, s32 *value)
 {

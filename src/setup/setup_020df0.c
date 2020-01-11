@@ -10173,7 +10173,7 @@ u16 rankings[] = {
 
 // 2a950
 struct menu_item menuitems_2a950[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x01000010, (u32)&func0f17909c, (u32)&func0f17853c, menuhandler001785c4 },
+	{ MENUITEMTYPE_LABEL,       0, 0x01000010, (u32)&mpGetCurrentPlayerName, (u32)&func0f17853c, menuhandler001785c4 },
 	{ MENUITEMTYPE_LABEL,       0, 0x01000000, 0x00005105, (u32)&func0f178bb0, menuhandler00178a94 }, // "Title:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005106, 0x00000000, NULL }, // "Weapon of Choice:"
@@ -11055,7 +11055,7 @@ struct menu_dialog menudialog_mpcombatchallenges2 = {
 };
 
 // 2c124
-u16 mplockoptions[] = {
+u16 mplockoptions[4] = {
 	0x502d, // "None"
 	0x502e, // "Last Winner"
 	0x502f, // "Last Loser"
@@ -11101,7 +11101,7 @@ struct menu_dialog menudialog_mpstuff2 = {
 
 // 2c238
 struct menu_item menuitems_mpplayersetup4[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501e, (u32)&func0f17909c, &menudialog_mpplayername }, // "Name"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501e, (u32)&mpGetCurrentPlayerName, &menudialog_mpplayername }, // "Name"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000501f, 0x00000000, &menudialog_mpcharacter }, // "Character"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005021, 0x00000000, &menudialog_mpcontrol }, // "Control"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005022, 0x00000000, &menudialog_mpoptions }, // "Player Options"

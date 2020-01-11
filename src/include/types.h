@@ -4010,7 +4010,7 @@ struct propstate {
 };
 
 struct mpchr {
-	/*0x00*/ u16 unk00;
+	/*0x00*/ char name[1]; // len unknown
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u8 unk0c;
