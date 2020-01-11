@@ -2509,74 +2509,18 @@ glabel func0f18961c
 /*  f18963c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel mpIsPaused
-/*  f189640:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f189644:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f189648:	8cce006c */ 	lw	$t6,0x6c($a2)
-/*  f18964c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f189650:	00001025 */ 	or	$v0,$zero,$zero
-/*  f189654:	11c00003 */ 	beqz	$t6,.L0f189664
-/*  f189658:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18965c:	10000001 */ 	beqz	$zero,.L0f189664
-/*  f189660:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f189664:
-/*  f189664:	8ccf0068 */ 	lw	$t7,0x68($a2)
-/*  f189668:	00002025 */ 	or	$a0,$zero,$zero
-/*  f18966c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f189670:	11e00003 */ 	beqz	$t7,.L0f189680
-/*  f189674:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f189678:	10000001 */ 	beqz	$zero,.L0f189680
-/*  f18967c:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f189680:
-/*  f189680:	8cd80064 */ 	lw	$t8,0x64($a2)
-/*  f189684:	13000003 */ 	beqz	$t8,.L0f189694
-/*  f189688:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18968c:	10000001 */ 	beqz	$zero,.L0f189694
-/*  f189690:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f189694:
-/*  f189694:	8cd90070 */ 	lw	$t9,0x70($a2)
-/*  f189698:	3c18800b */ 	lui	$t8,0x800b
-/*  f18969c:	13200003 */ 	beqz	$t9,.L0f1896ac
-/*  f1896a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1896a4:	10000001 */ 	beqz	$zero,.L0f1896ac
-/*  f1896a8:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f1896ac:
-/*  f1896ac:	00a44021 */ 	addu	$t0,$a1,$a0
-/*  f1896b0:	01034821 */ 	addu	$t1,$t0,$v1
-/*  f1896b4:	01225021 */ 	addu	$t2,$t1,$v0
-/*  f1896b8:	15410014 */ 	bne	$t2,$at,.L0f18970c
-/*  f1896bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1896c0:	8ccb0314 */ 	lw	$t3,0x314($a2)
-/*  f1896c4:	11600011 */ 	beqz	$t3,.L0f18970c
-/*  f1896c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1896cc:	8ccc0288 */ 	lw	$t4,0x288($a2)
-/*  f1896d0:	3c0f800a */ 	lui	$t7,0x800a
-/*  f1896d4:	8d8d0070 */ 	lw	$t5,0x70($t4)
-/*  f1896d8:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f1896dc:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f1896e0:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f1896e4:	01cd7021 */ 	addu	$t6,$t6,$t5
-/*  f1896e8:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f1896ec:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f1896f0:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f1896f4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1896f8:	8defe4f8 */ 	lw	$t7,-0x1b08($t7)
-/*  f1896fc:	11e00003 */ 	beqz	$t7,.L0f18970c
-/*  f189700:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f189704:	03e00008 */ 	jr	$ra
-/*  f189708:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18970c:
-/*  f18970c:	9318cba6 */ 	lbu	$t8,-0x345a($t8)
-/*  f189710:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f189714:	17000003 */ 	bnez	$t8,.L0f189724
-/*  f189718:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18971c:	03e00008 */ 	jr	$ra
-/*  f189720:	00001025 */ 	or	$v0,$zero,$zero
-.L0f189724:
-/*  f189724:	03e00008 */ 	jr	$ra
-/*  f189728:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool mpIsPaused(void)
+{
+	if (PLAYERCOUNT() == 1 && g_Vars.unk000314 && g_MenuStack[g_Vars.unk000288->mpchrnum].unk00) {
+		return true;
+	}
+
+	if (!g_MpSetup.paused) {
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel mpSetPaused

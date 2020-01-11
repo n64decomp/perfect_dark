@@ -4105,7 +4105,8 @@ struct mpsetup {
 	/*0x8009cb9e*/ u16 chrslots;
 
 	/*0x8009cba0*/ u32 unk18;
-	/*0x8009cba4*/ u32 unk1c;
+	/*0x8009cba4*/ u16 unk1c;
+	/*0x8009cba6*/ u8 paused;
 	/*0x8009cba8*/ bool saved;
 	/*0x8009cbac*/ u16 unk24;
 };
