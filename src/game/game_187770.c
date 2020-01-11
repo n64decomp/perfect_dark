@@ -11636,24 +11636,17 @@ glabel func0f1915b4
 /*  f1915fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f191600
-/*  f191600:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f191604:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f191608:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f19160c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f191610:	10400004 */ 	beqz	$v0,.L0f191624
-/*  f191614:	00001825 */ 	or	$v1,$zero,$zero
-/*  f191618:	0fc6456d */ 	jal	func0f1915b4
-/*  f19161c:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f191620:	304300ff */ 	andi	$v1,$v0,0xff
-.L0f191624:
-/*  f191624:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f191628:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19162c:	00601025 */ 	or	$v0,$v1,$zero
-/*  f191630:	03e00008 */ 	jr	$ra
-/*  f191634:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u8 func0f191600(struct chrdata *chr)
+{
+	struct prop *prop = chrGetTargetProp(chr);
+	u8 result = 0;
+
+	if (prop) {
+		result = func0f1915b4(prop->chr);
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f191638
