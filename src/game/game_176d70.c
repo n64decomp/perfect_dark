@@ -480,51 +480,42 @@ const u32 var7f1b89f4[] = {0x7f186328};
 const u32 var7f1b89f8[] = {0x7f186328};
 const u32 var7f1b89fc[] = {0x7f186380};
 
-void func0f186d70(s32 arg0)
+void func0f176d70(s32 arg0)
 {
 	var800845d8 = arg0;
 }
 
-s32 func0f186d7c(void)
+s32 func0f176d7c(void)
 {
 	return var800845d8;
 }
 
-GLOBAL_ASM(
-glabel func0f176d88
-/*  f176d88:	308e0003 */ 	andi	$t6,$a0,0x3
-/*  f176d8c:	11c00003 */ 	beqz	$t6,.L0f176d9c
-/*  f176d90:	2401fffc */ 	addiu	$at,$zero,-4
-/*  f176d94:	00817824 */ 	and	$t7,$a0,$at
-/*  f176d98:	25e40004 */ 	addiu	$a0,$t7,0x4
-.L0f176d9c:
-/*  f176d9c:	03e00008 */ 	jr	$ra
-/*  f176da0:	00801025 */ 	or	$v0,$a0,$zero
-);
+u32 func0f176d88(u32 arg0)
+{
+	if (arg0 & 3) {
+		arg0 = (arg0 & 0xfffffffc) + 4;
+	}
 
-GLOBAL_ASM(
-glabel func0f176da4
-/*  f176da4:	308e000f */ 	andi	$t6,$a0,0xf
-/*  f176da8:	11c00003 */ 	beqz	$t6,.L0f176db8
-/*  f176dac:	2401fff0 */ 	addiu	$at,$zero,-16
-/*  f176db0:	00817824 */ 	and	$t7,$a0,$at
-/*  f176db4:	25e40010 */ 	addiu	$a0,$t7,0x10
-.L0f176db8:
-/*  f176db8:	03e00008 */ 	jr	$ra
-/*  f176dbc:	00801025 */ 	or	$v0,$a0,$zero
-);
+	return arg0;
+}
 
-GLOBAL_ASM(
-glabel func0f176dc0
-/*  f176dc0:	308e001f */ 	andi	$t6,$a0,0x1f
-/*  f176dc4:	11c00003 */ 	beqz	$t6,.L0f176dd4
-/*  f176dc8:	2401ffe0 */ 	addiu	$at,$zero,-32
-/*  f176dcc:	00817824 */ 	and	$t7,$a0,$at
-/*  f176dd0:	25e40020 */ 	addiu	$a0,$t7,0x20
-.L0f176dd4:
-/*  f176dd4:	03e00008 */ 	jr	$ra
-/*  f176dd8:	00801025 */ 	or	$v0,$a0,$zero
-);
+u32 func0f176da4(u32 arg0)
+{
+	if (arg0 & 0xf) {
+		arg0 = (arg0 & 0xfffffff0) + 0x10;
+	}
+
+	return arg0;
+}
+
+u32 func0f176dc0(u32 arg0)
+{
+	if (arg0 & 0x1f) {
+		arg0 = (arg0 & 0xffffffe0) + 0x20;
+	}
+
+	return arg0;
+}
 
 GLOBAL_ASM(
 glabel func0f176ddc

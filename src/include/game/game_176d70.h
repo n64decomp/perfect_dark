@@ -3,10 +3,10 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f176d70(void);
-u32 func0f176d88(void);
-u32 func0f176da4(void);
-u32 func0f176dc0(void);
+void func0f176d70(s32 arg0);
+u32 func0f176d88(u32 arg0);
+u32 func0f176da4(u32 arg0);
+u32 func0f176dc0(u32 arg0);
 u32 func0f176ddc(void);
 u32 func0f1770ac(void);
 u32 func0f177164(void);
