@@ -10330,7 +10330,7 @@ u16 mpcontrolstyles[] = {
 };
 
 // 2ac40
-u16 mpaimmodes[] = {
+u16 g_MpAimModeLabels[] = {
 	0x50d5, // "Hold"
 	0x50d6, // "Toggle"
 };

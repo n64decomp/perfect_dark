@@ -3414,62 +3414,26 @@ s32 menuhandlerMpControlCheckbox(u32 operation, struct menu_item *item, s32 *val
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerMpAimControl
-/*  f1797e0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1797e4:	3c0e8008 */ 	lui	$t6,%hi(mpaimmodes)
-/*  f1797e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1797ec:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f1797f0:	25ce4c20 */ 	addiu	$t6,$t6,%lo(mpaimmodes)
-/*  f1797f4:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1797f8:	27a2001c */ 	addiu	$v0,$sp,0x1c
-/*  f1797fc:	24080002 */ 	addiu	$t0,$zero,0x2
-/*  f179800:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f179804:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f179808:	10810009 */ 	beq	$a0,$at,.L0f179830
-/*  f17980c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f179810:	10810009 */ 	beq	$a0,$at,.L0f179838
-/*  f179814:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f179818:	1081000e */ 	beq	$a0,$at,.L0f179854
-/*  f17981c:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f179820:	10810012 */ 	beq	$a0,$at,.L0f17986c
-/*  f179824:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f179828:	10000017 */ 	beqz	$zero,.L0f179888
-/*  f17982c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f179830:
-/*  f179830:	10000014 */ 	beqz	$zero,.L0f179884
-/*  f179834:	acc80000 */ 	sw	$t0,0x0($a2)
-.L0f179838:
-/*  f179838:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f17983c:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f179840:	004a5821 */ 	addu	$t3,$v0,$t2
-/*  f179844:	0fc5b9f1 */ 	jal	textGet
-/*  f179848:	95640000 */ 	lhu	$a0,0x0($t3)
-/*  f17984c:	1000000f */ 	beqz	$zero,.L0f17988c
-/*  f179850:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179854:
-/*  f179854:	3c048007 */ 	lui	$a0,0x8007
-/*  f179858:	8c841448 */ 	lw	$a0,0x1448($a0)
-/*  f17985c:	0fc54a94 */ 	jal	optionsSetAimControl
-/*  f179860:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f179864:	10000008 */ 	beqz	$zero,.L0f179888
-/*  f179868:	00001025 */ 	or	$v0,$zero,$zero
-.L0f17986c:
-/*  f17986c:	3c048007 */ 	lui	$a0,0x8007
-/*  f179870:	8c841448 */ 	lw	$a0,0x1448($a0)
-/*  f179874:	0fc549fb */ 	jal	optionsGetAimControl
-/*  f179878:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f17987c:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f179880:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f179884:
-/*  f179884:	00001025 */ 	or	$v0,$zero,$zero
-.L0f179888:
-/*  f179888:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17988c:
-/*  f17988c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f179890:	03e00008 */ 	jr	$ra
-/*  f179894:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menuhandlerMpAimControl(u32 operation, struct menu_item *item, s32 *value)
+{
+	u16 labels[2] = g_MpAimModeLabels;
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = 2;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return textGet(labels[*value]);
+	case MENUOP_SET:
+		optionsSetAimControl(g_MpPlayerNum, *value);
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = optionsGetAimControl(g_MpPlayerNum);
+		break;
+	}
+
+	return NULL;
+}
 
 s32 menuhandlerMpCheckboxOption(u32 operation, struct menu_item *item, s32 *value)
 {
