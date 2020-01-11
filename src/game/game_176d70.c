@@ -7340,83 +7340,35 @@ s32 menuhandlerMpFourTeams(u32 operation, struct menu_item *item, s32 *value)
 	return func0f17d4b0(operation, item, value, 4);
 }
 
-GLOBAL_ASM(
-glabel menuhandlerMpMaximumTeams
-/*  f17d7c0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f17d7c4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f17d7c8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f17d7cc:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f17d7d0:	afb6002c */ 	sw	$s6,0x2c($sp)
-/*  f17d7d4:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f17d7d8:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f17d7dc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f17d7e0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f17d7e4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f17d7e8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f17d7ec:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f17d7f0:	1481002b */ 	bne	$a0,$at,.L0f17d8a0
-/*  f17d7f4:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f17d7f8:	3c16800b */ 	lui	$s6,%hi(g_MpSimulants)
-/*  f17d7fc:	3c13800b */ 	lui	$s3,%hi(g_MpPlayers)
-/*  f17d800:	3c12800b */ 	lui	$s2,%hi(g_MpSetup)
-/*  f17d804:	00008825 */ 	or	$s1,$zero,$zero
-/*  f17d808:	2652cb88 */ 	addiu	$s2,$s2,%lo(g_MpSetup)
-/*  f17d80c:	2673c7b8 */ 	addiu	$s3,$s3,%lo(g_MpPlayers)
-/*  f17d810:	26d6c538 */ 	addiu	$s6,$s6,%lo(g_MpSimulants)
-/*  f17d814:	00008025 */ 	or	$s0,$zero,$zero
-/*  f17d818:	2417004c */ 	addiu	$s7,$zero,0x4c
-/*  f17d81c:	2415000c */ 	addiu	$s5,$zero,0xc
-/*  f17d820:	241400a0 */ 	addiu	$s4,$zero,0xa0
-/*  f17d824:	964e0016 */ 	lhu	$t6,0x16($s2)
-.L0f17d828:
-/*  f17d828:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f17d82c:	020fc004 */ 	sllv	$t8,$t7,$s0
-/*  f17d830:	01d8c824 */ 	and	$t9,$t6,$t8
-/*  f17d834:	13200015 */ 	beqz	$t9,.L0f17d88c
-/*  f17d838:	2a010004 */ 	slti	$at,$s0,0x4
-/*  f17d83c:	10200006 */ 	beqz	$at,.L0f17d858
-/*  f17d840:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17d844:	02140019 */ 	multu	$s0,$s4
-/*  f17d848:	00004012 */ 	mflo	$t0
-/*  f17d84c:	02681021 */ 	addu	$v0,$s3,$t0
-/*  f17d850:	10000006 */ 	beqz	$zero,.L0f17d86c
-/*  f17d854:	a0510011 */ 	sb	$s1,0x11($v0)
-.L0f17d858:
-/*  f17d858:	02170019 */ 	multu	$s0,$s7
-/*  f17d85c:	00004812 */ 	mflo	$t1
-/*  f17d860:	02c91021 */ 	addu	$v0,$s6,$t1
-/*  f17d864:	2442fed0 */ 	addiu	$v0,$v0,-304
-/*  f17d868:	a0510011 */ 	sb	$s1,0x11($v0)
-.L0f17d86c:
-/*  f17d86c:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f17d870:	322a00ff */ 	andi	$t2,$s1,0xff
-/*  f17d874:	0fc61902 */ 	jal	scenarioGetMaxTeams
-/*  f17d878:	01408825 */ 	or	$s1,$t2,$zero
-/*  f17d87c:	0222082a */ 	slt	$at,$s1,$v0
-/*  f17d880:	54200003 */ 	bnezl	$at,.L0f17d890
-/*  f17d884:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f17d888:	00008825 */ 	or	$s1,$zero,$zero
-.L0f17d88c:
-/*  f17d88c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f17d890:
-/*  f17d890:	5615ffe5 */ 	bnel	$s0,$s5,.L0f17d828
-/*  f17d894:	964e0016 */ 	lhu	$t6,0x16($s2)
-/*  f17d898:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f17d89c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17d8a0:
-/*  f17d8a0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f17d8a4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f17d8a8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f17d8ac:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f17d8b0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f17d8b4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f17d8b8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f17d8bc:	8fb6002c */ 	lw	$s6,0x2c($sp)
-/*  f17d8c0:	8fb70030 */ 	lw	$s7,0x30($sp)
-/*  f17d8c4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f17d8c8:	03e00008 */ 	jr	$ra
-/*  f17d8cc:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 menuhandlerMpMaximumTeams(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		s32 i;
+		u8 team = 0;
+
+		for (i = 0; i != 12; i++) {
+			if (g_MpSetup.chrslots & (1 << i)) {
+				struct mpchr *mpchr;
+
+				if (i < 4) {
+					mpchr = &g_MpPlayers[i].base;
+				} else {
+					mpchr = &g_MpSimulants[i - 4].base;
+				}
+
+				mpchr->team = team++;
+
+				if (team >= scenarioGetMaxTeams()) {
+					team = 0;
+				}
+			}
+		}
+
+		menuPopDialog();
+	}
+
+	return 0;
+}
 
 s32 menuhandlerMpHumansVsSimulants(u32 operation, struct menu_item *item, s32 *value)
 {
