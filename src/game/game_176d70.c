@@ -480,15 +480,15 @@ const u32 var7f1b89f4[] = {0x7f186328};
 const u32 var7f1b89f8[] = {0x7f186328};
 const u32 var7f1b89fc[] = {0x7f186380};
 
-GLOBAL_ASM(
-glabel func0f176d70
-/*  f176d70:	3c018008 */ 	lui	$at,0x8008
-/*  f176d74:	03e00008 */ 	jr	$ra
-/*  f176d78:	ac2445d8 */ 	sw	$a0,0x45d8($at)
-/*  f176d7c:	3c028008 */ 	lui	$v0,0x8008
-/*  f176d80:	03e00008 */ 	jr	$ra
-/*  f176d84:	8c4245d8 */ 	lw	$v0,0x45d8($v0)
-);
+void func0f186d70(s32 arg0)
+{
+	var800845d8 = arg0;
+}
+
+s32 func0f186d7c(void)
+{
+	return var800845d8;
+}
 
 GLOBAL_ASM(
 glabel func0f176d88
