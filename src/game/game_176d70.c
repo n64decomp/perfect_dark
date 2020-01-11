@@ -11430,32 +11430,15 @@ s32 menuhandlerMpHillTime(u32 operation, struct menu_item *item, struct numandte
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel scenarioKohCallback40
-/*  f181b24:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f181b28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f181b2c:	0fc354fe */ 	jal	scenarioDefaultCallback40
-/*  f181b30:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f181b34:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f181b38:	3c01800a */ 	lui	$at,0x800a
-/*  f181b3c:	ac22a444 */ 	sw	$v0,-0x5bbc($at)
-/*  f181b40:	03e00008 */ 	jr	$ra
-/*  f181b44:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void scenarioKohCallback40(s32 *arg0)
+{
+	g_Vars.mphilltime = scenarioDefaultCallback40(arg0, 8);
+}
 
-GLOBAL_ASM(
-glabel scenarioKohCallback44
-/*  f181b48:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f181b4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f181b50:	3c05800a */ 	lui	$a1,0x800a
-/*  f181b54:	8ca5a444 */ 	lw	$a1,-0x5bbc($a1)
-/*  f181b58:	0fc354be */ 	jal	scenarioDefaultCallback44
-/*  f181b5c:	24060008 */ 	addiu	$a2,$zero,0x8
-/*  f181b60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f181b64:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f181b68:	03e00008 */ 	jr	$ra
-/*  f181b6c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void scenarioKohCallback44(s32 *arg0)
+{
+	scenarioDefaultCallback44(arg0, g_Vars.mphilltime, 8);
+}
 
 void scenarioKohInit(void)
 {
