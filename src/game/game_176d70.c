@@ -14149,6 +14149,23 @@ glabel scenarioPacHighlight
 /*  f1845b8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+//bool scenarioPacHighlight(struct prop *prop, u32 *colour)
+//{
+//	if ((g_MpSetup.options & MPOPTION_HIGHLIGHTTARGET) &&
+//			(prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR) &&
+//			g_ScenarioData.pac.victimindex != -1 &&
+//			prop->chr == g_MpPlayerChrs[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]) {
+//		colour[0] = 0;
+//		colour[1] = 0xff;
+//		colour[2] = 0;
+//		colour[3] = 0x40;
+//
+//		return true;
+//	}
+//
+//	return false;
+//}
+
 GLOBAL_ASM(
 glabel func0f1845bc
 /*  f1845bc:	3c02800b */ 	lui	$v0,%hi(g_ScenarioData)
