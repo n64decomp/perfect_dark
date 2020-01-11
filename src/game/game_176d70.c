@@ -11313,52 +11313,20 @@ glabel func0f181800
 /*  f181898:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel scenarioCtcCallback2c
-/*  f18189c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1818a0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1818a4:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f1818a8:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f1818ac:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f1818b0:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f1818b4:	8ce20004 */ 	lw	$v0,0x4($a3)
-/*  f1818b8:	0fc63a5a */ 	jal	teamGetIndex
-/*  f1818bc:	90440125 */ 	lbu	$a0,0x125($v0)
-/*  f1818c0:	3c03800b */ 	lui	$v1,%hi(g_ScenarioData)
-/*  f1818c4:	2463c110 */ 	addiu	$v1,$v1,%lo(g_ScenarioData)
-/*  f1818c8:	00027840 */ 	sll	$t7,$v0,0x1
-/*  f1818cc:	006fc021 */ 	addu	$t8,$v1,$t7
-/*  f1818d0:	87190008 */ 	lh	$t9,0x8($t8)
-/*  f1818d4:	00025840 */ 	sll	$t3,$v0,0x1
-/*  f1818d8:	006b6021 */ 	addu	$t4,$v1,$t3
-/*  f1818dc:	00194100 */ 	sll	$t0,$t9,0x4
-/*  f1818e0:	00684821 */ 	addu	$t1,$v1,$t0
-/*  f1818e4:	852a001a */ 	lh	$t2,0x1a($t1)
-/*  f1818e8:	c7ac0020 */ 	lwc1	$f12,0x20($sp)
-/*  f1818ec:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f1818f0:	59400010 */ 	blezl	$t2,.L0f181934
-/*  f1818f4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1818f8:	858d0008 */ 	lh	$t5,0x8($t4)
-/*  f1818fc:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f181900:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f181904:	000d7100 */ 	sll	$t6,$t5,0x4
-/*  f181908:	006e1021 */ 	addu	$v0,$v1,$t6
-/*  f18190c:	8458001a */ 	lh	$t8,0x1a($v0)
-/*  f181910:	244f001c */ 	addiu	$t7,$v0,0x1c
-/*  f181914:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f181918:	0fc2da74 */ 	jal	func0f0b69d0
-/*  f18191c:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f181920:	8fb90030 */ 	lw	$t9,0x30($sp)
-/*  f181924:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f181928:	10000002 */ 	beqz	$zero,.L0f181934
-/*  f18192c:	e7200000 */ 	swc1	$f0,0x0($t9)
-/*  f181930:	00001025 */ 	or	$v0,$zero,$zero
-.L0f181934:
-/*  f181934:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f181938:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f18193c:	03e00008 */ 	jr	$ra
-/*  f181940:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool scenarioCtcCallback2c(f32 arg0, s32 arg1, s32 arg2, struct prop *prop, f32 *arg4)
+{
+	struct chrdata *chr = prop->chr;
+	s32 index = teamGetIndex(chr->team);
+
+	if (g_ScenarioData.ctc.unk18[g_ScenarioData.ctc.unk08[index]].unk02 > 0) {
+		*arg4 = func0f0b69d0(arg0, arg1, arg2, prop,
+				&g_ScenarioData.ctc.unk18[g_ScenarioData.ctc.unk08[index]].unk04[0],
+				g_ScenarioData.ctc.unk18[g_ScenarioData.ctc.unk08[index]].unk02);
+		return true;
+	}
+
+	return false;
+}
 
 s32 scenarioCtcCallback30(void)
 {
@@ -15969,16 +15937,16 @@ glabel func0f185e20
 /*  f186178:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-f32 scenarioCallback2c(f32 arg0, s32 arg1, s32 arg2, s32 arg3)
+f32 scenarioCallback2c(f32 arg0, s32 arg1, s32 arg2, struct prop *prop)
 {
 	f32 result;
 
 	if (g_Vars.unk000318 && g_MpScenarios[g_MpSetup.scenario].unk2c &&
-			g_MpScenarios[g_MpSetup.scenario].unk2c(arg0, arg1, arg2, arg3, &result)) {
+			g_MpScenarios[g_MpSetup.scenario].unk2c(arg0, arg1, arg2, prop, &result)) {
 		return result;
 	}
 
-	return func0f0b72a8(arg0, arg1, arg2, arg3);
+	return func0f0b72a8(arg0, arg1, arg2, prop);
 }
 
 GLOBAL_ASM(
