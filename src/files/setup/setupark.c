@@ -542,7 +542,7 @@ u8 func0401_drcaroll_following[] = {
 	set_self_chrflag(CHRCFLAG_00040000)
 	stop_chr
 	set_target_chr(CHR_BOND)
-	try_jog_to_target_chr(/*goto*/ 0x00)
+	try_jog_to_target(/*goto*/ 0x00)
 	label(0x00)
 	yield
 	set_target_chr(CHR_BOND)
@@ -615,12 +615,12 @@ u8 func0401_drcaroll_following[] = {
 	label(0x04)
 		restart_timer
 		if_chr_y(CHR_DRCAROLL, -2100, OPERATOR_LESS_THAN, /*goto*/ 0x20)
-		try_run_to_target_chr(/*goto*/ 0x05)
+		try_run_to_target(/*goto*/ 0x05)
 		label(0x20)
 		if_chr_distance_lt(200, /*goto*/ 0x20)
-		try_run_to_target_chr(/*goto*/ 0x05)
+		try_run_to_target(/*goto*/ 0x05)
 		label(0x20)
-		try_jog_to_target_chr(/*goto*/ 0x05)
+		try_jog_to_target(/*goto*/ 0x05)
 
 		beginloop(0x05)
 			if_chr_in_room(CHR_TARGET, 0x00, 0x0094, /*goto*/ 0x00)
@@ -646,7 +646,7 @@ u8 func0401_drcaroll_following[] = {
 	goto_first(0x02)
 
 	label(0x07)
-	try_run_to_target_chr(/*goto*/ 0x08)
+	try_run_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
 	endloop(0x08)
@@ -945,7 +945,7 @@ u8 func0406_general_combat[] = {
 			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_stage_flag_eq(STAGEFLAG_FOYER_LIGHTS_RESTORED, TRUE, /*goto*/ 0x00)
-			if_target_chr_in_sight(/*goto*/ 0x15)
+			if_target_in_sight(/*goto*/ 0x15)
 			goto_next(0x20)
 
 			label(0x00)
@@ -969,7 +969,7 @@ u8 func0406_general_combat[] = {
 			reloop(0x10)
 
 			label(0x00)
-			if_target_chr_in_sight(/*goto*/ 0x15)
+			if_target_in_sight(/*goto*/ 0x15)
 			if_stage_flag_eq(STAGEFLAG_FOYER_LIGHTS_RESTORED, TRUE, /*goto*/ 0x00)
 			if_enemy_distance_lt_and_los(500, /*goto*/ 0x20)
 			goto_next(0x5e)
@@ -1030,7 +1030,7 @@ u8 func0406_general_combat[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		call_rng
-		if_target_chr_in_sight(/*goto*/ 0x19)
+		if_target_in_sight(/*goto*/ 0x19)
 		if_timer_gt(60, /*goto*/ 0x1e)
 		if_rand_lt(4, /*goto*/ 0x1e)
 	endloop(0x1c)
@@ -1071,7 +1071,7 @@ u8 func0406_general_combat[] = {
 	goto_first(0x13)
 
 	label(0x29)
-	try_jog_to_target_chr(/*goto*/ 0x20)
+	try_jog_to_target(/*goto*/ 0x20)
 	label(0x20)
 	dprint 'U','N',' ','E','N','T','R','Y','\n',0,
 	set_returnlist(CHR_SELF, AILIST_GENERAL_COMBAT)
@@ -1643,7 +1643,7 @@ u8 func0409_tech_conversation[] = {
 
 	// Player activated door or door is fully open
 	label(0x00)
-	set_follow_chr(CHR_TARGET)
+	set_chrpreset(CHR_TARGET)
 	set_chr_team(CHR_TECH1, TEAM_ENEMY)
 	set_chr_team(CHR_TECH2, TEAM_ENEMY)
 	set_chr_team(CHR_RLSHOCK, TEAM_ENEMY)
@@ -1674,7 +1674,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_target_chr_in_sight(/*goto*/ 0x33)
+		if_target_in_sight(/*goto*/ 0x33)
 		pause_timer
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)
 		reloop(0x21)
@@ -1695,7 +1695,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_target_chr_in_sight(/*goto*/ 0x33)
+		if_target_in_sight(/*goto*/ 0x33)
 		pause_timer
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)
 		reloop(0x22)
@@ -1716,7 +1716,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_target_chr_in_sight(/*goto*/ 0x33)
+		if_target_in_sight(/*goto*/ 0x33)
 		pause_timer
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)
 		reloop(0x23)
@@ -1737,7 +1737,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_target_chr_in_sight(/*goto*/ 0x33)
+		if_target_in_sight(/*goto*/ 0x33)
 		pause_timer
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)
 		reloop(0x24)
@@ -1759,7 +1759,7 @@ u8 func0409_tech_conversation[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
-		if_target_chr_in_sight(/*goto*/ 0x33)
+		if_target_in_sight(/*goto*/ 0x33)
 		pause_timer
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)
 		reloop(0x25)
@@ -1850,7 +1850,7 @@ u8 func040a_tech2[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TECHS_FINISHED, TRUE, /*goto*/ 0x20)
-		if_target_chr_in_sight(/*goto*/ 0x33)
+		if_target_in_sight(/*goto*/ 0x33)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 	endloop(0x1f)
 
@@ -2637,7 +2637,7 @@ u8 func0413_defend_pad[] = {
 		set_target_chr(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x21)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x21)
-		if_distance_from_target_to_pad_lt(200, TARGET_PAD, /*goto*/ 0x22)
+		if_distance_from_target_to_pad_lt(200, PAD_PRESET, /*goto*/ 0x22)
 	endloop(0x1f)
 
 	label(0x21)

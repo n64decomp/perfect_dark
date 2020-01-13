@@ -1150,7 +1150,7 @@ u8 func0404_elvis[] = {
 		label(0x31)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		set_target_chr(CHR_BOND)
-		set_follow_chr(CHR_BOND)
+		set_chrpreset(CHR_BOND)
 		if_stage_flag_eq(STAGEFLAG_ELVIS_GAVE_PROXYMINE, TRUE, /*goto*/ 0x31)
 		if_objective_complete(0, /*goto*/ 0x31)
 		if_objective_complete(1, /*goto*/ 0x31)
@@ -1159,7 +1159,7 @@ u8 func0404_elvis[] = {
 		if_objective_complete(4, /*goto*/ 0x31)
 		if_chr_sees_player(/*goto*/ 0xa5)
 		set_target_chr(CHR_COOP)
-		set_follow_chr(CHR_COOP)
+		set_chrpreset(CHR_COOP)
 		if_chr_sees_player(/*goto*/ 0xa5)
 		label(0x31)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0a)
@@ -1205,7 +1205,7 @@ u8 func0404_elvis[] = {
 	// Sees player
 	label(0xa5)
 	set_target_chr(CHR_PRESET)
-	try_run_to_target_chr(/*goto*/ 0x12)
+	try_run_to_target(/*goto*/ 0x12)
 
 	beginloop(0x12)
 		dprint 'G','O',' ','T','O','W','A','R','D','S','\n',0,
@@ -1273,7 +1273,7 @@ u8 func0418_robot[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x0d)
-		if_target_chr_in_sight(/*goto*/ 0x0d)
+		if_target_in_sight(/*goto*/ 0x0d)
 		call_rng
 		if_rand_gt(5, /*goto*/ 0x31)
 		if_sound_finished(CHANNEL_5, /*goto*/ 0x08)
@@ -1303,11 +1303,11 @@ u8 func0418_robot[] = {
 	restart_timer
 	if_chr_distance_lt(300, /*goto*/ 0x31)
 	if_chr_distance_gt(1000, /*goto*/ 0x15)
-	if_target_chr_in_sight(/*goto*/ 0x13)
+	if_target_in_sight(/*goto*/ 0x13)
 
 	// Distance > 1000 or not in sight
 	label(0x15)
-	try_jog_to_target_chr(/*goto*/ 0x08)
+	try_jog_to_target(/*goto*/ 0x08)
 
 	// Distance < 300
 	label(0x31)
@@ -1323,10 +1323,10 @@ u8 func0418_robot[] = {
 		if_timer_gt(180, /*goto*/ 0x08)
 		if_chr_distance_gt(1000, /*goto*/ 0x15)
 		dprint 'P','A','R','T',' ','2','\n',0,
-		if_target_chr_in_sight(/*goto*/ 0x13)
+		if_target_in_sight(/*goto*/ 0x13)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x13)
+		if_target_in_sight(/*goto*/ 0x13)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		label(0x15)
@@ -1420,7 +1420,7 @@ u8 func041a_pres_clone[] = {
 		set_target_chr(CHR_P1P2)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x31)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x08)
-		if_target_chr_in_sight(/*goto*/ 0x31)
+		if_target_in_sight(/*goto*/ 0x31)
 		label(0x08)
 	endloop(0x06)
 
@@ -1578,9 +1578,9 @@ u8 func041d_president_running[] = {
 	restart_timer
 	label(0x31)
 	if_chr_distance_gt(300, /*goto*/ 0x31)
-	try_jog_to_target_chr(/*goto*/ 0xa1)
+	try_jog_to_target(/*goto*/ 0xa1)
 	label(0x31)
-	try_run_to_target_chr(/*goto*/ 0xa1)
+	try_run_to_target(/*goto*/ 0xa1)
 
 	beginloop(0xa1)
 		dprint 'F','O','L','L','O','W','\n',0,
@@ -1608,7 +1608,7 @@ u8 func041d_president_running[] = {
 
 	// Unreachable
 	label(0xa3)
-	try_run_to_target_chr(/*goto*/ 0xa4)
+	try_run_to_target(/*goto*/ 0xa4)
 
 	// Unreachable
 	beginloop(0xa4)
@@ -1738,7 +1738,7 @@ u8 func041f_trent_shooting[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		try_unset_chr_flag_bank3_02000000(CHR_SELF, /*goto*/ 0x31)
-		if_target_chr_in_sight(/*goto*/ 0x08)
+		if_target_in_sight(/*goto*/ 0x08)
 	endloop(0x06)
 
 	label(0x31)

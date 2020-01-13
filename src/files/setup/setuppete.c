@@ -976,7 +976,7 @@ u8 func040c_taxi[] = {
 };
 
 #define tracerbug_logic(chr, chr2) \
-	set_follow_chr(chr) \
+	set_chrpreset(chr) \
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x54) \
 	goto_next(0x04) \
  \
@@ -1374,7 +1374,7 @@ u8 func0412_cia[] = {
 	label(0x03)
 	unset_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
 	cmd0049(0x003e, /*goto*/ 0x04)
-	set_target_pad(0x00ba)
+	set_padpreset(0x00ba)
 	goto_next(0x03)
 
 	label(0x04)
@@ -1399,7 +1399,7 @@ u8 func0412_cia[] = {
 		set_target_chr(CHR_P1P2)
 		if_saw_death(0x00, /*goto*/ 0x1d)
 		if_saw_injury(0x00, /*goto*/ 0x1e)
-		if_target_chr_in_sight(/*goto*/ 0x04)
+		if_target_in_sight(/*goto*/ 0x04)
 		if_chr_stopped(/*goto*/ 0x35)
 	endloop(0x36)
 
@@ -1409,7 +1409,7 @@ u8 func0412_cia[] = {
 	label(0x37)
 	if_saw_death(0x00, /*goto*/ 0x1d)
 	if_saw_injury(0x00, /*goto*/ 0x1e)
-	if_target_chr_in_sight(/*goto*/ 0x04)
+	if_target_in_sight(/*goto*/ 0x04)
 	goto_first(0x10)
 
 	label(0x04)
@@ -1574,7 +1574,7 @@ u8 func0413_bugspotter[] = {
 	beginloop(0x10)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x04)
+		if_target_in_sight(/*goto*/ 0x04)
 		if_stage_flag_eq(STAGEFLAG_LIMO_READY_TO_LEAVE, TRUE, /*goto*/ LABEL_RUN_AWAY)
 		if_stage_flag_eq(STAGEFLAG_TRACERBUG_PLACED, TRUE, /*goto*/ LABEL_RUN_AWAY)
 		if_stage_flag_eq(STAGEFLAG_TAXI_READY_TO_CRASH, TRUE, /*goto*/ LABEL_RUN_AWAY)
@@ -1615,10 +1615,10 @@ u8 func0413_bugspotter[] = {
 		label(0x03)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x03)
+		if_target_in_sight(/*goto*/ 0x03)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x03)
+		if_target_in_sight(/*goto*/ 0x03)
 		goto_next(0x0a)
 		label(0x03)
 		if_stage_flag_eq(STAGEFLAG_TRACERBUG_SAFE, TRUE, /*goto*/ 0x0a)
@@ -1828,7 +1828,7 @@ u8 func041d_fbi[] = {
 		goto_next(0x16)
 
 		label(0x04)
-		if_target_chr_in_sight(/*goto*/ 0x18)
+		if_target_in_sight(/*goto*/ 0x18)
 		if_near_miss(/*goto*/ 0x18)
 		if_num_times_shot_gt(0, /*goto*/ 0x18)
 		if_hears_gunfire(/*goto*/ 0x16)
@@ -1848,14 +1848,14 @@ u8 func041d_fbi[] = {
 
 	label(0x04)
 	dprint 'T','R','A','C','K',' ','P','L','A','Y','E','R','\n',0,
-	try_jog_to_target_chr(/*goto*/ 0x06)
+	try_jog_to_target(/*goto*/ 0x06)
 
 	beginloop(0x06)
 		if_chr_distance_lt(500, /*goto*/ 0x18)
-		if_target_chr_in_sight(/*goto*/ 0x18)
+		if_target_in_sight(/*goto*/ 0x18)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x18)
+		if_target_in_sight(/*goto*/ 0x18)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 	endloop(0x06)
@@ -1977,7 +1977,7 @@ u8 func041a_robot[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_CRASH, TRUE, /*goto*/ 0x01)
-		if_target_chr_in_sight(/*goto*/ 0x08)
+		if_target_in_sight(/*goto*/ 0x08)
 		call_rng
 		if_rand_gt(5, /*goto*/ 0x03)
 		if_sound_finished(CHANNEL_5, /*goto*/ 0x04)
@@ -2033,7 +2033,7 @@ u8 func041a_robot[] = {
 			if_stage_flag_eq(STAGEFLAG_TRIGGER_CRASH, TRUE, /*goto*/ 0x01)
 			if_timer_gt(120, /*goto*/ 0x04)
 			if_self_flag_bankx_eq(CHRFLAG0_00002000, FALSE, BANK_0, /*goto*/ 0x2a)
-			if_target_chr_in_sight(/*goto*/ 0x03)
+			if_target_in_sight(/*goto*/ 0x03)
 			label(0x2a)
 		endloop(0x05)
 
@@ -2103,7 +2103,7 @@ u8 func041e_sealer1[] = {
 		goto_next(LABEL_ALERTED)
 
 		label(0x04)
-		if_target_chr_in_sight(/*goto*/ LABEL_ALERTED)
+		if_target_in_sight(/*goto*/ LABEL_ALERTED)
 		if_near_miss(/*goto*/ LABEL_ALERTED)
 		if_num_times_shot_gt(0, /*goto*/ LABEL_ALERTED)
 		if_hears_gunfire(/*goto*/ LABEL_ALERTED)
@@ -2678,8 +2678,8 @@ u8 func040b_outro[] = {
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0xf1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
-	open_door2(0x10)
-	open_door2(0x11)
+	set_door_open(0x10)
+	set_door_open(0x11)
 	hide_object(OBJ_TAXI)
 	hide_object(OBJ_LIMO)
 	hide_chr(CHR_SEALER1)

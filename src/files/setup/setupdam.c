@@ -1887,7 +1887,7 @@ u8 func0401_pilot[] = {
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x07)
+		if_target_in_sight(/*goto*/ 0x07)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x04)
 	endloop(0x00)
 
@@ -2201,7 +2201,7 @@ u8 func0404_angry_pilot[] = {
 
 	label(0x04)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x6d)
+	try_run_to_target(/*goto*/ 0x6d)
 
 	beginloop(0x6d)
 		if_in_disarm_range(/*goto*/ 0x07)
@@ -2515,7 +2515,7 @@ u8 func0415_elvis_at_start[] = {
 	label(0x07)
 	unset_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
 	if_chr_in_room(CHR_SELF, 0x00, 0x0029, /*goto*/ 0x04)
-	set_target_pad(0x0040)
+	set_padpreset(0x0040)
 	goto_next(0x07)
 
 	label(0x04)
@@ -2609,7 +2609,7 @@ u8 func0416_elvis_leading[] = {
 
 	label(0x04)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0b)
-	set_target_pad(0x0096)
+	set_padpreset(0x0096)
 	label(0x12)
 	label(0x04)
 	run_to_pad(0x0096)

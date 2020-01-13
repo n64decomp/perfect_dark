@@ -1576,7 +1576,7 @@ u8 func0415_chief[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
-		if_target_chr_in_sight(/*goto*/ 0x2c)
+		if_target_in_sight(/*goto*/ 0x2c)
 		label(0x06)
 		reloop(0x03)
 

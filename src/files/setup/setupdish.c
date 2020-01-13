@@ -572,7 +572,7 @@ u8 func041e_colleague[] = {
 
 	beginloop(0x04)
 		// Wait until player in sight and not doing idle animations already
-		if_target_chr_in_sight(/*goto*/ 0x2f)
+		if_target_in_sight(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
 		if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x7f)
 		chr_do_animation(0x0227, 0, -1, 0x14, 0x00, CHR_SELF, 2)
@@ -623,7 +623,7 @@ u8 func041e_colleague[] = {
 		try_face_entity(0x0200, 0x0000, /*goto*/ 0x59)
 
 		beginloop(0x59)
-			if_target_chr_in_sight(/*goto*/ 0x06)
+			if_target_in_sight(/*goto*/ 0x06)
 		endloop(0x59)
 
 		label(0x06)
@@ -654,7 +654,7 @@ u8 func041e_colleague[] = {
 
 		beginloop(0x0a)
 			if_timer_lt(600, /*goto*/ 0x2f)
-			if_target_chr_in_sight(/*goto*/ 0x06)
+			if_target_in_sight(/*goto*/ 0x06)
 			goto_next(0x2f)
 
 			label(0x06)
@@ -2450,7 +2450,7 @@ u8 func0429_grimshaw_disguise[] = {
 	// Wait until Jo in sight
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x0d)
-		if_target_chr_in_sight(/*goto*/ 0x2f)
+		if_target_in_sight(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
 		label(0x7f)
 		call_rng
@@ -2639,7 +2639,7 @@ u8 func042a_carrington_cloak[] = {
 	dprint 'I','n','i','t','i','a','l','i','s','e','a',0,
 
 	beginloop(0x04)
-		if_target_chr_in_sight(/*goto*/ 0x2f)
+		if_target_in_sight(/*goto*/ 0x2f)
 		if_chr_idle(/*goto*/ 0x06)
 		label(0x7f)
 		call_rng
@@ -2940,7 +2940,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	if_chr_sees_player(/*goto*/ 0x06)
-	try_jog_to_target_chr(/*goto*/ 0x08)
+	try_jog_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_sees_player(/*goto*/ 0x06)
@@ -4782,7 +4782,7 @@ u8 func0409_holo5_guard2[] = {
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2f)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2f)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x2f)
-	if_target_chr_in_sight(/*goto*/ 0x09)
+	if_target_in_sight(/*goto*/ 0x09)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_alertness(0)
 	goto_first(0x08)
@@ -5098,7 +5098,7 @@ u8 func0416_holo_guard_unarmed_alert[] = {
 	if_chr_injured_target(CHR_SELF, /*goto*/ 0x09)
 	label(0x8f)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x08)
+	try_run_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -5150,7 +5150,7 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	if_chr_distance_gt(400, /*goto*/ 0x10)
 	if_chr_distance_lt(100, /*goto*/ 0x06)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x08)
+	try_run_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x57)

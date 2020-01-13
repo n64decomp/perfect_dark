@@ -749,7 +749,7 @@ bool aiIfChrUnloaded(void)
 /**
  * @cmd 0035
  */
-bool aiIfPlayerInSight(void)
+bool aiIfTargetPropInSight(void)
 {
 	if (func0f03978c(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
@@ -1304,7 +1304,7 @@ bool ai002a(void)
 /**
  * @cmd 002b
  */
-bool aiTryJogToTargetChr(void)
+bool aiTryJogToTargetProp(void)
 {
 	if (chrGoToTarget(g_Vars.chrdata, SPEED_JOG)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
@@ -1319,7 +1319,7 @@ bool aiTryJogToTargetChr(void)
 /**
  * @cmd 002c
  */
-bool aiTryWalkToTargetChr(void)
+bool aiTryWalkToTargetProp(void)
 {
 	if (chrGoToTarget(g_Vars.chrdata, SPEED_WALK)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
@@ -1334,7 +1334,7 @@ bool aiTryWalkToTargetChr(void)
 /**
  * @cmd 002d
  */
-bool aiTryRunToTargetChr(void)
+bool aiTryRunToTargetProp(void)
 {
 	if (chrGoToTarget(g_Vars.chrdata, SPEED_RUN)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;

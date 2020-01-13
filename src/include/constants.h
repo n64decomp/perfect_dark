@@ -746,6 +746,8 @@
 #define OUTFIT_MAIAN        0x0d
 #define OUTFIT_NEGOTIATOR   0x0e // unused by scripts
 
+#define PAD_PRESET 0x2328
+
 #define PADEFFECT_SPARKS          0x00
 #define PADEFFECT_01              0x01 // used only in Escape on a pad containing nothing
 #define PADEFFECT_SPLASH          0x02
@@ -960,8 +962,6 @@
 #define STAGEINDEX_TEST_MP18     0x3a
 #define STAGEINDEX_TEST_MP19     0x3b
 #define STAGEINDEX_TEST_MP20     0x3c
-
-#define TARGET_PAD 0x2328
 
 #define TELEPORTSTATE_STARTING 1
 #define TELEPORTSTATE_3 3

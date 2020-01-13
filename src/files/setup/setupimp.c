@@ -690,16 +690,16 @@ u8 func0408_clone3[] = {
 u8 func0413_defend_pad[] = {
 	set_shotlist(AILIST_DEFEND_PAD)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0a)
-	if_chr_distance_to_pad_lt(CHR_SELF, 200, TARGET_PAD, /*goto*/ 0x08)
+	if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x08)
 
 	// Distance to pad >= 200
 	label(0x03)
-	jog_to_pad(TARGET_PAD)
+	jog_to_pad(PAD_PRESET)
 
 	beginloop(0x04)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0a)
-		if_chr_distance_to_pad_lt(CHR_SELF, 200, TARGET_PAD, /*goto*/ 0x08)
+		if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x08)
 	endloop(0x04)
 
 	// At pad
@@ -709,7 +709,7 @@ u8 func0413_defend_pad[] = {
 	beginloop(0x0b)
 		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x0a)
-		if_chr_distance_to_pad_gt(CHR_SELF, 300, TARGET_PAD, /*goto*/ 0x08)
+		if_chr_distance_to_pad_gt(CHR_SELF, 300, PAD_PRESET, /*goto*/ 0x08)
 	endloop(0x0b)
 
 	label(0x08)
@@ -1609,7 +1609,7 @@ u8 func0414_firingrange_hostage[] = {
 	goto_next(0x12)
 
 	label(0x03)
-	jog_to_pad(TARGET_PAD)
+	jog_to_pad(PAD_PRESET)
 
 	beginloop(0x04)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
@@ -1974,11 +1974,11 @@ u8 func0425_hostage_thank_and_run[] = {
 	label(0x03)
 	set_target_chr(CHR_COOP)
 	if_chr_sees_player(/*goto*/ 0x2e)
-	set_follow_chr(CHR_BOND)
+	set_chrpreset(CHR_BOND)
 	goto_next(0x08)
 
 	label(0x2e)
-	set_follow_chr(CHR_COOP)
+	set_chrpreset(CHR_COOP)
 
 	label(0x08)
 	restart_timer
@@ -2066,11 +2066,11 @@ u8 func0427_drop_devastator[] = {
 	label(0x03)
 	set_target_chr(CHR_COOP)
 	if_chr_sees_player(/*goto*/ 0x2e)
-	set_follow_chr(CHR_BOND)
+	set_chrpreset(CHR_BOND)
 	goto_next(0x08)
 
 	label(0x2e)
-	set_follow_chr(CHR_COOP)
+	set_chrpreset(CHR_COOP)
 
 	label(0x08)
 	restart_timer
@@ -2252,7 +2252,7 @@ u8 func042e_taker_device_m[] = {
 	beginloop(0x0a)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x08)
+		if_target_in_sight(/*goto*/ 0x08)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x08)
 	endloop(0x0a)
 
@@ -2304,7 +2304,7 @@ u8 func0430_taker_device_f[] = {
 	beginloop(0x0a)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x08)
+		if_target_in_sight(/*goto*/ 0x08)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x08)
 	endloop(0x0a)
 
@@ -3028,7 +3028,7 @@ u8 func040c_init_clone4[] = {
 
 u8 func040b_clone4[] = {
 	set_target_chr(CHR_BOND)
-	try_run_to_target_chr(/*goto*/ 0x2e)
+	try_run_to_target(/*goto*/ 0x2e)
 	label(0x2e)
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
 	endlist
@@ -3147,7 +3147,7 @@ u8 func0412_init_clone6[] = {
 
 u8 func0411_clone6[] = {
 	set_target_chr(CHR_BOND)
-	try_run_to_target_chr(/*goto*/ 0x2e)
+	try_run_to_target(/*goto*/ 0x2e)
 	label(0x2e)
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
 	endlist

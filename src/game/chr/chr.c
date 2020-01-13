@@ -27709,7 +27709,7 @@ void func0f036358(struct chrdata *chr, s32 arg1)
 		chr->act_die.unk034 = -1;
 		chr->act_die.unk038 = 0;
 
-		chr->ailist = ailistFindById(GFUNC_AI_BOT_DEAD);
+		chr->ailist = ailistFindById(GAILIST_AI_BOT_DEAD);
 		chr->aioffset = 0;
 
 		func0f0b09f4(arg1, mpPlayerGetIndex(chr));

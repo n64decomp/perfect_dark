@@ -169,16 +169,16 @@ u8 func0403_init_some_sound[] = {
 u8 func0407_defend_pad[] = {
 	set_shotlist(0x0407)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0xa5)
-	if_chr_distance_to_pad_lt(CHR_SELF, 200, TARGET_PAD, /*goto*/ 0x01)
+	if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x01)
 
 	// Go to target pad, but stop when seen player or when near pad
 	label(0xdb)
-	jog_to_pad(TARGET_PAD)
+	jog_to_pad(PAD_PRESET)
 	label(0xdc)
 	yield
 	dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0xa5)
-	if_chr_distance_to_pad_lt(CHR_SELF, 200, TARGET_PAD, /*goto*/ 0x01)
+	if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x01)
 	goto_first(0xdc)
 
 	// Near pad. Wait until detected player.
@@ -188,7 +188,7 @@ u8 func0407_defend_pad[] = {
 	yield
 	dprint 'A','T',' ','P','A','D','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0xa5)
-	if_chr_distance_to_pad_gt(CHR_SELF, 300, TARGET_PAD, /*goto*/ 0x01)
+	if_chr_distance_to_pad_gt(CHR_SELF, 300, PAD_PRESET, /*goto*/ 0x01)
 	goto_first(0xa6)
 
 	label(0x01)

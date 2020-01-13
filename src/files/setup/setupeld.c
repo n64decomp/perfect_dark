@@ -1598,7 +1598,7 @@ u8 func0402_taker[] = {
 	goto_first(0x03)
 
 	label(0x10)
-	try_walk_to_target_chr(/*goto*/ 0x0d)
+	try_walk_to_target(/*goto*/ 0x0d)
 
 	beginloop(0x0d)
 		if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, FALSE, BANK_0, /*goto*/ 0x06)
@@ -1794,7 +1794,7 @@ u8 func0404_sniper[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		dprint 'S','T','A','R','T','\n',0,
-		if_target_chr_in_sight(/*goto*/ 0x58)
+		if_target_in_sight(/*goto*/ 0x58)
 
 		// Choose a direction to face
 		call_rng
@@ -1825,7 +1825,7 @@ u8 func0404_sniper[] = {
 		beginloop(0x0a)
 			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
-			if_target_chr_in_sight(/*goto*/ 0x58)
+			if_target_in_sight(/*goto*/ 0x58)
 			if_saw_death(0x00, /*goto*/ 0x58)
 			if_saw_injury(0x00, /*goto*/ 0x58)
 			dprint 'F','A','C','E','\n',0,
@@ -1860,7 +1860,7 @@ u8 func0404_sniper[] = {
 			yield
 			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
-			if_target_chr_in_sight(/*goto*/ 0x58)
+			if_target_in_sight(/*goto*/ 0x58)
 			if_saw_death(0x00, /*goto*/ 0x58)
 			if_saw_injury(0x00, /*goto*/ 0x58)
 			dprint 'R','U','N','\n',0,

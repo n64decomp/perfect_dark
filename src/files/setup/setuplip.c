@@ -1344,7 +1344,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x2d)
+		if_target_in_sight(/*goto*/ 0x2d)
 		if_chr_distance_lt(500, /*goto*/ 0x03)
 	endloop(0x04)
 
@@ -1451,7 +1451,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 		if_rand_gt(25, /*goto*/ 0x06)
 		speak(CHR_TARGET, 0x2a2d, 0x1b34, CHANNEL_4, COLOR_08_RED) // "Give me my clothes."
 		label(0x06)
-		try_run_to_target_chr(/*goto*/ 0x6f)
+		try_run_to_target(/*goto*/ 0x6f)
 		restart_timer
 
 		beginloop(0x6f)
@@ -1718,7 +1718,7 @@ u8 func0418_doorman[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x03)
+		if_target_in_sight(/*goto*/ 0x03)
 		if_chr_distance_lt(500, /*goto*/ 0x03)
 	endloop(0x04)
 
@@ -1951,7 +1951,7 @@ u8 func041a_labtech_harrysmate[] = {
 
 	beginloop(0x08)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2d)
-		if_target_chr_in_sight(/*goto*/ 0x2d)
+		if_target_in_sight(/*goto*/ 0x2d)
 		if_chr_distance_lt(500, /*goto*/ 0x2d)
 	endloop(0x08)
 
@@ -2047,7 +2047,7 @@ u8 func041b_labtech_keycardguy[] = {
 	beginloop(0x08)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x2d)
+		if_target_in_sight(/*goto*/ 0x2d)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2d)
 	endloop(0x08)
 
@@ -2436,7 +2436,7 @@ u8 func0415_warehouse_spawner[] = {
 u8 func0417_warehouse_clone[] = {
 	set_target_chr(CHR_BOND)
 	set_alertness(100)
-	try_run_to_target_chr(/*goto*/ 0x2d)
+	try_run_to_target(/*goto*/ 0x2d)
 	label(0x2d)
 	set_returnlist(CHR_SELF, GAILIST_UNALERTED)
 	set_ailist(CHR_SELF, GAILIST_UNALERTED)
@@ -2618,7 +2618,7 @@ u8 func041f_labtech_lights[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x53)
-		if_target_chr_in_sight(/*goto*/ 0x03)
+		if_target_in_sight(/*goto*/ 0x03)
 		if_chr_idle(/*goto*/ 0x06)
 		goto_first(0x5e)
 
@@ -2682,7 +2682,7 @@ u8 func041f_labtech_lights[] = {
 	label(0x0a)
 		set_target_chr(CHR_BOND)
 		restart_timer
-		try_run_to_target_chr(/*goto*/ 0x0b)
+		try_run_to_target(/*goto*/ 0x0b)
 
 		beginloop(0x0b)
 			if_timer_gt(60, /*goto*/ 0x06)
@@ -2703,7 +2703,7 @@ u8 func041f_labtech_lights[] = {
 	beginloop(0x0d)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x2d)
+		if_target_in_sight(/*goto*/ 0x2d)
 		if_saw_injury(0x00, /*goto*/ 0x0f)
 		label(0x2d)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x2d)
@@ -2741,7 +2741,7 @@ u8 func041f_labtech_lights[] = {
 	beginloop(0x0e)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x2d)
+		if_target_in_sight(/*goto*/ 0x2d)
 		if_saw_injury(0x00, /*goto*/ 0x0f)
 		label(0x2d)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x2d)
@@ -3065,7 +3065,7 @@ u8 func0422_labtech_records[] = {
 	label(0x2d)
 	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
-	if_target_chr_in_sight(/*goto*/ 0x03)
+	if_target_in_sight(/*goto*/ 0x03)
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x03)
 	if_chr_distance_lt(500, /*goto*/ 0x03)
 	goto_first(0x04)

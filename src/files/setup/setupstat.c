@@ -344,11 +344,11 @@ u8 func0401_defend[] = {
 	// Not dying - go to pad
 	label(0x06)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
-	if_chr_distance_to_pad_lt(CHR_SELF, 200, TARGET_PAD, /*goto*/ 0x06)
+	if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x06)
 
 	label(0x03)
 		restart_timer
-		if_chr_distance_to_pad_gt(CHR_SELF, 500, TARGET_PAD, /*goto*/ 0x06)
+		if_chr_distance_to_pad_gt(CHR_SELF, 500, PAD_PRESET, /*goto*/ 0x06)
 		go_to_target_pad(SPEED_JOG)
 
 		label(0x06)
@@ -358,7 +358,7 @@ u8 func0401_defend[] = {
 		beginloop(0x04)
 			dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 			if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
-			if_chr_distance_to_pad_lt(CHR_SELF, 200, TARGET_PAD, /*goto*/ 0x06)
+			if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x06)
 			if_timer_gt(60, /*goto*/ 0x2d)
 		endloop(0x04)
 
@@ -373,7 +373,7 @@ u8 func0401_defend[] = {
 		// Wait for enemy to come into sight, or to be pushed away from pad
 		beginloop(0x09)
 			if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
-			if_chr_distance_to_pad_gt(CHR_SELF, 300, TARGET_PAD, /*goto*/ 0x06)
+			if_chr_distance_to_pad_gt(CHR_SELF, 300, PAD_PRESET, /*goto*/ 0x06)
 		endloop(0x09)
 
 		// Pushed away from pad - return to it
@@ -539,7 +539,7 @@ u8 func0404_maian[] = {
 
 		// Go to king
 		label(0x2d)
-		try_run_to_target_chr(/*goto*/ 0x04)
+		try_run_to_target(/*goto*/ 0x04)
 
 		beginloop(0x04)
 			dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
@@ -884,7 +884,7 @@ u8 func0406_skedar[] = {
 
 	// Go to Maian leader
 	set_target_chr(CHR_MAIAN_LEADER)
-	try_run_to_target_chr(/*goto*/ 0x04)
+	try_run_to_target(/*goto*/ 0x04)
 
 	beginloop(0x04)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,

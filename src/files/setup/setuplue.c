@@ -1597,7 +1597,7 @@ u8 func0416_mechanic[] = {
 			set_target_chr(CHR_P1P2)
 			if_stage_flag_eq(STAGEFLAG_TRIGGER_INTERCEPTOR, TRUE, /*goto*/ 0x2f)
 			if_just_injured(CHR_SELF, /*goto*/ 0x2e)
-			if_target_chr_in_sight(/*goto*/ 0x2e)
+			if_target_in_sight(/*goto*/ 0x2e)
 			if_chr_stopped(/*goto*/ 0x06)
 		endloop(0x09)
 
@@ -1619,7 +1619,7 @@ u8 func0416_mechanic[] = {
 			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
 			if_heard_target_recently(/*goto*/ 0x2e)
-			if_target_chr_in_sight(/*goto*/ 0x2e)
+			if_target_in_sight(/*goto*/ 0x2e)
 			if_chr_stopped(/*goto*/ 0x06)
 		endloop(0x0d)
 
@@ -2887,7 +2887,7 @@ u8 func0421_activate_autogun[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x2e)
+		if_target_in_sight(/*goto*/ 0x2e)
 		if_heard_target_recently(/*goto*/ 0x2e)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2e)
 	endloop(0x04)

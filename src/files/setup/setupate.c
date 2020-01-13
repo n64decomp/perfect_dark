@@ -456,7 +456,7 @@ u8 func0403_jon_combat[] = {
 	endloop(0x04)
 
 	label(0x58)
-	try_run_to_target_chr(/*goto*/ 0x08)
+	try_run_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_distance_lt(250, /*goto*/ 0x0e)

@@ -1411,7 +1411,7 @@ u8 func0405_president_in_room[] = {
 	endloop(0x0e)
 
 	label(0x06)
-	set_follow_chr(CHR_TARGET)
+	set_chrpreset(CHR_TARGET)
 	set_chr_maxdamage(CHR_SELF, 500)
 	set_shotlist(AILIST_PRESIDENT_RUNNING)
 	set_ailist(CHR_SELF, AILIST_PRESIDENT_RUNNING)
@@ -1519,7 +1519,7 @@ u8 func0404_president_running[] = {
 	label(0x58)
 	restart_timer
 	label(0x2d)
-	try_jog_to_target_chr(/*goto*/ 0x59)
+	try_jog_to_target(/*goto*/ 0x59)
 
 	beginloop(0x59)
 		// @bug: This FALSE should be TRUE instead. This causes the president
@@ -1556,7 +1556,7 @@ u8 func0404_president_running[] = {
 
 	// Unreachable
 	label(0x5c)
-	try_run_to_target_chr(/*goto*/ 0x5d)
+	try_run_to_target(/*goto*/ 0x5d)
 
 	beginloop(0x5d)
 		if_stage_flag_eq(STAGEFLAG_BOTH_BLONDES_DEAD, FALSE, /*goto*/ 0x2d)
@@ -1780,7 +1780,7 @@ u8 func0413_taker[] = {
 
 	label(0x2d)
 	if_target_is_player(/*goto*/ 0x11)
-	if_target_chrs_target_is_different(/*goto*/ 0x2d)
+	if_chrpresets_target_is_different(/*goto*/ 0x2d)
 	goto_next(0x11)
 
 	label(0x2d)
@@ -2336,15 +2336,15 @@ u8 func040a_defend_pad[] = {
 	// Not injured
 	label(0x06)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
-	if_chr_distance_to_pad_lt(CHR_SELF, 200, TARGET_PAD, /*goto*/ 0x06)
+	if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x06)
 
 	label(0x03)
-	jog_to_pad(TARGET_PAD)
+	jog_to_pad(PAD_PRESET)
 
 	beginloop(0x04)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
-		if_chr_distance_to_pad_lt(CHR_SELF, 200, TARGET_PAD, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x06)
 	endloop(0x04)
 
 	label(0x06)
@@ -2353,7 +2353,7 @@ u8 func040a_defend_pad[] = {
 	beginloop(0x09)
 		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
-		if_chr_distance_to_pad_gt(CHR_SELF, 300, TARGET_PAD, /*goto*/ 0x06)
+		if_chr_distance_to_pad_gt(CHR_SELF, 300, PAD_PRESET, /*goto*/ 0x06)
 	endloop(0x09)
 
 	label(0x06)
@@ -2688,7 +2688,7 @@ u8 func041c_init_clone3[] = {
 
 u8 func041d_clone3[] = {
 	set_target_chr(CHR_BOND)
-	try_run_to_target_chr(/*goto*/ 0x04)
+	try_run_to_target(/*goto*/ 0x04)
 	label(0x04)
 	yield
 	set_returnlist(CHR_SELF, AILIST_CLONE3)
@@ -2755,13 +2755,13 @@ u8 func041e_blonde[] = {
 		label(0x2d)
 		chr_toggle_p1p2(CHR_P1P2)
 		set_target_chr(CHR_BOND)
-		if_target_chr_in_sight(/*goto*/ 0x6a)
+		if_target_in_sight(/*goto*/ 0x6a)
 		if_near_miss(/*goto*/ 0x6b)
 		label(0x2d)
 		reloop(0x75)
 
 		label(0x06)
-		if_target_chr_in_sight(/*goto*/ 0x6a)
+		if_target_in_sight(/*goto*/ 0x6a)
 		label(0x2d)
 	endloop(0x75)
 
@@ -2806,7 +2806,7 @@ u8 func041e_blonde[] = {
 
 	label(0x6f)
 	call_rng
-	if_target_chr_in_sight(/*goto*/ 0x70)
+	if_target_in_sight(/*goto*/ 0x70)
 	if_timer_gt(60, /*goto*/ 0x71)
 	if_rand_lt(4, /*goto*/ 0x71)
 	goto_first(0x6f)
@@ -2893,7 +2893,7 @@ u8 func0420_trent_attacking[] = {
 		set_target_chr(CHR_P1P2)
 		try_unset_chr_flag_bank3_02000000(CHR_SELF, /*goto*/ 0x2d)
 		set_target_chr(CHR_PRESIDENT)
-		if_target_chr_in_sight(/*goto*/ 0x06)
+		if_target_in_sight(/*goto*/ 0x06)
 		if_stage_flag_eq(STAGEFLAG_ONE_BLONDE_DEAD, TRUE, /*goto*/ 0x2d)
 	endloop(0x04)
 
@@ -3182,20 +3182,20 @@ u8 func0407_steward[] = {
 		label(0x79)
 		walk_to_pad(0x00c1)
 		set_morale(1)
-		set_target_pad(0x00c2)
+		set_padpreset(0x00c2)
 		goto_next(0x87)
 
 		label(0x60)
 		if_chr_distance_to_pad_lt(CHR_SELF, 50, 0x00c3, /*goto*/ 0x77)
 		walk_to_pad(0x00c3)
 		set_morale(2)
-		set_target_pad(0x00c4)
+		set_padpreset(0x00c4)
 		goto_next(0x87)
 
 		label(0x77)
 		if_chr_distance_to_pad_lt(CHR_SELF, 50, 0x00c1, /*goto*/ 0x78)
 		set_morale(3)
-		set_target_pad(0x00c6)
+		set_padpreset(0x00c6)
 		walk_to_pad(0x00c5)
 		goto_next(0x87)
 
@@ -3205,13 +3205,13 @@ u8 func0407_steward[] = {
 		beginloop(0x87)
 			chr_toggle_p1p2(CHR_SELF)
 			set_target_chr(CHR_P1P2)
-			if_target_chr_in_sight(/*goto*/ 0x89)
+			if_target_in_sight(/*goto*/ 0x89)
 			if_saw_injury(0x00, /*goto*/ 0x89)
 			if_chr_stopped(/*goto*/ 0x06)
 		endloop(0x87)
 
 		label(0x06)
-		try_face_entity(ENTITYTYPE_PAD, TARGET_PAD, /*goto*/ 0x88)
+		try_face_entity(ENTITYTYPE_PAD, PAD_PRESET, /*goto*/ 0x88)
 
 		beginloop(0x88)
 			if_chr_stopped(/*goto*/ 0x06)
@@ -3222,7 +3222,7 @@ u8 func0407_steward[] = {
 
 		chr_do_animation(ANIM_OPERATE_0204, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 		label(0x2d)
-		if_target_chr_in_sight(/*goto*/ 0x89)
+		if_target_in_sight(/*goto*/ 0x89)
 		if_saw_injury(0x00, /*goto*/ 0x89)
 	endloop(0x03)
 

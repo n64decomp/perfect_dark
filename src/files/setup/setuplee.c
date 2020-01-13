@@ -713,7 +713,7 @@ u8 func040e_elvis_give_ar34[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		set_follow_chr(CHR_P1P2)
+		set_chrpreset(CHR_P1P2)
 		if_chr_sees_player(/*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -726,7 +726,7 @@ u8 func040e_elvis_give_ar34[] = {
 	// Run towards player
 	label(0x0a)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x09)
+	try_run_to_target(/*goto*/ 0x09)
 
 	beginloop(0x09)
 		set_target_chr(CHR_PRESET)
@@ -825,11 +825,11 @@ u8 func0409_elvis_follow[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(500, /*goto*/ 0x06)
-	try_jog_to_target_chr(/*goto*/ 0x04)
+	try_jog_to_target(/*goto*/ 0x04)
 
 	// Distance < 200 or distance > 500
 	label(0x06)
-	try_run_to_target_chr(/*goto*/ 0x04)
+	try_run_to_target(/*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_NAVIGATION_ROOM_DONE, TRUE, /*goto*/ 0x2c)
@@ -875,7 +875,7 @@ u8 func0409_elvis_follow[] = {
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2c)
 	if_chr_dying(CHR_TARGET, /*goto*/ 0x2c)
 	if_chr_unloaded(CHR_TARGET, /*goto*/ 0x2c)
-	if_target_chrs_target_is_different(/*goto*/ 0x06)
+	if_chrpresets_target_is_different(/*goto*/ 0x06)
 	label(0x2c)
 	goto_first(0x03)
 
@@ -1001,7 +1001,7 @@ u8 func040a_elvis_go_to_hangar_lift[] = {
 	goto_next(0xc3)
 
 	label(0x06)
-	try_run_to_target_chr(/*goto*/ 0x04)
+	try_run_to_target(/*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_timer_gt(60, /*goto*/ 0x2c)
@@ -1147,7 +1147,7 @@ u8 func0410_wake_suspendedanim_skedar[] = {
 	set_recovery_speed(0)
 	set_shield(0)
 	set_target_chr(CHR_BOND)
-	try_walk_to_target_chr(/*goto*/ 0x2c)
+	try_walk_to_target(/*goto*/ 0x2c)
 
 	label(0x2c)
 	set_shotlist(GAILIST_RELATED_TO_SPAWNING)
@@ -1486,7 +1486,7 @@ u8 func0408_knifeable_skedar[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		if_stage_flag_eq(STAGEFLAG_CASS_AT_PAD, TRUE, /*goto*/ 0x06)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x0c)
+		if_target_in_sight(/*goto*/ 0x0c)
 		set_target_chr(CHR_CASS)
 		if_just_injured(CHR_SELF, /*goto*/ 0x0c)
 	endloop(0x04)
@@ -1508,7 +1508,7 @@ u8 func0408_knifeable_skedar[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_chr_stopped(/*goto*/ 0x06)
-		if_target_chr_in_sight(/*goto*/ 0x0c)
+		if_target_in_sight(/*goto*/ 0x0c)
 		if_just_injured(CHR_SELF, /*goto*/ 0x0c)
 	endloop(0x0a)
 
@@ -1522,7 +1522,7 @@ u8 func0408_knifeable_skedar[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		if_timer_gt(600, /*goto*/ 0x06)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x0c)
+		if_target_in_sight(/*goto*/ 0x0c)
 		if_just_injured(CHR_SELF, /*goto*/ 0x0c)
 		set_target_chr(CHR_CASS)
 	endloop(0x0b)
@@ -1539,7 +1539,7 @@ u8 func0408_knifeable_skedar[] = {
 		dprint 'W','A','I','T','I','N','G',' ','T','W','O','\n',0,
 		if_chr_stopped(/*goto*/ 0x0d)
 		label(0x06)
-		if_target_chr_in_sight(/*goto*/ 0x0c)
+		if_target_in_sight(/*goto*/ 0x0c)
 		label(0x2c)
 	endloop(0x0a)
 
@@ -1740,12 +1740,12 @@ u8 func0419_hangar_maian[] = {
 	// to go to the label 0x06 just prior to "AT PAD", but that is not the next
 	// label from here. Also, SPEED_RUN will always be used because SPEED_JOG
 	// lacks a goto_next 0x04.
-	if_chr_distance_to_pad_lt(CHR_SELF, 200, TARGET_PAD, /*goto*/ 0x06)
+	if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x06)
 
 	// Distance to pad >= 200
 	label(0x03)
 	restart_timer
-	if_chr_distance_to_pad_gt(CHR_SELF, 500, TARGET_PAD, /*goto*/ 0x06)
+	if_chr_distance_to_pad_gt(CHR_SELF, 500, PAD_PRESET, /*goto*/ 0x06)
 	go_to_target_pad(SPEED_JOG)
 
 	// Intended: Distance to pad > 500
@@ -1756,7 +1756,7 @@ u8 func0419_hangar_maian[] = {
 	beginloop(0x04)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
-		if_chr_distance_to_pad_lt(CHR_SELF, 200, TARGET_PAD, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_SELF, 200, PAD_PRESET, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -1771,7 +1771,7 @@ u8 func0419_hangar_maian[] = {
 	beginloop(0x09)
 		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
-		if_chr_distance_to_pad_gt(CHR_SELF, 300, TARGET_PAD, /*goto*/ 0x06)
+		if_chr_distance_to_pad_gt(CHR_SELF, 300, PAD_PRESET, /*goto*/ 0x06)
 	endloop(0x09)
 
 	label(0x06)
@@ -2293,7 +2293,7 @@ u8 func041a_bridgeclone[] = {
 	if_chr_distance_lt(150, /*goto*/ 0x2e)
 	label(0xc5)
 	restart_timer
-	try_walk_to_target_chr(/*goto*/ 0x08)
+	try_walk_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_dying(CHR_SELF, /*goto*/ 0xb8)
@@ -2305,7 +2305,7 @@ u8 func041a_bridgeclone[] = {
 
 	label(0x09)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x0a)
+	try_run_to_target(/*goto*/ 0x0a)
 
 	// Start running
 	beginloop(0x0a)
@@ -2990,7 +2990,7 @@ u8 func0421_bridge_skedar[] = {
 		label(0x2c)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
-		if_target_chr_in_sight(/*goto*/ 0xc8)
+		if_target_in_sight(/*goto*/ 0xc8)
 		label(0x06)
 		if_saw_injury(0x00, /*goto*/ 0xc8)
 		if_near_miss(/*goto*/ 0xc9)
@@ -3000,7 +3000,7 @@ u8 func0421_bridge_skedar[] = {
 
 		label(0x06)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x2c)
-		if_target_chr_in_sight(/*goto*/ 0xc8)
+		if_target_in_sight(/*goto*/ 0xc8)
 		label(0x2c)
 		set_target_chr(CHR_BOND)
 	endloop(0xc7)
@@ -3045,7 +3045,7 @@ u8 func0421_bridge_skedar[] = {
 	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
-	if_target_chr_in_sight(/*goto*/ 0xce)
+	if_target_in_sight(/*goto*/ 0xce)
 	label(0x06)
 	if_timer_gt(60, /*goto*/ 0xcf)
 	if_rand_lt(4, /*goto*/ 0xcf)
@@ -3216,7 +3216,7 @@ u8 func0423_shy_skedar[] = {
 	label(0x03)
 	set_target_chr(CHR_CASS)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x08)
+	try_run_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_stopped(/*goto*/ 0x06)
@@ -3236,7 +3236,7 @@ u8 func0423_shy_skedar[] = {
 	beginloop(0x09)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x2d)
+		if_target_in_sight(/*goto*/ 0x2d)
 		if_chr_distance_to_pad_lt(CHR_SELF, 200, 0x00da, /*goto*/ 0x2d)
 		if_chr_stopped(/*goto*/ 0x2d)
 	endloop(0x09)

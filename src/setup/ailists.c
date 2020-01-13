@@ -162,7 +162,7 @@ u8 func0006_unalerted[] = {
 	label(0x13)
 	dprint 'A','1','\n',0,
 	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
-	if_target_chr_in_sight(/*goto*/ LABEL_SEE_DETECT)
+	if_target_in_sight(/*goto*/ LABEL_SEE_DETECT)
 	label(0x16)
 	dprint 'B','4',' ','A','I','V','S','A','I','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ LABEL_AIVSAIFAIL)
@@ -543,7 +543,7 @@ u8 func0006_unalerted[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x13)
-		if_target_chr_in_sight(/*goto*/ 0x16)
+		if_target_in_sight(/*goto*/ 0x16)
 		label(0x13)
 		if_self_distance_to_chr_lt(150, CHR_SEEDIE, /*goto*/ 0x7f)
 		if_chr_stopped(/*goto*/ 0x7f)
@@ -566,7 +566,7 @@ u8 func0006_unalerted[] = {
 		set_target_chr(CHR_P1P2)
 		if_hears_gunfire(/*goto*/ 0x16)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x13)
-		if_target_chr_in_sight(/*goto*/ 0x17)
+		if_target_in_sight(/*goto*/ 0x17)
 		label(0x13)
 		if_self_flag_bankx_eq(CHRFLAG0_CAN_EXAMINE_BODY, FALSE, BANK_0, /*goto*/ 0x13)
 		if_timer_lt(120, /*goto*/ 0x13)
@@ -879,7 +879,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	set_shotlist(GAILIST_ALERTED)
 	set_aishootingatmelist(GAILIST_DODGE)
-	set_darkroom_function(GAILIST_SEARCH_FOR_PLAYER)
+	set_darkroomlist(GAILIST_SEARCH_FOR_PLAYER)
 
 	dprint 'S','T','A','R','T',' ','L','O','O','P','\n',0,
 	if_chr_dying(CHR_SELF, /*goto*/ 0x16)
@@ -1213,7 +1213,7 @@ u8 func0007_alerted[] = {
 		dprint 'W','A','I','T',' ','F','O','R',' ','A','M','B','\n',0,
 		if_in_disarm_range(/*goto*/ 0xa3)
 		dprint 'A','M','B','1','\n',0,
-		if_distance_from_target_to_pad_lt(200, TARGET_PAD, /*goto*/ 0x13)
+		if_distance_from_target_to_pad_lt(200, PAD_PRESET, /*goto*/ 0x13)
 		dprint 'A','M','B','2','\n',0,
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
@@ -1359,7 +1359,7 @@ u8 func0007_alerted[] = {
 
 	// Distance > 2500
 	label(0x14)
-	try_run_to_target_chr(/*goto*/ 0xe1)
+	try_run_to_target(/*goto*/ 0xe1)
 
 	beginloop(0xe1)
 		if_chr_distance_lt(2500, /*goto*/ 0x15)
@@ -1521,7 +1521,7 @@ u8 func0007_alerted[] = {
 	set_self_flag_bankx(CHRFLAG0_00000010, BANK_0)
 	dprint 'U','N','D','E','R',' ','C','O','V','E','R','\n',0,
 	label(0x58)
-	set_follow_chr(CHR_TARGET)
+	set_chrpreset(CHR_TARGET)
 	restart_timer
 	set_action(MA_COVERWAIT, TRUE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
@@ -1567,7 +1567,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	cmd012f
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x62)
+	try_run_to_target(/*goto*/ 0x62)
 
 	beginloop(0x62)
 		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
@@ -1950,7 +1950,7 @@ u8 func0007_alerted[] = {
 	dprint 'S','E','E','W','A','I','T','3','\n',0,
 	if_in_disarm_range(/*goto*/ 0x8a)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x89)
+	try_run_to_target(/*goto*/ 0x89)
 
 	beginloop(0x89)
 		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
@@ -2148,14 +2148,14 @@ u8 func0007_alerted[] = {
 	goto_first(0x1b)
 
 	label(LABEL_TRACK)
-	set_follow_chr(CHR_TARGET)
+	set_chrpreset(CHR_TARGET)
 	dprint 'T','R','A','C','K','\n',0,
 	set_action(MA_TRACKING, FALSE)
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	restart_timer
 	label(0xf7)
-	try_run_to_target_chr(/*goto*/ 0x35)
+	try_run_to_target(/*goto*/ 0x35)
 
 	beginloop(0x35)
 		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00002000, /*goto*/ 0x13)
@@ -2265,7 +2265,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x85)
+	try_run_to_target(/*goto*/ 0x85)
 
 	beginloop(0x85)
 		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
@@ -2669,7 +2669,7 @@ u8 func000a_do_idle_animation[] = {
 	label(0x07)
 	dprint 'N','A','T',' ','5','\n',0,
 	restart_timer
-	try_face_entity(ENTITYTYPE_PAD, TARGET_PAD, /*goto*/ 0xfa)
+	try_face_entity(ENTITYTYPE_PAD, PAD_PRESET, /*goto*/ 0xfa)
 
 	beginloop(0xfa)
 		if_timer_gt(60, /*goto*/ 0x06)
@@ -2698,7 +2698,7 @@ u8 func000a_do_idle_animation[] = {
 	beginloop(0x15)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x13)
+		if_target_in_sight(/*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x16)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x13)
 		goto_next(0x16)
@@ -2966,7 +2966,7 @@ u8 func000c_combat_with_target_chr[] = {
 	goto_next(0x16)
 
 	label(0x13)
-	if_target_chrs_target_is_different(/*goto*/ 0xb3)
+	if_chrpresets_target_is_different(/*goto*/ 0xb3)
 	label(0x16)
 	dprint 'N','O',' ','T','A','R','G','E','T','\n',0,
 	set_target_chr(-1)
@@ -3022,7 +3022,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_chr_dying(CHR_TARGET, /*goto*/ 0xba)
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xba)
 	if_chr_unloaded(CHR_TARGET, /*goto*/ 0xba)
-	if_target_chrs_target_is_different(/*goto*/ 0x13)
+	if_chrpresets_target_is_different(/*goto*/ 0x13)
 	goto_next(0x16)
 
 	// Target's field 0x17e is different
@@ -3040,7 +3040,7 @@ u8 func000c_combat_with_target_chr[] = {
 	set_ailist(CHR_SELF, GAILIST_HAND_COMBAT)
 
 	label(0x16)
-	try_run_to_target_chr(/*goto*/ 0xb4)
+	try_run_to_target(/*goto*/ 0xb4)
 	dprint 'R','U','N',' ','F','A','I','L','\n',0,
 
 	beginloop(0xb4)
@@ -3052,7 +3052,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_chr_dying(CHR_TARGET, /*goto*/ 0xba)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xba)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xba)
-		if_target_chrs_target_is_different(/*goto*/ 0x13)
+		if_chrpresets_target_is_different(/*goto*/ 0x13)
 		goto_next(0xba)
 
 		label(0x13)
@@ -3088,7 +3088,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_chr_dying(CHR_TARGET, /*goto*/ 0xba)
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xba)
 	if_chr_unloaded(CHR_TARGET, /*goto*/ 0xba)
-	if_target_chrs_target_is_different(/*goto*/ 0x13)
+	if_chrpresets_target_is_different(/*goto*/ 0x13)
 	goto_next(0xba)
 
 	label(0x13)
@@ -3097,13 +3097,13 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0xb5)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0xbc)
+	try_run_to_target(/*goto*/ 0xbc)
 
 	beginloop(0xbc)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0xc0)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc0)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc0)
-		if_target_chrs_target_is_different(/*goto*/ 0x13)
+		if_chrpresets_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc0)
 
 		label(0x13)
@@ -3125,7 +3125,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_chr_dying(CHR_TARGET, /*goto*/ 0xc1)
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
 	if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc1)
-	if_target_chrs_target_is_different(/*goto*/ 0x13)
+	if_chrpresets_target_is_different(/*goto*/ 0x13)
 	goto_next(0xc1)
 
 	label(0x13)
@@ -3221,7 +3221,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_chr_dying(CHR_TARGET, /*goto*/ 0xc1)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc1)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc1)
-		if_target_chrs_target_is_different(/*goto*/ 0x16)
+		if_chrpresets_target_is_different(/*goto*/ 0x16)
 		goto_next(0xc1)
 
 		label(0x16)
@@ -3263,7 +3263,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_chr_dying(CHR_TARGET, /*goto*/ 0xc5)
 	if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
 	if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc5)
-	if_target_chrs_target_is_different(/*goto*/ 0x13)
+	if_chrpresets_target_is_different(/*goto*/ 0x13)
 	goto_next(0xc5)
 
 	label(0x13)
@@ -3314,7 +3314,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_chr_dying(CHR_TARGET, /*goto*/ 0xc5)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc5)
-		if_target_chrs_target_is_different(/*goto*/ 0x13)
+		if_chrpresets_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc5)
 
 		label(0x13)
@@ -3356,7 +3356,7 @@ u8 func000c_combat_with_target_chr[] = {
 		if_chr_dying(CHR_TARGET, /*goto*/ 0xc5)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xc5)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xc5)
-		if_target_chrs_target_is_different(/*goto*/ 0x13)
+		if_chrpresets_target_is_different(/*goto*/ 0x13)
 		goto_next(0xc5)
 
 		label(0x13)
@@ -3402,7 +3402,7 @@ u8 func000c_combat_with_target_chr[] = {
 
 	// Unreachable - no label
 	if_rand_gt(128, /*goto*/ 0xd1)
-	try_jog_to_target_chr(/*goto*/ 0xd0)
+	try_jog_to_target(/*goto*/ 0xd0)
 
 	beginloop(0xd0)
 		if_timer_gt(120, /*goto*/ 0xd2)
@@ -3444,7 +3444,7 @@ u8 func000c_combat_with_target_chr[] = {
 	return
 
 	label(0x13)
-	try_walk_to_target_chr(/*goto*/ 0xd6)
+	try_walk_to_target(/*goto*/ 0xd6)
 
 	beginloop(0xd6)
 		if_enemy_distance_lt_and_los(1200, /*goto*/ 0x13)
@@ -3791,7 +3791,7 @@ u8 func000f_hand_combat[] = {
 
 	// This if-statement is effectively a no op
 	dprint 'L','1','\n',0,
-	if_target_chrs_target_is_different(/*goto*/ 0x13)
+	if_chrpresets_target_is_different(/*goto*/ 0x13)
 
 	dprint 'L','2','\n',0,
 	label(0x13)
@@ -3824,7 +3824,7 @@ u8 func000f_hand_combat[] = {
 	label(0xe3)
 	restart_timer
 	dprint 'R','U','N',' ','T','O',' ','T','A','R','G','E','T','\n',0,
-	try_run_to_target_chr(/*goto*/ 0x03)
+	try_run_to_target(/*goto*/ 0x03)
 
 	beginloop(0x03)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0xfa)
@@ -4139,7 +4139,7 @@ u8 func001b_observe_camspy[] = {
 	set_shotlist(GAILIST_ALERTED)
 	unset_self_flag_bankx(CHRFLAG1_DOINGIDLEANIMATION, BANK_1)
 	set_chr_special_death_animation(CHR_SELF, 0)
-	set_follow_chr(CHR_TARGET)
+	set_chrpreset(CHR_TARGET)
 
 	if_just_injured(CHR_SELF, /*goto*/ 0x09)
 	dprint 'E','Y','E',' ','S','P','Y','\n',0,
@@ -4147,7 +4147,7 @@ u8 func001b_observe_camspy[] = {
 	label(0x00)
 	set_target_chr(CHR_PRESET)
 	if_chr_distance_lt(300, /*goto*/ 0x13)
-	try_jog_to_target_chr(/*goto*/ 0x0c)
+	try_jog_to_target(/*goto*/ 0x0c)
 	restart_timer
 
 	beginloop(0x0c)
@@ -4156,7 +4156,7 @@ u8 func001b_observe_camspy[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
-		if_target_chr_in_sight(/*goto*/ 0x0b)
+		if_target_in_sight(/*goto*/ 0x0b)
 		label(0x16)
 		set_target_chr(CHR_PRESET)
 	endloop(0x0c)
@@ -4176,7 +4176,7 @@ u8 func001b_observe_camspy[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
-		if_target_chr_in_sight(/*goto*/ 0x0b)
+		if_target_in_sight(/*goto*/ 0x0b)
 		label(0x16)
 		set_target_chr(CHR_PRESET)
 	endloop(0x03)
@@ -4198,7 +4198,7 @@ u8 func001b_observe_camspy[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
-		if_target_chr_in_sight(/*goto*/ 0x0b)
+		if_target_in_sight(/*goto*/ 0x0b)
 		label(0x16)
 		set_target_chr(CHR_PRESET)
 	endloop(0x05)
@@ -4243,7 +4243,7 @@ u8 func001b_observe_camspy[] = {
 
 	// Unreachable - no label
 	dprint 'E','4','\n',0,
-	if_target_chrs_target_is_different(/*goto*/ 0x16)
+	if_chrpresets_target_is_different(/*goto*/ 0x16)
 	dprint 'E','5','\n',0,
 	goto_next(0x13)
 
@@ -4285,15 +4285,15 @@ u8 func001d_search_for_player[] = {
 	if_self_flag_bankx_eq(CHRFLAG1_10000000, TRUE, BANK_1, /*goto*/ 0x16)
 	set_chr_roomtosearch
 	if_chr_distance_gt(1000, /*goto*/ 0x13)
-	try_jog_to_target_chr(/*goto*/ 0x03)
+	try_jog_to_target(/*goto*/ 0x03)
 	label(0x13)
-	try_run_to_target_chr(/*goto*/ 0x03)
+	try_run_to_target(/*goto*/ 0x03)
 
 	beginloop(0x03)
 		dprint 'S','E','A','R','C','H','I','N','I','T','\n',0,
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x12)
+		if_target_in_sight(/*goto*/ 0x12)
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x13)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0xc3)
 		label(0x13)
@@ -4322,7 +4322,7 @@ u8 func001d_search_for_player[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x15)
-		if_target_chr_in_sight(/*goto*/ 0x12)
+		if_target_in_sight(/*goto*/ 0x12)
 		label(0x15)
 		if_timer_gt(30, /*goto*/ 0x05)
 	endloop(0x0a)
@@ -4402,7 +4402,7 @@ u8 func001d_search_for_player[] = {
 		label(0x13)
 		dprint 'C','H','E','K',' ','V','I','S','\n',0,
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x15)
-		if_target_chr_in_sight(/*goto*/ 0x12)
+		if_target_in_sight(/*goto*/ 0x12)
 		label(0x15)
 		if_saw_death(0x00, /*goto*/ 0x28)
 	endloop(0x04)
@@ -4480,7 +4480,7 @@ u8 func001f_related_to_spawning[] = {
 	if_saw_death(0x01, /*goto*/ 0x1e)
 	if_saw_injury(0x01, /*goto*/ 0x1e)
 	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
-	if_target_chr_in_sight(/*goto*/ 0x1e)
+	if_target_in_sight(/*goto*/ 0x1e)
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x16)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x13)
@@ -4571,7 +4571,7 @@ u8 func0012_init_coop_100[] = {
 	set_self_chrflag(CHRCFLAG_01000000)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PSYCHOSISED)
 	set_alertness(100)
-	set_follow_chr(CHR_BOND)
+	set_chrpreset(CHR_BOND)
 	yield
 	rebuild_teams
 	rebuild_squadrons
@@ -4757,9 +4757,9 @@ u8 func0014_coop_buddy[] = {
 	set_target_chr(CHR_BOND)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x16)
-	try_jog_to_target_chr(/*goto*/ 0x0c)
+	try_jog_to_target(/*goto*/ 0x0c)
 	label(0x16)
-	try_run_to_target_chr(/*goto*/ 0x0c)
+	try_run_to_target(/*goto*/ 0x0c)
 
 	beginloop(0x0c)
 		if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP, /*goto*/ 0x13)
@@ -5076,7 +5076,7 @@ u8 func0024_follow_bond[] = {
 
 	label(0x03)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x04)
+	try_run_to_target(/*goto*/ 0x04)
 
 	beginloop(0x04)
 		set_action(MA_TRACKING, FALSE)
@@ -5140,7 +5140,7 @@ u8 func0026_init_psychosis[] = {
 	set_self_flag_bankx(CHRFLAG1_40000000, BANK_1)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PSYCHOSISED)
 	set_alertness(100)
-	set_follow_chr(CHR_BOND)
+	set_chrpreset(CHR_BOND)
 	yield
 	rebuild_teams
 	rebuild_squadrons
@@ -5209,10 +5209,10 @@ u8 func0027_psychosised[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x16)
-	try_jog_to_target_chr(/*goto*/ 0x0c)
+	try_jog_to_target(/*goto*/ 0x0c)
 	label(0x16)
 	if_chr_distance_lt(200, /*goto*/ 0x16)
-	try_run_to_target_chr(/*goto*/ 0x0c)
+	try_run_to_target(/*goto*/ 0x0c)
 
 	beginloop(0x0c)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x06)
@@ -5308,25 +5308,25 @@ u8 func0020_place_coop_buddy[] = {
 	goto_next(0xf3)
 
 	label(0xfa)
-	chr_move_to_pad(CHR_SELF, TARGET_PAD, 0x01, /*goto*/ 0x13)
+	chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
 	label(0xf3)
 	try_set_target_pad_to_something2(0x02, /*goto*/ 0xfa)
 	goto_next(0xf3)
 
 	label(0xfa)
-	chr_move_to_pad(CHR_SELF, TARGET_PAD, 0x01, /*goto*/ 0x13)
+	chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
 	label(0xf3)
 	try_set_target_pad_to_something2(0x04, /*goto*/ 0xfa)
 	goto_next(0xf3)
 
 	label(0xfa)
-	chr_move_to_pad(CHR_SELF, TARGET_PAD, 0x01, /*goto*/ 0x13)
+	chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
 	label(0xf3)
 	try_set_target_pad_to_something2(0x08, /*goto*/ 0xfa)
 	goto_next(0xf3)
 
 	label(0xfa)
-	chr_move_to_pad(CHR_SELF, TARGET_PAD, 0x01, /*goto*/ 0x13)
+	chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x01, /*goto*/ 0x13)
 	label(0xf3)
 	goto_first(0x03)
 

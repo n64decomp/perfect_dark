@@ -46,9 +46,9 @@
 /*0x0028*/ bool aiActivateAlarm(void);
 /*0x0029*/ bool aiDeactivateAlarm(void);
 /*0x002a*/ bool ai002a(void);
-/*0x002b*/ bool aiTryJogToTargetChr(void);
-/*0x002c*/ bool aiTryWalkToTargetChr(void);
-/*0x002d*/ bool aiTryRunToTargetChr(void);
+/*0x002b*/ bool aiTryJogToTargetProp(void);
+/*0x002c*/ bool aiTryWalkToTargetProp(void);
+/*0x002d*/ bool aiTryRunToTargetProp(void);
 /*0x002e*/ bool ai002e(void);
 /*0x002f*/ bool aiTryJogToChr(void);
 /*0x0030*/ bool aiTryWalkToChr(void);
@@ -56,7 +56,7 @@
 /*0x0032*/ bool aiIfStopped(void);
 /*0x0033*/ bool aiIfChrDying(void);
 /*0x0034*/ bool aiIfChrDeathAnimationFinished(void);
-/*0x0035*/ bool aiIfPlayerInSight(void);
+/*0x0035*/ bool aiIfTargetPropInSight(void);
 /*0x0036*/ bool aiRandom(void);
 /*0x0037*/ bool aiIfRandomLessThan(void);
 /*0x0038*/ bool aiIfRandomGreaterThan(void);

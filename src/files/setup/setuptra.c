@@ -923,11 +923,11 @@ u8 func0404_jonathan_following_and_mine[] = {
 	if_chr_distance_lt(300, /*goto*/ 0x32)
 
 	// distance >= 300
-	try_run_to_target_chr(/*goto*/ 0x5d)
+	try_run_to_target(/*goto*/ 0x5d)
 
 	// distance > 200 and distance < 300
 	label(0x32)
-	try_walk_to_target_chr(/*goto*/ 0x5d)
+	try_walk_to_target(/*goto*/ 0x5d)
 
 	// Moving towards Jo
 	label(0x5d)
@@ -1109,7 +1109,7 @@ u8 func0413_jonathan_hangar[] = {
 		if_chr_distance_gt(400, /*goto*/ 0x32)
 		set_target_chr(CHR_P1P2)
 		if_chr_distance_gt(400, /*goto*/ 0x32)
-		if_target_chr_in_sight(/*goto*/ 0x06)
+		if_target_in_sight(/*goto*/ 0x06)
 		label(0x32)
 	endloop(0x14)
 
@@ -2002,7 +2002,7 @@ u8 func040b_elvis_follow[] = {
 
 		label(0x5c)
 		restart_timer
-		try_run_to_target_chr(/*goto*/ 0x5d)
+		try_run_to_target(/*goto*/ 0x5d)
 
 		label(0x5d)
 			restart_timer

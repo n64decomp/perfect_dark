@@ -1679,7 +1679,7 @@ u8 func0414_programmer[] = {
 		// have stopped without being near the PC. This bug is repeated several
 		// times in this function but only documented here.
 		beginloop(0x93)
-			if_target_chr_in_sight(/*goto*/ 0x96)
+			if_target_in_sight(/*goto*/ 0x96)
 			if_near_miss(/*goto*/ 0x96)
 			if_saw_injury(0x00, /*goto*/ 0x96)
 			if_saw_death(0x00, /*goto*/ 0x96)
@@ -3158,8 +3158,8 @@ u8 func0416_outro[] = {
 	chr_do_animation(0x00f3, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 	restart_timer
 	unset_stage_flag(STAGEFLAG_LAB_ELEVATOR_CLOSED)
-	open_door2(OBJ_LABLIFTDOOR1)
-	open_door2(OBJ_LABLIFTDOOR2)
+	set_door_open(OBJ_LABLIFTDOOR1)
+	set_door_open(OBJ_LABLIFTDOOR2)
 	restart_timer
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -3728,7 +3728,7 @@ u8 func042f_surrendering_guard[] = {
 	beginloop(0xc4)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x2c)
+		if_target_in_sight(/*goto*/ 0x2c)
 		if_enemy_distance_lt_and_los(500, /*goto*/ 0x2c)
 		if_near_miss(/*goto*/ 0x2c)
 		if_saw_injury(0x00, /*goto*/ 0x2c)

@@ -1192,7 +1192,7 @@ u8 func0407_stewardess[] = {
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x04)
 		label(0x31)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x02)
-		if_target_chr_in_sight(/*goto*/ 0x04)
+		if_target_in_sight(/*goto*/ 0x04)
 		label(0x02)
 		if_timer_gt(120, /*goto*/ 0x16)
 	endloop(0x11)
@@ -1219,7 +1219,7 @@ u8 func0407_stewardess[] = {
 		label(0x31)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x04)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x02)
-		if_target_chr_in_sight(/*goto*/ 0x04)
+		if_target_in_sight(/*goto*/ 0x04)
 		label(0x02)
 		if_chr_stopped(/*goto*/ 0x0b)
 	endloop(0x00)
@@ -1290,7 +1290,7 @@ u8 func0407_stewardess[] = {
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x4e)
 		dprint 'W','A','L','K','I','N','G','\n',0,
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x31)
-		if_target_chr_in_sight(/*goto*/ 0x02)
+		if_target_in_sight(/*goto*/ 0x02)
 		label(0x31)
 		if_self_distance_to_chr_lt(200, 0xfb, /*goto*/ 0x4a)
 		if_chr_stopped(/*goto*/ 0x4a)
@@ -1517,7 +1517,7 @@ u8 func0408_secretary[] = {
 		if_saw_death(0x00, /*goto*/ LABEL_BECOME_ALERT1)
 		set_view_distance(14)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_BECOME_ALERT1)
-		if_target_chr_in_sight(/*goto*/ 0x02)
+		if_target_in_sight(/*goto*/ 0x02)
 		if_alarm_active2(/*goto*/ 0x67)
 	endloop(LABEL_MAIN_LOOP)
 
@@ -2065,7 +2065,7 @@ u8 func0409_office1[] = {
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x02)
+		if_target_in_sight(/*goto*/ 0x02)
 		if_saw_injury(0x00, /*goto*/ LABEL_RUN_TO_FOYER)
 		if_stage_flag_eq(STAGEFLAG_OFFICE2_DEAD, TRUE, /*goto*/ LABEL_RUN_TO_FOYER)
 		if_object_in_good_condition(0x45, /*goto*/ 0x33)
@@ -2427,10 +2427,10 @@ u8 func040f_nsa[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x44)
-	if_chr_distance_to_pad_lt(CHR_SELF, 70, TARGET_PAD, /*goto*/ 0x02)
+	if_chr_distance_to_pad_lt(CHR_SELF, 70, PAD_PRESET, /*goto*/ 0x02)
 
 	// Return to pad
-	walk_to_pad(TARGET_PAD)
+	walk_to_pad(PAD_PRESET)
 
 	beginloop(0x06)
 		dprint 'G','O',' ','F','O','R',' ','P','A','D','\n',0,
@@ -2457,7 +2457,7 @@ u8 func040f_nsa[] = {
 
 		label(0x31)
 		if_chr_sees_player(/*goto*/ 0x04)
-		if_chr_distance_to_pad_lt(CHR_SELF, 70, TARGET_PAD, /*goto*/ 0x02)
+		if_chr_distance_to_pad_lt(CHR_SELF, 70, PAD_PRESET, /*goto*/ 0x02)
 	endloop(0x06)
 
 	// At pad
@@ -2527,14 +2527,14 @@ u8 func040f_nsa[] = {
 	// Unreachable
 	restart_timer
 	set_target_chr(CHR_P1P2)
-	try_walk_to_target_chr(/*goto*/ 0x05)
+	try_walk_to_target(/*goto*/ 0x05)
 
 	// Also unreachable
 	label(0x31)
 	dprint 'R','U','N',' ','S','T','A','R','T','\n',0,
 	restart_timer
 	set_target_chr(CHR_BOND)
-	try_run_to_target_chr(/*goto*/ 0x05)
+	try_run_to_target(/*goto*/ 0x05)
 
 	beginloop(0x05)
 		set_returnlist(CHR_SELF, GAILIST_ALERTED)
@@ -2619,14 +2619,14 @@ u8 func0411_takeover_lackey[] = {
 		if_chr_dying(0x0c, /*goto*/ 0x7b)
 		if_chr_death_animation_finished(0x0c, /*goto*/ 0x7b)
 		if_chr_unloaded(0x0c, /*goto*/ 0x7b)
-		if_target_chr_in_sight(/*goto*/ 0x31)
+		if_target_in_sight(/*goto*/ 0x31)
 		goto_next(0x02)
 
 		label(0x31)
 		try_face_entity(0x0200, 0x0000, /*goto*/ 0x02)
 		label(0x02)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, FALSE, BANK_0, /*goto*/ 0x31)
-		if_target_chr_in_sight(/*goto*/ 0x02)
+		if_target_in_sight(/*goto*/ 0x02)
 		label(0x31)
 	endloop(0x00)
 
@@ -2693,7 +2693,7 @@ u8 func0414_officeworker[] = {
 		goto_next(0x08)
 
 		label(0x02)
-		if_target_chr_in_sight(/*goto*/ 0x02)
+		if_target_in_sight(/*goto*/ 0x02)
 		label(0x33)
 	endloop(0x00)
 
@@ -2732,7 +2732,7 @@ u8 func0414_officeworker[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_target_chr_in_sight(/*goto*/ 0x02)
+		if_target_in_sight(/*goto*/ 0x02)
 		if_chr_idle(/*goto*/ 0x31)
 		goto_first(0x77)
 
@@ -3348,7 +3348,7 @@ u8 func0419_ba8c[] = {
 
 	label(0x31)
 	unset_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
-	if_chr_distance_to_pad_lt(CHR_SELF, 100, TARGET_PAD, /*goto*/ 0x02)
+	if_chr_distance_to_pad_lt(CHR_SELF, 100, PAD_PRESET, /*goto*/ 0x02)
 	goto_next(0x31)
 
 	label(0x02)
@@ -3373,7 +3373,7 @@ u8 func0419_ba8c[] = {
 	set_target_chr(CHR_P1P2)
 	if_saw_death(0x00, /*goto*/ 0x4f)
 	if_saw_injury(0x00, /*goto*/ 0x0f)
-	if_target_chr_in_sight(/*goto*/ 0x02)
+	if_target_in_sight(/*goto*/ 0x02)
 	if_chr_stopped(/*goto*/ 0x73)
 	if_chr_idle(/*goto*/ 0x31)
 	if_timer_gt(180, /*goto*/ 0x73)
@@ -3386,7 +3386,7 @@ u8 func0419_ba8c[] = {
 	label(0x6c)
 	if_saw_death(0x00, /*goto*/ 0x4f)
 	if_saw_injury(0x00, /*goto*/ 0x0f)
-	if_target_chr_in_sight(/*goto*/ 0x02)
+	if_target_in_sight(/*goto*/ 0x02)
 	goto_first(0x00)
 
 	label(0x02)

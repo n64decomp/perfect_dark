@@ -527,7 +527,7 @@ u8 func0402_unarmed_skedar[] = {
 	stop_chr
 	if_self_flag_bankx_eq(CHRFLAG0_00000004, FALSE, BANK_0, /*goto*/ 0x03)
 	set_action(MA_TRACKING, TRUE)
-	try_run_to_target_chr(/*goto*/ 0x03)
+	try_run_to_target(/*goto*/ 0x03)
 
 	beginloop(0x03)
 		if_chr_in_room(CHR_SELF, 0x00, 0x003b, /*goto*/ LABEL_HANDLE_PHOENIX_AREA)
@@ -570,7 +570,7 @@ u8 func0402_unarmed_skedar[] = {
 	restart_timer
 	set_action(MA_WAITING, TRUE)
 	say_quip(CHR_BOND, 0x03, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	try_walk_to_target_chr(/*goto*/ 0x08)
+	try_walk_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_in_room(CHR_SELF, 0x00, 0x003b, /*goto*/ LABEL_HANDLE_PHOENIX_AREA)
@@ -588,7 +588,7 @@ u8 func0402_unarmed_skedar[] = {
 	label(0x2d)
 	restart_timer
 	set_action(MA_TRACKING, TRUE)
-	try_run_to_target_chr(/*goto*/ 0x0b)
+	try_run_to_target(/*goto*/ 0x0b)
 
 	beginloop(0x0b)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ 0x10)
@@ -780,7 +780,7 @@ u8 func0404_miniskedar[] = {
 
 	label(0x2d)
 	label(0x06)
-	try_run_to_target_chr(/*goto*/ 0x0b)
+	try_run_to_target(/*goto*/ 0x0b)
 
 	beginloop(0x0b)
 		if_self_flag_bankx_eq(CHRFLAG0_AIVSAI, FALSE, BANK_0, /*goto*/ 0x2e)
@@ -887,7 +887,7 @@ u8 func0408_cloaked_skedar[] = {
 
 		// King is alive
 		chr_toggle_p1p2(CHR_SELF)
-		if_chr_distance_to_pad_lt(CHR_P1P2, 300, TARGET_PAD, /*goto*/ 0x2d)
+		if_chr_distance_to_pad_lt(CHR_P1P2, 300, PAD_PRESET, /*goto*/ 0x2d)
 
 		// 1 in 256 chance of making skedar roar sound
 		call_rng
@@ -920,7 +920,7 @@ u8 func0404_miniskedar_spawner[] = {
 	// Wait until player near trigger pad
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
-		if_chr_distance_to_pad_lt(CHR_P1P2, 300, TARGET_PAD, /*goto*/ 0x4f)
+		if_chr_distance_to_pad_lt(CHR_P1P2, 300, PAD_PRESET, /*goto*/ 0x4f)
 		endloop(0x04)
 
 		label(0x4f)
@@ -1695,7 +1695,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x60)
 		label(0x2e)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
-		if_target_chr_in_sight(/*goto*/ 0x60)
+		if_target_in_sight(/*goto*/ 0x60)
 		label(0x06)
 		if_just_injured(CHR_SELF, /*goto*/ 0x58)
 		label(0x2d)
@@ -1707,7 +1707,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 
 	label(0x06)
 	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x2d)
-	if_target_chr_in_sight(/*goto*/ 0x60)
+	if_target_in_sight(/*goto*/ 0x60)
 	label(0x2d)
 	set_target_chr(CHR_BOND)
 	goto_first(0x5f)
@@ -1759,7 +1759,7 @@ u8 func0409_reaper_slayer_skedar[] = {
 	chr_toggle_p1p2(CHR_SELF)
 	set_target_chr(CHR_P1P2)
 	if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x06)
-	if_target_chr_in_sight(/*goto*/ 0x6b)
+	if_target_in_sight(/*goto*/ 0x6b)
 	label(0x06)
 	if_timer_gt(60, /*goto*/ 0x6c)
 	if_rand_lt(4, /*goto*/ 0x6c)
@@ -1878,7 +1878,7 @@ u8 func040b_mauler_skedar[] = {
 	label(0x2d)
 	set_alertness(100)
 	set_target_chr(CHR_BOND)
-	try_jog_to_target_chr(/*goto*/ 0x2d)
+	try_jog_to_target(/*goto*/ 0x2d)
 	label(0x2d)
 	set_shotlist(GAILIST_COMBAT_WITH_TARGET)
 	set_returnlist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
@@ -2112,7 +2112,7 @@ u8 func040d_king_combat[] = {
 	goto_next(0x88)
 
 	label(0x2d)
-	chr_move_to_pad(CHR_SELF, TARGET_PAD, 0x00, /*goto*/ 0x2d)
+	chr_move_to_pad(CHR_SELF, PAD_PRESET, 0x00, /*goto*/ 0x2d)
 	goto_next(0x88)
 
 	label(0x2d)
@@ -2121,7 +2121,7 @@ u8 func040d_king_combat[] = {
 
 	label(0x8a)
 	restart_timer
-	try_run_to_target_chr(/*goto*/ 0x08)
+	try_run_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ 0x0b)

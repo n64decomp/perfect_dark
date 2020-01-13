@@ -801,11 +801,11 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
-	try_jog_to_target_chr(/*goto*/ 0x04)
+	try_jog_to_target(/*goto*/ 0x04)
 
 	// Jo distance < 200 or distance > 300
 	label(0x06)
-	try_run_to_target_chr(/*goto*/ 0x04)
+	try_run_to_target(/*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x2e)
@@ -974,9 +974,9 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
-	try_jog_to_target_chr(/*goto*/ 0x04)
+	try_jog_to_target(/*goto*/ 0x04)
 	label(0x06)
-	try_run_to_target_chr(/*goto*/ 0x04)
+	try_run_to_target(/*goto*/ 0x04)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_AGENT_MEGAWEAPON_DISABLED, TRUE, /*goto*/ 0x2e)
@@ -1111,9 +1111,9 @@ u8 func0405_elvis_follow_nocombat[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
-	try_jog_to_target_chr(/*goto*/ 0x04)
+	try_jog_to_target(/*goto*/ 0x04)
 	label(0x06)
-	try_run_to_target_chr(/*goto*/ 0x04)
+	try_run_to_target(/*goto*/ 0x04)
 
 	beginloop(0x04)
 		label(0x2e)
@@ -1367,9 +1367,9 @@ u8 func0403_elvis_give_farsight[] = {
 	set_target_chr(CHR_PRESET)
 	restart_timer
 	if_chr_distance_gt(300, /*goto*/ 0x06)
-	try_jog_to_target_chr(/*goto*/ 0x04)
+	try_jog_to_target(/*goto*/ 0x04)
 	label(0x06)
-	try_run_to_target_chr(/*goto*/ 0x04)
+	try_run_to_target(/*goto*/ 0x04)
 
 	beginloop(0x04)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
@@ -3194,7 +3194,7 @@ u8 func041d_sniper[] = {
 
 	label(0x06)
 	dprint '2','\n',0,
-	set_follow_chr(CHR_TARGET)
+	set_chrpreset(CHR_TARGET)
 	goto_next(0x06)
 
 	// Unreachable
@@ -3441,7 +3441,7 @@ u8 func040f_miniskedar[] = {
 		restart_timer
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x06)
 		label(0x06)
-		try_run_to_target_chr(/*goto*/ 0x0a)
+		try_run_to_target(/*goto*/ 0x0a)
 
 		beginloop(0x0a)
 			if_chr_sees_player(/*goto*/ 0x2e)
