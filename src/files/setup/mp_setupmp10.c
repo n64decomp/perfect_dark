@@ -120,7 +120,7 @@ u8 func1001_start_lifts[] = {
 	activate_lift(1, 0x00)
 	activate_lift(2, 0x01)
 	activate_lift(3, 0x02)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -128,7 +128,7 @@ u8 func1000_1680[] = {
 	cmd0185_mponly
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 

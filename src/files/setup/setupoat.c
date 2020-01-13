@@ -4,9 +4,9 @@
 
 #include "stagesetup.h"
 
-// Functions
-#define FUNC0401_INIT_ENEMY 0x0401
-#define FUNC0402_INIT_MAIAN 0x0402
+// AI Lists
+#define AILIST_INIT_ENEMY 0x0401
+#define AILIST_INIT_MAIAN 0x0402
 
 u8 intro[];
 u8 props[];
@@ -41,13 +41,13 @@ u8 intro[] = {
 };
 
 u8 func0406_idle[] = {
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
 u8 func0408_idle_with_10_health[] = {
 	set_chr_maxdamage(CHR_SELF, 10)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -59,7 +59,7 @@ u8 func0404_spawn_enemies[] = {
 	set_morale(12)
 	label(0x04)
 	if_morale_lt(1, /*goto*/ 0x01)
-	try_spawn_chr_at_chr(BODY_DDSHOCK, HEAD_DDSHOCK, 0x06, FUNC0401_INIT_ENEMY, 0x00000010, /*goto*/ 0xa2)
+	try_spawn_chr_at_chr(BODY_DDSHOCK, HEAD_DDSHOCK, 0x06, AILIST_INIT_ENEMY, 0x00000010, /*goto*/ 0xa2)
 	goto_next(0x01)
 	label(0xa2)
 	yield
@@ -74,7 +74,7 @@ u8 func0404_spawn_enemies[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, FUNC0401_INIT_ENEMY)
+	set_ailist(CHR_SELF, AILIST_INIT_ENEMY)
 	endlist
 };
 
@@ -85,8 +85,8 @@ u8 func0401_init_enemy[] = {
 	label(0x01)
 	assign_path(0)
 	start_path
-	set_returnlist(CHR_SELF, GFUNC_CHOOSE_TARGET)
-	set_ailist(CHR_SELF, GFUNC_CHOOSE_TARGET)
+	set_returnlist(CHR_SELF, GAILIST_CHOOSE_TARGET)
+	set_ailist(CHR_SELF, GAILIST_CHOOSE_TARGET)
 	endlist
 };
 
@@ -99,7 +99,7 @@ u8 func0405_spawn_maians[] = {
 	set_morale(12)
 	label(0x04)
 	if_morale_lt(1, /*goto*/ 0x01)
-	try_spawn_chr_at_chr(BODY_ELVIS1, HEAD_ELVIS, 0x07, FUNC0402_INIT_MAIAN, 0x00000010, /*goto*/ 0xa2)
+	try_spawn_chr_at_chr(BODY_ELVIS1, HEAD_ELVIS, 0x07, AILIST_INIT_MAIAN, 0x00000010, /*goto*/ 0xa2)
 	goto_next(0x01)
 	label(0xa2)
 	yield
@@ -114,7 +114,7 @@ u8 func0405_spawn_maians[] = {
 	yield
 	yield
 	yield
-	set_ailist(CHR_SELF, FUNC0402_INIT_MAIAN)
+	set_ailist(CHR_SELF, AILIST_INIT_MAIAN)
 	endlist
 };
 
@@ -126,8 +126,8 @@ u8 func0402_init_maian[] = {
 	label(0x01)
 	assign_path(0)
 	start_path
-	set_returnlist(CHR_SELF, GFUNC_CHOOSE_TARGET)
-	set_ailist(CHR_SELF, GFUNC_CHOOSE_TARGET)
+	set_returnlist(CHR_SELF, GAILIST_CHOOSE_TARGET)
+	set_ailist(CHR_SELF, GAILIST_CHOOSE_TARGET)
 	endlist
 };
 
@@ -135,7 +135,7 @@ u8 func1001_01a4[] = {
 	noop016c
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -155,13 +155,13 @@ u8 unregistered_function1[] = {
 };
 
 u8 func1000_idle[] = {
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
 u8 func0403_init_some_sound[] = {
 	play_sound(0x0037, -1)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -198,7 +198,7 @@ u8 func0407_defend_pad[] = {
 	label(0xa5)
 	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_returnlist(CHR_SELF, 0x0407)
-	set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 	endlist
 };
 

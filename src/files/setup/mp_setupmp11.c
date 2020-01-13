@@ -138,7 +138,7 @@ u8 func1000_26fc[] = {
 	cmd0185_mponly
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 

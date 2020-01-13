@@ -129,7 +129,7 @@ struct path paths[] = {
 
 u8 func1001_start_lift[] = {
 	activate_lift(1, 0x00)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -137,7 +137,7 @@ u8 func1000_1b30[] = {
 	cmd0185_mponly
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 

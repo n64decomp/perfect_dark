@@ -159,7 +159,7 @@ u8 func0c00_017c[] = {
 	restart_default_music
 	reset_ambience
 	enter_firstperson
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 

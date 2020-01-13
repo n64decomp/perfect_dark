@@ -359,52 +359,52 @@
 #define ENTITYTYPE_DIRECTION 0x0010
 #define ENTITYTYPE_TARGETCHR 0x0200
 
-#define GFUNC_IDLE                   0x0000
-#define GFUNC_UNALERTED_0001         0x0001
-#define GFUNC_UNALERTED_0002         0x0002
-#define GFUNC_STOP_UNALERTED         0x0003 // unused
-#define GFUNC_UNALERTED_0004         0x0004
-#define GFUNC_END_CINEMA             0x0005
-#define GFUNC_UNALERTED              0x0006
-#define GFUNC_ALERTED                0x0007
-#define GFUNC_WAKEUP                 0x0008
-#define GFUNC_IDLE_0009              0x0009
-#define GFUNC_BUSY                   0x000a
-#define GFUNC_CHOOSE_TARGET          0x000b
-#define GFUNC_COMBAT_WITH_TARGET     0x000c
-#define GFUNC_INIT_COMBAT            0x000d // unused
-#define GFUNC_SEE_THEN_ATTACK        0x000e // unused
-#define GFUNC_HAND_COMBAT            0x000f
-#define GFUNC_CIVILIAN_SAY_COMMENT   0x0010
-#define GFUNC_FLEE_FROM_GRENADE      0x0011
-#define GFUNC_INIT_COOP_100          0x0012 // unused
-#define GFUNC_INIT_COOP_200          0x0013 // unused
-#define GFUNC_COOP_BUDDY             0x0014
-#define GFUNC_TEST_CUTSCENE_BUDDY    0x0015 // unused
-#define GFUNC_SHOW_OBJ_FAILED_MSG    0x0016
-#define GFUNC_REBUILD_GROUPS         0x0017
-#define GFUNC_DO_BORED_ANIMATION     0x0018
-#define GFUNC_DO_SITTING_ANIMATION   0x0019
-#define GFUNC_DISGUISE_DETECTION     0x001a
-#define GFUNC_OBSERVE_CAMSPY         0x001b
-#define GFUNC_SURPRISED              0x001c
-#define GFUNC_SEARCH_FOR_PLAYER      0x001d
-#define GFUNC_LOOK_AROUND            0x001e
-#define GFUNC_RELATED_TO_SPAWNING    0x001f
-#define GFUNC_PLACE_COOP_BUDDY       0x0020
-#define GFUNC_STOP_AND_IDLE          0x0021
-#define GFUNC_COMMENT_ON_PLAYER_DEAD 0x0022 // unused
-#define GFUNC_DODGE                  0x0023
-#define GFUNC_FOLLOW_BOND          0x0024
-#define GFUNC_POINTLESS              0x0025 // unused
-#define GFUNC_INIT_PSYCHOSIS         0x0026
-#define GFUNC_PSYCHOSISED            0x0027
-#define GFUNC_AI_BOT_DEAD            0x0028 // unused
-#define GFUNC_AI_BOT_INIT            0x0029 // unused
-#define GFUNC_AI_BOT_ALIVE           0x002a // unused
-#define GFUNC_DO_SOMETHING_AND_WAIT  0x002b // unused
-#define GFUNC_INIT_SEARCH            0x002c // unused
-#define GFUNC_INVINCIBLE_AND_IDLE    0x002d
+#define GAILIST_IDLE                   0x0000
+#define GAILIST_UNALERTED_0001         0x0001
+#define GAILIST_UNALERTED_0002         0x0002
+#define GAILIST_STOP_UNALERTED         0x0003 // unused
+#define GAILIST_UNALERTED_0004         0x0004
+#define GAILIST_END_CINEMA             0x0005
+#define GAILIST_UNALERTED              0x0006
+#define GAILIST_ALERTED                0x0007
+#define GAILIST_WAKEUP                 0x0008
+#define GAILIST_IDLE_0009              0x0009
+#define GAILIST_BUSY                   0x000a
+#define GAILIST_CHOOSE_TARGET          0x000b
+#define GAILIST_COMBAT_WITH_TARGET     0x000c
+#define GAILIST_INIT_COMBAT            0x000d // unused
+#define GAILIST_SEE_THEN_ATTACK        0x000e // unused
+#define GAILIST_HAND_COMBAT            0x000f
+#define GAILIST_CIVILIAN_SAY_COMMENT   0x0010
+#define GAILIST_FLEE_FROM_GRENADE      0x0011
+#define GAILIST_INIT_COOP_100          0x0012 // unused
+#define GAILIST_INIT_COOP_200          0x0013 // unused
+#define GAILIST_COOP_BUDDY             0x0014
+#define GAILIST_TEST_CUTSCENE_BUDDY    0x0015 // unused
+#define GAILIST_SHOW_OBJ_FAILED_MSG    0x0016
+#define GAILIST_REBUILD_GROUPS         0x0017
+#define GAILIST_DO_BORED_ANIMATION     0x0018
+#define GAILIST_DO_SITTING_ANIMATION   0x0019
+#define GAILIST_DISGUISE_DETECTION     0x001a
+#define GAILIST_OBSERVE_CAMSPY         0x001b
+#define GAILIST_SURPRISED              0x001c
+#define GAILIST_SEARCH_FOR_PLAYER      0x001d
+#define GAILIST_LOOK_AROUND            0x001e
+#define GAILIST_RELATED_TO_SPAWNING    0x001f
+#define GAILIST_PLACE_COOP_BUDDY       0x0020
+#define GAILIST_STOP_AND_IDLE          0x0021
+#define GAILIST_COMMENT_ON_PLAYER_DEAD 0x0022 // unused
+#define GAILIST_DODGE                  0x0023
+#define GAILIST_FOLLOW_BOND          0x0024
+#define GAILIST_POINTLESS              0x0025 // unused
+#define GAILIST_INIT_PSYCHOSIS         0x0026
+#define GAILIST_PSYCHOSISED            0x0027
+#define GAILIST_AI_BOT_DEAD            0x0028 // unused
+#define GAILIST_AI_BOT_INIT            0x0029 // unused
+#define GAILIST_AI_BOT_ALIVE           0x002a // unused
+#define GAILIST_DO_SOMETHING_AND_WAIT  0x002b // unused
+#define GAILIST_INIT_SEARCH            0x002c // unused
+#define GAILIST_INVINCIBLE_AND_IDLE    0x002d
 
 #define IDLEACTION_STANDING        0x01
 #define IDLEACTION_SITTING_TYPING  0x02

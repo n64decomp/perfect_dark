@@ -35,7 +35,7 @@ struct path paths[] = {
 
 u8 func1001_0038[] = {
 	cmd01b2_mponly(130)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -43,7 +43,7 @@ u8 func1000_0044[] = {
 	cmd0185_mponly
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 

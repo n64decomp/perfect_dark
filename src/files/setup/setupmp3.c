@@ -35,7 +35,7 @@ struct path paths[] = {
 
 u8 func1000_0038[] = {
 	cmd01b2_mponly(20)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 

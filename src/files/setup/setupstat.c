@@ -33,20 +33,20 @@
 #define STAGEFLAG_KING2_DEAD  0x00000400
 #define STAGEFLAG_KING3_DEAD  0x00000800
 
-// Functions
-#define FUNC_DEFEND       0x0401
-#define FUNC_INIT_KING    0x0402
-#define FUNC_INIT_LEADER  0x0403
-#define FUNC_MAIAN        0x0404
-#define FUNC_INIT_MAIAN   0x0405
-#define FUNC_SKEDAR       0x0406
-#define FUNC_KING1_SKEDAR 0x0407
-#define FUNC_KING2_SKEDAR 0x0408
-#define FUNC_KING3_SKEDAR 0x0409
-#define FUNC_INTRO        0x040a
-#define FUNC_OUTRO        0x040b
-#define FUNC_HIDE         0x040c
-#define FUNC_BLOW_MINES   0x040d
+// AI Lists
+#define AILIST_DEFEND       0x0401
+#define AILIST_INIT_KING    0x0402
+#define AILIST_INIT_LEADER  0x0403
+#define AILIST_MAIAN        0x0404
+#define AILIST_INIT_MAIAN   0x0405
+#define AILIST_SKEDAR       0x0406
+#define AILIST_KING1_SKEDAR 0x0407
+#define AILIST_KING2_SKEDAR 0x0408
+#define AILIST_KING3_SKEDAR 0x0409
+#define AILIST_INTRO        0x040a
+#define AILIST_OUTRO        0x040b
+#define AILIST_HIDE         0x040c
+#define AILIST_BLOW_MINES   0x040d
 
 // Other
 #define GROUP_MAIANS       1
@@ -89,40 +89,40 @@ u8 props[] = {
 		complete_flags(STAGEFLAG_KING3_DEAD)
 	endobjective
 
-	chr(0x00000000, CHR_MAIAN_LEADER, 0x004f, BODY_ELVIS1, HEAD_MAIAN_S, FUNC_INIT_LEADER, 0x004e, -1, 1000, 200, 0x00002000, 0xc0304000, TEAM_ALLY, SQUADRON_01, -1, 0, 0x00000000)
+	chr(0x00000000, CHR_MAIAN_LEADER, 0x004f, BODY_ELVIS1, HEAD_MAIAN_S, AILIST_INIT_LEADER, 0x004e, -1, 1000, 200, 0x00002000, 0xc0304000, TEAM_ALLY, SQUADRON_01, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRMAIANSMG, 0x003d, 0x10004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_CALLISTONTG, 0x00ffffff, 0x00000000)
 
-	chr(0x00000000, CHR_MAIAN_TEMPLATE, 0x0045, BODY_CISOLDIER, HEAD_RANDOM, FUNC_HIDE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_ALLY, SQUADRON_01, -1, 0, 0x00000000)
+	chr(0x00000000, CHR_MAIAN_TEMPLATE, 0x0045, BODY_CISOLDIER, HEAD_RANDOM, AILIST_HIDE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_ALLY, SQUADRON_01, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRAR34, 0x003e, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_AR34, 0x00ffffff, 0x00000000)
 
-	chr(0x00000000, CHR_KING1, 0x007c, BODY_SKEDARKING, HEAD_RANDOM, FUNC_INIT_KING, 0x007c, -1, 1000, 200, 0x00002000, 0xc0304008, TEAM_ENEMY, SQUADRON_02, -1, 0, 0x00000000)
+	chr(0x00000000, CHR_KING1, 0x007c, BODY_SKEDARKING, HEAD_RANDOM, AILIST_INIT_KING, 0x007c, -1, 1000, 200, 0x00002000, 0xc0304008, TEAM_ENEMY, SQUADRON_02, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRSKMINIGUN, 0x0040, 0x10004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_REAPER, 0x00ffffff, 0x00000000)
 
-	chr(0x000000c0, CHR_KING2, 0x0110, BODY_SKEDARKING, HEAD_RANDOM, FUNC_INIT_KING, 0x0091, -1, 1000, 200, 0x00002000, 0xc0304000, TEAM_ENEMY, SQUADRON_03, -1, 0, 0x00000000)
+	chr(0x000000c0, CHR_KING2, 0x0110, BODY_SKEDARKING, HEAD_RANDOM, AILIST_INIT_KING, 0x0091, -1, 1000, 200, 0x00002000, 0xc0304000, TEAM_ENEMY, SQUADRON_03, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRSKROCKET, 0x0041, 0x10004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_SLAYER, 0x00ffffff, 0x00000000)
 
-	chr(0x00000080, CHR_KING3, 0x0094, BODY_SKEDARKING, HEAD_RANDOM, FUNC_INIT_KING, 0x0094, -1, 1000, 200, 0x00002000, 0xc0304000, TEAM_ENEMY, SQUADRON_04, -1, 0, 0x00000000)
+	chr(0x00000080, CHR_KING3, 0x0094, BODY_SKEDARKING, HEAD_RANDOM, AILIST_INIT_KING, 0x0094, -1, 1000, 200, 0x00002000, 0xc0304000, TEAM_ENEMY, SQUADRON_04, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_KINGSCEPTRE, 0x0042, 0x10006000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_ROCKETLAUNCHER_34, 0x00ffffff, 0x00000000)
 
-	chr(0x00000300, CHR_BLONDE, 0x0077, BODY_SKEDAR, HEAD_MRBLONDE, FUNC_KING1_SKEDAR, 0x0022, -1, 1000, 200, 0x00002000, 0xc0304000, TEAM_ENEMY, SQUADRON_04, -1, 0, 0x00000000)
+	chr(0x00000300, CHR_BLONDE, 0x0077, BODY_SKEDAR, HEAD_MRBLONDE, AILIST_KING1_SKEDAR, 0x0022, -1, 1000, 200, 0x00002000, 0xc0304000, TEAM_ENEMY, SQUADRON_04, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRMAULER, 0x0043, 0x10004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_MAULER, 0x00ffffff, 0x00000000)
 
-	chr(0x00000000, CHR_SKEDAR_TEMPLATE, 0x007d, BODY_CISOLDIER, HEAD_RANDOM, FUNC_HIDE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_ENEMY, SQUADRON_02, -1, 0, 0x00000000)
+	chr(0x00000000, CHR_SKEDAR_TEMPLATE, 0x007d, BODY_CISOLDIER, HEAD_RANDOM, AILIST_HIDE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_ENEMY, SQUADRON_02, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRAR34, 0x003f, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_AR34, 0x00ffffff, 0x00000000)
 
-	chr(0x00000000, CHR_MAIAN1, 0x0009, BODY_ELVIS1, HEAD_MAIAN_S, GFUNC_IDLE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_ALLY, SQUADRON_01, -1, 0, 0x00000000)
+	chr(0x00000000, CHR_MAIAN1, 0x0009, BODY_ELVIS1, HEAD_MAIAN_S, GAILIST_IDLE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_ALLY, SQUADRON_01, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRMAIANSMG, 0x0044, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_CALLISTONTG, 0x00ffffff, 0x00000000)
 
-	chr(0x00000000, CHR_MAIAN2, 0x00a4, BODY_ELVIS1, HEAD_MAIAN_S, GFUNC_IDLE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_ALLY, SQUADRON_01, -1, 0, 0x00000000)
+	chr(0x00000000, CHR_MAIAN2, 0x00a4, BODY_ELVIS1, HEAD_MAIAN_S, GAILIST_IDLE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_ALLY, SQUADRON_01, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRMAIANSMG, 0x0045, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_CALLISTONTG, 0x00ffffff, 0x00000000)
 
-	chr(0x00000000, CHR_MAIAN3, 0x0008, BODY_ELVIS1, HEAD_MAIAN_S, FUNC_HIDE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_01, SQUADRON_01, -1, 0, 0x00000000)
+	chr(0x00000000, CHR_MAIAN3, 0x0008, BODY_ELVIS1, HEAD_MAIAN_S, AILIST_HIDE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_01, SQUADRON_01, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRMAIANSMG, 0x0046, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_CALLISTONTG, 0x00ffffff, 0x00000000)
 
-	chr(0x00000000, CHR_MAIAN4, 0x000c, BODY_ELVIS1, HEAD_MAIAN_S, FUNC_HIDE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_01, SQUADRON_01, -1, 0, 0x00000000)
+	chr(0x00000000, CHR_MAIAN4, 0x000c, BODY_ELVIS1, HEAD_MAIAN_S, AILIST_HIDE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_01, SQUADRON_01, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRMAIANSMG, 0x0047, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_CALLISTONTG, 0x00ffffff, 0x00000000)
 
-	chr(0x00000000, CHR_MAIAN5, 0x000d, BODY_ELVIS1, HEAD_MAIAN_S, FUNC_HIDE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_01, SQUADRON_01, -1, 0, 0x00000000)
+	chr(0x00000000, CHR_MAIAN5, 0x000d, BODY_ELVIS1, HEAD_MAIAN_S, AILIST_HIDE, -1, -1, 200, 100, 0x00012000, 0xc0300000, TEAM_01, SQUADRON_01, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRMAIANSMG, 0x0048, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_CALLISTONTG, 0x00ffffff, 0x00000000)
 
 	link_scenery(1, 0, 2)
@@ -289,14 +289,14 @@ struct path paths[] = {
 
 u8 func1001_objectives_failed_msg[] = {
 	yield
-	set_ailist(CHR_SELF, GFUNC_SHOW_OBJ_FAILED_MSG)
+	set_ailist(CHR_SELF, GAILIST_SHOW_OBJ_FAILED_MSG)
 	endlist
 };
 
 u8 func1000_counterop[] = {
 	yield
 	set_chr_team(CHR_ANTI, TEAM_ENEMY)
-	set_ailist(CHR_SELF, GFUNC_REBUILD_GROUPS)
+	set_ailist(CHR_SELF, GAILIST_REBUILD_GROUPS)
 	endlist
 };
 
@@ -310,7 +310,7 @@ u8 func0403_init_maian_leader[] = {
 	add_health_or_armor(300)
 	set_recovery_speed(100)
 	set_shield(0)
-	set_ailist(CHR_SELF, FUNC_DEFEND)
+	set_ailist(CHR_SELF, AILIST_DEFEND)
 	endlist
 };
 
@@ -324,12 +324,12 @@ u8 func0402_init_king[] = {
 	set_recovery_speed(100)
 	set_shield(0)
 	set_self_chrflag(CHRCFLAG_UNEXPLODABLE)
-	set_ailist(CHR_SELF, FUNC_DEFEND)
+	set_ailist(CHR_SELF, AILIST_DEFEND)
 	endlist
 };
 
 u8 func0401_defend[] = {
-	set_shotlist(FUNC_DEFEND)
+	set_shotlist(AILIST_DEFEND)
 	set_self_chrflag(CHRCFLAG_NOAUTOAIM)
 	if_chr_dying(CHR_SELF, /*goto*/ 0x2d)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x2d)
@@ -338,8 +338,8 @@ u8 func0401_defend[] = {
 
 	// Dying
 	label(0x2d)
-	set_shotlist(GFUNC_IDLE)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_shotlist(GAILIST_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Not dying - go to pad
 	label(0x06)
@@ -394,9 +394,9 @@ u8 func0401_defend[] = {
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x2d)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x2d)
 		dprint 'D','E','T','E','C','T','E','D','\n',0,
-		set_returnlist(CHR_SELF, FUNC_DEFEND)
-		set_shotlist(FUNC_DEFEND)
-		set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+		set_returnlist(CHR_SELF, AILIST_DEFEND)
+		set_shotlist(AILIST_DEFEND)
+		set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 
 		label(0x2d)
 	goto_first(0x03)
@@ -428,12 +428,12 @@ u8 func1003_spawn_maians[] = {
 	// Loop until a Maian is able to be spawned or counter depleted
 	beginloop(0x8d)
 		if_morale_lt(1, /*goto*/ 0x06)
-		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x0053, FUNC_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x0050, FUNC_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x004d, FUNC_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x004c, FUNC_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x004e, FUNC_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x004a, FUNC_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x0053, AILIST_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x0050, AILIST_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x004d, AILIST_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x004c, AILIST_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x004e, AILIST_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_ELVIS1, HEAD_MAIAN_S, 0x004a, AILIST_INIT_MAIAN, 0x00000000, /*goto*/ 0x8e)
 		reloop(0x8d)
 
 		// Successful spawn
@@ -483,7 +483,7 @@ u8 func1003_spawn_maians[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -507,13 +507,13 @@ u8 func0405_init_maian[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, FUNC_MAIAN)
+	set_ailist(CHR_SELF, AILIST_MAIAN)
 	endlist
 };
 
 u8 func0404_maian[] = {
-	set_returnlist(CHR_SELF, FUNC_MAIAN)
-	set_shotlist(FUNC_MAIAN)
+	set_returnlist(CHR_SELF, AILIST_MAIAN)
+	set_shotlist(AILIST_MAIAN)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 
 	label(0x03)
@@ -559,9 +559,9 @@ u8 func0404_maian[] = {
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x06)
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x06)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x06)
-		set_returnlist(CHR_SELF, FUNC_MAIAN)
-		set_shotlist(FUNC_MAIAN)
-		set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+		set_returnlist(CHR_SELF, AILIST_MAIAN)
+		set_shotlist(AILIST_MAIAN)
+		set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 
 		// King died while fighting
 		label(0x06)
@@ -593,10 +593,10 @@ u8 func1004_spawn_king1_skedar[] = {
 	beginloop(0x8d)
 		if_stage_flag_eq(STAGEFLAG_KING1_DEAD, TRUE, /*goto*/ 0x0e)
 		if_morale_lt(1, /*goto*/ 0x06)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0079, FUNC_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x007d, FUNC_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0083, FUNC_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0085, FUNC_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0079, AILIST_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x007d, AILIST_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0083, AILIST_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0085, AILIST_KING1_SKEDAR, 0x00000200, /*goto*/ 0x8e)
 		reloop(0x8d)
 
 		// Successful spawn
@@ -654,7 +654,7 @@ u8 func1004_spawn_king1_skedar[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -681,10 +681,10 @@ u8 func1008_spawn_king2_skedar[] = {
 	beginloop(0x8d)
 		if_stage_flag_eq(STAGEFLAG_KING2_DEAD, TRUE, /*goto*/ 0x0e)
 		if_morale_lt(1, /*goto*/ 0x06)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x008e, FUNC_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0090, FUNC_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x008f, FUNC_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0091, FUNC_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x008e, AILIST_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0090, AILIST_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x008f, AILIST_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0091, AILIST_KING2_SKEDAR, 0x00000210, /*goto*/ 0x8e)
 		reloop(0x8d)
 
 		// Successful spawn
@@ -738,9 +738,9 @@ u8 func1008_spawn_king2_skedar[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x0e)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -767,10 +767,10 @@ u8 func100c_spawn_king3_skedar[] = {
 	beginloop(0x8d)
 		if_stage_flag_eq(STAGEFLAG_KING3_DEAD, TRUE, /*goto*/ 0x0e)
 		if_morale_lt(1, /*goto*/ 0x06)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0095, FUNC_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0096, FUNC_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x012e, FUNC_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
-		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0132, FUNC_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0095, AILIST_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0096, AILIST_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x012e, AILIST_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
+		try_spawn_chr_at_pad(BODY_SKEDAR, HEAD_RANDOM, 0x0132, AILIST_KING3_SKEDAR, 0x00000200, /*goto*/ 0x8e)
 		reloop(0x8d)
 
 		// Successful spawn
@@ -808,9 +808,9 @@ u8 func100c_spawn_king3_skedar[] = {
 	yield
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x0e)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -831,7 +831,7 @@ u8 func0407_king1_skedar[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, FUNC_SKEDAR)
+	set_ailist(CHR_SELF, AILIST_SKEDAR)
 	endlist
 };
 
@@ -852,7 +852,7 @@ u8 func0408_king2_skedar[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, FUNC_SKEDAR)
+	set_ailist(CHR_SELF, AILIST_SKEDAR)
 	endlist
 };
 
@@ -873,12 +873,12 @@ u8 func0409_king3_skedar[] = {
 	set_self_flag_bankx(CHRFLAG1_00080000, BANK_1)
 	rebuild_teams
 	rebuild_squadrons
-	set_ailist(CHR_SELF, FUNC_SKEDAR)
+	set_ailist(CHR_SELF, AILIST_SKEDAR)
 	endlist
 };
 
 u8 func0406_skedar[] = {
-	set_shotlist(FUNC_SKEDAR)
+	set_shotlist(AILIST_SKEDAR)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 	label(0x03)
 
@@ -893,9 +893,9 @@ u8 func0406_skedar[] = {
 
 	label(0x08)
 	dprint 'D','E','T','E','C','T','E','D','\n',0,
-	set_returnlist(CHR_SELF, FUNC_SKEDAR)
-	set_shotlist(FUNC_SKEDAR)
-	set_ailist(CHR_SELF, GFUNC_COMBAT_WITH_TARGET)
+	set_returnlist(CHR_SELF, AILIST_SKEDAR)
+	set_shotlist(AILIST_SKEDAR)
+	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 	endlist
 };
 
@@ -909,7 +909,7 @@ u8 func1005_check_leader_dead[] = {
 	label(0x2d)
 	message(CHR_BOND, 0x4607) // "Maian leader has been killed."
 	set_stage_flag(STAGEFLAG_LEADER_DEAD)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -927,7 +927,7 @@ u8 func1009_check_king1_dead[] = {
 	set_stage_flag(STAGEFLAG_KING1_DEAD)
 	unlock_door(0x3e, 0x40)
 	unlock_door(0x3f, 0x40)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -945,7 +945,7 @@ u8 func100a_check_king2_dead[] = {
 	message(CHR_BOND, 0x4608) // "Skedar King has been killed."
 	set_stage_flag(STAGEFLAG_KING2_DEAD)
 	label(0x0e)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -963,7 +963,7 @@ u8 func100b_check_king3_dead[] = {
 	message(CHR_BOND, 0x4608) // "Skedar King has been killed."
 	set_stage_flag(STAGEFLAG_KING3_DEAD)
 	label(0x0e)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -998,12 +998,12 @@ u8 func1007_check_end_level[] = {
 	// Mission failed
 	label(0x2d)
 	end_level
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Mission complete
 	label(0x06)
-	set_ailist(CHR_SELF, FUNC_OUTRO)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, AILIST_OUTRO)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -1011,7 +1011,7 @@ u8 func040c_hide[] = {
 	label(0x03)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -1057,10 +1057,10 @@ u8 unregistered_function[] = {
 	// Remove Blonde if counterop doesn't exist
 	label(0x03)
 	if_chr_death_animation_finished(CHR_ANTI, /*goto*/ 0x2d)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x2d)
 	remove_chr(CHR_BLONDE)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -1132,14 +1132,14 @@ u8 func1002_intro[] = {
 	set_chr_hiddenflag(CHR_MAIAN4, CHRHFLAG_00020000)
 	chr_do_animation(0x047f, -2, -1, 0x06, 0x00, CHR_MAIAN4, 2)
 
-	set_ailist(CHR_MAIAN1, FUNC_INIT_MAIAN)
-	set_ailist(CHR_MAIAN2, FUNC_INIT_MAIAN)
+	set_ailist(CHR_MAIAN1, AILIST_INIT_MAIAN)
+	set_ailist(CHR_MAIAN2, AILIST_INIT_MAIAN)
 	restart_default_music
 	reset_ambience
 	enter_firstperson
 	yield
 	label(0x2d)
-	set_ailist(CHR_SELF, FUNC_BLOW_MINES)
+	set_ailist(CHR_SELF, AILIST_BLOW_MINES)
 	endlist
 };
 
@@ -1215,7 +1215,7 @@ u8 func040b_outro[] = {
 	label(0x06)
 	mute_channel(CHANNEL_10)
 	end_level
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -1247,7 +1247,7 @@ u8 func100f_blow_mines[] = {
 	destroy_object(OBJ_MINE5)
 	wait(0x93)
 
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
@@ -1376,7 +1376,7 @@ u8 func1010_init_lighting[] = {
 	misc_command(0x0058, 0x05, 0x01)
 	misc_command(0x0059, 0x05, 0x01)
 	misc_command(0x0059, 0x06, 0x01)
-	set_ailist(CHR_SELF, GFUNC_IDLE)
+	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
 
