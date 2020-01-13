@@ -10257,7 +10257,7 @@ glabel func0f190260
 );
 
 GLOBAL_ASM(
-glabel func0f19028c
+glabel mpChrReset
 /*  f19028c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f190290:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f190294:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -10486,6 +10486,146 @@ glabel func0f19028c
 /*  f1905ec:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
+//void mpChrReset(struct chrdata *chr, u8 full)
+//{
+//	s32 i;
+//	u32 rand;
+//
+//	if (chr->unk2d4) {
+//		struct chr2d4 *chr2d4 = chr->unk2d4;
+//
+//		chr->fadealpha = -1;
+//		chr->chrflags &= ~CHRCFLAG_JUST_INJURED;
+//		chr->hidden &= ~CHRHFLAG_CLOAKED;
+//		chr->myaction = MA_AIBOTMAINLOOP;
+//		chr->shotbondsum = 0;
+//
+//		if (full) {
+//			chr->numclosearghs = 0;
+//			chr->damage = 0;
+//			chr->target = -1;
+//			chr->chrpreset1 = -1;
+//			chr->cover = -1;
+//			chrSetShield(chr, 0);
+//			chr->cmnum = 0;
+//			chr->cmnum2 = 0;
+//			freeFireslot(chr->fireslot[0]);
+//			freeFireslot(chr->fireslot[1]);
+//			chr->unk32c_12 = 0;
+//			chr->fireslot[0] = -1;
+//			chr->fireslot[1] = -1;
+//			chr->firecount[0] = 0;
+//			chr->firecount[1] = 0;
+//			chr->weapons_held[0] = NULL;
+//			chr->weapons_held[1] = NULL;
+//			chr->unk178 = 0;
+//			chr->unk32c_00 = 0;
+//			chr->unk32c_08 = 0;
+//			chr->unk364 = 0;
+//			chr->chrheight = 185;
+//
+//			for (i = 0; i < 33; i++) {
+//				chr2d4->unk01c->unk00[i] = 0;
+//			}
+//
+//			func0f197c00(chr);
+//
+//			chr2d4->unk04c_02 = 0;
+//			chr2d4->unk04c_01 = 1;
+//			chr2d4->unk09c_00 = 0;
+//			chr2d4->unk04c_06 = 0;
+//			chr2d4->unk04c_04 = 0;
+//			chr2d4->unk04c_03 = 0;
+//			chr2d4->unk09c_01 = 0;
+//			chr2d4->unk04c_05 = 0;
+//			chr2d4->unk020 = 1;
+//			chr2d4->unk024 = 0;
+//			chr2d4->unk028 = 0;
+//			chr2d4->prop = NULL;
+//			chr2d4->unk02c = 0;
+//			chr2d4->unk02e = 0;
+//			chr2d4->unk05c = 0;
+//			chr2d4->unk060 = 0;
+//			chr2d4->unk074 = -1;
+//			chr2d4->unk030 = 301;
+//			chr2d4->unk034 = 0;
+//			chr2d4->unk04d = 0;
+//			chr2d4->unk04e = 0;
+//			chr2d4->unk044 = 0;
+//			chr2d4->unk0a0 = 0;
+//			chr2d4->unk09c_02 = 0;
+//			chr2d4->unk064 = 0;
+//			chr2d4->unk04c_00 = 0;
+//			chr2d4->unk048 = -1;
+//			chr2d4->unk04a = -1;
+//			chr2d4->unk0bc = -1;
+//			chr2d4->unk0c8 = 0;
+//			chr2d4->unk0c4 = 0;
+//			chr2d4->unk0cc = 0;
+//			chr2d4->unk0d0 = 0;
+//			chr2d4->unk0d8 = 0;
+//			chr2d4->unk0dc = 0;
+//			chr2d4->unk03e = -1;
+//			chr2d4->unk03c = 0;
+//			chr2d4->unk0e2 = 0;
+//			chr2d4->unk0e0 = 0;
+//			chr2d4->unk118 = 0;
+//			chr2d4->unk11c = 0;
+//			chr2d4->unk120 = -1;
+//			chr2d4->unk124 = -1;
+//			chr2d4->unk128 = 0;
+//			chr2d4->unk12c = 0;
+//			chr2d4->unk040 = 0;
+//			chr2d4->unk06c = 0;
+//			chr2d4->unk070 = 0;
+//			chr2d4->unk0e8 = 0;
+//			chr2d4->unk0e4 = 0;
+//			chr2d4->unk108 = 0;
+//			chr2d4->unk10c = 0;
+//			chr2d4->unk110 = 0;
+//
+//			for (i = 0; i != 12; i++) {
+//				chr2d4->unk130[i] = -1;
+//				chr2d4->unk13c[i] = 4294967296;
+//				chr2d4->unk16c[i] = 0;
+//				chr2d4->unk178[i] = -1;
+//				chr2d4->unk1a8[i] = -1;
+//			}
+//
+//			chr2d4->unk1e8 = 0;
+//			chr2d4->unk208 = 0;
+//			chr2d4->unk210 = random();
+//			chr2d4->unk20c = 0;
+//			chr2d4->unk2c8 = 0;
+//			chr2d4->unk09c_03 = 0;
+//			chr2d4->unk2cc = 0;
+//			chr2d4->unk2c4 = 0;
+//
+//			chr2d4->unk2d0 = random();
+//			chr2d4->unk2d4 = random();
+//			chr2d4->unk078 = 0;
+//			chr2d4->unk09c_07 = 0;
+//			chr2d4->unk050 = 0;
+//			chr2d4->unk09d = 0;
+//		}
+//
+//		if (chr2d4->simulant->type == SIMTYPE_TURTLE || chr2d4->simulant->type == SIMTYPE_SHIELD) {
+//			chr->cshield = 8;
+//		}
+//
+//		if (chr2d4->simulant->unk48 == 5) {
+//			chr2d4->unk064 &= ~1;
+//
+//			if (func0f198278()) {
+//				chr->cshield = 8;
+//			}
+//		}
+//
+//		chr2d4->unk059 = 1;
+//		chr2d4->unk058 = 120;
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0f1905f0
 /*  f1905f0:	27bdffa8 */ 	addiu	$sp,$sp,-88
@@ -10515,7 +10655,7 @@ glabel func0f1905f0
 .L0f190648:
 /*  f190648:	50c0002b */ 	beqzl	$a2,.L0f1906f8
 /*  f19064c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f190650:	0fc640a3 */ 	jal	func0f19028c
+/*  f190650:	0fc640a3 */ 	jal	mpChrReset
 /*  f190654:	02002025 */ 	or	$a0,$s0,$zero
 /*  f190658:	0fc52719 */ 	jal	func0f149c64
 /*  f19065c:	02002025 */ 	or	$a0,$s0,$zero
@@ -11588,7 +11728,7 @@ glabel func0f191448
 u32 func0f1915b4(struct chrdata *chr)
 {
 	if (chr->unk2d4) {
-		return chr->unk2d4->unk20;
+		return chr->unk2d4->unk020;
 	}
 
 	return g_Vars.players[propGetPlayerNum(chr->prop)]->unk0638;
@@ -12589,51 +12729,51 @@ char *mpGetBotCommandName(s32 command)
 
 void func0f192438(struct chrdata *chr, struct prop *prop)
 {
-	chr->unk2d4->unk79 = 1;
-	chr->unk2d4->unkc0_propindex = prop - g_Vars.props;
-	chr->unk2d4->unkd8 = 1;
+	chr->unk2d4->unk079 = 1;
+	chr->unk2d4->unk0c0_propindex = prop - g_Vars.props;
+	chr->unk2d4->unk0d8 = 1;
 }
 
 void func0f192474(struct chrdata *chr, struct prop *prop)
 {
-	chr->unk2d4->unk79 = 0;
-	chr->unk2d4->unkd4_propindex = prop - g_Vars.props;
-	chr->unk2d4->unkd8 = 1;
+	chr->unk2d4->unk079 = 0;
+	chr->unk2d4->unk0d4_propindex = prop - g_Vars.props;
+	chr->unk2d4->unk0d8 = 1;
 }
 
 void func0f1924ac(struct chrdata *chr, struct prop *prop)
 {
-	chr->unk2d4->unk79 = 13;
-	chr->unk2d4->unkd4_propindex = prop - g_Vars.props;
-	chr->unk2d4->unkd8 = 1;
+	chr->unk2d4->unk079 = 13;
+	chr->unk2d4->unk0d4_propindex = prop - g_Vars.props;
+	chr->unk2d4->unk0d8 = 1;
 }
 
 void func0f1924e8(struct chrdata *chr, struct coord *pos, s32 *arg2, f32 arg3)
 {
-	chr->unk2d4->unk79 = 2;
-	chr->unk2d4->unk8c.x = pos->x;
-	chr->unk2d4->unk8c.y = pos->y;
-	chr->unk2d4->unk8c.z = pos->z;
-	func0f0657a4(arg2, &chr->unk2d4->unk7a);
-	chr->unk2d4->unk98 = arg3;
-	chr->unk2d4->unkd8 = 1;
+	chr->unk2d4->unk079 = 2;
+	chr->unk2d4->unk08c.x = pos->x;
+	chr->unk2d4->unk08c.y = pos->y;
+	chr->unk2d4->unk08c.z = pos->z;
+	func0f0657a4(arg2, &chr->unk2d4->unk07a);
+	chr->unk2d4->unk098 = arg3;
+	chr->unk2d4->unk0d8 = 1;
 }
 
 void func0f19257c(struct chrdata *chr, struct coord *pos, s32 *arg2, f32 arg3)
 {
-	chr->unk2d4->unk79 = 3;
-	chr->unk2d4->unk8c.x = pos->x;
-	chr->unk2d4->unk8c.y = pos->y;
-	chr->unk2d4->unk8c.z = pos->z;
-	func0f0657a4(arg2, &chr->unk2d4->unk7a);
-	chr->unk2d4->unk98 = arg3;
-	chr->unk2d4->unkd8 = 1;
+	chr->unk2d4->unk079 = 3;
+	chr->unk2d4->unk08c.x = pos->x;
+	chr->unk2d4->unk08c.y = pos->y;
+	chr->unk2d4->unk08c.z = pos->z;
+	func0f0657a4(arg2, &chr->unk2d4->unk07a);
+	chr->unk2d4->unk098 = arg3;
+	chr->unk2d4->unk0d8 = 1;
 }
 
 void func0f192610(struct chrdata *chr, s32 arg1)
 {
-	chr->unk2d4->unk79 = arg1;
-	chr->unk2d4->unkd8 = 1;
+	chr->unk2d4->unk079 = arg1;
+	chr->unk2d4->unk0d8 = 1;
 }
 
 GLOBAL_ASM(
@@ -13719,7 +13859,7 @@ s32 func0f193530(struct chrdata *chr, f32 arg1)
 	s32 result = -1;
 
 	if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-		if (chr->myaction != MA_AIBOTFOLLOW && (random() % 100) < chr->unk2d4->unk00) {
+		if (chr->myaction != MA_AIBOTFOLLOW && (random() % 100) < chr->unk2d4->unk000) {
 			f32 bestvalue = 0;
 			s32 bestindex = -1;
 			s32 i;
@@ -14905,7 +15045,7 @@ s32 func0f194724(struct chrdata *self, s32 arg1, bool includeself)
 	for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
 		if (self->team == g_MpPlayerChrs[i]->team) {
 			if (includeself || self != g_MpPlayerChrs[i]) {
-				if (arg1 == g_MpPlayerChrs[i]->unk2d4->unk79) {
+				if (arg1 == g_MpPlayerChrs[i]->unk2d4->unk079) {
 					count++;
 				}
 			}
@@ -14925,8 +15065,8 @@ s32 scenarioCtcIsChrsTokenHeld(struct chrdata *chr)
 
 bool func0f19489c(struct chrdata *chr)
 {
-	if (chr->unk2d4->unk9c_01) {
-		if (chr->unk2d4->unk4f_00 == 0 || mpGetNumPlayerTeammates(chr) >= 2 || !scenarioCtcIsChrsTokenHeld(chr)) {
+	if (chr->unk2d4->unk09c_01) {
+		if (chr->unk2d4->unk04f_00 == 0 || mpGetNumPlayerTeammates(chr) >= 2 || !scenarioCtcIsChrsTokenHeld(chr)) {
 			return true;
 		}
 	}
@@ -14941,7 +15081,7 @@ s32 mpGetNumTeammatesInRoomDoingSomething(struct chrdata *bot)
 
 	for (i = 0; i < g_MpNumPlayers; i++) {
 		if (bot->team == g_MpPlayerChrs[i]->team && g_MpPlayerChrs[i]->prop->rooms[0] == g_ScenarioData.cbt.unk0e[0]) {
-			if (g_MpPlayerChrs[i]->unk2d4->unk79 == 9 || g_MpPlayerChrs[i]->unk2d4->unk79 == 10) {
+			if (g_MpPlayerChrs[i]->unk2d4->unk079 == 9 || g_MpPlayerChrs[i]->unk2d4->unk079 == 10) {
 				count++;
 			}
 		}
@@ -18018,7 +18158,7 @@ void func0f197544(struct chrdata *chr)
 			}
 		}
 
-		chr2d4->unkd8 = 1;
+		chr2d4->unk0d8 = 1;
 		pass = true;
 	}
 

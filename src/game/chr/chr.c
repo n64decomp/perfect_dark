@@ -27713,13 +27713,13 @@ void func0f036358(struct chrdata *chr, s32 arg1)
 		chr->aioffset = 0;
 
 		func0f0b09f4(arg1, mpPlayerGetIndex(chr));
-		func0f199964(chr, chr->unk2d4->unk20);
+		func0f199964(chr, chr->unk2d4->unk020);
 
-		chr->unk2d4->unk9c_00 = 0;
-		chr->unk2d4->unk9c_01 = 0;
-		chr->unk2d4->unk4c_04 = 0;
-		chr->unk2d4->unk4c_03 = 0;
-		chr->unk2d4->unk4c_05 = 0;
+		chr->unk2d4->unk09c_00 = 0;
+		chr->unk2d4->unk09c_01 = 0;
+		chr->unk2d4->unk04c_04 = 0;
+		chr->unk2d4->unk04c_03 = 0;
+		chr->unk2d4->unk04c_05 = 0;
 	}
 }
 
@@ -36560,7 +36560,7 @@ glabel func0f03e45c
 void func0f03e538(struct chrdata *chr, f32 arg1)
 {
 	if (chr->unk2d4) {
-		chr->unk2d4->unkb0 = arg1;
+		chr->unk2d4->unk0b0 = arg1;
 	} else {
 		func0001ae90(chr->unk020, arg1);
 	}
@@ -36569,7 +36569,7 @@ void func0f03e538(struct chrdata *chr, f32 arg1)
 f32 func0f03e578(struct chrdata *chr)
 {
 	if (chr->unk2d4) {
-		return chr->unk2d4->unka4;
+		return chr->unk2d4->unk0a4;
 	}
 
 	return func0001ae44(chr->unk020);
@@ -36578,7 +36578,7 @@ f32 func0f03e578(struct chrdata *chr)
 void func0f03e5b0(struct chrdata *chr, f32 arg1)
 {
 	if (chr->unk2d4) {
-		chr->unk2d4->unka4 = arg1;
+		chr->unk2d4->unk0a4 = arg1;
 	} else {
 		func0001ae90(chr->unk020, arg1);
 	}

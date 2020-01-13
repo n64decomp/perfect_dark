@@ -6849,7 +6849,7 @@ s32 menuhandlerMpChangeSimulantType(u32 operation, struct menu_item *item, s32 *
 		s32 i;
 		s32 count = 0;
 		s32 maxunlocked = func0f18cd68(
-				g_MpSimulants[g_MenuStack[g_MpPlayerNum].slotindex].base.unk47,
+				g_MpSimulants[g_MenuStack[g_MpPlayerNum].slotindex].base.simtype,
 				g_MpSimulants[g_MenuStack[g_MpPlayerNum].slotindex].unk48);
 
 		for (i = 0; i < maxunlocked; i++) {
@@ -9985,7 +9985,7 @@ void scenarioHtbCallback10(void)
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htb.token == NULL) {
 		for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
-			if (g_MpPlayerChrs[i]->prop && g_MpPlayerChrs[i]->unk2d4->unk9c_00) {
+			if (g_MpPlayerChrs[i]->prop && g_MpPlayerChrs[i]->unk2d4->unk09c_00) {
 				g_ScenarioData.htb.token = g_MpPlayerChrs[i]->prop;
 				break;
 			}
@@ -10011,16 +10011,16 @@ void scenarioHtbCallback10(void)
 void scenarioHtbCallback14(struct chrdata *chr)
 {
 	if (chr) {
-		if (chr->unk2d4->unk9c_00) {
-			chr->unk2d4->unka0 += g_Vars.lvupdate240;
+		if (chr->unk2d4->unk09c_00) {
+			chr->unk2d4->unk0a0 += g_Vars.lvupdate240;
 
-			if (chr->unk2d4->unka0 >= SECSTOFRAMES240(30)) {
+			if (chr->unk2d4->unk0a0 >= SECSTOFRAMES240(30)) {
 				func00010904(var80095200, 0x5b8, 0, -1, -1, -1, -1, -1);
 				var800ac500[mpPlayerGetIndex(chr)]->unk3e++;
-				chr->unk2d4->unka0 = 0;
+				chr->unk2d4->unk0a0 = 0;
 			}
 		} else {
-			chr->unk2d4->unka0 = 0;
+			chr->unk2d4->unk0a0 = 0;
 		}
 	} else {
 		if (func0f112844()) {
@@ -12447,7 +12447,7 @@ void scenarioHtmCallback10(void)
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htm.uplink == NULL) {
 		for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
-			if (g_MpPlayerChrs[i]->unk2d4->unk4c_05) {
+			if (g_MpPlayerChrs[i]->unk2d4->unk04c_05) {
 				g_ScenarioData.htm.uplink = g_MpPlayerChrs[i]->prop;
 				break;
 			}

@@ -122,7 +122,7 @@ s32 func0f18e9ec(s32 arg0, struct prop *token, struct coord *dist, s32 colour, s
 u32 func0f18f874(void);
 u32 func0f190060(void);
 u32 func0f190260(void);
-u32 func0f19028c(void);
+void mpChrReset(struct chrdata *chr, u8 full);
 u32 func0f1905f0(void);
 u32 func0f190708(void);
 u32 func0f190774(void);
