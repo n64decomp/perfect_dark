@@ -31,7 +31,7 @@
 	id,
 
 /**
- * Pauses the current script and yield execution back to the engine. At least
+ * Pauses the current script and yields execution back to the engine. At least
  * one frame will pass before the script is continued.
  *
  * To prevent infinite loops this must be called at least once per loop. This is
@@ -86,7 +86,7 @@
  * You would typically set this to the same list as the current one so the chr
  * continues doing what they were doing previously (eg. running to a target).
  * The list will be restarted from the beginning. You may want to use
- * if_just_injured near the top of the list so you detect then injury, make them
+ * if_just_injured near the top of the list so you detect the injury, make them
  * say something and wait for their injury animation to finish before they
  * continue their regular logic.
  */
@@ -189,6 +189,11 @@
 	mkshort(0x0012), \
 	label,
 
+/**
+ * Attempt to run and shoot. If it worked then go to the given label.
+ * The command may fail if the chr is blocked, or maybe if the chr can't see
+ * their target.
+ */
 #define try_run_and_shoot(label) \
 	mkshort(0x0013), \
 	label,
@@ -615,7 +620,7 @@
 	label,
 
 /**
- * Checks if the chr had shot nearly hit them.
+ * Checks if the chr had a shot nearly hit them.
  */
 #define if_near_miss(label) \
 	mkshort(0x004b), \
@@ -975,7 +980,7 @@
  * Checks if the given objective index is complete.
  *
  * This is not the same as the objective number. Objective indexes start from 0,
- * and some objective indexes do not apply to higher difficulties.
+ * and some objective indexes do not apply to easier difficulties.
  */
 #define if_objective_complete(objective, label) \
 	mkshort(0x0073), \
@@ -986,7 +991,7 @@
  * Checks if the given objective index is failed.
  *
  * This is not the same as the objective number. Objective indexes start from 0,
- * and some objective indexes do not apply to higher difficulties.
+ * and some objective indexes do not apply to easier difficulties.
  */
 #define if_objective_failed(objective, label) \
 	mkshort(0x0074), \
@@ -1588,7 +1593,7 @@
  *
  * padpreset can be referenced via PAD_PRESET.
  */
-#define chr_set_target_pad(pad) \
+#define chr_set_target_pad(chr, pad) \
 	mkshort(0x00b3), \
 	chr, \
 	mkshort(pad),
@@ -2102,7 +2107,7 @@
 /**
  * Checks if the player is invincible.
  *
- * Set set_invincible.
+ * See set_invincible.
  */
 #define if_player_is_invincible(chr, label) \
 	mkshort(0x00f8), \
@@ -2699,12 +2704,11 @@
 	object, \
 	0x00,
 
-// Related to hovercopter and Infiltration interceptors
-// Sets player struct's field_0x2e to 1/true.
+// Sets the heli's 0x90 field to true.
 #define cmd0143 \
 	mkshort(0x0143),
 
-// Sets heli field 0x90
+// Sets the heli's 0x90 field to false.
 #define cmd0144 \
 	mkshort(0x0144), \
 	label,
@@ -2896,8 +2900,8 @@
 
 // If bool is false, run some function on the chr and their gun ground
 // prop, then follow the label.
-// If bool is true, don't call the function, and only follow the label if field
-// 0x4 in the gun ground prop struct is less than 64.
+// If bool is true, don't call the function, and only follow the label if the
+// gun prop has OBJHIDDENFLAG_00000080.
 #define if_gun_landed(bool, label) \
 	mkshort(0x0170), \
 	bool, \
@@ -3724,7 +3728,12 @@
 	mkshort(distance / 10), \
 	label,
 
-// Not sure about this
+/**
+ * Checks if the game is being played in co-operative mode.
+ *
+ * This command does not check if the buddy is a human or bot. You can use
+ * if_num_human_players_lt for that.
+ */
 #define if_coop_mode(label) \
 	mkshort(0x01de), \
 	label,
