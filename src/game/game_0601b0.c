@@ -7110,7 +7110,7 @@ glabel func0f066290
 .L0f0662c0:
 /*  f0662c0:	54410006 */ 	bnel	$v0,$at,.L0f0662dc
 /*  f0662c4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0662c8:	0fc0a234 */ 	jal	func0f0288d0
+/*  f0662c8:	0fc0a234 */ 	jal	chrUpdateGeometry
 /*  f0662cc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0662d0:	10000009 */ 	beqz	$zero,.L0f0662f8
 /*  f0662d4:	00401825 */ 	or	$v1,$v0,$zero

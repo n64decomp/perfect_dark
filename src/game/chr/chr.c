@@ -12594,84 +12594,51 @@ struct prop *chrGetTargetProp(struct chrdata *chr)
 	return ret;
 }
 
-GLOBAL_ASM(
-glabel func0f0288d0
-/*  f0288d0:	8c830004 */ 	lw	$v1,0x4($a0)
-/*  f0288d4:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f0288d8:	80620007 */ 	lb	$v0,0x7($v1)
-/*  f0288dc:	1041003a */ 	beq	$v0,$at,.L0f0289c8
-/*  f0288e0:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f0288e4:	50410039 */ 	beql	$v0,$at,.L0f0289cc
-/*  f0288e8:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f0288ec:	8c6e0018 */ 	lw	$t6,0x18($v1)
-/*  f0288f0:	3c010001 */ 	lui	$at,0x1
-/*  f0288f4:	34210400 */ 	ori	$at,$at,0x400
-/*  f0288f8:	01c17824 */ 	and	$t7,$t6,$at
-/*  f0288fc:	55e00033 */ 	bnezl	$t7,.L0f0289cc
-/*  f028900:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f028904:	8c780014 */ 	lw	$t8,0x14($v1)
-/*  f028908:	24080003 */ 	addiu	$t0,$zero,0x3
-/*  f02890c:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f028910:	33190100 */ 	andi	$t9,$t8,0x100
-/*  f028914:	5720002d */ 	bnezl	$t9,.L0f0289cc
-/*  f028918:	acc00000 */ 	sw	$zero,0x0($a2)
-/*  f02891c:	10410004 */ 	beq	$v0,$at,.L0f028930
-/*  f028920:	a0680134 */ 	sb	$t0,0x134($v1)
-/*  f028924:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f028928:	14410004 */ 	bne	$v0,$at,.L0f02893c
-/*  f02892c:	240a0014 */ 	addiu	$t2,$zero,0x14
-.L0f028930:
-/*  f028930:	24090010 */ 	addiu	$t1,$zero,0x10
-/*  f028934:	10000002 */ 	beqz	$zero,.L0f028940
-/*  f028938:	a4690136 */ 	sh	$t1,0x136($v1)
-.L0f02893c:
-/*  f02893c:	a46a0136 */ 	sh	$t2,0x136($v1)
-.L0f028940:
-/*  f028940:	c46000b4 */ 	lwc1	$f0,0xb4($v1)
-/*  f028944:	c4640028 */ 	lwc1	$f4,0x28($v1)
-/*  f028948:	806b0007 */ 	lb	$t3,0x7($v1)
-/*  f02894c:	24010023 */ 	addiu	$at,$zero,0x23
-/*  f028950:	46040180 */ 	add.s	$f6,$f0,$f4
-/*  f028954:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f028958:	e460013c */ 	swc1	$f0,0x13c($v1)
-/*  f02895c:	15610007 */ 	bne	$t3,$at,.L0f02897c
-/*  f028960:	e4660138 */ 	swc1	$f6,0x138($v1)
-/*  f028964:	c4620050 */ 	lwc1	$f2,0x50($v1)
-/*  f028968:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f02896c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f028970:	45020003 */ 	bc1fl	.L0f028980
-/*  f028974:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f028978:	e462013c */ 	swc1	$f2,0x13c($v1)
-.L0f02897c:
-/*  f02897c:	c4880008 */ 	lwc1	$f8,0x8($a0)
-.L0f028980:
-/*  f028980:	c4700024 */ 	lwc1	$f16,0x24($v1)
-/*  f028984:	3c0c800a */ 	lui	$t4,0x800a
-/*  f028988:	e4680140 */ 	swc1	$f8,0x140($v1)
-/*  f02898c:	c48a0010 */ 	lwc1	$f10,0x10($a0)
-/*  f028990:	e4700148 */ 	swc1	$f16,0x148($v1)
-/*  f028994:	24640134 */ 	addiu	$a0,$v1,0x134
-/*  f028998:	e46a0144 */ 	swc1	$f10,0x144($v1)
-/*  f02899c:	8d8ca44c */ 	lw	$t4,-0x5bb4($t4)
-/*  f0289a0:	3c014170 */ 	lui	$at,0x4170
-/*  f0289a4:	248d0018 */ 	addiu	$t5,$a0,0x18
-/*  f0289a8:	51800005 */ 	beqzl	$t4,.L0f0289c0
-/*  f0289ac:	aca40000 */ 	sw	$a0,0x0($a1)
-/*  f0289b0:	44819000 */ 	mtc1	$at,$f18
-/*  f0289b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0289b8:	e4720148 */ 	swc1	$f18,0x148($v1)
-/*  f0289bc:	aca40000 */ 	sw	$a0,0x0($a1)
-.L0f0289c0:
-/*  f0289c0:	03e00008 */ 	jr	$ra
-/*  f0289c4:	accd0000 */ 	sw	$t5,0x0($a2)
-.L0f0289c8:
-/*  f0289c8:	acc00000 */ 	sw	$zero,0x0($a2)
-.L0f0289cc:
-/*  f0289cc:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f0289d0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0289d4:	03e00008 */ 	jr	$ra
-/*  f0289d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2)
+{
+	struct chrdata *chr = prop->chr;
+
+	if (chr->actiontype != ACT_DEAD &&
+			chr->actiontype != ACT_DRUGGEDKO &&
+			(chr->chrflags & (CHRCFLAG_00010000 | CHRCFLAG_HIDDEN)) == 0 &&
+			(chr->hidden & CHRHFLAG_00000100) == 0) {
+		chr->geo.type = PROPTYPE_CHR;
+
+		if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DRUGGEDDROP) {
+			chr->geo.unk136 = 16;
+		} else {
+			chr->geo.unk136 = 20;
+		}
+
+		chr->geo.ymin = chr->manground;
+		chr->geo.ymax = chr->manground + chr->chrheight;
+
+		if (chr->actiontype == ACT_SKJUMP) {
+			if (chr->manground > chr->act_skjump.y) {
+				chr->geo.ymin = chr->act_skjump.y;
+			}
+		}
+
+		chr->geo.x = prop->pos.x;
+		chr->geo.z = prop->pos.z;
+		chr->geo.width = chr->chrwidth;
+
+		if (g_Vars.unk00048c) {
+			chr->geo.width = 15;
+		}
+
+		*arg1 = &chr->geo;
+		*arg2 = *arg1 + 1;
+
+		return true;
+	}
+
+	*arg2 = NULL;
+	*arg1 = NULL;
+
+	return false;
+
+}
 
 GLOBAL_ASM(
 glabel func0f0289dc

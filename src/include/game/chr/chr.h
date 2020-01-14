@@ -93,7 +93,7 @@ u32 func0f028498(void);
 u32 func0f028590(void);
 struct prop *chrGetEquippedWeaponProp(struct chrdata *chr, s32 hand);
 struct prop *chrGetEquippedWeaponPropWithCheck(struct chrdata *chr, s32 hand);
-u32 func0f0288d0(void);
+bool chrUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2);
 u32 func0f0289dc(void);
 u32 func0f028a50(void);
 u32 func0f028d50(void);

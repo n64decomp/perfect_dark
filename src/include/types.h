@@ -414,6 +414,29 @@ struct act_aibotgetitem {
 	/*0x4c*/ s32 unk4c[1];
 };
 
+struct act_skjump {
+	/*0x2c*/ u32 unk00;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ u32 unk4c;
+	/*0x50*/ f32 y;
+};
+
+struct geo {
+	/*0x134*/ s8 type;
+	/*0x136*/ u16 unk136;
+	/*0x138*/ f32 ymax;
+	/*0x13c*/ f32 ymin;
+	/*0x140*/ f32 x;
+	/*0x144*/ f32 z;
+	/*0x148*/ f32 width;
+};
+
 struct chrdata {
 	/*0x000*/ s16 chrnum;
 	/*0x002*/ s8 accuracyrating;
@@ -452,6 +475,7 @@ struct chrdata {
 		struct act_throwgrenade act_throwgrenade;
 		struct act_attackamount act_attackamount;
 		struct act_aibotgetitem act_aibotgetitem;
+		struct act_skjump act_skjump;
 	};
 
 	/*0x054*/ u32 unk054;
@@ -481,7 +505,7 @@ struct chrdata {
 	/*0x0a8*/ u32 unk0a8;
 	/*0x0ac*/ u32 unk0ac;
 	/*0x0b0*/ u32 sumground;
-	/*0x0b4*/ u32 manground;
+	/*0x0b4*/ f32 manground;
 	/*0x0b8*/ f32 ground;
 	/*0x0bc*/ struct coord fallspeed;
 	/*0x0c8*/ struct coord prevpos;
@@ -518,12 +542,7 @@ struct chrdata {
 	/*0x12e*/ s16 chrseeshot;
 	/*0x130*/ s16 chrseedie;
 	/*0x132*/ s16 chrdup;
-	/*0x134*/ u32 unk134;
-	/*0x138*/ u32 unk138;
-	/*0x13c*/ u32 unk13c;
-	/*0x140*/ u32 unk140;
-	/*0x144*/ u32 unk144;
-	/*0x148*/ u32 unk148;
+	struct geo geo;
 	/*0x14c*/ f32 shotbondsum;
 	/*0x150*/ u32 aimuplshoulder;
 	/*0x154*/ u32 aimuprshoulder;
