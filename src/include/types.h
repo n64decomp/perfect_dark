@@ -4578,4 +4578,10 @@ struct scenariodata {
 	};
 };
 
+struct portal {
+	u32 unk00;
+	u16 unk04;
+	u8 flags;
+};
+
 #endif

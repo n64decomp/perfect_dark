@@ -13845,33 +13845,16 @@ glabel ai01cf
 /**
  * @cmd 01d0
  */
-GLOBAL_ASM(
-glabel ai01d0
-/*  f05f4bc:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f05f4c0:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f05f4c4:	8cce0434 */ 	lw	$t6,0x434($a2)
-/*  f05f4c8:	8ccf0438 */ 	lw	$t7,0x438($a2)
-/*  f05f4cc:	3c0b800a */ 	lui	$t3,0x800a
-/*  f05f4d0:	8d6b4cc8 */ 	lw	$t3,0x4cc8($t3)
-/*  f05f4d4:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05f4d8:	90780002 */ 	lbu	$t8,0x2($v1)
-/*  f05f4dc:	90680003 */ 	lbu	$t0,0x3($v1)
-/*  f05f4e0:	906e0004 */ 	lbu	$t6,0x4($v1)
-/*  f05f4e4:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f05f4e8:	03282025 */ 	or	$a0,$t9,$t0
-/*  f05f4ec:	00044c00 */ 	sll	$t1,$a0,0x10
-/*  f05f4f0:	00095403 */ 	sra	$t2,$t1,0x10
-/*  f05f4f4:	000a60c0 */ 	sll	$t4,$t2,0x3
-/*  f05f4f8:	016c2821 */ 	addu	$a1,$t3,$t4
-/*  f05f4fc:	90ad0006 */ 	lbu	$t5,0x6($a1)
-/*  f05f500:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05f504:	01ae7825 */ 	or	$t7,$t5,$t6
-/*  f05f508:	a0af0006 */ 	sb	$t7,0x6($a1)
-/*  f05f50c:	8cd80438 */ 	lw	$t8,0x438($a2)
-/*  f05f510:	27190005 */ 	addiu	$t9,$t8,0x5
-/*  f05f514:	03e00008 */ 	jr	$ra
-/*  f05f518:	acd90438 */ 	sw	$t9,0x438($a2)
-);
+bool aiSetPortalFlag(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s16 portalnum = cmd[3] | (cmd[2] << 8);
+
+	g_Portals[portalnum].flags |= cmd[4];
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 01d1

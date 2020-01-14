@@ -427,7 +427,7 @@
 /*0x01cd*/ bool ai01cd(void);
 /*0x01ce*/ bool ai01ce(void);
 /*0x01cf*/ bool ai01cf(void);
-/*0x01d0*/ bool ai01d0(void);
+/*0x01d0*/ bool aiSetPortalFlag(void);
 /*0x01d1*/ bool aiSetObjPartVisible(void);
 /*0x01d2*/ bool aiChrEmitSparks(void);
 /*0x01d3*/ bool aiSetDrCarollImages(void);
