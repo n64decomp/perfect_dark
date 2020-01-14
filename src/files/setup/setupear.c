@@ -2061,7 +2061,7 @@ u8 func0411_yellowbot[] = {
 		set_vehicle_speed(512, 120)
 
 		beginloop(0x04)
-			if_hoverbot_path_finished(0x01, 0x0a, /*goto*/ 0x06)
+			if_hoverbot_next_step(OPERATOR_GREATER_THAN, 10, /*goto*/ 0x06)
 		endloop(0x04)
 
 		label(0x06)
@@ -2069,7 +2069,7 @@ u8 func0411_yellowbot[] = {
 		set_vehicle_speed(512, 120)
 
 		beginloop(0x08)
-			if_hoverbot_path_finished(0x01, 0x08, /*goto*/ 0x06)
+			if_hoverbot_next_step(OPERATOR_GREATER_THAN, 8, /*goto*/ 0x06)
 		endloop(0x08)
 
 		label(0x06)
@@ -2101,7 +2101,7 @@ u8 func0412_purplebot_programs[] = {
 
 		beginloop(0x09)
 			if_stage_flag_eq(STAGEFLAG_BOT_ACTIVE_NOPROGRAM, FALSE, /*goto*/ 0x0e)
-			if_hoverbot_path_finished(0x01, 0x01, /*goto*/ 0x06)
+			if_hoverbot_next_step(OPERATOR_GREATER_THAN, 1, /*goto*/ 0x06)
 		endloop(0x09)
 
 		label(0x06)
@@ -2115,7 +2115,7 @@ u8 func0412_purplebot_programs[] = {
 		beginloop(0x0b)
 			if_stage_flag_eq(STAGEFLAG_BOT_ACTIVE_NOPROGRAM, FALSE, /*goto*/ 0x0e)
 			if_stage_flag_eq(STAGEFLAG_BOT_ACTIVE_CLEANING, TRUE, /*goto*/ 0x10)
-			if_hoverbot_path_finished(0x01, 0x01, /*goto*/ 0x06)
+			if_hoverbot_next_step(OPERATOR_GREATER_THAN, 1, /*goto*/ 0x06)
 		endloop(0x0b)
 
 		label(0x06)
@@ -2127,7 +2127,7 @@ u8 func0412_purplebot_programs[] = {
 	set_vehicle_speed(768, 120)
 
 	beginloop(0x0d)
-		if_hoverbot_path_finished(0x01, 0x18, /*goto*/ 0x06)
+		if_hoverbot_next_step(OPERATOR_GREATER_THAN, 24, /*goto*/ 0x06)
 	endloop(0x0d)
 
 	label(0x14)
@@ -2146,7 +2146,7 @@ u8 func0412_purplebot_programs[] = {
 		if_stage_flag_eq(STAGEFLAG_BOT_ACTIVE_NOPROGRAM, TRUE, /*goto*/ 0x11)
 		if_stage_flag_eq(STAGEFLAG_BOT_ACTIVE_MAINTENANCE, TRUE, /*goto*/ 0x12)
 		if_stage_flag_eq(STAGEFLAG_BOT_ACTIVE_CLEANING, TRUE, /*goto*/ 0x10)
-		if_hoverbot_path_finished(0x01, 0x01, /*goto*/ 0x06)
+		if_hoverbot_next_step(OPERATOR_GREATER_THAN, 1, /*goto*/ 0x06)
 	endloop(0x0f)
 
 	label(0x06)

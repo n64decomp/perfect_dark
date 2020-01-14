@@ -10892,12 +10892,12 @@ bool ai013e(void)
 /**
  * @cmd 013f
  */
-bool ai013f(void)
+bool aiIfHeliWeaponsArmed(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (g_Vars.hovdata) {
-		if (g_Vars.hovdata->unk90 != 0) {
+		if (g_Vars.hovdata->weaponsarmed) {
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 		} else {
 			g_Vars.aioffset += 3;
@@ -10912,12 +10912,12 @@ bool ai013f(void)
 /**
  * @cmd 0140
  */
-bool ai0140(void)
+bool aiIfHoverbotNextStep(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (g_Vars.hovdata) {
-		if ((cmd[3] < g_Vars.hovdata->unk8c && cmd[2] == 1) || (g_Vars.hovdata->unk8c < cmd[3] && cmd[2] == 0)) {
+		if ((g_Vars.hovdata->nextstep > cmd[3] && cmd[2] == 1) || (g_Vars.hovdata->nextstep < cmd[3] && cmd[2] == 0)) {
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 		} else {
 			g_Vars.aioffset += 5;
@@ -11197,10 +11197,10 @@ bool aiSetPadPresetToInvestigationTerminal(void)
 /**
  * @cmd 0143
  */
-bool ai0143(void)
+bool aiHeliArmWeapons(void)
 {
 	if (g_Vars.hovdata) {
-		heliSetField90(&g_Vars.hovdata->base, true);
+		heliSetArmed(&g_Vars.hovdata->base, true);
 	}
 
 	g_Vars.aioffset += 2;
@@ -11211,10 +11211,10 @@ bool ai0143(void)
 /**
  * @cmd 0144
  */
-bool ai0144(void)
+bool aiHeliUnarmWeapons(void)
 {
 	if (g_Vars.hovdata) {
-		heliSetField90(&g_Vars.hovdata->base, false);
+		heliSetArmed(&g_Vars.hovdata->base, false);
 	}
 
 	g_Vars.aioffset += 2;

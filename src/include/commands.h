@@ -2661,17 +2661,23 @@
 #define run_from_grenade \
 	mkshort(0x013e),
 
-#define cmd013f(label) \
+/**
+ * Checks if the current heli's weapons are armed.
+ */
+#define if_heli_weapons_armed(label) \
 	mkshort(0x013f), \
 	label,
 
 /**
- * Checks if a hoverbot has finished its path.
+ * Checks if a hoverbot's next step is less than or greater than the given
+ * value.
+ *
+ * Operator is expected to be OPERATOR_LESS_THAN or OPERATOR_GREATER_THAN.
  */
-#define if_hoverbot_path_finished(u1, u2, label) \
+#define if_hoverbot_next_step(operator, step, label) \
 	mkshort(0x0140), \
-	u1, \
-	u2, \
+	operator, \
+	step, \
 	label,
 
 /**
@@ -2704,12 +2710,20 @@
 	object, \
 	0x00,
 
-// Sets the heli's 0x90 field to true.
-#define cmd0143 \
+/**
+ * Sets the current heli's weapons to armed.
+ *
+ * The state of the weapons can be checked with if_heli_weapons_armed.
+ */
+#define heli_arm_weapons \
 	mkshort(0x0143),
 
-// Sets the heli's 0x90 field to false.
-#define cmd0144 \
+/**
+ * Sets the current heli's weapons to unarmed.
+ *
+ * The state of the weapons can be checked with if_heli_weapons_armed.
+ */
+#define heli_unarm_weapons \
 	mkshort(0x0144), \
 	label,
 

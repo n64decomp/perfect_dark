@@ -3204,7 +3204,7 @@ u8 func042c_foyer_clone[] = {
 	set_vehicle_speed(512, 120) \
  \
 	beginloop(0x04) \
-		if_hoverbot_path_finished(0x01, 0x03, /*goto*/ 0x02) \
+		if_hoverbot_next_step(OPERATOR_GREATER_THAN, 3, /*goto*/ 0x02) \
 	endloop(0x04) \
  \
 	/* Path 2 */ \
@@ -3214,7 +3214,7 @@ u8 func042c_foyer_clone[] = {
 	set_vehicle_speed(512, 120) \
  \
 	beginloop(0x05) \
-		if_hoverbot_path_finished(0x01, 0x03, /*goto*/ 0x02) \
+		if_hoverbot_next_step(OPERATOR_GREATER_THAN, 3, /*goto*/ 0x02) \
 	endloop(0x05) \
  \
 	/* Path 3 */ \
@@ -3224,7 +3224,7 @@ u8 func042c_foyer_clone[] = {
 	set_vehicle_speed(512, 120) \
  \
 	beginloop(0x06) \
-		if_hoverbot_path_finished(0x01, 0x03, /*goto*/ 0x02) \
+		if_hoverbot_next_step(OPERATOR_GREATER_THAN, 3, /*goto*/ 0x02) \
 	endloop(0x06) \
  \
 	label(0x02) \

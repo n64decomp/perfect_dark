@@ -317,12 +317,12 @@
 /*0x013c*/ bool ai013c(void);
 /*0x013d*/ bool ai013d(void);
 /*0x013e*/ bool ai013e(void);
-/*0x013f*/ bool ai013f(void);
-/*0x0140*/ bool ai0140(void);
+/*0x013f*/ bool aiIfHeliWeaponsArmed(void);
+/*0x0140*/ bool aiIfHoverbotNextStep(void);
 /*0x0141*/ bool aiShuffleInvestigationTerminals(void);
 /*0x0142*/ bool aiSetPadPresetToInvestigationTerminal(void);
-/*0x0143*/ bool ai0143(void);
-/*0x0144*/ bool ai0144(void);
+/*0x0143*/ bool aiHeliArmWeapons(void);
+/*0x0144*/ bool aiHeliUnarmWeapons(void);
 /*0x0145*/ bool aiRebuildTeams(void);
 /*0x0146*/ bool aiRebuildSquadrons(void);
 /*0x0147*/ bool ai0147(void);

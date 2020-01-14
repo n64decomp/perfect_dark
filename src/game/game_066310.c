@@ -24796,12 +24796,12 @@ glabel heliTryStop
 /*  f07b0b8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool heliSetField90(struct defaultobj *obj, bool value)
+bool heliSetArmed(struct defaultobj *obj, bool armed)
 {
 	struct heliobj *heli = heliFromObj(obj);
 
 	if (heli) {
-		heli->unk90 = value;
+		heli->weaponsarmed = armed;
 		return true;
 	}
 
