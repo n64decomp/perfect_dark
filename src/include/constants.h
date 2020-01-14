@@ -773,8 +773,8 @@
 #define RACE_HUMAN    0
 #define RACE_SKEDAR   1
 #define RACE_DRCAROLL 2
-#define RACE_ROBOT    3
-#define RACE_4        4
+#define RACE_EYESPY   3
+#define RACE_ROBOT    4
 
 #define SAVEFILEFLAG_USED_TRANSFERPAK     0x23
 #define SAVEFILEFLAG_CI_TOUR_DONE         0x24

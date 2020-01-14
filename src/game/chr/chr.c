@@ -32392,12 +32392,12 @@ bool func0f03a578(struct chrdata *chr, s32 thingtype, s32 thingid)
 {
 	s32 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
+	if (race == RACE_DRCAROLL || race == RACE_EYESPY) {
 		return false;
 	}
 
 	if (func0f039a18(chr)) {
-		if (race == RACE_4) {
+		if (race == RACE_ROBOT) {
 			func0f042808(chr);
 			return true;
 		}
@@ -32446,7 +32446,7 @@ bool func0f03a76c(struct chrdata *chr, u32 thingtype, s32 thingid)
 {
 	s32 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
+	if (race == RACE_DRCAROLL || race == RACE_EYESPY) {
 		return false;
 	}
 
@@ -32759,7 +32759,7 @@ bool chrTryStop(struct chrdata *chr)
 {
 	s32 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race == RACE_ROBOT) {
+	if (race == RACE_EYESPY) {
 		func0f02e9a0(chr, 0);
 		return true;
 	}
@@ -37893,7 +37893,7 @@ void chrStopFiring(struct chrdata *chr)
 {
 	u8 race = chr ? chr->race : RACE_HUMAN;
 
-	if (race != RACE_DRCAROLL && race != RACE_ROBOT && chr->unk2d4 == NULL) {
+	if (race != RACE_DRCAROLL && race != RACE_EYESPY && chr->unk2d4 == NULL) {
 		chrSetFiring(chr, 0, false);
 		chrSetFiring(chr, 1, false);
 		chrResetAimEndProperties(chr);
