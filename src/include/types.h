@@ -818,6 +818,26 @@ struct heliobj {
 	/*0x90*/ s16 weaponsarmed;
 	/*0x92*/ u16 ontarget;
 	/*0x94*/ s16 target;
+	/*0x96*/ u8 attackmode;
+	/*0x97*/ u8 cw;
+	/*0x98*/ u32 vx;
+	/*0x9c*/ u32 vy;
+	/*0xa0*/ u32 vz;
+	/*0xa4*/ u32 power;
+	/*0xa8*/ u32 otx;
+	/*0xac*/ u32 oty;
+	/*0xb0*/ u32 otz;
+	/*0xb4*/ u32 bob;
+	/*0xb8*/ u32 bobstrength;
+	/*0xbc*/ u32 targetvisible;
+	/*0xc0*/ u32 timer60;
+	/*0xc4*/ u32 patroltimer60;
+	/*0xc8*/ u32 gunturnyspeed60;
+	/*0xcc*/ u32 gunturnxspeed60;
+	/*0xd0*/ u32 gunroty;
+	/*0xd4*/ u32 gunrotx;
+	/*0xd8*/ u32 barrelrotspeed;
+	/*0xdc*/ u32 barrelrot;
 };
 
 struct tag {

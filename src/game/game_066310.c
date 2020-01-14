@@ -24808,21 +24808,14 @@ bool heliSetArmed(struct defaultobj *obj, bool armed)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel heliRestartTimer
-/*  f07b0f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f07b0f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07b0fc:	0fc1eb7d */ 	jal	heliFromObj
-/*  f07b100:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07b104:	50400003 */ 	beqzl	$v0,.L0f07b114
-/*  f07b108:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f07b10c:	ac4000c0 */ 	sw	$zero,0xc0($v0)
-/*  f07b110:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f07b114:
-/*  f07b114:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f07b118:	03e00008 */ 	jr	$ra
-/*  f07b11c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void heliRestartTimer(struct defaultobj *obj)
+{
+	struct heliobj *heli = heliFromObj(obj);
+
+	if (heli) {
+		heli->timer60 = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel heliGetTimer
