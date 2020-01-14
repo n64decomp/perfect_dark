@@ -24719,37 +24719,18 @@ glabel func0f07af34
 /*  f07afcc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel heliSetTarget
-/*  f07afd0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f07afd4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07afd8:	0fc1eb7d */ 	jal	heliFromObj
-/*  f07afdc:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f07afe0:	10400011 */ 	beqz	$v0,.L0f07b028
-/*  f07afe4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f07afe8:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f07afec:	0fc126d1 */ 	jal	chrFindById
-/*  f07aff0:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f07aff4:	1040000c */ 	beqz	$v0,.L0f07b028
-/*  f07aff8:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f07affc:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f07b000:	3c0e800a */ 	lui	$t6,0x800a
-/*  f07b004:	50600009 */ 	beqzl	$v1,.L0f07b02c
-/*  f07b008:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f07b00c:	8dcea2f8 */ 	lw	$t6,-0x5d08($t6)
-/*  f07b010:	24010048 */ 	addiu	$at,$zero,0x48
-/*  f07b014:	006e7823 */ 	subu	$t7,$v1,$t6
-/*  f07b018:	01e1001a */ 	div	$zero,$t7,$at
-/*  f07b01c:	0000c012 */ 	mflo	$t8
-/*  f07b020:	a4d80094 */ 	sh	$t8,0x94($a2)
-/*  f07b024:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f07b028:
-/*  f07b028:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f07b02c:
-/*  f07b02c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f07b030:	03e00008 */ 	jr	$ra
-/*  f07b034:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void heliSetTarget(struct defaultobj *obj, u32 chrnum)
+{
+	struct heliobj *heli = heliFromObj(obj);
+
+	if (heli) {
+		struct chrdata *chr = chrFindById(NULL, chrnum);
+
+		if (chr && chr->prop) {
+			heli->target = chr->prop - g_Vars.props;
+		}
+	}
+}
 
 bool heliAttack(struct defaultobj *obj)
 {

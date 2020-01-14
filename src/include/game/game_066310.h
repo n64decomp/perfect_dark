@@ -164,7 +164,7 @@ u32 func0f07accc(void);
 struct heliobj *heliFromObj(struct defaultobj *obj);
 u32 func0f07ae18(struct heliobj *heli, u32 arg1);
 u32 func0f07af34(struct heliobj *heli);
-void heliSetTarget(struct heliobj *heli, s32 arg1);
+void heliSetTarget(struct defaultobj *obj, u32 chrnum);
 bool heliAttack(struct defaultobj *obj);
 bool heliStop(struct defaultobj *obj);
 bool heliSetArmed(struct defaultobj *obj, bool armed);
