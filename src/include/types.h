@@ -823,7 +823,7 @@ struct heliobj {
 	/*0x98*/ u32 vx;
 	/*0x9c*/ u32 vy;
 	/*0xa0*/ u32 vz;
-	/*0xa4*/ u32 power;
+	/*0xa4*/ f32 power;
 	/*0xa8*/ u32 otx;
 	/*0xac*/ u32 oty;
 	/*0xb0*/ u32 otz;
