@@ -408,7 +408,7 @@
 /*0x01ba*/ bool ai01ba(void);
 /*0x01bb*/ bool aiNoOp01bb(void);
 /*0x01bc*/ bool ai01bc(void);
-/*0x01bd*/ bool ai01bd(void);
+/*0x01bd*/ bool aiIfTrainingPcHolographed(void);
 /*0x01be*/ bool aiIfChrWeaponEquipped(void);
 /*0x01bf*/ bool aiChrBeginOrEndTeleport(void);
 /*0x01c0*/ bool aiIfChrTeleportFullWhite(void);

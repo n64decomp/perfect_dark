@@ -6048,12 +6048,10 @@ glabel func0f1a17e4
 /*  f1a1814:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a1818
-/*  f1a1818:	3c02800b */ 	lui	$v0,%hi(var800ad1a0)
-/*  f1a181c:	03e00008 */ 	jr	$ra
-/*  f1a1820:	2442d1a0 */ 	addiu	$v0,$v0,%lo(var800ad1a0)
-);
+struct trainingdata *ciGetTrainingData(void)
+{
+	return &g_TrainingData;
+}
 
 GLOBAL_ASM(
 glabel func0f1a1824
@@ -6122,8 +6120,8 @@ glabel func0f1a1824
 
 GLOBAL_ASM(
 glabel func0f1a190c
-/*  f1a190c:	3c02800b */ 	lui	$v0,%hi(var800ad1a0)
-/*  f1a1910:	2442d1a0 */ 	addiu	$v0,$v0,%lo(var800ad1a0)
+/*  f1a190c:	3c02800b */ 	lui	$v0,%hi(g_TrainingData)
+/*  f1a1910:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_TrainingData)
 /*  f1a1914:	8c430000 */ 	lw	$v1,0x0($v0)
 /*  f1a1918:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a191c:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -6134,17 +6132,17 @@ glabel func0f1a190c
 /*  f1a1930:	2484959c */ 	addiu	$a0,$a0,%lo(menudialog_trainingstats_completed)
 /*  f1a1934:	0fc3e178 */ 	jal	func0f0f85e0
 /*  f1a1938:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f1a193c:	3c02800b */ 	lui	$v0,%hi(var800ad1a0)
+/*  f1a193c:	3c02800b */ 	lui	$v0,%hi(g_TrainingData)
 /*  f1a1940:	10000008 */ 	beqz	$zero,.L0f1a1964
-/*  f1a1944:	2442d1a0 */ 	addiu	$v0,$v0,%lo(var800ad1a0)
+/*  f1a1944:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_TrainingData)
 .L0f1a1948:
 /*  f1a1948:	07210006 */ 	bgez	$t9,.L0f1a1964
 /*  f1a194c:	3c048009 */ 	lui	$a0,%hi(menudialog_trainingstats_failed)
 /*  f1a1950:	2484950c */ 	addiu	$a0,$a0,%lo(menudialog_trainingstats_failed)
 /*  f1a1954:	0fc3e178 */ 	jal	func0f0f85e0
 /*  f1a1958:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f1a195c:	3c02800b */ 	lui	$v0,%hi(var800ad1a0)
-/*  f1a1960:	2442d1a0 */ 	addiu	$v0,$v0,%lo(var800ad1a0)
+/*  f1a195c:	3c02800b */ 	lui	$v0,%hi(g_TrainingData)
+/*  f1a1960:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_TrainingData)
 .L0f1a1964:
 /*  f1a1964:	90480000 */ 	lbu	$t0,0x0($v0)
 /*  f1a1968:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -6168,8 +6166,8 @@ glabel func0f1a1998
 /*  f1a19a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a19a4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1a19a8:	11c00041 */ 	beqz	$t6,.L0f1a1ab0
-/*  f1a19ac:	3c03800b */ 	lui	$v1,%hi(var800ad1a0)
-/*  f1a19b0:	2463d1a0 */ 	addiu	$v1,$v1,%lo(var800ad1a0)
+/*  f1a19ac:	3c03800b */ 	lui	$v1,%hi(g_TrainingData)
+/*  f1a19b0:	2463d1a0 */ 	addiu	$v1,$v1,%lo(g_TrainingData)
 /*  f1a19b4:	8c620000 */ 	lw	$v0,0x0($v1)
 /*  f1a19b8:	3c04800a */ 	lui	$a0,%hi(g_Vars)
 /*  f1a19bc:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
@@ -6194,8 +6192,8 @@ glabel func0f1a1998
 /*  f1a1a04:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a1a08:	0fc686fb */ 	jal	func0f1a1bec
 /*  f1a1a0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1a10:	3c03800b */ 	lui	$v1,%hi(var800ad1a0)
-/*  f1a1a14:	2463d1a0 */ 	addiu	$v1,$v1,%lo(var800ad1a0)
+/*  f1a1a10:	3c03800b */ 	lui	$v1,%hi(g_TrainingData)
+/*  f1a1a14:	2463d1a0 */ 	addiu	$v1,$v1,%lo(g_TrainingData)
 /*  f1a1a18:	906c0000 */ 	lbu	$t4,0x0($v1)
 /*  f1a1a1c:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f1a1a20:	a06e0001 */ 	sb	$t6,0x1($v1)
@@ -6211,8 +6209,8 @@ glabel func0f1a1998
 /*  f1a1a44:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1a1a48:	0fc686fb */ 	jal	func0f1a1bec
 /*  f1a1a4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1a50:	3c03800b */ 	lui	$v1,%hi(var800ad1a0)
-/*  f1a1a54:	2463d1a0 */ 	addiu	$v1,$v1,%lo(var800ad1a0)
+/*  f1a1a50:	3c03800b */ 	lui	$v1,%hi(g_TrainingData)
+/*  f1a1a54:	2463d1a0 */ 	addiu	$v1,$v1,%lo(g_TrainingData)
 /*  f1a1a58:	90690000 */ 	lbu	$t1,0x0($v1)
 /*  f1a1a5c:	240b0001 */ 	addiu	$t3,$zero,0x1
 /*  f1a1a60:	a06b0001 */ 	sb	$t3,0x1($v1)
@@ -6253,8 +6251,8 @@ glabel func0f1a1ac0
 /*  f1a1acc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a1ad0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1a1ad4:	15c0001b */ 	bnez	$t6,.L0f1a1b44
-/*  f1a1ad8:	3c02800b */ 	lui	$v0,%hi(var800ad1a0)
-/*  f1a1adc:	2442d1a0 */ 	addiu	$v0,$v0,%lo(var800ad1a0)
+/*  f1a1ad8:	3c02800b */ 	lui	$v0,%hi(g_TrainingData)
+/*  f1a1adc:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_TrainingData)
 /*  f1a1ae0:	90580000 */ 	lbu	$t8,0x0($v0)
 /*  f1a1ae4:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f1a1ae8:	a06f0000 */ 	sb	$t7,0x0($v1)
@@ -6289,8 +6287,8 @@ glabel func0f1a1ac0
 
 GLOBAL_ASM(
 glabel func0f1a1b54
-/*  f1a1b54:	3c02800b */ 	lui	$v0,%hi(var800ad1a0)
-/*  f1a1b58:	2442d1a0 */ 	addiu	$v0,$v0,%lo(var800ad1a0)
+/*  f1a1b54:	3c02800b */ 	lui	$v0,%hi(g_TrainingData)
+/*  f1a1b58:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_TrainingData)
 /*  f1a1b5c:	904f0000 */ 	lbu	$t7,0x0($v0)
 /*  f1a1b60:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a1b64:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -6331,8 +6329,8 @@ glabel func0f1a1b54
 
 GLOBAL_ASM(
 glabel func0f1a1bec
-/*  f1a1bec:	3c02800b */ 	lui	$v0,%hi(var800ad1a0)
-/*  f1a1bf0:	2442d1a0 */ 	addiu	$v0,$v0,%lo(var800ad1a0)
+/*  f1a1bec:	3c02800b */ 	lui	$v0,%hi(g_TrainingData)
+/*  f1a1bf0:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_TrainingData)
 /*  f1a1bf4:	904e0000 */ 	lbu	$t6,0x0($v0)
 /*  f1a1bf8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a1bfc:	afbf0014 */ 	sw	$ra,0x14($sp)

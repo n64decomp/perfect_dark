@@ -14580,7 +14580,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01ba*/ ai01ba,
 	/*0x01bb*/ aiNoOp01bb,
 	/*0x01bc*/ ai01bc,
-	/*0x01bd*/ ai01bd,
+	/*0x01bd*/ aiIfTrainingPcHolographed,
 	/*0x01be*/ aiIfChrWeaponEquipped,
 	/*0x01bf*/ aiChrBeginOrEndTeleport,
 	/*0x01c0*/ aiIfChrTeleportFullWhite,

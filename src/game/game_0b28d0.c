@@ -9739,7 +9739,7 @@ glabel func0f0bad6c
 .L0f0bae04:
 /*  f0bae04:	5080003e */ 	beqzl	$a0,.L0f0baf00
 /*  f0bae08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0bae0c:	0fc68606 */ 	jal	func0f1a1818
+/*  f0bae0c:	0fc68606 */ 	jal	ciGetTrainingData
 /*  f0bae10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bae14:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0bae18:	0fc5b350 */ 	jal	func0f16cd40

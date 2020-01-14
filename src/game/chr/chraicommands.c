@@ -13438,57 +13438,19 @@ glabel ai01bc
 /**
  * @cmd 01bd
  */
-GLOBAL_ASM(
-glabel ai01bd
-/*  f05eb3c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05eb40:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05eb44:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05eb48:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05eb4c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f05eb50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05eb54:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f05eb58:	0fc68606 */ 	jal	func0f1a1818
-/*  f05eb5c:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f05eb60:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f05eb64:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05eb68:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05eb6c:	00194900 */ 	sll	$t1,$t9,0x4
-/*  f05eb70:	05210009 */ 	bgez	$t1,.L0f05eb98
-/*  f05eb74:	8faa001c */ 	lw	$t2,0x1c($sp)
-/*  f05eb78:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05eb7c:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05eb80:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05eb84:	91460002 */ 	lbu	$a2,0x2($t2)
-/*  f05eb88:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05eb8c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05eb90:	10000004 */ 	beqz	$zero,.L0f05eba4
-/*  f05eb94:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05eb98:
-/*  f05eb98:	8c6b0438 */ 	lw	$t3,0x438($v1)
-/*  f05eb9c:	256c0003 */ 	addiu	$t4,$t3,0x3
-/*  f05eba0:	ac6c0438 */ 	sw	$t4,0x438($v1)
-.L0f05eba4:
-/*  f05eba4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05eba8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f05ebac:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05ebb0:	03e00008 */ 	jr	$ra
-/*  f05ebb4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfTrainingPcHolographed(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct trainingdata *data = ciGetTrainingData();
 
-// Mismatch due to different temporary registers
-//bool ai01bd(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	s32 *value = func0f1a1818();
-//
-//	if (*value * 16 < 0) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
-//	} else {
-//		g_Vars.aioffset += 3;
-//	}
-//
-//	return false;
-//}
+	if (data->holographedpc) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 01be

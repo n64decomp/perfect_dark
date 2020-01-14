@@ -853,7 +853,7 @@ extern u8 var800acca0[40];
 extern u8 g_MpChallengesCompleted[];
 extern u32 var800acd20;
 extern u32 var800ad158;
-extern u32 var800ad1a0;
+extern struct trainingdata g_TrainingData;
 extern u32 var800ad1b0;
 extern u32 var800ad1c0;
 
