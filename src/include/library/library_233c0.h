@@ -110,7 +110,7 @@ u32 func0002da50(void);
 u32 func0002dac8(void);
 u32 func0002db98(void);
 u32 func0002dc18(void);
-u32 func0002dc3c(void);
+bool hasLineOfSight(struct coord *coord, s16 *room, struct coord *coord2, s16 *room2, s32 arg4, s32 arg5);
 u32 func0002dcd0(void);
 u32 func0002dcfc(void);
 u32 func0002dd90(void);

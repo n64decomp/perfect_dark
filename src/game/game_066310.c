@@ -41,6 +41,7 @@
 #include "game/game_19c990.h"
 #include "game/game_1a3340.h"
 #include "library/library_12dc0.h"
+#include "library/library_233c0.h"
 
 const char var7f1aa1c0[] = "propobj.c";
 
@@ -16580,7 +16581,7 @@ glabel func0f073478
 /*  f0739e8:	afae0014 */ 	sw	$t6,0x14($sp)
 /*  f0739ec:	afad0010 */ 	sw	$t5,0x10($sp)
 /*  f0739f0:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f0739f4:	0c00b70f */ 	jal	func0002dc3c
+/*  f0739f4:	0c00b70f */ 	jal	hasLineOfSight
 /*  f0739f8:	24470028 */ 	addiu	$a3,$v0,0x28
 /*  f0739fc:	1040000b */ 	beqz	$v0,.L0f073a2c
 /*  f073a00:	00000000 */ 	sll	$zero,$zero,0x0
@@ -21818,7 +21819,7 @@ glabel func0f0782ac
 /*  f078600:	25640008 */ 	addiu	$a0,$t3,0x8
 /*  f078604:	25650028 */ 	addiu	$a1,$t3,0x28
 /*  f078608:	25860008 */ 	addiu	$a2,$t4,0x8
-/*  f07860c:	0c00b70f */ 	jal	func0002dc3c
+/*  f07860c:	0c00b70f */ 	jal	hasLineOfSight
 /*  f078610:	25870028 */ 	addiu	$a3,$t4,0x28
 /*  f078614:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f078618:	8fa80020 */ 	lw	$t0,0x20($sp)
@@ -23026,7 +23027,7 @@ glabel func0f078c78
 /*  f079748:	afa800ac */ 	sw	$t0,0xac($sp)
 /*  f07974c:	e7b200a4 */ 	swc1	$f18,0xa4($sp)
 /*  f079750:	25c60008 */ 	addiu	$a2,$t6,0x8
-/*  f079754:	0c00b70f */ 	jal	func0002dc3c
+/*  f079754:	0c00b70f */ 	jal	hasLineOfSight
 /*  f079758:	25c70028 */ 	addiu	$a3,$t6,0x28
 /*  f07975c:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f079760:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
@@ -24672,52 +24673,24 @@ glabel func0f07ae18
 /*  f07af30:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f07af34
-/*  f07af34:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f07af38:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f07af3c:	0fc1eb7d */ 	jal	heliFromObj
-/*  f07af40:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07af44:	1040001d */ 	beqz	$v0,.L0f07afbc
-/*  f07af48:	00402025 */ 	or	$a0,$v0,$zero
-/*  f07af4c:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f07af50:	0fc1eb6e */ 	jal	heliGetTargetProp
-/*  f07af54:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f07af58:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f07af5c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f07af60:	8fa30020 */ 	lw	$v1,0x20($sp)
-/*  f07af64:	15c10005 */ 	bne	$t6,$at,.L0f07af7c
-/*  f07af68:	00404025 */ 	or	$t0,$v0,$zero
-/*  f07af6c:	3c0f800a */ 	lui	$t7,0x800a
-/*  f07af70:	8defa2e4 */ 	lw	$t7,-0x5d1c($t7)
-/*  f07af74:	51e0000e */ 	beqzl	$t7,.L0f07afb0
-/*  f07af78:	8faa0024 */ 	lw	$t2,0x24($sp)
-.L0f07af7c:
-/*  f07af7c:	8fb80024 */ 	lw	$t8,0x24($sp)
-/*  f07af80:	24190133 */ 	addiu	$t9,$zero,0x133
-/*  f07af84:	24090010 */ 	addiu	$t1,$zero,0x10
-/*  f07af88:	8f020014 */ 	lw	$v0,0x14($t8)
-/*  f07af8c:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f07af90:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f07af94:	25040008 */ 	addiu	$a0,$t0,0x8
-/*  f07af98:	25050028 */ 	addiu	$a1,$t0,0x28
-/*  f07af9c:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f07afa0:	0c00b70f */ 	jal	func0002dc3c
-/*  f07afa4:	24470028 */ 	addiu	$a3,$v0,0x28
-/*  f07afa8:	00401825 */ 	or	$v1,$v0,$zero
-/*  f07afac:	8faa0024 */ 	lw	$t2,0x24($sp)
-.L0f07afb0:
-/*  f07afb0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f07afb4:	10000002 */ 	beqz	$zero,.L0f07afc0
-/*  f07afb8:	ad4300bc */ 	sw	$v1,0xbc($t2)
-.L0f07afbc:
-/*  f07afbc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f07afc0:
-/*  f07afc0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f07afc4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f07afc8:	03e00008 */ 	jr	$ra
-/*  f07afcc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool heliCheckTargetVisible(struct defaultobj *obj)
+{
+	struct heliobj *heli = heliFromObj(obj);
+
+	if (heli) {
+		bool visible = false;
+		struct prop *target = heliGetTargetProp(heli);
+
+		if (target->type != PROPTYPE_PLAYER || g_Vars.unk000324) {
+			visible = hasLineOfSight(&target->pos, &target->rooms[0], &heli->base.prop->pos, &heli->base.prop->rooms[0], 307, 16);
+		}
+
+		heli->targetvisible = visible;
+		return visible;
+	}
+
+	return false;
+}
 
 void heliSetTarget(struct defaultobj *obj, u32 chrnum)
 {
@@ -41095,7 +41068,7 @@ glabel func0f089014
 /*  f08998c:	afa90010 */ 	sw	$t1,0x10($sp)
 /*  f089990:	25040008 */ 	addiu	$a0,$t0,0x8
 /*  f089994:	27260008 */ 	addiu	$a2,$t9,0x8
-/*  f089998:	0c00b70f */ 	jal	func0002dc3c
+/*  f089998:	0c00b70f */ 	jal	hasLineOfSight
 /*  f08999c:	27270028 */ 	addiu	$a3,$t9,0x28
 /*  f0899a0:	14400002 */ 	bnez	$v0,.L0f0899ac
 /*  f0899a4:	00000000 */ 	sll	$zero,$zero,0x0

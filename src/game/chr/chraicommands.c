@@ -1661,7 +1661,7 @@ bool aiIfSawDeath(void)
 bool aiIfSeesPlayer(void)
 {
 	if ((g_Vars.chrdata && func0f039368(g_Vars.chrdata)) ||
-			(g_Vars.hovdata && func0f07ae18(g_Vars.hovdata, 0x40) && func0f07af34(g_Vars.hovdata))) {
+			(g_Vars.hovdata && func0f07ae18(g_Vars.hovdata, 0x40) && heliCheckTargetVisible(g_Vars.hovdata))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1677,7 +1677,7 @@ bool aiIfSeesPlayer(void)
 bool ai017a(void)
 {
 	if ((g_Vars.chrdata && g_Vars.chrdata->prop && func0f0391ec(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->rooms[0], 1))
-			|| (g_Vars.hovdata && func0f07ae18(g_Vars.hovdata, 0x40) && func0f07af34(g_Vars.hovdata))) {
+			|| (g_Vars.hovdata && func0f07ae18(g_Vars.hovdata, 0x40) && heliCheckTargetVisible(g_Vars.hovdata))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

@@ -11859,7 +11859,7 @@ glabel func0002dc18
 );
 
 GLOBAL_ASM(
-glabel func0002dc3c
+glabel hasLineOfSight
 /*    2dc3c:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*    2dc40:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*    2dc44:	afa7007c */ 	sw	$a3,0x7c($sp)
@@ -11907,7 +11907,7 @@ glabel func0002dcd0
 /*    2dcd8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    2dcdc:	240f001c */ 	addiu	$t7,$zero,0x1c
 /*    2dce0:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*    2dce4:	0c00b70f */ 	jal	func0002dc3c
+/*    2dce4:	0c00b70f */ 	jal	hasLineOfSight
 /*    2dce8:	afae0010 */ 	sw	$t6,0x10($sp)
 /*    2dcec:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*    2dcf0:	27bd0020 */ 	addiu	$sp,$sp,0x20
