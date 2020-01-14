@@ -12640,35 +12640,21 @@ bool chrUpdateGeometry(struct prop *prop, struct geo **arg1, struct geo **arg2)
 
 }
 
+void func0f0289dc(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
+{
+	struct chrdata *chr = prop->chr;
+
+	*width = chr->chrwidth;
+	*ymax = chr->manground + chr->chrheight;
+	*ymin = chr->manground + 20;
+
+	if (chr->actiontype == ACT_SKJUMP && chr->act_skjump.y < chr->manground) {
+		*ymin = chr->act_skjump.y + 20;
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f0289dc
-/*  f0289dc:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f0289e0:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f0289e4:	44811000 */ 	mtc1	$at,$f2
-/*  f0289e8:	c4440024 */ 	lwc1	$f4,0x24($v0)
-/*  f0289ec:	24010023 */ 	addiu	$at,$zero,0x23
-/*  f0289f0:	e4a40000 */ 	swc1	$f4,0x0($a1)
-/*  f0289f4:	c44600b4 */ 	lwc1	$f6,0xb4($v0)
-/*  f0289f8:	c4480028 */ 	lwc1	$f8,0x28($v0)
-/*  f0289fc:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f028a00:	e4ca0000 */ 	swc1	$f10,0x0($a2)
-/*  f028a04:	c45000b4 */ 	lwc1	$f16,0xb4($v0)
-/*  f028a08:	46028480 */ 	add.s	$f18,$f16,$f2
-/*  f028a0c:	e4f20000 */ 	swc1	$f18,0x0($a3)
-/*  f028a10:	804e0007 */ 	lb	$t6,0x7($v0)
-/*  f028a14:	15c10009 */ 	bne	$t6,$at,.L0f028a3c
-/*  f028a18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f028a1c:	c4400050 */ 	lwc1	$f0,0x50($v0)
-/*  f028a20:	c44400b4 */ 	lwc1	$f4,0xb4($v0)
-/*  f028a24:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f028a28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f028a2c:	45000003 */ 	bc1f	.L0f028a3c
-/*  f028a30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f028a34:	46020180 */ 	add.s	$f6,$f0,$f2
-/*  f028a38:	e4e60000 */ 	swc1	$f6,0x0($a3)
-.L0f028a3c:
-/*  f028a3c:	03e00008 */ 	jr	$ra
-/*  f028a40:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f028a44
 /*  f028a44:	8c820004 */ 	lw	$v0,0x4($a0)
 /*  f028a48:	03e00008 */ 	jr	$ra
 /*  f028a4c:	c44000b8 */ 	lwc1	$f0,0xb8($v0)
