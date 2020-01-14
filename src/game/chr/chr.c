@@ -12653,12 +12653,11 @@ void func0f0289dc(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f028a44
-/*  f028a44:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f028a48:	03e00008 */ 	jr	$ra
-/*  f028a4c:	c44000b8 */ 	lwc1	$f0,0xb8($v0)
-);
+f32 chrGetGround(struct prop *prop)
+{
+	struct chrdata *chr = prop->chr;
+	return chr->ground;
+}
 
 GLOBAL_ASM(
 glabel func0f028a50
