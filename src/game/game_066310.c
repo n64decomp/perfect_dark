@@ -24751,29 +24751,21 @@ glabel heliSetTarget
 /*  f07b034:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f07b038
-/*  f07b038:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f07b03c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07b040:	0fc1eb7d */ 	jal	heliFromObj
-/*  f07b044:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07b048:	10400006 */ 	beqz	$v0,.L0f07b064
-/*  f07b04c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f07b050:	240f00f0 */ 	addiu	$t7,$zero,0xf0
-/*  f07b054:	a04e0096 */ 	sb	$t6,0x96($v0)
-/*  f07b058:	ac4f00c4 */ 	sw	$t7,0xc4($v0)
-/*  f07b05c:	10000002 */ 	beqz	$zero,.L0f07b068
-/*  f07b060:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f07b064:
-/*  f07b064:	00001025 */ 	or	$v0,$zero,$zero
-.L0f07b068:
-/*  f07b068:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f07b06c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f07b070:	03e00008 */ 	jr	$ra
-/*  f07b074:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool heliAttack(struct defaultobj *obj)
+{
+	struct heliobj *heli = heliFromObj(obj);
 
-bool heliTryStop(struct defaultobj *obj)
+	if (heli) {
+		heli->attackmode = 1;
+		heli->patroltimer60 = 240;
+
+		return true;
+	}
+
+	return false;
+}
+
+bool heliStop(struct defaultobj *obj)
 {
 	struct heliobj *heli = heliFromObj(obj);
 

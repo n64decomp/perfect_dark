@@ -384,7 +384,7 @@ bool aiStop(void)
 	if (g_Vars.chrdata) {
 		chrTryStop(g_Vars.chrdata);
 	} else if (g_Vars.hovdata) {
-		heliTryStop(g_Vars.hovdata);
+		heliStop(g_Vars.hovdata);
 	}
 
 	g_Vars.aioffset += 2;
@@ -947,7 +947,7 @@ bool aiAimAndFire2(void)
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if ((g_Vars.chrdata && func0f03a76c(g_Vars.chrdata, thingtype, thingid)) ||
-			(g_Vars.hovdata && func0f07b038(g_Vars.hovdata))) {
+			(g_Vars.hovdata && heliAttack(g_Vars.hovdata))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
