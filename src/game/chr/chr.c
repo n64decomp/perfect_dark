@@ -51925,36 +51925,12 @@ glabel func0f04c580
 /*  f04c6b0:	03281023 */ 	subu	$v0,$t9,$t0
 );
 
-GLOBAL_ASM(
-glabel func0f04c6b4
-/*  f04c6b4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04c6b8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04c6bc:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f04c6c0:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f04c6c4:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f04c6c8:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f04c6cc:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f04c6d0:	24460008 */ 	addiu	$a2,$v0,0x8
-/*  f04c6d4:	8dc3001c */ 	lw	$v1,0x1c($t6)
-/*  f04c6d8:	448f2000 */ 	mtc1	$t7,$f4
-/*  f04c6dc:	24180020 */ 	addiu	$t8,$zero,0x20
-/*  f04c6e0:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f04c6e4:	24650028 */ 	addiu	$a1,$v1,0x28
-/*  f04c6e8:	05e10005 */ 	bgez	$t7,.L0f04c700
-/*  f04c6ec:	46802120 */ 	cvt.s.w	$f4,$f4
-/*  f04c6f0:	3c014f80 */ 	lui	$at,0x4f80
-/*  f04c6f4:	44813000 */ 	mtc1	$at,$f6
-/*  f04c6f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c6fc:	46062100 */ 	add.s	$f4,$f4,$f6
-.L0f04c700:
-/*  f04c700:	44072000 */ 	mfc1	$a3,$f4
-/*  f04c704:	0c00bd14 */ 	jal	func0002f450
-/*  f04c708:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f04c70c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04c710:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f04c714:	03e00008 */ 	jr	$ra
-/*  f04c718:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f04c6b4(struct chrdata *chr, u32 distance)
+{
+	struct prop *prop = chrGetTargetProp(chr);
+
+	return func0002f450(&chr->prop->pos, &chr->prop->rooms[0], &prop->pos, distance, 32);
+}
 
 bool func0f04c71c(struct chrdata *chr, u32 distance)
 {

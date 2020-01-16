@@ -397,7 +397,7 @@ s16 func0f04c268(struct chrdata *chr, u8 speed);
 u32 func0f04c2e8(void);
 u32 func0f04c444(void);
 s32 func0f04c580(struct chrdata *chr);
-u32 func0f04c6b4(struct chrdata *chr, u32 flags);
+bool func0f04c6b4(struct chrdata *chr, u32 distance);
 bool func0f04c71c(struct chrdata *chr, u32 distance);
 u32 func0f04c784(void);
 void func0f04c874(struct chrdata *chr, u32 flags, struct coord *pos, s32 arg3, s32 arg4);
