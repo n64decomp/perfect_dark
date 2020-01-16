@@ -51840,90 +51840,22 @@ glabel func0f04c444
 /*  f04c57c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04c580
-/*  f04c580:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f04c584:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04c588:	90850290 */ 	lbu	$a1,0x290($a0)
-/*  f04c58c:	2401003c */ 	addiu	$at,$zero,0x3c
-/*  f04c590:	24ae0001 */ 	addiu	$t6,$a1,0x1
-/*  f04c594:	01c1001a */ 	div	$zero,$t6,$at
-/*  f04c598:	00007810 */ 	mfhi	$t7
-/*  f04c59c:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f04c5a0:	0098c821 */ 	addu	$t9,$a0,$t8
-/*  f04c5a4:	8f2201a0 */ 	lw	$v0,0x1a0($t9)
-/*  f04c5a8:	00054080 */ 	sll	$t0,$a1,0x2
-/*  f04c5ac:	00884821 */ 	addu	$t1,$a0,$t0
-/*  f04c5b0:	00420019 */ 	multu	$v0,$v0
-/*  f04c5b4:	8d2301a0 */ 	lw	$v1,0x1a0($t1)
-/*  f04c5b8:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f04c5bc:	afa50030 */ 	sw	$a1,0x30($sp)
-/*  f04c5c0:	00005012 */ 	mflo	$t2
-/*  f04c5c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c5c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c5cc:	00630019 */ 	multu	$v1,$v1
-/*  f04c5d0:	00005812 */ 	mflo	$t3
-/*  f04c5d4:	014b6021 */ 	addu	$t4,$t2,$t3
-/*  f04c5d8:	448c2000 */ 	mtc1	$t4,$f4
-/*  f04c5dc:	0c012974 */ 	jal	sqrtf
-/*  f04c5e0:	46802320 */ 	cvt.s.w	$f12,$f4
-/*  f04c5e4:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f04c5e8:	2407003c */ 	addiu	$a3,$zero,0x3c
-/*  f04c5ec:	4600018d */ 	trunc.w.s	$f6,$f0
-/*  f04c5f0:	24af003b */ 	addiu	$t7,$a1,0x3b
-/*  f04c5f4:	01e7001a */ 	div	$zero,$t7,$a3
-/*  f04c5f8:	0000c010 */ 	mfhi	$t8
-/*  f04c5fc:	24a9003a */ 	addiu	$t1,$a1,0x3a
-/*  f04c600:	8fa60038 */ 	lw	$a2,0x38($sp)
-/*  f04c604:	0127001a */ 	div	$zero,$t1,$a3
-/*  f04c608:	440e3000 */ 	mfc1	$t6,$f6
-/*  f04c60c:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f04c610:	24c201a0 */ 	addiu	$v0,$a2,0x1a0
-/*  f04c614:	00594021 */ 	addu	$t0,$v0,$t9
-/*  f04c618:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f04c61c:	8d030000 */ 	lw	$v1,0x0($t0)
-/*  f04c620:	00005010 */ 	mfhi	$t2
-/*  f04c624:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f04c628:	004b6021 */ 	addu	$t4,$v0,$t3
-/*  f04c62c:	00630019 */ 	multu	$v1,$v1
-/*  f04c630:	8d840000 */ 	lw	$a0,0x0($t4)
-/*  f04c634:	14e00002 */ 	bnez	$a3,.L0f04c640
-/*  f04c638:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c63c:	0007000d */ 	break	0x7
-.L0f04c640:
-/*  f04c640:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04c644:	14e10004 */ 	bne	$a3,$at,.L0f04c658
-/*  f04c648:	3c018000 */ 	lui	$at,0x8000
-/*  f04c64c:	15e10002 */ 	bne	$t7,$at,.L0f04c658
-/*  f04c650:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c654:	0006000d */ 	break	0x6
-.L0f04c658:
-/*  f04c658:	00006812 */ 	mflo	$t5
-/*  f04c65c:	14e00002 */ 	bnez	$a3,.L0f04c668
-/*  f04c660:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c664:	0007000d */ 	break	0x7
-.L0f04c668:
-/*  f04c668:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04c66c:	14e10004 */ 	bne	$a3,$at,.L0f04c680
-/*  f04c670:	3c018000 */ 	lui	$at,0x8000
-/*  f04c674:	15210002 */ 	bne	$t1,$at,.L0f04c680
-/*  f04c678:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c67c:	0006000d */ 	break	0x6
-.L0f04c680:
-/*  f04c680:	00840019 */ 	multu	$a0,$a0
-/*  f04c684:	00007012 */ 	mflo	$t6
-/*  f04c688:	01ae7821 */ 	addu	$t7,$t5,$t6
-/*  f04c68c:	448f4000 */ 	mtc1	$t7,$f8
-/*  f04c690:	0c012974 */ 	jal	sqrtf
-/*  f04c694:	46804320 */ 	cvt.s.w	$f12,$f8
-/*  f04c698:	4600028d */ 	trunc.w.s	$f10,$f0
-/*  f04c69c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04c6a0:	8fa8001c */ 	lw	$t0,0x1c($sp)
-/*  f04c6a4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f04c6a8:	44195000 */ 	mfc1	$t9,$f10
-/*  f04c6ac:	03e00008 */ 	jr	$ra
-/*  f04c6b0:	03281023 */ 	subu	$v0,$t9,$t0
-);
+s32 func0f04c580(struct chrdata *chr)
+{
+	s32 *bdlist = &chr->bdlist[0];
+	s32 index = chr->bdstart;
+	u32 stack[2];
+
+	s32 x1 = bdlist[(index + 1) % 60];
+	s32 y1 = bdlist[index];
+	s32 a = sqrtf(x1 * x1 + y1 * y1);
+
+	s32 x2 = bdlist[(index + 59) % 60];
+	s32 y2 = bdlist[(index + 58) % 60];
+	s32 b = sqrtf(x2 * x2 + y2 * y2);
+
+	return b - a;
+}
 
 bool func0f04c6b4(struct chrdata *chr, u32 distance)
 {

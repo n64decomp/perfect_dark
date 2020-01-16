@@ -571,7 +571,7 @@ struct chrdata {
 	/*0x198*/ u32 magicspeed;
 	/*0x19c*/ u16 magicanim;
 	/*0x19e*/ u16 goposforce;
-	/*0x1a0*/ u8 bdlist[240];
+	/*0x1a0*/ s32 bdlist[60];
 	/*0x290*/ u8 bdstart;
 	/*0x291*/ u8 goposhitcount;
 	/*0x292*/ s16 cover;
