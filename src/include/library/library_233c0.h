@@ -128,6 +128,6 @@ u32 func0002eb84(void);
 u32 func0002ed30(void);
 u32 func0002f02c(void);
 u32 func0002f308(void);
-u32 func0002f450(void);
+bool func0002f450(struct coord *pos, s16 *room, struct coord *pos2, f32 distance, s32 arg4);
 
 #endif
