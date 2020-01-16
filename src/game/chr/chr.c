@@ -52305,10 +52305,10 @@ glabel rebuildTeams
 /*  f04cc24:	3c0c8006 */ 	lui	$t4,%hi(g_ChrsA)
 /*  f04cc28:	ad610000 */ 	sw	$at,0x0($t3)
 /*  f04cc2c:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f04cc30:	3c098006 */ 	lui	$t1,%hi(var80067e64)
+/*  f04cc30:	3c098006 */ 	lui	$t1,%hi(g_TeamList)
 /*  f04cc34:	00405025 */ 	or	$t2,$v0,$zero
 /*  f04cc38:	24070007 */ 	addiu	$a3,$zero,0x7
-/*  f04cc3c:	25297e64 */ 	addiu	$t1,$t1,%lo(var80067e64)
+/*  f04cc3c:	25297e64 */ 	addiu	$t1,$t1,%lo(g_TeamList)
 /*  f04cc40:	258c2988 */ 	addiu	$t4,$t4,%lo(g_ChrsA)
 /*  f04cc44:	00004025 */ 	or	$t0,$zero,$zero
 /*  f04cc48:	241f0008 */ 	addiu	$ra,$zero,0x8
@@ -52440,55 +52440,28 @@ glabel rebuildSquadrons
 /*  f04cdfc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel teamGetChrIds
-/*  f04ce00:	3c0f8007 */ 	lui	$t7,%hi(var80068464)
-/*  f04ce04:	25ef8464 */ 	addiu	$t7,$t7,%lo(var80068464)
-/*  f04ce08:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f04ce0c:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f04ce10:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*  f04ce14:	27ae0004 */ 	addiu	$t6,$sp,0x4
-/*  f04ce18:	27a30004 */ 	addiu	$v1,$sp,0x4
-/*  f04ce1c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04ce20:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f04ce24:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f04ce28:	adc80004 */ 	sw	$t0,0x4($t6)
-.L0f04ce2c:
-/*  f04ce2c:	90690000 */ 	lbu	$t1,0x0($v1)
-/*  f04ce30:	54890004 */ 	bnel	$a0,$t1,.L0f04ce44
-/*  f04ce34:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f04ce38:	10000004 */ 	beqz	$zero,.L0f04ce4c
-/*  f04ce3c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f04ce40:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f04ce44:
-/*  f04ce44:	1445fff9 */ 	bne	$v0,$a1,.L0f04ce2c
-/*  f04ce48:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f04ce4c:
-/*  f04ce4c:	04800003 */ 	bltz	$a0,.L0f04ce5c
-/*  f04ce50:	28810008 */ 	slti	$at,$a0,0x8
-/*  f04ce54:	14200003 */ 	bnez	$at,.L0f04ce64
-/*  f04ce58:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f04ce5c:
-/*  f04ce5c:	1000000d */ 	beqz	$zero,.L0f04ce94
-/*  f04ce60:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04ce64:
-/*  f04ce64:	10800009 */ 	beqz	$a0,.L0f04ce8c
-/*  f04ce68:	3c028006 */ 	lui	$v0,0x8006
-/*  f04ce6c:	3c038006 */ 	lui	$v1,0x8006
-/*  f04ce70:	8c637e64 */ 	lw	$v1,0x7e64($v1)
-/*  f04ce74:	00045040 */ 	sll	$t2,$a0,0x1
-/*  f04ce78:	006a5821 */ 	addu	$t3,$v1,$t2
-/*  f04ce7c:	856cfffe */ 	lh	$t4,-0x2($t3)
-/*  f04ce80:	000c6840 */ 	sll	$t5,$t4,0x1
-/*  f04ce84:	10000003 */ 	beqz	$zero,.L0f04ce94
-/*  f04ce88:	01a31021 */ 	addu	$v0,$t5,$v1
-.L0f04ce8c:
-/*  f04ce8c:	8c427e64 */ 	lw	$v0,0x7e64($v0)
-/*  f04ce90:	2442000e */ 	addiu	$v0,$v0,0xe
-.L0f04ce94:
-/*  f04ce94:	03e00008 */ 	jr	$ra
-/*  f04ce98:	27bd0010 */ 	addiu	$sp,$sp,0x10
-);
+s16 *teamGetChrIds(s32 team_id)
+{
+	s32 i;
+	u8 lookup[8] = g_ChrTeamIds;
+
+	for (i = 0; i != 8; i++) {
+		if (lookup[i] == team_id) {
+			team_id = i;
+			break;
+		}
+	}
+
+	if (team_id < 0 || team_id > 7) {
+		return NULL;
+	}
+
+	if (team_id != 0) {
+		return &g_TeamList[g_TeamList[team_id - 1]];
+	}
+
+	return &g_TeamList[7];
+}
 
 s16 *squadronGetChrIds(s32 squadron_id)
 {
