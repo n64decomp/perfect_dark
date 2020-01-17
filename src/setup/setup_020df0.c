@@ -10817,7 +10817,7 @@ struct menu_dialog menudialog_mpsimulants = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5053, // "Simulants"
 	menuitems_mpsimulants,
-	menudialog0017d468,
+	menudialogMpSimulants,
 	0x00000010,
 	NULL,
 };

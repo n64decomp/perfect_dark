@@ -6991,28 +6991,14 @@ glabel func0f17d378
 /*  f17d464:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menudialog0017d468
-/*  f17d468:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f17d46c:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f17d470:	1481000d */ 	bne	$a0,$at,.L0f17d4a8
-/*  f17d474:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f17d478:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f17d47c:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f17d480:	3c01800a */ 	lui	$at,0x800a
-/*  f17d484:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17d488:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17d48c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17d490:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17d494:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17d498:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17d49c:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17d4a0:	002f0821 */ 	addu	$at,$at,$t7
-/*  f17d4a4:	ac20ee20 */ 	sw	$zero,-0x11e0($at)
-.L0f17d4a8:
-/*  f17d4a8:	03e00008 */ 	jr	$ra
-/*  f17d4ac:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool menudialogMpSimulants(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+{
+	if (operation == MENUOP_100) {
+		g_MenuStack[g_MpPlayerNum].slotcount = 0;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f17d4b0
