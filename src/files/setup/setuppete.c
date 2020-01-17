@@ -1455,7 +1455,7 @@ u8 func0412_cia[] = {
 	endloop(0x1e)
 
 	label(0x04)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 
 	beginloop(0x38)
 		if_chr_in_squadron_doing_action(MA_TALKING, /*goto*/ 0x04)
@@ -1517,7 +1517,7 @@ u8 func0412_cia[] = {
 	endloop(0x06)
 
 	label(0x04)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	say_quip(CHR_BOND, 0x19, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	label(0x0b)
 	set_chr_team(CHR_SELF, TEAM_NONCOMBAT)
@@ -1669,7 +1669,7 @@ u8 func0413_bugspotter[] = {
 
 	// Alert everyone in group
 	label(0x04)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	assign_sound(0x0467, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 
@@ -1815,7 +1815,7 @@ u8 func041d_fbi[] = {
 	// Unreachable
 	label(0x04)
 	say_quip(CHR_BOND, 0x1b, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	goto_next(0x16)
 
 	// Not shot

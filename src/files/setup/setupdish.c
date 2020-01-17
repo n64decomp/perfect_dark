@@ -5523,7 +5523,7 @@ u8 func0418_holo_guard_armed_unalert[] = {
 u8 func0419_holo_guard_armed_alert[] = {
 	set_shotlist(AILIST_HOLO_GUARD_ARMED_ALERT)
 	if_has_gun(CHR_SELF, /*goto*/ 0x2f)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_returnlist(CHR_SELF, AILIST_HOLO_GUARD_UNARMED_ALERT)
 	set_ailist(CHR_SELF, AILIST_HOLO_GUARD_UNARMED_ALERT)
 	label(0x2f)

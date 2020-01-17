@@ -1236,7 +1236,7 @@ u8 func0407_stewardess[] = {
 
 	label(0x02)
 	speak(CHR_TARGET, 0x0e19, 0x1adc, CHANNEL_4, COLOR_07_RED) // "Look out - it's an intruder..."
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x06)
@@ -1544,7 +1544,7 @@ u8 func0408_secretary[] = {
 	speak(CHR_TARGET, 0x0e20, 0x8162, CHANNEL_4, COLOR_06_WHITE) // "Oh, my God!"
 
 	label(0x67)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	restart_timer
 	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
@@ -2130,7 +2130,7 @@ u8 func0409_office1[] = {
 	label(0x02)
 	speak(CHR_TARGET, 0x0e2a, 0x1ae7, CHANNEL_4, COLOR_08_RED) // "Hey - give me back my case."
 	restart_timer
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 
 	beginloop(0x0a)
 		if_timer_gt(120, /*goto*/ 0x02)
@@ -2153,7 +2153,7 @@ u8 func0409_office1[] = {
 	label(0x72)
 	label(0x02)
 	speak(CHR_TARGET, 0x0e28, 0x1ae5, CHANNEL_4, COLOR_08_RED) // "Hey, you - this is a restricted area."
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	restart_timer
 	chr_do_animation(ANIM_WALK_BACKWARDS, -1, -1, 0x10, 0x10, CHR_SELF, 2)
 
@@ -2171,7 +2171,7 @@ u8 func0409_office1[] = {
 
 	label(0x02)
 	speak(CHR_TARGET, 0x0e2c, 0x1ae8, CHANNEL_4, COLOR_08_RED) // "Upstairs...there's an intruder."
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
 	activate_alarm
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2250,7 +2250,7 @@ u8 func040a_office2[] = {
 	if_chr_death_animation_finished(CHR_OFFICE1, /*goto*/ 0x02)
 	if_chr_unloaded(CHR_OFFICE1, /*goto*/ 0x02)
 	speak(CHR_TARGET, 0x0e2b, 0x1ae9, CHANNEL_4, COLOR_09_BLUE) // "You get security - I'll deal with her..."
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	restart_timer
 
 	beginloop(0x06)
@@ -3449,7 +3449,7 @@ u8 func0419_ba8c[] = {
 	goto_first(0x05)
 
 	label(0x02)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	say_quip(CHR_BOND, 0x25, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	label(0x0e)
 	chr_do_animation(0x0229, -1, -1, 0x10, 0x14, CHR_SELF, 2)

@@ -2987,7 +2987,7 @@ u8 func0403_k7_scientist[] = {
 	label(0x0c)
 	assign_sound(0x128f, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	jog_to_pad(0x0133)
 
 	beginloop(0x0d)

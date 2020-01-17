@@ -133,7 +133,7 @@ u8 func0006_unalerted[] = {
 	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
 	dprint 'N','O',' ','W','A','R','N','I','N','G','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_CANT_ALERT_GROUP, TRUE, BANK_0, /*goto*/ 0x13)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	label(0x13)
 	dprint 'N','O',' ','W','A','R','N','I','N','G','\n',0,
 	set_ailist(CHR_SELF, GAILIST_WAKEUP)
@@ -369,13 +369,13 @@ u8 func0006_unalerted[] = {
 	label(0x16)
 	say_quip(CHR_BOND, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Hey, you!","Intruder alert","We've got a contact!"
 	label(0x9f)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	goto_next(0x77)
 
 	label(0xdb) // jumped to from below
 	label(0x14)
 	say_quip(CHR_BOND, 0x20, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Imposter!","It's a spy!"
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	goto_next(0x77)
 
 	// Unreachable?
@@ -384,7 +384,7 @@ u8 func0006_unalerted[] = {
 	yield
 	dprint 'S','3',0,
 	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	goto_next(0x77)
 
 	label(0x94)
@@ -413,7 +413,7 @@ u8 func0006_unalerted[] = {
 	label(0x77)
 	set_alertness(255)
 	if_self_flag_bankx_eq(CHRFLAG0_CANT_ALERT_GROUP, TRUE, BANK_0, /*goto*/ 0x13)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	label(0x13)
 	set_ailist(CHR_SELF, GAILIST_WAKEUP)
 
@@ -441,7 +441,7 @@ u8 func0006_unalerted[] = {
 	set_ailist(CHR_SELF, GAILIST_SEARCH_FOR_PLAYER)
 
 	label(0x13)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_ailist(CHR_SELF, GAILIST_WAKEUP)
 
 	//
@@ -645,7 +645,7 @@ u8 func0006_unalerted[] = {
 	endloop(0x82)
 
 	label(0x81)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_alertness(255)
 	set_ailist(CHR_SELF, GAILIST_WAKEUP)
 
@@ -2550,7 +2550,7 @@ u8 func0007_alerted[] = {
 	label(0x97)
 	dprint 'W','A','R','N',' ','F','R','I','E','N','D','S','\n',0,
 	say_quip(CHR_BOND, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	label(0x84)
 	goto_first(0x1b)
 
@@ -2758,7 +2758,7 @@ u8 func000b_choose_target_chr[] = {
 	label(0x16)
 	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
 	dprint 'N','O',' ','W','A','R','N','I','N','G','\n',0,
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	dprint 'N','O',' ','W','A','R','N','I','N','G','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x13)
 	goto_next(0xd3)
@@ -2789,7 +2789,7 @@ u8 func000b_choose_target_chr[] = {
 	// Found
 	label(0x16)
 	dprint 'F','O','U','N','D','\n',0,
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 	set_returnlist(CHR_SELF, GAILIST_CHOOSE_TARGET)
 
@@ -4099,7 +4099,7 @@ u8 func0010_civilian_say_comment[] = {
  */
 u8 func001c_surprised[] = {
 	set_shotlist(GAILIST_ALERTED)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	say_quip(CHR_BOND, 0x0c, 0xff, 0x03, 0x00, BANK_0, 0x00, 0x00) // "Holy shh...","What the hell?!"
 	restart_timer
 	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0x00, 0x10, CHR_SELF, 2)
@@ -4511,7 +4511,7 @@ u8 func001f_related_to_spawning[] = {
 	dprint 'S','E','E',' ','D','E','T','E','C','T','\n',0,
 	say_quip(CHR_BOND, 0x0b, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	label(0x9f)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_alertness(255)
 	set_returnlist(CHR_SELF, GAILIST_RELATED_TO_SPAWNING)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
@@ -4520,7 +4520,7 @@ u8 func001f_related_to_spawning[] = {
 	yield
 	say_quip(CHR_BOND, 0x09, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_HEARSPAWN, TRUE, BANK_0, /*goto*/ 0xda)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_returnlist(CHR_SELF, GAILIST_RELATED_TO_SPAWNING)
 	set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 

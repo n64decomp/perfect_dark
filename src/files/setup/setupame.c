@@ -1782,7 +1782,7 @@ u8 func0414_programmer[] = {
 
 		label(0xa7)
 		speak(CHR_TARGET, 0x0226, 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
-		set_squadron_alertness(100)
+		increase_squadron_alertness(100)
 	endloop(0x99)
 
 	label(LABEL_JO_SPEAK)
@@ -3766,7 +3766,7 @@ u8 func042f_surrendering_guard[] = {
 	label(0x57)
 	dprint 'W','A','R','N',' ','F','R','I','E','N','D','S','\n',0,
 	say_quip(CHR_BOND, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "Intruder alert!","We've got trouble","We've got problems"
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 
 	// No chr in same group, or follow through from above
 	// Wait until player in range and then surrender.

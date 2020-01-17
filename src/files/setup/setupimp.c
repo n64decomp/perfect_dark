@@ -2261,7 +2261,7 @@ u8 func042e_taker_device_m[] = {
 	set_stage_flag(STAGEFLAG_VISITED_HOSTAGES_BEFORE_AUTOGUNS)
 
 	label(0x2e)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	assign_sound(0x025b, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	restart_timer
@@ -2309,7 +2309,7 @@ u8 func0430_taker_device_f[] = {
 	endloop(0x0a)
 
 	label(0x08)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_self_flag_bankx(CHRFLAG1_00000020, BANK_1)
 	restart_timer
 	chr_do_animation(ANIM_RELOAD_0209, 0, -1, 0x10, 0x10, CHR_SELF, 2)

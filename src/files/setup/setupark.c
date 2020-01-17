@@ -1788,7 +1788,7 @@ u8 func0409_tech_conversation[] = {
 	if_stage_flag_eq(STAGEFLAG_TECHS_RUNNING, TRUE, /*goto*/ 0x00)
 	set_stage_flag(STAGEFLAG_TECHS_RUNNING)
 	label(0x00)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	open_door(0x04)
 	restart_timer
 	speak(CHR_TARGET, 0x062a, 0x811f, CHANNEL_7, COLOR_06_WHITE) // "Oh, no...too late."
@@ -1869,7 +1869,7 @@ u8 func040a_tech2[] = {
 		if_stage_flag_eq(STAGEFLAG_TECHS_RUNNING, TRUE, /*goto*/ 0x00)
 		set_stage_flag(STAGEFLAG_TECHS_RUNNING)
 		label(0x00)
-		set_squadron_alertness(100)
+		increase_squadron_alertness(100)
 		open_door(0x04)
 		yield
 		restart_timer

@@ -1506,7 +1506,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	label(0x61)
 	speak(CHR_TARGET, 0x2a2a, 0x1b31, CHANNEL_4, COLOR_08_RED) // "There's an intruder in the complex."
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	stop_chr
 
 	beginloop(0x0c)
@@ -1707,7 +1707,7 @@ u8 func0418_doorman[] = {
 
 	// Gun shot out of hand
 	label(0x06)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_target_chr(CHR_BOND)
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
 
@@ -1836,7 +1836,7 @@ u8 func0418_doorman[] = {
 	endloop(0x0f)
 
 	label(0x06)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_target_chr(CHR_BOND)
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
 
@@ -1967,7 +1967,7 @@ u8 func041a_labtech_harrysmate[] = {
 
 	label(0x06)
 	speak(CHR_TARGET, 0x2a3a, 0x1abb, CHANNEL_4, COLOR_08_RED) // "Hey, that's not Harry. It's an intruder."
-	set_squadron_alertness(120)
+	increase_squadron_alertness(120)
 	restart_timer
 	chr_do_animation(0x002e, 0, -1, 0x18, 0x10, CHR_SELF, 2)
 
@@ -2891,7 +2891,7 @@ u8 func0420_labtech_doors[] = {
 
 	label(0x89)
 	label(0x06)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 
 	beginloop(0x83)
 		if_sound_finished(CHANNEL_4, /*goto*/ 0x2d)
@@ -3094,7 +3094,7 @@ u8 func0422_labtech_records[] = {
 	label(0x06)
 	label(0x06)
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2d)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	speak(CHR_TARGET, 0x2a57, 0x1aa5, CHANNEL_4, COLOR_08_RED) // "Imposter!"
 	chr_do_animation(0x0202, -1, -1, 0x14, 0x0a, CHR_SELF, 2)
 	restart_timer

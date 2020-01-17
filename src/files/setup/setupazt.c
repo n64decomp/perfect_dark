@@ -1299,7 +1299,7 @@ u8 func0418_robot[] = {
 
 	// Alerted
 	label(0x0d)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	restart_timer
 	if_distance_to_target_lt(300, /*goto*/ 0x31)
 	if_distance_to_target_gt(1000, /*goto*/ 0x15)

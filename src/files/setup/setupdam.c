@@ -1601,7 +1601,7 @@ u8 func0411_labtech_alerted[] = {
 	endloop(0x40)
 
 	label(0x41)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	say_quip(CHR_BOND, 0x10, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 
 	label(0x42)
@@ -1896,7 +1896,7 @@ u8 func0401_pilot[] = {
 	say_quip(CHR_BOND, 0x08, 0xfe, 0x0a, 0xff, BANK_0, 0x00, 0x00)
 
 	label(0x04)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	surrender
 
 	beginloop(0x0b)

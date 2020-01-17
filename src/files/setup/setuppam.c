@@ -3136,7 +3136,7 @@ u8 func041b_sniper_wait_for_detection[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 	set_ailist(CHR_SELF, AILIST_SNIPER)

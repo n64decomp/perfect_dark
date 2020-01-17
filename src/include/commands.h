@@ -2561,9 +2561,17 @@
 	channel,
 
 /**
- * Sets the alertness value for all chrs in the current chr's squadron.
+ * Increases the alertness value for other chrs in the current chr's squadron.
+ *
+ * By default, chrs will only be matched if they are within 1000 units of the
+ * current chr. This limitation is bypassed if the current chr has
+ * CHRFLAG0_SQUADALERTANYDIST.
+ *
+ * Chrs in squadron 255 will also be matched.
+ *
+ * The current chr's alertness will not be adjusted by this command.
  */
-#define set_squadron_alertness(value) \
+#define increase_squadron_alertness(value) \
 	mkshort(0x0131), \
 	value,
 

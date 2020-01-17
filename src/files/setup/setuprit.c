@@ -1317,7 +1317,7 @@ u8 func0405_president_in_room[] = {
 	set_ailist(0x15, GAILIST_UNALERTED)
 	set_stage_flag(STAGEFLAG_PRESIDENT_CALLED_SECURITY)
 	yield
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x0a)
 
 	beginloop(0x0a)
@@ -2457,7 +2457,7 @@ u8 func0415_cloner1[] = {
 		// @bug? This may have intended to be a bank 1 check because the bank 1
 		// flag is unset further below, and cloner3 uses bank 1.
 		label(0x4f)
-		if_self_flag_bankx_eq(CHRFLAG0_00080000, TRUE, BANK_0, /*goto*/ 0x2d)
+		if_self_flag_bankx_eq(CHRFLAG0_SQUADALERTANYDIST, TRUE, BANK_0, /*goto*/ 0x2d)
 		restart_timer
 
 		beginloop(0x0b)
@@ -2553,7 +2553,7 @@ u8 func0418_cloner2[] = {
 		// @bug? This may have intended to be a bank 1 check because the bank 1
 		// flag is unset further below, and cloner3 uses bank 1.
 		label(0x4f)
-		if_self_flag_bankx_eq(CHRFLAG0_00080000, TRUE, BANK_0, /*goto*/ 0x2d)
+		if_self_flag_bankx_eq(CHRFLAG0_SQUADALERTANYDIST, TRUE, BANK_0, /*goto*/ 0x2d)
 		restart_timer
 
 		beginloop(0x0b)
@@ -3238,7 +3238,7 @@ u8 func0407_steward[] = {
 	endloop(0x09)
 
 	label(0x06)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISE_UNCOVERED)
 	do_special_animation(-1)
 	restart_timer
@@ -3316,7 +3316,7 @@ u8 func0407_stewardess[] = {
 
 	label(0x80)
 	play_sound(0x1adc, CHANNEL_7)
-	set_squadron_alertness(100)
+	increase_squadron_alertness(100)
 
 	label(0x0a)
 	set_self_chrflag(CHRCFLAG_01000000)
