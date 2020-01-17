@@ -10900,7 +10900,7 @@ struct menu_dialog menudialog_2bd40 = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f17dc44,
 	menuitems_2bd18,
-	menudialog0017df74,
+	menudialogMpSelectTune,
 	0x00000010,
 	NULL,
 };

@@ -7645,25 +7645,18 @@ glabel menuhandler0017dc84
 /*  f17df70:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menudialog0017df74
-/*  f17df74:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f17df78:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f17df7c:	14810004 */ 	bne	$a0,$at,.L0f17df90
-/*  f17df80:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f17df84:	240e0050 */ 	addiu	$t6,$zero,0x50
-/*  f17df88:	3c018008 */ 	lui	$at,0x8008
-/*  f17df8c:	ac2e40e0 */ 	sw	$t6,0x40e0($at)
-.L0f17df90:
-/*  f17df90:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f17df94:	14810003 */ 	bne	$a0,$at,.L0f17dfa4
-/*  f17df98:	240f000f */ 	addiu	$t7,$zero,0xf
-/*  f17df9c:	3c018008 */ 	lui	$at,0x8008
-/*  f17dfa0:	ac2f40e0 */ 	sw	$t7,0x40e0($at)
-.L0f17dfa4:
-/*  f17dfa4:	03e00008 */ 	jr	$ra
-/*  f17dfa8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool menudialogMpSelectTune(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+{
+	if (operation == MENUOP_100) {
+		var800840e0 = 80;
+	}
+
+	if (operation == MENUOP_101) {
+		var800840e0 = 15;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f17dfac
