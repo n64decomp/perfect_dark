@@ -769,6 +769,7 @@
 #define PROPTYPE_WEAPON 4
 #define PROPTYPE_EYESPY 5
 #define PROPTYPE_PLAYER 6
+#define PROPTYPE_7      7
 
 #define RACE_HUMAN    0
 #define RACE_SKEDAR   1

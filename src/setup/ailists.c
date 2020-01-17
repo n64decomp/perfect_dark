@@ -1496,7 +1496,7 @@ u8 func0007_alerted[] = {
 	cmd0124_run_for_cover_maybe(MA_COVERWAIT)
 
 	beginloop(0x55)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
@@ -1530,7 +1530,7 @@ u8 func0007_alerted[] = {
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x59)
 
 	beginloop(0x59)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_within_units_of_sight(30, /*goto*/ 0x5f)
@@ -1570,7 +1570,7 @@ u8 func0007_alerted[] = {
 	try_run_to_target(/*goto*/ 0x62)
 
 	beginloop(0x62)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_in_disarm_range(/*goto*/ 0x5f)
 		if_player_using_cmp150_or_ar34(/*goto*/ 0x69)
 		if_distance_to_target_gt(2000, /*goto*/ 0x65)
@@ -1595,7 +1595,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	stop_chr
 	yield
-	cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+	if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 	dprint 'B','A','C','K',' ','T','O',' ','C','O','V','E','R','\n',0,
 	goto_first(0x52)
 
@@ -1669,7 +1669,7 @@ u8 func0007_alerted[] = {
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x60)
 
 	beginloop(0x60)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x5e)
 	endloop(0x60)
 
@@ -1771,7 +1771,7 @@ u8 func0007_alerted[] = {
 	restart_timer
 
 	beginloop(0x30)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
@@ -1834,7 +1834,7 @@ u8 func0007_alerted[] = {
 	dprint 'C',' ','4','\n',0,
 	kneel
 	yield
-	cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+	if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 	label(0x48)
 	dprint 'G','R','E','N','A','D','E','P','\n',0,
 	set_grenade_probability_out_of_255(255)
@@ -1908,7 +1908,7 @@ u8 func0007_alerted[] = {
 	try_chr_kneel_and_shoot_thing(0x0220, 0x0000, /*goto*/ 0x40)
 
 	beginloop(0x40)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x91)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x16)
 		label(0x91)
@@ -1953,7 +1953,7 @@ u8 func0007_alerted[] = {
 	try_run_to_target(/*goto*/ 0x89)
 
 	beginloop(0x89)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x91)
 		if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x16)
 		label(0x91)
@@ -2019,7 +2019,7 @@ u8 func0007_alerted[] = {
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x43)
 
 	beginloop(0x43)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x29)
 	endloop(0x43)
 
@@ -2079,7 +2079,7 @@ u8 func0007_alerted[] = {
 	cmd012f
 
 	beginloop(0x4f)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_timer_gt(120, /*goto*/ 0x50)
 		if_chr_stopped(/*goto*/ 0x50)
 	endloop(0x4f)
@@ -2101,7 +2101,7 @@ u8 func0007_alerted[] = {
 	set_ailist(CHR_SELF, GAILIST_HAND_COMBAT)
 
 	label(0x13)
-	cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+	if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	goto_next(0x16)
 
@@ -2137,7 +2137,7 @@ u8 func0007_alerted[] = {
 	try_run_sideways(/*goto*/ 0x3e)
 
 	beginloop(0x3e)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x3f)
 	endloop(0x3e)
 
@@ -2161,7 +2161,7 @@ u8 func0007_alerted[] = {
 		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00002000, /*goto*/ 0x13)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_BUDDY_PLACED, /*goto*/ 0x01)
 		label(0x13)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
@@ -2268,7 +2268,7 @@ u8 func0007_alerted[] = {
 	try_run_to_target(/*goto*/ 0x85)
 
 	beginloop(0x85)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
@@ -2353,7 +2353,7 @@ u8 func0007_alerted[] = {
 	try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x28)
 	dprint 'S','H','O','O','T','F','A','I','L','E','D','\n',0,
 	yield
-	cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+	if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 	goto_first(0x8b)
 
 	label(0x28)
@@ -2365,7 +2365,7 @@ u8 func0007_alerted[] = {
 	say_quip(CHR_BOND, 0x01, 0x19, 0x02, 0x01, BANK_0, 0x00, 0x00)
 
 	beginloop(0x45)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x2a)
 	endloop(0x45)
 
@@ -2438,7 +2438,7 @@ u8 func0007_alerted[] = {
 	set_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 
 	beginloop(0x2c)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x2e)
 	endloop(0x2c)
 
@@ -2479,7 +2479,7 @@ u8 func0007_alerted[] = {
 	retreat(0x02, 0x01)
 
 	beginloop(0x6c)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_distance_to_target_gt(300, /*goto*/ 0x16)
 		if_chr_in_view(/*goto*/ 0x70)
 		label(0x16)
@@ -2490,7 +2490,7 @@ u8 func0007_alerted[] = {
 	stop_chr
 
 	beginloop(0x6e)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_distance_to_target_lt(3000, /*goto*/ 0x6f)
@@ -2540,7 +2540,7 @@ u8 func0007_alerted[] = {
 	try_run_to_chr(CHR_PRESET, /*goto*/ 0x96)
 
 	beginloop(0x96)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_death_animation_finished(CHR_PRESET, /*goto*/ 0x84)
 		if_chr_unloaded(CHR_PRESET, /*goto*/ 0x84)
 		if_detected_chr(CHR_PRESET, /*goto*/ 0x97)
@@ -2568,7 +2568,7 @@ u8 func0007_alerted[] = {
 	go_to_target_pad(SPEED_JOG)
 
 	beginloop(0x9d)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0x9d)
 
@@ -2584,7 +2584,7 @@ u8 func0007_alerted[] = {
 	activate_alarm
 
 	beginloop(0x9e)
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
+		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0x9e)
 
@@ -4125,7 +4125,7 @@ u8 func0011_flee_from_grenade[] = {
 
 	beginloop(0x0c)
 		dprint 'D','A','N','G','E','R',' ','L','O','O','P','\n',0,
-		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ 0x13)
+		if_dangerous_object_nearby(3, /*goto*/ 0x13)
 		goto_next(0x16)
 
 		label(0x13)

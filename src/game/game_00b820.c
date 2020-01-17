@@ -260,10 +260,10 @@ glabel func0f00b820
 
 GLOBAL_ASM(
 glabel func0f00bb70
-/*  f00bb70:	3c03800a */ 	lui	$v1,%hi(var8009cc00)
+/*  f00bb70:	3c03800a */ 	lui	$v1,%hi(g_DangerousProps)
 /*  f00bb74:	3c02800a */ 	lui	$v0,%hi(var8009cc30)
 /*  f00bb78:	2442cc30 */ 	addiu	$v0,$v0,%lo(var8009cc30)
-/*  f00bb7c:	2463cc00 */ 	addiu	$v1,$v1,%lo(var8009cc00)
+/*  f00bb7c:	2463cc00 */ 	addiu	$v1,$v1,%lo(g_DangerousProps)
 .L0f00bb80:
 /*  f00bb80:	24630004 */ 	addiu	$v1,$v1,0x4
 /*  f00bb84:	1462fffe */ 	bne	$v1,$v0,.L0f00bb80

@@ -2670,12 +2670,22 @@
 	mkshort(0x013c), \
 	label,
 
-// Value is only ever 3. The function checks bits 0x01 and 0x02 to decide what
-// to do, so in all cases it does both paths.
-// globals.c only
-#define cmd013d_if_grenade_thrown_nearby_maybe(value, label) \
+/**
+ * Checks if there is a live grenade or other dangerous object nearby. If so,
+ * the position of the object is stored in the chr's runfrompos property and the
+ * command passes.
+ *
+ * The flags argument is a bitfield which specifies what types of objects to
+ * look for.
+ *
+ * Flag 0x1 = check for grenades
+ * Flag 0x2 = check for prop type 7 (unsure what this is at the moment)
+ *
+ * Those are the only supported flags.
+ */
+#define if_dangerous_object_nearby(flags, label) \
 	mkshort(0x013d), \
-	value, \
+	flags, \
 	label,
 
 /**

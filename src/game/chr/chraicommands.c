@@ -10789,11 +10789,11 @@ bool ai013c(void)
 /**
  * @cmd 013d
  */
-bool ai013d(void)
+bool aiIfDangerousObjectNearby(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f043da8(g_Vars.chrdata, cmd[2])) {
+	if (chrDetectDangerousObject(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;

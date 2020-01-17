@@ -142,7 +142,7 @@ struct chr2d4 {
 	/*0x004*/ struct mpsim *simulant;
 	/*0x008*/ u16 unk008;
 	/*0x008*/ s16 followingplayernum;
-	/*0x00c*/ u32 unk00c;
+	/*0x00c*/ s16 unk00c;
 	/*0x010*/ struct prop *prop;
 	/*0x014*/ u32 unk014;
 	/*0x018*/ u32 unk018;

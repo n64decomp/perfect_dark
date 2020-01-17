@@ -525,7 +525,7 @@ extern u32 var8009cadc;
 extern u32 var8009cae0;
 extern u32 var8009cb08;
 extern u32 var8009cbf8;
-extern u32 var8009cc00;
+extern struct prop *g_DangerousProps[12];
 extern u32 var8009cc30;
 extern u32 var8009cc40;
 extern u32 var8009cc44;
