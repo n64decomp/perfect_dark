@@ -52,7 +52,7 @@ void menucustomChooseAgent(void);
 void menucustomDeleteGameNote(void);
 void menucustomFileToCopy(void);
 void menucustomFileToDelete(void);
-s32 menudialog00108e58(u32, u32, u32 *);
+bool menudialog00108e58(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);
 s32 menudialog0010b014(u32, u32, u32 *);
 s32 menudialog0010b674(u32, u32, u32 *);
 s32 menudialog0010ba10(u32, u32, u32 *);
