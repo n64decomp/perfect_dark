@@ -9325,22 +9325,22 @@ glabel ai0129
 /**
  * @cmd 012a
  */
-bool ai012a(void)
+bool aiIfTargetMovingSlowly(void)
 {
-	s32 value;
-	s32 absvalue;
+	s32 delta;
+	s32 absdelta;
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if (cmd[2] == 0) {
-		value = func0f04c580(g_Vars.chrdata);
+		delta = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
 	} else {
 		struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-		value = func0f04c580(chr);
+		delta = chrGetDistanceLostToTargetInLastSecond(chr);
 	}
 
-	absvalue = value > 0 ? value : -value;
+	absdelta = delta > 0 ? delta : -delta;
 
-	if (absvalue < 50) {
+	if (absdelta < 50) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -9352,11 +9352,11 @@ bool ai012a(void)
 /**
  * @cmd 012b
  */
-bool ai012b(void)
+bool aiIfTargetMovingCloser(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f04c580(g_Vars.chrdata) < -50) {
+	if (chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata) < -50) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -9368,11 +9368,11 @@ bool ai012b(void)
 /**
  * @cmd 012c
  */
-bool ai012c(void)
+bool aiIfTargetMovingAway(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f04c580(g_Vars.chrdata) > 50) {
+	if (chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata) > 50) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -9769,7 +9769,7 @@ glabel ai0130
 /*  f05a7b0:	10000026 */ 	beqz	$zero,.L0f05a84c
 /*  f05a7b4:	8faa009c */ 	lw	$t2,0x9c($sp)
 .L0f05a7b8:
-/*  f05a7b8:	0fc13160 */ 	jal	func0f04c580
+/*  f05a7b8:	0fc13160 */ 	jal	chrGetDistanceLostToTargetInLastSecond
 /*  f05a7bc:	8e040424 */ 	lw	$a0,0x424($s0)
 /*  f05a7c0:	18400003 */ 	blez	$v0,.L0f05a7d0
 /*  f05a7c4:	00021823 */ 	negu	$v1,$v0
@@ -9964,7 +9964,7 @@ glabel ai0130
 .L0f05aa90:
 /*  f05aa90:	8e040424 */ 	lw	$a0,0x424($s0)
 .L0f05aa94:
-/*  f05aa94:	0fc13160 */ 	jal	func0f04c580
+/*  f05aa94:	0fc13160 */ 	jal	chrGetDistanceLostToTargetInLastSecond
 /*  f05aa98:	a3a800a3 */ 	sb	$t0,0xa3($sp)
 /*  f05aa9c:	18400003 */ 	blez	$v0,.L0f05aaac
 /*  f05aaa0:	93a800a3 */ 	lbu	$t0,0xa3($sp)

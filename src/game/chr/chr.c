@@ -51750,111 +51750,41 @@ glabel func0f04c2e8
 /*  f04c440:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f04c444
-/*  f04c444:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f04c448:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04c44c:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f04c450:	51c00048 */ 	beqzl	$t6,.L0f04c574
-/*  f04c454:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04c458:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f04c45c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f04c460:	10400043 */ 	beqz	$v0,.L0f04c570
-/*  f04c464:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f04c468:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f04c46c:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f04c470:	8ccf0038 */ 	lw	$t7,0x38($a2)
-/*  f04c474:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04c478:	2403003c */ 	addiu	$v1,$zero,0x3c
-/*  f04c47c:	59e0003d */ 	blezl	$t7,.L0f04c574
-/*  f04c480:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04c484:	8c98001c */ 	lw	$t8,0x1c($a0)
-.L0f04c488:
-/*  f04c488:	c4440008 */ 	lwc1	$f4,0x8($v0)
-/*  f04c48c:	90890290 */ 	lbu	$t1,0x290($a0)
-/*  f04c490:	c7060008 */ 	lwc1	$f6,0x8($t8)
-/*  f04c494:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f04c498:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f04c49c:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f04c4a0:	008a5821 */ 	addu	$t3,$a0,$t2
-/*  f04c4a4:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f04c4a8:	44085000 */ 	mfc1	$t0,$f10
-/*  f04c4ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c4b0:	ad6801a0 */ 	sw	$t0,0x1a0($t3)
-/*  f04c4b4:	908c0290 */ 	lbu	$t4,0x290($a0)
-/*  f04c4b8:	8c98001c */ 	lw	$t8,0x1c($a0)
-/*  f04c4bc:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f04c4c0:	31ae00ff */ 	andi	$t6,$t5,0xff
-/*  f04c4c4:	01c3001a */ 	div	$zero,$t6,$v1
-/*  f04c4c8:	00007810 */ 	mfhi	$t7
-/*  f04c4cc:	a08d0290 */ 	sb	$t5,0x290($a0)
-/*  f04c4d0:	a08f0290 */ 	sb	$t7,0x290($a0)
-/*  f04c4d4:	c4500010 */ 	lwc1	$f16,0x10($v0)
-/*  f04c4d8:	c7120010 */ 	lwc1	$f18,0x10($t8)
-/*  f04c4dc:	31ea00ff */ 	andi	$t2,$t7,0xff
-/*  f04c4e0:	000a4080 */ 	sll	$t0,$t2,0x2
-/*  f04c4e4:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f04c4e8:	00885821 */ 	addu	$t3,$a0,$t0
-/*  f04c4ec:	14600002 */ 	bnez	$v1,.L0f04c4f8
-/*  f04c4f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c4f4:	0007000d */ 	break	0x7
-.L0f04c4f8:
-/*  f04c4f8:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04c4fc:	14610004 */ 	bne	$v1,$at,.L0f04c510
-/*  f04c500:	3c018000 */ 	lui	$at,0x8000
-/*  f04c504:	15c10002 */ 	bne	$t6,$at,.L0f04c510
-/*  f04c508:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c50c:	0006000d */ 	break	0x6
-.L0f04c510:
-/*  f04c510:	4600218d */ 	trunc.w.s	$f6,$f4
-/*  f04c514:	44093000 */ 	mfc1	$t1,$f6
-/*  f04c518:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c51c:	ad6901a0 */ 	sw	$t1,0x1a0($t3)
-/*  f04c520:	908c0290 */ 	lbu	$t4,0x290($a0)
-/*  f04c524:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f04c528:	31ae00ff */ 	andi	$t6,$t5,0xff
-/*  f04c52c:	01c3001a */ 	div	$zero,$t6,$v1
-/*  f04c530:	a08d0290 */ 	sb	$t5,0x290($a0)
-/*  f04c534:	00007810 */ 	mfhi	$t7
-/*  f04c538:	a08f0290 */ 	sb	$t7,0x290($a0)
-/*  f04c53c:	14600002 */ 	bnez	$v1,.L0f04c548
-/*  f04c540:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c544:	0007000d */ 	break	0x7
-.L0f04c548:
-/*  f04c548:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f04c54c:	14610004 */ 	bne	$v1,$at,.L0f04c560
-/*  f04c550:	3c018000 */ 	lui	$at,0x8000
-/*  f04c554:	15c10002 */ 	bne	$t6,$at,.L0f04c560
-/*  f04c558:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04c55c:	0006000d */ 	break	0x6
-.L0f04c560:
-/*  f04c560:	8cd80038 */ 	lw	$t8,0x38($a2)
-/*  f04c564:	00b8082a */ 	slt	$at,$a1,$t8
-/*  f04c568:	5420ffc7 */ 	bnezl	$at,.L0f04c488
-/*  f04c56c:	8c98001c */ 	lw	$t8,0x1c($a0)
-.L0f04c570:
-/*  f04c570:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f04c574:
-/*  f04c574:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f04c578:	03e00008 */ 	jr	$ra
-/*  f04c57c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrAddTargetToBdlist(struct chrdata *chr)
+{
+	if (chr->prop) {
+		struct prop *target = chrGetTargetProp(chr);
+		s32 i;
 
-s32 func0f04c580(struct chrdata *chr)
+		if (target) {
+			for (i = 0; i < g_Vars.lvupdate240_60; i++) {
+				chr->bdlist[chr->bdstart] = target->pos.x - chr->prop->pos.x;
+				chr->bdstart++;
+				chr->bdstart %= 60;
+
+				chr->bdlist[chr->bdstart] = target->pos.z - chr->prop->pos.z;
+				chr->bdstart++;
+				chr->bdstart %= 60;
+			}
+		}
+	}
+}
+
+s32 chrGetDistanceLostToTargetInLastSecond(struct chrdata *chr)
 {
 	s32 *bdlist = &chr->bdlist[0];
 	s32 index = chr->bdstart;
 	u32 stack[2];
 
 	s32 x1 = bdlist[(index + 1) % 60];
-	s32 y1 = bdlist[index];
-	s32 a = sqrtf(x1 * x1 + y1 * y1);
+	s32 z1 = bdlist[index];
+	s32 olddist = sqrtf(x1 * x1 + z1 * z1);
 
 	s32 x2 = bdlist[(index + 59) % 60];
-	s32 y2 = bdlist[(index + 58) % 60];
-	s32 b = sqrtf(x2 * x2 + y2 * y2);
+	s32 z2 = bdlist[(index + 58) % 60];
+	s32 curdist = sqrtf(x2 * x2 + z2 * z2);
 
-	return b - a;
+	return curdist - olddist;
 }
 
 bool func0f04c6b4(struct chrdata *chr, u32 distance)

@@ -597,7 +597,7 @@ u8 func0402_unarmed_skedar[] = {
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
-		if_distance_to_home_gt_50_maybe(/*goto*/ 0x2d)
+		if_target_moving_away(/*goto*/ 0x2d)
 		if_chr_distance_lt(150, /*goto*/ 0x2f)
 		label(0x2d)
 		if_chr_distance_lt(50, /*goto*/ 0x2f)

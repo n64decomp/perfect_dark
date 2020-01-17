@@ -2313,7 +2313,7 @@ u8 func041a_bridgeclone[] = {
 		if_chr_death_animation_finished(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
-		if_distance_to_home_gt_50_maybe(/*goto*/ 0x2c)
+		if_target_moving_away(/*goto*/ 0x2c)
 		if_chr_distance_lt(150, /*goto*/ 0x2e)
 		label(0x2c)
 		if_chr_distance_lt(50, /*goto*/ 0x2e)

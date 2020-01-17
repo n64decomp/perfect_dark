@@ -1966,7 +1966,7 @@ u8 func041a_robot[] = {
 
 	beginloop(0x02)
 		set_target_chr(CHR_HIDDENGUY)
-		if_something_chicago_robot(/*goto*/ 0x03)
+		if_target_moving_closer(/*goto*/ 0x03)
 		unset_stage_flag(STAGEFLAG_ROBOT_NEAR_HOME)
 		goto_next(0x04)
 
@@ -2023,7 +2023,7 @@ u8 func041a_robot[] = {
 
 		beginloop(0x05)
 			set_target_chr(CHR_HIDDENGUY)
-			if_something_chicago_robot(/*goto*/ 0x03)
+			if_target_moving_closer(/*goto*/ 0x03)
 			unset_stage_flag(STAGEFLAG_ROBOT_NEAR_HOME)
 			goto_next(0x04)
 			label(0x03)

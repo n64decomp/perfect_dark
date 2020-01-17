@@ -90,7 +90,7 @@ void chraiExecute(void *entity, s32 proptype)
 
 	if (g_Vars.ailist) {
 		if (g_Vars.chrdata) {
-			func0f04c444(g_Vars.chrdata);
+			chrAddTargetToBdlist(g_Vars.chrdata);
 		}
 
 		// Check if the ailist should be switched to a different one

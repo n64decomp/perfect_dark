@@ -298,9 +298,9 @@
 /*0x0127*/ bool ai0127(void);
 /*0x0128*/ bool ai0128(void);
 /*0x0129*/ bool ai0129(void);
-/*0x012a*/ bool ai012a(void);
-/*0x012b*/ bool ai012b(void);
-/*0x012c*/ bool ai012c(void);
+/*0x012a*/ bool aiIfTargetMovingSlowly(void);
+/*0x012b*/ bool aiIfTargetMovingCloser(void);
+/*0x012c*/ bool aiIfTargetMovingAway(void);
 /*0x012f*/ bool ai012f(void);
 /*0x0130*/ bool ai0130(void);
 /*0x0131*/ bool ai0131(void);

@@ -3134,7 +3134,10 @@ u8 func000c_combat_with_target_chr[] = {
 
 	label(0x16)
 	if_chr_distance_lt(800, /*goto*/ 0xc2)
-	if_something_hypotenuse(0, /*goto*/ 0xc2)
+
+	// @bug: Guards will consider throwing grenades if you're moving quickly
+	// rather than slowly. The below statement skips the grenade logic if slow.
+	if_target_moving_slowly(0, /*goto*/ 0xc2)
 	dprint 'G','R','E','N','A','D','E','\n',0,
 	restart_timer
 	if_chr_in_squadron_doing_action(MA_GRENADE, /*goto*/ 0xc2)

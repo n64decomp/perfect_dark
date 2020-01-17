@@ -2503,22 +2503,35 @@
 	score, \
 	label,
 
-// If value is nonzero then it's an chr ID. If zero then use current chr.
-// This means chr ID 0 cannot be used. In practice, this command is only
-// called once and it has value 0.
-#define if_something_hypotenuse(value, label) \
+/**
+ * Checks if the distance change from the current chr to the chr's target has
+ * not changed by more than 50 units since 1 second ago. In other words, if the
+ * distance between the two is somewhat constant (eg. they are both not moving
+ * much).
+ *
+ * It's used to decide whether to throw grenades or not.
+ *
+ * If chr is zero, compare the current chr and their target.
+ * If chr is non-zero, compare the given chr and their target.
+ */
+#define if_target_moving_slowly(chr, label) \
 	mkshort(0x012a), \
-	value, \
+	chr, \
 	label,
 
-// Checks if the chr is within 50 units of something
-#define if_something_chicago_robot(label) \
+/**
+ * Checks if the distance between the chr and their target has decreased by at
+ * least 50 units in the last second.
+ */
+#define if_target_moving_closer(label) \
 	mkshort(0x012b), \
 	label,
 
-// Does some math on chr's bdlist, possibly involving square roots.
-// If result is > 50, goto label
-#define if_distance_to_home_gt_50_maybe(label) \
+/**
+ * Checks if the distance between the chr and their target has increased by at
+ * least 50 units in the last second.
+ */
+#define if_target_moving_away(label) \
 	mkshort(0x012c), \
 	label,
 
