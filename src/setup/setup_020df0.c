@@ -11183,7 +11183,7 @@ struct menu_dialog menudialog_mpgamesetup3 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5011,
 	menuitems_mpgamesetup3,
-	menudialog0017f0b0,
+	menudialogMpGameSetup,
 	0x00000810,
 	&menudialog_mpplayersetup4,
 };
@@ -11193,7 +11193,7 @@ struct menu_dialog menudialog_mpgamesetup2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5011,
 	menuitems_mpgamesetup3,
-	menudialog0017f0b0,
+	menudialogMpGameSetup,
 	0x00000810,
 	&menudialog_mpplayersetup2,
 };

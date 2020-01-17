@@ -8658,21 +8658,15 @@ glabel func0f17f088
 /*  f17f0ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menudialog0017f0b0
-/*  f17f0b0:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f17f0b4:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f17f0b8:	14810006 */ 	bne	$a0,$at,.L0f17f0d4
-/*  f17f0bc:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f17f0c0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f17f0c4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f17f0c8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f17f0cc:	ac430490 */ 	sw	$v1,0x490($v0)
-/*  f17f0d0:	ac43049c */ 	sw	$v1,0x49c($v0)
-.L0f17f0d4:
-/*  f17f0d4:	03e00008 */ 	jr	$ra
-/*  f17f0d8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool menudialogMpGameSetup(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+{
+	if (operation == MENUOP_100) {
+		g_Vars.unk000490 = 1;
+		g_Vars.unk00049c = 1;
+	}
+
+	return false;
+}
 
 bool menudialogMpQuickGo(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
 {

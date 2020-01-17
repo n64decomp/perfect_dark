@@ -3895,7 +3895,7 @@ struct menu_dialog g_4MbAdvancedSetupMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5011,
 	menuitems_mpgamesetup,
-	menudialog0017f0b0,
+	menudialogMpGameSetup,
 	0x00000810,
 	&menudialog_mpplayersetup,
 };
