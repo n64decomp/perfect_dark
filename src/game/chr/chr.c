@@ -42284,45 +42284,29 @@ glabel func0f043944
 /*  f043984:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f043988
-/*  f043988:	3c03800a */ 	lui	$v1,%hi(g_DangerousProps)
-/*  f04398c:	3c02800a */ 	lui	$v0,%hi(var8009cc30)
-/*  f043990:	2442cc30 */ 	addiu	$v0,$v0,%lo(var8009cc30)
-/*  f043994:	2463cc00 */ 	addiu	$v1,$v1,%lo(g_DangerousProps)
-/*  f043998:	8c6e0000 */ 	lw	$t6,0x0($v1)
-.L0f04399c:
-/*  f04399c:	548e0004 */ 	bnel	$a0,$t6,.L0f0439b0
-/*  f0439a0:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f0439a4:	03e00008 */ 	jr	$ra
-/*  f0439a8:	ac600000 */ 	sw	$zero,0x0($v1)
-/*  f0439ac:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f0439b0:
-/*  f0439b0:	5462fffa */ 	bnel	$v1,$v0,.L0f04399c
-/*  f0439b4:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f0439b8:	03e00008 */ 	jr	$ra
-/*  f0439bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void unregisterDangerousProp(struct prop *prop)
+{
+	s32 i;
 
-GLOBAL_ASM(
-glabel func0f0439c0
-/*  f0439c0:	3c03800a */ 	lui	$v1,%hi(g_DangerousProps)
-/*  f0439c4:	3c02800a */ 	lui	$v0,%hi(var8009cc30)
-/*  f0439c8:	2442cc30 */ 	addiu	$v0,$v0,%lo(var8009cc30)
-/*  f0439cc:	2463cc00 */ 	addiu	$v1,$v1,%lo(g_DangerousProps)
-/*  f0439d0:	8c6e0000 */ 	lw	$t6,0x0($v1)
-.L0f0439d4:
-/*  f0439d4:	55c00004 */ 	bnezl	$t6,.L0f0439e8
-/*  f0439d8:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f0439dc:	03e00008 */ 	jr	$ra
-/*  f0439e0:	ac640000 */ 	sw	$a0,0x0($v1)
-/*  f0439e4:	24630004 */ 	addiu	$v1,$v1,0x4
-.L0f0439e8:
-/*  f0439e8:	5462fffa */ 	bnel	$v1,$v0,.L0f0439d4
-/*  f0439ec:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f0439f0:	03e00008 */ 	jr	$ra
-/*  f0439f4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	for (i = 0; i != 12; i++) {
+		if (g_DangerousProps[i] == prop) {
+			g_DangerousProps[i] = NULL;
+			return;
+		}
+	}
+}
+
+void registerDangerousProp(struct prop *prop)
+{
+	s32 i;
+
+	for (i = 0; i != 12; i++) {
+		if (g_DangerousProps[i] == NULL) {
+			g_DangerousProps[i] = prop;
+			return;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0439f8

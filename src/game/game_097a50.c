@@ -9173,7 +9173,7 @@ glabel func0f09ee18
 .L0f09ef90:
 /*  f09ef90:	8ca40014 */ 	lw	$a0,0x14($a1)
 /*  f09ef94:	afa800b0 */ 	sw	$t0,0xb0($sp)
-/*  f09ef98:	0fc10e70 */ 	jal	func0f0439c0
+/*  f09ef98:	0fc10e70 */ 	jal	registerDangerousProp
 /*  f09ef9c:	afa500a4 */ 	sw	$a1,0xa4($sp)
 /*  f09efa0:	8fa500a4 */ 	lw	$a1,0xa4($sp)
 /*  f09efa4:	8fa800b0 */ 	lw	$t0,0xb0($sp)
