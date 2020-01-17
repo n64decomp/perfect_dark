@@ -99,7 +99,7 @@ u32 func0f100128(void);
 u32 func0f100ad0(void);
 u32 func0f102230(void);
 s32 menudialog000fcd48(u32, u32, u32 *);
-s32 menudialog000fdc74(u32, u32, u32 *);
+bool menudialogMpPickTarget(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);
 s32 menuhandler000fcc34(u32, u32, u32 *);
 s32 menuhandler000fd6f0(u32, u32, u32 *);
 s32 menuhandlerRepairPak(u32 operation, struct menu_item *item, s32 *value);

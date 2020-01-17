@@ -15306,47 +15306,22 @@ glabel menuhandler000fd6f0
 /*  f0fdc70:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menudialog000fdc74
-/*  f0fdc74:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f0fdc78:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f0fdc7c:	10810009 */ 	beq	$a0,$at,.L0f0fdca4
-/*  f0fdc80:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f0fdc84:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f0fdc88:	10810015 */ 	beq	$a0,$at,.L0f0fdce0
-/*  f0fdc8c:	3c09800a */ 	lui	$t1,0x800a
-/*  f0fdc90:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f0fdc94:	1081000b */ 	beq	$a0,$at,.L0f0fdcc4
-/*  f0fdc98:	3c18800a */ 	lui	$t8,0x800a
-/*  f0fdc9c:	03e00008 */ 	jr	$ra
-/*  f0fdca0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0fdca4:
-/*  f0fdca4:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0fdca8:	8dcea24c */ 	lw	$t6,-0x5db4($t6)
-/*  f0fdcac:	3c018007 */ 	lui	$at,0x8007
-/*  f0fdcb0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fdcb4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0fdcb8:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0fdcbc:	03e00008 */ 	jr	$ra
-/*  f0fdcc0:	ac200750 */ 	sw	$zero,0x750($at)
-.L0f0fdcc4:
-/*  f0fdcc4:	8f18a24c */ 	lw	$t8,-0x5db4($t8)
-/*  f0fdcc8:	3c018007 */ 	lui	$at,0x8007
-/*  f0fdccc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fdcd0:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0fdcd4:	00390821 */ 	addu	$at,$at,$t9
-/*  f0fdcd8:	03e00008 */ 	jr	$ra
-/*  f0fdcdc:	ac200750 */ 	sw	$zero,0x750($at)
-.L0f0fdce0:
-/*  f0fdce0:	8d29a24c */ 	lw	$t1,-0x5db4($t1)
-/*  f0fdce4:	3c018007 */ 	lui	$at,0x8007
-/*  f0fdce8:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f0fdcec:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f0fdcf0:	002a0821 */ 	addu	$at,$at,$t2
-/*  f0fdcf4:	ac280750 */ 	sw	$t0,0x750($at)
-/*  f0fdcf8:	03e00008 */ 	jr	$ra
-/*  f0fdcfc:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool menudialogMpPickTarget(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+{
+	switch (operation) {
+	case MENUOP_100:
+		g_PlayersWithControl[g_Vars.currentplayernum] = false;
+		break;
+	case MENUOP_102:
+		g_PlayersWithControl[g_Vars.currentplayernum] = false;
+		break;
+	case MENUOP_101:
+		g_PlayersWithControl[g_Vars.currentplayernum] = true;
+		break;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f0fdd00

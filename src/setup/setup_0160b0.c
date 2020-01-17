@@ -1512,7 +1512,7 @@ struct menu_dialog menudialog_picktarget = {
 	MENUDIALOGTYPE_DANGER,
 	0x57ec, // "Pick Target"
 	menuitems_picktarget,
-	menudialog000fdc74,
+	menudialogMpPickTarget,
 	0x00000000,
 	NULL,
 };
