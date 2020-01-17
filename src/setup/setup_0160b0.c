@@ -3866,7 +3866,7 @@ struct menu_dialog menudialog_1b414 = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f17cfc0,
 	menuitems_1b39c,
-	menudialog0017c618,
+	menudialogMpSimulant,
 	0x00000010,
 	NULL,
 };

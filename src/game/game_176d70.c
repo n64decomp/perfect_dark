@@ -6239,46 +6239,16 @@ bool menudialogMpReady(u32 operation, struct menu_dialog *dialog, struct menusta
 	return false;
 }
 
-GLOBAL_ASM(
-glabel menudialog0017c618
-/*  f17c618:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17c61c:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f17c620:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17c624:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17c628:	14810019 */ 	bne	$a0,$at,.L0f17c690
-/*  f17c62c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17c630:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f17c634:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f17c638:	3c18800a */ 	lui	$t8,0x800a
-/*  f17c63c:	3c08800b */ 	lui	$t0,0x800b
-/*  f17c640:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17c644:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17c648:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17c64c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17c650:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17c654:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17c658:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17c65c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17c660:	8f18ee1c */ 	lw	$t8,-0x11e4($t8)
-/*  f17c664:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f17c668:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f17c66c:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f17c670:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f17c674:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f17c678:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f17c67c:	9108c538 */ 	lbu	$t0,-0x3ac8($t0)
-/*  f17c680:	55000004 */ 	bnezl	$t0,.L0f17c694
-/*  f17c684:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17c688:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f17c68c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17c690:
-/*  f17c690:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17c694:
-/*  f17c694:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17c698:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17c69c:	03e00008 */ 	jr	$ra
-/*  f17c6a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool menudialogMpSimulant(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+{
+	if (operation == MENUOP_102) {
+		if ((u8)g_MpSimulants[g_MenuStack[g_MpPlayerNum].slotindex].base.name[0] == '\0') {
+			menuPopDialog();
+		}
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel menuhandler0017c6a4
@@ -6637,7 +6607,7 @@ glabel menudialog0017ccfc
 /*  f17cd80:	8fa40038 */ 	lw	$a0,0x38($sp)
 .L0f17cd84:
 /*  f17cd84:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f17cd88:	0fc5f186 */ 	jal	menudialog0017c618
+/*  f17cd88:	0fc5f186 */ 	jal	menudialogMpSimulant
 /*  f17cd8c:	8fa60040 */ 	lw	$a2,0x40($sp)
 /*  f17cd90:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f17cd94:	27bd0038 */ 	addiu	$sp,$sp,0x38

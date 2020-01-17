@@ -10751,7 +10751,7 @@ struct menu_dialog g_MpChangeSimulantMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5066,
 	menuitems_mpaddchangesimulant,
-	menudialog0017c618,
+	menudialogMpSimulant,
 	0x00000011,
 	NULL,
 };
@@ -10789,7 +10789,7 @@ struct menu_dialog menudialog_mpeditsimulant = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f17cfc0,
 	menuitems_mpeditsimulant,
-	menudialog0017c618,
+	menudialogMpSimulant,
 	0x00000010,
 	NULL,
 };
