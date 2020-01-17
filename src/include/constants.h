@@ -482,6 +482,7 @@
 #define MENUOP_GETTEXT         17
 #define MENUOP_SETTEXT         18
 #define MENUOP_CHECKHIDDEN     24
+#define MENUOP_100             100
 
 #define MPLOCKTYPE_NONE       0
 #define MPLOCKTYPE_LASTWINNER 1

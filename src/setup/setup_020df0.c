@@ -11212,7 +11212,7 @@ struct menu_dialog g_MpQuickGoMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x59cc, // "Quick Go"
 	menuitems_mpquickgo,
-	menudialog0017f0dc,
+	menudialogMpQuickGo,
 	0x00000000,
 	NULL,
 };

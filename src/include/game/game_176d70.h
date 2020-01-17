@@ -177,7 +177,7 @@ s32 menudialog0017df74(u32, u32, u32 *);
 s32 menudialog0017e3fc(u32, u32, u32 *);
 s32 menudialog0017eb34(u32, u32, u32 *);
 s32 menudialog0017f0b0(u32, u32, u32 *);
-s32 menudialog0017f0dc(u32, u32, u32 *);
+bool menudialogMpQuickGo(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);
 s32 menudialog0017f930(u32, u32, u32 *);
 s32 menudialog00184ec0(u32, u32, u32 *);
 s32 menuhandler00177e00(u32, u32, u32 *);
