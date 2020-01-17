@@ -169,7 +169,7 @@ u32 func0f187288(void);
 u32 func0f187410(void);
 u32 func0f1876e4(void);
 s32 menudialog0017a174(u32, u32, u32 *);
-s32 menudialog0017c5a4(u32, u32, u32 *);
+bool menudialogMpReady(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);
 void menudialog0017c618(void);
 s32 menudialog0017ccfc(u32, u32, u32 *);
 bool menudialogMpSimulants(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);

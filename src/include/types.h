@@ -4161,7 +4161,7 @@ struct mpplayer {
 	/*0x00*/ struct mpchr base;
 	/*0x48*/ u16 options;
 	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
+	/*0x50*/ u16 unk50;
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 unk58;
 	/*0x5c*/ u32 unk5c;

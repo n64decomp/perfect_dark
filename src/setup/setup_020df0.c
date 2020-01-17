@@ -10719,7 +10719,7 @@ struct menu_dialog g_MpReadyMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x5069,
 	menuitems_mpready,
-	menudialog0017c5a4,
+	menudialogMpReady,
 	0x00000001,
 	NULL,
 };
