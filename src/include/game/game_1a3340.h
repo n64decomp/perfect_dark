@@ -42,7 +42,7 @@ s32 menudialog001a3af4(u32, u32, u32 *);
 s32 menudialog001a5f48(u32, u32, u32 *);
 s32 menudialog001a6548(u32, u32, u32 *);
 bool menudialogDeviceTrainingResults(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);
-s32 menudialog001a6aa4(u32, u32, u32 *);
+bool menudialog001a6aa4(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);
 bool menudialogFiringRangeResults(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);
 s32 menudialog001a737c(u32, u32, u32 *);
 s32 menuhandler001a3340(u32, u32, u32 *);
