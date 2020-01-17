@@ -13353,7 +13353,7 @@ struct menu_dialog menudialog_trainingstats_failed2 = {
 	MENUDIALOGTYPE_DANGER,
 	0x51a7, // "Training Stats"
 	menuitems_trainingstats_failed2,
-	menudialog001a6c54,
+	menudialogFiringRangeResults,
 	0x00000200,
 	&menudialog_holotraining,
 };
@@ -13373,7 +13373,7 @@ struct menu_dialog menudialog_trainingstats_completed2 = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x51a7, // "Training Stats"
 	menuitems_trainingstats_completed2,
-	menudialog001a6c54,
+	menudialogFiringRangeResults,
 	0x00000200,
 	&menudialog_holotraining,
 };

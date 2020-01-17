@@ -4069,24 +4069,14 @@ glabel func0f1a6b7c
 /*  f1a6c50:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menudialog001a6c54
-/*  f1a6c54:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a6c58:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f1a6c5c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6c60:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a6c64:	14810004 */ 	bne	$a0,$at,.L0f1a6c78
-/*  f1a6c68:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1a6c6c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a6c70:	0fc127cb */ 	jal	chrSetStageFlag
-/*  f1a6c74:	3c050800 */ 	lui	$a1,0x800
-.L0f1a6c78:
-/*  f1a6c78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a6c7c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a6c80:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a6c84:	03e00008 */ 	jr	$ra
-/*  f1a6c88:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool menudialogFiringRangeResults(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+{
+	if (operation == MENUOP_101) {
+		chrSetStageFlag(NULL, 0x08000000);
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f1a6c8c
