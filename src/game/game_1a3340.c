@@ -3829,24 +3829,14 @@ glabel func0f1a6840
 /*  f1a6914:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menudialog001a6918
-/*  f1a6918:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a691c:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f1a6920:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6924:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a6928:	14810004 */ 	bne	$a0,$at,.L0f1a693c
-/*  f1a692c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1a6930:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a6934:	0fc127cb */ 	jal	chrSetStageFlag
-/*  f1a6938:	3c050800 */ 	lui	$a1,0x800
-.L0f1a693c:
-/*  f1a693c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a6940:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a6944:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a6948:	03e00008 */ 	jr	$ra
-/*  f1a694c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool menudialogDeviceTrainingResults(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+{
+	if (operation == MENUOP_101) {
+		chrSetStageFlag(NULL, 0x08000000);
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel menuhandler001a6950

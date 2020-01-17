@@ -13277,7 +13277,7 @@ struct menu_dialog menudialog_trainingstats_failed = {
 	MENUDIALOGTYPE_DANGER,
 	0x000051a7, // "Training Stats"
 	menuitems_trainingstats_failed,
-	menudialog001a6918,
+	menudialogDeviceTrainingResults,
 	0x00000200,
 	&menudialog_devicelist,
 };
@@ -13297,7 +13297,7 @@ struct menu_dialog menudialog_trainingstats_completed = {
 	MENUDIALOGTYPE_SUCCESS,
 	0x51a7,
 	menuitems_trainingstats_completed,
-	menudialog001a6918,
+	menudialogDeviceTrainingResults,
 	0x00000200,
 	&menudialog_devicelist,
 };
