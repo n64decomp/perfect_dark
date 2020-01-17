@@ -1503,8 +1503,8 @@ u8 func0402_taker[] = {
 		try_aim_and_shoot_thing1(0x0220, 0x0000, /*goto*/ 0x05)
 
 		beginloop(0x05)
-			if_chr_distance_gt(1000, /*goto*/ 0x2e)
-			if_chr_distance_lt(300, /*goto*/ 0x06)
+			if_distance_to_target_gt(1000, /*goto*/ 0x2e)
+			if_distance_to_target_lt(300, /*goto*/ 0x06)
 			if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x06)
 			if_chr_weapon_equipped(CHR_BOND, WEAPON_LAPTOPGUN, /*goto*/ 0x0b)
 			label(0x2d)
@@ -1602,11 +1602,11 @@ u8 func0402_taker[] = {
 
 	beginloop(0x0d)
 		if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, FALSE, BANK_0, /*goto*/ 0x06)
-		if_chr_distance_lt(200, /*goto*/ 0x2d)
+		if_distance_to_target_lt(200, /*goto*/ 0x2d)
 		reloop(0x0d)
 
 		label(0x06)
-		if_chr_distance_lt(200, /*goto*/ 0x2d)
+		if_distance_to_target_lt(200, /*goto*/ 0x2d)
 		if_chr_stopped(/*goto*/ 0x2d)
 	endloop(0x0d)
 

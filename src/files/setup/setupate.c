@@ -408,13 +408,13 @@ u8 func0402_guard_combat[] = {
 	try_jump_sideways(/*goto*/ 0x08)
 
 	beginloop(0x08)
-		if_chr_distance_lt(250, /*goto*/ 0x0e)
+		if_distance_to_target_lt(250, /*goto*/ 0x0e)
 		if_chr_stopped(/*goto*/ 0x03)
 	endloop(0x08)
 
 	// Guard has been shot, or finished jump
 	beginloop(0x03)
-		if_chr_distance_lt(250, /*goto*/ 0x0e)
+		if_distance_to_target_lt(250, /*goto*/ 0x0e)
 		if_chr_sees_player(/*goto*/ 0x06)
 		reloop(0x03)
 
@@ -459,7 +459,7 @@ u8 func0403_jon_combat[] = {
 	try_run_to_target(/*goto*/ 0x08)
 
 	beginloop(0x08)
-		if_chr_distance_lt(250, /*goto*/ 0x0e)
+		if_distance_to_target_lt(250, /*goto*/ 0x0e)
 		if_in_disarm_range(/*goto*/ 0x06)
 		reloop(0x08)
 
@@ -496,7 +496,7 @@ u8 func0404_trent_combat[] = {
 
 	// Wait until player in sight or in close range
 	beginloop(0x03)
-		if_chr_distance_lt(250, /*goto*/ 0x0e)
+		if_distance_to_target_lt(250, /*goto*/ 0x0e)
 		if_chr_sees_player(/*goto*/ 0x06)
 		reloop(0x03)
 

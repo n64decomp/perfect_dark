@@ -731,7 +731,7 @@ u8 func040e_elvis_give_ar34[] = {
 	beginloop(0x09)
 		set_target_chr(CHR_PRESET)
 		if_timer_gt(60, /*goto*/ 0x2c)
-		if_chr_distance_lt(200, /*goto*/ 0x06)
+		if_distance_to_target_lt(200, /*goto*/ 0x06)
 		reloop(0x09)
 
 		label(0x06)
@@ -819,12 +819,12 @@ u8 func0409_elvis_follow[] = {
 	dprint 'I','N','J','U','R','E','D','F','I','N','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 	set_target_chr(CHR_PRESET)
-	if_chr_distance_lt(200, /*goto*/ 0x06)
+	if_distance_to_target_lt(200, /*goto*/ 0x06)
 
 	label(0x03)
 	set_target_chr(CHR_PRESET)
 	restart_timer
-	if_chr_distance_gt(500, /*goto*/ 0x06)
+	if_distance_to_target_gt(500, /*goto*/ 0x06)
 	try_jog_to_target(/*goto*/ 0x04)
 
 	// Distance < 200 or distance > 500
@@ -841,7 +841,7 @@ u8 func0409_elvis_follow[] = {
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_lt(200, /*goto*/ 0x06)
+		if_distance_to_target_lt(200, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2c)
 	endloop(0x04)
 
@@ -863,7 +863,7 @@ u8 func0409_elvis_follow[] = {
 		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_gt(300, /*goto*/ 0x06)
+		if_distance_to_target_gt(300, /*goto*/ 0x06)
 	endloop(0x09)
 
 	// Player moved away - do distance checks and start following
@@ -1005,7 +1005,7 @@ u8 func040a_elvis_go_to_hangar_lift[] = {
 
 	beginloop(0x04)
 		if_timer_gt(60, /*goto*/ 0x2c)
-		if_chr_distance_lt(200, /*goto*/ 0x06)
+		if_distance_to_target_lt(200, /*goto*/ 0x06)
 	endloop(0x04)
 
 	label(0x2c)
@@ -2290,7 +2290,7 @@ u8 func041a_bridgeclone[] = {
 
 	// Has target - walk towards for 2 seconds
 	label(0x06)
-	if_chr_distance_lt(150, /*goto*/ 0x2e)
+	if_distance_to_target_lt(150, /*goto*/ 0x2e)
 	label(0xc5)
 	restart_timer
 	try_walk_to_target(/*goto*/ 0x08)
@@ -2314,9 +2314,9 @@ u8 func041a_bridgeclone[] = {
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
 		if_target_moving_away(/*goto*/ 0x2c)
-		if_chr_distance_lt(150, /*goto*/ 0x2e)
+		if_distance_to_target_lt(150, /*goto*/ 0x2e)
 		label(0x2c)
-		if_chr_distance_lt(50, /*goto*/ 0x2e)
+		if_distance_to_target_lt(50, /*goto*/ 0x2e)
 		if_timer_gt(14, /*goto*/ 0x06)
 	endloop(0x0a)
 

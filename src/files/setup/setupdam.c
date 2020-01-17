@@ -1618,7 +1618,7 @@ u8 func0411_labtech_alerted[] = {
 
 	label(0x07)
 	set_target_chr(CHR_P1P2)
-	if_chr_distance_lt(300, /*goto*/ 0x04)
+	if_distance_to_target_lt(300, /*goto*/ 0x04)
 
 	label(0x00)
 	chr_do_animation(ANIM_COWER_0229, -1, -1, 0x10, 0x0a, CHR_SELF, 2)
@@ -1631,7 +1631,7 @@ u8 func0411_labtech_alerted[] = {
 		goto_next(0x00)
 
 		label(0x07)
-		if_chr_distance_lt(300, /*goto*/ 0x04)
+		if_distance_to_target_lt(300, /*goto*/ 0x04)
 		label(0x00)
 		if_chr_stopped(/*goto*/ 0x07)
 	endloop(0x11)
@@ -1903,7 +1903,7 @@ u8 func0401_pilot[] = {
 		// Wait for Jo nearby
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_distance_lt(200, /*goto*/ 0x07)
+		if_distance_to_target_lt(200, /*goto*/ 0x07)
 		reloop(0x0b)
 
 		// and for Jo's room entry speech to finish

@@ -2986,7 +2986,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x5c)
 
 	label(0x2f)
-	if_chr_distance_lt(500, /*goto*/ 0x2f)
+	if_distance_to_target_lt(500, /*goto*/ 0x2f)
 	goto_first(0x5c)
 
 	label(0x2f)
@@ -3014,7 +3014,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x63)
 
 	label(0x2f)
-	if_chr_distance_lt(500, /*goto*/ 0x2f)
+	if_distance_to_target_lt(500, /*goto*/ 0x2f)
 	goto_first(0x63)
 
 	label(0x2f)
@@ -3071,7 +3071,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x6a)
 
 	label(0x2f)
-	if_chr_distance_lt(500, /*goto*/ 0x2f)
+	if_distance_to_target_lt(500, /*goto*/ 0x2f)
 	goto_first(0x6a)
 
 	label(0x2f)
@@ -3107,7 +3107,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x6e)
 
 	label(0x2f)
-	if_chr_distance_lt(500, /*goto*/ 0x2f)
+	if_distance_to_target_lt(500, /*goto*/ 0x2f)
 	goto_first(0x6e)
 
 	label(0x2f)
@@ -3159,7 +3159,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x74)
 
 	label(0x2f)
-	if_chr_distance_lt(500, /*goto*/ 0x2f)
+	if_distance_to_target_lt(500, /*goto*/ 0x2f)
 	goto_first(0x74)
 
 	label(0x2f)
@@ -4472,11 +4472,11 @@ u8 func0404_holo4_guard2[] = {
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x06)
-	if_chr_distance_lt(500, /*goto*/ 0x2f)
+	if_distance_to_target_lt(500, /*goto*/ 0x2f)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x08)
 
 	beginloop(0x08)
-		if_chr_distance_lt(500, /*goto*/ 0x2f)
+		if_distance_to_target_lt(500, /*goto*/ 0x2f)
 	endloop(0x08)
 
 	label(0x2f)
@@ -4732,11 +4732,11 @@ u8 func0407_holo5_guard1[] = {
 	endloop(0x0b)
 
 	label(0x06)
-	if_chr_distance_lt(300, /*goto*/ 0x2f)
+	if_distance_to_target_lt(300, /*goto*/ 0x2f)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x08)
 
 	beginloop(0x08)
-		if_chr_distance_lt(300, /*goto*/ 0x2f)
+		if_distance_to_target_lt(300, /*goto*/ 0x2f)
 	endloop(0x08)
 
 	label(0x2f)
@@ -5081,7 +5081,7 @@ u8 func0415_holo_guard_unarmed_unalert[] = {
 	endloop(0x08)
 
 	beginloop(0x04)
-		if_chr_distance_lt(500, /*goto*/ 0x06)
+		if_distance_to_target_lt(500, /*goto*/ 0x06)
 		call_rng
 		if_rand_lt(1, /*goto*/ 0x06)
 		label(0x2f)
@@ -5102,7 +5102,7 @@ u8 func0416_holo_guard_unarmed_alert[] = {
 
 	beginloop(0x08)
 		if_chr_stopped(/*goto*/ 0x06)
-		if_chr_distance_lt(300, /*goto*/ 0x2f)
+		if_distance_to_target_lt(300, /*goto*/ 0x2f)
 		if_timer_gt(15, /*goto*/ 0x06)
 	endloop(0x08)
 
@@ -5141,14 +5141,14 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	beginloop(0x04)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x57)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x57)
-		if_chr_distance_gt(100, /*goto*/ 0x2f)
+		if_distance_to_target_gt(100, /*goto*/ 0x2f)
 		if_in_disarm_range(/*goto*/ 0x2f)
 		if_timer_gt(120, /*goto*/ 0x10)
 	endloop(0x04)
 
 	label(0x2f)
-	if_chr_distance_gt(400, /*goto*/ 0x10)
-	if_chr_distance_lt(100, /*goto*/ 0x06)
+	if_distance_to_target_gt(400, /*goto*/ 0x10)
+	if_distance_to_target_lt(100, /*goto*/ 0x06)
 	restart_timer
 	try_run_to_target(/*goto*/ 0x08)
 
@@ -5159,8 +5159,8 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 		if_chr_stopped(/*goto*/ 0x10)
 		if_target_is_player(/*goto*/ 0x0e)
 		label(0x0e)
-		if_chr_distance_gt(400, /*goto*/ 0x10)
-		if_chr_distance_lt(100, /*goto*/ 0x06)
+		if_distance_to_target_gt(400, /*goto*/ 0x10)
+		if_distance_to_target_lt(100, /*goto*/ 0x06)
 	endloop(0x08)
 
 	label(0x2f)
@@ -5177,7 +5177,7 @@ u8 func0416_holo_guard_unarmed_alert2[] = {
 	beginloop(0x09)
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x57)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x57)
-		if_chr_distance_gt(400, /*goto*/ 0x10)
+		if_distance_to_target_gt(400, /*goto*/ 0x10)
 		if_jo_ccw_direction_lt(10, /*goto*/ 0x06)
 		if_jo_ccw_direction_gt(246, /*goto*/ 0x06)
 		if_timer_gt(120, /*goto*/ 0x06)
@@ -5503,7 +5503,7 @@ u8 func0418_holo_guard_armed_unalert[] = {
 	restart_timer
 
 	beginloop(0x04)
-		if_chr_distance_lt(500, /*goto*/ 0x06)
+		if_distance_to_target_lt(500, /*goto*/ 0x06)
 		if_timer_gt(300, /*goto*/ 0x2f)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x06)
 	endloop(0x04)

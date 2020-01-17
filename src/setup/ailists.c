@@ -333,11 +333,11 @@ u8 func0006_unalerted[] = {
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_HORIZONSCANNER, /*goto*/ 0xe6)
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_SUITCASE, /*goto*/ 0xe6)
 	dprint 'T','A','L','K',' ','D','I','S','T',' ','G','U','N','\n',0,
-	if_chr_distance_gt(900, /*goto*/ 0x15)
+	if_distance_to_target_gt(900, /*goto*/ 0x15)
 	goto_next(0xe8)
 
 	label(0xe6)
-	if_chr_distance_gt(450, /*goto*/ 0x15)
+	if_distance_to_target_gt(450, /*goto*/ 0x15)
 	label(0xe8)
 	if_chr_sees_player(/*goto*/ 0xe9)
 	goto_next(LABEL_DISGUISE_UNCOVERED)
@@ -545,7 +545,7 @@ u8 func0006_unalerted[] = {
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x13)
 		if_target_in_sight(/*goto*/ 0x16)
 		label(0x13)
-		if_self_distance_to_chr_lt(150, CHR_SEEDIE, /*goto*/ 0x7f)
+		if_distance_to_chr_lt(150, CHR_SEEDIE, /*goto*/ 0x7f)
 		if_chr_stopped(/*goto*/ 0x7f)
 	endloop(0x7e)
 
@@ -1198,7 +1198,7 @@ u8 func0007_alerted[] = {
 
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_TRAP, TRUE, BANK_0, /*goto*/ 0x16)
-	if_chr_distance_lt(800, /*goto*/ 0x9c)
+	if_distance_to_target_lt(800, /*goto*/ 0x9c)
 	label(0x16)
 	goto_first(0x9b)
 
@@ -1287,7 +1287,7 @@ u8 func0007_alerted[] = {
 
 	beginloop(0xab)
 		set_target_chr(CHR_P1P2)
-		if_chr_distance_gt(300, /*goto*/ 0x13)
+		if_distance_to_target_gt(300, /*goto*/ 0x13)
 		unset_self_flag_bankx(CHRFLAG0_10000000, BANK_0)
 		goto_first(0x1b)
 
@@ -1325,8 +1325,8 @@ u8 func0007_alerted[] = {
 	label(LABEL_SNIPE)
 	unset_self_flag_bankx(CHRFLAG0_80000000, BANK_0)
 	yield
-	if_chr_distance_lt(1000, /*goto*/ 0x16)
-	if_chr_distance_gt(2500, /*goto*/ 0x14)
+	if_distance_to_target_lt(1000, /*goto*/ 0x16)
+	if_distance_to_target_gt(2500, /*goto*/ 0x14)
 
 	// Distance between 1000 and 2500
 	if_jo_ccw_direction_lt(10, /*goto*/ 0x13)
@@ -1362,7 +1362,7 @@ u8 func0007_alerted[] = {
 	try_run_to_target(/*goto*/ 0xe1)
 
 	beginloop(0xe1)
-		if_chr_distance_lt(2500, /*goto*/ 0x15)
+		if_distance_to_target_lt(2500, /*goto*/ 0x15)
 	endloop(0xe1)
 
 	label(0x15)
@@ -1374,7 +1374,7 @@ u8 func0007_alerted[] = {
 	cmd01ba(0x0022, 0x0000, /*goto*/ 0xdf)
 
 	beginloop(0xdf)
-		if_chr_distance_lt(1000, /*goto*/ 0x16)
+		if_distance_to_target_lt(1000, /*goto*/ 0x16)
 		if_timer_gt(300, /*goto*/ 0x13)
 	endloop(0xdf)
 
@@ -1437,11 +1437,11 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	if_within_units_of_sight(30, /*goto*/ 0x16)
 	if_player_using_cmp150_or_ar34(/*goto*/ 0x69)
-	if_chr_distance_gt(2000, /*goto*/ 0x61)
+	if_distance_to_target_gt(2000, /*goto*/ 0x61)
 	goto_next(0x16)
 
 	label(0x69)
-	if_chr_distance_gt(4000, /*goto*/ 0x61)
+	if_distance_to_target_gt(4000, /*goto*/ 0x61)
 	label(0x16)
 	dprint 'O','K','F','O','R','C','O','V','E','R','\n',0,
 	if_in_disarm_range(/*goto*/ 0x5b)
@@ -1500,10 +1500,10 @@ u8 func0007_alerted[] = {
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
-		if_chr_distance_lt(120, /*goto*/ 0x16)
+		if_distance_to_target_lt(120, /*goto*/ 0x16)
 		call_rng
 		if_rand_lt(128, /*goto*/ 0x13)
-		if_chr_distance_gt(250, /*goto*/ 0x13)
+		if_distance_to_target_gt(250, /*goto*/ 0x13)
 		label(0x16)
 		if_in_disarm_range(/*goto*/ 0x16)
 		goto_next(0x13)
@@ -1550,11 +1550,11 @@ u8 func0007_alerted[] = {
 
 	label(0x66)
 	if_player_using_cmp150_or_ar34(/*goto*/ 0x69)
-	if_chr_distance_gt(2000, /*goto*/ 0x16)
+	if_distance_to_target_gt(2000, /*goto*/ 0x16)
 	goto_next(0x6a)
 
 	label(0x69)
-	if_chr_distance_gt(4000, /*goto*/ 0x16)
+	if_distance_to_target_gt(4000, /*goto*/ 0x16)
 	label(0x6a)
 	if_player_looking_at_something_maybe(0x11, 0x01, 0x00, /*goto*/ 0x63)
 	label(0x16)
@@ -1573,11 +1573,11 @@ u8 func0007_alerted[] = {
 		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		if_in_disarm_range(/*goto*/ 0x5f)
 		if_player_using_cmp150_or_ar34(/*goto*/ 0x69)
-		if_chr_distance_gt(2000, /*goto*/ 0x65)
+		if_distance_to_target_gt(2000, /*goto*/ 0x65)
 		goto_next(0x16)
 
 		label(0x69)
-		if_chr_distance_gt(4000, /*goto*/ 0x65)
+		if_distance_to_target_gt(4000, /*goto*/ 0x65)
 		label(0x16)
 		if_timer_gt(120, /*goto*/ 0x63)
 		label(0x65)
@@ -1617,10 +1617,10 @@ u8 func0007_alerted[] = {
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
-	if_chr_distance_lt(120, /*goto*/ 0x16)
+	if_distance_to_target_lt(120, /*goto*/ 0x16)
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x13)
-	if_chr_distance_gt(250, /*goto*/ 0x13)
+	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
 	if_in_disarm_range(/*goto*/ 0x16)
 	goto_next(0x13)
@@ -1775,10 +1775,10 @@ u8 func0007_alerted[] = {
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
-		if_chr_distance_lt(120, /*goto*/ 0x16)
+		if_distance_to_target_lt(120, /*goto*/ 0x16)
 		call_rng
 		if_rand_lt(128, /*goto*/ 0x13)
-		if_chr_distance_gt(250, /*goto*/ 0x13)
+		if_distance_to_target_gt(250, /*goto*/ 0x13)
 		label(0x16)
 		if_in_disarm_range(/*goto*/ 0x16)
 		goto_next(0x13)
@@ -1806,7 +1806,7 @@ u8 func0007_alerted[] = {
 	if_chr_in_view(/*goto*/ 0x18)
 	label(0x2f)
 	dprint 'C',' ','1','\n',0,
-	if_chr_distance_gt(1300, /*goto*/ LABEL_TRACK)
+	if_distance_to_target_gt(1300, /*goto*/ LABEL_TRACK)
 	if_in_disarm_range(/*goto*/ 0x26)
 	dprint 'C',' ','2','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_RETREAT, FALSE, BANK_0, /*goto*/ 0x16)
@@ -1843,7 +1843,7 @@ u8 func0007_alerted[] = {
 	goto_next(0x4c)
 
 	label(0x16)
-	if_chr_distance_lt(500, /*goto*/ 0x4c)
+	if_distance_to_target_lt(500, /*goto*/ 0x4c)
 	dprint 'G','R','E','N','A','D','E','\n',0,
 	restart_timer
 	if_chr_in_squadron_doing_action(MA_GRENADE, /*goto*/ 0x4c)
@@ -1935,7 +1935,7 @@ u8 func0007_alerted[] = {
 		if_player_looking_at_something_maybe(0x15, 0x01, 0x00, /*goto*/ 0x16)
 		goto_next(LABEL_TRACK)
 		label(0x16)
-		if_chr_distance_gt(2000, /*goto*/ 0x41)
+		if_distance_to_target_gt(2000, /*goto*/ 0x41)
 	endloop(0x40)
 
 	label(0x42)
@@ -1967,10 +1967,10 @@ u8 func0007_alerted[] = {
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
-	if_chr_distance_lt(120, /*goto*/ 0x16)
+	if_distance_to_target_lt(120, /*goto*/ 0x16)
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x13)
-	if_chr_distance_gt(250, /*goto*/ 0x13)
+	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
 	if_in_disarm_range(/*goto*/ 0x16)
 	goto_next(0x13)
@@ -2088,10 +2088,10 @@ u8 func0007_alerted[] = {
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
-	if_chr_distance_lt(120, /*goto*/ 0x16)
+	if_distance_to_target_lt(120, /*goto*/ 0x16)
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x13)
-	if_chr_distance_gt(250, /*goto*/ 0x13)
+	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
 	if_in_disarm_range(/*goto*/ 0x16)
 	goto_next(0x13)
@@ -2165,10 +2165,10 @@ u8 func0007_alerted[] = {
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
-		if_chr_distance_lt(120, /*goto*/ 0x16)
+		if_distance_to_target_lt(120, /*goto*/ 0x16)
 		call_rng
 		if_rand_lt(128, /*goto*/ 0x13)
-		if_chr_distance_gt(250, /*goto*/ 0x13)
+		if_distance_to_target_gt(250, /*goto*/ 0x13)
 		label(0x16)
 		if_in_disarm_range(/*goto*/ 0x16)
 		goto_next(0x13)
@@ -2180,7 +2180,7 @@ u8 func0007_alerted[] = {
 		label(0x13)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_distance_gt(1300, /*goto*/ 0x13)
+		if_distance_to_target_gt(1300, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_01000000, TRUE, BANK_1, /*goto*/ 0x16)
 		if_self_flag_bankx_eq(CHRFLAG1_02000000, FALSE, BANK_1, /*goto*/ 0x16)
 		if_player_looking_at_something_maybe(0x15, 0x01, 0x00, /*goto*/ 0x3b)
@@ -2204,7 +2204,7 @@ u8 func0007_alerted[] = {
 		set_ailist(CHR_SELF, GAILIST_COMBAT_WITH_TARGET)
 
 		label(0x13)
-		if_chr_distance_gt(1300, /*goto*/ 0x3c)
+		if_distance_to_target_gt(1300, /*goto*/ 0x3c)
 		if_self_flag_bankx_eq(CHRFLAG0_CAN_RETREAT, FALSE, BANK_0, /*goto*/ 0x16)
 		if_self_flag_bankx_eq(CHRFLAG0_CANT_ALERT_GROUP, TRUE, BANK_0, /*goto*/ LABEL_RETREAT)
 		if_num_times_shot_lt(1, /*goto*/ 0x16)
@@ -2221,7 +2221,7 @@ u8 func0007_alerted[] = {
 		label(0x39)
 		if_self_flag_bankx_eq(CHRFLAG1_01000000, TRUE, BANK_1, /*goto*/ 0x3c)
 		if_player_looking_at_something_maybe(0x15, 0x01, 0x00, /*goto*/ 0x3b)
-		if_chr_distance_lt(1300, /*goto*/ 0x3b)
+		if_distance_to_target_lt(1300, /*goto*/ 0x3b)
 		goto_next(0x17)
 
 		label(0x3a)
@@ -2272,10 +2272,10 @@ u8 func0007_alerted[] = {
 		if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
-		if_chr_distance_lt(120, /*goto*/ 0x16)
+		if_distance_to_target_lt(120, /*goto*/ 0x16)
 		call_rng
 		if_rand_lt(128, /*goto*/ 0x13)
-		if_chr_distance_gt(250, /*goto*/ 0x13)
+		if_distance_to_target_gt(250, /*goto*/ 0x13)
 		label(0x16)
 		if_in_disarm_range(/*goto*/ 0x16)
 		goto_next(0x13)
@@ -2297,10 +2297,10 @@ u8 func0007_alerted[] = {
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_CLOAKED, /*goto*/ LABEL_CLOAKED)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
-	if_chr_distance_lt(120, /*goto*/ 0x16)
+	if_distance_to_target_lt(120, /*goto*/ 0x16)
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x13)
-	if_chr_distance_gt(250, /*goto*/ 0x13)
+	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
 	if_in_disarm_range(/*goto*/ 0x16)
 	goto_next(0x13)
@@ -2480,10 +2480,10 @@ u8 func0007_alerted[] = {
 
 	beginloop(0x6c)
 		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
-		if_chr_distance_gt(300, /*goto*/ 0x16)
+		if_distance_to_target_gt(300, /*goto*/ 0x16)
 		if_chr_in_view(/*goto*/ 0x70)
 		label(0x16)
-		if_chr_distance_gt(3000, /*goto*/ 0x6d)
+		if_distance_to_target_gt(3000, /*goto*/ 0x6d)
 	endloop(0x6c)
 
 	label(0x6d)
@@ -2493,7 +2493,7 @@ u8 func0007_alerted[] = {
 		cmd013d_if_grenade_thrown_nearby_maybe(MA_GRENADEWAIT, /*goto*/ LABEL_FLEE_GRENADE)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
-		if_chr_distance_lt(3000, /*goto*/ 0x6f)
+		if_distance_to_target_lt(3000, /*goto*/ 0x6f)
 	endloop(0x6e)
 
 	label(0x6f)
@@ -3031,7 +3031,7 @@ u8 func000c_combat_with_target_chr[] = {
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x16)
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x13)
-	if_chr_distance_gt(250, /*goto*/ 0x16)
+	if_distance_to_target_gt(250, /*goto*/ 0x16)
 	if_in_disarm_range(/*goto*/ 0x13)
 	goto_next(0x16)
 
@@ -3059,10 +3059,10 @@ u8 func000c_combat_with_target_chr[] = {
 		dprint 'F','O','U','N','D',' ','2','\n',0,
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
 		if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
-		if_chr_distance_lt(120, /*goto*/ 0x16)
+		if_distance_to_target_lt(120, /*goto*/ 0x16)
 		call_rng
 		if_rand_lt(128, /*goto*/ 0x13)
-		if_chr_distance_gt(250, /*goto*/ 0x13)
+		if_distance_to_target_gt(250, /*goto*/ 0x13)
 		label(0x16)
 		if_in_disarm_range(/*goto*/ 0x16)
 		dprint 'N','O','U','N','A','R','M','\n',0,
@@ -3133,7 +3133,7 @@ u8 func000c_combat_with_target_chr[] = {
 	goto_next(0xc2)
 
 	label(0x16)
-	if_chr_distance_lt(800, /*goto*/ 0xc2)
+	if_distance_to_target_lt(800, /*goto*/ 0xc2)
 
 	// @bug: Guards will consider throwing grenades if you're moving quickly
 	// rather than slowly. The below statement skips the grenade logic if slow.
@@ -3146,10 +3146,10 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
-	if_chr_distance_lt(120, /*goto*/ 0x16)
+	if_distance_to_target_lt(120, /*goto*/ 0x16)
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x13)
-	if_chr_distance_gt(250, /*goto*/ 0x13)
+	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
 	if_in_disarm_range(/*goto*/ 0x16)
 	goto_next(0x13)
@@ -3164,10 +3164,10 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0xc2)
 	if_self_flag_bankx_eq(CHRFLAG1_00001000, TRUE, BANK_1, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x16)
-	if_chr_distance_lt(120, /*goto*/ 0x16)
+	if_distance_to_target_lt(120, /*goto*/ 0x16)
 	call_rng
 	if_rand_lt(128, /*goto*/ 0x13)
-	if_chr_distance_gt(250, /*goto*/ 0x13)
+	if_distance_to_target_gt(250, /*goto*/ 0x13)
 	label(0x16)
 	if_in_disarm_range(/*goto*/ 0x16)
 	goto_next(0x13)
@@ -3801,11 +3801,11 @@ u8 func000f_hand_combat[] = {
 	dprint 'L','O','O','K',' ','F','O','R',' ','T','A','R','G','E','T','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
-	if_chr_distance_gt(120, /*goto*/ 0x13)
+	if_distance_to_target_gt(120, /*goto*/ 0x13)
 	goto_next(0x10)
 
 	label(0x0f)
-	if_chr_distance_gt(150, /*goto*/ 0x13)
+	if_distance_to_target_gt(150, /*goto*/ 0x13)
 
 	label(0x10)
 	if_in_disarm_range(/*goto*/ 0x13)
@@ -3815,14 +3815,14 @@ u8 func000f_hand_combat[] = {
 	label(0x13)
 	if_target_is_player(/*goto*/ 0x0a)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
-	if_chr_distance_gt(400, /*goto*/ 0x0b)
+	if_distance_to_target_gt(400, /*goto*/ 0x0b)
 	label(0x13)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
-	if_chr_distance_lt(120, /*goto*/ LABEL_FACE_TARGET)
+	if_distance_to_target_lt(120, /*goto*/ LABEL_FACE_TARGET)
 	goto_next(0x10)
 
 	label(0x0f)
-	if_chr_distance_lt(150, /*goto*/ LABEL_FACE_TARGET)
+	if_distance_to_target_lt(150, /*goto*/ LABEL_FACE_TARGET)
 	label(0x10)
 	label(0xe3)
 	restart_timer
@@ -3837,39 +3837,39 @@ u8 func000f_hand_combat[] = {
 		if_timer_gt(90, /*goto*/ 0x0b)
 		if_target_is_player(/*goto*/ 0x09)
 		if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
-		if_chr_distance_gt(400, /*goto*/ 0x0b)
+		if_distance_to_target_gt(400, /*goto*/ 0x0b)
 		label(0x13)
 		if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
-		if_chr_distance_lt(120, /*goto*/ LABEL_FACE_TARGET)
+		if_distance_to_target_lt(120, /*goto*/ LABEL_FACE_TARGET)
 		goto_next(0x10)
 
 		label(0x0f)
-		if_chr_distance_lt(150, /*goto*/ LABEL_FACE_TARGET)
+		if_distance_to_target_lt(150, /*goto*/ LABEL_FACE_TARGET)
 		label(0x10)
 	endloop(0x03)
 
 	label(0x09)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
-	if_chr_distance_lt(120, /*goto*/ LABEL_FACE_TARGET)
+	if_distance_to_target_lt(120, /*goto*/ LABEL_FACE_TARGET)
 	goto_next(0x10)
 
 	label(0x0f)
-	if_chr_distance_lt(150, /*goto*/ LABEL_FACE_TARGET)
+	if_distance_to_target_lt(150, /*goto*/ LABEL_FACE_TARGET)
 	label(0x10)
 	if_self_flag_bankx_eq(CHRFLAG1_00000001, TRUE, BANK_1, /*goto*/ 0x13)
-	if_chr_distance_gt(400, /*goto*/ 0x0b)
+	if_distance_to_target_gt(400, /*goto*/ 0x0b)
 	label(0x13)
 	goto_first(0x03)
 
 	label(0x0a)
 	if_chr_is_skedar(CHR_SELF, /*goto*/ 0x0f)
-	if_chr_distance_lt(120, /*goto*/ LABEL_FACE_TARGET)
+	if_distance_to_target_lt(120, /*goto*/ LABEL_FACE_TARGET)
 	goto_next(0x10)
 
 	label(0x0f)
-	if_chr_distance_lt(150, /*goto*/ LABEL_FACE_TARGET)
+	if_distance_to_target_lt(150, /*goto*/ LABEL_FACE_TARGET)
 	label(0x10)
-	if_chr_distance_gt(400, /*goto*/ 0x0b)
+	if_distance_to_target_gt(400, /*goto*/ 0x0b)
 	goto_first(0xe3)
 
 	label(0x13)
@@ -3889,7 +3889,7 @@ u8 func000f_hand_combat[] = {
 		if_chr_dying(CHR_TARGET, /*goto*/ 0xfa)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0xfa)
 		label(0x13)
-		if_chr_distance_gt(400, /*goto*/ 0x0b)
+		if_distance_to_target_gt(400, /*goto*/ 0x0b)
 		if_jo_ccw_direction_lt(15, /*goto*/ LABEL_PUNCH)
 		if_jo_ccw_direction_gt(240, /*goto*/ LABEL_PUNCH)
 		if_timer_gt(60, /*goto*/ LABEL_PUNCH)
@@ -4149,13 +4149,13 @@ u8 func001b_observe_camspy[] = {
 
 	label(0x00)
 	set_target_chr(CHR_PRESET)
-	if_chr_distance_lt(300, /*goto*/ 0x13)
+	if_distance_to_target_lt(300, /*goto*/ 0x13)
 	try_jog_to_target(/*goto*/ 0x0c)
 	restart_timer
 
 	beginloop(0x0c)
 		if_timer_gt(60, /*goto*/ 0x0b)
-		if_chr_distance_lt(300, /*goto*/ 0x13)
+		if_distance_to_target_lt(300, /*goto*/ 0x13)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
@@ -4175,7 +4175,7 @@ u8 func001b_observe_camspy[] = {
 	// - If the player comes into sight, return from the function
 	beginloop(0x03)
 		if_timer_gt(300, /*goto*/ 0x04)
-		if_chr_distance_gt(400, /*goto*/ 0x13)
+		if_distance_to_target_gt(400, /*goto*/ 0x13)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x16)
@@ -4287,7 +4287,7 @@ u8 func001d_search_for_player[] = {
 	set_self_flag_bankx(CHRFLAG1_01000000, BANK_1)
 	if_self_flag_bankx_eq(CHRFLAG1_10000000, TRUE, BANK_1, /*goto*/ 0x16)
 	set_chr_roomtosearch
-	if_chr_distance_gt(1000, /*goto*/ 0x13)
+	if_distance_to_target_gt(1000, /*goto*/ 0x13)
 	try_jog_to_target(/*goto*/ 0x03)
 	label(0x13)
 	try_run_to_target(/*goto*/ 0x03)
@@ -4318,7 +4318,7 @@ u8 func001d_search_for_player[] = {
 		if_enemy_distance_lt_and_los(100, /*goto*/ 0xc3)
 		label(0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000400, FALSE, BANK_1, /*goto*/ 0x13)
-		if_chr_distance_lt(500, /*goto*/ 0x13)
+		if_distance_to_target_lt(500, /*goto*/ 0x13)
 		goto_next(0x05)
 
 		label(0x13)
@@ -4333,7 +4333,7 @@ u8 func001d_search_for_player[] = {
 	label(0x05)
 	restart_timer
 	label(0x06)
-	if_chr_distance_lt(1000, /*goto*/ 0x13)
+	if_distance_to_target_lt(1000, /*goto*/ 0x13)
 	goto_first(0x00)
 
 	label(0x13)
@@ -4385,7 +4385,7 @@ u8 func001d_search_for_player[] = {
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0xc3)
 		label(0x13)
 		if_self_flag_bankx_eq(CHRFLAG1_00000400, FALSE, BANK_1, /*goto*/ 0x13)
-		if_chr_distance_lt(500, /*goto*/ 0x13)
+		if_distance_to_target_lt(500, /*goto*/ 0x13)
 		label(0x13)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
@@ -4401,7 +4401,7 @@ u8 func001d_search_for_player[] = {
 		if_near_miss(/*goto*/ 0x12)
 		dprint '1','\n',0,
 		if_self_flag_bankx_eq(CHRFLAG1_00000400, FALSE, BANK_1, /*goto*/ 0x13)
-		if_chr_distance_gt(500, /*goto*/ 0x15)
+		if_distance_to_target_gt(500, /*goto*/ 0x15)
 		label(0x13)
 		dprint 'C','H','E','K',' ','V','I','S','\n',0,
 		if_player_looking_at_something_maybe(0x00, 0x00, 0x01, /*goto*/ 0x15)
@@ -4752,14 +4752,14 @@ u8 func0014_coop_buddy[] = {
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 	label(0xdc)
 	set_target_chr(CHR_BOND)
-	if_chr_distance_lt(200, /*goto*/ 0x16)
+	if_distance_to_target_lt(200, /*goto*/ 0x16)
 
 	// Start outer loop
 	label(0x00)
 	dprint 'B','U','D','D','Y',' ','G','O',' ','T','O','W','A','R','D','S','\n',0,
 	set_target_chr(CHR_BOND)
 	restart_timer
-	if_chr_distance_gt(300, /*goto*/ 0x16)
+	if_distance_to_target_gt(300, /*goto*/ 0x16)
 	try_jog_to_target(/*goto*/ 0x0c)
 	label(0x16)
 	try_run_to_target(/*goto*/ 0x0c)
@@ -4787,7 +4787,7 @@ u8 func0014_coop_buddy[] = {
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 		label(0xdc)
 		set_target_chr(CHR_BOND)
-		if_chr_distance_lt(200, /*goto*/ 0x16)
+		if_distance_to_target_lt(200, /*goto*/ 0x16)
 		if_timer_gt(60, /*goto*/ 0x13)
 	endloop(0x0c)
 
@@ -4833,7 +4833,7 @@ u8 func0014_coop_buddy[] = {
 		label(0xdc)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 		set_target_chr(CHR_BOND)
-		if_chr_distance_gt(300, /*goto*/ 0x16)
+		if_distance_to_target_gt(300, /*goto*/ 0x16)
 	endloop(0x04)
 
 	label(0x16)
@@ -5083,7 +5083,7 @@ u8 func0024_follow_bond[] = {
 
 	beginloop(0x04)
 		set_action(MA_TRACKING, FALSE)
-		if_chr_distance_lt(200, /*goto*/ 0x16)
+		if_distance_to_target_lt(200, /*goto*/ 0x16)
 		if_timer_gt(120, /*goto*/ 0x13)
 		if_chr_stopped(/*goto*/ 0x13)
 	endloop(0x04)
@@ -5099,7 +5099,7 @@ u8 func0024_follow_bond[] = {
 	// Wait here until 300 units away, then follow again
 	beginloop(0x05)
 		set_action(MA_WAITING, FALSE)
-		if_chr_distance_gt(300, /*goto*/ 0x16)
+		if_distance_to_target_gt(300, /*goto*/ 0x16)
 	endloop(0x05)
 
 	label(0x16)
@@ -5205,16 +5205,16 @@ u8 func0027_psychosised[] = {
 	try_find_chr_in_team(/*goto*/ 0x03)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 	set_target_chr(CHR_PRESET)
-	if_chr_distance_lt(200, /*goto*/ 0x16)
+	if_distance_to_target_lt(200, /*goto*/ 0x16)
 
 	// Following Joanna
 	label(0x00)
 	set_target_chr(CHR_PRESET)
 	restart_timer
-	if_chr_distance_gt(300, /*goto*/ 0x16)
+	if_distance_to_target_gt(300, /*goto*/ 0x16)
 	try_jog_to_target(/*goto*/ 0x0c)
 	label(0x16)
-	if_chr_distance_lt(200, /*goto*/ 0x16)
+	if_distance_to_target_lt(200, /*goto*/ 0x16)
 	try_run_to_target(/*goto*/ 0x0c)
 
 	beginloop(0x0c)
@@ -5226,7 +5226,7 @@ u8 func0027_psychosised[] = {
 		label(0x07)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_lt(200, /*goto*/ 0x16)
+		if_distance_to_target_lt(200, /*goto*/ 0x16)
 		if_timer_gt(60, /*goto*/ 0x13)
 	endloop(0x0c)
 
@@ -5247,7 +5247,7 @@ u8 func0027_psychosised[] = {
 		try_find_chr_in_team(/*goto*/ 0x03)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_gt(300, /*goto*/ 0x16)
+		if_distance_to_target_gt(300, /*goto*/ 0x16)
 	endloop(0x04)
 
 	label(0x16)

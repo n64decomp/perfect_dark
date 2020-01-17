@@ -793,14 +793,14 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	// No enemy nearby
 	label(0x06)
 	set_target_chr(CHR_PRESET)
-	if_chr_distance_lt(200, /*goto*/ 0x06)
+	if_distance_to_target_lt(200, /*goto*/ 0x06)
 
 	// Jo distance >= 200
 	label(0x03)
 	dprint 'G','O','T','O','W','\n',0,
 	set_target_chr(CHR_PRESET)
 	restart_timer
-	if_chr_distance_gt(300, /*goto*/ 0x06)
+	if_distance_to_target_gt(300, /*goto*/ 0x06)
 	try_jog_to_target(/*goto*/ 0x04)
 
 	// Jo distance < 200 or distance > 300
@@ -818,7 +818,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 		if_chr_in_room(CHR_ELVIS, 0x00, 0x003c, /*goto*/ 0x5f)
 		label(0x2e)
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_lt(200, /*goto*/ 0x06)
+		if_distance_to_target_lt(200, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -840,7 +840,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 		if_chr_in_room(CHR_ELVIS, 0x00, 0x003c, /*goto*/ 0x5f)
 		label(0x2e)
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_gt(300, /*goto*/ 0x06)
+		if_distance_to_target_gt(300, /*goto*/ 0x06)
 	endloop(0x09)
 
 	label(0x06)
@@ -969,11 +969,11 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	label(0x2e)
 	if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
 	set_target_chr(CHR_PRESET)
-	if_chr_distance_lt(200, /*goto*/ 0x06)
+	if_distance_to_target_lt(200, /*goto*/ 0x06)
 	label(0x03)
 	set_target_chr(CHR_PRESET)
 	restart_timer
-	if_chr_distance_gt(300, /*goto*/ 0x06)
+	if_distance_to_target_gt(300, /*goto*/ 0x06)
 	try_jog_to_target(/*goto*/ 0x04)
 	label(0x06)
 	try_run_to_target(/*goto*/ 0x04)
@@ -985,7 +985,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_lt(200, /*goto*/ 0x06)
+		if_distance_to_target_lt(200, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -1003,7 +1003,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_gt(300, /*goto*/ 0x06)
+		if_distance_to_target_gt(300, /*goto*/ 0x06)
 	endloop(0x09)
 
 	label(0x06)
@@ -1106,11 +1106,11 @@ u8 func0405_elvis_follow_nocombat[] = {
 	label(0x06)
 	if_enemy_distance_lt_and_los(300, /*goto*/ 0x08)
 	set_target_chr(CHR_PRESET)
-	if_chr_distance_lt(200, /*goto*/ 0x06)
+	if_distance_to_target_lt(200, /*goto*/ 0x06)
 	label(0x03)
 	set_target_chr(CHR_PRESET)
 	restart_timer
-	if_chr_distance_gt(300, /*goto*/ 0x06)
+	if_distance_to_target_gt(300, /*goto*/ 0x06)
 	try_jog_to_target(/*goto*/ 0x04)
 	label(0x06)
 	try_run_to_target(/*goto*/ 0x04)
@@ -1120,7 +1120,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(300, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_lt(200, /*goto*/ 0x06)
+		if_distance_to_target_lt(200, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -1136,7 +1136,7 @@ u8 func0405_elvis_follow_nocombat[] = {
 		dprint 'A','T',' ','P','A','D','\n',0,
 		if_enemy_distance_lt_and_los(2000, /*goto*/ 0x08)
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_gt(300, /*goto*/ 0x06)
+		if_distance_to_target_gt(300, /*goto*/ 0x06)
 	endloop(0x09)
 
 	label(0x06)
@@ -1186,7 +1186,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 	label(0x5f)
 	if_stage_flag_eq(STAGEFLAG_ELVIS_STARTED_SA_MEGAWEAPON, TRUE, /*goto*/ 0x1b)
 	restart_timer
-	if_chr_distance_lt(400, /*goto*/ 0x2e)
+	if_distance_to_target_lt(400, /*goto*/ 0x2e)
 	jog_to_pad(0x00b4)
 	goto_next(0x0f)
 
@@ -1287,7 +1287,7 @@ u8 func0407_elvis_go_to_sa_teleport[] = {
 	set_target_chr(CHR_PRESET)
 	label(0x5f)
 	restart_timer
-	if_chr_distance_lt(1400, /*goto*/ 0x2e)
+	if_distance_to_target_lt(1400, /*goto*/ 0x2e)
 	jog_to_pad(0x00c0)
 	goto_next(0x0f)
 
@@ -1361,12 +1361,12 @@ u8 func0403_elvis_give_farsight[] = {
 	// Healthy
 	label(0x06)
 	set_target_chr(CHR_PRESET)
-	if_chr_distance_lt(200, /*goto*/ 0x06)
+	if_distance_to_target_lt(200, /*goto*/ 0x06)
 
 	label(0x03)
 	set_target_chr(CHR_PRESET)
 	restart_timer
-	if_chr_distance_gt(300, /*goto*/ 0x06)
+	if_distance_to_target_gt(300, /*goto*/ 0x06)
 	try_jog_to_target(/*goto*/ 0x04)
 	label(0x06)
 	try_run_to_target(/*goto*/ 0x04)
@@ -1374,7 +1374,7 @@ u8 func0403_elvis_give_farsight[] = {
 	beginloop(0x04)
 		dprint 'G','O',' ','T','O',' ','P','A','D','\n',0,
 		set_target_chr(CHR_PRESET)
-		if_chr_distance_lt(200, /*goto*/ 0x06)
+		if_distance_to_target_lt(200, /*goto*/ 0x06)
 		if_timer_gt(60, /*goto*/ 0x2e)
 	endloop(0x04)
 
@@ -3125,7 +3125,7 @@ u8 func041b_sniper_wait_for_detection[] = {
 		reloop(0x04)
 
 		label(0x2e)
-		if_chr_distance_lt(400, /*goto*/ 0x06)
+		if_distance_to_target_lt(400, /*goto*/ 0x06)
 		if_jo_front_direction_lt(30, /*goto*/ 0x06)
 		if_chr_in_view(/*goto*/ 0x06)
 		if_saw_death(0x00, /*goto*/ 0x06)
@@ -3433,7 +3433,7 @@ u8 func040f_miniskedar[] = {
 		goto_next(0x1e)
 
 		label(0x2e)
-		if_chr_distance_lt(400, /*goto*/ 0x30)
+		if_distance_to_target_lt(400, /*goto*/ 0x30)
 		label(0x1e)
 		restart_timer
 
@@ -3448,7 +3448,7 @@ u8 func040f_miniskedar[] = {
 			goto_next(0x06)
 
 			label(0x2e)
-			if_chr_distance_lt(400, /*goto*/ 0x30)
+			if_distance_to_target_lt(400, /*goto*/ 0x30)
 			label(0x06)
 			if_timer_gt(60, /*goto*/ 0x06)
 		endloop(0x0a)
@@ -3473,7 +3473,7 @@ u8 func040f_miniskedar[] = {
 
 		label(0x06)
 		say_quip(CHR_BOND, 0x04, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00)
-		if_chr_distance_lt(200, /*goto*/ 0x2f)
+		if_distance_to_target_lt(200, /*goto*/ 0x2f)
 		miniskedar_try_pounce(0x04, 0x000e, /*goto*/ 0x34)
 		reloop(0x03)
 
@@ -4330,7 +4330,7 @@ u8 func042e_elvis_run_to_exit[] = {
 	set_target_chr(CHR_PRESET)
 	label(0x5f)
 	restart_timer
-	if_chr_distance_lt(1400, /*goto*/ 0x2e)
+	if_distance_to_target_lt(1400, /*goto*/ 0x2e)
 	jog_to_pad(0x0004)
 	goto_next(0x0f)
 

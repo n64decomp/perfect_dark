@@ -2021,7 +2021,7 @@ u8 func0425_hostage_thank_and_run[] = {
 		if_chr_sees_player(/*goto*/ 0x2e)
 		set_target_chr(CHR_COOP)
 		if_chr_sees_player(/*goto*/ 0x2e)
-		if_chr_distance_gt(500, /*goto*/ 0x08)
+		if_distance_to_target_gt(500, /*goto*/ 0x08)
 		label(0x2e)
 	endloop(0x10)
 
@@ -2105,7 +2105,7 @@ u8 func0427_drop_devastator[] = {
 
 	beginloop(0x10)
 		if_chr_sees_player(/*goto*/ 0x2e)
-		if_chr_distance_gt(500, /*goto*/ 0x08)
+		if_distance_to_target_gt(500, /*goto*/ 0x08)
 		label(0x2e)
 	endloop(0x10)
 

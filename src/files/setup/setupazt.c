@@ -1209,7 +1209,7 @@ u8 func0404_elvis[] = {
 
 	beginloop(0x12)
 		dprint 'G','O',' ','T','O','W','A','R','D','S','\n',0,
-		if_chr_distance_lt(300, /*goto*/ 0x13)
+		if_distance_to_target_lt(300, /*goto*/ 0x13)
 		if_timer_gt(180, /*goto*/ 0x08)
 	endloop(0x12)
 
@@ -1301,8 +1301,8 @@ u8 func0418_robot[] = {
 	label(0x0d)
 	set_squadron_alertness(100)
 	restart_timer
-	if_chr_distance_lt(300, /*goto*/ 0x31)
-	if_chr_distance_gt(1000, /*goto*/ 0x15)
+	if_distance_to_target_lt(300, /*goto*/ 0x31)
+	if_distance_to_target_gt(1000, /*goto*/ 0x15)
 	if_target_in_sight(/*goto*/ 0x13)
 
 	// Distance > 1000 or not in sight
@@ -1321,7 +1321,7 @@ u8 func0418_robot[] = {
 	beginloop(0x0a)
 		dprint 'P','A','R','T',' ','2','\n',0,
 		if_timer_gt(180, /*goto*/ 0x08)
-		if_chr_distance_gt(1000, /*goto*/ 0x15)
+		if_distance_to_target_gt(1000, /*goto*/ 0x15)
 		dprint 'P','A','R','T',' ','2','\n',0,
 		if_target_in_sight(/*goto*/ 0x13)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1557,7 +1557,7 @@ u8 func041d_president_running[] = {
 
 		label(0x08)
 		if_timer_gt(1250, /*goto*/ 0x31)
-		if_chr_distance_gt(200, /*goto*/ 0xa0)
+		if_distance_to_target_gt(200, /*goto*/ 0xa0)
 	endloop(0x9f)
 
 	// 20.8 seconds passed
@@ -1577,7 +1577,7 @@ u8 func041d_president_running[] = {
 	label(0xa0)
 	restart_timer
 	label(0x31)
-	if_chr_distance_gt(300, /*goto*/ 0x31)
+	if_distance_to_target_gt(300, /*goto*/ 0x31)
 	try_jog_to_target(/*goto*/ 0xa1)
 	label(0x31)
 	try_run_to_target(/*goto*/ 0xa1)
@@ -1589,7 +1589,7 @@ u8 func041d_president_running[] = {
 		if_chr_in_room(CHR_SELF, 0x00, 0x0014, /*goto*/ 0xa5)
 		if_chr_in_room(CHR_SELF, 0x00, 0x0014, /*goto*/ 0xa5)
 		if_chr_in_room(CHR_SELF, 0x00, 0x0014, /*goto*/ 0xa5)
-		if_chr_distance_lt(100, /*goto*/ 0xa2)
+		if_distance_to_target_lt(100, /*goto*/ 0xa2)
 		if_chr_stopped(/*goto*/ 0xa2)
 		if_timer_gt(360, /*goto*/ 0x31)
 	endloop(0xa1)

@@ -941,7 +941,7 @@ u8 func0404_scientist[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_in_sight(/*goto*/ 0x2f)
-		if_chr_distance_lt(500, /*goto*/ 0x2f)
+		if_distance_to_target_lt(500, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)

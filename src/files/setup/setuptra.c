@@ -845,7 +845,7 @@ u8 func0402_jonathan_waiting_for_meetup[] = {
 
 		label(0x32)
 		if_timer_lt(150, /*goto*/ 0x32)
-		if_chr_distance_lt(300, /*goto*/ 0x06)
+		if_distance_to_target_lt(300, /*goto*/ 0x06)
 		label(0x32)
 	endloop(0x0a)
 
@@ -902,7 +902,7 @@ u8 func0404_jonathan_following_and_mine[] = {
 	dprint 'J','O','N','A',' ','F','O','L','L','O','W','\n',0,
 
 	label(LABEL_FOLLOW)
-	if_chr_distance_gt(200, /*goto*/ 0x5c)
+	if_distance_to_target_gt(200, /*goto*/ 0x5c)
 
 	// distance <= 200 (waiting)
 	stop_chr
@@ -914,13 +914,13 @@ u8 func0404_jonathan_following_and_mine[] = {
 		goto_next(0x5c)
 
 		label(0x06)
-		if_chr_distance_gt(200, /*goto*/ 0x5c)
+		if_distance_to_target_gt(200, /*goto*/ 0x5c)
 	endloop(0x5b)
 
 	// distance > 200
 	label(0x5c)
 	restart_timer
-	if_chr_distance_lt(300, /*goto*/ 0x32)
+	if_distance_to_target_lt(300, /*goto*/ 0x32)
 
 	// distance >= 300
 	try_run_to_target(/*goto*/ 0x5d)
@@ -942,7 +942,7 @@ u8 func0404_jonathan_following_and_mine[] = {
 		// each loop iteration.
 		label(0x32)
 		set_target_chr(CHR_P1P2)
-		if_chr_distance_lt(200, /*goto*/ 0x5e)
+		if_distance_to_target_lt(200, /*goto*/ 0x5e)
 		if_timer_gt(120, /*goto*/ 0x5e)
 		if_chr_stopped(/*goto*/ 0x5e)
 	goto_first(0x5d)
@@ -1106,9 +1106,9 @@ u8 func0413_jonathan_hangar[] = {
 	// Wait until both Joanna and Elvis within 400 units
 	beginloop(0x14)
 		set_target_chr(CHR_ELVIS)
-		if_chr_distance_gt(400, /*goto*/ 0x32)
+		if_distance_to_target_gt(400, /*goto*/ 0x32)
 		set_target_chr(CHR_P1P2)
-		if_chr_distance_gt(400, /*goto*/ 0x32)
+		if_distance_to_target_gt(400, /*goto*/ 0x32)
 		if_target_in_sight(/*goto*/ 0x06)
 		label(0x32)
 	endloop(0x14)
@@ -1271,7 +1271,7 @@ u8 func0413_jonathan_hangar[] = {
 		if_stage_flag_eq(STAGEFLAG_HANGAR_X_MUSIC_STARTED, TRUE, /*goto*/ 0x32)
 		if_chr_y(CHR_SELF, -600, OPERATOR_GREATER_THAN, /*goto*/ 0x33)
 		set_target_chr(CHR_P1P2)
-		if_chr_distance_lt(300, /*goto*/ 0x59)
+		if_distance_to_target_lt(300, /*goto*/ 0x59)
 		label(0x32)
 		if_chr_stopped(/*goto*/ 0x06)
 		reloop(0x1c)
@@ -1997,7 +1997,7 @@ u8 func040b_elvis_follow[] = {
 			goto_next(0x5c)
 
 			label(0x06)
-			if_chr_distance_gt(200, /*goto*/ 0x5c)
+			if_distance_to_target_gt(200, /*goto*/ 0x5c)
 		endloop(0x5b)
 
 		label(0x5c)
@@ -2011,7 +2011,7 @@ u8 func040b_elvis_follow[] = {
 			if_chr_distance_to_pad_lt(CHR_SELF, 300, 0x015f, /*goto*/ 0x08)
 			label(0x32)
 			set_target_chr(CHR_JONATHAN)
-			if_chr_distance_lt(200, /*goto*/ 0x5e)
+			if_distance_to_target_lt(200, /*goto*/ 0x5e)
 			if_timer_gt(120, /*goto*/ 0x5e)
 			if_chr_stopped(/*goto*/ 0x5e)
 		goto_first(0x5d)

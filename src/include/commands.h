@@ -684,17 +684,19 @@
 	label,
 
 /**
- * Checks if the distance to Joanna is less than the given value.
+ * Checks if the distance from the current chr to their target is less than the
+ * given value.
  */
-#define if_chr_distance_lt(distance, label) \
+#define if_distance_to_target_lt(distance, label) \
 	mkshort(0x0052), \
 	mkshort(distance / 10), \
 	label,
 
 /**
- * Checks if the distance to Joanna is greater than than the given value.
+ * Checks if the distance from the current chr to their target is greater than
+ * the given value.
  */
-#define if_chr_distance_gt(distance, label) \
+#define if_distance_to_target_gt(distance, label) \
 	mkshort(0x0053), \
 	mkshort(distance / 10), \
 	label,
@@ -711,8 +713,8 @@
 	label,
 
 /**
- * Checks if the distance from the given chr to the given pad is greater than the
- * given value.
+ * Checks if the distance from the given chr to the given pad is greater than
+ * the given value.
  */
 #define if_chr_distance_to_pad_gt(chr, distance, pad, label) \
 	mkshort(0x0055), \
@@ -725,7 +727,7 @@
  * Checks if the distance from the current chr to the given chr is less than the
  * given value.
  */
-#define if_self_distance_to_chr_lt(distance, chr, label) \
+#define if_distance_to_chr_lt(distance, chr, label) \
 	mkshort(0x0056), \
 	mkshort(distance / 10), \
 	chr, \
@@ -735,7 +737,7 @@
  * Checks if the distance from the current chr to the given chr is greater than
  * the given value.
  */
-#define if_chr_distance_to_target_chr_gt(distance, chr, label) \
+#define if_distance_to_chr_gt(distance, chr, label) \
 	mkshort(0x0057), \
 	mkshort(distance / 10), \
 	chr, \

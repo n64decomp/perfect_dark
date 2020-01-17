@@ -1423,7 +1423,7 @@ u8 func0412_cia[] = {
 
 	label(0x03)
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x03)
-	if_chr_distance_gt(450, /*goto*/ 0x03)
+	if_distance_to_target_gt(450, /*goto*/ 0x03)
 	set_self_flag_bankx(CHRFLAG0_00002000, BANK_0)
 	set_returnlist(CHR_SELF, AILIST_CIA)
 	set_ailist(CHR_SELF, GAILIST_CIVILIAN_SAY_COMMENT)
@@ -1509,7 +1509,7 @@ u8 func0412_cia[] = {
 	try_run_to_chr(CHR_PRESET, /*goto*/ 0x06)
 
 	beginloop(0x06)
-		if_self_distance_to_chr_lt(2520, CHR_HIDDENGUY, /*goto*/ 0x03)
+		if_distance_to_chr_lt(2520, CHR_HIDDENGUY, /*goto*/ 0x03)
 		reloop(0x06)
 
 		label(0x03)
@@ -1851,7 +1851,7 @@ u8 func041d_fbi[] = {
 	try_jog_to_target(/*goto*/ 0x06)
 
 	beginloop(0x06)
-		if_chr_distance_lt(500, /*goto*/ 0x18)
+		if_distance_to_target_lt(500, /*goto*/ 0x18)
 		if_target_in_sight(/*goto*/ 0x18)
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)

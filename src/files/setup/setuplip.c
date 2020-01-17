@@ -1345,7 +1345,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_in_sight(/*goto*/ 0x2d)
-		if_chr_distance_lt(500, /*goto*/ 0x03)
+		if_distance_to_target_lt(500, /*goto*/ 0x03)
 	endloop(0x04)
 
 	// Detected Jo
@@ -1455,7 +1455,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 		restart_timer
 
 		beginloop(0x6f)
-			if_chr_distance_lt(400, /*goto*/ 0x2d)
+			if_distance_to_target_lt(400, /*goto*/ 0x2d)
 			if_timer_gt(600, /*goto*/ 0x06)
 			if_chr_stopped(/*goto*/ 0x06)
 		endloop(0x6f)
@@ -1719,7 +1719,7 @@ u8 func0418_doorman[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		set_target_chr(CHR_P1P2)
 		if_target_in_sight(/*goto*/ 0x03)
-		if_chr_distance_lt(500, /*goto*/ 0x03)
+		if_distance_to_target_lt(500, /*goto*/ 0x03)
 	endloop(0x04)
 
 	label(0x03)
@@ -1952,7 +1952,7 @@ u8 func041a_labtech_harrysmate[] = {
 	beginloop(0x08)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x2d)
 		if_target_in_sight(/*goto*/ 0x2d)
-		if_chr_distance_lt(500, /*goto*/ 0x2d)
+		if_distance_to_target_lt(500, /*goto*/ 0x2d)
 	endloop(0x08)
 
 	label(0x2d)
@@ -2686,7 +2686,7 @@ u8 func041f_labtech_lights[] = {
 
 		beginloop(0x0b)
 			if_timer_gt(60, /*goto*/ 0x06)
-			if_chr_distance_lt(400, /*goto*/ 0x2d)
+			if_distance_to_target_lt(400, /*goto*/ 0x2d)
 		endloop(0x0b)
 
 		label(0x06)
@@ -3067,7 +3067,7 @@ u8 func0422_labtech_records[] = {
 	set_target_chr(CHR_P1P2)
 	if_target_in_sight(/*goto*/ 0x03)
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x03)
-	if_chr_distance_lt(500, /*goto*/ 0x03)
+	if_distance_to_target_lt(500, /*goto*/ 0x03)
 	goto_first(0x04)
 
 	label(0x03)
@@ -3452,7 +3452,7 @@ u8 func0426_check_looking_at_alien[] = {
 	beginloop(0x04)
 		set_target_chr(CHR_BOND)
 		if_self_has_chrflag(CHRCFLAG_HIDDEN, /*goto*/ 0x61)
-		if_chr_distance_lt(300, /*goto*/ 0x64)
+		if_distance_to_target_lt(300, /*goto*/ 0x64)
 		goto_next(0x66)
 
 		// Jo is in range
@@ -3462,7 +3462,7 @@ u8 func0426_check_looking_at_alien[] = {
 		// Jo is too far away or not looking at alien
 		label(0x66)
 		set_target_chr(CHR_COOP)
-		if_chr_distance_lt(300, /*goto*/ 0x68)
+		if_distance_to_target_lt(300, /*goto*/ 0x68)
 		goto_next(0x69)
 
 		// Velvet is in range

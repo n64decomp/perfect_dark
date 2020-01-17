@@ -1387,7 +1387,7 @@ u8 func040f_cass[] = {
 			try_face_entity(0x0200, 0x0000, /*goto*/ 0x2c)
 			label(0x2c)
 			call_rng
-			if_chr_distance_gt(500, /*goto*/ 0x06)
+			if_distance_to_target_gt(500, /*goto*/ 0x06)
 			if_chr_in_view(/*goto*/ 0x6d)
 			label(0x06)
 		endloop(0x6c)
@@ -1492,7 +1492,7 @@ u8 func0411_secretary[] = {
 		chr_do_animation(ANIM_COWER_01F5, -1, -1, 0x50, 0x14, CHR_SELF, 2)
 
 		beginloop(0x79)
-			if_chr_distance_gt(500, /*goto*/ 0x06)
+			if_distance_to_target_gt(500, /*goto*/ 0x06)
 			if_chr_in_view(/*goto*/ 0x7e)
 			label(0x06)
 		endloop(0x79)
@@ -1743,7 +1743,7 @@ u8 func0414_programmer[] = {
 			if_chr_sees_player(/*goto*/ 0x2c)
 			goto_next(0x06)
 			label(0x2c)
-			if_chr_distance_lt(300, /*goto*/ LABEL_JO_SPEAK)
+			if_distance_to_target_lt(300, /*goto*/ LABEL_JO_SPEAK)
 			label(0x06)
 			if_chr_stopped(/*goto*/ 0x06)
 		endloop(0x97)
@@ -1756,7 +1756,7 @@ u8 func0414_programmer[] = {
 
 		beginloop(0x0d)
 			if_timer_gt(300, /*goto*/ 0xb5)
-			if_chr_distance_gt(300, /*goto*/ 0x2c)
+			if_distance_to_target_gt(300, /*goto*/ 0x2c)
 			if_chr_sees_player(/*goto*/ 0x06)
 			goto_next(0x2c)
 			label(0x06)
@@ -1775,7 +1775,7 @@ u8 func0414_programmer[] = {
 			if_timer_lt(120, /*goto*/ 0x06)
 			if_chr_sees_player(/*goto*/ LABEL_JO_SPEAK)
 			goto_next(0x06)
-			if_chr_distance_lt(300, /*goto*/ LABEL_JO_SPEAK)
+			if_distance_to_target_lt(300, /*goto*/ LABEL_JO_SPEAK)
 			label(0x06)
 			if_chr_stopped(/*goto*/ 0xa7)
 		endloop(0xa6)
@@ -1829,7 +1829,7 @@ u8 func0414_programmer[] = {
 	beginloop(0x9e)
 		if_chr_stopped(/*goto*/ LABEL_LOG_ON)
 		if_stage_flag_eq(STAGEFLAG_PROGRAMMER_INJURED, TRUE, /*goto*/ 0x06)
-		if_chr_distance_lt(500, /*goto*/ 0x06)
+		if_distance_to_target_lt(500, /*goto*/ 0x06)
 		if_player_looking_at_something_maybe(0x28, 0x01, 0x00, /*goto*/ 0x06)
 		if_chr_in_room(CHR_PROGRAMMER, 0x00, 0x007d, /*goto*/ 0x06)
 		if_chr_in_room(CHR_PROGRAMMER, 0x00, 0x007e, /*goto*/ 0x06)
@@ -3753,7 +3753,7 @@ u8 func042f_surrendering_guard[] = {
 	try_run_to_chr(CHR_PRESET, /*goto*/ 0x56)
 
 	beginloop(0x56)
-		if_chr_distance_gt(300, /*goto*/ 0x06)
+		if_distance_to_target_gt(300, /*goto*/ 0x06)
 		if_chr_in_view(/*goto*/ 0x28)
 		label(0x06)
 		if_chr_death_animation_finished(CHR_PRESET, /*goto*/ 0x55)
@@ -3771,7 +3771,7 @@ u8 func042f_surrendering_guard[] = {
 	// No chr in same group, or follow through from above
 	// Wait until player in range and then surrender.
 	beginloop(0x55)
-		if_chr_distance_gt(300, /*goto*/ 0x06)
+		if_distance_to_target_gt(300, /*goto*/ 0x06)
 		if_chr_in_view(/*goto*/ 0x28)
 		label(0x06)
 		chr_toggle_p1p2(CHR_SELF)
@@ -3784,7 +3784,7 @@ u8 func042f_surrendering_guard[] = {
 	retreat(0x02, 0x02)
 
 	beginloop(0x0a)
-		if_chr_distance_gt(300, /*goto*/ 0x06)
+		if_distance_to_target_gt(300, /*goto*/ 0x06)
 		if_chr_in_view(/*goto*/ 0x28)
 		label(0x06)
 		if_timer_gt(600, /*goto*/ 0x2c)

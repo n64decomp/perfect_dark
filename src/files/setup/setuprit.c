@@ -1496,7 +1496,7 @@ u8 func0404_president_running[] = {
 
 		label(0x06)
 		if_timer_gt(1250, /*goto*/ 0x2d)
-		if_chr_distance_gt(200, /*goto*/ 0x58)
+		if_distance_to_target_gt(200, /*goto*/ 0x58)
 	endloop(0x57)
 
 	// Been in sight for almost 21 seconds - say quip
@@ -1537,7 +1537,7 @@ u8 func0404_president_running[] = {
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0030, /*goto*/ 0x11)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0031, /*goto*/ 0x11)
 		if_chr_in_room(CHR_TARGET, 0x00, 0x0032, /*goto*/ 0x11)
-		if_chr_distance_lt(100, /*goto*/ 0x5b)
+		if_distance_to_target_lt(100, /*goto*/ 0x5b)
 		if_chr_stopped(/*goto*/ 0x5b)
 		if_timer_gt(360, /*goto*/ 0x2d)
 	endloop(0x59)
@@ -2374,7 +2374,7 @@ u8 func040a_defend_pad[] = {
 u8 func040b_defend_president[] = {
 	set_shotlist(AILIST_DEFEND_PRESIDENT)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x08)
-	if_self_distance_to_chr_lt(200, CHR_PRESIDENT, /*goto*/ 0x06)
+	if_distance_to_chr_lt(200, CHR_PRESIDENT, /*goto*/ 0x06)
 
 	label(0x03)
 	try_jog_to_chr(CHR_PRESIDENT, /*goto*/ 0x04)
@@ -2387,7 +2387,7 @@ u8 func040b_defend_president[] = {
 
 	// Near president
 	label(0x60)
-	if_self_distance_to_chr_lt(200, CHR_PRESIDENT, /*goto*/ 0x06)
+	if_distance_to_chr_lt(200, CHR_PRESIDENT, /*goto*/ 0x06)
 	goto_first(0x04)
 
 	label(0x06)
@@ -2400,7 +2400,7 @@ u8 func040b_defend_president[] = {
 		goto_first(0x04)
 
 		label(0x60)
-		if_chr_distance_to_target_chr_gt(300, CHR_PRESIDENT, /*goto*/ 0x06)
+		if_distance_to_chr_gt(300, CHR_PRESIDENT, /*goto*/ 0x06)
 	endloop(0x09)
 
 	label(0x06)

@@ -560,7 +560,7 @@ u8 func0402_unarmed_skedar[] = {
 	label(0x2e)
 	set_chr_cloaked(CHR_SELF, FALSE, TRUE)
 	say_quip(CHR_BOND, 0x01, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	if_chr_distance_lt(150, /*goto*/ 0x2f)
+	if_distance_to_target_lt(150, /*goto*/ 0x2f)
 	label(0x54)
 	if_num_times_shot_lt(1, /*goto*/ 0x2d)
 	goto_next(0x06)
@@ -598,9 +598,9 @@ u8 func0402_unarmed_skedar[] = {
 		if_chr_dying(CHR_TARGET, /*goto*/ 0x10)
 		if_chr_unloaded(CHR_TARGET, /*goto*/ 0x10)
 		if_target_moving_away(/*goto*/ 0x2d)
-		if_chr_distance_lt(150, /*goto*/ 0x2f)
+		if_distance_to_target_lt(150, /*goto*/ 0x2f)
 		label(0x2d)
-		if_chr_distance_lt(50, /*goto*/ 0x2f)
+		if_distance_to_target_lt(50, /*goto*/ 0x2f)
 		if_timer_gt(30, /*goto*/ 0x06)
 	endloop(0x0b)
 
@@ -769,7 +769,7 @@ u8 func0404_miniskedar[] = {
 	// Injured or detected enemy
 	label(0x2d)
 	set_self_flag_bankx(CHRFLAG0_00000004, BANK_0)
-	if_chr_distance_lt(400, /*goto*/ 0x2f)
+	if_distance_to_target_lt(400, /*goto*/ 0x2f)
 
 	label(0x54)
 	restart_timer
@@ -790,7 +790,7 @@ u8 func0404_miniskedar[] = {
 		goto_next(0x06)
 
 		label(0x2d)
-		if_chr_distance_lt(400, /*goto*/ 0x2f)
+		if_distance_to_target_lt(400, /*goto*/ 0x2f)
 		label(0x06)
 		if_timer_gt(60, /*goto*/ 0x06)
 	endloop(0x0b)
@@ -814,7 +814,7 @@ u8 func0404_miniskedar[] = {
 	goto_first(0x0c)
 
 	label(0x06)
-	if_chr_distance_lt(200, /*goto*/ 0x2e)
+	if_distance_to_target_lt(200, /*goto*/ 0x2e)
 	miniskedar_try_pounce(0x04, 0x000e, /*goto*/ 0x30)
 	goto_first(0x03)
 
@@ -2126,7 +2126,7 @@ u8 func040d_king_combat[] = {
 	beginloop(0x08)
 		if_chr_death_animation_finished(CHR_P1P2, /*goto*/ 0x0b)
 		if_timer_gt(20, /*goto*/ 0x89)
-		if_chr_distance_lt(150, /*goto*/ 0x06)
+		if_distance_to_target_lt(150, /*goto*/ 0x06)
 	endloop(0x08)
 
 	// Unreachable
