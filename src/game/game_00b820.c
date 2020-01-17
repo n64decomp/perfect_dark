@@ -258,32 +258,23 @@ glabel func0f00b820
 /*  f00bb6c:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f00bb70
-/*  f00bb70:	3c03800a */ 	lui	$v1,%hi(g_DangerousProps)
-/*  f00bb74:	3c02800a */ 	lui	$v0,%hi(var8009cc30)
-/*  f00bb78:	2442cc30 */ 	addiu	$v0,$v0,%lo(var8009cc30)
-/*  f00bb7c:	2463cc00 */ 	addiu	$v1,$v1,%lo(g_DangerousProps)
-.L0f00bb80:
-/*  f00bb80:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f00bb84:	1462fffe */ 	bne	$v1,$v0,.L0f00bb80
-/*  f00bb88:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f00bb8c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f00bb90:	44810000 */ 	mtc1	$at,$f0
-/*  f00bb94:	3c018006 */ 	lui	$at,0x8006
-/*  f00bb98:	ac207e54 */ 	sw	$zero,0x7e54($at)
-/*  f00bb9c:	3c018006 */ 	lui	$at,0x8006
-/*  f00bba0:	e4202ca0 */ 	swc1	$f0,0x2ca0($at)
-/*  f00bba4:	3c018006 */ 	lui	$at,0x8006
-/*  f00bba8:	e4202ca4 */ 	swc1	$f0,0x2ca4($at)
-/*  f00bbac:	3c018006 */ 	lui	$at,0x8006
-/*  f00bbb0:	e4202ca8 */ 	swc1	$f0,0x2ca8($at)
-/*  f00bbb4:	3c018006 */ 	lui	$at,0x8006
-/*  f00bbb8:	e4202cac */ 	swc1	$f0,0x2cac($at)
-/*  f00bbbc:	3c018006 */ 	lui	$at,0x8006
-/*  f00bbc0:	03e00008 */ 	jr	$ra
-/*  f00bbc4:	ac202cbc */ 	sw	$zero,0x2cbc($at)
-);
+void resetSomeStageThings(void)
+{
+	s32 i;
+
+	for (i = 0; i != 12; i++) {
+		g_DangerousProps[i] = NULL;
+	}
+
+	g_StageFlags = 0;
+
+	var80062ca0 = 1;
+	var80062ca4 = 1;
+	var80062ca8 = 1;
+	var80062cac = 1;
+
+	var80062cbc = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f00bbc8

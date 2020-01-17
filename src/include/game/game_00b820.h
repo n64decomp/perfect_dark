@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f00b820(void);
-u32 func0f00bb70(void);
+void resetSomeStageThings(void);
 u32 func0f00bbc8(void);
 
 #endif
