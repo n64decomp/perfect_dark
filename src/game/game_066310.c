@@ -55014,49 +55014,21 @@ glabel objectiveGetStatus
 /*  f095b60:	27bd0078 */ 	addiu	$sp,$sp,0x78
 );
 
-GLOBAL_ASM(
-glabel objectiveIsAllComplete
-/*  f095b64:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f095b68:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f095b6c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f095b70:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f095b74:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f095b78:	0fc2557d */ 	jal	objectiveGetCount
-/*  f095b7c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f095b80:	18400015 */ 	blez	$v0,.L0f095bd8
-/*  f095b84:	24120001 */ 	addiu	$s2,$zero,0x1
-.L0f095b88:
-/*  f095b88:	0fc25594 */ 	jal	objectiveGetDifficultyBits
-/*  f095b8c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f095b90:	0fc5b367 */ 	jal	getDifficulty
-/*  f095b94:	00408825 */ 	or	$s1,$v0,$zero
-/*  f095b98:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f095b9c:	004e7804 */ 	sllv	$t7,$t6,$v0
-/*  f095ba0:	01f1c024 */ 	and	$t8,$t7,$s1
-/*  f095ba4:	13000007 */ 	beqz	$t8,.L0f095bc4
-/*  f095ba8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095bac:	0fc255a1 */ 	jal	objectiveGetStatus
-/*  f095bb0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f095bb4:	10520003 */ 	beq	$v0,$s2,.L0f095bc4
-/*  f095bb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095bbc:	10000007 */ 	beqz	$zero,.L0f095bdc
-/*  f095bc0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f095bc4:
-/*  f095bc4:	0fc2557d */ 	jal	objectiveGetCount
-/*  f095bc8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f095bcc:	0202082a */ 	slt	$at,$s0,$v0
-/*  f095bd0:	1420ffed */ 	bnez	$at,.L0f095b88
-/*  f095bd4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f095bd8:
-/*  f095bd8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f095bdc:
-/*  f095bdc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f095be0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f095be4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f095be8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f095bec:	03e00008 */ 	jr	$ra
-/*  f095bf0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+bool objectiveIsAllComplete(void)
+{
+	s32 i;
+
+	for (i = 0; i < objectiveGetCount(); i++) {
+		u32 diffbits = objectiveGetDifficultyBits(i);
+
+		if ((1 << getDifficulty() & diffbits) &&
+				objectiveGetStatus(i) != OBJECTIVE_COMPLETE) {
+			return false;
+		}
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f095bf4
