@@ -4265,8 +4265,8 @@ glabel menudialog001063e4
 /*  f106490:	00008025 */ 	or	$s0,$zero,$zero
 /*  f106494:	18400014 */ 	blez	$v0,.L0f1064e8
 /*  f106498:	0010c880 */ 	sll	$t9,$s0,0x2
-/*  f10649c:	3c08800a */ 	lui	$t0,%hi(var8009d060)
-/*  f1064a0:	2508d060 */ 	addiu	$t0,$t0,%lo(var8009d060)
+/*  f10649c:	3c08800a */ 	lui	$t0,%hi(g_Objectives)
+/*  f1064a0:	2508d060 */ 	addiu	$t0,$t0,%lo(g_Objectives)
 /*  f1064a4:	03289021 */ 	addu	$s2,$t9,$t0
 /*  f1064a8:	8e420000 */ 	lw	$v0,0x0($s2)
 .L0f1064ac:

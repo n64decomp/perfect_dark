@@ -104,12 +104,12 @@ glabel func0f0150a0
 
 GLOBAL_ASM(
 glabel func0f0151f0
-/*  f0151f0:	3c04800a */ 	lui	$a0,%hi(var8009d060)
+/*  f0151f0:	3c04800a */ 	lui	$a0,%hi(g_Objectives)
 /*  f0151f4:	3c08800a */ 	lui	$t0,%hi(var8009d088)
 /*  f0151f8:	3c06800a */ 	lui	$a2,%hi(var8009d088)
 /*  f0151fc:	24c6d088 */ 	addiu	$a2,$a2,%lo(var8009d088)
 /*  f015200:	2508d088 */ 	addiu	$t0,$t0,%lo(var8009d088)
-/*  f015204:	2484d060 */ 	addiu	$a0,$a0,%lo(var8009d060)
+/*  f015204:	2484d060 */ 	addiu	$a0,$a0,%lo(g_Objectives)
 /*  f015208:	00001825 */ 	or	$v1,$zero,$zero
 /*  f01520c:	24070001 */ 	addiu	$a3,$zero,0x1
 /*  f015210:	24050002 */ 	addiu	$a1,$zero,0x2

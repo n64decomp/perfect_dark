@@ -34,11 +34,11 @@ glabel func0f0109d0
 /*  f010a0c:	ac40fffc */ 	sw	$zero,-0x4($v0)
 .L0f010a10:
 /*  f010a10:	3c018007 */ 	lui	$at,0x8007
-/*  f010a14:	3c02800a */ 	lui	$v0,%hi(var8009d060)
+/*  f010a14:	3c02800a */ 	lui	$v0,%hi(g_Objectives)
 /*  f010a18:	3c03800a */ 	lui	$v1,%hi(var8009d088)
 /*  f010a1c:	ac20ae74 */ 	sw	$zero,-0x518c($at)
 /*  f010a20:	2463d088 */ 	addiu	$v1,$v1,%lo(var8009d088)
-/*  f010a24:	2442d060 */ 	addiu	$v0,$v0,%lo(var8009d060)
+/*  f010a24:	2442d060 */ 	addiu	$v0,$v0,%lo(g_Objectives)
 .L0f010a28:
 /*  f010a28:	24420004 */ 	addiu	$v0,$v0,0x4
 /*  f010a2c:	1443fffe */ 	bne	$v0,$v1,.L0f010a28

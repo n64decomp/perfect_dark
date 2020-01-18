@@ -580,7 +580,7 @@ extern u32 var8009cf10;
 extern u32 var8009cf88;
 extern struct stagesetup g_StageSetup;
 extern u32 var8009d050;
-extern u32 var8009d060;
+extern struct objective *g_Objectives[10];
 extern u32 var8009d088;
 extern u32 var8009d0b0;
 extern u32 var8009d0b4;

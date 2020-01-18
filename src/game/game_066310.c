@@ -54637,31 +54637,14 @@ s32 objectiveGetCount(void)
 	return var8006ae70 + 1;
 }
 
-GLOBAL_ASM(
-glabel func0f095604
-/*  f095604:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f095608:	2881000a */ 	slti	$at,$a0,0xa
-/*  f09560c:	1020000b */ 	beqz	$at,.L0f09563c
-/*  f095610:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f095614:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f095618:	3c02800a */ 	lui	$v0,0x800a
-/*  f09561c:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f095620:	8c42d060 */ 	lw	$v0,-0x2fa0($v0)
-/*  f095624:	50400006 */ 	beqzl	$v0,.L0f095640
-/*  f095628:	00001025 */ 	or	$v0,$zero,$zero
-/*  f09562c:	0fc5b9f1 */ 	jal	textGet
-/*  f095630:	8c440008 */ 	lw	$a0,0x8($v0)
-/*  f095634:	10000003 */ 	beqz	$zero,.L0f095644
-/*  f095638:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f09563c:
-/*  f09563c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f095640:
-/*  f095640:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f095644:
-/*  f095644:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f095648:	03e00008 */ 	jr	$ra
-/*  f09564c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *objectiveGetText(s32 index)
+{
+	if (index < 10 && g_Objectives[index]) {
+		return textGet(g_Objectives[index]->text);
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel objectiveGetDifficultyBits

@@ -4669,4 +4669,10 @@ struct activemenuthing {
 	/*0x34*/ u32 unk34;
 };
 
+struct objective {
+	u32 unk00;
+	u32 unk04;
+	u32 text;
+};
+
 #endif
