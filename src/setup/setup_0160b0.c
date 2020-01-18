@@ -1742,7 +1742,7 @@ struct menu_dialog menudialog_selectdifficulty3 = {
 };
 
 // 17e8c
-struct stageoverviewentry g_StageNames[] = {
+struct stageoverviewentry g_StageNames[NUM_SOLOSTAGES] = {
 	// stage,             unk04,  name1,  name2,  name3
 	{ STAGE_DEFECTION,     0x0c, 0x5685, 0x5686, 0x547c },
 	{ STAGE_INVESTIGATION, 0x0d, 0x5687, 0x5688, 0x54ac },
@@ -2960,7 +2960,7 @@ struct menu_dialog menudialog_mainmenu2 = {
 u32 var80073a8c = 0x00000000;
 
 // 19ab0
-struct cheat g_Cheats[] = {
+struct cheat g_Cheats[NUM_CHEATS] = {
 	// name, time, stage index, difficulty, flags
 	{ 0x544b, 123, 2,  DIFF_A,  CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK      }, // Hurricane Fists
 	{ 0x544c, 100, 5,  DIFF_A,  CHEATFLAG_TIMED | CHEATFLAG_TRANSFERPAK      }, // Cloaking Device

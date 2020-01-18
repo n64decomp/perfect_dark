@@ -262,7 +262,7 @@ void resetSomeStageThings(void)
 {
 	s32 i;
 
-	for (i = 0; i != 12; i++) {
+	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
 		g_DangerousProps[i] = NULL;
 	}
 

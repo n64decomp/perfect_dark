@@ -5603,7 +5603,7 @@ s32 mpGetTrackNumAtSlotIndex(s32 slotindex)
 	s32 i;
 	s32 numunlocked = 0;
 
-	for (i = 0; i != 42; i++) {
+	for (i = 0; i != NUM_MPTRACKS; i++) {
 		if (mpIsTrackUnlocked(i)) {
 			if (numunlocked == slotindex) {
 				break;
@@ -5618,7 +5618,7 @@ s32 mpGetTrackNumAtSlotIndex(s32 slotindex)
 
 s32 func0f18c200(void)
 {
-	return mpGetTrackSlotIndex(sizeof(g_MpTracks) / sizeof(g_MpTracks[0]));
+	return mpGetTrackSlotIndex(NUM_MPTRACKS);
 }
 
 s32 mpGetTrackAudioId(s32 slotindex)
@@ -12653,7 +12653,7 @@ glabel func0f1921f8
 
 char *mpGetBotCommandName(s32 command)
 {
-	if (command < 0 || command > 13) {
+	if (command < 0 || command >= NUM_MPBOTCOMMANDS) {
 		return textGet(0x58b3); // "Normal"
 	}
 

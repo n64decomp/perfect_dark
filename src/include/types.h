@@ -4127,7 +4127,7 @@ struct savefile_solo {
 	/*0x14*/ u32 flags;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u16 besttimes[21][3];
+	/*0x20*/ u16 besttimes[NUM_SOLOSTAGES][3];
 	/*0xa0*/ u32 var800a22a0;
 	/*0xa4*/ u32 var800a22a4;
 	/*0xa8*/ u32 var800a22a8;

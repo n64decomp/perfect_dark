@@ -191,7 +191,7 @@ u32 chraiGetCommandLength(u8 *ailist, u32 aioffset)
 		return (prop - aioffset) + 1;
 	}
 
-	if (type >= 0 && type < 0x1e1) {
+	if (type >= 0 && type < NUM_AICOMMANDS) {
 		return g_CommandLengths[type];
 	}
 

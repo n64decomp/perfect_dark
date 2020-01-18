@@ -30,8 +30,8 @@ extern u32 g_StageFlags;
 extern struct audiodefinition audiodefinitions[];
 extern struct audioconfig audioconfigs[];
 
-extern bool (*g_CommandPointers[])(void);
-extern u16 g_CommandLengths[];
+extern bool (*g_CommandPointers[NUM_AICOMMANDS])(void);
+extern u16 g_CommandLengths[NUM_AICOMMANDS];
 
 extern struct coord var80068fec;
 
@@ -416,7 +416,7 @@ extern u32 var8006843c;
 extern u32 var80068440;
 extern u32 var8006844c;
 extern u32 var8006845c;
-extern u8 g_ChrTeamIds[8];
+extern u8 g_ChrTeamIds[MAX_TEAMS];
 extern u32 var8006846c;
 extern u32 var80068fe0;
 extern u16 quiptable_human_bank0[];

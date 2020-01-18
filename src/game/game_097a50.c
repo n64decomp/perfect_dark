@@ -18219,7 +18219,7 @@ s8 freeFireslotWrapper(s32 fireslot_id)
 
 s8 freeFireslot(s32 fireslot_id)
 {
-	if (fireslot_id >= 0 && fireslot_id < 20) {
+	if (fireslot_id >= 0 && fireslot_id < NUM_FIRESLOTS) {
 		g_Fireslots[fireslot_id].unk00 = -1;
 	}
 

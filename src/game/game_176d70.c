@@ -6816,7 +6816,7 @@ s32 menuhandlerMpClearAllSimulants(u32 operation, struct menu_item *item, s32 *v
 {
 	if (operation == MENUOP_SET) {
 		s32 i;
-		for (i = 0; i < 8; i++) {
+		for (i = 0; i < MAX_SIMULANTS; i++) {
 			mpRemoveSimulant(i);
 		}
 	}
@@ -7167,7 +7167,7 @@ s32 menuhandlerMpMaximumTeams(u32 operation, struct menu_item *item, s32 *value)
 		s32 i;
 		u8 team = 0;
 
-		for (i = 0; i != 12; i++) {
+		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				struct mpchr *mpchr;
 
@@ -7196,7 +7196,7 @@ s32 menuhandlerMpHumansVsSimulants(u32 operation, struct menu_item *item, s32 *v
 	if (operation == MENUOP_SET) {
 		s32 i;
 
-		for (i = 0; i != 12; i++) {
+		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				struct mpchr *mpchr;
 
@@ -7224,7 +7224,7 @@ s32 menuhandlerMpHumanSimulantPairs(u32 operation, struct menu_item *item, s32 *
 		s32 playerindex = 0;
 		s32 simindex = 0;
 
-		for (i = 0; i != 12; i++) {
+		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (g_MpSetup.chrslots & (1 << i)) {
 				struct mpchr *mpchr;
 
@@ -10051,7 +10051,7 @@ void scenarioHtbKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 	*score = mpchr->unk3e;
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
-		for (i = 0; i != 12; i++) {
+		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (i == arg1) {
 				*score -= mpchr->unk24[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -10150,7 +10150,7 @@ void scenarioCtcInit(void)
 		g_ScenarioData.ctc.unk08[i] = -1;
 	}
 
-	for (k = 0; k < 12; k++) {
+	for (k = 0; k < MAX_MPCHRS; k++) {
 		if (g_MpSetup.chrslots & (1 << k)) {
 			struct mpchr *basedata;
 
@@ -10585,7 +10585,7 @@ void scenarioCtcKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 	*score = mpchr->unk3e * 3;
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
-		for (i = 0; i != 12; i++) {
+		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (i == arg1) {
 				*score -= mpchr->unk24[i];
 			} else {
@@ -11803,7 +11803,7 @@ void scenarioKohKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 	*score = mpchr->unk3e;
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
-		for (i = 0; i != 12; i++) {
+		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (i == arg1) {
 				*score -= mpchr->unk24[i];
 			} else {
@@ -12919,7 +12919,7 @@ void scenarioHtmKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 	}
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
-		for (i = 0; i != 12; i++) {
+		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (i == arg1) {
 				*score -= mpchr->unk24[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -13444,7 +13444,7 @@ glabel scenarioPacChooseVictims
 //	g_ScenarioData.pac.unk04 = -1;
 //	g_ScenarioData.pac.unk02 = 0;
 //
-//	for (i = 0; i != 12; i++) {
+//	for (i = 0; i != MAX_MPCHRS; i++) {
 //		g_ScenarioData.pac.unk20[i] = 0;
 //		g_ScenarioData.pac.unk34[i] = 0;
 //	}
@@ -14036,7 +14036,7 @@ void scenarioPacKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 	}
 
 	if (g_MpSetup.options & MPOPTION_KILLSSCORE) {
-		for (i = 0; i != 12; i++) {
+		for (i = 0; i != MAX_MPCHRS; i++) {
 			if (i == arg1) {
 				*score -= mpchr->unk24[i];
 			} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -15508,7 +15508,7 @@ s32 scenarioGetMaxTeams(void)
 		return g_MpScenarios[g_MpSetup.scenario].maxteamsfunc();
 	}
 
-	return 8;
+	return MAX_TEAMS;
 }
 
 bool scenarioIsRoomHighlighted(s16 room)

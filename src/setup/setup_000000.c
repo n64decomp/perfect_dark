@@ -3714,7 +3714,7 @@ u32 var8005d9ac = 0x00000000;
 u32 var8005d9b0 = 0x00000000;
 
 // 8005d9b4
-s32 g_StageNum = 0x5a;
+s32 g_StageNum = NUM_STAGES;
 
 u32 var8005d9b8 = 0x0004b000;
 u32 var8005d9bc = 0x00000000;

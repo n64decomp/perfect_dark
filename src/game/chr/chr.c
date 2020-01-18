@@ -42288,7 +42288,7 @@ void unregisterDangerousProp(struct prop *prop)
 {
 	s32 i;
 
-	for (i = 0; i != 12; i++) {
+	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
 		if (g_DangerousProps[i] == prop) {
 			g_DangerousProps[i] = NULL;
 			return;
@@ -42300,7 +42300,7 @@ void registerDangerousProp(struct prop *prop)
 {
 	s32 i;
 
-	for (i = 0; i != 12; i++) {
+	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
 		if (g_DangerousProps[i] == NULL) {
 			g_DangerousProps[i] = prop;
 			return;
@@ -42574,7 +42574,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 {
 	s32 i;
 
-	for (i = 0; i != 12; i++) {
+	for (i = 0; i != MAX_DANGEROUSPROPS; i++) {
 		struct prop *prop = g_DangerousProps[i];
 		bool pass = false;
 
@@ -52184,14 +52184,14 @@ s16 *teamGetChrIds(s32 team_id)
 	s32 i;
 	u8 lookup[8] = g_ChrTeamIds;
 
-	for (i = 0; i != 8; i++) {
+	for (i = 0; i != MAX_TEAMS; i++) {
 		if (lookup[i] == team_id) {
 			team_id = i;
 			break;
 		}
 	}
 
-	if (team_id < 0 || team_id > 7) {
+	if (team_id < 0 || team_id >= MAX_TEAMS) {
 		return NULL;
 	}
 
@@ -52199,12 +52199,12 @@ s16 *teamGetChrIds(s32 team_id)
 		return &g_TeamList[g_TeamList[team_id - 1]];
 	}
 
-	return &g_TeamList[7];
+	return &g_TeamList[MAX_TEAMS - 1];
 }
 
 s16 *squadronGetChrIds(s32 squadron_id)
 {
-	if (squadron_id < 0 || squadron_id >= 16) {
+	if (squadron_id < 0 || squadron_id >= MAX_SQUADRONS) {
 		return NULL;
 	}
 
@@ -52212,7 +52212,7 @@ s16 *squadronGetChrIds(s32 squadron_id)
 		return &g_SquadronList[g_SquadronList[squadron_id - 1]];
 	}
 
-	return &g_SquadronList[15];
+	return &g_SquadronList[MAX_SQUADRONS - 1];
 }
 
 void func0f04ceec(s16 value)

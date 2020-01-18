@@ -2140,7 +2140,7 @@ glabel func0f19b540
 //		g_MpSetup.chrslots &= 0x000f;
 //		ptr = &var800ac798[slot];
 //
-//		for (i = 0; i != 8; i++) {
+//		for (i = 0; i != MAX_SIMULANTS; i++) {
 //			g_MpSimulants[i].unk48 = *(ptr - 1);
 //
 //			if (*(ptr - 1) != 6) {
@@ -2165,7 +2165,7 @@ s32 mpGetNumAvailableChallenges(void)
 	s32 challengeindex;
 	s32 count = 0;
 
-	for (challengeindex = 0; challengeindex != 30; challengeindex++) {
+	for (challengeindex = 0; challengeindex != NUM_CHALLENGES; challengeindex++) {
 		if (mpIsChallengeAvailable(challengeindex)) {
 			count++;
 		}
@@ -2225,7 +2225,7 @@ void mpSetCurrentChallenge(s32 slotnum)
 	s32 challengeindex;
 	g_MpChallengeIndex = 0;
 
-	for (challengeindex = 0; challengeindex != 30; challengeindex++) {
+	for (challengeindex = 0; challengeindex != NUM_CHALLENGES; challengeindex++) {
 		if (mpIsChallengeAvailable(challengeindex)) {
 			if (slotnum == 0) {
 				g_MpChallengeIndex = challengeindex;
@@ -2422,7 +2422,7 @@ s32 mpGetNthAvailableChallengeSomething(s32 n, s32 arg1, s32 arg2)
 	s32 numavailable = 0;
 	s32 challengeindex;
 
-	for (challengeindex = 0; challengeindex != 30; challengeindex++) {
+	for (challengeindex = 0; challengeindex != NUM_CHALLENGES; challengeindex++) {
 		if (mpIsChallengeAvailable(challengeindex)) {
 			if (numavailable == n) {
 				return func0f19ba58(challengeindex, arg1, arg2);

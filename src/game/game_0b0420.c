@@ -946,7 +946,7 @@ struct weapon *weaponFindById(s32 itemid)
 		return NULL;
 	}
 
-	if (itemid > MAX_WEAPON_ID) {
+	if (itemid >= NUM_WEAPONS) {
 		return NULL;
 	}
 

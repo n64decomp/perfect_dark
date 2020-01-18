@@ -12169,7 +12169,7 @@ u32 var80087a68 = 0x00000024;
 u32 var80087a6c = 0x0000002c;
 
 // 2da90
-struct mptrack g_MpTracks[42] = {
+struct mptrack g_MpTracks[NUM_MPTRACKS] = {
 	// Audio ID, duration, name, unlock category
 	/*0x00*/ { 0x3a, 160, 0x587c, -1 },
 	/*0x01*/ { 0x3b, 170, 0x587d, -1 },
@@ -12275,7 +12275,7 @@ u32 var80087d14[] = {
 };
 
 // 2de14
-u32 g_MpBotCommands[] = {
+u32 g_MpBotCommands[NUM_MPBOTCOMMANDS] = {
 	0x58af, // "Follow"
 	0x58b0, // "Attack"
 	0x58b1, // "Defend"
@@ -12713,7 +12713,7 @@ u32 g_MpChallengeIndex = 0;
 u32 var800884b4 = 0;
 
 // 2e4d8
-struct challenge g_MpChallenges[] = {
+struct challenge g_MpChallenges[NUM_CHALLENGES] = {
 	{ 0x5796, 0x0e },
 	{ 0x5797, 0x0f },
 	{ 0x5798, 0x10 },

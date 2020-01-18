@@ -148,7 +148,6 @@
 #define CHEAT_DMC                    39
 #define CHEAT_AR53                   40
 #define CHEAT_RCP45                  41
-#define NUM_CHEATS                   42
 
 #define CHEATFLAG_TIMED       0
 #define CHEATFLAG_ALWAYSON    1
@@ -469,6 +468,13 @@
 #define MA_FACING          53
 #define MA_PUNCHING        54
 
+#define MAX_DANGEROUSPROPS 12
+#define MAX_MPCHRS         (4 + MAX_SIMULANTS)
+#define MAX_OBJECTIVES     10
+#define MAX_SIMULANTS      8
+#define MAX_SQUADRONS      16
+#define MAX_TEAMS          8
+
 #define MENUOP_GETOPTIONCOUNT  1
 #define MENUOP_GETOPTIONTEXT   3
 #define MENUOP_SET             6
@@ -545,6 +551,16 @@
 #define MPSCENARIO_POPACAP          3
 #define MPSCENARIO_KINGOFTHEHILL    4
 #define MPSCENARIO_CAPTURETHECASE   5
+
+#define NUM_AICOMMANDS    481
+#define NUM_CHALLENGES    30
+#define NUM_CHEATS        42
+#define NUM_FIRESLOTS     20
+#define NUM_MPBOTCOMMANDS 14
+#define NUM_MPTRACKS      42
+#define NUM_SOLOSTAGES    21
+#define NUM_STAGES        90
+#define NUM_WEAPONS       94
 
 // obj->flags
 #define OBJECTFLAG0_00000001             0x00000001 // Not used in scripts
@@ -907,8 +923,6 @@
 #define STAGE_DUEL          0x4f
 #define STAGE_TEST_LAM      0x50
 
-#define NUM_STAGES 0x5a
-
 #define STAGEINDEX_MAIANSOS      0x00
 #define STAGEINDEX_TEST_SILO     0x01
 #define STAGEINDEX_WAR           0x02
@@ -1066,8 +1080,6 @@
 #define WEAPON_5B                0x5b
 #define WEAPON_5C                0x5c
 #define WEAPON_SUICIDEPILL       0x5d
-
-#define MAX_WEAPON_ID 0x5d
 
 // Heads and bodies
 #define HEAD_RANDOM           -1
@@ -1887,4 +1899,3 @@
 //.set ANIM_, 0x0350: Skedar right up straight up
 //.set ANIM_, 0x0351: Skedar stretching arms and lefts
 #define ANIM_SKEDAR_COLLAPSE 0x0352
-
