@@ -5648,17 +5648,10 @@ glabel mpGetUnlockedTrackNum
 /*  f18c1fc:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f18c200
-/*  f18c200:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18c204:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c208:	0fc6304e */ 	jal	func0f18c138
-/*  f18c20c:	2404002a */ 	addiu	$a0,$zero,0x2a
-/*  f18c210:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18c214:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18c218:	03e00008 */ 	jr	$ra
-/*  f18c21c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f18c200(void)
+{
+	return func0f18c138(sizeof(g_MpTracks) / sizeof(g_MpTracks[0]));
+}
 
 s32 mpGetTrackAudioId(s32 tracknum)
 {

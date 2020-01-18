@@ -12169,7 +12169,7 @@ u32 var80087a68 = 0x00000024;
 u32 var80087a6c = 0x0000002c;
 
 // 2da90
-struct mptrack g_MpTracks[] = {
+struct mptrack g_MpTracks[42] = {
 	// Audio ID, duration, name, unlock category
 	/*0x00*/ { 0x3a, 160, 0x587c, -1 },
 	/*0x01*/ { 0x3b, 170, 0x587d, -1 },
