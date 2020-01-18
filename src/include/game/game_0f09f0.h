@@ -78,7 +78,7 @@ u32 func0f0fd320(void);
 u32 func0f0fd494(void);
 u32 func0f0fd548(void);
 u32 func0f0fd570(void);
-u32 func0f0fd650(void);
+bool currentPlayerIsInTraining(void);
 void func0f0fd660(void);
 u32 func0f0fdd00(void);
 u32 func0f0fdd84(void);
