@@ -54632,12 +54632,13 @@ struct defaultobj *objFindByTagId(s32 tag_id)
 	return obj;
 }
 
+s32 objectiveGetCount(void)
+{
+	return var8006ae70 + 1;
+}
+
 GLOBAL_ASM(
-glabel objectiveGetCount
-/*  f0955f4:	3c028007 */ 	lui	$v0,0x8007
-/*  f0955f8:	8c42ae70 */ 	lw	$v0,-0x5190($v0)
-/*  f0955fc:	03e00008 */ 	jr	$ra
-/*  f095600:	24420001 */ 	addiu	$v0,$v0,0x1
+glabel func0f095604
 /*  f095604:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f095608:	2881000a */ 	slti	$at,$a0,0xa
 /*  f09560c:	1020000b */ 	beqz	$at,.L0f09563c
