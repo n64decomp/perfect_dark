@@ -334,7 +334,7 @@
 	mkword(u20), mkword(u21), mkword(u22), mkword(u23), \
 	mkword(u24), mkword(u25),
 
-#define hover_vehicle(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, u20, u21, u22, u23, u24, u25, u26, u27, u28, u29, u30, u31, u32, u33, u34) \
+#define hovercar(scale, model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19, u20, u21, u22, u23, u24, u25, u26, u27, u28, u29, u30, u31, u32, u33, u34) \
 	mkshort(scale), \
 	mkshort(0x37), \
 	generic_object(model, pad, props1, props2, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, u12, u13, u14, u15, u16, u17, u18, u19), \

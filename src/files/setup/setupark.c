@@ -1092,7 +1092,7 @@ u8 func0406_general_combat[] = {
 
 u8 func0408_hovercopter[] = {
 	set_target_chr(CHR_BOND)
-	heli_arm_weapons
+	chopper_arm_weapons
 	move_object_to_pad(OBJ_HOVERCOPTER, 0x0199)
 	begin_hovercar_path(0x02)
 	restart_timer

@@ -1675,7 +1675,7 @@ u8 func040a_top_interceptor[] = {
 
 	label(0x06)
 	unset_object_flag_bank0(OBJ_INTERCEPTOR3, OBJECTFLAG0_INTERCEPTOR_DISABLED)
-	heli_arm_weapons
+	chopper_arm_weapons
 	begin_hovercar_path(0x22)
 	set_chr_maxdamage(CHR_SELF, 5000)
 

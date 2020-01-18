@@ -134,9 +134,9 @@ struct g_vars {
 	/*00041c*/ u32 unk00041c;
 	/*000420*/ u32 unk000420;
 	/*000424*/ struct chrdata *chrdata;
-	/*000428*/ struct standardobj *objdata;
-	/*00042c*/ struct standardobj *aicdata;
-	/*000430*/ struct heliobj *hovdata;
+	/*000428*/ struct truckobj *truck;
+	/*00042c*/ struct heliobj *heli;
+	/*000430*/ struct chopperobj *hovercar;
 	/*000434*/ u8 *ailist;
 	/*000438*/ u32 aioffset;
 	/*00043c*/ u32 unk00043c;

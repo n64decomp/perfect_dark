@@ -134,8 +134,8 @@ glabel setupParseObjects
 //			case OBJTYPE_11:
 //			case OBJTYPE_MULTIAMMOCRATE:
 //			case OBJTYPE_24:
-//			case OBJTYPE_27:
-//			case OBJTYPE_28:
+//			case OBJTYPE_TRUCK:
+//			case OBJTYPE_HELI:
 //			case OBJTYPE_29:
 //			case OBJTYPE_GLASS:
 //			case OBJTYPE_2B:
@@ -145,8 +145,8 @@ glabel setupParseObjects
 //			case OBJTYPE_HOVERBIKE:
 //			case OBJTYPE_HOVERPROP:
 //			case OBJTYPE_VENTFAN:
-//			case OBJTYPE_HOVERVEHICLE:
-//			case OBJTYPE_HELI:
+//			case OBJTYPE_HOVERCAR:
+//			case OBJTYPE_CHOPPER:
 //			case OBJTYPE_ESCALATOR:
 //				setupParseObjectWithArg2False(ptr, 1);
 //			}

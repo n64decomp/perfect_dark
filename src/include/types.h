@@ -709,13 +709,6 @@ struct doorobj { // objtype 0x01
 	/*0xc0*/ u32 unkc0;
 };
 
-struct standardobj { // objtype 0x03
-	struct defaultobj base;
-	/*0x5c*/ u8 *ailist;
-	/*0x60*/ u16 aioffset;
-	/*0x62*/ s16 aireturnlist;
-};
-
 struct image {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
@@ -807,6 +800,20 @@ struct autogunobj { // objtype 0d
 	/*0xa8*/ u8 autogun_type;
 };
 
+struct truckobj {
+	struct defaultobj base;
+	/*0x5c*/ u8 *ailist;
+	/*0x60*/ u16 aioffset;
+	/*0x62*/ s16 aireturnlist;
+};
+
+struct heliobj {
+	struct defaultobj base;
+	/*0x5c*/ u8 *ailist;
+	/*0x60*/ u16 aioffset;
+	/*0x62*/ s16 aireturnlist;
+};
+
 struct liftobj { // objtype 30
 	struct defaultobj base;
 	/*0x5c*/ u32 unk5c;
@@ -818,7 +825,14 @@ struct liftobj { // objtype 30
 	/*0x74*/ f32 unk74;
 };
 
-struct heliobj {
+struct hovercarobj {
+	struct defaultobj base;
+	/*0x5c*/ u8 *ailist;
+	/*0x60*/ u16 aioffset;
+	/*0x62*/ s16 aireturnlist;
+};
+
+struct chopperobj {
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;

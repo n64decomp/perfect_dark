@@ -1290,11 +1290,11 @@
 	newid,
 
 /**
- * Sets the limit of how much health a chr or heli can take before they die.
+ * Sets the limit of how much health a chr or chopper can take before they die.
  *
  * In most cases the value is assigned to the chr given by the chr argument,
- * however if the command is run by an object (eg. hovercar or heli) it will be
- * assigned to the object itself.
+ * however if the command is run by an object (eg. hovercar or chopper) it will
+ * be assigned to the object itself.
  */
 #define set_chr_maxdamage(chr, value) \
 	mkshort(0x0096), \
@@ -2695,9 +2695,9 @@
 	mkshort(0x013e),
 
 /**
- * Checks if the current heli's weapons are armed.
+ * Checks if the current chopper's weapons are armed.
  */
-#define if_heli_weapons_armed(label) \
+#define if_chopper_weapons_armed(label) \
 	mkshort(0x013f), \
 	label,
 
@@ -2744,19 +2744,19 @@
 	0x00,
 
 /**
- * Sets the current heli's weapons to armed.
+ * Sets the current chopper's weapons to armed.
  *
- * The state of the weapons can be checked with if_heli_weapons_armed.
+ * The state of the weapons can be checked with if_chopper_weapons_armed.
  */
-#define heli_arm_weapons \
+#define chopper_arm_weapons \
 	mkshort(0x0143),
 
 /**
- * Sets the current heli's weapons to unarmed.
+ * Sets the current chopper's weapons to unarmed.
  *
- * The state of the weapons can be checked with if_heli_weapons_armed.
+ * The state of the weapons can be checked with if_chopper_weapons_armed.
  */
-#define heli_unarm_weapons \
+#define chopper_unarm_weapons \
 	mkshort(0x0144), \
 	label,
 

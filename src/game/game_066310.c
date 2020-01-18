@@ -24575,19 +24575,19 @@ glabel func0f07accc
 /*  f07adb4:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
 );
 
-struct prop *heliGetTargetProp(struct heliobj *heli)
+struct prop *chopperGetTargetProp(struct chopperobj *chopper)
 {
-	if (heli->target == -1) {
+	if (chopper->target == -1) {
 		return g_Vars.currentplayer->prop;
 	}
 
-	return g_Vars.props + heli->target;
+	return g_Vars.props + chopper->target;
 }
 
-struct heliobj *heliFromObj(struct defaultobj *obj)
+struct chopperobj *chopperFromHovercar(struct chopperobj *chopper)
 {
-	if (obj->type == OBJTYPE_HELI) {
-		return (struct heliobj *) obj;
+	if (chopper->base.type == OBJTYPE_CHOPPER) {
+		return chopper;
 	}
 
 	return NULL;
@@ -24597,7 +24597,7 @@ GLOBAL_ASM(
 glabel func0f07ae18
 /*  f07ae18:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f07ae1c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07ae20:	0fc1eb7d */ 	jal	heliFromObj
+/*  f07ae20:	0fc1eb7d */ 	jal	chopperFromHovercar
 /*  f07ae24:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*  f07ae28:	00402025 */ 	or	$a0,$v0,$zero
 /*  f07ae2c:	1040003c */ 	beqz	$v0,.L0f07af20
@@ -24605,7 +24605,7 @@ glabel func0f07ae18
 /*  f07ae34:	c444007c */ 	lwc1	$f4,0x7c($v0)
 /*  f07ae38:	a3a00023 */ 	sb	$zero,0x23($sp)
 /*  f07ae3c:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f07ae40:	0fc1eb6e */ 	jal	heliGetTargetProp
+/*  f07ae40:	0fc1eb6e */ 	jal	chopperGetTargetProp
 /*  f07ae44:	e7a4001c */ 	swc1	$f4,0x1c($sp)
 /*  f07ae48:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f07ae4c:	c4480008 */ 	lwc1	$f8,0x8($v0)
@@ -24673,45 +24673,45 @@ glabel func0f07ae18
 /*  f07af30:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool heliCheckTargetVisible(struct defaultobj *obj)
+bool chopperCheckTargetVisible(struct chopperobj *obj)
 {
-	struct heliobj *heli = heliFromObj(obj);
+	struct chopperobj *chopper = chopperFromHovercar(obj);
 
-	if (heli) {
+	if (chopper) {
 		bool visible = false;
-		struct prop *target = heliGetTargetProp(heli);
+		struct prop *target = chopperGetTargetProp(chopper);
 
 		if (target->type != PROPTYPE_PLAYER || g_Vars.unk000324) {
-			visible = hasLineOfSight(&target->pos, &target->rooms[0], &heli->base.prop->pos, &heli->base.prop->rooms[0], 307, 16);
+			visible = hasLineOfSight(&target->pos, &target->rooms[0], &chopper->base.prop->pos, &chopper->base.prop->rooms[0], 307, 16);
 		}
 
-		heli->targetvisible = visible;
+		chopper->targetvisible = visible;
 		return visible;
 	}
 
 	return false;
 }
 
-void heliSetTarget(struct defaultobj *obj, u32 chrnum)
+void chopperSetTarget(struct chopperobj *obj, u32 chrnum)
 {
-	struct heliobj *heli = heliFromObj(obj);
+	struct chopperobj *chopper = chopperFromHovercar(obj);
 
-	if (heli) {
+	if (chopper) {
 		struct chrdata *chr = chrFindById(NULL, chrnum);
 
 		if (chr && chr->prop) {
-			heli->target = chr->prop - g_Vars.props;
+			chopper->target = chr->prop - g_Vars.props;
 		}
 	}
 }
 
-bool heliAttack(struct defaultobj *obj)
+bool chopperAttack(struct chopperobj *obj)
 {
-	struct heliobj *heli = heliFromObj(obj);
+	struct chopperobj *chopper = chopperFromHovercar(obj);
 
-	if (heli) {
-		heli->attackmode = 1;
-		heli->patroltimer60 = 240;
+	if (chopper) {
+		chopper->attackmode = 1;
+		chopper->patroltimer60 = 240;
 
 		return true;
 	}
@@ -24719,14 +24719,14 @@ bool heliAttack(struct defaultobj *obj)
 	return false;
 }
 
-bool heliStop(struct defaultobj *obj)
+bool chopperStop(struct chopperobj *obj)
 {
-	struct heliobj *heli = heliFromObj(obj);
+	struct chopperobj *chopper = chopperFromHovercar(obj);
 
-	if (heli) {
-		heli->attackmode = 0;
-		heli->patroltimer60 = 120;
-		heli->power = 0;
+	if (chopper) {
+		chopper->attackmode = 0;
+		chopper->patroltimer60 = 120;
+		chopper->power = 0;
 
 		return true;
 	}
@@ -24734,32 +24734,32 @@ bool heliStop(struct defaultobj *obj)
 	return false;
 }
 
-bool heliSetArmed(struct defaultobj *obj, bool armed)
+bool chopperSetArmed(struct chopperobj *obj, bool armed)
 {
-	struct heliobj *heli = heliFromObj(obj);
+	struct chopperobj *chopper = chopperFromHovercar(obj);
 
-	if (heli) {
-		heli->weaponsarmed = armed;
+	if (chopper) {
+		chopper->weaponsarmed = armed;
 		return true;
 	}
 
 	return false;
 }
 
-void heliRestartTimer(struct defaultobj *obj)
+void chopperRestartTimer(struct chopperobj *obj)
 {
-	struct heliobj *heli = heliFromObj(obj);
+	struct chopperobj *chopper = chopperFromHovercar(obj);
 
-	if (heli) {
-		heli->timer60 = 0;
+	if (chopper) {
+		chopper->timer60 = 0;
 	}
 }
 
 GLOBAL_ASM(
-glabel heliGetTimer
+glabel chopperGetTimer
 /*  f07b120:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f07b124:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f07b128:	0fc1eb7d */ 	jal	heliFromObj
+/*  f07b128:	0fc1eb7d */ 	jal	chopperFromHovercar
 /*  f07b12c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07b130:	8c4e00c0 */ 	lw	$t6,0xc0($v0)
 /*  f07b134:	3c017f1b */ 	lui	$at,%hi(var7f1aa5c8)
@@ -24773,9 +24773,9 @@ glabel heliGetTimer
 /*  f07b154:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void heliSetMaxDamage(struct heliobj *heli, s16 health)
+void chopperSetMaxDamage(struct chopperobj *chopper, s16 health)
 {
-	heli->base.maxdamage = health;
+	chopper->base.maxdamage = health;
 }
 
 GLOBAL_ASM(
@@ -24858,7 +24858,7 @@ glabel func0f07b164
 );
 
 GLOBAL_ASM(
-glabel heliFireRocket
+glabel chopperFireRocket
 /*  f07b290:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f07b294:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f07b298:	afb10020 */ 	sw	$s1,0x20($sp)
@@ -24868,7 +24868,7 @@ glabel heliFireRocket
 /*  f07b2a8:	00803025 */ 	or	$a2,$a0,$zero
 /*  f07b2ac:	51c0004c */ 	beqzl	$t6,.L0f07b3e0
 /*  f07b2b0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f07b2b4:	0fc1eb6e */ 	jal	heliGetTargetProp
+/*  f07b2b4:	0fc1eb6e */ 	jal	chopperGetTargetProp
 /*  f07b2b8:	afa600d0 */ 	sw	$a2,0xd0($sp)
 /*  f07b2bc:	8faf00d4 */ 	lw	$t7,0xd4($sp)
 /*  f07b2c0:	8fa600d0 */ 	lw	$a2,0xd0($sp)
@@ -24978,7 +24978,7 @@ glabel func0f07b3f0
 /*  f07b444:	c44400cc */ 	lwc1	$f4,0xcc($v0)
 /*  f07b448:	e7b00110 */ 	swc1	$f16,0x110($sp)
 /*  f07b44c:	e7b0010c */ 	swc1	$f16,0x10c($sp)
-/*  f07b450:	0fc1eb6e */ 	jal	heliGetTargetProp
+/*  f07b450:	0fc1eb6e */ 	jal	chopperGetTargetProp
 /*  f07b454:	e7a400e0 */ 	swc1	$f4,0xe0($sp)
 /*  f07b458:	afa200dc */ 	sw	$v0,0xdc($sp)
 /*  f07b45c:	afa000d4 */ 	sw	$zero,0xd4($sp)
@@ -26539,7 +26539,7 @@ glabel func0f07cacc
 /*  f07caf4:	afa40170 */ 	sw	$a0,0x170($sp)
 /*  f07caf8:	8c930004 */ 	lw	$s3,0x4($a0)
 /*  f07cafc:	afb30168 */ 	sw	$s3,0x168($sp)
-/*  f07cb00:	0fc1eb6e */ 	jal	heliGetTargetProp
+/*  f07cb00:	0fc1eb6e */ 	jal	chopperGetTargetProp
 /*  f07cb04:	02602025 */ 	or	$a0,$s3,$zero
 /*  f07cb08:	8fa50170 */ 	lw	$a1,0x170($sp)
 /*  f07cb0c:	afa2015c */ 	sw	$v0,0x15c($sp)
@@ -50010,7 +50010,7 @@ glabel func0f0912dc
 /*  f091638:	8fae0200 */ 	lw	$t6,0x200($sp)
 /*  f09163c:	15a1006d */ 	bne	$t5,$at,.L0f0917f4
 /*  f091640:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f091644:	0fc1eb7d */ 	jal	heliFromObj
+/*  f091644:	0fc1eb7d */ 	jal	chopperFromHovercar
 /*  f091648:	8dc40004 */ 	lw	$a0,0x4($t6)
 /*  f09164c:	104001c9 */ 	beqz	$v0,.L0f091d74
 /*  f091650:	3c017f1b */ 	lui	$at,%hi(var7f1ab20c)

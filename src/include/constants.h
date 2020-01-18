@@ -692,8 +692,8 @@
 #define OBJTYPE_24               0x24
 #define OBJTYPE_RENAMEOBJ        0x25
 #define OBJTYPE_26               0x26
-#define OBJTYPE_27               0x27
-#define OBJTYPE_28               0x28
+#define OBJTYPE_TRUCK            0x27
+#define OBJTYPE_HELI             0x28
 #define OBJTYPE_29               0x29
 #define OBJTYPE_GLASS            0x2a
 #define OBJTYPE_2B               0x2b
@@ -708,9 +708,9 @@
 #define OBJTYPE_END              0x34
 #define OBJTYPE_HOVERPROP        0x35
 #define OBJTYPE_VENTFAN          0x36
-#define OBJTYPE_HOVERVEHICLE     0x37
+#define OBJTYPE_HOVERCAR         0x37
 #define OBJTYPE_PADEFFECT        0x38
-#define OBJTYPE_HELI             0x39
+#define OBJTYPE_CHOPPER          0x39
 #define OBJTYPE_MINE             0x3a
 #define OBJTYPE_ESCALATOR        0x3b
 

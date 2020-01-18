@@ -54,9 +54,9 @@ u32 chraiGoToLabel(u8 *ailist, u32 aioffset, u8 label)
 void chraiExecute(void *entity, s32 proptype)
 {
 	g_Vars.chrdata = NULL;
-	g_Vars.objdata = NULL;
-	g_Vars.aicdata = NULL;
-	g_Vars.hovdata = NULL;
+	g_Vars.truck = NULL;
+	g_Vars.heli = NULL;
+	g_Vars.hovercar = NULL;
 	g_Vars.ailist = NULL;
 	g_Vars.aioffset = 0;
 
@@ -65,27 +65,27 @@ void chraiExecute(void *entity, s32 proptype)
 	} else if (proptype == PROPTYPE_OBJ) {
 		struct defaultobj *obj = entity;
 
-		if (obj->type == OBJTYPE_27) {
-			g_Vars.objdata = entity;
-		} else if (obj->type == OBJTYPE_28) {
-			g_Vars.aicdata = entity;
-		} else if (obj->type == OBJTYPE_HOVERVEHICLE || obj->type == OBJTYPE_HELI) {
-			g_Vars.hovdata = entity;
+		if (obj->type == OBJTYPE_TRUCK) {
+			g_Vars.truck = entity;
+		} else if (obj->type == OBJTYPE_HELI) {
+			g_Vars.heli = entity;
+		} else if (obj->type == OBJTYPE_HOVERCAR || obj->type == OBJTYPE_CHOPPER) {
+			g_Vars.hovercar = entity;
 		}
 	}
 
 	if (g_Vars.chrdata) {
 		g_Vars.ailist = g_Vars.chrdata->ailist;
 		g_Vars.aioffset = g_Vars.chrdata->aioffset;
-	} else if (g_Vars.objdata) {
-		g_Vars.ailist = g_Vars.objdata->ailist;
-		g_Vars.aioffset = g_Vars.objdata->aioffset;
-	} else if (g_Vars.aicdata) {
-		g_Vars.ailist = g_Vars.aicdata->ailist;
-		g_Vars.aioffset = g_Vars.aicdata->aioffset;
-	} else if (g_Vars.hovdata) {
-		g_Vars.ailist = g_Vars.hovdata->ailist;
-		g_Vars.aioffset = g_Vars.hovdata->aioffset;
+	} else if (g_Vars.truck) {
+		g_Vars.ailist = g_Vars.truck->ailist;
+		g_Vars.aioffset = g_Vars.truck->aioffset;
+	} else if (g_Vars.heli) {
+		g_Vars.ailist = g_Vars.heli->ailist;
+		g_Vars.aioffset = g_Vars.heli->aioffset;
+	} else if (g_Vars.hovercar) {
+		g_Vars.ailist = g_Vars.hovercar->ailist;
+		g_Vars.aioffset = g_Vars.hovercar->aioffset;
 	}
 
 	if (g_Vars.ailist) {

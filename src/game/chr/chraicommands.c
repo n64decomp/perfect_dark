@@ -157,15 +157,15 @@ bool aiYield(void)
 	if (g_Vars.chrdata) {
 		g_Vars.chrdata->ailist = g_Vars.ailist;
 		g_Vars.chrdata->aioffset = g_Vars.aioffset;
-	} else if (g_Vars.objdata) {
-		g_Vars.objdata->ailist = g_Vars.ailist;
-		g_Vars.objdata->aioffset = g_Vars.aioffset;
-	} else if (g_Vars.aicdata) {
-		g_Vars.aicdata->ailist = g_Vars.ailist;
-		g_Vars.aicdata->aioffset = g_Vars.aioffset;
-	} else if (g_Vars.hovdata) {
-		g_Vars.hovdata->ailist = g_Vars.ailist;
-		g_Vars.hovdata->aioffset = g_Vars.aioffset;
+	} else if (g_Vars.truck) {
+		g_Vars.truck->ailist = g_Vars.ailist;
+		g_Vars.truck->aioffset = g_Vars.aioffset;
+	} else if (g_Vars.heli) {
+		g_Vars.heli->ailist = g_Vars.ailist;
+		g_Vars.heli->aioffset = g_Vars.aioffset;
+	} else if (g_Vars.hovercar) {
+		g_Vars.hovercar->ailist = g_Vars.ailist;
+		g_Vars.hovercar->aioffset = g_Vars.aioffset;
 	}
 
 	return true;
@@ -219,12 +219,12 @@ bool aiSetReturnList(void)
 				chr->aireturnlist = ailistid;
 			}
 		}
-	} else if (g_Vars.objdata) {
-		g_Vars.objdata->aireturnlist = ailistid;
-	} else if (g_Vars.aicdata) {
-		g_Vars.aicdata->aireturnlist = ailistid;
-	} else if (g_Vars.hovdata) {
-		g_Vars.hovdata->aireturnlist = ailistid;
+	} else if (g_Vars.truck) {
+		g_Vars.truck->aireturnlist = ailistid;
+	} else if (g_Vars.heli) {
+		g_Vars.heli->aireturnlist = ailistid;
+	} else if (g_Vars.hovercar) {
+		g_Vars.hovercar->aireturnlist = ailistid;
 	}
 
 	g_Vars.aioffset += 5;
@@ -350,12 +350,12 @@ bool aiReturn(void)
 
 	if (g_Vars.chrdata) {
 		ailist = ailistFindById(g_Vars.chrdata->aireturnlist);
-	} else if (g_Vars.objdata) {
-		ailist = ailistFindById(g_Vars.objdata->aireturnlist);
-	} else if (g_Vars.aicdata) {
-		ailist = ailistFindById(g_Vars.aicdata->aireturnlist);
-	} else if (g_Vars.hovdata) {
-		ailist = ailistFindById(g_Vars.hovdata->aireturnlist);
+	} else if (g_Vars.truck) {
+		ailist = ailistFindById(g_Vars.truck->aireturnlist);
+	} else if (g_Vars.heli) {
+		ailist = ailistFindById(g_Vars.heli->aireturnlist);
+	} else if (g_Vars.hovercar) {
+		ailist = ailistFindById(g_Vars.hovercar->aireturnlist);
 	}
 
 	g_Vars.ailist = ailist;
@@ -383,8 +383,8 @@ bool aiStop(void)
 {
 	if (g_Vars.chrdata) {
 		chrTryStop(g_Vars.chrdata);
-	} else if (g_Vars.hovdata) {
-		heliStop(g_Vars.hovdata);
+	} else if (g_Vars.hovercar) {
+		chopperStop(g_Vars.hovercar);
 	}
 
 	g_Vars.aioffset += 2;
@@ -947,7 +947,7 @@ bool aiAimAndFire2(void)
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
 	if ((g_Vars.chrdata && func0f03a76c(g_Vars.chrdata, thingtype, thingid)) ||
-			(g_Vars.hovdata && heliAttack(g_Vars.hovdata))) {
+			(g_Vars.hovercar && chopperAttack(g_Vars.hovercar))) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -1428,7 +1428,7 @@ bool aiIfRandomLessThan(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if ((g_Vars.chrdata && g_Vars.chrdata->random < cmd[2]) ||
-			(g_Vars.hovdata && ((u8)random()) < cmd[2])) {
+			(g_Vars.hovercar && ((u8)random()) < cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1445,7 +1445,7 @@ bool aiIfRandomGreaterThan(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
 	if ((g_Vars.chrdata && g_Vars.chrdata->random > cmd[2]) ||
-			(g_Vars.hovdata && ((u8)random()) > cmd[2])) {
+			(g_Vars.hovercar && ((u8)random()) > cmd[2])) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1661,7 +1661,7 @@ bool aiIfSawDeath(void)
 bool aiIfSeesPlayer(void)
 {
 	if ((g_Vars.chrdata && func0f039368(g_Vars.chrdata)) ||
-			(g_Vars.hovdata && func0f07ae18(g_Vars.hovdata, 0x40) && heliCheckTargetVisible(g_Vars.hovdata))) {
+			(g_Vars.hovercar && func0f07ae18(g_Vars.hovercar, 0x40) && chopperCheckTargetVisible(g_Vars.hovercar))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1677,7 +1677,7 @@ bool aiIfSeesPlayer(void)
 bool ai017a(void)
 {
 	if ((g_Vars.chrdata && g_Vars.chrdata->prop && func0f0391ec(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->rooms[0], 1))
-			|| (g_Vars.hovdata && func0f07ae18(g_Vars.hovdata, 0x40) && heliCheckTargetVisible(g_Vars.hovdata))) {
+			|| (g_Vars.hovercar && func0f07ae18(g_Vars.hovercar, 0x40) && chopperCheckTargetVisible(g_Vars.hovercar))) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -4426,7 +4426,7 @@ glabel aiSetMaxDamage
 .L0f053a04:
 /*  f053a04:	44caf800 */ 	ctc1	$t2,$31
 /*  f053a08:	30abffff */ 	andi	$t3,$a1,0xffff
-/*  f053a0c:	0fc1ec56 */ 	jal	heliSetMaxDamage
+/*  f053a0c:	0fc1ec56 */ 	jal	chopperSetMaxDamage
 /*  f053a10:	01602825 */ 	or	$a1,$t3,$zero
 /*  f053a14:	10000021 */ 	beqz	$zero,.L0f053a9c
 /*  f053a18:	8e0d0438 */ 	lw	$t5,0x438($s0)
@@ -5121,8 +5121,8 @@ bool aiSetPadPreset(void)
 
 	if (g_Vars.chrdata) {
 		chrSetPadPreset(g_Vars.chrdata, pad_id);
-	} else if (g_Vars.aicdata) {
-		g_Vars.aicdata->base.pad = pad_id;
+	} else if (g_Vars.heli) {
+		g_Vars.heli->base.pad = pad_id;
 	}
 
 	g_Vars.aioffset += 4;
@@ -5219,8 +5219,8 @@ bool aiRestartTimer(void)
 {
 	if (g_Vars.chrdata) {
 		chrRestartTimer(g_Vars.chrdata);
-	} else if (g_Vars.hovdata) {
-		heliRestartTimer(g_Vars.hovdata);
+	} else if (g_Vars.hovercar) {
+		chopperRestartTimer(g_Vars.hovercar);
 	}
 
 	g_Vars.aioffset += 2;
@@ -5341,7 +5341,7 @@ glabel aiIfTimerLessThan
 /*  f0551b0:	50800014 */ 	beqzl	$a0,.L0f055204
 /*  f0551b4:	8c6d0438 */ 	lw	$t5,0x438($v1)
 /*  f0551b8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0551bc:	0fc1ec48 */ 	jal	heliGetTimer
+/*  f0551bc:	0fc1ec48 */ 	jal	chopperGetTimer
 /*  f0551c0:	e7a20018 */ 	swc1	$f2,0x18($sp)
 /*  f0551c4:	c7a20018 */ 	lwc1	$f2,0x18($sp)
 /*  f0551c8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -5412,7 +5412,7 @@ glabel aiIfTimerGreaterThan
 /*  f05529c:	8e040430 */ 	lw	$a0,0x430($s0)
 /*  f0552a0:	50800005 */ 	beqzl	$a0,.L0f0552b8
 /*  f0552a4:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f0552a8:	0fc1ec48 */ 	jal	heliGetTimer
+/*  f0552a8:	0fc1ec48 */ 	jal	chopperGetTimer
 /*  f0552ac:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f0552b0:	8fa20024 */ 	lw	$v0,0x24($sp)
 /*  f0552b4:	8e040424 */ 	lw	$a0,0x424($s0)
@@ -5431,7 +5431,7 @@ glabel aiIfTimerGreaterThan
 .L0f0552e4:
 /*  f0552e4:	50800010 */ 	beqzl	$a0,.L0f055328
 /*  f0552e8:	8e0d0438 */ 	lw	$t5,0x438($s0)
-/*  f0552ec:	0fc1ec48 */ 	jal	heliGetTimer
+/*  f0552ec:	0fc1ec48 */ 	jal	chopperGetTimer
 /*  f0552f0:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f0552f4:	c7a40020 */ 	lwc1	$f4,0x20($sp)
 /*  f0552f8:	8fa20024 */ 	lw	$v0,0x24($sp)
@@ -6575,7 +6575,7 @@ glabel ai00d5
 .L0f056968:
 /*  f056968:	50800032 */ 	beqzl	$a0,.L0f056a34
 /*  f05696c:	8cb80438 */ 	lw	$t8,0x438($a1)
-/*  f056970:	0fc1eb7d */ 	jal	heliFromObj
+/*  f056970:	0fc1eb7d */ 	jal	chopperFromHovercar
 /*  f056974:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f056978:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f05697c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
@@ -8274,8 +8274,8 @@ bool aiSetTarget(void)
 			g_Vars.chrdata->chrflags &= ~CHRCFLAG_NEAR_MISS;
 			g_Vars.chrdata->target = prop_id;
 		}
-	} else if (g_Vars.hovdata) {
-		heliSetTarget(g_Vars.hovdata, cmd[2]);
+	} else if (g_Vars.hovercar) {
+		chopperSetTarget(g_Vars.hovercar, cmd[2]);
 	}
 
 	g_Vars.aioffset += 5;
@@ -10823,8 +10823,8 @@ bool aiIfHeliWeaponsArmed(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.hovdata) {
-		if (g_Vars.hovdata->weaponsarmed) {
+	if (g_Vars.hovercar) {
+		if (g_Vars.hovercar->weaponsarmed) {
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 		} else {
 			g_Vars.aioffset += 3;
@@ -10843,8 +10843,9 @@ bool aiIfHoverbotNextStep(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.hovdata) {
-		if ((g_Vars.hovdata->nextstep > cmd[3] && cmd[2] == 1) || (g_Vars.hovdata->nextstep < cmd[3] && cmd[2] == 0)) {
+	if (g_Vars.hovercar) {
+		if ((g_Vars.hovercar->nextstep > cmd[3] && cmd[2] == 1) ||
+				(g_Vars.hovercar->nextstep < cmd[3] && cmd[2] == 0)) {
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 		} else {
 			g_Vars.aioffset += 5;
@@ -11126,8 +11127,8 @@ bool aiSetPadPresetToInvestigationTerminal(void)
  */
 bool aiHeliArmWeapons(void)
 {
-	if (g_Vars.hovdata) {
-		heliSetArmed(&g_Vars.hovdata->base, true);
+	if (g_Vars.hovercar) {
+		chopperSetArmed(g_Vars.hovercar, true);
 	}
 
 	g_Vars.aioffset += 2;
@@ -11140,8 +11141,8 @@ bool aiHeliArmWeapons(void)
  */
 bool aiHeliUnarmWeapons(void)
 {
-	if (g_Vars.hovdata) {
-		heliSetArmed(&g_Vars.hovdata->base, false);
+	if (g_Vars.hovercar) {
+		chopperSetArmed(g_Vars.hovercar, false);
 	}
 
 	g_Vars.aioffset += 2;
@@ -11555,7 +11556,7 @@ glabel aiIfAction
 bool aiHovercopterFireRocket(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	heliFireRocket(g_Vars.hovdata, cmd[2]);
+	chopperFireRocket(g_Vars.hovercar, cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -11617,11 +11618,11 @@ bool aiIfY(void)
 	struct chrdata *chr = NULL;
 	f32 cutoff_y = ((cmd[4] | (cmd[3] << 8)) << 16) >> 16;
 
-	if (cmd[2] == CHR_TARGET && g_Vars.hovdata) {
-		struct heliobj *heli = heliFromObj(&g_Vars.hovdata->base);
+	if (cmd[2] == CHR_TARGET && g_Vars.hovercar) {
+		struct chopperobj *chopper = chopperFromHovercar(g_Vars.hovercar);
 
-		if (heli) {
-			struct prop *target = heliGetTargetProp(heli);
+		if (chopper) {
+			struct prop *target = chopperGetTargetProp(chopper);
 
 			if (target && (target->type == PROPTYPE_CHR || target->type == PROPTYPE_PLAYER)) {
 				chr = target->chr;
