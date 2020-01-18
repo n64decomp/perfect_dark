@@ -5547,7 +5547,7 @@ glabel func0f18c014
 );
 
 GLOBAL_ASM(
-glabel func0f18c0c0
+glabel mpIsTrackUnlocked
 /*  f18c0c0:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f18c0c4:	01c47023 */ 	subu	$t6,$t6,$a0
 /*  f18c0c8:	000e7040 */ 	sll	$t6,$t6,0x1
@@ -5596,7 +5596,7 @@ glabel func0f18c138
 /*  f18c154:	18800008 */ 	blez	$a0,.L0f18c178
 /*  f18c158:	00008025 */ 	or	$s0,$zero,$zero
 .L0f18c15c:
-/*  f18c15c:	0fc63030 */ 	jal	func0f18c0c0
+/*  f18c15c:	0fc63030 */ 	jal	mpIsTrackUnlocked
 /*  f18c160:	02002025 */ 	or	$a0,$s0,$zero
 /*  f18c164:	10400002 */ 	beqz	$v0,.L0f18c170
 /*  f18c168:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5614,55 +5614,39 @@ glabel func0f18c138
 /*  f18c190:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel mpGetUnlockedTrackNum
-/*  f18c194:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f18c198:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f18c19c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f18c1a0:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f18c1a4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18c1a8:	00809825 */ 	or	$s3,$a0,$zero
-/*  f18c1ac:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f18c1b0:	00008825 */ 	or	$s1,$zero,$zero
-/*  f18c1b4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f18c1b8:	2412002a */ 	addiu	$s2,$zero,0x2a
-.L0f18c1bc:
-/*  f18c1bc:	0fc63030 */ 	jal	func0f18c0c0
-/*  f18c1c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18c1c4:	50400004 */ 	beqzl	$v0,.L0f18c1d8
-/*  f18c1c8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18c1cc:	12330004 */ 	beq	$s1,$s3,.L0f18c1e0
-/*  f18c1d0:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f18c1d4:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f18c1d8:
-/*  f18c1d8:	1612fff8 */ 	bne	$s0,$s2,.L0f18c1bc
-/*  f18c1dc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f18c1e0:
-/*  f18c1e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f18c1e4:	02001025 */ 	or	$v0,$s0,$zero
-/*  f18c1e8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f18c1ec:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f18c1f0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f18c1f4:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f18c1f8:	03e00008 */ 	jr	$ra
-/*  f18c1fc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 mpGetUnlockedTrackNum(s32 slotindex)
+{
+	s32 i;
+	s32 numunlocked = 0;
+
+	for (i = 0; i != 42; i++) {
+		if (mpIsTrackUnlocked(i)) {
+			if (numunlocked == slotindex) {
+				break;
+			}
+
+			numunlocked++;
+		}
+	}
+
+	return i;
+}
 
 s32 func0f18c200(void)
 {
 	return func0f18c138(sizeof(g_MpTracks) / sizeof(g_MpTracks[0]));
 }
 
-s32 mpGetTrackAudioId(s32 tracknum)
+s32 mpGetTrackAudioId(s32 slotindex)
 {
-	tracknum = mpGetUnlockedTrackNum(tracknum);
+	s32 tracknum = mpGetUnlockedTrackNum(slotindex);
 
 	return g_MpTracks[tracknum].audioid;
 }
 
-char *mpGetTrackName(s32 tracknum)
+char *mpGetTrackName(s32 slotindex)
 {
-	tracknum = mpGetUnlockedTrackNum(tracknum);
+	s32 tracknum = mpGetUnlockedTrackNum(slotindex);
 
 	return textGet(g_MpTracks[tracknum].name);
 }
