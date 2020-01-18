@@ -389,7 +389,7 @@ u32 func0f095c04(void);
 u32 func0f095d64(void);
 void objectiveCheckRoomEntered(s32 currentroom);
 void objectiveCheckMultiroomEntered(s32 arg0, s16 *requiredrooms);
-u32 func0f096088(void);
+void objectiveCheckHolograph(s32 arg0);
 u32 func0f096360(void);
 u32 func0f0964b4(void);
 u32 func0f0965e4(void);

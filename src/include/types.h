@@ -36,7 +36,7 @@ struct prop {
 	};
 
 	/*0x08*/ struct coord pos;
-	/*0x14*/ u32 z;
+	/*0x14*/ f32 z;
 	/*0x18*/ struct prop *parent;
 	/*0x1c*/ struct prop *child;
 	/*0x20*/ struct prop *next;
@@ -2653,9 +2653,7 @@ struct player {
 	/*0x1ba4*/ u32 unk1ba4;
 	/*0x1ba8*/ u32 unk1ba8;
 	/*0x1bac*/ u32 unk1bac;
-	/*0x1bb0*/ u32 unk1bb0;
-	/*0x1bb4*/ u32 unk1bb4;
-	/*0x1bb8*/ u32 unk1bb8;
+	/*0x1bb0*/ struct coord *unk1bb0;
 	/*0x1bbc*/ u32 unk1bbc;
 	/*0x1bc0*/ u32 unk1bc0;
 	/*0x1bc4*/ u32 unk1bc4;
@@ -4691,6 +4689,13 @@ struct criteria_multiroomentered {
 	u32 pad;
 	u32 status;
 	struct criteria_multiroomentered *next;
+};
+
+struct criteria_holograph {
+	u32 unk00;
+	u32 obj;
+	u32 status;
+	struct criteria_holograph *next;
 };
 
 #endif

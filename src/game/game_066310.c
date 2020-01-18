@@ -55323,7 +55323,7 @@ void objectiveCheckMultiroomEntered(s32 arg0, s16 *requiredrooms)
 }
 
 GLOBAL_ASM(
-glabel func0f096088
+glabel objectiveCheckHolograph
 /*  f096088:	27bdff50 */ 	addiu	$sp,$sp,-176
 /*  f09608c:	afb10034 */ 	sw	$s1,0x34($sp)
 /*  f096090:	3c11800a */ 	lui	$s1,0x800a
@@ -55513,6 +55513,56 @@ glabel func0f096088
 /*  f096358:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09635c:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Too much stack usage and unknown functions to decompile this accurately
+// at the moment.
+//void objectiveCheckHolograph(s32 arg0)
+//{
+//	struct criteria_holograph *criteria = g_HolographCriterias;
+//
+//	while (criteria) {
+//		if (g_Vars.stagenum == STAGE_CITRAINING) {
+//			criteria->status = OBJECTIVE_INCOMPLETE;
+//		}
+//
+//		if (criteria->status == OBJECTIVE_INCOMPLETE) {
+//			struct defaultobj *obj = objFindByTagId(criteria->obj);
+//
+//			if (obj && obj->prop && obj->prop->flags & 2 && obj->prop->z > 0 && func0f0869a8(obj)) {
+//				f32 fVar11 = arg0;
+//				s32 a[2];
+//				s32 b[2];
+//				s32 c[2];
+//
+//				if (fVar11 != 0.00000000) {
+//					float xdiff = obj->prop->pos.x - g_Vars.currentplayer->unk1bb0.x;
+//					float zdiff = obj->prop->pos.z - g_Vars.currentplayer->unk1bb0.z;
+//					pass = xdiff * xdiff + zdiff * zdiff < fVar11 * fVar11;
+//				} else {
+//					pass = fVar11 > -1;
+//				}
+//
+//				if (pass && func0f0899dc(obj->prop, a, b, c))  {
+//					func0f06803c(a, b, c, &fStack56);
+//
+//					if (func0f0b57f8() < fStack56 && fStack56 < func0f0b57d8() + func0f0b57f8() &&
+//							func0f0b57f8() < fStack64 && fStack64 < func0f0b57d8() + func0f0b57f8() &&
+//							func0f0b5808() < fStack52 && fStack52 < func0f0b57e8() + func0f0b5808() &&
+//							func0f0b5808() < fStack60 && fStack60 < func0f0b57e8() + func0f0b5808()) {
+//						criteria->status = OBJECTIVE_COMPLETE;
+//
+//						if (g_Vars.stagenum == STAGE_CITRAINING) {
+//							struct trainingdata *data = ciGetTrainingData();
+//							data->holographedpc = true;
+//						}
+//					}
+//				}
+//			}
+//		}
+//
+//		criteria = criteria->next;
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f096360

@@ -120,8 +120,8 @@ glabel func0f010aec
 
 GLOBAL_ASM(
 glabel func0f010b04
-/*  f010b04:	3c02800a */ 	lui	$v0,%hi(var8009d0c0)
-/*  f010b08:	2442d0c0 */ 	addiu	$v0,$v0,%lo(var8009d0c0)
+/*  f010b04:	3c02800a */ 	lui	$v0,%hi(g_HolographCriterias)
+/*  f010b08:	2442d0c0 */ 	addiu	$v0,$v0,%lo(g_HolographCriterias)
 /*  f010b0c:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f010b10:	ac8e000c */ 	sw	$t6,0xc($a0)
 /*  f010b14:	03e00008 */ 	jr	$ra

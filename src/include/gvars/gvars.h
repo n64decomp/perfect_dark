@@ -586,7 +586,7 @@ extern u32 var8009d0b0;
 extern u32 var8009d0b4;
 extern struct criteria_roomentered *g_RoomEnteredCriterias;
 extern struct criteria_multiroomentered *g_MultiroomEnteredCriterias;
-extern u32 var8009d0c0;
+extern struct criteria_holograph *g_HolographCriterias;
 extern u32 var8009d0d0;
 extern u32 var8009d0d8;
 extern u32 var8009d0e0;

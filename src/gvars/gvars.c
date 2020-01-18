@@ -16326,7 +16326,7 @@ u32 var8009d0b0 = 0;
 u32 var8009d0b4 = 0;
 struct criteria_roomentered *g_RoomEnteredCriterias = NULL;
 struct criteria_multiroomentered *g_MultiroomEnteredCriterias = NULL;
-u32 var8009d0c0 = 0;
+struct criteria_holograph *g_HolographCriterias = NULL;
 
 // 8009d0c4
 s32 g_NumTags = 0;
