@@ -2652,7 +2652,8 @@ struct player {
 	/*0x1bd8*/ u32 unk1bd8;
 	/*0x1bdc*/ u32 unk1bdc;
 	/*0x1be0*/ u32 unk1be0;
-	/*0x1be4*/ u32 unk1be4;
+	/*0x1be4*/ u16 unk1be4;
+	/*0x1be6*/ u8 unk1be6;
 	/*0x1be8*/ u32 unk1be8;
 	/*0x1bec*/ u32 unk1bec;
 	/*0x1bf0*/ u32 bondexploding;
@@ -4632,13 +4633,17 @@ struct trainingdata {
 };
 
 struct activemenuthing {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
+	/*0x00*/ s8 screenindex;
+	/*0x02*/ u16 unk02;
+	/*0x04*/ s16 unk04;
+	/*0x06*/ u16 unk06;
+	/*0x08*/ u16 unk08;
+	/*0x0a*/ s16 unk0a;
+	/*0x0c*/ u16 unk0c;
+	/*0x0e*/ u8 unk0e;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
+	/*0x18*/ f32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u32 unk20;
 	/*0x24*/ u32 unk24;
