@@ -4670,9 +4670,12 @@ struct activemenuthing {
 };
 
 struct objective {
-	u32 unk00;
-	u32 unk04;
-	u32 text;
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 text;
+	/*0x0c*/ u16 unk0c;
+	/*0x0e*/ u8 unk0e;
+	/*0x0f*/ s8 difficulties;
 };
 
 #endif

@@ -381,7 +381,7 @@ u32 func0f095340(void);
 u32 func0f0953cc(void);
 u32 func0f095560(void);
 s32 objectiveGetCount(void);
-u32 objectiveGetDifficultyBits(u32 arg0);
+u32 objectiveGetDifficultyBits(s32 index);
 u32 objectiveGetStatus(u32 arg0);
 u32 objectiveIsAllComplete(void);
 u32 func0f095bf4(void);

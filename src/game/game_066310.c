@@ -54646,24 +54646,14 @@ char *objectiveGetText(s32 index)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel objectiveGetDifficultyBits
-/*  f095650:	2881000a */ 	slti	$at,$a0,0xa
-/*  f095654:	10200008 */ 	beqz	$at,.L0f095678
-/*  f095658:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f09565c:	3c03800a */ 	lui	$v1,0x800a
-/*  f095660:	006e1821 */ 	addu	$v1,$v1,$t6
-/*  f095664:	8c63d060 */ 	lw	$v1,-0x2fa0($v1)
-/*  f095668:	50600004 */ 	beqzl	$v1,.L0f09567c
-/*  f09566c:	2402000f */ 	addiu	$v0,$zero,0xf
-/*  f095670:	03e00008 */ 	jr	$ra
-/*  f095674:	8062000f */ 	lb	$v0,0xf($v1)
-.L0f095678:
-/*  f095678:	2402000f */ 	addiu	$v0,$zero,0xf
-.L0f09567c:
-/*  f09567c:	03e00008 */ 	jr	$ra
-/*  f095680:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 objectiveGetDifficultyBits(s32 index)
+{
+	if (index < 10 && g_Objectives[index]) {
+		return g_Objectives[index]->difficulties;
+	}
+
+	return DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD;
+}
 
 GLOBAL_ASM(
 glabel objectiveGetStatus
