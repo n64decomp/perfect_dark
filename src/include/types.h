@@ -1052,7 +1052,7 @@ struct player {
 	/*0x0244*/ u32 unk0244;
 	/*0x0248*/ u32 unk0248;
 	/*0x024c*/ u32 unk024c;
-	/*0x0250*/ u32 unk0250;
+	/*0x0250*/ u8 activemenumode;
 	/*0x0254*/ u32 unk0254;
 	/*0x0258*/ u32 unk0258;
 	/*0x025c*/ u32 unk025c;
@@ -4629,6 +4629,25 @@ struct trainingdata {
 	u32 unk00_02 : 1;
 	u32 unk00_03 : 1;
 	u32 holographedpc : 1;
+};
+
+struct activemenuthing {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u16 unk30;
+	/*0x32*/ u8 unk32;
+	/*0x33*/ u8 unk33;
+	/*0x34*/ u32 unk34;
 };
 
 #endif
