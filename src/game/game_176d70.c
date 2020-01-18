@@ -9167,59 +9167,27 @@ s32 menuhandlerMpQuickTeamOption(u32 operation, struct menu_item *item, s32 *val
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menudialog0017f930
-/*  f17f930:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17f934:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f17f938:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17f93c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f17f940:	14810007 */ 	bne	$a0,$at,.L0f17f960
-/*  f17f944:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f17f948:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f17f94c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f17f950:	a0400494 */ 	sb	$zero,0x494($v0)
-/*  f17f954:	a0400495 */ 	sb	$zero,0x495($v0)
-/*  f17f958:	a0400496 */ 	sb	$zero,0x496($v0)
-/*  f17f95c:	a0400497 */ 	sb	$zero,0x497($v0)
-.L0f17f960:
-/*  f17f960:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f17f964:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f17f968:	3c03800a */ 	lui	$v1,0x800a
-/*  f17f96c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f17f970:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17f974:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17f978:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17f97c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17f980:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17f984:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17f988:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17f98c:	006f1821 */ 	addu	$v1,$v1,$t7
-/*  f17f990:	8c63e4f8 */ 	lw	$v1,-0x1b08($v1)
-/*  f17f994:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f17f998:	50600010 */ 	beqzl	$v1,.L0f17f9dc
-/*  f17f99c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17f9a0:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f17f9a4:	3c188008 */ 	lui	$t8,%hi(g_CombatSimulatorMenuDialog)
-/*  f17f9a8:	271867a0 */ 	addiu	$t8,$t8,%lo(g_CombatSimulatorMenuDialog)
-/*  f17f9ac:	1719000a */ 	bne	$t8,$t9,.L0f17f9d8
-/*  f17f9b0:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f17f9b4:	14810008 */ 	bne	$a0,$at,.L0f17f9d8
-/*  f17f9b8:	24080002 */ 	addiu	$t0,$zero,0x2
-/*  f17f9bc:	24090005 */ 	addiu	$t1,$zero,0x5
-/*  f17f9c0:	ac480490 */ 	sw	$t0,0x490($v0)
-/*  f17f9c4:	ac4904b0 */ 	sw	$t1,0x4b0($v0)
-/*  f17f9c8:	0fc6709a */ 	jal	mpResetVar800884b4
-/*  f17f9cc:	ac40049c */ 	sw	$zero,0x49c($v0)
-/*  f17f9d0:	0fc67088 */ 	jal	func0f19c220
-/*  f17f9d4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17f9d8:
-/*  f17f9d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17f9dc:
-/*  f17f9dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17f9e0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f17f9e4:	03e00008 */ 	jr	$ra
-/*  f17f9e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool menudialogCombatSimulator(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+{
+	if (operation == MENUOP_100) {
+		g_Vars.unk000494 = 0;
+		g_Vars.unk000495 = 0;
+		g_Vars.unk000496 = 0;
+		g_Vars.unk000497 = 0;
+	}
+
+	if (g_MenuStack[g_MpPlayerNum].unk00 &&
+			g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_CombatSimulatorMenuDialog &&
+			operation == MENUOP_102) {
+		g_Vars.unk000490 = 2;
+		g_Vars.mpquickteam = MPQUICKTEAM_5;
+		g_Vars.unk00049c = 0;
+		mpResetVar800884b4();
+		func0f19c220();
+	}
+
+	return false;
+}
 
 s32 menuhandlerMpAdvancedSetup(u32 operation, struct menu_item *item, s32 *value)
 {

@@ -11286,7 +11286,7 @@ struct menu_dialog g_CombatSimulatorMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x59bd,
 	menuitems_mpcombatsimulator,
-	menudialog0017f930,
+	menudialogCombatSimulator,
 	0x00000004,
 	NULL,
 };
