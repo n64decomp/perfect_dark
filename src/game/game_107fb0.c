@@ -5427,59 +5427,24 @@ glabel func0f10cb2c
 /*  f10cc04:	ac291448 */ 	sw	$t1,0x1448($at)
 );
 
-GLOBAL_ASM(
-glabel menudialog0010cc08
-/*  f10cc08:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10cc0c:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f10cc10:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10cc14:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10cc18:	14810007 */ 	bne	$a0,$at,.L0f10cc38
-/*  f10cc1c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10cc20:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f10cc24:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f10cc28:	a0400494 */ 	sb	$zero,0x494($v0)
-/*  f10cc2c:	a0400495 */ 	sb	$zero,0x495($v0)
-/*  f10cc30:	a0400496 */ 	sb	$zero,0x496($v0)
-/*  f10cc34:	a0400497 */ 	sb	$zero,0x497($v0)
-.L0f10cc38:
-/*  f10cc38:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f10cc3c:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f10cc40:	3c03800a */ 	lui	$v1,0x800a
-/*  f10cc44:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f10cc48:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10cc4c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10cc50:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10cc54:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10cc58:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10cc5c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10cc60:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10cc64:	006f1821 */ 	addu	$v1,$v1,$t7
-/*  f10cc68:	8c63e4f8 */ 	lw	$v1,-0x1b08($v1)
-/*  f10cc6c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f10cc70:	50600010 */ 	beqzl	$v1,.L0f10ccb4
-/*  f10cc74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10cc78:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f10cc7c:	3c188007 */ 	lui	$t8,%hi(g_4MbMainMenu)
-/*  f10cc80:	27185294 */ 	addiu	$t8,$t8,%lo(g_4MbMainMenu)
-/*  f10cc84:	1719000a */ 	bne	$t8,$t9,.L0f10ccb0
-/*  f10cc88:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f10cc8c:	14810008 */ 	bne	$a0,$at,.L0f10ccb0
-/*  f10cc90:	24080002 */ 	addiu	$t0,$zero,0x2
-/*  f10cc94:	24090005 */ 	addiu	$t1,$zero,0x5
-/*  f10cc98:	ac480490 */ 	sw	$t0,0x490($v0)
-/*  f10cc9c:	ac4904b0 */ 	sw	$t1,0x4b0($v0)
-/*  f10cca0:	0fc6709a */ 	jal	mpResetVar800884b4
-/*  f10cca4:	ac40049c */ 	sw	$zero,0x49c($v0)
-/*  f10cca8:	0fc67088 */ 	jal	func0f19c220
-/*  f10ccac:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f10ccb0:
-/*  f10ccb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10ccb4:
-/*  f10ccb4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10ccb8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10ccbc:	03e00008 */ 	jr	$ra
-/*  f10ccc0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10ccc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10ccc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10cccc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool menudialog4MbMainMenu(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+{
+	if (operation == MENUOP_100) {
+		g_Vars.unk000494 = 0;
+		g_Vars.unk000495 = 0;
+		g_Vars.unk000496 = 0;
+		g_Vars.unk000497 = 0;
+	}
+
+	if (g_MenuStack[g_MpPlayerNum].unk00 &&
+			g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_4MbMainMenu &&
+			operation == MENUOP_102) {
+		g_Vars.unk000490 = 2;
+		g_Vars.mpquickteam = MPQUICKTEAM_5;
+		g_Vars.unk00049c = 0;
+		mpResetVar800884b4();
+		func0f19c220();
+	}
+
+	return false;
+}

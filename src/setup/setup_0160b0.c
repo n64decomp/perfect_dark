@@ -3810,7 +3810,7 @@ struct menu_dialog g_4MbMainMenu = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x572e, // "Small but Perfect Menu"
 	menuitems_smallbutperfectmenu,
-	menudialog0010cc08,
+	menudialog4MbMainMenu,
 	0x00000030,
 	NULL,
 };
