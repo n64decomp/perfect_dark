@@ -5584,37 +5584,21 @@ glabel mpIsTrackUnlocked
 /*  f18c134:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f18c138
-/*  f18c138:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f18c13c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f18c140:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f18c144:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f18c148:	00809025 */ 	or	$s2,$a0,$zero
-/*  f18c14c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f18c150:	00008825 */ 	or	$s1,$zero,$zero
-/*  f18c154:	18800008 */ 	blez	$a0,.L0f18c178
-/*  f18c158:	00008025 */ 	or	$s0,$zero,$zero
-.L0f18c15c:
-/*  f18c15c:	0fc63030 */ 	jal	mpIsTrackUnlocked
-/*  f18c160:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18c164:	10400002 */ 	beqz	$v0,.L0f18c170
-/*  f18c168:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18c16c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f18c170:
-/*  f18c170:	1612fffa */ 	bne	$s0,$s2,.L0f18c15c
-/*  f18c174:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f18c178:
-/*  f18c178:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f18c17c:	02201025 */ 	or	$v0,$s1,$zero
-/*  f18c180:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f18c184:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f18c188:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f18c18c:	03e00008 */ 	jr	$ra
-/*  f18c190:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 mpGetTrackSlotIndex(s32 tracknum)
+{
+	s32 i;
+	s32 slotindex = 0;
 
-s32 mpGetUnlockedTrackNum(s32 slotindex)
+	for (i = 0; i < tracknum; i++) {
+		if (mpIsTrackUnlocked(i)) {
+			slotindex++;
+		}
+	}
+
+	return slotindex;
+}
+
+s32 mpGetTrackNumAtSlotIndex(s32 slotindex)
 {
 	s32 i;
 	s32 numunlocked = 0;
@@ -5634,19 +5618,19 @@ s32 mpGetUnlockedTrackNum(s32 slotindex)
 
 s32 func0f18c200(void)
 {
-	return func0f18c138(sizeof(g_MpTracks) / sizeof(g_MpTracks[0]));
+	return mpGetTrackSlotIndex(sizeof(g_MpTracks) / sizeof(g_MpTracks[0]));
 }
 
 s32 mpGetTrackAudioId(s32 slotindex)
 {
-	s32 tracknum = mpGetUnlockedTrackNum(slotindex);
+	s32 tracknum = mpGetTrackNumAtSlotIndex(slotindex);
 
 	return g_MpTracks[tracknum].audioid;
 }
 
 char *mpGetTrackName(s32 slotindex)
 {
-	s32 tracknum = mpGetUnlockedTrackNum(slotindex);
+	s32 tracknum = mpGetTrackNumAtSlotIndex(slotindex);
 
 	return textGet(g_MpTracks[tracknum].name);
 }
@@ -5665,7 +5649,7 @@ GLOBAL_ASM(
 glabel func0f18c2b0
 /*  f18c2b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f18c2b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c2b8:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
+/*  f18c2b8:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18c2bc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c2c0:	000270c3 */ 	sra	$t6,$v0,0x3
 /*  f18c2c4:	31cf00ff */ 	andi	$t7,$t6,0xff
@@ -5692,7 +5676,7 @@ GLOBAL_ASM(
 glabel func0f18c304
 /*  f18c304:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f18c308:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c30c:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
+/*  f18c30c:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18c310:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f18c314:	8fae001c */ 	lw	$t6,0x1c($sp)
 /*  f18c318:	3c18800b */ 	lui	$t8,0x800b
@@ -5745,7 +5729,7 @@ glabel func0f18c38c
 /*  f18c3bc:	10000006 */ 	beqz	$zero,.L0f18c3d8
 /*  f18c3c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f18c3c4:
-/*  f18c3c4:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
+/*  f18c3c4:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18c3c8:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f18c3cc:	3c01800b */ 	lui	$at,0x800b
 /*  f18c3d0:	a022cc14 */ 	sb	$v0,-0x33ec($at)
@@ -5827,7 +5811,7 @@ glabel func0f18c488
 /*  f18c4a0:	10000003 */ 	beqz	$zero,.L0f18c4b0
 /*  f18c4a4:	00801025 */ 	or	$v0,$a0,$zero
 .L0f18c4a8:
-/*  f18c4a8:	0fc6304e */ 	jal	func0f18c138
+/*  f18c4a8:	0fc6304e */ 	jal	mpGetTrackSlotIndex
 /*  f18c4ac:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f18c4b0:
 /*  f18c4b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -5879,7 +5863,7 @@ glabel func0f18c4c0
 /*  f18c548:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c54c:	0007000d */ 	break	0x7
 .L0f18c550:
-/*  f18c550:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
+/*  f18c550:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18c554:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c558:	8ece0004 */ 	lw	$t6,0x4($s6)
 /*  f18c55c:	00409825 */ 	or	$s3,$v0,$zero
@@ -5944,7 +5928,7 @@ glabel func0f18c4c0
 /*  f18c62c:	1000004f */ 	beqz	$zero,.L0f18c76c
 /*  f18c630:	00031242 */ 	srl	$v0,$v1,0x9
 .L0f18c634:
-/*  f18c634:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
+/*  f18c634:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18c638:	02602025 */ 	or	$a0,$s3,$zero
 /*  f18c63c:	2aa10002 */ 	slti	$at,$s5,0x2
 /*  f18c640:	14200004 */ 	bnez	$at,.L0f18c654
@@ -5987,7 +5971,7 @@ glabel func0f18c4c0
 /*  f18c6c8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c6cc:	0007000d */ 	break	0x7
 .L0f18c6d0:
-/*  f18c6d0:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
+/*  f18c6d0:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18c6d4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c6d8:	8ece0004 */ 	lw	$t6,0x4($s6)
 /*  f18c6dc:	00409825 */ 	or	$s3,$v0,$zero
@@ -6009,7 +5993,7 @@ glabel func0f18c4c0
 /*  f18c71c:	10000013 */ 	beqz	$zero,.L0f18c76c
 /*  f18c720:	00031242 */ 	srl	$v0,$v1,0x9
 .L0f18c724:
-/*  f18c724:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
+/*  f18c724:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18c728:	02602025 */ 	or	$a0,$s3,$zero
 /*  f18c72c:	00024080 */ 	sll	$t0,$v0,0x2
 /*  f18c730:	3c16800b */ 	lui	$s6,%hi(g_MpLockPlayerNum)
