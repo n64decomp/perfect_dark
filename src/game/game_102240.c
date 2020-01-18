@@ -1932,7 +1932,7 @@ s32 menuhandlerBuddyOptionsContinue(u32 operation, struct menu_item *item, s32 *
 }
 
 GLOBAL_ASM(
-glabel func0f10408c
+glabel getMaxAiBuddies
 /*  f10408c:	3c0e800a */ 	lui	$t6,0x800a
 /*  f104090:	8dcedfe8 */ 	lw	$t6,-0x2018($t6)
 /*  f104094:	24180001 */ 	addiu	$t8,$zero,0x1
@@ -1970,14 +1970,14 @@ glabel func0f10408c
 );
 
 GLOBAL_ASM(
-glabel menudialog00104104
+glabel menudialogCoopAntiOptions
 /*  f104104:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f104108:	24010064 */ 	addiu	$at,$zero,0x64
 /*  f10410c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f104110:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f104114:	1481000a */ 	bne	$a0,$at,.L0f104140
 /*  f104118:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f10411c:	0fc41023 */ 	jal	func0f10408c
+/*  f10411c:	0fc41023 */ 	jal	getMaxAiBuddies
 /*  f104120:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f104124:	3c0e800a */ 	lui	$t6,0x800a
 /*  f104128:	8dcea434 */ 	lw	$t6,-0x5bcc($t6)
@@ -2027,6 +2027,35 @@ glabel menudialog00104104
 /*  f1041cc:	03e00008 */ 	jr	$ra
 /*  f1041d0:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Commented because this function suggests that the 3rd argument to menudialog
+// functions is either not a menustackitem or is using unions.
+// It uses offset 0x0a, but 0x08 is a 4 byte pointer.
+//bool menudialogCoopAntiOptions(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+//{
+//	if (operation == MENUOP_100) {
+//		s32 max = getMaxAiBuddies();
+//
+//		if (g_Vars.numaibuddies > max) {
+//			g_Vars.numaibuddies = max;
+//		}
+//	}
+//
+//	if (operation == MENUOP_102) {
+//		if (g_MenuStack[g_MpPlayerNum].unk00 &&
+//				g_MenuStack[g_MpPlayerNum].unk00->dialog == dialog) {
+//			struct menustackitem00 *unk00 = stackitem->unk00;
+//
+//			if (unk00->unk0a) {
+//				menuhandlerBuddyOptionsContinue(MENUOP_SET, NULL, NULL);
+//			}
+//
+//			unk00->unk0a = 0;
+//		}
+//	}
+//
+//	return 0;
+//}
 
 s32 menuhandlerCoopRadar(u32 operation, struct menu_item *item, bool *enable)
 {
@@ -2083,7 +2112,7 @@ glabel menuhandlerCoopBuddy
 /*  f1042fc:	10000044 */ 	beqz	$zero,.L0f104410
 /*  f104300:	00001025 */ 	or	$v0,$zero,$zero
 .L0f104304:
-/*  f104304:	0fc41023 */ 	jal	func0f10408c
+/*  f104304:	0fc41023 */ 	jal	getMaxAiBuddies
 /*  f104308:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10430c:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f104310:	0c005013 */ 	jal	func0001404c

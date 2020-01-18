@@ -153,7 +153,7 @@ struct g_vars {
 	/*000468*/ bool speedpillon;
 	/*00046c*/ bool restartlevel;
 	/*000470*/ u32 perfectbuddynum;
-	/*000474*/ u32 numaibuddies;
+	/*000474*/ s32 numaibuddies;
 	/*000478*/ u32 unk000478;
 	/*00047c*/ u32 unk00047c;
 	/*000480*/ u32 unk000480;

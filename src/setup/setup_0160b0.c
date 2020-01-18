@@ -1676,7 +1676,7 @@ struct menu_dialog g_CoopOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x56ff, // "Co-Operative Options"
 	menuitems_cooperativeoptions,
-	menudialog00104104,
+	menudialogCoopAntiOptions,
 	0x00000004,
 	NULL,
 };
@@ -1696,7 +1696,7 @@ struct menu_dialog g_AntiOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x570a, // "Counter-Operative Options"
 	menuitems_counteroperativeoptions,
-	menudialog00104104,
+	menudialogCoopAntiOptions,
 	0x00000004,
 	NULL,
 };
