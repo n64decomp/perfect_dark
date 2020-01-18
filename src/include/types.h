@@ -2881,8 +2881,8 @@ struct bodynum {
 };
 
 struct mptrack {
-	u8 audioid;
-	u8 duration;
+	u16 audioid : 7;
+	u16 duration : 9;
 	s16 name;
 	s16 unlockcategory;
 };

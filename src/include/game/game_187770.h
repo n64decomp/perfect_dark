@@ -66,7 +66,7 @@ u32 func0f18c0c0(void);
 u32 func0f18c138(void);
 s32 mpGetUnlockedTrackNum(s32 tracknum);
 u32 func0f18c200(void);
-u32 func0f18c220(void);
+s32 mpGetTrackAudioId(s32 tracknum);
 char *mpGetTrackName(s32 tracknum);
 void mpSetUsingMultipleTunes(bool enable);
 bool mpGetUsingMultipleTunes(void);

@@ -5660,24 +5660,12 @@ glabel func0f18c200
 /*  f18c21c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18c220
-/*  f18c220:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18c224:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c228:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
-/*  f18c22c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18c230:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f18c234:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f18c238:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f18c23c:	3c028008 */ 	lui	$v0,0x8008
-/*  f18c240:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f18c244:	94427a70 */ 	lhu	$v0,0x7a70($v0)
-/*  f18c248:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18c24c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18c250:	00027a42 */ 	srl	$t7,$v0,0x9
-/*  f18c254:	03e00008 */ 	jr	$ra
-/*  f18c258:	01e01025 */ 	or	$v0,$t7,$zero
-);
+s32 mpGetTrackAudioId(s32 tracknum)
+{
+	tracknum = mpGetUnlockedTrackNum(tracknum);
+
+	return g_MpTracks[tracknum].audioid;
+}
 
 char *mpGetTrackName(s32 tracknum)
 {
