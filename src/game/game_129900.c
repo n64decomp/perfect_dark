@@ -2414,7 +2414,7 @@ glabel func0f12af5c
 /*  f12afe8:	a7a2004a */ 	sh	$v0,0x4a($sp)
 /*  f12afec:	a7b6004a */ 	sh	$s6,0x4a($sp)
 .L0f12aff0:
-/*  f12aff0:	0fc19620 */ 	jal	func0f065880
+/*  f12aff0:	0fc19620 */ 	jal	arrayIntersects
 /*  f12aff4:	a7b6004c */ 	sh	$s6,0x4c($sp)
 /*  f12aff8:	50400028 */ 	beqzl	$v0,.L0f12b09c
 /*  f12affc:	92a903cf */ 	lbu	$t1,0x3cf($s5)

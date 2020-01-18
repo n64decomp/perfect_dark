@@ -3605,7 +3605,7 @@ glabel func0f068218
 /*  f06825c:	26040028 */ 	addiu	$a0,$s0,0x28
 /*  f068260:	564e0012 */ 	bnel	$s2,$t6,.L0f0682ac
 /*  f068264:	8e100020 */ 	lw	$s0,0x20($s0)
-/*  f068268:	0fc19620 */ 	jal	func0f065880
+/*  f068268:	0fc19620 */ 	jal	arrayIntersects
 /*  f06826c:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f068270:	1040000d */ 	beqz	$v0,.L0f0682a8
 /*  f068274:	02002025 */ 	or	$a0,$s0,$zero
@@ -11473,7 +11473,7 @@ glabel func0f06f0a0
 /*  f06f150:	9204005c */ 	lbu	$a0,0x5c($s0)
 /*  f06f154:	8fa50028 */ 	lw	$a1,0x28($sp)
 .L0f06f158:
-/*  f06f158:	0fc257f6 */ 	jal	func0f095fd8
+/*  f06f158:	0fc257f6 */ 	jal	objectiveCheckMultiroomEntered
 /*  f06f15c:	24a50028 */ 	addiu	$a1,$a1,0x28
 /*  f06f160:	9204005c */ 	lbu	$a0,0x5c($s0)
 /*  f06f164:	24010056 */ 	addiu	$at,$zero,0x56
@@ -20212,7 +20212,7 @@ glabel func0f073c6c
 /*  f076ee0:	26450028 */ 	addiu	$a1,$s2,0x28
 /*  f076ee4:	55810004 */ 	bnel	$t4,$at,.L0f076ef8
 /*  f076ee8:	8fae05d8 */ 	lw	$t6,0x5d8($sp)
-/*  f076eec:	0fc257f6 */ 	jal	func0f095fd8
+/*  f076eec:	0fc257f6 */ 	jal	objectiveCheckMultiroomEntered
 /*  f076ef0:	9224005c */ 	lbu	$a0,0x5c($s1)
 /*  f076ef4:	8fae05d8 */ 	lw	$t6,0x5d8($sp)
 .L0f076ef8:
@@ -48287,7 +48287,7 @@ glabel func0f08fcb8
 /*  f08fdd0:	10000024 */ 	beqz	$zero,.L0f08fe64
 /*  f08fdd4:	afac00ac */ 	sw	$t4,0xac($sp)
 .L0f08fdd8:
-/*  f08fdd8:	0fc19620 */ 	jal	func0f065880
+/*  f08fdd8:	0fc19620 */ 	jal	arrayIntersects
 /*  f08fddc:	afa800a4 */ 	sw	$t0,0xa4($sp)
 /*  f08fde0:	10400020 */ 	beqz	$v0,.L0f08fe64
 /*  f08fde4:	8fa800a4 */ 	lw	$t0,0xa4($sp)
@@ -55284,7 +55284,7 @@ glabel func0f095d64
 
 void objectiveCheckRoomEntered(s32 currentroom)
 {
-	struct objectivecriteria *criteria = var8009d0b8;
+	struct criteria_roomentered *criteria = g_RoomEnteredCriterias;
 
 	while (criteria) {
 		if (criteria->status == OBJECTIVE_INCOMPLETE) {
@@ -55299,57 +55299,28 @@ void objectiveCheckRoomEntered(s32 currentroom)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f095fd8
-/*  f095fd8:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f095fdc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f095fe0:	3c10800a */ 	lui	$s0,0x800a
-/*  f095fe4:	8e10d0bc */ 	lw	$s0,-0x2f44($s0)
-/*  f095fe8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f095fec:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f095ff0:	00809825 */ 	or	$s3,$a0,$zero
-/*  f095ff4:	00a0a025 */ 	or	$s4,$a1,$zero
-/*  f095ff8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f095ffc:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f096000:	12000019 */ 	beqz	$s0,.L0f096068
-/*  f096004:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f096008:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f09600c:	27b10034 */ 	addiu	$s1,$sp,0x34
-/*  f096010:	8e0e000c */ 	lw	$t6,0xc($s0)
-.L0f096014:
-/*  f096014:	55c00012 */ 	bnezl	$t6,.L0f096060
-/*  f096018:	8e100010 */ 	lw	$s0,0x10($s0)
-/*  f09601c:	8e0f0004 */ 	lw	$t7,0x4($s0)
-/*  f096020:	00002025 */ 	or	$a0,$zero,$zero
-/*  f096024:	566f000e */ 	bnel	$s3,$t7,.L0f096060
-/*  f096028:	8e100010 */ 	lw	$s0,0x10($s0)
-/*  f09602c:	0fc12574 */ 	jal	chrGetPadRoom
-/*  f096030:	8e050008 */ 	lw	$a1,0x8($s0)
-/*  f096034:	04400009 */ 	bltz	$v0,.L0f09605c
-/*  f096038:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f09603c:	a7a20034 */ 	sh	$v0,0x34($sp)
-/*  f096040:	a7b80036 */ 	sh	$t8,0x36($sp)
-/*  f096044:	02202025 */ 	or	$a0,$s1,$zero
-/*  f096048:	0fc19620 */ 	jal	func0f065880
-/*  f09604c:	02802825 */ 	or	$a1,$s4,$zero
-/*  f096050:	50400003 */ 	beqzl	$v0,.L0f096060
-/*  f096054:	8e100010 */ 	lw	$s0,0x10($s0)
-/*  f096058:	ae12000c */ 	sw	$s2,0xc($s0)
-.L0f09605c:
-/*  f09605c:	8e100010 */ 	lw	$s0,0x10($s0)
-.L0f096060:
-/*  f096060:	5600ffec */ 	bnezl	$s0,.L0f096014
-/*  f096064:	8e0e000c */ 	lw	$t6,0xc($s0)
-.L0f096068:
-/*  f096068:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f09606c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f096070:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f096074:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f096078:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f09607c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f096080:	03e00008 */ 	jr	$ra
-/*  f096084:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+void objectiveCheckMultiroomEntered(s32 arg0, s16 *requiredrooms)
+{
+	struct criteria_multiroomentered *criteria = g_MultiroomEnteredCriterias;
+
+	while (criteria) {
+		if (criteria->status == OBJECTIVE_INCOMPLETE && criteria->unk04 == arg0) {
+			s32 room = chrGetPadRoom(NULL, criteria->pad);
+
+			if (room >= 0) {
+				s16 objectiverooms[2];
+				objectiverooms[0] = room;
+				objectiverooms[1] = -1;
+
+				if (arrayIntersects(&objectiverooms[0], requiredrooms)) {
+					criteria->status = OBJECTIVE_COMPLETE;
+				}
+			}
+		}
+
+		criteria = criteria->next;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f096088

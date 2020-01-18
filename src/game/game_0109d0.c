@@ -100,8 +100,8 @@ glabel func0f010a98
 
 GLOBAL_ASM(
 glabel func0f010ad4
-/*  f010ad4:	3c02800a */ 	lui	$v0,%hi(var8009d0b8)
-/*  f010ad8:	2442d0b8 */ 	addiu	$v0,$v0,%lo(var8009d0b8)
+/*  f010ad4:	3c02800a */ 	lui	$v0,%hi(g_RoomEnteredCriterias)
+/*  f010ad8:	2442d0b8 */ 	addiu	$v0,$v0,%lo(g_RoomEnteredCriterias)
 /*  f010adc:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f010ae0:	ac8e000c */ 	sw	$t6,0xc($a0)
 /*  f010ae4:	03e00008 */ 	jr	$ra
@@ -110,8 +110,8 @@ glabel func0f010ad4
 
 GLOBAL_ASM(
 glabel func0f010aec
-/*  f010aec:	3c02800a */ 	lui	$v0,%hi(var8009d0bc)
-/*  f010af0:	2442d0bc */ 	addiu	$v0,$v0,%lo(var8009d0bc)
+/*  f010aec:	3c02800a */ 	lui	$v0,%hi(g_MultiroomEnteredCriterias)
+/*  f010af0:	2442d0bc */ 	addiu	$v0,$v0,%lo(g_MultiroomEnteredCriterias)
 /*  f010af4:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f010af8:	ac8e0010 */ 	sw	$t6,0x10($a0)
 /*  f010afc:	03e00008 */ 	jr	$ra

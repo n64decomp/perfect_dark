@@ -16324,8 +16324,8 @@ u32 var8009d0a8 = 0;
 u32 var8009d0ac = 0;
 u32 var8009d0b0 = 0;
 u32 var8009d0b4 = 0;
-struct objectivecriteria *var8009d0b8 = NULL;
-u32 var8009d0bc = 0;
+struct criteria_roomentered *g_RoomEnteredCriterias = NULL;
+struct criteria_multiroomentered *g_MultiroomEnteredCriterias = NULL;
 u32 var8009d0c0 = 0;
 
 // 8009d0c4

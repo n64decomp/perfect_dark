@@ -6324,7 +6324,7 @@ glabel func0f0657d8
 );
 
 GLOBAL_ASM(
-glabel func0f065880
+glabel arrayIntersects
 /*  f065880:	84830000 */ 	lh	$v1,0x0($a0)
 /*  f065884:	2408ffff */ 	addiu	$t0,$zero,-1
 /*  f065888:	00801025 */ 	or	$v0,$a0,$zero

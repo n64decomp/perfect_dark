@@ -4678,11 +4678,19 @@ struct objective {
 	/*0x0f*/ s8 difficulties;
 };
 
-struct objectivecriteria {
+struct criteria_roomentered {
 	u32 unk00;
 	u32 pad;
 	u32 status;
-	struct objectivecriteria *next;
+	struct criteria_roomentered *next;
+};
+
+struct criteria_multiroomentered {
+	u32 unk00;
+	u32 unk04;
+	u32 pad;
+	u32 status;
+	struct criteria_multiroomentered *next;
 };
 
 #endif

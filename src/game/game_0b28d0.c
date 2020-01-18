@@ -5171,7 +5171,7 @@ glabel func0f0b69d0
 /*  f0b6c8c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b6c90:	46007506 */ 	mov.s	$f20,$f14
 .L0f0b6c94:
-/*  f0b6c94:	0fc19620 */ 	jal	func0f065880
+/*  f0b6c94:	0fc19620 */ 	jal	arrayIntersects
 /*  f0b6c98:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b6c9c:	50400003 */ 	beqzl	$v0,.L0f0b6cac
 /*  f0b6ca0:	92690000 */ 	lbu	$t1,0x0($s3)
@@ -5183,7 +5183,7 @@ glabel func0f0b69d0
 /*  f0b6cb4:	8e0a0000 */ 	lw	$t2,0x0($s0)
 /*  f0b6cb8:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f0b6cbc:	8d45001c */ 	lw	$a1,0x1c($t2)
-/*  f0b6cc0:	0fc19620 */ 	jal	func0f065880
+/*  f0b6cc0:	0fc19620 */ 	jal	arrayIntersects
 /*  f0b6cc4:	24a50028 */ 	addiu	$a1,$a1,0x28
 /*  f0b6cc8:	10400002 */ 	beqz	$v0,.L0f0b6cd4
 /*  f0b6ccc:	00000000 */ 	sll	$zero,$zero,0x0

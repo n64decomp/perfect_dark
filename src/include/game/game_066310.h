@@ -388,7 +388,7 @@ u32 func0f095bf4(void);
 u32 func0f095c04(void);
 u32 func0f095d64(void);
 void objectiveCheckRoomEntered(s32 currentroom);
-u32 func0f095fd8(void);
+void objectiveCheckMultiroomEntered(s32 arg0, s16 *requiredrooms);
 u32 func0f096088(void);
 u32 func0f096360(void);
 u32 func0f0964b4(void);
