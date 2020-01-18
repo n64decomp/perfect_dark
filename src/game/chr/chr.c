@@ -50002,13 +50002,15 @@ bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
 		}
 
 		if (checktype == 1) { // Return true if chrs are friends
-			if (g_Vars.unk000318) {
+			if (g_Vars.mplayerisrunning) {
 				if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && chr2->team == chr1->team) {
 					return true;
 				}
 			} else {
 				if (g_Vars.bond && g_Vars.bond->prop) {
 					struct chrdata *playerchr = g_Vars.bond->prop->chr;
+
+					// @bug: This makes Jon an ally in Duel
 					if ((chr2 == playerchr && chr1->headnum == HEAD_JONATHAN) ||
 							(chr1 == playerchr && chr2->headnum == HEAD_JONATHAN)) {
 						return true;
@@ -50020,13 +50022,15 @@ bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
 				}
 			}
 		} else if (checktype == 2) { // Return true if chrs are enemies
-			if (g_Vars.unk000318) {
+			if (g_Vars.mplayerisrunning) {
 				if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) == 0 || chr2->team != chr1->team) {
 					return true;
 				}
 			} else {
 				if (g_Vars.bond && g_Vars.bond->prop) {
 					struct chrdata *playerchr = g_Vars.bond->prop->chr;
+
+					// @bug: This makes Jon an ally in Duel
 					if ((chr2 == playerchr && chr1->headnum == HEAD_JONATHAN) ||
 							(chr1 == playerchr && chr2->headnum == HEAD_JONATHAN)) {
 						return false;

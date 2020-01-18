@@ -16333,7 +16333,7 @@ void activemenuChangeScreen(s32 step)
 
 	g_ActiveMenuThings[g_ActiveMenuIndex].screenindex += step;
 
-	if (g_Vars.unk000318 && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
+	if (g_Vars.mplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
 		if (g_ActiveMenuThings[g_ActiveMenuIndex].unk32) {
 			// Weapon selection, second function, and ...?
 			maxscreenindex = 2;
