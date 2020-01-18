@@ -5615,7 +5615,7 @@ glabel func0f18c138
 );
 
 GLOBAL_ASM(
-glabel func0f18c194
+glabel mpGetUnlockedTrackNum
 /*  f18c194:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f18c198:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f18c19c:	afb2001c */ 	sw	$s2,0x1c($sp)
@@ -5664,7 +5664,7 @@ GLOBAL_ASM(
 glabel func0f18c220
 /*  f18c220:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f18c224:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c228:	0fc63065 */ 	jal	func0f18c194
+/*  f18c228:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
 /*  f18c22c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c230:	00027080 */ 	sll	$t6,$v0,0x2
 /*  f18c234:	01c27023 */ 	subu	$t6,$t6,$v0
@@ -5679,24 +5679,12 @@ glabel func0f18c220
 /*  f18c258:	01e01025 */ 	or	$v0,$t7,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f18c25c
-/*  f18c25c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18c260:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c264:	0fc63065 */ 	jal	func0f18c194
-/*  f18c268:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18c26c:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f18c270:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f18c274:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f18c278:	3c048008 */ 	lui	$a0,0x8008
-/*  f18c27c:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f18c280:	0fc5b9f1 */ 	jal	textGet
-/*  f18c284:	84847a72 */ 	lh	$a0,0x7a72($a0)
-/*  f18c288:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18c28c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18c290:	03e00008 */ 	jr	$ra
-/*  f18c294:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpGetTrackName(s32 tracknum)
+{
+	tracknum = mpGetUnlockedTrackNum(tracknum);
+
+	return textGet(g_MpTracks[tracknum].name);
+}
 
 void mpSetUsingMultipleTunes(bool enable)
 {
@@ -5712,7 +5700,7 @@ GLOBAL_ASM(
 glabel func0f18c2b0
 /*  f18c2b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f18c2b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c2b8:	0fc63065 */ 	jal	func0f18c194
+/*  f18c2b8:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
 /*  f18c2bc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c2c0:	000270c3 */ 	sra	$t6,$v0,0x3
 /*  f18c2c4:	31cf00ff */ 	andi	$t7,$t6,0xff
@@ -5739,7 +5727,7 @@ GLOBAL_ASM(
 glabel func0f18c304
 /*  f18c304:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f18c308:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c30c:	0fc63065 */ 	jal	func0f18c194
+/*  f18c30c:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
 /*  f18c310:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f18c314:	8fae001c */ 	lw	$t6,0x1c($sp)
 /*  f18c318:	3c18800b */ 	lui	$t8,0x800b
@@ -5792,7 +5780,7 @@ glabel func0f18c38c
 /*  f18c3bc:	10000006 */ 	beqz	$zero,.L0f18c3d8
 /*  f18c3c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f18c3c4:
-/*  f18c3c4:	0fc63065 */ 	jal	func0f18c194
+/*  f18c3c4:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
 /*  f18c3c8:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f18c3cc:	3c01800b */ 	lui	$at,0x800b
 /*  f18c3d0:	a022cc14 */ 	sb	$v0,-0x33ec($at)
@@ -5926,7 +5914,7 @@ glabel func0f18c4c0
 /*  f18c548:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c54c:	0007000d */ 	break	0x7
 .L0f18c550:
-/*  f18c550:	0fc63065 */ 	jal	func0f18c194
+/*  f18c550:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
 /*  f18c554:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c558:	8ece0004 */ 	lw	$t6,0x4($s6)
 /*  f18c55c:	00409825 */ 	or	$s3,$v0,$zero
@@ -5991,7 +5979,7 @@ glabel func0f18c4c0
 /*  f18c62c:	1000004f */ 	beqz	$zero,.L0f18c76c
 /*  f18c630:	00031242 */ 	srl	$v0,$v1,0x9
 .L0f18c634:
-/*  f18c634:	0fc63065 */ 	jal	func0f18c194
+/*  f18c634:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
 /*  f18c638:	02602025 */ 	or	$a0,$s3,$zero
 /*  f18c63c:	2aa10002 */ 	slti	$at,$s5,0x2
 /*  f18c640:	14200004 */ 	bnez	$at,.L0f18c654
@@ -6034,7 +6022,7 @@ glabel func0f18c4c0
 /*  f18c6c8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c6cc:	0007000d */ 	break	0x7
 .L0f18c6d0:
-/*  f18c6d0:	0fc63065 */ 	jal	func0f18c194
+/*  f18c6d0:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
 /*  f18c6d4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c6d8:	8ece0004 */ 	lw	$t6,0x4($s6)
 /*  f18c6dc:	00409825 */ 	or	$s3,$v0,$zero
@@ -6056,7 +6044,7 @@ glabel func0f18c4c0
 /*  f18c71c:	10000013 */ 	beqz	$zero,.L0f18c76c
 /*  f18c720:	00031242 */ 	srl	$v0,$v1,0x9
 .L0f18c724:
-/*  f18c724:	0fc63065 */ 	jal	func0f18c194
+/*  f18c724:	0fc63065 */ 	jal	mpGetUnlockedTrackNum
 /*  f18c728:	02602025 */ 	or	$a0,$s3,$zero
 /*  f18c72c:	00024080 */ 	sll	$t0,$v0,0x2
 /*  f18c730:	3c16800b */ 	lui	$s6,%hi(g_MpLockPlayerNum)

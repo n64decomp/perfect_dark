@@ -2880,10 +2880,10 @@ struct bodynum {
 	u8 unk06;
 };
 
-struct mpmusictrack {
+struct mptrack {
 	u8 audioid;
 	u8 duration;
-	u16 name;
+	s16 name;
 	s16 unlockcategory;
 };
 
