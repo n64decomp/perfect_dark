@@ -584,7 +584,7 @@ extern struct objective *g_Objectives[10];
 extern u32 var8009d088;
 extern u32 var8009d0b0;
 extern u32 var8009d0b4;
-extern u32 var8009d0b8;
+extern struct objectivecriteria *var8009d0b8;
 extern u32 var8009d0bc;
 extern u32 var8009d0c0;
 extern u32 var8009d0d0;

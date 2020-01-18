@@ -387,7 +387,7 @@ u32 objectiveIsAllComplete(void);
 u32 func0f095bf4(void);
 u32 func0f095c04(void);
 u32 func0f095d64(void);
-u32 func0f095f60(void);
+void objectiveCheckRoomEntered(s32 currentroom);
 u32 func0f095fd8(void);
 u32 func0f096088(void);
 u32 func0f096360(void);

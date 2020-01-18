@@ -4678,4 +4678,11 @@ struct objective {
 	/*0x0f*/ s8 difficulties;
 };
 
+struct objectivecriteria {
+	u32 unk00;
+	u32 pad;
+	u32 status;
+	struct objectivecriteria *next;
+};
+
 #endif

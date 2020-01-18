@@ -55282,42 +55282,22 @@ glabel func0f095d64
 /*  f095f5c:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
-GLOBAL_ASM(
-glabel func0f095f60
-/*  f095f60:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f095f64:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f095f68:	3c10800a */ 	lui	$s0,0x800a
-/*  f095f6c:	8e10d0b8 */ 	lw	$s0,-0x2f48($s0)
-/*  f095f70:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f095f74:	00808825 */ 	or	$s1,$a0,$zero
-/*  f095f78:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f095f7c:	12000010 */ 	beqz	$s0,.L0f095fc0
-/*  f095f80:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f095f84:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f095f88:	8e0e0008 */ 	lw	$t6,0x8($s0)
-.L0f095f8c:
-/*  f095f8c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f095f90:	55c00009 */ 	bnezl	$t6,.L0f095fb8
-/*  f095f94:	8e10000c */ 	lw	$s0,0xc($s0)
-/*  f095f98:	0fc12574 */ 	jal	chrGetPadRoom
-/*  f095f9c:	8e050004 */ 	lw	$a1,0x4($s0)
-/*  f095fa0:	04420005 */ 	bltzl	$v0,.L0f095fb8
-/*  f095fa4:	8e10000c */ 	lw	$s0,0xc($s0)
-/*  f095fa8:	54510003 */ 	bnel	$v0,$s1,.L0f095fb8
-/*  f095fac:	8e10000c */ 	lw	$s0,0xc($s0)
-/*  f095fb0:	ae120008 */ 	sw	$s2,0x8($s0)
-/*  f095fb4:	8e10000c */ 	lw	$s0,0xc($s0)
-.L0f095fb8:
-/*  f095fb8:	5600fff4 */ 	bnezl	$s0,.L0f095f8c
-/*  f095fbc:	8e0e0008 */ 	lw	$t6,0x8($s0)
-.L0f095fc0:
-/*  f095fc0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f095fc4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f095fc8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f095fcc:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f095fd0:	03e00008 */ 	jr	$ra
-/*  f095fd4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void objectiveCheckRoomEntered(s32 currentroom)
+{
+	struct objectivecriteria *criteria = var8009d0b8;
+
+	while (criteria) {
+		if (criteria->status == OBJECTIVE_INCOMPLETE) {
+			s32 room = chrGetPadRoom(NULL, criteria->pad);
+
+			if (room >= 0 && room == currentroom) {
+				criteria->status = OBJECTIVE_COMPLETE;
+			}
+		}
+
+		criteria = criteria->next;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f095fd8
