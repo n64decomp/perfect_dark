@@ -32,7 +32,7 @@ s32 menudialog0010559c(u32, u32, u32 *);
 s32 menudialog00105c54(u32, u32, u32 *);
 s32 menudialog001063d4(u32, u32, u32 *);
 s32 menudialog001063e4(u32, u32, u32 *);
-s32 menudialog001069c0(u32, u32, u32 *);
+bool menudialogMainMenu(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);
 s32 menuhandler001024dc(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler001024fc(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerAcceptMission(u32 operation, struct menu_item *item, s32 *value);

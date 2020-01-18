@@ -4543,59 +4543,23 @@ s32 menuhandlerMainMenuCounterOperative(u32 operation, struct menu_item *item, s
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menudialog001069c0
-/*  f1069c0:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f1069c4:	10810006 */ 	beq	$a0,$at,.L0f1069e0
-/*  f1069c8:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f1069cc:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f1069d0:	10810011 */ 	beq	$a0,$at,.L0f106a18
-/*  f1069d4:	3c188007 */ 	lui	$t8,0x8007
-/*  f1069d8:	03e00008 */ 	jr	$ra
-/*  f1069dc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1069e0:
-/*  f1069e0:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f1069e4:	8dce1448 */ 	lw	$t6,0x1448($t6)
-/*  f1069e8:	3c01800a */ 	lui	$at,0x800a
-/*  f1069ec:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1069f0:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1069f4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1069f8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1069fc:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f106a00:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f106a04:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f106a08:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f106a0c:	002f0821 */ 	addu	$at,$at,$t7
-/*  f106a10:	03e00008 */ 	jr	$ra
-/*  f106a14:	ac20ee2c */ 	sw	$zero,-0x11d4($at)
-.L0f106a18:
-/*  f106a18:	8f181448 */ 	lw	$t8,0x1448($t8)
-/*  f106a1c:	3c02800a */ 	lui	$v0,0x800a
-/*  f106a20:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f106a24:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f106a28:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f106a2c:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f106a30:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f106a34:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f106a38:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f106a3c:	00591021 */ 	addu	$v0,$v0,$t9
-/*  f106a40:	8c42e4f8 */ 	lw	$v0,-0x1b08($v0)
-/*  f106a44:	1040000b */ 	beqz	$v0,.L0f106a74
-/*  f106a48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106a4c:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f106a50:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f106a54:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f106a58:	14a80006 */ 	bne	$a1,$t0,.L0f106a74
-/*  f106a5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106a60:	90490003 */ 	lbu	$t1,0x3($v0)
-/*  f106a64:	312bff7f */ 	andi	$t3,$t1,0xff7f
-/*  f106a68:	a04b0003 */ 	sb	$t3,0x3($v0)
-/*  f106a6c:	316c00bf */ 	andi	$t4,$t3,0xbf
-/*  f106a70:	a04c0003 */ 	sb	$t4,0x3($v0)
-.L0f106a74:
-/*  f106a74:	03e00008 */ 	jr	$ra
-/*  f106a78:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool menudialogMainMenu(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+{
+	switch (operation) {
+	case MENUOP_100:
+		g_MenuStack[g_MpPlayerNum].unk934 = 0;
+		break;
+	case MENUOP_102:
+		if (g_MenuStack[g_MpPlayerNum].unk00 &&
+				g_MenuStack[g_MpPlayerNum].unk00->dialog == dialog) {
+			g_MissionConfig.iscoop = false;
+			g_MissionConfig.isanti = false;
+		}
+		break;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f106a7c

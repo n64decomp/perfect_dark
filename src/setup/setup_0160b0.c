@@ -2942,7 +2942,7 @@ struct menu_dialog menudialog_mainmenu = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5674, // "Perfect Menu"
 	menuitems_mainmenu,
-	menudialog001069c0,
+	menudialogMainMenu,
 	0x00000004,
 	&menudialog_18d48,
 };
@@ -2952,7 +2952,7 @@ struct menu_dialog menudialog_mainmenu2 = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5674, // "Perfect Menu"
 	menuitems_mainmenu,
-	menudialog001069c0,
+	menudialogMainMenu,
 	0x00000004,
 	&menudialog_18d60,
 };
