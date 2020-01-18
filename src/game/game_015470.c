@@ -9043,8 +9043,8 @@ glabel func0f01bf28
 .L0f01d2b8:
 /*  f01d2b8:	0fc625cb */ 	jal	mpSetPaused
 /*  f01d2bc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01d2c0:	3c02800b */ 	lui	$v0,%hi(var800acbb0)
-/*  f01d2c4:	2442cbb0 */ 	addiu	$v0,$v0,%lo(var800acbb0)
+/*  f01d2c0:	3c02800b */ 	lui	$v0,0x800b
+/*  f01d2c4:	2442cbb0 */ 	addiu	$v0,$v0,-13392
 /*  f01d2c8:	904e0060 */ 	lbu	$t6,0x60($v0)
 /*  f01d2cc:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f01d2d0:	ae600314 */ 	sw	$zero,0x314($s3)

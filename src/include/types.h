@@ -2653,7 +2653,7 @@ struct player {
 	/*0x1ba4*/ u32 unk1ba4;
 	/*0x1ba8*/ u32 unk1ba8;
 	/*0x1bac*/ u32 unk1bac;
-	/*0x1bb0*/ struct coord *unk1bb0;
+	/*0x1bb0*/ struct coord unk1bb0;
 	/*0x1bbc*/ u32 unk1bbc;
 	/*0x1bc0*/ u32 unk1bc0;
 	/*0x1bc4*/ u32 unk1bc4;
@@ -4240,12 +4240,38 @@ struct mpsetup {
 	 * Bits 0xf000 are probably not used
 	 */
 	/*0x8009cb9e*/ u16 chrslots;
-
 	/*0x8009cba0*/ u32 unk18;
 	/*0x8009cba4*/ u16 unk1c;
 	/*0x8009cba6*/ u8 paused;
 	/*0x8009cba8*/ bool saved;
 	/*0x8009cbac*/ u16 unk24;
+	/*0x800acbb0*/ u32 unk28;
+	/*0x800acbb4*/ u32 unk2c;
+	/*0x800acbb8*/ u32 unk30;
+	/*0x800acbbc*/ u32 unk34;
+	/*0x800acbc0*/ u32 unk38;
+	/*0x800acbc4*/ u32 unk3c;
+	/*0x800acbc8*/ u32 unk40;
+	/*0x800acbcc*/ u32 unk44;
+	/*0x800acbd0*/ u32 unk48;
+	/*0x800acbd4*/ u32 unk4c;
+	/*0x800acbd8*/ u32 unk50;
+	/*0x800acbdc*/ u32 unk54;
+	/*0x800acbe0*/ u32 unk58;
+	/*0x800acbe4*/ u32 unk5c;
+	/*0x800acbe8*/ u32 unk60;
+	/*0x800acbec*/ u32 unk64;
+	/*0x800acbf0*/ u32 unk68;
+	/*0x800acbf4*/ u32 unk6c;
+	/*0x800acbf8*/ u32 unk70;
+	/*0x800acbfc*/ u32 unk74;
+	/*0x800acc00*/ u32 unk78;
+	/*0x800acc04*/ u32 unk7c;
+	/*0x800acc08*/ u32 unk80;
+	/*0x800acc0c*/ u32 unk84;
+	/*0x800acc10*/ u8 locktype;
+	/*0x800acc11*/ u8 unk89;
+	/*0x800acc12*/ u8 usingmultipletunes;
 };
 
 struct mpscenario {
