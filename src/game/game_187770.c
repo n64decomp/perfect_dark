@@ -5093,12 +5093,12 @@ glabel func0f18b9e4
 
 u32 func0f18bb1c(void)
 {
-	return 75;
+	return NUM_MPHEADS;
 }
 
 s32 mpGetNumHeads(void)
 {
-	return 75;
+	return NUM_MPHEADS;
 }
 
 s32 mpGetHeadId(u8 headnum)

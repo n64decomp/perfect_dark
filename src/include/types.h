@@ -2731,13 +2731,6 @@ struct inventory_typef {
 	u32 unk10;
 };
 
-#define INVENTORYFUNCTYPE_NONE    0
-#define INVENTORYFUNCTYPE_SHOOT   1
-#define INVENTORYFUNCTYPE_THROW   2
-#define INVENTORYFUNCTYPE_CLOSE   3
-#define INVENTORYFUNCTYPE_SPECIAL 4
-#define INVENTORYFUNCTYPE_VISUAL  5
-
 struct inventory_function {
 	u16 unk00;
 	u8 unk02;
@@ -2850,20 +2843,6 @@ struct mphead {
 	s16 headid;
 	u8 unlockvalue;
 };
-
-#define SIMTYPE_GENERAL 0
-#define SIMTYPE_PEACE   1
-#define SIMTYPE_SHIELD  2
-#define SIMTYPE_ROCKET  3
-#define SIMTYPE_KAZE    4
-#define SIMTYPE_FIST    5
-#define SIMTYPE_PREY    6
-#define SIMTYPE_COWARD  7
-#define SIMTYPE_JUDGE   8
-#define SIMTYPE_FEUD    9
-#define SIMTYPE_SPEED   10
-#define SIMTYPE_TURTLE  11
-#define SIMTYPE_VENGE   12
 
 struct mpsimulant {
 	u8 type;
@@ -2984,24 +2963,6 @@ struct hoverprop {
 	u16 size;
 };
 
-#define MENUITEMTYPE_LABEL       0x01
-#define MENUITEMTYPE_CUSTOM      0x02
-#define MENUITEMTYPE_SELECTABLE  0x04
-#define MENUITEMTYPE_SCROLLABLE  0x05
-#define MENUITEMTYPE_OBJECTIVES  0x06
-#define MENUITEMTYPE_SLIDER      0x08
-#define MENUITEMTYPE_CHECKBOX    0x09
-#define MENUITEMTYPE_SEPARATOR   0x0b
-#define MENUITEMTYPE_DROPDOWN    0x0c
-#define MENUITEMTYPE_KEYBOARD    0x0d
-#define MENUITEMTYPE_RANKING     0x0e
-#define MENUITEMTYPE_PLAYERSTATS 0x0f
-#define MENUITEMTYPE_CAROUSEL    0x11
-#define MENUITEMTYPE_MODEL       0x12
-#define MENUITEMTYPE_MARQUEE     0x17
-#define MENUITEMTYPE_CONTROLLER  0x19
-#define MENUITEMTYPE_END         0x1a
-
 struct menu_item {
 	u8 type;
 	u8 param;
@@ -3010,10 +2971,6 @@ struct menu_item {
 	u32 param3;
 	void *handler;
 };
-
-#define MENUDIALOGTYPE_DEFAULT 0x01
-#define MENUDIALOGTYPE_DANGER  0x02
-#define MENUDIALOGTYPE_SUCCESS 0x03
 
 struct menu_dialog {
 	u8 type;

@@ -299,7 +299,7 @@ extern u32 var800874c8;
 extern u32 var800874cc;
 extern u32 var800874f0;
 extern struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS];
-extern struct mphead g_MpHeads[];
+extern struct mphead g_MpHeads[NUM_MPHEADS];
 extern u32 table_0x2d678[];
 extern struct mpsimulant g_MpGeneralSimulants[];
 extern struct mpsimulant mpspecialsimulants[];
