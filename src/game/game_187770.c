@@ -5101,27 +5101,15 @@ s32 mpGetNumHeads(void)
 	return 75;
 }
 
-GLOBAL_ASM(
-glabel func0f18bb2c
-/*  f18bb2c:	308e00ff */ 	andi	$t6,$a0,0xff
-/*  f18bb30:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f18bb34:	3c028008 */ 	lui	$v0,0x8008
-/*  f18bb38:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f18bb3c:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f18bb40:	03e00008 */ 	jr	$ra
-/*  f18bb44:	8442752c */ 	lh	$v0,0x752c($v0)
-);
+s32 mpGetHeadId(u8 headnum)
+{
+	return g_MpHeads[headnum].headid;
+}
 
-GLOBAL_ASM(
-glabel func0f18bb48
-/*  f18bb48:	308e00ff */ 	andi	$t6,$a0,0xff
-/*  f18bb4c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f18bb50:	3c028008 */ 	lui	$v0,0x8008
-/*  f18bb54:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f18bb58:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f18bb5c:	03e00008 */ 	jr	$ra
-/*  f18bb60:	9042752e */ 	lbu	$v0,0x752e($v0)
-);
+s32 mpGetHeadUnlockValue(u8 headnum)
+{
+	return g_MpHeads[headnum].unlockvalue;
+}
 
 s32 mpGetBeauHeadId(u8 headnum)
 {
