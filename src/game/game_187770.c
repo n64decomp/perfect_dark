@@ -5584,6 +5584,26 @@ glabel mpIsTrackUnlocked
 /*  f18c134:	00601025 */ 	or	$v0,$v1,$zero
 );
 
+// Mismatch because the compiler optimises out the unlocked variable
+//bool mpIsTrackUnlocked(s32 tracknum)
+//{
+//	s16 stageindex = g_MpTracks[tracknum].unlockstage;
+//	bool unlocked = false;
+//	u32 i;
+//
+//	if (stageindex < 0 || stageindex >= NUM_SOLONORMALSTAGES) {
+//		return true;
+//	}
+//
+//	for (i = 0; i != 3; i++) {
+//		if (g_SoloSaveFile.besttimes[stageindex][i]) {
+//			return true;
+//		}
+//	}
+//
+//	return unlocked;
+//}
+
 s32 mpGetTrackSlotIndex(s32 tracknum)
 {
 	s32 i;

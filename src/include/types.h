@@ -2884,7 +2884,7 @@ struct mptrack {
 	u16 audioid : 7;
 	u16 duration : 9;
 	s16 name;
-	s16 unlockcategory;
+	s16 unlockstage;
 };
 
 struct stageoverviewentry {

@@ -62,7 +62,7 @@ u32 mpGetLockType(void);
 u32 mpGetLockPlayerNum(void);
 u32 func0f18bfd8(void);
 u32 func0f18c014(void);
-bool mpIsTrackUnlocked(s32 arg0);
+bool mpIsTrackUnlocked(s32 tracknum);
 s32 mpGetTrackSlotIndex(s32 tracknum);
 s32 mpGetTrackNumAtSlotIndex(s32 slotindex);
 s32 func0f18c200(void);

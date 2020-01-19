@@ -552,15 +552,16 @@
 #define MPSCENARIO_KINGOFTHEHILL    4
 #define MPSCENARIO_CAPTURETHECASE   5
 
-#define NUM_AICOMMANDS    481
-#define NUM_CHALLENGES    30
-#define NUM_CHEATS        42
-#define NUM_FIRESLOTS     20
-#define NUM_MPBOTCOMMANDS 14
-#define NUM_MPTRACKS      42
-#define NUM_SOLOSTAGES    21
-#define NUM_STAGES        90
-#define NUM_WEAPONS       94
+#define NUM_AICOMMANDS       481
+#define NUM_CHALLENGES       30
+#define NUM_CHEATS           42
+#define NUM_FIRESLOTS        20
+#define NUM_MPBOTCOMMANDS    14
+#define NUM_MPTRACKS         42
+#define NUM_SOLONORMALSTAGES 17
+#define NUM_SOLOSTAGES       21
+#define NUM_STAGES           90
+#define NUM_WEAPONS          94
 
 // obj->flags
 #define OBJECTFLAG0_00000001             0x00000001 // Not used in scripts
