@@ -5141,29 +5141,18 @@ u32 mpGetNumBodies(void)
 	return NUM_MPBODIES;
 }
 
-GLOBAL_ASM(
-glabel func0f18bb90
-/*  f18bb90:	308e00ff */ 	andi	$t6,$a0,0xff
-/*  f18bb94:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f18bb98:	29c1003e */ 	slti	$at,$t6,0x3e
-/*  f18bb9c:	14200008 */ 	bnez	$at,.L0f18bbc0
-/*  f18bba0:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f18bba4:	2401003e */ 	addiu	$at,$zero,0x3e
-/*  f18bba8:	15c10003 */ 	bne	$t6,$at,.L0f18bbb8
-/*  f18bbac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18bbb0:	03e00008 */ 	jr	$ra
-/*  f18bbb4:	2402006b */ 	addiu	$v0,$zero,0x6b
-.L0f18bbb8:
-/*  f18bbb8:	03e00008 */ 	jr	$ra
-/*  f18bbbc:	24020056 */ 	addiu	$v0,$zero,0x56
-.L0f18bbc0:
-/*  f18bbc0:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f18bbc4:	3c028008 */ 	lui	$v0,0x8008
-/*  f18bbc8:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f18bbcc:	844277bc */ 	lh	$v0,0x77bc($v0)
-/*  f18bbd0:	03e00008 */ 	jr	$ra
-/*  f18bbd4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 mpGetBodyId(u8 bodynum)
+{
+	if (bodynum >= 62) {
+		if (bodynum == 62) {
+			return BODY_DRCAROLL;
+		}
+
+		return BODY_DARK_COMBAT;
+	}
+
+	return g_MpBodies[bodynum].bodyid;
+}
 
 s32 mpGetBodyIndexByBodyId(u16 bodyid)
 {
