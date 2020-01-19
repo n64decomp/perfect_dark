@@ -11928,7 +11928,7 @@ u32 var8008750c = 0x00000000;
 u32 var80087510 = 0x00000000;
 u32 var80087514 = 0x00000000;
 
-struct mphead g_MpBeauHeads[] = {
+struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS] = {
 	// head, unlock value
 	{ HEAD_BEAU2, 0x00 },
 	{ HEAD_BEAU3, 0x00 },

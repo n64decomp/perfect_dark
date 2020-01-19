@@ -5128,11 +5128,10 @@ s32 mpGetBeauHeadId(u8 headnum)
 	return g_MpBeauHeads[headnum].headid;
 }
 
-GLOBAL_ASM(
-glabel func0f18bb80
-/*  f18bb80:	03e00008 */ 	jr	$ra
-/*  f18bb84:	24020005 */ 	addiu	$v0,$zero,0x5
-);
+s32 mpGetNumBeauHeads(void)
+{
+	return NUM_MPBEAUHEADS;
+}
 
 u32 mpGetNumBodies(void)
 {

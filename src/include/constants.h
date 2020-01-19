@@ -556,6 +556,7 @@
 #define NUM_CHALLENGES       30
 #define NUM_CHEATS           42
 #define NUM_FIRESLOTS        20
+#define NUM_MPBEAUHEADS      5
 #define NUM_MPBOTCOMMANDS    14
 #define NUM_MPBODIES         61
 #define NUM_MPTRACKS         42
