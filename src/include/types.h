@@ -4681,4 +4681,13 @@ struct criteria_holograph {
 	struct criteria_holograph *next;
 };
 
+struct mppreset {
+	u16 name;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+};
+
 #endif

@@ -7419,9 +7419,9 @@ glabel func0f18dac0
 /*  f18db78:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-u32 func0f18db7c(void)
+u32 mpGetNumPresets(void)
 {
-	return 14;
+	return NUM_MPPRESETS;
 }
 
 GLOBAL_ASM(
@@ -7429,12 +7429,12 @@ glabel func0f18db84
 /*  f18db84:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f18db88:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f18db8c:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f18db90:	3c0f8008 */ 	lui	$t7,%hi(mppresets)
+/*  f18db90:	3c0f8008 */ 	lui	$t7,%hi(g_MpPresets)
 /*  f18db94:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f18db98:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*  f18db9c:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f18dba0:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18dba4:	25ef7b6c */ 	addiu	$t7,$t7,%lo(mppresets)
+/*  f18dba4:	25ef7b6c */ 	addiu	$t7,$t7,%lo(g_MpPresets)
 /*  f18dba8:	000e70c0 */ 	sll	$t6,$t6,0x3
 /*  f18dbac:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f18dbb0:	01cf8021 */ 	addu	$s0,$t6,$t7

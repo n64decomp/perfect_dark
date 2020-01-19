@@ -103,7 +103,7 @@ u32 func0f18d5c4(void);
 u32 func0f18d9a4(void);
 u32 func0f18d9fc(void);
 u32 func0f18dac0(void);
-u32 func0f18db7c(void);
+u32 mpGetNumPresets(void);
 u32 func0f18db84(void);
 u32 func0f18dc0c(void);
 u32 func0f18dc64(void);
