@@ -6639,23 +6639,14 @@ s32 mpPlayerGetIndex(struct chrdata *chr)
 	return -1;
 }
 
-GLOBAL_ASM(
-glabel func0f18d040
-/*  f18d040:	04800009 */ 	bltz	$a0,.L0f18d068
-/*  f18d044:	3c0e800b */ 	lui	$t6,0x800b
-/*  f18d048:	8dcec530 */ 	lw	$t6,-0x3ad0($t6)
-/*  f18d04c:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f18d050:	3c02800b */ 	lui	$v0,0x800b
-/*  f18d054:	008e082a */ 	slt	$at,$a0,$t6
-/*  f18d058:	10200003 */ 	beqz	$at,.L0f18d068
-/*  f18d05c:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f18d060:	03e00008 */ 	jr	$ra
-/*  f18d064:	8c42c4d0 */ 	lw	$v0,-0x3b30($v0)
-.L0f18d068:
-/*  f18d068:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18d06c:	03e00008 */ 	jr	$ra
-/*  f18d070:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct chrdata *mpGetChrFromPlayerIndex(s32 index)
+{
+	if (index >= 0 && index < g_MpNumPlayers) {
+		return g_MpPlayerChrs[index];
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f18d074
@@ -13299,7 +13290,7 @@ glabel func0f192e90
 /*  f192ef8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f192efc:	0006000d */ 	break	0x6
 .L0f192f00:
-/*  f192f00:	0fc63410 */ 	jal	func0f18d040
+/*  f192f00:	0fc63410 */ 	jal	mpGetChrFromPlayerIndex
 /*  f192f04:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f192f08:	1055002b */ 	beq	$v0,$s5,.L0f192fb8
 /*  f192f0c:	00408825 */ 	or	$s1,$v0,$zero
@@ -13534,7 +13525,7 @@ glabel func0f192e90
 /*  f193248:	0260a025 */ 	or	$s4,$s3,$zero
 /*  f19324c:	82900130 */ 	lb	$s0,0x130($s4)
 .L0f193250:
-/*  f193250:	0fc63410 */ 	jal	func0f18d040
+/*  f193250:	0fc63410 */ 	jal	mpGetChrFromPlayerIndex
 /*  f193254:	02002025 */ 	or	$a0,$s0,$zero
 /*  f193258:	1055003a */ 	beq	$v0,$s5,.L0f193344
 /*  f19325c:	00408825 */ 	or	$s1,$v0,$zero
@@ -13611,7 +13602,7 @@ glabel func0f192e90
 /*  f193364:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f193368:	0580000f */ 	bltz	$t4,.L0f1933a8
 /*  f19336c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f193370:	0fc63410 */ 	jal	func0f18d040
+/*  f193370:	0fc63410 */ 	jal	mpGetChrFromPlayerIndex
 /*  f193374:	01802025 */ 	or	$a0,$t4,$zero
 /*  f193378:	3c0f800a */ 	lui	$t7,0x800a
 /*  f19337c:	8defa2f8 */ 	lw	$t7,-0x5d08($t7)
@@ -13659,7 +13650,7 @@ glabel func0f192e90
 /*  f193414:	930d016c */ 	lbu	$t5,0x16c($t8)
 /*  f193418:	11a0001d */ 	beqz	$t5,.L0f193490
 /*  f19341c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f193420:	0fc63410 */ 	jal	func0f18d040
+/*  f193420:	0fc63410 */ 	jal	mpGetChrFromPlayerIndex
 /*  f193424:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f193428:	10550019 */ 	beq	$v0,$s5,.L0f193490
 /*  f19342c:	00408825 */ 	or	$s1,$v0,$zero
@@ -16663,7 +16654,7 @@ glabel func0f194b40
 /*  f1961c4:	0fc6343a */ 	jal	func0f18d0e8
 /*  f1961c8:	8e040004 */ 	lw	$a0,0x4($s0)
 /*  f1961cc:	afa200d8 */ 	sw	$v0,0xd8($sp)
-/*  f1961d0:	0fc63410 */ 	jal	func0f18d040
+/*  f1961d0:	0fc63410 */ 	jal	mpGetChrFromPlayerIndex
 /*  f1961d4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1961d8:	10540011 */ 	beq	$v0,$s4,.L0f196220
 /*  f1961dc:	00402025 */ 	or	$a0,$v0,$zero
@@ -16702,7 +16693,7 @@ glabel func0f194b40
 /*  f196258:	19200032 */ 	blez	$t1,.L0f196324
 /*  f19625c:	e7aa00d0 */ 	swc1	$f10,0xd0($sp)
 .L0f196260:
-/*  f196260:	0fc63410 */ 	jal	func0f18d040
+/*  f196260:	0fc63410 */ 	jal	mpGetChrFromPlayerIndex
 /*  f196264:	02002025 */ 	or	$a0,$s0,$zero
 /*  f196268:	10540029 */ 	beq	$v0,$s4,.L0f196310
 /*  f19626c:	00402025 */ 	or	$a0,$v0,$zero

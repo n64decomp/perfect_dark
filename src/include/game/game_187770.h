@@ -93,7 +93,7 @@ bool mpIsSimSlotEnabled(s32 slotindex);
 s32 func0f18cd68(s32 arg0, s32 arg1);
 u32 func0f18cddc(void);
 s32 mpPlayerGetIndex(struct chrdata *chr);
-u32 func0f18d040(void);
+struct chrdata *mpGetChrFromPlayerIndex(s32 index);
 u32 func0f18d074(void);
 s32 func0f18d0e8(s32 arg0);
 u32 func0f18d1b8(void);
