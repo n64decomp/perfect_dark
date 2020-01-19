@@ -6626,30 +6626,18 @@ glabel func0f18cddc
 /*  f18cff4:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
 );
 
-GLOBAL_ASM(
-glabel mpPlayerGetIndex
-/*  f18cff8:	3c02800b */ 	lui	$v0,0x800b
-/*  f18cffc:	8c42c530 */ 	lw	$v0,-0x3ad0($v0)
-/*  f18d000:	3c05800b */ 	lui	$a1,%hi(g_MpPlayerChrs)
-/*  f18d004:	24a5c4d0 */ 	addiu	$a1,$a1,%lo(g_MpPlayerChrs)
-/*  f18d008:	1840000a */ 	blez	$v0,.L0f18d034
-/*  f18d00c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f18d010:
-/*  f18d010:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f18d014:	548e0004 */ 	bnel	$a0,$t6,.L0f18d028
-/*  f18d018:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18d01c:	03e00008 */ 	jr	$ra
-/*  f18d020:	00601025 */ 	or	$v0,$v1,$zero
-/*  f18d024:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f18d028:
-/*  f18d028:	0062082a */ 	slt	$at,$v1,$v0
-/*  f18d02c:	1420fff8 */ 	bnez	$at,.L0f18d010
-/*  f18d030:	24a50004 */ 	addiu	$a1,$a1,0x4
-.L0f18d034:
-/*  f18d034:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f18d038:	03e00008 */ 	jr	$ra
-/*  f18d03c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 mpPlayerGetIndex(struct chrdata *chr)
+{
+	s32 i;
+
+	for (i = 0; i < g_MpNumPlayers; i++) {
+		if (g_MpPlayerChrs[i] == chr) {
+			return i;
+		}
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f18d040
