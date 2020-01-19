@@ -5194,26 +5194,15 @@ glabel func0f18bbd8
 /*  f18bc2c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18bc30
-/*  f18bc30:	308500ff */ 	andi	$a1,$a0,0xff
-/*  f18bc34:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18bc38:	28a1003e */ 	slti	$at,$a1,0x3e
-/*  f18bc3c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18bc40:	14200002 */ 	bnez	$at,.L0f18bc4c
-/*  f18bc44:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f18bc48:	00002825 */ 	or	$a1,$zero,$zero
-.L0f18bc4c:
-/*  f18bc4c:	000570c0 */ 	sll	$t6,$a1,0x3
-/*  f18bc50:	3c048008 */ 	lui	$a0,0x8008
-/*  f18bc54:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f18bc58:	0fc5b9f1 */ 	jal	textGet
-/*  f18bc5c:	848477be */ 	lh	$a0,0x77be($a0)
-/*  f18bc60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18bc64:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18bc68:	03e00008 */ 	jr	$ra
-/*  f18bc6c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpGetBodyName(u8 bodynum)
+{
+	// Possible @bug: This should probably be >=
+	if (bodynum > NUM_MPBODIES) {
+		bodynum = 0;
+	}
+
+	return textGet(g_MpBodies[bodynum].name);
+}
 
 u8 mpGetBodyUnk06(u8 bodynum)
 {
