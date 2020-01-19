@@ -49,7 +49,7 @@ u32 func0f18bb1c(void);
 s32 mpGetNumHeads(void);
 u32 func0f18bb2c(void);
 u32 func0f18bb48(void);
-u32 func0f18bb64(void);
+s32 mpGetBeauHeadId(u8 headnum);
 u32 mpGetNumBodies(void);
 s32 mpGetBodyId(u8 bodynum);
 s32 mpGetBodyIndexByBodyId(u16 bodyid);

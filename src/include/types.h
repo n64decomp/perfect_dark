@@ -2846,8 +2846,8 @@ struct mpweaponset {
 	u8 slots[16];
 };
 
-struct mpheadentry {
-	u16 head;
+struct mphead {
+	s16 headid;
 	u8 unlockvalue;
 };
 

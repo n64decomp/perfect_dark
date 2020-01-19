@@ -5123,15 +5123,13 @@ glabel func0f18bb48
 /*  f18bb60:	9042752e */ 	lbu	$v0,0x752e($v0)
 );
 
+s32 mpGetBeauHeadId(u8 headnum)
+{
+	return g_MpBeauHeads[headnum].headid;
+}
+
 GLOBAL_ASM(
-glabel func0f18bb64
-/*  f18bb64:	308e00ff */ 	andi	$t6,$a0,0xff
-/*  f18bb68:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f18bb6c:	3c028008 */ 	lui	$v0,0x8008
-/*  f18bb70:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f18bb74:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f18bb78:	03e00008 */ 	jr	$ra
-/*  f18bb7c:	84427518 */ 	lh	$v0,0x7518($v0)
+glabel func0f18bb80
 /*  f18bb80:	03e00008 */ 	jr	$ra
 /*  f18bb84:	24020005 */ 	addiu	$v0,$zero,0x5
 );
@@ -5242,8 +5240,8 @@ glabel func0f18bc9c
 /*  f18bd48:	8ca57a54 */ 	lw	$a1,0x7a54($a1)
 /*  f18bd4c:	8fa60018 */ 	lw	$a2,0x18($sp)
 .L0f18bd50:
-/*  f18bd50:	3c038008 */ 	lui	$v1,%hi(mpheadstable)
-/*  f18bd54:	2463752c */ 	addiu	$v1,$v1,%lo(mpheadstable)
+/*  f18bd50:	3c038008 */ 	lui	$v1,%hi(g_MpHeads)
+/*  f18bd54:	2463752c */ 	addiu	$v1,$v1,%lo(g_MpHeads)
 /*  f18bd58:	00001025 */ 	or	$v0,$zero,$zero
 /*  f18bd5c:	2404004b */ 	addiu	$a0,$zero,0x4b
 .L0f18bd60:

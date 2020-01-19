@@ -11927,14 +11927,17 @@ u32 var80087508 = 0x00000000;
 u32 var8008750c = 0x00000000;
 u32 var80087510 = 0x00000000;
 u32 var80087514 = 0x00000000;
-u32 var80087518 = 0x002b0000;
-u32 var8008751c = 0x00310000;
-u32 var80087520 = 0x00320000;
-u32 var80087524 = 0x00330000;
-u32 var80087528 = 0x00340000;
 
-// 2d54c
-struct mpheadentry mpheadstable[] = {
+struct mphead g_MpBeauHeads[] = {
+	// head, unlock value
+	{ HEAD_BEAU2, 0x00 },
+	{ HEAD_BEAU3, 0x00 },
+	{ HEAD_BEAU4, 0x00 },
+	{ HEAD_BEAU5, 0x00 },
+	{ HEAD_BEAU6, 0x00 },
+};
+
+struct mphead g_MpHeads[] = {
 	// head, unlock value
 	{ /*0x00*/ 0x04, 0x00 },
 	{ /*0x01*/ 0x0c, 0x41 },
