@@ -6648,42 +6648,24 @@ struct chrdata *mpGetChrFromPlayerIndex(s32 index)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f18d074
-/*  f18d074:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f18d078:	3c05800b */ 	lui	$a1,0x800b
-/*  f18d07c:	00ae2821 */ 	addu	$a1,$a1,$t6
-/*  f18d080:	3c02800b */ 	lui	$v0,%hi(g_MpPlayers)
-/*  f18d084:	2442c7b8 */ 	addiu	$v0,$v0,%lo(g_MpPlayers)
-/*  f18d088:	8ca5c500 */ 	lw	$a1,-0x3b00($a1)
-/*  f18d08c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f18d090:
-/*  f18d090:	54450004 */ 	bnel	$v0,$a1,.L0f18d0a4
-/*  f18d094:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18d098:	03e00008 */ 	jr	$ra
-/*  f18d09c:	00601025 */ 	or	$v0,$v1,$zero
-/*  f18d0a0:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f18d0a4:
-/*  f18d0a4:	28610004 */ 	slti	$at,$v1,0x4
-/*  f18d0a8:	1420fff9 */ 	bnez	$at,.L0f18d090
-/*  f18d0ac:	244200a0 */ 	addiu	$v0,$v0,0xa0
-/*  f18d0b0:	3c02800b */ 	lui	$v0,%hi(g_MpSimulants)
-/*  f18d0b4:	2442c538 */ 	addiu	$v0,$v0,%lo(g_MpSimulants)
-/*  f18d0b8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18d0bc:	24040008 */ 	addiu	$a0,$zero,0x8
-.L0f18d0c0:
-/*  f18d0c0:	54450004 */ 	bnel	$v0,$a1,.L0f18d0d4
-/*  f18d0c4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18d0c8:	03e00008 */ 	jr	$ra
-/*  f18d0cc:	24620004 */ 	addiu	$v0,$v1,0x4
-/*  f18d0d0:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f18d0d4:
-/*  f18d0d4:	1464fffa */ 	bne	$v1,$a0,.L0f18d0c0
-/*  f18d0d8:	2442004c */ 	addiu	$v0,$v0,0x4c
-/*  f18d0dc:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f18d0e0:	03e00008 */ 	jr	$ra
-/*  f18d0e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f18d074(s32 index)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		if (&g_MpPlayers[i].base == var800ac500[index]) {
+			return i;
+		}
+	}
+
+	for (i = 0; i < MAX_SIMULANTS; i++) {
+		if (&g_MpSimulants[i].base == var800ac500[index]) {
+			return i + 4;
+		}
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f18d0e8
