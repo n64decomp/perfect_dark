@@ -5136,9 +5136,9 @@ glabel func0f18bb64
 /*  f18bb84:	24020005 */ 	addiu	$v0,$zero,0x5
 );
 
-u32 func0f18bb88(void)
+u32 mpGetNumBodies(void)
 {
-	return 61;
+	return NUM_MPBODIES;
 }
 
 GLOBAL_ASM(
@@ -5174,8 +5174,8 @@ glabel func0f18bbd8
 /*  f18bbe8:	03e00008 */ 	jr	$ra
 /*  f18bbec:	2402003e */ 	addiu	$v0,$zero,0x3e
 .L0f18bbf0:
-/*  f18bbf0:	3c048008 */ 	lui	$a0,%hi(mpbodytable)
-/*  f18bbf4:	248477bc */ 	addiu	$a0,$a0,%lo(mpbodytable)
+/*  f18bbf0:	3c048008 */ 	lui	$a0,%hi(g_MpBodies)
+/*  f18bbf4:	248477bc */ 	addiu	$a0,$a0,%lo(g_MpBodies)
 /*  f18bbf8:	00001825 */ 	or	$v1,$zero,$zero
 /*  f18bbfc:	2405003d */ 	addiu	$a1,$zero,0x3d
 .L0f18bc00:
@@ -5215,21 +5215,15 @@ glabel func0f18bc30
 /*  f18bc6c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18bc70
-/*  f18bc70:	308e00ff */ 	andi	$t6,$a0,0xff
-/*  f18bc74:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f18bc78:	29c1003e */ 	slti	$at,$t6,0x3e
-/*  f18bc7c:	14200002 */ 	bnez	$at,.L0f18bc88
-/*  f18bc80:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f18bc84:	00002025 */ 	or	$a0,$zero,$zero
-.L0f18bc88:
-/*  f18bc88:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f18bc8c:	3c028008 */ 	lui	$v0,0x8008
-/*  f18bc90:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f18bc94:	03e00008 */ 	jr	$ra
-/*  f18bc98:	904277c2 */ 	lbu	$v0,0x77c2($v0)
-);
+u8 mpGetBodyUnk06(u8 bodynum)
+{
+	// Possible @bug: This should probably be >=
+	if (bodynum > NUM_MPBODIES) {
+		bodynum = 0;
+	}
+
+	return g_MpBodies[bodynum].unk06;
+}
 
 GLOBAL_ASM(
 glabel func0f18bc9c
@@ -5240,8 +5234,8 @@ glabel func0f18bc9c
 /*  f18bcac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f18bcb0:	00002025 */ 	or	$a0,$zero,$zero
 .L0f18bcb4:
-/*  f18bcb4:	3c0f8008 */ 	lui	$t7,%hi(mpbodytable)
-/*  f18bcb8:	25ef77bc */ 	addiu	$t7,$t7,%lo(mpbodytable)
+/*  f18bcb4:	3c0f8008 */ 	lui	$t7,%hi(g_MpBodies)
+/*  f18bcb8:	25ef77bc */ 	addiu	$t7,$t7,%lo(g_MpBodies)
 /*  f18bcbc:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f18bcc0:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*  f18bcc4:	84450004 */ 	lh	$a1,0x4($v0)

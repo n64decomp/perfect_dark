@@ -2873,7 +2873,7 @@ struct mpsimulant {
 	u8 unlockvalue;
 };
 
-struct bodynum {
+struct mpbody {
 	u16 slot;
 	u16 name;
 	u16 unk04;

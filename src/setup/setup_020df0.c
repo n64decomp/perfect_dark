@@ -12051,7 +12051,7 @@ struct mpsimulant mpspecialsimulants[] = {
 };
 
 // 2d7dc
-struct bodynum mpbodytable[] = {
+struct mpbody g_MpBodies[NUM_MPBODIES] = {
 	// slot, name, unk04, unk06
 	/*0x00*/ { 0x0056, 0x5610, 0x0004, 0x00 },
 	/*0x01*/ { 0x0062, 0x5611, 0x0004, 0x46 },

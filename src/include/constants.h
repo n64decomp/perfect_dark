@@ -557,6 +557,7 @@
 #define NUM_CHEATS           42
 #define NUM_FIRESLOTS        20
 #define NUM_MPBOTCOMMANDS    14
+#define NUM_MPBODIES         61
 #define NUM_MPTRACKS         42
 #define NUM_SOLONORMALSTAGES 17
 #define NUM_SOLOSTAGES       21
