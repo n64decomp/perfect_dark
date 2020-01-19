@@ -5473,26 +5473,18 @@ u32 mpGetLockPlayerNum(void)
 	return g_MpLockPlayerNum;
 }
 
-GLOBAL_ASM(
-glabel func0f18bfd8
-/*  f18bfd8:	3c0e800b */ 	lui	$t6,0x800b
-/*  f18bfdc:	91cecc10 */ 	lbu	$t6,-0x33f0($t6)
-/*  f18bfe0:	3c0f800b */ 	lui	$t7,0x800b
-/*  f18bfe4:	15c00003 */ 	bnez	$t6,.L0f18bff4
-/*  f18bfe8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18bfec:	03e00008 */ 	jr	$ra
-/*  f18bff0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18bff4:
-/*  f18bff4:	81efcc20 */ 	lb	$t7,-0x33e0($t7)
-/*  f18bff8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f18bffc:	148f0003 */ 	bne	$a0,$t7,.L0f18c00c
-/*  f18c000:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18c004:	03e00008 */ 	jr	$ra
-/*  f18c008:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18c00c:
-/*  f18c00c:	03e00008 */ 	jr	$ra
-/*  f18c010:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool mpIsPlayerLockedOut(u32 playernum)
+{
+	if (g_MpSetup.locktype == MPLOCKTYPE_NONE) {
+		return false;
+	}
+
+	if (g_MpLockPlayerNum == playernum) {
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f18c014
