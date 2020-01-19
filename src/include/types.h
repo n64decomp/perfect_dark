@@ -2874,7 +2874,7 @@ struct mpsimulant {
 };
 
 struct mpbody {
-	u16 slot;
+	s16 bodyid;
 	s16 name;
 	u16 unk04;
 	u8 unk06;

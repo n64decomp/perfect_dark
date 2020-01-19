@@ -5165,34 +5165,23 @@ glabel func0f18bb90
 /*  f18bbd4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18bbd8
-/*  f18bbd8:	3082ffff */ 	andi	$v0,$a0,0xffff
-/*  f18bbdc:	2401006b */ 	addiu	$at,$zero,0x6b
-/*  f18bbe0:	14410003 */ 	bne	$v0,$at,.L0f18bbf0
-/*  f18bbe4:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f18bbe8:	03e00008 */ 	jr	$ra
-/*  f18bbec:	2402003e */ 	addiu	$v0,$zero,0x3e
-.L0f18bbf0:
-/*  f18bbf0:	3c048008 */ 	lui	$a0,%hi(g_MpBodies)
-/*  f18bbf4:	248477bc */ 	addiu	$a0,$a0,%lo(g_MpBodies)
-/*  f18bbf8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18bbfc:	2405003d */ 	addiu	$a1,$zero,0x3d
-.L0f18bc00:
-/*  f18bc00:	848f0000 */ 	lh	$t7,0x0($a0)
-/*  f18bc04:	544f0004 */ 	bnel	$v0,$t7,.L0f18bc18
-/*  f18bc08:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18bc0c:	03e00008 */ 	jr	$ra
-/*  f18bc10:	00601025 */ 	or	$v0,$v1,$zero
-/*  f18bc14:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f18bc18:
-/*  f18bc18:	1465fff9 */ 	bne	$v1,$a1,.L0f18bc00
-/*  f18bc1c:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f18bc20:	3c028008 */ 	lui	$v0,0x8008
-/*  f18bc24:	844277bc */ 	lh	$v0,0x77bc($v0)
-/*  f18bc28:	03e00008 */ 	jr	$ra
-/*  f18bc2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 mpGetBodyIndexByBodyId(u16 bodyid)
+{
+	s32 i;
+
+	if (bodyid == BODY_DRCAROLL) {
+		return 62; // NUM_MPBODIES + 1
+	}
+
+	for (i = 0; i != NUM_MPBODIES; i++) {
+		if (g_MpBodies[i].bodyid == bodyid) {
+			return i;
+		}
+	}
+
+	// @bug: Should return 0 as a fallback, not the first body's bodyid
+	return g_MpBodies[0].bodyid;
+}
 
 char *mpGetBodyName(u8 bodynum)
 {

@@ -52,7 +52,7 @@ u32 func0f18bb48(void);
 u32 func0f18bb64(void);
 u32 mpGetNumBodies(void);
 u32 func0f18bb90(void);
-u32 func0f18bbd8(void);
+s32 mpGetBodyIndexByBodyId(u16 bodyid);
 char *mpGetBodyName(u8 bodynum);
 u8 mpGetBodyUnk06(u8 bodynum);
 s32 func0f18bc9c(s32 arg0);

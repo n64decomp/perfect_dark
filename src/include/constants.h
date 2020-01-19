@@ -1192,7 +1192,7 @@
 #define BODY_FEM_GUARD        0x68
 #define BODY_DD_LABTECH       0x69
 #define BODY_DD_SECGUARD      0x6a
-#define BODY_DRCARROLL        0x6b
+#define BODY_DRCAROLL         0x6b
 #define BODY_EYESPY           0x6c
 #define BODY_DARK_RIPPED      0x6d
 #define BODY_DD_GUARD         0x6e
