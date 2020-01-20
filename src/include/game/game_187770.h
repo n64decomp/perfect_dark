@@ -106,7 +106,7 @@ u32 func0f18dac0(void);
 u32 mpGetNumPresets(void);
 bool mpIsPresetUnlocked(s32 presetnum);
 s32 mpGetNumUnlockedPresets(void);
-u32 func0f18dc64(void);
+u32 mpGetPresetNameBySlot(void);
 u32 func0f18dcec(void);
 u32 func0f18dec4(void);
 u32 func0f18df5c(void);

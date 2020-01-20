@@ -7453,7 +7453,7 @@ s32 mpGetNumUnlockedPresets(void)
 }
 
 GLOBAL_ASM(
-glabel func0f18dc64
+glabel mpGetPresetNameBySlot
 /*  f18dc64:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f18dc68:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f18dc6c:	afb1001c */ 	sw	$s1,0x1c($sp)
