@@ -7438,33 +7438,19 @@ bool mpIsPresetUnlocked(s32 presetnum)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f18dc0c
-/*  f18dc0c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f18dc10:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f18dc14:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f18dc18:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f18dc1c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f18dc20:	00008825 */ 	or	$s1,$zero,$zero
-/*  f18dc24:	00008025 */ 	or	$s0,$zero,$zero
-/*  f18dc28:	2412000e */ 	addiu	$s2,$zero,0xe
-.L0f18dc2c:
-/*  f18dc2c:	0fc636e1 */ 	jal	mpIsPresetUnlocked
-/*  f18dc30:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18dc34:	10400002 */ 	beqz	$v0,.L0f18dc40
-/*  f18dc38:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18dc3c:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f18dc40:
-/*  f18dc40:	1612fffa */ 	bne	$s0,$s2,.L0f18dc2c
-/*  f18dc44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18dc48:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f18dc4c:	02201025 */ 	or	$v0,$s1,$zero
-/*  f18dc50:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f18dc54:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f18dc58:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f18dc5c:	03e00008 */ 	jr	$ra
-/*  f18dc60:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 mpGetNumUnlockedPresets(void)
+{
+	s32 numunlocked = 0;
+	s32 i;
+
+	for (i = 0; i != NUM_MPPRESETS; i++) {
+		if (mpIsPresetUnlocked(i)) {
+			numunlocked++;
+		}
+	}
+
+	return numunlocked;
+}
 
 GLOBAL_ASM(
 glabel func0f18dc64
