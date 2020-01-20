@@ -217,7 +217,7 @@ void optionsSetHeadRoll(s32 mpchrnum, bool enable)
 
 s32 optionsGetEffectiveScreenSize(void)
 {
-	if (var80090af0 == 1) {
+	if (g_Is4Mb == 1) {
 		return SCREENSIZE_FULL;
 	}
 

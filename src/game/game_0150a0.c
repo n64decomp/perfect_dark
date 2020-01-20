@@ -10,8 +10,8 @@ GLOBAL_ASM(
 glabel func0f0150a0
 /*  f0150a0:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0150a4:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f0150a8:	3c178009 */ 	lui	$s7,%hi(var80090af0)
-/*  f0150ac:	26f70af0 */ 	addiu	$s7,$s7,%lo(var80090af0)
+/*  f0150a8:	3c178009 */ 	lui	$s7,%hi(g_Is4Mb)
+/*  f0150ac:	26f70af0 */ 	addiu	$s7,$s7,%lo(g_Is4Mb)
 /*  f0150b0:	92ee0000 */ 	lbu	$t6,0x0($s7)
 /*  f0150b4:	afb6002c */ 	sw	$s6,0x2c($sp)
 /*  f0150b8:	24160001 */ 	addiu	$s6,$zero,0x1

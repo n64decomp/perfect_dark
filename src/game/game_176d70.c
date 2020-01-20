@@ -6848,10 +6848,10 @@ s32 menuhandlerMpSimulantSlot(u32 operation, struct menu_item *item, s32 *value)
 
 		if ((g_MpSetup.chrslots & (1 << (item->param + 4))) == 0) {
 			menuPushDialog(&g_MpAddSimulantMenuDialog);
-		} else if (var80090af0 == 1) {
-			menuPushDialog(&menudialog_1b414);
+		} else if (g_Is4Mb == 1) {
+			menuPushDialog(&g_MpEditSimulant4MbMenuDialog);
 		} else {
-			menuPushDialog(&menudialog_mpeditsimulant);
+			menuPushDialog(&g_MpEditSimulantMenuDialog);
 		}
 		break;
 	case MENUOP_CHECKHIDDEN:
@@ -8510,10 +8510,10 @@ s32 menuhandler0017ef30(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.stagenum == STAGE_CITRAINING) {
-			if (var80090af0 == 1) {
-				func0f0f820c(&menudialog_mainmenu2, 2);
+			if (g_Is4Mb == 1) {
+				func0f0f820c(&g_MainMenu4MbMenuDialog, 2);
 			} else {
-				func0f0f820c(&menudialog_mainmenu, 2);
+				func0f0f820c(&g_MainMenuMenuDialog, 2);
 			}
 		} else {
 			func0f0f820c(&menudialog_196b0, 2);
@@ -9217,7 +9217,7 @@ glabel func0f17fa28
 /*  f17fa60:	3c128008 */ 	lui	$s2,%hi(menudialog_mpsavesetup)
 /*  f17fa64:	3c138008 */ 	lui	$s3,%hi(g_MpAddSimulantMenuDialog)
 /*  f17fa68:	3c148008 */ 	lui	$s4,%hi(g_MpChangeSimulantMenuDialog)
-/*  f17fa6c:	3c158008 */ 	lui	$s5,%hi(menudialog_mpeditsimulant)
+/*  f17fa6c:	3c158008 */ 	lui	$s5,%hi(g_MpEditSimulantMenuDialog)
 /*  f17fa70:	3c168008 */ 	lui	$s6,%hi(menudialog_mpcombatoptions)
 /*  f17fa74:	3c178008 */ 	lui	$s7,%hi(menudialog_mpbriefcaseoptions)
 /*  f17fa78:	3c1e8008 */ 	lui	$s8,%hi(menudialog_mpcaptureoptions)
@@ -9231,7 +9231,7 @@ glabel func0f17fa28
 /*  f17fa98:	27de6b48 */ 	addiu	$s8,$s8,%lo(menudialog_mpcaptureoptions)
 /*  f17fa9c:	26f769d4 */ 	addiu	$s7,$s7,%lo(menudialog_mpbriefcaseoptions)
 /*  f17faa0:	26d668b8 */ 	addiu	$s6,$s6,%lo(menudialog_mpcombatoptions)
-/*  f17faa4:	26b5592c */ 	addiu	$s5,$s5,%lo(menudialog_mpeditsimulant)
+/*  f17faa4:	26b5592c */ 	addiu	$s5,$s5,%lo(g_MpEditSimulantMenuDialog)
 /*  f17faa8:	26945834 */ 	addiu	$s4,$s4,%lo(g_MpChangeSimulantMenuDialog)
 /*  f17faac:	2673581c */ 	addiu	$s3,$s3,%lo(g_MpAddSimulantMenuDialog)
 /*  f17fab0:	26524d80 */ 	addiu	$s2,$s2,%lo(menudialog_mpsavesetup)

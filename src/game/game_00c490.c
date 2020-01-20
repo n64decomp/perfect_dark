@@ -4942,8 +4942,8 @@ glabel func0f00f174
 
 GLOBAL_ASM(
 glabel func0f0108d0
-/*  f0108d0:	3c088009 */ 	lui	$t0,%hi(var80090af0)
-/*  f0108d4:	25080af0 */ 	addiu	$t0,$t0,%lo(var80090af0)
+/*  f0108d0:	3c088009 */ 	lui	$t0,%hi(g_Is4Mb)
+/*  f0108d4:	25080af0 */ 	addiu	$t0,$t0,%lo(g_Is4Mb)
 /*  f0108d8:	910e0000 */ 	lbu	$t6,0x0($t0)
 /*  f0108dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0108e0:	24070001 */ 	addiu	$a3,$zero,0x1
@@ -4962,8 +4962,8 @@ glabel func0f0108d0
 /*  f01090c:	39e4000f */ 	xori	$a0,$t7,0xf
 /*  f010910:	0c0048f2 */ 	jal	func000123c8
 /*  f010914:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f010918:	3c088009 */ 	lui	$t0,%hi(var80090af0)
-/*  f01091c:	25080af0 */ 	addiu	$t0,$t0,%lo(var80090af0)
+/*  f010918:	3c088009 */ 	lui	$t0,%hi(g_Is4Mb)
+/*  f01091c:	25080af0 */ 	addiu	$t0,$t0,%lo(g_Is4Mb)
 /*  f010920:	91190000 */ 	lbu	$t9,0x0($t0)
 /*  f010924:	3c058007 */ 	lui	$a1,%hi(var8006ae10)
 /*  f010928:	24a5ae10 */ 	addiu	$a1,$a1,%lo(var8006ae10)

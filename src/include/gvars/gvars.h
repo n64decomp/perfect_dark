@@ -348,7 +348,7 @@ extern struct bootbufferthing var8008de48[3];
 extern s32 var8008fa6c;
 extern s32 var8008fa70;
 extern s32 var8008fa74;
-extern u8 var80090af0;
+extern u8 g_Is4Mb;
 extern u32 var80090af4;
 extern u32 var80090af8;
 extern u32 var80090afc;

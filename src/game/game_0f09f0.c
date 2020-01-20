@@ -9209,9 +9209,9 @@ glabel func0f0f8330
 
 GLOBAL_ASM(
 glabel func0f0f85e0
-/*  f0f85e0:	3c0e8007 */ 	lui	$t6,%hi(menudialog_mainmenu)
+/*  f0f85e0:	3c0e8007 */ 	lui	$t6,%hi(g_MainMenuMenuDialog)
 /*  f0f85e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f85e8:	25ce3a5c */ 	addiu	$t6,$t6,%lo(menudialog_mainmenu)
+/*  f0f85e8:	25ce3a5c */ 	addiu	$t6,$t6,%lo(g_MainMenuMenuDialog)
 /*  f0f85ec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0f85f0:	148e0004 */ 	bne	$a0,$t6,.L0f0f8604
 /*  f0f85f4:	afa5001c */ 	sw	$a1,0x1c($sp)

@@ -765,7 +765,7 @@ s32 menuhandlerHiRes(u32 operation, struct menu_item *item, bool *enable)
 {
 	switch (operation) {
 	case MENUOP_CHECKHIDDEN:
-		if (var80090af0 == 1) {
+		if (g_Is4Mb == 1) {
 			return true;
 		}
 		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
@@ -4770,8 +4770,8 @@ glabel func0f106b20
 /*  f106cf4:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f106cf8:
 /*  f106cf8:	14a00008 */ 	bnez	$a1,.L0f106d1c
-/*  f106cfc:	3c048007 */ 	lui	$a0,%hi(menudialog_mainmenu2)
-/*  f106d00:	24843a74 */ 	addiu	$a0,$a0,%lo(menudialog_mainmenu2)
+/*  f106cfc:	3c048007 */ 	lui	$a0,%hi(g_MainMenu4MbMenuDialog)
+/*  f106d00:	24843a74 */ 	addiu	$a0,$a0,%lo(g_MainMenu4MbMenuDialog)
 /*  f106d04:	0fc3e0cc */ 	jal	func0f0f8330
 /*  f106d08:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f106d0c:	10000006 */ 	beqz	$zero,.L0f106d28

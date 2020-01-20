@@ -1360,7 +1360,7 @@ glabel ai0176
 
 void func0f19ab40(void)
 {
-	if (var80090af0) {
+	if (g_Is4Mb) {
 		var80090af4 = 0;
 		var80090af8 = 0;
 		var80090afc = 0;

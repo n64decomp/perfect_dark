@@ -10785,7 +10785,7 @@ struct menu_item menuitems_mpeditsimulant[] = {
 };
 
 // 2b94c
-struct menu_dialog menudialog_mpeditsimulant = {
+struct menu_dialog g_MpEditSimulantMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f17cfc0,
 	menuitems_mpeditsimulant,

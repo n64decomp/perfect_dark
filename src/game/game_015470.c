@@ -8594,11 +8594,11 @@ glabel func0f01bf28
 /*  f01cc5c:	3c0e8009 */ 	lui	$t6,%hi(var8009000c)
 /*  f01cc60:	aeaf0008 */ 	sw	$t7,0x8($s5)
 /*  f01cc64:	91ce0af0 */ 	lbu	$t6,0xaf0($t6)
-/*  f01cc68:	3c198007 */ 	lui	$t9,%hi(menudialog_mainmenu)
-/*  f01cc6c:	27393a5c */ 	addiu	$t9,$t9,%lo(menudialog_mainmenu)
+/*  f01cc68:	3c198007 */ 	lui	$t9,%hi(g_MainMenuMenuDialog)
+/*  f01cc6c:	27393a5c */ 	addiu	$t9,$t9,%lo(g_MainMenuMenuDialog)
 /*  f01cc70:	16ce0004 */ 	bne	$s6,$t6,.L0f01cc84
-/*  f01cc74:	3c188007 */ 	lui	$t8,%hi(menudialog_mainmenu2)
-/*  f01cc78:	27183a74 */ 	addiu	$t8,$t8,%lo(menudialog_mainmenu2)
+/*  f01cc74:	3c188007 */ 	lui	$t8,%hi(g_MainMenu4MbMenuDialog)
+/*  f01cc78:	27183a74 */ 	addiu	$t8,$t8,%lo(g_MainMenu4MbMenuDialog)
 /*  f01cc7c:	10000002 */ 	beqz	$zero,.L0f01cc88
 /*  f01cc80:	aeb8000c */ 	sw	$t8,0xc($s5)
 .L0f01cc84:

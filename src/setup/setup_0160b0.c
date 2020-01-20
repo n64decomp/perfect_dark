@@ -2938,7 +2938,7 @@ struct menu_item menuitems_mainmenu[] = {
 };
 
 // 19a7c
-struct menu_dialog menudialog_mainmenu = {
+struct menu_dialog g_MainMenuMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5674, // "Perfect Menu"
 	menuitems_mainmenu,
@@ -2948,7 +2948,7 @@ struct menu_dialog menudialog_mainmenu = {
 };
 
 // 19a94
-struct menu_dialog menudialog_mainmenu2 = {
+struct menu_dialog g_MainMenu4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x5674, // "Perfect Menu"
 	menuitems_mainmenu,
@@ -3862,7 +3862,7 @@ struct menu_item menuitems_1b39c[] = {
 };
 
 // 1b414
-struct menu_dialog menudialog_1b414 = {
+struct menu_dialog g_MpEditSimulant4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f17cfc0,
 	menuitems_1b39c,
