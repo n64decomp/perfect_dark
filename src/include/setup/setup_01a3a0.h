@@ -1,0 +1,73 @@
+#ifndef IN_SETUP_01A3A0_H
+#define IN_SETUP_01A3A0_H
+#include <ultra64.h>
+
+extern u16 iomessages[];
+extern struct menu_dialog menudialog_1a410;
+extern u16 savelocations2[];
+extern u16 iomessages2[];
+extern u16 filetypenames[];
+extern struct menu_dialog menudialog_filesaved;
+extern struct menu_dialog menudialog_saveerror;
+extern struct menu_dialog menudialog_savelost;
+extern struct menu_dialog g_SaveElsewhereMenuDialog;
+extern struct menu_dialog menudialog_1a654;
+extern u32 var8007464c;
+extern struct menu_dialog menudialog_changefilename;
+extern struct menu_dialog menudialog_duplicatefilename;
+extern u16 savelocations3[];
+extern struct menu_dialog menudialog_selectlocation;
+extern struct menu_dialog menudialog_confirmdelete;
+extern struct menu_dialog menudialog_1a984;
+extern struct menu_dialog menudialog_deletefile;
+extern struct menu_dialog menudialog_copyfile;
+extern u32 var80074a4c;
+extern struct menu_dialog menudialog_deletegamenote;
+extern struct menu_dialog menudialog_gamenotes;
+extern struct menu_dialog menudialog_controllerpakmenu;
+extern struct menu_dialog menudialog_enteragentname;
+extern struct menu_dialog menudialog_fileselect;
+extern struct menu_dialog menudialog_fileselect2;
+extern struct menu_dialog menudialog_mpquickgo2;
+extern struct menu_dialog menudialog_1b1bc;
+extern struct menu_dialog g_4MbMainMenu;
+extern struct menu_dialog menudialog_mpdropout;
+extern struct menu_dialog g_MpEditSimulant4MbMenuDialog;
+extern struct menu_dialog g_4MbAdvancedSetupMenuDialog;
+extern struct menu_dialog menudialog_1b5c0;
+extern struct menu_dialog menudialog_promptnextmission;
+extern struct menu_dialog menudialog_1b7a4;
+extern u32 var80075968;
+extern struct menu_dialog menudialog_1bb44;
+extern struct menu_dialog menudialog_1bb5c;
+extern struct menu_dialog menudialog_1bb74;
+extern struct menu_dialog menudialog_1bb8c;
+extern struct menu_dialog menudialog_1bba4;
+extern struct menu_dialog menudialog_1bbbc;
+extern struct savelocation *g_SaveLocations[];
+extern u32 var80075bd0;
+extern u32 var80075be0;
+extern u32 var80075c00;
+extern u32 var80075c30;
+extern u32 var80075c3c;
+extern u32 var80075c48;
+extern u32 var80075c54;
+extern u32 var80075c94;
+extern u32 var80075ca0;
+extern char var80075cb4[];
+extern char var80075cc0[];
+extern u32 var80075ce0;
+extern u32 var80075ce4;
+extern u32 var80075ce8;
+extern u32 var80075cec;
+extern u32 var80075cf0;
+extern u32 var80075cf4;
+extern u32 var80075cf8;
+extern u32 var80075d08;
+extern u32 var80075d10;
+extern u32 var80075d18;
+extern u32 var80075d2c;
+extern u32 var80075d40;
+extern u32 var80075d54;
+
+#endif

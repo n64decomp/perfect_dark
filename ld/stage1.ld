@@ -317,6 +317,8 @@ SECTIONS
 		src/setup/setup_000000.o (.data);
 		src/setup/inventory.o (.data);
 		src/setup/setup_0160b0.o (.data);
+		src/setup/cheats.o (.data);
+		src/setup/setup_01a3a0.o (.data);
 		src/setup/ailists.o (.data);
 		src/setup/setup_020df0.o (.data);
 	}

@@ -489,7 +489,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 	if (g_MenuStack[g_MpPlayerNum].unk00 && g_MenuStack[g_MpPlayerNum].unk00->item && g_MenuStack[g_MpPlayerNum].unk00->item->type == MENUITEMTYPE_CHECKBOX) {
 		cheat_id = g_MenuStack[g_MpPlayerNum].unk00->item->param;
 
-		if (g_MenuStack[g_MpPlayerNum].unk00->dialog == &menudialog_cheats_buddies && g_MenuStack[g_MpPlayerNum].unk00->item == &menuitems_cheats_buddies[0]) {
+		if (g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_CheatsBuddiesMenuDialog && g_MenuStack[g_MpPlayerNum].unk00->item == &g_CheatsBuddiesMenuItems[0]) {
 			// Velvet
 			sprintf(g_CheatMarqueeString, "%s: %s", textGet(0x548f), textGet(0x5475)); // "Buddy Available", "Velvet Dark"
 			return g_CheatMarqueeString;
@@ -498,7 +498,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 		if (cheatIsUnlocked(cheat_id)) {
 			// Show cheat name
 			sprintf(g_CheatMarqueeString, "%s: %s\n",
-					g_MenuStack[g_MpPlayerNum].unk00->dialog == &menudialog_cheats_buddies ? textGet(0x548f) : textGet(0x5488), // "Buddy Available", "Cheat available"
+					g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_CheatsBuddiesMenuDialog ? textGet(0x548f) : textGet(0x5488), // "Buddy Available", "Cheat available"
 					textGet(g_Cheats[cheat_id].nametextid)
 			);
 			return g_CheatMarqueeString;
