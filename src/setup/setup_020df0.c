@@ -12220,20 +12220,20 @@ struct mptrack g_MpTracks[NUM_MPTRACKS] = {
 
 // 2db8c
 struct mppreset g_MpPresets[NUM_MPPRESETS] = {
-	{ 0x5419, 0x07, 0, 0, 0, 0 }, // "No Shield"
-	{ 0x541a, 0x0c, 0, 0, 0, 0 }, // "Automatics"
-	{ 0x541b, 0x0d, 0, 0, 0, 0 }, // "Rocket Launcher"
-	{ 0x541c, 0x0b, 0, 0, 0, 0 }, // "Simulants"
-	{ 0x541d, 0x09, 0, 0, 0, 0 }, // "King of the Hill"
-	{ 0x541e, 0x02, 0, 0, 0, 0 }, // "Complex FarSight"
-	{ 0x541f, 0x08, 0, 0, 0, 0 }, // "Hold the Briefcase"
-	{ 0x5420, 0x01, 0, 0, 0, 0 }, // "Pistol One-Hit Kills"
-	{ 0x5421, 0x0a, 0, 0, 0, 0 }, // "Capture the Case"
-	{ 0x5422, 0x05, 0, 0, 0, 0 }, // "Cloaking"
-	{ 0x5423, 0x00, 0, 0, 0, 0 }, // "Temple Explosives"
-	{ 0x5424, 0x04, 0, 0, 0, 0 }, // "Slayer"
-	{ 0x5425, 0x03, 0, 0, 0, 0 }, // "Tranquilizr"
-	{ 0x5426, 0x06, 0, 0, 0, 0 }, // "Slow Motion"
+	{ 0x5419, 0x07, {0} }, // "No Shield"
+	{ 0x541a, 0x0c, {0} }, // "Automatics"
+	{ 0x541b, 0x0d, {0} }, // "Rocket Launcher"
+	{ 0x541c, 0x0b, {0} }, // "Simulants"
+	{ 0x541d, 0x09, {0} }, // "King of the Hill"
+	{ 0x541e, 0x02, {0} }, // "Complex FarSight"
+	{ 0x541f, 0x08, {0} }, // "Hold the Briefcase"
+	{ 0x5420, 0x01, {0} }, // "Pistol One-Hit Kills"
+	{ 0x5421, 0x0a, {0} }, // "Capture the Case"
+	{ 0x5422, 0x05, {0} }, // "Cloaking"
+	{ 0x5423, 0x00, {0} }, // "Temple Explosives"
+	{ 0x5424, 0x04, {0} }, // "Slayer"
+	{ 0x5425, 0x03, {0} }, // "Tranquilizr"
+	{ 0x5426, 0x06, {0} }, // "Slow Motion"
 };
 
 u32 var80087cbc = 0x00000000;
