@@ -4687,4 +4687,34 @@ struct mppreset {
 	u8 challenges[16];
 };
 
+struct explosiontype {
+	f32 rangeh;
+	f32 rangev;
+	f32 changerateh;
+	f32 changeratev;
+	f32 innersize;
+	f32 blastradius;
+	f32 damageradius;
+	u16 duration;
+	u16 propagationrate;
+	f32 flarespeed;
+	u8 smoketype;
+	u16 sound;
+	f32 damage;
+};
+
+struct smoketype {
+	u16 duration;
+	u16 fadespeed;
+	u16 spreadspeed;
+	u16 size;
+	f32 bgrotatespeed;
+	u32 colour;
+	f32 fgrotatespeed;
+	u16 numclouds;
+	f32 unk18;
+	f32 unk1c;
+	f32 unk20;
+};
+
 #endif

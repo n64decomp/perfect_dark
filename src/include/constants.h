@@ -584,6 +584,7 @@
 #define NUM_AICOMMANDS       481
 #define NUM_CHALLENGES       30
 #define NUM_CHEATS           42
+#define NUM_EXPLOSIONTYPES   26
 #define NUM_FIRESLOTS        20
 #define NUM_MPBEAUHEADS      5
 #define NUM_MPBOTCOMMANDS    14
@@ -591,6 +592,7 @@
 #define NUM_MPHEADS          75
 #define NUM_MPPRESETS        14
 #define NUM_MPTRACKS         42
+#define NUM_SMOKETYPES       23
 #define NUM_SOLONORMALSTAGES 17
 #define NUM_SOLOSTAGES       21
 #define NUM_STAGES           90
@@ -866,6 +868,15 @@
 
 #define SCREENSPLIT_HORIZONTAL 0
 #define SCREENSPLIT_VERTICAL   1
+
+#define SMOKETYPE_0 0
+#define SMOKETYPE_1 1
+#define SMOKETYPE_2 2
+#define SMOKETYPE_3 3
+#define SMOKETYPE_4 4
+#define SMOKETYPE_5 5
+#define SMOKETYPE_6 6
+#define SMOKETYPE_7 7
 
 #define SOLOSTAGEINDEX_DEFECTION     0
 #define SOLOSTAGEINDEX_INVESTIGATION 1
