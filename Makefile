@@ -34,16 +34,16 @@ ifeq ($(REGION),jap)
 endif
 
 ifeq ($(RELEASE),beta)
-    RELEASE_CFLAGS := -DBETA=1 -DREL1_0 -DFINAL=0
+    RELEASE_CFLAGS := -DBETA=1 -DREL1=0 -DFINAL=0
 endif
 ifeq ($(RELEASE),1.0)
-    RELEASE_CFLAGS := -DBETA=0 -DREL1_1 -DFINAL=0
+    RELEASE_CFLAGS := -DBETA=0 -DREL1=1 -DFINAL=0
 endif
 ifeq ($(RELEASE),final)
-    RELEASE_CFLAGS := -DBETA=0 -DREL1_0 -DFINAL=1
+    RELEASE_CFLAGS := -DBETA=0 -DREL1=0 -DFINAL=1
 endif
 
-CFLAGS := $(VERSION_CFLAGS) $(RELEASE_CFLAGS) -Wo,-loopunroll,0 -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -woff 819,820,852,821 -signed -I src/include -mips2
+CFLAGS := $(VERSION_CFLAGS) $(RELEASE_CFLAGS) -DANTICHEATS=1 -Wo,-loopunroll,0 -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -woff 819,820,852,821 -signed -I src/include -mips2
 
 C_FILES := $(shell find src -name '*.c')
 O_FILES := $(patsubst %.c, %.o, $(C_FILES))

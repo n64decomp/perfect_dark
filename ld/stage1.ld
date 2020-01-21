@@ -17,6 +17,8 @@ SECTIONS
 	inflateSegmentRomStart = 0x4e850;
 	ziplistSegmentRomStart = 0x4fc40;
 
+	_anticheatUncloakPoisonAddress = 0x7002a324;
+
 	__rompos = 0;
 	.boot 0x70001000 : AT(__rompos) {
 		src/boot/boot.o (.text);

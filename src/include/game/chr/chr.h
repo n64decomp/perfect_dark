@@ -64,7 +64,7 @@ void func0f0220ac(struct chrdata *chr);
 u32 func0f0220ec(void);
 u32 func0f022214(void);
 void chrCloak(struct chrdata *chr, bool arg1);
-void chrUncloak(struct chrdata *chr, bool arg1);
+void chrUncloak(struct chrdata *chr, bool value);
 void chrUncloakTemporarily(struct chrdata *chr);
 u32 func0f022624(void);
 u32 func0f022be4(void);

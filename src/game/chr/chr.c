@@ -5647,68 +5647,38 @@ void chrCloak(struct chrdata *chr, bool value)
 	}
 }
 
-GLOBAL_ASM(
-glabel chrUncloak
-/*  f022518:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f02251c:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f022520:	afa40048 */ 	sw	$a0,0x48($sp)
-/*  f022524:	8c820014 */ 	lw	$v0,0x14($a0)
-/*  f022528:	3c01dfff */ 	lui	$at,0xdfff
-/*  f02252c:	00807025 */ 	or	$t6,$a0,$zero
-/*  f022530:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f022534:	05e1002b */ 	bgez	$t7,.L0f0225e4
-/*  f022538:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f02253c:	0041c024 */ 	and	$t8,$v0,$at
-/*  f022540:	10a00015 */ 	beqz	$a1,.L0f022598
-/*  f022544:	ac980014 */ 	sw	$t8,0x14($a0)
-/*  f022548:	8dc5001c */ 	lw	$a1,0x1c($t6)
-/*  f02254c:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f022550:	44810000 */ 	mtc1	$at,$f0
-/*  f022554:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f022558:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f02255c:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*  f022560:	afb90010 */ 	sw	$t9,0x10($sp)
-/*  f022564:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f022568:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f02256c:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f022570:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f022574:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f022578:	00002025 */ 	or	$a0,$zero,$zero
-/*  f02257c:	2406005c */ 	addiu	$a2,$zero,0x5c
-/*  f022580:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f022584:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f022588:	e7a00030 */ 	swc1	$f0,0x30($sp)
-/*  f02258c:	e7a00034 */ 	swc1	$f0,0x34($sp)
-/*  f022590:	0fc24e7e */ 	jal	func0f0939f8
-/*  f022594:	e7a00038 */ 	swc1	$f0,0x38($sp)
-.L0f022598:
-/*  f022598:	3c057f19 */ 	lui	$a1,0x7f19
-/*  f02259c:	3c067f19 */ 	lui	$a2,0x7f19
-/*  f0225a0:	24a20784 */ 	addiu	$v0,$a1,0x784
-/*  f0225a4:	24c40be4 */ 	addiu	$a0,$a2,0xbe4
-/*  f0225a8:	0044082b */ 	sltu	$at,$v0,$a0
-/*  f0225ac:	10200007 */ 	beqz	$at,.L0f0225cc
-/*  f0225b0:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0225b4:
-/*  f0225b4:	8c490000 */ 	lw	$t1,0x0($v0)
-/*  f0225b8:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f0225bc:	0044082b */ 	sltu	$at,$v0,$a0
-/*  f0225c0:	01205027 */ 	nor	$t2,$t1,$zero
-/*  f0225c4:	1420fffb */ 	bnez	$at,.L0f0225b4
-/*  f0225c8:	006a1821 */ 	addu	$v1,$v1,$t2
-.L0f0225cc:
-/*  f0225cc:	3c015874 */ 	lui	$at,0x5874
-/*  f0225d0:	3421f34e */ 	ori	$at,$at,0xf34e
-/*  f0225d4:	10610003 */ 	beq	$v1,$at,.L0f0225e4
-/*  f0225d8:	3c0b7003 */ 	lui	$t3,0x7003
-/*  f0225dc:	256ba324 */ 	addiu	$t3,$t3,-23772
-/*  f0225e0:	ad60fff8 */ 	sw	$zero,-0x8($t3)
-.L0f0225e4:
-/*  f0225e4:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0225e8:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0225ec:	03e00008 */ 	jr	$ra
-/*  f0225f0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrUncloak(struct chrdata *chr, bool value)
+{
+	if (chr->hidden & CHRHFLAG_CLOAKED) {
+		chr->hidden &= ~CHRHFLAG_CLOAKED;
+
+		if (value) {
+			func0f0939f8(0, chr->prop, 92, -1,
+					-1, 0, 0, 0,
+					0, -1, 0, -1,
+					-1, -1, -1);
+		}
+
+#if ANTICHEATS
+		{
+			extern volatile u32 _anticheatUncloakPoisonAddress[];
+
+			u32 checksum = 0;
+			u32 i = (u32)&func0f190784;
+			u32 end = (u32)&func0f190be4;
+
+			while (i < end) {
+				checksum += ~*(u32 *)i;
+				i += 4;
+			}
+
+			if (checksum != 0x5874f34e) {
+				_anticheatUncloakPoisonAddress[-2] = 0;
+			}
+		}
+#endif
+	}
+}
 
 void chrUncloakTemporarily(struct chrdata *chr)
 {
