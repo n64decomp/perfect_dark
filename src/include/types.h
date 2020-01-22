@@ -395,8 +395,8 @@ struct act_surprised {
 struct act_throwgrenade {
 	/*0x2c*/ u32 entitytype;
 	/*0x30*/ u32 entityid;
-	/*0x34*/ u32 unk034;
-	/*0x38*/ u32 unk038;
+	/*0x34*/ u32 hand;
+	/*0x38*/ bool needsequip;
 };
 
 struct act_attackamount {

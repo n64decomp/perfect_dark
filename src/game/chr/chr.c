@@ -19848,12 +19848,12 @@ glabel func0f02f070
 /*  f02f284:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f02f288(struct chrdata *chr, s32 arg1, s32 arg2)
+void chrThrowGrenade(struct chrdata *chr, s32 hand, s32 needsequip)
 {
 	chrStopFiring(chr);
 	chr->actiontype = ACT_THROWGRENADE;
-	chr->act_throwgrenade.unk034 = arg1;
-	chr->act_throwgrenade.unk038 = arg2;
+	chr->act_throwgrenade.hand = hand;
+	chr->act_throwgrenade.needsequip = needsequip;
 	chr->sleep = 0;
 
 	if (func0001db94(chr->unk020)) {
@@ -33254,7 +33254,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 				weapon = rightprop->weapon;
 
 				if (weapon->weapon_id == WEAPON_GRENADE || weapon->weapon_id == WEAPON_NBOMB) {
-					func0f02f288(chr, 0, false);
+					chrThrowGrenade(chr, 0, false);
 					chr->act_throwgrenade.entitytype = entitytype;
 					chr->act_throwgrenade.entityid = entityid;
 					done = true;
@@ -33265,7 +33265,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 				weapon = leftprop->weapon;
 
 				if (weapon->weapon_id == WEAPON_GRENADE || weapon->weapon_id == WEAPON_NBOMB) {
-					func0f02f288(chr, 1, false);
+					chrThrowGrenade(chr, 1, false);
 					chr->act_throwgrenade.entitytype = entitytype;
 					chr->act_throwgrenade.entityid = entityid;
 					done = true;
@@ -33292,7 +33292,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 				if (prop) {
 					weapon = prop->weapon;
 					weapon->hidden |= 0x00000800;
-					func0f02f288(chr, rightprop == NULL ? 0 : 1, true);
+					chrThrowGrenade(chr, rightprop == NULL ? 0 : 1, true);
 					chr->act_throwgrenade.entitytype = entitytype;
 					chr->act_throwgrenade.entityid = entityid;
 					done = true;

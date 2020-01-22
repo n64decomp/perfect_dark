@@ -146,7 +146,7 @@ void chrKneel(struct chrdata *chr);
 void func0f02ef40(struct chrdata *chr);
 void func0f02effc(struct chrdata *chr);
 void func0f02f070(struct chrdata *chr);
-void func0f02f288(struct chrdata *chr, s32 arg1, s32 arg2);
+void chrThrowGrenade(struct chrdata *chr, s32 arg1, s32 arg2);
 void func0f02f314(struct chrdata *chr);
 void func0f02f530(struct chrdata *chr);
 void func0f02f60c(struct chrdata *chr);
