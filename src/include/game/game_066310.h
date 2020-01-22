@@ -277,7 +277,7 @@ u32 func0f08b658(void);
 u32 func0f08b880(void);
 void func0f08b8b8(struct chrdata *chr, u32 arg1);
 void func0f08b8e8(struct chrdata *chr, s32 weapon_id, s32 arg2, u32 flags, s32 arg4, s32 arg5);
-u32 func0f08bad0(void);
+struct prop *func0f08bad0(struct chrdata *chr, s32 arg1, s32 weapon_id, u32 flags);
 u32 func0f08bb3c(void);
 void func0f08bb5c(struct prop *prop, bool firing, s32 room);
 s32 func0f08bc5c(struct prop *prop);

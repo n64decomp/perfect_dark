@@ -266,7 +266,7 @@ bool func0f03af44(struct chrdata *chr, u32 anim_id, f32 fstartframe, f32 fendfra
 u32 func0f03afac(struct chrdata *chr);
 u32 func0f03b1e0(struct chrdata *chr);
 bool func0f03b5f0(struct chrdata *chr, s32 pad_id);
-u32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 thingtype, u32 thingid);
+s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid);
 u32 func0f03b97c(struct chrdata *chr, u32 arg1, u32 arg2);
 u32 func0f03ba44(void);
 u32 chrTryPunchOrKick(struct chrdata *chr, u32 arg1);
