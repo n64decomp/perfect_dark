@@ -13,7 +13,6 @@ Actual decompilation:
 | 0x39850 setup   | 36,494/50,064 words decompiled (72.89%)    |
 | 0x4e850 inflate | 150/1,276 words decompiled (11.76%)        |
 | 0x4fc40 game    | 46,256/452,216 words decompiled (10.23%)   |
-|-----------------+--------------------------------------------|
 | Total           | 91,221/594,684 words decompiled (15.34%)   |
 
 Assets:
