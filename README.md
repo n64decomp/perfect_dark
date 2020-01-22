@@ -7,19 +7,19 @@ This repository contains a work-in-progress decompilation of Perfect Dark for th
 Actual decompilation:
 
 | Segment         | Progress                                   |
-| --------------- | ------------------------------------------ |
+|-----------------|--------------------------------------------|
 | 0x1000 boot     | 206/2,068 words decompiled (9.96%)         |
 | 0x3050 library  | 8,115/89,060 words decompiled (9.11%)      |
 | 0x39850 setup   | 36,494/50,064 words decompiled (72.89%)    |
 | 0x4e850 inflate | 150/1,276 words decompiled (11.76%)        |
 | 0x4fc40 game    | 46,256/452,216 words decompiled (10.23%)   |
-| --------------- | ------------------------------------------ |
+|-----------------+--------------------------------------------|
 | Total           | 91,221/594,684 words decompiled (15.34%)   |
 
 Assets:
 
 | Asset Type      | Progress                                  |
-| --------------- | ----------------------------------------- |
+|-----------------|-------------------------------------------|
 | Lang files      | Done                                      |
 | Setup files     | Done                                      |
 | Prop files      | To do                                     |
@@ -35,7 +35,7 @@ Assets:
 If you want to browse the stage setup files, use this table to find the filename:
 
 | Stage            | File                                       |
-| ---------------- | ------------------------------------------ |
+|------------------|--------------------------------------------|
 | Defection        | [setupame.c](src/files/setup/setupame.c)   |
 | Investigation    | [setupear.c](src/files/setup/setupear.c)   |
 | Extraction       | [setupark.c](src/files/setup/setupark.c)   |
