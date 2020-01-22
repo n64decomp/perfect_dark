@@ -4,22 +4,33 @@ This repository contains a work-in-progress decompilation of Perfect Dark for th
 
 ## Roadmap
 
-| Section         | Progress                                  |
+Actual decompilation:
+
+| Segment         | Progress                                   |
+| --------------- | ------------------------------------------ |
+| 0x1000 boot     | 206/2,068 words decompiled (9.96%)         |
+| 0x3050 library  | 8,115/89,060 words decompiled (9.11%)      |
+| 0x39850 setup   | 36,494/50,064 words decompiled (72.89%)    |
+| 0x4e850 inflate | 150/1,276 words decompiled (11.76%)        |
+| 0x4fc40 game    | 46,256/452,216 words decompiled (10.23%)   |
+| --------------- | ------------------------------------------ |
+| Total           | 91,221/594,684 words decompiled (15.34%)   |
+
+Assets:
+
+| Asset Type      | Progress                                  |
 | --------------- | ----------------------------------------- |
-| 0x40 rspboot    | Won't disassemble as source is likely ASM |
-| 0x1000 boot     | 22/52 functions done (42.31%)             |
-| 0x3050 library  | 28/950 functions done (2.95%)             |
-| 0x39850 setup   | About 50% identified                      |
-| 0x4e850 inflate | 2/8 functions done (25.00%)               |
-| 0x4fc40 game    | 786/4207 functions done (18.68%)          |
 | Lang files      | Done                                      |
 | Setup files     | Done                                      |
-| Prop files      | Not started                               |
-| Character files | Not started                               |
-| Gun files       | Not started                               |
-| BG files        | Not started                               |
-| Pad files       | Not started                               |
+| Prop files      | To do                                     |
+| Character files | To do                                     |
+| Gun files       | To do                                     |
+| BG files        | To do                                     |
+| Pad files       | To do                                     |
 | Tile files      | Done                                      |
+| MIDI files      | Extracted as binaries                     |
+| Animation files | To do                                     |
+| Textures        | To do                                     |
 
 If you want to browse the stage setup files, use this table to find the filename:
 
