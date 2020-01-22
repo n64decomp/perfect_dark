@@ -10,6 +10,8 @@ s32 func000018ac(void);
 s32 func00001b28(void);
 s32 func00001e30(void);
 s32 func00001fa8(void);
+s32 func00002148(void);
+s32 func000022e0(void);
 s32 func00002ff0(void);
 
 #endif

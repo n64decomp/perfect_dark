@@ -5671,8 +5671,8 @@ void chrUncloak(struct chrdata *chr, bool value)
 			}
 
 			if (checksum != 0x5874f34e) {
-				extern volatile u32 _anticheatUncloakPoisonAddress[];
-				_anticheatUncloakPoisonAddress[-2] = 0;
+				extern volatile u32 _antipiracyUncloakWriteAddress[];
+				_antipiracyUncloakWriteAddress[-2] = 0;
 			}
 		}
 #endif

@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include "boot/boot.h"
 #include "constants.h"
 #include "gvars/gvars.h"
 #include "setup/setup_000000.h"
@@ -478,6 +479,52 @@ glabel cheatMenuHandleDialog
 /*  f107a70:	03e00008 */ 	jr	$ra
 /*  f107a74:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because it optimises the `end = &ptr[4]` line.
+// It's calculating it as &func00002148 + 24 rather than ptr + 4.
+//bool cheatMenuHandleDialog(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
+//{
+//	if (operation == MENUOP_100) {
+//		func0f14a52c();
+//
+//		if (func0f11e78c()) {
+//			savefileSetFlag(SAVEFILEFLAG_USED_TRANSFERPAK);
+//		}
+//
+//#if PIRACYCHECKS
+//		{
+//			u32 *ptr = (u32 *)&func00002148;
+//			u32 *end = (u32 *)&func000022e0;
+//			u32 checksum = 0;
+//
+//			while (ptr < end) {
+//				checksum ^= ~*ptr;
+//				ptr++;
+//			}
+//
+//			if (checksum != 0x6f764531) {
+//				ptr = (u32 *)&func00002148 + 20;
+//				end = &ptr[4];
+//
+//				while (ptr < end) {
+//					*ptr = 0x00000012;
+//					ptr++;
+//				}
+//			}
+//		}
+//#endif
+//	}
+//
+//	if (operation == MENUOP_101) {
+//		if (func0f11e78c()) {
+//			savefileSetFlag(SAVEFILEFLAG_USED_TRANSFERPAK);
+//		}
+//
+//		func0f14a560();
+//	}
+//
+//	return 0;
+//}
 
 char *cheatGetMarquee(struct menu_item *arg0)
 {
