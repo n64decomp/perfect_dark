@@ -232,7 +232,7 @@
 /*0x00e3*/ bool ai00e3(void);
 /*0x00e4*/ bool ai00e4(void);
 /*0x00e5*/ bool ai00e5(void);
-/*0x00e8*/ bool aiSetDoorClosed(void);
+/*0x00e8*/ bool aiSetDoorOpen(void);
 /*0x00e9*/ bool ai00e9(void);
 /*0x00ea*/ bool aiIfNumPlayersLessThan(void);
 /*0x00eb*/ bool aiIfChrAmmoQuantityLessThan(void);

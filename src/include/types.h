@@ -681,21 +681,23 @@ struct defaultobj {
 
 struct doorobj { // objtype 0x01
 	struct defaultobj base;
-	/*0x5c*/ f32 unk5c;
-	/*0x60*/ u32 unk60;
-	/*0x64*/ u32 unk64;
-	/*0x68*/ u32 unk68;
-	/*0x6c*/ u32 unk6c;
-	/*0x70*/ u32 unk70;
-	/*0x74*/ u32 lockbits;
-	/*0x78*/ u32 unk78;
-	/*0x7c*/ f32 speed;
-	/*0x80*/ f32 unk80;
-	/*0x84*/ s8 state;
-	/*0x88*/ u32 unk88;
-	/*0x8c*/ u32 unk8c;
-	/*0x90*/ u32 unk90;
-	/*0x94*/ u32 unk94;
+	/*0x5c*/ f32 maxfrac;
+	/*0x60*/ u32 perimfrac;
+	/*0x64*/ u32 accel;
+	/*0x68*/ u32 decel;
+	/*0x6c*/ u32 maxspeed;
+	/*0x70*/ u16 doorflags;
+	/*0x72*/ u16 doortype;
+	/*0x74*/ u32 keyflags;
+	/*0x78*/ u32 autoclosetime;
+	/*0x7c*/ f32 frac;
+	/*0x80*/ f32 fracspeed;
+	/*0x84*/ s8 mode;
+	/*0x85*/ u8 glasshits;
+	/*0x86*/ u16 fadealpha;
+	/*0x88*/ u16 xludist;
+	/*0x8a*/ u16 opadist;
+	/*0x8c*/ struct coord startpos;
 	/*0x98*/ u32 unk98;
 	/*0x9c*/ u32 unk9c;
 	/*0xa0*/ u32 unka0;
@@ -705,8 +707,13 @@ struct doorobj { // objtype 0x01
 	/*0xb0*/ u32 unkb0;
 	/*0xb4*/ u32 unkb4;
 	/*0xb8*/ u32 unkb8;
-	/*0xbc*/ u32 unkbc;
-	/*0xc0*/ u32 unkc0;
+	/*0xbc*/ struct doorobj *sibling;
+	/*0xc0*/ u32 lastopen60;
+	/*0xc4*/ s16 portal;
+	/*0xc6*/ s8 soundtype;
+	/*0xc7*/ s8 fadetime60;
+	/*0xc8*/ s32 lastcalc60;
+	/*0xcc*/ u8 laserfade;
 };
 
 struct image {

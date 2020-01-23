@@ -19,6 +19,8 @@ SECTIONS
 
 	_antipiracyUncloakWriteAddress = 0x7002a324;
 
+	osCicId = 0x80000310;
+
 	__rompos = 0;
 	.boot 0x70001000 : AT(__rompos) {
 		src/boot/boot.o (.text);

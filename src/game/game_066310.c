@@ -46294,13 +46294,10 @@ glabel func0f08e1a0
 /*  f08e210:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f08e214
-/*  f08e214:	3c01aaaa */ 	lui	$at,0xaaaa
-/*  f08e218:	3421aaaa */ 	ori	$at,$at,0xaaaa
-/*  f08e21c:	03e00008 */ 	jr	$ra
-/*  f08e220:	00811026 */ 	xor	$v0,$a0,$at
-);
+u32 decodeXorAaaaaaaa(u32 value)
+{
+	return value ^ 0xaaaaaaaa;
+}
 
 GLOBAL_ASM(
 glabel func0f08e224
@@ -46342,77 +46339,44 @@ glabel func0f08e224
 /*  f08e2a8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f08e2ac
-/*  f08e2ac:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08e2b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08e2b4:	00803025 */ 	or	$a2,$a0,$zero
-/*  f08e2b8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f08e2bc:	8cc50014 */ 	lw	$a1,0x14($a2)
-/*  f08e2c0:	808400c6 */ 	lb	$a0,0xc6($a0)
-/*  f08e2c4:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f08e2c8:	0fc237c4 */ 	jal	func0f08df10
-/*  f08e2cc:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f08e2d0:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f08e2d4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f08e2d8:	10c00012 */ 	beqz	$a2,.L0f08e324
-/*  f08e2dc:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f08e2e0:	44800000 */ 	mtc1	$zero,$f0
-/*  f08e2e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e2e8:	c444007c */ 	lwc1	$f4,0x7c($v0)
-.L0f08e2ec:
-/*  f08e2ec:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f08e2f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e2f4:	45020007 */ 	bc1fl	.L0f08e314
-/*  f08e2f8:	8c4200bc */ 	lw	$v0,0xbc($v0)
-/*  f08e2fc:	84ce00c4 */ 	lh	$t6,0xc4($a2)
-/*  f08e300:	844f00c4 */ 	lh	$t7,0xc4($v0)
-/*  f08e304:	55cf0003 */ 	bnel	$t6,$t7,.L0f08e314
-/*  f08e308:	8c4200bc */ 	lw	$v0,0xbc($v0)
-/*  f08e30c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f08e310:	8c4200bc */ 	lw	$v0,0xbc($v0)
-.L0f08e314:
-/*  f08e314:	10460003 */ 	beq	$v0,$a2,.L0f08e324
-/*  f08e318:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e31c:	5440fff3 */ 	bnezl	$v0,.L0f08e2ec
-/*  f08e320:	c444007c */ 	lwc1	$f4,0x7c($v0)
-.L0f08e324:
-/*  f08e324:	10600004 */ 	beqz	$v1,.L0f08e338
-/*  f08e328:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f08e32c:	0fc23545 */ 	jal	func0f08d514
-/*  f08e330:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f08e334:	8fa60020 */ 	lw	$a2,0x20($sp)
-.L0f08e338:
-/*  f08e338:	94d80072 */ 	lhu	$t8,0x72($a2)
-/*  f08e33c:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f08e340:	3c04aaaa */ 	lui	$a0,0xaaaa
-/*  f08e344:	17010006 */ 	bne	$t8,$at,.L0f08e360
-/*  f08e348:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e34c:	80d900c7 */ 	lb	$t9,0xc7($a2)
-/*  f08e350:	240800ff */ 	addiu	$t0,$zero,0xff
-/*  f08e354:	17200002 */ 	bnez	$t9,.L0f08e360
-/*  f08e358:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e35c:	a0c800cc */ 	sb	$t0,0xcc($a2)
-.L0f08e360:
-/*  f08e360:	0fc23885 */ 	jal	func0f08e214
-/*  f08e364:	3484bd73 */ 	ori	$a0,$a0,0xbd73
-/*  f08e368:	3c098000 */ 	lui	$t1,0x8000
-/*  f08e36c:	8d290310 */ 	lw	$t1,0x310($t1)
-/*  f08e370:	3c0b03e0 */ 	lui	$t3,0x3e0
-/*  f08e374:	240a1025 */ 	addiu	$t2,$zero,0x1025
-/*  f08e378:	10490006 */ 	beq	$v0,$t1,.L0f08e394
-/*  f08e37c:	356b0008 */ 	ori	$t3,$t3,0x8
-/*  f08e380:	3c027f09 */ 	lui	$v0,0x7f09
-/*  f08e384:	2442f968 */ 	addiu	$v0,$v0,-1688
-/*  f08e388:	ac4a0000 */ 	sw	$t2,0x0($v0)
-/*  f08e38c:	ac4b0004 */ 	sw	$t3,0x4($v0)
-/*  f08e390:	ac400008 */ 	sw	$zero,0x8($v0)
-.L0f08e394:
-/*  f08e394:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08e398:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08e39c:	03e00008 */ 	jr	$ra
-/*  f08e3a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f08e2ac(struct doorobj *door)
+{
+	bool pass = true;
+	struct doorobj *loopdoor;
+
+	func0f08df10(door->soundtype, door->base.prop);
+
+	loopdoor = door;
+
+	while (loopdoor) {
+		if (loopdoor->frac > 0 && loopdoor->portal == door->portal) {
+			pass = false;
+		}
+
+		loopdoor = loopdoor->sibling;
+
+		if (loopdoor == door) {
+			break;
+		}
+	}
+
+	if (pass) {
+		func0f08d514(door);
+	}
+
+	if (door->doortype == DOORTYPE_LASER && door->fadetime60 == 0) {
+		door->laserfade = 255;
+	}
+
+#if PIRACYCHECKS
+	if (osCicId != decodeXorAaaaaaaa(0xaaaabd73)) {
+		u32 *ptr = (u32 *)func0f08f968;
+		ptr[0] = 0x00001025;
+		ptr[1] = 0x03e00008;
+		ptr[2] = 0x00000000;
+	}
+#endif
+}
 
 GLOBAL_ASM(
 glabel func0f08e3a4

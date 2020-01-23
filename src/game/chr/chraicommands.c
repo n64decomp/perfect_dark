@@ -3450,15 +3450,15 @@ bool aiIfDoorState(void)
 	if (obj && obj->prop && obj->type == OBJTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
 
-		if (door->state == 0) {
-			if (door->speed <= 0) {
+		if (door->mode == 0) {
+			if (door->frac <= 0) {
 				pass = (cmd[3] & DOORSTATEBIT_CLOSED) != 0;
 			} else {
 				pass = (cmd[3] & DOORSTATEBIT_OPEN) != 0;
 			}
-		} else if (door->state == 1 || door->state == 3) {
+		} else if (door->mode == 1 || door->mode == 3) {
 			pass = (cmd[3] & DOORSTATEBIT_OPENING) != 0;
-		} else if (door->state == 2) {
+		} else if (door->mode == 2) {
 			pass = (cmd[3] & DOORSTATEBIT_CLOSING) != 0;
 		}
 	}
@@ -3500,7 +3500,7 @@ bool aiLockDoor(void)
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
 		u8 bits = cmd[3];
-		door->lockbits = door->lockbits | bits;
+		door->keyflags = door->keyflags | bits;
 	}
 
 	g_Vars.aioffset += 4;
@@ -3519,7 +3519,7 @@ bool aiUnlockDoor(void)
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
 		u8 bits = cmd[3];
-		door->lockbits = door->lockbits & ~bits;
+		door->keyflags = door->keyflags & ~bits;
 	}
 
 	g_Vars.aioffset += 4;
@@ -3539,9 +3539,9 @@ bool aiIfDoorLocked(void)
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
 		u32 bits = cmd[3];
-		u32 lockbits = door->lockbits;
+		u32 keyflags = door->keyflags;
 
-		if ((lockbits & bits) == bits) {
+		if ((keyflags & bits) == bits) {
 			pass = true;
 		}
 	}
@@ -7478,17 +7478,17 @@ bool ai00e5(void)
 /**
  * @cmd 00e8
  */
-bool aiSetDoorClosed(void)
+bool aiSetDoorOpen(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop) {
 		struct doorobj *door = (struct doorobj *) obj;
-		door->speed = door->unk5c;
-		door->unk80 = 0;
-		door->unkc0 = g_Vars.lvframe60;
-		door->state = 0;
+		door->frac = door->maxfrac;
+		door->fracspeed = 0;
+		door->lastopen60 = g_Vars.lvframe60;
+		door->mode = 0;
 		func0f08c54c(door);
 		func0f08d4e8(door);
 		func0f0926bc(door->base.prop, 1, 0xffff);
