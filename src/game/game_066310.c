@@ -27370,7 +27370,7 @@ glabel func0f07d1e4
 /*  f07d728:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07d72c:	45000005 */ 	bc1f	.L0f07d744
 /*  f07d730:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07d734:	0fc23959 */ 	jal	func0f08e564
+/*  f07d734:	0fc23959 */ 	jal	doorIsOpen
 /*  f07d738:	8fa401a0 */ 	lw	$a0,0x1a0($sp)
 /*  f07d73c:	2c480001 */ 	sltiu	$t0,$v0,0x1
 /*  f07d740:	afa80274 */ 	sw	$t0,0x274($sp)
@@ -46430,28 +46430,10 @@ s32 doorIsClosed(struct doorobj *door)
 	return (door->mode == 0 || door->mode == 3) && door->frac <= 0;
 }
 
-GLOBAL_ASM(
-glabel func0f08e564
-/*  f08e564:	80830084 */ 	lb	$v1,0x84($a0)
-/*  f08e568:	2c620001 */ 	sltiu	$v0,$v1,0x1
-/*  f08e56c:	14400004 */ 	bnez	$v0,.L0f08e580
-/*  f08e570:	38620003 */ 	xori	$v0,$v1,0x3
-/*  f08e574:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f08e578:	10400009 */ 	beqz	$v0,.L0f08e5a0
-/*  f08e57c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f08e580:
-/*  f08e580:	c484007c */ 	lwc1	$f4,0x7c($a0)
-/*  f08e584:	c486005c */ 	lwc1	$f6,0x5c($a0)
-/*  f08e588:	00001025 */ 	or	$v0,$zero,$zero
-/*  f08e58c:	4604303e */ 	c.le.s	$f6,$f4
-/*  f08e590:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e594:	45000002 */ 	bc1f	.L0f08e5a0
-/*  f08e598:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e59c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f08e5a0:
-/*  f08e5a0:	03e00008 */ 	jr	$ra
-/*  f08e5a4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 doorIsOpen(struct doorobj *door)
+{
+	return (door->mode == 0 || door->mode == 3) && door->frac >= door->maxfrac;
+}
 
 GLOBAL_ASM(
 glabel func0f08e5a8
