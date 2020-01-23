@@ -46401,51 +46401,29 @@ void doorSetMode(struct doorobj *door, s32 newmode)
 	}
 }
 
-GLOBAL_ASM(
-glabel doorActivate
-/*  f08e488:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f08e48c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f08e490:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f08e494:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f08e498:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08e49c:	8c8e000c */ 	lw	$t6,0xc($a0)
-/*  f08e4a0:	00808825 */ 	or	$s1,$a0,$zero
-/*  f08e4a4:	00a09025 */ 	or	$s2,$a1,$zero
-/*  f08e4a8:	000e7840 */ 	sll	$t7,$t6,0x1
-/*  f08e4ac:	05e10008 */ 	bgez	$t7,.L0f08e4d0
-/*  f08e4b0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f08e4b4:	14a10006 */ 	bne	$a1,$at,.L0f08e4d0
-/*  f08e4b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e4bc:	80980084 */ 	lb	$t8,0x84($a0)
-/*  f08e4c0:	24120002 */ 	addiu	$s2,$zero,0x2
-/*  f08e4c4:	17000002 */ 	bnez	$t8,.L0f08e4d0
-/*  f08e4c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e4cc:	24050003 */ 	addiu	$a1,$zero,0x3
-.L0f08e4d0:
-/*  f08e4d0:	0fc238e9 */ 	jal	doorSetMode
-/*  f08e4d4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f08e4d8:	8e3000bc */ 	lw	$s0,0xbc($s1)
-/*  f08e4dc:	5200000b */ 	beqzl	$s0,.L0f08e50c
-/*  f08e4e0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f08e4e4:	12110008 */ 	beq	$s0,$s1,.L0f08e508
-/*  f08e4e8:	02002025 */ 	or	$a0,$s0,$zero
-.L0f08e4ec:
-/*  f08e4ec:	0fc238e9 */ 	jal	doorSetMode
-/*  f08e4f0:	02402825 */ 	or	$a1,$s2,$zero
-/*  f08e4f4:	8e1000bc */ 	lw	$s0,0xbc($s0)
-/*  f08e4f8:	52000004 */ 	beqzl	$s0,.L0f08e50c
-/*  f08e4fc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f08e500:	5611fffa */ 	bnel	$s0,$s1,.L0f08e4ec
-/*  f08e504:	02002025 */ 	or	$a0,$s0,$zero
-.L0f08e508:
-/*  f08e508:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f08e50c:
-/*  f08e50c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08e510:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f08e514:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f08e518:	03e00008 */ 	jr	$ra
-/*  f08e51c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void doorActivate(struct doorobj *door, s32 newmode)
+{
+	struct doorobj *loopdoor;
+
+	s32 siblingmode = newmode;
+
+	if ((door->base.flags2 & OBJECTFLAG1_40000000) && newmode == 1) {
+		siblingmode = 2;
+
+		if (door->mode == 0) {
+			newmode = 3;
+		}
+	}
+
+	doorSetMode(door, newmode);
+
+	loopdoor = door->sibling;
+
+	while (loopdoor && loopdoor != door) {
+		doorSetMode(loopdoor, siblingmode);
+		loopdoor = loopdoor->sibling;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f08e520

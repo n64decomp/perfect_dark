@@ -307,7 +307,7 @@ u32 decodeXorAaaaaaaa(u32 value);
 u32 func0f08e224(void);
 void func0f08e2ac(struct doorobj *door);
 void doorSetMode(struct doorobj *door, s32 newmode);
-u32 doorActivate(struct defaultobj *obj, u32 arg1);
+void doorActivate(struct doorobj *door, s32 newmode);
 u32 func0f08e520(void);
 u32 func0f08e564(void);
 u32 func0f08e5a8(void);

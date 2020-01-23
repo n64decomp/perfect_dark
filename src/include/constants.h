@@ -665,7 +665,7 @@
 #define OBJECTFLAG1_08000000  0x08000000 // Locked door?
 #define OBJECTFLAG1_10000000  0x10000000 // Locked door?
 #define OBJECTFLAG1_20000000  0x20000000 // Locked door? Or indestructible by counter op?
-#define OBJECTFLAG1_40000000  0x40000000 // Not used in scripts
+#define OBJECTFLAG1_40000000  0x40000000 // Used by doors
 #define OBJECTFLAG1_80000000  0x80000000 // Attack Ship glass
 
 // obj->flags3
