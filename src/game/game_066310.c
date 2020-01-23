@@ -46196,68 +46196,31 @@ glabel func0f08df10
 /*  f08e0c0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f08e0c4
-/*  f08e0c4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08e0c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08e0cc:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f08e0d0:	8c980040 */ 	lw	$t8,0x40($a0)
-/*  f08e0d4:	3c01bfff */ 	lui	$at,0xbfff
-/*  f08e0d8:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f08e0dc:	01c17824 */ 	and	$t7,$t6,$at
-/*  f08e0e0:	37190200 */ 	ori	$t9,$t8,0x200
-/*  f08e0e4:	00803025 */ 	or	$a2,$a0,$zero
-/*  f08e0e8:	ac8f0008 */ 	sw	$t7,0x8($a0)
-/*  f08e0ec:	ac990040 */ 	sw	$t9,0x40($a0)
-/*  f08e0f0:	8cc50014 */ 	lw	$a1,0x14($a2)
-/*  f08e0f4:	808400c6 */ 	lb	$a0,0xc6($a0)
-/*  f08e0f8:	0fc235e1 */ 	jal	func0f08d784
-/*  f08e0fc:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f08e100:	0fc2353a */ 	jal	func0f08d4e8
-/*  f08e104:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f08e108:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f08e10c:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f08e110:	2418003c */ 	addiu	$t8,$zero,0x3c
-/*  f08e114:	94c80072 */ 	lhu	$t0,0x72($a2)
-/*  f08e118:	55010012 */ 	bnel	$t0,$at,.L0f08e164
-/*  f08e11c:	94cf0072 */ 	lhu	$t7,0x72($a2)
-/*  f08e120:	8cc90008 */ 	lw	$t1,0x8($a2)
-/*  f08e124:	8cc20044 */ 	lw	$v0,0x44($a2)
-/*  f08e128:	44802000 */ 	mtc1	$zero,$f4
-/*  f08e12c:	3c010200 */ 	lui	$at,0x200
-/*  f08e130:	01215025 */ 	or	$t2,$t1,$at
-/*  f08e134:	acca0008 */ 	sw	$t2,0x8($a2)
-/*  f08e138:	10400009 */ 	beqz	$v0,.L0f08e160
-/*  f08e13c:	e4c40060 */ 	swc1	$f4,0x60($a2)
-/*  f08e140:	314c0100 */ 	andi	$t4,$t2,0x100
-/*  f08e144:	51800007 */ 	beqzl	$t4,.L0f08e164
-/*  f08e148:	94cf0072 */ 	lhu	$t7,0x72($a2)
-/*  f08e14c:	a0400001 */ 	sb	$zero,0x1($v0)
-/*  f08e150:	8ccd0008 */ 	lw	$t5,0x8($a2)
-/*  f08e154:	2401feff */ 	addiu	$at,$zero,-257
-/*  f08e158:	01a17024 */ 	and	$t6,$t5,$at
-/*  f08e15c:	acce0008 */ 	sw	$t6,0x8($a2)
-.L0f08e160:
-/*  f08e160:	94cf0072 */ 	lhu	$t7,0x72($a2)
-.L0f08e164:
-/*  f08e164:	2402000b */ 	addiu	$v0,$zero,0xb
-/*  f08e168:	240800ff */ 	addiu	$t0,$zero,0xff
-/*  f08e16c:	544f0004 */ 	bnel	$v0,$t7,.L0f08e180
-/*  f08e170:	a0c000c7 */ 	sb	$zero,0xc7($a2)
-/*  f08e174:	10000002 */ 	beqz	$zero,.L0f08e180
-/*  f08e178:	a0d800c7 */ 	sb	$t8,0xc7($a2)
-/*  f08e17c:	a0c000c7 */ 	sb	$zero,0xc7($a2)
-.L0f08e180:
-/*  f08e180:	94d90072 */ 	lhu	$t9,0x72($a2)
-/*  f08e184:	54590003 */ 	bnel	$v0,$t9,.L0f08e194
-/*  f08e188:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08e18c:	a0c800cc */ 	sb	$t0,0xcc($a2)
-/*  f08e190:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f08e194:
-/*  f08e194:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08e198:	03e00008 */ 	jr	$ra
-/*  f08e19c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f08e0c4(struct doorobj *door)
+{
+	door->base.flags &= ~OBJECTFLAG0_40000000;
+	door->base.hidden |= OBJHIDDENFLAG_00000200;
+
+	func0f08d784(door->soundtype, door->base.prop);
+	func0f08d4e8(door);
+
+	if (door->doortype == DOORTYPE_8) {
+		struct obj44 *obj44 = door->base.unk44;
+		door->base.flags |= OBJECTFLAG0_02000000;
+		door->perimfrac = 0;
+
+		if (obj44 && (door->base.flags & OBJECTFLAG0_00000100)) {
+			obj44->unk01 = 0;
+			door->base.flags &= ~OBJECTFLAG0_00000100;
+		}
+	}
+
+	door->fadetime60 = door->doortype == DOORTYPE_LASER ? 60 : 0;
+
+	if (door->doortype == DOORTYPE_LASER) {
+		door->laserfade = -1;
+	}
+}
 
 void func0f08e1a0(struct doorobj *door)
 {
@@ -46342,7 +46305,7 @@ void doorSetMode(struct doorobj *door, s32 newmode)
 {
 	if (newmode == 1) {
 		if (door->mode == 0 || door->mode == 3) {
-			func0f08e0c4();
+			func0f08e0c4(door);
 		}
 
 		door->mode = newmode;

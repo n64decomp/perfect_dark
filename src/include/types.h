@@ -656,6 +656,11 @@ struct chrdata {
 	/*0x364*/ u32 unk364;
 };
 
+struct obj44 {
+	u8 unk00;
+	u8 unk01;
+};
+
 struct obj48 {
 	u32 flags;
 	u32 unk04;
@@ -681,7 +686,7 @@ struct defaultobj {
 	/*0x18*/ void *unk18; // probably same struct as chrdata->unk020
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden; // most significant nibble is the playernum who holds the obj
-	/*0x44*/ u32 unk44;
+	/*0x44*/ struct obj44 *unk44;
 	/*0x48*/ struct obj48 *unk48;
 	/*0x4c*/ s16 damage;
 	/*0x4e*/ s16 maxdamage;
@@ -694,7 +699,7 @@ struct defaultobj {
 struct doorobj { // objtype 0x01
 	struct defaultobj base;
 	/*0x5c*/ f32 maxfrac;
-	/*0x60*/ u32 perimfrac;
+	/*0x60*/ f32 perimfrac;
 	/*0x64*/ u32 accel;
 	/*0x68*/ u32 decel;
 	/*0x6c*/ u32 maxspeed;
