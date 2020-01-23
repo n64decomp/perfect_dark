@@ -96,7 +96,7 @@ u32 func0f1648cc(void);
 u32 func0f164a88(void);
 u32 func0f164ab8(void);
 u32 func0f164c64(void);
-u32 func0f164e48(void);
+void portalSetEnabled(s32 portalnum, bool enable);
 u32 func0f164e8c(void);
 u32 func0f164f9c(void);
 u32 func0f165004(void);

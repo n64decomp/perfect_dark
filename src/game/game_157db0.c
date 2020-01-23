@@ -14814,7 +14814,7 @@ glabel func0f164c64
 );
 
 GLOBAL_ASM(
-glabel func0f164e48
+glabel portalSetEnabled
 /*  f164e48:	3c0e800a */ 	lui	$t6,0x800a
 /*  f164e4c:	8dce4cc8 */ 	lw	$t6,0x4cc8($t6)
 /*  f164e50:	000478c0 */ 	sll	$t7,$a0,0x3

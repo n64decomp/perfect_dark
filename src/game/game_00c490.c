@@ -2727,7 +2727,7 @@ glabel func0f00e368
 /*  f00e878:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f00e87c:	45020004 */ 	bc1fl	.L0f00e890
 /*  f00e880:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f00e884:	0fc23545 */ 	jal	func0f08d514
+/*  f00e884:	0fc23545 */ 	jal	doorDeactivatePortal
 /*  f00e888:	02002025 */ 	or	$a0,$s0,$zero
 /*  f00e88c:	8e040018 */ 	lw	$a0,0x18($s0)
 .L0f00e890:

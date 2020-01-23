@@ -6851,7 +6851,7 @@ glabel setupParseObject
 /*  f06aedc:	0fc2d91c */ 	jal	func0f0b6470
 /*  f06aee0:	3c053f80 */ 	lui	$a1,0x3f80
 /*  f06aee4:	86240062 */ 	lh	$a0,0x62($s1)
-/*  f06aee8:	0fc59392 */ 	jal	func0f164e48
+/*  f06aee8:	0fc59392 */ 	jal	portalSetEnabled
 /*  f06aeec:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f06aef0:	862e0062 */ 	lh	$t6,0x62($s1)
 /*  f06aef4:	3c0d800a */ 	lui	$t5,0x800a
@@ -20583,7 +20583,7 @@ glabel func0f07731c
 .L0f077414:
 /*  f077414:	10600005 */ 	beqz	$v1,.L0f07742c
 /*  f077418:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07741c:	0fc23545 */ 	jal	func0f08d514
+/*  f07741c:	0fc23545 */ 	jal	doorDeactivatePortal
 /*  f077420:	02002025 */ 	or	$a0,$s0,$zero
 /*  f077424:	10000004 */ 	beqz	$zero,.L0f077438
 /*  f077428:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -28093,12 +28093,12 @@ glabel func0f07e0b8
 /*  f07e148:	240100ff */ 	addiu	$at,$zero,0xff
 /*  f07e14c:	15410005 */ 	bne	$t2,$at,.L0f07e164
 /*  f07e150:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07e154:	0fc59392 */ 	jal	func0f164e48
+/*  f07e154:	0fc59392 */ 	jal	portalSetEnabled
 /*  f07e158:	00002825 */ 	or	$a1,$zero,$zero
 /*  f07e15c:	10000004 */ 	beqz	$zero,.L0f07e170
 /*  f07e160:	8fab0028 */ 	lw	$t3,0x28($sp)
 .L0f07e164:
-/*  f07e164:	0fc59392 */ 	jal	func0f164e48
+/*  f07e164:	0fc59392 */ 	jal	portalSetEnabled
 /*  f07e168:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f07e16c:	8fab0028 */ 	lw	$t3,0x28($sp)
 .L0f07e170:
@@ -45380,7 +45380,7 @@ glabel func0f08d4e8
 /*  f08d4f0:	848600c4 */ 	lh	$a2,0xc4($a0)
 /*  f08d4f4:	04c00003 */ 	bltz	$a2,.L0f08d504
 /*  f08d4f8:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f08d4fc:	0fc59392 */ 	jal	func0f164e48
+/*  f08d4fc:	0fc59392 */ 	jal	portalSetEnabled
 /*  f08d500:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f08d504:
 /*  f08d504:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -45389,21 +45389,12 @@ glabel func0f08d4e8
 /*  f08d510:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f08d514
-/*  f08d514:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08d518:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08d51c:	848600c4 */ 	lh	$a2,0xc4($a0)
-/*  f08d520:	04c00003 */ 	bltz	$a2,.L0f08d530
-/*  f08d524:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f08d528:	0fc59392 */ 	jal	func0f164e48
-/*  f08d52c:	00002825 */ 	or	$a1,$zero,$zero
-.L0f08d530:
-/*  f08d530:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08d534:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08d538:	03e00008 */ 	jr	$ra
-/*  f08d53c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void doorDeactivatePortal(struct doorobj *door)
+{
+	if (door->portal >= 0) {
+		portalSetEnabled(door->portal, false);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f08d540
@@ -46284,7 +46275,7 @@ void func0f08e2ac(struct doorobj *door)
 	}
 
 	if (pass) {
-		func0f08d514(door);
+		doorDeactivatePortal(door);
 	}
 
 	if (door->doortype == DOORTYPE_LASER && door->fadetime60 == 0) {
