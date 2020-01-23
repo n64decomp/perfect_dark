@@ -3408,10 +3408,11 @@ glabel ai006b
 bool aiOpenDoor(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct defaultobj *door = objFindByTagId(cmd[2]);
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (door && door->prop && door->prop->type == PROPTYPE_DOOR) {
-		if (!func0f066310(door->prop, 0)) {
+	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
+		if (!func0f066310(obj->prop, 0)) {
+			struct doorobj *door = (struct doorobj *) obj;
 			doorActivate(door, DOORSTATE_OPEN);
 		}
 	}
@@ -3427,9 +3428,10 @@ bool aiOpenDoor(void)
 bool aiCloseDoor(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct defaultobj *door = objFindByTagId(cmd[2]);
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
-	if (door && door->prop && door->prop->type == PROPTYPE_DOOR) {
+	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
+		struct doorobj *door = (struct doorobj *) obj;
 		doorActivate(door, DOORSTATE_CLOSED);
 	}
 
@@ -7490,7 +7492,7 @@ bool aiSetDoorOpen(void)
 		door->lastopen60 = g_Vars.lvframe60;
 		door->mode = 0;
 		func0f08c54c(door);
-		func0f08d4e8(door);
+		doorActivatePortal(door);
 		func0f0926bc(door->base.prop, 1, 0xffff);
 	}
 

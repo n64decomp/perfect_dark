@@ -294,7 +294,7 @@ u32 func0f08c54c(struct doorobj *door);
 u32 func0f08cb20(void);
 u32 func0f08d3dc(void);
 u32 func0f08d460(void);
-void func0f08d4e8(struct doorobj *door);
+void doorActivatePortal(struct doorobj *door);
 void doorDeactivatePortal(struct doorobj *door);
 u32 func0f08d540(void);
 u32 func0f08d784(s8 soundtype, struct prop *prop);

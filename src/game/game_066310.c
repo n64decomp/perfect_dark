@@ -6876,7 +6876,7 @@ glabel setupParseObject
 .L0f06af3c:
 /*  f06af3c:	5602000e */ 	bnel	$s0,$v0,.L0f06af78
 /*  f06af40:	8e2c0014 */ 	lw	$t4,0x14($s1)
-/*  f06af44:	0fc2353a */ 	jal	func0f08d4e8
+/*  f06af44:	0fc2353a */ 	jal	doorActivatePortal
 /*  f06af48:	02202025 */ 	or	$a0,$s1,$zero
 /*  f06af4c:	862300c4 */ 	lh	$v1,0xc4($s1)
 /*  f06af50:	3c08800a */ 	lui	$t0,0x800a
@@ -20588,7 +20588,7 @@ glabel func0f07731c
 /*  f077424:	10000004 */ 	beqz	$zero,.L0f077438
 /*  f077428:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f07742c:
-/*  f07742c:	0fc2353a */ 	jal	func0f08d4e8
+/*  f07742c:	0fc2353a */ 	jal	doorActivatePortal
 /*  f077430:	02002025 */ 	or	$a0,$s0,$zero
 /*  f077434:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f077438:
@@ -45373,21 +45373,12 @@ glabel func0f08d460
 /*  f08d4e4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f08d4e8
-/*  f08d4e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08d4ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08d4f0:	848600c4 */ 	lh	$a2,0xc4($a0)
-/*  f08d4f4:	04c00003 */ 	bltz	$a2,.L0f08d504
-/*  f08d4f8:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f08d4fc:	0fc59392 */ 	jal	portalSetEnabled
-/*  f08d500:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f08d504:
-/*  f08d504:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08d508:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08d50c:	03e00008 */ 	jr	$ra
-/*  f08d510:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void doorActivatePortal(struct doorobj *door)
+{
+	if (door->portal >= 0) {
+		portalSetEnabled(door->portal, true);
+	}
+}
 
 void doorDeactivatePortal(struct doorobj *door)
 {
@@ -46193,7 +46184,7 @@ void func0f08e0c4(struct doorobj *door)
 	door->base.hidden |= OBJHIDDENFLAG_00000200;
 
 	func0f08d784(door->soundtype, door->base.prop);
-	func0f08d4e8(door);
+	doorActivatePortal(door);
 
 	if (door->doortype == DOORTYPE_8) {
 		struct obj44 *obj44 = door->base.unk44;
