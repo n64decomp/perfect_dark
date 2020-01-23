@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00015860(void);
+void initGlobalVariables(void);
 
 #endif

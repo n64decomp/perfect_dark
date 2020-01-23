@@ -1,90 +1,73 @@
 #include <ultra64.h>
+#include "gvars/gvars.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func00015860
-/*    15860:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*    15864:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*    15868:	24030001 */ 	addiu	$v1,$zero,0x1
-/*    1586c:	3c013f80 */ 	lui	$at,0x3f80
-/*    15870:	44810000 */ 	mtc1	$at,$f0
-/*    15874:	3c014080 */ 	lui	$at,0x4080
-/*    15878:	2404ffff */ 	addiu	$a0,$zero,-1
-/*    1587c:	44811000 */ 	mtc1	$at,$f2
-/*    15880:	24050002 */ 	addiu	$a1,$zero,0x2
-/*    15884:	240e0004 */ 	addiu	$t6,$zero,0x4
-/*    15888:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    1588c:	241800fe */ 	addiu	$t8,$zero,0xfe
-/*    15890:	2419015e */ 	addiu	$t9,$zero,0x15e
-/*    15894:	24080003 */ 	addiu	$t0,$zero,0x3
-/*    15898:	24090005 */ 	addiu	$t1,$zero,0x5
-/*    1589c:	ac400008 */ 	sw	$zero,0x8($v0)
-/*    158a0:	ac40000c */ 	sw	$zero,0xc($v0)
-/*    158a4:	ac40031c */ 	sw	$zero,0x31c($v0)
-/*    158a8:	ac400320 */ 	sw	$zero,0x320($v0)
-/*    158ac:	ac430000 */ 	sw	$v1,0x0($v0)
-/*    158b0:	ac440054 */ 	sw	$a0,0x54($v0)
-/*    158b4:	ac400058 */ 	sw	$zero,0x58($v0)
-/*    158b8:	ac4e0040 */ 	sw	$t6,0x40($v0)
-/*    158bc:	ac400014 */ 	sw	$zero,0x14($v0)
-/*    158c0:	ac400018 */ 	sw	$zero,0x18($v0)
-/*    158c4:	ac40001c */ 	sw	$zero,0x1c($v0)
-/*    158c8:	ac400020 */ 	sw	$zero,0x20($v0)
-/*    158cc:	ac400024 */ 	sw	$zero,0x24($v0)
-/*    158d0:	ac45003c */ 	sw	$a1,0x3c($v0)
-/*    158d4:	ac4f0028 */ 	sw	$t7,0x28($v0)
-/*    158d8:	ac58002c */ 	sw	$t8,0x2c($v0)
-/*    158dc:	ac400294 */ 	sw	$zero,0x294($v0)
-/*    158e0:	ac440298 */ 	sw	$a0,0x298($v0)
-/*    158e4:	ac44029c */ 	sw	$a0,0x29c($v0)
-/*    158e8:	ac4002a0 */ 	sw	$zero,0x2a0($v0)
-/*    158ec:	ac4002a4 */ 	sw	$zero,0x2a4($v0)
-/*    158f0:	ac4002a8 */ 	sw	$zero,0x2a8($v0)
-/*    158f4:	ac430448 */ 	sw	$v1,0x448($v0)
-/*    158f8:	ac430454 */ 	sw	$v1,0x454($v0)
-/*    158fc:	ac43044c */ 	sw	$v1,0x44c($v0)
-/*    15900:	ac430450 */ 	sw	$v1,0x450($v0)
-/*    15904:	ac400458 */ 	sw	$zero,0x458($v0)
-/*    15908:	ac400474 */ 	sw	$zero,0x474($v0)
-/*    1590c:	ac430324 */ 	sw	$v1,0x324($v0)
-/*    15910:	ac430328 */ 	sw	$v1,0x328($v0)
-/*    15914:	ac4002ac */ 	sw	$zero,0x2ac($v0)
-/*    15918:	ac5902bc */ 	sw	$t9,0x2bc($v0)
-/*    1591c:	ac400314 */ 	sw	$zero,0x314($v0)
-/*    15920:	ac400318 */ 	sw	$zero,0x318($v0)
-/*    15924:	ac400470 */ 	sw	$zero,0x470($v0)
-/*    15928:	ac40032c */ 	sw	$zero,0x32c($v0)
-/*    1592c:	ac40046c */ 	sw	$zero,0x46c($v0)
-/*    15930:	ac40048c */ 	sw	$zero,0x48c($v0)
-/*    15934:	ac400490 */ 	sw	$zero,0x490($v0)
-/*    15938:	a0400494 */ 	sb	$zero,0x494($v0)
-/*    1593c:	a0400495 */ 	sb	$zero,0x495($v0)
-/*    15940:	a0400496 */ 	sb	$zero,0x496($v0)
-/*    15944:	a0400497 */ 	sb	$zero,0x497($v0)
-/*    15948:	ac400498 */ 	sw	$zero,0x498($v0)
-/*    1594c:	ac40049c */ 	sw	$zero,0x49c($v0)
-/*    15950:	ac4304a0 */ 	sw	$v1,0x4a0($v0)
-/*    15954:	ac4304a4 */ 	sw	$v1,0x4a4($v0)
-/*    15958:	ac4504a8 */ 	sw	$a1,0x4a8($v0)
-/*    1595c:	a04004ac */ 	sb	$zero,0x4ac($v0)
-/*    15960:	a04304ad */ 	sb	$v1,0x4ad($v0)
-/*    15964:	a04504ae */ 	sb	$a1,0x4ae($v0)
-/*    15968:	a04804af */ 	sb	$t0,0x4af($v0)
-/*    1596c:	ac4904b0 */ 	sw	$t1,0x4b0($v0)
-/*    15970:	ac4004c8 */ 	sw	$zero,0x4c8($v0)
-/*    15974:	ac4004cc */ 	sw	$zero,0x4cc($v0)
-/*    15978:	a04404d2 */ 	sb	$a0,0x4d2($v0)
-/*    1597c:	a04004d3 */ 	sb	$zero,0x4d3($v0)
-/*    15980:	a04404d4 */ 	sb	$a0,0x4d4($v0)
-/*    15984:	a04004d5 */ 	sb	$zero,0x4d5($v0)
-/*    15988:	a04004d7 */ 	sb	$zero,0x4d7($v0)
-/*    1598c:	a04004e0 */ 	sb	$zero,0x4e0($v0)
-/*    15990:	a04004e2 */ 	sb	$zero,0x4e2($v0)
-/*    15994:	e4400004 */ 	swc1	$f0,0x4($v0)
-/*    15998:	e4400010 */ 	swc1	$f0,0x10($v0)
-/*    1599c:	e4420048 */ 	swc1	$f2,0x48($v0)
-/*    159a0:	03e00008 */ 	jr	$ra
-/*    159a4:	e442005c */ 	swc1	$f2,0x5c($v0)
-/*    159a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*    159ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void initGlobalVariables(void)
+{
+	g_Vars.diffframe60f = 1;
+	g_Vars.lvframe60 = 0;
+	g_Vars.lvframenum = 0;
+	g_Vars.unk00031c = 0;
+	g_Vars.unk000320 = 0;
+	g_Vars.diffframe60 = 1;
+	g_Vars.lastframe240 = -1;
+	g_Vars.thisframe240 = 0;
+	g_Vars.diffframe240 = 4;
+	g_Vars.diffframe60freal = 1;
+	g_Vars.lastframetime = 0;
+	g_Vars.thisframetime = 0;
+	g_Vars.thisframeticks = 0;
+	g_Vars.lostframetime = 0;
+	g_Vars.lostframetime240 = 0;
+	g_Vars.lvupdate240_60error = 2;
+	g_Vars.mininc60 = 1;
+	g_Vars.roomportalrecursionlimit = 254;
+	g_Vars.diffframe240f = 4;
+	g_Vars.diffframe240freal = 4;
+	g_Vars.bondplayernum = 0;
+	g_Vars.coopplayernum = -1;
+	g_Vars.antiplayernum = -1;
+	g_Vars.bond = NULL;
+	g_Vars.coop = NULL;
+	g_Vars.anti = NULL;
+	g_Vars.coopradaron = 1;
+	g_Vars.coopfriendlyfire = 1;
+	g_Vars.antiradaron = 1;
+	g_Vars.pendingantiplayernum = 1;
+	g_Vars.unk000458 = 0;
+	g_Vars.numaibuddies = 0;
+	g_Vars.unk000324 = 1;
+	g_Vars.unk000328 = 1;
+	g_Vars.tickmode = 0;
+	g_Vars.roomcount = 350;
+	g_Vars.unk000314 = 0;
+	g_Vars.mplayerisrunning = 0;
+	g_Vars.perfectbuddynum = 0;
+	g_Vars.unk00032c = 0;
+	g_Vars.restartlevel = 0;
+	g_Vars.unk00048c = 0;
+	g_Vars.unk000490 = 0;
+	g_Vars.unk000494 = 0;
+	g_Vars.unk000495 = 0;
+	g_Vars.unk000496 = 0;
+	g_Vars.unk000497 = 0;
+	g_Vars.unk000498 = 0;
+	g_Vars.unk00049c = 0;
+	g_Vars.unk0004a0 = 1;
+	g_Vars.unk0004a4 = 1;
+	g_Vars.unk0004a8 = 2;
+	g_Vars.unk0004ac = 0;
+	g_Vars.unk0004ad = 1;
+	g_Vars.unk0004ae = 2;
+	g_Vars.unk0004af = 3;
+	g_Vars.mpquickteam = MPQUICKTEAM_5;
+	g_Vars.unk0004c8 = 0;
+	g_Vars.in_cutscene = false;
+	g_Vars.unk0004d2 = -1;
+	g_Vars.unk0004d3 = 0;
+	g_Vars.unk0004d4 = -1;
+	g_Vars.unk0004d5 = 0;
+	g_Vars.unk0004d7 = 0;
+	g_Vars.unk0004e0 = 0;
+	g_Vars.unk0004e2 = 0;
+}

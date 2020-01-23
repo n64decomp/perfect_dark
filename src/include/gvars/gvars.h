@@ -24,7 +24,7 @@ struct g_vars {
 	/*00001c*/ s32 thisframeticks;
 	/*000020*/ s32 lostframetime;
 	/*000024*/ s32 lostframetime240;
-	/*000028*/ s32 mininc60;
+	/*000028*/ u32 mininc60;
 	/*00002c*/ s32 roomportalrecursionlimit;
 	/*000030*/ s32 lvframe240;
 	/*000034*/ s32 lvupdate240;
@@ -82,8 +82,8 @@ struct g_vars {
 	/*000318*/ bool mplayerisrunning;
 	/*00031c*/ u32 unk00031c;
 	/*000320*/ u32 unk000320;
-	/*000324*/ u32 unk000324;
-	/*000328*/ u32 unk000328;
+	/*000324*/ s32 unk000324;
+	/*000328*/ s32 unk000328;
 	/*00032c*/ u32 unk00032c;
 	/*000330*/ u32 unk000330;
 	/*000334*/ u32 unk000334;
@@ -142,10 +142,10 @@ struct g_vars {
 	/*00043c*/ u32 unk00043c;
 	/*000440*/ u32 unk000440;
 	/*000444*/ u32 unk000444;
-	/*000448*/ bool coopradaron;
-	/*00044c*/ bool antiradaron;
-	/*000450*/ u32 pendingantiplayernum;
-	/*000454*/ bool coopfriendlyfire;
+	/*000448*/ s32 coopradaron;
+	/*00044c*/ s32 antiradaron;
+	/*000450*/ s32 pendingantiplayernum;
+	/*000454*/ s32 coopfriendlyfire;
 	/*000458*/ u32 unk000458;
 	/*00045c*/ u32 speedpilltime;
 	/*000460*/ u32 speedpillchange;
@@ -172,10 +172,13 @@ struct g_vars {
 	/*000497*/ u8 unk000497;
 	/*000498*/ u32 unk000498;
 	/*00049c*/ u32 unk00049c;
-	/*0004a0*/ u32 unk0004a0;
-	/*0004a4*/ u32 unk0004a4;
-	/*0004a8*/ u32 unk0004a8;
-	/*0004ac*/ u32 unk0004ac;
+	/*0004a0*/ s32 unk0004a0;
+	/*0004a4*/ s32 unk0004a4;
+	/*0004a8*/ s32 unk0004a8;
+	/*0004ac*/ s8 unk0004ac;
+	/*0004ad*/ s8 unk0004ad; // initialised to 1
+	/*0004ae*/ s8 unk0004ae; // initialised to 2
+	/*0004af*/ s8 unk0004af; // initialised to 3
 	/*0004b0*/ u32 mpquickteam;
 	/*0004b4*/ s32 stagenum;
 	/*0004b8*/ u32 unk0004b8;
@@ -186,11 +189,12 @@ struct g_vars {
 	/*0004cc*/ s32 in_cutscene;
 	/*0004d0*/ u8 unk0004d0;
 	/*0004d1*/ u8 unk0004d1;
-	/*0004d2*/ u8 unk0004d2;
+	/*0004d2*/ s8 unk0004d2;
 	/*0004d3*/ s8 unk0004d3;
-	/*0004d4*/ u8 unk0004d4;
+	/*0004d4*/ s8 unk0004d4;
 	/*0004d5*/ u8 unk0004d5;
 	/*0004d6*/ s8 unk0004d6;
+	/*0004d7*/ u8 unk0004d7;
 	/*0004d8*/ u32 unk0004d8;
 	/*0004dc*/ u32 unk0004dc;
 	/*0004e0*/ u8 unk0004e0;
