@@ -46299,45 +46299,23 @@ u32 decodeXorAaaaaaaa(u32 value)
 	return value ^ 0xaaaaaaaa;
 }
 
-GLOBAL_ASM(
-glabel func0f08e224
-/*  f08e224:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08e228:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08e22c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08e230:	00808025 */ 	or	$s0,$a0,$zero
-/*  f08e234:	8e050014 */ 	lw	$a1,0x14($s0)
-/*  f08e238:	0fc23751 */ 	jal	func0f08dd44
-/*  f08e23c:	808400c6 */ 	lb	$a0,0xc6($a0)
-/*  f08e240:	960e0072 */ 	lhu	$t6,0x72($s0)
-/*  f08e244:	24010008 */ 	addiu	$at,$zero,0x8
-/*  f08e248:	55c1000f */ 	bnel	$t6,$at,.L0f08e288
-/*  f08e24c:	96090072 */ 	lhu	$t1,0x72($s0)
-/*  f08e250:	0fc1a179 */ 	jal	func0f0685e4
-/*  f08e254:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f08e258:	8e0f0040 */ 	lw	$t7,0x40($s0)
-/*  f08e25c:	31f80080 */ 	andi	$t8,$t7,0x80
-/*  f08e260:	53000009 */ 	beqzl	$t8,.L0f08e288
-/*  f08e264:	96090072 */ 	lhu	$t1,0x72($s0)
-/*  f08e268:	8e020048 */ 	lw	$v0,0x48($s0)
-/*  f08e26c:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f08e270:	37280001 */ 	ori	$t0,$t9,0x1
-/*  f08e274:	ac480000 */ 	sw	$t0,0x0($v0)
-/*  f08e278:	8e040048 */ 	lw	$a0,0x48($s0)
-/*  f08e27c:	0c00566c */ 	jal	func000159b0
-/*  f08e280:	24840020 */ 	addiu	$a0,$a0,0x20
-/*  f08e284:	96090072 */ 	lhu	$t1,0x72($s0)
-.L0f08e288:
-/*  f08e288:	2401000b */ 	addiu	$at,$zero,0xb
-/*  f08e28c:	55210003 */ 	bnel	$t1,$at,.L0f08e29c
-/*  f08e290:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08e294:	a20000cc */ 	sb	$zero,0xcc($s0)
-/*  f08e298:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f08e29c:
-/*  f08e29c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08e2a0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08e2a4:	03e00008 */ 	jr	$ra
-/*  f08e2a8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f08e224(struct doorobj *door)
+{
+	func0f08dd44(door->soundtype, door->base.prop);
+
+	if (door->doortype == DOORTYPE_8) {
+		func0f0685e4(door->base.prop);
+
+		if (door->base.hidden & OBJHIDDENFLAG_00000080) {
+			door->base.unk48->flags |= 1;
+			func000159b0(&door->base.unk48->unk20);
+		}
+	}
+
+	if (door->doortype == DOORTYPE_LASER) {
+		door->laserfade = 0;
+	}
+}
 
 void func0f08e2ac(struct doorobj *door)
 {

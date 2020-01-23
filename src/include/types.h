@@ -656,6 +656,18 @@ struct chrdata {
 	/*0x364*/ u32 unk364;
 };
 
+struct obj48 {
+	u32 flags;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+};
+
 struct defaultobj {
 	/*0x00*/ u16 extrascale;
 	/*0x02*/ u8 hidden2;
@@ -670,7 +682,7 @@ struct defaultobj {
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden; // most significant nibble is the playernum who holds the obj
 	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
+	/*0x48*/ struct obj48 *unk48;
 	/*0x4c*/ s16 damage;
 	/*0x4e*/ s16 maxdamage;
 	/*0x50*/ u32 shadecol;
