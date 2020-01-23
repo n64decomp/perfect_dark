@@ -46259,40 +46259,22 @@ glabel func0f08e0c4
 /*  f08e19c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f08e1a0
-/*  f08e1a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08e1a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08e1a8:	8c8e0008 */ 	lw	$t6,0x8($a0)
-/*  f08e1ac:	3c01bfff */ 	lui	$at,0xbfff
-/*  f08e1b0:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f08e1b4:	01c17824 */ 	and	$t7,$t6,$at
-/*  f08e1b8:	00803025 */ 	or	$a2,$a0,$zero
-/*  f08e1bc:	ac8f0008 */ 	sw	$t7,0x8($a0)
-/*  f08e1c0:	8cc50014 */ 	lw	$a1,0x14($a2)
-/*  f08e1c4:	808400c6 */ 	lb	$a0,0xc6($a0)
-/*  f08e1c8:	0fc236aa */ 	jal	func0f08daa8
-/*  f08e1cc:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f08e1d0:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f08e1d4:	2402000b */ 	addiu	$v0,$zero,0xb
-/*  f08e1d8:	2419003c */ 	addiu	$t9,$zero,0x3c
-/*  f08e1dc:	94d80072 */ 	lhu	$t8,0x72($a2)
-/*  f08e1e0:	54580004 */ 	bnel	$v0,$t8,.L0f08e1f4
-/*  f08e1e4:	a0c000c7 */ 	sb	$zero,0xc7($a2)
-/*  f08e1e8:	10000002 */ 	beqz	$zero,.L0f08e1f4
-/*  f08e1ec:	a0d900c7 */ 	sb	$t9,0xc7($a2)
-/*  f08e1f0:	a0c000c7 */ 	sb	$zero,0xc7($a2)
-.L0f08e1f4:
-/*  f08e1f4:	94c80072 */ 	lhu	$t0,0x72($a2)
-/*  f08e1f8:	54480003 */ 	bnel	$v0,$t0,.L0f08e208
-/*  f08e1fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08e200:	a0c000cc */ 	sb	$zero,0xcc($a2)
-/*  f08e204:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f08e208:
-/*  f08e208:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08e20c:	03e00008 */ 	jr	$ra
-/*  f08e210:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f08e1a0(struct doorobj *door)
+{
+	door->base.flags &= ~OBJECTFLAG0_40000000;
+
+	func0f08daa8(door->soundtype, door->base.prop);
+
+	if (door->doortype == DOORTYPE_LASER) {
+		door->fadetime60 = 60;
+	} else {
+		door->fadetime60 = 0;
+	}
+
+	if (door->doortype == DOORTYPE_LASER) {
+		door->laserfade = 0;
+	}
+}
 
 u32 decodeXorAaaaaaaa(u32 value)
 {
@@ -46366,7 +46348,7 @@ void doorSetMode(struct doorobj *door, s32 newmode)
 		door->mode = newmode;
 	} else if (newmode == 2) {
 		if (door->mode == 0 && door->frac > 0) {
-			func0f08e1a0();
+			func0f08e1a0(door);
 		}
 
 		if ((door->mode != 0 && door->mode != 3) || door->frac > 0) {
