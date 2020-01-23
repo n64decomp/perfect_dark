@@ -20405,7 +20405,7 @@ glabel func0f076f30
 .L0f077188:
 /*  f077188:	50600004 */ 	beqzl	$v1,.L0f07719c
 /*  f07718c:	960c0072 */ 	lhu	$t4,0x72($s0)
-/*  f077190:	0fc238e9 */ 	jal	func0f08e3a4
+/*  f077190:	0fc238e9 */ 	jal	doorSetMode
 /*  f077194:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f077198:	960c0072 */ 	lhu	$t4,0x72($s0)
 .L0f07719c:
@@ -46378,75 +46378,28 @@ void func0f08e2ac(struct doorobj *door)
 #endif
 }
 
-GLOBAL_ASM(
-glabel func0f08e3a4
-/*  f08e3a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f08e3a8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f08e3ac:	14a1000e */ 	bne	$a1,$at,.L0f08e3e8
-/*  f08e3b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f08e3b4:	80820084 */ 	lb	$v0,0x84($a0)
-/*  f08e3b8:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f08e3bc:	50400004 */ 	beqzl	$v0,.L0f08e3d0
-/*  f08e3c0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f08e3c4:	14410006 */ 	bne	$v0,$at,.L0f08e3e0
-/*  f08e3c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e3cc:	afa40018 */ 	sw	$a0,0x18($sp)
-.L0f08e3d0:
-/*  f08e3d0:	0fc23831 */ 	jal	func0f08e0c4
-/*  f08e3d4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f08e3d8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f08e3dc:	8fa5001c */ 	lw	$a1,0x1c($sp)
-.L0f08e3e0:
-/*  f08e3e0:	10000025 */ 	beqz	$zero,.L0f08e478
-/*  f08e3e4:	a0850084 */ 	sb	$a1,0x84($a0)
-.L0f08e3e8:
-/*  f08e3e8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f08e3ec:	54a10022 */ 	bnel	$a1,$at,.L0f08e478
-/*  f08e3f0:	a0850084 */ 	sb	$a1,0x84($a0)
-/*  f08e3f4:	80820084 */ 	lb	$v0,0x84($a0)
-/*  f08e3f8:	1440000d */ 	bnez	$v0,.L0f08e430
-/*  f08e3fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e400:	44802000 */ 	mtc1	$zero,$f4
-/*  f08e404:	c486007c */ 	lwc1	$f6,0x7c($a0)
-/*  f08e408:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f08e40c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e410:	45000007 */ 	bc1f	.L0f08e430
-/*  f08e414:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e418:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f08e41c:	0fc23868 */ 	jal	func0f08e1a0
-/*  f08e420:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f08e424:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f08e428:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f08e42c:	80820084 */ 	lb	$v0,0x84($a0)
-.L0f08e430:
-/*  f08e430:	10400003 */ 	beqz	$v0,.L0f08e440
-/*  f08e434:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f08e438:	14410008 */ 	bne	$v0,$at,.L0f08e45c
-/*  f08e43c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f08e440:
-/*  f08e440:	44804000 */ 	mtc1	$zero,$f8
-/*  f08e444:	c48a007c */ 	lwc1	$f10,0x7c($a0)
-/*  f08e448:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f08e44c:	460a403c */ 	c.lt.s	$f8,$f10
-/*  f08e450:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e454:	45000003 */ 	bc1f	.L0f08e464
-/*  f08e458:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f08e45c:
-/*  f08e45c:	10000006 */ 	beqz	$zero,.L0f08e478
-/*  f08e460:	a0850084 */ 	sb	$a1,0x84($a0)
-.L0f08e464:
-/*  f08e464:	54410005 */ 	bnel	$v0,$at,.L0f08e47c
-/*  f08e468:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08e46c:	10000002 */ 	beqz	$zero,.L0f08e478
-/*  f08e470:	a0800084 */ 	sb	$zero,0x84($a0)
-/*  f08e474:	a0850084 */ 	sb	$a1,0x84($a0)
-.L0f08e478:
-/*  f08e478:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f08e47c:
-/*  f08e47c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f08e480:	03e00008 */ 	jr	$ra
-/*  f08e484:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void doorSetMode(struct doorobj *door, s32 newmode)
+{
+	if (newmode == 1) {
+		if (door->mode == 0 || door->mode == 3) {
+			func0f08e0c4();
+		}
+
+		door->mode = newmode;
+	} else if (newmode == 2) {
+		if (door->mode == 0 && door->frac > 0) {
+			func0f08e1a0();
+		}
+
+		if ((door->mode != 0 && door->mode != 3) || door->frac > 0) {
+			door->mode = newmode;
+		} else if (door->mode == 3) {
+			door->mode = 0;
+		}
+	} else {
+		door->mode = newmode;
+	}
+}
 
 GLOBAL_ASM(
 glabel doorActivate
@@ -46469,7 +46422,7 @@ glabel doorActivate
 /*  f08e4c8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f08e4cc:	24050003 */ 	addiu	$a1,$zero,0x3
 .L0f08e4d0:
-/*  f08e4d0:	0fc238e9 */ 	jal	func0f08e3a4
+/*  f08e4d0:	0fc238e9 */ 	jal	doorSetMode
 /*  f08e4d4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f08e4d8:	8e3000bc */ 	lw	$s0,0xbc($s1)
 /*  f08e4dc:	5200000b */ 	beqzl	$s0,.L0f08e50c
@@ -46477,7 +46430,7 @@ glabel doorActivate
 /*  f08e4e4:	12110008 */ 	beq	$s0,$s1,.L0f08e508
 /*  f08e4e8:	02002025 */ 	or	$a0,$s0,$zero
 .L0f08e4ec:
-/*  f08e4ec:	0fc238e9 */ 	jal	func0f08e3a4
+/*  f08e4ec:	0fc238e9 */ 	jal	doorSetMode
 /*  f08e4f0:	02402825 */ 	or	$a1,$s2,$zero
 /*  f08e4f4:	8e1000bc */ 	lw	$s0,0xbc($s0)
 /*  f08e4f8:	52000004 */ 	beqzl	$s0,.L0f08e50c
