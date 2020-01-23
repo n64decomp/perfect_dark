@@ -1352,7 +1352,7 @@ glabel func0f066310
 /*  f0663e4:	92cf0003 */ 	lbu	$t7,0x3($s6)
 /*  f0663e8:	56af0008 */ 	bnel	$s5,$t7,.L0f06640c
 /*  f0663ec:	02a09025 */ 	or	$s2,$s5,$zero
-/*  f0663f0:	0fc23948 */ 	jal	func0f08e520
+/*  f0663f0:	0fc23948 */ 	jal	doorIsClosed
 /*  f0663f4:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f0663f8:	54400004 */ 	bnezl	$v0,.L0f06640c
 /*  f0663fc:	02a09025 */ 	or	$s2,$s5,$zero
@@ -13756,7 +13756,7 @@ glabel func0f0710ec
 /*  f071130:	8d440064 */ 	lw	$a0,0x64($t2)
 /*  f071134:	50800014 */ 	beqzl	$a0,.L0f071188
 /*  f071138:	80ec0085 */ 	lb	$t4,0x85($a3)
-/*  f07113c:	0fc23948 */ 	jal	func0f08e520
+/*  f07113c:	0fc23948 */ 	jal	doorIsClosed
 /*  f071140:	afa70138 */ 	sw	$a3,0x138($sp)
 /*  f071144:	1440000f */ 	bnez	$v0,.L0f071184
 /*  f071148:	8fa70138 */ 	lw	$a3,0x138($sp)
@@ -20412,7 +20412,7 @@ glabel func0f076f30
 /*  f07719c:	24010008 */ 	addiu	$at,$zero,0x8
 /*  f0771a0:	1581000b */ 	bne	$t4,$at,.L0f0771d0
 /*  f0771a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0771a8:	0fc23948 */ 	jal	func0f08e520
+/*  f0771a8:	0fc23948 */ 	jal	doorIsClosed
 /*  f0771ac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0771b0:	10400007 */ 	beqz	$v0,.L0f0771d0
 /*  f0771b4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -21158,7 +21158,7 @@ glabel func0f077c10
 .L0f077c84:
 /*  f077c84:	1080000c */ 	beqz	$a0,.L0f077cb8
 /*  f077c88:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f077c8c:	0fc23948 */ 	jal	func0f08e520
+/*  f077c8c:	0fc23948 */ 	jal	doorIsClosed
 /*  f077c90:	afa30268 */ 	sw	$v1,0x268($sp)
 /*  f077c94:	14400008 */ 	bnez	$v0,.L0f077cb8
 /*  f077c98:	8fa30268 */ 	lw	$v1,0x268($sp)
@@ -21399,7 +21399,7 @@ glabel func0f077c10
 /*  f078018:	8f240064 */ 	lw	$a0,0x64($t9)
 /*  f07801c:	5080000a */ 	beqzl	$a0,.L0f078048
 /*  f078020:	00602825 */ 	or	$a1,$v1,$zero
-/*  f078024:	0fc23948 */ 	jal	func0f08e520
+/*  f078024:	0fc23948 */ 	jal	doorIsClosed
 /*  f078028:	afa40334 */ 	sw	$a0,0x334($sp)
 /*  f07802c:	10400014 */ 	beqz	$v0,.L0f078080
 /*  f078030:	8fa40334 */ 	lw	$a0,0x334($sp)
@@ -46425,28 +46425,10 @@ void doorActivate(struct doorobj *door, s32 newmode)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f08e520
-/*  f08e520:	80830084 */ 	lb	$v1,0x84($a0)
-/*  f08e524:	2c620001 */ 	sltiu	$v0,$v1,0x1
-/*  f08e528:	14400004 */ 	bnez	$v0,.L0f08e53c
-/*  f08e52c:	38620003 */ 	xori	$v0,$v1,0x3
-/*  f08e530:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f08e534:	10400009 */ 	beqz	$v0,.L0f08e55c
-/*  f08e538:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f08e53c:
-/*  f08e53c:	44802000 */ 	mtc1	$zero,$f4
-/*  f08e540:	c486007c */ 	lwc1	$f6,0x7c($a0)
-/*  f08e544:	00001025 */ 	or	$v0,$zero,$zero
-/*  f08e548:	4604303e */ 	c.le.s	$f6,$f4
-/*  f08e54c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e550:	45000002 */ 	bc1f	.L0f08e55c
-/*  f08e554:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08e558:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f08e55c:
-/*  f08e55c:	03e00008 */ 	jr	$ra
-/*  f08e560:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 doorIsClosed(struct doorobj *door)
+{
+	return (door->mode == 0 || door->mode == 3) && door->frac <= 0;
+}
 
 GLOBAL_ASM(
 glabel func0f08e564
