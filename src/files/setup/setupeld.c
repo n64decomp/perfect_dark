@@ -2291,8 +2291,8 @@ u8 func100e_check_objectives_complete[] = {
 	// mess with Carrington.
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
-		if_door_state(0x09, DOORSTATEBIT_OPEN, /*goto*/ 0x2d)
-		if_door_state(0x08, DOORSTATEBIT_OPEN, /*goto*/ 0x2d)
+		if_door_state(0x09, DOORSTATE_OPEN, /*goto*/ 0x2d)
+		if_door_state(0x08, DOORSTATE_OPEN, /*goto*/ 0x2d)
 	endloop(0x04)
 
 	label(0x2d)

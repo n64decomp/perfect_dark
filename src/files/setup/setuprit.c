@@ -1746,7 +1746,7 @@ u8 func0413_taker[] = {
 
 	// Wait for condition
 	beginloop(0x04)
-		if_door_state(0x0c, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x0a)
+		if_door_state(0x0c, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x0a)
 		if_stage_flag_eq(STAGEFLAG_PRESIDENT_STARTED_RUNNING, FALSE, /*goto*/ 0x2d)
 		if_timer_gt(7200, /*goto*/ 0x0a)
 		if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ 0x0a)
@@ -3660,7 +3660,7 @@ u8 func101a_equipment_switch[] = {
 	set_object_image(OBJ_EQUIPMENT_SWITCH, 0x00, 0x12)
 
 	beginloop(0x09)
-		if_door_state(0x1c, DOORSTATEBIT_CLOSING, /*goto*/ 0x2d)
+		if_door_state(0x1c, DOORSTATE_CLOSING, /*goto*/ 0x2d)
 		reloop(0x09)
 
 		label(0x2d)
@@ -3679,7 +3679,7 @@ u8 func101b_hoverbike_switch[] = {
 
 	beginloop(0x09)
 		chr_toggle_p1p2(CHR_SELF)
-		if_door_state(0x20, DOORSTATEBIT_CLOSING, /*goto*/ 0x2d)
+		if_door_state(0x20, DOORSTATE_CLOSING, /*goto*/ 0x2d)
 		if_chr_activated_object(CHR_P1P2, OBJ_HOVERBIKE_SWITCH, /*goto*/ 0x0a)
 		reloop(0x09)
 

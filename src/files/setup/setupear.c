@@ -2608,7 +2608,7 @@ u8 func100f_check_for_end_level[] = {
 		reloop(0x04)
 
 		label(0x2f)
-		if_door_state(0x26, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x06)
+		if_door_state(0x26, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x06)
 		reloop(0x04)
 
 		label(0x06)
@@ -3128,7 +3128,7 @@ u8 func101f_check_bot_destroyed[] = {
 
 	// 0x32 is a laser
 	beginloop(0x08)
-		if_door_state(0x32, DOORSTATEBIT_CLOSED, /*goto*/ 0x2f)
+		if_door_state(0x32, DOORSTATE_CLOSED, /*goto*/ 0x2f)
 	endloop(0x08)
 
 	label(0x2f)

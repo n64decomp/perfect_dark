@@ -1620,7 +1620,7 @@ u8 func100a_random_doors[] = {
 
 		// 25% chance //1
 		label(0x08)
-		if_door_state(0x07, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x09)
+		if_door_state(0x07, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x09)
 		open_door(0x07)
 		open_door(0x08)
 		reloop(0x03)
@@ -1632,7 +1632,7 @@ u8 func100a_random_doors[] = {
 
 		// 25% chance //2
 		label(0x0a)
-		if_door_state(0x09, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x0b)
+		if_door_state(0x09, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x0b)
 		open_door(0x09)
 		open_door(0x0a)
 		reloop(0x03)
@@ -1644,7 +1644,7 @@ u8 func100a_random_doors[] = {
 
 		// 25% chance //3
 		label(0x0c)
-		if_door_state(0x0b, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x0d)
+		if_door_state(0x0b, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x0d)
 		open_door(0x0b)
 		open_door(0x0c)
 		reloop(0x03)
@@ -1656,7 +1656,7 @@ u8 func100a_random_doors[] = {
 
 		// 25% chance //4
 		label(0x0e)
-		if_door_state(0x0d, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x0f)
+		if_door_state(0x0d, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x0f)
 		open_door(0x0d)
 		open_door(0x0e)
 		reloop(0x03)
@@ -1827,7 +1827,7 @@ u8 func0418_doorman[] = {
 		goto_next(0x06)
 
 		label(0x2d)
-		if_door_state(0x4a, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x2d)
+		if_door_state(0x4a, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x2d)
 		reloop(0x0f)
 
 		label(0x2d)
@@ -2122,7 +2122,7 @@ u8 func100d_check_entered_lab[] = {
 
 u8 func100e_elvis_timer[] = {
 	beginloop(0x04)
-		if_door_state(0x13, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x06)
+		if_door_state(0x13, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x06)
 	endloop(0x04)
 
 	label(0x06)

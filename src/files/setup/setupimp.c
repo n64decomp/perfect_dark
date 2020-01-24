@@ -1675,7 +1675,7 @@ u8 func100e_setup_firingrange[] = {
 	beginloop(0x0a)
 		chr_toggle_p1p2(CHR_SELF)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x0007, /*goto*/ 0x08)
-		if_door_state(0x23, (DOORSTATEBIT_OPEN | DOORSTATEBIT_CLOSING | DOORSTATEBIT_OPENING), /*goto*/ 0x2f)
+		if_door_state(0x23, (DOORSTATE_OPEN | DOORSTATE_CLOSING | DOORSTATE_OPENING), /*goto*/ 0x2f)
 	endloop(0x0a)
 
 	// Wait for player to enter room, or 10 seconds
@@ -1729,8 +1729,8 @@ u8 func041a_hostage_holo[] = {
 	// Alive - wait until holo room door opened
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
-		if_door_state(0x43, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
-		if_door_state(0x44, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x43, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x44, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
 	endloop(0x04)
 
 	label(0x2e)
@@ -2458,7 +2458,7 @@ u8 func0433_inforoom_hostage[] = {
 
 u8 func1012_info_room[] = {
 	beginloop(0x04)
-		if_door_state(0x19, DOORSTATEBIT_OPEN, /*goto*/ 0x2e)
+		if_door_state(0x19, DOORSTATE_OPEN, /*goto*/ 0x2e)
 	endloop(0x04)
 
 	// One hostage is randomly given chrflag0_00000004, which allows that
@@ -3680,8 +3680,8 @@ u8 func1025_lift_door_sounds[] = {
 u8 func100e_setup_firingrange_doors[] = {
 	// Wait until firing range doors opened
 	beginloop(0xe4)
-		if_door_state(0x23, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
-		if_door_state(0x23, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x23, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
+		if_door_state(0x23, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
 	endloop(0xe4)
 
 	// Unset some flags on them

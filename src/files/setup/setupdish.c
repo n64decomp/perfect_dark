@@ -862,9 +862,9 @@ u8 func1002_devicetraining_camspy[] = {
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_door_state(0x31, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x8a, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x89, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
+		if_door_state(0x31, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x8a, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x89, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
 		if_training_pc_holographed(/*goto*/ 0x09)
 	endloop(0x82)
 
@@ -1110,9 +1110,9 @@ u8 func1004_devicetraining_doordecoder[] = {
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_door_state(0x31, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x8a, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x89, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
+		if_door_state(0x31, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x8a, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x89, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
 		if_chr_activated_object(CHR_BOND, 0x35, /*goto*/ 0x09)
 	endloop(0x82)
 
@@ -1493,9 +1493,9 @@ u8 func1006_devicetraining_disguise[] = {
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_door_state(0x31, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x8a, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x89, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
+		if_door_state(0x31, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x8a, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x89, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
 		if_stage_flag_eq(STAGEFLAG_DISGUISE_COMPLETE, TRUE, /*goto*/ 0x09)
 		if_stage_flag_eq(STAGEFLAG_DISGUISE_FAILED, TRUE, /*goto*/ 0x0a)
 	endloop(0x82)
@@ -1652,9 +1652,9 @@ u8 func1007_devicetrainign_ir[] = {
 		unset_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
 		label(0x30)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_door_state(0x31, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x8a, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x89, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
+		if_door_state(0x31, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x8a, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x89, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
 		if_chr_activated_object(CHR_BOND, 0x37, /*goto*/ 0x09)
 	endloop(0x82)
 
@@ -1777,9 +1777,9 @@ u8 func1008_devicetraining_rtracker[] = {
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_door_state(0x31, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x8a, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x89, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
+		if_door_state(0x31, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x8a, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x89, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
 		if_chr_has_object(CHR_BOND, 0x36, /*goto*/ 0x09)
 	endloop(0x82)
 
@@ -1908,9 +1908,9 @@ u8 func1009_devicetraining_cloak[] = {
 
 	beginloop(0x82)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
-		if_door_state(0x31, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x8a, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
-		if_door_state(0x89, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x85)
+		if_door_state(0x31, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x8a, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
+		if_door_state(0x89, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
 		if_stage_flag_eq(STAGEFLAG_CLOAK_COMPLETE, TRUE, /*goto*/ 0x09)
 		if_stage_flag_eq(STAGEFLAG_CLOAK_FAILED, TRUE, /*goto*/ 0x0a)
 	endloop(0x82)
@@ -2778,7 +2778,7 @@ u8 func100e_training_unlockables[] = {
 		reloop(0x04) \
  \
 		label(0x06) \
-		if_door_state(door, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2f) \
+		if_door_state(door, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2f) \
 		open_door(door) \
 		set_object_flag_bank0(door, OBJECTFLAG0_40000000) \
 		restart_timer \
@@ -2830,7 +2830,7 @@ u8 func1012_cloak_doorproxy[] = {
 	endloop(0x04)
 
 	label(0x06)
-	if_door_state(0x40, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2f)
+	if_door_state(0x40, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2f)
 	open_door(0x40)
 	set_object_flag_bank0(0x40, OBJECTFLAG0_40000000)
 	restart_timer
@@ -2858,7 +2858,7 @@ u8 func101b_ir_door[] = {
 	endloop(0x04)
 
 	label(0x06)
-	if_door_state(0x37, (DOORSTATEBIT_OPEN | DOORSTATEBIT_OPENING), /*goto*/ 0x2f)
+	if_door_state(0x37, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2f)
 	open_door(0x37)
 	set_object_flag_bank0(0x37, OBJECTFLAG0_40000000)
 	restart_timer

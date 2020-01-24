@@ -2872,7 +2872,7 @@ u8 func1017_drain_guards[] = {
 
 u8 func1018_keep_door_open[] = {
 	beginloop(0x10)
-		if_door_state(0x1a, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x03)
+		if_door_state(0x1a, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x03)
 		reloop(0x10)
 
 		label(0x03)
@@ -3053,7 +3053,7 @@ u8 func101e_check_sealer_guards_dead[] = {
 u8 func1020_elevator_doors[] = {
 	beginloop(0x10)
 		if_stage_flag_eq(STAGEFLAG_ELEVATOR_SEALED, TRUE, /*goto*/ 0x03)
-		if_door_state(0x10, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x04)
+		if_door_state(0x10, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x04)
 		reloop(0x10)
 
 		label(0x04)

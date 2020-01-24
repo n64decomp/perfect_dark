@@ -1300,8 +1300,8 @@ u8 func1008_hangar_lifts[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x2c)
 		if_chr_in_room(CHR_BOND, 0x00, 0x0018, /*goto*/ 0x2c)
-		if_door_state(0x39, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x2d)
-		if_door_state(0x3a, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x2d)
+		if_door_state(0x39, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x2d)
+		if_door_state(0x3a, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x2d)
 	endloop(0x67)
 
 	// Door closing automatically - reopen it
@@ -1579,7 +1579,7 @@ u8 func0408_knifeable_skedar[] = {
 u8 func1009_keep_door_open_in_intro[] = {
 	beginloop(0xc2)
 		if_stage_flag_eq(STAGEFLAG_INTRO_FINISHED, TRUE, /*goto*/ 0x06)
-		if_door_state(0x17, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x2c)
+		if_door_state(0x17, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x2c)
 		reloop(0xc2)
 
 		// Door closed
@@ -1593,7 +1593,7 @@ u8 func1009_keep_door_open_in_intro[] = {
 	yield
 
 	beginloop(0x04)
-		if_door_state(0x17, DOORSTATEBIT_CLOSING, /*goto*/ 0x06)
+		if_door_state(0x17, DOORSTATE_CLOSING, /*goto*/ 0x06)
 	endloop(0x04)
 
 	label(0x06)

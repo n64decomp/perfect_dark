@@ -2879,7 +2879,7 @@ u8 func1017_laser5[] = {
 	open_door(0x13)
 
 	beginloop(0x05)
-		if_door_state(0x13, (DOORSTATEBIT_CLOSED | DOORSTATEBIT_CLOSING), /*goto*/ 0x31)
+		if_door_state(0x13, (DOORSTATE_CLOSED | DOORSTATE_CLOSING), /*goto*/ 0x31)
 	endloop(0x05)
 
 	label(0x31)
@@ -3540,7 +3540,7 @@ u8 func1018_safe_switch[] = {
 	label(0x31)
 
 	beginloop(0x08)
-		if_door_state(OBJ_SAFEDOOR, DOORSTATEBIT_CLOSING, /*goto*/ 0x31)
+		if_door_state(OBJ_SAFEDOOR, DOORSTATE_CLOSING, /*goto*/ 0x31)
 		reloop(0x08)
 
 		label(0x31)

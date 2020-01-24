@@ -46285,21 +46285,21 @@ void func0f08e2ac(struct doorobj *door)
 
 void doorSetMode(struct doorobj *door, s32 newmode)
 {
-	if (newmode == 1) {
-		if (door->mode == 0 || door->mode == 3) {
+	if (newmode == DOORMODE_OPENING) {
+		if (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_3) {
 			func0f08e0c4(door);
 		}
 
 		door->mode = newmode;
-	} else if (newmode == 2) {
-		if (door->mode == 0 && door->frac > 0) {
+	} else if (newmode == DOORMODE_CLOSING) {
+		if (door->mode == DOORMODE_IDLE && door->frac > 0) {
 			func0f08e1a0(door);
 		}
 
-		if ((door->mode != 0 && door->mode != 3) || door->frac > 0) {
+		if ((door->mode != DOORMODE_IDLE && door->mode != DOORMODE_3) || door->frac > 0) {
 			door->mode = newmode;
-		} else if (door->mode == 3) {
-			door->mode = 0;
+		} else if (door->mode == DOORMODE_3) {
+			door->mode = DOORMODE_IDLE;
 		}
 	} else {
 		door->mode = newmode;
@@ -46312,11 +46312,11 @@ void doorActivate(struct doorobj *door, s32 newmode)
 
 	s32 siblingmode = newmode;
 
-	if ((door->base.flags2 & OBJECTFLAG1_40000000) && newmode == 1) {
-		siblingmode = 2;
+	if ((door->base.flags2 & OBJECTFLAG1_40000000) && newmode == DOORMODE_OPENING) {
+		siblingmode = DOORMODE_CLOSING;
 
-		if (door->mode == 0) {
-			newmode = 3;
+		if (door->mode == DOORMODE_IDLE) {
+			newmode = DOORMODE_3;
 		}
 	}
 
@@ -46332,12 +46332,12 @@ void doorActivate(struct doorobj *door, s32 newmode)
 
 s32 doorIsClosed(struct doorobj *door)
 {
-	return (door->mode == 0 || door->mode == 3) && door->frac <= 0;
+	return (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_3) && door->frac <= 0;
 }
 
 s32 doorIsOpen(struct doorobj *door)
 {
-	return (door->mode == 0 || door->mode == 3) && door->frac >= door->maxfrac;
+	return (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_3) && door->frac >= door->maxfrac;
 }
 
 GLOBAL_ASM(
@@ -47160,7 +47160,7 @@ glabel func0f08ed74
 //			door->fadetime60 = 0;
 //		}
 //
-//		if (door->mode == 1) {
+//		if (door->mode == DOORMODE_OPENING) {
 //			u32 laserfade = (door->fadetime60 * 255.0f) / 60.0f;
 //			door->laserfade = laserfade;
 //
@@ -47171,9 +47171,10 @@ glabel func0f08ed74
 //		}
 //	}
 //
-//	if (door->mode == 1 || door->mode == 2) {
-//		f32 maxfrac = door->mode == 1 ? door->maxfrac : 0;
+//	if (door->mode == DOORMODE_OPENING || door->mode == DOORMODE_CLOSING) {
+//		f32 maxfrac = door->mode == DOORMODE_OPENING ? door->maxfrac : 0;
 //
+//		// Skedar Ruins random door stuckage
 //		if (door->base.flags3 & OBJECTFLAG2_00000004) {
 //			s32 value = (random() % 64) + 30;
 //
@@ -47187,20 +47188,20 @@ glabel func0f08ed74
 //				if (random() % 2) {
 //					dothething = true;
 //					func0f0926bc(door->base.prop, 12, 0xffff);
-//					door->mode = 0;
+//					door->mode = DOORMODE_IDLE;
 //					door->lastopen60 = g_Vars.lvframe60;
 //				}
 //
 //				loopdoor = door;
 //
 //				while (loopdoor) {
-//					if (random() % 2 && loopdoor->mode != 0) {
+//					if (random() % 2 && loopdoor->mode != DOORMODE_IDLE) {
 //						loopdoor->fracspeed = 0;
 //						func0f08ea50(loopdoor);
 //
 //						if (dothething) {
 //							func0f0926bc(loopdoor->base.prop, 12, 0xffff);
-//							loopdoor->mode = 0;
+//							loopdoor->mode = DOORMODE_IDLE;
 //							loopdoor->lastopen60 = g_Vars.lvframe60;
 //						}
 //					}

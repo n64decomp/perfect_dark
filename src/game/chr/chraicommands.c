@@ -3413,7 +3413,7 @@ bool aiOpenDoor(void)
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		if (!func0f066310(obj->prop, 0)) {
 			struct doorobj *door = (struct doorobj *) obj;
-			doorActivate(door, DOORSTATE_OPEN);
+			doorActivate(door, DOORMODE_OPENING);
 		}
 	}
 
@@ -3432,7 +3432,7 @@ bool aiCloseDoor(void)
 
 	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
-		doorActivate(door, DOORSTATE_CLOSED);
+		doorActivate(door, DOORMODE_CLOSING);
 	}
 
 	g_Vars.aioffset += 3;
@@ -3452,16 +3452,16 @@ bool aiIfDoorState(void)
 	if (obj && obj->prop && obj->type == OBJTYPE_DOOR) {
 		struct doorobj *door = (struct doorobj *) obj;
 
-		if (door->mode == 0) {
+		if (door->mode == DOORMODE_IDLE) {
 			if (door->frac <= 0) {
-				pass = (cmd[3] & DOORSTATEBIT_CLOSED) != 0;
+				pass = (cmd[3] & DOORSTATE_CLOSED) != 0;
 			} else {
-				pass = (cmd[3] & DOORSTATEBIT_OPEN) != 0;
+				pass = (cmd[3] & DOORSTATE_OPEN) != 0;
 			}
-		} else if (door->mode == 1 || door->mode == 3) {
-			pass = (cmd[3] & DOORSTATEBIT_OPENING) != 0;
-		} else if (door->mode == 2) {
-			pass = (cmd[3] & DOORSTATEBIT_CLOSING) != 0;
+		} else if (door->mode == DOORMODE_OPENING || door->mode == DOORMODE_3) {
+			pass = (cmd[3] & DOORSTATE_OPENING) != 0;
+		} else if (door->mode == DOORMODE_CLOSING) {
+			pass = (cmd[3] & DOORSTATE_CLOSING) != 0;
 		}
 	}
 

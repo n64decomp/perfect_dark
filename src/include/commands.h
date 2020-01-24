@@ -926,8 +926,8 @@
 /**
  * Checks the state of the current door.
  *
- * Doorstate is expected to be one of DOORSTATEBIT_OPEN, DOORSTATEBIT_CLOSED,
- * DOORSTATEBIT_OPENING or DOORSTATEBIT_CLOSING. You can bitwise or them
+ * Doorstate is expected to be one of DOORSTATE_OPEN, DOORSTATE_CLOSED,
+ * DOORSTATE_OPENING or DOORSTATE_CLOSING. You can bitwise or them
  * together to check multiple states at the same time.
  */
 #define if_door_state(door, doorstate, label) \
