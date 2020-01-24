@@ -46200,7 +46200,7 @@ void func0f08e0c4(struct doorobj *door)
 	door->fadetime60 = door->doortype == DOORTYPE_LASER ? 60 : 0;
 
 	if (door->doortype == DOORTYPE_LASER) {
-		door->laserfade = -1;
+		door->laserfade = 255;
 	}
 }
 
@@ -47148,6 +47148,88 @@ glabel func0f08ed74
 /*  f08f114:	03e00008 */ 	jr	$ra
 /*  f08f118:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
+
+//bool func0f08ed74(struct doorobj *door)
+//{
+//	bool result = false;
+//
+//	if (door->doortype == DOORTYPE_LASER && door->fadetime60 != 0) {
+//		door->fadetime60 -= g_Vars.lvupdate240_60;
+//
+//		if (door->fadetime60 < 0) {
+//			door->fadetime60 = 0;
+//		}
+//
+//		if (door->mode == 1) {
+//			u32 laserfade = (door->fadetime60 * 255.0f) / 60.0f;
+//			door->laserfade = laserfade;
+//
+//			return result;
+//		} else {
+//			u32 laserfade = ((60.0f - door->fadetime60) * 255.0f) / 60.0f;
+//			door->laserfade = laserfade;
+//		}
+//	}
+//
+//	if (door->mode == 1 || door->mode == 2) {
+//		f32 maxfrac = door->mode == 1 ? door->maxfrac : 0;
+//
+//		if (door->base.flags3 & OBJECTFLAG2_00000004) {
+//			s32 value = (random() % 64) + 30;
+//
+//			if ((g_Vars.lvframenum % value) == 0) {
+//				bool dothething = false;
+//				struct doorobj *loopdoor;
+//
+//				door->fracspeed = 0;
+//				func0f08ea50(door);
+//
+//				if (random() % 2) {
+//					dothething = true;
+//					func0f0926bc(door->base.prop, 12, 0xffff);
+//					door->mode = 0;
+//					door->lastopen60 = g_Vars.lvframe60;
+//				}
+//
+//				loopdoor = door;
+//
+//				while (loopdoor) {
+//					if (random() % 2 && loopdoor->mode != 0) {
+//						loopdoor->fracspeed = 0;
+//						func0f08ea50(loopdoor);
+//
+//						if (dothething) {
+//							func0f0926bc(loopdoor->base.prop, 12, 0xffff);
+//							loopdoor->mode = 0;
+//							loopdoor->lastopen60 = g_Vars.lvframe60;
+//						}
+//					}
+//
+//					loopdoor = loopdoor->sibling;
+//
+//					if (loopdoor == door) {
+//						break;
+//					}
+//				}
+//
+//				func0f08df10(door->soundtype, door->base.prop);
+//			}
+//		}
+//
+//		func0f06d90c(&door->frac, maxfrac, &door->fracspeed,
+//				door->accel, door->decel, door->maxspeed);
+//
+//		if (door->frac >= door->maxfrac) {
+//			door->frac = door->maxfrac;
+//		} else if (door->frac <= 0) {
+//			door->frac = 0;
+//		}
+//
+//		result = true;
+//	}
+//
+//	return result;
+//}
 
 GLOBAL_ASM(
 glabel func0f08f11c

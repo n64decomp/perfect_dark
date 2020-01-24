@@ -672,7 +672,7 @@
 // obj->flags3
 #define OBJECTFLAG2_PUSHABLE        0x00000001
 #define OBJECTFLAG2_GRABBABLE       0x00000002
-#define OBJECTFLAG2_00000004        0x00000004 // Not used in scripts
+#define OBJECTFLAG2_00000004        0x00000004 // Related to doors
 #define OBJECTFLAG2_00000008        0x00000008 // Not used in scripts
 #define OBJECTFLAG2_00000010        0x00000010 // Used heaps
 #define OBJECTFLAG2_00000020        0x00000020 // Not used in scripts

@@ -700,9 +700,9 @@ struct doorobj { // objtype 0x01
 	struct defaultobj base;
 	/*0x5c*/ f32 maxfrac;
 	/*0x60*/ f32 perimfrac;
-	/*0x64*/ u32 accel;
-	/*0x68*/ u32 decel;
-	/*0x6c*/ u32 maxspeed;
+	/*0x64*/ f32 accel;
+	/*0x68*/ f32 decel;
+	/*0x6c*/ f32 maxspeed;
 	/*0x70*/ u16 doorflags;
 	/*0x72*/ u16 doortype;
 	/*0x74*/ u32 keyflags;
