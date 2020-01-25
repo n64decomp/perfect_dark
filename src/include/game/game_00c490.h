@@ -11,7 +11,7 @@ u32 func0f00cc5c(void);
 u32 func0f00cc74(void);
 u32 func0f00cc8c(void);
 u32 func0f00ce3c(void);
-u32 func0f00ce60(void);
+u32 setupCountCommandType(u8 type);
 u32 func0f00cee4(void);
 u32 func0f00d670(void);
 u32 func0f00d904(void);
