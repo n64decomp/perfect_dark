@@ -1855,7 +1855,7 @@ s32 textGetLanguageId(void)
 
 s32 textGetFileId(s32 bank)
 {
-	return langtable[bank] + textGetLanguageId();
+	return g_LangBanks[bank] + textGetLanguageId();
 }
 
 void textSetBankSimple(s32 bank)

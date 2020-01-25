@@ -231,7 +231,7 @@ extern u32 var800840f0;
 extern u32 var800840f4;
 extern u32 var800840fc;
 extern u32 g_LanguageId;
-extern u16 langtable[];
+extern u16 g_LangBanks[];
 extern u32 var800841b8;
 extern u32 var80084220;
 extern struct something *somethings[];
