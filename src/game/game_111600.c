@@ -1684,27 +1684,20 @@ glabel func0f112a58
 /*  f112bbc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel objGetTextOverride
-/*  f112bc0:	3c03800a */ 	lui	$v1,0x800a
-/*  f112bc4:	8c63a278 */ 	lw	$v1,-0x5d88($v1)
-/*  f112bc8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f112bcc:	10600009 */ 	beqz	$v1,.L0f112bf4
-/*  f112bd0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112bd4:	8c6e0024 */ 	lw	$t6,0x24($v1)
-.L0f112bd8:
-/*  f112bd8:	548e0004 */ 	bnel	$a0,$t6,.L0f112bec
-/*  f112bdc:	8c630020 */ 	lw	$v1,0x20($v1)
-/*  f112be0:	03e00008 */ 	jr	$ra
-/*  f112be4:	00601025 */ 	or	$v0,$v1,$zero
-/*  f112be8:	8c630020 */ 	lw	$v1,0x20($v1)
-.L0f112bec:
-/*  f112bec:	5460fffa */ 	bnezl	$v1,.L0f112bd8
-/*  f112bf0:	8c6e0024 */ 	lw	$t6,0x24($v1)
-.L0f112bf4:
-/*  f112bf4:	03e00008 */ 	jr	$ra
-/*  f112bf8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct textoverride *objGetTextOverride(struct defaultobj *obj)
+{
+	struct textoverride *override = g_Vars.textoverrides;
+
+	while (override) {
+		if (override->obj == obj) {
+			return override;
+		}
+
+		override = override->next;
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f112bfc

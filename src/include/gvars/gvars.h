@@ -55,7 +55,7 @@ struct g_vars {
 	/*0002ac*/ u32 tickmode; // 7 if mission timer running
 	/*0002b0*/ s32 killcount;
 	/*0002b4*/ u32 knockoutcount;
-	/*0002b8*/ u32 unk0002b8;
+	/*0002b8*/ struct textoverride *textoverrides;
 	/*0002bc*/ s32 roomcount;
 	/*0002c0*/ u32 unk0002c0;
 	/*0002c4*/ u32 unk0002c4;

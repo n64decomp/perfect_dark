@@ -4751,6 +4751,8 @@ struct textoverride {
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 activatetextid;
+	/*0x20*/ struct textoverride *next;
+	/*0x24*/ struct defaultobj *obj;
 };
 
 #endif
