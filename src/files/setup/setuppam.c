@@ -1428,9 +1428,9 @@ u8 func1003_powernode1[] = {
 	label(0x2e)
 	if_object_health_lt(OBJ_POWERNODE1, 250, /*goto*/ 0x2e)
 	set_object_health(OBJ_POWERNODE1, 0)
-	set_object_flag_bank0(OBJ_POWERNODE1, OBJECTFLAG0_INVINCIBLE)
+	set_object_flag(OBJ_POWERNODE1, OBJFLAG_INVINCIBLE)
 	open_door(0x03)
-	set_object_flag_bank0(0x03, OBJECTFLAG0_40000000)
+	set_object_flag(0x03, OBJFLAG_40000000)
 	goto_first(0x04)
 
 	label(0x2e)
@@ -1448,9 +1448,9 @@ u8 func1004_powernode2[] = {
 	label(0x2e)
 	if_object_health_lt(OBJ_POWERNODE2, 250, /*goto*/ 0x2e)
 	set_object_health(OBJ_POWERNODE2, 0)
-	set_object_flag_bank0(OBJ_POWERNODE2, OBJECTFLAG0_INVINCIBLE)
+	set_object_flag(OBJ_POWERNODE2, OBJFLAG_INVINCIBLE)
 	open_door(0x04)
-	set_object_flag_bank0(0x04, OBJECTFLAG0_40000000)
+	set_object_flag(0x04, OBJFLAG_40000000)
 	goto_first(0x04)
 
 	label(0x2e)
@@ -1467,10 +1467,10 @@ u8 func1005_powernode3[] = {
 
 	label(0x2e)
 	if_object_health_lt(OBJ_POWERNODE3, 250, /*goto*/ 0x2e)
-	set_object_flag_bank0(OBJ_POWERNODE3, OBJECTFLAG0_INVINCIBLE)
+	set_object_flag(OBJ_POWERNODE3, OBJFLAG_INVINCIBLE)
 	set_object_health(OBJ_POWERNODE3, 0)
 	open_door(0x05)
-	set_object_flag_bank0(0x05, OBJECTFLAG0_40000000)
+	set_object_flag(0x05, OBJFLAG_40000000)
 	goto_first(0x04)
 
 	label(0x2e)
@@ -1500,8 +1500,8 @@ u8 func0c01_midcutscene[] = {
 	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00020000)
 	chr_do_animation(0x01d7, -1, -1, 0x06, 0x00, CHR_DRCAROLL, 4)
 	show_object(0xbb)
-	set_object_flag_bank1(0xbb, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0xbb, OBJECTFLAG2_00000010)
+	set_object_flag2(0xbb, OBJFLAG2_04000000)
+	set_object_flag3(0xbb, OBJFLAG3_00000010)
 	object_do_animation(0x01d8, 0xbb, 0x04ff, 0xff)
 	restart_timer
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
@@ -2032,9 +2032,9 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	chr_do_animation(0x01f1, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
-	set_object_flag_bank0(0x07, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank1(0x07, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x07, OBJECTFLAG2_00000010)
+	set_object_flag(0x07, OBJFLAG_DEACTIVATED)
+	set_object_flag2(0x07, OBJFLAG2_04000000)
+	set_object_flag3(0x07, OBJFLAG3_00000010)
 	object_do_animation(0x01f2, 0x07, 0x04ff, 0xff)
 	set_chr_chrflag(0x40, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x40, CHRCFLAG_HIDDEN)
@@ -2190,9 +2190,9 @@ u8 func1002_intro[] = {
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	chr_do_animation(0x01f1, -2, -1, 0x06, 0x00, CHR_ELVIS, 2)
 	if_coop_mode(/*goto*/ 0x45)
-	unset_object_flag_bank0(0x07, OBJECTFLAG0_DEACTIVATED)
-	unset_object_flag_bank1(0x07, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x07, OBJECTFLAG2_00000010)
+	unset_object_flag(0x07, OBJFLAG_DEACTIVATED)
+	unset_object_flag2(0x07, OBJFLAG2_04000000)
+	set_object_flag3(0x07, OBJFLAG3_00000010)
 	object_do_animation(0x01f2, 0x07, 0x01ff, 0xfe)
 	goto_next(0x46)
 
@@ -3966,7 +3966,7 @@ u8 func040a_check_pa_canisters_destroyed[] = {
 
 	// Both canisters destroyed
 	label(0x2e)
-	set_object_flag_bank0(0x0f, OBJECTFLAG0_40000000)
+	set_object_flag(0x0f, OBJFLAG_40000000)
 	set_lights_state(0x00bc, 0x03, 0xff, 0x0a, 0x78)
 
 	beginloop(0x08)
@@ -4380,24 +4380,24 @@ u8 func042e_elvis_run_to_exit[] = {
 u8 func1027_powernode_illumination[] = {
 	beginloop(0x04)
 		if_door_state(0x03, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
-		unset_object_flag_bank0(OBJ_POWERNODE1, OBJECTFLAG0_ILLUMINATED)
+		unset_object_flag(OBJ_POWERNODE1, OBJFLAG_ILLUMINATED)
 		goto_next(0x06)
 		label(0x2e)
-		set_object_flag_bank0(OBJ_POWERNODE1, OBJECTFLAG0_ILLUMINATED)
+		set_object_flag(OBJ_POWERNODE1, OBJFLAG_ILLUMINATED)
 
 		label(0x06)
 		if_door_state(0x04, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
-		unset_object_flag_bank0(OBJ_POWERNODE2, OBJECTFLAG0_ILLUMINATED)
+		unset_object_flag(OBJ_POWERNODE2, OBJFLAG_ILLUMINATED)
 		goto_next(0x06)
 		label(0x2e)
-		set_object_flag_bank0(OBJ_POWERNODE2, OBJECTFLAG0_ILLUMINATED)
+		set_object_flag(OBJ_POWERNODE2, OBJFLAG_ILLUMINATED)
 
 		label(0x06)
 		if_door_state(0x05, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
-		unset_object_flag_bank0(OBJ_POWERNODE3, OBJECTFLAG0_ILLUMINATED)
+		unset_object_flag(OBJ_POWERNODE3, OBJFLAG_ILLUMINATED)
 		goto_next(0x06)
 		label(0x2e)
-		set_object_flag_bank0(OBJ_POWERNODE3, OBJECTFLAG0_ILLUMINATED)
+		set_object_flag(OBJ_POWERNODE3, OBJFLAG_ILLUMINATED)
 		label(0x06)
 	endloop(0x04)
 
@@ -4475,8 +4475,8 @@ u8 func102b_proxymines[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	set_object_flag_bank0(OBJ_PROXYMINES, OBJECTFLAG0_00100000)
-	set_object_flag_bank1(OBJ_PROXYMINES, OBJECTFLAG1_INVISIBLE)
+	set_object_flag(OBJ_PROXYMINES, OBJFLAG_00100000)
+	set_object_flag2(OBJ_PROXYMINES, OBJFLAG2_INVISIBLE)
 
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -4491,8 +4491,8 @@ u8 func102c_lock_doors[] = {
 	// PA
 	lock_door(0xb1, 0x80)
 	lock_door(0xb2, 0x80)
-	set_object_flag_bank1(0xb1, OBJECTFLAG1_20000000)
-	set_object_flag_bank1(0xb2, OBJECTFLAG1_20000000)
+	set_object_flag2(0xb1, OBJFLAG2_20000000)
+	set_object_flag2(0xb2, OBJFLAG2_20000000)
 
 	// A and SA
 	label(0x2e)
@@ -4555,11 +4555,11 @@ u8 func102e_open_powernode_doors_on_agent[] = {
 	// Agent
 	label(0x08)
 	open_door(0x03)
-	set_object_flag_bank0(0x03, OBJECTFLAG0_40000000)
+	set_object_flag(0x03, OBJFLAG_40000000)
 	open_door(0x04)
-	set_object_flag_bank0(0x04, OBJECTFLAG0_40000000)
+	set_object_flag(0x04, OBJFLAG_40000000)
 	open_door(0x05)
-	set_object_flag_bank0(0x05, OBJECTFLAG0_40000000)
+	set_object_flag(0x05, OBJFLAG_40000000)
 	label(0x2e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -4591,8 +4591,8 @@ u8 func102f_unlock_drcaroll_door[] = {
 	label(0x2e)
 	unlock_door(0x75, 0x02)
 	unlock_door(0x76, 0x02)
-	unset_object_flag_bank1(0x75, OBJECTFLAG1_20000000)
-	unset_object_flag_bank1(0x76, OBJECTFLAG1_20000000)
+	unset_object_flag2(0x75, OBJFLAG2_20000000)
+	unset_object_flag2(0x76, OBJFLAG2_20000000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4666,7 +4666,7 @@ u8 unregistered_function3[] = {
 
 u8 func1032_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(OBJ_PROXYMINES, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_PROXYMINES, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

@@ -3098,21 +3098,21 @@ glabel aiIfChrActivatedObject
 //
 //	if (obj && obj->prop) {
 //		if (cmd[2] == CHR_ANY) {
-//			if (obj->hidden & (OBJHIDDENFLAG_ACTIVATED_BY_BOND | OBJHIDDENFLAG_ACTIVATED_BY_COOP)) {
+//			if (obj->hidden & (OBJHFLAG_ACTIVATED_BY_BOND | OBJHFLAG_ACTIVATED_BY_COOP)) {
 //				pass = true;
-//				obj->hidden &= ~(OBJHIDDENFLAG_ACTIVATED_BY_BOND | OBJHIDDENFLAG_ACTIVATED_BY_COOP);
+//				obj->hidden &= ~(OBJHFLAG_ACTIVATED_BY_BOND | OBJHFLAG_ACTIVATED_BY_COOP);
 //			}
 //		} else {
 //			struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 //			pass = false;
 //
 //			if (chr && chr->prop) {
-//				if (chr->prop == g_Vars.bond->prop && (obj->hidden & OBJHIDDENFLAG_ACTIVATED_BY_BOND)) {
+//				if (chr->prop == g_Vars.bond->prop && (obj->hidden & OBJHFLAG_ACTIVATED_BY_BOND)) {
 //					pass = true;
-//					obj->hidden &= ~OBJHIDDENFLAG_ACTIVATED_BY_BOND;
-//				} else if (g_Vars.coopplayernum >= 0 && chr->prop == g_Vars.coop->prop && (obj->hidden & OBJHIDDENFLAG_ACTIVATED_BY_COOP)) {
+//					obj->hidden &= ~OBJHFLAG_ACTIVATED_BY_BOND;
+//				} else if (g_Vars.coopplayernum >= 0 && chr->prop == g_Vars.coop->prop && (obj->hidden & OBJHFLAG_ACTIVATED_BY_COOP)) {
 //					pass = true;
-//					obj->hidden &= ~OBJHIDDENFLAG_ACTIVATED_BY_COOP;
+//					obj->hidden &= ~OBJHFLAG_ACTIVATED_BY_COOP;
 //				}
 //			}
 //		}
@@ -8180,7 +8180,7 @@ glabel aiRemoveObjectAtPropPreset
 //{
 //	if (g_Vars.chrdata->proppreset1 >= 0) {
 //		struct defaultobj *obj = g_Vars.props[g_Vars.chrdata->proppreset1].obj;
-//		obj->hidden &= ~OBJHIDDENFLAG_00200000;
+//		obj->hidden &= ~OBJHFLAG_00200000;
 //	}
 //
 //	g_Vars.chrdata->proppreset1 = -1;
@@ -11792,7 +11792,7 @@ bool ai0170(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
-	if (cmd[2] == 0 || ((weapon->hidden & OBJHIDDENFLAG_00000080) == 0 && cmd[2] == 1)) {
+	if (cmd[2] == 0 || ((weapon->hidden & OBJHFLAG_00000080) == 0 && cmd[2] == 1)) {
 		if (cmd[2] == 0) {
 			func0f03ab74(g_Vars.chrdata, g_Vars.chrdata->gunprop, 1);
 		}
@@ -12158,7 +12158,7 @@ bool aiIfLiftStationary(void)
 	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
 		struct liftobj *lift = (struct liftobj *)obj;
 
-		if ((obj->flags & OBJECTFLAG0_DEACTIVATED) || !lift->unk74) {
+		if ((obj->flags & OBJFLAG_DEACTIVATED) || !lift->unk74) {
 			pass = true;
 		}
 	}

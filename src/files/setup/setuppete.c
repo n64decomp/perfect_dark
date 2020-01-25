@@ -480,8 +480,8 @@ s32 path13[] = {
 
 #define chicago_car_do_animation(object, chr_do_animation) \
 	show_object(object) \
-	set_object_flag_bank1(object, OBJECTFLAG1_04000000) \
-	set_object_flag_bank2(object, OBJECTFLAG2_00000010) \
+	set_object_flag2(object, OBJFLAG2_04000000) \
+	set_object_flag3(object, OBJFLAG3_00000010) \
 	object_do_animation(chr_do_animation, object, 0x04ff, 0xff)
 
 
@@ -558,8 +558,8 @@ u8 func0403_3c74[] = {
 	camera_movement(0x00d1)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	show_object(OBJ_CAR4)
-	set_object_flag_bank1(OBJ_CAR4, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_CAR4, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_CAR4, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_CAR4, OBJFLAG3_00000010)
 	object_do_animation(0x00de, OBJ_CAR4, 0x04ff, 0xff)
 	set_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 
@@ -579,8 +579,8 @@ u8 func0403_3c74[] = {
 
 u8 func0404_3ce0[] = {
 	show_object(OBJ_WIREFENCE)
-	set_object_flag_bank1(OBJ_WIREFENCE, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_WIREFENCE, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_WIREFENCE, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_WIREFENCE, OBJFLAG3_00000010)
 	object_do_animation(0x0470, OBJ_WIREFENCE, 0x01ff, 0xff)
 
 	if_controller_button_pressed(/*goto*/ 0x00)
@@ -897,8 +897,8 @@ u8 func040d_limo[] = {
 	endloop(0x2d)
 
 	label(0x04)
-	set_object_flag_bank1(OBJ_LIMO, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_LIMO, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_LIMO, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_LIMO, OBJFLAG3_00000010)
 	object_do_animation(0x02d6, OBJ_LIMO, 0x04ff, 0xff)
 
 	assign_sound(0x01b4, CHANNEL_1)
@@ -943,7 +943,7 @@ u8 func040c_taxi[] = {
 	assign_sound(0x8000, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_TAXI, 0x0960, 0x0c80)
 	object_do_animation(0x0168, OBJ_TAXI, 0x04ff, 0xff)
-	set_object_flag_bank1(OBJ_TAXI, OBJECTFLAG1_04000000)
+	set_object_flag2(OBJ_TAXI, OBJFLAG2_04000000)
 
 	// Wait for flag
 	beginloop(0x06)
@@ -1281,7 +1281,7 @@ u8 func040c_taxi_timing[] = {
 
 	label(0x04)
 	set_stage_flag(STAGEFLAG_TAXI_ALMOST_READY_TO_CRASH)
-	unset_object_flag_bank1(OBJ_TAXI, OBJECTFLAG1_04000000)
+	unset_object_flag2(OBJ_TAXI, OBJFLAG2_04000000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3118,8 +3118,8 @@ u8 func040d_limo_flags[] = {
 
 	label(0x03)
 	hide_object(OBJ_LIMO)
-	set_object_flag_bank0(OBJ_LIMO, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank1(OBJ_LIMO, OBJECTFLAG1_INVISIBLE)
+	set_object_flag(OBJ_LIMO, OBJFLAG_INVINCIBLE)
+	set_object_flag2(OBJ_LIMO, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3225,7 +3225,7 @@ u8 func0412_cia_invincibility[] = {
 
 u8 func1025_rtracker[] = {
 	yield
-	set_object_flag_bank2(OBJ_FALCON2, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_FALCON2, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3240,7 +3240,7 @@ u8 func1027_untrack_dumpster[] = {
 	endloop(0x10)
 
 	label(0x03)
-	unset_object_flag_bank2(OBJ_DUMPSTER, OBJECTFLAG2_RTRACKED_BLUE)
+	unset_object_flag3(OBJ_DUMPSTER, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

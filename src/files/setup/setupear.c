@@ -1309,12 +1309,12 @@ u8 func1009_weaponscache[] = {
 	control_sound_from_object(CHANNEL_5, OBJ_CMP150_1, TRUE)
 	hide_object(OBJ_CACHEDOOR1)
 	hide_object(OBJ_CACHEDOOR2)
-	unset_object_flag_bank0(OBJ_CMP150_1, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(OBJ_CMP150_1, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(OBJ_CMP150_2, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(OBJ_CMP150_2, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank1(OBJ_CMP150_1, OBJECTFLAG1_00001000)
-	set_object_flag_bank1(OBJ_CMP150_2, OBJECTFLAG1_00001000)
+	unset_object_flag(OBJ_CMP150_1, OBJFLAG_00100000)
+	unset_object_flag2(OBJ_CMP150_1, OBJFLAG2_INVISIBLE)
+	unset_object_flag(OBJ_CMP150_2, OBJFLAG_00100000)
+	unset_object_flag2(OBJ_CMP150_2, OBJFLAG2_INVISIBLE)
+	set_object_flag2(OBJ_CMP150_1, OBJFLAG2_00001000)
+	set_object_flag2(OBJ_CMP150_2, OBJFLAG2_00001000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2f)
@@ -1474,9 +1474,9 @@ u8 func1003_bot_programming_terminal[] = {
 
 u8 func1004_check_items_collected[] = {
 	yield
-	set_object_flag_bank2(OBJ_K7AVENGER, OBJECTFLAG2_00400000)
-	set_object_flag_bank2(OBJ_NIGHTVISION, OBJECTFLAG2_00400000)
-	set_object_flag_bank2(OBJ_SHIELD, OBJECTFLAG2_00400000)
+	set_object_flag3(OBJ_K7AVENGER, OBJFLAG3_00400000)
+	set_object_flag3(OBJ_NIGHTVISION, OBJFLAG3_00400000)
+	set_object_flag3(OBJ_SHIELD, OBJFLAG3_00400000)
 
 	beginloop(0x04)
 		if_chr_has_object(CHR_BOND, OBJ_K7AVENGER, /*goto*/ 0x2f)
@@ -3254,9 +3254,9 @@ u8 func1020_lock_agent_doors[] = {
 
 u8 func1022_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(OBJ_CMP150_1, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(OBJ_CMP150_2, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(OBJ_PROXYMINES, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_CMP150_1, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(OBJ_CMP150_2, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(OBJ_PROXYMINES, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

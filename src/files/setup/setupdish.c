@@ -810,8 +810,8 @@ u8 func1002_devicetraining_camspy[] = {
 	lock_door(0x89, 0x40)
 	show_object(OBJ_CAMSPY)
 	move_object_to_pad(OBJ_CAMSPY, 0x011d)
-	unset_object_flag_bank0(OBJ_CAMSPY, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(OBJ_CAMSPY, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(OBJ_CAMSPY, OBJFLAG_00100000)
+	unset_object_flag2(OBJ_CAMSPY, OBJFLAG2_INVISIBLE)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
 	close_door(0x8a)
@@ -924,8 +924,8 @@ u8 func1003_devicetraining_nightvision[] = {
 	lock_door(0x89, 0x40)
 	show_object(0x27)
 	move_object_to_pad(0x27, 0x011d)
-	unset_object_flag_bank0(0x27, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x27, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x27, OBJFLAG_00100000)
+	unset_object_flag2(0x27, OBJFLAG2_INVISIBLE)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
 	close_door(0x8a)
@@ -1051,15 +1051,15 @@ u8 func1004_devicetraining_doordecoder[] = {
 	endloop(0x0f)
 
 	label(0x81)
-	set_object_flag_bank1(0x88, OBJECTFLAG1_INVISIBLE)
+	set_object_flag2(0x88, OBJFLAG2_INVISIBLE)
 	set_stage_flag(STAGEFLAG_IN_TRAINING)
 	lock_door(0x31, 0x40)
 	lock_door(0x8a, 0x40)
 	lock_door(0x89, 0x40)
 	show_object(0x28)
 	move_object_to_pad(0x28, 0x011d)
-	unset_object_flag_bank0(0x28, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x28, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x28, OBJFLAG_00100000)
+	unset_object_flag2(0x28, OBJFLAG2_INVISIBLE)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
 	close_door(0x8a)
@@ -1141,7 +1141,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	label(0x06)
 	remove_displayed_text
 	message(CHR_BOND, 0x1c1b) // "Decoder attached. Initiating cracking routines..."
-	unset_object_flag_bank1(0x88, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(0x88, OBJFLAG2_INVISIBLE)
 	assign_sound(0x8144, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, 0x35, 0x012c, 0x0190)
 	restart_timer
@@ -1191,7 +1191,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	dprint 'd','o','n','e',0,
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
-	unset_object_flag_bank1(0x88, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(0x88, OBJFLAG2_INVISIBLE)
 	label(0x84)
 	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
 	label(0x90)
@@ -1221,10 +1221,10 @@ u8 func1005_devicetraining_xray[] = {
 	dprint 't','r','a','i','n','i','n','g',0,
 	show_object(0x29)
 	move_object_to_pad(0x29, 0x011d)
-	unset_object_flag_bank0(0x29, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x29, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank1(0x38, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x39, OBJECTFLAG1_00000001)
+	unset_object_flag(0x29, OBJFLAG_00100000)
+	unset_object_flag2(0x29, OBJFLAG2_INVISIBLE)
+	unset_object_flag2(0x38, OBJFLAG2_00000001)
+	unset_object_flag2(0x39, OBJFLAG2_00000001)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
 	close_door(0x8a)
@@ -1244,13 +1244,13 @@ u8 func1005_devicetraining_xray[] = {
 
 	beginloop(0x86)
 		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
-		set_object_flag_bank0(0x38, OBJECTFLAG0_02000000)
-		set_object_flag_bank0(0x39, OBJECTFLAG0_02000000)
+		set_object_flag(0x38, OBJFLAG_02000000)
+		set_object_flag(0x39, OBJFLAG_02000000)
 		goto_next(0x30)
 
 		label(0x2f)
-		unset_object_flag_bank0(0x38, OBJECTFLAG0_02000000)
-		unset_object_flag_bank0(0x39, OBJECTFLAG0_02000000)
+		unset_object_flag(0x38, OBJFLAG_02000000)
+		unset_object_flag(0x39, OBJFLAG_02000000)
 		label(0x30)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
 		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
@@ -1298,24 +1298,24 @@ u8 func1005_devicetraining_xray[] = {
 		set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 		label(0x59)
 		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_XRAYSCANNER, /*goto*/ 0x2f)
-		set_object_flag_bank0(0x38, OBJECTFLAG0_02000000)
-		set_object_flag_bank0(0x39, OBJECTFLAG0_02000000)
+		set_object_flag(0x38, OBJFLAG_02000000)
+		set_object_flag(0x39, OBJFLAG_02000000)
 		goto_next(0x30)
 
 		label(0x2f)
-		unset_object_flag_bank0(0x38, OBJECTFLAG0_02000000)
-		unset_object_flag_bank0(0x39, OBJECTFLAG0_02000000)
+		unset_object_flag(0x38, OBJFLAG_02000000)
+		unset_object_flag(0x39, OBJFLAG_02000000)
 		label(0x30)
 		if_chr_activated_object(CHR_BOND, 0x38, /*goto*/ 0x5b)
 		if_chr_activated_object(CHR_BOND, 0x39, /*goto*/ 0x5c)
 	endloop(0x82)
 
 	label(0x5b)
-	if_object_flag_bank1(0x38, OBJECTFLAG1_00000001, /*goto*/ 0x87)
+	if_object_flag2(0x38, OBJFLAG2_00000001, /*goto*/ 0x87)
 	remove_displayed_text
 	message(CHR_BOND, 0x1c29) // "Laser Grid 1 has been deactivated."
 	set_object_image(0x38, 0x00, 0x12)
-	set_object_flag_bank1(0x38, OBJECTFLAG1_00000001)
+	set_object_flag2(0x38, OBJFLAG2_00000001)
 	open_door(0x3a)
 	label(0x87)
 	restart_timer
@@ -1329,11 +1329,11 @@ u8 func1005_devicetraining_xray[] = {
 	endloop(0x89)
 
 	label(0x5c)
-	if_object_flag_bank1(0x39, OBJECTFLAG1_00000001, /*goto*/ 0x88)
+	if_object_flag2(0x39, OBJFLAG2_00000001, /*goto*/ 0x88)
 	set_object_image(0x39, 0x00, 0x12)
 	remove_displayed_text
 	message(CHR_BOND, 0x1c2a) // "Laser Grid 2 has been deactivated."
-	set_object_flag_bank1(0x39, OBJECTFLAG1_00000001)
+	set_object_flag2(0x39, OBJFLAG2_00000001)
 	open_door(0x3b)
 	label(0x88)
 	restart_timer
@@ -1360,11 +1360,11 @@ u8 func1005_devicetraining_xray[] = {
 	goto_next(0x06)
 
 	label(0x06)
-	if_object_flag_bank1(0x38, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x38, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_first(0x82)
 
 	label(0x2f)
-	if_object_flag_bank1(0x39, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x39, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_first(0x82)
 
 	label(0x09)
@@ -1433,8 +1433,8 @@ u8 func1006_devicetraining_disguise[] = {
 	dprint 't','r','a','i','n','i','n','g',0,
 	show_object(0x2a)
 	move_object_to_pad(0x2a, 0x011d)
-	unset_object_flag_bank0(0x2a, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x2a, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x2a, OBJFLAG_00100000)
+	unset_object_flag2(0x2a, OBJFLAG2_INVISIBLE)
 	set_ailist(0x03, AILIST_GRIMSHAW_DISGUISE)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
@@ -1576,8 +1576,8 @@ u8 func1007_devicetrainign_ir[] = {
 	dprint 't','r','a','i','n','i','n','g',0,
 	show_object(0x2b)
 	move_object_to_pad(0x2b, 0x011d)
-	unset_object_flag_bank0(0x2b, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x2b, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x2b, OBJFLAG_00100000)
+	unset_object_flag2(0x2b, OBJFLAG2_INVISIBLE)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
 	close_door(0x8a)
@@ -1597,10 +1597,10 @@ u8 func1007_devicetrainign_ir[] = {
 
 	beginloop(0x86)
 		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
-		set_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
+		set_object_flag(0x37, OBJFLAG_02000000)
 		goto_next(0x30)
 		label(0x2f)
-		unset_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
+		unset_object_flag(0x37, OBJFLAG_02000000)
 		label(0x30)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
 		if_chr_activated_object(CHR_BOND, 0x31, /*goto*/ 0x57)
@@ -1626,11 +1626,11 @@ u8 func1007_devicetrainign_ir[] = {
 
 	beginloop(0x8e)
 		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
-		set_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
+		set_object_flag(0x37, OBJFLAG_02000000)
 		goto_next(0x30)
 
 		label(0x2f)
-		unset_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
+		unset_object_flag(0x37, OBJFLAG_02000000)
 		label(0x30)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
 		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
@@ -1646,10 +1646,10 @@ u8 func1007_devicetrainign_ir[] = {
 
 	beginloop(0x82)
 		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_IRSCANNER, /*goto*/ 0x2f)
-		set_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
+		set_object_flag(0x37, OBJFLAG_02000000)
 		goto_next(0x30)
 		label(0x2f)
-		unset_object_flag_bank0(0x37, OBJECTFLAG0_02000000)
+		unset_object_flag(0x37, OBJFLAG_02000000)
 		label(0x30)
 		if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
 		if_door_state(0x31, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x85)
@@ -1714,8 +1714,8 @@ u8 func1008_devicetraining_rtracker[] = {
 	dprint 't','r','a','i','n','i','n','g',0,
 	show_object(0x2c)
 	move_object_to_pad(0x2c, 0x011d)
-	unset_object_flag_bank0(0x2c, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x2c, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x2c, OBJFLAG_00100000)
+	unset_object_flag2(0x2c, OBJFLAG2_INVISIBLE)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
 	close_door(0x8a)
@@ -1767,11 +1767,11 @@ u8 func1008_devicetraining_rtracker[] = {
 	goto_first(0x8d)
 
 	label(0x2f)
-	unset_object_flag_bank0(0x36, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x36, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x36, OBJFLAG_00100000)
+	unset_object_flag2(0x36, OBJFLAG2_INVISIBLE)
 	show_object(0x36)
 	move_object_to_pad(0x36, 0x011e)
-	set_object_flag_bank2(0x36, OBJECTFLAG2_RTRACKED_YELLOW)
+	set_object_flag3(0x36, OBJFLAG3_RTRACKED_YELLOW)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c1e) // "Locate IR Scanner using Tracker."
 
@@ -1845,8 +1845,8 @@ u8 func1009_devicetraining_cloak[] = {
 	move_object_to_pad(0x2d, 0x011d)
 	unset_stage_flag(STAGEFLAG_CLOAK_FAILED)
 	unset_stage_flag(STAGEFLAG_CLOAK_COMPLETE)
-	unset_object_flag_bank0(0x2d, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x2d, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x2d, OBJFLAG_00100000)
+	unset_object_flag2(0x2d, OBJFLAG2_INVISIBLE)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
 	close_door(0x8a)
@@ -1994,8 +1994,8 @@ u8 func100a_devicetraining_ecmmine[] = {
 	lock_door(0x89, 0x40)
 	show_object(0x2e)
 	move_object_to_pad(0x2e, 0x011d)
-	unset_object_flag_bank0(0x2e, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x2e, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x2e, OBJFLAG_00100000)
+	unset_object_flag2(0x2e, OBJFLAG2_INVISIBLE)
 	unset_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	close_door(0x31)
 	close_door(0x8a)
@@ -2141,8 +2141,8 @@ u8 func100b_devicetraining_uplink[] = {
 	unset_stage_flag(STAGEFLAG_TRIGGER_DEVICE_FAILURE)
 	show_object(0x2f)
 	move_object_to_pad(0x2f, 0x0131)
-	unset_object_flag_bank0(0x2f, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x2f, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x2f, OBJFLAG_00100000)
+	unset_object_flag2(0x2f, OBJFLAG2_INVISIBLE)
 	dprint 't','r','a','i','n','i','n','g',0,
 	close_door(0x31)
 	close_door(0x8a)
@@ -2725,7 +2725,7 @@ u8 func100e_training_unlockables[] = {
 	endloop(0x09)
 
 	label(0x2f)
-	unset_object_flag_bank1(OBJ_LIGHTSWITCH, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(OBJ_LIGHTSWITCH, OBJFLAG2_INVISIBLE)
 
 	beginloop(0x0a)
 		if_savefile_flag_is_set(SAVEFILEFLAG_CI_NIGHTVISION_DONE, /*goto*/ 0x2f)
@@ -2780,7 +2780,7 @@ u8 func100e_training_unlockables[] = {
 		label(0x06) \
 		if_door_state(door, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2f) \
 		open_door(door) \
-		set_object_flag_bank0(door, OBJECTFLAG0_40000000) \
+		set_object_flag(door, OBJFLAG_40000000) \
 		restart_timer \
  \
 		beginloop(0x08) \
@@ -2832,7 +2832,7 @@ u8 func1012_cloak_doorproxy[] = {
 	label(0x06)
 	if_door_state(0x40, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2f)
 	open_door(0x40)
-	set_object_flag_bank0(0x40, OBJECTFLAG0_40000000)
+	set_object_flag(0x40, OBJFLAG_40000000)
 	restart_timer
 
 	beginloop(0x08)
@@ -2860,7 +2860,7 @@ u8 func101b_ir_door[] = {
 	label(0x06)
 	if_door_state(0x37, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2f)
 	open_door(0x37)
-	set_object_flag_bank0(0x37, OBJECTFLAG0_40000000)
+	set_object_flag(0x37, OBJFLAG_40000000)
 	restart_timer
 
 	beginloop(0x08)
@@ -3391,11 +3391,11 @@ u8 func1018_lightswitch[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_NIGHTVISION, FALSE, /*goto*/ 0x2f)
 		if_chr_has_weapon_equipped(CHR_BOND, WEAPON_NIGHTVISION, /*goto*/ 0x2f)
-		set_object_flag_bank1(OBJ_LIGHTSWITCH, OBJECTFLAG1_INVISIBLE)
+		set_object_flag2(OBJ_LIGHTSWITCH, OBJFLAG2_INVISIBLE)
 		reloop(0x04)
 
 		label(0x2f)
-		unset_object_flag_bank1(OBJ_LIGHTSWITCH, OBJECTFLAG1_INVISIBLE)
+		unset_object_flag2(OBJ_LIGHTSWITCH, OBJFLAG2_INVISIBLE)
 	endloop(0x04)
 
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3446,30 +3446,30 @@ u8 func101c_holo1_main[] = {
 	show_object(0x4d)
 	show_object(0x4e)
 	show_object(0x4f)
-	unset_object_flag_bank1(0x48, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x49, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x4a, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x4b, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x4c, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x4d, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x4e, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x4f, OBJECTFLAG1_00000001)
+	unset_object_flag2(0x48, OBJFLAG2_00000001)
+	unset_object_flag2(0x49, OBJFLAG2_00000001)
+	unset_object_flag2(0x4a, OBJFLAG2_00000001)
+	unset_object_flag2(0x4b, OBJFLAG2_00000001)
+	unset_object_flag2(0x4c, OBJFLAG2_00000001)
+	unset_object_flag2(0x4d, OBJFLAG2_00000001)
+	unset_object_flag2(0x4e, OBJFLAG2_00000001)
+	unset_object_flag2(0x4f, OBJFLAG2_00000001)
 	hide_chr(0x04)
 	dprint 't','r','a','i','n','i','n','g',0,
 	label(0x91)
-	if_object_flag_bank1(0x4c, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x4c, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag_bank1(0x4d, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x4d, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag_bank1(0x4e, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x4e, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag_bank1(0x4f, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x4f, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	label(0x06)
 	remove_displayed_text
 	display_text(0x01, COLOR_04_ORANGE, 0x1c64) // "Get the access codes by examining terminals. - Use the codes on the wall terminals."
@@ -3545,19 +3545,19 @@ u8 func101c_holo1_main[] = {
  \
 	label(0x2f) \
 	set_object_image(object, 0x00, 0x12) \
-	unset_object_flag_bank1(object, OBJECTFLAG1_00040000) \
+	unset_object_flag2(object, OBJFLAG2_00040000) \
  \
 	beginloop(0x04) \
 		if_chr_activated_object(CHR_ANY, object, /*goto*/ 0x2f) \
 		reloop(0x04) \
  \
 		label(0x2f) \
-		if_object_flag_bank1(object, OBJECTFLAG1_00000001, /*goto*/ 0x2f) \
+		if_object_flag2(object, OBJFLAG2_00000001, /*goto*/ 0x2f) \
 	endloop(0x04) \
  \
 	label(0x2f) \
 	set_object_image(object, 0x00, 0x13) \
-	set_object_flag_bank1(object, OBJECTFLAG1_00040000) \
+	set_object_flag2(object, OBJFLAG2_00040000) \
 	assign_sound(0x043a, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, object, TRUE) \
 	set_returnlist(CHR_SELF, function) \
@@ -3587,19 +3587,19 @@ u8 func1020_holo1_monitor_switches[] = {
 
 	label(0x2f)
 	set_object_image(0x4f, 0x00, 0x12)
-	unset_object_flag_bank1(0x4f, OBJECTFLAG1_00040000)
+	unset_object_flag2(0x4f, OBJFLAG2_00040000)
 
 	beginloop(0x04)
 		if_chr_activated_object(CHR_ANY, 0x4f, /*goto*/ 0x2f)
 		reloop(0x04)
 
 		label(0x2f)
-		if_object_flag_bank1(0x4f, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+		if_object_flag2(0x4f, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	endloop(0x04)
 
 	label(0x2f)
 	set_object_image(0x4f, 0x00, 0x13)
-	set_object_flag_bank1(0x4f, OBJECTFLAG1_00040000)
+	set_object_flag2(0x4f, OBJFLAG2_00040000)
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x4f, TRUE)
 	set_returnlist(CHR_SELF, AILIST_HOLO1_MONITOR_SWITCHES)
@@ -3621,7 +3621,7 @@ u8 func1020_holo1_monitor_switches[] = {
 		reloop(0x04) \
  \
 		label(0x2f) \
-		if_object_flag_bank1(object1, OBJECTFLAG1_00000001, /*goto*/ 0x2f) \
+		if_object_flag2(object1, OBJFLAG2_00000001, /*goto*/ 0x2f) \
 		if_chr_distance_to_pad_lt(CHR_BOND, 400, pad, /*goto*/ 0x09) \
 		label(0x2f) \
 		if_chr_looking_at_object(CHR_BOND, object1, /*goto*/ 0x2f) \
@@ -3650,7 +3650,7 @@ u8 func1020_holo1_monitor_switches[] = {
 	goto_first(0x57) \
  \
 	label(0x2f) \
-	set_object_flag_bank1(object2, OBJECTFLAG1_00000001) \
+	set_object_flag2(object2, OBJFLAG2_00000001) \
  \
 	beginloop(0x59) \
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_HOLO_SUCCESS, TRUE, /*goto*/ 0x2f) \
@@ -3669,12 +3669,12 @@ u8 func1020_holo1_monitor_switches[] = {
 u8 func1021_holo1_code1[] = {
 	label(0x8f)
 	set_object_image(0x48, 0x00, 0x12)
-	unset_object_flag_bank1(0x4c, OBJECTFLAG1_00000001)
+	unset_object_flag2(0x4c, OBJFLAG2_00000001)
 
 	holo1_code_thing_p1(0x48, 0x4c, 0x0240)
 
-	set_object_flag_bank1(0x48, OBJECTFLAG1_00000001)
-	set_object_flag_bank1(0x4c, OBJECTFLAG1_00000001)
+	set_object_flag2(0x48, OBJFLAG2_00000001)
+	set_object_flag2(0x4c, OBJFLAG2_00000001)
 
 	// 0x1c55 = "LOOK UP - Press Down C Button to look up at the target."
 	// 0x1c65 = "Code 1 has been obtained."
@@ -3686,11 +3686,11 @@ u8 func1021_holo1_code1[] = {
 u8 func1021_holo1_code2[] = {
 	label(0x8f)
 	set_object_image(0x49, 0x00, 0x12)
-	unset_object_flag_bank1(0x4d, OBJECTFLAG1_00000001)
+	unset_object_flag2(0x4d, OBJFLAG2_00000001)
 
 	holo1_code_thing_p1(0x49, 0x4d, 0x0241)
 
-	set_object_flag_bank1(0x49, OBJECTFLAG1_00000001)
+	set_object_flag2(0x49, OBJFLAG2_00000001)
 
 	// 0x1c56 = "LOOK DOWN - Press Up C Button to look down at the target."
 	// 0x1c66 = "Code 2 has been obtained."
@@ -3700,12 +3700,12 @@ u8 func1021_holo1_code2[] = {
 
 u8 func1021_holo1_code3[] = {
 	label(0x8f)
-	unset_object_flag_bank1(0x4e, OBJECTFLAG1_00000001)
+	unset_object_flag2(0x4e, OBJFLAG2_00000001)
 	set_object_image(0x4a, 0x00, 0x12)
 
 	holo1_code_thing_p1(0x4a, 0x4e, 0x0242)
 
-	set_object_flag_bank1(0x4a, OBJECTFLAG1_00000001)
+	set_object_flag2(0x4a, OBJFLAG2_00000001)
 
 	// 0x1c55 = "LOOK UP - Press Down C Button to look up at the target."
 	// 0x1c67 = "Code 3 has been obtained."
@@ -3715,12 +3715,12 @@ u8 func1021_holo1_code3[] = {
 
 u8 func1021_holo1_code4[] = {
 	label(0x8f)
-	unset_object_flag_bank1(0x4f, OBJECTFLAG1_00000001)
+	unset_object_flag2(0x4f, OBJFLAG2_00000001)
 	set_object_image(0x4b, 0x00, 0x12)
 
 	holo1_code_thing_p1(0x4b, 0x4f, 0x0243)
 
-	set_object_flag_bank1(0x4b, OBJECTFLAG1_00000001)
+	set_object_flag2(0x4b, OBJFLAG2_00000001)
 
 	// 0x1c55 = "LOOK UP - Press Down C Button to look up at the target."
 	// 0x1c68 = "Code 4 has been obtained."
@@ -3731,22 +3731,22 @@ u8 func1021_holo1_code4[] = {
 u8 func0430_holo1_check_done[] = {
 	label(0x04)
 	yield
-	if_object_flag_bank1(0x4c, OBJECTFLAG1_00040000, /*goto*/ 0x2f)
+	if_object_flag2(0x4c, OBJFLAG2_00040000, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
 	dprint 'D','O','H','1',0,
-	if_object_flag_bank1(0x4d, OBJECTFLAG1_00040000, /*goto*/ 0x2f)
+	if_object_flag2(0x4d, OBJFLAG2_00040000, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
 	dprint 'D','O','H','2',0,
-	if_object_flag_bank1(0x4e, OBJECTFLAG1_00040000, /*goto*/ 0x2f)
+	if_object_flag2(0x4e, OBJFLAG2_00040000, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
 	dprint 'D','O','H','3',0,
-	if_object_flag_bank1(0x4f, OBJECTFLAG1_00040000, /*goto*/ 0x2f)
+	if_object_flag2(0x4f, OBJFLAG2_00040000, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	// All flags are set
@@ -3803,10 +3803,10 @@ u8 func1022_holo2_main[] = {
 	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
 	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
-	unset_object_flag_bank1(0x54, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x55, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x56, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x57, OBJECTFLAG1_00000001)
+	unset_object_flag2(0x54, OBJFLAG2_00000001)
+	unset_object_flag2(0x55, OBJFLAG2_00000001)
+	unset_object_flag2(0x56, OBJFLAG2_00000001)
+	unset_object_flag2(0x57, OBJFLAG2_00000001)
 	set_object_image(0x54, 0x00, 0x14)
 	set_object_image(0x55, 0x00, 0x14)
 	set_object_image(0x56, 0x00, 0x14)
@@ -3890,7 +3890,7 @@ u8 func1022_holo2_main[] = {
 	restart_timer \
 	beginloop(0x04) \
 		if_chr_activated_object(CHR_ANY, object, /*goto*/ 0x2f) \
-		if_object_flag_bank1(object, OBJECTFLAG1_00000001, /*goto*/ 0x06) \
+		if_object_flag2(object, OBJFLAG2_00000001, /*goto*/ 0x06) \
 		reloop(0x04) \
  \
 		label(0x06) \
@@ -3899,14 +3899,14 @@ u8 func1022_holo2_main[] = {
  \
 		label(0x06) \
 		set_object_image(object, 0x00, 0x14) \
-		unset_object_flag_bank1(object, OBJECTFLAG1_00000001) \
+		unset_object_flag2(object, OBJFLAG2_00000001) \
 	endloop(0x04) \
  \
 	label(0x2f) \
 	assign_sound(0x043a, CHANNEL_7) \
 	control_sound_from_object(CHANNEL_7, object, TRUE) \
 	set_object_image(object, 0x00, 0x13) \
-	set_object_flag_bank1(object, OBJECTFLAG1_00000001) \
+	set_object_flag2(object, OBJFLAG2_00000001) \
 	set_returnlist(CHR_SELF, function) \
 	set_ailist(CHR_SELF, 0x041b)
 
@@ -3939,19 +3939,19 @@ u8 func041b_holo2_part1[] = {
 
 	label(0x04)
 	yield
-	if_object_flag_bank1(0x54, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x54, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag_bank1(0x55, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x55, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag_bank1(0x56, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x56, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag_bank1(0x57, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x57, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
@@ -4064,8 +4064,8 @@ u8 func1027_holo3_main[] = {
 	if_chr_activated_object(CHR_BOND, 0x75, /*goto*/ 0x2f)
 	if_chr_activated_object(CHR_BOND, 0x76, /*goto*/ 0x2f)
 	label(0x2f)
-	unset_object_flag_bank1(0x65, OBJECTFLAG1_00000001)
-	unset_object_flag_bank1(0x66, OBJECTFLAG1_00000001)
+	unset_object_flag2(0x65, OBJFLAG2_00000001)
+	unset_object_flag2(0x66, OBJFLAG2_00000001)
 	set_object_image(0x65, 0x00, 0x14)
 	set_object_image(0x66, 0x00, 0x14)
 	unset_stage_flag(STAGEFLAG_HOLO_ABORTING)
@@ -4280,7 +4280,7 @@ u8 func102c_holo3_object1[] = {
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x65, TRUE)
 	set_object_image(0x65, 0x00, 0x13)
-	set_object_flag_bank1(0x65, OBJECTFLAG1_00000001)
+	set_object_flag2(0x65, OBJFLAG2_00000001)
 	set_returnlist(CHR_SELF, AILIST_HOLO3_OBJECT1)
 	set_ailist(CHR_SELF, AILIST_HOLO3_CHECK_DONE)
 	endlist
@@ -4295,7 +4295,7 @@ u8 func102d_holo3_object2[] = {
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x65, TRUE)
 	set_object_image(0x66, 0x00, 0x13)
-	set_object_flag_bank1(0x66, OBJECTFLAG1_00000001)
+	set_object_flag2(0x66, OBJFLAG2_00000001)
 	set_returnlist(CHR_SELF, AILIST_HOLO3_OBJECT2)
 	set_ailist(CHR_SELF, AILIST_HOLO3_CHECK_DONE)
 	endlist
@@ -4304,11 +4304,11 @@ u8 func102d_holo3_object2[] = {
 u8 func041c_holo3_check_done[] = {
 	label(0x04)
 	yield
-	if_object_flag_bank1(0x65, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x65, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
-	if_object_flag_bank1(0x66, OBJECTFLAG1_00000001, /*goto*/ 0x2f)
+	if_object_flag2(0x66, OBJFLAG2_00000001, /*goto*/ 0x2f)
 	goto_next(0x06)
 
 	label(0x2f)
@@ -5812,9 +5812,9 @@ u8 func1040_lift_door_sounds[] = {
 	endloop(0x57)
 
 	label(0x2f)
-	set_object_flag_bank0(0x8b, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(0x8c, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(0x8d, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(0x8b, OBJFLAG_DEACTIVATED)
+	set_object_flag(0x8c, OBJFLAG_DEACTIVATED)
+	set_object_flag(0x8d, OBJFLAG_DEACTIVATED)
 
 	// Play sounds when lift doors activated
 	beginloop(0x8f)

@@ -798,8 +798,8 @@ u8 func1002_intro[] = {
 	set_chr_hiddenflag(CHR_TAKER2, CHRHFLAG_00020000)
 	chr_do_animation(0x0174, -1, -1, 0x06, 0x00, CHR_TAKER2, 4)
 	show_object(OBJ_DROPSHIP)
-	set_object_flag_bank1(OBJ_DROPSHIP, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_DROPSHIP, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_DROPSHIP, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_DROPSHIP, OBJFLAG3_00000010)
 	object_do_animation(0x0175, OBJ_DROPSHIP, 0x04ff, 0xff)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -1049,8 +1049,8 @@ u8 func1002_intro[] = {
 	chr_do_animation(0x01bc, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 
 	show_object(OBJ_DROPSHIP)
-	set_object_flag_bank1(OBJ_DROPSHIP, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_DROPSHIP, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_DROPSHIP, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_DROPSHIP, OBJFLAG3_00000010)
 	object_do_animation(0x01bd, OBJ_DROPSHIP, 0x04ff, 0xff)
 
 	restart_timer
@@ -2082,7 +2082,7 @@ u8 func1009_windmill_switch[] = {
 		message(CHR_P1P2, 0x2012) // "Windmill has been reactivated."
 		yield
 		set_stage_flag(STAGEFLAG_WINDMILL_ACTIVATED)
-		set_object_flag_bank1(OBJ_WINDMILL, OBJECTFLAG1_20000000)
+		set_object_flag2(OBJ_WINDMILL, OBJFLAG2_20000000)
 		unlock_door(0x06, 0x02)
 		unlock_door(0x07, 0x02)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2163,8 +2163,8 @@ u8 func100b_invoke_hackers[] = {
 	label(0x06)
 	speak(CHR_BOND, 0x2016, 0x819f, CHANNEL_4, COLOR_05_GREEN) // "Joanna! It's Grimshaw. We've got hackers at the vi..."
 	set_stage_flag(STAGEFLAG_HACKERS_STARTED)
-	set_object_flag_bank2(0x0b, OBJECTFLAG2_RTRACKED_YELLOW)
-	set_object_flag_bank2(0x0d, OBJECTFLAG2_RTRACKED_YELLOW)
+	set_object_flag3(0x0b, OBJFLAG3_RTRACKED_YELLOW)
+	set_object_flag3(0x0d, OBJFLAG3_RTRACKED_YELLOW)
 	show_chr(CHR_HACKER1)
 	yield
 	show_chr(CHR_HACKER2)
@@ -2423,8 +2423,8 @@ u8 func1014_give_keycard[] = {
 	set_chr_chrflag(CHR_BASEMENT7, CHRCFLAG_KILLCOUNTABLE)
 	set_chr_chrflag(CHR_BASEMENT8, CHRCFLAG_KILLCOUNTABLE)
 	set_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_KILLCOUNTABLE)
-	set_object_flag_bank0(OBJ_KEYCARD, OBJECTFLAG0_00100000)
-	set_object_flag_bank1(OBJ_KEYCARD, OBJECTFLAG1_INVISIBLE)
+	set_object_flag(OBJ_KEYCARD, OBJFLAG_00100000)
+	set_object_flag2(OBJ_KEYCARD, OBJFLAG2_INVISIBLE)
 
 	// Wait until one basement guard remaining
 	beginloop(0x04)
@@ -2458,8 +2458,8 @@ u8 func1014_give_keycard[] = {
 
 	// Gave key
 	label(0x09)
-	unset_object_flag_bank0(OBJ_KEYCARD, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(OBJ_KEYCARD, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(OBJ_KEYCARD, OBJFLAG_00100000)
+	unset_object_flag2(OBJ_KEYCARD, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2931,10 +2931,10 @@ u8 func101d_dual_cmp150[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	unset_object_flag_bank0(OBJ_CMP150_1, OBJECTFLAG0_00100000)
-	unset_object_flag_bank0(OBJ_CMP150_2, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(OBJ_CMP150_1, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank1(OBJ_CMP150_1, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(OBJ_CMP150_1, OBJFLAG_00100000)
+	unset_object_flag(OBJ_CMP150_2, OBJFLAG_00100000)
+	unset_object_flag2(OBJ_CMP150_1, OBJFLAG2_INVISIBLE)
+	unset_object_flag2(OBJ_CMP150_1, OBJFLAG2_INVISIBLE)
 
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3153,9 +3153,9 @@ u8 func1021_toggle_last_basement_guard[] = {
 
 u8 func1022_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(OBJ_CMP150_1, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(OBJ_CMP150_2, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(OBJ_DEVASTATOR, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_CMP150_1, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(OBJ_CMP150_2, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(OBJ_DEVASTATOR, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

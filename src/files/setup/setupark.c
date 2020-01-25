@@ -1463,7 +1463,7 @@ u8 func1005_check_bodyguards_dead[] = {
 
 		set_stage_flag(STAGEFLAG_TOP_BODYGUARDS_DEAD)
 		unlock_door(OBJ_TOPROOMDOOR, 0x02)
-		unset_object_flag_bank1(OBJ_TOPROOMDOOR, OBJECTFLAG1_20000000)
+		unset_object_flag2(OBJ_TOPROOMDOOR, OBJFLAG2_20000000)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x26)
 
 		if_alive_goto_00(0x16, 0x20)
@@ -1584,7 +1584,7 @@ u8 func1009_init_top_room[] = {
 	endloop(0x1f)
 
 	label(0x00)
-	set_object_flag_bank0(OBJ_TOPROOMDOOR, OBJECTFLAG0_02000000)
+	set_object_flag(OBJ_TOPROOMDOOR, OBJFLAG_02000000)
 	set_chr_target_chr(CHR_CASS, CHR_P1P2)
 	set_chr_target_chr(CHR_TOPGUARD1, CHR_P1P2)
 	set_chr_target_chr(CHR_TOPGUARD2, CHR_P1P2)
@@ -1959,7 +1959,7 @@ u8 func040d_cass[] = {
 	endloop(0x25)
 
 	label(0x26)
-	unset_object_flag_bank0(OBJ_TOPROOMDOOR, OBJECTFLAG0_02000000)
+	unset_object_flag(OBJ_TOPROOMDOOR, OBJFLAG_02000000)
 	grant_control(CHR_BOND)
 	close_door(OBJ_TOPROOMDOOR)
 	if_chr_in_room(CHR_BOND, 0x00, 0x0045, /*goto*/ 0x20)
@@ -1975,7 +1975,7 @@ u8 func040d_cass[] = {
 	goto_next(0x00)
 
 	label(0x89)
-	unset_object_flag_bank0(OBJ_TOPROOMDOOR, OBJECTFLAG0_02000000)
+	unset_object_flag(OBJ_TOPROOMDOOR, OBJFLAG_02000000)
 	restart_timer
 
 	beginloop(0x8a)
@@ -2108,7 +2108,7 @@ u8 func101f_unlock_top_door[] = {
 
 	label(0x20)
 	unlock_door(OBJ_TOPROOMDOOR, 0x02)
-	unset_object_flag_bank1(OBJ_TOPROOMDOOR, OBJECTFLAG1_20000000)
+	unset_object_flag2(OBJ_TOPROOMDOOR, OBJFLAG2_20000000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2410,7 +2410,7 @@ u8 func0412_outro[] = {
 	set_music_track(MUSIC_EXTRACTION_OUTRO)
 	set_sfx_track(MUSIC_EXTRACTION_OUTRO_SFX)
 	camera_movement(0x0157)
-	set_object_flag_bank1(OBJ_HOVERCOPTER, OBJECTFLAG1_INVISIBLE)
+	set_object_flag2(OBJ_HOVERCOPTER, OBJFLAG2_INVISIBLE)
 	hide_object(OBJ_HOVERCOPTER)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -2455,8 +2455,8 @@ u8 func0412_outro[] = {
 	chr_do_animation(0x015c, -1, -1, 0x06, 0x00, CHR_OUTRO_GUARD2, 4)
 
 	show_object(OBJ_JUMPSHIP)
-	set_object_flag_bank2(OBJ_JUMPSHIP, OBJECTFLAG2_00000010)
-	set_object_flag_bank1(OBJ_JUMPSHIP, OBJECTFLAG1_04000000)
+	set_object_flag3(OBJ_JUMPSHIP, OBJFLAG3_00000010)
+	set_object_flag2(OBJ_JUMPSHIP, OBJFLAG2_04000000)
 	object_do_animation(0x015e, OBJ_JUMPSHIP, 0x04ff, 0xff)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
@@ -2931,7 +2931,7 @@ u8 func101a_set_rocketlauncher_flag[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x20)
 
 	// SA and PA
-	set_object_flag_bank1(OBJ_ROCKETLAUNCHER, OBJECTFLAG1_20000000)
+	set_object_flag2(OBJ_ROCKETLAUNCHER, OBJFLAG2_20000000)
 
 	label(0x20)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3134,8 +3134,8 @@ u8 func141e_setup_lighting[] = {
 
 u8 func101d_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(OBJ_GRENADE, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(OBJ_DRAGON, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_GRENADE, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(OBJ_DRAGON, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

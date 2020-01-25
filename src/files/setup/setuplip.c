@@ -1597,14 +1597,14 @@ u8 func100a_random_doors[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_object_flag_bank0(0x07, OBJECTFLAG0_02000000)
-	set_object_flag_bank0(0x09, OBJECTFLAG0_02000000)
-	set_object_flag_bank0(0x0b, OBJECTFLAG0_02000000)
-	set_object_flag_bank0(0x0d, OBJECTFLAG0_02000000)
-	set_object_flag_bank0(0x08, OBJECTFLAG0_02000000)
-	set_object_flag_bank0(0x0a, OBJECTFLAG0_02000000)
-	set_object_flag_bank0(0x0c, OBJECTFLAG0_02000000)
-	set_object_flag_bank0(0x0e, OBJECTFLAG0_02000000)
+	set_object_flag(0x07, OBJFLAG_02000000)
+	set_object_flag(0x09, OBJFLAG_02000000)
+	set_object_flag(0x0b, OBJFLAG_02000000)
+	set_object_flag(0x0d, OBJFLAG_02000000)
+	set_object_flag(0x08, OBJFLAG_02000000)
+	set_object_flag(0x0a, OBJFLAG_02000000)
+	set_object_flag(0x0c, OBJFLAG_02000000)
+	set_object_flag(0x0e, OBJFLAG_02000000)
 
 	beginloop(0x03)
 		// 55 in 256 chance of doing anything on a given frame
@@ -1812,8 +1812,8 @@ u8 func0418_doorman[] = {
 
 	// Unlocking
 	label(0x06)
-	unset_object_flag_bank1(0x4a, OBJECTFLAG1_20000000)
-	unset_object_flag_bank1(0x4b, OBJECTFLAG1_20000000)
+	unset_object_flag2(0x4a, OBJFLAG2_20000000)
+	unset_object_flag2(0x4b, OBJFLAG2_20000000)
 	unlock_door(0x4a, 0x40)
 	unlock_door(0x4b, 0x40)
 	open_door(0x4a)
@@ -2240,7 +2240,7 @@ u8 func1010_give_keycard[] = {
 	dprint 'G','I','V','E',' ','T','O','7',0,
 
 	label(0x2d)
-	unset_object_flag_bank1(0x10, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(0x10, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2470,7 +2470,7 @@ u8 func1014_check_crate_destroyed[] = {
 	// have been changed at some point, but the unsetting of the flag remains.
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_CRATE, /*goto*/ 0x06)
-		unset_object_flag_bank0(OBJ_WALL, OBJECTFLAG0_INVINCIBLE)
+		unset_object_flag(OBJ_WALL, OBJFLAG_INVINCIBLE)
 		yield
 		yield
 		yield
@@ -2968,7 +2968,7 @@ u8 func0420_labtech_doors[] = {
 };
 
 u8 func1017_activate_autogun[] = {
-	set_object_flag_bank0(OBJ_AUTOGUN, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_AUTOGUN, OBJFLAG_DEACTIVATED)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_AUTOGUN_ACTIVATED, TRUE, /*goto*/ 0x06)
@@ -2979,7 +2979,7 @@ u8 func1017_activate_autogun[] = {
 	goto_next(0x06)
 
 	label(0x2d)
-	unset_object_flag_bank0(OBJ_AUTOGUN, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_AUTOGUN, OBJFLAG_DEACTIVATED)
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3134,14 +3134,14 @@ u8 func0422_labtech_records[] = {
  * go up and down.
  */
 u8 func1018_disable_chambers[] = {
-	set_object_flag_bank0(OBJ_CHAMBER1, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_CHAMBER2, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_CHAMBER3, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_CHAMBER4, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_CHAMBER5, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_CHAMBER6, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_CHAMBER7, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_CHAMBER8, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_CHAMBER3, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_CHAMBER4, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_CHAMBER5, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_CHAMBER6, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_CHAMBER7, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3167,7 +3167,7 @@ u8 func1018_disable_chambers[] = {
 		control_sound_from_object(CHANNEL_7, switch, TRUE) \
 		message(CHR_P1P2, 0x2a42) /* "Containment unit raised up." */ \
 		set_object_image(switch, 0x00, 0x13) \
-		unset_object_flag_bank0(chamber, OBJECTFLAG0_DEACTIVATED) \
+		unset_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 		set_stage_flag(stageflag) \
 		restart_timer \
  \
@@ -3179,7 +3179,7 @@ u8 func1018_disable_chambers[] = {
 		mute_channel(CHANNEL_0) \
 		assign_sound(0x042c, CHANNEL_0) \
 		control_sound_from_object(CHANNEL_0, chamber, TRUE) \
-		set_object_flag_bank0(chamber, OBJECTFLAG0_DEACTIVATED) \
+		set_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 		reloop(0x04) \
  \
 		/* Lowering chamber */ \
@@ -3191,7 +3191,7 @@ u8 func1018_disable_chambers[] = {
 		control_sound_from_object(CHANNEL_7, switch, TRUE) \
 		message(CHR_P1P2, 0x2a43) /* "Containment unit lowered down." */ \
 		set_object_image(switch, 0x00, 0x12) \
-		unset_object_flag_bank0(chamber, OBJECTFLAG0_DEACTIVATED) \
+		unset_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 		unset_stage_flag(stageflag) \
 		restart_timer \
  \
@@ -3203,7 +3203,7 @@ u8 func1018_disable_chambers[] = {
 		mute_channel(CHANNEL_0) \
 		assign_sound(0x042c, CHANNEL_0) \
 		control_sound_from_object(CHANNEL_0, chamber, TRUE) \
-		set_object_flag_bank0(chamber, OBJECTFLAG0_DEACTIVATED) \
+		set_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 	endloop(0x04)
 
 
@@ -3229,7 +3229,7 @@ u8 func1019_chamber1[] = {
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER1_SWITCH, 0x00, 0x13)
 		message(CHR_P1P2, 0x2a42) // "Containment unit raised up."
-		unset_object_flag_bank0(OBJ_CHAMBER1, OBJECTFLAG0_DEACTIVATED)
+		unset_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER1_RAISED)
 		restart_timer
 
@@ -3252,7 +3252,7 @@ u8 func1019_chamber1[] = {
 		unset_chr_chrflag(CHR_ALIEN, CHRCFLAG_HIDDEN)
 		set_ailist(CHR_ALIEN, AILIST_CHECK_LOOKING_AT_ALIEN)
 		label(0x06)
-		set_object_flag_bank0(OBJ_CHAMBER1, OBJECTFLAG0_DEACTIVATED)
+		set_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 		reloop(0x04)
 
 		// Lowering chamber
@@ -3265,7 +3265,7 @@ u8 func1019_chamber1[] = {
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER1_SWITCH, 0x00, 0x12)
 		message(CHR_P1P2, 0x2a43) // "Containment unit lowered down."
-		unset_object_flag_bank0(OBJ_CHAMBER1, OBJECTFLAG0_DEACTIVATED)
+		unset_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER1_RAISED)
 		restart_timer
 
@@ -3277,7 +3277,7 @@ u8 func1019_chamber1[] = {
 		mute_channel(CHANNEL_0)
 		assign_sound(0x042c, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
-		set_object_flag_bank0(OBJ_CHAMBER1, OBJECTFLAG0_DEACTIVATED)
+		set_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
 	endlist
 };
@@ -3300,7 +3300,7 @@ u8 func101a_chamber2[] = {
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER2_SWITCH, 0x00, 0x13)
 		message(CHR_P1P2, 0x2a42) // "Containment unit raised up."
-		unset_object_flag_bank0(OBJ_CHAMBER2, OBJECTFLAG0_DEACTIVATED)
+		unset_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER2_RAISED)
 		restart_timer
 
@@ -3313,7 +3313,7 @@ u8 func101a_chamber2[] = {
 		assign_sound(0x042c, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
 
-		set_object_flag_bank0(OBJ_CHAMBER2, OBJECTFLAG0_DEACTIVATED)
+		set_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 		reloop(0x04)
 
 		// Lowering chamber
@@ -3325,7 +3325,7 @@ u8 func101a_chamber2[] = {
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER2_SWITCH, 0x00, 0x12)
 		message(CHR_P1P2, 0x2a43) // "Containment unit lowered down."
-		unset_object_flag_bank0(OBJ_CHAMBER2, OBJECTFLAG0_DEACTIVATED)
+		unset_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER2_RAISED)
 		restart_timer
 
@@ -3337,7 +3337,7 @@ u8 func101a_chamber2[] = {
 		mute_channel(CHANNEL_0)
 		assign_sound(0x042c, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
-		set_object_flag_bank0(OBJ_CHAMBER2, OBJECTFLAG0_DEACTIVATED)
+		set_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
 	endlist
 };
@@ -3387,7 +3387,7 @@ u8 func1020_chamber8[] = {
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
 		message(CHR_P1P2, 0x2a42) // "Containment unit raised up."
 		set_object_image(OBJ_CHAMBER8_SWITCH, 0x00, 0x13)
-		unset_object_flag_bank0(OBJ_CHAMBER8, OBJECTFLAG0_DEACTIVATED)
+		unset_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER8_RAISED)
 		restart_timer
 
@@ -3400,7 +3400,7 @@ u8 func1020_chamber8[] = {
 		assign_sound(0x042c, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 
-		set_object_flag_bank0(OBJ_CHAMBER8, OBJECTFLAG0_DEACTIVATED)
+		set_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 		reloop(0x04)
 
 		// Lowering chamber
@@ -3413,7 +3413,7 @@ u8 func1020_chamber8[] = {
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
 		message(CHR_P1P2, 0x2a43) // "Containment unit lowered down."
 		set_object_image(OBJ_CHAMBER8_SWITCH, 0x00, 0x12)
-		unset_object_flag_bank0(OBJ_CHAMBER8, OBJECTFLAG0_DEACTIVATED)
+		unset_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER8_RAISED)
 		restart_timer
 
@@ -3425,7 +3425,7 @@ u8 func1020_chamber8[] = {
 		mute_channel(CHANNEL_0)
 		assign_sound(0x042c, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
-		set_object_flag_bank0(OBJ_CHAMBER8, OBJECTFLAG0_DEACTIVATED)
+		set_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
 	endlist
 };
@@ -3659,8 +3659,8 @@ u8 func0c01_outro[] = {
 	set_chr_hiddenflag(CHR_BIOTECH2, CHRHFLAG_00020000)
 	chr_do_animation(0x019b, -1, -1, 0x06, 0x00, CHR_BIOTECH2, 4)
 
-	set_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x2f, OBJECTFLAG2_00000010)
+	set_object_flag2(0x2f, OBJFLAG2_04000000)
+	set_object_flag3(0x2f, OBJFLAG3_00000010)
 	object_do_animation(0x01a1, 0x2f, 0x04ff, 0xff)
 	show_nonessential_chrs(FALSE)
 	restart_timer
@@ -3761,8 +3761,8 @@ u8 func1002_intro[] = {
 	set_chr_hiddenflag(CHR_INTRO_DEAD_GUARD, CHRHFLAG_00020000)
 	chr_do_animation(0x01c9, -1, -1, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 4)
 
-	set_object_flag_bank1(OBJ_CRATE, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_CRATE, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_CRATE, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_CRATE, OBJFLAG3_00000010)
 	object_do_animation(0x01ca, OBJ_CRATE, 0x04ff, 0xff)
 
 	restart_timer
@@ -3912,8 +3912,8 @@ u8 func1002_intro[] = {
 	set_chr_hiddenflag(CHR_INTRO_DEAD_GUARD, CHRHFLAG_00020000)
 	chr_do_animation(0x01c9, -2, -1, 0x06, 0x00, CHR_INTRO_DEAD_GUARD, 2)
 	mute_channel(CHANNEL_10)
-	unset_object_flag_bank1(OBJ_CRATE, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_CRATE, OBJECTFLAG2_00000010)
+	unset_object_flag2(OBJ_CRATE, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_CRATE, OBJFLAG3_00000010)
 	object_do_animation(0x01ca, OBJ_CRATE, 0x01ff, 0xfe)
 	close_door(0x33)
 	close_door(0x34)
@@ -4317,7 +4317,7 @@ u8 func0416_become_unaware[] = {
 };
 
 u8 unregistered_function2[] = {
-	set_object_flag_bank0(OBJ_WALL, OBJECTFLAG0_INVINCIBLE)
+	set_object_flag(OBJ_WALL, OBJFLAG_INVINCIBLE)
 
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_CRATE, /*goto*/ 0x2d)
@@ -4328,7 +4328,7 @@ u8 unregistered_function2[] = {
 
 	// Crate destroyed
 	label(0x06)
-	unset_object_flag_bank0(OBJ_WALL, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(OBJ_WALL, OBJFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4516,9 +4516,9 @@ u8 func1033_update_buddy_placed_flag[] = {
 
 u8 func1034_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(OBJ_FALCON2SILENCED1, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(OBJ_FALCON2SILENCED2, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(OBJ_PHOENIX, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_FALCON2SILENCED1, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(OBJ_FALCON2SILENCED2, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(OBJ_PHOENIX, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

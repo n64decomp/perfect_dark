@@ -1502,63 +1502,63 @@
 /**
  * Sets a flag on the object's flags property (object struct offset 0x08).
  *
- * Expects an OBJECTFLAG0 constant.
+ * Expects an OBJECTFLAG constant.
  */
-#define set_object_flag_bank0(object, objectflag0) \
+#define set_object_flag(object, objectflag) \
 	mkshort(0x00aa), \
 	object, \
-	mkword(objectflag0),
+	mkword(objectflag),
 
 /**
  * Unsets a flag on the object's flags property.
  *
- * See set_object_flag_bank0 for more info.
+ * See set_object_flag for more info.
  */
-#define unset_object_flag_bank0(object, objectflag0) \
+#define unset_object_flag(object, objectflag) \
 	mkshort(0x00ab), \
 	object, \
-	mkword(objectflag0),
+	mkword(objectflag),
 
 /**
  * Checks if the given object has the given flags property.
  *
- * See set_object_flag_bank0 for more info.
+ * See set_object_flag for more info.
  */
-#define if_object_has_flag(object, flag, label) \
+#define if_object_has_flag(object, objectflag, label) \
 	mkshort(0x00ac), \
 	object, \
-	mkword(flag), \
+	mkword(objectflag), \
 	label,
 
 /**
  * Sets a flag on the object's flags2 property (object struct offset 0x0c).
  *
- * Expects an OBJECTFLAG1 constant.
+ * Expects an OBJECTFLAG2 constant.
  */
-#define set_object_flag_bank1(object, objectflag1) \
+#define set_object_flag2(object, objectflag2) \
 	mkshort(0x00ad), \
 	object, \
-	mkword(objectflag1),
+	mkword(objectflag2),
 
 /**
  * Unsets a flag on the object's flags2 property.
  *
- * See set_object_flag_bank1 for more info.
+ * See set_object_flag2 for more info.
  */
-#define unset_object_flag_bank1(object, objectflag1) \
+#define unset_object_flag2(object, objectflag2) \
 	mkshort(0x00ae), \
 	object, \
-	mkword(objectflag1),
+	mkword(objectflag2),
 
 /**
  * Checks if the given object has the given flags2 property.
  *
- * See set_object_flag_bank1 for more info.
+ * See set_object_flag2 for more info.
  */
-#define if_object_flag_bank1(object, objectflag1, label) \
+#define if_object_flag2(object, objectflag2, label) \
 	mkshort(0x00af), \
 	object, \
-	mkword(objectflag1), \
+	mkword(objectflag2), \
 	label,
 
 /**
@@ -2356,32 +2356,32 @@
 /**
  * Sets a flag on the object's flags3 property (object struct offset 0x10).
  *
- * Expects an OBJECTFLAG2 constant.
+ * Expects an OBJECTFLAG3 constant.
  */
-#define set_object_flag_bank2(object, objectflag2) \
+#define set_object_flag3(object, objectflag3) \
 	mkshort(0x0118), \
 	object, \
-	mkword(objectflag2),
+	mkword(objectflag3),
 
 /**
  * Unsets a flag on the object's flags3 property.
  *
- * See set_object_flag_bank2 for more info.
+ * See set_object_flag3 for more info.
  */
-#define unset_object_flag_bank2(object, objectflag2) \
+#define unset_object_flag3(object, objectflag3) \
 	mkshort(0x0119), \
 	object, \
-	mkword(objectflag2),
+	mkword(objectflag3),
 
 /**
  * Checks if the given object has the given flags3 property.
  *
- * See set_object_flag_bank2 for more info.
+ * See set_object_flag3 for more info.
  */
-#define if_object_flag_bank2(object, objectflag2, label) \
+#define if_object_flag3(object, objectflag3, label) \
 	mkshort(0x011a), \
 	object, \
-	mkword(objectflag2), \
+	mkword(objectflag3), \
 	label,
 
 /**
@@ -2948,7 +2948,7 @@
 // If bool is false, run some function on the chr and their gun ground
 // prop, then follow the label.
 // If bool is true, don't call the function, and only follow the label if the
-// gun prop has OBJHIDDENFLAG_00000080.
+// gun prop has OBJHFLAG_00000080.
 #define if_gun_landed(bool, label) \
 	mkshort(0x0170), \
 	bool, \

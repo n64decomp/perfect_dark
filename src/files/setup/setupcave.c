@@ -849,8 +849,8 @@ u8 func0425_outro[] = {
 	chr_do_animation(0x031b, -1, -1, 0x06, 0x00, CHR_OUTRO_NSA, 4)
 
 	show_object(OBJ_PLANE)
-	set_object_flag_bank1(OBJ_PLANE, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_PLANE, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_PLANE, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_PLANE, OBJFLAG3_00000010)
 	object_do_animation(0x031c, OBJ_PLANE, 0x04ff, 0xff)
 
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
@@ -919,15 +919,15 @@ u8 func0402_init_stripes[] = {
 };
 
 u8 func1004_guard_activation[] = {
-	set_object_flag_bank0(0x29, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank1(0x29, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(0x29, OBJECTFLAG0_00000100)
-	set_object_flag_bank0(0x2a, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank1(0x2a, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(0x2a, OBJECTFLAG0_00000100)
-	set_object_flag_bank1(OBJ_REMOTEMINE, OBJECTFLAG1_00020000)
-	set_object_flag_bank0(OBJ_REMOTEMINE, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank1(OBJ_REMOTEMINE, OBJECTFLAG1_INVISIBLE)
+	set_object_flag(0x29, OBJFLAG_INVINCIBLE)
+	set_object_flag2(0x29, OBJFLAG2_INVISIBLE)
+	unset_object_flag(0x29, OBJFLAG_00000100)
+	set_object_flag(0x2a, OBJFLAG_INVINCIBLE)
+	set_object_flag2(0x2a, OBJFLAG2_INVISIBLE)
+	unset_object_flag(0x2a, OBJFLAG_00000100)
+	set_object_flag2(OBJ_REMOTEMINE, OBJFLAG2_00020000)
+	set_object_flag(OBJ_REMOTEMINE, OBJFLAG_INVINCIBLE)
+	set_object_flag2(OBJ_REMOTEMINE, OBJFLAG2_INVISIBLE)
 	yield
 	yield
 	hide_chr(0x13)
@@ -976,12 +976,12 @@ u8 func1004_guard_activation[] = {
 	label(0x02)
 	hide_object(0x27)
 	hide_object(0x28)
-	unset_object_flag_bank0(0x29, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank1(0x29, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(0x29, OBJECTFLAG0_00000100)
-	unset_object_flag_bank0(0x2a, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank1(0x2a, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(0x2a, OBJECTFLAG0_00000100)
+	unset_object_flag(0x29, OBJFLAG_INVINCIBLE)
+	unset_object_flag2(0x29, OBJFLAG2_INVISIBLE)
+	set_object_flag(0x29, OBJFLAG_00000100)
+	unset_object_flag(0x2a, OBJFLAG_INVINCIBLE)
+	unset_object_flag2(0x2a, OBJFLAG2_INVISIBLE)
+	set_object_flag(0x2a, OBJFLAG_00000100)
 
 	#define remove_alaskan_guard(chr) \
 		set_chr_flag_bankx(chr, CHRFLAG1_WARNED, BANK_1) \
@@ -1077,8 +1077,8 @@ u8 func1004_guard_activation[] = {
 
 	set_ailist(0x10, AILIST_DRAW_MAGNUM)
 	set_ailist(0x11, AILIST_DRAW_MAGNUM)
-	unset_object_flag_bank0(0x2b, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank1(0x2b, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x2b, OBJFLAG_INVINCIBLE)
+	unset_object_flag2(0x2b, OBJFLAG2_INVISIBLE)
 
 	beginloop(0x6d)
 		if_chr_y(CHR_P1P2, -2000, OPERATOR_LESS_THAN, /*goto*/ 0x02)
@@ -1968,7 +1968,7 @@ u8 func1009_carousel_activation[] = {
 	chr_draw_weapon_in_cutscene(CHR_P1P2, WEAPON_UNARMED)
 	set_stage_flag(STAGEFLAG_SUITCASE_DEPOSITED)
 	play_sound(0x80aa, CHANNEL_7)
-	unset_object_flag_bank1(OBJ_BRIEFCASE2, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(OBJ_BRIEFCASE2, OBJFLAG2_INVISIBLE)
 	move_object_to_pad(OBJ_BRIEFCASE2, 0x00de)
 	yield
 	restart_timer
@@ -1979,7 +1979,7 @@ u8 func1009_carousel_activation[] = {
 
 	label(0x02)
 	clear_inventory(CHR_BOND)
-	unset_object_flag_bank0(OBJ_BAGGAGE_CARRIER, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_BAGGAGE_CARRIER, OBJFLAG_DEACTIVATED)
 	open_door(0x23)
 	restart_timer
 
@@ -1988,7 +1988,7 @@ u8 func1009_carousel_activation[] = {
 	endloop(0x04)
 
 	label(0x02)
-	set_object_flag_bank0(OBJ_BAGGAGE_CARRIER, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_BAGGAGE_CARRIER, OBJFLAG_DEACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2786,7 +2786,7 @@ u8 func0415_alaskan_mountainlift_guard[] = {
 };
 
 u8 func1010_setup_baggage_carrier[] = {
-	set_object_flag_bank0(OBJ_BAGGAGE_CARRIER, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_BAGGAGE_CARRIER, OBJFLAG_DEACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3486,8 +3486,8 @@ u8 func141b_setup_lifts[] = {
 };
 
 u8 func1018_safe_switch[] = {
-	set_object_flag_bank1(OBJ_FLIGHTPLANS, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(OBJ_SAFE_SWITCH_COVER, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag2(OBJ_FLIGHTPLANS, OBJFLAG2_INVISIBLE)
+	set_object_flag(OBJ_SAFE_SWITCH_COVER, OBJFLAG_DEACTIVATED)
 
 	// Wait for player to activate switch
 	beginloop(0x00)
@@ -3497,14 +3497,14 @@ u8 func1018_safe_switch[] = {
 
 	// Raise switch cover
 	label(0x31)
-	unset_object_flag_bank0(OBJ_SAFE_SWITCH_COVER, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_SAFE_SWITCH_COVER, OBJFLAG_DEACTIVATED)
 
 	beginloop(0x05)
 		if_lift_stationary(OBJ_SAFE_SWITCH_COVER, /*goto*/ 0x31)
 	endloop(0x05)
 
 	label(0x31)
-	set_object_flag_bank0(OBJ_SAFE_SWITCH_COVER, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_SAFE_SWITCH_COVER, OBJFLAG_DEACTIVATED)
 
 	// Wait for player to press button again
 	beginloop(0x06)
@@ -3522,20 +3522,20 @@ u8 func1018_safe_switch[] = {
 	yield
 	open_door(OBJ_SAFEDOOR)
 	yield
-	set_object_flag_bank0(OBJ_SAFEDOOR, OBJECTFLAG0_40000000)
+	set_object_flag(OBJ_SAFEDOOR, OBJFLAG_40000000)
 
-	unset_object_flag_bank1(OBJ_FLIGHTPLANS, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(OBJ_FLIGHTPLANS, OBJECTFLAG0_00100000)
-	set_object_flag_bank0(OBJ_FLIGHTPLANS, OBJECTFLAG0_COLLECTABLE)
-	set_object_flag_bank1(OBJ_FLIGHTPLANS, OBJECTFLAG1_00001000)
+	unset_object_flag2(OBJ_FLIGHTPLANS, OBJFLAG2_INVISIBLE)
+	unset_object_flag(OBJ_FLIGHTPLANS, OBJFLAG_00100000)
+	set_object_flag(OBJ_FLIGHTPLANS, OBJFLAG_COLLECTABLE)
+	set_object_flag2(OBJ_FLIGHTPLANS, OBJFLAG2_00001000)
 
 	// 0x32 = a shield
-	set_object_flag_bank1(0x34, OBJECTFLAG1_00001000)
-	unset_object_flag_bank0(0x34, OBJECTFLAG0_00100000)
+	set_object_flag2(0x34, OBJFLAG2_00001000)
+	unset_object_flag(0x34, OBJFLAG_00100000)
 
 	// 0x32 = invalid object
-	unset_object_flag_bank1(0x32, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(0x32, OBJECTFLAG0_00100000)
+	unset_object_flag2(0x32, OBJFLAG2_INVISIBLE)
+	unset_object_flag(0x32, OBJFLAG_00100000)
 
 	label(0x31)
 
@@ -3552,14 +3552,14 @@ u8 func1018_safe_switch[] = {
 };
 
 u8 func1018_safe_switch_cover[] = {
-	set_object_flag_bank0(OBJ_SAFE_SWITCH_COVER, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_SAFE_SWITCH_COVER, OBJFLAG_DEACTIVATED)
 
 	beginloop(0x00)
 		if_chr_activated_object(CHR_ANY, OBJ_SAFE_SWITCH_COVER, /*goto*/ 0x31)
 	endloop(0x00)
 
 	label(0x31)
-	unset_object_flag_bank0(OBJ_SAFE_SWITCH_COVER, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_SAFE_SWITCH_COVER, OBJFLAG_DEACTIVATED)
 	yield
 	yield
 
@@ -3568,7 +3568,7 @@ u8 func1018_safe_switch_cover[] = {
 	endloop(0x04)
 
 	label(0x31)
-	set_object_flag_bank0(OBJ_SAFE_SWITCH_COVER, OBJECTFLAG0_02000000)
+	set_object_flag(OBJ_SAFE_SWITCH_COVER, OBJFLAG_02000000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3621,12 +3621,12 @@ u8 func1003_intro[] = {
 	set_chr_hiddenflag(0x4c, CHRHFLAG_00020000)
 	chr_do_animation(0x01ec, -1, -1, 0x06, 0x00, 0x4c, 4)
 	show_object(0x22)
-	set_object_flag_bank1(0x22, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x22, OBJECTFLAG2_00000010)
+	set_object_flag2(0x22, OBJFLAG2_04000000)
+	set_object_flag3(0x22, OBJFLAG3_00000010)
 	object_do_animation(0x01ed, 0x22, 0x04ff, 0xff)
 	show_object(0x2f)
-	set_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x2f, OBJECTFLAG2_00000010)
+	set_object_flag2(0x2f, OBJFLAG2_04000000)
+	set_object_flag3(0x2f, OBJFLAG3_00000010)
 	object_do_animation(0x01ee, 0x2f, 0x04ff, 0xff)
 	restart_timer
 	fade_to_color(0x000000ff, 0x0000)
@@ -3842,8 +3842,8 @@ u8 func1003_intro[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x01e6, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	set_chr_hud_visible(CHR_BOND, FALSE)
-	unset_object_flag_bank1(0x22, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x22, OBJECTFLAG2_00000010)
+	unset_object_flag2(0x22, OBJFLAG2_04000000)
+	set_object_flag3(0x22, OBJFLAG3_00000010)
 	object_do_animation(0x01ed, 0x22, 0x01ff, 0xfe)
 	set_ailist(0x00, 0x0405)
 	set_ailist(0x01, 0x0405)
@@ -3953,10 +3953,10 @@ u8 func1023_check_office2_dead[] = {
 };
 
 u8 func1024_double_dy357[] = {
-	set_object_flag_bank0(0x30, OBJECTFLAG0_00100000)
-	set_object_flag_bank1(0x30, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(0x31, OBJECTFLAG0_00100000)
-	set_object_flag_bank1(0x31, OBJECTFLAG1_INVISIBLE)
+	set_object_flag(0x30, OBJFLAG_00100000)
+	set_object_flag2(0x30, OBJFLAG2_INVISIBLE)
+	set_object_flag(0x31, OBJFLAG_00100000)
+	set_object_flag2(0x31, OBJFLAG2_INVISIBLE)
 
 	beginloop(0x00)
 		if_chr_unloaded(0x10, /*goto*/ 0x31)
@@ -3967,10 +3967,10 @@ u8 func1024_double_dy357[] = {
 	endloop(0x00)
 
 	label(0x31)
-	unset_object_flag_bank0(0x30, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x30, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(0x31, OBJECTFLAG0_00100000)
-	unset_object_flag_bank1(0x31, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag(0x30, OBJFLAG_00100000)
+	unset_object_flag2(0x30, OBJFLAG2_INVISIBLE)
+	unset_object_flag(0x31, OBJFLAG_00100000)
+	unset_object_flag2(0x31, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4123,16 +4123,16 @@ u8 func141b_setup_lifts_and_doors[] = {
 	label(0x31)
 	hide_object(0x09)
 	label(0x02)
-	set_object_flag_bank0(OBJ_DIAGONAL_LIFT, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_VERTICAL_LIFT, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_DIAGONAL_LIFT, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_VERTICAL_LIFT, OBJFLAG_DEACTIVATED)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x02)
 	endloop(0x04)
 
 	label(0x02)
-	unset_object_flag_bank0(OBJ_DIAGONAL_LIFT, OBJECTFLAG0_DEACTIVATED)
-	unset_object_flag_bank0(OBJ_VERTICAL_LIFT, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_DIAGONAL_LIFT, OBJFLAG_DEACTIVATED)
+	unset_object_flag(OBJ_VERTICAL_LIFT, OBJFLAG_DEACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4262,8 +4262,8 @@ u8 func102f_undisguise_on_alarm[] = {
 
 u8 func1030_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(0x30, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(0x31, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(0x30, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(0x31, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

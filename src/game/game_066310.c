@@ -46180,20 +46180,20 @@ glabel func0f08df10
 
 void func0f08e0c4(struct doorobj *door)
 {
-	door->base.flags &= ~OBJECTFLAG0_40000000;
-	door->base.hidden |= OBJHIDDENFLAG_00000200;
+	door->base.flags &= ~OBJFLAG_40000000;
+	door->base.hidden |= OBJHFLAG_00000200;
 
 	func0f08d784(door->soundtype, door->base.prop);
 	doorActivatePortal(door);
 
 	if (door->doortype == DOORTYPE_8) {
 		struct obj44 *obj44 = door->base.unk44;
-		door->base.flags |= OBJECTFLAG0_02000000;
+		door->base.flags |= OBJFLAG_02000000;
 		door->perimfrac = 0;
 
-		if (obj44 && (door->base.flags & OBJECTFLAG0_00000100)) {
+		if (obj44 && (door->base.flags & OBJFLAG_00000100)) {
 			obj44->unk01 = 0;
-			door->base.flags &= ~OBJECTFLAG0_00000100;
+			door->base.flags &= ~OBJFLAG_00000100;
 		}
 	}
 
@@ -46206,7 +46206,7 @@ void func0f08e0c4(struct doorobj *door)
 
 void func0f08e1a0(struct doorobj *door)
 {
-	door->base.flags &= ~OBJECTFLAG0_40000000;
+	door->base.flags &= ~OBJFLAG_40000000;
 
 	func0f08daa8(door->soundtype, door->base.prop);
 
@@ -46233,7 +46233,7 @@ void func0f08e224(struct doorobj *door)
 	if (door->doortype == DOORTYPE_8) {
 		func0f0685e4(door->base.prop);
 
-		if (door->base.hidden & OBJHIDDENFLAG_00000080) {
+		if (door->base.hidden & OBJHFLAG_00000080) {
 			door->base.unk48->flags |= 1;
 			func000159b0(&door->base.unk48->unk20);
 		}
@@ -46312,7 +46312,7 @@ void doorActivate(struct doorobj *door, s32 newmode)
 
 	s32 siblingmode = newmode;
 
-	if ((door->base.flags2 & OBJECTFLAG1_40000000) && newmode == DOORMODE_OPENING) {
+	if ((door->base.flags2 & OBJFLAG2_40000000) && newmode == DOORMODE_OPENING) {
 		siblingmode = DOORMODE_CLOSING;
 
 		if (door->mode == DOORMODE_IDLE) {
@@ -47175,7 +47175,7 @@ glabel func0f08ed74
 //		f32 maxfrac = door->mode == DOORMODE_OPENING ? door->maxfrac : 0;
 //
 //		// Skedar Ruins random door stuckage
-//		if (door->base.flags3 & OBJECTFLAG2_00000004) {
+//		if (door->base.flags3 & OBJFLAG3_DOOR_STICKY) {
 //			s32 value = (random() % 64) + 30;
 //
 //			if ((g_Vars.lvframenum % value) == 0) {

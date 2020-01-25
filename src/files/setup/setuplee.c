@@ -539,8 +539,8 @@ u8 func1001_objectives_failed_msg[] = {
 };
 
 u8 func1400_setup_counterop[] = {
-	set_object_flag_bank0(OBJ_HANGARLIFT_ELVIS, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_HANGARLIFT_JO, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_HANGARLIFT_ELVIS, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 	yield
 	set_chr_team(CHR_ANTI, TEAM_ENEMY)
 	set_ailist(CHR_SELF, GAILIST_REBUILD_GROUPS)
@@ -575,10 +575,10 @@ u8 func1019_check_shields_lowered[] = {
 
 u8 func1004_check_hangar_doors_opened[] = {
 	yield
-	set_object_flag_bank0(OBJ_HANGARDOOR1, OBJECTFLAG0_02000000)
-	set_object_flag_bank0(OBJ_HANGARDOOR2, OBJECTFLAG0_02000000)
-	set_object_flag_bank0(OBJ_HANGARDOOR3, OBJECTFLAG0_02000000)
-	set_object_flag_bank0(OBJ_HANGARDOOR4, OBJECTFLAG0_02000000)
+	set_object_flag(OBJ_HANGARDOOR1, OBJFLAG_02000000)
+	set_object_flag(OBJ_HANGARDOOR2, OBJFLAG_02000000)
+	set_object_flag(OBJ_HANGARDOOR3, OBJFLAG_02000000)
+	set_object_flag(OBJ_HANGARDOOR4, OBJFLAG_02000000)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -624,10 +624,10 @@ u8 func1004_check_hangar_doors_opened[] = {
 	open_door(OBJ_HANGARDOOR2)
 	open_door(OBJ_HANGARDOOR3)
 	open_door(OBJ_HANGARDOOR4)
-	set_object_flag_bank0(OBJ_HANGARDOOR1, OBJECTFLAG0_40000000)
-	set_object_flag_bank0(OBJ_HANGARDOOR2, OBJECTFLAG0_40000000)
-	set_object_flag_bank0(OBJ_HANGARDOOR3, OBJECTFLAG0_40000000)
-	set_object_flag_bank0(OBJ_HANGARDOOR4, OBJECTFLAG0_40000000)
+	set_object_flag(OBJ_HANGARDOOR1, OBJFLAG_40000000)
+	set_object_flag(OBJ_HANGARDOOR2, OBJFLAG_40000000)
+	set_object_flag(OBJ_HANGARDOOR3, OBJFLAG_40000000)
+	set_object_flag(OBJ_HANGARDOOR4, OBJFLAG_40000000)
 	restart_timer
 
 	beginloop(0x09)
@@ -1255,8 +1255,8 @@ u8 func1007_check_entered_slayer_area[] = {
 };
 
 u8 func1008_hangar_lifts[] = {
-	set_object_flag_bank0(OBJ_HANGARLIFT_ELVIS, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_HANGARLIFT_JO, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_HANGARLIFT_ELVIS, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 
 	// Wait until kills done
 	beginloop(0x08)
@@ -1266,7 +1266,7 @@ u8 func1008_hangar_lifts[] = {
 	// Activate Jo's lift so it starts going to bottom
 	label(0x2c)
 	dprint 'U','N','\n',0,
-	unset_object_flag_bank0(OBJ_HANGARLIFT_JO, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 	yield
 	yield
 	yield
@@ -1287,13 +1287,13 @@ u8 func1008_hangar_lifts[] = {
 
 	// Deactivate lift and open door
 	label(0x66)
-	set_object_flag_bank0(0x39, OBJECTFLAG0_40000000)
-	set_object_flag_bank0(0x3a, OBJECTFLAG0_40000000)
-	unset_object_flag_bank0(OBJ_HANGARLIFT_JO, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(0x39, OBJFLAG_40000000)
+	set_object_flag(0x3a, OBJFLAG_40000000)
+	unset_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 	open_door(0x39)
 	open_door(0x3a)
 	yield
-	set_object_flag_bank0(OBJ_HANGARLIFT_JO, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 
 	beginloop(0x67)
 		dprint 'T','R','\n',0,
@@ -1320,9 +1320,9 @@ u8 func1008_hangar_lifts[] = {
 	// hence the 5 second wait if entered as soon as the door opens.
 	label(0x2c)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
-	unset_object_flag_bank0(0x39, OBJECTFLAG0_40000000)
-	unset_object_flag_bank0(0x3a, OBJECTFLAG0_40000000)
-	unset_object_flag_bank0(OBJ_HANGARLIFT_JO, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(0x39, OBJFLAG_40000000)
+	unset_object_flag(0x3a, OBJFLAG_40000000)
+	unset_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
 
 	// Wait until Y coordinate >= 400
 	beginloop(0x09)
@@ -1341,8 +1341,8 @@ u8 func1008_hangar_lifts[] = {
 	endloop(0x0a)
 
 	label(0x2c)
-	set_object_flag_bank0(OBJ_HANGARLIFT_JO, OBJECTFLAG0_DEACTIVATED)
-	unset_object_flag_bank0(OBJ_HANGARLIFT_ELVIS, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_HANGARLIFT_JO, OBJFLAG_DEACTIVATED)
+	unset_object_flag(OBJ_HANGARLIFT_ELVIS, OBJFLAG_DEACTIVATED)
 	if_chr_death_animation_finished(CHR_ELVIS, /*goto*/ 0x2c)
 	if_chr_unloaded(CHR_ELVIS, /*goto*/ 0x2c)
 	if_chr_dying(CHR_ELVIS, /*goto*/ 0x2c)
@@ -1362,7 +1362,7 @@ u8 func1008_hangar_lifts[] = {
 
 	// Activate his lift and wait 2 seconds
 	label(0x2c)
-	unset_object_flag_bank0(OBJ_HANGARLIFT_ELVIS, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_HANGARLIFT_ELVIS, OBJFLAG_DEACTIVATED)
 	restart_timer
 
 	beginloop(0x0b)
@@ -1384,9 +1384,9 @@ u8 func1008_hangar_lifts[] = {
 	// Check Elvis actually rode the lift up, and if not then go into a loop
 	// attempting to warp him.
 	beginloop(0x64)
-		set_object_flag_bank0(OBJ_HANGARLIFT_ELVIS, OBJECTFLAG0_DEACTIVATED)
-		unset_object_flag_bank0(0x3b, OBJECTFLAG0_02000000)
-		unset_object_flag_bank0(0x3c, OBJECTFLAG0_02000000)
+		set_object_flag(OBJ_HANGARLIFT_ELVIS, OBJFLAG_DEACTIVATED)
+		unset_object_flag(0x3b, OBJFLAG_02000000)
+		unset_object_flag(0x3c, OBJFLAG_02000000)
 		unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 		if_chr_y(CHR_ELVIS, 400, OPERATOR_LESS_THAN, /*goto*/ 0x06)
 		goto_next(0x68)
@@ -1417,7 +1417,7 @@ u8 func1008_hangar_lifts[] = {
 	// Bring Elvis's lift down
 	label(0x2c)
 	play_sound(0x81a6, -1)
-	unset_object_flag_bank0(OBJ_HANGARLIFT_ELVIS, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_HANGARLIFT_ELVIS, OBJFLAG_DEACTIVATED)
 	yield
 	yield
 	yield
@@ -1921,21 +1921,21 @@ u8 func100c_engineroom[] = {
 
 	// Timer expired
 	label(0x2c)
-	unset_object_flag_bank0(0x1b, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(0x1c, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(0x1d, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(0x1e, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(0x1f, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(0x20, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank1(0x1b, OBJECTFLAG1_80000000)
-	set_object_flag_bank1(0x1c, OBJECTFLAG1_80000000)
-	set_object_flag_bank1(0x1d, OBJECTFLAG1_80000000)
-	set_object_flag_bank1(0x1e, OBJECTFLAG1_80000000)
-	set_object_flag_bank1(0x1f, OBJECTFLAG1_80000000)
-	set_object_flag_bank1(0x20, OBJECTFLAG1_80000000)
+	unset_object_flag(0x1b, OBJFLAG_INVINCIBLE)
+	unset_object_flag(0x1c, OBJFLAG_INVINCIBLE)
+	unset_object_flag(0x1d, OBJFLAG_INVINCIBLE)
+	unset_object_flag(0x1e, OBJFLAG_INVINCIBLE)
+	unset_object_flag(0x1f, OBJFLAG_INVINCIBLE)
+	unset_object_flag(0x20, OBJFLAG_INVINCIBLE)
+	set_object_flag2(0x1b, OBJFLAG2_80000000)
+	set_object_flag2(0x1c, OBJFLAG2_80000000)
+	set_object_flag2(0x1d, OBJFLAG2_80000000)
+	set_object_flag2(0x1e, OBJFLAG2_80000000)
+	set_object_flag2(0x1f, OBJFLAG2_80000000)
+	set_object_flag2(0x20, OBJFLAG2_80000000)
 	label(0x06)
 	hide_countdown_timer
-	unset_object_flag_bank0(0x21, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x21, OBJFLAG_INVINCIBLE)
 	destroy_object(0x21)
 	destroy_object(0x1b)
 	destroy_object(0x1c)
@@ -1973,9 +1973,9 @@ u8 func100d_prebridgelift[] = {
 	// Deactivate lift
 	label(0x2c)
 	label(0x64)
-	set_object_flag_bank0(OBJ_PREBRIDGELIFT, OBJECTFLAG0_DEACTIVATED)
-	unset_object_flag_bank0(0x3d, OBJECTFLAG0_02000000)
-	unset_object_flag_bank0(0x3e, OBJECTFLAG0_02000000)
+	set_object_flag(OBJ_PREBRIDGELIFT, OBJFLAG_DEACTIVATED)
+	unset_object_flag(0x3d, OBJFLAG_02000000)
+	unset_object_flag(0x3e, OBJFLAG_02000000)
 
 	// Wait until lift called at bottom by buddy or counterop
 	beginloop(0x68)
@@ -1989,7 +1989,7 @@ u8 func100d_prebridgelift[] = {
 	// Activate lift
 	label(0x2c)
 	play_sound(0x81a6, -1)
-	unset_object_flag_bank0(OBJ_PREBRIDGELIFT, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_PREBRIDGELIFT, OBJFLAG_DEACTIVATED)
 	yield
 	yield
 	yield
@@ -2055,9 +2055,9 @@ u8 func100e_bridgelift[] = {
 
 	// Deactive lift
 	label(0x64)
-	set_object_flag_bank0(OBJ_BRIDGELIFT, OBJECTFLAG0_DEACTIVATED)
-	unset_object_flag_bank0(0x2f, OBJECTFLAG0_02000000)
-	unset_object_flag_bank0(0x30, OBJECTFLAG0_02000000)
+	set_object_flag(OBJ_BRIDGELIFT, OBJFLAG_DEACTIVATED)
+	unset_object_flag(0x2f, OBJFLAG_02000000)
+	unset_object_flag(0x30, OBJFLAG_02000000)
 
 	// Wait until lift called from below by buddy or counterop
 	beginloop(0x68)
@@ -2071,7 +2071,7 @@ u8 func100e_bridgelift[] = {
 	// Activate lift
 	label(0x2c)
 	play_sound(0x81a6, -1)
-	unset_object_flag_bank0(OBJ_BRIDGELIFT, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_BRIDGELIFT, OBJFLAG_DEACTIVATED)
 	yield
 	yield
 	yield
@@ -2807,8 +2807,8 @@ u8 func0c01_outro[] = {
 	chr_do_animation(0x01e3, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 
 	show_object(OBJ_OUTRO_SHUTTLE)
-	set_object_flag_bank1(OBJ_OUTRO_SHUTTLE, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_OUTRO_SHUTTLE, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_OUTRO_SHUTTLE, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_OUTRO_SHUTTLE, OBJFLAG3_00000010)
 	object_do_animation(0x01e4, OBJ_OUTRO_SHUTTLE, 0x04ff, 0xff)
 	set_object_part_visible(OBJ_OUTRO_SHUTTLE, FALSE)
 
@@ -2895,10 +2895,10 @@ u8 func0c01_outro[] = {
 	open_door(OBJ_HANGARDOOR2)
 	open_door(OBJ_HANGARDOOR3)
 	open_door(OBJ_HANGARDOOR4)
-	set_object_flag_bank0(OBJ_HANGARDOOR1, OBJECTFLAG0_40000000)
-	set_object_flag_bank0(OBJ_HANGARDOOR2, OBJECTFLAG0_40000000)
-	set_object_flag_bank0(OBJ_HANGARDOOR3, OBJECTFLAG0_40000000)
-	set_object_flag_bank0(OBJ_HANGARDOOR4, OBJECTFLAG0_40000000)
+	set_object_flag(OBJ_HANGARDOOR1, OBJFLAG_40000000)
+	set_object_flag(OBJ_HANGARDOOR2, OBJFLAG_40000000)
+	set_object_flag(OBJ_HANGARDOOR3, OBJFLAG_40000000)
+	set_object_flag(OBJ_HANGARDOOR4, OBJFLAG_40000000)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)
@@ -3365,7 +3365,7 @@ u8 func1018_place_elvis_in_hangar[] = {
 u8 func1002_hangar_shuttle[] = {
 	yield
 	show_object(OBJ_HANGAR_SHUTTLE)
-	set_object_flag_bank2(OBJ_HANGAR_SHUTTLE, OBJECTFLAG2_00000010)
+	set_object_flag3(OBJ_HANGAR_SHUTTLE, OBJFLAG3_00000010)
 	set_object_part_visible(OBJ_HANGAR_SHUTTLE, FALSE)
 
 	label(0x09)
@@ -3481,10 +3481,10 @@ u8 func040c_elvis_run_from_engineroom[] = {
 u8 func101f_enable_bridge_skedar[] = {
 	lock_door(0x41, 0x80)
 	lock_door(0x42, 0x80)
-	set_object_flag_bank1(0x41, OBJECTFLAG1_10000000)
-	set_object_flag_bank1(0x42, OBJECTFLAG1_08000000)
-	set_object_flag_bank1(0x41, OBJECTFLAG1_20000000)
-	set_object_flag_bank1(0x42, OBJECTFLAG1_20000000)
+	set_object_flag2(0x41, OBJFLAG2_10000000)
+	set_object_flag2(0x42, OBJFLAG2_08000000)
+	set_object_flag2(0x41, OBJFLAG2_20000000)
+	set_object_flag2(0x42, OBJFLAG2_20000000)
 
 	// Wait until first 4 objectives complete
 	beginloop(0x04)
@@ -3508,10 +3508,10 @@ u8 func101f_enable_bridge_skedar[] = {
 	label(0x2c)
 	unlock_door(0x41, 0x80)
 	unlock_door(0x42, 0x80)
-	unset_object_flag_bank1(0x41, OBJECTFLAG1_10000000)
-	unset_object_flag_bank1(0x42, OBJECTFLAG1_08000000)
-	unset_object_flag_bank1(0x41, OBJECTFLAG1_20000000)
-	unset_object_flag_bank1(0x42, OBJECTFLAG1_20000000)
+	unset_object_flag2(0x41, OBJFLAG2_10000000)
+	unset_object_flag2(0x42, OBJFLAG2_08000000)
+	unset_object_flag2(0x41, OBJFLAG2_20000000)
+	unset_object_flag2(0x42, OBJFLAG2_20000000)
 	show_chr(0x21)
 	show_chr(0x22)
 	show_chr(CHR_BRIDGE1)
@@ -3565,8 +3565,8 @@ u8 func1021_check_ammo_wasted[] = {
 u8 func1022_setup_rtracker[] = {
 	// @bug: The Slayer is not R-tracked
 	yield
-	set_object_flag_bank2(OBJ_MAULER1, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(OBJ_MAULER2, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_MAULER1, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(OBJ_MAULER2, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

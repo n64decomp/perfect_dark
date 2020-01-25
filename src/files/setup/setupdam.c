@@ -843,23 +843,23 @@ u8 func0c01_outro[] = {
 	chr_do_animation(0x02e4, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 
 	show_object(OBJ_OUTRO_SUBMARINE)
-	set_object_flag_bank1(OBJ_OUTRO_SUBMARINE, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_OUTRO_SUBMARINE, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_OUTRO_SUBMARINE, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_OUTRO_SUBMARINE, OBJFLAG3_00000010)
 	object_do_animation(0x02e5, OBJ_OUTRO_SUBMARINE, 0x04ff, 0xff)
 
 	show_object(OBJ_OUTRO_GRATE)
-	set_object_flag_bank1(OBJ_OUTRO_GRATE, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_OUTRO_GRATE, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_OUTRO_GRATE, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_OUTRO_GRATE, OBJFLAG3_00000010)
 	object_do_animation(0x02e6, OBJ_OUTRO_GRATE, 0x04ff, 0xff)
 
 	show_object(OBJ_OUTRO_CRATE1)
-	set_object_flag_bank1(OBJ_OUTRO_CRATE1, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_OUTRO_CRATE1, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_OUTRO_CRATE1, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_OUTRO_CRATE1, OBJFLAG3_00000010)
 	object_do_animation(0x02e7, OBJ_OUTRO_CRATE1, 0x04ff, 0xff)
 
 	show_object(OBJ_OUTRO_CRATE2)
-	set_object_flag_bank1(OBJ_OUTRO_CRATE2, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_OUTRO_CRATE2, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_OUTRO_CRATE2, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_OUTRO_CRATE2, OBJFLAG3_00000010)
 	object_do_animation(0x02e8, OBJ_OUTRO_CRATE2, 0x04ff, 0xff)
 
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
@@ -1086,7 +1086,7 @@ u8 func1009_open_reactor_hatch[] = {
 
 	label(0x07)
 	hide_object(OBJ_REACTOR_HATCH)
-	set_object_flag_bank1(OBJ_REACTOR_HATCH, OBJECTFLAG1_INVISIBLE)
+	set_object_flag2(OBJ_REACTOR_HATCH, OBJFLAG2_INVISIBLE)
 	message(CHR_P1P2, 0x1611) // "Reactor shutdown control hatch opened."
 	set_stage_flag(STAGEFLAG_REACTOR_HATCH_OPEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2843,10 +2843,10 @@ u8 func101e_alarm_images[] = {
 	endloop(0x00)
 
 	label(0x07)
-	set_object_flag_bank0(0x27, OBJECTFLAG0_00100000)
-	set_object_flag_bank0(0x28, OBJECTFLAG0_00100000)
-	set_object_flag_bank1(0x27, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank1(0x28, OBJECTFLAG1_INVISIBLE)
+	set_object_flag(0x27, OBJFLAG_00100000)
+	set_object_flag(0x28, OBJFLAG_00100000)
+	set_object_flag2(0x27, OBJFLAG2_INVISIBLE)
+	set_object_flag2(0x28, OBJFLAG2_INVISIBLE)
 	set_object_image(0x21, 0x00, 0x0f)
 	set_object_image(0x22, 0x00, 0x0f)
 	set_object_image(0x23, 0x00, 0x0f)
@@ -2893,8 +2893,8 @@ u8 func101f_unlock_doors[] = {
 
 u8 func1020_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(0x27, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(0x28, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(0x27, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(0x28, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

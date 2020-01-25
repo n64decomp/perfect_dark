@@ -929,7 +929,7 @@ u8 func0c00_init_intro[] = {
 };
 
 u8 func140e_check_interceptors_destroyed[] = {
-	set_object_flag_bank0(OBJ_AUTOGUN_AT_START, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_AUTOGUN_AT_START, OBJFLAG_DEACTIVATED)
 
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_INTERCEPTOR1, /*goto*/ 0x2e)
@@ -1104,7 +1104,7 @@ u8 func1004_check_antenna_destroyed[] = {
 };
 
 u8 func1405_antenna_switch[] = {
-	set_object_flag_bank0(OBJ_ANTENNA, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1116,7 +1116,7 @@ u8 func1405_antenna_switch[] = {
 		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, 0x801e, 0x00, 0x00)
 		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, 0x00cd, 0x00, 0x02)
 		set_object_image(OBJ_ANTENNA_SWITCH, 0x00, 0x12)
-		unset_object_flag_bank0(OBJ_ANTENNA, OBJECTFLAG0_DEACTIVATED)
+		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		message(CHR_P1P2, 0x2c1e) // "Antenna lowered."
 		set_stage_flag(STAGEFLAG_ANTENNA_LOWERED)
 		restart_timer
@@ -1132,14 +1132,14 @@ u8 func1405_antenna_switch[] = {
 		label(0x2e)
 		mute_channel(CHANNEL_1)
 		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, 0x801f, 0x00, 0x00)
-		set_object_flag_bank0(OBJ_ANTENNA, OBJECTFLAG0_DEACTIVATED)
+		set_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		reloop(0x04)
 
 		label(0x06)
 		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, 0x801e, 0x00, 0x00)
 		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, 0x00cd, 0x00, 0x02)
 		set_object_image(OBJ_ANTENNA_SWITCH, 0x00, 0x13)
-		unset_object_flag_bank0(OBJ_ANTENNA, OBJECTFLAG0_DEACTIVATED)
+		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_ANTENNA_LOWERED)
 		message(CHR_P1P2, 0x2c1d) // "Antenna raised."
 		restart_timer
@@ -1155,7 +1155,7 @@ u8 func1405_antenna_switch[] = {
 		label(0x2e)
 		mute_channel(CHANNEL_1)
 		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, 0x801f, 0x00, 0x00)
-		set_object_flag_bank0(OBJ_ANTENNA, OBJECTFLAG0_DEACTIVATED)
+		set_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
 
 	endlist
@@ -1649,13 +1649,13 @@ u8 func0416_mechanic[] = {
 
 u8 func1001_objectives_failed_msg[] = {
 	yield
-	set_object_flag_bank1(OBJ_MINE1, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank1(OBJ_MINE2, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank1(OBJ_MINE3, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank1(0x1a, OBJECTFLAG1_INVISIBLE) // invalid object
-	set_object_flag_bank1(OBJ_MINE4, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank1(OBJ_MINE5, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank1(OBJ_MINE6, OBJECTFLAG1_INVISIBLE)
+	set_object_flag2(OBJ_MINE1, OBJFLAG2_INVISIBLE)
+	set_object_flag2(OBJ_MINE2, OBJFLAG2_INVISIBLE)
+	set_object_flag2(OBJ_MINE3, OBJFLAG2_INVISIBLE)
+	set_object_flag2(0x1a, OBJFLAG2_INVISIBLE) // invalid object
+	set_object_flag2(OBJ_MINE4, OBJFLAG2_INVISIBLE)
+	set_object_flag2(OBJ_MINE5, OBJFLAG2_INVISIBLE)
+	set_object_flag2(OBJ_MINE6, OBJFLAG2_INVISIBLE)
 	set_chr_chrflag(CHR_MECHANIC, CHRCFLAG_04000000)
 	set_ailist(CHR_SELF, GAILIST_SHOW_OBJ_FAILED_MSG)
 	endlist
@@ -1663,7 +1663,7 @@ u8 func1001_objectives_failed_msg[] = {
 
 u8 func040a_top_interceptor[] = {
 	set_chr_maxdamage(CHR_SELF, 5000)
-	set_object_flag_bank0(OBJ_INTERCEPTOR3, OBJECTFLAG0_INTERCEPTOR_DISABLED)
+	set_object_flag(OBJ_INTERCEPTOR3, OBJFLAG_INTERCEPTOR_DISABLED)
 	restart_timer
 
 	beginloop(0x03)
@@ -1674,7 +1674,7 @@ u8 func040a_top_interceptor[] = {
 	endloop(0x03)
 
 	label(0x06)
-	unset_object_flag_bank0(OBJ_INTERCEPTOR3, OBJECTFLAG0_INTERCEPTOR_DISABLED)
+	unset_object_flag(OBJ_INTERCEPTOR3, OBJFLAG_INTERCEPTOR_DISABLED)
 	chopper_arm_weapons
 	begin_hovercar_path(0x22)
 	set_chr_maxdamage(CHR_SELF, 5000)
@@ -1728,8 +1728,8 @@ u8 func040a_top_interceptor[] = {
 
 u8 func040c_init_bottom_interceptors[] = {
 	set_chr_maxdamage(CHR_SELF, 5000)
-	set_object_flag_bank0(OBJ_INTERCEPTOR1, OBJECTFLAG0_INTERCEPTOR_DISABLED)
-	set_object_flag_bank0(OBJ_INTERCEPTOR2, OBJECTFLAG0_INTERCEPTOR_DISABLED)
+	set_object_flag(OBJ_INTERCEPTOR1, OBJFLAG_INTERCEPTOR_DISABLED)
+	set_object_flag(OBJ_INTERCEPTOR2, OBJFLAG_INTERCEPTOR_DISABLED)
 
 	beginloop(0x04)
 	endloop(0x04)
@@ -1955,8 +1955,8 @@ u8 func0410_intro[] = {
 	set_chr_hiddenflag(0x2b, CHRHFLAG_00020000)
 	chr_do_animation(0x0186, -1, -1, 0x06, 0x00, 0x2b, 4)
 
-	set_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x2f, OBJECTFLAG2_00000010)
+	set_object_flag2(0x2f, OBJFLAG2_04000000)
+	set_object_flag3(0x2f, OBJFLAG3_00000010)
 	object_do_animation(0x0187, 0x2f, 0x04ff, 0xff)
 	restart_timer
 
@@ -1980,7 +1980,7 @@ u8 func0410_intro[] = {
 	unset_chr_chrflag(0x29, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2a, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2b, CHRCFLAG_UNPLAYABLE)
-	unset_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
+	unset_object_flag2(0x2f, OBJFLAG2_04000000)
 	label(0x54)
 	if_controller_button_pressed(/*goto*/ 0x54)
 	camera_movement(0x0188)
@@ -1996,8 +1996,8 @@ u8 func0410_intro[] = {
 	set_chr_hiddenflag(0x2b, CHRHFLAG_00020000)
 	chr_do_animation(0x018a, -1, -1, 0x06, 0x00, 0x2b, 4)
 
-	set_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x2f, OBJECTFLAG2_00000010)
+	set_object_flag2(0x2f, OBJFLAG2_04000000)
+	set_object_flag3(0x2f, OBJFLAG3_00000010)
 	object_do_animation(0x018b, 0x2f, 0x04ff, 0xff)
 	restart_timer
 
@@ -2020,7 +2020,7 @@ u8 func0410_intro[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(0x2a, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2b, CHRCFLAG_UNPLAYABLE)
-	unset_object_flag_bank1(0x2f, OBJECTFLAG1_04000000)
+	unset_object_flag2(0x2f, OBJFLAG2_04000000)
 	label(0x54)
 	camera_movement(0x00f0)
 	cmd0175(60)
@@ -2099,9 +2099,9 @@ u8 func0410_intro[] = {
 	unset_chr_chrflag(0x03, CHRCFLAG_UNPLAYABLE)
 	set_ailist(0x02, 0x0426)
 	set_ailist(0x03, 0x0426)
-	unset_object_flag_bank1(OBJ_INTERCEPTOR1, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank1(OBJ_INTERCEPTOR2, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank1(OBJ_INTERCEPTOR3, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(OBJ_INTERCEPTOR1, OBJFLAG2_INVISIBLE)
+	unset_object_flag2(OBJ_INTERCEPTOR2, OBJFLAG2_INVISIBLE)
+	unset_object_flag2(OBJ_INTERCEPTOR3, OBJFLAG2_INVISIBLE)
 	restart_default_music
 	reset_ambience
 	enter_firstperson
@@ -2315,13 +2315,13 @@ u8 func1013_bunker_lasers[] = {
 
 	// SA and PA
 	label(0x03)
-		set_object_flag_bank0(0x1e, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x1f, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x20, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x21, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x22, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x23, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x24, OBJECTFLAG0_40000000)
+		set_object_flag(0x1e, OBJFLAG_40000000)
+		set_object_flag(0x1f, OBJFLAG_40000000)
+		set_object_flag(0x20, OBJFLAG_40000000)
+		set_object_flag(0x21, OBJFLAG_40000000)
+		set_object_flag(0x22, OBJFLAG_40000000)
+		set_object_flag(0x23, OBJFLAG_40000000)
+		set_object_flag(0x24, OBJFLAG_40000000)
 		open_door(0x1e)
 		open_door(0x1f)
 		open_door(0x20)
@@ -2329,13 +2329,13 @@ u8 func1013_bunker_lasers[] = {
 		open_door(0x22)
 		open_door(0x23)
 		open_door(0x24)
-		set_object_flag_bank0(0x1e, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x1f, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x20, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x21, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x22, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x23, OBJECTFLAG0_40000000)
-		set_object_flag_bank0(0x24, OBJECTFLAG0_40000000)
+		set_object_flag(0x1e, OBJFLAG_40000000)
+		set_object_flag(0x1f, OBJFLAG_40000000)
+		set_object_flag(0x20, OBJFLAG_40000000)
+		set_object_flag(0x21, OBJFLAG_40000000)
+		set_object_flag(0x22, OBJFLAG_40000000)
+		set_object_flag(0x23, OBJFLAG_40000000)
+		set_object_flag(0x24, OBJFLAG_40000000)
 
 		beginloop(0x04)
 			if_stage_flag_eq(STAGEFLAG_EXPLOSIVES_PLACED, TRUE, /*goto*/ 0x09)
@@ -2374,7 +2374,7 @@ u8 func1011_bunker_explosives[] = {
 	goto_first(0x04)
 
 	label(0x2e)
-	unset_object_flag_bank1(OBJ_EXPLOSIVE_BRICK, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(OBJ_EXPLOSIVE_BRICK, OBJFLAG2_INVISIBLE)
 	message(CHR_P1P2, 0x2c2e) // "Explosive has been placed."
 	remove_weapon_from_inventory(WEAPON_EXPLOSIVES)
 	set_stage_flag(STAGEFLAG_EXPLOSIVES_PLACED)
@@ -2407,11 +2407,11 @@ u8 func1011_bunker_explosives[] = {
 
 	label(0x06)
 	hide_countdown_timer
-	unset_object_flag_bank0(OBJ_RADAR_TERMINAL, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(OBJ_RADAR_TERMINAL, OBJFLAG_INVINCIBLE)
 	yield
 	move_object_to_pad(0x25, 0x036b)
 	hide_object(OBJ_EXPLOSIVE_BRICK)
-	unset_object_flag_bank0(0x25, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x25, OBJFLAG_INVINCIBLE)
 	destroy_object(0x25)
 	destroy_object(OBJ_RADAR_TERMINAL)
 	mute_channel(CHANNEL_0)
@@ -2425,13 +2425,13 @@ u8 func1011_bunker_explosives[] = {
 
 	label(0x06)
 	move_object_to_pad(0x26, 0x0375)
-	unset_object_flag_bank0(0x26, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x26, OBJFLAG_INVINCIBLE)
 	destroy_object(0x26)
 	move_object_to_pad(0x27, 0x0376)
-	unset_object_flag_bank0(0x27, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x27, OBJFLAG_INVINCIBLE)
 	destroy_object(0x27)
 	move_object_to_pad(0x28, 0x0372)
-	unset_object_flag_bank0(0x28, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x28, OBJFLAG_INVINCIBLE)
 	destroy_object(0x28)
 	yield
 	restart_timer
@@ -2441,7 +2441,7 @@ u8 func1011_bunker_explosives[] = {
 	endloop(0x0c)
 
 	label(0x06)
-	unset_object_flag_bank0(0x51, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x51, OBJFLAG_INVINCIBLE)
 	destroy_object(0x51)
 	restart_timer
 
@@ -2450,7 +2450,7 @@ u8 func1011_bunker_explosives[] = {
 	endloop(0x7b)
 
 	label(0x06)
-	unset_object_flag_bank0(0x2d, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x2d, OBJFLAG_INVINCIBLE)
 	move_object_to_pad(0x2d, 0x0379)
 	destroy_object(0x2d)
 	restart_timer
@@ -2461,7 +2461,7 @@ u8 func1011_bunker_explosives[] = {
 
 	label(0x06)
 	label(0x06)
-	unset_object_flag_bank0(0x29, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x29, OBJFLAG_INVINCIBLE)
 	move_object_to_pad(0x29, 0x0373)
 	destroy_object(0x29)
 	restart_timer
@@ -2471,7 +2471,7 @@ u8 func1011_bunker_explosives[] = {
 	endloop(0x0d)
 
 	label(0x06)
-	unset_object_flag_bank0(0x2a, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x2a, OBJFLAG_INVINCIBLE)
 	move_object_to_pad(0x2a, 0x0374)
 	destroy_object(0x2a)
 	restart_timer
@@ -2481,7 +2481,7 @@ u8 func1011_bunker_explosives[] = {
 	endloop(0x0e)
 
 	label(0x06)
-	unset_object_flag_bank0(0x2b, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x2b, OBJFLAG_INVINCIBLE)
 	move_object_to_pad(0x2b, 0x0377)
 	destroy_object(0x2b)
 	restart_timer
@@ -2491,7 +2491,7 @@ u8 func1011_bunker_explosives[] = {
 	endloop(0x0f)
 
 	label(0x06)
-	unset_object_flag_bank0(0x2c, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x2c, OBJFLAG_INVINCIBLE)
 	move_object_to_pad(0x2c, 0x0378)
 	destroy_object(0x2c)
 	restart_timer
@@ -2915,7 +2915,7 @@ u8 func0421_activate_autogun[] = {
 	goto_next(0x06)
 
 	label(0x2e)
-	unset_object_flag_bank0(OBJ_AUTOGUN_AT_START, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_AUTOGUN_AT_START, OBJFLAG_DEACTIVATED)
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_ALERTED)
 
@@ -3215,7 +3215,7 @@ u8 func102d_check_antenna_switch_destroyed[] = {
 
 u8 func102e_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(OBJ_ROCKETLAUNCHER, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_ROCKETLAUNCHER, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

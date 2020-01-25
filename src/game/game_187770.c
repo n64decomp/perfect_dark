@@ -17964,7 +17964,7 @@ void func0f197544(struct chrdata *chr)
 
 			if (prop && !prop->parent && prop->timetoregen == 0) {
 				if (prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ) {
-					prop->obj->flags3 |= OBJECTFLAG2_00004000;
+					prop->obj->flags3 |= OBJFLAG3_00004000;
 				}
 			}
 		}

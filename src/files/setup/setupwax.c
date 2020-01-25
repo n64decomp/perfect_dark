@@ -1501,7 +1501,7 @@ u8 func1006_lift_disabling[] = {
 	// Disable chief's lift
 	label(0x2c)
 	lock_door(0x50, 0x40)
-	set_object_flag_bank0(OBJ_CHIEF_LIFT, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_CHIEF_LIFT, OBJFLAG_DEACTIVATED)
 
 	// Wait until player Y above -4300
 	beginloop(0x03)
@@ -1515,9 +1515,9 @@ u8 func1006_lift_disabling[] = {
 	label(0x06)
 	set_lights_state(0x0082, 0x02, 0x00, 0x78, 0x00)
 	play_sound(0x8147, -1)
-	set_object_flag_bank0(OBJ_BLONDE_LIFT, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_BLONDE_LIFT, OBJFLAG_DEACTIVATED)
 	unlock_door(0x50, 0x40)
-	unset_object_flag_bank0(OBJ_CHIEF_LIFT, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_CHIEF_LIFT, OBJFLAG_DEACTIVATED)
 	unset_chr_chrflag(CHR_CHIEF, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_CHIEF, AILIST_CHIEF)
 	message(CHR_BOND, 0x4a19) // "Lift has been disabled."
@@ -1541,8 +1541,8 @@ u8 func1006_lift_disabling[] = {
 
 	// Activate lifts and exit
 	label(0x2c)
-	unset_object_flag_bank0(OBJ_CHIEF_LIFT, OBJECTFLAG0_DEACTIVATED)
-	unset_object_flag_bank0(OBJ_BLONDE_LIFT, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_CHIEF_LIFT, OBJFLAG_DEACTIVATED)
+	unset_object_flag(OBJ_BLONDE_LIFT, OBJFLAG_DEACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1625,7 +1625,7 @@ u8 func100f_disable_chiefs_lift[] = {
 
 	// Disable chief's lift
 	label(0x06)
-	set_object_flag_bank0(OBJ_CHIEF_LIFT, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_CHIEF_LIFT, OBJFLAG_DEACTIVATED)
 
 	// A or SA - return
 	label(0x0d)
@@ -1653,9 +1653,9 @@ u8 func1007_bomb_logic[] = {
 	hide_object(OBJ_COOP_BOMB)
 	assign_sound(0x8144, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, OBJ_PLANTED_BOMB, 0x0258, 0x04b0)
-	unset_object_flag_bank1(OBJ_PLANTED_BOMB, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(OBJ_PLANTED_BOMB, OBJFLAG2_INVISIBLE)
 	set_object_image(OBJ_PLANTED_BOMB, 0x00, 0x0f)
-	unset_object_flag_bank0(OBJ_PLANTED_BOMB, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(OBJ_PLANTED_BOMB, OBJFLAG_INVINCIBLE)
 
 	// Start 4 minute timer
 	set_countdown_timer(240)
@@ -1927,10 +1927,10 @@ u8 func100c_lift_doors[] = {
 };
 
 u8 func0416_intro[] = {
-	set_object_flag_bank1(0x61, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank1(0x62, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(0x61, OBJECTFLAG0_00000100)
-	unset_object_flag_bank0(0x62, OBJECTFLAG0_00000100)
+	set_object_flag2(0x61, OBJFLAG2_INVISIBLE)
+	set_object_flag2(0x62, OBJFLAG2_INVISIBLE)
+	unset_object_flag(0x61, OBJFLAG_00000100)
+	unset_object_flag(0x62, OBJFLAG_00000100)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	set_music_track(MUSIC_G5_INTRO)
@@ -1990,10 +1990,10 @@ u8 func0416_intro[] = {
 	label(0xba)
 	hide_object(OBJ_LOBBYDOOR_LEFT)
 	hide_object(OBJ_LOBBYDOOR_RIGHT)
-	unset_object_flag_bank1(0x61, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank1(0x62, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(0x61, OBJECTFLAG0_00000100)
-	set_object_flag_bank0(0x62, OBJECTFLAG0_00000100)
+	unset_object_flag2(0x61, OBJFLAG2_INVISIBLE)
+	unset_object_flag2(0x62, OBJFLAG2_INVISIBLE)
+	set_object_flag(0x61, OBJFLAG_00000100)
+	set_object_flag(0x62, OBJFLAG_00000100)
 	mute_channel(CHANNEL_10)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
@@ -2020,8 +2020,8 @@ u8 func0417_outro[] = {
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	show_object(OBJ_SHUTTLE2)
-	set_object_flag_bank1(OBJ_SHUTTLE2, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_SHUTTLE2, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_SHUTTLE2, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_SHUTTLE2, OBJFLAG3_00000010)
 	object_do_animation(0x0475, OBJ_SHUTTLE2, 0x04ff, 0xff)
 	show_nonessential_chrs(FALSE)
 	restart_timer
@@ -2115,7 +2115,7 @@ u8 func1010_init_lighting[] = {
 u8 func1011_shuttle_animation[] = {
 	yield
 	show_object(OBJ_SHUTTLE1)
-	set_object_flag_bank2(OBJ_SHUTTLE1, OBJECTFLAG2_00000010)
+	set_object_flag3(OBJ_SHUTTLE1, OBJFLAG3_00000010)
 	set_object_part_visible(OBJ_SHUTTLE1, FALSE)
 	label(0x09)
 	restart_timer
@@ -2153,7 +2153,7 @@ u8 func1012_chief_lift[] = {
 
 	// Activate chief's lift
 	label(0x2c)
-	unset_object_flag_bank0(OBJ_CHIEF_LIFT, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_CHIEF_LIFT, OBJFLAG_DEACTIVATED)
 
 	// The goto first here means that the lift continues to be activated every
 	// 3 seconds, but it is never deactivated so this is a no op.

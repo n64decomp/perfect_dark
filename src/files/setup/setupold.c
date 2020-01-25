@@ -64,8 +64,8 @@ u8 func0c00_017c[] = {
 	label(0x59)
 	camera_movement(0x045d)
 	show_object(0x00)
-	set_object_flag_bank1(0x00, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x00, OBJECTFLAG2_00000010)
+	set_object_flag2(0x00, OBJFLAG2_04000000)
+	set_object_flag3(0x00, OBJFLAG3_00000010)
 	object_do_animation(0x045e, 0x00, 0x04ff, 0xff)
 
 	beginloop(0x08)
@@ -81,8 +81,8 @@ u8 func0c00_017c[] = {
 	hide_object(0x00)
 	camera_movement(0x0464)
 	show_object(0x01)
-	set_object_flag_bank1(0x01, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x01, OBJECTFLAG2_00000010)
+	set_object_flag2(0x01, OBJFLAG2_04000000)
+	set_object_flag3(0x01, OBJFLAG3_00000010)
 	object_do_animation(0x0465, 0x01, 0x04ff, 0xff)
 
 	beginloop(0x0b)
@@ -99,13 +99,13 @@ u8 func0c00_017c[] = {
 	camera_movement(0x0461)
 
 	show_object(0x00)
-	set_object_flag_bank1(0x00, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x00, OBJECTFLAG2_00000010)
+	set_object_flag2(0x00, OBJFLAG2_04000000)
+	set_object_flag3(0x00, OBJFLAG3_00000010)
 	object_do_animation(0x0462, 0x00, 0x04ff, 0xff)
 
 	show_object(0x01)
-	set_object_flag_bank1(0x01, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x01, OBJECTFLAG2_00000010)
+	set_object_flag2(0x01, OBJFLAG2_04000000)
+	set_object_flag3(0x01, OBJFLAG3_00000010)
 	object_do_animation(0x0463, 0x01, 0x04ff, 0xff)
 
 	beginloop(0x0a)
@@ -123,18 +123,18 @@ u8 func0c00_017c[] = {
 	camera_movement(0x046c)
 
 	show_object(0x01)
-	unset_object_flag_bank1(0x01, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x01, OBJECTFLAG2_00000010)
+	unset_object_flag2(0x01, OBJFLAG2_04000000)
+	set_object_flag3(0x01, OBJFLAG3_00000010)
 	object_do_animation(0x046e, 0x01, 0x04ff, 0xff)
 
 	show_object(0x00)
-	set_object_flag_bank1(0x00, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x00, OBJECTFLAG2_00000010)
+	set_object_flag2(0x00, OBJFLAG2_04000000)
+	set_object_flag3(0x00, OBJFLAG3_00000010)
 	object_do_animation(0x046d, 0x00, 0x04ff, 0xff)
 
 	show_object(0x02)
-	set_object_flag_bank1(0x02, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x02, OBJECTFLAG2_00000010)
+	set_object_flag2(0x02, OBJFLAG2_04000000)
+	set_object_flag3(0x02, OBJFLAG3_00000010)
 	object_do_animation(0x046f, 0x02, 0x04ff, 0xff)
 
 	beginloop(0x0e)

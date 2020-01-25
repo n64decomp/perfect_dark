@@ -597,8 +597,8 @@ u8 func0402_outro[] = {
 	chr_do_animation(0x01de, -1, -1, 0x06, 0x00, CHR_PRESIDENT_OUTRO, 4)
 
 	show_object(0x00)
-	set_object_flag_bank1(OBJ_CRATE, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_CRATE, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_CRATE, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_CRATE, OBJFLAG3_00000010)
 	object_do_animation(0x01e0, OBJ_CRATE, 0x04ff, 0xff)
 	restart_timer
 	set_cutscene_weapon(CHR_TARGET, WEAPON_NONE, WEAPON_NONE)
@@ -1916,7 +1916,7 @@ u8 func1012_give_medicalscanner[] = {
 
 u8 func1013_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(OBJ_PROXYMINE, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_PROXYMINE, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1933,7 +1933,7 @@ u8 func1016_hide_hoverbike[] = {
 u8 func1014_setup_skedar_shuttle[] = {
 	yield
 	show_object(OBJ_SKEDAR_SHUTTLE)
-	set_object_flag_bank2(OBJ_SKEDAR_SHUTTLE, OBJECTFLAG2_00000010)
+	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
 	set_object_part_visible(OBJ_SKEDAR_SHUTTLE, FALSE)
 	object_do_animation(0x0486, OBJ_SKEDAR_SHUTTLE, 0x01ff, 0xff)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

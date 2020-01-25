@@ -739,9 +739,9 @@ u8 func100b_setup_autoguns[] = {
 	endloop(0x71)
 
 	label(0x2e)
-	set_object_flag_bank0(OBJ_AUTOGUN1, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_AUTOGUN2, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(OBJ_AUTOGUN3, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_AUTOGUN1, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_AUTOGUN2, OBJFLAG_DEACTIVATED)
+	set_object_flag(OBJ_AUTOGUN3, OBJFLAG_DEACTIVATED)
 
 	label(0x2f)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -820,7 +820,7 @@ u8 func1005_check_safeinfo_destroyed[] = {
 	play_sound(0x043a, CHANNEL_7) \
 	message(CHR_P1P2, 0x220f) /* "Automatic gun activated." */ \
 	label(0x0e) \
-	unset_object_flag_bank0(autogun, OBJECTFLAG0_DEACTIVATED) \
+	unset_object_flag(autogun, OBJFLAG_DEACTIVATED) \
 	set_stage_flag(stageflag) \
  \
 	beginloop(0x0f) \
@@ -874,8 +874,8 @@ u8 func0c01_outro[] = {
 
 	#define show_object_with_animation(object, chr_do_animation) \
 		show_object(object) \
-		set_object_flag_bank1(object, OBJECTFLAG1_04000000) \
-		set_object_flag_bank2(object, OBJECTFLAG2_00000010) \
+		set_object_flag2(object, OBJFLAG2_04000000) \
+		set_object_flag3(object, OBJFLAG3_00000010) \
 		object_do_animation(chr_do_animation, object, 0x04ff, 0xff)
 
 
@@ -889,16 +889,16 @@ u8 func0c01_outro[] = {
 	show_object_with_animation(0x14, 0x01aa)
 
 	show_object(0x0d)
-	unset_object_flag_bank0(0x0d, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank1(0x0d, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x0d, OBJECTFLAG2_00000010)
+	unset_object_flag(0x0d, OBJFLAG_DEACTIVATED)
+	set_object_flag2(0x0d, OBJFLAG2_04000000)
+	set_object_flag3(0x0d, OBJFLAG3_00000010)
 	object_do_animation(0x01b4, 0x0d, 0x01ff, 0xff)
 
 	show_nonessential_chrs(FALSE)
 	open_door(0x51)
 	restart_timer
 	yield
-	set_object_flag_bank0(0x51, OBJECTFLAG0_40000000)
+	set_object_flag(0x51, OBJFLAG_40000000)
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
 	yield
 	set_cutscene_weapon(CHR_P1P2, WEAPON_AR34, WEAPON_NONE)
@@ -986,8 +986,8 @@ u8 func0c01_outro[] = {
 	show_object_with_animation(0x0d, 0x030f)
 
 	show_object(0x16)
-	set_object_flag_bank1(0x16, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x16, OBJECTFLAG2_00000010)
+	set_object_flag2(0x16, OBJFLAG2_04000000)
+	set_object_flag3(0x16, OBJFLAG3_00000010)
 	object_do_animation(0x01b1, 0x16, 0x02ff, 0xff)
 
 	wait_until(372, 0x7a)
@@ -1176,8 +1176,8 @@ u8 func1002_intro[] = {
 	set_chr_hiddenflag(0x1a, CHRHFLAG_00020000)
 	chr_do_animation(0x02c0, -1, -1, 0x06, 0x00, 0x1a, 4)
 	show_object(0x0d)
-	set_object_flag_bank1(0x0d, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x0d, OBJECTFLAG2_00000010)
+	set_object_flag2(0x0d, OBJFLAG2_04000000)
+	set_object_flag3(0x0d, OBJFLAG3_00000010)
 	object_do_animation(0x02c1, 0x0d, 0x04ff, 0xff)
 	restart_timer
 	set_cutscene_weapon(0x1a, WEAPON_NONE, WEAPON_NONE)
@@ -1341,7 +1341,7 @@ u8 func1002_intro[] = {
 
 	wait_until(3142, 0xae)
 	play_sound(0x0167, CHANNEL_10)
-	unset_object_flag_bank1(0x0d, OBJECTFLAG1_04000000)
+	unset_object_flag2(0x0d, OBJFLAG2_04000000)
 
 	wait_until(3144, 0xa5)
 	play_sound(0x0166, CHANNEL_10)
@@ -1401,7 +1401,7 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_10)
 	camera_movement(0x02c2)
 	cmd0175(60)
-	unset_object_flag_bank1(0x0d, OBJECTFLAG1_04000000)
+	unset_object_flag2(0x0d, OBJFLAG2_04000000)
 	if_controller_button_pressed(/*goto*/ 0xcc)
 	unset_chr_chrflag(CHR_SKEDAR4, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SKEDAR4, CHRCFLAG_UNPLAYABLE)
@@ -1411,12 +1411,12 @@ u8 func1002_intro[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x02c4, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	show_object(0x52)
-	set_object_flag_bank1(0x52, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x52, OBJECTFLAG2_00000010)
+	set_object_flag2(0x52, OBJFLAG2_04000000)
+	set_object_flag3(0x52, OBJFLAG3_00000010)
 	object_do_animation(0x02c5, 0x52, 0x04ff, 0xff)
 	show_object(0x53)
-	set_object_flag_bank1(0x53, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x53, OBJECTFLAG2_00000010)
+	set_object_flag2(0x53, OBJFLAG2_04000000)
+	set_object_flag3(0x53, OBJFLAG3_00000010)
 	object_do_animation(0x02c6, 0x53, 0x04ff, 0xff)
 	restart_timer
 
@@ -1505,17 +1505,17 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_SKEDAR4, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_SKEDAR4, CHRHFLAG_00020000)
 	chr_do_animation(0x02c3, -2, -1, 0x06, 0x00, CHR_SKEDAR4, 2)
-	unset_object_flag_bank1(0x0d, OBJECTFLAG1_04000000)
-	set_object_flag_bank0(0x0d, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank2(0x0d, OBJECTFLAG2_00000010)
+	unset_object_flag2(0x0d, OBJFLAG2_04000000)
+	set_object_flag(0x0d, OBJFLAG_DEACTIVATED)
+	set_object_flag3(0x0d, OBJFLAG3_00000010)
 	object_do_animation(0x01b4, 0x0d, 0x01ff, 0xff)
 	show_object(0x52)
-	set_object_flag_bank1(0x52, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x52, OBJECTFLAG2_00000010)
+	set_object_flag2(0x52, OBJFLAG2_04000000)
+	set_object_flag3(0x52, OBJFLAG3_00000010)
 	object_do_animation(0x02c5, 0x52, 0x04ff, 0xfe)
 	show_object(0x53)
-	set_object_flag_bank1(0x53, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x53, OBJECTFLAG2_00000010)
+	set_object_flag2(0x53, OBJFLAG2_04000000)
+	set_object_flag3(0x53, OBJFLAG3_00000010)
 	object_do_animation(0x02c6, 0x53, 0x04ff, 0xfe)
 	set_stage_flag(STAGEFLAG_INTRO_FINISHED)
 	restart_default_music
@@ -2956,8 +2956,8 @@ u8 func1015_firingrange_pc[] = {
 
 	label(0x08)
 	message(CHR_P1P2, 0x221f) // "Emergency overrides have been engaged."
-	unset_object_flag_bank0(OBJ_RCP120, OBJECTFLAG0_00100000)
-	unset_object_flag_bank0(OBJ_RCP120_GLASS, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(OBJ_RCP120, OBJFLAG_00100000)
+	unset_object_flag(OBJ_RCP120_GLASS, OBJFLAG_INVINCIBLE)
 	destroy_object(OBJ_RCP120_GLASS)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3192,11 +3192,11 @@ u8 func1022_skedar_shuttle[] = {
 
 	label(0x08)
 	show_object(OBJ_SKEDAR_SHUTTLE)
-	set_object_flag_bank1(OBJ_SKEDAR_SHUTTLE, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_SKEDAR_SHUTTLE, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_SKEDAR_SHUTTLE, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
 	object_do_animation(0x045a, OBJ_SKEDAR_SHUTTLE, 0x04ff, 0xff)
 	set_object_part_visible(OBJ_SKEDAR_SHUTTLE, FALSE)
-	set_object_flag_bank0(OBJ_SKEDAR_SHUTTLE, OBJECTFLAG0_00000100)
+	set_object_flag(OBJ_SKEDAR_SHUTTLE, OBJFLAG_00000100)
 
 	unset_chr_chrflag(CHR_BLONDE1, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BLONDE2, CHRCFLAG_HIDDEN)
@@ -3438,8 +3438,8 @@ u8 func1018_hurt_carrington[] = {
 
 u8 func1019_setup_safeinfo[] = {
 	label(0x08)
-	unset_object_flag_bank0(OBJ_SAFEDOOR, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(OBJ_SAFEINFO, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(OBJ_SAFEDOOR, OBJFLAG_INVINCIBLE)
+	unset_object_flag(OBJ_SAFEINFO, OBJFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3686,8 +3686,8 @@ u8 func100e_setup_firingrange_doors[] = {
 
 	// Unset some flags on them
 	label(0x2e)
-	unset_object_flag_bank1(0x23, OBJECTFLAG1_20000000)
-	unset_object_flag_bank1(0x24, OBJECTFLAG1_20000000)
+	unset_object_flag2(0x23, OBJFLAG2_20000000)
+	unset_object_flag2(0x24, OBJFLAG2_20000000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3806,7 +3806,7 @@ u8 func1028_shuttle_immunity[] = {
 		reloop(0xe4)
 
 		label(0x2e)
-		unset_object_flag_bank0(OBJ_SKEDAR_SHUTTLE, OBJECTFLAG0_INVINCIBLE)
+		unset_object_flag(OBJ_SKEDAR_SHUTTLE, OBJFLAG_INVINCIBLE)
 	endloop(0xe4)
 
 	label(0x08)
@@ -3816,7 +3816,7 @@ u8 func1028_shuttle_immunity[] = {
 
 u8 func1029_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(OBJ_DEVASTATOR, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_DEVASTATOR, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3835,7 +3835,7 @@ u8 func102a_setup_lighting[] = {
 
 u8 func102b_safedoor_immunity[] = {
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x10)
-	set_object_flag_bank0(OBJ_SAFEDOOR, OBJECTFLAG0_INVINCIBLE)
+	set_object_flag(OBJ_SAFEDOOR, OBJFLAG_INVINCIBLE)
 
 	beginloop(0x04)
 		if_objective_complete(2, /*goto*/ 0x2e)
@@ -3862,16 +3862,16 @@ u8 func102b_safedoor_immunity[] = {
 
 		// No one in office room with laser equipped
 		label(0x0e)
-		set_object_flag_bank0(OBJ_SAFEDOOR, OBJECTFLAG0_INVINCIBLE)
+		set_object_flag(OBJ_SAFEDOOR, OBJFLAG_INVINCIBLE)
 		reloop(0x04)
 
 		label(0x0f)
-		unset_object_flag_bank0(OBJ_SAFEDOOR, OBJECTFLAG0_INVINCIBLE)
+		unset_object_flag(OBJ_SAFEDOOR, OBJFLAG_INVINCIBLE)
 	endloop(0x04)
 
 	// A and SA
 	label(0x10)
-	set_object_flag_bank0(OBJ_SAFEDOOR, OBJECTFLAG0_INVINCIBLE)
+	set_object_flag(OBJ_SAFEDOOR, OBJFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3881,16 +3881,16 @@ u8 func102c_door_flags[] = {
 	if_chr_death_animation_finished(CHR_ANTI, /*goto*/ 0x0f)
 	lock_door(0x23, 0x40)
 	lock_door(0x24, 0x40)
-	set_object_flag_bank1(0x23, OBJECTFLAG1_00000004)
-	set_object_flag_bank1(0x24, OBJECTFLAG1_00000004)
+	set_object_flag2(0x23, OBJFLAG2_00000004)
+	set_object_flag2(0x24, OBJFLAG2_00000004)
 	lock_door(0x43, 0x40)
 	lock_door(0x44, 0x40)
-	set_object_flag_bank1(0x43, OBJECTFLAG1_00000004)
-	set_object_flag_bank1(0x44, OBJECTFLAG1_00000004)
+	set_object_flag2(0x43, OBJFLAG2_00000004)
+	set_object_flag2(0x44, OBJFLAG2_00000004)
 	lock_door(0x54, 0x40)
-	set_object_flag_bank1(0x54, OBJECTFLAG1_00000004)
+	set_object_flag2(0x54, OBJFLAG2_00000004)
 	lock_door(0x19, 0x40)
-	set_object_flag_bank1(0x19, OBJECTFLAG1_00000004)
+	set_object_flag2(0x19, OBJFLAG2_00000004)
 
 	beginloop(0xe4)
 		if_chr_activated_object(CHR_BOND, 0x23, /*goto*/ 0x0a)

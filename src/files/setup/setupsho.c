@@ -1055,8 +1055,8 @@ u8 func100c_check_army_defeated[] = {
 	endloop(0x91)
 
 	label(0x2d)
-	unset_object_flag_bank1(0x45, OBJECTFLAG1_08000000)
-	unset_object_flag_bank1(0x46, OBJECTFLAG1_10000000)
+	unset_object_flag2(0x45, OBJFLAG2_08000000)
+	unset_object_flag2(0x46, OBJFLAG2_10000000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1134,11 +1134,11 @@ u8 func1005_5e0c[] = {
 u8 func1006_bridge[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_BRIDGE, TRUE, /*goto*/ 0x2d)
-		set_object_flag_bank0(OBJ_BRIDGE, OBJECTFLAG0_DEACTIVATED)
+		set_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
 
 	label(0x2d)
-	unset_object_flag_bank0(OBJ_BRIDGE, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	mute_channel(CHANNEL_4)
 	assign_sound(0x8020, CHANNEL_4)
 	play_sound_from_object(CHANNEL_4, OBJ_BRIDGE, 0x04b0, 0x0640)
@@ -1152,7 +1152,7 @@ u8 func1006_bridge[] = {
 	mute_channel(CHANNEL_4)
 	assign_sound(0x8027, CHANNEL_4)
 	control_sound_from_object(CHANNEL_4, OBJ_BRIDGE, TRUE)
-	set_object_flag_bank0(OBJ_BRIDGE, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	set_stage_flag(STAGEFLAG_BRIDGE_EXTENDED)
 
 	beginloop(0x09)
@@ -1166,7 +1166,7 @@ u8 func1006_bridge[] = {
 	endloop(0x91)
 
 	label(0x2d)
-	unset_object_flag_bank0(OBJ_BRIDGE, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	mute_channel(CHANNEL_4)
 	assign_sound(0x8020, CHANNEL_4)
 	play_sound_from_object(CHANNEL_4, OBJ_BRIDGE, 0x04b0, 0x0640)
@@ -1178,7 +1178,7 @@ u8 func1006_bridge[] = {
 
 	label(0x06)
 	unset_stage_flag(STAGEFLAG_BRIDGE_EXTENDED)
-	set_object_flag_bank0(OBJ_BRIDGE, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	mute_channel(CHANNEL_4)
 	assign_sound(0x8027, CHANNEL_4)
 	control_sound_from_object(CHANNEL_4, OBJ_BRIDGE, TRUE)
@@ -1365,7 +1365,7 @@ u8 func101b_bug_throws_coop[] = {
 
 	label(0x09)
 	dprint 'C','O','O','P',' ','1',' ','P','L','A','C','E','D','\n',0,
-	unset_object_flag_bank2(OBJ_PILLAR1, OBJECTFLAG2_RTRACKED_YELLOW)
+	unset_object_flag3(OBJ_PILLAR1, OBJFLAG3_RTRACKED_YELLOW)
 	if_stage_flag_eq(STAGEFLAG_PILLAR1_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR1_MARKED)
 	message(CHR_COOP, 0x4219) // "Target Amplifier placed correctly."
@@ -1374,7 +1374,7 @@ u8 func101b_bug_throws_coop[] = {
 
 	label(0x0b)
 	dprint 'C','O','O','P',' ','2',' ','P','L','A','C','E','D','\n',0,
-	unset_object_flag_bank2(OBJ_PILLAR2, OBJECTFLAG2_RTRACKED_YELLOW)
+	unset_object_flag3(OBJ_PILLAR2, OBJFLAG3_RTRACKED_YELLOW)
 	if_stage_flag_eq(STAGEFLAG_PILLAR2_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR2_MARKED)
 	message(CHR_COOP, 0x4219) // "Target Amplifier placed correctly."
@@ -1383,7 +1383,7 @@ u8 func101b_bug_throws_coop[] = {
 
 	label(0x0c)
 	dprint 'C','O','O','P',' ','3',' ','P','L','A','C','E','D','\n',0,
-	unset_object_flag_bank2(OBJ_PILLAR3, OBJECTFLAG2_RTRACKED_YELLOW)
+	unset_object_flag3(OBJ_PILLAR3, OBJFLAG3_RTRACKED_YELLOW)
 	if_stage_flag_eq(STAGEFLAG_PILLAR3_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR3_MARKED)
 	message(CHR_COOP, 0x4219) // "Target Amplifier placed correctly."
@@ -1441,7 +1441,7 @@ u8 func1009_altar[] = {
 
 	beginloop(0x08)
 		chr_toggle_p1p2(CHR_SELF)
-		if_object_flag_bank1(OBJ_ALTAR, OBJECTFLAG1_00002000, /*goto*/ 0x2d)
+		if_object_flag2(OBJ_ALTAR, OBJFLAG2_00002000, /*goto*/ 0x2d)
 		if_chr_distance_to_pad_lt(CHR_P1P2, 300, 0x0137, /*goto*/ 0x2e)
 		label(0x2d)
 		if_chr_activated_object(CHR_P1P2, OBJ_ALTAR, /*goto*/ 0x06)
@@ -1460,7 +1460,7 @@ u8 func1009_altar[] = {
 
 	// At pad, or invalid weapon equipped
 	label(0x2e)
-	set_object_flag_bank1(OBJ_ALTAR, OBJECTFLAG1_00002000)
+	set_object_flag2(OBJ_ALTAR, OBJFLAG2_00002000)
 	message(CHR_P1P2, 0x4233) // "Make your sacrifice to the God of War."
 	restart_timer
 
@@ -1472,23 +1472,23 @@ u8 func1009_altar[] = {
 	goto_first(0x08)
 
 	label(0x92)
-	unset_object_flag_bank1(OBJ_ALTAR_DEVASTATOR, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(OBJ_ALTAR_DEVASTATOR, OBJFLAG2_INVISIBLE)
 	goto_next(0x2d)
 
 	label(0x93)
-	unset_object_flag_bank1(OBJ_ALTAR_CALLISTO, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(OBJ_ALTAR_CALLISTO, OBJFLAG2_INVISIBLE)
 	goto_next(0x2d)
 
 	label(0x94)
-	unset_object_flag_bank1(OBJ_ALTAR_FALCON, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(OBJ_ALTAR_FALCON, OBJFLAG2_INVISIBLE)
 	goto_next(0x2d)
 
 	label(0x95)
-	unset_object_flag_bank1(OBJ_ALTAR_SLAYER, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(OBJ_ALTAR_SLAYER, OBJFLAG2_INVISIBLE)
 	goto_next(0x2d)
 
 	label(0x96)
-	unset_object_flag_bank1(OBJ_ALTAR_MAULER, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(OBJ_ALTAR_MAULER, OBJFLAG2_INVISIBLE)
 	goto_next(0x2d)
 
 	label(0x2d)
@@ -2386,11 +2386,11 @@ u8 func0412_init_king_miniskedar_clone[] = {
 };
 
 u8 func100f_spikes_vulnerability[] = {
-	set_object_flag_bank1(OBJ_SPIKE_ML, 0x00200002)
-	set_object_flag_bank1(OBJ_SPIKE_MR, 0x00200002)
-	set_object_flag_bank1(OBJ_SPIKE_BL, 0x00200002)
-	set_object_flag_bank1(OBJ_SPIKE_BR, 0x00200002)
-	set_object_flag_bank1(OBJ_SPIKE_T, 0x00200002)
+	set_object_flag2(OBJ_SPIKE_ML, 0x00200002)
+	set_object_flag2(OBJ_SPIKE_MR, 0x00200002)
+	set_object_flag2(OBJ_SPIKE_BL, 0x00200002)
+	set_object_flag2(OBJ_SPIKE_BR, 0x00200002)
+	set_object_flag2(OBJ_SPIKE_T, 0x00200002)
 
 	beginloop(0x91)
 		if_stage_flag_eq(STAGEFLAG_IN_INTRO, FALSE, /*goto*/ 0x86)
@@ -2398,37 +2398,37 @@ u8 func100f_spikes_vulnerability[] = {
 
 	label(0x86)
 	label(0x03)
-	set_object_flag_bank0(OBJ_SPIKE_ML, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank0(OBJ_SPIKE_MR, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank0(OBJ_SPIKE_BL, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank0(OBJ_SPIKE_BR, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank0(OBJ_SPIKE_T, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank2(OBJ_SPIKE_ML, 0x00101000)
-	set_object_flag_bank2(OBJ_SPIKE_MR, 0x00101000)
-	set_object_flag_bank2(OBJ_SPIKE_BL, 0x00101000)
-	set_object_flag_bank2(OBJ_SPIKE_BR, 0x00101000)
-	set_object_flag_bank2(OBJ_SPIKE_T, 0x00101000)
+	set_object_flag(OBJ_SPIKE_ML, OBJFLAG_INVINCIBLE)
+	set_object_flag(OBJ_SPIKE_MR, OBJFLAG_INVINCIBLE)
+	set_object_flag(OBJ_SPIKE_BL, OBJFLAG_INVINCIBLE)
+	set_object_flag(OBJ_SPIKE_BR, OBJFLAG_INVINCIBLE)
+	set_object_flag(OBJ_SPIKE_T, OBJFLAG_INVINCIBLE)
+	set_object_flag3(OBJ_SPIKE_ML, 0x00101000)
+	set_object_flag3(OBJ_SPIKE_MR, 0x00101000)
+	set_object_flag3(OBJ_SPIKE_BL, 0x00101000)
+	set_object_flag3(OBJ_SPIKE_BR, 0x00101000)
+	set_object_flag3(OBJ_SPIKE_T, 0x00101000)
 
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_SPIKES_VULNERABLE, TRUE, /*goto*/ 0x2d)
 	endloop(0x04)
 
 	label(0x2d)
-	unset_object_flag_bank0(OBJ_SPIKE_ML, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(OBJ_SPIKE_MR, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(OBJ_SPIKE_BL, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(OBJ_SPIKE_BR, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank2(OBJ_SPIKE_ML, 0x00101000)
-	unset_object_flag_bank2(OBJ_SPIKE_MR, 0x00101000)
-	unset_object_flag_bank2(OBJ_SPIKE_BL, 0x00101000)
-	unset_object_flag_bank2(OBJ_SPIKE_BR, 0x00101000)
+	unset_object_flag(OBJ_SPIKE_ML, OBJFLAG_INVINCIBLE)
+	unset_object_flag(OBJ_SPIKE_MR, OBJFLAG_INVINCIBLE)
+	unset_object_flag(OBJ_SPIKE_BL, OBJFLAG_INVINCIBLE)
+	unset_object_flag(OBJ_SPIKE_BR, OBJFLAG_INVINCIBLE)
+	unset_object_flag3(OBJ_SPIKE_ML, 0x00101000)
+	unset_object_flag3(OBJ_SPIKE_MR, 0x00101000)
+	unset_object_flag3(OBJ_SPIKE_BL, 0x00101000)
+	unset_object_flag3(OBJ_SPIKE_BR, 0x00101000)
 
 	if_stage_flag_eq(STAGEFLAG_SPIKE1_DESTROYED, FALSE, /*goto*/ 0x08)
 	if_stage_flag_eq(STAGEFLAG_SPIKE2_DESTROYED, FALSE, /*goto*/ 0x08)
 	if_stage_flag_eq(STAGEFLAG_SPIKE3_DESTROYED, FALSE, /*goto*/ 0x08)
 	if_stage_flag_eq(STAGEFLAG_SPIKE4_DESTROYED, FALSE, /*goto*/ 0x08)
-	unset_object_flag_bank0(OBJ_SPIKE_T, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank2(OBJ_SPIKE_T, 0x00101000)
+	unset_object_flag(OBJ_SPIKE_T, OBJFLAG_INVINCIBLE)
+	unset_object_flag3(OBJ_SPIKE_T, 0x00101000)
 
 	beginloop(0x08)
 		if_stage_flag_eq(STAGEFLAG_SPIKES_VULNERABLE, FALSE, /*goto*/ 0x2d)
@@ -2449,8 +2449,8 @@ u8 func100f_spikes_vulnerability[] = {
 	endloop(0x03) \
  \
 	label(0x06) \
-	set_object_flag_bank1(shadow, OBJECTFLAG1_INVISIBLE) \
-	unset_object_flag_bank1(noshadow, OBJECTFLAG1_INVISIBLE)
+	set_object_flag2(shadow, OBJFLAG2_INVISIBLE) \
+	unset_object_flag2(noshadow, OBJFLAG2_INVISIBLE)
 
 
 
@@ -2677,8 +2677,8 @@ u8 func0c00_intro[] = {
 	camera_movement(0x02f9)
 
 	show_object(0x36)
-	set_object_flag_bank1(0x36, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x36, OBJECTFLAG2_00000010)
+	set_object_flag2(0x36, OBJFLAG2_04000000)
+	set_object_flag3(0x36, OBJFLAG3_00000010)
 	object_do_animation(0x02fa, 0x36, 0x01ff, 0xff)
 	set_object_part_visible(0x36, FALSE)
 
@@ -2746,8 +2746,8 @@ u8 func0c00_intro[] = {
 	if_controller_button_pressed(/*goto*/ 0x86)
 
 	show_object(0x36)
-	set_object_flag_bank1(0x36, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x36, OBJECTFLAG2_00000010)
+	set_object_flag2(0x36, OBJFLAG2_04000000)
+	set_object_flag3(0x36, OBJFLAG3_00000010)
 	object_do_animation(0x0302, 0x36, 0x04ff, 0xff)
 	set_object_part_visible(0x36, FALSE)
 
@@ -2780,11 +2780,11 @@ u8 func0c00_intro[] = {
 	remove_chr(CHR_KING2)
 	unset_chr_chrflag(CHR_KING1, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_KING1, AILIST_KING_WAITING)
-	set_object_flag_bank1(0x2a, OBJECTFLAG1_04000000)
-	set_object_flag_bank1(0x2b, OBJECTFLAG1_04000000)
-	set_object_flag_bank1(0x2c, OBJECTFLAG1_04000000)
-	set_object_flag_bank1(0x2d, OBJECTFLAG1_04000000)
-	set_object_flag_bank1(0x2e, OBJECTFLAG1_04000000)
+	set_object_flag2(0x2a, OBJFLAG2_04000000)
+	set_object_flag2(0x2b, OBJFLAG2_04000000)
+	set_object_flag2(0x2c, OBJFLAG2_04000000)
+	set_object_flag2(0x2d, OBJFLAG2_04000000)
+	set_object_flag2(0x2e, OBJFLAG2_04000000)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	restart_default_music
@@ -2885,33 +2885,33 @@ u8 func0414_outro[] = {
 	object_do_animation(0x0452, OBJ_SPIKE_T, 0x04ff, 0xff)
 
 	show_object(0x37)
-	set_object_flag_bank1(0x37, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x37, OBJECTFLAG2_00000010)
+	set_object_flag2(0x37, OBJFLAG2_04000000)
+	set_object_flag3(0x37, OBJFLAG3_00000010)
 	object_do_animation(0x0453, 0x37, 0x04ff, 0xff)
 
 	show_object(0x38)
-	set_object_flag_bank1(0x38, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x38, OBJECTFLAG2_00000010)
+	set_object_flag2(0x38, OBJFLAG2_04000000)
+	set_object_flag3(0x38, OBJFLAG3_00000010)
 	object_do_animation(0x0454, 0x38, 0x04ff, 0xff)
 
 	show_object(0x39)
-	set_object_flag_bank1(0x39, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x39, OBJECTFLAG2_00000010)
+	set_object_flag2(0x39, OBJFLAG2_04000000)
+	set_object_flag3(0x39, OBJFLAG3_00000010)
 	object_do_animation(0x0455, 0x39, 0x04ff, 0xff)
 
 	show_object(0x3a)
-	set_object_flag_bank1(0x3a, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x3a, OBJECTFLAG2_00000010)
+	set_object_flag2(0x3a, OBJFLAG2_04000000)
+	set_object_flag3(0x3a, OBJFLAG3_00000010)
 	object_do_animation(0x0456, 0x3a, 0x04ff, 0xff)
 
 	show_object(0x3b)
-	set_object_flag_bank1(0x3b, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x3b, OBJECTFLAG2_00000010)
+	set_object_flag2(0x3b, OBJFLAG2_04000000)
+	set_object_flag3(0x3b, OBJFLAG3_00000010)
 	object_do_animation(0x0457, 0x3b, 0x04ff, 0xff)
 	show_object(0x3c)
 
-	set_object_flag_bank1(0x3c, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x3c, OBJECTFLAG2_00000010)
+	set_object_flag2(0x3c, OBJFLAG2_04000000)
+	set_object_flag3(0x3c, OBJFLAG3_00000010)
 	object_do_animation(0x0458, 0x3c, 0x04ff, 0xff)
 
 	beginloop(0x09)
@@ -2938,23 +2938,23 @@ u8 func0414_outro[] = {
 	chr_do_animation(0x02c9, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 
 	show_object(0x23)
-	set_object_flag_bank1(0x23, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x23, OBJECTFLAG2_00000010)
+	set_object_flag2(0x23, OBJFLAG2_04000000)
+	set_object_flag3(0x23, OBJFLAG3_00000010)
 	object_do_animation(0x02ca, 0x23, 0x04ff, 0xff)
 
 	show_object(0x24)
-	set_object_flag_bank1(0x24, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x24, OBJECTFLAG2_00000010)
+	set_object_flag2(0x24, OBJFLAG2_04000000)
+	set_object_flag3(0x24, OBJFLAG3_00000010)
 	object_do_animation(0x02cb, 0x24, 0x04ff, 0xff)
 
 	show_object(0x25)
-	set_object_flag_bank1(0x25, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x25, OBJECTFLAG2_00000010)
+	set_object_flag2(0x25, OBJFLAG2_04000000)
+	set_object_flag3(0x25, OBJFLAG3_00000010)
 	object_do_animation(0x02cc, 0x25, 0x04ff, 0xff)
 
 	show_object(0x26)
-	set_object_flag_bank1(0x26, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x26, OBJECTFLAG2_00000010)
+	set_object_flag2(0x26, OBJFLAG2_04000000)
+	set_object_flag3(0x26, OBJFLAG3_00000010)
 	object_do_animation(0x02cd, 0x26, 0x04ff, 0xff)
 
 	beginloop(0x0b)
@@ -3104,11 +3104,11 @@ u8 func1019_blow_pillars[] = {
 
 	// 1
 	label(0x2d)
-	unset_object_flag_bank0(0x27, OBJECTFLAG0_00000100)
-	unset_object_flag_bank0(0x28, OBJECTFLAG0_00000100)
-	unset_object_flag_bank0(0x29, OBJECTFLAG0_00000100)
-	unset_object_flag_bank0(OBJ_PILLAR1, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(0x27, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x27, OBJFLAG_00000100)
+	unset_object_flag(0x28, OBJFLAG_00000100)
+	unset_object_flag(0x29, OBJFLAG_00000100)
+	unset_object_flag(OBJ_PILLAR1, OBJFLAG_INVINCIBLE)
+	unset_object_flag(0x27, OBJFLAG_INVINCIBLE)
 	destroy_object(0x27)
 	yield
 	yield
@@ -3123,8 +3123,8 @@ u8 func1019_blow_pillars[] = {
 
 	// 2
 	label(0x2d)
-	unset_object_flag_bank0(OBJ_PILLAR2, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(0x28, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(OBJ_PILLAR2, OBJFLAG_INVINCIBLE)
+	unset_object_flag(0x28, OBJFLAG_INVINCIBLE)
 	destroy_object(0x28)
 	yield
 	yield
@@ -3139,8 +3139,8 @@ u8 func1019_blow_pillars[] = {
 
 	// 3
 	label(0x2d)
-	unset_object_flag_bank0(OBJ_PILLAR3, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank0(0x29, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(OBJ_PILLAR3, OBJFLAG_INVINCIBLE)
+	unset_object_flag(0x29, OBJFLAG_INVINCIBLE)
 	destroy_object(0x29)
 	yield
 	yield
@@ -3155,12 +3155,12 @@ u8 func1004_setup_pillars[] = {
 	yield
 	shuffle_ruins_pillars(OBJ_PILLAR1, OBJ_PILLAR2, OBJ_PILLAR3, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x27, 0x28, 0x29, 0x2f, 0x30, 0x31, 0x32, 0x33)
 	yield
-	set_object_flag_bank2(OBJ_PILLAR1, OBJECTFLAG2_RTRACKED_YELLOW)
-	set_object_flag_bank2(OBJ_PILLAR2, OBJECTFLAG2_RTRACKED_YELLOW)
-	set_object_flag_bank2(OBJ_PILLAR3, OBJECTFLAG2_RTRACKED_YELLOW)
-	set_object_flag_bank0(OBJ_PILLAR1, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank0(OBJ_PILLAR2, OBJECTFLAG0_INVINCIBLE)
-	set_object_flag_bank0(OBJ_PILLAR3, OBJECTFLAG0_INVINCIBLE)
+	set_object_flag3(OBJ_PILLAR1, OBJFLAG3_RTRACKED_YELLOW)
+	set_object_flag3(OBJ_PILLAR2, OBJFLAG3_RTRACKED_YELLOW)
+	set_object_flag3(OBJ_PILLAR3, OBJFLAG3_RTRACKED_YELLOW)
+	set_object_flag(OBJ_PILLAR1, OBJFLAG_INVINCIBLE)
+	set_object_flag(OBJ_PILLAR2, OBJFLAG_INVINCIBLE)
+	set_object_flag(OBJ_PILLAR3, OBJFLAG_INVINCIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3174,8 +3174,8 @@ u8 func101d_remove_pillar_shadow[] = {
 		label(0x06)
 		hide_object(0x3d)
 		hide_object(0x3e)
-		unset_object_flag_bank1(0x4e, OBJECTFLAG1_INVISIBLE)
-		unset_object_flag_bank1(0x4f, OBJECTFLAG1_INVISIBLE)
+		unset_object_flag2(0x4e, OBJFLAG2_INVISIBLE)
+		unset_object_flag2(0x4f, OBJFLAG2_INVISIBLE)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
@@ -3585,10 +3585,10 @@ u8 func1020_show_phoenix[] = {
 		if_object_in_good_condition(0x2c, /*goto*/ 0x2d)
 		if_object_in_good_condition(0x2d, /*goto*/ 0x2d)
 		if_object_in_good_condition(0x2e, /*goto*/ 0x2d)
-		unset_object_flag_bank0(OBJ_PHOENIX1, OBJECTFLAG0_00100000)
-		unset_object_flag_bank1(OBJ_PHOENIX1, OBJECTFLAG1_INVISIBLE)
-		unset_object_flag_bank0(OBJ_PHOENIX2, OBJECTFLAG0_00100000)
-		unset_object_flag_bank1(OBJ_PHOENIX2, OBJECTFLAG1_INVISIBLE)
+		unset_object_flag(OBJ_PHOENIX1, OBJFLAG_00100000)
+		unset_object_flag2(OBJ_PHOENIX1, OBJFLAG2_INVISIBLE)
+		unset_object_flag(OBJ_PHOENIX2, OBJFLAG_00100000)
+		unset_object_flag2(OBJ_PHOENIX2, OBJFLAG2_INVISIBLE)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2d)
 	endloop(0x04)
@@ -3615,8 +3615,8 @@ u8 func1021_handle_mine[] = {
 
 u8 func1022_armyroom_exitdoors[] = {
 	yield
-	set_object_flag_bank1(0x45, OBJECTFLAG1_08000000)
-	set_object_flag_bank1(0x46, OBJECTFLAG1_10000000)
+	set_object_flag2(0x45, OBJFLAG2_08000000)
+	set_object_flag2(0x46, OBJFLAG2_10000000)
 	if_difficulty_gt(DIFF_SA, /*goto*/ 0x2d)
 
 	// A and SA
@@ -3625,8 +3625,8 @@ u8 func1022_armyroom_exitdoors[] = {
 	endloop(0x91)
 
 	label(0x06)
-	unset_object_flag_bank1(0x45, OBJECTFLAG1_08000000)
-	unset_object_flag_bank1(0x46, OBJECTFLAG1_10000000)
+	unset_object_flag2(0x45, OBJFLAG2_08000000)
+	unset_object_flag2(0x46, OBJFLAG2_10000000)
 
 	// All difficulties
 	label(0x2d)
@@ -3653,7 +3653,7 @@ u8 unregistered_function1[] = {
  */
 u8 unregistered_function2[] = {
 	beginloop(0x04)
-		if_object_flag_bank2(OBJ_PUZZLEROCK, OBJECTFLAG2_PUSHABLE, /*goto*/ 0x2d)
+		if_object_flag3(OBJ_PUZZLEROCK, OBJFLAG3_PUSHABLE, /*goto*/ 0x2d)
 		dprint 'C','A','N','T',' ','P','U','S','H','\n',0,
 		reloop(0x04)
 
@@ -3713,8 +3713,8 @@ u8 func1024_check_grenades_wasted[] = {
 
 u8 func1023_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(OBJ_PHOENIX1, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(OBJ_PHOENIX2, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(OBJ_PHOENIX1, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(OBJ_PHOENIX2, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

@@ -571,14 +571,14 @@ u8 func1024_give_objects[] = {
 	give_object_to_chr(OBJ_EQUIPMENT_COOP, CHR_COOP)
 
 	label(0x2d)
-	set_object_flag_bank1(OBJ_DATAUPLINK_BOND, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(OBJ_DATAUPLINK_BOND, OBJECTFLAG0_00100000)
-	set_object_flag_bank1(OBJ_REMOTEMINE_BOND, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(OBJ_REMOTEMINE_BOND, OBJECTFLAG0_00100000)
-	set_object_flag_bank1(OBJ_DATAUPLINK_COOP, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(OBJ_DATAUPLINK_COOP, OBJECTFLAG0_00100000)
-	set_object_flag_bank1(OBJ_REMOTEMINE_COOP, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(OBJ_REMOTEMINE_COOP, OBJECTFLAG0_00100000)
+	set_object_flag2(OBJ_DATAUPLINK_BOND, OBJFLAG2_INVISIBLE)
+	set_object_flag(OBJ_DATAUPLINK_BOND, OBJFLAG_00100000)
+	set_object_flag2(OBJ_REMOTEMINE_BOND, OBJFLAG2_INVISIBLE)
+	set_object_flag(OBJ_REMOTEMINE_BOND, OBJFLAG_00100000)
+	set_object_flag2(OBJ_DATAUPLINK_COOP, OBJFLAG2_INVISIBLE)
+	set_object_flag(OBJ_DATAUPLINK_COOP, OBJFLAG_00100000)
+	set_object_flag2(OBJ_REMOTEMINE_COOP, OBJFLAG2_INVISIBLE)
+	set_object_flag(OBJ_REMOTEMINE_COOP, OBJFLAG_00100000)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -873,11 +873,11 @@ u8 unregistered_function1[] = {
 };
 
 #define check_mine_wasted(chr1, chr2, myflag, buddyflag) \
-	set_object_flag_bank0(OBJ_COMMSHUB1, OBJECTFLAG0_00002000) \
-	set_object_flag_bank0(OBJ_COMMSHUB2, OBJECTFLAG0_00002000) \
-	set_object_flag_bank0(OBJ_COMMSHUB3, OBJECTFLAG0_00002000) \
-	set_object_flag_bank0(OBJ_COMMSHUB4, OBJECTFLAG0_00002000) \
-	set_object_flag_bank0(OBJ_COMMSHUB5, OBJECTFLAG0_00002000) \
+	set_object_flag(OBJ_COMMSHUB1, OBJFLAG_00002000) \
+	set_object_flag(OBJ_COMMSHUB2, OBJFLAG_00002000) \
+	set_object_flag(OBJ_COMMSHUB3, OBJFLAG_00002000) \
+	set_object_flag(OBJ_COMMSHUB4, OBJFLAG_00002000) \
+	set_object_flag(OBJ_COMMSHUB5, OBJFLAG_00002000) \
 	yield \
 	yield \
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x06) \
@@ -904,11 +904,11 @@ u8 unregistered_function1[] = {
 	label(0x2d) \
 	if_stage_flag_eq(STAGEFLAG_MIDCUTSCENE_FINISHED, FALSE, /*goto*/ 0x0a) \
 	label(0x2d) \
-	unset_object_flag_bank0(OBJ_COMMSHUB1, OBJECTFLAG0_INVINCIBLE) \
-	unset_object_flag_bank0(OBJ_COMMSHUB2, OBJECTFLAG0_INVINCIBLE) \
-	unset_object_flag_bank0(OBJ_COMMSHUB3, OBJECTFLAG0_INVINCIBLE) \
-	unset_object_flag_bank0(OBJ_COMMSHUB4, OBJECTFLAG0_INVINCIBLE) \
-	unset_object_flag_bank0(OBJ_COMMSHUB5, OBJECTFLAG0_INVINCIBLE) \
+	unset_object_flag(OBJ_COMMSHUB1, OBJFLAG_INVINCIBLE) \
+	unset_object_flag(OBJ_COMMSHUB2, OBJFLAG_INVINCIBLE) \
+	unset_object_flag(OBJ_COMMSHUB3, OBJFLAG_INVINCIBLE) \
+	unset_object_flag(OBJ_COMMSHUB4, OBJFLAG_INVINCIBLE) \
+	unset_object_flag(OBJ_COMMSHUB5, OBJFLAG_INVINCIBLE) \
 	restart_timer \
  \
 	/* Wait 8.3 seconds or until commshub destroyed */ \
@@ -1001,9 +1001,9 @@ u8 func101e_blow_mines[] = {
 	label(0x06)
 
 	// 1
-	unset_object_flag_bank0(0x2f, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank1(0x33, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(0x33, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x2f, OBJFLAG_INVINCIBLE)
+	unset_object_flag2(0x33, OBJFLAG2_INVISIBLE)
+	unset_object_flag(0x33, OBJFLAG_INVINCIBLE)
 	destroy_object(0x33)
 	restart_timer
 
@@ -1012,13 +1012,13 @@ u8 func101e_blow_mines[] = {
 	endloop(0x60)
 
 	label(0x2d)
-	unset_object_flag_bank1(0x2f, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(0x2f, OBJFLAG2_INVISIBLE)
 	destroy_object(0x2f)
 
 	// 2
-	unset_object_flag_bank0(0x30, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank1(0x34, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(0x34, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x30, OBJFLAG_INVINCIBLE)
+	unset_object_flag2(0x34, OBJFLAG2_INVISIBLE)
+	unset_object_flag(0x34, OBJFLAG_INVINCIBLE)
 	destroy_object(0x34)
 	restart_timer
 
@@ -1027,13 +1027,13 @@ u8 func101e_blow_mines[] = {
 	endloop(0x77)
 
 	label(0x2d)
-	unset_object_flag_bank1(0x30, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(0x30, OBJFLAG2_INVISIBLE)
 	destroy_object(0x30)
 
 	// 3
-	unset_object_flag_bank0(0x31, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank1(0x35, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(0x35, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x31, OBJFLAG_INVINCIBLE)
+	unset_object_flag2(0x35, OBJFLAG2_INVISIBLE)
+	unset_object_flag(0x35, OBJFLAG_INVINCIBLE)
 	destroy_object(0x35)
 	restart_timer
 
@@ -1042,13 +1042,13 @@ u8 func101e_blow_mines[] = {
 	endloop(0x78)
 
 	label(0x2d)
-	unset_object_flag_bank1(0x31, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(0x31, OBJFLAG2_INVISIBLE)
 	destroy_object(0x31)
 
 	// 4
-	unset_object_flag_bank0(0x32, OBJECTFLAG0_INVINCIBLE)
-	unset_object_flag_bank1(0x36, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank0(0x36, OBJECTFLAG0_INVINCIBLE)
+	unset_object_flag(0x32, OBJFLAG_INVINCIBLE)
+	unset_object_flag2(0x36, OBJFLAG2_INVISIBLE)
+	unset_object_flag(0x36, OBJFLAG_INVINCIBLE)
 	destroy_object(0x36)
 	restart_timer
 
@@ -1057,7 +1057,7 @@ u8 func101e_blow_mines[] = {
 	endloop(0x79)
 
 	label(0x2d)
-	unset_object_flag_bank1(0x32, OBJECTFLAG1_INVISIBLE)
+	unset_object_flag2(0x32, OBJFLAG2_INVISIBLE)
 	destroy_object(0x32)
 
 	yield
@@ -1379,10 +1379,10 @@ u8 func0405_president_in_room[] = {
 	rebuild_squadrons
 	hide_object(OBJ_EXTERIOR_DOOR)
 	hide_object(OBJ_FLOORHATCH)
-	set_object_flag_bank0(OBJ_FLOOR_HATCH_DETACHED, OBJECTFLAG0_00000100)
-	unset_object_flag_bank1(OBJ_FLOOR_HATCH_DETACHED, OBJECTFLAG1_INVISIBLE)
-	unset_object_flag_bank1(OBJ_EXTERIOR_DOOR_DETACHED, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(OBJ_EXTERIOR_DOOR_DETACHED, OBJECTFLAG0_00000100)
+	set_object_flag(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG_00000100)
+	unset_object_flag2(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG2_INVISIBLE)
+	unset_object_flag2(OBJ_EXTERIOR_DOOR_DETACHED, OBJFLAG2_INVISIBLE)
+	set_object_flag(OBJ_EXTERIOR_DOOR_DETACHED, OBJFLAG_00000100)
 	play_sound(0x8098, -1)
 	restart_timer
 
@@ -2200,7 +2200,7 @@ u8 func1002_intro[] = {
  */
 u8 func1010_dumbwaiter1[] = {
 	label(0x03)
-	set_object_flag_bank0(OBJ_DUMBWAITER1, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_DUMBWAITER1, OBJFLAG_DEACTIVATED)
 	set_object_image(OBJ_DUMBWAITER1_SWITCH, 0x00, 0x12)
 
 	beginloop(0x04)
@@ -2211,7 +2211,7 @@ u8 func1010_dumbwaiter1[] = {
 	label(0x2d)
 	play_sound(0x043a, CHANNEL_7)
 	set_object_image(OBJ_DUMBWAITER1_SWITCH, 0x00, 0x13)
-	unset_object_flag_bank0(OBJ_DUMBWAITER1, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_DUMBWAITER1, OBJFLAG_DEACTIVATED)
 	yield
 	yield
 	yield
@@ -2221,7 +2221,7 @@ u8 func1010_dumbwaiter1[] = {
 	endloop(0x08)
 
 	label(0x06)
-	set_object_flag_bank0(OBJ_DUMBWAITER1, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_DUMBWAITER1, OBJFLAG_DEACTIVATED)
 	restart_timer
 
 	beginloop(0x09)
@@ -2229,7 +2229,7 @@ u8 func1010_dumbwaiter1[] = {
 	endloop(0x09)
 
 	label(0x2d)
-	unset_object_flag_bank0(OBJ_DUMBWAITER1, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_DUMBWAITER1, OBJFLAG_DEACTIVATED)
 	yield
 	yield
 	yield
@@ -2261,7 +2261,7 @@ u8 func1010_dumbwaiter1[] = {
 
 u8 func1011_dumbwaiter2[] = {
 	label(0x03)
-	set_object_flag_bank0(OBJ_DUMBWAITER2, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_DUMBWAITER2, OBJFLAG_DEACTIVATED)
 	set_object_image(OBJ_DUMBWAITER2_SWITCH, 0x00, 0x12)
 
 	beginloop(0x04)
@@ -2272,7 +2272,7 @@ u8 func1011_dumbwaiter2[] = {
 	label(0x2d)
 	play_sound(0x043a, CHANNEL_7)
 	set_object_image(OBJ_DUMBWAITER2_SWITCH, 0x00, 0x13)
-	unset_object_flag_bank0(OBJ_DUMBWAITER2, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_DUMBWAITER2, OBJFLAG_DEACTIVATED)
 	yield
 	yield
 	yield
@@ -2282,7 +2282,7 @@ u8 func1011_dumbwaiter2[] = {
 	endloop(0x08)
 
 	label(0x06)
-	set_object_flag_bank0(OBJ_DUMBWAITER2, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_DUMBWAITER2, OBJFLAG_DEACTIVATED)
 	restart_timer
 
 	beginloop(0x09)
@@ -2290,7 +2290,7 @@ u8 func1011_dumbwaiter2[] = {
 	endloop(0x09)
 
 	label(0x2d)
-	unset_object_flag_bank0(OBJ_DUMBWAITER2, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(OBJ_DUMBWAITER2, OBJFLAG_DEACTIVATED)
 	yield
 	yield
 	yield
@@ -3447,20 +3447,20 @@ u8 func0423_outro[] = {
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	chr_do_animation(0x02d9, -1, -1, 0x06, 0x00, CHR_ELVIS, 4)
 	show_object(0x19)
-	set_object_flag_bank1(0x19, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x19, OBJECTFLAG2_00000010)
+	set_object_flag2(0x19, OBJFLAG2_04000000)
+	set_object_flag3(0x19, OBJFLAG3_00000010)
 	object_do_animation(0x02db, 0x19, 0x04ff, 0xff)
 	show_object(0x1a)
-	set_object_flag_bank1(0x1a, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x1a, OBJECTFLAG2_00000010)
+	set_object_flag2(0x1a, OBJFLAG2_04000000)
+	set_object_flag3(0x1a, OBJFLAG3_00000010)
 	object_do_animation(0x02dc, 0x1a, 0x04ff, 0xff)
 	show_object(0x23)
-	set_object_flag_bank1(0x23, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x23, OBJECTFLAG2_00000010)
+	set_object_flag2(0x23, OBJFLAG2_04000000)
+	set_object_flag3(0x23, OBJFLAG3_00000010)
 	object_do_animation(0x02dd, 0x23, 0x04ff, 0xff)
 	show_object(0x37)
-	set_object_flag_bank1(0x37, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x37, OBJECTFLAG2_00000010)
+	set_object_flag2(0x37, OBJFLAG2_04000000)
+	set_object_flag3(0x37, OBJFLAG3_00000010)
 	object_do_animation(0x02de, 0x37, 0x04ff, 0xff)
 	restart_timer
 	set_cutscene_weapon(CHR_TARGET, WEAPON_NONE, WEAPON_NONE)
@@ -3569,14 +3569,14 @@ u8 func1019_midcutscene[] = {
 	camera_movement(0x02df)
 
 	show_object(0x19)
-	set_object_flag_bank1(0x19, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x19, OBJECTFLAG2_00000010)
+	set_object_flag2(0x19, OBJFLAG2_04000000)
+	set_object_flag3(0x19, OBJFLAG3_00000010)
 	object_do_animation(0x02e0, 0x19, 0x04ff, 0xff)
 	set_object_part_visible(0x19, TRUE)
 
 	show_object(0x37)
-	set_object_flag_bank1(0x37, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(0x37, OBJECTFLAG2_00000010)
+	set_object_flag2(0x37, OBJFLAG2_04000000)
+	set_object_flag3(0x37, OBJFLAG3_00000010)
 	object_do_animation(0x02e1, 0x37, 0x04ff, 0xff)
 
 	restart_timer
@@ -3613,7 +3613,7 @@ u8 func1019_midcutscene_from_menu[] = {
 };
 
 u8 func101a_equipment_switch[] = {
-	set_object_flag_bank0(0x1b, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(0x1b, OBJFLAG_DEACTIVATED)
 	set_object_image(OBJ_EQUIPMENT_SWITCH, 0x00, 0x12)
 
 	beginloop(0x04)
@@ -3642,7 +3642,7 @@ u8 func101a_equipment_switch[] = {
 	message(CHR_P1P2, 0x363d) // "Cargo bay has been raised."
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_EQUIPMENT_SWITCH, TRUE)
-	unset_object_flag_bank0(0x1b, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(0x1b, OBJFLAG_DEACTIVATED)
 	yield
 	yield
 	yield
@@ -3656,7 +3656,7 @@ u8 func101a_equipment_switch[] = {
 	endloop(0x08)
 
 	label(0x06)
-	set_object_flag_bank0(0x1b, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(0x1b, OBJFLAG_DEACTIVATED)
 	set_object_image(OBJ_EQUIPMENT_SWITCH, 0x00, 0x12)
 
 	beginloop(0x09)
@@ -3672,7 +3672,7 @@ u8 func101a_equipment_switch[] = {
 
 u8 func101b_hoverbike_switch[] = {
 	unset_savefile_flag(SAVEFILEFLAG_CRASHSITE_BIKE)
-	set_object_flag_bank0(0x1f, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(0x1f, OBJFLAG_DEACTIVATED)
 	set_object_image(OBJ_HOVERBIKE_SWITCH, 0x00, 0x12)
 	label(0x08)
 	open_door(0x20)
@@ -3706,7 +3706,7 @@ u8 func101b_hoverbike_switch[] = {
 	set_savefile_flag(SAVEFILEFLAG_CRASHSITE_BIKE)
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_HOVERBIKE_SWITCH, TRUE)
-	unset_object_flag_bank0(0x1f, OBJECTFLAG0_DEACTIVATED)
+	unset_object_flag(0x1f, OBJFLAG_DEACTIVATED)
 	restart_timer
 
 	beginloop(0x0c)
@@ -3721,7 +3721,7 @@ u8 func101b_hoverbike_switch[] = {
 	endloop(0x0b)
 
 	label(0x06)
-	set_object_flag_bank0(0x1f, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(0x1f, OBJFLAG_DEACTIVATED)
 	set_object_image(OBJ_HOVERBIKE_SWITCH, 0x00, 0x12)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3814,8 +3814,8 @@ u8 func101d_handle_early_president_death[] = {
 
 	label(0x06)
 	hide_object(OBJ_EXTERIOR_DOOR)
-	unset_object_flag_bank1(OBJ_EXTERIOR_DOOR_DETACHED, OBJECTFLAG1_INVISIBLE)
-	set_object_flag_bank0(OBJ_EXTERIOR_DOOR_DETACHED, OBJECTFLAG0_00000100)
+	unset_object_flag2(OBJ_EXTERIOR_DOOR_DETACHED, OBJFLAG2_INVISIBLE)
+	set_object_flag(OBJ_EXTERIOR_DOOR_DETACHED, OBJFLAG_00000100)
 
 	beginloop(0x08)
 		if_chr_death_animation_finished(CHR_PRESIDENT, /*goto*/ 0x2d)
@@ -3844,8 +3844,8 @@ u8 func1007_check_pod_destroyed[] = {
 
 u8 func101f_setup_rtracker[] = {
 	yield
-	set_object_flag_bank2(0x38, OBJECTFLAG2_RTRACKED_BLUE)
-	set_object_flag_bank2(0x39, OBJECTFLAG2_RTRACKED_BLUE)
+	set_object_flag3(0x38, OBJFLAG3_RTRACKED_BLUE)
+	set_object_flag3(0x39, OBJFLAG3_RTRACKED_BLUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3986,8 +3986,8 @@ u8 func1026_buddy_floor_hatch[] = {
 	// Maybe the AI has difficulty opening the floor hatch so they removed it?
 	label(0x2d)
 	hide_object(OBJ_FLOORHATCH)
-	set_object_flag_bank0(OBJ_FLOOR_HATCH_DETACHED, OBJECTFLAG0_00000100)
-	unset_object_flag_bank1(OBJ_FLOOR_HATCH_DETACHED, OBJECTFLAG1_INVISIBLE)
+	set_object_flag(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG_00000100)
+	unset_object_flag2(OBJ_FLOOR_HATCH_DETACHED, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

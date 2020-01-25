@@ -914,7 +914,7 @@ u8 func1005_check_leader_dead[] = {
 };
 
 u8 func1009_check_king1_dead[] = {
-	set_object_flag_bank0(OBJ_BRIDGE, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 
 	beginloop(0x03)
 		if_chr_death_animation_finished(CHR_KING1, /*goto*/ 0x2d)
@@ -932,7 +932,7 @@ u8 func1009_check_king1_dead[] = {
 };
 
 u8 func100a_check_king2_dead[] = {
-	set_object_flag_bank0(OBJ_BRIDGE, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0e)
 
 	beginloop(0x03)
@@ -950,7 +950,7 @@ u8 func100a_check_king2_dead[] = {
 };
 
 u8 func100b_check_king3_dead[] = {
-	set_object_flag_bank0(OBJ_BRIDGE, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x0e)
 
 	beginloop(0x03)

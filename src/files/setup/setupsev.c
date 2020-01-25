@@ -1294,14 +1294,14 @@ u8 func0410_clone_spawner2[] = {
 
 u8 func1007_disable_pods[] = {
 	// Pods are the things that you xray scan in Rescue
-	set_object_flag_bank0(0x1a, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(0x1b, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(0x1c, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(0x1d, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(0x1e, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(0x1f, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(0x20, OBJECTFLAG0_DEACTIVATED)
-	set_object_flag_bank0(0x21, OBJECTFLAG0_DEACTIVATED)
+	set_object_flag(0x1a, OBJFLAG_DEACTIVATED)
+	set_object_flag(0x1b, OBJFLAG_DEACTIVATED)
+	set_object_flag(0x1c, OBJFLAG_DEACTIVATED)
+	set_object_flag(0x1d, OBJFLAG_DEACTIVATED)
+	set_object_flag(0x1e, OBJFLAG_DEACTIVATED)
+	set_object_flag(0x1f, OBJFLAG_DEACTIVATED)
+	set_object_flag(0x20, OBJFLAG_DEACTIVATED)
+	set_object_flag(0x21, OBJFLAG_DEACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1521,8 +1521,8 @@ u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x0477, -1, -1, 0x06, 0x00, CHR_BOND, 4)
-	set_object_flag_bank1(OBJ_TROLLEY, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_TROLLEY, OBJECTFLAG2_00000010)
+	set_object_flag2(OBJ_TROLLEY, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_TROLLEY, OBJFLAG3_00000010)
 	object_do_animation(0x0478, OBJ_TROLLEY, 0x04ff, 0xff)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -1565,8 +1565,8 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x0477, -2, -1, 0x06, 0x00, CHR_BOND, 2)
-	unset_object_flag_bank1(OBJ_TROLLEY, OBJECTFLAG1_04000000)
-	set_object_flag_bank2(OBJ_TROLLEY, OBJECTFLAG2_00000010)
+	unset_object_flag2(OBJ_TROLLEY, OBJFLAG2_04000000)
+	set_object_flag3(OBJ_TROLLEY, OBJFLAG3_00000010)
 	object_do_animation(0x0478, OBJ_TROLLEY, 0x04ff, 0xfe)
 	restart_default_music
 	reset_ambience
@@ -1640,7 +1640,7 @@ u8 func0419_init_outro_guard[] = {
 u8 func100c_unset_trolley_flag_when_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_TROLLEY, /*goto*/ 0x2c)
-		unset_object_flag_bank2(OBJ_TROLLEY, OBJECTFLAG2_PUSHABLE)
+		unset_object_flag3(OBJ_TROLLEY, OBJFLAG3_PUSHABLE)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
 	endloop(0x04)
