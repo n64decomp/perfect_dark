@@ -127,7 +127,7 @@ u32 func0f070a1c(void);
 u32 func0f070bd0(void);
 u32 func0f070ca0(void);
 void liftActivate(struct prop *prop, u8 liftnum);
-u32 func0f070e58(void);
+struct prop *liftFindByPad(s16 padnum);
 u32 func0f070eac(void);
 u32 func0f070f08(void);
 void func0f0710ec(struct defaultobj *obj, u32 arg1);

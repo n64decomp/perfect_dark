@@ -73,7 +73,7 @@ struct pad {
 	/*0x48*/ s32 room;
 	/*0x4c*/ s16 unk4c;
 	/*0x4e*/ s16 unk4e;
-	/*0x50*/ s16 unk50;
+	/*0x50*/ u8 liftnum; // 1-10, 0 indicates no lift
 	/*0x52*/ s16 unk52;
 };
 

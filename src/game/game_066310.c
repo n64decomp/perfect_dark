@@ -13533,33 +13533,17 @@ void liftActivate(struct prop *prop, u8 liftnum)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f070e58
-/*  f070e58:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f070e5c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f070e60:	afa40070 */ 	sw	$a0,0x70($sp)
-/*  f070e64:	00047400 */ 	sll	$t6,$a0,0x10
-/*  f070e68:	000e2403 */ 	sra	$a0,$t6,0x10
-/*  f070e6c:	27a6001c */ 	addiu	$a2,$sp,0x1c
-/*  f070e70:	0fc456ac */ 	jal	padUnpack
-/*  f070e74:	24050100 */ 	addiu	$a1,$zero,0x100
-/*  f070e78:	93a3006c */ 	lbu	$v1,0x6c($sp)
-/*  f070e7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f070e80:	18600003 */ 	blez	$v1,.L0f070e90
-/*  f070e84:	2861000b */ 	slti	$at,$v1,0xb
-/*  f070e88:	14200003 */ 	bnez	$at,.L0f070e98
-/*  f070e8c:	0003c080 */ 	sll	$t8,$v1,0x2
-.L0f070e90:
-/*  f070e90:	10000004 */ 	beqz	$zero,.L0f070ea4
-/*  f070e94:	00001025 */ 	or	$v0,$zero,$zero
-.L0f070e98:
-/*  f070e98:	3c028007 */ 	lui	$v0,0x8007
-/*  f070e9c:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f070ea0:	8c429a44 */ 	lw	$v0,-0x65bc($v0)
-.L0f070ea4:
-/*  f070ea4:	03e00008 */ 	jr	$ra
-/*  f070ea8:	27bd0070 */ 	addiu	$sp,$sp,0x70
-);
+struct prop *liftFindByPad(s16 padnum)
+{
+	struct pad pad;
+	padUnpack(padnum, 0x100, &pad);
+
+	if (pad.liftnum <= 0 || pad.liftnum > MAX_LIFTS) {
+		return NULL;
+	}
+
+	return g_Lifts[pad.liftnum - 1];
+}
 
 GLOBAL_ASM(
 glabel func0f070eac
