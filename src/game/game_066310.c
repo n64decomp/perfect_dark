@@ -13526,21 +13526,12 @@ glabel func0f070ca0
 /*  f070e28:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel liftActivate
-/*  f070e2c:	30ae00ff */ 	andi	$t6,$a1,0xff
-/*  f070e30:	19c00007 */ 	blez	$t6,.L0f070e50
-/*  f070e34:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f070e38:	29c1000b */ 	slti	$at,$t6,0xb
-/*  f070e3c:	10200004 */ 	beqz	$at,.L0f070e50
-/*  f070e40:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f070e44:	3c018007 */ 	lui	$at,0x8007
-/*  f070e48:	002f0821 */ 	addu	$at,$at,$t7
-/*  f070e4c:	ac249a44 */ 	sw	$a0,-0x65bc($at)
-.L0f070e50:
-/*  f070e50:	03e00008 */ 	jr	$ra
-/*  f070e54:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void liftActivate(struct prop *prop, u8 liftnum)
+{
+	if (liftnum > 0 && liftnum <= MAX_LIFTS) {
+		g_Lifts[liftnum - 1] = prop;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f070e58

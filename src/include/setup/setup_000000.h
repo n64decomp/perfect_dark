@@ -464,7 +464,7 @@ extern u32 var800699e8;
 extern u32 var800699f4;
 extern u32 var800699fc;
 extern u32 var80069a08;
-extern u32 var80069a48;
+extern struct prop *g_Lifts[MAX_LIFTS];
 extern u32 var80069a70;
 extern u32 var80069b74;
 extern u32 var80069b80;

@@ -495,6 +495,7 @@
 #define MA_PUNCHING        54
 
 #define MAX_DANGEROUSPROPS 12
+#define MAX_LIFTS          10
 #define MAX_MPCHRS         (4 + MAX_SIMULANTS)
 #define MAX_OBJECTIVES     10
 #define MAX_SIMULANTS      8

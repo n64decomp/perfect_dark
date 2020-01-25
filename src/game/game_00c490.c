@@ -210,11 +210,11 @@ const u32 var7f1a822c[] = {0x00000000};
 GLOBAL_ASM(
 glabel func0f00c490
 /*  f00c490:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f00c494:	3c028007 */ 	lui	$v0,%hi(var80069a48)
+/*  f00c494:	3c028007 */ 	lui	$v0,%hi(g_Lifts)
 /*  f00c498:	3c038007 */ 	lui	$v1,%hi(var80069a70)
 /*  f00c49c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f00c4a0:	24639a70 */ 	addiu	$v1,$v1,%lo(var80069a70)
-/*  f00c4a4:	24429a48 */ 	addiu	$v0,$v0,%lo(var80069a48)
+/*  f00c4a4:	24429a48 */ 	addiu	$v0,$v0,%lo(g_Lifts)
 .L0f00c4a8:
 /*  f00c4a8:	24420004 */ 	addiu	$v0,$v0,0x4
 /*  f00c4ac:	0043082b */ 	sltu	$at,$v0,$v1
