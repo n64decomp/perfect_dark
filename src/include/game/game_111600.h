@@ -33,7 +33,7 @@ bool func0f112884(void);
 u32 currentPlayerHasProp(struct prop *prop);
 u32 func0f112950(void);
 u32 func0f112a58(void);
-u32 func0f112bc0(void);
+struct textoverride *objGetTextOverride(struct defaultobj *obj);
 u32 func0f112bfc(void);
 u32 func0f112c44(void);
 u32 func0f112cf8(void);

@@ -32,6 +32,7 @@ struct prop {
 	union {
 		struct chrdata *chr;
 		struct defaultobj *obj;
+		struct doorobj *door;
 		struct weaponobj *weapon;
 	};
 
@@ -920,7 +921,7 @@ struct eyespy {
 	/*0x34*/ u8 init;
 	/*0x35*/ u8 initialised;
 	/*0x36*/ u8 startuptimer60;
-	/*0x37*/ u8 active;
+	/*0x37*/ s8 active;
 	/*0x38*/ u8 buttonheld;
 	/*0x39*/ u8 camerabuttonheld;
 	/*0x3a*/ s16 bobdir;
@@ -4739,6 +4740,17 @@ struct smoketype {
 	f32 unk18;
 	f32 unk1c;
 	f32 unk20;
+};
+
+struct textoverride {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 activatetextid;
 };
 
 #endif

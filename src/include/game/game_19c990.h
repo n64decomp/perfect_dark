@@ -89,7 +89,7 @@ u32 func0f1a1e38(void);
 u32 func0f1a1e90(void);
 u32 func0f1a1f00(void);
 u32 func0f1a1f70(void);
-u32 func0f1a1fe0(void);
+struct trainingdata *func0f1a1fe0(void); // might be a different but similar struct
 u32 func0f1a1fec(void);
 u32 func0f1a2070(void);
 u32 func0f1a2198(void);

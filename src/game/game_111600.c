@@ -155,7 +155,7 @@ glabel func0f11179c
 /*  f1117c8:	10800025 */ 	beqz	$a0,.L0f111860
 /*  f1117cc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1117d0:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f1117d4:	0fc44af0 */ 	jal	func0f112bc0
+/*  f1117d4:	0fc44af0 */ 	jal	objGetTextOverride
 /*  f1117d8:	afa6001c */ 	sw	$a2,0x1c($sp)
 /*  f1117dc:	8fa50020 */ 	lw	$a1,0x20($sp)
 /*  f1117e0:	8fa6001c */ 	lw	$a2,0x1c($sp)
@@ -723,7 +723,7 @@ glabel func0f111ea4
 /*  f111ef0:	1662000f */ 	bne	$s3,$v0,.L0f111f30
 /*  f111ef4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f111ef8:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f111efc:	0fc44af0 */ 	jal	func0f112bc0
+/*  f111efc:	0fc44af0 */ 	jal	objGetTextOverride
 /*  f111f00:	8c440004 */ 	lw	$a0,0x4($v0)
 /*  f111f04:	10400006 */ 	beqz	$v0,.L0f111f20
 /*  f111f08:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1685,7 +1685,7 @@ glabel func0f112a58
 );
 
 GLOBAL_ASM(
-glabel func0f112bc0
+glabel objGetTextOverride
 /*  f112bc0:	3c03800a */ 	lui	$v1,0x800a
 /*  f112bc4:	8c63a278 */ 	lw	$v1,-0x5d88($v1)
 /*  f112bc8:	00001025 */ 	or	$v0,$zero,$zero
@@ -1745,7 +1745,7 @@ glabel func0f112c44
 /*  f112c68:	54810009 */ 	bnel	$a0,$at,.L0f112c90
 /*  f112c6c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f112c70:	8c420004 */ 	lw	$v0,0x4($v0)
-/*  f112c74:	0fc44af0 */ 	jal	func0f112bc0
+/*  f112c74:	0fc44af0 */ 	jal	objGetTextOverride
 /*  f112c78:	8c440004 */ 	lw	$a0,0x4($v0)
 /*  f112c7c:	5040001a */ 	beqzl	$v0,.L0f112ce8
 /*  f112c80:	00001025 */ 	or	$v0,$zero,$zero
@@ -1800,7 +1800,7 @@ glabel func0f112cf8
 /*  f112d24:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f112d28:	8c420004 */ 	lw	$v0,0x4($v0)
 /*  f112d2c:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f112d30:	0fc44af0 */ 	jal	func0f112bc0
+/*  f112d30:	0fc44af0 */ 	jal	objGetTextOverride
 /*  f112d34:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f112d38:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*  f112d3c:	10400029 */ 	beqz	$v0,.L0f112de4
@@ -1889,7 +1889,7 @@ glabel func0f112e24
 /*  f112e50:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f112e54:	8c420004 */ 	lw	$v0,0x4($v0)
 /*  f112e58:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f112e5c:	0fc44af0 */ 	jal	func0f112bc0
+/*  f112e5c:	0fc44af0 */ 	jal	objGetTextOverride
 /*  f112e60:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f112e64:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*  f112e68:	1040002d */ 	beqz	$v0,.L0f112f20
@@ -2020,7 +2020,7 @@ GLOBAL_ASM(
 glabel func0f112fec
 /*  f112fec:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f112ff0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112ff4:	0fc44af0 */ 	jal	func0f112bc0
+/*  f112ff4:	0fc44af0 */ 	jal	objGetTextOverride
 /*  f112ff8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f112ffc:	50400009 */ 	beqzl	$v0,.L0f113024
 /*  f113000:	00001025 */ 	or	$v0,$zero,$zero
