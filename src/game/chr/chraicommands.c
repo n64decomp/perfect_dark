@@ -3137,7 +3137,7 @@ bool ai0065(void)
 
 	if (obj && obj->prop) {
 		if (obj->prop->type == PROPTYPE_DOOR) {
-			func0f08fee8(obj->prop, 0);
+			doorActivateWrapper(obj->prop, 0);
 		} else if (obj->prop->type == PROPTYPE_OBJ || obj->prop->type == PROPTYPE_WEAPON) {
 			func0f086f40(obj->prop);
 		}

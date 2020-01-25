@@ -1340,7 +1340,7 @@ glabel func0f066310
 /*  f0663b8:	24010030 */ 	addiu	$at,$zero,0x30
 /*  f0663bc:	14550005 */ 	bne	$v0,$s5,.L0f0663d4
 /*  f0663c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0663c4:	0fc23fba */ 	jal	func0f08fee8
+/*  f0663c4:	0fc23fba */ 	jal	doorActivateWrapper
 /*  f0663c8:	03c02825 */ 	or	$a1,$s8,$zero
 /*  f0663cc:	10000068 */ 	beqz	$zero,.L0f066570
 /*  f0663d0:	8e73000c */ 	lw	$s3,0xc($s3)
@@ -20395,7 +20395,7 @@ glabel func0f076f30
 /*  f0771bc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0771c0:	10400003 */ 	beqz	$v0,.L0f0771d0
 /*  f0771c4:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f0771c8:	0fc23fba */ 	jal	func0f08fee8
+/*  f0771c8:	0fc23fba */ 	jal	doorActivateWrapper
 /*  f0771cc:	00002825 */ 	or	$a1,$zero,$zero
 .L0f0771d0:
 /*  f0771d0:	3c0e800a */ 	lui	$t6,0x800a
@@ -48184,86 +48184,32 @@ glabel func0f08fcb8
 /*  f08fee4:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
 
-GLOBAL_ASM(
-glabel func0f08fee8
-/*  f08fee8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f08feec:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f08fef0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f08fef4:	0fc198c4 */ 	jal	func0f066310
-/*  f08fef8:	8c900004 */ 	lw	$s0,0x4($a0)
-/*  f08fefc:	14400025 */ 	bnez	$v0,.L0f08ff94
-/*  f08ff00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08ff04:	82020084 */ 	lb	$v0,0x84($s0)
-/*  f08ff08:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f08ff0c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08ff10:	10410003 */ 	beq	$v0,$at,.L0f08ff20
-/*  f08ff14:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f08ff18:	54410006 */ 	bnel	$v0,$at,.L0f08ff34
-/*  f08ff1c:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f08ff20:
-/*  f08ff20:	0fc23922 */ 	jal	doorActivate
-/*  f08ff24:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f08ff28:	1000001a */ 	beqz	$zero,.L0f08ff94
-/*  f08ff2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08ff30:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f08ff34:
-/*  f08ff34:	14410005 */ 	bne	$v0,$at,.L0f08ff4c
-/*  f08ff38:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08ff3c:	0fc23922 */ 	jal	doorActivate
-/*  f08ff40:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f08ff44:	10000013 */ 	beqz	$zero,.L0f08ff94
-/*  f08ff48:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f08ff4c:
-/*  f08ff4c:	14400011 */ 	bnez	$v0,.L0f08ff94
-/*  f08ff50:	3c013f00 */ 	lui	$at,0x3f00
-/*  f08ff54:	44812000 */ 	mtc1	$at,$f4
-/*  f08ff58:	c606005c */ 	lwc1	$f6,0x5c($s0)
-/*  f08ff5c:	c60a007c */ 	lwc1	$f10,0x7c($s0)
-/*  f08ff60:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f08ff64:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f08ff68:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08ff6c:	460a403c */ 	c.lt.s	$f8,$f10
-/*  f08ff70:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08ff74:	45000005 */ 	bc1f	.L0f08ff8c
-/*  f08ff78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08ff7c:	0fc23922 */ 	jal	doorActivate
-/*  f08ff80:	02002025 */ 	or	$a0,$s0,$zero
-/*  f08ff84:	10000003 */ 	beqz	$zero,.L0f08ff94
-/*  f08ff88:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f08ff8c:
-/*  f08ff8c:	0fc23922 */ 	jal	doorActivate
-/*  f08ff90:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f08ff94:
-/*  f08ff94:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f08ff98:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f08ff9c:	8c62028c */ 	lw	$v0,0x28c($v1)
-/*  f08ffa0:	8c6e0298 */ 	lw	$t6,0x298($v1)
-/*  f08ffa4:	55c20007 */ 	bnel	$t6,$v0,.L0f08ffc4
-/*  f08ffa8:	8c790294 */ 	lw	$t9,0x294($v1)
-/*  f08ffac:	8e0f0040 */ 	lw	$t7,0x40($s0)
-/*  f08ffb0:	3c010004 */ 	lui	$at,0x4
-/*  f08ffb4:	01e1c025 */ 	or	$t8,$t7,$at
-/*  f08ffb8:	10000007 */ 	beqz	$zero,.L0f08ffd8
-/*  f08ffbc:	ae180040 */ 	sw	$t8,0x40($s0)
-/*  f08ffc0:	8c790294 */ 	lw	$t9,0x294($v1)
-.L0f08ffc4:
-/*  f08ffc4:	57220005 */ 	bnel	$t9,$v0,.L0f08ffdc
-/*  f08ffc8:	8e0a000c */ 	lw	$t2,0xc($s0)
-/*  f08ffcc:	8e080040 */ 	lw	$t0,0x40($s0)
-/*  f08ffd0:	35094000 */ 	ori	$t1,$t0,0x4000
-/*  f08ffd4:	ae090040 */ 	sw	$t1,0x40($s0)
-.L0f08ffd8:
-/*  f08ffd8:	8e0a000c */ 	lw	$t2,0xc($s0)
-.L0f08ffdc:
-/*  f08ffdc:	2401fff7 */ 	addiu	$at,$zero,-9
-/*  f08ffe0:	01415824 */ 	and	$t3,$t2,$at
-/*  f08ffe4:	ae0b000c */ 	sw	$t3,0xc($s0)
-/*  f08ffe8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08ffec:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f08fff0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f08fff4:	03e00008 */ 	jr	$ra
-/*  f08fff8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void doorActivateWrapper(struct prop *doorprop, bool arg1)
+{
+	struct doorobj *door = doorprop->door;
+
+	if (func0f066310(doorprop, arg1) == 0) {
+		if (door->mode == DOORMODE_OPENING || door->mode == DOORMODE_3) {
+			doorActivate(door, DOORMODE_CLOSING);
+		} else if (door->mode == DOORMODE_CLOSING) {
+			doorActivate(door, DOORMODE_OPENING);
+		} else if (door->mode == DOORMODE_IDLE) {
+			if (door->frac > 0.5f * door->maxfrac) {
+				doorActivate(door, DOORMODE_CLOSING);
+			} else {
+				doorActivate(door, DOORMODE_OPENING);
+			}
+		}
+	}
+
+	if (g_Vars.currentplayernum == g_Vars.coopplayernum) {
+		door->base.hidden |= OBJHFLAG_ACTIVATED_BY_COOP;
+	} else if (g_Vars.currentplayernum == g_Vars.bondplayernum) {
+		door->base.hidden |= OBJHFLAG_ACTIVATED_BY_BOND;
+	}
+
+	door->base.flags2 &= ~OBJFLAG2_00000008;
+}
 
 GLOBAL_ASM(
 glabel func0f08fffc
@@ -48389,7 +48335,7 @@ bool func0f09018c(struct prop *doorprop)
 
 	if (func0f08bd00(playerprop, doorprop)) {
 		func0f0900c0(playerprop, door);
-		func0f08fee8(doorprop, 1);
+		doorActivateWrapper(doorprop, 1);
 	} else if (door->mode == DOORMODE_IDLE && door->frac < 0.5f * door->maxfrac) {
 		if ((door->base.flags2 & OBJFLAG2_00000004) == 0) {
 			struct textoverride *override = objGetTextOverride(&door->base);
