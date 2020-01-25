@@ -2956,7 +2956,7 @@ u8 func1015_firingrange_pc[] = {
 
 	label(0x08)
 	message(CHR_P1P2, 0x221f) // "Emergency overrides have been engaged."
-	unset_object_flag(OBJ_RCP120, OBJFLAG_00100000)
+	unset_object_flag(OBJ_RCP120, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag(OBJ_RCP120_GLASS, OBJFLAG_INVINCIBLE)
 	destroy_object(OBJ_RCP120_GLASS)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3686,8 +3686,8 @@ u8 func100e_setup_firingrange_doors[] = {
 
 	// Unset some flags on them
 	label(0x2e)
-	unset_object_flag2(0x23, OBJFLAG2_20000000)
-	unset_object_flag2(0x24, OBJFLAG2_20000000)
+	unset_object_flag2(0x23, OBJFLAG2_AICANNOTUSE)
+	unset_object_flag2(0x24, OBJFLAG2_AICANNOTUSE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

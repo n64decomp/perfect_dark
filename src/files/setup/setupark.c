@@ -1463,7 +1463,7 @@ u8 func1005_check_bodyguards_dead[] = {
 
 		set_stage_flag(STAGEFLAG_TOP_BODYGUARDS_DEAD)
 		unlock_door(OBJ_TOPROOMDOOR, 0x02)
-		unset_object_flag2(OBJ_TOPROOMDOOR, OBJFLAG2_20000000)
+		unset_object_flag2(OBJ_TOPROOMDOOR, OBJFLAG2_AICANNOTUSE)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x26)
 
 		if_alive_goto_00(0x16, 0x20)
@@ -1584,7 +1584,7 @@ u8 func1009_init_top_room[] = {
 	endloop(0x1f)
 
 	label(0x00)
-	set_object_flag(OBJ_TOPROOMDOOR, OBJFLAG_02000000)
+	set_object_flag(OBJ_TOPROOMDOOR, OBJFLAG_CANNOT_ACTIVATE)
 	set_chr_target_chr(CHR_CASS, CHR_P1P2)
 	set_chr_target_chr(CHR_TOPGUARD1, CHR_P1P2)
 	set_chr_target_chr(CHR_TOPGUARD2, CHR_P1P2)
@@ -1959,7 +1959,7 @@ u8 func040d_cass[] = {
 	endloop(0x25)
 
 	label(0x26)
-	unset_object_flag(OBJ_TOPROOMDOOR, OBJFLAG_02000000)
+	unset_object_flag(OBJ_TOPROOMDOOR, OBJFLAG_CANNOT_ACTIVATE)
 	grant_control(CHR_BOND)
 	close_door(OBJ_TOPROOMDOOR)
 	if_chr_in_room(CHR_BOND, 0x00, 0x0045, /*goto*/ 0x20)
@@ -1975,7 +1975,7 @@ u8 func040d_cass[] = {
 	goto_next(0x00)
 
 	label(0x89)
-	unset_object_flag(OBJ_TOPROOMDOOR, OBJFLAG_02000000)
+	unset_object_flag(OBJ_TOPROOMDOOR, OBJFLAG_CANNOT_ACTIVATE)
 	restart_timer
 
 	beginloop(0x8a)
@@ -2108,7 +2108,7 @@ u8 func101f_unlock_top_door[] = {
 
 	label(0x20)
 	unlock_door(OBJ_TOPROOMDOOR, 0x02)
-	unset_object_flag2(OBJ_TOPROOMDOOR, OBJFLAG2_20000000)
+	unset_object_flag2(OBJ_TOPROOMDOOR, OBJFLAG2_AICANNOTUSE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2931,7 +2931,7 @@ u8 func101a_set_rocketlauncher_flag[] = {
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x20)
 
 	// SA and PA
-	set_object_flag2(OBJ_ROCKETLAUNCHER, OBJFLAG2_20000000)
+	set_object_flag2(OBJ_ROCKETLAUNCHER, OBJFLAG2_AICANNOTUSE)
 
 	label(0x20)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

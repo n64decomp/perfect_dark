@@ -1735,7 +1735,7 @@ u8 func0414_programmer[] = {
 		restart_timer
 		set_stage_flag(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD)
 		try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ LABEL_RUN_TO_GUARD)
-		unset_object_flag2(OBJ_LAPTOPGUNDOOR, OBJFLAG2_20000000)
+		unset_object_flag2(OBJ_LAPTOPGUNDOOR, OBJFLAG2_AICANNOTUSE)
 		jog_to_pad(0x0086)
 
 		beginloop(0x97)
@@ -2295,8 +2295,8 @@ u8 func1008_doorswitch[] = {
 	// A and SA
 	unlock_door(OBJ_OFFICEDOOR1, 0x01)
 	unlock_door(OBJ_OFFICEDOOR2, 0x01)
-	unset_object_flag2(OBJ_OFFICEDOOR1, OBJFLAG2_20000000)
-	unset_object_flag2(OBJ_OFFICEDOOR2, OBJFLAG2_20000000)
+	unset_object_flag2(OBJ_OFFICEDOOR1, OBJFLAG2_AICANNOTUSE)
+	unset_object_flag2(OBJ_OFFICEDOOR2, OBJFLAG2_AICANNOTUSE)
 	set_stage_flag(STAGEFLAG_OFFICE_DOOR_UNLOCKED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2313,8 +2313,8 @@ u8 func1008_doorswitch[] = {
 	set_stage_flag(STAGEFLAG_OFFICE_DOOR_UNLOCKED)
 	unlock_door(OBJ_OFFICEDOOR1, 0x01)
 	unlock_door(OBJ_OFFICEDOOR2, 0x01)
-	unset_object_flag2(OBJ_OFFICEDOOR1, OBJFLAG2_20000000)
-	unset_object_flag2(OBJ_OFFICEDOOR2, OBJFLAG2_20000000)
+	unset_object_flag2(OBJ_OFFICEDOOR1, OBJFLAG2_AICANNOTUSE)
+	unset_object_flag2(OBJ_OFFICEDOOR2, OBJFLAG2_AICANNOTUSE)
 	yield
 	restart_timer
 

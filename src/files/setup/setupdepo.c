@@ -1110,12 +1110,12 @@ u8 func0402_init_swat2[] = {
 };
 
 u8 func100a_give_keycards[] = {
-	set_object_flag(OBJ_KEYCARD1, OBJFLAG_00100000)
+	set_object_flag(OBJ_KEYCARD1, OBJFLAG_UNCOLLECTABLE)
 	set_object_flag2(OBJ_KEYCARD1, OBJFLAG2_INVISIBLE)
-	set_object_flag(OBJ_KEYCARD2, OBJFLAG_00100000)
+	set_object_flag(OBJ_KEYCARD2, OBJFLAG_UNCOLLECTABLE)
 	set_object_flag2(OBJ_KEYCARD2, OBJFLAG2_INVISIBLE)
 	set_object_flag2(OBJ_CROSSBOW, OBJFLAG2_INVISIBLE)
-	set_object_flag(OBJ_CROSSBOW, OBJFLAG_00100000)
+	set_object_flag(OBJ_CROSSBOW, OBJFLAG_UNCOLLECTABLE)
 
 	set_chr_chrflag(CHR_CLOAK_1A, CHRCFLAG_KILLCOUNTABLE)
 	set_chr_chrflag(CHR_CLOAK_1B, CHRCFLAG_KILLCOUNTABLE)
@@ -1147,10 +1147,10 @@ u8 func100a_give_keycards[] = {
 	set_target_chr(CHR_CLOAK_1B)
 
 	label(0x2c)
-	unset_object_flag(OBJ_KEYCARD1, OBJFLAG_00100000)
+	unset_object_flag(OBJ_KEYCARD1, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(OBJ_KEYCARD1, OBJFLAG2_INVISIBLE)
 	unset_object_flag2(OBJ_CROSSBOW, OBJFLAG2_INVISIBLE)
-	unset_object_flag(OBJ_CROSSBOW, OBJFLAG_00100000)
+	unset_object_flag(OBJ_CROSSBOW, OBJFLAG_UNCOLLECTABLE)
 
 	// Wait for the chr who holds the keycard to die
 	beginloop(0x55)
@@ -1161,7 +1161,7 @@ u8 func100a_give_keycards[] = {
 
 	label(0x2c)
 	set_object_flag2(OBJ_CROSSBOW, OBJFLAG2_INVISIBLE)
-	set_object_flag(OBJ_CROSSBOW, OBJFLAG_00100000)
+	set_object_flag(OBJ_CROSSBOW, OBJFLAG_UNCOLLECTABLE)
 	hide_object(OBJ_CROSSBOW)
 
 	beginloop(0x08)
@@ -1204,7 +1204,7 @@ u8 func100a_give_keycards[] = {
 	dprint 'G','I','V','E',' ','T','O','7',0,
 
 	label(0x2c)
-	unset_object_flag(OBJ_KEYCARD2, OBJFLAG_00100000)
+	unset_object_flag(OBJ_KEYCARD2, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(OBJ_KEYCARD2, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1248,18 +1248,18 @@ u8 func100e_check_conspirators_alerted[] = {
 
 		// These objects are doors
 		label(0x06)
-		unset_object_flag2(0x3f, OBJFLAG2_20000000)
-		unset_object_flag2(0x40, OBJFLAG2_20000000)
-		unset_object_flag2(0x41, OBJFLAG2_20000000)
-		unset_object_flag2(0x42, OBJFLAG2_20000000)
-		unset_object_flag2(0x43, OBJFLAG2_20000000)
-		unset_object_flag2(0x44, OBJFLAG2_20000000)
-		unset_object_flag2(0x45, OBJFLAG2_20000000)
-		unset_object_flag2(0x46, OBJFLAG2_20000000)
-		unset_object_flag2(0x34, OBJFLAG2_20000000)
-		unset_object_flag2(0x35, OBJFLAG2_20000000)
-		unset_object_flag2(0x36, OBJFLAG2_20000000)
-		unset_object_flag2(0x37, OBJFLAG2_20000000)
+		unset_object_flag2(0x3f, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x40, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x41, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x42, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x43, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x44, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x45, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x46, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x34, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x35, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x36, OBJFLAG2_AICANNOTUSE)
+		unset_object_flag2(0x37, OBJFLAG2_AICANNOTUSE)
 
 		set_stage_flag(STAGEFLAG_ALARM_SOUNDING)
 		if_stage_flag_eq(STAGEFLAG_MEETING_STARTED, TRUE, /*goto*/ 0x06)
@@ -1375,7 +1375,7 @@ u8 func1010_safe_cracking[] = {
 	control_sound_from_object(CHANNEL_1, OBJ_SAFEKEYPAD, TRUE)
 	message(CHR_P1P2, 0x1825) // "Door Decoder finished - door unlocked."
 	unlock_door(OBJ_SAFEDOOR, 0x40)
-	unset_object_flag2(OBJ_SAFEDOOR, OBJFLAG2_20000000)
+	unset_object_flag2(OBJ_SAFEDOOR, OBJFLAG2_AICANNOTUSE)
 	open_door(OBJ_SAFEDOOR)
 	hide_countdown_timer
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2377,10 +2377,10 @@ u8 func101b_cloak2_entry[] = {
 	lock_door(0x35, 0x10)
 	lock_door(0x36, 0x10)
 	lock_door(0x37, 0x10)
-	set_object_flag2(0x34, OBJFLAG2_10000000)
-	set_object_flag2(0x35, OBJFLAG2_10000000)
-	set_object_flag2(0x36, OBJFLAG2_08000000)
-	set_object_flag2(0x37, OBJFLAG2_10000000)
+	set_object_flag2(0x34, OBJFLAG2_LOCKEDBACK)
+	set_object_flag2(0x35, OBJFLAG2_LOCKEDBACK)
+	set_object_flag2(0x36, OBJFLAG2_LOCKEDFRONT)
+	set_object_flag2(0x37, OBJFLAG2_LOCKEDBACK)
 	close_door(0x34)
 	close_door(0x35)
 	close_door(0x36)

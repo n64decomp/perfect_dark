@@ -2082,7 +2082,7 @@ u8 func1009_windmill_switch[] = {
 		message(CHR_P1P2, 0x2012) // "Windmill has been reactivated."
 		yield
 		set_stage_flag(STAGEFLAG_WINDMILL_ACTIVATED)
-		set_object_flag2(OBJ_WINDMILL, OBJFLAG2_20000000)
+		set_object_flag2(OBJ_WINDMILL, OBJFLAG2_AICANNOTUSE)
 		unlock_door(0x06, 0x02)
 		unlock_door(0x07, 0x02)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2423,7 +2423,7 @@ u8 func1014_give_keycard[] = {
 	set_chr_chrflag(CHR_BASEMENT7, CHRCFLAG_KILLCOUNTABLE)
 	set_chr_chrflag(CHR_BASEMENT8, CHRCFLAG_KILLCOUNTABLE)
 	set_chr_chrflag(CHR_BASEMENT9, CHRCFLAG_KILLCOUNTABLE)
-	set_object_flag(OBJ_KEYCARD, OBJFLAG_00100000)
+	set_object_flag(OBJ_KEYCARD, OBJFLAG_UNCOLLECTABLE)
 	set_object_flag2(OBJ_KEYCARD, OBJFLAG2_INVISIBLE)
 
 	// Wait until one basement guard remaining
@@ -2458,7 +2458,7 @@ u8 func1014_give_keycard[] = {
 
 	// Gave key
 	label(0x09)
-	unset_object_flag(OBJ_KEYCARD, OBJFLAG_00100000)
+	unset_object_flag(OBJ_KEYCARD, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(OBJ_KEYCARD, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2931,8 +2931,8 @@ u8 func101d_dual_cmp150[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	unset_object_flag(OBJ_CMP150_1, OBJFLAG_00100000)
-	unset_object_flag(OBJ_CMP150_2, OBJFLAG_00100000)
+	unset_object_flag(OBJ_CMP150_1, OBJFLAG_UNCOLLECTABLE)
+	unset_object_flag(OBJ_CMP150_2, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(OBJ_CMP150_1, OBJFLAG2_INVISIBLE)
 	unset_object_flag2(OBJ_CMP150_1, OBJFLAG2_INVISIBLE)
 

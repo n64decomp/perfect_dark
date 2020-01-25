@@ -3525,17 +3525,17 @@ u8 func1018_safe_switch[] = {
 	set_object_flag(OBJ_SAFEDOOR, OBJFLAG_40000000)
 
 	unset_object_flag2(OBJ_FLIGHTPLANS, OBJFLAG2_INVISIBLE)
-	unset_object_flag(OBJ_FLIGHTPLANS, OBJFLAG_00100000)
+	unset_object_flag(OBJ_FLIGHTPLANS, OBJFLAG_UNCOLLECTABLE)
 	set_object_flag(OBJ_FLIGHTPLANS, OBJFLAG_COLLECTABLE)
 	set_object_flag2(OBJ_FLIGHTPLANS, OBJFLAG2_00001000)
 
 	// 0x32 = a shield
 	set_object_flag2(0x34, OBJFLAG2_00001000)
-	unset_object_flag(0x34, OBJFLAG_00100000)
+	unset_object_flag(0x34, OBJFLAG_UNCOLLECTABLE)
 
 	// 0x32 = invalid object
 	unset_object_flag2(0x32, OBJFLAG2_INVISIBLE)
-	unset_object_flag(0x32, OBJFLAG_00100000)
+	unset_object_flag(0x32, OBJFLAG_UNCOLLECTABLE)
 
 	label(0x31)
 
@@ -3568,7 +3568,7 @@ u8 func1018_safe_switch_cover[] = {
 	endloop(0x04)
 
 	label(0x31)
-	set_object_flag(OBJ_SAFE_SWITCH_COVER, OBJFLAG_02000000)
+	set_object_flag(OBJ_SAFE_SWITCH_COVER, OBJFLAG_CANNOT_ACTIVATE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3953,9 +3953,9 @@ u8 func1023_check_office2_dead[] = {
 };
 
 u8 func1024_double_dy357[] = {
-	set_object_flag(0x30, OBJFLAG_00100000)
+	set_object_flag(0x30, OBJFLAG_UNCOLLECTABLE)
 	set_object_flag2(0x30, OBJFLAG2_INVISIBLE)
-	set_object_flag(0x31, OBJFLAG_00100000)
+	set_object_flag(0x31, OBJFLAG_UNCOLLECTABLE)
 	set_object_flag2(0x31, OBJFLAG2_INVISIBLE)
 
 	beginloop(0x00)
@@ -3967,9 +3967,9 @@ u8 func1024_double_dy357[] = {
 	endloop(0x00)
 
 	label(0x31)
-	unset_object_flag(0x30, OBJFLAG_00100000)
+	unset_object_flag(0x30, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(0x30, OBJFLAG2_INVISIBLE)
-	unset_object_flag(0x31, OBJFLAG_00100000)
+	unset_object_flag(0x31, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(0x31, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

@@ -742,8 +742,8 @@ u8 func1005_jon_msgs_meetup[] = {
 	label(0x06)
 	set_stage_flag(STAGEFLAG_ELVIS_STASHED)
 	mute_channel(CHANNEL_0)
-	unset_object_flag2(0x0d, OBJFLAG2_08000000)
-	set_object_flag2(0x0d, OBJFLAG2_10000000)
+	unset_object_flag2(0x0d, OBJFLAG2_LOCKEDFRONT)
+	set_object_flag2(0x0d, OBJFLAG2_LOCKEDBACK)
 	unlock_door(0x0d, 0x20)
 	release_grabbed_object(CHR_BOND)
 	yield
@@ -2967,7 +2967,7 @@ u8 func0c01_midcutscene[] = {
 	set_object_flag3(0x11, OBJFLAG3_00000010)
 	object_do_animation(0x01cf, 0x11, 0x04ff, 0xfe)
 
-	unset_object_flag2(0x0a, OBJFLAG2_20000000)
+	unset_object_flag2(0x0a, OBJFLAG2_AICANNOTUSE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_ailist(CHR_JONATHAN, AILIST_JONATHAN_HANGAR)
@@ -3581,7 +3581,7 @@ u8 func102f_toggle_remotemines[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x06)
-	unset_object_flag(OBJ_REMOTEMINES, OBJFLAG_00100000)
+	unset_object_flag(OBJ_REMOTEMINES, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag2(OBJ_REMOTEMINES, OBJFLAG2_INVISIBLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

@@ -12543,7 +12543,7 @@ struct prop *chrGetEquippedWeaponPropWithCheck(struct chrdata *chr, s32 hand)
 	if (prop) {
 		struct weaponobj *weapon = prop->weapon;
 
-		if (!weaponHasFlag(weapon->weapon_id, 0x00000010)) {
+		if (!weaponHasFlag(weapon->weapon_id, WEAPONFLAG_00000010)) {
 			prop = NULL;
 		}
 	}
@@ -33291,7 +33291,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 
 				if (prop) {
 					weapon = prop->weapon;
-					weapon->hidden |= 0x00000800;
+					weapon->hidden |= OBJHFLAG_00000800;
 					chrThrowGrenade(chr, rightprop == NULL ? 0 : 1, true);
 					chr->act_throwgrenade.entitytype = entitytype;
 					chr->act_throwgrenade.entityid = entityid;
@@ -49032,7 +49032,7 @@ bool chrHasStageFlag(struct chrdata *chr, u32 flag)
 
 bool chrHasHiddenFlag00000002(struct chrdata *chr)
 {
-	return (chr->hidden & 0x00000002) != 0;
+	return (chr->hidden & CHRHFLAG_00000002) != 0;
 }
 
 void chrRestartTimer(struct chrdata *chr)

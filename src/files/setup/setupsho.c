@@ -1055,8 +1055,8 @@ u8 func100c_check_army_defeated[] = {
 	endloop(0x91)
 
 	label(0x2d)
-	unset_object_flag2(0x45, OBJFLAG2_08000000)
-	unset_object_flag2(0x46, OBJFLAG2_10000000)
+	unset_object_flag2(0x45, OBJFLAG2_LOCKEDFRONT)
+	unset_object_flag2(0x46, OBJFLAG2_LOCKEDBACK)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3585,9 +3585,9 @@ u8 func1020_show_phoenix[] = {
 		if_object_in_good_condition(0x2c, /*goto*/ 0x2d)
 		if_object_in_good_condition(0x2d, /*goto*/ 0x2d)
 		if_object_in_good_condition(0x2e, /*goto*/ 0x2d)
-		unset_object_flag(OBJ_PHOENIX1, OBJFLAG_00100000)
+		unset_object_flag(OBJ_PHOENIX1, OBJFLAG_UNCOLLECTABLE)
 		unset_object_flag2(OBJ_PHOENIX1, OBJFLAG2_INVISIBLE)
-		unset_object_flag(OBJ_PHOENIX2, OBJFLAG_00100000)
+		unset_object_flag(OBJ_PHOENIX2, OBJFLAG_UNCOLLECTABLE)
 		unset_object_flag2(OBJ_PHOENIX2, OBJFLAG2_INVISIBLE)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2d)
@@ -3615,8 +3615,8 @@ u8 func1021_handle_mine[] = {
 
 u8 func1022_armyroom_exitdoors[] = {
 	yield
-	set_object_flag2(0x45, OBJFLAG2_08000000)
-	set_object_flag2(0x46, OBJFLAG2_10000000)
+	set_object_flag2(0x45, OBJFLAG2_LOCKEDFRONT)
+	set_object_flag2(0x46, OBJFLAG2_LOCKEDBACK)
 	if_difficulty_gt(DIFF_SA, /*goto*/ 0x2d)
 
 	// A and SA
@@ -3625,8 +3625,8 @@ u8 func1022_armyroom_exitdoors[] = {
 	endloop(0x91)
 
 	label(0x06)
-	unset_object_flag2(0x45, OBJFLAG2_08000000)
-	unset_object_flag2(0x46, OBJFLAG2_10000000)
+	unset_object_flag2(0x45, OBJFLAG2_LOCKEDFRONT)
+	unset_object_flag2(0x46, OBJFLAG2_LOCKEDBACK)
 
 	// All difficulties
 	label(0x2d)

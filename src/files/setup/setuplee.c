@@ -575,10 +575,10 @@ u8 func1019_check_shields_lowered[] = {
 
 u8 func1004_check_hangar_doors_opened[] = {
 	yield
-	set_object_flag(OBJ_HANGARDOOR1, OBJFLAG_02000000)
-	set_object_flag(OBJ_HANGARDOOR2, OBJFLAG_02000000)
-	set_object_flag(OBJ_HANGARDOOR3, OBJFLAG_02000000)
-	set_object_flag(OBJ_HANGARDOOR4, OBJFLAG_02000000)
+	set_object_flag(OBJ_HANGARDOOR1, OBJFLAG_CANNOT_ACTIVATE)
+	set_object_flag(OBJ_HANGARDOOR2, OBJFLAG_CANNOT_ACTIVATE)
+	set_object_flag(OBJ_HANGARDOOR3, OBJFLAG_CANNOT_ACTIVATE)
+	set_object_flag(OBJ_HANGARDOOR4, OBJFLAG_CANNOT_ACTIVATE)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -1385,8 +1385,8 @@ u8 func1008_hangar_lifts[] = {
 	// attempting to warp him.
 	beginloop(0x64)
 		set_object_flag(OBJ_HANGARLIFT_ELVIS, OBJFLAG_DEACTIVATED)
-		unset_object_flag(0x3b, OBJFLAG_02000000)
-		unset_object_flag(0x3c, OBJFLAG_02000000)
+		unset_object_flag(0x3b, OBJFLAG_CANNOT_ACTIVATE)
+		unset_object_flag(0x3c, OBJFLAG_CANNOT_ACTIVATE)
 		unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_TRIGGER_BUDDY_WARP)
 		if_chr_y(CHR_ELVIS, 400, OPERATOR_LESS_THAN, /*goto*/ 0x06)
 		goto_next(0x68)
@@ -1974,8 +1974,8 @@ u8 func100d_prebridgelift[] = {
 	label(0x2c)
 	label(0x64)
 	set_object_flag(OBJ_PREBRIDGELIFT, OBJFLAG_DEACTIVATED)
-	unset_object_flag(0x3d, OBJFLAG_02000000)
-	unset_object_flag(0x3e, OBJFLAG_02000000)
+	unset_object_flag(0x3d, OBJFLAG_CANNOT_ACTIVATE)
+	unset_object_flag(0x3e, OBJFLAG_CANNOT_ACTIVATE)
 
 	// Wait until lift called at bottom by buddy or counterop
 	beginloop(0x68)
@@ -2056,8 +2056,8 @@ u8 func100e_bridgelift[] = {
 	// Deactive lift
 	label(0x64)
 	set_object_flag(OBJ_BRIDGELIFT, OBJFLAG_DEACTIVATED)
-	unset_object_flag(0x2f, OBJFLAG_02000000)
-	unset_object_flag(0x30, OBJFLAG_02000000)
+	unset_object_flag(0x2f, OBJFLAG_CANNOT_ACTIVATE)
+	unset_object_flag(0x30, OBJFLAG_CANNOT_ACTIVATE)
 
 	// Wait until lift called from below by buddy or counterop
 	beginloop(0x68)
@@ -3481,10 +3481,10 @@ u8 func040c_elvis_run_from_engineroom[] = {
 u8 func101f_enable_bridge_skedar[] = {
 	lock_door(0x41, 0x80)
 	lock_door(0x42, 0x80)
-	set_object_flag2(0x41, OBJFLAG2_10000000)
-	set_object_flag2(0x42, OBJFLAG2_08000000)
-	set_object_flag2(0x41, OBJFLAG2_20000000)
-	set_object_flag2(0x42, OBJFLAG2_20000000)
+	set_object_flag2(0x41, OBJFLAG2_LOCKEDBACK)
+	set_object_flag2(0x42, OBJFLAG2_LOCKEDFRONT)
+	set_object_flag2(0x41, OBJFLAG2_AICANNOTUSE)
+	set_object_flag2(0x42, OBJFLAG2_AICANNOTUSE)
 
 	// Wait until first 4 objectives complete
 	beginloop(0x04)
@@ -3508,10 +3508,10 @@ u8 func101f_enable_bridge_skedar[] = {
 	label(0x2c)
 	unlock_door(0x41, 0x80)
 	unlock_door(0x42, 0x80)
-	unset_object_flag2(0x41, OBJFLAG2_10000000)
-	unset_object_flag2(0x42, OBJFLAG2_08000000)
-	unset_object_flag2(0x41, OBJFLAG2_20000000)
-	unset_object_flag2(0x42, OBJFLAG2_20000000)
+	unset_object_flag2(0x41, OBJFLAG2_LOCKEDBACK)
+	unset_object_flag2(0x42, OBJFLAG2_LOCKEDFRONT)
+	unset_object_flag2(0x41, OBJFLAG2_AICANNOTUSE)
+	unset_object_flag2(0x42, OBJFLAG2_AICANNOTUSE)
 	show_chr(0x21)
 	show_chr(0x22)
 	show_chr(CHR_BRIDGE1)

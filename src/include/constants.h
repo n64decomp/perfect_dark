@@ -237,7 +237,7 @@
 #define CHRFLAG1_80000000                  0x80000000 // Globals
 
 // chr->hidden
-#define CHRHFLAG_00000001           0x00000001 // Not used in scripts - sunglasses?
+#define CHRHFLAG_00000001           0x00000001 // Set when chr drops weapon
 #define CHRHFLAG_00000002           0x00000002 // Not used in scripts
 #define CHRHFLAG_00000004           0x00000004 // Related to firing - hand 1
 #define CHRHFLAG_00000008           0x00000008 // Related to firing - hand 0
@@ -618,72 +618,72 @@
 #define NUM_WEAPONS          94
 
 // obj->flags
-#define OBJFLAG_00000001             0x00000001 // Not used in scripts
-#define OBJFLAG_00000002             0x00000002 // Not used in scripts
-#define OBJFLAG_00000004             0x00000004 // Not used in scripts
-#define OBJFLAG_00000008             0x00000008 // Not used in scripts
-#define OBJFLAG_00000010             0x00000010 // Not used in scripts
-#define OBJFLAG_00000020             0x00000020 // Not used in scripts
-#define OBJFLAG_00000040             0x00000040 // Not used in scripts
-#define OBJFLAG_00000080             0x00000080 // Not used in scripts
-#define OBJFLAG_00000100             0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door
-#define OBJFLAG_00000200             0x00000200 // Not used in scripts
+#define OBJFLAG_00000001             0x00000001 // Editor: "Fall to Ground"
+#define OBJFLAG_00000002             0x00000002 // Editor: "In Air Rotated 90 Deg Upside-Down"
+#define OBJFLAG_00000004             0x00000004 // Editor: "In Air Upside-Down"
+#define OBJFLAG_00000008             0x00000008 // Editor: "In Air"
+#define OBJFLAG_00000010             0x00000010 // Editor: "Scale to Pad Bounds"
+#define OBJFLAG_00000020             0x00000020 // Editor: "X to Pad Bounds"
+#define OBJFLAG_00000040             0x00000040 // Editor: "Y to Pad Bounds"
+#define OBJFLAG_00000080             0x00000080 // Editor: "Z to Pad Bounds"
+#define OBJFLAG_00000100             0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
+#define OBJFLAG_00000200             0x00000200 // Editor: "Special Environment Mapping"
 #define OBJFLAG_ILLUMINATED          0x00000400
-#define OBJFLAG_00000800             0x00000800 // Not used in scripts
-#define OBJFLAG_00001000             0x00001000 // Not used in scripts
-#define OBJFLAG_00002000             0x00002000 // AF1 commhubs
-#define OBJFLAG_00004000             0x00004000 // Not used in scripts
-#define OBJFLAG_00008000             0x00008000 // Not used in scripts
+#define OBJFLAG_00000800             0x00000800 // Editor: "Free Standing Glass"
+#define OBJFLAG_00001000             0x00001000 // Editor: "Absolute Position"
+#define OBJFLAG_00002000             0x00002000 // AF1 commhubs. Editor suggests "Weapon Not Dropped"
+#define OBJFLAG_00004000             0x00004000 // Editor: "Assigned to Actor"
+#define OBJFLAG_00008000             0x00008000 // Editor: "Embedded Object"
 #define OBJFLAG_00010000             0x00010000 // Not used in scripts
 #define OBJFLAG_INVINCIBLE           0x00020000
 #define OBJFLAG_COLLECTABLE          0x00040000
 #define OBJFLAG_00080000             0x00080000 // Not used in scripts
-#define OBJFLAG_00100000             0x00100000 // Lots of stages - mainly keycards?
-#define OBJFLAG_00200000             0x00200000 // Not used in scripts
+#define OBJFLAG_UNCOLLECTABLE        0x00100000
+#define OBJFLAG_00200000             0x00200000 // Editor: "Bounce and Destroy If Shot"
 #define OBJFLAG_00400000             0x00400000 // Not used in scripts
 #define OBJFLAG_00800000             0x00800000 // Not used in scripts
-#define OBJFLAG_01000000             0x01000000 // Not used in scripts
-#define OBJFLAG_02000000             0x02000000 // Extraction "winddoor", Rescue doors, Air Base lift door, Attack Ship hanger doors, CI xray comhubs
-#define OBJFLAG_04000000             0x04000000 // Not used in scripts
+#define OBJFLAG_01000000             0x01000000 // Editor: "Embedded Object"
+#define OBJFLAG_CANNOT_ACTIVATE      0x02000000 // Makes it do nothing if player presses B on object. Used mostly for doors.
+#define OBJFLAG_04000000             0x04000000 // Editor: "AI Sees Through Door/Object"
 #define OBJFLAG_08000000             0x08000000 // Not used in scripts
 #define OBJFLAG_DEACTIVATED          0x10000000
-#define OBJFLAG_20000000             0x20000000 // Not used in scripts
-#define OBJFLAG_40000000             0x40000000 // Used quite a lot
+#define OBJFLAG_20000000             0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
+#define OBJFLAG_40000000             0x40000000 // Editor: "Door open by default/Empty weapon"
 #define OBJFLAG_INTERCEPTOR_DISABLED 0x80000000
 
 // obj->flags2
-#define OBJFLAG2_00000001  0x00000001 // Used only in CI Training
-#define OBJFLAG2_00000002  0x00000002 // Ruins spikes
-#define OBJFLAG2_00000004  0x00000004 // Defense hostage doors - openable by AI?
-#define OBJFLAG2_00000008  0x00000008 // Not used in scripts
-#define OBJFLAG2_00000010  0x00000010 // Not used in scripts
-#define OBJFLAG2_00000020  0x00000020 // Not used in scripts
-#define OBJFLAG2_00000040  0x00000040 // Not used in scripts
-#define OBJFLAG2_00000080  0x00000080 // Not used in scripts
-#define OBJFLAG2_00000100  0x00000100 // Not used in scripts
-#define OBJFLAG2_00000200  0x00000200 // Not used in scripts
-#define OBJFLAG2_00000400  0x00000400 // Not used in scripts
-#define OBJFLAG2_00000800  0x00000800 // Not used in scripts
-#define OBJFLAG2_00001000  0x00001000 // Investigation CMP150s, Air Base safe item and shield
-#define OBJFLAG2_00002000  0x00002000 // Ruins commhub
-#define OBJFLAG2_00004000  0x00004000 // Not used in scripts
-#define OBJFLAG2_00008000  0x00008000 // Not used in scripts
-#define OBJFLAG2_00010000  0x00010000 // Not used in scripts
-#define OBJFLAG2_00020000  0x00020000 // G5 mine, Air Base mine
-#define OBJFLAG2_00040000  0x00040000 // Only used in CI training
-#define OBJFLAG2_INVISIBLE 0x00080000
-#define OBJFLAG2_00100000  0x00100000 // Not used in scripts
-#define OBJFLAG2_00200000  0x00200000 // Ruins spikes
-#define OBJFLAG2_00400000  0x00400000 // Not used in scripts
-#define OBJFLAG2_00800000  0x00800000 // Not used in scripts
-#define OBJFLAG2_01000000  0x01000000 // Not used in scripts
-#define OBJFLAG2_02000000  0x02000000 // Not used in scripts
-#define OBJFLAG2_04000000  0x04000000 // Used quite a lot - gravity?
-#define OBJFLAG2_08000000  0x08000000 // Locked door?
-#define OBJFLAG2_10000000  0x10000000 // Locked door?
-#define OBJFLAG2_20000000  0x20000000 // Locked door? Or indestructible by counter op?
-#define OBJFLAG2_40000000  0x40000000 // Used by doors
-#define OBJFLAG2_80000000  0x80000000 // Attack Ship glass
+#define OBJFLAG2_00000001     0x00000001 // Used only in CI Training
+#define OBJFLAG2_00000002     0x00000002 // Ruins spikes
+#define OBJFLAG2_00000004     0x00000004 // Defense hostage doors - openable by AI?
+#define OBJFLAG2_00000008     0x00000008 // Editor: "Don't load in Multiplayer"
+#define OBJFLAG2_00000010     0x00000010 // Editor: "Don't Load on Agent Mode"
+#define OBJFLAG2_00000020     0x00000020 // Editor: "Don't Load on Secret Agent Mode"
+#define OBJFLAG2_00000040     0x00000040 // Editor: "Don't Load on Perfect Agent Mode"
+#define OBJFLAG2_00000080     0x00000080 // Not used in scripts
+#define OBJFLAG2_00000100     0x00000100 // Editor: "Immobile"
+#define OBJFLAG2_00000200     0x00000200 // Editor: "Mines"
+#define OBJFLAG2_00000400     0x00000400 // Not used in scripts
+#define OBJFLAG2_00000800     0x00000800 // Editor: "Don't activate if clipping gap Jo/Object"
+#define OBJFLAG2_00001000     0x00001000 // Investigation CMP150s, Air Base safe item and shield
+#define OBJFLAG2_00002000     0x00002000 // Ruins commhub - used as a "shown message" flag
+#define OBJFLAG2_00004000     0x00004000 // Editor: "Immune to Gunfire"
+#define OBJFLAG2_SHOOTTHROUGH 0x00008000
+#define OBJFLAG2_DRAWONTOP    0x00010000
+#define OBJFLAG2_00020000     0x00020000 // G5 mine, Air Base mine
+#define OBJFLAG2_00040000     0x00040000 // Only used in CI training
+#define OBJFLAG2_INVISIBLE    0x00080000
+#define OBJFLAG2_00100000     0x00100000 // Editor: "Bulletproof Glass"
+#define OBJFLAG2_00200000     0x00200000 // Editor: "Immune to Explosions" (Ruins spikes)
+#define OBJFLAG2_00400000     0x00400000 // Editor: "Don't load on 2P (coop/anti)"
+#define OBJFLAG2_00800000     0x00800000 // Editor: "Don't load on 3P"
+#define OBJFLAG2_01000000     0x01000000 // Editor: "Don't load on 4P"
+#define OBJFLAG2_THROWTHROUGH 0x02000000 // Rockets/mines/grenades etc pass through object
+#define OBJFLAG2_04000000     0x04000000 // Used quite a lot - gravity?
+#define OBJFLAG2_LOCKEDFRONT  0x08000000 // One-way door lock
+#define OBJFLAG2_LOCKEDBACK   0x10000000 // One-way door lock
+#define OBJFLAG2_AICANNOTUSE  0x20000000
+#define OBJFLAG2_40000000     0x40000000 // Used by doors
+#define OBJFLAG2_80000000     0x80000000 // Attack Ship glass
 
 // obj->flags3
 #define OBJFLAG3_PUSHABLE        0x00000001
@@ -696,13 +696,13 @@
 #define OBJFLAG3_00000080        0x00000080 // Not used in scripts
 #define OBJFLAG3_00000100        0x00000100 // Not used in scripts
 #define OBJFLAG3_00000200        0x00000200 // Not used in scripts
-#define OBJFLAG3_NO_COLLISION    0x00000400
+#define OBJFLAG3_WALKTRHOUGH     0x00000400
 #define OBJFLAG3_RTRACKED_BLUE   0x00000800
-#define OBJFLAG3_00001000        0x00001000 // Show shield around object (always)
+#define OBJFLAG3_SHOWSHIELD      0x00001000 // Show shield effect around object (always)
 #define OBJFLAG3_00002000        0x00002000 // Not used in scripts
 #define OBJFLAG3_00004000        0x00004000 // Not used in scripts
 #define OBJFLAG3_00008000        0x00008000 // Not used in scripts
-#define OBJFLAG3_00010000        0x00010000 // Not used in scripts
+#define OBJFLAG3_00010000        0x00010000 // Editor: "Can be activated"
 #define OBJFLAG3_00020000        0x00020000 // Not used in scripts
 #define OBJFLAG3_00040000        0x00040000 // Not used in scripts
 #define OBJFLAG3_00080000        0x00080000 // Not used in scripts
@@ -714,14 +714,15 @@
 #define OBJFLAG3_02000000        0x02000000 // Not used in scripts
 #define OBJFLAG3_04000000        0x04000000 // Not used in scripts
 #define OBJFLAG3_08000000        0x08000000 // Not used in scripts
-#define OBJFLAG3_10000000        0x10000000 // Not used in scripts
+#define OBJFLAG3_10000000        0x10000000 // Editor: "Keep Collisions After Fully Destroyed"
 #define OBJFLAG3_20000000        0x20000000 // Not used in scripts
-#define OBJFLAG3_40000000        0x40000000 // Not used in scripts
+#define OBJFLAG3_40000000        0x40000000 // Editor: "Door Highlighted IR Scanner"
 #define OBJFLAG3_80000000        0x80000000 // Not used in scripts
 
 // obj->hidden
 #define OBJHFLAG_00000080          0x00000080
 #define OBJHFLAG_00000200          0x00000200
+#define OBJHFLAG_00000800          0x00000800
 #define OBJHFLAG_ACTIVATED_BY_BOND 0x00004000
 #define OBJHFLAG_ACTIVATED_BY_COOP 0x00040000
 #define OBJHFLAG_00200000          0x00200000
@@ -852,6 +853,9 @@
 #define RACE_DRCAROLL 2
 #define RACE_EYESPY   3
 #define RACE_ROBOT    4
+
+#define ROOMFLAG_00004000 0x00004000
+#define ROOMFLAG_00008000 0x00008000
 
 #define SAVEFILEFLAG_USED_TRANSFERPAK     0x23
 #define SAVEFILEFLAG_CI_TOUR_DONE         0x24
@@ -1145,6 +1149,8 @@
 #define WEAPON_5B                0x5b
 #define WEAPON_5C                0x5c
 #define WEAPON_SUICIDEPILL       0x5d
+
+#define WEAPONFLAG_00000010 0x00000010
 
 // Heads and bodies
 #define HEAD_RANDOM           -1

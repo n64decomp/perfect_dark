@@ -46188,7 +46188,7 @@ void func0f08e0c4(struct doorobj *door)
 
 	if (door->doortype == DOORTYPE_8) {
 		struct obj44 *obj44 = door->base.unk44;
-		door->base.flags |= OBJFLAG_02000000;
+		door->base.flags |= OBJFLAG_CANNOT_ACTIVATE;
 		door->perimfrac = 0;
 
 		if (obj44 && (door->base.flags & OBJFLAG_00000100)) {

@@ -4475,7 +4475,7 @@ u8 func102b_proxymines[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	set_object_flag(OBJ_PROXYMINES, OBJFLAG_00100000)
+	set_object_flag(OBJ_PROXYMINES, OBJFLAG_UNCOLLECTABLE)
 	set_object_flag2(OBJ_PROXYMINES, OBJFLAG2_INVISIBLE)
 
 	label(0x06)
@@ -4491,8 +4491,8 @@ u8 func102c_lock_doors[] = {
 	// PA
 	lock_door(0xb1, 0x80)
 	lock_door(0xb2, 0x80)
-	set_object_flag2(0xb1, OBJFLAG2_20000000)
-	set_object_flag2(0xb2, OBJFLAG2_20000000)
+	set_object_flag2(0xb1, OBJFLAG2_AICANNOTUSE)
+	set_object_flag2(0xb2, OBJFLAG2_AICANNOTUSE)
 
 	// A and SA
 	label(0x2e)
@@ -4591,8 +4591,8 @@ u8 func102f_unlock_drcaroll_door[] = {
 	label(0x2e)
 	unlock_door(0x75, 0x02)
 	unlock_door(0x76, 0x02)
-	unset_object_flag2(0x75, OBJFLAG2_20000000)
-	unset_object_flag2(0x76, OBJFLAG2_20000000)
+	unset_object_flag2(0x75, OBJFLAG2_AICANNOTUSE)
+	unset_object_flag2(0x76, OBJFLAG2_AICANNOTUSE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

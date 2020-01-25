@@ -1597,14 +1597,14 @@ u8 func100a_random_doors[] = {
 	endloop(0x04)
 
 	label(0x06)
-	set_object_flag(0x07, OBJFLAG_02000000)
-	set_object_flag(0x09, OBJFLAG_02000000)
-	set_object_flag(0x0b, OBJFLAG_02000000)
-	set_object_flag(0x0d, OBJFLAG_02000000)
-	set_object_flag(0x08, OBJFLAG_02000000)
-	set_object_flag(0x0a, OBJFLAG_02000000)
-	set_object_flag(0x0c, OBJFLAG_02000000)
-	set_object_flag(0x0e, OBJFLAG_02000000)
+	set_object_flag(0x07, OBJFLAG_CANNOT_ACTIVATE)
+	set_object_flag(0x09, OBJFLAG_CANNOT_ACTIVATE)
+	set_object_flag(0x0b, OBJFLAG_CANNOT_ACTIVATE)
+	set_object_flag(0x0d, OBJFLAG_CANNOT_ACTIVATE)
+	set_object_flag(0x08, OBJFLAG_CANNOT_ACTIVATE)
+	set_object_flag(0x0a, OBJFLAG_CANNOT_ACTIVATE)
+	set_object_flag(0x0c, OBJFLAG_CANNOT_ACTIVATE)
+	set_object_flag(0x0e, OBJFLAG_CANNOT_ACTIVATE)
 
 	beginloop(0x03)
 		// 55 in 256 chance of doing anything on a given frame
@@ -1812,8 +1812,8 @@ u8 func0418_doorman[] = {
 
 	// Unlocking
 	label(0x06)
-	unset_object_flag2(0x4a, OBJFLAG2_20000000)
-	unset_object_flag2(0x4b, OBJFLAG2_20000000)
+	unset_object_flag2(0x4a, OBJFLAG2_AICANNOTUSE)
+	unset_object_flag2(0x4b, OBJFLAG2_AICANNOTUSE)
 	unlock_door(0x4a, 0x40)
 	unlock_door(0x4b, 0x40)
 	open_door(0x4a)

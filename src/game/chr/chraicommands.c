@@ -2960,7 +2960,7 @@ bool aiIfGunUnclaimed(void)
 		struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
 		if (weapon && weapon->prop) {
-			weapon->flags |= 0x00400000;
+			weapon->flags |= OBJFLAG_00400000;
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 		} else {
 			g_Vars.aioffset += 5;
@@ -3160,7 +3160,7 @@ bool aiDestroyObject(void)
 		struct defaultobj *entity = obj->prop->obj;
 
 		if (entity->obj == 0xeb) {
-			obj->flags = (obj->flags & 0xfffeffff) | 0x20000;
+			obj->flags = (obj->flags & ~OBJFLAG_00010000) | OBJFLAG_INVINCIBLE;
 			func0f129900(entity->prop, &entity->prop->pos, &entity->prop->rooms[0], 3, 0);
 			func0f12e714(entity->prop, 0x16);
 		} else {
@@ -3259,12 +3259,12 @@ bool aiChrDropWeapon(void)
 	} else if (chr && chr->prop) {
 		if (chr->weapons_held[0]) {
 			func0f082964(chr->weapons_held[0], 1);
-			chr->hidden = chr->hidden | 0x00000001;
+			chr->hidden |= CHRHFLAG_00000001;
 		}
 
 		if (chr->weapons_held[1]) {
 			func0f082964(chr->weapons_held[1], 1);
-			chr->hidden = chr->hidden | 0x00000001;
+			chr->hidden |= CHRHFLAG_00000001;
 		}
 	}
 
@@ -13927,15 +13927,15 @@ bool aiMiscellaneous(void)
 		var8006ae28 = value;
 		break;
 	case 5:
-		g_RoomPtrs[room_id].flags &= ~0x00004000;
+		g_RoomPtrs[room_id].flags &= ~ROOMFLAG_00004000;
 		if (value) {
-			g_RoomPtrs[room_id].flags |= 0x00004000;
+			g_RoomPtrs[room_id].flags |= ROOMFLAG_00004000;
 		}
 		break;
 	case 6:
-		g_RoomPtrs[room_id].flags &= ~0x00008000;
+		g_RoomPtrs[room_id].flags &= ~ROOMFLAG_00008000;
 		if (value) {
-			g_RoomPtrs[room_id].flags |= 0x00008000;
+			g_RoomPtrs[room_id].flags |= ROOMFLAG_00008000;
 		}
 		break;
 	case 7:
@@ -13947,9 +13947,9 @@ bool aiMiscellaneous(void)
 	case 9:
 		for (i = 1; i < g_Vars.roomcount; i++) {
 			if (value) {
-				g_RoomPtrs[i].flags |= 0x00004000;
+				g_RoomPtrs[i].flags |= ROOMFLAG_00004000;
 			} else {
-				g_RoomPtrs[i].flags &= ~0x00004000;
+				g_RoomPtrs[i].flags &= ~ROOMFLAG_00004000;
 			}
 		}
 		break;
@@ -14111,7 +14111,7 @@ bool aiChrKill(void)
 		chr->act_dead.unk034 = 0;
 		chr->act_dead.unk03c = 0;
 		chr->sleep = 0;
-		chr->chrflags |= 0x04000000 | 0x00010000;
+		chr->chrflags |= CHRCFLAG_04000000 | CHRCFLAG_00010000;
 	}
 
 	g_Vars.aioffset += 3;

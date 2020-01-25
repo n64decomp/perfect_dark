@@ -2843,8 +2843,8 @@ u8 func101e_alarm_images[] = {
 	endloop(0x00)
 
 	label(0x07)
-	set_object_flag(0x27, OBJFLAG_00100000)
-	set_object_flag(0x28, OBJFLAG_00100000)
+	set_object_flag(0x27, OBJFLAG_UNCOLLECTABLE)
+	set_object_flag(0x28, OBJFLAG_UNCOLLECTABLE)
 	set_object_flag2(0x27, OBJFLAG2_INVISIBLE)
 	set_object_flag2(0x28, OBJFLAG2_INVISIBLE)
 	set_object_image(0x21, 0x00, 0x0f)
