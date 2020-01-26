@@ -1135,7 +1135,7 @@ glabel func0f00cee4
 /*  f00d188:	e7a40094 */ 	swc1	$f4,0x94($sp)
 /*  f00d18c:	e7a80098 */ 	swc1	$f8,0x98($sp)
 /*  f00d190:	a7b80080 */ 	sh	$t8,0x80($sp)
-/*  f00d194:	0fc457c0 */ 	jal	func0f115f00
+/*  f00d194:	0fc457c0 */ 	jal	padHasBboxData
 /*  f00d198:	86040006 */ 	lh	$a0,0x6($s0)
 /*  f00d19c:	14400013 */ 	bnez	$v0,.L0f00d1ec
 /*  f00d1a0:	8fa80140 */ 	lw	$t0,0x140($sp)
@@ -1202,7 +1202,7 @@ glabel func0f00cee4
 /*  f00d284:	02002025 */ 	or	$a0,$s0,$zero
 /*  f00d288:	afa2007c */ 	sw	$v0,0x7c($sp)
 .L0f00d28c:
-/*  f00d28c:	0fc457c0 */ 	jal	func0f115f00
+/*  f00d28c:	0fc457c0 */ 	jal	padHasBboxData
 /*  f00d290:	86040006 */ 	lh	$a0,0x6($s0)
 /*  f00d294:	504000c1 */ 	beqzl	$v0,.L0f00d59c
 /*  f00d298:	8e040018 */ 	lw	$a0,0x18($s0)

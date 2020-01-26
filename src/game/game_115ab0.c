@@ -832,22 +832,13 @@ glabel padUnpack
 //	}
 //}
 
-GLOBAL_ASM(
-glabel func0f115f00
-/*  f115f00:	3c0e800a */ 	lui	$t6,0x800a
-/*  f115f04:	8dce2354 */ 	lw	$t6,0x2354($t6)
-/*  f115f08:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f115f0c:	3c19800a */ 	lui	$t9,0x800a
-/*  f115f10:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f115f14:	97030000 */ 	lhu	$v1,0x0($t8)
-/*  f115f18:	8f39d04c */ 	lw	$t9,-0x2fb4($t9)
-/*  f115f1c:	03232821 */ 	addu	$a1,$t9,$v1
-/*  f115f20:	8ca20000 */ 	lw	$v0,0x0($a1)
-/*  f115f24:	00024382 */ 	srl	$t0,$v0,0xe
-/*  f115f28:	31090200 */ 	andi	$t1,$t0,0x200
-/*  f115f2c:	03e00008 */ 	jr	$ra
-/*  f115f30:	0009102b */ 	sltu	$v0,$zero,$t1
-);
+bool padHasBboxData(s32 padnum)
+{
+	u32 offset = g_PadOffsets[padnum];
+	u32 *header = (u32 *)&g_StageSetup.padfiledata[offset];
+
+	return ((*header >> 14) & PADFLAG_HASBBOXDATA) != 0;
+}
 
 GLOBAL_ASM(
 glabel func0f115f34

@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f115f00(void);
+bool padHasBboxData(s32 padnum);
 u32 func0f115f34(void);
 u32 func0f116068(void);
 u32 func0f116190(void);
