@@ -14,7 +14,7 @@ s32 func0f1162d0(void);
 u32 func0f1162e0(s16 cover, struct coord **pos);
 u32 func0f11645c(void);
 void coverSetFlag0002(s32 covernum, bool enable);
-u32 func0f116508(void);
+void coverSetFlag(s32 covernum, u32 flag);
 u32 func0f116528(void);
 u32 func0f11654c(void);
 u32 func0f1165b0(void);

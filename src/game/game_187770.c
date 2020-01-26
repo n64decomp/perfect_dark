@@ -17196,7 +17196,7 @@ glabel func0f194b40
 .L0f196a58:
 /*  f196a58:	04820004 */ 	bltzl	$a0,.L0f196a6c
 /*  f196a5c:	828a0007 */ 	lb	$t2,0x7($s4)
-/*  f196a60:	0fc45942 */ 	jal	func0f116508
+/*  f196a60:	0fc45942 */ 	jal	coverSetFlag
 /*  f196a64:	24050100 */ 	addiu	$a1,$zero,0x100
 .L0f196a68:
 /*  f196a68:	828a0007 */ 	lb	$t2,0x7($s4)
