@@ -1056,25 +1056,13 @@ void padCopyBboxFromPad(s32 padnum, struct pad *src)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f116240
-/*  f116240:	3c0e800a */ 	lui	$t6,0x800a
-/*  f116244:	8dce2354 */ 	lw	$t6,0x2354($t6)
-/*  f116248:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f11624c:	3c19800a */ 	lui	$t9,0x800a
-/*  f116250:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f116254:	97020000 */ 	lhu	$v0,0x0($t8)
-/*  f116258:	8f39d04c */ 	lw	$t9,-0x2fb4($t9)
-/*  f11625c:	03221821 */ 	addu	$v1,$t9,$v0
-/*  f116260:	8c660000 */ 	lw	$a2,0x0($v1)
-/*  f116264:	00063b82 */ 	srl	$a3,$a2,0xe
-/*  f116268:	00e54025 */ 	or	$t0,$a3,$a1
-/*  f11626c:	01074826 */ 	xor	$t1,$t0,$a3
-/*  f116270:	00095380 */ 	sll	$t2,$t1,0xe
-/*  f116274:	01465826 */ 	xor	$t3,$t2,$a2
-/*  f116278:	03e00008 */ 	jr	$ra
-/*  f11627c:	ac6b0000 */ 	sw	$t3,0x0($v1)
-);
+void padSetFlag(s32 padnum, u32 flag)
+{
+	u32 offset = g_PadOffsets[padnum];
+	u32 *header = (u32 *)&g_StageSetup.padfiledata[offset];
+
+	*header = *header ^ ((*header >> 14) ^ ((*header >> 14) | flag)) << 14;
+}
 
 GLOBAL_ASM(
 glabel func0f116280
