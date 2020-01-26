@@ -1024,58 +1024,37 @@ glabel func0f116068
 /*  f11618c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f116190
-/*  f116190:	3c0e800a */ 	lui	$t6,0x800a
-/*  f116194:	8dce2354 */ 	lw	$t6,0x2354($t6)
-/*  f116198:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f11619c:	3c19800a */ 	lui	$t9,0x800a
-/*  f1161a0:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f1161a4:	97020000 */ 	lhu	$v0,0x0($t8)
-/*  f1161a8:	8f39d04c */ 	lw	$t9,-0x2fb4($t9)
-/*  f1161ac:	03221821 */ 	addu	$v1,$t9,$v0
-/*  f1161b0:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f1161b4:	00603025 */ 	or	$a2,$v1,$zero
-/*  f1161b8:	00084b82 */ 	srl	$t1,$t0,0xe
-/*  f1161bc:	312a0200 */ 	andi	$t2,$t1,0x200
-/*  f1161c0:	1140001d */ 	beqz	$t2,.L0f116238
-/*  f1161c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1161c8:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f1161cc:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f1161d0:	00025b82 */ 	srl	$t3,$v0,0xe
-/*  f1161d4:	316c0001 */ 	andi	$t4,$t3,0x1
-/*  f1161d8:	11800003 */ 	beqz	$t4,.L0f1161e8
-/*  f1161dc:	01601025 */ 	or	$v0,$t3,$zero
-/*  f1161e0:	10000002 */ 	beqz	$zero,.L0f1161ec
-/*  f1161e4:	24630008 */ 	addiu	$v1,$v1,0x8
-.L0f1161e8:
-/*  f1161e8:	2463000c */ 	addiu	$v1,$v1,0xc
-.L0f1161ec:
-/*  f1161ec:	304d000e */ 	andi	$t5,$v0,0xe
-/*  f1161f0:	15a00002 */ 	bnez	$t5,.L0f1161fc
-/*  f1161f4:	304e00e0 */ 	andi	$t6,$v0,0xe0
-/*  f1161f8:	2463000c */ 	addiu	$v1,$v1,0xc
-.L0f1161fc:
-/*  f1161fc:	55c00003 */ 	bnezl	$t6,.L0f11620c
-/*  f116200:	c4a40030 */ 	lwc1	$f4,0x30($a1)
-/*  f116204:	2463000c */ 	addiu	$v1,$v1,0xc
-/*  f116208:	c4a40030 */ 	lwc1	$f4,0x30($a1)
-.L0f11620c:
-/*  f11620c:	e4640000 */ 	swc1	$f4,0x0($v1)
-/*  f116210:	c4a60034 */ 	lwc1	$f6,0x34($a1)
-/*  f116214:	e4660004 */ 	swc1	$f6,0x4($v1)
-/*  f116218:	c4a80038 */ 	lwc1	$f8,0x38($a1)
-/*  f11621c:	e4680008 */ 	swc1	$f8,0x8($v1)
-/*  f116220:	c4aa003c */ 	lwc1	$f10,0x3c($a1)
-/*  f116224:	e46a000c */ 	swc1	$f10,0xc($v1)
-/*  f116228:	c4b00040 */ 	lwc1	$f16,0x40($a1)
-/*  f11622c:	e4700010 */ 	swc1	$f16,0x10($v1)
-/*  f116230:	c4b20044 */ 	lwc1	$f18,0x44($a1)
-/*  f116234:	e4720014 */ 	swc1	$f18,0x14($v1)
-.L0f116238:
-/*  f116238:	03e00008 */ 	jr	$ra
-/*  f11623c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void padCopyBboxFromPad(s32 padnum, struct pad *src)
+{
+	u32 offset = g_PadOffsets[padnum];
+	f32 *fbuffer = (f32 *)&g_StageSetup.padfiledata[offset];
+	u32 *header = (u32 *)fbuffer;
+
+	if ((*header >> 14) & PADFLAG_HASBBOXDATA) {
+		fbuffer++;
+
+		if ((*header >> 14) & PADFLAG_INTPOS) {
+			fbuffer += 2;
+		} else {
+			fbuffer += 3;
+		}
+
+		if (((*header >> 14) & (PADFLAG_UPALIGNTOX | PADFLAG_UPALIGNTOY | PADFLAG_UPALIGNTOZ)) == 0) {
+			fbuffer += 3;
+		}
+
+		if (((*header >> 14) & (PADFLAG_LOOKALIGNTOX | PADFLAG_LOOKALIGNTOY | PADFLAG_LOOKALIGNTOZ)) == 0) {
+			fbuffer += 3;
+		}
+
+		fbuffer[0] = src->bbox.xmin;
+		fbuffer[1] = src->bbox.xmax;
+		fbuffer[2] = src->bbox.ymin;
+		fbuffer[3] = src->bbox.ymax;
+		fbuffer[4] = src->bbox.zmin;
+		fbuffer[5] = src->bbox.zmax;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f116240

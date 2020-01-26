@@ -7,7 +7,7 @@ void padUnpack(s32 padnum, u32 fields, struct pad *pad);
 bool padHasBboxData(s32 padnum);
 void padGetCentre(s32 padnum, struct coord *coord);
 u32 func0f116068(void);
-u32 func0f116190(void);
+void padCopyBboxFromPad(s32 padnum, struct pad *src);
 u32 func0f116240(void);
 u32 func0f116280(void);
 u32 func0f1162d0(void);

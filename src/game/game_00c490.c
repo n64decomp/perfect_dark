@@ -2516,7 +2516,7 @@ glabel func0f00e368
 /*  f00e550:	e7a601ac */ 	swc1	$f6,0x1ac($sp)
 /*  f00e554:	e7a801a8 */ 	swc1	$f8,0x1a8($sp)
 .L0f00e558:
-/*  f00e558:	0fc45864 */ 	jal	func0f116190
+/*  f00e558:	0fc45864 */ 	jal	padCopyBboxFromPad
 /*  f00e55c:	86040006 */ 	lh	$a0,0x6($s0)
 /*  f00e560:	8fab01b0 */ 	lw	$t3,0x1b0($sp)
 .L0f00e564:

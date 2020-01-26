@@ -466,7 +466,7 @@ glabel func0f012aa0
 /*  f012c4c:	46148482 */ 	mul.s	$f18,$f16,$f20
 /*  f012c50:	e7a60104 */ 	swc1	$f6,0x104($sp)
 /*  f012c54:	e7aa0108 */ 	swc1	$f10,0x108($sp)
-/*  f012c58:	0fc45864 */ 	jal	func0f116190
+/*  f012c58:	0fc45864 */ 	jal	padCopyBboxFromPad
 /*  f012c5c:	e7b2010c */ 	swc1	$f18,0x10c($sp)
 /*  f012c60:	8fae0120 */ 	lw	$t6,0x120($sp)
 .L0f012c64:

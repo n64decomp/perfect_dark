@@ -74,7 +74,7 @@ struct pad {
 	/*0x0c*/ struct coord look;
 	/*0x18*/ struct coord up;
 	/*0x24*/ struct coord normal;
-	/*0x24*/ struct bbox bbox;
+	/*0x30*/ struct bbox bbox;
 	/*0x48*/ s32 room;
 	/*0x4c*/ u32 flags;
 	/*0x50*/ u8 liftnum; // 1-10, 0 indicates no lift
