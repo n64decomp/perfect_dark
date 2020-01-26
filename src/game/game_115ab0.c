@@ -1072,12 +1072,10 @@ void padUnsetFlag(s32 padnum, u32 flag)
 	*header = *header ^ ((*header >> 14) ^ ((*header >> 14) & ~flag)) << 14;
 }
 
-GLOBAL_ASM(
-glabel func0f1162c4
-/*  f1162c4:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f1162c8:	03e00008 */ 	jr	$ra
-/*  f1162cc:	00801025 */ 	or	$v0,$a0,$zero
-);
+bool func0f1162c4(s32 padnum, s32 arg1)
+{
+	return padnum;
+}
 
 GLOBAL_ASM(
 glabel func0f1162d0
