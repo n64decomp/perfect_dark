@@ -321,6 +321,8 @@
 #define CONTROLMODE_SINGLE 0
 #define CONTROLMODE_DOUBLE 1
 
+#define COVERFLAG_0002 0x0002
+
 // L/C/R = left/centered/right
 // big/med/sml is the font size
 #define CREDITSTYLE_R_BIG_R_MED 1

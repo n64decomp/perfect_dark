@@ -706,8 +706,8 @@ glabel func0f1162e0
 /*  f1162fc:	04800006 */ 	bltz	$a0,.L0f116318
 /*  f116300:	3c03800a */ 	lui	$v1,0x800a
 /*  f116304:	8c63d038 */ 	lw	$v1,-0x2fc8($v1)
-/*  f116308:	3c09800a */ 	lui	$t1,%hi(var800a2360)
-/*  f11630c:	25292360 */ 	addiu	$t1,$t1,%lo(var800a2360)
+/*  f116308:	3c09800a */ 	lui	$t1,%hi(g_CoverFlags)
+/*  f11630c:	25292360 */ 	addiu	$t1,$t1,%lo(g_CoverFlags)
 /*  f116310:	14600003 */ 	bnez	$v1,.L0f116320
 /*  f116314:	309800ff */ 	andi	$t8,$a0,0xff
 .L0f116318:
@@ -824,36 +824,16 @@ glabel func0f11645c
 /*  f1164a0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1164a4
-/*  f1164a4:	04800016 */ 	bltz	$a0,.L0f116500
-/*  f1164a8:	3c0e800a */ 	lui	$t6,0x800a
-/*  f1164ac:	8dce2350 */ 	lw	$t6,0x2350($t6)
-/*  f1164b0:	8dcf0004 */ 	lw	$t7,0x4($t6)
-/*  f1164b4:	008f082a */ 	slt	$at,$a0,$t7
-/*  f1164b8:	10200011 */ 	beqz	$at,.L0f116500
-/*  f1164bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1164c0:	10a00009 */ 	beqz	$a1,.L0f1164e8
-/*  f1164c4:	3c0a800a */ 	lui	$t2,0x800a
-/*  f1164c8:	3c18800a */ 	lui	$t8,0x800a
-/*  f1164cc:	8f182360 */ 	lw	$t8,0x2360($t8)
-/*  f1164d0:	0004c840 */ 	sll	$t9,$a0,0x1
-/*  f1164d4:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f1164d8:	94480000 */ 	lhu	$t0,0x0($v0)
-/*  f1164dc:	35090002 */ 	ori	$t1,$t0,0x2
-/*  f1164e0:	03e00008 */ 	jr	$ra
-/*  f1164e4:	a4490000 */ 	sh	$t1,0x0($v0)
-.L0f1164e8:
-/*  f1164e8:	8d4a2360 */ 	lw	$t2,0x2360($t2)
-/*  f1164ec:	00045840 */ 	sll	$t3,$a0,0x1
-/*  f1164f0:	014b1021 */ 	addu	$v0,$t2,$t3
-/*  f1164f4:	944c0000 */ 	lhu	$t4,0x0($v0)
-/*  f1164f8:	318dfffd */ 	andi	$t5,$t4,0xfffd
-/*  f1164fc:	a44d0000 */ 	sh	$t5,0x0($v0)
-.L0f116500:
-/*  f116500:	03e00008 */ 	jr	$ra
-/*  f116504:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void coverSetFlag0002(s32 covernum, bool enable)
+{
+	if (covernum >= 0 && covernum < g_PadsFile[1]) {
+		if (enable) {
+			g_CoverFlags[covernum] |= COVERFLAG_0002;
+		} else {
+			g_CoverFlags[covernum] &= ~COVERFLAG_0002;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f116508

@@ -9389,7 +9389,7 @@ bool aiIfTargetMovingAway(void)
 bool ai012f(void)
 {
 	if (g_Vars.chrdata->cover >= 0) {
-		func0f1164a4(g_Vars.chrdata->cover, 0);
+		coverSetFlag0002(g_Vars.chrdata->cover, 0);
 	}
 
 	g_Vars.aioffset += 2;

@@ -4093,7 +4093,7 @@ glabel func0f020d44
 /*  f020eac:	85040292 */ 	lh	$a0,0x292($t0)
 /*  f020eb0:	12040005 */ 	beq	$s0,$a0,.L0f020ec8
 /*  f020eb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f020eb8:	0fc45929 */ 	jal	func0f1164a4
+/*  f020eb8:	0fc45929 */ 	jal	coverSetFlag0002
 /*  f020ebc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f020ec0:	8fa9004c */ 	lw	$t1,0x4c($sp)
 /*  f020ec4:	a5300292 */ 	sh	$s0,0x292($t1)
@@ -21925,7 +21925,7 @@ void func0f03119c(struct chrdata *chr)
 		chrStopFiring(chr);
 
 		if (chr->cover != -1) {
-			func0f1164a4(chr->cover, 0);
+			coverSetFlag0002(chr->cover, false);
 			chr->cover = -1;
 		}
 
@@ -51212,13 +51212,13 @@ glabel func0f04ba34
 /*  f04bf80:	8faa0084 */ 	lw	$t2,0x84($sp)
 /*  f04bf84:	11410004 */ 	beq	$t2,$at,.L0f04bf98
 /*  f04bf88:	01402025 */ 	or	$a0,$t2,$zero
-/*  f04bf8c:	0fc45929 */ 	jal	func0f1164a4
+/*  f04bf8c:	0fc45929 */ 	jal	coverSetFlag0002
 /*  f04bf90:	afa70048 */ 	sw	$a3,0x48($sp)
 /*  f04bf94:	8fa70048 */ 	lw	$a3,0x48($sp)
 .L0f04bf98:
 /*  f04bf98:	86840292 */ 	lh	$a0,0x292($s4)
 /*  f04bf9c:	afa70048 */ 	sw	$a3,0x48($sp)
-/*  f04bfa0:	0fc45929 */ 	jal	func0f1164a4
+/*  f04bfa0:	0fc45929 */ 	jal	coverSetFlag0002
 /*  f04bfa4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f04bfa8:	8fa70048 */ 	lw	$a3,0x48($sp)
 /*  f04bfac:	8e4b0000 */ 	lw	$t3,0x0($s2)
@@ -51385,11 +51385,11 @@ glabel func0f04bffc
 /*  f04c204:	8fbf005c */ 	lw	$ra,0x5c($sp)
 /*  f04c208:	50820004 */ 	beql	$a0,$v0,.L0f04c21c
 /*  f04c20c:	86240292 */ 	lh	$a0,0x292($s1)
-/*  f04c210:	0fc45929 */ 	jal	func0f1164a4
+/*  f04c210:	0fc45929 */ 	jal	coverSetFlag0002
 /*  f04c214:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04c218:	86240292 */ 	lh	$a0,0x292($s1)
 .L0f04c21c:
-/*  f04c21c:	0fc45929 */ 	jal	func0f1164a4
+/*  f04c21c:	0fc45929 */ 	jal	coverSetFlag0002
 /*  f04c220:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f04c224:	8fbf005c */ 	lw	$ra,0x5c($sp)
 .L0f04c228:
