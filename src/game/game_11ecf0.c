@@ -11,7 +11,7 @@
 #include "game/game_0b2150.h"
 #include "game/game_0b28d0.h"
 #include "game/cheats.h"
-#include "game/game_115ab0.h"
+#include "game/pad.h"
 #include "game/game_11ecf0.h"
 #include "game/game_152fa0.h"
 #include "game/game_165670.h"

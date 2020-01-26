@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "types.h"
-#include "game/game_115ab0.h"
+#include "game/pad.h"
 #include "library/library_04a80.h"
 #include "library/library_0d520.h"
 #include "library/library_13900.h"

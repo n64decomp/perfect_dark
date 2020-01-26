@@ -8,7 +8,7 @@
 #include "game/game_013540.h"
 #include "game/chr/chr.h"
 #include "game/game_0601b0.h"
-#include "game/game_115ab0.h"
+#include "game/pad.h"
 #include "game/game_157db0.h"
 #include "game/game_1668e0.h"
 #include "game/game_187770.h"

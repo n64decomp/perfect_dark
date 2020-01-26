@@ -18,7 +18,7 @@
 #include "game/game_0d4690.h"
 #include "game/game_0dcdb0.h"
 #include "game/game_0f09f0.h"
-#include "game/game_115ab0.h"
+#include "game/pad.h"
 #include "game/game_11ecf0.h"
 #include "game/game_129900.h"
 #include "game/pdoptions.h"

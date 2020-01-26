@@ -19,7 +19,7 @@
 #include "game/game_066310.h"
 #include "game/cheats.h"
 #include "game/game_10ccd0.h"
-#include "game/game_115ab0.h"
+#include "game/pad.h"
 #include "game/game_11ecf0.h"
 #include "game/game_129900.h"
 #include "game/game_152fa0.h"

@@ -12,7 +12,7 @@
 #include "game/game_097a50.h"
 #include "game/game_0b0420.h"
 #include "game/game_114240.h"
-#include "game/game_115ab0.h"
+#include "game/pad.h"
 #include "game/game_11ecf0.h"
 #include "game/game_16cfa0.h"
 #include "game/game_176d70.h"

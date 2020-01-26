@@ -23,7 +23,7 @@
 #include "game/game_10ccd0.h"
 #include "game/game_111600.h"
 #include "game/game_114240.h"
-#include "game/game_115ab0.h"
+#include "game/pad.h"
 #include "game/game_11ecf0.h"
 #include "game/game_128f30.h"
 #include "game/game_129900.h"

@@ -39,7 +39,7 @@
 #include "game/game_0f09f0.h"
 #include "game/cheats.h"
 #include "game/game_107fb0.h"
-#include "game/game_115ab0.h"
+#include "game/pad.h"
 #include "game/game_11ecf0.h"
 #include "game/game_128f30.h"
 #include "game/game_129900.h"
