@@ -840,18 +840,10 @@ void coverSetFlag(s32 covernum, u32 flag)
 	g_CoverFlags[covernum] |= flag;
 }
 
-GLOBAL_ASM(
-glabel func0f116528
-/*  f116528:	3c0e800a */ 	lui	$t6,0x800a
-/*  f11652c:	8dce2360 */ 	lw	$t6,0x2360($t6)
-/*  f116530:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f116534:	00a0c827 */ 	nor	$t9,$a1,$zero
-/*  f116538:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f11653c:	94580000 */ 	lhu	$t8,0x0($v0)
-/*  f116540:	03194024 */ 	and	$t0,$t8,$t9
-/*  f116544:	03e00008 */ 	jr	$ra
-/*  f116548:	a4480000 */ 	sh	$t0,0x0($v0)
-);
+void coverUnsetFlag(s32 covernum, u32 flag)
+{
+	g_CoverFlags[covernum] &= ~flag;
+}
 
 GLOBAL_ASM(
 glabel func0f11654c
