@@ -106,7 +106,7 @@ u32 func0f11d214(void);
 u32 func0f11d3f8(void);
 u32 func0f11d478(void);
 u32 func0f11d4dc(void);
-u32 func0f11d540(void);
+s32 func0f11d540(s8 index, s32 arg1);
 s32 func0f11d5b0(s8 index);
 u32 func0f11d620(void);
 u32 func0f11d8b4(void);
