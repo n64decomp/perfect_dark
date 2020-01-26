@@ -845,36 +845,16 @@ void coverUnsetFlag(s32 covernum, u32 flag)
 	g_CoverFlags[covernum] &= ~flag;
 }
 
-GLOBAL_ASM(
-glabel func0f11654c
-/*  f11654c:	04800016 */ 	bltz	$a0,.L0f1165a8
-/*  f116550:	3c0e800a */ 	lui	$t6,0x800a
-/*  f116554:	8dce2350 */ 	lw	$t6,0x2350($t6)
-/*  f116558:	8dcf0004 */ 	lw	$t7,0x4($t6)
-/*  f11655c:	008f082a */ 	slt	$at,$a0,$t7
-/*  f116560:	10200011 */ 	beqz	$at,.L0f1165a8
-/*  f116564:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f116568:	10a00009 */ 	beqz	$a1,.L0f116590
-/*  f11656c:	3c0a800a */ 	lui	$t2,0x800a
-/*  f116570:	3c18800a */ 	lui	$t8,0x800a
-/*  f116574:	8f182360 */ 	lw	$t8,0x2360($t8)
-/*  f116578:	0004c840 */ 	sll	$t9,$a0,0x1
-/*  f11657c:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f116580:	94480000 */ 	lhu	$t0,0x0($v0)
-/*  f116584:	35090001 */ 	ori	$t1,$t0,0x1
-/*  f116588:	03e00008 */ 	jr	$ra
-/*  f11658c:	a4490000 */ 	sh	$t1,0x0($v0)
-.L0f116590:
-/*  f116590:	8d4a2360 */ 	lw	$t2,0x2360($t2)
-/*  f116594:	00045840 */ 	sll	$t3,$a0,0x1
-/*  f116598:	014b1021 */ 	addu	$v0,$t2,$t3
-/*  f11659c:	944c0000 */ 	lhu	$t4,0x0($v0)
-/*  f1165a0:	318dfffe */ 	andi	$t5,$t4,0xfffe
-/*  f1165a4:	a44d0000 */ 	sh	$t5,0x0($v0)
-.L0f1165a8:
-/*  f1165a8:	03e00008 */ 	jr	$ra
-/*  f1165ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void coverSetFlag0001(s32 covernum, bool enable)
+{
+	if (covernum >= 0 && covernum < g_PadsFile[1]) {
+		if (enable) {
+			g_CoverFlags[covernum] |= COVERFLAG_0001;
+		} else {
+			g_CoverFlags[covernum] &= ~COVERFLAG_0001;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1165b0

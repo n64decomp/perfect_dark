@@ -50812,12 +50812,12 @@ glabel func0f04b950
 /*  f04b9fc:	11000006 */ 	beqz	$t0,.L0f04ba18
 /*  f04ba00:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f04ba04:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f04ba08:	0fc45953 */ 	jal	func0f11654c
+/*  f04ba08:	0fc45953 */ 	jal	coverSetFlag0001
 /*  f04ba0c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f04ba10:	10000004 */ 	beqz	$zero,.L0f04ba24
 /*  f04ba14:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f04ba18:
-/*  f04ba18:	0fc45953 */ 	jal	func0f11654c
+/*  f04ba18:	0fc45953 */ 	jal	coverSetFlag0001
 /*  f04ba1c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04ba20:	00001025 */ 	or	$v0,$zero,$zero
 .L0f04ba24:

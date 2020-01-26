@@ -321,6 +321,7 @@
 #define CONTROLMODE_SINGLE 0
 #define CONTROLMODE_DOUBLE 1
 
+#define COVERFLAG_0001 0x0001
 #define COVERFLAG_0002 0x0002
 
 // L/C/R = left/centered/right
