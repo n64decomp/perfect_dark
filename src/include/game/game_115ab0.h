@@ -9,7 +9,7 @@ void padGetCentre(s32 padnum, struct coord *coord);
 u32 func0f116068(void);
 void padCopyBboxFromPad(s32 padnum, struct pad *src);
 void padSetFlag(s32 padnum, u32 flag);
-u32 func0f116280(void);
+void padUnsetFlag(s32 padnum, u32 flag);
 u32 func0f1162d0(void);
 u32 func0f1162e0(s16 cover, struct coord **pos);
 u32 func0f11645c(void);

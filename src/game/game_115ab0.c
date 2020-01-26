@@ -1064,25 +1064,16 @@ void padSetFlag(s32 padnum, u32 flag)
 	*header = *header ^ ((*header >> 14) ^ ((*header >> 14) | flag)) << 14;
 }
 
+void padUnsetFlag(s32 padnum, u32 flag)
+{
+	u32 offset = g_PadOffsets[padnum];
+	u32 *header = (u32 *)&g_StageSetup.padfiledata[offset];
+
+	*header = *header ^ ((*header >> 14) ^ ((*header >> 14) & ~flag)) << 14;
+}
+
 GLOBAL_ASM(
-glabel func0f116280
-/*  f116280:	3c0e800a */ 	lui	$t6,0x800a
-/*  f116284:	8dce2354 */ 	lw	$t6,0x2354($t6)
-/*  f116288:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f11628c:	3c19800a */ 	lui	$t9,0x800a
-/*  f116290:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f116294:	97020000 */ 	lhu	$v0,0x0($t8)
-/*  f116298:	8f39d04c */ 	lw	$t9,-0x2fb4($t9)
-/*  f11629c:	00a04027 */ 	nor	$t0,$a1,$zero
-/*  f1162a0:	03221821 */ 	addu	$v1,$t9,$v0
-/*  f1162a4:	8c660000 */ 	lw	$a2,0x0($v1)
-/*  f1162a8:	00063b82 */ 	srl	$a3,$a2,0xe
-/*  f1162ac:	00e84824 */ 	and	$t1,$a3,$t0
-/*  f1162b0:	01275026 */ 	xor	$t2,$t1,$a3
-/*  f1162b4:	000a5b80 */ 	sll	$t3,$t2,0xe
-/*  f1162b8:	01666026 */ 	xor	$t4,$t3,$a2
-/*  f1162bc:	03e00008 */ 	jr	$ra
-/*  f1162c0:	ac6c0000 */ 	sw	$t4,0x0($v1)
+glabel func0f1162c4
 /*  f1162c4:	afa50004 */ 	sw	$a1,0x4($sp)
 /*  f1162c8:	03e00008 */ 	jr	$ra
 /*  f1162cc:	00801025 */ 	or	$v0,$a0,$zero
