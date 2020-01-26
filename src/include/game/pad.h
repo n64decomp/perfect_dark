@@ -12,7 +12,7 @@ void padSetFlag(s32 padnum, u32 flag);
 void padUnsetFlag(s32 padnum, u32 flag);
 s32 func0f1162d0(void);
 u32 func0f1162e0(s16 cover, struct coord **pos);
-u32 func0f11645c(void);
+bool coverHasFlag0002(s32 covernum);
 void coverSetFlag0002(s32 covernum, bool enable);
 void coverSetFlag(s32 covernum, u32 flag);
 void coverUnsetFlag(s32 covernum, u32 flag);

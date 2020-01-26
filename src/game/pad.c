@@ -800,29 +800,15 @@ glabel func0f1162e0
 /*  f116458:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f11645c
-/*  f11645c:	04800007 */ 	bltz	$a0,.L0f11647c
-/*  f116460:	3c0e800a */ 	lui	$t6,0x800a
-/*  f116464:	8dce2350 */ 	lw	$t6,0x2350($t6)
-/*  f116468:	3c18800a */ 	lui	$t8,0x800a
-/*  f11646c:	8dcf0004 */ 	lw	$t7,0x4($t6)
-/*  f116470:	01e4082a */ 	slt	$at,$t7,$a0
-/*  f116474:	10200003 */ 	beqz	$at,.L0f116484
-/*  f116478:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f11647c:
-/*  f11647c:	03e00008 */ 	jr	$ra
-/*  f116480:	00001025 */ 	or	$v0,$zero,$zero
-.L0f116484:
-/*  f116484:	8f182360 */ 	lw	$t8,0x2360($t8)
-/*  f116488:	0004c840 */ 	sll	$t9,$a0,0x1
-/*  f11648c:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f116490:	95020000 */ 	lhu	$v0,0x0($t0)
-/*  f116494:	30490002 */ 	andi	$t1,$v0,0x2
-/*  f116498:	01201025 */ 	or	$v0,$t1,$zero
-/*  f11649c:	03e00008 */ 	jr	$ra
-/*  f1164a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool coverHasFlag0002(s32 covernum)
+{
+	// @bug: Second condition should be >=
+	if (covernum < 0 || covernum > g_PadsFile[1]) {
+		return false;
+	}
+
+	return g_CoverFlags[covernum] & COVERFLAG_0002;
+}
 
 void coverSetFlag0002(s32 covernum, bool enable)
 {
