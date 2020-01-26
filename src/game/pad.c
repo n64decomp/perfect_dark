@@ -686,13 +686,10 @@ bool func0f1162c4(s32 padnum, s32 arg1)
 	return padnum;
 }
 
-GLOBAL_ASM(
-glabel func0f1162d0
-/*  f1162d0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f1162d4:	8dce2350 */ 	lw	$t6,0x2350($t6)
-/*  f1162d8:	03e00008 */ 	jr	$ra
-/*  f1162dc:	8dc20004 */ 	lw	$v0,0x4($t6)
-);
+s32 coverGetCount(void)
+{
+	return g_PadsFile[1];
+}
 
 GLOBAL_ASM(
 glabel func0f1162e0

@@ -1394,7 +1394,7 @@ glabel func0f19ab70
 /*  f19abc8:	a7ae0154 */ 	sh	$t6,0x154($sp)
 /*  f19abcc:	afa00054 */ 	sw	$zero,0x54($sp)
 .L0f19abd0:
-/*  f19abd0:	0fc458b4 */ 	jal	func0f1162d0
+/*  f19abd0:	0fc458b4 */ 	jal	coverGetCount
 /*  f19abd4:	00009025 */ 	or	$s2,$zero,$zero
 /*  f19abd8:	1840002f */ 	blez	$v0,.L0f19ac98
 /*  f19abdc:	0040f025 */ 	or	$s8,$v0,$zero
