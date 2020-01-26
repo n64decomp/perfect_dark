@@ -48250,7 +48250,7 @@ f32 chrGetDistanceToPad(struct chrdata *chr, s32 pad_id)
 	pad_id = chrResolvePadId(chr, pad_id);
 
 	if (pad_id >= 0) {
-		padUnpack(pad_id, 2, &pad);
+		padUnpack(pad_id, PADFIELD_POS, &pad);
 		xdiff = pad.pos.x - prop->pos.x;
 		ydiff = pad.pos.y - prop->pos.y;
 		zdiff = pad.pos.z - prop->pos.z;
@@ -48324,7 +48324,7 @@ glabel chrGetSameFloorDistanceToPad
 //	f32 ret;
 //
 //	pad_id = chrResolvePadId(chr, pad_id);
-//	padUnpack(pad_id, 2, &pad);
+//	padUnpack(pad_id, PADFIELD_POS, &pad);
 //	xdiff = pad.pos.x - prop->pos.x;
 //	ydiff = pad.pos.y - prop->pos.y;
 //	zdiff = pad.pos.z - prop->pos.z;
@@ -48370,7 +48370,7 @@ f32 chrGetLateralDistanceToPad(struct chrdata *chr, s32 pad_id)
 	pad_id = chrResolvePadId(chr, pad_id);
 
 	if (pad_id >= 0) {
-		padUnpack(pad_id, 2, &pad);
+		padUnpack(pad_id, PADFIELD_POS, &pad);
 		xdiff = pad.pos.x - prop->pos.x;
 		zdiff = pad.pos.z - prop->pos.z;
 		distance = sqrtf(xdiff * xdiff + zdiff * zdiff);
@@ -48407,7 +48407,7 @@ s32 chrGetPadRoom(struct chrdata *chr, s32 pad_id)
 		s32 resolved_pad_id = chrResolvePadId(chr, pad_id - 10000);
 
 		if (resolved_pad_id >= 0) {
-			padUnpack(resolved_pad_id, 0x40, &pad);
+			padUnpack(resolved_pad_id, PADFIELD_ROOM, &pad);
 			ret = pad.room;
 		}
 	} else {
@@ -48949,7 +48949,7 @@ f32 chrGetDistanceFromTargetToPad(struct chrdata *chr, s32 pad_id)
 	pad_id = chrResolvePadId(chr, pad_id);
 
 	if (pad_id >= 0) {
-		padUnpack(pad_id, 2, &pad);
+		padUnpack(pad_id, PADFIELD_POS, &pad);
 		xdiff = pad.pos.x - prop->pos.x;
 		ydiff = pad.pos.y - prop->pos.y;
 		zdiff = pad.pos.z - prop->pos.z;
@@ -50535,7 +50535,7 @@ bool chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *
 	struct pad pad;
 	s16 room[2];
 	f32 fvalue;
-	padUnpack(resolved_pad_id, 0x46, &pad);
+	padUnpack(resolved_pad_id, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
 	fvalue = func0f096750(pad.look.x, pad.look.z);
 	room[0] = pad.room;
 	room[1] = -1;

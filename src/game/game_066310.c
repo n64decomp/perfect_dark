@@ -13536,7 +13536,7 @@ void liftActivate(struct prop *prop, u8 liftnum)
 struct prop *liftFindByPad(s16 padnum)
 {
 	struct pad pad;
-	padUnpack(padnum, 0x100, &pad);
+	padUnpack(padnum, PADFIELD_LIFT, &pad);
 
 	if (pad.liftnum <= 0 || pad.liftnum > MAX_LIFTS) {
 		return NULL;

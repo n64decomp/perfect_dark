@@ -10926,7 +10926,7 @@ void scenarioKohReset(void)
 		g_ScenarioData.koh.hillindex = 0;
 	}
 
-	padUnpack(pad_id, 0x42, &pad);
+	padUnpack(pad_id, PADFIELD_POS | PADFIELD_ROOM, &pad);
 	g_ScenarioData.koh.hillroom = pad.room;
 	g_ScenarioData.koh.unk10 = -1;
 	g_ScenarioData.koh.hillpos.x = pad.pos.x;

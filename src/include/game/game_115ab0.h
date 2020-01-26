@@ -147,6 +147,6 @@ u32 func0f11e78c(void);
 u32 func0f11e7f0(void);
 u32 func0f11e844(void);
 u32 func0f11ea34(void);
-void padUnpack(s32 pad_id, u32 flags, struct pad *dst);
+void padUnpack(s32 padnum, u32 fields, struct pad *pad);
 
 #endif

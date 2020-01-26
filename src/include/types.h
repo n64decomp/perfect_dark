@@ -11,6 +11,15 @@ struct coord {
 	f32 z;
 };
 
+struct bbox {
+	f32 xmin;
+	f32 xmax;
+	f32 ymin;
+	f32 ymax;
+	f32 zmin;
+	f32 zmax;
+};
+
 struct weaponobj;
 struct prop;
 
@@ -65,15 +74,9 @@ struct pad {
 	/*0x0c*/ struct coord look;
 	/*0x18*/ struct coord up;
 	/*0x24*/ struct coord normal;
-	/*0x30*/ f32 xmin;
-	/*0x34*/ f32 xmax;
-	/*0x38*/ f32 ymin;
-	/*0x3c*/ f32 ymax;
-	/*0x40*/ f32 zmin;
-	/*0x44*/ f32 zmax;
+	/*0x24*/ struct bbox bbox;
 	/*0x48*/ s32 room;
-	/*0x4c*/ s16 unk4c;
-	/*0x4e*/ s16 unk4e;
+	/*0x4c*/ u32 flags;
 	/*0x50*/ u8 liftnum; // 1-10, 0 indicates no lift
 	/*0x52*/ s16 unk52;
 };
@@ -2726,7 +2729,7 @@ struct stagesetup {
 	/*0x10*/ u8 *props;
 	/*0x14*/ struct path *paths;
 	/*0x18*/ struct ailist *ailists;
-	/*0x1c*/ void *unk1c;
+	/*0x1c*/ s8 *padfiledata;
 };
 
 struct inventory_menupos {

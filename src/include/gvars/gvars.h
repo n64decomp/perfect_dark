@@ -701,7 +701,7 @@ extern u8 g_AltTitle;
 extern u32 var800a2330;
 extern u32 var800a2344;
 extern u32 var800a2350;
-extern u32 var800a2354;
+extern u16 *g_PadOffsets;
 extern u32 var800a2360;
 extern u32 var800a2364;
 extern u32 var800a2368;

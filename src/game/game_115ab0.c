@@ -714,6 +714,124 @@ glabel padUnpack
 /*  f115efc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// Mismatch because the ROM moves `fields` from a1 to a3 then uses a1 for other
+// purposes, while the below just keeps a1 where it is.
+//void padUnpack(s32 padnum, u32 fields, struct pad *pad)
+//{
+//	u32 *ibuffer = (u32 *)&g_StageSetup.padfiledata[g_PadOffsets[padnum]];
+//	f32 *fbuffer = (f32 *)ibuffer;
+//
+//	// flags, room and liftnum
+//	// ffffffff ffffffff ffrrrrrr rrrrllll
+//
+//	if (fields & PADFIELD_ROOM) {
+//		pad->room = (s32)(*ibuffer << 18) >> 22;
+//	}
+//
+//	if (fields & PADFIELD_LIFT) {
+//		pad->liftnum = *ibuffer & 0x0000000f;
+//	}
+//
+//	fbuffer++;
+//
+//	if ((*ibuffer >> 14) & PADFLAG_INTPOS) {
+//		if (fields & PADFIELD_POS) {
+//			s16 *sbuffer = (s16 *)fbuffer;
+//			pad->pos.x = sbuffer[0];
+//			pad->pos.y = sbuffer[1];
+//			pad->pos.z = sbuffer[2];
+//		}
+//		fbuffer += 2;
+//	} else {
+//		if (fields & PADFIELD_POS) {
+//			pad->pos.x = fbuffer[0];
+//			pad->pos.y = fbuffer[1];
+//			pad->pos.z = fbuffer[2];
+//		}
+//		fbuffer += 3;
+//	}
+//
+//	if ((*ibuffer >> 14) & (PADFLAG_UPALIGNTOX | PADFLAG_UPALIGNTOY | PADFLAG_UPALIGNTOZ)) {
+//		if (fields & (PADFIELD_UP | PADFIELD_NORMAL)) {
+//			if ((*ibuffer >> 14) & PADFLAG_UPALIGNTOX) {
+//				pad->up.x = ((*ibuffer >> 14) & PADFLAG_UPALIGNINVERT) ? -1 : 1;
+//				pad->up.y = 0;
+//				pad->up.z = 0;
+//			} else if ((*ibuffer >> 14) & PADFLAG_UPALIGNTOY) {
+//				pad->up.x = 0;
+//				pad->up.y = ((*ibuffer >> 14) & PADFLAG_UPALIGNINVERT) ? -1 : 1;
+//				pad->up.z = 0;
+//			} else {
+//				pad->up.x = 0;
+//				pad->up.y = 0;
+//				pad->up.z = ((*ibuffer >> 14) & PADFLAG_UPALIGNINVERT) ? -1 : 1;
+//			}
+//		}
+//	} else {
+//		if (fields & (PADFIELD_UP | PADFIELD_NORMAL)) {
+//			pad->up.x = fbuffer[0];
+//			pad->up.y = fbuffer[1];
+//			pad->up.z = fbuffer[2];
+//		}
+//		fbuffer += 3;
+//	}
+//
+//	if ((*ibuffer >> 14) & (PADFLAG_LOOKALIGNTOX | PADFLAG_LOOKALIGNTOY | PADFLAG_LOOKALIGNTOZ)) {
+//		if (fields & (PADFIELD_LOOK | PADFIELD_NORMAL)) {
+//			if ((*ibuffer >> 14) & PADFLAG_LOOKALIGNTOX) {
+//				pad->look.x = ((*ibuffer >> 14) & PADFLAG_LOOKALIGNINVERT) ? -1 : 1;
+//				pad->look.y = 0;
+//				pad->look.z = 0;
+//			} else if ((*ibuffer >> 14) & PADFLAG_LOOKALIGNTOY) {
+//				pad->look.x = 0;
+//				pad->look.y = ((*ibuffer >> 14) & PADFLAG_LOOKALIGNINVERT) ? -1 : 1;
+//				pad->look.z = 0;
+//			} else {
+//				pad->look.x = 0;
+//				pad->look.y = 0;
+//				pad->look.z = ((*ibuffer >> 14) & PADFLAG_LOOKALIGNINVERT) ? -1 : 1;
+//			}
+//		}
+//	} else {
+//		if (fields & (PADFIELD_LOOK | PADFIELD_NORMAL)) {
+//			pad->look.x = fbuffer[0];
+//			pad->look.y = fbuffer[1];
+//			pad->look.z = fbuffer[2];
+//		}
+//		fbuffer = fbuffer + 3;
+//	}
+//
+//	if (fields & PADFIELD_NORMAL) {
+//		pad->normal.x = pad->up.y * pad->look.z - pad->look.y * pad->up.z;
+//		pad->normal.y = pad->up.z * pad->look.x - pad->look.z * pad->up.x;
+//		pad->normal.z = pad->up.x * pad->look.y - pad->look.x * pad->up.y;
+//	}
+//
+//	if ((*ibuffer >> 14) & PADFLAG_HASBBOXDATA) {
+//		if (fields & PADFIELD_BBOX) {
+//			pad->bbox.xmin = fbuffer[0];
+//			pad->bbox.xmax = fbuffer[1];
+//			pad->bbox.ymin = fbuffer[2];
+//			pad->bbox.ymax = fbuffer[3];
+//			pad->bbox.zmin = fbuffer[4];
+//			pad->bbox.zmax = fbuffer[5];
+//		}
+//	} else {
+//		if (fields & PADFIELD_BBOX) {
+//			pad->bbox.xmin = -100;
+//			pad->bbox.ymin = -100;
+//			pad->bbox.zmin = -100;
+//			pad->bbox.xmax = 100;
+//			pad->bbox.ymax = 100;
+//			pad->bbox.zmax = 100;
+//		}
+//	}
+//
+//	if (fields & PADFIELD_FLAGS) {
+//		pad->flags = (*ibuffer >> 14);
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0f115f00
 /*  f115f00:	3c0e800a */ 	lui	$t6,0x800a

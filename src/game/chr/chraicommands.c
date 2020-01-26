@@ -12462,7 +12462,7 @@ glabel aiIfObjectDistanceToPadLessThan
 //		pad_id = chrResolvePadId(g_Vars.chrdata, pad_id);
 //
 //		if (pad_id >= 0) {
-//			padUnpack(pad_id, 2, &pad);
+//			padUnpack(pad_id, PADFIELD_POS, &pad);
 //			xdiff = obj->prop->pos.x - pad.pos.x;
 //			ydiff = obj->prop->pos.y - pad.pos.y;
 //			zdiff = obj->prop->pos.z - pad.pos.z;
