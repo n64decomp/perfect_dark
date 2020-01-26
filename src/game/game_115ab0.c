@@ -841,7 +841,7 @@ bool padHasBboxData(s32 padnum)
 }
 
 GLOBAL_ASM(
-glabel func0f115f34
+glabel padGetCentre
 /*  f115f34:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f115f38:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f115f3c:	00a03825 */ 	or	$a3,$a1,$zero
@@ -920,6 +920,26 @@ glabel func0f115f34
 /*  f116060:	03e00008 */ 	jr	$ra
 /*  f116064:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+//void padGetCentre(s32 padnum, struct coord *coord)
+//{
+//	struct pad pad;
+//
+//	padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
+//
+//	coord->x = pad.pos.x + (
+//			(pad.bbox.xmin + pad.bbox.xmax) * pad.normal.x +
+//			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.x +
+//			pad.look.x * (pad.bbox.zmin + pad.bbox.zmax)) * 0.5f;
+//	coord->y = (
+//			(pad.bbox.xmax + pad.bbox.xmin) * pad.normal.y +
+//			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.y +
+//			pad.look.y * (pad.bbox.zmin + pad.bbox.zmax)) * 0.5f + pad.pos.y;
+//	coord->z = (
+//			(pad.bbox.xmin + pad.bbox.xmax) * pad.normal.z +
+//			(pad.bbox.ymin + pad.bbox.ymax) * pad.up.z +
+//			pad.look.z * (pad.bbox.zmin + pad.bbox.zmax)) * 0.5f + pad.pos.z;
+//}
 
 GLOBAL_ASM(
 glabel func0f116068

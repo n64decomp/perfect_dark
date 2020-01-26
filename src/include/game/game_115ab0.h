@@ -3,8 +3,9 @@
 #include <ultra64.h>
 #include "types.h"
 
+void padUnpack(s32 padnum, u32 fields, struct pad *pad);
 bool padHasBboxData(s32 padnum);
-u32 func0f115f34(void);
+void padGetCentre(s32 padnum, struct coord *coord);
 u32 func0f116068(void);
 u32 func0f116190(void);
 u32 func0f116240(void);
@@ -147,6 +148,5 @@ u32 func0f11e78c(void);
 u32 func0f11e7f0(void);
 u32 func0f11e844(void);
 u32 func0f11ea34(void);
-void padUnpack(s32 padnum, u32 fields, struct pad *pad);
 
 #endif
