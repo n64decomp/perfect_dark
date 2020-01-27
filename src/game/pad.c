@@ -784,27 +784,19 @@ bool coverLoadByIndex(s32 index, struct cover *cover)
 	return false;
 }
 
+s32 coverGetNumByIndex(s32 index)
+{
+	// Probable @bug: last check should be index >= var800a236c
+	// This function is never called though.
+	if (!g_CoverNums || index < 0 || index > var800a236c) {
+		return -1;
+	}
+
+	return g_CoverNums[index];
+}
+
 GLOBAL_ASM(
-glabel func0f11640c
-/*  f11640c:	3c03800a */ 	lui	$v1,0x800a
-/*  f116410:	8c632370 */ 	lw	$v1,0x2370($v1)
-/*  f116414:	10600009 */ 	beqz	$v1,.L0f11643c
-/*  f116418:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11641c:	04800007 */ 	bltz	$a0,.L0f11643c
-/*  f116420:	3c0e800a */ 	lui	$t6,0x800a
-/*  f116424:	95ce236c */ 	lhu	$t6,0x236c($t6)
-/*  f116428:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f11642c:	006fc021 */ 	addu	$t8,$v1,$t7
-/*  f116430:	01c4082a */ 	slt	$at,$t6,$a0
-/*  f116434:	50200004 */ 	beqzl	$at,.L0f116448
-/*  f116438:	97020000 */ 	lhu	$v0,0x0($t8)
-.L0f11643c:
-/*  f11643c:	03e00008 */ 	jr	$ra
-/*  f116440:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f116444:	97020000 */ 	lhu	$v0,0x0($t8)
-.L0f116448:
-/*  f116448:	03e00008 */ 	jr	$ra
-/*  f11644c:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f116450
 /*  f116450:	afa50004 */ 	sw	$a1,0x4($sp)
 /*  f116454:	03e00008 */ 	jr	$ra
 /*  f116458:	00801025 */ 	or	$v0,$a0,$zero
