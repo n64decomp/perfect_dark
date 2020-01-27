@@ -764,11 +764,13 @@ glabel coverLoad
 //	return true;
 //}
 
+u16 getVar800a236c(void)
+{
+	return var800a236c;
+}
+
 GLOBAL_ASM(
-glabel func0f116394
-/*  f116394:	3c02800a */ 	lui	$v0,0x800a
-/*  f116398:	03e00008 */ 	jr	$ra
-/*  f11639c:	9442236c */ 	lhu	$v0,0x236c($v0)
+glabel func0f1163a0
 /*  f1163a0:	3c02800a */ 	lui	$v0,0x800a
 /*  f1163a4:	8c422370 */ 	lw	$v0,0x2370($v0)
 /*  f1163a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
