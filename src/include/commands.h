@@ -2463,9 +2463,9 @@
 	mkword(flags), \
 	label,
 
-#define cmd0124_run_for_cover_maybe(action) \
+#define go_to_cover(speed) \
 	mkshort(0x0124), \
-	action,
+	speed,
 
 // Related to command 012f
 // globals.c only
@@ -2945,13 +2945,19 @@
 	0x00, \
 	label,
 
-// If bool is false, run some function on the chr and their gun ground
-// prop, then follow the label.
-// If bool is true, don't call the function, and only follow the label if the
-// gun prop has OBJHFLAG_00000080.
-#define if_gun_landed(bool, label) \
+/**
+ * If operation is 1, checks if the chr's dropped gun can be run to and follow
+ * the label if so.
+ *
+ * If operation is 0, makes the chr run to the dropped gun. No check is done,
+ * and the label is followed.
+ *
+ * Don't use this directly. Use convenience macros if_gun_landed and go_to_gun
+ * instead.
+ */
+#define do_gun_command(operation, label) \
 	mkshort(0x0170), \
-	bool, \
+	operation, \
 	label,
 
 /**
@@ -3800,3 +3806,5 @@
 
 #define if_stage_is_not(stage, label) if_stage_lt(stage, label) if_stage_gt(stage, label)
 
+#define go_to_gun(label) do_gun_command(0, label)
+#define if_gun_landed(label) do_gun_command(1, label)

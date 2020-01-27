@@ -8726,10 +8726,10 @@ bool ai0123(void)
 /**
  * @cmd 0124
  */
-bool ai0124(void)
+bool aiGoToCover(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f04c268(g_Vars.chrdata, cmd[2]);
+	chrGoToCover(g_Vars.chrdata, cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -10537,7 +10537,7 @@ glabel ai0136
 /*  f05b3ac:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f05b3b0:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f05b3b4:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05b3b8:	0fc1309a */ 	jal	func0f04c268
+/*  f05b3b8:	0fc1309a */ 	jal	chrGoToCover
 /*  f05b3bc:	90650002 */ 	lbu	$a1,0x2($v1)
 /*  f05b3c0:	8e190438 */ 	lw	$t9,0x438($s0)
 .L0f05b3c4:
@@ -10810,7 +10810,7 @@ bool aiIfDangerousObjectNearby(void)
 bool ai013e(void)
 {
 	if (func0f03aca0(g_Vars.chrdata, 0x43c80000, 1) == 0 && func0f04bffc(g_Vars.chrdata, 1000, 12000) != -1) {
-		func0f04c268(g_Vars.chrdata, 2);
+		chrGoToCover(g_Vars.chrdata, SPEED_RUN);
 	}
 
 	g_Vars.aioffset += 2;
@@ -11787,14 +11787,14 @@ bool aiIfChrHasGun(void)
 /**
  * @cmd 0170
  */
-bool ai0170(void)
+bool aiDoGunCommand(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
 	if (cmd[2] == 0 || ((weapon->hidden & OBJHFLAG_00000080) == 0 && cmd[2] == 1)) {
 		if (cmd[2] == 0) {
-			func0f03ab74(g_Vars.chrdata, g_Vars.chrdata->gunprop, 1);
+			chrGoToProp(g_Vars.chrdata, g_Vars.chrdata->gunprop, SPEED_JOG);
 		}
 
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);

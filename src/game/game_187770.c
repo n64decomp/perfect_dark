@@ -16741,7 +16741,7 @@ glabel func0f194b40
 /*  f1963d8:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1963dc:	50a00079 */ 	beqzl	$a1,.L0f1965c4
 /*  f1963e0:	928202a0 */ 	lbu	$v0,0x2a0($s4)
-/*  f1963e4:	0fc0eadd */ 	jal	func0f03ab74
+/*  f1963e4:	0fc0eadd */ 	jal	chrGoToProp
 /*  f1963e8:	24060002 */ 	addiu	$a2,$zero,0x2
 /*  f1963ec:	10000074 */ 	beqz	$zero,.L0f1965c0
 /*  f1963f0:	a29502a0 */ 	sb	$s5,0x2a0($s4)
@@ -16786,7 +16786,7 @@ glabel func0f194b40
 .L0f196480:
 /*  f196480:	2645008c */ 	addiu	$a1,$s2,0x8c
 /*  f196484:	2646007a */ 	addiu	$a2,$s2,0x7a
-/*  f196488:	0fc0e10f */ 	jal	func0f03843c
+/*  f196488:	0fc0e10f */ 	jal	chrGoToPos
 /*  f19648c:	24070002 */ 	addiu	$a3,$zero,0x2
 /*  f196490:	1000004c */ 	beqz	$zero,.L0f1965c4
 /*  f196494:	928202a0 */ 	lbu	$v0,0x2a0($s4)
@@ -16843,7 +16843,7 @@ glabel func0f194b40
 /*  f196550:	05800005 */ 	bltz	$t4,.L0f196568
 /*  f196554:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f196558:
-/*  f196558:	0fc0e10f */ 	jal	func0f03843c
+/*  f196558:	0fc0e10f */ 	jal	chrGoToPos
 /*  f19655c:	a29502a0 */ 	sb	$s5,0x2a0($s4)
 /*  f196560:	10000018 */ 	beqz	$zero,.L0f1965c4
 /*  f196564:	928202a0 */ 	lbu	$v0,0x2a0($s4)
@@ -16862,7 +16862,7 @@ glabel func0f194b40
 /*  f196590:	5300000c */ 	beqzl	$t8,.L0f1965c4
 /*  f196594:	928202a0 */ 	lbu	$v0,0x2a0($s4)
 /*  f196598:	a29502a0 */ 	sb	$s5,0x2a0($s4)
-/*  f19659c:	0fc0eadd */ 	jal	func0f03ab74
+/*  f19659c:	0fc0eadd */ 	jal	chrGoToProp
 /*  f1965a0:	8e450010 */ 	lw	$a1,0x10($s2)
 /*  f1965a4:	10000007 */ 	beqz	$zero,.L0f1965c4
 /*  f1965a8:	928202a0 */ 	lbu	$v0,0x2a0($s4)
@@ -17115,7 +17115,7 @@ glabel func0f194b40
 /*  f19692c:	2645008c */ 	addiu	$a1,$s2,0x8c
 /*  f196930:	1d60001e */ 	bgtz	$t3,.L0f1969ac
 /*  f196934:	2646007a */ 	addiu	$a2,$s2,0x7a
-/*  f196938:	0fc0e10f */ 	jal	func0f03843c
+/*  f196938:	0fc0e10f */ 	jal	chrGoToPos
 /*  f19693c:	24070002 */ 	addiu	$a3,$zero,0x2
 /*  f196940:	1000001b */ 	beqz	$zero,.L0f1969b0
 /*  f196944:	8e4900dc */ 	lw	$t1,0xdc($s2)
@@ -17974,6 +17974,6 @@ void func0f197544(struct chrdata *chr)
 	}
 
 	if (!pass) {
-		func0f03843c(chr, &chr->act_aibotgetitem.pos, &chr->act_aibotgetitem.rooms[0], chr->speed);
+		chrGoToPos(chr, &chr->act_aibotgetitem.pos, &chr->act_aibotgetitem.rooms[0], chr->speed);
 	}
 }

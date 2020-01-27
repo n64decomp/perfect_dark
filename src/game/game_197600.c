@@ -402,14 +402,14 @@ glabel func0f197600
 .L0f197ab0:
 /*  f197ab0:	00e02825 */ 	or	$a1,$a3,$zero
 /*  f197ab4:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f197ab8:	0fc0eadd */ 	jal	func0f03ab74
+/*  f197ab8:	0fc0eadd */ 	jal	chrGoToProp
 /*  f197abc:	afa80054 */ 	sw	$t0,0x54($sp)
 /*  f197ac0:	10000006 */ 	beqz	$zero,.L0f197adc
 /*  f197ac4:	8fa80054 */ 	lw	$t0,0x54($sp)
 .L0f197ac8:
 /*  f197ac8:	00e02825 */ 	or	$a1,$a3,$zero
 /*  f197acc:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f197ad0:	0fc0eadd */ 	jal	func0f03ab74
+/*  f197ad0:	0fc0eadd */ 	jal	chrGoToProp
 /*  f197ad4:	afa80054 */ 	sw	$t0,0x54($sp)
 /*  f197ad8:	8fa80054 */ 	lw	$t0,0x54($sp)
 .L0f197adc:

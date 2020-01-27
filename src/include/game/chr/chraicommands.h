@@ -292,7 +292,7 @@
 /*0x0121*/ bool ai0121(void);
 /*0x0122*/ bool ai0122(void);
 /*0x0123*/ bool ai0123(void);
-/*0x0124*/ bool ai0124(void);
+/*0x0124*/ bool aiGoToCover(void);
 /*0x0125*/ bool ai0125(void);
 /*0x0126*/ bool aiIfPlayerUsingCmpOrAr34(void);
 /*0x0127*/ bool ai0127(void);
@@ -345,7 +345,7 @@
 /*0x016d*/ bool aiChrAdjustMotionBlur(void);
 /*0x016e*/ bool ai016e(void);
 /*0x016f*/ bool aiIfChrHasGun(void);
-/*0x0170*/ bool ai0170(void);
+/*0x0170*/ bool aiDoGunCommand(void);
 /*0x0171*/ bool aiIfDistanceToGunLessThan(void);
 /*0x0172*/ bool ai0172(void);
 /*0x0173*/ bool aiChrCopyProperties(void);

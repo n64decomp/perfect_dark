@@ -964,15 +964,13 @@ u8 func0007_alerted[] = {
 	goto_next(LABEL_GETGUN_FAILED)
 
 	label(0x13)
-	if_gun_landed(TRUE, /*goto*/ 0xb1)
+	if_gun_landed(/*goto*/ 0xb1)
 	if_timer_gt(300, /*goto*/ LABEL_GETGUN_FAILED)
 	goto_first(0xb0)
 
-	// Note: When if_gun_landed param is FALSE, it's not actually an if
-	// statement, but does some task.
 	label(0xb1)
 	restart_timer
-	if_gun_landed(FALSE, /*goto*/ 0xad)
+	go_to_gun(/*goto*/ 0xad)
 
 	beginloop(0xad)
 		dprint 'G','O',' ','F','O','R',' ','G','U','N','\n',0,
@@ -1252,7 +1250,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_00040000, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_00020000, BANK_1)
 	label(0x16)
-	cmd0124_run_for_cover_maybe(2)
+	go_to_cover(SPEED_RUN)
 
 	beginloop(0xa6)
 		if_chr_stopped(/*goto*/ 0xa7)
@@ -1493,7 +1491,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	say_quip(CHR_BOND, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
 	restart_timer
-	cmd0124_run_for_cover_maybe(MA_COVERWAIT)
+	go_to_cover(SPEED_RUN)
 
 	beginloop(0x55)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
@@ -3292,7 +3290,7 @@ u8 func000c_combat_with_target_chr[] = {
 	label(0x53)
 	dprint 'G','O',' ','T','O',' ','C','O','V','E','R','\n',0,
 	say_quip(CHR_BOND, 0x02, 0xff, 0x02, 0x01, BANK_0, 0x00, 0x00)
-	cmd0124_run_for_cover_maybe(MA_COVERWAIT)
+	go_to_cover(SPEED_RUN)
 	restart_timer
 
 	beginloop(0xc7)

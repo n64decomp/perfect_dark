@@ -28671,7 +28671,7 @@ glabel func0f037224
 /*  f0372bc:	10000007 */ 	beqz	$zero,.L0f0372dc
 /*  f0372c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f0372c4:
-/*  f0372c4:	0fc0e10f */ 	jal	func0f03843c
+/*  f0372c4:	0fc0e10f */ 	jal	chrGoToPos
 /*  f0372c8:	90870065 */ 	lbu	$a3,0x65($a0)
 /*  f0372cc:	10000003 */ 	beqz	$zero,.L0f0372dc
 /*  f0372d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -29935,7 +29935,7 @@ glabel func0f037b70
 );
 
 GLOBAL_ASM(
-glabel func0f03843c
+glabel chrGoToPos
 /*  f03843c:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f038440:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f038444:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -30678,7 +30678,7 @@ glabel func0f038b9c
 /*  f038ef8:	02602025 */ 	or	$a0,$s3,$zero
 /*  f038efc:	27a500a8 */ 	addiu	$a1,$sp,0xa8
 /*  f038f00:	27a60060 */ 	addiu	$a2,$sp,0x60
-/*  f038f04:	0fc0e10f */ 	jal	func0f03843c
+/*  f038f04:	0fc0e10f */ 	jal	chrGoToPos
 /*  f038f08:	24070008 */ 	addiu	$a3,$zero,0x8
 .L0f038f0c:
 /*  f038f0c:	8fbf0044 */ 	lw	$ra,0x44($sp)
@@ -32448,7 +32448,7 @@ glabel func0f03a894
 /*  f03a920:	27a50020 */ 	addiu	$a1,$sp,0x20
 /*  f03a924:	27a60074 */ 	addiu	$a2,$sp,0x74
 /*  f03a928:	8fa70080 */ 	lw	$a3,0x80($sp)
-/*  f03a92c:	0fc0e10f */ 	jal	func0f03843c
+/*  f03a92c:	0fc0e10f */ 	jal	chrGoToPos
 /*  f03a930:	a7a90074 */ 	sh	$t1,0x74($sp)
 /*  f03a934:	50400004 */ 	beqzl	$v0,.L0f03a948
 /*  f03a938:	00001025 */ 	or	$v0,$zero,$zero
@@ -32510,7 +32510,7 @@ bool chrGoToTarget(struct chrdata *chr, u32 speed)
 				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
 			struct prop *prop = chrGetTargetProp(chr);
 
-			if (func0f03843c(chr, &prop->pos, &prop->rooms[0], speed)) {
+			if (chrGoToPos(chr, &prop->pos, &prop->rooms[0], speed)) {
 				return true;
 			}
 		}
@@ -32527,7 +32527,7 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 				(chr->flags & CHRFLAG0_CAN_RUN_FOR_ALARM)) {
 			struct chrdata *dstchr = chrFindById(chr, dst_chrnum);
 
-			if (dstchr && dstchr->prop && func0f03843c(chr, &dstchr->prop->pos, &dstchr->prop->rooms[0], speed)) {
+			if (dstchr && dstchr->prop && chrGoToPos(chr, &dstchr->prop->pos, &dstchr->prop->rooms[0], speed)) {
 				return true;
 			}
 		}
@@ -32536,10 +32536,10 @@ bool chrGoToChr(struct chrdata *chr, u32 dst_chrnum, u32 speed)
 	return false;
 }
 
-bool func0f03ab74(struct chrdata *chr, struct prop *prop, s32 arg2)
+bool chrGoToProp(struct chrdata *chr, struct prop *prop, s32 speed)
 {
 	if (func0f039a18(chr) && prop) {
-		if (func0f03843c(chr, &prop->pos, &prop->rooms[0], arg2)) {
+		if (chrGoToPos(chr, &prop->pos, &prop->rooms[0], speed)) {
 			return true;
 		}
 	}
@@ -32593,7 +32593,7 @@ glabel func0f03abd0
 /*  f03ac64:	12000008 */ 	beqz	$s0,.L0f03ac88
 /*  f03ac68:	8fa5008c */ 	lw	$a1,0x8c($sp)
 /*  f03ac6c:	02003025 */ 	or	$a2,$s0,$zero
-/*  f03ac70:	0fc0e10f */ 	jal	func0f03843c
+/*  f03ac70:	0fc0e10f */ 	jal	chrGoToPos
 /*  f03ac74:	8fa70090 */ 	lw	$a3,0x90($sp)
 /*  f03ac78:	50400004 */ 	beqzl	$v0,.L0f03ac8c
 /*  f03ac7c:	00001025 */ 	or	$v0,$zero,$zero
@@ -32636,7 +32636,7 @@ glabel func0f03aca0
 /*  f03acf4:	0fc12e8d */ 	jal	func0f04ba34
 /*  f03acf8:	8c84a3e4 */ 	lw	$a0,-0x5c1c($a0)
 /*  f03acfc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03ad00:	0fc1309a */ 	jal	func0f04c268
+/*  f03ad00:	0fc1309a */ 	jal	chrGoToCover
 /*  f03ad04:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f03ad08:	1000001c */ 	beqz	$zero,.L0f03ad7c
 /*  f03ad0c:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -32667,7 +32667,7 @@ glabel func0f03aca0
 /*  f03ad68:	00003025 */ 	or	$a2,$zero,$zero
 .L0f03ad6c:
 /*  f03ad6c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03ad70:	0fc1309a */ 	jal	func0f04c268
+/*  f03ad70:	0fc1309a */ 	jal	chrGoToCover
 /*  f03ad74:	24050002 */ 	addiu	$a1,$zero,0x2
 /*  f03ad78:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f03ad7c:
@@ -32891,7 +32891,7 @@ glabel func0f03afac
 /*  f03b1ac:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f03b1b0:	27a50068 */ 	addiu	$a1,$sp,0x68
 /*  f03b1b4:	27a60058 */ 	addiu	$a2,$sp,0x58
-/*  f03b1b8:	0fc0e10f */ 	jal	func0f03843c
+/*  f03b1b8:	0fc0e10f */ 	jal	chrGoToPos
 /*  f03b1bc:	02003825 */ 	or	$a3,$s0,$zero
 /*  f03b1c0:	10000002 */ 	beqz	$zero,.L0f03b1cc
 /*  f03b1c4:	24020001 */ 	addiu	$v0,$zero,0x1
@@ -33141,7 +33141,7 @@ glabel func0f03b1e0
 /*  f03b54c:	8fa402b8 */ 	lw	$a0,0x2b8($sp)
 /*  f03b550:	27a50068 */ 	addiu	$a1,$sp,0x68
 /*  f03b554:	02403025 */ 	or	$a2,$s2,$zero
-/*  f03b558:	0fc0e10f */ 	jal	func0f03843c
+/*  f03b558:	0fc0e10f */ 	jal	chrGoToPos
 /*  f03b55c:	02203825 */ 	or	$a3,$s1,$zero
 /*  f03b560:	3c0e800a */ 	lui	$t6,0x800a
 /*  f03b564:	8dcea2f8 */ 	lw	$t6,-0x5d08($t6)
@@ -45547,7 +45547,7 @@ glabel func0f046a8c
 /*  f046b70:	10000211 */ 	beqz	$zero,.L0f0473b8
 /*  f046b74:	ae0b00d8 */ 	sw	$t3,0xd8($s0)
 .L0f046b78:
-/*  f046b78:	0fc0e10f */ 	jal	func0f03843c
+/*  f046b78:	0fc0e10f */ 	jal	chrGoToPos
 /*  f046b7c:	92070065 */ 	lbu	$a3,0x65($s0)
 .L0f046b80:
 /*  f046b80:	0fc0dc89 */ 	jal	func0f037224
@@ -51411,7 +51411,7 @@ glabel func0f04bffc
 /*  f04c264:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-s16 func0f04c268(struct chrdata *chr, u8 speed)
+s16 chrGoToCover(struct chrdata *chr, u8 speed)
 {
 	struct cover cover;
 
@@ -51420,7 +51420,7 @@ s16 func0f04c268(struct chrdata *chr, u8 speed)
 	}
 
 	if (func0f039a18(chr) && chr->cover != -1 && coverLoad(chr->cover, &cover)) {
-		func0f03843c(chr, cover.pos, &cover.room, speed);
+		chrGoToPos(chr, cover.pos, &cover.room, speed);
 		return chr->cover;
 	}
 
@@ -51509,7 +51509,7 @@ glabel func0f04c2e8
 /*  f04c410:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04c414:	27a50040 */ 	addiu	$a1,$sp,0x40
 /*  f04c418:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f04c41c:	0fc0e10f */ 	jal	func0f03843c
+/*  f04c41c:	0fc0e10f */ 	jal	chrGoToPos
 /*  f04c420:	8fa70054 */ 	lw	$a3,0x54($sp)
 /*  f04c424:	10000003 */ 	beqz	$zero,.L0f04c434
 /*  f04c428:	8fbf0024 */ 	lw	$ra,0x24($sp)
