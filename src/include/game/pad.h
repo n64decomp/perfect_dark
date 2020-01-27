@@ -17,6 +17,6 @@ void coverSetFlag0002(s32 covernum, bool enable);
 void coverSetFlag(s32 covernum, u32 flag);
 void coverUnsetFlag(s32 covernum, u32 flag);
 void coverSetFlag0001(s32 covernum, bool enable);
-u32 func0f1165b0(void);
+bool coverHasSomeFlags(struct cover *cover);
 
 #endif

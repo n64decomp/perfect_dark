@@ -842,12 +842,13 @@ void coverSetFlag0001(s32 covernum, bool enable)
 	}
 }
 
+bool coverHasSomeFlags(struct cover *cover)
+{
+	return (cover->flags & (COVERFLAG_0080 | COVERFLAG_0040 | COVERFLAG_0020)) != 0;
+}
+
 GLOBAL_ASM(
-glabel func0f1165b0
-/*  f1165b0:	9482000c */ 	lhu	$v0,0xc($a0)
-/*  f1165b4:	304e00e0 */ 	andi	$t6,$v0,0xe0
-/*  f1165b8:	03e00008 */ 	jr	$ra
-/*  f1165bc:	000e102b */ 	sltu	$v0,$zero,$t6
+glabel func0f1165c0
 /*  f1165c0:	afa50004 */ 	sw	$a1,0x4($sp)
 /*  f1165c4:	03e00008 */ 	jr	$ra
 /*  f1165c8:	00801025 */ 	or	$v0,$a0,$zero
