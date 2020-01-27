@@ -847,9 +847,7 @@ bool coverHasSomeFlags(struct cover *cover)
 	return (cover->flags & (COVERFLAG_0080 | COVERFLAG_0040 | COVERFLAG_0020)) != 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1165c0
-/*  f1165c0:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f1165c4:	03e00008 */ 	jr	$ra
-/*  f1165c8:	00801025 */ 	or	$v0,$a0,$zero
-);
+s32 func0f1165c0(s32 arg0, s32 arg1)
+{
+	return arg0;
+}
