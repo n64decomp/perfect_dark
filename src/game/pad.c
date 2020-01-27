@@ -795,12 +795,10 @@ s32 coverGetNumByIndex(s32 index)
 	return g_CoverNums[index];
 }
 
-GLOBAL_ASM(
-glabel func0f116450
-/*  f116450:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f116454:	03e00008 */ 	jr	$ra
-/*  f116458:	00801025 */ 	or	$v0,$a0,$zero
-);
+s32 func0f116450(s32 arg0, s32 arg1)
+{
+	return arg0;
+}
 
 bool coverHasFlag0002(s32 covernum)
 {
