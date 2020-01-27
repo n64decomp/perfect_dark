@@ -79,6 +79,60 @@
 // 0x19
 #define AMMOTYPE_ECM_MINE    0x20
 
+#define ANIM_IDLE                   0x0000
+#define ANIM_TWO_GUN_HOLD           0x0001
+#define ANIM_SURRENDER_002E         0x002e
+#define ANIM_TALKING_003D           0x003d
+#define ANIM_TALKING_0098           0x0098
+#define ANIM_YAWN                   0x009a
+#define ANIM_SCRATCH_HEAD           0x009b
+#define ANIM_ROLL_HEAD              0x009c
+#define ANIM_GRAB_CROTCH            0x009d
+#define ANIM_GRAB_BUTT              0x009e
+#define ANIM_SNEEZE                 0x009f
+#define ANIM_TALKING_00A0           0x00a0
+#define ANIM_TALKING_00A3           0x00a3
+#define ANIM_PUSH_BUTTON            0x00ac
+#define ANIM_STANDING_TYPE_ONE_HAND 0x00af
+#define ANIM_COWER_01F5             0x01f5
+#define ANIM_STAND_UP_FROM_SITTING  0x01fa
+#define ANIM_SITTING_TYPING         0x01fb
+#define ANIM_RELOAD                 0x01ff
+#define ANIM_DONT_SHOOT             0x0201
+#define ANIM_SURPRISED_0202         0x0202
+#define ANIM_OPERATE_0204           0x0204
+#define ANIM_OPERATE_0205           0x0205
+#define ANIM_OPERATE_0206           0x0206
+#define ANIM_SMOKE_CIGARETTE        0x0207
+#define ANIM_RELOAD_0209            0x0209
+#define ANIM_OPERATE_0221           0x0221
+#define ANIM_OPERATE_0222           0x0222
+#define ANIM_OPERATE_0223           0x0223
+#define ANIM_WALK_BACKWARDS         0x0226
+#define ANIM_SITTING_DORMANT        0x0227
+#define ANIM_BLINDED                0x0228
+#define ANIM_COWER_0229             0x0229
+#define ANIM_TALKING_0231           0x0231
+#define ANIM_TALKING_0232           0x0232
+#define ANIM_TALKING_0233           0x0233
+#define ANIM_TALKING_0234           0x0234
+#define ANIM_HEAD_ROLL              0x023b
+#define ANIM_PICK_UP_GUN            0x023d
+#define ANIM_BIG_SNEEZE             0x023f
+#define ANIM_DRAW_PISTOL_0245       0x0245
+#define ANIM_LOOK_AROUND_025B       0x025b
+#define ANIM_LOOK_AROUND_025C       0x025c
+#define ANIM_LOOK_AROUND_025D       0x025d
+#define ANIM_LOOK_AROUND_025E       0x025e
+#define ANIM_LOOK_AROUND_FRANTIC    0x025f
+#define ANIM_SITTING_0265           0x0265
+#define ANIM_SNIPING_0269           0x0269
+#define ANIM_SNIPING_026A           0x026a
+#define ANIM_SNIPING_026B           0x026b
+#define ANIM_DRAW_PISTOL_0288       0x0288
+#define ANIM_DRAW_PISTOL_0289       0x0289
+#define ANIM_SKEDAR_COLLAPSE        0x0352
+
 #define BANK_0 0
 #define BANK_1 1
 #define BANK_2 2
@@ -547,797 +601,6 @@
 #define MENUOP_101             101
 #define MENUOP_102             102
 
-#define MPLOCKTYPE_NONE       0
-#define MPLOCKTYPE_LASTWINNER 1
-#define MPLOCKTYPE_LASTLOSER  2
-#define MPLOCKTYPE_RANDOM     3
-#define MPLOCKTYPE_PLAYER     4
-#define MPLOCKTYPE_CHALLENGE  5
-
-#define MPOPTION_TEAMSENABLED       0x00000002
-#define MPOPTION_NORADAR            0x00000004
-#define MPOPTION_NOAUTOAIM          0x00000008
-#define MPOPTION_NOPLAYERHIGHLIGHT  0x00000010
-#define MPOPTION_NOPICKUPHIGHLIGHT  0x00000020
-#define MPOPTION_FASTMOVEMENT       0x00000100
-#define MPOPTION_KILLSSCORE         0x00000400
-#define MPOPTION_HIGHLIGHTBRIEFCASE 0x00000800
-#define MPOPTION_SHOWONRADAR1       0x00001000
-#define MPOPTION_SHOWONRADAR2       0x00002000
-#define MPOPTION_HILLONRADAR        0x00004000
-#define MPOPTION_MOBILEHILL         0x00008000
-#define MPOPTION_HIGHLIGHTTERMINAL  0x00020000
-#define MPOPTION_SHOWONRADAR3       0x00040000
-#define MPOPTION_HIGHLIGHTTARGET    0x00080000
-#define MPOPTION_SHOWONRADAR4       0x00100000
-
-#define MPPLAYERTITLE_BEGINNER     0
-#define MPPLAYERTITLE_TRAINEE      1
-#define MPPLAYERTITLE_AMATEUR      2
-#define MPPLAYERTITLE_ROOKIE       3
-#define MPPLAYERTITLE_NOVICE       4
-#define MPPLAYERTITLE_TROOPER      5
-#define MPPLAYERTITLE_AGENT        6
-#define MPPLAYERTITLE_STARAGENT    7
-#define MPPLAYERTITLE_SPECIALAGENT 8
-#define MPPLAYERTITLE_EXPERT       9
-#define MPPLAYERTITLE_VETERAN      10
-#define MPPLAYERTITLE_PROFESSIONAL 11
-#define MPPLAYERTITLE_DANGEROUS    12
-#define MPPLAYERTITLE_DEADLY       13
-#define MPPLAYERTITLE_KILLER       14
-#define MPPLAYERTITLE_ASSASSIN     15
-#define MPPLAYERTITLE_LETHAL       16
-#define MPPLAYERTITLE_ELITE        17
-#define MPPLAYERTITLE_INVINCIBLE   18
-#define MPPLAYERTITLE_NEARPERFECT  19
-#define MPPLAYERTITLE_PERFECT      20
-
-#define MPQUICKTEAM_PLAYERSONLY    0
-#define MPQUICKTEAM_PLAYERSANDSIMS 1
-#define MPQUICKTEAM_PLAYERSTEAMS   2
-#define MPQUICKTEAM_PLAYERSVSSIMS  3
-#define MPQUICKTEAM_PLAYERSIMTEAMS 4
-#define MPQUICKTEAM_5              5
-
-#define MPSCENARIO_COMBAT           0
-#define MPSCENARIO_HOLDTHEBRIEFCASE 1
-#define MPSCENARIO_HACKERCENTRAL    2
-#define MPSCENARIO_POPACAP          3
-#define MPSCENARIO_KINGOFTHEHILL    4
-#define MPSCENARIO_CAPTURETHECASE   5
-
-#define NUM_AICOMMANDS       481
-#define NUM_CHALLENGES       30
-#define NUM_CHEATS           42
-#define NUM_EXPLOSIONTYPES   26
-#define NUM_FIRESLOTS        20
-#define NUM_MPBEAUHEADS      5
-#define NUM_MPBOTCOMMANDS    14
-#define NUM_MPBODIES         61
-#define NUM_MPHEADS          75
-#define NUM_MPPRESETS        14
-#define NUM_MPTRACKS         42
-#define NUM_SMOKETYPES       23
-#define NUM_SOLONORMALSTAGES 17
-#define NUM_SOLOSTAGES       21
-#define NUM_STAGES           90
-#define NUM_WEAPONS          94
-
-// obj->flags
-#define OBJFLAG_00000001             0x00000001 // Editor: "Fall to Ground"
-#define OBJFLAG_00000002             0x00000002 // Editor: "In Air Rotated 90 Deg Upside-Down"
-#define OBJFLAG_00000004             0x00000004 // Editor: "In Air Upside-Down"
-#define OBJFLAG_00000008             0x00000008 // Editor: "In Air"
-#define OBJFLAG_00000010             0x00000010 // Editor: "Scale to Pad Bounds"
-#define OBJFLAG_00000020             0x00000020 // Editor: "X to Pad Bounds"
-#define OBJFLAG_00000040             0x00000040 // Editor: "Y to Pad Bounds"
-#define OBJFLAG_00000080             0x00000080 // Editor: "Z to Pad Bounds"
-#define OBJFLAG_00000100             0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
-#define OBJFLAG_00000200             0x00000200 // Editor: "Special Environment Mapping"
-#define OBJFLAG_ILLUMINATED          0x00000400
-#define OBJFLAG_00000800             0x00000800 // Editor: "Free Standing Glass"
-#define OBJFLAG_00001000             0x00001000 // Editor: "Absolute Position"
-#define OBJFLAG_00002000             0x00002000 // AF1 commhubs. Editor suggests "Weapon Not Dropped"
-#define OBJFLAG_00004000             0x00004000 // Editor: "Assigned to Actor"
-#define OBJFLAG_00008000             0x00008000 // Editor: "Embedded Object"
-#define OBJFLAG_00010000             0x00010000 // Not used in scripts
-#define OBJFLAG_INVINCIBLE           0x00020000
-#define OBJFLAG_COLLECTABLE          0x00040000
-#define OBJFLAG_00080000             0x00080000 // Not used in scripts
-#define OBJFLAG_UNCOLLECTABLE        0x00100000
-#define OBJFLAG_00200000             0x00200000 // Editor: "Bounce and Destroy If Shot"
-#define OBJFLAG_00400000             0x00400000 // Not used in scripts
-#define OBJFLAG_00800000             0x00800000 // Not used in scripts
-#define OBJFLAG_01000000             0x01000000 // Editor: "Embedded Object"
-#define OBJFLAG_CANNOT_ACTIVATE      0x02000000 // Makes it do nothing if player presses B on object. Used mostly for doors.
-#define OBJFLAG_04000000             0x04000000 // Editor: "AI Sees Through Door/Object"
-#define OBJFLAG_08000000             0x08000000 // Not used in scripts
-#define OBJFLAG_DEACTIVATED          0x10000000
-#define OBJFLAG_20000000             0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
-#define OBJFLAG_40000000             0x40000000 // Editor: "Door open by default/Empty weapon"
-#define OBJFLAG_INTERCEPTOR_DISABLED 0x80000000
-
-// obj->flags2
-#define OBJFLAG2_00000001     0x00000001 // Used only in CI Training
-#define OBJFLAG2_00000002     0x00000002 // Ruins spikes
-#define OBJFLAG2_00000004     0x00000004 // Defense hostage doors - openable by AI?
-#define OBJFLAG2_00000008     0x00000008 // Editor: "Don't load in Multiplayer"
-#define OBJFLAG2_00000010     0x00000010 // Editor: "Don't Load on Agent Mode"
-#define OBJFLAG2_00000020     0x00000020 // Editor: "Don't Load on Secret Agent Mode"
-#define OBJFLAG2_00000040     0x00000040 // Editor: "Don't Load on Perfect Agent Mode"
-#define OBJFLAG2_00000080     0x00000080 // Not used in scripts
-#define OBJFLAG2_00000100     0x00000100 // Editor: "Immobile"
-#define OBJFLAG2_00000200     0x00000200 // Editor: "Mines"
-#define OBJFLAG2_00000400     0x00000400 // Not used in scripts
-#define OBJFLAG2_00000800     0x00000800 // Editor: "Don't activate if clipping gap Jo/Object"
-#define OBJFLAG2_00001000     0x00001000 // Investigation CMP150s, Air Base safe item and shield
-#define OBJFLAG2_00002000     0x00002000 // Ruins commhub - used as a "shown message" flag
-#define OBJFLAG2_00004000     0x00004000 // Editor: "Immune to Gunfire"
-#define OBJFLAG2_SHOOTTHROUGH 0x00008000
-#define OBJFLAG2_DRAWONTOP    0x00010000
-#define OBJFLAG2_00020000     0x00020000 // G5 mine, Air Base mine
-#define OBJFLAG2_00040000     0x00040000 // Only used in CI training
-#define OBJFLAG2_INVISIBLE    0x00080000
-#define OBJFLAG2_00100000     0x00100000 // Editor: "Bulletproof Glass"
-#define OBJFLAG2_00200000     0x00200000 // Editor: "Immune to Explosions" (Ruins spikes)
-#define OBJFLAG2_00400000     0x00400000 // Editor: "Don't load on 2P (coop/anti)"
-#define OBJFLAG2_00800000     0x00800000 // Editor: "Don't load on 3P"
-#define OBJFLAG2_01000000     0x01000000 // Editor: "Don't load on 4P"
-#define OBJFLAG2_THROWTHROUGH 0x02000000 // Rockets/mines/grenades etc pass through object
-#define OBJFLAG2_04000000     0x04000000 // Used quite a lot - gravity?
-#define OBJFLAG2_LOCKEDFRONT  0x08000000 // One-way door lock
-#define OBJFLAG2_LOCKEDBACK   0x10000000 // One-way door lock
-#define OBJFLAG2_AICANNOTUSE  0x20000000
-#define OBJFLAG2_40000000     0x40000000 // Used by doors
-#define OBJFLAG2_80000000     0x80000000 // Attack Ship glass
-
-// obj->flags3
-#define OBJFLAG3_PUSHABLE        0x00000001
-#define OBJFLAG3_GRABBABLE       0x00000002
-#define OBJFLAG3_DOOR_STICKY     0x00000004 // eg. Skedar Ruins
-#define OBJFLAG3_00000008        0x00000008 // Not used in scripts
-#define OBJFLAG3_00000010        0x00000010 // Used heaps
-#define OBJFLAG3_00000020        0x00000020 // Not used in scripts
-#define OBJFLAG3_RTRACKED_YELLOW 0x00000040
-#define OBJFLAG3_00000080        0x00000080 // Not used in scripts
-#define OBJFLAG3_00000100        0x00000100 // Not used in scripts
-#define OBJFLAG3_00000200        0x00000200 // Not used in scripts
-#define OBJFLAG3_WALKTRHOUGH     0x00000400
-#define OBJFLAG3_RTRACKED_BLUE   0x00000800
-#define OBJFLAG3_SHOWSHIELD      0x00001000 // Show shield effect around object (always)
-#define OBJFLAG3_00002000        0x00002000 // Not used in scripts
-#define OBJFLAG3_00004000        0x00004000 // Not used in scripts
-#define OBJFLAG3_00008000        0x00008000 // Not used in scripts
-#define OBJFLAG3_00010000        0x00010000 // Editor: "Can be activated"
-#define OBJFLAG3_00020000        0x00020000 // Not used in scripts
-#define OBJFLAG3_00040000        0x00040000 // Not used in scripts
-#define OBJFLAG3_00080000        0x00080000 // Not used in scripts
-#define OBJFLAG3_00100000        0x00100000 // Ruins spikes
-#define OBJFLAG3_00200000        0x00200000 // Not used in scripts
-#define OBJFLAG3_00400000        0x00400000 // Investigation tech items
-#define OBJFLAG3_00800000        0x00800000 // Not used in scripts
-#define OBJFLAG3_01000000        0x01000000 // Not used in scripts
-#define OBJFLAG3_02000000        0x02000000 // Not used in scripts
-#define OBJFLAG3_04000000        0x04000000 // Not used in scripts
-#define OBJFLAG3_08000000        0x08000000 // Not used in scripts
-#define OBJFLAG3_10000000        0x10000000 // Editor: "Keep Collisions After Fully Destroyed"
-#define OBJFLAG3_20000000        0x20000000 // Not used in scripts
-#define OBJFLAG3_40000000        0x40000000 // Editor: "Door Highlighted IR Scanner"
-#define OBJFLAG3_80000000        0x80000000 // Not used in scripts
-
-// obj->hidden
-#define OBJHFLAG_00000080          0x00000080
-#define OBJHFLAG_00000200          0x00000200
-#define OBJHFLAG_00000800          0x00000800
-#define OBJHFLAG_ACTIVATED_BY_BOND 0x00004000
-#define OBJHFLAG_ACTIVATED_BY_COOP 0x00040000
-#define OBJHFLAG_00200000          0x00200000
-
-#define OBJTYPE_DOOR             0x01
-#define OBJTYPE_DOORSCALE        0x02
-#define OBJTYPE_BASIC            0x03
-#define OBJTYPE_KEY              0x04
-#define OBJTYPE_05               0x05
-#define OBJTYPE_CAMERA           0x06
-#define OBJTYPE_07               0x07
-#define OBJTYPE_WEAPON           0x08
-#define OBJTYPE_CHR              0x09
-#define OBJTYPE_SINGLEMONITOR    0x0a
-#define OBJTYPE_MULTIMONITOR     0x0b
-#define OBJTYPE_0C               0x0c
-#define OBJTYPE_AUTOGUN          0x0d
-#define OBJTYPE_LINKGUNS         0x0e
-#define OBJTYPE_DEBRIS           0x0f
-#define OBJTYPE_10               0x10
-#define OBJTYPE_11               0x11
-#define OBJTYPE_12               0x12
-#define OBJTYPE_LINKOBJS         0x13
-#define OBJTYPE_MULTIAMMOCRATE   0x14
-#define OBJTYPE_SHIELD           0x15
-#define OBJTYPE_TAG              0x16
-#define OBJTYPE_BEGINOBJECTIVE   0x17
-#define OBJTYPE_ENDOBJECTIVE     0x18
-#define OBJECTIVETYPE_DESTROYOBJ 0x19
-#define OBJECTIVETYPE_COMPFLAGS  0x1a
-#define OBJECTIVETYPE_FAILFLAGS  0x1b
-#define OBJECTIVETYPE_COLLECTOBJ 0x1c
-#define OBJECTIVETYPE_THROWOBJ   0x1d
-#define OBJECTIVETYPE_HOLOGRAPH  0x1e
-#define OBJECTIVETYPE_1F         0x1f
-#define OBJECTIVETYPE_ENTERROOM  0x20
-#define OBJECTIVETYPE_ATTACHOBJ  0x21
-#define OBJTYPE_22               0x22
-#define OBJTYPE_BRIEFING         0x23
-#define OBJTYPE_24               0x24
-#define OBJTYPE_RENAMEOBJ        0x25
-#define OBJTYPE_26               0x26
-#define OBJTYPE_TRUCK            0x27
-#define OBJTYPE_HELI             0x28
-#define OBJTYPE_29               0x29
-#define OBJTYPE_GLASS            0x2a
-#define OBJTYPE_2B               0x2b
-#define OBJTYPE_2C               0x2c
-#define OBJTYPE_2D               0x2d
-#define OBJTYPE_CAMERA2          0x2e
-#define OBJTYPE_TINTEDGLASS      0x2f
-#define OBJTYPE_LIFT             0x30
-#define OBJTYPE_LINKSCENERY      0x31
-#define OBJTYPE_LINKPATHS        0x32
-#define OBJTYPE_HOVERBIKE        0x33
-#define OBJTYPE_END              0x34
-#define OBJTYPE_HOVERPROP        0x35
-#define OBJTYPE_VENTFAN          0x36
-#define OBJTYPE_HOVERCAR         0x37
-#define OBJTYPE_PADEFFECT        0x38
-#define OBJTYPE_CHOPPER          0x39
-#define OBJTYPE_MINE             0x3a
-#define OBJTYPE_ESCALATOR        0x3b
-
-#define OBJECTIVE_INCOMPLETE 0
-#define OBJECTIVE_COMPLETE   1
-#define OBJECTIVE_FAILED     2
-
-#define OPERATOR_LESS_THAN    0
-#define OPERATOR_GREATER_THAN 1
-
-#define OPTION_FORWARDPITCH     0x0001
-#define OPTION_LOOKAHEAD        0x0002
-#define OPTION_SIGHTONSCREEN    0x0004
-#define OPTION_AUTOAIM          0x0008
-#define OPTION_AIMCONTROL       0x0010
-#define OPTION_AMMOONSCREEN     0x0020
-#define OPTION_SHOWGUNFUNCTION  0x0040
-#define OPTION_HEADROLL         0x0080
-#define OPTION_ALWAYSSHOWTARGET 0x0200
-#define OPTION_SHOWZOOMRANGE    0x0400
-#define OPTION_PAINTBALL        0x0800
-#define OPTION_SHOWMISSIONTIME  0x8000
-
-#define OUTFIT_DEFAULT      0x00
-#define OUTFIT_ELVIS        0x01
-#define OUTFIT_TRENT        0x02 // unused
-#define OUTFIT_TRENCH       0x03
-#define OUTFIT_FROCK_RIPPED 0x04
-#define OUTFIT_FROCK        0x05
-#define OUTFIT_LEATHER      0x06
-#define OUTFIT_DEEPSEA      0x07
-#define OUTFIT_WETSUIT      0x08
-#define OUTFIT_SNOW         0x09
-#define OUTFIT_LAB          0x0a
-#define OUTFIT_STEWARDESS   0x0b
-#define OUTFIT_MRBLONDE     0x0c
-#define OUTFIT_MAIAN        0x0d
-#define OUTFIT_NEGOTIATOR   0x0e // unused by scripts
-
-#define PAD_PRESET 0x2328
-
-#define PADEFFECT_SPARKS          0x00
-#define PADEFFECT_01              0x01 // used only in Escape on a pad containing nothing
-#define PADEFFECT_SPLASH          0x02
-#define PADEFFECT_SPARKS2         0x03
-#define PADEFFECT_SMOKE           0x04
-#define PADEFFECT_SMOKE_TEMPORARY 0x05
-
-#define PADFIELD_POS    0x0002
-#define PADFIELD_LOOK   0x0004
-#define PADFIELD_UP     0x0008
-#define PADFIELD_NORMAL 0x0010
-#define PADFIELD_BBOX   0x0020
-#define PADFIELD_ROOM   0x0040
-#define PADFIELD_FLAGS  0x0080
-#define PADFIELD_LIFT   0x0100
-
-#define PADFLAG_INTPOS          0x0001
-#define PADFLAG_UPALIGNTOX      0x0002
-#define PADFLAG_UPALIGNTOY      0x0004
-#define PADFLAG_UPALIGNTOZ      0x0008
-#define PADFLAG_UPALIGNINVERT   0x0010
-#define PADFLAG_LOOKALIGNTOX    0x0020
-#define PADFLAG_LOOKALIGNTOY    0x0040
-#define PADFLAG_LOOKALIGNTOZ    0x0080
-#define PADFLAG_LOOKALIGNINVERT 0x0100
-#define PADFLAG_HASBBOXDATA     0x0200
-#define PADFLAG_AIWAITLIFT      0x0400
-#define PADFLAG_AIONLIFT        0x0800
-#define PADFLAG_AIWALKDIRECT    0x1000
-#define PADFLAG_AIDROP          0x2000
-#define PADFLAG_AIDUCK          0x4000
-
-#define PATHTYPE_BACKANDFORTH 0
-#define PATHTYPE_CIRCULAR     1
-#define PATHTYPE_FLYING       2
-
-#define PLAYERFLAG_NOCONTROL 0x00000002
-
-#define PROPFLAG_HIDDEN 0x04
-
-#define PROPTYPE_OBJ    1
-#define PROPTYPE_DOOR   2
-#define PROPTYPE_CHR    3
-#define PROPTYPE_WEAPON 4
-#define PROPTYPE_EYESPY 5
-#define PROPTYPE_PLAYER 6
-#define PROPTYPE_7      7
-
-#define RACE_HUMAN    0
-#define RACE_SKEDAR   1
-#define RACE_DRCAROLL 2
-#define RACE_EYESPY   3
-#define RACE_ROBOT    4
-
-#define ROOMFLAG_00004000 0x00004000
-#define ROOMFLAG_00008000 0x00008000
-
-#define SAVEFILEFLAG_USED_TRANSFERPAK     0x23
-#define SAVEFILEFLAG_CI_TOUR_DONE         0x24
-#define SAVEFILEFLAG_CI_HOLO7_DONE        0x29
-#define SAVEFILEFLAG_CI_HOLO6_DONE        0x2a
-#define SAVEFILEFLAG_CI_HOLO5_DONE        0x2b
-#define SAVEFILEFLAG_CI_HOLO4_DONE        0x2c
-#define SAVEFILEFLAG_CI_HOLO3_DONE        0x2d
-#define SAVEFILEFLAG_CI_HOLO2_DONE        0x2e
-#define SAVEFILEFLAG_CI_HOLO1_DONE        0x2f
-#define SAVEFILEFLAG_CI_CLOAK_DONE        0x30
-#define SAVEFILEFLAG_CI_DISGUISE_DONE     0x31
-#define SAVEFILEFLAG_CI_XRAY_DONE         0x32
-#define SAVEFILEFLAG_CI_IR_DONE           0x33
-#define SAVEFILEFLAG_CI_RTRACKER_DONE     0x34
-#define SAVEFILEFLAG_CI_DOORDECODER_DONE  0x35
-#define SAVEFILEFLAG_CI_NIGHTVISION_DONE  0x36
-#define SAVEFILEFLAG_CI_CAMSPY_DONE       0x37
-#define SAVEFILEFLAG_CI_ECMMINE_DONE      0x38
-#define SAVEFILEFLAG_CI_UPLINK_DONE       0x39
-#define SAVEFILEFLAG_CI_TOUR_STARTED      0x3a
-#define SAVEFILEFLAG_CRASHSITE_BIKE       0x3b
-#define SAVEFILEFLAG_DEFENSE_JON          0x3c
-#define SAVEFILEFLAG_AF1_ENTRY            0x3d
-#define SAVEFILEFLAG_RESCUE_MECHANIC_DEAD 0x3e
-#define SAVEFILEFLAG_G5_MINE              0x3f // true if thrown on top door
-
-#define SCREENRATIO_NORMAL 0
-#define SCREENRATIO_16_9   1
-
-#define SCREENSIZE_FULL   0
-#define SCREENSIZE_WIDE   1
-#define SCREENSIZE_CINEMA 2
-
-#define SCREENSPLIT_HORIZONTAL 0
-#define SCREENSPLIT_VERTICAL   1
-
-#define SMOKETYPE_0 0
-#define SMOKETYPE_1 1
-#define SMOKETYPE_2 2
-#define SMOKETYPE_3 3
-#define SMOKETYPE_4 4
-#define SMOKETYPE_5 5
-#define SMOKETYPE_6 6
-#define SMOKETYPE_7 7
-
-#define SOLOSTAGEINDEX_DEFECTION     0
-#define SOLOSTAGEINDEX_INVESTIGATION 1
-#define SOLOSTAGEINDEX_EXTRACTION    2
-#define SOLOSTAGEINDEX_VILLA         3
-#define SOLOSTAGEINDEX_CHICAGO       4
-#define SOLOSTAGEINDEX_G5BUILDING    5
-#define SOLOSTAGEINDEX_INFILTRATION  6
-#define SOLOSTAGEINDEX_RESCUE        7
-#define SOLOSTAGEINDEX_ESCAPE        8
-#define SOLOSTAGEINDEX_AIRBASE       9
-#define SOLOSTAGEINDEX_AIRFORCEONE   10
-#define SOLOSTAGEINDEX_CRASHSITE     11
-#define SOLOSTAGEINDEX_PELAGIC       12
-#define SOLOSTAGEINDEX_DEEPSEA       13
-#define SOLOSTAGEINDEX_DEFENSE       14
-#define SOLOSTAGEINDEX_ATTACKSHIP    15
-#define SOLOSTAGEINDEX_SKEDARRUINS   16
-#define SOLOSTAGEINDEX_MBR           17
-#define SOLOSTAGEINDEX_MAIANSOS      18
-#define SOLOSTAGEINDEX_WAR           19
-#define SOLOSTAGEINDEX_DUEL          20
-
-#define SOUNDMODE_MONO      0
-#define SOUNDMODE_STEREO    1
-#define SOUNDMODE_HEADPHONE 2
-#define SOUNDMODE_SURROUND  3
-
-#define SPEED_WALK 0
-#define SPEED_JOG  1
-#define SPEED_RUN  2
-
-#define STAGE_MAIANSOS      0x09
-#define STAGE_TEST_SILO     0x14
-#define STAGE_WAR           0x16
-#define STAGE_MP_RAVINE     0x17
-#define STAGE_TEST_ARCH     0x18
-#define STAGE_ESCAPE        0x19
-#define STAGE_TEST_DEST     0x1a
-#define STAGE_RETAKING      0x1b
-#define STAGE_CRASHSITE     0x1c
-#define STAGE_CHICAGO       0x1d
-#define STAGE_G5BUILDING    0x1e
-#define STAGE_MP_COMPLEX    0x1f
-#define STAGE_MP_G5BUILDING 0x20
-#define STAGE_PELAGIC       0x21
-#define STAGE_EXTRACTION    0x22
-#define STAGE_TEST_RUN      0x23
-#define STAGE_MP_TEMPLE     0x25
-#define STAGE_CITRAINING    0x26
-#define STAGE_AIRBASE       0x27
-#define STAGE_MP_PIPES      0x29
-#define STAGE_SKEDARRUINS   0x2a
-#define STAGE_VILLA         0x2c
-#define STAGE_DEFENSE       0x2d
-#define STAGE_TEST_ASH      0x2e
-#define STAGE_INFILTRATION  0x2f
-#define STAGE_DEFECTION     0x30
-#define STAGE_AIRFORCEONE   0x31
-#define STAGE_MP_SKEDAR     0x32
-#define STAGE_INVESTIGATION 0x33
-#define STAGE_ATTACKSHIP    0x34
-#define STAGE_RESCUE        0x35
-#define STAGE_TEST_LEN      0x36
-#define STAGE_MBR           0x37
-#define STAGE_DEEPSEA       0x38
-#define STAGE_MP_BASE       0x39
-#define STAGE_TEST_MP2      0x3a
-#define STAGE_MP_AREA52     0x3b
-#define STAGE_MP_WAREHOUSE  0x3c
-#define STAGE_MP_CARPARK    0x3d
-#define STAGE_TEST_MP6      0x3e
-#define STAGE_TEST_MP7      0x3f
-#define STAGE_TEST_MP8      0x40
-#define STAGE_MP_RUINS      0x41
-#define STAGE_MP_SEWERS     0x42
-#define STAGE_MP_FELICITY   0x43
-#define STAGE_MP_FORTRESS   0x44
-#define STAGE_MP_VILLA      0x45
-#define STAGE_TEST_MP14     0x46
-#define STAGE_MP_GRID       0x47
-#define STAGE_TEST_MP16     0x48
-#define STAGE_TEST_MP17     0x49
-#define STAGE_TEST_MP18     0x4a
-#define STAGE_TEST_MP19     0x4b
-#define STAGE_TEST_MP20     0x4c
-#define STAGE_TEST_UFF      0x4d
-#define STAGE_TEST_OLD      0x4e
-#define STAGE_DUEL          0x4f
-#define STAGE_TEST_LAM      0x50
-
-#define STAGEINDEX_MAIANSOS      0x00
-#define STAGEINDEX_TEST_SILO     0x01
-#define STAGEINDEX_WAR           0x02
-#define STAGEINDEX_MP_RAVINE     0x03
-#define STAGEINDEX_TEST_ARCH     0x04
-#define STAGEINDEX_ESCAPE        0x05
-#define STAGEINDEX_TEST_DEST     0x06
-#define STAGEINDEX_RETAKING      0x07
-#define STAGEINDEX_CRASHSITE     0x08
-#define STAGEINDEX_CHICAGO       0x09
-#define STAGEINDEX_G5BUILDING    0x0a
-#define STAGEINDEX_MP_COMPLEX    0x0b
-#define STAGEINDEX_MP_G5BUILDING 0x0c
-#define STAGEINDEX_PELAGIC       0x0d
-#define STAGEINDEX_EXTRACTION    0x0e
-#define STAGEINDEX_TEST_RUN      0x0f
-#define STAGEINDEX_MP_TEMPLE     0x11
-#define STAGEINDEX_CITRAINING    0x12
-#define STAGEINDEX_AIRBASE       0x13
-#define STAGEINDEX_MP_PIPES      0x15
-#define STAGEINDEX_SKEDARRUINS   0x16
-#define STAGEINDEX_VILLA         0x18
-#define STAGEINDEX_DEFENSE       0x19
-#define STAGEINDEX_TEST_ASH      0x1a
-#define STAGEINDEX_INFILTRATION  0x1b
-#define STAGEINDEX_DEFECTION     0x1c
-#define STAGEINDEX_AIRFORCEONE   0x1d
-#define STAGEINDEX_MP_SKEDAR     0x1e
-#define STAGEINDEX_INVESTIGATION 0x1f
-#define STAGEINDEX_ATTACKSHIP    0x20
-#define STAGEINDEX_RESCUE        0x21
-#define STAGEINDEX_TEST_LEN      0x22
-#define STAGEINDEX_MBR           0x23
-#define STAGEINDEX_DEEPSEA       0x24
-#define STAGEINDEX_TEST_UFF      0x25
-#define STAGEINDEX_TEST_OLD      0x26
-#define STAGEINDEX_DUEL          0x27
-#define STAGEINDEX_TEST_LAM      0x28
-#define STAGEINDEX_MP_BASE       0x29
-#define STAGEINDEX_TEST_MP2      0x2a
-#define STAGEINDEX_MP_AREA52     0x2b
-#define STAGEINDEX_MP_WAREHOUSE  0x2c
-#define STAGEINDEX_MP_CARPARK    0x2d
-#define STAGEINDEX_TEST_MP6      0x2e
-#define STAGEINDEX_TEST_MP7      0x2f
-#define STAGEINDEX_TEST_MP8      0x30
-#define STAGEINDEX_MP_RUINS      0x31
-#define STAGEINDEX_MP_SEWERS     0x32
-#define STAGEINDEX_MP_FELICITY   0x33
-#define STAGEINDEX_MP_FORTRESS   0x34
-#define STAGEINDEX_MP_VILLA      0x35
-#define STAGEINDEX_TEST_MP14     0x36
-#define STAGEINDEX_MP_GRID       0x37
-#define STAGEINDEX_TEST_MP16     0x38
-#define STAGEINDEX_TEST_MP17     0x39
-#define STAGEINDEX_TEST_MP18     0x3a
-#define STAGEINDEX_TEST_MP19     0x3b
-#define STAGEINDEX_TEST_MP20     0x3c
-
-#define TELEPORTSTATE_STARTING 1
-#define TELEPORTSTATE_3 3
-#define TELEPORTSTATE_4 4
-
-#define WEAPON_NONE              0x00
-#define WEAPON_UNARMED           0x01
-#define WEAPON_FALCON2           0x02
-#define WEAPON_FALCON2_SILENCER  0x03
-#define WEAPON_FALCON2_SCOPE     0x04
-#define WEAPON_MAGSEC4           0x05
-#define WEAPON_MAULER            0x06
-#define WEAPON_PHOENIX           0x07
-#define WEAPON_DY357MAGNUM       0x08
-#define WEAPON_DY357LX           0x09
-#define WEAPON_CMP150            0x0a
-#define WEAPON_CYCLONE           0x0b
-#define WEAPON_CALLISTONTG       0x0c
-#define WEAPON_RCP120            0x0d
-#define WEAPON_LAPTOPGUN         0x0e
-#define WEAPON_DRAGON            0x0f
-#define WEAPON_K7AVENGER         0x10
-#define WEAPON_AR34              0x11
-#define WEAPON_SUPERDRAGON       0x12
-#define WEAPON_SHOTGUN           0x13
-#define WEAPON_REAPER            0x14
-#define WEAPON_SNIPERRIFLE       0x15
-#define WEAPON_FARSIGHTXR20      0x16
-#define WEAPON_DEVASTATOR        0x17
-#define WEAPON_ROCKETLAUNCHER    0x18
-#define WEAPON_SLAYER            0x19
-#define WEAPON_COMBATKNIFE       0x1a
-#define WEAPON_CROSSBOW          0x1b
-#define WEAPON_TRANQUILIZER      0x1c
-#define WEAPON_LASER             0x1d
-#define WEAPON_GRENADE           0x1e
-#define WEAPON_NBOMB             0x1f
-#define WEAPON_TIMEDMINE         0x20
-#define WEAPON_PROXIMITYMINE     0x21
-#define WEAPON_REMOTEMINE        0x22
-#define WEAPON_COMBATBOOST       0x23
-#define WEAPON_PP9I              0x24
-#define WEAPON_CC13              0x25
-#define WEAPON_KL01313           0x26
-#define WEAPON_KF7SPECIAL        0x27
-#define WEAPON_ZZT9MM            0x28
-#define WEAPON_DMC               0x29
-#define WEAPON_AR53              0x2a
-#define WEAPON_RCP45             0x2b
-#define WEAPON_PSYCHOSISGUN      0x2c
-#define WEAPON_NIGHTVISION       0x2d
-#define WEAPON_CAMSPY            0x2e
-#define WEAPON_XRAYSCANNER       0x2f
-#define WEAPON_IRSCANNER         0x30
-#define WEAPON_CLOAKINGDEVICE    0x31
-#define WEAPON_HORIZONSCANNER    0x32
-#define WEAPON_TESTER            0x33
-#define WEAPON_ROCKETLAUNCHER_34 0x34
-#define WEAPON_ECMMINE           0x35
-#define WEAPON_DATAUPLINK        0x36
-#define WEAPON_RTRACKER          0x37
-#define WEAPON_PRESIDENTSCANNER  0x38
-#define WEAPON_DOORDECODER       0x39
-#define WEAPON_AUTOSURGEON       0x3a
-#define WEAPON_EXPLOSIVES        0x3b
-#define WEAPON_SKEDARBOMB        0x3c
-#define WEAPON_COMMSRIDER        0x3d
-#define WEAPON_TRACERBUG         0x3e
-#define WEAPON_TARGETAMPLIFIER   0x3f
-#define WEAPON_DISGUISE40        0x40
-#define WEAPON_DISGUISE41        0x41
-#define WEAPON_FLIGHTPLANS       0x42
-#define WEAPON_RESEARCHTAPE      0x43
-#define WEAPON_BACKUPDISK        0x44
-#define WEAPON_KEYCARD45         0x45
-#define WEAPON_KEYCARD46         0x46
-#define WEAPON_KEYCARD47         0x47
-#define WEAPON_KEYCARD48         0x48
-#define WEAPON_KEYCARD49         0x49
-#define WEAPON_KEYCARD4A         0x4a
-#define WEAPON_KEYCARD4B         0x4b
-#define WEAPON_KEYCARD4C         0x4c
-#define WEAPON_SUITCASE          0x4d
-#define WEAPON_BRIEFCASE         0x4e
-#define WEAPON_SHIELD            0x4f
-#define WEAPON_NECKLACE          0x50
-#define WEAPON_HAMMER            0x51
-#define WEAPON_52                0x52
-#define WEAPON_ROCKET            0x53
-#define WEAPON_HOMINGROCKET      0x54
-#define WEAPON_GRENADEROUND      0x55
-#define WEAPON_BOLT              0x56
-#define WEAPON_BRIEFCASE2        0x57
-#define WEAPON_ROCKET2           0x58
-#define WEAPON_59                0x59
-#define WEAPON_5A                0x5a
-#define WEAPON_5B                0x5b
-#define WEAPON_5C                0x5c
-#define WEAPON_SUICIDEPILL       0x5d
-
-#define WEAPONFLAG_00000010 0x00000010
-
-// Heads and bodies
-#define HEAD_RANDOM           -1
-#define BODY_DJBOND           0x00
-#define BODY_CONNERY          0x01
-#define BODY_DALTON           0x02
-#define BODY_MOORE            0x03
-#define HEAD_DARK_COMBAT      0x04
-#define HEAD_ELVIS            0x05
-#define HEAD_ROSS             0x06
-#define HEAD_CARRINGTON       0x07
-#define HEAD_MRBLONDE         0x08
-#define HEAD_TRENT            0x09
-#define HEAD_DDSHOCK          0x0a
-#define HEAD_GRAHAM           0x0b
-#define HEAD_DARK_FROCK       0x0c
-#define HEAD_SECRETARY        0x0d
-#define HEAD_CASSANDRA        0x0e
-#define HEAD_THEKING          0x0f
-#define HEAD_FEM_GUARD        0x10
-#define HEAD_JON              0x11
-#define HEAD_MARK2            0x12
-#define HEAD_CHRIST           0x13
-#define HEAD_RUSS             0x14
-#define HEAD_GREY             0x15
-#define HEAD_DARLING          0x16
-#define HEAD_ROBERT           0x17
-#define HEAD_BEAU1            0x18
-#define HEAD_FEM_GUARD2       0x19
-#define HEAD_BRIAN            0x1a
-#define HEAD_JAMIE            0x1b
-#define HEAD_DUNCAN2          0x1c
-#define HEAD_BIOTECH          0x1d
-#define HEAD_NEIL2            0x1e
-#define HEAD_EDMCG            0x1f
-#define HEAD_ANKA             0x20
-#define HEAD_LESLIE_S         0x21
-#define HEAD_MATT_C           0x22
-#define HEAD_PEER_S           0x23
-#define HEAD_EILEEN_T         0x24
-#define HEAD_ANDY_R           0x25
-#define HEAD_BEN_R            0x26
-#define HEAD_STEVE_K          0x27
-#define HEAD_JONATHAN         0x28
-#define HEAD_MAIAN_S          0x29
-#define HEAD_SHAUN            0x2a
-#define HEAD_BEAU2            0x2b
-#define HEAD_EILEEN_H         0x2c
-#define HEAD_SCOTT_H          0x2d
-#define HEAD_SANCHEZ          0x2e
-#define HEAD_DARKAQUA         0x2f
-#define HEAD_DDSNIPER         0x30
-#define HEAD_BEAU3            0x31
-#define HEAD_BEAU4            0x32
-#define HEAD_BEAU5            0x33
-#define HEAD_BEAU6            0x34
-#define HEAD_GRIFFEY          0x35
-#define HEAD_MOTO             0x36
-#define HEAD_KEITH            0x37
-#define HEAD_WINNER           0x38
-#define HEAD_A51FACEPLATE     0x39
-#define HEAD_ELVIS_GOGS       0x3a
-#define HEAD_STEVEM           0x3b
-#define HEAD_DARK_SNOW        0x3c
-#define HEAD_PRESIDENT        0x3d
-#define HEAD_VD               0x3e
-#define HEAD_KEN              0x3f
-#define HEAD_JOEL             0x40
-#define HEAD_TIM              0x41
-#define HEAD_GRANT            0x42
-#define HEAD_PENNY            0x43
-#define HEAD_ROBIN            0x44
-#define HEAD_ALEX             0x45
-#define HEAD_JULIANNE         0x46
-#define HEAD_LAURA            0x47
-#define HEAD_DAVEC            0x48
-#define HEAD_COOK             0x49
-#define HEAD_PRYCE            0x4a
-#define HEAD_SILKE            0x4b
-#define HEAD_SMITH            0x4c
-#define HEAD_GARETH           0x4d
-#define HEAD_MURCHIE          0x4e
-#define HEAD_WONG             0x4f
-#define HEAD_CARTER           0x50
-#define HEAD_TINTIN           0x51
-#define HEAD_MUNTON           0x52
-#define HEAD_STAMPER          0x53
-#define HEAD_JONES            0x54
-#define HEAD_PHELPS           0x55
-#define BODY_DARK_COMBAT      0x56
-#define BODY_ELVIS1           0x57
-#define BODY_AREA51GUARD      0x58
-#define BODY_OVERALL          0x59
-#define BODY_CARRINGTON       0x5a
-#define BODY_MRBLONDE         0x5b
-#define BODY_SKEDAR           0x5c
-#define BODY_TRENT            0x5d
-#define BODY_DDSHOCK          0x5e
-#define BODY_LABTECH          0x5f
-#define BODY_STRIPES          0x60
-#define BODY_DARK_FROCK       0x61
-#define BODY_DARK_TRENCH      0x62
-#define BODY_OFFICEWORKER     0x63
-#define BODY_OFFICEWORKER2    0x64
-#define BODY_SECRETARY        0x65
-#define BODY_CASSANDRA        0x66
-#define BODY_THEKING          0x67
-#define BODY_FEM_GUARD        0x68
-#define BODY_DD_LABTECH       0x69
-#define BODY_DD_SECGUARD      0x6a
-#define BODY_DRCAROLL         0x6b
-#define BODY_EYESPY           0x6c
-#define BODY_DARK_RIPPED      0x6d
-#define BODY_DD_GUARD         0x6e
-#define BODY_DD_SHOCK_INF     0x6f
-#define BODY_TESTCHR          0x70
-#define BODY_BIOTECH          0x71
-#define BODY_FBIGUY           0x72
-#define BODY_CIAGUY           0x73
-#define BODY_A51TROOPER       0x74
-#define BODY_A51AIRMAN        0x75
-#define BODY_CHICROB          0x76
-#define BODY_STEWARD          0x77
-#define BODY_STEWARDESS       0x78
-#define BODY_PRESIDENT        0x79
-#define BODY_STEWARDESS_COAT  0x7a
-#define BODY_MINISKEDAR       0x7b
-#define BODY_NSA_LACKEY       0x7c
-#define BODY_PRES_SECURITY    0x7d
-#define BODY_NEGOTIATOR       0x7e
-#define BODY_G5_GUARD         0x7f
-#define BODY_PELAGIC_GUARD    0x80
-#define BODY_G5_SWAT_GUARD    0x81
-#define BODY_ALASKAN_GUARD    0x82
-#define BODY_MAIAN_SOLDIER    0x83
-#define BODY_PRESIDENT_CLONE  0x84
-#define BODY_PRESIDENT_CLONE2 0x85
-#define BODY_DARK_AF1         0x86
-#define BODY_DARKWET          0x87
-#define BODY_DARKAQUALUNG     0x88
-#define BODY_DARKSNOW         0x89
-#define BODY_DARKLAB          0x8a
-#define BODY_FEMLABTECH       0x8b
-#define BODY_DDSNIPER         0x8c
-#define BODY_PILOTAF1         0x8d
-#define BODY_CILABTECH        0x8e
-#define BODY_CIFEMTECH        0x8f
-#define BODY_CARREVENINGSUIT  0x90
-#define BODY_JONATHAN         0x91
-#define BODY_CISOLDIER        0x92
-#define BODY_SKEDARKING       0x93
-#define BODY_ELVISWAISTCOAT   0x94
-#define BODY_DARK_LEATHER     0x95
-#define BODY_DARK_NEGOTIATOR  0x96
-
 // Models
 #define MODEL_ROOFGUN               0x0000
 #define MODEL_GROUNDGUN             0x0001
@@ -1781,6 +1044,66 @@
 #define MODEL_CETANDOORSIDE         0x01b7
 #define MODEL_BUDDYBRIDGE           0x01b8
 
+#define MPLOCKTYPE_NONE       0
+#define MPLOCKTYPE_LASTWINNER 1
+#define MPLOCKTYPE_LASTLOSER  2
+#define MPLOCKTYPE_RANDOM     3
+#define MPLOCKTYPE_PLAYER     4
+#define MPLOCKTYPE_CHALLENGE  5
+
+#define MPOPTION_TEAMSENABLED       0x00000002
+#define MPOPTION_NORADAR            0x00000004
+#define MPOPTION_NOAUTOAIM          0x00000008
+#define MPOPTION_NOPLAYERHIGHLIGHT  0x00000010
+#define MPOPTION_NOPICKUPHIGHLIGHT  0x00000020
+#define MPOPTION_FASTMOVEMENT       0x00000100
+#define MPOPTION_KILLSSCORE         0x00000400
+#define MPOPTION_HIGHLIGHTBRIEFCASE 0x00000800
+#define MPOPTION_SHOWONRADAR1       0x00001000
+#define MPOPTION_SHOWONRADAR2       0x00002000
+#define MPOPTION_HILLONRADAR        0x00004000
+#define MPOPTION_MOBILEHILL         0x00008000
+#define MPOPTION_HIGHLIGHTTERMINAL  0x00020000
+#define MPOPTION_SHOWONRADAR3       0x00040000
+#define MPOPTION_HIGHLIGHTTARGET    0x00080000
+#define MPOPTION_SHOWONRADAR4       0x00100000
+
+#define MPPLAYERTITLE_BEGINNER     0
+#define MPPLAYERTITLE_TRAINEE      1
+#define MPPLAYERTITLE_AMATEUR      2
+#define MPPLAYERTITLE_ROOKIE       3
+#define MPPLAYERTITLE_NOVICE       4
+#define MPPLAYERTITLE_TROOPER      5
+#define MPPLAYERTITLE_AGENT        6
+#define MPPLAYERTITLE_STARAGENT    7
+#define MPPLAYERTITLE_SPECIALAGENT 8
+#define MPPLAYERTITLE_EXPERT       9
+#define MPPLAYERTITLE_VETERAN      10
+#define MPPLAYERTITLE_PROFESSIONAL 11
+#define MPPLAYERTITLE_DANGEROUS    12
+#define MPPLAYERTITLE_DEADLY       13
+#define MPPLAYERTITLE_KILLER       14
+#define MPPLAYERTITLE_ASSASSIN     15
+#define MPPLAYERTITLE_LETHAL       16
+#define MPPLAYERTITLE_ELITE        17
+#define MPPLAYERTITLE_INVINCIBLE   18
+#define MPPLAYERTITLE_NEARPERFECT  19
+#define MPPLAYERTITLE_PERFECT      20
+
+#define MPQUICKTEAM_PLAYERSONLY    0
+#define MPQUICKTEAM_PLAYERSANDSIMS 1
+#define MPQUICKTEAM_PLAYERSTEAMS   2
+#define MPQUICKTEAM_PLAYERSVSSIMS  3
+#define MPQUICKTEAM_PLAYERSIMTEAMS 4
+#define MPQUICKTEAM_5              5
+
+#define MPSCENARIO_COMBAT           0
+#define MPSCENARIO_HOLDTHEBRIEFCASE 1
+#define MPSCENARIO_HACKERCENTRAL    2
+#define MPSCENARIO_POPACAP          3
+#define MPSCENARIO_KINGOFTHEHILL    4
+#define MPSCENARIO_CAPTURETHECASE   5
+
 #define MUSIC_NONE                    0x00
 #define MUSIC_TITLE2                  0x01
 #define MUSIC_EXTRACTION              0x02
@@ -1901,6 +1224,324 @@
 #define MUSIC_BETA_MELODY             0x75
 #define MUSIC_ESCAPE_OUTRO_SHORT      0x76
 
+#define NUM_AICOMMANDS       481
+#define NUM_CHALLENGES       30
+#define NUM_CHEATS           42
+#define NUM_EXPLOSIONTYPES   26
+#define NUM_FIRESLOTS        20
+#define NUM_MPBEAUHEADS      5
+#define NUM_MPBOTCOMMANDS    14
+#define NUM_MPBODIES         61
+#define NUM_MPHEADS          75
+#define NUM_MPPRESETS        14
+#define NUM_MPTRACKS         42
+#define NUM_SMOKETYPES       23
+#define NUM_SOLONORMALSTAGES 17
+#define NUM_SOLOSTAGES       21
+#define NUM_STAGES           90
+#define NUM_WEAPONS          94
+
+// obj->flags
+#define OBJFLAG_00000001             0x00000001 // Editor: "Fall to Ground"
+#define OBJFLAG_00000002             0x00000002 // Editor: "In Air Rotated 90 Deg Upside-Down"
+#define OBJFLAG_00000004             0x00000004 // Editor: "In Air Upside-Down"
+#define OBJFLAG_00000008             0x00000008 // Editor: "In Air"
+#define OBJFLAG_00000010             0x00000010 // Editor: "Scale to Pad Bounds"
+#define OBJFLAG_00000020             0x00000020 // Editor: "X to Pad Bounds"
+#define OBJFLAG_00000040             0x00000040 // Editor: "Y to Pad Bounds"
+#define OBJFLAG_00000080             0x00000080 // Editor: "Z to Pad Bounds"
+#define OBJFLAG_00000100             0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
+#define OBJFLAG_00000200             0x00000200 // Editor: "Special Environment Mapping"
+#define OBJFLAG_ILLUMINATED          0x00000400
+#define OBJFLAG_00000800             0x00000800 // Editor: "Free Standing Glass"
+#define OBJFLAG_00001000             0x00001000 // Editor: "Absolute Position"
+#define OBJFLAG_00002000             0x00002000 // AF1 commhubs. Editor suggests "Weapon Not Dropped"
+#define OBJFLAG_00004000             0x00004000 // Editor: "Assigned to Actor"
+#define OBJFLAG_00008000             0x00008000 // Editor: "Embedded Object"
+#define OBJFLAG_00010000             0x00010000 // Not used in scripts
+#define OBJFLAG_INVINCIBLE           0x00020000
+#define OBJFLAG_COLLECTABLE          0x00040000
+#define OBJFLAG_00080000             0x00080000 // Not used in scripts
+#define OBJFLAG_UNCOLLECTABLE        0x00100000
+#define OBJFLAG_00200000             0x00200000 // Editor: "Bounce and Destroy If Shot"
+#define OBJFLAG_00400000             0x00400000 // Not used in scripts
+#define OBJFLAG_00800000             0x00800000 // Not used in scripts
+#define OBJFLAG_01000000             0x01000000 // Editor: "Embedded Object"
+#define OBJFLAG_CANNOT_ACTIVATE      0x02000000 // Makes it do nothing if player presses B on object. Used mostly for doors.
+#define OBJFLAG_04000000             0x04000000 // Editor: "AI Sees Through Door/Object"
+#define OBJFLAG_08000000             0x08000000 // Not used in scripts
+#define OBJFLAG_DEACTIVATED          0x10000000
+#define OBJFLAG_20000000             0x20000000 // Editor: "Door Opens Backwards/Special Function/Conceal Weapon"
+#define OBJFLAG_40000000             0x40000000 // Editor: "Door open by default/Empty weapon"
+#define OBJFLAG_INTERCEPTOR_DISABLED 0x80000000
+
+// obj->flags2
+#define OBJFLAG2_00000001     0x00000001 // Used only in CI Training
+#define OBJFLAG2_00000002     0x00000002 // Ruins spikes
+#define OBJFLAG2_00000004     0x00000004 // Defense hostage doors - openable by AI?
+#define OBJFLAG2_00000008     0x00000008 // Editor: "Don't load in Multiplayer"
+#define OBJFLAG2_00000010     0x00000010 // Editor: "Don't Load on Agent Mode"
+#define OBJFLAG2_00000020     0x00000020 // Editor: "Don't Load on Secret Agent Mode"
+#define OBJFLAG2_00000040     0x00000040 // Editor: "Don't Load on Perfect Agent Mode"
+#define OBJFLAG2_00000080     0x00000080 // Not used in scripts
+#define OBJFLAG2_00000100     0x00000100 // Editor: "Immobile"
+#define OBJFLAG2_00000200     0x00000200 // Editor: "Mines"
+#define OBJFLAG2_00000400     0x00000400 // Not used in scripts
+#define OBJFLAG2_00000800     0x00000800 // Editor: "Don't activate if clipping gap Jo/Object"
+#define OBJFLAG2_00001000     0x00001000 // Investigation CMP150s, Air Base safe item and shield
+#define OBJFLAG2_00002000     0x00002000 // Ruins commhub - used as a "shown message" flag
+#define OBJFLAG2_00004000     0x00004000 // Editor: "Immune to Gunfire"
+#define OBJFLAG2_SHOOTTHROUGH 0x00008000
+#define OBJFLAG2_DRAWONTOP    0x00010000
+#define OBJFLAG2_00020000     0x00020000 // G5 mine, Air Base mine
+#define OBJFLAG2_00040000     0x00040000 // Only used in CI training
+#define OBJFLAG2_INVISIBLE    0x00080000
+#define OBJFLAG2_00100000     0x00100000 // Editor: "Bulletproof Glass"
+#define OBJFLAG2_00200000     0x00200000 // Editor: "Immune to Explosions" (Ruins spikes)
+#define OBJFLAG2_00400000     0x00400000 // Editor: "Don't load on 2P (coop/anti)"
+#define OBJFLAG2_00800000     0x00800000 // Editor: "Don't load on 3P"
+#define OBJFLAG2_01000000     0x01000000 // Editor: "Don't load on 4P"
+#define OBJFLAG2_THROWTHROUGH 0x02000000 // Rockets/mines/grenades etc pass through object
+#define OBJFLAG2_04000000     0x04000000 // Used quite a lot - gravity?
+#define OBJFLAG2_LOCKEDFRONT  0x08000000 // One-way door lock
+#define OBJFLAG2_LOCKEDBACK   0x10000000 // One-way door lock
+#define OBJFLAG2_AICANNOTUSE  0x20000000
+#define OBJFLAG2_40000000     0x40000000 // Used by doors
+#define OBJFLAG2_80000000     0x80000000 // Attack Ship glass
+
+// obj->flags3
+#define OBJFLAG3_PUSHABLE        0x00000001
+#define OBJFLAG3_GRABBABLE       0x00000002
+#define OBJFLAG3_DOOR_STICKY     0x00000004 // eg. Skedar Ruins
+#define OBJFLAG3_00000008        0x00000008 // Not used in scripts
+#define OBJFLAG3_00000010        0x00000010 // Used heaps
+#define OBJFLAG3_00000020        0x00000020 // Not used in scripts
+#define OBJFLAG3_RTRACKED_YELLOW 0x00000040
+#define OBJFLAG3_00000080        0x00000080 // Not used in scripts
+#define OBJFLAG3_00000100        0x00000100 // Not used in scripts
+#define OBJFLAG3_00000200        0x00000200 // Not used in scripts
+#define OBJFLAG3_WALKTRHOUGH     0x00000400
+#define OBJFLAG3_RTRACKED_BLUE   0x00000800
+#define OBJFLAG3_SHOWSHIELD      0x00001000 // Show shield effect around object (always)
+#define OBJFLAG3_00002000        0x00002000 // Not used in scripts
+#define OBJFLAG3_00004000        0x00004000 // Not used in scripts
+#define OBJFLAG3_00008000        0x00008000 // Not used in scripts
+#define OBJFLAG3_00010000        0x00010000 // Editor: "Can be activated"
+#define OBJFLAG3_00020000        0x00020000 // Not used in scripts
+#define OBJFLAG3_00040000        0x00040000 // Not used in scripts
+#define OBJFLAG3_00080000        0x00080000 // Not used in scripts
+#define OBJFLAG3_00100000        0x00100000 // Ruins spikes
+#define OBJFLAG3_00200000        0x00200000 // Not used in scripts
+#define OBJFLAG3_00400000        0x00400000 // Investigation tech items
+#define OBJFLAG3_00800000        0x00800000 // Not used in scripts
+#define OBJFLAG3_01000000        0x01000000 // Not used in scripts
+#define OBJFLAG3_02000000        0x02000000 // Not used in scripts
+#define OBJFLAG3_04000000        0x04000000 // Not used in scripts
+#define OBJFLAG3_08000000        0x08000000 // Not used in scripts
+#define OBJFLAG3_10000000        0x10000000 // Editor: "Keep Collisions After Fully Destroyed"
+#define OBJFLAG3_20000000        0x20000000 // Not used in scripts
+#define OBJFLAG3_40000000        0x40000000 // Editor: "Door Highlighted IR Scanner"
+#define OBJFLAG3_80000000        0x80000000 // Not used in scripts
+
+// obj->hidden
+#define OBJHFLAG_00000080          0x00000080
+#define OBJHFLAG_00000200          0x00000200
+#define OBJHFLAG_00000800          0x00000800
+#define OBJHFLAG_ACTIVATED_BY_BOND 0x00004000
+#define OBJHFLAG_ACTIVATED_BY_COOP 0x00040000
+#define OBJHFLAG_00200000          0x00200000
+
+#define OBJTYPE_DOOR             0x01
+#define OBJTYPE_DOORSCALE        0x02
+#define OBJTYPE_BASIC            0x03
+#define OBJTYPE_KEY              0x04
+#define OBJTYPE_05               0x05
+#define OBJTYPE_CAMERA           0x06
+#define OBJTYPE_07               0x07
+#define OBJTYPE_WEAPON           0x08
+#define OBJTYPE_CHR              0x09
+#define OBJTYPE_SINGLEMONITOR    0x0a
+#define OBJTYPE_MULTIMONITOR     0x0b
+#define OBJTYPE_0C               0x0c
+#define OBJTYPE_AUTOGUN          0x0d
+#define OBJTYPE_LINKGUNS         0x0e
+#define OBJTYPE_DEBRIS           0x0f
+#define OBJTYPE_10               0x10
+#define OBJTYPE_11               0x11
+#define OBJTYPE_12               0x12
+#define OBJTYPE_LINKOBJS         0x13
+#define OBJTYPE_MULTIAMMOCRATE   0x14
+#define OBJTYPE_SHIELD           0x15
+#define OBJTYPE_TAG              0x16
+#define OBJTYPE_BEGINOBJECTIVE   0x17
+#define OBJTYPE_ENDOBJECTIVE     0x18
+#define OBJECTIVETYPE_DESTROYOBJ 0x19
+#define OBJECTIVETYPE_COMPFLAGS  0x1a
+#define OBJECTIVETYPE_FAILFLAGS  0x1b
+#define OBJECTIVETYPE_COLLECTOBJ 0x1c
+#define OBJECTIVETYPE_THROWOBJ   0x1d
+#define OBJECTIVETYPE_HOLOGRAPH  0x1e
+#define OBJECTIVETYPE_1F         0x1f
+#define OBJECTIVETYPE_ENTERROOM  0x20
+#define OBJECTIVETYPE_ATTACHOBJ  0x21
+#define OBJTYPE_22               0x22
+#define OBJTYPE_BRIEFING         0x23
+#define OBJTYPE_24               0x24
+#define OBJTYPE_RENAMEOBJ        0x25
+#define OBJTYPE_26               0x26
+#define OBJTYPE_TRUCK            0x27
+#define OBJTYPE_HELI             0x28
+#define OBJTYPE_29               0x29
+#define OBJTYPE_GLASS            0x2a
+#define OBJTYPE_2B               0x2b
+#define OBJTYPE_2C               0x2c
+#define OBJTYPE_2D               0x2d
+#define OBJTYPE_CAMERA2          0x2e
+#define OBJTYPE_TINTEDGLASS      0x2f
+#define OBJTYPE_LIFT             0x30
+#define OBJTYPE_LINKSCENERY      0x31
+#define OBJTYPE_LINKPATHS        0x32
+#define OBJTYPE_HOVERBIKE        0x33
+#define OBJTYPE_END              0x34
+#define OBJTYPE_HOVERPROP        0x35
+#define OBJTYPE_VENTFAN          0x36
+#define OBJTYPE_HOVERCAR         0x37
+#define OBJTYPE_PADEFFECT        0x38
+#define OBJTYPE_CHOPPER          0x39
+#define OBJTYPE_MINE             0x3a
+#define OBJTYPE_ESCALATOR        0x3b
+
+#define OBJECTIVE_INCOMPLETE 0
+#define OBJECTIVE_COMPLETE   1
+#define OBJECTIVE_FAILED     2
+
+#define OPERATOR_LESS_THAN    0
+#define OPERATOR_GREATER_THAN 1
+
+#define OPTION_FORWARDPITCH     0x0001
+#define OPTION_LOOKAHEAD        0x0002
+#define OPTION_SIGHTONSCREEN    0x0004
+#define OPTION_AUTOAIM          0x0008
+#define OPTION_AIMCONTROL       0x0010
+#define OPTION_AMMOONSCREEN     0x0020
+#define OPTION_SHOWGUNFUNCTION  0x0040
+#define OPTION_HEADROLL         0x0080
+#define OPTION_ALWAYSSHOWTARGET 0x0200
+#define OPTION_SHOWZOOMRANGE    0x0400
+#define OPTION_PAINTBALL        0x0800
+#define OPTION_SHOWMISSIONTIME  0x8000
+
+#define OUTFIT_DEFAULT      0x00
+#define OUTFIT_ELVIS        0x01
+#define OUTFIT_TRENT        0x02 // unused
+#define OUTFIT_TRENCH       0x03
+#define OUTFIT_FROCK_RIPPED 0x04
+#define OUTFIT_FROCK        0x05
+#define OUTFIT_LEATHER      0x06
+#define OUTFIT_DEEPSEA      0x07
+#define OUTFIT_WETSUIT      0x08
+#define OUTFIT_SNOW         0x09
+#define OUTFIT_LAB          0x0a
+#define OUTFIT_STEWARDESS   0x0b
+#define OUTFIT_MRBLONDE     0x0c
+#define OUTFIT_MAIAN        0x0d
+#define OUTFIT_NEGOTIATOR   0x0e // unused by scripts
+
+#define PAD_PRESET 9000
+
+#define PADEFFECT_SPARKS          0x00
+#define PADEFFECT_01              0x01 // used only in Escape on a pad containing nothing
+#define PADEFFECT_SPLASH          0x02
+#define PADEFFECT_SPARKS2         0x03
+#define PADEFFECT_SMOKE           0x04
+#define PADEFFECT_SMOKE_TEMPORARY 0x05
+
+#define PADFIELD_POS    0x0002
+#define PADFIELD_LOOK   0x0004
+#define PADFIELD_UP     0x0008
+#define PADFIELD_NORMAL 0x0010
+#define PADFIELD_BBOX   0x0020
+#define PADFIELD_ROOM   0x0040
+#define PADFIELD_FLAGS  0x0080
+#define PADFIELD_LIFT   0x0100
+
+#define PADFLAG_INTPOS          0x0001
+#define PADFLAG_UPALIGNTOX      0x0002
+#define PADFLAG_UPALIGNTOY      0x0004
+#define PADFLAG_UPALIGNTOZ      0x0008
+#define PADFLAG_UPALIGNINVERT   0x0010
+#define PADFLAG_LOOKALIGNTOX    0x0020
+#define PADFLAG_LOOKALIGNTOY    0x0040
+#define PADFLAG_LOOKALIGNTOZ    0x0080
+#define PADFLAG_LOOKALIGNINVERT 0x0100
+#define PADFLAG_HASBBOXDATA     0x0200
+#define PADFLAG_AIWAITLIFT      0x0400
+#define PADFLAG_AIONLIFT        0x0800
+#define PADFLAG_AIWALKDIRECT    0x1000
+#define PADFLAG_AIDROP          0x2000
+#define PADFLAG_AIDUCK          0x4000
+
+#define PATHTYPE_BACKANDFORTH 0
+#define PATHTYPE_CIRCULAR     1
+#define PATHTYPE_FLYING       2
+
+#define PLAYERFLAG_NOCONTROL 0x00000002
+
+#define PROPFLAG_HIDDEN 0x04
+
+#define PROPTYPE_OBJ    1
+#define PROPTYPE_DOOR   2
+#define PROPTYPE_CHR    3
+#define PROPTYPE_WEAPON 4
+#define PROPTYPE_EYESPY 5
+#define PROPTYPE_PLAYER 6
+#define PROPTYPE_7      7
+
+#define RACE_HUMAN    0
+#define RACE_SKEDAR   1
+#define RACE_DRCAROLL 2
+#define RACE_EYESPY   3
+#define RACE_ROBOT    4
+
+#define ROOMFLAG_00004000 0x00004000
+#define ROOMFLAG_00008000 0x00008000
+
+#define SAVEFILEFLAG_USED_TRANSFERPAK     0x23
+#define SAVEFILEFLAG_CI_TOUR_DONE         0x24
+#define SAVEFILEFLAG_CI_HOLO7_DONE        0x29
+#define SAVEFILEFLAG_CI_HOLO6_DONE        0x2a
+#define SAVEFILEFLAG_CI_HOLO5_DONE        0x2b
+#define SAVEFILEFLAG_CI_HOLO4_DONE        0x2c
+#define SAVEFILEFLAG_CI_HOLO3_DONE        0x2d
+#define SAVEFILEFLAG_CI_HOLO2_DONE        0x2e
+#define SAVEFILEFLAG_CI_HOLO1_DONE        0x2f
+#define SAVEFILEFLAG_CI_CLOAK_DONE        0x30
+#define SAVEFILEFLAG_CI_DISGUISE_DONE     0x31
+#define SAVEFILEFLAG_CI_XRAY_DONE         0x32
+#define SAVEFILEFLAG_CI_IR_DONE           0x33
+#define SAVEFILEFLAG_CI_RTRACKER_DONE     0x34
+#define SAVEFILEFLAG_CI_DOORDECODER_DONE  0x35
+#define SAVEFILEFLAG_CI_NIGHTVISION_DONE  0x36
+#define SAVEFILEFLAG_CI_CAMSPY_DONE       0x37
+#define SAVEFILEFLAG_CI_ECMMINE_DONE      0x38
+#define SAVEFILEFLAG_CI_UPLINK_DONE       0x39
+#define SAVEFILEFLAG_CI_TOUR_STARTED      0x3a
+#define SAVEFILEFLAG_CRASHSITE_BIKE       0x3b
+#define SAVEFILEFLAG_DEFENSE_JON          0x3c
+#define SAVEFILEFLAG_AF1_ENTRY            0x3d
+#define SAVEFILEFLAG_RESCUE_MECHANIC_DEAD 0x3e
+#define SAVEFILEFLAG_G5_MINE              0x3f // true if thrown on top door
+
+#define SCREENRATIO_NORMAL 0
+#define SCREENRATIO_16_9   1
+
+#define SCREENSIZE_FULL   0
+#define SCREENSIZE_WIDE   1
+#define SCREENSIZE_CINEMA 2
+
+#define SCREENSPLIT_HORIZONTAL 0
+#define SCREENSPLIT_VERTICAL   1
+
 #define SIMTYPE_GENERAL 0
 #define SIMTYPE_PEACE   1
 #define SIMTYPE_SHIELD  2
@@ -1914,6 +1555,46 @@
 #define SIMTYPE_SPEED   10
 #define SIMTYPE_TURTLE  11
 #define SIMTYPE_VENGE   12
+
+#define SMOKETYPE_0 0
+#define SMOKETYPE_1 1
+#define SMOKETYPE_2 2
+#define SMOKETYPE_3 3
+#define SMOKETYPE_4 4
+#define SMOKETYPE_5 5
+#define SMOKETYPE_6 6
+#define SMOKETYPE_7 7
+
+#define SOLOSTAGEINDEX_DEFECTION     0
+#define SOLOSTAGEINDEX_INVESTIGATION 1
+#define SOLOSTAGEINDEX_EXTRACTION    2
+#define SOLOSTAGEINDEX_VILLA         3
+#define SOLOSTAGEINDEX_CHICAGO       4
+#define SOLOSTAGEINDEX_G5BUILDING    5
+#define SOLOSTAGEINDEX_INFILTRATION  6
+#define SOLOSTAGEINDEX_RESCUE        7
+#define SOLOSTAGEINDEX_ESCAPE        8
+#define SOLOSTAGEINDEX_AIRBASE       9
+#define SOLOSTAGEINDEX_AIRFORCEONE   10
+#define SOLOSTAGEINDEX_CRASHSITE     11
+#define SOLOSTAGEINDEX_PELAGIC       12
+#define SOLOSTAGEINDEX_DEEPSEA       13
+#define SOLOSTAGEINDEX_DEFENSE       14
+#define SOLOSTAGEINDEX_ATTACKSHIP    15
+#define SOLOSTAGEINDEX_SKEDARRUINS   16
+#define SOLOSTAGEINDEX_MBR           17
+#define SOLOSTAGEINDEX_MAIANSOS      18
+#define SOLOSTAGEINDEX_WAR           19
+#define SOLOSTAGEINDEX_DUEL          20
+
+#define SOUNDMODE_MONO      0
+#define SOUNDMODE_STEREO    1
+#define SOUNDMODE_HEADPHONE 2
+#define SOUNDMODE_SURROUND  3
+
+#define SPEED_WALK 0
+#define SPEED_JOG  1
+#define SPEED_RUN  2
 
 #define SQUADRON_00 0x00
 #define SQUADRON_01 0x01
@@ -1932,6 +1613,124 @@
 #define SQUADRON_0E 0x0e
 #define SQUADRON_0F 0x0f
 
+#define STAGE_MAIANSOS      0x09
+#define STAGE_TEST_SILO     0x14
+#define STAGE_WAR           0x16
+#define STAGE_MP_RAVINE     0x17
+#define STAGE_TEST_ARCH     0x18
+#define STAGE_ESCAPE        0x19
+#define STAGE_TEST_DEST     0x1a
+#define STAGE_RETAKING      0x1b
+#define STAGE_CRASHSITE     0x1c
+#define STAGE_CHICAGO       0x1d
+#define STAGE_G5BUILDING    0x1e
+#define STAGE_MP_COMPLEX    0x1f
+#define STAGE_MP_G5BUILDING 0x20
+#define STAGE_PELAGIC       0x21
+#define STAGE_EXTRACTION    0x22
+#define STAGE_TEST_RUN      0x23
+#define STAGE_MP_TEMPLE     0x25
+#define STAGE_CITRAINING    0x26
+#define STAGE_AIRBASE       0x27
+#define STAGE_MP_PIPES      0x29
+#define STAGE_SKEDARRUINS   0x2a
+#define STAGE_VILLA         0x2c
+#define STAGE_DEFENSE       0x2d
+#define STAGE_TEST_ASH      0x2e
+#define STAGE_INFILTRATION  0x2f
+#define STAGE_DEFECTION     0x30
+#define STAGE_AIRFORCEONE   0x31
+#define STAGE_MP_SKEDAR     0x32
+#define STAGE_INVESTIGATION 0x33
+#define STAGE_ATTACKSHIP    0x34
+#define STAGE_RESCUE        0x35
+#define STAGE_TEST_LEN      0x36
+#define STAGE_MBR           0x37
+#define STAGE_DEEPSEA       0x38
+#define STAGE_MP_BASE       0x39
+#define STAGE_TEST_MP2      0x3a
+#define STAGE_MP_AREA52     0x3b
+#define STAGE_MP_WAREHOUSE  0x3c
+#define STAGE_MP_CARPARK    0x3d
+#define STAGE_TEST_MP6      0x3e
+#define STAGE_TEST_MP7      0x3f
+#define STAGE_TEST_MP8      0x40
+#define STAGE_MP_RUINS      0x41
+#define STAGE_MP_SEWERS     0x42
+#define STAGE_MP_FELICITY   0x43
+#define STAGE_MP_FORTRESS   0x44
+#define STAGE_MP_VILLA      0x45
+#define STAGE_TEST_MP14     0x46
+#define STAGE_MP_GRID       0x47
+#define STAGE_TEST_MP16     0x48
+#define STAGE_TEST_MP17     0x49
+#define STAGE_TEST_MP18     0x4a
+#define STAGE_TEST_MP19     0x4b
+#define STAGE_TEST_MP20     0x4c
+#define STAGE_TEST_UFF      0x4d
+#define STAGE_TEST_OLD      0x4e
+#define STAGE_DUEL          0x4f
+#define STAGE_TEST_LAM      0x50
+
+#define STAGEINDEX_MAIANSOS      0x00
+#define STAGEINDEX_TEST_SILO     0x01
+#define STAGEINDEX_WAR           0x02
+#define STAGEINDEX_MP_RAVINE     0x03
+#define STAGEINDEX_TEST_ARCH     0x04
+#define STAGEINDEX_ESCAPE        0x05
+#define STAGEINDEX_TEST_DEST     0x06
+#define STAGEINDEX_RETAKING      0x07
+#define STAGEINDEX_CRASHSITE     0x08
+#define STAGEINDEX_CHICAGO       0x09
+#define STAGEINDEX_G5BUILDING    0x0a
+#define STAGEINDEX_MP_COMPLEX    0x0b
+#define STAGEINDEX_MP_G5BUILDING 0x0c
+#define STAGEINDEX_PELAGIC       0x0d
+#define STAGEINDEX_EXTRACTION    0x0e
+#define STAGEINDEX_TEST_RUN      0x0f
+#define STAGEINDEX_MP_TEMPLE     0x11
+#define STAGEINDEX_CITRAINING    0x12
+#define STAGEINDEX_AIRBASE       0x13
+#define STAGEINDEX_MP_PIPES      0x15
+#define STAGEINDEX_SKEDARRUINS   0x16
+#define STAGEINDEX_VILLA         0x18
+#define STAGEINDEX_DEFENSE       0x19
+#define STAGEINDEX_TEST_ASH      0x1a
+#define STAGEINDEX_INFILTRATION  0x1b
+#define STAGEINDEX_DEFECTION     0x1c
+#define STAGEINDEX_AIRFORCEONE   0x1d
+#define STAGEINDEX_MP_SKEDAR     0x1e
+#define STAGEINDEX_INVESTIGATION 0x1f
+#define STAGEINDEX_ATTACKSHIP    0x20
+#define STAGEINDEX_RESCUE        0x21
+#define STAGEINDEX_TEST_LEN      0x22
+#define STAGEINDEX_MBR           0x23
+#define STAGEINDEX_DEEPSEA       0x24
+#define STAGEINDEX_TEST_UFF      0x25
+#define STAGEINDEX_TEST_OLD      0x26
+#define STAGEINDEX_DUEL          0x27
+#define STAGEINDEX_TEST_LAM      0x28
+#define STAGEINDEX_MP_BASE       0x29
+#define STAGEINDEX_TEST_MP2      0x2a
+#define STAGEINDEX_MP_AREA52     0x2b
+#define STAGEINDEX_MP_WAREHOUSE  0x2c
+#define STAGEINDEX_MP_CARPARK    0x2d
+#define STAGEINDEX_TEST_MP6      0x2e
+#define STAGEINDEX_TEST_MP7      0x2f
+#define STAGEINDEX_TEST_MP8      0x30
+#define STAGEINDEX_MP_RUINS      0x31
+#define STAGEINDEX_MP_SEWERS     0x32
+#define STAGEINDEX_MP_FELICITY   0x33
+#define STAGEINDEX_MP_FORTRESS   0x34
+#define STAGEINDEX_MP_VILLA      0x35
+#define STAGEINDEX_TEST_MP14     0x36
+#define STAGEINDEX_MP_GRID       0x37
+#define STAGEINDEX_TEST_MP16     0x38
+#define STAGEINDEX_TEST_MP17     0x39
+#define STAGEINDEX_TEST_MP18     0x3a
+#define STAGEINDEX_TEST_MP19     0x3b
+#define STAGEINDEX_TEST_MP20     0x3c
+
 #define TEAM_00        0x00
 #define TEAM_01        0x01
 #define TEAM_ENEMY     0x02
@@ -1942,77 +1741,258 @@
 #define TEAM_32        0x32
 #define TEAM_NONCOMBAT 0x80
 
-// Animations
-//.set ANIM_, 0x0000: idle
-#define ANIM_TWO_GUN_HOLD 0x0001
-#define ANIM_SURRENDER_002E 0x002e
-#define ANIM_TALKING_003D 0x003d
-//.set ANIM_, 0x0066: arms up action then move forward
-#define ANIM_TALKING_0098 0x0098
-#define ANIM_YAWN 0x009a
-#define ANIM_SCRATCH_HEAD 0x009b
-#define ANIM_ROLL_HEAD 0x009c
-#define ANIM_GRAB_CROTCH 0x009d
-#define ANIM_GRAB_BUTT 0x009e
-#define ANIM_SNEEZE 0x009f
-#define ANIM_TALKING_00A0 0x00a0
-//.set ANIM_, 0x00a1: two handed gun, taunting a bit
-#define ANIM_TALKING_00A3 0x00a3
-#define ANIM_PUSH_BUTTON 0x00ac
-#define ANIM_STANDING_TYPE_ONE_HAND 0x00af
-//.set ANIM_, 0x00e1: look up
-//.set ANIM_, 0x0156: Jo in Defection intro
-//.set ANIM_, 0x0166: Jo in G5 intro
-//.set ANIM_, 0x0167: Guard in G5 intro
-//.set ANIM_, 0x0179: Jo in Chicago outro
-//.set ANIM_, 0x0197: Jo in G5 outro
-//.set ANIM_, 0x01d5: Jo in Deep Sea mid cutscene
-//.set ANIM_, 0x01d6: Elvis in Deep Sea mid cutscene
-//.set ANIM_, 0x01d7: Dr Caroll in Deep Sea mid cutscene
-#define ANIM_COWER_01F5 0x01f5
-#define ANIM_STAND_UP_FROM_SITTING 0x01fa
-#define ANIM_SITTING_TYPING 0x01fb
-//.set ANIM_, 0x01fd: slow aim and walk forward
-#define ANIM_RELOAD 0x01ff
-#define ANIM_DONT_SHOOT 0x0201
-#define ANIM_SURPRISED_0202 0x0202
-#define ANIM_OPERATE_0204 0x0204
-#define ANIM_OPERATE_0205 0x0205
-#define ANIM_OPERATE_0206 0x0206
-#define ANIM_SMOKE_CIGARETTE 0x0207
-#define ANIM_RELOAD_0209 0x0209
-//.set ANIM_, 0x020b: laying on floor
-//.set ANIM_, 0x020c: seated dead on floor
-#define ANIM_OPERATE_0221 0x0221 // point with right arm
-#define ANIM_OPERATE_0222 0x0222 // push button with right hand
-#define ANIM_OPERATE_0223 0x0223 // right arm up, waggle for a bit
-#define ANIM_WALK_BACKWARDS 0x0226
-#define ANIM_SITTING_DORMANT 0x0227
-#define ANIM_BLINDED 0x0228
-#define ANIM_COWER_0229 0x0229
-//.set ANIM_, 0x022a: on floor face down
-#define ANIM_TALKING_0231 0x0231
-#define ANIM_TALKING_0232 0x0232
-#define ANIM_TALKING_0233 0x0233
-#define ANIM_TALKING_0234 0x0234
-//.set ANIM_, 0x023a: scratch head
-#define ANIM_HEAD_ROLL 0x023b
-#define ANIM_PICK_UP_GUN 0x023d
-#define ANIM_BIG_SNEEZE 0x023f
-#define ANIM_DRAW_PISTOL_0245 0x0245
-#define ANIM_LOOK_AROUND_025B 0x025b
-#define ANIM_LOOK_AROUND_025C 0x025c
-#define ANIM_LOOK_AROUND_025D 0x025d
-#define ANIM_LOOK_AROUND_025E 0x025e
-#define ANIM_LOOK_AROUND_FRANTIC 0x025f
-#define ANIM_SITTING_0265 0x0265
-//.set ANIM_, 0x0266: covering mouth looking
-#define ANIM_SNIPING_0269 0x269
-#define ANIM_SNIPING_026A 0x26a
-#define ANIM_SNIPING_026B 0x26b
-#define ANIM_DRAW_PISTOL_0288 0x0288
-#define ANIM_DRAW_PISTOL_0289 0x0289
-//.set ANIM_, 0x02c4: Jo in Defense intro
-//.set ANIM_, 0x0350: Skedar right up straight up
-//.set ANIM_, 0x0351: Skedar stretching arms and lefts
-#define ANIM_SKEDAR_COLLAPSE 0x0352
+#define TELEPORTSTATE_STARTING 1
+#define TELEPORTSTATE_3 3
+#define TELEPORTSTATE_4 4
+
+#define WEAPON_NONE              0x00
+#define WEAPON_UNARMED           0x01
+#define WEAPON_FALCON2           0x02
+#define WEAPON_FALCON2_SILENCER  0x03
+#define WEAPON_FALCON2_SCOPE     0x04
+#define WEAPON_MAGSEC4           0x05
+#define WEAPON_MAULER            0x06
+#define WEAPON_PHOENIX           0x07
+#define WEAPON_DY357MAGNUM       0x08
+#define WEAPON_DY357LX           0x09
+#define WEAPON_CMP150            0x0a
+#define WEAPON_CYCLONE           0x0b
+#define WEAPON_CALLISTONTG       0x0c
+#define WEAPON_RCP120            0x0d
+#define WEAPON_LAPTOPGUN         0x0e
+#define WEAPON_DRAGON            0x0f
+#define WEAPON_K7AVENGER         0x10
+#define WEAPON_AR34              0x11
+#define WEAPON_SUPERDRAGON       0x12
+#define WEAPON_SHOTGUN           0x13
+#define WEAPON_REAPER            0x14
+#define WEAPON_SNIPERRIFLE       0x15
+#define WEAPON_FARSIGHTXR20      0x16
+#define WEAPON_DEVASTATOR        0x17
+#define WEAPON_ROCKETLAUNCHER    0x18
+#define WEAPON_SLAYER            0x19
+#define WEAPON_COMBATKNIFE       0x1a
+#define WEAPON_CROSSBOW          0x1b
+#define WEAPON_TRANQUILIZER      0x1c
+#define WEAPON_LASER             0x1d
+#define WEAPON_GRENADE           0x1e
+#define WEAPON_NBOMB             0x1f
+#define WEAPON_TIMEDMINE         0x20
+#define WEAPON_PROXIMITYMINE     0x21
+#define WEAPON_REMOTEMINE        0x22
+#define WEAPON_COMBATBOOST       0x23
+#define WEAPON_PP9I              0x24
+#define WEAPON_CC13              0x25
+#define WEAPON_KL01313           0x26
+#define WEAPON_KF7SPECIAL        0x27
+#define WEAPON_ZZT9MM            0x28
+#define WEAPON_DMC               0x29
+#define WEAPON_AR53              0x2a
+#define WEAPON_RCP45             0x2b
+#define WEAPON_PSYCHOSISGUN      0x2c
+#define WEAPON_NIGHTVISION       0x2d
+#define WEAPON_CAMSPY            0x2e
+#define WEAPON_XRAYSCANNER       0x2f
+#define WEAPON_IRSCANNER         0x30
+#define WEAPON_CLOAKINGDEVICE    0x31
+#define WEAPON_HORIZONSCANNER    0x32
+#define WEAPON_TESTER            0x33
+#define WEAPON_ROCKETLAUNCHER_34 0x34
+#define WEAPON_ECMMINE           0x35
+#define WEAPON_DATAUPLINK        0x36
+#define WEAPON_RTRACKER          0x37
+#define WEAPON_PRESIDENTSCANNER  0x38
+#define WEAPON_DOORDECODER       0x39
+#define WEAPON_AUTOSURGEON       0x3a
+#define WEAPON_EXPLOSIVES        0x3b
+#define WEAPON_SKEDARBOMB        0x3c
+#define WEAPON_COMMSRIDER        0x3d
+#define WEAPON_TRACERBUG         0x3e
+#define WEAPON_TARGETAMPLIFIER   0x3f
+#define WEAPON_DISGUISE40        0x40
+#define WEAPON_DISGUISE41        0x41
+#define WEAPON_FLIGHTPLANS       0x42
+#define WEAPON_RESEARCHTAPE      0x43
+#define WEAPON_BACKUPDISK        0x44
+#define WEAPON_KEYCARD45         0x45
+#define WEAPON_KEYCARD46         0x46
+#define WEAPON_KEYCARD47         0x47
+#define WEAPON_KEYCARD48         0x48
+#define WEAPON_KEYCARD49         0x49
+#define WEAPON_KEYCARD4A         0x4a
+#define WEAPON_KEYCARD4B         0x4b
+#define WEAPON_KEYCARD4C         0x4c
+#define WEAPON_SUITCASE          0x4d
+#define WEAPON_BRIEFCASE         0x4e
+#define WEAPON_SHIELD            0x4f
+#define WEAPON_NECKLACE          0x50
+#define WEAPON_HAMMER            0x51
+#define WEAPON_52                0x52
+#define WEAPON_ROCKET            0x53
+#define WEAPON_HOMINGROCKET      0x54
+#define WEAPON_GRENADEROUND      0x55
+#define WEAPON_BOLT              0x56
+#define WEAPON_BRIEFCASE2        0x57
+#define WEAPON_ROCKET2           0x58
+#define WEAPON_59                0x59
+#define WEAPON_5A                0x5a
+#define WEAPON_5B                0x5b
+#define WEAPON_5C                0x5c
+#define WEAPON_SUICIDEPILL       0x5d
+
+#define WEAPONFLAG_00000010 0x00000010
+
+// Heads and bodies
+#define HEAD_RANDOM           -1
+#define BODY_DJBOND           0x00
+#define BODY_CONNERY          0x01
+#define BODY_DALTON           0x02
+#define BODY_MOORE            0x03
+#define HEAD_DARK_COMBAT      0x04
+#define HEAD_ELVIS            0x05
+#define HEAD_ROSS             0x06
+#define HEAD_CARRINGTON       0x07
+#define HEAD_MRBLONDE         0x08
+#define HEAD_TRENT            0x09
+#define HEAD_DDSHOCK          0x0a
+#define HEAD_GRAHAM           0x0b
+#define HEAD_DARK_FROCK       0x0c
+#define HEAD_SECRETARY        0x0d
+#define HEAD_CASSANDRA        0x0e
+#define HEAD_THEKING          0x0f
+#define HEAD_FEM_GUARD        0x10
+#define HEAD_JON              0x11
+#define HEAD_MARK2            0x12
+#define HEAD_CHRIST           0x13
+#define HEAD_RUSS             0x14
+#define HEAD_GREY             0x15
+#define HEAD_DARLING          0x16
+#define HEAD_ROBERT           0x17
+#define HEAD_BEAU1            0x18
+#define HEAD_FEM_GUARD2       0x19
+#define HEAD_BRIAN            0x1a
+#define HEAD_JAMIE            0x1b
+#define HEAD_DUNCAN2          0x1c
+#define HEAD_BIOTECH          0x1d
+#define HEAD_NEIL2            0x1e
+#define HEAD_EDMCG            0x1f
+#define HEAD_ANKA             0x20
+#define HEAD_LESLIE_S         0x21
+#define HEAD_MATT_C           0x22
+#define HEAD_PEER_S           0x23
+#define HEAD_EILEEN_T         0x24
+#define HEAD_ANDY_R           0x25
+#define HEAD_BEN_R            0x26
+#define HEAD_STEVE_K          0x27
+#define HEAD_JONATHAN         0x28
+#define HEAD_MAIAN_S          0x29
+#define HEAD_SHAUN            0x2a
+#define HEAD_BEAU2            0x2b
+#define HEAD_EILEEN_H         0x2c
+#define HEAD_SCOTT_H          0x2d
+#define HEAD_SANCHEZ          0x2e
+#define HEAD_DARKAQUA         0x2f
+#define HEAD_DDSNIPER         0x30
+#define HEAD_BEAU3            0x31
+#define HEAD_BEAU4            0x32
+#define HEAD_BEAU5            0x33
+#define HEAD_BEAU6            0x34
+#define HEAD_GRIFFEY          0x35
+#define HEAD_MOTO             0x36
+#define HEAD_KEITH            0x37
+#define HEAD_WINNER           0x38
+#define HEAD_A51FACEPLATE     0x39
+#define HEAD_ELVIS_GOGS       0x3a
+#define HEAD_STEVEM           0x3b
+#define HEAD_DARK_SNOW        0x3c
+#define HEAD_PRESIDENT        0x3d
+#define HEAD_VD               0x3e
+#define HEAD_KEN              0x3f
+#define HEAD_JOEL             0x40
+#define HEAD_TIM              0x41
+#define HEAD_GRANT            0x42
+#define HEAD_PENNY            0x43
+#define HEAD_ROBIN            0x44
+#define HEAD_ALEX             0x45
+#define HEAD_JULIANNE         0x46
+#define HEAD_LAURA            0x47
+#define HEAD_DAVEC            0x48
+#define HEAD_COOK             0x49
+#define HEAD_PRYCE            0x4a
+#define HEAD_SILKE            0x4b
+#define HEAD_SMITH            0x4c
+#define HEAD_GARETH           0x4d
+#define HEAD_MURCHIE          0x4e
+#define HEAD_WONG             0x4f
+#define HEAD_CARTER           0x50
+#define HEAD_TINTIN           0x51
+#define HEAD_MUNTON           0x52
+#define HEAD_STAMPER          0x53
+#define HEAD_JONES            0x54
+#define HEAD_PHELPS           0x55
+#define BODY_DARK_COMBAT      0x56
+#define BODY_ELVIS1           0x57
+#define BODY_AREA51GUARD      0x58
+#define BODY_OVERALL          0x59
+#define BODY_CARRINGTON       0x5a
+#define BODY_MRBLONDE         0x5b
+#define BODY_SKEDAR           0x5c
+#define BODY_TRENT            0x5d
+#define BODY_DDSHOCK          0x5e
+#define BODY_LABTECH          0x5f
+#define BODY_STRIPES          0x60
+#define BODY_DARK_FROCK       0x61
+#define BODY_DARK_TRENCH      0x62
+#define BODY_OFFICEWORKER     0x63
+#define BODY_OFFICEWORKER2    0x64
+#define BODY_SECRETARY        0x65
+#define BODY_CASSANDRA        0x66
+#define BODY_THEKING          0x67
+#define BODY_FEM_GUARD        0x68
+#define BODY_DD_LABTECH       0x69
+#define BODY_DD_SECGUARD      0x6a
+#define BODY_DRCAROLL         0x6b
+#define BODY_EYESPY           0x6c
+#define BODY_DARK_RIPPED      0x6d
+#define BODY_DD_GUARD         0x6e
+#define BODY_DD_SHOCK_INF     0x6f
+#define BODY_TESTCHR          0x70
+#define BODY_BIOTECH          0x71
+#define BODY_FBIGUY           0x72
+#define BODY_CIAGUY           0x73
+#define BODY_A51TROOPER       0x74
+#define BODY_A51AIRMAN        0x75
+#define BODY_CHICROB          0x76
+#define BODY_STEWARD          0x77
+#define BODY_STEWARDESS       0x78
+#define BODY_PRESIDENT        0x79
+#define BODY_STEWARDESS_COAT  0x7a
+#define BODY_MINISKEDAR       0x7b
+#define BODY_NSA_LACKEY       0x7c
+#define BODY_PRES_SECURITY    0x7d
+#define BODY_NEGOTIATOR       0x7e
+#define BODY_G5_GUARD         0x7f
+#define BODY_PELAGIC_GUARD    0x80
+#define BODY_G5_SWAT_GUARD    0x81
+#define BODY_ALASKAN_GUARD    0x82
+#define BODY_MAIAN_SOLDIER    0x83
+#define BODY_PRESIDENT_CLONE  0x84
+#define BODY_PRESIDENT_CLONE2 0x85
+#define BODY_DARK_AF1         0x86
+#define BODY_DARKWET          0x87
+#define BODY_DARKAQUALUNG     0x88
+#define BODY_DARKSNOW         0x89
+#define BODY_DARKLAB          0x8a
+#define BODY_FEMLABTECH       0x8b
+#define BODY_DDSNIPER         0x8c
+#define BODY_PILOTAF1         0x8d
+#define BODY_CILABTECH        0x8e
+#define BODY_CIFEMTECH        0x8f
+#define BODY_CARREVENINGSUIT  0x90
+#define BODY_JONATHAN         0x91
+#define BODY_CISOLDIER        0x92
+#define BODY_SKEDARKING       0x93
+#define BODY_ELVISWAISTCOAT   0x94
+#define BODY_DARK_LEATHER     0x95
+#define BODY_DARK_NEGOTIATOR  0x96
+
