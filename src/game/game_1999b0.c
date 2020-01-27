@@ -1400,7 +1400,7 @@ glabel func0f19ab70
 /*  f19abdc:	0040f025 */ 	or	$s8,$v0,$zero
 /*  f19abe0:	02402025 */ 	or	$a0,$s2,$zero
 .L0f19abe4:
-/*  f19abe4:	0fc458b8 */ 	jal	func0f1162e0
+/*  f19abe4:	0fc458b8 */ 	jal	coverLoad
 /*  f19abe8:	27a50158 */ 	addiu	$a1,$sp,0x158
 /*  f19abec:	50400027 */ 	beqzl	$v0,.L0f19ac8c
 /*  f19abf0:	26520001 */ 	addiu	$s2,$s2,0x1
@@ -1556,7 +1556,7 @@ glabel func0f19ab70
 /*  f19ae0c:	27aa016c */ 	addiu	$t2,$sp,0x16c
 /*  f19ae10:	01aa8021 */ 	addu	$s0,$t5,$t2
 /*  f19ae14:	8e040000 */ 	lw	$a0,0x0($s0)
-/*  f19ae18:	0fc458b8 */ 	jal	func0f1162e0
+/*  f19ae18:	0fc458b8 */ 	jal	coverLoad
 /*  f19ae1c:	27a50158 */ 	addiu	$a1,$sp,0x158
 /*  f19ae20:	8fae0158 */ 	lw	$t6,0x158($sp)
 /*  f19ae24:	8faf021c */ 	lw	$t7,0x21c($sp)

@@ -703,7 +703,7 @@ extern u32 var800a2344;
 extern s32 *g_PadsFile;
 extern u16 *g_PadOffsets;
 extern u16 *g_CoverFlags;
-extern u32 var800a2364;
+extern s32 *g_CoverRooms;
 extern u32 var800a2368;
 extern u32 var800a236c;
 extern u32 var800a2370;

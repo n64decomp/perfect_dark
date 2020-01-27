@@ -19480,7 +19480,7 @@ glabel func0f02ec94
 /*  f02ec9c:	00808025 */ 	or	$s0,$a0,$zero
 /*  f02eca0:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f02eca4:	84840292 */ 	lh	$a0,0x292($a0)
-/*  f02eca8:	0fc458b8 */ 	jal	func0f1162e0
+/*  f02eca8:	0fc458b8 */ 	jal	coverLoad
 /*  f02ecac:	27a50020 */ 	addiu	$a1,$sp,0x20
 /*  f02ecb0:	14400003 */ 	bnez	$v0,.L0f02ecc0
 /*  f02ecb4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -50773,7 +50773,7 @@ glabel func0f04b950
 /*  f04b974:	0044082a */ 	slt	$at,$v0,$a0
 /*  f04b978:	14200005 */ 	bnez	$at,.L0f04b990
 /*  f04b97c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04b980:	0fc458b8 */ 	jal	func0f1162e0
+/*  f04b980:	0fc458b8 */ 	jal	coverLoad
 /*  f04b984:	27a50030 */ 	addiu	$a1,$sp,0x30
 /*  f04b988:	14400003 */ 	bnez	$v0,.L0f04b998
 /*  f04b98c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -50892,7 +50892,7 @@ glabel func0f04ba34
 /*  f04bb18:	afa400c0 */ 	sw	$a0,0xc0($sp)
 /*  f04bb1c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f04bb20:
-/*  f04bb20:	0fc458b8 */ 	jal	func0f1162e0
+/*  f04bb20:	0fc458b8 */ 	jal	coverLoad
 /*  f04bb24:	27a50098 */ 	addiu	$a1,$sp,0x98
 /*  f04bb28:	504000b0 */ 	beqzl	$v0,.L0f04bdec
 /*  f04bb2c:	8fae0078 */ 	lw	$t6,0x78($sp)
@@ -51306,7 +51306,7 @@ glabel func0f04bffc
 /*  f04c0d8:	27b20064 */ 	addiu	$s2,$sp,0x64
 /*  f04c0dc:	02002025 */ 	or	$a0,$s0,$zero
 .L0f04c0e0:
-/*  f04c0e0:	0fc458b8 */ 	jal	func0f1162e0
+/*  f04c0e0:	0fc458b8 */ 	jal	coverLoad
 /*  f04c0e4:	02402825 */ 	or	$a1,$s2,$zero
 /*  f04c0e8:	5040003e */ 	beqzl	$v0,.L0f04c1e4
 /*  f04c0ec:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -51413,18 +51413,14 @@ glabel func0f04bffc
 
 s16 func0f04c268(struct chrdata *chr, u8 speed)
 {
-	s32 a;
-	s16 b;
-	s16 room;
-	s32 c;
-	struct coord *coordptr;
+	struct cover cover;
 
 	if (!chr) {
 		return 0;
 	}
 
-	if (func0f039a18(chr) && chr->cover != -1 && func0f1162e0(chr->cover, &coordptr)) {
-		func0f03843c(chr, coordptr, &room, speed);
+	if (func0f039a18(chr) && chr->cover != -1 && coverLoad(chr->cover, &cover)) {
+		func0f03843c(chr, cover.pos, &cover.room, speed);
 		return chr->cover;
 	}
 

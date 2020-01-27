@@ -692,7 +692,7 @@ s32 coverGetCount(void)
 }
 
 GLOBAL_ASM(
-glabel func0f1162e0
+glabel coverLoad
 /*  f1162e0:	3c0e800a */ 	lui	$t6,0x800a
 /*  f1162e4:	8dce2350 */ 	lw	$t6,0x2350($t6)
 /*  f1162e8:	00a03025 */ 	or	$a2,$a1,$zero
@@ -740,6 +740,32 @@ glabel func0f1162e0
 /*  f116388:	a4cd0008 */ 	sh	$t5,0x8($a2)
 /*  f11638c:	03e00008 */ 	jr	$ra
 /*  f116390:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+// Mismatch because it swaps the addu arguments when calculating def
+//bool coverLoad(s32 covernum, struct cover *cover)
+//{
+//	struct coverdefinition *def;
+//
+//	if (covernum >= g_PadsFile[1] || covernum < 0 || !g_StageSetup.cover) {
+//		return false;
+//	}
+//
+//	// Possible @bug: Cast to u8 means it would load the position from an
+//	// incorrect cover if covernum is greater than 255.
+//	def = &g_StageSetup.cover[(u8)covernum];
+//	cover->pos = &def->pos;
+//	cover->look = &def->look;
+//	g_CoverFlags[covernum] |= def->flags;
+//	cover->flags = g_CoverFlags[covernum];
+//	cover->room = g_CoverRooms[covernum];
+//	cover->unk0a = -1;
+//
+//	return true;
+//}
+
+GLOBAL_ASM(
+glabel func0f116394
 /*  f116394:	3c02800a */ 	lui	$v0,0x800a
 /*  f116398:	03e00008 */ 	jr	$ra
 /*  f11639c:	9442236c */ 	lhu	$v0,0x236c($v0)
@@ -761,7 +787,7 @@ glabel func0f1162e0
 /*  f1163d8:	10000008 */ 	beqz	$zero,.L0f1163fc
 /*  f1163dc:	00001025 */ 	or	$v0,$zero,$zero
 .L0f1163e0:
-/*  f1163e0:	0fc458b8 */ 	jal	func0f1162e0
+/*  f1163e0:	0fc458b8 */ 	jal	coverLoad
 /*  f1163e4:	97040000 */ 	lhu	$a0,0x0($t8)
 /*  f1163e8:	50400004 */ 	beqzl	$v0,.L0f1163fc
 /*  f1163ec:	00001025 */ 	or	$v0,$zero,$zero

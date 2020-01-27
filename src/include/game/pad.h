@@ -11,7 +11,7 @@ void padCopyBboxFromPad(s32 padnum, struct pad *src);
 void padSetFlag(s32 padnum, u32 flag);
 void padUnsetFlag(s32 padnum, u32 flag);
 s32 coverGetCount(void);
-u32 func0f1162e0(s16 cover, struct coord **pos);
+bool coverLoad(s32 covernum, struct cover *cover);
 bool coverHasFlag0002(s32 covernum);
 void coverSetFlag0002(s32 covernum, bool enable);
 void coverSetFlag(s32 covernum, u32 flag);

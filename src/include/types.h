@@ -2721,10 +2721,24 @@ struct path {
 	u8 type;
 };
 
+struct coverdefinition {
+	struct coord pos;
+	struct coord look;
+	u16 flags;
+};
+
+struct cover {
+	/*0x00*/ struct coord *pos;
+	/*0x04*/ struct coord *look;
+	/*0x08*/ s16 room;
+	/*0x0a*/ s16 unk0a;
+	/*0x0c*/ u16 flags;
+};
+
 struct stagesetup {
 	/*0x00*/ void *unk00;
 	/*0x04*/ void *unk04;
-	/*0x08*/ void *unk08;
+	/*0x08*/ struct coverdefinition *cover;
 	/*0x0c*/ u8 *intro;
 	/*0x10*/ u8 *props;
 	/*0x14*/ struct path *paths;
