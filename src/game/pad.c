@@ -769,38 +769,23 @@ u16 getVar800a236c(void)
 	return var800a236c;
 }
 
+bool coverLoadByIndex(s32 index, struct cover *cover)
+{
+	// Probable @bug: last check should be index >= var800a236c
+	// This function is never called though.
+	if (!g_CoverNums || index < 0 || index > var800a236c) {
+		return false;
+	}
+
+	if (coverLoad(g_CoverNums[index], cover)) {
+		return true;
+	}
+
+	return false;
+}
+
 GLOBAL_ASM(
-glabel func0f1163a0
-/*  f1163a0:	3c02800a */ 	lui	$v0,0x800a
-/*  f1163a4:	8c422370 */ 	lw	$v0,0x2370($v0)
-/*  f1163a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1163ac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1163b0:	10400009 */ 	beqz	$v0,.L0f1163d8
-/*  f1163b4:	00803025 */ 	or	$a2,$a0,$zero
-/*  f1163b8:	04800007 */ 	bltz	$a0,.L0f1163d8
-/*  f1163bc:	3c0e800a */ 	lui	$t6,0x800a
-/*  f1163c0:	95ce236c */ 	lhu	$t6,0x236c($t6)
-/*  f1163c4:	00067840 */ 	sll	$t7,$a2,0x1
-/*  f1163c8:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f1163cc:	01c4082a */ 	slt	$at,$t6,$a0
-/*  f1163d0:	10200003 */ 	beqz	$at,.L0f1163e0
-/*  f1163d4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1163d8:
-/*  f1163d8:	10000008 */ 	beqz	$zero,.L0f1163fc
-/*  f1163dc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1163e0:
-/*  f1163e0:	0fc458b8 */ 	jal	coverLoad
-/*  f1163e4:	97040000 */ 	lhu	$a0,0x0($t8)
-/*  f1163e8:	50400004 */ 	beqzl	$v0,.L0f1163fc
-/*  f1163ec:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1163f0:	10000002 */ 	beqz	$zero,.L0f1163fc
-/*  f1163f4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1163f8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1163fc:
-/*  f1163fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f116400:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f116404:	03e00008 */ 	jr	$ra
-/*  f116408:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f11640c
 /*  f11640c:	3c03800a */ 	lui	$v1,0x800a
 /*  f116410:	8c632370 */ 	lw	$v1,0x2370($v1)
 /*  f116414:	10600009 */ 	beqz	$v1,.L0f11643c

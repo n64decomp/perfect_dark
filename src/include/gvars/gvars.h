@@ -706,7 +706,7 @@ extern u16 *g_CoverFlags;
 extern s32 *g_CoverRooms;
 extern u32 var800a2368;
 extern u16 var800a236c;
-extern u32 var800a2370;
+extern u16 *g_CoverNums;
 extern struct var800a2380 var800a2380[4];
 extern u32 var800a2eb0;
 extern u32 var800a3180;
