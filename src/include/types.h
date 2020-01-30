@@ -525,8 +525,8 @@ struct chrdata {
 	/*0x0e0*/ s32 lastseetarget60;
 	/*0x0e4*/ s32 lastvisibletarget60;
 	/*0x0e8*/ void *unk0e8;
-	/*0x0ec*/ u16 lastshooter;
-	/*0x0ee*/ u16 timeshooter;
+	/*0x0ec*/ s16 lastshooter;
+	/*0x0ee*/ s16 timeshooter;
 	/*0x0f0*/ f32 hearingscale;
 	/*0x0f4*/ s32 lastheartarget60;
 	/*0x0f8*/ u32 shadecol;
@@ -967,12 +967,8 @@ struct player {
 	/*0x002c*/ u32 unk002c;
 	/*0x0030*/ u32 unk0030;
 	/*0x0034*/ u32 unk0034;
-	/*0x0038*/ u32 unk0038;
-	/*0x003c*/ u32 unk003c;
-	/*0x0040*/ u32 unk0040;
-	/*0x0044*/ u32 unk0044;
-	/*0x0048*/ u32 unk0048;
-	/*0x004c*/ u32 unk004c;
+	/*0x0038*/ struct coord globaldrawworldoffset;
+	/*0x0044*/ struct coord globaldrawcameraoffset;
 	/*0x0050*/ u32 unk0050;
 	/*0x0054*/ u32 unk0054;
 	/*0x0058*/ u32 unk0058;

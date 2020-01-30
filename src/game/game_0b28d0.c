@@ -15116,33 +15116,14 @@ glabel func0f0bfbb8
 /*  f0bfc18:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0bfc1c
-/*  f0bfc1c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0bfc20:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0bfc24:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bfc28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0bfc2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0bfc30:	c4440038 */ 	lwc1	$f4,0x38($v0)
-/*  f0bfc34:	e4440044 */ 	swc1	$f4,0x44($v0)
-/*  f0bfc38:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bfc3c:	c446003c */ 	lwc1	$f6,0x3c($v0)
-/*  f0bfc40:	e4460048 */ 	swc1	$f6,0x48($v0)
-/*  f0bfc44:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bfc48:	c4480040 */ 	lwc1	$f8,0x40($v0)
-/*  f0bfc4c:	0fc2d5be */ 	jal	func0f0b56f8
-/*  f0bfc50:	e448004c */ 	swc1	$f8,0x4c($v0)
-/*  f0bfc54:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0bfc58:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0bfc5c:	8c650284 */ 	lw	$a1,0x284($v1)
-/*  f0bfc60:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0bfc64:	0c0056c4 */ 	jal	func00015b10
-/*  f0bfc68:	24a50044 */ 	addiu	$a1,$a1,0x44
-/*  f0bfc6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0bfc70:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0bfc74:	03e00008 */ 	jr	$ra
-/*  f0bfc78:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerSetGlobalDrawCameraOffset(void)
+{
+	g_Vars.currentplayer->globaldrawcameraoffset.x = g_Vars.currentplayer->globaldrawworldoffset.x;
+	g_Vars.currentplayer->globaldrawcameraoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
+	g_Vars.currentplayer->globaldrawcameraoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
+
+	func00015b10(func0f0b56f8(), &g_Vars.currentplayer->globaldrawcameraoffset);
+}
 
 GLOBAL_ASM(
 glabel func0f0bfc7c
@@ -15354,7 +15335,7 @@ glabel func0f0bfc7c
 /*  f0bffa0:	8fa400cc */ 	lw	$a0,0xcc($sp)
 /*  f0bffa4:	0fc2d60e */ 	jal	func0f0b5838
 /*  f0bffa8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bffac:	0fc2ff07 */ 	jal	func0f0bfc1c
+/*  f0bffac:	0fc2ff07 */ 	jal	currentPlayerSetGlobalDrawCameraOffset
 /*  f0bffb0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bffb4:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f0bffb8:	8fb00038 */ 	lw	$s0,0x38($sp)
