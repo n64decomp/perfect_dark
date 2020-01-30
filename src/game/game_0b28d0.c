@@ -8362,49 +8362,21 @@ void func0f0b9bac(s32 arg0, s32 arg1, s32 arg2)
 	var8009de0c = arg2;
 }
 
-GLOBAL_ASM(
-glabel func0f0b9c1c
-/*  f0b9c1c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b9c20:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b9c24:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*  f0b9c28:	e7ae001c */ 	swc1	$f14,0x1c($sp)
-/*  f0b9c2c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0b9c30:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f0b9c34:	0fc2e58f */ 	jal	setTickMode
-/*  f0b9c38:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f0b9c3c:	3c018007 */ 	lui	$at,0x8007
-/*  f0b9c40:	ac200744 */ 	sw	$zero,0x744($at)
-/*  f0b9c44:	0fc31f7b */ 	jal	releaseObj
-/*  f0b9c48:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f0b9c4c:	0fc30748 */ 	jal	func0f0c1d20
-/*  f0b9c50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b9c54:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0b9c58:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9c5c:	a42edde8 */ 	sh	$t6,-0x2218($at)
-/*  f0b9c60:	c7a40018 */ 	lwc1	$f4,0x18($sp)
-/*  f0b9c64:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9c68:	ac20ddec */ 	sw	$zero,-0x2214($at)
-/*  f0b9c6c:	c7a6001c */ 	lwc1	$f6,0x1c($sp)
-/*  f0b9c70:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9c74:	e424ddf0 */ 	swc1	$f4,-0x2210($at)
-/*  f0b9c78:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f0b9c7c:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9c80:	e426ddf4 */ 	swc1	$f6,-0x220c($at)
-/*  f0b9c84:	c7aa0024 */ 	lwc1	$f10,0x24($sp)
-/*  f0b9c88:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9c8c:	e428ddf8 */ 	swc1	$f8,-0x2208($at)
-/*  f0b9c90:	c7b00028 */ 	lwc1	$f16,0x28($sp)
-/*  f0b9c94:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9c98:	e42addfc */ 	swc1	$f10,-0x2204($at)
-/*  f0b9c9c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b9ca0:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9ca4:	8faf002c */ 	lw	$t7,0x2c($sp)
-/*  f0b9ca8:	e430de00 */ 	swc1	$f16,-0x2200($at)
-/*  f0b9cac:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9cb0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b9cb4:	03e00008 */ 	jr	$ra
-/*  f0b9cb8:	ac2fde04 */ 	sw	$t7,-0x21fc($at)
-);
+void func0f0b9c1c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
+{
+	setTickMode(TICKMODE_3);
+	var80070744 = 0;
+	releaseObj(5);
+	func0f0c1d20();
+	g_WarpPadId = -1;
+	var8009ddec = 0;
+	var8009ddf0 = arg0;
+	var8009ddf4 = arg1;
+	var8009ddf8 = arg2;
+	var8009ddfc = arg3;
+	var8009de00 = arg4;
+	var8009de04 = arg5;
+}
 
 GLOBAL_ASM(
 glabel func0f0b9cbc
