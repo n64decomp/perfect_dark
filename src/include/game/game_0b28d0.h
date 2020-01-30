@@ -134,7 +134,7 @@ u32 func0f0bd4a8(void);
 u32 func0f0bd4e4(void);
 u32 func0f0bd764(void);
 u32 func0f0bd904(void);
-u32 func0f0bfbb8(void);
+void currentPlayerSetGlobalDrawWorldOffset(s32 arg0);
 void currentPlayerSetGlobalDrawCameraOffset(void);
 u32 func0f0bfc7c(void);
 u32 func0f0bffcc(void);

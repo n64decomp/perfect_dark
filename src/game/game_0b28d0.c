@@ -15087,34 +15087,16 @@ glabel func0f0bd904
 /*  f0bfbb4:	27bd0330 */ 	addiu	$sp,$sp,0x330
 );
 
-GLOBAL_ASM(
-glabel func0f0bfbb8
-/*  f0bfbb8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0bfbbc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0bfbc0:	8c650284 */ 	lw	$a1,0x284($v1)
-/*  f0bfbc4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0bfbc8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0bfbcc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0bfbd0:	0fc59b7c */ 	jal	func0f166df0
-/*  f0bfbd4:	24a50038 */ 	addiu	$a1,$a1,0x38
-/*  f0bfbd8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0bfbdc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0bfbe0:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bfbe4:	c4440038 */ 	lwc1	$f4,0x38($v0)
-/*  f0bfbe8:	e4440050 */ 	swc1	$f4,0x50($v0)
-/*  f0bfbec:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bfbf0:	c446003c */ 	lwc1	$f6,0x3c($v0)
-/*  f0bfbf4:	e4460054 */ 	swc1	$f6,0x54($v0)
-/*  f0bfbf8:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bfbfc:	c4480040 */ 	lwc1	$f8,0x40($v0)
-/*  f0bfc00:	e4480058 */ 	swc1	$f8,0x58($v0)
-/*  f0bfc04:	0fc59a38 */ 	jal	func0f1668e0
-/*  f0bfc08:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0bfc0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0bfc10:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0bfc14:	03e00008 */ 	jr	$ra
-/*  f0bfc18:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerSetGlobalDrawWorldOffset(s32 arg0)
+{
+	func0f166df0(arg0, &g_Vars.currentplayer->globaldrawworldoffset);
+
+	g_Vars.currentplayer->globaldrawworldbgoffset.x = g_Vars.currentplayer->globaldrawworldoffset.x;
+	g_Vars.currentplayer->globaldrawworldbgoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
+	g_Vars.currentplayer->globaldrawworldbgoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
+
+	func0f1668e0(arg0);
+}
 
 void currentPlayerSetGlobalDrawCameraOffset(void)
 {
@@ -15140,7 +15122,7 @@ glabel func0f0bfc7c
 /*  f0bfca4:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
 /*  f0bfca8:	8e4e0284 */ 	lw	$t6,0x284($s2)
 /*  f0bfcac:	e7a00070 */ 	swc1	$f0,0x70($sp)
-/*  f0bfcb0:	0fc2feee */ 	jal	func0f0bfbb8
+/*  f0bfcb0:	0fc2feee */ 	jal	currentPlayerSetGlobalDrawWorldOffset
 /*  f0bfcb4:	8dc41ba0 */ 	lw	$a0,0x1ba0($t6)
 /*  f0bfcb8:	0fc59e66 */ 	jal	func0f167998
 /*  f0bfcbc:	00000000 */ 	sll	$zero,$zero,0x0

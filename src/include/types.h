@@ -969,9 +969,7 @@ struct player {
 	/*0x0034*/ u32 unk0034;
 	/*0x0038*/ struct coord globaldrawworldoffset;
 	/*0x0044*/ struct coord globaldrawcameraoffset;
-	/*0x0050*/ u32 unk0050;
-	/*0x0054*/ u32 unk0054;
-	/*0x0058*/ u32 unk0058;
+	/*0x0050*/ struct coord globaldrawworldbgoffset;
 	/*0x005c*/ u32 unk005c;
 	/*0x0060*/ u32 unk0060;
 	/*0x0064*/ u32 unk0064;
