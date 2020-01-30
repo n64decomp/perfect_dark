@@ -960,7 +960,7 @@ struct player {
 	/*0x0008*/ u32 unk0008;
 	/*0x000c*/ u32 unk000c;
 	/*0x0010*/ u32 unk0010;
-	/*0x0014*/ u32 unk0014;
+	/*0x0014*/ s32 memcamroom;
 	/*0x0018*/ u32 unk0018;
 	/*0x001c*/ u32 unk001c;
 	/*0x0020*/ u32 unk0020;

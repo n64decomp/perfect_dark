@@ -17392,7 +17392,7 @@ glabel func0f0c1c74
 /*  f0c1c7c:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0c1c80:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0c1c84:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0c1c88:	0fc30743 */ 	jal	func0f0c1d0c
+/*  f0c1c88:	0fc30743 */ 	jal	currentPlayerClearMemCamRoom
 /*  f0c1c8c:	afa70024 */ 	sw	$a3,0x24($sp)
 /*  f0c1c90:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f0c1c94:	8fa5001c */ 	lw	$a1,0x1c($sp)
@@ -17420,14 +17420,10 @@ void currentPlayerSetCamProperties(struct coord *pos, struct coord *up, struct c
 	player->cam_room = room;
 }
 
-GLOBAL_ASM(
-glabel func0f0c1d0c
-/*  f0c1d0c:	3c0f800a */ 	lui	$t7,0x800a
-/*  f0c1d10:	8defa244 */ 	lw	$t7,-0x5dbc($t7)
-/*  f0c1d14:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0c1d18:	03e00008 */ 	jr	$ra
-/*  f0c1d1c:	adee0014 */ 	sw	$t6,0x14($t7)
-);
+void currentPlayerClearMemCamRoom(void)
+{
+	g_Vars.currentplayer->memcamroom = -1;
+}
 
 GLOBAL_ASM(
 glabel func0f0c1d20
@@ -17475,7 +17471,7 @@ glabel func0f0c1d20
 .L0f0c1db0:
 /*  f0c1db0:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f0c1db4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0c1db8:	0fc30743 */ 	jal	func0f0c1d0c
+/*  f0c1db8:	0fc30743 */ 	jal	currentPlayerClearMemCamRoom
 /*  f0c1dbc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c1dc0:	8e0c006c */ 	lw	$t4,0x6c($s0)
 /*  f0c1dc4:	26310001 */ 	addiu	$s1,$s1,0x1
