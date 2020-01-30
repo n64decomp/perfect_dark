@@ -1745,6 +1745,9 @@
 #define TEAM_32        0x32
 #define TEAM_NONCOMBAT 0x80
 
+#define TICKMODE_0 0
+#define TICKMODE_4 4
+
 #define TELEPORTSTATE_STARTING 1
 #define TELEPORTSTATE_3 3
 #define TELEPORTSTATE_4 4

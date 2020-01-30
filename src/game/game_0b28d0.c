@@ -8062,7 +8062,7 @@ glabel func0f0b9538
 /*  f0b9638:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f0b963c(s32 tickmode)
+void setTickMode(s32 tickmode)
 {
 	g_Vars.tickmode = tickmode;
 	g_Vars.in_cutscene = false;
@@ -8070,42 +8070,22 @@ void func0f0b963c(s32 tickmode)
 
 void func0f0b9650(void)
 {
-	func0f0b963c(0);
+	setTickMode(TICKMODE_0);
 	var80070744 = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f0b9674
-/*  f0b9674:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b9678:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b967c:	0fc2e58f */ 	jal	func0f0b963c
-/*  f0b9680:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f0b9684:	3c018007 */ 	lui	$at,0x8007
-/*  f0b9688:	ac200744 */ 	sw	$zero,0x744($at)
-/*  f0b968c:	0fc31f4c */ 	jal	func0f0c7d30
-/*  f0b9690:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b9694:	44800000 */ 	mtc1	$zero,$f0
-/*  f0b9698:	3c01800a */ 	lui	$at,0x800a
-/*  f0b969c:	e420ddd8 */ 	swc1	$f0,-0x2228($at)
-/*  f0b96a0:	3c01c2b4 */ 	lui	$at,0xc2b4
-/*  f0b96a4:	44812000 */ 	mtc1	$at,$f4
-/*  f0b96a8:	3c01800a */ 	lui	$at,0x800a
-/*  f0b96ac:	e424dddc */ 	swc1	$f4,-0x2224($at)
-/*  f0b96b0:	3c01800a */ 	lui	$at,0x800a
-/*  f0b96b4:	e420dde0 */ 	swc1	$f0,-0x2220($at)
-/*  f0b96b8:	3c0142a0 */ 	lui	$at,0x42a0
-/*  f0b96bc:	44813000 */ 	mtc1	$at,$f6
-/*  f0b96c0:	3c01800a */ 	lui	$at,0x800a
-/*  f0b96c4:	0c003a61 */ 	jal	getCurrentStageId
-/*  f0b96c8:	e426dde4 */ 	swc1	$f6,-0x221c($at)
-/*  f0b96cc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0b96d0:	0fc597bb */ 	jal	func0f165eec
-/*  f0b96d4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b96d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b96dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b96e0:	03e00008 */ 	jr	$ra
-/*  f0b96e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0b9674(void)
+{
+	setTickMode(TICKMODE_4);
+	var80070744 = 0;
+	func0f0c7d30(0);
+	var8009ddd8 = 0;
+	var8009dddc = -90;
+	var8009dde0 = 0;
+	var8009dde4 = 80;
+
+	func0f165eec(getCurrentStageId(), 0);
+}
 
 GLOBAL_ASM(
 glabel func0f0b96e8
@@ -8332,7 +8312,7 @@ GLOBAL_ASM(
 glabel func0f0b9a20
 /*  f0b9a20:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b9a24:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b9a28:	0fc2e58f */ 	jal	func0f0b963c
+/*  f0b9a28:	0fc2e58f */ 	jal	setTickMode
 /*  f0b9a2c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0b9a30:	3c018007 */ 	lui	$at,0x8007
 /*  f0b9a34:	ac200744 */ 	sw	$zero,0x744($at)
@@ -8410,7 +8390,7 @@ glabel func0f0b9afc
 /*  f0b9b38:	10000007 */ 	beqz	$zero,.L0f0b9b58
 /*  f0b9b3c:	a05804d6 */ 	sb	$t8,0x4d6($v0)
 .L0f0b9b40:
-/*  f0b9b40:	0fc2e58f */ 	jal	func0f0b963c
+/*  f0b9b40:	0fc2e58f */ 	jal	setTickMode
 /*  f0b9b44:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0b9b48:	3c018007 */ 	lui	$at,0x8007
 /*  f0b9b4c:	ac200744 */ 	sw	$zero,0x744($at)
@@ -8429,7 +8409,7 @@ glabel warpBondToPad
 /*  f0b9b68:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b9b6c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b9b70:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0b9b74:	0fc2e58f */ 	jal	func0f0b963c
+/*  f0b9b74:	0fc2e58f */ 	jal	setTickMode
 /*  f0b9b78:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f0b9b7c:	3c018007 */ 	lui	$at,0x8007
 /*  f0b9b80:	ac200744 */ 	sw	$zero,0x744($at)
@@ -8452,7 +8432,7 @@ glabel func0f0b9bac
 /*  f0b9bb4:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f0b9bb8:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0b9bbc:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0b9bc0:	0fc2e58f */ 	jal	func0f0b963c
+/*  f0b9bc0:	0fc2e58f */ 	jal	setTickMode
 /*  f0b9bc4:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f0b9bc8:	3c018007 */ 	lui	$at,0x8007
 /*  f0b9bcc:	ac200744 */ 	sw	$zero,0x744($at)
@@ -8485,7 +8465,7 @@ glabel func0f0b9c1c
 /*  f0b9c28:	e7ae001c */ 	swc1	$f14,0x1c($sp)
 /*  f0b9c2c:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f0b9c30:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f0b9c34:	0fc2e58f */ 	jal	func0f0b963c
+/*  f0b9c34:	0fc2e58f */ 	jal	setTickMode
 /*  f0b9c38:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f0b9c3c:	3c018007 */ 	lui	$at,0x8007
 /*  f0b9c40:	ac200744 */ 	sw	$zero,0x744($at)
@@ -8749,7 +8729,7 @@ GLOBAL_ASM(
 glabel func0f0ba010
 /*  f0ba010:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0ba014:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ba018:	0fc2e58f */ 	jal	func0f0b963c
+/*  f0ba018:	0fc2e58f */ 	jal	setTickMode
 /*  f0ba01c:	24040006 */ 	addiu	$a0,$zero,0x6
 /*  f0ba020:	3c018007 */ 	lui	$at,0x8007
 /*  f0ba024:	ac200744 */ 	sw	$zero,0x744($at)
@@ -12377,7 +12357,7 @@ glabel currentPlayerAutoWalk
 /*  f0bd440:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0bd444:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f0bd448:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f0bd44c:	0fc2e58f */ 	jal	func0f0b963c
+/*  f0bd44c:	0fc2e58f */ 	jal	setTickMode
 /*  f0bd450:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f0bd454:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f0bd458:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -14830,7 +14810,7 @@ glabel func0f0bd904
 /*  f0bf814:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bf818:	45000004 */ 	bc1f	.L0f0bf82c
 /*  f0bf81c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bf820:	0fc2e58f */ 	jal	func0f0b963c
+/*  f0bf820:	0fc2e58f */ 	jal	setTickMode
 /*  f0bf824:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0bf828:	8e700284 */ 	lw	$s0,0x284($s3)
 .L0f0bf82c:
@@ -14848,7 +14828,7 @@ glabel func0f0bd904
 /*  f0bf854:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bf858:	45020006 */ 	bc1fl	.L0f0bf874
 /*  f0bf85c:	860e1ba8 */ 	lh	$t6,0x1ba8($s0)
-/*  f0bf860:	0fc2e58f */ 	jal	func0f0b963c
+/*  f0bf860:	0fc2e58f */ 	jal	setTickMode
 /*  f0bf864:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0bf868:	8e700284 */ 	lw	$s0,0x284($s3)
 /*  f0bf86c:	86021baa */ 	lh	$v0,0x1baa($s0)

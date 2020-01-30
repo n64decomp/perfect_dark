@@ -11,7 +11,7 @@ u32 func0f1657f8(void);
 u32 func0f16598c(void);
 u32 func0f165c4c(void);
 u32 func0f165ee4(void);
-u32 func0f165eec(void);
+void func0f165eec(s32 stagenum, s32 arg1);
 void func0f1660a4(f32 arg0);
 u32 func0f1664a0(void);
 u32 func0f1666c8(void);
