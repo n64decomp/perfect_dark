@@ -146,7 +146,7 @@ u32 func0f0c1404(void);
 u32 func0f0c160c(void);
 u32 func0f0c16f4(void);
 u32 func0f0c17cc(void);
-u32 func0f0c1830(void);
+void currentPlayerSetCameraMode(s32 mode);
 u32 func0f0c1840(void);
 u32 func0f0c1ba4(void);
 u32 func0f0c1bd8(void);
