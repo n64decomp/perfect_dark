@@ -7416,8 +7416,8 @@ bool ai00e3(void)
 		setCurrentPlayerNum(playernum);
 
 		if (var8007074c != 2) {
-			func0f0bb320(0, 0, 0, 0);
-			func0f0bb3c8(60, 1);
+			currentPlayerSetFadeColour(0, 0, 0, 0);
+			currentPlayerSetFadeFrac(60, 1);
 		}
 
 		setCurrentPlayerNum(prevplayernum);
@@ -7440,8 +7440,8 @@ bool ai00e4(void)
 		setCurrentPlayerNum(playernum);
 
 		if (var8007074c != 2) {
-			func0f0bb320(0, 0, 0, 1);
-			func0f0bb3c8(60, 0);
+			currentPlayerSetFadeColour(0, 0, 0, 1);
+			currentPlayerSetFadeFrac(60, 0);
 		}
 	}
 
@@ -7454,7 +7454,7 @@ bool ai00e4(void)
 /**
  * @cmd 00e5
  */
-bool ai00e5(void)
+bool aiIfFadeComplete(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	bool pass = false;
@@ -7463,7 +7463,7 @@ bool ai00e5(void)
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		u32 playernum = propGetPlayerNum(chr->prop);
 
-		if (g_Vars.players[playernum]->unk02ec < 0) {
+		if (g_Vars.players[playernum]->colourfadetimemax60 < 0) {
 			pass = true;
 		}
 	}

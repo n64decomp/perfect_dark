@@ -1994,7 +1994,10 @@
 	mkshort(0x00e4), \
 	u1,
 
-#define cmd00e5(chr, label) \
+/**
+ * Checks if the screen fade is complete. Follows the label if complete.
+ */
+#define if_fade_complete(chr, label) \
 	mkshort(0x00e5), \
 	chr, \
 	label,

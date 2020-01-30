@@ -14363,7 +14363,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x00e2*/ ai00e2,
 	/*0x00e3*/ ai00e3,
 	/*0x00e4*/ ai00e4,
-	/*0x00e5*/ ai00e5,
+	/*0x00e5*/ aiIfFadeComplete,
 	/*0x00e6*/ NULL,
 	/*0x00e7*/ NULL,
 	/*0x00e8*/ aiSetDoorOpen,

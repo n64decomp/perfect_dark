@@ -8356,12 +8356,12 @@ glabel func0f0b9a20
 /*  f0b9a54:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0b9a58:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0b9a5c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0b9a60:	0fc2ecc8 */ 	jal	func0f0bb320
+/*  f0b9a60:	0fc2ecc8 */ 	jal	currentPlayerSetFadeColour
 /*  f0b9a64:	3c073f80 */ 	lui	$a3,0x3f80
 /*  f0b9a68:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0b9a6c:	44817000 */ 	mtc1	$at,$f14
 /*  f0b9a70:	44806000 */ 	mtc1	$zero,$f12
-/*  f0b9a74:	0fc2ecf2 */ 	jal	func0f0bb3c8
+/*  f0b9a74:	0fc2ecf2 */ 	jal	currentPlayerSetFadeFrac
 /*  f0b9a78:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b9a7c:	1000000d */ 	beqz	$zero,.L0f0b9ab4
 /*  f0b9a80:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8371,12 +8371,12 @@ glabel func0f0b9a20
 /*  f0b9a8c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0b9a90:	11c00008 */ 	beqz	$t6,.L0f0b9ab4
 /*  f0b9a94:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0b9a98:	0fc2ecc8 */ 	jal	func0f0bb320
+/*  f0b9a98:	0fc2ecc8 */ 	jal	currentPlayerSetFadeColour
 /*  f0b9a9c:	3c073f80 */ 	lui	$a3,0x3f80
 /*  f0b9aa0:	3c014270 */ 	lui	$at,0x4270
 /*  f0b9aa4:	44816000 */ 	mtc1	$at,$f12
 /*  f0b9aa8:	44807000 */ 	mtc1	$zero,$f14
-/*  f0b9aac:	0fc2ecf2 */ 	jal	func0f0bb3c8
+/*  f0b9aac:	0fc2ecf2 */ 	jal	currentPlayerSetFadeFrac
 /*  f0b9ab0:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0b9ab4:
 /*  f0b9ab4:	0c003a61 */ 	jal	getCurrentStageId
@@ -10096,36 +10096,40 @@ glabel func0f0bb2e8
 /*  f0bb31c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f0bb320(s32 arg0, s32 arg1, s32 arg2, f32 arg3)
+void currentPlayerSetFadeColour(s32 r, s32 g, s32 b, f32 frac)
 {
-	g_Vars.currentplayer->unk02d8 = arg0;
-	g_Vars.currentplayer->unk02dc = arg1;
-	g_Vars.currentplayer->unk02e0 = arg2;
-	g_Vars.currentplayer->unk02e4 = arg3;
+	g_Vars.currentplayer->colourscreenred = r;
+	g_Vars.currentplayer->colourscreengreen = g;
+	g_Vars.currentplayer->colourscreenblue = b;
+	g_Vars.currentplayer->colourscreenfrac = frac;
 }
 
-void func0f0bb350(f32 arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4)
+void currentPlayerAdjustFade(f32 maxfadetime, s32 r, s32 g, s32 b, f32 frac)
 {
-	g_Vars.currentplayer->unk02e8 = 0;
-	g_Vars.currentplayer->unk02ec = arg0;
-	g_Vars.currentplayer->unk02f0 = g_Vars.currentplayer->unk02d8;
-	g_Vars.currentplayer->unk02f4 = arg1;
-	g_Vars.currentplayer->unk02f8 = g_Vars.currentplayer->unk02dc;
-	g_Vars.currentplayer->unk02fc = arg2;
-	g_Vars.currentplayer->unk0300 = g_Vars.currentplayer->unk02e0;
-	g_Vars.currentplayer->unk0304 = arg3;
-	g_Vars.currentplayer->unk0308 = g_Vars.currentplayer->unk02e4;
-	g_Vars.currentplayer->unk030c = arg4;
+	g_Vars.currentplayer->colourfadetime60 = 0;
+	g_Vars.currentplayer->colourfadetimemax60 = maxfadetime;
+	g_Vars.currentplayer->colourfaderedold = g_Vars.currentplayer->colourscreenred;
+	g_Vars.currentplayer->colourfaderednew = r;
+	g_Vars.currentplayer->colourfadegreenold = g_Vars.currentplayer->colourscreengreen;
+	g_Vars.currentplayer->colourfadegreennew = g;
+	g_Vars.currentplayer->colourfadeblueold = g_Vars.currentplayer->colourscreenblue;
+	g_Vars.currentplayer->colourfadebluenew = b;
+	g_Vars.currentplayer->colourfadefracold = g_Vars.currentplayer->colourscreenfrac;
+	g_Vars.currentplayer->colourfadefracnew = frac;
 }
 
-void func0f0bb3c8(f32 arg0, f32 arg1)
+void currentPlayerSetFadeFrac(f32 maxfadetime, f32 frac)
 {
-	func0f0bb350(arg0,g_Vars.currentplayer->unk02d8, g_Vars.currentplayer->unk02dc, g_Vars.currentplayer->unk02e0, arg1);
+	currentPlayerAdjustFade(maxfadetime,
+			g_Vars.currentplayer->colourscreenred,
+			g_Vars.currentplayer->colourscreengreen,
+			g_Vars.currentplayer->colourscreenblue,
+			frac);
 }
 
-bool func0f0bb3fc(void)
+bool currentPlayerIsFadeComplete(void)
 {
-	return g_Vars.currentplayer->unk02ec < 0;
+	return g_Vars.currentplayer->colourfadetimemax60 < 0;
 }
 
 GLOBAL_ASM(
@@ -10501,7 +10505,7 @@ glabel func0f0bb814
 /*  f0bb9c8:	44070000 */ 	mfc1	$a3,$f0
 /*  f0bb9cc:	8c640010 */ 	lw	$a0,0x10($v1)
 /*  f0bb9d0:	8c650014 */ 	lw	$a1,0x14($v1)
-/*  f0bb9d4:	0fc2ecc8 */ 	jal	func0f0bb320
+/*  f0bb9d4:	0fc2ecc8 */ 	jal	currentPlayerSetFadeColour
 /*  f0bb9d8:	8c660018 */ 	lw	$a2,0x18($v1)
 /*  f0bb9dc:	1000000f */ 	beqz	$zero,.L0f0bba1c
 /*  f0bb9e0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -10510,7 +10514,7 @@ glabel func0f0bb814
 .L0f0bb9e8:
 /*  f0bb9e8:	240400ff */ 	addiu	$a0,$zero,0xff
 /*  f0bb9ec:	240500ff */ 	addiu	$a1,$zero,0xff
-/*  f0bb9f0:	0fc2ecc8 */ 	jal	func0f0bb320
+/*  f0bb9f0:	0fc2ecc8 */ 	jal	currentPlayerSetFadeColour
 /*  f0bb9f4:	e44600f4 */ 	swc1	$f6,0xf4($v0)
 /*  f0bb9f8:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0bb9fc:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
@@ -14939,7 +14943,7 @@ glabel func0f0bd904
 /*  f0bf990:	3405f030 */ 	dli	$a1,0xf030
 /*  f0bf994:	10400024 */ 	beqz	$v0,.L0f0bfa28
 /*  f0bf998:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f0bf99c:	0fc2ecff */ 	jal	func0f0bb3fc
+/*  f0bf99c:	0fc2ecff */ 	jal	currentPlayerIsFadeComplete
 /*  f0bf9a0:	ae2e0000 */ 	sw	$t6,0x0($s1)
 /*  f0bf9a4:	50400016 */ 	beqzl	$v0,.L0f0bfa00
 /*  f0bf9a8:	8e700284 */ 	lw	$s0,0x284($s3)
@@ -14953,13 +14957,13 @@ glabel func0f0bd904
 /*  f0bf9c8:	45020018 */ 	bc1fl	.L0f0bfa2c
 /*  f0bf9cc:	8e2f0000 */ 	lw	$t7,0x0($s1)
 /*  f0bf9d0:	44070000 */ 	mfc1	$a3,$f0
-/*  f0bf9d4:	0fc2ecc8 */ 	jal	func0f0bb320
+/*  f0bf9d4:	0fc2ecc8 */ 	jal	currentPlayerSetFadeColour
 /*  f0bf9d8:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0bf9dc:	3c014270 */ 	lui	$at,0x4270
 /*  f0bf9e0:	44816000 */ 	mtc1	$at,$f12
 /*  f0bf9e4:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0bf9e8:	44817000 */ 	mtc1	$at,$f14
-/*  f0bf9ec:	0fc2ecf2 */ 	jal	func0f0bb3c8
+/*  f0bf9ec:	0fc2ecf2 */ 	jal	currentPlayerSetFadeFrac
 /*  f0bf9f0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bf9f4:	1000000d */ 	beqz	$zero,.L0f0bfa2c
 /*  f0bf9f8:	8e2f0000 */ 	lw	$t7,0x0($s1)
@@ -14973,7 +14977,7 @@ glabel func0f0bd904
 /*  f0bfa14:	45020005 */ 	bc1fl	.L0f0bfa2c
 /*  f0bfa18:	8e2f0000 */ 	lw	$t7,0x0($s1)
 /*  f0bfa1c:	44817000 */ 	mtc1	$at,$f14
-/*  f0bfa20:	0fc2ecf2 */ 	jal	func0f0bb3c8
+/*  f0bfa20:	0fc2ecf2 */ 	jal	currentPlayerSetFadeFrac
 /*  f0bfa24:	c60c02e8 */ 	lwc1	$f12,0x2e8($s0)
 .L0f0bfa28:
 /*  f0bfa28:	8e2f0000 */ 	lw	$t7,0x0($s1)
@@ -14981,7 +14985,7 @@ glabel func0f0bd904
 /*  f0bfa2c:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f0bfa30:	15e1000f */ 	bne	$t7,$at,.L0f0bfa70
 /*  f0bfa34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bfa38:	0fc2ecff */ 	jal	func0f0bb3fc
+/*  f0bfa38:	0fc2ecff */ 	jal	currentPlayerIsFadeComplete
 /*  f0bfa3c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bfa40:	1040000b */ 	beqz	$v0,.L0f0bfa70
 /*  f0bfa44:	00000000 */ 	sll	$zero,$zero,0x0
@@ -15067,7 +15071,7 @@ glabel func0f0bd904
 /*  f0bfb68:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f0bfb6c:	55610008 */ 	bnel	$t3,$at,.L0f0bfb90
 /*  f0bfb70:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f0bfb74:	0fc2ecff */ 	jal	func0f0bb3fc
+/*  f0bfb74:	0fc2ecff */ 	jal	currentPlayerIsFadeComplete
 /*  f0bfb78:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bfb7c:	50400004 */ 	beqzl	$v0,.L0f0bfb90
 /*  f0bfb80:	8fbf004c */ 	lw	$ra,0x4c($sp)
@@ -16196,7 +16200,7 @@ glabel func0f0c07c8
 /*  f0c0c64:	3c073f34 */ 	lui	$a3,0x3f34
 /*  f0c0c68:	13000005 */ 	beqz	$t8,.L0f0c0c80
 /*  f0c0c6c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f0c0c70:	0fc2ecc8 */ 	jal	func0f0bb320
+/*  f0c0c70:	0fc2ecc8 */ 	jal	currentPlayerSetFadeColour
 /*  f0c0c74:	34e7b4b5 */ 	ori	$a3,$a3,0xb4b5
 /*  f0c0c78:	10000003 */ 	beqz	$zero,.L0f0c0c88
 /*  f0c0c7c:	8e030284 */ 	lw	$v1,0x284($s0)
@@ -16230,7 +16234,7 @@ glabel func0f0c07c8
 /*  f0c0ce4:	ac6f0330 */ 	sw	$t7,0x330($v1)
 /*  f0c0ce8:	00003025 */ 	or	$a2,$zero,$zero
 /*  f0c0cec:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0c0cf0:	0fc2ecd4 */ 	jal	func0f0bb350
+/*  f0c0cf0:	0fc2ecd4 */ 	jal	currentPlayerAdjustFade
 /*  f0c0cf4:	e7aa0010 */ 	swc1	$f10,0x10($sp)
 /*  f0c0cf8:	3c0142f0 */ 	lui	$at,0x42f0
 /*  f0c0cfc:	44816000 */ 	mtc1	$at,$f12
@@ -16238,7 +16242,7 @@ glabel func0f0c07c8
 /*  f0c0d04:	0fc2ed5f */ 	jal	func0f0bb57c
 /*  f0c0d08:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0c0d0c:
-/*  f0c0d0c:	0fc2ecff */ 	jal	func0f0bb3fc
+/*  f0c0d0c:	0fc2ecff */ 	jal	currentPlayerIsFadeComplete
 /*  f0c0d10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c0d14:	50400111 */ 	beqzl	$v0,.L0f0c115c
 /*  f0c0d18:	8e0e0284 */ 	lw	$t6,0x284($s0)
