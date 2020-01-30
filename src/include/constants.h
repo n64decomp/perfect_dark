@@ -1747,6 +1747,7 @@
 
 #define TICKMODE_0 0
 #define TICKMODE_1 1
+#define TICKMODE_3 3
 #define TICKMODE_4 4
 
 #define TELEPORTSTATE_STARTING 1

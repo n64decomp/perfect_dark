@@ -8341,26 +8341,14 @@ void func0f0b9afc(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel warpBondToPad
-/*  f0b9b68:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b9b6c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b9b70:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0b9b74:	0fc2e58f */ 	jal	setTickMode
-/*  f0b9b78:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f0b9b7c:	3c018007 */ 	lui	$at,0x8007
-/*  f0b9b80:	ac200744 */ 	sw	$zero,0x744($at)
-/*  f0b9b84:	0fc31f7b */ 	jal	releaseObj
-/*  f0b9b88:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f0b9b8c:	0fc30748 */ 	jal	func0f0c1d20
-/*  f0b9b90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b9b94:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b9b98:	87ae001a */ 	lh	$t6,0x1a($sp)
-/*  f0b9b9c:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9ba0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b9ba4:	03e00008 */ 	jr	$ra
-/*  f0b9ba8:	a42edde8 */ 	sh	$t6,-0x2218($at)
-);
+void warpBondToPad(s16 pad)
+{
+	setTickMode(TICKMODE_3);
+	var80070744 = 0;
+	releaseObj(5);
+	func0f0c1d20();
+	g_WarpPadId = pad;
+}
 
 GLOBAL_ASM(
 glabel func0f0b9bac

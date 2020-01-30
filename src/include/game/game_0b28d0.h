@@ -154,7 +154,7 @@ void currentPlayerSetCamPropertiesWithRoom(struct coord *pos, struct coord *up, 
 void currentPlayerSetCamPropertiesWithoutRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room);
 void currentPlayerSetCamProperties(struct coord *pos, struct coord *up, struct coord *look, s32 room);
 void currentPlayerClearMemCamRoom(void);
-u32 func0f0c1d20(void);
+void func0f0c1d20(void);
 u32 func0f0c1e54(void);
 u32 func0f0c1f08(void);
 u32 func0f0c1ff4(void);

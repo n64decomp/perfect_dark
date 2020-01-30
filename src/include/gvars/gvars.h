@@ -619,6 +619,7 @@ extern f32 var8009ddd8;
 extern f32 var8009dddc;
 extern f32 var8009dde0;
 extern f32 var8009dde4;
+extern s16 g_WarpPadId;
 extern u32 var8009ddec;
 extern u32 var8009ddf0;
 extern u32 var8009de10;
