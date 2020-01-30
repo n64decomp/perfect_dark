@@ -8328,40 +8328,18 @@ void func0f0b9a20(void)
 	var8007074c = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f0b9afc
-/*  f0b9afc:	3c0e8006 */ 	lui	$t6,0x8006
-/*  f0b9b00:	8dce24a4 */ 	lw	$t6,0x24a4($t6)
-/*  f0b9b04:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b9b08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b9b0c:	11c00005 */ 	beqz	$t6,.L0f0b9b24
-/*  f0b9b10:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0b9b14:	0c003a57 */ 	jal	func0000e95c
-/*  f0b9b18:	2404005a */ 	addiu	$a0,$zero,0x5a
-/*  f0b9b1c:	1000000f */ 	beqz	$zero,.L0f0b9b5c
-/*  f0b9b20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0b9b24:
-/*  f0b9b24:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0b9b28:	804f04d3 */ 	lb	$t7,0x4d3($v0)
-/*  f0b9b2c:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f0b9b30:	11e00003 */ 	beqz	$t7,.L0f0b9b40
-/*  f0b9b34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b9b38:	10000007 */ 	beqz	$zero,.L0f0b9b58
-/*  f0b9b3c:	a05804d6 */ 	sb	$t8,0x4d6($v0)
-.L0f0b9b40:
-/*  f0b9b40:	0fc2e58f */ 	jal	setTickMode
-/*  f0b9b44:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b9b48:	3c018007 */ 	lui	$at,0x8007
-/*  f0b9b4c:	ac200744 */ 	sw	$zero,0x744($at)
-/*  f0b9b50:	0fc31f7b */ 	jal	releaseObj
-/*  f0b9b54:	00002025 */ 	or	$a0,$zero,$zero
-.L0f0b9b58:
-/*  f0b9b58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0b9b5c:
-/*  f0b9b5c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b9b60:	03e00008 */ 	jr	$ra
-/*  f0b9b64:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0b9afc(void)
+{
+	if (var800624a4) {
+		func0000e95c(0x5a);
+	} else if (g_Vars.unk0004d3) {
+		g_Vars.unk0004d6 = 1;
+	} else {
+		setTickMode(TICKMODE_1);
+		var80070744 = 0;
+		releaseObj(0);
+	}
+}
 
 GLOBAL_ASM(
 glabel warpBondToPad
