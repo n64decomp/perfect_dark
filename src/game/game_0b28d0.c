@@ -8350,37 +8350,17 @@ void warpBondToPad(s16 pad)
 	g_WarpPadId = pad;
 }
 
-GLOBAL_ASM(
-glabel func0f0b9bac
-/*  f0b9bac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b9bb0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b9bb4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0b9bb8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b9bbc:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0b9bc0:	0fc2e58f */ 	jal	setTickMode
-/*  f0b9bc4:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f0b9bc8:	3c018007 */ 	lui	$at,0x8007
-/*  f0b9bcc:	ac200744 */ 	sw	$zero,0x744($at)
-/*  f0b9bd0:	0fc31f7b */ 	jal	releaseObj
-/*  f0b9bd4:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f0b9bd8:	0fc30748 */ 	jal	func0f0c1d20
-/*  f0b9bdc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b9be0:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f0b9be4:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0b9be8:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9bec:	a42edde8 */ 	sh	$t6,-0x2218($at)
-/*  f0b9bf0:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f0b9bf4:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9bf8:	ac2fddec */ 	sw	$t7,-0x2214($at)
-/*  f0b9bfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b9c00:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9c04:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*  f0b9c08:	ac38de08 */ 	sw	$t8,-0x21f8($at)
-/*  f0b9c0c:	3c01800a */ 	lui	$at,0x800a
-/*  f0b9c10:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b9c14:	03e00008 */ 	jr	$ra
-/*  f0b9c18:	ac39de0c */ 	sw	$t9,-0x21f4($at)
-);
+void func0f0b9bac(s32 arg0, s32 arg1, s32 arg2)
+{
+	setTickMode(TICKMODE_3);
+	var80070744 = 0;
+	releaseObj(5);
+	func0f0c1d20();
+	g_WarpPadId = -1;
+	var8009ddec = arg0;
+	var8009de08 = arg1;
+	var8009de0c = arg2;
+}
 
 GLOBAL_ASM(
 glabel func0f0b9c1c
