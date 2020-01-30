@@ -199,7 +199,7 @@ struct chr2d4 {
 	/*0x077*/ s8 unk077;
 	/*0x078*/ u8 unk078;
 	/*0x079*/ u8 unk079;
-	/*0x07a*/ s8 unk07a;
+	/*0x07a*/ s16 rooms[1];
 	/*0x07c*/ u32 unk07c;
 	/*0x080*/ u32 unk080;
 	/*0x084*/ u32 unk084;
@@ -375,6 +375,8 @@ struct act_attack {
 	/*0x48*/ u32 unk048;
 	/*0x4c*/ u32 unk04c;
 	/*0x50*/ u32 unk050;
+	/*0x54*/ u32 unk054;
+	/*0x58*/ u32 unk058;
 };
 
 struct act_sidestep {
@@ -390,6 +392,43 @@ struct act_runpos {
 	/*0x38*/ f32 unk038;
 	/*0x3c*/ u32 unk03c;
 	/*0x40*/ f32 unk040;
+};
+
+struct act_gopos {
+	/*0x02c*/ struct coord pos;
+	/*0x038*/ s16 rooms[8];
+	/*0x048*/ s32 numwaypoints;
+	/*0x04c*/ s32 *waypoints[MAX_CHRWAYPOINTS];
+	/*0x064*/ u8 nextwaypointindex;
+
+	// This doesn't appear to be a proper bitfield, but is used as one
+	// ....x... = on preset path
+	// ......xx = speed
+	/*0x065*/ u8 unk065;
+
+	/*0x066*/ s16 unk066;
+	/*0x068*/ s8 unk068;
+	/*0x069*/ u8 unk069;
+	/*0x06a*/ u8 unk06a;
+	/*0x06b*/ u8 unk06b;
+	/*0x06c*/ u16 unk06c;
+	/*0x06e*/ u8 unk06e;
+	/*0x070*/ u32 unk070;
+	/*0x074*/ u32 unk074;
+	/*0x078*/ u32 unk078;
+	/*0x07c*/ u32 unk07c;
+	/*0x080*/ u32 unk080;
+	/*0x084*/ u32 unk084;
+	/*0x088*/ u32 unk088;
+	/*0x08c*/ u32 unk08c;
+	/*0x090*/ u32 unk090;
+	/*0x094*/ u32 unk094;
+	/*0x098*/ u32 unk098;
+	/*0x09c*/ u32 unk09c;
+	/*0x0a0*/ u32 unk0a0;
+	/*0x0a4*/ u32 unk0a4;
+	/*0x0a8*/ s32 unk0a8;
+	/*0x0ac*/ f32 unk0ac;
 };
 
 struct act_surprised {
@@ -409,13 +448,6 @@ struct act_attackamount {
 	/*0x32*/ u8 unk032;
 	/*0x33*/ s8 unk033;
 	/*0x34*/ s8 unk034;
-};
-
-struct act_aibotgetitem {
-	/*0x2c*/ struct coord pos;
-	/*0x38*/ s16 rooms[8];
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ s32 unk4c[1];
 };
 
 struct act_skjump {
@@ -475,39 +507,13 @@ struct chrdata {
 		struct act_sidestep act_sidestep;
 		struct act_jumpout act_jumpout;
 		struct act_runpos act_runpos;
+		struct act_gopos act_gopos;
 		struct act_surprised act_surprised;
 		struct act_throwgrenade act_throwgrenade;
 		struct act_attackamount act_attackamount;
-		struct act_aibotgetitem act_aibotgetitem;
 		struct act_skjump act_skjump;
 	};
 
-	/*0x054*/ u32 unk054;
-	/*0x058*/ void *unk058;
-	/*0x05c*/ u32 unk05c;
-	/*0x060*/ u32 unk060;
-	/*0x064*/ u8 unk064;
-	/*0x065*/ u8 speed;
-	/*0x066*/ s16 unk066;
-	/*0x068*/ u32 unk068;
-	/*0x06c*/ u16 unk06c;
-	/*0x06e*/ u8 unk06e;
-	/*0x070*/ u32 unk070;
-	/*0x074*/ u32 unk074;
-	/*0x078*/ u32 unk078;
-	/*0x07c*/ u32 unk07c;
-	/*0x080*/ u32 unk080;
-	/*0x084*/ u32 unk084;
-	/*0x088*/ u32 unk088;
-	/*0x08c*/ u32 unk08c;
-	/*0x090*/ u32 unk090;
-	/*0x094*/ u32 unk094;
-	/*0x098*/ u32 unk098;
-	/*0x09c*/ u32 unk09c;
-	/*0x0a0*/ u32 unk0a0;
-	/*0x0a4*/ u32 unk0a4;
-	/*0x0a8*/ u32 unk0a8;
-	/*0x0ac*/ u32 unk0ac;
 	/*0x0b0*/ u32 sumground;
 	/*0x0b4*/ f32 manground;
 	/*0x0b8*/ f32 ground;
@@ -574,7 +580,7 @@ struct chrdata {
 	/*0x194*/ u32 magicframe;
 	/*0x198*/ u32 magicspeed;
 	/*0x19c*/ u16 magicanim;
-	/*0x19e*/ u16 goposforce;
+	/*0x19e*/ s16 goposforce;
 	/*0x1a0*/ s32 bdlist[60];
 	/*0x290*/ u8 bdstart;
 	/*0x291*/ u8 goposhitcount;
@@ -593,7 +599,7 @@ struct chrdata {
 	/*0x2b1*/ u8 voicebox;
 	/*0x2b2*/ u16 floorroom;
 	/*0x2b4*/ u32 unk2b4;
-	/*0x2b8*/ u16 oldrooms[8];
+	/*0x2b8*/ s16 oldrooms[8];
 	/*0x2c8*/ struct coord runfrompos;
 	/*0x2d4*/ struct chr2d4 *unk2d4;
 	/*0x2d8*/ s16 blurdrugamount;
@@ -623,12 +629,15 @@ struct chrdata {
 
 	u8 unk32c_08 : 1;
 	u8 pouncebits : 3;
-	u8 unk32c_12 : 2;
+	u8 unk32c_12 : 1;
+	u8 unk32c_13 : 1;
 	u8 darkroomthing : 1;
 	u8 unk32c_15 : 1;
 
 	u8 p1p2 : 2;
-	u8 unk32c_18 : 6;
+	u8 unk32c_18 : 3;
+	u8 unk32c_21 : 1;
+	u8 unk32c_22 : 2;
 
 	u8 specialdie : 8;
 

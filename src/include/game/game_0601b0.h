@@ -39,7 +39,7 @@ u32 func0f064a24(void);
 u32 func0f064ce8(void);
 u32 func0f0654e8(void);
 u32 func0f06554c(void);
-void func0f0657a4(s32 *arg0, s8 *arg1);
+void func0f0657a4(s16 *room, s16 *rooms);
 u32 func0f0657d8(void);
 bool arrayIntersects(s16 *a, s16 *b);
 u32 func0f0658e8(void);

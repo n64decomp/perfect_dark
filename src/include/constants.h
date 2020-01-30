@@ -554,6 +554,7 @@
 #define MA_FACING          53
 #define MA_PUNCHING        54
 
+#define MAX_CHRWAYPOINTS   6
 #define MAX_DANGEROUSPROPS 12
 #define MAX_LIFTS          10
 #define MAX_MPCHRS         (4 + MAX_SIMULANTS)
@@ -1487,7 +1488,10 @@
 
 #define PLAYERFLAG_NOCONTROL 0x00000002
 
+#define PROPFLAG_02     0x02
 #define PROPFLAG_HIDDEN 0x04
+#define PROPFLAG_40     0x40
+#define PROPFLAG_80     0x80
 
 #define PROPTYPE_OBJ    1
 #define PROPTYPE_DOOR   2

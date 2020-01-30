@@ -28509,9 +28509,9 @@ glabel func0f036fc0
 /*  f037084:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s32 func0f037088(s32 arg0, s32 arg1, s32 arg2)
+void func0f037088(struct chrdata *chr, s32 *arg1, s32 *arg2)
 {
-	return func0f036fc0(arg0, arg1, arg2, 0);
+	func0f036fc0(chr, arg1, arg2, 0);
 }
 
 GLOBAL_ASM(
@@ -28623,7 +28623,7 @@ glabel func0f037124
 
 void chrSetField66To0(struct chrdata *chr)
 {
-	chr->unk066 = 0;
+	chr->act_gopos.unk066 = 0;
 }
 
 GLOBAL_ASM(
@@ -28736,15 +28736,15 @@ glabel func0f03733c
 /*  f03738c:	000a59c0 */ 	sll	$t3,$t2,0x7
 /*  f037390:	000c68c0 */ 	sll	$t5,$t4,0x3
 /*  f037394:	016d2021 */ 	addu	$a0,$t3,$t5
-/*  f037398:	0fc45090 */ 	jal	func0f114240
+/*  f037398:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f03739c:	00802825 */ 	or	$a1,$a0,$zero
 /*  f0373a0:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f0373a4:	8e050048 */ 	lw	$a1,0x48($s0)
 /*  f0373a8:	2606004c */ 	addiu	$a2,$s0,0x4c
-/*  f0373ac:	0fc4547b */ 	jal	func0f1151ec
+/*  f0373ac:	0fc4547b */ 	jal	waypointFindRoute
 /*  f0373b0:	24070006 */ 	addiu	$a3,$zero,0x6
 /*  f0373b4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0373b8:	0fc45090 */ 	jal	func0f114240
+/*  f0373b8:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f0373bc:	00002825 */ 	or	$a1,$zero,$zero
 .L0f0373c0:
 /*  f0373c0:	0fc0dcba */ 	jal	func0f0372e8
@@ -30011,14 +30011,14 @@ glabel chrGoToPos
 .L0f03854c:
 /*  f03854c:	27050028 */ 	addiu	$a1,$t8,0x28
 .L0f038550:
-/*  f038550:	0fc45095 */ 	jal	func0f114254
+/*  f038550:	0fc45095 */ 	jal	waypointFindClosestToPos
 /*  f038554:	afaa0030 */ 	sw	$t2,0x30($sp)
 /*  f038558:	8faa0030 */ 	lw	$t2,0x30($sp)
 /*  f03855c:	afa20088 */ 	sw	$v0,0x88($sp)
 .L0f038560:
 /*  f038560:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*  f038564:	8fa50098 */ 	lw	$a1,0x98($sp)
-/*  f038568:	0fc45095 */ 	jal	func0f114254
+/*  f038568:	0fc45095 */ 	jal	waypointFindClosestToPos
 /*  f03856c:	afaa0030 */ 	sw	$t2,0x30($sp)
 /*  f038570:	8fab0088 */ 	lw	$t3,0x88($sp)
 /*  f038574:	8faa0030 */ 	lw	$t2,0x30($sp)
@@ -30034,16 +30034,16 @@ glabel chrGoToPos
 /*  f03859c:	000c69c0 */ 	sll	$t5,$t4,0x7
 /*  f0385a0:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f0385a4:	01af2021 */ 	addu	$a0,$t5,$t7
-/*  f0385a8:	0fc45090 */ 	jal	func0f114240
+/*  f0385a8:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f0385ac:	00802825 */ 	or	$a1,$a0,$zero
 /*  f0385b0:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f0385b4:	8fa50084 */ 	lw	$a1,0x84($sp)
 /*  f0385b8:	27a6006c */ 	addiu	$a2,$sp,0x6c
-/*  f0385bc:	0fc4547b */ 	jal	func0f1151ec
+/*  f0385bc:	0fc4547b */ 	jal	waypointFindRoute
 /*  f0385c0:	24070006 */ 	addiu	$a3,$zero,0x6
 /*  f0385c4:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f0385c8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0385cc:	0fc45090 */ 	jal	func0f114240
+/*  f0385cc:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f0385d0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0385d4:	8faa0030 */ 	lw	$t2,0x30($sp)
 .L0f0385d8:
@@ -30203,6 +30203,133 @@ glabel chrGoToPos
 /*  f038810:	03e00008 */ 	jr	$ra
 /*  f038814:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+//u32 chrGoToPos(struct chrdata *chr, struct coord *pos, s16 *room, u32 speed)
+//{
+//	struct prop *prop = chr->prop; // 140
+//	s32 *nextwaypoint; // 136
+//	s32 *lastwaypoint; // 132
+//	s32 *waypoints[MAX_CHRWAYPOINTS]; // 108
+//	s32 auStack52[4]; // 92
+//	s32 auStack68[3]; // 76
+//	bool same2; // 72
+//	struct coord prevpos; // 56
+//	s32 numwaypoints; // 52
+//	bool same; // 48
+//	s32 i;
+//
+//	same = (chr->actiontype == ACT_GOPOS);
+//
+//	// 470
+//	if (same) {
+//		same = (chr->act_gopos.unk065 & 0x3) == (speed & 0x3);
+//
+//		// 490
+//		if (same) {
+//			same = func0f02e064(chr) == 0;
+//		}
+//	}
+//
+//	// 4b0
+//	same2 = same;
+//	same = same && chr->act_gopos.unk068 == MAX_CHRWAYPOINTS;
+//
+//	// 4c4
+//	numwaypoints = 0;
+//
+//	// 4e8
+//	for (i = 0; chr->prop->rooms[i] != -1; i++) {
+//		chr->oldrooms[i] = chr->prop->rooms[i];
+//	}
+//
+//	// 508
+//	chr->oldrooms[i] = -1;
+//
+//	// 51c
+//	if (same2 && same && chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex]) {
+//		nextwaypoint = chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex];
+//	} else {
+//		// 54c
+//		nextwaypoint = waypointFindClosestToPos(&prop->pos, &prop->rooms[0]);
+//	}
+//
+//	// 560
+//	lastwaypoint = waypointFindClosestToPos(pos, room);
+//
+//	// 57c
+//	if (nextwaypoint && lastwaypoint) {
+//		// 588
+//		waypointSetHashThing(
+//				((g_Vars.lvframe60 >> 9) << 7) + chr->chrnum * 8,
+//				((g_Vars.lvframe60 >> 9) << 7) + chr->chrnum * 8);
+//		numwaypoints = waypointFindRoute(nextwaypoint, lastwaypoint, &waypoints[0], MAX_CHRWAYPOINTS);
+//		waypointSetHashThing(0, 0);
+//	}
+//
+//	// 5d8
+//	if (numwaypoints > 1) {
+//		if (same2 && same) {
+//			func0f0379b0(chr, &prevpos);
+//		} else {
+//			prevpos.x = prop->pos.x;
+//			prevpos.y = prop->pos.y;
+//			prevpos.z = prop->pos.z;
+//		}
+//
+//		chrStopFiring(chr);
+//		chr->actiontype = ACT_GOPOS;
+//		chr->act_gopos.pos.x = pos->x;
+//		chr->act_gopos.pos.y = pos->y;
+//		chr->act_gopos.pos.z = pos->z;
+//		func0f0657a4(room, &chr->act_gopos.rooms[0]);
+//		chr->act_gopos.nextwaypointindex = 0;
+//		chr->act_gopos.numwaypoints = numwaypoints;
+//		chr->act_gopos.unk065 = 4 | speed;
+//		chr->act_gopos.unk0ac = 0;
+//		chr->unk32c_21 = 0;
+//		chr->act_gopos.unk090 = random() % 100;
+//		chr->act_gopos.unk06b = 0;
+//
+//		// 6c4
+//		if (same2 == 0) {
+//			chr->act_gopos.unk0a8 = -1;
+//		}
+//
+//		// 6d0
+//		for (i = 0; i < MAX_CHRWAYPOINTS; i++) {
+//			chr->act_gopos.waypoints[i] = waypoints[i];
+//		}
+//
+//		func0f0372e8(chr);
+//		chr->goposforce = -1;
+//		chr->sleep = 0;
+//		chr->unk32c_00 = 0;
+//		chr->act_gopos.unk065 &= 0xff1f;
+//		func0f037088(chr, &auStack52[0], &auStack68[0]);
+//
+//		if ((!same2 || same) &&
+//				g_Vars.mplayerisrunning == 0 &&
+//				(prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) == 0 &&
+//				func0f036c08(chr, &auStack52[0], &auStack68[0]) &&
+//				chr->unk32c_00 >= 0) {
+//			func0f036ee4(chr, &chr->act_gopos.unk068, &auStack52[0], &prevpos);
+//		}
+//
+//		if (chr->act_gopos.unk068 != MAX_CHRWAYPOINTS && func0001db94(chr->unk020) != 0 && !chr->unk2d4) {
+//			chr->hidden |= CHRHFLAG_00200000;
+//			return true;
+//		} else {
+//			if (!same2) {
+//				func0f037b70(chr);
+//			}
+//
+//			chr->hidden &= ~CHRHFLAG_00200000;
+//			return true;
+//		}
+//	}
+//
+//	return false;
+//}
 
 struct path *pathFindById(u32 path_id)
 {
@@ -49376,7 +49503,7 @@ glabel func0f04a37c
 /*  f04a39c:	afb3002c */ 	sw	$s3,0x2c($sp)
 /*  f04a3a0:	afb20028 */ 	sw	$s2,0x28($sp)
 /*  f04a3a4:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f04a3a8:	0fc45095 */ 	jal	func0f114254
+/*  f04a3a8:	0fc45095 */ 	jal	waypointFindClosestToPos
 /*  f04a3ac:	afa70044 */ 	sw	$a3,0x44($sp)
 /*  f04a3b0:	10400044 */ 	beqz	$v0,.L0f04a4c4
 /*  f04a3b4:	00409825 */ 	or	$s3,$v0,$zero
@@ -49492,12 +49619,12 @@ glabel func0f04a4ec
 /*  f04a52c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f04a530:	26040008 */ 	addiu	$a0,$s0,0x8
 /*  f04a534:	26050028 */ 	addiu	$a1,$s0,0x28
-/*  f04a538:	0fc45095 */ 	jal	func0f114254
+/*  f04a538:	0fc45095 */ 	jal	waypointFindClosestToPos
 /*  f04a53c:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f04a540:	8fa30048 */ 	lw	$v1,0x48($sp)
 /*  f04a544:	00408025 */ 	or	$s0,$v0,$zero
 /*  f04a548:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f04a54c:	0fc45095 */ 	jal	func0f114254
+/*  f04a54c:	0fc45095 */ 	jal	waypointFindClosestToPos
 /*  f04a550:	24650028 */ 	addiu	$a1,$v1,0x28
 /*  f04a554:	8fa60024 */ 	lw	$a2,0x24($sp)
 /*  f04a558:	12000040 */ 	beqz	$s0,.L0f04a65c
@@ -49513,16 +49640,16 @@ glabel func0f04a4ec
 /*  f04a580:	000fc1c0 */ 	sll	$t8,$t7,0x7
 /*  f04a584:	001940c0 */ 	sll	$t0,$t9,0x3
 /*  f04a588:	03082021 */ 	addu	$a0,$t8,$t0
-/*  f04a58c:	0fc45090 */ 	jal	func0f114240
+/*  f04a58c:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f04a590:	00802825 */ 	or	$a1,$a0,$zero
 /*  f04a594:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04a598:	8fa50040 */ 	lw	$a1,0x40($sp)
 /*  f04a59c:	27a60034 */ 	addiu	$a2,$sp,0x34
-/*  f04a5a0:	0fc4547b */ 	jal	func0f1151ec
+/*  f04a5a0:	0fc4547b */ 	jal	waypointFindRoute
 /*  f04a5a4:	24070003 */ 	addiu	$a3,$zero,0x3
 /*  f04a5a8:	00408025 */ 	or	$s0,$v0,$zero
 /*  f04a5ac:	00002025 */ 	or	$a0,$zero,$zero
-/*  f04a5b0:	0fc45090 */ 	jal	func0f114240
+/*  f04a5b0:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f04a5b4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04a5b8:	2a010003 */ 	slti	$at,$s0,0x3
 /*  f04a5bc:	14200027 */ 	bnez	$at,.L0f04a65c
@@ -49538,14 +49665,14 @@ glabel func0f04a4ec
 /*  f04a5e0:	000c69c0 */ 	sll	$t5,$t4,0x7
 /*  f04a5e4:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f04a5e8:	01af2021 */ 	addu	$a0,$t5,$t7
-/*  f04a5ec:	0fc45090 */ 	jal	func0f114240
+/*  f04a5ec:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f04a5f0:	00802825 */ 	or	$a1,$a0,$zero
 /*  f04a5f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f04a5f8:	0fc45578 */ 	jal	func0f1155e0
 /*  f04a5fc:	8fa50040 */ 	lw	$a1,0x40($sp)
 /*  f04a600:	00408025 */ 	or	$s0,$v0,$zero
 /*  f04a604:	00002025 */ 	or	$a0,$zero,$zero
-/*  f04a608:	0fc45090 */ 	jal	func0f114240
+/*  f04a608:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f04a60c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04a610:	52000013 */ 	beqzl	$s0,.L0f04a660
 /*  f04a614:	00001025 */ 	or	$v0,$zero,$zero
@@ -49967,12 +50094,12 @@ glabel chrIsInLoadedRoom
 /*  f04ad80:	10000041 */ 	beqz	$zero,.L0f04ae88
 /*  f04ad84:	00001025 */ 	or	$v0,$zero,$zero
 .L0f04ad88:
-/*  f04ad88:	0fc45095 */ 	jal	func0f114254
+/*  f04ad88:	0fc45095 */ 	jal	waypointFindClosestToPos
 /*  f04ad8c:	02a02825 */ 	or	$a1,$s5,$zero
 /*  f04ad90:	26330028 */ 	addiu	$s3,$s1,0x28
 /*  f04ad94:	00408025 */ 	or	$s0,$v0,$zero
 /*  f04ad98:	02602825 */ 	or	$a1,$s3,$zero
-/*  f04ad9c:	0fc45095 */ 	jal	func0f114254
+/*  f04ad9c:	0fc45095 */ 	jal	waypointFindClosestToPos
 /*  f04ada0:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f04ada4:	12000037 */ 	beqz	$s0,.L0f04ae84
 /*  f04ada8:	00408825 */ 	or	$s1,$v0,$zero
@@ -49985,16 +50112,16 @@ glabel chrIsInLoadedRoom
 /*  f04adc4:	000849c0 */ 	sll	$t1,$t0,0x7
 /*  f04adc8:	000b60c0 */ 	sll	$t4,$t3,0x3
 /*  f04adcc:	012c2021 */ 	addu	$a0,$t1,$t4
-/*  f04add0:	0fc45090 */ 	jal	func0f114240
+/*  f04add0:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f04add4:	00802825 */ 	or	$a1,$a0,$zero
 /*  f04add8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f04addc:	02002825 */ 	or	$a1,$s0,$zero
 /*  f04ade0:	27a600b4 */ 	addiu	$a2,$sp,0xb4
-/*  f04ade4:	0fc4547b */ 	jal	func0f1151ec
+/*  f04ade4:	0fc4547b */ 	jal	waypointFindRoute
 /*  f04ade8:	24070005 */ 	addiu	$a3,$zero,0x5
 /*  f04adec:	00408025 */ 	or	$s0,$v0,$zero
 /*  f04adf0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f04adf4:	0fc45090 */ 	jal	func0f114240
+/*  f04adf4:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f04adf8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f04adfc:	2a010003 */ 	slti	$at,$s0,0x3
 /*  f04ae00:	14200020 */ 	bnez	$at,.L0f04ae84

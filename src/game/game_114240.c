@@ -16,7 +16,7 @@ const char var7f1b3a80[] = "padhalllv.c";
 const u32 var7f1b3a8c[] = {0x00000000};
 
 GLOBAL_ASM(
-glabel func0f114240
+glabel waypointSetHashThing
 /*  f114240:	3c028007 */ 	lui	$v0,%hi(var80075ca0)
 /*  f114244:	24425ca0 */ 	addiu	$v0,$v0,%lo(var80075ca0)
 /*  f114248:	ac440000 */ 	sw	$a0,0x0($v0)
@@ -25,7 +25,7 @@ glabel func0f114240
 );
 
 GLOBAL_ASM(
-glabel func0f114254
+glabel waypointFindClosestToPos
 /*  f114254:	27bdfc60 */ 	addiu	$sp,$sp,-928
 /*  f114258:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f11425c:	afbe0050 */ 	sw	$s8,0x50($sp)
@@ -1161,7 +1161,7 @@ glabel func0f11505c
 );
 
 GLOBAL_ASM(
-glabel func0f1151ec
+glabel waypointFindRoute
 /*  f1151ec:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f1151f0:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f1151f4:	3c10800a */ 	lui	$s0,0x800a

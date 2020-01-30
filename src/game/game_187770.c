@@ -12559,24 +12559,24 @@ void func0f1924ac(struct chrdata *chr, struct prop *prop)
 	chr->unk2d4->unk0d8 = 1;
 }
 
-void func0f1924e8(struct chrdata *chr, struct coord *pos, s32 *arg2, f32 arg3)
+void func0f1924e8(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
 {
 	chr->unk2d4->unk079 = 2;
 	chr->unk2d4->unk08c.x = pos->x;
 	chr->unk2d4->unk08c.y = pos->y;
 	chr->unk2d4->unk08c.z = pos->z;
-	func0f0657a4(arg2, &chr->unk2d4->unk07a);
+	func0f0657a4(room, &chr->unk2d4->rooms[0]);
 	chr->unk2d4->unk098 = arg3;
 	chr->unk2d4->unk0d8 = 1;
 }
 
-void func0f19257c(struct chrdata *chr, struct coord *pos, s32 *arg2, f32 arg3)
+void func0f19257c(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
 {
 	chr->unk2d4->unk079 = 3;
 	chr->unk2d4->unk08c.x = pos->x;
 	chr->unk2d4->unk08c.y = pos->y;
 	chr->unk2d4->unk08c.z = pos->z;
-	func0f0657a4(arg2, &chr->unk2d4->unk07a);
+	func0f0657a4(room, &chr->unk2d4->rooms[0]);
 	chr->unk2d4->unk098 = arg3;
 	chr->unk2d4->unk0d8 = 1;
 }
@@ -17309,11 +17309,11 @@ glabel func0f194b40
 /*  f196be8:	8e83001c */ 	lw	$v1,0x1c($s4)
 /*  f196bec:	00408025 */ 	or	$s0,$v0,$zero
 /*  f196bf0:	24640008 */ 	addiu	$a0,$v1,0x8
-/*  f196bf4:	0fc45095 */ 	jal	func0f114254
+/*  f196bf4:	0fc45095 */ 	jal	waypointFindClosestToPos
 /*  f196bf8:	24650028 */ 	addiu	$a1,$v1,0x28
 /*  f196bfc:	00408825 */ 	or	$s1,$v0,$zero
 /*  f196c00:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f196c04:	0fc45095 */ 	jal	func0f114254
+/*  f196c04:	0fc45095 */ 	jal	waypointFindClosestToPos
 /*  f196c08:	26050028 */ 	addiu	$a1,$s0,0x28
 /*  f196c0c:	12200014 */ 	beqz	$s1,.L0f196c60
 /*  f196c10:	00408025 */ 	or	$s0,$v0,$zero
@@ -17325,16 +17325,16 @@ glabel func0f194b40
 /*  f196c28:	000b71c0 */ 	sll	$t6,$t3,0x7
 /*  f196c2c:	000cc0c0 */ 	sll	$t8,$t4,0x3
 /*  f196c30:	01d82021 */ 	addu	$a0,$t6,$t8
-/*  f196c34:	0fc45090 */ 	jal	func0f114240
+/*  f196c34:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f196c38:	00802825 */ 	or	$a1,$a0,$zero
 /*  f196c3c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f196c40:	02202825 */ 	or	$a1,$s1,$zero
 /*  f196c44:	264601e8 */ 	addiu	$a2,$s2,0x1e8
-/*  f196c48:	0fc4547b */ 	jal	func0f1151ec
+/*  f196c48:	0fc4547b */ 	jal	waypointFindRoute
 /*  f196c4c:	24070008 */ 	addiu	$a3,$zero,0x8
 /*  f196c50:	ae420208 */ 	sw	$v0,0x208($s2)
 /*  f196c54:	00002025 */ 	or	$a0,$zero,$zero
-/*  f196c58:	0fc45090 */ 	jal	func0f114240
+/*  f196c58:	0fc45090 */ 	jal	waypointSetHashThing
 /*  f196c5c:	00002825 */ 	or	$a1,$zero,$zero
 .L0f196c60:
 /*  f196c60:	0fc663bb */ 	jal	func0f198eec
@@ -17959,7 +17959,7 @@ void func0f197544(struct chrdata *chr)
 	struct chr2d4 *chr2d4 = chr->unk2d4;
 
 	if (chr->myaction == MA_AIBOTGETITEM) {
-		if (chr->act_aibotgetitem.unk4c[chr->unk064] == 0) {
+		if (chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex] == 0) {
 			struct prop *prop = chr2d4->prop;
 
 			if (prop && !prop->parent && prop->timetoregen == 0) {
@@ -17974,6 +17974,6 @@ void func0f197544(struct chrdata *chr)
 	}
 
 	if (!pass) {
-		chrGoToPos(chr, &chr->act_aibotgetitem.pos, &chr->act_aibotgetitem.rooms[0], chr->speed);
+		chrGoToPos(chr, &chr->act_gopos.pos, &chr->act_gopos.rooms[0], chr->act_gopos.unk065);
 	}
 }
