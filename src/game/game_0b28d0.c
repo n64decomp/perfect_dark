@@ -17377,7 +17377,7 @@ glabel func0f0c1c24
 /*  f0c1c50:	c4880008 */ 	lwc1	$f8,0x8($a0)
 /*  f0c1c54:	e708000c */ 	swc1	$f8,0xc($t8)
 /*  f0c1c58:	8c590284 */ 	lw	$t9,0x284($v0)
-/*  f0c1c5c:	0fc3072d */ 	jal	func0f0c1cb4
+/*  f0c1c5c:	0fc3072d */ 	jal	currentPlayerSetCamProperties
 /*  f0c1c60:	af270014 */ 	sw	$a3,0x14($t9)
 /*  f0c1c64:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0c1c68:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -17397,7 +17397,7 @@ glabel func0f0c1c74
 /*  f0c1c90:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f0c1c94:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f0c1c98:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f0c1c9c:	0fc3072d */ 	jal	func0f0c1cb4
+/*  f0c1c9c:	0fc3072d */ 	jal	currentPlayerSetCamProperties
 /*  f0c1ca0:	8fa70024 */ 	lw	$a3,0x24($sp)
 /*  f0c1ca4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0c1ca8:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -17405,31 +17405,20 @@ glabel func0f0c1c74
 /*  f0c1cb0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c1cb4
-/*  f0c1cb4:	3c02800a */ 	lui	$v0,0x800a
-/*  f0c1cb8:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0c1cbc:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f0c1cc0:	e4441bb0 */ 	swc1	$f4,0x1bb0($v0)
-/*  f0c1cc4:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f0c1cc8:	e4461bb4 */ 	swc1	$f6,0x1bb4($v0)
-/*  f0c1ccc:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f0c1cd0:	e4481bb8 */ 	swc1	$f8,0x1bb8($v0)
-/*  f0c1cd4:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*  f0c1cd8:	e44a1bc8 */ 	swc1	$f10,0x1bc8($v0)
-/*  f0c1cdc:	c4b00004 */ 	lwc1	$f16,0x4($a1)
-/*  f0c1ce0:	e4501bcc */ 	swc1	$f16,0x1bcc($v0)
-/*  f0c1ce4:	c4b20008 */ 	lwc1	$f18,0x8($a1)
-/*  f0c1ce8:	e4521bd0 */ 	swc1	$f18,0x1bd0($v0)
-/*  f0c1cec:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f0c1cf0:	e4441bbc */ 	swc1	$f4,0x1bbc($v0)
-/*  f0c1cf4:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f0c1cf8:	e4461bc0 */ 	swc1	$f6,0x1bc0($v0)
-/*  f0c1cfc:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f0c1d00:	ac471ba0 */ 	sw	$a3,0x1ba0($v0)
-/*  f0c1d04:	03e00008 */ 	jr	$ra
-/*  f0c1d08:	e4481bc4 */ 	swc1	$f8,0x1bc4($v0)
-);
+void currentPlayerSetCamProperties(struct coord *pos, struct coord *up, struct coord *look, s32 room)
+{
+	struct player *player = g_Vars.currentplayer;
+	player->cam_pos.x = pos->x;
+	player->cam_pos.y = pos->y;
+	player->cam_pos.z = pos->z;
+	player->cam_up.x = up->x;
+	player->cam_up.y = up->y;
+	player->cam_up.z = up->z;
+	player->cam_look.x = look->x;
+	player->cam_look.y = look->y;
+	player->cam_look.z = look->z;
+	player->cam_room = room;
+}
 
 GLOBAL_ASM(
 glabel func0f0c1d0c

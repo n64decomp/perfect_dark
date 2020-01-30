@@ -152,7 +152,7 @@ u32 func0f0c1ba4(void);
 u32 func0f0c1bd8(void);
 u32 func0f0c1c24(void);
 u32 func0f0c1c74(void);
-u32 func0f0c1cb4(void);
+void currentPlayerSetCamProperties(struct coord *pos, struct coord *up, struct coord *look, s32 room);
 u32 func0f0c1d0c(void);
 u32 func0f0c1d20(void);
 u32 func0f0c1e54(void);

@@ -55192,8 +55192,8 @@ glabel objectiveCheckHolograph
 //				s32 c[2];
 //
 //				if (fVar11 != 0.00000000) {
-//					float xdiff = obj->prop->pos.x - g_Vars.currentplayer->unk1bb0.x;
-//					float zdiff = obj->prop->pos.z - g_Vars.currentplayer->unk1bb0.z;
+//					float xdiff = obj->prop->pos.x - g_Vars.currentplayer->cam_pos.x;
+//					float zdiff = obj->prop->pos.z - g_Vars.currentplayer->cam_pos.z;
 //					pass = xdiff * xdiff + zdiff * zdiff < fVar11 * fVar11;
 //				} else {
 //					pass = fVar11 > -1;
