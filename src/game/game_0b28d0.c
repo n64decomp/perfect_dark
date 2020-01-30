@@ -5764,7 +5764,7 @@ glabel func0f0b72dc
 /*  f0b7524:	8e500284 */ 	lw	$s0,0x284($s2)
 /*  f0b7528:	87a700fc */ 	lh	$a3,0xfc($sp)
 /*  f0b752c:	26050394 */ 	addiu	$a1,$s0,0x394
-/*  f0b7530:	0fc30709 */ 	jal	func0f0c1c24
+/*  f0b7530:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
 /*  f0b7534:	26060388 */ 	addiu	$a2,$s0,0x388
 /*  f0b7538:	8e480298 */ 	lw	$t0,0x298($s2)
 /*  f0b753c:	27a2005c */ 	addiu	$v0,$sp,0x5c
@@ -17148,7 +17148,7 @@ glabel func0f0c1840
 /*  f0c1938:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0c193c:	8fa500c4 */ 	lw	$a1,0xc4($sp)
 /*  f0c1940:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1944:	0fc30709 */ 	jal	func0f0c1c24
+/*  f0c1944:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
 /*  f0c1948:	01603825 */ 	or	$a3,$t3,$zero
 /*  f0c194c:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f0c1950:	afad00bc */ 	sw	$t5,0xbc($sp)
@@ -17182,7 +17182,7 @@ glabel func0f0c1840
 /*  f0c19b4:	afab00bc */ 	sw	$t3,0xbc($sp)
 /*  f0c19b8:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0c19bc:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c19c0:	0fc30709 */ 	jal	func0f0c1c24
+/*  f0c19c0:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
 /*  f0c19c4:	8fa600c8 */ 	lw	$a2,0xc8($sp)
 /*  f0c19c8:	10000006 */ 	beqz	$zero,.L0f0c19e4
 /*  f0c19cc:	8fad00bc */ 	lw	$t5,0xbc($sp)
@@ -17221,7 +17221,7 @@ glabel func0f0c1840
 /*  f0c1a40:	afac00bc */ 	sw	$t4,0xbc($sp)
 /*  f0c1a44:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0c1a48:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1a4c:	0fc30709 */ 	jal	func0f0c1c24
+/*  f0c1a4c:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
 /*  f0c1a50:	8fa600c8 */ 	lw	$a2,0xc8($sp)
 /*  f0c1a54:	10000006 */ 	beqz	$zero,.L0f0c1a70
 /*  f0c1a58:	8fab00bc */ 	lw	$t3,0xbc($sp)
@@ -17257,7 +17257,7 @@ glabel func0f0c1840
 /*  f0c1ac4:	01e03825 */ 	or	$a3,$t7,$zero
 /*  f0c1ac8:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0c1acc:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1ad0:	0fc30709 */ 	jal	func0f0c1c24
+/*  f0c1ad0:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
 /*  f0c1ad4:	8fa600c8 */ 	lw	$a2,0xc8($sp)
 /*  f0c1ad8:	1000002b */ 	beqz	$zero,.L0f0c1b88
 /*  f0c1adc:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -17265,7 +17265,7 @@ glabel func0f0c1840
 /*  f0c1ae0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0c1ae4:	8fa500c4 */ 	lw	$a1,0xc4($sp)
 /*  f0c1ae8:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1aec:	0fc30709 */ 	jal	func0f0c1c24
+/*  f0c1aec:	0fc30709 */ 	jal	currentPlayerSetCamPropertiesWithRoom
 /*  f0c1af0:	87a70090 */ 	lh	$a3,0x90($sp)
 /*  f0c1af4:	10000024 */ 	beqz	$zero,.L0f0c1b88
 /*  f0c1af8:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -17281,7 +17281,7 @@ glabel func0f0c1840
 /*  f0c1b1c:	03203825 */ 	or	$a3,$t9,$zero
 /*  f0c1b20:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0c1b24:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1b28:	0fc3071d */ 	jal	currentPlayerClearMemCamRoomAndSetCamProperties
+/*  f0c1b28:	0fc3071d */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
 /*  f0c1b2c:	8fa600c8 */ 	lw	$a2,0xc8($sp)
 /*  f0c1b30:	10000015 */ 	beqz	$zero,.L0f0c1b88
 /*  f0c1b34:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -17289,7 +17289,7 @@ glabel func0f0c1840
 /*  f0c1b38:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0c1b3c:	8fa500c4 */ 	lw	$a1,0xc4($sp)
 /*  f0c1b40:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1b44:	0fc3071d */ 	jal	currentPlayerClearMemCamRoomAndSetCamProperties
+/*  f0c1b44:	0fc3071d */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
 /*  f0c1b48:	87a70064 */ 	lh	$a3,0x64($sp)
 /*  f0c1b4c:	1000000e */ 	beqz	$zero,.L0f0c1b88
 /*  f0c1b50:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -17298,14 +17298,14 @@ glabel func0f0c1840
 /*  f0c1b58:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0c1b5c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f0c1b60:	8fa500c4 */ 	lw	$a1,0xc4($sp)
-/*  f0c1b64:	0fc3071d */ 	jal	currentPlayerClearMemCamRoomAndSetCamProperties
+/*  f0c1b64:	0fc3071d */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
 /*  f0c1b68:	8fa600c8 */ 	lw	$a2,0xc8($sp)
 /*  f0c1b6c:	10000006 */ 	beqz	$zero,.L0f0c1b88
 /*  f0c1b70:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0f0c1b74:
 /*  f0c1b74:	8fa500c4 */ 	lw	$a1,0xc4($sp)
 /*  f0c1b78:	8fa600c8 */ 	lw	$a2,0xc8($sp)
-/*  f0c1b7c:	0fc3071d */ 	jal	currentPlayerClearMemCamRoomAndSetCamProperties
+/*  f0c1b7c:	0fc3071d */ 	jal	currentPlayerSetCamPropertiesWithoutRoom
 /*  f0c1b80:	24070001 */ 	addiu	$a3,$zero,0x1
 .L0f0c1b84:
 /*  f0c1b84:	8fbf0034 */ 	lw	$ra,0x34($sp)
@@ -17361,31 +17361,16 @@ glabel func0f0c1bd8
 /*  f0c1c20:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c1c24
-/*  f0c1c24:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c1c28:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0c1c2c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0c1c30:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c1c34:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f0c1c38:	8c4e0284 */ 	lw	$t6,0x284($v0)
-/*  f0c1c3c:	e5c40004 */ 	swc1	$f4,0x4($t6)
-/*  f0c1c40:	8c4f0284 */ 	lw	$t7,0x284($v0)
-/*  f0c1c44:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f0c1c48:	e5e60008 */ 	swc1	$f6,0x8($t7)
-/*  f0c1c4c:	8c580284 */ 	lw	$t8,0x284($v0)
-/*  f0c1c50:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f0c1c54:	e708000c */ 	swc1	$f8,0xc($t8)
-/*  f0c1c58:	8c590284 */ 	lw	$t9,0x284($v0)
-/*  f0c1c5c:	0fc3072d */ 	jal	currentPlayerSetCamProperties
-/*  f0c1c60:	af270014 */ 	sw	$a3,0x14($t9)
-/*  f0c1c64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c1c68:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c1c6c:	03e00008 */ 	jr	$ra
-/*  f0c1c70:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerSetCamPropertiesWithRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
+{
+	g_Vars.currentplayer->memcampos.x = pos->x;
+	g_Vars.currentplayer->memcampos.y = pos->y;
+	g_Vars.currentplayer->memcampos.z = pos->z;
+	g_Vars.currentplayer->memcamroom = room;
+	currentPlayerSetCamProperties(pos, up, look, room);
+}
 
-void currentPlayerClearMemCamRoomAndSetCamProperties(struct coord *pos, struct coord *up, struct coord *look, s32 room)
+void currentPlayerSetCamPropertiesWithoutRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
 	currentPlayerClearMemCamRoom();
 	currentPlayerSetCamProperties(pos, up, look, room);
