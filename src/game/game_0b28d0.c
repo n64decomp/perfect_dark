@@ -17045,21 +17045,20 @@ glabel func0f0c17cc
 /*  f0c17d8:	0002782b */ 	sltu	$t7,$zero,$v0
 /*  f0c17dc:	03e00008 */ 	jr	$ra
 /*  f0c17e0:	01e01025 */ 	or	$v0,$t7,$zero
-/*  f0c17e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c17e8:	10800005 */ 	beqz	$a0,.L0f0c1800
-/*  f0c17ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c17f0:	0fc41ba8 */ 	jal	cheatActivate
-/*  f0c17f4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0c17f8:	10000004 */ 	beqz	$zero,.L0f0c180c
-/*  f0c17fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0c1800:
-/*  f0c1800:	0fc41c71 */ 	jal	cheatDeactivate
-/*  f0c1804:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f0c1808:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0c180c:
-/*  f0c180c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c1810:	03e00008 */ 	jr	$ra
-/*  f0c1814:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+// Never called
+void setInvincible(bool enable)
+{
+	if (enable) {
+		cheatActivate(CHEAT_INVINCIBLE);
+	} else {
+		cheatDeactivate(CHEAT_INVINCIBLE);
+	}
+}
+
+GLOBAL_ASM(
+glabel func0f0c1818
 /*  f0c1818:	3c01800a */ 	lui	$at,0x800a
 /*  f0c181c:	03e00008 */ 	jr	$ra
 /*  f0c1820:	ac24a2e4 */ 	sw	$a0,-0x5d1c($at)
