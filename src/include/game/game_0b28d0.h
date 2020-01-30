@@ -79,7 +79,7 @@ u32 func0f0b872c(void);
 u32 func0f0b8ba0(void);
 u32 func0f0b9538(void);
 void func0f0b963c(s32 tickmode);
-u32 func0f0b9650(void);
+void func0f0b9650(void);
 u32 func0f0b9674(void);
 u32 func0f0b96e8(void);
 u32 func0f0b9a20(void);

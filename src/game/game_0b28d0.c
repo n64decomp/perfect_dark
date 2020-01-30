@@ -8068,18 +8068,11 @@ void func0f0b963c(s32 tickmode)
 	g_Vars.in_cutscene = false;
 }
 
-GLOBAL_ASM(
-glabel func0f0b9650
-/*  f0b9650:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b9654:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b9658:	0fc2e58f */ 	jal	func0f0b963c
-/*  f0b965c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b9660:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b9664:	3c018007 */ 	lui	$at,0x8007
-/*  f0b9668:	ac200744 */ 	sw	$zero,0x744($at)
-/*  f0b966c:	03e00008 */ 	jr	$ra
-/*  f0b9670:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void func0f0b9650(void)
+{
+	func0f0b963c(0);
+	var80070744 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0b9674
