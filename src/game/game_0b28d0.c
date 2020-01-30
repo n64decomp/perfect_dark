@@ -17057,15 +17057,15 @@ void setInvincible(bool enable)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0c1818
-/*  f0c1818:	3c01800a */ 	lui	$at,0x800a
-/*  f0c181c:	03e00008 */ 	jr	$ra
-/*  f0c1820:	ac24a2e4 */ 	sw	$a0,-0x5d1c($at)
-/*  f0c1824:	3c01800a */ 	lui	$at,0x800a
-/*  f0c1828:	03e00008 */ 	jr	$ra
-/*  f0c182c:	ac24a2e8 */ 	sw	$a0,-0x5d18($at)
-);
+void setGvars324(s32 arg0)
+{
+	g_Vars.unk000324 = arg0;
+}
+
+void setGvars328(s32 arg0)
+{
+	g_Vars.unk000328 = arg0;
+}
 
 void currentPlayerSetCameraMode(s32 mode)
 {
