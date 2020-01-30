@@ -82,7 +82,7 @@ void setTickMode(s32 tickmode);
 void func0f0b9650(void);
 void func0f0b9674(void);
 u32 func0f0b96e8(void);
-u32 func0f0b9a20(void);
+void func0f0b9a20(void);
 u32 func0f0b9afc(void);
 void warpBondToPad(s16 pad_id);
 void func0f0b9bac(u32 arg0, u32 arg1, u32 arg3);

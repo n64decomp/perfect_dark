@@ -61,6 +61,7 @@ extern u32 var800705c0;
 extern u32 var800706c8;
 extern bool g_HiRes;
 extern u32 var80070744;
+extern u32 var80070748;
 extern u32 var8007074c;
 extern u32 var80070764;
 extern u32 var80070768;

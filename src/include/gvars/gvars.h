@@ -614,6 +614,7 @@ extern u32 var8009dd78;
 extern u32 var8009ddc8;
 extern u32 var8009ddcc;
 extern u32 var8009ddd0;
+extern u32 var8009ddd4;
 extern f32 var8009ddd8;
 extern f32 var8009dddc;
 extern f32 var8009dde0;

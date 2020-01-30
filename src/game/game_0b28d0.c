@@ -8308,66 +8308,25 @@ glabel func0f0b96e8
 /*  f0b9a1c:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
-GLOBAL_ASM(
-glabel func0f0b9a20
-/*  f0b9a20:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b9a24:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b9a28:	0fc2e58f */ 	jal	setTickMode
-/*  f0b9a2c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b9a30:	3c018007 */ 	lui	$at,0x8007
-/*  f0b9a34:	ac200744 */ 	sw	$zero,0x744($at)
-/*  f0b9a38:	0fc31f4c */ 	jal	func0f0c7d30
-/*  f0b9a3c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b9a40:	0c003a61 */ 	jal	getCurrentStageId
-/*  f0b9a44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b9a48:	24010036 */ 	addiu	$at,$zero,0x36
-/*  f0b9a4c:	1441000d */ 	bne	$v0,$at,.L0f0b9a84
-/*  f0b9a50:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f0b9a54:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b9a58:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b9a5c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0b9a60:	0fc2ecc8 */ 	jal	currentPlayerSetFadeColour
-/*  f0b9a64:	3c073f80 */ 	lui	$a3,0x3f80
-/*  f0b9a68:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b9a6c:	44817000 */ 	mtc1	$at,$f14
-/*  f0b9a70:	44806000 */ 	mtc1	$zero,$f12
-/*  f0b9a74:	0fc2ecf2 */ 	jal	currentPlayerSetFadeFrac
-/*  f0b9a78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b9a7c:	1000000d */ 	beqz	$zero,.L0f0b9ab4
-/*  f0b9a80:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0b9a84:
-/*  f0b9a84:	8dce0748 */ 	lw	$t6,0x748($t6)
-/*  f0b9a88:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b9a8c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b9a90:	11c00008 */ 	beqz	$t6,.L0f0b9ab4
-/*  f0b9a94:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0b9a98:	0fc2ecc8 */ 	jal	currentPlayerSetFadeColour
-/*  f0b9a9c:	3c073f80 */ 	lui	$a3,0x3f80
-/*  f0b9aa0:	3c014270 */ 	lui	$at,0x4270
-/*  f0b9aa4:	44816000 */ 	mtc1	$at,$f12
-/*  f0b9aa8:	44807000 */ 	mtc1	$zero,$f14
-/*  f0b9aac:	0fc2ecf2 */ 	jal	currentPlayerSetFadeFrac
-/*  f0b9ab0:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0b9ab4:
-/*  f0b9ab4:	0c003a61 */ 	jal	getCurrentStageId
-/*  f0b9ab8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b9abc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0b9ac0:	0fc597bb */ 	jal	func0f165eec
-/*  f0b9ac4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b9ac8:	3c05800a */ 	lui	$a1,0x800a
-/*  f0b9acc:	8ca5ddd4 */ 	lw	$a1,-0x222c($a1)
-/*  f0b9ad0:	0fc28824 */ 	jal	currentPlayerEquipWeapon
-/*  f0b9ad4:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0b9ad8:	3c05800a */ 	lui	$a1,0x800a
-/*  f0b9adc:	8ca5ddd0 */ 	lw	$a1,-0x2230($a1)
-/*  f0b9ae0:	0fc28824 */ 	jal	currentPlayerEquipWeapon
-/*  f0b9ae4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b9ae8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b9aec:	3c018007 */ 	lui	$at,0x8007
-/*  f0b9af0:	ac20074c */ 	sw	$zero,0x74c($at)
-/*  f0b9af4:	03e00008 */ 	jr	$ra
-/*  f0b9af8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void func0f0b9a20(void)
+{
+	setTickMode(TICKMODE_1);
+	var80070744 = 0;
+	func0f0c7d30(0);
+
+	if (getCurrentStageId() == STAGE_TEST_LEN) {
+		currentPlayerSetFadeColour(0, 0, 0, 1);
+		currentPlayerSetFadeFrac(0, 1);
+	} else if (var80070748 != 0) {
+		currentPlayerSetFadeColour(0, 0, 0, 1);
+		currentPlayerSetFadeFrac(60, 0);
+	}
+
+	func0f165eec(getCurrentStageId(), 0);
+	currentPlayerEquipWeapon(1, var8009ddd4);
+	currentPlayerEquipWeapon(0, var8009ddd0);
+	var8007074c = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0b9afc
