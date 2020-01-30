@@ -10522,7 +10522,7 @@ glabel func0f0bb814
 /*  f0bba14:	0fc2af1d */ 	jal	func0f0abc74
 /*  f0bba18:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f0bba1c:
-/*  f0bba1c:	0fc305f3 */ 	jal	func0f0c17cc
+/*  f0bba1c:	0fc305f3 */ 	jal	currentPlayerGet00fc
 /*  f0bba20:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bba24:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0bba28:	1040012a */ 	beqz	$v0,.L0f0bbed4
@@ -16170,7 +16170,7 @@ glabel func0f0c07c8
 .L0f0c0b84:
 /*  f0c0b84:	5081000d */ 	beql	$a0,$at,.L0f0c0bbc
 /*  f0c0b88:	8e0d0318 */ 	lw	$t5,0x318($s0)
-/*  f0c0b8c:	0fc305f3 */ 	jal	func0f0c17cc
+/*  f0c0b8c:	0fc305f3 */ 	jal	currentPlayerGet00fc
 /*  f0c0b90:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c0b94:	50400009 */ 	beqzl	$v0,.L0f0c0bbc
 /*  f0c0b98:	8e0d0318 */ 	lw	$t5,0x318($s0)
@@ -17037,15 +17037,10 @@ glabel func0f0c16f4
 /*  f0c17c8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c17cc
-/*  f0c17cc:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0c17d0:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f0c17d4:	8dc200fc */ 	lw	$v0,0xfc($t6)
-/*  f0c17d8:	0002782b */ 	sltu	$t7,$zero,$v0
-/*  f0c17dc:	03e00008 */ 	jr	$ra
-/*  f0c17e0:	01e01025 */ 	or	$v0,$t7,$zero
-);
+bool currentPlayerGet00fc(void)
+{
+	return g_Vars.currentplayer->unk00fc != 0;
+}
 
 // Never called
 void setInvincible(bool enable)
