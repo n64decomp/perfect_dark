@@ -8062,14 +8062,11 @@ glabel func0f0b9538
 /*  f0b9638:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0b963c
-/*  f0b963c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0b9640:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0b9644:	ac4402ac */ 	sw	$a0,0x2ac($v0)
-/*  f0b9648:	03e00008 */ 	jr	$ra
-/*  f0b964c:	ac4004cc */ 	sw	$zero,0x4cc($v0)
-);
+void func0f0b963c(s32 tickmode)
+{
+	g_Vars.tickmode = tickmode;
+	g_Vars.in_cutscene = false;
+}
 
 GLOBAL_ASM(
 glabel func0f0b9650
