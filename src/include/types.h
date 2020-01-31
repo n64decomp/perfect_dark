@@ -954,6 +954,12 @@ struct eyespy {
 	/*0x7c*/ s32 pitch;
 };
 
+struct gunheld {
+	s32 unk00;
+	s32 unk04;
+	s32 unk08;
+};
+
 struct player {
 	/*0x0000*/ s32 cameramode;
 	/*0x0004*/ struct coord memcampos;
@@ -2513,7 +2519,7 @@ struct player {
 	/*0x186c*/ u32 equipmaxitems;
 	/*0x1870*/ u32 equipallguns;
 	/*0x1874*/ u32 equipcuritem;
-	/*0x1878*/ u8 gunheldarr[120];
+	/*0x1878*/ struct gunheld gunheldarr[10];
 	/*0x18f0*/ u32 magnetattracttime;
 	/*0x18f4*/ u32 angleoffset;
 	/*0x18f8*/ u32 buthist[10];

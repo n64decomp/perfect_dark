@@ -9,7 +9,7 @@ u32 func0f011130(void);
 u32 func0f011560(void);
 u32 func0f011630(void);
 u32 func0f0118f4(void);
-u32 func0f012450(void);
+void currentPlayerInitGunsHeld(void);
 u32 func0f012530(void);
 
 #endif

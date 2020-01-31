@@ -1398,73 +1398,20 @@ glabel func0f0118f4
 /*  f01244c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f012450
-/*  f012450:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f012454:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f012458:	8cae006c */ 	lw	$t6,0x6c($a1)
-/*  f01245c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f012460:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f012464:	11c00003 */ 	beqz	$t6,.L0f012474
-/*  f012468:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f01246c:	10000002 */ 	beqz	$zero,.L0f012478
-/*  f012470:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f012474:
-/*  f012474:	00003025 */ 	or	$a2,$zero,$zero
-.L0f012478:
-/*  f012478:	8caf0068 */ 	lw	$t7,0x68($a1)
-/*  f01247c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f012480:	00002025 */ 	or	$a0,$zero,$zero
-/*  f012484:	11e00003 */ 	beqz	$t7,.L0f012494
-/*  f012488:	00001025 */ 	or	$v0,$zero,$zero
-/*  f01248c:	10000001 */ 	beqz	$zero,.L0f012494
-/*  f012490:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f012494:
-/*  f012494:	8cb80064 */ 	lw	$t8,0x64($a1)
-/*  f012498:	13000003 */ 	beqz	$t8,.L0f0124a8
-/*  f01249c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0124a0:	10000001 */ 	beqz	$zero,.L0f0124a8
-/*  f0124a4:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0124a8:
-/*  f0124a8:	8cb90070 */ 	lw	$t9,0x70($a1)
-/*  f0124ac:	13200003 */ 	beqz	$t9,.L0f0124bc
-/*  f0124b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0124b4:	10000001 */ 	beqz	$zero,.L0f0124bc
-/*  f0124b8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0124bc:
-/*  f0124bc:	00444021 */ 	addu	$t0,$v0,$a0
-/*  f0124c0:	01034821 */ 	addu	$t1,$t0,$v1
-/*  f0124c4:	01265021 */ 	addu	$t2,$t1,$a2
-/*  f0124c8:	5541000c */ 	bnel	$t2,$at,.L0f0124fc
-/*  f0124cc:	8cad0284 */ 	lw	$t5,0x284($a1)
-/*  f0124d0:	8cab0318 */ 	lw	$t3,0x318($a1)
-/*  f0124d4:	55600009 */ 	bnezl	$t3,.L0f0124fc
-/*  f0124d8:	8cad0284 */ 	lw	$t5,0x284($a1)
-/*  f0124dc:	0fc41b99 */ 	jal	cheatIsActive
-/*  f0124e0:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f0124e4:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0124e8:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0124ec:	8cac0284 */ 	lw	$t4,0x284($a1)
-/*  f0124f0:	10000003 */ 	beqz	$zero,.L0f012500
-/*  f0124f4:	ad821870 */ 	sw	$v0,0x1870($t4)
-/*  f0124f8:	8cad0284 */ 	lw	$t5,0x284($a1)
-.L0f0124fc:
-/*  f0124fc:	ada01870 */ 	sw	$zero,0x1870($t5)
-.L0f012500:
-/*  f012500:	00001025 */ 	or	$v0,$zero,$zero
-/*  f012504:	24040078 */ 	addiu	$a0,$zero,0x78
-/*  f012508:	2403ffff */ 	addiu	$v1,$zero,-1
-.L0f01250c:
-/*  f01250c:	8cae0284 */ 	lw	$t6,0x284($a1)
-/*  f012510:	01c27821 */ 	addu	$t7,$t6,$v0
-/*  f012514:	2442000c */ 	addiu	$v0,$v0,0xc
-/*  f012518:	1444fffc */ 	bne	$v0,$a0,.L0f01250c
-/*  f01251c:	ade31880 */ 	sw	$v1,0x1880($t7)
-/*  f012520:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f012524:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f012528:	03e00008 */ 	jr	$ra
-/*  f01252c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerInitGunsHeld(void)
+{
+	s32 i;
+
+	if (PLAYERCOUNT() == 1 && g_Vars.mplayerisrunning == false) {
+		g_Vars.currentplayer->equipallguns = cheatIsActive(CHEAT_ALLGUNS);
+	} else {
+		g_Vars.currentplayer->equipallguns = false;
+	}
+
+	for (i = 0; i != 10; i++) {
+		g_Vars.currentplayer->gunheldarr[i].unk08 = -1;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f012530
