@@ -1413,34 +1413,9 @@ void currentPlayerInitGunsHeld(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f012530
-/*  f012530:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f012534:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f012538:	8c4f0284 */ 	lw	$t7,0x284($v0)
-/*  f01253c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f012540:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f012544:	248e001e */ 	addiu	$t6,$a0,0x1e
-/*  f012548:	adee186c */ 	sw	$t6,0x186c($t7)
-/*  f01254c:	8c580284 */ 	lw	$t8,0x284($v0)
-/*  f012550:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f012554:	8f04186c */ 	lw	$a0,0x186c($t8)
-/*  f012558:	0004c880 */ 	sll	$t9,$a0,0x2
-/*  f01255c:	0324c821 */ 	addu	$t9,$t9,$a0
-/*  f012560:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f012564:	2724000f */ 	addiu	$a0,$t9,0xf
-/*  f012568:	3488000f */ 	ori	$t0,$a0,0xf
-/*  f01256c:	0c0048f2 */ 	jal	func000123c8
-/*  f012570:	3904000f */ 	xori	$a0,$t0,0xf
-/*  f012574:	3c0a800a */ 	lui	$t2,0x800a
-/*  f012578:	8d4aa244 */ 	lw	$t2,-0x5dbc($t2)
-/*  f01257c:	0fc44580 */ 	jal	func0f111600
-/*  f012580:	ad421868 */ 	sw	$v0,0x1868($t2)
-/*  f012584:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f012588:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f01258c:	03e00008 */ 	jr	$ra
-/*  f012590:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f012594:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f012598:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01259c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f012530(s32 arg0)
+{
+	g_Vars.currentplayer->equipmaxitems = arg0 + 30;
+	g_Vars.currentplayer->unk1868 = func000123c8((g_Vars.currentplayer->equipmaxitems * 20 + 15 | 0xf) ^ 0xf, 4);
+	func0f111600();
+}
