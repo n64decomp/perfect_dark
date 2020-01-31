@@ -8602,59 +8602,21 @@ glabel func0f0b9cbc
 /*  f0ba00c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0ba010
-/*  f0ba010:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0ba014:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ba018:	0fc2e58f */ 	jal	setTickMode
-/*  f0ba01c:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f0ba020:	3c018007 */ 	lui	$at,0x8007
-/*  f0ba024:	ac200744 */ 	sw	$zero,0x744($at)
-/*  f0ba028:	0fc31f7b */ 	jal	releaseObj
-/*  f0ba02c:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f0ba030:	0fc30748 */ 	jal	func0f0c1d20
-/*  f0ba034:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ba038:	3c02800a */ 	lui	$v0,0x800a
-/*  f0ba03c:	8c42de20 */ 	lw	$v0,-0x21e0($v0)
-/*  f0ba040:	3c01800a */ 	lui	$at,0x800a
-/*  f0ba044:	44802000 */ 	mtc1	$zero,$f4
-/*  f0ba048:	ac22de14 */ 	sw	$v0,-0x21ec($at)
-/*  f0ba04c:	3c01800a */ 	lui	$at,0x800a
-/*  f0ba050:	00027083 */ 	sra	$t6,$v0,0x2
-/*  f0ba054:	ac2ede10 */ 	sw	$t6,-0x21f0($at)
-/*  f0ba058:	3c01800a */ 	lui	$at,0x800a
-/*  f0ba05c:	e424de1c */ 	swc1	$f4,-0x21e4($at)
-/*  f0ba060:	3c01800a */ 	lui	$at,0x800a
-/*  f0ba064:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f0ba068:	ac2fde2c */ 	sw	$t7,-0x21d4($at)
-/*  f0ba06c:	3c018007 */ 	lui	$at,0x8007
-/*  f0ba070:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f0ba074:	ac380764 */ 	sw	$t8,0x764($at)
-/*  f0ba078:	0fc4772c */ 	jal	func0f11dcb0
-/*  f0ba07c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0ba080:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0ba084:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0ba088:	8ca302ac */ 	lw	$v1,0x2ac($a1)
-/*  f0ba08c:	3c04800a */ 	lui	$a0,0x800a
-/*  f0ba090:	38790006 */ 	xori	$t9,$v1,0x6
-/*  f0ba094:	2f230001 */ 	sltiu	$v1,$t9,0x1
-/*  f0ba098:	5060000a */ 	beqzl	$v1,.L0f0ba0c4
-/*  f0ba09c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ba0a0:	0c008dda */ 	jal	func00023768
-/*  f0ba0a4:	8484de18 */ 	lh	$a0,-0x21e8($a0)
-/*  f0ba0a8:	3c08800a */ 	lui	$t0,0x800a
-/*  f0ba0ac:	8d08de10 */ 	lw	$t0,-0x21f0($t0)
-/*  f0ba0b0:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0ba0b4:	2449ffff */ 	addiu	$t1,$v0,-1
-/*  f0ba0b8:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0ba0bc:	0109182a */ 	slt	$v1,$t0,$t1
-/*  f0ba0c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ba0c4:
-/*  f0ba0c4:	aca304cc */ 	sw	$v1,0x4cc($a1)
-/*  f0ba0c8:	a0a004e2 */ 	sb	$zero,0x4e2($a1)
-/*  f0ba0cc:	03e00008 */ 	jr	$ra
-/*  f0ba0d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void func0f0ba010(void)
+{
+	setTickMode(TICKMODE_6);
+	var80070744 = 0;
+	releaseObj(5);
+	func0f0c1d20();
+	var8009de14 = var8009de20;
+	var8009de10 = var8009de20 >> 2;
+	var8009de1c = 0;
+	var8009de2c = -1;
+	var80070764 = 1;
+	func0f11dcb0(1);
+	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_6 && var8009de10 < func00023768(var8009de18) - 1;
+	g_Vars.unk0004e2 = 0;
+}
 
 GLOBAL_ASM(
 glabel cameraDoAnimation

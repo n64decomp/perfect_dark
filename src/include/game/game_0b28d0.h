@@ -88,7 +88,7 @@ void warpBondToPad(s16 pad_id);
 void func0f0b9bac(s32 arg0, s32 arg1, s32 arg2);
 void func0f0b9c1c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5);
 u32 func0f0b9cbc(void);
-u32 func0f0ba010(void);
+void func0f0ba010(void);
 void cameraDoAnimation(s16 anim_id);
 u32 func0f0ba190(u32 arg0);
 u32 func0f0ba29c(void);
