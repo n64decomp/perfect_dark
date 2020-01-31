@@ -130,7 +130,7 @@ u32 func0f0bce24(void);
 u32 func0f0bd358(void);
 u32 func0f0bd3c4(void);
 void currentPlayerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8 dist);
-u32 func0f0bd4a8(void);
+void func0f0bd4a8(u32 arg0);
 u32 func0f0bd4e4(void);
 u32 func0f0bd764(void);
 u32 func0f0bd904(void);

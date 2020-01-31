@@ -12198,24 +12198,13 @@ void currentPlayerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8
 	g_Vars.currentplayer->autocontrol_dist = dist;
 }
 
-GLOBAL_ASM(
-glabel func0f0bd4a8
-/*  f0bd4a8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0bd4ac:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0bd4b0:	8c6e0284 */ 	lw	$t6,0x284($v1)
-/*  f0bd4b4:	240f0002 */ 	addiu	$t7,$zero,0x2
-/*  f0bd4b8:	2401fff0 */ 	addiu	$at,$zero,-16
-/*  f0bd4bc:	adc40264 */ 	sw	$a0,0x264($t6)
-/*  f0bd4c0:	8c780284 */ 	lw	$t8,0x284($v1)
-/*  f0bd4c4:	a70f0010 */ 	sh	$t7,0x10($t8)
-/*  f0bd4c8:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0bd4cc:	8c5900c4 */ 	lw	$t9,0xc4($v0)
-/*  f0bd4d0:	03214024 */ 	and	$t0,$t9,$at
-/*  f0bd4d4:	ac4800c4 */ 	sw	$t0,0xc4($v0)
-/*  f0bd4d8:	8c690284 */ 	lw	$t1,0x284($v1)
-/*  f0bd4dc:	03e00008 */ 	jr	$ra
-/*  f0bd4e0:	ad2000c8 */ 	sw	$zero,0xc8($t1)
-);
+void func0f0bd4a8(u32 arg0)
+{
+	g_Vars.currentplayer->unk0264 = arg0;
+	g_Vars.currentplayer->unk0010 = 2;
+	g_Vars.currentplayer->unk00c4 &= ~0x0000000f;
+	g_Vars.currentplayer->unk00c8 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0bd4e4

@@ -957,7 +957,7 @@ struct eyespy {
 struct player {
 	/*0x0000*/ s32 cameramode;
 	/*0x0004*/ struct coord memcampos;
-	/*0x0010*/ u32 unk0010;
+	/*0x0010*/ u16 unk0010;
 	/*0x0014*/ s32 memcamroom;
 	/*0x0018*/ u32 unk0018;
 	/*0x001c*/ u32 unk001c;
