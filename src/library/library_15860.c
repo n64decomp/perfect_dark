@@ -38,7 +38,7 @@ void initGlobalVariables(void)
 	g_Vars.numaibuddies = 0;
 	g_Vars.unk000324 = 1;
 	g_Vars.unk000328 = 1;
-	g_Vars.tickmode = 0;
+	g_Vars.tickmode = TICKMODE_0;
 	g_Vars.roomcount = 350;
 	g_Vars.unk000314 = 0;
 	g_Vars.mplayerisrunning = 0;

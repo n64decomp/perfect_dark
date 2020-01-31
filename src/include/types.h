@@ -2679,9 +2679,11 @@ struct player {
 	/*0x1b98*/ u32 unk1b98;
 	/*0x1b9c*/ u32 unk1b9c;
 	/*0x1ba0*/ s32 cam_room;
-	/*0x1ba4*/ u32 unk1ba4;
-	/*0x1ba8*/ u32 unk1ba8;
-	/*0x1bac*/ u32 unk1bac;
+	/*0x1ba4*/ s16 autocontrol_aimpad;
+	/*0x1ba6*/ s16 autocontrol_lookup;
+	/*0x1ba8*/ s16 autocontrol_dist;
+	/*0x1baa*/ s16 autocontrol_walkspeed;
+	/*0x1bac*/ s32 autocontrol_turnspeed;
 	/*0x1bb0*/ struct coord cam_pos;
 	/*0x1bbc*/ struct coord cam_look;
 	/*0x1bc8*/ struct coord cam_up;

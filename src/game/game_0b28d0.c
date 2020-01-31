@@ -12188,38 +12188,15 @@ glabel func0f0bd3c4
 /*  f0bd430:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel currentPlayerAutoWalk
-/*  f0bd434:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0bd438:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0bd43c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0bd440:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0bd444:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0bd448:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f0bd44c:	0fc2e58f */ 	jal	setTickMode
-/*  f0bd450:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f0bd454:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0bd458:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0bd45c:	8c4f0284 */ 	lw	$t7,0x284($v0)
-/*  f0bd460:	87ae001a */ 	lh	$t6,0x1a($sp)
-/*  f0bd464:	a5ee1ba4 */ 	sh	$t6,0x1ba4($t7)
-/*  f0bd468:	8c590284 */ 	lw	$t9,0x284($v0)
-/*  f0bd46c:	93b8001f */ 	lbu	$t8,0x1f($sp)
-/*  f0bd470:	a7381baa */ 	sh	$t8,0x1baa($t9)
-/*  f0bd474:	8c490284 */ 	lw	$t1,0x284($v0)
-/*  f0bd478:	93a80023 */ 	lbu	$t0,0x23($sp)
-/*  f0bd47c:	ad281bac */ 	sw	$t0,0x1bac($t1)
-/*  f0bd480:	8c4b0284 */ 	lw	$t3,0x284($v0)
-/*  f0bd484:	93aa0027 */ 	lbu	$t2,0x27($sp)
-/*  f0bd488:	a56a1ba6 */ 	sh	$t2,0x1ba6($t3)
-/*  f0bd48c:	8c4d0284 */ 	lw	$t5,0x284($v0)
-/*  f0bd490:	93ac002b */ 	lbu	$t4,0x2b($sp)
-/*  f0bd494:	a5ac1ba8 */ 	sh	$t4,0x1ba8($t5)
-/*  f0bd498:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0bd49c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0bd4a0:	03e00008 */ 	jr	$ra
-/*  f0bd4a4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8 dist)
+{
+	setTickMode(TICKMODE_AUTOWALK);
+	g_Vars.currentplayer->autocontrol_aimpad = aimpad;
+	g_Vars.currentplayer->autocontrol_walkspeed = walkspeed;
+	g_Vars.currentplayer->autocontrol_turnspeed = turnspeed;
+	g_Vars.currentplayer->autocontrol_lookup = lookup;
+	g_Vars.currentplayer->autocontrol_dist = dist;
+}
 
 GLOBAL_ASM(
 glabel func0f0bd4a8

@@ -11969,7 +11969,7 @@ bool aiPlayerAutoWalk(void)
 bool aiIfPlayerAutoWalkFinished(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	bool pass = false;
+	bool walking = false;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
@@ -11977,14 +11977,14 @@ bool aiIfPlayerAutoWalkFinished(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
-		if (g_Vars.tickmode == 7) {
-			pass = true;
+		if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
+			walking = true;
 		}
 
 		setCurrentPlayerNum(prevplayernum);
 	}
 
-	if (pass) {
+	if (walking) {
 		g_Vars.aioffset += 4;
 	} else {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);

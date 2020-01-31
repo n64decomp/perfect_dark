@@ -121,7 +121,7 @@ u8 func1002_first_walk[] = {
 	remove_displayed_text
 	revoke_control(CHR_BOND, 0)
 	enter_firstperson
-	force_walk(CHR_BOND, 0x0275, 0x2805, 0x0064)
+	force_walk(CHR_BOND, 0x0275, 40, 5, 0, 100)
 	chr_move_to_pad(CHR_GUARD, 0x0274, 0x01, /*goto*/ 0x0b)
 
 	// Wait for walk to finish
@@ -185,7 +185,7 @@ u8 func1007_second_walk[] = {
 	revoke_control(CHR_BOND, 0)
 	enter_firstperson
 	yield
-	force_walk(CHR_BOND, 0x0275, 0x2805, 0x0064)
+	force_walk(CHR_BOND, 0x0275, 40, 5, 0, 100)
 
 	// Place Jon
 	call_rng
@@ -265,7 +265,7 @@ u8 func1008_third_walk[] = {
 	remove_displayed_text
 	revoke_control(CHR_BOND, 0)
 	enter_firstperson
-	force_walk(CHR_BOND, 0x0275, 0x2805, 0x0064)
+	force_walk(CHR_BOND, 0x0275, 40, 5, 0, 100)
 	chr_move_to_pad(CHR_TRENT, 0x0272, 0x01, /*goto*/ 0x0b)
 
 	beginloop(0x0b)

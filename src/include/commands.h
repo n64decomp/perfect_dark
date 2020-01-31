@@ -3016,12 +3016,14 @@
 /**
  * Forces the player to walk to the given pad (eg. Extraction and Duel).
  */
-#define force_walk(chr, pad, unknown1, unknown2) \
+#define force_walk(chr, aimpad, walkspeed, turnspeed, lookup, dist) \
 	mkshort(0x0177), \
 	chr, \
-	mkshort(pad), \
-	mkshort(unknown1), \
-	mkshort(unknown2),
+	mkshort(aimpad), \
+	walkspeed, \
+	turnspeed, \
+	lookup, \
+	dist,
 
 /**
  * Checks if the player's force walk has finished.

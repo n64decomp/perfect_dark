@@ -52,7 +52,7 @@ struct g_vars {
 	/*0002a0*/ struct player *bond; // Joanna
 	/*0002a4*/ struct player *coop; // Co-op buddy when controlled by human
 	/*0002a8*/ struct player *anti; // Counter-op
-	/*0002ac*/ u32 tickmode; // 7 if mission timer running
+	/*0002ac*/ u32 tickmode;
 	/*0002b0*/ s32 killcount;
 	/*0002b4*/ u32 knockoutcount;
 	/*0002b8*/ struct textoverride *textoverrides;

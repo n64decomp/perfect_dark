@@ -1942,7 +1942,7 @@ u8 func040d_cass[] = {
 	// 1 player - do force walk (enter room)
 	label(0x20)
 	revoke_control(CHR_BOND, 0)
-	force_walk(CHR_BOND, 0x0019, 0x2837, 0x002e)
+	force_walk(CHR_BOND, 0x0019, 40, 55, 0, 46)
 
 	beginloop(0x23)
 		open_door(OBJ_TOPROOMDOOR)
@@ -1951,7 +1951,7 @@ u8 func040d_cass[] = {
 
 	// Second force walk (turn to face Cass)
 	label(0x24)
-	force_walk(CHR_BOND, 0x0018, 0x0041, 0x4100)
+	force_walk(CHR_BOND, 0x0018, 0, 65, 65, 0)
 	open_door(OBJ_TOPROOMDOOR)
 
 	beginloop(0x25)
