@@ -4964,4 +4964,12 @@ struct gecreditsdata {
 	/*0x0a*/ u16 alignoffset2;
 };
 
+struct memorypool {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ void *start;
+	/*0x08*/ void *end;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+};
+
 #endif

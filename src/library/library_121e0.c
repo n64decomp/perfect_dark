@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "types.h"
 #include "boot/boot.h"
+#include "gvars/gvars.h"
 #include "library/library_121e0.h"
 
 void func000121e0(void)
@@ -13,11 +14,11 @@ glabel func000121e8
 /*    121e8:	00803025 */ 	or	$a2,$a0,$zero
 /*    121ec:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    121f0:	3c04800a */ 	lui	$a0,%hi(var8009946c)
-/*    121f4:	3c03800a */ 	lui	$v1,%hi(var80099300)
-/*    121f8:	3c02800a */ 	lui	$v0,%hi(var800993b8)
+/*    121f4:	3c03800a */ 	lui	$v1,%hi(g_PrimaryMemoryPools)
+/*    121f8:	3c02800a */ 	lui	$v0,%hi(g_SecondaryMemoryPools)
 /*    121fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    12200:	244293b8 */ 	addiu	$v0,$v0,%lo(var800993b8)
-/*    12204:	24639300 */ 	addiu	$v1,$v1,%lo(var80099300)
+/*    12200:	244293b8 */ 	addiu	$v0,$v0,%lo(g_SecondaryMemoryPools)
+/*    12204:	24639300 */ 	addiu	$v1,$v1,%lo(g_PrimaryMemoryPools)
 /*    12208:	2484946c */ 	addiu	$a0,$a0,%lo(var8009946c)
 .L0001220c:
 /*    1220c:	24420014 */ 	addiu	$v0,$v0,0x14
@@ -32,8 +33,8 @@ glabel func000121e8
 /*    12230:	ac40fff4 */ 	sw	$zero,-0xc($v0)
 /*    12234:	1420fff5 */ 	bnez	$at,.L0001220c
 /*    12238:	ac40fffc */ 	sw	$zero,-0x4($v0)
-/*    1223c:	3c02800a */ 	lui	$v0,%hi(var80099300)
-/*    12240:	24429300 */ 	addiu	$v0,$v0,%lo(var80099300)
+/*    1223c:	3c02800a */ 	lui	$v0,%hi(g_PrimaryMemoryPools)
+/*    12240:	24429300 */ 	addiu	$v0,$v0,%lo(g_PrimaryMemoryPools)
 /*    12244:	00c51821 */ 	addu	$v1,$a2,$a1
 /*    12248:	ac460000 */ 	sw	$a2,0x0($v0)
 /*    1224c:	ac430008 */ 	sw	$v1,0x8($v0)
@@ -50,19 +51,19 @@ glabel func000121e8
 /*    12278:	34210001 */ 	ori	$at,$at,0x1
 /*    1227c:	0041082a */ 	slt	$at,$v0,$at
 /*    12280:	14200007 */ 	bnez	$at,.L000122a0
-/*    12284:	3c03800a */ 	lui	$v1,%hi(var80099300)
+/*    12284:	3c03800a */ 	lui	$v1,%hi(g_PrimaryMemoryPools)
 /*    12288:	8fb80018 */ 	lw	$t8,0x18($sp)
-/*    1228c:	3c02800a */ 	lui	$v0,%hi(var800993b8)
-/*    12290:	244293b8 */ 	addiu	$v0,$v0,%lo(var800993b8)
+/*    1228c:	3c02800a */ 	lui	$v0,%hi(g_SecondaryMemoryPools)
+/*    12290:	244293b8 */ 	addiu	$v0,$v0,%lo(g_SecondaryMemoryPools)
 /*    12294:	3c0f8040 */ 	lui	$t7,0x8040
 /*    12298:	ac4f0050 */ 	sw	$t7,0x50($v0)
 /*    1229c:	ac580058 */ 	sw	$t8,0x58($v0)
 .L000122a0:
-/*    122a0:	3c02800a */ 	lui	$v0,%hi(var800993b8)
+/*    122a0:	3c02800a */ 	lui	$v0,%hi(g_SecondaryMemoryPools)
 /*    122a4:	3c04800a */ 	lui	$a0,%hi(var8009946c)
 /*    122a8:	2484946c */ 	addiu	$a0,$a0,%lo(var8009946c)
-/*    122ac:	244293b8 */ 	addiu	$v0,$v0,%lo(var800993b8)
-/*    122b0:	24639300 */ 	addiu	$v1,$v1,%lo(var80099300)
+/*    122ac:	244293b8 */ 	addiu	$v0,$v0,%lo(g_SecondaryMemoryPools)
+/*    122b0:	24639300 */ 	addiu	$v1,$v1,%lo(g_PrimaryMemoryPools)
 .L000122b4:
 /*    122b4:	8c790008 */ 	lw	$t9,0x8($v1)
 /*    122b8:	8c480008 */ 	lw	$t0,0x8($v0)
@@ -82,16 +83,16 @@ glabel func000122e0
 /*    122e0:	3c0e8009 */ 	lui	$t6,0x8009
 /*    122e4:	91ce0af0 */ 	lbu	$t6,0xaf0($t6)
 /*    122e8:	24010001 */ 	addiu	$at,$zero,0x1
-/*    122ec:	3c02800a */ 	lui	$v0,%hi(var80099300)
+/*    122ec:	3c02800a */ 	lui	$v0,%hi(g_PrimaryMemoryPools)
 /*    122f0:	15c10005 */ 	bne	$t6,$at,.L00012308
-/*    122f4:	24429300 */ 	addiu	$v0,$v0,%lo(var80099300)
+/*    122f4:	24429300 */ 	addiu	$v0,$v0,%lo(g_PrimaryMemoryPools)
 /*    122f8:	8c4f0058 */ 	lw	$t7,0x58($v0)
 /*    122fc:	8c580054 */ 	lw	$t8,0x54($v0)
 /*    12300:	03e00008 */ 	jr	$ra
 /*    12304:	01f81023 */ 	subu	$v0,$t7,$t8
 .L00012308:
-/*    12308:	3c02800a */ 	lui	$v0,%hi(var800993b8)
-/*    1230c:	244293b8 */ 	addiu	$v0,$v0,%lo(var800993b8)
+/*    12308:	3c02800a */ 	lui	$v0,%hi(g_SecondaryMemoryPools)
+/*    1230c:	244293b8 */ 	addiu	$v0,$v0,%lo(g_SecondaryMemoryPools)
 /*    12310:	8c590058 */ 	lw	$t9,0x58($v0)
 /*    12314:	8c480054 */ 	lw	$t0,0x54($v0)
 /*    12318:	03281823 */ 	subu	$v1,$t9,$t0
@@ -152,53 +153,37 @@ glabel func00012354
 /*    123c4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel malloc
-/*    123c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    123cc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    123d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    123d4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    123d8:	3c04800a */ 	lui	$a0,%hi(var80099300)
-/*    123dc:	24849300 */ 	addiu	$a0,$a0,%lo(var80099300)
-/*    123e0:	93a6001f */ 	lbu	$a2,0x1f($sp)
-/*    123e4:	0c0048d5 */ 	jal	func00012354
-/*    123e8:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    123ec:	10400003 */ 	beqz	$v0,.L000123fc
-/*    123f0:	3c04800a */ 	lui	$a0,%hi(var800993b8)
-/*    123f4:	1000000b */ 	beqz	$zero,.L00012424
-/*    123f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L000123fc:
-/*    123fc:	248493b8 */ 	addiu	$a0,$a0,%lo(var800993b8)
-/*    12400:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*    12404:	0c0048d5 */ 	jal	func00012354
-/*    12408:	93a6001f */ 	lbu	$a2,0x1f($sp)
-/*    1240c:	10400003 */ 	beqz	$v0,.L0001241c
-/*    12410:	00401825 */ 	or	$v1,$v0,$zero
-/*    12414:	10000003 */ 	beqz	$zero,.L00012424
-/*    12418:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0001241c:
-/*    1241c:	00601025 */ 	or	$v0,$v1,$zero
-/*    12420:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L00012424:
-/*    12424:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*    12428:	03e00008 */ 	jr	$ra
-/*    1242c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void *malloc(u32 len, u8 pool)
+{
+	void *allocation = func00012354(&g_PrimaryMemoryPools[0], len, pool);
+
+	if (allocation) {
+		return allocation;
+	}
+
+	allocation = func00012354(&g_SecondaryMemoryPools[0], len, pool);
+
+	if (allocation) {
+		return allocation;
+	}
+
+	return allocation;
+}
 
 GLOBAL_ASM(
 glabel func00012430
 /*    12430:	30ce00ff */ 	andi	$t6,$a2,0xff
 /*    12434:	000e1080 */ 	sll	$v0,$t6,0x2
 /*    12438:	004e1021 */ 	addu	$v0,$v0,$t6
-/*    1243c:	3c0f800a */ 	lui	$t7,%hi(var80099300)
-/*    12440:	25ef9300 */ 	addiu	$t7,$t7,%lo(var80099300)
+/*    1243c:	3c0f800a */ 	lui	$t7,%hi(g_PrimaryMemoryPools)
+/*    12440:	25ef9300 */ 	addiu	$t7,$t7,%lo(g_PrimaryMemoryPools)
 /*    12444:	00021080 */ 	sll	$v0,$v0,0x2
 /*    12448:	afa50004 */ 	sw	$a1,0x4($sp)
 /*    1244c:	afa60008 */ 	sw	$a2,0x8($sp)
 /*    12450:	004f1821 */ 	addu	$v1,$v0,$t7
 /*    12454:	8c780010 */ 	lw	$t8,0x10($v1)
-/*    12458:	3c19800a */ 	lui	$t9,%hi(var800993b8)
-/*    1245c:	273993b8 */ 	addiu	$t9,$t9,%lo(var800993b8)
+/*    12458:	3c19800a */ 	lui	$t9,%hi(g_SecondaryMemoryPools)
+/*    1245c:	273993b8 */ 	addiu	$t9,$t9,%lo(g_SecondaryMemoryPools)
 /*    12460:	50980008 */ 	beql	$a0,$t8,.L00012484
 /*    12464:	8c640004 */ 	lw	$a0,0x4($v1)
 /*    12468:	00591821 */ 	addu	$v1,$v0,$t9
@@ -240,16 +225,16 @@ glabel func000124d4
 /*    124e0:	01c02025 */ 	or	$a0,$t6,$zero
 /*    124e4:	000e7880 */ 	sll	$t7,$t6,0x2
 /*    124e8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*    124ec:	3c18800a */ 	lui	$t8,%hi(var80099300)
-/*    124f0:	27189300 */ 	addiu	$t8,$t8,%lo(var80099300)
+/*    124ec:	3c18800a */ 	lui	$t8,%hi(g_PrimaryMemoryPools)
+/*    124f0:	27189300 */ 	addiu	$t8,$t8,%lo(g_PrimaryMemoryPools)
 /*    124f4:	000f7880 */ 	sll	$t7,$t7,0x2
 /*    124f8:	10000007 */ 	beqz	$zero,.L00012518
 /*    124fc:	01f81821 */ 	addu	$v1,$t7,$t8
 .L00012500:
 /*    12500:	0004c880 */ 	sll	$t9,$a0,0x2
 /*    12504:	0324c821 */ 	addu	$t9,$t9,$a0
-/*    12508:	3c08800a */ 	lui	$t0,%hi(var800993b8)
-/*    1250c:	250893b8 */ 	addiu	$t0,$t0,%lo(var800993b8)
+/*    12508:	3c08800a */ 	lui	$t0,%hi(g_SecondaryMemoryPools)
+/*    1250c:	250893b8 */ 	addiu	$t0,$t0,%lo(g_SecondaryMemoryPools)
 /*    12510:	0019c880 */ 	sll	$t9,$t9,0x2
 /*    12514:	03281821 */ 	addu	$v1,$t9,$t0
 .L00012518:
@@ -266,8 +251,8 @@ glabel func00012528
 /*    12530:	24010004 */ 	addiu	$at,$zero,0x4
 /*    12534:	15c10007 */ 	bne	$t6,$at,.L00012554
 /*    12538:	01c02025 */ 	or	$a0,$t6,$zero
-/*    1253c:	3c06800a */ 	lui	$a2,%hi(var80099300)
-/*    12540:	24c69300 */ 	addiu	$a2,$a2,%lo(var80099300)
+/*    1253c:	3c06800a */ 	lui	$a2,%hi(g_PrimaryMemoryPools)
+/*    12540:	24c69300 */ 	addiu	$a2,$a2,%lo(g_PrimaryMemoryPools)
 /*    12544:	8cc2007c */ 	lw	$v0,0x7c($a2)
 /*    12548:	acc20050 */ 	sw	$v0,0x50($a2)
 /*    1254c:	acc20080 */ 	sw	$v0,0x80($a2)
@@ -275,11 +260,11 @@ glabel func00012528
 .L00012554:
 /*    12554:	00041080 */ 	sll	$v0,$a0,0x2
 /*    12558:	00441021 */ 	addu	$v0,$v0,$a0
-/*    1255c:	3c06800a */ 	lui	$a2,%hi(var80099300)
+/*    1255c:	3c06800a */ 	lui	$a2,%hi(g_PrimaryMemoryPools)
 /*    12560:	00021080 */ 	sll	$v0,$v0,0x2
-/*    12564:	3c18800a */ 	lui	$t8,%hi(var800993b8)
-/*    12568:	24c69300 */ 	addiu	$a2,$a2,%lo(var80099300)
-/*    1256c:	271893b8 */ 	addiu	$t8,$t8,%lo(var800993b8)
+/*    12564:	3c18800a */ 	lui	$t8,%hi(g_SecondaryMemoryPools)
+/*    12568:	24c69300 */ 	addiu	$a2,$a2,%lo(g_PrimaryMemoryPools)
+/*    1256c:	271893b8 */ 	addiu	$t8,$t8,%lo(g_SecondaryMemoryPools)
 /*    12570:	00c21821 */ 	addu	$v1,$a2,$v0
 /*    12574:	00582821 */ 	addu	$a1,$v0,$t8
 /*    12578:	8c6f0000 */ 	lw	$t7,0x0($v1)
@@ -297,10 +282,10 @@ glabel func00012594
 /*    12598:	000e1080 */ 	sll	$v0,$t6,0x2
 /*    1259c:	004e1021 */ 	addu	$v0,$v0,$t6
 /*    125a0:	00021080 */ 	sll	$v0,$v0,0x2
-/*    125a4:	3c0f800a */ 	lui	$t7,%hi(var80099300)
-/*    125a8:	3c18800a */ 	lui	$t8,%hi(var800993b8)
-/*    125ac:	25ef9300 */ 	addiu	$t7,$t7,%lo(var80099300)
-/*    125b0:	271893b8 */ 	addiu	$t8,$t8,%lo(var800993b8)
+/*    125a4:	3c0f800a */ 	lui	$t7,%hi(g_PrimaryMemoryPools)
+/*    125a8:	3c18800a */ 	lui	$t8,%hi(g_SecondaryMemoryPools)
+/*    125ac:	25ef9300 */ 	addiu	$t7,$t7,%lo(g_PrimaryMemoryPools)
+/*    125b0:	271893b8 */ 	addiu	$t8,$t8,%lo(g_SecondaryMemoryPools)
 /*    125b4:	004f1821 */ 	addu	$v1,$v0,$t7
 /*    125b8:	00582821 */ 	addu	$a1,$v0,$t8
 /*    125bc:	8c79000c */ 	lw	$t9,0xc($v1)
@@ -352,17 +337,17 @@ glabel func00012644
 /*    12648:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    1264c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    12650:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*    12654:	3c04800a */ 	lui	$a0,%hi(var80099300)
-/*    12658:	24849300 */ 	addiu	$a0,$a0,%lo(var80099300)
+/*    12654:	3c04800a */ 	lui	$a0,%hi(g_PrimaryMemoryPools)
+/*    12658:	24849300 */ 	addiu	$a0,$a0,%lo(g_PrimaryMemoryPools)
 /*    1265c:	93a6001f */ 	lbu	$a2,0x1f($sp)
 /*    12660:	0c004977 */ 	jal	func000125dc
 /*    12664:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*    12668:	10400003 */ 	beqz	$v0,.L00012678
-/*    1266c:	3c04800a */ 	lui	$a0,%hi(var800993b8)
+/*    1266c:	3c04800a */ 	lui	$a0,%hi(g_SecondaryMemoryPools)
 /*    12670:	1000000b */ 	beqz	$zero,.L000126a0
 /*    12674:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L00012678:
-/*    12678:	248493b8 */ 	addiu	$a0,$a0,%lo(var800993b8)
+/*    12678:	248493b8 */ 	addiu	$a0,$a0,%lo(g_SecondaryMemoryPools)
 /*    1267c:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*    12680:	0c004977 */ 	jal	func000125dc
 /*    12684:	93a6001f */ 	lbu	$a2,0x1f($sp)
