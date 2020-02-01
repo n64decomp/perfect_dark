@@ -203,6 +203,7 @@ extern u32 var80061a80;
 extern u32 var80061af4;
 extern u32 var80061b68;
 extern u32 var80061bf0;
+extern u8 g_EyespyNextSpawnPad;
 extern struct coord var800623a4;
 extern u32 var800623b0;
 extern u32 var80062400;

@@ -153,7 +153,7 @@ glabel func00012354
 );
 
 GLOBAL_ASM(
-glabel func000123c8
+glabel malloc
 /*    123c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    123cc:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    123d0:	afbf0014 */ 	sw	$ra,0x14($sp)

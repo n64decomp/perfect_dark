@@ -244,7 +244,7 @@ glabel func0f010bb0
 /*  f010ca4:	3926000f */ 	xori	$a2,$t1,0xf
 .L0f010ca8:
 /*  f010ca8:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f010cac:	0c0048f2 */ 	jal	func000123c8
+/*  f010cac:	0c0048f2 */ 	jal	malloc
 /*  f010cb0:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f010cb4:	8e0b0284 */ 	lw	$t3,0x284($s0)
 /*  f010cb8:	2405ffff */ 	addiu	$a1,$zero,-1

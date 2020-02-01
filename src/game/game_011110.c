@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "gvars/gvars.h"
 #include "math.h"
+#include "setup/inventory.h"
 #include "setup/setup_000000.h"
 #include "setup/setup_0160b0.h"
 #include "setup/setup_020df0.h"
@@ -19,6 +20,7 @@
 #include "game/game_157db0.h"
 #include "game/game_176d70.h"
 #include "game/game_187770.h"
+#include "library/library_121e0.h"
 #include "library/library_16110.h"
 #include "library/library_233c0.h"
 
@@ -154,7 +156,7 @@ glabel func0f011130
 /*  f011288:	ace00008 */ 	sw	$zero,0x8($a3)
 /*  f01128c:	3b24000f */ 	xori	$a0,$t9,0xf
 /*  f011290:	afa8001c */ 	sw	$t0,0x1c($sp)
-/*  f011294:	0c0048f2 */ 	jal	func000123c8
+/*  f011294:	0c0048f2 */ 	jal	malloc
 /*  f011298:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f01129c:	3c0a8009 */ 	lui	$t2,%hi(g_Is4Mb)
 /*  f0112a0:	254a0af0 */ 	addiu	$t2,$t2,%lo(g_Is4Mb)
@@ -455,7 +457,7 @@ glabel currentPlayerInitEyespy
 /*  f01168c:	10400094 */ 	beqz	$v0,.L0f0118e0
 /*  f011690:	24040080 */ 	addiu	$a0,$zero,0x80
 /*  f011694:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f011698:	0c0048f2 */ 	jal	func000123c8
+/*  f011698:	0c0048f2 */ 	jal	malloc
 /*  f01169c:	afa20084 */ 	sw	$v0,0x84($sp)
 /*  f0116a0:	8e190284 */ 	lw	$t9,0x284($s0)
 /*  f0116a4:	8fa60084 */ 	lw	$a2,0x84($sp)
@@ -612,6 +614,83 @@ glabel currentPlayerInitEyespy
 /*  f0118ec:	03e00008 */ 	jr	$ra
 /*  f0118f0:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch due to address of static data
+//void currentPlayerInitEyespy(void)
+//{
+//	struct prop *prop;
+//	struct pad pad;
+//	struct chrdata *propchr;
+//	struct chrdata *playerchr;
+//	static u8 nextpad;
+//
+//	if (g_Vars.currentplayer->eyespy == NULL) {
+//		/**
+//		 * To create the eyespy's prop, a pad must be passed to func0f02dbac.
+//		 * However the eyespy doesn't have a pad because it's held by the
+//		 * player, so it needs to choose one from the stage. The method used
+//		 * will increment the chosen pad number each time the stage is loaded
+//		 * and wrap at 256.
+//		 *
+//		 * @bug: This method means if you play G5 Building enough times then
+//		 * the camspy will start in a trigger point for the mid cutscene,
+//		 * causing the mid cutscene to play instead of the intro.
+//		 */
+//		padUnpack(nextpad++, PADFIELD_ROOM | PADFIELD_POS, &pad);
+//		prop = func0f02dbac(&pad, pad.room);
+//
+//		if (prop) {
+//			g_Vars.currentplayer->eyespy = malloc(sizeof(struct eyespy), 4);
+//
+//			if (g_Vars.currentplayer->eyespy) {
+//				g_Vars.currentplayer->eyespy->prop = prop;
+//				g_Vars.currentplayer->eyespy->look.x = 0;
+//				g_Vars.currentplayer->eyespy->look.y = 0;
+//				g_Vars.currentplayer->eyespy->look.z = 1;
+//				g_Vars.currentplayer->eyespy->up.x = 0;
+//				g_Vars.currentplayer->eyespy->up.y = 1;
+//				g_Vars.currentplayer->eyespy->up.z = 0;
+//				g_Vars.currentplayer->eyespy->theta = 0;
+//				g_Vars.currentplayer->eyespy->costheta = 1;
+//				g_Vars.currentplayer->eyespy->sintheta = 0;
+//				g_Vars.currentplayer->eyespy->verta = 0;
+//				g_Vars.currentplayer->eyespy->cosverta = 1;
+//				g_Vars.currentplayer->eyespy->sinverta = 0;
+//				g_Vars.currentplayer->eyespy->init = true;
+//				g_Vars.currentplayer->eyespy->initialised = false;
+//				g_Vars.currentplayer->eyespy->active = false;
+//				g_Vars.currentplayer->eyespy->buttonheld = false;
+//				g_Vars.currentplayer->eyespy->camerabuttonheld = false;
+//				g_Vars.currentplayer->eyespy->bobdir = 1;
+//				g_Vars.currentplayer->eyespy->bobtimer = 0;
+//				g_Vars.currentplayer->eyespy->bobactive = true;
+//				g_Vars.currentplayer->eyespy->vel.x = 0;
+//				g_Vars.currentplayer->eyespy->vel.y = 0;
+//				g_Vars.currentplayer->eyespy->vel.z = 0;
+//				g_Vars.currentplayer->eyespy->speed = 0;
+//				g_Vars.currentplayer->eyespy->oldground = 0;
+//				g_Vars.currentplayer->eyespy->height = 0;
+//				g_Vars.currentplayer->eyespy->gravity = 0;
+//				g_Vars.currentplayer->eyespy->hit = false;
+//				g_Vars.currentplayer->eyespy->opendoor = false;
+//				g_Vars.currentplayer->eyespy->mode = EYESPYMODE_CAMSPY;
+//				propchr = prop->chr;
+//				playerchr = g_Vars.currentplayer->prop->chr;
+//				propchr->team = playerchr->team;
+//
+//				if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+//					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_DRUGSPY;
+//					g_Weapons[WEAPON_CAMSPY]->name = 0x4c3d; // "DrugSpy"
+//					g_Weapons[WEAPON_CAMSPY]->shortname = 0x4c3d; // "DrugSpy"
+//				} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR || stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO) {
+//					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_BOMBSPY;
+//				} else {
+//					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_CAMSPY;
+//				}
+//			}
+//		}
+//	}
+//}
 
 GLOBAL_ASM(
 glabel currentPlayerInit

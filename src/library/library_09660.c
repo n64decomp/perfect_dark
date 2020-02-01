@@ -606,7 +606,7 @@ glabel func00009c3c
 .L00009e08:
 /*     9e08:	24840040 */ 	addiu	$a0,$a0,0x40
 /*     9e0c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*     9e10:	0c0048f2 */ 	jal	func000123c8
+/*     9e10:	0c0048f2 */ 	jal	malloc
 /*     9e14:	afa60018 */ 	sw	$a2,0x18($sp)
 /*     9e18:	8fa60018 */ 	lw	$a2,0x18($sp)
 /*     9e1c:	3c04800a */ 	lui	$a0,%hi(var8009cac0)

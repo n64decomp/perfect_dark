@@ -28,6 +28,6 @@ void currentPlayerInitGunsHeld(void)
 void func0f012530(s32 arg0)
 {
 	g_Vars.currentplayer->equipmaxitems = arg0 + 30;
-	g_Vars.currentplayer->unk1868 = func000123c8((g_Vars.currentplayer->equipmaxitems * 20 + 15 | 0xf) ^ 0xf, 4);
+	g_Vars.currentplayer->unk1868 = malloc((g_Vars.currentplayer->equipmaxitems * 20 + 15 | 0xf) ^ 0xf, 4);
 	func0f111600();
 }

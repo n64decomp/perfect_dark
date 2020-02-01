@@ -873,7 +873,7 @@ glabel func0000db3c
 .L0000df40:
 /*     df40:	3c048006 */ 	lui	$a0,0x8006
 /*     df44:	8c84d9b8 */ 	lw	$a0,-0x2648($a0)
-/*     df48:	0c0048f2 */ 	jal	func000123c8
+/*     df48:	0c0048f2 */ 	jal	malloc
 /*     df4c:	24050004 */ 	addiu	$a1,$zero,0x4
 /*     df50:	3c058006 */ 	lui	$a1,0x8006
 /*     df54:	8ca5d9b8 */ 	lw	$a1,-0x2648($a1)

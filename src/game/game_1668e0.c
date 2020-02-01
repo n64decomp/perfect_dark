@@ -822,7 +822,7 @@ glabel func0f1670fc
 .L0f167174:
 /*  f167174:	8e040000 */ 	lw	$a0,0x0($s0)
 .L0f167178:
-/*  f167178:	0c0048f2 */ 	jal	func000123c8
+/*  f167178:	0c0048f2 */ 	jal	malloc
 /*  f16717c:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f167180:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f167184:	8e050000 */ 	lw	$a1,0x0($s0)
@@ -1200,7 +1200,7 @@ glabel func0f167350
 /*  f16765c:	8c843fdc */ 	lw	$a0,0x3fdc($a0)
 /*  f167660:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f167664:	0004c840 */ 	sll	$t9,$a0,0x1
-/*  f167668:	0c0048f2 */ 	jal	func000123c8
+/*  f167668:	0c0048f2 */ 	jal	malloc
 /*  f16766c:	03202025 */ 	or	$a0,$t9,$zero
 /*  f167670:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f167674:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
@@ -1321,7 +1321,7 @@ glabel func0f167350
 /*  f1677f0:	8c843fec */ 	lw	$a0,0x3fec($a0)
 /*  f1677f4:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1677f8:	00047840 */ 	sll	$t7,$a0,0x1
-/*  f1677fc:	0c0048f2 */ 	jal	func000123c8
+/*  f1677fc:	0c0048f2 */ 	jal	malloc
 /*  f167800:	01e02025 */ 	or	$a0,$t7,$zero
 /*  f167804:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f167808:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)

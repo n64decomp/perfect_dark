@@ -296,7 +296,7 @@ glabel func0002f8a0
 /*    2f8bc:	34048000 */ 	dli	$a0,0x8000
 .L0002f8c0:
 /*    2f8c0:	24050006 */ 	addiu	$a1,$zero,0x6
-/*    2f8c4:	0c0048f2 */ 	jal	func000123c8
+/*    2f8c4:	0c0048f2 */ 	jal	malloc
 /*    2f8c8:	afa4001c */ 	sw	$a0,0x1c($sp)
 /*    2f8cc:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*    2f8d0:	8fbf0014 */ 	lw	$ra,0x14($sp)

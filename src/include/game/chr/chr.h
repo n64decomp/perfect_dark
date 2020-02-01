@@ -121,7 +121,7 @@ u32 func0f02d36c(void);
 u32 func0f02d3f8(void);
 u32 func0f02d414(void);
 u32 func0f02d4fc(void);
-u32 func0f02dbac(void);
+struct prop *func0f02dbac(struct pad *pad, s16 room);
 u32 func0f02ddbc(void);
 u32 func0f02dff0(void);
 u32 func0f02e064(struct chrdata *chr);

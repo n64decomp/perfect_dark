@@ -8,7 +8,7 @@ u32 func000121e8(void);
 u32 func000122e0(void);
 u32 func00012324(void);
 u32 func00012354(void);
-s32 func000123c8(s32 arg0, s32 arg1, s32 arg2);
+void *malloc(s32 arg0, s32 arg1);
 u32 func00012430(void);
 u32 func000124d4(void);
 void func00012528(s32 arg0);
