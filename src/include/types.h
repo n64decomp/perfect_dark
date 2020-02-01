@@ -1034,7 +1034,7 @@ struct player {
 	/*0x0138*/ u32 unk0138;
 	/*0x013c*/ u32 unk013c;
 	/*0x0140*/ u32 unk0140;
-	/*0x0144*/ u32 unk0144;
+	/*0x0144*/ f32 unk0144;
 	/*0x0148*/ u32 unk0148;
 	/*0x014c*/ u32 unk014c;
 	/*0x0150*/ u32 unk0150;
@@ -1149,12 +1149,10 @@ struct player {
 	/*0x0304*/ u32 colourfadebluenew;
 	/*0x0308*/ f32 colourfadefracold;
 	/*0x030c*/ f32 colourfadefracnew;
-	/*0x0310*/ u32 unk0310;
-	/*0x0314*/ u32 unk0314;
-	/*0x0318*/ u32 unk0318;
+	/*0x0310*/ struct coord bondprevpos;
 	/*0x031c*/ u32 unk031c;
 	/*0x0320*/ u32 unk0320;
-	/*0x0324*/ u32 unk0324;
+	/*0x0324*/ u32 bondtype;
 	/*0x0328*/ u32 unk0328;
 	/*0x032c*/ u32 unk032c;
 	/*0x0330*/ u32 unk0330;
@@ -1172,19 +1170,15 @@ struct player {
 	/*0x0360*/ u32 unk0360;
 	/*0x0364*/ u32 unk0364;
 	/*0x0368*/ u32 unk0368;
-	/*0x036c*/ u32 unk036c;
-	/*0x0370*/ u32 unk0370;
-	/*0x0374*/ u32 unk0374;
+	/*0x036c*/ f32 unk036c;
+	/*0x0370*/ f32 unk0370;
+	/*0x0374*/ f32 unk0374;
 	/*0x0378*/ u32 unk0378;
 	/*0x037c*/ u32 unk037c;
 	/*0x0380*/ u32 unk0380;
 	/*0x0384*/ u32 unk0384;
-	/*0x0388*/ u32 unk0388;
-	/*0x038c*/ u32 unk038c;
-	/*0x0390*/ u32 unk0390;
-	/*0x0394*/ u32 unk0394;
-	/*0x0398*/ u32 unk0398;
-	/*0x039c*/ u32 unk039c;
+	/*0x0388*/ struct coord headlook;
+	/*0x0394*/ struct coord headup;
 	/*0x03a0*/ u32 unk03a0;
 	/*0x03a4*/ u32 unk03a4;
 	/*0x03a8*/ u32 unk03a8;
@@ -2367,8 +2361,10 @@ struct player {
 	/*0x160c*/ u32 unk160c;
 	/*0x1610*/ u32 unk1610;
 	/*0x1614*/ u32 unk1614;
-	/*0x1618*/ u32 unk1618;
-	/*0x161c*/ u32 unk161c;
+	/*0x1618*/ u16 unk1618;
+	/*0x161a*/ u16 unk161a;
+	/*0x161c*/ u16 unk161c;
+	/*0x161e*/ u16 unk161e;
 	/*0x1620*/ u32 unk1620;
 	/*0x1624*/ struct prop *lookingatprop;
 	/*0x1628*/ u32 unk1628;
@@ -2565,7 +2561,7 @@ struct player {
 	/*0x19b8*/ u32 unk19b8;
 	/*0x19bc*/ u32 unk19bc;
 	/*0x19c0*/ u32 unk19c0;
-	/*0x19c4*/ u32 unk19c4;
+	/*0x19c4*/ f32 unk19c4;
 	/*0x19c8*/ u32 unk19c8;
 	/*0x19cc*/ u32 unk19cc;
 	/*0x19d0*/ u32 unk19d0;
@@ -2675,10 +2671,10 @@ struct player {
 	/*0x1b70*/ f32 unk1b70;
 	/*0x1b74*/ f32 unk1b74;
 	/*0x1b78*/ u32 unk1b78;
-	/*0x1b7c*/ u32 unk1b7c;
-	/*0x1b80*/ u32 unk1b80;
-	/*0x1b84*/ u32 unk1b84;
-	/*0x1b88*/ u32 unk1b88;
+	/*0x1b7c*/ s32 bondviewlevtime60;
+	/*0x1b80*/ f32 bondwatchtime60;
+	/*0x1b84*/ bool tickdiefinished;
+	/*0x1b88*/ s32 introanimnum;
 	/*0x1b8c*/ u32 unk1b8c;
 	/*0x1b90*/ u32 unk1b90;
 	/*0x1b94*/ u32 unk1b94;
@@ -2744,7 +2740,7 @@ struct stagesetup {
 	/*0x00*/ void *unk00;
 	/*0x04*/ void *unk04;
 	/*0x08*/ struct coverdefinition *cover;
-	/*0x0c*/ u8 *intro;
+	/*0x0c*/ s32 *intro;
 	/*0x10*/ u8 *props;
 	/*0x14*/ struct path *paths;
 	/*0x18*/ struct ailist *ailists;
@@ -4290,7 +4286,7 @@ struct mpscenario {
 	s32 (*radarfunc)(s32 value);
 	bool (*radar2func)(s32 *displaylist, struct prop *prop);
 	bool (*highlightfunc)(struct prop *prop, u32 *colour);
-	bool (*unk2c)(f32 arg0, s32 arg1, s32 arg2, struct prop *prop, f32 *arg4);
+	bool (*unk2c)(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop, f32 *arg4);
 	s32 (*maxteamsfunc)(void);
 	bool (*isroomhighlightedfunc)(s16 room);
 	void (*unk38)(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
@@ -4957,6 +4953,15 @@ struct var800a2380 {
 	/*0x2c0*/ u32 unk2c0;
 	/*0x2c4*/ u32 unk2c4;
 	/*0x2c8*/ u32 unk2c8;
+};
+
+struct gecreditsdata {
+	/*0x00*/ u16 text1;
+	/*0x02*/ u16 text2;
+	/*0x04*/ u16 posoffset1;
+	/*0x06*/ u16 alignoffset1;
+	/*0x08*/ u16 posoffset2;
+	/*0x0a*/ u16 alignoffset2;
 };
 
 #endif

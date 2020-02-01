@@ -157,7 +157,7 @@ u32 func0f185c14(void);
 s32 scenarioRadar(s32 value);
 bool scenarioRadar2(s32 *displaylist, struct prop *prop);
 u32 func0f185e20(void);
-f32 scenarioCallback2c(f32 arg0, s32 arg1, s32 arg2, struct prop *prop);
+f32 scenarioCallback2c(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop);
 u32 func0f18620c(void);
 s32 scenarioGetMaxTeams(void);
 void scenarioCallback38(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);

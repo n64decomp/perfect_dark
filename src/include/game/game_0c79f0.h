@@ -31,7 +31,7 @@ u32 func0f0c8aa8(void);
 u32 func0f0c8b90(void);
 u32 func0f0cb79c(void);
 u32 func0f0cb89c(void);
-u32 func0f0cb8c4(void);
+void func0f0cb8c4(struct player *player);
 u32 func0f0cb904(void);
 u32 func0f0cba88(void);
 u32 func0f0cbb48(void);

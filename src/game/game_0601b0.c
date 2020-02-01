@@ -318,7 +318,7 @@ glabel func0f060300
 );
 
 GLOBAL_ASM(
-glabel func0f060358
+glabel propAllocate
 /*  f060358:	3c04800a */ 	lui	$a0,%hi(g_Vars)
 /*  f06035c:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
 /*  f060360:	8c820344 */ 	lw	$v0,0x344($a0)

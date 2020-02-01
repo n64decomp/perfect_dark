@@ -42,6 +42,7 @@
 #include "library/library_16110.h"
 #include "library/library_1a500.h"
 #include "library/library_233c0.h"
+#include "library/library_4a360.h"
 
 const u32 var7f1a8680[] = {0xb8d1b717};
 const u32 var7f1a8684[] = {0x00000000};
@@ -1219,7 +1220,7 @@ glabel func0f01e250
 /*  f01e4cc:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-u32 getNumChrs(void)
+s32 getNumChrs(void)
 {
 	return g_NumChrsA;
 }
@@ -3979,7 +3980,7 @@ glabel func0f020b14
 
 struct prop *func0f020cc8(s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4)
 {
-	struct prop *prop = func0f060358();
+	struct prop *prop = propAllocate();
 
 	if (prop) {
 		prop = func0f020b14(prop, arg0, arg1, arg2, arg3, arg4);
@@ -5907,7 +5908,7 @@ glabel func0f022624
 /*  f022944:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f022948:	00002825 */ 	or	$a1,$zero,$zero
 .L0f02294c:
-/*  f02294c:	0fc2a58a */ 	jal	func0f0a9628
+/*  f02294c:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f022950:	24040014 */ 	addiu	$a0,$zero,0x14
 .L0f022954:
 /*  f022954:	3c02800a */ 	lui	$v0,0x800a

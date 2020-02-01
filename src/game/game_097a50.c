@@ -20229,7 +20229,7 @@ glabel func0f0a8d34
 /*  f0a8d9c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a8da0:	0fc44580 */ 	jal	func0f111600
 /*  f0a8da4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a8da8:	0fc44762 */ 	jal	func0f111d88
+/*  f0a8da8:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f0a8dac:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f0a8db0:
 /*  f0a8db0:	3c02800a */ 	lui	$v0,0x800a
@@ -20848,7 +20848,7 @@ glabel func0f0a95ec
 );
 
 GLOBAL_ASM(
-glabel func0f0a9628
+glabel currentPlayerGiveAmmo
 /*  f0a9628:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0a962c:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f0a9630:	afb1001c */ 	sw	$s1,0x1c($sp)
@@ -21127,7 +21127,7 @@ glabel func0f0a9980
 /*  f0a99d4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a99d8:	00007012 */ 	mflo	$t6
 /*  f0a99dc:	024e7821 */ 	addu	$t7,$s2,$t6
-/*  f0a99e0:	0fc2a58a */ 	jal	func0f0a9628
+/*  f0a99e0:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f0a99e4:	8de50000 */ 	lw	$a1,0x0($t7)
 /*  f0a99e8:	26100001 */ 	addiu	$s0,$s0,0x1
 .L0f0a99ec:
@@ -21216,7 +21216,7 @@ glabel func0f0a9ac4
 /*  f0a9aec:	8fa50020 */ 	lw	$a1,0x20($sp)
 /*  f0a9af0:	50600004 */ 	beqzl	$v1,.L0f0a9b04
 /*  f0a9af4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a9af8:	0fc2a58a */ 	jal	func0f0a9628
+/*  f0a9af8:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f0a9afc:	8c640000 */ 	lw	$a0,0x0($v1)
 .L0f0a9b00:
 /*  f0a9b00:	8fbf0014 */ 	lw	$ra,0x14($sp)

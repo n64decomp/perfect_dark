@@ -165,7 +165,7 @@ void cheatsActivate(void)
 				(1 << CHEAT_PSYCHOSISGUN - 32) |
 				(1 << CHEAT_PP9I - 32) |
 				(1 << CHEAT_CC13 - 32) |
-				(1 << CHEAT_KLO1313 - 32) |
+				(1 << CHEAT_KL01313 - 32) |
 				(1 << CHEAT_KF7SPECIAL - 32) |
 				(1 << CHEAT_ZZT - 32) |
 				(1 << CHEAT_DMC - 32) |

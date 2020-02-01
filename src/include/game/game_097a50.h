@@ -158,7 +158,7 @@ u32 func0f0a9464(void);
 u32 func0f0a9494(void);
 u32 func0f0a94d0(void);
 void func0f0a95ec(u32 arg0, u32 arg1);
-u32 func0f0a9628(void);
+void currentPlayerGiveAmmo(s32 ammotype, s32 quantity);
 u32 func0f0a9770(void);
 u32 currentPlayerGetAmmoCount(s8 arg0);
 u32 func0f0a98f4(void);

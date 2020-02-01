@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "gvars/gvars.h"
+#include "math.h"
 #include "setup/setup_000000.h"
 #include "setup/setup_0160b0.h"
 #include "setup/setup_020df0.h"
@@ -18,6 +19,8 @@
 #include "game/game_157db0.h"
 #include "game/game_176d70.h"
 #include "game/game_187770.h"
+#include "library/library_16110.h"
+#include "library/library_233c0.h"
 
 const u32 var7f1a8240[] = {0x7f011a44};
 const u32 var7f1a8244[] = {0x7f011a90};
@@ -425,7 +428,7 @@ glabel func0f011560
 );
 
 GLOBAL_ASM(
-glabel func0f011630
+glabel currentPlayerInitEyespy
 /*  f011630:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*  f011634:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f011638:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -611,7 +614,7 @@ glabel func0f011630
 );
 
 GLOBAL_ASM(
-glabel func0f0118f4
+glabel currentPlayerInit
 /*  f0118f4:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f0118f8:	3c0f8006 */ 	lui	$t7,%hi(var800623a4)
 /*  f0118fc:	afbf0034 */ 	sw	$ra,0x34($sp)
@@ -737,7 +740,7 @@ glabel func0f0118f4
 /*  f011ad4:	10000004 */ 	beqz	$zero,.L0f011ae8
 /*  f011ad8:	8fb80080 */ 	lw	$t8,0x80($sp)
 .L0f011adc:
-/*  f011adc:	0fc44762 */ 	jal	func0f111d88
+/*  f011adc:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011ae0:	8e040004 */ 	lw	$a0,0x4($s0)
 /*  f011ae4:	8fb80080 */ 	lw	$t8,0x80($sp)
 .L0f011ae8:
@@ -771,7 +774,7 @@ glabel func0f0118f4
 /*  f011b4c:	118d0004 */ 	beq	$t4,$t5,.L0f011b60
 /*  f011b50:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f011b54:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f011b58:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011b58:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011b5c:	8e050008 */ 	lw	$a1,0x8($s0)
 .L0f011b60:
 /*  f011b60:	10000049 */ 	beqz	$zero,.L0f011c88
@@ -842,7 +845,7 @@ glabel func0f0118f4
 /*  f011c5c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f011c60:	944e000c */ 	lhu	$t6,0xc($v0)
 .L0f011c64:
-/*  f011c64:	2442000c */ 	addiu	$v0,$v0,%lo(var800a000c)
+/*  f011c64:	2442000c */ 	addiu	$v0,$v0,12
 /*  f011c68:	55c0fffe */ 	bnezl	$t6,.L0f011c64
 /*  f011c6c:	944e000c */ 	lhu	$t6,0xc($v0)
 /*  f011c70:	944f0002 */ 	lhu	$t7,0x2($v0)
@@ -859,110 +862,110 @@ glabel func0f0118f4
 /*  f011c90:	5441ff65 */ 	bnel	$v0,$at,.L0f011a28
 /*  f011c94:	2c41000c */ 	sltiu	$at,$v0,0xc
 .L0f011c98:
-/*  f011c98:	0fc44762 */ 	jal	func0f111d88
+/*  f011c98:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011c9c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f011ca0:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011ca4:	24040008 */ 	addiu	$a0,$zero,0x8
 /*  f011ca8:	10400006 */ 	beqz	$v0,.L0f011cc4
 /*  f011cac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011cb0:	0fc44762 */ 	jal	func0f111d88
+/*  f011cb0:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011cb4:	24040009 */ 	addiu	$a0,$zero,0x9
 /*  f011cb8:	2404000a */ 	addiu	$a0,$zero,0xa
-/*  f011cbc:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011cbc:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011cc0:	24050050 */ 	addiu	$a1,$zero,0x50
 .L0f011cc4:
 /*  f011cc4:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011cc8:	24040009 */ 	addiu	$a0,$zero,0x9
 /*  f011ccc:	10400006 */ 	beqz	$v0,.L0f011ce8
 /*  f011cd0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011cd4:	0fc44762 */ 	jal	func0f111d88
+/*  f011cd4:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011cd8:	24040016 */ 	addiu	$a0,$zero,0x16
 /*  f011cdc:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f011ce0:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011ce0:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011ce4:	24050050 */ 	addiu	$a1,$zero,0x50
 .L0f011ce8:
 /*  f011ce8:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011cec:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f011cf0:	10400006 */ 	beqz	$v0,.L0f011d0c
 /*  f011cf4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011cf8:	0fc44762 */ 	jal	func0f111d88
+/*  f011cf8:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011cfc:	24040031 */ 	addiu	$a0,$zero,0x31
 /*  f011d00:	24040014 */ 	addiu	$a0,$zero,0x14
-/*  f011d04:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011d04:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011d08:	24051c20 */ 	addiu	$a1,$zero,0x1c20
 .L0f011d0c:
 /*  f011d0c:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011d10:	24040015 */ 	addiu	$a0,$zero,0x15
 /*  f011d14:	10400003 */ 	beqz	$v0,.L0f011d24
 /*  f011d18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011d1c:	0fc44762 */ 	jal	func0f111d88
+/*  f011d1c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011d20:	2404002d */ 	addiu	$a0,$zero,0x2d
 .L0f011d24:
 /*  f011d24:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011d28:	2404001a */ 	addiu	$a0,$zero,0x1a
 /*  f011d2c:	10400003 */ 	beqz	$v0,.L0f011d3c
 /*  f011d30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011d34:	0fc44762 */ 	jal	func0f111d88
+/*  f011d34:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011d38:	24040037 */ 	addiu	$a0,$zero,0x37
 .L0f011d3c:
 /*  f011d3c:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011d40:	2404001b */ 	addiu	$a0,$zero,0x1b
 /*  f011d44:	10400006 */ 	beqz	$v0,.L0f011d60
 /*  f011d48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011d4c:	0fc44762 */ 	jal	func0f111d88
+/*  f011d4c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011d50:	24040018 */ 	addiu	$a0,$zero,0x18
 /*  f011d54:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f011d58:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011d58:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011d5c:	2405000a */ 	addiu	$a1,$zero,0xa
 .L0f011d60:
 /*  f011d60:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011d64:	2404001c */ 	addiu	$a0,$zero,0x1c
 /*  f011d68:	10400006 */ 	beqz	$v0,.L0f011d84
 /*  f011d6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011d70:	0fc44762 */ 	jal	func0f111d88
+/*  f011d70:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011d74:	24040015 */ 	addiu	$a0,$zero,0x15
 /*  f011d78:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f011d7c:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011d7c:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011d80:	240500c8 */ 	addiu	$a1,$zero,0xc8
 .L0f011d84:
 /*  f011d84:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011d88:	2404001d */ 	addiu	$a0,$zero,0x1d
 /*  f011d8c:	10400003 */ 	beqz	$v0,.L0f011d9c
 /*  f011d90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011d94:	0fc44762 */ 	jal	func0f111d88
+/*  f011d94:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011d98:	2404002f */ 	addiu	$a0,$zero,0x2f
 .L0f011d9c:
 /*  f011d9c:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011da0:	2404001e */ 	addiu	$a0,$zero,0x1e
 /*  f011da4:	10400009 */ 	beqz	$v0,.L0f011dcc
 /*  f011da8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011dac:	0fc44762 */ 	jal	func0f111d88
+/*  f011dac:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011db0:	24040012 */ 	addiu	$a0,$zero,0x12
 /*  f011db4:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f011db8:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011db8:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011dbc:	240500c8 */ 	addiu	$a1,$zero,0xc8
 /*  f011dc0:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f011dc4:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011dc4:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011dc8:	24050014 */ 	addiu	$a1,$zero,0x14
 .L0f011dcc:
 /*  f011dcc:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011dd0:	2404001f */ 	addiu	$a0,$zero,0x1f
 /*  f011dd4:	10400006 */ 	beqz	$v0,.L0f011df0
 /*  f011dd8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011ddc:	0fc44762 */ 	jal	func0f111d88
+/*  f011ddc:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011de0:	2404000e */ 	addiu	$a0,$zero,0xe
 /*  f011de4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f011de8:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011de8:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011dec:	240500c8 */ 	addiu	$a1,$zero,0xc8
 .L0f011df0:
 /*  f011df0:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011df4:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f011df8:	10400006 */ 	beqz	$v0,.L0f011e14
 /*  f011dfc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011e00:	0fc44762 */ 	jal	func0f111d88
+/*  f011e00:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011e04:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f011e08:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f011e0c:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011e0c:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011e10:	240500c8 */ 	addiu	$a1,$zero,0xc8
 .L0f011e14:
 /*  f011e14:	0fc41b99 */ 	jal	cheatIsActive
@@ -974,93 +977,93 @@ glabel func0f0118f4
 /*  f011e2c:	10400009 */ 	beqz	$v0,.L0f011e54
 /*  f011e30:	24040016 */ 	addiu	$a0,$zero,0x16
 .L0f011e34:
-/*  f011e34:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011e34:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011e38:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f011e3c:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011e40:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f011e44:	10400003 */ 	beqz	$v0,.L0f011e54
 /*  f011e48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011e4c:	0fc44762 */ 	jal	func0f111d88
+/*  f011e4c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011e50:	2404002c */ 	addiu	$a0,$zero,0x2c
 .L0f011e54:
 /*  f011e54:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011e58:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f011e5c:	10400006 */ 	beqz	$v0,.L0f011e78
 /*  f011e60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011e64:	0fc44762 */ 	jal	func0f111d88
+/*  f011e64:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011e68:	24040024 */ 	addiu	$a0,$zero,0x24
 /*  f011e6c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f011e70:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011e70:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011e74:	240500c8 */ 	addiu	$a1,$zero,0xc8
 .L0f011e78:
 /*  f011e78:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011e7c:	24040023 */ 	addiu	$a0,$zero,0x23
 /*  f011e80:	10400006 */ 	beqz	$v0,.L0f011e9c
 /*  f011e84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011e88:	0fc44762 */ 	jal	func0f111d88
+/*  f011e88:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011e8c:	24040025 */ 	addiu	$a0,$zero,0x25
 /*  f011e90:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f011e94:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011e94:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011e98:	240500c8 */ 	addiu	$a1,$zero,0xc8
 .L0f011e9c:
 /*  f011e9c:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011ea0:	24040024 */ 	addiu	$a0,$zero,0x24
 /*  f011ea4:	10400006 */ 	beqz	$v0,.L0f011ec0
 /*  f011ea8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011eac:	0fc44762 */ 	jal	func0f111d88
+/*  f011eac:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011eb0:	24040026 */ 	addiu	$a0,$zero,0x26
 /*  f011eb4:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f011eb8:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011eb8:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011ebc:	240500c8 */ 	addiu	$a1,$zero,0xc8
 .L0f011ec0:
 /*  f011ec0:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011ec4:	24040025 */ 	addiu	$a0,$zero,0x25
 /*  f011ec8:	10400006 */ 	beqz	$v0,.L0f011ee4
 /*  f011ecc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011ed0:	0fc44762 */ 	jal	func0f111d88
+/*  f011ed0:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011ed4:	24040027 */ 	addiu	$a0,$zero,0x27
 /*  f011ed8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f011edc:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011edc:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011ee0:	240500c8 */ 	addiu	$a1,$zero,0xc8
 .L0f011ee4:
 /*  f011ee4:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011ee8:	24040026 */ 	addiu	$a0,$zero,0x26
 /*  f011eec:	10400006 */ 	beqz	$v0,.L0f011f08
 /*  f011ef0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011ef4:	0fc44762 */ 	jal	func0f111d88
+/*  f011ef4:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011ef8:	24040028 */ 	addiu	$a0,$zero,0x28
 /*  f011efc:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f011f00:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011f00:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011f04:	240500c8 */ 	addiu	$a1,$zero,0xc8
 .L0f011f08:
 /*  f011f08:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011f0c:	24040027 */ 	addiu	$a0,$zero,0x27
 /*  f011f10:	10400006 */ 	beqz	$v0,.L0f011f2c
 /*  f011f14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011f18:	0fc44762 */ 	jal	func0f111d88
+/*  f011f18:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011f1c:	24040029 */ 	addiu	$a0,$zero,0x29
 /*  f011f20:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f011f24:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011f24:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011f28:	240500c8 */ 	addiu	$a1,$zero,0xc8
 .L0f011f2c:
 /*  f011f2c:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011f30:	24040028 */ 	addiu	$a0,$zero,0x28
 /*  f011f34:	10400006 */ 	beqz	$v0,.L0f011f50
 /*  f011f38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011f3c:	0fc44762 */ 	jal	func0f111d88
+/*  f011f3c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011f40:	2404002a */ 	addiu	$a0,$zero,0x2a
 /*  f011f44:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f011f48:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011f48:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011f4c:	240500c8 */ 	addiu	$a1,$zero,0xc8
 .L0f011f50:
 /*  f011f50:	0fc41b99 */ 	jal	cheatIsActive
 /*  f011f54:	24040029 */ 	addiu	$a0,$zero,0x29
 /*  f011f58:	50400007 */ 	beqzl	$v0,.L0f011f78
 /*  f011f5c:	8fa90080 */ 	lw	$t1,0x80($sp)
-/*  f011f60:	0fc44762 */ 	jal	func0f111d88
+/*  f011f60:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f011f64:	2404002b */ 	addiu	$a0,$zero,0x2b
 /*  f011f68:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f011f6c:	0fc2a58a */ 	jal	func0f0a9628
+/*  f011f6c:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f011f70:	240500c8 */ 	addiu	$a1,$zero,0xc8
 /*  f011f74:	8fa90080 */ 	lw	$t1,0x80($sp)
 .L0f011f78:
@@ -1069,7 +1072,7 @@ glabel func0f0118f4
 /*  f011f80:	3c01800a */ 	lui	$at,0x800a
 /*  f011f84:	ac2addd0 */ 	sw	$t2,-0x2230($at)
 .L0f011f88:
-/*  f011f88:	0fc180d6 */ 	jal	func0f060358
+/*  f011f88:	0fc180d6 */ 	jal	propAllocate
 /*  f011f8c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f011f90:	8e2b0284 */ 	lw	$t3,0x284($s1)
 /*  f011f94:	24190006 */ 	addiu	$t9,$zero,0x6
@@ -1147,7 +1150,7 @@ glabel func0f0118f4
 /*  f0120a0:	93a9007b */ 	lbu	$t1,0x7b($sp)
 /*  f0120a4:	11200003 */ 	beqz	$t1,.L0f0120b4
 /*  f0120a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0120ac:	0fc0458c */ 	jal	func0f011630
+/*  f0120ac:	0fc0458c */ 	jal	currentPlayerInitEyespy
 /*  f0120b0:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0120b4:
 /*  f0120b4:	3c0d800a */ 	lui	$t5,0x800a
@@ -1398,24 +1401,341 @@ glabel func0f0118f4
 /*  f01244c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void currentPlayerInitGunsHeld(void)
-{
-	s32 i;
-
-	if (PLAYERCOUNT() == 1 && g_Vars.mplayerisrunning == false) {
-		g_Vars.currentplayer->equipallguns = cheatIsActive(CHEAT_ALLGUNS);
-	} else {
-		g_Vars.currentplayer->equipallguns = false;
-	}
-
-	for (i = 0; i != 10; i++) {
-		g_Vars.currentplayer->gunheldarr[i].unk08 = -1;
-	}
-}
-
-void func0f012530(s32 arg0)
-{
-	g_Vars.currentplayer->equipmaxitems = arg0 + 30;
-	g_Vars.currentplayer->unk1868 = func000123c8((g_Vars.currentplayer->equipmaxitems * 20 + 15 | 0xf) ^ 0xf, 4);
-	func0f111600();
-}
+// regalloc
+//void currentPlayerInit(void)
+//{
+//	struct coord pos = var800623a4;
+//	s16 rooms[8];
+//	f32 fStack32 = 0;
+//	f32 fVar9;
+//	bool hasdefaultweapon = false;
+//	s32 *cmd = g_StageSetup.intro;
+//	u8 haseyespy = false;
+//	s32 stack[7];
+//	s32 i;
+//	s32 numchrs;
+//	struct gecreditsdata *thing;
+//	f32 tmp;
+//	s32 bodynum;
+//	s32 headnum;
+//
+//	func0f0bc3f0();
+//	func0f18e558();
+//	var80070764 = 0;
+//	var8009de20 = 0;
+//	var8007072c = 1;
+//	var80070738 = 0;
+//	var8007073c = 0;
+//	g_CurrentGeCreditsData = NULL;
+//	g_Vars.currentplayer->bondexploding = false;
+//	g_NumSpawnPoints = 0;
+//	g_Vars.currentplayer->unk1b78 = 0;
+//	g_Vars.currentplayer->unk1bd4 = 0;
+//	g_PlayersWithControl[0] = true;
+//	g_PlayersWithControl[1] = true;
+//	g_PlayersWithControl[2] = true;
+//	g_PlayersWithControl[3] = true;
+//	g_PlayerInvincible = false;
+//	setTickMode(TICKMODE_0);
+//	var80070744 = 0;
+//	var80070748 = 0;
+//	var8007074c = 0;
+//	g_Vars.currentplayer->bondviewlevtime60 = 0;
+//	g_Vars.currentplayer->bondwatchtime60 = 0;
+//	g_Vars.currentplayer->introanimnum = 0;
+//	g_DefaultWeaponArgument = 0;
+//	g_DefaultWeapon = 0;
+//
+//	if (cmd) {
+//		while (cmd[0] != INTROTYPE_END) {
+//			switch (*cmd) {
+//			case INTROTYPE_SPAWN:
+//				if (cmd[2] == 0) {
+//					g_SpawnPoints[g_NumSpawnPoints++] = cmd[1];
+//				}
+//				cmd += 3;
+//				break;
+//			case INTROTYPE_CASE:
+//			case INTROTYPE_CASERESPAWN:
+//				cmd += 3;
+//				break;
+//			case INTROTYPE_HILL:
+//				cmd += 2;
+//				break;
+//			case INTROTYPE_WEAPON:
+//				if (cmd[3] == 0 && g_Vars.currentplayer != g_Vars.anti) {
+//					func0f011560(cmd[1]);
+//
+//					if (cmd[2] >= 0) {
+//						func0f011560(cmd[2]);
+//						func0f111e28(cmd[1], cmd[2]);
+//					} else {
+//						currentPlayerGiveWeapon(cmd[1]);
+//					}
+//
+//					if (!hasdefaultweapon) {
+//						g_DefaultWeapon = cmd[1];
+//
+//						if (cmd[2] >= 0) {
+//							g_DefaultWeaponArgument = cmd[2];
+//						}
+//
+//						hasdefaultweapon = true;
+//					}
+//
+//					if (cmd[1] == WEAPON_CAMSPY) {
+//						haseyespy = true;
+//					}
+//				}
+//				cmd += 4;
+//				break;
+//			case INTROTYPE_AMMO:
+//				if (cmd[3] == 0 && g_Vars.currentplayer != g_Vars.anti) {
+//					currentPlayerGiveAmmo(cmd[1], cmd[2]);
+//				}
+//				cmd += 4;
+//				break;
+//			case INTROTYPE_3:
+//				cmd += 8;
+//				break;
+//			case INTROTYPE_4:
+//				cmd += 2;
+//				break;
+//			case INTROTYPE_OUTFIT:
+//				g_Vars.currentplayer->bondtype = cmd[1];
+//				cmd += 2;
+//				break;
+//			case INTROTYPE_6:
+//				cmd += 10;
+//				break;
+//			case INTROTYPE_WATCHTIME:
+//				g_Vars.currentplayer->bondwatchtime60 = 0;
+//				if (cmd[2] > 0) {
+//					g_Vars.currentplayer->bondwatchtime60 += (cmd[2] % 60) * 3600;
+//				}
+//				if (cmd[1] > 0) {
+//					g_Vars.currentplayer->bondwatchtime60 += (cmd[1] % 12) * 3600 * 60;
+//				}
+//				cmd += 3;
+//				break;
+//			case INTROTYPE_CREDITOFFSET:
+//				thing = (struct gecreditsdata *)&g_GeCreditsData[cmd[1]];
+//				g_CurrentGeCreditsData = thing;
+//				while (thing->text1 || thing->text2) {
+//					thing++;
+//				}
+//				cmd += 2;
+//				break;
+//			default:
+//				cmd++;
+//			}
+//		}
+//	}
+//
+//	currentPlayerGiveWeapon(WEAPON_UNARMED);
+//
+//	if (cheatIsActive(CHEAT_TRENTSMAGNUM)) {
+//		currentPlayerGiveWeapon(WEAPON_DY357LX);
+//		currentPlayerGiveAmmo(AMMOTYPE_MAGNUM, 80);
+//	}
+//
+//	if (cheatIsActive(CHEAT_FARSIGHT)) {
+//		currentPlayerGiveWeapon(WEAPON_FARSIGHTXR20);
+//		currentPlayerGiveAmmo(AMMOTYPE_FARSIGHT, 80);
+//	}
+//
+//	if (cheatIsActive(CHEAT_CLOAKINGDEVICE)) {
+//		currentPlayerGiveWeapon(WEAPON_CLOAKINGDEVICE);
+//		currentPlayerGiveAmmo(AMMOTYPE_CLOAK, 7200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
+//		currentPlayerGiveWeapon(WEAPON_NIGHTVISION);
+//	}
+//
+//	if (cheatIsActive(CHEAT_RTRACKER)) {
+//		currentPlayerGiveWeapon(WEAPON_RTRACKER);
+//	}
+//
+//	if (cheatIsActive(CHEAT_ROCKETLAUNCHER)) {
+//		currentPlayerGiveWeapon(WEAPON_ROCKETLAUNCHER);
+//		currentPlayerGiveAmmo(AMMOTYPE_ROCKET, 10);
+//	}
+//
+//	if (cheatIsActive(CHEAT_SNIPERRIFLE)) {
+//		currentPlayerGiveWeapon(WEAPON_SNIPERRIFLE);
+//		currentPlayerGiveAmmo(AMMOTYPE_RIFLE, 200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_XRAYSCANNER)) {
+//		currentPlayerGiveWeapon(WEAPON_XRAYSCANNER);
+//	}
+//
+//	if (cheatIsActive(CHEAT_SUPERDRAGON)) {
+//		currentPlayerGiveWeapon(WEAPON_SUPERDRAGON);
+//		currentPlayerGiveAmmo(AMMOTYPE_RIFLE, 200);
+//		currentPlayerGiveAmmo(AMMOTYPE_DEVASTATOR, 20);
+//	}
+//
+//	if (cheatIsActive(CHEAT_LAPTOPGUN)) {
+//		currentPlayerGiveWeapon(WEAPON_LAPTOPGUN);
+//		currentPlayerGiveAmmo(AMMOTYPE_SMG, 200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_PHOENIX)) {
+//		currentPlayerGiveWeapon(WEAPON_PHOENIX);
+//		currentPlayerGiveAmmo(AMMOTYPE_PISTOL, 200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_PSYCHOSISGUN) || cheatIsActive(CHEAT_ALLGUNS)) {
+//		currentPlayerGiveAmmo(AMMOTYPE_PSYCHOSIS, 4);
+//
+//		if (cheatIsActive(CHEAT_PSYCHOSISGUN)) {
+//			currentPlayerGiveWeapon(WEAPON_PSYCHOSISGUN);
+//		}
+//	}
+//
+//	if (cheatIsActive(CHEAT_PP9I)) {
+//		currentPlayerGiveWeapon(WEAPON_PP9I);
+//		currentPlayerGiveAmmo(AMMOTYPE_PISTOL, 200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_CC13)) {
+//		currentPlayerGiveWeapon(WEAPON_CC13);
+//		currentPlayerGiveAmmo(AMMOTYPE_RIFLE, 200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_KL01313)) {
+//		currentPlayerGiveWeapon(WEAPON_KL01313);
+//		currentPlayerGiveAmmo(AMMOTYPE_SMG, 200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_KF7SPECIAL)) {
+//		currentPlayerGiveWeapon(WEAPON_KF7SPECIAL);
+//		currentPlayerGiveAmmo(AMMOTYPE_RIFLE, 200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_ZZT)) {
+//		currentPlayerGiveWeapon(WEAPON_ZZT);
+//		currentPlayerGiveAmmo(AMMOTYPE_SMG, 200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_DMC)) {
+//		currentPlayerGiveWeapon(WEAPON_DMC);
+//		currentPlayerGiveAmmo(AMMOTYPE_SMG, 200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_AR53)) {
+//		currentPlayerGiveWeapon(WEAPON_AR53);
+//		currentPlayerGiveAmmo(AMMOTYPE_RIFLE, 200);
+//	}
+//
+//	if (cheatIsActive(CHEAT_RCP45)) {
+//		currentPlayerGiveWeapon(WEAPON_RCP45);
+//		currentPlayerGiveAmmo(AMMOTYPE_SMG, 200);
+//	}
+//
+//	if (!hasdefaultweapon) {
+//		g_DefaultWeapon = WEAPON_UNARMED;
+//	}
+//
+//	g_Vars.currentplayer->prop = propAllocate();
+//	g_Vars.currentplayer->prop->chr = NULL;
+//	g_Vars.currentplayer->prop->type = PROPTYPE_PLAYER;
+//	func0f0604bc(g_Vars.currentplayer->prop);
+//	propHide(g_Vars.currentplayer->prop);
+//	func0f020668(g_Vars.currentplayer->prop, 0);
+//
+//	if (g_Vars.coopplayernum >= 0) {
+//		g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
+//	} else if (g_Vars.antiplayernum >= 0) {
+//		if (g_Vars.currentplayer == g_Vars.bond) {
+//			g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
+//		} else {
+//			g_Vars.currentplayer->prop->chr->team = TEAM_ENEMY;
+//		}
+//	} else {
+//		if (g_Vars.unk000314) {
+//			g_Vars.currentplayer->prop->chr->team = 1 << g_MpPlayers[g_Vars.unk000288->mpchrnum].base.team;
+//		} else {
+//			g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
+//		}
+//	}
+//
+//	if (haseyespy) {
+//		currentPlayerInitEyespy();
+//	}
+//
+//	if (g_NumSpawnPoints > 0) {
+//		if (g_Vars.coopplayernum >= 0) {
+//			fStack32 = M_PI * 2 - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
+//		} else if (g_Vars.antiplayernum >= 0) {
+//			fStack32 = M_PI * 2 - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
+//		} else {
+//			if (g_Vars.unk000314 == 0) {
+//				g_NumSpawnPoints = 1;
+//			}
+//
+//			fStack32 = M_PI * 2 - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
+//		}
+//	}
+//
+//	fVar9 = func0002a1b0(&pos, 30, &rooms[0],
+//			&g_Vars.currentplayer->unk161a,
+//			&g_Vars.currentplayer->unk161e,
+//			&g_Vars.currentplayer->unk161c,
+//			&g_Vars.currentplayer->unk19b0,
+//			0, 0);
+//
+//	pos.y = g_Vars.currentplayer->unk19c4 + fVar9;
+//	g_Vars.currentplayer->unk0074 = fVar9;
+//	g_Vars.currentplayer->unk0078 = fVar9;
+//	g_Vars.currentplayer->unk0144 = (fStack32 * 360.0f) / (M_PI * 2);
+//	func0f0b85a0(&g_Vars.currentplayer->unk036c, &pos);
+//	g_Vars.currentplayer->unk036c = -func0001a3dc(fStack32);
+//	g_Vars.currentplayer->unk0370 = 0;
+//	g_Vars.currentplayer->unk0374 = func0001a3d0(fStack32);
+//	g_Vars.currentplayer->bondprevpos.x = (tmp = pos.x);
+//	g_Vars.currentplayer->prop->pos.x = tmp;
+//	g_Vars.currentplayer->bondprevpos.y = (tmp = pos.y);
+//	g_Vars.currentplayer->prop->pos.y = tmp;
+//	g_Vars.currentplayer->bondprevpos.z = (tmp = pos.z);
+//	g_Vars.currentplayer->prop->pos.z = tmp;
+//	func0f065c44(g_Vars.currentplayer->prop);
+//	g_Vars.currentplayer->prop->rooms[0] = rooms[0];
+//	g_Vars.currentplayer->prop->rooms[1] = -1;
+//	currentPlayerSetCamPropertiesWithRoom(&pos, &g_Vars.currentplayer->headup, &g_Vars.currentplayer->headlook, rooms[0]);
+//
+//	numchrs = getNumChrs();
+//
+//	for (i = 0; i < numchrs; i++) {
+//		if (g_ChrsA[i].target == -2) {
+//			g_ChrsA[i].target = g_Vars.currentplayer->prop - g_Vars.props;
+//		}
+//	}
+//
+//	func0f0cb8c4(g_Vars.currentplayer);
+//
+//	if (g_Vars.mplayerisrunning) {
+//		func0f0b9674();
+//	} else {
+//		func0f0b9a20();
+//	}
+//
+//	var8007077c = 0;
+//
+//	while (var80070768[var8007077c] > 0) {
+//		var8007077c++;
+//	}
+//
+//	g_Vars.currentplayer->tickdiefinished = false;
+//	g_Vars.currentplayer->unk00e0 = 0;
+//
+//	for (i = 0; i != 4; i++) {
+//		g_Vars.unk0004b8[i] = 0;
+//	}
+//
+//	func0f0b872c(&bodynum, &headnum, 0);
+//	g_Vars.currentplayer->prop->chr->bodynum = bodynum;
+//	g_Vars.currentplayer->prop->chr->headnum = headnum;
+//}

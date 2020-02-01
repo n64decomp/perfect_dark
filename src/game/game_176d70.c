@@ -15346,16 +15346,16 @@ glabel func0f185e20
 /*  f186178:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-f32 scenarioCallback2c(f32 arg0, s32 arg1, s32 arg2, struct prop *prop)
+f32 scenarioCallback2c(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop)
 {
 	f32 result;
 
 	if (g_Vars.mplayerisrunning && g_MpScenarios[g_MpSetup.scenario].unk2c &&
-			g_MpScenarios[g_MpSetup.scenario].unk2c(arg0, arg1, arg2, prop, &result)) {
+			g_MpScenarios[g_MpSetup.scenario].unk2c(arg0, pos, arg2, prop, &result)) {
 		return result;
 	}
 
-	return func0f0b72a8(arg0, arg1, arg2, prop);
+	return func0f0b72a8(arg0, pos, arg2, prop);
 }
 
 GLOBAL_ASM(
@@ -15856,7 +15856,7 @@ glabel func0f186898
 /*  f186998:	03197821 */ 	addu	$t7,$t8,$t9
 /*  f18699c:	afaf0050 */ 	sw	$t7,0x50($sp)
 .L0f1869a0:
-/*  f1869a0:	0fc44762 */ 	jal	func0f111d88
+/*  f1869a0:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f1869a4:	24040057 */ 	addiu	$a0,$zero,0x57
 /*  f1869a8:	24040057 */ 	addiu	$a0,$zero,0x57
 /*  f1869ac:	0fc221f2 */ 	jal	func0f0887c8
@@ -16775,7 +16775,7 @@ glabel func0f187410
 /*  f187674:	10000016 */ 	beqz	$zero,.L0f1876d0
 /*  f187678:	ac8e0040 */ 	sw	$t6,0x40($a0)
 .L0f18767c:
-/*  f18767c:	0fc44762 */ 	jal	func0f111d88
+/*  f18767c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f187680:	24040036 */ 	addiu	$a0,$zero,0x36
 /*  f187684:	24040036 */ 	addiu	$a0,$zero,0x36
 /*  f187688:	0fc221f2 */ 	jal	func0f0887c8

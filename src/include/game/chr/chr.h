@@ -49,7 +49,7 @@ f32 chrGetMaxDamage(struct chrdata *chr);
 void chrAddHealth(struct chrdata *chr, f32 health);
 f32 chrGetArmor(struct chrdata *chr);
 s32 getLowestUnusedChrId(void);
-u32 func0f020668(void);
+void func0f020668(struct prop *prop, s32 arg1);
 struct prop *func0f020b14(struct prop *prop, s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4);
 struct prop *func0f020cc8(s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4);
 u32 func0f020d44(void);
@@ -413,7 +413,7 @@ bool func0f04d44c(struct chrdata *chr);
 void chrEmitSparks(struct chrdata *chr);
 
 u32 func0f04e418(void);
-u32 getNumChrs(void);
+s32 getNumChrs(void);
 void incrementByte(u8 *dst, u8 amount);
 s32 chrResolvePadId(struct chrdata *chr, s32 pad_id);
 f32 propGetDistanceToProp(struct prop *a, struct prop *b);

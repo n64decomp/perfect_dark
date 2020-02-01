@@ -57,7 +57,7 @@ u32 func0001a110(void);
 u32 func0001a1c0(void);
 u32 func0001a25c(void);
 u32 func0001a2dc(void);
-u32 func0001a3d0(void);
-u32 func0001a3dc(void);
+f32 func0001a3d0(f32 arg0);
+f32 func0001a3dc(f32 arg0);
 
 #endif

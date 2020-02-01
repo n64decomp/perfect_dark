@@ -196,7 +196,7 @@
 #define CHEAT_PSYCHOSISGUN           33
 #define CHEAT_PP9I                   34
 #define CHEAT_CC13                   35
-#define CHEAT_KLO1313                36
+#define CHEAT_KL01313                36
 #define CHEAT_KF7SPECIAL             37
 #define CHEAT_ZZT                    38
 #define CHEAT_DMC                    39
@@ -490,6 +490,20 @@
 #define IDLEACTION_OPERATING       0x04
 #define IDLEACTION_OPERATING_PAD   0x05
 
+#define INTROTYPE_SPAWN        0
+#define INTROTYPE_WEAPON       1
+#define INTROTYPE_AMMO         2
+#define INTROTYPE_3            3
+#define INTROTYPE_4            4
+#define INTROTYPE_OUTFIT       5
+#define INTROTYPE_6            6
+#define INTROTYPE_WATCHTIME    7
+#define INTROTYPE_CREDITOFFSET 8
+#define INTROTYPE_CASE         9
+#define INTROTYPE_CASERESPAWN  10
+#define INTROTYPE_HILL         11
+#define INTROTYPE_END          12
+
 #define INVENTORYFUNCTYPE_NONE    0
 #define INVENTORYFUNCTYPE_SHOOT   1
 #define INVENTORYFUNCTYPE_THROW   2
@@ -560,6 +574,7 @@
 #define MAX_MPCHRS         (4 + MAX_SIMULANTS)
 #define MAX_OBJECTIVES     10
 #define MAX_SIMULANTS      8
+#define MAX_SPAWNPOINTS    24
 #define MAX_SQUADRONS      16
 #define MAX_TEAMS          8
 
@@ -1796,7 +1811,7 @@
 #define WEAPON_CC13              0x25
 #define WEAPON_KL01313           0x26
 #define WEAPON_KF7SPECIAL        0x27
-#define WEAPON_ZZT9MM            0x28
+#define WEAPON_ZZT               0x28
 #define WEAPON_DMC               0x29
 #define WEAPON_AR53              0x2a
 #define WEAPON_RCP45             0x2b

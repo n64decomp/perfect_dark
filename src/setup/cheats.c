@@ -50,7 +50,7 @@ struct cheat g_Cheats[NUM_CHEATS] = {
 	{ 0x546c, 120, 4,  DIFF_PA, CHEATFLAG_TIMED                              }, // Psychosis Gun
 	{ 0x546d, 36,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // PP9i
 	{ 0x546e, 37,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // CC13
-	{ 0x546f, 38,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // KLO1313
+	{ 0x546f, 38,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // KL01313
 	{ 0x5470, 39,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // KF7 Special
 	{ 0x5471, 40,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // ZZT (9mm)
 	{ 0x5472, 41,  0,  DIFF_A,  CHEATFLAG_FIRINGRANGE                        }, // DMC

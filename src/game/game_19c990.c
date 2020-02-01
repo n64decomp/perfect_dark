@@ -2673,12 +2673,12 @@ glabel func0f19e900
 /*  f19e948:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f19e94c:	14a10005 */ 	bne	$a1,$at,.L0f19e964
 /*  f19e950:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19e954:	0fc2a58a */ 	jal	func0f0a9628
+/*  f19e954:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f19e958:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f19e95c:	10000004 */ 	beqz	$zero,.L0f19e970
 /*  f19e960:	8fae0028 */ 	lw	$t6,0x28($sp)
 .L0f19e964:
-/*  f19e964:	0fc2a58a */ 	jal	func0f0a9628
+/*  f19e964:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f19e968:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f19e96c:	8fae0028 */ 	lw	$t6,0x28($sp)
 .L0f19e970:
@@ -2691,12 +2691,12 @@ glabel func0f19e900
 /*  f19e988:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f19e98c:	14a10005 */ 	bne	$a1,$at,.L0f19e9a4
 /*  f19e990:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19e994:	0fc2a58a */ 	jal	func0f0a9628
+/*  f19e994:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f19e998:	8fa5001c */ 	lw	$a1,0x1c($sp)
 /*  f19e99c:	10000004 */ 	beqz	$zero,.L0f19e9b0
 /*  f19e9a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f19e9a4:
-/*  f19e9a4:	0fc2a58a */ 	jal	func0f0a9628
+/*  f19e9a4:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f19e9a8:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f19e9ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f19e9b0:
@@ -4132,14 +4132,14 @@ glabel func0f19f994
 /*  f19fdbc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19fdc0:	a6a00476 */ 	sh	$zero,0x476($s5)
 .L0f19fdc4:
-/*  f19fdc4:	0fc2a58a */ 	jal	func0f0a9628
+/*  f19fdc4:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f19fdc8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19fdcc:	10000006 */ 	beqz	$zero,.L0f19fde8
 /*  f19fdd0:	24010012 */ 	addiu	$at,$zero,0x12
 .L0f19fdd4:
 /*  f19fdd4:	14410003 */ 	bne	$v0,$at,.L0f19fde4
 /*  f19fdd8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f19fddc:	0fc2a58a */ 	jal	func0f0a9628
+/*  f19fddc:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f19fde0:	02002825 */ 	or	$a1,$s0,$zero
 .L0f19fde4:
 /*  f19fde4:	24010012 */ 	addiu	$at,$zero,0x12
@@ -4166,14 +4166,14 @@ glabel func0f19f994
 /*  f19fe34:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19fe38:	a6a00478 */ 	sh	$zero,0x478($s5)
 .L0f19fe3c:
-/*  f19fe3c:	0fc2a58a */ 	jal	func0f0a9628
+/*  f19fe3c:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f19fe40:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f19fe44:	10000006 */ 	beqz	$zero,.L0f19fe60
 /*  f19fe48:	a2a0045a */ 	sb	$zero,0x45a($s5)
 .L0f19fe4c:
 /*  f19fe4c:	14610003 */ 	bne	$v1,$at,.L0f19fe5c
 /*  f19fe50:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f19fe54:	0fc2a58a */ 	jal	func0f0a9628
+/*  f19fe54:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f19fe58:	02002825 */ 	or	$a1,$s0,$zero
 .L0f19fe5c:
 /*  f19fe5c:	a2a0045a */ 	sb	$zero,0x45a($s5)
@@ -6076,7 +6076,7 @@ glabel func0f1a1824
 /*  f1a1868:	24010035 */ 	addiu	$at,$zero,0x35
 /*  f1a186c:	14410003 */ 	bne	$v0,$at,.L0f1a187c
 /*  f1a1870:	24040020 */ 	addiu	$a0,$zero,0x20
-/*  f1a1874:	0fc2a58a */ 	jal	func0f0a9628
+/*  f1a1874:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f1a1878:	00002825 */ 	or	$a1,$zero,$zero
 .L0f1a187c:
 /*  f1a187c:	3c07800a */ 	lui	$a3,%hi(g_Vars)
@@ -6338,7 +6338,7 @@ glabel func0f1a1bec
 /*  f1a1c04:	0fc68609 */ 	jal	func0f1a1824
 /*  f1a1c08:	a04f0000 */ 	sb	$t7,0x0($v0)
 /*  f1a1c0c:	24040014 */ 	addiu	$a0,$zero,0x14
-/*  f1a1c10:	0fc2a58a */ 	jal	func0f0a9628
+/*  f1a1c10:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
 /*  f1a1c14:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1a1c18:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a1c1c:	0fc127cb */ 	jal	chrSetStageFlag

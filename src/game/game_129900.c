@@ -1442,7 +1442,7 @@ glabel func0f129f54
 .L0f12a1ac:
 /*  f12a1ac:	514002ba */ 	beqzl	$t2,.L0f12ac98
 /*  f12a1b0:	000a102b */ 	sltu	$v0,$zero,$t2
-/*  f12a1b4:	0fc180d6 */ 	jal	func0f060358
+/*  f12a1b4:	0fc180d6 */ 	jal	propAllocate
 /*  f12a1b8:	afaa0158 */ 	sw	$t2,0x158($sp)
 /*  f12a1bc:	24010010 */ 	addiu	$at,$zero,0x10
 /*  f12a1c0:	8faa0158 */ 	lw	$t2,0x158($sp)
@@ -5956,7 +5956,7 @@ glabel func0f12e1c0
 /*  f12e360:	8fb9002c */ 	lw	$t9,0x2c($sp)
 /*  f12e364:	53200034 */ 	beqzl	$t9,.L0f12e438
 /*  f12e368:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f12e36c:	0fc180d6 */ 	jal	func0f060358
+/*  f12e36c:	0fc180d6 */ 	jal	propAllocate
 /*  f12e370:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f12e374:	240a0007 */ 	addiu	$t2,$zero,0x7
 /*  f12e378:	1040002e */ 	beqz	$v0,.L0f12e434

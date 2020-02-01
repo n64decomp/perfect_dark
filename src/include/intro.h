@@ -31,9 +31,9 @@
 	mkword(id), \
 	mkword(pad),
 
-#define hill(room) \
+#define hill(pad) \
 	mkword(0x0b), \
-	mkword(room),
+	mkword(pad),
 
 #define endintro \
 	mkword(0x0c),

@@ -7122,7 +7122,7 @@ bool aiShowObj(void)
 			struct weaponobj *weapon = (struct weaponobj *) obj;
 
 			if (weapon->weapon_id == WEAPON_CAMSPY) {
-				func0f011630();
+				currentPlayerInitEyespy();
 			}
 		}
 	}
@@ -7823,7 +7823,7 @@ glabel ai00f4
  */
 bool ai00f5(void)
 {
-	g_8007073c = 1;
+	var8007073c = 1;
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -7836,7 +7836,7 @@ bool ai00f6(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_8007073c == 2) {
+	if (var8007073c == 2) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -12873,7 +12873,7 @@ bool aiClearInventory(void)
 		if (g_Vars.currentplayer == g_Vars.bond || g_Vars.currentplayer == g_Vars.coop) {
 			func0f111600();
 			g_Vars.currentplayer->unk00c4 = 0;
-			func0f111d88(1);
+			currentPlayerGiveWeapon(1);
 			currentPlayerEquipWeaponInCutscene(1);
 		}
 	}

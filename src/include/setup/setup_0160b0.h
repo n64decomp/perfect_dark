@@ -5,9 +5,6 @@
 extern struct menu_dialog menudialog_18d78;
 extern struct menu_dialog menudialog_18d90;
 
-extern u32 g_8007073c;
-extern u32 g_PlayersWithControl[];
-extern bool g_PlayerInvincible;
 extern u32 var80070090;
 extern u32 var80070098;
 extern u32 var800700a0;
@@ -60,11 +57,17 @@ extern u32 var800705bc;
 extern u32 var800705c0;
 extern u32 var800706c8;
 extern bool g_HiRes;
+extern u32 var8007072c;
+extern u32 var80070738;
+extern u32 var8007073c;
+extern struct gecreditsdata *g_CurrentGeCreditsData;
 extern u32 var80070744;
 extern u32 var80070748;
 extern u32 var8007074c;
+extern bool g_PlayersWithControl[];
+extern bool g_PlayerInvincible;
 extern u32 var80070764;
-extern u32 var80070768;
+extern s16 var80070768[];
 extern u32 var8007077c;
 extern u32 var80070780;
 extern u32 var8007078c;

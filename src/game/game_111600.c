@@ -612,7 +612,7 @@ glabel func0f111cf8
 );
 
 GLOBAL_ASM(
-glabel func0f111d88
+glabel currentPlayerGiveWeapon
 /*  f111d88:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f111d8c:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f111d90:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -902,7 +902,7 @@ glabel func0f1120f0
 .L0f112158:
 /*  f112158:	02002025 */ 	or	$a0,$s0,$zero
 .L0f11215c:
-/*  f11215c:	0fc44762 */ 	jal	func0f111d88
+/*  f11215c:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f112160:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*  f112164:	10400002 */ 	beqz	$v0,.L0f112170
 /*  f112168:	8fa7002c */ 	lw	$a3,0x2c($sp)

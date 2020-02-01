@@ -172,7 +172,7 @@ glabel menuhandler001a3340
 /*  f1a33b0:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f1a33b4:	11c10003 */ 	beq	$t6,$at,.L0f1a33c4
 /*  f1a33b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a33bc:	0fc44762 */ 	jal	func0f111d88
+/*  f1a33bc:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f1a33c0:	01c02025 */ 	or	$a0,$t6,$zero
 .L0f1a33c4:
 /*  f1a33c4:	0fc44bd8 */ 	jal	func0f112f60

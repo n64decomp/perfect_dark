@@ -7,7 +7,7 @@ extern s32 g_StageNum;
 extern u64 rand_seed;
 
 extern struct chrdata *g_ChrsA; // pointer to first element of chrs array
-extern u32 g_NumChrsA;
+extern s32 g_NumChrsA;
 extern u32 var8005ce60;
 extern u32 var8005ce64;
 extern u32 var8005ce68;
@@ -203,7 +203,7 @@ extern u32 var80061a80;
 extern u32 var80061af4;
 extern u32 var80061b68;
 extern u32 var80061bf0;
-extern u32 var800623a4;
+extern struct coord var800623a4;
 extern u32 var800623b0;
 extern u32 var80062400;
 extern u32 var80062410;
