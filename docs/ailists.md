@@ -10,7 +10,7 @@ Under the hood, AI lists are custom bytecode that is interpreted by the game's C
 
 There are about 50 "global" AI lists. These global AI lists handle common tasks such as generic combat, patrolling and sitting idle in a chair. They are available to use in any stage. The rest of the AI lists are specific to each stage and can only be used by that stage.
 
-Examples of AI lists can be found in each stage's setup file (`src/files/setup/*.c`) as well as the global ones in `src/setup/ailists.c`.
+Examples of AI lists can be found in each stage's setup file (`src/files/setup/*.c`) as well as the global ones in `src/game/data/ailists.c`.
 
 A list of all commands can be found in `src/include/commands.h`.
 
@@ -22,7 +22,7 @@ Every AI list has a unique ID. These IDs are required so AI lists can reference 
 
 Global AI lists can be assigned as the initial AI list for characters or assigned manually by other AI lists. They are not started automatically.
 
-In this project global AI lists can be referenced using constants such as `GAILIST_ALERTED`. The list of these constants are in `src/include/constants.h` and their implementations are in `src/setup/ailists.c`.
+In this project global AI lists can be referenced using constants such as `GAILIST_ALERTED`. The list of these constants are in `src/include/constants.h` and their implementations are in `src/game/data/ailists.c`.
 
 ### Character AI lists (04xx excluding 0400)
 
