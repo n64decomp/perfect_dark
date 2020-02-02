@@ -2774,16 +2774,111 @@ struct inventory_typef {
 	u32 unk10;
 };
 
-struct inventory_function {
-	u16 unk00;
-	u8 unk02;
-	u8 type;
-	u16 name;
-	u8 unk06;
-	s8 unk07;
-	struct inventory_menupos *menupos;
-	u32 *fire_animation;
-	u32 flags;
+struct weaponfunc {
+	/*0x00*/ u32 type;
+	/*0x04*/ u16 name;
+	/*0x06*/ u8 unk06;
+	/*0x07*/ s8 unk07;
+	/*0x08*/ struct inventory_menupos *menupos;
+	/*0x0c*/ u32 *fire_animation;
+	/*0x10*/ u32 flags;
+};
+
+struct weaponfunc_shootsingle {
+	struct weaponfunc base;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+};
+
+struct weaponfunc_shootauto {
+	struct weaponfunc base;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ u32 unk4c;
+	/*0x50*/ u32 unk50;
+};
+
+struct weaponfunc_shootprojectile {
+	struct weaponfunc base;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ s32 projectilemodelnum;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ u32 unk4c;
+	/*0x50*/ u32 unk50;
+	/*0x54*/ u32 unk54;
+	/*0x58*/ u32 unk58;
+	/*0x5c*/ u32 unk5c;
+	/*0x60*/ u32 unk60;
+};
+
+struct weaponfunc_throw {
+	struct weaponfunc base;
+	/*0x14*/ s32 projectilemodelnum;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+};
+
+struct weaponfunc_close {
+	struct weaponfunc base;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+};
+
+struct weaponfunc_special {
+	struct weaponfunc base;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+};
+
+struct weaponfunc_visual {
+	struct weaponfunc base;
+	/*0x14*/ u32 unk14;
 };
 
 struct inventory_ammo {
@@ -2803,8 +2898,7 @@ struct weapon {
 	/*0x08*/ u32 *unequip_animation;
 	/*0x0c*/ u32 *pritosec_animation;
 	/*0x10*/ u32 *sectopri_animation;
-	/*0x14*/ struct inventory_function *pri_function;
-	/*0x18*/ struct inventory_function *sec_function;
+	/*0x14*/ void *functions[2];
 	/*0x1c*/ struct inventory_ammo *pri_ammo;
 	/*0x20*/ struct inventory_ammo *sec_ammo;
 	/*0x24*/ struct inventory_typee *eptr;

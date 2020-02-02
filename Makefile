@@ -320,4 +320,4 @@ clean:
 
 binclean:
 	rm -f build/ntsc-final/ucode/*.bin
-	find src/{boot,game,gamedata,gvars,library,inflate} -name '*.o' -delete
+	find src/{boot,game,gvars,library,inflate} -name '*.o' -delete

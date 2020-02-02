@@ -370,65 +370,34 @@ glabel func0f011130
 /*  f01155c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-GLOBAL_ASM(
-glabel func0f011560
-/*  f011560:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f011564:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f011568:	3c028007 */ 	lui	$v0,0x8007
-/*  f01156c:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f011570:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f011574:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f011578:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f01157c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f011580:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f011584:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f011588:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f01158c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f011590:	8c52ff18 */ 	lw	$s2,-0xe8($v0)
-/*  f011594:	00008825 */ 	or	$s1,$zero,$zero
-/*  f011598:	24130201 */ 	addiu	$s3,$zero,0x201
-/*  f01159c:	24140008 */ 	addiu	$s4,$zero,0x8
-/*  f0115a0:	24150002 */ 	addiu	$s5,$zero,0x2
-.L0f0115a4:
-/*  f0115a4:	8e430014 */ 	lw	$v1,0x14($s2)
-/*  f0115a8:	50600015 */ 	beqzl	$v1,.L0f011600
-/*  f0115ac:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f0115b0:	8c640000 */ 	lw	$a0,0x0($v1)
-/*  f0115b4:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0115b8:	16640008 */ 	bne	$s3,$a0,.L0f0115dc
-/*  f0115bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0115c0:	8c640040 */ 	lw	$a0,0x40($v1)
-/*  f0115c4:	0482000e */ 	bltzl	$a0,.L0f011600
-/*  f0115c8:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f0115cc:	0fc2486d */ 	jal	func0f0921b4
-/*  f0115d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0115d4:	10000009 */ 	beqz	$zero,.L0f0115fc
-/*  f0115d8:	02028025 */ 	or	$s0,$s0,$v0
-.L0f0115dc:
-/*  f0115dc:	56a40008 */ 	bnel	$s5,$a0,.L0f011600
-/*  f0115e0:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f0115e4:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f0115e8:	04820005 */ 	bltzl	$a0,.L0f011600
-/*  f0115ec:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f0115f0:	0fc2486d */ 	jal	func0f0921b4
-/*  f0115f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0115f8:	02028025 */ 	or	$s0,$s0,$v0
-.L0f0115fc:
-/*  f0115fc:	26310004 */ 	addiu	$s1,$s1,0x4
-.L0f011600:
-/*  f011600:	1634ffe8 */ 	bne	$s1,$s4,.L0f0115a4
-/*  f011604:	26520004 */ 	addiu	$s2,$s2,0x4
-/*  f011608:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f01160c:	02001025 */ 	or	$v0,$s0,$zero
-/*  f011610:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f011614:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f011618:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f01161c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f011620:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f011624:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f011628:	03e00008 */ 	jr	$ra
-/*  f01162c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+u32 func0f011560(s32 weaponnum)
+{
+	u32 flags = 0;
+	struct weapon *weapon = g_Weapons[weaponnum];
+	s32 i;
+
+	for (i = 0; i != 2; i++) {
+		if (weapon->functions[i]) {
+			struct weaponfunc *genericfunc = weapon->functions[i];
+
+			if (genericfunc->type == INVENTORYFUNCTYPE_SHOOT_PROJECTILE) {
+				struct weaponfunc_shootprojectile *func = (struct weaponfunc_shootprojectile *)genericfunc;
+
+				if (func->projectilemodelnum >= 0) {
+					flags |= func0f0921b4(func->projectilemodelnum);
+				}
+			} else if (genericfunc->type == INVENTORYFUNCTYPE_THROW) {
+				struct weaponfunc_throw *func = (struct weaponfunc_throw *)genericfunc;
+
+				if (func->projectilemodelnum >= 0) {
+					flags |= func0f0921b4(func->projectilemodelnum);
+				}
+			}
+		}
+	}
+
+	return flags;
+}
 
 void currentPlayerInitEyespy(void)
 {

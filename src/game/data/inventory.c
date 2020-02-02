@@ -127,29 +127,26 @@ struct inventory_typee inve_00011140 = {
 };
 
 // 11160
-struct inventory_function invfunc_00011160 = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_00011160 = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008039,
+	0x01000000,
 };
-
-u32 var8006b154 = (u32) &invmenupos_00011098;
-u32 var8006b158 = 0x00000000;
-u32 var8006b15c = 0x3f800000;
-u32 var8006b160 = 0x40c00000;
-u32 var8006b164 = 0x06120208;
-u32 var8006b168 = 0x40a00000;
-u32 var8006b16c = 0x40000000;
-u32 var8006b170 = 0x00000000;
-u32 var8006b174 = 0x40800000;
-u32 var8006b178 = 0x04008039;
-u32 var8006b17c = 0x01000000;
 
 // 111a0
 struct inventory_ammo invammo_default = {
@@ -255,9 +252,7 @@ u32 invanim_punch[] = {
 };
 
 // 112e4
-struct inventory_function invfunc_unarmed_punch = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_close invfunc_unarmed_punch = {
 	INVENTORYFUNCTYPE_CLOSE,
 	0x4c64, // name
 	0x00, // unk06
@@ -265,27 +260,24 @@ struct inventory_function invfunc_unarmed_punch = {
 	&invmenupos_00010fd0, // menupos
 	invanim_punch, // fire chr_do_animation
 	0x0041a200, // flags
+	0x3f000000,
+	0x42700000,
+	0x00000069,
+	0x00000069,
+	0x00000069,
+	0x40f00000,
+	0xc20c0000,
+	0x40f00000,
+	0xc20c0000,
+	0xbf800000,
+	0xbf800000,
+	0x40000000,
+	0x40000000,
+	0x00000000,
 };
 
-u32 var8006b2d8 = 0x3f000000;
-u32 var8006b2dc = 0x42700000;
-u32 var8006b2e0 = 0x00000069;
-u32 var8006b2e4 = 0x00000069;
-u32 var8006b2e8 = 0x00000069;
-u32 var8006b2ec = 0x40f00000;
-u32 var8006b2f0 = 0xc20c0000;
-u32 var8006b2f4 = 0x40f00000;
-u32 var8006b2f8 = 0xc20c0000;
-u32 var8006b2fc = 0xbf800000;
-u32 var8006b300 = 0xbf800000;
-u32 var8006b304 = 0x40000000;
-u32 var8006b308 = 0x40000000;
-u32 var8006b30c = 0x00000000;
-
 // 11330
-struct inventory_function invfunc_unarmed_disarm = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_close invfunc_unarmed_disarm = {
 	INVENTORYFUNCTYPE_CLOSE,
 	0x4c65, // name
 	0x00, // unk06
@@ -293,22 +285,21 @@ struct inventory_function invfunc_unarmed_disarm = {
 	&invmenupos_00010fd0, // menupos
 	invanim_punch, // fire chr_do_animation
 	0x0041a600, // flags
+	0x3e99999a,
+	0x42700000,
+	0x00000069,
+	0x00000069,
+	0x00000069,
+	0x40f00000,
+	0xc20c0000,
+	0x40f00000,
+	0xc20c0000,
+	0xbf800000,
+	0xbf800000,
+	0x40000000,
+	0x40000000,
+	0x00000000,
 };
-
-u32 var8006b324 = 0x3e99999a;
-u32 var8006b328 = 0x42700000;
-u32 var8006b32c = 0x00000069;
-u32 var8006b330 = 0x00000069;
-u32 var8006b334 = 0x00000069;
-u32 var8006b338 = 0x40f00000;
-u32 var8006b33c = 0xc20c0000;
-u32 var8006b340 = 0x40f00000;
-u32 var8006b344 = 0xc20c0000;
-u32 var8006b348 = 0xbf800000;
-u32 var8006b34c = 0xbf800000;
-u32 var8006b350 = 0x40000000;
-u32 var8006b354 = 0x40000000;
-u32 var8006b358 = 0x00000000;
 
 // 1137c
 struct weapon invitem_unarmed = {
@@ -318,8 +309,7 @@ struct weapon invitem_unarmed = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_unarmed_punch, // pri function
-	&invfunc_unarmed_disarm, // sec function
+	{&invfunc_unarmed_punch, &invfunc_unarmed_disarm}, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_00011100, // eptr
@@ -508,59 +498,51 @@ u32 invanim_falcon2_shoot[] = {
 };
 
 // 11654
-struct inventory_function invfunc_falcon2_singleshot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_falcon2_shoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3f800000,
+	0x3f800000,
+	0x03050200,
+	0x41200000,
+	0x41700000,
+	0x426fffff,
+	0x00000000,
+	0x0000804d,
+	0x01000000,
 };
 
-u32 var8006b648 = (u32) &invmenupos_00011098;
-u32 var8006b64c = 0x10000000;
-u32 var8006b650 = 0x3f800000;
-u32 var8006b654 = 0x3f800000;
-u32 var8006b658 = 0x03050200;
-u32 var8006b65c = 0x41200000;
-u32 var8006b660 = 0x41700000;
-u32 var8006b664 = 0x426fffff;
-u32 var8006b668 = 0x00000000;
-u32 var8006b66c = 0x0000804d;
-u32 var8006b670 = 0x01000000;
-
 // 11694
-struct inventory_function invfunc_falcon2silenced_singleshot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
 	invanim_falcon2_shoot, // fire chr_do_animation
 	0x00002000, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3f800000,
+	0x3f800000,
+	0x03050200,
+	0x41200000,
+	0x41700000,
+	0x426fffff,
+	0x00000000,
+	0x00008054,
+	0x01000000,
 };
 
-u32 var8006b688 = (u32) &invmenupos_00011098;
-u32 var8006b68c = 0x10000000;
-u32 var8006b690 = 0x3f800000;
-u32 var8006b694 = 0x3f800000;
-u32 var8006b698 = 0x03050200;
-u32 var8006b69c = 0x41200000;
-u32 var8006b6a0 = 0x41700000;
-u32 var8006b6a4 = 0x426fffff;
-u32 var8006b6a8 = 0x00000000;
-u32 var8006b6ac = 0x00008054;
-u32 var8006b6b0 = 0x01000000;
-
 // 116d4
-struct inventory_function invfunc_falcon2_pistolwhip = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_close invfunc_falcon2_pistolwhip = {
 	INVENTORYFUNCTYPE_CLOSE,
 	0x4c5e, // name
 	0x00, // unk06
@@ -568,22 +550,21 @@ struct inventory_function invfunc_falcon2_pistolwhip = {
 	&invmenupos_00010fd0, // menupos
 	invanim_falcon2_pistolwhip, // fire chr_do_animation
 	0x0041a200, // flags
+	0x3f666666,
+	0x42700000,
+	0x00000069,
+	0x00000069,
+	0x00000069,
+	0xc1800000,
+	0x3f4ccccd,
+	0x41bc0000,
+	0xc202cccd,
+	0xbf800000,
+	0xbf800000,
+	0x40000000,
+	0x40000000,
+	0x00000000,
 };
-
-u32 var8006b6c8 = 0x3f666666;
-u32 var8006b6cc = 0x42700000;
-u32 var8006b6d0 = 0x00000069;
-u32 var8006b6d4 = 0x00000069;
-u32 var8006b6d8 = 0x00000069;
-u32 var8006b6dc = 0xc1800000;
-u32 var8006b6e0 = 0x3f4ccccd;
-u32 var8006b6e4 = 0x41bc0000;
-u32 var8006b6e8 = 0xc202cccd;
-u32 var8006b6ec = 0xbf800000;
-u32 var8006b6f0 = 0xbf800000;
-u32 var8006b6f4 = 0x40000000;
-u32 var8006b6f8 = 0x40000000;
-u32 var8006b6fc = 0x00000000;
 
 // 11720
 struct inventory_ammo invammo_falcon2 = {
@@ -615,8 +596,7 @@ struct weapon invitem_falcon2 = {
 	invanim_falcon2_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_falcon2_singleshot, // pri function
-	&invfunc_falcon2_pistolwhip, // sec function
+	{ &invfunc_falcon2_singleshot, &invfunc_falcon2_pistolwhip }, // functions
 	&invammo_falcon2, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -642,8 +622,7 @@ struct weapon invitem_falcon2scope = {
 	invanim_falcon2_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_falcon2_singleshot, // pri function
-	&invfunc_falcon2_pistolwhip, // sec function
+	{ &invfunc_falcon2_singleshot, &invfunc_falcon2_pistolwhip }, // functions
 	&invammo_falcon2scope, // pri ammo
 	NULL, // sec ammo
 	&inve_00011120, // eptr
@@ -669,8 +648,7 @@ struct weapon invitem_falcon2silencer = {
 	invanim_falcon2_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_falcon2silenced_singleshot, // pri function
-	&invfunc_falcon2_pistolwhip, // sec function
+	{ &invfunc_falcon2silenced_singleshot, &invfunc_falcon2_pistolwhip }, // functions
 	&invammo_falcon2, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -769,54 +747,48 @@ struct inventory_typee inve_00011970 = {
 };
 
 // 11990
-struct inventory_function invfunc_magsec_singleshot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_magsec_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3f8ccccd,
+	0x40c00000,
+	0x04080300,
+	0x40a00000,
+	0x41200000,
+	0x426fffff,
+	0x41200000,
+	0x0000804c,
+	0x01000000,
 };
 
-u32 var8006b984 = (u32) &invmenupos_00011098;
-u32 var8006b988 = 0x10000000;
-u32 var8006b98c = 0x3f8ccccd;
-u32 var8006b990 = 0x40c00000;
-u32 var8006b994 = 0x04080300;
-u32 var8006b998 = 0x40a00000;
-u32 var8006b99c = 0x41200000;
-u32 var8006b9a0 = 0x426fffff;
-u32 var8006b9a4 = 0x41200000;
-u32 var8006b9a8 = 0x0000804c;
-u32 var8006b9ac = 0x01000000;
-
 // 119d0
-struct inventory_function invfunc_magsec_burst = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_magsec_burst = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c80, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_magsec_equiporshoot, // fire chr_do_animation
 	0x00000002, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3f8ccccd,
+	0x41200000,
+	0x090e0000,
+	0x41000000,
+	0x41400000,
+	0x426fffff,
+	0x41200000,
+	0x0000804c,
+	0x01000000,
 };
-
-u32 var8006b9c4 = (u32) &invmenupos_00011098;
-u32 var8006b9c8 = 0x10000000;
-u32 var8006b9cc = 0x3f8ccccd;
-u32 var8006b9d0 = 0x41200000;
-u32 var8006b9d4 = 0x090e0000;
-u32 var8006b9d8 = 0x41000000;
-u32 var8006b9dc = 0x41400000;
-u32 var8006b9e0 = 0x426fffff;
-u32 var8006b9e4 = 0x41200000;
-u32 var8006b9e8 = 0x0000804c;
-u32 var8006b9ec = 0x01000000;
 
 // 11a10
 struct inventory_ammo invammo_magsec = {
@@ -837,8 +809,7 @@ struct weapon invitem_magsec = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_magsec_singleshot, // pri function
-	&invfunc_magsec_burst, // sec function
+	{ &invfunc_magsec_singleshot, &invfunc_magsec_burst }, // functions
 	&invammo_magsec, // pri ammo
 	NULL, // sec ammo
 	&inve_00011970, // eptr
@@ -959,59 +930,51 @@ u32 invanim_dy357_pistolwhip[] = {
 };
 
 // 11c7c
-struct inventory_function invfunc_dy357_singleshot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
 	invanim_dy357_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x14000000,
+	0x40000000,
+	0x00000000,
+	0x081000ff,
+	0x41400000,
+	0x420c0000,
+	0x00000000,
+	0x40c00000,
+	0x00008066,
+	0x05000000,
 };
-
-u32 var8006bc70 = (u32) &invmenupos_00011098;
-u32 var8006bc74 = 0x14000000;
-u32 var8006bc78 = 0x40000000;
-u32 var8006bc7c = 0x00000000;
-u32 var8006bc80 = 0x081000ff;
-u32 var8006bc84 = 0x41400000;
-u32 var8006bc88 = 0x420c0000;
-u32 var8006bc8c = 0x00000000;
-u32 var8006bc90 = 0x40c00000;
-u32 var8006bc94 = 0x00008066;
-u32 var8006bc98 = 0x05000000;
 
 // 11cbc
-struct inventory_function invfunc_dy357lx_singleshot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
 	invanim_dy357_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x1e000000,
+	0x43480000,
+	0x00000000,
+	0x081800ff,
+	0x41400000,
+	0x420c0000,
+	0x00000000,
+	0x40c00000,
+	0x00008066,
+	0x05000000,
 };
 
-u32 var8006bcb0 = (u32) &invmenupos_00011098;
-u32 var8006bcb4 = 0x1e000000;
-u32 var8006bcb8 = 0x43480000;
-u32 var8006bcbc = 0x00000000;
-u32 var8006bcc0 = 0x081800ff;
-u32 var8006bcc4 = 0x41400000;
-u32 var8006bcc8 = 0x420c0000;
-u32 var8006bccc = 0x00000000;
-u32 var8006bcd0 = 0x40c00000;
-u32 var8006bcd4 = 0x00008066;
-u32 var8006bcd8 = 0x05000000;
-
 // 11cfc
-struct inventory_function invfunc_dy357_pistolwhip = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_close invfunc_dy357_pistolwhip = {
 	INVENTORYFUNCTYPE_CLOSE,
 	0x4c5e, // name
 	0x00, // unk06
@@ -1019,22 +982,21 @@ struct inventory_function invfunc_dy357_pistolwhip = {
 	&invmenupos_00010fd0, // menupos
 	invanim_dy357_pistolwhip, // fire chr_do_animation
 	0x0041a200, // flags
+	0x3f666666,
+	0x42700000,
+	0x00000069,
+	0x00000069,
+	0x00000069,
+	0x41980000,
+	0xc195999a,
+	0x41980000,
+	0xc195999a,
+	0xbf800000,
+	0xbf800000,
+	0x40000000,
+	0x40000000,
+	0x00000000,
 };
-
-u32 var8006bcf0 = 0x3f666666;
-u32 var8006bcf4 = 0x42700000;
-u32 var8006bcf8 = 0x00000069;
-u32 var8006bcfc = 0x00000069;
-u32 var8006bd00 = 0x00000069;
-u32 var8006bd04 = 0x41980000;
-u32 var8006bd08 = 0xc195999a;
-u32 var8006bd0c = 0x41980000;
-u32 var8006bd10 = 0xc195999a;
-u32 var8006bd14 = 0xbf800000;
-u32 var8006bd18 = 0xbf800000;
-u32 var8006bd1c = 0x40000000;
-u32 var8006bd20 = 0x40000000;
-u32 var8006bd24 = 0x00000000;
 
 // 11d48
 struct inventory_ammo invammo_dy357 = {
@@ -1055,8 +1017,7 @@ struct weapon invitem_dy357 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_dy357_singleshot, // pri function
-	&invfunc_dy357_pistolwhip, // sec function
+	{ &invfunc_dy357_singleshot, &invfunc_dy357_pistolwhip }, // functions
 	&invammo_dy357, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -1082,8 +1043,7 @@ struct weapon invitem_dy357lx = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_dy357lx_singleshot, // pri function
-	&invfunc_dy357_pistolwhip, // sec function
+	{ &invfunc_dy357lx_singleshot, &invfunc_dy357_pistolwhip }, // functions
 	&invammo_dy357, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -1155,54 +1115,48 @@ u32 invanim_phoenix_shoot[] = {
 };
 
 // 11ec0
-struct inventory_function invfunc_phoenix_singleshot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_phoenix_shoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3f8ccccd,
+	0x40400000,
+	0x03050200,
+	0x41200000,
+	0x41700000,
+	0x426fffff,
+	0x00000000,
+	0x00008071,
+	0x01000000,
 };
 
-u32 var8006beb4 = (u32) &invmenupos_00011098;
-u32 var8006beb8 = 0x10000000;
-u32 var8006bebc = 0x3f8ccccd;
-u32 var8006bec0 = 0x40400000;
-u32 var8006bec4 = 0x03050200;
-u32 var8006bec8 = 0x41200000;
-u32 var8006becc = 0x41700000;
-u32 var8006bed0 = 0x426fffff;
-u32 var8006bed4 = 0x00000000;
-u32 var8006bed8 = 0x00008071;
-u32 var8006bedc = 0x01000000;
-
 // 11f00
-struct inventory_function invfunc_phoenix_explosiveshells = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c5f, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_phoenix_shoot, // fire chr_do_animation
 	0x00004000, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3f99999a,
+	0x40a00000,
+	0x0d0f1900,
+	0x41700000,
+	0x41c80000,
+	0x426fffff,
+	0x00000000,
+	0x00008072,
+	0x01000000,
 };
-
-u32 var8006bef4 = (u32) &invmenupos_00011098;
-u32 var8006bef8 = 0x10000000;
-u32 var8006befc = 0x3f99999a;
-u32 var8006bf00 = 0x40a00000;
-u32 var8006bf04 = 0x0d0f1900;
-u32 var8006bf08 = 0x41700000;
-u32 var8006bf0c = 0x41c80000;
-u32 var8006bf10 = 0x426fffff;
-u32 var8006bf14 = 0x00000000;
-u32 var8006bf18 = 0x00008072;
-u32 var8006bf1c = 0x01000000;
 
 // 11f40
 struct inventory_ammo invammo_phoenix = {
@@ -1223,8 +1177,7 @@ struct weapon invitem_phoenix = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_phoenix_singleshot, // pri function
-	&invfunc_phoenix_explosiveshells, // sec function
+	{ &invfunc_phoenix_singleshot, &invfunc_phoenix_explosiveshells }, // functions
 	&invammo_phoenix, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -1245,7 +1198,6 @@ struct weapon invitem_phoenix = {
 // 11fa4
 // type g
 s8 invg_00011fa4[] = {43, 0, 90, 0, -1};
-
 
 // 11fac
 struct inventory_typef invf_00011fac = {
@@ -1316,54 +1268,48 @@ u32 var8006c0c4 = 0x00000000;
 u32 var8006c0c8 = 0x00000000;
 
 // 120ec
-struct inventory_function invfunc_mauler_singleshot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
 	invanim_mauler_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f99999a,
+	0x40c00000,
+	0x0309201c,
+	0x00000000,
+	0x00000000,
+	0x426fffff,
+	0x40800000,
+	0x0000805b,
+	0x01000000,
 };
 
-u32 var8006c0e0 = (u32) &invmenupos_00011098;
-u32 var8006c0e4 = 0x00000000;
-u32 var8006c0e8 = 0x3f99999a;
-u32 var8006c0ec = 0x40c00000;
-u32 var8006c0f0 = 0x0309201c;
-u32 var8006c0f4 = 0x00000000;
-u32 var8006c0f8 = 0x00000000;
-u32 var8006c0fc = 0x426fffff;
-u32 var8006c100 = 0x40800000;
-u32 var8006c104 = 0x0000805b;
-u32 var8006c108 = 0x01000000;
-
 // 1212c
-struct inventory_function invfunc_mauler_chargeshot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c81, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
 	invanim_mauler_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f99999a,
+	0x40c00000,
+	0x0309201c,
+	0x00000000,
+	0x00000000,
+	0x426fffff,
+	0x40800000,
+	0x0000805b,
+	0x01000000,
 };
-
-u32 var8006c120 = (u32) &invmenupos_00011098;
-u32 var8006c124 = 0x00000000;
-u32 var8006c128 = 0x3f99999a;
-u32 var8006c12c = 0x40c00000;
-u32 var8006c130 = 0x0309201c;
-u32 var8006c134 = 0x00000000;
-u32 var8006c138 = 0x00000000;
-u32 var8006c13c = 0x426fffff;
-u32 var8006c140 = 0x40800000;
-u32 var8006c144 = 0x0000805b;
-u32 var8006c148 = 0x01000000;
 
 // 1216c
 struct inventory_ammo invammo_mauler = {
@@ -1384,8 +1330,7 @@ struct weapon invitem_mauler = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_mauler_singleshot, // pri function
-	&invfunc_mauler_chargeshot, // sec function
+	{ &invfunc_mauler_singleshot, &invfunc_mauler_chargeshot }, // functions
 	&invammo_mauler, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -1406,7 +1351,6 @@ struct weapon invitem_mauler = {
 // 121d0
 // type g
 s8 invg_000121d0[] = {90, 0, 43, 0, -1};
-
 
 // 121d8
 struct inventory_typef invf_000121d8 = {
@@ -1485,64 +1429,58 @@ struct inventory_typee inve_00012308 = {
 };
 
 // 12328
-struct inventory_function invfunc_cmp150_rapidfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_cmp150_rapidfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
 	invanim_cmp150_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f800000,
+	0x41100000,
+	0x06120006,
+	0x40800000,
+	0x40400000,
+	0x00000000,
+	0x00000000,
+	0x03008040,
+	0x01000000,
+	0x44610000,
+	0x44610000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
 
-u32 var8006c31c = (u32) &invmenupos_00011098;
-u32 var8006c320 = 0x00000000;
-u32 var8006c324 = 0x3f800000;
-u32 var8006c328 = 0x41100000;
-u32 var8006c32c = 0x06120006;
-u32 var8006c330 = 0x40800000;
-u32 var8006c334 = 0x40400000;
-u32 var8006c338 = 0x00000000;
-u32 var8006c33c = 0x00000000;
-u32 var8006c340 = 0x03008040;
-u32 var8006c344 = 0x01000000;
-u32 var8006c348 = 0x44610000;
-u32 var8006c34c = 0x44610000;
-u32 var8006c350 = 0x00000000;
-u32 var8006c354 = 0x00000000;
-u32 var8006c358 = 0x00000000;
-
 // 1237c
-struct inventory_function invfunc_cmp150_followlockon = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c66, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
 	invanim_cmp150_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f800000,
+	0x41100000,
+	0x06120006,
+	0x40800000,
+	0x40400000,
+	0x00000000,
+	0x00000000,
+	0x03008040,
+	0x01000000,
+	0x44610000,
+	0x44610000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006c370 = (u32) &invmenupos_00011098;
-u32 var8006c374 = 0x00000000;
-u32 var8006c378 = 0x3f800000;
-u32 var8006c37c = 0x41100000;
-u32 var8006c380 = 0x06120006;
-u32 var8006c384 = 0x40800000;
-u32 var8006c388 = 0x40400000;
-u32 var8006c38c = 0x00000000;
-u32 var8006c390 = 0x00000000;
-u32 var8006c394 = 0x03008040;
-u32 var8006c398 = 0x01000000;
-u32 var8006c39c = 0x44610000;
-u32 var8006c3a0 = 0x44610000;
-u32 var8006c3a4 = 0x00000000;
-u32 var8006c3a8 = 0x00000000;
-u32 var8006c3ac = 0x00000000;
 
 // 123d0
 struct inventory_ammo invammo_cmp150 = {
@@ -1563,8 +1501,7 @@ struct weapon invitem_cmp150 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_cmp150_rapidfire, // pri function
-	&invfunc_cmp150_followlockon, // sec function
+	{ &invfunc_cmp150_rapidfire, &invfunc_cmp150_followlockon }, // functions
 	&invammo_cmp150, // pri ammo
 	NULL, // sec ammo
 	&inve_00012308, // eptr
@@ -1585,7 +1522,6 @@ struct weapon invitem_cmp150 = {
 // 12434
 // type g
 s8 invg_00012434[] = {90, 0, 40, 0, -1};
-
 
 // 1243c
 struct inventory_typef invf_0001243c = {
@@ -1632,64 +1568,58 @@ u32 invanim_cyclone_shoot[] = {
 };
 
 // 124d4
-struct inventory_function invfunc_cyclone_rapidfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_cyclone_rapidfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	invanim_cyclone_shoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f4ccccd,
+	0x40c00000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x0400805f,
+	0x01000000,
+	0x44610000,
+	0x44610000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
 
-u32 var8006c4c8 = (u32) &invmenupos_00011098;
-u32 var8006c4cc = 0x00000000;
-u32 var8006c4d0 = 0x3f4ccccd;
-u32 var8006c4d4 = 0x40c00000;
-u32 var8006c4d8 = 0x06120208;
-u32 var8006c4dc = 0x40a00000;
-u32 var8006c4e0 = 0x40000000;
-u32 var8006c4e4 = 0x00000000;
-u32 var8006c4e8 = 0x40800000;
-u32 var8006c4ec = 0x0400805f;
-u32 var8006c4f0 = 0x01000000;
-u32 var8006c4f4 = 0x44610000;
-u32 var8006c4f8 = 0x44610000;
-u32 var8006c4fc = 0x00000000;
-u32 var8006c500 = 0x00000000;
-u32 var8006c504 = 0x00000000;
-
 // 12528
-struct inventory_function invfunc_cyclone_magazinedischarge = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c61, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	invanim_cyclone_shoot, // fire chr_do_animation
 	0x00000020, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3fb33333,
+	0x41c80000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008075,
+	0x01000000,
+	0x44fa0000,
+	0x44fa0000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006c51c = (u32) &invmenupos_00011098;
-u32 var8006c520 = 0x00000000;
-u32 var8006c524 = 0x3fb33333;
-u32 var8006c528 = 0x41c80000;
-u32 var8006c52c = 0x06120208;
-u32 var8006c530 = 0x40a00000;
-u32 var8006c534 = 0x40000000;
-u32 var8006c538 = 0x00000000;
-u32 var8006c53c = 0x40800000;
-u32 var8006c540 = 0x04008075;
-u32 var8006c544 = 0x01000000;
-u32 var8006c548 = 0x44fa0000;
-u32 var8006c54c = 0x44fa0000;
-u32 var8006c550 = 0x00000000;
-u32 var8006c554 = 0x00000000;
-u32 var8006c558 = 0x00000000;
 
 // 1257c
 struct inventory_ammo invammo_cyclone = {
@@ -1710,8 +1640,7 @@ struct weapon invitem_cyclone = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_cyclone_rapidfire, // pri function
-	&invfunc_cyclone_magazinedischarge, // sec function
+	{ &invfunc_cyclone_rapidfire, &invfunc_cyclone_magazinedischarge }, // functions
 	&invammo_cyclone, // pri ammo
 	NULL, // sec ammo
 	&inve_000110e0, // eptr
@@ -1766,39 +1695,34 @@ struct inventory_typef invf_00012658 = {
 };
 
 // 1266c
-struct inventory_function invfunc_rcp120_rapidfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_rcp120_rapidfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_rcp120_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f99999a,
+	0x40c00000,
+	0x06120006,
+	0x40800000,
+	0x40400000,
+	0x00000000,
+	0x00000000,
+	0x0400806d,
+	0x01000000,
+	0x44898000,
+	0x44898000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
 
-u32 var8006c660 = (u32) &invmenupos_00011098;
-u32 var8006c664 = 0x00000000;
-u32 var8006c668 = 0x3f99999a;
-u32 var8006c66c = 0x40c00000;
-u32 var8006c670 = 0x06120006;
-u32 var8006c674 = 0x40800000;
-u32 var8006c678 = 0x40400000;
-u32 var8006c67c = 0x00000000;
-u32 var8006c680 = 0x00000000;
-u32 var8006c684 = 0x0400806d;
-u32 var8006c688 = 0x01000000;
-u32 var8006c68c = 0x44898000;
-u32 var8006c690 = 0x44898000;
-u32 var8006c694 = 0x00000000;
-u32 var8006c698 = 0x00000000;
-u32 var8006c69c = 0x00000000;
-
 // 126c0
-struct inventory_function invfunc_rcp120_cloak = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_special invfunc_rcp120_cloak = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	0x4c74, // name
 	0x00, // unk06
@@ -1806,11 +1730,10 @@ struct inventory_function invfunc_rcp120_cloak = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00102000, // flags
+	0x00000009,
+	0x0000001e,
+	0x00000000,
 };
-
-u32 var8006c6b4 = 0x00000009;
-u32 var8006c6b8 = 0x0000001e;
-u32 var8006c6bc = 0x00000000;
 
 // 126e0
 struct inventory_ammo invammo_rcp120 = {
@@ -1831,8 +1754,7 @@ struct weapon invitem_rcp120 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_rcp120_rapidfire, // pri function
-	&invfunc_rcp120_cloak, // sec function
+	{ &invfunc_rcp120_rapidfire, &invfunc_rcp120_cloak }, // functions
 	&invammo_rcp120, // pri ammo
 	NULL, // sec ammo
 	&inve_000110e0, // eptr
@@ -1882,64 +1804,58 @@ struct inventory_typef invf_00012798 = {
 };
 
 // 127ac
-struct inventory_function invfunc_callisto_rapidfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_callisto_rapidfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_callisto_shoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f99999a,
+	0x41100000,
+	0x06120006,
+	0x40800000,
+	0x40400000,
+	0x00000000,
+	0x00000000,
+	0x03008063,
+	0x01000000,
+	0x44610000,
+	0x44610000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
 
-u32 var8006c7a0 = (u32) &invmenupos_00011098;
-u32 var8006c7a4 = 0x00000000;
-u32 var8006c7a8 = 0x3f99999a;
-u32 var8006c7ac = 0x41100000;
-u32 var8006c7b0 = 0x06120006;
-u32 var8006c7b4 = 0x40800000;
-u32 var8006c7b8 = 0x40400000;
-u32 var8006c7bc = 0x00000000;
-u32 var8006c7c0 = 0x00000000;
-u32 var8006c7c4 = 0x03008063;
-u32 var8006c7c8 = 0x01000000;
-u32 var8006c7cc = 0x44610000;
-u32 var8006c7d0 = 0x44610000;
-u32 var8006c7d4 = 0x00000000;
-u32 var8006c7d8 = 0x00000000;
-u32 var8006c7dc = 0x00000000;
-
 // 12800
-struct inventory_function invfunc_callisto_highimpactshells = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_callisto_highimpactshells = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c73, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_callisto_shoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x4019999a,
+	0x41100000,
+	0x06120006,
+	0x40800000,
+	0x40400000,
+	0x00000000,
+	0x00000000,
+	0x03008064,
+	0x05000000,
+	0x43960000,
+	0x43960000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006c7f4 = (u32) &invmenupos_00011098;
-u32 var8006c7f8 = 0x00000000;
-u32 var8006c7fc = 0x4019999a;
-u32 var8006c800 = 0x41100000;
-u32 var8006c804 = 0x06120006;
-u32 var8006c808 = 0x40800000;
-u32 var8006c80c = 0x40400000;
-u32 var8006c810 = 0x00000000;
-u32 var8006c814 = 0x00000000;
-u32 var8006c818 = 0x03008064;
-u32 var8006c81c = 0x05000000;
-u32 var8006c820 = 0x43960000;
-u32 var8006c824 = 0x43960000;
-u32 var8006c828 = 0x00000000;
-u32 var8006c82c = 0x00000000;
-u32 var8006c830 = 0x00000000;
 
 // 12854
 struct inventory_ammo invammo_callisto = {
@@ -1960,8 +1876,7 @@ struct weapon invitem_callisto = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_callisto_rapidfire, // pri function
-	&invfunc_callisto_highimpactshells, // sec function
+	{ &invfunc_callisto_rapidfire, &invfunc_callisto_highimpactshells }, // functions
 	&invammo_callisto, // pri ammo
 	NULL, // sec ammo
 	&inve_000110e0, // eptr
@@ -1992,7 +1907,6 @@ struct inventory_typef invf_000128b8 = {
 // type g
 s8 invg_000128cc[] = {40, 0, 90, 0, -1};
 
-
 // 128d4
 u32 invanim_dragon_equiporshoot[] = {
 	gunscript_playanimation(0x03f9, 0, 10000)
@@ -2013,39 +1927,34 @@ u32 invanim_dragon_reload[] = {
 };
 
 // 1292c
-struct inventory_function invfunc_dragon_rapidfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_dragon_rapidfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	invanim_dragon_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f8ccccd,
+	0x40c00000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008049,
+	0x01000000,
+	0x442f0000,
+	0x442f0000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
 
-u32 var8006c920 = (u32) &invmenupos_00011098;
-u32 var8006c924 = 0x00000000;
-u32 var8006c928 = 0x3f8ccccd;
-u32 var8006c92c = 0x40c00000;
-u32 var8006c930 = 0x06120208;
-u32 var8006c934 = 0x40a00000;
-u32 var8006c938 = 0x40000000;
-u32 var8006c93c = 0x00000000;
-u32 var8006c940 = 0x40800000;
-u32 var8006c944 = 0x04008049;
-u32 var8006c948 = 0x01000000;
-u32 var8006c94c = 0x442f0000;
-u32 var8006c950 = 0x442f0000;
-u32 var8006c954 = 0x00000000;
-u32 var8006c958 = 0x00000000;
-u32 var8006c95c = 0x00000000;
-
 // 12980
-struct inventory_function invfunc_dragon_selfdestruct = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_dragon_selfdestruct = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c76, // name
 	0x00, // unk06
@@ -2053,12 +1962,11 @@ struct inventory_function invfunc_dragon_selfdestruct = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00042040, // flags
+	0x000000ff,
+	0x00f00000,
+	0x0000003c,
+	0x00000000,
 };
-
-u32 var8006c974 = 0x000000ff;
-u32 var8006c978 = 0x00f00000;
-u32 var8006c97c = 0x0000003c;
-u32 var8006c980 = 0x00000000;
 
 // 129a4
 struct inventory_ammo invammo_dragon = {
@@ -2079,8 +1987,7 @@ struct weapon invitem_dragon = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_dragon_rapidfire, // pri function
-	&invfunc_dragon_selfdestruct, // sec function
+	{ &invfunc_dragon_rapidfire, &invfunc_dragon_selfdestruct }, // functions
 	&invammo_dragon, // pri ammo
 	NULL, // sec ammo
 	&inve_00011140, // eptr
@@ -2168,68 +2075,62 @@ u32 invanim_superdragon_sectopri[] = {
 };
 
 // 12b10
-struct inventory_function invfunc_superdragon_rapidfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_superdragon_rapidfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	invanim_superdragon_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f99999a,
+	0x40c00000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008049,
+	0x01000000,
+	0x442f0000,
+	0x442f0000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
 
-u32 var8006cb04 = (u32) &invmenupos_00011098;
-u32 var8006cb08 = 0x00000000;
-u32 var8006cb0c = 0x3f99999a;
-u32 var8006cb10 = 0x40c00000;
-u32 var8006cb14 = 0x06120208;
-u32 var8006cb18 = 0x40a00000;
-u32 var8006cb1c = 0x40000000;
-u32 var8006cb20 = 0x00000000;
-u32 var8006cb24 = 0x40800000;
-u32 var8006cb28 = 0x04008049;
-u32 var8006cb2c = 0x01000000;
-u32 var8006cb30 = 0x442f0000;
-u32 var8006cb34 = 0x442f0000;
-u32 var8006cb38 = 0x00000000;
-u32 var8006cb3c = 0x00000000;
-u32 var8006cb40 = 0x00000000;
-
 // 12b64
-struct inventory_function invfunc_superdragon_grenadelauncher = {
-	0x0000, // unk00
-	0x02, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
+	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	0x4c62, // name
 	0x00, // unk06
 	1, // unk07
 	&invmenupos_00011048, // menupos
 	invanim_superdragon_shootgrenade, // fire chr_do_animation
 	0x30000040, // flags
+	0x00000000,
+	0x00000000,
+	0x3f99999a,
+	0x40c00000,
+	0x050fff00,
+	0x40400000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008073,
+	0x01000000,
+	0x00000123,
+	0x00000000,
+	0x3f800000,
+	0x00000000,
+	0x3da3d70a,
+	0x0000001e,
+	0x000004b0,
+	0x3dcccccd,
+	0x80530000,
 };
-
-u32 var8006cb58 = 0x00000000;
-u32 var8006cb5c = 0x00000000;
-u32 var8006cb60 = 0x3f99999a;
-u32 var8006cb64 = 0x40c00000;
-u32 var8006cb68 = 0x050fff00;
-u32 var8006cb6c = 0x40400000;
-u32 var8006cb70 = 0x40000000;
-u32 var8006cb74 = 0x00000000;
-u32 var8006cb78 = 0x40800000;
-u32 var8006cb7c = 0x04008073;
-u32 var8006cb80 = 0x01000000;
-u32 var8006cb84 = 0x00000123;
-u32 var8006cb88 = 0x00000000;
-u32 var8006cb8c = 0x3f800000;
-u32 var8006cb90 = 0x00000000;
-u32 var8006cb94 = 0x3da3d70a;
-u32 var8006cb98 = 0x0000001e;
-u32 var8006cb9c = 0x000004b0;
-u32 var8006cba0 = 0x3dcccccd;
-u32 var8006cba4 = 0x80530000;
 
 // 12bc8
 struct inventory_ammo invammo_superdragon = {
@@ -2261,8 +2162,7 @@ struct weapon invitem_superdragon = {
 	NULL, // unequip chr_do_animation
 	invanim_superdragon_pritosec, // pritosec chr_do_animation
 	invanim_superdragon_sectopri, // sectopri chr_do_animation
-	&invfunc_superdragon_rapidfire, // pri function
-	&invfunc_superdragon_grenadelauncher, // sec function
+	{ &invfunc_superdragon_rapidfire, &invfunc_superdragon_grenadelauncher }, // functions
 	&invammo_superdragon, // pri ammo
 	&invammo_superdragon_grenades, // sec ammo
 	&inve_00011140, // eptr
@@ -2324,64 +2224,58 @@ struct inventory_typee inve_00012cc4 = {
 };
 
 // 12ce4
-struct inventory_function invfunc_ar34_burstfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_ar34_burstfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c57, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	NULL, // fire chr_do_animation
 	0x00000002, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3fb33333,
+	0x41000000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x05008059,
+	0x01000000,
+	0x443b8000,
+	0x443b8000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
 
-u32 var8006ccd8 = (u32) &invmenupos_00011098;
-u32 var8006ccdc = 0x00000000;
-u32 var8006cce0 = 0x3fb33333;
-u32 var8006cce4 = 0x41000000;
-u32 var8006cce8 = 0x06120208;
-u32 var8006ccec = 0x40a00000;
-u32 var8006ccf0 = 0x40000000;
-u32 var8006ccf4 = 0x00000000;
-u32 var8006ccf8 = 0x40800000;
-u32 var8006ccfc = 0x05008059;
-u32 var8006cd00 = 0x01000000;
-u32 var8006cd04 = 0x443b8000;
-u32 var8006cd08 = 0x443b8000;
-u32 var8006cd0c = 0x00000000;
-u32 var8006cd10 = 0x00000000;
-u32 var8006cd14 = 0x00000000;
-
 // 12d38
-struct inventory_function invfunc_ar34_usescope = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_ar34_usescope = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c67, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	NULL, // fire chr_do_animation
 	0x00000002, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3fb33333,
+	0x41000000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x05008059,
+	0x01000000,
+	0x443b8000,
+	0x443b8000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006cd2c = (u32) &invmenupos_00011098;
-u32 var8006cd30 = 0x00000000;
-u32 var8006cd34 = 0x3fb33333;
-u32 var8006cd38 = 0x41000000;
-u32 var8006cd3c = 0x06120208;
-u32 var8006cd40 = 0x40a00000;
-u32 var8006cd44 = 0x40000000;
-u32 var8006cd48 = 0x00000000;
-u32 var8006cd4c = 0x40800000;
-u32 var8006cd50 = 0x05008059;
-u32 var8006cd54 = 0x01000000;
-u32 var8006cd58 = 0x443b8000;
-u32 var8006cd5c = 0x443b8000;
-u32 var8006cd60 = 0x00000000;
-u32 var8006cd64 = 0x00000000;
-u32 var8006cd68 = 0x00000000;
 
 // 12d8c
 struct inventory_ammo invammo_ar34 = {
@@ -2402,8 +2296,7 @@ struct weapon invitem_ar34 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_ar34_burstfire, // pri function
-	&invfunc_ar34_usescope, // sec function
+	{ &invfunc_ar34_burstfire, &invfunc_ar34_usescope }, // functions
 	&invammo_ar34, // pri ammo
 	NULL, // sec ammo
 	&inve_00012cc4, // eptr
@@ -2481,64 +2374,58 @@ struct inventory_typee inve_00012e9c = {
 };
 
 // 12ebc
-struct inventory_function invfunc_k7avenger_burstfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_k7avenger_burstfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c57, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	NULL, // fire chr_do_animation
 	0x00000002, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3fc00000,
+	0x40c00000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x0400805a,
+	0x01000000,
+	0x446d8000,
+	0x446d8000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
 
-u32 var8006ceb0 = (u32) &invmenupos_00011098;
-u32 var8006ceb4 = 0x00000000;
-u32 var8006ceb8 = 0x3fc00000;
-u32 var8006cebc = 0x40c00000;
-u32 var8006cec0 = 0x06120208;
-u32 var8006cec4 = 0x40a00000;
-u32 var8006cec8 = 0x40000000;
-u32 var8006cecc = 0x00000000;
-u32 var8006ced0 = 0x40800000;
-u32 var8006ced4 = 0x0400805a;
-u32 var8006ced8 = 0x01000000;
-u32 var8006cedc = 0x446d8000;
-u32 var8006cee0 = 0x446d8000;
-u32 var8006cee4 = 0x00000000;
-u32 var8006cee8 = 0x00000000;
-u32 var8006ceec = 0x00000000;
-
 // 12f10
-struct inventory_function invfunc_k7avenger_threatdetector = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_k7avenger_threatdetector = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c77, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	NULL, // fire chr_do_animation
 	0x00082002, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3fc00000,
+	0x40c00000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x0400805a,
+	0x01000000,
+	0x446d8000,
+	0x446d8000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006cf04 = (u32) &invmenupos_00011098;
-u32 var8006cf08 = 0x00000000;
-u32 var8006cf0c = 0x3fc00000;
-u32 var8006cf10 = 0x40c00000;
-u32 var8006cf14 = 0x06120208;
-u32 var8006cf18 = 0x40a00000;
-u32 var8006cf1c = 0x40000000;
-u32 var8006cf20 = 0x00000000;
-u32 var8006cf24 = 0x40800000;
-u32 var8006cf28 = 0x0400805a;
-u32 var8006cf2c = 0x01000000;
-u32 var8006cf30 = 0x446d8000;
-u32 var8006cf34 = 0x446d8000;
-u32 var8006cf38 = 0x00000000;
-u32 var8006cf3c = 0x00000000;
-u32 var8006cf40 = 0x00000000;
 
 // 12f64
 struct inventory_ammo invammo_k7avenger = {
@@ -2559,8 +2446,7 @@ struct weapon invitem_k7avenger = {
 	invanim_k7avenger_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_k7avenger_burstfire, // pri function
-	&invfunc_k7avenger_threatdetector, // sec function
+	{ &invfunc_k7avenger_burstfire, &invfunc_k7avenger_threatdetector }, // functions
 	&invammo_k7avenger, // pri ammo
 	NULL, // sec ammo
 	&inve_00012e9c, // eptr
@@ -2646,39 +2532,34 @@ u32 invanim_laptopgun_unequip[] = {
 };
 
 // 13100
-struct inventory_function invfunc_laptopgun_burstfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_laptopgun_burstfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c57, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011020, // menupos
 	invanim_laptopgun_shoot, // fire chr_do_animation
 	0x00000002, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f933333,
+	0x40c00000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008044,
+	0x01000000,
+	0x447a0000,
+	0x447a0000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
 
-u32 var8006d0f4 = (u32) &invmenupos_00011098;
-u32 var8006d0f8 = 0x00000000;
-u32 var8006d0fc = 0x3f933333;
-u32 var8006d100 = 0x40c00000;
-u32 var8006d104 = 0x06120208;
-u32 var8006d108 = 0x40a00000;
-u32 var8006d10c = 0x40000000;
-u32 var8006d110 = 0x00000000;
-u32 var8006d114 = 0x40800000;
-u32 var8006d118 = 0x04008044;
-u32 var8006d11c = 0x01000000;
-u32 var8006d120 = 0x447a0000;
-u32 var8006d124 = 0x447a0000;
-u32 var8006d128 = 0x00000000;
-u32 var8006d12c = 0x00000000;
-u32 var8006d130 = 0x00000000;
-
 // 13154
-struct inventory_function invfunc_laptopgun_deploy = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_laptopgun_deploy = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c75, // name
 	0x00, // unk06
@@ -2686,12 +2567,11 @@ struct inventory_function invfunc_laptopgun_deploy = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00842140, // flags
+	0x00000157,
+	0x00f00000,
+	0x0000003c,
+	0x00000000,
 };
-
-u32 var8006d148 = 0x00000157;
-u32 var8006d14c = 0x00f00000;
-u32 var8006d150 = 0x0000003c;
-u32 var8006d154 = 0x00000000;
 
 // 13178
 struct inventory_ammo invammo_laptopgun = {
@@ -2712,8 +2592,7 @@ struct weapon invitem_laptopgun = {
 	invanim_laptopgun_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_laptopgun_burstfire, // pri function
-	&invfunc_laptopgun_deploy, // sec function
+	{ &invfunc_laptopgun_burstfire, &invfunc_laptopgun_deploy }, // functions
 	&invammo_laptopgun, // pri ammo
 	NULL, // sec ammo
 	&inve_00011140, // eptr
@@ -2774,54 +2653,48 @@ u32 invanim_shotgun_doubleshot[] = {
 };
 
 // 13278
-struct inventory_function invfunc_shotgun_single = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_shotgun_single = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c59, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
 	invanim_shotgun_equiporsingleshot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f19999a,
+	0x41f00000,
+	0x141c0000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x40800000,
+	0x00008055,
+	0x01000000,
 };
 
-u32 var8006d26c = (u32) &invmenupos_00011098;
-u32 var8006d270 = 0x00000000;
-u32 var8006d274 = 0x3f19999a;
-u32 var8006d278 = 0x41f00000;
-u32 var8006d27c = 0x141c0000;
-u32 var8006d280 = 0x00000000;
-u32 var8006d284 = 0x00000000;
-u32 var8006d288 = 0x00000000;
-u32 var8006d28c = 0x40800000;
-u32 var8006d290 = 0x00008055;
-u32 var8006d294 = 0x01000000;
-
 // 132b8
-struct inventory_function invfunc_shotgun_double = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_shotgun_double = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c69, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
 	invanim_shotgun_doubleshot, // fire chr_do_animation
 	0x00001000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f19999a,
+	0x41800000,
+	0x141c0000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x40800000,
+	0x00008055,
+	0x01000000,
 };
-
-u32 var8006d2ac = (u32) &invmenupos_00011098;
-u32 var8006d2b0 = 0x00000000;
-u32 var8006d2b4 = 0x3f19999a;
-u32 var8006d2b8 = 0x41800000;
-u32 var8006d2bc = 0x141c0000;
-u32 var8006d2c0 = 0x00000000;
-u32 var8006d2c4 = 0x00000000;
-u32 var8006d2c8 = 0x00000000;
-u32 var8006d2cc = 0x40800000;
-u32 var8006d2d0 = 0x00008055;
-u32 var8006d2d4 = 0x01000000;
 
 // 132f8
 struct inventory_ammo invammo_shotgun = {
@@ -2842,8 +2715,7 @@ struct weapon invitem_shotgun = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_shotgun_single, // pri function
-	&invfunc_shotgun_double, // sec function
+	{ &invfunc_shotgun_single, &invfunc_shotgun_double }, // functions
 	&invammo_shotgun, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -2933,39 +2805,34 @@ u32 invanim_reaper_unequip[] = {
 };
 
 // 1345c
-struct inventory_function invfunc_reaper_shoot = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_reaper_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c58, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001105c, // menupos
 	invanim_reaper_shoot, // fire chr_do_animation
 	0x00000002, // flags
+	(u32) &invmenupos_000110ac,
+	0x00000000,
+	0x3f99999a,
+	0x42600000,
+	0x0309201c,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x40800000,
+	0x0200803f,
+	0x01000000,
+	0x42700000,
+	0x44e10000,
+	(u32) &var8006d33c,
+	(u32) &var8006d36c,
+	0x58580000,
 };
 
-u32 var8006d450 = (u32) &invmenupos_000110ac;
-u32 var8006d454 = 0x00000000;
-u32 var8006d458 = 0x3f99999a;
-u32 var8006d45c = 0x42600000;
-u32 var8006d460 = 0x0309201c;
-u32 var8006d464 = 0x00000000;
-u32 var8006d468 = 0x00000000;
-u32 var8006d46c = 0x00000000;
-u32 var8006d470 = 0x40800000;
-u32 var8006d474 = 0x0200803f;
-u32 var8006d478 = 0x01000000;
-u32 var8006d47c = 0x42700000;
-u32 var8006d480 = 0x44e10000;
-u32 var8006d484 = (u32) &var8006d33c;
-u32 var8006d488 = (u32) &var8006d36c;
-u32 var8006d48c = 0x58580000;
-
 // 134b0
-struct inventory_function invfunc_reaper_grind = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_close invfunc_reaper_grind = {
 	INVENTORYFUNCTYPE_CLOSE,
 	0x4c6a, // name
 	0x00, // unk06
@@ -2973,22 +2840,21 @@ struct inventory_function invfunc_reaper_grind = {
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x3d4ccccd,
+	0x42a00000,
+	0x00000069,
+	0x00000069,
+	0x00000069,
+	0xbf000000,
+	0xc1a9999a,
+	0xbf000000,
+	0xc1a9999a,
+	0xbf800000,
+	0xbf800000,
+	0x40000000,
+	0x40000000,
+	0x00000000,
 };
-
-u32 var8006d4a4 = 0x3d4ccccd;
-u32 var8006d4a8 = 0x42a00000;
-u32 var8006d4ac = 0x00000069;
-u32 var8006d4b0 = 0x00000069;
-u32 var8006d4b4 = 0x00000069;
-u32 var8006d4b8 = 0xbf000000;
-u32 var8006d4bc = 0xc1a9999a;
-u32 var8006d4c0 = 0xbf000000;
-u32 var8006d4c4 = 0xc1a9999a;
-u32 var8006d4c8 = 0xbf800000;
-u32 var8006d4cc = 0xbf800000;
-u32 var8006d4d0 = 0x40000000;
-u32 var8006d4d4 = 0x40000000;
-u32 var8006d4d8 = 0x00000000;
 
 // 134fc
 struct inventory_ammo invammo_reaper = {
@@ -3009,8 +2875,7 @@ struct weapon invitem_reaper = {
 	invanim_reaper_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_reaper_shoot, // pri function
-	&invfunc_reaper_grind, // sec function
+	{ &invfunc_reaper_shoot, &invfunc_reaper_grind }, // functions
 	&invammo_reaper, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -3077,72 +2942,66 @@ struct inventory_typee inve_000135f0 = {
 };
 
 // 13610
-struct inventory_function invfunc_rockerlauncher_shoot = {
-	0x0000, // unk00
-	0x02, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	0x4c5b, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
 	invanim_rockerlauncher_equiporshoot, // fire chr_do_animation
 	0x08000040, // flags
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x030c0f00,
+	0x40400000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008053,
+	0x01000000,
+	0x0000011f,
+	0x00000000,
+	0x40066666,
+	0x0000003c,
+	0x00000000,
+	0x00000000,
+	0xffffffff,
+	0x3d4ccccd,
+	0x80530000,
 };
 
-u32 var8006d604 = 0x00000000;
-u32 var8006d608 = 0x00000000;
-u32 var8006d60c = 0x3f800000;
-u32 var8006d610 = 0x40c00000;
-u32 var8006d614 = 0x030c0f00;
-u32 var8006d618 = 0x40400000;
-u32 var8006d61c = 0x40000000;
-u32 var8006d620 = 0x00000000;
-u32 var8006d624 = 0x40800000;
-u32 var8006d628 = 0x04008053;
-u32 var8006d62c = 0x01000000;
-u32 var8006d630 = 0x0000011f;
-u32 var8006d634 = 0x00000000;
-u32 var8006d638 = 0x40066666;
-u32 var8006d63c = 0x0000003c;
-u32 var8006d640 = 0x00000000;
-u32 var8006d644 = 0x00000000;
-u32 var8006d648 = 0xffffffff;
-u32 var8006d64c = 0x3d4ccccd;
-u32 var8006d650 = 0x80530000;
-
 // 13674
-struct inventory_function invfunc_rocketlauncher_homing = {
-	0x0000, // unk00
-	0x02, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
+	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	0x4c5c, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
 	invanim_rockerlauncher_equiporshoot, // fire chr_do_animation
 	0x48000040, // flags
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x030c0f00,
+	0x40400000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008053,
+	0x01000000,
+	0x0000011f,
+	0x00000000,
+	0x40066666,
+	0x00000000,
+	0x00000000,
+	0x00000005,
+	0xffffffff,
+	0x3d4ccccd,
+	0x80530000,
 };
-
-u32 var8006d668 = 0x00000000;
-u32 var8006d66c = 0x00000000;
-u32 var8006d670 = 0x3f800000;
-u32 var8006d674 = 0x40c00000;
-u32 var8006d678 = 0x030c0f00;
-u32 var8006d67c = 0x40400000;
-u32 var8006d680 = 0x40000000;
-u32 var8006d684 = 0x00000000;
-u32 var8006d688 = 0x40800000;
-u32 var8006d68c = 0x04008053;
-u32 var8006d690 = 0x01000000;
-u32 var8006d694 = 0x0000011f;
-u32 var8006d698 = 0x00000000;
-u32 var8006d69c = 0x40066666;
-u32 var8006d6a0 = 0x00000000;
-u32 var8006d6a4 = 0x00000000;
-u32 var8006d6a8 = 0x00000005;
-u32 var8006d6ac = 0xffffffff;
-u32 var8006d6b0 = 0x3d4ccccd;
-u32 var8006d6b4 = 0x80530000;
 
 // 136d8
 struct inventory_ammo invammo_rocketlauncher = {
@@ -3163,8 +3022,7 @@ struct weapon invitem_rocketlauncher = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_rockerlauncher_shoot, // pri function
-	&invfunc_rocketlauncher_homing, // sec function
+	{ &invfunc_rockerlauncher_shoot, &invfunc_rocketlauncher_homing }, // functions
 	&invammo_rocketlauncher, // pri ammo
 	NULL, // sec ammo
 	&inve_000135f0, // eptr
@@ -3200,72 +3058,66 @@ u32 invanim_slayer_reload[] = {
 };
 
 // 13784
-struct inventory_function invfunc_slayer_shoot = {
-	0x0000, // unk00
-	0x02, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	0x4c5b, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
 	invanim_slayer_equiporshoot, // fire chr_do_animation
 	0x08000040, // flags
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x030c0f00,
+	0x40400000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008067,
+	0x01000000,
+	0x00000120,
+	0x00000000,
+	0x40833333,
+	0x0000000a,
+	0x00000000,
+	0x00000000,
+	0xffffffff,
+	0x3d4ccccd,
+	0x80530000,
 };
 
-u32 var8006d778 = 0x00000000;
-u32 var8006d77c = 0x00000000;
-u32 var8006d780 = 0x3f800000;
-u32 var8006d784 = 0x40c00000;
-u32 var8006d788 = 0x030c0f00;
-u32 var8006d78c = 0x40400000;
-u32 var8006d790 = 0x40000000;
-u32 var8006d794 = 0x00000000;
-u32 var8006d798 = 0x40800000;
-u32 var8006d79c = 0x04008067;
-u32 var8006d7a0 = 0x01000000;
-u32 var8006d7a4 = 0x00000120;
-u32 var8006d7a8 = 0x00000000;
-u32 var8006d7ac = 0x40833333;
-u32 var8006d7b0 = 0x0000000a;
-u32 var8006d7b4 = 0x00000000;
-u32 var8006d7b8 = 0x00000000;
-u32 var8006d7bc = 0xffffffff;
-u32 var8006d7c0 = 0x3d4ccccd;
-u32 var8006d7c4 = 0x80530000;
-
 // 137e8
-struct inventory_function invfunc_slayer_flybywire = {
-	0x0000, // unk00
-	0x02, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
+	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	0x4c5d, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
 	NULL, // fire chr_do_animation
 	0x28000840, // flags
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x030c0f00,
+	0x40400000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008067,
+	0x01000000,
+	0x00000120,
+	0x00000000,
+	0x40833333,
+	0x0000000a,
+	0x00000000,
+	0x00000000,
+	0xffffffff,
+	0x3d4ccccd,
+	0x80680000,
 };
-
-u32 var8006d7dc = 0x00000000;
-u32 var8006d7e0 = 0x00000000;
-u32 var8006d7e4 = 0x3f800000;
-u32 var8006d7e8 = 0x40c00000;
-u32 var8006d7ec = 0x030c0f00;
-u32 var8006d7f0 = 0x40400000;
-u32 var8006d7f4 = 0x40000000;
-u32 var8006d7f8 = 0x00000000;
-u32 var8006d7fc = 0x40800000;
-u32 var8006d800 = 0x04008067;
-u32 var8006d804 = 0x01000000;
-u32 var8006d808 = 0x00000120;
-u32 var8006d80c = 0x00000000;
-u32 var8006d810 = 0x40833333;
-u32 var8006d814 = 0x0000000a;
-u32 var8006d818 = 0x00000000;
-u32 var8006d81c = 0x00000000;
-u32 var8006d820 = 0xffffffff;
-u32 var8006d824 = 0x3d4ccccd;
-u32 var8006d828 = 0x80680000;
 
 // 1384c
 struct inventory_ammo invammo_slayer = {
@@ -3286,8 +3138,7 @@ struct weapon invitem_slayer = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_slayer_shoot, // pri function
-	&invfunc_slayer_flybywire, // sec function
+	{ &invfunc_slayer_shoot, &invfunc_slayer_flybywire }, // functions
 	&invammo_slayer, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -3334,72 +3185,66 @@ u32 invanim_devastator_reload[] = {
 };
 
 // 13934
-struct inventory_function invfunc_devastator_shoot = {
-	0x0000, // unk00
-	0x02, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	0x4c62, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
 	invanim_devastator_equiporshoot, // fire chr_do_animation
 	0x30000040, // flags
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x053aff00,
+	0x40a00000,
+	0x41000000,
+	0x00000000,
+	0x40800000,
+	0x04008073,
+	0x01000000,
+	0x00000122,
+	0x00000000,
+	0x3f800000,
+	0x00000000,
+	0x3da3d70a,
+	0x00000028,
+	0x000004b0,
+	0x3e99999a,
+	0x80530000,
 };
 
-u32 var8006d928 = 0x00000000;
-u32 var8006d92c = 0x00000000;
-u32 var8006d930 = 0x3f800000;
-u32 var8006d934 = 0x40c00000;
-u32 var8006d938 = 0x053aff00;
-u32 var8006d93c = 0x40a00000;
-u32 var8006d940 = 0x41000000;
-u32 var8006d944 = 0x00000000;
-u32 var8006d948 = 0x40800000;
-u32 var8006d94c = 0x04008073;
-u32 var8006d950 = 0x01000000;
-u32 var8006d954 = 0x00000122;
-u32 var8006d958 = 0x00000000;
-u32 var8006d95c = 0x3f800000;
-u32 var8006d960 = 0x00000000;
-u32 var8006d964 = 0x3da3d70a;
-u32 var8006d968 = 0x00000028;
-u32 var8006d96c = 0x000004b0;
-u32 var8006d970 = 0x3e99999a;
-u32 var8006d974 = 0x80530000;
-
 // 13998
-struct inventory_function invfunc_devastator_wallhugger = {
-	0x0000, // unk00
-	0x02, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
+	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	0x4c63, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
 	invanim_devastator_equiporshoot, // fire chr_do_animation
 	0x30000140, // flags
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x053aff00,
+	0x40a00000,
+	0x41000000,
+	0x00000000,
+	0x40800000,
+	0x04008073,
+	0x01000000,
+	0x00000122,
+	0x00000000,
+	0x3f800000,
+	0x00000000,
+	0x3da3d70a,
+	0x00000028,
+	0x00000168,
+	0x3e99999a,
+	0x80530000,
 };
-
-u32 var8006d98c = 0x00000000;
-u32 var8006d990 = 0x00000000;
-u32 var8006d994 = 0x3f800000;
-u32 var8006d998 = 0x40c00000;
-u32 var8006d99c = 0x053aff00;
-u32 var8006d9a0 = 0x40a00000;
-u32 var8006d9a4 = 0x41000000;
-u32 var8006d9a8 = 0x00000000;
-u32 var8006d9ac = 0x40800000;
-u32 var8006d9b0 = 0x04008073;
-u32 var8006d9b4 = 0x01000000;
-u32 var8006d9b8 = 0x00000122;
-u32 var8006d9bc = 0x00000000;
-u32 var8006d9c0 = 0x3f800000;
-u32 var8006d9c4 = 0x00000000;
-u32 var8006d9c8 = 0x3da3d70a;
-u32 var8006d9cc = 0x00000028;
-u32 var8006d9d0 = 0x00000168;
-u32 var8006d9d4 = 0x3e99999a;
-u32 var8006d9d8 = 0x80530000;
 
 // 139fc
 struct inventory_ammo invammo_devastator = {
@@ -3424,8 +3269,7 @@ struct weapon invitem_devastator = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_devastator_shoot, // pri function
-	&invfunc_devastator_wallhugger, // sec function
+	{ &invfunc_devastator_shoot, &invfunc_devastator_wallhugger }, // functions
 	&invammo_devastator, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -3444,9 +3288,7 @@ struct weapon invitem_devastator = {
 };
 
 // 13a64
-struct inventory_function invfunc_mine_threatdetector = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc invfunc_mine_threatdetector = {
 	INVENTORYFUNCTYPE_NONE,
 	0x4c77, // name
 	0x00, // unk06
@@ -3477,9 +3319,7 @@ u32 invanim_mine_throw[] = {
 };
 
 // 13ab8
-struct inventory_function invfunc_timedmine_throw = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_timedmine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c78, // name
 	0x00, // unk06
@@ -3487,12 +3327,11 @@ struct inventory_function invfunc_timedmine_throw = {
 	&invmenupos_00010fd0, // menupos
 	invanim_mine_throw, // fire chr_do_animation
 	0x00802040, // flags
+	0x00000113,
+	0x00f00000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006daac = 0x00000113;
-u32 var8006dab0 = 0x00f00000;
-u32 var8006dab4 = 0x00000000;
-u32 var8006dab8 = 0x00000000;
 
 // 13adc
 struct inventory_ammo invammo_timedmine = {
@@ -3513,8 +3352,7 @@ struct weapon invitem_timedmine = {
 	invanim_mine_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_timedmine_throw, // pri function
-	&invfunc_mine_threatdetector, // sec function
+	{ &invfunc_timedmine_throw, &invfunc_mine_threatdetector }, // functions
 	&invammo_timedmine, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -3571,9 +3409,7 @@ u32 invanim_remotemine_throw[] = {
 };
 
 // 13bb4
-struct inventory_function invfunc_remotemine_throw = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_remotemine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c7a, // name
 	0x00, // unk06
@@ -3581,17 +3417,14 @@ struct inventory_function invfunc_remotemine_throw = {
 	&invmenupos_00010fd0, // menupos
 	invanim_remotemine_throw, // fire chr_do_animation
 	0x00802040, // flags
+	0x00000115,
+	0x00f00000,
+	0x00000000,
+	0x00000000,
 };
 
-u32 var8006dba8 = 0x00000115;
-u32 var8006dbac = 0x00f00000;
-u32 var8006dbb0 = 0x00000000;
-u32 var8006dbb4 = 0x00000000;
-
 // 13bd8
-struct inventory_function invfunc_remotemine_detonate = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_special invfunc_remotemine_detonate = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	0x4c7b, // name
 	0x00, // unk06
@@ -3599,11 +3432,10 @@ struct inventory_function invfunc_remotemine_detonate = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00102000, // flags
+	0x00000005,
+	0x0000001e,
+	0x00000000,
 };
-
-u32 var8006dbcc = 0x00000005;
-u32 var8006dbd0 = 0x0000001e;
-u32 var8006dbd4 = 0x00000000;
 
 // 13bf8
 struct inventory_ammo invammo_remotemine = {
@@ -3628,8 +3460,7 @@ struct weapon invitem_remotemine = {
 	invanim_remotemine_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_remotemine_throw, // pri function
-	&invfunc_remotemine_detonate, // sec function
+	{ &invfunc_remotemine_throw, &invfunc_remotemine_detonate }, // functions
 	&invammo_remotemine, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -3648,9 +3479,7 @@ struct weapon invitem_remotemine = {
 };
 
 // 13c60
-struct inventory_function invfunc_proxymine_throw = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_proxymine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c79, // name
 	0x00, // unk06
@@ -3658,12 +3487,11 @@ struct inventory_function invfunc_proxymine_throw = {
 	&invmenupos_00010fd0, // menupos
 	invanim_mine_throw, // fire chr_do_animation
 	0x00802040, // flags
+	0x00000114,
+	0x00f00000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006dc54 = 0x00000114;
-u32 var8006dc58 = 0x00f00000;
-u32 var8006dc5c = 0x00000000;
-u32 var8006dc60 = 0x00000000;
 
 // 13c84
 struct inventory_ammo invammo_proximitymine = {
@@ -3684,8 +3512,7 @@ struct weapon invitem_proximitymine = {
 	invanim_mine_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_proxymine_throw, // pri function
-	&invfunc_mine_threatdetector, // sec function
+	{ &invfunc_proxymine_throw, &invfunc_mine_threatdetector }, // functions
 	&invammo_proximitymine, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -3723,9 +3550,7 @@ u32 invanim_ecmmine_throw[] = {
 };
 
 // 13d20
-struct inventory_function invfunc_ecmmine_throw = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_ecmmine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c8c, // name
 	0x00, // unk06
@@ -3733,12 +3558,11 @@ struct inventory_function invfunc_ecmmine_throw = {
 	&invmenupos_00010fd0, // menupos
 	invanim_ecmmine_throw, // fire chr_do_animation
 	0x00802040, // flags
+	0x00000116,
+	0x00f00000,
+	0x0000003c,
+	0x00000000,
 };
-
-u32 var8006dd14 = 0x00000116;
-u32 var8006dd18 = 0x00f00000;
-u32 var8006dd1c = 0x0000003c;
-u32 var8006dd20 = 0x00000000;
 
 // 13d44
 struct inventory_ammo invammo_ecmmine = {
@@ -3759,8 +3583,7 @@ struct weapon invitem_ecmmine = {
 	invanim_ecmmine_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_ecmmine_throw, // pri function
-	NULL, // sec function
+	{ &invfunc_ecmmine_throw, NULL }, // functions
 	&invammo_ecmmine, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -3825,9 +3648,7 @@ u32 invanim_grenade_equiporreload[] = {
 };
 
 // 13e4c
-struct inventory_function invfunc_grenade_throw = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_grenade_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c7c, // name
 	0x00, // unk06
@@ -3835,17 +3656,14 @@ struct inventory_function invfunc_grenade_throw = {
 	&invmenupos_00010fd0, // menupos
 	invanim_grenade_throw, // fire chr_do_animation
 	0x00002040, // flags
+	0x00000112,
+	0x00f00000,
+	0x0000003c,
+	0x00000000,
 };
 
-u32 var8006de40 = 0x00000112;
-u32 var8006de44 = 0x00f00000;
-u32 var8006de48 = 0x0000003c;
-u32 var8006de4c = 0x00000000;
-
 // 13e70
-struct inventory_function invfunc_grenade_pinball = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_grenade_pinball = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c7d, // name
 	0x00, // unk06
@@ -3853,12 +3671,11 @@ struct inventory_function invfunc_grenade_pinball = {
 	&invmenupos_00010fd0, // menupos
 	invanim_grenade_throw, // fire chr_do_animation
 	0x00002040, // flags
+	0x00000112,
+	0x005a0000,
+	0x0000003c,
+	0x00000000,
 };
-
-u32 var8006de64 = 0x00000112;
-u32 var8006de68 = 0x005a0000;
-u32 var8006de6c = 0x0000003c;
-u32 var8006de70 = 0x00000000;
 
 // 13e94
 struct inventory_ammo invammo_grenade = {
@@ -3879,8 +3696,7 @@ struct weapon invitem_grenade = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_grenade_throw, // pri function
-	&invfunc_grenade_pinball, // sec function
+	{ &invfunc_grenade_throw, &invfunc_grenade_pinball }, // functions
 	&invammo_grenade, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -3899,9 +3715,7 @@ struct weapon invitem_grenade = {
 };
 
 // 13ef8
-struct inventory_function invfunc_nbomb_throw = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_nbomb_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c86, // name
 	0x00, // unk06
@@ -3909,17 +3723,14 @@ struct inventory_function invfunc_nbomb_throw = {
 	&invmenupos_00010fd0, // menupos
 	invanim_grenade_throw, // fire chr_do_animation
 	0x00002640, // flags
+	0x00000110,
+	0x00f00000,
+	0x0000003c,
+	0x00000000,
 };
 
-u32 var8006deec = 0x00000110;
-u32 var8006def0 = 0x00f00000;
-u32 var8006def4 = 0x0000003c;
-u32 var8006def8 = 0x00000000;
-
 // 13f1c
-struct inventory_function invfunc_nbomb_proxy = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_nbomb_proxy = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c7f, // name
 	0x00, // unk06
@@ -3927,12 +3738,11 @@ struct inventory_function invfunc_nbomb_proxy = {
 	&invmenupos_00010fd0, // menupos
 	invanim_grenade_throw, // fire chr_do_animation
 	0x00002640, // flags
+	0x00000110,
+	0x00f00000,
+	0x0000003c,
+	0x00000000,
 };
-
-u32 var8006df10 = 0x00000110;
-u32 var8006df14 = 0x00f00000;
-u32 var8006df18 = 0x0000003c;
-u32 var8006df1c = 0x00000000;
 
 // 13f40
 struct inventory_ammo invammo_nbomb = {
@@ -3953,8 +3763,7 @@ struct weapon invitem_nbomb = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_nbomb_throw, // pri function
-	&invfunc_nbomb_proxy, // sec function
+	{ &invfunc_nbomb_throw, &invfunc_nbomb_proxy }, // functions
 	&invammo_nbomb, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -4010,54 +3819,48 @@ struct inventory_typee inve_00013ff8 = {
 };
 
 // 14018
-struct inventory_function invfunc_farsight_shoot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_farsight_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c5a, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	invanim_farsight_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x42c80000,
+	0x00000000,
+	0x46280000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x0400813e,
+	0x05000000,
 };
 
-u32 var8006e00c = (u32) &invmenupos_00011098;
-u32 var8006e010 = 0x00000000;
-u32 var8006e014 = 0x42c80000;
-u32 var8006e018 = 0x00000000;
-u32 var8006e01c = 0x46280000;
-u32 var8006e020 = 0x00000000;
-u32 var8006e024 = 0x00000000;
-u32 var8006e028 = 0x00000000;
-u32 var8006e02c = 0x00000000;
-u32 var8006e030 = 0x0400813e;
-u32 var8006e034 = 0x05000000;
-
 // 14058
-struct inventory_function invfunc_farsight_targetlocator = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c6f, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011034, // menupos
 	invanim_farsight_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x42c80000,
+	0x00000000,
+	0x46280000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x0400813e,
+	0x05000000,
 };
-
-u32 var8006e04c = (u32) &invmenupos_00011098;
-u32 var8006e050 = 0x00000000;
-u32 var8006e054 = 0x42c80000;
-u32 var8006e058 = 0x00000000;
-u32 var8006e05c = 0x46280000;
-u32 var8006e060 = 0x00000000;
-u32 var8006e064 = 0x00000000;
-u32 var8006e068 = 0x00000000;
-u32 var8006e06c = 0x00000000;
-u32 var8006e070 = 0x0400813e;
-u32 var8006e074 = 0x05000000;
 
 // 14098
 struct inventory_ammo invammo_farsight = {
@@ -4082,8 +3885,7 @@ struct weapon invitem_farsight = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_farsight_shoot, // pri function
-	&invfunc_farsight_targetlocator, // sec function
+	{ &invfunc_farsight_shoot, &invfunc_farsight_targetlocator }, // functions
 	&invammo_farsight, // pri ammo
 	NULL, // sec ammo
 	&inve_00013ff8, // eptr
@@ -4155,72 +3957,66 @@ u32 invanim_crosbow_equip[] = {
 };
 
 // 141e0
-struct inventory_function invfunc_crossbow_lethal = {
-	0x0000, // unk00
-	0x02, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
+	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	0x4c70, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
 	invanim_crossbow_shoot, // fire chr_do_animation
 	0x00802000, // flags
+	0x00000000,
+	0x00000000,
+	0x42c80000,
+	0x40c00000,
+	0x030c0f00,
+	0x40400000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008056,
+	0x01000000,
+	0x00000121,
+	0x00000000,
+	0x40066666,
+	0x00000000,
+	0x00000000,
+	0x0000003c,
+	0xffffffff,
+	0x3d4ccccd,
+	0xffff0000,
 };
 
-u32 var8006e1d4 = 0x00000000;
-u32 var8006e1d8 = 0x00000000;
-u32 var8006e1dc = 0x42c80000;
-u32 var8006e1e0 = 0x40c00000;
-u32 var8006e1e4 = 0x030c0f00;
-u32 var8006e1e8 = 0x40400000;
-u32 var8006e1ec = 0x40000000;
-u32 var8006e1f0 = 0x00000000;
-u32 var8006e1f4 = 0x40800000;
-u32 var8006e1f8 = 0x04008056;
-u32 var8006e1fc = 0x01000000;
-u32 var8006e200 = 0x00000121;
-u32 var8006e204 = 0x00000000;
-u32 var8006e208 = 0x40066666;
-u32 var8006e20c = 0x00000000;
-u32 var8006e210 = 0x00000000;
-u32 var8006e214 = 0x0000003c;
-u32 var8006e218 = 0xffffffff;
-u32 var8006e21c = 0x3d4ccccd;
-u32 var8006e220 = 0xffff0000;
-
 // 14244
-struct inventory_function invfunc_crossbow_shoot = {
-	0x0000, // unk00
-	0x02, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	0x4c6b, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
 	invanim_crossbow_shoot, // fire chr_do_animation
 	0x00802200, // flags
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x030c0f00,
+	0x40400000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008056,
+	0x01000000,
+	0x00000121,
+	0x00000000,
+	0x40066666,
+	0x00000000,
+	0x00000000,
+	0x0000003c,
+	0xffffffff,
+	0x3d4ccccd,
+	0xffff0000,
 };
-
-u32 var8006e238 = 0x00000000;
-u32 var8006e23c = 0x00000000;
-u32 var8006e240 = 0x3f800000;
-u32 var8006e244 = 0x40c00000;
-u32 var8006e248 = 0x030c0f00;
-u32 var8006e24c = 0x40400000;
-u32 var8006e250 = 0x40000000;
-u32 var8006e254 = 0x00000000;
-u32 var8006e258 = 0x40800000;
-u32 var8006e25c = 0x04008056;
-u32 var8006e260 = 0x01000000;
-u32 var8006e264 = 0x00000121;
-u32 var8006e268 = 0x00000000;
-u32 var8006e26c = 0x40066666;
-u32 var8006e270 = 0x00000000;
-u32 var8006e274 = 0x00000000;
-u32 var8006e278 = 0x0000003c;
-u32 var8006e27c = 0xffffffff;
-u32 var8006e280 = 0x3d4ccccd;
-u32 var8006e284 = 0xffff0000;
 
 // 142a8
 struct inventory_ammo invammo_crossbow = {
@@ -4245,8 +4041,7 @@ struct weapon invitem_crossbow = {
 	invanim_crossbow_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_crossbow_shoot, // pri function
-	&invfunc_crossbow_lethal, // sec function
+	{ &invfunc_crossbow_shoot, &invfunc_crossbow_lethal }, // functions
 	&invammo_crossbow, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -4314,34 +4109,29 @@ u32 invanim_tranquilizer_reload[] = {
 };
 
 // 143f4
-struct inventory_function invfunc_tranquilizer_shoot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c6b, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
 	invanim_tranquilizer_equiporshoot, // fire chr_do_animation
 	0x00000200, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3e800000,
+	0x40400000,
+	0x03050500,
+	0x3f800000,
+	0x00000000,
+	0x426fffff,
+	0x00000000,
+	0x00008057,
+	0x01000000,
 };
 
-u32 var8006e3e8 = (u32) &invmenupos_00011098;
-u32 var8006e3ec = 0x10000000;
-u32 var8006e3f0 = 0x3e800000;
-u32 var8006e3f4 = 0x40400000;
-u32 var8006e3f8 = 0x03050500;
-u32 var8006e3fc = 0x3f800000;
-u32 var8006e400 = 0x00000000;
-u32 var8006e404 = 0x426fffff;
-u32 var8006e408 = 0x00000000;
-u32 var8006e40c = 0x00008057;
-u32 var8006e410 = 0x01000000;
-
 // 14434
-struct inventory_function invfunc_tranquilizer_lethal = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_close invfunc_tranquilizer_lethal = {
 	INVENTORYFUNCTYPE_CLOSE,
 	0x4c6c, // name
 	0x00, // unk06
@@ -4349,22 +4139,21 @@ struct inventory_function invfunc_tranquilizer_lethal = {
 	&invmenupos_00010fe4, // menupos
 	invanim_tranquilizer_lethalinject, // fire chr_do_animation
 	0x00002000, // flags
+	0x42c80000,
+	0x42700000,
+	0x00000069,
+	0x00000069,
+	0x00000069,
+	0x41200000,
+	0xc181999a,
+	0x41200000,
+	0xc181999a,
+	0xbf800000,
+	0xbf800000,
+	0x40000000,
+	0x40000000,
+	0x00000000,
 };
-
-u32 var8006e428 = 0x42c80000;
-u32 var8006e42c = 0x42700000;
-u32 var8006e430 = 0x00000069;
-u32 var8006e434 = 0x00000069;
-u32 var8006e438 = 0x00000069;
-u32 var8006e43c = 0x41200000;
-u32 var8006e440 = 0xc181999a;
-u32 var8006e444 = 0x41200000;
-u32 var8006e448 = 0xc181999a;
-u32 var8006e44c = 0xbf800000;
-u32 var8006e450 = 0xbf800000;
-u32 var8006e454 = 0x40000000;
-u32 var8006e458 = 0x40000000;
-u32 var8006e45c = 0x00000000;
 
 // 14480
 struct inventory_ammo invammo_tranquilizer = {
@@ -4389,8 +4178,7 @@ struct weapon invitem_tranquilizer = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_tranquilizer_shoot, // pri function
-	&invfunc_tranquilizer_lethal, // sec function
+	{ &invfunc_tranquilizer_shoot, &invfunc_tranquilizer_lethal }, // functions
 	&invammo_tranquilizer, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -4420,29 +4208,26 @@ struct inventory_ammo invammo_psychosisgun = {
 };
 
 // 14500
-struct inventory_function invfunc_psychosisgun_shoot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c83, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010fe4, // menupos
 	invanim_tranquilizer_equiporshoot, // fire chr_do_animation
 	0x00200200, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3f000000,
+	0x40400000,
+	0x03050500,
+	0x3f800000,
+	0x00000000,
+	0x426fffff,
+	0x00000000,
+	0x00008057,
+	0x01000000,
 };
-
-u32 var8006e4f4 = (u32) &invmenupos_00011098;
-u32 var8006e4f8 = 0x10000000;
-u32 var8006e4fc = 0x3f000000;
-u32 var8006e500 = 0x40400000;
-u32 var8006e504 = 0x03050500;
-u32 var8006e508 = 0x3f800000;
-u32 var8006e50c = 0x00000000;
-u32 var8006e510 = 0x426fffff;
-u32 var8006e514 = 0x00000000;
-u32 var8006e518 = 0x00008057;
-u32 var8006e51c = 0x01000000;
 
 // 14540
 struct weapon invitem_psychosisgun = {
@@ -4452,8 +4237,7 @@ struct weapon invitem_psychosisgun = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_psychosisgun_shoot, // pri function
-	NULL, // sec function
+	{ &invfunc_psychosisgun_shoot, NULL }, // functions
 	&invammo_psychosisgun, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -4514,34 +4298,29 @@ struct inventory_typee inve_0001460c = {
 };
 
 // 1462c
-struct inventory_function invfunc_sniperrifle_singleshot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00010ff8, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3f99999a,
+	0x00000000,
+	0x060a0000,
+	0x41000000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x04008058,
+	0x01000000,
 };
 
-u32 var8006e620 = (u32) &invmenupos_00011098;
-u32 var8006e624 = 0x10000000;
-u32 var8006e628 = 0x3f99999a;
-u32 var8006e62c = 0x00000000;
-u32 var8006e630 = 0x060a0000;
-u32 var8006e634 = 0x41000000;
-u32 var8006e638 = 0x00000000;
-u32 var8006e63c = 0x00000000;
-u32 var8006e640 = 0x00000000;
-u32 var8006e644 = 0x04008058;
-u32 var8006e648 = 0x01000000;
-
 // 1466c
-struct inventory_function invfunc_sniperrifle_crouch = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_special invfunc_sniperrifle_crouch = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	0x4c82, // name
 	0x00, // unk06
@@ -4549,11 +4328,10 @@ struct inventory_function invfunc_sniperrifle_crouch = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00102000, // flags
+	0x00000008,
+	0x0000001e,
+	0x00000000,
 };
-
-u32 var8006e660 = 0x00000008;
-u32 var8006e664 = 0x0000001e;
-u32 var8006e668 = 0x00000000;
 
 // 1468c
 struct inventory_ammo invammo_sniperrifle = {
@@ -4578,8 +4356,7 @@ struct weapon invitem_sniperrifle = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_sniperrifle_singleshot, // pri function
-	&invfunc_sniperrifle_crouch, // sec function
+	{ &invfunc_sniperrifle_singleshot, &invfunc_sniperrifle_crouch }, // functions
 	&invammo_sniperrifle, // pri ammo
 	NULL, // sec ammo
 	&inve_0001460c, // eptr
@@ -4610,59 +4387,53 @@ u32 invanim_laser_unequip[] = {
 };
 
 // 14714
-struct inventory_function invfunc_laser_pulse = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_laser_pulse = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c84, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f800000,
+	0x00000000,
+	0x061218ff,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x03008043,
+	0x01000000,
 };
 
-u32 var8006e708 = (u32) &invmenupos_00011098;
-u32 var8006e70c = 0x00000000;
-u32 var8006e710 = 0x3f800000;
-u32 var8006e714 = 0x00000000;
-u32 var8006e718 = 0x061218ff;
-u32 var8006e71c = 0x00000000;
-u32 var8006e720 = 0x00000000;
-u32 var8006e724 = 0x00000000;
-u32 var8006e728 = 0x00000000;
-u32 var8006e72c = 0x03008043;
-u32 var8006e730 = 0x01000000;
-
 // 14754
-struct inventory_function invfunc_laser_stream = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_laser_stream = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c85, // name
 	0x00, // unk06
 	-1, // unk07
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011084,
+	0x00000000,
+	0x3dcccccd,
+	0x00000000,
+	0x06120006,
+	0x40800000,
+	0x40400000,
+	0x00000000,
+	0x00000000,
+	0x03000000,
+	0x01000000,
+	0x45610000,
+	0x45610000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006e748 = (u32) &invmenupos_00011084;
-u32 var8006e74c = 0x00000000;
-u32 var8006e750 = 0x3dcccccd;
-u32 var8006e754 = 0x00000000;
-u32 var8006e758 = 0x06120006;
-u32 var8006e75c = 0x40800000;
-u32 var8006e760 = 0x40400000;
-u32 var8006e764 = 0x00000000;
-u32 var8006e768 = 0x00000000;
-u32 var8006e76c = 0x03000000;
-u32 var8006e770 = 0x01000000;
-u32 var8006e774 = 0x45610000;
-u32 var8006e778 = 0x45610000;
-u32 var8006e77c = 0x00000000;
-u32 var8006e780 = 0x00000000;
-u32 var8006e784 = 0x00000000;
 
 // 147a8
 struct weapon invitem_laser = {
@@ -4672,8 +4443,7 @@ struct weapon invitem_laser = {
 	invanim_laser_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_laser_pulse, // pri function
-	&invfunc_laser_stream, // sec function
+	{ &invfunc_laser_pulse, &invfunc_laser_stream }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -4712,29 +4482,26 @@ u32 invanim_pp9i_equiporshoot[] = {
 };
 
 // 14828
-struct inventory_function invfunc_pp9i_shoot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_pp9i_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3f800000,
+	0x3f800000,
+	0x04080300,
+	0x40400000,
+	0x41200000,
+	0x41efffff,
+	0x00000000,
+	0x00008069,
+	0x01000000,
 };
-
-u32 var8006e81c = (u32) &invmenupos_00011098;
-u32 var8006e820 = 0x10000000;
-u32 var8006e824 = 0x3f800000;
-u32 var8006e828 = 0x3f800000;
-u32 var8006e82c = 0x04080300;
-u32 var8006e830 = 0x40400000;
-u32 var8006e834 = 0x41200000;
-u32 var8006e838 = 0x41efffff;
-u32 var8006e83c = 0x00000000;
-u32 var8006e840 = 0x00008069;
-u32 var8006e844 = 0x01000000;
 
 // 14868
 struct inventory_ammo invammo_pp9i = {
@@ -4755,8 +4522,7 @@ struct weapon invitem_pp9i = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_pp9i_shoot, // pri function
-	NULL, // sec function
+	{ &invfunc_pp9i_shoot, NULL }, // functions
 	&invammo_pp9i, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -4782,29 +4548,26 @@ u32 invanim_cc13_equiporshoot[] = {
 };
 
 // 148e4
-struct inventory_function invfunc_cc13_shoot = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_cc13_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c55, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_cc13_equiporshoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x10000000,
+	0x3f800000,
+	0x40c00000,
+	0x04080300,
+	0x40a00000,
+	0x41200000,
+	0x426fffff,
+	0x00000000,
+	0x0000806a,
+	0x01000000,
 };
-
-u32 var8006e8d8 = (u32) &invmenupos_00011098;
-u32 var8006e8dc = 0x10000000;
-u32 var8006e8e0 = 0x3f800000;
-u32 var8006e8e4 = 0x40c00000;
-u32 var8006e8e8 = 0x04080300;
-u32 var8006e8ec = 0x40a00000;
-u32 var8006e8f0 = 0x41200000;
-u32 var8006e8f4 = 0x426fffff;
-u32 var8006e8f8 = 0x00000000;
-u32 var8006e8fc = 0x0000806a;
-u32 var8006e900 = 0x01000000;
 
 // 14924
 struct inventory_ammo invammo_cc13 = {
@@ -4825,8 +4588,7 @@ struct weapon invitem_cc13 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_cc13_shoot, // pri function
-	NULL, // sec function
+	{ &invfunc_cc13_shoot, NULL }, // functions
 	&invammo_cc13, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -4845,34 +4607,31 @@ struct weapon invitem_cc13 = {
 };
 
 // 14988
-struct inventory_function invfunc_kl01313_shoot = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_kl01313_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f19999a,
+	0x41700000,
+	0x00000006,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
+	0x0b00806b,
+	0x01000000,
+	0x43e10000,
+	0x43e10000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006e97c = (u32) &invmenupos_00011098;
-u32 var8006e980 = 0x00000000;
-u32 var8006e984 = 0x3f19999a;
-u32 var8006e988 = 0x41700000;
-u32 var8006e98c = 0x00000006;
-u32 var8006e990 = 0x00000000;
-u32 var8006e994 = 0x00000000;
-u32 var8006e998 = 0x00000000;
-u32 var8006e99c = 0x00000000;
-u32 var8006e9a0 = 0x0b00806b;
-u32 var8006e9a4 = 0x01000000;
-u32 var8006e9a8 = 0x43e10000;
-u32 var8006e9ac = 0x43e10000;
-u32 var8006e9b0 = 0x00000000;
-u32 var8006e9b4 = 0x00000000;
-u32 var8006e9b8 = 0x00000000;
 
 // 149dc
 struct inventory_ammo invammo_kl01313 = {
@@ -4893,8 +4652,7 @@ struct weapon invitem_kl01313 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_kl01313_shoot, // pri function
-	NULL, // sec function
+	{ &invfunc_kl01313_shoot, NULL }, // functions
 	&invammo_kl01313, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -4913,34 +4671,31 @@ struct weapon invitem_kl01313 = {
 };
 
 // 14a40
-struct inventory_function invfunc_kf7special_shoot = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_kf7special_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c57, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00000002, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f800000,
+	0x41200000,
+	0x040c0006,
+	0x40900000,
+	0x40000000,
+	0x00000000,
+	0x40400000,
+	0x0400806c,
+	0x01000000,
+	0x43e10000,
+	0x43e10000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006ea34 = (u32) &invmenupos_00011098;
-u32 var8006ea38 = 0x00000000;
-u32 var8006ea3c = 0x3f800000;
-u32 var8006ea40 = 0x41200000;
-u32 var8006ea44 = 0x040c0006;
-u32 var8006ea48 = 0x40900000;
-u32 var8006ea4c = 0x40000000;
-u32 var8006ea50 = 0x00000000;
-u32 var8006ea54 = 0x40400000;
-u32 var8006ea58 = 0x0400806c;
-u32 var8006ea5c = 0x01000000;
-u32 var8006ea60 = 0x43e10000;
-u32 var8006ea64 = 0x43e10000;
-u32 var8006ea68 = 0x00000000;
-u32 var8006ea6c = 0x00000000;
-u32 var8006ea70 = 0x00000000;
 
 // 14a94
 struct inventory_ammo invammo_kf7special = {
@@ -4961,8 +4716,7 @@ struct weapon invitem_kf7special = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_kf7special_shoot, // pri function
-	NULL, // sec function
+	{ &invfunc_kf7special_shoot, NULL }, // functions
 	&invammo_kf7special, // pri ammo
 	NULL, // sec ammo
 	&inve_00011140, // eptr
@@ -4981,34 +4735,31 @@ struct weapon invitem_kf7special = {
 };
 
 // 14af8
-struct inventory_function invfunc_zzt9mm_shoot = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_zzt9mm_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f800000,
+	0x41100000,
+	0x06120006,
+	0x40800000,
+	0x40400000,
+	0x00000000,
+	0x00000000,
+	0x0400806d,
+	0x01000000,
+	0x44160000,
+	0x44160000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006eaec = (u32) &invmenupos_00011098;
-u32 var8006eaf0 = 0x00000000;
-u32 var8006eaf4 = 0x3f800000;
-u32 var8006eaf8 = 0x41100000;
-u32 var8006eafc = 0x06120006;
-u32 var8006eb00 = 0x40800000;
-u32 var8006eb04 = 0x40400000;
-u32 var8006eb08 = 0x00000000;
-u32 var8006eb0c = 0x00000000;
-u32 var8006eb10 = 0x0400806d;
-u32 var8006eb14 = 0x01000000;
-u32 var8006eb18 = 0x44160000;
-u32 var8006eb1c = 0x44160000;
-u32 var8006eb20 = 0x00000000;
-u32 var8006eb24 = 0x00000000;
-u32 var8006eb28 = 0x00000000;
 
 // 14b4c
 struct inventory_ammo invammo_zzt9mm = {
@@ -5029,8 +4780,7 @@ struct weapon invitem_zzt9mm = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_zzt9mm_shoot, // pri function
-	NULL, // sec function
+	{ &invfunc_zzt9mm_shoot, NULL }, // functions
 	&invammo_zzt9mm, // pri ammo
 	NULL, // sec ammo
 	&inve_000110e0, // eptr
@@ -5049,34 +4799,31 @@ struct weapon invitem_zzt9mm = {
 };
 
 // 14bb0
-struct inventory_function invfunc_dmc_shoot = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_dmc_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f800000,
+	0x40e00000,
+	0x06120006,
+	0x40800000,
+	0x40400000,
+	0x00000000,
+	0x00000000,
+	0x0400806e,
+	0x01000000,
+	0x43e10000,
+	0x43e10000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006eba4 = (u32) &invmenupos_00011098;
-u32 var8006eba8 = 0x00000000;
-u32 var8006ebac = 0x3f800000;
-u32 var8006ebb0 = 0x40e00000;
-u32 var8006ebb4 = 0x06120006;
-u32 var8006ebb8 = 0x40800000;
-u32 var8006ebbc = 0x40400000;
-u32 var8006ebc0 = 0x00000000;
-u32 var8006ebc4 = 0x00000000;
-u32 var8006ebc8 = 0x0400806e;
-u32 var8006ebcc = 0x01000000;
-u32 var8006ebd0 = 0x43e10000;
-u32 var8006ebd4 = 0x43e10000;
-u32 var8006ebd8 = 0x00000000;
-u32 var8006ebdc = 0x00000000;
-u32 var8006ebe0 = 0x00000000;
 
 // 14c04
 struct inventory_ammo invammo_dmc = {
@@ -5097,8 +4844,7 @@ struct weapon invitem_dmc = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_dmc_shoot, // pri function
-	NULL, // sec function
+	{ &invfunc_dmc_shoot, NULL }, // functions
 	&invammo_dmc, // pri ammo
 	NULL, // sec ammo
 	&inve_000110e0, // eptr
@@ -5117,34 +4863,31 @@ struct weapon invitem_dmc = {
 };
 
 // 14c68
-struct inventory_function invfunc_ar53_shoot = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_ar53_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c57, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00000002, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3fb33333,
+	0x40c00000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x0500806f,
+	0x01000000,
+	0x44098000,
+	0x44098000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006ec5c = (u32) &invmenupos_00011098;
-u32 var8006ec60 = 0x00000000;
-u32 var8006ec64 = 0x3fb33333;
-u32 var8006ec68 = 0x40c00000;
-u32 var8006ec6c = 0x06120208;
-u32 var8006ec70 = 0x40a00000;
-u32 var8006ec74 = 0x40000000;
-u32 var8006ec78 = 0x00000000;
-u32 var8006ec7c = 0x40800000;
-u32 var8006ec80 = 0x0500806f;
-u32 var8006ec84 = 0x01000000;
-u32 var8006ec88 = 0x44098000;
-u32 var8006ec8c = 0x44098000;
-u32 var8006ec90 = 0x00000000;
-u32 var8006ec94 = 0x00000000;
-u32 var8006ec98 = 0x00000000;
 
 // 14cbc
 struct inventory_ammo invammo_ar53 = {
@@ -5165,8 +4908,7 @@ struct weapon invitem_ar53 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_ar53_shoot, // pri function
-	NULL, // sec function
+	{ &invfunc_ar53_shoot, NULL }, // functions
 	&invammo_ar53, // pri ammo
 	NULL, // sec ammo
 	&inve_00011140, // eptr
@@ -5185,34 +4927,31 @@ struct weapon invitem_ar53 = {
 };
 
 // 14d20
-struct inventory_function invfunc_rcp45_shoot = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_rcp45_shoot = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3fe66666,
+	0x40c00000,
+	0x04080003,
+	0x40600000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x02008070,
+	0x01000000,
+	0x44160000,
+	0x44160000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006ed14 = (u32) &invmenupos_00011098;
-u32 var8006ed18 = 0x00000000;
-u32 var8006ed1c = 0x3fe66666;
-u32 var8006ed20 = 0x40c00000;
-u32 var8006ed24 = 0x04080003;
-u32 var8006ed28 = 0x40600000;
-u32 var8006ed2c = 0x40000000;
-u32 var8006ed30 = 0x00000000;
-u32 var8006ed34 = 0x40800000;
-u32 var8006ed38 = 0x02008070;
-u32 var8006ed3c = 0x01000000;
-u32 var8006ed40 = 0x44160000;
-u32 var8006ed44 = 0x44160000;
-u32 var8006ed48 = 0x00000000;
-u32 var8006ed4c = 0x00000000;
-u32 var8006ed50 = 0x00000000;
 
 // 14d74
 struct inventory_ammo invammo_rcp45 = {
@@ -5233,8 +4972,7 @@ struct weapon invitem_rcp45 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_rcp45_shoot, // pri function
-	NULL, // sec function
+	{ &invfunc_rcp45_shoot, NULL }, // functions
 	&invammo_rcp45, // pri ammo
 	NULL, // sec ammo
 	&inve_000110e0, // eptr
@@ -5253,9 +4991,7 @@ struct weapon invitem_rcp45 = {
 };
 
 // 14dd8
-struct inventory_function invfunc_briefcase_use = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc invfunc_briefcase_use = {
 	INVENTORYFUNCTYPE_NONE,
 	0x4c00, // name
 	0x00, // unk06
@@ -5279,8 +5015,7 @@ struct weapon invitem_briefcase2 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_briefcase_use, // pri function
-	&invfunc_briefcase_use, // sec function
+	{ &invfunc_briefcase_use, &invfunc_briefcase_use }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5299,34 +5034,31 @@ struct weapon invitem_briefcase2 = {
 };
 
 // 14e50
-struct inventory_function invfunc_59_rapidfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_59_rapidfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008059,
+	0x02000000,
+	0x44610000,
+	0x44610000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006ee44 = (u32) &invmenupos_00011098;
-u32 var8006ee48 = 0x00000000;
-u32 var8006ee4c = 0x3f800000;
-u32 var8006ee50 = 0x40c00000;
-u32 var8006ee54 = 0x06120208;
-u32 var8006ee58 = 0x40a00000;
-u32 var8006ee5c = 0x40000000;
-u32 var8006ee60 = 0x00000000;
-u32 var8006ee64 = 0x40800000;
-u32 var8006ee68 = 0x04008059;
-u32 var8006ee6c = 0x02000000;
-u32 var8006ee70 = 0x44610000;
-u32 var8006ee74 = 0x44610000;
-u32 var8006ee78 = 0x00000000;
-u32 var8006ee7c = 0x00000000;
-u32 var8006ee80 = 0x00000000;
 
 // 14ea4
 struct inventory_ammo invammo_59 = {
@@ -5347,8 +5079,7 @@ struct weapon invitem_59 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_59_rapidfire, // pri function
-	NULL, // sec function
+	{ &invfunc_59_rapidfire, NULL }, // functions
 	&invammo_59, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5367,34 +5098,31 @@ struct weapon invitem_59 = {
 };
 
 // 14f08
-struct inventory_function invfunc_5a_rapidfire = {
-	0x0000, // unk00
-	0x01, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootauto invfunc_5a_rapidfire = {
+	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	0x4c56, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	NULL, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011098,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x06120208,
+	0x40a00000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x0400803f,
+	0x01000000,
+	0x44610000,
+	0x44610000,
+	0x00000000,
+	0x00000000,
+	0x00000000,
 };
-
-u32 var8006eefc = (u32) &invmenupos_00011098;
-u32 var8006ef00 = 0x00000000;
-u32 var8006ef04 = 0x3f800000;
-u32 var8006ef08 = 0x40c00000;
-u32 var8006ef0c = 0x06120208;
-u32 var8006ef10 = 0x40a00000;
-u32 var8006ef14 = 0x40000000;
-u32 var8006ef18 = 0x00000000;
-u32 var8006ef1c = 0x40800000;
-u32 var8006ef20 = 0x0400803f;
-u32 var8006ef24 = 0x01000000;
-u32 var8006ef28 = 0x44610000;
-u32 var8006ef2c = 0x44610000;
-u32 var8006ef30 = 0x00000000;
-u32 var8006ef34 = 0x00000000;
-u32 var8006ef38 = 0x00000000;
 
 // 14f5c
 struct inventory_ammo invammo_5a = {
@@ -5415,8 +5143,7 @@ struct weapon invitem_5a = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_5a_rapidfire, // pri function
-	NULL, // sec function
+	{ &invfunc_5a_rapidfire, NULL }, // functions
 	&invammo_5a, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5503,9 +5230,7 @@ u32 invanim_combatknife_reload[] = {
 };
 
 // 150ac
-struct inventory_function invfunc_combatknife_slash = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_close invfunc_combatknife_slash = {
 	INVENTORYFUNCTYPE_CLOSE,
 	0x4c6d, // name
 	0x00, // unk06
@@ -5513,27 +5238,24 @@ struct inventory_function invfunc_combatknife_slash = {
 	&invmenupos_00010fd0, // menupos
 	invanim_combatknife_slash, // fire chr_do_animation
 	0x00002000, // flags
+	0x40000000,
+	0x428c0000,
+	0x00000069,
+	0x00000069,
+	0x00000069,
+	0x41300000,
+	0xc1cc0000,
+	0x41300000,
+	0xc1cc0000,
+	0xbf800000,
+	0xbf800000,
+	0x40000000,
+	0x40000000,
+	0x00000000,
 };
 
-u32 var8006f0a0 = 0x40000000;
-u32 var8006f0a4 = 0x428c0000;
-u32 var8006f0a8 = 0x00000069;
-u32 var8006f0ac = 0x00000069;
-u32 var8006f0b0 = 0x00000069;
-u32 var8006f0b4 = 0x41300000;
-u32 var8006f0b8 = 0xc1cc0000;
-u32 var8006f0bc = 0x41300000;
-u32 var8006f0c0 = 0xc1cc0000;
-u32 var8006f0c4 = 0xbf800000;
-u32 var8006f0c8 = 0xbf800000;
-u32 var8006f0cc = 0x40000000;
-u32 var8006f0d0 = 0x40000000;
-u32 var8006f0d4 = 0x00000000;
-
 // 150f8
-struct inventory_function invfunc_combatknife_throw = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_combatknife_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c6e, // name
 	0x00, // unk06
@@ -5541,12 +5263,11 @@ struct inventory_function invfunc_combatknife_throw = {
 	&invmenupos_00010fd0, // menupos
 	invanim_combatknife_throw, // fire chr_do_animation
 	0x00802000, // flags
+	0x0000010f,
+	0x00f00000,
+	0x0000003c,
+	0x3f800000,
 };
-
-u32 var8006f0ec = 0x0000010f;
-u32 var8006f0f0 = 0x00f00000;
-u32 var8006f0f4 = 0x0000003c;
-u32 var8006f0f8 = 0x3f800000;
 
 // 1511c
 struct inventory_ammo invammo_combatknife = {
@@ -5567,8 +5288,7 @@ struct weapon invitem_combatknife = {
 	NULL, // unequip chr_do_animation
 	invanim_combatknife_pritosec, // pritosec chr_do_animation
 	invanim_combatknife_sectopri, // sectopri chr_do_animation
-	&invfunc_combatknife_slash, // pri function
-	&invfunc_combatknife_throw, // sec function
+	{ &invfunc_combatknife_slash, &invfunc_combatknife_throw }, // functions
 	&invammo_combatknife, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5587,9 +5307,7 @@ struct weapon invitem_combatknife = {
 };
 
 // 15180
-struct inventory_function invfunc_bug_throw = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_bug_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c00, // name
 	0x00, // unk06
@@ -5597,17 +5315,14 @@ struct inventory_function invfunc_bug_throw = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00802040, // flags
+	0x00000012,
+	0x00f00000,
+	0x0000003c,
+	0x00000000,
 };
-
-u32 var8006f174 = 0x00000012;
-u32 var8006f178 = 0x00f00000;
-u32 var8006f17c = 0x0000003c;
-u32 var8006f180 = 0x00000000;
 
 // 151a4
-struct inventory_function invfunc_targetamplifier_throw = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_throw invfunc_targetamplifier_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	0x4c00, // name
 	0x00, // unk06
@@ -5615,12 +5330,11 @@ struct inventory_function invfunc_targetamplifier_throw = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00802040, // flags
+	0x000001b1,
+	0x00f00000,
+	0x0000003c,
+	0x00000000,
 };
-
-u32 var8006f198 = 0x000001b1;
-u32 var8006f19c = 0x00f00000;
-u32 var8006f1a0 = 0x0000003c;
-u32 var8006f1a4 = 0x00000000;
 
 // 151c8
 struct inventory_ammo invammo_bug = {
@@ -5641,8 +5355,7 @@ struct weapon invitem_commsrider = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_bug_throw, // pri function
-	NULL, // sec function
+	{ &invfunc_bug_throw, NULL }, // functions
 	&invammo_bug, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5668,8 +5381,7 @@ struct weapon invitem_tracerbug = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_bug_throw, // pri function
-	NULL, // sec function
+	{ &invfunc_bug_throw, NULL }, // functions
 	&invammo_bug, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5695,8 +5407,7 @@ struct weapon invitem_targetamplifier = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_targetamplifier_throw, // pri function
-	NULL, // sec function
+	{ &invfunc_targetamplifier_throw, NULL }, // functions
 	&invammo_bug, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5715,9 +5426,7 @@ struct weapon invitem_targetamplifier = {
 };
 
 // 152cc
-struct inventory_function invfunc_nightvision_primary = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_visual invfunc_nightvision_primary = {
 	INVENTORYFUNCTYPE_VISUAL,
 	0x4c87, // name
 	0x00, // unk06
@@ -5725,9 +5434,8 @@ struct inventory_function invfunc_nightvision_primary = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x00000001,
 };
-
-u32 var8006f2c0 = 0x00000001;
 
 // 152e4
 struct weapon invitem_nightvision = {
@@ -5737,8 +5445,7 @@ struct weapon invitem_nightvision = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_nightvision_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_nightvision_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5757,9 +5464,7 @@ struct weapon invitem_nightvision = {
 };
 
 // 15334
-struct inventory_function invfunc_horizonscanner_primary = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc invfunc_horizonscanner_primary = {
 	INVENTORYFUNCTYPE_NONE,
 	0x4c8b, // name
 	0x00, // unk06
@@ -5789,8 +5494,7 @@ struct weapon invitem_horizonscanner = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_horizonscanner_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_horizonscanner_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_00015348, // eptr
@@ -5809,9 +5513,7 @@ struct weapon invitem_horizonscanner = {
 };
 
 // 153b8
-struct inventory_function invfunc_cloak_primary = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_visual invfunc_cloak_primary = {
 	INVENTORYFUNCTYPE_VISUAL,
 	0x4c74, // name
 	0x00, // unk06
@@ -5819,9 +5521,8 @@ struct inventory_function invfunc_cloak_primary = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x00000040,
 };
-
-u32 var8006f3ac = 0x00000040;
 
 // 153d0
 struct inventory_ammo invammo_cloakingdevice = {
@@ -5842,8 +5543,7 @@ struct weapon invitem_cloakingdevice = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_cloak_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_cloak_primary, NULL }, // functions
 	&invammo_cloakingdevice, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5862,9 +5562,7 @@ struct weapon invitem_cloakingdevice = {
 };
 
 // 15434
-struct inventory_function invfunc_combatboost_boost = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_special invfunc_combatboost_boost = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	0x4c71, // name
 	0x00, // unk06
@@ -5872,16 +5570,13 @@ struct inventory_function invfunc_combatboost_boost = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x00000006,
+	0x0000001e,
+	0x05c90000,
 };
 
-u32 var8006f428 = 0x00000006;
-u32 var8006f42c = 0x0000001e;
-u32 var8006f430 = 0x05c90000;
-
 // 15454
-struct inventory_function invfunc_combatboost_revert = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_special invfunc_combatboost_revert = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	0x4c72, // name
 	0x00, // unk06
@@ -5889,11 +5584,10 @@ struct inventory_function invfunc_combatboost_revert = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x00000007,
+	0x0000001e,
+	0x05c90000,
 };
-
-u32 var8006f448 = 0x00000007;
-u32 var8006f44c = 0x0000001e;
-u32 var8006f450 = 0x05c90000;
 
 // 15474
 struct inventory_ammo invammo_combatboost = {
@@ -5914,8 +5608,7 @@ struct weapon invitem_combatboost = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_combatboost_boost, // pri function
-	&invfunc_combatboost_revert, // sec function
+	{ &invfunc_combatboost_boost, &invfunc_combatboost_revert }, // functions
 	&invammo_combatboost, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5934,9 +5627,7 @@ struct weapon invitem_combatboost = {
 };
 
 // 154d8
-struct inventory_function invfunc_suicidepill_primary = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_visual invfunc_suicidepill_primary = {
 	INVENTORYFUNCTYPE_VISUAL,
 	0x4c00, // name
 	0x00, // unk06
@@ -5944,9 +5635,8 @@ struct inventory_function invfunc_suicidepill_primary = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x00000020,
 };
-
-u32 var8006f4cc = 0x00000020;
 
 // 154f0
 struct weapon invitem_suicidepill = {
@@ -5956,8 +5646,7 @@ struct weapon invitem_suicidepill = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_suicidepill_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_suicidepill_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -5976,9 +5665,7 @@ struct weapon invitem_suicidepill = {
 };
 
 // 15540
-struct inventory_function invfunc_irscanner_primary = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_visual invfunc_irscanner_primary = {
 	INVENTORYFUNCTYPE_VISUAL,
 	0x4c8a, // name
 	0x00, // unk06
@@ -5986,9 +5673,8 @@ struct inventory_function invfunc_irscanner_primary = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x00000008,
 };
-
-u32 var8006f534 = 0x00000008;
 
 // 15558
 struct weapon invitem_irscanner = {
@@ -5998,8 +5684,7 @@ struct weapon invitem_irscanner = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_irscanner_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_irscanner_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -6018,9 +5703,7 @@ struct weapon invitem_irscanner = {
 };
 
 // 155a8
-struct inventory_function invfunc_disguise_primary = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc invfunc_disguise_primary = {
 	INVENTORYFUNCTYPE_NONE,
 	0x4c8f, // name
 	0x00, // unk06
@@ -6038,8 +5721,7 @@ struct weapon invitem_disguise40 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_disguise_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_disguise_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -6065,8 +5747,7 @@ struct weapon invitem_disguise41 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_disguise_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_disguise_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -6085,9 +5766,7 @@ struct weapon invitem_disguise41 = {
 };
 
 // 1565c
-struct inventory_function invfunc_camspy_deploy = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_visual invfunc_camspy_deploy = {
 	INVENTORYFUNCTYPE_VISUAL,
 	0x4c88, // name
 	0x00, // unk06
@@ -6095,9 +5774,8 @@ struct inventory_function invfunc_camspy_deploy = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x00000004,
 };
-
-u32 var8006f650 = 0x00000004;
 
 // 15674
 struct weapon invitem_camspy = {
@@ -6107,8 +5785,7 @@ struct weapon invitem_camspy = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_camspy_deploy, // pri function
-	NULL, // sec function
+	{ &invfunc_camspy_deploy, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -6127,9 +5804,7 @@ struct weapon invitem_camspy = {
 };
 
 // 156c4
-struct inventory_function invfunc_rtracker_primary = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_visual invfunc_rtracker_primary = {
 	INVENTORYFUNCTYPE_VISUAL,
 	0x4c8e, // name
 	0x00, // unk06
@@ -6137,9 +5812,8 @@ struct inventory_function invfunc_rtracker_primary = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x00000010,
 };
-
-u32 var8006f6b8 = 0x00000010;
 
 // 156dc
 struct weapon invitem_rtracker = {
@@ -6149,8 +5823,7 @@ struct weapon invitem_rtracker = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_rtracker_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_rtracker_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -6169,9 +5842,7 @@ struct weapon invitem_rtracker = {
 };
 
 // 1572c
-struct inventory_function invfunc_xray_primary = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_visual invfunc_xray_primary = {
 	INVENTORYFUNCTYPE_VISUAL,
 	0x4c89, // name
 	0x00, // unk06
@@ -6179,9 +5850,8 @@ struct inventory_function invfunc_xray_primary = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x00000002,
 };
-
-u32 var8006f720 = 0x00000002;
 
 // 15744
 struct weapon invitem_xrayscanner = {
@@ -6191,8 +5861,7 @@ struct weapon invitem_xrayscanner = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_xray_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_xray_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -6228,9 +5897,7 @@ u32 var8006f79c = 0x00000000;
 u32 var8006f7a0 = 0x00000000;
 
 // 157c4
-struct inventory_function invfunc_datauplink_primary = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_special invfunc_datauplink_primary = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	0x4c8d, // name
 	0x00, // unk06
@@ -6238,11 +5905,10 @@ struct inventory_function invfunc_datauplink_primary = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00102000, // flags
+	0x0000000c,
+	0x0000001e,
+	0x00000000,
 };
-
-u32 var8006f7b8 = 0x0000000c;
-u32 var8006f7bc = 0x0000001e;
-u32 var8006f7c0 = 0x00000000;
 
 // 157e4
 struct weapon invitem_datauplink = {
@@ -6252,8 +5918,7 @@ struct weapon invitem_datauplink = {
 	invanim_datauplink_unequip, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_datauplink_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_datauplink_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -6360,8 +6025,7 @@ struct weapon invitem_grenaderound = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_devastator_shoot, // pri function
-	&invfunc_devastator_wallhugger, // sec function
+	{ &invfunc_devastator_shoot, &invfunc_devastator_wallhugger }, // functions
 	&invammo_default, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -6387,8 +6051,7 @@ struct weapon invitem_bolt = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_crossbow_shoot, // pri function
-	&invfunc_crossbow_lethal, // sec function
+	{ &invfunc_crossbow_shoot, &invfunc_crossbow_lethal }, // functions
 	&invammo_default, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -6470,9 +6133,7 @@ struct weapon invitem_explosives = {
 };
 
 // 15a84
-struct inventory_function invfunc_presidentscanner_primary = {
-	0x0000, // unk00
-	0x00, // unk02
+struct weaponfunc_visual invfunc_presidentscanner_primary = {
 	INVENTORYFUNCTYPE_VISUAL,
 	0x4c8e, // name
 	0x00, // unk06
@@ -6480,9 +6141,8 @@ struct inventory_function invfunc_presidentscanner_primary = {
 	&invmenupos_00010fd0, // menupos
 	NULL, // fire chr_do_animation
 	0x00002000, // flags
+	0x00000010,
 };
-
-u32 var8006fa78 = 0x00000010;
 
 // 15a9c
 struct weapon invitem_presidentscanner = {
@@ -6492,8 +6152,7 @@ struct weapon invitem_presidentscanner = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_presidentscanner_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_presidentscanner_primary, NULL }, // functions
 	NULL, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr
@@ -6755,38 +6414,35 @@ struct weapon invitem_keycard = {
 };
 
 // 15dbc
-struct inventory_function invfunc_rocketlauncher34_primary = {
-	0x0000, // unk00
-	0x02, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
+	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	0x4c00, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_00011048, // menupos
 	invanim_rockerlauncher_equiporshoot, // fire chr_do_animation
 	0x08000040, // flags
+	0x00000000,
+	0x00000000,
+	0x3f800000,
+	0x40c00000,
+	0x030c0f00,
+	0x40400000,
+	0x40000000,
+	0x00000000,
+	0x40800000,
+	0x04008053,
+	0x01000000,
+	0x0000011f,
+	0x00000000,
+	0x40066666,
+	0x00000014,
+	0x00000000,
+	0x00000000,
+	0xffffffff,
+	0x3d4ccccd,
+	0x80530000,
 };
-
-u32 var8006fdb0 = 0x00000000;
-u32 var8006fdb4 = 0x00000000;
-u32 var8006fdb8 = 0x3f800000;
-u32 var8006fdbc = 0x40c00000;
-u32 var8006fdc0 = 0x030c0f00;
-u32 var8006fdc4 = 0x40400000;
-u32 var8006fdc8 = 0x40000000;
-u32 var8006fdcc = 0x00000000;
-u32 var8006fdd0 = 0x40800000;
-u32 var8006fdd4 = 0x04008053;
-u32 var8006fdd8 = 0x01000000;
-u32 var8006fddc = 0x0000011f;
-u32 var8006fde0 = 0x00000000;
-u32 var8006fde4 = 0x40066666;
-u32 var8006fde8 = 0x00000014;
-u32 var8006fdec = 0x00000000;
-u32 var8006fdf0 = 0x00000000;
-u32 var8006fdf4 = 0xffffffff;
-u32 var8006fdf8 = 0x3d4ccccd;
-u32 var8006fdfc = 0x80530000;
 
 // 15e20
 struct inventory_ammo invammo_rocketlauncher34 = {
@@ -6807,8 +6463,7 @@ struct weapon invitem_rocketlauncher_34 = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_rocketlauncher34_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_rocketlauncher34_primary, NULL }, // functions
 	&invammo_rocketlauncher34, // pri ammo
 	NULL, // sec ammo
 	&inve_000135f0, // eptr
@@ -6833,29 +6488,26 @@ u32 invanim_tester_shoot[] = {
 };
 
 // 15e94
-struct inventory_function invfunc_tester_primary = {
-	0x0000, // unk00
-	0x00, // unk02
-	INVENTORYFUNCTYPE_SHOOT,
+struct weaponfunc_shootsingle invfunc_tester_primary = {
+	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	0x4c00, // name
 	0x00, // unk06
 	0, // unk07
 	&invmenupos_0001100c, // menupos
 	invanim_tester_shoot, // fire chr_do_animation
 	0x00000000, // flags
+	(u32) &invmenupos_00011070,
+	0x10000000,
+	0x3f800000,
+	0x40c00000,
+	0x04080300,
+	0x00000000,
+	0x00000000,
+	0x426fffff,
+	0x00000000,
+	0x0000804d,
+	0x01000000,
 };
-
-u32 var8006fe88 = (u32) &invmenupos_00011070;
-u32 var8006fe8c = 0x10000000;
-u32 var8006fe90 = 0x3f800000;
-u32 var8006fe94 = 0x40c00000;
-u32 var8006fe98 = 0x04080300;
-u32 var8006fe9c = 0x00000000;
-u32 var8006fea0 = 0x00000000;
-u32 var8006fea4 = 0x426fffff;
-u32 var8006fea8 = 0x00000000;
-u32 var8006feac = 0x0000804d;
-u32 var8006feb0 = 0x01000000;
 
 // 15ed4
 struct inventory_ammo invammo_tester = {
@@ -6876,8 +6528,7 @@ struct weapon invitem_tester = {
 	NULL, // unequip chr_do_animation
 	NULL, // pritosec chr_do_animation
 	NULL, // sectopri chr_do_animation
-	&invfunc_tester_primary, // pri function
-	NULL, // sec function
+	{ &invfunc_tester_primary, NULL }, // functions
 	&invammo_tester, // pri ammo
 	NULL, // sec ammo
 	&inve_000110c0, // eptr

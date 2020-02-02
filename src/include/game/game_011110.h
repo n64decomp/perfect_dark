@@ -6,7 +6,7 @@
 void func0f011110(void);
 void func0f011124(s32 value);
 u32 func0f011130(void);
-void func0f011560(s32 weapon);
+u32 func0f011560(s32 weaponnum);
 void currentPlayerInitEyespy(void);
 void currentPlayerInit(void);
 

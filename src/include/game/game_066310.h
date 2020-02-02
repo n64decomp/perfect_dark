@@ -343,7 +343,7 @@ s32 setupGetCommandLength(u32 *ptr);
 u32 func0f092004(u32 arg0);
 u32 func0f092098(struct tag *tag);
 u32 func0f092124(void);
-u32 func0f0921b4(void);
+u32 func0f0921b4(s32 modelnum);
 u32 func0f09220c(void);
 u32 func0f092304(void);
 u32 func0f09233c(void);

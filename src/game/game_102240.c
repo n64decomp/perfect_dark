@@ -3476,8 +3476,8 @@ s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value)
 
 char *func0f105864(s32 arg0)
 {
-	struct inventory_function *primaryfunc = weaponGetFunctionById(var800a21c0, 0);
-	struct inventory_function *secondaryfunc = weaponGetFunctionById(var800a21c0, 1);
+	struct weaponfunc *primaryfunc = weaponGetFunctionById(var800a21c0, 0);
+	struct weaponfunc *secondaryfunc = weaponGetFunctionById(var800a21c0, 1);
 
 	if (primaryfunc && secondaryfunc) {
 		return textGet(primaryfunc->name);
@@ -3488,8 +3488,8 @@ char *func0f105864(s32 arg0)
 
 char *func0f1058d0(s32 arg0)
 {
-	struct inventory_function *primaryfunc = weaponGetFunctionById(var800a21c0, 0);
-	struct inventory_function *secondaryfunc = weaponGetFunctionById(var800a21c0, 1);
+	struct weaponfunc *primaryfunc = weaponGetFunctionById(var800a21c0, 0);
+	struct weaponfunc *secondaryfunc = weaponGetFunctionById(var800a21c0, 1);
 
 	if (secondaryfunc) {
 		return textGet(secondaryfunc->name);
