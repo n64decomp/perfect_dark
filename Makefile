@@ -282,8 +282,8 @@ $(B_DIR)/files/%.o: $(B_DIR)/files/%
 	rm -f file.s
 
 %.o: %.c
-	python tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
-	python tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< | $(QEMU_IRIX) -silent -L $(IRIX_ROOT) $(IRIX_ROOT)/usr/bin/cc -c $(CFLAGS) tools/asmpreproc/include-stdin.c -o $@ -O2
+	/usr/bin/env python3 tools/asmpreproc/asm-processor.py -O2 $< --post-process $@ --assembler "$(TOOLCHAIN)-as -march=vr4300 -mabi=32" --asm-prelude tools/asmpreproc/prelude.s
 
 $(B_DIR)/files/%.bin: $(B_DIR)/files/%.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
