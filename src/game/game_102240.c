@@ -5,6 +5,7 @@
 #include "library/library_0d520.h"
 #include "library/library_0e9d0.h"
 #include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "types.h"

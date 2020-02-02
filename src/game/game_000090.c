@@ -4,6 +4,7 @@
 #include "game/game_000130.h"
 #include "gvars/gvars.h"
 #include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
 #include "types.h"
 
 void func0f000090(void)

@@ -4,6 +4,7 @@
 #include "math.h"
 #include "game/data/inventory.h"
 #include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "types.h"
@@ -429,268 +430,83 @@ glabel func0f011560
 /*  f01162c:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel currentPlayerInitEyespy
-/*  f011630:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f011634:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f011638:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f01163c:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f011640:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f011644:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f011648:	3c028006 */ 	lui	$v0,0x8006
-/*  f01164c:	8dcf0480 */ 	lw	$t7,0x480($t6)
-/*  f011650:	24050042 */ 	addiu	$a1,$zero,0x42
-/*  f011654:	55e000a3 */ 	bnezl	$t7,.L0f0118e4
-/*  f011658:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f01165c:	904223a0 */ 	lbu	$v0,0x23a0($v0)
-/*  f011660:	3c018006 */ 	lui	$at,0x8006
-/*  f011664:	27a60030 */ 	addiu	$a2,$sp,0x30
-/*  f011668:	00402025 */ 	or	$a0,$v0,$zero
-/*  f01166c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f011670:	305800ff */ 	andi	$t8,$v0,0xff
-/*  f011674:	03001025 */ 	or	$v0,$t8,$zero
-/*  f011678:	0fc456ac */ 	jal	padUnpack
-/*  f01167c:	a03823a0 */ 	sb	$t8,0x23a0($at)
-/*  f011680:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*  f011684:	0fc0b6eb */ 	jal	func0f02dbac
-/*  f011688:	87a5007a */ 	lh	$a1,0x7a($sp)
-/*  f01168c:	10400094 */ 	beqz	$v0,.L0f0118e0
-/*  f011690:	24040080 */ 	addiu	$a0,$zero,0x80
-/*  f011694:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f011698:	0c0048f2 */ 	jal	malloc
-/*  f01169c:	afa20084 */ 	sw	$v0,0x84($sp)
-/*  f0116a0:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f0116a4:	8fa60084 */ 	lw	$a2,0x84($sp)
-/*  f0116a8:	af220480 */ 	sw	$v0,0x480($t9)
-/*  f0116ac:	8e080284 */ 	lw	$t0,0x284($s0)
-/*  f0116b0:	8d050480 */ 	lw	$a1,0x480($t0)
-/*  f0116b4:	50a0008b */ 	beqzl	$a1,.L0f0118e4
-/*  f0116b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0116bc:	aca60000 */ 	sw	$a2,0x0($a1)
-/*  f0116c0:	8e090284 */ 	lw	$t1,0x284($s0)
-/*  f0116c4:	44800000 */ 	mtc1	$zero,$f0
-/*  f0116c8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0116cc:	8d2a0480 */ 	lw	$t2,0x480($t1)
-/*  f0116d0:	44811000 */ 	mtc1	$at,$f2
-/*  f0116d4:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f0116d8:	e5400004 */ 	swc1	$f0,0x4($t2)
-/*  f0116dc:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f0116e0:	8d6c0480 */ 	lw	$t4,0x480($t3)
-/*  f0116e4:	e5800008 */ 	swc1	$f0,0x8($t4)
-/*  f0116e8:	8e0d0284 */ 	lw	$t5,0x284($s0)
-/*  f0116ec:	8dae0480 */ 	lw	$t6,0x480($t5)
-/*  f0116f0:	e5c2000c */ 	swc1	$f2,0xc($t6)
-/*  f0116f4:	8e0f0284 */ 	lw	$t7,0x284($s0)
-/*  f0116f8:	8df80480 */ 	lw	$t8,0x480($t7)
-/*  f0116fc:	e7000010 */ 	swc1	$f0,0x10($t8)
-/*  f011700:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f011704:	8f280480 */ 	lw	$t0,0x480($t9)
-/*  f011708:	e5020014 */ 	swc1	$f2,0x14($t0)
-/*  f01170c:	8e090284 */ 	lw	$t1,0x284($s0)
-/*  f011710:	8d2a0480 */ 	lw	$t2,0x480($t1)
-/*  f011714:	e5400018 */ 	swc1	$f0,0x18($t2)
-/*  f011718:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f01171c:	8d6c0480 */ 	lw	$t4,0x480($t3)
-/*  f011720:	e580001c */ 	swc1	$f0,0x1c($t4)
-/*  f011724:	8e0d0284 */ 	lw	$t5,0x284($s0)
-/*  f011728:	8dae0480 */ 	lw	$t6,0x480($t5)
-/*  f01172c:	e5c20020 */ 	swc1	$f2,0x20($t6)
-/*  f011730:	8e0f0284 */ 	lw	$t7,0x284($s0)
-/*  f011734:	8df80480 */ 	lw	$t8,0x480($t7)
-/*  f011738:	e7000024 */ 	swc1	$f0,0x24($t8)
-/*  f01173c:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f011740:	8f280480 */ 	lw	$t0,0x480($t9)
-/*  f011744:	e5000028 */ 	swc1	$f0,0x28($t0)
-/*  f011748:	8e090284 */ 	lw	$t1,0x284($s0)
-/*  f01174c:	8d2a0480 */ 	lw	$t2,0x480($t1)
-/*  f011750:	e542002c */ 	swc1	$f2,0x2c($t2)
-/*  f011754:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f011758:	8d6c0480 */ 	lw	$t4,0x480($t3)
-/*  f01175c:	e5800030 */ 	swc1	$f0,0x30($t4)
-/*  f011760:	8e0d0284 */ 	lw	$t5,0x284($s0)
-/*  f011764:	8dae0480 */ 	lw	$t6,0x480($t5)
-/*  f011768:	240d0001 */ 	addiu	$t5,$zero,0x1
-/*  f01176c:	a1c70034 */ 	sb	$a3,0x34($t6)
-/*  f011770:	8e0f0284 */ 	lw	$t7,0x284($s0)
-/*  f011774:	8df80480 */ 	lw	$t8,0x480($t7)
-/*  f011778:	a3000035 */ 	sb	$zero,0x35($t8)
-/*  f01177c:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f011780:	8f280480 */ 	lw	$t0,0x480($t9)
-/*  f011784:	a1000037 */ 	sb	$zero,0x37($t0)
-/*  f011788:	8e090284 */ 	lw	$t1,0x284($s0)
-/*  f01178c:	8d2a0480 */ 	lw	$t2,0x480($t1)
-/*  f011790:	a1400038 */ 	sb	$zero,0x38($t2)
-/*  f011794:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f011798:	8d6c0480 */ 	lw	$t4,0x480($t3)
-/*  f01179c:	a1800039 */ 	sb	$zero,0x39($t4)
-/*  f0117a0:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f0117a4:	8dcf0480 */ 	lw	$t7,0x480($t6)
-/*  f0117a8:	a5ed003a */ 	sh	$t5,0x3a($t7)
-/*  f0117ac:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0117b0:	8f190480 */ 	lw	$t9,0x480($t8)
-/*  f0117b4:	a320003c */ 	sb	$zero,0x3c($t9)
-/*  f0117b8:	8e080284 */ 	lw	$t0,0x284($s0)
-/*  f0117bc:	8d090480 */ 	lw	$t1,0x480($t0)
-/*  f0117c0:	a127003d */ 	sb	$a3,0x3d($t1)
-/*  f0117c4:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f0117c8:	8d4b0480 */ 	lw	$t3,0x480($t2)
-/*  f0117cc:	e5600040 */ 	swc1	$f0,0x40($t3)
-/*  f0117d0:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f0117d4:	8d8e0480 */ 	lw	$t6,0x480($t4)
-/*  f0117d8:	e5c00044 */ 	swc1	$f0,0x44($t6)
-/*  f0117dc:	8e0d0284 */ 	lw	$t5,0x284($s0)
-/*  f0117e0:	8daf0480 */ 	lw	$t7,0x480($t5)
-/*  f0117e4:	e5e00048 */ 	swc1	$f0,0x48($t7)
-/*  f0117e8:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0117ec:	8f190480 */ 	lw	$t9,0x480($t8)
-/*  f0117f0:	e7200058 */ 	swc1	$f0,0x58($t9)
-/*  f0117f4:	8e080284 */ 	lw	$t0,0x284($s0)
-/*  f0117f8:	8d090480 */ 	lw	$t1,0x480($t0)
-/*  f0117fc:	e520005c */ 	swc1	$f0,0x5c($t1)
-/*  f011800:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f011804:	8d4b0480 */ 	lw	$t3,0x480($t2)
-/*  f011808:	e5600060 */ 	swc1	$f0,0x60($t3)
-/*  f01180c:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f011810:	8d8e0480 */ 	lw	$t6,0x480($t4)
-/*  f011814:	e5c00064 */ 	swc1	$f0,0x64($t6)
-/*  f011818:	8e0d0284 */ 	lw	$t5,0x284($s0)
-/*  f01181c:	8daf0480 */ 	lw	$t7,0x480($t5)
-/*  f011820:	a1e00069 */ 	sb	$zero,0x69($t7)
-/*  f011824:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f011828:	8f190480 */ 	lw	$t9,0x480($t8)
-/*  f01182c:	a320006a */ 	sb	$zero,0x6a($t9)
-/*  f011830:	8e080284 */ 	lw	$t0,0x284($s0)
-/*  f011834:	8d090480 */ 	lw	$t1,0x480($t0)
-/*  f011838:	a120006b */ 	sb	$zero,0x6b($t1)
-/*  f01183c:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f011840:	8cc20004 */ 	lw	$v0,0x4($a2)
-/*  f011844:	8d4b00bc */ 	lw	$t3,0xbc($t2)
-/*  f011848:	8d630004 */ 	lw	$v1,0x4($t3)
-/*  f01184c:	906c0125 */ 	lbu	$t4,0x125($v1)
-/*  f011850:	a04c0125 */ 	sb	$t4,0x125($v0)
-/*  f011854:	0fc59585 */ 	jal	stageGetIndex
-/*  f011858:	8e0404b4 */ 	lw	$a0,0x4b4($s0)
-/*  f01185c:	24010013 */ 	addiu	$at,$zero,0x13
-/*  f011860:	1441000d */ 	bne	$v0,$at,.L0f011898
-/*  f011864:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f011868:	8e0d0284 */ 	lw	$t5,0x284($s0)
-/*  f01186c:	3c028007 */ 	lui	$v0,%hi(g_Weapons)
-/*  f011870:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f011874:	8daf0480 */ 	lw	$t7,0x480($t5)
-/*  f011878:	2442ff18 */ 	addiu	$v0,$v0,%lo(g_Weapons)
-/*  f01187c:	24034c3d */ 	addiu	$v1,$zero,0x4c3d
-/*  f011880:	a1ee006b */ 	sb	$t6,0x6b($t7)
-/*  f011884:	8c5800b8 */ 	lw	$t8,0xb8($v0)
-/*  f011888:	a7030046 */ 	sh	$v1,0x46($t8)
-/*  f01188c:	8c5900b8 */ 	lw	$t9,0xb8($v0)
-/*  f011890:	10000013 */ 	beqz	$zero,.L0f0118e0
-/*  f011894:	a7230044 */ 	sh	$v1,0x44($t9)
-.L0f011898:
-/*  f011898:	0fc59585 */ 	jal	stageGetIndex
-/*  f01189c:	8e0404b4 */ 	lw	$a0,0x4b4($s0)
-/*  f0118a0:	24010023 */ 	addiu	$at,$zero,0x23
-/*  f0118a4:	50410007 */ 	beql	$v0,$at,.L0f0118c4
-/*  f0118a8:	8e090284 */ 	lw	$t1,0x284($s0)
-/*  f0118ac:	0fc59585 */ 	jal	stageGetIndex
-/*  f0118b0:	8e0404b4 */ 	lw	$a0,0x4b4($s0)
-/*  f0118b4:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f0118b8:	54410007 */ 	bnel	$v0,$at,.L0f0118d8
-/*  f0118bc:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f0118c0:	8e090284 */ 	lw	$t1,0x284($s0)
-.L0f0118c4:
-/*  f0118c4:	24080002 */ 	addiu	$t0,$zero,0x2
-/*  f0118c8:	8d2a0480 */ 	lw	$t2,0x480($t1)
-/*  f0118cc:	10000004 */ 	beqz	$zero,.L0f0118e0
-/*  f0118d0:	a148006b */ 	sb	$t0,0x6b($t2)
-/*  f0118d4:	8e0b0284 */ 	lw	$t3,0x284($s0)
-.L0f0118d8:
-/*  f0118d8:	8d6c0480 */ 	lw	$t4,0x480($t3)
-/*  f0118dc:	a180006b */ 	sb	$zero,0x6b($t4)
-.L0f0118e0:
-/*  f0118e0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0118e4:
-/*  f0118e4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0118e8:	27bd0088 */ 	addiu	$sp,$sp,0x88
-/*  f0118ec:	03e00008 */ 	jr	$ra
-/*  f0118f0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerInitEyespy(void)
+{
+	struct prop *prop;
+	struct pad pad;
+	struct chrdata *propchr;
+	struct chrdata *playerchr;
+	static u8 nextpad = 0;
 
-// Mismatch due to address of static data
-//void currentPlayerInitEyespy(void)
-//{
-//	struct prop *prop;
-//	struct pad pad;
-//	struct chrdata *propchr;
-//	struct chrdata *playerchr;
-//	static u8 nextpad;
-//
-//	if (g_Vars.currentplayer->eyespy == NULL) {
-//		/**
-//		 * To create the eyespy's prop, a pad must be passed to func0f02dbac.
-//		 * However the eyespy doesn't have a pad because it's held by the
-//		 * player, so it needs to choose one from the stage. The method used
-//		 * will increment the chosen pad number each time the stage is loaded
-//		 * and wrap at 256.
-//		 *
-//		 * @bug: This method means if you play G5 Building enough times then
-//		 * the camspy will start in a trigger point for the mid cutscene,
-//		 * causing the mid cutscene to play instead of the intro.
-//		 */
-//		padUnpack(nextpad++, PADFIELD_ROOM | PADFIELD_POS, &pad);
-//		prop = func0f02dbac(&pad, pad.room);
-//
-//		if (prop) {
-//			g_Vars.currentplayer->eyespy = malloc(sizeof(struct eyespy), 4);
-//
-//			if (g_Vars.currentplayer->eyespy) {
-//				g_Vars.currentplayer->eyespy->prop = prop;
-//				g_Vars.currentplayer->eyespy->look.x = 0;
-//				g_Vars.currentplayer->eyespy->look.y = 0;
-//				g_Vars.currentplayer->eyespy->look.z = 1;
-//				g_Vars.currentplayer->eyespy->up.x = 0;
-//				g_Vars.currentplayer->eyespy->up.y = 1;
-//				g_Vars.currentplayer->eyespy->up.z = 0;
-//				g_Vars.currentplayer->eyespy->theta = 0;
-//				g_Vars.currentplayer->eyespy->costheta = 1;
-//				g_Vars.currentplayer->eyespy->sintheta = 0;
-//				g_Vars.currentplayer->eyespy->verta = 0;
-//				g_Vars.currentplayer->eyespy->cosverta = 1;
-//				g_Vars.currentplayer->eyespy->sinverta = 0;
-//				g_Vars.currentplayer->eyespy->init = true;
-//				g_Vars.currentplayer->eyespy->initialised = false;
-//				g_Vars.currentplayer->eyespy->active = false;
-//				g_Vars.currentplayer->eyespy->buttonheld = false;
-//				g_Vars.currentplayer->eyespy->camerabuttonheld = false;
-//				g_Vars.currentplayer->eyespy->bobdir = 1;
-//				g_Vars.currentplayer->eyespy->bobtimer = 0;
-//				g_Vars.currentplayer->eyespy->bobactive = true;
-//				g_Vars.currentplayer->eyespy->vel.x = 0;
-//				g_Vars.currentplayer->eyespy->vel.y = 0;
-//				g_Vars.currentplayer->eyespy->vel.z = 0;
-//				g_Vars.currentplayer->eyespy->speed = 0;
-//				g_Vars.currentplayer->eyespy->oldground = 0;
-//				g_Vars.currentplayer->eyespy->height = 0;
-//				g_Vars.currentplayer->eyespy->gravity = 0;
-//				g_Vars.currentplayer->eyespy->hit = false;
-//				g_Vars.currentplayer->eyespy->opendoor = false;
-//				g_Vars.currentplayer->eyespy->mode = EYESPYMODE_CAMSPY;
-//				propchr = prop->chr;
-//				playerchr = g_Vars.currentplayer->prop->chr;
-//				propchr->team = playerchr->team;
-//
-//				if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
-//					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_DRUGSPY;
-//					g_Weapons[WEAPON_CAMSPY]->name = 0x4c3d; // "DrugSpy"
-//					g_Weapons[WEAPON_CAMSPY]->shortname = 0x4c3d; // "DrugSpy"
-//				} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR || stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO) {
-//					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_BOMBSPY;
-//				} else {
-//					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_CAMSPY;
-//				}
-//			}
-//		}
-//	}
-//}
+	if (g_Vars.currentplayer->eyespy == NULL) {
+		/**
+		 * To create the eyespy's prop, a pad must be passed to func0f02dbac.
+		 * However the eyespy doesn't have a pad because it's held by the
+		 * player, so it needs to choose one from the stage. The method used
+		 * will increment the chosen pad number each time the stage is loaded
+		 * and wrap at 256.
+		 *
+		 * @bug: This method means if you play G5 Building enough times then
+		 * the camspy will start in a trigger point for the mid cutscene,
+		 * causing the mid cutscene to play instead of the intro.
+		 */
+		padUnpack(nextpad++, PADFIELD_ROOM | PADFIELD_POS, &pad);
+		prop = func0f02dbac(&pad, pad.room);
+
+		if (prop) {
+			g_Vars.currentplayer->eyespy = malloc(sizeof(struct eyespy), 4);
+
+			if (g_Vars.currentplayer->eyespy) {
+				g_Vars.currentplayer->eyespy->prop = prop;
+				g_Vars.currentplayer->eyespy->look.x = 0;
+				g_Vars.currentplayer->eyespy->look.y = 0;
+				g_Vars.currentplayer->eyespy->look.z = 1;
+				g_Vars.currentplayer->eyespy->up.x = 0;
+				g_Vars.currentplayer->eyespy->up.y = 1;
+				g_Vars.currentplayer->eyespy->up.z = 0;
+				g_Vars.currentplayer->eyespy->theta = 0;
+				g_Vars.currentplayer->eyespy->costheta = 1;
+				g_Vars.currentplayer->eyespy->sintheta = 0;
+				g_Vars.currentplayer->eyespy->verta = 0;
+				g_Vars.currentplayer->eyespy->cosverta = 1;
+				g_Vars.currentplayer->eyespy->sinverta = 0;
+				g_Vars.currentplayer->eyespy->init = true;
+				g_Vars.currentplayer->eyespy->initialised = false;
+				g_Vars.currentplayer->eyespy->active = false;
+				g_Vars.currentplayer->eyespy->buttonheld = false;
+				g_Vars.currentplayer->eyespy->camerabuttonheld = false;
+				g_Vars.currentplayer->eyespy->bobdir = 1;
+				g_Vars.currentplayer->eyespy->bobtimer = 0;
+				g_Vars.currentplayer->eyespy->bobactive = true;
+				g_Vars.currentplayer->eyespy->vel.x = 0;
+				g_Vars.currentplayer->eyespy->vel.y = 0;
+				g_Vars.currentplayer->eyespy->vel.z = 0;
+				g_Vars.currentplayer->eyespy->speed = 0;
+				g_Vars.currentplayer->eyespy->oldground = 0;
+				g_Vars.currentplayer->eyespy->height = 0;
+				g_Vars.currentplayer->eyespy->gravity = 0;
+				g_Vars.currentplayer->eyespy->hit = false;
+				g_Vars.currentplayer->eyespy->opendoor = false;
+				g_Vars.currentplayer->eyespy->mode = EYESPYMODE_CAMSPY;
+				propchr = prop->chr;
+				playerchr = g_Vars.currentplayer->prop->chr;
+				propchr->team = playerchr->team;
+
+				if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_DRUGSPY;
+					g_Weapons[WEAPON_CAMSPY]->name = 0x4c3d; // "DrugSpy"
+					g_Weapons[WEAPON_CAMSPY]->shortname = 0x4c3d; // "DrugSpy"
+				} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR || stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO) {
+					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_BOMBSPY;
+				} else {
+					g_Vars.currentplayer->eyespy->mode = EYESPYMODE_CAMSPY;
+				}
+			}
+		}
+	}
+}
+
+struct coord var800623a4 = {0, 0, 0};
 
 GLOBAL_ASM(
 glabel currentPlayerInit

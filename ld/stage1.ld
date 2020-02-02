@@ -319,12 +319,6 @@ SECTIONS
 
 	.gamedata 0x80059fe0 : AT(__rompos) {
 		src/game/data/data_000000.o (.data);
-		src/game/data/inventory.o (.data);
-		src/game/data/data_0160b0.o (.data);
-		src/game/data/cheats.o (.data);
-		src/game/data/data_01a3a0.o (.data);
-		src/game/data/ailists.o (.data);
-		src/game/data/data_020df0.o (.data);
 
 		src/game/game_000000.o (.data);
 		src/game/game_000090.o (.data);
@@ -346,6 +340,15 @@ SECTIONS
 		src/game/game_00c490.o (.data);
 		src/game/game_0109d0.o (.data);
 		src/game/game_011110.o (.data);
+
+		src/game/data/data_0083d0.o (.data);
+		src/game/data/inventory.o (.data);
+		src/game/data/data_0160b0.o (.data);
+		src/game/data/cheats.o (.data);
+		src/game/data/data_01a3a0.o (.data);
+		src/game/data/ailists.o (.data);
+		src/game/data/data_020df0.o (.data);
+
 		src/game/game_012450.o (.data);
 		src/game/game_0125a0.o (.data);
 		src/game/game_013260.o (.data);
