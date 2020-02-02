@@ -1838,7 +1838,7 @@ u8 func0404_sniper[] = {
 
 		label(0x10)
 			// 4 in 255 chance of looking around,
-			// and the chr_do_animation used is random too.
+			// and the animation used is random too.
 			call_rng
 			if_rand_gt(3, /*goto*/ 0x0b)
 			call_rng

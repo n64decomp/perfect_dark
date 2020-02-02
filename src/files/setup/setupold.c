@@ -41,7 +41,7 @@ struct path paths[] = {
 
 /**
  * Some kind of camera movement test? When you press a button it jumps forward
- * to the next camera chr_do_animation rather than ending the cutscene.
+ * to the next camera animation rather than ending the cutscene.
  */
 u8 func0c00_017c[] = {
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)

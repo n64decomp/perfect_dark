@@ -1877,7 +1877,7 @@ u8 func040a_tech2[] = {
 
 		// @bug: Duplicate label. I suspect the goto first 0x21 below is
 		// supposed to go here. The only possible side effect is the tech may
-		// restart his chr_do_animation repeatedly.
+		// restart his animation repeatedly.
 		label(0x21)
 		yield
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x20)

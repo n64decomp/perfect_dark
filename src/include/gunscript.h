@@ -38,8 +38,8 @@
 	0x09000000 | unk1, \
 	0,
 
-#define gunscript_playanimation(chr_do_animation, direction, speed) \
-	0x0a000000 | chr_do_animation, \
+#define gunscript_playanimation(animation, direction, speed) \
+	0x0a000000 | animation, \
 	(direction << 16) | speed,
 
 #define gunscript_setsoundspeed(keyframe, speed) \

@@ -872,11 +872,11 @@ u8 func0c01_outro[] = {
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
 	chr_do_animation(0x01a3, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
 
-	#define show_object_with_animation(object, chr_do_animation) \
+	#define show_object_with_animation(object, animation) \
 		show_object(object) \
 		set_object_flag2(object, OBJFLAG2_04000000) \
 		set_object_flag3(object, OBJFLAG3_00000010) \
-		object_do_animation(chr_do_animation, object, 0x04ff, 0xff)
+		object_do_animation(animation, object, 0x04ff, 0xff)
 
 
 

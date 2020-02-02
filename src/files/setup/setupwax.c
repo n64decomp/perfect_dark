@@ -1350,7 +1350,7 @@ u8 func0411_cass_in_office[] = {
 		label(0x2c)
 		try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0x82)
 
-		// Wait until shooting chr_do_animation finished
+		// Wait until shooting animation finished
 		beginloop(0x82)
 			if_chr_stopped(/*goto*/ 0x06)
 		endloop(0x82)
@@ -1380,7 +1380,7 @@ u8 func0413_cass_running[] = {
 	if_just_injured(CHR_SELF, /*goto*/ 0xb5)
 	goto_next(0xb1)
 
-	// Shot/hurt - wait until chr_do_animation finished
+	// Shot/hurt - wait until animation finished
 	beginloop(0xb5)
 		if_chr_stopped(/*goto*/ 0xb1)
 	endloop(0xb5)
@@ -2120,7 +2120,7 @@ u8 func1011_shuttle_animation[] = {
 	label(0x09)
 	restart_timer
 
-	// Some kind of chr_do_animation on repeat
+	// Some kind of animation on repeat
 	beginloop(0x08)
 		object_do_animation(0x0489, OBJ_SHUTTLE1, 0x08ff, -1)
 	endloop(0x08)

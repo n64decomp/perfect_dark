@@ -478,11 +478,11 @@ s32 path13[] = {
 	-1,
 };
 
-#define chicago_car_do_animation(object, chr_do_animation) \
+#define chicago_car_do_animation(object, animation) \
 	show_object(object) \
 	set_object_flag2(object, OBJFLAG2_04000000) \
 	set_object_flag3(object, OBJFLAG3_00000010) \
-	object_do_animation(chr_do_animation, object, 0x04ff, 0xff)
+	object_do_animation(animation, object, 0x04ff, 0xff)
 
 
 
@@ -1639,7 +1639,7 @@ u8 func0413_bugspotter[] = {
 	set_stage_flag(STAGEFLAG_TRACERBUG_SPOTTED)
 	message(CHR_BOND, 0x3243) // "Tracer Bug has been spotted."
 
-	// Wait for talking chr_do_animation to finish
+	// Wait for talking animation to finish
 	beginloop(0x05)
 		if_stage_flag_eq(STAGEFLAG_LIMO_READY_TO_LEAVE, TRUE, /*goto*/ LABEL_RUN_AWAY)
 		if_stage_flag_eq(STAGEFLAG_TAXI_READY_TO_CRASH, TRUE, /*goto*/ LABEL_RUN_AWAY)
@@ -1804,7 +1804,7 @@ u8 func041d_fbi[] = {
 	label(0x03)
 	if_num_times_shot_lt(1, /*goto*/ 0x19)
 
-	// Shot - wait for chr_do_animation to finish
+	// Shot - wait for animation to finish
 	beginloop(0x05)
 		if_chr_stopped(/*goto*/ 0x04)
 	endloop(0x05)
@@ -3069,7 +3069,7 @@ u8 func1020_elevator_doors[] = {
 };
 
 /**
- * Guard at top stairs: Turn off special death chr_do_animation if he's moved away from
+ * Guard at top stairs: Turn off special death animation if he's moved away from
  * his pad or if Jo has climbed the staircase.
  */
 u8 func1021_check_topstairs_guy[] = {

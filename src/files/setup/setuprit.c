@@ -1469,7 +1469,7 @@ u8 func0404_president_running[] = {
 		if_chr_stopped(/*goto*/ 0x55)
 	endloop(0x56)
 
-	// Not injured, or injury chr_do_animation finished
+	// Not injured, or injury animation finished
 	label(0x55)
 	stop_chr
 	restart_timer

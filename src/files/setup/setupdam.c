@@ -2485,7 +2485,7 @@ u8 func0415_elvis_at_start[] = {
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x07)
 
-	// 50% chance of doing an idle chr_do_animation
+	// 50% chance of doing an idle animation
 	call_rng
 	if_rand_lt(64, /*goto*/ 0x44)
 	if_rand_lt(128, /*goto*/ 0x45)

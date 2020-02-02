@@ -578,7 +578,7 @@ u8 func041e_colleague[] = {
 		chr_do_animation(0x0227, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 		reloop(0x04)
 
-		// Player not in sight - 2 in 255 chance of doing a bored chr_do_animation
+		// Player not in sight - 2 in 255 chance of doing a bored animation
 		label(0x7f)
 		call_rng
 		if_rand_gt(1, /*goto*/ 0x06)

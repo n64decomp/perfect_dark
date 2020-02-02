@@ -3056,7 +3056,7 @@ u8 func1017_msg_skedararmy[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, 0x4220, 0x73e2, CHANNEL_6, COLOR_09_BLUE) // "OH, NO!!! A Skedar army in suspended chr_do_animation!"
+	speak(CHR_P1P2, 0x4220, 0x73e2, CHANNEL_6, COLOR_09_BLUE) // "OH, NO!!! A Skedar army in suspended animation!"
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

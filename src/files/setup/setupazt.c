@@ -1171,7 +1171,7 @@ u8 func0404_elvis[] = {
 	call_rng
 	if_rand_gt(128, /*goto*/ 0x31)
 
-	// 50% chance of doing look around chr_do_animation
+	// 50% chance of doing look around animation
 	call_rng
 	if_rand_lt(64, /*goto*/ 0x99)
 	if_rand_lt(128, /*goto*/ 0x9a)

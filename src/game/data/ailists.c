@@ -111,8 +111,8 @@ u8 func0006_unalerted[] = {
 	label(0x14)
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_04000000)
 
-	// Stop chr, either immediately or by waiting for their chr_do_animation to end.
-	// I think the chr_do_animation is their injured chr_do_animation.
+	// Stop chr, either immediately or by waiting for their animation to end.
+	// I think the animation is their injured animation.
 	label(0x13)
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	if_chr_idle(/*goto*/ 0x13)
@@ -760,7 +760,7 @@ u8 func0006_unalerted[] = {
 	label(0x13)
 	set_ailist(CHR_SELF, GAILIST_WAKEUP)
 
-	// Wait until chr finished chr_do_animation, then become alert.
+	// Wait until chr finished animation, then become alert.
 	// Used when standing up from sitting.
 	label(0x0c)
 	dprint 'G','O','T',' ','W','A','T','\n',0,
@@ -789,7 +789,7 @@ u8 func0008_wakeup[] = {
 	set_returnlist(CHR_SELF, GAILIST_INIT_PSYCHOSIS)
 	set_ailist(CHR_SELF, GAILIST_INIT_PSYCHOSIS)
 
-	// Unset special death chr_do_animation if no longer idle
+	// Unset special death animation if no longer idle
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x13)
 	set_chr_special_death_animation(CHR_SELF, 0)
@@ -828,7 +828,7 @@ u8 func0008_wakeup[] = {
 	label(0x16)
 	object_do_animation(0x027b, 0xff, 0x02ff, 0xff)
 
-	// Wait for stand up chr_do_animation to finish
+	// Wait for stand up animation to finish
 	label(0x0c)
 	dprint 'G','O','T',' ','W','A','T','\n',0,
 	yield
@@ -861,7 +861,7 @@ u8 func0007_alerted[] = {
 	set_returnlist(CHR_SELF, GAILIST_INIT_PSYCHOSIS)
 	set_ailist(CHR_SELF, GAILIST_INIT_PSYCHOSIS)
 
-	// If doing idle chr_do_animation, turn off special death chr_do_animation
+	// If doing idle animation, turn off special death animation
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x13)
 	set_chr_special_death_animation(CHR_SELF, 0)
@@ -925,7 +925,7 @@ u8 func0007_alerted[] = {
 	dprint 'C','H','E','C','K','I','N','J','U','R','Y','\n',0,
 
 	// Say an injury quip if we haven't already, then wait up to 3 seconds for
-	// the chr to have finished their injury chr_do_animation
+	// the chr to have finished their injury animation
 	beginloop(0x1d)
 		if_self_flag_bankx_eq(CHRFLAG0_SAID_INJURY_QUIP, TRUE, BANK_0, /*goto*/ 0x16)
 		if_num_times_shot_lt(1, /*goto*/ 0x16)
@@ -2807,7 +2807,7 @@ u8 func000b_choose_target_chr[] = {
 u8 func000d_init_combat[] = {
 	set_shotlist(GAILIST_COMBAT_WITH_TARGET)
 
-	// If not idle, turn off special death chr_do_animation
+	// If not idle, turn off special death animation
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x13)
 	set_chr_special_death_animation(CHR_SELF, 0)
 
@@ -3670,7 +3670,7 @@ u8 func001e_look_around[] = {
 	chr_do_animation(ANIM_LOOK_AROUND_025D, 0, 183, 0x18, 0x10, CHR_SELF, 2)
 	goto_next(0x16)
 
-	// @bug: Shows grab crotch chr_do_animation when wanting to look around instead.
+	// @bug: Shows grab crotch animation when wanting to look around instead.
 	// Probably a copy/paste error from previous function.
 	label(0x13)
 	if_rand_gt(200, /*goto*/ 0x13)
@@ -4225,7 +4225,7 @@ u8 func001b_observe_camspy[] = {
 	label(0x16)
 	try_aim_and_shoot_thing2(0x0200, 0x0000, /*goto*/ 0xc3)
 
-	// Wait until shooting chr_do_animation done
+	// Wait until shooting animation done
 	beginloop(0xc3)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0xc3)
@@ -5155,7 +5155,7 @@ u8 func0026_init_psychosis[] = {
 	yield
 	chr_do_animation(ANIM_BIG_SNEEZE, -1, -1, 0x10, 0x14, CHR_SELF, 2)
 
-	// Wait for chr_do_animation to finish
+	// Wait for animation to finish
 	beginloop(0x03)
 		if_chr_stopped(/*goto*/ 0x16)
 	endloop(0x03)

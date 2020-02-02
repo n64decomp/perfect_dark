@@ -262,7 +262,7 @@
 #define CHRFLAG1_00000004                  0x00000004 // Globals - If set, avoids cmd0184
 #define CHRFLAG1_00000008                  0x00000008 // Only used in WAR. If set, chr waits 2 seconds before attacking while defending
 #define CHRFLAG1_00000010                  0x00000010 // Globals - If set, avoids cmd0184
-#define CHRFLAG1_00000020                  0x00000020 // Globals, AF1, Defense - related to reload chr_do_animation
+#define CHRFLAG1_00000020                  0x00000020 // Globals, AF1, Defense - related to reload animation
 #define CHRFLAG1_CAN_SNIPE                 0x00000040
 #define CHRFLAG1_00000080                  0x00000080 // Not used in scripts
 #define CHRFLAG1_DOINGIDLEANIMATION        0x00000100
@@ -332,7 +332,7 @@
 #define CHRCFLAG_INVINCIBLE_TO_GUNFIRE       0x00000010
 #define CHRCFLAG_00000020                    0x00000020 // Chicago, Infiltration, AF1, Ruins, WAR
 #define CHRCFLAG_00000040                    0x00000040 // Used quite a lot
-#define CHRCFLAG_00000080                    0x00000080 // Defection programmer, Rescue lab techs, globals when doing idle chr_do_animation
+#define CHRCFLAG_00000080                    0x00000080 // Defection programmer, Rescue lab techs, globals when doing idle animation
 #define CHRCFLAG_JUST_INJURED                0x00000100
 #define CHRCFLAG_00000200                    0x00000200 // Set on clones
 #define CHRCFLAG_HIDDEN                      0x00000400

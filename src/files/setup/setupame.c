@@ -1018,7 +1018,7 @@ s32 path29[] = {
  * @unused
  */
 u8 func0401_do_some_animation[] = {
-	// Do some chr_do_animation
+	// Do some animation
 	restart_timer
 	chr_do_animation(0x0066, 0, 1, 0x04, 0x10, CHR_SELF, 2)
 
