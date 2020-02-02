@@ -1,5 +1,5 @@
-#ifndef IN_SETUP_020DF0_H
-#define IN_SETUP_020DF0_H
+#ifndef IN_GAME_DATA_020DF0_H
+#define IN_GAME_DATA_020DF0_H
 #include <ultra64.h>
 
 extern struct menu_dialog menudialog_2a800;

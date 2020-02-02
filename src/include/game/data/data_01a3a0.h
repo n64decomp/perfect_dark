@@ -1,5 +1,5 @@
-#ifndef IN_SETUP_01A3A0_H
-#define IN_SETUP_01A3A0_H
+#ifndef IN_GAME_DATA_01A3A0_H
+#define IN_GAME_DATA_01A3A0_H
 #include <ultra64.h>
 
 extern u16 iomessages[];

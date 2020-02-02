@@ -1,9 +1,9 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "gvars/gvars.h"
-#include "setup/setup_000000.h"
-#include "setup/setup_0160b0.h"
-#include "setup/setup_020df0.h"
+#include "game/data/data_000000.h"
+#include "game/data/data_0160b0.h"
+#include "game/data/data_020df0.h"
 #include "types.h"
 
 /**

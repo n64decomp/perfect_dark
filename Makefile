@@ -95,10 +95,10 @@ UCODE_BIN_FILES := \
 	$(B_DIR)/ucode/boot.bin \
 	$(B_DIR)/ucode/filenames.bin \
 	$(B_DIR)/ucode/game.bin \
+	$(B_DIR)/ucode/gamedata.bin \
 	$(B_DIR)/ucode/gvars.bin \
 	$(B_DIR)/ucode/library.bin \
-	$(B_DIR)/ucode/inflate.bin \
-	$(B_DIR)/ucode/setup.bin
+	$(B_DIR)/ucode/inflate.bin
 
 default: all
 
@@ -229,13 +229,13 @@ $(B_DIR)/ucode/library.bin: $(B_DIR)/stage1.bin
 library: $(B_DIR)/ucode/library.bin
 
 ################################################################################
-# Game setup file
+# Game data file
 
-$(B_DIR)/ucode/setup.bin: $(B_DIR)/stage1.bin
+$(B_DIR)/ucode/gamedata.bin: $(B_DIR)/stage1.bin
 	mkdir -p $(B_DIR)/ucode
-	B_DIR=$(B_DIR) tools/extract-segment setup
+	B_DIR=$(B_DIR) tools/extract-segment gamedata
 
-setup: $(B_DIR)/ucode/setup.bin
+setup: $(B_DIR)/ucode/gamedata.bin
 
 ################################################################################
 # Inflate
@@ -320,4 +320,4 @@ clean:
 
 binclean:
 	rm -f build/ntsc-final/ucode/*.bin
-	find src/{boot,game,gvars,library,inflate,setup} -name '*.o' -delete
+	find src/{boot,game,gamedata,gvars,library,inflate} -name '*.o' -delete

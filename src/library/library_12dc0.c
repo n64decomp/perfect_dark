@@ -5,7 +5,7 @@
 #include "library/library_2fa00.h"
 #include "library/library_4a5e0.h"
 #include "library/library_4e530.h"
-#include "setup/setup_000000.h"
+#include "game/data/data_000000.h"
 
 const u32 var70053ff0[] = {0x00000000};
 const char var70053ff4[] = "-d";

@@ -8,7 +8,7 @@
 #include "game/game_176d70.h"
 #include "game/game_1a3340.h"
 #include "gvars/gvars.h"
-#include "setup/cheats.h"
+#include "game/data/cheats.h"
 #include "stagesetup.h"
 #include "types.h"
 

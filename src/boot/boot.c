@@ -1,5 +1,5 @@
 #include <ultra64.h>
-#include "setup/setup_000000.h"
+#include "game/data/data_000000.h"
 #include "gvars/gvars.h"
 
 GLOBAL_ASM(
@@ -463,41 +463,41 @@ glabel func00001634
 /*     166c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-extern void *setupSegmentStart;
+extern void *_gamedataSegmentStart;
 
 // func00001670
 void *getSetupRamAddr(void)
 {
-	return &setupSegmentStart;
+	return &_gamedataSegmentStart;
 }
 
-extern void *setupSegmentRomStart;
+extern void *_gamedataSegmentRomStart;
 
 // func0000167c
 void *getSetupRomAddr(void)
 {
-	return &setupSegmentRomStart;
+	return &_gamedataSegmentRomStart;
 }
 
-extern void *inflateSegmentRomStart;
+extern void *_inflateSegmentRomStart;
 
 // func0001688
 void *getInflateRomAddr(void)
 {
-	return &inflateSegmentRomStart;
+	return &_inflateSegmentRomStart;
 }
 
 // func0001694
 void *getInflateRomAddr2(void)
 {
-	return &inflateSegmentRomStart;
+	return &_inflateSegmentRomStart;
 }
 
-extern void *ziplistSegmentRomStart;
+extern void *_ziplistSegmentRomStart;
 
 void *getZiplistSegmentRomstart(void)
 {
-	return &ziplistSegmentRomStart;
+	return &_ziplistSegmentRomStart;
 }
 
 GLOBAL_ASM(

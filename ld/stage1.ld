@@ -12,10 +12,10 @@ OUTPUT_ARCH (mips)
 
 SECTIONS
 {
-	setupSegmentStart = 0x80059fe0;
-	setupSegmentRomStart = 0x39850;
-	inflateSegmentRomStart = 0x4e850;
-	ziplistSegmentRomStart = 0x4fc40;
+	_gamedataSegmentStart = 0x80059fe0;
+	_gamedataSegmentRomStart = 0x39850;
+	_inflateSegmentRomStart = 0x4e850;
+	_ziplistSegmentRomStart = 0x4fc40;
 
 	_antipiracyUncloakWriteAddress = 0x7002a324;
 
@@ -317,16 +317,105 @@ SECTIONS
 	}
 	__rompos += SIZEOF(.library);
 
-	.setup 0x80059fe0 : AT(__rompos) {
-		src/setup/setup_000000.o (.data);
-		src/setup/inventory.o (.data);
-		src/setup/setup_0160b0.o (.data);
-		src/setup/cheats.o (.data);
-		src/setup/setup_01a3a0.o (.data);
-		src/setup/ailists.o (.data);
-		src/setup/setup_020df0.o (.data);
+	.gamedata 0x80059fe0 : AT(__rompos) {
+		src/game/data/data_000000.o (.data);
+		src/game/data/inventory.o (.data);
+		src/game/data/data_0160b0.o (.data);
+		src/game/data/cheats.o (.data);
+		src/game/data/data_01a3a0.o (.data);
+		src/game/data/ailists.o (.data);
+		src/game/data/data_020df0.o (.data);
+
+		src/game/game_000000.o (.data);
+		src/game/game_000090.o (.data);
+		src/game/game_000130.o (.data);
+		src/game/game_000850.o (.data);
+		src/game/game_000860.o (.data);
+		src/game/game_000870.o (.data);
+		src/game/game_000880.o (.data);
+		src/game/game_0008e0.o (.data);
+		src/game/game_0008f0.o (.data);
+		src/game/game_000900.o (.data);
+		src/game/game_000910.o (.data);
+		src/game/game_000920.o (.data);
+		src/game/game_005fd0.o (.data);
+		src/game/game_00b190.o (.data);
+		src/game/game_00b200.o (.data);
+		src/game/game_00b820.o (.data);
+		src/game/game_00c240.o (.data);
+		src/game/game_00c490.o (.data);
+		src/game/game_0109d0.o (.data);
+		src/game/game_011110.o (.data);
+		src/game/game_012450.o (.data);
+		src/game/game_0125a0.o (.data);
+		src/game/game_013260.o (.data);
+		src/game/game_013540.o (.data);
+		src/game/game_014f10.o (.data);
+		src/game/game_015010.o (.data);
+		src/game/game_0150a0.o (.data);
+		src/game/game_015260.o (.data);
+		src/game/game_015270.o (.data);
+		src/game/game_015280.o (.data);
+		src/game/game_015400.o (.data);
+		src/game/game_015410.o (.data);
+		src/game/game_015420.o (.data);
+		src/game/game_015470.o (.data);
+		src/game/game_01d860.o (.data);
+		src/game/game_01d9f0.o (.data);
+		src/game/chr/chr.o (.data);
+		src/game/chr/chrai.o (.data);
+		src/game/chr/chraicommands.o (.data);
+		src/game/game_0601b0.o (.data);
+		src/game/game_066310.o (.data);
+		src/game/game_096750.o (.data);
+		src/game/game_097890.o (.data);
+		src/game/game_097970.o (.data);
+		src/game/game_097a50.o (.data);
+		src/game/game_0abe70.o (.data);
+		src/game/game_0b0420.o (.data);
+		src/game/game_0b2150.o (.data);
+		src/game/game_0b28d0.o (.data);
+		src/game/game_0c3620.o (.data);
+		src/game/game_0c37d0.o (.data);
+		src/game/game_0c79f0.o (.data);
+		src/game/game_0cf150.o (.data);
+		src/game/game_0d1fe0.o (.data);
+		src/game/game_0d4690.o (.data);
+		src/game/game_0dcdb0.o (.data);
+		src/game/game_0f09f0.o (.data);
+		src/game/game_102240.o (.data);
+		src/game/cheats.o (.data);
+		src/game/game_107fb0.o (.data);
+		src/game/game_10ccd0.o (.data);
+		src/game/game_111600.o (.data);
+		src/game/game_113220.o (.data);
+		src/game/game_114240.o (.data);
+		src/game/pad.o (.data);
+		src/game/game_1165d0.o (.data);
+		src/game/game_11ecf0.o (.data);
+		src/game/game_128f30.o (.data);
+		src/game/game_129900.o (.data);
+		src/game/game_150820.o (.data);
+		src/game/pdoptions.o (.data);
+		src/game/game_152fa0.o (.data);
+		src/game/game_157db0.o (.data);
+		src/game/game_165670.o (.data);
+		src/game/game_1668e0.o (.data);
+		src/game/game_16cfa0.o (.data);
+		src/game/game_16e810.o (.data);
+		src/game/game_175f50.o (.data);
+		src/game/game_175f90.o (.data);
+		src/game/game_176000.o (.data);
+		src/game/game_176080.o (.data);
+		src/game/game_176d70.o (.data);
+		src/game/game_187770.o (.data);
+		src/game/game_197600.o (.data);
+		src/game/game_1999b0.o (.data);
+		src/game/game_19c990.o (.data);
+		src/game/game_1a3340.o (.data);
+		src/game/game_1a78b0.o (.data);
 	}
-	__rompos += SIZEOF(.setup);
+	__rompos += SIZEOF(.gamedata);
 
 	.gvars 0x8008ae20 : AT(__rompos) {
 		src/gvars/gvars.o (.data);

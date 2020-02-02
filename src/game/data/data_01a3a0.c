@@ -8,9 +8,9 @@
 #include "game/game_176d70.h"
 #include "game/game_1a3340.h"
 #include "gvars/gvars.h"
-#include "setup/setup_0160b0.h"
-#include "setup/setup_0160b0.h"
-#include "setup/setup_020df0.h"
+#include "game/data/data_0160b0.h"
+#include "game/data/data_0160b0.h"
+#include "game/data/data_020df0.h"
 #include "stagesetup.h"
 #include "types.h"
 

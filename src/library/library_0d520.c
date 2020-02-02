@@ -56,7 +56,7 @@
 #include "library/library_48650.h"
 #include "library/library_48b20.h"
 #include "library/library_4b480.h"
-#include "setup/setup_000000.h"
+#include "game/data/data_000000.h"
 
 const char var70052ca0[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
 const char var70052cc4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";

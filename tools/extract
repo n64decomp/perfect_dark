@@ -26,14 +26,14 @@ class Extractor:
         self.rom = fd.read()
         fd.close()
 
-        self.setup = self.decompress(self.rom[self.val('setup'):])
+        self.gamedata = self.decompress(self.rom[self.val('gamedata'):])
         self.extract_all()
 
     def extract_all(self):
         self.extract_audio()
         self.extract_files()
         self.extract_fonts()
-        self.extract_globals()
+        self.extract_gamedata()
         self.extract_textures()
         self.extract_ucodes()
 
@@ -122,7 +122,7 @@ class Extractor:
         i = self.val('files')
         offsets = []
         while True:
-            offset = int.from_bytes(self.setup[i:i+4], 'big')
+            offset = int.from_bytes(self.gamedata[i:i+4], 'big')
             if offset == 0 and len(offsets):
                 return offsets
             offsets.append(offset)
@@ -151,11 +151,11 @@ class Extractor:
         pass
 
     #
-    # Globals
+    # Game data
     #
 
-    def extract_globals(self):
-        self.write('ucode/setup.bin', self.setup)
+    def extract_gamedata(self):
+        self.write('ucode/gamedata.bin', self.gamedata)
 
     #
     # Textures
@@ -227,37 +227,37 @@ class Extractor:
         'ntsc-final': {
             'game': 0x4fc40,
             'files': 0x28080,
-            'setup': 0x39850,
+            'gamedata': 0x39850,
             'sfxctl': 0x80a250,
         },
         'ntsc-1.0': {
             'game': 0x4fc40,
             'files': 0x28080,
-            'setup': 0x39850,
+            'gamedata': 0x39850,
             'sfxctl': 0x80a250,
         },
         'ntsc-beta': {
             'game': 0x43c40,
             'files': 0x29160,
-            'setup': 0x30850,
+            'gamedata': 0x30850,
             'sfxctl': 0x7be940,
         },
         'pal-final': {
             'game': 0x4fc40,
             'files': 0x28910,
-            'setup': 0x39850,
+            'gamedata': 0x39850,
             'sfxctl': 0x7f87e0,
         },
         'pal-beta': {
             'game': 0x4fc40,
             'files': 0x29b90,
-            'setup': 0x39850,
+            'gamedata': 0x39850,
             'sfxctl': 0x7f87e0,
         },
         'jap-final': {
             'game': 0x4fc40,
             'files': 0x28800,
-            'setup': 0x39850,
+            'gamedata': 0x39850,
             'sfxctl': 0x7fc670,
         },
     }

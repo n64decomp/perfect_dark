@@ -3,7 +3,7 @@
 #include "game/chr/chr.h"
 #include "game/game_000130.h"
 #include "gvars/gvars.h"
-#include "setup/setup_000000.h"
+#include "game/data/data_000000.h"
 #include "types.h"
 
 void func0f000090(void)

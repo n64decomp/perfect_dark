@@ -1,5 +1,5 @@
-#ifndef IN_SETUP_CHEATS_H
-#define IN_SETUP_CHEATS_H
+#ifndef IN_GAME_DATA_CHEATS_H
+#define IN_GAME_DATA_CHEATS_H
 #include <ultra64.h>
 
 extern struct cheat g_Cheats[NUM_CHEATS];

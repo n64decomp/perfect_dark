@@ -1,5 +1,5 @@
-#ifndef IN_SETUP_000000_H
-#define IN_SETUP_000000_H
+#ifndef IN_GAME_DATA_000000_H
+#define IN_GAME_DATA_000000_H
 #include <ultra64.h>
 #include "types.h"
 

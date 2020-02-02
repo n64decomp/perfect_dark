@@ -4,8 +4,8 @@
 
 segment=$1
 
-pos=$(grep "^\.$segment" $B_DIR/stage1.map | awk '{print $6}')
-len=$(grep "^\.$segment" $B_DIR/stage1.map | awk '{print $3}')
+pos=$(grep "^\.$segment " $B_DIR/stage1.map | awk '{print $6}')
+len=$(grep "^\.$segment " $B_DIR/stage1.map | awk '{print $3}')
 
 dd if=$B_DIR/stage1.bin of=$B_DIR/ucode/$segment.bin skip=$(($pos)) iflag=skip_bytes bs=$(($len)) count=1
 

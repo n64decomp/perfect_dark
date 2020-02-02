@@ -4,7 +4,7 @@
 #include "game/game_0601b0.h"
 #include "game/game_015470.h"
 #include "game/game_0dcdb0.h"
-#include "setup/setup_000000.h"
+#include "game/data/data_000000.h"
 #include "stagesetup.h"
 #include "types.h"
 
