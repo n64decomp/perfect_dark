@@ -5067,10 +5067,23 @@ struct memorypool {
 	/*0x10*/ u32 unk10;
 };
 
+struct invitem_type1 {
+	s16 weapon1;
+	s16 weapon2;
+};
+
+struct invitem_type3 {
+	s32 weapon1;
+	s32 weapon2;
+};
+
 struct invitem {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ s16 weapon04;
-	/*0x06*/ s16 weapon06;
+	/*0x00*/ u32 type;
+
+	union {
+		struct invitem_type1 type1;
+		struct invitem_type3 type3;
+	};
 };
 
 #endif

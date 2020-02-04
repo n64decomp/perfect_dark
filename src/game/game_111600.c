@@ -558,9 +558,9 @@ bool currentPlayerGiveWeapon(s32 weaponnum)
 		item = func0f111928();
 
 		if (item) {
-			item->unk00 = 1;
-			item->weapon04 = weaponnum;
-			item->weapon06 = -1;
+			item->type = 1;
+			item->type1.weapon1 = weaponnum;
+			item->type1.weapon2 = -1;
 			func0f11179c(item);
 		}
 
@@ -570,44 +570,29 @@ bool currentPlayerGiveWeapon(s32 weaponnum)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f111e28
-/*  f111e28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f111e2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111e30:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f111e34:	0fc446ac */ 	jal	func0f111ab0
-/*  f111e38:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f111e3c:	14400014 */ 	bnez	$v0,.L0f111e90
-/*  f111e40:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f111e44:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f111e48:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*  f111e4c:	1040000e */ 	beqz	$v0,.L0f111e88
-/*  f111e50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111e54:	0fc4464a */ 	jal	func0f111928
-/*  f111e58:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111e5c:	10400008 */ 	beqz	$v0,.L0f111e80
-/*  f111e60:	00402025 */ 	or	$a0,$v0,$zero
-/*  f111e64:	240e0003 */ 	addiu	$t6,$zero,0x3
-/*  f111e68:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f111e6c:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f111e70:	ac4f0004 */ 	sw	$t7,0x4($v0)
-/*  f111e74:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f111e78:	0fc445e7 */ 	jal	func0f11179c
-/*  f111e7c:	ac580008 */ 	sw	$t8,0x8($v0)
-.L0f111e80:
-/*  f111e80:	10000004 */ 	beqz	$zero,.L0f111e94
-/*  f111e84:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f111e88:
-/*  f111e88:	10000002 */ 	beqz	$zero,.L0f111e94
-/*  f111e8c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f111e90:
-/*  f111e90:	00001025 */ 	or	$v0,$zero,$zero
-.L0f111e94:
-/*  f111e94:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f111e98:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f111e9c:	03e00008 */ 	jr	$ra
-/*  f111ea0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2)
+{
+	if (func0f111ab0(weapon1, weapon2) == 0) {
+		if (weaponHasFlag(weapon1, WEAPONFLAG_00001000)) {
+			struct invitem *item = func0f111928();
+
+			if (item) {
+				item->type = 3;
+				item->type3.weapon1 = weapon1;
+				item->type3.weapon2 = weapon2;
+				func0f11179c(item);
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f111ea4
@@ -856,7 +841,7 @@ glabel func0f1120f0
 /*  f1121f4:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f1121f8:	10640007 */ 	beq	$v1,$a0,.L0f112218
 /*  f1121fc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f112200:	0fc4478a */ 	jal	func0f111e28
+/*  f112200:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
 /*  f112204:	02002025 */ 	or	$a0,$s0,$zero
 /*  f112208:	10400003 */ 	beqz	$v0,.L0f112218
 /*  f11220c:	00003825 */ 	or	$a3,$zero,$zero
@@ -900,7 +885,7 @@ glabel func0f1120f0
 /*  f112290:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f112294:	05e10009 */ 	bgez	$t7,.L0f1122bc
 /*  f112298:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11229c:	0fc4478a */ 	jal	func0f111e28
+/*  f11229c:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
 /*  f1122a0:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f1122a4:	10400003 */ 	beqz	$v0,.L0f1122b4
 /*  f1122a8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -910,7 +895,7 @@ glabel func0f1120f0
 /*  f1122b4:	10000007 */ 	beqz	$zero,.L0f1122d4
 /*  f1122b8:	00003825 */ 	or	$a3,$zero,$zero
 .L0f1122bc:
-/*  f1122bc:	0fc4478a */ 	jal	func0f111e28
+/*  f1122bc:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
 /*  f1122c0:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f1122c4:	10400003 */ 	beqz	$v0,.L0f1122d4
 /*  f1122c8:	00003825 */ 	or	$a3,$zero,$zero

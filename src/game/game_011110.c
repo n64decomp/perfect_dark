@@ -599,7 +599,7 @@ glabel currentPlayerInit
 /*  f011ac0:	0fc04558 */ 	jal	func0f011560
 /*  f011ac4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f011ac8:	8e040004 */ 	lw	$a0,0x4($s0)
-/*  f011acc:	0fc4478a */ 	jal	func0f111e28
+/*  f011acc:	0fc4478a */ 	jal	currentPlayerGiveWeaponWithArgument
 /*  f011ad0:	8e050008 */ 	lw	$a1,0x8($s0)
 /*  f011ad4:	10000004 */ 	beqz	$zero,.L0f011ae8
 /*  f011ad8:	8fb80080 */ 	lw	$t8,0x80($sp)
@@ -1332,7 +1332,7 @@ glabel currentPlayerInit
 //
 //					if (cmd[2] >= 0) {
 //						func0f011560(cmd[2]);
-//						func0f111e28(cmd[1], cmd[2]);
+//						currentPlayerGiveWeaponWithArgument(cmd[1], cmd[2]);
 //					} else {
 //						currentPlayerGiveWeapon(cmd[1]);
 //					}

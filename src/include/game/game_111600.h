@@ -20,7 +20,7 @@ bool currentPlayerCanHaveAllGunsWeapon(s32 weaponnum);
 bool currentPlayerCanHaveWeapon(s32 weaponnum);
 bool func0f111cf8(s32 weapon1, s32 weapon2);
 bool currentPlayerGiveWeapon(s32 weaponnum);
-void func0f111e28(s32 weapon, s32 weaponarg);
+bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2);
 void func0f111ea4(u32 arg0);
 u32 func0f111fcc(void);
 u32 func0f112054(void);
