@@ -318,69 +318,47 @@ glabel func0f060300
 /*  f060354:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel propAllocate
-/*  f060358:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f06035c:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f060360:	8c820344 */ 	lw	$v0,0x344($a0)
-/*  f060364:	10400031 */ 	beqz	$v0,.L0f06042c
-/*  f060368:	00401825 */ 	or	$v1,$v0,$zero
-/*  f06036c:	8c4e0020 */ 	lw	$t6,0x20($v0)
-/*  f060370:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f060374:	24190002 */ 	addiu	$t9,$zero,0x2
-/*  f060378:	ac8e0344 */ 	sw	$t6,0x344($a0)
-/*  f06037c:	ac400020 */ 	sw	$zero,0x20($v0)
-/*  f060380:	ac400024 */ 	sw	$zero,0x24($v0)
-/*  f060384:	ac400018 */ 	sw	$zero,0x18($v0)
-/*  f060388:	ac40001c */ 	sw	$zero,0x1c($v0)
-/*  f06038c:	a0400001 */ 	sb	$zero,0x1($v0)
-/*  f060390:	a4400002 */ 	sh	$zero,0x2($v0)
-/*  f060394:	a44f0028 */ 	sh	$t7,0x28($v0)
-/*  f060398:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f06039c:	90980359 */ 	lbu	$t8,0x359($a0)
-/*  f0603a0:	9048003f */ 	lbu	$t0,0x3f($v0)
-/*  f0603a4:	a040003e */ 	sb	$zero,0x3e($v0)
-/*  f0603a8:	a058003d */ 	sb	$t8,0x3d($v0)
-/*  f0603ac:	350a0080 */ 	ori	$t2,$t0,0x80
-/*  f0603b0:	9048003d */ 	lbu	$t0,0x3d($v0)
-/*  f0603b4:	314c00df */ 	andi	$t4,$t2,0xdf
-/*  f0603b8:	a04a003f */ 	sb	$t2,0x3f($v0)
-/*  f0603bc:	318e00ef */ 	andi	$t6,$t4,0xef
-/*  f0603c0:	a04c003f */ 	sb	$t4,0x3f($v0)
-/*  f0603c4:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f0603c8:	a04e003f */ 	sb	$t6,0x3f($v0)
-/*  f0603cc:	31cf00bf */ 	andi	$t7,$t6,0xbf
-/*  f0603d0:	3418ffff */ 	dli	$t8,0xffff
-/*  f0603d4:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f0603d8:	a04f003f */ 	sb	$t7,0x3f($v0)
-/*  f0603dc:	a4580038 */ 	sh	$t8,0x38($v0)
-/*  f0603e0:	a440003a */ 	sh	$zero,0x3a($v0)
-/*  f0603e4:	a059003c */ 	sb	$t9,0x3c($v0)
-/*  f0603e8:	ac400040 */ 	sw	$zero,0x40($v0)
-/*  f0603ec:	ac400044 */ 	sw	$zero,0x44($v0)
-/*  f0603f0:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f0603f4:	00891021 */ 	addu	$v0,$a0,$t1
-/*  f0603f8:	944a0360 */ 	lhu	$t2,0x360($v0)
-/*  f0603fc:	254b0001 */ 	addiu	$t3,$t2,0x1
-/*  f060400:	a44b0360 */ 	sh	$t3,0x360($v0)
-/*  f060404:	908c0359 */ 	lbu	$t4,0x359($a0)
-/*  f060408:	908f0358 */ 	lbu	$t7,0x358($a0)
-/*  f06040c:	258d0001 */ 	addiu	$t5,$t4,0x1
-/*  f060410:	31ae00ff */ 	andi	$t6,$t5,0xff
-/*  f060414:	01cf082a */ 	slt	$at,$t6,$t7
-/*  f060418:	14200002 */ 	bnez	$at,.L0f060424
-/*  f06041c:	a08d0359 */ 	sb	$t5,0x359($a0)
-/*  f060420:	a0800359 */ 	sb	$zero,0x359($a0)
-.L0f060424:
-/*  f060424:	03e00008 */ 	jr	$ra
-/*  f060428:	00601025 */ 	or	$v0,$v1,$zero
-.L0f06042c:
-/*  f06042c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f060430:	03e00008 */ 	jr	$ra
-/*  f060434:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct prop *propAllocate(void)
+{
+	struct prop *prop = g_Vars.freeprops;
 
-void func0f060438(struct prop *prop)
+	if (g_Vars.freeprops) {
+		g_Vars.freeprops = g_Vars.freeprops->next;
+
+		prop->next = NULL;
+		prop->prev = NULL;
+		prop->parent = NULL;
+		prop->child = NULL;
+		prop->flags = 0;
+		prop->timetoregen = 0;
+		prop->rooms[0] = -1;
+		prop->chr = NULL;
+		prop->propstateindex = g_Vars.nextpropstateindex;
+		prop->unk3e = 0;
+		prop->unk3f_00 = 1;
+		prop->unk3f_02 = 0;
+		prop->unk3f_03 = 0;
+		prop->unk3f_01 = 0;
+		prop->unk38 = 0xffff;
+		prop->unk3a = 0;
+		prop->unk3c = 2;
+		prop->unk40 = 0;
+		prop->unk44 = 0;
+		g_Vars.propstates[prop->propstateindex].propcount++;
+
+		g_Vars.nextpropstateindex++;
+
+		if (g_Vars.nextpropstateindex >= g_Vars.numpropstateindexes) {
+			g_Vars.nextpropstateindex = 0;
+		}
+
+		return prop;
+	}
+
+	return NULL;
+}
+
+void propFree(struct prop *prop)
 {
 	if (prop->type == PROPTYPE_CHR) {
 		g_Vars.propstates[prop->propstateindex].chrpropcount--;
@@ -388,11 +366,11 @@ void func0f060438(struct prop *prop)
 		g_Vars.propstates[prop->propstateindex].propcount--;
 	}
 
-	prop->next = g_Vars.unk000344;
+	prop->next = g_Vars.freeprops;
 	prop->prev = NULL;
 	prop->chr = NULL;
 	prop->rooms[0] = -1;
-	g_Vars.unk000344 = prop;
+	g_Vars.freeprops = prop;
 }
 
 GLOBAL_ASM(
@@ -3162,7 +3140,7 @@ glabel func0f062b64
 /*  f062c18:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062c1c:	0fc180c0 */ 	jal	func0f060300
 /*  f062c20:	02002025 */ 	or	$a0,$s0,$zero
-/*  f062c24:	0fc1810e */ 	jal	func0f060438
+/*  f062c24:	0fc1810e */ 	jal	propFree
 /*  f062c28:	02002025 */ 	or	$a0,$s0,$zero
 /*  f062c2c:	1000001f */ 	beqz	$zero,.L0f062cac
 /*  f062c30:	8fbf001c */ 	lw	$ra,0x1c($sp)

@@ -10522,7 +10522,7 @@ glabel func0f09fa84
 /*  f0a0350:	a6080062 */ 	sh	$t0,0x62($s0)
 /*  f0a0354:	50800004 */ 	beqzl	$a0,.L0f0a0368
 /*  f0a0358:	8e060018 */ 	lw	$a2,0x18($s0)
-/*  f0a035c:	0fc1810e */ 	jal	func0f060438
+/*  f0a035c:	0fc1810e */ 	jal	propFree
 /*  f0a0360:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a0364:	8e060018 */ 	lw	$a2,0x18($s0)
 .L0f0a0368:

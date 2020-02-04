@@ -52,7 +52,7 @@ struct prop {
 	/*0x20*/ struct prop *next;
 	/*0x24*/ struct prop *prev;
 	/*0x28*/ s16 rooms[8];
-	/*0x38*/ s16 unk38;
+	/*0x38*/ u16 unk38;
 	/*0x3a*/ s16 unk3a;
 	/*0x3c*/ u8 unk3c;
 	/*0x3d*/ u8 propstateindex;

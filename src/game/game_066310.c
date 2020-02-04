@@ -6086,7 +6086,7 @@ glabel func0f06a1ec
 .L0f06a418:
 /*  f06a418:	10c00004 */ 	beqz	$a2,.L0f06a42c
 /*  f06a41c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f06a420:	0fc1810e */ 	jal	func0f060438
+/*  f06a420:	0fc1810e */ 	jal	propFree
 /*  f06a424:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f06a428:	00003025 */ 	or	$a2,$zero,$zero
 .L0f06a42c:
@@ -7155,7 +7155,7 @@ glabel setupParseObject
 /*  f06b314:	8e240014 */ 	lw	$a0,0x14($s1)
 /*  f06b318:	0fc180c0 */ 	jal	func0f060300
 /*  f06b31c:	8e240014 */ 	lw	$a0,0x14($s1)
-/*  f06b320:	0fc1810e */ 	jal	func0f060438
+/*  f06b320:	0fc1810e */ 	jal	propFree
 /*  f06b324:	8e240014 */ 	lw	$a0,0x14($s1)
 /*  f06b328:	8e380014 */ 	lw	$t8,0x14($s1)
 .L0f06b32c:
@@ -41463,7 +41463,7 @@ glabel chrTryEquipHat
 .L0f089f4c:
 /*  f089f4c:	12000004 */ 	beqz	$s0,.L0f089f60
 /*  f089f50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f089f54:	0fc1810e */ 	jal	func0f060438
+/*  f089f54:	0fc1810e */ 	jal	propFree
 /*  f089f58:	02002025 */ 	or	$a0,$s0,$zero
 /*  f089f5c:	00008025 */ 	or	$s0,$zero,$zero
 .L0f089f60:
@@ -42818,7 +42818,7 @@ glabel func0f08b108
 /*  f08b194:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*  f08b198:	54400016 */ 	bnezl	$v0,.L0f08b1f4
 /*  f08b19c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08b1a0:	0fc1810e */ 	jal	func0f060438
+/*  f08b1a0:	0fc1810e */ 	jal	propFree
 /*  f08b1a4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f08b1a8:	00008825 */ 	or	$s1,$zero,$zero
 /*  f08b1ac:	ae000014 */ 	sw	$zero,0x14($s0)
@@ -42829,7 +42829,7 @@ glabel func0f08b108
 .L0f08b1c0:
 /*  f08b1c0:	50400006 */ 	beqzl	$v0,.L0f08b1dc
 /*  f08b1c4:	8e040018 */ 	lw	$a0,0x18($s0)
-/*  f08b1c8:	0fc1810e */ 	jal	func0f060438
+/*  f08b1c8:	0fc1810e */ 	jal	propFree
 /*  f08b1cc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f08b1d0:	00008825 */ 	or	$s1,$zero,$zero
 /*  f08b1d4:	ae000014 */ 	sw	$zero,0x14($s0)
@@ -43143,7 +43143,7 @@ glabel func0f08b27c
 .L0f08b630:
 /*  f08b630:	51200004 */ 	beqzl	$t1,.L0f08b644
 /*  f08b634:	00008025 */ 	or	$s0,$zero,$zero
-/*  f08b638:	0fc1810e */ 	jal	func0f060438
+/*  f08b638:	0fc1810e */ 	jal	propFree
 /*  f08b63c:	01202025 */ 	or	$a0,$t1,$zero
 /*  f08b640:	00008025 */ 	or	$s0,$zero,$zero
 .L0f08b644:
@@ -43296,7 +43296,7 @@ glabel func0f08b658
 .L0f08b858:
 /*  f08b858:	52200004 */ 	beqzl	$s1,.L0f08b86c
 /*  f08b85c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f08b860:	0fc1810e */ 	jal	func0f060438
+/*  f08b860:	0fc1810e */ 	jal	propFree
 /*  f08b864:	02202025 */ 	or	$a0,$s1,$zero
 .L0f08b868:
 /*  f08b868:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -43461,7 +43461,7 @@ glabel func0f08b8e8
 .L0f08ba90:
 /*  f08ba90:	12400004 */ 	beqz	$s2,.L0f08baa4
 /*  f08ba94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08ba98:	0fc1810e */ 	jal	func0f060438
+/*  f08ba98:	0fc1810e */ 	jal	propFree
 /*  f08ba9c:	02402025 */ 	or	$a0,$s2,$zero
 /*  f08baa0:	00009025 */ 	or	$s2,$zero,$zero
 .L0f08baa4:
