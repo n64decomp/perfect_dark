@@ -295,13 +295,10 @@ void currentPlayerSetAllGuns(bool enable)
 	currentPlayerEquipWeaponInCutscene(weaponnum);
 }
 
-GLOBAL_ASM(
-glabel func0f1119c0
-/*  f1119c0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f1119c4:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f1119c8:	03e00008 */ 	jr	$ra
-/*  f1119cc:	8dc21870 */ 	lw	$v0,0x1870($t6)
-);
+bool currentPlayerHasAllGuns(void)
+{
+	return g_Vars.currentplayer->equipallguns;
+}
 
 GLOBAL_ASM(
 glabel func0f1119d0
