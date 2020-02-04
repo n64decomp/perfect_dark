@@ -5,9 +5,9 @@
 
 void func0f111600(void);
 u32 func0f11165c(void);
-u32 func0f11179c(void);
+void func0f11179c(struct invitem *item);
 u32 func0f1118cc(void);
-u32 func0f111928(void);
+struct invitem *func0f111928(void);
 void currentPlayerSetAllGuns(bool enable);
 u32 func0f1119d0(void);
 bool func0f111a28(s32 weaponnum);
@@ -19,7 +19,7 @@ u32 func0f111be8(void);
 bool currentPlayerCanHaveAllGunsWeapon(s32 weaponnum);
 bool currentPlayerCanHaveWeapon(s32 weaponnum);
 bool func0f111cf8(s32 weapon1, s32 weapon2);
-void currentPlayerGiveWeapon(s32 weapon);
+bool currentPlayerGiveWeapon(s32 weaponnum);
 void func0f111e28(s32 weapon, s32 weaponarg);
 void func0f111ea4(u32 arg0);
 u32 func0f111fcc(void);

@@ -542,53 +542,33 @@ bool func0f111cf8(s32 weapon1, s32 weapon2)
 	return func0f111ab0(weapon1, weapon2);
 }
 
-GLOBAL_ASM(
-glabel currentPlayerGiveWeapon
-/*  f111d88:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f111d8c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f111d90:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f111d94:	0fc672ce */ 	jal	func0f19cb38
-/*  f111d98:	00808025 */ 	or	$s0,$a0,$zero
-/*  f111d9c:	0fc4468a */ 	jal	func0f111a28
-/*  f111da0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f111da4:	1440001a */ 	bnez	$v0,.L0f111e10
-/*  f111da8:	3c0e800a */ 	lui	$t6,0x800a
-/*  f111dac:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f111db0:	2a01002d */ 	slti	$at,$s0,0x2d
-/*  f111db4:	8dcf1870 */ 	lw	$t7,0x1870($t6)
-/*  f111db8:	11e00009 */ 	beqz	$t7,.L0f111de0
-/*  f111dbc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111dc0:	10200007 */ 	beqz	$at,.L0f111de0
-/*  f111dc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111dc8:	0fc4470c */ 	jal	currentPlayerCanHaveAllGunsWeapon
-/*  f111dcc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f111dd0:	10400003 */ 	beqz	$v0,.L0f111de0
-/*  f111dd4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111dd8:	1000000e */ 	beqz	$zero,.L0f111e14
-/*  f111ddc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f111de0:
-/*  f111de0:	0fc4464a */ 	jal	func0f111928
-/*  f111de4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111de8:	10400007 */ 	beqz	$v0,.L0f111e08
-/*  f111dec:	00402025 */ 	or	$a0,$v0,$zero
-/*  f111df0:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f111df4:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f111df8:	ac580000 */ 	sw	$t8,0x0($v0)
-/*  f111dfc:	a4500004 */ 	sh	$s0,0x4($v0)
-/*  f111e00:	0fc445e7 */ 	jal	func0f11179c
-/*  f111e04:	a4590006 */ 	sh	$t9,0x6($v0)
-.L0f111e08:
-/*  f111e08:	10000002 */ 	beqz	$zero,.L0f111e14
-/*  f111e0c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f111e10:
-/*  f111e10:	00001025 */ 	or	$v0,$zero,$zero
-.L0f111e14:
-/*  f111e14:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f111e18:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f111e1c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f111e20:	03e00008 */ 	jr	$ra
-/*  f111e24:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentPlayerGiveWeapon(s32 weaponnum)
+{
+	func0f19cb38(weaponnum);
+
+	if (func0f111a28(weaponnum) == 0) {
+		struct invitem *item;
+
+		if (g_Vars.currentplayer->equipallguns &&
+				weaponnum <= WEAPON_PSYCHOSISGUN &&
+				currentPlayerCanHaveAllGunsWeapon(weaponnum)) {
+			return false;
+		}
+
+		item = func0f111928();
+
+		if (item) {
+			item->unk00 = 1;
+			item->weapon04 = weaponnum;
+			item->weapon06 = -1;
+			func0f11179c(item);
+		}
+
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f111e28

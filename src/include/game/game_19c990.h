@@ -7,7 +7,7 @@ bool ciIsTourDone(void);
 u8 ciGetFiringRangeScore(s32 weapon_id);
 u32 func0f19c9e4(void);
 u32 func0f19cad4(void);
-u32 func0f19cb38(void);
+void func0f19cb38(s32 weaponnum);
 u32 func0f19cb80(void);
 u32 func0f19cbcc(void);
 u32 func0f19cc50(void);

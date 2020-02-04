@@ -5067,4 +5067,10 @@ struct memorypool {
 	/*0x10*/ u32 unk10;
 };
 
+struct invitem {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ s16 weapon04;
+	/*0x06*/ s16 weapon06;
+};
+
 #endif
