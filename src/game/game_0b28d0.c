@@ -5657,7 +5657,7 @@ glabel func0f0b72dc
 /*  f0b7378:	8e580284 */ 	lw	$t8,0x284($s2)
 .L0f0b737c:
 /*  f0b737c:	8f0e00bc */ 	lw	$t6,0xbc($t8)
-/*  f0b7380:	0fc52719 */ 	jal	func0f149c64
+/*  f0b7380:	0fc52719 */ 	jal	chrInitSplats
 /*  f0b7384:	8dc40004 */ 	lw	$a0,0x4($t6)
 /*  f0b7388:	0fc2ddf3 */ 	jal	func0f0b77cc
 /*  f0b738c:	00000000 */ 	sll	$zero,$zero,0x0

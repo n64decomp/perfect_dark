@@ -3764,7 +3764,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->unk32c_20 = 0;
 	chr->goposhitcount = 0;
 
-	func0f149c64(chr);
+	chrInitSplats(chr);
 }
 
 GLOBAL_ASM(

@@ -36425,20 +36425,18 @@ glabel func0f14986c
 /*  f149c60:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f149c64
-/*  f149c64:	44800000 */ 	mtc1	$zero,$f0
-/*  f149c68:	a0800334 */ 	sb	$zero,0x334($a0)
-/*  f149c6c:	a4800336 */ 	sh	$zero,0x336($a0)
-/*  f149c70:	a0800339 */ 	sb	$zero,0x339($a0)
-/*  f149c74:	a0800335 */ 	sb	$zero,0x335($a0)
-/*  f149c78:	a080033a */ 	sb	$zero,0x33a($a0)
-/*  f149c7c:	a0800338 */ 	sb	$zero,0x338($a0)
-/*  f149c80:	e480033c */ 	swc1	$f0,0x33c($a0)
-/*  f149c84:	e4800340 */ 	swc1	$f0,0x340($a0)
-/*  f149c88:	03e00008 */ 	jr	$ra
-/*  f149c8c:	e4800344 */ 	swc1	$f0,0x344($a0)
-);
+void chrInitSplats(struct chrdata *chr)
+{
+	chr->bulletstaken = 0;
+	chr->tickssincesplat = 0;
+	chr->stdsplatsadded = 0;
+	chr->woundedsplatsadded = 0;
+	chr->deaddropsplatsadded = 0;
+	chr->splatsdroppedhe = 0;
+	chr->lastdroppos.x = 0;
+	chr->lastdroppos.y = 0;
+	chr->lastdroppos.z = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f149c90
