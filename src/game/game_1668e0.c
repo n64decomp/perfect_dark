@@ -6698,7 +6698,7 @@ glabel func0f16b96c
 .L0f16c4a8:
 /*  f16c4a8:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f16c4ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f16c4b0:	0fc5b9f1 */ 	jal	textGet
+/*  f16c4b0:	0fc5b9f1 */ 	jal	langGet
 /*  f16c4b4:	24045844 */ 	addiu	$a0,$zero,0x5844
 /*  f16c4b8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f16c4bc:	0fc377c7 */ 	jal	currentPlayerQueueMessage
@@ -7204,8 +7204,8 @@ void stageLoad(void)
 	}
 
 	if (g_Vars.stagenum < NUM_STAGES) {
-		s32 bank = textGetLangBankIndexFromStagenum(g_Vars.stagenum);
-		textClearBank(bank);
+		s32 bank = langGetLangBankIndexFromStagenum(g_Vars.stagenum);
+		langClearBank(bank);
 		func0f015270();
 	}
 

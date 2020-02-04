@@ -405,6 +405,7 @@ SECTIONS
 		src/game/game_165670.o (.data);
 		src/game/game_1668e0.o (.data);
 		src/game/game_16cfa0.o (.data);
+		src/game/lang.o (.data);
 		src/game/game_16e810.o (.data);
 		src/game/game_175f50.o (.data);
 		src/game/game_175f90.o (.data);
@@ -502,6 +503,7 @@ SECTIONS
 		src/game/game_165670.o (.text);
 		src/game/game_1668e0.o (.text);
 		src/game/game_16cfa0.o (.text);
+		src/game/lang.o (.text);
 		src/game/game_16e810.o (.text);
 		src/game/game_175f50.o (.text);
 		src/game/game_175f90.o (.text);
@@ -591,6 +593,7 @@ SECTIONS
 		src/game/game_165670.o (.rodata);
 		src/game/game_1668e0.o (.rodata);
 		src/game/game_16cfa0.o (.rodata);
+		src/game/lang.o (.rodata);
 		src/game/game_16e810.o (.rodata);
 		src/game/game_175f50.o (.rodata);
 		src/game/game_175f90.o (.rodata);

@@ -405,10 +405,10 @@ s32 cheatMenuHandleBuddyCheckbox(s32 operation, struct menu_item *item, s32 arg2
 char *cheatGetNameIfUnlocked(struct menu_item *item)
 {
 	if (cheatIsUnlocked(item->param)) {
-		return textGet(g_Cheats[item->param].nametextid);
+		return langGet(g_Cheats[item->param].nametextid);
 	}
 
-	return textGet(0x544a); // "----------"
+	return langGet(0x544a); // "----------"
 }
 
 GLOBAL_ASM(
@@ -538,21 +538,21 @@ char *cheatGetMarquee(struct menu_item *arg0)
 
 		if (g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_CheatsBuddiesMenuDialog && g_MenuStack[g_MpPlayerNum].unk00->item == &g_CheatsBuddiesMenuItems[0]) {
 			// Velvet
-			sprintf(g_CheatMarqueeString, "%s: %s", textGet(0x548f), textGet(0x5475)); // "Buddy Available", "Velvet Dark"
+			sprintf(g_CheatMarqueeString, "%s: %s", langGet(0x548f), langGet(0x5475)); // "Buddy Available", "Velvet Dark"
 			return g_CheatMarqueeString;
 		}
 
 		if (cheatIsUnlocked(cheat_id)) {
 			// Show cheat name
 			sprintf(g_CheatMarqueeString, "%s: %s\n",
-					g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_CheatsBuddiesMenuDialog ? textGet(0x548f) : textGet(0x5488), // "Buddy Available", "Cheat available"
-					textGet(g_Cheats[cheat_id].nametextid)
+					g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_CheatsBuddiesMenuDialog ? langGet(0x548f) : langGet(0x5488), // "Buddy Available", "Cheat available"
+					langGet(g_Cheats[cheat_id].nametextid)
 			);
 			return g_CheatMarqueeString;
 		}
 
 		// Locked
-		strcpy(&cheatname, textGet(g_Cheats[cheat_id].nametextid));
+		strcpy(&cheatname, langGet(g_Cheats[cheat_id].nametextid));
 		ptr = cheatname;
 
 		while (*ptr != '\n') {
@@ -563,15 +563,15 @@ char *cheatGetMarquee(struct menu_item *arg0)
 
 		if (g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION) {
 			sprintf(g_CheatMarqueeString, "%s %s: %s %s %s",
-					textGet(0x5489), // "Complete"
-					textGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
-					textGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
-					textGet(0x548a), // "for cheat:"
+					langGet(0x5489), // "Complete"
+					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
+					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
+					langGet(0x548a), // "for cheat:"
 					&cheatname
 			);
 		} else {
 			// Timed
-			strcpy(&difficultyname, textGet(0x56fb + g_Cheats[cheat_id].difficulty));
+			strcpy(&difficultyname, langGet(0x56fb + g_Cheats[cheat_id].difficulty));
 			ptr = difficultyname;
 
 			while (*ptr != '\n') {
@@ -581,21 +581,21 @@ char *cheatGetMarquee(struct menu_item *arg0)
 			*ptr = '\0';
 
 			sprintf(g_CheatMarqueeString, "%s %s: %s %s %s %s %d:%02d %s %s",
-					textGet(0x5489), // "Complete"
-					textGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
-					textGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
-					textGet(0x548b), // "on"
+					langGet(0x5489), // "Complete"
+					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
+					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
+					langGet(0x548b), // "on"
 					&difficultyname,
-					textGet(0x548c), // "in under"
+					langGet(0x548c), // "in under"
 					g_Cheats[cheat_id].time / 60,
 					g_Cheats[cheat_id].time % 60,
-					textGet(0x548a), // "for cheat:"
+					langGet(0x548a), // "for cheat:"
 					&cheatname
 			);
 		}
 
 		if (g_Cheats[cheat_id].flags & CHEATFLAG_TRANSFERPAK) {
-			func00013224(&g_CheatMarqueeString, textGet(0x548d)); // " or insert Game Boy ..."
+			func00013224(&g_CheatMarqueeString, langGet(0x548d)); // " or insert Game Boy ..."
 		}
 
 		func00013224(&g_CheatMarqueeString, "\n");
@@ -603,7 +603,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 	}
 
 	// No cheat selected
-	return textGet(0x548e); // "Select cheat for information"
+	return langGet(0x548e); // "Select cheat for information"
 }
 
 bool cheatMenuHandleTurnOffAllCheats(u32 operation, u32 arg1, u32 *arg2)
@@ -652,5 +652,5 @@ s32 cheatGetTime(s32 cheat_id)
 
 char *cheatGetName(s32 cheat_id)
 {
-	return textGet(g_Cheats[cheat_id].nametextid);
+	return langGet(g_Cheats[cheat_id].nametextid);
 }

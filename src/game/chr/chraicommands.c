@@ -6115,7 +6115,7 @@ glabel aiDuplicateChr
 bool aiMessage(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	char *text = textGet(cmd[4] | (cmd[3] << 8));
+	char *text = langGet(cmd[4] | (cmd[3] << 8));
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	u32 prevplayernum = g_Vars.currentplayernum;
@@ -6146,11 +6146,11 @@ bool aiShowText(void)
 
 	if (cmd[2] == 0) {
 		u32 text_id = cmd[5] | (cmd[4] << 8);
-		char *text = textGet(text_id);
+		char *text = langGet(text_id);
 		func0f0de034(text, 7, cmd[3]);
 	} else if (cmd[2] == 1) {
 		u32 text_id = cmd[5] | (cmd[4] << 8);
-		char *text = textGet(text_id);
+		char *text = langGet(text_id);
 		func0f0de034(text, 8, cmd[3]);
 	} else {
 		func0f0dde60();
@@ -6167,7 +6167,7 @@ bool aiShowText(void)
 bool aiShowText2(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	char *text = textGet(cmd[4] | (cmd[3] << 8));
+	char *text = langGet(cmd[4] | (cmd[3] << 8));
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	u32 prevplayernum = g_Vars.currentplayernum;
@@ -6220,7 +6220,7 @@ glabel aiSpeak
 /*  f0560a8:	05a00008 */ 	bltz	$t5,.L0f0560cc
 /*  f0560ac:	01c03025 */ 	or	$a2,$t6,$zero
 /*  f0560b0:	afa20040 */ 	sw	$v0,0x40($sp)
-/*  f0560b4:	0fc5b9f1 */ 	jal	textGet
+/*  f0560b4:	0fc5b9f1 */ 	jal	langGet
 /*  f0560b8:	afae0034 */ 	sw	$t6,0x34($sp)
 /*  f0560bc:	8fa50040 */ 	lw	$a1,0x40($sp)
 /*  f0560c0:	8fa60034 */ 	lw	$a2,0x34($sp)
@@ -6320,7 +6320,7 @@ glabel aiSpeak
 //	s32 prevplayernum = g_Vars.currentplayernum;
 //	s32 playernum = g_Vars.currentplayernum;
 //	u32 audioref;
-//	char *text = text_id >= 0 ? textGet(text_id) : NULL;
+//	char *text = text_id >= 0 ? langGet(text_id) : NULL;
 //
 //	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 //		playernum = propGetPlayerNum(chr->prop);
@@ -9828,7 +9828,7 @@ glabel ai0130
 /*  f05a87c:	00036840 */ 	sll	$t5,$v1,0x1
 /*  f05a880:	018dc021 */ 	addu	$t8,$t4,$t5
 /*  f05a884:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f05a888:	0fc5b9f1 */ 	jal	textGet
+/*  f05a888:	0fc5b9f1 */ 	jal	langGet
 /*  f05a88c:	84849682 */ 	lh	$a0,-0x697e($a0)
 /*  f05a890:	afa20080 */ 	sw	$v0,0x80($sp)
 /*  f05a894:	0c004103 */ 	jal	audioIsFiltered
@@ -9851,7 +9851,7 @@ glabel ai0130
 /*  f05a8d4:	000a4840 */ 	sll	$t1,$t2,0x1
 /*  f05a8d8:	01e95821 */ 	addu	$t3,$t7,$t1
 /*  f05a8dc:	008b2021 */ 	addu	$a0,$a0,$t3
-/*  f05a8e0:	0fc5b9f1 */ 	jal	textGet
+/*  f05a8e0:	0fc5b9f1 */ 	jal	langGet
 /*  f05a8e4:	84849682 */ 	lh	$a0,-0x697e($a0)
 /*  f05a8e8:	afa20080 */ 	sw	$v0,0x80($sp)
 /*  f05a8ec:	0c004103 */ 	jal	audioIsFiltered
@@ -10019,7 +10019,7 @@ glabel ai0130
 /*  f05ab48:	000250c0 */ 	sll	$t2,$v0,0x3
 /*  f05ab4c:	014f4821 */ 	addu	$t1,$t2,$t7
 /*  f05ab50:	00892021 */ 	addu	$a0,$a0,$t1
-/*  f05ab54:	0fc5b9f1 */ 	jal	textGet
+/*  f05ab54:	0fc5b9f1 */ 	jal	langGet
 /*  f05ab58:	84849680 */ 	lh	$a0,-0x6980($a0)
 /*  f05ab5c:	afa20080 */ 	sw	$v0,0x80($sp)
 /*  f05ab60:	0c004103 */ 	jal	audioIsFiltered

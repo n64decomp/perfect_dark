@@ -914,7 +914,7 @@ glabel func0f18800c
 /*  f1880b8:	ae00004c */ 	sw	$zero,0x4c($s0)
 /*  f1880bc:	1220000b */ 	beqz	$s1,.L0f1880ec
 /*  f1880c0:	a6000050 */ 	sh	$zero,0x50($s0)
-/*  f1880c4:	0fc5b9f1 */ 	jal	textGet
+/*  f1880c4:	0fc5b9f1 */ 	jal	langGet
 /*  f1880c8:	240459b5 */ 	addiu	$a0,$zero,0x59b5
 /*  f1880cc:	3c057f1c */ 	lui	$a1,0x7f1c
 /*  f1880d0:	24a58a2c */ 	addiu	$a1,$a1,-30164
@@ -1118,7 +1118,7 @@ glabel func0f18836c
 /*  f188388:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*  f18838c:	15c00006 */ 	bnez	$t6,.L0f1883a8
 /*  f188390:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f188394:	0fc5b9f1 */ 	jal	textGet
+/*  f188394:	0fc5b9f1 */ 	jal	langGet
 /*  f188398:	240459b6 */ 	addiu	$a0,$zero,0x59b6
 /*  f18839c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1883a0:	0c004c4c */ 	jal	strcpy
@@ -1131,7 +1131,7 @@ glabel func0f18836c
 /*  f1883b4:	922f0000 */ 	lbu	$t7,0x0($s1)
 /*  f1883b8:	55e00007 */ 	bnezl	$t7,.L0f1883d8
 /*  f1883bc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1883c0:	0fc5b9f1 */ 	jal	textGet
+/*  f1883c0:	0fc5b9f1 */ 	jal	langGet
 /*  f1883c4:	26045608 */ 	addiu	$a0,$s0,0x5608
 /*  f1883c8:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1883cc:	0c004c4c */ 	jal	strcpy
@@ -1151,7 +1151,7 @@ glabel func0f18836c
 /*  f1883fc:	92380000 */ 	lbu	$t8,0x0($s1)
 /*  f188400:	57000009 */ 	bnezl	$t8,.L0f188428
 /*  f188404:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f188408:	0fc5b9f1 */ 	jal	textGet
+/*  f188408:	0fc5b9f1 */ 	jal	langGet
 /*  f18840c:	240459b5 */ 	addiu	$a0,$zero,0x59b5
 /*  f188410:	02202025 */ 	or	$a0,$s1,$zero
 /*  f188414:	02402825 */ 	or	$a1,$s2,$zero
@@ -1778,14 +1778,14 @@ glabel mpGetWeaponLabel
 /*  f188c88:	2401005b */ 	addiu	$at,$zero,0x5b
 /*  f188c8c:	14800005 */ 	bnez	$a0,.L0f188ca4
 /*  f188c90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f188c94:	0fc5b9f1 */ 	jal	textGet
+/*  f188c94:	0fc5b9f1 */ 	jal	langGet
 /*  f188c98:	2404543a */ 	addiu	$a0,$zero,0x543a
 /*  f188c9c:	10000019 */ 	beqz	$zero,.L0f188d04
 /*  f188ca0:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f188ca4:
 /*  f188ca4:	54810006 */ 	bnel	$a0,$at,.L0f188cc0
 /*  f188ca8:	2401005c */ 	addiu	$at,$zero,0x5c
-/*  f188cac:	0fc5b9f1 */ 	jal	textGet
+/*  f188cac:	0fc5b9f1 */ 	jal	langGet
 /*  f188cb0:	2404543b */ 	addiu	$a0,$zero,0x543b
 /*  f188cb4:	10000013 */ 	beqz	$zero,.L0f188d04
 /*  f188cb8:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -1793,7 +1793,7 @@ glabel mpGetWeaponLabel
 .L0f188cc0:
 /*  f188cc0:	14810005 */ 	bne	$a0,$at,.L0f188cd8
 /*  f188cc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f188cc8:	0fc5b9f1 */ 	jal	textGet
+/*  f188cc8:	0fc5b9f1 */ 	jal	langGet
 /*  f188ccc:	2404543c */ 	addiu	$a0,$zero,0x543c
 /*  f188cd0:	1000000c */ 	beqz	$zero,.L0f188d04
 /*  f188cd4:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -2111,7 +2111,7 @@ glabel func0f1890a8
 /*  f1890c4:	54200006 */ 	bnezl	$at,.L0f1890e0
 /*  f1890c8:	2401000d */ 	addiu	$at,$zero,0xd
 .L0f1890cc:
-/*  f1890cc:	0fc5b9f1 */ 	jal	textGet
+/*  f1890cc:	0fc5b9f1 */ 	jal	langGet
 /*  f1890d0:	24045429 */ 	addiu	$a0,$zero,0x5429
 /*  f1890d4:	10000016 */ 	beqz	$zero,.L0f189130
 /*  f1890d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -2119,7 +2119,7 @@ glabel func0f1890a8
 .L0f1890e0:
 /*  f1890e0:	54410006 */ 	bnel	$v0,$at,.L0f1890fc
 /*  f1890e4:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f1890e8:	0fc5b9f1 */ 	jal	textGet
+/*  f1890e8:	0fc5b9f1 */ 	jal	langGet
 /*  f1890ec:	2404542a */ 	addiu	$a0,$zero,0x542a
 /*  f1890f0:	1000000f */ 	beqz	$zero,.L0f189130
 /*  f1890f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -2127,7 +2127,7 @@ glabel func0f1890a8
 .L0f1890fc:
 /*  f1890fc:	14410005 */ 	bne	$v0,$at,.L0f189114
 /*  f189100:	000570c0 */ 	sll	$t6,$a1,0x3
-/*  f189104:	0fc5b9f1 */ 	jal	textGet
+/*  f189104:	0fc5b9f1 */ 	jal	langGet
 /*  f189108:	2404542b */ 	addiu	$a0,$zero,0x542b
 /*  f18910c:	10000008 */ 	beqz	$zero,.L0f189130
 /*  f189110:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -2136,7 +2136,7 @@ glabel func0f1890a8
 /*  f189118:	000e7040 */ 	sll	$t6,$t6,0x1
 /*  f18911c:	3c048008 */ 	lui	$a0,0x8008
 /*  f189120:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f189124:	0fc5b9f1 */ 	jal	textGet
+/*  f189124:	0fc5b9f1 */ 	jal	langGet
 /*  f189128:	948473f0 */ 	lhu	$a0,0x73f0($a0)
 /*  f18912c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f189130:
@@ -2559,7 +2559,7 @@ glabel func0f18973c
 /*  f1897a4:	0fc54d8a */ 	jal	func0f153628
 /*  f1897a8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1897ac:	afa200a0 */ 	sw	$v0,0xa0($sp)
-/*  f1897b0:	0fc5b9f1 */ 	jal	textGet
+/*  f1897b0:	0fc5b9f1 */ 	jal	langGet
 /*  f1897b4:	24045428 */ 	addiu	$a0,$zero,0x5428
 /*  f1897b8:	27a4005c */ 	addiu	$a0,$sp,0x5c
 /*  f1897bc:	0c004c4c */ 	jal	strcpy
@@ -2716,7 +2716,7 @@ glabel func0f18973c
 /*  f1899f4:	0fc54d8a */ 	jal	func0f153628
 /*  f1899f8:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 /*  f1899fc:	afa200a0 */ 	sw	$v0,0xa0($sp)
-/*  f189a00:	0fc5b9f1 */ 	jal	textGet
+/*  f189a00:	0fc5b9f1 */ 	jal	langGet
 /*  f189a04:	24045427 */ 	addiu	$a0,$zero,0x5427
 /*  f189a08:	27a4005c */ 	addiu	$a0,$sp,0x5c
 /*  f189a0c:	0c004c4c */ 	jal	strcpy
@@ -4701,7 +4701,7 @@ glabel func0f18a56c
 /*  f18b5c0:	ae6e002c */ 	sw	$t6,0x2c($s3)
 /*  f18b5c4:	032f8821 */ 	addu	$s1,$t9,$t7
 /*  f18b5c8:	97040000 */ 	lhu	$a0,0x0($t8)
-/*  f18b5cc:	0fc5b9f1 */ 	jal	textGet
+/*  f18b5cc:	0fc5b9f1 */ 	jal	langGet
 /*  f18b5d0:	24120001 */ 	addiu	$s2,$zero,0x1
 /*  f18b5d4:	8e2e0064 */ 	lw	$t6,0x64($s1)
 /*  f18b5d8:	adc21974 */ 	sw	$v0,0x1974($t6)
@@ -4755,7 +4755,7 @@ glabel func0f18a56c
 /*  f18b684:	ae6f002c */ 	sw	$t7,0x2c($s3)
 /*  f18b688:	03198821 */ 	addu	$s1,$t8,$t9
 /*  f18b68c:	95a40000 */ 	lhu	$a0,0x0($t5)
-/*  f18b690:	0fc5b9f1 */ 	jal	textGet
+/*  f18b690:	0fc5b9f1 */ 	jal	langGet
 /*  f18b694:	24120002 */ 	addiu	$s2,$zero,0x2
 /*  f18b698:	8e2f0064 */ 	lw	$t7,0x64($s1)
 /*  f18b69c:	ade21978 */ 	sw	$v0,0x1978($t7)
@@ -5165,7 +5165,7 @@ char *mpGetBodyName(u8 bodynum)
 		bodynum = 0;
 	}
 
-	return textGet(g_MpBodies[bodynum].name);
+	return langGet(g_MpBodies[bodynum].name);
 }
 
 u8 mpGetBodyUnk06(u8 bodynum)
@@ -5591,7 +5591,7 @@ char *mpGetTrackName(s32 slotindex)
 {
 	s32 tracknum = mpGetTrackNumAtSlotIndex(slotindex);
 
-	return textGet(g_MpTracks[tracknum].name);
+	return langGet(g_MpTracks[tracknum].name);
 }
 
 void mpSetUsingMultipleTunes(bool enable)
@@ -6583,7 +6583,7 @@ glabel func0f18cddc
 /*  f18cf50:	028d7021 */ 	addu	$t6,$s4,$t5
 /*  f18cf54:	258f0001 */ 	addiu	$t7,$t4,0x1
 /*  f18cf58:	ae0f0000 */ 	sw	$t7,0x0($s0)
-/*  f18cf5c:	0fc5b9f1 */ 	jal	textGet
+/*  f18cf5c:	0fc5b9f1 */ 	jal	langGet
 /*  f18cf60:	85c40002 */ 	lh	$a0,0x2($t6)
 /*  f18cf64:	3c057f1c */ 	lui	$a1,0x7f1c
 /*  f18cf68:	24a58b74 */ 	addiu	$a1,$a1,-29836
@@ -6597,7 +6597,7 @@ glabel func0f18cddc
 /*  f18cf88:	1000000c */ 	beqz	$zero,.L0f18cfbc
 /*  f18cf8c:	26310001 */ 	addiu	$s1,$s1,0x1
 .L0f18cf90:
-/*  f18cf90:	0fc5b9f1 */ 	jal	textGet
+/*  f18cf90:	0fc5b9f1 */ 	jal	langGet
 /*  f18cf94:	87240002 */ 	lh	$a0,0x2($t9)
 /*  f18cf98:	3c057f1c */ 	lui	$a1,0x7f1c
 /*  f18cf9c:	24a58b7c */ 	addiu	$a1,$a1,-29828
@@ -7474,7 +7474,7 @@ glabel mpGetPresetNameBySlot
 /*  f18dca0:	000e70c0 */ 	sll	$t6,$t6,0x3
 /*  f18dca4:	3c048008 */ 	lui	$a0,0x8008
 /*  f18dca8:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f18dcac:	0fc5b9f1 */ 	jal	textGet
+/*  f18dcac:	0fc5b9f1 */ 	jal	langGet
 /*  f18dcb0:	94847b6c */ 	lhu	$a0,0x7b6c($a0)
 /*  f18dcb4:	10000008 */ 	beqz	$zero,.L0f18dcd8
 /*  f18dcb8:	8fbf0024 */ 	lw	$ra,0x24($sp)
@@ -7560,7 +7560,7 @@ glabel func0f18dcec
 /*  f18ddd0:	01d37023 */ 	subu	$t6,$t6,$s3
 /*  f18ddd4:	15a1000a */ 	bne	$t5,$at,.L0f18de00
 /*  f18ddd8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f18dddc:	0fc5b9f1 */ 	jal	textGet
+/*  f18dddc:	0fc5b9f1 */ 	jal	langGet
 /*  f18dde0:	240454f1 */ 	addiu	$a0,$zero,0x54f1
 /*  f18dde4:	26720001 */ 	addiu	$s2,$s3,0x1
 /*  f18dde8:	02403025 */ 	or	$a2,$s2,$zero
@@ -12533,10 +12533,10 @@ glabel func0f1921f8
 char *mpGetBotCommandName(s32 command)
 {
 	if (command < 0 || command >= NUM_MPBOTCOMMANDS) {
-		return textGet(0x58b3); // "Normal"
+		return langGet(0x58b3); // "Normal"
 	}
 
-	return textGet(g_MpBotCommands[command]);
+	return langGet(g_MpBotCommands[command]);
 }
 
 void func0f192438(struct chrdata *chr, struct prop *prop)

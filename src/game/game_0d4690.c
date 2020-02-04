@@ -4104,7 +4104,7 @@ glabel func0f0d78f4
 /*  f0d7ec8:	1000001d */ 	beqz	$zero,.L0f0d7f40
 /*  f0d7ecc:	afa20098 */ 	sw	$v0,0x98($sp)
 .L0f0d7ed0:
-/*  f0d7ed0:	0fc5b9f1 */ 	jal	textGet
+/*  f0d7ed0:	0fc5b9f1 */ 	jal	langGet
 /*  f0d7ed4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0d7ed8:	0c002f02 */ 	jal	func0000bc08
 /*  f0d7edc:	afa20048 */ 	sw	$v0,0x48($sp)
@@ -5373,7 +5373,7 @@ glabel func0f0d8f78
 /*  f0d91b8:	1160001f */ 	beqz	$t3,.L0f0d9238
 /*  f0d91bc:	ac220f98 */ 	sw	$v0,0xf98($at)
 /*  f0d91c0:	240459b7 */ 	addiu	$a0,$zero,0x59b7
-/*  f0d91c4:	0fc5b9f1 */ 	jal	textGet
+/*  f0d91c4:	0fc5b9f1 */ 	jal	langGet
 /*  f0d91c8:	afa30090 */ 	sw	$v1,0x90($sp)
 /*  f0d91cc:	0c002f02 */ 	jal	func0000bc08
 /*  f0d91d0:	00409025 */ 	or	$s2,$v0,$zero

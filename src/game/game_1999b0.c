@@ -2177,7 +2177,7 @@ s32 mpGetNumAvailableChallenges(void)
 
 char *mpChallengeGetName(s32 challengeindex)
 {
-	return textGet(g_MpChallenges[challengeindex].name);
+	return langGet(g_MpChallenges[challengeindex].name);
 }
 
 GLOBAL_ASM(
@@ -2332,7 +2332,7 @@ glabel func0f19b914
 /*  f19b918:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f19b91c:	afa401c8 */ 	sw	$a0,0x1c8($sp)
 /*  f19b920:	afa501cc */ 	sw	$a1,0x1cc($sp)
-/*  f19b924:	0fc5b9b5 */ 	jal	textGetLanguageId
+/*  f19b924:	0fc5b9b5 */ 	jal	langGetLanguageId
 /*  f19b928:	afa601d0 */ 	sw	$a2,0x1d0($sp)
 /*  f19b92c:	3c0f8009 */ 	lui	$t7,%hi(var800887c4)
 /*  f19b930:	25ef87c4 */ 	addiu	$t7,$t7,%lo(var800887c4)
@@ -3005,7 +3005,7 @@ s32 mpGetNumChallengesAvailable(s32 mpchrnum)
 
 char *mpChallengeGetNameWithArg(s32 arg0, s32 challengeindex)
 {
-	return textGet(g_MpChallenges[challengeindex].name);
+	return langGet(g_MpChallenges[challengeindex].name);
 }
 
 bool func0f19c3bc(s32 mpchrnum, s32 index, s32 numplayers)

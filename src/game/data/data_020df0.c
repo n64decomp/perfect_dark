@@ -9652,7 +9652,7 @@ u32 var8008411c = 0x00000000;
 u32 g_LanguageId = 0;
 
 // 2a144
-u16 g_LangBanks[] = {
+u16 g_LangFiles[] = {
 	/*0x00*/ 0x0000,
 	/*0x01*/ 0x0570, // 02xx - ame
 	/*0x02*/ 0x0577, // 04xx - arch
