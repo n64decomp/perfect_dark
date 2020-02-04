@@ -398,49 +398,35 @@ void func0f0604bc(struct prop *prop)
 	prop->unk3f_03 = 1;
 }
 
-GLOBAL_ASM(
-glabel func0f060538
-/*  f060538:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f06053c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f060540:	8ca20340 */ 	lw	$v0,0x340($a1)
-/*  f060544:	50400014 */ 	beqzl	$v0,.L0f060598
-/*  f060548:	8ca90354 */ 	lw	$t1,0x354($a1)
-/*  f06054c:	8cae0354 */ 	lw	$t6,0x354($a1)
-/*  f060550:	51c20011 */ 	beql	$t6,$v0,.L0f060598
-/*  f060554:	8ca90354 */ 	lw	$t1,0x354($a1)
-/*  f060558:	50820016 */ 	beql	$a0,$v0,.L0f0605b4
-/*  f06055c:	908c003f */ 	lbu	$t4,0x3f($a0)
-/*  f060560:	8c8f0020 */ 	lw	$t7,0x20($a0)
-/*  f060564:	55e00013 */ 	bnezl	$t7,.L0f0605b4
-/*  f060568:	908c003f */ 	lbu	$t4,0x3f($a0)
-/*  f06056c:	ac820024 */ 	sw	$v0,0x24($a0)
-/*  f060570:	8cb80340 */ 	lw	$t8,0x340($a1)
-/*  f060574:	8f190020 */ 	lw	$t9,0x20($t8)
-/*  f060578:	13200002 */ 	beqz	$t9,.L0f060584
-/*  f06057c:	ac990020 */ 	sw	$t9,0x20($a0)
-/*  f060580:	af240024 */ 	sw	$a0,0x24($t9)
-.L0f060584:
-/*  f060584:	8ca80340 */ 	lw	$t0,0x340($a1)
-/*  f060588:	ad040020 */ 	sw	$a0,0x20($t0)
-/*  f06058c:	10000008 */ 	beqz	$zero,.L0f0605b0
-/*  f060590:	aca40340 */ 	sw	$a0,0x340($a1)
-/*  f060594:	8ca90354 */ 	lw	$t1,0x354($a1)
-.L0f060598:
-/*  f060598:	11200002 */ 	beqz	$t1,.L0f0605a4
-/*  f06059c:	ac890020 */ 	sw	$t1,0x20($a0)
-/*  f0605a0:	ad240024 */ 	sw	$a0,0x24($t1)
-.L0f0605a4:
-/*  f0605a4:	ac800024 */ 	sw	$zero,0x24($a0)
-/*  f0605a8:	aca4033c */ 	sw	$a0,0x33c($a1)
-/*  f0605ac:	aca40340 */ 	sw	$a0,0x340($a1)
-.L0f0605b0:
-/*  f0605b0:	908c003f */ 	lbu	$t4,0x3f($a0)
-.L0f0605b4:
-/*  f0605b4:	a080003e */ 	sb	$zero,0x3e($a0)
-/*  f0605b8:	358d0010 */ 	ori	$t5,$t4,0x10
-/*  f0605bc:	03e00008 */ 	jr	$ra
-/*  f0605c0:	a08d003f */ 	sb	$t5,0x3f($a0)
-);
+void func0f060538(struct prop *prop)
+{
+	if (g_Vars.unk000340 && g_Vars.unk000340 != g_Vars.unk000354) {
+		if (prop != g_Vars.unk000340 && !prop->next) {
+			prop->prev = g_Vars.unk000340;
+			prop->next = g_Vars.unk000340->next;
+
+			if (prop->next) {
+				prop->next->prev = prop;
+			}
+
+			g_Vars.unk000340->next = prop;
+			g_Vars.unk000340 = prop;
+		}
+	} else {
+		prop->next = g_Vars.unk000354;
+
+		if (prop->next) {
+			prop->next->prev = prop;
+		}
+
+		prop->prev = NULL;
+		g_Vars.unk00033c = prop;
+		g_Vars.unk000340 = g_Vars.unk00033c;
+	}
+
+	prop->unk3e = 0;
+	prop->unk3f_03 = 1;
+}
 
 void func0f0605c4(struct prop *prop)
 {

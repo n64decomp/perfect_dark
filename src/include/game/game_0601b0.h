@@ -9,7 +9,7 @@ u32 func0f060300(struct prop *prop);
 struct prop *propAllocate(void);
 void propFree(struct prop *prop);
 void func0f0604bc(struct prop *prop);
-u32 func0f060538(void);
+void func0f060538(struct prop *prop);
 void func0f0605c4(struct prop *prop);
 void propReparent(struct prop *mover, struct prop *adopter);
 void propDetach(struct prop *prop);
