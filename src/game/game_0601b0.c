@@ -373,44 +373,30 @@ void propFree(struct prop *prop)
 	g_Vars.freeprops = prop;
 }
 
-GLOBAL_ASM(
-glabel func0f0604bc
-/*  f0604bc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0604c0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0604c4:	8c62033c */ 	lw	$v0,0x33c($v1)
-/*  f0604c8:	50400010 */ 	beqzl	$v0,.L0f06050c
-/*  f0604cc:	8c790354 */ 	lw	$t9,0x354($v1)
-/*  f0604d0:	8c6e0354 */ 	lw	$t6,0x354($v1)
-/*  f0604d4:	51c2000d */ 	beql	$t6,$v0,.L0f06050c
-/*  f0604d8:	8c790354 */ 	lw	$t9,0x354($v1)
-/*  f0604dc:	50820012 */ 	beql	$a0,$v0,.L0f060528
-/*  f0604e0:	908a003f */ 	lbu	$t2,0x3f($a0)
-/*  f0604e4:	8c8f0024 */ 	lw	$t7,0x24($a0)
-/*  f0604e8:	55e0000f */ 	bnezl	$t7,.L0f060528
-/*  f0604ec:	908a003f */ 	lbu	$t2,0x3f($a0)
-/*  f0604f0:	ac440024 */ 	sw	$a0,0x24($v0)
-/*  f0604f4:	8c78033c */ 	lw	$t8,0x33c($v1)
-/*  f0604f8:	ac800024 */ 	sw	$zero,0x24($a0)
-/*  f0604fc:	ac980020 */ 	sw	$t8,0x20($a0)
-/*  f060500:	10000008 */ 	beqz	$zero,.L0f060524
-/*  f060504:	ac64033c */ 	sw	$a0,0x33c($v1)
-/*  f060508:	8c790354 */ 	lw	$t9,0x354($v1)
-.L0f06050c:
-/*  f06050c:	13200002 */ 	beqz	$t9,.L0f060518
-/*  f060510:	ac990020 */ 	sw	$t9,0x20($a0)
-/*  f060514:	af240024 */ 	sw	$a0,0x24($t9)
-.L0f060518:
-/*  f060518:	ac800024 */ 	sw	$zero,0x24($a0)
-/*  f06051c:	ac64033c */ 	sw	$a0,0x33c($v1)
-/*  f060520:	ac640340 */ 	sw	$a0,0x340($v1)
-.L0f060524:
-/*  f060524:	908a003f */ 	lbu	$t2,0x3f($a0)
-.L0f060528:
-/*  f060528:	a080003e */ 	sb	$zero,0x3e($a0)
-/*  f06052c:	354b0010 */ 	ori	$t3,$t2,0x10
-/*  f060530:	03e00008 */ 	jr	$ra
-/*  f060534:	a08b003f */ 	sb	$t3,0x3f($a0)
-);
+void func0f0604bc(struct prop *prop)
+{
+	if (g_Vars.unk00033c && g_Vars.unk00033c != g_Vars.unk000354) {
+		if (prop != g_Vars.unk00033c && !prop->prev) {
+			g_Vars.unk00033c->prev = prop;
+			prop->next = g_Vars.unk00033c;
+			prop->prev = NULL;
+			g_Vars.unk00033c = prop;
+		}
+	} else {
+		prop->next = g_Vars.unk000354;
+
+		if (prop->next) {
+			prop->next->prev = prop;
+		}
+
+		prop->prev = NULL;
+		g_Vars.unk00033c = prop;
+		g_Vars.unk000340 = g_Vars.unk00033c;
+	}
+
+	prop->unk3e = 0;
+	prop->unk3f_03 = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f060538
