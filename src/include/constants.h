@@ -1877,6 +1877,7 @@
 #define WEAPON_SUICIDEPILL       0x5d
 
 #define WEAPONFLAG_00000010 0x00000010
+#define WEAPONFLAG_00001000 0x00001000
 
 // Heads and bodies
 #define HEAD_RANDOM           -1

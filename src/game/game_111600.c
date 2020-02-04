@@ -525,48 +525,22 @@ bool currentPlayerCanHaveWeapon(s32 weaponnum)
 	return func0f111a28(weaponnum);
 }
 
-GLOBAL_ASM(
-glabel func0f111cf8
-/*  f111cf8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f111cfc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111d00:	14a00003 */ 	bnez	$a1,.L0f111d10
-/*  f111d04:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f111d08:	1000001b */ 	beqz	$zero,.L0f111d78
-/*  f111d0c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f111d10:
-/*  f111d10:	3c0e800a */ 	lui	$t6,0x800a
-/*  f111d14:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f111d18:	2881002d */ 	slti	$at,$a0,0x2d
-/*  f111d1c:	8dcf1870 */ 	lw	$t7,0x1870($t6)
-/*  f111d20:	11e00013 */ 	beqz	$t7,.L0f111d70
-/*  f111d24:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111d28:	10200011 */ 	beqz	$at,.L0f111d70
-/*  f111d2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111d30:	1486000f */ 	bne	$a0,$a2,.L0f111d70
-/*  f111d34:	24051000 */ 	addiu	$a1,$zero,0x1000
-/*  f111d38:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f111d3c:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f111d40:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f111d44:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f111d48:	10400009 */ 	beqz	$v0,.L0f111d70
-/*  f111d4c:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f111d50:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f111d54:	0fc4470c */ 	jal	currentPlayerCanHaveAllGunsWeapon
-/*  f111d58:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f111d5c:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f111d60:	10400003 */ 	beqz	$v0,.L0f111d70
-/*  f111d64:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f111d68:	10000003 */ 	beqz	$zero,.L0f111d78
-/*  f111d6c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f111d70:
-/*  f111d70:	0fc446ac */ 	jal	func0f111ab0
-/*  f111d74:	00c02825 */ 	or	$a1,$a2,$zero
-.L0f111d78:
-/*  f111d78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f111d7c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f111d80:	03e00008 */ 	jr	$ra
-/*  f111d84:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f111cf8(s32 weapon1, s32 weapon2)
+{
+	if (weapon2 == WEAPON_NONE) {
+		return true;
+	}
+
+	if (g_Vars.currentplayer->equipallguns &&
+			weapon1 <= WEAPON_PSYCHOSISGUN &&
+			weapon1 == weapon2 &&
+			weaponHasFlag(weapon1, WEAPONFLAG_00001000) &&
+			currentPlayerCanHaveAllGunsWeapon(weapon1)) {
+		return true;
+	}
+
+	return func0f111ab0(weapon1, weapon2);
+}
 
 GLOBAL_ASM(
 glabel currentPlayerGiveWeapon
