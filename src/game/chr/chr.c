@@ -1300,63 +1300,27 @@ glabel chrSetChrnum
 /*  f01e5d4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f01e5d8
-/*  f01e5d8:	3c0a800a */ 	lui	$t2,%hi(g_NumChrsC)
-/*  f01e5dc:	254acd10 */ 	addiu	$t2,$t2,%lo(g_NumChrsC)
-/*  f01e5e0:	8d430000 */ 	lw	$v1,0x0($t2)
-/*  f01e5e4:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f01e5e8:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f01e5ec:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f01e5f0:	18600019 */ 	blez	$v1,.L0f01e658
-/*  f01e5f4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f01e5f8:	3c0c800a */ 	lui	$t4,%hi(g_ChrIndexesC)
-/*  f01e5fc:	3c0b800a */ 	lui	$t3,%hi(g_ChrnumsC)
-/*  f01e600:	256bcd14 */ 	addiu	$t3,$t3,%lo(g_ChrnumsC)
-/*  f01e604:	258ccd18 */ 	addiu	$t4,$t4,%lo(g_ChrIndexesC)
-/*  f01e608:	00002825 */ 	or	$a1,$zero,$zero
-.L0f01e60c:
-/*  f01e60c:	8d6e0000 */ 	lw	$t6,0x0($t3)
-/*  f01e610:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f01e614:	01c53021 */ 	addu	$a2,$t6,$a1
-/*  f01e618:	84c70000 */ 	lh	$a3,0x0($a2)
-/*  f01e61c:	0087082a */ 	slt	$at,$a0,$a3
-/*  f01e620:	1020000a */ 	beqz	$at,.L0f01e64c
-/*  f01e624:	00074400 */ 	sll	$t0,$a3,0x10
-/*  f01e628:	a4c40000 */ 	sh	$a0,0x0($a2)
-/*  f01e62c:	8d980000 */ 	lw	$t8,0x0($t4)
-/*  f01e630:	00087c03 */ 	sra	$t7,$t0,0x10
-/*  f01e634:	01e02025 */ 	or	$a0,$t7,$zero
-/*  f01e638:	03054821 */ 	addu	$t1,$t8,$a1
-/*  f01e63c:	85280000 */ 	lh	$t0,0x0($t1)
-/*  f01e640:	a5300000 */ 	sh	$s0,0x0($t1)
-/*  f01e644:	8d430000 */ 	lw	$v1,0x0($t2)
-/*  f01e648:	01008025 */ 	or	$s0,$t0,$zero
-.L0f01e64c:
-/*  f01e64c:	0043082a */ 	slt	$at,$v0,$v1
-/*  f01e650:	1420ffee */ 	bnez	$at,.L0f01e60c
-/*  f01e654:	24a50002 */ 	addiu	$a1,$a1,0x2
-.L0f01e658:
-/*  f01e658:	3c0b800a */ 	lui	$t3,%hi(g_ChrnumsC)
-/*  f01e65c:	256bcd14 */ 	addiu	$t3,$t3,%lo(g_ChrnumsC)
-/*  f01e660:	8d790000 */ 	lw	$t9,0x0($t3)
-/*  f01e664:	00036840 */ 	sll	$t5,$v1,0x1
-/*  f01e668:	3c0c800a */ 	lui	$t4,%hi(g_ChrIndexesC)
-/*  f01e66c:	032d7021 */ 	addu	$t6,$t9,$t5
-/*  f01e670:	a5c40000 */ 	sh	$a0,0x0($t6)
-/*  f01e674:	8d580000 */ 	lw	$t8,0x0($t2)
-/*  f01e678:	258ccd18 */ 	addiu	$t4,$t4,%lo(g_ChrIndexesC)
-/*  f01e67c:	8d8f0000 */ 	lw	$t7,0x0($t4)
-/*  f01e680:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f01e684:	01f96821 */ 	addu	$t5,$t7,$t9
-/*  f01e688:	a5b00000 */ 	sh	$s0,0x0($t5)
-/*  f01e68c:	8d4e0000 */ 	lw	$t6,0x0($t2)
-/*  f01e690:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f01e694:	27bd0008 */ 	addiu	$sp,$sp,0x8
-/*  f01e698:	25d80001 */ 	addiu	$t8,$t6,0x1
-/*  f01e69c:	03e00008 */ 	jr	$ra
-/*  f01e6a0:	ad580000 */ 	sw	$t8,0x0($t2)
-);
+void chrInsertToChrsC(s32 chrnum, s32 chrindex)
+{
+	s32 i;
+	s16 tmp;
+
+	for (i = 0; i < g_NumChrsC; i++) {
+		if (g_ChrnumsC[i] > chrnum) {
+			tmp = g_ChrnumsC[i];
+			g_ChrnumsC[i] = chrnum;
+			chrnum = tmp;
+
+			tmp = g_ChrIndexesC[i];
+			g_ChrIndexesC[i] = chrindex;
+			chrindex = tmp;
+		}
+	}
+
+	g_ChrnumsC[g_NumChrsC] = chrnum;
+	g_ChrIndexesC[g_NumChrsC] = chrindex;
+	g_NumChrsC++;
+}
 
 GLOBAL_ASM(
 glabel func0f01e6a4
@@ -3568,7 +3532,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 
 	prop->chr = chr;
 	chr->chrnum = getLowestUnusedChrId();
-	func0f01e5d8(chr->chrnum, i);
+	chrInsertToChrsC(chr->chrnum, i);
 
 	chr->headnum = 0;
 	chr->bodynum = 0;

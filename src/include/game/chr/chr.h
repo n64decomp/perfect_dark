@@ -38,7 +38,7 @@ void decrementByte(u8 *dst, u8 amount);
 u32 func0f01e050(void);
 u32 func0f01e250(void);
 u32 chrSetChrnum(struct chrdata *chr, u32 arg1);
-void func0f01e5d8(s16 chrnum, s32 chrindex);
+void chrInsertToChrsC(s32 chrnum, s32 chrindex);
 u32 func0f01e6a4(void);
 void chrSetOrUnsetHiddenFlag00000100(struct chrdata *chr, bool unset);
 u32 func0f01e7f4(void);
