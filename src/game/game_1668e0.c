@@ -7204,7 +7204,7 @@ void stageLoad(void)
 	}
 
 	if (g_Vars.stagenum < NUM_STAGES) {
-		s32 bank = func0f16e1e0(g_Vars.stagenum);
+		s32 bank = textGetLangBankIndexFromStagenum(g_Vars.stagenum);
 		textClearBank(bank);
 		func0f015270();
 	}

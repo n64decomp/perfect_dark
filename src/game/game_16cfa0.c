@@ -13,79 +13,6 @@
 #include "game/game_16cfa0.h"
 #include "game/game_176080.h"
 
-const u32 var7f1b7930[] = {0x7f16e224};
-const u32 var7f1b7934[] = {0x7f16e3ec};
-const u32 var7f1b7938[] = {0x7f16e3ec};
-const u32 var7f1b793c[] = {0x7f16e3ec};
-const u32 var7f1b7940[] = {0x7f16e3ec};
-const u32 var7f1b7944[] = {0x7f16e3ec};
-const u32 var7f1b7948[] = {0x7f16e3ec};
-const u32 var7f1b794c[] = {0x7f16e3ec};
-const u32 var7f1b7950[] = {0x7f16e3ec};
-const u32 var7f1b7954[] = {0x7f16e3ec};
-const u32 var7f1b7958[] = {0x7f16e3ec};
-const u32 var7f1b795c[] = {0x7f16e3e4};
-const u32 var7f1b7960[] = {0x7f16e3ec};
-const u32 var7f1b7964[] = {0x7f16e244};
-const u32 var7f1b7968[] = {0x7f16e304};
-const u32 var7f1b796c[] = {0x7f16e2fc};
-const u32 var7f1b7970[] = {0x7f16e25c};
-const u32 var7f1b7974[] = {0x7f16e22c};
-const u32 var7f1b7978[] = {0x7f16e23c};
-const u32 var7f1b797c[] = {0x7f16e30c};
-const u32 var7f1b7980[] = {0x7f16e24c};
-const u32 var7f1b7984[] = {0x7f16e254};
-const u32 var7f1b7988[] = {0x7f16e284};
-const u32 var7f1b798c[] = {0x7f16e274};
-const u32 var7f1b7990[] = {0x7f16e204};
-const u32 var7f1b7994[] = {0x7f16e20c};
-const u32 var7f1b7998[] = {0x7f16e214};
-const u32 var7f1b799c[] = {0x7f16e21c};
-const u32 var7f1b79a0[] = {0x7f16e264};
-const u32 var7f1b79a4[] = {0x7f16e27c};
-const u32 var7f1b79a8[] = {0x7f16e314};
-const u32 var7f1b79ac[] = {0x7f16e2dc};
-const u32 var7f1b79b0[] = {0x7f16e26c};
-const u32 var7f1b79b4[] = {0x7f16e2ec};
-const u32 var7f1b79b8[] = {0x7f16e234};
-const u32 var7f1b79bc[] = {0x7f16e2a4};
-const u32 var7f1b79c0[] = {0x7f16e2ac};
-const u32 var7f1b79c4[] = {0x7f16e2b4};
-const u32 var7f1b79c8[] = {0x7f16e2d4};
-const u32 var7f1b79cc[] = {0x7f16e29c};
-const u32 var7f1b79d0[] = {0x7f16e2f4};
-const u32 var7f1b79d4[] = {0x7f16e28c};
-const u32 var7f1b79d8[] = {0x7f16e2bc};
-const u32 var7f1b79dc[] = {0x7f16e2c4};
-const u32 var7f1b79e0[] = {0x7f16e2cc};
-const u32 var7f1b79e4[] = {0x7f16e294};
-const u32 var7f1b79e8[] = {0x7f16e3dc};
-const u32 var7f1b79ec[] = {0x7f16e2e4};
-const u32 var7f1b79f0[] = {0x7f16e33c};
-const u32 var7f1b79f4[] = {0x7f16e344};
-const u32 var7f1b79f8[] = {0x7f16e34c};
-const u32 var7f1b79fc[] = {0x7f16e354};
-const u32 var7f1b7a00[] = {0x7f16e35c};
-const u32 var7f1b7a04[] = {0x7f16e364};
-const u32 var7f1b7a08[] = {0x7f16e36c};
-const u32 var7f1b7a0c[] = {0x7f16e374};
-const u32 var7f1b7a10[] = {0x7f16e37c};
-const u32 var7f1b7a14[] = {0x7f16e384};
-const u32 var7f1b7a18[] = {0x7f16e38c};
-const u32 var7f1b7a1c[] = {0x7f16e394};
-const u32 var7f1b7a20[] = {0x7f16e39c};
-const u32 var7f1b7a24[] = {0x7f16e3a4};
-const u32 var7f1b7a28[] = {0x7f16e3ac};
-const u32 var7f1b7a2c[] = {0x7f16e3b4};
-const u32 var7f1b7a30[] = {0x7f16e3bc};
-const u32 var7f1b7a34[] = {0x7f16e3c4};
-const u32 var7f1b7a38[] = {0x7f16e3cc};
-const u32 var7f1b7a3c[] = {0x7f16e3d4};
-const u32 var7f1b7a40[] = {0x7f16e31c};
-const u32 var7f1b7a44[] = {0x7f16e324};
-const u32 var7f1b7a48[] = {0x7f16e32c};
-const u32 var7f1b7a4c[] = {0x7f16e334};
-
 GLOBAL_ASM(
 glabel func0f16cfa0
 /*  f16cfa0:	3c0e800a */ 	lui	$t6,0x800a
@@ -1490,145 +1417,80 @@ glabel func0f16e138
 /*  f16e1dc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f16e1e0
-/*  f16e1e0:	248efff7 */ 	addiu	$t6,$a0,-9
-/*  f16e1e4:	2dc10048 */ 	sltiu	$at,$t6,0x48
-/*  f16e1e8:	10200080 */ 	beqz	$at,.L0f16e3ec
-/*  f16e1ec:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f16e1f0:	3c017f1b */ 	lui	$at,%hi(var7f1b7930)
-/*  f16e1f4:	002e0821 */ 	addu	$at,$at,$t6
-/*  f16e1f8:	8c2e7930 */ 	lw	$t6,%lo(var7f1b7930)($at)
-/*  f16e1fc:	01c00008 */ 	jr	$t6
-/*  f16e200:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16e204:	03e00008 */ 	jr	$ra
-/*  f16e208:	2402000b */ 	addiu	$v0,$zero,0xb
-/*  f16e20c:	03e00008 */ 	jr	$ra
-/*  f16e210:	24020003 */ 	addiu	$v0,$zero,0x3
-/*  f16e214:	03e00008 */ 	jr	$ra
-/*  f16e218:	2402001c */ 	addiu	$v0,$zero,0x1c
-/*  f16e21c:	03e00008 */ 	jr	$ra
-/*  f16e220:	2402001f */ 	addiu	$v0,$zero,0x1f
-/*  f16e224:	03e00008 */ 	jr	$ra
-/*  f16e228:	2402001e */ 	addiu	$v0,$zero,0x1e
-/*  f16e22c:	03e00008 */ 	jr	$ra
-/*  f16e230:	2402000d */ 	addiu	$v0,$zero,0xd
-/*  f16e234:	03e00008 */ 	jr	$ra
-/*  f16e238:	24020020 */ 	addiu	$v0,$zero,0x20
-/*  f16e23c:	03e00008 */ 	jr	$ra
-/*  f16e240:	2402001d */ 	addiu	$v0,$zero,0x1d
-/*  f16e244:	03e00008 */ 	jr	$ra
-/*  f16e248:	24020023 */ 	addiu	$v0,$zero,0x23
-/*  f16e24c:	03e00008 */ 	jr	$ra
-/*  f16e250:	24020019 */ 	addiu	$v0,$zero,0x19
-/*  f16e254:	03e00008 */ 	jr	$ra
-/*  f16e258:	2402000c */ 	addiu	$v0,$zero,0xc
-/*  f16e25c:	03e00008 */ 	jr	$ra
-/*  f16e260:	24020024 */ 	addiu	$v0,$zero,0x24
-/*  f16e264:	03e00008 */ 	jr	$ra
-/*  f16e268:	24020012 */ 	addiu	$v0,$zero,0x12
-/*  f16e26c:	03e00008 */ 	jr	$ra
-/*  f16e270:	24020009 */ 	addiu	$v0,$zero,0x9
-/*  f16e274:	03e00008 */ 	jr	$ra
-/*  f16e278:	2402000a */ 	addiu	$v0,$zero,0xa
-/*  f16e27c:	03e00008 */ 	jr	$ra
-/*  f16e280:	2402000e */ 	addiu	$v0,$zero,0xe
-/*  f16e284:	03e00008 */ 	jr	$ra
-/*  f16e288:	2402001a */ 	addiu	$v0,$zero,0x1a
-/*  f16e28c:	03e00008 */ 	jr	$ra
-/*  f16e290:	24020017 */ 	addiu	$v0,$zero,0x17
-/*  f16e294:	03e00008 */ 	jr	$ra
-/*  f16e298:	24020014 */ 	addiu	$v0,$zero,0x14
-/*  f16e29c:	03e00008 */ 	jr	$ra
-/*  f16e2a0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f16e2a4:	03e00008 */ 	jr	$ra
-/*  f16e2a8:	24020010 */ 	addiu	$v0,$zero,0x10
-/*  f16e2ac:	03e00008 */ 	jr	$ra
-/*  f16e2b0:	24020011 */ 	addiu	$v0,$zero,0x11
-/*  f16e2b4:	03e00008 */ 	jr	$ra
-/*  f16e2b8:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f16e2bc:	03e00008 */ 	jr	$ra
-/*  f16e2c0:	2402000f */ 	addiu	$v0,$zero,0xf
-/*  f16e2c4:	03e00008 */ 	jr	$ra
-/*  f16e2c8:	24020013 */ 	addiu	$v0,$zero,0x13
-/*  f16e2cc:	03e00008 */ 	jr	$ra
-/*  f16e2d0:	24020015 */ 	addiu	$v0,$zero,0x15
-/*  f16e2d4:	03e00008 */ 	jr	$ra
-/*  f16e2d8:	24020016 */ 	addiu	$v0,$zero,0x16
-/*  f16e2dc:	03e00008 */ 	jr	$ra
-/*  f16e2e0:	2402000b */ 	addiu	$v0,$zero,0xb
-/*  f16e2e4:	03e00008 */ 	jr	$ra
-/*  f16e2e8:	24020018 */ 	addiu	$v0,$zero,0x18
-/*  f16e2ec:	03e00008 */ 	jr	$ra
-/*  f16e2f0:	24020021 */ 	addiu	$v0,$zero,0x21
-/*  f16e2f4:	03e00008 */ 	jr	$ra
-/*  f16e2f8:	2402001b */ 	addiu	$v0,$zero,0x1b
-/*  f16e2fc:	03e00008 */ 	jr	$ra
-/*  f16e300:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f16e304:	03e00008 */ 	jr	$ra
-/*  f16e308:	24020008 */ 	addiu	$v0,$zero,0x8
-/*  f16e30c:	03e00008 */ 	jr	$ra
-/*  f16e310:	24020005 */ 	addiu	$v0,$zero,0x5
-/*  f16e314:	03e00008 */ 	jr	$ra
-/*  f16e318:	24020007 */ 	addiu	$v0,$zero,0x7
-/*  f16e31c:	03e00008 */ 	jr	$ra
-/*  f16e320:	2402002d */ 	addiu	$v0,$zero,0x2d
-/*  f16e324:	03e00008 */ 	jr	$ra
-/*  f16e328:	2402002e */ 	addiu	$v0,$zero,0x2e
-/*  f16e32c:	03e00008 */ 	jr	$ra
-/*  f16e330:	2402002f */ 	addiu	$v0,$zero,0x2f
-/*  f16e334:	03e00008 */ 	jr	$ra
-/*  f16e338:	24020030 */ 	addiu	$v0,$zero,0x30
-/*  f16e33c:	03e00008 */ 	jr	$ra
-/*  f16e340:	24020031 */ 	addiu	$v0,$zero,0x31
-/*  f16e344:	03e00008 */ 	jr	$ra
-/*  f16e348:	24020032 */ 	addiu	$v0,$zero,0x32
-/*  f16e34c:	03e00008 */ 	jr	$ra
-/*  f16e350:	24020033 */ 	addiu	$v0,$zero,0x33
-/*  f16e354:	03e00008 */ 	jr	$ra
-/*  f16e358:	24020034 */ 	addiu	$v0,$zero,0x34
-/*  f16e35c:	03e00008 */ 	jr	$ra
-/*  f16e360:	24020035 */ 	addiu	$v0,$zero,0x35
-/*  f16e364:	03e00008 */ 	jr	$ra
-/*  f16e368:	24020036 */ 	addiu	$v0,$zero,0x36
-/*  f16e36c:	03e00008 */ 	jr	$ra
-/*  f16e370:	24020037 */ 	addiu	$v0,$zero,0x37
-/*  f16e374:	03e00008 */ 	jr	$ra
-/*  f16e378:	24020038 */ 	addiu	$v0,$zero,0x38
-/*  f16e37c:	03e00008 */ 	jr	$ra
-/*  f16e380:	24020039 */ 	addiu	$v0,$zero,0x39
-/*  f16e384:	03e00008 */ 	jr	$ra
-/*  f16e388:	2402003a */ 	addiu	$v0,$zero,0x3a
-/*  f16e38c:	03e00008 */ 	jr	$ra
-/*  f16e390:	2402003b */ 	addiu	$v0,$zero,0x3b
-/*  f16e394:	03e00008 */ 	jr	$ra
-/*  f16e398:	2402003c */ 	addiu	$v0,$zero,0x3c
-/*  f16e39c:	03e00008 */ 	jr	$ra
-/*  f16e3a0:	2402003d */ 	addiu	$v0,$zero,0x3d
-/*  f16e3a4:	03e00008 */ 	jr	$ra
-/*  f16e3a8:	2402003e */ 	addiu	$v0,$zero,0x3e
-/*  f16e3ac:	03e00008 */ 	jr	$ra
-/*  f16e3b0:	2402003f */ 	addiu	$v0,$zero,0x3f
-/*  f16e3b4:	03e00008 */ 	jr	$ra
-/*  f16e3b8:	24020040 */ 	addiu	$v0,$zero,0x40
-/*  f16e3bc:	03e00008 */ 	jr	$ra
-/*  f16e3c0:	24020041 */ 	addiu	$v0,$zero,0x41
-/*  f16e3c4:	03e00008 */ 	jr	$ra
-/*  f16e3c8:	24020042 */ 	addiu	$v0,$zero,0x42
-/*  f16e3cc:	03e00008 */ 	jr	$ra
-/*  f16e3d0:	24020043 */ 	addiu	$v0,$zero,0x43
-/*  f16e3d4:	03e00008 */ 	jr	$ra
-/*  f16e3d8:	24020044 */ 	addiu	$v0,$zero,0x44
-/*  f16e3dc:	03e00008 */ 	jr	$ra
-/*  f16e3e0:	24020025 */ 	addiu	$v0,$zero,0x25
-/*  f16e3e4:	03e00008 */ 	jr	$ra
-/*  f16e3e8:	24020022 */ 	addiu	$v0,$zero,0x22
-.L0f16e3ec:
-/*  f16e3ec:	1000ffff */ 	beqz	$zero,.L0f16e3ec
-/*  f16e3f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16e3f4:	03e00008 */ 	jr	$ra
-/*  f16e3f8:	00601025 */ 	or	$v0,$v1,$zero
-);
+u32 textGetLangBankIndexFromStagenum(s32 stagenum)
+{
+	u32 index;
+
+	switch (stagenum) {
+	case STAGE_PELAGIC:       index = 0x0b; break;
+	case STAGE_EXTRACTION:    index = 0x03; break;
+	case STAGE_TEST_RUN:      index = 0x1c; break;
+	case STAGE_24:            index = 0x1f; break;
+	case STAGE_MAIANSOS:      index = 0x1e; break;
+	case STAGE_TEST_DEST:     index = 0x0d; break;
+	case STAGE_2B:            index = 0x20; break;
+	case STAGE_RETAKING:      index = 0x1d; break;
+	case STAGE_WAR:           index = 0x23; break;
+	case STAGE_CHICAGO:       index = 0x19; break;
+	case STAGE_G5BUILDING:    index = 0x0c; break;
+	case STAGE_ESCAPE:        index = 0x24; break;
+	case STAGE_MP_TEMPLE:     index = 0x12; break;
+	case STAGE_MP_PIPES:      index = 0x09; break;
+	case STAGE_MP_G5BUILDING: index = 0x0a; break;
+	case STAGE_CITRAINING:    index = 0x0e; break;
+	case STAGE_MP_COMPLEX:    index = 0x1a; break;
+	case STAGE_MP_SKEDAR:     index = 0x17; break;
+	case STAGE_TEST_LEN:      index = 0x14; break;
+	case STAGE_DEFECTION:     index = 0x01; break;
+	case STAGE_VILLA:         index = 0x10; break;
+	case STAGE_DEFENSE:       index = 0x11; break;
+	case STAGE_TEST_ASH:      index = 0x04; break;
+	case STAGE_INVESTIGATION: index = 0x0f; break;
+	case STAGE_ATTACKSHIP:    index = 0x13; break;
+	case STAGE_RESCUE:        index = 0x15; break;
+	case STAGE_INFILTRATION:  index = 0x16; break;
+	case STAGE_28:            index = 0x0b; break;
+	case STAGE_DEEPSEA:       index = 0x18; break;
+	case STAGE_SKEDARRUINS:   index = 0x21; break;
+	case STAGE_AIRFORCEONE:   index = 0x1b; break;
+	case STAGE_TEST_ARCH:     index = 0x02; break;
+	case STAGE_MP_RAVINE:     index = 0x08; break;
+	case STAGE_CRASHSITE:     index = 0x05; break;
+	case STAGE_AIRBASE:       index = 0x07; break;
+	case STAGE_TEST_UFF:      index = 0x2d; break;
+	case STAGE_TEST_OLD:      index = 0x2e; break;
+	case STAGE_DUEL:          index = 0x2f; break;
+	case STAGE_TEST_LAM:      index = 0x30; break;
+	case STAGE_MP_BASE:       index = 0x31; break;
+	case STAGE_TEST_MP2:      index = 0x32; break;
+	case STAGE_MP_AREA52:     index = 0x33; break;
+	case STAGE_MP_WAREHOUSE:  index = 0x34; break;
+	case STAGE_MP_CARPARK:    index = 0x35; break;
+	case STAGE_TEST_MP6:      index = 0x36; break;
+	case STAGE_TEST_MP7:      index = 0x37; break;
+	case STAGE_TEST_MP8:      index = 0x38; break;
+	case STAGE_MP_RUINS:      index = 0x39; break;
+	case STAGE_MP_SEWERS:     index = 0x3a; break;
+	case STAGE_MP_FELICITY:   index = 0x3b; break;
+	case STAGE_MP_FORTRESS:   index = 0x3c; break;
+	case STAGE_MP_VILLA:      index = 0x3d; break;
+	case STAGE_TEST_MP14:     index = 0x3e; break;
+	case STAGE_MP_GRID:       index = 0x3f; break;
+	case STAGE_TEST_MP16:     index = 0x40; break;
+	case STAGE_TEST_MP17:     index = 0x41; break;
+	case STAGE_TEST_MP18:     index = 0x42; break;
+	case STAGE_TEST_MP19:     index = 0x43; break;
+	case STAGE_TEST_MP20:     index = 0x44; break;
+	case STAGE_MBR:           index = 0x25; break;
+	case STAGE_TEST_SILO:     index = 0x22; break;
+	default:
+		while (true) {
+			// empty
+		}
+	}
+
+	return index;
+}
 
 GLOBAL_ASM(
 glabel func0f16e3fc

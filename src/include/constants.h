@@ -1654,11 +1654,14 @@
 #define STAGE_PELAGIC       0x21
 #define STAGE_EXTRACTION    0x22
 #define STAGE_TEST_RUN      0x23
+#define STAGE_24            0x24
 #define STAGE_MP_TEMPLE     0x25
 #define STAGE_CITRAINING    0x26
 #define STAGE_AIRBASE       0x27
+#define STAGE_28            0x28
 #define STAGE_MP_PIPES      0x29
 #define STAGE_SKEDARRUINS   0x2a
+#define STAGE_2B            0x2b
 #define STAGE_VILLA         0x2c
 #define STAGE_DEFENSE       0x2d
 #define STAGE_TEST_ASH      0x2e
@@ -1696,6 +1699,7 @@
 #define STAGE_TEST_OLD      0x4e
 #define STAGE_DUEL          0x4f
 #define STAGE_TEST_LAM      0x50
+#define STAGE_5C            0x5c
 
 #define STAGEINDEX_MAIANSOS      0x00
 #define STAGEINDEX_TEST_SILO     0x01

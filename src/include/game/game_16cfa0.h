@@ -40,7 +40,7 @@ u32 audioRestartAuxTrack(void);
 void audioPlayXTrack(u32 arg0, u32 arg1, u32 arg2);
 u32 audioStopTrack(u32 arg0);
 u32 func0f16e138(void);
-u32 func0f16e1e0(s32 arg0);
+u32 textGetLangBankIndexFromStagenum(s32 stagenum);
 u32 func0f16e3fc(void);
 s32 textGetLanguageId(void);
 s32 textGetFileId(s32 bank);
