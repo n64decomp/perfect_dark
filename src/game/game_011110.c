@@ -955,7 +955,7 @@ glabel currentPlayerInit
 /*  f011fc8:	8d2400bc */ 	lw	$a0,0xbc($t1)
 /*  f011fcc:	8e2a0284 */ 	lw	$t2,0x284($s1)
 /*  f011fd0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f011fd4:	0fc0819a */ 	jal	func0f020668
+/*  f011fd4:	0fc0819a */ 	jal	chrInit
 /*  f011fd8:	8d4400bc */ 	lw	$a0,0xbc($t2)
 /*  f011fdc:	8e2b0298 */ 	lw	$t3,0x298($s1)
 /*  f011fe0:	05620008 */ 	bltzl	$t3,.L0f012004
@@ -1508,7 +1508,7 @@ glabel currentPlayerInit
 //	g_Vars.currentplayer->prop->type = PROPTYPE_PLAYER;
 //	func0f0604bc(g_Vars.currentplayer->prop);
 //	propHide(g_Vars.currentplayer->prop);
-//	func0f020668(g_Vars.currentplayer->prop, 0);
+//	chrInit(g_Vars.currentplayer->prop, 0);
 //
 //	if (g_Vars.coopplayernum >= 0) {
 //		g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;

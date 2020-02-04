@@ -489,7 +489,7 @@ struct chrdata {
 	/*0x00e*/ u8 aimendcount;
 	/*0x00f*/ u8 grenadeprob;
 	/*0x010*/ u16 bodynum;
-	/*0x012*/ u8 flinchcnt;
+	/*0x012*/ s8 flinchcnt;
 	/*0x013*/ s8 path;
 	/*0x014*/ u32 hidden;
 	/*0x018*/ u32 chrflags;
@@ -514,7 +514,7 @@ struct chrdata {
 		struct act_skjump act_skjump;
 	};
 
-	/*0x0b0*/ u32 sumground;
+	/*0x0b0*/ f32 sumground;
 	/*0x0b4*/ f32 manground;
 	/*0x0b8*/ f32 ground;
 	/*0x0bc*/ struct coord fallspeed;
@@ -526,11 +526,11 @@ struct chrdata {
 	/*0x0e4*/ s32 lastvisibletarget60;
 	/*0x0e8*/ void *unk0e8;
 	/*0x0ec*/ s16 lastshooter;
-	/*0x0ee*/ s16 timeshooter;
+	/*0x0ee*/ u16 timeshooter;
 	/*0x0f0*/ f32 hearingscale;
 	/*0x0f4*/ s32 lastheartarget60;
-	/*0x0f8*/ u32 shadecol;
-	/*0x0fc*/ u32 nextcol;
+	/*0x0f8*/ u8 shadecol[4];
+	/*0x0fc*/ u8 nextcol[4];
 	/*0x100*/ f32 damage;
 	/*0x104*/ f32 maxdamage;
 	/*0x108*/ u8 *ailist;
@@ -554,16 +554,15 @@ struct chrdata {
 	/*0x132*/ s16 chrdup;
 	struct geo geo;
 	/*0x14c*/ f32 shotbondsum;
-	/*0x150*/ u32 aimuplshoulder;
-	/*0x154*/ u32 aimuprshoulder;
-	/*0x158*/ u32 aimupback;
-	/*0x15c*/ u32 aimsideback;
+	/*0x150*/ f32 aimuplshoulder;
+	/*0x154*/ f32 aimuprshoulder;
+	/*0x158*/ f32 aimupback;
+	/*0x15c*/ f32 aimsideback;
 	/*0x160*/ f32 aimendlshoulder;
 	/*0x164*/ f32 aimendrshoulder;
 	/*0x168*/ f32 aimendback;
 	/*0x16c*/ f32 aimendsideback;
-	/*0x170*/ struct prop *weapons_held[2];
-	/*0x178*/ u32 unk178;
+	/*0x170*/ struct prop *weapons_held[3];
 	/*0x17c*/ s8 fireslot[2];
 	/*0x17e*/ s16 target; // index into g_Vars.props
 	/*0x180*/ f32 cshield;
@@ -573,13 +572,13 @@ struct chrdata {
 	/*0x187*/ u8 cmnum4;
 	/*0x188*/ u16 cmcount;
 	/*0x18a*/ u16 floorcol;
-	/*0x18c*/ u32 oldframe;
+	/*0x18c*/ f32 oldframe;
 	/*0x190*/ u8 footstep;
-	/*0x191*/ u8 floortype;
+	/*0x191*/ s8 floortype;
 	/*0x192*/ u16 hidden2;
-	/*0x194*/ u32 magicframe;
-	/*0x198*/ u32 magicspeed;
-	/*0x19c*/ u16 magicanim;
+	/*0x194*/ f32 magicframe;
+	/*0x198*/ f32 magicspeed;
+	/*0x19c*/ s16 magicanim;
 	/*0x19e*/ s16 goposforce;
 	/*0x1a0*/ s32 bdlist[60];
 	/*0x290*/ u8 bdstart;
@@ -597,30 +596,31 @@ struct chrdata {
 	/*0x2ae*/ u16 unk2ae;
 	/*0x2b0*/ u8 tude;
 	/*0x2b1*/ u8 voicebox;
-	/*0x2b2*/ u16 floorroom;
+	/*0x2b2*/ s16 floorroom;
 	/*0x2b4*/ u32 unk2b4;
 	/*0x2b8*/ s16 oldrooms[8];
 	/*0x2c8*/ struct coord runfrompos;
 	/*0x2d4*/ struct chr2d4 *unk2d4;
 	/*0x2d8*/ s16 blurdrugamount;
 	/*0x2da*/ u16 cloakpause;
-	/*0x2dc*/ u32 drugheadsway;
+	/*0x2dc*/ f32 drugheadsway;
 	/*0x2e0*/ u8 drugheadcount;
-	/*0x2e1*/ u8 cloakfade;
+	/*0x2e1*/ u8 cloakfade_00 : 7;
+	/*0x2e1*/ u8 cloakfade_06 : 1;
 	/*0x2e2*/ u8 teamscandist;
 	/*0x2e3*/ u8 naturalanim;
 	/*0x2e4*/ u32 myspecial;
-	/*0x2e8*/ u32 timeextra;
-	/*0x2ec*/ u32 elapseextra;
+	/*0x2e8*/ f32 timeextra;
+	/*0x2ec*/ f32 elapseextra;
 	/*0x2f0*/ struct coord extraspeed;
 	/*0x2fc*/ u8 yvisang;
 	/*0x2fd*/ u8 ivebeenhit;
 	/*0x2fe*/ u8 race;
 	/*0x2ff*/ u8 blurnumtimesdied;
 	/*0x300*/ struct prop *gunprop;
-	/*0x304*/ u32 pushspeed[2];
-	/*0x30c*/ u32 gunroty[2];
-	/*0x314*/ u32 gunrotx[2];
+	/*0x304*/ f32 pushspeed[2];
+	/*0x30c*/ f32 gunroty[2];
+	/*0x314*/ f32 gunrotx[2];
 	/*0x31c*/ u32 onladder;
 	/*0x320*/ struct coord laddernormal;
 
@@ -629,13 +629,14 @@ struct chrdata {
 
 	u8 unk32c_08 : 1;
 	u8 pouncebits : 3;
-	u8 unk32c_12 : 1;
-	u8 unk32c_13 : 1;
+	u8 unk32c_12 : 2;
 	u8 darkroomthing : 1;
 	u8 unk32c_15 : 1;
 
 	u8 p1p2 : 2;
-	u8 unk32c_18 : 3;
+	u8 unk32c_18 : 1;
+	u8 unk32c_19 : 1;
+	u8 unk32c_20 : 1;
 	u8 unk32c_21 : 1;
 	u8 unk32c_22 : 2;
 
@@ -643,7 +644,7 @@ struct chrdata {
 
 	/*0x330*/ u16 roomtosearch;
 	/*0x332*/ u8 propsoundcount;
-	/*0x333*/ u8 patrolnextstep;
+	/*0x333*/ s8 patrolnextstep;
 	/*0x334*/ u8 BulletsTaken;
 	/*0x335*/ u8 WoundedSplatsAd;
 	/*0x336*/ u16 TicksSinceSplat;
@@ -657,7 +658,7 @@ struct chrdata {
 	/*0x350*/ u32 unk350;
 	/*0x354*/ s16 aipunchdodgelist;
 	/*0x356*/ s16 aishootingatmelist;
-	/*0x358*/ u16 poisonCounter;
+	/*0x358*/ u16 poisoncounter;
 	/*0x35a*/ s16 aidarkroomlist;
 	/*0x35c*/ s16 aiplayerdeadlist;
 	/*0x35e*/ u8 dodgerating;
