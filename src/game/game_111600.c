@@ -531,34 +531,16 @@ glabel func0f111c30
 /*  f111c98:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f111c9c
-/*  f111c9c:	3c0e800a */ 	lui	$t6,0x800a
-/*  f111ca0:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f111ca4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f111ca8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111cac:	8dcf1870 */ 	lw	$t7,0x1870($t6)
-/*  f111cb0:	11e0000b */ 	beqz	$t7,.L0f111ce0
-/*  f111cb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111cb8:	10800009 */ 	beqz	$a0,.L0f111ce0
-/*  f111cbc:	2881002d */ 	slti	$at,$a0,0x2d
-/*  f111cc0:	10200007 */ 	beqz	$at,.L0f111ce0
-/*  f111cc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111cc8:	0fc4470c */ 	jal	func0f111c30
-/*  f111ccc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f111cd0:	10400003 */ 	beqz	$v0,.L0f111ce0
-/*  f111cd4:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f111cd8:	10000003 */ 	beqz	$zero,.L0f111ce8
-/*  f111cdc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f111ce0:
-/*  f111ce0:	0fc4468a */ 	jal	func0f111a28
-/*  f111ce4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f111ce8:
-/*  f111ce8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f111cec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f111cf0:	03e00008 */ 	jr	$ra
-/*  f111cf4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentPlayerCanHaveWeapon(s32 weaponnum)
+{
+	if (g_Vars.currentplayer->equipallguns &&
+			weaponnum && weaponnum <= WEAPON_PSYCHOSISGUN &&
+			func0f111c30(weaponnum)) {
+		return true;
+	}
+
+	return func0f111a28(weaponnum);
+}
 
 GLOBAL_ASM(
 glabel func0f111cf8
