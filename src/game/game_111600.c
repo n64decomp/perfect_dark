@@ -285,24 +285,18 @@ glabel func0f111928
 /*  f11197c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+void currentPlayerSetAllGuns(bool enable)
+{
+	s32 weaponnum;
+
+	g_Vars.currentplayer->equipallguns = enable;
+	func0f112f70();
+	weaponnum = func0f112c44(g_Vars.currentplayer->equipcuritem);
+	currentPlayerEquipWeaponInCutscene(weaponnum);
+}
+
 GLOBAL_ASM(
-glabel currentPlayerSetAllGuns
-/*  f111980:	3c0e800a */ 	lui	$t6,0x800a
-/*  f111984:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f111988:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f11198c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111990:	0fc44bdc */ 	jal	func0f112f70
-/*  f111994:	adc41870 */ 	sw	$a0,0x1870($t6)
-/*  f111998:	3c0f800a */ 	lui	$t7,0x800a
-/*  f11199c:	8defa244 */ 	lw	$t7,-0x5dbc($t7)
-/*  f1119a0:	0fc44b11 */ 	jal	func0f112c44
-/*  f1119a4:	8de41874 */ 	lw	$a0,0x1874($t7)
-/*  f1119a8:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
-/*  f1119ac:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1119b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1119b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1119b8:	03e00008 */ 	jr	$ra
-/*  f1119bc:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f1119c0
 /*  f1119c0:	3c0e800a */ 	lui	$t6,0x800a
 /*  f1119c4:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
 /*  f1119c8:	03e00008 */ 	jr	$ra

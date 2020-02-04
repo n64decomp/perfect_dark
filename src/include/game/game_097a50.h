@@ -92,7 +92,7 @@ u32 func0f0a12b0(void);
 u32 func0f0a1318(void);
 u32 func0f0a134c(void);
 u32 func0f0a1528(void);
-u32 currentPlayerEquipWeaponInCutscene(s8 arg0);
+u32 currentPlayerEquipWeaponInCutscene(s32 arg0);
 u32 getCurrentPlayerWeaponId(u32 arg0);
 u32 getCurrentPlayerWeaponIdWrapper(u32 arg0);
 u32 func0f0a1a10(void);
