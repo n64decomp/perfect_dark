@@ -16,7 +16,7 @@ u32 func0f111ab0(void);
 u32 func0f111ad4(void);
 u32 func0f111b88(void);
 u32 func0f111be8(void);
-bool func0f111c30(s32 weaponnum);
+bool currentPlayerCanHaveAllGunsWeapon(s32 weaponnum);
 bool currentPlayerCanHaveWeapon(s32 weaponnum);
 u32 func0f111cf8(void);
 void currentPlayerGiveWeapon(s32 weapon);

@@ -497,45 +497,28 @@ glabel func0f111be8
 /*  f111c2c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f111c30
-/*  f111c30:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f111c34:	24010019 */ 	addiu	$at,$zero,0x19
-/*  f111c38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111c3c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f111c40:	14810002 */ 	bne	$a0,$at,.L0f111c4c
-/*  f111c44:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f111c48:	00001825 */ 	or	$v1,$zero,$zero
-.L0f111c4c:
-/*  f111c4c:	0c003a61 */ 	jal	getCurrentStageId
-/*  f111c50:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f111c54:	24010034 */ 	addiu	$at,$zero,0x34
-/*  f111c58:	1441000b */ 	bne	$v0,$at,.L0f111c88
-/*  f111c5c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f111c60:	0c003a61 */ 	jal	getCurrentStageId
-/*  f111c64:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f111c68:	2401002a */ 	addiu	$at,$zero,0x2a
-/*  f111c6c:	14410006 */ 	bne	$v0,$at,.L0f111c88
-/*  f111c70:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f111c74:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f111c78:	24010019 */ 	addiu	$at,$zero,0x19
-/*  f111c7c:	55e10003 */ 	bnel	$t7,$at,.L0f111c8c
-/*  f111c80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f111c84:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f111c88:
-/*  f111c88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f111c8c:
-/*  f111c8c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f111c90:	00601025 */ 	or	$v0,$v1,$zero
-/*  f111c94:	03e00008 */ 	jr	$ra
-/*  f111c98:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentPlayerCanHaveAllGunsWeapon(s32 weaponnum)
+{
+	bool canhave = true;
+
+	if (weaponnum == WEAPON_SLAYER) {
+		canhave = false;
+	}
+
+	// @bug: The stage conditions need an OR. This condition can never pass.
+	if ((getCurrentStageId() == STAGE_ATTACKSHIP && getCurrentStageId() == STAGE_SKEDARRUINS)
+			&& weaponnum == WEAPON_SLAYER) {
+		canhave = true;
+	}
+
+	return canhave;
+}
 
 bool currentPlayerCanHaveWeapon(s32 weaponnum)
 {
 	if (g_Vars.currentplayer->equipallguns &&
 			weaponnum && weaponnum <= WEAPON_PSYCHOSISGUN &&
-			func0f111c30(weaponnum)) {
+			currentPlayerCanHaveAllGunsWeapon(weaponnum)) {
 		return true;
 	}
 
@@ -568,7 +551,7 @@ glabel func0f111cf8
 /*  f111d48:	10400009 */ 	beqz	$v0,.L0f111d70
 /*  f111d4c:	8fa6001c */ 	lw	$a2,0x1c($sp)
 /*  f111d50:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f111d54:	0fc4470c */ 	jal	func0f111c30
+/*  f111d54:	0fc4470c */ 	jal	currentPlayerCanHaveAllGunsWeapon
 /*  f111d58:	afa6001c */ 	sw	$a2,0x1c($sp)
 /*  f111d5c:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f111d60:	10400003 */ 	beqz	$v0,.L0f111d70
@@ -603,7 +586,7 @@ glabel currentPlayerGiveWeapon
 /*  f111dbc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f111dc0:	10200007 */ 	beqz	$at,.L0f111de0
 /*  f111dc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111dc8:	0fc4470c */ 	jal	func0f111c30
+/*  f111dc8:	0fc4470c */ 	jal	currentPlayerCanHaveAllGunsWeapon
 /*  f111dcc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f111dd0:	10400003 */ 	beqz	$v0,.L0f111de0
 /*  f111dd4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1062,7 +1045,7 @@ glabel func0f1122ec
 /*  f1123e4:	10400008 */ 	beqz	$v0,.L0f112408
 /*  f1123e8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1123ec:
-/*  f1123ec:	0fc4470c */ 	jal	func0f111c30
+/*  f1123ec:	0fc4470c */ 	jal	currentPlayerCanHaveAllGunsWeapon
 /*  f1123f0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1123f4:	10400004 */ 	beqz	$v0,.L0f112408
 /*  f1123f8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1228,7 +1211,7 @@ glabel func0f11253c
 /*  f112620:	5040ffe2 */ 	beqzl	$v0,.L0f1125ac
 /*  f112624:	2619002c */ 	addiu	$t9,$s0,0x2c
 .L0f112628:
-/*  f112628:	0fc4470c */ 	jal	func0f111c30
+/*  f112628:	0fc4470c */ 	jal	currentPlayerCanHaveAllGunsWeapon
 /*  f11262c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f112630:	5040ffde */ 	beqzl	$v0,.L0f1125ac
 /*  f112634:	2619002c */ 	addiu	$t9,$s0,0x2c
