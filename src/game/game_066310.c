@@ -40522,7 +40522,7 @@ glabel func0f089014
 /*  f089230:	100001e5 */ 	beqz	$zero,.L0f0899c8
 /*  f089234:	00001025 */ 	or	$v0,$zero,$zero
 .L0f089238:
-/*  f089238:	0fc4468a */ 	jal	func0f111a28
+/*  f089238:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f08923c:	afa70080 */ 	sw	$a3,0x80($sp)
 /*  f089240:	1040013c */ 	beqz	$v0,.L0f089734
 /*  f089244:	8fa70080 */ 	lw	$a3,0x80($sp)
@@ -40665,7 +40665,7 @@ glabel func0f089014
 /*  f089434:	24010007 */ 	addiu	$at,$zero,0x7
 /*  f089438:	54410007 */ 	bnel	$v0,$at,.L0f089458
 /*  f08943c:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f089440:	0fc4468a */ 	jal	func0f111a28
+/*  f089440:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f089444:	2404001e */ 	addiu	$a0,$zero,0x1e
 /*  f089448:	104000ba */ 	beqz	$v0,.L0f089734
 /*  f08944c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -40674,7 +40674,7 @@ glabel func0f089014
 .L0f089458:
 /*  f089458:	54410007 */ 	bnel	$v0,$at,.L0f089478
 /*  f08945c:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f089460:	0fc4468a */ 	jal	func0f111a28
+/*  f089460:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f089464:	24040031 */ 	addiu	$a0,$zero,0x31
 /*  f089468:	104000b2 */ 	beqz	$v0,.L0f089734
 /*  f08946c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -40683,7 +40683,7 @@ glabel func0f089014
 .L0f089478:
 /*  f089478:	54410007 */ 	bnel	$v0,$at,.L0f089498
 /*  f08947c:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f089480:	0fc4468a */ 	jal	func0f111a28
+/*  f089480:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f089484:	24040023 */ 	addiu	$a0,$zero,0x23
 /*  f089488:	104000aa */ 	beqz	$v0,.L0f089734
 /*  f08948c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -40692,7 +40692,7 @@ glabel func0f089014
 .L0f089498:
 /*  f089498:	54410007 */ 	bnel	$v0,$at,.L0f0894b8
 /*  f08949c:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f0894a0:	0fc4468a */ 	jal	func0f111a28
+/*  f0894a0:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f0894a4:	2404001f */ 	addiu	$a0,$zero,0x1f
 /*  f0894a8:	104000a2 */ 	beqz	$v0,.L0f089734
 /*  f0894ac:	00000000 */ 	sll	$zero,$zero,0x0
@@ -40701,7 +40701,7 @@ glabel func0f089014
 .L0f0894b8:
 /*  f0894b8:	54410007 */ 	bnel	$v0,$at,.L0f0894d8
 /*  f0894bc:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f0894c0:	0fc4468a */ 	jal	func0f111a28
+/*  f0894c0:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f0894c4:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f0894c8:	1040009a */ 	beqz	$v0,.L0f089734
 /*  f0894cc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -40710,7 +40710,7 @@ glabel func0f089014
 .L0f0894d8:
 /*  f0894d8:	54410007 */ 	bnel	$v0,$at,.L0f0894f8
 /*  f0894dc:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f0894e0:	0fc4468a */ 	jal	func0f111a28
+/*  f0894e0:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f0894e4:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f0894e8:	10400092 */ 	beqz	$v0,.L0f089734
 /*  f0894ec:	00000000 */ 	sll	$zero,$zero,0x0
@@ -40719,7 +40719,7 @@ glabel func0f089014
 .L0f0894f8:
 /*  f0894f8:	54410007 */ 	bnel	$v0,$at,.L0f089518
 /*  f0894fc:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f089500:	0fc4468a */ 	jal	func0f111a28
+/*  f089500:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f089504:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f089508:	1040008a */ 	beqz	$v0,.L0f089734
 /*  f08950c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -40728,7 +40728,7 @@ glabel func0f089014
 .L0f089518:
 /*  f089518:	14410005 */ 	bne	$v0,$at,.L0f089530
 /*  f08951c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f089520:	0fc4468a */ 	jal	func0f111a28
+/*  f089520:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f089524:	2404001a */ 	addiu	$a0,$zero,0x1a
 /*  f089528:	10400082 */ 	beqz	$v0,.L0f089734
 /*  f08952c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -40774,56 +40774,56 @@ glabel func0f089014
 .L0f0895bc:
 /*  f0895bc:	56010005 */ 	bnel	$s0,$at,.L0f0895d4
 /*  f0895c0:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f0895c4:	0fc4468a */ 	jal	func0f111a28
+/*  f0895c4:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f0895c8:	2404001e */ 	addiu	$a0,$zero,0x1e
 /*  f0895cc:	1040002b */ 	beqz	$v0,.L0f08967c
 /*  f0895d0:	24010014 */ 	addiu	$at,$zero,0x14
 .L0f0895d4:
 /*  f0895d4:	56010005 */ 	bnel	$s0,$at,.L0f0895ec
 /*  f0895d8:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f0895dc:	0fc4468a */ 	jal	func0f111a28
+/*  f0895dc:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f0895e0:	24040031 */ 	addiu	$a0,$zero,0x31
 /*  f0895e4:	10400025 */ 	beqz	$v0,.L0f08967c
 /*  f0895e8:	24010015 */ 	addiu	$at,$zero,0x15
 .L0f0895ec:
 /*  f0895ec:	56010005 */ 	bnel	$s0,$at,.L0f089604
 /*  f0895f0:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f0895f4:	0fc4468a */ 	jal	func0f111a28
+/*  f0895f4:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f0895f8:	24040023 */ 	addiu	$a0,$zero,0x23
 /*  f0895fc:	1040001f */ 	beqz	$v0,.L0f08967c
 /*  f089600:	24010012 */ 	addiu	$at,$zero,0x12
 .L0f089604:
 /*  f089604:	56010005 */ 	bnel	$s0,$at,.L0f08961c
 /*  f089608:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f08960c:	0fc4468a */ 	jal	func0f111a28
+/*  f08960c:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f089610:	2404001f */ 	addiu	$a0,$zero,0x1f
 /*  f089614:	10400019 */ 	beqz	$v0,.L0f08967c
 /*  f089618:	2401000c */ 	addiu	$at,$zero,0xc
 .L0f08961c:
 /*  f08961c:	56010005 */ 	bnel	$s0,$at,.L0f089634
 /*  f089620:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f089624:	0fc4468a */ 	jal	func0f111a28
+/*  f089624:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f089628:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f08962c:	10400013 */ 	beqz	$v0,.L0f08967c
 /*  f089630:	2401000d */ 	addiu	$at,$zero,0xd
 .L0f089634:
 /*  f089634:	56010005 */ 	bnel	$s0,$at,.L0f08964c
 /*  f089638:	2401000e */ 	addiu	$at,$zero,0xe
-/*  f08963c:	0fc4468a */ 	jal	func0f111a28
+/*  f08963c:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f089640:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f089644:	1040000d */ 	beqz	$v0,.L0f08967c
 /*  f089648:	2401000e */ 	addiu	$at,$zero,0xe
 .L0f08964c:
 /*  f08964c:	56010005 */ 	bnel	$s0,$at,.L0f089664
 /*  f089650:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f089654:	0fc4468a */ 	jal	func0f111a28
+/*  f089654:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f089658:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f08965c:	10400007 */ 	beqz	$v0,.L0f08967c
 /*  f089660:	24010009 */ 	addiu	$at,$zero,0x9
 .L0f089664:
 /*  f089664:	56010008 */ 	bnel	$s0,$at,.L0f089688
 /*  f089668:	8fa20060 */ 	lw	$v0,0x60($sp)
-/*  f08966c:	0fc4468a */ 	jal	func0f111a28
+/*  f08966c:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f089670:	2404001a */ 	addiu	$a0,$zero,0x1a
 /*  f089674:	54400004 */ 	bnezl	$v0,.L0f089688
 /*  f089678:	8fa20060 */ 	lw	$v0,0x60($sp)
@@ -40869,7 +40869,7 @@ glabel func0f089014
 /*  f089704:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f089708:	17210006 */ 	bne	$t9,$at,.L0f089724
 /*  f08970c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f089710:	0fc44a11 */ 	jal	func0f112844
+/*  f089710:	0fc44a11 */ 	jal	currentPlayerHasBriefcase
 /*  f089714:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f089718:	10400002 */ 	beqz	$v0,.L0f089724
 /*  f08971c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -49319,7 +49319,7 @@ glabel func0f0910ac
 /*  f09112c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f091130:	04420039 */ 	bltzl	$v0,.L0f091218
 /*  f091134:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f091138:	0fc4468a */ 	jal	func0f111a28
+/*  f091138:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f09113c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f091140:	10400034 */ 	beqz	$v0,.L0f091214
 /*  f091144:	02002025 */ 	or	$a0,$s0,$zero

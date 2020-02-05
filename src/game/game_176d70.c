@@ -9857,7 +9857,7 @@ void scenarioHtbCallback10(void)
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			setCurrentPlayerNum(i);
 
-			if (func0f112844()) {
+			if (currentPlayerHasBriefcase()) {
 				g_ScenarioData.htb.token = g_Vars.currentplayer->prop;
 				break;
 			}
@@ -9907,7 +9907,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			chr->unk2d4->unk0a0 = 0;
 		}
 	} else {
-		if (func0f112844()) {
+		if (currentPlayerHasBriefcase()) {
 			g_Vars.unk000288->unk60 += g_Vars.lvupdate240;
 
 			if (g_Vars.unk000288->unk60 >= SECSTOFRAMES240(30)) {
@@ -9927,7 +9927,7 @@ glabel scenarioHtbCallback18
 /*  f18079c:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f1807a0:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*  f1807a4:	afb00038 */ 	sw	$s0,0x38($sp)
-/*  f1807a8:	0fc44a11 */ 	jal	func0f112844
+/*  f1807a8:	0fc44a11 */ 	jal	currentPlayerHasBriefcase
 /*  f1807ac:	00808025 */ 	or	$s0,$a0,$zero
 /*  f1807b0:	50400067 */ 	beqzl	$v0,.L0f180950
 /*  f1807b4:	8fbf003c */ 	lw	$ra,0x3c($sp)
@@ -16049,7 +16049,7 @@ glabel func0f186898
 .L0f186c40:
 /*  f186c40:	546000b9 */ 	bnezl	$v1,.L0f186f28
 /*  f186c44:	8fad0128 */ 	lw	$t5,0x128($sp)
-/*  f186c48:	0fc44a11 */ 	jal	func0f112844
+/*  f186c48:	0fc44a11 */ 	jal	currentPlayerHasBriefcase
 /*  f186c4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f186c50:	504000b5 */ 	beqzl	$v0,.L0f186f28
 /*  f186c54:	8fad0128 */ 	lw	$t5,0x128($sp)
@@ -16271,7 +16271,7 @@ glabel func0f186898
 .L0f186f5c:
 /*  f186f5c:	546000b8 */ 	bnezl	$v1,.L0f187240
 /*  f186f60:	8fac0128 */ 	lw	$t4,0x128($sp)
-/*  f186f64:	0fc44a11 */ 	jal	func0f112844
+/*  f186f64:	0fc44a11 */ 	jal	currentPlayerHasBriefcase
 /*  f186f68:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f186f6c:	144000b3 */ 	bnez	$v0,.L0f18723c
 /*  f186f70:	8faf0128 */ 	lw	$t7,0x128($sp)

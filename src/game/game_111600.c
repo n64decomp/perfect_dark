@@ -298,7 +298,7 @@ glabel func0f1119d0
 /*  f111a24:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool func0f111a28(s32 weaponnum)
+bool currentPlayerHasWeapon(s32 weaponnum)
 {
 	return func0f1119d0(weaponnum) != NULL;
 }
@@ -461,7 +461,7 @@ bool currentPlayerCanHaveWeapon(s32 weaponnum)
 		return true;
 	}
 
-	return func0f111a28(weaponnum);
+	return currentPlayerHasWeapon(weaponnum);
 }
 
 bool func0f111cf8(s32 weapon1, s32 weapon2)
@@ -485,7 +485,7 @@ bool currentPlayerGiveWeapon(s32 weaponnum)
 {
 	func0f19cb38(weaponnum);
 
-	if (func0f111a28(weaponnum) == 0) {
+	if (currentPlayerHasWeapon(weaponnum) == 0) {
 		struct invitem *item;
 
 		if (g_Vars.currentplayer->equipallguns &&
@@ -1231,27 +1231,14 @@ glabel func0f112790
 /*  f112840:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f112844
-/*  f112844:	3c0e800a */ 	lui	$t6,0x800a
-/*  f112848:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f11284c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f112850:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112854:	8dcf00d8 */ 	lw	$t7,0xd8($t6)
-/*  f112858:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11285c:	15e00005 */ 	bnez	$t7,.L0f112874
-/*  f112860:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112864:	0fc4468a */ 	jal	func0f111a28
-/*  f112868:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f11286c:	10000002 */ 	beqz	$zero,.L0f112878
-/*  f112870:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f112874:
-/*  f112874:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f112878:
-/*  f112878:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f11287c:	03e00008 */ 	jr	$ra
-/*  f112880:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentPlayerHasBriefcase(void)
+{
+	if (g_Vars.currentplayer->isdead == false) {
+		return currentPlayerHasWeapon(WEAPON_BRIEFCASE2);
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f112884
@@ -1263,7 +1250,7 @@ glabel func0f112884
 /*  f112898:	00001025 */ 	or	$v0,$zero,$zero
 /*  f11289c:	15e00005 */ 	bnez	$t7,.L0f1128b4
 /*  f1128a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1128a4:	0fc4468a */ 	jal	func0f111a28
+/*  f1128a4:	0fc4468a */ 	jal	currentPlayerHasWeapon
 /*  f1128a8:	24040036 */ 	addiu	$a0,$zero,0x36
 /*  f1128ac:	10000002 */ 	beqz	$zero,.L0f1128b8
 /*  f1128b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
