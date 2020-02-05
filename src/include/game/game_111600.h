@@ -15,7 +15,7 @@ u32 func0f111a4c(void);
 bool func0f111ab0(s32 weapon1, s32 weapon2);
 u32 func0f111ad4(void);
 u32 func0f111b88(void);
-u32 func0f111be8(void);
+bool currentStageForbidsSlayer(void);
 bool currentPlayerCanHaveAllGunsWeapon(s32 weaponnum);
 bool currentPlayerCanHaveWeapon(s32 weaponnum);
 bool func0f111cf8(s32 weapon1, s32 weapon2);

@@ -474,29 +474,16 @@ glabel func0f111b88
 /*  f111be4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f111be8
-/*  f111be8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f111bec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111bf0:	0c003a61 */ 	jal	getCurrentStageId
-/*  f111bf4:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f111bf8:	24010034 */ 	addiu	$at,$zero,0x34
-/*  f111bfc:	50410008 */ 	beql	$v0,$at,.L0f111c20
-/*  f111c00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f111c04:	0c003a61 */ 	jal	getCurrentStageId
-/*  f111c08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111c0c:	2401002a */ 	addiu	$at,$zero,0x2a
-/*  f111c10:	10410002 */ 	beq	$v0,$at,.L0f111c1c
-/*  f111c14:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f111c18:	afae001c */ 	sw	$t6,0x1c($sp)
-.L0f111c1c:
-/*  f111c1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f111c20:
-/*  f111c20:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f111c24:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f111c28:	03e00008 */ 	jr	$ra
-/*  f111c2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentStageForbidsSlayer(void)
+{
+	bool forbids = false;
+
+	if (getCurrentStageId() != STAGE_ATTACKSHIP && getCurrentStageId() != STAGE_SKEDARRUINS) {
+		forbids = true;
+	}
+
+	return forbids;
+}
 
 bool currentPlayerCanHaveAllGunsWeapon(s32 weaponnum)
 {
@@ -1393,7 +1380,7 @@ glabel func0f112950
 /*  f112964:	00003025 */ 	or	$a2,$zero,$zero
 /*  f112968:	51c00008 */ 	beqzl	$t6,.L0f11298c
 /*  f11296c:	8d091864 */ 	lw	$t1,0x1864($t0)
-/*  f112970:	0fc446fa */ 	jal	func0f111be8
+/*  f112970:	0fc446fa */ 	jal	currentStageForbidsSlayer
 /*  f112974:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f112978:	240f002c */ 	addiu	$t7,$zero,0x2c
 /*  f11297c:	3c08800a */ 	lui	$t0,0x800a
@@ -1470,7 +1457,7 @@ glabel func0f112a58
 /*  f112a6c:	00802825 */ 	or	$a1,$a0,$zero
 /*  f112a70:	51c00013 */ 	beqzl	$t6,.L0f112ac0
 /*  f112a74:	8d091864 */ 	lw	$t1,0x1864($t0)
-/*  f112a78:	0fc446fa */ 	jal	func0f111be8
+/*  f112a78:	0fc446fa */ 	jal	currentStageForbidsSlayer
 /*  f112a7c:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f112a80:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*  f112a84:	240f002c */ 	addiu	$t7,$zero,0x2c
@@ -1481,7 +1468,7 @@ glabel func0f112a58
 /*  f112a98:	10000045 */ 	beqz	$zero,.L0f112bb0
 /*  f112a9c:	00001025 */ 	or	$v0,$zero,$zero
 .L0f112aa0:
-/*  f112aa0:	0fc446fa */ 	jal	func0f111be8
+/*  f112aa0:	0fc446fa */ 	jal	currentStageForbidsSlayer
 /*  f112aa4:	afa50018 */ 	sw	$a1,0x18($sp)
 /*  f112aa8:	8fa50018 */ 	lw	$a1,0x18($sp)
 /*  f112aac:	3c08800a */ 	lui	$t0,0x800a
@@ -1638,7 +1625,7 @@ glabel func0f112c44
 /*  f112ca8:	8dcf1870 */ 	lw	$t7,0x1870($t6)
 /*  f112cac:	51e0000e */ 	beqzl	$t7,.L0f112ce8
 /*  f112cb0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f112cb4:	0fc446fa */ 	jal	func0f111be8
+/*  f112cb4:	0fc446fa */ 	jal	currentStageForbidsSlayer
 /*  f112cb8:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f112cbc:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f112cc0:	2418002c */ 	addiu	$t8,$zero,0x2c
@@ -1709,7 +1696,7 @@ glabel func0f112cf8
 /*  f112da0:	13200010 */ 	beqz	$t9,.L0f112de4
 /*  f112da4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f112da8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f112dac:	0fc446fa */ 	jal	func0f111be8
+/*  f112dac:	0fc446fa */ 	jal	currentStageForbidsSlayer
 /*  f112db0:	afa50018 */ 	sw	$a1,0x18($sp)
 /*  f112db4:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f112db8:	2408002c */ 	addiu	$t0,$zero,0x2c
@@ -1802,7 +1789,7 @@ glabel func0f112e24
 /*  f112edc:	13200010 */ 	beqz	$t9,.L0f112f20
 /*  f112ee0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f112ee4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f112ee8:	0fc446fa */ 	jal	func0f111be8
+/*  f112ee8:	0fc446fa */ 	jal	currentStageForbidsSlayer
 /*  f112eec:	afa50018 */ 	sw	$a1,0x18($sp)
 /*  f112ef0:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f112ef4:	2408002c */ 	addiu	$t0,$zero,0x2c
