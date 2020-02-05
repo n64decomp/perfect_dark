@@ -9,6 +9,7 @@
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
+#include "library/library_121e0.h"
 #include "types.h"
 
 void currentPlayerInitGunsHeld(void)
@@ -29,6 +30,6 @@ void currentPlayerInitGunsHeld(void)
 void func0f012530(s32 arg0)
 {
 	g_Vars.currentplayer->equipmaxitems = arg0 + 30;
-	g_Vars.currentplayer->unk1868 = malloc((g_Vars.currentplayer->equipmaxitems * 20 + 15 | 0xf) ^ 0xf, 4);
-	func0f111600();
+	g_Vars.currentplayer->equipment = malloc((g_Vars.currentplayer->equipmaxitems * sizeof(struct invitem) + 15 | 0xf) ^ 0xf, 4);
+	currentPlayerClearInventory();
 }

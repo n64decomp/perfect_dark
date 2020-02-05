@@ -12873,10 +12873,10 @@ bool aiClearInventory(void)
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.currentplayer == g_Vars.bond || g_Vars.currentplayer == g_Vars.coop) {
-			func0f111600();
+			currentPlayerClearInventory();
 			g_Vars.currentplayer->unk00c4 = 0;
-			currentPlayerGiveWeapon(1);
-			currentPlayerEquipWeaponInCutscene(1);
+			currentPlayerGiveWeapon(WEAPON_UNARMED);
+			currentPlayerEquipWeaponInCutscene(WEAPON_UNARMED);
 		}
 	}
 

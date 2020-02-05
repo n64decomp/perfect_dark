@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f111600(void);
+void currentPlayerClearInventory(void);
 u32 func0f11165c(void);
 void func0f11179c(struct invitem *item);
 u32 func0f1118cc(void);

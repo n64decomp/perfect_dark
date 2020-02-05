@@ -14,34 +14,17 @@
 #include "game/game_19c990.h"
 #include "game/lang.h"
 
-GLOBAL_ASM(
-glabel func0f111600
-/*  f111600:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f111604:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f111608:	8ca30284 */ 	lw	$v1,0x284($a1)
-/*  f11160c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f111610:	00002025 */ 	or	$a0,$zero,$zero
-/*  f111614:	8c6e186c */ 	lw	$t6,0x186c($v1)
-/*  f111618:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f11161c:	59c0000c */ 	blezl	$t6,.L0f111650
-/*  f111620:	ac601864 */ 	sw	$zero,0x1864($v1)
-/*  f111624:	8c6f1868 */ 	lw	$t7,0x1868($v1)
-.L0f111628:
-/*  f111628:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f11162c:	01e4c021 */ 	addu	$t8,$t7,$a0
-/*  f111630:	af060000 */ 	sw	$a2,0x0($t8)
-/*  f111634:	8ca30284 */ 	lw	$v1,0x284($a1)
-/*  f111638:	24840014 */ 	addiu	$a0,$a0,0x14
-/*  f11163c:	8c79186c */ 	lw	$t9,0x186c($v1)
-/*  f111640:	0059082a */ 	slt	$at,$v0,$t9
-/*  f111644:	5420fff8 */ 	bnezl	$at,.L0f111628
-/*  f111648:	8c6f1868 */ 	lw	$t7,0x1868($v1)
-/*  f11164c:	ac601864 */ 	sw	$zero,0x1864($v1)
-.L0f111650:
-/*  f111650:	8ca80284 */ 	lw	$t0,0x284($a1)
-/*  f111654:	03e00008 */ 	jr	$ra
-/*  f111658:	ad001874 */ 	sw	$zero,0x1874($t0)
-);
+void currentPlayerClearInventory(void)
+{
+	s32 i;
+
+	for (i = 0; i < g_Vars.currentplayer->equipmaxitems; i++) {
+		g_Vars.currentplayer->equipment[i].type = -1;
+	}
+
+	g_Vars.currentplayer->unk1864 = 0;
+	g_Vars.currentplayer->equipcuritem = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f11165c

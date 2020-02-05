@@ -5812,7 +5812,7 @@ glabel func0f0b72dc
 /*  f0b75cc:	1000000a */ 	beqz	$zero,.L0f0b75f8
 /*  f0b75d0:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0b75d4:
-/*  f0b75d4:	0fc44580 */ 	jal	func0f111600
+/*  f0b75d4:	0fc44580 */ 	jal	currentPlayerClearInventory
 /*  f0b75d8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b75dc:	00001825 */ 	or	$v1,$zero,$zero
 /*  f0b75e0:	24020084 */ 	addiu	$v0,$zero,0x84
