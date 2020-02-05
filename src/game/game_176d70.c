@@ -12319,7 +12319,7 @@ void scenarioHtmCallback10(void)
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			setCurrentPlayerNum(i);
 
-			if (func0f112884()) {
+			if (currentPlayerHasDataUplink()) {
 				g_ScenarioData.htm.uplink = g_Vars.currentplayer->prop;
 				break;
 			}
@@ -12364,7 +12364,7 @@ glabel scenarioHtmCallback14
 /*  f1833c0:	1000000d */ 	beqz	$zero,.L0f1833f8
 /*  f1833c4:	00409025 */ 	or	$s2,$v0,$zero
 .L0f1833c8:
-/*  f1833c8:	0fc44a21 */ 	jal	func0f112884
+/*  f1833c8:	0fc44a21 */ 	jal	currentPlayerHasDataUplink
 /*  f1833cc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1833d0:	0002202b */ 	sltu	$a0,$zero,$v0
 /*  f1833d4:	10800005 */ 	beqz	$a0,.L0f1833ec

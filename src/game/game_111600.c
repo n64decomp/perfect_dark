@@ -1240,26 +1240,17 @@ bool currentPlayerHasBriefcase(void)
 	return false;
 }
 
+bool currentPlayerHasDataUplink(void)
+{
+	if (g_Vars.currentplayer->isdead == false) {
+		return currentPlayerHasWeapon(WEAPON_DATAUPLINK);
+	}
+
+	return false;
+}
+
 GLOBAL_ASM(
-glabel func0f112884
-/*  f112884:	3c0e800a */ 	lui	$t6,0x800a
-/*  f112888:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f11288c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f112890:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112894:	8dcf00d8 */ 	lw	$t7,0xd8($t6)
-/*  f112898:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11289c:	15e00005 */ 	bnez	$t7,.L0f1128b4
-/*  f1128a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1128a4:	0fc4468a */ 	jal	currentPlayerHasWeapon
-/*  f1128a8:	24040036 */ 	addiu	$a0,$zero,0x36
-/*  f1128ac:	10000002 */ 	beqz	$zero,.L0f1128b8
-/*  f1128b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1128b4:
-/*  f1128b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1128b8:
-/*  f1128b8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1128bc:	03e00008 */ 	jr	$ra
-/*  f1128c0:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f1128c4
 /*  f1128c4:	03e00008 */ 	jr	$ra
 /*  f1128c8:	00001025 */ 	or	$v0,$zero,$zero
 );

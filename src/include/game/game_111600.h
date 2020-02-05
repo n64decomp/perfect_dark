@@ -29,7 +29,7 @@ u32 func0f1122ec(void);
 u32 func0f11253c(void);
 u32 func0f112790(void);
 bool currentPlayerHasBriefcase(void);
-bool func0f112884(void);
+bool currentPlayerHasDataUplink(void);
 u32 currentPlayerHasProp(struct prop *prop);
 u32 func0f112950(void);
 u32 func0f112a58(void);
