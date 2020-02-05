@@ -33,6 +33,7 @@
 #include "game/game_187770.h"
 #include "game/game_197600.h"
 #include "game/game_1999b0.h"
+#include "game/lang.h"
 #include "library/library_0e9d0.h"
 #include "library/library_12dc0.h"
 #include "library/library_233c0.h"
@@ -10762,13 +10763,13 @@ glabel func0f181800
 /*  f181898:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool scenarioCtcCallback2c(f32 arg0, s32 arg1, s32 arg2, struct prop *prop, f32 *arg4)
+bool scenarioCtcCallback2c(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop, f32 *arg4)
 {
 	struct chrdata *chr = prop->chr;
 	s32 index = teamGetIndex(chr->team);
 
 	if (g_ScenarioData.ctc.unk18[g_ScenarioData.ctc.unk08[index]].unk02 > 0) {
-		*arg4 = func0f0b69d0(arg0, arg1, arg2, prop,
+		*arg4 = func0f0b69d0(arg0, pos, arg2, prop,
 				&g_ScenarioData.ctc.unk18[g_ScenarioData.ctc.unk08[index]].unk04[0],
 				g_ScenarioData.ctc.unk18[g_ScenarioData.ctc.unk08[index]].unk02);
 		return true;

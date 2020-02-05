@@ -18,6 +18,7 @@
 #include "game/pdoptions.h"
 #include "game/game_157db0.h"
 #include "game/game_16cfa0.h"
+#include "game/lang.h"
 
 const u32 var7f1ada80[] = {0xc6ea6000};
 const u32 var7f1ada84[] = {0x3dcccccd};

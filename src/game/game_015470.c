@@ -28,6 +28,7 @@
 #include "game/game_1999b0.h"
 #include "game/game_19c990.h"
 #include "game/game_1a3340.h"
+#include "game/lang.h"
 
 const u32 var7f1a83b0[] = {0x459c4000};
 const u32 var7f1a83b4[] = {0x00000000};

@@ -31,6 +31,7 @@
 #include "game/game_1999b0.h"
 #include "game/game_19c990.h"
 #include "game/game_1a3340.h"
+#include "game/lang.h"
 #include "library/library_12dc0.h"
 #include "library/library_16110.h"
 

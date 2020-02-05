@@ -103,7 +103,7 @@ s32 scenarioCtcRadar(s32 value);
 bool scenarioCtcRadar2(s32 *displaylist, struct prop *prop);
 bool scenarioCtcHighlight(struct prop *prop, u32 *colour);
 u32 func0f181800(void);
-bool scenarioCtcCallback2c(f32 arg0, s32 arg1, s32 arg2, struct prop *prop, f32 *arg4);
+bool scenarioCtcCallback2c(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop, f32 *arg4);
 s32 scenarioCtcGetMaxTeams(void);
 bool scenarioCtcIsRoomHighlighted(s16 room);
 void scenarioCtcCallback38(s16 arg0, s32 *arg1, s32 *arg2, s32 *arg3);

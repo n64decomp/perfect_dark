@@ -27,6 +27,7 @@
 #include "game/game_176d70.h"
 #include "game/game_187770.h"
 #include "game/game_1999b0.h"
+#include "game/lang.h"
 #include "library/library_12dc0.h"
 #include "library/library_16110.h"
 

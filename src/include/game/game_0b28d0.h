@@ -67,7 +67,7 @@ u32 func0f0b656c(void);
 u32 func0f0b65a8(void);
 u32 func0f0b65f8(void);
 u32 func0f0b6764(void);
-f32 func0f0b69d0(f32 arg0, s32 arg1, s32 arg2, struct prop *prop, s16 *arg4, s16 arg5);
+f32 func0f0b69d0(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop, s16 *arg4, s16 arg5);
 f32 func0f0b72a8(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop);
 u32 func0f0b72dc(void);
 u32 func0f0b77cc(void);

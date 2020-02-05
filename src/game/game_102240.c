@@ -27,6 +27,7 @@
 #include "game/game_187770.h"
 #include "game/game_1999b0.h"
 #include "game/game_19c990.h"
+#include "game/lang.h"
 
 const char var7f1b2cf0[] = "%s\n";
 const char var7f1b2cf4[] = "%s: %s\n";

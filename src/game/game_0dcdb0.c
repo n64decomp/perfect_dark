@@ -24,6 +24,7 @@
 #include "game/game_187770.h"
 #include "game/game_1999b0.h"
 #include "game/game_19c990.h"
+#include "game/lang.h"
 #include "library/library_12dc0.h"
 
 const char var7f1ade80[] = "%s%s%4.2fX";

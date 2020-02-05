@@ -14,6 +14,7 @@
 #include "game/data/data_020df0.h"
 #include "types.h"
 #include "game/chr/chraicommands.h"
+#include "game/lang.h"
 #include "library/library_0e9d0.h"
 #include "library/library_12dc0.h"
 #include "library/library_16110.h"

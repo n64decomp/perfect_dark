@@ -14,6 +14,7 @@
 #include "game/game_129900.h"
 #include "game/game_16cfa0.h"
 #include "game/game_19c990.h"
+#include "game/lang.h"
 
 u32 cheatIsUnlocked(s32 cheat_id)
 {

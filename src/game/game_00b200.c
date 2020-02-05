@@ -12,6 +12,7 @@
 #include "game/game_16cfa0.h"
 #include "game/game_187770.h"
 #include "game/game_1999b0.h"
+#include "game/lang.h"
 
 GLOBAL_ASM(
 glabel func0f00b200

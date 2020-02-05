@@ -18,6 +18,7 @@
 #include "game/game_176d70.h"
 #include "game/game_187770.h"
 #include "game/game_197600.h"
+#include "game/lang.h"
 
 const u32 var7f1acdd0[] = {0x3dcccccd};
 const u32 var7f1acdd4[] = {0x3dcccccd};
