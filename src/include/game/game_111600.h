@@ -9,7 +9,7 @@ void func0f11179c(struct invitem *item);
 u32 func0f1118cc(void);
 struct invitem *currentPlayerGetUnusedInvItem(void);
 void currentPlayerSetAllGuns(bool enable);
-u32 func0f1119d0(void);
+void *func0f1119d0(s32 weaponnum);
 bool func0f111a28(s32 weaponnum);
 u32 func0f111a4c(void);
 bool func0f111ab0(s32 weapon1, s32 weapon2);

@@ -298,18 +298,10 @@ glabel func0f1119d0
 /*  f111a24:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f111a28
-/*  f111a28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f111a2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111a30:	0fc44674 */ 	jal	func0f1119d0
-/*  f111a34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111a38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f111a3c:	0002702b */ 	sltu	$t6,$zero,$v0
-/*  f111a40:	01c01025 */ 	or	$v0,$t6,$zero
-/*  f111a44:	03e00008 */ 	jr	$ra
-/*  f111a48:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool func0f111a28(s32 weaponnum)
+{
+	return func0f1119d0(weaponnum) != NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f111a4c
