@@ -11,7 +11,7 @@ struct invitem *currentPlayerGetUnusedInvItem(void);
 void currentPlayerSetAllGuns(bool enable);
 void *func0f1119d0(s32 weaponnum);
 bool func0f111a28(s32 weaponnum);
-u32 func0f111a4c(void);
+void *func0f111a4c(s32 weapon1, s32 weapon2);
 bool func0f111ab0(s32 weapon1, s32 weapon2);
 u32 func0f111ad4(void);
 u32 func0f111b88(void);
