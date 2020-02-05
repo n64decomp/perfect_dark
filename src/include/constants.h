@@ -517,6 +517,10 @@
 #define INVENTORYFUNCTYPE_SPECIAL          0x0004
 #define INVENTORYFUNCTYPE_VISUAL           0x0005
 
+#define INVITEMTYPE_1    1
+#define INVITEMTYPE_PROP 2
+#define INVITEMTYPE_3    3
+
 // These actions are assigned to chr->myaction
 #define MA_NONE            0
 #define MA_NORMAL          1

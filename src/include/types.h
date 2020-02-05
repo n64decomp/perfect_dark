@@ -5072,6 +5072,10 @@ struct invitem_type1 {
 	s16 weapon2;
 };
 
+struct invitem_typeprop {
+	struct prop *prop;
+};
+
 struct invitem_type3 {
 	s32 weapon1;
 	s32 weapon2;
@@ -5082,6 +5086,7 @@ struct invitem {
 
 	union {
 		struct invitem_type1 type1;
+		struct invitem_typeprop type_prop;
 		struct invitem_type3 type3;
 	};
 };

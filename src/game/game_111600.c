@@ -257,7 +257,7 @@ glabel func0f1118cc
 );
 
 GLOBAL_ASM(
-glabel func0f111928
+glabel currentPlayerCreateInvitem
 /*  f111928:	3c03800a */ 	lui	$v1,0x800a
 /*  f11192c:	8c63a244 */ 	lw	$v1,-0x5dbc($v1)
 /*  f111930:	00001025 */ 	or	$v0,$zero,$zero
@@ -555,10 +555,10 @@ bool currentPlayerGiveWeapon(s32 weaponnum)
 			return false;
 		}
 
-		item = func0f111928();
+		item = currentPlayerCreateInvitem();
 
 		if (item) {
-			item->type = 1;
+			item->type = INVITEMTYPE_1;
 			item->type1.weapon1 = weaponnum;
 			item->type1.weapon2 = -1;
 			func0f11179c(item);
@@ -574,10 +574,10 @@ bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2)
 {
 	if (func0f111ab0(weapon1, weapon2) == 0) {
 		if (weaponHasFlag(weapon1, WEAPONFLAG_00001000)) {
-			struct invitem *item = func0f111928();
+			struct invitem *item = currentPlayerCreateInvitem();
 
 			if (item) {
-				item->type = 3;
+				item->type = INVITEMTYPE_3;
 				item->type3.weapon1 = weapon1;
 				item->type3.weapon2 = weapon2;
 				func0f11179c(item);
@@ -680,46 +680,31 @@ glabel func0f111ea4
 /*  f111fc8:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f111fcc
-/*  f111fcc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f111fd0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f111fd4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f111fd8:	0fc41b99 */ 	jal	cheatIsActive
-/*  f111fdc:	24040015 */ 	addiu	$a0,$zero,0x15
-/*  f111fe0:	1040000e */ 	beqz	$v0,.L0f11201c
-/*  f111fe4:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f111fe8:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*  f111fec:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f111ff0:	15c1000a */ 	bne	$t6,$at,.L0f11201c
-/*  f111ff4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111ff8:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f111ffc:	10400007 */ 	beqz	$v0,.L0f11201c
-/*  f112000:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112004:	844f0004 */ 	lh	$t7,0x4($v0)
-/*  f112008:	240100f3 */ 	addiu	$at,$zero,0xf3
-/*  f11200c:	15e10003 */ 	bne	$t7,$at,.L0f11201c
-/*  f112010:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112014:	1000000b */ 	beqz	$zero,.L0f112044
-/*  f112018:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f11201c:
-/*  f11201c:	0fc4464a */ 	jal	func0f111928
-/*  f112020:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112024:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f112028:	10400005 */ 	beqz	$v0,.L0f112040
-/*  f11202c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f112030:	24180002 */ 	addiu	$t8,$zero,0x2
-/*  f112034:	ac580000 */ 	sw	$t8,0x0($v0)
-/*  f112038:	0fc445e7 */ 	jal	func0f11179c
-/*  f11203c:	ac430004 */ 	sw	$v1,0x4($v0)
-.L0f112040:
-/*  f112040:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f112044:
-/*  f112044:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f112048:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f11204c:	03e00008 */ 	jr	$ra
-/*  f112050:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentPlayerGiveProp(struct prop *prop)
+{
+	struct invitem *item;
+
+	// Don't add duplicate night vision to inventory
+	// (night vision is already there when using perfect darkness)
+	// Note that this check doesn't work on Investigation because it uses the
+	// IR specs model. See bug note in Investigation's setup file (setupear.c).
+	if (cheatIsActive(CHEAT_PERFECTDARKNESS)
+			&& prop->type == PROPTYPE_OBJ
+			&& prop->obj
+			&& prop->obj->obj == MODEL_CHRNIGHTSIGHT) {
+		return true;
+	}
+
+	item = currentPlayerCreateInvitem();
+
+	if (item) {
+		item->type = INVITEMTYPE_PROP;
+		item->type_prop.prop = prop;
+		func0f11179c(item);
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f112054

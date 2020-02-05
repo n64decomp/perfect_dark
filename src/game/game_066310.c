@@ -40352,7 +40352,7 @@ glabel func0f088840
 /*  f088fe4:	8fb80094 */ 	lw	$t8,0x94($sp)
 /*  f088fe8:	17000003 */ 	bnez	$t8,.L0f088ff8
 /*  f088fec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f088ff0:	0fc447f3 */ 	jal	func0f111fcc
+/*  f088ff0:	0fc447f3 */ 	jal	currentPlayerGiveProp
 /*  f088ff4:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 .L0f088ff8:
 /*  f088ff8:	10000002 */ 	beqz	$zero,.L0f089004
