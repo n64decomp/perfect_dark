@@ -2896,11 +2896,15 @@ glabel aiIfWeaponThrownOnObject
 //		struct prop *prop = obj->prop->child;
 //
 //		while (prop) {
-//			if (prop->type == PROPTYPE_WEAPON && prop->weapon->weapon_id == cmd[2]) {
-//				pass = true;
+//			if (prop->type == PROPTYPE_WEAPON) {
+//				struct weaponobj *weapon = prop->weapon;
+//
+//				if (weapon->weapon_id == cmd[2]) {
+//					pass = true;
+//				}
 //			}
 //
-//			prop = prop->child;
+//			prop = prop->next;
 //		}
 //	}
 //
