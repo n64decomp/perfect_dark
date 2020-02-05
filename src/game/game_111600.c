@@ -1249,11 +1249,10 @@ bool currentPlayerHasDataUplink(void)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f1128c4
-/*  f1128c4:	03e00008 */ 	jr	$ra
-/*  f1128c8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool func0f1128c4(void)
+{
+	return false;
+}
 
 GLOBAL_ASM(
 glabel currentPlayerHasProp
