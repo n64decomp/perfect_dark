@@ -2512,8 +2512,8 @@ struct player {
 	/*0x185c*/ u32 flags;
 	/*0x1860*/ u32 unk1860;
 	/*0x1864*/ u32 unk1864;
-	/*0x1868*/ u32 unk1868;
-	/*0x186c*/ u32 equipmaxitems;
+	/*0x1868*/ struct invitem *equipment;
+	/*0x186c*/ s32 equipmaxitems;
 	/*0x1870*/ u32 equipallguns;
 	/*0x1874*/ u32 equipcuritem;
 	/*0x1878*/ struct gunheld gunheldarr[10];
@@ -5089,6 +5089,9 @@ struct invitem {
 		struct invitem_typeprop type_prop;
 		struct invitem_type3 type3;
 	};
+
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
 };
 
 #endif

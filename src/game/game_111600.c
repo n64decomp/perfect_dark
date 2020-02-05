@@ -257,34 +257,18 @@ glabel func0f1118cc
 /*  f111924:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel currentPlayerCreateInvitem
-/*  f111928:	3c03800a */ 	lui	$v1,0x800a
-/*  f11192c:	8c63a244 */ 	lw	$v1,-0x5dbc($v1)
-/*  f111930:	00001025 */ 	or	$v0,$zero,$zero
-/*  f111934:	8c64186c */ 	lw	$a0,0x186c($v1)
-/*  f111938:	5880000f */ 	blezl	$a0,.L0f111978
-/*  f11193c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f111940:	8c651868 */ 	lw	$a1,0x1868($v1)
-/*  f111944:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f111948:	00003025 */ 	or	$a2,$zero,$zero
-/*  f11194c:	00a03825 */ 	or	$a3,$a1,$zero
-.L0f111950:
-/*  f111950:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f111954:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f111958:	0044082a */ 	slt	$at,$v0,$a0
-/*  f11195c:	146e0003 */ 	bne	$v1,$t6,.L0f11196c
-/*  f111960:	24e70014 */ 	addiu	$a3,$a3,0x14
-/*  f111964:	03e00008 */ 	jr	$ra
-/*  f111968:	00a61021 */ 	addu	$v0,$a1,$a2
-.L0f11196c:
-/*  f11196c:	1420fff8 */ 	bnez	$at,.L0f111950
-/*  f111970:	24c60014 */ 	addiu	$a2,$a2,0x14
-/*  f111974:	00001025 */ 	or	$v0,$zero,$zero
-.L0f111978:
-/*  f111978:	03e00008 */ 	jr	$ra
-/*  f11197c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct invitem *currentPlayerGetUnusedInvItem(void)
+{
+	s32 i;
+
+	for (i = 0; i < g_Vars.currentplayer->equipmaxitems; i++) {
+		if (g_Vars.currentplayer->equipment[i].type == -1) {
+			return &g_Vars.currentplayer->equipment[i];
+		}
+	}
+
+	return NULL;
+}
 
 void currentPlayerSetAllGuns(bool enable)
 {
@@ -543,7 +527,7 @@ bool currentPlayerGiveWeapon(s32 weaponnum)
 			return false;
 		}
 
-		item = currentPlayerCreateInvitem();
+		item = currentPlayerGetUnusedInvItem();
 
 		if (item) {
 			item->type = INVITEMTYPE_1;
@@ -562,7 +546,7 @@ bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2)
 {
 	if (func0f111ab0(weapon1, weapon2) == 0) {
 		if (weaponHasFlag(weapon1, WEAPONFLAG_00001000)) {
-			struct invitem *item = currentPlayerCreateInvitem();
+			struct invitem *item = currentPlayerGetUnusedInvItem();
 
 			if (item) {
 				item->type = INVITEMTYPE_3;
@@ -683,7 +667,7 @@ bool currentPlayerGiveProp(struct prop *prop)
 		return true;
 	}
 
-	item = currentPlayerCreateInvitem();
+	item = currentPlayerGetUnusedInvItem();
 
 	if (item) {
 		item->type = INVITEMTYPE_PROP;
