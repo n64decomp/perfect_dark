@@ -2506,7 +2506,7 @@ struct player {
 	/*0x1858*/ u32 unk1858;
 	/*0x185c*/ u32 flags;
 	/*0x1860*/ u32 unk1860;
-	/*0x1864*/ u32 unk1864;
+	/*0x1864*/ struct invitem *weapons; // circular linked list
 	/*0x1868*/ struct invitem *equipment;
 	/*0x186c*/ s32 equipmaxitems;
 	/*0x1870*/ u32 equipallguns;
@@ -5085,7 +5085,7 @@ struct invitem {
 		struct invitem_type3 type3;
 	};
 
-	/*0x0c*/ u32 unk0c;
+	/*0x0c*/ struct invitem *next;
 	/*0x10*/ u32 unk10;
 };
 

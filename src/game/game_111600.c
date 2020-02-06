@@ -22,7 +22,7 @@ void currentPlayerClearInventory(void)
 		g_Vars.currentplayer->equipment[i].type = -1;
 	}
 
-	g_Vars.currentplayer->unk1864 = 0;
+	g_Vars.currentplayer->weapons = NULL;
 	g_Vars.currentplayer->equipcuritem = 0;
 }
 
@@ -268,39 +268,29 @@ bool currentPlayerHasAllGuns(void)
 	return g_Vars.currentplayer->equipallguns;
 }
 
-GLOBAL_ASM(
-glabel func0f1119d0
-/*  f1119d0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f1119d4:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f1119d8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1119dc:	8dc21864 */ 	lw	$v0,0x1864($t6)
-/*  f1119e0:	1040000e */ 	beqz	$v0,.L0f111a1c
-/*  f1119e4:	00401825 */ 	or	$v1,$v0,$zero
-/*  f1119e8:	8c6f0000 */ 	lw	$t7,0x0($v1)
-.L0f1119ec:
-/*  f1119ec:	54af0007 */ 	bnel	$a1,$t7,.L0f111a0c
-/*  f1119f0:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f1119f4:	84780004 */ 	lh	$t8,0x4($v1)
-/*  f1119f8:	54980004 */ 	bnel	$a0,$t8,.L0f111a0c
-/*  f1119fc:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f111a00:	03e00008 */ 	jr	$ra
-/*  f111a04:	00601025 */ 	or	$v0,$v1,$zero
-/*  f111a08:	8c63000c */ 	lw	$v1,0xc($v1)
-.L0f111a0c:
-/*  f111a0c:	50620004 */ 	beql	$v1,$v0,.L0f111a20
-/*  f111a10:	00001025 */ 	or	$v0,$zero,$zero
-/*  f111a14:	5460fff5 */ 	bnezl	$v1,.L0f1119ec
-/*  f111a18:	8c6f0000 */ 	lw	$t7,0x0($v1)
-.L0f111a1c:
-/*  f111a1c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f111a20:
-/*  f111a20:	03e00008 */ 	jr	$ra
-/*  f111a24:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct invitem *currentPlayerGetWeaponInvItem(s32 weaponnum)
+{
+	struct invitem *first = g_Vars.currentplayer->weapons;
+	struct invitem *item = first;
+
+	while (item) {
+		if (item->type == INVITEMTYPE_1 && item->type1.weapon1 == weaponnum) {
+			return item;
+		}
+
+		item = item->next;
+
+		if (item == first) {
+			break;
+		}
+	}
+
+	return NULL;
+}
 
 bool currentPlayerHasWeapon(s32 weaponnum)
 {
-	return func0f1119d0(weaponnum) != NULL;
+	return currentPlayerGetWeaponInvItem(weaponnum) != NULL;
 }
 
 GLOBAL_ASM(
@@ -745,7 +735,7 @@ glabel func0f1120f0
 /*  f1121a8:	1440001b */ 	bnez	$v0,.L0f112218
 /*  f1121ac:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f1121b0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1121b4:	0fc44674 */ 	jal	func0f1119d0
+/*  f1121b4:	0fc44674 */ 	jal	currentPlayerGetWeaponInvItem
 /*  f1121b8:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*  f1121bc:	10400016 */ 	beqz	$v0,.L0f112218
 /*  f1121c0:	8fa7002c */ 	lw	$a3,0x2c($sp)
