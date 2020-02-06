@@ -285,38 +285,27 @@ bool currentPlayerHasWeapon(s32 weaponnum)
 	return currentPlayerGetWeaponInvItem(weaponnum) != NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f111a4c
-/*  f111a4c:	3c0e800a */ 	lui	$t6,0x800a
-/*  f111a50:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f111a54:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f111a58:	8dc21864 */ 	lw	$v0,0x1864($t6)
-/*  f111a5c:	10400011 */ 	beqz	$v0,.L0f111aa4
-/*  f111a60:	00401825 */ 	or	$v1,$v0,$zero
-/*  f111a64:	8c6f0000 */ 	lw	$t7,0x0($v1)
-.L0f111a68:
-/*  f111a68:	54cf000a */ 	bnel	$a2,$t7,.L0f111a94
-/*  f111a6c:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f111a70:	8c780004 */ 	lw	$t8,0x4($v1)
-/*  f111a74:	54980007 */ 	bnel	$a0,$t8,.L0f111a94
-/*  f111a78:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f111a7c:	8c790008 */ 	lw	$t9,0x8($v1)
-/*  f111a80:	54b90004 */ 	bnel	$a1,$t9,.L0f111a94
-/*  f111a84:	8c63000c */ 	lw	$v1,0xc($v1)
-/*  f111a88:	03e00008 */ 	jr	$ra
-/*  f111a8c:	00601025 */ 	or	$v0,$v1,$zero
-/*  f111a90:	8c63000c */ 	lw	$v1,0xc($v1)
-.L0f111a94:
-/*  f111a94:	50620004 */ 	beql	$v1,$v0,.L0f111aa8
-/*  f111a98:	00001025 */ 	or	$v0,$zero,$zero
-/*  f111a9c:	5460fff2 */ 	bnezl	$v1,.L0f111a68
-/*  f111aa0:	8c6f0000 */ 	lw	$t7,0x0($v1)
-.L0f111aa4:
-/*  f111aa4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f111aa8:
-/*  f111aa8:	03e00008 */ 	jr	$ra
-/*  f111aac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct invitem *func0f111a4c(s32 weapon1, s32 weapon2)
+{
+	struct invitem *first = g_Vars.currentplayer->weapons;
+	struct invitem *item = first;
+
+	while (item) {
+		if (item->type == INVITEMTYPE_3
+				&& item->type3.weapon1 == weapon1
+				&& item->type3.weapon2 == weapon2) {
+			return item;
+		}
+
+		item = item->next;
+
+		if (item == first) {
+			break;
+		}
+	}
+
+	return NULL;
+}
 
 bool func0f111ab0(s32 weapon1, s32 weapon2)
 {
