@@ -1269,6 +1269,38 @@ glabel currentPlayerHasProp
 /*  f11294c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// regalloc when assigning item and first
+//bool currentPlayerHasProp(struct prop *prop)
+//{
+//	struct invitem *item = g_Vars.currentplayer->weapons;
+//	struct invitem *first = item;
+//	struct prop *child;
+//
+//	while (item) {
+//		if (item->type == INVITEMTYPE_PROP && item->type_prop.prop == prop) {
+//			return true;
+//		}
+//
+//		item = item->next;
+//
+//		if (item == first) {
+//			break;
+//		}
+//	}
+//
+//	child = g_Vars.currentplayer->prop->child;
+//
+//	while (child) {
+//		if (child == prop) {
+//			return true;
+//		}
+//
+//		child = child->next;
+//	}
+//
+//	return false;
+//}
+
 GLOBAL_ASM(
 glabel func0f112950
 /*  f112950:	3c08800a */ 	lui	$t0,0x800a
