@@ -7098,7 +7098,7 @@ glabel setupParseObject
 /*  f06b244:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f06b248:	0006000d */ 	break	0x6
 .L0f06b24c:
-/*  f06b24c:	0fc083e4 */ 	jal	func0f020f90
+/*  f06b24c:	0fc083e4 */ 	jal	propClearReferences
 /*  f06b250:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f06b254:	0fc1a0bf */ 	jal	func0f0682fc
 /*  f06b258:	8e240014 */ 	lw	$a0,0x14($s1)

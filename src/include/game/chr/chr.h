@@ -53,7 +53,7 @@ void chrInit(struct prop *prop, u8 *ailist);
 struct prop *func0f020b14(struct prop *prop, s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4);
 struct prop *func0f020cc8(s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4);
 u32 func0f020d44(void);
-void func0f020f90(s32 propnum);
+void propClearReferences(s32 propnum);
 u32 func0f021258(void);
 u32 func0f02133c(void);
 u32 func0f0213a0(void);

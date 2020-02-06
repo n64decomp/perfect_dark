@@ -961,6 +961,12 @@ struct gunheld {
 	s32 unk08;
 };
 
+struct player1630 {
+	struct prop *prop;
+	u32 unk04;
+	u32 unk08;
+};
+
 struct player {
 	/*0x0000*/ s32 cameramode;
 	/*0x0004*/ struct coord memcampos;
@@ -2370,18 +2376,7 @@ struct player {
 	/*0x1624*/ struct prop *lookingatprop;
 	/*0x1628*/ u32 unk1628;
 	/*0x162c*/ u32 unk162c;
-	/*0x1630*/ u32 unk1630;
-	/*0x1634*/ u32 unk1634;
-	/*0x1638*/ u32 unk1638;
-	/*0x163c*/ u32 unk163c;
-	/*0x1640*/ u32 unk1640;
-	/*0x1644*/ u32 unk1644;
-	/*0x1648*/ u32 unk1648;
-	/*0x164c*/ u32 unk164c;
-	/*0x1650*/ u32 unk1650;
-	/*0x1654*/ u32 unk1654;
-	/*0x1658*/ u32 unk1658;
-	/*0x165c*/ u32 unk165c;
+	/*0x1630*/ struct player1630 unk1630[4];
 	/*0x1660*/ u32 unk1660;
 	/*0x1664*/ u32 unk1664;
 	/*0x1668*/ u32 unk1668;

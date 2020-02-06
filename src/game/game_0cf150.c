@@ -2241,7 +2241,7 @@ glabel func0f0d0928
 /*  f0d10b8:	032f2023 */ 	subu	$a0,$t9,$t7
 /*  f0d10bc:	0081001a */ 	div	$zero,$a0,$at
 /*  f0d10c0:	00002012 */ 	mflo	$a0
-/*  f0d10c4:	0fc083e4 */ 	jal	func0f020f90
+/*  f0d10c4:	0fc083e4 */ 	jal	propClearReferences
 /*  f0d10c8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0d10cc:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0d10d0:	44808000 */ 	mtc1	$zero,$f16
@@ -3239,7 +3239,7 @@ glabel func0f0d0928
 /*  f0d1f9c:	01d92023 */ 	subu	$a0,$t6,$t9
 /*  f0d1fa0:	0081001a */ 	div	$zero,$a0,$at
 /*  f0d1fa4:	00002012 */ 	mflo	$a0
-/*  f0d1fa8:	0fc083e4 */ 	jal	func0f020f90
+/*  f0d1fa8:	0fc083e4 */ 	jal	propClearReferences
 /*  f0d1fac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0d1fb0:	8fb800e4 */ 	lw	$t8,0xe4($sp)
 .L0f0d1fb4:

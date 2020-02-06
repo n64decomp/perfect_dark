@@ -3796,8 +3796,16 @@
 	mkshort(0x01de), \
 	label,
 
-// Something to do with the chr's prop struct
-#define cmd01e0 \
+/**
+ * Clears references to the current chr.
+ *
+ * Any chr who is targetting this one will have their target cleared.
+ * Any chr who has their chrpreset set to this one will have their chrpreset
+ * cleared.
+ *
+ * This appears to be a debug command. It is not used normally.
+ */
+#define remove_references_to_chr \
 	mkshort(0x01e0),
 
 // Convenience macros for readability

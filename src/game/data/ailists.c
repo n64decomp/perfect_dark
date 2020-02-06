@@ -4994,7 +4994,7 @@ u8 func0015_test_cutscene_buddy[] = {
 
 	// Hide chr
 	label(0x16)
-	cmd01e0
+	remove_references_to_chr
 	set_self_chrflag(CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
 	set_self_chrflag((CHRCFLAG_HIDDEN | CHRCFLAG_00010000 | CHRCFLAG_00040000))
 

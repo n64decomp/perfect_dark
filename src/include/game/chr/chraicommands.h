@@ -443,7 +443,7 @@
 /*0x01dd*/ bool ai01dd(void);
 /*0x01de*/ bool aiIfCoopMode(void);
 /*0x01df*/ bool aiIfChrSameFloorDistanceToPadLessThan(void);
-/*0x01e0*/ bool ai01e0(void);
+/*0x01e0*/ bool aiRemoveReferencesToChr(void);
 
 void func0f05abdc(struct prop *prop);
 

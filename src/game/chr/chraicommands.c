@@ -14206,11 +14206,11 @@ bool aiIfCoopMode(void)
 /**
  * @cmd 01e0
  */
-bool ai01e0(void)
+bool aiRemoveReferencesToChr(void)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop) {
-		u32 index = ((s32)g_Vars.chrdata->prop - (s32)g_Vars.props) / 0x48;
-		func0f020f90(index);
+		u32 index = g_Vars.chrdata->prop - g_Vars.props;
+		propClearReferences(index);
 	}
 
 	g_Vars.aioffset += 2;

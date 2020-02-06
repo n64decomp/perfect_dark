@@ -6699,7 +6699,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01dd*/ ai01dd,
 	/*0x01de*/ aiIfCoopMode,
 	/*0x01df*/ aiIfChrSameFloorDistanceToPadLessThan,
-	/*0x01e0*/ ai01e0,
+	/*0x01e0*/ aiRemoveReferencesToChr,
 };
 
 // ec34
