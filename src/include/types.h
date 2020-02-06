@@ -5086,7 +5086,7 @@ struct invitem {
 	};
 
 	/*0x0c*/ struct invitem *next;
-	/*0x10*/ u32 unk10;
+	/*0x10*/ struct invitem *prev;
 };
 
 #endif

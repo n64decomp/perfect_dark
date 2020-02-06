@@ -6,7 +6,7 @@
 void currentPlayerClearInventory(void);
 u32 func0f11165c(void);
 void func0f11179c(struct invitem *item);
-u32 func0f1118cc(void);
+void currentPlayerRemoveInvItem(struct invitem *item);
 struct invitem *currentPlayerGetUnusedInvItem(void);
 void currentPlayerSetAllGuns(bool enable);
 struct invitem *currentPlayerGetWeaponInvItem(s32 weaponnum);

@@ -212,33 +212,25 @@ glabel func0f11179c
 /*  f1118c8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1118cc
-/*  f1118cc:	3c03800a */ 	lui	$v1,0x800a
-/*  f1118d0:	8c63a244 */ 	lw	$v1,-0x5dbc($v1)
-/*  f1118d4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1118d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1118dc:	8c6e1864 */ 	lw	$t6,0x1864($v1)
-/*  f1118e0:	8c82000c */ 	lw	$v0,0xc($a0)
-/*  f1118e4:	8c860010 */ 	lw	$a2,0x10($a0)
-/*  f1118e8:	148e0006 */ 	bne	$a0,$t6,.L0f111904
-/*  f1118ec:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1118f0:	54820004 */ 	bnel	$a0,$v0,.L0f111904
-/*  f1118f4:	ac621864 */ 	sw	$v0,0x1864($v1)
-/*  f1118f8:	10000002 */ 	beqz	$zero,.L0f111904
-/*  f1118fc:	ac601864 */ 	sw	$zero,0x1864($v1)
-/*  f111900:	ac621864 */ 	sw	$v0,0x1864($v1)
-.L0f111904:
-/*  f111904:	aca60010 */ 	sw	$a2,0x10($a1)
-/*  f111908:	acc5000c */ 	sw	$a1,0xc($a2)
-/*  f11190c:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f111910:	0fc44bdc */ 	jal	func0f112f70
-/*  f111914:	ac8f0000 */ 	sw	$t7,0x0($a0)
-/*  f111918:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11191c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f111920:	03e00008 */ 	jr	$ra
-/*  f111924:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerRemoveInvItem(struct invitem *item)
+{
+	struct invitem *next = item->next;
+	struct invitem *prev = item->prev;
+
+	if (g_Vars.currentplayer->weapons == item) {
+		if (item == item->next) {
+			g_Vars.currentplayer->weapons = NULL;
+		} else {
+			g_Vars.currentplayer->weapons = item->next;
+		}
+	}
+
+	next->prev = prev;
+	prev->next = next;
+	item->type = -1;
+
+	func0f112f70();
+}
 
 struct invitem *currentPlayerGetUnusedInvItem(void)
 {
@@ -555,7 +547,7 @@ glabel func0f111ea4
 /*  f111f0c:	8c4f0008 */ 	lw	$t7,0x8($v0)
 /*  f111f10:	162f0003 */ 	bne	$s1,$t7,.L0f111f20
 /*  f111f14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111f18:	0fc44633 */ 	jal	func0f1118cc
+/*  f111f18:	0fc44633 */ 	jal	currentPlayerRemoveInvItem
 /*  f111f1c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f111f20:
 /*  f111f20:	3c18800a */ 	lui	$t8,0x800a
@@ -568,7 +560,7 @@ glabel func0f111ea4
 /*  f111f38:	86190004 */ 	lh	$t9,0x4($s0)
 /*  f111f3c:	16390014 */ 	bne	$s1,$t9,.L0f111f90
 /*  f111f40:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111f44:	0fc44633 */ 	jal	func0f1118cc
+/*  f111f44:	0fc44633 */ 	jal	currentPlayerRemoveInvItem
 /*  f111f48:	02002025 */ 	or	$a0,$s0,$zero
 /*  f111f4c:	3c08800a */ 	lui	$t0,0x800a
 /*  f111f50:	8d08a244 */ 	lw	$t0,-0x5dbc($t0)
@@ -584,7 +576,7 @@ glabel func0f111ea4
 /*  f111f74:	162a0006 */ 	bne	$s1,$t2,.L0f111f90
 /*  f111f78:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f111f7c:
-/*  f111f7c:	0fc44633 */ 	jal	func0f1118cc
+/*  f111f7c:	0fc44633 */ 	jal	currentPlayerRemoveInvItem
 /*  f111f80:	02002025 */ 	or	$a0,$s0,$zero
 /*  f111f84:	3c0b800a */ 	lui	$t3,0x800a
 /*  f111f88:	8d6ba244 */ 	lw	$t3,-0x5dbc($t3)
@@ -659,7 +651,7 @@ glabel func0f112054
 /*  f11209c:	8e180004 */ 	lw	$t8,0x4($s0)
 /*  f1120a0:	16580006 */ 	bne	$s2,$t8,.L0f1120bc
 /*  f1120a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1120a8:	0fc44633 */ 	jal	func0f1118cc
+/*  f1120a8:	0fc44633 */ 	jal	currentPlayerRemoveInvItem
 /*  f1120ac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1120b0:	3c19800a */ 	lui	$t9,0x800a
 /*  f1120b4:	8f39a244 */ 	lw	$t9,-0x5dbc($t9)
