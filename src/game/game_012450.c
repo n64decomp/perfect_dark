@@ -16,7 +16,7 @@ void currentPlayerInitGunsHeld(void)
 {
 	s32 i;
 
-	if (PLAYERCOUNT() == 1 && g_Vars.mplayerisrunning == false) {
+	if (PLAYERCOUNT() == 1 && g_Vars.normmplayerisrunning == false) {
 		g_Vars.currentplayer->equipallguns = cheatIsActive(CHEAT_ALLGUNS);
 	} else {
 		g_Vars.currentplayer->equipallguns = false;

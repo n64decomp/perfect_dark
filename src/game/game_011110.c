@@ -1519,7 +1519,7 @@ glabel currentPlayerInit
 //			g_Vars.currentplayer->prop->chr->team = TEAM_ENEMY;
 //		}
 //	} else {
-//		if (g_Vars.unk000314) {
+//		if (g_Vars.mplayerisrunning) {
 //			g_Vars.currentplayer->prop->chr->team = 1 << g_MpPlayers[g_Vars.unk000288->mpchrnum].base.team;
 //		} else {
 //			g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
@@ -1536,7 +1536,7 @@ glabel currentPlayerInit
 //		} else if (g_Vars.antiplayernum >= 0) {
 //			fStack32 = M_PI * 2 - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
 //		} else {
-//			if (g_Vars.unk000314 == 0) {
+//			if (g_Vars.mplayerisrunning == 0) {
 //				g_NumSpawnPoints = 1;
 //			}
 //
@@ -1580,7 +1580,7 @@ glabel currentPlayerInit
 //
 //	func0f0cb8c4(g_Vars.currentplayer);
 //
-//	if (g_Vars.mplayerisrunning) {
+//	if (g_Vars.normmplayerisrunning) {
 //		func0f0b9674();
 //	} else {
 //		func0f0b9a20();

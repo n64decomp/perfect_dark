@@ -30058,7 +30058,7 @@ glabel chrGoToPos
 //		func0f037088(chr, &auStack52[0], &auStack68[0]);
 //
 //		if ((!same2 || same) &&
-//				g_Vars.mplayerisrunning == 0 &&
+//				g_Vars.normmplayerisrunning == 0 &&
 //				(prop->flags & (PROPFLAG_80 | PROPFLAG_40 | PROPFLAG_02)) == 0 &&
 //				func0f036c08(chr, &auStack52[0], &auStack68[0]) &&
 //				chr->unk32c_00 >= 0) {
@@ -49733,7 +49733,7 @@ bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
 		}
 
 		if (checktype == 1) { // Return true if chrs are friends
-			if (g_Vars.mplayerisrunning) {
+			if (g_Vars.normmplayerisrunning) {
 				if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && chr2->team == chr1->team) {
 					return true;
 				}
@@ -49753,7 +49753,7 @@ bool chrCompareTeams(struct chrdata *chr1, struct chrdata *chr2, u8 checktype)
 				}
 			}
 		} else if (checktype == 2) { // Return true if chrs are enemies
-			if (g_Vars.mplayerisrunning) {
+			if (g_Vars.normmplayerisrunning) {
 				if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) == 0 || chr2->team != chr1->team) {
 					return true;
 				}

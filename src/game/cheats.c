@@ -77,7 +77,7 @@ void cheatActivate(s32 cheat_id)
 		break;
 	case CHEAT_ALLGUNS:
 		// Give all guns if only one player playing
-		if (PLAYERCOUNT() == 1 && g_Vars.mplayerisrunning == false) {
+		if (PLAYERCOUNT() == 1 && g_Vars.normmplayerisrunning == false) {
 			prevplayernum = g_Vars.currentplayernum;
 
 			for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
@@ -114,7 +114,7 @@ void cheatDeactivate(s32 cheat_id)
 		setCurrentPlayerNum(prevplayernum);
 		break;
 	case CHEAT_ALLGUNS:
-		if (PLAYERCOUNT() == 1 && g_Vars.mplayerisrunning == false) {
+		if (PLAYERCOUNT() == 1 && g_Vars.normmplayerisrunning == false) {
 			prevplayernum = g_Vars.currentplayernum;
 
 			for (playernum = 0; playernum < PLAYERCOUNT(); playernum++) {
@@ -150,7 +150,7 @@ void cheatsActivate(void)
 		g_CheatsActiveBank0 = g_CheatsEnabledBank0;
 		g_CheatsActiveBank1 = g_CheatsEnabledBank1;
 
-		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0 || g_Vars.mplayerisrunning) {
+		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0 || g_Vars.normmplayerisrunning) {
 			// Co-op/counter-op/multi - deactivate "Weapons for Jo in Solo" cheats
 			g_CheatsActiveBank0 &= ~(
 				(1 << CHEAT_TRENTSMAGNUM) |

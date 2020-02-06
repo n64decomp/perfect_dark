@@ -14672,7 +14672,7 @@ glabel func0f185568
 
 void scenarioCallback10(void)
 {
-	if (g_Vars.mplayerisrunning) {
+	if (g_Vars.normmplayerisrunning) {
 		if (g_Vars.lvframenum == 5) {
 			func0f185568();
 		}
@@ -14685,7 +14685,7 @@ void scenarioCallback10(void)
 
 void scenarioCallback14(struct chrdata *chr)
 {
-	if (g_Vars.mplayerisrunning && g_MpScenarios[g_MpSetup.scenario].unk14) {
+	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].unk14) {
 		g_MpScenarios[g_MpSetup.scenario].unk14(chr);
 	}
 }
@@ -15099,7 +15099,7 @@ glabel func0f185c14
 
 s32 scenarioRadar(s32 value)
 {
-	if (g_Vars.mplayerisrunning && g_MpScenarios[g_MpSetup.scenario].radarfunc) {
+	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].radarfunc) {
 		return g_MpScenarios[g_MpSetup.scenario].radarfunc(value);
 	}
 
@@ -15108,7 +15108,7 @@ s32 scenarioRadar(s32 value)
 
 bool scenarioRadar2(s32 *displaylist, struct prop *prop)
 {
-	if (g_Vars.mplayerisrunning && g_MpScenarios[g_MpSetup.scenario].radar2func) {
+	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].radar2func) {
 		return g_MpScenarios[g_MpSetup.scenario].radar2func(displaylist, prop);
 	}
 
@@ -15352,7 +15352,7 @@ f32 scenarioCallback2c(f32 arg0, struct coord *pos, s16 *arg2, struct prop *prop
 {
 	f32 result;
 
-	if (g_Vars.mplayerisrunning && g_MpScenarios[g_MpSetup.scenario].unk2c &&
+	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].unk2c &&
 			g_MpScenarios[g_MpSetup.scenario].unk2c(arg0, pos, arg2, prop, &result)) {
 		return result;
 	}

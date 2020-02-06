@@ -14193,7 +14193,7 @@ glabel ai01dd
  */
 bool aiIfCoopMode(void)
 {
-	if (g_Vars.mplayerisrunning == false && g_MissionConfig.iscoop) {
+	if (g_Vars.normmplayerisrunning == false && g_MissionConfig.iscoop) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

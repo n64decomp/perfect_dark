@@ -78,8 +78,8 @@ struct g_vars {
 	/*000308*/ u32 unk000308;
 	/*00030c*/ u32 unk00030c;
 	/*000310*/ u32 unk000310;
-	/*000314*/ u32 unk000314;
-	/*000318*/ bool mplayerisrunning;
+	/*000314*/ bool mplayerisrunning;
+	/*000318*/ bool normmplayerisrunning;
 	/*00031c*/ u32 unk00031c;
 	/*000320*/ u32 unk000320;
 	/*000324*/ s32 unk000324;

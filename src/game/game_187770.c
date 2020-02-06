@@ -2513,7 +2513,7 @@ glabel func0f18961c
 
 bool mpIsPaused(void)
 {
-	if (PLAYERCOUNT() == 1 && g_Vars.unk000314 && g_MenuStack[g_Vars.unk000288->mpchrnum].unk00) {
+	if (PLAYERCOUNT() == 1 && g_Vars.mplayerisrunning && g_MenuStack[g_Vars.unk000288->mpchrnum].unk00) {
 		return true;
 	}
 
