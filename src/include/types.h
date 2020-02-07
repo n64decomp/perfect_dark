@@ -4853,7 +4853,7 @@ struct smoketype {
 struct textoverride {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
+	/*0x08*/ s32 weapon;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;

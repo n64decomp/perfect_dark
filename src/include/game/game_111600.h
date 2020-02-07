@@ -5,7 +5,7 @@
 
 void currentPlayerClearInventory(void);
 void currentPlayerSortInvItem(struct invitem *item);
-void func0f11179c(struct invitem *item);
+void currentPlayerInsertInvItem(struct invitem *item);
 void currentPlayerRemoveInvItem(struct invitem *item);
 struct invitem *currentPlayerGetUnusedInvItem(void);
 void currentPlayerSetAllGuns(bool enable);

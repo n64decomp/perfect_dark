@@ -96,93 +96,53 @@ void currentPlayerSortInvItem(struct invitem *subject)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f11179c
-/*  f11179c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1117a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1117a4:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f1117a8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1117ac:	00802825 */ 	or	$a1,$a0,$zero
-/*  f1117b0:	15c1002b */ 	bne	$t6,$at,.L0f111860
-/*  f1117b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1117b8:	8c860004 */ 	lw	$a2,0x4($a0)
-/*  f1117bc:	10c00028 */ 	beqz	$a2,.L0f111860
-/*  f1117c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1117c4:	8cc40004 */ 	lw	$a0,0x4($a2)
-/*  f1117c8:	10800025 */ 	beqz	$a0,.L0f111860
-/*  f1117cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1117d0:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f1117d4:	0fc44af0 */ 	jal	objGetTextOverride
-/*  f1117d8:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f1117dc:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f1117e0:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f1117e4:	10400013 */ 	beqz	$v0,.L0f111834
-/*  f1117e8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1117ec:	8c430008 */ 	lw	$v1,0x8($v0)
-/*  f1117f0:	18600004 */ 	blez	$v1,.L0f111804
-/*  f1117f4:	28610051 */ 	slti	$at,$v1,0x51
-/*  f1117f8:	50200003 */ 	beqzl	$at,.L0f111808
-/*  f1117fc:	2401005b */ 	addiu	$at,$zero,0x5b
-/*  f111800:	00002025 */ 	or	$a0,$zero,$zero
-.L0f111804:
-/*  f111804:	2401005b */ 	addiu	$at,$zero,0x5b
-.L0f111808:
-/*  f111808:	54610003 */ 	bnel	$v1,$at,.L0f111818
-/*  f11180c:	2401005d */ 	addiu	$at,$zero,0x5d
-/*  f111810:	00002025 */ 	or	$a0,$zero,$zero
-/*  f111814:	2401005d */ 	addiu	$at,$zero,0x5d
-.L0f111818:
-/*  f111818:	54610003 */ 	bnel	$v1,$at,.L0f111828
-/*  f11181c:	24010057 */ 	addiu	$at,$zero,0x57
-/*  f111820:	00002025 */ 	or	$a0,$zero,$zero
-/*  f111824:	24010057 */ 	addiu	$at,$zero,0x57
-.L0f111828:
-/*  f111828:	14610002 */ 	bne	$v1,$at,.L0f111834
-/*  f11182c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111830:	00002025 */ 	or	$a0,$zero,$zero
-.L0f111834:
-/*  f111834:	1080000a */ 	beqz	$a0,.L0f111860
-/*  f111838:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11183c:	90cf0000 */ 	lbu	$t7,0x0($a2)
-/*  f111840:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f111844:	15e10006 */ 	bne	$t7,$at,.L0f111860
-/*  f111848:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11184c:	8cc20004 */ 	lw	$v0,0x4($a2)
-/*  f111850:	3c010004 */ 	lui	$at,0x4
-/*  f111854:	8c58000c */ 	lw	$t8,0xc($v0)
-/*  f111858:	0301c825 */ 	or	$t9,$t8,$at
-/*  f11185c:	ac59000c */ 	sw	$t9,0xc($v0)
-.L0f111860:
-/*  f111860:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f111864:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f111868:	8c680284 */ 	lw	$t0,0x284($v1)
-/*  f11186c:	8d021864 */ 	lw	$v0,0x1864($t0)
-/*  f111870:	5040000b */ 	beqzl	$v0,.L0f1118a0
-/*  f111874:	aca5000c */ 	sw	$a1,0xc($a1)
-/*  f111878:	aca2000c */ 	sw	$v0,0xc($a1)
-/*  f11187c:	8c690284 */ 	lw	$t1,0x284($v1)
-/*  f111880:	8d2a1864 */ 	lw	$t2,0x1864($t1)
-/*  f111884:	8d4b0010 */ 	lw	$t3,0x10($t2)
-/*  f111888:	acab0010 */ 	sw	$t3,0x10($a1)
-/*  f11188c:	ac450010 */ 	sw	$a1,0x10($v0)
-/*  f111890:	8cad0010 */ 	lw	$t5,0x10($a1)
-/*  f111894:	10000003 */ 	beqz	$zero,.L0f1118a4
-/*  f111898:	ada5000c */ 	sw	$a1,0xc($t5)
-/*  f11189c:	aca5000c */ 	sw	$a1,0xc($a1)
-.L0f1118a0:
-/*  f1118a0:	aca50010 */ 	sw	$a1,0x10($a1)
-.L0f1118a4:
-/*  f1118a4:	8c6e0284 */ 	lw	$t6,0x284($v1)
-/*  f1118a8:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f1118ac:	0fc44597 */ 	jal	currentPlayerSortInvItem
-/*  f1118b0:	adc51864 */ 	sw	$a1,0x1864($t6)
-/*  f1118b4:	0fc44bdc */ 	jal	func0f112f70
-/*  f1118b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1118bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1118c0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1118c4:	03e00008 */ 	jr	$ra
-/*  f1118c8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerInsertInvItem(struct invitem *item)
+{
+	if (item->type == INVITEMTYPE_PROP) {
+		struct prop *prop = item->type_prop.prop;
+
+		if (prop && prop->obj) {
+			struct textoverride *override = objGetTextOverride(prop->obj);
+			bool setflag = true;
+
+			if (override) {
+				if (override->weapon >= WEAPON_UNARMED && override->weapon <= WEAPON_NECKLACE) {
+					setflag = false;
+				}
+				if (override->weapon == WEAPON_5B) {
+					setflag = false;
+				}
+				if (override->weapon == WEAPON_SUICIDEPILL) {
+					setflag = false;
+				}
+				if (override->weapon == WEAPON_BRIEFCASE2) {
+					setflag = false;
+				}
+			}
+
+			if (setflag && prop->type == PROPTYPE_OBJ) {
+				struct defaultobj *obj = prop->obj;
+				obj->flags2 = obj->flags2 | OBJFLAG2_00040000;
+			}
+		}
+	}
+
+	// Place item at head of weapons list
+	if (g_Vars.currentplayer->weapons) {
+		item->next = g_Vars.currentplayer->weapons;
+		item->prev = g_Vars.currentplayer->weapons->prev;
+		item->next->prev = item;
+		item->prev->next = item;
+	} else {
+		item->next = item;
+		item->prev = item;
+	}
+
+	g_Vars.currentplayer->weapons = item;
+
+	currentPlayerSortInvItem(item);
+	func0f112f70();
+}
 
 void currentPlayerRemoveInvItem(struct invitem *item)
 {
@@ -443,7 +403,7 @@ bool currentPlayerGiveWeapon(s32 weaponnum)
 			item->type = INVITEMTYPE_1;
 			item->type1.weapon1 = weaponnum;
 			item->type1.weapon2 = -1;
-			func0f11179c(item);
+			currentPlayerInsertInvItem(item);
 		}
 
 		return true;
@@ -462,7 +422,7 @@ bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2)
 				item->type = INVITEMTYPE_3;
 				item->type3.weapon1 = weapon1;
 				item->type3.weapon2 = weapon2;
-				func0f11179c(item);
+				currentPlayerInsertInvItem(item);
 			}
 
 			return true;
@@ -582,7 +542,7 @@ bool currentPlayerGiveProp(struct prop *prop)
 	if (item) {
 		item->type = INVITEMTYPE_PROP;
 		item->type_prop.prop = prop;
-		func0f11179c(item);
+		currentPlayerInsertInvItem(item);
 	}
 
 	return true;
