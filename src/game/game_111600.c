@@ -1193,81 +1193,35 @@ bool func0f1128c4(void)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel currentPlayerHasProp
-/*  f1128cc:	3c03800a */ 	lui	$v1,0x800a
-/*  f1128d0:	8c63a244 */ 	lw	$v1,-0x5dbc($v1)
-/*  f1128d4:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f1128d8:	8c651864 */ 	lw	$a1,0x1864($v1)
-/*  f1128dc:	10a0000e */ 	beqz	$a1,.L0f112918
-/*  f1128e0:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f1128e4:	8c4e0000 */ 	lw	$t6,0x0($v0)
-.L0f1128e8:
-/*  f1128e8:	54ce0007 */ 	bnel	$a2,$t6,.L0f112908
-/*  f1128ec:	8c42000c */ 	lw	$v0,0xc($v0)
-/*  f1128f0:	8c4f0004 */ 	lw	$t7,0x4($v0)
-/*  f1128f4:	548f0004 */ 	bnel	$a0,$t7,.L0f112908
-/*  f1128f8:	8c42000c */ 	lw	$v0,0xc($v0)
-/*  f1128fc:	03e00008 */ 	jr	$ra
-/*  f112900:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f112904:	8c42000c */ 	lw	$v0,0xc($v0)
-.L0f112908:
-/*  f112908:	50450004 */ 	beql	$v0,$a1,.L0f11291c
-/*  f11290c:	8c7800bc */ 	lw	$t8,0xbc($v1)
-/*  f112910:	5440fff5 */ 	bnezl	$v0,.L0f1128e8
-/*  f112914:	8c4e0000 */ 	lw	$t6,0x0($v0)
-.L0f112918:
-/*  f112918:	8c7800bc */ 	lw	$t8,0xbc($v1)
-.L0f11291c:
-/*  f11291c:	8f02001c */ 	lw	$v0,0x1c($t8)
-/*  f112920:	50400009 */ 	beqzl	$v0,.L0f112948
-/*  f112924:	00001025 */ 	or	$v0,$zero,$zero
-.L0f112928:
-/*  f112928:	54440004 */ 	bnel	$v0,$a0,.L0f11293c
-/*  f11292c:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f112930:	03e00008 */ 	jr	$ra
-/*  f112934:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f112938:	8c420020 */ 	lw	$v0,0x20($v0)
-.L0f11293c:
-/*  f11293c:	1440fffa */ 	bnez	$v0,.L0f112928
-/*  f112940:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112944:	00001025 */ 	or	$v0,$zero,$zero
-.L0f112948:
-/*  f112948:	03e00008 */ 	jr	$ra
-/*  f11294c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentPlayerHasProp(struct prop *prop)
+{
+	struct invitem *item = g_Vars.currentplayer->weapons;
+	struct prop *child;
 
-// regalloc when assigning item and first
-//bool currentPlayerHasProp(struct prop *prop)
-//{
-//	struct invitem *item = g_Vars.currentplayer->weapons;
-//	struct invitem *first = item;
-//	struct prop *child;
-//
-//	while (item) {
-//		if (item->type == INVITEMTYPE_PROP && item->type_prop.prop == prop) {
-//			return true;
-//		}
-//
-//		item = item->next;
-//
-//		if (item == first) {
-//			break;
-//		}
-//	}
-//
-//	child = g_Vars.currentplayer->prop->child;
-//
-//	while (child) {
-//		if (child == prop) {
-//			return true;
-//		}
-//
-//		child = child->next;
-//	}
-//
-//	return false;
-//}
+	while (item) {
+		if (item->type == INVITEMTYPE_PROP && item->type_prop.prop == prop) {
+			return true;
+		}
+
+		item = item->next;
+
+		if (item == g_Vars.currentplayer->weapons) {
+			break;
+		}
+	}
+
+	child = g_Vars.currentplayer->prop->child;
+
+	while (child) {
+		if (child == prop) {
+			return true;
+		}
+
+		child = child->next;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f112950
