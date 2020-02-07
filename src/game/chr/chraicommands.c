@@ -3259,7 +3259,7 @@ bool aiChrDropWeapon(void)
 		u32 weapon_id;
 		setCurrentPlayerNum(playernum);
 		weapon_id = getCurrentPlayerWeaponId(0);
-		func0f111ea4(weapon_id);
+		currentPlayerRemoveWeapon(weapon_id);
 		func0f0a1c2c();
 		setCurrentPlayerNum(prevplayernum);
 	} else if (chr && chr->prop) {
@@ -14131,7 +14131,7 @@ bool aiChrKill(void)
 bool aiRemoveWeaponFromInventory(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f111ea4(cmd[2]);
+	currentPlayerRemoveWeapon(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;

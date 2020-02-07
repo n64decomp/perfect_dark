@@ -21,7 +21,7 @@ bool currentPlayerCanHaveWeapon(s32 weaponnum);
 bool func0f111cf8(s32 weapon1, s32 weapon2);
 bool currentPlayerGiveWeapon(s32 weaponnum);
 bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2);
-void func0f111ea4(u32 arg0);
+void currentPlayerRemoveWeapon(s32 weaponnum);
 bool currentPlayerGiveProp(struct prop *prop);
 u32 func0f112054(void);
 u32 func0f1120f0(void);

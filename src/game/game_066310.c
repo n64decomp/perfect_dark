@@ -49366,7 +49366,7 @@ glabel func0f0910ac
 .L0f0911dc:
 /*  f0911dc:	10c00003 */ 	beqz	$a2,.L0f0911ec
 /*  f0911e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0911e4:	0fc447a9 */ 	jal	func0f111ea4
+/*  f0911e4:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
 /*  f0911e8:	02002025 */ 	or	$a0,$s0,$zero
 .L0f0911ec:
 /*  f0911ec:	0fc28aac */ 	jal	func0f0a2ab0

@@ -167,7 +167,7 @@ glabel menuhandler001a3340
 /*  f1a3398:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f1a339c:	50810004 */ 	beql	$a0,$at,.L0f1a33b0
 /*  f1a33a0:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f1a33a4:	0fc447a9 */ 	jal	func0f111ea4
+/*  f1a33a4:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
 /*  f1a33a8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a33ac:	8fae0018 */ 	lw	$t6,0x18($sp)
 .L0f1a33b0:

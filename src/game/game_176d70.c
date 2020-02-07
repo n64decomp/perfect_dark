@@ -16102,7 +16102,7 @@ glabel func0f186898
 /*  f186d00:	e7a40014 */ 	swc1	$f4,0x14($sp)
 /*  f186d04:	0fc24494 */ 	jal	func0f091250
 /*  f186d08:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f186d0c:	0fc447a9 */ 	jal	func0f111ea4
+/*  f186d0c:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
 /*  f186d10:	24040057 */ 	addiu	$a0,$zero,0x57
 .L0f186d14:
 /*  f186d14:	0fc5b9f1 */ 	jal	langGet

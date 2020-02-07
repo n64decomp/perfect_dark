@@ -472,91 +472,44 @@ bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f111ea4
-/*  f111ea4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f111ea8:	3c0e800a */ 	lui	$t6,0x800a
-/*  f111eac:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f111eb0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f111eb4:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f111eb8:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f111ebc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f111ec0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f111ec4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f111ec8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f111ecc:	8dc31864 */ 	lw	$v1,0x1864($t6)
-/*  f111ed0:	00808825 */ 	or	$s1,$a0,$zero
-/*  f111ed4:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f111ed8:	10600033 */ 	beqz	$v1,.L0f111fa8
-/*  f111edc:	24150003 */ 	addiu	$s5,$zero,0x3
-/*  f111ee0:	8c70000c */ 	lw	$s0,0xc($v1)
-/*  f111ee4:	24130002 */ 	addiu	$s3,$zero,0x2
-.L0f111ee8:
-/*  f111ee8:	8e020000 */ 	lw	$v0,0x0($s0)
-/*  f111eec:	8e12000c */ 	lw	$s2,0xc($s0)
-/*  f111ef0:	1662000f */ 	bne	$s3,$v0,.L0f111f30
-/*  f111ef4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111ef8:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f111efc:	0fc44af0 */ 	jal	objGetTextOverride
-/*  f111f00:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f111f04:	10400006 */ 	beqz	$v0,.L0f111f20
-/*  f111f08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111f0c:	8c4f0008 */ 	lw	$t7,0x8($v0)
-/*  f111f10:	162f0003 */ 	bne	$s1,$t7,.L0f111f20
-/*  f111f14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111f18:	0fc44633 */ 	jal	currentPlayerRemoveInvItem
-/*  f111f1c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f111f20:
-/*  f111f20:	3c18800a */ 	lui	$t8,0x800a
-/*  f111f24:	8f18a244 */ 	lw	$t8,-0x5dbc($t8)
-/*  f111f28:	10000019 */ 	beqz	$zero,.L0f111f90
-/*  f111f2c:	8f031864 */ 	lw	$v1,0x1864($t8)
-.L0f111f30:
-/*  f111f30:	1682000a */ 	bne	$s4,$v0,.L0f111f5c
-/*  f111f34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111f38:	86190004 */ 	lh	$t9,0x4($s0)
-/*  f111f3c:	16390014 */ 	bne	$s1,$t9,.L0f111f90
-/*  f111f40:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111f44:	0fc44633 */ 	jal	currentPlayerRemoveInvItem
-/*  f111f48:	02002025 */ 	or	$a0,$s0,$zero
-/*  f111f4c:	3c08800a */ 	lui	$t0,0x800a
-/*  f111f50:	8d08a244 */ 	lw	$t0,-0x5dbc($t0)
-/*  f111f54:	1000000e */ 	beqz	$zero,.L0f111f90
-/*  f111f58:	8d031864 */ 	lw	$v1,0x1864($t0)
-.L0f111f5c:
-/*  f111f5c:	16a2000c */ 	bne	$s5,$v0,.L0f111f90
-/*  f111f60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111f64:	8e090004 */ 	lw	$t1,0x4($s0)
-/*  f111f68:	12290004 */ 	beq	$s1,$t1,.L0f111f7c
-/*  f111f6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f111f70:	8e0a0008 */ 	lw	$t2,0x8($s0)
-/*  f111f74:	162a0006 */ 	bne	$s1,$t2,.L0f111f90
-/*  f111f78:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f111f7c:
-/*  f111f7c:	0fc44633 */ 	jal	currentPlayerRemoveInvItem
-/*  f111f80:	02002025 */ 	or	$a0,$s0,$zero
-/*  f111f84:	3c0b800a */ 	lui	$t3,0x800a
-/*  f111f88:	8d6ba244 */ 	lw	$t3,-0x5dbc($t3)
-/*  f111f8c:	8d631864 */ 	lw	$v1,0x1864($t3)
-.L0f111f90:
-/*  f111f90:	52030006 */ 	beql	$s0,$v1,.L0f111fac
-/*  f111f94:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f111f98:	50600004 */ 	beqzl	$v1,.L0f111fac
-/*  f111f9c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f111fa0:	1000ffd1 */ 	beqz	$zero,.L0f111ee8
-/*  f111fa4:	02408025 */ 	or	$s0,$s2,$zero
-.L0f111fa8:
-/*  f111fa8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f111fac:
-/*  f111fac:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f111fb0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f111fb4:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f111fb8:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f111fbc:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f111fc0:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f111fc4:	03e00008 */ 	jr	$ra
-/*  f111fc8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void currentPlayerRemoveWeapon(s32 weaponnum)
+{
+	if (g_Vars.currentplayer->weapons) {
+		// Begin iterating from the second item in the list. This is required
+		// because the item might be removed from the list when iterating it,
+		// and it needs to determine when the end of the list has been reached.
+		struct invitem *item = g_Vars.currentplayer->weapons->next;
+
+		while (true) {
+			// Have to preload this because item->next shouldn't be trusted
+			// after calling currentPlayerRemoveInvItem()
+			struct invitem *next = item->next;
+
+			if (item->type == INVITEMTYPE_PROP) {
+				struct prop *prop = item->type_prop.prop;
+				struct textoverride *override = objGetTextOverride(prop->obj);
+
+				if (override && override->weapon == weaponnum) {
+					currentPlayerRemoveInvItem(item);
+				}
+			} else if (item->type == INVITEMTYPE_1) {
+				if (item->type1.weapon1 == weaponnum) {
+					currentPlayerRemoveInvItem(item);
+				}
+			} else if (item->type == INVITEMTYPE_3) {
+				if (item->type3.weapon1 == weaponnum || item->type3.weapon2 == weaponnum) {
+					currentPlayerRemoveInvItem(item);
+				}
+			}
+
+			if (item == g_Vars.currentplayer->weapons || !g_Vars.currentplayer->weapons) {
+				break;
+			}
+
+			item = next;
+		}
+	}
+}
 
 bool currentPlayerGiveProp(struct prop *prop)
 {
