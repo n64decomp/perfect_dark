@@ -6951,7 +6951,7 @@ glabel setupParseObject
 /*  f06b038:	00002025 */ 	or	$a0,$zero,$zero
 /*  f06b03c:	8e240014 */ 	lw	$a0,0x14($s1)
 .L0f06b040:
-/*  f06b040:	0fc44815 */ 	jal	func0f112054
+/*  f06b040:	0fc44815 */ 	jal	currentPlayerRemoveProp
 /*  f06b044:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f06b048:	8e4c006c */ 	lw	$t4,0x6c($s2)
 /*  f06b04c:	26100001 */ 	addiu	$s0,$s0,0x1

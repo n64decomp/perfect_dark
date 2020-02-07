@@ -537,51 +537,26 @@ bool currentPlayerGiveProp(struct prop *prop)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f112054
-/*  f112054:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f112058:	3c0e800a */ 	lui	$t6,0x800a
-/*  f11205c:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f112060:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f112064:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f112068:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f11206c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f112070:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f112074:	8dc21864 */ 	lw	$v0,0x1864($t6)
-/*  f112078:	00809025 */ 	or	$s2,$a0,$zero
-/*  f11207c:	24130002 */ 	addiu	$s3,$zero,0x2
-/*  f112080:	50400015 */ 	beqzl	$v0,.L0f1120d8
-/*  f112084:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f112088:	8c50000c */ 	lw	$s0,0xc($v0)
-.L0f11208c:
-/*  f11208c:	8e0f0000 */ 	lw	$t7,0x0($s0)
-/*  f112090:	8e11000c */ 	lw	$s1,0xc($s0)
-/*  f112094:	166f0009 */ 	bne	$s3,$t7,.L0f1120bc
-/*  f112098:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11209c:	8e180004 */ 	lw	$t8,0x4($s0)
-/*  f1120a0:	16580006 */ 	bne	$s2,$t8,.L0f1120bc
-/*  f1120a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1120a8:	0fc44633 */ 	jal	currentPlayerRemoveInvItem
-/*  f1120ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1120b0:	3c19800a */ 	lui	$t9,0x800a
-/*  f1120b4:	8f39a244 */ 	lw	$t9,-0x5dbc($t9)
-/*  f1120b8:	8f221864 */ 	lw	$v0,0x1864($t9)
-.L0f1120bc:
-/*  f1120bc:	52020006 */ 	beql	$s0,$v0,.L0f1120d8
-/*  f1120c0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1120c4:	50400004 */ 	beqzl	$v0,.L0f1120d8
-/*  f1120c8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1120cc:	1000ffef */ 	beqz	$zero,.L0f11208c
-/*  f1120d0:	02208025 */ 	or	$s0,$s1,$zero
-/*  f1120d4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f1120d8:
-/*  f1120d8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1120dc:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1120e0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f1120e4:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f1120e8:	03e00008 */ 	jr	$ra
-/*  f1120ec:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void currentPlayerRemoveProp(struct prop *prop)
+{
+	if (g_Vars.currentplayer->weapons) {
+		struct invitem *item = g_Vars.currentplayer->weapons->next;
+
+		while (true) {
+			struct invitem *next = item->next;
+
+			if (item->type == INVITEMTYPE_PROP && item->type_prop.prop == prop) {
+				currentPlayerRemoveInvItem(item);
+			}
+
+			if (item == g_Vars.currentplayer->weapons || !g_Vars.currentplayer->weapons) {
+				break;
+			}
+
+			item = next;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1120f0
