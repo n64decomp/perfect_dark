@@ -4,7 +4,7 @@
 #include "types.h"
 
 void currentPlayerClearInventory(void);
-u32 func0f11165c(void);
+void currentPlayerSortInvItem(struct invitem *item);
 void func0f11179c(struct invitem *item);
 void currentPlayerRemoveInvItem(struct invitem *item);
 struct invitem *currentPlayerGetUnusedInvItem(void);

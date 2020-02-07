@@ -26,103 +26,75 @@ void currentPlayerClearInventory(void)
 	g_Vars.currentplayer->equipcuritem = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f11165c
-/*  f11165c:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f111660:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f111664:	8c850000 */ 	lw	$a1,0x0($a0)
-/*  f111668:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f11166c:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f111670:	15650005 */ 	bne	$t3,$a1,.L0f111688
-/*  f111674:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f111678:	84820004 */ 	lh	$v0,0x4($a0)
-/*  f11167c:	24100002 */ 	addiu	$s0,$zero,0x2
-/*  f111680:	1000000b */ 	beqz	$zero,.L0f1116b0
-/*  f111684:	240d0003 */ 	addiu	$t5,$zero,0x3
-.L0f111688:
-/*  f111688:	240d0003 */ 	addiu	$t5,$zero,0x3
-/*  f11168c:	15a50005 */ 	bne	$t5,$a1,.L0f1116a4
-/*  f111690:	24100002 */ 	addiu	$s0,$zero,0x2
-/*  f111694:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f111698:	8c830008 */ 	lw	$v1,0x8($a0)
-/*  f11169c:	10000004 */ 	beqz	$zero,.L0f1116b0
-/*  f1116a0:	24100002 */ 	addiu	$s0,$zero,0x2
-.L0f1116a4:
-/*  f1116a4:	16050002 */ 	bne	$s0,$a1,.L0f1116b0
-/*  f1116a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1116ac:	240207d0 */ 	addiu	$v0,$zero,0x7d0
-.L0f1116b0:
-/*  f1116b0:	3c0c800a */ 	lui	$t4,%hi(g_Vars)
-/*  f1116b4:	258c9fc0 */ 	addiu	$t4,$t4,%lo(g_Vars)
-/*  f1116b8:	8d870284 */ 	lw	$a3,0x284($t4)
-/*  f1116bc:	8c86000c */ 	lw	$a2,0xc($a0)
-/*  f1116c0:	8cee1864 */ 	lw	$t6,0x1864($a3)
-/*  f1116c4:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f1116c8:	50ce0032 */ 	beql	$a2,$t6,.L0f111794
-/*  f1116cc:	8fb00004 */ 	lw	$s0,0x4($sp)
-.L0f1116d0:
-/*  f1116d0:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f1116d4:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f1116d8:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f1116dc:	156a0003 */ 	bne	$t3,$t2,.L0f1116ec
-/*  f1116e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1116e4:	10000009 */ 	beqz	$zero,.L0f11170c
-/*  f1116e8:	84c80004 */ 	lh	$t0,0x4($a2)
-.L0f1116ec:
-/*  f1116ec:	15aa0004 */ 	bne	$t5,$t2,.L0f111700
-/*  f1116f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1116f4:	8cc80004 */ 	lw	$t0,0x4($a2)
-/*  f1116f8:	10000004 */ 	beqz	$zero,.L0f11170c
-/*  f1116fc:	8cc90008 */ 	lw	$t1,0x8($a2)
-.L0f111700:
-/*  f111700:	560a0003 */ 	bnel	$s0,$t2,.L0f111710
-/*  f111704:	0102082a */ 	slt	$at,$t0,$v0
-/*  f111708:	240803e8 */ 	addiu	$t0,$zero,0x3e8
-.L0f11170c:
-/*  f11170c:	0102082a */ 	slt	$at,$t0,$v0
-.L0f111710:
-/*  f111710:	54200006 */ 	bnezl	$at,.L0f11172c
-/*  f111714:	8ca6000c */ 	lw	$a2,0xc($a1)
-/*  f111718:	1448001d */ 	bne	$v0,$t0,.L0f111790
-/*  f11171c:	0123082a */ 	slt	$at,$t1,$v1
-/*  f111720:	5020001c */ 	beqzl	$at,.L0f111794
-/*  f111724:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f111728:	8ca6000c */ 	lw	$a2,0xc($a1)
-.L0f11172c:
-/*  f11172c:	54860006 */ 	bnel	$a0,$a2,.L0f111748
-/*  f111730:	8c8f0010 */ 	lw	$t7,0x10($a0)
-/*  f111734:	ace51864 */ 	sw	$a1,0x1864($a3)
-/*  f111738:	8d870284 */ 	lw	$a3,0x284($t4)
-/*  f11173c:	10000011 */ 	beqz	$zero,.L0f111784
-/*  f111740:	8ce81864 */ 	lw	$t0,0x1864($a3)
-/*  f111744:	8c8f0010 */ 	lw	$t7,0x10($a0)
-.L0f111748:
-/*  f111748:	ac86000c */ 	sw	$a2,0xc($a0)
-/*  f11174c:	acaf0010 */ 	sw	$t7,0x10($a1)
-/*  f111750:	ac850010 */ 	sw	$a1,0x10($a0)
-/*  f111754:	aca4000c */ 	sw	$a0,0xc($a1)
-/*  f111758:	8c98000c */ 	lw	$t8,0xc($a0)
-/*  f11175c:	af040010 */ 	sw	$a0,0x10($t8)
-/*  f111760:	8cb90010 */ 	lw	$t9,0x10($a1)
-/*  f111764:	af25000c */ 	sw	$a1,0xc($t9)
-/*  f111768:	8d870284 */ 	lw	$a3,0x284($t4)
-/*  f11176c:	8ce81864 */ 	lw	$t0,0x1864($a3)
-/*  f111770:	54880005 */ 	bnel	$a0,$t0,.L0f111788
-/*  f111774:	8c86000c */ 	lw	$a2,0xc($a0)
-/*  f111778:	ace51864 */ 	sw	$a1,0x1864($a3)
-/*  f11177c:	8d870284 */ 	lw	$a3,0x284($t4)
-/*  f111780:	8ce81864 */ 	lw	$t0,0x1864($a3)
-.L0f111784:
-/*  f111784:	8c86000c */ 	lw	$a2,0xc($a0)
-.L0f111788:
-/*  f111788:	14c8ffd1 */ 	bne	$a2,$t0,.L0f1116d0
-/*  f11178c:	00c02825 */ 	or	$a1,$a2,$zero
-.L0f111790:
-/*  f111790:	8fb00004 */ 	lw	$s0,0x4($sp)
-.L0f111794:
-/*  f111794:	03e00008 */ 	jr	$ra
-/*  f111798:	27bd0008 */ 	addiu	$sp,$sp,0x8
-);
+/**
+ * Sorts subject into its correct position in the inventory list.
+ *
+ * Subject is expected to initially be at the head of the list. It works by
+ * swapping the subject with the item to its right as many times as needed.
+ */
+void currentPlayerSortInvItem(struct invitem *subject)
+{
+	struct invitem *candidate;
+	s32 subjweapon1 = -1;
+	s32 subjweapon2 = -1;
+	s32 candweapon1;
+	s32 candweapon2;
+
+	// Prepare subject's properties for comparisons
+	if (subject->type == INVITEMTYPE_1) {
+		subjweapon1 = subject->type1.weapon1;
+	} else if (subject->type == INVITEMTYPE_3) {
+		subjweapon1 = subject->type3.weapon1;
+		subjweapon2 = subject->type3.weapon2;
+	} else if (subject->type == INVITEMTYPE_PROP) {
+		subjweapon1 = 2000;
+	}
+
+	candidate = subject->next;
+
+	while (g_Vars.currentplayer->weapons != subject->next) {
+		// Prepare candidate's properties for comparisons
+		candweapon1 = -1;
+		candweapon2 = -1;
+
+		if (subject->next->type == INVITEMTYPE_1) {
+			candweapon1 = subject->next->type1.weapon1;
+		} else if (subject->next->type == INVITEMTYPE_3) {
+			candweapon1 = subject->next->type3.weapon1;
+			candweapon2 = subject->next->type3.weapon2;
+		} else if (subject->next->type == INVITEMTYPE_PROP) {
+			candweapon1 = 1000;
+		}
+
+		// If the candidate should sort ahead of subject
+		// then subject is in the desired position.
+		if (candweapon1 >= subjweapon1 &&
+				(subjweapon1 != candweapon1 || subjweapon2 <= candweapon2)) {
+			return;
+		}
+
+		// If there's only two items in the list then there's no point swapping
+		// them. Just set the list head to the candidate.
+		if (candidate->next == subject) {
+			g_Vars.currentplayer->weapons = candidate;
+		} else {
+			// Swap subject with candidate
+			subject->next = candidate->next;
+			candidate->prev = subject->prev;
+			subject->prev = candidate;
+			candidate->next = subject;
+			subject->next->prev = subject;
+			candidate->prev->next = candidate;
+
+			// Set new list head if subject was the head
+			if (subject == g_Vars.currentplayer->weapons) {
+				g_Vars.currentplayer->weapons = candidate;
+			}
+		}
+
+		candidate = subject->next;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f11179c
@@ -202,7 +174,7 @@ glabel func0f11179c
 .L0f1118a4:
 /*  f1118a4:	8c6e0284 */ 	lw	$t6,0x284($v1)
 /*  f1118a8:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f1118ac:	0fc44597 */ 	jal	func0f11165c
+/*  f1118ac:	0fc44597 */ 	jal	currentPlayerSortInvItem
 /*  f1118b0:	adc51864 */ 	sw	$a1,0x1864($t6)
 /*  f1118b4:	0fc44bdc */ 	jal	func0f112f70
 /*  f1118b8:	00000000 */ 	sll	$zero,$zero,0x0
