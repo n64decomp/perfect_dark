@@ -13,7 +13,7 @@ struct invitem *currentPlayerGetWeaponInvItem(s32 weaponnum);
 bool currentPlayerHasWeapon(s32 weaponnum);
 struct invitem *func0f111a4c(s32 weapon1, s32 weapon2);
 bool func0f111ab0(s32 weapon1, s32 weapon2);
-u32 func0f111ad4(void);
+bool func0f111ad4(s32 weaponnum);
 u32 func0f111b88(void);
 bool currentStageForbidsSlayer(void);
 bool currentPlayerCanHaveAllGunsWeapon(s32 weaponnum);

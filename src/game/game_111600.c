@@ -298,6 +298,42 @@ glabel func0f111ad4
 /*  f111b84:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+// regalloc
+//bool func0f111ad4(s32 weaponnum)
+//{
+//	struct invitem *item = g_Vars.currentplayer->weapons;
+//
+//	while (item) {
+//		if (item->type == INVITEMTYPE_1) {
+//			if (weaponnum == item->type1.weapon1) {
+//				return true;
+//			}
+//		} else if (item->type == INVITEMTYPE_PROP) {
+//			struct prop *prop = item->type_prop.prop;
+//
+//			if (prop && prop->type == PROPTYPE_WEAPON) {
+//				struct defaultobj *obj = prop->obj;
+//
+//				if (obj && obj->type == OBJTYPE_WEAPON) {
+//					struct weaponobj *weapon = (struct weaponobj *)obj;
+//
+//					if (weapon->weapon_id == weaponnum) {
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//
+//		item = item->next;
+//
+//		if (item == g_Vars.currentplayer->weapons) {
+//			break;
+//		}
+//	}
+//
+//	return false;
+//}
+
 GLOBAL_ASM(
 glabel func0f111b88
 /*  f111b88:	27bdffe8 */ 	addiu	$sp,$sp,-24

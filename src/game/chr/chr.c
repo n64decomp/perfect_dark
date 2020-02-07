@@ -33168,7 +33168,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 
 				if (prop) {
 					weapon = prop->weapon;
-					weapon->hidden |= OBJHFLAG_00000800;
+					weapon->base.hidden |= OBJHFLAG_00000800;
 					chrThrowGrenade(chr, rightprop == NULL ? 0 : 1, true);
 					chr->act_throwgrenade.entitytype = entitytype;
 					chr->act_throwgrenade.entityid = entityid;

@@ -2965,8 +2965,8 @@ bool aiIfGunUnclaimed(void)
 	} else {
 		struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
-		if (weapon && weapon->prop) {
-			weapon->flags |= OBJFLAG_00400000;
+		if (weapon && weapon->base.prop) {
+			weapon->base.flags |= OBJFLAG_00400000;
 			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 		} else {
 			g_Vars.aioffset += 5;
@@ -11798,7 +11798,7 @@ bool aiDoGunCommand(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct weaponobj *weapon = g_Vars.chrdata->gunprop->weapon;
 
-	if (cmd[2] == 0 || ((weapon->hidden & OBJHFLAG_00000080) == 0 && cmd[2] == 1)) {
+	if (cmd[2] == 0 || ((weapon->base.hidden & OBJHFLAG_00000080) == 0 && cmd[2] == 1)) {
 		if (cmd[2] == 0) {
 			chrGoToProp(g_Vars.chrdata, g_Vars.chrdata->gunprop, SPEED_JOG);
 		}

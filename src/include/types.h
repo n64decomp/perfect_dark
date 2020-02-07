@@ -757,27 +757,7 @@ struct image {
 };
 
 struct weaponobj { // objtype 0x08
-	/*0x00*/ u16 extrascale;
-	/*0x02*/ u8 hidden2;
-	/*0x03*/ u8 type;
-	/*0x04*/ u16 obj;
-	/*0x06*/ u16 pad;
-	/*0x08*/ u32 flags;
-	/*0x0c*/ u32 flags2;
-	/*0x10*/ u32 flags3;
-	/*0x14*/ struct prop *prop;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ f32 realrot[9];
-	/*0x40*/ u32 hidden;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ s16 damage;
-	/*0x4e*/ u16 maxdamage;
-	/*0x50*/ u32 shadecol;
-	/*0x54*/ u32 nextcol;
-	/*0x58*/ u16 floorcol;
-	/*0x5a*/ u8 numtiles;
-	/*0x5b*/ u8 unk5b;
+	struct defaultobj base;
 	/*0x5c*/ u8 weapon_id;
 	/*0x5d*/ s8 unk5d;
 	/*0x5e*/ s8 unk5e;
