@@ -1503,29 +1503,16 @@ void currentPlayerCalculateEquipCurItem(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f112fec
-/*  f112fec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f112ff0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112ff4:	0fc44af0 */ 	jal	objGetTextOverride
-/*  f112ff8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112ffc:	50400009 */ 	beqzl	$v0,.L0f113024
-/*  f113000:	00001025 */ 	or	$v0,$zero,$zero
-/*  f113004:	8c4e001c */ 	lw	$t6,0x1c($v0)
-/*  f113008:	51c00006 */ 	beqzl	$t6,.L0f113024
-/*  f11300c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f113010:	0fc5b9f1 */ 	jal	langGet
-/*  f113014:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f113018:	10000003 */ 	beqz	$zero,.L0f113028
-/*  f11301c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f113020:	00001025 */ 	or	$v0,$zero,$zero
-.L0f113024:
-/*  f113024:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f113028:
-/*  f113028:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f11302c:	03e00008 */ 	jr	$ra
-/*  f113030:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *objGetActivatedText(struct defaultobj *obj)
+{
+	struct textoverride *override = objGetTextOverride(obj);
+
+	if (override && override->activatetextid) {
+		return langGet(override->activatetextid);
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f113034
