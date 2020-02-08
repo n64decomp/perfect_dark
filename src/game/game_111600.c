@@ -1571,7 +1571,7 @@ void currentPlayerIncrementGunHeldTime(s32 weapon1, s32 weapon2)
 }
 
 GLOBAL_ASM(
-glabel func0f1131ac
+glabel currentPlayerGetWeaponOfChoice
 /*  f1131ac:	ac800000 */ 	sw	$zero,0x0($a0)
 /*  f1131b0:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f1131b4:	2402ffff */ 	addiu	$v0,$zero,-1
@@ -1605,3 +1605,23 @@ glabel func0f1131ac
 /*  f113218:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f11321c:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// regalloc
+//void currentPlayerGetWeaponOfChoice(s32 *weapon1, s32 *weapon2)
+//{
+//	s32 mosttime = -1;
+//	s32 i;
+//
+//	*weapon1 = 0;
+//	*weapon2 = 0;
+//
+//	for (i = 0; i != MAX_GUNHELD; i++) {
+//		s32 time = g_Vars.currentplayer->gunheldarr[i].totaltime240_60;
+//
+//		if (time >= 0 && time > mosttime) {
+//			*weapon1 = g_Vars.currentplayer->gunheldarr[i].weapon1;
+//			*weapon2 = g_Vars.currentplayer->gunheldarr[i].weapon2;
+//			mosttime = time;
+//		}
+//	}
+//}

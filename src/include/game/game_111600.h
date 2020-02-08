@@ -46,6 +46,6 @@ void currentPlayerCalculateEquipCurItem(void);
 char *objGetActivatedText(struct defaultobj *obj);
 char *weaponGetActivatedText(s32 weaponnum);
 void currentPlayerIncrementGunHeldTime(s32 param_1, s32 param_2);
-u32 func0f1131ac(void);
+void currentPlayerGetWeaponOfChoice(s32 *weapon1, s32 *weapon2);
 
 #endif
