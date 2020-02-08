@@ -40,7 +40,7 @@ u16 currentPlayerGetInvNameIdByIndex(s32 index);
 char *currentPlayerGetInvNameByIndex(s32 index);
 u32 func0f112e24(void);
 void textoverrideInsert(struct textoverride *override);
-u32 func0f112f50(void);
+u32 currentPlayerGetEquipCurItem(void);
 u32 func0f112f60(void);
 void func0f112f70(void);
 u32 func0f112fec(void);

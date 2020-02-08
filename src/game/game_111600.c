@@ -1478,13 +1478,10 @@ void textoverrideInsert(struct textoverride *override)
 	g_Vars.textoverrides = override;
 }
 
-GLOBAL_ASM(
-glabel func0f112f50
-/*  f112f50:	3c0e800a */ 	lui	$t6,0x800a
-/*  f112f54:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f112f58:	03e00008 */ 	jr	$ra
-/*  f112f5c:	8dc21874 */ 	lw	$v0,0x1874($t6)
-);
+u32 currentPlayerGetEquipCurItem(void)
+{
+	return g_Vars.currentplayer->equipcuritem;
+}
 
 GLOBAL_ASM(
 glabel func0f112f60

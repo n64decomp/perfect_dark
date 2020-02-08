@@ -15729,7 +15729,7 @@ glabel func0f0fe280
 /*  f0fe2fc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0fe300:	24e7ffff */ 	addiu	$a3,$a3,-1
 .L0f0fe304:
-/*  f0fe304:	0fc44bd4 */ 	jal	func0f112f50
+/*  f0fe304:	0fc44bd4 */ 	jal	currentPlayerGetEquipCurItem
 /*  f0fe308:	afa70030 */ 	sw	$a3,0x30($sp)
 /*  f0fe30c:	3c18800a */ 	lui	$t8,0x800a
 /*  f0fe310:	8f1821b8 */ 	lw	$t8,0x21b8($t8)
