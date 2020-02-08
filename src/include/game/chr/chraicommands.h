@@ -424,7 +424,7 @@
 /*0x01ca*/ bool aiChrSetCutsceneWeapon(void);
 /*0x01cb*/ bool aiFadeScreen(void);
 /*0x01cc*/ bool ai01cc(void);
-/*0x01cd*/ bool ai01cd(void);
+/*0x01cd*/ bool aiChrSetHudProjectorVisible(void);
 /*0x01ce*/ bool ai01ce(void);
 /*0x01cf*/ bool aiChrSetFiringInCutscene(void);
 /*0x01d0*/ bool aiSetPortalFlag(void);

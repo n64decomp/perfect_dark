@@ -3613,7 +3613,11 @@
 	mkshort(0x01cc), \
 	label,
 
-#define set_chr_hud_visible(chr, bool) \
+/**
+ * Determines whether Jo's HUD eyepiece thing is visible when in the third
+ * person perspective (ie. in cutscenes or when playing coop).
+ */
+#define set_chr_hudprojector_visible(chr, bool) \
 	mkshort(0x01cd), \
 	chr, \
 	bool,

@@ -13640,13 +13640,13 @@ bool ai01cc(void)
 /**
  * @cmd 01cd
  */
-bool ai01cd(void)
+bool aiChrSetHudProjectorVisible(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->unk020) {
-		func0f0245c8(chr, cmd[3]);
+		chrSetHudProjectorVisible(chr, cmd[3]);
 	}
 
 	g_Vars.aioffset += 4;

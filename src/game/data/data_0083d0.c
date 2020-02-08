@@ -6680,7 +6680,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01ca*/ aiChrSetCutsceneWeapon,
 	/*0x01cb*/ aiFadeScreen,
 	/*0x01cc*/ ai01cc,
-	/*0x01cd*/ ai01cd,
+	/*0x01cd*/ aiChrSetHudProjectorVisible,
 	/*0x01ce*/ ai01ce,
 	/*0x01cf*/ aiChrSetFiringInCutscene,
 	/*0x01d0*/ aiSetPortalFlag,

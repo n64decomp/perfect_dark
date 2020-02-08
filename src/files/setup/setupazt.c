@@ -410,7 +410,7 @@ u8 func1002_intro[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x01b6, -1, -1, 0x06, 0x00, CHR_BOND, 4)
-	set_chr_hud_visible(CHR_BOND, TRUE)
+	set_chr_hudprojector_visible(CHR_BOND, TRUE)
 
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -517,7 +517,7 @@ u8 func1002_intro[] = {
 	chr_do_animation(0x01b6, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	restart_default_music
 	reset_ambience
-	set_chr_hud_visible(CHR_BOND, FALSE)
+	set_chr_hudprojector_visible(CHR_BOND, FALSE)
 	enter_firstperson
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
