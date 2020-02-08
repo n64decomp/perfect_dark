@@ -2079,7 +2079,7 @@ u8 func040f_outro[] = {
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
 	chr_do_animation(0x0197, -1, -1, 0x06, 0x00, CHR_P1P2, 4)
-	set_chr_hudprojector_visible(CHR_P1P2, TRUE)
+	set_chr_hudpiece_visible(CHR_P1P2, TRUE)
 	restart_timer
 	deactivate_alarm
 	show_nonessential_chrs(FALSE)
@@ -2190,7 +2190,7 @@ u8 func040f_outro[] = {
 
 	label(0x54)
 	label(0x06)
-	set_chr_hudprojector_visible(CHR_P1P2, FALSE)
+	set_chr_hudpiece_visible(CHR_P1P2, FALSE)
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

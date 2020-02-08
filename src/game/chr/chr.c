@@ -7659,7 +7659,7 @@ glabel chrDropItems
 );
 
 GLOBAL_ASM(
-glabel chrSetHudProjectorVisible
+glabel chrSetHudpieceVisible
 /*  f0245c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0245cc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0245d0:	afa40018 */ 	sw	$a0,0x18($sp)

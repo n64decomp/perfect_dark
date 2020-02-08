@@ -73,7 +73,7 @@ u32 func0f022d60(void);
 u32 func0f022fe0(void);
 u32 func0f023098(void);
 void chrDropItems(struct chrdata *chr);
-u32 chrSetHudProjectorVisible(struct chrdata *chr, u32 arg1);
+u32 chrSetHudpieceVisible(struct chrdata *chr, u32 arg1);
 u32 func0f024668(void);
 u32 func0f0246e4(void);
 void func0f02472c(void);

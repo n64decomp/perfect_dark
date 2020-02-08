@@ -13640,13 +13640,13 @@ bool aiIfFadeComplete(void)
 /**
  * @cmd 01cd
  */
-bool aiChrSetHudProjectorVisible(void)
+bool aiSetChrHudpieceVisible(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop && chr->unk020) {
-		chrSetHudProjectorVisible(chr, cmd[3]);
+		chrSetHudpieceVisible(chr, cmd[3]);
 	}
 
 	g_Vars.aioffset += 4;

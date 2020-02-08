@@ -3034,7 +3034,7 @@ u8 func0422_intro_042a[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x0109, -1, -1, 0x06, 0x00, CHR_BOND, 4)
-	set_chr_hudprojector_visible(CHR_BOND, TRUE)
+	set_chr_hudpiece_visible(CHR_BOND, TRUE)
 	show_object(OBJ_ROPE)
 	set_object_flag3(OBJ_ROPE, OBJFLAG3_00000010)
 	object_do_animation(0x010a, OBJ_ROPE, 0x04ff, 0xff)
@@ -3062,7 +3062,7 @@ u8 func0422_intro_042b[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x010d, -1, -1, 0x06, 0x00, CHR_BOND, 4)
-	set_chr_hudprojector_visible(CHR_BOND, TRUE)
+	set_chr_hudpiece_visible(CHR_BOND, TRUE)
 	show_object(OBJ_ROPE)
 	set_object_flag3(OBJ_ROPE, OBJFLAG3_00000010)
 	object_do_animation(0x010e, OBJ_ROPE, 0x04ff, 0xff)
@@ -3101,7 +3101,7 @@ u8 func0422_intro_042d[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x0156, -1, -1, 0x06, 0x00, CHR_BOND, 4)
-	set_chr_hudprojector_visible(CHR_BOND, FALSE)
+	set_chr_hudpiece_visible(CHR_BOND, FALSE)
 
 	wait_for_camera_finished
 
@@ -3120,7 +3120,7 @@ u8 func0422_intro_042d[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(0x0156, -2, -1, 0x06, 0x00, CHR_BOND, 2)
-	set_chr_hudprojector_visible(CHR_BOND, FALSE)
+	set_chr_hudpiece_visible(CHR_BOND, FALSE)
 	mute_channel(CHANNEL_7)
 	mute_channel(CHANNEL_6)
 	mute_channel(CHANNEL_5)

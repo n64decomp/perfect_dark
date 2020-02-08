@@ -3441,7 +3441,7 @@ u8 func0423_outro[] = {
 	unset_chr_chrflag(CHR_TARGET, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_00020000)
 	chr_do_animation(0x02da, -1, -1, 0x06, 0x00, CHR_TARGET, 4)
-	set_chr_hudprojector_visible(CHR_TARGET, TRUE)
+	set_chr_hudpiece_visible(CHR_TARGET, TRUE)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
@@ -3547,7 +3547,7 @@ u8 func0423_outro[] = {
 	misc_command(0x0000, 0x0d, 0x00)
 	hide_object(0x19)
 	hide_object(0x1a)
-	set_chr_hudprojector_visible(CHR_TARGET, FALSE)
+	set_chr_hudpiece_visible(CHR_TARGET, FALSE)
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
