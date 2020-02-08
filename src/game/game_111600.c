@@ -1351,86 +1351,49 @@ s32 currentPlayerGetWeaponNumByInvIndex(s32 index)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f112cf8
-/*  f112cf8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f112cfc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112d00:	0fc44a96 */ 	jal	currentPlayerGetInvItemByIndex
-/*  f112d04:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f112d08:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f112d0c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f112d10:	10400020 */ 	beqz	$v0,.L0f112d94
-/*  f112d14:	00002825 */ 	or	$a1,$zero,$zero
-/*  f112d18:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f112d1c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f112d20:	54810010 */ 	bnel	$a0,$at,.L0f112d64
-/*  f112d24:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f112d28:	8c420004 */ 	lw	$v0,0x4($v0)
-/*  f112d2c:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f112d30:	0fc44af0 */ 	jal	objGetTextOverride
-/*  f112d34:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f112d38:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f112d3c:	10400029 */ 	beqz	$v0,.L0f112de4
-/*  f112d40:	00401825 */ 	or	$v1,$v0,$zero
-/*  f112d44:	8c4e0014 */ 	lw	$t6,0x14($v0)
-/*  f112d48:	11c00003 */ 	beqz	$t6,.L0f112d58
-/*  f112d4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112d50:	10000026 */ 	beqz	$zero,.L0f112dec
-/*  f112d54:	94620016 */ 	lhu	$v0,0x16($v1)
-.L0f112d58:
-/*  f112d58:	10000022 */ 	beqz	$zero,.L0f112de4
-/*  f112d5c:	8c450008 */ 	lw	$a1,0x8($v0)
-/*  f112d60:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f112d64:
-/*  f112d64:	1481001f */ 	bne	$a0,$at,.L0f112de4
-/*  f112d68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112d6c:	84640004 */ 	lh	$a0,0x4($v1)
-/*  f112d70:	0fc44aff */ 	jal	weaponGetTextOverride
-/*  f112d74:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f112d78:	1040001a */ 	beqz	$v0,.L0f112de4
-/*  f112d7c:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f112d80:	8c4f0014 */ 	lw	$t7,0x14($v0)
-/*  f112d84:	11e00017 */ 	beqz	$t7,.L0f112de4
-/*  f112d88:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112d8c:	10000017 */ 	beqz	$zero,.L0f112dec
-/*  f112d90:	94420016 */ 	lhu	$v0,0x16($v0)
-.L0f112d94:
-/*  f112d94:	3c18800a */ 	lui	$t8,0x800a
-/*  f112d98:	8f18a244 */ 	lw	$t8,-0x5dbc($t8)
-/*  f112d9c:	8f191870 */ 	lw	$t9,0x1870($t8)
-/*  f112da0:	13200010 */ 	beqz	$t9,.L0f112de4
-/*  f112da4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112da8:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f112dac:	0fc446fa */ 	jal	currentStageForbidsSlayer
-/*  f112db0:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f112db4:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f112db8:	2408002c */ 	addiu	$t0,$zero,0x2c
-/*  f112dbc:	01024823 */ 	subu	$t1,$t0,$v0
-/*  f112dc0:	0089082a */ 	slt	$at,$a0,$t1
-/*  f112dc4:	10200007 */ 	beqz	$at,.L0f112de4
-/*  f112dc8:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f112dcc:	0fc446e2 */ 	jal	func0f111b88
-/*  f112dd0:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f112dd4:	0fc28869 */ 	jal	func0f0a21a4
-/*  f112dd8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f112ddc:	10000004 */ 	beqz	$zero,.L0f112df0
-/*  f112de0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f112de4:
-/*  f112de4:	0fc28869 */ 	jal	func0f0a21a4
-/*  f112de8:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f112dec:
-/*  f112dec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f112df0:
-/*  f112df0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f112df4:	03e00008 */ 	jr	$ra
-/*  f112df8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u16 currentPlayerGetInvNameIdByIndex(s32 index)
+{
+	struct invitem *item = currentPlayerGetInvItemByIndex(index);
+	s32 weaponnum = 0;
+	struct textoverride *override;
+
+	if (item) {
+		if (item->type == INVITEMTYPE_PROP) {
+			struct prop *prop = item->type_prop.prop;
+			override = objGetTextOverride(prop->obj);
+
+			if (override) {
+				if (override->unk14) {
+					return override->unk14;
+				}
+
+				weaponnum = override->weapon;
+			}
+		} else if (item->type == INVITEMTYPE_1) {
+			weaponnum = item->type1.weapon1;
+			override = weaponGetTextOverride(weaponnum);
+
+			if (override && override->unk14) {
+				return override->unk14;
+			}
+		}
+	} else {
+		if (g_Vars.currentplayer->equipallguns) {
+			if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
+				index++;
+				return func0f0a21a4(func0f111b88(index));
+			}
+		}
+	}
+
+	return func0f0a21a4(weaponnum);
+}
 
 GLOBAL_ASM(
 glabel func0f112dfc
 /*  f112dfc:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f112e00:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112e04:	0fc44b3e */ 	jal	func0f112cf8
+/*  f112e04:	0fc44b3e */ 	jal	currentPlayerGetInvNameIdByIndex
 /*  f112e08:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f112e0c:	0fc5b9f1 */ 	jal	langGet
 /*  f112e10:	00402025 */ 	or	$a0,$v0,$zero
