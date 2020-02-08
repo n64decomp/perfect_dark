@@ -1389,19 +1389,10 @@ u16 currentPlayerGetInvNameIdByIndex(s32 index)
 	return func0f0a21a4(weaponnum);
 }
 
-GLOBAL_ASM(
-glabel func0f112dfc
-/*  f112dfc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f112e00:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112e04:	0fc44b3e */ 	jal	currentPlayerGetInvNameIdByIndex
-/*  f112e08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112e0c:	0fc5b9f1 */ 	jal	langGet
-/*  f112e10:	00402025 */ 	or	$a0,$v0,$zero
-/*  f112e14:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f112e18:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f112e1c:	03e00008 */ 	jr	$ra
-/*  f112e20:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *currentPlayerGetInvNameByIndex(s32 index)
+{
+	return langGet(currentPlayerGetInvNameIdByIndex(index));
+}
 
 GLOBAL_ASM(
 glabel func0f112e24
