@@ -1673,7 +1673,7 @@ u8 func0007_alerted[] = {
 
 	label(0x57)
 	say_quip(CHR_BOND, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	do_special_animation(-2)
+	do_preset_animation(-2)
 	goto_next(0xe8)
 
 	label(0x5e)
@@ -2023,7 +2023,7 @@ u8 func0007_alerted[] = {
 
 	label(0x57)
 	say_quip(CHR_BOND, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	do_special_animation(-2)
+	do_preset_animation(-2)
 	goto_next(0xe9)
 
 	label(0x29)
@@ -2369,7 +2369,7 @@ u8 func0007_alerted[] = {
 
 	label(0x57)
 	say_quip(CHR_BOND, 0x27, 0xfe, 0x03, 0xff, BANK_0, 0x00, 0x00)
-	do_special_animation(-2)
+	do_preset_animation(-2)
 	goto_next(0xea)
 	label(0x2a)
 	if_self_flag_bankx_eq(CHRFLAG0_01000000, FALSE, BANK_0, /*goto*/ 0x13)
@@ -4002,7 +4002,7 @@ u8 func0010_civilian_say_comment[] = {
 	label(0x07)
 	restart_timer
 	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_01000000, /*goto*/ 0x13)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	say_quip(CHR_BOND, 0x1d, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "How's things?","Hey there","Hi, how are you?"
 	yield
 
@@ -4021,7 +4021,7 @@ u8 func0010_civilian_say_comment[] = {
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_01000000, /*goto*/ 0x06)
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_01000000)
 	say_quip(CHR_BOND, 0x1e, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00) // "Where did you get that?","Should you have that?","What are you doing with that weapon?"
-	do_special_animation(6)
+	do_preset_animation(6)
 	restart_timer
 
 	beginloop(0x08)
@@ -4042,7 +4042,7 @@ u8 func0010_civilian_say_comment[] = {
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_02000000)
 	dprint 'D','O','N','T',' ','P','O','I','N','T','\n',0,
 	say_quip(CHR_BOND, 0x1f, 0xff, 0x03, 0xff, BANK_0, 0x00, 0x00) // "Don't point that at me","Watch where you're pointing that"
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	restart_timer
 
 	// Wait 3 seconds, or for see/hear gunfire
@@ -4072,7 +4072,7 @@ u8 func0010_civilian_say_comment[] = {
 	label(0x16)
 	say_quip(CHR_BOND, 0x17, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	label(0x13)
-	do_special_animation(3)
+	do_preset_animation(3)
 	return
 
 	// Not Chicago
@@ -4083,7 +4083,7 @@ u8 func0010_civilian_say_comment[] = {
 	label(0x16)
 	say_quip(CHR_BOND, 0x23, 0xff, 0x00, 0xff, 0x81, 0x00, 0x00)
 	label(0x13)
-	do_special_animation(3)
+	do_preset_animation(3)
 	return
 
 	label(0x83)
@@ -4188,7 +4188,7 @@ u8 func001b_observe_camspy[] = {
 
 	// Timer expired
 	label(0x04)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	say_quip(CHR_BOND, 0x1c, 0xff, 0x00, 0xff, BANK_0, 0x00, 0x00) // "What the hell?","Hello there","What's this?"
 
 	// Wait another 5 seconds with same logic as previous timer

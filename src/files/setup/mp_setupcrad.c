@@ -4,7 +4,7 @@
 
 #include "stagesetup.h"
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -57,7 +57,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	spawn(0x00cd)
 	spawn(0x00ce)
 	spawn(0x00cf)

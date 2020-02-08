@@ -1907,7 +1907,7 @@ u8 func0414_programmer[] = {
 	label(LABEL_PC_BROKEN)
 	set_self_flag_bankx(CHRFLAG0_CANT_ALERT_GROUP, BANK_0)
 	speak(CHR_TARGET, 0x0262, 0x1289, CHANNEL_3, COLOR_03_RED) // "You vandal, you've broken it!"
-	do_special_animation(-1)
+	do_preset_animation(-1)
 
 	beginloop(0xc6)
 		if_sound_finished(CHANNEL_3, /*goto*/ 0x06)

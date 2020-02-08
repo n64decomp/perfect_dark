@@ -1384,7 +1384,7 @@ u8 func0403_elvis_give_farsight[] = {
 	label(0x06)
 	stop_chr
 	label(0x09)
-	do_special_animation(5)
+	do_preset_animation(5)
 	speak(CHR_TARGET, 0x3012, 0x12ea, CHANNEL_6, COLOR_04_ORANGE) // "Here, take this gun and keep those Skedar off my b..."
 	give_object_to_chr(0x73, CHR_TARGET)
 	yield

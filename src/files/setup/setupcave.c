@@ -2749,7 +2749,7 @@ u8 func0414_officeworker[] = {
 	endloop(0x78)
 
 	label(0x02)
-	do_special_animation(7)
+	do_preset_animation(7)
 	speak(CHR_TARGET, 0x0e36, 0x1b38, CHANNEL_4, COLOR_08_RED) // "Stop them - they're breaking into the safe..."
 
 	beginloop(0x05)

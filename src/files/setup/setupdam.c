@@ -1960,7 +1960,7 @@ u8 func0401_pilot[] = {
 	label(0x07)
 	speak(CHR_TARGET, 0x162e, 0x1280, CHANNEL_6, COLOR_04_ORANGE) // "Please don't hurt me."
 	label(0x08)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 
 	beginloop(0x0f)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x08)
@@ -2463,7 +2463,7 @@ u8 func0415_elvis_at_start[] = {
 	endloop(0x0b)
 
 	label(0x07)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x1620, 0x14dc, CHANNEL_6, COLOR_06_WHITE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
 
 	beginloop(0x0c)
@@ -2691,7 +2691,7 @@ u8 func0418_elvis_at_moonpool[] = {
 	if_chr_dying(CHR_SELF, /*goto*/ 0x07)
 	if_chr_death_animation_finished(CHR_SELF, /*goto*/ 0x07)
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x07)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	set_stage_flag(STAGEFLAG_MET_ELVIS)
 	speak(CHR_P1P2, 0x1622, 0x81a4, CHANNEL_6, COLOR_06_WHITE) // "Joanna... What took you so long? Follow me - let's..."
 

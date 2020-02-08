@@ -913,7 +913,7 @@ u8 func0409_elvis_follow[] = {
 	endloop(0x10)
 
 	label(0x06)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	message(CHR_BOND, 0x260d) // "Navigational information has been retrieved."
 	speak(CHR_PRESET, 0x261f, 0x12e4, CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards..."
 	restart_timer

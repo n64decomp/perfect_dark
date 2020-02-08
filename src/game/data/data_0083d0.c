@@ -6638,7 +6638,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01a0*/ aiSetChrSpecialDeathAnimation,
 	/*0x01a1*/ aiSetRoomToSearch,
 	/*0x01a2*/ aiSayCiStaffQuip,
-	/*0x01a3*/ ai01a3,
+	/*0x01a3*/ aiDoPresetAnimation,
 	/*0x01a4*/ aiShowText,
 	/*0x01a5*/ ai01a5,
 	/*0x01a6*/ aiIfTargetYDifferenceLessThan,
@@ -7180,25 +7180,24 @@ s16 ciquiptable_bank3[] = {
 	0x1b1d, 0x1b1d,
 };
 
-// table for cmd 01a3 (do_special_animation)
-// f860
-u16 special_animations[] = {
-	0x0296,
-	0x0297,
-	0x0298, // when value is 3 (1/2 chance)
-	0x028a, // when value is 3 (1/2 chance)
-	0x028c,
-	0x0290,
-	0x0291, // when value is -1 (1/8 chance)
-	0x00a3, // when value is -1 (1/8 chance) - talking anim
-	0x028e, // when value is -1 (1/8 chance)
-	0x028f, // when value is -1 (1/8 chance)
-	0x0231, // when value is -1 (1/8 chance) - talking anim
-	0x0232, // when value is -1 (1/8 chance) - talking anim
-	0x0233, // when value is -1 (1/8 chance) - talking anim
-	0x0234, // when value is -1 (1/8 chance) - talking anim
-	0x028d,
-	0x0000,
+// Table for cmd 01a3 (do_preset_animation)
+// These all appear to be talking animations
+u16 g_PresetAnimations[15] = {
+	/* 0*/ 0x0296,
+	/* 1*/ 0x0297,
+	/* 2*/ 0x0298,
+	/* 3*/ 0x028a, // when value is 3 (1/2 chance)
+	/* 4*/ 0x028c, // when value is 3 (1/2 chance)
+	/* 5*/ 0x0290,
+	/* 6*/ 0x0291,
+	/* 7*/ 0x00a3, // when value is 255 (1/8 chance)
+	/* 8*/ 0x028e, // when value is 255 (1/8 chance)
+	/* 9*/ 0x028f, // when value is 255 (1/8 chance)
+	/*10*/ 0x0231, // when value is 255 (1/8 chance)
+	/*11*/ 0x0232, // when value is 255 (1/8 chance)
+	/*12*/ 0x0233, // when value is 255 (1/8 chance)
+	/*13*/ 0x0234, // when value is 255 (1/8 chance)
+	/*14*/ 0x028d, // when value is 255 (1/8 chance)
 };
 
 u8 var80069860[8] = {0};

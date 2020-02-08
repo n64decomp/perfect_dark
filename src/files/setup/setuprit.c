@@ -1214,7 +1214,7 @@ u8 func0405_president_in_room[] = {
 	endloop(0x09)
 
 	label(0x06)
-	do_special_animation(0)
+	do_preset_animation(0)
 	speak(CHR_TARGET, 0x3623, 0x12c5, CHANNEL_6, COLOR_08_RED) // "Who are you, young lady?"
 	restart_timer
 
@@ -1257,7 +1257,7 @@ u8 func0405_president_in_room[] = {
 	endloop(0x78)
 
 	label(0x06)
-	do_special_animation(1)
+	do_preset_animation(1)
 	speak(CHR_TARGET, 0x3628, 0x12c6, CHANNEL_6, COLOR_08_RED) // "You can't make accusations like that without evide..."
 	restart_timer
 
@@ -1348,7 +1348,7 @@ u8 func0405_president_in_room[] = {
 	goto_first(0x0b)
 
 	label(0x06)
-	do_special_animation(2)
+	do_preset_animation(2)
 	speak(CHR_TARGET, 0x362a, 0x12c7, CHANNEL_6, COLOR_08_RED) // "Seems overwhelming... I'm in your hands. What do w..."
 	restart_timer
 
@@ -1391,7 +1391,7 @@ u8 func0405_president_in_room[] = {
 	endloop(0x7b)
 
 	label(0x06)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x3626, 0x816e, CHANNEL_6, COLOR_08_RED) // "What the hell was that!"
 	restart_timer
 
@@ -3240,7 +3240,7 @@ u8 func0407_steward[] = {
 	label(0x06)
 	increase_squadron_alertness(100)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISE_UNCOVERED)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	restart_timer
 	speak(CHR_P1P2, 0x362b, 0x1abb, CHANNEL_4, COLOR_04_ORANGE) // "Hey, that's not..."
 

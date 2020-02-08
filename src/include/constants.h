@@ -131,6 +131,8 @@
 #define ANIM_SNIPING_026B           0x026b
 #define ANIM_DRAW_PISTOL_0288       0x0288
 #define ANIM_DRAW_PISTOL_0289       0x0289
+#define ANIM_FIX_GUN_JAM_EASY       0x0299
+#define ANIM_FIX_GUN_JAM_HARD       0x029a
 #define ANIM_SKEDAR_COLLAPSE        0x0352
 
 #define BANK_0 0

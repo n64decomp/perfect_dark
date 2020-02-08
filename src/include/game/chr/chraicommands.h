@@ -386,7 +386,7 @@
 /*0x01a0*/ bool aiSetChrSpecialDeathAnimation(void);
 /*0x01a1*/ bool aiSetRoomToSearch(void);
 /*0x01a2*/ bool aiSayCiStaffQuip(void);
-/*0x01a3*/ bool ai01a3(void);
+/*0x01a3*/ bool aiDoPresetAnimation(void);
 /*0x01a4*/ bool aiShowText(void);
 /*0x01a5*/ bool ai01a5(void);
 /*0x01a6*/ bool aiIfTargetYDifferenceLessThan(void);

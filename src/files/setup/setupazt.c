@@ -1223,7 +1223,7 @@ u8 func0404_elvis[] = {
 
 	// Close to player
 	label(0x13)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x0a1f, 0x12e2, CHANNEL_6, COLOR_04_ORANGE) // "Take this; you should find it useful!"
 	give_object_to_chr(OBJ_PROXYMINE, CHR_TARGET)
 

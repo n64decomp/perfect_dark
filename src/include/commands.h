@@ -3286,12 +3286,12 @@
 	channel,
 
 /**
- * If value is -2, either do 0x299 or 0x29a based on something.
- * If value is -1, choose a random anim out of 8 from bank at 8006984c.
- * If value is 3, choose a random anim out of 2 from bank at 80069844.
- * Any other value is an index into bank at 80069840.
+ * If value is 0-2 or 4-14, do talking animation from g_PresetAnimations array.
+ * If value is 3, choose a random talking anim out of 2.
+ * If value is 254, do a gun jam animation.
+ * If value is 255, choose a random talking anim out of 8.
  */
-#define do_special_animation(value) \
+#define do_preset_animation(value) \
 	mkshort(0x01a3), \
 	value,
 

@@ -828,7 +828,7 @@ u8 func0402_jonathan_waiting_for_meetup[] = {
 	speak(CHR_P1P2, 0x4819, 0x12b3, CHANNEL_4, COLOR_03_RED) // "Joanna - over here."
 	label(0x08)
 	restart_timer
-	do_special_animation(3)
+	do_preset_animation(3)
 
 	beginloop(0x09)
 		if_player_looking_at_something_maybe(0x0a, 0x01, 0x00, /*goto*/ 0x06)
@@ -852,7 +852,7 @@ u8 func0402_jonathan_waiting_for_meetup[] = {
 	label(0x06)
 	speak(CHR_P1P2, 0x481a, 0x12b4, CHANNEL_4, COLOR_03_RED) // "We need to get back to our friend."
 	set_stage_flag(STAGEFLAG_MET_JON)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	restart_timer
 
 	beginloop(0x0c)

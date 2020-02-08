@@ -1424,7 +1424,7 @@ u8 func0413_cass_running[] = {
 
 		// Consider saying something
 		label(0x2c)
-		do_special_animation(-1)
+		do_preset_animation(-1)
 		restart_timer
 		if_stage_flag_eq(STAGEFLAG_CASS_SAID_YWSM, FALSE, /*goto*/ 0x06)
 		say_quip(CHR_TARGET, 0x2b, 0xff, 0x00, 0xff, BANK_1, 0x0a, 0x04)

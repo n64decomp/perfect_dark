@@ -2651,7 +2651,7 @@ u8 func041f_labtech_lights[] = {
 	label(0x2d)
 	speak(CHR_TARGET, 0x2a53, 0x127f, CHANNEL_4, COLOR_08_RED) // "Should you be in here?"
 	restart_timer
-	do_special_animation(-1)
+	do_preset_animation(-1)
 
 	beginloop(0x64)
 		if_sound_finished(CHANNEL_4, /*goto*/ 0x06)
@@ -2667,7 +2667,7 @@ u8 func041f_labtech_lights[] = {
 	label(0x06)
 	speak(CHR_TARGET, 0x2a52, 0x1286, CHANNEL_4, COLOR_08_RED) // "Leave this area now."
 	restart_timer
-	do_special_animation(-1)
+	do_preset_animation(-1)
 
 	beginloop(0x66)
 		if_sound_finished(CHANNEL_4, /*goto*/ 0x53)
@@ -2874,7 +2874,7 @@ u8 func0420_labtech_doors[] = {
 	goto_next(0x06)
 
 	label(0x2d)
-	do_special_animation(3)
+	do_preset_animation(3)
 	say_quip(CHR_BOND, 0x1d, 0xff, 0x02, 0xff, BANK_0, 0x00, 0x00)
 	set_self_flag_bankx(CHRFLAG0_08000000, BANK_0)
 

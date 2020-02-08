@@ -125,7 +125,7 @@ struct prop *func0f02dbac(struct pad *pad, s16 room);
 u32 func0f02ddbc(void);
 u32 func0f02dff0(void);
 u32 func0f02e064(struct chrdata *chr);
-u32 func0f02e124(void);
+bool func0f02e124(struct prop *prop);
 u32 func0f02e15c(void);
 u32 func0f02e1cc(void);
 u32 func0f02e260(void);

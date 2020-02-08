@@ -600,7 +600,7 @@ u8 func041e_colleague[] = {
 
 		label(0x06)
 		if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x7f)
-		do_special_animation(3)
+		do_preset_animation(3)
 		goto_next(0x2f)
 
 		label(0x7f)
@@ -635,7 +635,7 @@ u8 func041e_colleague[] = {
 		goto_first(0x59)
 
 		label(0x06)
-		do_special_animation(-1)
+		do_preset_animation(-1)
 		label(0x06)
 		play_cistaff_quip(BANK_1, CHANNEL_6)
 		restart_timer
@@ -674,7 +674,7 @@ u8 func041e_colleague[] = {
 
 		label(0x30)
 		if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, TRUE, BANK_1, /*goto*/ 0x7f)
-		do_special_animation(-1)
+		do_preset_animation(-1)
 		goto_next(0x06)
 
 		label(0x7f)
@@ -2474,7 +2474,7 @@ u8 func0429_grimshaw_disguise[] = {
 
 	label(0x06)
 	dprint 'I','n','i','t','i','a','l','i','s','e','c',0,
-	do_special_animation(3)
+	do_preset_animation(3)
 	play_cistaff_quip(BANK_0, CHANNEL_6)
 	restart_timer
 
@@ -2510,7 +2510,7 @@ u8 func0429_grimshaw_disguise[] = {
 
 	label(0x06)
 	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED, /*goto*/ 0x2f)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x1c2c, 0x1518, CHANNEL_6, COLOR_05_GREEN) // "Go away, Joanna. You're not fooling anybody!"
 
 	beginloop(0x5c)
@@ -2523,7 +2523,7 @@ u8 func0429_grimshaw_disguise[] = {
 	goto_next(0x0d)
 
 	label(0x2f)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x1c2d, 0x1519, CHANNEL_6, COLOR_05_GREEN) // "Here you go. Don't drop it now."
 
 	beginloop(0x5d)
@@ -2674,7 +2674,7 @@ u8 func042a_carrington_cloak[] = {
 	endloop(0x57)
 
 	label(0x06)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_BOND, 0x1c31, 0x151b, CHANNEL_6, COLOR_06_WHITE) // "Joanna, where did you spring from?"
 
 	beginloop(0x59)
@@ -2689,7 +2689,7 @@ u8 func042a_carrington_cloak[] = {
 	endloop(0x5b)
 
 	label(0x06)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x1c35, 0x151c, CHANNEL_6, COLOR_06_WHITE) // "I think we can safely say your training is now complete!"
 
 	beginloop(0x5c)
@@ -2949,7 +2949,7 @@ u8 func042c_carrington_tour[] = {
 	label(0x06)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_10000000)
 	set_savefile_flag(SAVEFILEFLAG_CI_TOUR_STARTED)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	remove_displayed_text
 	speak(CHR_TARGET, 0x1c42, 0x8029, CHANNEL_6, COLOR_06_WHITE) // "Joanna, it's good to see you."
 	restart_timer
@@ -2959,7 +2959,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x57)
 
 	label(0x06)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x1c43, 0x151d, CHANNEL_6, COLOR_06_WHITE) // "Come with me. I'll walk you round the training rooms."
 	restart_timer
 
@@ -2990,7 +2990,7 @@ u8 func042c_carrington_tour[] = {
 	goto_first(0x5c)
 
 	label(0x2f)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	remove_displayed_text
 	speak(CHR_TARGET, 0x1c44, 0x1520, CHANNEL_6, COLOR_06_WHITE) // "The information center is through this door."
 	restart_timer
@@ -3019,7 +3019,7 @@ u8 func042c_carrington_tour[] = {
 
 	label(0x2f)
 	set_ailist(0x01, GAILIST_IDLE)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x1c45, 0x151f, CHANNEL_6, COLOR_06_WHITE) // "In here we have the device lab."
 	restart_timer
 
@@ -3036,7 +3036,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x65)
 
 	label(0x06)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	play_sound(0x8028, CHANNEL_6)
 	set_ailist(0x01, AILIST_DEVICEGIRL_REPLY_TO_CARRINGTON)
 	restart_timer
@@ -3075,7 +3075,7 @@ u8 func042c_carrington_tour[] = {
 	goto_first(0x6a)
 
 	label(0x2f)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x1c46, 0x1521, CHANNEL_6, COLOR_06_WHITE) // "This leads to the simulant training room."
 	restart_timer
 
@@ -3111,7 +3111,7 @@ u8 func042c_carrington_tour[] = {
 	goto_first(0x6e)
 
 	label(0x2f)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x1c47, 0x151e, CHANNEL_6, COLOR_06_WHITE) // "This is the firing range, Jo."
 	restart_timer
 
@@ -3163,7 +3163,7 @@ u8 func042c_carrington_tour[] = {
 	goto_first(0x74)
 
 	label(0x2f)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x1c48, 0x1522, CHANNEL_6, COLOR_06_WHITE) // "This corridor leads down to the hangar."
 	restart_timer
 
@@ -3181,7 +3181,7 @@ u8 func042c_carrington_tour[] = {
 	endloop(0x79)
 
 	label(0x2f)
-	do_special_animation(-1)
+	do_preset_animation(-1)
 	speak(CHR_TARGET, 0x1c7c, 0x17dc, CHANNEL_6, COLOR_06_WHITE) // "Okay, Jo, I'll leave you to prepare for the mission."
 
 	beginloop(0x7a)
