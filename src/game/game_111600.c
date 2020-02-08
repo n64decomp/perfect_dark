@@ -1132,11 +1132,10 @@ glabel currentPlayerHasKeyFlags
 //	return unlocked;
 //}
 
-GLOBAL_ASM(
-glabel func0f11283c
-/*  f11283c:	03e00008 */ 	jr	$ra
-/*  f112840:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool func0f11283c(void)
+{
+	return false;
+}
 
 bool currentPlayerHasBriefcase(void)
 {
