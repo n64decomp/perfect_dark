@@ -177,7 +177,7 @@ glabel menuhandler001a3340
 /*  f1a33bc:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f1a33c0:	01c02025 */ 	or	$a0,$t6,$zero
 .L0f1a33c4:
-/*  f1a33c4:	0fc44bd8 */ 	jal	func0f112f60
+/*  f1a33c4:	0fc44bd8 */ 	jal	currentPlayerSetEquipCurItem
 /*  f1a33c8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f1a33cc:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f1a33d0:	00002025 */ 	or	$a0,$zero,$zero

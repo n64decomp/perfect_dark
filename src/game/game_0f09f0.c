@@ -15531,7 +15531,7 @@ glabel func0f0fdf14
 .L0f0fe034:
 /*  f0fe034:	5220008e */ 	beqzl	$s1,.L0f0fe270
 /*  f0fe038:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0fe03c:	0fc44bd8 */ 	jal	func0f112f60
+/*  f0fe03c:	0fc44bd8 */ 	jal	currentPlayerSetEquipCurItem
 /*  f0fe040:	8fa40040 */ 	lw	$a0,0x40($sp)
 /*  f0fe044:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0fe048:	0fc4473e */ 	jal	func0f111cf8

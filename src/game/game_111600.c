@@ -141,7 +141,7 @@ void currentPlayerInsertInvItem(struct invitem *item)
 	g_Vars.currentplayer->weapons = item;
 
 	currentPlayerSortInvItem(item);
-	func0f112f70();
+	currentPlayerCalculateEquipCurItem();
 }
 
 void currentPlayerRemoveInvItem(struct invitem *item)
@@ -161,7 +161,7 @@ void currentPlayerRemoveInvItem(struct invitem *item)
 	prev->next = next;
 	item->type = -1;
 
-	func0f112f70();
+	currentPlayerCalculateEquipCurItem();
 }
 
 struct invitem *currentPlayerGetUnusedInvItem(void)
@@ -182,7 +182,7 @@ void currentPlayerSetAllGuns(bool enable)
 	s32 weaponnum;
 
 	g_Vars.currentplayer->equipallguns = enable;
-	func0f112f70();
+	currentPlayerCalculateEquipCurItem();
 	weaponnum = currentPlayerGetWeaponNumByInvIndex(g_Vars.currentplayer->equipcuritem);
 	currentPlayerEquipWeaponInCutscene(weaponnum);
 }
@@ -1483,52 +1483,25 @@ u32 currentPlayerGetEquipCurItem(void)
 	return g_Vars.currentplayer->equipcuritem;
 }
 
-GLOBAL_ASM(
-glabel func0f112f60
-/*  f112f60:	3c0e800a */ 	lui	$t6,0x800a
-/*  f112f64:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f112f68:	03e00008 */ 	jr	$ra
-/*  f112f6c:	adc41874 */ 	sw	$a0,0x1874($t6)
-);
+void currentPlayerSetEquipCurItem(u32 item)
+{
+	g_Vars.currentplayer->equipcuritem = item;
+}
 
-GLOBAL_ASM(
-glabel func0f112f70
-/*  f112f70:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f112f74:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f112f78:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f112f7c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f112f80:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
-/*  f112f84:	00002025 */ 	or	$a0,$zero,$zero
-/*  f112f88:	3c0e800a */ 	lui	$t6,0x800a
-/*  f112f8c:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f112f90:	00408825 */ 	or	$s1,$v0,$zero
-/*  f112f94:	00008025 */ 	or	$s0,$zero,$zero
-/*  f112f98:	0fc44a54 */ 	jal	currentPlayerGetNumInvItems
-/*  f112f9c:	adc01874 */ 	sw	$zero,0x1874($t6)
-/*  f112fa0:	5840000e */ 	blezl	$v0,.L0f112fdc
-/*  f112fa4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f112fa8:
-/*  f112fa8:	0fc44b11 */ 	jal	currentPlayerGetWeaponNumByInvIndex
-/*  f112fac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f112fb0:	14510004 */ 	bne	$v0,$s1,.L0f112fc4
-/*  f112fb4:	3c0f800a */ 	lui	$t7,0x800a
-/*  f112fb8:	8defa244 */ 	lw	$t7,-0x5dbc($t7)
-/*  f112fbc:	10000006 */ 	beqz	$zero,.L0f112fd8
-/*  f112fc0:	adf01874 */ 	sw	$s0,0x1874($t7)
-.L0f112fc4:
-/*  f112fc4:	0fc44a54 */ 	jal	currentPlayerGetNumInvItems
-/*  f112fc8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f112fcc:	0202082a */ 	slt	$at,$s0,$v0
-/*  f112fd0:	1420fff5 */ 	bnez	$at,.L0f112fa8
-/*  f112fd4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f112fd8:
-/*  f112fd8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f112fdc:
-/*  f112fdc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f112fe0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f112fe4:	03e00008 */ 	jr	$ra
-/*  f112fe8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void currentPlayerCalculateEquipCurItem(void)
+{
+	s32 curweaponnum = getCurrentPlayerWeaponId(0);
+	s32 i;
+
+	g_Vars.currentplayer->equipcuritem = 0;
+
+	for (i = 0; i < currentPlayerGetNumInvItems(); i++) {
+		if (currentPlayerGetWeaponNumByInvIndex(i) == curweaponnum) {
+			g_Vars.currentplayer->equipcuritem = i;
+			break;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f112fec
