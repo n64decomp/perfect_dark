@@ -7460,7 +7460,7 @@ bool ai00e4(void)
 /**
  * @cmd 00e5
  */
-bool aiIfFadeComplete(void)
+bool aiIfColourFadeComplete(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	bool pass = false;
@@ -13624,11 +13624,11 @@ bool aiFadeScreen(void)
 /**
  * @cmd 01cc
  */
-bool ai01cc(void)
+bool aiIfFadeComplete(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f16889c() == false) {
+	if (fadeIsActive() == false) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;

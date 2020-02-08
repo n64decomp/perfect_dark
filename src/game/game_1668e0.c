@@ -2519,21 +2519,10 @@ glabel func0f1685d8
 /*  f168898:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f16889c
-/*  f16889c:	3c018008 */ 	lui	$at,0x8008
-/*  f1688a0:	c4244058 */ 	lwc1	$f4,0x4058($at)
-/*  f1688a4:	44803000 */ 	mtc1	$zero,$f6
-/*  f1688a8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1688ac:	4604303e */ 	c.le.s	$f6,$f4
-/*  f1688b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1688b4:	45000002 */ 	bc1f	.L0f1688c0
-/*  f1688b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1688bc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1688c0:
-/*  f1688c0:	03e00008 */ 	jr	$ra
-/*  f1688c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool fadeIsActive(void)
+{
+	return fade80084058 >= 0;
+}
 
 GLOBAL_ASM(
 glabel func0f1688c8

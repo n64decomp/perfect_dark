@@ -45,7 +45,7 @@ u32 func0f167b84(void);
 u32 func0f167c88(void);
 u32 func0f167e7c(void);
 u32 func0f1685d8(void);
-u32 func0f16889c(void);
+bool fadeIsActive(void);
 u32 func0f1688c8(void);
 u32 func0f1688fc(void);
 u32 func0f168b4c(void);

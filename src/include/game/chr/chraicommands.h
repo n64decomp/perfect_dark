@@ -231,7 +231,7 @@
 /*0x00e2*/ bool ai00e2(void);
 /*0x00e3*/ bool ai00e3(void);
 /*0x00e4*/ bool ai00e4(void);
-/*0x00e5*/ bool aiIfFadeComplete(void);
+/*0x00e5*/ bool aiIfColourFadeComplete(void);
 /*0x00e8*/ bool aiSetDoorOpen(void);
 /*0x00e9*/ bool ai00e9(void);
 /*0x00ea*/ bool aiIfNumPlayersLessThan(void);
@@ -423,7 +423,7 @@
 /*0x01c9*/ bool ai01c9(void);
 /*0x01ca*/ bool aiChrSetCutsceneWeapon(void);
 /*0x01cb*/ bool aiFadeScreen(void);
-/*0x01cc*/ bool ai01cc(void);
+/*0x01cc*/ bool aiIfFadeComplete(void);
 /*0x01cd*/ bool aiChrSetHudProjectorVisible(void);
 /*0x01ce*/ bool ai01ce(void);
 /*0x01cf*/ bool aiChrSetFiringInCutscene(void);
