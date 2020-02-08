@@ -1394,83 +1394,41 @@ char *currentPlayerGetInvNameByIndex(s32 index)
 	return langGet(currentPlayerGetInvNameIdByIndex(index));
 }
 
-GLOBAL_ASM(
-glabel func0f112e24
-/*  f112e24:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f112e28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112e2c:	0fc44a96 */ 	jal	currentPlayerGetInvItemByIndex
-/*  f112e30:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f112e34:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f112e38:	00401825 */ 	or	$v1,$v0,$zero
-/*  f112e3c:	10400024 */ 	beqz	$v0,.L0f112ed0
-/*  f112e40:	00002825 */ 	or	$a1,$zero,$zero
-/*  f112e44:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f112e48:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f112e4c:	54810012 */ 	bnel	$a0,$at,.L0f112e98
-/*  f112e50:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f112e54:	8c420004 */ 	lw	$v0,0x4($v0)
-/*  f112e58:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f112e5c:	0fc44af0 */ 	jal	objGetTextOverride
-/*  f112e60:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f112e64:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f112e68:	1040002d */ 	beqz	$v0,.L0f112f20
-/*  f112e6c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f112e70:	8c4e0014 */ 	lw	$t6,0x14($v0)
-/*  f112e74:	11c00005 */ 	beqz	$t6,.L0f112e8c
-/*  f112e78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112e7c:	0fc5b9f1 */ 	jal	langGet
-/*  f112e80:	8c640014 */ 	lw	$a0,0x14($v1)
-/*  f112e84:	10000029 */ 	beqz	$zero,.L0f112f2c
-/*  f112e88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f112e8c:
-/*  f112e8c:	10000024 */ 	beqz	$zero,.L0f112f20
-/*  f112e90:	8c450008 */ 	lw	$a1,0x8($v0)
-/*  f112e94:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f112e98:
-/*  f112e98:	14810021 */ 	bne	$a0,$at,.L0f112f20
-/*  f112e9c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112ea0:	84640004 */ 	lh	$a0,0x4($v1)
-/*  f112ea4:	0fc44aff */ 	jal	weaponGetTextOverride
-/*  f112ea8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f112eac:	1040001c */ 	beqz	$v0,.L0f112f20
-/*  f112eb0:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f112eb4:	8c4f0014 */ 	lw	$t7,0x14($v0)
-/*  f112eb8:	11e00019 */ 	beqz	$t7,.L0f112f20
-/*  f112ebc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112ec0:	0fc5b9f1 */ 	jal	langGet
-/*  f112ec4:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f112ec8:	10000018 */ 	beqz	$zero,.L0f112f2c
-/*  f112ecc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f112ed0:
-/*  f112ed0:	3c18800a */ 	lui	$t8,0x800a
-/*  f112ed4:	8f18a244 */ 	lw	$t8,-0x5dbc($t8)
-/*  f112ed8:	8f191870 */ 	lw	$t9,0x1870($t8)
-/*  f112edc:	13200010 */ 	beqz	$t9,.L0f112f20
-/*  f112ee0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112ee4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f112ee8:	0fc446fa */ 	jal	currentStageForbidsSlayer
-/*  f112eec:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f112ef0:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f112ef4:	2408002c */ 	addiu	$t0,$zero,0x2c
-/*  f112ef8:	01024823 */ 	subu	$t1,$t0,$v0
-/*  f112efc:	0089082a */ 	slt	$at,$a0,$t1
-/*  f112f00:	10200007 */ 	beqz	$at,.L0f112f20
-/*  f112f04:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f112f08:	0fc446e2 */ 	jal	func0f111b88
-/*  f112f0c:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f112f10:	0fc28874 */ 	jal	func0f0a21d0
-/*  f112f14:	00402025 */ 	or	$a0,$v0,$zero
-/*  f112f18:	10000004 */ 	beqz	$zero,.L0f112f2c
-/*  f112f1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f112f20:
-/*  f112f20:	0fc28874 */ 	jal	func0f0a21d0
-/*  f112f24:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f112f28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f112f2c:
-/*  f112f2c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f112f30:	03e00008 */ 	jr	$ra
-/*  f112f34:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *currentPlayerGetInvShortNameByIndex(s32 index)
+{
+	struct invitem *item = currentPlayerGetInvItemByIndex(index);
+	s32 weaponnum = 0;
+	struct textoverride *override;
+
+	if (item) {
+		if (item->type == INVITEMTYPE_PROP) {
+			struct prop *prop = item->type_prop.prop;
+			override = objGetTextOverride(prop->obj);
+
+			if (override) {
+				if (override->unk14) {
+					return langGet(override->unk14);
+				}
+
+				weaponnum = override->weapon;
+			}
+		} else if (item->type == INVITEMTYPE_1) {
+			weaponnum = item->type1.weapon1;
+			override = weaponGetTextOverride(weaponnum);
+
+			if (override && override->unk14) {
+				return langGet(override->unk14);
+			}
+		}
+	} else if (g_Vars.currentplayer->equipallguns) {
+		if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
+			index++;
+			return func0f0a21d0(func0f111b88(index));
+		}
+	}
+
+	return func0f0a21d0(weaponnum);
+}
 
 void textoverrideInsert(struct textoverride *override)
 {

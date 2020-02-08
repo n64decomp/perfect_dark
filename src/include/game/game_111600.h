@@ -38,7 +38,7 @@ struct textoverride *weaponGetTextOverride(s32 weaponnum);
 s32 currentPlayerGetWeaponNumByInvIndex(s32 index);
 u16 currentPlayerGetInvNameIdByIndex(s32 index);
 char *currentPlayerGetInvNameByIndex(s32 index);
-u32 func0f112e24(void);
+char *currentPlayerGetInvShortNameByIndex(s32 index);
 void textoverrideInsert(struct textoverride *override);
 u32 currentPlayerGetEquipCurItem(void);
 void currentPlayerSetEquipCurItem(u32 item);
