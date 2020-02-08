@@ -708,7 +708,7 @@ u8 func1006_hijack[] = {
 	endloop(0x04)
 
 	label(0x06)
-	cmd01da(0x35)
+	play_music_continuously(MUSIC_AIRFORCEONE_X)
 	set_chr_maxdamage(0x01, 10)
 	set_chr_maxdamage(0x04, 10)
 	set_chr_maxdamage(0x05, 10)

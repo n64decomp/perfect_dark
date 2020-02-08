@@ -324,6 +324,9 @@
 #define CHRHFLAG_40000000           0x40000000 // Air Base and AF1
 #define CHRHFLAG_PSYCHOSISED        0x80000000
 
+// chr->hidden2
+#define CHRH2FLAG_0001 0x0001
+
 // chr->chrflags
 #define CHRCFLAG_00000001                    0x00000001 // Villa takers, Attack Ship Cass and skedar - both set at end of intros
 #define CHRCFLAG_00000002                    0x00000002 // Seems to be set on guards who can spawn clones?

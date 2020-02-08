@@ -3747,11 +3747,15 @@
 	0x00, \
 	u2,
 
-// Only called in AF1 with param 0x35.
-// Calls some functions and stores the value at 800840c8.
-#define cmd01da(u1) \
+/**
+ * Unsure exactly how this works. I think it replaces the main level theme with
+ * the one specified.
+ *
+ * Track is expected to be a MUSIC constant.
+ */
+#define play_music_continuously(track) \
 	mkshort(0x01da), \
-	u1,
+	track,
 
 /**
  * Kills the given chr.

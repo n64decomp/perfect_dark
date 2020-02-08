@@ -13886,8 +13886,8 @@ bool aiShowCutsceneChrs(void)
 
 	if (show) {
 		for (i = getNumChrs() - 1; i >= 0; i--) {
-			if (g_ChrsA[i].chrnum >= 0 && g_ChrsA[i].prop && (g_ChrsA[i].hidden2 & 1)) {
-				g_ChrsA[i].hidden2 &= ~1;
+			if (g_ChrsA[i].chrnum >= 0 && g_ChrsA[i].prop && (g_ChrsA[i].hidden2 & CHRH2FLAG_0001)) {
+				g_ChrsA[i].hidden2 &= ~CHRH2FLAG_0001;
 				g_ChrsA[i].chrflags &= ~CHRCFLAG_HIDDEN;
 			}
 		}
@@ -13895,7 +13895,7 @@ bool aiShowCutsceneChrs(void)
 		for (i = getNumChrs() - 1; i >= 0; i--) {
 			if (g_ChrsA[i].chrnum >= 0 && g_ChrsA[i].prop &&
 					(g_ChrsA[i].chrflags & (CHRCFLAG_UNPLAYABLE | CHRCFLAG_HIDDEN)) == 0) {
-				g_ChrsA[i].hidden2 |= 1;
+				g_ChrsA[i].hidden2 |= CHRH2FLAG_0001;
 				g_ChrsA[i].chrflags |= CHRCFLAG_HIDDEN;
 			}
 		}
@@ -14092,7 +14092,7 @@ glabel ai01d9
 /**
  * @cmd 01da
  */
-bool ai01da(void)
+bool aiPlayMusicContinuously(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	func0f16deb8(cmd[2]);
