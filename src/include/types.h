@@ -747,6 +747,11 @@ struct doorobj { // objtype 0x01
 	/*0xcc*/ u8 laserfade;
 };
 
+struct keyobj { // objtype 0x04
+	struct defaultobj base;
+	u32 keyflags;
+};
+
 struct image {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;

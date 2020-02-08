@@ -43663,7 +43663,7 @@ glabel func0f08bd00
 /*  f08bd24:	24030001 */ 	addiu	$v1,$zero,0x1
 .L0f08bd28:
 /*  f08bd28:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f08bd2c:	0fc449e4 */ 	jal	func0f112790
+/*  f08bd2c:	0fc449e4 */ 	jal	currentPlayerHasKeyFlags
 /*  f08bd30:	afa7001c */ 	sw	$a3,0x1c($sp)
 /*  f08bd34:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f08bd38:	10400003 */ 	beqz	$v0,.L0f08bd48

@@ -27,7 +27,7 @@ void currentPlayerRemoveProp(struct prop *prop);
 u32 func0f1120f0(void);
 u32 func0f1122ec(void);
 u32 func0f11253c(void);
-u32 func0f112790(void);
+bool currentPlayerHasKeyFlags(u32 wantkeyflags);
 bool currentPlayerHasBriefcase(void);
 bool currentPlayerHasDataUplink(void);
 bool currentPlayerHasProp(struct prop *prop);

@@ -1046,7 +1046,7 @@ glabel func0f11253c
 );
 
 GLOBAL_ASM(
-glabel func0f112790
+glabel currentPlayerHasKeyFlags
 /*  f112790:	3c0e800a */ 	lui	$t6,0x800a
 /*  f112794:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
 /*  f112798:	27bdfff8 */ 	addiu	$sp,$sp,-8
@@ -1094,6 +1094,46 @@ glabel func0f112790
 /*  f112830:	8fb00004 */ 	lw	$s0,0x4($sp)
 /*  f112834:	03e00008 */ 	jr	$ra
 /*  f112838:	27bd0008 */ 	addiu	$sp,$sp,0x8
+);
+
+//bool currentPlayerHasKeyFlags(u32 wantkeyflags)
+//{
+//	struct invitem *item = g_Vars.currentplayer->weapons;
+//	u32 heldkeyflags = 0;
+//	bool unlocked = false;
+//
+//	while (item) {
+//		if (item->type == INVITEMTYPE_PROP) {
+//			struct prop *prop = item->type_prop.prop;
+//
+//			if (prop && prop->type == PROPTYPE_OBJ) {
+//				struct defaultobj *obj = prop->obj;
+//
+//				if (obj && obj->type == OBJTYPE_KEY) {
+//					struct keyobj *key = (struct keyobj *)obj;
+//
+//					heldkeyflags |= key->keyflags;
+//
+//					if ((wantkeyflags & heldkeyflags) == wantkeyflags) {
+//						unlocked = true;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//
+//		item = item->next;
+//
+//		if (item == g_Vars.currentplayer->weapons) {
+//			break;
+//		}
+//	}
+//
+//	return unlocked;
+//}
+
+GLOBAL_ASM(
+glabel func0f11283c
 /*  f11283c:	03e00008 */ 	jr	$ra
 /*  f112840:	00001025 */ 	or	$v0,$zero,$zero
 );
