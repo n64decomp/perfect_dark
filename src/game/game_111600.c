@@ -364,7 +364,7 @@ glabel func0f111b88
 /*  f111be4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool currentStageForbidsSlayer(void)
+s32 currentStageForbidsSlayer(void)
 {
 	bool forbids = false;
 
@@ -1237,111 +1237,64 @@ s32 currentPlayerGetNumInvItems(void)
 	return numitems;
 }
 
-GLOBAL_ASM(
-glabel func0f112a58
-/*  f112a58:	3c08800a */ 	lui	$t0,0x800a
-/*  f112a5c:	8d08a244 */ 	lw	$t0,-0x5dbc($t0)
-/*  f112a60:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f112a64:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112a68:	8d0e1870 */ 	lw	$t6,0x1870($t0)
-/*  f112a6c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f112a70:	51c00013 */ 	beqzl	$t6,.L0f112ac0
-/*  f112a74:	8d091864 */ 	lw	$t1,0x1864($t0)
-/*  f112a78:	0fc446fa */ 	jal	currentStageForbidsSlayer
-/*  f112a7c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f112a80:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f112a84:	240f002c */ 	addiu	$t7,$zero,0x2c
-/*  f112a88:	01e2c023 */ 	subu	$t8,$t7,$v0
-/*  f112a8c:	00b8082a */ 	slt	$at,$a1,$t8
-/*  f112a90:	10200003 */ 	beqz	$at,.L0f112aa0
-/*  f112a94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112a98:	10000045 */ 	beqz	$zero,.L0f112bb0
-/*  f112a9c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f112aa0:
-/*  f112aa0:	0fc446fa */ 	jal	currentStageForbidsSlayer
-/*  f112aa4:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f112aa8:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f112aac:	3c08800a */ 	lui	$t0,0x800a
-/*  f112ab0:	8d08a244 */ 	lw	$t0,-0x5dbc($t0)
-/*  f112ab4:	00a22821 */ 	addu	$a1,$a1,$v0
-/*  f112ab8:	24a5ffd4 */ 	addiu	$a1,$a1,-44
-/*  f112abc:	8d091864 */ 	lw	$t1,0x1864($t0)
-.L0f112ac0:
-/*  f112ac0:	3c0c0004 */ 	lui	$t4,0x4
-/*  f112ac4:	240b0004 */ 	addiu	$t3,$zero,0x4
-/*  f112ac8:	11200038 */ 	beqz	$t1,.L0f112bac
-/*  f112acc:	01203025 */ 	or	$a2,$t1,$zero
-/*  f112ad0:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f112ad4:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f112ad8:	8cc20000 */ 	lw	$v0,0x0($a2)
-.L0f112adc:
-/*  f112adc:	15420020 */ 	bne	$t2,$v0,.L0f112b60
-/*  f112ae0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112ae4:	8cc20004 */ 	lw	$v0,0x4($a2)
-/*  f112ae8:	5040002c */ 	beqzl	$v0,.L0f112b9c
-/*  f112aec:	8cc6000c */ 	lw	$a2,0xc($a2)
-/*  f112af0:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f112af4:	50600029 */ 	beqzl	$v1,.L0f112b9c
-/*  f112af8:	8cc6000c */ 	lw	$a2,0xc($a2)
-/*  f112afc:	90440000 */ 	lbu	$a0,0x0($v0)
-/*  f112b00:	1564000b */ 	bne	$t3,$a0,.L0f112b30
-/*  f112b04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112b08:	8c790040 */ 	lw	$t9,0x40($v1)
-/*  f112b0c:	332d0400 */ 	andi	$t5,$t9,0x400
-/*  f112b10:	51a00022 */ 	beqzl	$t5,.L0f112b9c
-/*  f112b14:	8cc6000c */ 	lw	$a2,0xc($a2)
-/*  f112b18:	14a00003 */ 	bnez	$a1,.L0f112b28
-/*  f112b1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112b20:	10000023 */ 	beqz	$zero,.L0f112bb0
-/*  f112b24:	00c01025 */ 	or	$v0,$a2,$zero
-.L0f112b28:
-/*  f112b28:	1000001b */ 	beqz	$zero,.L0f112b98
-/*  f112b2c:	24a5ffff */ 	addiu	$a1,$a1,-1
-.L0f112b30:
-/*  f112b30:	54e4001a */ 	bnel	$a3,$a0,.L0f112b9c
-/*  f112b34:	8cc6000c */ 	lw	$a2,0xc($a2)
-/*  f112b38:	8c6e000c */ 	lw	$t6,0xc($v1)
-/*  f112b3c:	01cc7824 */ 	and	$t7,$t6,$t4
-/*  f112b40:	55e00016 */ 	bnezl	$t7,.L0f112b9c
-/*  f112b44:	8cc6000c */ 	lw	$a2,0xc($a2)
-/*  f112b48:	14a00003 */ 	bnez	$a1,.L0f112b58
-/*  f112b4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112b50:	10000017 */ 	beqz	$zero,.L0f112bb0
-/*  f112b54:	00c01025 */ 	or	$v0,$a2,$zero
-.L0f112b58:
-/*  f112b58:	1000000f */ 	beqz	$zero,.L0f112b98
-/*  f112b5c:	24a5ffff */ 	addiu	$a1,$a1,-1
-.L0f112b60:
-/*  f112b60:	54e2000e */ 	bnel	$a3,$v0,.L0f112b9c
-/*  f112b64:	8cc6000c */ 	lw	$a2,0xc($a2)
-/*  f112b68:	8d181870 */ 	lw	$t8,0x1870($t0)
-/*  f112b6c:	13000005 */ 	beqz	$t8,.L0f112b84
-/*  f112b70:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112b74:	84d90004 */ 	lh	$t9,0x4($a2)
-/*  f112b78:	2b21002d */ 	slti	$at,$t9,0x2d
-/*  f112b7c:	54200007 */ 	bnezl	$at,.L0f112b9c
-/*  f112b80:	8cc6000c */ 	lw	$a2,0xc($a2)
-.L0f112b84:
-/*  f112b84:	54a00004 */ 	bnezl	$a1,.L0f112b98
-/*  f112b88:	24a5ffff */ 	addiu	$a1,$a1,-1
-/*  f112b8c:	10000008 */ 	beqz	$zero,.L0f112bb0
-/*  f112b90:	00c01025 */ 	or	$v0,$a2,$zero
-/*  f112b94:	24a5ffff */ 	addiu	$a1,$a1,-1
-.L0f112b98:
-/*  f112b98:	8cc6000c */ 	lw	$a2,0xc($a2)
-.L0f112b9c:
-/*  f112b9c:	50c90004 */ 	beql	$a2,$t1,.L0f112bb0
-/*  f112ba0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f112ba4:	54c0ffcd */ 	bnezl	$a2,.L0f112adc
-/*  f112ba8:	8cc20000 */ 	lw	$v0,0x0($a2)
-.L0f112bac:
-/*  f112bac:	00001025 */ 	or	$v0,$zero,$zero
-.L0f112bb0:
-/*  f112bb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f112bb4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f112bb8:	03e00008 */ 	jr	$ra
-/*  f112bbc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct invitem *currentPlayerGetInvItemByIndex(s32 index)
+{
+	struct invitem *item;
+
+	if (g_Vars.currentplayer->equipallguns) {
+		if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
+			return NULL;
+		}
+
+		index += currentStageForbidsSlayer() - WEAPON_PSYCHOSISGUN;
+	}
+
+	item = g_Vars.currentplayer->weapons;
+
+	while (item) {
+		if (item->type == INVITEMTYPE_PROP) {
+			struct prop *prop = item->type_prop.prop;
+
+			if (prop) {
+				struct defaultobj *obj = prop->obj;
+
+				if (obj) {
+					if (prop->type == PROPTYPE_WEAPON) {
+						if (obj->hidden & OBJHFLAG_00000400) {
+							if (index == 0) {
+								return item;
+							}
+							index--;
+						}
+					} else if (prop->type == PROPTYPE_OBJ) {
+						if ((obj->flags2 & OBJFLAG2_00040000) == 0) {
+							if (index == 0) {
+								return item;
+							}
+							index--;
+						}
+					}
+				}
+			}
+		} else if (item->type == INVITEMTYPE_1) {
+			if (g_Vars.currentplayer->equipallguns == false
+					|| item->type1.weapon1 > WEAPON_PSYCHOSISGUN) {
+				if (index == 0) {
+					return item;
+				}
+				index--;
+			}
+		}
+
+		item = item->next;
+
+		if (item == g_Vars.currentplayer->weapons) {
+			break;
+		}
+	}
+
+	return NULL;
+}
 
 struct textoverride *objGetTextOverride(struct defaultobj *obj)
 {
@@ -1387,7 +1340,7 @@ GLOBAL_ASM(
 glabel func0f112c44
 /*  f112c44:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f112c48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112c4c:	0fc44a96 */ 	jal	func0f112a58
+/*  f112c4c:	0fc44a96 */ 	jal	currentPlayerGetInvItemByIndex
 /*  f112c50:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f112c54:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f112c58:	10400011 */ 	beqz	$v0,.L0f112ca0
@@ -1440,7 +1393,7 @@ GLOBAL_ASM(
 glabel func0f112cf8
 /*  f112cf8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f112cfc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112d00:	0fc44a96 */ 	jal	func0f112a58
+/*  f112d00:	0fc44a96 */ 	jal	currentPlayerGetInvItemByIndex
 /*  f112d04:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f112d08:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f112d0c:	00401825 */ 	or	$v1,$v0,$zero
@@ -1529,7 +1482,7 @@ GLOBAL_ASM(
 glabel func0f112e24
 /*  f112e24:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f112e28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112e2c:	0fc44a96 */ 	jal	func0f112a58
+/*  f112e2c:	0fc44a96 */ 	jal	currentPlayerGetInvItemByIndex
 /*  f112e30:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f112e34:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f112e38:	00401825 */ 	or	$v1,$v0,$zero
