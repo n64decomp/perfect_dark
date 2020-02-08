@@ -940,10 +940,18 @@ struct eyespy {
 	/*0x7c*/ s32 pitch;
 };
 
+/**
+ * List of guns that the player has equipped and the amount of time they've been
+ * equipped for. It's used to determine the weapon of choice for the endscreen.
+ * The time is increased for the equipped weapon on each tick.
+ *
+ * The list is only 10 items long. If an 11th item is used, the least used item
+ * in the list will be removed.
+ */
 struct gunheld {
-	s32 unk00;
-	s32 unk04;
-	s32 unk08;
+	s32 weapon1;
+	s32 weapon2;
+	s32 totaltime240_60;
 };
 
 struct player1630 {
@@ -2496,7 +2504,7 @@ struct player {
 	/*0x186c*/ s32 equipmaxitems;
 	/*0x1870*/ u32 equipallguns;
 	/*0x1874*/ u32 equipcuritem;
-	/*0x1878*/ struct gunheld gunheldarr[10];
+	/*0x1878*/ struct gunheld gunheldarr[MAX_GUNHELD];
 	/*0x18f0*/ u32 magnetattracttime;
 	/*0x18f4*/ u32 angleoffset;
 	/*0x18f8*/ u32 buthist[10];

@@ -580,6 +580,7 @@
 
 #define MAX_CHRWAYPOINTS   6
 #define MAX_DANGEROUSPROPS 12
+#define MAX_GUNHELD        10
 #define MAX_LIFTS          10
 #define MAX_MPCHRS         (4 + MAX_SIMULANTS)
 #define MAX_OBJECTIVES     10
@@ -1881,8 +1882,9 @@
 #define WEAPON_5C                0x5c
 #define WEAPON_SUICIDEPILL       0x5d
 
-#define WEAPONFLAG_00000010 0x00000010
-#define WEAPONFLAG_00001000 0x00001000
+#define WEAPONFLAG_00000010      0x00000010
+#define WEAPONFLAG_TRACKTIMEUSED 0x00000200
+#define WEAPONFLAG_00001000      0x00001000
 
 // Heads and bodies
 #define HEAD_RANDOM           -1

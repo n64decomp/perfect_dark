@@ -1525,94 +1525,50 @@ char *weaponGetActivatedText(s32 weaponnum)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f11307c
-/*  f11307c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f113080:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f113084:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f113088:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f11308c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f113090:	00808825 */ 	or	$s1,$a0,$zero
-/*  f113094:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f113098:	24050200 */ 	addiu	$a1,$zero,0x200
-/*  f11309c:	1040003e */ 	beqz	$v0,.L0f113198
-/*  f1130a0:	3c067fff */ 	lui	$a2,0x7fff
-/*  f1130a4:	34c6ffff */ 	ori	$a2,$a2,0xffff
-/*  f1130a8:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f1130ac:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1130b0:	24050200 */ 	addiu	$a1,$zero,0x200
-/*  f1130b4:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f1130b8:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f1130bc:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f1130c0:	14400002 */ 	bnez	$v0,.L0f1130cc
-/*  f1130c4:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f1130c8:	00008025 */ 	or	$s0,$zero,$zero
-.L0f1130cc:
-/*  f1130cc:	3c02800a */ 	lui	$v0,%hi(var800a000c)
-/*  f1130d0:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f1130d4:	00002025 */ 	or	$a0,$zero,$zero
-.L0f1130d8:
-/*  f1130d8:	8c431880 */ 	lw	$v1,0x1880($v0)
-/*  f1130dc:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f1130e0:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f1130e4:	04620014 */ 	bltzl	$v1,.L0f113138
-/*  f1130e8:	00803825 */ 	or	$a3,$a0,$zero
-/*  f1130ec:	8c4e1878 */ 	lw	$t6,0x1878($v0)
-/*  f1130f0:	562e000b */ 	bnel	$s1,$t6,.L0f113120
-/*  f1130f4:	0066082a */ 	slt	$at,$v1,$a2
-/*  f1130f8:	8c4f187c */ 	lw	$t7,0x187c($v0)
-/*  f1130fc:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f113100:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f113104:	560f0006 */ 	bnel	$s0,$t7,.L0f113120
-/*  f113108:	0066082a */ 	slt	$at,$v1,$a2
-/*  f11310c:	8cb80038 */ 	lw	$t8,0x38($a1)
-/*  f113110:	0078c821 */ 	addu	$t9,$v1,$t8
-/*  f113114:	10000010 */ 	beqz	$zero,.L0f113158
-/*  f113118:	ac591880 */ 	sw	$t9,0x1880($v0)
-/*  f11311c:	0066082a */ 	slt	$at,$v1,$a2
-.L0f113120:
-/*  f113120:	50200008 */ 	beqzl	$at,.L0f113144
-/*  f113124:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f113128:	00603025 */ 	or	$a2,$v1,$zero
-/*  f11312c:	10000004 */ 	beqz	$zero,.L0f113140
-/*  f113130:	00803825 */ 	or	$a3,$a0,$zero
-/*  f113134:	00803825 */ 	or	$a3,$a0,$zero
-.L0f113138:
-/*  f113138:	10000007 */ 	beqz	$zero,.L0f113158
-/*  f11313c:	2404000a */ 	addiu	$a0,$zero,0xa
-.L0f113140:
-/*  f113140:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f113144:
-/*  f113144:	2881000a */ 	slti	$at,$a0,0xa
-/*  f113148:	1420ffe3 */ 	bnez	$at,.L0f1130d8
-/*  f11314c:	2442000c */ 	addiu	$v0,$v0,%lo(var800a000c)
-/*  f113150:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f113154:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-.L0f113158:
-/*  f113158:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f11315c:	5481000f */ 	bnel	$a0,$at,.L0f11319c
-/*  f113160:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f113164:	8ca90284 */ 	lw	$t1,0x284($a1)
-/*  f113168:	00071080 */ 	sll	$v0,$a3,0x2
-/*  f11316c:	8ca80038 */ 	lw	$t0,0x38($a1)
-/*  f113170:	00471023 */ 	subu	$v0,$v0,$a3
-/*  f113174:	00021080 */ 	sll	$v0,$v0,0x2
-/*  f113178:	01225021 */ 	addu	$t2,$t1,$v0
-/*  f11317c:	ad481880 */ 	sw	$t0,0x1880($t2)
-/*  f113180:	8cab0284 */ 	lw	$t3,0x284($a1)
-/*  f113184:	01626021 */ 	addu	$t4,$t3,$v0
-/*  f113188:	ad911878 */ 	sw	$s1,0x1878($t4)
-/*  f11318c:	8cad0284 */ 	lw	$t5,0x284($a1)
-/*  f113190:	01a27021 */ 	addu	$t6,$t5,$v0
-/*  f113194:	add0187c */ 	sw	$s0,0x187c($t6)
-.L0f113198:
-/*  f113198:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f11319c:
-/*  f11319c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1131a0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1131a4:	03e00008 */ 	jr	$ra
-/*  f1131a8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void currentPlayerIncrementGunHeldTime(s32 weapon1, s32 weapon2)
+{
+	s32 leastusedtime;
+	s32 leastusedindex;
+	s32 i;
+
+	if (!weaponHasFlag(weapon1, WEAPONFLAG_TRACKTIMEUSED)) {
+		return;
+	}
+
+	leastusedtime = 0x7fffffff;
+	leastusedindex = 0;
+
+	if (!weaponHasFlag(weapon2, WEAPONFLAG_TRACKTIMEUSED)) {
+		weapon2 = 0;
+	}
+
+	for (i = 0; i < MAX_GUNHELD; i++) {
+		s32 time = g_Vars.currentplayer->gunheldarr[i].totaltime240_60;
+
+		if (time >= 0) {
+			if (weapon1 == g_Vars.currentplayer->gunheldarr[i].weapon1 &&
+					weapon2 == g_Vars.currentplayer->gunheldarr[i].weapon2) {
+				g_Vars.currentplayer->gunheldarr[i].totaltime240_60 = time + g_Vars.lvupdate240_60;
+				break;
+			}
+
+			if (time < leastusedtime) {
+				leastusedtime = time;
+				leastusedindex = i;
+			}
+		} else {
+			leastusedindex = i;
+			i = MAX_GUNHELD;
+			break;
+		}
+	}
+
+	if (i == MAX_GUNHELD) {
+		g_Vars.currentplayer->gunheldarr[leastusedindex].totaltime240_60 = g_Vars.lvupdate240_60;
+		g_Vars.currentplayer->gunheldarr[leastusedindex].weapon1 = weapon1;
+		g_Vars.currentplayer->gunheldarr[leastusedindex].weapon2 = weapon2;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1131ac
