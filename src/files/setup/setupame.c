@@ -133,7 +133,7 @@
 #define AILIST_SURRENDERING_GUARD 0x042f
 #define AILIST_INIT_FALCON_GUARD  0x0430
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -656,7 +656,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	intro_weapon(WEAPON_FALCON2_SILENCER, -1)
 	ammo(AMMOTYPE_PISTOL, 80)
 	ammo(AMMOTYPE_ECM_MINE, 2)

@@ -86,7 +86,7 @@
 #define AILIST_ELVIS_PREPARE_LEADING 0x0417
 #define AILIST_ELVIS_AT_MOONPOOL     0x0418
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -560,7 +560,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	outfit(OUTFIT_WETSUIT)
 	intro_weapon(WEAPON_FALCON2_SILENCER, -1)
 	ammo(AMMOTYPE_PISTOL, 100)

@@ -89,7 +89,7 @@
 #define AILIST_RADIOACTIVITY        0x0415
 #define AILIST_OUTRO                0x0417
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -628,7 +628,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	intro_weapon(WEAPON_FALCON2, -1)
 	ammo(AMMOTYPE_PISTOL, 100)
 	ammo(AMMOTYPE_RIFLE, 50)

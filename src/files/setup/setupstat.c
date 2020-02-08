@@ -54,7 +54,7 @@
 #define GROUP_KING2_SKEDAR 3
 #define GROUP_KING3_SKEDAR 4
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -273,7 +273,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	outfit(OUTFIT_MAIAN)
 	intro_weapon(WEAPON_PHOENIX, -1)
 	ammo(AMMOTYPE_PISTOL, 300)

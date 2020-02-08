@@ -113,7 +113,7 @@
 #define AILIST_REINIT_STRIPES      0x042b
 #define AILIST_REMOVE_IF_OFFSCREEN 0x042c
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -469,7 +469,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	outfit(OUTFIT_STEWARDESS)
 	ammo(AMMOTYPE_CROSSBOW, 10)
 	ammo(AMMOTYPE_SMG, 100)

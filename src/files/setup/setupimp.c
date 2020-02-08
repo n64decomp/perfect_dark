@@ -141,7 +141,7 @@
 #define AILIST_INIT_CISOLDIER         0x043c
 #define AILIST_CARRINGTON             0x043e
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -527,7 +527,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	outfit(OUTFIT_FROCK)
 	intro_weapon(WEAPON_AR34, -1)
 	ammo(AMMOTYPE_RIFLE, 200)

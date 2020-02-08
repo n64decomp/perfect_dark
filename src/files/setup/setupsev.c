@@ -40,7 +40,7 @@
 #define AILIST_OUTRO            0x041b
 #define AILIST_INIT_LABTECH     0x041c
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -672,7 +672,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	spawn(0x03dd)
 	ammo(AMMOTYPE_MAGNUM, 1)
 	outfit(OUTFIT_ELVIS)

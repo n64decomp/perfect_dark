@@ -25,7 +25,7 @@
 #define AILIST_JON_INIT     0x0406
 #define AILIST_TRENT_INIT   0x0407
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -70,7 +70,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	outfit(OUTFIT_DEFAULT)
 	spawn(0x027a)
 	intro_weapon(WEAPON_FALCON2_SCOPE, -1)

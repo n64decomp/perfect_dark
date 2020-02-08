@@ -76,7 +76,7 @@
 #define AILIST_ACTIVATE_AUTOGUN           0x0421
 #define AILIST_ACTIVATE_LASERS            0x0424
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -470,7 +470,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	spawn(0x000f)
 	intro_weapon(WEAPON_FALCON2, -1)
 	ammo(AMMOTYPE_PISTOL, 100)

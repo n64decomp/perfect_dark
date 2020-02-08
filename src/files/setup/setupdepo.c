@@ -98,7 +98,7 @@
 #define AILIST_CLOAK_GUARD       0x0412
 #define AILIST_CLOAK2_GUARD      0x0414
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -408,7 +408,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	intro_weapon(WEAPON_FALCON2_SILENCER, -1)
 	ammo(AMMOTYPE_PISTOL, 100)
 	ammo(AMMOTYPE_NBOMB, 6)

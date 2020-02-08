@@ -101,7 +101,7 @@
 #define AILIST_HIDE                          0x0413
 #define AILIST_OUTRO                         0x0414
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -471,7 +471,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	outfit(OUTFIT_DEFAULT)
 	intro_weapon(WEAPON_FALCON2_SCOPE, -1)
 	ammo(AMMOTYPE_PISTOL, 200)

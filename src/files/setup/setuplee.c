@@ -107,7 +107,7 @@
 #define AILIST_SET_CLOAKED                      0x0427
 #define AILIST_SET_UNCLOAKED                    0x0428
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -485,7 +485,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	intro_weapon(WEAPON_COMBATKNIFE, -1)
 	ammo(AMMOTYPE_KNIFE, 1)
 	ammo(AMMOTYPE_ROCKET, 2)

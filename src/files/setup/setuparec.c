@@ -4,7 +4,7 @@
 
 #include "stagesetup.h"
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -35,7 +35,7 @@ u8 unregistered_func2[] = {
 	endlist
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	endintro
 };
 

@@ -92,7 +92,7 @@
 #define SPAWNGROUP3 0x0b
 #define SPAWNGROUP4 0x0d
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -586,7 +586,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	spawn(0x012f)
 	intro_weapon(WEAPON_FALCON2_SCOPE, -1)
 	ammo(AMMOTYPE_PISTOL, 100)

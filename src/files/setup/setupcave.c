@@ -78,7 +78,7 @@
 #define AILIST_INIT_FOYER_CLONE           0x042b
 #define AILIST_FOYER_CLONE                0x042c
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -521,7 +521,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	spawn(0x011e)
 	intro_weapon(WEAPON_CROSSBOW, -1)
 	intro_weapon(WEAPON_HORIZONSCANNER, -1)

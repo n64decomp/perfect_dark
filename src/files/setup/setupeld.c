@@ -85,7 +85,7 @@
 #define AILIST_CARRINGTON          0x0410
 #define AILIST_CISOLIDER           0x0411
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -715,7 +715,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	spawn(0x00be)
 	ammo(AMMOTYPE_RIFLE, 100)
 	ammo(AMMOTYPE_SMG, 100)

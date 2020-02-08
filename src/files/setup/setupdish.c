@@ -94,7 +94,7 @@
 #define PAD_DEVICEROOM        0x0121
 #define PAD_HOLOROOM          0x0273
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -5843,7 +5843,7 @@ u8 func1040_lift_door_sounds[] = {
 	endlist
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	spawn(0x00f5)
 	outfit(OUTFIT_DEFAULT)
 	endintro

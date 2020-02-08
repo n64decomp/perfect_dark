@@ -116,7 +116,7 @@
 #define AILIST_INIT_BIOTECH1          0x0432
 #define AILIST_INIT_BIOTECH2          0x0433
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -673,7 +673,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	spawn(0x03a1)
 	intro_weapon(WEAPON_FALCON2_SILENCER, -1)
 	ammo(AMMOTYPE_PISTOL, 100)

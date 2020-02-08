@@ -57,7 +57,7 @@
 #define AILIST_STARTING_AREA_GUARD 0x0421
 #define AILIST_HIDE                0x0422
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -211,7 +211,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	outfit(OUTFIT_SNOW)
 	intro_weapon(WEAPON_FALCON2_SCOPE, -1)
 	ammo(AMMOTYPE_PISTOL, 50)

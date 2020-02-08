@@ -8,7 +8,7 @@
 #define AILIST_INIT_ENEMY 0x0401
 #define AILIST_INIT_MAIAN 0x0402
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -28,7 +28,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	spawn(0x0063)
 	outfit(OUTFIT_DEFAULT)
 	intro_weapon(WEAPON_FALCON2, -1)

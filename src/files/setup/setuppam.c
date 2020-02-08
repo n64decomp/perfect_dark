@@ -95,7 +95,7 @@
 #define PAD_PAAREA_TELEPORT    0x0200
 #define PAD_DRCAROLLROOM_ENTRY 0x01cb
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -635,7 +635,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	intro_weapon(WEAPON_FALCON2_SCOPE, -1)
 	ammo(AMMOTYPE_PISTOL, 50)
 	ammo(AMMOTYPE_PROXY_MINE, 2)

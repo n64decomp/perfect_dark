@@ -93,7 +93,7 @@
 // Other
 #define GROUP_ALARM_RESPONDER 0x09
 
-u8 intro[];
+s32 intro[];
 u8 props[];
 struct path paths[];
 struct ailist ailists[];
@@ -320,7 +320,7 @@ u8 props[] = {
 	endprops
 };
 
-u8 intro[] = {
+s32 intro[] = {
 	ammo(AMMOTYPE_PISTOL, 50)
 	outfit(OUTFIT_TRENCH)
 	spawn(0x0063)
