@@ -44,7 +44,7 @@ u32 currentPlayerGetEquipCurItem(void);
 void currentPlayerSetEquipCurItem(u32 item);
 void currentPlayerCalculateEquipCurItem(void);
 char *objGetActivatedText(struct defaultobj *obj);
-u32 func0f113034(void);
+char *weaponGetActivatedText(s32 weaponnum);
 u32 func0f11307c(void);
 u32 func0f1131ac(void);
 

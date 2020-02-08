@@ -1514,29 +1514,16 @@ char *objGetActivatedText(struct defaultobj *obj)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f113034
-/*  f113034:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f113038:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11303c:	0fc44aff */ 	jal	weaponGetTextOverride
-/*  f113040:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f113044:	50400009 */ 	beqzl	$v0,.L0f11306c
-/*  f113048:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11304c:	8c4e001c */ 	lw	$t6,0x1c($v0)
-/*  f113050:	51c00006 */ 	beqzl	$t6,.L0f11306c
-/*  f113054:	00001025 */ 	or	$v0,$zero,$zero
-/*  f113058:	0fc5b9f1 */ 	jal	langGet
-/*  f11305c:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f113060:	10000003 */ 	beqz	$zero,.L0f113070
-/*  f113064:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f113068:	00001025 */ 	or	$v0,$zero,$zero
-.L0f11306c:
-/*  f11306c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f113070:
-/*  f113070:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f113074:	03e00008 */ 	jr	$ra
-/*  f113078:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *weaponGetActivatedText(s32 weaponnum)
+{
+	struct textoverride *override = weaponGetTextOverride(weaponnum);
+
+	if (override && override->activatetextid) {
+		return langGet(override->activatetextid);
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f11307c
