@@ -6660,7 +6660,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01b6*/ aiConfigureSnow,
 	/*0x01b7*/ aiChrSetCloaked,
 	/*0x01b8*/ aiSetAutogunType,
-	/*0x01b9*/ ai01b9,
+	/*0x01b9*/ aiShufflePelagicSwitches,
 	/*0x01ba*/ ai01ba,
 	/*0x01bb*/ aiNoOp01bb,
 	/*0x01bc*/ ai01bc,
@@ -7201,8 +7201,7 @@ u16 special_animations[] = {
 	0x0000,
 };
 
-u32 var80069860 = 0x00000000;
-u32 var80069864 = 0x00000000;
+u8 var80069860[8] = {0};
 struct coord var80069868 = {0, 0, 0};
 struct coord var80069874 = {0, 0, 0};
 u32 var80069880 = 0x3f800000;

@@ -230,7 +230,7 @@ extern u16 g_InvestigationPadMap[40];
 extern u32 var80069780;
 extern u32 var8006978c;
 extern u16 special_animations[];
-extern u32 var80069860;
+extern u8 var80069860[8];
 extern struct coord var80069868;
 extern struct coord var80069874;
 extern u32 var800698c0;

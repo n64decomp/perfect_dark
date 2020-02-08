@@ -404,7 +404,7 @@
 /*0x01b6*/ bool aiConfigureSnow(void);
 /*0x01b7*/ bool aiChrSetCloaked(void);
 /*0x01b8*/ bool aiSetAutogunType(void);
-/*0x01b9*/ bool ai01b9(void);
+/*0x01b9*/ bool aiShufflePelagicSwitches(void);
 /*0x01ba*/ bool ai01ba(void);
 /*0x01bb*/ bool aiNoOp01bb(void);
 /*0x01bc*/ bool ai01bc(void);

@@ -23,7 +23,7 @@ void currentPlayerInitGunsHeld(void)
 	}
 
 	for (i = 0; i != 10; i++) {
-		g_Vars.currentplayer->gunheldarr[i].unk08 = -1;
+		g_Vars.currentplayer->gunheldarr[i].totaltime240_60 = -1;
 	}
 }
 

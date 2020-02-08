@@ -13230,88 +13230,40 @@ bool aiSetAutogunType(void)
 /**
  * @cmd 01b9
  */
-GLOBAL_ASM(
-glabel ai01b9
-/*  f05e990:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f05e994:	3c0e8007 */ 	lui	$t6,%hi(var80069860)
-/*  f05e998:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f05e99c:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f05e9a0:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f05e9a4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f05e9a8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f05e9ac:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f05e9b0:	25ce9860 */ 	addiu	$t6,$t6,%lo(var80069860)
-/*  f05e9b4:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f05e9b8:	27b00048 */ 	addiu	$s0,$sp,0x48
-/*  f05e9bc:	24130008 */ 	addiu	$s3,$zero,0x8
-/*  f05e9c0:	ae010000 */ 	sw	$at,0x0($s0)
-/*  f05e9c4:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f05e9c8:	24140001 */ 	addiu	$s4,$zero,0x1
-/*  f05e9cc:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f05e9d0:	ae190004 */ 	sw	$t9,0x4($s0)
-.L0f05e9d4:
-/*  f05e9d4:	0fc2554a */ 	jal	tagFindById
-/*  f05e9d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e9dc:	0c004b70 */ 	jal	random
-/*  f05e9e0:	00409025 */ 	or	$s2,$v0,$zero
-/*  f05e9e4:	30430007 */ 	andi	$v1,$v0,0x7
-/*  f05e9e8:	306800ff */ 	andi	$t0,$v1,0xff
-/*  f05e9ec:	02084821 */ 	addu	$t1,$s0,$t0
-/*  f05e9f0:	912a0000 */ 	lbu	$t2,0x0($t1)
-/*  f05e9f4:	307100ff */ 	andi	$s1,$v1,0xff
-/*  f05e9f8:	93b80048 */ 	lbu	$t8,0x48($sp)
-/*  f05e9fc:	1540000a */ 	bnez	$t2,.L0f05ea28
-/*  f05ea00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05ea04:	0fc2554a */ 	jal	tagFindById
-/*  f05ea08:	02202025 */ 	or	$a0,$s1,$zero
-/*  f05ea0c:	844b0006 */ 	lh	$t3,0x6($v0)
-/*  f05ea10:	02116821 */ 	addu	$t5,$s0,$s1
-/*  f05ea14:	a64b0006 */ 	sh	$t3,0x6($s2)
-/*  f05ea18:	8c4c000c */ 	lw	$t4,0xc($v0)
-/*  f05ea1c:	ae4c000c */ 	sw	$t4,0xc($s2)
-/*  f05ea20:	10000012 */ 	beqz	$zero,.L0f05ea6c
-/*  f05ea24:	a1b40000 */ 	sb	$s4,0x0($t5)
-.L0f05ea28:
-/*  f05ea28:	13000008 */ 	beqz	$t8,.L0f05ea4c
-/*  f05ea2c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05ea30:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f05ea34:
-/*  f05ea34:	304f00ff */ 	andi	$t7,$v0,0xff
-/*  f05ea38:	020f7021 */ 	addu	$t6,$s0,$t7
-/*  f05ea3c:	91d90000 */ 	lbu	$t9,0x0($t6)
-/*  f05ea40:	01e01025 */ 	or	$v0,$t7,$zero
-/*  f05ea44:	5720fffb */ 	bnezl	$t9,.L0f05ea34
-/*  f05ea48:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f05ea4c:
-/*  f05ea4c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05ea50:	0fc2554a */ 	jal	tagFindById
-/*  f05ea54:	02028821 */ 	addu	$s1,$s0,$v0
-/*  f05ea58:	84480006 */ 	lh	$t0,0x6($v0)
-/*  f05ea5c:	a6480006 */ 	sh	$t0,0x6($s2)
-/*  f05ea60:	8c49000c */ 	lw	$t1,0xc($v0)
-/*  f05ea64:	ae49000c */ 	sw	$t1,0xc($s2)
-/*  f05ea68:	a2340000 */ 	sb	$s4,0x0($s1)
-.L0f05ea6c:
-/*  f05ea6c:	26730001 */ 	addiu	$s3,$s3,0x1
-/*  f05ea70:	326400ff */ 	andi	$a0,$s3,0xff
-/*  f05ea74:	28810010 */ 	slti	$at,$a0,0x10
-/*  f05ea78:	1420ffd6 */ 	bnez	$at,.L0f05e9d4
-/*  f05ea7c:	00809825 */ 	or	$s3,$a0,$zero
-/*  f05ea80:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05ea84:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05ea88:	8c6b0438 */ 	lw	$t3,0x438($v1)
-/*  f05ea8c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f05ea90:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f05ea94:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f05ea98:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f05ea9c:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f05eaa0:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f05eaa4:	256c0002 */ 	addiu	$t4,$t3,0x2
-/*  f05eaa8:	ac6c0438 */ 	sw	$t4,0x438($v1)
-/*  f05eaac:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f05eab0:	03e00008 */ 	jr	$ra
-/*  f05eab4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiShufflePelagicSwitches(void)
+{
+	u8 buttonsdone[8] = var80069860;
+	u8 i;
+	u8 j;
+	struct tag *tag;
+	struct tag *button;
+	u8 index;
+
+	for (i = 8; i < 16; i++) {
+		tag = tagFindById(i);
+		index = random() & 7;
+
+		if (buttonsdone[index] == 0) {
+			// Switch has not yet been mapped
+			button = tagFindById(index);
+			tag->unk06 = button->unk06;
+			tag->obj = button->obj;
+			buttonsdone[index] = 1;
+		} else {
+			// Switch is already mapped - find first unmapped switch
+			for (j = 0; buttonsdone[j]; j++);
+
+			button = tagFindById(j);
+			tag->unk06 = button->unk06;
+			tag->obj = button->obj;
+			buttonsdone[j] = 1;
+		}
+	}
+
+	g_Vars.aioffset += 2;
+
+	return false;
+}
 
 /**
  * @cmd 01bb
