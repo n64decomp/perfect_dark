@@ -6725,7 +6725,7 @@ glabel func0f01b160
 .L0f01b2a0:
 /*  f01b2a0:	1500000f */ 	bnez	$t0,.L0f01b2e0
 /*  f01b2a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01b2a8:	0fc44a54 */ 	jal	func0f112950
+/*  f01b2a8:	0fc44a54 */ 	jal	currentPlayerGetNumInvItems
 /*  f01b2ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01b2b0:	3c09800a */ 	lui	$t1,0x800a
 /*  f01b2b4:	8d2921b8 */ 	lw	$t1,0x21b8($t1)

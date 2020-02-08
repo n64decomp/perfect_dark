@@ -31,7 +31,7 @@ bool currentPlayerHasKeyFlags(u32 wantkeyflags);
 bool currentPlayerHasBriefcase(void);
 bool currentPlayerHasDataUplink(void);
 bool currentPlayerHasProp(struct prop *prop);
-u32 func0f112950(void);
+s32 currentPlayerGetNumInvItems(void);
 u32 func0f112a58(void);
 struct textoverride *objGetTextOverride(struct defaultobj *obj);
 u32 func0f112bfc(void);

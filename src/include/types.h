@@ -5062,7 +5062,7 @@ struct invitem_type3 {
 };
 
 struct invitem {
-	/*0x00*/ u32 type;
+	/*0x00*/ s32 type;
 
 	union {
 		struct invitem_type1 type1;
