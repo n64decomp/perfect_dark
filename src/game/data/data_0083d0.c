@@ -6682,7 +6682,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01cc*/ ai01cc,
 	/*0x01cd*/ ai01cd,
 	/*0x01ce*/ ai01ce,
-	/*0x01cf*/ ai01cf,
+	/*0x01cf*/ aiChrSetFiringInCutscene,
 	/*0x01d0*/ aiSetPortalFlag,
 	/*0x01d1*/ aiSetObjPartVisible,
 	/*0x01d2*/ aiChrEmitSparks,
@@ -7203,12 +7203,8 @@ u16 special_animations[] = {
 
 u32 var80069860 = 0x00000000;
 u32 var80069864 = 0x00000000;
-u32 var80069868 = 0x00000000;
-u32 var8006986c = 0x00000000;
-u32 var80069870 = 0x00000000;
-u32 var80069874 = 0x00000000;
-u32 var80069878 = 0x00000000;
-u32 var8006987c = 0x00000000;
+struct coord var80069868 = {0, 0, 0};
+struct coord var80069874 = {0, 0, 0};
 u32 var80069880 = 0x3f800000;
 u32 var80069884 = 0x00000001;
 u32 var80069888 = 0x01010101;

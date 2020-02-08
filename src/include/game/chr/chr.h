@@ -290,7 +290,7 @@ u32 func0f03dff4(void);
 void func0f03e094(struct chrdata *chr);
 u32 func0f03e0e4(void);
 u32 func0f03e1a8(void);
-u32 func0f03e29c(void);
+void func0f03e29c(struct chrdata *chr, s32 arg1, s32 arg2, s32 arg3, struct coord *arg4, struct coord *arg5);
 f32 func0f03e45c(struct chrdata *chr);
 void func0f03e538(struct chrdata *chr, f32 arg1);
 f32 func0f03e578(struct chrdata *chr);
