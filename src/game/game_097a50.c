@@ -20272,7 +20272,7 @@ glabel func0f0a8d34
 /*  f0a8e34:	18400031 */ 	blez	$v0,.L0f0a8efc
 /*  f0a8e38:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0a8e3c:
-/*  f0a8e3c:	0fc44b11 */ 	jal	func0f112c44
+/*  f0a8e3c:	0fc44b11 */ 	jal	currentPlayerGetWeaponNumByInvIndex
 /*  f0a8e40:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0a8e44:	244dffe6 */ 	addiu	$t5,$v0,-26
 /*  f0a8e48:	2da10026 */ 	sltiu	$at,$t5,0x26
@@ -20311,7 +20311,7 @@ glabel func0f0a8d34
 /*  f0a8ecc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a8ed0:	3c0f800a */ 	lui	$t7,0x800a
 /*  f0a8ed4:	8defa244 */ 	lw	$t7,-0x5dbc($t7)
-/*  f0a8ed8:	0fc44b11 */ 	jal	func0f112c44
+/*  f0a8ed8:	0fc44b11 */ 	jal	currentPlayerGetWeaponNumByInvIndex
 /*  f0a8edc:	8de41874 */ 	lw	$a0,0x1874($t7)
 /*  f0a8ee0:	0fc2865b */ 	jal	currentPlayerEquipWeaponInCutscene
 /*  f0a8ee4:	00402025 */ 	or	$a0,$v0,$zero

@@ -183,7 +183,7 @@ void currentPlayerSetAllGuns(bool enable)
 
 	g_Vars.currentplayer->equipallguns = enable;
 	func0f112f70();
-	weaponnum = func0f112c44(g_Vars.currentplayer->equipcuritem);
+	weaponnum = currentPlayerGetWeaponNumByInvIndex(g_Vars.currentplayer->equipcuritem);
 	currentPlayerEquipWeaponInCutscene(weaponnum);
 }
 
@@ -1326,58 +1326,30 @@ struct textoverride *weaponGetTextOverride(s32 weaponnum)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f112c44
-/*  f112c44:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f112c48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f112c4c:	0fc44a96 */ 	jal	currentPlayerGetInvItemByIndex
-/*  f112c50:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f112c54:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f112c58:	10400011 */ 	beqz	$v0,.L0f112ca0
-/*  f112c5c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f112c60:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f112c64:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f112c68:	54810009 */ 	bnel	$a0,$at,.L0f112c90
-/*  f112c6c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f112c70:	8c420004 */ 	lw	$v0,0x4($v0)
-/*  f112c74:	0fc44af0 */ 	jal	objGetTextOverride
-/*  f112c78:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f112c7c:	5040001a */ 	beqzl	$v0,.L0f112ce8
-/*  f112c80:	00001025 */ 	or	$v0,$zero,$zero
-/*  f112c84:	10000018 */ 	beqz	$zero,.L0f112ce8
-/*  f112c88:	8c420008 */ 	lw	$v0,0x8($v0)
-/*  f112c8c:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f112c90:
-/*  f112c90:	54810015 */ 	bnel	$a0,$at,.L0f112ce8
-/*  f112c94:	00001025 */ 	or	$v0,$zero,$zero
-/*  f112c98:	10000013 */ 	beqz	$zero,.L0f112ce8
-/*  f112c9c:	84620004 */ 	lh	$v0,0x4($v1)
-.L0f112ca0:
-/*  f112ca0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f112ca4:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f112ca8:	8dcf1870 */ 	lw	$t7,0x1870($t6)
-/*  f112cac:	51e0000e */ 	beqzl	$t7,.L0f112ce8
-/*  f112cb0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f112cb4:	0fc446fa */ 	jal	currentStageForbidsSlayer
-/*  f112cb8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f112cbc:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f112cc0:	2418002c */ 	addiu	$t8,$zero,0x2c
-/*  f112cc4:	0302c823 */ 	subu	$t9,$t8,$v0
-/*  f112cc8:	0099082a */ 	slt	$at,$a0,$t9
-/*  f112ccc:	50200006 */ 	beqzl	$at,.L0f112ce8
-/*  f112cd0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f112cd4:	0fc446e2 */ 	jal	func0f111b88
-/*  f112cd8:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f112cdc:	10000003 */ 	beqz	$zero,.L0f112cec
-/*  f112ce0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f112ce4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f112ce8:
-/*  f112ce8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f112cec:
-/*  f112cec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f112cf0:	03e00008 */ 	jr	$ra
-/*  f112cf4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 currentPlayerGetWeaponNumByInvIndex(s32 index)
+{
+	struct invitem *item = currentPlayerGetInvItemByIndex(index);
+
+	if (item) {
+		if (item->type == INVITEMTYPE_PROP) {
+			struct prop *prop = item->type_prop.prop;
+			struct textoverride *override = objGetTextOverride(prop->obj);
+
+			if (override) {
+				return override->weapon;
+			}
+		} else if (item->type == INVITEMTYPE_1) {
+			return item->type1.weapon1;
+		}
+	} else if (g_Vars.currentplayer->equipallguns) {
+		if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
+			index++;
+			return func0f111b88(index);
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f112cf8
@@ -1589,7 +1561,7 @@ glabel func0f112f70
 /*  f112fa0:	5840000e */ 	blezl	$v0,.L0f112fdc
 /*  f112fa4:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f112fa8:
-/*  f112fa8:	0fc44b11 */ 	jal	func0f112c44
+/*  f112fa8:	0fc44b11 */ 	jal	currentPlayerGetWeaponNumByInvIndex
 /*  f112fac:	02002025 */ 	or	$a0,$s0,$zero
 /*  f112fb0:	14510004 */ 	bne	$v0,$s1,.L0f112fc4
 /*  f112fb4:	3c0f800a */ 	lui	$t7,0x800a
