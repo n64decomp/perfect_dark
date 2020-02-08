@@ -34,7 +34,7 @@ bool currentPlayerHasProp(struct prop *prop);
 s32 currentPlayerGetNumInvItems(void);
 struct invitem *currentPlayerGetInvItemByIndex(s32 index);
 struct textoverride *objGetTextOverride(struct defaultobj *obj);
-u32 func0f112bfc(void);
+struct textoverride *weaponGetTextOverride(s32 weaponnum);
 s32 func0f112c44(s32 equipcuritem);
 u32 func0f112cf8(void);
 u32 func0f112dfc(void);

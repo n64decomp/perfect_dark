@@ -1311,30 +1311,20 @@ struct textoverride *objGetTextOverride(struct defaultobj *obj)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f112bfc
-/*  f112bfc:	3c03800a */ 	lui	$v1,0x800a
-/*  f112c00:	8c63a278 */ 	lw	$v1,-0x5d88($v1)
-/*  f112c04:	00001025 */ 	or	$v0,$zero,$zero
-/*  f112c08:	1060000c */ 	beqz	$v1,.L0f112c3c
-/*  f112c0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f112c10:	8c6e0004 */ 	lw	$t6,0x4($v1)
-.L0f112c14:
-/*  f112c14:	55c00007 */ 	bnezl	$t6,.L0f112c34
-/*  f112c18:	8c630020 */ 	lw	$v1,0x20($v1)
-/*  f112c1c:	8c6f0008 */ 	lw	$t7,0x8($v1)
-/*  f112c20:	548f0004 */ 	bnel	$a0,$t7,.L0f112c34
-/*  f112c24:	8c630020 */ 	lw	$v1,0x20($v1)
-/*  f112c28:	03e00008 */ 	jr	$ra
-/*  f112c2c:	00601025 */ 	or	$v0,$v1,$zero
-/*  f112c30:	8c630020 */ 	lw	$v1,0x20($v1)
-.L0f112c34:
-/*  f112c34:	5460fff7 */ 	bnezl	$v1,.L0f112c14
-/*  f112c38:	8c6e0004 */ 	lw	$t6,0x4($v1)
-.L0f112c3c:
-/*  f112c3c:	03e00008 */ 	jr	$ra
-/*  f112c40:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct textoverride *weaponGetTextOverride(s32 weaponnum)
+{
+	struct textoverride *override = g_Vars.textoverrides;
+
+	while (override) {
+		if (override->unk04 == 0 && override->weapon == weaponnum) {
+			return override;
+		}
+
+		override = override->next;
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f112c44
@@ -1423,7 +1413,7 @@ glabel func0f112cf8
 /*  f112d64:	1481001f */ 	bne	$a0,$at,.L0f112de4
 /*  f112d68:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f112d6c:	84640004 */ 	lh	$a0,0x4($v1)
-/*  f112d70:	0fc44aff */ 	jal	func0f112bfc
+/*  f112d70:	0fc44aff */ 	jal	weaponGetTextOverride
 /*  f112d74:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f112d78:	1040001a */ 	beqz	$v0,.L0f112de4
 /*  f112d7c:	8fa50018 */ 	lw	$a1,0x18($sp)
@@ -1514,7 +1504,7 @@ glabel func0f112e24
 /*  f112e98:	14810021 */ 	bne	$a0,$at,.L0f112f20
 /*  f112e9c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f112ea0:	84640004 */ 	lh	$a0,0x4($v1)
-/*  f112ea4:	0fc44aff */ 	jal	func0f112bfc
+/*  f112ea4:	0fc44aff */ 	jal	weaponGetTextOverride
 /*  f112ea8:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f112eac:	1040001c */ 	beqz	$v0,.L0f112f20
 /*  f112eb0:	8fa50018 */ 	lw	$a1,0x18($sp)
@@ -1649,7 +1639,7 @@ GLOBAL_ASM(
 glabel func0f113034
 /*  f113034:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f113038:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11303c:	0fc44aff */ 	jal	func0f112bfc
+/*  f11303c:	0fc44aff */ 	jal	weaponGetTextOverride
 /*  f113040:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f113044:	50400009 */ 	beqzl	$v0,.L0f11306c
 /*  f113048:	00001025 */ 	or	$v0,$zero,$zero
