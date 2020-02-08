@@ -4412,7 +4412,7 @@ glabel func0f00f174
 /*  f0100f4:	35f90400 */ 	ori	$t9,$t7,0x400
 /*  f0100f8:	ac590040 */ 	sw	$t9,0x40($v0)
 .L0f0100fc:
-/*  f0100fc:	0fc44bce */ 	jal	func0f112f38
+/*  f0100fc:	0fc44bce */ 	jal	textoverrideInsert
 /*  f010100:	02402025 */ 	or	$a0,$s2,$zero
 /*  f010104:	10000062 */ 	beqz	$zero,.L0f010290
 /*  f010108:	00000000 */ 	sll	$zero,$zero,0x0

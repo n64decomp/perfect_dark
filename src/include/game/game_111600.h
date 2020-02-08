@@ -39,7 +39,7 @@ s32 currentPlayerGetWeaponNumByInvIndex(s32 index);
 u16 currentPlayerGetInvNameIdByIndex(s32 index);
 char *currentPlayerGetInvNameByIndex(s32 index);
 u32 func0f112e24(void);
-u32 func0f112f38(void);
+void textoverrideInsert(struct textoverride *override);
 u32 func0f112f50(void);
 u32 func0f112f60(void);
 void func0f112f70(void);

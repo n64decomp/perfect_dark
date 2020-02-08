@@ -1472,15 +1472,11 @@ glabel func0f112e24
 /*  f112f34:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f112f38
-/*  f112f38:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f112f3c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f112f40:	8c4e02b8 */ 	lw	$t6,0x2b8($v0)
-/*  f112f44:	ac8e0020 */ 	sw	$t6,0x20($a0)
-/*  f112f48:	03e00008 */ 	jr	$ra
-/*  f112f4c:	ac4402b8 */ 	sw	$a0,0x2b8($v0)
-);
+void textoverrideInsert(struct textoverride *override)
+{
+	override->next = g_Vars.textoverrides;
+	g_Vars.textoverrides = override;
+}
 
 GLOBAL_ASM(
 glabel func0f112f50
