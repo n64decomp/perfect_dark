@@ -211,7 +211,7 @@ u8 func0006_unalerted[] = {
 
 	// Check if can see camspy
 	label(0x16)
-	if_chr_sees_camspy_maybe(/*goto*/ 0x16)
+	set_target_to_camspy_if_in_sight(/*goto*/ 0x16)
 	dprint 'E','S',' ','N','O','V','I','S','\n',0,
 	goto_next(0x13)
 

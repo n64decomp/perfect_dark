@@ -3138,7 +3138,14 @@
 	operator, \
 	label,
 
-#define if_chr_sees_camspy_maybe(label) \
+/**
+ * Checks if the current chr can see the player's camspy. If they can, their
+ * target is changed to the camspy and the label will be followed.
+ *
+ * This command respects the chr's p1p2 property, meaning in coop mode this must
+ * be set to the player whose camspy should be checked.
+ */
+#define set_target_to_camspy_if_in_sight(label) \
 	mkshort(0x0187), \
 	label,
 
