@@ -3150,10 +3150,15 @@
 	lift, \
 	label,
 
-#define cmd0189(lift, u1) \
+/**
+ * Makes the lift go to the given stop number.
+ *
+ * Lifts only support up to 4 stops, so stopnum must be 0-3.
+ */
+#define lift_go_to_stop(lift, stopnum) \
 	mkshort(0x0189), \
 	lift, \
-	u1,
+	stopnum,
 
 /**
  * Checks if the lift is stopped at the given stop number.

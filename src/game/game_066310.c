@@ -44,6 +44,7 @@
 #include "game/game_1a3340.h"
 #include "library/library_12dc0.h"
 #include "library/library_233c0.h"
+#include "library/library_4a360.h"
 
 const char var7f1aa1c0[] = "propobj.c";
 
@@ -1462,7 +1463,7 @@ glabel func0f066310
 /*  f066558:	8e73000c */ 	lw	$s3,0xc($s3)
 /*  f06655c:	8e6d0008 */ 	lw	$t5,0x8($s3)
 /*  f066560:	8e650010 */ 	lw	$a1,0x10($s3)
-/*  f066564:	0fc1c43b */ 	jal	func0f0710ec
+/*  f066564:	0fc1c43b */ 	jal	liftGoToStop
 /*  f066568:	8da40004 */ 	lw	$a0,0x4($t5)
 .L0f06656c:
 /*  f06656c:	8e73000c */ 	lw	$s3,0xc($s3)
@@ -13711,178 +13712,53 @@ glabel func0f070f08
 /*  f0710e8:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel func0f0710ec
-/*  f0710ec:	27bdfec8 */ 	addiu	$sp,$sp,-312
-/*  f0710f0:	00057840 */ 	sll	$t7,$a1,0x1
-/*  f0710f4:	008fc021 */ 	addu	$t8,$a0,$t7
-/*  f0710f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0710fc:	afa5013c */ 	sw	$a1,0x13c($sp)
-/*  f071100:	afb80024 */ 	sw	$t8,0x24($sp)
-/*  f071104:	8708005c */ 	lh	$t0,0x5c($t8)
-/*  f071108:	00803825 */ 	or	$a3,$a0,$zero
-/*  f07110c:	05020091 */ 	bltzl	$t0,.L0f071354
-/*  f071110:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f071114:	80820086 */ 	lb	$v0,0x86($a0)
-/*  f071118:	50a2008e */ 	beql	$a1,$v0,.L0f071354
-/*  f07111c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f071120:	80830085 */ 	lb	$v1,0x85($a0)
-/*  f071124:	10430009 */ 	beq	$v0,$v1,.L0f07114c
-/*  f071128:	00034880 */ 	sll	$t1,$v1,0x2
-/*  f07112c:	00895021 */ 	addu	$t2,$a0,$t1
-/*  f071130:	8d440064 */ 	lw	$a0,0x64($t2)
-/*  f071134:	50800014 */ 	beqzl	$a0,.L0f071188
-/*  f071138:	80ec0085 */ 	lb	$t4,0x85($a3)
-/*  f07113c:	0fc23948 */ 	jal	doorIsClosed
-/*  f071140:	afa70138 */ 	sw	$a3,0x138($sp)
-/*  f071144:	1440000f */ 	bnez	$v0,.L0f071184
-/*  f071148:	8fa70138 */ 	lw	$a3,0x138($sp)
-.L0f07114c:
-/*  f07114c:	44800000 */ 	mtc1	$zero,$f0
-/*  f071150:	c4e40074 */ 	lwc1	$f4,0x74($a3)
-/*  f071154:	46040032 */ 	c.eq.s	$f0,$f4
-/*  f071158:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07115c:	4502000a */ 	bc1fl	.L0f071188
-/*  f071160:	80ec0085 */ 	lb	$t4,0x85($a3)
-/*  f071164:	c4e60078 */ 	lwc1	$f6,0x78($a3)
-/*  f071168:	8fab013c */ 	lw	$t3,0x13c($sp)
-/*  f07116c:	46060032 */ 	c.eq.s	$f0,$f6
-/*  f071170:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f071174:	45020004 */ 	bc1fl	.L0f071188
-/*  f071178:	80ec0085 */ 	lb	$t4,0x85($a3)
-/*  f07117c:	10000074 */ 	beqz	$zero,.L0f071350
-/*  f071180:	a0eb0086 */ 	sb	$t3,0x86($a3)
-.L0f071184:
-/*  f071184:	80ec0085 */ 	lb	$t4,0x85($a3)
-.L0f071188:
-/*  f071188:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f07118c:	27a600e0 */ 	addiu	$a2,$sp,0xe0
-/*  f071190:	000c6840 */ 	sll	$t5,$t4,0x1
-/*  f071194:	00ed7821 */ 	addu	$t7,$a3,$t5
-/*  f071198:	85e4005c */ 	lh	$a0,0x5c($t7)
-/*  f07119c:	0fc456ac */ 	jal	padUnpack
-/*  f0711a0:	afa70138 */ 	sw	$a3,0x138($sp)
-/*  f0711a4:	8fa70138 */ 	lw	$a3,0x138($sp)
-/*  f0711a8:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f0711ac:	27a6008c */ 	addiu	$a2,$sp,0x8c
-/*  f0711b0:	80f80086 */ 	lb	$t8,0x86($a3)
-/*  f0711b4:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f0711b8:	00f94021 */ 	addu	$t0,$a3,$t9
-/*  f0711bc:	0fc456ac */ 	jal	padUnpack
-/*  f0711c0:	8504005c */ 	lh	$a0,0x5c($t0)
-/*  f0711c4:	8fae0024 */ 	lw	$t6,0x24($sp)
-/*  f0711c8:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f0711cc:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f0711d0:	0fc456ac */ 	jal	padUnpack
-/*  f0711d4:	85c4005c */ 	lh	$a0,0x5c($t6)
-/*  f0711d8:	8fa70138 */ 	lw	$a3,0x138($sp)
-/*  f0711dc:	8fa2013c */ 	lw	$v0,0x13c($sp)
-/*  f0711e0:	c7a8008c */ 	lwc1	$f8,0x8c($sp)
-/*  f0711e4:	80e90085 */ 	lb	$t1,0x85($a3)
-/*  f0711e8:	c7aa00e0 */ 	lwc1	$f10,0xe0($sp)
-/*  f0711ec:	5049003e */ 	beql	$v0,$t1,.L0f0712e8
-/*  f0711f0:	c7aa008c */ 	lwc1	$f10,0x8c($sp)
-/*  f0711f4:	4608503e */ 	c.le.s	$f10,$f8
-/*  f0711f8:	c7a8008c */ 	lwc1	$f8,0x8c($sp)
-/*  f0711fc:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f071200:	c7a600e0 */ 	lwc1	$f6,0xe0($sp)
-/*  f071204:	45020006 */ 	bc1fl	.L0f071220
-/*  f071208:	4606403e */ 	c.le.s	$f8,$f6
-/*  f07120c:	4604503e */ 	c.le.s	$f10,$f4
-/*  f071210:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f071214:	4503000a */ 	bc1tl	.L0f071240
-/*  f071218:	c7b200e4 */ 	lwc1	$f18,0xe4($sp)
-/*  f07121c:	4606403e */ 	c.le.s	$f8,$f6
-.L0f071220:
-/*  f071220:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f071224:	45020030 */ 	bc1fl	.L0f0712e8
-/*  f071228:	c7aa008c */ 	lwc1	$f10,0x8c($sp)
-/*  f07122c:	4606203e */ 	c.le.s	$f4,$f6
-/*  f071230:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f071234:	4502002c */ 	bc1fl	.L0f0712e8
-/*  f071238:	c7aa008c */ 	lwc1	$f10,0x8c($sp)
-/*  f07123c:	c7b200e4 */ 	lwc1	$f18,0xe4($sp)
-.L0f071240:
-/*  f071240:	c7aa0090 */ 	lwc1	$f10,0x90($sp)
-/*  f071244:	c7a8003c */ 	lwc1	$f8,0x3c($sp)
-/*  f071248:	c7a60090 */ 	lwc1	$f6,0x90($sp)
-/*  f07124c:	460a903e */ 	c.le.s	$f18,$f10
-/*  f071250:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f071254:	45020006 */ 	bc1fl	.L0f071270
-/*  f071258:	4612303e */ 	c.le.s	$f6,$f18
-/*  f07125c:	4608903e */ 	c.le.s	$f18,$f8
-/*  f071260:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f071264:	4503000a */ 	bc1tl	.L0f071290
-/*  f071268:	c7b000e8 */ 	lwc1	$f16,0xe8($sp)
-/*  f07126c:	4612303e */ 	c.le.s	$f6,$f18
-.L0f071270:
-/*  f071270:	c7a4003c */ 	lwc1	$f4,0x3c($sp)
-/*  f071274:	4502001c */ 	bc1fl	.L0f0712e8
-/*  f071278:	c7aa008c */ 	lwc1	$f10,0x8c($sp)
-/*  f07127c:	4612203e */ 	c.le.s	$f4,$f18
-/*  f071280:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f071284:	45020018 */ 	bc1fl	.L0f0712e8
-/*  f071288:	c7aa008c */ 	lwc1	$f10,0x8c($sp)
-/*  f07128c:	c7b000e8 */ 	lwc1	$f16,0xe8($sp)
-.L0f071290:
-/*  f071290:	c7aa0094 */ 	lwc1	$f10,0x94($sp)
-/*  f071294:	c7a80040 */ 	lwc1	$f8,0x40($sp)
-/*  f071298:	c7a60094 */ 	lwc1	$f6,0x94($sp)
-/*  f07129c:	460a803e */ 	c.le.s	$f16,$f10
-/*  f0712a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0712a4:	45020006 */ 	bc1fl	.L0f0712c0
-/*  f0712a8:	4610303e */ 	c.le.s	$f6,$f16
-/*  f0712ac:	4608803e */ 	c.le.s	$f16,$f8
-/*  f0712b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0712b4:	45010009 */ 	bc1t	.L0f0712dc
-/*  f0712b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0712bc:	4610303e */ 	c.le.s	$f6,$f16
-.L0f0712c0:
-/*  f0712c0:	c7a40040 */ 	lwc1	$f4,0x40($sp)
-/*  f0712c4:	45020008 */ 	bc1fl	.L0f0712e8
-/*  f0712c8:	c7aa008c */ 	lwc1	$f10,0x8c($sp)
-/*  f0712cc:	4610203e */ 	c.le.s	$f4,$f16
-/*  f0712d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0712d4:	45020004 */ 	bc1fl	.L0f0712e8
-/*  f0712d8:	c7aa008c */ 	lwc1	$f10,0x8c($sp)
-.L0f0712dc:
-/*  f0712dc:	1000001c */ 	beqz	$zero,.L0f071350
-/*  f0712e0:	a0e20086 */ 	sb	$v0,0x86($a3)
-/*  f0712e4:	c7aa008c */ 	lwc1	$f10,0x8c($sp)
-.L0f0712e8:
-/*  f0712e8:	c7a800e0 */ 	lwc1	$f8,0xe0($sp)
-/*  f0712ec:	c7b200e4 */ 	lwc1	$f18,0xe4($sp)
-/*  f0712f0:	c7a60090 */ 	lwc1	$f6,0x90($sp)
-/*  f0712f4:	46085001 */ 	sub.s	$f0,$f10,$f8
-/*  f0712f8:	c7b000e8 */ 	lwc1	$f16,0xe8($sp)
-/*  f0712fc:	c7a40094 */ 	lwc1	$f4,0x94($sp)
-/*  f071300:	46123081 */ 	sub.s	$f2,$f6,$f18
-/*  f071304:	46000282 */ 	mul.s	$f10,$f0,$f0
-/*  f071308:	afa70138 */ 	sw	$a3,0x138($sp)
-/*  f07130c:	46102381 */ 	sub.s	$f14,$f4,$f16
-/*  f071310:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f071314:	46085180 */ 	add.s	$f6,$f10,$f8
-/*  f071318:	460e7102 */ 	mul.s	$f4,$f14,$f14
-/*  f07131c:	0c012974 */ 	jal	sqrtf
-/*  f071320:	46043300 */ 	add.s	$f12,$f6,$f4
-/*  f071324:	8fa70138 */ 	lw	$a3,0x138($sp)
-/*  f071328:	c4ea0074 */ 	lwc1	$f10,0x74($a3)
-/*  f07132c:	c4e60078 */ 	lwc1	$f6,0x78($a3)
-/*  f071330:	80ea0086 */ 	lb	$t2,0x86($a3)
-/*  f071334:	460a0201 */ 	sub.s	$f8,$f0,$f10
-/*  f071338:	a0ea0085 */ 	sb	$t2,0x85($a3)
-/*  f07133c:	46003107 */ 	neg.s	$f4,$f6
-/*  f071340:	e4e80074 */ 	swc1	$f8,0x74($a3)
-/*  f071344:	e4e40078 */ 	swc1	$f4,0x78($a3)
-/*  f071348:	8fab013c */ 	lw	$t3,0x13c($sp)
-/*  f07134c:	a0eb0086 */ 	sb	$t3,0x86($a3)
-.L0f071350:
-/*  f071350:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f071354:
-/*  f071354:	27bd0138 */ 	addiu	$sp,$sp,0x138
-/*  f071358:	03e00008 */ 	jr	$ra
-/*  f07135c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void liftGoToStop(struct liftobj *lift, s32 stopnum)
+{
+	u32 stack[1];
+	struct pad curpad;
+	struct pad aimpad;
+	struct pad reqpad;
+
+	if (lift->pads[stopnum] >= 0 && lift->levelaim != stopnum) {
+		// If lift is stopped (cur == aim)
+		// or door is not fully closed yet
+		if (lift->levelcur == lift->levelaim ||
+				(lift->doors[lift->levelcur] && !doorIsClosed(lift->doors[lift->levelcur]))) {
+			// Sanity check to make sure lift is actually not moving
+			if (lift->dist == 0 && lift->speed == 0) {
+				lift->levelaim = stopnum;
+				return;
+			}
+		}
+
+		padUnpack(lift->pads[lift->levelcur], PADFIELD_POS, &curpad);
+		padUnpack(lift->pads[lift->levelaim], PADFIELD_POS, &aimpad);
+		padUnpack(lift->pads[stopnum], PADFIELD_POS, &reqpad);
+
+		// Figure out if the lift needs to reverse direction on any axis
+		if (stopnum != lift->levelcur &&
+				((aimpad.pos.x >= curpad.pos.x && reqpad.pos.x >= curpad.pos.x) ||
+				 (curpad.pos.x >= aimpad.pos.x && curpad.pos.x >= reqpad.pos.x)) &&
+				((aimpad.pos.y >= curpad.pos.y && reqpad.pos.y >= curpad.pos.y) ||
+				 (curpad.pos.y >= aimpad.pos.y && curpad.pos.y >= reqpad.pos.y)) &&
+				((aimpad.pos.z >= curpad.pos.z && reqpad.pos.z >= curpad.pos.z) ||
+				 (curpad.pos.z >= aimpad.pos.z && curpad.pos.z >= reqpad.pos.z))) {
+			// Same direction
+			lift->levelaim = stopnum;
+		} else {
+			// Reverse direction
+			f32 xdiff = aimpad.pos.x - curpad.pos.x;
+			f32 ydiff = aimpad.pos.y - curpad.pos.y;
+			f32 zdiff = aimpad.pos.z - curpad.pos.z;
+			f32 result = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
+
+			lift->levelcur = lift->levelaim;
+			lift->dist = result - lift->dist;
+			lift->speed = -lift->speed;
+			lift->levelaim = stopnum;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f071360
@@ -21400,7 +21276,7 @@ glabel func0f077c10
 /*  f07806c:	01202825 */ 	or	$a1,$t1,$zero
 /*  f078070:	0582fff6 */ 	bltzl	$t4,.L0f07804c
 /*  f078074:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f078078:	0fc1c43b */ 	jal	func0f0710ec
+/*  f078078:	0fc1c43b */ 	jal	liftGoToStop
 /*  f07807c:	02002025 */ 	or	$a0,$s0,$zero
 .L0f078080:
 /*  f078080:	8fbf0024 */ 	lw	$ra,0x24($sp)

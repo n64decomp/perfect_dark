@@ -130,7 +130,7 @@ void liftActivate(struct prop *prop, u8 liftnum);
 struct prop *liftFindByPad(s16 padnum);
 u32 func0f070eac(void);
 u32 func0f070f08(void);
-void func0f0710ec(struct defaultobj *obj, u32 arg1);
+void liftGoToStop(struct liftobj *lift, s32 stopnum);
 u32 func0f071360(void);
 u32 func0f0713e4(void);
 u32 func0f0714b8(void);

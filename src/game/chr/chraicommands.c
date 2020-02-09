@@ -12181,13 +12181,14 @@ bool aiIfLiftStationary(void)
 /**
  * @cmd 0189
  */
-bool ai0189(void)
+bool aiLiftGoToStop(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = objFindByTagId(cmd[2]);
 
 	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
-		func0f0710ec(obj, cmd[3]);
+		struct liftobj *lift = (struct liftobj *)obj;
+		liftGoToStop(lift, cmd[3]);
 	}
 
 	g_Vars.aioffset += 4;

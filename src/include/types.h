@@ -839,19 +839,15 @@ struct heliobj {
 
 struct liftobj { // objtype 30
 	struct defaultobj base;
-	/*0x5c*/ u32 pad;
-	/*0x60*/ u32 unk60;
-	/*0x64*/ u32 unk64;
-	/*0x68*/ u32 unk68;
-	/*0x6c*/ u32 unk6c;
-	/*0x70*/ u32 unk70;
+	/*0x5c*/ s16 pads[4];
+	/*0x64*/ struct doorobj *doors[4];
 	/*0x74*/ f32 dist;
-	/*0x78*/ u32 speed;
+	/*0x78*/ f32 speed;
 	/*0x7c*/ u32 accel;
 	/*0x80*/ u32 maxspeed;
 	/*0x84*/ u8 soundtype;
 	/*0x85*/ s8 levelcur;
-	/*0x85*/ s8 levelaim;
+	/*0x86*/ s8 levelaim;
 	/*0x88*/ struct coord prevpos;
 };
 
