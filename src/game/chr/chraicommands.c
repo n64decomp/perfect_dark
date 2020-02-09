@@ -3183,50 +3183,21 @@ bool aiDestroyObject(void)
 /**
  * @cmd 0067
  */
-GLOBAL_ASM(
-glabel ai0067
-/*  f051ca4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f051ca8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f051cac:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f051cb0:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f051cb4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f051cb8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f051cbc:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f051cc0:	0fc2556c */ 	jal	objFindByTagId
-/*  f051cc4:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f051cc8:	10400015 */ 	beqz	$v0,.L0f051d20
-/*  f051ccc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051cd0:	8c430014 */ 	lw	$v1,0x14($v0)
-/*  f051cd4:	10600012 */ 	beqz	$v1,.L0f051d20
-/*  f051cd8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051cdc:	8c640018 */ 	lw	$a0,0x18($v1)
-/*  f051ce0:	1080000f */ 	beqz	$a0,.L0f051d20
-/*  f051ce4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051ce8:	90980000 */ 	lbu	$t8,0x0($a0)
-/*  f051cec:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f051cf0:	1701000b */ 	bne	$t8,$at,.L0f051d20
-/*  f051cf4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051cf8:	8c440014 */ 	lw	$a0,0x14($v0)
-/*  f051cfc:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f051d00:	8c990018 */ 	lw	$t9,0x18($a0)
-/*  f051d04:	8f220004 */ 	lw	$v0,0x4($t9)
-/*  f051d08:	0fc20a59 */ 	jal	func0f082964
-/*  f051d0c:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f051d10:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f051d14:	8c480014 */ 	lw	$t0,0x14($v0)
-/*  f051d18:	35090001 */ 	ori	$t1,$t0,0x1
-/*  f051d1c:	ac490014 */ 	sw	$t1,0x14($v0)
-.L0f051d20:
-/*  f051d20:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f051d24:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f051d28:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f051d2c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f051d30:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f051d34:	254b0003 */ 	addiu	$t3,$t2,0x3
-/*  f051d38:	ac6b0438 */ 	sw	$t3,0x438($v1)
-/*  f051d3c:	03e00008 */ 	jr	$ra
-/*  f051d40:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai0067(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+
+	if (obj && obj->prop && obj->prop->parent && obj->prop->parent->type == PROPTYPE_CHR) {
+		struct chrdata *chr = obj->prop->parent->chr;
+		func0f082964(obj->prop, 2);
+		chr->hidden |= CHRHFLAG_00000001;
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 0068
