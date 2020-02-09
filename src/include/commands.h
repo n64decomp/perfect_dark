@@ -2778,6 +2778,9 @@
 
 /**
  * Checks if all chrs in the given squadron are dead.
+ *
+ * Note: Due to a bug, this command ends up only checking if the last chr in the
+ * squadron is dead.
  */
 #define if_all_chrs_in_squadron_are_dead(squadron, label) \
 	mkshort(0x0147), \

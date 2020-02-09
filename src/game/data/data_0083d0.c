@@ -6546,7 +6546,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0144*/ aiHeliUnarmWeapons,
 	/*0x0145*/ aiRebuildTeams,
 	/*0x0146*/ aiRebuildSquadrons,
-	/*0x0147*/ ai0147,
+	/*0x0147*/ aiIfSquadronIsDead,
 	/*0x0148*/ aiChrSetListening,
 	/*0x0149*/ aiIfChrListening,
 	/*0x014a*/ aiIfTrue,

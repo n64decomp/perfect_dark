@@ -325,7 +325,7 @@
 /*0x0144*/ bool aiHeliUnarmWeapons(void);
 /*0x0145*/ bool aiRebuildTeams(void);
 /*0x0146*/ bool aiRebuildSquadrons(void);
-/*0x0147*/ bool ai0147(void);
+/*0x0147*/ bool aiIfSquadronIsDead(void);
 /*0x0148*/ bool aiChrSetListening(void);
 /*0x0149*/ bool aiIfChrListening(void);
 /*0x014a*/ bool aiIfTrue(void);

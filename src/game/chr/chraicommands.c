@@ -11183,81 +11183,41 @@ bool aiRebuildSquadrons(void)
 /**
  * @cmd 0147
  */
-GLOBAL_ASM(
-glabel ai0147
-/*  f05bea0:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f05bea4:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f05bea8:	3c15800a */ 	lui	$s5,%hi(g_Vars)
-/*  f05beac:	26b59fc0 */ 	addiu	$s5,$s5,%lo(g_Vars)
-/*  f05beb0:	8eae0434 */ 	lw	$t6,0x434($s5)
-/*  f05beb4:	8eaf0438 */ 	lw	$t7,0x438($s5)
-/*  f05beb8:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f05bebc:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f05bec0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f05bec4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f05bec8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f05becc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f05bed0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f05bed4:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f05bed8:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f05bedc:	0fc133a7 */ 	jal	squadronGetChrIds
-/*  f05bee0:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f05bee4:	1040001b */ 	beqz	$v0,.L0f05bf54
-/*  f05bee8:	00408825 */ 	or	$s1,$v0,$zero
-/*  f05beec:	84580000 */ 	lh	$t8,0x0($v0)
-/*  f05bef0:	2414fffe */ 	addiu	$s4,$zero,-2
-/*  f05bef4:	24130005 */ 	addiu	$s3,$zero,0x5
-/*  f05bef8:	12980016 */ 	beq	$s4,$t8,.L0f05bf54
-/*  f05befc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05bf00:	84440000 */ 	lh	$a0,0x0($v0)
-.L0f05bf04:
-/*  f05bf04:	0fc0a1dd */ 	jal	chrFindByLiteralId
-/*  f05bf08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05bf0c:	1040000d */ 	beqz	$v0,.L0f05bf44
-/*  f05bf10:	00408025 */ 	or	$s0,$v0,$zero
-/*  f05bf14:	8c590020 */ 	lw	$t9,0x20($v0)
-/*  f05bf18:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05bf1c:	5320000a */ 	beqzl	$t9,.L0f05bf48
-/*  f05bf20:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f05bf24:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f05bf28:	00009025 */ 	or	$s2,$zero,$zero
-/*  f05bf2c:	54400006 */ 	bnezl	$v0,.L0f05bf48
-/*  f05bf30:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f05bf34:	82080007 */ 	lb	$t0,0x7($s0)
-/*  f05bf38:	52680003 */ 	beql	$s3,$t0,.L0f05bf48
-/*  f05bf3c:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f05bf40:	24120001 */ 	addiu	$s2,$zero,0x1
-.L0f05bf44:
-/*  f05bf44:	86240002 */ 	lh	$a0,0x2($s1)
-.L0f05bf48:
-/*  f05bf48:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f05bf4c:	1684ffed */ 	bne	$s4,$a0,.L0f05bf04
-/*  f05bf50:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f05bf54:
-/*  f05bf54:	16400007 */ 	bnez	$s2,.L0f05bf74
-/*  f05bf58:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*  f05bf5c:	8ea40434 */ 	lw	$a0,0x434($s5)
-/*  f05bf60:	8ea50438 */ 	lw	$a1,0x438($s5)
-/*  f05bf64:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05bf68:	91260003 */ 	lbu	$a2,0x3($t1)
-/*  f05bf6c:	10000004 */ 	beqz	$zero,.L0f05bf80
-/*  f05bf70:	aea20438 */ 	sw	$v0,0x438($s5)
-.L0f05bf74:
-/*  f05bf74:	8eaa0438 */ 	lw	$t2,0x438($s5)
-/*  f05bf78:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f05bf7c:	aeab0438 */ 	sw	$t3,0x438($s5)
-.L0f05bf80:
-/*  f05bf80:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f05bf84:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f05bf88:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f05bf8c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f05bf90:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f05bf94:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f05bf98:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f05bf9c:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f05bfa0:	03e00008 */ 	jr	$ra
-/*  f05bfa4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfSquadronIsDead(void)
+{
+	/**
+	 * @bug: anyalive is initialised to true here, and reset to false in each
+	 * loop iteration. This causes it to use the last chr's status only.
+	 */
+	u32 stack[2];
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	bool anyalive = true;
+	s16 *chrnums = squadronGetChrIds(cmd[2]);
+
+	if (chrnums) {
+		while (*chrnums != -2) {
+			struct chrdata *chr = chrFindByLiteralId(*chrnums);
+
+			if (chr && chr->unk020) {
+				anyalive = false;
+
+				if (!chrIsDead(chr) && chr->actiontype != ACT_DEAD) {
+					anyalive = true;
+				}
+			}
+
+			chrnums++;
+		}
+	}
+
+	if (!anyalive) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0148
