@@ -12164,7 +12164,7 @@ bool aiIfLiftStationary(void)
 	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
 		struct liftobj *lift = (struct liftobj *)obj;
 
-		if ((obj->flags & OBJFLAG_DEACTIVATED) || !lift->unk74) {
+		if ((obj->flags & OBJFLAG_DEACTIVATED) || lift->dist == 0) {
 			pass = true;
 		}
 	}
@@ -12199,7 +12199,7 @@ bool ai0189(void)
  * @cmd 018a
  */
 GLOBAL_ASM(
-glabel ai018a
+glabel aiIfLiftAtStop
 /*  f05d30c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
 /*  f05d310:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
 /*  f05d314:	8c6e0434 */ 	lw	$t6,0x434($v1)
@@ -12255,6 +12255,30 @@ glabel ai018a
 /*  f05d3d0:	03e00008 */ 	jr	$ra
 /*  f05d3d4:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because the load order of lift->levelcur and cmd[3] are swapped
+//bool aiIfLiftAtStop(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	struct defaultobj *obj = objFindByTagId(cmd[2]);
+//	bool pass = false;
+//
+//	if (obj && obj->prop && obj->type == OBJTYPE_LIFT) {
+//		struct liftobj *lift = (struct liftobj *)obj;
+//
+//		if (lift->levelcur == cmd[3] && lift->dist == 0) {
+//			pass = true;
+//		}
+//	}
+//
+//	if (pass) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+//	} else {
+//		g_Vars.aioffset += 5;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 018b

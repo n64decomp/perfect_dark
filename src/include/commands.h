@@ -3155,10 +3155,13 @@
 	lift, \
 	u1,
 
-#define cmd018a(object, u1, label) \
+/**
+ * Checks if the lift is stopped at the given stop number.
+ */
+#define if_lift_at_stop(lift, stopnum, label) \
 	mkshort(0x018a), \
-	object, \
-	u1, \
+	lift, \
+	stopnum, \
 	label,
 
 /**
