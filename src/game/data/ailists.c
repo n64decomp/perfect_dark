@@ -5045,7 +5045,7 @@ u8 func0015_test_cutscene_buddy[] = {
 	// cutscene is not running. The chr is being moved back to the same pad
 	// repeatedly, so this is surely some kind of debug function.
 	set_chr_hiddenflag(CHR_SELF, 0x00100200)
-	chr_move_to_pad(CHR_SELF, 0x00f8, 0x58, /*goto*/ 0x17)
+	chr_move_to_pad(CHR_SELF, CHR_BOND, 88, /*goto*/ 0x17)
 	goto_first(0x19)
 
 	label(0x17)

@@ -1978,6 +1978,10 @@
  *
  * For an immersive gameplay experience, do not do this while the chr is on
  * screen.
+ *
+ * If 88 is passed as the unknown argument then the pad number will be
+ * interpreted as a chr number and the chr will be moved to the other chr
+ * instead. This is likely a temporary hack used for debug purposes.
  */
 #define chr_move_to_pad(chr, pad, unknown, label) \
 	mkshort(0x00e2), \

@@ -228,7 +228,7 @@
 /*0x00df*/ bool ai00df(void);
 /*0x00e0*/ bool aiRevokeControl(void);
 /*0x00e1*/ bool aiGrantControl(void);
-/*0x00e2*/ bool ai00e2(void);
+/*0x00e2*/ bool aiChrMoveToPad(void);
 /*0x00e3*/ bool ai00e3(void);
 /*0x00e4*/ bool ai00e4(void);
 /*0x00e5*/ bool aiIfColourFadeComplete(void);

@@ -4,6 +4,7 @@
 #include "game/chr/chr.h"
 #include "game/game_000920.h"
 #include "game/game_066310.h"
+#include "game/game_096750.h"
 #include "game/game_0b28d0.h"
 #include "game/game_165670.h"
 #include "game/game_16cfa0.h"
@@ -7158,102 +7159,48 @@ bool aiGrantControl(void)
 /**
  * @cmd 00e2
  */
-GLOBAL_ASM(
-glabel ai00e2
-/*  f0576c8:	27bdff60 */ 	addiu	$sp,$sp,-160
-/*  f0576cc:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f0576d0:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f0576d4:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f0576d8:	8e2e0434 */ 	lw	$t6,0x434($s1)
-/*  f0576dc:	8e2f0438 */ 	lw	$t7,0x438($s1)
-/*  f0576e0:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f0576e4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0576e8:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f0576ec:	92050002 */ 	lbu	$a1,0x2($s0)
-/*  f0576f0:	0fc126d1 */ 	jal	chrFindById
-/*  f0576f4:	8e240424 */ 	lw	$a0,0x424($s1)
-/*  f0576f8:	afa20098 */ 	sw	$v0,0x98($sp)
-/*  f0576fc:	1040003a */ 	beqz	$v0,.L0f0577e8
-/*  f057700:	00001825 */ 	or	$v1,$zero,$zero
-/*  f057704:	8c58001c */ 	lw	$t8,0x1c($v0)
-/*  f057708:	13000037 */ 	beqz	$t8,.L0f0577e8
-/*  f05770c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f057710:	92190005 */ 	lbu	$t9,0x5($s0)
-/*  f057714:	24010058 */ 	addiu	$at,$zero,0x58
-/*  f057718:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f05771c:	57210018 */ 	bnel	$t9,$at,.L0f057780
-/*  f057720:	920a0003 */ 	lbu	$t2,0x3($s0)
-/*  f057724:	92050004 */ 	lbu	$a1,0x4($s0)
-/*  f057728:	afa00094 */ 	sw	$zero,0x94($sp)
-/*  f05772c:	0fc126d1 */ 	jal	chrFindById
-/*  f057730:	8e240424 */ 	lw	$a0,0x424($s1)
-/*  f057734:	8fa30094 */ 	lw	$v1,0x94($sp)
-/*  f057738:	1040002b */ 	beqz	$v0,.L0f0577e8
-/*  f05773c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f057740:	8c48001c */ 	lw	$t0,0x1c($v0)
-/*  f057744:	11000028 */ 	beqz	$t0,.L0f0577e8
-/*  f057748:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05774c:	0fc0f917 */ 	jal	func0f03e45c
-/*  f057750:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f057754:	8fa90034 */ 	lw	$t1,0x34($sp)
-/*  f057758:	44070000 */ 	mfc1	$a3,$f0
-/*  f05775c:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f057760:	8d22001c */ 	lw	$v0,0x1c($t1)
-/*  f057764:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f057768:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f05776c:	0fc12dd2 */ 	jal	func0f04b748
-/*  f057770:	24460028 */ 	addiu	$a2,$v0,0x28
-/*  f057774:	1000001c */ 	beqz	$zero,.L0f0577e8
-/*  f057778:	00401825 */ 	or	$v1,$v0,$zero
-/*  f05777c:	920a0003 */ 	lbu	$t2,0x3($s0)
-.L0f057780:
-/*  f057780:	920c0004 */ 	lbu	$t4,0x4($s0)
-/*  f057784:	afa30094 */ 	sw	$v1,0x94($sp)
-/*  f057788:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*  f05778c:	0fc1258b */ 	jal	chrResolvePadId
-/*  f057790:	016c2825 */ 	or	$a1,$t3,$t4
-/*  f057794:	04400014 */ 	bltz	$v0,.L0f0577e8
-/*  f057798:	8fa30094 */ 	lw	$v1,0x94($sp)
-/*  f05779c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0577a0:	24050046 */ 	addiu	$a1,$zero,0x46
-/*  f0577a4:	0fc456ac */ 	jal	padUnpack
-/*  f0577a8:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f0577ac:	c7ac0048 */ 	lwc1	$f12,0x48($sp)
-/*  f0577b0:	0fc259d4 */ 	jal	func0f096750
-/*  f0577b4:	c7ae0050 */ 	lwc1	$f14,0x50($sp)
-/*  f0577b8:	8fad0084 */ 	lw	$t5,0x84($sp)
-/*  f0577bc:	240effff */ 	addiu	$t6,$zero,-1
-/*  f0577c0:	a7ae003a */ 	sh	$t6,0x3a($sp)
-/*  f0577c4:	a7ad0038 */ 	sh	$t5,0x38($sp)
-/*  f0577c8:	920f0005 */ 	lbu	$t7,0x5($s0)
-/*  f0577cc:	44070000 */ 	mfc1	$a3,$f0
-/*  f0577d0:	8fa40098 */ 	lw	$a0,0x98($sp)
-/*  f0577d4:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f0577d8:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f0577dc:	0fc12dd2 */ 	jal	func0f04b748
-/*  f0577e0:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0577e4:	00401825 */ 	or	$v1,$v0,$zero
-.L0f0577e8:
-/*  f0577e8:	50600008 */ 	beqzl	$v1,.L0f05780c
-/*  f0577ec:	8e380438 */ 	lw	$t8,0x438($s1)
-/*  f0577f0:	8e240434 */ 	lw	$a0,0x434($s1)
-/*  f0577f4:	8e250438 */ 	lw	$a1,0x438($s1)
-/*  f0577f8:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0577fc:	92060006 */ 	lbu	$a2,0x6($s0)
-/*  f057800:	10000004 */ 	beqz	$zero,.L0f057814
-/*  f057804:	ae220438 */ 	sw	$v0,0x438($s1)
-/*  f057808:	8e380438 */ 	lw	$t8,0x438($s1)
-.L0f05780c:
-/*  f05780c:	27190007 */ 	addiu	$t9,$t8,0x7
-/*  f057810:	ae390438 */ 	sw	$t9,0x438($s1)
-.L0f057814:
-/*  f057814:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f057818:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f05781c:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f057820:	27bd00a0 */ 	addiu	$sp,$sp,0xa0
-/*  f057824:	03e00008 */ 	jr	$ra
-/*  f057828:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiChrMoveToPad(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
+	bool pass = false;
+	f32 somefloat;
+	struct pad pad;
+	s16 rooms[2];
+	struct chrdata *chr2;
+
+	if (chr && chr->prop) {
+		if (cmd[5] == 88) {
+			chr2 = chrFindById(g_Vars.chrdata, cmd[4]);
+			pass = false;
+
+			if (chr2 && chr2->prop) {
+				somefloat = func0f03e45c(chr2);
+				pass = func0f04b748(chr, &chr2->prop->pos, &chr2->prop->rooms[0], somefloat, 0);
+			}
+		} else {
+			s32 padnum = cmd[4] | (cmd[3] << 8);
+			padnum = chrResolvePadId(chr, padnum);
+
+			if (padnum >= 0) {
+				padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_ROOM, &pad);
+				somefloat = func0f096750(pad.look.x, pad.look.z);
+
+				rooms[0] = pad.room;
+				rooms[1] = -1;
+				pass = func0f04b748(chr, &pad.pos, &rooms[0], somefloat, cmd[5]);
+			}
+		}
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
+	} else {
+		g_Vars.aioffset += 7;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00e3
