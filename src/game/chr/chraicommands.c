@@ -7992,17 +7992,17 @@ glabel aiRemoveObjectAtPropPreset
 /**
  * @cmd 0105
  */
-bool ai0105(void)
+bool aiIfPropPresetHeightLessThan(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct prop *prop = &g_Vars.props[g_Vars.chrdata->proppreset1];
 	f32 value = cmd[3] | (cmd[2] << 8);
-	f32 sp32;
-	f32 sp28;
-	f32 sp24;
-	func0f066204(prop, &sp24, &sp32, &sp28);
+	f32 ymax;
+	f32 ymin;
+	f32 width;
+	propGetBbox(prop, &width, &ymax, &ymin);
 
-	if (sp32 - sp28 < value) {
+	if (ymax - ymin < value) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;

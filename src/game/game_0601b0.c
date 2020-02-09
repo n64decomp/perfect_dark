@@ -7000,49 +7000,20 @@ glabel func0f066054
 /*  f066200:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f066204
-/*  f066204:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f066208:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f06620c:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f066210:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f066214:	54410006 */ 	bnel	$v0,$at,.L0f066230
-/*  f066218:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f06621c:	0fc0a277 */ 	jal	func0f0289dc
-/*  f066220:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f066224:	10000017 */ 	beqz	$zero,.L0f066284
-/*  f066228:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06622c:	24010006 */ 	addiu	$at,$zero,0x6
-.L0f066230:
-/*  f066230:	54410006 */ 	bnel	$v0,$at,.L0f06624c
-/*  f066234:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f066238:	0fc3082e */ 	jal	func0f0c20b8
-/*  f06623c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f066240:	10000010 */ 	beqz	$zero,.L0f066284
-/*  f066244:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f066248:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f06624c:
-/*  f06624c:	10410003 */ 	beq	$v0,$at,.L0f06625c
-/*  f066250:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f066254:	54410006 */ 	bnel	$v0,$at,.L0f066270
-/*  f066258:	44800000 */ 	mtc1	$zero,$f0
-.L0f06625c:
-/*  f06625c:	0fc21d5b */ 	jal	func0f08756c
-/*  f066260:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f066264:	10000007 */ 	beqz	$zero,.L0f066284
-/*  f066268:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f06626c:	44800000 */ 	mtc1	$zero,$f0
-.L0f066270:
-/*  f066270:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f066274:	e4a00000 */ 	swc1	$f0,0x0($a1)
-/*  f066278:	e4e00000 */ 	swc1	$f0,0x0($a3)
-/*  f06627c:	e4c00000 */ 	swc1	$f0,0x0($a2)
-/*  f066280:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f066284:
-/*  f066284:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f066288:	03e00008 */ 	jr	$ra
-/*  f06628c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void propGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
+{
+	if (prop->type == PROPTYPE_CHR) {
+		propChrGetBbox(prop, width, ymax, ymin);
+	} else if (prop->type == PROPTYPE_PLAYER) {
+		propPlayerGetBbox(prop, width, ymax, ymin);
+	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR) {
+		propObjGetBbox(prop, width, ymax, ymin);
+	} else {
+		*width = 0;
+		*ymin = 0;
+		*ymax = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f066290

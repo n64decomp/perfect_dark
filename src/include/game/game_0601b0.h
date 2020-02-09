@@ -55,7 +55,7 @@ u32 func0f065e74(void);
 u32 func0f065e98(void);
 u32 func0f065f80(void);
 u32 func0f066054(void);
-void func0f066204(struct prop *prop, f32 *arg1, f32 *arg2, f32 *arg3);
+void propGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 u32 func0f066290(void);
 
 #endif

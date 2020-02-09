@@ -261,7 +261,7 @@
 /*0x0102*/ bool aiSetLights(void);
 /*0x0103*/ bool ai0103(void);
 /*0x0104*/ bool aiRemoveObjectAtPropPreset(void);
-/*0x0105*/ bool ai0105(void);
+/*0x0105*/ bool aiIfPropPresetHeightLessThan(void);
 /*0x0106*/ bool aiSetTarget(void);
 /*0x0107*/ bool aiIfPresetsTargetIsNotMyTarget(void);
 /*0x0108*/ bool aiIfChrTarget(void);

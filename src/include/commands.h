@@ -2210,9 +2210,16 @@
 #define remove_object_at_proppreset \
 	mkshort(0x0104),
 
-#define cmd0105(u1, label) \
+/**
+ * Checks if the height (bounding box height, not Y value) of the current chr's
+ * proppreset is less than the given value.
+ *
+ * If the prop is invalid, the computed height will be zero which causes the
+ * check to pass.
+ */
+#define if_proppreset_height_lt(height, label) \
 	mkshort(0x0105), \
-	mkshort(u1), \
+	mkshort(height), \
 	label,
 
 /**

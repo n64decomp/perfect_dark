@@ -17398,7 +17398,7 @@ glabel func0f0c1ff4
 );
 
 GLOBAL_ASM(
-glabel func0f0c20b8
+glabel propPlayerGetBbox
 /*  f0c20b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0c20bc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0c20c0:	afa5001c */ 	sw	$a1,0x1c($sp)
