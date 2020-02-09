@@ -2996,142 +2996,42 @@ bool aiIfObjectHealthy(void)
 /**
  * @cmd 0063
  */
-GLOBAL_ASM(
-glabel aiIfChrActivatedObject
-/*  f051988:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f05198c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f051990:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f051994:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f051998:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f05199c:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f0519a0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0519a4:	01cf4021 */ 	addu	$t0,$t6,$t7
-/*  f0519a8:	91040003 */ 	lbu	$a0,0x3($t0)
-/*  f0519ac:	0fc2556c */ 	jal	objFindByTagId
-/*  f0519b0:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*  f0519b4:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f0519b8:	00403025 */ 	or	$a2,$v0,$zero
-/*  f0519bc:	1040003a */ 	beqz	$v0,.L0f051aa8
-/*  f0519c0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0519c4:	8c580014 */ 	lw	$t8,0x14($v0)
-/*  f0519c8:	13000037 */ 	beqz	$t8,.L0f051aa8
-/*  f0519cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0519d0:	91050002 */ 	lbu	$a1,0x2($t0)
-/*  f0519d4:	240100f3 */ 	addiu	$at,$zero,0xf3
-/*  f0519d8:	54a1000d */ 	bnel	$a1,$at,.L0f051a10
-/*  f0519dc:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f0519e0:	8c430040 */ 	lw	$v1,0x40($v0)
-/*  f0519e4:	3c010004 */ 	lui	$at,0x4
-/*  f0519e8:	34214000 */ 	ori	$at,$at,0x4000
-/*  f0519ec:	0061c824 */ 	and	$t9,$v1,$at
-/*  f0519f0:	1320002d */ 	beqz	$t9,.L0f051aa8
-/*  f0519f4:	3c01fffb */ 	lui	$at,0xfffb
-/*  f0519f8:	3421bfff */ 	ori	$at,$at,0xbfff
-/*  f0519fc:	00614824 */ 	and	$t1,$v1,$at
-/*  f051a00:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f051a04:	10000028 */ 	beqz	$zero,.L0f051aa8
-/*  f051a08:	ac490040 */ 	sw	$t1,0x40($v0)
-/*  f051a0c:	8e040424 */ 	lw	$a0,0x424($s0)
-.L0f051a10:
-/*  f051a10:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f051a14:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f051a18:	0fc126d1 */ 	jal	chrFindById
-/*  f051a1c:	afa8002c */ 	sw	$t0,0x2c($sp)
-/*  f051a20:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f051a24:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f051a28:	1040001f */ 	beqz	$v0,.L0f051aa8
-/*  f051a2c:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f051a30:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f051a34:	1080001c */ 	beqz	$a0,.L0f051aa8
-/*  f051a38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051a3c:	8e0a02a0 */ 	lw	$t2,0x2a0($s0)
-/*  f051a40:	8d4b00bc */ 	lw	$t3,0xbc($t2)
-/*  f051a44:	5564000a */ 	bnel	$t3,$a0,.L0f051a70
-/*  f051a48:	8e0e0298 */ 	lw	$t6,0x298($s0)
-/*  f051a4c:	8cc30040 */ 	lw	$v1,0x40($a2)
-/*  f051a50:	2401bfff */ 	addiu	$at,$zero,-16385
-/*  f051a54:	306c4000 */ 	andi	$t4,$v1,0x4000
-/*  f051a58:	11800004 */ 	beqz	$t4,.L0f051a6c
-/*  f051a5c:	00616824 */ 	and	$t5,$v1,$at
-/*  f051a60:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f051a64:	10000010 */ 	beqz	$zero,.L0f051aa8
-/*  f051a68:	accd0040 */ 	sw	$t5,0x40($a2)
-.L0f051a6c:
-/*  f051a6c:	8e0e0298 */ 	lw	$t6,0x298($s0)
-.L0f051a70:
-/*  f051a70:	05c0000d */ 	bltz	$t6,.L0f051aa8
-/*  f051a74:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051a78:	8e0f02a4 */ 	lw	$t7,0x2a4($s0)
-/*  f051a7c:	8df800bc */ 	lw	$t8,0xbc($t7)
-/*  f051a80:	17040009 */ 	bne	$t8,$a0,.L0f051aa8
-/*  f051a84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f051a88:	8cc30040 */ 	lw	$v1,0x40($a2)
-/*  f051a8c:	3c01fffb */ 	lui	$at,0xfffb
-/*  f051a90:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f051a94:	0003cb40 */ 	sll	$t9,$v1,0xd
-/*  f051a98:	07210003 */ 	bgez	$t9,.L0f051aa8
-/*  f051a9c:	00614824 */ 	and	$t1,$v1,$at
-/*  f051aa0:	24070001 */ 	addiu	$a3,$zero,0x1
-/*  f051aa4:	acc90040 */ 	sw	$t1,0x40($a2)
-.L0f051aa8:
-/*  f051aa8:	50e00008 */ 	beqzl	$a3,.L0f051acc
-/*  f051aac:	8e0a0438 */ 	lw	$t2,0x438($s0)
-/*  f051ab0:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f051ab4:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f051ab8:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f051abc:	91060004 */ 	lbu	$a2,0x4($t0)
-/*  f051ac0:	10000004 */ 	beqz	$zero,.L0f051ad4
-/*  f051ac4:	ae020438 */ 	sw	$v0,0x438($s0)
-/*  f051ac8:	8e0a0438 */ 	lw	$t2,0x438($s0)
-.L0f051acc:
-/*  f051acc:	254b0005 */ 	addiu	$t3,$t2,0x5
-/*  f051ad0:	ae0b0438 */ 	sw	$t3,0x438($s0)
-.L0f051ad4:
-/*  f051ad4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f051ad8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f051adc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f051ae0:	03e00008 */ 	jr	$ra
-/*  f051ae4:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfChrActivatedObject(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[3]);
+	u32 stack[1];
+	bool pass = false;
 
-// Mismatch because it saves pass to the stack before calling chrFindById.
-// Probably have to decompile chrFindById before this function can match.
-//bool aiIfChrActivatedObject(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct defaultobj *obj = objFindByTagId(cmd[3]);
-//	bool pass = false;
-//
-//	if (obj && obj->prop) {
-//		if (cmd[2] == CHR_ANY) {
-//			if (obj->hidden & (OBJHFLAG_ACTIVATED_BY_BOND | OBJHFLAG_ACTIVATED_BY_COOP)) {
-//				pass = true;
-//				obj->hidden &= ~(OBJHFLAG_ACTIVATED_BY_BOND | OBJHFLAG_ACTIVATED_BY_COOP);
-//			}
-//		} else {
-//			struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-//			pass = false;
-//
-//			if (chr && chr->prop) {
-//				if (chr->prop == g_Vars.bond->prop && (obj->hidden & OBJHFLAG_ACTIVATED_BY_BOND)) {
-//					pass = true;
-//					obj->hidden &= ~OBJHFLAG_ACTIVATED_BY_BOND;
-//				} else if (g_Vars.coopplayernum >= 0 && chr->prop == g_Vars.coop->prop && (obj->hidden & OBJHFLAG_ACTIVATED_BY_COOP)) {
-//					pass = true;
-//					obj->hidden &= ~OBJHFLAG_ACTIVATED_BY_COOP;
-//				}
-//			}
-//		}
-//	}
-//
-//	if (pass) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
-//	} else {
-//		g_Vars.aioffset += 5;
-//	}
-//
-//	return false;
-//}
+	if (obj && obj->prop) {
+		if (cmd[2] == CHR_ANY) {
+			if (obj->hidden & (OBJHFLAG_ACTIVATED_BY_BOND | OBJHFLAG_ACTIVATED_BY_COOP)) {
+				pass = true;
+				obj->hidden &= ~(OBJHFLAG_ACTIVATED_BY_BOND | OBJHFLAG_ACTIVATED_BY_COOP);
+			}
+		} else {
+			struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+			if (chr && chr->prop) {
+				if (chr->prop == g_Vars.bond->prop && (obj->hidden & OBJHFLAG_ACTIVATED_BY_BOND)) {
+					pass = true;
+					obj->hidden &= ~OBJHFLAG_ACTIVATED_BY_BOND;
+				} else if (g_Vars.coopplayernum >= 0 && chr->prop == g_Vars.coop->prop && (obj->hidden & OBJHFLAG_ACTIVATED_BY_COOP)) {
+					pass = true;
+					obj->hidden &= ~OBJHFLAG_ACTIVATED_BY_COOP;
+				}
+			}
+		}
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0065
