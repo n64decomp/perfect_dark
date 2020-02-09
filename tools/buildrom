@@ -98,7 +98,7 @@ def write_files(fd):
     start = getlinkervariable('_filesSegmentRomStart')
     end = getlinkervariable('_filesSegmentRomEnd')
 
-    write_binary(fd, 0xed83a0, getfromstage1rom(start, end - start))
+    write_binary(fd, 0xed83a0, getfromldbin(start, end - start))
 
 def get_filenames():
     return getfilecontents('build/ntsc-final/ucode/filenames.bin')
@@ -119,8 +119,8 @@ def getfrombaserom(offset, len):
     fd.close()
     return binary
 
-def getfromstage1rom(offset, len):
-    fd = open('build/ntsc-final/stage1.bin', 'rb')
+def getfromldbin(offset, len):
+    fd = open('build/ntsc-final/pd.bin', 'rb')
     fd.seek(offset)
     binary = fd.read(len)
     fd.close()
@@ -135,7 +135,7 @@ def getlinkervariable(varname):
     else:
         cmd = 'mips64-elf-objdump'
 
-    objdump = subprocess.check_output([cmd, 'build/ntsc-final/stage1.elf', '-t']).decode('utf-8')
+    objdump = subprocess.check_output([cmd, 'build/ntsc-final/pd.elf', '-t']).decode('utf-8')
 
     matches = re.findall(r'^([0-9a-f]+) .*? %s$' % varname, objdump, re.MULTILINE)
     return int(matches[0], 16)

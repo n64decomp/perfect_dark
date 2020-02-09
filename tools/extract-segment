@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Extracts a segment from the stage1 binary which has been built from source.
+# Extracts a segment from the binary that was produced by ld.
 
 segment=$1
 
-pos=$(grep "^\.$segment " $B_DIR/stage1.map | awk '{print $6}')
-len=$(grep "^\.$segment " $B_DIR/stage1.map | awk '{print $3}')
+pos=$(grep "^\.$segment " $B_DIR/pd.map | awk '{print $6}')
+len=$(grep "^\.$segment " $B_DIR/pd.map | awk '{print $3}')
 
-dd if=$B_DIR/stage1.bin of=$B_DIR/ucode/$segment.bin skip=$(($pos)) iflag=skip_bytes bs=$(($len)) count=1
+dd if=$B_DIR/pd.bin of=$B_DIR/ucode/$segment.bin skip=$(($pos)) iflag=skip_bytes bs=$(($len)) count=1 status=none
 

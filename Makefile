@@ -106,7 +106,7 @@ default: all
 # Audio files
 
 $(B_DIR)/files/A%M: $(E_DIR)/files/A%M
-	mkdir -p $(B_DIR)/files
+	@mkdir -p $(B_DIR)/files
 	cp $< $@
 
 audio: $(ASSET_AUDIO_FILES)
@@ -115,7 +115,7 @@ audio: $(ASSET_AUDIO_FILES)
 # BG seg files
 
 $(B_DIR)/files/bgdata/bg_%.seg: $(E_DIR)/files/bgdata/bg_%.seg
-	mkdir -p $(B_DIR)/files/bgdata
+	@mkdir -p $(B_DIR)/files/bgdata
 	cp $< $@
 
 bgsegs: $(ASSET_BG_SEG_FILES)
@@ -124,7 +124,7 @@ bgsegs: $(ASSET_BG_SEG_FILES)
 # BG pad files
 
 $(B_DIR)/files/bgdata/bg_%_padsZ: $(E_DIR)/files/bgdata/bg_%_padsZ
-	mkdir -p $(B_DIR)/files/bgdata
+	@mkdir -p $(B_DIR)/files/bgdata
 	cp $< $@
 
 pads: $(ASSET_BG_PADS_FILES)
@@ -136,7 +136,7 @@ src/files/bgdata/bg_%_tiles.o: src/files/bgdata/bg_%_tiles.s
 	$(TOOLCHAIN)-as -march=vr4300 -mabi=32 -I src/include -EB -o $@ $<
 
 $(B_DIR)/files/bgdata/bg_%_tiles.elf: src/files/bgdata/bg_%_tiles.o
-	mkdir -p $(B_DIR)/files/bgdata
+	@mkdir -p $(B_DIR)/files/bgdata
 	cp $< build/zero.tmp.o
 	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
 	rm -f build/zero.tmp.o
@@ -147,7 +147,7 @@ tiles: $(ASSET_BG_TILES_FILES)
 # Chr files
 
 $(B_DIR)/files/C%Z: $(E_DIR)/files/C%Z
-	mkdir -p $(B_DIR)/files
+	@mkdir -p $(B_DIR)/files
 	cp $< $@
 
 chrs: $(ASSET_CHR_FILES)
@@ -156,7 +156,7 @@ chrs: $(ASSET_CHR_FILES)
 # Gun files
 
 $(B_DIR)/files/G%Z: $(E_DIR)/files/G%Z
-	mkdir -p $(B_DIR)/files
+	@mkdir -p $(B_DIR)/files
 	cp $< $@
 
 guns: $(ASSET_GUN_FILES)
@@ -165,7 +165,7 @@ guns: $(ASSET_GUN_FILES)
 # Lang files
 
 $(B_DIR)/files/L%.elf: src/files/lang/%.o
-	mkdir -p $(B_DIR)/files/lang
+	@mkdir -p $(B_DIR)/files/lang
 	cp $< build/zero.tmp.o
 	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
 	rm -f build/zero.tmp.o
@@ -185,7 +185,7 @@ lang: $(ASSET_LANG_FILES)
 # OB seg files
 
 $(B_DIR)/files/ob/ob_mid.seg:
-	mkdir -p $(B_DIR)/files/ob
+	@mkdir -p $(B_DIR)/files/ob
 	> $@
 
 obseg: $(ASSET_OB_SEG_FILES)
@@ -194,7 +194,7 @@ obseg: $(ASSET_OB_SEG_FILES)
 # Prop files
 
 $(B_DIR)/files/P%Z: $(E_DIR)/files/P%Z
-	mkdir -p $(B_DIR)/files
+	@mkdir -p $(B_DIR)/files
 	cp $< $@
 
 props: $(ASSET_PROP_FILES)
@@ -203,7 +203,7 @@ props: $(ASSET_PROP_FILES)
 # Stage setup files
 
 $(B_DIR)/files/U%.elf: src/files/setup/%.o
-	mkdir -p $(B_DIR)/files/setup
+	@mkdir -p $(B_DIR)/files/setup
 	cp $< build/zero.tmp.o
 	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
 	rm -f build/zero.tmp.o
@@ -213,8 +213,8 @@ stagesetup: $(ASSET_SPSETUP_FILES) $(ASSET_MPSETUP_FILES)
 ################################################################################
 # Boot
 
-$(B_DIR)/ucode/boot.bin: $(B_DIR)/stage1.bin
-	mkdir -p $(B_DIR)/ucode
+$(B_DIR)/ucode/boot.bin: $(B_DIR)/pd.bin
+	@mkdir -p $(B_DIR)/ucode
 	B_DIR=$(B_DIR) tools/extract-segment boot
 
 boot: $(B_DIR)/ucode/boot.bin
@@ -222,8 +222,8 @@ boot: $(B_DIR)/ucode/boot.bin
 ################################################################################
 # Library
 
-$(B_DIR)/ucode/library.bin: $(B_DIR)/stage1.bin
-	mkdir -p $(B_DIR)/ucode
+$(B_DIR)/ucode/library.bin: $(B_DIR)/pd.bin
+	@mkdir -p $(B_DIR)/ucode
 	B_DIR=$(B_DIR) tools/extract-segment library
 
 library: $(B_DIR)/ucode/library.bin
@@ -231,8 +231,8 @@ library: $(B_DIR)/ucode/library.bin
 ################################################################################
 # Game data file
 
-$(B_DIR)/ucode/gamedata.bin: $(B_DIR)/stage1.bin
-	mkdir -p $(B_DIR)/ucode
+$(B_DIR)/ucode/gamedata.bin: $(B_DIR)/pd.bin
+	@mkdir -p $(B_DIR)/ucode
 	B_DIR=$(B_DIR) tools/extract-segment gamedata
 
 setup: $(B_DIR)/ucode/gamedata.bin
@@ -240,8 +240,8 @@ setup: $(B_DIR)/ucode/gamedata.bin
 ################################################################################
 # Inflate
 
-$(B_DIR)/ucode/inflate.bin: $(B_DIR)/stage1.bin
-	mkdir -p $(B_DIR)/ucode
+$(B_DIR)/ucode/inflate.bin: $(B_DIR)/pd.bin
+	@mkdir -p $(B_DIR)/ucode
 	B_DIR=$(B_DIR) tools/extract-segment inflate
 
 inflate: $(B_DIR)/ucode/inflate.bin
@@ -249,8 +249,8 @@ inflate: $(B_DIR)/ucode/inflate.bin
 ################################################################################
 # Main game
 
-$(B_DIR)/ucode/game.bin: $(B_DIR)/stage1.bin
-	mkdir -p $(B_DIR)/ucode
+$(B_DIR)/ucode/game.bin: $(B_DIR)/pd.bin
+	@mkdir -p $(B_DIR)/ucode
 	B_DIR=$(B_DIR) tools/extract-segment game
 
 game: $(B_DIR)/ucode/game.bin
@@ -258,8 +258,8 @@ game: $(B_DIR)/ucode/game.bin
 ################################################################################
 # gVars
 
-$(B_DIR)/ucode/gvars.bin: $(B_DIR)/stage1.bin
-	mkdir -p $(B_DIR)/ucode
+$(B_DIR)/ucode/gvars.bin: $(B_DIR)/pd.bin
+	@mkdir -p $(B_DIR)/ucode
 	B_DIR=$(B_DIR) tools/extract-segment gvars
 
 gvars: $(B_DIR)/ucode/gvars.bin
@@ -292,7 +292,7 @@ $(B_DIR)/files/%Z: $(B_DIR)/files/%.bin
 	tools/rarezip $< > $@
 
 $(B_DIR)/ucode/filenames.elf: src/filenames.o
-	mkdir -p $(B_DIR)/ucode
+	@mkdir -p $(B_DIR)/ucode
 	cp $< build/zero.tmp.o
 	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
 	rm -f build/zero.tmp.o
@@ -300,12 +300,12 @@ $(B_DIR)/ucode/filenames.elf: src/filenames.o
 $(B_DIR)/ucode/filenames.bin: $(B_DIR)/ucode/filenames.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
-$(B_DIR)/stage1.elf: $(O_FILES) $(ASSET_O_FILES) ld/stage1.ld
-	cpp -P ld/stage1.ld -o $(B_DIR)/stage1.ld
-	$(TOOLCHAIN)-ld -T $(B_DIR)/stage1.ld --print-map -o $@ > $(B_DIR)/stage1.map
+$(B_DIR)/pd.elf: $(O_FILES) $(ASSET_O_FILES) ld/pd.ld
+	cpp -P ld/pd.ld -o $(B_DIR)/pd.ld
+	$(TOOLCHAIN)-ld -T $(B_DIR)/pd.ld --print-map -o $@ > $(B_DIR)/pd.map
 
-$(B_DIR)/stage1.bin: $(B_DIR)/stage1.elf
-	mkdir -p $(B_DIR)/ucode
+$(B_DIR)/pd.bin: $(B_DIR)/pd.elf
+	@mkdir -p $(B_DIR)/ucode
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
 all: $(UCODE_BIN_FILES) $(ASSET_O_FILES)
