@@ -330,7 +330,7 @@
 /*0x0149*/ bool aiIfChrListening(void);
 /*0x014a*/ bool aiIfTrue(void);
 /*0x014b*/ bool aiIfNotListening(void);
-/*0x0152*/ bool ai0152(void);
+/*0x0152*/ bool aiIfNumChrsInSquadronGreaterThan(void);
 /*0x0157*/ bool aiSetTintedGlassEnabled(void);
 /*0x015b*/ bool aiAudioPlayMusic(void);
 /*0x015c*/ bool aiAudioRestartMusic(void);

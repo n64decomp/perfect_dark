@@ -6557,7 +6557,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x014f*/ NULL,
 	/*0x0150*/ NULL,
 	/*0x0151*/ NULL,
-	/*0x0152*/ ai0152,
+	/*0x0152*/ aiIfNumChrsInSquadronGreaterThan,
 	/*0x0153*/ NULL,
 	/*0x0154*/ NULL,
 	/*0x0155*/ NULL,
