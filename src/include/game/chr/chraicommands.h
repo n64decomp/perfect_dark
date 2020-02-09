@@ -216,7 +216,7 @@
 /*0x00d3*/ bool aiAudioMuteChannel(void);
 /*0x00d4*/ bool ai00d4(void);
 /*0x00d5*/ bool ai00d5(void);
-/*0x00d6*/ bool ai00d6(void);
+/*0x00d6*/ bool aiSetVehicleSpeed(void);
 /*0x00d7*/ bool ai00d7(void);
 /*0x00d8*/ bool aiNoOp00d8(void);
 /*0x00d9*/ bool aiNoOp00d9(void);

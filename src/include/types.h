@@ -828,6 +828,11 @@ struct truckobj {
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
 	/*0x62*/ s16 aireturnlist;
+	/*0x64*/ u32 unk64;
+	/*0x68*/ u32 unk68;
+	/*0x6c*/ u32 unk6c;
+	/*0x70*/ f32 speedaim;
+	/*0x74*/ f32 speedtime60;
 };
 
 struct heliobj {
@@ -864,8 +869,8 @@ struct chopperobj {
 	/*0x60*/ u16 aioffset;
 	/*0x62*/ s16 aireturnlist;
 	/*0x64*/ u32 speed;
-	/*0x68*/ u32 speedaim;
-	/*0x6c*/ u32 speedtime60;
+	/*0x68*/ f32 speedaim;
+	/*0x6c*/ f32 speedtime60;
 	/*0x70*/ u32 turnyspeed60;
 	/*0x74*/ u32 turnxspeed60;
 	/*0x78*/ u32 turnrot60;

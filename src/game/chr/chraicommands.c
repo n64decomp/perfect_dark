@@ -6646,50 +6646,26 @@ glabel ai00d5
 /**
  * @cmd 00d6
  */
-GLOBAL_ASM(
-glabel ai00d6
-/*  f056a4c:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f056a50:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f056a54:	8c8e0434 */ 	lw	$t6,0x434($a0)
-/*  f056a58:	8c8f0438 */ 	lw	$t7,0x438($a0)
-/*  f056a5c:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f056a60:	44815000 */ 	mtc1	$at,$f10
-/*  f056a64:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f056a68:	904a0002 */ 	lbu	$t2,0x2($v0)
-/*  f056a6c:	904c0003 */ 	lbu	$t4,0x3($v0)
-/*  f056a70:	90580004 */ 	lbu	$t8,0x4($v0)
-/*  f056a74:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*  f056a78:	016c6825 */ 	or	$t5,$t3,$t4
-/*  f056a7c:	448d3000 */ 	mtc1	$t5,$f6
-/*  f056a80:	90480005 */ 	lbu	$t0,0x5($v0)
-/*  f056a84:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f056a88:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f056a8c:	8c830428 */ 	lw	$v1,0x428($a0)
-/*  f056a90:	3c014670 */ 	lui	$at,0x4670
-/*  f056a94:	03284825 */ 	or	$t1,$t9,$t0
-/*  f056a98:	44892000 */ 	mtc1	$t1,$f4
-/*  f056a9c:	44819000 */ 	mtc1	$at,$f18
-/*  f056aa0:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f056aa4:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f056aa8:	10600004 */ 	beqz	$v1,.L0f056abc
-/*  f056aac:	46128083 */ 	div.s	$f2,$f16,$f18
-/*  f056ab0:	e4620070 */ 	swc1	$f2,0x70($v1)
-/*  f056ab4:	8c8e0428 */ 	lw	$t6,0x428($a0)
-/*  f056ab8:	e5c00074 */ 	swc1	$f0,0x74($t6)
-.L0f056abc:
-/*  f056abc:	8c820430 */ 	lw	$v0,0x430($a0)
-/*  f056ac0:	50400005 */ 	beqzl	$v0,.L0f056ad8
-/*  f056ac4:	8c980438 */ 	lw	$t8,0x438($a0)
-/*  f056ac8:	e4420068 */ 	swc1	$f2,0x68($v0)
-/*  f056acc:	8c8f0430 */ 	lw	$t7,0x430($a0)
-/*  f056ad0:	e5e0006c */ 	swc1	$f0,0x6c($t7)
-/*  f056ad4:	8c980438 */ 	lw	$t8,0x438($a0)
-.L0f056ad8:
-/*  f056ad8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f056adc:	27190006 */ 	addiu	$t9,$t8,0x6
-/*  f056ae0:	03e00008 */ 	jr	$ra
-/*  f056ae4:	ac990438 */ 	sw	$t9,0x438($a0)
-);
+bool aiSetVehicleSpeed(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	f32 speedtime = cmd[5] | (cmd[4] << 8);
+	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * 100.0f / 15360.0f;
+
+	if (g_Vars.truck) {
+		g_Vars.truck->speedaim = speedaim;
+		g_Vars.truck->speedtime60 = speedtime;
+	}
+
+	if (g_Vars.hovercar) {
+		g_Vars.hovercar->speedaim = speedaim;
+		g_Vars.hovercar->speedtime60 = speedtime;
+	}
+
+	g_Vars.aioffset += 6;
+
+	return false;
+}
 
 /**
  * @cmd 00d7
@@ -10661,7 +10637,7 @@ glabel aiIfChrInSquadronDoingAction
 /*  f05b550:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-// Mismatches due to prop of rodata. This function uses literal 3500, while
+// Mismatches due to position of rodata. This function uses literal 3500, while
 // others below in this file use const f32 arrays, but const f32 arrays are
 // placed in .rodata before all literals.
 //bool aiIfChrInSquadronDoingAction(void)
