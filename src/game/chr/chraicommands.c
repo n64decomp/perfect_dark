@@ -7173,11 +7173,10 @@ bool aiChrMoveToPad(void)
 	if (chr && chr->prop) {
 		if (cmd[5] == 88) {
 			chr2 = chrFindById(g_Vars.chrdata, cmd[4]);
-			pass = false;
 
 			if (chr2 && chr2->prop) {
 				somefloat = func0f03e45c(chr2);
-				pass = func0f04b748(chr, &chr2->prop->pos, &chr2->prop->rooms[0], somefloat, 0);
+				pass = chrMoveToPos(chr, &chr2->prop->pos, &chr2->prop->rooms[0], somefloat, 0);
 			}
 		} else {
 			s32 padnum = cmd[4] | (cmd[3] << 8);
@@ -7189,7 +7188,7 @@ bool aiChrMoveToPad(void)
 
 				rooms[0] = pad.room;
 				rooms[1] = -1;
-				pass = func0f04b748(chr, &pad.pos, &rooms[0], somefloat, cmd[5]);
+				pass = chrMoveToPos(chr, &pad.pos, &rooms[0], somefloat, cmd[5]);
 			}
 		}
 	}

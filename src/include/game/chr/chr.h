@@ -389,7 +389,7 @@ bool chrSpawnAtCoord(s32 body, s32 head, struct coord *pos, s16 *room, f32 arg4,
 bool chrSpawnAtPad(struct chrdata *chr, s32 body, s32 head, s32 pad, u8 *ailist, u32 flags);
 bool chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 flags);
 u32 func0f04b658(struct chrdata *chr);
-s32 func0f04b748(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, s32 arg4);
+bool chrMoveToPos(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, u32 allowonscreen);
 u32 func0f04b950(struct chrdata *chr, u32 cover, u32 arg2);
 u32 func0f04ba34(struct chrdata *chr, u16 arg1, u32 arg2);
 u32 func0f04bffc(struct chrdata *chr, u32 arg1, u32 arg2);

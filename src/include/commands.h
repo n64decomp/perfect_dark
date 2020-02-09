@@ -1975,19 +1975,26 @@
 
 /**
  * Attempt to move the chr to the given pad. The chr is moved immediately.
+ * If successful, the label will be followed.
  *
- * For an immersive gameplay experience, do not do this while the chr is on
- * screen.
+ * If the pad is occupied then a reasonable attempt will be made to place the
+ * chr near it. This attempt may fail if the pad is occupied by several chrs.
  *
- * If 88 is passed as the unknown argument then the pad number will be
- * interpreted as a chr number and the chr will be moved to the other chr
- * instead. This is likely a temporary hack used for debug purposes.
+ * If allowonscreen is FALSE, the chr will not be moved if the pad is on screen.
+ *
+ * If allowonscreen is TRUE, the chr will be moved even if the pad is on screen.
+ * This may cause them to appear out of nowhere.
+ *
+ * If allowonscreen is 88 then the pad number will be interpreted as a chr
+ * number and the chr will be moved to the other chr instead. This is likely a
+ * hack used for debugging purposes. When using this value, the chr will not be
+ * moved if the destination chr is on screen.
  */
-#define chr_move_to_pad(chr, pad, unknown, label) \
+#define chr_move_to_pad(chr, pad, allowonscreen, label) \
 	mkshort(0x00e2), \
 	chr, \
 	mkshort(pad), \
-	unknown, \
+	allowonscreen, \
 	label,
 
 #define cmd00e3(chr) \

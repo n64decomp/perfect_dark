@@ -50500,7 +50500,7 @@ glabel func0f04b658
 );
 
 GLOBAL_ASM(
-glabel func0f04b748
+glabel chrMoveToPos
 /*  f04b748:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f04b74c:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f04b750:	afb00030 */ 	sw	$s0,0x30($sp)
