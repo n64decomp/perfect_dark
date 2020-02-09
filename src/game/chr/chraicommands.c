@@ -3,6 +3,7 @@
 #include "gvars/gvars.h"
 #include "game/chr/chr.h"
 #include "game/game_000920.h"
+#include "game/game_0601b0.h"
 #include "game/game_066310.h"
 #include "game/game_096750.h"
 #include "game/game_0b28d0.h"
@@ -7992,64 +7993,24 @@ glabel aiRemoveObjectAtPropPreset
 /**
  * @cmd 0105
  */
-GLOBAL_ASM(
-glabel ai0105
-/*  f058b68:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f058b6c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f058b70:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f058b74:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f058b78:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f058b7c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f058b80:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f058b84:	904a0002 */ 	lbu	$t2,0x2($v0)
-/*  f058b88:	904c0003 */ 	lbu	$t4,0x3($v0)
-/*  f058b8c:	8c780424 */ 	lw	$t8,0x424($v1)
-/*  f058b90:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*  f058b94:	016c6825 */ 	or	$t5,$t3,$t4
-/*  f058b98:	448d2000 */ 	mtc1	$t5,$f4
-/*  f058b9c:	8719012c */ 	lh	$t9,0x12c($t8)
-/*  f058ba0:	8c690338 */ 	lw	$t1,0x338($v1)
-/*  f058ba4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f058ba8:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f058bac:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f058bb0:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f058bb4:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f058bb8:	27a50018 */ 	addiu	$a1,$sp,0x18
-/*  f058bbc:	e7a60024 */ 	swc1	$f6,0x24($sp)
-/*  f058bc0:	27a60020 */ 	addiu	$a2,$sp,0x20
-/*  f058bc4:	27a7001c */ 	addiu	$a3,$sp,0x1c
-/*  f058bc8:	0fc19881 */ 	jal	func0f066204
-/*  f058bcc:	01092021 */ 	addu	$a0,$t0,$t1
-/*  f058bd0:	c7a80020 */ 	lwc1	$f8,0x20($sp)
-/*  f058bd4:	c7aa001c */ 	lwc1	$f10,0x1c($sp)
-/*  f058bd8:	c7b20024 */ 	lwc1	$f18,0x24($sp)
-/*  f058bdc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f058be0:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*  f058be4:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f058be8:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f058bec:	4612803c */ 	c.lt.s	$f16,$f18
-/*  f058bf0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f058bf4:	4502000a */ 	bc1fl	.L0f058c20
-/*  f058bf8:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f058bfc:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f058c00:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f058c04:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f058c08:	90460004 */ 	lbu	$a2,0x4($v0)
-/*  f058c0c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f058c10:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f058c14:	10000004 */ 	beqz	$zero,.L0f058c28
-/*  f058c18:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f058c1c:	8c6e0438 */ 	lw	$t6,0x438($v1)
-.L0f058c20:
-/*  f058c20:	25cf0005 */ 	addiu	$t7,$t6,0x5
-/*  f058c24:	ac6f0438 */ 	sw	$t7,0x438($v1)
-.L0f058c28:
-/*  f058c28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f058c2c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f058c30:	00001025 */ 	or	$v0,$zero,$zero
-/*  f058c34:	03e00008 */ 	jr	$ra
-/*  f058c38:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai0105(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct prop *prop = &g_Vars.props[g_Vars.chrdata->proppreset1];
+	f32 value = cmd[3] | (cmd[2] << 8);
+	f32 sp32;
+	f32 sp28;
+	f32 sp24;
+	func0f066204(prop, &sp24, &sp32, &sp28);
+
+	if (sp32 - sp28 < value) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0106

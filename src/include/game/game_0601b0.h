@@ -24,7 +24,7 @@ u32 func0f061fa8(void);
 u32 func0f062270(void);
 u32 func0f062794(void);
 u32 func0f062b2c(void);
-u32 func0f062b64(void);
+void func0f062b64(struct prop *prop, s32 arg1);
 u32 func0f062cbc(void);
 u32 func0f062dd0(void);
 u32 func0f062e74(void);
@@ -55,7 +55,7 @@ u32 func0f065e74(void);
 u32 func0f065e98(void);
 u32 func0f065f80(void);
 u32 func0f066054(void);
-u32 func0f066204(void);
+void func0f066204(struct prop *prop, f32 *arg1, f32 *arg2, f32 *arg3);
 u32 func0f066290(void);
 
 #endif
