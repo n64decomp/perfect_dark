@@ -2719,14 +2719,14 @@
  * It works by editing the dst object tags to repoint them to the good and alarm
  * terminals.
  */
-#define shuffle_investigation_terminals(dst1, dst2, src1, src2, src3, src4) \
+#define shuffle_investigation_terminals(goodtag, badtag, pc1, pc2, pc3, pc4) \
 	mkshort(0x0141), \
-	dst1, \
-	dst2, \
-	src1, \
-	src2, \
-	src3, \
-	src4, \
+	goodtag, \
+	badtag, \
+	pc1, \
+	pc2, \
+	pc3, \
+	pc4, \
 	0x00,
 
 /**

@@ -10868,243 +10868,82 @@ bool aiIfHoverbotNextStep(void)
 /**
  * @cmd 0141
  */
-GLOBAL_ASM(
-glabel aiShuffleInvestigationTerminals
-/*  f05bac0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f05bac4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f05bac8:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f05bacc:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f05bad0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f05bad4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f05bad8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05badc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f05bae0:	01cf8021 */ 	addu	$s0,$t6,$t7
-/*  f05bae4:	0fc2554a */ 	jal	tagFindById
-/*  f05bae8:	92040002 */ 	lbu	$a0,0x2($s0)
-/*  f05baec:	92040003 */ 	lbu	$a0,0x3($s0)
-/*  f05baf0:	0fc2554a */ 	jal	tagFindById
-/*  f05baf4:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f05baf8:	0c004b70 */ 	jal	random
-/*  f05bafc:	00408825 */ 	or	$s1,$v0,$zero
-/*  f05bb00:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f05bb04:	0041001b */ 	divu	$zero,$v0,$at
-/*  f05bb08:	0000c010 */ 	mfhi	$t8
-/*  f05bb0c:	a3b80037 */ 	sb	$t8,0x37($sp)
-/*  f05bb10:	0c004b70 */ 	jal	random
-/*  f05bb14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05bb18:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f05bb1c:	0041001b */ 	divu	$zero,$v0,$at
-/*  f05bb20:	92080008 */ 	lbu	$t0,0x8($s0)
-/*  f05bb24:	00002810 */ 	mfhi	$a1
-/*  f05bb28:	30b900ff */ 	andi	$t9,$a1,0xff
-/*  f05bb2c:	03202825 */ 	or	$a1,$t9,$zero
-/*  f05bb30:	1500006b */ 	bnez	$t0,.L0f05bce0
-/*  f05bb34:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f05bb38:	93a60037 */ 	lbu	$a2,0x37($sp)
-/*  f05bb3c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f05bb40:	14c0000e */ 	bnez	$a2,.L0f05bb7c
-/*  f05bb44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05bb48:	92040004 */ 	lbu	$a0,0x4($s0)
-/*  f05bb4c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f05bb50:	a3b90036 */ 	sb	$t9,0x36($sp)
-/*  f05bb54:	0fc2554a */ 	jal	tagFindById
-/*  f05bb58:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f05bb5c:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f05bb60:	84490006 */ 	lh	$t1,0x6($v0)
-/*  f05bb64:	93a50036 */ 	lbu	$a1,0x36($sp)
-/*  f05bb68:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f05bb6c:	a4690006 */ 	sh	$t1,0x6($v1)
-/*  f05bb70:	8c4a000c */ 	lw	$t2,0xc($v0)
-/*  f05bb74:	1000002c */ 	beqz	$zero,.L0f05bc28
-/*  f05bb78:	ac6a000c */ 	sw	$t2,0xc($v1)
-.L0f05bb7c:
-/*  f05bb7c:	54c1000f */ 	bnel	$a2,$at,.L0f05bbbc
-/*  f05bb80:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f05bb84:	92040005 */ 	lbu	$a0,0x5($s0)
-/*  f05bb88:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f05bb8c:	a3a50036 */ 	sb	$a1,0x36($sp)
-/*  f05bb90:	0fc2554a */ 	jal	tagFindById
-/*  f05bb94:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f05bb98:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f05bb9c:	844b0006 */ 	lh	$t3,0x6($v0)
-/*  f05bba0:	93a50036 */ 	lbu	$a1,0x36($sp)
-/*  f05bba4:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f05bba8:	a46b0006 */ 	sh	$t3,0x6($v1)
-/*  f05bbac:	8c4c000c */ 	lw	$t4,0xc($v0)
-/*  f05bbb0:	1000001d */ 	beqz	$zero,.L0f05bc28
-/*  f05bbb4:	ac6c000c */ 	sw	$t4,0xc($v1)
-/*  f05bbb8:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f05bbbc:
-/*  f05bbbc:	54c1000f */ 	bnel	$a2,$at,.L0f05bbfc
-/*  f05bbc0:	92040007 */ 	lbu	$a0,0x7($s0)
-/*  f05bbc4:	92040006 */ 	lbu	$a0,0x6($s0)
-/*  f05bbc8:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f05bbcc:	a3a50036 */ 	sb	$a1,0x36($sp)
-/*  f05bbd0:	0fc2554a */ 	jal	tagFindById
-/*  f05bbd4:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f05bbd8:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f05bbdc:	844d0006 */ 	lh	$t5,0x6($v0)
-/*  f05bbe0:	93a50036 */ 	lbu	$a1,0x36($sp)
-/*  f05bbe4:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f05bbe8:	a46d0006 */ 	sh	$t5,0x6($v1)
-/*  f05bbec:	8c4e000c */ 	lw	$t6,0xc($v0)
-/*  f05bbf0:	1000000d */ 	beqz	$zero,.L0f05bc28
-/*  f05bbf4:	ac6e000c */ 	sw	$t6,0xc($v1)
-/*  f05bbf8:	92040007 */ 	lbu	$a0,0x7($s0)
-.L0f05bbfc:
-/*  f05bbfc:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f05bc00:	a3a50036 */ 	sb	$a1,0x36($sp)
-/*  f05bc04:	0fc2554a */ 	jal	tagFindById
-/*  f05bc08:	afa3002c */ 	sw	$v1,0x2c($sp)
-/*  f05bc0c:	8fa3002c */ 	lw	$v1,0x2c($sp)
-/*  f05bc10:	844f0006 */ 	lh	$t7,0x6($v0)
-/*  f05bc14:	93a50036 */ 	lbu	$a1,0x36($sp)
-/*  f05bc18:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f05bc1c:	a46f0006 */ 	sh	$t7,0x6($v1)
-/*  f05bc20:	8c58000c */ 	lw	$t8,0xc($v0)
-/*  f05bc24:	ac78000c */ 	sw	$t8,0xc($v1)
-.L0f05bc28:
-/*  f05bc28:	14c50006 */ 	bne	$a2,$a1,.L0f05bc44
-/*  f05bc2c:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f05bc30:	18400004 */ 	blez	$v0,.L0f05bc44
-/*  f05bc34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05bc38:	24a5ffff */ 	addiu	$a1,$a1,-1
-/*  f05bc3c:	10000006 */ 	beqz	$zero,.L0f05bc58
-/*  f05bc40:	30a200ff */ 	andi	$v0,$a1,0xff
-.L0f05bc44:
-/*  f05bc44:	14c20004 */ 	bne	$a2,$v0,.L0f05bc58
-/*  f05bc48:	28410003 */ 	slti	$at,$v0,0x3
-/*  f05bc4c:	10200002 */ 	beqz	$at,.L0f05bc58
-/*  f05bc50:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f05bc54:	30a200ff */ 	andi	$v0,$a1,0xff
-.L0f05bc58:
-/*  f05bc58:	14400008 */ 	bnez	$v0,.L0f05bc7c
-/*  f05bc5c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f05bc60:	0fc2554a */ 	jal	tagFindById
-/*  f05bc64:	92040004 */ 	lbu	$a0,0x4($s0)
-/*  f05bc68:	84490006 */ 	lh	$t1,0x6($v0)
-/*  f05bc6c:	a6290006 */ 	sh	$t1,0x6($s1)
-/*  f05bc70:	8c4a000c */ 	lw	$t2,0xc($v0)
-/*  f05bc74:	1000001a */ 	beqz	$zero,.L0f05bce0
-/*  f05bc78:	ae2a000c */ 	sw	$t2,0xc($s1)
-.L0f05bc7c:
-/*  f05bc7c:	54410009 */ 	bnel	$v0,$at,.L0f05bca4
-/*  f05bc80:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f05bc84:	0fc2554a */ 	jal	tagFindById
-/*  f05bc88:	92040005 */ 	lbu	$a0,0x5($s0)
-/*  f05bc8c:	844b0006 */ 	lh	$t3,0x6($v0)
-/*  f05bc90:	a62b0006 */ 	sh	$t3,0x6($s1)
-/*  f05bc94:	8c4c000c */ 	lw	$t4,0xc($v0)
-/*  f05bc98:	10000011 */ 	beqz	$zero,.L0f05bce0
-/*  f05bc9c:	ae2c000c */ 	sw	$t4,0xc($s1)
-/*  f05bca0:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f05bca4:
-/*  f05bca4:	14410008 */ 	bne	$v0,$at,.L0f05bcc8
-/*  f05bca8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05bcac:	0fc2554a */ 	jal	tagFindById
-/*  f05bcb0:	92040006 */ 	lbu	$a0,0x6($s0)
-/*  f05bcb4:	844d0006 */ 	lh	$t5,0x6($v0)
-/*  f05bcb8:	a62d0006 */ 	sh	$t5,0x6($s1)
-/*  f05bcbc:	8c4e000c */ 	lw	$t6,0xc($v0)
-/*  f05bcc0:	10000007 */ 	beqz	$zero,.L0f05bce0
-/*  f05bcc4:	ae2e000c */ 	sw	$t6,0xc($s1)
-.L0f05bcc8:
-/*  f05bcc8:	0fc2554a */ 	jal	tagFindById
-/*  f05bccc:	92040007 */ 	lbu	$a0,0x7($s0)
-/*  f05bcd0:	844f0006 */ 	lh	$t7,0x6($v0)
-/*  f05bcd4:	a62f0006 */ 	sh	$t7,0x6($s1)
-/*  f05bcd8:	8c58000c */ 	lw	$t8,0xc($v0)
-/*  f05bcdc:	ae38000c */ 	sw	$t8,0xc($s1)
-.L0f05bce0:
-/*  f05bce0:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05bce4:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05bce8:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f05bcec:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f05bcf0:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f05bcf4:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f05bcf8:	27280009 */ 	addiu	$t0,$t9,0x9
-/*  f05bcfc:	ac680438 */ 	sw	$t0,0x438($v1)
-/*  f05bd00:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f05bd04:	03e00008 */ 	jr	$ra
-/*  f05bd08:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiShuffleInvestigationTerminals(void)
+{
+	// 2 = goodtag
+	// 3 = badtag
+	// 4 = pc1
+	// 5 = pc2
+	// 6 = pc3
+	// 7 = pc4
+	// 8 = always 00
 
-// Mismatch due to stack pointers misaligned
-//bool aiShuffleInvestigationTerminals(void)
-//{
-//	// 2 = dst1
-//	// 3 = dst2
-//	// 4 = src1
-//	// 5 = src2
-//	// 6 = src3
-//	// 7 = src4
-//	// 8 = always 00
-//
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct tag *goodpc = tagFindById(cmd[2]);
-//	struct tag *badpc = tagFindById(cmd[3]);
-//
-//	/**
-//	 * @bug: These should be using modulus 4. Because it's 1 short, the final
-//	 * else conditions are unreachable so only 3 of the 4 terminals can be
-//	 * selected as the destination.
-//	 */
-//	u8 rand1 = random() % 3U;
-//	u8 rand2 = random() % 3U;
-//
-//	if (cmd[8] == 0) {
-//		struct tag *dst;
-//
-//		// Place the good terminal
-//		if (rand1 == 0) {
-//			dst = tagFindById(cmd[4]);
-//			goodpc->unk06 = dst->unk06;
-//			goodpc->obj = dst->obj;
-//		} else if (rand1 == 1) {
-//			dst = tagFindById(cmd[5]);
-//			goodpc->unk06 = dst->unk06;
-//			goodpc->obj = dst->obj;
-//		} else if (rand1 == 2) {
-//			dst = tagFindById(cmd[6]);
-//			goodpc->unk06 = dst->unk06;
-//			goodpc->obj = dst->obj;
-//		} else {
-//			dst = tagFindById(cmd[7]);
-//			goodpc->unk06 = dst->unk06;
-//			goodpc->obj = dst->obj;
-//		}
-//
-//		// Handle both good and alarm terminals having the same destination
-//		if (rand2 == rand1 && rand2 > 0) {
-//			rand2--;
-//		} else if (rand2 == rand1 && rand2 < 3) {
-//			rand2++;
-//		}
-//
-//		// Place the alarm terminal
-//		if (rand2 == 0) {
-//			dst = tagFindById(cmd[4]);
-//			badpc->unk06 = dst->unk06;
-//			badpc->obj = dst->obj;
-//		} else if (rand2 == 1) {
-//			dst = tagFindById(cmd[5]);
-//			badpc->unk06 = dst->unk06;
-//			badpc->obj = dst->obj;
-//		} else if (rand2 == 2) {
-//			dst = tagFindById(cmd[6]);
-//			badpc->unk06 = dst->unk06;
-//			badpc->obj = dst->obj;
-//		} else {
-//			dst = tagFindById(cmd[7]);
-//			badpc->unk06 = dst->unk06;
-//			badpc->obj = dst->obj;
-//		}
-//	}
-//
-//	g_Vars.aioffset += 9;
-//
-//	return false;
-//}
+	u8 rand1;
+	u8 rand2;
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct tag *goodtag = tagFindById(cmd[2]);
+	struct tag *badtag = tagFindById(cmd[3]);
+	struct tag *pc;
+
+	/**
+	 * @bug: These should be using modulus 4. Because it's 1 short, the final
+	 * else conditions are unreachable so only 3 of the 4 terminals can be
+	 * selected as the destination.
+	 */
+	rand1 = random() % 3;
+	rand2 = random() % 3;
+
+	if (cmd[8] == 0) {
+		// Place the good terminal
+		if (rand1 == 0) {
+			pc = tagFindById(cmd[4]);
+			goodtag->unk06 = pc->unk06;
+			goodtag->obj = pc->obj;
+		} else if (rand1 == 1) {
+			pc = tagFindById(cmd[5]);
+			goodtag->unk06 = pc->unk06;
+			goodtag->obj = pc->obj;
+		} else if (rand1 == 2) {
+			pc = tagFindById(cmd[6]);
+			goodtag->unk06 = pc->unk06;
+			goodtag->obj = pc->obj;
+		} else {
+			pc = tagFindById(cmd[7]);
+			goodtag->unk06 = pc->unk06;
+			goodtag->obj = pc->obj;
+		}
+
+		// Handle both good and alarm terminals having the same destination
+		if (rand2 == rand1 && rand2 > 0) {
+			rand2--;
+		} else if (rand2 == rand1 && rand2 < 3) {
+			rand2++;
+		}
+
+		// Place the alarm terminal
+		if (rand2 == 0) {
+			pc = tagFindById(cmd[4]);
+			badtag->unk06 = pc->unk06;
+			badtag->obj = pc->obj;
+		} else if (rand2 == 1) {
+			pc = tagFindById(cmd[5]);
+			badtag->unk06 = pc->unk06;
+			badtag->obj = pc->obj;
+		} else if (rand2 == 2) {
+			pc = tagFindById(cmd[6]);
+			badtag->unk06 = pc->unk06;
+			badtag->obj = pc->obj;
+		} else {
+			pc = tagFindById(cmd[7]);
+			badtag->unk06 = pc->unk06;
+			badtag->obj = pc->obj;
+		}
+	}
+
+	g_Vars.aioffset += 9;
+
+	return false;
+}
 
 /**
  * @cmd 0142
