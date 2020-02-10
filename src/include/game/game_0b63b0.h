@@ -71,7 +71,7 @@ u32 func0f0c1840(void);
 u32 func0f0c1ba4(void);
 u32 func0f0c1bd8(void);
 void func0f0c1d20(void);
-u32 func0f0c1e54(void);
+void func0f0c1e54(struct prop *prop, bool enable);
 u32 func0f0c1f08(void);
 u32 func0f0c1ff4(void);
 void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);

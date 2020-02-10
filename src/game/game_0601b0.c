@@ -4662,44 +4662,16 @@ glabel func0f063dcc
 /*  f064174:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
 );
 
-GLOBAL_ASM(
-glabel func0f064178
-/*  f064178:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f06417c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f064180:	90820000 */ 	lbu	$v0,0x0($a0)
-/*  f064184:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f064188:	00803025 */ 	or	$a2,$a0,$zero
-/*  f06418c:	54410006 */ 	bnel	$v0,$at,.L0f0641a8
-/*  f064190:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f064194:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f064198:	8c840004 */ 	lw	$a0,0x4($a0)
-/*  f06419c:	10000012 */ 	beqz	$zero,.L0f0641e8
-/*  f0641a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0641a4:	24010006 */ 	addiu	$at,$zero,0x6
-.L0f0641a8:
-/*  f0641a8:	54410006 */ 	bnel	$v0,$at,.L0f0641c4
-/*  f0641ac:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0641b0:	0fc30795 */ 	jal	func0f0c1e54
-/*  f0641b4:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0641b8:	1000000b */ 	beqz	$zero,.L0f0641e8
-/*  f0641bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0641c0:	24010001 */ 	addiu	$at,$zero,0x1
-.L0f0641c4:
-/*  f0641c4:	10410005 */ 	beq	$v0,$at,.L0f0641dc
-/*  f0641c8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0641cc:	10410003 */ 	beq	$v0,$at,.L0f0641dc
-/*  f0641d0:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0641d4:	54410004 */ 	bnel	$v0,$at,.L0f0641e8
-/*  f0641d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0641dc:
-/*  f0641dc:	0fc21d08 */ 	jal	func0f087420
-/*  f0641e0:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0641e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0641e8:
-/*  f0641e8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0641ec:	03e00008 */ 	jr	$ra
-/*  f0641f0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f064178(struct prop *prop, bool enable)
+{
+	if (prop->type == PROPTYPE_CHR) {
+		chrSetOrUnsetHiddenFlag00000100(prop->chr, enable);
+	} else if (prop->type == PROPTYPE_PLAYER) {
+		func0f0c1e54(prop, enable);
+	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
+		func0f087420(prop, enable);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0641f4
