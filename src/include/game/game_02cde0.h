@@ -95,7 +95,7 @@ u32 func0f038f40(void);
 u32 func0f0391ec(struct chrdata *chr, struct coord *pos, s16 *room, u32 arg3);
 u32 func0f03922c(struct chrdata *chr, void *arg1, s32 arg2);
 u32 func0f0393b4(struct chrdata *chr, struct coord *pos, s16 *room);
-u32 func0f039474(void);
+bool func0f039474(struct chrdata *chr, struct coord *pos, s16 *room);
 bool func0f039558(struct chrdata *chr, struct prop *prop);
 bool chrIsStopped(struct chrdata *chr);
 u32 func0f03978c(struct chrdata *chr);

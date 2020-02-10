@@ -14001,30 +14001,16 @@ glabel func0f039474
 /*  f039554:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f039558
-/*  f039558:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f03955c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f039560:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f039564:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f039568:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f03956c:	0fc1905e */ 	jal	func0f064178
-/*  f039570:	00002825 */ 	or	$a1,$zero,$zero
-/*  f039574:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f039578:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f03957c:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f039580:	0fc0e51d */ 	jal	func0f039474
-/*  f039584:	24460028 */ 	addiu	$a2,$v0,0x28
-/*  f039588:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f03958c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f039590:	0fc1905e */ 	jal	func0f064178
-/*  f039594:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f039598:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03959c:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f0395a0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0395a4:	03e00008 */ 	jr	$ra
-/*  f0395a8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f039558(struct chrdata *chr, struct prop *prop)
+{
+	bool result;
+
+	func0f064178(prop, false);
+	result = func0f039474(chr, &prop->pos, &prop->rooms[0]);
+	func0f064178(prop, true);
+
+	return result;
+}
 
 void chrRecordLastSeeTargetTime(struct chrdata *chr)
 {

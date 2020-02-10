@@ -32,7 +32,7 @@ u32 func0f062ef8(void);
 u32 func0f062fac(void);
 u32 func0f06302c(void);
 u32 func0f063dcc(void);
-u32 func0f064178(void);
+void func0f064178(struct prop *prop, bool arg1);
 u32 func0f0641f4(void);
 u32 func0f06438c(void);
 u32 func0f064a24(void);
