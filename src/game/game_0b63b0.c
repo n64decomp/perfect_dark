@@ -12764,58 +12764,24 @@ glabel func0f0c1d20
 /*  f0c1e50:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f0c1e54
-/*  f0c1e54:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0c1e58:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c1e5c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f0c1e60:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0c1e64:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0c1e68:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f0c1e6c:	3c0f800a */ 	lui	$t7,0x800a
-/*  f0c1e70:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0c1e74:	8defa024 */ 	lw	$t7,-0x5fdc($t7)
-/*  f0c1e78:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0c1e7c:	8fb90020 */ 	lw	$t9,0x20($sp)
-/*  f0c1e80:	8df819c8 */ 	lw	$t8,0x19c8($t7)
-/*  f0c1e84:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0c1e88:	13000003 */ 	beqz	$t8,.L0f0c1e98
-/*  f0c1e8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c1e90:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f0c1e94:	8f240004 */ 	lw	$a0,0x4($t9)
-.L0f0c1e98:
-/*  f0c1e98:	3c02800a */ 	lui	$v0,0x800a
-/*  f0c1e9c:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0c1ea0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0c1ea4:	8c4301b0 */ 	lw	$v1,0x1b0($v0)
-/*  f0c1ea8:	14600008 */ 	bnez	$v1,.L0f0c1ecc
-/*  f0c1eac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c1eb0:	8c441af0 */ 	lw	$a0,0x1af0($v0)
-/*  f0c1eb4:	5080000a */ 	beqzl	$a0,.L0f0c1ee0
-/*  f0c1eb8:	8fa9001c */ 	lw	$t1,0x1c($sp)
-/*  f0c1ebc:	0fc21d08 */ 	jal	propObjSetOrUnsetHiddenFlag00400000
-/*  f0c1ec0:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0c1ec4:	10000006 */ 	beqz	$zero,.L0f0c1ee0
-/*  f0c1ec8:	8fa9001c */ 	lw	$t1,0x1c($sp)
-.L0f0c1ecc:
-/*  f0c1ecc:	14610003 */ 	bne	$v1,$at,.L0f0c1edc
-/*  f0c1ed0:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0c1ed4:	0fc21d08 */ 	jal	propObjSetOrUnsetHiddenFlag00400000
-/*  f0c1ed8:	8c441a6c */ 	lw	$a0,0x1a6c($v0)
-.L0f0c1edc:
-/*  f0c1edc:	8fa9001c */ 	lw	$t1,0x1c($sp)
-.L0f0c1ee0:
-/*  f0c1ee0:	3c0b800a */ 	lui	$t3,0x800a
-/*  f0c1ee4:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f0c1ee8:	00095080 */ 	sll	$t2,$t1,0x2
-/*  f0c1eec:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f0c1ef0:	8d6ba024 */ 	lw	$t3,-0x5fdc($t3)
-/*  f0c1ef4:	ad6800c0 */ 	sw	$t0,0xc0($t3)
-/*  f0c1ef8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c1efc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0c1f00:	03e00008 */ 	jr	$ra
-/*  f0c1f04:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0c1e54(struct prop *prop, bool enable)
+{
+	u32 playernum = propGetPlayerNum(prop);
+
+	if (g_Vars.players[playernum]->unk19c8) {
+		chrSetOrUnsetHiddenFlag00000100(prop->chr, enable);
+	}
+
+	if (g_Vars.currentplayer->unk01b0 == 0) {
+		if (g_Vars.currentplayer->unk1af0) {
+			propObjSetOrUnsetHiddenFlag00400000(g_Vars.currentplayer->unk1af0, enable);
+		}
+	} else if (g_Vars.currentplayer->unk01b0 == 3) {
+		propObjSetOrUnsetHiddenFlag00400000(g_Vars.currentplayer->unk1a6c, enable);
+	}
+
+	g_Vars.players[playernum]->unk00c0 = enable;
+}
 
 GLOBAL_ASM(
 glabel func0f0c1f08

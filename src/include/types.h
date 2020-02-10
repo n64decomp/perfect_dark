@@ -2596,7 +2596,7 @@ struct player {
 	/*0x1a60*/ u32 unk1a60;
 	/*0x1a64*/ u32 unk1a64;
 	/*0x1a68*/ u32 unk1a68;
-	/*0x1a6c*/ u32 unk1a6c;
+	/*0x1a6c*/ struct prop *unk1a6c;
 	/*0x1a70*/ u32 unk1a70;
 	/*0x1a74*/ u32 unk1a74;
 	/*0x1a78*/ u32 unk1a78;
@@ -2629,7 +2629,7 @@ struct player {
 	/*0x1ae4*/ u32 unk1ae4;
 	/*0x1ae8*/ u32 unk1ae8;
 	/*0x1aec*/ u32 unk1aec;
-	/*0x1af0*/ u32 unk1af0;
+	/*0x1af0*/ struct prop *unk1af0;
 	/*0x1af4*/ u32 unk1af4;
 	/*0x1af8*/ u32 unk1af8;
 	/*0x1afc*/ u32 unk1afc;
