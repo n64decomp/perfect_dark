@@ -1,5 +1,10 @@
 #include <ultra64.h>
-#include "types.h"
+#include "constants.h"
+#include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
+#include "game/data/data_0160b0.h"
+#include "game/data/data_020df0.h"
+#include "gvars/gvars.h"
 #include "library/library_03050.h"
 #include "library/library_03ee0.h"
 #include "library/library_481e0.h"
@@ -11,6 +16,7 @@
 #include "library/library_49640.h"
 #include "library/library_49780.h"
 #include "library/library_49a90.h"
+#include "types.h"
 
 const u32 var70052430[] = {0x70002d68};
 const u32 var70052434[] = {0x70002d14};

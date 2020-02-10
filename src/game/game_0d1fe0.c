@@ -1,12 +1,10 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "game/chr/chr.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "types.h"
-#include "game/chr/chr.h"
 #include "game/game_0601b0.h"
 #include "game/game_066310.h"
 #include "game/game_096750.h"
@@ -15,8 +13,16 @@
 #include "game/game_0c79f0.h"
 #include "game/game_0d1fe0.h"
 #include "game/game_113220.h"
-#include "game/pdoptions.h"
 #include "game/game_1668e0.h"
+#include "game/pdoptions.h"
+#include "gvars/gvars.h"
+#include "library/library_04790.h"
+#include "library/library_13900.h"
+#include "library/library_159b0.h"
+#include "library/library_16110.h"
+#include "library/library_233c0.h"
+#include "library/library_4a360.h"
+#include "types.h"
 
 const char var7f1adb10[] = "bondbike.c";
 const char var7f1adb1c[] = "bondbike.c";

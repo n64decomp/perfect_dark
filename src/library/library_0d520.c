@@ -1,6 +1,11 @@
 #include <ultra64.h>
-#include "types.h"
 #include "boot/boot.h"
+#include "constants.h"
+#include "game/cheats.h"
+#include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
+#include "game/data/data_0160b0.h"
+#include "game/data/data_020df0.h"
 #include "game/game_000000.h"
 #include "game/game_000090.h"
 #include "game/game_000130.h"
@@ -17,9 +22,8 @@
 #include "game/game_00b200.h"
 #include "game/game_015470.h"
 #include "game/game_066310.h"
-#include "game/cheats.h"
 #include "game/game_10ccd0.h"
-#include "game/pad.h"
+#include "game/game_1165d0.h"
 #include "game/game_11ecf0.h"
 #include "game/game_129900.h"
 #include "game/game_152fa0.h"
@@ -31,6 +35,7 @@
 #include "game/game_176d70.h"
 #include "game/game_187770.h"
 #include "game/game_1a78b0.h"
+#include "gvars/gvars.h"
 #include "library/library_03050.h"
 #include "library/library_070d0.h"
 #include "library/library_074f0.h"
@@ -56,7 +61,7 @@
 #include "library/library_48650.h"
 #include "library/library_48b20.h"
 #include "library/library_4b480.h"
-#include "game/data/data_000000.h"
+#include "types.h"
 
 const char var70052ca0[] = "-ml0 -me0 -mgfx120 -mvtx98 -ma400";
 const char var70052cc4[] = "-ml0 -me0 -mgfx110 -mgfxtra80 -mvtx100 -ma700";

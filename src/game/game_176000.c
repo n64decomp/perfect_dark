@@ -1,13 +1,11 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
+#include "gvars/gvars.h"
 #include "types.h"
-#include "game/game_1668e0.h"
-#include "game/game_175f50.h"
 
 s32 func0f176000(s32 arg0)
 {

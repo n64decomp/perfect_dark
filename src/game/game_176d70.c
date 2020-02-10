@@ -1,16 +1,14 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "game/chr/chr.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "types.h"
 #include "game/game_000920.h"
 #include "game/game_005fd0.h"
 #include "game/game_00c490.h"
 #include "game/game_015470.h"
-#include "game/chr/chr.h"
 #include "game/game_0601b0.h"
 #include "game/game_066310.h"
 #include "game/game_096750.h"
@@ -22,10 +20,8 @@
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
 #include "game/game_111600.h"
-#include "game/pad.h"
 #include "game/game_11ecf0.h"
 #include "game/game_129900.h"
-#include "game/pdoptions.h"
 #include "game/game_152fa0.h"
 #include "game/game_1668e0.h"
 #include "game/game_16cfa0.h"
@@ -34,9 +30,20 @@
 #include "game/game_197600.h"
 #include "game/game_1999b0.h"
 #include "game/lang.h"
+#include "game/pad.h"
+#include "game/pdoptions.h"
+#include "gvars/gvars.h"
+#include "library/library_09660.h"
+#include "library/library_0d520.h"
 #include "library/library_0e9d0.h"
+#include "library/library_121e0.h"
 #include "library/library_12dc0.h"
+#include "library/library_13130.h"
+#include "library/library_159b0.h"
+#include "library/library_16110.h"
 #include "library/library_233c0.h"
+#include "library/library_4a360.h"
+#include "types.h"
 
 const char var7f1b7cb0[] = "UM_Make : In\n";
 const char var7f1b7cc0[] = "UM_Make : Out\n";
@@ -3411,10 +3418,10 @@ s32 menuhandlerMpPlayerName(u32 operation, struct menu_item *item, char **value)
 
 	switch (operation) {
 	case MENUOP_GETTEXT:
-		strcpy(ptr, &g_MpSetup.namebuffer);
+		strcpy(ptr, g_MpSetup.namebuffer);
 		break;
 	case MENUOP_SETTEXT:
-		strcpy(&g_MpSetup.namebuffer, ptr);
+		strcpy(g_MpSetup.namebuffer, ptr);
 		break;
 	case MENUOP_SET:
 		func0f10a51c(7, 1);

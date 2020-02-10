@@ -1,18 +1,18 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "game/cheats.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "types.h"
 #include "game/game_097a50.h"
 #include "game/game_0b0420.h"
-#include "game/cheats.h"
 #include "game/game_111600.h"
-#include "game/game_16cfa0.h"
 #include "game/game_19c990.h"
 #include "game/lang.h"
+#include "gvars/gvars.h"
+#include "library/library_0d520.h"
+#include "types.h"
 
 void currentPlayerClearInventory(void)
 {

@@ -1,6 +1,11 @@
 #include <ultra64.h>
-#include "types.h"
 #include "boot/boot.h"
+#include "constants.h"
+#include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
+#include "game/data/data_0160b0.h"
+#include "game/data/data_020df0.h"
+#include "gvars/gvars.h"
 #include "library/library_03ee0.h"
 #include "library/library_08a20.h"
 #include "library/library_09660.h"
@@ -16,6 +21,7 @@
 #include "library/library_4e270.h"
 #include "library/library_4e3c0.h"
 #include "library/library_4e470.h"
+#include "types.h"
 
 GLOBAL_ASM(
 glabel func00008a20

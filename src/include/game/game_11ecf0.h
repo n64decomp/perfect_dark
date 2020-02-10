@@ -59,7 +59,7 @@ u32 func0f128a9c(void);
 u32 func0f128ab8(void);
 u32 func0f128ad4(void);
 u32 func0f128ae4(void);
-u32 func0f128af4(void);
+s32 func0f128af4(s32 arg0);
 u32 func0f128cf0(void);
 u32 func0f128d20(void);
 u32 func0f128dbc(void);

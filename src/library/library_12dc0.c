@@ -1,11 +1,16 @@
 #include <ultra64.h>
-#include "types.h"
+#include "constants.h"
+#include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
+#include "game/data/data_0160b0.h"
+#include "game/data/data_020df0.h"
+#include "gvars/gvars.h"
 #include "library/library_12dc0.h"
 #include "library/library_13130.h"
 #include "library/library_2fa00.h"
 #include "library/library_4a5e0.h"
 #include "library/library_4e530.h"
-#include "game/data/data_000000.h"
+#include "types.h"
 
 const u32 var70053ff0[] = {0x00000000};
 const char var70053ff4[] = "-d";

@@ -1,28 +1,52 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "game/cheats.h"
 #include "game/chr/chr.h"
-#include "game/game_000920.h"
-#include "game/game_0601b0.h"
-#include "game/game_066310.h"
-#include "game/game_096750.h"
-#include "game/game_0b28d0.h"
-#include "game/game_165670.h"
-#include "game/game_16cfa0.h"
-#include "game/game_19c990.h"
+#include "game/chr/chrai.h"
+#include "game/chr/chraicommands.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "types.h"
-#include "game/chr/chraicommands.h"
+#include "game/game_000920.h"
+#include "game/game_011110.h"
+#include "game/game_015470.h"
+#include "game/game_0601b0.h"
+#include "game/game_066310.h"
+#include "game/game_096750.h"
+#include "game/game_097a50.h"
+#include "game/game_0b0420.h"
+#include "game/game_0b28d0.h"
+#include "game/game_0c79f0.h"
+#include "game/game_0dcdb0.h"
+#include "game/game_10ccd0.h"
+#include "game/game_111600.h"
+#include "game/game_11ecf0.h"
+#include "game/game_129900.h"
+#include "game/game_157db0.h"
+#include "game/game_165670.h"
+#include "game/game_1668e0.h"
+#include "game/game_16cfa0.h"
+#include "game/game_19c990.h"
 #include "game/lang.h"
+#include "game/pad.h"
+#include "game/pdoptions.h"
+#include "gvars/gvars.h"
+#include "library/library_04790.h"
+#include "library/library_04a80.h"
+#include "library/library_0d520.h"
 #include "library/library_0e9d0.h"
+#include "library/library_11420.h"
 #include "library/library_12dc0.h"
+#include "library/library_159b0.h"
 #include "library/library_16110.h"
+#include "library/library_1a500.h"
+#include "library/library_233c0.h"
 #include "library/library_317f0.h"
 #include "library/library_481e0.h"
 #include "library/library_48830.h"
+#include "library/library_4ae00.h"
+#include "types.h"
 
 const u32 var7f1a9c30[] = {0x40c907a9};
 const u32 var7f1a9c34[] = {0x40c907a9};
@@ -12932,7 +12956,7 @@ bool aiFadeScreen(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 color = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
-	u32 num_frames = ((cmd[7] | (cmd[6] << 8)) << 16) >> 16;
+	s16 num_frames = (cmd[7] | (cmd[6] << 8));
 	fadeConfigure(color, num_frames);
 	g_Vars.aioffset += 8;
 

@@ -1,23 +1,26 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "types.h"
 #include "game/game_0b28d0.h"
 #include "game/game_0d4690.h"
 #include "game/game_0f09f0.h"
 #include "game/game_107fb0.h"
 #include "game/game_10ccd0.h"
-#include "game/pad.h"
+#include "game/game_1165d0.h"
 #include "game/game_152fa0.h"
-#include "game/game_16cfa0.h"
 #include "game/game_176d70.h"
 #include "game/game_187770.h"
 #include "game/game_1999b0.h"
 #include "game/lang.h"
+#include "gvars/gvars.h"
+#include "library/library_09660.h"
+#include "library/library_126b0.h"
+#include "library/library_13130.h"
+#include "library/library_13900.h"
+#include "types.h"
 
 const char var7f1b2f00[] = "%s-";
 const char var7f1b2f04[] = "==:==";
@@ -4453,9 +4456,9 @@ s32 menuhandlerOpenDeleteFile(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-s32 menuhandlerAgentName(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerAgentName(u32 operation, struct menu_item *item, char **value)
 {
-	s32 val = *value;
+	char *ptr = *value;
 
 	if (!g_SaveLocations[0]) {
 		return 0;
@@ -4463,10 +4466,10 @@ s32 menuhandlerAgentName(u32 operation, struct menu_item *item, s32 *value)
 
 	switch (operation) {
 	case MENUOP_GETTEXT:
-		strcpy(val, &g_SoloSaveFile.name);
+		strcpy(ptr, g_SoloSaveFile.name);
 		break;
 	case MENUOP_SETTEXT:
-		strcpy(&g_SoloSaveFile.name, val);
+		strcpy(g_SoloSaveFile.name, ptr);
 		break;
 	case MENUOP_SET:
 		func0f10a51c(0, 0);

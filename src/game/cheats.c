@@ -1,20 +1,20 @@
 #include <ultra64.h>
-#include "boot/boot.h"
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "game/cheats.h"
 #include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "types.h"
-#include "game/cheats.h"
 #include "game/game_10ccd0.h"
 #include "game/game_111600.h"
-#include "game/pad.h"
+#include "game/game_1165d0.h"
 #include "game/game_11ecf0.h"
 #include "game/game_129900.h"
-#include "game/game_16cfa0.h"
 #include "game/game_19c990.h"
 #include "game/lang.h"
+#include "gvars/gvars.h"
+#include "library/library_13130.h"
+#include "types.h"
 
 u32 cheatIsUnlocked(s32 cheat_id)
 {
@@ -530,9 +530,9 @@ glabel cheatMenuHandleDialog
 char *cheatGetMarquee(struct menu_item *arg0)
 {
 	u32 cheat_id;
-	u8 *ptr;
-	u8 difficultyname[256];
-	u8 cheatname[256];
+	char *ptr;
+	char difficultyname[256];
+	char cheatname[256];
 
 	if (g_MenuStack[g_MpPlayerNum].unk00 && g_MenuStack[g_MpPlayerNum].unk00->item && g_MenuStack[g_MpPlayerNum].unk00->item->type == MENUITEMTYPE_CHECKBOX) {
 		cheat_id = g_MenuStack[g_MpPlayerNum].unk00->item->param;
@@ -553,7 +553,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 		}
 
 		// Locked
-		strcpy(&cheatname, langGet(g_Cheats[cheat_id].nametextid));
+		strcpy(cheatname, langGet(g_Cheats[cheat_id].nametextid));
 		ptr = cheatname;
 
 		while (*ptr != '\n') {
@@ -572,7 +572,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 			);
 		} else {
 			// Timed
-			strcpy(&difficultyname, langGet(0x56fb + g_Cheats[cheat_id].difficulty));
+			strcpy(difficultyname, langGet(0x56fb + g_Cheats[cheat_id].difficulty));
 			ptr = difficultyname;
 
 			while (*ptr != '\n') {
@@ -596,10 +596,11 @@ char *cheatGetMarquee(struct menu_item *arg0)
 		}
 
 		if (g_Cheats[cheat_id].flags & CHEATFLAG_TRANSFERPAK) {
-			func00013224(&g_CheatMarqueeString, langGet(0x548d)); // " or insert Game Boy ..."
+			func00013224(g_CheatMarqueeString, langGet(0x548d)); // " or insert Game Boy ..."
 		}
 
-		func00013224(&g_CheatMarqueeString, "\n");
+		func00013224(g_CheatMarqueeString, "\n");
+
 		return g_CheatMarqueeString;
 	}
 

@@ -4,7 +4,7 @@
 #include "types.h"
 
 void func0f175f90(void);
-u32 func0f175f98(void);
-u32 func0f175fc8(void);
+void func0f175f98(void);
+void func0f175fc8(void);
 
 #endif

@@ -1,11 +1,13 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
 #include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "types.h"
 #include "game/game_16cfa0.h"
+#include "game/pdoptions.h"
+#include "gvars/gvars.h"
+#include "types.h"
 
 s32 optionsGetControlMode(s32 mpchrnum)
 {

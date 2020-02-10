@@ -1,7 +1,12 @@
 #include <ultra64.h>
-#include "types.h"
+#include "constants.h"
+#include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
+#include "game/data/data_0160b0.h"
+#include "game/data/data_020df0.h"
 #include "game/game_1668e0.h"
 #include "game/game_16cfa0.h"
+#include "gvars/gvars.h"
 #include "library/library_074f0.h"
 #include "library/library_08a20.h"
 #include "library/library_0d0a0.h"
@@ -19,6 +24,7 @@
 #include "library/library_39c80.h"
 #include "library/library_481e0.h"
 #include "library/library_48830.h"
+#include "types.h"
 
 const char var70053b20[] = "RUSSES SOUND GUARD STRING";
 const char var70053b3c[] = "Snd: SoundHeaderCacheInit\n";

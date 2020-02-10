@@ -1,6 +1,43 @@
 #include <ultra64.h>
+#include "boot/boot.h"
+#include "constants.h"
 #include "game/data/data_000000.h"
+#include "game/data/data_0083d0.h"
+#include "game/data/data_0160b0.h"
+#include "game/data/data_020df0.h"
+#include "game/game_0dcdb0.h"
 #include "gvars/gvars.h"
+#include "library/library_03050.h"
+#include "library/library_03ee0.h"
+#include "library/library_04a80.h"
+#include "library/library_05e40.h"
+#include "library/library_074f0.h"
+#include "library/library_08a20.h"
+#include "library/library_09660.h"
+#include "library/library_0c000.h"
+#include "library/library_0d520.h"
+#include "library/library_0e9d0.h"
+#include "library/library_12dc0.h"
+#include "library/library_13710.h"
+#include "library/library_13750.h"
+#include "library/library_13900.h"
+#include "library/library_48120.h"
+#include "library/library_48150.h"
+#include "library/library_481d0.h"
+#include "library/library_481e0.h"
+#include "library/library_48520.h"
+#include "library/library_485e0.h"
+#include "library/library_48650.h"
+#include "library/library_48830.h"
+#include "library/library_488e0.h"
+#include "library/library_48b20.h"
+#include "library/library_48c00.h"
+#include "library/library_48cd0.h"
+#include "library/library_48dc0.h"
+#include "library/library_48ef0.h"
+#include "library/library_48f50.h"
+#include "library/library_490b0.h"
+#include "types.h"
 
 GLOBAL_ASM(
 glabel func00001000
@@ -827,10 +864,10 @@ void func00001b34(u32 value)
 	var8005ce6c = value;
 }
 
-void func00001b40(void)
+void func00001b40(u32 arg0)
 {
 	if ((var8005ce68 && var8005ce64) || var8005ce60) {
-		func0000cf54();
+		func0000cf54(arg0);
 		var8005ce70 = func00048510();
 	}
 }

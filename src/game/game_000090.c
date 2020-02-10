@@ -1,10 +1,14 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/chr/chr.h"
-#include "game/game_000130.h"
-#include "gvars/gvars.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
+#include "game/data/data_0160b0.h"
+#include "game/data/data_020df0.h"
+#include "game/game_000090.h"
+#include "game/game_000130.h"
+#include "gvars/gvars.h"
+#include "library/library_1a500.h"
 #include "types.h"
 
 void func0f000090(void)

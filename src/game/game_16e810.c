@@ -1,17 +1,22 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "types.h"
 #include "game/game_0b28d0.h"
-#include "game/game_0f09f0.h"
 #include "game/game_129900.h"
-#include "game/game_1668e0.h"
-#include "game/game_16cfa0.h"
-#include "game/game_176080.h"
+#include "game/game_16e810.h"
+#include "gvars/gvars.h"
+#include "library/library_074f0.h"
+#include "library/library_0d0a0.h"
+#include "library/library_0d520.h"
+#include "library/library_121e0.h"
+#include "library/library_48120.h"
+#include "library/library_4b170.h"
+#include "library/library_4b480.h"
+#include "library/library_4e470.h"
+#include "types.h"
 
 const u32 var7f1b7a50[] = {0x7f17004c};
 const u32 var7f1b7a54[] = {0x7f17004c};

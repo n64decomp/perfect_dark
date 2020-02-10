@@ -1,15 +1,17 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
+#include "game/chr/chr.h"
+#include "game/chr/chrai.h"
 #include "game/data/ailists.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "types.h"
-#include "game/chr/chrai.h"
+#include "gvars/gvars.h"
 #include "library/library_12dc0.h"
 #include "library/library_16110.h"
+#include "library/library_1a500.h"
+#include "types.h"
 
 s32 chraiGetListIdByList(u8 *ailist, bool *is_global)
 {

@@ -1,17 +1,17 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "gvars/gvars.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "types.h"
-#include "game/game_0b28d0.h"
 #include "game/game_0f09f0.h"
-#include "game/game_129900.h"
 #include "game/game_1668e0.h"
 #include "game/game_16cfa0.h"
 #include "game/game_176080.h"
+#include "gvars/gvars.h"
+#include "library/library_0e9d0.h"
+#include "library/library_11420.h"
+#include "types.h"
 
 GLOBAL_ASM(
 glabel func0f16cfa0

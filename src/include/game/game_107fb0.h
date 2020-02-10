@@ -73,7 +73,7 @@ s32 menuhandlerDeleteFiles(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerPakConfirmDelete(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0010b14c(u32, u32, u32 *);
 s32 menuhandlerPakSelection(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerAgentName(u32 operation, struct menu_item *item, s32 *value);
+s32 menuhandlerAgentName(u32 operation, struct menu_item *item, char **value);
 s32 menuhandler0010ca1c(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0010cabc(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler4MbAdvancedSetup(u32 operation, struct menu_item *item, s32 *value);
