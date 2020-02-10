@@ -7066,103 +7066,34 @@ bool ai00df(void)
 /**
  * @cmd 00e0
  */
-GLOBAL_ASM(
-glabel aiRevokeControl
-/*  f0574fc:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f057500:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f057504:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f057508:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f05750c:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f057510:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f057514:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f057518:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05751c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f057520:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f057524:	0fc126d1 */ 	jal	chrFindById
-/*  f057528:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f05752c:	5040002a */ 	beqzl	$v0,.L0f0575d8
-/*  f057530:	8e0e0438 */ 	lw	$t6,0x438($s0)
-/*  f057534:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f057538:	50600027 */ 	beqzl	$v1,.L0f0575d8
-/*  f05753c:	8e0e0438 */ 	lw	$t6,0x438($s0)
-/*  f057540:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f057544:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f057548:	57010023 */ 	bnel	$t8,$at,.L0f0575d8
-/*  f05754c:	8e0e0438 */ 	lw	$t6,0x438($s0)
-/*  f057550:	8e19028c */ 	lw	$t9,0x28c($s0)
-/*  f057554:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f057558:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f05755c:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f057560:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f057564:	00402025 */ 	or	$a0,$v0,$zero
-/*  f057568:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f05756c:	0fc2af1d */ 	jal	func0f0abc74
-/*  f057570:	00002825 */ 	or	$a1,$zero,$zero
-/*  f057574:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f057578:	0fc2a57b */ 	jal	func0f0a95ec
-/*  f05757c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f057580:	8fa8002c */ 	lw	$t0,0x2c($sp)
-/*  f057584:	91020003 */ 	lbu	$v0,0x3($t0)
-/*  f057588:	30490002 */ 	andi	$t1,$v0,0x2
-/*  f05758c:	55200006 */ 	bnezl	$t1,.L0f0575a8
-/*  f057590:	304b0004 */ 	andi	$t3,$v0,0x4
-/*  f057594:	0fc37e8e */ 	jal	currentPlayerSetFlag
-/*  f057598:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f05759c:	8faa002c */ 	lw	$t2,0x2c($sp)
-/*  f0575a0:	91420003 */ 	lbu	$v0,0x3($t2)
-/*  f0575a4:	304b0004 */ 	andi	$t3,$v0,0x4
-.L0f0575a8:
-/*  f0575a8:	15600003 */ 	bnez	$t3,.L0f0575b8
-/*  f0575ac:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f0575b0:	0fc24202 */ 	jal	countdownTimerSetVisible
-/*  f0575b4:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0575b8:
-/*  f0575b8:	8e0c028c */ 	lw	$t4,0x28c($s0)
-/*  f0575bc:	3c018007 */ 	lui	$at,0x8007
-/*  f0575c0:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0575c4:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f0575c8:	002d0821 */ 	addu	$at,$at,$t5
-/*  f0575cc:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0575d0:	ac200750 */ 	sw	$zero,0x750($at)
-/*  f0575d4:	8e0e0438 */ 	lw	$t6,0x438($s0)
-.L0f0575d8:
-/*  f0575d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0575dc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0575e0:	25cf0004 */ 	addiu	$t7,$t6,0x4
-/*  f0575e4:	ae0f0438 */ 	sw	$t7,0x438($s0)
-/*  f0575e8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0575ec:	03e00008 */ 	jr	$ra
-/*  f0575f0:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+bool aiRevokeControl(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-// Mismatch due to differing registers
-//bool aiRevokeControl(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-//
-//	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-//		u32 prevplayernum = g_Vars.currentplayernum;
-//		setCurrentPlayerNum(propGetPlayerNum(chr->prop));
-//		func0f0abc74(4, false);
-//		func0f0a95ec(2, false);
-//
-//		if ((cmd[3] & 2) == 0) {
-//			currentPlayerSetFlag(PLAYERFLAG_NOCONTROL);
-//		}
-//
-//		if ((cmd[3] & 4) == 0) {
-//			countdownTimerSetVisible(16, false);
-//		}
-//
-//		g_PlayersWithControl[g_Vars.currentplayernum] = false;
-//		setCurrentPlayerNum(prevplayernum);
-//	}
-//
-//	g_Vars.aioffset += 4;
-//
-//	return false;
-//}
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+		u32 prevplayernum = g_Vars.currentplayernum;
+		u32 playernum = propGetPlayerNum(chr->prop);
+		setCurrentPlayerNum(playernum);
+		func0f0abc74(4, false);
+		func0f0a95ec(2, false);
+
+		if ((cmd[3] & 2) == 0) {
+			currentPlayerSetFlag(PLAYERFLAG_NOCONTROL);
+		}
+
+		if ((cmd[3] & 4) == 0) {
+			countdownTimerSetVisible(16, false);
+		}
+
+		g_PlayersWithControl[g_Vars.currentplayernum] = false;
+		setCurrentPlayerNum(prevplayernum);
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 00e1
