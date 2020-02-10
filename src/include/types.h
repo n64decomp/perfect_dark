@@ -1181,7 +1181,7 @@ struct player {
 	/*0x036c*/ f32 unk036c;
 	/*0x0370*/ f32 unk0370;
 	/*0x0374*/ f32 unk0374;
-	/*0x0378*/ u32 unk0378;
+	/*0x0378*/ f32 width;
 	/*0x037c*/ u32 unk037c;
 	/*0x0380*/ u32 unk0380;
 	/*0x0384*/ u32 unk0384;
@@ -2555,9 +2555,9 @@ struct player {
 	/*0x19ac*/ u32 unk19ac;
 	/*0x19b0*/ u32 unk19b0;
 	/*0x19b4*/ u32 unk19b4;
-	/*0x19b8*/ u32 unk19b8;
+	/*0x19b8*/ s32 unk19b8;
 	/*0x19bc*/ u32 unk19bc;
-	/*0x19c0*/ u32 unk19c0;
+	/*0x19c0*/ f32 unk19c0;
 	/*0x19c4*/ f32 unk19c4;
 	/*0x19c8*/ u32 unk19c8;
 	/*0x19cc*/ u32 unk19cc;

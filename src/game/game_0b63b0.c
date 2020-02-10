@@ -12939,65 +12939,24 @@ glabel func0f0c1ff4
 /*  f0c20b4:	e44619e0 */ 	swc1	$f6,0x19e0($v0)
 );
 
-GLOBAL_ASM(
-glabel propPlayerGetBbox
-/*  f0c20b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c20bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c20c0:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0c20c4:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f0c20c8:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0c20cc:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0c20d0:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0c20d4:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0c20d8:	00027080 */ 	sll	$t6,$v0,0x2
-/*  f0c20dc:	008e1821 */ 	addu	$v1,$a0,$t6
-/*  f0c20e0:	8c6f0064 */ 	lw	$t7,0x64($v1)
-/*  f0c20e4:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f0c20e8:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f0c20ec:	c5e40378 */ 	lwc1	$f4,0x378($t7)
-/*  f0c20f0:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f0c20f4:	44814000 */ 	mtc1	$at,$f8
-/*  f0c20f8:	e7040000 */ 	swc1	$f4,0x0($t8)
-/*  f0c20fc:	8c990284 */ 	lw	$t9,0x284($a0)
-/*  f0c2100:	8fa80024 */ 	lw	$t0,0x24($sp)
-/*  f0c2104:	c7260074 */ 	lwc1	$f6,0x74($t9)
-/*  f0c2108:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f0c210c:	e50a0000 */ 	swc1	$f10,0x0($t0)
-/*  f0c2110:	8c8a0284 */ 	lw	$t2,0x284($a0)
-/*  f0c2114:	8c690064 */ 	lw	$t1,0x64($v1)
-/*  f0c2118:	c5520074 */ 	lwc1	$f18,0x74($t2)
-/*  f0c211c:	c53019c0 */ 	lwc1	$f16,0x19c0($t1)
-/*  f0c2120:	46128100 */ 	add.s	$f4,$f16,$f18
-/*  f0c2124:	e4c40000 */ 	swc1	$f4,0x0($a2)
-/*  f0c2128:	8c8b0284 */ 	lw	$t3,0x284($a0)
-/*  f0c212c:	8d6c01b0 */ 	lw	$t4,0x1b0($t3)
-/*  f0c2130:	55800015 */ 	bnezl	$t4,.L0f0c2188
-/*  f0c2134:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c2138:	8c6d0064 */ 	lw	$t5,0x64($v1)
-/*  f0c213c:	c4c60000 */ 	lwc1	$f6,0x0($a2)
-/*  f0c2140:	3c0142a0 */ 	lui	$at,0x42a0
-/*  f0c2144:	8dae19b8 */ 	lw	$t6,0x19b8($t5)
-/*  f0c2148:	44812000 */ 	mtc1	$at,$f4
-/*  f0c214c:	448e4000 */ 	mtc1	$t6,$f8
-/*  f0c2150:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c2154:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f0c2158:	460a3400 */ 	add.s	$f16,$f6,$f10
-/*  f0c215c:	e4d00000 */ 	swc1	$f16,0x0($a2)
-/*  f0c2160:	8c8f0284 */ 	lw	$t7,0x284($a0)
-/*  f0c2164:	c4c80000 */ 	lwc1	$f8,0x0($a2)
-/*  f0c2168:	c5f20074 */ 	lwc1	$f18,0x74($t7)
-/*  f0c216c:	46049000 */ 	add.s	$f0,$f18,$f4
-/*  f0c2170:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f0c2174:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c2178:	45020003 */ 	bc1fl	.L0f0c2188
-/*  f0c217c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c2180:	e4c00000 */ 	swc1	$f0,0x0($a2)
-/*  f0c2184:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0c2188:
-/*  f0c2188:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c218c:	03e00008 */ 	jr	$ra
-/*  f0c2190:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
+{
+	u32 playernum = propGetPlayerNum(prop);
+
+	*width = g_Vars.players[playernum]->width;
+	*ymin = g_Vars.currentplayer->unk0074 + 30;
+	*ymax = g_Vars.currentplayer->unk0074 + g_Vars.players[playernum]->unk19c0;
+
+	if (g_Vars.currentplayer->unk01b0 == 0) {
+		f32 tmp;
+		*ymax += g_Vars.players[playernum]->unk19b8;
+		tmp = g_Vars.currentplayer->unk0074 + 80;
+
+		if (tmp > *ymax) {
+			*ymax = tmp;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0c2194
