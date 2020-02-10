@@ -12793,14 +12793,14 @@ glabel func0f0c1e54
 /*  f0c1eb0:	8c441af0 */ 	lw	$a0,0x1af0($v0)
 /*  f0c1eb4:	5080000a */ 	beqzl	$a0,.L0f0c1ee0
 /*  f0c1eb8:	8fa9001c */ 	lw	$t1,0x1c($sp)
-/*  f0c1ebc:	0fc21d08 */ 	jal	func0f087420
+/*  f0c1ebc:	0fc21d08 */ 	jal	propObjSetOrUnsetHiddenFlag00400000
 /*  f0c1ec0:	8fa50024 */ 	lw	$a1,0x24($sp)
 /*  f0c1ec4:	10000006 */ 	beqz	$zero,.L0f0c1ee0
 /*  f0c1ec8:	8fa9001c */ 	lw	$t1,0x1c($sp)
 .L0f0c1ecc:
 /*  f0c1ecc:	14610003 */ 	bne	$v1,$at,.L0f0c1edc
 /*  f0c1ed0:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0c1ed4:	0fc21d08 */ 	jal	func0f087420
+/*  f0c1ed4:	0fc21d08 */ 	jal	propObjSetOrUnsetHiddenFlag00400000
 /*  f0c1ed8:	8c441a6c */ 	lw	$a0,0x1a6c($v0)
 .L0f0c1edc:
 /*  f0c1edc:	8fa9001c */ 	lw	$t1,0x1c($sp)

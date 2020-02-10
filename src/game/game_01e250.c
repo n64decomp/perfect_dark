@@ -480,7 +480,7 @@ glabel func0f01e7f4
 /*  f01e8b0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f01e8b4:	53000004 */ 	beqzl	$t8,.L0f01e8c8
 /*  f01e8b8:	26040008 */ 	addiu	$a0,$s0,0x8
-/*  f01e8bc:	0fc21d08 */ 	jal	func0f087420
+/*  f01e8bc:	0fc21d08 */ 	jal	propObjSetOrUnsetHiddenFlag00400000
 /*  f01e8c0:	8c440014 */ 	lw	$a0,0x14($v0)
 .L0f01e8c4:
 /*  f01e8c4:	26040008 */ 	addiu	$a0,$s0,0x8
@@ -1121,7 +1121,7 @@ glabel func0f01e7f4
 /*  f01f23c:	8d240014 */ 	lw	$a0,0x14($t1)
 /*  f01f240:	50800004 */ 	beqzl	$a0,.L0f01f254
 /*  f01f244:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f01f248:	0fc21d08 */ 	jal	func0f087420
+/*  f01f248:	0fc21d08 */ 	jal	propObjSetOrUnsetHiddenFlag00400000
 /*  f01f24c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f01f250:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f01f254:

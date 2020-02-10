@@ -4669,7 +4669,7 @@ void func0f064178(struct prop *prop, bool enable)
 	} else if (prop->type == PROPTYPE_PLAYER) {
 		func0f0c1e54(prop, enable);
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
-		func0f087420(prop, enable);
+		propObjSetOrUnsetHiddenFlag00400000(prop, enable);
 	}
 }
 

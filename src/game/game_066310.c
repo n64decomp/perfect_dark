@@ -38251,24 +38251,16 @@ glabel func0f086f40
 /*  f08741c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f087420
-/*  f087420:	10a00007 */ 	beqz	$a1,.L0f087440
-/*  f087424:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f087428:	8c4e0040 */ 	lw	$t6,0x40($v0)
-/*  f08742c:	3c01ffbf */ 	lui	$at,0xffbf
-/*  f087430:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f087434:	01c17824 */ 	and	$t7,$t6,$at
-/*  f087438:	03e00008 */ 	jr	$ra
-/*  f08743c:	ac4f0040 */ 	sw	$t7,0x40($v0)
-.L0f087440:
-/*  f087440:	8c580040 */ 	lw	$t8,0x40($v0)
-/*  f087444:	3c010040 */ 	lui	$at,0x40
-/*  f087448:	0301c825 */ 	or	$t9,$t8,$at
-/*  f08744c:	ac590040 */ 	sw	$t9,0x40($v0)
-/*  f087450:	03e00008 */ 	jr	$ra
-/*  f087454:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void propObjSetOrUnsetHiddenFlag00400000(struct prop *prop, bool enable)
+{
+	struct defaultobj *obj = prop->obj;
+
+	if (enable) {
+		obj->hidden &= ~OBJHFLAG_00400000;
+	} else {
+		obj->hidden |= OBJHFLAG_00400000;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f087458
