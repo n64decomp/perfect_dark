@@ -38349,63 +38349,26 @@ glabel func0f087458
 /*  f087568:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel propObjGetBbox
-/*  f08756c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f087570:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f087574:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f087578:	3c013f80 */ 	lui	$at,0x3f80
-/*  f08757c:	8c430044 */ 	lw	$v1,0x44($v0)
-/*  f087580:	50600025 */ 	beqzl	$v1,.L0f087618
-/*  f087584:	44819000 */ 	mtc1	$at,$f18
-/*  f087588:	904e0002 */ 	lbu	$t6,0x2($v0)
-/*  f08758c:	31cf0008 */ 	andi	$t7,$t6,0x8
-/*  f087590:	51e00021 */ 	beqzl	$t7,.L0f087618
-/*  f087594:	44819000 */ 	mtc1	$at,$f18
-/*  f087598:	8c580010 */ 	lw	$t8,0x10($v0)
-/*  f08759c:	0018c980 */ 	sll	$t9,$t8,0x6
-/*  f0875a0:	0723000b */ 	bgezl	$t9,.L0f0875d0
-/*  f0875a4:	8c440018 */ 	lw	$a0,0x18($v0)
-/*  f0875a8:	c4640014 */ 	lwc1	$f4,0x14($v1)
-/*  f0875ac:	e4a40000 */ 	swc1	$f4,0x0($a1)
-/*  f0875b0:	8c480044 */ 	lw	$t0,0x44($v0)
-/*  f0875b4:	c5060008 */ 	lwc1	$f6,0x8($t0)
-/*  f0875b8:	e4e60000 */ 	swc1	$f6,0x0($a3)
-/*  f0875bc:	8c490044 */ 	lw	$t1,0x44($v0)
-/*  f0875c0:	c5280004 */ 	lwc1	$f8,0x4($t1)
-/*  f0875c4:	10000018 */ 	beqz	$zero,.L0f087628
-/*  f0875c8:	e4c80000 */ 	swc1	$f8,0x0($a2)
-/*  f0875cc:	8c440018 */ 	lw	$a0,0x18($v0)
-.L0f0875d0:
-/*  f0875d0:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f0875d4:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f0875d8:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0875dc:	0c006be0 */ 	jal	func0001af80
-/*  f0875e0:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0875e4:	8fa50024 */ 	lw	$a1,0x24($sp)
-/*  f0875e8:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f0875ec:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f0875f0:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f0875f4:	e4a00000 */ 	swc1	$f0,0x0($a1)
-/*  f0875f8:	8c4a0044 */ 	lw	$t2,0x44($v0)
-/*  f0875fc:	c54a0008 */ 	lwc1	$f10,0x8($t2)
-/*  f087600:	e4ea0000 */ 	swc1	$f10,0x0($a3)
-/*  f087604:	8c4b0044 */ 	lw	$t3,0x44($v0)
-/*  f087608:	c5700004 */ 	lwc1	$f16,0x4($t3)
-/*  f08760c:	10000006 */ 	beqz	$zero,.L0f087628
-/*  f087610:	e4d00000 */ 	swc1	$f16,0x0($a2)
-/*  f087614:	44819000 */ 	mtc1	$at,$f18
-.L0f087618:
-/*  f087618:	44800000 */ 	mtc1	$zero,$f0
-/*  f08761c:	e4b20000 */ 	swc1	$f18,0x0($a1)
-/*  f087620:	e4e00000 */ 	swc1	$f0,0x0($a3)
-/*  f087624:	e4c00000 */ 	swc1	$f0,0x0($a2)
-.L0f087628:
-/*  f087628:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f08762c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f087630:	03e00008 */ 	jr	$ra
-/*  f087634:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
+{
+	struct defaultobj *obj = prop->obj;
+
+	if (obj->geo && obj->hidden2 & OBJH2FLAG_08) {
+		if (obj->flags3 & OBJFLAG3_02000000) {
+			*width = obj->geo->width;
+			*ymin = obj->geo->ymin;
+			*ymax = obj->geo->ymax;
+		} else {
+			*width = func0001af80(obj->unk18);
+			*ymin = obj->geo->ymin;
+			*ymax = obj->geo->ymax;
+		}
+	} else {
+		*width = 1;
+		*ymin = 0;
+		*ymax = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f087638
@@ -46074,12 +46037,12 @@ void func0f08e0c4(struct doorobj *door)
 	doorActivatePortal(door);
 
 	if (door->doortype == DOORTYPE_8) {
-		struct obj44 *obj44 = door->base.unk44;
+		struct geo *geo = door->base.geo;
 		door->base.flags |= OBJFLAG_CANNOT_ACTIVATE;
 		door->perimfrac = 0;
 
-		if (obj44 && (door->base.flags & OBJFLAG_00000100)) {
-			obj44->unk01 = 0;
+		if (geo && (door->base.flags & OBJFLAG_00000100)) {
+			geo->unk01 = 0;
 			door->base.flags &= ~OBJFLAG_00000100;
 		}
 	}

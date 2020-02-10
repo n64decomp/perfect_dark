@@ -27,7 +27,7 @@ f32 func0001ae44(struct chr020 *chr020);
 void func0001ae90(struct chr020 *chr020, f32 arg1);
 u32 func0001af58(void);
 u32 func0001af64(void);
-u32 func0001af80(void);
+f32 func0001af80(struct chr020 *chr020);
 u32 func0001af98(void);
 f32 func0001afe8(f32 arg0, f32 distance, f32 arg2);
 u32 func0001b07c(void);

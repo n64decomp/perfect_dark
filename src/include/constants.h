@@ -1384,6 +1384,9 @@
 #define OBJHFLAG_ACTIVATED_BY_COOP 0x00040000
 #define OBJHFLAG_00200000          0x00200000
 
+// obj->hidden2
+#define OBJH2FLAG_08 0x08
+
 #define OBJTYPE_DOOR             0x01
 #define OBJTYPE_DOORSCALE        0x02
 #define OBJTYPE_BASIC            0x03
