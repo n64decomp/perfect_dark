@@ -6,19 +6,21 @@
 #include "game/data/data_020df0.h"
 #include "game/game_005fd0.h"
 #include "game/game_066310.h"
-#include "game/game_097a50.h"
+#include "game/game_097ba0.h"
 #include "game/game_0b0420.h"
-#include "game/game_0b28d0.h"
+#include "game/game_0b3350.h"
+#include "game/game_0b63b0.h"
 #include "game/game_0d4690.h"
 #include "game/game_0dcdb0.h"
 #include "game/game_0f09f0.h"
-#include "game/game_11ecf0.h"
-#include "game/game_129900.h"
-#include "game/game_152fa0.h"
-#include "game/game_1668e0.h"
+#include "game/game_127910.h"
+#include "game/game_148b80.h"
+#include "game/game_1531a0.h"
+#include "game/game_166e40.h"
+#include "game/game_167ae0.h"
 #include "game/game_176d70.h"
 #include "game/game_187770.h"
-#include "game/game_1999b0.h"
+#include "game/game_19aa80.h"
 #include "game/game_19c990.h"
 #include "game/lang.h"
 #include "game/pdoptions.h"
@@ -16499,10 +16501,6 @@ glabel func0f0e7a8c
 /*  f0e7f08:	0fc01a40 */ 	jal	func0f006900
 /*  f0e7f0c:	8d85001c */ 	lw	$a1,0x1c($t4)
 /*  f0e7f10:	00408825 */ 	or	$s1,$v0,$zero
-);
-
-GLOBAL_ASM(
-glabel func0f0e7f14
 /*  f0e7f14:	8e030010 */ 	lw	$v1,0x10($s0)
 .L0f0e7f18:
 /*  f0e7f18:	8c6d000c */ 	lw	$t5,0xc($v1)

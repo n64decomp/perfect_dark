@@ -7,6 +7,7 @@
 #include "game/data/data_020df0.h"
 #include "game/game_000090.h"
 #include "game/game_000130.h"
+#include "game/game_01e250.h"
 #include "gvars/gvars.h"
 #include "library/library_1a500.h"
 #include "types.h"

@@ -530,11 +530,3 @@ glabel func0f000648
 /*  f000838:	27bd0038 */ 	addiu	$sp,$sp,0x38
 /*  f00083c:	00000000 */ 	sll	$zero,$zero,0x0
 );
-
-GLOBAL_ASM(
-glabel func0f000840
-/*  f000840:	03e00008 */ 	jr	$ra
-/*  f000844:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f000848:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f00084c:	00000000 */ 	sll	$zero,$zero,0x0
-);

@@ -4,7 +4,7 @@
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "game/game_0b28d0.h"
+#include "game/game_0b63b0.h"
 #include "game/game_176080.h"
 #include "game/game_187770.h"
 #include "game/pdoptions.h"

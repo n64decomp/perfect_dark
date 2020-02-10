@@ -10,7 +10,5 @@ u32 func0f010a98(void);
 u32 func0f010ad4(void);
 u32 func0f010aec(void);
 u32 func0f010b04(void);
-u32 func0f010b20(void);
-u32 func0f010bb0(void);
 
 #endif

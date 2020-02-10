@@ -5,6 +5,5 @@
 
 u32 func0f01d9f0(void);
 u32 func0f01dd6c(void);
-u32 func0f01de30(void);
 
 #endif

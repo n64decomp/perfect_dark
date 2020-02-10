@@ -4,7 +4,7 @@
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
-#include "game/game_1668e0.h"
+#include "game/game_166e40.h"
 #include "game/game_175f90.h"
 #include "gvars/gvars.h"
 #include "library/library_121e0.h"

@@ -57,7 +57,6 @@ u32 func0f0e6328(void);
 u32 func0f0e75a0(void);
 u32 func0f0e7998(void);
 u32 func0f0e7a8c(void);
-u32 func0f0e7f14(void);
 u32 func0f0e8138(void);
 u32 func0f0e8290(void);
 u32 func0f0e855c(void);

@@ -6,6 +6,8 @@
 #include "game/game_107fb0.h"
 #include "game/game_10ccd0.h"
 #include "game/game_176d70.h"
+#include "game/game_177e00.h"
+#include "game/game_179060.h"
 #include "game/game_1a3340.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"

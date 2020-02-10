@@ -1,16 +1,17 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/chr/chr.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_005fd0.h"
+#include "game/game_02cde0.h"
 #include "game/game_066310.h"
-#include "game/game_096750.h"
-#include "game/game_097a50.h"
+#include "game/game_096ca0.h"
+#include "game/game_097ba0.h"
 #include "game/game_0b0420.h"
-#include "game/game_0b28d0.h"
+#include "game/game_0b3350.h"
+#include "game/game_0b63b0.h"
 #include "game/game_0d4690.h"
 #include "game/game_0dcdb0.h"
 #include "game/game_0f09f0.h"
@@ -18,15 +19,18 @@
 #include "game/game_10ccd0.h"
 #include "game/game_111600.h"
 #include "game/game_1165d0.h"
-#include "game/game_129900.h"
-#include "game/game_152fa0.h"
-#include "game/game_1668e0.h"
+#include "game/game_131060.h"
+#include "game/game_148b80.h"
+#include "game/game_1531a0.h"
+#include "game/game_166e40.h"
+#include "game/game_167ae0.h"
 #include "game/game_16cfa0.h"
 #include "game/game_16e810.h"
-#include "game/game_176d70.h"
+#include "game/game_179060.h"
 #include "game/game_187770.h"
+#include "game/game_190260.h"
 #include "game/game_197600.h"
-#include "game/game_1999b0.h"
+#include "game/game_19aa80.h"
 #include "game/game_19c990.h"
 #include "game/game_1a3340.h"
 #include "game/lang.h"
@@ -20101,12 +20105,4 @@ glabel func0f100ad0
 /*  f102224:	03e00008 */ 	jr	$ra
 /*  f102228:	27bd01d8 */ 	addiu	$sp,$sp,0x1d8
 /*  f10222c:	00000000 */ 	sll	$zero,$zero,0x0
-);
-
-GLOBAL_ASM(
-glabel func0f102230
-/*  f102230:	03e00008 */ 	jr	$ra
-/*  f102234:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102238:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10223c:	00000000 */ 	sll	$zero,$zero,0x0
 );

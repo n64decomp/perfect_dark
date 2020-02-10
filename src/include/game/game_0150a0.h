@@ -4,6 +4,5 @@
 #include "types.h"
 
 u32 func0f0150a0(void);
-u32 func0f0151f0(void);
 
 #endif

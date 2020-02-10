@@ -1,12 +1,12 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/chr/chr.h"
 #include "game/chr/chrai.h"
 #include "game/data/ailists.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
+#include "game/game_02cde0.h"
 #include "gvars/gvars.h"
 #include "library/library_12dc0.h"
 #include "library/library_16110.h"

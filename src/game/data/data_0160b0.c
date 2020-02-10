@@ -6,6 +6,7 @@
 #include "game/game_107fb0.h"
 #include "game/game_10ccd0.h"
 #include "game/game_176d70.h"
+#include "game/game_177e00.h"
 #include "game/game_1a3340.h"
 #include "gvars/gvars.h"
 #include "game/data/data_000000.h"
