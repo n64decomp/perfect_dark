@@ -1685,7 +1685,7 @@ u8 func0414_programmer[] = {
 			if_saw_death(0x00, /*goto*/ 0x96)
 			if_hears_gunfire(/*goto*/ 0x96)
 			if_stage_flag_eq(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD, TRUE, /*goto*/ 0x2c)
-			if_dying(/*goto*/ 0x96)
+			if_sees_suspicious_item(/*goto*/ 0x96)
 			label(0x2c)
 			if_chr_stopped(/*goto*/ LABEL_LOG_ON)
 		endloop(0x93)

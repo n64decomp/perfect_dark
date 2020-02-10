@@ -1834,7 +1834,7 @@ u8 func041d_fbi[] = {
 		if_hears_gunfire(/*goto*/ 0x16)
 		if_saw_injury(0x00, /*goto*/ 0x16)
 		if_saw_death(0x00, /*goto*/ 0x16)
-		if_dying(/*goto*/ 0x16)
+		if_sees_suspicious_item(/*goto*/ 0x16)
 	endloop(0x19)
 
 	label(0x16)
@@ -2109,7 +2109,7 @@ u8 func041e_sealer1[] = {
 		if_hears_gunfire(/*goto*/ LABEL_ALERTED)
 		if_saw_injury(0x00, /*goto*/ LABEL_ALERTED)
 		if_saw_death(0x00, /*goto*/ LABEL_ALERTED)
-		if_dying(/*goto*/ LABEL_ALERTED)
+		if_sees_suspicious_item(/*goto*/ LABEL_ALERTED)
 	endloop(0x19)
 
 	// Crash happened

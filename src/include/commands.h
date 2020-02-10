@@ -627,9 +627,14 @@
 	label,
 
 /**
- * Checks if the chr is dying.
+ * Checks if the chr has detected evidence that the player has been there.
+ *
+ * It looks for props in the same room:
+ * - Guns on the guard
+ * - Explosion scorch marks
+ * - And other unknown things
  */
-#define if_dying(label) \
+#define if_sees_suspicious_item(label) \
 	mkshort(0x004c), \
 	label,
 

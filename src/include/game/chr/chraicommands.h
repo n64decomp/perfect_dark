@@ -79,7 +79,7 @@
 /*0x0049*/ bool ai0049(void);
 /*0x004a*/ bool ai004a(void);
 /*0x004b*/ bool aiIfNearMiss(void);
-/*0x004c*/ bool ai004c(void);
+/*0x004c*/ bool aiIfSeesSuspiciousItem(void);
 /*0x004d*/ bool ai004d(void);
 /*0x004e*/ bool ai004e(void);
 /*0x004f*/ bool ai004f(void);
