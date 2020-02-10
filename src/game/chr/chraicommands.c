@@ -7372,86 +7372,28 @@ bool aiChrDrawWeaponInCutscene(void)
 /**
  * @cmd 00ee
  */
-GLOBAL_ASM(
-glabel ai00ee
-/*  f057f80:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f057f84:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f057f88:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f057f8c:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f057f90:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f057f94:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f057f98:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f057f9c:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f057fa0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f057fa4:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f057fa8:	0fc126d1 */ 	jal	chrFindById
-/*  f057fac:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f057fb0:	50400021 */ 	beqzl	$v0,.L0f058038
-/*  f057fb4:	8e0d0438 */ 	lw	$t5,0x438($s0)
-/*  f057fb8:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f057fbc:	5060001e */ 	beqzl	$v1,.L0f058038
-/*  f057fc0:	8e0d0438 */ 	lw	$t5,0x438($s0)
-/*  f057fc4:	90780000 */ 	lbu	$t8,0x0($v1)
-/*  f057fc8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f057fcc:	5701001a */ 	bnel	$t8,$at,.L0f058038
-/*  f057fd0:	8e0d0438 */ 	lw	$t5,0x438($s0)
-/*  f057fd4:	8e19028c */ 	lw	$t9,0x28c($s0)
-/*  f057fd8:	afb90024 */ 	sw	$t9,0x24($sp)
-/*  f057fdc:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f057fe0:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f057fe4:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f057fe8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f057fec:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f057ff0:	8e090284 */ 	lw	$t1,0x284($s0)
-/*  f057ff4:	44804000 */ 	mtc1	$zero,$f8
-/*  f057ff8:	80480003 */ 	lb	$t0,0x3($v0)
-/*  f057ffc:	44882000 */ 	mtc1	$t0,$f4
-/*  f058000:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f058004:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f058008:	e5261b6c */ 	swc1	$f6,0x1b6c($t1)
-/*  f05800c:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f058010:	e5481b70 */ 	swc1	$f8,0x1b70($t2)
-/*  f058014:	804b0004 */ 	lb	$t3,0x4($v0)
-/*  f058018:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f05801c:	448b5000 */ 	mtc1	$t3,$f10
-/*  f058020:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f058024:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f058028:	e5901b74 */ 	swc1	$f16,0x1b74($t4)
-/*  f05802c:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f058030:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f058034:	8e0d0438 */ 	lw	$t5,0x438($s0)
-.L0f058038:
-/*  f058038:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f05803c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f058040:	25ae0005 */ 	addiu	$t6,$t5,0x5
-/*  f058044:	ae0e0438 */ 	sw	$t6,0x438($s0)
-/*  f058048:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f05804c:	03e00008 */ 	jr	$ra
-/*  f058050:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+bool ai00ee(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-// Mismatch due to different registers
-//bool ai00ee(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-//
-//	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-//		u32 prevplayernum = g_Vars.currentplayernum;
-//		u32 playernum = propGetPlayerNum(chr->prop);
-//		setCurrentPlayerNum(playernum);
-//
-//		g_Vars.currentplayer->unk1b6c = (s8)cmd[3];
-//		g_Vars.currentplayer->unk1b70 = 0;
-//		g_Vars.currentplayer->unk1b74 = (s8)cmd[4];
-//
-//		setCurrentPlayerNum(prevplayernum);
-//	}
-//
-//	g_Vars.aioffset += 5;
-//
-//	return false;
-//}
+	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+		u32 prevplayernum = g_Vars.currentplayernum;
+		u32 playernum = propGetPlayerNum(chr->prop);
+		setCurrentPlayerNum(playernum);
+
+		// x/y/z props - might be walkinitstart?
+		g_Vars.currentplayer->unk1b6c = (s8)cmd[3];
+		g_Vars.currentplayer->unk1b70 = 0;
+		g_Vars.currentplayer->unk1b74 = (s8)cmd[4];
+
+		setCurrentPlayerNum(prevplayernum);
+	}
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 00ef
