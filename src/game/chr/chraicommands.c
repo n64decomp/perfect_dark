@@ -2678,71 +2678,21 @@ bool aiIfChrInRoom(void)
 /**
  * @cmd 005c
  */
-GLOBAL_ASM(
-glabel aiIfTargetInRoom
-/*  f051468:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f05146c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f051470:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f051474:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f051478:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f05147c:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f051480:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f051484:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f051488:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f05148c:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f051490:	afb80024 */ 	sw	$t8,0x24($sp)
-/*  f051494:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f051498:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05149c:	90f90002 */ 	lbu	$t9,0x2($a3)
-/*  f0514a0:	90e90003 */ 	lbu	$t1,0x3($a3)
-/*  f0514a4:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f0514a8:	00194200 */ 	sll	$t0,$t9,0x8
-/*  f0514ac:	01091825 */ 	or	$v1,$t0,$t1
-/*  f0514b0:	0fc12574 */ 	jal	chrGetPadRoom
-/*  f0514b4:	3065ffff */ 	andi	$a1,$v1,0xffff
-/*  f0514b8:	0440000d */ 	bltz	$v0,.L0f0514f0
-/*  f0514bc:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f0514c0:	50c0000c */ 	beqzl	$a2,.L0f0514f4
-/*  f0514c4:	8e0d0438 */ 	lw	$t5,0x438($s0)
-/*  f0514c8:	84cb0028 */ 	lh	$t3,0x28($a2)
-/*  f0514cc:	8fac0024 */ 	lw	$t4,0x24($sp)
-/*  f0514d0:	544b0008 */ 	bnel	$v0,$t3,.L0f0514f4
-/*  f0514d4:	8e0d0438 */ 	lw	$t5,0x438($s0)
-/*  f0514d8:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f0514dc:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f0514e0:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0514e4:	91860004 */ 	lbu	$a2,0x4($t4)
-/*  f0514e8:	10000004 */ 	beqz	$zero,.L0f0514fc
-/*  f0514ec:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f0514f0:
-/*  f0514f0:	8e0d0438 */ 	lw	$t5,0x438($s0)
-.L0f0514f4:
-/*  f0514f4:	25ae0005 */ 	addiu	$t6,$t5,0x5
-/*  f0514f8:	ae0e0438 */ 	sw	$t6,0x438($s0)
-.L0f0514fc:
-/*  f0514fc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f051500:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f051504:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f051508:	03e00008 */ 	jr	$ra
-/*  f05150c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfTargetInRoom(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
+	u16 pad_id = cmd[3] | (cmd[2] << 8);
+	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
-// Mismatch due to different temporary registers
-//bool aiIfTargetInRoom(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct prop *prop = chrGetTargetProp(g_Vars.chrdata);
-//	s32 room_id = cmd[3] | (cmd[2] << 8);
-//	room_id = chrGetPadRoom(g_Vars.chrdata, room_id & 0xffff);
-//
-//	if (room_id >= 0 && prop && room_id == prop->rooms[0]) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
-//	} else {
-//		g_Vars.aioffset += 5;
-//	}
-//
-//	return false;
-//}
+	if (room_id >= 0 && prop && room_id == prop->rooms[0]) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 005d
