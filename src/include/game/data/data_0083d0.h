@@ -217,7 +217,7 @@ extern u32 var8006844c;
 extern u32 var8006845c;
 extern u8 g_ChrTeamIds[MAX_TEAMS];
 extern u32 var8006846c;
-extern u32 var80068fe0;
+extern struct coord var80068fe0;
 extern u16 quiptable_human_bank0[];
 extern u16 quiptable_human_bank1[];
 extern u16 quiptable_skedar[];

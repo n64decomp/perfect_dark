@@ -1012,57 +1012,21 @@ bool aiFaceEntity(void)
 /**
  * @cmd 0019
  */
-GLOBAL_ASM(
-glabel ai0019
-/*  f04ee10:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f04ee14:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f04ee18:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f04ee1c:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f04ee20:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f04ee24:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f04ee28:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f04ee2c:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f04ee30:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f04ee34:	0fc126d1 */ 	jal	chrFindById
-/*  f04ee38:	8c440424 */ 	lw	$a0,0x424($v0)
-/*  f04ee3c:	3c198007 */ 	lui	$t9,%hi(var80068fe0)
-/*  f04ee40:	afa20038 */ 	sw	$v0,0x38($sp)
-/*  f04ee44:	27398fe0 */ 	addiu	$t9,$t9,%lo(var80068fe0)
-/*  f04ee48:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f04ee4c:	27b8002c */ 	addiu	$t8,$sp,0x2c
-/*  f04ee50:	8f2a0004 */ 	lw	$t2,0x4($t9)
-/*  f04ee54:	af010000 */ 	sw	$at,0x0($t8)
-/*  f04ee58:	8f210008 */ 	lw	$at,0x8($t9)
-/*  f04ee5c:	af0a0004 */ 	sw	$t2,0x4($t8)
-/*  f04ee60:	10400011 */ 	beqz	$v0,.L0f04eea8
-/*  f04ee64:	af010008 */ 	sw	$at,0x8($t8)
-/*  f04ee68:	8c4b001c */ 	lw	$t3,0x1c($v0)
-/*  f04ee6c:	8fa7003c */ 	lw	$a3,0x3c($sp)
-/*  f04ee70:	1160000d */ 	beqz	$t3,.L0f04eea8
-/*  f04ee74:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*  f04ee78:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f04ee7c:	0fc2c74a */ 	jal	func0f0b1d28
-/*  f04ee80:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f04ee84:	8fac003c */ 	lw	$t4,0x3c($sp)
-/*  f04ee88:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f04ee8c:	44050000 */ 	mfc1	$a1,$f0
-/*  f04ee90:	818d0003 */ 	lb	$t5,0x3($t4)
-/*  f04ee94:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f04ee98:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*  f04ee9c:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f04eea0:	0fc0d0cc */ 	jal	func0f034330
-/*  f04eea4:	afad0014 */ 	sw	$t5,0x14($sp)
-.L0f04eea8:
-/*  f04eea8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f04eeac:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f04eeb0:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f04eeb4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f04eeb8:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f04eebc:	25cf0008 */ 	addiu	$t7,$t6,0x8
-/*  f04eec0:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f04eec4:	03e00008 */ 	jr	$ra
-/*  f04eec8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai0019(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	struct coord pos = var80068fe0;
+
+	if (chr && chr->prop) {
+		f32 value = func0f0b1d28(&cmd[4]);
+		func0f034330(chr, value, &pos, &cmd[4], NULL, (s8)cmd[3]);
+	}
+
+	g_Vars.aioffset += 8;
+
+	return false;
+}
 
 /**
  * @cmd 001a

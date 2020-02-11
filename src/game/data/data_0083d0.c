@@ -6829,10 +6829,7 @@ u16 g_CommandLengths[] = {
 
 u32 var80068fd8 = 0x00000000;
 u32 var80068fdc = 0x00000000;
-u32 var80068fe0 = 0x00000000;
-u32 var80068fe4 = 0x00000000;
-u32 var80068fe8 = 0x00000000;
-
+struct coord var80068fe0 = {0, 0, 0};
 struct coord var80068fec = {0, 0, 0};
 
 // f018
