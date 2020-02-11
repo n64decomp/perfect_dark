@@ -145,14 +145,6 @@ const u32 var7f1a9d88[] = {0x7f05b140};
 const u32 var7f1a9d8c[] = {0x7f05b184};
 const u32 var7f1a9d90[] = {0x461c4000};
 
-const f32 var7f1a9d94[] = {3500};
-const f32 var7f1a9d98[] = {30999.9};
-const f32 var7f1a9d9c[] = {3000};
-const f32 var7f1a9da0[] = {3000};
-const f32 var7f1a9da4[] = {0.1};
-const f32 var7f1a9da8[] = {0.4};
-const f32 var7f1a9dac[] = {0.4};
-
 /**
  * @cmd 0000
  */
@@ -9426,7 +9418,7 @@ bool aiIncreaseSquadronAlertness(void)
 bool aiSetAction(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	g_Vars.chrdata->myaction = cmd[2];
+	g_Vars.chrdata->myaction[0] = cmd[2];
 
 	if (cmd[3] == 0) {
 		g_Vars.chrdata->orders = 0;
@@ -9865,142 +9857,37 @@ glabel ai0136
 /**
  * @cmd 0137
  */
-GLOBAL_ASM(
-glabel aiIfChrInSquadronDoingAction
-/*  f05b3e0:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f05b3e4:	afb20024 */ 	sw	$s2,0x24($sp)
-/*  f05b3e8:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f05b3ec:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f05b3f0:	8e4e0424 */ 	lw	$t6,0x424($s2)
-/*  f05b3f4:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f05b3f8:	afb50030 */ 	sw	$s5,0x30($sp)
-/*  f05b3fc:	afb4002c */ 	sw	$s4,0x2c($sp)
-/*  f05b400:	afb30028 */ 	sw	$s3,0x28($sp)
-/*  f05b404:	afb10020 */ 	sw	$s1,0x20($sp)
-/*  f05b408:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f05b40c:	f7b40010 */ 	sdc1	$f20,0x10($sp)
-/*  f05b410:	0fc133a7 */ 	jal	squadronGetChrIds
-/*  f05b414:	91c402a2 */ 	lbu	$a0,0x2a2($t6)
-/*  f05b418:	8e450438 */ 	lw	$a1,0x438($s2)
-/*  f05b41c:	8e4f0434 */ 	lw	$t7,0x434($s2)
-/*  f05b420:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f05b424:	00408825 */ 	or	$s1,$v0,$zero
-/*  f05b428:	afb8003c */ 	sw	$t8,0x3c($sp)
-/*  f05b42c:	10400033 */ 	beqz	$v0,.L0f05b4fc
-/*  f05b430:	01e5a021 */ 	addu	$s4,$t7,$a1
-/*  f05b434:	84590000 */ 	lh	$t9,0x0($v0)
-/*  f05b438:	2415fffe */ 	addiu	$s5,$zero,-2
-/*  f05b43c:	3c017f1b */ 	lui	$at,%hi(var7f1a9d94)
-/*  f05b440:	12b9002e */ 	beq	$s5,$t9,.L0f05b4fc
-/*  f05b444:	24130005 */ 	addiu	$s3,$zero,0x5
-/*  f05b448:	84440000 */ 	lh	$a0,0x0($v0)
-/*  f05b44c:	c4349d94 */ 	lwc1	$f20,%lo(var7f1a9d94)($at)
-.L0f05b450:
-/*  f05b450:	0fc0a1dd */ 	jal	chrFindByLiteralId
-/*  f05b454:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05b458:	10400023 */ 	beqz	$v0,.L0f05b4e8
-/*  f05b45c:	00408025 */ 	or	$s0,$v0,$zero
-/*  f05b460:	8c480020 */ 	lw	$t0,0x20($v0)
-/*  f05b464:	51000021 */ 	beqzl	$t0,.L0f05b4ec
-/*  f05b468:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f05b46c:	0fc0e6a5 */ 	jal	chrIsDead
-/*  f05b470:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05b474:	5440001d */ 	bnezl	$v0,.L0f05b4ec
-/*  f05b478:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f05b47c:	82090007 */ 	lb	$t1,0x7($s0)
-/*  f05b480:	02002825 */ 	or	$a1,$s0,$zero
-/*  f05b484:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f05b488:	52690018 */ 	beql	$s3,$t1,.L0f05b4ec
-/*  f05b48c:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f05b490:	0fc12aa3 */ 	jal	chrCompareTeams
-/*  f05b494:	8e440424 */ 	lw	$a0,0x424($s2)
-/*  f05b498:	50400014 */ 	beqzl	$v0,.L0f05b4ec
-/*  f05b49c:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f05b4a0:	8e440424 */ 	lw	$a0,0x424($s2)
-/*  f05b4a4:	86050000 */ 	lh	$a1,0x0($s0)
-/*  f05b4a8:	848a0000 */ 	lh	$t2,0x0($a0)
-/*  f05b4ac:	50aa000f */ 	beql	$a1,$t2,.L0f05b4ec
-/*  f05b4b0:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f05b4b4:	0fc1272c */ 	jal	chrGetDistanceToChr
-/*  f05b4b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05b4bc:	4614003c */ 	c.lt.s	$f0,$f20
-/*  f05b4c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05b4c4:	45020009 */ 	bc1fl	.L0f05b4ec
-/*  f05b4c8:	86240002 */ 	lh	$a0,0x2($s1)
-/*  f05b4cc:	928b0002 */ 	lbu	$t3,0x2($s4)
-/*  f05b4d0:	920c02a0 */ 	lbu	$t4,0x2a0($s0)
-/*  f05b4d4:	156c0004 */ 	bne	$t3,$t4,.L0f05b4e8
-/*  f05b4d8:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f05b4dc:	afad003c */ 	sw	$t5,0x3c($sp)
-/*  f05b4e0:	10000006 */ 	beqz	$zero,.L0f05b4fc
-/*  f05b4e4:	8e450438 */ 	lw	$a1,0x438($s2)
-.L0f05b4e8:
-/*  f05b4e8:	86240002 */ 	lh	$a0,0x2($s1)
-.L0f05b4ec:
-/*  f05b4ec:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f05b4f0:	16a4ffd7 */ 	bne	$s5,$a0,.L0f05b450
-/*  f05b4f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05b4f8:	8e450438 */ 	lw	$a1,0x438($s2)
-.L0f05b4fc:
-/*  f05b4fc:	8fae003c */ 	lw	$t6,0x3c($sp)
-/*  f05b500:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f05b504:	24af0004 */ 	addiu	$t7,$a1,0x4
-/*  f05b508:	51c10007 */ 	beql	$t6,$at,.L0f05b528
-/*  f05b50c:	ae4f0438 */ 	sw	$t7,0x438($s2)
-/*  f05b510:	8e440434 */ 	lw	$a0,0x434($s2)
-/*  f05b514:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05b518:	92860003 */ 	lbu	$a2,0x3($s4)
-/*  f05b51c:	10000002 */ 	beqz	$zero,.L0f05b528
-/*  f05b520:	ae420438 */ 	sw	$v0,0x438($s2)
-/*  f05b524:	ae4f0438 */ 	sw	$t7,0x438($s2)
-.L0f05b528:
-/*  f05b528:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f05b52c:	d7b40010 */ 	ldc1	$f20,0x10($sp)
-/*  f05b530:	8fb0001c */ 	lw	$s0,0x1c($sp)
-/*  f05b534:	8fb10020 */ 	lw	$s1,0x20($sp)
-/*  f05b538:	8fb20024 */ 	lw	$s2,0x24($sp)
-/*  f05b53c:	8fb30028 */ 	lw	$s3,0x28($sp)
-/*  f05b540:	8fb4002c */ 	lw	$s4,0x2c($sp)
-/*  f05b544:	8fb50030 */ 	lw	$s5,0x30($sp)
-/*  f05b548:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f05b54c:	03e00008 */ 	jr	$ra
-/*  f05b550:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfChrInSquadronDoingAction(void)
+{
+	s32 ret;
+	s16 *chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	ret = 1;
 
-// Mismatches due to position of rodata. This function uses literal 3500, while
-// others below in this file use const f32 arrays, but const f32 arrays are
-// placed in .rodata before all literals.
-//bool aiIfChrInSquadronDoingAction(void)
-//{
-//	s32 ret;
-//	s16 *chrnums = squadronGetChrIds(g_Vars.chrdata->squadron);
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	ret = 1;
-//
-//	if (chrnums) {
-//		for (; *chrnums != -2; chrnums++) {
-//			struct chrdata *chr = chrFindByLiteralId(*chrnums);
-//
-//			if (chr && chr->unk020 && chrIsDead(chr) == false &&
-//					chr->actiontype != ACT_DEAD &&
-//					chrCompareTeams(g_Vars.chrdata, chr, 1) &&
-//					g_Vars.chrdata->chrnum != chr->chrnum &&
-//					chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500 &&
-//					chr->myaction == cmd[2]) {
-//				ret = 2;
-//				break;
-//			}
-//		}
-//	}
-//
-//	if (ret != 1) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
-//	} else {
-//		g_Vars.aioffset += 4;
-//	}
-//
-//	return false;
-//}
+	if (chrnums) {
+		for (; *chrnums != -2; chrnums++) {
+			struct chrdata *chr = chrFindByLiteralId(*chrnums);
+
+			if (chr && chr->unk020 && chrIsDead(chr) == false &&
+					chr->actiontype != ACT_DEAD &&
+					chrCompareTeams(g_Vars.chrdata, chr, 1) &&
+					g_Vars.chrdata->chrnum != chr->chrnum &&
+					chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500 &&
+					cmd[2] == chr->myaction[0]) {
+				ret = 2;
+				break;
+			}
+		}
+	}
+
+	if (ret != 1) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0139
@@ -10023,7 +9910,7 @@ bool ai0139(void)
  */
 bool aiSetChrPresetToUnalertedTeammate(void)
 {
-	f32 closest_distance = var7f1a9d98[0];
+	f32 closest_distance = 30999.9;
 	s16 candidate_chrnum = -1;
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
@@ -11764,7 +11651,7 @@ bool aiIfTargetYDifferenceLessThan(void)
 bool ai01aa(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	f32 a = var7f1a9d9c[0];
+	f32 a = 3000;
 
 	func0f0056f4(
 			g_Vars.currentplayer->prop->rooms[0],
@@ -11773,7 +11660,7 @@ bool ai01aa(void)
 			&g_Vars.chrdata->prop->pos,
 			0, &a, 0);
 
-	if (a < var7f1a9da0[0]) {
+	if (a < 3000) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -12044,7 +11931,7 @@ bool ai01b2(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	var8007db84 = var7f1a9da4[0] * (s32)cmd[2];
+	var8007db84 = 0.1f * (s32)cmd[2];
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -12296,13 +12183,16 @@ bool aiChrBeginOrEndTeleport(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
-	f32 fvalue = var7f1a9da8[0];
-	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[4]);
+	f32 fvalue[1];
+	struct chrdata *chr;
 	s32 a;
 	u32 playernum;
-	u32 prevplayernum = g_Vars.currentplayernum;
+	u32 prevplayernum;
 	s32 b;
 	s32 c;
+	fvalue[0] = 0.4;
+	chr = chrFindById(g_Vars.chrdata, cmd[4]);
+	prevplayernum = g_Vars.currentplayernum;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		playernum = propGetPlayerNum(chr->prop);
@@ -12324,7 +12214,7 @@ bool aiChrBeginOrEndTeleport(void)
 		c = func00010904(var80095200, 1075, 0, -1, -1, -1, -1, -1);
 
 		if (c) {
-			func00033e50(c, 16, fvalue);
+			func00033e50(c, 16, fvalue[0]);
 		}
 
 		func00048430(0, a);
@@ -12346,7 +12236,7 @@ bool aiIfChrTeleportFullWhite(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[3]);
 	u32 prevplayernum = g_Vars.currentplayernum;
 	s32 a;
-	f32 fvalue;
+	f32 fvalue[1];
 	s32 b;
 	s32 c;
 
@@ -12358,14 +12248,14 @@ bool aiIfChrTeleportFullWhite(void)
 	if (g_Vars.currentplayer->teleportstate < TELEPORTSTATE_3) {
 		g_Vars.aioffset += 4;
 	} else {
-		fvalue = var7f1a9dac[0];
+		fvalue[0] = 0.4;
 		a = func000488c0(0);
 		b = func000488c0(&var800915e0);
 		func00048430(0, b + 1);
 		c = func00010904(var80095200, -32683, 0, -1, -1, -1, -1, -1);
 
 		if (c) {
-			func00033e50(c, 16, fvalue);
+			func00033e50(c, 16, fvalue[0]);
 		}
 
 		func00048430(0, a);
