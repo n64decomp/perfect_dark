@@ -15791,7 +15791,7 @@ glabel func0f03b1e0
 /*  f03b23c:	26640028 */ 	addiu	$a0,$s3,0x28
 /*  f03b240:	afa4004c */ 	sw	$a0,0x4c($sp)
 /*  f03b244:	02e02825 */ 	or	$a1,$s7,$zero
-/*  f03b248:	0fc197e0 */ 	jal	func0f065f80
+/*  f03b248:	0fc197e0 */ 	jal	roomGetProps
 /*  f03b24c:	24060100 */ 	addiu	$a2,$zero,0x100
 /*  f03b250:	87ae00a8 */ 	lh	$t6,0xa8($sp)
 /*  f03b254:	00008825 */ 	or	$s1,$zero,$zero
@@ -25296,7 +25296,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 				pass = true;
 			}
 
-			if ((flags & 2) && prop->type == PROPTYPE_7) {
+			if ((flags & 2) && prop->type == PROPTYPE_EXPLOSION) {
 				pass = true;
 			}
 
@@ -32609,7 +32609,7 @@ glabel func0f04a848
 .L0f04a920:
 /*  f04a920:	02002825 */ 	or	$a1,$s0,$zero
 /*  f04a924:	02602025 */ 	or	$a0,$s3,$zero
-/*  f04a928:	0fc197e0 */ 	jal	func0f065f80
+/*  f04a928:	0fc197e0 */ 	jal	roomGetProps
 /*  f04a92c:	24060100 */ 	addiu	$a2,$zero,0x100
 /*  f04a930:	87af00e0 */ 	lh	$t7,0xe0($sp)
 /*  f04a934:	02009025 */ 	or	$s2,$s0,$zero

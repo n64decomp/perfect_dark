@@ -3020,7 +3020,7 @@ glabel func0f19ecdc
 .L0f19ee18:
 /*  f19ee18:	02002825 */ 	or	$a1,$s0,$zero
 /*  f19ee1c:	02402025 */ 	or	$a0,$s2,$zero
-/*  f19ee20:	0fc197e0 */ 	jal	func0f065f80
+/*  f19ee20:	0fc197e0 */ 	jal	roomGetProps
 /*  f19ee24:	24060100 */ 	addiu	$a2,$zero,0x100
 /*  f19ee28:	87b80098 */ 	lh	$t8,0x98($sp)
 /*  f19ee2c:	02009025 */ 	or	$s2,$s0,$zero
@@ -3670,7 +3670,7 @@ glabel func0f19f524
 /*  f19f714:	27a40064 */ 	addiu	$a0,$sp,0x64
 .L0f19f718:
 /*  f19f718:	27a50090 */ 	addiu	$a1,$sp,0x90
-/*  f19f71c:	0fc197e0 */ 	jal	func0f065f80
+/*  f19f71c:	0fc197e0 */ 	jal	roomGetProps
 /*  f19f720:	24060100 */ 	addiu	$a2,$zero,0x100
 /*  f19f724:	87ae0090 */ 	lh	$t6,0x90($sp)
 /*  f19f728:	27b90090 */ 	addiu	$t9,$sp,0x90
@@ -6908,7 +6908,7 @@ glabel func0f1a22d4
 /*  f1a2384:	02202825 */ 	or	$a1,$s1,$zero
 /*  f1a2388:	02402025 */ 	or	$a0,$s2,$zero
 /*  f1a238c:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f1a2390:	0fc197e0 */ 	jal	func0f065f80
+/*  f1a2390:	0fc197e0 */ 	jal	roomGetProps
 /*  f1a2394:	ad401c08 */ 	sw	$zero,0x1c08($t2)
 /*  f1a2398:	87ab0050 */ 	lh	$t3,0x50($sp)
 /*  f1a239c:	02208025 */ 	or	$s0,$s1,$zero

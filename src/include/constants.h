@@ -1530,13 +1530,14 @@
 #define PROPFLAG_40     0x40
 #define PROPFLAG_80     0x80
 
-#define PROPTYPE_OBJ    1
-#define PROPTYPE_DOOR   2
-#define PROPTYPE_CHR    3
-#define PROPTYPE_WEAPON 4
-#define PROPTYPE_EYESPY 5
-#define PROPTYPE_PLAYER 6
-#define PROPTYPE_7      7
+#define PROPTYPE_OBJ       1
+#define PROPTYPE_DOOR      2
+#define PROPTYPE_CHR       3
+#define PROPTYPE_WEAPON    4
+#define PROPTYPE_EYESPY    5
+#define PROPTYPE_PLAYER    6
+#define PROPTYPE_EXPLOSION 7
+#define PROPTYPE_EFFECT    8
 
 #define RACE_HUMAN    0
 #define RACE_SKEDAR   1

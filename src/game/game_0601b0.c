@@ -4729,7 +4729,7 @@ glabel func0f0641f4
 .L0f0642bc:
 /*  f0642bc:	02002825 */ 	or	$a1,$s0,$zero
 /*  f0642c0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0642c4:	0fc197e0 */ 	jal	func0f065f80
+/*  f0642c4:	0fc197e0 */ 	jal	roomGetProps
 /*  f0642c8:	24060100 */ 	addiu	$a2,$zero,0x100
 /*  f0642cc:	87ac0088 */ 	lh	$t4,0x88($sp)
 /*  f0642d0:	02008825 */ 	or	$s1,$s0,$zero
@@ -6796,7 +6796,7 @@ glabel func0f065e98
 );
 
 GLOBAL_ASM(
-glabel func0f065f80
+glabel roomGetProps
 /*  f065f80:	afa60008 */ 	sw	$a2,0x8($sp)
 /*  f065f84:	84830000 */ 	lh	$v1,0x0($a0)
 /*  f065f88:	240affff */ 	addiu	$t2,$zero,-1

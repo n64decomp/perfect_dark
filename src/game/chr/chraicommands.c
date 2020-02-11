@@ -1794,7 +1794,7 @@ bool aiIfSeesSuspiciousItem(void)
 	s16 propnums[256];
 	struct prop *chrprop = g_Vars.chrdata->prop;
 
-	func0f065f80(&chrprop->rooms[0], &propnums[0], 256);
+	roomGetProps(&chrprop->rooms[0], &propnums[0], 256);
 
 	ptr = &propnums[0];
 
@@ -1811,7 +1811,7 @@ bool aiIfSeesSuspiciousItem(void)
 					&& func0f039558(g_Vars.chrdata, prop)) {
 				pass = true;
 			}
-		} else if (prop->type == PROPTYPE_7) {
+		} else if (prop->type == PROPTYPE_EXPLOSION) {
 			if (func0f039558(g_Vars.chrdata, prop)) {
 				pass = true;
 			}

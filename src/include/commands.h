@@ -2702,15 +2702,16 @@
 	label,
 
 /**
- * Checks if there is a live grenade or other dangerous object nearby. If so,
- * the position of the object is stored in the chr's runfrompos property and the
- * command passes.
+ * Checks if there is a live grenade or explosion nearby. If so, the position of
+ * the object is stored in the chr's runfrompos property and the command passes.
  *
  * The flags argument is a bitfield which specifies what types of objects to
  * look for.
  *
  * Flag 0x1 = check for grenades
- * Flag 0x2 = check for prop type 7 (unsure what this is at the moment)
+ * Flag 0x2 = check for explosions
+ *
+ * Set to 0x3 to check for both.
  *
  * Those are the only supported flags.
  */

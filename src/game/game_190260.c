@@ -1311,7 +1311,7 @@ glabel func0f19124c
 .L0f1912e0:
 /*  f1912e0:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1912e4:	02602025 */ 	or	$a0,$s3,$zero
-/*  f1912e8:	0fc197e0 */ 	jal	func0f065f80
+/*  f1912e8:	0fc197e0 */ 	jal	roomGetProps
 /*  f1912ec:	24060100 */ 	addiu	$a2,$zero,0x100
 /*  f1912f0:	87b90090 */ 	lh	$t9,0x90($sp)
 /*  f1912f4:	02008825 */ 	or	$s1,$s0,$zero
