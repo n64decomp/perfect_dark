@@ -3167,83 +3167,35 @@ bool aiGiveObjectToChr(void)
 /**
  * @cmd 006b
  */
-GLOBAL_ASM(
-glabel ai006b
-/*  f052080:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f052084:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f052088:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f05208c:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f052090:	27bdff28 */ 	addiu	$sp,$sp,-216
-/*  f052094:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f052098:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05209c:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f0520a0:	0fc2556c */ 	jal	objFindByTagId
-/*  f0520a4:	afa300d4 */ 	sw	$v1,0xd4($sp)
-/*  f0520a8:	8fa300d4 */ 	lw	$v1,0xd4($sp)
-/*  f0520ac:	afa200d0 */ 	sw	$v0,0xd0($sp)
-/*  f0520b0:	90780003 */ 	lbu	$t8,0x3($v1)
-/*  f0520b4:	90680004 */ 	lbu	$t0,0x4($v1)
-/*  f0520b8:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f0520bc:	03283825 */ 	or	$a3,$t9,$t0
-/*  f0520c0:	1040002e */ 	beqz	$v0,.L0f05217c
-/*  f0520c4:	30e9ffff */ 	andi	$t1,$a3,0xffff
-/*  f0520c8:	8c4a0014 */ 	lw	$t2,0x14($v0)
-/*  f0520cc:	01202025 */ 	or	$a0,$t1,$zero
-/*  f0520d0:	2405004e */ 	addiu	$a1,$zero,0x4e
-/*  f0520d4:	11400029 */ 	beqz	$t2,.L0f05217c
-/*  f0520d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0520dc:	0fc456ac */ 	jal	padUnpack
-/*  f0520e0:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f0520e4:	c7a40044 */ 	lwc1	$f4,0x44($sp)
-/*  f0520e8:	44800000 */ 	mtc1	$zero,$f0
-/*  f0520ec:	c7a80048 */ 	lwc1	$f8,0x48($sp)
-/*  f0520f0:	46002187 */ 	neg.s	$f6,$f4
-/*  f0520f4:	c7b0004c */ 	lwc1	$f16,0x4c($sp)
-/*  f0520f8:	46004287 */ 	neg.s	$f10,$f8
-/*  f0520fc:	e7a60010 */ 	swc1	$f6,0x10($sp)
-/*  f052100:	c7a60054 */ 	lwc1	$f6,0x54($sp)
-/*  f052104:	c7a80058 */ 	lwc1	$f8,0x58($sp)
-/*  f052108:	c7a40050 */ 	lwc1	$f4,0x50($sp)
-/*  f05210c:	46008487 */ 	neg.s	$f18,$f16
-/*  f052110:	44050000 */ 	mfc1	$a1,$f0
-/*  f052114:	44060000 */ 	mfc1	$a2,$f0
-/*  f052118:	44070000 */ 	mfc1	$a3,$f0
-/*  f05211c:	e7b20018 */ 	swc1	$f18,0x18($sp)
-/*  f052120:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f052124:	27a4008c */ 	addiu	$a0,$sp,0x8c
-/*  f052128:	e7a60020 */ 	swc1	$f6,0x20($sp)
-/*  f05212c:	e7a80024 */ 	swc1	$f8,0x24($sp)
-/*  f052130:	0c005b56 */ 	jal	func00016d58
-/*  f052134:	e7a4001c */ 	swc1	$f4,0x1c($sp)
-/*  f052138:	8fab00d0 */ 	lw	$t3,0xd0($sp)
-/*  f05213c:	27a5008c */ 	addiu	$a1,$sp,0x8c
-/*  f052140:	8d620018 */ 	lw	$v0,0x18($t3)
-/*  f052144:	50400004 */ 	beqzl	$v0,.L0f052158
-/*  f052148:	8fac0080 */ 	lw	$t4,0x80($sp)
-/*  f05214c:	0c0057c1 */ 	jal	func00015f04
-/*  f052150:	c44c0014 */ 	lwc1	$f12,0x14($v0)
-/*  f052154:	8fac0080 */ 	lw	$t4,0x80($sp)
-.L0f052158:
-/*  f052158:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f05215c:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f052160:	a7ad0036 */ 	sh	$t5,0x36($sp)
-/*  f052164:	afa50010 */ 	sw	$a1,0x10($sp)
-/*  f052168:	8fa400d0 */ 	lw	$a0,0xd0($sp)
-/*  f05216c:	27a6008c */ 	addiu	$a2,$sp,0x8c
-/*  f052170:	27a70034 */ 	addiu	$a3,$sp,0x34
-/*  f052174:	0fc1a9cc */ 	jal	func0f06a730
-/*  f052178:	a7ac0034 */ 	sh	$t4,0x34($sp)
-.L0f05217c:
-/*  f05217c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f052180:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f052184:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f052188:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f05218c:	27bd00d8 */ 	addiu	$sp,$sp,0xd8
-/*  f052190:	25cf0005 */ 	addiu	$t7,$t6,0x5
-/*  f052194:	ac6f0438 */ 	sw	$t7,0x438($v1)
-/*  f052198:	03e00008 */ 	jr	$ra
-/*  f05219c:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiObjectMoveToPad(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+	u16 padnum = cmd[4] | (cmd[3] << 8);
+	f32 matrix[16];
+	struct pad pad;
+	s16 rooms[2];
+
+	if (obj && obj->prop) {
+		padUnpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_ROOM, &pad);
+		func00016d58(matrix,
+				0, 0, 0,
+				-pad.look.x, -pad.look.y, -pad.look.z,
+				pad.up.x, pad.up.y, pad.up.z);
+
+		if (obj->unk18) {
+			func00015f04(obj->unk18->unk14, matrix);
+		}
+
+		rooms[0] = pad.room;
+		rooms[1] = -1;
+		func0f06a730(obj, &pad, matrix, rooms, &pad);
+	}
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 006c

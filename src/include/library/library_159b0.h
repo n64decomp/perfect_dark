@@ -20,7 +20,7 @@ u32 func00015e4c(void);
 u32 func00015e80(void);
 u32 func00015ea8(void);
 u32 func00015edc(void);
-u32 func00015f04(void);
+void func00015f04(f32 arg0, f32 *arg1);
 u32 func00015f4c(void);
 u32 func00015f88(void);
 u32 func00015fd0(void);

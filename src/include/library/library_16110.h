@@ -25,7 +25,7 @@ u32 func00016820(void);
 u32 func00016874(void);
 u32 func00016ae4(void);
 u32 func00016b58(void);
-u32 func00016d58(void);
+void func00016d58(f32 *matrix, f32 posx, f32 posy, f32 posz, f32 lookx, f32 looky, f32 lookz, f32 upx, f32 upy, f32 upz);
 u32 func00016dcc(void);
 u32 func00016e98(void);
 u32 func00017028(void);

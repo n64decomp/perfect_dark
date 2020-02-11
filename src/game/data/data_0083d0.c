@@ -6326,7 +6326,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0068*/ aiChrDropItems,
 	/*0x0069*/ aiChrDropWeapon,
 	/*0x006a*/ aiGiveObjectToChr,
-	/*0x006b*/ ai006b,
+	/*0x006b*/ aiObjectMoveToPad,
 	/*0x006c*/ aiOpenDoor,
 	/*0x006d*/ aiCloseDoor,
 	/*0x006e*/ aiIfDoorState,
