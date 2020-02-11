@@ -1067,145 +1067,37 @@ glabel ai0019
 /**
  * @cmd 001a
  */
-GLOBAL_ASM(
-glabel ai001a
-/*  f04eecc:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f04eed0:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f04eed4:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f04eed8:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
-/*  f04eedc:	8e4e0434 */ 	lw	$t6,0x434($s2)
-/*  f04eee0:	8e4f0438 */ 	lw	$t7,0x438($s2)
-/*  f04eee4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f04eee8:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f04eeec:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f04eef0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f04eef4:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f04eef8:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f04eefc:	0fc126d1 */ 	jal	chrFindById
-/*  f04ef00:	8e440424 */ 	lw	$a0,0x424($s2)
-/*  f04ef04:	8fb80054 */ 	lw	$t8,0x54($sp)
-/*  f04ef08:	00408025 */ 	or	$s0,$v0,$zero
-/*  f04ef0c:	8e440424 */ 	lw	$a0,0x424($s2)
-/*  f04ef10:	0fc126d1 */ 	jal	chrFindById
-/*  f04ef14:	93050003 */ 	lbu	$a1,0x3($t8)
-/*  f04ef18:	12000044 */ 	beqz	$s0,.L0f04f02c
-/*  f04ef1c:	00408825 */ 	or	$s1,$v0,$zero
-/*  f04ef20:	50400043 */ 	beqzl	$v0,.L0f04f030
-/*  f04ef24:	8e4c0438 */ 	lw	$t4,0x438($s2)
-/*  f04ef28:	8e19001c */ 	lw	$t9,0x1c($s0)
-/*  f04ef2c:	53200040 */ 	beqzl	$t9,.L0f04f030
-/*  f04ef30:	8e4c0438 */ 	lw	$t4,0x438($s2)
-/*  f04ef34:	8c48001c */ 	lw	$t0,0x1c($v0)
-/*  f04ef38:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04ef3c:	5100003c */ 	beqzl	$t0,.L0f04f030
-/*  f04ef40:	8e4c0438 */ 	lw	$t4,0x438($s2)
-/*  f04ef44:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f04ef48:	00002825 */ 	or	$a1,$zero,$zero
-/*  f04ef4c:	3c0a8007 */ 	lui	$t2,%hi(var80068fec)
-/*  f04ef50:	254a8fec */ 	addiu	$t2,$t2,%lo(var80068fec)
-/*  f04ef54:	8d410000 */ 	lw	$at,0x0($t2)
-/*  f04ef58:	27a90038 */ 	addiu	$t1,$sp,0x38
-/*  f04ef5c:	8d4c0004 */ 	lw	$t4,0x4($t2)
-/*  f04ef60:	ad210000 */ 	sw	$at,0x0($t1)
-/*  f04ef64:	8d410008 */ 	lw	$at,0x8($t2)
-/*  f04ef68:	00401825 */ 	or	$v1,$v0,$zero
-/*  f04ef6c:	ad2c0004 */ 	sw	$t4,0x4($t1)
-/*  f04ef70:	14400005 */ 	bnez	$v0,.L0f04ef88
-/*  f04ef74:	ad210008 */ 	sw	$at,0x8($t1)
-/*  f04ef78:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04ef7c:	0fc0a20d */ 	jal	chrGetEquippedWeaponPropWithCheck
-/*  f04ef80:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f04ef84:	00401825 */ 	or	$v1,$v0,$zero
-.L0f04ef88:
-/*  f04ef88:	50400029 */ 	beqzl	$v0,.L0f04f030
-/*  f04ef8c:	8e4c0438 */ 	lw	$t4,0x438($s2)
-/*  f04ef90:	8e2d001c */ 	lw	$t5,0x1c($s1)
-/*  f04ef94:	8e0e001c */ 	lw	$t6,0x1c($s0)
-/*  f04ef98:	27a40038 */ 	addiu	$a0,$sp,0x38
-/*  f04ef9c:	c5a40008 */ 	lwc1	$f4,0x8($t5)
-/*  f04efa0:	c5c60008 */ 	lwc1	$f6,0x8($t6)
-/*  f04efa4:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f04efa8:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f04efac:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f04efb0:	e7a80038 */ 	swc1	$f8,0x38($sp)
-/*  f04efb4:	8e18001c */ 	lw	$t8,0x1c($s0)
-/*  f04efb8:	8e2f001c */ 	lw	$t7,0x1c($s1)
-/*  f04efbc:	c710000c */ 	lwc1	$f16,0xc($t8)
-/*  f04efc0:	c5ea000c */ 	lwc1	$f10,0xc($t7)
-/*  f04efc4:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f04efc8:	e7b2003c */ 	swc1	$f18,0x3c($sp)
-/*  f04efcc:	8e08001c */ 	lw	$t0,0x1c($s0)
-/*  f04efd0:	8e39001c */ 	lw	$t9,0x1c($s1)
-/*  f04efd4:	c5060010 */ 	lwc1	$f6,0x10($t0)
-/*  f04efd8:	c7240010 */ 	lwc1	$f4,0x10($t9)
-/*  f04efdc:	afa30048 */ 	sw	$v1,0x48($sp)
-/*  f04efe0:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f04efe4:	0c0011e4 */ 	jal	scaleTo1
-/*  f04efe8:	e7a80040 */ 	swc1	$f8,0x40($sp)
-/*  f04efec:	8fa30048 */ 	lw	$v1,0x48($sp)
-/*  f04eff0:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f04eff4:	2447005c */ 	addiu	$a3,$v0,0x5c
-/*  f04eff8:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f04effc:	0fc2c74a */ 	jal	func0f0b1d28
-/*  f04f000:	afa70030 */ 	sw	$a3,0x30($sp)
-/*  f04f004:	8e0b001c */ 	lw	$t3,0x1c($s0)
-/*  f04f008:	8fa90054 */ 	lw	$t1,0x54($sp)
-/*  f04f00c:	44050000 */ 	mfc1	$a1,$f0
-/*  f04f010:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f04f014:	812a0004 */ 	lb	$t2,0x4($t1)
-/*  f04f018:	8fa70030 */ 	lw	$a3,0x30($sp)
-/*  f04f01c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04f020:	27a60038 */ 	addiu	$a2,$sp,0x38
-/*  f04f024:	0fc0d0cc */ 	jal	func0f034330
-/*  f04f028:	afaa0014 */ 	sw	$t2,0x14($sp)
-.L0f04f02c:
-/*  f04f02c:	8e4c0438 */ 	lw	$t4,0x438($s2)
-.L0f04f030:
-/*  f04f030:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f04f034:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f04f038:	258d0005 */ 	addiu	$t5,$t4,0x5
-/*  f04f03c:	ae4d0438 */ 	sw	$t5,0x438($s2)
-/*  f04f040:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f04f044:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f04f048:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f04f04c:	03e00008 */ 	jr	$ra
-/*  f04f050:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool ai001a(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
+	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
 
-//bool ai001a(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct chrdata *chr1 = chrFindById(g_Vars.chrdata, cmd[2]);
-//	struct chrdata *chr2 = chrFindById(g_Vars.chrdata, cmd[3]);
-//
-//	if (chr1 && chr2 && chr1->prop && chr2->prop) {
-//		struct prop *prop = chrGetEquippedWeaponPropWithCheck(chr1, 0);
-//		struct coord pos;
-//		pos.x = var80068fec.x;
-//		pos.y = var80068fec.y;
-//		pos.z = var80068fec.z;
-//
-//		if (!prop) {
-//			prop = chrGetEquippedWeaponPropWithCheck(chr1, 1);
-//		}
-//
-//		if (prop) {
-//			s32 weapon_id;
-//			s32 thing;
-//			pos.x = chr2->prop->pos.x - chr1->prop->pos.x;
-//			pos.y = chr2->prop->pos.y - chr1->prop->pos.y;
-//			pos.x = chr2->prop->pos.z - chr1->prop->pos.z;
-//			scaleTo1(&pos.x, &pos.y, &pos.z);
-//			weapon_id = prop->weapon->weapon_id;
-//			thing = func0f0b1d28(weapon_id);
-//			func0f034330(chr2, thing, &pos, weapon_id);
-//		}
-//	}
-//
-//	g_Vars.aioffset += 5;
-//
-//	return false;
-//}
+	if (chr1 && chr2 && chr1->prop && chr2->prop) {
+		struct prop *prop = chrGetEquippedWeaponPropWithCheck(chr1, 0);
+		f32 thing;
+		struct coord pos = var80068fec;
+		struct weaponobj *weapon;
+
+		if (!prop) {
+			prop = chrGetEquippedWeaponPropWithCheck(chr1, 1);
+		}
+
+		if (prop) {
+			pos.x = chr2->prop->pos.x - chr1->prop->pos.x;
+			pos.y = chr2->prop->pos.y - chr1->prop->pos.y;
+			pos.z = chr2->prop->pos.z - chr1->prop->pos.z;
+			scaleTo1(&pos.x, &pos.y, &pos.z);
+			weapon = prop->weapon;
+			thing = func0f0b1d28(&weapon->weapon_id);
+			func0f034330(chr2, thing, &pos, &weapon->weapon_id, chr1->prop, (s8)cmd[4]);
+		}
+	}
+
+	g_Vars.aioffset += 5;
+
+	return false;
+}
 
 /**
  * @cmd 001b

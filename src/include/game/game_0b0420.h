@@ -41,7 +41,7 @@ u32 func0f0b1af0(void);
 u32 func0f0b1c24(void);
 u32 func0f0b1c78(void);
 u32 func0f0b1ce8(void);
-u32 func0f0b1d28(s32 weapon_id);
+f32 func0f0b1d28(u8 *weapon_id);
 u32 func0f0b1e28(void);
 u32 func0f0b1e68(void);
 u32 func0f0b1ea8(void);

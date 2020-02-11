@@ -59,7 +59,7 @@ u32 func0f034080(void);
 u32 func0f034124(void);
 u32 func0f03417c(void);
 u32 func0f0341dc(void);
-u32 func0f034330(struct chrdata *chr, s32 arg1, struct coord *pos, s32 arg3);
+void func0f034330(struct chrdata *chr, f32 arg1, struct coord *pos, u8 *arg3, struct prop *prop, s32 arg5);
 u32 func0f034410(void);
 u32 func0f034480(void);
 u32 func0f034524(void);
