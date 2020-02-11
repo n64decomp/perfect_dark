@@ -32929,7 +32929,7 @@ glabel func0f04aeb0
 /*  f04aefc:	0011c040 */ 	sll	$t8,$s1,0x1
 /*  f04af00:	84440000 */ 	lh	$a0,0x0($v0)
 .L0f04af04:
-/*  f04af04:	0fc575ba */ 	jal	func0f15d6e8
+/*  f04af04:	0fc575ba */ 	jal	roomIsActive
 /*  f04af08:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f04af0c:	50400004 */ 	beqzl	$v0,.L0f04af20
 /*  f04af10:	86040002 */ 	lh	$a0,0x2($s0)

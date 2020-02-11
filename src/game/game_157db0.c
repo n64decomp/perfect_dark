@@ -4319,8 +4319,8 @@ glabel func0f15b908
 /*  f15b9fc:	0c0048f2 */ 	jal	malloc
 /*  f15ba00:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15ba04:	8e7102bc */ 	lw	$s1,0x2bc($s3)
-/*  f15ba08:	3c03800a */ 	lui	$v1,%hi(var800a492c)
-/*  f15ba0c:	2463492c */ 	addiu	$v1,$v1,%lo(var800a492c)
+/*  f15ba08:	3c03800a */ 	lui	$v1,%hi(g_MpRoomVisibility)
+/*  f15ba0c:	2463492c */ 	addiu	$v1,$v1,%lo(g_MpRoomVisibility)
 /*  f15ba10:	1a20000a */ 	blez	$s1,.L0f15ba3c
 /*  f15ba14:	ac620000 */ 	sw	$v0,0x0($v1)
 /*  f15ba18:	8c6f0000 */ 	lw	$t7,0x0($v1)
@@ -6389,33 +6389,14 @@ glabel func0f15d6c4
 /*  f15d6e4:	a4990006 */ 	sh	$t9,0x6($a0)
 );
 
-GLOBAL_ASM(
-glabel func0f15d6e8
-/*  f15d6e8:	3c0e800a */ 	lui	$t6,0x800a
-/*  f15d6ec:	8dcea2d4 */ 	lw	$t6,-0x5d2c($t6)
-/*  f15d6f0:	000450c0 */ 	sll	$t2,$a0,0x3
-/*  f15d6f4:	01445021 */ 	addu	$t2,$t2,$a0
-/*  f15d6f8:	11c00008 */ 	beqz	$t6,.L0f15d71c
-/*  f15d6fc:	3c09800a */ 	lui	$t1,0x800a
-/*  f15d700:	3c0f800a */ 	lui	$t7,0x800a
-/*  f15d704:	8def492c */ 	lw	$t7,0x492c($t7)
-/*  f15d708:	01e4c021 */ 	addu	$t8,$t7,$a0
-/*  f15d70c:	93020000 */ 	lbu	$v0,0x0($t8)
-/*  f15d710:	3059000f */ 	andi	$t9,$v0,0xf
-/*  f15d714:	03e00008 */ 	jr	$ra
-/*  f15d718:	0019102b */ 	sltu	$v0,$zero,$t9
-.L0f15d71c:
-/*  f15d71c:	8d294928 */ 	lw	$t1,0x4928($t1)
-/*  f15d720:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f15d724:	01445023 */ 	subu	$t2,$t2,$a0
-/*  f15d728:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f15d72c:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f15d730:	95620000 */ 	lhu	$v0,0x0($t3)
-/*  f15d734:	304c0004 */ 	andi	$t4,$v0,0x4
-/*  f15d738:	01801025 */ 	or	$v0,$t4,$zero
-/*  f15d73c:	03e00008 */ 	jr	$ra
-/*  f15d740:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool roomIsActive(s32 room_id)
+{
+	if (g_Vars.mplayerisrunning) {
+		return (g_MpRoomVisibility[room_id] & 0xf) != 0;
+	}
+
+	return g_RoomPtrs[room_id].flags & ROOMFLAG_ACTIVE;
+}
 
 GLOBAL_ASM(
 glabel func0f15d744
@@ -13630,8 +13611,8 @@ glabel func0f16397c
 /*  f163d40:	312e00ff */ 	andi	$t6,$t1,0xff
 /*  f163d44:	1b000030 */ 	blez	$t8,.L0f163e08
 /*  f163d48:	00001825 */ 	or	$v1,$zero,$zero
-/*  f163d4c:	3c05800a */ 	lui	$a1,%hi(var800a492c)
-/*  f163d50:	24a5492c */ 	addiu	$a1,$a1,%lo(var800a492c)
+/*  f163d4c:	3c05800a */ 	lui	$a1,%hi(g_MpRoomVisibility)
+/*  f163d50:	24a5492c */ 	addiu	$a1,$a1,%lo(g_MpRoomVisibility)
 /*  f163d54:	00002025 */ 	or	$a0,$zero,$zero
 /*  f163d58:	03203025 */ 	or	$a2,$t9,$zero
 /*  f163d5c:	01c03825 */ 	or	$a3,$t6,$zero

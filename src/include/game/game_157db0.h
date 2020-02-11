@@ -44,7 +44,7 @@ u32 func0f15d4a8(void);
 u32 func0f15d570(void);
 u32 func0f15d63c(void);
 u32 func0f15d6c4(void);
-u32 func0f15d6e8(u32 arg0);
+bool roomIsActive(s32 room_id);
 u32 func0f15d744(void);
 u32 func0f15d7a0(void);
 u32 func0f15d808(void);

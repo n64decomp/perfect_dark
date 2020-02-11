@@ -1373,7 +1373,7 @@ u8 func0412_cia[] = {
 
 	label(0x03)
 	unset_self_flag_bankx(CHRFLAG1_DONE_SEARCH_ANIM, BANK_1)
-	cmd0049(0x003e, /*goto*/ 0x04)
+	if_room_onscreen(0x003e, /*goto*/ 0x04)
 	set_padpreset(0x00ba)
 	goto_next(0x03)
 

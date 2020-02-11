@@ -764,7 +764,7 @@ extern u32 var800a491c;
 extern u32 var800a4920;
 extern u32 var800a4924;
 extern struct room *g_RoomPtrs;
-extern u32 var800a492c;
+extern u8 *g_MpRoomVisibility;
 extern u32 var800a4930;
 extern u32 var800a4bec;
 extern u32 var800a4bf0;

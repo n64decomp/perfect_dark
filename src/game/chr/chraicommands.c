@@ -1883,7 +1883,7 @@ glabel ai0048
 /*  f050348:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05034c:	84640028 */ 	lh	$a0,0x28($v1)
 .L0f050350:
-/*  f050350:	0fc575ba */ 	jal	func0f15d6e8
+/*  f050350:	0fc575ba */ 	jal	roomIsActive
 /*  f050354:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f050358:	50400003 */ 	beqzl	$v0,.L0f050368
 /*  f05035c:	8e28001c */ 	lw	$t0,0x1c($s1)
@@ -1924,13 +1924,13 @@ glabel ai0048
 /**
  * @cmd 0049
  */
-bool ai0049(void)
+bool aiIfRoomActive(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
-	s32 value2 = chrGetPadRoom(g_Vars.chrdata, pad_id);
+	s32 room_id = chrGetPadRoom(g_Vars.chrdata, pad_id);
 
-	if (value2 >= 0 && func0f15d6e8(value2)) {
+	if (room_id >= 0 && roomIsActive(room_id)) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -12940,15 +12940,15 @@ bool aiMiscellaneous(void)
 		var8006ae28 = value;
 		break;
 	case 5:
-		g_RoomPtrs[room_id].flags &= ~ROOMFLAG_00004000;
+		g_RoomPtrs[room_id].flags &= ~ROOMFLAG_4000;
 		if (value) {
-			g_RoomPtrs[room_id].flags |= ROOMFLAG_00004000;
+			g_RoomPtrs[room_id].flags |= ROOMFLAG_4000;
 		}
 		break;
 	case 6:
-		g_RoomPtrs[room_id].flags &= ~ROOMFLAG_00008000;
+		g_RoomPtrs[room_id].flags &= ~ROOMFLAG_8000;
 		if (value) {
-			g_RoomPtrs[room_id].flags |= ROOMFLAG_00008000;
+			g_RoomPtrs[room_id].flags |= ROOMFLAG_8000;
 		}
 		break;
 	case 7:
@@ -12960,9 +12960,9 @@ bool aiMiscellaneous(void)
 	case 9:
 		for (i = 1; i < g_Vars.roomcount; i++) {
 			if (value) {
-				g_RoomPtrs[i].flags |= ROOMFLAG_00004000;
+				g_RoomPtrs[i].flags |= ROOMFLAG_4000;
 			} else {
-				g_RoomPtrs[i].flags &= ~ROOMFLAG_00004000;
+				g_RoomPtrs[i].flags &= ~ROOMFLAG_4000;
 			}
 		}
 		break;

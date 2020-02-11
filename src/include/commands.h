@@ -609,10 +609,15 @@
 	u1, \
 	label,
 
-// Used by CIA guards in chicago
-#define cmd0049(pad, label) \
+/**
+ * Checks if a room is visible.
+ *
+ * If the room argument is 10,000 or more than it will subtract 10,000, treat
+ * it as a pad number, and use the room that the pad is in.
+ */
+#define if_room_onscreen(room, label) \
 	mkshort(0x0049), \
-	mkshort(pad), \
+	mkshort(room), \
 	label,
 
 #define if_chr_in_view(label) \

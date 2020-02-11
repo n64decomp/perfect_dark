@@ -1760,7 +1760,7 @@ glabel func0f1918d0
 /*  f191958:	01801825 */ 	or	$v1,$t4,$zero
 /*  f19195c:	85840028 */ 	lh	$a0,0x28($t4)
 .L0f191960:
-/*  f191960:	0fc575ba */ 	jal	func0f15d6e8
+/*  f191960:	0fc575ba */ 	jal	roomIsActive
 /*  f191964:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f191968:	14400006 */ 	bnez	$v0,.L0f191984
 /*  f19196c:	8fa30028 */ 	lw	$v1,0x28($sp)
