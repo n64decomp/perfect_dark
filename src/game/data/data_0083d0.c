@@ -6291,7 +6291,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0045*/ ai0045,
 	/*0x0046*/ aiIfNeverBeenOnScreen,
 	/*0x0047*/ ai0047,
-	/*0x0048*/ ai0048,
+	/*0x0048*/ aiIfChrInActiveRoom,
 	/*0x0049*/ aiIfRoomActive,
 	/*0x004a*/ ai004a,
 	/*0x004b*/ aiIfNearMiss,

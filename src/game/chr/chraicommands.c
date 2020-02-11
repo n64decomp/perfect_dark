@@ -1853,73 +1853,30 @@ bool ai0047(void)
 /**
  * @cmd 0048
  */
-GLOBAL_ASM(
-glabel ai0048
-/*  f0502e4:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0502e8:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0502ec:	3c14800a */ 	lui	$s4,%hi(g_Vars)
-/*  f0502f0:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
-/*  f0502f4:	8e8e0434 */ 	lw	$t6,0x434($s4)
-/*  f0502f8:	8e8f0438 */ 	lw	$t7,0x438($s4)
-/*  f0502fc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f050300:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f050304:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f050308:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f05030c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f050310:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f050314:	90450002 */ 	lbu	$a1,0x2($v0)
-/*  f050318:	0fc126d1 */ 	jal	chrFindById
-/*  f05031c:	8e840424 */ 	lw	$a0,0x424($s4)
-/*  f050320:	00408825 */ 	or	$s1,$v0,$zero
-/*  f050324:	10400015 */ 	beqz	$v0,.L0f05037c
-/*  f050328:	00009825 */ 	or	$s3,$zero,$zero
-/*  f05032c:	8c43001c */ 	lw	$v1,0x1c($v0)
-/*  f050330:	10600012 */ 	beqz	$v1,.L0f05037c
-/*  f050334:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f050338:	84780028 */ 	lh	$t8,0x28($v1)
-/*  f05033c:	2412ffff */ 	addiu	$s2,$zero,-1
-/*  f050340:	00008025 */ 	or	$s0,$zero,$zero
-/*  f050344:	1258000d */ 	beq	$s2,$t8,.L0f05037c
-/*  f050348:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05034c:	84640028 */ 	lh	$a0,0x28($v1)
-.L0f050350:
-/*  f050350:	0fc575ba */ 	jal	roomIsActive
-/*  f050354:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f050358:	50400003 */ 	beqzl	$v0,.L0f050368
-/*  f05035c:	8e28001c */ 	lw	$t0,0x1c($s1)
-/*  f050360:	24130001 */ 	addiu	$s3,$zero,0x1
-/*  f050364:	8e28001c */ 	lw	$t0,0x1c($s1)
-.L0f050368:
-/*  f050368:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f05036c:	01104821 */ 	addu	$t1,$t0,$s0
-/*  f050370:	85240028 */ 	lh	$a0,0x28($t1)
-/*  f050374:	1644fff6 */ 	bne	$s2,$a0,.L0f050350
-/*  f050378:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f05037c:
-/*  f05037c:	52600009 */ 	beqzl	$s3,.L0f0503a4
-/*  f050380:	8e8a0438 */ 	lw	$t2,0x438($s4)
-/*  f050384:	8e840434 */ 	lw	$a0,0x434($s4)
-/*  f050388:	8e850438 */ 	lw	$a1,0x438($s4)
-/*  f05038c:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f050390:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f050394:	90460003 */ 	lbu	$a2,0x3($v0)
-/*  f050398:	10000004 */ 	beqz	$zero,.L0f0503ac
-/*  f05039c:	ae820438 */ 	sw	$v0,0x438($s4)
-/*  f0503a0:	8e8a0438 */ 	lw	$t2,0x438($s4)
-.L0f0503a4:
-/*  f0503a4:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f0503a8:	ae8b0438 */ 	sw	$t3,0x438($s4)
-.L0f0503ac:
-/*  f0503ac:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0503b0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0503b4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0503b8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0503bc:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0503c0:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0503c4:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f0503c8:	03e00008 */ 	jr	$ra
-/*  f0503cc:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfChrInActiveRoom(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	u8 pass = false;
+	s32 i;
+
+	if (chr && chr->prop) {
+		for (i = 0; chr->prop->rooms[i] != -1; i++) {
+			if (roomIsActive(chr->prop->rooms[i])) {
+				pass = true;
+			}
+		}
+	}
+
+	if (pass) {
+		cmd = g_Vars.ailist + g_Vars.aioffset;
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0049

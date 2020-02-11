@@ -604,9 +604,12 @@
 	mkshort(0x0047), \
 	label,
 
-#define cmd0048(u1, label) \
+/**
+ * Checks if the chr's room is onscreen.
+ */
+#define if_chr_in_onscreen_room(chr, label) \
 	mkshort(0x0048), \
-	u1, \
+	chr, \
 	label,
 
 /**

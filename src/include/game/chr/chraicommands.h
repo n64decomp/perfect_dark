@@ -75,7 +75,7 @@
 /*0x0045*/ bool ai0045(void);
 /*0x0046*/ bool aiIfNeverBeenOnScreen(void);
 /*0x0047*/ bool ai0047(void);
-/*0x0048*/ bool ai0048(void);
+/*0x0048*/ bool aiIfChrInActiveRoom(void);
 /*0x0049*/ bool aiIfRoomActive(void);
 /*0x004a*/ bool ai004a(void);
 /*0x004b*/ bool aiIfNearMiss(void);
