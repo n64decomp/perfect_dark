@@ -34285,7 +34285,7 @@ s16 chrGoToCover(struct chrdata *chr, u8 speed)
 }
 
 GLOBAL_ASM(
-glabel func0f04c2e8
+glabel chrRunFromPos
 /*  f04c2e8:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f04c2ec:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f04c2f0:	afb00020 */ 	sw	$s0,0x20($sp)

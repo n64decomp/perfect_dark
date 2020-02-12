@@ -2641,13 +2641,20 @@
 	mkshort(0x0135), \
 	label,
 
-// u1 can theoretically be any value but in practice is only ever 2.
-// u2 can be either 0, 1 or 2 and determines what the command does,
-// but in practice is only ever 1 or 2.
-#define retreat(u1, u2) \
+/**
+ * If operation is 0, looks like the chr runs from their runfrompos property.
+ * The distance they run is controlled by bit 0x10 in speed. If set then the run
+ * distance will be 400 units. If unset it will be 10,000.
+ *
+ * If operation is 1, the chr tries to run 10,000 units away from their target.
+ *
+ * If operation is anything else, looks like it tries to find a cover point
+ * within 2314 units then runs to it.
+ */
+#define retreat(speed, operation) \
 	mkshort(0x0136), \
-	u1, \
-	u2,
+	speed, \
+	operation,
 
 #define if_chr_in_squadron_doing_action(action, label) \
 	mkshort(0x0137), \

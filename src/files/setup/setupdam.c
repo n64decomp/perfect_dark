@@ -1643,7 +1643,7 @@ u8 func0411_labtech_alerted[] = {
 	goto_first(0x42)
 
 	label(0x04)
-	retreat(0x02, 0x02)
+	retreat(SPEED_RUN, 2)
 	restart_timer
 
 	beginloop(0x14)

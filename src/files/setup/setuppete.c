@@ -1675,7 +1675,7 @@ u8 func0413_bugspotter[] = {
 
 	// No other guard to run to
 	label(0x0b)
-	retreat(0x02, 0x02)
+	retreat(SPEED_RUN, 2)
 
 	beginloop(0x07)
 		if_stage_flag_eq(STAGEFLAG_LIMO_READY_TO_LEAVE, TRUE, /*goto*/ LABEL_RUN_AWAY)

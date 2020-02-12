@@ -143,7 +143,6 @@ const u32 var7f1a9d80[] = {0x7f05b0bc};
 const u32 var7f1a9d84[] = {0x7f05b100};
 const u32 var7f1a9d88[] = {0x7f05b140};
 const u32 var7f1a9d8c[] = {0x7f05b184};
-const u32 var7f1a9d90[] = {0x461c4000};
 
 /**
  * @cmd 0000
@@ -9787,72 +9786,24 @@ bool aiIfHasOrders(void)
 /**
  * @cmd 0136
  */
-GLOBAL_ASM(
-glabel ai0136
-/*  f05b2f8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f05b2fc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f05b300:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f05b304:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f05b308:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f05b30c:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f05b310:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05b314:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f05b318:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05b31c:	90620003 */ 	lbu	$v0,0x3($v1)
-/*  f05b320:	14400011 */ 	bnez	$v0,.L0f05b368
-/*  f05b324:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05b328:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f05b32c:	3c017f1b */ 	lui	$at,%hi(var7f1a9d90)
-/*  f05b330:	30b80010 */ 	andi	$t8,$a1,0x10
-/*  f05b334:	13000005 */ 	beqz	$t8,.L0f05b34c
-/*  f05b338:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05b33c:	3c0143c8 */ 	lui	$at,0x43c8
-/*  f05b340:	44810000 */ 	mtc1	$at,$f0
-/*  f05b344:	10000003 */ 	beqz	$zero,.L0f05b354
-/*  f05b348:	8e040424 */ 	lw	$a0,0x424($s0)
-.L0f05b34c:
-/*  f05b34c:	c4209d90 */ 	lwc1	$f0,%lo(var7f1a9d90)($at)
-/*  f05b350:	8e040424 */ 	lw	$a0,0x424($s0)
-.L0f05b354:
-/*  f05b354:	44060000 */ 	mfc1	$a2,$f0
-/*  f05b358:	0fc130ba */ 	jal	func0f04c2e8
-/*  f05b35c:	248702c8 */ 	addiu	$a3,$a0,0x2c8
-/*  f05b360:	10000018 */ 	beqz	$zero,.L0f05b3c4
-/*  f05b364:	8e190438 */ 	lw	$t9,0x438($s0)
-.L0f05b368:
-/*  f05b368:	1441000d */ 	bne	$v0,$at,.L0f05b3a0
-/*  f05b36c:	2405090a */ 	addiu	$a1,$zero,0x90a
-/*  f05b370:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05b374:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f05b378:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f05b37c:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f05b380:	3c06461c */ 	lui	$a2,0x461c
-/*  f05b384:	34c64000 */ 	ori	$a2,$a2,0x4000
-/*  f05b388:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05b38c:	24470008 */ 	addiu	$a3,$v0,0x8
-/*  f05b390:	0fc130ba */ 	jal	func0f04c2e8
-/*  f05b394:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f05b398:	1000000a */ 	beqz	$zero,.L0f05b3c4
-/*  f05b39c:	8e190438 */ 	lw	$t9,0x438($s0)
-.L0f05b3a0:
-/*  f05b3a0:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05b3a4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f05b3a8:	0fc12e8d */ 	jal	func0f04ba34
-/*  f05b3ac:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f05b3b0:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f05b3b4:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05b3b8:	0fc1309a */ 	jal	chrGoToCover
-/*  f05b3bc:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f05b3c0:	8e190438 */ 	lw	$t9,0x438($s0)
-.L0f05b3c4:
-/*  f05b3c4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f05b3c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05b3cc:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f05b3d0:	ae080438 */ 	sw	$t0,0x438($s0)
-/*  f05b3d4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f05b3d8:	03e00008 */ 	jr	$ra
-/*  f05b3dc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+bool aiRetreat(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	if (cmd[3] == 0) {
+		chrRunFromPos(g_Vars.chrdata, cmd[2], (cmd[2] & 0x10) ? 400.0f : 10000.0f, &g_Vars.chrdata->runfrompos);
+	} else if (cmd[3] == 1) {
+		struct prop *target = chrGetTargetProp(g_Vars.chrdata);
+		chrRunFromPos(g_Vars.chrdata, cmd[2], 10000, &target->pos);
+	} else {
+		func0f04ba34(g_Vars.chrdata, 2314, 0);
+		chrGoToCover(g_Vars.chrdata, cmd[2]);
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0137

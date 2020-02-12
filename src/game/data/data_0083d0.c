@@ -6529,7 +6529,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0133*/ ai0133,
 	/*0x0134*/ aiIfOrders,
 	/*0x0135*/ aiIfHasOrders,
-	/*0x0136*/ ai0136,
+	/*0x0136*/ aiRetreat,
 	/*0x0137*/ aiIfChrInSquadronDoingAction,
 	/*0x0138*/ aiIfChannelIdle,
 	/*0x0139*/ ai0139,

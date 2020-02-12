@@ -308,7 +308,7 @@
 /*0x0133*/ bool ai0133(void);
 /*0x0134*/ bool aiIfOrders(void);
 /*0x0135*/ bool aiIfHasOrders(void);
-/*0x0136*/ bool ai0136(void);
+/*0x0136*/ bool aiRetreat(void);
 /*0x0137*/ bool aiIfChrInSquadronDoingAction(void);
 /*0x0138*/ bool aiIfChannelIdle(void);
 /*0x0139*/ bool ai0139(void);
