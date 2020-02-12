@@ -582,6 +582,7 @@
 #define MA_FLANKBEST       52
 #define MA_FACING          53
 #define MA_PUNCHING        54
+#define MA_END             55
 
 #define MAX_CHRWAYPOINTS   6
 #define MAX_DANGEROUSPROPS 12

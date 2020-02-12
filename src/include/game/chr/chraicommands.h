@@ -305,7 +305,7 @@
 /*0x0130*/ bool ai0130(void);
 /*0x0131*/ bool aiIncreaseSquadronAlertness(void);
 /*0x0132*/ bool aiSetAction(void);
-/*0x0133*/ bool ai0133(void);
+/*0x0133*/ bool aiSetTeamOrders(void);
 /*0x0134*/ bool aiIfOrders(void);
 /*0x0135*/ bool aiIfHasOrders(void);
 /*0x0136*/ bool aiRetreat(void);

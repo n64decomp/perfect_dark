@@ -5086,4 +5086,9 @@ struct invitem {
 	/*0x10*/ struct invitem *prev;
 };
 
+struct chrnumaction {
+	s16 chrnum;
+	u8 myaction;
+};
+
 #endif

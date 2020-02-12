@@ -2617,10 +2617,34 @@
 	bool,
 
 /**
- * This appears to be misnamed. At a glance it looks like this is looking for
- * a chr in the squadron who is performing the given action.
+ * This command looks for other nearby and eligible chrs and assigns them orders
+ * in order to assist the current chr in doing their action.
+ *
+ * For example, if the current chr is running for cover or is breaking cover,
+ * this command will instruct the nearby chrs to shoot at the player to provide
+ * them some cover. In another example, if the current chr is attempting to
+ * flank the player on the left side then this command will instruct nearby chrs
+ * to flank you on the right side. The command is also used to instruct other
+ * chrs to withdraw if the current chr is throwing a grenade.
+ *
+ * The orders argument is completely ignored. The command acts based on the
+ * current chr's myaction value. The chr's myaction value must be one of the
+ * following, otherwise the command will have no effect:
+ *
+ * MA_COVERGOTO
+ * MA_COVERBREAK
+ * MA_COVERSEEN
+ * MA_FLANKLEFT
+ * MA_FLANKRIGHT
+ * MA_DODGE
+ * MA_GRENADE
+ * MA_WAITSEEN
+ * MA_WITHDRAW
+ *
+ * The command will never follow the label for MA_COVERGOTO or MA_WITHDRAW.
+ * For all other actions it will follow if there is any eligible chr nearby.
  */
-#define set_orders(orders, label) \
+#define set_team_orders(orders, label) \
 	mkshort(0x0133), \
 	orders, \
 	label,

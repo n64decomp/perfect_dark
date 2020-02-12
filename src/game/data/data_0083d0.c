@@ -6526,7 +6526,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0130*/ ai0130,
 	/*0x0131*/ aiIncreaseSquadronAlertness,
 	/*0x0132*/ aiSetAction,
-	/*0x0133*/ ai0133,
+	/*0x0133*/ aiSetTeamOrders,
 	/*0x0134*/ aiIfOrders,
 	/*0x0135*/ aiIfHasOrders,
 	/*0x0136*/ aiRetreat,
