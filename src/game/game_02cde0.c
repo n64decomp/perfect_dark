@@ -34922,21 +34922,21 @@ s16 *squadronGetChrIds(s32 squadron_id)
 	return &g_SquadronList[MAX_SQUADRONS - 1];
 }
 
-void audioMarkAsRecentlyPlayed(s16 value)
+void audioMarkAsRecentlyPlayed(s16 audioid)
 {
-	var8009cd70[var8009cd98++] = value;
+	g_RecentQuipsPlayed[g_RecentQuipsIndex++] = audioid;
 
-	if (var8009cd98 > 4) {
-		var8009cd98 = 0;
+	if (g_RecentQuipsIndex > 4) {
+		g_RecentQuipsIndex = 0;
 	}
 }
 
-bool audioWasNotPlayedRecently(s16 value)
+bool audioWasNotPlayedRecently(s16 audioid)
 {
 	u8 i;
 
 	for (i = 0; i < 5; i++) {
-		if (var8009cd70[i] == value) {
+		if (g_RecentQuipsPlayed[i] == audioid) {
 			return false;
 		}
 	}
