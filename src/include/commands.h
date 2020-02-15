@@ -2530,8 +2530,18 @@
 	distance / 10, \
 	label,
 
-// If risk less than?
-#define cmd0129(score, label) \
+/**
+ * Calculates a safety score based on several factors and compares it to the
+ * given value.
+ *
+ * The safety score starts at 6.
+ * Subtract 1 point if current chr has been shot.
+ * Subtract 2 points if there are no other chrs nearby.
+ * Subtract 1 point if there are 1 or 2 chrs nearby.
+ *
+ * So maximum safety is 6 and minimum safety is 3.
+ */
+#define if_calculated_safety_lt(score, label) \
 	mkshort(0x0129), \
 	score, \
 	label,

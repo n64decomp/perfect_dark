@@ -297,7 +297,7 @@
 /*0x0126*/ bool aiIfPlayerUsingCmpOrAr34(void);
 /*0x0127*/ bool ai0127(void);
 /*0x0128*/ bool ai0128(void);
-/*0x0129*/ bool ai0129(void);
+/*0x0129*/ bool aiIfSafetyLessThan(void);
 /*0x012a*/ bool aiIfTargetMovingSlowly(void);
 /*0x012b*/ bool aiIfTargetMovingCloser(void);
 /*0x012c*/ bool aiIfTargetMovingAway(void);

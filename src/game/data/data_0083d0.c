@@ -6516,7 +6516,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0126*/ aiIfPlayerUsingCmpOrAr34,
 	/*0x0127*/ ai0127,
 	/*0x0128*/ ai0128,
-	/*0x0129*/ ai0129,
+	/*0x0129*/ aiIfSafetyLessThan,
 	/*0x012a*/ aiIfTargetMovingSlowly,
 	/*0x012b*/ aiIfTargetMovingCloser,
 	/*0x012c*/ aiIfTargetMovingAway,
