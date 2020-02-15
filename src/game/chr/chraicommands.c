@@ -9166,7 +9166,7 @@ glabel aiSayQuip
 //
 //	// Choose bank
 //	// 2c0
-//	if ((g_Vars.chrdata ? g_Vars.chrdata->race : RACE_HUMAN) == RACE_SKEDAR) {
+//	if (CHRRACE(g_Vars.chrdata) == RACE_SKEDAR) {
 //		bank = g_SkedarQuipBank;
 //
 //		if (row > 5) {
@@ -9275,7 +9275,7 @@ glabel aiSayQuip
 //			}
 //
 //			// 6a0
-//			if (audioWasNotPlayedRecently(audioid) || (g_Vars.chrdata ? g_Vars.chrdata->race : RACE_HUMAN) == RACE_SKEDAR) {
+//			if (audioWasNotPlayedRecently(audioid) || CHRRACE(g_Vars.chrdata) == RACE_SKEDAR) {
 //				// 6d4
 //				audioMarkAsRecentlyPlayed(audioid);
 //

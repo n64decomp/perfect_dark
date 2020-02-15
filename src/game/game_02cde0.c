@@ -15169,7 +15169,7 @@ glabel func0f03a3ec
 
 bool func0f03a578(struct chrdata *chr, s32 thingtype, s32 thingid)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
+	s32 race = CHRRACE(chr);
 
 	if (race == RACE_DRCAROLL || race == RACE_EYESPY) {
 		return false;
@@ -15195,7 +15195,7 @@ bool func0f03a578(struct chrdata *chr, s32 thingtype, s32 thingid)
 
 bool func0f03a644(struct chrdata *chr, s32 thingtype, s32 thingid)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
+	s32 race = CHRRACE(chr);
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 		if (func0f039a18(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
@@ -15209,7 +15209,7 @@ bool func0f03a644(struct chrdata *chr, s32 thingtype, s32 thingid)
 
 bool func0f03a6d8(struct chrdata *chr, s32 thingtype, s32 thingid)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
+	s32 race = CHRRACE(chr);
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 		if (func0f039a18(chr) && (chrGetEquippedWeaponPropWithCheck(chr, 0) || chrGetEquippedWeaponPropWithCheck(chr, 1))) {
@@ -15223,7 +15223,7 @@ bool func0f03a6d8(struct chrdata *chr, s32 thingtype, s32 thingid)
 
 bool func0f03a76c(struct chrdata *chr, u32 thingtype, s32 thingid)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
+	s32 race = CHRRACE(chr);
 
 	if (race == RACE_DRCAROLL || race == RACE_EYESPY) {
 		return false;
@@ -15341,9 +15341,7 @@ bool chrStartPath(struct chrdata *chr)
 
 bool chrTrySurrender(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
-
-	if (race == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
 		chrSurrender(chr);
 		return true;
 	}
@@ -15536,9 +15534,7 @@ glabel func0f03aca0
 
 bool chrTryStop(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
-
-	if (race == RACE_EYESPY) {
+	if (CHRRACE(chr) == RACE_EYESPY) {
 		func0f02e9a0(chr, 0);
 		return true;
 	}
@@ -15553,9 +15549,7 @@ bool chrTryStop(struct chrdata *chr)
 
 bool func0f03adf4(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
-
-	if (race == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
 		func0f02f530(chr);
 		return true;
 	}
@@ -15565,9 +15559,7 @@ bool func0f03adf4(struct chrdata *chr)
 
 bool func0f03ae48(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
-
-	if (race == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
 		func0f02f60c(chr);
 		return true;
 	}
@@ -15577,9 +15569,7 @@ bool func0f03ae48(struct chrdata *chr)
 
 bool func0f03ae9c(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
-
-	if (race == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
 		func0f02f688(chr);
 		return true;
 	}
@@ -15589,9 +15579,7 @@ bool func0f03ae9c(struct chrdata *chr)
 
 bool chrTryKneel(struct chrdata *chr)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
-
-	if (race == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
 		chrKneel(chr);
 		return true;
 	}
@@ -16045,9 +16033,7 @@ glabel func0f03b1e0
 
 bool func0f03b5f0(struct chrdata *chr, s32 pad_id)
 {
-	s32 race = chr ? chr->race : RACE_HUMAN;
-
-	if (race == RACE_HUMAN && func0f039a18(chr)) {
+	if (CHRRACE(chr) == RACE_HUMAN && func0f039a18(chr)) {
 		pad_id = chrResolvePadId(chr, pad_id);
 
 		if (pad_id >= 0) {
@@ -16067,7 +16053,7 @@ s32 chrConsiderGrenadeThrow(struct chrdata *chr, u32 entitytype, u32 entityid)
 {
 	bool done = false;
 
-	if ((chr ? chr->race : RACE_HUMAN) == RACE_HUMAN &&
+	if (CHRRACE(chr) == RACE_HUMAN &&
 			chr->grenadeprob > (random() % 255) &&
 			chrGetDistanceToTarget(chr) > 200 &&
 			func0f039a18(chr)) {
@@ -20555,7 +20541,7 @@ s32 func0f03f8b8(struct chrdata *chr, s32 hand)
 
 void chrStopFiring(struct chrdata *chr)
 {
-	u8 race = chr ? chr->race : RACE_HUMAN;
+	u8 race = CHRRACE(chr);
 
 	if (race != RACE_DRCAROLL && race != RACE_EYESPY && chr->unk2d4 == NULL) {
 		chrSetFiring(chr, 0, false);
@@ -29169,12 +29155,10 @@ glabel func0f0473cc
 
 bool skedarTryPounce(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 {
-	if (chr && chr->actiontype != ACT_SKJUMP && func0f039a18(chr)) {
-		u8 race = chr ? chr->race : RACE_HUMAN;
-
-		if (race == RACE_SKEDAR) {
-			return func0f047700(chr, arg1, arg2, arg3, arg4);
-		}
+	if (chr && chr->actiontype != ACT_SKJUMP
+			&& func0f039a18(chr)
+			&& CHRRACE(chr) == RACE_SKEDAR) {
+		return func0f047700(chr, arg1, arg2, arg3, arg4);
 	}
 
 	return false;
