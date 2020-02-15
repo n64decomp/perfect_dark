@@ -127,9 +127,6 @@ const u32 var7f1a9d40[] = {0x7f0593a0};
 const u32 var7f1a9d44[] = {0x7f0593b0};
 const u32 var7f1a9d48[] = {0x7f0593bc};
 const u32 var7f1a9d4c[] = {0x455ac000};
-const u32 var7f1a9d50[] = {0x461c3f9a};
-const u32 var7f1a9d54[] = {0x44bb8000};
-const u32 var7f1a9d58[] = {0x461c3c00};
 
 /**
  * @cmd 0000
@@ -8066,7 +8063,15 @@ bool aiIfPlayerUsingCmpOrAr34(void)
  * @cmd 0127
  */
 GLOBAL_ASM(
-glabel ai0127
+.late_rodata
+glabel var7f1a9d50
+.word 0x461c3f9a
+glabel var7f1a9d54
+.word 0x44bb8000
+glabel var7f1a9d58
+.word 0x461c3c00
+.text
+glabel aiDetectEnemyOnSameFloor
 /*  f0598b4:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f0598b8:	afb20030 */ 	sw	$s2,0x30($sp)
 /*  f0598bc:	3c12800a */ 	lui	$s2,%hi(g_Vars)
@@ -8264,6 +8269,84 @@ glabel ai0127
 /*  f059b88:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+// Mismatch due to the order of variable initialisation.
+// The game initialises team = 0 first then saves the callee-save registers,
+// while the code below causes it to save the callee-registers first.
+//bool aiDetectEnemyOnSameFloor(void)
+//{
+//	// Note: Must be distance, then any two words, then y then cmd.
+//	// Everything else is flexible.
+//	s32 team = 0;
+//	f32 closestdist = 10000;
+//	f32 distance;
+//	u32 stack[2];
+//	f32 y;
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	f32 scandist;
+//	s16 *chrnums = teamGetChrIds(1);
+//	struct chrdata *chr;
+//	s16 newtarget = -1;
+//
+//	if (g_Vars.chrdata->teamscandist == 0) {
+//		scandist = 1500;
+//	} else if (g_Vars.chrdata->teamscandist == 255) {
+//		scandist = 9999;
+//	} else {
+//		scandist = g_Vars.chrdata->teamscandist * 40.0f;
+//	}
+//
+//	y = g_Vars.chrdata->prop->pos.y;
+//
+//	while (team < 8) {
+//		chr = chrFindByLiteralId(*chrnums);
+//
+//		if (*chrnums != -2) {
+//			if (chr && chr->prop
+//					&& chr->team != TEAM_NONCOMBAT
+//					&& !chrIsDead(chr)
+//					&& chr->actiontype != ACT_DEAD
+//					&& chr->actiontype != ACT_DRUGGEDKO
+//					&& chr->actiontype != ACT_DRUGGEDDROP
+//					&& chr->actiontype != ACT_DRUGGEDCOMINGUP
+//					&& chrCompareTeams(g_Vars.chrdata, chr, 2)
+//					&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
+//					&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
+//					&& (chr->hidden & CHRHFLAG_40000000) == 0
+//					&& y - chr->prop->pos.y > -200
+//					&& y - chr->prop->pos.y < 200
+//					&& ((g_Vars.chrdata->hidden & CHRHFLAG_PSYCHOSISED) == 0
+//						|| (chr->hidden & CHRHFLAG_40000000) == 0
+//						|| chr->hidden & CHRHFLAG_08000000)
+//					&& g_Vars.chrdata->chrnum != chr->chrnum) {
+//				distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
+//
+//				if (distance < closestdist) {
+//					if (distance < scandist || stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MAIANSOS) {
+//						if (distance < closestdist) {
+//							closestdist = distance;
+//							newtarget = chr->chrnum;
+//						}
+//					}
+//				}
+//			}
+//
+//			chrnums++;
+//		} else {
+//			chrnums++;
+//			team++;
+//		}
+//	}
+//
+//	if (newtarget != -1) {
+//		g_Vars.chrdata->target = propGetIndexByChrId(g_Vars.chrdata, newtarget);
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+//	} else {
+//		g_Vars.aioffset = g_Vars.aioffset + 3;
+//	}
+//
+//	return false;
+//}
+
 /**
  * @cmd 0128
  */
@@ -8309,14 +8392,14 @@ bool aiDetectEnemy(void)
 					&& chr->actiontype != ACT_DRUGGEDCOMINGUP
 					&& chrCompareTeams(g_Vars.chrdata, chr, 2)
 					&& chr != g_Vars.chrdata
-					&& (chr->hidden & 0x20000000) == 0
+					&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
 					&& (chr->chrflags & CHRCFLAG_HIDDEN) == 0
-					&& (chr->hidden & 0x00080000) == 0
-					&& chr->team != 0x80
+					&& (chr->hidden & CHRHFLAG_DISGUISED) == 0
+					&& chr->team != TEAM_NONCOMBAT
 					&& (
-						(g_Vars.chrdata->hidden & 0x80000000) == 0
-						|| (chr->hidden & 0x40000000) == 0
-						|| chr->hidden & 0x08000000)) {
+						(g_Vars.chrdata->hidden & CHRHFLAG_PSYCHOSISED) == 0
+						|| (chr->hidden & CHRHFLAG_40000000) == 0
+						|| chr->hidden & CHRHFLAG_08000000)) {
 				f32 distance = chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum);
 
 				if (distance < maxdist && distance != 0 && distance < closestdist

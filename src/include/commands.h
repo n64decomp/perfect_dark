@@ -2512,12 +2512,11 @@
 	label,
 
 /**
- * Tries to find a chr in the team who meets some criteria and sets them as the
- * current chr's target.
- *
- * Probably used to run to them for safety or to alert them.
+ * Tries to find a chr who meets some criteria and sets them as the current
+ * chr's target. Only enemeies who are on the same floor will be considered.
+ * A line of sight check is not used.
  */
-#define try_find_chr_in_team(label) \
+#define set_target_to_enemy_on_same_floor(label) \
 	mkshort(0x0127), \
 	label,
 

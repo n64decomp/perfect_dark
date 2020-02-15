@@ -6514,7 +6514,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0124*/ aiGoToCover,
 	/*0x0125*/ ai0125,
 	/*0x0126*/ aiIfPlayerUsingCmpOrAr34,
-	/*0x0127*/ ai0127,
+	/*0x0127*/ aiDetectEnemyOnSameFloor,
 	/*0x0128*/ aiDetectEnemy,
 	/*0x0129*/ aiIfSafetyLessThan,
 	/*0x012a*/ aiIfTargetMovingSlowly,

@@ -2771,7 +2771,7 @@ u8 func000b_choose_target_chr[] = {
 	dprint 'S','C','A','N','\n',0,
 
 	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, TRUE, BANK_0, /*goto*/ 0x13)
-	try_find_chr_in_team(/*goto*/ 0x16)
+	set_target_to_enemy_on_same_floor(/*goto*/ 0x16)
 	goto_next(0x04)
 
 	// No hear - only see
@@ -2795,7 +2795,7 @@ u8 func000b_choose_target_chr[] = {
 	dprint 'F','O','U','N','D','A','L','E','R','T','\n',0,
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x13)
 	if_self_flag_bankx_eq(CHRFLAG0_NOHEAR, TRUE, BANK_0, /*goto*/ 0x16)
-	try_find_chr_in_team(/*goto*/ 0x13)
+	set_target_to_enemy_on_same_floor(/*goto*/ 0x13)
 	label(0x16)
 	goto_first(0xd3)
 
@@ -4824,7 +4824,7 @@ u8 func0014_coop_buddy[] = {
 
 		// Not G5 Building or Deep Sea
 		label(0x15)
-		try_find_chr_in_team(/*goto*/ 0x0b)
+		set_target_to_enemy_on_same_floor(/*goto*/ 0x0b)
 
 		// All stages
 		label(0x13)
@@ -5200,7 +5200,7 @@ u8 func0027_psychosised[] = {
 
 	// Healthy
 	label(0x16)
-	try_find_chr_in_team(/*goto*/ 0x03)
+	set_target_to_enemy_on_same_floor(/*goto*/ 0x03)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 	set_target_chr(CHR_PRESET)
 	if_distance_to_target_lt(200, /*goto*/ 0x16)
@@ -5242,7 +5242,7 @@ u8 func0027_psychosised[] = {
 		label(0x06)
 		set_chr_hiddenflag(CHR_SELF, CHRHFLAG_DISGUISED)
 		label(0x07)
-		try_find_chr_in_team(/*goto*/ 0x03)
+		set_target_to_enemy_on_same_floor(/*goto*/ 0x03)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 		set_target_chr(CHR_PRESET)
 		if_distance_to_target_gt(300, /*goto*/ 0x16)
