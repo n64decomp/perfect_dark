@@ -829,6 +829,10 @@ struct truckobj {
 	/*0x6c*/ u32 unk6c;
 	/*0x70*/ f32 speedaim;
 	/*0x74*/ f32 speedtime60;
+	/*0x78*/ u32 unk78;
+	/*0x7c*/ u32 unk7c;
+	/*0x80*/ struct path *path;
+	/*0x84*/ s32 nextstep;
 };
 
 struct heliobj {
@@ -876,35 +880,35 @@ struct chopperobj {
 	/*0x6c*/ f32 speedtime60;
 	/*0x70*/ u32 turnyspeed60;
 	/*0x74*/ u32 turnxspeed60;
-	/*0x78*/ u32 turnrot60;
-	/*0x7c*/ u32 roty;
-	/*0x80*/ u32 rotx;
-	/*0x84*/ u32 rotz;
-	/*0x88*/ u32 unk88;
+	/*0x78*/ f32 turnrot60;
+	/*0x7c*/ f32 roty;
+	/*0x80*/ f32 rotx;
+	/*0x84*/ f32 rotz;
+	/*0x88*/ struct path *path;
 	/*0x8c*/ s32 nextstep;
 	/*0x90*/ s16 weaponsarmed;
 	/*0x92*/ u16 ontarget;
 	/*0x94*/ s16 target;
 	/*0x96*/ u8 attackmode;
 	/*0x97*/ u8 cw;
-	/*0x98*/ u32 vx;
-	/*0x9c*/ u32 vy;
-	/*0xa0*/ u32 vz;
+	/*0x98*/ f32 vx;
+	/*0x9c*/ f32 vy;
+	/*0xa0*/ f32 vz;
 	/*0xa4*/ f32 power;
-	/*0xa8*/ u32 otx;
-	/*0xac*/ u32 oty;
-	/*0xb0*/ u32 otz;
-	/*0xb4*/ u32 bob;
-	/*0xb8*/ u32 bobstrength;
+	/*0xa8*/ f32 otx;
+	/*0xac*/ f32 oty;
+	/*0xb0*/ f32 otz;
+	/*0xb4*/ f32 bob;
+	/*0xb8*/ f32 bobstrength;
 	/*0xbc*/ u32 targetvisible;
 	/*0xc0*/ u32 timer60;
 	/*0xc4*/ u32 patroltimer60;
 	/*0xc8*/ u32 gunturnyspeed60;
 	/*0xcc*/ u32 gunturnxspeed60;
-	/*0xd0*/ u32 gunroty;
-	/*0xd4*/ u32 gunrotx;
-	/*0xd8*/ u32 barrelrotspeed;
-	/*0xdc*/ u32 barrelrot;
+	/*0xd0*/ f32 gunroty;
+	/*0xd4*/ f32 gunrotx;
+	/*0xd8*/ f32 barrelrotspeed;
+	/*0xdc*/ f32 barrelrot;
 };
 
 struct tag {

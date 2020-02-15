@@ -97,7 +97,6 @@ const u32 var7f1a9cc8[] = {0x7f05592c};
 const u32 var7f1a9ccc[] = {0x7f05592c};
 const u32 var7f1a9cd0[] = {0x7f05592c};
 const u32 var7f1a9cd4[] = {0x7f05592c};
-const u32 var7f1a9cd8[] = {0x3d4ccccd};
 
 /**
  * @cmd 0000
@@ -6057,89 +6056,56 @@ bool ai00d4(void)
 /**
  * @cmd 00d5
  */
-GLOBAL_ASM(
-glabel ai00d5
-/*  f05691c:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f056920:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f056924:	8cae0434 */ 	lw	$t6,0x434($a1)
-/*  f056928:	8caf0438 */ 	lw	$t7,0x438($a1)
-/*  f05692c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f056930:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f056934:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f056938:	0fc0e206 */ 	jal	pathFindById
-/*  f05693c:	90440002 */ 	lbu	$a0,0x2($v0)
-/*  f056940:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f056944:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f056948:	8ca30428 */ 	lw	$v1,0x428($a1)
-/*  f05694c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f056950:	50600005 */ 	beqzl	$v1,.L0f056968
-/*  f056954:	8ca40430 */ 	lw	$a0,0x430($a1)
-/*  f056958:	ac620080 */ 	sw	$v0,0x80($v1)
-/*  f05695c:	8cb80428 */ 	lw	$t8,0x428($a1)
-/*  f056960:	af000084 */ 	sw	$zero,0x84($t8)
-/*  f056964:	8ca40430 */ 	lw	$a0,0x430($a1)
-.L0f056968:
-/*  f056968:	50800032 */ 	beqzl	$a0,.L0f056a34
-/*  f05696c:	8cb80438 */ 	lw	$t8,0x438($a1)
-/*  f056970:	0fc1eb7d */ 	jal	chopperFromHovercar
-/*  f056974:	afa60018 */ 	sw	$a2,0x18($sp)
-/*  f056978:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f05697c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f056980:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f056984:	8cb90430 */ 	lw	$t9,0x430($a1)
-/*  f056988:	3c017f1b */ 	lui	$at,%hi(var7f1a9cd8)
-/*  f05698c:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f056990:	af260088 */ 	sw	$a2,0x88($t9)
-/*  f056994:	8ca80430 */ 	lw	$t0,0x430($a1)
-/*  f056998:	ad00008c */ 	sw	$zero,0x8c($t0)
-/*  f05699c:	8ca90430 */ 	lw	$t1,0x430($a1)
-/*  f0569a0:	8d230088 */ 	lw	$v1,0x88($t1)
-/*  f0569a4:	906a0005 */ 	lbu	$t2,0x5($v1)
-/*  f0569a8:	354b0004 */ 	ori	$t3,$t2,0x4
-/*  f0569ac:	1040001e */ 	beqz	$v0,.L0f056a28
-/*  f0569b0:	a06b0005 */ 	sb	$t3,0x5($v1)
-/*  f0569b4:	44800000 */ 	mtc1	$zero,$f0
-/*  f0569b8:	ac4000bc */ 	sw	$zero,0xbc($v0)
-/*  f0569bc:	a0400096 */ 	sb	$zero,0x96($v0)
-/*  f0569c0:	e4400078 */ 	swc1	$f0,0x78($v0)
-/*  f0569c4:	e440007c */ 	swc1	$f0,0x7c($v0)
-/*  f0569c8:	e4400080 */ 	swc1	$f0,0x80($v0)
-/*  f0569cc:	e44000d0 */ 	swc1	$f0,0xd0($v0)
-/*  f0569d0:	e44000d4 */ 	swc1	$f0,0xd4($v0)
-/*  f0569d4:	e44000dc */ 	swc1	$f0,0xdc($v0)
-/*  f0569d8:	e44000d8 */ 	swc1	$f0,0xd8($v0)
-/*  f0569dc:	e44000a0 */ 	swc1	$f0,0xa0($v0)
-/*  f0569e0:	e440009c */ 	swc1	$f0,0x9c($v0)
-/*  f0569e4:	e4400098 */ 	swc1	$f0,0x98($v0)
-/*  f0569e8:	e44000b0 */ 	swc1	$f0,0xb0($v0)
-/*  f0569ec:	e44000ac */ 	swc1	$f0,0xac($v0)
-/*  f0569f0:	e44000a8 */ 	swc1	$f0,0xa8($v0)
-/*  f0569f4:	e44000a4 */ 	swc1	$f0,0xa4($v0)
-/*  f0569f8:	e44000b4 */ 	swc1	$f0,0xb4($v0)
-/*  f0569fc:	c4249cd8 */ 	lwc1	$f4,%lo(var7f1a9cd8)($at)
-/*  f056a00:	8c4d0008 */ 	lw	$t5,0x8($v0)
-/*  f056a04:	3c012000 */ 	lui	$at,0x2000
-/*  f056a08:	ac4000c0 */ 	sw	$zero,0xc0($v0)
-/*  f056a0c:	01a17025 */ 	or	$t6,$t5,$at
-/*  f056a10:	ac4000c4 */ 	sw	$zero,0xc4($v0)
-/*  f056a14:	a0400097 */ 	sb	$zero,0x97($v0)
-/*  f056a18:	a44c0090 */ 	sh	$t4,0x90($v0)
-/*  f056a1c:	ac4e0008 */ 	sw	$t6,0x8($v0)
-/*  f056a20:	10000003 */ 	beqz	$zero,.L0f056a30
-/*  f056a24:	e44400b8 */ 	swc1	$f4,0xb8($v0)
-.L0f056a28:
-/*  f056a28:	8caf0430 */ 	lw	$t7,0x430($a1)
-/*  f056a2c:	a5e00090 */ 	sh	$zero,0x90($t7)
-.L0f056a30:
-/*  f056a30:	8cb80438 */ 	lw	$t8,0x438($a1)
-.L0f056a34:
-/*  f056a34:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f056a38:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f056a3c:	27190003 */ 	addiu	$t9,$t8,0x3
-/*  f056a40:	acb90438 */ 	sw	$t9,0x438($a1)
-/*  f056a44:	03e00008 */ 	jr	$ra
-/*  f056a48:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiHovercarBeginPath(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+
+	struct path *path = pathFindById(cmd[2]);
+
+	if (g_Vars.truck) {
+		g_Vars.truck->path = path;
+		g_Vars.truck->nextstep = 0;
+	}
+
+	if (g_Vars.hovercar) {
+		struct chopperobj *chopper = chopperFromHovercar(g_Vars.hovercar);
+		g_Vars.hovercar->path = path;
+		g_Vars.hovercar->nextstep = 0;
+		g_Vars.hovercar->path->type |= PATHTYPE_4;
+
+		if (chopper) {
+			chopper->targetvisible = false;
+			chopper->attackmode = 0;
+			chopper->turnrot60 = 0;
+			chopper->roty = 0;
+			chopper->rotx = 0;
+			chopper->gunroty = 0;
+			chopper->gunrotx = 0;
+			chopper->barrelrot = 0;
+			chopper->barrelrotspeed = 0;
+			chopper->vz = 0;
+			chopper->vy = 0;
+			chopper->vx = 0;
+			chopper->otz = 0;
+			chopper->oty = 0;
+			chopper->otx = 0;
+			chopper->power = 0;
+			chopper->bob = 0;
+			chopper->bobstrength = 0.05;
+			chopper->timer60 = 0;
+			chopper->patroltimer60 = 0;
+			chopper->cw = 0;
+			chopper->weaponsarmed = true;
+			chopper->base.flags |= OBJFLAG_20000000;
+		} else {
+			g_Vars.hovercar->weaponsarmed = false;
+		}
+	}
+
+	g_Vars.aioffset += 3;
+
+	return false;
+}
 
 /**
  * @cmd 00d6
