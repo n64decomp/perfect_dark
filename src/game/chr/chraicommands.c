@@ -7755,54 +7755,19 @@ glabel ai011e
 /**
  * @cmd 011f
  */
-GLOBAL_ASM(
-glabel ai011f
-/*  f059260:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f059264:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f059268:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f05926c:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f059270:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f059274:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f059278:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f05927c:	90e50002 */ 	lbu	$a1,0x2($a3)
-/*  f059280:	afa7001c */ 	sw	$a3,0x1c($sp)
-/*  f059284:	0fc126d1 */ 	jal	chrFindById
-/*  f059288:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f05928c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f059290:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f059294:	10400013 */ 	beqz	$v0,.L0f0592e4
-/*  f059298:	8fa7001c */ 	lw	$a3,0x1c($sp)
-/*  f05929c:	8c58001c */ 	lw	$t8,0x1c($v0)
-/*  f0592a0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0592a4:	53000010 */ 	beqzl	$t8,.L0f0592e8
-/*  f0592a8:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f0592ac:	10400003 */ 	beqz	$v0,.L0f0592bc
-/*  f0592b0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0592b4:	10000001 */ 	beqz	$zero,.L0f0592bc
-/*  f0592b8:	904402fe */ 	lbu	$a0,0x2fe($v0)
-.L0f0592bc:
-/*  f0592bc:	5481000a */ 	bnel	$a0,$at,.L0f0592e8
-/*  f0592c0:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f0592c4:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f0592c8:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f0592cc:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f0592d0:	90e60003 */ 	lbu	$a2,0x3($a3)
-/*  f0592d4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0592d8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0592dc:	10000004 */ 	beqz	$zero,.L0f0592f0
-/*  f0592e0:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f0592e4:
-/*  f0592e4:	8c790438 */ 	lw	$t9,0x438($v1)
-.L0f0592e8:
-/*  f0592e8:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f0592ec:	ac680438 */ 	sw	$t0,0x438($v1)
-.L0f0592f0:
-/*  f0592f0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0592f4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0592f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0592fc:	03e00008 */ 	jr	$ra
-/*  f059300:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfSkedar(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+
+	if (chr && chr->prop && CHRRACE(chr) == RACE_SKEDAR) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0120

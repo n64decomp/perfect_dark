@@ -6506,7 +6506,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x011c*/ aiChrUnsetHiddenFlag,
 	/*0x011d*/ aiIfChrHasHiddenFlag,
 	/*0x011e*/ ai011e,
-	/*0x011f*/ ai011f,
+	/*0x011f*/ aiIfSkedar,
 	/*0x0120*/ ai0120,
 	/*0x0121*/ ai0121,
 	/*0x0122*/ ai0122,
