@@ -98,7 +98,6 @@ const u32 var7f1a9ccc[] = {0x7f05592c};
 const u32 var7f1a9cd0[] = {0x7f05592c};
 const u32 var7f1a9cd4[] = {0x7f05592c};
 const u32 var7f1a9cd8[] = {0x3d4ccccd};
-const u32 var7f1a9cdc[] = {0x40c907a9};
 
 /**
  * @cmd 0000
@@ -6169,43 +6168,21 @@ bool aiSetVehicleSpeed(void)
 /**
  * @cmd 00d7
  */
-GLOBAL_ASM(
-glabel ai00d7
-/*  f056ae8:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f056aec:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f056af0:	8ca30438 */ 	lw	$v1,0x438($a1)
-/*  f056af4:	8cae0434 */ 	lw	$t6,0x434($a1)
-/*  f056af8:	3c017f1b */ 	lui	$at,%hi(var7f1a9cdc)
-/*  f056afc:	c42a9cdc */ 	lwc1	$f10,%lo(var7f1a9cdc)($at)
-/*  f056b00:	01c31021 */ 	addu	$v0,$t6,$v1
-/*  f056b04:	90490002 */ 	lbu	$t1,0x2($v0)
-/*  f056b08:	904b0003 */ 	lbu	$t3,0x3($v0)
-/*  f056b0c:	904f0004 */ 	lbu	$t7,0x4($v0)
-/*  f056b10:	00095200 */ 	sll	$t2,$t1,0x8
-/*  f056b14:	014b6025 */ 	or	$t4,$t2,$t3
-/*  f056b18:	448c3000 */ 	mtc1	$t4,$f6
-/*  f056b1c:	90590005 */ 	lbu	$t9,0x5($v0)
-/*  f056b20:	000fc200 */ 	sll	$t8,$t7,0x8
-/*  f056b24:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f056b28:	8ca4042c */ 	lw	$a0,0x42c($a1)
-/*  f056b2c:	3c014561 */ 	lui	$at,0x4561
-/*  f056b30:	03194025 */ 	or	$t0,$t8,$t9
-/*  f056b34:	44882000 */ 	mtc1	$t0,$f4
-/*  f056b38:	44819000 */ 	mtc1	$at,$f18
-/*  f056b3c:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f056b40:	00001025 */ 	or	$v0,$zero,$zero
-/*  f056b44:	46802020 */ 	cvt.s.w	$f0,$f4
-/*  f056b48:	10800005 */ 	beqz	$a0,.L0f056b60
-/*  f056b4c:	46128083 */ 	div.s	$f2,$f16,$f18
-/*  f056b50:	e482006c */ 	swc1	$f2,0x6c($a0)
-/*  f056b54:	8cad042c */ 	lw	$t5,0x42c($a1)
-/*  f056b58:	e5a00070 */ 	swc1	$f0,0x70($t5)
-/*  f056b5c:	8ca30438 */ 	lw	$v1,0x438($a1)
-.L0f056b60:
-/*  f056b60:	246e0006 */ 	addiu	$t6,$v1,0x6
-/*  f056b64:	03e00008 */ 	jr	$ra
-/*  f056b68:	acae0438 */ 	sw	$t6,0x438($a1)
-);
+bool aiSetRotarySpeed(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	f32 speedtime = cmd[5] | (cmd[4] << 8);
+	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * (M_PI * 2) / 3600;
+
+	if (g_Vars.heli) {
+		g_Vars.heli->rotaryspeedaim = speedaim;
+		g_Vars.heli->rotaryspeedtime = speedtime;
+	}
+
+	g_Vars.aioffset += 6;
+
+	return false;
+}
 
 /**
  * @cmd 00d8

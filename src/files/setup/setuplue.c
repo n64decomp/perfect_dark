@@ -906,7 +906,7 @@ u8 func0408_start_path07[] = {
 };
 
 u8 func0409_set_rotor_speed[] = {
-	set_rotor_speed(0x026c, 0x1c, 0x20)
+	set_rotor_speed(620, 7200)
 	beginloop(0x04)
 	endloop(0x04)
 

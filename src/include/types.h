@@ -836,6 +836,13 @@ struct heliobj {
 	/*0x5c*/ u8 *ailist;
 	/*0x60*/ u16 aioffset;
 	/*0x62*/ s16 aireturnlist;
+	/*0x64*/ u32 unk64;
+	/*0x68*/ f32 rotaryspeed;
+	/*0x6c*/ f32 rotaryspeedaim;
+	/*0x70*/ f32 rotaryspeedtime;
+	/*0x74*/ f32 speed;
+	/*0x78*/ f32 speedaim;
+	/*0x7c*/ f32 speedtime60;
 };
 
 struct liftobj { // objtype 30

@@ -6434,7 +6434,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x00d4*/ ai00d4,
 	/*0x00d5*/ ai00d5,
 	/*0x00d6*/ aiSetVehicleSpeed,
-	/*0x00d7*/ ai00d7,
+	/*0x00d7*/ aiSetRotarySpeed,
 	/*0x00d8*/ aiNoOp00d8,
 	/*0x00d9*/ aiNoOp00d9,
 	/*0x00da*/ aiSetObjImage,
