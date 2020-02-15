@@ -2575,21 +2575,73 @@
 	mkshort(0x012f),
 
 /**
- * Makes chr say something out of a random set of 3.
+ * Allows the current chr to say a semi-random statement from some predefined
+ * lists.
  *
- * Sets are defined in the 39850 file. The bank argument applies to humans only.
- * Skedar and maians have their own hard coded banks.
+ * There are several banks (tables) of sound IDs. One for Skedar, one for
+ * Maians, and two banks (0 and 1) for humans. The human bank 0 is divided into
+ * four subbanks. Each subbank has similar phrases to the other subbanks but
+ * each subbank uses a different style of voice. The subbank used is determined
+ * by the chr's voicebox property. This allows them to have the same sounding
+ * voice among all their phrases.
+ *
+ * Each bank (table) contains rows and columns. The row can be selected via an
+ * argument to this command, but the column is determined randomly. All tables
+ * have 3 columns.
+ *
+ * -----------------------------------------------------------------------------
+ *
+ * Arguments:
+ *
+ * The player argument is the player who the current chr is talking to. If the
+ * player has died then it'll attempt to use the coop player. If all players
+ * have died then it's likely their line will not be said.
+ *
+ * The row argument determines which row in the bank is used. Counting starts
+ * from 0.
+ *
+ * The probability argument determines the likelihood that the chr will say
+ * the line. The higher the number (up to 255), the more likely they are to
+ * talk. Note that under no conditions will the chr interrupt their existing
+ * talk to start a new one.
+ *
+ * The soundgap argument is the amount of time in seconds it takes for the chr
+ * to say their line, plus a suitable pause period at the end. The chr will not
+ * start a new phrase if they are in the soundgap of a previous phrase.
+ *
+ * The conditions argument determines under what conditions the chr will talk:
+ * 0   = only talk if no other chrs are nearby
+ * 1   = only talk if there are other chrs nearby and none of them are talking
+ * 255 = always talk, even if other chrs are nearby and talking
+ *       (this applies after the probability check has passed)
+ *
+ * The bank argument determines which bank is used. Expected values are 0 or 1.
+ * For Skedar and Maians, this argument is ignored and they use their own banks.
+ *
+ * The textrow argument determines whether text will be shown on the screen as
+ * well as which row in the text bank will be used. Set to 0 to have no text.
+ * The column that is used is determined by the chr's tude property, however you
+ * can make it use the same column as the audio by bitwise ORing the bank
+ * argument with 0x80.
+ *
+ * The colour argument determines the colour of the text on the screen. This is
+ * expected to be a COLOUR constant.
+ *
+ * -----------------------------------------------------------------------------
+ *
+ * If called with zero values for all of row, probability and onlyifothers,
+ * the chr's current speech (if any) will be stopped.
  */
-#define say_quip(chr, index, u1, u2, u3, bank, u4, channel) \
+#define say_quip(player, row, probability, soundgap, onlyifothers, bank, textrow, colour) \
 	mkshort(0x0130), \
-	chr, \
-	index, \
-	u1, \
-	u2, \
-	u3, \
+	player, \
+	row, \
+	probability, \
+	soundgap, \
+	onlyifothers, \
 	bank, \
-	u4, \
-	channel,
+	textrow, \
+	colour,
 
 /**
  * Increases the alertness value for other chrs in the current chr's squadron.

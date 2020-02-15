@@ -34922,7 +34922,7 @@ s16 *squadronGetChrIds(s32 squadron_id)
 	return &g_SquadronList[MAX_SQUADRONS - 1];
 }
 
-void func0f04ceec(s16 value)
+void audioMarkAsRecentlyPlayed(s16 value)
 {
 	var8009cd70[var8009cd98++] = value;
 
@@ -34931,7 +34931,7 @@ void func0f04ceec(s16 value)
 	}
 }
 
-bool func0f04cf34(s16 value)
+bool audioWasNotPlayedRecently(s16 value)
 {
 	u8 i;
 

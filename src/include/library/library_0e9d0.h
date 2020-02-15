@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 audioIsFiltered(void);
+bool audioIsFiltered(s32 audioid);
 u32 func0000e9d0(void);
 u32 func0000e9dc(void);
 void audioSetSfxVolume(u16 volume);

@@ -302,7 +302,7 @@
 /*0x012b*/ bool aiIfTargetMovingCloser(void);
 /*0x012c*/ bool aiIfTargetMovingAway(void);
 /*0x012f*/ bool ai012f(void);
-/*0x0130*/ bool ai0130(void);
+/*0x0130*/ bool aiSayQuip(void);
 /*0x0131*/ bool aiIncreaseSquadronAlertness(void);
 /*0x0132*/ bool aiSetAction(void);
 /*0x0133*/ bool aiSetTeamOrders(void);

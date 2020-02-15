@@ -8694,7 +8694,7 @@ bool ai012f(void)
  * @cmd 0130
  */
 GLOBAL_ASM(
-glabel ai0130
+glabel aiSayQuip
 /*  f05a258:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f05a25c:	afb00048 */ 	sw	$s0,0x48($sp)
 /*  f05a260:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -8724,8 +8724,8 @@ glabel ai0130
 .L0f05a2bc:
 /*  f05a2bc:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f05a2c0:	14610007 */ 	bne	$v1,$at,.L0f05a2e0
-/*  f05a2c4:	3c0a8007 */ 	lui	$t2,%hi(quiptable_skedar)
-/*  f05a2c8:	254a96d8 */ 	addiu	$t2,$t2,%lo(quiptable_skedar)
+/*  f05a2c4:	3c0a8007 */ 	lui	$t2,%hi(g_SkedarQuipBank)
+/*  f05a2c8:	254a96d8 */ 	addiu	$t2,$t2,%lo(g_SkedarQuipBank)
 /*  f05a2cc:	28c10006 */ 	slti	$at,$a2,0x6
 /*  f05a2d0:	1420002a */ 	bnez	$at,.L0f05a37c
 /*  f05a2d4:	afaa0084 */ 	sw	$t2,0x84($sp)
@@ -8734,9 +8734,9 @@ glabel ai0130
 .L0f05a2e0:
 /*  f05a2e0:	80eb0006 */ 	lb	$t3,0x6($a3)
 /*  f05a2e4:	24030029 */ 	addiu	$v1,$zero,0x29
-/*  f05a2e8:	3c0c8007 */ 	lui	$t4,%hi(quiptable_maian)
+/*  f05a2e8:	3c0c8007 */ 	lui	$t4,%hi(g_MaianQuipBank)
 /*  f05a2ec:	146b000d */ 	bne	$v1,$t3,.L0f05a324
-/*  f05a2f0:	258c9710 */ 	addiu	$t4,$t4,%lo(quiptable_maian)
+/*  f05a2f0:	258c9710 */ 	addiu	$t4,$t4,%lo(g_MaianQuipBank)
 /*  f05a2f4:	28c10003 */ 	slti	$at,$a2,0x3
 /*  f05a2f8:	14200020 */ 	bnez	$at,.L0f05a37c
 /*  f05a2fc:	afac0084 */ 	sw	$t4,0x84($sp)
@@ -8751,8 +8751,8 @@ glabel ai0130
 /*  f05a320:	8fa8009c */ 	lw	$t0,0x9c($sp)
 .L0f05a324:
 /*  f05a324:	910e0007 */ 	lbu	$t6,0x7($t0)
-/*  f05a328:	3c0b8007 */ 	lui	$t3,%hi(quiptable_human_bank1)
-/*  f05a32c:	256b9518 */ 	addiu	$t3,$t3,%lo(quiptable_human_bank1)
+/*  f05a328:	3c0b8007 */ 	lui	$t3,%hi(g_SpecialQuipBank)
+/*  f05a32c:	256b9518 */ 	addiu	$t3,$t3,%lo(g_SpecialQuipBank)
 /*  f05a330:	55c00012 */ 	bnezl	$t6,.L0f05a37c
 /*  f05a334:	afab0084 */ 	sw	$t3,0x84($sp)
 /*  f05a338:	90e202b1 */ 	lbu	$v0,0x2b1($a3)
@@ -8765,8 +8765,8 @@ glabel ai0130
 /*  f05a354:	90e202b1 */ 	lbu	$v0,0x2b1($a3)
 .L0f05a358:
 /*  f05a358:	00430019 */ 	multu	$v0,$v1
-/*  f05a35c:	3c098007 */ 	lui	$t1,%hi(quiptable_human_bank0)
-/*  f05a360:	25298ff8 */ 	addiu	$t1,$t1,%lo(quiptable_human_bank0)
+/*  f05a35c:	3c098007 */ 	lui	$t1,%hi(g_GuardQuipBank)
+/*  f05a360:	25298ff8 */ 	addiu	$t1,$t1,%lo(g_GuardQuipBank)
 /*  f05a364:	0000c012 */ 	mflo	$t8
 /*  f05a368:	0018c8c0 */ 	sll	$t9,$t8,0x3
 /*  f05a36c:	03295021 */ 	addu	$t2,$t9,$t1
@@ -8805,7 +8805,7 @@ glabel ai0130
 /*  f05a3e8:	8fa5007c */ 	lw	$a1,0x7c($sp)
 /*  f05a3ec:	8fa90084 */ 	lw	$t1,0x84($sp)
 /*  f05a3f0:	10610007 */ 	beq	$v1,$at,.L0f05a410
-/*  f05a3f4:	3c0a8007 */ 	lui	$t2,%hi(quiptable_human_bank1)
+/*  f05a3f4:	3c0a8007 */ 	lui	$t2,%hi(g_SpecialQuipBank)
 /*  f05a3f8:	2401000f */ 	addiu	$at,$zero,0xf
 /*  f05a3fc:	10610004 */ 	beq	$v1,$at,.L0f05a410
 /*  f05a400:	2401003a */ 	addiu	$at,$zero,0x3a
@@ -8813,7 +8813,7 @@ glabel ai0130
 /*  f05a408:	24010028 */ 	addiu	$at,$zero,0x28
 /*  f05a40c:	14610004 */ 	bne	$v1,$at,.L0f05a420
 .L0f05a410:
-/*  f05a410:	254a9518 */ 	addiu	$t2,$t2,%lo(quiptable_human_bank1)
+/*  f05a410:	254a9518 */ 	addiu	$t2,$t2,%lo(g_SpecialQuipBank)
 /*  f05a414:	112a0002 */ 	beq	$t1,$t2,.L0f05a420
 /*  f05a418:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05a41c:	afa00090 */ 	sw	$zero,0x90($sp)
@@ -8989,7 +8989,7 @@ glabel ai0130
 /*  f05a698:	afa20058 */ 	sw	$v0,0x58($sp)
 /*  f05a69c:	a7ad00a4 */ 	sh	$t5,0xa4($sp)
 .L0f05a6a0:
-/*  f05a6a0:	0fc133cd */ 	jal	func0f04cf34
+/*  f05a6a0:	0fc133cd */ 	jal	audioWasNotPlayedRecently
 /*  f05a6a4:	87a400a4 */ 	lh	$a0,0xa4($sp)
 /*  f05a6a8:	1440000a */ 	bnez	$v0,.L0f05a6d4
 /*  f05a6ac:	24010001 */ 	addiu	$at,$zero,0x1
@@ -8997,14 +8997,14 @@ glabel ai0130
 /*  f05a6b4:	00001825 */ 	or	$v1,$zero,$zero
 /*  f05a6b8:	24080001 */ 	addiu	$t0,$zero,0x1
 /*  f05a6bc:	10e00003 */ 	beqz	$a3,.L0f05a6cc
-/*  f05a6c0:	3c0e8007 */ 	lui	$t6,%hi(quiptable_human_bank0)
+/*  f05a6c0:	3c0e8007 */ 	lui	$t6,%hi(g_GuardQuipBank)
 /*  f05a6c4:	10000001 */ 	beqz	$zero,.L0f05a6cc
 /*  f05a6c8:	90e302fe */ 	lbu	$v1,0x2fe($a3)
 .L0f05a6cc:
 /*  f05a6cc:	54610092 */ 	bnel	$v1,$at,.L0f05a918
 /*  f05a6d0:	8fad0070 */ 	lw	$t5,0x70($sp)
 .L0f05a6d4:
-/*  f05a6d4:	0fc133bb */ 	jal	func0f04ceec
+/*  f05a6d4:	0fc133bb */ 	jal	audioMarkAsRecentlyPlayed
 /*  f05a6d8:	87a400a4 */ 	lh	$a0,0xa4($sp)
 /*  f05a6dc:	87b800a4 */ 	lh	$t8,0xa4($sp)
 /*  f05a6e0:	2401034e */ 	addiu	$at,$zero,0x34e
@@ -9158,7 +9158,7 @@ glabel ai0130
 /*  f05a910:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05a914:	8fad0070 */ 	lw	$t5,0x70($sp)
 .L0f05a918:
-/*  f05a918:	25ce8ff8 */ 	addiu	$t6,$t6,%lo(quiptable_human_bank0)
+/*  f05a918:	25ce8ff8 */ 	addiu	$t6,$t6,%lo(g_GuardQuipBank)
 /*  f05a91c:	a7a000a4 */ 	sh	$zero,0xa4($sp)
 /*  f05a920:	000dc0c0 */ 	sll	$t8,$t5,0x3
 /*  f05a924:	030e1021 */ 	addu	$v0,$t8,$t6
@@ -9169,7 +9169,7 @@ glabel ai0130
 /*  f05a934:	0043c821 */ 	addu	$t9,$v0,$v1
 /*  f05a938:	87240000 */ 	lh	$a0,0x0($t9)
 /*  f05a93c:	a3a800a3 */ 	sb	$t0,0xa3($sp)
-/*  f05a940:	0fc133cd */ 	jal	func0f04cf34
+/*  f05a940:	0fc133cd */ 	jal	audioWasNotPlayedRecently
 /*  f05a944:	afa30054 */ 	sw	$v1,0x54($sp)
 /*  f05a948:	8fa30054 */ 	lw	$v1,0x54($sp)
 /*  f05a94c:	1040000d */ 	beqz	$v0,.L0f05a984
@@ -9178,7 +9178,7 @@ glabel ai0130
 /*  f05a958:	01432821 */ 	addu	$a1,$t2,$v1
 /*  f05a95c:	84a40000 */ 	lh	$a0,0x0($a1)
 /*  f05a960:	a3a800a3 */ 	sb	$t0,0xa3($sp)
-/*  f05a964:	0fc133cd */ 	jal	func0f04cf34
+/*  f05a964:	0fc133cd */ 	jal	audioWasNotPlayedRecently
 /*  f05a968:	afa50050 */ 	sw	$a1,0x50($sp)
 /*  f05a96c:	8fa50050 */ 	lw	$a1,0x50($sp)
 /*  f05a970:	10400004 */ 	beqz	$v0,.L0f05a984
@@ -9196,7 +9196,7 @@ glabel ai0130
 /*  f05a998:	87ab00a4 */ 	lh	$t3,0xa4($sp)
 /*  f05a99c:	1160007a */ 	beqz	$t3,.L0f05ab88
 /*  f05a9a0:	01602025 */ 	or	$a0,$t3,$zero
-/*  f05a9a4:	0fc133bb */ 	jal	func0f04ceec
+/*  f05a9a4:	0fc133bb */ 	jal	audioMarkAsRecentlyPlayed
 /*  f05a9a8:	a3a800a3 */ 	sb	$t0,0xa3($sp)
 /*  f05a9ac:	87ac00a4 */ 	lh	$t4,0xa4($sp)
 /*  f05a9b0:	2401034e */ 	addiu	$at,$zero,0x34e
@@ -9349,6 +9349,261 @@ glabel ai0130
 /*  f05abd4:	03e00008 */ 	jr	$ra
 /*  f05abd8:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// regalloc difference near 64c
+//bool aiSayQuip(void)
+//{
+//	u8 column; // 167
+//	s16 audioid; // 164
+//	u8 i; // 163
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset; // 156
+//	s32 numnearbychrs; // 152
+//	bool issomeonetalking; // 148
+//	s32 probability; // 144
+//	u32 stack; // 140 - not referenced
+//	s16 *chrnums; // 136
+//	s16 (*bank)[4]; // 132
+//	char *text; // 128
+//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]); // 124
+//	u32 prevplayernum = g_Vars.currentplayernum; // 120
+//	s32 distance; // 116 - not referenced
+//	s32 row = cmd[3]; // 112
+//	u32 playernum; // 108 - not referenced
+//	u8 flag = g_Vars.chrdata->hidden2 & CHRH2FLAG_1000; // 107
+//	struct chrdata *loopchr; // 100
+//
+//	// Choose bank
+//	// 2c0
+//	if ((g_Vars.chrdata ? g_Vars.chrdata->race : RACE_HUMAN) == RACE_SKEDAR) {
+//		bank = g_SkedarQuipBank;
+//
+//		if (row > 5) {
+//			row = 0;
+//		}
+//		// 2e0
+//	} else if (g_Vars.chrdata->headnum == HEAD_MAIAN_S) {
+//		bank = g_MaianQuipBank;
+//
+//		if (row > 2) {
+//			row = random() & 1;
+//		}
+//		// 324
+//	} else if (cmd[7] == 0) {
+//		if (g_Vars.chrdata->voicebox > 3) {
+//			g_Vars.chrdata->voicebox = 3;
+//		}
+//
+//		bank = &g_GuardQuipBank[g_Vars.chrdata->voicebox * 41];
+//	} else {
+//		// 37c
+//		bank = g_SpecialQuipBank;
+//	}
+//
+//	// 37c
+//	if (!row && !cmd[4] && !cmd[6]) {
+//		g_Vars.chrdata->soundtimer = 0;
+//		g_Vars.aioffset += 10;
+//		return false;
+//	}
+//
+//	// 3bc
+//	chrnums = teamGetChrIds(g_Vars.chrdata->team);
+//	numnearbychrs = 0;
+//	issomeonetalking = false;
+//	probability = cmd[4];
+//
+//	// Make it impossible for Elvis and Jon to use anything but special phrases
+//	// 3f0
+//	if ((g_Vars.chrdata->headnum == HEAD_ELVIS
+//				|| g_Vars.chrdata->headnum == HEAD_THEKING
+//				|| g_Vars.chrdata->headnum == HEAD_ELVIS_GOGS
+//				|| g_Vars.chrdata->headnum == HEAD_JONATHAN) &&
+//			bank != g_SpecialQuipBank) {
+//		probability = 0;
+//	}
+//
+//	// If the person talking is a player, and they've just died,
+//	// try using the other coop player.
+//	// 420
+//	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
+//		// 444
+//		playernum = propGetPlayerNum(chr->prop);
+//
+//		if (g_Vars.coopplayernum >= 0 && g_Vars.players[playernum]->isdead) {
+//			// 470
+//			if (playernum == g_Vars.bondplayernum) {
+//				playernum = g_Vars.coopplayernum;
+//			} else {
+//				playernum = g_Vars.bondplayernum;
+//			}
+//		}
+//
+//		setCurrentPlayerNum(playernum);
+//	}
+//
+//	// If soundgap permits talking at this time and probability passes
+//	// 494
+//	if ((g_Vars.chrdata->soundgap == 0 || g_Vars.chrdata->soundgap * 60 < g_Vars.chrdata->soundtimer)
+//			&& probability > (u8)random()) {
+//		// Try and find a chr in the same squadron who is currently talking
+//		// 4dc
+//		while (*chrnums != -2) {
+//			loopchr = chrFindByLiteralId(*chrnums);
+//
+//			if (loopchr && loopchr->unk020
+//					&& !chrIsDead(loopchr)
+//					&& loopchr->actiontype != ACT_DEAD
+//					&& g_Vars.chrdata->squadron == loopchr->squadron
+//					&& loopchr->alertness >= 100
+//					&& g_Vars.chrdata->chrnum != loopchr->chrnum
+//					&& chrGetDistanceToChr(g_Vars.chrdata, loopchr->chrnum) < 7000) {
+//				// 584
+//				numnearbychrs++;
+//
+//				// 594
+//				if (loopchr->soundtimer < 60 && cmd[6] != 0 && cmd[6] != 255) {
+//					issomeonetalking = true;
+//				}
+//			}
+//
+//			chrnums++;
+//		}
+//
+//		// 5dc
+//		if (!issomeonetalking &&
+//				((numnearbychrs == 0 && (cmd[6] == 0 || cmd[6] == 255)) ||
+//				 (numnearbychrs > 0 && cmd[6] > 0))) {
+//			column = random() % 3;
+//
+//			// 64c
+//			if ((cmd[7] & 0x80) == 0) {
+//				audioid = bank[row][1 + column];
+//			} else {
+//				audioid = bank[row][1 + g_Vars.chrdata->tude];
+//			}
+//
+//			// 6a0
+//			if (audioWasNotPlayedRecently(audioid) || (g_Vars.chrdata ? g_Vars.chrdata->race : RACE_HUMAN) == RACE_SKEDAR) {
+//				// 6d4
+//				audioMarkAsRecentlyPlayed(audioid);
+//
+//				// 6e8
+//				if (audioid == 0x34e && flag == 0) {
+//					audioid = 0x34d;
+//				}
+//
+//				// 700
+//				g_Vars.chrdata->soundtimer = 0;
+//				g_Vars.chrdata->soundgap = cmd[5];
+//				g_Vars.chrdata->propsoundcount++;
+//
+//				// 72c
+//				if (audioid != 0x3f7 && audioid != 0x331 && audioid != 0x3a1) {
+//					func0f0926bc(g_Vars.chrdata->prop, 9, -1);
+//					// 7a8
+//					func0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+//							-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+//				} else {
+//					distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
+//
+//					if (ABS(distance) > 50) {
+//						func0f0926bc(g_Vars.chrdata->prop, 9, -1);
+//						// 840
+//						func0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+//								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+//					}
+//				}
+//
+//				// Consider putting text on screen
+//				// Note: if cmd[8] is 0 then it means no text, so the value
+//				// needs to be be decremented by one so it's 0-indexed.
+//				// 850
+//				if (cmd[8] && (cmd[7] & 0x80) == 0) {
+//					if (column > 2) {
+//						column = 2;
+//					}
+//
+//					text = langGet(g_QuipTexts[cmd[8] - 1][1 + column]);
+//
+//					if (!audioIsFiltered(audioid)) {
+//						// 8ac
+//						func0f0de034(text, 6, cmd[9]);
+//					}
+//				} else if (cmd[8]) {
+//					text = langGet(g_QuipTexts[cmd[8] - 1][1 + g_Vars.chrdata->tude]);
+//
+//					if (!audioIsFiltered(audioid)) {
+//						// 904
+//						func0f0de034(text, 6, cmd[9]);
+//					}
+//				}
+//			} else {
+//				// Audio was played recently - try and find a different one
+//				audioid = 0;
+//
+//				// 92c
+//				for (i = 1; i < 4; i++) {
+//					if (audioWasNotPlayedRecently(g_GuardQuipBank[row][i])
+//							&& audioWasNotPlayedRecently(bank[row][i])) {
+//						audioid = bank[row][i];
+//						break;
+//					}
+//				}
+//
+//				// 99c
+//				if (audioid) {
+//					audioMarkAsRecentlyPlayed(audioid);
+//
+//					if (audioid == 0x34e && flag == 0) {
+//						audioid = 0x34d;
+//					}
+//
+//					g_Vars.chrdata->soundtimer = 0;
+//					g_Vars.chrdata->soundgap = cmd[5];
+//					g_Vars.chrdata->propsoundcount++;
+//
+//					// 9fc
+//					if (audioid != 0x3f7 && audioid != 0x331 && audioid != 0x3a1) {
+//						func0f0926bc(g_Vars.chrdata->prop, 9, -1);
+//						// a80
+//						func0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+//								-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+//					} else {
+//						// a90
+//						distance = chrGetDistanceLostToTargetInLastSecond(g_Vars.chrdata);
+//
+//						if (ABS(distance) > 50) {
+//							func0f0926bc(g_Vars.chrdata->prop, 9, -1);
+//							// b28
+//							func0f0939f8(0, g_Vars.chrdata->prop, audioid, -1,
+//									-1, 8, 0, 9, 0, -1, 0, -1, -1, -1, -1);
+//						}
+//					}
+//
+//					// b44
+//					if (cmd[8]) {
+//						text = langGet(g_QuipTexts[cmd[8] - 1][i]);
+//
+//						if (!audioIsFiltered(audioid)) {
+//							// b78
+//							func0f0de034(text, 6, cmd[9]);
+//						}
+//					}
+//				} else {
+//					g_Vars.chrdata->soundtimer = 0;
+//					g_Vars.chrdata->soundgap = cmd[5];
+//					chrUnsetFlags(g_Vars.chrdata, CHRFLAG1_DISSPEE, BANK_1);
+//				}
+//			}
+//		}
+//	}
+//
+//	setCurrentPlayerNum(prevplayernum);
+//
+//	g_Vars.aioffset += 10;
+//
+//	return false;
+//}
 
 void func0f05abdc(struct prop *prop)
 {

@@ -4,6 +4,7 @@
 #define false 0
 #define true  1
 
+#define ABS(val) (val > 0 ? val : -val)
 #define PLAYERCOUNT() ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))
 #define PLAYERCOUNT3012() ((g_Vars.players[3] ? 1 : 0) + (g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0))
 
@@ -52,32 +53,35 @@
 #define AIMCONTROL_HOLD   0
 #define AIMCONTROL_TOGGLE 1
 
-#define AMMOTYPE_PISTOL      0x01
-#define AMMOTYPE_SMG         0x02
-#define AMMOTYPE_CROSSBOW    0x03
-#define AMMOTYPE_RIFLE       0x04
-#define AMMOTYPE_SHOTGUN     0x05
-#define AMMOTYPE_FARSIGHT    0x06
-#define AMMOTYPE_GRENADE     0x07
-#define AMMOTYPE_ROCKET      0x08
-#define AMMOTYPE_KNIFE       0x09
-#define AMMOTYPE_MAGNUM      0x0a
-#define AMMOTYPE_DEVASTATOR  0x0b
-#define AMMOTYPE_REMOTE_MINE 0x0c
-#define AMMOTYPE_PROXY_MINE  0x0d
-#define AMMOTYPE_TIMED_MINE  0x0e
-#define AMMOTYPE_REAPER      0x0f
-// 0x10
-// 0x11
-#define AMMOTYPE_NBOMB       0x12
-#define AMMOTYPE_SEDATIVE    0x13
-#define AMMOTYPE_CLOAK       0x14
-#define AMMOTYPE_BOOST       0x15
-#define AMMOTYPE_PSYCHOSIS   0x16
-// 0x17
-#define AMMOTYPE_BUG         0x18
-// 0x19
-#define AMMOTYPE_ECM_MINE    0x20
+#define AMMOTYPE_PISTOL       0x01
+#define AMMOTYPE_SMG          0x02
+#define AMMOTYPE_CROSSBOW     0x03
+#define AMMOTYPE_RIFLE        0x04
+#define AMMOTYPE_SHOTGUN      0x05
+#define AMMOTYPE_FARSIGHT     0x06
+#define AMMOTYPE_GRENADE      0x07
+#define AMMOTYPE_ROCKET       0x08
+#define AMMOTYPE_KNIFE        0x09
+#define AMMOTYPE_MAGNUM       0x0a
+#define AMMOTYPE_DEVASTATOR   0x0b
+#define AMMOTYPE_REMOTE_MINE  0x0c
+#define AMMOTYPE_PROXY_MINE   0x0d
+#define AMMOTYPE_TIMED_MINE   0x0e
+#define AMMOTYPE_REAPER       0x0f
+#define AMMOTYPE_HOMINGROCKET 0x10
+#define AMMOTYPE_DART         0x11
+#define AMMOTYPE_NBOMB        0x12
+#define AMMOTYPE_SEDATIVE     0x13
+#define AMMOTYPE_CLOAK        0x14
+#define AMMOTYPE_BOOST        0x15
+#define AMMOTYPE_PSYCHOSIS    0x16
+#define AMMOTYPE_17           0x17
+#define AMMOTYPE_BUG          0x18
+#define AMMOTYPE_MICROCAMERA  0x19
+#define AMMOTYPE_PLASTIQUE    0x1a
+#define AMMOTYPE_TOKEN        0x1e
+#define AMMOTYPE_1F           0x1f
+#define AMMOTYPE_ECM_MINE     0x20
 
 #define ANIM_IDLE                   0x0000
 #define ANIM_TWO_GUN_HOLD           0x0001
@@ -328,6 +332,7 @@
 
 // chr->hidden2
 #define CHRH2FLAG_0001 0x0001
+#define CHRH2FLAG_1000 0x1000
 
 // chr->chrflags
 #define CHRCFLAG_00000001                    0x00000001 // Villa takers, Attack Ship Cass and skedar - both set at end of intros

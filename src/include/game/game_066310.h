@@ -351,7 +351,7 @@ u32 func0f0923d4(void);
 u32 func0f092420(void);
 u32 func0f092484(void);
 u32 func0f092610(void);
-void func0f0926bc(struct prop *prop, u32 arg1, s32 arg2);
+void func0f0926bc(struct prop *prop, u32 arg1, u16 arg2);
 s32 func0f0927d4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s16 arg4);
 s32 func0f092914(s32 arg0);
 u32 func0f09294c(void);
