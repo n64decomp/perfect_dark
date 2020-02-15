@@ -100,33 +100,6 @@ const u32 var7f1a9cd4[] = {0x7f05592c};
 const u32 var7f1a9cd8[] = {0x3d4ccccd};
 const u32 var7f1a9cdc[] = {0x40c907a9};
 const u32 var7f1a9ce0[] = {0x40c907a9};
-const u32 var7f1a9ce4[] = {0x7f0593bc};
-const u32 var7f1a9ce8[] = {0x7f0593bc};
-const u32 var7f1a9cec[] = {0x7f0593bc};
-const u32 var7f1a9cf0[] = {0x7f0593bc};
-const u32 var7f1a9cf4[] = {0x7f0593bc};
-const u32 var7f1a9cf8[] = {0x7f0593bc};
-const u32 var7f1a9cfc[] = {0x7f0593bc};
-const u32 var7f1a9d00[] = {0x7f0593bc};
-const u32 var7f1a9d04[] = {0x7f059390};
-const u32 var7f1a9d08[] = {0x7f059390};
-const u32 var7f1a9d0c[] = {0x7f059390};
-const u32 var7f1a9d10[] = {0x7f059390};
-const u32 var7f1a9d14[] = {0x7f059390};
-const u32 var7f1a9d18[] = {0x7f059390};
-const u32 var7f1a9d1c[] = {0x7f059390};
-const u32 var7f1a9d20[] = {0x7f059390};
-const u32 var7f1a9d24[] = {0x7f059390};
-const u32 var7f1a9d28[] = {0x7f059390};
-const u32 var7f1a9d2c[] = {0x7f0593a0};
-const u32 var7f1a9d30[] = {0x7f059390};
-const u32 var7f1a9d34[] = {0x7f0593a0};
-const u32 var7f1a9d38[] = {0x7f0593a0};
-const u32 var7f1a9d3c[] = {0x7f0593a0};
-const u32 var7f1a9d40[] = {0x7f0593a0};
-const u32 var7f1a9d44[] = {0x7f0593b0};
-const u32 var7f1a9d48[] = {0x7f0593bc};
-const u32 var7f1a9d4c[] = {0x455ac000};
 
 /**
  * @cmd 0000
@@ -7740,6 +7713,62 @@ bool aiIfSkedar(void)
  */
 GLOBAL_ASM(
 glabel ai0120
+.late_rodata
+glabel var7f1a9ce4
+.word 0x7f0593bc
+glabel var7f1a9ce8
+.word 0x7f0593bc
+glabel var7f1a9cec
+.word 0x7f0593bc
+glabel var7f1a9cf0
+.word 0x7f0593bc
+glabel var7f1a9cf4
+.word 0x7f0593bc
+glabel var7f1a9cf8
+.word 0x7f0593bc
+glabel var7f1a9cfc
+.word 0x7f0593bc
+glabel var7f1a9d00
+.word 0x7f0593bc
+glabel var7f1a9d04
+.word 0x7f059390
+glabel var7f1a9d08
+.word 0x7f059390
+glabel var7f1a9d0c
+.word 0x7f059390
+glabel var7f1a9d10
+.word 0x7f059390
+glabel var7f1a9d14
+.word 0x7f059390
+glabel var7f1a9d18
+.word 0x7f059390
+glabel var7f1a9d1c
+.word 0x7f059390
+glabel var7f1a9d20
+.word 0x7f059390
+glabel var7f1a9d24
+.word 0x7f059390
+glabel var7f1a9d28
+.word 0x7f059390
+glabel var7f1a9d2c
+.word 0x7f0593a0
+glabel var7f1a9d30
+.word 0x7f059390
+glabel var7f1a9d34
+.word 0x7f0593a0
+glabel var7f1a9d38
+.word 0x7f0593a0
+glabel var7f1a9d3c
+.word 0x7f0593a0
+glabel var7f1a9d40
+.word 0x7f0593a0
+glabel var7f1a9d44
+.word 0x7f0593b0
+glabel var7f1a9d48
+.word 0x7f0593bc
+glabel var7f1a9d4c
+.word 0x455ac000
+.text
 /*  f059304:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f059308:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f05930c:	3c13800a */ 	lui	$s3,%hi(g_Vars)
@@ -7887,6 +7916,93 @@ glabel ai0120
 /*  f059514:	03e00008 */ 	jr	$ra
 /*  f059518:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+// Mismatch because score is masked with 0xff near 47c. Seems like it needs to
+// use use int promotion but I haven't found a way to trigger it.
+//bool ai0120(void)
+//{
+//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+//	u8 score = 6;
+//	u8 numnearby = 0;
+//	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
+//
+//	// 350
+//	if (chrGetNumArghs(g_Vars.chrdata) > 0) {
+//		score -= 2;
+//	}
+//
+//	switch (getCurrentPlayerWeaponId(0)) {
+//	case WEAPON_CMP150:
+//	case WEAPON_CYCLONE:
+//	case WEAPON_CALLISTONTG:
+//	case WEAPON_RCP120:
+//	case WEAPON_LAPTOPGUN:
+//	case WEAPON_DRAGON:
+//	case WEAPON_K7AVENGER:
+//	case WEAPON_AR34:
+//	case WEAPON_SUPERDRAGON:
+//	case WEAPON_SHOTGUN:
+//	case WEAPON_SNIPERRIFLE:
+//		score--;
+//		break;
+//	case WEAPON_REAPER:
+//	case WEAPON_FARSIGHTXR20:
+//	case WEAPON_DEVASTATOR:
+//	case WEAPON_ROCKETLAUNCHER:
+//	case WEAPON_SLAYER:
+//		score -= 2;
+//		break;
+//	default:
+//		score++;
+//		break;
+//	case WEAPON_FALCON2:
+//	case WEAPON_FALCON2_SILENCER:
+//	case WEAPON_FALCON2_SCOPE:
+//	case WEAPON_MAGSEC4:
+//	case WEAPON_MAULER:
+//	case WEAPON_PHOENIX:
+//	case WEAPON_DY357MAGNUM:
+//	case WEAPON_DY357LX:
+//	case WEAPON_CROSSBOW:
+//		break;
+//	}
+//
+//	// 3bc
+//	while (*chrnums != -2) {
+//		struct chrdata *chr = chrFindByLiteralId(*chrnums);
+//
+//		if (chr && chr->unk020
+//				&& !chrIsDead(chr)
+//				&& chr->actiontype != ACT_DEAD
+//				&& chr->alertness > 100 // @bug? I don't think this goes higher than 100
+//				&& g_Vars.chrdata->squadron == chr->squadron
+//				&& g_Vars.chrdata->chrnum != chr->chrnum
+//				&& chrGetDistanceToChr(g_Vars.chrdata, chr->chrnum) < 3500) {
+//			numnearby++;
+//		}
+//
+//		chrnums++;
+//	}
+//
+//	// 47c
+//	if (numnearby == 0) {
+//		score -= 2;
+//	} else if (numnearby == 1) {
+//		score--;
+//	}
+//
+//	if (score < 3 && numnearby != 0) {
+//		score = 3;
+//	}
+//
+//	if (score < cmd[2]) {
+//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+//	} else {
+//		g_Vars.aioffset += 4;
+//	}
+//
+//	return false;
+//}
 
 /**
  * @cmd 0121
