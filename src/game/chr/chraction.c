@@ -31306,77 +31306,27 @@ bool chrSawInjury(struct chrdata *chr, u8 arg1)
 	return saw_injury;
 }
 
-GLOBAL_ASM(
-glabel chrSawDeath
-/*  f04a1ac:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04a1b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04a1b4:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f04a1b8:	84860130 */ 	lh	$a2,0x130($a0)
-/*  f04a1bc:	30ae00ff */ 	andi	$t6,$a1,0xff
-/*  f04a1c0:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f04a1c4:	28c30000 */ 	slti	$v1,$a2,0x0
-/*  f04a1c8:	38630001 */ 	xori	$v1,$v1,0x1
-/*  f04a1cc:	10600003 */ 	beqz	$v1,.L0f04a1dc
-/*  f04a1d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a1d4:	51c0001a */ 	beqzl	$t6,.L0f04a240
-/*  f04a1d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f04a1dc:
-/*  f04a1dc:	10600015 */ 	beqz	$v1,.L0f04a234
-/*  f04a1e0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f04a1e4:	14a10013 */ 	bne	$a1,$at,.L0f04a234
-/*  f04a1e8:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f04a1ec:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f04a1f0:	0fc126d1 */ 	jal	chrFindById
-/*  f04a1f4:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f04a1f8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f04a1fc:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f04a200:	1040000e */ 	beqz	$v0,.L0f04a23c
-/*  f04a204:	00402825 */ 	or	$a1,$v0,$zero
-/*  f04a208:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f04a20c:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f04a210:	0fc12aa3 */ 	jal	chrCompareTeams
-/*  f04a214:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f04a218:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f04a21c:	14400007 */ 	bnez	$v0,.L0f04a23c
-/*  f04a220:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f04a224:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f04a228:	00001825 */ 	or	$v1,$zero,$zero
-/*  f04a22c:	10000003 */ 	beqz	$zero,.L0f04a23c
-/*  f04a230:	a48f0130 */ 	sh	$t7,0x130($a0)
-.L0f04a234:
-/*  f04a234:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f04a238:	a4980130 */ 	sh	$t8,0x130($a0)
-.L0f04a23c:
-/*  f04a23c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f04a240:
-/*  f04a240:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f04a244:	00601025 */ 	or	$v0,$v1,$zero
-/*  f04a248:	03e00008 */ 	jr	$ra
-/*  f04a24c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrSawDeath(struct chrdata *chr, u8 arg1)
+{
+	bool saw_death = chr->chrseedie >= 0;
 
-// Mismatch because it uses the wrong register for chr->chrseedie
-//bool chrSawDeath(struct chrdata *chr, u8 arg1)
-//{
-//	bool saw_death = chr->chrseedie >= 0;
-//
-//	// The commented line below was likely originally there but removed before
-//	// the final version. Compare with chrSawInjury above.
-//	if (saw_death && arg1 == 0) {
-//		//chr->chrseedie = -1;
-//	} else if (saw_death && arg1 == 1) {
-//		struct chrdata *victim = chrFindById(chr, chr->chrseedie);
-//
-//		if (victim && !chrCompareTeams(chr, victim, 1)) {
-//			saw_death = false;
-//			chr->chrseedie = -1;
-//		}
-//	} else {
-//		chr->chrseedie = -1;
-//	}
-//
-//	return saw_death;
-//}
+	// The commented line below was likely originally there but removed before
+	// the final version. Compare with chrSawInjury above.
+	if (saw_death && arg1 == 0) {
+		//chr->chrseedie = -1;
+	} else if (saw_death && arg1 == 1) {
+		struct chrdata *victim = chrFindById(chr, chr->chrseedie);
+
+		if (victim && !chrCompareTeams(chr, victim, 1)) {
+			saw_death = false;
+			chr->chrseedie = -1;
+		}
+	} else {
+		chr->chrseedie = -1;
+	}
+
+	return saw_death;
+}
 
 void decrementByte(u8 *dst, u8 amount)
 {
