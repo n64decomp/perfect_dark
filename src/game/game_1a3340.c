@@ -4834,55 +4834,24 @@ glabel func0f1a7730
 /*  f1a7790:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a7794
-/*  f1a7794:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a7798:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f1a779c:	240e0006 */ 	addiu	$t6,$zero,0x6
-/*  f1a77a0:	3c018006 */ 	lui	$at,0x8006
-/*  f1a77a4:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f1a77a8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1a77ac:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f1a77b0:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f1a77b4:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f1a77b8:	a02ed9a0 */ 	sb	$t6,-0x2660($at)
-/*  f1a77bc:	10a00008 */ 	beqz	$a1,.L0f1a77e0
-/*  f1a77c0:	00a07825 */ 	or	$t7,$a1,$zero
-/*  f1a77c4:	97a4002a */ 	lhu	$a0,0x2a($sp)
-/*  f1a77c8:	24050011 */ 	addiu	$a1,$zero,0x11
-/*  f1a77cc:	01e03025 */ 	or	$a2,$t7,$zero
-/*  f1a77d0:	0fc59c80 */ 	jal	func0f167200
-/*  f1a77d4:	02003825 */ 	or	$a3,$s0,$zero
-/*  f1a77d8:	10000005 */ 	beqz	$zero,.L0f1a77f0
-/*  f1a77dc:	00408025 */ 	or	$s0,$v0,$zero
-.L0f1a77e0:
-/*  f1a77e0:	97a4002a */ 	lhu	$a0,0x2a($sp)
-/*  f1a77e4:	0fc59c3f */ 	jal	func0f1670fc
-/*  f1a77e8:	24050011 */ 	addiu	$a1,$zero,0x11
-/*  f1a77ec:	00408025 */ 	or	$s0,$v0,$zero
-.L0f1a77f0:
-/*  f1a77f0:	0fc69dcc */ 	jal	func0f1a7730
-/*  f1a77f4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a77f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a77fc:	3c050500 */ 	lui	$a1,0x500
-/*  f1a7800:	0c008a89 */ 	jal	func00022a24
-/*  f1a7804:	02003025 */ 	or	$a2,$s0,$zero
-/*  f1a7808:	8fb9002c */ 	lw	$t9,0x2c($sp)
-/*  f1a780c:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f1a7810:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a7814:	2f280001 */ 	sltiu	$t0,$t9,0x1
-/*  f1a7818:	afa80014 */ 	sw	$t0,0x14($sp)
-/*  f1a781c:	97a5002a */ 	lhu	$a1,0x2a($sp)
-/*  f1a7820:	3c060500 */ 	lui	$a2,0x500
-/*  f1a7824:	02003825 */ 	or	$a3,$s0,$zero
-/*  f1a7828:	0fc69d58 */ 	jal	func0f1a7560
-/*  f1a782c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f1a7830:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1a7834:	02001025 */ 	or	$v0,$s0,$zero
-/*  f1a7838:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f1a783c:	03e00008 */ 	jr	$ra
-/*  f1a7840:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void *func0f1a7794(u16 fileid, u32 arg1, s32 arg2, s32 arg3)
+{
+	void *ptr;
+
+	var8005d9a0 = 6;
+
+	if (arg1) {
+		ptr = func0f167200(fileid, 0x11, arg1, arg2);
+	} else {
+		ptr = func0f1670fc(fileid, 0x11);
+	}
+
+	func0f1a7730(ptr);
+	func00022a24(ptr, 0x5000000, ptr);
+	func0f1a7560(ptr, fileid, 0x5000000, ptr, arg3, arg1 < 1);
+
+	return ptr;
+}
 
 void *fileLoad(u16 fileid)
 {

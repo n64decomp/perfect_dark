@@ -83,6 +83,7 @@ extern u32 var8005d5b8;
 extern u32 var8005d5bc;
 extern u32 var8005d880;
 extern u32 var8005d994;
+extern u8 var8005d9a0;
 extern u32 var8005d9cc;
 extern u32 var8005d9d4;
 extern u32 var8005dcc8;
