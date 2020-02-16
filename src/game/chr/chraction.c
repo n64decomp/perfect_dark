@@ -508,30 +508,6 @@ const u32 var7f1a9380[] = {0x40490fdb};
 const u32 var7f1a9384[] = {0x4cbebc20};
 // </chrGetSameFloorDistanceToPad>
 
-// <chrResolveId>
-const u32 var7f1a9388[] = {0x7f049960};
-const u32 var7f1a938c[] = {0x7f049904};
-const u32 var7f1a9390[] = {0x7f049b30};
-const u32 var7f1a9394[] = {0x7f0498d0};
-const u32 var7f1a9398[] = {0x7f04989c};
-const u32 var7f1a939c[] = {0x7f0499b8};
-const u32 var7f1a93a0[] = {0x7f049b30};
-const u32 var7f1a93a4[] = {0x7f049868};
-const u32 var7f1a93a8[] = {0x7f049860};
-const u32 var7f1a93ac[] = {0x7f049840};
-const u32 var7f1a93b0[] = {0x7f049848};
-const u32 var7f1a93b4[] = {0x7f049850};
-const u32 var7f1a93b8[] = {0x7f049858};
-const u32 var7f1a93bc[] = {0x7f049af0};
-const u32 var7f1a93c0[] = {0x7f049ab0};
-const u32 var7f1a93c4[] = {0x7f049b30};
-const u32 var7f1a93c8[] = {0x7f049a7c};
-const u32 var7f1a93cc[] = {0x7f049a48};
-const u32 var7f1a93d0[] = {0x7f049b30};
-const u32 var7f1a93d4[] = {0x7f049b30};
-const u32 var7f1a93d8[] = {0x7f049a14};
-// </chrResolveId>
-
 GLOBAL_ASM(
 glabel func0f02dff0
 /*  f02dff0:	00043400 */ 	sll	$a2,$a0,0x10
@@ -30595,321 +30571,104 @@ glabel func0f049644
 /*  f04980c:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel chrResolveId
-/*  f049810:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f049814:	10800076 */ 	beqz	$a0,.L0f0499f0
-/*  f049818:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04981c:	24aeff0f */ 	addiu	$t6,$a1,-241
-/*  f049820:	2dc1000d */ 	sltiu	$at,$t6,0xd
-/*  f049824:	102000c2 */ 	beqz	$at,.L0f049b30
-/*  f049828:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f04982c:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f049830:	002e0821 */ 	addu	$at,$at,$t6
-/*  f049834:	8c2e9388 */ 	lw	$t6,-0x6c78($at)
-/*  f049838:	01c00008 */ 	jr	$t6
-/*  f04983c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f049840:	100000bb */ 	beqz	$zero,.L0f049b30
-/*  f049844:	8485012e */ 	lh	$a1,0x12e($a0)
-/*  f049848:	100000b9 */ 	beqz	$zero,.L0f049b30
-/*  f04984c:	84850130 */ 	lh	$a1,0x130($a0)
-/*  f049850:	100000b7 */ 	beqz	$zero,.L0f049b30
-/*  f049854:	8485012a */ 	lh	$a1,0x12a($a0)
-/*  f049858:	100000b5 */ 	beqz	$zero,.L0f049b30
-/*  f04985c:	84850000 */ 	lh	$a1,0x0($a0)
-/*  f049860:	100000b3 */ 	beqz	$zero,.L0f049b30
-/*  f049864:	84850132 */ 	lh	$a1,0x132($a0)
-/*  f049868:	3c06800a */ 	lui	$a2,0x800a
-/*  f04986c:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f049870:	8cc202a0 */ 	lw	$v0,0x2a0($a2)
-/*  f049874:	504000af */ 	beqzl	$v0,.L0f049b34
-/*  f049878:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04987c:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f049880:	506000ac */ 	beqzl	$v1,.L0f049b34
-/*  f049884:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049888:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f04988c:	504000a9 */ 	beqzl	$v0,.L0f049b34
-/*  f049890:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049894:	100000a6 */ 	beqz	$zero,.L0f049b30
-/*  f049898:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f04989c:	3c06800a */ 	lui	$a2,0x800a
-/*  f0498a0:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f0498a4:	8cc202a4 */ 	lw	$v0,0x2a4($a2)
-/*  f0498a8:	504000a2 */ 	beqzl	$v0,.L0f049b34
-/*  f0498ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0498b0:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f0498b4:	5060009f */ 	beqzl	$v1,.L0f049b34
-/*  f0498b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0498bc:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f0498c0:	5040009c */ 	beqzl	$v0,.L0f049b34
-/*  f0498c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0498c8:	10000099 */ 	beqz	$zero,.L0f049b30
-/*  f0498cc:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f0498d0:	3c06800a */ 	lui	$a2,0x800a
-/*  f0498d4:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f0498d8:	8cc202a8 */ 	lw	$v0,0x2a8($a2)
-/*  f0498dc:	50400095 */ 	beqzl	$v0,.L0f049b34
-/*  f0498e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0498e4:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f0498e8:	50600092 */ 	beqzl	$v1,.L0f049b34
-/*  f0498ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0498f0:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f0498f4:	5040008f */ 	beqzl	$v0,.L0f049b34
-/*  f0498f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0498fc:	1000008c */ 	beqz	$zero,.L0f049b30
-/*  f049900:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f049904:	3c06800a */ 	lui	$a2,0x800a
-/*  f049908:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f04990c:	8ccf0298 */ 	lw	$t7,0x298($a2)
-/*  f049910:	05e20006 */ 	bltzl	$t7,.L0f04992c
-/*  f049914:	8cc20294 */ 	lw	$v0,0x294($a2)
-/*  f049918:	9482032e */ 	lhu	$v0,0x32e($a0)
-/*  f04991c:	0002c382 */ 	srl	$t8,$v0,0xe
-/*  f049920:	10000002 */ 	beqz	$zero,.L0f04992c
-/*  f049924:	03001025 */ 	or	$v0,$t8,$zero
-/*  f049928:	8cc20294 */ 	lw	$v0,0x294($a2)
-.L0f04992c:
-/*  f04992c:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f049930:	00d94021 */ 	addu	$t0,$a2,$t9
-/*  f049934:	8d030064 */ 	lw	$v1,0x64($t0)
-/*  f049938:	5060007e */ 	beqzl	$v1,.L0f049b34
-/*  f04993c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049940:	8c6200bc */ 	lw	$v0,0xbc($v1)
-/*  f049944:	5040007b */ 	beqzl	$v0,.L0f049b34
-/*  f049948:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04994c:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f049950:	50600078 */ 	beqzl	$v1,.L0f049b34
-/*  f049954:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049958:	10000075 */ 	beqz	$zero,.L0f049b30
-/*  f04995c:	84650000 */ 	lh	$a1,0x0($v1)
-/*  f049960:	3c06800a */ 	lui	$a2,0x800a
-/*  f049964:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f049968:	8cc90298 */ 	lw	$t1,0x298($a2)
-/*  f04996c:	05220071 */ 	bltzl	$t1,.L0f049b34
-/*  f049970:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049974:	948a032e */ 	lhu	$t2,0x32e($a0)
-/*  f049978:	3c02800a */ 	lui	$v0,0x800a
-/*  f04997c:	000a5b82 */ 	srl	$t3,$t2,0xe
-/*  f049980:	000b6080 */ 	sll	$t4,$t3,0x2
-/*  f049984:	000c6823 */ 	negu	$t5,$t4
-/*  f049988:	004d1021 */ 	addu	$v0,$v0,$t5
-/*  f04998c:	8c42a028 */ 	lw	$v0,-0x5fd8($v0)
-/*  f049990:	50400068 */ 	beqzl	$v0,.L0f049b34
-/*  f049994:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049998:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f04999c:	50600065 */ 	beqzl	$v1,.L0f049b34
-/*  f0499a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0499a4:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f0499a8:	50400062 */ 	beqzl	$v0,.L0f049b34
-/*  f0499ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0499b0:	1000005f */ 	beqz	$zero,.L0f049b30
-/*  f0499b4:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f0499b8:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f0499bc:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0499c0:	90430000 */ 	lbu	$v1,0x0($v0)
-/*  f0499c4:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0499c8:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0499cc:	10610003 */ 	beq	$v1,$at,.L0f0499dc
-/*  f0499d0:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f0499d4:	54610057 */ 	bnel	$v1,$at,.L0f049b34
-/*  f0499d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0499dc:
-/*  f0499dc:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f0499e0:	50600054 */ 	beqzl	$v1,.L0f049b34
-/*  f0499e4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0499e8:	10000051 */ 	beqz	$zero,.L0f049b30
-/*  f0499ec:	84650000 */ 	lh	$a1,0x0($v1)
-.L0f0499f0:
-/*  f0499f0:	24aeff0f */ 	addiu	$t6,$a1,-241
-/*  f0499f4:	2dc10008 */ 	sltiu	$at,$t6,0x8
-/*  f0499f8:	1020004d */ 	beqz	$at,.L0f049b30
-/*  f0499fc:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f049a00:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f049a04:	002e0821 */ 	addu	$at,$at,$t6
-/*  f049a08:	8c2e93bc */ 	lw	$t6,-0x6c44($at)
-/*  f049a0c:	01c00008 */ 	jr	$t6
-/*  f049a10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f049a14:	3c06800a */ 	lui	$a2,0x800a
-/*  f049a18:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f049a1c:	8cc202a0 */ 	lw	$v0,0x2a0($a2)
-/*  f049a20:	50400044 */ 	beqzl	$v0,.L0f049b34
-/*  f049a24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049a28:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f049a2c:	50600041 */ 	beqzl	$v1,.L0f049b34
-/*  f049a30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049a34:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f049a38:	5040003e */ 	beqzl	$v0,.L0f049b34
-/*  f049a3c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049a40:	1000003b */ 	beqz	$zero,.L0f049b30
-/*  f049a44:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f049a48:	3c06800a */ 	lui	$a2,0x800a
-/*  f049a4c:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f049a50:	8cc202a4 */ 	lw	$v0,0x2a4($a2)
-/*  f049a54:	50400037 */ 	beqzl	$v0,.L0f049b34
-/*  f049a58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049a5c:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f049a60:	50600034 */ 	beqzl	$v1,.L0f049b34
-/*  f049a64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049a68:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f049a6c:	50400031 */ 	beqzl	$v0,.L0f049b34
-/*  f049a70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049a74:	1000002e */ 	beqz	$zero,.L0f049b30
-/*  f049a78:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f049a7c:	3c06800a */ 	lui	$a2,0x800a
-/*  f049a80:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f049a84:	8cc202a8 */ 	lw	$v0,0x2a8($a2)
-/*  f049a88:	5040002a */ 	beqzl	$v0,.L0f049b34
-/*  f049a8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049a90:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f049a94:	50600027 */ 	beqzl	$v1,.L0f049b34
-/*  f049a98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049a9c:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f049aa0:	50400024 */ 	beqzl	$v0,.L0f049b34
-/*  f049aa4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049aa8:	10000021 */ 	beqz	$zero,.L0f049b30
-/*  f049aac:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f049ab0:	3c06800a */ 	lui	$a2,0x800a
-/*  f049ab4:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f049ab8:	8ccf0294 */ 	lw	$t7,0x294($a2)
-/*  f049abc:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f049ac0:	00d8c821 */ 	addu	$t9,$a2,$t8
-/*  f049ac4:	8f220064 */ 	lw	$v0,0x64($t9)
-/*  f049ac8:	5040001a */ 	beqzl	$v0,.L0f049b34
-/*  f049acc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049ad0:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f049ad4:	50600017 */ 	beqzl	$v1,.L0f049b34
-/*  f049ad8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049adc:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f049ae0:	50400014 */ 	beqzl	$v0,.L0f049b34
-/*  f049ae4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049ae8:	10000011 */ 	beqz	$zero,.L0f049b30
-/*  f049aec:	84450000 */ 	lh	$a1,0x0($v0)
-/*  f049af0:	3c06800a */ 	lui	$a2,0x800a
-/*  f049af4:	24c69fc0 */ 	addiu	$a2,$a2,-24640
-/*  f049af8:	8cc20298 */ 	lw	$v0,0x298($a2)
-/*  f049afc:	0440000c */ 	bltz	$v0,.L0f049b30
-/*  f049b00:	00024080 */ 	sll	$t0,$v0,0x2
-/*  f049b04:	00c84821 */ 	addu	$t1,$a2,$t0
-/*  f049b08:	8d230064 */ 	lw	$v1,0x64($t1)
-/*  f049b0c:	50600009 */ 	beqzl	$v1,.L0f049b34
-/*  f049b10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049b14:	8c6200bc */ 	lw	$v0,0xbc($v1)
-/*  f049b18:	50400006 */ 	beqzl	$v0,.L0f049b34
-/*  f049b1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049b20:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f049b24:	50600003 */ 	beqzl	$v1,.L0f049b34
-/*  f049b28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049b2c:	84650000 */ 	lh	$a1,0x0($v1)
-.L0f049b30:
-/*  f049b30:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f049b34:
-/*  f049b34:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f049b38:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f049b3c:	03e00008 */ 	jr	$ra
-/*  f049b40:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 chrResolveId(struct chrdata *ref, s32 id)
+{
+	if (ref) {
+		switch (id) {
+		case CHR_SEESHOT:
+			id = ref->chrseeshot;
+			break;
+		case CHR_SEEDIE:
+			id = ref->chrseedie;
+			break;
+		case CHR_PRESET:
+			id = ref->chrpreset1;
+			break;
+		case CHR_SELF:
+			id = ref->chrnum;
+			break;
+		case CHR_CLONE:
+			id = ref->chrdup;
+			break;
+		case CHR_BOND:
+			if (g_Vars.bond && g_Vars.bond->prop && g_Vars.bond->prop->chr) {
+				id = g_Vars.bond->prop->chr->chrnum;
+			}
+			break;
+		case CHR_COOP:
+			if (g_Vars.coop && g_Vars.coop->prop && g_Vars.coop->prop->chr) {
+				id = g_Vars.coop->prop->chr->chrnum;
+			}
+			break;
+		case CHR_ANTI:
+			if (g_Vars.anti && g_Vars.anti->prop && g_Vars.anti->prop->chr) {
+				id = g_Vars.anti->prop->chr->chrnum;
+			}
+			break;
+		case CHR_P1P2:
+			{
+				u32 index = g_Vars.coopplayernum >= 0 ? ref->p1p2 : g_Vars.bondplayernum;
+				struct player *player = g_Vars.players[index];
+				if (player && player->prop && player->prop->chr) {
+					id = player->prop->chr->chrnum;
+				}
+			}
+			break;
+		case CHR_P1P2_OPPOSITE:
+			if (g_Vars.coopplayernum >= 0) {
+				struct player *player = g_Vars.players[1 - ref->p1p2];
+				if (player && player->prop && player->prop->chr) {
+					id = player->prop->chr->chrnum;
+				}
+			}
+			break;
+		case CHR_TARGET:
+			{
+				struct prop *target = chrGetTargetProp(ref);
+				if ((target->type == PROPTYPE_CHR || target->type == PROPTYPE_PLAYER) && target->chr) {
+					id = target->chr->chrnum;
+				}
+			}
+			break;
+		}
+	} else { // ref is NULL
+		switch (id) {
+		case CHR_BOND:
+			if (g_Vars.bond && g_Vars.bond->prop && g_Vars.bond->prop->chr) {
+				id = g_Vars.bond->prop->chr->chrnum;
+			}
+			break;
+		case CHR_COOP:
+			if (g_Vars.coop && g_Vars.coop->prop && g_Vars.coop->prop->chr) {
+				id = g_Vars.coop->prop->chr->chrnum;
+			}
+			break;
+		case CHR_ANTI:
+			if (g_Vars.anti && g_Vars.anti->prop && g_Vars.anti->prop->chr) {
+				id = g_Vars.anti->prop->chr->chrnum;
+			}
+			break;
+		case CHR_P1P2:
+			{
+				struct player *player = g_Vars.players[g_Vars.bondplayernum];
+				if (player && player->prop && player->prop->chr) {
+					id = player->prop->chr->chrnum;
+				}
+			}
+			break;
+		case CHR_P1P2_OPPOSITE:
+			if (g_Vars.coopplayernum >= 0) {
+				struct player *player = g_Vars.players[g_Vars.coopplayernum];
+				if (player && player->prop && player->prop->chr) {
+					id = player->prop->chr->chrnum;
+				}
+			}
+			break;
+		}
+	}
 
-// This matches but is commented because it creates issues with the order of
-// rodata. It should be fine to uncomment once all the functions either before
-// or after it which contain rodata have been decompiled.
-//s32 chrResolveId(struct chrdata *ref, s32 id)
-//{
-//	if (ref) {
-//		switch (id) {
-//		case CHR_SEESHOT:
-//			id = ref->chrseeshot;
-//			break;
-//		case CHR_SEEDIE:
-//			id = ref->chrseedie;
-//			break;
-//		case CHR_PRESET:
-//			id = ref->chrpreset1;
-//			break;
-//		case CHR_SELF:
-//			id = ref->chrnum;
-//			break;
-//		case CHR_CLONE:
-//			id = ref->chrdup;
-//			break;
-//		case CHR_BOND:
-//			if (g_Vars.bond && g_Vars.bond->prop && g_Vars.bond->prop->chr) {
-//				id = g_Vars.bond->prop->chr->chrnum;
-//			}
-//			break;
-//		case CHR_COOP:
-//			if (g_Vars.coop && g_Vars.coop->prop && g_Vars.coop->prop->chr) {
-//				id = g_Vars.coop->prop->chr->chrnum;
-//			}
-//			break;
-//		case CHR_ANTI:
-//			if (g_Vars.anti && g_Vars.anti->prop && g_Vars.anti->prop->chr) {
-//				id = g_Vars.anti->prop->chr->chrnum;
-//			}
-//			break;
-//		case CHR_P1P2:
-//			{
-//				u32 index = g_Vars.coopplayernum >= 0 ? ref->p1p2 : g_Vars.bondplayernum;
-//				struct player *player = g_Vars.players[index];
-//				if (player && player->prop && player->prop->chr) {
-//					id = player->prop->chr->chrnum;
-//				}
-//			}
-//			break;
-//		case CHR_P1P2_OPPOSITE:
-//			if (g_Vars.coopplayernum >= 0) {
-//				struct player *player = g_Vars.players[1 - ref->p1p2];
-//				if (player && player->prop && player->prop->chr) {
-//					id = player->prop->chr->chrnum;
-//				}
-//			}
-//			break;
-//		case CHR_TARGET:
-//			{
-//				struct prop *target = chrGetTargetProp(ref);
-//				if ((target->unk00 == 3 || target->unk00 == 6) && target->chr) {
-//					id = target->chr->chrnum;
-//				}
-//			}
-//			break;
-//		}
-//	} else { // ref is NULL
-//		switch (id) {
-//		case CHR_BOND:
-//			if (g_Vars.bond && g_Vars.bond->prop && g_Vars.bond->prop->chr) {
-//				id = g_Vars.bond->prop->chr->chrnum;
-//			}
-//			break;
-//		case CHR_COOP:
-//			if (g_Vars.coop && g_Vars.coop->prop && g_Vars.coop->prop->chr) {
-//				id = g_Vars.coop->prop->chr->chrnum;
-//			}
-//			break;
-//		case CHR_ANTI:
-//			if (g_Vars.anti && g_Vars.anti->prop && g_Vars.anti->prop->chr) {
-//				id = g_Vars.anti->prop->chr->chrnum;
-//			}
-//			break;
-//		case CHR_P1P2:
-//			{
-//				struct player *player = g_Vars.players[g_Vars.bondplayernum];
-//				if (player && player->prop && player->prop->chr) {
-//					id = player->prop->chr->chrnum;
-//				}
-//			}
-//			break;
-//		case CHR_P1P2_OPPOSITE:
-//			if (g_Vars.coopplayernum >= 0) {
-//				struct player *player = g_Vars.players[g_Vars.coopplayernum];
-//				if (player && player->prop && player->prop->chr) {
-//					id = player->prop->chr->chrnum;
-//				}
-//			}
-//			break;
-//		}
-//	}
-//
-//	return id;
-//}
+	return id;
+}
 
 struct chrdata *chrFindById(struct chrdata *basechr, s32 chrnum)
 {
