@@ -9254,8 +9254,8 @@ bool aiSetChrPresetToUnalertedTeammate(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 *chrnums = teamGetChrIds(g_Vars.chrdata->team);
 
-	if (g_Vars.chrdata->talktimer >= 0x1e1 && g_Vars.chrdata->listening) {
-		g_Vars.chrdata->listening = 0;
+	if (g_Vars.chrdata->talktimer >= 0x1e1 && g_Vars.chrdata->listening[0]) {
+		g_Vars.chrdata->listening[0] = 0;
 	}
 
 	for (; *chrnums != -2; chrnums++) {
@@ -9598,8 +9598,8 @@ bool aiChrSetListening(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-	if (chr && chr->listening == 0) {
-		chr->listening = cmd[3];
+	if (chr && chr->listening[0] == 0) {
+		chr->listening[0] = cmd[3];
 	}
 
 	g_Vars.aioffset += 4;
@@ -9610,85 +9610,27 @@ bool aiChrSetListening(void)
 /**
  * @cmd 0149
  */
-GLOBAL_ASM(
-glabel aiIfChrListening
-/*  f05c014:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f05c018:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f05c01c:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f05c020:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f05c024:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f05c028:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f05c02c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05c030:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05c034:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05c038:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f05c03c:	0fc126d1 */ 	jal	chrFindById
-/*  f05c040:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f05c044:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f05c048:	90780004 */ 	lbu	$t8,0x4($v1)
-/*  f05c04c:	57000010 */ 	bnezl	$t8,.L0f05c090
-/*  f05c050:	8e0b0424 */ 	lw	$t3,0x424($s0)
-/*  f05c054:	90790003 */ 	lbu	$t9,0x3($v1)
-/*  f05c058:	904802a3 */ 	lbu	$t0,0x2a3($v0)
-/*  f05c05c:	57280008 */ 	bnel	$t9,$t0,.L0f05c080
-/*  f05c060:	8e090438 */ 	lw	$t1,0x438($s0)
-/*  f05c064:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f05c068:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f05c06c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05c070:	90660005 */ 	lbu	$a2,0x5($v1)
-/*  f05c074:	10000012 */ 	beqz	$zero,.L0f05c0c0
-/*  f05c078:	ae020438 */ 	sw	$v0,0x438($s0)
-/*  f05c07c:	8e090438 */ 	lw	$t1,0x438($s0)
-.L0f05c080:
-/*  f05c080:	252a0006 */ 	addiu	$t2,$t1,0x6
-/*  f05c084:	1000000e */ 	beqz	$zero,.L0f05c0c0
-/*  f05c088:	ae0a0438 */ 	sw	$t2,0x438($s0)
-/*  f05c08c:	8e0b0424 */ 	lw	$t3,0x424($s0)
-.L0f05c090:
-/*  f05c090:	8d6c02a4 */ 	lw	$t4,0x2a4($t3)
-/*  f05c094:	55800008 */ 	bnezl	$t4,.L0f05c0b8
-/*  f05c098:	8e0d0438 */ 	lw	$t5,0x438($s0)
-/*  f05c09c:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f05c0a0:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f05c0a4:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05c0a8:	90660005 */ 	lbu	$a2,0x5($v1)
-/*  f05c0ac:	10000004 */ 	beqz	$zero,.L0f05c0c0
-/*  f05c0b0:	ae020438 */ 	sw	$v0,0x438($s0)
-/*  f05c0b4:	8e0d0438 */ 	lw	$t5,0x438($s0)
-.L0f05c0b8:
-/*  f05c0b8:	25ae0006 */ 	addiu	$t6,$t5,0x6
-/*  f05c0bc:	ae0e0438 */ 	sw	$t6,0x438($s0)
-.L0f05c0c0:
-/*  f05c0c0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f05c0c4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f05c0c8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f05c0cc:	03e00008 */ 	jr	$ra
-/*  f05c0d0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfChrListening(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
-// Mismatch because chr->listening and cmd[3] registers are loaded to registers
-// in the wrong order. The function is functionally identical though.
-//bool aiIfChrListening(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-//
-//	if (cmd[4] == 0) {
-//		if (chr->listening == cmd[3]) {
-//			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
-//		} else {
-//			g_Vars.aioffset += 6;
-//		}
-//	} else {
-//		if (g_Vars.chrdata->convtalk == 0) {
-//			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
-//		} else {
-//			g_Vars.aioffset += 6;
-//		}
-//	}
-//
-//	return false;
-//}
+	if (cmd[4] == 0) {
+		if (cmd[3] == chr->listening[0]) {
+			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		} else {
+			g_Vars.aioffset += 6;
+		}
+	} else {
+		if (g_Vars.chrdata->convtalk == 0) {
+			g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+		} else {
+			g_Vars.aioffset += 6;
+		}
+	}
+
+	return false;
+}
 
 /**
  * @cmd 014a
@@ -9708,7 +9650,7 @@ bool aiIfNotListening(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->listening == 0) {
+	if (g_Vars.chrdata->listening[0] == 0) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
