@@ -29129,62 +29129,28 @@ glabel func0f047c80
 /*  f0482c8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0482cc
-/*  f0482cc:	3c01800a */ 	lui	$at,0x800a
-/*  f0482d0:	ac20de20 */ 	sw	$zero,-0x21e0($at)
-/*  f0482d4:	3c02800a */ 	lui	$v0,0x800a
-/*  f0482d8:	8c42a2fc */ 	lw	$v0,-0x5d04($v0)
-/*  f0482dc:	3c01800a */ 	lui	$at,0x800a
-/*  f0482e0:	44802000 */ 	mtc1	$zero,$f4
-/*  f0482e4:	ac20de24 */ 	sw	$zero,-0x21dc($at)
-/*  f0482e8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0482ec:	3c01800a */ 	lui	$at,0x800a
-/*  f0482f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0482f4:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0482f8:	10400009 */ 	beqz	$v0,.L0f048320
-/*  f0482fc:	e424de28 */ 	swc1	$f4,-0x21d8($at)
-/*  f048300:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f048304:	3403ffff */ 	dli	$v1,0xffff
-/*  f048308:	a4430038 */ 	sh	$v1,0x38($v0)
-.L0f04830c:
-/*  f04830c:	a440003a */ 	sh	$zero,0x3a($v0)
-/*  f048310:	a044003c */ 	sb	$a0,0x3c($v0)
-/*  f048314:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f048318:	5440fffc */ 	bnezl	$v0,.L0f04830c
-/*  f04831c:	a4430038 */ 	sh	$v1,0x38($v0)
-.L0f048320:
-/*  f048320:	0c006134 */ 	jal	ailistFindById
-/*  f048324:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f048328:	3c048006 */ 	lui	$a0,%hi(g_NumChrsB)
-/*  f04832c:	24847e60 */ 	addiu	$a0,$a0,%lo(g_NumChrsB)
-/*  f048330:	8c8f0000 */ 	lw	$t7,0x0($a0)
-/*  f048334:	24050368 */ 	addiu	$a1,$zero,0x368
-/*  f048338:	3c038006 */ 	lui	$v1,%hi(g_ChrsB)
-/*  f04833c:	01e50019 */ 	multu	$t7,$a1
-/*  f048340:	24637e58 */ 	addiu	$v1,$v1,%lo(g_ChrsB)
-/*  f048344:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f048348:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f04834c:	0000c012 */ 	mflo	$t8
-/*  f048350:	01d8c821 */ 	addu	$t9,$t6,$t8
-/*  f048354:	af22fda0 */ 	sw	$v0,-0x260($t9)
-/*  f048358:	8c890000 */ 	lw	$t1,0x0($a0)
-/*  f04835c:	8c680000 */ 	lw	$t0,0x0($v1)
-/*  f048360:	01250019 */ 	multu	$t1,$a1
-/*  f048364:	00005012 */ 	mflo	$t2
-/*  f048368:	010a5821 */ 	addu	$t3,$t0,$t2
-/*  f04836c:	a560fda4 */ 	sh	$zero,-0x25c($t3)
-/*  f048370:	8c8f0000 */ 	lw	$t7,0x0($a0)
-/*  f048374:	8c6d0000 */ 	lw	$t5,0x0($v1)
-/*  f048378:	01e50019 */ 	multu	$t7,$a1
-/*  f04837c:	00007012 */ 	mflo	$t6
-/*  f048380:	01aec021 */ 	addu	$t8,$t5,$t6
-/*  f048384:	a70cfda6 */ 	sh	$t4,-0x25a($t8)
-/*  f048388:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04838c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f048390:	03e00008 */ 	jr	$ra
-/*  f048394:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0482cc(u32 ailistid)
+{
+	struct prop *prop;
+
+	var8009de20 = 0;
+	var8009de24 = 0;
+	var8009de28 = 0;
+
+	prop = g_Vars.unk00033c;
+
+	while (prop) {
+		prop->unk38 = 0xffff;
+		prop->unk3a = 0;
+		prop->unk3c = 2;
+
+		prop = prop->next;
+	}
+
+	g_ChrsB[g_NumChrsB - 1].ailist = ailistFindById(ailistid);
+	g_ChrsB[g_NumChrsB - 1].aioffset = 0;
+	g_ChrsB[g_NumChrsB - 1].aireturnlist = -1;
+}
 
 GLOBAL_ASM(
 glabel func0f048398

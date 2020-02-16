@@ -167,7 +167,7 @@ u32 func0f0473cc(void);
 bool func0f047700(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4);
 u32 func0f047934(void);
 u32 func0f047c80(void);
-u32 func0f0482cc(void);
+void func0f0482cc(u32 ailistid);
 u32 func0f048398(void);
 f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos);
 u32 func0f048b78(void);
