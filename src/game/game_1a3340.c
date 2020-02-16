@@ -4884,21 +4884,13 @@ glabel func0f1a7794
 /*  f1a7840:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
+void *fileLoad(u16 fileid)
+{
+	return func0f1a7794(fileid, 0, 0, 0);
+}
+
 GLOBAL_ASM(
-glabel fileLoad
-/*  f1a7844:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a7848:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a784c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a7850:	308effff */ 	andi	$t6,$a0,0xffff
-/*  f1a7854:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f1a7858:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1a785c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1a7860:	0fc69de5 */ 	jal	func0f1a7794
-/*  f1a7864:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1a7868:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a786c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a7870:	03e00008 */ 	jr	$ra
-/*  f1a7874:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f1a7878
 /*  f1a7878:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a787c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1a7880:	afa40018 */ 	sw	$a0,0x18($sp)
