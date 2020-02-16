@@ -57,7 +57,6 @@
 
 const u32 var7f1a9c30[] = {0x40c907a9};
 const u32 var7f1a9c34[] = {0x40c907a9};
-const u32 var7f1a9c38[] = {0x3dcccccd};
 
 /**
  * @cmd 0000
@@ -3156,95 +3155,31 @@ bool aiIfNumCloseArghsGreaterThan(void)
 /**
  * @cmd 0081
  */
-GLOBAL_ASM(
-glabel aiIfChrHealthGreaterThan
-/*  f052a88:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f052a8c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f052a90:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f052a94:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f052a98:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f052a9c:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f052aa0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f052aa4:	3c014f80 */ 	lui	$at,0x4f80
-/*  f052aa8:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f052aac:	90f80003 */ 	lbu	$t8,0x3($a3)
-/*  f052ab0:	44982000 */ 	mtc1	$t8,$f4
-/*  f052ab4:	07010004 */ 	bgez	$t8,.L0f052ac8
-/*  f052ab8:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f052abc:	44814000 */ 	mtc1	$at,$f8
-/*  f052ac0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052ac4:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f052ac8:
-/*  f052ac8:	3c017f1b */ 	lui	$at,%hi(var7f1a9c38)
-/*  f052acc:	c42a9c38 */ 	lwc1	$f10,%lo(var7f1a9c38)($at)
-/*  f052ad0:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f052ad4:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f052ad8:	e7b00020 */ 	swc1	$f16,0x20($sp)
-/*  f052adc:	90e50002 */ 	lbu	$a1,0x2($a3)
-/*  f052ae0:	0fc126d1 */ 	jal	chrFindById
-/*  f052ae4:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f052ae8:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f052aec:	00402825 */ 	or	$a1,$v0,$zero
-/*  f052af0:	10400026 */ 	beqz	$v0,.L0f052b8c
-/*  f052af4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f052af8:	8c44001c */ 	lw	$a0,0x1c($v0)
-/*  f052afc:	10800023 */ 	beqz	$a0,.L0f052b8c
-/*  f052b00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052b04:	90990000 */ 	lbu	$t9,0x0($a0)
-/*  f052b08:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f052b0c:	57210016 */ 	bnel	$t9,$at,.L0f052b68
-/*  f052b10:	c44a0104 */ 	lwc1	$f10,0x104($v0)
-/*  f052b14:	8ca4001c */ 	lw	$a0,0x1c($a1)
-/*  f052b18:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f052b1c:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f052b20:	00024080 */ 	sll	$t0,$v0,0x2
-/*  f052b24:	02084821 */ 	addu	$t1,$s0,$t0
-/*  f052b28:	8d2a0064 */ 	lw	$t2,0x64($t1)
-/*  f052b2c:	3c014100 */ 	lui	$at,0x4100
-/*  f052b30:	44812000 */ 	mtc1	$at,$f4
-/*  f052b34:	c55200dc */ 	lwc1	$f18,0xdc($t2)
-/*  f052b38:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*  f052b3c:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f052b40:	46049202 */ 	mul.s	$f8,$f18,$f4
-/*  f052b44:	00001825 */ 	or	$v1,$zero,$zero
-/*  f052b48:	4606403c */ 	c.lt.s	$f8,$f6
-/*  f052b4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052b50:	4500000e */ 	bc1f	.L0f052b8c
-/*  f052b54:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052b58:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f052b5c:	1000000b */ 	beqz	$zero,.L0f052b8c
-/*  f052b60:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052b64:	c44a0104 */ 	lwc1	$f10,0x104($v0)
-.L0f052b68:
-/*  f052b68:	c4500100 */ 	lwc1	$f16,0x100($v0)
-/*  f052b6c:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f052b70:	00001825 */ 	or	$v1,$zero,$zero
-/*  f052b74:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f052b78:	4604903c */ 	c.lt.s	$f18,$f4
-/*  f052b7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052b80:	45000002 */ 	bc1f	.L0f052b8c
-/*  f052b84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052b88:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f052b8c:
-/*  f052b8c:	50600008 */ 	beqzl	$v1,.L0f052bb0
-/*  f052b90:	8e0b0438 */ 	lw	$t3,0x438($s0)
-/*  f052b94:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f052b98:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f052b9c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f052ba0:	90e60004 */ 	lbu	$a2,0x4($a3)
-/*  f052ba4:	10000004 */ 	beqz	$zero,.L0f052bb8
-/*  f052ba8:	ae020438 */ 	sw	$v0,0x438($s0)
-/*  f052bac:	8e0b0438 */ 	lw	$t3,0x438($s0)
-.L0f052bb0:
-/*  f052bb0:	256c0005 */ 	addiu	$t4,$t3,0x5
-/*  f052bb4:	ae0c0438 */ 	sw	$t4,0x438($s0)
-.L0f052bb8:
-/*  f052bb8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f052bbc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f052bc0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f052bc4:	03e00008 */ 	jr	$ra
-/*  f052bc8:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfChrHealthGreaterThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	f32 value = cmd[3] * 0.1f;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	u32 pass = false;
+
+	if (chr && chr->prop) {
+		if (chr->prop->type == PROPTYPE_PLAYER) {
+			u32 playernum = propGetPlayerNum(chr->prop);
+
+			pass = (value > g_Vars.players[playernum]->bondhealth * 8.0f);
+		} else {
+			pass = (value > chr->maxdamage - chr->damage);
+		}
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0082
