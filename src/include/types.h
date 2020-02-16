@@ -1023,7 +1023,7 @@ struct player {
 	/*0x00d0*/ u32 unk00d0;
 	/*0x00d4*/ u32 unk00d4;
 	/*0x00d8*/ bool isdead;
-	/*0x00dc*/ u32 unk00dc;
+	/*0x00dc*/ f32 bondhealth;
 	/*0x00e0*/ u32 unk00e0;
 	/*0x00e4*/ u32 unk00e4;
 	/*0x00e8*/ u32 unk00e8;

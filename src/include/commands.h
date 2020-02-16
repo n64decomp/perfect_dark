@@ -1127,18 +1127,18 @@
 	label,
 
 /**
- * Checks if the chr's health is less than the given value.
+ * Checks if the chr's health is greater than the given value.
  */
-#define if_chr_health_lt(chr, health, label) \
+#define if_chr_health_gt(chr, health, label) \
 	mkshort(0x0081), \
 	chr, \
 	health, \
 	label,
 
 /**
- * Checks if the chr's health is greater than the given value.
+ * Checks if the chr's health is less than the given value.
  */
-#define if_chr_health_gt(chr, health, label) \
+#define if_chr_health_lt(chr, health, label) \
 	mkshort(0x0082), \
 	chr, \
 	health, \
