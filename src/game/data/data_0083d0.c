@@ -6652,7 +6652,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01ae*/ aiClearInventory,
 	/*0x01af*/ aiChrGrabObject,
 	/*0x01b0*/ NULL,
-	/*0x01b1*/ ai01b1,
+	/*0x01b1*/ aiShuffleRuinsPillars,
 	/*0x01b2*/ ai01b2,
 	/*0x01b3*/ aiToggleP1P2,
 	/*0x01b4*/ ai01b4,

@@ -11112,194 +11112,71 @@ bool aiChrGrabObject(void)
 /**
  * @cmd 01b1
  */
-GLOBAL_ASM(
-glabel ai01b1
-/*  f05e39c:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f05e3a0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f05e3a4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f05e3a8:	8c4e0434 */ 	lw	$t6,0x434($v0)
-/*  f05e3ac:	8c4f0438 */ 	lw	$t7,0x438($v0)
-/*  f05e3b0:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f05e3b4:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f05e3b8:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f05e3bc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f05e3c0:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f05e3c4:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f05e3c8:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f05e3cc:	01cfa821 */ 	addu	$s5,$t6,$t7
-/*  f05e3d0:	0fc2554a */ 	jal	tagFindById
-/*  f05e3d4:	92a40002 */ 	lbu	$a0,0x2($s5)
-/*  f05e3d8:	afa20058 */ 	sw	$v0,0x58($sp)
-/*  f05e3dc:	0fc2554a */ 	jal	tagFindById
-/*  f05e3e0:	92a40003 */ 	lbu	$a0,0x3($s5)
-/*  f05e3e4:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f05e3e8:	0fc2554a */ 	jal	tagFindById
-/*  f05e3ec:	92a40004 */ 	lbu	$a0,0x4($s5)
-/*  f05e3f0:	0c004b70 */ 	jal	random
-/*  f05e3f4:	afa20050 */ 	sw	$v0,0x50($sp)
-/*  f05e3f8:	24110005 */ 	addiu	$s1,$zero,0x5
-/*  f05e3fc:	0051001b */ 	divu	$zero,$v0,$s1
-/*  f05e400:	0000c010 */ 	mfhi	$t8
-/*  f05e404:	a3b8004b */ 	sb	$t8,0x4b($sp)
-/*  f05e408:	16200002 */ 	bnez	$s1,.L0f05e414
-/*  f05e40c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e410:	0007000d */ 	break	0x7
-.L0f05e414:
-/*  f05e414:	0c004b70 */ 	jal	random
-/*  f05e418:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e41c:	0051001b */ 	divu	$zero,$v0,$s1
-/*  f05e420:	0000a010 */ 	mfhi	$s4
-/*  f05e424:	329900ff */ 	andi	$t9,$s4,0xff
-/*  f05e428:	16200002 */ 	bnez	$s1,.L0f05e434
-/*  f05e42c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e430:	0007000d */ 	break	0x7
-.L0f05e434:
-/*  f05e434:	0320a025 */ 	or	$s4,$t9,$zero
-/*  f05e438:	0c004b70 */ 	jal	random
-/*  f05e43c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e440:	0051001b */ 	divu	$zero,$v0,$s1
-/*  f05e444:	92a90005 */ 	lbu	$t1,0x5($s5)
-/*  f05e448:	00009810 */ 	mfhi	$s3
-/*  f05e44c:	326800ff */ 	andi	$t0,$s3,0xff
-/*  f05e450:	a3a90044 */ 	sb	$t1,0x44($sp)
-/*  f05e454:	92aa0006 */ 	lbu	$t2,0x6($s5)
-/*  f05e458:	93b0004b */ 	lbu	$s0,0x4b($sp)
-/*  f05e45c:	01009825 */ 	or	$s3,$t0,$zero
-/*  f05e460:	a3aa0045 */ 	sb	$t2,0x45($sp)
-/*  f05e464:	92ab0007 */ 	lbu	$t3,0x7($s5)
-/*  f05e468:	16200002 */ 	bnez	$s1,.L0f05e474
-/*  f05e46c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e470:	0007000d */ 	break	0x7
-.L0f05e474:
-/*  f05e474:	a3ab0046 */ 	sb	$t3,0x46($sp)
-/*  f05e478:	92ac0008 */ 	lbu	$t4,0x8($s5)
-/*  f05e47c:	02809025 */ 	or	$s2,$s4,$zero
-/*  f05e480:	a3ac0047 */ 	sb	$t4,0x47($sp)
-/*  f05e484:	92ad0009 */ 	lbu	$t5,0x9($s5)
-/*  f05e488:	a3ad0048 */ 	sb	$t5,0x48($sp)
-/*  f05e48c:	92ae000d */ 	lbu	$t6,0xd($s5)
-/*  f05e490:	a3ae003c */ 	sb	$t6,0x3c($sp)
-/*  f05e494:	92af000e */ 	lbu	$t7,0xe($s5)
-/*  f05e498:	a3af003d */ 	sb	$t7,0x3d($sp)
-/*  f05e49c:	92b8000f */ 	lbu	$t8,0xf($s5)
-/*  f05e4a0:	a3b8003e */ 	sb	$t8,0x3e($sp)
-/*  f05e4a4:	92b90010 */ 	lbu	$t9,0x10($s5)
-/*  f05e4a8:	a3b9003f */ 	sb	$t9,0x3f($sp)
-/*  f05e4ac:	92a80011 */ 	lbu	$t0,0x11($s5)
-/*  f05e4b0:	1614000d */ 	bne	$s0,$s4,.L0f05e4e8
-/*  f05e4b4:	a3a80040 */ 	sb	$t0,0x40($sp)
-.L0f05e4b8:
-/*  f05e4b8:	0c004b70 */ 	jal	random
-/*  f05e4bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e4c0:	0051001b */ 	divu	$zero,$v0,$s1
-/*  f05e4c4:	00001810 */ 	mfhi	$v1
-/*  f05e4c8:	306900ff */ 	andi	$t1,$v1,0xff
-/*  f05e4cc:	16200002 */ 	bnez	$s1,.L0f05e4d8
-/*  f05e4d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e4d4:	0007000d */ 	break	0x7
-.L0f05e4d8:
-/*  f05e4d8:	307400ff */ 	andi	$s4,$v1,0xff
-/*  f05e4dc:	1209fff6 */ 	beq	$s0,$t1,.L0f05e4b8
-/*  f05e4e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e4e4:	02809025 */ 	or	$s2,$s4,$zero
-.L0f05e4e8:
-/*  f05e4e8:	12530003 */ 	beq	$s2,$s3,.L0f05e4f8
-/*  f05e4ec:	02601025 */ 	or	$v0,$s3,$zero
-/*  f05e4f0:	5602000f */ 	bnel	$s0,$v0,.L0f05e530
-/*  f05e4f4:	93ab004b */ 	lbu	$t3,0x4b($sp)
-.L0f05e4f8:
-/*  f05e4f8:	0c004b70 */ 	jal	random
-/*  f05e4fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e500:	0051001b */ 	divu	$zero,$v0,$s1
-/*  f05e504:	00001810 */ 	mfhi	$v1
-/*  f05e508:	306a00ff */ 	andi	$t2,$v1,0xff
-/*  f05e50c:	16200002 */ 	bnez	$s1,.L0f05e518
-/*  f05e510:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e514:	0007000d */ 	break	0x7
-.L0f05e518:
-/*  f05e518:	307300ff */ 	andi	$s3,$v1,0xff
-/*  f05e51c:	124afff6 */ 	beq	$s2,$t2,.L0f05e4f8
-/*  f05e520:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e524:	1213fff4 */ 	beq	$s0,$s3,.L0f05e4f8
-/*  f05e528:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05e52c:	93ab004b */ 	lbu	$t3,0x4b($sp)
-.L0f05e530:
-/*  f05e530:	27b00044 */ 	addiu	$s0,$sp,0x44
-/*  f05e534:	020b6021 */ 	addu	$t4,$s0,$t3
-/*  f05e538:	0fc2554a */ 	jal	tagFindById
-/*  f05e53c:	91840000 */ 	lbu	$a0,0x0($t4)
-/*  f05e540:	8fa30058 */ 	lw	$v1,0x58($sp)
-/*  f05e544:	844d0006 */ 	lh	$t5,0x6($v0)
-/*  f05e548:	a46d0006 */ 	sh	$t5,0x6($v1)
-/*  f05e54c:	8c4e000c */ 	lw	$t6,0xc($v0)
-/*  f05e550:	ac6e000c */ 	sw	$t6,0xc($v1)
-/*  f05e554:	0fc2554a */ 	jal	tagFindById
-/*  f05e558:	92a4000a */ 	lbu	$a0,0xa($s5)
-/*  f05e55c:	93af004b */ 	lbu	$t7,0x4b($sp)
-/*  f05e560:	27b1003c */ 	addiu	$s1,$sp,0x3c
-/*  f05e564:	afa20058 */ 	sw	$v0,0x58($sp)
-/*  f05e568:	022fc021 */ 	addu	$t8,$s1,$t7
-/*  f05e56c:	0fc2554a */ 	jal	tagFindById
-/*  f05e570:	93040000 */ 	lbu	$a0,0x0($t8)
-/*  f05e574:	84590006 */ 	lh	$t9,0x6($v0)
-/*  f05e578:	8fa80058 */ 	lw	$t0,0x58($sp)
-/*  f05e57c:	02145021 */ 	addu	$t2,$s0,$s4
-/*  f05e580:	a5190006 */ 	sh	$t9,0x6($t0)
-/*  f05e584:	8c49000c */ 	lw	$t1,0xc($v0)
-/*  f05e588:	ad09000c */ 	sw	$t1,0xc($t0)
-/*  f05e58c:	0fc2554a */ 	jal	tagFindById
-/*  f05e590:	91440000 */ 	lbu	$a0,0x0($t2)
-/*  f05e594:	8fa30054 */ 	lw	$v1,0x54($sp)
-/*  f05e598:	844b0006 */ 	lh	$t3,0x6($v0)
-/*  f05e59c:	a46b0006 */ 	sh	$t3,0x6($v1)
-/*  f05e5a0:	8c4c000c */ 	lw	$t4,0xc($v0)
-/*  f05e5a4:	ac6c000c */ 	sw	$t4,0xc($v1)
-/*  f05e5a8:	0fc2554a */ 	jal	tagFindById
-/*  f05e5ac:	92a4000b */ 	lbu	$a0,0xb($s5)
-/*  f05e5b0:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f05e5b4:	02346821 */ 	addu	$t5,$s1,$s4
-/*  f05e5b8:	0fc2554a */ 	jal	tagFindById
-/*  f05e5bc:	91a40000 */ 	lbu	$a0,0x0($t5)
-/*  f05e5c0:	844e0006 */ 	lh	$t6,0x6($v0)
-/*  f05e5c4:	8faf0054 */ 	lw	$t7,0x54($sp)
-/*  f05e5c8:	0213c821 */ 	addu	$t9,$s0,$s3
-/*  f05e5cc:	a5ee0006 */ 	sh	$t6,0x6($t7)
-/*  f05e5d0:	8c58000c */ 	lw	$t8,0xc($v0)
-/*  f05e5d4:	adf8000c */ 	sw	$t8,0xc($t7)
-/*  f05e5d8:	0fc2554a */ 	jal	tagFindById
-/*  f05e5dc:	93240000 */ 	lbu	$a0,0x0($t9)
-/*  f05e5e0:	8fa30050 */ 	lw	$v1,0x50($sp)
-/*  f05e5e4:	84490006 */ 	lh	$t1,0x6($v0)
-/*  f05e5e8:	a4690006 */ 	sh	$t1,0x6($v1)
-/*  f05e5ec:	8c48000c */ 	lw	$t0,0xc($v0)
-/*  f05e5f0:	ac68000c */ 	sw	$t0,0xc($v1)
-/*  f05e5f4:	0fc2554a */ 	jal	tagFindById
-/*  f05e5f8:	92a4000c */ 	lbu	$a0,0xc($s5)
-/*  f05e5fc:	afa20050 */ 	sw	$v0,0x50($sp)
-/*  f05e600:	02335021 */ 	addu	$t2,$s1,$s3
-/*  f05e604:	0fc2554a */ 	jal	tagFindById
-/*  f05e608:	91440000 */ 	lbu	$a0,0x0($t2)
-/*  f05e60c:	844b0006 */ 	lh	$t3,0x6($v0)
-/*  f05e610:	8fac0050 */ 	lw	$t4,0x50($sp)
-/*  f05e614:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05e618:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05e61c:	a58b0006 */ 	sh	$t3,0x6($t4)
-/*  f05e620:	8c4d000c */ 	lw	$t5,0xc($v0)
-/*  f05e624:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05e628:	ad8d000c */ 	sw	$t5,0xc($t4)
-/*  f05e62c:	8c6e0438 */ 	lw	$t6,0x438($v1)
-/*  f05e630:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f05e634:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f05e638:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f05e63c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f05e640:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f05e644:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f05e648:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f05e64c:	25d80012 */ 	addiu	$t8,$t6,0x12
-/*  f05e650:	ac780438 */ 	sw	$t8,0x438($v1)
-/*  f05e654:	03e00008 */ 	jr	$ra
-/*  f05e658:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+bool aiShuffleRuinsPillars(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct tag *ptr1 = tagFindById(cmd[2]);
+	struct tag *ptr2 = tagFindById(cmd[3]);
+	struct tag *ptr3 = tagFindById(cmd[4]);
+	struct tag *src;
+	u8 marked1index = random() % 5;
+	u8 marked2index = random() % 5;
+	u8 marked3index = random() % 5;
+	u8 pillars[5];
+	u8 mines[5];
+	pillars[0] = cmd[5];
+	pillars[1] = cmd[6];
+	pillars[2] = cmd[7];
+	pillars[3] = cmd[8];
+	pillars[4] = cmd[9];
+	mines[0] = cmd[13];
+	mines[1] = cmd[14];
+	mines[2] = cmd[15];
+	mines[3] = cmd[16];
+	mines[4] = cmd[17];
+
+	while (marked2index == marked1index) {
+		marked2index = random() % 5;
+	}
+
+	while (marked3index == marked2index || marked3index == marked1index) {
+		marked3index = random() % 5;
+	}
+
+	// Pillar/mine 1
+	src = tagFindById(pillars[marked1index]);
+	ptr1->unk06 = src->unk06;
+	ptr1->obj = src->obj;
+
+	ptr1 = tagFindById(cmd[10]);
+	src = tagFindById(mines[marked1index]);
+	ptr1->unk06 = src->unk06;
+	ptr1->obj = src->obj;
+
+	// Pillar/mine 2
+	src = tagFindById(pillars[marked2index]);
+	ptr2->unk06 = src->unk06;
+	ptr2->obj = src->obj;
+
+	ptr2 = tagFindById(cmd[11]);
+	src = tagFindById(mines[marked2index]);
+	ptr2->unk06 = src->unk06;
+	ptr2->obj = src->obj;
+
+	// Pillar/mine 3
+	src = tagFindById(pillars[marked3index]);
+	ptr3->unk06 = src->unk06;
+	ptr3->obj = src->obj;
+
+	ptr3 = tagFindById(cmd[12]);
+	src = tagFindById(mines[marked3index]);
+	ptr3->unk06 = src->unk06;
+	ptr3->obj = src->obj;
+
+	g_Vars.aioffset += 18;
+
+	return false;
+}
 
 /**
  * @cmd 01b2

@@ -396,7 +396,7 @@
 /*0x01ad*/ bool aiReleaseObject(void);
 /*0x01ae*/ bool aiClearInventory(void);
 /*0x01af*/ bool aiChrGrabObject(void);
-/*0x01b1*/ bool ai01b1(void);
+/*0x01b1*/ bool aiShuffleRuinsPillars(void);
 /*0x01b2*/ bool ai01b2(void);
 /*0x01b3*/ bool aiToggleP1P2(void);
 /*0x01b4*/ bool ai01b4(void);
