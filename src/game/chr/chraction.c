@@ -31287,71 +31287,24 @@ s32 chrGetNumCloseArghs(struct chrdata *chr)
 	return chr->numclosearghs;
 }
 
-GLOBAL_ASM(
-glabel chrSawInjury
-/*  f04a110:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f04a114:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f04a118:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f04a11c:	8486012e */ 	lh	$a2,0x12e($a0)
-/*  f04a120:	30ae00ff */ 	andi	$t6,$a1,0xff
-/*  f04a124:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f04a128:	28c30000 */ 	slti	$v1,$a2,0x0
-/*  f04a12c:	38630001 */ 	xori	$v1,$v1,0x1
-/*  f04a130:	10600005 */ 	beqz	$v1,.L0f04a148
-/*  f04a134:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04a138:	15c00003 */ 	bnez	$t6,.L0f04a148
-/*  f04a13c:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f04a140:	10000015 */ 	beqz	$zero,.L0f04a198
-/*  f04a144:	a48f012e */ 	sh	$t7,0x12e($a0)
-.L0f04a148:
-/*  f04a148:	10600011 */ 	beqz	$v1,.L0f04a190
-/*  f04a14c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f04a150:	14a1000f */ 	bne	$a1,$at,.L0f04a190
-/*  f04a154:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f04a158:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f04a15c:	0fc126d1 */ 	jal	chrFindById
-/*  f04a160:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f04a164:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f04a168:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f04a16c:	1040000a */ 	beqz	$v0,.L0f04a198
-/*  f04a170:	00402825 */ 	or	$a1,$v0,$zero
-/*  f04a174:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f04a178:	0fc12aa3 */ 	jal	chrCompareTeams
-/*  f04a17c:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f04a180:	14400005 */ 	bnez	$v0,.L0f04a198
-/*  f04a184:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f04a188:	10000003 */ 	beqz	$zero,.L0f04a198
-/*  f04a18c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f04a190:
-/*  f04a190:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f04a194:	a498012e */ 	sh	$t8,0x12e($a0)
-.L0f04a198:
-/*  f04a198:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f04a19c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f04a1a0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f04a1a4:	03e00008 */ 	jr	$ra
-/*  f04a1a8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool chrSawInjury(struct chrdata *chr, u8 arg1)
+{
+	bool saw_injury = chr->chrseeshot >= 0;
 
-// Mismatch because it uses the wrong register for chr->chrseeshot
-//bool chrSawInjury(struct chrdata *chr, u8 arg1)
-//{
-//	bool saw_injury = chr->chrseeshot >= 0;
-//
-//	if (saw_injury && arg1 == 0) {
-//		chr->chrseeshot = -1;
-//	} else if (saw_injury && arg1 == 1) {
-//		struct chrdata *victim = chrFindById(chr, chr->chrseeshot);
-//
-//		if (victim && !chrCompareTeams(chr, victim, 1)) {
-//			saw_injury = false;
-//		}
-//	} else {
-//		chr->chrseeshot = -1;
-//	}
-//
-//	return saw_injury;
-//}
+	if (saw_injury && arg1 == 0) {
+		chr->chrseeshot = -1;
+	} else if (saw_injury && arg1 == 1) {
+		struct chrdata *victim = chrFindById(chr, chr->chrseeshot);
+
+		if (victim && !chrCompareTeams(chr, victim, 1)) {
+			saw_injury = false;
+		}
+	} else {
+		chr->chrseeshot = -1;
+	}
+
+	return saw_injury;
+}
 
 GLOBAL_ASM(
 glabel chrSawDeath
