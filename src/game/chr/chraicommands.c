@@ -9754,49 +9754,18 @@ bool aiHovercopterFireRocket(void)
 /**
  * @cmd 0169
  */
-GLOBAL_ASM(
-glabel aiIfNaturalAnim
-/*  f05c434:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05c438:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05c43c:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05c440:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05c444:	8c6f0424 */ 	lw	$t7,0x424($v1)
-/*  f05c448:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05c44c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05c450:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f05c454:	904e0002 */ 	lbu	$t6,0x2($v0)
-/*  f05c458:	91f802e3 */ 	lbu	$t8,0x2e3($t7)
-/*  f05c45c:	24b90004 */ 	addiu	$t9,$a1,0x4
-/*  f05c460:	55d80008 */ 	bnel	$t6,$t8,.L0f05c484
-/*  f05c464:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f05c468:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05c46c:	90460003 */ 	lbu	$a2,0x3($v0)
-/*  f05c470:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05c474:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05c478:	10000002 */ 	beqz	$zero,.L0f05c484
-/*  f05c47c:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f05c480:	ac790438 */ 	sw	$t9,0x438($v1)
-.L0f05c484:
-/*  f05c484:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05c488:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05c48c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05c490:	03e00008 */ 	jr	$ra
-/*  f05c494:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfNaturalAnim(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-// Mismatch due to different temporary registers
-//bool aiIfNaturalAnim(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//
-//	if (g_Vars.chrdata->naturalanim == cmd[2]) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
-//	} else {
-//		g_Vars.aioffset += 4;
-//	}
-//
-//	return false;
-//}
+	if (cmd[2] == g_Vars.chrdata->naturalanim[0]) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 016a
@@ -10115,7 +10084,7 @@ bool aiChrCopyProperties(void)
 		g_Vars.chrdata->accuracyrating = g_Vars.chrdata->accuracyrating;
 		g_Vars.chrdata->speedrating = g_Vars.chrdata->speedrating;
 
-		g_Vars.chrdata->naturalanim = chr->naturalanim;
+		g_Vars.chrdata->naturalanim[0] = chr->naturalanim[0];
 		g_Vars.chrdata->myspecial = chr->myspecial;
 		g_Vars.chrdata->yvisang = chr->yvisang;
 		g_Vars.chrdata->teamscandist = chr->teamscandist;
