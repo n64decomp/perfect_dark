@@ -391,6 +391,7 @@ SECTIONS
 		src/game/chr/chr.o (.data);
 		src/game/game_01e250.o (.data);
 		src/game/game_02cde0.o (.data);
+		src/game/chr/chraction.o (.data);
 		src/game/chr/chrai.o (.data);
 		src/game/chr/chraicommands.o (.data);
 		src/game/game_0601b0.o (.data);
@@ -548,6 +549,7 @@ SECTIONS
 		src/game/chr/chr.o (.text);
 		src/game/game_01e250.o (.text);
 		src/game/game_02cde0.o (.text);
+		src/game/chr/chraction.o (.text);
 		src/game/chr/chrai.o (.text);
 		src/game/chr/chraicommands.o (.text);
 		src/game/game_0601b0.o (.text);
@@ -697,6 +699,7 @@ SECTIONS
 		src/game/chr/chr.o (.rodata);
 		src/game/game_01e250.o (.rodata);
 		src/game/game_02cde0.o (.rodata);
+		src/game/chr/chraction.o (.rodata);
 		src/game/chr/chrai.o (.rodata);
 		src/game/chr/chraicommands.o (.rodata);
 		src/game/game_0601b0.o (.rodata);

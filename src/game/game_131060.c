@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/chr/chraction.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
@@ -7,7 +8,6 @@
 #include "game/game_000920.h"
 #include "game/game_005fd0.h"
 #include "game/game_016100.h"
-#include "game/game_02cde0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/game_0d4690.h"

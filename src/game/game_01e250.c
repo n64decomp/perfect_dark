@@ -1,12 +1,12 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/cheats.h"
+#include "game/chr/chraction.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_01e250.h"
-#include "game/game_02cde0.h"
 #include "game/game_0601b0.h"
 #include "game/game_066310.h"
 #include "game/game_096360.h"
@@ -46,6 +46,195 @@
 #include "library/library_4a360.h"
 #include "library/library_4b480.h"
 #include "types.h"
+
+const char var7f1a8690[] = "chr/chr.c";
+const char var7f1a869c[] = "selectanimnum";
+
+const u32 var7f1a86ac[] = {0xc9742400};
+const u32 var7f1a86b0[] = {0x411ffffe};
+const u32 var7f1a86b4[] = {0x3f8ccccd};
+const u32 var7f1a86b8[] = {0x3f8ccccd};
+const u32 var7f1a86bc[] = {0x3f666666};
+const u32 var7f1a86c0[] = {0x3f666666};
+const u32 var7f1a86c4[] = {0x3dcccccd};
+const u32 var7f1a86c8[] = {0x3f666666};
+const u32 var7f1a86cc[] = {0x3f666666};
+const u32 var7f1a86d0[] = {0x3f666666};
+const u32 var7f1a86d4[] = {0x3f666666};
+const u32 var7f1a86d8[] = {0x3f666666};
+const u32 var7f1a86dc[] = {0x411ffffe};
+const u32 var7f1a86e0[] = {0x411ffffe};
+const u32 var7f1a86e4[] = {0x3f666666};
+const u32 var7f1a86e8[] = {0x3f666666};
+const u32 var7f1a86ec[] = {0x3f666666};
+const u32 var7f1a86f0[] = {0x3f666666};
+const u32 var7f1a86f4[] = {0xc7c35000};
+const u32 var7f1a86f8[] = {0x3f666666};
+const u32 var7f1a86fc[] = {0x3f666666};
+const u32 var7f1a8700[] = {0xc7c35000};
+const u32 var7f1a8704[] = {0x411ffffe};
+const u32 var7f1a8708[] = {0xc6ea6000};
+const u32 var7f1a870c[] = {0x411ffffe};
+const u32 var7f1a8710[] = {0x3dccccd0};
+const u32 var7f1a8714[] = {0x411ffffe};
+const u32 var7f1a8718[] = {0x3dcccccd};
+const u32 var7f1a871c[] = {0xbdcccccd};
+const u32 var7f1a8720[] = {0x3dcccccd};
+const u32 var7f1a8724[] = {0x411ffffe};
+const u32 var7f1a8728[] = {0x3ec907a9};
+const u32 var7f1a872c[] = {0x40c907a9};
+const u32 var7f1a8730[] = {0x3fc907a9};
+const u32 var7f1a8734[] = {0x3d776be4};
+const u32 var7f1a8738[] = {0x3fc907a9};
+const u32 var7f1a873c[] = {0x3da0d2ee};
+const u32 var7f1a8740[] = {0x40c907a9};
+const u32 var7f1a8744[] = {0x40c907a9};
+const u32 var7f1a8748[] = {0x3fc90fdb};
+const u32 var7f1a874c[] = {0x40c907a9};
+const u32 var7f1a8750[] = {0x40c907a9};
+const u32 var7f1a8754[] = {0x40c907a9};
+const u32 var7f1a8758[] = {0x40c907a9};
+const u32 var7f1a875c[] = {0x3f86051b};
+const u32 var7f1a8760[] = {0xbf5f5dd8};
+const u32 var7f1a8764[] = {0x3f5f5dd8};
+const u32 var7f1a8768[] = {0x3f86051b};
+const u32 var7f1a876c[] = {0xbf5f5dd8};
+const u32 var7f1a8770[] = {0x40c907a9};
+const u32 var7f1a8774[] = {0x40c907a9};
+const u32 var7f1a8778[] = {0x40c907a9};
+const u32 var7f1a877c[] = {0x40c907a9};
+const u32 var7f1a8780[] = {0x3e86051b};
+const u32 var7f1a8784[] = {0x40c907a9};
+const u32 var7f1a8788[] = {0x3e86051b};
+const u32 var7f1a878c[] = {0x3e32b17a};
+const u32 var7f1a8790[] = {0x3e32b17a};
+const u32 var7f1a8794[] = {0x40c907a9};
+const u32 var7f1a8798[] = {0x40c907a9};
+const u32 var7f1a879c[] = {0x40c907a9};
+const u32 var7f1a87a0[] = {0x3fa8dd79};
+const u32 var7f1a87a4[] = {0x3fc907a9};
+const u32 var7f1a87a8[] = {0x404907a9};
+const u32 var7f1a87ac[] = {0x3ecccccd};
+const u32 var7f1a87b0[] = {0x40490fdb};
+const u32 var7f1a87b4[] = {0x40490fdb};
+const u32 var7f1a87b8[] = {0x3a83126f};
+const u32 var7f1a87bc[] = {0x40c907a9};
+const u32 var7f1a87c0[] = {0x3d333333};
+const u32 var7f1a87c4[] = {0x3d333333};
+const u32 var7f1a87c8[] = {0x4a742400};
+const u32 var7f1a87cc[] = {0x48ef4200};
+const u32 var7f1a87d0[] = {0x4a742400};
+const u32 var7f1a87d4[] = {0x48ef4200};
+const u32 var7f1a87d8[] = {0x41aa6666};
+const u32 var7f1a87dc[] = {0x7f024dd0};
+const u32 var7f1a87e0[] = {0x7f024dec};
+const u32 var7f1a87e4[] = {0x7f024e08};
+const u32 var7f1a87e8[] = {0x7f024e24};
+const u32 var7f1a87ec[] = {0x7f024e40};
+const u32 var7f1a87f0[] = {0x7f024e5c};
+const u32 var7f1a87f4[] = {0x7f024e78};
+const u32 var7f1a87f8[] = {0x7f024e94};
+const u32 var7f1a87fc[] = {0x7f025174};
+const u32 var7f1a8800[] = {0x7f025240};
+const u32 var7f1a8804[] = {0x7f025240};
+const u32 var7f1a8808[] = {0x7f025240};
+const u32 var7f1a880c[] = {0x7f0251f8};
+const u32 var7f1a8810[] = {0x7f0251f8};
+const u32 var7f1a8814[] = {0x7f025240};
+const u32 var7f1a8818[] = {0x7f025240};
+const u32 var7f1a881c[] = {0x7f025240};
+const u32 var7f1a8820[] = {0x7f025240};
+const u32 var7f1a8824[] = {0x7f025240};
+const u32 var7f1a8828[] = {0x7f025240};
+const u32 var7f1a882c[] = {0x7f025240};
+const u32 var7f1a8830[] = {0x7f025240};
+const u32 var7f1a8834[] = {0x7f025240};
+const u32 var7f1a8838[] = {0x7f025240};
+const u32 var7f1a883c[] = {0x7f025174};
+const u32 var7f1a8840[] = {0x7f025240};
+const u32 var7f1a8844[] = {0x7f025240};
+const u32 var7f1a8848[] = {0x7f025240};
+const u32 var7f1a884c[] = {0x7f0251b8};
+const u32 var7f1a8850[] = {0x7f0251b8};
+const u32 var7f1a8854[] = {0x7f025240};
+const u32 var7f1a8858[] = {0x7f025240};
+const u32 var7f1a885c[] = {0x7f025240};
+const u32 var7f1a8860[] = {0x7f025240};
+const u32 var7f1a8864[] = {0x7f025240};
+const u32 var7f1a8868[] = {0x7f025240};
+const u32 var7f1a886c[] = {0x7f025240};
+const u32 var7f1a8870[] = {0x7f025240};
+const u32 var7f1a8874[] = {0x7f025240};
+const u32 var7f1a8878[] = {0x7f0251b8};
+const u32 var7f1a887c[] = {0x7f025240};
+const u32 var7f1a8880[] = {0x7f025240};
+const u32 var7f1a8884[] = {0x7f025240};
+const u32 var7f1a8888[] = {0x7f025240};
+const u32 var7f1a888c[] = {0x7f0251f8};
+const u32 var7f1a8890[] = {0x7f025240};
+const u32 var7f1a8894[] = {0x7f025240};
+const u32 var7f1a8898[] = {0x7f025240};
+const u32 var7f1a889c[] = {0x7f025240};
+const u32 var7f1a88a0[] = {0x7f025240};
+const u32 var7f1a88a4[] = {0x7f025240};
+const u32 var7f1a88a8[] = {0x7f025240};
+const u32 var7f1a88ac[] = {0x7f025240};
+const u32 var7f1a88b0[] = {0x7f025240};
+const u32 var7f1a88b4[] = {0x7f025240};
+const u32 var7f1a88b8[] = {0x7f025240};
+const u32 var7f1a88bc[] = {0x7f025240};
+const u32 var7f1a88c0[] = {0x7f025240};
+const u32 var7f1a88c4[] = {0x7f025240};
+const u32 var7f1a88c8[] = {0x7f025240};
+const u32 var7f1a88cc[] = {0x7f025240};
+const u32 var7f1a88d0[] = {0x7f025240};
+const u32 var7f1a88d4[] = {0x7f025240};
+const u32 var7f1a88d8[] = {0x7f025240};
+const u32 var7f1a88dc[] = {0x7f025240};
+const u32 var7f1a88e0[] = {0x7f025240};
+const u32 var7f1a88e4[] = {0x7f025240};
+const u32 var7f1a88e8[] = {0x7f025240};
+const u32 var7f1a88ec[] = {0x7f0251f8};
+const u32 var7f1a88f0[] = {0x7f025174};
+const u32 var7f1a88f4[] = {0x3c088889};
+const u32 var7f1a88f8[] = {0x3b808081};
+const u32 var7f1a88fc[] = {0x3b83126f};
+const u32 var7f1a8900[] = {0x3ecccccd};
+const u32 var7f1a8904[] = {0x7f027034};
+const u32 var7f1a8908[] = {0x7f027078};
+const u32 var7f1a890c[] = {0x7f026ce0};
+const u32 var7f1a8910[] = {0x7f027078};
+const u32 var7f1a8914[] = {0x7f027078};
+const u32 var7f1a8918[] = {0x7f027078};
+const u32 var7f1a891c[] = {0x7f027078};
+const u32 var7f1a8920[] = {0x7f027078};
+const u32 var7f1a8924[] = {0x7f027078};
+const u32 var7f1a8928[] = {0x7f027078};
+const u32 var7f1a892c[] = {0x7f02704c};
+const u32 var7f1a8930[] = {0x7f027078};
+const u32 var7f1a8934[] = {0x7f027078};
+const u32 var7f1a8938[] = {0x7f027078};
+const u32 var7f1a893c[] = {0x7f027078};
+const u32 var7f1a8940[] = {0x7f027064};
+const u32 var7f1a8944[] = {0x7f026d40};
+const u32 var7f1a8948[] = {0x3d99999a};
+const u32 var7f1a894c[] = {0x3c40c0c1};
+const u32 var7f1a8950[] = {0x3c40c0c1};
+const u32 var7f1a8954[] = {0x3bab8ba8};
+const u32 var7f1a8958[] = {0x3bab8ba8};
+const u32 var7f1a895c[] = {0x3f169697};
+const u32 var7f1a8960[] = {0x3ea0a0a1};
+const u32 var7f1a8964[] = {0x3e70f0f1};
+const u32 var7f1a8968[] = {0x3e20a0a1};
+const u32 var7f1a896c[] = {0x3c9309fe};
+const u32 var7f1a8970[] = {0x40aaaaab};
+const u32 var7f1a8974[] = {0x3b808081};
+const u32 var7f1a8978[] = {0x3b808081};
+const u32 var7f1a897c[] = {0x3b808081};
+const u32 var7f1a8980[] = {0x3b808081};
+const u32 var7f1a8984[] = {0x3c4ccccd};
+const u32 var7f1a8988[] = {0x00000000};
+const u32 var7f1a898c[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0f01e250
