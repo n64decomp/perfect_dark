@@ -270,7 +270,7 @@
 /*0x010b*/ bool aiChrSetTeam(void);
 /*0x010c*/ bool aiIfCompareChrPresetsTeam(void);
 /*0x010d*/ bool aiNoOp010d(void);
-/*0x010e*/ bool ai010e(void);
+/*0x010e*/ bool aiSetShield(void);
 /*0x010f*/ bool aiIfChrShieldLessThan(void);
 /*0x0110*/ bool aiIfChrShieldGreaterThan(void);
 /*0x0111*/ bool aiSetCameraAnimation(void);

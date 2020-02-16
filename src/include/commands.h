@@ -2312,9 +2312,9 @@
 /**
  * Set the shield amount for the current chr.
  */
-#define set_shield(value) \
+#define set_shield(amount) \
 	mkshort(0x010e), \
-	mkshort(value),
+	mkshort(amount),
 
 /**
  * Checks if the chr's shield amount is less than the given value.

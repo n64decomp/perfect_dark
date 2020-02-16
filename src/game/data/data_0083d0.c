@@ -6489,7 +6489,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x010b*/ aiChrSetTeam,
 	/*0x010c*/ aiIfCompareChrPresetsTeam,
 	/*0x010d*/ aiNoOp010d,
-	/*0x010e*/ ai010e,
+	/*0x010e*/ aiSetShield,
 	/*0x010f*/ aiIfChrShieldLessThan,
 	/*0x0110*/ aiIfChrShieldGreaterThan,
 	/*0x0111*/ aiSetCameraAnimation,

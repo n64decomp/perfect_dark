@@ -63,7 +63,6 @@ const u32 var7f1a9c40[] = {0x3dcccccd};
 const u32 var7f1a9c44[] = {0x3dcccccd};
 const u32 var7f1a9c48[] = {0x3dcccccd};
 const u32 var7f1a9c4c[] = {0x3dcccccd};
-const u32 var7f1a9c50[] = {0x3dcccccd};
 
 /**
  * @cmd 0000
@@ -3985,52 +3984,21 @@ glabel aiAddHealth
 /**
  * @cmd 010e
  */
-GLOBAL_ASM(
-glabel ai010e
-/*  f053b2c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f053b30:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f053b34:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f053b38:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053b3c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f053b40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f053b44:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f053b48:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f053b4c:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f053b50:	3c017f1b */ 	lui	$at,%hi(var7f1a9c50)
-/*  f053b54:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f053b58:	03284825 */ 	or	$t1,$t9,$t0
-/*  f053b5c:	44892000 */ 	mtc1	$t1,$f4
-/*  f053b60:	c4289c50 */ 	lwc1	$f8,%lo(var7f1a9c50)($at)
-/*  f053b64:	2404000c */ 	addiu	$a0,$zero,0xc
-/*  f053b68:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f053b6c:	46083002 */ 	mul.s	$f0,$f6,$f8
-/*  f053b70:	0fc41b99 */ 	jal	cheatIsActive
-/*  f053b74:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f053b78:	10400009 */ 	beqz	$v0,.L0f053ba0
-/*  f053b7c:	c7a00018 */ 	lwc1	$f0,0x18($sp)
-/*  f053b80:	3c014100 */ 	lui	$at,0x4100
-/*  f053b84:	44811000 */ 	mtc1	$at,$f2
-/*  f053b88:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f053b8c:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f053b90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f053b94:	45000002 */ 	bc1f	.L0f053ba0
-/*  f053b98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f053b9c:	46001006 */ 	mov.s	$f0,$f2
-.L0f053ba0:
-/*  f053ba0:	3c04800a */ 	lui	$a0,0x800a
-/*  f053ba4:	44050000 */ 	mfc1	$a1,$f0
-/*  f053ba8:	0fc0cfea */ 	jal	chrSetShield
-/*  f053bac:	8c84a3e4 */ 	lw	$a0,-0x5c1c($a0)
-/*  f053bb0:	3c0a800a */ 	lui	$t2,0x800a
-/*  f053bb4:	8d4aa3f8 */ 	lw	$t2,-0x5c08($t2)
-/*  f053bb8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053bbc:	3c01800a */ 	lui	$at,0x800a
-/*  f053bc0:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f053bc4:	ac2ba3f8 */ 	sw	$t3,-0x5c08($at)
-/*  f053bc8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f053bcc:	03e00008 */ 	jr	$ra
-/*  f053bd0:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiSetShield(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	f32 amount = (cmd[3] | (cmd[2] << 8)) * 0.1f;
+
+	if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
+		amount = amount < 8 ? 8 : amount;
+	}
+
+	chrSetShield(g_Vars.chrdata, amount);
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 0098
