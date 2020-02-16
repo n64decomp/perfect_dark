@@ -1,5 +1,5 @@
-#ifndef IN_LIBRARY_LIBRARY_4F350_H
-#define IN_LIBRARY_LIBRARY_4F350_H
+#ifndef _IN_LIBRARY_LIBRARY_4F350_H
+#define _IN_LIBRARY_LIBRARY_4F350_H
 #include <ultra64.h>
 #include "types.h"
 

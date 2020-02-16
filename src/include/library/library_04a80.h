@@ -1,5 +1,5 @@
-#ifndef IN_LIBRARY_LIBRARY_04A80_H
-#define IN_LIBRARY_LIBRARY_04A80_H
+#ifndef _IN_LIBRARY_LIBRARY_04A80_H
+#define _IN_LIBRARY_LIBRARY_04A80_H
 #include <ultra64.h>
 #include "types.h"
 

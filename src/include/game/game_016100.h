@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_016100
-#define GAME_GAME_016100
+#ifndef _IN_GAME_GAME_016100_H
+#define _IN_GAME_GAME_016100_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f016100(void);
 u32 func0f01616c(void);

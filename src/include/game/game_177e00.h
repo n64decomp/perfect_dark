@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_177E00
-#define GAME_GAME_177E00
+#ifndef _IN_GAME_GAME_177E00_H
+#define _IN_GAME_GAME_177E00_H
+#include <ultra64.h>
+#include "types.h"
 
 s32 menuhandler00177e00(u32, u32, u32 *);
 u32 func0f178050(void);

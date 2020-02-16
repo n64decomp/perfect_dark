@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_129210
-#define GAME_GAME_129210
+#ifndef _IN_GAME_GAME_129210_H
+#define _IN_GAME_GAME_129210_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f129210(void);
 u32 func0f12939c(void);

@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_10C9C0
-#define GAME_GAME_10C9C0
+#ifndef _IN_GAME_GAME_10C9C0_H
+#define _IN_GAME_GAME_10C9C0_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f10cb2c(void);
 s32 menuhandler4MbDropOut(u32 operation, struct menu_item *item, s32 *value);

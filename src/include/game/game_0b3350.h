@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_0B3350
-#define GAME_GAME_0B3350
+#ifndef _IN_GAME_GAME_0B3350_H
+#define _IN_GAME_GAME_0B3350_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f0b3350(void);
 u32 func0f0b33f8(void);

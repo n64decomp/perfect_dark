@@ -1,5 +1,5 @@
-#ifndef GAME_GAME_166E40
-#define GAME_GAME_166E40
+#ifndef _IN_GAME_GAME_166E40_H
+#define _IN_GAME_GAME_166E40_H
 #include <ultra64.h>
 #include "types.h"
 

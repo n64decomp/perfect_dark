@@ -1,5 +1,5 @@
-#ifndef IN_LIBRARY_LIBRARY_51900_H
-#define IN_LIBRARY_LIBRARY_51900_H
+#ifndef _IN_LIBRARY_LIBRARY_51900_H
+#define _IN_LIBRARY_LIBRARY_51900_H
 #include <ultra64.h>
 #include "types.h"
 

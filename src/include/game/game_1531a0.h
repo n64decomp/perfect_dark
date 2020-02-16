@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_1531A0
-#define GAME_GAME_1531A0
+#ifndef _IN_GAME_GAME_1531A0_H
+#define _IN_GAME_GAME_1531A0_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f1531a0(void);
 u32 func0f1531b8(void);

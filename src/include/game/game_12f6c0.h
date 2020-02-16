@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_12F6C0
-#define GAME_GAME_12F6C0
+#ifndef _IN_GAME_GAME_12F6C0_H
+#define _IN_GAME_GAME_12F6C0_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f12f6c0(void);
 u32 func0f12f95c(void);

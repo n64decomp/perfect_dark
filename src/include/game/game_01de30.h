@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_01DE30
-#define GAME_GAME_01DE30
+#ifndef _IN_GAME_GAME_01DE30_H
+#define _IN_GAME_GAME_01DE30_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f01de30(void);
 

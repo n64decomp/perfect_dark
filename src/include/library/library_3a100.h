@@ -1,5 +1,5 @@
-#ifndef IN_LIBRARY_LIBRARY_3A100_H
-#define IN_LIBRARY_LIBRARY_3A100_H
+#ifndef _IN_LIBRARY_LIBRARY_3A100_H
+#define _IN_LIBRARY_LIBRARY_3A100_H
 #include <ultra64.h>
 #include "types.h"
 

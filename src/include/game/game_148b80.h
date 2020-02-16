@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_148B80
-#define GAME_GAME_148B80
+#ifndef _IN_GAME_GAME_148B80_H
+#define _IN_GAME_GAME_148B80_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f148b80(void);
 u32 func0f148e54(void);

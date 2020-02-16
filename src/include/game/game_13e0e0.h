@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_13E0E0
-#define GAME_GAME_13E0E0
+#ifndef _IN_GAME_GAME_13E0E0_H
+#define _IN_GAME_GAME_13E0E0_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f13e0e0(void);
 u32 func0f13e1b0(void);

@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_179060
-#define GAME_GAME_179060
+#ifndef _IN_GAME_GAME_179060_H
+#define _IN_GAME_GAME_179060_H
+#include <ultra64.h>
+#include "types.h"
 
 char *mpGetCurrentPlayerName(struct menu_item *item);
 u32 func0f179104(void);

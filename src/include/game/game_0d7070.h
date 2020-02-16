@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_0D7070
-#define GAME_GAME_0D7070
+#ifndef _IN_GAME_GAME_0D7070_H
+#define _IN_GAME_GAME_0D7070_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f0d7070(void);
 u32 func0f0d716c(void);

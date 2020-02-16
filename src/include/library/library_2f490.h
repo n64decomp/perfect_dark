@@ -1,5 +1,5 @@
-#ifndef IN_LIBRARY_LIBRARY_2F490_H
-#define IN_LIBRARY_LIBRARY_2F490_H
+#ifndef _IN_LIBRARY_LIBRARY_2F490_H
+#define _IN_LIBRARY_LIBRARY_2F490_H
 #include <ultra64.h>
 #include "types.h"
 

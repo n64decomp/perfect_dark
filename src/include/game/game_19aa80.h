@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_19AA80
-#define GAME_GAME_19AA80
+#ifndef _IN_GAME_GAME_19AA80_H
+#define _IN_GAME_GAME_19AA80_H
+#include <ultra64.h>
+#include "types.h"
 
 bool ai0176(void);
 u32 func0f19ab70(void);

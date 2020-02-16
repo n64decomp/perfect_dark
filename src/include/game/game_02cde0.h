@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_02CDE0
-#define GAME_GAME_02CDE0
+#ifndef _IN_GAME_GAME_02CDE0_H
+#define _IN_GAME_GAME_02CDE0_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f02cde0(void);
 bool bodyLoad(u32 bodynum);

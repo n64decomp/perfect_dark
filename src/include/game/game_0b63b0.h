@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_0B63B0
-#define GAME_GAME_0B63B0
+#ifndef _IN_GAME_GAME_0B63B0_H
+#define _IN_GAME_GAME_0B63B0_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f0b63b0(void);
 u32 func0f0b6470(void);

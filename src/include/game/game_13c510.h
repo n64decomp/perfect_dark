@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_13C510
-#define GAME_GAME_13C510
+#ifndef _IN_GAME_GAME_13C510_H
+#define _IN_GAME_GAME_13C510_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f13c510(void);
 u32 func0f13c54c(void);

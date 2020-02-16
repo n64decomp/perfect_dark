@@ -1,5 +1,7 @@
-#ifndef GAME_GAME_190260
-#define GAME_GAME_190260
+#ifndef _IN_GAME_GAME_190260_H
+#define _IN_GAME_GAME_190260_H
+#include <ultra64.h>
+#include "types.h"
 
 u32 func0f190260(void);
 void mpChrReset(struct chrdata *chr, u8 full);
