@@ -60,8 +60,8 @@ const u32 var7f1a9c34[] = {0x40c907a9};
 const u32 var7f1a9c38[] = {0x3dcccccd};
 const u32 var7f1a9c3c[] = {0x3dcccccd};
 const u32 var7f1a9c40[] = {0x3dcccccd};
-const u32 var7f1a9c44[] = {0x3dcccccd};
-const u32 var7f1a9c48[] = {0x3dcccccd};
+//const u32 var7f1a9c44[] = {0x3dcccccd};
+//const u32 var7f1a9c48[] = {0x3dcccccd};
 
 /**
  * @cmd 0000
@@ -3403,59 +3403,20 @@ glabel aiIfChrShieldLessThan
 /**
  * @cmd 0110
  */
-GLOBAL_ASM(
-glabel aiIfChrShieldGreaterThan
-/*  f052dcc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f052dd0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f052dd4:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f052dd8:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f052ddc:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f052de0:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f052de4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f052de8:	3c017f1b */ 	lui	$at,%hi(var7f1a9c44)
-/*  f052dec:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f052df0:	90780003 */ 	lbu	$t8,0x3($v1)
-/*  f052df4:	90680004 */ 	lbu	$t0,0x4($v1)
-/*  f052df8:	c4289c44 */ 	lwc1	$f8,%lo(var7f1a9c44)($at)
-/*  f052dfc:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f052e00:	03284825 */ 	or	$t1,$t9,$t0
-/*  f052e04:	44892000 */ 	mtc1	$t1,$f4
-/*  f052e08:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f052e0c:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f052e10:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f052e14:	e7aa0020 */ 	swc1	$f10,0x20($sp)
-/*  f052e18:	90650002 */ 	lbu	$a1,0x2($v1)
-/*  f052e1c:	0fc126d1 */ 	jal	chrFindById
-/*  f052e20:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f052e24:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f052e28:	1040000f */ 	beqz	$v0,.L0f052e68
-/*  f052e2c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f052e30:	0fc0cfe8 */ 	jal	chrGetShield
-/*  f052e34:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f052e38:	c7b00020 */ 	lwc1	$f16,0x20($sp)
-/*  f052e3c:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f052e40:	4600803c */ 	c.lt.s	$f16,$f0
-/*  f052e44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f052e48:	45020008 */ 	bc1fl	.L0f052e6c
-/*  f052e4c:	8e0a0438 */ 	lw	$t2,0x438($s0)
-/*  f052e50:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f052e54:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f052e58:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f052e5c:	90660005 */ 	lbu	$a2,0x5($v1)
-/*  f052e60:	10000004 */ 	beqz	$zero,.L0f052e74
-/*  f052e64:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f052e68:
-/*  f052e68:	8e0a0438 */ 	lw	$t2,0x438($s0)
-.L0f052e6c:
-/*  f052e6c:	254b0006 */ 	addiu	$t3,$t2,0x6
-/*  f052e70:	ae0b0438 */ 	sw	$t3,0x438($s0)
-.L0f052e74:
-/*  f052e74:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f052e78:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f052e7c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f052e80:	03e00008 */ 	jr	$ra
-/*  f052e84:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfChrShieldGreaterThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	f32 value = (cmd[4] | (cmd[3] << 8)) * 0.1f;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata,cmd[2]);
+
+	if (chr && chrGetShield(chr) > value) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	} else {
+		g_Vars.aioffset = g_Vars.aioffset + 6;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0083
@@ -3840,6 +3801,10 @@ bool aiSetChrNum(void)
  */
 GLOBAL_ASM(
 glabel aiSetMaxDamage
+.late_rodata
+glabel var7f1a9c48
+.word 0x3dcccccd
+.text
 /*  f053938:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f05393c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f053940:	3c10800a */ 	lui	$s0,%hi(g_Vars)
