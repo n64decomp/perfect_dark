@@ -5370,7 +5370,7 @@ bool aiPlaySound(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
-	audioPlayFromProp(cmd[4], audio_id, 0, NULL, 0, 0);
+	audioPlayFromProp((s8)cmd[4], audio_id, 0, NULL, 0, 0);
 
 	g_Vars.aioffset += 5;
 
@@ -5385,7 +5385,7 @@ bool aiAssignSound(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
-	audioPlayFromProp(cmd[4], audio_id, -1, NULL, 11, 0);
+	audioPlayFromProp((s8)cmd[4], audio_id, -1, NULL, 11, 0);
 
 	g_Vars.aioffset += 5;
 
@@ -10773,22 +10773,22 @@ bool aiSayCiStaffQuip(void)
 
 	if (cmd[2] == 0) {
 		quip = ciquiptable_bank0[g_Vars.chrdata->morale][random() % 3];
-		audioPlayFromProp(cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
+		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
 	if (cmd[2] == 1) {
 		quip = ciquiptable_bank1[g_Vars.chrdata->morale][random() % 3];
-		audioPlayFromProp(cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
+		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
 	if (cmd[2] == 2) {
 		quip = ciquiptable_bank2[g_Vars.chrdata->morale][random() % 3];
-		audioPlayFromProp(cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
+		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
 	if (cmd[2] == 3) {
 		quip = ciquiptable_bank3[g_Vars.chrdata->morale];
-		audioPlayFromProp(cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
+		audioPlayFromProp((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, 9, 0);
 	}
 
 	g_Vars.aioffset += 4;
@@ -11827,73 +11827,22 @@ bool aiIfDistanceToTarget2GreaterThan(void)
 /**
  * @cmd 01d9
  */
-GLOBAL_ASM(
-glabel ai01d9
-/*  f05fdd8:   3c05800a */     lui     $a1,%hi(g_Vars)
-/*  f05fddc:   24a59fc0 */     addiu   $a1,$a1,%lo(g_Vars)
-/*  f05fde0:   8cae0434 */     lw      $t6,0x434($a1)
-/*  f05fde4:   8caf0438 */     lw      $t7,0x438($a1)
-/*  f05fde8:   27bdffc8 */     addiu   $sp,$sp,-56
-/*  f05fdec:   afbf001c */     sw      $ra,0x1c($sp)
-/*  f05fdf0:   01cf1021 */     addu    $v0,$t6,$t7
-/*  f05fdf4:   90580004 */     lbu     $t8,0x4($v0)
-/*  f05fdf8:   90480005 */     lbu     $t0,0x5($v0)
-/*  f05fdfc:   0018ca00 */     sll     $t9,$t8,0x8
-/*  f05fe00:   03284825 */     or      $t1,$t9,$t0
-/*  f05fe04:   a7a90032 */     sh      $t1,0x32($sp)
-/*  f05fe08:   904a0006 */     lbu     $t2,0x6($v0)
-/*  f05fe0c:   904c0007 */     lbu     $t4,0x7($v0)
-/*  f05fe10:   000a5a00 */     sll     $t3,$t2,0x8
-/*  f05fe14:   016c6825 */     or      $t5,$t3,$t4
-/*  f05fe18:   afad002c */     sw      $t5,0x2c($sp)
-/*  f05fe1c:   9043000a */     lbu     $v1,0xa($v0)
-/*  f05fe20:   00037200 */     sll     $t6,$v1,0x8
-/*  f05fe24:   01c37825 */     or      $t7,$t6,$v1
-/*  f05fe28:   a7af002a */     sh      $t7,0x2a($sp)
-/*  f05fe2c:   80580002 */     lb      $t8,0x2($v0)
-/*  f05fe30:   afb80024 */     sw      $t8,0x24($sp)
-/*  f05fe34:   90590008 */     lbu     $t9,0x8($v0)
-/*  f05fe38:   a7b90022 */     sh      $t9,0x22($sp)
-/*  f05fe3c:   0fc2556c */     jal     objFindByTagId
-/*  f05fe40:   90440003 */     lbu     $a0,0x3($v0)
-/*  f05fe44:   87a80022 */     lh      $t0,0x22($sp)
-/*  f05fe48:   97a9002a */     lhu     $t1,0x2a($sp)
-/*  f05fe4c:   8c470014 */     lw      $a3,0x14($v0)
-/*  f05fe50:   8fa40024 */     lw      $a0,0x24($sp)
-/*  f05fe54:   87a50032 */     lh      $a1,0x32($sp)
-/*  f05fe58:   8fa6002c */     lw      $a2,0x2c($sp)
-/*  f05fe5c:   afa80010 */     sw      $t0,0x10($sp)
-/*  f05fe60:   0fc25010 */     jal     audioPlayFromProp
-/*  f05fe64:   afa90014 */     sw      $t1,0x14($sp)
-/*  f05fe68:   3c03800a */     lui     $v1,%hi(g_Vars)
-/*  f05fe6c:   24639fc0 */     addiu   $v1,$v1,%lo(g_Vars)
-/*  f05fe70:   8c6a0438 */     lw      $t2,0x438($v1)
-/*  f05fe74:   8fbf001c */     lw      $ra,0x1c($sp)
-/*  f05fe78:   27bd0038 */     addiu   $sp,$sp,0x38
-/*  f05fe7c:   254b000b */     addiu   $t3,$t2,0xb
-/*  f05fe80:   ac6b0438 */     sw      $t3,0x438($v1)
-/*  f05fe84:   03e00008 */     jr      $ra
-/*  f05fe88:   00001025 */     or      $v0,$zero,$zero
-);
+bool aiPlaySoundFromProp(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	s16 audio_id = cmd[5] | (cmd[4] << 8);
+	s32 volumemaybe = cmd[7] | (cmd[6] << 8);
+	u16 unk1 = cmd[10] | (cmd[10] << 8); // @bug: Using 10 twice
+	s32 channel = (s8)cmd[2];
+	s16 unk2 = cmd[8];
+	struct defaultobj *obj = objFindByTagId(cmd[3]);
 
-// Matches if channel argument to audioPlayFromProp is changed to s32,
-// but this causes other code to mismatch.
-//bool ai01d9(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	s16 audio_id = cmd[5] | (cmd[4] << 8);
-//	s32 volumemaybe = cmd[7] | (cmd[6] << 8);
-//	u16 unk1 = cmd[10] | (cmd[10] << 8); // @bug: Using 10 twice
-//	s32 channel = (s8)cmd[2];
-//	s16 unk2 = cmd[8];
-//	struct defaultobj *obj = objFindByTagId(cmd[3]);
-//
-//	audioPlayFromProp(channel, audio_id, volumemaybe, obj->prop, unk2, unk1);
-//
-//	g_Vars.aioffset += 11;
-//
-//	return false;
-//}
+	audioPlayFromProp(channel, audio_id, volumemaybe, obj->prop, unk2, unk1);
+
+	g_Vars.aioffset += 11;
+
+	return false;
+}
 
 /**
  * @cmd 01da

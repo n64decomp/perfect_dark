@@ -436,7 +436,7 @@
 /*0x01d6*/ bool aiMiscellaneous(void);
 /*0x01d7*/ bool aiIfDistanceToTarget2LessThan(void);
 /*0x01d8*/ bool aiIfDistanceToTarget2GreaterThan(void);
-/*0x01d9*/ bool ai01d9(void);
+/*0x01d9*/ bool aiPlaySoundFromProp(void);
 /*0x01da*/ bool aiPlayMusicContinuously(void);
 /*0x01db*/ bool aiChrKill(void);
 /*0x01dc*/ bool aiRemoveWeaponFromInventory(void);

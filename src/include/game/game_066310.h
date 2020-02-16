@@ -6,7 +6,7 @@
 void alarmActivate(void);
 void alarmDeactivate(void);
 bool alarmIsActive(void);
-bool audioPlayFromProp(s8 channel_id, s16 audio_id, s32 volumemaybe, struct prop *prop, s32 arg4, s32 arg5);
+bool audioPlayFromProp(s32 channel_id, s16 audio_id, s32 volumemaybe, struct prop *prop, s32 arg4, s32 arg5);
 f32 countdownTimerGetValue(void);
 bool countdownTimerIsHidden(void);
 bool countdownTimerIsRunning(void);
