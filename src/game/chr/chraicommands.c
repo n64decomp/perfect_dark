@@ -9726,49 +9726,18 @@ bool aiIfChrInjured(void)
 /**
  * @cmd 0166
  */
-GLOBAL_ASM(
-glabel aiIfAction
-/*  f05c384:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05c388:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05c38c:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05c390:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05c394:	8c6f0424 */ 	lw	$t7,0x424($v1)
-/*  f05c398:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05c39c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05c3a0:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f05c3a4:	904e0002 */ 	lbu	$t6,0x2($v0)
-/*  f05c3a8:	91f802a0 */ 	lbu	$t8,0x2a0($t7)
-/*  f05c3ac:	24b90004 */ 	addiu	$t9,$a1,0x4
-/*  f05c3b0:	55d80008 */ 	bnel	$t6,$t8,.L0f05c3d4
-/*  f05c3b4:	ac790438 */ 	sw	$t9,0x438($v1)
-/*  f05c3b8:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05c3bc:	90460003 */ 	lbu	$a2,0x3($v0)
-/*  f05c3c0:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05c3c4:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05c3c8:	10000002 */ 	beqz	$zero,.L0f05c3d4
-/*  f05c3cc:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f05c3d0:	ac790438 */ 	sw	$t9,0x438($v1)
-.L0f05c3d4:
-/*  f05c3d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05c3d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05c3dc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05c3e0:	03e00008 */ 	jr	$ra
-/*  f05c3e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfAction(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-// Mismatch due to different temporary registers
-//bool aiIfAction(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//
-//	if (g_Vars.chrdata->myaction == cmd[2]) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
-//	} else {
-//		g_Vars.aioffset += 4;
-//	}
-//
-//	return false;
-//}
+	if (cmd[2] == g_Vars.chrdata->myaction[0]) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0167
