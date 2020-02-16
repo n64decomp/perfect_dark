@@ -30158,66 +30158,17 @@ glabel var7f1a9370
 /*  f049118:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f04911c
-.late_rodata
-glabel var7f1a9374
-.word 0x3cc907a9
-glabel var7f1a9378
-.word 0x40490fdb
-glabel var7f1a937c
-.word 0x40c907a9
-glabel var7f1a9380
-.word 0x40490fdb
-.text
-/*  f04911c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f049120:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049124:	0fc122a1 */ 	jal	chrGetAngleToPos
-/*  f049128:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f04912c:	93ae0023 */ 	lbu	$t6,0x23($sp)
-/*  f049130:	3c014f80 */ 	lui	$at,0x4f80
-/*  f049134:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f049138:	448e2000 */ 	mtc1	$t6,$f4
-/*  f04913c:	05c10004 */ 	bgez	$t6,.L0f049150
-/*  f049140:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f049144:	44814000 */ 	mtc1	$at,$f8
-/*  f049148:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04914c:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f049150:
-/*  f049150:	3c017f1b */ 	lui	$at,%hi(var7f1a9374)
-/*  f049154:	c42a9374 */ 	lwc1	$f10,%lo(var7f1a9374)($at)
-/*  f049158:	3c017f1b */ 	lui	$at,%hi(var7f1a9378)
-/*  f04915c:	460a3082 */ 	mul.s	$f2,$f6,$f10
-/*  f049160:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f049164:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f049168:	45000005 */ 	bc1f	.L0f049180
-/*  f04916c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f049170:	c4309378 */ 	lwc1	$f16,%lo(var7f1a9378)($at)
-/*  f049174:	4610003c */ 	c.lt.s	$f0,$f16
-/*  f049178:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04917c:	4501000e */ 	bc1t	.L0f0491b8
-.L0f049180:
-/*  f049180:	3c017f1b */ 	lui	$at,%hi(var7f1a937c)
-/*  f049184:	c432937c */ 	lwc1	$f18,%lo(var7f1a937c)($at)
-/*  f049188:	3c017f1b */ 	lui	$at,%hi(var7f1a9380)
-/*  f04918c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f049190:	46029101 */ 	sub.s	$f4,$f18,$f2
-/*  f049194:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f049198:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04919c:	45000008 */ 	bc1f	.L0f0491c0
-/*  f0491a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0491a4:	c4289380 */ 	lwc1	$f8,%lo(var7f1a9380)($at)
-/*  f0491a8:	4600403c */ 	c.lt.s	$f8,$f0
-/*  f0491ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0491b0:	45000003 */ 	bc1f	.L0f0491c0
-/*  f0491b4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0491b8:
-/*  f0491b8:	10000001 */ 	beqz	$zero,.L0f0491c0
-/*  f0491bc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0491c0:
-/*  f0491c0:	03e00008 */ 	jr	$ra
-/*  f0491c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool func0f04911c(struct chrdata *chr, struct coord *pos, u8 arg2)
+{
+	f32 angle = chrGetAngleToPos(chr, pos);
+
+	if ((angle < arg2 * 0.024539785459638f && angle < M_CORRECT_PI) ||
+			((M_PI * 2) - arg2 * 0.024539785459638f < angle && M_CORRECT_PI < angle)) {
+		return true;
+	}
+
+	return false;
+}
 
 f32 chrGetDistanceToTarget(struct chrdata *chr)
 {

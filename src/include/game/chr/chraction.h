@@ -177,7 +177,7 @@ u32 func0f048e74(struct chrdata *chr, u32 arg1);
 u32 func0f048f20(struct chrdata *chr, u8 b);
 u32 func0f048fcc(void);
 u32 func0f049068(struct chrdata *chr, u32 arg1, u32 arg2);
-u32 func0f04911c(void);
+bool func0f04911c(struct chrdata *chr, struct coord *pos, u8 arg2);
 f32 chrGetSameFloorDistanceToPad(struct chrdata *chr, s32 pad_id);
 u32 func0f049644(void);
 s32 chrResolveId(struct chrdata *ref, s32 id);
