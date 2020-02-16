@@ -55,8 +55,6 @@
 #include "library/library_4ae00.h"
 #include "types.h"
 
-const u32 var7f1a9c30[] = {0x40c907a9};
-
 /**
  * @cmd 0000
  */
@@ -1764,75 +1762,18 @@ bool ai004e(void)
 /**
  * @cmd 004d
  */
-GLOBAL_ASM(
-glabel ai004d
-/*  f05078c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f050790:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f050794:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f050798:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f05079c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0507a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0507a4:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0507a8:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0507ac:	0fc122d3 */ 	jal	chrGetAngleToTarget
-/*  f0507b0:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f0507b4:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f0507b8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0507bc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0507c0:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f0507c4:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0507c8:	44982000 */ 	mtc1	$t8,$f4
-/*  f0507cc:	07010004 */ 	bgez	$t8,.L0f0507e0
-/*  f0507d0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0507d4:	44814000 */ 	mtc1	$at,$f8
-/*  f0507d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0507dc:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f0507e0:
-/*  f0507e0:	3c017f1b */ 	lui	$at,%hi(var7f1a9c30)
-/*  f0507e4:	c42a9c30 */ 	lwc1	$f10,%lo(var7f1a9c30)($at)
-/*  f0507e8:	3c013b80 */ 	lui	$at,0x3b80
-/*  f0507ec:	44819000 */ 	mtc1	$at,$f18
-/*  f0507f0:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f0507f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0507f8:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f0507fc:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f050800:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f050804:	45000009 */ 	bc1f	.L0f05082c
-/*  f050808:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05080c:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f050810:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f050814:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f050818:	90460003 */ 	lbu	$a2,0x3($v0)
-/*  f05081c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f050820:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f050824:	10000004 */ 	beqz	$zero,.L0f050838
-/*  f050828:	ac620438 */ 	sw	$v0,0x438($v1)
-.L0f05082c:
-/*  f05082c:	8c790438 */ 	lw	$t9,0x438($v1)
-/*  f050830:	27280004 */ 	addiu	$t0,$t9,0x4
-/*  f050834:	ac680438 */ 	sw	$t0,0x438($v1)
-.L0f050838:
-/*  f050838:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05083c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f050840:	00001025 */ 	or	$v0,$zero,$zero
-/*  f050844:	03e00008 */ 	jr	$ra
-/*  f050848:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai004d(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-// Mismatch due to rodata address. Will match after all trailing rodata in this
-// file is matched.
-//bool ai004d(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//
-//	if (chrGetAngleToTarget(g_Vars.chrdata) < cmd[2] * 6.282185077f * 0.00390625f) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
-//	} else {
-//		g_Vars.aioffset += 4;
-//	}
-//
-//	return false;
-//}
+	if (chrGetAngleToTarget(g_Vars.chrdata) < cmd[2] * (M_PI * 2) * 0.00390625f) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
+	} else {
+		g_Vars.aioffset += 4;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 004f
