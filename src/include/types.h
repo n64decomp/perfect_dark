@@ -2946,7 +2946,7 @@ struct body {
 	u16 bodyfileid;
 	f32 unk04;
 	f32 unk08;
-	u32 unk0c;
+	void *unk0c; // likely a pointer to bodyfile data if loaded
 	u16 handfileid;
 };
 

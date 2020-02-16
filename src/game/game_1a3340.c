@@ -4885,7 +4885,7 @@ glabel func0f1a7794
 );
 
 GLOBAL_ASM(
-glabel func0f1a7844
+glabel fileLoad
 /*  f1a7844:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a7848:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1a784c:	afa40018 */ 	sw	$a0,0x18($sp)

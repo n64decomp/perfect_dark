@@ -126,33 +126,15 @@ glabel func0f02cde0
 /*  f02ce2c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f02ce30
-/*  f02ce30:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f02ce34:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f02ce38:	3c0f8008 */ 	lui	$t7,%hi(g_Bodies)
-/*  f02ce3c:	25efcf04 */ 	addiu	$t7,$t7,%lo(g_Bodies)
-/*  f02ce40:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f02ce44:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f02ce48:	8c78000c */ 	lw	$t8,0xc($v1)
-/*  f02ce4c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f02ce50:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02ce54:	57000009 */ 	bnezl	$t8,.L0f02ce7c
-/*  f02ce58:	00001025 */ 	or	$v0,$zero,$zero
-/*  f02ce5c:	94640002 */ 	lhu	$a0,0x2($v1)
-/*  f02ce60:	0fc69e11 */ 	jal	func0f1a7844
-/*  f02ce64:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f02ce68:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f02ce6c:	ac62000c */ 	sw	$v0,0xc($v1)
-/*  f02ce70:	10000002 */ 	beqz	$zero,.L0f02ce7c
-/*  f02ce74:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f02ce78:	00001025 */ 	or	$v0,$zero,$zero
-.L0f02ce7c:
-/*  f02ce7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f02ce80:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f02ce84:	03e00008 */ 	jr	$ra
-/*  f02ce88:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool bodyLoad(u32 bodynum)
+{
+	if (!g_Bodies[bodynum].unk0c) {
+		g_Bodies[bodynum].unk0c = fileLoad(g_Bodies[bodynum].bodyfileid);
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f02ce8c
@@ -193,7 +175,7 @@ glabel func0f02ce8c
 /*  f02cf10:	8d03000c */ 	lw	$v1,0xc($t0)
 /*  f02cf14:	54600007 */ 	bnezl	$v1,.L0f02cf34
 /*  f02cf18:	afa30050 */ 	sw	$v1,0x50($sp)
-/*  f02cf1c:	0fc69e11 */ 	jal	func0f1a7844
+/*  f02cf1c:	0fc69e11 */ 	jal	fileLoad
 /*  f02cf20:	95040002 */ 	lhu	$a0,0x2($t0)
 /*  f02cf24:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*  f02cf28:	00401825 */ 	or	$v1,$v0,$zero
@@ -248,7 +230,7 @@ glabel func0f02ce8c
 /*  f02cfe4:	000d6880 */ 	sll	$t5,$t5,0x2
 /*  f02cfe8:	3c048008 */ 	lui	$a0,0x8008
 /*  f02cfec:	008d2021 */ 	addu	$a0,$a0,$t5
-/*  f02cff0:	0fc69e11 */ 	jal	func0f1a7844
+/*  f02cff0:	0fc69e11 */ 	jal	fileLoad
 /*  f02cff4:	9484cf06 */ 	lhu	$a0,-0x30fa($a0)
 /*  f02cff8:	8fa5004c */ 	lw	$a1,0x4c($sp)
 /*  f02cffc:	3c0e8008 */ 	lui	$t6,%hi(g_Bodies)
@@ -277,7 +259,7 @@ glabel func0f02ce8c
 /*  f02d054:	8c64000c */ 	lw	$a0,0xc($v1)
 /*  f02d058:	5480000d */ 	bnezl	$a0,.L0f02d090
 /*  f02d05c:	afa40054 */ 	sw	$a0,0x54($sp)
-/*  f02d060:	0fc69e11 */ 	jal	func0f1a7844
+/*  f02d060:	0fc69e11 */ 	jal	fileLoad
 /*  f02d064:	94640002 */ 	lhu	$a0,0x2($v1)
 /*  f02d068:	8fa7004c */ 	lw	$a3,0x4c($sp)
 /*  f02d06c:	3c0a8008 */ 	lui	$t2,%hi(g_Bodies)

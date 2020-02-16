@@ -36,7 +36,7 @@ u32 func0f1a7554(void);
 u32 func0f1a7560(void);
 u32 func0f1a7730(void);
 u32 func0f1a7794(void);
-u32 func0f1a7844(void);
+void *fileLoad(u32 fileid);
 s32 menudialog001a39a8(u32, u32, u32 *);
 s32 menudialog001a3af4(u32, u32, u32 *);
 s32 menudialog001a5f48(u32, u32, u32 *);

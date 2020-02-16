@@ -2,7 +2,7 @@
 #define GAME_GAME_02CDE0
 
 u32 func0f02cde0(void);
-u32 func0f02ce30(void);
+bool bodyLoad(u32 bodynum);
 u32 func0f02ce8c(void);
 u32 func0f02d338(void);
 u32 func0f02d36c(void);
