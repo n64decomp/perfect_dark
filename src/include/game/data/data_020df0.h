@@ -51,7 +51,7 @@ extern struct stagethinglist stagethinglist_22e60;
 extern struct stagethinglist stagethinglist_22eb8;
 extern struct stagethinglist stagethinglist_22ec8;
 extern struct stagethinglist stagethinglist_22f1c;
-extern struct bodytableentry bodytable[];
+extern struct body g_Bodies[];
 extern u32 var8007dae4;
 extern u32 var8007db80;
 extern f32 var8007db84;

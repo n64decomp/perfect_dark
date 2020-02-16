@@ -2940,8 +2940,9 @@ struct cheat {
 	u8 flags;
 };
 
-struct bodytableentry {
-	u16 unk00;
+struct body {
+	u16 headbank : 1;
+	u16 flags_01 : 15;
 	u16 bodyfileid;
 	f32 unk04;
 	f32 unk08;
