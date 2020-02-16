@@ -542,7 +542,7 @@ struct chrdata {
 	/*0x113*/ u8 alertness;
 	/*0x114*/ u32 flags;
 	/*0x118*/ u32 flags2;
-	/*0x11c*/ u32 timer60;
+	/*0x11c*/ s32 timer60;
 	/*0x120*/ s32 soundtimer;
 	/*0x124*/ u8 random;
 	/*0x125*/ u8 team;

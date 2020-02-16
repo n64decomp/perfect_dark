@@ -55,6 +55,72 @@
 #include "library/library_4ae00.h"
 #include "types.h"
 
+const char var7f1a9450[] = " (%d)\n";
+const char var7f1a9458[] = " (%d)\n";
+const char var7f1a9460[] = "set shot list(void) doesn't work for g_Vars.CommandInfo.truck!\n";
+const char var7f1a94a0[] = "set shot list(void) doesn't work for g_Vars.CommandInfo.heli!\n";
+const char var7f1a94e0[] = "set shot list(void) doesn't work for g_Vars.CommandInfo.hovercar!\n";
+const char var7f1a9524[] = "BOND IN ROOM \n";
+const char var7f1a9534[] = "bond not in room \n";
+const char var7f1a9548[] = "aTimer%s%s: %f\n";
+const char var7f1a9558[] = "";
+const char var7f1a955c[] = "";
+const char var7f1a9560[] = "bTimer:%s%s %f\n";
+const char var7f1a9570[] = "";
+const char var7f1a9574[] = "";
+const char var7f1a9578[] = "ai_ifbondintank: tank code has been removed.\n";
+const char var7f1a95a8[] = "AI_BONDENABLECONTROL\n";
+const char var7f1a95c0[] = "ai(void) enery tune on (%d, %d, %d)\n";
+const char var7f1a95e8[] = "ai(void) enery tune off (%d)\n";
+const char var7f1a9608[] = "%s%sAI_PRINT(void) height = %f ptop =  %f \n\n";
+const char var7f1a9638[] = "";
+const char var7f1a963c[] = "";
+const char var7f1a9640[] = "Preset character = %d, my target = %d \n";
+const char var7f1a9668[] = "characters target is %d \n";
+const char var7f1a9684[] = "(DGD)chrai.c(void) aiIfChrsTargetIsChr does not support CHR_BOND as chr1!\n";
+const char var7f1a96d0[] = "(DGD)chrai.c(void) aiIfChrsTargetIsChr does not support CHR_BOND as chr1!\n";
+const char var7f1a971c[] = "DGD(void) (chrai.c) WARNING! attempt to use invalid CHR_PRESET1 - defaulting to JO\n";
+const char var7f1a9770[] = "RISK CHECK = %d \n";
+const char var7f1a9784[] = "aiIfOpportunityFireJumpF() called with no botdata!\n";
+const char var7f1a97b8[] = "TARGET %d PASSED THE DISTANCE 2 TESTS \n";
+const char var7f1a97e0[] = "%d I NOTICE THE TARGET %d\n";
+const char var7f1a97fc[] = "%d I NOTICE THE TARGET %d\n";
+const char var7f1a9818[] = "%d OPPORTUNITY FIRE A CHARACTER = %d \n";
+const char var7f1a9840[] = "%d  CANNOT OPPORTUNITY FIRE A TARGET \n";
+const char var7f1a9868[] = " RISK CHECK = %d \n";
+const char var7f1a987c[] = "dist = %d \n";
+const char var7f1a9888[] = "USING VOICE NUMBER %d \n";
+const char var7f1a98a0[] = "SETORDERS COMMAND  \n";
+const char var7f1a98b8[] = "SQUADRON MEMBER CHR NUMBER = %d \n";
+const char var7f1a98dc[] = "DOING DIST CHECK \n";
+const char var7f1a98f0[] = "%d SYNCHED WITH A CHARACTER %d \n";
+const char var7f1a9914[] = "synched = %d \n";
+const char var7f1a9924[] = "LEADER'S GOING TO COVER \n";
+const char var7f1a9940[] = "LEADER IS BREAKING COVER \n";
+const char var7f1a995c[] = " I AM SAFE TO BREAK COVER \n";
+const char var7f1a9978[] = "not safe to break cover \n";
+const char var7f1a9994[] = "LEADER IS COVER SEEN \n";
+const char var7f1a99ac[] = "LEADER IS FLANKING LEFT \n";
+const char var7f1a99c8[] = "LEADER IS FLANKING RIGHT \n";
+const char var7f1a99e4[] = "LEADER IS DODGING \n";
+const char var7f1a99f8[] = "LEADER IS THROWING GRENADE \n";
+const char var7f1a9a18[] = "LEADER HAS SEEN FROM WAIT \n";
+const char var7f1a9a34[] = "UNKNOWN LEADER ACTION \n";
+const char var7f1a9a4c[] = "ORDERS CARRIED OUT  ";
+const char var7f1a9a64[] = "WITHDRAWING!!!!!!!!!!!\n";
+const char var7f1a9a7c[] = "CHECKING MY ORDERS  ";
+const char var7f1a9a94[] = "ACTING ON MY ORDERS  ";
+const char var7f1a9aac[] = "DOING DIST CHECK VS CHAR %d\n";
+const char var7f1a9acc[] = "I'm just carrying out my ORDERS \n";
+const char var7f1a9af0[] = "SQUAD IS DOING THAT ACTION\n";
+const char var7f1a9b0c[] = "SQUAD NOT DOING ACTION\n";
+const char var7f1a9b24[] = "g_Vars.CommandInfo.chrdata ->soundtimer = %d, g_Vars.CommandInfo.chrdata->talkgap = %d , soundgap = %d\n";
+const char var7f1a9b8c[] = "RESETTING THE LISTENING \n";
+const char var7f1a9ba8[] = "couldn't go to cover from danger !\n";
+const char var7f1a9bcc[] = "couldn't find cover from danger !\n";
+const char var7f1a9bf0[] = "Randnum = %d,    Alarmrandnum = %d \n";
+const char var7f1a9c18[] = "IVE FOUND MY PAD %d \n";
+
 /**
  * @cmd 0000
  */

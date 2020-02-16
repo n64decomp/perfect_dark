@@ -532,102 +532,6 @@ const u32 var7f1a93d4[] = {0x7f049b30};
 const u32 var7f1a93d8[] = {0x7f049a14};
 // </chrResolveId>
 
-const u32 var7f1a93dc[] = {0x3c888889};
-const u32 var7f1a93e0[] = {0x3f4ccccd};
-const u32 var7f1a93e4[] = {0x40c907a9};
-const u32 var7f1a93e8[] = {0x3fc907a9};
-const u32 var7f1a93ec[] = {0x4096c5bf};
-const u32 var7f1a93f0[] = {0x404907a9};
-const u32 var7f1a93f4[] = {0x3fc907a9};
-const u32 var7f1a93f8[] = {0x4096c5bf};
-const u32 var7f1a93fc[] = {0x40c907a9};
-const u32 var7f1a9400[] = {0x40c907a9};
-const u32 var7f1a9404[] = {0x40c907a9};
-const u32 var7f1a9408[] = {0x3f4907a9};
-const u32 var7f1a940c[] = {0xc7c35000};
-const u32 var7f1a9410[] = {0x40c907a9};
-const u32 var7f1a9414[] = {0xc7c35000};
-const u32 var7f1a9418[] = {0xc7c35000};
-const u32 var7f1a941c[] = {0x3f4907a9};
-const u32 var7f1a9420[] = {0x411ffffe};
-const u32 var7f1a9424[] = {0x40c907a9};
-const u32 var7f1a9428[] = {0x40c907a9};
-const u32 var7f1a942c[] = {0x3c8ef461};
-const u32 var7f1a9430[] = {0x40c907a9};
-const u32 var7f1a9434[] = {0x40490fdb};
-const u32 var7f1a9438[] = {0x439d8000};
-const u32 var7f1a943c[] = {0x40490fdb};
-const u32 var7f1a9440[] = {0x3fc90fdb};
-const u32 var7f1a9444[] = {0x3fc90fdb};
-const u32 var7f1a9448[] = {0x3f19999a};
-const u32 var7f1a944c[] = {0x00000000};
-
-const char var7f1a9450[] = " (%d)\n";
-const char var7f1a9458[] = " (%d)\n";
-const char var7f1a9460[] = "set shot list(void) doesn't work for g_Vars.CommandInfo.truck!\n";
-const char var7f1a94a0[] = "set shot list(void) doesn't work for g_Vars.CommandInfo.heli!\n";
-const char var7f1a94e0[] = "set shot list(void) doesn't work for g_Vars.CommandInfo.hovercar!\n";
-const char var7f1a9524[] = "BOND IN ROOM \n";
-const char var7f1a9534[] = "bond not in room \n";
-const char var7f1a9548[] = "aTimer%s%s: %f\n";
-const char var7f1a9558[] = "";
-const char var7f1a955c[] = "";
-const char var7f1a9560[] = "bTimer:%s%s %f\n";
-const char var7f1a9570[] = "";
-const char var7f1a9574[] = "";
-const char var7f1a9578[] = "ai_ifbondintank: tank code has been removed.\n";
-const char var7f1a95a8[] = "AI_BONDENABLECONTROL\n";
-const char var7f1a95c0[] = "ai(void) enery tune on (%d, %d, %d)\n";
-const char var7f1a95e8[] = "ai(void) enery tune off (%d)\n";
-const char var7f1a9608[] = "%s%sAI_PRINT(void) height = %f ptop =  %f \n\n";
-const char var7f1a9638[] = "";
-const char var7f1a963c[] = "";
-const char var7f1a9640[] = "Preset character = %d, my target = %d \n";
-const char var7f1a9668[] = "characters target is %d \n";
-const char var7f1a9684[] = "(DGD)chrai.c(void) aiIfChrsTargetIsChr does not support CHR_BOND as chr1!\n";
-const char var7f1a96d0[] = "(DGD)chrai.c(void) aiIfChrsTargetIsChr does not support CHR_BOND as chr1!\n";
-const char var7f1a971c[] = "DGD(void) (chrai.c) WARNING! attempt to use invalid CHR_PRESET1 - defaulting to JO\n";
-const char var7f1a9770[] = "RISK CHECK = %d \n";
-const char var7f1a9784[] = "aiIfOpportunityFireJumpF() called with no botdata!\n";
-const char var7f1a97b8[] = "TARGET %d PASSED THE DISTANCE 2 TESTS \n";
-const char var7f1a97e0[] = "%d I NOTICE THE TARGET %d\n";
-const char var7f1a97fc[] = "%d I NOTICE THE TARGET %d\n";
-const char var7f1a9818[] = "%d OPPORTUNITY FIRE A CHARACTER = %d \n";
-const char var7f1a9840[] = "%d  CANNOT OPPORTUNITY FIRE A TARGET \n";
-const char var7f1a9868[] = " RISK CHECK = %d \n";
-const char var7f1a987c[] = "dist = %d \n";
-const char var7f1a9888[] = "USING VOICE NUMBER %d \n";
-const char var7f1a98a0[] = "SETORDERS COMMAND  \n";
-const char var7f1a98b8[] = "SQUADRON MEMBER CHR NUMBER = %d \n";
-const char var7f1a98dc[] = "DOING DIST CHECK \n";
-const char var7f1a98f0[] = "%d SYNCHED WITH A CHARACTER %d \n";
-const char var7f1a9914[] = "synched = %d \n";
-const char var7f1a9924[] = "LEADER'S GOING TO COVER \n";
-const char var7f1a9940[] = "LEADER IS BREAKING COVER \n";
-const char var7f1a995c[] = " I AM SAFE TO BREAK COVER \n";
-const char var7f1a9978[] = "not safe to break cover \n";
-const char var7f1a9994[] = "LEADER IS COVER SEEN \n";
-const char var7f1a99ac[] = "LEADER IS FLANKING LEFT \n";
-const char var7f1a99c8[] = "LEADER IS FLANKING RIGHT \n";
-const char var7f1a99e4[] = "LEADER IS DODGING \n";
-const char var7f1a99f8[] = "LEADER IS THROWING GRENADE \n";
-const char var7f1a9a18[] = "LEADER HAS SEEN FROM WAIT \n";
-const char var7f1a9a34[] = "UNKNOWN LEADER ACTION \n";
-const char var7f1a9a4c[] = "ORDERS CARRIED OUT  ";
-const char var7f1a9a64[] = "WITHDRAWING!!!!!!!!!!!\n";
-const char var7f1a9a7c[] = "CHECKING MY ORDERS  ";
-const char var7f1a9a94[] = "ACTING ON MY ORDERS  ";
-const char var7f1a9aac[] = "DOING DIST CHECK VS CHAR %d\n";
-const char var7f1a9acc[] = "I'm just carrying out my ORDERS \n";
-const char var7f1a9af0[] = "SQUAD IS DOING THAT ACTION\n";
-const char var7f1a9b0c[] = "SQUAD NOT DOING ACTION\n";
-const char var7f1a9b24[] = "g_Vars.CommandInfo.chrdata ->soundtimer = %d, g_Vars.CommandInfo.chrdata->talkgap = %d , soundgap = %d\n";
-const char var7f1a9b8c[] = "RESETTING THE LISTENING \n";
-const char var7f1a9ba8[] = "couldn't go to cover from danger !\n";
-const char var7f1a9bcc[] = "couldn't find cover from danger !\n";
-const char var7f1a9bf0[] = "Randnum = %d,    Alarmrandnum = %d \n";
-const char var7f1a9c18[] = "IVE FOUND MY PAD %d \n";
-
 GLOBAL_ASM(
 glabel func0f02dff0
 /*  f02dff0:	00043400 */ 	sll	$a2,$a0,0x10
@@ -31177,21 +31081,17 @@ void chrRestartTimer(struct chrdata *chr)
 	chr->hidden |= CHRHFLAG_TIMER_RUNNING;
 }
 
-GLOBAL_ASM(
-glabel chrGetTimer
-/*  f049fa8:	8c8e011c */ 	lw	$t6,0x11c($a0)
-/*  f049fac:	3c017f1b */ 	lui	$at,%hi(var7f1a93dc)
-/*  f049fb0:	c42893dc */ 	lwc1	$f8,%lo(var7f1a93dc)($at)
-/*  f049fb4:	448e2000 */ 	mtc1	$t6,$f4
-/*  f049fb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f049fbc:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f049fc0:	46083002 */ 	mul.s	$f0,$f6,$f8
-/*  f049fc4:	03e00008 */ 	jr	$ra
-/*  f049fc8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 chrGetTimer(struct chrdata *chr)
+{
+	return chr->timer60 * FRAMEDURATION;
+}
 
 GLOBAL_ASM(
 glabel func0f049fcc
+.late_rodata
+glabel var7f1a93e0
+.word 0x3f4ccccd
+.text
 /*  f049fcc:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f049fd0:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f049fd4:	0fc0a221 */ 	jal	chrGetTargetProp
@@ -31355,6 +31255,14 @@ bool func0f04a2b4(struct chrdata *chr)
 
 GLOBAL_ASM(
 glabel func0f04a2d4
+.late_rodata
+glabel var7f1a93e4
+.word 0x40c907a9
+glabel var7f1a93e8
+.word 0x3fc907a9
+glabel var7f1a93ec
+.word 0x4096c5bf
+.text
 /*  f04a2d4:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f04a2d8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f04a2dc:	afa50084 */ 	sw	$a1,0x84($sp)
@@ -31404,6 +31312,16 @@ glabel func0f04a2d4
 
 GLOBAL_ASM(
 glabel func0f04a37c
+.late_rodata
+glabel var7f1a93f0
+.word 0x404907a9
+glabel var7f1a93f4
+.word 0x3fc907a9
+glabel var7f1a93f8
+.word 0x4096c5bf
+glabel var7f1a93fc
+.word 0x40c907a9
+.text
 /*  f04a37c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f04a380:	f7b40018 */ 	sdc1	$f20,0x18($sp)
 /*  f04a384:	4486a000 */ 	mtc1	$a2,$f20
@@ -31618,6 +31536,10 @@ glabel func0f04a4ec
 
 GLOBAL_ASM(
 glabel func0f04a674
+.late_rodata
+glabel var7f1a9400
+.word 0x40c907a9
+.text
 /*  f04a674:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f04a678:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*  f04a67c:	30ae00ff */ 	andi	$t6,$a1,0xff
@@ -32151,6 +32073,22 @@ glabel func0f04aeb0
 
 GLOBAL_ASM(
 glabel func0f04af84
+.late_rodata
+glabel var7f1a9404
+.word 0x40c907a9
+glabel var7f1a9408
+.word 0x3f4907a9
+glabel var7f1a940c
+.word 0xc7c35000
+glabel var7f1a9410
+.word 0x40c907a9
+glabel var7f1a9414
+.word 0xc7c35000
+glabel var7f1a9418
+.word 0xc7c35000
+glabel var7f1a941c
+.word 0x3f4907a9
+.text
 /*  f04af84:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f04af88:	8fae00bc */ 	lw	$t6,0xbc($sp)
 /*  f04af8c:	44877000 */ 	mtc1	$a3,$f14
@@ -32663,6 +32601,12 @@ glabel func0f04b658
 
 GLOBAL_ASM(
 glabel chrMoveToPos
+.late_rodata
+glabel var7f1a9420
+.word 0x411ffffe
+glabel var7f1a9424
+.word 0x40c907a9
+.text
 /*  f04b748:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f04b74c:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f04b750:	afb00030 */ 	sw	$s0,0x30($sp)
@@ -33616,6 +33560,10 @@ bool func0f04c71c(struct chrdata *chr, u32 distance)
 
 GLOBAL_ASM(
 glabel func0f04c784
+.late_rodata
+glabel var7f1a9428
+.word 0x40c907a9
+.text
 /*  f04c784:	44808000 */ 	mtc1	$zero,$f16
 /*  f04c788:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f04c78c:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -33683,6 +33631,10 @@ glabel func0f04c784
 
 GLOBAL_ASM(
 glabel func0f04c874
+.late_rodata
+glabel var7f1a942c
+.word 0x3c8ef461
+.text
 /*  f04c874:	27bdff18 */ 	addiu	$sp,$sp,-232
 /*  f04c878:	afbf007c */ 	sw	$ra,0x7c($sp)
 /*  f04c87c:	afb40068 */ 	sw	$s4,0x68($sp)
@@ -34150,6 +34102,22 @@ void func0f04cf90(struct chrdata *chr, s32 arg1)
 
 GLOBAL_ASM(
 glabel func0f04d000
+.late_rodata
+glabel var7f1a9430
+.word 0x40c907a9
+glabel var7f1a9434
+.word 0x40490fdb
+glabel var7f1a9438
+.word 0x439d8000
+glabel var7f1a943c
+.word 0x40490fdb
+glabel var7f1a9440
+.word 0x3fc90fdb
+glabel var7f1a9444
+.word 0x3fc90fdb
+glabel var7f1a9448
+.word 0x3f19999a
+.text
 /*  f04d000:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f04d004:	3c0f8007 */ 	lui	$t7,%hi(var8006846c)
 /*  f04d008:	afbf002c */ 	sw	$ra,0x2c($sp)
