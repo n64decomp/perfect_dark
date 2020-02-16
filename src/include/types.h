@@ -587,7 +587,7 @@ struct chrdata {
 	/*0x292*/ s16 cover;
 	/*0x294*/ struct coord targetlastseenp;
 	/*0x2a0*/ u8 myaction[1];
-	/*0x2a1*/ u8 orders;
+	/*0x2a1*/ u8 orders[1];
 	/*0x2a2*/ u8 squadron;
 	/*0x2a3*/ u8 listening;
 	/*0x2a4*/ u32 convtalk;

@@ -8988,7 +8988,7 @@ bool aiSetAction(void)
 	g_Vars.chrdata->myaction[0] = cmd[2];
 
 	if (cmd[3] == 0) {
-		g_Vars.chrdata->orders = 0;
+		g_Vars.chrdata->orders[0] = 0;
 	}
 
 	g_Vars.aioffset += 4;
@@ -9053,69 +9053,69 @@ bool aiSetTeamOrders(void)
 			switch (chractions[0].myaction) {
 			case MA_COVERGOTO:
 				if (func0f048e74(chr, 45) == 0) {
-					chr->orders = MA_SHOOTING;
+					chr->orders[0] = MA_SHOOTING;
 				}
 				break;
 			case MA_COVERBREAK:
 				if (func0f048e74(chr, 30) == 0) {
-					chr->orders = MA_SHOOTING;
+					chr->orders[0] = MA_SHOOTING;
 				}
 				num++;
 				break;
 			case MA_COVERSEEN:
 				if (func0f048e74(chr, 30) == 0) {
-					chr->orders = MA_SHOOTING;
-					g_Vars.chrdata->orders = MA_COVERGOTO;
+					chr->orders[0] = MA_SHOOTING;
+					g_Vars.chrdata->orders[0] = MA_COVERGOTO;
 				}
 				num++;
 				break;
 			case MA_FLANKLEFT:
 				if (func0f048e74(chr, 50)) {
-					chr->orders = MA_FLANKRIGHT;
+					chr->orders[0] = MA_FLANKRIGHT;
 				} else {
-					chr->orders = MA_SHOOTING;
+					chr->orders[0] = MA_SHOOTING;
 				}
 				num++;
-				g_Vars.chrdata->orders = MA_FLANKLEFT;
+				g_Vars.chrdata->orders[0] = MA_FLANKLEFT;
 				break;
 			case MA_FLANKRIGHT:
 				if (func0f048e74(chr, 50)) {
-					chr->orders = MA_FLANKLEFT;
+					chr->orders[0] = MA_FLANKLEFT;
 				} else {
-					chr->orders = MA_SHOOTING;
+					chr->orders[0] = MA_SHOOTING;
 				}
 				num++;
-				g_Vars.chrdata->orders = MA_FLANKRIGHT;
+				g_Vars.chrdata->orders[0] = MA_FLANKRIGHT;
 				break;
 			case MA_DODGE:
 				if (func0f048e74(chr, 30) == 0 &&
 						chrHasFlagById(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
-					chr->orders = MA_WITHDRAW;
+					chr->orders[0] = MA_WITHDRAW;
 				} else {
-					chr->orders = MA_SHOOTING;
+					chr->orders[0] = MA_SHOOTING;
 				}
 				num++;
 				break;
 			case MA_GRENADE:
 				if (num < 2) {
-					chr->orders = MA_WAITING;
+					chr->orders[0] = MA_WAITING;
 				} else if (chrHasFlagById(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
-					chr->orders = MA_WITHDRAW;
+					chr->orders[0] = MA_WITHDRAW;
 				}
 				num++;
 				break;
 			case MA_WAITSEEN:
 				if (func0f048e74(chr, 30) &&
 						chrHasFlagById(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
-					chr->orders = MA_WITHDRAW;
+					chr->orders[0] = MA_WITHDRAW;
 				} else {
-					chr->orders = MA_SHOOTING;
+					chr->orders[0] = MA_SHOOTING;
 				}
 				num++;
 				break;
 			case MA_WITHDRAW:
 				if (chrHasFlagById(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
-					chr->orders = MA_WITHDRAW;
+					chr->orders[0] = MA_WITHDRAW;
 				}
 				break;
 			}
@@ -9138,60 +9138,22 @@ bool aiSetTeamOrders(void)
 /**
  * @cmd 0134
  */
-GLOBAL_ASM(
-glabel aiIfOrders
-/*  f05b220:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05b224:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05b228:	8c640434 */ 	lw	$a0,0x434($v1)
-/*  f05b22c:	8c650438 */ 	lw	$a1,0x438($v1)
-/*  f05b230:	8c6f0424 */ 	lw	$t7,0x424($v1)
-/*  f05b234:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f05b238:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05b23c:	00851021 */ 	addu	$v0,$a0,$a1
-/*  f05b240:	904e0003 */ 	lbu	$t6,0x3($v0)
-/*  f05b244:	91f802a1 */ 	lbu	$t8,0x2a1($t7)
-/*  f05b248:	24a90005 */ 	addiu	$t1,$a1,0x5
-/*  f05b24c:	55d8000e */ 	bnel	$t6,$t8,.L0f05b288
-/*  f05b250:	ac690438 */ 	sw	$t1,0x438($v1)
-/*  f05b254:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05b258:	90460004 */ 	lbu	$a2,0x4($v0)
-/*  f05b25c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f05b260:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f05b264:	8c790424 */ 	lw	$t9,0x424($v1)
-/*  f05b268:	ac620438 */ 	sw	$v0,0x438($v1)
-/*  f05b26c:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f05b270:	932802a1 */ 	lbu	$t0,0x2a1($t9)
-/*  f05b274:	55010005 */ 	bnel	$t0,$at,.L0f05b28c
-/*  f05b278:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05b27c:	10000003 */ 	beqz	$zero,.L0f05b28c
-/*  f05b280:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f05b284:	ac690438 */ 	sw	$t1,0x438($v1)
-.L0f05b288:
-/*  f05b288:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f05b28c:
-/*  f05b28c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f05b290:	00001025 */ 	or	$v0,$zero,$zero
-/*  f05b294:	03e00008 */ 	jr	$ra
-/*  f05b298:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool aiIfOrders(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-// Mismatch because it uses different temporary registers
-//bool aiIfOrders(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//
-//	if (g_Vars.chrdata->orders == cmd[3]) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
-//
-//		if (g_Vars.chrdata->orders == 13) {
-//			// empty
-//		}
-//	} else {
-//		g_Vars.aioffset += 5;
-//	}
-//
-//	return false;
-//}
+	if (cmd[3] == g_Vars.chrdata->orders[0]) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
+
+		if (g_Vars.chrdata->orders[0] == MA_WITHDRAW) {
+			// empty
+		}
+	} else {
+		g_Vars.aioffset += 5;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0135
@@ -9200,7 +9162,7 @@ bool aiIfHasOrders(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->orders) {
+	if (g_Vars.chrdata->orders[0]) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
