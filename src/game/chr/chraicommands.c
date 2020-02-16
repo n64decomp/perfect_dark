@@ -62,7 +62,6 @@ const u32 var7f1a9c3c[] = {0x3dcccccd};
 const u32 var7f1a9c40[] = {0x3dcccccd};
 const u32 var7f1a9c44[] = {0x3dcccccd};
 const u32 var7f1a9c48[] = {0x3dcccccd};
-const u32 var7f1a9c4c[] = {0x3dcccccd};
 
 /**
  * @cmd 0000
@@ -3948,38 +3947,17 @@ glabel aiSetMaxDamage
 /**
  * @cmd 0097
  */
-GLOBAL_ASM(
-glabel aiAddHealth
-/*  f053ab8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f053abc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f053ac0:	8c6e0434 */ 	lw	$t6,0x434($v1)
-/*  f053ac4:	8c6f0438 */ 	lw	$t7,0x438($v1)
-/*  f053ac8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f053acc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f053ad0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f053ad4:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f053ad8:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f053adc:	3c017f1b */ 	lui	$at,%hi(var7f1a9c4c)
-/*  f053ae0:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f053ae4:	03284825 */ 	or	$t1,$t9,$t0
-/*  f053ae8:	44892000 */ 	mtc1	$t1,$f4
-/*  f053aec:	c4289c4c */ 	lwc1	$f8,%lo(var7f1a9c4c)($at)
-/*  f053af0:	8c640424 */ 	lw	$a0,0x424($v1)
-/*  f053af4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f053af8:	46083002 */ 	mul.s	$f0,$f6,$f8
-/*  f053afc:	44050000 */ 	mfc1	$a1,$f0
-/*  f053b00:	0fc0816b */ 	jal	chrAddHealth
-/*  f053b04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f053b08:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f053b0c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f053b10:	8c6a0438 */ 	lw	$t2,0x438($v1)
-/*  f053b14:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f053b18:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f053b1c:	254b0004 */ 	addiu	$t3,$t2,0x4
-/*  f053b20:	ac6b0438 */ 	sw	$t3,0x438($v1)
-/*  f053b24:	03e00008 */ 	jr	$ra
-/*  f053b28:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiAddHealth()
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	f32 amount = (cmd[3] | (cmd[2] << 8)) * 0.1f;
+
+	chrAddHealth(g_Vars.chrdata, amount);
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
 
 /**
  * @cmd 010e
