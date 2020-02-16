@@ -13,6 +13,7 @@
 #include "library/library_12dc0.h"
 #include "library/library_13130.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f166e40
 /*  f166e40:	00047080 */ 	sll	$t6,$a0,0x2

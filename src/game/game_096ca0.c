@@ -10,6 +10,7 @@
 #include "library/library_16110.h"
 #include "library/library_4a360.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f096ca0
 /*  f096ca0:	27bdffc0 */ 	addiu	$sp,$sp,-64

@@ -19,6 +19,7 @@
 #include "library/library_16110.h"
 #include "library/library_4a360.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f13c510
 /*  f13c510:	27bdffe8 */ 	addiu	$sp,$sp,-24

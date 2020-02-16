@@ -21,6 +21,7 @@
 #include "library/library_0d520.h"
 #include "library/library_0e9d0.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f0d7070
 /*  f0d7070:	27bdffe8 */ 	addiu	$sp,$sp,-24

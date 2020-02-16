@@ -7,6 +7,7 @@
 #include "game/game_0601b0.h"
 #include "gvars/gvars.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f015330
 /*  f015330:	27bdffd8 */ 	addiu	$sp,$sp,-40

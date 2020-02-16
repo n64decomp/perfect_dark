@@ -29,6 +29,7 @@
 #include "library/library_0e9d0.h"
 #include "library/library_13900.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f01bea0
 /*  f01bea0:	3c028006 */ 	lui	$v0,%hi(var80062944)

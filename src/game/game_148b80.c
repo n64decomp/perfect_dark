@@ -28,6 +28,7 @@
 #include "library/library_4a5e0.h"
 #include "library/library_4ae00.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f148b80
 /*  f148b80:	27bdffb0 */ 	addiu	$sp,$sp,-80

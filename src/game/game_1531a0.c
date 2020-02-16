@@ -17,6 +17,7 @@
 #include "library/library_4a360.h"
 #include "library/library_4b480.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f1531a0
 /*  f1531a0:	03e00008 */ 	jr	$ra

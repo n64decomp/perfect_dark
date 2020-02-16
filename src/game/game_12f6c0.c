@@ -16,6 +16,7 @@
 #include "library/library_4a360.h"
 #include "library/library_4b480.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f12f6c0
 /*  f12f6c0:	3c03800a */ 	lui	$v1,%hi(var800a3fc0)

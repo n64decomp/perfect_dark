@@ -13,6 +13,7 @@
 #include "library/library_16110.h"
 #include "library/library_4a360.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f0b3350
 /*  f0b3350:	28810002 */ 	slti	$at,$a0,0x2

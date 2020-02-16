@@ -53,6 +53,7 @@
 #include "library/library_233c0.h"
 #include "library/library_4a360.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f02cde0
 /*  f02cde0:	248effa4 */ 	addiu	$t6,$a0,-92

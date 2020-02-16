@@ -12,6 +12,7 @@
 #include "library/library_0d520.h"
 #include "library/library_4b480.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f0d5a90
 /*  f0d5a90:	44876000 */ 	mtc1	$a3,$f12

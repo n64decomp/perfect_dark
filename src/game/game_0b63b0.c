@@ -65,6 +65,7 @@
 #include "library/library_4a360.h"
 #include "library/library_4b480.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f0b63b0
 /*  f0b63b0:	44856000 */ 	mtc1	$a1,$f12

@@ -8,6 +8,7 @@
 #include "library/library_09660.h"
 #include "library/library_4b480.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f01afc0
 /*  f01afc0:	27bdffc8 */ 	addiu	$sp,$sp,-56

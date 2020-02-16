@@ -33,6 +33,7 @@
 #include "library/library_317f0.h"
 #include "library/library_4a5e0.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f016100
 /*  f016100:	3c0e800a */ 	lui	$t6,0x800a

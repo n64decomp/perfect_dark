@@ -21,6 +21,7 @@
 #include "library/library_0d520.h"
 #include "library/library_13130.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel menuhandler00177e00
 /*  f177e00:	24010001 */ 	addiu	$at,$zero,0x1

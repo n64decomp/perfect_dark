@@ -6,6 +6,7 @@
 #include "game/data/data_020df0.h"
 #include "gvars/gvars.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel stageFindById
 /*  f1655c0:	3c068008 */ 	lui	$a2,0x8008

@@ -6,6 +6,7 @@
 #include "game/data/data_020df0.h"
 #include "gvars/gvars.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f01d990
 /*  f01d990:	3c014580 */ 	lui	$at,0x4580

@@ -7,6 +7,7 @@
 #include "game/game_096890.h"
 #include "gvars/gvars.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f0969d0
 /*  f0969d0:	3c013f80 */ 	lui	$at,0x3f80

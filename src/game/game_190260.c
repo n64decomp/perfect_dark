@@ -31,6 +31,7 @@
 #include "library/library_1a500.h"
 #include "library/library_233c0.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f190260
 /*  f190260:	8c8f02d4 */ 	lw	$t7,0x2d4($a0)

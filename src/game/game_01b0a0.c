@@ -14,6 +14,7 @@
 #include "library/library_13130.h"
 #include "library/library_13900.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f01b0a0
 /*  f01b0a0:	44800000 */ 	mtc1	$zero,$f0

@@ -8,6 +8,7 @@
 #include "gvars/gvars.h"
 #include "library/library_121e0.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f012d50
 /*  f012d50:	27bdfee0 */ 	addiu	$sp,$sp,-288

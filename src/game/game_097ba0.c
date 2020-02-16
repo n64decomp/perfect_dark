@@ -56,6 +56,7 @@
 #include "library/library_48830.h"
 #include "library/library_4a360.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f097ba0
 /*  f097ba0:	27bdffc0 */ 	addiu	$sp,$sp,-64

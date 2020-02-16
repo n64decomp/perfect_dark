@@ -12,6 +12,7 @@
 #include "library/library_121e0.h"
 #include "library/library_233c0.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f013ee0
 /*  f013ee0:	3c08800a */ 	lui	$t0,%hi(g_Vars)

@@ -8,6 +8,7 @@
 #include "game/game_19aa80.h"
 #include "gvars/gvars.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f00b210
 /*  f00b210:	27bdfdf8 */ 	addiu	$sp,$sp,-520

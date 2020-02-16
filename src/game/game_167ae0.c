@@ -100,6 +100,7 @@
 #include "library/library_4a360.h"
 #include "library/library_4e530.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f167ae0
 /*  f167ae0:	3c028008 */ 	lui	$v0,0x8008

@@ -9,6 +9,7 @@
 #include "gvars/gvars.h"
 #include "library/library_121e0.h"
 #include "types.h"
+
 GLOBAL_ASM(
 glabel func0f010b20
 /*  f010b20:	3c04800a */ 	lui	$a0,%hi(var8009d0d0)
