@@ -169,7 +169,7 @@ u32 func0f047934(void);
 u32 func0f047c80(void);
 u32 func0f0482cc(void);
 u32 func0f048398(void);
-f32 func0f048a84(struct chrdata *chr, struct coord *pos);
+f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos);
 u32 func0f048b78(void);
 u32 func0f048cc0(void);
 u32 func0f048dcc(void);

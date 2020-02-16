@@ -480,29 +480,6 @@ const u32 var7f1a9318[] = {0x7f048220};
 const u32 var7f1a931c[] = {0x7f048250};
 const u32 var7f1a9320[] = {0x7f048260};
 const u32 var7f1a9324[] = {0x7f048270};
-const u32 var7f1a9328[] = {0x3c8ef461};
-const u32 var7f1a932c[] = {0x40c907a9};
-const u32 var7f1a9330[] = {0x40c907a9};
-const u32 var7f1a9334[] = {0x40c907a9};
-const u32 var7f1a9338[] = {0x40c907a9};
-const u32 var7f1a933c[] = {0x3cc907a9};
-const u32 var7f1a9340[] = {0x40490fdb};
-const u32 var7f1a9344[] = {0x40c907a9};
-const u32 var7f1a9348[] = {0x40490fdb};
-const u32 var7f1a934c[] = {0x3cc907a9};
-const u32 var7f1a9350[] = {0x40490fdb};
-const u32 var7f1a9354[] = {0x40c907a9};
-const u32 var7f1a9358[] = {0x40490fdb};
-const u32 var7f1a935c[] = {0x40490fdb};
-const u32 var7f1a9360[] = {0x40c907a9};
-const u32 var7f1a9364[] = {0x3cc907a9};
-const u32 var7f1a9368[] = {0x40490fdb};
-const u32 var7f1a936c[] = {0x40c907a9};
-const u32 var7f1a9370[] = {0x40490fdb};
-const u32 var7f1a9374[] = {0x3cc907a9};
-const u32 var7f1a9378[] = {0x40490fdb};
-const u32 var7f1a937c[] = {0x40c907a9};
-const u32 var7f1a9380[] = {0x40490fdb};
 
 GLOBAL_ASM(
 glabel func0f02dff0
@@ -766,7 +743,7 @@ glabel func0f02e2d0
 /*  f02e34c:	0fc122de */ 	jal	func0f048b78
 /*  f02e350:	afa40048 */ 	sw	$a0,0x48($sp)
 /*  f02e354:	8fa40048 */ 	lw	$a0,0x48($sp)
-/*  f02e358:	0fc122a1 */ 	jal	func0f048a84
+/*  f02e358:	0fc122a1 */ 	jal	chrGetAngleToPos
 /*  f02e35c:	27a50038 */ 	addiu	$a1,$sp,0x38
 .L0f02e360:
 /*  f02e360:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -1936,7 +1913,7 @@ glabel func0f02f530
 /*  f02f53c:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f02f540:	00808025 */ 	or	$s0,$a0,$zero
 /*  f02f544:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02f548:	0fc122a1 */ 	jal	func0f048a84
+/*  f02f548:	0fc122a1 */ 	jal	chrGetAngleToPos
 /*  f02f54c:	24450008 */ 	addiu	$a1,$v0,0x8
 /*  f02f550:	3c017f1b */ 	lui	$at,%hi(var7f1a8d08)
 /*  f02f554:	c4248d08 */ 	lwc1	$f4,%lo(var7f1a8d08)($at)
@@ -8463,7 +8440,7 @@ glabel func0f034524
 /*  f03540c:	c4500008 */ 	lwc1	$f16,0x8($v0)
 /*  f035410:	c72a0010 */ 	lwc1	$f10,0x10($t9)
 /*  f035414:	46105101 */ 	sub.s	$f4,$f10,$f16
-/*  f035418:	0fc122a1 */ 	jal	func0f048a84
+/*  f035418:	0fc122a1 */ 	jal	chrGetAngleToPos
 /*  f03541c:	e7a400b4 */ 	swc1	$f4,0xb4($sp)
 /*  f035420:	44050000 */ 	mfc1	$a1,$f0
 /*  f035424:	0fc084e8 */ 	jal	func0f0213a0
@@ -8485,7 +8462,7 @@ glabel func0f034524
 /*  f035460:	c5120010 */ 	lwc1	$f18,0x10($t0)
 /*  f035464:	c4460008 */ 	lwc1	$f6,0x8($v0)
 /*  f035468:	46069201 */ 	sub.s	$f8,$f18,$f6
-/*  f03546c:	0fc122a1 */ 	jal	func0f048a84
+/*  f03546c:	0fc122a1 */ 	jal	chrGetAngleToPos
 /*  f035470:	e7a800a4 */ 	swc1	$f8,0xa4($sp)
 /*  f035474:	8fa4014c */ 	lw	$a0,0x14c($sp)
 /*  f035478:	e7a00098 */ 	swc1	$f0,0x98($sp)
@@ -18564,7 +18541,7 @@ glabel func0f03e788
 /*  f03e808:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f03e80c:	e7ac0028 */ 	swc1	$f12,0x28($sp)
 /*  f03e810:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e814:	0fc122a1 */ 	jal	func0f048a84
+/*  f03e814:	0fc122a1 */ 	jal	chrGetAngleToPos
 /*  f03e818:	24450008 */ 	addiu	$a1,$v0,0x8
 /*  f03e81c:	1000002b */ 	beqz	$zero,.L0f03e8cc
 /*  f03e820:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
@@ -18612,7 +18589,7 @@ glabel func0f03e788
 /*  f03e8b4:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f03e8b8:	e7ac0028 */ 	swc1	$f12,0x28($sp)
 /*  f03e8bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e8c0:	0fc122a1 */ 	jal	func0f048a84
+/*  f03e8c0:	0fc122a1 */ 	jal	chrGetAngleToPos
 /*  f03e8c4:	24450008 */ 	addiu	$a1,$v0,0x8
 /*  f03e8c8:	c7ac0028 */ 	lwc1	$f12,0x28($sp)
 .L0f03e8cc:
@@ -21239,7 +21216,7 @@ glabel func0f0404d4
 .L0f040f78:
 /*  f040f78:	10600017 */ 	beqz	$v1,.L0f040fd8
 /*  f040f7c:	8fa40278 */ 	lw	$a0,0x278($sp)
-/*  f040f80:	0fc122a1 */ 	jal	func0f048a84
+/*  f040f80:	0fc122a1 */ 	jal	chrGetAngleToPos
 /*  f040f84:	27a500b8 */ 	addiu	$a1,$sp,0xb8
 /*  f040f88:	e7a000b4 */ 	swc1	$f0,0xb4($sp)
 /*  f040f8c:	0c0068f4 */ 	jal	func0001a3d0
@@ -28450,7 +28427,7 @@ glabel func0f047700
 /*  f0478ac:	afa3003c */ 	sw	$v1,0x3c($sp)
 /*  f0478b0:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f0478b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0478b8:	0fc122a1 */ 	jal	func0f048a84
+/*  f0478b8:	0fc122a1 */ 	jal	chrGetAngleToPos
 /*  f0478bc:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*  f0478c0:	c7a60038 */ 	lwc1	$f6,0x38($sp)
 /*  f0478c4:	8fa3003c */ 	lw	$v1,0x3c($sp)
@@ -29687,67 +29664,35 @@ bool chrHeardTargetRecently(struct chrdata *chr)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f048a84
-/*  f048a84:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f048a88:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f048a8c:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f048a90:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f048a94:	8c86001c */ 	lw	$a2,0x1c($a0)
-/*  f048a98:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f048a9c:	90cf0000 */ 	lbu	$t7,0x0($a2)
-/*  f048aa0:	15e10010 */ 	bne	$t7,$at,.L0f048ae4
-/*  f048aa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f048aa8:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f048aac:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f048ab0:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f048ab4:	3c19800a */ 	lui	$t9,0x800a
-/*  f048ab8:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f048abc:	8f39a024 */ 	lw	$t9,-0x5fdc($t9)
-/*  f048ac0:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f048ac4:	44812000 */ 	mtc1	$at,$f4
-/*  f048ac8:	c7260144 */ 	lwc1	$f6,0x144($t9)
-/*  f048acc:	3c017f1b */ 	lui	$at,%hi(var7f1a9328)
-/*  f048ad0:	c42a9328 */ 	lwc1	$f10,%lo(var7f1a9328)($at)
-/*  f048ad4:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f048ad8:	460a4082 */ 	mul.s	$f2,$f8,$f10
-/*  f048adc:	10000005 */ 	beqz	$zero,.L0f048af4
-/*  f048ae0:	8fa80020 */ 	lw	$t0,0x20($sp)
-.L0f048ae4:
-/*  f048ae4:	0fc0f917 */ 	jal	func0f03e45c
-/*  f048ae8:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f048aec:	46000086 */ 	mov.s	$f2,$f0
-/*  f048af0:	8fa80020 */ 	lw	$t0,0x20($sp)
-.L0f048af4:
-/*  f048af4:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*  f048af8:	8d02001c */ 	lw	$v0,0x1c($t0)
-/*  f048afc:	c5300000 */ 	lwc1	$f16,0x0($t1)
-/*  f048b00:	c5240008 */ 	lwc1	$f4,0x8($t1)
-/*  f048b04:	c4520008 */ 	lwc1	$f18,0x8($v0)
-/*  f048b08:	c4460010 */ 	lwc1	$f6,0x10($v0)
-/*  f048b0c:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f048b10:	46128301 */ 	sub.s	$f12,$f16,$f18
-/*  f048b14:	0fc259d4 */ 	jal	func0f096750
-/*  f048b18:	46062381 */ 	sub.s	$f14,$f4,$f6
-/*  f048b1c:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f048b20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f048b24:	3c017f1b */ 	lui	$at,%hi(var7f1a932c)
-/*  f048b28:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f048b2c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f048b30:	46020381 */ 	sub.s	$f14,$f0,$f2
-/*  f048b34:	45000003 */ 	bc1f	.L0f048b44
-/*  f048b38:	46007306 */ 	mov.s	$f12,$f14
-/*  f048b3c:	c428932c */ 	lwc1	$f8,%lo(var7f1a932c)($at)
-/*  f048b40:	46087300 */ 	add.s	$f12,$f14,$f8
-.L0f048b44:
-/*  f048b44:	03e00008 */ 	jr	$ra
-/*  f048b48:	46006006 */ 	mov.s	$f0,$f12
-);
+f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos)
+{
+	f32 fVar3;
+	f32 fVar2;
+	f32 fVar4;
+	struct prop *prop;
+
+	if (chr->prop->type == PROPTYPE_PLAYER) {
+		u32 playernum = propGetPlayerNum(chr->prop);
+		fVar3 = (360 - g_Vars.players[playernum]->unk0144) * (M_PI * 2 / 360);
+	} else {
+		fVar3 = func0f03e45c(chr);
+	}
+
+	prop = chr->prop;
+	fVar2 = func0f096750(pos->x - prop->pos.x, pos->z - prop->pos.z);
+	fVar4 = fVar2 - fVar3;
+
+	if (fVar2 < fVar3) {
+		fVar4 += M_PI * 2;
+	}
+
+	return fVar4;
+}
 
 f32 chrGetAngleToTarget(struct chrdata *chr)
 {
 	struct prop *prop = chrGetTargetProp(chr);
-	return func0f048a84(chr, &prop->pos);
+	return chrGetAngleToPos(chr, &prop->pos);
 }
 
 GLOBAL_ASM(
@@ -29847,6 +29792,12 @@ glabel func0f048b78
 
 GLOBAL_ASM(
 glabel func0f048cc0
+.late_rodata
+glabel var7f1a9330
+.word 0x40c907a9
+glabel var7f1a9334
+.word 0x40c907a9
+.text
 /*  f048cc0:	44809000 */ 	mtc1	$zero,$f18
 /*  f048cc4:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f048cc8:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -29923,6 +29874,10 @@ glabel func0f048cc0
 
 GLOBAL_ASM(
 glabel func0f048dcc
+.late_rodata
+glabel var7f1a9338
+.word 0x40c907a9
+.text
 /*  f048dcc:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f048dd0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f048dd4:	8c83001c */ 	lw	$v1,0x1c($a0)
@@ -29970,6 +29925,16 @@ glabel func0f048dcc
 
 GLOBAL_ASM(
 glabel func0f048e74
+.late_rodata
+glabel var7f1a933c
+.word 0x3cc907a9
+glabel var7f1a9340
+.word 0x40490fdb
+glabel var7f1a9344
+.word 0x40c907a9
+glabel var7f1a9348
+.word 0x40490fdb
+.text
 /*  f048e74:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f048e78:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f048e7c:	0fc12330 */ 	jal	func0f048cc0
@@ -30021,6 +29986,16 @@ glabel func0f048e74
 
 GLOBAL_ASM(
 glabel func0f048f20
+.late_rodata
+glabel var7f1a934c
+.word 0x3cc907a9
+glabel var7f1a9350
+.word 0x40490fdb
+glabel var7f1a9354
+.word 0x40c907a9
+glabel var7f1a9358
+.word 0x40490fdb
+.text
 /*  f048f20:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f048f24:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f048f28:	0fc12373 */ 	jal	func0f048dcc
@@ -30072,6 +30047,12 @@ glabel func0f048f20
 
 GLOBAL_ASM(
 glabel func0f048fcc
+.late_rodata
+glabel var7f1a935c
+.word 0x40490fdb
+glabel var7f1a9360
+.word 0x40c907a9
+.text
 /*  f048fcc:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f048fd0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f048fd4:	afa50034 */ 	sw	$a1,0x34($sp)
@@ -30116,6 +30097,16 @@ glabel func0f048fcc
 
 GLOBAL_ASM(
 glabel func0f049068
+.late_rodata
+glabel var7f1a9364
+.word 0x3cc907a9
+glabel var7f1a9368
+.word 0x40490fdb
+glabel var7f1a936c
+.word 0x40c907a9
+glabel var7f1a9370
+.word 0x40490fdb
+.text
 /*  f049068:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f04906c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f049070:	afa5001c */ 	sw	$a1,0x1c($sp)
@@ -30169,9 +30160,19 @@ glabel func0f049068
 
 GLOBAL_ASM(
 glabel func0f04911c
+.late_rodata
+glabel var7f1a9374
+.word 0x3cc907a9
+glabel var7f1a9378
+.word 0x40490fdb
+glabel var7f1a937c
+.word 0x40c907a9
+glabel var7f1a9380
+.word 0x40490fdb
+.text
 /*  f04911c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f049120:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f049124:	0fc122a1 */ 	jal	func0f048a84
+/*  f049124:	0fc122a1 */ 	jal	chrGetAngleToPos
 /*  f049128:	afa60020 */ 	sw	$a2,0x20($sp)
 /*  f04912c:	93ae0023 */ 	lbu	$t6,0x23($sp)
 /*  f049130:	3c014f80 */ 	lui	$at,0x4f80
@@ -33842,7 +33843,7 @@ glabel var7f1a9448
 /*  f04d058:	0fc0a221 */ 	jal	chrGetTargetProp
 /*  f04d05c:	adc10018 */ 	sw	$at,0x18($t6)
 /*  f04d060:	02002025 */ 	or	$a0,$s0,$zero
-/*  f04d064:	0fc122a1 */ 	jal	func0f048a84
+/*  f04d064:	0fc122a1 */ 	jal	chrGetAngleToPos
 /*  f04d068:	24450008 */ 	addiu	$a1,$v0,0x8
 /*  f04d06c:	3c017f1b */ 	lui	$at,%hi(var7f1a9430)
 /*  f04d070:	c4249430 */ 	lwc1	$f4,%lo(var7f1a9430)($at)
