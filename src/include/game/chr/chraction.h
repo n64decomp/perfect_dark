@@ -6,7 +6,7 @@
 u32 func0f02dff0(void);
 u32 func0f02e064(struct chrdata *chr);
 bool func0f02e124(struct prop *prop);
-u32 func0f02e15c(void);
+f32 func0f02e15c(struct chrdata *chr, f32 arg1, f32 arg2);
 u32 func0f02e1cc(void);
 u32 func0f02e260(void);
 u32 func0f02e2d0(void);
@@ -16,7 +16,7 @@ u32 func0f02e4f8(void);
 u32 func0f02e550(void);
 u32 func0f02e684(void);
 void func0f02e6dc(struct chrdata *chr, f32 arg1);
-void func0f02eabc(struct chrdata *chr);
+void chrStand(struct chrdata *chr);
 u32 func0f02ec94(struct chrdata *chr);
 void func0f02ed88(struct chrdata *chr);
 void func0f02ef40(struct chrdata *chr);

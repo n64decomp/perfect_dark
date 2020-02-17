@@ -6828,7 +6828,7 @@ glabel func0f194b40
 /*  f196560:	10000018 */ 	beqz	$zero,.L0f1965c4
 /*  f196564:	928202a0 */ 	lbu	$v0,0x2a0($s4)
 .L0f196568:
-/*  f196568:	0fc0baaf */ 	jal	func0f02eabc
+/*  f196568:	0fc0baaf */ 	jal	chrStand
 /*  f19656c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f196570:	10000014 */ 	beqz	$zero,.L0f1965c4
 /*  f196574:	928202a0 */ 	lbu	$v0,0x2a0($s4)
@@ -6850,7 +6850,7 @@ glabel func0f194b40
 .L0f1965b0:
 /*  f1965b0:	16a10003 */ 	bne	$s5,$at,.L0f1965c0
 /*  f1965b4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1965b8:	0fc0baaf */ 	jal	func0f02eabc
+/*  f1965b8:	0fc0baaf */ 	jal	chrStand
 /*  f1965bc:	a29502a0 */ 	sb	$s5,0x2a0($s4)
 .L0f1965c0:
 /*  f1965c0:	928202a0 */ 	lbu	$v0,0x2a0($s4)

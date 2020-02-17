@@ -88,8 +88,10 @@
 
 #define ANIM_IDLE                   0x0000
 #define ANIM_TWO_GUN_HOLD           0x0001
+#define ANIM_KNEEL_TWO_HANDED_GUN   0x0008
 #define ANIM_SURRENDER_002E         0x002e
 #define ANIM_TALKING_003D           0x003d
+#define ANIM_KNEEL_SHOOT_RIGHT_HAND 0x004b
 #define ANIM_TALKING_0098           0x0098
 #define ANIM_YAWN                   0x009a
 #define ANIM_SCRATCH_HEAD           0x009b

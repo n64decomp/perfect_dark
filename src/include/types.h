@@ -85,7 +85,7 @@ struct anim {
 	/*0x00*/ u16 animnum;
 	/*0x02*/ u16 animnum2;
 	/*0x04*/ u32 unk04;
-	/*0x08*/ u8 flip;
+	/*0x08*/ s8 flip;
 	/*0x09*/ u8 flip2;
 	/*0x0a*/ u8 looping;
 	/*0x0b*/ u8 average;
@@ -330,15 +330,15 @@ struct chr2d4 {
 };
 
 struct act_stand {
-	/*0x2c*/ u32 unk02c;
-	/*0x30*/ u32 unk030;
-	/*0x34*/ u32 unk034;
+	/*0x2c*/ s32 unk02c;
+	/*0x30*/ u32 face_entitytype;
+	/*0x34*/ u32 face_entityid;
 	/*0x38*/ u32 unk038;
-	/*0x3c*/ u32 unk03c;
+	/*0x3c*/ s32 unk03c;
 	/*0x40*/ u32 unk040;
 	/*0x44*/ u32 unk044;
 	/*0x48*/ f32 unk048;
-	/*0x4c*/ s8 unk04c;
+	/*0x4c*/ s8 face_target;
 };
 
 struct act_anim {
