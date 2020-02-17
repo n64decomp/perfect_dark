@@ -753,40 +753,22 @@ glabel func0f02e2d0
 /*  f02e36c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f02e370
-/*  f02e370:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f02e374:	30ae0200 */ 	andi	$t6,$a1,0x200
-/*  f02e378:	11c00005 */ 	beqz	$t6,.L0f02e390
-/*  f02e37c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f02e380:	0fc12472 */ 	jal	chrGetDistanceToTarget
-/*  f02e384:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02e388:	10000011 */ 	beqz	$zero,.L0f02e3d0
-/*  f02e38c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f02e390:
-/*  f02e390:	30af0004 */ 	andi	$t7,$a1,0x4
-/*  f02e394:	11e00005 */ 	beqz	$t7,.L0f02e3ac
-/*  f02e398:	30b80008 */ 	andi	$t8,$a1,0x8
-/*  f02e39c:	0fc1272c */ 	jal	chrGetDistanceToChr
-/*  f02e3a0:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f02e3a4:	1000000a */ 	beqz	$zero,.L0f02e3d0
-/*  f02e3a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f02e3ac:
-/*  f02e3ac:	53000006 */ 	beqzl	$t8,.L0f02e3c8
-/*  f02e3b0:	44800000 */ 	mtc1	$zero,$f0
-/*  f02e3b4:	0fc124bb */ 	jal	chrGetDistanceToPad
-/*  f02e3b8:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f02e3bc:	10000004 */ 	beqz	$zero,.L0f02e3d0
-/*  f02e3c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f02e3c4:	44800000 */ 	mtc1	$zero,$f0
-.L0f02e3c8:
-/*  f02e3c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02e3cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f02e3d0:
-/*  f02e3d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f02e3d4:	03e00008 */ 	jr	$ra
-/*  f02e3d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 chrGetDistanceToEntity(struct chrdata *chr, u32 entitytype, s32 entityid)
+{
+	if (entitytype & ENTITYTYPE_TARGET) {
+		return chrGetDistanceToTarget(chr);
+	}
+
+	if (entitytype & ENTITYTYPE_CHR) {
+		return chrGetDistanceToChr(chr, entityid);
+	}
+
+	if (entitytype & ENTITYTYPE_PAD) {
+		return chrGetDistanceToPad(chr, entityid);
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f02e3dc

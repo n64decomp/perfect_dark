@@ -33848,7 +33848,7 @@ glabel func0f08307c
 /*  f083588:	8c85002c */ 	lw	$a1,0x2c($a0)
 .L0f08358c:
 /*  f08358c:	8c860030 */ 	lw	$a2,0x30($a0)
-/*  f083590:	0fc0b8dc */ 	jal	func0f02e370
+/*  f083590:	0fc0b8dc */ 	jal	chrGetDistanceToEntity
 /*  f083594:	afa40088 */ 	sw	$a0,0x88($sp)
 /*  f083598:	8fa40088 */ 	lw	$a0,0x88($sp)
 /*  f08359c:	46000086 */ 	mov.s	$f2,$f0

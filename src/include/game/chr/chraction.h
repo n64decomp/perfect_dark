@@ -10,7 +10,7 @@ u32 func0f02e15c(void);
 u32 func0f02e1cc(void);
 u32 func0f02e260(void);
 u32 func0f02e2d0(void);
-u32 func0f02e370(void);
+f32 chrGetDistanceToEntity(struct chrdata *chr, u32 entitytype, s32 entityid);
 u32 func0f02e3dc(void);
 u32 func0f02e4f8(void);
 u32 func0f02e550(void);
