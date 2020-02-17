@@ -5103,4 +5103,10 @@ struct chrnumaction {
 	u8 myaction;
 };
 
+struct propdefinition {
+	void *filedata;
+	u16 fileid;
+	u16 scale;
+};
+
 #endif

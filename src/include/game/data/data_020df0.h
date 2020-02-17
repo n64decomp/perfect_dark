@@ -40,7 +40,7 @@ extern struct stagethinglist stagethinglist_20ec8;
 extern struct stagethinglist stagethinglist_20ef8;
 extern struct stagethinglist stagethinglist_20f5c;
 extern struct stagethinglist stagethinglist_20fe8;
-extern u16 proptable[];
+extern struct propdefinition g_Props[];
 extern u8 propexplosiontypes[];
 extern struct stagethinglist stagethinglist_2208c;
 extern struct stagethinglist stagethinglist_220a4;

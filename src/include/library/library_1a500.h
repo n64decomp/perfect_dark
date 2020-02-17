@@ -94,7 +94,7 @@ u32 func000225d4(void);
 u32 func000227a4(void);
 void func00022a24(void *arg0, u32 arg1, void *arg2);
 u32 func00022b68(void);
-u32 func00022d24(void);
+void func00022d24(void *data);
 u32 func00022d50(void);
 u32 func00022fa4(void);
 u32 func000230a0(void);

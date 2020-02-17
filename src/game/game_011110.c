@@ -384,13 +384,13 @@ u32 func0f011560(s32 weaponnum)
 				struct weaponfunc_shootprojectile *func = (struct weaponfunc_shootprojectile *)genericfunc;
 
 				if (func->projectilemodelnum >= 0) {
-					flags |= func0f0921b4(func->projectilemodelnum);
+					flags |= propLoad(func->projectilemodelnum);
 				}
 			} else if (genericfunc->type == INVENTORYFUNCTYPE_THROW) {
 				struct weaponfunc_throw *func = (struct weaponfunc_throw *)genericfunc;
 
 				if (func->projectilemodelnum >= 0) {
-					flags |= func0f0921b4(func->projectilemodelnum);
+					flags |= propLoad(func->projectilemodelnum);
 				}
 			}
 		}
