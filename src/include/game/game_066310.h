@@ -339,7 +339,7 @@ u32 func0f0910ac(void);
 u32 func0f091250(void);
 u32 func0f0912dc(void);
 u32 objSetPartVisible(struct defaultobj *obj, u32 arg1, u32 arg2);
-s32 setupGetCommandLength(u32 *ptr);
+u32 setupGetCommandLength(u32 *cmd);
 u32 *setupGetPtrToCommandByIndex(u32 cmdindex);
 u32 func0f092098(struct tag *tag);
 u32 func0f092124(void);

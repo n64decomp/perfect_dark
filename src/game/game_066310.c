@@ -1124,65 +1124,6 @@ const u32 var7f1ab210[] = {0x3e8e38e3};
 const u32 var7f1ab214[] = {0x3e23d70a};
 const u32 var7f1ab218[] = {0x00000000};
 const u32 var7f1ab21c[] = {0x00000000};
-const u32 var7f1ab220[] = {0x7f091e40};
-const u32 var7f1ab224[] = {0x7f091e48};
-const u32 var7f1ab228[] = {0x7f091e50};
-const u32 var7f1ab22c[] = {0x7f091e80};
-const u32 var7f1ab230[] = {0x7f091e88};
-const u32 var7f1ab234[] = {0x7f091e90};
-const u32 var7f1ab238[] = {0x7f091e98};
-const u32 var7f1ab23c[] = {0x7f091ea0};
-const u32 var7f1ab240[] = {0x7f091e38};
-const u32 var7f1ab244[] = {0x7f091ea8};
-const u32 var7f1ab248[] = {0x7f091eb0};
-const u32 var7f1ab24c[] = {0x7f091eb8};
-const u32 var7f1ab250[] = {0x7f091ec0};
-const u32 var7f1ab254[] = {0x7f091ec8};
-const u32 var7f1ab258[] = {0x7f091e58};
-const u32 var7f1ab25c[] = {0x7f091ff8};
-const u32 var7f1ab260[] = {0x7f091ed0};
-const u32 var7f1ab264[] = {0x7f091ed8};
-const u32 var7f1ab268[] = {0x7f091ee0};
-const u32 var7f1ab26c[] = {0x7f091ef0};
-const u32 var7f1ab270[] = {0x7f091ef8};
-const u32 var7f1ab274[] = {0x7f091f00};
-const u32 var7f1ab278[] = {0x7f091f10};
-const u32 var7f1ab27c[] = {0x7f091f18};
-const u32 var7f1ab280[] = {0x7f091f20};
-const u32 var7f1ab284[] = {0x7f091f28};
-const u32 var7f1ab288[] = {0x7f091f30};
-const u32 var7f1ab28c[] = {0x7f091f38};
-const u32 var7f1ab290[] = {0x7f091f40};
-const u32 var7f1ab294[] = {0x7f091f48};
-const u32 var7f1ab298[] = {0x7f091f50};
-const u32 var7f1ab29c[] = {0x7f091f58};
-const u32 var7f1ab2a0[] = {0x7f091f60};
-const u32 var7f1ab2a4[] = {0x7f091f68};
-const u32 var7f1ab2a8[] = {0x7f091f70};
-const u32 var7f1ab2ac[] = {0x7f091e78};
-const u32 var7f1ab2b0[] = {0x7f091f08};
-const u32 var7f1ab2b4[] = {0x7f091f78};
-const u32 var7f1ab2b8[] = {0x7f091f80};
-const u32 var7f1ab2bc[] = {0x7f091f88};
-const u32 var7f1ab2c0[] = {0x7f091ff8};
-const u32 var7f1ab2c4[] = {0x7f091e60};
-const u32 var7f1ab2c8[] = {0x7f091e70};
-const u32 var7f1ab2cc[] = {0x7f091ee8};
-const u32 var7f1ab2d0[] = {0x7f091f90};
-const u32 var7f1ab2d4[] = {0x7f091f98};
-const u32 var7f1ab2d8[] = {0x7f091e68};
-const u32 var7f1ab2dc[] = {0x7f091fa0};
-const u32 var7f1ab2e0[] = {0x7f091fa8};
-const u32 var7f1ab2e4[] = {0x7f091fb0};
-const u32 var7f1ab2e8[] = {0x7f091fb8};
-const u32 var7f1ab2ec[] = {0x7f091ff8};
-const u32 var7f1ab2f0[] = {0x7f091fc0};
-const u32 var7f1ab2f4[] = {0x7f091fc8};
-const u32 var7f1ab2f8[] = {0x7f091fd0};
-const u32 var7f1ab2fc[] = {0x7f091fe0};
-const u32 var7f1ab300[] = {0x7f091fd8};
-const u32 var7f1ab304[] = {0x7f091fe8};
-const u32 var7f1ab308[] = {0x7f091ff0};
 
 GLOBAL_ASM(
 glabel func0f066310
@@ -49924,135 +49865,69 @@ glabel objSetPartVisible
 /*  f091e0c:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-GLOBAL_ASM(
-glabel setupGetCommandLength
-/*  f091e10:	908e0003 */ 	lbu	$t6,0x3($a0)
-/*  f091e14:	25cfffff */ 	addiu	$t7,$t6,-1
-/*  f091e18:	2de1003b */ 	sltiu	$at,$t7,0x3b
-/*  f091e1c:	10200076 */ 	beqz	$at,.L0f091ff8
-/*  f091e20:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f091e24:	3c017f1b */ 	lui	$at,%hi(var7f1ab220)
-/*  f091e28:	002f0821 */ 	addu	$at,$at,$t7
-/*  f091e2c:	8c2fb220 */ 	lw	$t7,%lo(var7f1ab220)($at)
-/*  f091e30:	01e00008 */ 	jr	$t7
-/*  f091e34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f091e38:	03e00008 */ 	jr	$ra
-/*  f091e3c:	2402000b */ 	addiu	$v0,$zero,0xb
-/*  f091e40:	03e00008 */ 	jr	$ra
-/*  f091e44:	24020037 */ 	addiu	$v0,$zero,0x37
-/*  f091e48:	03e00008 */ 	jr	$ra
-/*  f091e4c:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f091e50:	03e00008 */ 	jr	$ra
-/*  f091e54:	24020017 */ 	addiu	$v0,$zero,0x17
-/*  f091e58:	03e00008 */ 	jr	$ra
-/*  f091e5c:	24020017 */ 	addiu	$v0,$zero,0x17
-/*  f091e60:	03e00008 */ 	jr	$ra
-/*  f091e64:	24020018 */ 	addiu	$v0,$zero,0x18
-/*  f091e68:	03e00008 */ 	jr	$ra
-/*  f091e6c:	2402001a */ 	addiu	$v0,$zero,0x1a
-/*  f091e70:	03e00008 */ 	jr	$ra
-/*  f091e74:	24020017 */ 	addiu	$v0,$zero,0x17
-/*  f091e78:	03e00008 */ 	jr	$ra
-/*  f091e7c:	24020017 */ 	addiu	$v0,$zero,0x17
-/*  f091e80:	03e00008 */ 	jr	$ra
-/*  f091e84:	24020018 */ 	addiu	$v0,$zero,0x18
-/*  f091e88:	03e00008 */ 	jr	$ra
-/*  f091e8c:	24020017 */ 	addiu	$v0,$zero,0x17
-/*  f091e90:	03e00008 */ 	jr	$ra
-/*  f091e94:	24020031 */ 	addiu	$v0,$zero,0x31
-/*  f091e98:	03e00008 */ 	jr	$ra
-/*  f091e9c:	24020018 */ 	addiu	$v0,$zero,0x18
-/*  f091ea0:	03e00008 */ 	jr	$ra
-/*  f091ea4:	2402001a */ 	addiu	$v0,$zero,0x1a
-/*  f091ea8:	03e00008 */ 	jr	$ra
-/*  f091eac:	24020035 */ 	addiu	$v0,$zero,0x35
-/*  f091eb0:	03e00008 */ 	jr	$ra
-/*  f091eb4:	2402008c */ 	addiu	$v0,$zero,0x8c
-/*  f091eb8:	03e00008 */ 	jr	$ra
-/*  f091ebc:	24020017 */ 	addiu	$v0,$zero,0x17
-/*  f091ec0:	03e00008 */ 	jr	$ra
-/*  f091ec4:	2402002b */ 	addiu	$v0,$zero,0x2b
-/*  f091ec8:	03e00008 */ 	jr	$ra
-/*  f091ecc:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f091ed0:	03e00008 */ 	jr	$ra
-/*  f091ed4:	24020017 */ 	addiu	$v0,$zero,0x17
-/*  f091ed8:	03e00008 */ 	jr	$ra
-/*  f091edc:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f091ee0:	03e00008 */ 	jr	$ra
-/*  f091ee4:	24020005 */ 	addiu	$v0,$zero,0x5
-/*  f091ee8:	03e00008 */ 	jr	$ra
-/*  f091eec:	24020005 */ 	addiu	$v0,$zero,0x5
-/*  f091ef0:	03e00008 */ 	jr	$ra
-/*  f091ef4:	2402002a */ 	addiu	$v0,$zero,0x2a
-/*  f091ef8:	03e00008 */ 	jr	$ra
-/*  f091efc:	2402001a */ 	addiu	$v0,$zero,0x1a
-/*  f091f00:	03e00008 */ 	jr	$ra
-/*  f091f04:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f091f08:	03e00008 */ 	jr	$ra
-/*  f091f0c:	2402000a */ 	addiu	$v0,$zero,0xa
-/*  f091f10:	03e00008 */ 	jr	$ra
-/*  f091f14:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f091f18:	03e00008 */ 	jr	$ra
-/*  f091f1c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f091f20:	03e00008 */ 	jr	$ra
-/*  f091f24:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f091f28:	03e00008 */ 	jr	$ra
-/*  f091f2c:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f091f30:	03e00008 */ 	jr	$ra
-/*  f091f34:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f091f38:	03e00008 */ 	jr	$ra
-/*  f091f3c:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f091f40:	03e00008 */ 	jr	$ra
-/*  f091f44:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f091f48:	03e00008 */ 	jr	$ra
-/*  f091f4c:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f091f50:	03e00008 */ 	jr	$ra
-/*  f091f54:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f091f58:	03e00008 */ 	jr	$ra
-/*  f091f5c:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f091f60:	03e00008 */ 	jr	$ra
-/*  f091f64:	24020005 */ 	addiu	$v0,$zero,0x5
-/*  f091f68:	03e00008 */ 	jr	$ra
-/*  f091f6c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f091f70:	03e00008 */ 	jr	$ra
-/*  f091f74:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f091f78:	03e00008 */ 	jr	$ra
-/*  f091f7c:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f091f80:	03e00008 */ 	jr	$ra
-/*  f091f84:	24020022 */ 	addiu	$v0,$zero,0x22
-/*  f091f88:	03e00008 */ 	jr	$ra
-/*  f091f8c:	24020023 */ 	addiu	$v0,$zero,0x23
-/*  f091f90:	03e00008 */ 	jr	$ra
-/*  f091f94:	24020020 */ 	addiu	$v0,$zero,0x20
-/*  f091f98:	03e00008 */ 	jr	$ra
-/*  f091f9c:	24020007 */ 	addiu	$v0,$zero,0x7
-/*  f091fa0:	03e00008 */ 	jr	$ra
-/*  f091fa4:	24020025 */ 	addiu	$v0,$zero,0x25
-/*  f091fa8:	03e00008 */ 	jr	$ra
-/*  f091fac:	24020005 */ 	addiu	$v0,$zero,0x5
-/*  f091fb0:	03e00008 */ 	jr	$ra
-/*  f091fb4:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f091fb8:	03e00008 */ 	jr	$ra
-/*  f091fbc:	24020038 */ 	addiu	$v0,$zero,0x38
-/*  f091fc0:	03e00008 */ 	jr	$ra
-/*  f091fc4:	24020027 */ 	addiu	$v0,$zero,0x27
-/*  f091fc8:	03e00008 */ 	jr	$ra
-/*  f091fcc:	2402001d */ 	addiu	$v0,$zero,0x1d
-/*  f091fd0:	03e00008 */ 	jr	$ra
-/*  f091fd4:	24020026 */ 	addiu	$v0,$zero,0x26
-/*  f091fd8:	03e00008 */ 	jr	$ra
-/*  f091fdc:	2402003a */ 	addiu	$v0,$zero,0x3a
-/*  f091fe0:	03e00008 */ 	jr	$ra
-/*  f091fe4:	24020003 */ 	addiu	$v0,$zero,0x3
-/*  f091fe8:	03e00008 */ 	jr	$ra
-/*  f091fec:	2402001a */ 	addiu	$v0,$zero,0x1a
-/*  f091ff0:	03e00008 */ 	jr	$ra
-/*  f091ff4:	2402001b */ 	addiu	$v0,$zero,0x1b
-.L0f091ff8:
-/*  f091ff8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f091ffc:	03e00008 */ 	jr	$ra
-/*  f092000:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 setupGetCommandLength(u32 *cmd)
+{
+	switch ((u8)cmd[0]) {
+	case OBJTYPE_CHR:              return 11;
+	case OBJTYPE_DOOR:             return 55;
+	case OBJTYPE_DOORSCALE:        return 2;
+	case OBJTYPE_BASIC:            return 23;
+	case OBJTYPE_DEBRIS:           return 23;
+	case OBJTYPE_GLASS:            return 24;
+	case OBJTYPE_TINTEDGLASS:      return 26;
+	case OBJTYPE_2B:               return 23;
+	case OBJTYPE_24:               return 23;
+	case OBJTYPE_KEY:              return 24;
+	case OBJTYPE_05:               return 23;
+	case OBJTYPE_CAMERA:           return 49;
+	case OBJTYPE_07:               return 24;
+	case OBJTYPE_WEAPON:           return 26;
+	case OBJTYPE_SINGLEMONITOR:    return 53;
+	case OBJTYPE_MULTIMONITOR:     return 140;
+	case OBJTYPE_0C:               return 23;
+	case OBJTYPE_AUTOGUN:          return 43;
+	case OBJTYPE_LINKGUNS:         return 2;
+	case OBJTYPE_11:               return 23;
+	case OBJTYPE_12:               return 2;
+	case OBJTYPE_LINKOBJS:         return 5;
+	case OBJTYPE_2C:               return 5;
+	case OBJTYPE_MULTIAMMOCRATE:   return 42;
+	case OBJTYPE_SHIELD:           return 26;
+	case OBJTYPE_TAG:              return 4;
+	case OBJTYPE_RENAMEOBJ:        return 10;
+	case OBJTYPE_BEGINOBJECTIVE:   return 4;
+	case OBJTYPE_ENDOBJECTIVE:     return 1;
+	case OBJECTIVETYPE_DESTROYOBJ: return 2;
+	case OBJECTIVETYPE_COMPFLAGS:  return 2;
+	case OBJECTIVETYPE_FAILFLAGS:  return 2;
+	case OBJECTIVETYPE_COLLECTOBJ: return 2;
+	case OBJECTIVETYPE_THROWOBJ:   return 2;
+	case OBJECTIVETYPE_HOLOGRAPH:  return 4;
+	case OBJECTIVETYPE_1F:         return 1;
+	case OBJECTIVETYPE_ENTERROOM:  return 4;
+	case OBJECTIVETYPE_ATTACHOBJ:  return 5;
+	case OBJTYPE_22:               return 1;
+	case OBJTYPE_BRIEFING:         return 4;
+	case OBJTYPE_26:               return 4;
+	case OBJTYPE_TRUCK:            return 34;
+	case OBJTYPE_HELI:             return 35;
+	case OBJTYPE_2D:               return 32;
+	case OBJTYPE_CAMERA2:          return 7;
+	case OBJTYPE_LIFT:             return 37;
+	case OBJTYPE_LINKSCENERY:      return 5;
+	case OBJTYPE_LINKPATHS:        return 4;
+	case OBJTYPE_HOVERBIKE:        return 56;
+	case OBJTYPE_HOVERPROP:        return 39;
+	case OBJTYPE_VENTFAN:          return 29;
+	case OBJTYPE_HOVERCAR:         return 38;
+	case OBJTYPE_CHOPPER:          return 58;
+	case OBJTYPE_PADEFFECT:        return 3;
+	case OBJTYPE_MINE:             return 26;
+	case OBJTYPE_ESCALATOR:        return 27;
+	}
+
+	return 1;
+}
 
 GLOBAL_ASM(
 glabel setupGetPtrToCommandByIndex
