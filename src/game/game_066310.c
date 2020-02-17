@@ -50156,23 +50156,10 @@ glabel func0f09220c
 /*  f092300:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f092304
-/*  f092304:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f092308:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f09230c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f092310:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f092314:	8c850014 */ 	lw	$a1,0x14($a0)
-/*  f092318:	8fae0028 */ 	lw	$t6,0x28($sp)
-/*  f09231c:	2486001c */ 	addiu	$a2,$a0,0x1c
-/*  f092320:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f092324:	0fc24883 */ 	jal	func0f09220c
-/*  f092328:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f09232c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f092330:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f092334:	03e00008 */ 	jr	$ra
-/*  f092338:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f092304(struct defaultobj *obj, u32 arg1, u32 arg2)
+{
+	return func0f09220c(obj, &obj->prop->pos, obj->realrot, arg1, arg2);
+}
 
 GLOBAL_ASM(
 glabel func0f09233c
