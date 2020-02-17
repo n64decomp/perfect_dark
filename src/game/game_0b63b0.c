@@ -3896,14 +3896,14 @@ void warpBondToPad(s16 pad)
 	g_WarpPadId = pad;
 }
 
-void func0f0b9bac(s32 arg0, s32 arg1, s32 arg2)
+void func0f0b9bac(u32 *cmd, s32 arg1, s32 arg2)
 {
 	setTickMode(TICKMODE_3);
 	var80070744 = 0;
 	releaseObj(5);
 	func0f0c1d20();
 	g_WarpPadId = -1;
-	var8009ddec = arg0;
+	var8009ddec = cmd;
 	var8009de08 = arg1;
 	var8009de0c = arg2;
 }
@@ -3915,7 +3915,7 @@ void func0f0b9c1c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
 	releaseObj(5);
 	func0f0c1d20();
 	g_WarpPadId = -1;
-	var8009ddec = 0;
+	var8009ddec = NULL;
 	var8009ddf0 = arg0;
 	var8009ddf4 = arg1;
 	var8009ddf8 = arg2;

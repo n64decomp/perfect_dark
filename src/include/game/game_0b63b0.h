@@ -93,7 +93,7 @@ void func0f0b9674(void);
 void func0f0b9a20(void);
 void func0f0b9afc(void);
 void warpBondToPad(s16 pad_id);
-void func0f0b9bac(s32 arg0, s32 arg1, s32 arg2);
+void func0f0b9bac(u32 *cmd, s32 arg1, s32 arg2);
 void func0f0b9c1c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5);
 void func0f0ba010(void);
 void currentPlayerSetFadeColour(s32 r, s32 g, s32 b, f32 a);

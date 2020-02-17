@@ -6169,8 +6169,8 @@ bool ai00df(void)
 		s32 a = func0f092098(tag);
 
 		if (a >= 0) {
-			u32 d = func0f092004(tag->unk06 + a);
-			func0f0b9bac(d, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
+			u32 *ptr = setupGetPtrToCommandByIndex(tag->unk06 + a);
+			func0f0b9bac(ptr, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
 		}
 	}
 

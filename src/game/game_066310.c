@@ -1183,67 +1183,6 @@ const u32 var7f1ab2fc[] = {0x7f091fe0};
 const u32 var7f1ab300[] = {0x7f091fd8};
 const u32 var7f1ab304[] = {0x7f091fe8};
 const u32 var7f1ab308[] = {0x7f091ff0};
-const u32 var7f1ab30c[] = {0x7f092460};
-const u32 var7f1ab310[] = {0x7f092468};
-const u32 var7f1ab314[] = {0x7f092460};
-const u32 var7f1ab318[] = {0x7f092460};
-const u32 var7f1ab31c[] = {0x7f092460};
-const u32 var7f1ab320[] = {0x7f092460};
-const u32 var7f1ab324[] = {0x7f092460};
-const u32 var7f1ab328[] = {0x7f092460};
-const u32 var7f1ab32c[] = {0x7f092468};
-const u32 var7f1ab330[] = {0x7f092460};
-const u32 var7f1ab334[] = {0x7f092460};
-const u32 var7f1ab338[] = {0x7f092460};
-const u32 var7f1ab33c[] = {0x7f092460};
-const u32 var7f1ab340[] = {0x7f092468};
-const u32 var7f1ab344[] = {0x7f092460};
-const u32 var7f1ab348[] = {0x7f092470};
-const u32 var7f1ab34c[] = {0x7f092460};
-const u32 var7f1ab350[] = {0x7f092468};
-const u32 var7f1ab354[] = {0x7f092468};
-const u32 var7f1ab358[] = {0x7f092460};
-const u32 var7f1ab35c[] = {0x7f092460};
-const u32 var7f1ab360[] = {0x7f092468};
-const u32 var7f1ab364[] = {0x7f092468};
-const u32 var7f1ab368[] = {0x7f092468};
-const u32 var7f1ab36c[] = {0x7f092468};
-const u32 var7f1ab370[] = {0x7f092468};
-const u32 var7f1ab374[] = {0x7f092468};
-const u32 var7f1ab378[] = {0x7f092468};
-const u32 var7f1ab37c[] = {0x7f092468};
-const u32 var7f1ab380[] = {0x7f092468};
-const u32 var7f1ab384[] = {0x7f092468};
-const u32 var7f1ab388[] = {0x7f092468};
-const u32 var7f1ab38c[] = {0x7f092468};
-const u32 var7f1ab390[] = {0x7f092468};
-const u32 var7f1ab394[] = {0x7f092468};
-const u32 var7f1ab398[] = {0x7f092460};
-const u32 var7f1ab39c[] = {0x7f092468};
-const u32 var7f1ab3a0[] = {0x7f092468};
-const u32 var7f1ab3a4[] = {0x7f092460};
-const u32 var7f1ab3a8[] = {0x7f092460};
-const u32 var7f1ab3ac[] = {0x7f092460};
-const u32 var7f1ab3b0[] = {0x7f092460};
-const u32 var7f1ab3b4[] = {0x7f092460};
-const u32 var7f1ab3b8[] = {0x7f092468};
-const u32 var7f1ab3bc[] = {0x7f092460};
-const u32 var7f1ab3c0[] = {0x7f092468};
-const u32 var7f1ab3c4[] = {0x7f092460};
-const u32 var7f1ab3c8[] = {0x7f092460};
-const u32 var7f1ab3cc[] = {0x7f092468};
-const u32 var7f1ab3d0[] = {0x7f092468};
-const u32 var7f1ab3d4[] = {0x7f092460};
-const u32 var7f1ab3d8[] = {0x7f092470};
-const u32 var7f1ab3dc[] = {0x7f092460};
-const u32 var7f1ab3e0[] = {0x7f092460};
-const u32 var7f1ab3e4[] = {0x7f092460};
-const u32 var7f1ab3e8[] = {0x7f092468};
-const u32 var7f1ab3ec[] = {0x7f092460};
-const u32 var7f1ab3f0[] = {0x7f092470};
-const u32 var7f1ab3f4[] = {0x7f092460};
-const u32 var7f1ab3f8[] = {0x00000000};
-const u32 var7f1ab3fc[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0f066310
@@ -28208,7 +28147,7 @@ glabel func0f07e474
 /*  f07e590:	0fc24849 */ 	jal	func0f092124
 /*  f07e594:	ae0b0040 */ 	sw	$t3,0x40($s0)
 /*  f07e598:	86030006 */ 	lh	$v1,0x6($s0)
-/*  f07e59c:	0fc24908 */ 	jal	func0f092420
+/*  f07e59c:	0fc24908 */ 	jal	setupCommandGetObject
 /*  f07e5a0:	00432021 */ 	addu	$a0,$v0,$v1
 /*  f07e5a4:	5040002b */ 	beqzl	$v0,.L0f07e654
 /*  f07e5a8:	920e0003 */ 	lbu	$t6,0x3($s0)
@@ -50116,7 +50055,7 @@ glabel setupGetCommandLength
 );
 
 GLOBAL_ASM(
-glabel func0f092004
+glabel setupGetPtrToCommandByIndex
 /*  f092004:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f092008:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f09200c:	afb30020 */ 	sw	$s3,0x20($sp)
@@ -50426,36 +50365,75 @@ glabel func0f0923d4
 /*  f09241c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f092420
-/*  f092420:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f092424:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f092428:	0fc24801 */ 	jal	func0f092004
-/*  f09242c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f092430:	1040000f */ 	beqz	$v0,.L0f092470
-/*  f092434:	00401825 */ 	or	$v1,$v0,$zero
-/*  f092438:	904e0003 */ 	lbu	$t6,0x3($v0)
-/*  f09243c:	25cfffff */ 	addiu	$t7,$t6,-1
-/*  f092440:	2de1003b */ 	sltiu	$at,$t7,0x3b
-/*  f092444:	1020000a */ 	beqz	$at,.L0f092470
-/*  f092448:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f09244c:	3c017f1b */ 	lui	$at,%hi(var7f1ab30c)
-/*  f092450:	002f0821 */ 	addu	$at,$at,$t7
-/*  f092454:	8c2fb30c */ 	lw	$t7,%lo(var7f1ab30c)($at)
-/*  f092458:	01e00008 */ 	jr	$t7
-/*  f09245c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f092460:	10000004 */ 	beqz	$zero,.L0f092474
-/*  f092464:	00601025 */ 	or	$v0,$v1,$zero
-/*  f092468:	10000002 */ 	beqz	$zero,.L0f092474
-/*  f09246c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f092470:
-/*  f092470:	00601025 */ 	or	$v0,$v1,$zero
-.L0f092474:
-/*  f092474:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f092478:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f09247c:	03e00008 */ 	jr	$ra
-/*  f092480:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct defaultobj *setupCommandGetObject(u32 cmdindex)
+{
+	u32 *cmd = setupGetPtrToCommandByIndex(cmdindex);
+
+	if (cmd) {
+		switch ((u8)cmd[0]) {
+		case OBJTYPE_DOOR:
+		case OBJTYPE_BASIC:
+		case OBJTYPE_KEY:
+		case OBJTYPE_05:
+		case OBJTYPE_CAMERA:
+		case OBJTYPE_07:
+		case OBJTYPE_WEAPON:
+		case OBJTYPE_SINGLEMONITOR:
+		case OBJTYPE_MULTIMONITOR:
+		case OBJTYPE_0C:
+		case OBJTYPE_AUTOGUN:
+		case OBJTYPE_DEBRIS:
+		case OBJTYPE_11:
+		case OBJTYPE_MULTIAMMOCRATE:
+		case OBJTYPE_SHIELD:
+		case OBJTYPE_24:
+		case OBJTYPE_TRUCK:
+		case OBJTYPE_HELI:
+		case OBJTYPE_29:
+		case OBJTYPE_GLASS:
+		case OBJTYPE_2B:
+		case OBJTYPE_2D:
+		case OBJTYPE_TINTEDGLASS:
+		case OBJTYPE_LIFT:
+		case OBJTYPE_HOVERBIKE:
+		case OBJTYPE_HOVERPROP:
+		case OBJTYPE_VENTFAN:
+		case OBJTYPE_HOVERCAR:
+		case OBJTYPE_CHOPPER:
+		case OBJTYPE_ESCALATOR:
+			return (struct defaultobj *)cmd;
+		case OBJTYPE_DOORSCALE:
+		case OBJTYPE_CHR:
+		case OBJTYPE_LINKGUNS:
+		case OBJTYPE_12:
+		case OBJTYPE_LINKOBJS:
+		case OBJTYPE_TAG:
+		case OBJTYPE_BEGINOBJECTIVE:
+		case OBJTYPE_ENDOBJECTIVE:
+		case OBJECTIVETYPE_DESTROYOBJ:
+		case OBJECTIVETYPE_COMPFLAGS:
+		case OBJECTIVETYPE_FAILFLAGS:
+		case OBJECTIVETYPE_COLLECTOBJ:
+		case OBJECTIVETYPE_THROWOBJ:
+		case OBJECTIVETYPE_HOLOGRAPH:
+		case OBJECTIVETYPE_1F:
+		case OBJECTIVETYPE_ENTERROOM:
+		case OBJECTIVETYPE_ATTACHOBJ:
+		case OBJTYPE_22:
+		case OBJTYPE_BRIEFING:
+		case OBJTYPE_RENAMEOBJ:
+		case OBJTYPE_26:
+		case OBJTYPE_2C:
+		case OBJTYPE_CAMERA2:
+		case OBJTYPE_LINKSCENERY:
+		case OBJTYPE_LINKPATHS:
+		case OBJTYPE_PADEFFECT:
+			return NULL;
+		}
+	}
+
+	return (struct defaultobj *)cmd;
+}
 
 GLOBAL_ASM(
 glabel func0f092484
