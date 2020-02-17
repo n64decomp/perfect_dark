@@ -7,6 +7,7 @@
 #include "game/data/data_020df0.h"
 #include "game/game_000920.h"
 #include "game/game_066310.h"
+#include "game/game_092610.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/game_12d3f0.h"

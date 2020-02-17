@@ -74,6 +74,7 @@
 	src/game/chr/chraicommands.o (section); \
 	src/game/game_0601b0.o (section); \
 	src/game/game_066310.o (section); \
+	src/game/game_092610.o (section); \
 	src/game/game_096360.o (section); \
 	src/game/game_096700.o (section); \
 	src/game/game_096750.o (section); \
