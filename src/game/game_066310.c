@@ -50217,28 +50217,12 @@ glabel func0f09233c
 /*  f0923d0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0923d4
-/*  f0923d4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0923d8:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0923dc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0923e0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0923e4:	0fc19711 */ 	jal	func0f065c44
-/*  f0923e8:	8c840014 */ 	lw	$a0,0x14($a0)
-/*  f0923ec:	8e020014 */ 	lw	$v0,0x14($s0)
-/*  f0923f0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0923f4:	2606001c */ 	addiu	$a2,$s0,0x1c
-/*  f0923f8:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f0923fc:	0fc248cf */ 	jal	func0f09233c
-/*  f092400:	24470028 */ 	addiu	$a3,$v0,0x28
-/*  f092404:	0fc1972c */ 	jal	func0f065cb0
-/*  f092408:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f09240c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f092410:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f092414:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f092418:	03e00008 */ 	jr	$ra
-/*  f09241c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0923d4(struct defaultobj *obj)
+{
+	func0f065c44(obj->prop);
+	func0f09233c(obj, &obj->prop->pos, obj->realrot, obj->prop->rooms);
+	func0f065cb0(obj->prop);
+}
 
 struct defaultobj *setupCommandGetObject(u32 cmdindex)
 {

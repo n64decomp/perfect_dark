@@ -346,8 +346,8 @@ u32 func0f092124(void);
 u32 func0f0921b4(s32 modelnum);
 u32 func0f09220c(void);
 u32 func0f092304(void);
-u32 func0f09233c(void);
-u32 func0f0923d4(void);
+void func0f09233c(struct defaultobj *obj, struct coord *pos, f32 *realrot, s16 *rooms);
+void func0f0923d4(struct defaultobj *obj);
 struct defaultobj *setupCommandGetObject(u32 cmdindex);
 u32 func0f092484(void);
 
