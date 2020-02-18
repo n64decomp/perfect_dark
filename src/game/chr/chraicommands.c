@@ -1927,73 +1927,26 @@ bool aiIfDistanceToTargetGreaterThan(void)
 /**
  * @cmd 0054
  */
-GLOBAL_ASM(
-glabel aiIfChrDistanceToPadLessThan
-/*  f050b64:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f050b68:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f050b6c:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f050b70:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f050b74:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f050b78:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f050b7c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f050b80:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f050b84:	01cf3821 */ 	addu	$a3,$t6,$t7
-/*  f050b88:	90e50002 */ 	lbu	$a1,0x2($a3)
-/*  f050b8c:	0fc126d1 */ 	jal	chrFindById
-/*  f050b90:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f050b94:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f050b98:	3c014120 */ 	lui	$at,0x4120
-/*  f050b9c:	44814000 */ 	mtc1	$at,$f8
-/*  f050ba0:	90ea0003 */ 	lbu	$t2,0x3($a3)
-/*  f050ba4:	90ec0004 */ 	lbu	$t4,0x4($a3)
-/*  f050ba8:	90f80005 */ 	lbu	$t8,0x5($a3)
-/*  f050bac:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*  f050bb0:	016c6825 */ 	or	$t5,$t3,$t4
-/*  f050bb4:	448d2000 */ 	mtc1	$t5,$f4
-/*  f050bb8:	90e80006 */ 	lbu	$t0,0x6($a3)
-/*  f050bbc:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f050bc0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f050bc4:	03281825 */ 	or	$v1,$t9,$t0
-/*  f050bc8:	3065ffff */ 	andi	$a1,$v1,0xffff
-/*  f050bcc:	24012328 */ 	addiu	$at,$zero,0x2328
-/*  f050bd0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f050bd4:	46083082 */ 	mul.s	$f2,$f6,$f8
-/*  f050bd8:	14a10003 */ 	bne	$a1,$at,.L0f050be8
-/*  f050bdc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f050be0:	8e0e0424 */ 	lw	$t6,0x424($s0)
-/*  f050be4:	95c50128 */ 	lhu	$a1,0x128($t6)
-.L0f050be8:
-/*  f050be8:	10400012 */ 	beqz	$v0,.L0f050c34
-/*  f050bec:	28a12328 */ 	slti	$at,$a1,0x2328
-/*  f050bf0:	50200011 */ 	beqzl	$at,.L0f050c38
-/*  f050bf4:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f050bf8:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f050bfc:	0fc124bb */ 	jal	chrGetDistanceToPad
-/*  f050c00:	e7a20020 */ 	swc1	$f2,0x20($sp)
-/*  f050c04:	c7a20020 */ 	lwc1	$f2,0x20($sp)
-/*  f050c08:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f050c0c:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f050c10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f050c14:	45020008 */ 	bc1fl	.L0f050c38
-/*  f050c18:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f050c1c:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f050c20:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f050c24:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f050c28:	90e60007 */ 	lbu	$a2,0x7($a3)
-/*  f050c2c:	10000004 */ 	beqz	$zero,.L0f050c40
-/*  f050c30:	ae020438 */ 	sw	$v0,0x438($s0)
-.L0f050c34:
-/*  f050c34:	8e0f0438 */ 	lw	$t7,0x438($s0)
-.L0f050c38:
-/*  f050c38:	25f80008 */ 	addiu	$t8,$t7,0x8
-/*  f050c3c:	ae180438 */ 	sw	$t8,0x438($s0)
-.L0f050c40:
-/*  f050c40:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f050c44:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f050c48:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f050c4c:	03e00008 */ 	jr	$ra
-/*  f050c50:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfChrDistanceToPadLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
+	s32 padnum = (cmd[6] | (cmd[5] << 8)) & 0xffff;
+	f32 value = (cmd[4] | (cmd[3] << 8)) * 10.0f;
+	s32 realpadnum = padnum;
+
+	if (padnum == 9000) {
+		realpadnum = (u16)g_Vars.chrdata->padpreset1;
+	}
+
+	if (chr && realpadnum < 9000 && chrGetDistanceToPad(chr, realpadnum) < value) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+	} else {
+		g_Vars.aioffset = g_Vars.aioffset + 8;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 01df
