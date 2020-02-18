@@ -10367,160 +10367,43 @@ bool aiMiniSkedarTryPounce(void)
 /**
  * @cmd 018f
  */
-GLOBAL_ASM(
-glabel aiIfObjectDistanceToPadLessThan
-/*  f05d5e8:	27bdff68 */ 	addiu	$sp,$sp,-152
-/*  f05d5ec:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f05d5f0:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f05d5f4:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f05d5f8:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f05d5fc:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f05d600:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05d604:	3c014120 */ 	lui	$at,0x4120
-/*  f05d608:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f05d60c:	90780003 */ 	lbu	$t8,0x3($v1)
-/*  f05d610:	90680004 */ 	lbu	$t0,0x4($v1)
-/*  f05d614:	44814000 */ 	mtc1	$at,$f8
-/*  f05d618:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f05d61c:	03284825 */ 	or	$t1,$t9,$t0
-/*  f05d620:	44892000 */ 	mtc1	$t1,$f4
-/*  f05d624:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d628:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f05d62c:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f05d630:	e7aa0090 */ 	swc1	$f10,0x90($sp)
-/*  f05d634:	906a0005 */ 	lbu	$t2,0x5($v1)
-/*  f05d638:	906c0006 */ 	lbu	$t4,0x6($v1)
-/*  f05d63c:	000a5a00 */ 	sll	$t3,$t2,0x8
-/*  f05d640:	016c6825 */ 	or	$t5,$t3,$t4
-/*  f05d644:	31aeffff */ 	andi	$t6,$t5,0xffff
-/*  f05d648:	afae0080 */ 	sw	$t6,0x80($sp)
-/*  f05d64c:	90640002 */ 	lbu	$a0,0x2($v1)
-/*  f05d650:	0fc2556c */ 	jal	objFindByTagId
-/*  f05d654:	afa30094 */ 	sw	$v1,0x94($sp)
-/*  f05d658:	8fa30094 */ 	lw	$v1,0x94($sp)
-/*  f05d65c:	afa2007c */ 	sw	$v0,0x7c($sp)
-/*  f05d660:	1040003e */ 	beqz	$v0,.L0f05d75c
-/*  f05d664:	00003825 */ 	or	$a3,$zero,$zero
-/*  f05d668:	8c4f0014 */ 	lw	$t7,0x14($v0)
-/*  f05d66c:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f05d670:	11e0003a */ 	beqz	$t7,.L0f05d75c
-/*  f05d674:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d678:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f05d67c:	afa30094 */ 	sw	$v1,0x94($sp)
-/*  f05d680:	0fc1258b */ 	jal	chrResolvePadId
-/*  f05d684:	afa00024 */ 	sw	$zero,0x24($sp)
-/*  f05d688:	8fa30094 */ 	lw	$v1,0x94($sp)
-/*  f05d68c:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f05d690:	04400032 */ 	bltz	$v0,.L0f05d75c
-/*  f05d694:	00402025 */ 	or	$a0,$v0,$zero
-/*  f05d698:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f05d69c:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f05d6a0:	afa30094 */ 	sw	$v1,0x94($sp)
-/*  f05d6a4:	0fc456ac */ 	jal	padUnpack
-/*  f05d6a8:	afa70024 */ 	sw	$a3,0x24($sp)
-/*  f05d6ac:	8fb8007c */ 	lw	$t8,0x7c($sp)
-/*  f05d6b0:	c7b20028 */ 	lwc1	$f18,0x28($sp)
-/*  f05d6b4:	c7a6002c */ 	lwc1	$f6,0x2c($sp)
-/*  f05d6b8:	8f020014 */ 	lw	$v0,0x14($t8)
-/*  f05d6bc:	3c014348 */ 	lui	$at,0x4348
-/*  f05d6c0:	c7aa0030 */ 	lwc1	$f10,0x30($sp)
-/*  f05d6c4:	c4500008 */ 	lwc1	$f16,0x8($v0)
-/*  f05d6c8:	c444000c */ 	lwc1	$f4,0xc($v0)
-/*  f05d6cc:	c4480010 */ 	lwc1	$f8,0x10($v0)
-/*  f05d6d0:	46128001 */ 	sub.s	$f0,$f16,$f18
-/*  f05d6d4:	44818000 */ 	mtc1	$at,$f16
-/*  f05d6d8:	8fa30094 */ 	lw	$v1,0x94($sp)
-/*  f05d6dc:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f05d6e0:	8fa70024 */ 	lw	$a3,0x24($sp)
-/*  f05d6e4:	3c01c348 */ 	lui	$at,0xc348
-/*  f05d6e8:	460a4301 */ 	sub.s	$f12,$f8,$f10
-/*  f05d6ec:	4610103c */ 	c.lt.s	$f2,$f16
-/*  f05d6f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d6f4:	45000019 */ 	bc1f	.L0f05d75c
-/*  f05d6f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d6fc:	44819000 */ 	mtc1	$at,$f18
-/*  f05d700:	c7ae0090 */ 	lwc1	$f14,0x90($sp)
-/*  f05d704:	4602903c */ 	c.lt.s	$f18,$f2
-/*  f05d708:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d70c:	45000013 */ 	bc1f	.L0f05d75c
-/*  f05d710:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d714:	460e003c */ 	c.lt.s	$f0,$f14
-/*  f05d718:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d71c:	4500000f */ 	bc1f	.L0f05d75c
-/*  f05d720:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d724:	46007087 */ 	neg.s	$f2,$f14
-/*  f05d728:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f05d72c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d730:	4500000a */ 	bc1f	.L0f05d75c
-/*  f05d734:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d738:	460e603c */ 	c.lt.s	$f12,$f14
-/*  f05d73c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d740:	45000006 */ 	bc1f	.L0f05d75c
-/*  f05d744:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d748:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f05d74c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d750:	45000002 */ 	bc1f	.L0f05d75c
-/*  f05d754:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f05d758:	24070001 */ 	addiu	$a3,$zero,0x1
-.L0f05d75c:
-/*  f05d75c:	50e00008 */ 	beqzl	$a3,.L0f05d780
-/*  f05d760:	8e190438 */ 	lw	$t9,0x438($s0)
-/*  f05d764:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f05d768:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f05d76c:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f05d770:	90660007 */ 	lbu	$a2,0x7($v1)
-/*  f05d774:	10000004 */ 	beqz	$zero,.L0f05d788
-/*  f05d778:	ae020438 */ 	sw	$v0,0x438($s0)
-/*  f05d77c:	8e190438 */ 	lw	$t9,0x438($s0)
-.L0f05d780:
-/*  f05d780:	27280008 */ 	addiu	$t0,$t9,0x8
-/*  f05d784:	ae080438 */ 	sw	$t0,0x438($s0)
-.L0f05d788:
-/*  f05d788:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f05d78c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f05d790:	27bd0098 */ 	addiu	$sp,$sp,0x98
-/*  f05d794:	03e00008 */ 	jr	$ra
-/*  f05d798:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfObjectDistanceToPadLessThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	f32 distance = (f32)(cmd[4] | (cmd[3] << 8)) * 10;
+	f32 xdiff;
+	f32 ydiff;
+	f32 zdiff;
+	s32 pad_id = (cmd[6] | (cmd[5] << 8)) & 0xffff;
+	struct defaultobj *obj = objFindByTagId(cmd[2]);
+	struct pad pad;
+	bool pass = false;
 
-// Mismatch due to different registers
-//bool aiIfObjectDistanceToPadLessThan(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	f32 distance = (f32)(cmd[4] | (cmd[3] << 8)) * 10;
-//	f32 xdiff;
-//	f32 ydiff;
-//	f32 zdiff;
-//	s32 pad_id = (cmd[6] | (cmd[5] << 8)) & 0xffff;
-//	struct defaultobj *obj = objFindByTagId(cmd[2]);
-//	struct pad pad;
-//	bool pass = false;
-//
-//	if (obj && obj->prop) {
-//		pad_id = chrResolvePadId(g_Vars.chrdata, pad_id);
-//
-//		if (pad_id >= 0) {
-//			padUnpack(pad_id, PADFIELD_POS, &pad);
-//			xdiff = obj->prop->pos.x - pad.pos.x;
-//			ydiff = obj->prop->pos.y - pad.pos.y;
-//			zdiff = obj->prop->pos.z - pad.pos.z;
-//
-//			if (ydiff < 200 && ydiff > -200 &&
-//					xdiff < distance && xdiff > -distance &&
-//					zdiff < distance && zdiff > -distance) {
-//				pass = true;
-//			}
-//		}
-//	}
-//
-//	if (pass) {
-//		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
-//	} else {
-//		g_Vars.aioffset += 8;
-//	}
-//
-//	return false;
-//}
+	if (obj && obj->prop) {
+		pad_id = chrResolvePadId(g_Vars.chrdata, pad_id);
+
+		if (pad_id >= 0) {
+			padUnpack(pad_id, PADFIELD_POS, &pad);
+			xdiff = obj->prop->pos.x - pad.pos.x;
+			ydiff = obj->prop->pos.y - pad.pos.y;
+			zdiff = obj->prop->pos.z - pad.pos.z;
+
+			if (ydiff < 200 && ydiff > -200 &&
+					xdiff < distance && xdiff > -distance &&
+					zdiff < distance && zdiff > -distance) {
+				pass = true;
+			}
+		}
+	}
+
+	if (pass) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[7]);
+	} else {
+		g_Vars.aioffset += 8;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 0190
