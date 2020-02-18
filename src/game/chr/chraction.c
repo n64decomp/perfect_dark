@@ -32030,7 +32030,7 @@ glabel chrSpawnAtCoord
 /*  f04b574:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *ailist, u32 flags)
+struct prop *chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *ailist, u32 flags)
 {
 	s32 resolved_pad_id = chrResolvePadId(basechr, pad_id);
 	struct pad pad;
@@ -32044,7 +32044,7 @@ bool chrSpawnAtPad(struct chrdata *basechr, s32 body, s32 head, s32 pad_id, u8 *
 	return chrSpawnAtCoord(body, head, &pad.pos, &room[0], fvalue, ailist, flags);
 }
 
-bool chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 flags)
+struct prop *chrSpawnAtChr(struct chrdata *basechr, s32 body, s32 head, u32 chrnum, u8 *ailist, u32 flags)
 {
 	struct chrdata *chr = chrFindById(basechr, chrnum);
 	f32 fvalue;
