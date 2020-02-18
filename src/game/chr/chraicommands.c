@@ -4476,89 +4476,29 @@ bool aiIfTimerLessThan(void)
 /**
  * @cmd 00bd
  */
-GLOBAL_ASM(
-glabel aiIfTimerGreaterThan
-/*  f055220:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f055224:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f055228:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f05522c:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f055230:	8e0e0434 */ 	lw	$t6,0x434($s0)
-/*  f055234:	8e0f0438 */ 	lw	$t7,0x438($s0)
-/*  f055238:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f05523c:	3c014f80 */ 	lui	$at,0x4f80
-/*  f055240:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f055244:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f055248:	90480003 */ 	lbu	$t0,0x3($v0)
-/*  f05524c:	904b0004 */ 	lbu	$t3,0x4($v0)
-/*  f055250:	0018cc00 */ 	sll	$t9,$t8,0x10
-/*  f055254:	00084a00 */ 	sll	$t1,$t0,0x8
-/*  f055258:	03295025 */ 	or	$t2,$t9,$t1
-/*  f05525c:	014b6025 */ 	or	$t4,$t2,$t3
-/*  f055260:	448c2000 */ 	mtc1	$t4,$f4
-/*  f055264:	05810004 */ 	bgez	$t4,.L0f055278
-/*  f055268:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f05526c:	44814000 */ 	mtc1	$at,$f8
-/*  f055270:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f055274:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f055278:
-/*  f055278:	3c014270 */ 	lui	$at,0x4270
-/*  f05527c:	44815000 */ 	mtc1	$at,$f10
-/*  f055280:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f055284:	460a3403 */ 	div.s	$f16,$f6,$f10
-/*  f055288:	10800004 */ 	beqz	$a0,.L0f05529c
-/*  f05528c:	e7b00020 */ 	swc1	$f16,0x20($sp)
-/*  f055290:	0fc127ea */ 	jal	chrGetTimer
-/*  f055294:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f055298:	8fa20024 */ 	lw	$v0,0x24($sp)
-.L0f05529c:
-/*  f05529c:	8e040430 */ 	lw	$a0,0x430($s0)
-/*  f0552a0:	50800005 */ 	beqzl	$a0,.L0f0552b8
-/*  f0552a4:	8e040424 */ 	lw	$a0,0x424($s0)
-/*  f0552a8:	0fc1ec48 */ 	jal	chopperGetTimer
-/*  f0552ac:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0552b0:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f0552b4:	8e040424 */ 	lw	$a0,0x424($s0)
-.L0f0552b8:
-/*  f0552b8:	5080000a */ 	beqzl	$a0,.L0f0552e4
-/*  f0552bc:	8e040430 */ 	lw	$a0,0x430($s0)
-/*  f0552c0:	0fc127ea */ 	jal	chrGetTimer
-/*  f0552c4:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0552c8:	c7b20020 */ 	lwc1	$f18,0x20($sp)
-/*  f0552cc:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f0552d0:	4600903c */ 	c.lt.s	$f18,$f0
-/*  f0552d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0552d8:	4503000d */ 	bc1tl	.L0f055310
-/*  f0552dc:	8e040434 */ 	lw	$a0,0x434($s0)
-/*  f0552e0:	8e040430 */ 	lw	$a0,0x430($s0)
-.L0f0552e4:
-/*  f0552e4:	50800010 */ 	beqzl	$a0,.L0f055328
-/*  f0552e8:	8e0d0438 */ 	lw	$t5,0x438($s0)
-/*  f0552ec:	0fc1ec48 */ 	jal	chopperGetTimer
-/*  f0552f0:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0552f4:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f0552f8:	8fa20024 */ 	lw	$v0,0x24($sp)
-/*  f0552fc:	4600203c */ 	c.lt.s	$f4,$f0
-/*  f055300:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f055304:	45020008 */ 	bc1fl	.L0f055328
-/*  f055308:	8e0d0438 */ 	lw	$t5,0x438($s0)
-/*  f05530c:	8e040434 */ 	lw	$a0,0x434($s0)
-.L0f055310:
-/*  f055310:	8e050438 */ 	lw	$a1,0x438($s0)
-/*  f055314:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f055318:	90460005 */ 	lbu	$a2,0x5($v0)
-/*  f05531c:	10000004 */ 	beqz	$zero,.L0f055330
-/*  f055320:	ae020438 */ 	sw	$v0,0x438($s0)
-/*  f055324:	8e0d0438 */ 	lw	$t5,0x438($s0)
-.L0f055328:
-/*  f055328:	25ae0006 */ 	addiu	$t6,$t5,0x6
-/*  f05532c:	ae0e0438 */ 	sw	$t6,0x438($s0)
-.L0f055330:
-/*  f055330:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f055334:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f055338:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f05533c:	03e00008 */ 	jr	$ra
-/*  f055340:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool aiIfTimerGreaterThan(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	f32 value = (u32)((cmd[3] << 8) | cmd[4] | (cmd[2] << 16)) / 60.0f;
+
+	// These two function calls were likely used in a debug print statement
+	if (g_Vars.chrdata) {
+		chrGetTimer(g_Vars.chrdata);
+	}
+
+	if (g_Vars.hovercar) {
+		chopperGetTimer(g_Vars.hovercar);
+	}
+
+	if ((g_Vars.chrdata && chrGetTimer(g_Vars.chrdata) > value) ||
+			(g_Vars.hovercar && chopperGetTimer(g_Vars.hovercar) > value)) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
+	} else {
+		g_Vars.aioffset += 6;
+	}
+
+	return false;
+}
 
 /**
  * @cmd 00be
