@@ -2627,7 +2627,7 @@ u8 func041f_labtech_lights[] = {
 
 	// Jo in sight
 	label(0x03)
-	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
+	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
 	dprint 'T','A','L','K',' ','0','\n',0,
 	if_self_flag_bankx_eq(CHRFLAG0_00002000, TRUE, BANK_0, /*goto*/ 0x53)
 	restart_timer
@@ -2644,7 +2644,7 @@ u8 func041f_labtech_lights[] = {
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISE_UNCOVERED, /*goto*/ 0x06)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x2d)
 	label(0x06)
-	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
+	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
 	speak(CHR_TARGET, 0x2a25, 0x8103, CHANNEL_4, COLOR_08_RED) // "Who are you?"
 	goto_next(0x06)
 
@@ -3661,7 +3661,7 @@ u8 func0c01_outro[] = {
 
 	set_object_flag2(0x2f, OBJFLAG2_04000000)
 	set_object_flag3(0x2f, OBJFLAG3_00000010)
-	object_do_animation(0x01a1, 0x2f, 0x04ff, 0xff)
+	object_do_animation(0x01a1, 0x2f, 0x04, 0xffff)
 	show_nonessential_chrs(FALSE)
 	restart_timer
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
@@ -3763,7 +3763,7 @@ u8 func1002_intro[] = {
 
 	set_object_flag2(OBJ_CRATE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_CRATE, OBJFLAG3_00000010)
-	object_do_animation(0x01ca, OBJ_CRATE, 0x04ff, 0xff)
+	object_do_animation(0x01ca, OBJ_CRATE, 0x04, 0xffff)
 
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -3914,7 +3914,7 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_10)
 	unset_object_flag2(OBJ_CRATE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_CRATE, OBJFLAG3_00000010)
-	object_do_animation(0x01ca, OBJ_CRATE, 0x01ff, 0xfe)
+	object_do_animation(0x01ca, OBJ_CRATE, 0x01, 0xfffe)
 	close_door(0x33)
 	close_door(0x34)
 	restart_default_music

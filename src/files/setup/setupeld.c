@@ -800,7 +800,7 @@ u8 func1002_intro[] = {
 	show_object(OBJ_DROPSHIP)
 	set_object_flag2(OBJ_DROPSHIP, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_DROPSHIP, OBJFLAG3_00000010)
-	object_do_animation(0x0175, OBJ_DROPSHIP, 0x04ff, 0xff)
+	object_do_animation(0x0175, OBJ_DROPSHIP, 0x04, 0xffff)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
@@ -1051,7 +1051,7 @@ u8 func1002_intro[] = {
 	show_object(OBJ_DROPSHIP)
 	set_object_flag2(OBJ_DROPSHIP, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_DROPSHIP, OBJFLAG3_00000010)
-	object_do_animation(0x01bd, OBJ_DROPSHIP, 0x04ff, 0xff)
+	object_do_animation(0x01bd, OBJ_DROPSHIP, 0x04, 0xffff)
 
 	restart_timer
 

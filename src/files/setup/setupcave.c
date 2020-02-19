@@ -851,7 +851,7 @@ u8 func0425_outro[] = {
 	show_object(OBJ_PLANE)
 	set_object_flag2(OBJ_PLANE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_PLANE, OBJFLAG3_00000010)
-	object_do_animation(0x031c, OBJ_PLANE, 0x04ff, 0xff)
+	object_do_animation(0x031c, OBJ_PLANE, 0x04, 0xffff)
 
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -2141,7 +2141,7 @@ u8 func0409_office1[] = {
 
 	// Not disguised, or disguised with weapon equipped
 	label(0x07)
-	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
+	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
 	restart_timer
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x05)
 
@@ -2222,7 +2222,7 @@ u8 func040a_office2[] = {
 
 	label(0x72)
 	label(0x02)
-	object_do_animation(0x025a, 0xff, 0x02ff, 0xff)
+	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
 	restart_timer
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x05)
 
@@ -3623,11 +3623,11 @@ u8 func1003_intro[] = {
 	show_object(0x22)
 	set_object_flag2(0x22, OBJFLAG2_04000000)
 	set_object_flag3(0x22, OBJFLAG3_00000010)
-	object_do_animation(0x01ed, 0x22, 0x04ff, 0xff)
+	object_do_animation(0x01ed, 0x22, 0x04, 0xffff)
 	show_object(0x2f)
 	set_object_flag2(0x2f, OBJFLAG2_04000000)
 	set_object_flag3(0x2f, OBJFLAG3_00000010)
-	object_do_animation(0x01ee, 0x2f, 0x04ff, 0xff)
+	object_do_animation(0x01ee, 0x2f, 0x04, 0xffff)
 	restart_timer
 	fade_to_color(0x000000ff, 0x0000)
 	fade_to_color(0x00000000, 0x006e)
@@ -3844,7 +3844,7 @@ u8 func1003_intro[] = {
 	set_chr_hudpiece_visible(CHR_BOND, FALSE)
 	unset_object_flag2(0x22, OBJFLAG2_04000000)
 	set_object_flag3(0x22, OBJFLAG3_00000010)
-	object_do_animation(0x01ed, 0x22, 0x01ff, 0xfe)
+	object_do_animation(0x01ed, 0x22, 0x01, 0xfffe)
 	set_ailist(0x00, 0x0405)
 	set_ailist(0x01, 0x0405)
 	set_ailist(CHR_STEWARDESS, AILIST_STEWARDESS)

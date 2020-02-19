@@ -1957,7 +1957,7 @@ u8 func0410_intro[] = {
 
 	set_object_flag2(0x2f, OBJFLAG2_04000000)
 	set_object_flag3(0x2f, OBJFLAG3_00000010)
-	object_do_animation(0x0187, 0x2f, 0x04ff, 0xff)
+	object_do_animation(0x0187, 0x2f, 0x04, 0xffff)
 	restart_timer
 
 	wait_until(186, 0x65)
@@ -1998,7 +1998,7 @@ u8 func0410_intro[] = {
 
 	set_object_flag2(0x2f, OBJFLAG2_04000000)
 	set_object_flag3(0x2f, OBJFLAG3_00000010)
-	object_do_animation(0x018b, 0x2f, 0x04ff, 0xff)
+	object_do_animation(0x018b, 0x2f, 0x04, 0xffff)
 	restart_timer
 
 	wait_until(416, 0x67)

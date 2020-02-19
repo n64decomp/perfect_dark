@@ -876,7 +876,7 @@ u8 func0c01_outro[] = {
 		show_object(object) \
 		set_object_flag2(object, OBJFLAG2_04000000) \
 		set_object_flag3(object, OBJFLAG3_00000010) \
-		object_do_animation(animation, object, 0x04ff, 0xff)
+		object_do_animation(animation, object, 0x04, 0xffff)
 
 
 
@@ -892,7 +892,7 @@ u8 func0c01_outro[] = {
 	unset_object_flag(0x0d, OBJFLAG_DEACTIVATED)
 	set_object_flag2(0x0d, OBJFLAG2_04000000)
 	set_object_flag3(0x0d, OBJFLAG3_00000010)
-	object_do_animation(0x01b4, 0x0d, 0x01ff, 0xff)
+	object_do_animation(0x01b4, 0x0d, 0x01, 0xffff)
 
 	show_nonessential_chrs(FALSE)
 	open_door(0x51)
@@ -988,7 +988,7 @@ u8 func0c01_outro[] = {
 	show_object(0x16)
 	set_object_flag2(0x16, OBJFLAG2_04000000)
 	set_object_flag3(0x16, OBJFLAG3_00000010)
-	object_do_animation(0x01b1, 0x16, 0x02ff, 0xff)
+	object_do_animation(0x01b1, 0x16, 0x02, 0xffff)
 
 	wait_until(372, 0x7a)
 	play_sound(0x0506, CHANNEL_10)
@@ -1178,7 +1178,7 @@ u8 func1002_intro[] = {
 	show_object(0x0d)
 	set_object_flag2(0x0d, OBJFLAG2_04000000)
 	set_object_flag3(0x0d, OBJFLAG3_00000010)
-	object_do_animation(0x02c1, 0x0d, 0x04ff, 0xff)
+	object_do_animation(0x02c1, 0x0d, 0x04, 0xffff)
 	restart_timer
 	set_cutscene_weapon(0x1a, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -1413,11 +1413,11 @@ u8 func1002_intro[] = {
 	show_object(0x52)
 	set_object_flag2(0x52, OBJFLAG2_04000000)
 	set_object_flag3(0x52, OBJFLAG3_00000010)
-	object_do_animation(0x02c5, 0x52, 0x04ff, 0xff)
+	object_do_animation(0x02c5, 0x52, 0x04, 0xffff)
 	show_object(0x53)
 	set_object_flag2(0x53, OBJFLAG2_04000000)
 	set_object_flag3(0x53, OBJFLAG3_00000010)
-	object_do_animation(0x02c6, 0x53, 0x04ff, 0xff)
+	object_do_animation(0x02c6, 0x53, 0x04, 0xffff)
 	restart_timer
 
 	#define wait_until2(time, loopid) \
@@ -1508,15 +1508,15 @@ u8 func1002_intro[] = {
 	unset_object_flag2(0x0d, OBJFLAG2_04000000)
 	set_object_flag(0x0d, OBJFLAG_DEACTIVATED)
 	set_object_flag3(0x0d, OBJFLAG3_00000010)
-	object_do_animation(0x01b4, 0x0d, 0x01ff, 0xff)
+	object_do_animation(0x01b4, 0x0d, 0x01, 0xffff)
 	show_object(0x52)
 	set_object_flag2(0x52, OBJFLAG2_04000000)
 	set_object_flag3(0x52, OBJFLAG3_00000010)
-	object_do_animation(0x02c5, 0x52, 0x04ff, 0xfe)
+	object_do_animation(0x02c5, 0x52, 0x04, 0xfffe)
 	show_object(0x53)
 	set_object_flag2(0x53, OBJFLAG2_04000000)
 	set_object_flag3(0x53, OBJFLAG3_00000010)
-	object_do_animation(0x02c6, 0x53, 0x04ff, 0xfe)
+	object_do_animation(0x02c6, 0x53, 0x04, 0xfffe)
 	set_stage_flag(STAGEFLAG_INTRO_FINISHED)
 	restart_default_music
 	reset_ambience
@@ -3194,7 +3194,7 @@ u8 func1022_skedar_shuttle[] = {
 	show_object(OBJ_SKEDAR_SHUTTLE)
 	set_object_flag2(OBJ_SKEDAR_SHUTTLE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
-	object_do_animation(0x045a, OBJ_SKEDAR_SHUTTLE, 0x04ff, 0xff)
+	object_do_animation(0x045a, OBJ_SKEDAR_SHUTTLE, 0x04, 0xffff)
 	set_object_part_visible(OBJ_SKEDAR_SHUTTLE, FALSE)
 	set_object_flag(OBJ_SKEDAR_SHUTTLE, OBJFLAG_00000100)
 
@@ -3220,7 +3220,7 @@ u8 func1022_skedar_shuttle[] = {
 	beginloop(0x04)
 		if_stage_flag_eq(STAGEFLAG_BOMB_EXPLODING_ON_GROUND, TRUE, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_TRIGGER_SHUTTLE_TAKEOFF, TRUE, /*goto*/ 0x0a)
-		object_do_animation(0x045a, OBJ_SKEDAR_SHUTTLE, 0x04ff, 0xff)
+		object_do_animation(0x045a, OBJ_SKEDAR_SHUTTLE, 0x04, 0xffff)
 	endloop(0x04)
 
 	// Bomb exploding while on ground
@@ -3259,7 +3259,7 @@ u8 func1022_skedar_shuttle[] = {
 	label(0x0a)
 	hide_countdown_timer
 	stop_countdown_timer
-	object_do_animation(0x045b, OBJ_SKEDAR_SHUTTLE, 0x08ff, 0xff)
+	object_do_animation(0x045b, OBJ_SKEDAR_SHUTTLE, 0x08, 0xffff)
 	assign_sound(0x810a, CHANNEL_3)
 	play_sound_from_object(CHANNEL_3, OBJ_SKEDAR_SHUTTLE, 0x0708, 0x0bb8)
 	restart_timer

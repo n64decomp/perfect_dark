@@ -482,7 +482,7 @@ s32 path13[] = {
 	show_object(object) \
 	set_object_flag2(object, OBJFLAG2_04000000) \
 	set_object_flag3(object, OBJFLAG3_00000010) \
-	object_do_animation(animation, object, 0x04ff, 0xff)
+	object_do_animation(animation, object, 0x04, 0xffff)
 
 
 
@@ -560,7 +560,7 @@ u8 func0403_3c74[] = {
 	show_object(OBJ_CAR4)
 	set_object_flag2(OBJ_CAR4, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_CAR4, OBJFLAG3_00000010)
-	object_do_animation(0x00de, OBJ_CAR4, 0x04ff, 0xff)
+	object_do_animation(0x00de, OBJ_CAR4, 0x04, 0xffff)
 	set_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
@@ -581,7 +581,7 @@ u8 func0404_3ce0[] = {
 	show_object(OBJ_WIREFENCE)
 	set_object_flag2(OBJ_WIREFENCE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_WIREFENCE, OBJFLAG3_00000010)
-	object_do_animation(0x0470, OBJ_WIREFENCE, 0x01ff, 0xff)
+	object_do_animation(0x0470, OBJ_WIREFENCE, 0x01, 0xffff)
 
 	if_controller_button_pressed(/*goto*/ 0x00)
 	camera_movement(0x00e0)
@@ -899,7 +899,7 @@ u8 func040d_limo[] = {
 	label(0x04)
 	set_object_flag2(OBJ_LIMO, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_LIMO, OBJFLAG3_00000010)
-	object_do_animation(0x02d6, OBJ_LIMO, 0x04ff, 0xff)
+	object_do_animation(0x02d6, OBJ_LIMO, 0x04, 0xffff)
 
 	assign_sound(0x01b4, CHANNEL_1)
 	play_sound_from_object(CHANNEL_1, OBJ_LIMO, 0x0960, 0x0c80)
@@ -942,7 +942,7 @@ u8 func040c_taxi[] = {
 	label(0x03)
 	assign_sound(0x8000, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_TAXI, 0x0960, 0x0c80)
-	object_do_animation(0x0168, OBJ_TAXI, 0x04ff, 0xff)
+	object_do_animation(0x0168, OBJ_TAXI, 0x04, 0xffff)
 	set_object_flag2(OBJ_TAXI, OBJFLAG2_04000000)
 
 	// Wait for flag
@@ -969,7 +969,7 @@ u8 func040c_taxi[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_CRASH)
 	yield
 	mute_channel(CHANNEL_0)
-	object_do_animation(0x0169, OBJ_TAXI, 0x04ff, 0xff)
+	object_do_animation(0x0169, OBJ_TAXI, 0x04, 0xffff)
 	label(0x0a)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

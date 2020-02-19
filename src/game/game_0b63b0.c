@@ -4160,7 +4160,7 @@ void func0f0ba010(void)
 	var8009de2c = -1;
 	var80070764 = 1;
 	func0f11dcb0(1);
-	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_6 && var8009de10 < func00023768(var8009de18) - 1;
+	g_Vars.in_cutscene = g_Vars.tickmode == TICKMODE_6 && var8009de10 < animGetNumFrames(var8009de18) - 1;
 	g_Vars.unk0004e2 = 0;
 }
 
@@ -4227,7 +4227,7 @@ glabel func0f0ba190
 /*  f0ba198:	ac24de2c */ 	sw	$a0,-0x21d4($at)
 /*  f0ba19c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f0ba1a0:	3c04800a */ 	lui	$a0,0x800a
-/*  f0ba1a4:	0c008dda */ 	jal	func00023768
+/*  f0ba1a4:	0c008dda */ 	jal	animGetNumFrames
 /*  f0ba1a8:	8484de18 */ 	lh	$a0,-0x21e8($a0)
 /*  f0ba1ac:	244effff */ 	addiu	$t6,$v0,-1
 /*  f0ba1b0:	3c04800a */ 	lui	$a0,0x800a
@@ -4322,7 +4322,7 @@ glabel func0f0ba29c
 /*  f0ba2fc:	2652de18 */ 	addiu	$s2,$s2,%lo(var8009de18)
 /*  f0ba300:	0c008f4e */ 	jal	func00023d38
 /*  f0ba304:	86440000 */ 	lh	$a0,0x0($s2)
-/*  f0ba308:	0c008dda */ 	jal	func00023768
+/*  f0ba308:	0c008dda */ 	jal	animGetNumFrames
 /*  f0ba30c:	86440000 */ 	lh	$a0,0x0($s2)
 /*  f0ba310:	8e780290 */ 	lw	$t8,0x290($s3)
 /*  f0ba314:	2444ffff */ 	addiu	$a0,$v0,-1

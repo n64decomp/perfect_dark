@@ -284,7 +284,7 @@ glabel func0002373c
 );
 
 GLOBAL_ASM(
-glabel func00023768
+glabel animGetNumFrames
 /*    23768:	00047400 */ 	sll	$t6,$a0,0x10
 /*    2376c:	000e7c03 */ 	sra	$t7,$t6,0x10
 /*    23770:	3c188006 */ 	lui	$t8,0x8006

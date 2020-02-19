@@ -3449,19 +3449,19 @@ u8 func0423_outro[] = {
 	show_object(0x19)
 	set_object_flag2(0x19, OBJFLAG2_04000000)
 	set_object_flag3(0x19, OBJFLAG3_00000010)
-	object_do_animation(0x02db, 0x19, 0x04ff, 0xff)
+	object_do_animation(0x02db, 0x19, 0x04, 0xffff)
 	show_object(0x1a)
 	set_object_flag2(0x1a, OBJFLAG2_04000000)
 	set_object_flag3(0x1a, OBJFLAG3_00000010)
-	object_do_animation(0x02dc, 0x1a, 0x04ff, 0xff)
+	object_do_animation(0x02dc, 0x1a, 0x04, 0xffff)
 	show_object(0x23)
 	set_object_flag2(0x23, OBJFLAG2_04000000)
 	set_object_flag3(0x23, OBJFLAG3_00000010)
-	object_do_animation(0x02dd, 0x23, 0x04ff, 0xff)
+	object_do_animation(0x02dd, 0x23, 0x04, 0xffff)
 	show_object(0x37)
 	set_object_flag2(0x37, OBJFLAG2_04000000)
 	set_object_flag3(0x37, OBJFLAG3_00000010)
-	object_do_animation(0x02de, 0x37, 0x04ff, 0xff)
+	object_do_animation(0x02de, 0x37, 0x04, 0xffff)
 	restart_timer
 	set_cutscene_weapon(CHR_TARGET, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -3571,13 +3571,13 @@ u8 func1019_midcutscene[] = {
 	show_object(0x19)
 	set_object_flag2(0x19, OBJFLAG2_04000000)
 	set_object_flag3(0x19, OBJFLAG3_00000010)
-	object_do_animation(0x02e0, 0x19, 0x04ff, 0xff)
+	object_do_animation(0x02e0, 0x19, 0x04, 0xffff)
 	set_object_part_visible(0x19, TRUE)
 
 	show_object(0x37)
 	set_object_flag2(0x37, OBJFLAG2_04000000)
 	set_object_flag3(0x37, OBJFLAG3_00000010)
-	object_do_animation(0x02e1, 0x37, 0x04ff, 0xff)
+	object_do_animation(0x02e1, 0x37, 0x04, 0xffff)
 
 	restart_timer
 

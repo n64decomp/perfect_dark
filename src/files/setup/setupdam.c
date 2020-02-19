@@ -845,22 +845,22 @@ u8 func0c01_outro[] = {
 	show_object(OBJ_OUTRO_SUBMARINE)
 	set_object_flag2(OBJ_OUTRO_SUBMARINE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_OUTRO_SUBMARINE, OBJFLAG3_00000010)
-	object_do_animation(0x02e5, OBJ_OUTRO_SUBMARINE, 0x04ff, 0xff)
+	object_do_animation(0x02e5, OBJ_OUTRO_SUBMARINE, 0x04, 0xffff)
 
 	show_object(OBJ_OUTRO_GRATE)
 	set_object_flag2(OBJ_OUTRO_GRATE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_OUTRO_GRATE, OBJFLAG3_00000010)
-	object_do_animation(0x02e6, OBJ_OUTRO_GRATE, 0x04ff, 0xff)
+	object_do_animation(0x02e6, OBJ_OUTRO_GRATE, 0x04, 0xffff)
 
 	show_object(OBJ_OUTRO_CRATE1)
 	set_object_flag2(OBJ_OUTRO_CRATE1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_OUTRO_CRATE1, OBJFLAG3_00000010)
-	object_do_animation(0x02e7, OBJ_OUTRO_CRATE1, 0x04ff, 0xff)
+	object_do_animation(0x02e7, OBJ_OUTRO_CRATE1, 0x04, 0xffff)
 
 	show_object(OBJ_OUTRO_CRATE2)
 	set_object_flag2(OBJ_OUTRO_CRATE2, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_OUTRO_CRATE2, OBJFLAG3_00000010)
-	object_do_animation(0x02e8, OBJ_OUTRO_CRATE2, 0x04ff, 0xff)
+	object_do_animation(0x02e8, OBJ_OUTRO_CRATE2, 0x04, 0xffff)
 
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
 	yield

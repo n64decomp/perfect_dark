@@ -2809,7 +2809,7 @@ u8 func0c01_outro[] = {
 	show_object(OBJ_OUTRO_SHUTTLE)
 	set_object_flag2(OBJ_OUTRO_SHUTTLE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_OUTRO_SHUTTLE, OBJFLAG3_00000010)
-	object_do_animation(0x01e4, OBJ_OUTRO_SHUTTLE, 0x04ff, 0xff)
+	object_do_animation(0x01e4, OBJ_OUTRO_SHUTTLE, 0x04, 0xffff)
 	set_object_part_visible(OBJ_OUTRO_SHUTTLE, FALSE)
 
 	show_nonessential_chrs(FALSE)
@@ -3374,7 +3374,7 @@ u8 func1002_hangar_shuttle[] = {
 	beginloop(0x08)
 		if_stage_flag_eq(STAGEFLAG_BRIDGE_CAPTURED, TRUE, /*goto*/ 0x06)
 		if_objective_complete(4, /*goto*/ 0x06)
-		object_do_animation(0x045c, OBJ_HANGAR_SHUTTLE, 0x08ff, 0xff)
+		object_do_animation(0x045c, OBJ_HANGAR_SHUTTLE, 0x08, 0xffff)
 	endloop(0x08)
 
 	label(0x2c)

@@ -2342,14 +2342,22 @@
 	mkshort(animation),
 
 /**
- * Makes the given object do the given animation.
+ * Makes the given object do the given animation. See the ANIM constants in
+ * constants.h for known animation IDs.
+ *
+ * object may be the tag ID of an object, or 0xff to use the current chr's
+ * myspecial object. The myspecial object is assigned during chr setup and is
+ * commonly the chair that they're sitting in.
+ *
+ * startframe may be 0 or higher for that frame number, -1 for the first frame
+ * (ie. same as 0), or -2 for the last frame.
  */
-#define object_do_animation(u1, object, u2, u3) \
+#define object_do_animation(animation, object, u2, startframe) \
 	mkshort(0x0112), \
-	mkshort(u1), \
+	mkshort(animation), \
 	object, \
-	mkshort(u2), \
-	u3,
+	u2, \
+	mkshort(startframe),
 
 /**
  * Checks if a cutscene is still running.

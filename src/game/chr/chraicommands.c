@@ -427,7 +427,7 @@ bool aiChrDoAnimation(void)
 	if (startframe == 0xffff) {
 		fstartframe = 0;
 	} else if (startframe == 0xfffe) {
-		fstartframe = func00023768(anim_id) - 1;
+		fstartframe = animGetNumFrames(anim_id) - 1;
 	} else {
 		fstartframe = startframe;
 	}
@@ -5450,7 +5450,7 @@ bool aiObjectDoAnimation(void)
 	if (startframe == 0xffff) {
 		fstartframe = 0;
 	} else if (startframe == 0xfffe) {
-		fstartframe = func00023768(anim_id) - 2;
+		fstartframe = animGetNumFrames(anim_id) - 2;
 
 		if (fstartframe < 0) {
 			fstartframe = 0;

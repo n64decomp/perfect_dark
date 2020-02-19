@@ -2022,7 +2022,7 @@ u8 func0417_outro[] = {
 	show_object(OBJ_SHUTTLE2)
 	set_object_flag2(OBJ_SHUTTLE2, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_SHUTTLE2, OBJFLAG3_00000010)
-	object_do_animation(0x0475, OBJ_SHUTTLE2, 0x04ff, 0xff)
+	object_do_animation(0x0475, OBJ_SHUTTLE2, 0x04, 0xffff)
 	show_nonessential_chrs(FALSE)
 	restart_timer
 	set_object_part_visible(OBJ_SHUTTLE2, FALSE)
@@ -2122,7 +2122,7 @@ u8 func1011_shuttle_animation[] = {
 
 	// Some kind of animation on repeat
 	beginloop(0x08)
-		object_do_animation(0x0489, OBJ_SHUTTLE1, 0x08ff, -1)
+		object_do_animation(0x0489, OBJ_SHUTTLE1, 0x08, 0xffff)
 	endloop(0x08)
 
 	// Unreachable

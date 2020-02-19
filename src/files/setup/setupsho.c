@@ -2679,7 +2679,7 @@ u8 func0c00_intro[] = {
 	show_object(0x36)
 	set_object_flag2(0x36, OBJFLAG2_04000000)
 	set_object_flag3(0x36, OBJFLAG3_00000010)
-	object_do_animation(0x02fa, 0x36, 0x01ff, 0xff)
+	object_do_animation(0x02fa, 0x36, 0x01, 0xffff)
 	set_object_part_visible(0x36, FALSE)
 
 	beginloop(0x0e)
@@ -2748,7 +2748,7 @@ u8 func0c00_intro[] = {
 	show_object(0x36)
 	set_object_flag2(0x36, OBJFLAG2_04000000)
 	set_object_flag3(0x36, OBJFLAG3_00000010)
-	object_do_animation(0x0302, 0x36, 0x04ff, 0xff)
+	object_do_animation(0x0302, 0x36, 0x04, 0xffff)
 	set_object_part_visible(0x36, FALSE)
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
@@ -2856,7 +2856,7 @@ u8 func0414_outro[] = {
 	set_chr_hiddenflag(CHR_KING1, CHRHFLAG_00020000)
 	chr_do_animation(0x044d, -1, -1, 0x06, 0x00, CHR_KING1, 4)
 
-	object_do_animation(0x044e, OBJ_SPIKE_T, 0x04ff, 0xff)
+	object_do_animation(0x044e, OBJ_SPIKE_T, 0x04, 0xffff)
 	set_stage_flag(STAGEFLAG_IN_OUTRO)
 	show_nonessential_chrs(FALSE)
 
@@ -2882,37 +2882,37 @@ u8 func0414_outro[] = {
 	set_chr_hiddenflag(CHR_TARGET, CHRHFLAG_00020000)
 	chr_do_animation(0x0451, -1, -1, 0x06, 0x00, CHR_TARGET, 4)
 
-	object_do_animation(0x0452, OBJ_SPIKE_T, 0x04ff, 0xff)
+	object_do_animation(0x0452, OBJ_SPIKE_T, 0x04, 0xffff)
 
 	show_object(0x37)
 	set_object_flag2(0x37, OBJFLAG2_04000000)
 	set_object_flag3(0x37, OBJFLAG3_00000010)
-	object_do_animation(0x0453, 0x37, 0x04ff, 0xff)
+	object_do_animation(0x0453, 0x37, 0x04, 0xffff)
 
 	show_object(0x38)
 	set_object_flag2(0x38, OBJFLAG2_04000000)
 	set_object_flag3(0x38, OBJFLAG3_00000010)
-	object_do_animation(0x0454, 0x38, 0x04ff, 0xff)
+	object_do_animation(0x0454, 0x38, 0x04, 0xffff)
 
 	show_object(0x39)
 	set_object_flag2(0x39, OBJFLAG2_04000000)
 	set_object_flag3(0x39, OBJFLAG3_00000010)
-	object_do_animation(0x0455, 0x39, 0x04ff, 0xff)
+	object_do_animation(0x0455, 0x39, 0x04, 0xffff)
 
 	show_object(0x3a)
 	set_object_flag2(0x3a, OBJFLAG2_04000000)
 	set_object_flag3(0x3a, OBJFLAG3_00000010)
-	object_do_animation(0x0456, 0x3a, 0x04ff, 0xff)
+	object_do_animation(0x0456, 0x3a, 0x04, 0xffff)
 
 	show_object(0x3b)
 	set_object_flag2(0x3b, OBJFLAG2_04000000)
 	set_object_flag3(0x3b, OBJFLAG3_00000010)
-	object_do_animation(0x0457, 0x3b, 0x04ff, 0xff)
+	object_do_animation(0x0457, 0x3b, 0x04, 0xffff)
 	show_object(0x3c)
 
 	set_object_flag2(0x3c, OBJFLAG2_04000000)
 	set_object_flag3(0x3c, OBJFLAG3_00000010)
-	object_do_animation(0x0458, 0x3c, 0x04ff, 0xff)
+	object_do_animation(0x0458, 0x3c, 0x04, 0xffff)
 
 	beginloop(0x09)
 		if_camera_animating(/*goto*/ 0x2d)
@@ -2940,22 +2940,22 @@ u8 func0414_outro[] = {
 	show_object(0x23)
 	set_object_flag2(0x23, OBJFLAG2_04000000)
 	set_object_flag3(0x23, OBJFLAG3_00000010)
-	object_do_animation(0x02ca, 0x23, 0x04ff, 0xff)
+	object_do_animation(0x02ca, 0x23, 0x04, 0xffff)
 
 	show_object(0x24)
 	set_object_flag2(0x24, OBJFLAG2_04000000)
 	set_object_flag3(0x24, OBJFLAG3_00000010)
-	object_do_animation(0x02cb, 0x24, 0x04ff, 0xff)
+	object_do_animation(0x02cb, 0x24, 0x04, 0xffff)
 
 	show_object(0x25)
 	set_object_flag2(0x25, OBJFLAG2_04000000)
 	set_object_flag3(0x25, OBJFLAG3_00000010)
-	object_do_animation(0x02cc, 0x25, 0x04ff, 0xff)
+	object_do_animation(0x02cc, 0x25, 0x04, 0xffff)
 
 	show_object(0x26)
 	set_object_flag2(0x26, OBJFLAG2_04000000)
 	set_object_flag3(0x26, OBJFLAG3_00000010)
-	object_do_animation(0x02cd, 0x26, 0x04ff, 0xff)
+	object_do_animation(0x02cd, 0x26, 0x04, 0xffff)
 
 	beginloop(0x0b)
 		if_camera_animating(/*goto*/ 0x2d)

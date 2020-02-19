@@ -1523,7 +1523,7 @@ u8 func1002_intro[] = {
 	chr_do_animation(0x0477, -1, -1, 0x06, 0x00, CHR_BOND, 4)
 	set_object_flag2(OBJ_TROLLEY, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_TROLLEY, OBJFLAG3_00000010)
-	object_do_animation(0x0478, OBJ_TROLLEY, 0x04ff, 0xff)
+	object_do_animation(0x0478, OBJ_TROLLEY, 0x04, 0xffff)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 110)
@@ -1567,7 +1567,7 @@ u8 func1002_intro[] = {
 	chr_do_animation(0x0477, -2, -1, 0x06, 0x00, CHR_BOND, 2)
 	unset_object_flag2(OBJ_TROLLEY, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_TROLLEY, OBJFLAG3_00000010)
-	object_do_animation(0x0478, OBJ_TROLLEY, 0x04ff, 0xfe)
+	object_do_animation(0x0478, OBJ_TROLLEY, 0x04, 0xfffe)
 	restart_default_music
 	reset_ambience
 	enter_firstperson

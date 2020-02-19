@@ -2476,7 +2476,7 @@ u8 func1002_intro[] = {
 
 	set_object_flag2(0x00, OBJFLAG2_04000000)
 	set_object_flag3(0x00, OBJFLAG3_00000010)
-	object_do_animation(0x01a0, 0x00, 0x04ff, 0xff)
+	object_do_animation(0x01a0, 0x00, 0x04, 0xffff)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
 	fade_to_color(0x00000000, 90)
@@ -2765,7 +2765,7 @@ u8 func1002_intro[] = {
 
 	unset_object_flag2(OBJ_HOVERBED, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_HOVERBED, OBJFLAG3_00000010)
-	object_do_animation(0x01a0, OBJ_HOVERBED, 0x04ff, 0xfe)
+	object_do_animation(0x01a0, OBJ_HOVERBED, 0x04, 0xfffe)
 
 	drop_concealed_items(0x23)
 	drop_concealed_items(0x24)
@@ -2825,7 +2825,7 @@ u8 func0c01_midcutscene[] = {
 
 	set_object_flag2(0x11, OBJFLAG2_04000000)
 	set_object_flag3(0x11, OBJFLAG3_00000010)
-	object_do_animation(0x01cf, 0x11, 0x04ff, 0xff)
+	object_do_animation(0x01cf, 0x11, 0x04, 0xffff)
 
 	show_nonessential_chrs(FALSE)
 	if_object_in_room(OBJ_HOVERBIKE, 0x00df, /*goto*/ 0x06)
@@ -2965,7 +2965,7 @@ u8 func0c01_midcutscene[] = {
 
 	unset_object_flag2(0x11, OBJFLAG2_04000000)
 	set_object_flag3(0x11, OBJFLAG3_00000010)
-	object_do_animation(0x01cf, 0x11, 0x04ff, 0xfe)
+	object_do_animation(0x01cf, 0x11, 0x04, 0xfffe)
 
 	unset_object_flag2(0x0a, OBJFLAG2_AICANNOTUSE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
@@ -3010,7 +3010,7 @@ u8 func0c02_outro[] = {
 	show_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
-	object_do_animation(0x02d3, OBJ_UFO1, 0x04ff, 0xff)
+	object_do_animation(0x02d3, OBJ_UFO1, 0x04, 0xffff)
 
 	set_stage_flag(STAGEFLAG_STARTED_OUTRO)
 	remove_chr(CHR_ELVIS)
@@ -3035,7 +3035,7 @@ u8 func0c02_outro[] = {
 	show_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
-	object_do_animation(0x02d5, OBJ_UFO1, 0x04ff, 0xff)
+	object_do_animation(0x02d5, OBJ_UFO1, 0x04, 0xffff)
 
 	set_chr_chrflag(0x2b, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2b, CHRCFLAG_HIDDEN)
@@ -3093,7 +3093,7 @@ u8 func0415_ufo_exit[] = {
 	show_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
-	object_do_animation(0x02d3, OBJ_UFO1, 0x04ff, 0xff)
+	object_do_animation(0x02d3, OBJ_UFO1, 0x04, 0xffff)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_JONATHAN, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_INVINCIBLE_TO_GUNFIRE)
@@ -3156,7 +3156,7 @@ u8 func1021_jo_escaping[] = {
 	show_object(OBJ_UFO1)
 	set_object_flag2(OBJ_UFO1, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_UFO1, OBJFLAG3_00000010)
-	object_do_animation(0x02d5, OBJ_UFO1, 0x04ff, 0xff)
+	object_do_animation(0x02d5, OBJ_UFO1, 0x04, 0xffff)
 
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
@@ -3513,7 +3513,7 @@ u8 func1026_ufo_spinning[] = {
 	set_object_flag3(OBJ_UFO2, OBJFLAG3_00000010)
 
 	label(0x03)
-		object_do_animation(0x0459, OBJ_UFO2, 0x04ff, 0xff)
+		object_do_animation(0x0459, OBJ_UFO2, 0x04, 0xffff)
 		restart_timer
 
 		beginloop(0x08)

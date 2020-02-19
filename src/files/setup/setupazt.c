@@ -599,7 +599,7 @@ u8 func0402_outro[] = {
 	show_object(0x00)
 	set_object_flag2(OBJ_CRATE, OBJFLAG2_04000000)
 	set_object_flag3(OBJ_CRATE, OBJFLAG3_00000010)
-	object_do_animation(0x01e0, OBJ_CRATE, 0x04ff, 0xff)
+	object_do_animation(0x01e0, OBJ_CRATE, 0x04, 0xffff)
 	restart_timer
 	set_cutscene_weapon(CHR_TARGET, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -1935,7 +1935,7 @@ u8 func1014_setup_skedar_shuttle[] = {
 	show_object(OBJ_SKEDAR_SHUTTLE)
 	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
 	set_object_part_visible(OBJ_SKEDAR_SHUTTLE, FALSE)
-	object_do_animation(0x0486, OBJ_SKEDAR_SHUTTLE, 0x01ff, 0xff)
+	object_do_animation(0x0486, OBJ_SKEDAR_SHUTTLE, 0x01, 0xffff)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

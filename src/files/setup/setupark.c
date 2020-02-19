@@ -2457,7 +2457,7 @@ u8 func0412_outro[] = {
 	show_object(OBJ_JUMPSHIP)
 	set_object_flag3(OBJ_JUMPSHIP, OBJFLAG3_00000010)
 	set_object_flag2(OBJ_JUMPSHIP, OBJFLAG2_04000000)
-	object_do_animation(0x015e, OBJ_JUMPSHIP, 0x04ff, 0xff)
+	object_do_animation(0x015e, OBJ_JUMPSHIP, 0x04, 0xffff)
 	set_ailist(CHR_P1P2, GAILIST_IDLE)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)

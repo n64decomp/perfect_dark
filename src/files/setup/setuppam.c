@@ -1502,7 +1502,7 @@ u8 func0c01_midcutscene[] = {
 	show_object(0xbb)
 	set_object_flag2(0xbb, OBJFLAG2_04000000)
 	set_object_flag3(0xbb, OBJFLAG3_00000010)
-	object_do_animation(0x01d8, 0xbb, 0x04ff, 0xff)
+	object_do_animation(0x01d8, 0xbb, 0x04, 0xffff)
 	restart_timer
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -2035,7 +2035,7 @@ u8 func1002_intro[] = {
 	set_object_flag(0x07, OBJFLAG_DEACTIVATED)
 	set_object_flag2(0x07, OBJFLAG2_04000000)
 	set_object_flag3(0x07, OBJFLAG3_00000010)
-	object_do_animation(0x01f2, 0x07, 0x04ff, 0xff)
+	object_do_animation(0x01f2, 0x07, 0x04, 0xffff)
 	set_chr_chrflag(0x40, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x40, CHRCFLAG_HIDDEN)
 	set_chr_hiddenflag(0x40, CHRHFLAG_00020000)
@@ -2193,7 +2193,7 @@ u8 func1002_intro[] = {
 	unset_object_flag(0x07, OBJFLAG_DEACTIVATED)
 	unset_object_flag2(0x07, OBJFLAG2_04000000)
 	set_object_flag3(0x07, OBJFLAG3_00000010)
-	object_do_animation(0x01f2, 0x07, 0x01ff, 0xfe)
+	object_do_animation(0x01f2, 0x07, 0x01, 0xfffe)
 	goto_next(0x46)
 
 	label(0x45)
