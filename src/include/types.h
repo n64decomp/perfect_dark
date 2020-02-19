@@ -610,7 +610,7 @@ struct chrdata {
 	/*0x2e1*/ u8 cloakfade_06 : 1;
 	/*0x2e2*/ u8 teamscandist;
 	/*0x2e3*/ u8 naturalanim[1];
-	/*0x2e4*/ u32 myspecial;
+	/*0x2e4*/ s32 myspecial; // This is an object tag ID
 	/*0x2e8*/ f32 timeextra;
 	/*0x2ec*/ f32 elapseextra;
 	/*0x2f0*/ struct coord extraspeed;

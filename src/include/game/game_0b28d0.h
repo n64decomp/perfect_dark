@@ -10,7 +10,7 @@ u32 func0f0b30ac(void);
 u32 func0f0b30cc(void);
 u32 func0f0b3280(void);
 u32 func0f0b32a0(void);
-u32 func0f0b32e4(void);
+struct anim *func0f0b32e4(void);
 u32 func0f0b3338(void);
 
 #endif

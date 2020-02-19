@@ -6491,7 +6491,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x010f*/ aiIfChrShieldLessThan,
 	/*0x0110*/ aiIfChrShieldGreaterThan,
 	/*0x0111*/ aiSetCameraAnimation,
-	/*0x0112*/ ai0112,
+	/*0x0112*/ aiObjectDoAnimation,
 	/*0x0113*/ aiIfInCutscene,
 	/*0x0114*/ aiShowChr,
 	/*0x0115*/ aiHideChr,

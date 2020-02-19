@@ -274,7 +274,7 @@
 /*0x010f*/ bool aiIfChrShieldLessThan(void);
 /*0x0110*/ bool aiIfChrShieldGreaterThan(void);
 /*0x0111*/ bool aiSetCameraAnimation(void);
-/*0x0112*/ bool ai0112(void);
+/*0x0112*/ bool aiObjectDoAnimation(void);
 /*0x0113*/ bool aiIfInCutscene(void);
 /*0x0114*/ bool aiShowChr(void);
 /*0x0115*/ bool aiHideChr(void);
