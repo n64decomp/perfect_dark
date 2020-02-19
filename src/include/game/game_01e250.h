@@ -17,7 +17,7 @@ u32 func0f02133c(void);
 u32 func0f0213a0(void);
 u32 func0f02143c(void);
 void func0f021fa8(struct chrdata *chr, struct coord *pos, s16 *room);
-u32 func0f0220ec(void);
+void func0f0220ec(struct chrdata *chr, s32 arg1, s32 arg2);
 u32 func0f022214(void);
 u32 func0f022624(void);
 u32 func0f022be4(void);
