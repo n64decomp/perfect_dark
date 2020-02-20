@@ -217,11 +217,11 @@ struct chr2d4 {
 	/*0x09d*/ u8 unk09d;
 	/*0x0a0*/ s32 unk0a0;
 	/*0x0a4*/ f32 unk0a4;
-	/*0x0a8*/ u32 unk0a8;
-	/*0x0ac*/ u32 unk0ac;
+	/*0x0a8*/ f32 unk0a8;
+	/*0x0ac*/ f32 unk0ac;
 	/*0x0b0*/ f32 unk0b0;
-	/*0x0b4*/ u32 unk0b4;
-	/*0x0b8*/ u32 unk0b8;
+	/*0x0b4*/ f32 unk0b4;
+	/*0x0b8*/ f32 unk0b8;
 	/*0x0bc*/ s32 unk0bc;
 	/*0x0c0*/ s32 unk0c0_propindex;
 	/*0x0c4*/ u32 unk0c4;

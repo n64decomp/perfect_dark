@@ -418,90 +418,51 @@ glabel mpChrReset
 //	}
 //}
 
-GLOBAL_ASM(
-glabel mpInitSimulant
-/*  f1905f0:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f1905f4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1905f8:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f1905fc:	afa5005c */ 	sw	$a1,0x5c($sp)
-/*  f190600:	8c83001c */ 	lw	$v1,0x1c($a0)
-/*  f190604:	30ae00ff */ 	andi	$t6,$a1,0xff
-/*  f190608:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f19060c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f190610:	1060000d */ 	beqz	$v1,.L0f190648
-/*  f190614:	8c8602d4 */ 	lw	$a2,0x2d4($a0)
-/*  f190618:	8c62001c */ 	lw	$v0,0x1c($v1)
-/*  f19061c:	1040000a */ 	beqz	$v0,.L0f190648
-/*  f190620:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f190624:	8c430004 */ 	lw	$v1,0x4($v0)
-.L0f190628:
-/*  f190628:	50600005 */ 	beqzl	$v1,.L0f190640
-/*  f19062c:	8c420020 */ 	lw	$v0,0x20($v0)
-/*  f190630:	8c6f0040 */ 	lw	$t7,0x40($v1)
-/*  f190634:	35f80004 */ 	ori	$t8,$t7,0x4
-/*  f190638:	ac780040 */ 	sw	$t8,0x40($v1)
-/*  f19063c:	8c420020 */ 	lw	$v0,0x20($v0)
-.L0f190640:
-/*  f190640:	5440fff9 */ 	bnezl	$v0,.L0f190628
-/*  f190644:	8c430004 */ 	lw	$v1,0x4($v0)
-.L0f190648:
-/*  f190648:	50c0002b */ 	beqzl	$a2,.L0f1906f8
-/*  f19064c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f190650:	0fc640a3 */ 	jal	mpChrReset
-/*  f190654:	02002025 */ 	or	$a0,$s0,$zero
-/*  f190658:	0fc52719 */ 	jal	chrInitSplats
-/*  f19065c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f190660:	c60c0024 */ 	lwc1	$f12,0x24($s0)
-/*  f190664:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f190668:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f19066c:	0fc6185f */ 	jal	scenarioCallback2c
-/*  f190670:	8e07001c */ 	lw	$a3,0x1c($s0)
-/*  f190674:	8e190014 */ 	lw	$t9,0x14($s0)
-/*  f190678:	3c010010 */ 	lui	$at,0x10
-/*  f19067c:	44070000 */ 	mfc1	$a3,$f0
-/*  f190680:	03214025 */ 	or	$t0,$t9,$at
-/*  f190684:	ae080014 */ 	sw	$t0,0x14($s0)
-/*  f190688:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f19068c:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f190690:	02002025 */ 	or	$a0,$s0,$zero
-/*  f190694:	27a5003c */ 	addiu	$a1,$sp,0x3c
-/*  f190698:	0fc12dd2 */ 	jal	chrMoveToPos
-/*  f19069c:	27a6002c */ 	addiu	$a2,$sp,0x2c
-/*  f1906a0:	0c006b91 */ 	jal	func0001ae44
-/*  f1906a4:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f1906a8:	8e0a02d4 */ 	lw	$t2,0x2d4($s0)
-/*  f1906ac:	44801000 */ 	mtc1	$zero,$f2
-/*  f1906b0:	e54000a4 */ 	swc1	$f0,0xa4($t2)
-/*  f1906b4:	8e0b02d4 */ 	lw	$t3,0x2d4($s0)
-/*  f1906b8:	e56200a8 */ 	swc1	$f2,0xa8($t3)
-/*  f1906bc:	8e0c02d4 */ 	lw	$t4,0x2d4($s0)
-/*  f1906c0:	e58200ac */ 	swc1	$f2,0xac($t4)
-/*  f1906c4:	0c006b91 */ 	jal	func0001ae44
-/*  f1906c8:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f1906cc:	8e0d02d4 */ 	lw	$t5,0x2d4($s0)
-/*  f1906d0:	44801000 */ 	mtc1	$zero,$f2
-/*  f1906d4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1906d8:	e5a000b0 */ 	swc1	$f0,0xb0($t5)
-/*  f1906dc:	8e0e02d4 */ 	lw	$t6,0x2d4($s0)
-/*  f1906e0:	44051000 */ 	mfc1	$a1,$f2
-/*  f1906e4:	e5c200b4 */ 	swc1	$f2,0xb4($t6)
-/*  f1906e8:	8e0f02d4 */ 	lw	$t7,0x2d4($s0)
-/*  f1906ec:	0fc0ba68 */ 	jal	func0f02e9a0
-/*  f1906f0:	e5e200b8 */ 	swc1	$f2,0xb8($t7)
-/*  f1906f4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f1906f8:
-/*  f1906f8:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f1906fc:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f190700:	03e00008 */ 	jr	$ra
-/*  f190704:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void mpInitSimulant(struct chrdata *chr, u8 full)
+{
+	f32 thing;
+	struct prop *prop;
+	struct defaultobj *obj;
+	struct chr2d4 *chr2d4 = chr->unk2d4;
+	struct coord pos;
+	s16 rooms[8];
+
+	if (chr->prop) {
+		prop = chr->prop->child;
+
+		while (prop) {
+			obj = prop->obj;
+
+			if (obj) {
+				obj->hidden |= OBJHFLAG_00000004;
+			}
+
+			prop = prop->next;
+		}
+	}
+
+	if (chr2d4) {
+		mpChrReset(chr, full);
+		chrInitSplats(chr);
+		thing = scenarioCallback2c(chr->chrwidth, &pos, rooms, chr->prop);
+		chr->hidden |= CHRHFLAG_00100000;
+		chrMoveToPos(chr, &pos, rooms, thing, true);
+		chr->unk2d4->unk0a4 = func0001ae44(chr->unk020);
+		chr->unk2d4->unk0a8 = 0;
+		chr->unk2d4->unk0ac = 0;
+		chr->unk2d4->unk0b0 = func0001ae44(chr->unk020);
+		chr->unk2d4->unk0b4 = 0;
+		chr->unk2d4->unk0b8 = 0;
+		func0f02e9a0(chr, 0);
+	}
+}
 
 void mpInitSimulants(void)
 {
 	s32 i;
 
 	for (i = 0; i < var80087d10; i++) {
-		mpInitSimulant(var800acc80[i], 0);
+		mpInitSimulant(var800acc80[i], false);
 	}
 }
 

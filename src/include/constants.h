@@ -1387,6 +1387,7 @@
 #define OBJFLAG3_80000000        0x80000000 // Not used in scripts
 
 // obj->hidden
+#define OBJHFLAG_00000004          0x00000004
 #define OBJHFLAG_00000080          0x00000080
 #define OBJHFLAG_00000200          0x00000200
 #define OBJHFLAG_00000400          0x00000400
