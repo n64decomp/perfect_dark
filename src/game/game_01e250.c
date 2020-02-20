@@ -2812,7 +2812,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->firecount[1] = 0;
 
 	chr->darkroomthing = 0;
-	chr->unk32c_15 = 0;
+	chr->playerdeadthing = 0;
 	chr->unk32c_12 = 0;
 
 	chr->grenadeprob = 0;
@@ -5609,7 +5609,7 @@ glabel func0f023098
 /*  f0233b8:	10000008 */ 	beqz	$zero,.L0f0233dc
 /*  f0233bc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0233c0:
-/*  f0233c0:	0fc11f20 */ 	jal	func0f047c80
+/*  f0233c0:	0fc11f20 */ 	jal	chrTick
 /*  f0233c4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0233c8:	8e190020 */ 	lw	$t9,0x20($s0)
 /*  f0233cc:	17200003 */ 	bnez	$t9,.L0f0233dc

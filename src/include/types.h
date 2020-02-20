@@ -156,7 +156,7 @@ struct chr2d4 {
 	/*0x028*/ u32 unk028;
 	/*0x02c*/ u16 unk02c;
 	/*0x02e*/ u16 unk02e;
-	/*0x030*/ u32 unk030;
+	/*0x030*/ u32 unk030; // timer of some sort
 	/*0x034*/ u32 unk034;
 	/*0x038*/ u32 unk038;
 	/*0x03c*/ u16 unk03c;
@@ -632,7 +632,7 @@ struct chrdata {
 	u8 pouncebits : 3;
 	u8 unk32c_12 : 2;
 	u8 darkroomthing : 1;
-	u8 unk32c_15 : 1;
+	u8 playerdeadthing : 1;
 
 	u8 p1p2 : 2;
 	u8 unk32c_18 : 1;
@@ -652,7 +652,7 @@ struct chrdata {
 	/*0x338*/ u8 splatsdroppedhe;
 	/*0x339*/ u8 stdsplatsadded;
 	/*0x33a*/ u8 deaddropsplatsadded;
-	/*0x33b*/ u8 aimtesttimer60;
+	/*0x33b*/ s8 aimtesttimer60;
 	/*0x33c*/ struct coord lastdroppos;
 	/*0x348*/ u32 unk348;
 	/*0x34c*/ u32 unk34c;

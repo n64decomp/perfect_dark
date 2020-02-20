@@ -336,7 +336,7 @@ glabel func0f000b24
 );
 
 GLOBAL_ASM(
-glabel func0f000c28
+glabel roomGetBrightness
 /*  f000c28:	000478c0 */ 	sll	$t7,$a0,0x3
 /*  f000c2c:	01e47821 */ 	addu	$t7,$t7,$a0
 /*  f000c30:	3c0e800a */ 	lui	$t6,0x800a
