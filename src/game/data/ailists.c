@@ -5402,7 +5402,12 @@ u8 func0021_stop_and_idle[] = {
 };
 
 /**
- * Maybe used by multiplayer bots?
+ * Assigned at start of match, then switches to GAILIST_AI_BOT_ALIVE.
+ *
+ * Also assigned the moment the aibot dies, but this jumps out immediately to
+ * FAILIST_AI_BOT_DEAD while their death animation is happening.
+ *
+ * Also assigned upon respawn.
  */
 u8 func0029_ai_bot_init[] = {
 	dprint 'l','i','s','t',':',' ','a','i','b','o','t','i','n','i','t',0,
@@ -5422,6 +5427,9 @@ u8 func0029_ai_bot_init[] = {
 	endlist
 };
 
+/**
+ * Assigned while the aibot is doing their death animation. Stops after fadeout.
+ */
 u8 func0028_ai_bot_dead[] = {
 	dprint 'l','i','s','t',':',' ','a','i','d','e','a','d',0,
 
@@ -5434,6 +5442,9 @@ u8 func0028_ai_bot_dead[] = {
 	endlist
 };
 
+/**
+ * Assigned while the aibot is alive.
+ */
 u8 func002a_ai_bot_alive[] = {
 	beginloop(0xf8)
 		if_chr_dying(CHR_SELF, /*goto*/ 0xf9)

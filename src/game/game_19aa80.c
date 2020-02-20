@@ -20,6 +20,7 @@
 #include "library/library_0d0a0.h"
 #include "library/library_12dc0.h"
 #include "types.h"
+
 /**
  * @cmd 0185
  */
@@ -33,47 +34,31 @@ bool ai0185(void)
 /**
  * @cmd 0176
  */
-GLOBAL_ASM(
-glabel ai0176
-/*  f19aab4:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f19aab8:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f19aabc:	8ce20424 */ 	lw	$v0,0x424($a3)
-/*  f19aac0:	8ce40434 */ 	lw	$a0,0x434($a3)
-/*  f19aac4:	8ce50438 */ 	lw	$a1,0x438($a3)
-/*  f19aac8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f19aacc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19aad0:	10400003 */ 	beqz	$v0,.L0f19aae0
-/*  f19aad4:	00854821 */ 	addu	$t1,$a0,$a1
-/*  f19aad8:	8c4302d4 */ 	lw	$v1,0x2d4($v0)
-/*  f19aadc:	14600004 */ 	bnez	$v1,.L0f19aaf0
-.L0f19aae0:
-/*  f19aae0:	24ae0003 */ 	addiu	$t6,$a1,0x3
-/*  f19aae4:	acee0438 */ 	sw	$t6,0x438($a3)
-/*  f19aae8:	8c4302d4 */ 	lw	$v1,0x2d4($v0)
-/*  f19aaec:	01c02825 */ 	or	$a1,$t6,$zero
-.L0f19aaf0:
-/*  f19aaf0:	906f0059 */ 	lbu	$t7,0x59($v1)
-/*  f19aaf4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f19aaf8:	24b80003 */ 	addiu	$t8,$a1,0x3
-/*  f19aafc:	55e1000b */ 	bnel	$t7,$at,.L0f19ab2c
-/*  f19ab00:	acf80438 */ 	sw	$t8,0x438($a3)
-/*  f19ab04:	91260002 */ 	lbu	$a2,0x2($t1)
-/*  f19ab08:	0fc13583 */ 	jal	chraiGoToLabel
-/*  f19ab0c:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f19ab10:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f19ab14:	8fa80018 */ 	lw	$t0,0x18($sp)
-/*  f19ab18:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f19ab1c:	ace20438 */ 	sw	$v0,0x438($a3)
-/*  f19ab20:	10000002 */ 	beqz	$zero,.L0f19ab2c
-/*  f19ab24:	a1000059 */ 	sb	$zero,0x59($t0)
-/*  f19ab28:	acf80438 */ 	sw	$t8,0x438($a3)
-.L0f19ab2c:
-/*  f19ab2c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ab30:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f19ab34:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19ab38:	03e00008 */ 	jr	$ra
-/*  f19ab3c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ai0176(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	struct chr2d4 *chr2d4;
+
+	/**
+	 * @bug: Missing return means a crash will occur if either of these are
+	 * null.
+	 */
+	if (!g_Vars.chrdata || !g_Vars.chrdata->unk2d4) {
+		g_Vars.aioffset += 3;
+		//return false;
+	}
+
+	chr2d4 = g_Vars.chrdata->unk2d4;
+
+	if (chr2d4->unk059 == 1) {
+		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+		chr2d4->unk059 = 0;
+	} else {
+		g_Vars.aioffset += 3;
+	}
+
+	return false;
+}
 
 void func0f19ab40(void)
 {

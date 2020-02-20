@@ -3142,7 +3142,9 @@
 	mkshort(0x0175), \
 	u1,
 
-// globals.c only
+/**
+ *
+ */
 #define cmd0176_if_something(label) \
 	mkshort(0x0176), \
 	label,
