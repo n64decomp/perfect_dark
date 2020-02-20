@@ -5109,4 +5109,15 @@ struct propdefinition {
 	u16 scale;
 };
 
+struct var80087d14 {
+	u8 unk00;
+	f32 unk04;
+	f32 unk08;
+	u16 unk0c;
+	f32 unk10;
+	f32 unk14;
+	f32 unk18;
+	s32 blurdrugamount;
+};
+
 #endif

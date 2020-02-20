@@ -33,20 +33,10 @@
 #include "library/library_233c0.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f190260
-/*  f190260:	8c8f02d4 */ 	lw	$t7,0x2d4($a0)
-/*  f190264:	3c098008 */ 	lui	$t1,0x8008
-/*  f190268:	848e02d8 */ 	lh	$t6,0x2d8($a0)
-/*  f19026c:	8df80004 */ 	lw	$t8,0x4($t7)
-/*  f190270:	93190048 */ 	lbu	$t9,0x48($t8)
-/*  f190274:	00194140 */ 	sll	$t0,$t9,0x5
-/*  f190278:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f19027c:	8d297d30 */ 	lw	$t1,0x7d30($t1)
-/*  f190280:	01c9102a */ 	slt	$v0,$t6,$t1
-/*  f190284:	03e00008 */ 	jr	$ra
-/*  f190288:	38420001 */ 	xori	$v0,$v0,0x1
-);
+bool func0f190260(struct chrdata *chr)
+{
+	return chr->blurdrugamount >= var80087d14[chr->unk2d4->simulant->unk48].blurdrugamount;
+}
 
 GLOBAL_ASM(
 glabel mpChrReset

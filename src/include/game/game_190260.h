@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f190260(void);
+bool func0f190260(struct chrdata *chr);
 void mpChrReset(struct chrdata *chr, u8 full);
 void mpInitSimulant(struct chrdata *chr, u8 full);
 void mpInitSimulants(void);
