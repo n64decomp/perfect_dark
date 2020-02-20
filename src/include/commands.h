@@ -3268,7 +3268,7 @@
 	u1, \
 	u2,
 
-#define cmd0185_mponly \
+#define mp_init_simulants \
 	mkshort(0x0185),
 
 #define if_chr_soundtimer(value, operator, label) \

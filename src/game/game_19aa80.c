@@ -24,9 +24,9 @@
 /**
  * @cmd 0185
  */
-bool ai0185(void)
+bool aiMpInitSimulants(void)
 {
-	func0f190708();
+	mpInitSimulants();
 	g_Vars.aioffset += 2;
 	return false;
 }

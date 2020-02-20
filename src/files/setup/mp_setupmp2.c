@@ -41,7 +41,7 @@ u8 unregistered_func1[] = {
 };
 
 u8 unregistered_func2[] = {
-	cmd0185_mponly
+	mp_init_simulants
 	rebuild_teams
 	rebuild_squadrons
 	set_ailist(CHR_SELF, GAILIST_IDLE)

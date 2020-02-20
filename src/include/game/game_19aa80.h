@@ -18,7 +18,7 @@ u32 func0f19c1cc(void);
 u32 func0f19c288(void);
 u32 func0f19c2b0(void);
 bool func0f19c53c(void);
-bool ai0185(void);
+bool aiMpInitSimulants(void);
 void func0f19ab40(void);
 bool func0f19af3c(s32 chrnum, s32 challengeindex);
 bool mpIsChallengeAvailable(s32 challengeindex);

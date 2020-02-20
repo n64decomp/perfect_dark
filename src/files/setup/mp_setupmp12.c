@@ -194,7 +194,7 @@ u8 func1001_start_lifts[] = {
 };
 
 u8 func1000_3cc8[] = {
-	cmd0185_mponly
+	mp_init_simulants
 	rebuild_teams
 	rebuild_squadrons
 	set_ailist(CHR_SELF, GAILIST_IDLE)

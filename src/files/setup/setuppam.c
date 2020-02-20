@@ -4739,7 +4739,7 @@ u8 func102d_check_farsight_ammo_wasted[] = {
 };
 
 u8 unregistered_function4[] = {
-	cmd0185_mponly
+	mp_init_simulants
 	rebuild_teams
 	rebuild_squadrons
 	set_ailist(CHR_SELF, GAILIST_IDLE)

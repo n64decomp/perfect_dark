@@ -6606,7 +6606,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0182*/ aiPunchOrKick,
 	/*0x0183*/ aiIfTargetIsPlayer,
 	/*0x0184*/ ai0184,
-	/*0x0185*/ ai0185,
+	/*0x0185*/ aiMpInitSimulants,
 	/*0x0186*/ aiIfSoundTimer,
 	/*0x0187*/ aiSetTargetToEyespyIfInSight,
 	/*0x0188*/ aiIfLiftStationary,

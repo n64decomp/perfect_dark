@@ -366,7 +366,7 @@
 /*0x0182*/ bool aiPunchOrKick(void);
 /*0x0183*/ bool aiIfTargetIsPlayer(void);
 /*0x0184*/ bool ai0184(void);
-/*0x0185*/ bool ai0185(void);
+/*0x0185*/ bool aiMpInitSimulants(void);
 /*0x0186*/ bool aiIfSoundTimer(void);
 /*0x0187*/ bool aiSetTargetToEyespyIfInSight(void);
 /*0x0188*/ bool aiIfLiftStationary(void);

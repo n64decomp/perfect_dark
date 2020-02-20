@@ -127,7 +127,7 @@ u8 func1001_1dc0[] = {
 };
 
 u8 func1000_1dcc[] = {
-	cmd0185_mponly
+	mp_init_simulants
 	rebuild_teams
 	rebuild_squadrons
 	set_ailist(CHR_SELF, GAILIST_IDLE)
