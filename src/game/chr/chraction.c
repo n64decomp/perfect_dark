@@ -15726,7 +15726,7 @@ glabel func0f03c044
 );
 
 GLOBAL_ASM(
-glabel func0f03c138
+glabel chrTickStand
 /*  f03c138:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f03c13c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f03c140:	afb00020 */ 	sw	$s0,0x20($sp)
@@ -16249,7 +16249,7 @@ glabel func0f03c138
 /*  f03c8b0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f03c8b4(struct chrdata *chr)
+void chrTickKneel(struct chrdata *chr)
 {
 	chr->sleep = 0;
 
@@ -16260,7 +16260,7 @@ void func0f03c8b4(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f03c91c
+glabel chrTickAnim
 /*  f03c91c:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f03c920:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f03c924:	afb00048 */ 	sw	$s0,0x48($sp)
@@ -16424,7 +16424,7 @@ glabel func0f03c91c
 );
 
 GLOBAL_ASM(
-glabel func0f03cb74
+glabel chrTickSurrender
 /*  f03cb74:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f03cb78:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f03cb7c:	afb00020 */ 	sw	$s0,0x20($sp)
@@ -16536,7 +16536,7 @@ void func0f03cd04(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f03cd24
+glabel chrTickDead
 /*  f03cd24:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f03cd28:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f03cd2c:	8c820038 */ 	lw	$v0,0x38($a0)
@@ -16798,7 +16798,7 @@ glabel func0f03ce8c
 );
 
 GLOBAL_ASM(
-glabel func0f03d0b0
+glabel chrTickDie
 /*  f03d0b0:	27bdff50 */ 	addiu	$sp,$sp,-176
 /*  f03d0b4:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f03d0b8:	afb00048 */ 	sw	$s0,0x48($sp)
@@ -17290,7 +17290,7 @@ glabel func0f03d0b0
 );
 
 GLOBAL_ASM(
-glabel func0f03d7ec
+glabel chrTickDruggedComingUp
 /*  f03d7ec:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f03d7f0:	3c0f8007 */ 	lui	$t7,%hi(var80068408)
 /*  f03d7f4:	afbf005c */ 	sw	$ra,0x5c($sp)
@@ -17470,7 +17470,7 @@ glabel func0f03d7ec
 );
 
 GLOBAL_ASM(
-glabel func0f03da8c
+glabel chrTickDruggedDrop
 /*  f03da8c:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f03da90:	afbf004c */ 	sw	$ra,0x4c($sp)
 /*  f03da94:	afb00048 */ 	sw	$s0,0x48($sp)
@@ -17629,7 +17629,7 @@ glabel func0f03da8c
 );
 
 GLOBAL_ASM(
-glabel func0f03dcd8
+glabel chrTickDruggedKo
 /*  f03dcd8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f03dcdc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f03dce0:	8c820038 */ 	lw	$v0,0x38($a0)
@@ -17714,7 +17714,7 @@ glabel func0f03dcd8
 );
 
 GLOBAL_ASM(
-glabel func0f03ddf8
+glabel chrTickArgh
 /*  f03ddf8:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f03ddfc:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f03de00:	00808025 */ 	or	$s0,$a0,$zero
@@ -17774,7 +17774,7 @@ glabel func0f03ddf8
 );
 
 GLOBAL_ASM(
-glabel func0f03dec4
+glabel chrTickPreArgh
 /*  f03dec4:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f03dec8:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f03decc:	00808025 */ 	or	$s0,$a0,$zero
@@ -17814,7 +17814,7 @@ glabel func0f03dec4
 );
 
 GLOBAL_ASM(
-glabel func0f03df50
+glabel chrTickSidestep
 /*  f03df50:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f03df54:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f03df58:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -17861,7 +17861,7 @@ glabel func0f03df50
 );
 
 GLOBAL_ASM(
-glabel func0f03dff4
+glabel chrTickJumpOut
 /*  f03dff4:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f03dff8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f03dffc:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -17906,7 +17906,7 @@ glabel func0f03dff4
 /*  f03e090:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f03e094(struct chrdata *chr)
+void chrTickTest(struct chrdata *chr)
 {
 	struct chr020 *chr020 = chr->unk020;
 
@@ -17916,7 +17916,7 @@ void func0f03e094(struct chrdata *chr)
 }
 
 GLOBAL_ASM(
-glabel func0f03e0e4
+glabel chrTickStartAlarm
 /*  f03e0e4:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f03e0e8:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f03e0ec:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -17972,7 +17972,7 @@ glabel func0f03e0e4
 );
 
 GLOBAL_ASM(
-glabel func0f03e1a8
+glabel chrTickSurprised
 /*  f03e1a8:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f03e1ac:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f03e1b0:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -22670,7 +22670,7 @@ glabel func0f041e48
 );
 
 GLOBAL_ASM(
-glabel func0f04262c
+glabel chrTickAttackAmount
 /*  f04262c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f042630:	afb10020 */ 	sw	$s1,0x20($sp)
 /*  f042634:	00808825 */ 	or	$s1,$a0,$zero
@@ -22938,7 +22938,7 @@ void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
 }
 
 GLOBAL_ASM(
-glabel func0f042a40
+glabel chrTickRobotAttack
 /*  f042a40:	27bdfee8 */ 	addiu	$sp,$sp,-280
 /*  f042a44:	f7bc0038 */ 	sdc1	$f28,0x38($sp)
 /*  f042a48:	4480e000 */ 	mtc1	$zero,$f28
@@ -23334,7 +23334,7 @@ glabel func0f042a40
 );
 
 GLOBAL_ASM(
-glabel func0f042ffc
+glabel chrTickAttack
 /*  f042ffc:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f043000:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f043004:	00808025 */ 	or	$s0,$a0,$zero
@@ -23602,7 +23602,7 @@ glabel func0f042ffc
 );
 
 GLOBAL_ASM(
-glabel func0f0433e0
+glabel chrTickAttackRoll
 /*  f0433e0:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f0433e4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0433e8:	afa40048 */ 	sw	$a0,0x48($sp)
@@ -24026,7 +24026,7 @@ void registerDangerousProp(struct prop *prop)
 }
 
 GLOBAL_ASM(
-glabel func0f0439f8
+glabel chrTickThrowGrenade
 /*  f0439f8:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f0439fc:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f043a00:	afa40040 */ 	sw	$a0,0x40($sp)
@@ -24329,7 +24329,7 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 	return false;
 }
 
-void func0f043f24(struct chrdata *chr)
+void chrTickBondDie(struct chrdata *chr)
 {
 	// empty
 }
@@ -24540,7 +24540,7 @@ glabel func0f043f2c
 );
 
 GLOBAL_ASM(
-glabel func0f044208
+glabel chrTickAttackWalk
 /*  f044208:	27bdffb0 */ 	addiu	$sp,$sp,-80
 /*  f04420c:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f044210:	afb20028 */ 	sw	$s2,0x28($sp)
@@ -25010,7 +25010,7 @@ glabel func0f044808
 );
 
 GLOBAL_ASM(
-glabel func0f0448a0
+glabel chrTickRunPos
 /*  f0448a0:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f0448a4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f0448a8:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -27348,7 +27348,7 @@ glabel func0f046a60
 );
 
 GLOBAL_ASM(
-glabel func0f046a8c
+glabel chrTickGoPos
 /*  f046a8c:	27bdfe90 */ 	addiu	$sp,$sp,-368
 /*  f046a90:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f046a94:	afb00028 */ 	sw	$s0,0x28($sp)
@@ -27985,7 +27985,7 @@ glabel func0f046a8c
 );
 
 GLOBAL_ASM(
-glabel func0f0473cc
+glabel chrTickPatrol
 /*  f0473cc:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f0473d0:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f0473d4:	afb00020 */ 	sw	$s0,0x20($sp)
@@ -28336,7 +28336,7 @@ glabel func0f047700
 );
 
 GLOBAL_ASM(
-glabel func0f047934
+glabel chrTickSkJump
 /*  f047934:	3c0e800a */ 	lui	$t6,0x800a
 /*  f047938:	8dce9ff8 */ 	lw	$t6,-0x6008($t6)
 /*  f04793c:	27bdff88 */ 	addiu	$sp,$sp,-120
@@ -28660,38 +28660,38 @@ void chrTick(struct chrdata *chr)
 		if (chr->prop) {
 			if (g_Vars.in_cutscene) {
 				switch (chr->actiontype) {
-				case ACT_ANIM:   func0f03c91c(chr); break;
-				case ACT_PATROL: func0f0473cc(chr); pass = false; break;
+				case ACT_ANIM:   chrTickAnim(chr);   break;
+				case ACT_PATROL: chrTickPatrol(chr); pass = false; break;
 				}
 			} else {
 				switch (chr->actiontype) {
-				case ACT_STAND:            func0f03c138(chr); break;
-				case ACT_KNEEL:            func0f03c8b4(chr); break;
-				case ACT_ANIM:             func0f03c91c(chr); break;
-				case ACT_DIE:              func0f03d0b0(chr); break;
-				case ACT_ARGH:             func0f03ddf8(chr); break;
-				case ACT_PREARGH:          func0f03dec4(chr); break;
-				case ACT_SIDESTEP:         func0f03df50(chr); break;
-				case ACT_JUMPOUT:          func0f03dff4(chr); break;
-				case ACT_DEAD:             func0f03cd24(chr); break;
-				case ACT_ATTACK:           func0f042ffc(chr); break;
-				case ACT_ATTACKWALK:       func0f044208(chr); break;
-				case ACT_ATTACKROLL:       func0f0433e0(chr); break;
-				case ACT_RUNPOS:           func0f0448a0(chr); break;
-				case ACT_PATROL:           func0f0473cc(chr); pass = false; break;
-				case ACT_GOPOS:            func0f046a8c(chr); break;
-				case ACT_SURRENDER:        func0f03cb74(chr); break;
-				case ACT_TEST:             func0f03e094(chr); break;
-				case ACT_SURPRISED:        func0f03e1a8(chr); break;
-				case ACT_STARTALARM:       func0f03e0e4(chr); break;
-				case ACT_THROWGRENADE:     func0f0439f8(chr); break;
-				case ACT_BONDDIE:          func0f043f24(chr); break;
-				case ACT_DRUGGEDCOMINGUP:  func0f03d7ec(chr); break;
-				case ACT_DRUGGEDDROP:      func0f03da8c(chr); break;
-				case ACT_DRUGGEDKO:        func0f03dcd8(chr); break;
-				case ACT_ATTACKAMOUNT:     func0f04262c(chr); break;
-				case ACT_ROBOTATTACK:      func0f042a40(chr); break;
-				case ACT_SKJUMP:           func0f047934(chr); break;
+				case ACT_STAND:           chrTickStand(chr);           break;
+				case ACT_KNEEL:           chrTickKneel(chr);           break;
+				case ACT_ANIM:            chrTickAnim(chr);            break;
+				case ACT_DIE:             chrTickDie(chr);             break;
+				case ACT_ARGH:            chrTickArgh(chr);            break;
+				case ACT_PREARGH:         chrTickPreArgh(chr);         break;
+				case ACT_SIDESTEP:        chrTickSidestep(chr);        break;
+				case ACT_JUMPOUT:         chrTickJumpOut(chr);         break;
+				case ACT_DEAD:            chrTickDead(chr);            break;
+				case ACT_ATTACK:          chrTickAttack(chr);          break;
+				case ACT_ATTACKWALK:      chrTickAttackWalk(chr);      break;
+				case ACT_ATTACKROLL:      chrTickAttackRoll(chr);      break;
+				case ACT_RUNPOS:          chrTickRunPos(chr);          break;
+				case ACT_PATROL:          chrTickPatrol(chr);          pass = false; break;
+				case ACT_GOPOS:           chrTickGoPos(chr);           break;
+				case ACT_SURRENDER:       chrTickSurrender(chr);       break;
+				case ACT_TEST:            chrTickTest(chr);            break;
+				case ACT_SURPRISED:       chrTickSurprised(chr);       break;
+				case ACT_STARTALARM:      chrTickStartAlarm(chr);      break;
+				case ACT_THROWGRENADE:    chrTickThrowGrenade(chr);    break;
+				case ACT_BONDDIE:         chrTickBondDie(chr);         break;
+				case ACT_DRUGGEDCOMINGUP: chrTickDruggedComingUp(chr); break;
+				case ACT_DRUGGEDDROP:     chrTickDruggedDrop(chr);     break;
+				case ACT_DRUGGEDKO:       chrTickDruggedKo(chr);       break;
+				case ACT_ATTACKAMOUNT:    chrTickAttackAmount(chr);    break;
+				case ACT_ROBOTATTACK:     chrTickRobotAttack(chr);     break;
+				case ACT_SKJUMP:          chrTickSkJump(chr);          break;
 				}
 			}
 		}
