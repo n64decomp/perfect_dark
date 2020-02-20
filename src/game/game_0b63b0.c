@@ -677,8 +677,8 @@ glabel func0f0b69d0
 /*  f0b6bf4:	93397d10 */ 	lbu	$t9,0x7d10($t9)
 /*  f0b6bf8:	5b20003e */ 	blezl	$t9,.L0f0b6cf4
 /*  f0b6bfc:	e6d40000 */ 	swc1	$f20,0x0($s6)
-/*  f0b6c00:	3c10800b */ 	lui	$s0,%hi(var800acc80)
-/*  f0b6c04:	2610cc80 */ 	addiu	$s0,$s0,%lo(var800acc80)
+/*  f0b6c00:	3c10800b */ 	lui	$s0,%hi(g_MpSimulantChrs)
+/*  f0b6c04:	2610cc80 */ 	addiu	$s0,$s0,%lo(g_MpSimulantChrs)
 /*  f0b6c08:	8e050000 */ 	lw	$a1,0x0($s0)
 .L0f0b6c0c:
 /*  f0b6c0c:	8ca2001c */ 	lw	$v0,0x1c($a1)

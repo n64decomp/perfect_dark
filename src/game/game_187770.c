@@ -9775,8 +9775,8 @@ glabel func0f18f874
 /*  f18fe44:	11c00046 */ 	beqz	$t6,.L0f18ff60
 /*  f18fe48:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18fe4c:	93187d10 */ 	lbu	$t8,0x7d10($t8)
-/*  f18fe50:	3c10800b */ 	lui	$s0,%hi(var800acc80)
-/*  f18fe54:	2610cc80 */ 	addiu	$s0,$s0,%lo(var800acc80)
+/*  f18fe50:	3c10800b */ 	lui	$s0,%hi(g_MpSimulantChrs)
+/*  f18fe54:	2610cc80 */ 	addiu	$s0,$s0,%lo(g_MpSimulantChrs)
 /*  f18fe58:	1b000041 */ 	blez	$t8,.L0f18ff60
 /*  f18fe5c:	00008825 */ 	or	$s1,$zero,$zero
 .L0f18fe60:

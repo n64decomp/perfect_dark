@@ -461,18 +461,15 @@ void mpInitSimulants(void)
 {
 	s32 i;
 
-	for (i = 0; i < var80087d10; i++) {
-		mpInitSimulant(var800acc80[i], false);
+	for (i = 0; i < g_NumMpSimulantChrs; i++) {
+		mpInitSimulant(g_MpSimulantChrs[i], false);
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f190774
-/*  f190774:	3c018765 */ 	lui	$at,0x8765
-/*  f190778:	34214321 */ 	ori	$at,$at,0x4321
-/*  f19077c:	03e00008 */ 	jr	$ra
-/*  f190780:	00811021 */ 	addu	$v0,$a0,$at
-);
+u32 add87654321(u32 value)
+{
+	return value + 0x87654321;
+}
 
 GLOBAL_ASM(
 glabel func0f190784
@@ -578,17 +575,17 @@ glabel func0f190784
 /*  f1908f8:	34211e60 */ 	ori	$at,$at,0x1e60
 /*  f1908fc:	1041000e */ 	beq	$v0,$at,.L0f190938
 /*  f190900:	3c049c9c */ 	lui	$a0,0x9c9c
-/*  f190904:	0fc641dd */ 	jal	func0f190774
+/*  f190904:	0fc641dd */ 	jal	add87654321
 /*  f190908:	3484bce0 */ 	ori	$a0,$a0,0xbce0
 /*  f19090c:	3c107f04 */ 	lui	$s0,0x7f04
 /*  f190910:	2610978c */ 	addiu	$s0,$s0,-26740
 /*  f190914:	3c047c7a */ 	lui	$a0,0x7c7a
 /*  f190918:	ae020000 */ 	sw	$v0,0x0($s0)
-/*  f19091c:	0fc641dd */ 	jal	func0f190774
+/*  f19091c:	0fc641dd */ 	jal	add87654321
 /*  f190920:	3484bce7 */ 	ori	$a0,$a0,0xbce7
 /*  f190924:	3c04789a */ 	lui	$a0,0x789a
 /*  f190928:	ae020004 */ 	sw	$v0,0x4($s0)
-/*  f19092c:	0fc641dd */ 	jal	func0f190774
+/*  f19092c:	0fc641dd */ 	jal	add87654321
 /*  f190930:	3484bcdf */ 	ori	$a0,$a0,0xbcdf
 /*  f190934:	ae020008 */ 	sw	$v0,0x8($s0)
 .L0f190938:

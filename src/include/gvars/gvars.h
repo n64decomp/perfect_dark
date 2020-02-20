@@ -868,7 +868,7 @@ extern s8 g_MpLockPlayerNum;
 extern u32 var800acc28;
 extern u32 var800acc70;
 extern u32 var800acc74;
-extern struct chrdata *var800acc80[MAX_SIMULANTS];
+extern struct chrdata *g_MpSimulantChrs[MAX_SIMULANTS];
 extern u8 var800acca0[40];
 extern u8 g_MpChallengesCompleted[];
 extern u32 var800acd20;

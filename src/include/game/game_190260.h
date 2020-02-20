@@ -7,7 +7,7 @@ u32 func0f190260(void);
 void mpChrReset(struct chrdata *chr, u8 full);
 void mpInitSimulant(struct chrdata *chr, u8 full);
 void mpInitSimulants(void);
-u32 func0f190774(void);
+u32 add87654321(u32 value);
 u32 func0f190784(void);
 u32 func0f190be4(void);
 u32 func0f19124c(void);

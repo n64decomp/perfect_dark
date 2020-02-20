@@ -307,7 +307,7 @@ extern struct mpbody g_MpBodies[NUM_MPBODIES];
 extern struct mptrack g_MpTracks[NUM_MPTRACKS];
 extern struct mppreset g_MpPresets[NUM_MPPRESETS];
 extern u32 g_TeamColours[MAX_TEAMS];
-extern u8 var80087d10;
+extern u8 g_NumMpSimulantChrs;
 extern u32 var80087d14[];
 extern u32 g_MpBotCommands[NUM_MPBOTCOMMANDS];
 extern u32 var80087e2c;
