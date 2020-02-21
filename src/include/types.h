@@ -357,8 +357,8 @@ struct act_die {
 struct act_dead {
 	/*0x2c*/ u32 unk02c;
 	/*0x30*/ u32 unk030;
-	/*0x34*/ u32 unk034;
-	/*0x38*/ s32 unk038;
+	/*0x34*/ s32 unk034; // timer
+	/*0x38*/ s32 unk038; // timer
 	/*0x3c*/ u32 unk03c;
 };
 
