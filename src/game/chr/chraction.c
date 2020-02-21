@@ -17800,61 +17800,27 @@ void chrTickTest(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel chrTickStartAlarm
-/*  f03e0e4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f03e0e8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03e0ec:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03e0f0:	8c850020 */ 	lw	$a1,0x20($a0)
-/*  f03e0f4:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03e0f8:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f03e0fc:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f03e100:	000e7a80 */ 	sll	$t7,$t6,0xa
-/*  f03e104:	05e1000c */ 	bgez	$t7,.L0f03e138
-/*  f03e108:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e10c:	0c0076e5 */ 	jal	func0001db94
-/*  f03e110:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f03e114:	54400020 */ 	bnezl	$v0,.L0f03e198
-/*  f03e118:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03e11c:	0fc0bbd0 */ 	jal	func0f02ef40
-/*  f03e120:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e124:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f03e128:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f03e12c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f03e130:	0301c824 */ 	and	$t9,$t8,$at
-/*  f03e134:	ae190014 */ 	sw	$t9,0x14($s0)
-.L0f03e138:
-/*  f03e138:	0c00745f */ 	jal	func0001d17c
-/*  f03e13c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f03e140:	3c014270 */ 	lui	$at,0x4270
-/*  f03e144:	44812000 */ 	mtc1	$at,$f4
-/*  f03e148:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e14c:	4600203e */ 	c.le.s	$f4,$f0
-/*  f03e150:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e154:	45000003 */ 	bc1f	.L0f03e164
-/*  f03e158:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e15c:	0fc240ec */ 	jal	alarmActivate
-/*  f03e160:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f03e164:
-/*  f03e164:	0c00745f */ 	jal	func0001d17c
-/*  f03e168:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f03e16c:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*  f03e170:	0c007468 */ 	jal	func0001d1a0
-/*  f03e174:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f03e178:	c7a60020 */ 	lwc1	$f6,0x20($sp)
-/*  f03e17c:	4606003e */ 	c.le.s	$f0,$f6
-/*  f03e180:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e184:	45020004 */ 	bc1fl	.L0f03e198
-/*  f03e188:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03e18c:	0fc0bb57 */ 	jal	chrStop
-/*  f03e190:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e194:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f03e198:
-/*  f03e198:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03e19c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f03e1a0:	03e00008 */ 	jr	$ra
-/*  f03e1a4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrTickStartAlarm(struct chrdata *chr)
+{
+	struct chr020 *chr020 = chr->unk020;
+
+	if (chr->hidden & CHRHFLAG_00200000) {
+		if (func0001db94(chr->unk020)) {
+			return;
+		}
+
+		func0f02ef40(chr);
+		chr->hidden &= ~CHRHFLAG_00200000;
+	}
+
+	if (func0001d17c(chr020) >= 60) {
+		alarmActivate();
+	}
+
+	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+		chrStop(chr);
+	}
+}
 
 GLOBAL_ASM(
 glabel chrTickSurprised
