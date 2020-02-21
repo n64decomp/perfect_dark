@@ -112,7 +112,7 @@ void chrTickStand(struct chrdata *chr);
 void chrTickAnim(struct chrdata *chr);
 void chrTickSurrender(struct chrdata *chr);
 void chrTickDead(struct chrdata *chr);
-u32 func0f03ce8c(void);
+void func0f03ce8c(struct chrdata *chr, s32 arg1);
 void chrTickDie(struct chrdata *chr);
 void chrTickDruggedComingUp(struct chrdata *chr);
 void chrTickDruggedDrop(struct chrdata *chr);

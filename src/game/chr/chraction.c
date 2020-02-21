@@ -3701,8 +3701,8 @@ void func0f03119c(struct chrdata *chr)
 		chr->sleep = 0;
 
 		if (chr->race == RACE_DRCAROLL) {
-			chr->drcarollimage_left = DRCAROLLIMAGE_DEAD;
-			chr->drcarollimage_right = DRCAROLLIMAGE_DEAD;
+			chr->drcarollimage_left = DRCAROLLIMAGE_STATIC;
+			chr->drcarollimage_right = DRCAROLLIMAGE_STATIC;
 		}
 	}
 }
@@ -17713,65 +17713,27 @@ glabel chrTickDruggedKo
 /*  f03ddf4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrTickArgh
-/*  f03ddf8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f03ddfc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03de00:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03de04:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03de08:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f03de0c:	0c00745f */ 	jal	func0001d17c
-/*  f03de10:	afa40024 */ 	sw	$a0,0x24($sp)
-/*  f03de14:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*  f03de18:	0c007468 */ 	jal	func0001d1a0
-/*  f03de1c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f03de20:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f03de24:	4604003e */ 	c.le.s	$f0,$f4
-/*  f03de28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03de2c:	4502001e */ 	bc1fl	.L0f03dea8
-/*  f03de30:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03de34:	0fc0e56b */ 	jal	chrRecordLastSeeTargetTime
-/*  f03de38:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03de3c:	12000003 */ 	beqz	$s0,.L0f03de4c
-/*  f03de40:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03de44:	10000001 */ 	beqz	$zero,.L0f03de4c
-/*  f03de48:	920202fe */ 	lbu	$v0,0x2fe($s0)
-.L0f03de4c:
-/*  f03de4c:	5440000b */ 	bnezl	$v0,.L0f03de7c
-/*  f03de50:	920e02fe */ 	lbu	$t6,0x2fe($s0)
-/*  f03de54:	0c00744f */ 	jal	func0001d13c
-/*  f03de58:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f03de5c:	24010039 */ 	addiu	$at,$zero,0x39
-/*  f03de60:	14410005 */ 	bne	$v0,$at,.L0f03de78
-/*  f03de64:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03de68:	0fc0bb4a */ 	jal	func0f02ed28
-/*  f03de6c:	3c0541d0 */ 	lui	$a1,0x41d0
-/*  f03de70:	1000000d */ 	beqz	$zero,.L0f03dea8
-/*  f03de74:	02002025 */ 	or	$a0,$s0,$zero
-.L0f03de78:
-/*  f03de78:	920e02fe */ 	lbu	$t6,0x2fe($s0)
-.L0f03de7c:
-/*  f03de7c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f03de80:	15c10006 */ 	bne	$t6,$at,.L0f03de9c
-/*  f03de84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03de88:	920f0362 */ 	lbu	$t7,0x362($s0)
-/*  f03de8c:	31f9ff0f */ 	andi	$t9,$t7,0xff0f
-/*  f03de90:	a2190362 */ 	sb	$t9,0x362($s0)
-/*  f03de94:	332800f0 */ 	andi	$t0,$t9,0xf0
-/*  f03de98:	a2080362 */ 	sb	$t0,0x362($s0)
-.L0f03de9c:
-/*  f03de9c:	0fc0bb57 */ 	jal	chrStop
-/*  f03dea0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03dea4:	02002025 */ 	or	$a0,$s0,$zero
-.L0f03dea8:
-/*  f03dea8:	0fc0f3a3 */ 	jal	func0f03ce8c
-/*  f03deac:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03deb0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03deb4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03deb8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f03debc:	03e00008 */ 	jr	$ra
-/*  f03dec0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrTickArgh(struct chrdata *chr)
+{
+	struct chr020 *chr020 = chr->unk020;
+
+	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+		chrRecordLastSeeTargetTime(chr);
+
+		if (CHRRACE(chr) == RACE_HUMAN && func0001d13c(chr020) == ANIM_DEATH_STOMACH_LONG) {
+			func0f02ed28(chr, 26);
+		} else {
+			if (chr->race == RACE_DRCAROLL) {
+				chr->drcarollimage_left = DRCAROLLIMAGE_EYESDEFAULT;
+				chr->drcarollimage_right = DRCAROLLIMAGE_EYESDEFAULT;
+			}
+
+			chrStop(chr);
+		}
+	}
+
+	func0f03ce8c(chr, 0);
+}
 
 void chrTickPreArgh(struct chrdata *chr)
 {

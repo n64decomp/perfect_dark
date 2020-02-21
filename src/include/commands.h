@@ -3821,6 +3821,8 @@
  * 0-6 = set directly to that image ID
  * 7 = 25% chance of changing the image to a random one in range 0-5
  * 8 = 100% chance of changing the image to a random one in range 0-5
+ *
+ * See also DRCAROLLIMAGE constants.
  */
 #define set_drcaroll_images(chr, left, right) \
 	mkshort(0x01d3), \

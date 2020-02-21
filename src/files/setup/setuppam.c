@@ -1552,16 +1552,16 @@ u8 func0c01_midcutscene[] = {
 	wait_until(570, 0x69)
 
 	label(0x6c)
-	set_drcaroll_images(CHR_DRCAROLL, 0x02, 0x03)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESFROWNING, DRCAROLLIMAGE_X)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x03, 0x02)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_X, DRCAROLLIMAGE_EYESFROWNING)
 	yield
 	if_controller_button_pressed(/*goto*/ 0x57)
 	if_timer_gt(600, /*goto*/ 0x06)
 	goto_first(0x6c)
 
 	label(0x06)
-	set_drcaroll_images(CHR_DRCAROLL, 0x02, 0x02)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESFROWNING, DRCAROLLIMAGE_EYESFROWNING)
 	speak(CHR_BOND, 0x3025, 0x746f, CHANNEL_10, COLOR_09_BLUE) // "Me and my big mouth."
 
 	wait_until(700, 0x6d)
@@ -1575,7 +1575,7 @@ u8 func0c01_midcutscene[] = {
 
 	label(0x71)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x07, 0x07)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_RANDOM25, DRCAROLLIMAGE_RANDOM25)
 	if_controller_button_pressed(/*goto*/ 0x57)
 	if_timer_gt(742, /*goto*/ 0x06)
 	goto_first(0x71)
@@ -1583,112 +1583,112 @@ u8 func0c01_midcutscene[] = {
 	label(0x06)
 	speak(CHR_BOND, 0x3026, 0x7470, CHANNEL_10, COLOR_04_ORANGE) // "Commencing countermeasures. Commenc..... *** ooOOo..."
 
-	wait_until_with_images(746, 0x73, 0x02, 0x08)
+	wait_until_with_images(746, 0x73, DRCAROLLIMAGE_EYESFROWNING, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x0128, CHANNEL_5)
 
-	wait_until_with_images(760, 0x75, 0x08, 0x08)
+	wait_until_with_images(760, 0x75, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(764, 0x76, 0x08, 0x02)
+	wait_until_with_images(764, 0x76, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESFROWNING)
 	play_sound(0x0173, CHANNEL_2)
 
-	wait_until_with_images(784, 0x79, 0x08, 0x08)
+	wait_until_with_images(784, 0x79, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x0174, CHANNEL_5)
 
-	wait_until_with_images(808, 0x7c, 0x08, 0x02)
+	wait_until_with_images(808, 0x7c, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESFROWNING)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(872, 0x81, 0x08, 0x08)
+	wait_until_with_images(872, 0x81, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x04fa, CHANNEL_7)
 
-	wait_until_with_images(886, 0x83, 0x00, 0x08)
+	wait_until_with_images(886, 0x83, 0x00, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x0129, CHANNEL_3)
 
-	wait_until_with_images(894, 0x85, 0x08, 0x02)
+	wait_until_with_images(894, 0x85, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESFROWNING)
 	play_sound(0x012a, CHANNEL_5)
 	label(0x86)
 
-	wait_until_with_images(914, 0x87, 0x08, 0x08)
+	wait_until_with_images(914, 0x87, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(980, 0x8b, 0x00, 0x08)
+	wait_until_with_images(980, 0x8b, 0x00, DRCAROLLIMAGE_RANDOM)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(992, 0x8e, 0x08, 0x00)
+	wait_until_with_images(992, 0x8e, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
 	play_sound(0x04f9, CHANNEL_2)
 
-	wait_until_with_images(1012, 0x90, 0x08, 0x08)
+	wait_until_with_images(1012, 0x90, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x012b, CHANNEL_4)
 
-	wait_until_with_images(1018, 0x91, 0x00, 0x08)
+	wait_until_with_images(1018, 0x91, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1026, 0x93, 0x08, 0x08)
+	wait_until_with_images(1026, 0x93, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x0129, CHANNEL_7)
 
-	wait_until_with_images(1034, 0x94, 0x08, 0x00)
+	wait_until_with_images(1034, 0x94, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
 	play_sound(0x0176, CHANNEL_2)
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_EYESDEFAULT)
 
-	wait_until_with_images(1036, 0x95, 0x08, 0x08)
+	wait_until_with_images(1036, 0x95, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1068, 0x98, 0x08, 0x00)
+	wait_until_with_images(1068, 0x98, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
 	play_sound(0x0177, CHANNEL_6)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1074, 0x99, 0x08, 0x08)
+	wait_until_with_images(1074, 0x99, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1090, 0xfc, 0x00, 0x08)
+	wait_until_with_images(1090, 0xfc, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1112, 0x9e, 0x08, 0x08)
+	wait_until_with_images(1112, 0x9e, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x0127, CHANNEL_6)
 
-	wait_until_with_images(1124, 0xa0, 0x08, 0x00)
+	wait_until_with_images(1124, 0xa0, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
 	play_sound(0x04f7, CHANNEL_2)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1130, 0xa1, 0x00, 0x08)
+	wait_until_with_images(1130, 0xa1, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x04ff, CHANNEL_3)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1188, 0xa7, 0x08, 0x08)
+	wait_until_with_images(1188, 0xa7, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1238, 0xaa, 0x08, 0x00)
+	wait_until_with_images(1238, 0xaa, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
 	play_sound(0x04f7, CHANNEL_6)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1304, 0xb2, 0x00, 0x08)
+	wait_until_with_images(1304, 0xb2, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x0129, CHANNEL_2)
 
-	wait_until_with_images(1308, 0xb3, 0x08, 0x08)
+	wait_until_with_images(1308, 0xb3, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x0178, CHANNEL_3)
 
-	wait_until_with_images(1354, 0xba, 0x08, 0x00)
+	wait_until_with_images(1354, 0xba, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
 	play_sound(0x04f7, CHANNEL_4)
 
-	wait_until_with_images(1406, 0xc5, 0x00, 0x08)
+	wait_until_with_images(1406, 0xc5, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1468, 0xcd, 0x00, 0x08)
+	wait_until_with_images(1468, 0xcd, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x012b, CHANNEL_5)
 
-	wait_until_with_images(1480, 0xcf, 0x00, 0x08)
+	wait_until_with_images(1480, 0xcf, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x0173, CHANNEL_6)
 
-	wait_until_with_images(1487, 0xd0, 0x08, 0x00)
+	wait_until_with_images(1487, 0xd0, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
 	play_sound(0x04f9, CHANNEL_2)
 	emit_sparks(CHR_DRCAROLL)
 
-	wait_until_with_images(1494, 0xd1, 0x08, 0x00)
+	wait_until_with_images(1494, 0xd1, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
 	play_sound(0x0171, CHANNEL_3)
 
-	wait_until_with_images(1500, 0xd4, 0x08, 0x00)
+	wait_until_with_images(1500, 0xd4, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
 	speak(CHR_BOND, 0x3027, 0x7471, CHANNEL_10, COLOR_09_BLUE) // "Dr. Caroll? Are you in control again? Can you stop..."
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_EYESDEFAULT)
 
 	wait_until(1534, 0xd6)
 	play_sound(0x04f9, CHANNEL_6)
@@ -1721,46 +1721,46 @@ u8 func0c01_midcutscene[] = {
 	wait_until(3156, 0xf6)
 	emit_sparks(CHR_DRCAROLL)
 
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_EYESDEFAULT)
 
 	wait_until(3266, 0xf7)
 	emit_sparks(CHR_DRCAROLL)
 
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_EYESDEFAULT)
 
 	wait_until(3556, 0xf8)
 
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_EYESDEFAULT)
 	emit_sparks(CHR_DRCAROLL)
 
 	wait_until(3606, 0xf9)
 	emit_sparks(CHR_DRCAROLL)
 
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_EYESDEFAULT)
 
 	wait_until(3985, 0x10)
 	play_sound(0x0424, CHANNEL_1)
@@ -1768,13 +1768,13 @@ u8 func0c01_midcutscene[] = {
 	wait_until(4046, 0xfa)
 	emit_sparks(CHR_DRCAROLL)
 
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x08)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_RANDOM)
 	yield
-	set_drcaroll_images(CHR_DRCAROLL, 0x00, 0x00)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_EYESDEFAULT)
 
 	wait_until(4106, 0xfb)
 	emit_sparks(CHR_DRCAROLL)
@@ -2018,7 +2018,7 @@ u8 func0c02_outro[] = {
 };
 
 u8 func1002_intro[] = {
-	set_drcaroll_images(CHR_DRCAROLL, 0x02, 0x02)
+	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESFROWNING, DRCAROLLIMAGE_EYESFROWNING)
 	chr_draw_weapon_in_cutscene(CHR_BOND, WEAPON_FALCON2_SCOPE)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
