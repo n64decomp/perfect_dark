@@ -362,6 +362,14 @@ struct act_dead {
 	/*0x3c*/ u32 unk03c;
 };
 
+struct act_preargh {
+	/*0x2c*/ struct coord pos;
+	/*0x38*/ f32 unk038;
+	/*0x3c*/ f32 unk03c;
+	/*0x40*/ u32 unk040;
+	/*0x44*/ u32 unk044;
+};
+
 struct act_attack {
 	/*0x2c*/ u32 unk02c;
 	/*0x30*/ u16 unk030;
@@ -504,6 +512,7 @@ struct chrdata {
 		struct act_anim act_anim;
 		struct act_die act_die;
 		struct act_dead act_dead;
+		struct act_preargh act_preargh;
 		struct act_attack act_attack;
 		struct act_sidestep act_sidestep;
 		struct act_jumpout act_jumpout;

@@ -17773,45 +17773,23 @@ glabel chrTickArgh
 /*  f03dec0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrTickPreArgh
-/*  f03dec4:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f03dec8:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f03decc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03ded0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f03ded4:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f03ded8:	0c00745f */ 	jal	func0001d17c
-/*  f03dedc:	afa4003c */ 	sw	$a0,0x3c($sp)
-/*  f03dee0:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f03dee4:	0c007468 */ 	jal	func0001d1a0
-/*  f03dee8:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f03deec:	c7a4002c */ 	lwc1	$f4,0x2c($sp)
-/*  f03def0:	4604003e */ 	c.le.s	$f0,$f4
-/*  f03def4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03def8:	45020011 */ 	bc1fl	.L0f03df40
-/*  f03defc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03df00:	c606002c */ 	lwc1	$f6,0x2c($s0)
-/*  f03df04:	260e0040 */ 	addiu	$t6,$s0,0x40
-/*  f03df08:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03df0c:	e7a60030 */ 	swc1	$f6,0x30($sp)
-/*  f03df10:	c6080030 */ 	lwc1	$f8,0x30($s0)
-/*  f03df14:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f03df18:	e7a80034 */ 	swc1	$f8,0x34($sp)
-/*  f03df1c:	c60a0034 */ 	lwc1	$f10,0x34($s0)
-/*  f03df20:	e7aa0038 */ 	swc1	$f10,0x38($sp)
-/*  f03df24:	8e07003c */ 	lw	$a3,0x3c($s0)
-/*  f03df28:	8e060038 */ 	lw	$a2,0x38($s0)
-/*  f03df2c:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f03df30:	8e0f0044 */ 	lw	$t7,0x44($s0)
-/*  f03df34:	0fc0cbf9 */ 	jal	func0f032fe4
-/*  f03df38:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f03df3c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f03df40:
-/*  f03df40:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f03df44:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f03df48:	03e00008 */ 	jr	$ra
-/*  f03df4c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrTickPreArgh(struct chrdata *chr)
+{
+	struct chr020 *chr020 = chr->unk020;
+
+	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+		struct coord pos;
+		pos.x = chr->act_preargh.pos.x;
+		pos.y = chr->act_preargh.pos.y;
+		pos.z = chr->act_preargh.pos.z;
+
+		func0f032fe4(chr, &pos,
+				chr->act_preargh.unk038,
+				chr->act_preargh.unk03c,
+				&chr->act_preargh.unk040,
+				chr->act_preargh.unk044);
+	}
+}
 
 GLOBAL_ASM(
 glabel chrTickSidestep
