@@ -345,6 +345,19 @@ struct act_anim {
 	/*0x2c*/ u32 unk02c;
 	/*0x30*/ u32 unk030;
 	/*0x34*/ u32 unk034;
+	/*0x38*/ u32 unk038;
+	/*0x3c*/ u32 unk03c;
+	/*0x40*/ u8 unk040;
+	/*0x41*/ u8 unk041;
+	/*0x42*/ u16 unk042;
+	/*0x44*/ u16 unk044;
+	/*0x46*/ u16 unk046;
+	/*0x48*/ s16 animnum;
+	/*0x4a*/ u8 flip;
+	/*0x4c*/ f32 startframe;
+	/*0x50*/ f32 unk050;
+	/*0x54*/ f32 unk054;
+	/*0x58*/ f32 unk058;
 };
 
 struct act_die {

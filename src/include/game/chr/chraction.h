@@ -105,7 +105,7 @@ u32 func0f03aca0(struct chrdata *chr, u32 arg1, u32 arg2);
 u32 func0f03afac(struct chrdata *chr);
 u32 func0f03b1e0(struct chrdata *chr);
 u32 func0f03b97c(struct chrdata *chr, u32 arg1, u32 arg2);
-u32 func0f03ba44(void);
+void func0f03ba44(struct chrdata *chr, u32 arg1, u32 arg2, u32 arg3);
 u32 chrTryPunchOrKick(struct chrdata *chr, u32 arg1);
 u32 func0f03c044(void);
 void chrTickStand(struct chrdata *chr);
