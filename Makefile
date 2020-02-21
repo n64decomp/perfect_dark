@@ -302,7 +302,7 @@ $(B_DIR)/ucode/filenames.bin: $(B_DIR)/ucode/filenames.elf
 
 $(B_DIR)/pd.elf: $(O_FILES) $(ASSET_O_FILES) ld/pd.ld
 	cpp -P ld/pd.ld -o $(B_DIR)/pd.ld
-	$(TOOLCHAIN)-ld -T $(B_DIR)/pd.ld --print-map -o $@ > $(B_DIR)/pd.map
+	$(TOOLCHAIN)-ld --no-check-sections -T $(B_DIR)/pd.ld --print-map -o $@ > $(B_DIR)/pd.map
 
 $(B_DIR)/pd.bin: $(B_DIR)/pd.elf
 	@mkdir -p $(B_DIR)/ucode

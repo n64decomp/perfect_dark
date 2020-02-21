@@ -27,12 +27,6 @@
 	src/game/game_010b20.o (section); \
 	src/game/game_011110.o (section); \
 	src/game/data/data_0083d0.o (section); \
-	src/game/data/inventory.o (section); \
-	src/game/data/data_0160b0.o (section); \
-	src/game/data/cheats.o (section); \
-	src/game/data/data_01a3a0.o (section); \
-	src/game/data/ailists.o (section); \
-	src/game/data/data_020df0.o (section); \
 	src/game/game_012450.o (section); \
 	src/game/game_0125a0.o (section); \
 	src/game/game_012d50.o (section); \
@@ -70,6 +64,13 @@
 	src/game/game_01e250.o (section); \
 	src/game/game_02cde0.o (section); \
 	src/game/chr/chraction.o (section); \
+	src/game/data/data_00e460.o (section); \
+	src/game/data/inventory.o (section); \
+	src/game/data/data_0160b0.o (section); \
+	src/game/data/cheats.o (section); \
+	src/game/data/data_01a3a0.o (section); \
+	src/game/data/ailists.o (section); \
+	src/game/data/data_020df0.o (section); \
 	src/game/chr/chrai.o (section); \
 	src/game/chr/chraicommands.o (section); \
 	src/game/game_0601b0.o (section); \

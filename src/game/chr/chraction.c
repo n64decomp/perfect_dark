@@ -4,6 +4,8 @@
 #include "game/chr/chrai.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
+#include "game/data/data_00e460.h"
+#include "game/data/data_00e460.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_000920.h"
@@ -17343,164 +17345,68 @@ glabel chrTickDruggedComingUp
 /*  f03da88:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel chrTickDruggedDrop
-/*  f03da8c:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f03da90:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f03da94:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f03da98:	8c8e0020 */ 	lw	$t6,0x20($a0)
-/*  f03da9c:	3c188007 */ 	lui	$t8,%hi(var80068420)
-/*  f03daa0:	27188420 */ 	addiu	$t8,$t8,%lo(var80068420)
-/*  f03daa4:	afae006c */ 	sw	$t6,0x6c($sp)
-/*  f03daa8:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f03daac:	27af0054 */ 	addiu	$t7,$sp,0x54
-/*  f03dab0:	8f090004 */ 	lw	$t1,0x4($t8)
-/*  f03dab4:	ade10000 */ 	sw	$at,0x0($t7)
-/*  f03dab8:	8f010008 */ 	lw	$at,0x8($t8)
-/*  f03dabc:	ade90004 */ 	sw	$t1,0x4($t7)
-/*  f03dac0:	8f09000c */ 	lw	$t1,0xc($t8)
-/*  f03dac4:	ade10008 */ 	sw	$at,0x8($t7)
-/*  f03dac8:	8f010010 */ 	lw	$at,0x10($t8)
-/*  f03dacc:	ade9000c */ 	sw	$t1,0xc($t7)
-/*  f03dad0:	44803000 */ 	mtc1	$zero,$f6
-/*  f03dad4:	ade10010 */ 	sw	$at,0x10($t7)
-/*  f03dad8:	97010014 */ 	lhu	$at,0x14($t8)
-/*  f03dadc:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03dae0:	a5e10014 */ 	sh	$at,0x14($t7)
-/*  f03dae4:	c4840030 */ 	lwc1	$f4,0x30($a0)
-/*  f03dae8:	4604303e */ 	c.le.s	$f6,$f4
-/*  f03daec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03daf0:	4502002b */ 	bc1fl	.L0f03dba0
-/*  f03daf4:	c60a0034 */ 	lwc1	$f10,0x34($s0)
-/*  f03daf8:	0c00745f */ 	jal	func0001d17c
-/*  f03dafc:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f03db00:	c6080030 */ 	lwc1	$f8,0x30($s0)
-/*  f03db04:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f03db08:	00002025 */ 	or	$a0,$zero,$zero
-/*  f03db0c:	4600403e */ 	c.le.s	$f8,$f0
-/*  f03db10:	3c0a8007 */ 	lui	$t2,0x8007
-/*  f03db14:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f03db18:	240cffff */ 	addiu	$t4,$zero,-1
-/*  f03db1c:	4500001f */ 	bc1f	.L0f03db9c
-/*  f03db20:	240dffff */ 	addiu	$t5,$zero,-1
-/*  f03db24:	8d4a8438 */ 	lw	$t2,-0x7bc8($t2)
-/*  f03db28:	8e05001c */ 	lw	$a1,0x1c($s0)
-/*  f03db2c:	44811000 */ 	mtc1	$at,$f2
-/*  f03db30:	000a5840 */ 	sll	$t3,$t2,0x1
-/*  f03db34:	03ab3021 */ 	addu	$a2,$sp,$t3
-/*  f03db38:	84c60054 */ 	lh	$a2,0x54($a2)
-/*  f03db3c:	afad002c */ 	sw	$t5,0x2c($sp)
-/*  f03db40:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f03db44:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f03db48:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f03db4c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f03db50:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f03db54:	afac0010 */ 	sw	$t4,0x10($sp)
-/*  f03db58:	e7a20038 */ 	swc1	$f2,0x38($sp)
-/*  f03db5c:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f03db60:	e7a20030 */ 	swc1	$f2,0x30($sp)
-/*  f03db64:	0fc24e7e */ 	jal	func0f0939f8
-/*  f03db68:	e7a20024 */ 	swc1	$f2,0x24($sp)
-/*  f03db6c:	3c028007 */ 	lui	$v0,0x8007
-/*  f03db70:	8c428438 */ 	lw	$v0,-0x7bc8($v0)
-/*  f03db74:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f03db78:	44811000 */ 	mtc1	$at,$f2
-/*  f03db7c:	3c018007 */ 	lui	$at,0x8007
-/*  f03db80:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f03db84:	ac228438 */ 	sw	$v0,-0x7bc8($at)
-/*  f03db88:	2841000b */ 	slti	$at,$v0,0xb
-/*  f03db8c:	14200002 */ 	bnez	$at,.L0f03db98
-/*  f03db90:	3c018007 */ 	lui	$at,0x8007
-/*  f03db94:	ac208438 */ 	sw	$zero,-0x7bc8($at)
-.L0f03db98:
-/*  f03db98:	e6020030 */ 	swc1	$f2,0x30($s0)
-.L0f03db9c:
-/*  f03db9c:	c60a0034 */ 	lwc1	$f10,0x34($s0)
-.L0f03dba0:
-/*  f03dba0:	44808000 */ 	mtc1	$zero,$f16
-/*  f03dba4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03dba8:	460a803e */ 	c.le.s	$f16,$f10
-/*  f03dbac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03dbb0:	4500002a */ 	bc1f	.L0f03dc5c
-/*  f03dbb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03dbb8:	0c00745f */ 	jal	func0001d17c
-/*  f03dbbc:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f03dbc0:	c6120034 */ 	lwc1	$f18,0x34($s0)
-/*  f03dbc4:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f03dbc8:	44811000 */ 	mtc1	$at,$f2
-/*  f03dbcc:	4600903e */ 	c.le.s	$f18,$f0
-/*  f03dbd0:	3c028007 */ 	lui	$v0,0x8007
-/*  f03dbd4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f03dbd8:	2407ffff */ 	addiu	$a3,$zero,-1
-/*  f03dbdc:	4500001f */ 	bc1f	.L0f03dc5c
-/*  f03dbe0:	2408ffff */ 	addiu	$t0,$zero,-1
-/*  f03dbe4:	8c428438 */ 	lw	$v0,-0x7bc8($v0)
-/*  f03dbe8:	8e05001c */ 	lw	$a1,0x1c($s0)
-/*  f03dbec:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f03dbf0:	00027040 */ 	sll	$t6,$v0,0x1
-/*  f03dbf4:	03ae3021 */ 	addu	$a2,$sp,$t6
-/*  f03dbf8:	84c60054 */ 	lh	$a2,0x54($a2)
-/*  f03dbfc:	e7a20038 */ 	swc1	$f2,0x38($sp)
-/*  f03dc00:	e7a20034 */ 	swc1	$f2,0x34($sp)
-/*  f03dc04:	e7a20030 */ 	swc1	$f2,0x30($sp)
-/*  f03dc08:	afb9002c */ 	sw	$t9,0x2c($sp)
-/*  f03dc0c:	afa00028 */ 	sw	$zero,0x28($sp)
-/*  f03dc10:	e7a20024 */ 	swc1	$f2,0x24($sp)
-/*  f03dc14:	afa00020 */ 	sw	$zero,0x20($sp)
-/*  f03dc18:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f03dc1c:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f03dc20:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f03dc24:	0fc24e7e */ 	jal	func0f0939f8
-/*  f03dc28:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f03dc2c:	3c028007 */ 	lui	$v0,0x8007
-/*  f03dc30:	8c428438 */ 	lw	$v0,-0x7bc8($v0)
-/*  f03dc34:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f03dc38:	44811000 */ 	mtc1	$at,$f2
-/*  f03dc3c:	3c018007 */ 	lui	$at,0x8007
-/*  f03dc40:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f03dc44:	ac228438 */ 	sw	$v0,-0x7bc8($at)
-/*  f03dc48:	2841000b */ 	slti	$at,$v0,0xb
-/*  f03dc4c:	14200002 */ 	bnez	$at,.L0f03dc58
-/*  f03dc50:	3c018007 */ 	lui	$at,0x8007
-/*  f03dc54:	ac208438 */ 	sw	$zero,-0x7bc8($at)
-.L0f03dc58:
-/*  f03dc58:	e6020034 */ 	swc1	$f2,0x34($s0)
-.L0f03dc5c:
-/*  f03dc5c:	0c00745f */ 	jal	func0001d17c
-/*  f03dc60:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f03dc64:	e7a00050 */ 	swc1	$f0,0x50($sp)
-/*  f03dc68:	0c007468 */ 	jal	func0001d1a0
-/*  f03dc6c:	8fa4006c */ 	lw	$a0,0x6c($sp)
-/*  f03dc70:	c7a40050 */ 	lwc1	$f4,0x50($sp)
-/*  f03dc74:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03dc78:	4604003e */ 	c.le.s	$f0,$f4
-/*  f03dc7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03dc80:	4500000e */ 	bc1f	.L0f03dcbc
-/*  f03dc84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03dc88:	8e1802d4 */ 	lw	$t8,0x2d4($s0)
-/*  f03dc8c:	240f001f */ 	addiu	$t7,$zero,0x1f
-/*  f03dc90:	a20f0007 */ 	sb	$t7,0x7($s0)
-/*  f03dc94:	13000003 */ 	beqz	$t8,.L0f03dca4
-/*  f03dc98:	2409ffff */ 	addiu	$t1,$zero,-1
-/*  f03dc9c:	10000002 */ 	beqz	$zero,.L0f03dca8
-/*  f03dca0:	ae000038 */ 	sw	$zero,0x38($s0)
-.L0f03dca4:
-/*  f03dca4:	ae090038 */ 	sw	$t1,0x38($s0)
-.L0f03dca8:
-/*  f03dca8:	ae00002c */ 	sw	$zero,0x2c($s0)
-/*  f03dcac:	ae000030 */ 	sw	$zero,0x30($s0)
-/*  f03dcb0:	ae000034 */ 	sw	$zero,0x34($s0)
-/*  f03dcb4:	ae00003c */ 	sw	$zero,0x3c($s0)
-/*  f03dcb8:	a2000008 */ 	sb	$zero,0x8($s0)
-.L0f03dcbc:
-/*  f03dcbc:	0fc0f3a3 */ 	jal	func0f03ce8c
-/*  f03dcc0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f03dcc4:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f03dcc8:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f03dccc:	27bd0070 */ 	addiu	$sp,$sp,0x70
-/*  f03dcd0:	03e00008 */ 	jr	$ra
-/*  f03dcd4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrTickDruggedDrop(struct chrdata *chr)
+{
+	struct chr020 *chr020 = chr->unk020;
+	s16 things[11] = {
+		-32627,
+		-32626,
+		-32625,
+		-32624,
+		-32623,
+		-32622,
+		-32621,
+		-32620,
+		-32619,
+		-32618,
+		-32617,
+	};
+	static s32 index = 0;
+
+	if (chr->act_druggeddrop.unk030 >= 0 && func0001d17c(chr020) >= chr->act_druggeddrop.unk030) {
+		func0f0939f8(NULL, chr->prop, things[index], -1,
+				-1, 0, 0, 0,
+				0, -1, 0, -1,
+				-1, -1, -1);
+
+		index++;
+
+		if (index > 10) {
+			index = 0;
+		}
+
+		chr->act_druggeddrop.unk030 = -1;
+	}
+
+	if (chr->act_druggeddrop.unk034 >= 0 && func0001d17c(chr020) >= chr->act_druggeddrop.unk034) {
+		func0f0939f8(NULL, chr->prop, things[index], -1,
+				-1, 0, 0, 0,
+				0, -1, 0, -1,
+				-1, -1, -1);
+
+		index++;
+
+		if (index > 10) {
+			index = 0;
+		}
+
+		chr->act_druggeddrop.unk034 = -1;
+	}
+
+	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+		chr->actiontype = ACT_DRUGGEDKO;
+		chr->act_druggedko.unk038 = chr->unk2d4 ? 0 : -1;
+		chr->act_druggedko.unk02c = 0;
+		chr->act_druggedko.unk030 = 0;
+		chr->act_druggedko.unk034 = 0;
+		chr->act_druggedko.unk03c = 0;
+		chr->sleep = 0;
+	}
+
+	func0f03ce8c(chr, 1);
+}
+
+u32 var8006843c = 0x0000ffff;
 
 void chrTickDruggedKo(struct chrdata *chr)
 {
