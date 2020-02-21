@@ -17822,75 +17822,31 @@ void chrTickStartAlarm(struct chrdata *chr)
 	}
 }
 
-GLOBAL_ASM(
-glabel chrTickSurprised
-/*  f03e1a8:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f03e1ac:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03e1b0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03e1b4:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f03e1b8:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03e1bc:	000e7a80 */ 	sll	$t7,$t6,0xa
-/*  f03e1c0:	05e1000c */ 	bgez	$t7,.L0f03e1f4
-/*  f03e1c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e1c8:	0c0076e5 */ 	jal	func0001db94
-/*  f03e1cc:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f03e1d0:	5440002e */ 	bnezl	$v0,.L0f03e28c
-/*  f03e1d4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03e1d8:	0fc0bcc5 */ 	jal	func0f02f314
-/*  f03e1dc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e1e0:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f03e1e4:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f03e1e8:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f03e1ec:	0301c824 */ 	and	$t9,$t8,$at
-/*  f03e1f0:	ae190014 */ 	sw	$t9,0x14($s0)
-.L0f03e1f4:
-/*  f03e1f4:	12000003 */ 	beqz	$s0,.L0f03e204
-/*  f03e1f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03e1fc:	10000001 */ 	beqz	$zero,.L0f03e204
-/*  f03e200:	920202fe */ 	lbu	$v0,0x2fe($s0)
-.L0f03e204:
-/*  f03e204:	54400021 */ 	bnezl	$v0,.L0f03e28c
-/*  f03e208:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03e20c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f03e210:	0c00745f */ 	jal	func0001d17c
-/*  f03e214:	afa4002c */ 	sw	$a0,0x2c($sp)
-/*  f03e218:	e7a00024 */ 	swc1	$f0,0x24($sp)
-/*  f03e21c:	0c007468 */ 	jal	func0001d1a0
-/*  f03e220:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f03e224:	c7a40024 */ 	lwc1	$f4,0x24($sp)
-/*  f03e228:	4604003e */ 	c.le.s	$f0,$f4
-/*  f03e22c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e230:	45020016 */ 	bc1fl	.L0f03e28c
-/*  f03e234:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03e238:	0c00744f */ 	jal	func0001d13c
-/*  f03e23c:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f03e240:	2401002e */ 	addiu	$at,$zero,0x2e
-/*  f03e244:	14410005 */ 	bne	$v0,$at,.L0f03e25c
-/*  f03e248:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e24c:	0fc0bb4a */ 	jal	func0f02ed28
-/*  f03e250:	3c0541d0 */ 	lui	$a1,0x41d0
-/*  f03e254:	1000000d */ 	beqz	$zero,.L0f03e28c
-/*  f03e258:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f03e25c:
-/*  f03e25c:	0c00744f */ 	jal	func0001d13c
-/*  f03e260:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f03e264:	2401003f */ 	addiu	$at,$zero,0x3f
-/*  f03e268:	14410005 */ 	bne	$v0,$at,.L0f03e280
-/*  f03e26c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e270:	0fc0bb4a */ 	jal	func0f02ed28
-/*  f03e274:	3c0541d0 */ 	lui	$a1,0x41d0
-/*  f03e278:	10000004 */ 	beqz	$zero,.L0f03e28c
-/*  f03e27c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f03e280:
-/*  f03e280:	0fc0bb57 */ 	jal	chrStop
-/*  f03e284:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e288:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f03e28c:
-/*  f03e28c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03e290:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f03e294:	03e00008 */ 	jr	$ra
-/*  f03e298:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrTickSurprised(struct chrdata *chr)
+{
+	if (chr->hidden & CHRHFLAG_00200000) {
+		if (func0001db94(chr->unk020)) {
+			return;
+		}
+
+		func0f02f314(chr);
+		chr->hidden &= ~CHRHFLAG_00200000;
+	}
+
+	if (CHRRACE(chr) == RACE_HUMAN) {
+		struct chr020 *chr020 = chr->unk020;
+
+		if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+			if (func0001d13c(chr020) == 0x2e) {
+				func0f02ed28(chr, 26);
+			} else if (func0001d13c(chr020) == 0x3f) {
+				func0f02ed28(chr, 26);
+			} else {
+				chrStop(chr);
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f03e29c
