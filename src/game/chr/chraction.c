@@ -17800,51 +17800,24 @@ glabel chrTickSidestep
 /*  f03dff0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrTickJumpOut
-/*  f03dff4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f03dff8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f03dffc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f03e000:	8c850020 */ 	lw	$a1,0x20($a0)
-/*  f03e004:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03e008:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f03e00c:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f03e010:	000e7a80 */ 	sll	$t7,$t6,0xa
-/*  f03e014:	05e1000c */ 	bgez	$t7,.L0f03e048
-/*  f03e018:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e01c:	0c0076e5 */ 	jal	func0001db94
-/*  f03e020:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f03e024:	54400017 */ 	bnezl	$v0,.L0f03e084
-/*  f03e028:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03e02c:	0fc0bf0b */ 	jal	func0f02fc2c
-/*  f03e030:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e034:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f03e038:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f03e03c:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f03e040:	0301c824 */ 	and	$t9,$t8,$at
-/*  f03e044:	ae190014 */ 	sw	$t9,0x14($s0)
-.L0f03e048:
-/*  f03e048:	0c00745f */ 	jal	func0001d17c
-/*  f03e04c:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f03e050:	e7a00020 */ 	swc1	$f0,0x20($sp)
-/*  f03e054:	0c007468 */ 	jal	func0001d1a0
-/*  f03e058:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f03e05c:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f03e060:	4604003e */ 	c.le.s	$f0,$f4
-/*  f03e064:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03e068:	45020006 */ 	bc1fl	.L0f03e084
-/*  f03e06c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f03e070:	0fc0e56b */ 	jal	chrRecordLastSeeTargetTime
-/*  f03e074:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e078:	0fc0bb57 */ 	jal	chrStop
-/*  f03e07c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03e080:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f03e084:
-/*  f03e084:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f03e088:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f03e08c:	03e00008 */ 	jr	$ra
-/*  f03e090:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrTickJumpOut(struct chrdata *chr)
+{
+	struct chr020 *chr020 = chr->unk020;
+
+	if (chr->hidden & CHRHFLAG_00200000) {
+		if (func0001db94(chr->unk020)) {
+			return;
+		}
+
+		func0f02fc2c(chr);
+		chr->hidden &= ~CHRHFLAG_00200000;
+	}
+
+	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+		chrRecordLastSeeTargetTime(chr);
+		chrStop(chr);
+	}
+}
 
 void chrTickTest(struct chrdata *chr)
 {
