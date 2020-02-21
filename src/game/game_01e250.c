@@ -2740,7 +2740,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->headnum = 0;
 	chr->bodynum = 0;
 	chr->prop = prop;
-	chr->unk020 = NULL;
+	chr->animdata = NULL;
 	chr->numarghs = 0;
 	chr->lastwalk60 = 0;
 	chr->invalidmove = 0;
@@ -5579,13 +5579,13 @@ glabel func0f023098
 /*  f023340:	84842972 */ 	lh	$a0,0x2972($a0)
 /*  f023344:	10400025 */ 	beqz	$v0,.L0f0233dc
 /*  f023348:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02334c:	0c00744f */ 	jal	func0001d13c
+/*  f02334c:	0c00744f */ 	jal	animGetId
 /*  f023350:	8fa40208 */ 	lw	$a0,0x208($sp)
 /*  f023354:	3c038006 */ 	lui	$v1,0x8006
 /*  f023358:	8c632970 */ 	lw	$v1,0x2970($v1)
 /*  f02335c:	5443000b */ 	bnel	$v0,$v1,.L0f02338c
 /*  f023360:	44800000 */ 	mtc1	$zero,$f0
-/*  f023364:	0c00744f */ 	jal	func0001d13c
+/*  f023364:	0c00744f */ 	jal	animGetId
 /*  f023368:	8fa40208 */ 	lw	$a0,0x208($sp)
 /*  f02336c:	00022400 */ 	sll	$a0,$v0,0x10
 /*  f023370:	00047c03 */ 	sra	$t7,$a0,0x10

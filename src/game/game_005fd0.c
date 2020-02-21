@@ -346,7 +346,7 @@ glabel func0f0061dc
 /*  f0062bc:	e7a0006c */ 	swc1	$f0,0x6c($sp)
 .L0f0062c0:
 /*  f0062c0:	8e240020 */ 	lw	$a0,0x20($s1)
-/*  f0062c4:	0c00744f */ 	jal	func0001d13c
+/*  f0062c4:	0c00744f */ 	jal	animGetId
 /*  f0062c8:	afa30050 */ 	sw	$v1,0x50($sp)
 /*  f0062cc:	8fa30050 */ 	lw	$v1,0x50($sp)
 /*  f0062d0:	24010023 */ 	addiu	$at,$zero,0x23

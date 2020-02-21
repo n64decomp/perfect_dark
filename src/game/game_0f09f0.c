@@ -5097,7 +5097,7 @@ glabel func0f0f38b0
 /*  f0f4a2c:	0c007486 */ 	jal	func0001d218
 /*  f0f4a30:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0f4a34:	afa2004c */ 	sw	$v0,0x4c($sp)
-/*  f0f4a38:	0c00745f */ 	jal	func0001d17c
+/*  f0f4a38:	0c00745f */ 	jal	animGetFrame
 /*  f0f4a3c:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0f4a40:	8fae004c */ 	lw	$t6,0x4c($sp)
 /*  f0f4a44:	448e3000 */ 	mtc1	$t6,$f6
@@ -5106,7 +5106,7 @@ glabel func0f0f38b0
 /*  f0f4a50:	10000004 */ 	beqz	$zero,.L0f0f4a64
 /*  f0f4a54:	46005081 */ 	sub.s	$f2,$f10,$f0
 .L0f0f4a58:
-/*  f0f4a58:	0c00745f */ 	jal	func0001d17c
+/*  f0f4a58:	0c00745f */ 	jal	animGetFrame
 /*  f0f4a5c:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0f4a60:	46000086 */ 	mov.s	$f2,$f0
 .L0f0f4a64:

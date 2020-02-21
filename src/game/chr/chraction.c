@@ -508,7 +508,7 @@ glabel func0f02e064
 /*  f02e0a4:	1000001b */ 	beqz	$zero,.L0f02e114
 /*  f02e0a8:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f02e0ac:
-/*  f02e0ac:	0c00744f */ 	jal	func0001d13c
+/*  f02e0ac:	0c00744f */ 	jal	animGetId
 /*  f02e0b0:	8ca40020 */ 	lw	$a0,0x20($a1)
 /*  f02e0b4:	3c078007 */ 	lui	$a3,%hi(var80068008)
 /*  f02e0b8:	3c088007 */ 	lui	$t0,%hi(var8006801c)
@@ -973,7 +973,7 @@ glabel func0f02e6dc
 .L0f02e71c:
 /*  f02e71c:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f02e720:	afa50030 */ 	sw	$a1,0x30($sp)
-/*  f02e724:	0c00744f */ 	jal	func0001d13c
+/*  f02e724:	0c00744f */ 	jal	animGetId
 /*  f02e728:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*  f02e72c:	820e0007 */ 	lb	$t6,0x7($s0)
 /*  f02e730:	2401000f */ 	addiu	$at,$zero,0xf
@@ -1167,8 +1167,8 @@ void func0f02e9a0(struct chrdata *chr, f32 arg1)
 
 	fsleep = arg1;
 
-	if (chr->unk020->anim->playspeed != 1.0f) {
-		fsleep *= 1.0f / chr->unk020->anim->playspeed;
+	if (chr->animdata->anim->playspeed != 1.0f) {
+		fsleep *= 1.0f / chr->animdata->anim->playspeed;
 	}
 
 	if (fsleep > limit) {
@@ -1177,7 +1177,7 @@ void func0f02e9a0(struct chrdata *chr, f32 arg1)
 
 	chr->sleep = fsleep;
 
-	if (func0001db94(chr->unk020) && !chr->unk2d4) {
+	if (func0001db94(chr->animdata) && !chr->unk2d4) {
 		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02e6dc(chr, arg1);
@@ -1207,16 +1207,16 @@ void chrStand(struct chrdata *chr)
 			chr->act_stand.face_target = false;
 
 			if (chr->unk2d4 == NULL) {
-				if (func0001d13c(chr->unk020) == ANIM_KNEEL_SHOOT_RIGHT_HAND) {
+				if (animGetId(chr->animdata) == ANIM_KNEEL_SHOOT_RIGHT_HAND) {
 					result = func0f02e15c(chr, 0.5, 0.8);
-					func0001dccc(chr->unk020, ANIM_KNEEL_SHOOT_RIGHT_HAND,
-							chr->unk020->anim->flip, 109, result, 16);
-					func0001de1c(chr->unk020, 140);
+					func0001dccc(chr->animdata, ANIM_KNEEL_SHOOT_RIGHT_HAND,
+							chr->animdata->anim->flip, 109, result, 16);
+					func0001de1c(chr->animdata, 140);
 				} else {
 					result = func0f02e15c(chr, 0.5, 0.8);
-					func0001dccc(chr->unk020, ANIM_KNEEL_TWO_HANDED_GUN,
-							chr->unk020->anim->flip, 120, result, 16);
-					func0001de1c(chr->unk020, 151);
+					func0001dccc(chr->animdata, ANIM_KNEEL_TWO_HANDED_GUN,
+							chr->animdata->anim->flip, 120, result, 16);
+					func0001de1c(chr->animdata, 151);
 				}
 			}
 		} else if (race == RACE_DRCAROLL || race == RACE_ROBOT) {
@@ -1391,7 +1391,7 @@ void chrKneel(struct chrdata *chr)
 	chr->actiontype = ACT_KNEEL;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->unk020)) {
+	if (func0001db94(chr->animdata)) {
 		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02ed88(chr);
@@ -1461,7 +1461,7 @@ void func0f02effc(struct chrdata *chr)
 	chr->actiontype = ACT_STARTALARM;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->unk020)) {
+	if (func0001db94(chr->animdata)) {
 		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02ef40(chr);
@@ -1621,7 +1621,7 @@ void chrThrowGrenade(struct chrdata *chr, s32 hand, s32 needsequip)
 	chr->act_throwgrenade.needsequip = needsequip;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->unk020)) {
+	if (func0001db94(chr->animdata)) {
 		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02f070(chr);
@@ -1849,7 +1849,7 @@ void func0f02f60c(struct chrdata *chr)
 	chr->act_surprised.unk02c = 2;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->unk020)) {
+	if (func0001db94(chr->animdata)) {
 		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02f314(chr);
@@ -1864,7 +1864,7 @@ void func0f02f688(struct chrdata *chr)
 	chr->act_surprised.unk02c = 3;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->unk020)) {
+	if (func0001db94(chr->animdata)) {
 		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02f314(chr);
@@ -1960,7 +1960,7 @@ void chrSurrender(struct chrdata *chr)
 		chr->actiontype = action;
 		chr->sleep = action;
 
-		if (func0001db94(chr->unk020)) {
+		if (func0001db94(chr->animdata)) {
 			chr->hidden |= CHRHFLAG_00200000;
 		} else {
 			func0f02f704(chr);
@@ -2188,7 +2188,7 @@ void chrSidestep(struct chrdata *chr, s32 arg1)
 	chr->act_sidestep.unk02c = arg1;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->unk020)) {
+	if (func0001db94(chr->animdata)) {
 		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02f8a4(chr);
@@ -2307,7 +2307,7 @@ void chrJumpOut(struct chrdata *chr, s32 arg1)
 	chr->act_jumpout.unk02c = arg1;
 	chr->sleep = 0;
 
-	if (func0001db94(chr->unk020)) {
+	if (func0001db94(chr->animdata)) {
 		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02fc2c(chr);
@@ -2495,7 +2495,7 @@ void chrRunToPos(struct chrdata *chr, struct coord *pos)
 	chr->act_runpos.unk038 = 30; // float
 	chr->act_runpos.unk040 = 0;
 
-	if (func0001db94(chr->unk020)) {
+	if (func0001db94(chr->animdata)) {
 		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02fe18(chr);
@@ -3846,7 +3846,7 @@ glabel func0f031384
 /*  f031430:	a2390007 */ 	sb	$t9,0x7($s1)
 /*  f031434:	24180001 */ 	addiu	$t8,$zero,0x1
 /*  f031438:	a3b80053 */ 	sb	$t8,0x53($sp)
-/*  f03143c:	0c00744f */ 	jal	func0001d13c
+/*  f03143c:	0c00744f */ 	jal	animGetId
 /*  f031440:	8e240020 */ 	lw	$a0,0x20($s1)
 /*  f031444:	2401026a */ 	addiu	$at,$zero,0x26a
 /*  f031448:	10410019 */ 	beq	$v0,$at,.L0f0314b0
@@ -4672,7 +4672,7 @@ glabel func0f0319a8
 /*  f031fd0:	271852b8 */ 	addiu	$t8,$t8,%lo(var800652b8)
 /*  f031fd4:	145801c9 */ 	bne	$v0,$t8,.L0f0326fc
 /*  f031fd8:	3c198006 */ 	lui	$t9,%hi(var800652bc)
-/*  f031fdc:	0c00744f */ 	jal	func0001d13c
+/*  f031fdc:	0c00744f */ 	jal	animGetId
 /*  f031fe0:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f031fe4:	24010269 */ 	addiu	$at,$zero,0x269
 /*  f031fe8:	10410006 */ 	beq	$v0,$at,.L0f032004
@@ -5442,7 +5442,7 @@ glabel func0f032ac4
 /*  f032b00:	afa30140 */ 	sw	$v1,0x140($sp)
 /*  f032b04:	afa60160 */ 	sw	$a2,0x160($sp)
 /*  f032b08:	afa80154 */ 	sw	$t0,0x154($sp)
-/*  f032b0c:	0c00744f */ 	jal	func0001d13c
+/*  f032b0c:	0c00744f */ 	jal	animGetId
 /*  f032b10:	e7ac015c */ 	swc1	$f12,0x15c($sp)
 /*  f032b14:	24010269 */ 	addiu	$at,$zero,0x269
 /*  f032b18:	8fa30140 */ 	lw	$v1,0x140($sp)
@@ -5788,7 +5788,7 @@ glabel func0f032fe4
 .L0f033010:
 /*  f033010:	afa00038 */ 	sw	$zero,0x38($sp)
 /*  f033014:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f033018:	0c00744f */ 	jal	func0001d13c
+/*  f033018:	0c00744f */ 	jal	animGetId
 /*  f03301c:	afa3003c */ 	sw	$v1,0x3c($sp)
 /*  f033020:	820e0007 */ 	lb	$t6,0x7($s0)
 /*  f033024:	2401001f */ 	addiu	$at,$zero,0x1f
@@ -6316,7 +6316,7 @@ glabel func0f033728
 .L0f033778:
 /*  f033778:	5440004e */ 	bnezl	$v0,.L0f0338b4
 /*  f03377c:	82180007 */ 	lb	$t8,0x7($s0)
-/*  f033780:	0c00744f */ 	jal	func0001d13c
+/*  f033780:	0c00744f */ 	jal	animGetId
 /*  f033784:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f033788:	24010269 */ 	addiu	$at,$zero,0x269
 /*  f03378c:	10410005 */ 	beq	$v0,$at,.L0f0337a4
@@ -6335,7 +6335,7 @@ glabel func0f033728
 /*  f0337b8:	2401000a */ 	addiu	$at,$zero,0xa
 /*  f0337bc:	55e1003d */ 	bnel	$t7,$at,.L0f0338b4
 /*  f0337c0:	82180007 */ 	lb	$t8,0x7($s0)
-/*  f0337c4:	0c00744f */ 	jal	func0001d13c
+/*  f0337c4:	0c00744f */ 	jal	animGetId
 /*  f0337c8:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0337cc:	8e03002c */ 	lw	$v1,0x2c($s0)
 /*  f0337d0:	84780000 */ 	lh	$t8,0x0($v1)
@@ -6369,7 +6369,7 @@ glabel func0f033728
 /*  f03383c:	46006086 */ 	mov.s	$f2,$f12
 /*  f033840:	8e040020 */ 	lw	$a0,0x20($s0)
 .L0f033844:
-/*  f033844:	0c00745f */ 	jal	func0001d17c
+/*  f033844:	0c00745f */ 	jal	animGetFrame
 /*  f033848:	e7a20020 */ 	swc1	$f2,0x20($sp)
 /*  f03384c:	c7a20020 */ 	lwc1	$f2,0x20($sp)
 /*  f033850:	8fac0034 */ 	lw	$t4,0x34($sp)
@@ -6386,7 +6386,7 @@ glabel func0f033728
 /*  f033878:	44814000 */ 	mtc1	$at,$f8
 /*  f03387c:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f033880:	46083081 */ 	sub.s	$f2,$f6,$f8
-/*  f033884:	0c00745f */ 	jal	func0001d17c
+/*  f033884:	0c00745f */ 	jal	animGetFrame
 /*  f033888:	e7a20020 */ 	swc1	$f2,0x20($sp)
 /*  f03388c:	c7a20020 */ 	lwc1	$f2,0x20($sp)
 /*  f033890:	8fae0034 */ 	lw	$t6,0x34($sp)
@@ -10293,7 +10293,7 @@ glabel func0f0370a8
 /*  f0370cc:	46000086 */ 	mov.s	$f2,$f0
 /*  f0370d0:	8ca40020 */ 	lw	$a0,0x20($a1)
 .L0f0370d4:
-/*  f0370d4:	0c00744f */ 	jal	func0001d13c
+/*  f0370d4:	0c00744f */ 	jal	animGetId
 /*  f0370d8:	afa50018 */ 	sw	$a1,0x18($sp)
 /*  f0370dc:	00022400 */ 	sll	$a0,$v0,0x10
 /*  f0370e0:	00047c03 */ 	sra	$t7,$a0,0x10
@@ -12080,7 +12080,7 @@ glabel chrGoToPos
 //			func0f036ee4(chr, &chr->act_gopos.unk068, &auStack52[0], &prevpos);
 //		}
 //
-//		if (chr->act_gopos.unk068 != MAX_CHRWAYPOINTS && func0001db94(chr->unk020) != 0 && !chr->unk2d4) {
+//		if (chr->act_gopos.unk068 != MAX_CHRWAYPOINTS && func0001db94(chr->animdata) != 0 && !chr->unk2d4) {
 //			chr->hidden |= CHRHFLAG_00200000;
 //			return true;
 //		} else {
@@ -13050,7 +13050,7 @@ glabel chrIsStopped
 /*  f0395dc:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f0395e0:	00808025 */ 	or	$s0,$a0,$zero
 /*  f0395e4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0395e8:	0c00744f */ 	jal	func0001d13c
+/*  f0395e8:	0c00744f */ 	jal	animGetId
 /*  f0395ec:	8c840020 */ 	lw	$a0,0x20($a0)
 /*  f0395f0:	24010269 */ 	addiu	$at,$zero,0x269
 /*  f0395f4:	10410003 */ 	beq	$v0,$at,.L0f039604
@@ -13122,7 +13122,7 @@ glabel chrIsStopped
 /*  f0396e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0396e8:	4500000b */ 	bc1f	.L0f039718
 /*  f0396ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0396f0:	0c00745f */ 	jal	func0001d17c
+/*  f0396f0:	0c00745f */ 	jal	animGetFrame
 /*  f0396f4:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f0396f8:	e7a00020 */ 	swc1	$f0,0x20($sp)
 /*  f0396fc:	0c007468 */ 	jal	func0001d1a0
@@ -13141,7 +13141,7 @@ glabel chrIsStopped
 /*  f03972c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f039730:	45020011 */ 	bc1fl	.L0f039778
 /*  f039734:	00001025 */ 	or	$v0,$zero,$zero
-/*  f039738:	0c00745f */ 	jal	func0001d17c
+/*  f039738:	0c00745f */ 	jal	animGetFrame
 /*  f03973c:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f039740:	44805000 */ 	mtc1	$zero,$f10
 /*  f039744:	00000000 */ 	sll	$zero,$zero,0x0
@@ -13169,7 +13169,7 @@ glabel chrIsStopped
 
 //bool chrIsStopped(struct chrdata *chr)
 //{
-//	u32 anim = func0001d13c(chr->unk020);
+//	u32 anim = animGetId(chr->animdata);
 //
 //	if (anim == ANIM_SNIPING_0269 || anim == ANIM_SNIPING_026B) {
 //		return false;
@@ -13197,11 +13197,11 @@ glabel chrIsStopped
 //			return true;
 //		}
 //
-//		if (func0001d260(chr->unk020) >= 0 && func0001d17c(chr->unk020) >= func0001d1a0(chr->unk020)) {
+//		if (func0001d260(chr->animdata) >= 0 && animGetFrame(chr->animdata) >= func0001d1a0(chr->animdata)) {
 //			return true;
 //		}
 //
-//		if (func0001d260(chr->unk020) >= 0 || func0001d17c(chr->unk020) > 0) {
+//		if (func0001d260(chr->animdata) >= 0 || animGetFrame(chr->animdata) > 0) {
 //			return false;
 //		}
 //	}
@@ -15749,12 +15749,12 @@ glabel chrTickStand
 /*  f03c17c:	0301c824 */ 	and	$t9,$t8,$at
 /*  f03c180:	ae190014 */ 	sw	$t9,0x14($s0)
 .L0f03c184:
-/*  f03c184:	0c00744f */ 	jal	func0001d13c
+/*  f03c184:	0c00744f */ 	jal	animGetId
 /*  f03c188:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c18c:	2401026b */ 	addiu	$at,$zero,0x26b
 /*  f03c190:	54410011 */ 	bnel	$v0,$at,.L0f03c1d8
 /*  f03c194:	820b0008 */ 	lb	$t3,0x8($s0)
-/*  f03c198:	0c00745f */ 	jal	func0001d17c
+/*  f03c198:	0c00745f */ 	jal	animGetFrame
 /*  f03c19c:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c1a0:	e7a0003c */ 	swc1	$f0,0x3c($sp)
 /*  f03c1a4:	0c007468 */ 	jal	func0001d1a0
@@ -15784,7 +15784,7 @@ glabel chrTickStand
 /*  f03c1fc:	8e0c002c */ 	lw	$t4,0x2c($s0)
 /*  f03c200:	51800012 */ 	beqzl	$t4,.L0f03c24c
 /*  f03c204:	8e0202d4 */ 	lw	$v0,0x2d4($s0)
-/*  f03c208:	0c00745f */ 	jal	func0001d17c
+/*  f03c208:	0c00745f */ 	jal	animGetFrame
 /*  f03c20c:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f03c210:	e7a0003c */ 	swc1	$f0,0x3c($sp)
 /*  f03c214:	0c007468 */ 	jal	func0001d1a0
@@ -16255,7 +16255,7 @@ void chrTickKneel(struct chrdata *chr)
 {
 	chr->sleep = 0;
 
-	if ((chr->hidden & CHRHFLAG_00200000) && func0001db94(chr->unk020) == 0) {
+	if ((chr->hidden & CHRHFLAG_00200000) && func0001db94(chr->animdata) == 0) {
 		func0f02ed88(chr);
 		chr->hidden &= ~CHRHFLAG_00200000;
 	}
@@ -16264,33 +16264,33 @@ void chrTickKneel(struct chrdata *chr)
 void chrTickAnim(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_00200000) {
-		if (func0001db94(chr->unk020)) {
+		if (func0001db94(chr->animdata)) {
 			return;
 		}
 
-		func0001dccc(chr->unk020, chr->act_anim.animnum, chr->act_anim.flip,
+		func0001dccc(chr->animdata, chr->act_anim.animnum, chr->act_anim.flip,
 				chr->act_anim.startframe, chr->act_anim.unk054, chr->act_anim.unk058);
 
 		if (chr->act_anim.unk050 >= 0) {
-			func0001de1c(chr->unk020, chr->act_anim.unk050);
+			func0001de1c(chr->animdata, chr->act_anim.unk050);
 		}
 
 		chr->hidden &= ~CHRHFLAG_00200000;
 	}
 
-	if (chr->act_anim.unk030 == 0 && func0001d17c(chr->unk020) >= func0001d1a0(chr->unk020)) {
+	if (chr->act_anim.unk030 == 0 && animGetFrame(chr->animdata) >= func0001d1a0(chr->animdata)) {
 		chrStand(chr);
 	}
 
-	if (chr->act_anim.unk040 != 0 && func0001d17c(chr->unk020) >= (s32)chr->act_anim.unk042) {
+	if (chr->act_anim.unk040 != 0 && animGetFrame(chr->animdata) >= (s32)chr->act_anim.unk042) {
 		chr->act_anim.unk040 = 0;
 		func0f03ba44(chr, chr->act_anim.unk044, chr->act_anim.unk046, chr->act_anim.unk041);
 	}
 
 	// Play sneezing sound
 	if (CHRRACE(chr) == RACE_HUMAN
-			&& func0001d13c(chr->unk020) == ANIM_SNEEZE
-			&& func0001d17c(chr->unk020) >= 42
+			&& animGetId(chr->animdata) == ANIM_SNEEZE
+			&& animGetFrame(chr->animdata) >= 42
 			&& (g_Vars.lvframenum & 1) == 0
 			&& chrGetDistanceToCurrentPlayer(chr) < 800) {
 		func0f0939f8(NULL, chr->prop, 0x37, -1,
@@ -16301,7 +16301,7 @@ void chrTickAnim(struct chrdata *chr)
 		chr->sleep = 14 + (random() % 5);
 	}
 
-	if (func0001d13c(chr->unk020) == ANIM_RELOAD_0209) {
+	if (animGetId(chr->animdata) == ANIM_RELOAD_0209) {
 		chrSetFiring(chr, 0, false);
 		chrSetFiring(chr, 1, false);
 	}
@@ -16310,7 +16310,7 @@ void chrTickAnim(struct chrdata *chr)
 void chrTickSurrender(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_00200000) {
-		if (func0001db94(chr->unk020)) {
+		if (func0001db94(chr->animdata)) {
 			return;
 		}
 
@@ -16320,18 +16320,18 @@ void chrTickSurrender(struct chrdata *chr)
 
 	if (chr->sleep <= 0) {
 		if (CHRRACE(chr) == RACE_HUMAN) {
-			struct chr020 *chr020 = chr->unk020;
+			struct animdata *animdata = chr->animdata;
 			chr->sleep = 16;
 
-			if (func0001d13c(chr020) == ANIM_SURRENDER_002F && func0001d17c(chr020) >= 80.0f) {
+			if (animGetId(animdata) == ANIM_SURRENDER_002F && animGetFrame(animdata) >= 80.0f) {
 				struct coord coord = var800683bc;
 				f32 value = func0f03e45c(chr);
 				coord.x = -func0001a3dc(value);
 				coord.z = -func0001a3d0(value);
 
 				if (!func0f036918(chr->prop, &coord, 20)) {
-					func0001dccc(chr->unk020, ANIM_SURRENDER_002E, random() & 1, 30, 0.5, 16);
-					func0001ddec(chr->unk020, 30, 16);
+					func0001dccc(chr->animdata, ANIM_SURRENDER_002E, random() & 1, 30, 0.5, 16);
+					func0001ddec(chr->animdata, 30, 16);
 				}
 			}
 		}
@@ -16821,7 +16821,7 @@ glabel chrTickDie
 /*  f03d494:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03d498:	45020049 */ 	bc1fl	.L0f03d5c0
 /*  f03d49c:	c6120034 */ 	lwc1	$f18,0x34($s0)
-/*  f03d4a0:	0c00745f */ 	jal	func0001d17c
+/*  f03d4a0:	0c00745f */ 	jal	animGetFrame
 /*  f03d4a4:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f03d4a8:	c6100030 */ 	lwc1	$f16,0x30($s0)
 /*  f03d4ac:	4600803e */ 	c.le.s	$f16,$f0
@@ -16903,7 +16903,7 @@ glabel chrTickDie
 /*  f03d5cc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03d5d0:	45000046 */ 	bc1f	.L0f03d6ec
 /*  f03d5d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03d5d8:	0c00745f */ 	jal	func0001d17c
+/*  f03d5d8:	0c00745f */ 	jal	animGetFrame
 /*  f03d5dc:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f03d5e0:	c6080034 */ 	lwc1	$f8,0x34($s0)
 /*  f03d5e4:	3c01bf80 */ 	lui	$at,0xbf80
@@ -16976,7 +16976,7 @@ glabel chrTickDie
 .L0f03d6e8:
 /*  f03d6e8:	e6020034 */ 	swc1	$f2,0x34($s0)
 .L0f03d6ec:
-/*  f03d6ec:	0c00745f */ 	jal	func0001d17c
+/*  f03d6ec:	0c00745f */ 	jal	animGetFrame
 /*  f03d6f0:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f03d6f4:	e7a0005c */ 	swc1	$f0,0x5c($sp)
 /*  f03d6f8:	0c007468 */ 	jal	func0001d1a0
@@ -16993,7 +16993,7 @@ glabel chrTickDie
 .L0f03d724:
 /*  f03d724:	14400027 */ 	bnez	$v0,.L0f03d7c4
 /*  f03d728:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03d72c:	0c00744f */ 	jal	func0001d13c
+/*  f03d72c:	0c00744f */ 	jal	animGetId
 /*  f03d730:	8fa400ac */ 	lw	$a0,0xac($sp)
 /*  f03d734:	24010039 */ 	addiu	$at,$zero,0x39
 /*  f03d738:	14410022 */ 	bne	$v0,$at,.L0f03d7c4
@@ -17229,7 +17229,7 @@ glabel chrTickDruggedComingUp
 
 void chrTickDruggedDrop(struct chrdata *chr)
 {
-	struct chr020 *chr020 = chr->unk020;
+	struct animdata *animdata = chr->animdata;
 	s16 things[11] = {
 		-32627,
 		-32626,
@@ -17245,7 +17245,7 @@ void chrTickDruggedDrop(struct chrdata *chr)
 	};
 	static s32 index = 0;
 
-	if (chr->act_druggeddrop.unk030 >= 0 && func0001d17c(chr020) >= chr->act_druggeddrop.unk030) {
+	if (chr->act_druggeddrop.unk030 >= 0 && animGetFrame(animdata) >= chr->act_druggeddrop.unk030) {
 		func0f0939f8(NULL, chr->prop, things[index], -1,
 				-1, 0, 0, 0,
 				0, -1, 0, -1,
@@ -17260,7 +17260,7 @@ void chrTickDruggedDrop(struct chrdata *chr)
 		chr->act_druggeddrop.unk030 = -1;
 	}
 
-	if (chr->act_druggeddrop.unk034 >= 0 && func0001d17c(chr020) >= chr->act_druggeddrop.unk034) {
+	if (chr->act_druggeddrop.unk034 >= 0 && animGetFrame(animdata) >= chr->act_druggeddrop.unk034) {
 		func0f0939f8(NULL, chr->prop, things[index], -1,
 				-1, 0, 0, 0,
 				0, -1, 0, -1,
@@ -17275,7 +17275,7 @@ void chrTickDruggedDrop(struct chrdata *chr)
 		chr->act_druggeddrop.unk034 = -1;
 	}
 
-	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+	if (animGetFrame(animdata) >= func0001d1a0(animdata)) {
 		chr->actiontype = ACT_DRUGGEDKO;
 		chr->act_druggedko.unk038 = chr->unk2d4 ? 0 : -1;
 		chr->act_druggedko.unk02c = 0;
@@ -17327,12 +17327,12 @@ void chrTickDruggedKo(struct chrdata *chr)
 
 void chrTickArgh(struct chrdata *chr)
 {
-	struct chr020 *chr020 = chr->unk020;
+	struct animdata *animdata = chr->animdata;
 
-	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+	if (animGetFrame(animdata) >= func0001d1a0(animdata)) {
 		chrRecordLastSeeTargetTime(chr);
 
-		if (CHRRACE(chr) == RACE_HUMAN && func0001d13c(chr020) == ANIM_DEATH_STOMACH_LONG) {
+		if (CHRRACE(chr) == RACE_HUMAN && animGetId(animdata) == ANIM_DEATH_STOMACH_LONG) {
 			func0f02ed28(chr, 26);
 		} else {
 			if (chr->race == RACE_DRCAROLL) {
@@ -17349,9 +17349,9 @@ void chrTickArgh(struct chrdata *chr)
 
 void chrTickPreArgh(struct chrdata *chr)
 {
-	struct chr020 *chr020 = chr->unk020;
+	struct animdata *animdata = chr->animdata;
 
-	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+	if (animGetFrame(animdata) >= func0001d1a0(animdata)) {
 		struct coord pos;
 		pos.x = chr->act_preargh.pos.x;
 		pos.y = chr->act_preargh.pos.y;
@@ -17367,10 +17367,10 @@ void chrTickPreArgh(struct chrdata *chr)
 
 void chrTickSidestep(struct chrdata *chr)
 {
-	struct chr020 *chr020 = chr->unk020;
+	struct animdata *animdata = chr->animdata;
 
 	if (chr->hidden & CHRHFLAG_00200000) {
-		if (func0001db94(chr->unk020)) {
+		if (func0001db94(chr->animdata)) {
 			return;
 		}
 
@@ -17378,7 +17378,7 @@ void chrTickSidestep(struct chrdata *chr)
 		chr->hidden &= ~CHRHFLAG_00200000;
 	}
 
-	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+	if (animGetFrame(animdata) >= func0001d1a0(animdata)) {
 		chrRecordLastSeeTargetTime(chr);
 		func0f02ed28(chr, 10);
 	}
@@ -17386,10 +17386,10 @@ void chrTickSidestep(struct chrdata *chr)
 
 void chrTickJumpOut(struct chrdata *chr)
 {
-	struct chr020 *chr020 = chr->unk020;
+	struct animdata *animdata = chr->animdata;
 
 	if (chr->hidden & CHRHFLAG_00200000) {
-		if (func0001db94(chr->unk020)) {
+		if (func0001db94(chr->animdata)) {
 			return;
 		}
 
@@ -17397,7 +17397,7 @@ void chrTickJumpOut(struct chrdata *chr)
 		chr->hidden &= ~CHRHFLAG_00200000;
 	}
 
-	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+	if (animGetFrame(animdata) >= func0001d1a0(animdata)) {
 		chrRecordLastSeeTargetTime(chr);
 		chrStop(chr);
 	}
@@ -17405,19 +17405,19 @@ void chrTickJumpOut(struct chrdata *chr)
 
 void chrTickTest(struct chrdata *chr)
 {
-	struct chr020 *chr020 = chr->unk020;
+	struct animdata *animdata = chr->animdata;
 
-	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+	if (animGetFrame(animdata) >= func0001d1a0(animdata)) {
 		chrStand(chr);
 	}
 }
 
 void chrTickStartAlarm(struct chrdata *chr)
 {
-	struct chr020 *chr020 = chr->unk020;
+	struct animdata *animdata = chr->animdata;
 
 	if (chr->hidden & CHRHFLAG_00200000) {
-		if (func0001db94(chr->unk020)) {
+		if (func0001db94(chr->animdata)) {
 			return;
 		}
 
@@ -17425,11 +17425,11 @@ void chrTickStartAlarm(struct chrdata *chr)
 		chr->hidden &= ~CHRHFLAG_00200000;
 	}
 
-	if (func0001d17c(chr020) >= 60) {
+	if (animGetFrame(animdata) >= 60) {
 		alarmActivate();
 	}
 
-	if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
+	if (animGetFrame(animdata) >= func0001d1a0(animdata)) {
 		chrStop(chr);
 	}
 }
@@ -17437,7 +17437,7 @@ void chrTickStartAlarm(struct chrdata *chr)
 void chrTickSurprised(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_00200000) {
-		if (func0001db94(chr->unk020)) {
+		if (func0001db94(chr->animdata)) {
 			return;
 		}
 
@@ -17446,12 +17446,12 @@ void chrTickSurprised(struct chrdata *chr)
 	}
 
 	if (CHRRACE(chr) == RACE_HUMAN) {
-		struct chr020 *chr020 = chr->unk020;
+		struct animdata *animdata = chr->animdata;
 
-		if (func0001d17c(chr020) >= func0001d1a0(chr020)) {
-			if (func0001d13c(chr020) == 0x2e) {
+		if (animGetFrame(animdata) >= func0001d1a0(animdata)) {
+			if (animGetId(animdata) == 0x2e) {
 				func0f02ed28(chr, 26);
-			} else if (func0001d13c(chr020) == 0x3f) {
+			} else if (animGetId(animdata) == 0x3f) {
 				func0f02ed28(chr, 26);
 			} else {
 				chrStop(chr);
@@ -17651,7 +17651,7 @@ void func0f03e538(struct chrdata *chr, f32 arg1)
 	if (chr->unk2d4) {
 		chr->unk2d4->unk0b0 = arg1;
 	} else {
-		func0001ae90(chr->unk020, arg1);
+		func0001ae90(chr->animdata, arg1);
 	}
 }
 
@@ -17661,7 +17661,7 @@ f32 func0f03e578(struct chrdata *chr)
 		return chr->unk2d4->unk0a4;
 	}
 
-	return func0001ae44(chr->unk020);
+	return func0001ae44(chr->animdata);
 }
 
 void func0f03e5b0(struct chrdata *chr, f32 arg1)
@@ -17669,7 +17669,7 @@ void func0f03e5b0(struct chrdata *chr, f32 arg1)
 	if (chr->unk2d4) {
 		chr->unk2d4->unk0a4 = arg1;
 	} else {
-		func0001ae90(chr->unk020, arg1);
+		func0001ae90(chr->animdata, arg1);
 	}
 }
 
@@ -17807,7 +17807,7 @@ glabel func0f03e788
 /*  f03e7a4:	10a1008e */ 	beq	$a1,$at,.L0f03e9e0
 /*  f03e7a8:	afa70044 */ 	sw	$a3,0x44($sp)
 /*  f03e7ac:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f03e7b0:	0c00745f */ 	jal	func0001d17c
+/*  f03e7b0:	0c00745f */ 	jal	animGetFrame
 /*  f03e7b4:	afa40034 */ 	sw	$a0,0x34($sp)
 /*  f03e7b8:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f03e7bc:	0fc0f917 */ 	jal	func0f03e45c
@@ -19911,7 +19911,7 @@ glabel func0f0404d4
 /*  f0406d8:	1541000b */ 	bne	$t2,$at,.L0f040708
 /*  f0406dc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0406e0:	8de40020 */ 	lw	$a0,0x20($t7)
-/*  f0406e4:	0c00744f */ 	jal	func0001d13c
+/*  f0406e4:	0c00744f */ 	jal	animGetId
 /*  f0406e8:	afa60254 */ 	sw	$a2,0x254($sp)
 /*  f0406ec:	2401026a */ 	addiu	$at,$zero,0x26a
 /*  f0406f0:	14410005 */ 	bne	$v0,$at,.L0f040708
@@ -21475,7 +21475,7 @@ glabel func0f041d38
 /*  f041d60:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f041d64:	45000016 */ 	bc1f	.L0f041dc0
 /*  f041d68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f041d6c:	0c00744f */ 	jal	func0001d13c
+/*  f041d6c:	0c00744f */ 	jal	animGetId
 /*  f041d70:	02002025 */ 	or	$a0,$s0,$zero
 /*  f041d74:	3c063f4c */ 	lui	$a2,0x3f4c
 /*  f041d78:	34c6cccd */ 	ori	$a2,$a2,0xcccd
@@ -21497,7 +21497,7 @@ glabel func0f041d38
 /*  f041db8:	10000015 */ 	beqz	$zero,.L0f041e10
 /*  f041dbc:	8e29002c */ 	lw	$t1,0x2c($s1)
 .L0f041dc0:
-/*  f041dc0:	0c00744f */ 	jal	func0001d13c
+/*  f041dc0:	0c00744f */ 	jal	animGetId
 /*  f041dc4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f041dc8:	3c063f4c */ 	lui	$a2,0x3f4c
 /*  f041dcc:	34c6cccd */ 	ori	$a2,$a2,0xcccd
@@ -21548,10 +21548,10 @@ glabel func0f041e48
 /*  f041e68:	f7b40018 */ 	sdc1	$f20,0x18($sp)
 /*  f041e6c:	8c930020 */ 	lw	$s3,0x20($a0)
 /*  f041e70:	00808025 */ 	or	$s0,$a0,$zero
-/*  f041e74:	0c00745f */ 	jal	func0001d17c
+/*  f041e74:	0c00745f */ 	jal	animGetFrame
 /*  f041e78:	02602025 */ 	or	$a0,$s3,$zero
 /*  f041e7c:	46000506 */ 	mov.s	$f20,$f0
-/*  f041e80:	0c00744f */ 	jal	func0001d13c
+/*  f041e80:	0c00744f */ 	jal	animGetId
 /*  f041e84:	02602025 */ 	or	$a0,$s3,$zero
 /*  f041e88:	24010269 */ 	addiu	$at,$zero,0x269
 /*  f041e8c:	504101de */ 	beql	$v0,$at,.L0f042608
@@ -21598,7 +21598,7 @@ glabel func0f041e48
 /*  f041f2c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f041f30:	14400023 */ 	bnez	$v0,.L0f041fc0
 /*  f041f34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f041f38:	0c00744f */ 	jal	func0001d13c
+/*  f041f38:	0c00744f */ 	jal	animGetId
 /*  f041f3c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f041f40:	3c013f00 */ 	lui	$at,0x3f00
 /*  f041f44:	4481c000 */ 	mtc1	$at,$f24
@@ -21642,7 +21642,7 @@ glabel func0f041e48
 .L0f041fd4:
 /*  f041fd4:	02602025 */ 	or	$a0,$s3,$zero
 /*  f041fd8:	25d80001 */ 	addiu	$t8,$t6,0x1
-/*  f041fdc:	0c00745f */ 	jal	func0001d17c
+/*  f041fdc:	0c00745f */ 	jal	animGetFrame
 /*  f041fe0:	a2180033 */ 	sb	$t8,0x33($s0)
 /*  f041fe4:	46000506 */ 	mov.s	$f20,$f0
 /*  f041fe8:	3c013f00 */ 	lui	$at,0x3f00
@@ -21655,7 +21655,7 @@ glabel func0f041e48
 /*  f042000:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f042004:	45000080 */ 	bc1f	.L0f042208
 /*  f042008:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04200c:	0c00744f */ 	jal	func0001d13c
+/*  f04200c:	0c00744f */ 	jal	animGetId
 /*  f042010:	02602025 */ 	or	$a0,$s3,$zero
 /*  f042014:	2401026a */ 	addiu	$at,$zero,0x26a
 /*  f042018:	50410018 */ 	beql	$v0,$at,.L0f04207c
@@ -21771,7 +21771,7 @@ glabel func0f041e48
 /*  f0421a8:	a2000031 */ 	sb	$zero,0x31($s0)
 .L0f0421ac:
 /*  f0421ac:	e7ac005c */ 	swc1	$f12,0x5c($sp)
-/*  f0421b0:	0c00744f */ 	jal	func0001d13c
+/*  f0421b0:	0c00744f */ 	jal	animGetId
 /*  f0421b4:	e7a20060 */ 	swc1	$f2,0x60($sp)
 /*  f0421b8:	c7ac005c */ 	lwc1	$f12,0x5c($sp)
 /*  f0421bc:	8e690020 */ 	lw	$t1,0x20($s3)
@@ -21791,11 +21791,11 @@ glabel func0f041e48
 /*  f0421f4:	0c007787 */ 	jal	func0001de1c
 /*  f0421f8:	02602025 */ 	or	$a0,$s3,$zero
 .L0f0421fc:
-/*  f0421fc:	0c00745f */ 	jal	func0001d17c
+/*  f0421fc:	0c00745f */ 	jal	animGetFrame
 /*  f042200:	02602025 */ 	or	$a0,$s3,$zero
 /*  f042204:	46000506 */ 	mov.s	$f20,$f0
 .L0f042208:
-/*  f042208:	0c00744f */ 	jal	func0001d13c
+/*  f042208:	0c00744f */ 	jal	animGetId
 /*  f04220c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f042210:	2401026a */ 	addiu	$at,$zero,0x26a
 /*  f042214:	50410030 */ 	beql	$v0,$at,.L0f0422d8
@@ -21862,7 +21862,7 @@ glabel func0f041e48
 /*  f0422f8:	45030008 */ 	bc1tl	.L0f04231c
 /*  f0422fc:	3c013f80 */ 	lui	$at,0x3f80
 .L0f042300:
-/*  f042300:	0c00744f */ 	jal	func0001d13c
+/*  f042300:	0c00744f */ 	jal	animGetId
 /*  f042304:	02602025 */ 	or	$a0,$s3,$zero
 /*  f042308:	2401026a */ 	addiu	$at,$zero,0x26a
 /*  f04230c:	1441000b */ 	bne	$v0,$at,.L0f04233c
@@ -21893,7 +21893,7 @@ glabel func0f041e48
 /*  f042360:	824e003a */ 	lb	$t6,0x3a($s2)
 /*  f042364:	15c00066 */ 	bnez	$t6,.L0f042500
 /*  f042368:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04236c:	0c00744f */ 	jal	func0001d13c
+/*  f04236c:	0c00744f */ 	jal	animGetId
 /*  f042370:	02602025 */ 	or	$a0,$s3,$zero
 /*  f042374:	2401026a */ 	addiu	$at,$zero,0x26a
 /*  f042378:	1041000c */ 	beq	$v0,$at,.L0f0423ac
@@ -22002,7 +22002,7 @@ glabel func0f041e48
 /*  f0424f8:	1000003f */ 	beqz	$zero,.L0f0425f8
 /*  f0424fc:	26310001 */ 	addiu	$s1,$s1,0x1
 .L0f042500:
-/*  f042500:	0c00744f */ 	jal	func0001d13c
+/*  f042500:	0c00744f */ 	jal	animGetId
 /*  f042504:	02602025 */ 	or	$a0,$s3,$zero
 /*  f042508:	2401026a */ 	addiu	$at,$zero,0x26a
 /*  f04250c:	10410023 */ 	beq	$v0,$at,.L0f04259c
@@ -22095,7 +22095,7 @@ glabel chrTickAttackAmount
 /*  f042634:	00808825 */ 	or	$s1,$a0,$zero
 /*  f042638:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f04263c:	afb0001c */ 	sw	$s0,0x1c($sp)
-/*  f042640:	0c00745f */ 	jal	func0001d17c
+/*  f042640:	0c00745f */ 	jal	animGetFrame
 /*  f042644:	8c840020 */ 	lw	$a0,0x20($a0)
 /*  f042648:	e7a00030 */ 	swc1	$f0,0x30($sp)
 /*  f04264c:	8e30002c */ 	lw	$s0,0x2c($s1)
@@ -22759,7 +22759,7 @@ glabel chrTickAttack
 /*  f043004:	00808025 */ 	or	$s0,$a0,$zero
 /*  f043008:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f04300c:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f043010:	0c00745f */ 	jal	func0001d17c
+/*  f043010:	0c00745f */ 	jal	animGetFrame
 /*  f043014:	afa4003c */ 	sw	$a0,0x3c($sp)
 /*  f043018:	e7a00038 */ 	swc1	$f0,0x38($sp)
 /*  f04301c:	8e0e0014 */ 	lw	$t6,0x14($s0)
@@ -22842,7 +22842,7 @@ glabel chrTickAttack
 /*  f043144:	46000086 */ 	mov.s	$f2,$f0
 /*  f043148:	c442001c */ 	lwc1	$f2,0x1c($v0)
 .L0f04314c:
-/*  f04314c:	0c00744f */ 	jal	func0001d13c
+/*  f04314c:	0c00744f */ 	jal	animGetId
 /*  f043150:	e7a20034 */ 	swc1	$f2,0x34($sp)
 /*  f043154:	3c063f4c */ 	lui	$a2,0x3f4c
 /*  f043158:	34c6cccd */ 	ori	$a2,$a2,0xcccd
@@ -22969,7 +22969,7 @@ glabel chrTickAttack
 /*  f043320:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f043324:	45000027 */ 	bc1f	.L0f0433c4
 /*  f043328:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04332c:	0c00744f */ 	jal	func0001d13c
+/*  f04332c:	0c00744f */ 	jal	animGetId
 /*  f043330:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043334:	3c063f4c */ 	lui	$a2,0x3f4c
 /*  f043338:	34c6cccd */ 	ori	$a2,$a2,0xcccd
@@ -23047,7 +23047,7 @@ glabel chrTickAttackRoll
 /*  f043434:	1140013d */ 	beqz	$t2,.L0f04392c
 /*  f043438:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f04343c:	8d240020 */ 	lw	$a0,0x20($t1)
-/*  f043440:	0c00745f */ 	jal	func0001d17c
+/*  f043440:	0c00745f */ 	jal	animGetFrame
 /*  f043444:	afa40044 */ 	sw	$a0,0x44($sp)
 /*  f043448:	8fa70048 */ 	lw	$a3,0x48($sp)
 /*  f04344c:	3c0b8006 */ 	lui	$t3,%hi(var80067548)
@@ -23345,7 +23345,7 @@ glabel chrTickAttackRoll
 /*  f04387c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f043880:	4500002a */ 	bc1f	.L0f04392c
 /*  f043884:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f043888:	0c00744f */ 	jal	func0001d13c
+/*  f043888:	0c00744f */ 	jal	animGetId
 /*  f04388c:	8fa40044 */ 	lw	$a0,0x44($sp)
 /*  f043890:	3c063f4c */ 	lui	$a2,0x3f4c
 /*  f043894:	34c6cccd */ 	ori	$a2,$a2,0xcccd
@@ -23468,7 +23468,7 @@ glabel chrTickThrowGrenade
 /*  f043a44:	8fa90040 */ 	lw	$t1,0x40($sp)
 .L0f043a48:
 /*  f043a48:	8d240020 */ 	lw	$a0,0x20($t1)
-/*  f043a4c:	0c00745f */ 	jal	func0001d17c
+/*  f043a4c:	0c00745f */ 	jal	animGetFrame
 /*  f043a50:	afa4003c */ 	sw	$a0,0x3c($sp)
 /*  f043a54:	8faa003c */ 	lw	$t2,0x3c($sp)
 /*  f043a58:	46000086 */ 	mov.s	$f2,$f0
@@ -23494,7 +23494,7 @@ glabel chrTickThrowGrenade
 /*  f043aa4:	10400008 */ 	beqz	$v0,.L0f043ac8
 /*  f043aa8:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043aac:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f043ab0:	0c00744f */ 	jal	func0001d13c
+/*  f043ab0:	0c00744f */ 	jal	animGetId
 /*  f043ab4:	e7a20038 */ 	swc1	$f2,0x38($sp)
 /*  f043ab8:	2401003e */ 	addiu	$at,$zero,0x3e
 /*  f043abc:	8fa60030 */ 	lw	$a2,0x30($sp)
@@ -23512,7 +23512,7 @@ glabel chrTickThrowGrenade
 /*  f043ae4:	10c00008 */ 	beqz	$a2,.L0f043b08
 /*  f043ae8:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043aec:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f043af0:	0c00744f */ 	jal	func0001d13c
+/*  f043af0:	0c00744f */ 	jal	animGetId
 /*  f043af4:	e7a20038 */ 	swc1	$f2,0x38($sp)
 /*  f043af8:	24010242 */ 	addiu	$at,$zero,0x242
 /*  f043afc:	8fa60030 */ 	lw	$a2,0x30($sp)
@@ -23530,7 +23530,7 @@ glabel chrTickThrowGrenade
 /*  f043b24:	10c0000d */ 	beqz	$a2,.L0f043b5c
 /*  f043b28:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043b2c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f043b30:	0c00744f */ 	jal	func0001d13c
+/*  f043b30:	0c00744f */ 	jal	animGetId
 /*  f043b34:	e7a20038 */ 	swc1	$f2,0x38($sp)
 /*  f043b38:	24010244 */ 	addiu	$at,$zero,0x244
 /*  f043b3c:	8fa60030 */ 	lw	$a2,0x30($sp)
@@ -23554,7 +23554,7 @@ glabel chrTickThrowGrenade
 /*  f043b78:	10c00008 */ 	beqz	$a2,.L0f043b9c
 /*  f043b7c:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043b80:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f043b84:	0c00744f */ 	jal	func0001d13c
+/*  f043b84:	0c00744f */ 	jal	animGetId
 /*  f043b88:	e7a20038 */ 	swc1	$f2,0x38($sp)
 /*  f043b8c:	2401003e */ 	addiu	$at,$zero,0x3e
 /*  f043b90:	8fa60030 */ 	lw	$a2,0x30($sp)
@@ -23572,7 +23572,7 @@ glabel chrTickThrowGrenade
 /*  f043bb8:	10c00008 */ 	beqz	$a2,.L0f043bdc
 /*  f043bbc:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043bc0:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f043bc4:	0c00744f */ 	jal	func0001d13c
+/*  f043bc4:	0c00744f */ 	jal	animGetId
 /*  f043bc8:	e7a20038 */ 	swc1	$f2,0x38($sp)
 /*  f043bcc:	24010242 */ 	addiu	$at,$zero,0x242
 /*  f043bd0:	8fa60030 */ 	lw	$a2,0x30($sp)
@@ -23590,7 +23590,7 @@ glabel chrTickThrowGrenade
 /*  f043bf8:	10c00016 */ 	beqz	$a2,.L0f043c54
 /*  f043bfc:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043c00:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f043c04:	0c00744f */ 	jal	func0001d13c
+/*  f043c04:	0c00744f */ 	jal	animGetId
 /*  f043c08:	e7a20038 */ 	swc1	$f2,0x38($sp)
 /*  f043c0c:	24010244 */ 	addiu	$at,$zero,0x244
 /*  f043c10:	8fa60030 */ 	lw	$a2,0x30($sp)
@@ -23614,7 +23614,7 @@ glabel chrTickThrowGrenade
 .L0f043c54:
 /*  f043c54:	8fa4003c */ 	lw	$a0,0x3c($sp)
 .L0f043c58:
-/*  f043c58:	0c00745f */ 	jal	func0001d17c
+/*  f043c58:	0c00745f */ 	jal	animGetFrame
 /*  f043c5c:	e7a20038 */ 	swc1	$f2,0x38($sp)
 /*  f043c60:	e7a00024 */ 	swc1	$f0,0x24($sp)
 /*  f043c64:	0c007468 */ 	jal	func0001d1a0
@@ -23643,7 +23643,7 @@ glabel chrTickThrowGrenade
 /*  f043cbc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f043cc0:	45020007 */ 	bc1fl	.L0f043ce0
 /*  f043cc4:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f043cc8:	0c00744f */ 	jal	func0001d13c
+/*  f043cc8:	0c00744f */ 	jal	animGetId
 /*  f043ccc:	e7a20038 */ 	swc1	$f2,0x38($sp)
 /*  f043cd0:	2401003e */ 	addiu	$at,$zero,0x3e
 /*  f043cd4:	10410024 */ 	beq	$v0,$at,.L0f043d68
@@ -23662,7 +23662,7 @@ glabel chrTickThrowGrenade
 /*  f043d04:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f043d08:	45020007 */ 	bc1fl	.L0f043d28
 /*  f043d0c:	3c0141a0 */ 	lui	$at,0x41a0
-/*  f043d10:	0c00744f */ 	jal	func0001d13c
+/*  f043d10:	0c00744f */ 	jal	animGetId
 /*  f043d14:	e7a20038 */ 	swc1	$f2,0x38($sp)
 /*  f043d18:	24010242 */ 	addiu	$at,$zero,0x242
 /*  f043d1c:	10410012 */ 	beq	$v0,$at,.L0f043d68
@@ -23681,7 +23681,7 @@ glabel chrTickThrowGrenade
 /*  f043d4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f043d50:	45020012 */ 	bc1fl	.L0f043d9c
 /*  f043d54:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f043d58:	0c00744f */ 	jal	func0001d13c
+/*  f043d58:	0c00744f */ 	jal	animGetId
 /*  f043d5c:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f043d60:	24010244 */ 	addiu	$at,$zero,0x244
 /*  f043d64:	1441000c */ 	bne	$v0,$at,.L0f043d98
@@ -24010,7 +24010,7 @@ glabel chrTickAttackWalk
 /*  f0442c0:	50200029 */ 	beqzl	$at,.L0f044368
 /*  f0442c4:	c64a0008 */ 	lwc1	$f10,0x8($s2)
 .L0f0442c8:
-/*  f0442c8:	0c00745f */ 	jal	func0001d17c
+/*  f0442c8:	0c00745f */ 	jal	animGetFrame
 /*  f0442cc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f0442d0:	e7a00034 */ 	swc1	$f0,0x34($sp)
 /*  f0442d4:	0c007486 */ 	jal	func0001d218
@@ -24487,10 +24487,10 @@ glabel chrTickRunPos
 .L0f044970:
 /*  f044970:	15000003 */ 	bnez	$t0,.L0f044980
 /*  f044974:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f044978:	0c00744f */ 	jal	func0001d13c
+/*  f044978:	0c00744f */ 	jal	animGetId
 /*  f04497c:	8fa40040 */ 	lw	$a0,0x40($sp)
 .L0f044980:
-/*  f044980:	0c00745f */ 	jal	func0001d17c
+/*  f044980:	0c00745f */ 	jal	animGetFrame
 /*  f044984:	8fa40040 */ 	lw	$a0,0x40($sp)
 /*  f044988:	44803000 */ 	mtc1	$zero,$f6
 /*  f04498c:	44802000 */ 	mtc1	$zero,$f4
@@ -24583,7 +24583,7 @@ glabel chrTickRunPos
 /*  f044ad0:	44811000 */ 	mtc1	$at,$f2
 /*  f044ad4:	1500000e */ 	bnez	$t0,.L0f044b10
 /*  f044ad8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f044adc:	0c00744f */ 	jal	func0001d13c
+/*  f044adc:	0c00744f */ 	jal	animGetId
 /*  f044ae0:	8fa40040 */ 	lw	$a0,0x40($sp)
 /*  f044ae4:	24010059 */ 	addiu	$at,$zero,0x59
 /*  f044ae8:	14410005 */ 	bne	$v0,$at,.L0f044b00
@@ -27860,7 +27860,7 @@ glabel chrTickSkJump
 /*  f047ab8:	44050000 */ 	mfc1	$a1,$f0
 /*  f047abc:	0fc0f94e */ 	jal	func0f03e538
 /*  f047ac0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047ac4:	0c00745f */ 	jal	func0001d17c
+/*  f047ac4:	0c00745f */ 	jal	animGetFrame
 /*  f047ac8:	8e040020 */ 	lw	$a0,0x20($s0)
 /*  f047acc:	e7a0005c */ 	swc1	$f0,0x5c($sp)
 /*  f047ad0:	0c007468 */ 	jal	func0001d1a0
@@ -32699,12 +32699,12 @@ s32 func0f004cd84(s32 arg0, s32 arg1)
 
 void func0f04cf90(struct chrdata *chr, s32 arg1)
 {
-	if (chr && chr->unk020 && chr->unk020->unk08) {
-		s32 value = func0001a91c(chr->unk020->unk08, arg1);
+	if (chr && chr->animdata && chr->animdata->unk08) {
+		s32 value = func0001a91c(chr->animdata->unk08, arg1);
 		u32 *ptr = NULL;
 
 		if (value != 0) {
-			ptr = func0001aa1c(chr->unk020, value);
+			ptr = func0001aa1c(chr->animdata, value);
 		}
 
 		if (ptr) {
@@ -33025,7 +33025,7 @@ glabel var7f1a9448
 
 bool func0f04d44c(struct chrdata *chr)
 {
-	s32 val = func0001d13c(chr->unk020);
+	s32 val = animGetId(chr->animdata);
 	chr->chrflags &= ~CHRCFLAG_10000000;
 
 	// Possible @bug or just sloppy code: The flag check below can never pass

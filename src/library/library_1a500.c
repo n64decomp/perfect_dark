@@ -3550,7 +3550,7 @@ glabel func0001cebc
 );
 
 GLOBAL_ASM(
-glabel func0001d13c
+glabel animGetId
 /*    1d13c:	8c830020 */ 	lw	$v1,0x20($a0)
 /*    1d140:	00001025 */ 	or	$v0,$zero,$zero
 /*    1d144:	10600003 */ 	beqz	$v1,.L0001d154
@@ -3576,7 +3576,7 @@ glabel func0001d15c
 );
 
 GLOBAL_ASM(
-glabel func0001d17c
+glabel animGetFrame
 /*    1d17c:	8c820020 */ 	lw	$v0,0x20($a0)
 /*    1d180:	50400004 */ 	beqzl	$v0,.L0001d194
 /*    1d184:	44800000 */ 	mtc1	$zero,$f0
@@ -3635,7 +3635,7 @@ glabel func0001d218
 /*    1d224:	00001025 */ 	or	$v0,$zero,$zero
 /*    1d228:	11c00009 */ 	beqz	$t6,.L0001d250
 /*    1d22c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1d230:	0c00744f */ 	jal	func0001d13c
+/*    1d230:	0c00744f */ 	jal	animGetId
 /*    1d234:	00000000 */ 	sll	$zero,$zero,0x0
 /*    1d238:	00022400 */ 	sll	$a0,$v0,0x10
 /*    1d23c:	00047c03 */ 	sra	$t7,$a0,0x10

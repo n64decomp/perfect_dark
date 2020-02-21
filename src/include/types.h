@@ -125,7 +125,7 @@ struct anim {
 	/*0x88*/ u32 animscale;
 };
 
-struct chr020 {
+struct animdata {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
@@ -530,7 +530,7 @@ struct chrdata {
 	/*0x014*/ u32 hidden;
 	/*0x018*/ u32 chrflags;
 	/*0x01c*/ struct prop *prop;
-	/*0x020*/ struct chr020 *unk020;
+	/*0x020*/ struct animdata *animdata;
 	/*0x024*/ f32 chrwidth;
 	/*0x028*/ f32 chrheight;
 
@@ -731,7 +731,7 @@ struct defaultobj {
 	/*0x0c*/ u32 flags2;
 	/*0x10*/ u32 flags3;
 	/*0x14*/ struct prop *prop;
-	/*0x18*/ struct chr020 *unk18;
+	/*0x18*/ struct animdata *animdata;
 	/*0x1c*/ f32 realrot[9];
 	/*0x40*/ u32 hidden; // most significant nibble is the playernum who holds the obj
 	/*0x44*/ struct geo *geo;
