@@ -16423,103 +16423,36 @@ glabel chrTickAnim
 /*  f03cb70:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrTickSurrender
-/*  f03cb74:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f03cb78:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f03cb7c:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f03cb80:	8c8e0014 */ 	lw	$t6,0x14($a0)
-/*  f03cb84:	00808025 */ 	or	$s0,$a0,$zero
-/*  f03cb88:	000e7a80 */ 	sll	$t7,$t6,0xa
-/*  f03cb8c:	05e3000d */ 	bgezl	$t7,.L0f03cbc4
-/*  f03cb90:	82080008 */ 	lb	$t0,0x8($s0)
-/*  f03cb94:	0c0076e5 */ 	jal	func0001db94
-/*  f03cb98:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f03cb9c:	5440004b */ 	bnezl	$v0,.L0f03cccc
-/*  f03cba0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03cba4:	0fc0bdc1 */ 	jal	func0f02f704
-/*  f03cba8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03cbac:	8e180014 */ 	lw	$t8,0x14($s0)
-/*  f03cbb0:	3c01ffdf */ 	lui	$at,0xffdf
-/*  f03cbb4:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f03cbb8:	0301c824 */ 	and	$t9,$t8,$at
-/*  f03cbbc:	ae190014 */ 	sw	$t9,0x14($s0)
-/*  f03cbc0:	82080008 */ 	lb	$t0,0x8($s0)
-.L0f03cbc4:
-/*  f03cbc4:	5d000041 */ 	bgtzl	$t0,.L0f03cccc
-/*  f03cbc8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03cbcc:	12000003 */ 	beqz	$s0,.L0f03cbdc
-/*  f03cbd0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f03cbd4:	10000001 */ 	beqz	$zero,.L0f03cbdc
-/*  f03cbd8:	920202fe */ 	lbu	$v0,0x2fe($s0)
-.L0f03cbdc:
-/*  f03cbdc:	1440003a */ 	bnez	$v0,.L0f03ccc8
-/*  f03cbe0:	24090010 */ 	addiu	$t1,$zero,0x10
-/*  f03cbe4:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f03cbe8:	a2090008 */ 	sb	$t1,0x8($s0)
-/*  f03cbec:	0c00744f */ 	jal	func0001d13c
-/*  f03cbf0:	afa4003c */ 	sw	$a0,0x3c($sp)
-/*  f03cbf4:	2401002f */ 	addiu	$at,$zero,0x2f
-/*  f03cbf8:	14410033 */ 	bne	$v0,$at,.L0f03ccc8
-/*  f03cbfc:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f03cc00:	0c00745f */ 	jal	func0001d17c
-/*  f03cc04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03cc08:	3c0142a0 */ 	lui	$at,0x42a0
-/*  f03cc0c:	44812000 */ 	mtc1	$at,$f4
-/*  f03cc10:	3c0b8007 */ 	lui	$t3,%hi(var800683bc)
-/*  f03cc14:	256b83bc */ 	addiu	$t3,$t3,%lo(var800683bc)
-/*  f03cc18:	4600203e */ 	c.le.s	$f4,$f0
-/*  f03cc1c:	27aa0030 */ 	addiu	$t2,$sp,0x30
-/*  f03cc20:	4502002a */ 	bc1fl	.L0f03cccc
-/*  f03cc24:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03cc28:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f03cc2c:	8d6d0004 */ 	lw	$t5,0x4($t3)
-/*  f03cc30:	02002025 */ 	or	$a0,$s0,$zero
-/*  f03cc34:	ad410000 */ 	sw	$at,0x0($t2)
-/*  f03cc38:	8d610008 */ 	lw	$at,0x8($t3)
-/*  f03cc3c:	ad4d0004 */ 	sw	$t5,0x4($t2)
-/*  f03cc40:	0fc0f917 */ 	jal	func0f03e45c
-/*  f03cc44:	ad410008 */ 	sw	$at,0x8($t2)
-/*  f03cc48:	e7a0002c */ 	swc1	$f0,0x2c($sp)
-/*  f03cc4c:	0c0068f7 */ 	jal	func0001a3dc
-/*  f03cc50:	46000306 */ 	mov.s	$f12,$f0
-/*  f03cc54:	46000187 */ 	neg.s	$f6,$f0
-/*  f03cc58:	c7ac002c */ 	lwc1	$f12,0x2c($sp)
-/*  f03cc5c:	0c0068f4 */ 	jal	func0001a3d0
-/*  f03cc60:	e7a60030 */ 	swc1	$f6,0x30($sp)
-/*  f03cc64:	46000207 */ 	neg.s	$f8,$f0
-/*  f03cc68:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f03cc6c:	e7a80038 */ 	swc1	$f8,0x38($sp)
-/*  f03cc70:	8e04001c */ 	lw	$a0,0x1c($s0)
-/*  f03cc74:	0fc0da46 */ 	jal	func0f036918
-/*  f03cc78:	3c0641a0 */ 	lui	$a2,0x41a0
-/*  f03cc7c:	54400013 */ 	bnezl	$v0,.L0f03cccc
-/*  f03cc80:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f03cc84:	0c004b70 */ 	jal	random
-/*  f03cc88:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03cc8c:	3c013f00 */ 	lui	$at,0x3f00
-/*  f03cc90:	44815000 */ 	mtc1	$at,$f10
-/*  f03cc94:	3c014180 */ 	lui	$at,0x4180
-/*  f03cc98:	44818000 */ 	mtc1	$at,$f16
-/*  f03cc9c:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f03cca0:	2405002e */ 	addiu	$a1,$zero,0x2e
-/*  f03cca4:	30460001 */ 	andi	$a2,$v0,0x1
-/*  f03cca8:	3c0741f0 */ 	lui	$a3,0x41f0
-/*  f03ccac:	e7aa0010 */ 	swc1	$f10,0x10($sp)
-/*  f03ccb0:	0c007733 */ 	jal	func0001dccc
-/*  f03ccb4:	e7b00014 */ 	swc1	$f16,0x14($sp)
-/*  f03ccb8:	8e040020 */ 	lw	$a0,0x20($s0)
-/*  f03ccbc:	3c0541f0 */ 	lui	$a1,0x41f0
-/*  f03ccc0:	0c00777b */ 	jal	func0001ddec
-/*  f03ccc4:	3c064180 */ 	lui	$a2,0x4180
-.L0f03ccc8:
-/*  f03ccc8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f03cccc:
-/*  f03cccc:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f03ccd0:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f03ccd4:	03e00008 */ 	jr	$ra
-/*  f03ccd8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrTickSurrender(struct chrdata *chr)
+{
+	if (chr->hidden & CHRHFLAG_00200000) {
+		if (func0001db94(chr->unk020)) {
+			return;
+		}
+
+		func0f02f704(chr);
+		chr->hidden &= ~CHRHFLAG_00200000;
+	}
+
+	if (chr->sleep <= 0) {
+		if (CHRRACE(chr) == RACE_HUMAN) {
+			struct chr020 *chr020 = chr->unk020;
+			chr->sleep = 16;
+
+			if (func0001d13c(chr020) == ANIM_SURRENDER_002F && func0001d17c(chr020) >= 80.0f) {
+				struct coord coord = var800683bc;
+				f32 value = func0f03e45c(chr);
+				coord.x = -func0001a3dc(value);
+				coord.z = -func0001a3d0(value);
+
+				if (!func0f036918(chr->prop, &coord, 20)) {
+					func0001dccc(chr->unk020, ANIM_SURRENDER_002E, random() & 1, 30, 0.5, 16);
+					func0001ddec(chr->unk020, 30, 16);
+				}
+			}
+		}
+	}
+}
 
 void func0f03ccdc(struct chrdata *chr)
 {

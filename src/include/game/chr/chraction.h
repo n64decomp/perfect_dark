@@ -58,7 +58,7 @@ u32 func0f034524(void);
 u32 func0f03645c(void);
 u32 func0f03654c(void);
 u32 func0f0368b8(void);
-u32 func0f036918(void);
+bool func0f036918(struct prop *prop, struct coord *coord, f32 arg2);
 u32 func0f036974(void);
 u32 func0f0369cc(void);
 u32 func0f036aa0(void);

@@ -64,7 +64,7 @@ u32 func0001db94(struct chr020 *chr020);
 u32 func0001dbfc(void);
 void func0001dccc(struct chr020 *chr020, s32 animnum, s32 flip, f32 fstartframe, f32 arg4, f32 arg5);
 u32 func0001dd90(void);
-u32 func0001ddec(void);
+void func0001ddec(struct chr020 *chr020, f32 arg1, f32 arg2);
 void func0001de1c(struct chr020 *chr020, f32 arg1);
 u32 func0001de98(void);
 u32 func0001deb0(void);
