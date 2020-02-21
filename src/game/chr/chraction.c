@@ -17628,90 +17628,40 @@ glabel chrTickDruggedDrop
 /*  f03dcd4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrTickDruggedKo
-/*  f03dcd8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f03dcdc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f03dce0:	8c820038 */ 	lw	$v0,0x38($a0)
-/*  f03dce4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f03dce8:	3c0e800a */ 	lui	$t6,0x800a
-/*  f03dcec:	0442001c */ 	bltzl	$v0,.L0f03dd60
-/*  f03dcf0:	8c890018 */ 	lw	$t1,0x18($a0)
-/*  f03dcf4:	8dce9ff8 */ 	lw	$t6,-0x6008($t6)
-/*  f03dcf8:	2403005a */ 	addiu	$v1,$zero,0x5a
-/*  f03dcfc:	004e7821 */ 	addu	$t7,$v0,$t6
-/*  f03dd00:	29e1005a */ 	slti	$at,$t7,0x5a
-/*  f03dd04:	ac8f0038 */ 	sw	$t7,0x38($a0)
-/*  f03dd08:	14200003 */ 	bnez	$at,.L0f03dd18
-/*  f03dd0c:	01e01025 */ 	or	$v0,$t7,$zero
-/*  f03dd10:	1000002e */ 	beqz	$zero,.L0f03ddcc
-/*  f03dd14:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f03dd18:
-/*  f03dd18:	0062c023 */ 	subu	$t8,$v1,$v0
-/*  f03dd1c:	0018ca00 */ 	sll	$t9,$t8,0x8
-/*  f03dd20:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f03dd24:	0323001a */ 	div	$zero,$t9,$v1
-/*  f03dd28:	00004012 */ 	mflo	$t0
-/*  f03dd2c:	a088000c */ 	sb	$t0,0xc($a0)
-/*  f03dd30:	14600002 */ 	bnez	$v1,.L0f03dd3c
-/*  f03dd34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03dd38:	0007000d */ 	break	0x7
-.L0f03dd3c:
-/*  f03dd3c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f03dd40:	14610004 */ 	bne	$v1,$at,.L0f03dd54
-/*  f03dd44:	3c018000 */ 	lui	$at,0x8000
-/*  f03dd48:	17210002 */ 	bne	$t9,$at,.L0f03dd54
-/*  f03dd4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03dd50:	0006000d */ 	break	0x6
-.L0f03dd54:
-/*  f03dd54:	1000001d */ 	beqz	$zero,.L0f03ddcc
-/*  f03dd58:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03dd5c:	8c890018 */ 	lw	$t1,0x18($a0)
-.L0f03dd60:
-/*  f03dd60:	00095140 */ 	sll	$t2,$t1,0x5
-/*  f03dd64:	05400019 */ 	bltz	$t2,.L0f03ddcc
-/*  f03dd68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03dd6c:	8c8b002c */ 	lw	$t3,0x2c($a0)
-/*  f03dd70:	3c18800a */ 	lui	$t8,0x800a
-/*  f03dd74:	51600003 */ 	beqzl	$t3,.L0f03dd84
-/*  f03dd78:	8c8c001c */ 	lw	$t4,0x1c($a0)
-/*  f03dd7c:	ac800038 */ 	sw	$zero,0x38($a0)
-/*  f03dd80:	8c8c001c */ 	lw	$t4,0x1c($a0)
-.L0f03dd84:
-/*  f03dd84:	918d0001 */ 	lbu	$t5,0x1($t4)
-/*  f03dd88:	31ae0080 */ 	andi	$t6,$t5,0x80
-/*  f03dd8c:	51c00004 */ 	beqzl	$t6,.L0f03dda0
-/*  f03dd90:	8c8f0034 */ 	lw	$t7,0x34($a0)
-/*  f03dd94:	10000005 */ 	beqz	$zero,.L0f03ddac
-/*  f03dd98:	ac800034 */ 	sw	$zero,0x34($a0)
-/*  f03dd9c:	8c8f0034 */ 	lw	$t7,0x34($a0)
-.L0f03dda0:
-/*  f03dda0:	8f189ff8 */ 	lw	$t8,-0x6008($t8)
-/*  f03dda4:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f03dda8:	ac990034 */ 	sw	$t9,0x34($a0)
-.L0f03ddac:
-/*  f03ddac:	8c880030 */ 	lw	$t0,0x30($a0)
-/*  f03ddb0:	11000006 */ 	beqz	$t0,.L0f03ddcc
-/*  f03ddb4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03ddb8:	8c890034 */ 	lw	$t1,0x34($a0)
-/*  f03ddbc:	29210078 */ 	slti	$at,$t1,0x78
-/*  f03ddc0:	14200002 */ 	bnez	$at,.L0f03ddcc
-/*  f03ddc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03ddc8:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f03ddcc:
-/*  f03ddcc:	50a00007 */ 	beqzl	$a1,.L0f03ddec
-/*  f03ddd0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f03ddd4:	8c8a0014 */ 	lw	$t2,0x14($a0)
-/*  f03ddd8:	a080000c */ 	sb	$zero,0xc($a0)
-/*  f03dddc:	354b0020 */ 	ori	$t3,$t2,0x20
-/*  f03dde0:	0fc0919a */ 	jal	func0f024668
-/*  f03dde4:	ac8b0014 */ 	sw	$t3,0x14($a0)
-/*  f03dde8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f03ddec:
-/*  f03ddec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f03ddf0:	03e00008 */ 	jr	$ra
-/*  f03ddf4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrTickDruggedKo(struct chrdata *chr)
+{
+	bool pass = false;
+
+	if (chr->act_druggedko.unk038 >= 0) {
+		chr->act_druggedko.unk038 += g_Vars.lvupdate240_60;
+
+		if (chr->act_druggedko.unk038 >= 90) {
+			pass = true;
+		} else {
+			chr->fadealpha = (90 - chr->act_druggedko.unk038) * 255 / 90;
+		}
+	} else if ((chr->chrflags & CHRCFLAG_04000000) == 0) {
+		if (chr->act_druggedko.unk02c) {
+			chr->act_druggedko.unk038 = 0;
+		}
+
+		if (chr->prop->flags & PROPFLAG_80) {
+			chr->act_druggedko.unk034 = 0;
+		} else {
+			chr->act_druggedko.unk034 += g_Vars.lvupdate240_60;
+		}
+
+		if (chr->act_druggedko.unk030 && chr->act_druggedko.unk034 >= 120) {
+			pass = true;
+		}
+	}
+
+	if (pass) {
+		chr->fadealpha = 0;
+		chr->hidden |= CHRHFLAG_00000020;
+		func0f024668();
+	}
+}
 
 void chrTickArgh(struct chrdata *chr)
 {

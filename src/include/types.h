@@ -450,6 +450,13 @@ struct act_throwgrenade {
 	/*0x38*/ bool needsequip;
 };
 
+struct act_druggedko {
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ u32 unk030;
+	/*0x34*/ s32 unk034;
+	/*0x38*/ s32 unk038;
+};
+
 struct act_attackamount {
 	/*0x2c*/ u32 unk02c;
 	/*0x30*/ u16 unk030;
@@ -520,6 +527,7 @@ struct chrdata {
 		struct act_gopos act_gopos;
 		struct act_surprised act_surprised;
 		struct act_throwgrenade act_throwgrenade;
+		struct act_druggedko act_druggedko;
 		struct act_attackamount act_attackamount;
 		struct act_skjump act_skjump;
 	};
