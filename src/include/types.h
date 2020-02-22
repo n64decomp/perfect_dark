@@ -477,6 +477,12 @@ struct act_druggedko {
 	/*0x3c*/ u32 unk03c;
 };
 
+struct act_druggedcomingup {
+	/*0x2c*/ s16 unk02c; // timer
+	/*0x30*/ f32 unk030;
+	/*0x34*/ f32 unk034;
+};
+
 struct act_attackamount {
 	/*0x2c*/ u32 unk02c;
 	/*0x30*/ u16 unk030;
@@ -549,6 +555,7 @@ struct chrdata {
 		struct act_throwgrenade act_throwgrenade;
 		struct act_druggeddrop act_druggeddrop;
 		struct act_druggedko act_druggedko;
+		struct act_druggedcomingup act_druggedcomingup;
 		struct act_attackamount act_attackamount;
 		struct act_skjump act_skjump;
 	};
@@ -5156,6 +5163,24 @@ struct var80087d14 {
 	f32 unk14;
 	f32 unk18;
 	s32 blurdrugamount;
+};
+
+struct somedruggedracethingdeep {
+	s16 unk00;
+	u32 unk04;
+	f32 unk08;
+	f32 unk0c;
+	u32 unk10;
+	f32 unk14;
+	f32 unk18;
+};
+
+struct somedruggedracething {
+	s32 index;
+	struct somedruggedracethingdeep *unk04;
+	struct somedruggedracethingdeep *unk08;
+	s32 unk0c;
+	u32 unk10;
 };
 
 #endif

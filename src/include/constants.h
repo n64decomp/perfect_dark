@@ -1289,6 +1289,7 @@
 #define NUM_MPHEADS          75
 #define NUM_MPPRESETS        14
 #define NUM_MPTRACKS         42
+#define NUM_RACES            5
 #define NUM_SMOKETYPES       23
 #define NUM_SOLONORMALSTAGES 17
 #define NUM_SOLOSTAGES       21
