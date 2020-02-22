@@ -89,7 +89,7 @@ struct anim {
 	/*0x09*/ u8 flip2;
 	/*0x0a*/ u8 looping;
 	/*0x0b*/ u8 average;
-	/*0x0c*/ u32 frame;
+	/*0x0c*/ f32 frame;
 	/*0x10*/ u32 frac;
 	/*0x14*/ u16 framea;
 	/*0x16*/ u16 frameb;

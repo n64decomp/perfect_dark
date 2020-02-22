@@ -3571,19 +3571,14 @@ glabel func0001d15c
 /*    1d178:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel animGetFrame
-/*    1d17c:	8c820020 */ 	lw	$v0,0x20($a0)
-/*    1d180:	50400004 */ 	beqzl	$v0,.L0001d194
-/*    1d184:	44800000 */ 	mtc1	$zero,$f0
-/*    1d188:	03e00008 */ 	jr	$ra
-/*    1d18c:	c440000c */ 	lwc1	$f0,0xc($v0)
-/*    1d190:	44800000 */ 	mtc1	$zero,$f0
-.L0001d194:
-/*    1d194:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1d198:	03e00008 */ 	jr	$ra
-/*    1d19c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 animGetFrame(struct animdata *animdata)
+{
+	if (animdata->anim) {
+		return animdata->anim->frame;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0001d1a0
