@@ -3558,18 +3558,14 @@ u32 animGetId(struct animdata *animdata)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0001d15c
-/*    1d15c:	8c830020 */ 	lw	$v1,0x20($a0)
-/*    1d160:	00001025 */ 	or	$v0,$zero,$zero
-/*    1d164:	10600003 */ 	beqz	$v1,.L0001d174
-/*    1d168:	00000000 */ 	sll	$zero,$zero,0x0
-/*    1d16c:	03e00008 */ 	jr	$ra
-/*    1d170:	80620008 */ 	lb	$v0,0x8($v1)
-.L0001d174:
-/*    1d174:	03e00008 */ 	jr	$ra
-/*    1d178:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool animIsFlipped(struct animdata *animdata)
+{
+	if (animdata->anim) {
+		return animdata->anim->flip;
+	}
+
+	return false;
+}
 
 f32 animGetFrame(struct animdata *animdata)
 {

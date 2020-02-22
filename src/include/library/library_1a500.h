@@ -51,7 +51,7 @@ u32 func0001cd18(void);
 u32 func0001ce64(void);
 u32 func0001cebc(void);
 u32 animGetId(struct animdata *animdata);
-bool func0001d15c(struct animdata *animdata);
+bool animIsFlipped(struct animdata *animdata);
 f32 animGetFrame(struct animdata *animdata);
 f32 func0001d1a0(struct animdata *animdata);
 u32 func0001d218(void);

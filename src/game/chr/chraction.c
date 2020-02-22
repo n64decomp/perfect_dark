@@ -16424,7 +16424,7 @@ void chrTickDie(struct chrdata *chr)
 
 	if (animGetFrame(animdata) >= func0001d1a0(animdata)) {
 		if (CHRRACE(chr) == RACE_HUMAN && animGetId(animdata) == ANIM_DEATH_STOMACH_LONG) {
-			func0001dccc(animdata, ANIM_003C, !func0001d15c(animdata), 50, 0.3, animGetNumFrames(ANIM_003C) - 51.0f);
+			func0001dccc(animdata, ANIM_003C, !animIsFlipped(animdata), 50, 0.3, animGetNumFrames(ANIM_003C) - 51.0f);
 			func0001deb0(animdata, 0.5, animGetNumFrames(ANIM_003C) - 51.0f);
 			return;
 		}
