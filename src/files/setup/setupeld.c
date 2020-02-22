@@ -2364,10 +2364,10 @@ u8 func1010_set_pa_negotiator_flag[] = {
 };
 
 u8 func1011_setup_snipers[] = {
-	set_chr_special_death_animation(CHR_SNIPER7, 0x01)
-	set_chr_special_death_animation(CHR_SNIPER4, 0x02)
-	set_chr_special_death_animation(CHR_SNIPER5, 0x03)
-	set_chr_special_death_animation(CHR_SNIPER3, 0x04)
+	set_chr_special_death_animation(CHR_SNIPER7, SPECIALDIE_1)
+	set_chr_special_death_animation(CHR_SNIPER4, SPECIALDIE_2)
+	set_chr_special_death_animation(CHR_SNIPER5, SPECIALDIE_3)
+	set_chr_special_death_animation(CHR_SNIPER3, SPECIALDIE_4)
 	set_chr_chrflag(CHR_SNIPER3, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
 	set_chr_chrflag(CHR_SNIPER4, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
 	set_chr_chrflag(CHR_SNIPER5, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)

@@ -2883,7 +2883,7 @@ u8 func1018_keep_door_open[] = {
 };
 
 u8 func1019_setup_topstairs_death_animation[] = {
-	set_chr_special_death_animation(CHR_TOPSTAIRS, 0x05)
+	set_chr_special_death_animation(CHR_TOPSTAIRS, SPECIALDIE_OVERRAILING)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3082,7 +3082,7 @@ u8 func1021_check_topstairs_guy[] = {
 	endloop(0x10)
 
 	label(0x04)
-	set_chr_special_death_animation(CHR_TOPSTAIRS, 0)
+	set_chr_special_death_animation(CHR_TOPSTAIRS, SPECIALDIE_NONE)
 	unset_chr_chrflag(CHR_TOPSTAIRS, CHRCFLAG_HAS_SPECIAL_DEATH_ANIMATION)
 	unset_chr_flag_bankx(CHR_TOPSTAIRS, CHRFLAG1_00001000, BANK_1)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

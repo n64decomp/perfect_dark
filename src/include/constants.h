@@ -92,6 +92,7 @@
 #define ANIM_SURRENDER_002E         0x002e
 #define ANIM_SURRENDER_002F         0x002f
 #define ANIM_DEATH_STOMACH_LONG     0x0039
+#define ANIM_003C                   0x003c
 #define ANIM_TALKING_003D           0x003d
 #define ANIM_KNEEL_SHOOT_RIGHT_HAND 0x004b
 #define ANIM_TALKING_0098           0x0098
@@ -1659,6 +1660,14 @@
 #define SOUNDMODE_STEREO    1
 #define SOUNDMODE_HEADPHONE 2
 #define SOUNDMODE_SURROUND  3
+
+#define SPECIALDIE_NONE        0
+#define SPECIALDIE_1           1
+#define SPECIALDIE_2           2
+#define SPECIALDIE_3           3
+#define SPECIALDIE_4           4
+#define SPECIALDIE_OVERRAILING 5
+#define SPECIALDIE_ONCHAIR     6
 
 #define SPEED_WALK 0
 #define SPEED_JOG  1

@@ -98,7 +98,7 @@ u8 func0006_unalerted[] = {
 	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
 	chr_do_animation(ANIM_STAND_UP_FROM_SITTING, 0, -1, 0x02, 0x10, CHR_SELF, 2)
 	unset_self_flag_bankx(CHRFLAG1_DOINGIDLEANIMATION, BANK_1)
-	set_chr_special_death_animation(CHR_SELF, 0)
+	set_chr_special_death_animation(CHR_SELF, SPECIALDIE_NONE)
 	dprint 'B','4',' ','W','A','T','\n',0,
 	goto_next(0x0c)
 
@@ -792,7 +792,7 @@ u8 func0008_wakeup[] = {
 	// Unset special death animation if no longer idle
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x13)
-	set_chr_special_death_animation(CHR_SELF, 0)
+	set_chr_special_death_animation(CHR_SELF, SPECIALDIE_NONE)
 
 	// If idle, unset it and stand up or whatever is needed
 	label(0x13)
@@ -864,7 +864,7 @@ u8 func0007_alerted[] = {
 	// If doing idle animation, turn off special death animation
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x13)
-	set_chr_special_death_animation(CHR_SELF, 0)
+	set_chr_special_death_animation(CHR_SELF, SPECIALDIE_NONE)
 
 	// If something, jump to combat
 	label(0x13)
@@ -2654,13 +2654,13 @@ u8 func000a_do_idle_animation[] = {
 
 	label(0x04)
 	dprint 'S','I','T','T','I','N','G',' ','T','Y','P','I','N','G','\n',0,
-	set_chr_special_death_animation(CHR_SELF, 0x06)
+	set_chr_special_death_animation(CHR_SELF, SPECIALDIE_ONCHAIR)
 	chr_do_animation(ANIM_SITTING_TYPING, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 	goto_next(0x0c)
 
 	label(0x05)
 	dprint 'S','I','T','T','I','N','G','\n',0,
-	set_chr_special_death_animation(CHR_SELF, 0x06)
+	set_chr_special_death_animation(CHR_SELF, SPECIALDIE_ONCHAIR)
 	chr_do_animation(ANIM_SITTING_DORMANT, 0, -1, 0x14, 0x00, CHR_SELF, 2)
 	goto_next(0x0c)
 
@@ -2809,7 +2809,7 @@ u8 func000d_init_combat[] = {
 
 	// If not idle, turn off special death animation
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x13)
-	set_chr_special_death_animation(CHR_SELF, 0)
+	set_chr_special_death_animation(CHR_SELF, SPECIALDIE_NONE)
 
 	label(0x13)
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x16)
@@ -4139,7 +4139,7 @@ u8 func001b_observe_camspy[] = {
 	stop_chr
 	set_shotlist(GAILIST_ALERTED)
 	unset_self_flag_bankx(CHRFLAG1_DOINGIDLEANIMATION, BANK_1)
-	set_chr_special_death_animation(CHR_SELF, 0)
+	set_chr_special_death_animation(CHR_SELF, SPECIALDIE_NONE)
 	set_chrpreset(CHR_TARGET)
 
 	if_just_injured(CHR_SELF, /*goto*/ 0x09)
@@ -4276,7 +4276,7 @@ u8 func001d_search_for_player[] = {
 	// Alive
 	label(0x16)
 	if_self_flag_bankx_eq(CHRFLAG1_DOINGIDLEANIMATION, FALSE, BANK_1, /*goto*/ 0x13)
-	set_chr_special_death_animation(CHR_SELF, 0)
+	set_chr_special_death_animation(CHR_SELF, SPECIALDIE_NONE)
 	label(0x13)
 	dprint 'S','E','A','R','C','H',' ','R','O','O','M','\n',0,
 	set_chr_dodge_rating(2, 0x00)

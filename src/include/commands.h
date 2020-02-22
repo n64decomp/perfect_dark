@@ -3417,12 +3417,15 @@
 /**
  * Assigns a special death animation to the given chr.
  *
- * This is used for the Villa snipers and the Chicago guard on the fire escape.
+ * This is used for the Villa snipers, the Chicago guard on the fire escape,
+ * and all guards who sit in chairs.
+ *
+ * The value for specialdie should be one of the SPECIALDIE constants.
  */
-#define set_chr_special_death_animation(chr, anim) \
+#define set_chr_special_death_animation(chr, specialdie) \
 	mkshort(0x01a0), \
 	chr, \
-	anim,
+	specialdie,
 
 /**
  * Sets the current chr's roomtosearch field to the same room that the chr's

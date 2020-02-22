@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f129900(struct prop *prop, struct coord *pos, s16 *room, s32 arg3, s32 arg4);
+u32 func0f129900(struct prop *prop, struct coord *pos, s16 *room, s32 arg3, s32 playernum);
 u32 func0f129940(void);
 u32 func0f129b08(void);
 u32 func0f129ba4(void);

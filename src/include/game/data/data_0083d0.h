@@ -184,8 +184,8 @@ extern u32 var8006805c;
 extern u32 var80068064;
 extern u32 var8006806c;
 extern u32 var80068074;
-extern u32 var8006807c;
-extern u32 var80068080;
+extern s32 var8006807c;
+extern u8 var80068080;
 extern u32 var80068084;
 extern u32 var800680bc;
 extern u32 var8006819c;
@@ -204,10 +204,5 @@ extern u32 var8006827c;
 extern u32 var80068288;
 extern u32 var8006829c;
 extern u32 var8006835c;
-extern struct coord var800683bc;
-extern u32 var800683c8;
-extern u32 var800683e0;
-extern u32 var800683f8;
-extern u32 var80068408;
 
 #endif
