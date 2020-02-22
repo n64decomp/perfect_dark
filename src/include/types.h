@@ -82,8 +82,8 @@ struct pad {
 };
 
 struct anim {
-	/*0x00*/ u16 animnum;
-	/*0x02*/ u16 animnum2;
+	/*0x00*/ s16 animnum;
+	/*0x02*/ s16 animnum2;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ s8 flip;
 	/*0x09*/ u8 flip2;
