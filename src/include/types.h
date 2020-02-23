@@ -497,15 +497,15 @@ struct act_attackamount {
 };
 
 struct act_skjump {
-	/*0x2c*/ u32 unk00;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
+	/*0x2c*/ u8 state;
+	/*0x2d*/ u8 needsnewanim;
+	/*0x2e*/ u8 hit;
+	/*0x30*/ f32 xspeed;
+	/*0x34*/ f32 zspeed;
+	/*0x38*/ f32 distance;
+	/*0x3c*/ s32 unk03c;
+	/*0x40*/ struct coord newpos;
+	/*0x4c*/ s32 unk04c;
 	/*0x50*/ f32 y;
 };
 

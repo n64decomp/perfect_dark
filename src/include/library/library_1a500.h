@@ -67,7 +67,7 @@ u32 func0001dd90(void);
 void func0001ddec(struct animdata *animdata, f32 arg1, f32 arg2);
 void func0001de1c(struct animdata *animdata, f32 arg1);
 u32 func0001de98(void);
-void func0001deb0(struct animdata *animdata, f32 arg1, f32 startframe);
+void func0001deb0(struct animdata *animdata, f32 speed, f32 startframe);
 void func0001df04(struct animdata *animdata, f32 arg1, f32 arg2);
 u32 func0001dfac(void);
 u32 func0001e000(void);

@@ -148,6 +148,8 @@
 #define ANIM_FIX_GUN_JAM_EASY       0x0299
 #define ANIM_FIX_GUN_JAM_HARD       0x029a
 #define ANIM_SKEDAR_COLLAPSE        0x0352
+#define ANIM_SKEDAR_JUMPSTART       0x0384
+#define ANIM_SKEDAR_JUMPAIR         0x0385
 #define ANIM_SKEDAR_RUNNING         0x0394
 
 #define BANK_0 0
@@ -1627,6 +1629,9 @@
 #define SIMTYPE_SPEED   10
 #define SIMTYPE_TURTLE  11
 #define SIMTYPE_VENGE   12
+
+#define SKJUMPSTATE_TAKEOFF  0
+#define SKJUMPSTATE_AIRBORNE 1
 
 #define SMOKETYPE_0 0
 #define SMOKETYPE_1 1
