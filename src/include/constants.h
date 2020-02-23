@@ -89,12 +89,14 @@
 #define ANIM_IDLE                   0x0000
 #define ANIM_TWO_GUN_HOLD           0x0001
 #define ANIM_KNEEL_TWO_HANDED_GUN   0x0008
+#define ANIM_RUNNING_TWOHANDGUN     0x002a
 #define ANIM_SURRENDER_002E         0x002e
 #define ANIM_SURRENDER_002F         0x002f
 #define ANIM_DEATH_STOMACH_LONG     0x0039
 #define ANIM_003C                   0x003c
 #define ANIM_TALKING_003D           0x003d
 #define ANIM_KNEEL_SHOOT_RIGHT_HAND 0x004b
+#define ANIM_RUNNING_ONEHANDGUN     0x0059
 #define ANIM_TALKING_0098           0x0098
 #define ANIM_YAWN                   0x009a
 #define ANIM_SCRATCH_HEAD           0x009b
@@ -146,6 +148,7 @@
 #define ANIM_FIX_GUN_JAM_EASY       0x0299
 #define ANIM_FIX_GUN_JAM_HARD       0x029a
 #define ANIM_SKEDAR_COLLAPSE        0x0352
+#define ANIM_SKEDAR_RUNNING         0x0394
 
 #define BANK_0 0
 #define BANK_1 1

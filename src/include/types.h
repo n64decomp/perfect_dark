@@ -416,7 +416,7 @@ struct act_jumpout {
 struct act_runpos {
 	/*0x2c*/ struct coord pos;
 	/*0x38*/ f32 unk038;
-	/*0x3c*/ u32 unk03c;
+	/*0x3c*/ s32 unk03c;
 	/*0x40*/ f32 unk040;
 };
 
@@ -528,7 +528,7 @@ struct chrdata {
 	/*0x006*/ s8 headnum;
 	/*0x007*/ s8 actiontype;
 	/*0x008*/ s8 sleep;
-	/*0x009*/ u8 invalidmove;
+	/*0x009*/ s8 invalidmove;
 	/*0x00a*/ s8 numclosearghs;
 	/*0x00b*/ s8 numarghs;
 	/*0x00c*/ u8 fadealpha;
@@ -571,7 +571,7 @@ struct chrdata {
 	/*0x0bc*/ struct coord fallspeed;
 	/*0x0c8*/ struct coord prevpos;
 	/*0x0d4*/ u32 lastwalk60;
-	/*0x0d8*/ u32 lastmoveok60;
+	/*0x0d8*/ s32 lastmoveok60;
 	/*0x0dc*/ f32 visionrange;
 	/*0x0e0*/ s32 lastseetarget60;
 	/*0x0e4*/ s32 lastvisibletarget60;

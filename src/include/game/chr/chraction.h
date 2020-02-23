@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f02dff0(void);
+f32 func0f02dff0(u32 arg0);
 u32 func0f02e064(struct chrdata *chr);
 bool func0f02e124(struct prop *prop);
 f32 func0f02e15c(struct chrdata *chr, f32 arg1, f32 arg2);
@@ -148,10 +148,10 @@ void chrTickAttack(struct chrdata *chr);
 void chrTickAttackRoll(struct chrdata *chr);
 u32 func0f043944(void);
 void chrTickThrowGrenade(struct chrdata *chr);
-u32 func0f043f2c(void);
+s32 func0f043f2c(struct chrdata *chr, struct coord *runpos, s32 arg2, f32 *arg3);
 void chrTickAttackWalk(struct chrdata *chr);
 u32 func0f0445c4(void);
-u32 func0f0446e0(void);
+bool func0f0446e0(struct coord *prevpos, struct coord *curpos, struct coord *targetpos, f32 arg3);
 u32 func0f044808(void);
 void chrTickRunPos(struct chrdata *chr);
 u32 func0f044b68(void);
