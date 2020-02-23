@@ -95,6 +95,7 @@
 #define ANIM_DEATH_STOMACH_LONG     0x0039
 #define ANIM_003C                   0x003c
 #define ANIM_TALKING_003D           0x003d
+#define ANIM_THROWGRENADE_STANDING  0x003e
 #define ANIM_KNEEL_SHOOT_RIGHT_HAND 0x004b
 #define ANIM_RUNNING_ONEHANDGUN     0x0059
 #define ANIM_TALKING_0098           0x0098
@@ -133,6 +134,8 @@
 #define ANIM_HEAD_ROLL              0x023b
 #define ANIM_PICK_UP_GUN            0x023d
 #define ANIM_BIG_SNEEZE             0x023f
+#define ANIM_THROWGRENADE_NOPIN     0x0242
+#define ANIM_THROWGRENADE_CROUCHING 0x0244
 #define ANIM_DRAW_PISTOL_0245       0x0245
 #define ANIM_LOOK_AROUND_025B       0x025b
 #define ANIM_LOOK_AROUND_025C       0x025c
