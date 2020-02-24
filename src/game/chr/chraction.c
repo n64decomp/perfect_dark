@@ -27146,171 +27146,69 @@ glabel chrTickPatrol
 /*  f047678:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-bool skedarTryPounce(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
+bool chrTrySkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
 {
 	if (chr && chr->actiontype != ACT_SKJUMP
 			&& func0f039a18(chr)
 			&& CHRRACE(chr) == RACE_SKEDAR) {
-		return func0f047700(chr, arg1, arg2, arg3, arg4);
+		return chrStartSkJump(chr, arg1, arg2, arg3, arg4);
 	}
 
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f047700
-.late_rodata
-glabel var7f1a9294
-.word 0x44098000
-.text
-/*  f047700:	27bdff98 */ 	addiu	$sp,$sp,-104
-/*  f047704:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f047708:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f04770c:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f047710:	afa5006c */ 	sw	$a1,0x6c($sp)
-/*  f047714:	afa60070 */ 	sw	$a2,0x70($sp)
-/*  f047718:	afa70074 */ 	sw	$a3,0x74($sp)
-/*  f04771c:	8c8e001c */ 	lw	$t6,0x1c($a0)
-/*  f047720:	00808025 */ 	or	$s0,$a0,$zero
-/*  f047724:	0fc0a221 */ 	jal	chrGetTargetProp
-/*  f047728:	afae0058 */ 	sw	$t6,0x58($sp)
-/*  f04772c:	00408825 */ 	or	$s1,$v0,$zero
-/*  f047730:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047734:	0fc1250e */ 	jal	chrGetDistanceToCoord
-/*  f047738:	24450008 */ 	addiu	$a1,$v0,0x8
-/*  f04773c:	3c014348 */ 	lui	$at,0x4348
-/*  f047740:	44812000 */ 	mtc1	$at,$f4
-/*  f047744:	3c017f1b */ 	lui	$at,%hi(var7f1a9294)
-/*  f047748:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f04774c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f047750:	45010008 */ 	bc1t	.L0f047774
-/*  f047754:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f047758:	c4269294 */ 	lwc1	$f6,%lo(var7f1a9294)($at)
-/*  f04775c:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f047760:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f047764:	45010003 */ 	bc1t	.L0f047774
-/*  f047768:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04776c:	16200003 */ 	bnez	$s1,.L0f04777c
-/*  f047770:	8fa40058 */ 	lw	$a0,0x58($sp)
-.L0f047774:
-/*  f047774:	1000006a */ 	beqz	$zero,.L0f047920
-/*  f047778:	00001025 */ 	or	$v0,$zero,$zero
-.L0f04777c:
-/*  f04777c:	27a50064 */ 	addiu	$a1,$sp,0x64
-/*  f047780:	27a60060 */ 	addiu	$a2,$sp,0x60
-/*  f047784:	0fc0a277 */ 	jal	propChrGetBbox
-/*  f047788:	27a7005c */ 	addiu	$a3,$sp,0x5c
-/*  f04778c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047790:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f047794:	00002825 */ 	or	$a1,$zero,$zero
-/*  f047798:	02202025 */ 	or	$a0,$s1,$zero
-/*  f04779c:	0fc1905e */ 	jal	func0f064178
-/*  f0477a0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0477a4:	8fa20058 */ 	lw	$v0,0x58($sp)
-/*  f0477a8:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0477ac:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f0477b0:	c440000c */ 	lwc1	$f0,0xc($v0)
-/*  f0477b4:	c7a80060 */ 	lwc1	$f8,0x60($sp)
-/*  f0477b8:	c7b0005c */ 	lwc1	$f16,0x5c($sp)
-/*  f0477bc:	26260008 */ 	addiu	$a2,$s1,0x8
-/*  f0477c0:	46004281 */ 	sub.s	$f10,$f8,$f0
-/*  f0477c4:	afa60034 */ 	sw	$a2,0x34($sp)
-/*  f0477c8:	24070033 */ 	addiu	$a3,$zero,0x33
-/*  f0477cc:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f0477d0:	e7aa0014 */ 	swc1	$f10,0x14($sp)
-/*  f0477d4:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0477d8:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0477dc:	0c00b5ab */ 	jal	func0002d6ac
-/*  f0477e0:	e7b20018 */ 	swc1	$f18,0x18($sp)
-/*  f0477e4:	afa20050 */ 	sw	$v0,0x50($sp)
-/*  f0477e8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0477ec:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f0477f0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0477f4:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0477f8:	0fc1905e */ 	jal	func0f064178
-/*  f0477fc:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f047800:	8fb80050 */ 	lw	$t8,0x50($sp)
-/*  f047804:	1300003e */ 	beqz	$t8,.L0f047900
-/*  f047808:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f04780c:	8e19001c */ 	lw	$t9,0x1c($s0)
-/*  f047810:	c6240008 */ 	lwc1	$f4,0x8($s1)
-/*  f047814:	c7260008 */ 	lwc1	$f6,0x8($t9)
-/*  f047818:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f04781c:	e7a80044 */ 	swc1	$f8,0x44($sp)
-/*  f047820:	8e08001c */ 	lw	$t0,0x1c($s0)
-/*  f047824:	c62a0010 */ 	lwc1	$f10,0x10($s1)
-/*  f047828:	c7a80044 */ 	lwc1	$f8,0x44($sp)
-/*  f04782c:	c5100010 */ 	lwc1	$f16,0x10($t0)
-/*  f047830:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f047834:	e7b20048 */ 	swc1	$f18,0x48($sp)
-/*  f047838:	c7a40048 */ 	lwc1	$f4,0x48($sp)
-/*  f04783c:	46042182 */ 	mul.s	$f6,$f4,$f4
-/*  f047840:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f047844:	46084282 */ 	mul.s	$f10,$f8,$f8
-/*  f047848:	0c012974 */ 	jal	sqrtf
-/*  f04784c:	460a3300 */ 	add.s	$f12,$f6,$f10
-/*  f047850:	3c014020 */ 	lui	$at,0x4020
-/*  f047854:	44818000 */ 	mtc1	$at,$f16
-/*  f047858:	3c0141a8 */ 	lui	$at,0x41a8
-/*  f04785c:	44812000 */ 	mtc1	$at,$f4
-/*  f047860:	46100482 */ 	mul.s	$f18,$f0,$f16
-/*  f047864:	46049203 */ 	div.s	$f8,$f18,$f4
-/*  f047868:	4600418d */ 	trunc.w.s	$f6,$f8
-/*  f04786c:	44033000 */ 	mfc1	$v1,$f6
-/*  f047870:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f047874:	2861000a */ 	slti	$at,$v1,0xa
-/*  f047878:	50200003 */ 	beqzl	$at,.L0f047888
-/*  f04787c:	44835000 */ 	mtc1	$v1,$f10
-/*  f047880:	2403000a */ 	addiu	$v1,$zero,0xa
-/*  f047884:	44835000 */ 	mtc1	$v1,$f10
-.L0f047888:
-/*  f047888:	c7b00044 */ 	lwc1	$f16,0x44($sp)
-/*  f04788c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f047890:	46805020 */ 	cvt.s.w	$f0,$f10
-/*  f047894:	46008483 */ 	div.s	$f18,$f16,$f0
-/*  f047898:	e6120030 */ 	swc1	$f18,0x30($s0)
-/*  f04789c:	c7a40048 */ 	lwc1	$f4,0x48($sp)
-/*  f0478a0:	46002203 */ 	div.s	$f8,$f4,$f0
-/*  f0478a4:	e6080034 */ 	swc1	$f8,0x34($s0)
-/*  f0478a8:	0fc0f917 */ 	jal	func0f03e45c
-/*  f0478ac:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0478b0:	e7a00038 */ 	swc1	$f0,0x38($sp)
-/*  f0478b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0478b8:	0fc122a1 */ 	jal	chrGetAngleToPos
-/*  f0478bc:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f0478c0:	c7a60038 */ 	lwc1	$f6,0x38($sp)
-/*  f0478c4:	8fa3003c */ 	lw	$v1,0x3c($sp)
-/*  f0478c8:	8e02001c */ 	lw	$v0,0x1c($s0)
-/*  f0478cc:	46060280 */ 	add.s	$f10,$f0,$f6
-/*  f0478d0:	a200002e */ 	sb	$zero,0x2e($s0)
-/*  f0478d4:	8e050024 */ 	lw	$a1,0x24($s0)
-/*  f0478d8:	ae03003c */ 	sw	$v1,0x3c($s0)
-/*  f0478dc:	e60a0038 */ 	swc1	$f10,0x38($s0)
-/*  f0478e0:	ae03004c */ 	sw	$v1,0x4c($s0)
-/*  f0478e4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0478e8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0478ec:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0478f0:	0c00a8cc */ 	jal	func0002a330
-/*  f0478f4:	24460028 */ 	addiu	$a2,$v0,0x28
-/*  f0478f8:	10000003 */ 	beqz	$zero,.L0f047908
-/*  f0478fc:	e6000050 */ 	swc1	$f0,0x50($s0)
-.L0f047900:
-/*  f047900:	10000007 */ 	beqz	$zero,.L0f047920
-/*  f047904:	00001025 */ 	or	$v0,$zero,$zero
-.L0f047908:
-/*  f047908:	240a0023 */ 	addiu	$t2,$zero,0x23
-/*  f04790c:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f047910:	a20a0007 */ 	sb	$t2,0x7($s0)
-/*  f047914:	a20b002d */ 	sb	$t3,0x2d($s0)
-/*  f047918:	a200002c */ 	sb	$zero,0x2c($s0)
-/*  f04791c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f047920:
-/*  f047920:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f047924:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f047928:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f04792c:	03e00008 */ 	jr	$ra
-/*  f047930:	27bd0068 */ 	addiu	$sp,$sp,0x68
-);
+bool chrStartSkJump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
+{
+	f32 width;
+	f32 ymax;
+	f32 ymin;
+	struct prop *prop = chr->prop;
+	struct prop *target = chrGetTargetProp(chr);
+	bool iVar2;
+	f32 distance = chrGetDistanceToCoord(chr, &target->pos);
+	f32 diffs[2];
+	f32 thing;
+	s32 hspeed;
+
+	if (distance < 200 || distance > 550 || !target) {
+		return false;
+	}
+
+	propChrGetBbox(prop, &width, &ymax, &ymin);
+	chrSetOrUnsetHiddenFlag00000100(chr, false);
+	func0f064178(target, false);
+	iVar2 = func0002d6ac(&prop->pos, prop->rooms, &target->pos, 51, 1,
+			ymax - prop->pos.y, ymin - prop->pos.y);
+	chrSetOrUnsetHiddenFlag00000100(chr, true);
+	func0f064178(target, true);
+
+	if (iVar2) {
+		diffs[0] = target->pos.x - chr->prop->pos.x;
+		diffs[1] = target->pos.z - chr->prop->pos.z;
+		thing = sqrtf(diffs[0] * diffs[0] + diffs[1] * diffs[1]) * 2.5f / 21.0f;
+		hspeed = thing;
+
+		if (hspeed < 10) {
+			hspeed = 10;
+		}
+
+		chr->act_skjump.xspeed = diffs[0] / hspeed;
+		chr->act_skjump.zspeed = diffs[1] / hspeed;
+		chr->act_skjump.angle = func0f03e45c(chr) + chrGetAngleToPos(chr, &target->pos);
+		chr->act_skjump.hit = false;
+		chr->act_skjump.unk03c = hspeed;
+		chr->act_skjump.unk04c = hspeed;
+		chr->act_skjump.y = func0002a330(&chr->prop->pos, chr->chrwidth, chr->prop->rooms, 0, 0);
+	} else {
+		return false;
+	}
+
+	chr->actiontype = ACT_SKJUMP;
+	chr->act_skjump.needsnewanim = true;
+	chr->act_skjump.state = SKJUMPSTATE_TAKEOFF;
+
+	return true;
+}
 
 void chrTickSkJump(struct chrdata *chr)
 {
@@ -27347,7 +27245,7 @@ void chrTickSkJump(struct chrdata *chr)
 		switch (chr->act_skjump.state) {
 		case SKJUMPSTATE_TAKEOFF:
 			fVar6 = func0f03e45c(chr);
-			fVar5 = func0001afe8(fVar6, chr->act_skjump.distance, 0.35);
+			fVar5 = func0001afe8(fVar6, chr->act_skjump.angle, 0.35);
 			func0f03e538(chr, fVar5);
 			frame = animGetFrame(chr->animdata);
 

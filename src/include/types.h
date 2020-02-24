@@ -502,7 +502,7 @@ struct act_skjump {
 	/*0x2e*/ u8 hit;
 	/*0x30*/ f32 xspeed;
 	/*0x34*/ f32 zspeed;
-	/*0x38*/ f32 distance;
+	/*0x38*/ f32 angle;
 	/*0x3c*/ s32 unk03c;
 	/*0x40*/ struct coord newpos;
 	/*0x4c*/ s32 unk04c;
