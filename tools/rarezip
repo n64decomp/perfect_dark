@@ -4,10 +4,4 @@ size=$(stat --format="%s" $1)
 
 printf "0: 1173 %.6x" $size | xxd -r -g0
 
-if [[ "$2" == '--game' ]]; then
-	# Use pigz, which uses the zlib library
-	pigz -c --no-name --best $1 | head --bytes=-8 | tail --bytes=+11
-else
-	# Use gzip, which uses their own deflate implementation
-	tools/gzip -c --no-name --best $1 | head --bytes=-8 | tail --bytes=+11
-fi
+tools/gzip -c --no-name --best $1 | head --bytes=-8 | tail --bytes=+11

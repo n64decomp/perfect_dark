@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-import subprocess
+import zlib
 
 """
 mkgamezips - Creates the ucode/gamezips.bin from ucode/game.bin
@@ -70,13 +70,8 @@ def get_zips():
     return [zip(part) for part in parts]
 
 def zip(binary):
-    fd = open('build/part.bin', 'wb')
-    fd.write(binary)
-    fd.close()
-
-    zipped = subprocess.check_output(['tools/rarezip', 'build/part.bin', '--game'])
-    os.remove('build/part.bin')
-    return zipped
+    obj = zlib.compressobj(level=9, wbits=-15)
+    return b'\x11\x73' + len(binary).to_bytes(3, 'big') + obj.compress(binary) + obj.flush()
 
 checksumsmaybe = [
     0x94f1, 0xb0c7, 0x6f10, 0x0d50, 0x2361, 0xe64a, 0x7c32, 0xf8f5,
