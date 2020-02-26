@@ -198,13 +198,13 @@ struct chr2d4 {
 	/*0x076*/ s8 unk076;
 	/*0x077*/ s8 unk077;
 	/*0x078*/ u8 unk078;
-	/*0x079*/ u8 unk079;
+	/*0x079*/ u8 command;
 	/*0x07a*/ s16 rooms[1];
 	/*0x07c*/ u32 unk07c;
 	/*0x080*/ u32 unk080;
 	/*0x084*/ u32 unk084;
 	/*0x088*/ u32 unk088;
-	/*0x08c*/ struct coord unk08c;
+	/*0x08c*/ struct coord defendholdpos;
 	/*0x098*/ f32 unk098;
 	/*0x09c*/ u8 unk09c_00 : 1;
 	/*0x09c*/ u8 unk09c_01 : 1;
@@ -223,12 +223,12 @@ struct chr2d4 {
 	/*0x0b4*/ f32 unk0b4;
 	/*0x0b8*/ f32 unk0b8;
 	/*0x0bc*/ s32 unk0bc;
-	/*0x0c0*/ s32 unk0c0_propindex;
+	/*0x0c0*/ s32 attackpropnum;
 	/*0x0c4*/ u32 unk0c4;
 	/*0x0c8*/ u32 unk0c8;
 	/*0x0cc*/ u32 unk0cc;
 	/*0x0d0*/ u32 unk0d0;
-	/*0x0d4*/ u32 unk0d4_propindex;
+	/*0x0d4*/ s32 followprotectpropnum;
 	/*0x0d8*/ s32 unk0d8;
 	/*0x0dc*/ u32 unk0dc;
 	/*0x0e0*/ u16 unk0e0;
@@ -4675,7 +4675,7 @@ struct scenariodata_cbt {
 	u32 unk04;
 	u32 unk08;
 	u16 unk0c;
-	s16 unk0e[1]; // possibly for a different scenario - see mpGetNumTeammatesInRoomDoingSomething
+	s16 unk0e[1]; // possibly for a different scenario - see mpGetNumTeammatesDefendingHill
 };
 
 struct scenariodata_htb {

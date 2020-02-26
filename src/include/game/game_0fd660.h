@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f0fd660(void);
+void mpOpenPickTarget(void);
 void activemenuSetAiBuddyTemperament(bool aggressive);
 void activemenuSetAiBuddyStealth(void);
 s32 activemenuGetFirstBuddyIndex(void);

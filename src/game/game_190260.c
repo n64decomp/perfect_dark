@@ -2443,52 +2443,52 @@ char *mpGetBotCommandName(s32 command)
 	return langGet(g_MpBotCommands[command]);
 }
 
-void func0f192438(struct chrdata *chr, struct prop *prop)
+void mpAibotApplyAttack(struct chrdata *chr, struct prop *prop)
 {
-	chr->unk2d4->unk079 = 1;
-	chr->unk2d4->unk0c0_propindex = prop - g_Vars.props;
+	chr->unk2d4->command = AIBOTCMD_ATTACK;
+	chr->unk2d4->attackpropnum = prop - g_Vars.props;
 	chr->unk2d4->unk0d8 = 1;
 }
 
-void func0f192474(struct chrdata *chr, struct prop *prop)
+void mpAibotApplyFollow(struct chrdata *chr, struct prop *prop)
 {
-	chr->unk2d4->unk079 = 0;
-	chr->unk2d4->unk0d4_propindex = prop - g_Vars.props;
+	chr->unk2d4->command = AIBOTCMD_FOLLOW;
+	chr->unk2d4->followprotectpropnum = prop - g_Vars.props;
 	chr->unk2d4->unk0d8 = 1;
 }
 
-void func0f1924ac(struct chrdata *chr, struct prop *prop)
+void mpAibotApplyProtect(struct chrdata *chr, struct prop *prop)
 {
-	chr->unk2d4->unk079 = 13;
-	chr->unk2d4->unk0d4_propindex = prop - g_Vars.props;
+	chr->unk2d4->command = AIBOTCMD_PROTECT;
+	chr->unk2d4->followprotectpropnum = prop - g_Vars.props;
 	chr->unk2d4->unk0d8 = 1;
 }
 
-void func0f1924e8(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
+void mpAibotApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
 {
-	chr->unk2d4->unk079 = 2;
-	chr->unk2d4->unk08c.x = pos->x;
-	chr->unk2d4->unk08c.y = pos->y;
-	chr->unk2d4->unk08c.z = pos->z;
+	chr->unk2d4->command = AIBOTCMD_DEFEND;
+	chr->unk2d4->defendholdpos.x = pos->x;
+	chr->unk2d4->defendholdpos.y = pos->y;
+	chr->unk2d4->defendholdpos.z = pos->z;
 	func0f0657a4(room, &chr->unk2d4->rooms[0]);
 	chr->unk2d4->unk098 = arg3;
 	chr->unk2d4->unk0d8 = 1;
 }
 
-void func0f19257c(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
+void mpAibotApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
 {
-	chr->unk2d4->unk079 = 3;
-	chr->unk2d4->unk08c.x = pos->x;
-	chr->unk2d4->unk08c.y = pos->y;
-	chr->unk2d4->unk08c.z = pos->z;
+	chr->unk2d4->command = AIBOTCMD_HOLD;
+	chr->unk2d4->defendholdpos.x = pos->x;
+	chr->unk2d4->defendholdpos.y = pos->y;
+	chr->unk2d4->defendholdpos.z = pos->z;
 	func0f0657a4(room, &chr->unk2d4->rooms[0]);
 	chr->unk2d4->unk098 = arg3;
 	chr->unk2d4->unk0d8 = 1;
 }
 
-void func0f192610(struct chrdata *chr, s32 arg1)
+void mpAibotApplyScenarioCommand(struct chrdata *chr, u32 command)
 {
-	chr->unk2d4->unk079 = arg1;
+	chr->unk2d4->command = command;
 	chr->unk2d4->unk0d8 = 1;
 }
 
@@ -3709,7 +3709,7 @@ glabel func0f1937a4
 /*  f193814:	852a0028 */ 	lh	$t2,0x28($t1)
 /*  f193818:	554b000e */ 	bnel	$t2,$t3,.L0f193854
 /*  f19381c:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f193820:	0fc65241 */ 	jal	mpGetNumTeammatesInRoomDoingSomething
+/*  f193820:	0fc65241 */ 	jal	mpGetNumTeammatesDefendingHill
 /*  f193824:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f193828:	00408025 */ 	or	$s0,$v0,$zero
 /*  f19382c:	0fc65264 */ 	jal	func0f194990
@@ -4753,7 +4753,7 @@ s32 mpGetNumPlayerTeammates(struct chrdata *chr)
 	return count;
 }
 
-s32 func0f194724(struct chrdata *self, s32 arg1, bool includeself)
+s32 mpCountAibotsWithCommand(struct chrdata *self, u32 command, bool includeself)
 {
 	s32 count = 0;
 	s32 i;
@@ -4761,7 +4761,7 @@ s32 func0f194724(struct chrdata *self, s32 arg1, bool includeself)
 	for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
 		if (self->team == g_MpPlayerChrs[i]->team) {
 			if (includeself || self != g_MpPlayerChrs[i]) {
-				if (arg1 == g_MpPlayerChrs[i]->unk2d4->unk079) {
+				if (command == g_MpPlayerChrs[i]->unk2d4->command) {
 					count++;
 				}
 			}
@@ -4790,14 +4790,14 @@ bool func0f19489c(struct chrdata *chr)
 	return false;
 }
 
-s32 mpGetNumTeammatesInRoomDoingSomething(struct chrdata *bot)
+s32 mpGetNumTeammatesDefendingHill(struct chrdata *bot)
 {
 	s32 count = 0;
 	s32 i;
 
 	for (i = 0; i < g_MpNumPlayers; i++) {
 		if (bot->team == g_MpPlayerChrs[i]->team && g_MpPlayerChrs[i]->prop->rooms[0] == g_ScenarioData.cbt.unk0e[0]) {
-			if (g_MpPlayerChrs[i]->unk2d4->unk079 == 9 || g_MpPlayerChrs[i]->unk2d4->unk079 == 10) {
+			if (g_MpPlayerChrs[i]->unk2d4->command == AIBOTCMD_DEFHILL || g_MpPlayerChrs[i]->unk2d4->command == AIBOTCMD_HOLDHILL) {
 				count++;
 			}
 		}
@@ -5298,7 +5298,7 @@ glabel func0f194b40
 /*  f19507c:	16e3001e */ 	bne	$s7,$v1,.L0f1950f8
 /*  f195080:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f195084:	2405000b */ 	addiu	$a1,$zero,0xb
-/*  f195088:	0fc651c9 */ 	jal	func0f194724
+/*  f195088:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
 /*  f19508c:	00003025 */ 	or	$a2,$zero,$zero
 /*  f195090:	18400010 */ 	blez	$v0,.L0f1950d4
 /*  f195094:	266c0001 */ 	addiu	$t4,$s3,0x1
@@ -5321,12 +5321,12 @@ glabel func0f194b40
 .L0f1950d4:
 /*  f1950d4:	02802025 */ 	or	$a0,$s4,$zero
 .L0f1950d8:
-/*  f1950d8:	0fc64984 */ 	jal	func0f192610
+/*  f1950d8:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1950dc:	2405000b */ 	addiu	$a1,$zero,0xb
 /*  f1950e0:	10000111 */ 	beqz	$zero,.L0f195528
 /*  f1950e4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1950e8:
-/*  f1950e8:	0fc64984 */ 	jal	func0f192610
+/*  f1950e8:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1950ec:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1950f0:	1000010d */ 	beqz	$zero,.L0f195528
 /*  f1950f4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5334,7 +5334,7 @@ glabel func0f194b40
 /*  f1950f8:	14610022 */ 	bne	$v1,$at,.L0f195184
 /*  f1950fc:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195100:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f195104:	0fc651c9 */ 	jal	func0f194724
+/*  f195104:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
 /*  f195108:	00003025 */ 	or	$a2,$zero,$zero
 /*  f19510c:	8e58004c */ 	lw	$t8,0x4c($s2)
 /*  f195110:	00184940 */ 	sll	$t1,$t8,0x5
@@ -5361,12 +5361,12 @@ glabel func0f194b40
 .L0f195160:
 /*  f195160:	02802025 */ 	or	$a0,$s4,$zero
 .L0f195164:
-/*  f195164:	0fc64984 */ 	jal	func0f192610
+/*  f195164:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f195168:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f19516c:	100000ee */ 	beqz	$zero,.L0f195528
 /*  f195170:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f195174:
-/*  f195174:	0fc64984 */ 	jal	func0f192610
+/*  f195174:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f195178:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f19517c:	100000ea */ 	beqz	$zero,.L0f195528
 /*  f195180:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5375,7 +5375,7 @@ glabel func0f194b40
 /*  f195188:	1461001e */ 	bne	$v1,$at,.L0f195204
 /*  f19518c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195190:	2405000c */ 	addiu	$a1,$zero,0xc
-/*  f195194:	0fc651c9 */ 	jal	func0f194724
+/*  f195194:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
 /*  f195198:	00003025 */ 	or	$a2,$zero,$zero
 /*  f19519c:	18400010 */ 	blez	$v0,.L0f1951e0
 /*  f1951a0:	266c0001 */ 	addiu	$t4,$s3,0x1
@@ -5398,12 +5398,12 @@ glabel func0f194b40
 .L0f1951e0:
 /*  f1951e0:	02802025 */ 	or	$a0,$s4,$zero
 .L0f1951e4:
-/*  f1951e4:	0fc64984 */ 	jal	func0f192610
+/*  f1951e4:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1951e8:	2405000c */ 	addiu	$a1,$zero,0xc
 /*  f1951ec:	100000ce */ 	beqz	$zero,.L0f195528
 /*  f1951f0:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1951f4:
-/*  f1951f4:	0fc64984 */ 	jal	func0f192610
+/*  f1951f4:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1951f8:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1951fc:	100000ca */ 	beqz	$zero,.L0f195528
 /*  f195200:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5411,7 +5411,7 @@ glabel func0f194b40
 /*  f195204:	24010004 */ 	addiu	$at,$zero,0x4
 /*  f195208:	54610034 */ 	bnel	$v1,$at,.L0f1952dc
 /*  f19520c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f195210:	0fc65241 */ 	jal	mpGetNumTeammatesInRoomDoingSomething
+/*  f195210:	0fc65241 */ 	jal	mpGetNumTeammatesDefendingHill
 /*  f195214:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195218:	8e98001c */ 	lw	$t8,0x1c($s4)
 /*  f19521c:	3c09800b */ 	lui	$t1,0x800b
@@ -5434,7 +5434,7 @@ glabel func0f194b40
 /*  f195258:	10200005 */ 	beqz	$at,.L0f195270
 /*  f19525c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f195260:
-/*  f195260:	0fc64984 */ 	jal	func0f192610
+/*  f195260:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f195264:	2405000a */ 	addiu	$a1,$zero,0xa
 /*  f195268:	100000af */ 	beqz	$zero,.L0f195528
 /*  f19526c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5453,17 +5453,17 @@ glabel func0f194b40
 /*  f19529c:	10200006 */ 	beqz	$at,.L0f1952b8
 /*  f1952a0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1952a4:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1952a8:	0fc64984 */ 	jal	func0f192610
+/*  f1952a8:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1952ac:	24050009 */ 	addiu	$a1,$zero,0x9
 /*  f1952b0:	1000009d */ 	beqz	$zero,.L0f195528
 /*  f1952b4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1952b8:
-/*  f1952b8:	0fc64984 */ 	jal	func0f192610
+/*  f1952b8:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1952bc:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1952c0:	10000099 */ 	beqz	$zero,.L0f195528
 /*  f1952c4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1952c8:
-/*  f1952c8:	0fc64984 */ 	jal	func0f192610
+/*  f1952c8:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1952cc:	2405000a */ 	addiu	$a1,$zero,0xa
 /*  f1952d0:	10000095 */ 	beqz	$zero,.L0f195528
 /*  f1952d4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5475,14 +5475,14 @@ glabel func0f194b40
 /*  f1952e8:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1952ec:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1952f0:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f1952f4:	0fc651c9 */ 	jal	func0f194724
+/*  f1952f4:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
 /*  f1952f8:	02e03025 */ 	or	$a2,$s7,$zero
 /*  f1952fc:	00408025 */ 	or	$s0,$v0,$zero
 /*  f195300:	0fc65227 */ 	jal	func0f19489c
 /*  f195304:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195308:	10400005 */ 	beqz	$v0,.L0f195320
 /*  f19530c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195310:	0fc64984 */ 	jal	func0f192610
+/*  f195310:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f195314:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f195318:	10000083 */ 	beqz	$zero,.L0f195528
 /*  f19531c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5500,12 +5500,12 @@ glabel func0f194b40
 /*  f195348:	10200006 */ 	beqz	$at,.L0f195364
 /*  f19534c:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195350:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195354:	0fc64984 */ 	jal	func0f192610
+/*  f195354:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f195358:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f19535c:	10000072 */ 	beqz	$zero,.L0f195528
 /*  f195360:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f195364:
-/*  f195364:	0fc64984 */ 	jal	func0f192610
+/*  f195364:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f195368:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f19536c:	1000006e */ 	beqz	$zero,.L0f195528
 /*  f195370:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5521,30 +5521,30 @@ glabel func0f194b40
 /*  f195394:	1e000005 */ 	bgtz	$s0,.L0f1953ac
 /*  f195398:	24050008 */ 	addiu	$a1,$zero,0x8
 .L0f19539c:
-/*  f19539c:	0fc64984 */ 	jal	func0f192610
+/*  f19539c:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1953a0:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f1953a4:	10000060 */ 	beqz	$zero,.L0f195528
 /*  f1953a8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1953ac:
-/*  f1953ac:	0fc64984 */ 	jal	func0f192610
+/*  f1953ac:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1953b0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1953b4:	1000005c */ 	beqz	$zero,.L0f195528
 /*  f1953b8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1953bc:
 /*  f1953bc:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f1953c0:	0fc651c9 */ 	jal	func0f194724
+/*  f1953c0:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
 /*  f1953c4:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1953c8:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1953cc:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1953d0:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f1953d4:	0fc651c9 */ 	jal	func0f194724
+/*  f1953d4:	0fc651c9 */ 	jal	mpCountAibotsWithCommand
 /*  f1953d8:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1953dc:	00408025 */ 	or	$s0,$v0,$zero
 /*  f1953e0:	0fc65227 */ 	jal	func0f19489c
 /*  f1953e4:	02802025 */ 	or	$a0,$s4,$zero
 /*  f1953e8:	10400005 */ 	beqz	$v0,.L0f195400
 /*  f1953ec:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1953f0:	0fc64984 */ 	jal	func0f192610
+/*  f1953f0:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1953f4:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f1953f8:	1000004b */ 	beqz	$zero,.L0f195528
 /*  f1953fc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5565,12 +5565,12 @@ glabel func0f194b40
 /*  f195434:	02802025 */ 	or	$a0,$s4,$zero
 /*  f195438:	02802025 */ 	or	$a0,$s4,$zero
 .L0f19543c:
-/*  f19543c:	0fc64984 */ 	jal	func0f192610
+/*  f19543c:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f195440:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f195444:	10000038 */ 	beqz	$zero,.L0f195528
 /*  f195448:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f19544c:
-/*  f19544c:	0fc64984 */ 	jal	func0f192610
+/*  f19544c:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f195450:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f195454:	10000034 */ 	beqz	$zero,.L0f195528
 /*  f195458:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5583,7 +5583,7 @@ glabel func0f194b40
 /*  f195470:	10200005 */ 	beqz	$at,.L0f195488
 .L0f195474:
 /*  f195474:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195478:	0fc64984 */ 	jal	func0f192610
+/*  f195478:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f19547c:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f195480:	10000029 */ 	beqz	$zero,.L0f195528
 /*  f195484:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5599,7 +5599,7 @@ glabel func0f194b40
 /*  f1954a4:	10200005 */ 	beqz	$at,.L0f1954bc
 /*  f1954a8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1954ac:
-/*  f1954ac:	0fc64984 */ 	jal	func0f192610
+/*  f1954ac:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1954b0:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f1954b4:	1000001c */ 	beqz	$zero,.L0f195528
 /*  f1954b8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5612,7 +5612,7 @@ glabel func0f194b40
 /*  f1954d0:	2f21001e */ 	sltiu	$at,$t9,0x1e
 /*  f1954d4:	10200005 */ 	beqz	$at,.L0f1954ec
 /*  f1954d8:	02802025 */ 	or	$a0,$s4,$zero
-/*  f1954dc:	0fc64984 */ 	jal	func0f192610
+/*  f1954dc:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f1954e0:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f1954e4:	10000010 */ 	beqz	$zero,.L0f195528
 /*  f1954e8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5626,12 +5626,12 @@ glabel func0f194b40
 /*  f195504:	10200006 */ 	beqz	$at,.L0f195520
 /*  f195508:	02802025 */ 	or	$a0,$s4,$zero
 /*  f19550c:	02802025 */ 	or	$a0,$s4,$zero
-/*  f195510:	0fc64984 */ 	jal	func0f192610
+/*  f195510:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f195514:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f195518:	10000003 */ 	beqz	$zero,.L0f195528
 /*  f19551c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f195520:
-/*  f195520:	0fc64984 */ 	jal	func0f192610
+/*  f195520:	0fc64984 */ 	jal	mpAibotApplyScenarioCommand
 /*  f195524:	24050004 */ 	addiu	$a1,$zero,0x4
 .L0f195528:
 /*  f195528:	0c004b70 */ 	jal	random

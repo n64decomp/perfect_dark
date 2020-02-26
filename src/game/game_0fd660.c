@@ -32,7 +32,7 @@
 const u32 var7f1b2b20[] = {0x00010603};
 const u32 var7f1b2b24[] = {0x04070502};
 
-void func0f0fd660(void)
+void mpOpenPickTarget(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
@@ -273,7 +273,7 @@ glabel var7f1b2cd8
 /*  f0fd97c:	8f240000 */ 	lw	$a0,0x0($t9)
 /*  f0fd980:	8de5001c */ 	lw	$a1,0x1c($t7)
 /*  f0fd984:	afa6004c */ 	sw	$a2,0x4c($sp)
-/*  f0fd988:	0fc6490e */ 	jal	func0f192438
+/*  f0fd988:	0fc6490e */ 	jal	mpAibotApplyAttack
 /*  f0fd98c:	afa20098 */ 	sw	$v0,0x98($sp)
 /*  f0fd990:	3c0b800a */ 	lui	$t3,%hi(g_Vars)
 /*  f0fd994:	256b9fc0 */ 	addiu	$t3,$t3,%lo(g_Vars)
@@ -288,7 +288,7 @@ glabel var7f1b2cd8
 /*  f0fd9b8:	10000003 */ 	beqz	$zero,.L0f0fd9c8
 /*  f0fd9bc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0fd9c0:
-/*  f0fd9c0:	0fc6490e */ 	jal	func0f192438
+/*  f0fd9c0:	0fc6490e */ 	jal	mpAibotApplyAttack
 /*  f0fd9c4:	8c65001c */ 	lw	$a1,0x1c($v1)
 .L0f0fd9c8:
 /*  f0fd9c8:	0fc3cdb7 */ 	jal	menuPopDialog
@@ -652,10 +652,10 @@ void activemenuApply(s32 slot)
 		} else if (g_Vars.normmplayerisrunning) {
 			if (g_ActiveMenuThings[g_ActiveMenuIndex].allbots) {
 				for (i = 0; i < g_Vars.currentplayer->numaibuddies; i++) {
-					func0f197af4(g_MpPlayerChrs[g_Vars.currentplayer->aibuddynums[i]], g_ActiveMenuMpBotCommands[slot]);
+					mpAibotApplyCommand(g_MpPlayerChrs[g_Vars.currentplayer->aibuddynums[i]], g_ActiveMenuMpBotCommands[slot]);
 				}
 			} else {
-				func0f197af4(g_MpPlayerChrs[g_Vars.currentplayer->aibuddynums[g_ActiveMenuThings[g_ActiveMenuIndex].screenindex - 2]], g_ActiveMenuMpBotCommands[slot]);
+				mpAibotApplyCommand(g_MpPlayerChrs[g_Vars.currentplayer->aibuddynums[g_ActiveMenuThings[g_ActiveMenuIndex].screenindex - 2]], g_ActiveMenuMpBotCommands[slot]);
 			}
 		}
 	}
