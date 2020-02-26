@@ -4978,8 +4978,6 @@ u8 func0023_dodge[] = {
  * buddy and the intro cinema. The function expects the cutscene to finish and
  * then start again several times. After this has happened, the co-op buddy is
  * warped to the same pad every second.
- *
- * Not used.
  */
 u8 func0015_test_cutscene_buddy[] = {
 	stop_chr
