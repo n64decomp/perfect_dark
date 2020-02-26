@@ -16,7 +16,7 @@ u32 func0f19cdf0(void);
 u32 func0f19cf20(s32 stage_index); // firing range related
 u32 func0f19d250(void);
 u32 func0f19d25c(void);
-u32 func0f19d268(void);
+u32 func0f19d268(s32 arg0);
 u32 func0f19d2e0(void);
 u32 func0f19d338(void);
 u32 func0f19d414(void);

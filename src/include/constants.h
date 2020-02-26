@@ -328,7 +328,7 @@
 #define CHRHFLAG_00000080           0x00000080 // Not used in scripts
 #define CHRHFLAG_00000100           0x00000100 // Not used in scripts
 #define CHRHFLAG_00000200           0x00000200 // Not used in scripts
-#define CHRHFLAG_00000400           0x00000400 // Related to coop buddy? Also used in Chicago
+#define CHRHFLAG_PASSIVE            0x00000400
 #define CHRHFLAG_KEEP_CORPSE        0x00000800
 #define CHRHFLAG_BUDDY_PLACED       0x00001000
 #define CHRHFLAG_00002000           0x00002000 // Globals, Rescue guards once disguised
@@ -502,7 +502,7 @@
 #define GAILIST_INIT_COOP_100          0x0012 // unused
 #define GAILIST_INIT_COOP_200          0x0013 // unused
 #define GAILIST_COOP_BUDDY             0x0014
-#define GAILIST_TEST_CUTSCENE_BUDDY    0x0015 // unused
+#define GAILIST_AIBUDDY_STEALTH        0x0015
 #define GAILIST_SHOW_OBJ_FAILED_MSG    0x0016
 #define GAILIST_REBUILD_GROUPS         0x0017
 #define GAILIST_DO_BORED_ANIMATION     0x0018
@@ -517,7 +517,7 @@
 #define GAILIST_STOP_AND_IDLE          0x0021
 #define GAILIST_COMMENT_ON_PLAYER_DEAD 0x0022 // unused
 #define GAILIST_DODGE                  0x0023
-#define GAILIST_FOLLOW_BOND          0x0024
+#define GAILIST_FOLLOW_BOND            0x0024
 #define GAILIST_POINTLESS              0x0025 // unused
 #define GAILIST_INIT_PSYCHOSIS         0x0026
 #define GAILIST_PSYCHOSISED            0x0027

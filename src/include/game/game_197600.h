@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f197600(void);
-u32 func0f197af4(void);
+void func0f197af4(struct chrdata *chr, s32 aibotcommand);
 void func0f197c00(struct chrdata *chr);
 u32 func0f197c70(void);
 u32 func0f197cf0(void);

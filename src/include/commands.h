@@ -2001,9 +2001,8 @@
  * This may cause them to appear out of nowhere.
  *
  * If allowonscreen is 88 then the pad number will be interpreted as a chr
- * number and the chr will be moved to the other chr instead. This is likely a
- * hack used for debugging purposes. When using this value, the chr will not be
- * moved if the destination chr is on screen.
+ * number and the chr will be moved to the other chr instead. This is used to
+ * warp a co-op AI buddy to the player when using the stealth command.
  */
 #define chr_move_to_pad(chr, pad, allowonscreen, label) \
 	mkshort(0x00e2), \

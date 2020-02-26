@@ -2114,7 +2114,7 @@ u8 func041e_sealer1[] = {
 
 	// Crash happened
 	label(0x03)
-	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_00000400)
+	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE)
 	jog_to_pad(0x00c4)
 	set_ailist(CHR_SEALER2, AILIST_JOG_TO_ACCIDENT)
 	set_ailist(CHR_SEALER3, AILIST_JOG_TO_ACCIDENT)
@@ -2379,7 +2379,7 @@ u8 func041f_alarm_responder[] = {
 };
 
 u8 func0420_jog_to_accident[] = {
-	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_00000400)
+	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE)
 	label(0x03)
 	go_to_target_pad(SPEED_JOG)
 

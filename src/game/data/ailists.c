@@ -4566,7 +4566,7 @@ u8 func001f_related_to_spawning[] = {
  * Not used?
  */
 u8 func0012_init_coop_100[] = {
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00000400)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	set_self_chrflag(CHRCFLAG_01000000)
@@ -4640,7 +4640,7 @@ u8 func0012_init_coop_100[] = {
  * Not used?
  */
 u8 func0013_init_coop_200[] = {
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00000400)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE)
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	set_self_chrflag(CHRCFLAG_00040000)
 	set_self_chrflag(CHRCFLAG_01000000)
@@ -4746,7 +4746,7 @@ u8 func0014_coop_buddy[] = {
 	label(0x13)
 	set_self_flag_bankx(CHRFLAG1_00000001, BANK_1)
 	label(0x16)
-	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00000400, /*goto*/ 0xdc)
+	if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE, /*goto*/ 0xdc)
 	if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 	label(0xdc)
 	set_target_chr(CHR_BOND)
@@ -4780,7 +4780,7 @@ u8 func0014_coop_buddy[] = {
 		label(0x07)
 		set_target_chr(CHR_BOND)
 		if_chr_sees_player(/*goto*/ 0xdd)
-		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00000400, /*goto*/ 0xdc)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE, /*goto*/ 0xdc)
 		label(0xdd)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x03)
 		label(0xdc)
@@ -4814,7 +4814,7 @@ u8 func0014_coop_buddy[] = {
 		label(0x06)
 		set_chr_hiddenflag(CHR_SELF, CHRHFLAG_DISGUISED)
 		label(0x07)
-		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_00000400, /*goto*/ 0xdc)
+		if_chr_has_hiddenflag(CHR_SELF, CHRHFLAG_PASSIVE, /*goto*/ 0xdc)
 		if_stage_is_not(STAGE_G5BUILDING, /*goto*/ 0x15)
 		goto_next(0x13)
 
@@ -4974,12 +4974,10 @@ u8 func0023_dodge[] = {
 };
 
 /**
- * This appears to be a function used to test something related to the co-op
- * buddy and the intro cinema. The function expects the cutscene to finish and
- * then start again several times. After this has happened, the co-op buddy is
- * warped to the same pad every second.
+ * In co-op mode with an AI buddy, this ailist is applied to the buddy when you
+ * give them the Stealth command.
  */
-u8 func0015_test_cutscene_buddy[] = {
+u8 func0015_aibuddy_stealth[] = {
 	stop_chr
 	set_chr_cloaked(CHR_SELF, TRUE, TRUE)
 
@@ -5040,8 +5038,8 @@ u8 func0015_test_cutscene_buddy[] = {
 	wait_intro(0x0b)
 
 	// This will execute every second after the initial 7ish seconds and while
-	// cutscene is not running. The chr is being moved back to the same pad
-	// repeatedly, so this is surely some kind of debug function.
+	// cutscene is not running. The chr is being moved back to the player
+	// repeatedly.
 	set_chr_hiddenflag(CHR_SELF, 0x00100200)
 	chr_move_to_pad(CHR_SELF, CHR_BOND, 88, /*goto*/ 0x17)
 	goto_first(0x19)
@@ -5496,7 +5494,7 @@ struct ailist g_GlobalAilists[] = {
 	{ func0027_psychosised,               0x0027 },
 	{ func002d_invincible_and_idle,       0x002d },
 	{ func0021_stop_and_idle,             0x0021 },
-	{ func0015_test_cutscene_buddy,       0x0015 },
+	{ func0015_aibuddy_stealth,           0x0015 },
 	{ func0028_ai_bot_dead,               0x0028 },
 	{ func0029_ai_bot_init,               0x0029 },
 	{ func002a_ai_bot_alive,              0x002a },

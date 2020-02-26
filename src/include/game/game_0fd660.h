@@ -4,10 +4,10 @@
 #include "types.h"
 
 void func0f0fd660(void);
-void func0f0fdd00(bool arg0);
-void func0f0fdd84(void);
+void activemenuSetAiBuddyTemperament(bool aggressive);
+void activemenuSetAiBuddyStealth(void);
 s32 activemenuGetFirstBuddyIndex(void);
-void activemenuApply(s32 arg0);
+void activemenuApply(s32 slot);
 void activemenuGetSlotDetails(s32 slot, u32 *flags, char *dst);
 u32 func0f0fe848(void);
 s16 func0f0fea14(void);

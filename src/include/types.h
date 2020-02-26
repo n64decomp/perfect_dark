@@ -2753,9 +2753,8 @@ struct player {
 	/*0x1bdc*/ u32 unk1bdc;
 	/*0x1be0*/ u32 unk1be0;
 	/*0x1be4*/ u16 unk1be4;
-	/*0x1be6*/ u8 unk1be6;
-	/*0x1be8*/ u32 unk1be8;
-	/*0x1bec*/ u32 unk1bec;
+	/*0x1be6*/ u8 numaibuddies;
+	/*0x1be7*/ u8 aibuddynums[MAX_SIMULANTS];
 	/*0x1bf0*/ u32 bondexploding;
 	/*0x1bf4*/ u32 bondnextexplode;
 	/*0x1bf8*/ u32 bondcurexplode;
@@ -4852,8 +4851,9 @@ struct activemenuthing {
 	/*0x20*/ u8 weaponnums[8];
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u16 unk30;
-	/*0x32*/ u8 unk32;
+	/*0x30*/ u8 unk30;
+	/*0x31*/ u8 unk31;
+	/*0x32*/ u8 allbots; // when player holds R on the bot command screen
 	/*0x33*/ u8 unk33;
 	/*0x34*/ u8 unk34;
 };
