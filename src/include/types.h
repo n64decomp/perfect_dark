@@ -2388,7 +2388,7 @@ struct player {
 	/*0x1574*/ u32 unk1574;
 	/*0x1578*/ u32 unk1578;
 	/*0x157c*/ u32 unk157c;
-	/*0x1580*/ u32 unk1580;
+	/*0x1580*/ s8 unk1580;
 	/*0x1584*/ u32 unk1584;
 	/*0x1588*/ u32 unk1588;
 	/*0x158c*/ u32 unk158c;
@@ -4342,7 +4342,8 @@ struct mpplayer {
 	/*0x90*/ u32 unk90;
 	/*0x94*/ u8 unk94;
 	/*0x95*/ u8 title;
-	/*0x98*/ u32 unk98;
+	/*0x96*/ u8 unk96;
+	/*0x97*/ u8 gunfuncs[5];
 	/*0x9c*/ u8 unk9c;
 	/*0x9d*/ u8 handicap;
 };
@@ -4832,8 +4833,7 @@ struct activemenuthing {
 	/*0x14*/ u32 unk14;
 	/*0x18*/ f32 unk18;
 	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
+	/*0x20*/ u8 weaponnums[8];
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u16 unk30;

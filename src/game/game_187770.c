@@ -4,7 +4,6 @@
 #include "game/chr/chraction.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_016100.h"
@@ -676,17 +675,17 @@ glabel func0f187944
 /*  f187d74:	3c01800b */ 	lui	$at,0x800b
 /*  f187d78:	ac28cc24 */ 	sw	$t0,-0x33dc($at)
 .L0f187d7c:
-/*  f187d7c:	3c02800b */ 	lui	$v0,%hi(var800acb78)
+/*  f187d7c:	3c02800b */ 	lui	$v0,%hi(g_ActiveMenuMpBotCommands)
 /*  f187d80:	3c03800b */ 	lui	$v1,0x800b
 /*  f187d84:	2463cb81 */ 	addiu	$v1,$v1,-13439
-/*  f187d88:	2442cb78 */ 	addiu	$v0,$v0,%lo(var800acb78)
+/*  f187d88:	2442cb78 */ 	addiu	$v0,$v0,%lo(g_ActiveMenuMpBotCommands)
 /*  f187d8c:	24040004 */ 	addiu	$a0,$zero,0x4
 .L0f187d90:
 /*  f187d90:	24420001 */ 	addiu	$v0,$v0,0x1
 /*  f187d94:	1443fffe */ 	bne	$v0,$v1,.L0f187d90
 /*  f187d98:	a044ffff */ 	sb	$a0,-0x1($v0)
-/*  f187d9c:	3c02800b */ 	lui	$v0,%hi(var800acb78)
-/*  f187da0:	2442cb78 */ 	addiu	$v0,$v0,%lo(var800acb78)
+/*  f187d9c:	3c02800b */ 	lui	$v0,%hi(g_ActiveMenuMpBotCommands)
+/*  f187da0:	2442cb78 */ 	addiu	$v0,$v0,%lo(g_ActiveMenuMpBotCommands)
 /*  f187da4:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f187da8:	240a000d */ 	addiu	$t2,$zero,0xd
 /*  f187dac:	240b0002 */ 	addiu	$t3,$zero,0x2
@@ -1089,8 +1088,8 @@ glabel func0f188210
 /*  f188314:	0fc66fe8 */ 	jal	func0f19bfa0
 /*  f188318:	ac430004 */ 	sw	$v1,0x4($v0)
 /*  f18831c:	3c05800b */ 	lui	$a1,%hi(g_MpPlayers)
-/*  f188320:	3c06800b */ 	lui	$a2,%hi(var800acb78)
-/*  f188324:	24c6cb78 */ 	addiu	$a2,$a2,%lo(var800acb78)
+/*  f188320:	3c06800b */ 	lui	$a2,%hi(g_ActiveMenuMpBotCommands)
+/*  f188324:	24c6cb78 */ 	addiu	$a2,$a2,%lo(g_ActiveMenuMpBotCommands)
 /*  f188328:	24a5c7b8 */ 	addiu	$a1,$a1,%lo(g_MpPlayers)
 /*  f18832c:	24040006 */ 	addiu	$a0,$zero,0x6
 /*  f188330:	00001025 */ 	or	$v0,$zero,$zero

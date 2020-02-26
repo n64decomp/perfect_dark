@@ -4,7 +4,6 @@
 #include "game/chr/chraction.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_01e250.h"
@@ -4845,7 +4844,7 @@ glabel func0f022624
 /*  f022908:	30640040 */ 	andi	$a0,$v1,0x40
 /*  f02290c:	10800020 */ 	beqz	$a0,.L0f022990
 /*  f022910:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f022914:	0fc2a5dc */ 	jal	func0f0a9770
+/*  f022914:	0fc2a5dc */ 	jal	ammoGetQuantity
 /*  f022918:	24040014 */ 	addiu	$a0,$zero,0x14
 /*  f02291c:	18400012 */ 	blez	$v0,.L0f022968
 /*  f022920:	00000000 */ 	sll	$zero,$zero,0x0

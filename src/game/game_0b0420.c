@@ -3,7 +3,6 @@
 #include "game/cheats.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/inventory.h"
@@ -1019,7 +1018,7 @@ glabel func0f0b107c
 );
 
 GLOBAL_ASM(
-glabel func0f0b10b8
+glabel weaponGetFunction
 /*  f0b10b8:	908e0000 */ 	lbu	$t6,0x0($a0)
 /*  f0b10bc:	3c038007 */ 	lui	$v1,0x8007
 /*  f0b10c0:	0005c080 */ 	sll	$t8,$a1,0x2

@@ -86,6 +86,11 @@
 #define AMMOTYPE_1F           0x1f
 #define AMMOTYPE_ECM_MINE     0x20
 
+// Active menu slots
+#define AMSLOTFLAG_CURRENT 0x02 // black, eg. current equipped weapon
+#define AMSLOTFLAG_ACTIVE  0x08 // pulsates slightly, eg. cloak/xray when active
+#define AMSLOTFLAG_HIDDEN  0x10
+
 #define ANIM_IDLE                   0x0000
 #define ANIM_TWO_GUN_HOLD           0x0001
 #define ANIM_KNEEL_TWO_HANDED_GUN   0x0008

@@ -2,12 +2,11 @@
 #include "constants.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0420.h"
-#include "game/game_0f09f0.h"
+#include "game/game_0fd660.h"
 #include "game/game_111600.h"
 #include "game/game_127910.h"
 #include "game/pdoptions.h"
@@ -755,13 +754,13 @@ glabel func0f01b160
 /*  f01ba74:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01ba78:	8c84a244 */ 	lw	$a0,-0x5dbc($a0)
 /*  f01ba7c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f01ba80:	0fc2c42e */ 	jal	func0f0b10b8
+/*  f01ba80:	0fc2c42e */ 	jal	weaponGetFunction
 /*  f01ba84:	24840638 */ 	addiu	$a0,$a0,%lo(var800a0638)
 /*  f01ba88:	3c04800a */ 	lui	$a0,%hi(var800a0638)
 /*  f01ba8c:	8c84a244 */ 	lw	$a0,-0x5dbc($a0)
 /*  f01ba90:	00408025 */ 	or	$s0,$v0,$zero
 /*  f01ba94:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f01ba98:	0fc2c42e */ 	jal	func0f0b10b8
+/*  f01ba98:	0fc2c42e */ 	jal	weaponGetFunction
 /*  f01ba9c:	24840638 */ 	addiu	$a0,$a0,%lo(var800a0638)
 /*  f01baa0:	16000005 */ 	bnez	$s0,.L0f01bab8
 /*  f01baa4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -801,7 +800,7 @@ glabel func0f01b160
 .L0f01bb24:
 /*  f01bb24:	02402025 */ 	or	$a0,$s2,$zero
 /*  f01bb28:	27a50070 */ 	addiu	$a1,$sp,0x70
-/*  f01bb2c:	0fc3f8a0 */ 	jal	func0f0fe280
+/*  f01bb2c:	0fc3f8a0 */ 	jal	activemenuGetSlotDetails
 /*  f01bb30:	27a60074 */ 	addiu	$a2,$sp,0x74
 /*  f01bb34:	3c057f1b */ 	lui	$a1,0x7f1b
 /*  f01bb38:	24a585a0 */ 	addiu	$a1,$a1,-31328

@@ -4,7 +4,6 @@
 #include "game/chr/chraction.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_005fd0.h"
@@ -1320,7 +1319,7 @@ glabel func0f098ca0
 /*  f098cb4:	afa60038 */ 	sw	$a2,0x38($sp)
 /*  f098cb8:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*  f098cbc:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f098cc0:	0fc2c42e */ 	jal	func0f0b10b8
+/*  f098cc0:	0fc2c42e */ 	jal	weaponGetFunction
 /*  f098cc4:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f098cc8:	8fa3002c */ 	lw	$v1,0x2c($sp)
 /*  f098ccc:	8fa90034 */ 	lw	$t1,0x34($sp)
@@ -1418,7 +1417,7 @@ glabel func0f098df8
 /*  f098e0c:	afa40038 */ 	sw	$a0,0x38($sp)
 /*  f098e10:	afa60040 */ 	sw	$a2,0x40($sp)
 /*  f098e14:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f098e18:	0fc2c42e */ 	jal	func0f0b10b8
+/*  f098e18:	0fc2c42e */ 	jal	weaponGetFunction
 /*  f098e1c:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f098e20:	50400056 */ 	beqzl	$v0,.L0f098f7c
 /*  f098e24:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -1533,7 +1532,7 @@ glabel func0f098f8c
 /*  f098fb0:	24120002 */ 	addiu	$s2,$zero,0x2
 /*  f098fb4:	02202025 */ 	or	$a0,$s1,$zero
 .L0f098fb8:
-/*  f098fb8:	0fc2c42e */ 	jal	func0f0b10b8
+/*  f098fb8:	0fc2c42e */ 	jal	weaponGetFunction
 /*  f098fbc:	02002825 */ 	or	$a1,$s0,$zero
 /*  f098fc0:	10400007 */ 	beqz	$v0,.L0f098fe0
 /*  f098fc4:	02002025 */ 	or	$a0,$s0,$zero
@@ -1675,7 +1674,7 @@ glabel func0f099188
 /*  f099188:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f09918c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f099190:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f099194:	0fc2c42e */ 	jal	func0f0b10b8
+/*  f099194:	0fc2c42e */ 	jal	weaponGetFunction
 /*  f099198:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f09919c:	8fae0020 */ 	lw	$t6,0x20($sp)
 /*  f0991a0:	afa2001c */ 	sw	$v0,0x1c($sp)
@@ -1893,7 +1892,7 @@ glabel func0f0991e4
 /*  f0994ac:	2403ffff */ 	addiu	$v1,$zero,-1
 /*  f0994b0:	920d0003 */ 	lbu	$t5,0x3($s0)
 /*  f0994b4:	afa30030 */ 	sw	$v1,0x30($sp)
-/*  f0994b8:	0fc2c42e */ 	jal	func0f0b10b8
+/*  f0994b8:	0fc2c42e */ 	jal	weaponGetFunction
 /*  f0994bc:	012d2823 */ 	subu	$a1,$t1,$t5
 /*  f0994c0:	8c4f0000 */ 	lw	$t7,0x0($v0)
 /*  f0994c4:	24010003 */ 	addiu	$at,$zero,0x3
@@ -5937,7 +5936,7 @@ glabel func0f09cd18
 /*  f09cd68:	afa60018 */ 	sw	$a2,0x18($sp)
 /*  f09cd6c:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f09cd70:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f09cd74:	0fc2c42e */ 	jal	func0f0b10b8
+/*  f09cd74:	0fc2c42e */ 	jal	weaponGetFunction
 /*  f09cd78:	03382823 */ 	subu	$a1,$t9,$t8
 /*  f09cd7c:	8fa3001c */ 	lw	$v1,0x1c($sp)
 /*  f09cd80:	8fa60018 */ 	lw	$a2,0x18($sp)
@@ -20137,7 +20136,7 @@ glabel currentPlayerGiveAmmo
 );
 
 GLOBAL_ASM(
-glabel func0f0a9770
+glabel ammoGetQuantity
 /*  f0a9770:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0a9774:	afb50028 */ 	sw	$s5,0x28($sp)
 /*  f0a9778:	3c02800a */ 	lui	$v0,0x800a
@@ -20383,7 +20382,7 @@ glabel func0f0a9a74
 /*  f0a9a94:	8f03001c */ 	lw	$v1,0x1c($t8)
 /*  f0a9a98:	50600006 */ 	beqzl	$v1,.L0f0a9ab4
 /*  f0a9a9c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a9aa0:	0fc2a5dc */ 	jal	func0f0a9770
+/*  f0a9aa0:	0fc2a5dc */ 	jal	ammoGetQuantity
 /*  f0a9aa4:	8c640000 */ 	lw	$a0,0x0($v1)
 /*  f0a9aa8:	10000003 */ 	beqz	$zero,.L0f0a9ab8
 /*  f0a9aac:	8fbf0014 */ 	lw	$ra,0x14($sp)

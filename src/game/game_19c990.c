@@ -3,7 +3,6 @@
 #include "game/chr/chraction.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
-#include "game/data/data_00e460.h"
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_000920.h"
@@ -3572,12 +3571,12 @@ glabel func0f19f524
 /*  f19f598:	8cce0224 */ 	lw	$t6,0x224($a2)
 /*  f19f59c:	afa702b0 */ 	sw	$a3,0x2b0($sp)
 /*  f19f5a0:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f19f5a4:	0fc2a5dc */ 	jal	func0f0a9770
+/*  f19f5a4:	0fc2a5dc */ 	jal	ammoGetQuantity
 /*  f19f5a8:	afb802a4 */ 	sw	$t8,0x2a4($sp)
 /*  f19f5ac:	8fb902a0 */ 	lw	$t9,0x2a0($sp)
 /*  f19f5b0:	8fa402b0 */ 	lw	$a0,0x2b0($sp)
 /*  f19f5b4:	03227021 */ 	addu	$t6,$t9,$v0
-/*  f19f5b8:	0fc2a5dc */ 	jal	func0f0a9770
+/*  f19f5b8:	0fc2a5dc */ 	jal	ammoGetQuantity
 /*  f19f5bc:	afae0298 */ 	sw	$t6,0x298($sp)
 /*  f19f5c0:	8fb80298 */ 	lw	$t8,0x298($sp)
 /*  f19f5c4:	8faf02a4 */ 	lw	$t7,0x2a4($sp)
@@ -3798,7 +3797,7 @@ glabel func0f19f524
 /*  f19f8d4:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
 /*  f19f8d8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f19f8dc:	25d90638 */ 	addiu	$t9,$t6,0x638
-/*  f19f8e0:	0fc2a5dc */ 	jal	func0f0a9770
+/*  f19f8e0:	0fc2a5dc */ 	jal	ammoGetQuantity
 /*  f19f8e4:	afb90034 */ 	sw	$t9,0x34($sp)
 /*  f19f8e8:	8faf0034 */ 	lw	$t7,0x34($sp)
 /*  f19f8ec:	2419012c */ 	addiu	$t9,$zero,0x12c
@@ -4132,7 +4131,7 @@ glabel func0f19f994
 /*  f19fd88:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f19fd8c:	18400011 */ 	blez	$v0,.L0f19fdd4
 /*  f19fd90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19fd94:	0fc2a5dc */ 	jal	func0f0a9770
+/*  f19fd94:	0fc2a5dc */ 	jal	ammoGetQuantity
 /*  f19fd98:	02202025 */ 	or	$a0,$s1,$zero
 /*  f19fd9c:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f19fda0:	86ae0476 */ 	lh	$t6,0x476($s5)
@@ -4166,7 +4165,7 @@ glabel func0f19f994
 /*  f19fe00:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f19fe04:	18600011 */ 	blez	$v1,.L0f19fe4c
 /*  f19fe08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19fe0c:	0fc2a5dc */ 	jal	func0f0a9770
+/*  f19fe0c:	0fc2a5dc */ 	jal	ammoGetQuantity
 /*  f19fe10:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f19fe14:	92a3045a */ 	lbu	$v1,0x45a($s5)
 /*  f19fe18:	86b90478 */ 	lh	$t9,0x478($s5)
