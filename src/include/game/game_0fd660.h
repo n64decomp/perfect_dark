@@ -6,7 +6,7 @@
 void func0f0fd660(void);
 u32 func0f0fdd00(void);
 u32 func0f0fdd84(void);
-s32 func0f0fde8c(void);
+s32 activemenuGetFirstBuddyIndex(void);
 void activemenuApply(s32 arg0);
 void activemenuGetSlotDetails(s32 slot, u32 *flags, char *dst);
 u32 func0f0fe848(void);

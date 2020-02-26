@@ -607,46 +607,25 @@ glabel func0f0fdd84
 /*  f0fde88:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f0fde8c
-/*  f0fde8c:	3c02800a */ 	lui	$v0,0x800a
-/*  f0fde90:	8c42a434 */ 	lw	$v0,-0x5bcc($v0)
-/*  f0fde94:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0fde98:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0fde9c:	1840001a */ 	blez	$v0,.L0f0fdf08
-/*  f0fdea0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0fdea4:	24080005 */ 	addiu	$t0,$zero,0x5
-/*  f0fdea8:	24070004 */ 	addiu	$a3,$zero,0x4
-.L0f0fdeac:
-/*  f0fdeac:	8c8504b8 */ 	lw	$a1,0x4b8($a0)
-/*  f0fdeb0:	50a00012 */ 	beqzl	$a1,.L0f0fdefc
-/*  f0fdeb4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0fdeb8:	8ca60004 */ 	lw	$a2,0x4($a1)
-/*  f0fdebc:	50c0000f */ 	beqzl	$a2,.L0f0fdefc
-/*  f0fdec0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0fdec4:	80c50007 */ 	lb	$a1,0x7($a2)
-/*  f0fdec8:	50e5000c */ 	beql	$a3,$a1,.L0f0fdefc
-/*  f0fdecc:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0fded0:	5105000a */ 	beql	$t0,$a1,.L0f0fdefc
-/*  f0fded4:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0fded8:	8cce001c */ 	lw	$t6,0x1c($a2)
-/*  f0fdedc:	51c00007 */ 	beqzl	$t6,.L0f0fdefc
-/*  f0fdee0:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0fdee4:	8ccf0020 */ 	lw	$t7,0x20($a2)
-/*  f0fdee8:	51e00004 */ 	beqzl	$t7,.L0f0fdefc
-/*  f0fdeec:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0fdef0:	03e00008 */ 	jr	$ra
-/*  f0fdef4:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0fdef8:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f0fdefc:
-/*  f0fdefc:	0062082a */ 	slt	$at,$v1,$v0
-/*  f0fdf00:	1420ffea */ 	bnez	$at,.L0f0fdeac
-/*  f0fdf04:	24840004 */ 	addiu	$a0,$a0,0x4
-.L0f0fdf08:
-/*  f0fdf08:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0fdf0c:	03e00008 */ 	jr	$ra
-/*  f0fdf10:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 activemenuGetFirstBuddyIndex(void)
+{
+	s32 i;
+
+	for (i = 0; i < g_Vars.numaibuddies; i++) {
+		if (g_Vars.aibuddies[i]) {
+			struct chrdata *chr = g_Vars.aibuddies[i]->chr;
+
+			if (chr && chr->actiontype != ACT_DIE
+					&& chr->actiontype != ACT_DEAD
+					&& chr->prop
+					&& chr->animdata) {
+				return i;
+			}
+		}
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel activemenuApply
@@ -807,7 +786,7 @@ glabel activemenuApply
 /*  f0fe150:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
 /*  f0fe154:	05230019 */ 	bgezl	$t1,.L0f0fe1bc
 /*  f0fe158:	8c6c0318 */ 	lw	$t4,0x318($v1)
-/*  f0fe15c:	0fc3f7a3 */ 	jal	func0f0fde8c
+/*  f0fe15c:	0fc3f7a3 */ 	jal	activemenuGetFirstBuddyIndex
 /*  f0fe160:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f0fe164:	04400041 */ 	bltz	$v0,.L0f0fe26c
 /*  f0fe168:	8fa60048 */ 	lw	$a2,0x48($sp)
@@ -1246,7 +1225,7 @@ void activemenuChangeScreen(s32 step)
 		}
 	} else {
 		// Solo missions, or MP with no teams
-		if (g_MissionConfig.iscoop && func0f0fde8c() >= 0) {
+		if (g_MissionConfig.iscoop && activemenuGetFirstBuddyIndex() >= 0) {
 			// Weapon selection, second function and AI buddy commands
 			maxscreenindex = 2;
 		} else {
@@ -3776,7 +3755,7 @@ glabel func0f100ad0
 /*  f1010ac:	81cfdfeb */ 	lb	$t7,-0x2015($t6)
 /*  f1010b0:	05e10029 */ 	bgez	$t7,.L0f101158
 /*  f1010b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1010b8:	0fc3f7a3 */ 	jal	func0f0fde8c
+/*  f1010b8:	0fc3f7a3 */ 	jal	activemenuGetFirstBuddyIndex
 /*  f1010bc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1010c0:	04400025 */ 	bltz	$v0,.L0f101158
 /*  f1010c4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -3907,7 +3886,7 @@ glabel func0f100ad0
 /*  f10129c:	81cfdfeb */ 	lb	$t7,-0x2015($t6)
 /*  f1012a0:	05e10004 */ 	bgez	$t7,.L0f1012b4
 /*  f1012a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1012a8:	0fc3f7a3 */ 	jal	func0f0fde8c
+/*  f1012a8:	0fc3f7a3 */ 	jal	activemenuGetFirstBuddyIndex
 /*  f1012ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1012b0:	04410011 */ 	bgez	$v0,.L0f1012f8
 .L0f1012b4:

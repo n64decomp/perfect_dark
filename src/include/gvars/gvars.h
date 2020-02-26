@@ -182,7 +182,7 @@ struct g_vars {
 	/*0004af*/ s8 unk0004af; // initialised to 3
 	/*0004b0*/ u32 mpquickteam;
 	/*0004b4*/ s32 stagenum;
-	/*0004b8*/ u32 unk0004b8[4];
+	/*0004b8*/ struct prop *aibuddies[4];
 	/*0004c8*/ u32 unk0004c8;
 	/*0004cc*/ s32 in_cutscene;
 	/*0004d0*/ u8 unk0004d0;
