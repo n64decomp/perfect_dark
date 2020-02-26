@@ -43,7 +43,7 @@ u32 func0f1566cc(void);
 u32 func0f156790(void);
 u32 func0f156a24(void);
 u32 func0f156e48(void);
-u32 func0f1572f8(void);
+void func0f1572f8(u32 *arg0, s32 *arg1, char *label, u32 arg3, u32 arg4, u32 arg5);
 u32 func0f157520(void);
 u32 func0f1577f0(void);
 u32 func0f1578c8(void);

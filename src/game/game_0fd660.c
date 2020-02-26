@@ -1032,108 +1032,32 @@ glabel func0f0fe848
 /*  f0fea10:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f0fea14
-/*  f0fea14:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f0fea18:	afb60038 */ 	sw	$s6,0x38($sp)
-/*  f0fea1c:	afb50034 */ 	sw	$s5,0x34($sp)
-/*  f0fea20:	afbe0040 */ 	sw	$s8,0x40($sp)
-/*  f0fea24:	afb7003c */ 	sw	$s7,0x3c($sp)
-/*  f0fea28:	afb40030 */ 	sw	$s4,0x30($sp)
-/*  f0fea2c:	afb3002c */ 	sw	$s3,0x2c($sp)
-/*  f0fea30:	afb20028 */ 	sw	$s2,0x28($sp)
-/*  f0fea34:	afb10024 */ 	sw	$s1,0x24($sp)
-/*  f0fea38:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0fea3c:	3c15800a */ 	lui	$s5,%hi(var800a21b0)
-/*  f0fea40:	3c16800a */ 	lui	$s6,%hi(var800a21b4)
-/*  f0fea44:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f0fea48:	0000f025 */ 	or	$s8,$zero,$zero
-/*  f0fea4c:	26d621b4 */ 	addiu	$s6,$s6,%lo(var800a21b4)
-/*  f0fea50:	26b521b0 */ 	addiu	$s5,$s5,%lo(var800a21b0)
-/*  f0fea54:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0fea58:	27b1005c */ 	addiu	$s1,$sp,0x5c
-/*  f0fea5c:	27b2007c */ 	addiu	$s2,$sp,0x7c
-/*  f0fea60:	27b3008c */ 	addiu	$s3,$sp,0x8c
-/*  f0fea64:	27b40088 */ 	addiu	$s4,$sp,0x88
-/*  f0fea68:	24170009 */ 	addiu	$s7,$zero,0x9
-/*  f0fea6c:	02002025 */ 	or	$a0,$s0,$zero
-.L0f0fea70:
-/*  f0fea70:	02402825 */ 	or	$a1,$s2,$zero
-/*  f0fea74:	0fc3f8a0 */ 	jal	activemenuGetSlotDetails
-/*  f0fea78:	02203025 */ 	or	$a2,$s1,$zero
-/*  f0fea7c:	8ece0000 */ 	lw	$t6,0x0($s6)
-/*  f0fea80:	02602025 */ 	or	$a0,$s3,$zero
-/*  f0fea84:	02802825 */ 	or	$a1,$s4,$zero
-/*  f0fea88:	02203025 */ 	or	$a2,$s1,$zero
-/*  f0fea8c:	8ea70000 */ 	lw	$a3,0x0($s5)
-/*  f0fea90:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0fea94:	0fc55cbe */ 	jal	func0f1572f8
-/*  f0fea98:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0fea9c:	8fa20088 */ 	lw	$v0,0x88($sp)
-/*  f0feaa0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0feaa4:	03c2082a */ 	slt	$at,$s8,$v0
-/*  f0feaa8:	10200002 */ 	beqz	$at,.L0f0feab4
-/*  f0feaac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0feab0:	0040f025 */ 	or	$s8,$v0,$zero
-.L0f0feab4:
-/*  f0feab4:	5617ffee */ 	bnel	$s0,$s7,.L0f0fea70
-/*  f0feab8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0feabc:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0feac0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0feac4:	8c4f006c */ 	lw	$t7,0x6c($v0)
-/*  f0feac8:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0feacc:	8fb10024 */ 	lw	$s1,0x24($sp)
-/*  f0fead0:	11e00003 */ 	beqz	$t7,.L0f0feae0
-/*  f0fead4:	8fb20028 */ 	lw	$s2,0x28($sp)
-/*  f0fead8:	10000002 */ 	beqz	$zero,.L0f0feae4
-/*  f0feadc:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0feae0:
-/*  f0feae0:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0feae4:
-/*  f0feae4:	8c580068 */ 	lw	$t8,0x68($v0)
-/*  f0feae8:	8fb3002c */ 	lw	$s3,0x2c($sp)
-/*  f0feaec:	8fb40030 */ 	lw	$s4,0x30($sp)
-/*  f0feaf0:	13000003 */ 	beqz	$t8,.L0f0feb00
-/*  f0feaf4:	8fb50034 */ 	lw	$s5,0x34($sp)
-/*  f0feaf8:	10000002 */ 	beqz	$zero,.L0f0feb04
-/*  f0feafc:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0feb00:
-/*  f0feb00:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0feb04:
-/*  f0feb04:	8c590064 */ 	lw	$t9,0x64($v0)
-/*  f0feb08:	8fb60038 */ 	lw	$s6,0x38($sp)
-/*  f0feb0c:	8fb7003c */ 	lw	$s7,0x3c($sp)
-/*  f0feb10:	13200003 */ 	beqz	$t9,.L0f0feb20
-/*  f0feb14:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0feb18:	10000002 */ 	beqz	$zero,.L0f0feb24
-/*  f0feb1c:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0feb20:
-/*  f0feb20:	00002025 */ 	or	$a0,$zero,$zero
-.L0f0feb24:
-/*  f0feb24:	8c480070 */ 	lw	$t0,0x70($v0)
-/*  f0feb28:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0feb2c:	11000003 */ 	beqz	$t0,.L0f0feb3c
-/*  f0feb30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0feb34:	10000001 */ 	beqz	$zero,.L0f0feb3c
-/*  f0feb38:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0feb3c:
-/*  f0feb3c:	00444821 */ 	addu	$t1,$v0,$a0
-/*  f0feb40:	01235021 */ 	addu	$t2,$t1,$v1
-/*  f0feb44:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f0feb48:	29610002 */ 	slti	$at,$t3,0x2
-/*  f0feb4c:	54200004 */ 	bnezl	$at,.L0f0feb60
-/*  f0feb50:	27de0004 */ 	addiu	$s8,$s8,0x4
-/*  f0feb54:	10000002 */ 	beqz	$zero,.L0f0feb60
-/*  f0feb58:	27de0003 */ 	addiu	$s8,$s8,0x3
-/*  f0feb5c:	27de0004 */ 	addiu	$s8,$s8,0x4
-.L0f0feb60:
-/*  f0feb60:	001e1400 */ 	sll	$v0,$s8,0x10
-/*  f0feb64:	00026403 */ 	sra	$t4,$v0,0x10
-/*  f0feb68:	8fbe0040 */ 	lw	$s8,0x40($sp)
-/*  f0feb6c:	27bd0090 */ 	addiu	$sp,$sp,0x90
-/*  f0feb70:	03e00008 */ 	jr	$ra
-/*  f0feb74:	01801025 */ 	or	$v0,$t4,$zero
-);
+s16 func0f0fea14(void)
+{
+	u32 sp140;
+	s32 value;
+	s32 max = 0;
+	s32 i;
+	u32 flags;
+	char label[32];
+
+	for (i = 0; i != 9; i++) {
+		activemenuGetSlotDetails(i, &flags, label);
+		func0f1572f8(&sp140, &value, label, var800a21b0, var800a21b4, 0);
+
+		if (value > max) {
+			max = value;
+		}
+	}
+
+	if (PLAYERCOUNT() > 1) {
+		max += 3;
+	} else {
+		max += 4;
+	}
+
+	return max;
+}
 
 void activemenuChangeScreen(s32 step)
 {
