@@ -2763,6 +2763,17 @@ struct player {
 	/*0x1c0c*/ u32 coopcanrestart;
 	/*0x1c10*/ u32 foot;
 	/*0x1c14*/ u32 footstepdist;
+	/*0x1c18*/ u32 unk1c18;
+	/*0x1c1c*/ u32 unk1c1c;
+	/*0x1c20*/ u32 unk1c20;
+	/*0x1c24*/ u32 unk1c24;
+	/*0x1c28*/ u32 unk1c28;
+	/*0x1c2c*/ u32 unk1c2c;
+	/*0x1c30*/ u32 unk1c30;
+	/*0x1c34*/ u32 unk1c34;
+	/*0x1c38*/ u32 unk1c38;
+	/*0x1c3c*/ u32 unk1c3c;
+	/*0x1c40*/ s32 unk1c40;
 };
 
 struct ailist {
@@ -4828,7 +4839,7 @@ struct activemenuthing {
 	/*0x08*/ u16 unk08;
 	/*0x0a*/ s16 unk0a;
 	/*0x0c*/ u16 unk0c;
-	/*0x0e*/ u8 unk0e;
+	/*0x0e*/ u8 slotnum;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ f32 unk18;

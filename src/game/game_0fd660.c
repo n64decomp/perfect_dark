@@ -649,7 +649,7 @@ glabel func0f0fde8c
 );
 
 GLOBAL_ASM(
-glabel func0f0fdf14
+glabel activemenuApply
 /*  f0fdf14:	3c03800a */ 	lui	$v1,0x800a
 /*  f0fdf18:	8c6321b8 */ 	lw	$v1,0x21b8($v1)
 /*  f0fdf1c:	3c08800a */ 	lui	$t0,%hi(g_ActiveMenuThings)
@@ -1265,7 +1265,7 @@ void activemenuChangeScreen(s32 step)
 
 	g_ActiveMenuThings[g_ActiveMenuIndex].unk02 = 10;
 	g_ActiveMenuThings[g_ActiveMenuIndex].unk0a = -123;
-	g_ActiveMenuThings[g_ActiveMenuIndex].unk0e = 4;
+	g_ActiveMenuThings[g_ActiveMenuIndex].slotnum = 4;
 	g_ActiveMenuThings[g_ActiveMenuIndex].unk14 = 0;
 	g_ActiveMenuThings[g_ActiveMenuIndex].unk10 = 0;
 	g_ActiveMenuThings[g_ActiveMenuIndex].unk18 = 0;
@@ -1527,41 +1527,16 @@ glabel var7f1b2cdc
 /*  f0ff03c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0ff040
-/*  f0ff040:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0ff044:	8dce21b8 */ 	lw	$t6,0x21b8($t6)
-/*  f0ff048:	3c04800a */ 	lui	$a0,0x800a
-/*  f0ff04c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0ff050:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0ff054:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0ff058:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0ff05c:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f0ff060:	908420de */ 	lbu	$a0,0x20de($a0)
-/*  f0ff064:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0ff068:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ff06c:	10810003 */ 	beq	$a0,$at,.L0f0ff07c
-/*  f0ff070:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ff074:	0fc3f7c5 */ 	jal	func0f0fdf14
-/*  f0ff078:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0ff07c:
-/*  f0ff07c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0ff080:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0ff084:	8c580284 */ 	lw	$t8,0x284($v0)
-/*  f0ff088:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f0ff08c:	3c018007 */ 	lui	$at,0x8007
-/*  f0ff090:	a3000250 */ 	sb	$zero,0x250($t8)
-/*  f0ff094:	8c480284 */ 	lw	$t0,0x284($v0)
-/*  f0ff098:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f0ff09c:	ad191c40 */ 	sw	$t9,0x1c40($t0)
-/*  f0ff0a0:	8c4a028c */ 	lw	$t2,0x28c($v0)
-/*  f0ff0a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ff0a8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0ff0ac:	000a5880 */ 	sll	$t3,$t2,0x2
-/*  f0ff0b0:	002b0821 */ 	addu	$at,$at,$t3
-/*  f0ff0b4:	03e00008 */ 	jr	$ra
-/*  f0ff0b8:	ac290750 */ 	sw	$t1,0x750($at)
-);
+void activemenuClose(void)
+{
+	if (g_ActiveMenuThings[g_ActiveMenuIndex].slotnum != 4) {
+		activemenuApply(g_ActiveMenuThings[g_ActiveMenuIndex].slotnum);
+	}
+
+	g_Vars.currentplayer->activemenumode = 0;
+	g_Vars.currentplayer->unk1c40 = -1;
+	g_PlayersWithControl[g_Vars.currentplayernum] = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f0ff0bc
