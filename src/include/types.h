@@ -2388,7 +2388,12 @@ struct player {
 	/*0x1574*/ u32 unk1574;
 	/*0x1578*/ u32 unk1578;
 	/*0x157c*/ u32 unk157c;
-	/*0x1580*/ s8 unk1580;
+
+	union {
+		s8 unk1580;
+		s32 unk1580_s32;
+	};
+
 	/*0x1584*/ u32 unk1584;
 	/*0x1588*/ u32 unk1588;
 	/*0x158c*/ u32 unk158c;
@@ -4842,15 +4847,15 @@ struct activemenuthing {
 	/*0x0e*/ u8 slotnum;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
-	/*0x18*/ f32 unk18;
-	/*0x1c*/ u32 unk1c;
+	/*0x18*/ f32 unk18; // seems like a fade duration or current alpha level
+	/*0x1c*/ f32 unk1c;
 	/*0x20*/ u8 weaponnums[8];
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u16 unk30;
 	/*0x32*/ u8 unk32;
 	/*0x33*/ u8 unk33;
-	/*0x34*/ u32 unk34;
+	/*0x34*/ u8 unk34;
 };
 
 struct objective {

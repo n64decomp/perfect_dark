@@ -1420,68 +1420,23 @@ glabel func0f0fecd4
 /*  f0fef64:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f0fef68
-.late_rodata
-glabel var7f1b2cdc
-.word 0x3e99999a
-.text
-/*  f0fef68:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0fef6c:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0fef70:	8c830284 */ 	lw	$v1,0x284($a0)
-/*  f0fef74:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0fef78:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0fef7c:	8c6e1580 */ 	lw	$t6,0x1580($v1)
-/*  f0fef80:	3c05800a */ 	lui	$a1,%hi(g_ActiveMenuIndex)
-/*  f0fef84:	31cf0001 */ 	andi	$t7,$t6,0x1
-/*  f0fef88:	55e0002a */ 	bnezl	$t7,.L0f0ff034
-/*  f0fef8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fef90:	8c98028c */ 	lw	$t8,0x28c($a0)
-/*  f0fef94:	24a521b8 */ 	addiu	$a1,$a1,%lo(g_ActiveMenuIndex)
-/*  f0fef98:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f0fef9c:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f0fefa0:	a0790250 */ 	sb	$t9,0x250($v1)
-/*  f0fefa4:	8c88028c */ 	lw	$t0,0x28c($a0)
-/*  f0fefa8:	3c018007 */ 	lui	$at,0x8007
-/*  f0fefac:	3c0c800a */ 	lui	$t4,%hi(g_ActiveMenuThings)
-/*  f0fefb0:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f0fefb4:	00290821 */ 	addu	$at,$at,$t1
-/*  f0fefb8:	ac200750 */ 	sw	$zero,0x750($at)
-/*  f0fefbc:	8caa0000 */ 	lw	$t2,0x0($a1)
-/*  f0fefc0:	44802000 */ 	mtc1	$zero,$f4
-/*  f0fefc4:	258c20d0 */ 	addiu	$t4,$t4,%lo(g_ActiveMenuThings)
-/*  f0fefc8:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f0fefcc:	016a5823 */ 	subu	$t3,$t3,$t2
-/*  f0fefd0:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f0fefd4:	016c1021 */ 	addu	$v0,$t3,$t4
-/*  f0fefd8:	a0400000 */ 	sb	$zero,0x0($v0)
-/*  f0fefdc:	0fc3fb35 */ 	jal	func0f0fecd4
-/*  f0fefe0:	e444001c */ 	swc1	$f4,0x1c($v0)
-/*  f0fefe4:	0fc3fade */ 	jal	activemenuChangeScreen
-/*  f0fefe8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0fefec:	3c0d800a */ 	lui	$t5,0x800a
-/*  f0feff0:	8dad21b8 */ 	lw	$t5,0x21b8($t5)
-/*  f0feff4:	3c0f800a */ 	lui	$t7,%hi(g_ActiveMenuThings)
-/*  f0feff8:	25ef20d0 */ 	addiu	$t7,$t7,%lo(g_ActiveMenuThings)
-/*  f0feffc:	000d70c0 */ 	sll	$t6,$t5,0x3
-/*  f0ff000:	01cd7023 */ 	subu	$t6,$t6,$t5
-/*  f0ff004:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f0ff008:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0ff00c:	84580004 */ 	lh	$t8,0x4($v0)
-/*  f0ff010:	3c017f1b */ 	lui	$at,%hi(var7f1b2cdc)
-/*  f0ff014:	27190005 */ 	addiu	$t9,$t8,0x5
-/*  f0ff018:	a4590002 */ 	sh	$t9,0x2($v0)
-/*  f0ff01c:	c4262cdc */ 	lwc1	$f6,%lo(var7f1b2cdc)($at)
-/*  f0ff020:	a0400034 */ 	sb	$zero,0x34($v0)
-/*  f0ff024:	a0400033 */ 	sb	$zero,0x33($v0)
-/*  f0ff028:	a0400032 */ 	sb	$zero,0x32($v0)
-/*  f0ff02c:	e4460018 */ 	swc1	$f6,0x18($v0)
-/*  f0ff030:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ff034:
-/*  f0ff034:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0ff038:	03e00008 */ 	jr	$ra
-/*  f0ff03c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void activemenuOpen(void)
+{
+	if ((g_Vars.currentplayer->unk1580_s32 & 1) == 0) {
+		g_ActiveMenuIndex = g_Vars.currentplayernum;
+		g_Vars.currentplayer->activemenumode = 1;
+		g_PlayersWithControl[g_Vars.currentplayernum] = false;
+		g_ActiveMenuThings[g_ActiveMenuIndex].screenindex = 0;
+		g_ActiveMenuThings[g_ActiveMenuIndex].unk1c = 0;
+		func0f0fecd4();
+		activemenuChangeScreen(0);
+		g_ActiveMenuThings[g_ActiveMenuIndex].unk02 = g_ActiveMenuThings[g_ActiveMenuIndex].unk04 + 5;
+		g_ActiveMenuThings[g_ActiveMenuIndex].unk18 = 0.3;
+		g_ActiveMenuThings[g_ActiveMenuIndex].unk34 = 0;
+		g_ActiveMenuThings[g_ActiveMenuIndex].unk33 = 0;
+		g_ActiveMenuThings[g_ActiveMenuIndex].unk32 = 0;
+	}
+}
 
 void activemenuClose(void)
 {

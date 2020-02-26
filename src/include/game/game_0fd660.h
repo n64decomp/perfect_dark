@@ -13,7 +13,7 @@ u32 func0f0fe848(void);
 u32 func0f0fea14(void);
 void activemenuChangeScreen(s32 step);
 u32 func0f0fecd4(void);
-u32 func0f0fef68(void);
+void activemenuOpen(void);
 void activemenuClose(void);
 u32 func0f0ff0bc(void);
 u32 func0f0ff274(void);
