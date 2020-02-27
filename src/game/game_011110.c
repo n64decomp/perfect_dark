@@ -1568,7 +1568,7 @@ glabel currentPlayerInit
 //	func0f065c44(g_Vars.currentplayer->prop);
 //	g_Vars.currentplayer->prop->rooms[0] = rooms[0];
 //	g_Vars.currentplayer->prop->rooms[1] = -1;
-//	currentPlayerSetCamPropertiesWithRoom(&pos, &g_Vars.currentplayer->headup, &g_Vars.currentplayer->headlook, rooms[0]);
+//	currentPlayerSetCamPropertiesWithRoom(&pos, &g_Vars.currentplayer->unk0394, &g_Vars.currentplayer->unk0388, rooms[0]);
 //
 //	numchrs = getNumChrs();
 //

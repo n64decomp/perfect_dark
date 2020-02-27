@@ -230,146 +230,37 @@ void currentPlayerUpdateHeadPos(struct coord *vel)
 	g_Vars.currentplayer->headpos.z = g_Vars.currentplayer->headpossum.z * 0.018000006f;
 }
 
-GLOBAL_ASM(
-glabel func0f1135b0
-/*  f1135b0:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f1135b4:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f1135b8:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f1135bc:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1135c0:	8c4e03a4 */ 	lw	$t6,0x3a4($v0)
-/*  f1135c4:	51c00028 */ 	beqzl	$t6,.L0f113668
-/*  f1135c8:	8cd80034 */ 	lw	$t8,0x34($a2)
-/*  f1135cc:	44810000 */ 	mtc1	$at,$f0
-/*  f1135d0:	c44603b0 */ 	lwc1	$f6,0x3b0($v0)
-/*  f1135d4:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f1135d8:	46060201 */ 	sub.s	$f8,$f0,$f6
-/*  f1135dc:	46082283 */ 	div.s	$f10,$f4,$f8
-/*  f1135e0:	e44a03f0 */ 	swc1	$f10,0x3f0($v0)
-/*  f1135e4:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f1135e8:	c4900004 */ 	lwc1	$f16,0x4($a0)
-/*  f1135ec:	c45203b0 */ 	lwc1	$f18,0x3b0($v0)
-/*  f1135f0:	46120181 */ 	sub.s	$f6,$f0,$f18
-/*  f1135f4:	46068103 */ 	div.s	$f4,$f16,$f6
-/*  f1135f8:	e44403f4 */ 	swc1	$f4,0x3f4($v0)
-/*  f1135fc:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f113600:	c4880008 */ 	lwc1	$f8,0x8($a0)
-/*  f113604:	c44a03b0 */ 	lwc1	$f10,0x3b0($v0)
-/*  f113608:	460a0481 */ 	sub.s	$f18,$f0,$f10
-/*  f11360c:	46124403 */ 	div.s	$f16,$f8,$f18
-/*  f113610:	e45003f8 */ 	swc1	$f16,0x3f8($v0)
-/*  f113614:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f113618:	c4a60000 */ 	lwc1	$f6,0x0($a1)
-/*  f11361c:	c44403b0 */ 	lwc1	$f4,0x3b0($v0)
-/*  f113620:	46040281 */ 	sub.s	$f10,$f0,$f4
-/*  f113624:	460a3203 */ 	div.s	$f8,$f6,$f10
-/*  f113628:	e44803fc */ 	swc1	$f8,0x3fc($v0)
-/*  f11362c:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f113630:	c4b20004 */ 	lwc1	$f18,0x4($a1)
-/*  f113634:	c45003b0 */ 	lwc1	$f16,0x3b0($v0)
-/*  f113638:	46100101 */ 	sub.s	$f4,$f0,$f16
-/*  f11363c:	46049183 */ 	div.s	$f6,$f18,$f4
-/*  f113640:	e4460400 */ 	swc1	$f6,0x400($v0)
-/*  f113644:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f113648:	c4aa0008 */ 	lwc1	$f10,0x8($a1)
-/*  f11364c:	c44803b0 */ 	lwc1	$f8,0x3b0($v0)
-/*  f113650:	46080401 */ 	sub.s	$f16,$f0,$f8
-/*  f113654:	46105483 */ 	div.s	$f18,$f10,$f16
-/*  f113658:	e4520404 */ 	swc1	$f18,0x404($v0)
-/*  f11365c:	8ccf0284 */ 	lw	$t7,0x284($a2)
-/*  f113660:	ade003a4 */ 	sw	$zero,0x3a4($t7)
-/*  f113664:	8cd80034 */ 	lw	$t8,0x34($a2)
-.L0f113668:
-/*  f113668:	3c013f80 */ 	lui	$at,0x3f80
-/*  f11366c:	44810000 */ 	mtc1	$at,$f0
-/*  f113670:	1b000030 */ 	blez	$t8,.L0f113734
-/*  f113674:	00001825 */ 	or	$v1,$zero,$zero
-/*  f113678:	8cc20284 */ 	lw	$v0,0x284($a2)
-.L0f11367c:
-/*  f11367c:	c48a0000 */ 	lwc1	$f10,0x0($a0)
-/*  f113680:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f113684:	c44403b0 */ 	lwc1	$f4,0x3b0($v0)
-/*  f113688:	c44603f0 */ 	lwc1	$f6,0x3f0($v0)
-/*  f11368c:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f113690:	46085400 */ 	add.s	$f16,$f10,$f8
-/*  f113694:	e45003f0 */ 	swc1	$f16,0x3f0($v0)
-/*  f113698:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f11369c:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-/*  f1136a0:	c45203b0 */ 	lwc1	$f18,0x3b0($v0)
-/*  f1136a4:	c44403f4 */ 	lwc1	$f4,0x3f4($v0)
-/*  f1136a8:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f1136ac:	46065200 */ 	add.s	$f8,$f10,$f6
-/*  f1136b0:	e44803f4 */ 	swc1	$f8,0x3f4($v0)
-/*  f1136b4:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f1136b8:	c48a0008 */ 	lwc1	$f10,0x8($a0)
-/*  f1136bc:	c45003b0 */ 	lwc1	$f16,0x3b0($v0)
-/*  f1136c0:	c45203f8 */ 	lwc1	$f18,0x3f8($v0)
-/*  f1136c4:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f1136c8:	46045180 */ 	add.s	$f6,$f10,$f4
-/*  f1136cc:	e44603f8 */ 	swc1	$f6,0x3f8($v0)
-/*  f1136d0:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f1136d4:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*  f1136d8:	c44803b0 */ 	lwc1	$f8,0x3b0($v0)
-/*  f1136dc:	c45003fc */ 	lwc1	$f16,0x3fc($v0)
-/*  f1136e0:	46104482 */ 	mul.s	$f18,$f8,$f16
-/*  f1136e4:	46125100 */ 	add.s	$f4,$f10,$f18
-/*  f1136e8:	e44403fc */ 	swc1	$f4,0x3fc($v0)
-/*  f1136ec:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f1136f0:	c4aa0004 */ 	lwc1	$f10,0x4($a1)
-/*  f1136f4:	c44603b0 */ 	lwc1	$f6,0x3b0($v0)
-/*  f1136f8:	c4480400 */ 	lwc1	$f8,0x400($v0)
-/*  f1136fc:	46083402 */ 	mul.s	$f16,$f6,$f8
-/*  f113700:	46105480 */ 	add.s	$f18,$f10,$f16
-/*  f113704:	e4520400 */ 	swc1	$f18,0x400($v0)
-/*  f113708:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f11370c:	c4aa0008 */ 	lwc1	$f10,0x8($a1)
-/*  f113710:	c44403b0 */ 	lwc1	$f4,0x3b0($v0)
-/*  f113714:	c4460404 */ 	lwc1	$f6,0x404($v0)
-/*  f113718:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f11371c:	46085400 */ 	add.s	$f16,$f10,$f8
-/*  f113720:	e4500404 */ 	swc1	$f16,0x404($v0)
-/*  f113724:	8cd90034 */ 	lw	$t9,0x34($a2)
-/*  f113728:	0079082a */ 	slt	$at,$v1,$t9
-/*  f11372c:	5420ffd3 */ 	bnezl	$at,.L0f11367c
-/*  f113730:	8cc20284 */ 	lw	$v0,0x284($a2)
-.L0f113734:
-/*  f113734:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f113738:	c44403b0 */ 	lwc1	$f4,0x3b0($v0)
-/*  f11373c:	c45203f0 */ 	lwc1	$f18,0x3f0($v0)
-/*  f113740:	46040181 */ 	sub.s	$f6,$f0,$f4
-/*  f113744:	46069282 */ 	mul.s	$f10,$f18,$f6
-/*  f113748:	e44a03cc */ 	swc1	$f10,0x3cc($v0)
-/*  f11374c:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f113750:	c45003b0 */ 	lwc1	$f16,0x3b0($v0)
-/*  f113754:	c44803f4 */ 	lwc1	$f8,0x3f4($v0)
-/*  f113758:	46100101 */ 	sub.s	$f4,$f0,$f16
-/*  f11375c:	46044482 */ 	mul.s	$f18,$f8,$f4
-/*  f113760:	e45203d0 */ 	swc1	$f18,0x3d0($v0)
-/*  f113764:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f113768:	c44a03b0 */ 	lwc1	$f10,0x3b0($v0)
-/*  f11376c:	c44603f8 */ 	lwc1	$f6,0x3f8($v0)
-/*  f113770:	460a0401 */ 	sub.s	$f16,$f0,$f10
-/*  f113774:	46103202 */ 	mul.s	$f8,$f6,$f16
-/*  f113778:	e44803d4 */ 	swc1	$f8,0x3d4($v0)
-/*  f11377c:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f113780:	c45203b0 */ 	lwc1	$f18,0x3b0($v0)
-/*  f113784:	c44403fc */ 	lwc1	$f4,0x3fc($v0)
-/*  f113788:	46120281 */ 	sub.s	$f10,$f0,$f18
-/*  f11378c:	460a2182 */ 	mul.s	$f6,$f4,$f10
-/*  f113790:	e44603d8 */ 	swc1	$f6,0x3d8($v0)
-/*  f113794:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f113798:	c44803b0 */ 	lwc1	$f8,0x3b0($v0)
-/*  f11379c:	c4500400 */ 	lwc1	$f16,0x400($v0)
-/*  f1137a0:	46080481 */ 	sub.s	$f18,$f0,$f8
-/*  f1137a4:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f1137a8:	e44403dc */ 	swc1	$f4,0x3dc($v0)
-/*  f1137ac:	8cc20284 */ 	lw	$v0,0x284($a2)
-/*  f1137b0:	c44603b0 */ 	lwc1	$f6,0x3b0($v0)
-/*  f1137b4:	c44a0404 */ 	lwc1	$f10,0x404($v0)
-/*  f1137b8:	46060201 */ 	sub.s	$f8,$f0,$f6
-/*  f1137bc:	46085402 */ 	mul.s	$f16,$f10,$f8
-/*  f1137c0:	03e00008 */ 	jr	$ra
-/*  f1137c4:	e45003e0 */ 	swc1	$f16,0x3e0($v0)
-);
+void currentPlayerUpdateHeadRot(struct coord *lookvel, struct coord *upvel)
+{
+	s32 i;
+
+	if (g_Vars.currentplayer->resetheadrot) {
+		g_Vars.currentplayer->headlooksum.x = lookvel->x / (1.0f - g_Vars.currentplayer->headamp);
+		g_Vars.currentplayer->headlooksum.y = lookvel->y / (1.0f - g_Vars.currentplayer->headamp);
+		g_Vars.currentplayer->headlooksum.z = lookvel->z / (1.0f - g_Vars.currentplayer->headamp);
+		g_Vars.currentplayer->headupsum.x = upvel->x / (1.0f - g_Vars.currentplayer->headamp);
+		g_Vars.currentplayer->headupsum.y = upvel->y / (1.0f - g_Vars.currentplayer->headamp);
+		g_Vars.currentplayer->headupsum.z = upvel->z / (1.0f - g_Vars.currentplayer->headamp);
+
+		g_Vars.currentplayer->resetheadrot = false;
+	}
+
+	for (i = 0; i < g_Vars.lvupdate240; i++) {
+		g_Vars.currentplayer->headlooksum.x = lookvel->x + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headlooksum.x;
+		g_Vars.currentplayer->headlooksum.y = lookvel->y + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headlooksum.y;
+		g_Vars.currentplayer->headlooksum.z = lookvel->z + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headlooksum.z;
+		g_Vars.currentplayer->headupsum.x = upvel->x + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headupsum.x;
+		g_Vars.currentplayer->headupsum.y = upvel->y + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headupsum.y;
+		g_Vars.currentplayer->headupsum.z = upvel->z + g_Vars.currentplayer->headamp * g_Vars.currentplayer->headupsum.z;
+	}
+
+	g_Vars.currentplayer->headlook.x = g_Vars.currentplayer->headlooksum.x * (1.0f - g_Vars.currentplayer->headamp);
+	g_Vars.currentplayer->headlook.y = g_Vars.currentplayer->headlooksum.y * (1.0f - g_Vars.currentplayer->headamp);
+	g_Vars.currentplayer->headlook.z = g_Vars.currentplayer->headlooksum.z * (1.0f - g_Vars.currentplayer->headamp);
+	g_Vars.currentplayer->headup.x = g_Vars.currentplayer->headupsum.x * (1.0f - g_Vars.currentplayer->headamp);
+	g_Vars.currentplayer->headup.y = g_Vars.currentplayer->headupsum.y * (1.0f - g_Vars.currentplayer->headamp);
+	g_Vars.currentplayer->headup.z = g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headamp);
+}
 
 GLOBAL_ASM(
 glabel func0f1137c8
@@ -878,7 +769,7 @@ glabel var7f1b3a74
 /*  f113ee8:	0fc44d2f */ 	jal	currentPlayerUpdateHeadPos
 /*  f113eec:	27a400dc */ 	addiu	$a0,$sp,0xdc
 /*  f113ef0:	27a400d0 */ 	addiu	$a0,$sp,0xd0
-/*  f113ef4:	0fc44d6c */ 	jal	func0f1135b0
+/*  f113ef4:	0fc44d6c */ 	jal	currentPlayerUpdateHeadRot
 /*  f113ef8:	27a500c4 */ 	addiu	$a1,$sp,0xc4
 /*  f113efc:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f113f00:	8fb00018 */ 	lw	$s0,0x18($sp)
