@@ -718,25 +718,10 @@ glabel func0f1140bc
 /*  f114128:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f11412c
-/*  f11412c:	3c013f00 */ 	lui	$at,0x3f00
-/*  f114130:	44812000 */ 	mtc1	$at,$f4
-/*  f114134:	3c04800a */ 	lui	$a0,%hi(var800a045c)
-/*  f114138:	8c84a244 */ 	lw	$a0,-0x5dbc($a0)
-/*  f11413c:	46046182 */ 	mul.s	$f6,$f12,$f4
-/*  f114140:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f114144:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f114148:	24060000 */ 	addiu	$a2,$zero,0x0
-/*  f11414c:	2484045c */ 	addiu	$a0,$a0,%lo(var800a045c)
-/*  f114150:	44053000 */ 	mfc1	$a1,$f6
-/*  f114154:	0c0077ac */ 	jal	func0001deb0
-/*  f114158:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11415c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f114160:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f114164:	03e00008 */ 	jr	$ra
-/*  f114168:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f11412c(f32 speed)
+{
+	func0001deb0(&g_Vars.currentplayer->animdata, speed * 0.5f, 0);
+}
 
 GLOBAL_ASM(
 glabel func0f11416c

@@ -1269,15 +1269,7 @@ struct player {
 	/*0x0428*/ struct coord unk0428[2];
 	/*0x0440*/ struct coord unk0440[2];
 	/*0x0458*/ s32 unk0458;
-	/*0x045c*/ u32 unk045c;
-	/*0x0460*/ u32 unk0460;
-	/*0x0464*/ u32 unk0464;
-	/*0x0468*/ u32 unk0468;
-	/*0x046c*/ u32 unk046c;
-	/*0x0470*/ u32 unk0470;
-	/*0x0474*/ u32 unk0474;
-	/*0x0478*/ u32 unk0478;
-	/*0x047c*/ u32 unk047c;
+	/*0x045c*/ struct animdata animdata;
 	/*0x0480*/ struct eyespy *eyespy;
 	/*0x0484*/ u32 unk0484;
 	/*0x0488*/ u32 unk0488;
