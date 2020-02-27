@@ -5,7 +5,7 @@
 
 u32 func0f113220(void);
 u32 func0f11323c(void);
-u32 func0f1134bc(void);
+void currentPlayerUpdateHeadPos(struct coord *vel);
 u32 func0f1135b0(void);
 u32 func0f1137c8(void);
 u32 func0f1138a4(void);
