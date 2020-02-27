@@ -262,65 +262,19 @@ void currentPlayerUpdateHeadRot(struct coord *lookvel, struct coord *upvel)
 	g_Vars.currentplayer->headup.z = g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headamp);
 }
 
-GLOBAL_ASM(
-glabel func0f1137c8
-/*  f1137c8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f1137cc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f1137d0:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f1137d4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1137d8:	c44003b0 */ 	lwc1	$f0,0x3b0($v0)
-/*  f1137dc:	46006032 */ 	c.eq.s	$f12,$f0
-/*  f1137e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1137e4:	4501002d */ 	bc1t	.L0f11389c
-/*  f1137e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1137ec:	44817000 */ 	mtc1	$at,$f14
-/*  f1137f0:	c44403f0 */ 	lwc1	$f4,0x3f0($v0)
-/*  f1137f4:	46007181 */ 	sub.s	$f6,$f14,$f0
-/*  f1137f8:	460c7081 */ 	sub.s	$f2,$f14,$f12
-/*  f1137fc:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f113800:	46024283 */ 	div.s	$f10,$f8,$f2
-/*  f113804:	e44a03f0 */ 	swc1	$f10,0x3f0($v0)
-/*  f113808:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f11380c:	c45203b0 */ 	lwc1	$f18,0x3b0($v0)
-/*  f113810:	c45003f4 */ 	lwc1	$f16,0x3f4($v0)
-/*  f113814:	46127101 */ 	sub.s	$f4,$f14,$f18
-/*  f113818:	46048182 */ 	mul.s	$f6,$f16,$f4
-/*  f11381c:	46023203 */ 	div.s	$f8,$f6,$f2
-/*  f113820:	e44803f4 */ 	swc1	$f8,0x3f4($v0)
-/*  f113824:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f113828:	c45203b0 */ 	lwc1	$f18,0x3b0($v0)
-/*  f11382c:	c44a03f8 */ 	lwc1	$f10,0x3f8($v0)
-/*  f113830:	46127401 */ 	sub.s	$f16,$f14,$f18
-/*  f113834:	46105102 */ 	mul.s	$f4,$f10,$f16
-/*  f113838:	46022183 */ 	div.s	$f6,$f4,$f2
-/*  f11383c:	e44603f8 */ 	swc1	$f6,0x3f8($v0)
-/*  f113840:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f113844:	c45203b0 */ 	lwc1	$f18,0x3b0($v0)
-/*  f113848:	c44803fc */ 	lwc1	$f8,0x3fc($v0)
-/*  f11384c:	46127281 */ 	sub.s	$f10,$f14,$f18
-/*  f113850:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f113854:	46028103 */ 	div.s	$f4,$f16,$f2
-/*  f113858:	e44403fc */ 	swc1	$f4,0x3fc($v0)
-/*  f11385c:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f113860:	c45203b0 */ 	lwc1	$f18,0x3b0($v0)
-/*  f113864:	c4460400 */ 	lwc1	$f6,0x400($v0)
-/*  f113868:	46127201 */ 	sub.s	$f8,$f14,$f18
-/*  f11386c:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f113870:	46025403 */ 	div.s	$f16,$f10,$f2
-/*  f113874:	e4500400 */ 	swc1	$f16,0x400($v0)
-/*  f113878:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f11387c:	c45203b0 */ 	lwc1	$f18,0x3b0($v0)
-/*  f113880:	c4440404 */ 	lwc1	$f4,0x404($v0)
-/*  f113884:	46127181 */ 	sub.s	$f6,$f14,$f18
-/*  f113888:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f11388c:	46024283 */ 	div.s	$f10,$f8,$f2
-/*  f113890:	e44a0404 */ 	swc1	$f10,0x404($v0)
-/*  f113894:	8c6e0284 */ 	lw	$t6,0x284($v1)
-/*  f113898:	e5cc03b0 */ 	swc1	$f12,0x3b0($t6)
-.L0f11389c:
-/*  f11389c:	03e00008 */ 	jr	$ra
-/*  f1138a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerSetHeadAmp(f32 headamp)
+{
+	if (headamp != g_Vars.currentplayer->headamp) {
+		f32 divisor = 1.0f - headamp;
+		g_Vars.currentplayer->headlooksum.x = (g_Vars.currentplayer->headlooksum.x * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
+		g_Vars.currentplayer->headlooksum.y = (g_Vars.currentplayer->headlooksum.y * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
+		g_Vars.currentplayer->headlooksum.z = (g_Vars.currentplayer->headlooksum.z * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
+		g_Vars.currentplayer->headupsum.x = (g_Vars.currentplayer->headupsum.x * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
+		g_Vars.currentplayer->headupsum.y = (g_Vars.currentplayer->headupsum.y * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
+		g_Vars.currentplayer->headupsum.z = (g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headamp)) / divisor;
+		g_Vars.currentplayer->headamp = headamp;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1138a4
@@ -623,13 +577,13 @@ glabel var7f1b3a74
 /*  f113cb4:	2981003d */ 	slti	$at,$t4,0x3d
 /*  f113cb8:	14200005 */ 	bnez	$at,.L0f113cd0
 /*  f113cbc:	3c017f1b */ 	lui	$at,%hi(var7f1b3a60)
-/*  f113cc0:	0fc44df2 */ 	jal	func0f1137c8
+/*  f113cc0:	0fc44df2 */ 	jal	currentPlayerSetHeadAmp
 /*  f113cc4:	c42c3a60 */ 	lwc1	$f12,%lo(var7f1b3a60)($at)
 /*  f113cc8:	10000087 */ 	beqz	$zero,.L0f113ee8
 /*  f113ccc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f113cd0:
 /*  f113cd0:	3c017f1b */ 	lui	$at,%hi(var7f1b3a64)
-/*  f113cd4:	0fc44df2 */ 	jal	func0f1137c8
+/*  f113cd4:	0fc44df2 */ 	jal	currentPlayerSetHeadAmp
 /*  f113cd8:	c42c3a64 */ 	lwc1	$f12,%lo(var7f1b3a64)($at)
 /*  f113cdc:	10000082 */ 	beqz	$zero,.L0f113ee8
 /*  f113ce0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -647,7 +601,7 @@ glabel var7f1b3a74
 /*  f113d0c:	c44a0524 */ 	lwc1	$f10,0x524($v0)
 /*  f113d10:	e7aa00c8 */ 	swc1	$f10,0xc8($sp)
 /*  f113d14:	c4500528 */ 	lwc1	$f16,0x528($v0)
-/*  f113d18:	0fc44df2 */ 	jal	func0f1137c8
+/*  f113d18:	0fc44df2 */ 	jal	currentPlayerSetHeadAmp
 /*  f113d1c:	e7b000cc */ 	swc1	$f16,0xcc($sp)
 /*  f113d20:	10000071 */ 	beqz	$zero,.L0f113ee8
 /*  f113d24:	00000000 */ 	sll	$zero,$zero,0x0
@@ -668,7 +622,7 @@ glabel var7f1b3a74
 /*  f113d5c:	e7a000e4 */ 	swc1	$f0,0xe4($sp)
 /*  f113d60:	e7a800e0 */ 	swc1	$f8,0xe0($sp)
 /*  f113d64:	ac4003b4 */ 	sw	$zero,0x3b4($v0)
-/*  f113d68:	0fc44df2 */ 	jal	func0f1137c8
+/*  f113d68:	0fc44df2 */ 	jal	currentPlayerSetHeadAmp
 /*  f113d6c:	c42c3a6c */ 	lwc1	$f12,%lo(var7f1b3a6c)($at)
 /*  f113d70:	0fc331a0 */ 	jal	func0f0cc680
 /*  f113d74:	00000000 */ 	sll	$zero,$zero,0x0
