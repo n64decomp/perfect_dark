@@ -45,7 +45,7 @@ u32 func0f0bb69c(void);
 u32 func0f0bb814(void);
 u32 func0f0bbf14(void);
 u32 func0f0bbf78(void);
-void currentPlayerSurroundWithExplosions(u32 arg0);
+void currentPlayerSurroundWithExplosions(s32 arg0);
 u32 func0f0bc120(void);
 void func0f0bc3f0(void);
 u32 func0f0bc44c(void);

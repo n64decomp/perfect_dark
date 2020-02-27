@@ -6341,21 +6341,12 @@ glabel func0f0bbf78
 /*  f0bc0ec:	27bd00a8 */ 	addiu	$sp,$sp,0xa8
 );
 
-GLOBAL_ASM(
-glabel currentPlayerSurroundWithExplosions
-/*  f0bc0f0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0bc0f4:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0bc0f8:	8c4f0284 */ 	lw	$t7,0x284($v0)
-/*  f0bc0fc:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0bc100:	adee1bf0 */ 	sw	$t6,0x1bf0($t7)
-/*  f0bc104:	8c580008 */ 	lw	$t8,0x8($v0)
-/*  f0bc108:	8c480284 */ 	lw	$t0,0x284($v0)
-/*  f0bc10c:	0098c821 */ 	addu	$t9,$a0,$t8
-/*  f0bc110:	ad191bf4 */ 	sw	$t9,0x1bf4($t0)
-/*  f0bc114:	8c490284 */ 	lw	$t1,0x284($v0)
-/*  f0bc118:	03e00008 */ 	jr	$ra
-/*  f0bc11c:	ad201bf8 */ 	sw	$zero,0x1bf8($t1)
-);
+void currentPlayerSurroundWithExplosions(s32 arg0)
+{
+	g_Vars.currentplayer->bondexploding = true;
+	g_Vars.currentplayer->bondnextexplode = arg0 + g_Vars.lvframe60;
+	g_Vars.currentplayer->bondcurexplode = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0bc120
