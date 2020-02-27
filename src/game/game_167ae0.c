@@ -5785,34 +5785,20 @@ void stageLoad(void)
 	func0f01bea0();
 }
 
-GLOBAL_ASM(
-glabel func0f16cce4
-/*  f16cce4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f16cce8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16ccec:	0fc62590 */ 	jal	mpIsPaused
-/*  f16ccf0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16ccf4:	3c0e8008 */ 	lui	$t6,0x8008
-/*  f16ccf8:	8dce4010 */ 	lw	$t6,0x4010($t6)
-/*  f16ccfc:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f16cd00:	504e000a */ 	beql	$v0,$t6,.L0f16cd2c
-/*  f16cd04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16cd08:	10400005 */ 	beqz	$v0,.L0f16cd20
-/*  f16cd0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cd10:	0fc477ae */ 	jal	func0f11deb8
-/*  f16cd14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cd18:	10000004 */ 	beqz	$zero,.L0f16cd2c
-/*  f16cd1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16cd20:
-/*  f16cd20:	0fc477ce */ 	jal	func0f11df38
-/*  f16cd24:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cd28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f16cd2c:
-/*  f16cd2c:	8faf001c */ 	lw	$t7,0x1c($sp)
-/*  f16cd30:	3c018008 */ 	lui	$at,0x8008
-/*  f16cd34:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f16cd38:	03e00008 */ 	jr	$ra
-/*  f16cd3c:	ac2f4010 */ 	sw	$t7,0x4010($at)
-);
+void func0f16cce4(void)
+{
+	u32 paused = mpIsPaused();
+
+	if (paused != var80084010) {
+		if (paused) {
+			func0f11deb8();
+		} else {
+			func0f11df38();
+		}
+	}
+
+	var80084010 = paused;
+}
 
 GLOBAL_ASM(
 glabel func0f16cd40
