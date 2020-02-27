@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f113220(void);
-u32 func0f11323c(void);
+void currentPlayerUpdateIdleHeadRoll(void);
 void currentPlayerUpdateHeadPos(struct coord *vel);
 void currentPlayerUpdateHeadRot(struct coord *lookvel, struct coord *upvel);
 void currentPlayerSetHeadAmp(f32 headamp);
