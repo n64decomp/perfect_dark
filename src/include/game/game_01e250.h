@@ -7,7 +7,7 @@ u32 func0f01e250(void);
 u32 chrSetChrnum(struct chrdata *chr, u32 arg1);
 u32 func0f01e6a4(void);
 u32 func0f01e7f4(void);
-u32 func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, s32 arg4);
+u32 func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, bool arg4);
 u32 func0f020538(void);
 s32 getLowestUnusedChrId(void);
 struct prop *func0f020b14(struct prop *prop, s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4);

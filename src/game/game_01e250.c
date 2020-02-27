@@ -1322,79 +1322,38 @@ glabel func0f01e7f4
 /*  f01f260:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+bool func0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, bool arg4)
+{
+	bool result;
+	struct coord newpos;
+	s16 newrooms[8];
+	f32 ymax;
+	f32 ymin;
+	f32 width;
+
+	newpos.x = pos->x;
+	newpos.y = pos->y + arg3;
+	newpos.z = pos->z;
+
+	propChrGetBbox(chr->prop, &width, &ymax, &ymin);
+	func0f065e74(pos, rooms, &newpos, newrooms);
+	func0f021fa8(chr, &newpos, newrooms);
+	chrSetOrUnsetHiddenFlag00000100(chr, false);
+	result = func0002a684(&newpos, width, newrooms, 63, 1,
+			ymax - chr->prop->pos.y,
+			ymin - chr->prop->pos.y);
+	chrSetOrUnsetHiddenFlag00000100(chr, true);
+
+	if (result == true && arg4) {
+		pos->y = newpos.y;
+		func0f0657a4(newrooms, rooms);
+	}
+
+	return result == true;
+}
+
 GLOBAL_ASM(
-glabel func0f01f264
-/*  f01f264:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f01f268:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f01f26c:	afb10028 */ 	sw	$s1,0x28($sp)
-/*  f01f270:	afb00024 */ 	sw	$s0,0x24($sp)
-/*  f01f274:	afa60068 */ 	sw	$a2,0x68($sp)
-/*  f01f278:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f01f27c:	44876000 */ 	mtc1	$a3,$f12
-/*  f01f280:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f01f284:	e7a40050 */ 	swc1	$f4,0x50($sp)
-/*  f01f288:	c4a60004 */ 	lwc1	$f6,0x4($a1)
-/*  f01f28c:	00808825 */ 	or	$s1,$a0,$zero
-/*  f01f290:	27a70038 */ 	addiu	$a3,$sp,0x38
-/*  f01f294:	460c3200 */ 	add.s	$f8,$f6,$f12
-/*  f01f298:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f01f29c:	e7a80054 */ 	swc1	$f8,0x54($sp)
-/*  f01f2a0:	c4aa0008 */ 	lwc1	$f10,0x8($a1)
-/*  f01f2a4:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f01f2a8:	e7aa0058 */ 	swc1	$f10,0x58($sp)
-/*  f01f2ac:	0fc0a277 */ 	jal	propChrGetBbox
-/*  f01f2b0:	8c84001c */ 	lw	$a0,0x1c($a0)
-/*  f01f2b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f01f2b8:	8fa50068 */ 	lw	$a1,0x68($sp)
-/*  f01f2bc:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  f01f2c0:	0fc1979d */ 	jal	func0f065e74
-/*  f01f2c4:	27a70040 */ 	addiu	$a3,$sp,0x40
-/*  f01f2c8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f01f2cc:	27a50050 */ 	addiu	$a1,$sp,0x50
-/*  f01f2d0:	0fc087ea */ 	jal	func0f021fa8
-/*  f01f2d4:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f01f2d8:	02202025 */ 	or	$a0,$s1,$zero
-/*  f01f2dc:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f01f2e0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f01f2e4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f01f2e8:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f01f2ec:	8e2f001c */ 	lw	$t7,0x1c($s1)
-/*  f01f2f0:	c7b0003c */ 	lwc1	$f16,0x3c($sp)
-/*  f01f2f4:	c7a40038 */ 	lwc1	$f4,0x38($sp)
-/*  f01f2f8:	c5e0000c */ 	lwc1	$f0,0xc($t7)
-/*  f01f2fc:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f01f300:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f01f304:	46008481 */ 	sub.s	$f18,$f16,$f0
-/*  f01f308:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f01f30c:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f01f310:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f01f314:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f01f318:	0c00a9a1 */ 	jal	func0002a684
-/*  f01f31c:	e7a60018 */ 	swc1	$f6,0x18($sp)
-/*  f01f320:	afa2005c */ 	sw	$v0,0x5c($sp)
-/*  f01f324:	02202025 */ 	or	$a0,$s1,$zero
-/*  f01f328:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
-/*  f01f32c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f01f330:	8fb1005c */ 	lw	$s1,0x5c($sp)
-/*  f01f334:	8fb90070 */ 	lw	$t9,0x70($sp)
-/*  f01f338:	3a380001 */ 	xori	$t8,$s1,0x1
-/*  f01f33c:	2f110001 */ 	sltiu	$s1,$t8,0x1
-/*  f01f340:	52200008 */ 	beqzl	$s1,.L0f01f364
-/*  f01f344:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f01f348:	13200005 */ 	beqz	$t9,.L0f01f360
-/*  f01f34c:	c7a80054 */ 	lwc1	$f8,0x54($sp)
-/*  f01f350:	e6080004 */ 	swc1	$f8,0x4($s0)
-/*  f01f354:	8fa50068 */ 	lw	$a1,0x68($sp)
-/*  f01f358:	0fc195e9 */ 	jal	func0f0657a4
-/*  f01f35c:	27a40040 */ 	addiu	$a0,$sp,0x40
-.L0f01f360:
-/*  f01f360:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f01f364:
-/*  f01f364:	02201025 */ 	or	$v0,$s1,$zero
-/*  f01f368:	8fb10028 */ 	lw	$s1,0x28($sp)
-/*  f01f36c:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f01f370:	03e00008 */ 	jr	$ra
-/*  f01f374:	27bd0060 */ 	addiu	$sp,$sp,0x60
+glabel func0f01f378
 /*  f01f378:	27bdfee0 */ 	addiu	$sp,$sp,-288
 /*  f01f37c:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f01f380:	afb10030 */ 	sw	$s1,0x30($sp)

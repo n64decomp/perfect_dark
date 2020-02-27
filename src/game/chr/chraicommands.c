@@ -11352,7 +11352,7 @@ bool aiRemoveReferencesToChr(void)
 bool ai01b4(void)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop &&
-			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->rooms[0], 0, 0)) {
+			func0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, &g_Vars.chrdata->prop->rooms[0], 0, false)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

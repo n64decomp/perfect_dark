@@ -85,7 +85,7 @@ u32 func0002a440(void);
 u32 func0002a4d0(void);
 u32 func0002a564(void);
 u32 func0002a5e4(void);
-u32 func0002a684(void);
+bool func0002a684(struct coord *pos, f32 width, s16 *rooms, s32 arg3, s32 arg4, f32 arg5, f32 arg6);
 u32 func0002a6fc(void);
 u32 func0002a9f0(void);
 u32 func0002aac0(void);

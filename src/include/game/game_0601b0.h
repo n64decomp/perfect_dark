@@ -51,7 +51,7 @@ void func0f065cb0(struct prop *prop);
 u32 func0f065d1c(void);
 u32 func0f065dd8(void);
 u32 func0f065dfc(void);
-u32 func0f065e74(void);
+void func0f065e74(struct coord *pos, s16 *rooms, struct coord *newpos, s16 *newrooms);
 u32 func0f065e98(void);
 void roomGetProps(s16 *room, s16 *propnums, u32 size);
 u32 func0f066054(void);
