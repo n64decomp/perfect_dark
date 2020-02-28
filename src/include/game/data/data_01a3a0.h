@@ -53,7 +53,7 @@ extern u32 var80075c3c;
 extern u32 var80075c48;
 extern u32 var80075c54;
 extern u32 var80075c94;
-extern u32 var80075ca0;
+extern s32 g_WaypointHashes[2];
 extern char var80075cb4[];
 extern char var80075cc0[];
 extern u32 var80075ce0;

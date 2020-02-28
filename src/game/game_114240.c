@@ -3,6 +3,7 @@
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
+#include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_0601b0.h"
 #include "game/game_114240.h"
@@ -19,14 +20,11 @@ const char var7f1b3a80[] = "padhalllv.c";
 
 const u32 var7f1b3a8c[] = {0x00000000};
 
-GLOBAL_ASM(
-glabel waypointSetHashThing
-/*  f114240:	3c028007 */ 	lui	$v0,%hi(var80075ca0)
-/*  f114244:	24425ca0 */ 	addiu	$v0,$v0,%lo(var80075ca0)
-/*  f114248:	ac440000 */ 	sw	$a0,0x0($v0)
-/*  f11424c:	03e00008 */ 	jr	$ra
-/*  f114250:	ac450004 */ 	sw	$a1,0x4($v0)
-);
+void waypointSetHashThing(s32 hash1, s32 hash2)
+{
+	g_WaypointHashes[0] = hash1;
+	g_WaypointHashes[1] = hash2;
+}
 
 GLOBAL_ASM(
 glabel waypointFindClosestToPos
@@ -452,8 +450,8 @@ glabel func0f114810
 /*  f114854:	04400033 */ 	bltz	$v0,.L0f114924
 /*  f114858:	0000b025 */ 	or	$s6,$zero,$zero
 /*  f11485c:	3c13800a */ 	lui	$s3,%hi(g_Vars)
-/*  f114860:	3c108007 */ 	lui	$s0,%hi(var80075ca0)
-/*  f114864:	26105ca0 */ 	addiu	$s0,$s0,%lo(var80075ca0)
+/*  f114860:	3c108007 */ 	lui	$s0,%hi(g_WaypointHashes)
+/*  f114864:	26105ca0 */ 	addiu	$s0,$s0,%lo(g_WaypointHashes)
 /*  f114868:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
 /*  f11486c:	27b40050 */ 	addiu	$s4,$sp,0x50
 /*  f114870:	2412000c */ 	addiu	$s2,$zero,0xc
@@ -714,8 +712,8 @@ glabel func0f114b7c
 /*  f114bc4:	04400034 */ 	bltz	$v0,.L0f114c98
 /*  f114bc8:	0000a825 */ 	or	$s5,$zero,$zero
 /*  f114bcc:	3c12800a */ 	lui	$s2,%hi(g_Vars)
-/*  f114bd0:	3c108007 */ 	lui	$s0,%hi(var80075ca0)
-/*  f114bd4:	26105ca0 */ 	addiu	$s0,$s0,%lo(var80075ca0)
+/*  f114bd0:	3c108007 */ 	lui	$s0,%hi(g_WaypointHashes)
+/*  f114bd4:	26105ca0 */ 	addiu	$s0,$s0,%lo(g_WaypointHashes)
 /*  f114bd8:	26529fc0 */ 	addiu	$s2,$s2,%lo(g_Vars)
 /*  f114bdc:	27b30050 */ 	addiu	$s3,$sp,0x50
 /*  f114be0:	00567024 */ 	and	$t6,$v0,$s6
@@ -1078,10 +1076,10 @@ glabel func0f11505c
 /*  f1150b0:	00c0b025 */ 	or	$s6,$a2,$zero
 /*  f1150b4:	8de30000 */ 	lw	$v1,0x0($t7)
 /*  f1150b8:	00a0b825 */ 	or	$s7,$a1,$zero
-/*  f1150bc:	3c118007 */ 	lui	$s1,%hi(var80075ca0)
+/*  f1150bc:	3c118007 */ 	lui	$s1,%hi(g_WaypointHashes)
 /*  f1150c0:	0460003e */ 	bltz	$v1,.L0f1151bc
 /*  f1150c4:	241e000c */ 	addiu	$s8,$zero,0xc
-/*  f1150c8:	26315ca0 */ 	addiu	$s1,$s1,%lo(var80075ca0)
+/*  f1150c8:	26315ca0 */ 	addiu	$s1,$s1,%lo(g_WaypointHashes)
 /*  f1150cc:	0003c100 */ 	sll	$t8,$v1,0x4
 .L0f1150d0:
 /*  f1150d0:	03139021 */ 	addu	$s2,$t8,$s3
