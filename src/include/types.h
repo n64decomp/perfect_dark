@@ -5183,4 +5183,19 @@ struct var80075c00 {
 	f32 unk14;
 };
 
+struct var800705c0 {
+	u16 unk00;
+	s16 unk02;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+	u32 unk24;
+	u32 unk28;
+};
+
 #endif

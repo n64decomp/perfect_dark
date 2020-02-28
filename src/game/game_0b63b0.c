@@ -6574,20 +6574,11 @@ void optionsSetHiRes(bool enable)
 	g_HiRes = enable;
 }
 
-GLOBAL_ASM(
-glabel func0f0bc44c
-/*  f0bc44c:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f0bc450:	8dce06c8 */ 	lw	$t6,0x6c8($t6)
-/*  f0bc454:	3c038007 */ 	lui	$v1,0x8007
-/*  f0bc458:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0bc45c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0bc460:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0bc464:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0bc468:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0bc46c:	006f1821 */ 	addu	$v1,$v1,$t7
-/*  f0bc470:	03e00008 */ 	jr	$ra
-/*  f0bc474:	846205c2 */ 	lh	$v0,0x5c2($v1)
-);
+s16 func0f0bc44c(void)
+{
+	s16 value = var800705c0[var800706c8].unk02;
+	return value;
+}
 
 GLOBAL_ASM(
 glabel func0f0bc478
