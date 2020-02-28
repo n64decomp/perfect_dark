@@ -47,7 +47,7 @@ extern struct menu_dialog menudialog_1bbbc;
 extern struct savelocation *g_SaveLocations[];
 extern u32 var80075bd0;
 extern u32 var80075be0;
-extern u32 var80075c00;
+extern struct var80075c00 var80075c00[];
 extern u32 var80075c30;
 extern u32 var80075c3c;
 extern u32 var80075c48;

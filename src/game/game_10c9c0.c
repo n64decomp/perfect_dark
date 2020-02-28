@@ -3,6 +3,7 @@
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
+#include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_0f09f0.h"
 #include "game/game_10c9c0.h"
@@ -10,6 +11,7 @@
 #include "game/game_19aa80.h"
 #include "gvars/gvars.h"
 #include "types.h"
+
 s32 menuhandler4MbDropOut(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {

@@ -1120,7 +1120,7 @@ struct player {
 	/*0x018c*/ f32 unk018c;
 	/*0x0190*/ f32 unk0190;
 	/*0x0194*/ f32 unk0194;
-	/*0x0198*/ u32 unk0198;
+	/*0x0198*/ f32 unk0198;
 	/*0x019c*/ u32 unk019c;
 	/*0x01a0*/ u32 unk01a0;
 	/*0x01a4*/ u32 unk01a4;
@@ -1247,7 +1247,7 @@ struct player {
 	/*0x03a0*/ bool resetheadpos;
 	/*0x03a4*/ bool resetheadrot;
 	/*0x03a8*/ u32 unk03a8;
-	/*0x03ac*/ u32 unk03ac;
+	/*0x03ac*/ s32 unk03ac;
 	/*0x03b0*/ f32 headamp;
 	/*0x03b4*/ u32 unk03b4;
 	/*0x03b8*/ u32 unk03b8;
@@ -5172,6 +5172,15 @@ struct somedruggedracething {
 	struct somedruggedracethingdeep *unk08;
 	s32 unk0c;
 	u32 unk10;
+};
+
+struct var80075c00 {
+	u16 unk00;
+	f32 unk04;
+	f32 unk08;
+	f32 unk0c;
+	f32 unk10;
+	f32 unk14;
 };
 
 #endif

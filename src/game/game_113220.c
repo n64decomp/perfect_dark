@@ -3,6 +3,7 @@
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_0160b0.h"
+#include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_096b20.h"
 #include "game/game_0c79f0.h"
@@ -723,69 +724,24 @@ void func0f11412c(f32 speed)
 	func0001deb0(&g_Vars.currentplayer->animdata, speed * 0.5f, 0);
 }
 
-GLOBAL_ASM(
-glabel func0f11416c
-.late_rodata
-glabel var7f1b3a78
-.word 0x3c4cccce
-glabel var7f1b3a7c
-.word 0x3b888889
-.text
-/*  f11416c:	3c02800a */ 	lui	$v0,0x800a
-/*  f114170:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f114174:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f114178:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f11417c:	8c4e03ac */ 	lw	$t6,0x3ac($v0)
-/*  f114180:	3c017f1b */ 	lui	$at,%hi(var7f1b3a78)
-/*  f114184:	05c20027 */ 	bltzl	$t6,.L0f114224
-/*  f114188:	44800000 */ 	mtc1	$zero,$f0
-/*  f11418c:	c4440198 */ 	lwc1	$f4,0x198($v0)
-/*  f114190:	c4263a78 */ 	lwc1	$f6,%lo(var7f1b3a78)($at)
-/*  f114194:	3c017f1b */ 	lui	$at,%hi(var7f1b3a7c)
-/*  f114198:	c42a3a7c */ 	lwc1	$f10,%lo(var7f1b3a7c)($at)
-/*  f11419c:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f1141a0:	2444045c */ 	addiu	$a0,$v0,0x45c
-/*  f1141a4:	460a4080 */ 	add.s	$f2,$f8,$f10
-/*  f1141a8:	0c0074a2 */ 	jal	func0001d288
-/*  f1141ac:	e7a2001c */ 	swc1	$f2,0x1c($sp)
-/*  f1141b0:	44808000 */ 	mtc1	$zero,$f16
-/*  f1141b4:	c7a2001c */ 	lwc1	$f2,0x1c($sp)
-/*  f1141b8:	3c0f800a */ 	lui	$t7,0x800a
-/*  f1141bc:	4600803c */ 	c.lt.s	$f16,$f0
-/*  f1141c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1141c4:	45000014 */ 	bc1f	.L0f114218
-/*  f1141c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1141cc:	8defa244 */ 	lw	$t7,-0x5dbc($t7)
-/*  f1141d0:	3c088007 */ 	lui	$t0,%hi(var80075c00)
-/*  f1141d4:	25085c00 */ 	addiu	$t0,$t0,%lo(var80075c00)
-/*  f1141d8:	8df803ac */ 	lw	$t8,0x3ac($t7)
-/*  f1141dc:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f1141e0:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f1141e4:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f1141e8:	03281021 */ 	addu	$v0,$t9,$t0
-/*  f1141ec:	c4520008 */ 	lwc1	$f18,0x8($v0)
-/*  f1141f0:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f1141f4:	46049181 */ 	sub.s	$f6,$f18,$f4
-/*  f1141f8:	46060303 */ 	div.s	$f12,$f0,$f6
-/*  f1141fc:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f114200:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f114204:	45000002 */ 	bc1f	.L0f114210
-/*  f114208:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11420c:	46001306 */ 	mov.s	$f12,$f2
-.L0f114210:
-/*  f114210:	10000005 */ 	beqz	$zero,.L0f114228
-/*  f114214:	46006006 */ 	mov.s	$f0,$f12
-.L0f114218:
-/*  f114218:	10000003 */ 	beqz	$zero,.L0f114228
-/*  f11421c:	46001006 */ 	mov.s	$f0,$f2
-/*  f114220:	44800000 */ 	mtc1	$zero,$f0
-.L0f114224:
-/*  f114224:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f114228:
-/*  f114228:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f11422c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f114230:	03e00008 */ 	jr	$ra
-/*  f114234:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f114238:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11423c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 func0f11416c(void)
+{
+	if (g_Vars.currentplayer->unk03ac >= 0) {
+		f32 a = g_Vars.currentplayer->unk0198 * 0.012500001f + 0.004166667f;
+		f32 b = func0001d288(&g_Vars.currentplayer->animdata);
+
+		if (b > 0) {
+			f32 c = b / (var80075c00[g_Vars.currentplayer->unk03ac].unk08 - var80075c00[g_Vars.currentplayer->unk03ac].unk04);
+
+			if (c < a) {
+				c = a;
+			}
+
+			return c;
+		}
+
+		return a;
+	}
+
+	return 0;
+}
