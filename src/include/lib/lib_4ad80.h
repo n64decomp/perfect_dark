@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004ad80(void);
+void osWritebackDCache(void *vaddr, s32 nbytes);
 
 #endif

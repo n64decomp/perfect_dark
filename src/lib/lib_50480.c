@@ -146,7 +146,7 @@ glabel func00050554
 /*    50638:	014b3021 */ 	addu	$a2,$t2,$t3
 /*    5063c:	30ccffff */ 	andi	$t4,$a2,0xffff
 /*    50640:	01803025 */ 	or	$a2,$t4,$zero
-/*    50644:	0c012e18 */ 	jal	func0004b860
+/*    50644:	0c012e18 */ 	jal	__osContRamRead
 /*    50648:	27a7014c */ 	addiu	$a3,$sp,0x14c
 /*    5064c:	10400003 */ 	beqz	$v0,.L0005065c
 /*    50650:	97ad0150 */ 	lhu	$t5,0x150($sp)
@@ -267,14 +267,14 @@ glabel func00050554
 /*    507d8:	01603025 */ 	or	$a2,$t3,$zero
 /*    507dc:	8e440004 */ 	lw	$a0,0x4($s2)
 /*    507e0:	8e450008 */ 	lw	$a1,0x8($s2)
-/*    507e4:	0c012e18 */ 	jal	func0004b860
+/*    507e4:	0c012e18 */ 	jal	__osContRamRead
 /*    507e8:	02203825 */ 	or	$a3,$s1,$zero
 /*    507ec:	10000006 */ 	beqz	$zero,.L00050808
 /*    507f0:	00401825 */ 	or	$v1,$v0,$zero
 .L000507f4:
 /*    507f4:	8e440004 */ 	lw	$a0,0x4($s2)
 /*    507f8:	8e450008 */ 	lw	$a1,0x8($s2)
-/*    507fc:	0c012d84 */ 	jal	func0004b610
+/*    507fc:	0c012d84 */ 	jal	__osContRamWrite
 /*    50800:	afa00010 */ 	sw	$zero,0x10($sp)
 /*    50804:	00401825 */ 	or	$v1,$v0,$zero
 .L00050808:
@@ -314,7 +314,7 @@ glabel func00050554
 /*    50880:	30c9ffff */ 	andi	$t1,$a2,0xffff
 /*    50884:	01203025 */ 	or	$a2,$t1,$zero
 /*    50888:	afa00010 */ 	sw	$zero,0x10($sp)
-/*    5088c:	0c012d84 */ 	jal	func0004b610
+/*    5088c:	0c012d84 */ 	jal	__osContRamWrite
 /*    50890:	27a7014c */ 	addiu	$a3,$sp,0x14c
 /*    50894:	50400004 */ 	beqzl	$v0,.L000508a8
 /*    50898:	8e440004 */ 	lw	$a0,0x4($s2)
@@ -323,7 +323,7 @@ glabel func00050554
 .L000508a4:
 /*    508a4:	8e440004 */ 	lw	$a0,0x4($s2)
 .L000508a8:
-/*    508a8:	0c012ea4 */ 	jal	func0004ba90
+/*    508a8:	0c012ea4 */ 	jal	__osPfsGetStatus
 /*    508ac:	8e450008 */ 	lw	$a1,0x8($s2)
 .L000508b0:
 /*    508b0:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -386,7 +386,7 @@ glabel func000508d0
 /*    50970:	01103021 */ 	addu	$a2,$t0,$s0
 /*    50974:	30c9ffff */ 	andi	$t1,$a2,0xffff
 /*    50978:	01203025 */ 	or	$a2,$t1,$zero
-/*    5097c:	0c012e18 */ 	jal	func0004b860
+/*    5097c:	0c012e18 */ 	jal	__osContRamRead
 /*    50980:	02603825 */ 	or	$a3,$s3,$zero
 /*    50984:	10400003 */ 	beqz	$v0,.L00050994
 /*    50988:	97aa0034 */ 	lhu	$t2,0x34($sp)
@@ -412,7 +412,7 @@ glabel func000508d0
 /*    509c8:	8e2e0050 */ 	lw	$t6,0x50($s1)
 /*    509cc:	adee0000 */ 	sw	$t6,0x0($t7)
 /*    509d0:	8e250008 */ 	lw	$a1,0x8($s1)
-/*    509d4:	0c012ea4 */ 	jal	func0004ba90
+/*    509d4:	0c012ea4 */ 	jal	__osPfsGetStatus
 /*    509d8:	8e240004 */ 	lw	$a0,0x4($s1)
 .L000509dc:
 /*    509dc:	8fbf0024 */ 	lw	$ra,0x24($sp)

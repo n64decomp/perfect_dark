@@ -55,7 +55,7 @@ glabel func0004cc10
 /*    4cca4:	03333021 */ 	addu	$a2,$t9,$s3
 /*    4cca8:	30c8ffff */ 	andi	$t0,$a2,0xffff
 /*    4ccac:	01003025 */ 	or	$a2,$t0,$zero
-/*    4ccb0:	0c012e18 */ 	jal	func0004b860
+/*    4ccb0:	0c012e18 */ 	jal	__osContRamRead
 /*    4ccb4:	02c03825 */ 	or	$a3,$s6,$zero
 /*    4ccb8:	50400004 */ 	beqzl	$v0,.L0004cccc
 /*    4ccbc:	8e440004 */ 	lw	$a0,0x4($s2)
@@ -63,7 +63,7 @@ glabel func0004cc10
 /*    4ccc4:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*    4ccc8:	8e440004 */ 	lw	$a0,0x4($s2)
 .L0004cccc:
-/*    4cccc:	0c012ea4 */ 	jal	func0004ba90
+/*    4cccc:	0c012ea4 */ 	jal	__osPfsGetStatus
 /*    4ccd0:	8e450008 */ 	lw	$a1,0x8($s2)
 /*    4ccd4:	10400003 */ 	beqz	$v0,.L0004cce4
 /*    4ccd8:	00403025 */ 	or	$a2,$v0,$zero

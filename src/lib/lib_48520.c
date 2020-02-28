@@ -16,7 +16,7 @@ glabel func00048520
 /*    48528:	afa40028 */ 	sw	$a0,0x28($sp)
 /*    4852c:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*    48530:	afa60030 */ 	sw	$a2,0x30($sp)
-/*    48534:	0c01256c */ 	jal	func000495b0
+/*    48534:	0c01256c */ 	jal	__osDisableInt
 /*    48538:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    4853c:	8fae0028 */ 	lw	$t6,0x28($sp)
 /*    48540:	3c18800a */ 	lui	$t8,%hi(var8009c6e0)
@@ -44,14 +44,14 @@ glabel func00048520
 /*    48598:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4859c:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*    485a0:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*    485a4:	0c012238 */ 	jal	func000488e0
+/*    485a4:	0c012238 */ 	jal	osSendMesg
 /*    485a8:	00003025 */ 	or	$a2,$zero,$zero
 .L000485ac:
 /*    485ac:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*    485b0:	3c018006 */ 	lui	$at,0x8006
 /*    485b4:	ac2e0890 */ 	sw	$t6,0x890($at)
 .L000485b8:
-/*    485b8:	0c012588 */ 	jal	func00049620
+/*    485b8:	0c012588 */ 	jal	__osRestoreInt
 /*    485bc:	02002025 */ 	or	$a0,$s0,$zero
 /*    485c0:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*    485c4:	8fb00018 */ 	lw	$s0,0x18($sp)

@@ -44,7 +44,7 @@ glabel func0004e3c0
 /*    4e42c:	10000009 */ 	beqz	$zero,.L0004e454
 /*    4e430:	2402ffff */ 	addiu	$v0,$zero,-1
 .L0004e434:
-/*    4e434:	0c012d20 */ 	jal	func0004b480
+/*    4e434:	0c012d20 */ 	jal	osVirtualToPhysical
 /*    4e438:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*    4e43c:	3c0ca450 */ 	lui	$t4,0xa450
 /*    4e440:	ad820000 */ 	sw	$v0,0x0($t4)

@@ -25,7 +25,7 @@ glabel func0004b550
 .L0004b57c:
 /*    4b57c:	3c0fa404 */ 	lui	$t7,0xa404
 /*    4b580:	adee0000 */ 	sw	$t6,0x0($t7)
-/*    4b584:	0c012d20 */ 	jal	func0004b480
+/*    4b584:	0c012d20 */ 	jal	osVirtualToPhysical
 /*    4b588:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*    4b58c:	3c18a404 */ 	lui	$t8,0xa404
 /*    4b590:	af020004 */ 	sw	$v0,0x4($t8)

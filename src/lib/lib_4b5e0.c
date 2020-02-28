@@ -31,7 +31,7 @@ glabel func0004b5e0
 );
 
 GLOBAL_ASM(
-glabel func0004b610
+glabel __osContRamWrite
 /*    4b610:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*    4b614:	8faf0078 */ 	lw	$t7,0x78($sp)
 /*    4b618:	afb5002c */ 	sw	$s5,0x2c($sp)
@@ -63,7 +63,7 @@ glabel func0004b610
 .L0004b680:
 /*    4b680:	00c08025 */ 	or	$s0,$a2,$zero
 .L0004b684:
-/*    4b684:	0c012a18 */ 	jal	func0004a860
+/*    4b684:	0c012a18 */ 	jal	__osSiGetAccess
 /*    4b688:	a7a60072 */ 	sh	$a2,0x72($sp)
 /*    4b68c:	0010c0c3 */ 	sra	$t8,$s0,0x3
 /*    4b690:	0010c940 */ 	sll	$t9,$s0,0x5
@@ -135,21 +135,21 @@ glabel func0004b610
 /*    4b780:	0c012c5c */ 	jal	func0004b170
 /*    4b784:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*    4b788:	24040001 */ 	addiu	$a0,$zero,0x1
-/*    4b78c:	0c012a34 */ 	jal	func0004a8d0
+/*    4b78c:	0c012a34 */ 	jal	__osSiRawStartDma
 /*    4b790:	02602825 */ 	or	$a1,$s3,$zero
 /*    4b794:	0c014788 */ 	jal	func00051e20
 /*    4b798:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*    4b79c:	305200ff */ 	andi	$s2,$v0,0xff
 /*    4b7a0:	02a02025 */ 	or	$a0,$s5,$zero
 /*    4b7a4:	00002825 */ 	or	$a1,$zero,$zero
-/*    4b7a8:	0c0121bc */ 	jal	func000486f0
+/*    4b7a8:	0c0121bc */ 	jal	osRecvMesg
 /*    4b7ac:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4b7b0:	00002025 */ 	or	$a0,$zero,$zero
-/*    4b7b4:	0c012a34 */ 	jal	func0004a8d0
+/*    4b7b4:	0c012a34 */ 	jal	__osSiRawStartDma
 /*    4b7b8:	02602825 */ 	or	$a1,$s3,$zero
 /*    4b7bc:	02a02025 */ 	or	$a0,$s5,$zero
 /*    4b7c0:	00002825 */ 	or	$a1,$zero,$zero
-/*    4b7c4:	0c0121bc */ 	jal	func000486f0
+/*    4b7c4:	0c0121bc */ 	jal	osRecvMesg
 /*    4b7c8:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4b7cc:	92030002 */ 	lbu	$v1,0x2($s0)
 /*    4b7d0:	306900c0 */ 	andi	$t1,$v1,0xc0
@@ -160,7 +160,7 @@ glabel func0004b610
 /*    4b7e4:	02a02025 */ 	or	$a0,$s5,$zero
 /*    4b7e8:	51720009 */ 	beql	$t3,$s2,.L0004b810
 /*    4b7ec:	24010004 */ 	addiu	$at,$zero,0x4
-/*    4b7f0:	0c012ea4 */ 	jal	func0004ba90
+/*    4b7f0:	0c012ea4 */ 	jal	__osPfsGetStatus
 /*    4b7f4:	02202825 */ 	or	$a1,$s1,$zero
 /*    4b7f8:	14400009 */ 	bnez	$v0,.L0004b820
 /*    4b7fc:	00401825 */ 	or	$v1,$v0,$zero
@@ -175,7 +175,7 @@ glabel func0004b610
 /*    4b818:	1040ffa7 */ 	beqz	$v0,.L0004b6b8
 /*    4b81c:	2694ffff */ 	addiu	$s4,$s4,-1
 .L0004b820:
-/*    4b820:	0c012a29 */ 	jal	func0004a8a4
+/*    4b820:	0c012a29 */ 	jal	__osSiRelAccess
 /*    4b824:	afa30064 */ 	sw	$v1,0x64($sp)
 /*    4b828:	8fa20064 */ 	lw	$v0,0x64($sp)
 .L0004b82c:
@@ -195,7 +195,7 @@ glabel func0004b610
 );
 
 GLOBAL_ASM(
-glabel func0004b860
+glabel __osContRamRead
 /*    4b860:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*    4b864:	afbf003c */ 	sw	$ra,0x3c($sp)
 /*    4b868:	afb60030 */ 	sw	$s6,0x30($sp)
@@ -211,7 +211,7 @@ glabel func0004b860
 /*    4b890:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    4b894:	afa60068 */ 	sw	$a2,0x68($sp)
 /*    4b898:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*    4b89c:	0c012a18 */ 	jal	func0004a860
+/*    4b89c:	0c012a18 */ 	jal	__osSiGetAccess
 /*    4b8a0:	24150002 */ 	addiu	$s5,$zero,0x2
 /*    4b8a4:	97a5006a */ 	lhu	$a1,0x6a($sp)
 /*    4b8a8:	3c1e8006 */ 	lui	$s8,%hi(var80060970)
@@ -282,18 +282,18 @@ glabel func0004b860
 /*    4b990:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    4b994:	02802825 */ 	or	$a1,$s4,$zero
 /*    4b998:	00594025 */ 	or	$t0,$v0,$t9
-/*    4b99c:	0c012a34 */ 	jal	func0004a8d0
+/*    4b99c:	0c012a34 */ 	jal	__osSiRawStartDma
 /*    4b9a0:	a2080005 */ 	sb	$t0,0x5($s0)
 /*    4b9a4:	02c02025 */ 	or	$a0,$s6,$zero
 /*    4b9a8:	00002825 */ 	or	$a1,$zero,$zero
-/*    4b9ac:	0c0121bc */ 	jal	func000486f0
+/*    4b9ac:	0c0121bc */ 	jal	osRecvMesg
 /*    4b9b0:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4b9b4:	00002025 */ 	or	$a0,$zero,$zero
-/*    4b9b8:	0c012a34 */ 	jal	func0004a8d0
+/*    4b9b8:	0c012a34 */ 	jal	__osSiRawStartDma
 /*    4b9bc:	02802825 */ 	or	$a1,$s4,$zero
 /*    4b9c0:	02c02025 */ 	or	$a0,$s6,$zero
 /*    4b9c4:	00002825 */ 	or	$a1,$zero,$zero
-/*    4b9c8:	0c0121bc */ 	jal	func000486f0
+/*    4b9c8:	0c0121bc */ 	jal	osRecvMesg
 /*    4b9cc:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4b9d0:	92130002 */ 	lbu	$s3,0x2($s0)
 /*    4b9d4:	26120006 */ 	addiu	$s2,$s0,0x6
@@ -309,7 +309,7 @@ glabel func0004b860
 /*    4b9fc:	11620008 */ 	beq	$t3,$v0,.L0004ba20
 /*    4ba00:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4ba04:	02c02025 */ 	or	$a0,$s6,$zero
-/*    4ba08:	0c012ea4 */ 	jal	func0004ba90
+/*    4ba08:	0c012ea4 */ 	jal	__osPfsGetStatus
 /*    4ba0c:	02202825 */ 	or	$a1,$s1,$zero
 /*    4ba10:	1440000d */ 	bnez	$v0,.L0004ba48
 /*    4ba14:	00409825 */ 	or	$s3,$v0,$zero
@@ -329,7 +329,7 @@ glabel func0004b860
 /*    4ba40:	1040ffa3 */ 	beqz	$v0,.L0004b8d0
 /*    4ba44:	26b5ffff */ 	addiu	$s5,$s5,-1
 .L0004ba48:
-/*    4ba48:	0c012a29 */ 	jal	func0004a8a4
+/*    4ba48:	0c012a29 */ 	jal	__osSiRelAccess
 /*    4ba4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4ba50:	8fbf003c */ 	lw	$ra,0x3c($sp)
 /*    4ba54:	02601025 */ 	or	$v0,$s3,$zero

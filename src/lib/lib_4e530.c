@@ -75,7 +75,7 @@ glabel func0004e530
 /*    4e60c:	00408825 */ 	or	$s1,$v0,$zero
 /*    4e610:	02202025 */ 	or	$a0,$s1,$zero
 /*    4e614:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*    4e618:	0c012238 */ 	jal	func000488e0
+/*    4e618:	0c012238 */ 	jal	osSendMesg
 /*    4e61c:	00003025 */ 	or	$a2,$zero,$zero
 /*    4e620:	00408025 */ 	or	$s0,$v0,$zero
 .L0004e624:

@@ -15,7 +15,7 @@ GLOBAL_ASM(
 glabel func00050130
 /*    50130:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    50134:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    50138:	0c012a18 */ 	jal	func0004a860
+/*    50138:	0c012a18 */ 	jal	__osSiGetAccess
 /*    5013c:	afa40030 */ 	sw	$a0,0x30($sp)
 /*    50140:	8fa40030 */ 	lw	$a0,0x30($sp)
 /*    50144:	0c012fb9 */ 	jal	func0004bee4
@@ -37,7 +37,7 @@ glabel func00050130
 /*    5017c:	10000001 */ 	beqz	$zero,.L00050184
 /*    50180:	24030001 */ 	addiu	$v1,$zero,0x1
 .L00050184:
-/*    50184:	0c012a29 */ 	jal	func0004a8a4
+/*    50184:	0c012a29 */ 	jal	__osSiRelAccess
 /*    50188:	afa3002c */ 	sw	$v1,0x2c($sp)
 /*    5018c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    50190:	8fa2002c */ 	lw	$v0,0x2c($sp)
@@ -57,7 +57,7 @@ glabel func000501a0
 /*    501b8:	00c08025 */ 	or	$s0,$a2,$zero
 /*    501bc:	00809025 */ 	or	$s2,$a0,$zero
 /*    501c0:	afa50054 */ 	sw	$a1,0x54($sp)
-/*    501c4:	0c012a18 */ 	jal	func0004a860
+/*    501c4:	0c012a18 */ 	jal	__osSiGetAccess
 /*    501c8:	2631ca80 */ 	addiu	$s1,$s1,%lo(var8009ca80)
 /*    501cc:	02402025 */ 	or	$a0,$s2,$zero
 /*    501d0:	0c012fb9 */ 	jal	func0004bee4
@@ -89,7 +89,7 @@ glabel func000501a0
 .L00050230:
 /*    50230:	10800005 */ 	beqz	$a0,.L00050248
 /*    50234:	93a8003e */ 	lbu	$t0,0x3e($sp)
-/*    50238:	0c012a29 */ 	jal	func0004a8a4
+/*    50238:	0c012a29 */ 	jal	__osSiRelAccess
 /*    5023c:	afa4004c */ 	sw	$a0,0x4c($sp)
 /*    50240:	10000042 */ 	beqz	$zero,.L0005034c
 /*    50244:	8fa2004c */ 	lw	$v0,0x4c($sp)
@@ -109,22 +109,22 @@ glabel func000501a0
 /*    50270:	93a40057 */ 	lbu	$a0,0x57($sp)
 /*    50274:	3c05800a */ 	lui	$a1,%hi(var8009ca80)
 /*    50278:	24a5ca80 */ 	addiu	$a1,$a1,%lo(var8009ca80)
-/*    5027c:	0c012a34 */ 	jal	func0004a8d0
+/*    5027c:	0c012a34 */ 	jal	__osSiRawStartDma
 /*    50280:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    50284:	02402025 */ 	or	$a0,$s2,$zero
 /*    50288:	00002825 */ 	or	$a1,$zero,$zero
-/*    5028c:	0c0121bc */ 	jal	func000486f0
+/*    5028c:	0c0121bc */ 	jal	osRecvMesg
 /*    50290:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    50294:	3c05800a */ 	lui	$a1,%hi(var8009ca80)
 /*    50298:	24a5ca80 */ 	addiu	$a1,$a1,%lo(var8009ca80)
-/*    5029c:	0c012a34 */ 	jal	func0004a8d0
+/*    5029c:	0c012a34 */ 	jal	__osSiRawStartDma
 /*    502a0:	00002025 */ 	or	$a0,$zero,$zero
 /*    502a4:	240c0004 */ 	addiu	$t4,$zero,0x4
 /*    502a8:	3c01800a */ 	lui	$at,0x800a
 /*    502ac:	a02cc820 */ 	sb	$t4,-0x37e0($at)
 /*    502b0:	02402025 */ 	or	$a0,$s2,$zero
 /*    502b4:	00002825 */ 	or	$a1,$zero,$zero
-/*    502b8:	0c0121bc */ 	jal	func000486f0
+/*    502b8:	0c0121bc */ 	jal	osRecvMesg
 /*    502bc:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    502c0:	00001825 */ 	or	$v1,$zero,$zero
 .L000502c4:
@@ -161,7 +161,7 @@ glabel func000501a0
 /*    50338:	1443fff6 */ 	bne	$v0,$v1,.L00050314
 /*    5033c:	a20bffff */ 	sb	$t3,-0x1($s0)
 .L00050340:
-/*    50340:	0c012a29 */ 	jal	func0004a8a4
+/*    50340:	0c012a29 */ 	jal	__osSiRelAccess
 /*    50344:	afa4004c */ 	sw	$a0,0x4c($sp)
 /*    50348:	8fa2004c */ 	lw	$v0,0x4c($sp)
 .L0005034c:

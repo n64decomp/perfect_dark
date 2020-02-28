@@ -56,14 +56,14 @@ glabel func00048650
 );
 
 GLOBAL_ASM(
-glabel func000486f0
+glabel osRecvMesg
 /*    486f0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    486f4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    486f8:	afa40028 */ 	sw	$a0,0x28($sp)
 /*    486fc:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*    48700:	afa60030 */ 	sw	$a2,0x30($sp)
 /*    48704:	afb10018 */ 	sw	$s1,0x18($sp)
-/*    48708:	0c01256c */ 	jal	func000495b0
+/*    48708:	0c01256c */ 	jal	__osDisableInt
 /*    4870c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*    48710:	8fae0028 */ 	lw	$t6,0x28($sp)
 /*    48714:	00408025 */ 	or	$s0,$v0,$zero
@@ -74,7 +74,7 @@ glabel func000486f0
 /*    48724:	8fb80030 */ 	lw	$t8,0x30($sp)
 /*    48728:	17000005 */ 	bnez	$t8,.L00048740
 /*    4872c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    48730:	0c012588 */ 	jal	func00049620
+/*    48730:	0c012588 */ 	jal	__osRestoreInt
 /*    48734:	02002025 */ 	or	$a0,$s0,$zero
 /*    48738:	10000036 */ 	beqz	$zero,.L00048814
 /*    4873c:	2402ffff */ 	addiu	$v0,$zero,-1
@@ -83,7 +83,7 @@ glabel func000486f0
 /*    48744:	8d080940 */ 	lw	$t0,0x940($t0)
 /*    48748:	24190008 */ 	addiu	$t9,$zero,0x8
 /*    4874c:	a5190010 */ 	sh	$t9,0x10($t0)
-/*    48750:	0c000ee8 */ 	jal	func00003ba0
+/*    48750:	0c000ee8 */ 	jal	__osEnqueueAndYield
 /*    48754:	8fa40028 */ 	lw	$a0,0x28($sp)
 /*    48758:	8fa90028 */ 	lw	$t1,0x28($sp)
 /*    4875c:	8d2a0008 */ 	lw	$t2,0x8($t1)
@@ -128,13 +128,13 @@ glabel func000486f0
 /*    487e8:	8d690000 */ 	lw	$t1,0x0($t3)
 /*    487ec:	11200006 */ 	beqz	$t1,.L00048808
 /*    487f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    487f4:	0c000f40 */ 	jal	func00003d00
+/*    487f4:	0c000f40 */ 	jal	__osPopThread
 /*    487f8:	27240004 */ 	addiu	$a0,$t9,0x4
 /*    487fc:	00408825 */ 	or	$s1,$v0,$zero
-/*    48800:	0c01207c */ 	jal	func000481f0
+/*    48800:	0c01207c */ 	jal	osStartThread
 /*    48804:	02202025 */ 	or	$a0,$s1,$zero
 .L00048808:
-/*    48808:	0c012588 */ 	jal	func00049620
+/*    48808:	0c012588 */ 	jal	__osRestoreInt
 /*    4880c:	02002025 */ 	or	$a0,$s0,$zero
 /*    48810:	00001025 */ 	or	$v0,$zero,$zero
 .L00048814:

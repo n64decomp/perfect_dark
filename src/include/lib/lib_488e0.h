@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func000488e0(void);
+s32 osSendMesg(OSMesgQueue *mq, OSMesg msg, s32 flag);
 u32 func00048a30(void);
 
 #endif

@@ -62,7 +62,7 @@ glabel func0004d480
 /*    4d520:	01093021 */ 	addu	$a2,$t0,$t1
 /*    4d524:	30caffff */ 	andi	$t2,$a2,0xffff
 /*    4d528:	01403025 */ 	or	$a2,$t2,$zero
-/*    4d52c:	0c012e18 */ 	jal	func0004b860
+/*    4d52c:	0c012e18 */ 	jal	__osContRamRead
 /*    4d530:	27a70048 */ 	addiu	$a3,$sp,0x48
 /*    4d534:	10400003 */ 	beqz	$v0,.L0004d544
 /*    4d538:	93b0004e */ 	lbu	$s0,0x4e($sp)
@@ -134,7 +134,7 @@ glabel func0004d480
 /*    4d620:	30cfffff */ 	andi	$t7,$a2,0xffff
 /*    4d624:	01e03025 */ 	or	$a2,$t7,$zero
 /*    4d628:	afa00010 */ 	sw	$zero,0x10($sp)
-/*    4d62c:	0c012d84 */ 	jal	func0004b610
+/*    4d62c:	0c012d84 */ 	jal	__osContRamWrite
 /*    4d630:	27a70048 */ 	addiu	$a3,$sp,0x48
 .L0004d634:
 /*    4d634:	8fbf0034 */ 	lw	$ra,0x34($sp)

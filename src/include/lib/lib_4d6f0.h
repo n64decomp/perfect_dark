@@ -7,6 +7,6 @@ u32 func0004d6f0(void);
 u32 func0004dc28(void);
 u32 func0004def4(void);
 u32 func0004e090(void);
-u32 func0004e1b0(void);
+void osMapTLB(s32 index, OSPageMask pm, void *vaddr, u32 evenpaddr, u32 oddpaddr, s32 asid);
 
 #endif

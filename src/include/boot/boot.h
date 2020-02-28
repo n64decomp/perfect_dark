@@ -5,7 +5,7 @@
 s32 func000010a4(void);
 s32 func0000113c(void);
 s32 func00001180(void);
-s32 func000016c0(void);
+s32 osGetMemSize(void);
 s32 func000018ac(void);
 void func00001b28(u32 arg0);
 s32 func00001e30(void);

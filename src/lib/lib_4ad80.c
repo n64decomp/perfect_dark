@@ -8,7 +8,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004ad80
+glabel osWritebackDCache
 /*    4ad80:	18a00011 */ 	blez	$a1,.L0004adc8
 /*    4ad84:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4ad88:	240b2000 */ 	addiu	$t3,$zero,0x2000

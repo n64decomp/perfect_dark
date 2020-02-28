@@ -26,7 +26,7 @@ glabel func00051c60
 );
 
 GLOBAL_ASM(
-glabel func00051c90
+glabel __osProbeTLB
 /*    51c90:	40085000 */ 	mfc0	$t0,$10
 /*    51c94:	310900ff */ 	andi	$t1,$t0,0xff
 /*    51c98:	2401e000 */ 	addiu	$at,$zero,-8192

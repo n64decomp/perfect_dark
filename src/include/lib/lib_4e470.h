@@ -4,6 +4,6 @@
 #include "types.h"
 
 u32 func0004e470(void);
-u32 func0004e480(void);
+void osInvalDCache(void *vaddr, s32 nbytes);
 
 #endif

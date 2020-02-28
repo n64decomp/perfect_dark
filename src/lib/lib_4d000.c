@@ -230,7 +230,7 @@ glabel func0004d000
 /*    4d2f4:	03193021 */ 	addu	$a2,$t8,$t9
 /*    4d2f8:	30c8ffff */ 	andi	$t0,$a2,0xffff
 /*    4d2fc:	01003025 */ 	or	$a2,$t0,$zero
-/*    4d300:	0c012d84 */ 	jal	func0004b610
+/*    4d300:	0c012d84 */ 	jal	__osContRamWrite
 /*    4d304:	27a70060 */ 	addiu	$a3,$sp,0x60
 .L0004d308:
 /*    4d308:	8fbf0044 */ 	lw	$ra,0x44($sp)

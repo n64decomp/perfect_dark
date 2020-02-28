@@ -12,7 +12,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func000488e0
+glabel osSendMesg
 /*    488e0:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    488e4:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*    488e8:	afa40038 */ 	sw	$a0,0x38($sp)
@@ -20,7 +20,7 @@ glabel func000488e0
 /*    488f0:	afa60040 */ 	sw	$a2,0x40($sp)
 /*    488f4:	afb20020 */ 	sw	$s2,0x20($sp)
 /*    488f8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*    488fc:	0c01256c */ 	jal	func000495b0
+/*    488fc:	0c01256c */ 	jal	__osDisableInt
 /*    48900:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    48904:	8fae0038 */ 	lw	$t6,0x38($sp)
 /*    48908:	00408025 */ 	or	$s0,$v0,$zero
@@ -39,12 +39,12 @@ glabel func000488e0
 /*    48938:	24080008 */ 	addiu	$t0,$zero,0x8
 /*    4893c:	a5280010 */ 	sh	$t0,0x10($t1)
 /*    48940:	8fa40038 */ 	lw	$a0,0x38($sp)
-/*    48944:	0c000ee8 */ 	jal	func00003ba0
+/*    48944:	0c000ee8 */ 	jal	__osEnqueueAndYield
 /*    48948:	24840004 */ 	addiu	$a0,$a0,0x4
 /*    4894c:	10000005 */ 	beqz	$zero,.L00048964
 /*    48950:	00000000 */ 	sll	$zero,$zero,0x0
 .L00048954:
-/*    48954:	0c012588 */ 	jal	func00049620
+/*    48954:	0c012588 */ 	jal	__osRestoreInt
 /*    48958:	02002025 */ 	or	$a0,$s0,$zero
 /*    4895c:	1000002d */ 	beqz	$zero,.L00048a14
 /*    48960:	2402ffff */ 	addiu	$v0,$zero,-1
@@ -88,13 +88,13 @@ glabel func000488e0
 /*    489e8:	8f2d0000 */ 	lw	$t5,0x0($t9)
 /*    489ec:	11a00006 */ 	beqz	$t5,.L00048a08
 /*    489f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*    489f4:	0c000f40 */ 	jal	func00003d00
+/*    489f4:	0c000f40 */ 	jal	__osPopThread
 /*    489f8:	03002025 */ 	or	$a0,$t8,$zero
 /*    489fc:	00409025 */ 	or	$s2,$v0,$zero
-/*    48a00:	0c01207c */ 	jal	func000481f0
+/*    48a00:	0c01207c */ 	jal	osStartThread
 /*    48a04:	02402025 */ 	or	$a0,$s2,$zero
 .L00048a08:
-/*    48a08:	0c012588 */ 	jal	func00049620
+/*    48a08:	0c012588 */ 	jal	__osRestoreInt
 /*    48a0c:	02002025 */ 	or	$a0,$s0,$zero
 /*    48a10:	00001025 */ 	or	$v0,$zero,$zero
 .L00048a14:
@@ -120,7 +120,7 @@ glabel func00048a30
 /*    48a50:	1000002c */ 	beqz	$zero,.L00048b04
 /*    48a54:	2402ffff */ 	addiu	$v0,$zero,-1
 .L00048a58:
-/*    48a58:	0c01256c */ 	jal	func000495b0
+/*    48a58:	0c01256c */ 	jal	__osDisableInt
 /*    48a5c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    48a60:	8fb80030 */ 	lw	$t8,0x30($sp)
 /*    48a64:	3c088006 */ 	lui	$t0,0x8006
@@ -162,7 +162,7 @@ glabel func00048a30
 /*    48af0:	0c014620 */ 	jal	func00051880
 /*    48af4:	00002025 */ 	or	$a0,$zero,$zero
 .L00048af8:
-/*    48af8:	0c012588 */ 	jal	func00049620
+/*    48af8:	0c012588 */ 	jal	__osRestoreInt
 /*    48afc:	02002025 */ 	or	$a0,$s0,$zero
 /*    48b00:	00001025 */ 	or	$v0,$zero,$zero
 .L00048b04:

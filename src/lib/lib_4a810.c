@@ -15,7 +15,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004a810
+glabel __osSiCreateAccessQueue
 /*    4a810:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4a814:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4a818:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -25,12 +25,12 @@ glabel func0004a810
 /*    4a828:	ac2e0950 */ 	sw	$t6,0x950($at)
 /*    4a82c:	24a5c7c0 */ 	addiu	$a1,$a1,%lo(var8009c7c0)
 /*    4a830:	2484c7c8 */ 	addiu	$a0,$a0,%lo(var8009c7c8)
-/*    4a834:	0c0120d0 */ 	jal	func00048340
+/*    4a834:	0c0120d0 */ 	jal	osCreateMesgQueue
 /*    4a838:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4a83c:	3c04800a */ 	lui	$a0,%hi(var8009c7c8)
 /*    4a840:	2484c7c8 */ 	addiu	$a0,$a0,%lo(var8009c7c8)
 /*    4a844:	00002825 */ 	or	$a1,$zero,$zero
-/*    4a848:	0c012238 */ 	jal	func000488e0
+/*    4a848:	0c012238 */ 	jal	osSendMesg
 /*    4a84c:	00003025 */ 	or	$a2,$zero,$zero
 /*    4a850:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4a854:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -39,20 +39,20 @@ glabel func0004a810
 );
 
 GLOBAL_ASM(
-glabel func0004a860
+glabel __osSiGetAccess
 /*    4a860:	3c0e8006 */ 	lui	$t6,0x8006
 /*    4a864:	8dce0950 */ 	lw	$t6,0x950($t6)
 /*    4a868:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    4a86c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4a870:	15c00003 */ 	bnez	$t6,.L0004a880
 /*    4a874:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4a878:	0c012a04 */ 	jal	func0004a810
+/*    4a878:	0c012a04 */ 	jal	__osSiCreateAccessQueue
 /*    4a87c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0004a880:
 /*    4a880:	3c04800a */ 	lui	$a0,%hi(var8009c7c8)
 /*    4a884:	2484c7c8 */ 	addiu	$a0,$a0,%lo(var8009c7c8)
 /*    4a888:	27a5001c */ 	addiu	$a1,$sp,0x1c
-/*    4a88c:	0c0121bc */ 	jal	func000486f0
+/*    4a88c:	0c0121bc */ 	jal	osRecvMesg
 /*    4a890:	24060001 */ 	addiu	$a2,$zero,0x1
 /*    4a894:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4a898:	27bd0020 */ 	addiu	$sp,$sp,0x20
@@ -61,13 +61,13 @@ glabel func0004a860
 );
 
 GLOBAL_ASM(
-glabel func0004a8a4
+glabel __osSiRelAccess
 /*    4a8a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4a8a8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4a8ac:	3c04800a */ 	lui	$a0,%hi(var8009c7c8)
 /*    4a8b0:	2484c7c8 */ 	addiu	$a0,$a0,%lo(var8009c7c8)
 /*    4a8b4:	00002825 */ 	or	$a1,$zero,$zero
-/*    4a8b8:	0c012238 */ 	jal	func000488e0
+/*    4a8b8:	0c012238 */ 	jal	osSendMesg
 /*    4a8bc:	00003025 */ 	or	$a2,$zero,$zero
 /*    4a8c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4a8c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -76,7 +76,7 @@ glabel func0004a8a4
 );
 
 GLOBAL_ASM(
-glabel func0004a8d0
+glabel __osSiRawStartDma
 /*    4a8d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4a8d4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4a8d8:	afa5001c */ 	sw	$a1,0x1c($sp)
@@ -93,12 +93,12 @@ glabel func0004a8d0
 /*    4a900:	14c10005 */ 	bne	$a2,$at,.L0004a918
 /*    4a904:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*    4a908:	24050040 */ 	addiu	$a1,$zero,0x40
-/*    4a90c:	0c012b60 */ 	jal	func0004ad80
+/*    4a90c:	0c012b60 */ 	jal	osWritebackDCache
 /*    4a910:	afa60018 */ 	sw	$a2,0x18($sp)
 /*    4a914:	8fa60018 */ 	lw	$a2,0x18($sp)
 .L0004a918:
 /*    4a918:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    4a91c:	0c012d20 */ 	jal	func0004b480
+/*    4a91c:	0c012d20 */ 	jal	osVirtualToPhysical
 /*    4a920:	afa60018 */ 	sw	$a2,0x18($sp)
 /*    4a924:	8fa60018 */ 	lw	$a2,0x18($sp)
 /*    4a928:	3c19a480 */ 	lui	$t9,0xa480
@@ -117,7 +117,7 @@ glabel func0004a8d0
 .L0004a958:
 /*    4a958:	14c00003 */ 	bnez	$a2,.L0004a968
 /*    4a95c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    4a960:	0c013920 */ 	jal	func0004e480
+/*    4a960:	0c013920 */ 	jal	osInvalDCache
 /*    4a964:	24050040 */ 	addiu	$a1,$zero,0x40
 .L0004a968:
 /*    4a968:	00001025 */ 	or	$v0,$zero,$zero

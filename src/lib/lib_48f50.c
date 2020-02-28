@@ -12,7 +12,7 @@ GLOBAL_ASM(
 glabel func00048f50
 /*    48f50:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    48f54:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    48f58:	0c01256c */ 	jal	func000495b0
+/*    48f58:	0c01256c */ 	jal	__osDisableInt
 /*    48f5c:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    48f60:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*    48f64:	00402825 */ 	or	$a1,$v0,$zero
@@ -99,7 +99,7 @@ glabel func00048f50
 /*    49088:	00a02025 */ 	or	$a0,$a1,$zero
 /*    4908c:	944f0000 */ 	lhu	$t7,0x0($v0)
 /*    49090:	35f80008 */ 	ori	$t8,$t7,0x8
-/*    49094:	0c012588 */ 	jal	func00049620
+/*    49094:	0c012588 */ 	jal	__osRestoreInt
 /*    49098:	a4580000 */ 	sh	$t8,0x0($v0)
 /*    4909c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    490a0:	27bd0018 */ 	addiu	$sp,$sp,0x18

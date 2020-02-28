@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004b480(void);
+u32 osVirtualToPhysical(void *);
 
 #endif

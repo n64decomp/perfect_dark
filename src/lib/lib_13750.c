@@ -16,5 +16,5 @@ void func00013750(void)
 
 void func00013758(void)
 {
-	func00048340(&var80099a40, &var80099a20, 8);
+	osCreateMesgQueue(&var80099a40, &var80099a20, 8);
 }

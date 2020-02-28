@@ -2980,7 +2980,7 @@ glabel func0f1408a8
 /*  f140a88:	8fb10054 */ 	lw	$s1,0x54($sp)
 /*  f140a8c:	26290008 */ 	addiu	$t1,$s1,0x8
 /*  f140a90:	afa90054 */ 	sw	$t1,0x54($sp)
-/*  f140a94:	0c012d20 */ 	jal	func0004b480
+/*  f140a94:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f140a98:	ae2a0000 */ 	sw	$t2,0x0($s1)
 /*  f140a9c:	ae220004 */ 	sw	$v0,0x4($s1)
 /*  f140aa0:	8e0b0064 */ 	lw	$t3,0x64($s0)
@@ -2997,7 +2997,7 @@ glabel func0f1408a8
 /*  f140acc:	ad8e0004 */ 	sw	$t6,0x4($t4)
 .L0f140ad0:
 /*  f140ad0:	afb80054 */ 	sw	$t8,0x54($sp)
-/*  f140ad4:	0c012d20 */ 	jal	func0004b480
+/*  f140ad4:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f140ad8:	ae340000 */ 	sw	$s4,0x0($s1)
 /*  f140adc:	ae220004 */ 	sw	$v0,0x4($s1)
 .L0f140ae0:
@@ -3161,7 +3161,7 @@ glabel func0f140b7c
 /*  f140d2c:	8fb10054 */ 	lw	$s1,0x54($sp)
 /*  f140d30:	262b0008 */ 	addiu	$t3,$s1,0x8
 /*  f140d34:	afab0054 */ 	sw	$t3,0x54($sp)
-/*  f140d38:	0c012d20 */ 	jal	func0004b480
+/*  f140d38:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f140d3c:	ae2c0000 */ 	sw	$t4,0x0($s1)
 /*  f140d40:	ae220004 */ 	sw	$v0,0x4($s1)
 /*  f140d44:	8e0d0064 */ 	lw	$t5,0x64($s0)
@@ -3178,7 +3178,7 @@ glabel func0f140b7c
 /*  f140d70:	add80004 */ 	sw	$t8,0x4($t6)
 .L0f140d74:
 /*  f140d74:	afa80054 */ 	sw	$t0,0x54($sp)
-/*  f140d78:	0c012d20 */ 	jal	func0004b480
+/*  f140d78:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f140d7c:	ae340000 */ 	sw	$s4,0x0($s1)
 /*  f140d80:	ae220004 */ 	sw	$v0,0x4($s1)
 .L0f140d84:
@@ -3326,7 +3326,7 @@ glabel func0f140e20
 /*  f140f8c:	37180040 */ 	ori	$t8,$t8,0x40
 /*  f140f90:	01a0a825 */ 	or	$s5,$t5,$zero
 /*  f140f94:	ae380000 */ 	sw	$t8,0x0($s1)
-/*  f140f98:	0c012d20 */ 	jal	func0004b480
+/*  f140f98:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f140f9c:	016c2021 */ 	addu	$a0,$t3,$t4
 /*  f140fa0:	ae220004 */ 	sw	$v0,0x4($s1)
 .L0f140fa4:
@@ -3398,7 +3398,7 @@ glabel func0f140e20
 /*  f141098:	8fb100b8 */ 	lw	$s1,0xb8($sp)
 /*  f14109c:	262f0008 */ 	addiu	$t7,$s1,0x8
 /*  f1410a0:	afaf00b8 */ 	sw	$t7,0xb8($sp)
-/*  f1410a4:	0c012d20 */ 	jal	func0004b480
+/*  f1410a4:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f1410a8:	ae380000 */ 	sw	$t8,0x0($s1)
 /*  f1410ac:	ae220004 */ 	sw	$v0,0x4($s1)
 /*  f1410b0:	8e190064 */ 	lw	$t9,0x64($s0)
@@ -3415,7 +3415,7 @@ glabel func0f140e20
 /*  f1410dc:	ad0a0004 */ 	sw	$t2,0x4($t0)
 .L0f1410e0:
 /*  f1410e0:	afac00b8 */ 	sw	$t4,0xb8($sp)
-/*  f1410e4:	0c012d20 */ 	jal	func0004b480
+/*  f1410e4:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f1410e8:	ae340000 */ 	sw	$s4,0x0($s1)
 /*  f1410ec:	ae220004 */ 	sw	$v0,0x4($s1)
 .L0f1410f0:

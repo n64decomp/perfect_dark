@@ -31,7 +31,7 @@ glabel func0000d0a0
 /*     d0d4:	adc00000 */ 	sw	$zero,0x0($t6)
 /*     d0d8:	24a54e08 */ 	addiu	$a1,$a1,%lo(var80094e08)
 /*     d0dc:	24844e88 */ 	addiu	$a0,$a0,%lo(var80094e88)
-/*     d0e0:	0c0120d0 */ 	jal	func00048340
+/*     d0e0:	0c0120d0 */ 	jal	osCreateMesgQueue
 /*     d0e4:	24060020 */ 	addiu	$a2,$zero,0x20
 /*     d0e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     d0ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -75,7 +75,7 @@ glabel func0000d0f8
 /*     d16c:	0000f025 */ 	or	$s8,$zero,$zero
 /*     d170:	afb00050 */ 	sw	$s0,0x50($sp)
 .L0000d174:
-/*     d174:	0c013920 */ 	jal	func0004e480
+/*     d174:	0c013920 */ 	jal	osInvalDCache
 /*     d178:	02002825 */ 	or	$a1,$s0,$zero
 /*     d17c:	13c0001b */ 	beqz	$s8,.L0000d1ec
 /*     d180:	00009025 */ 	or	$s2,$zero,$zero
@@ -238,7 +238,7 @@ glabel func0000d350
 .L0000d39c:
 /*     d39c:	02802825 */ 	or	$a1,$s4,$zero
 /*     d3a0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*     d3a4:	0c0121bc */ 	jal	func000486f0
+/*     d3a4:	0c0121bc */ 	jal	osRecvMesg
 /*     d3a8:	00008025 */ 	or	$s0,$zero,$zero
 /*     d3ac:	3c028009 */ 	lui	$v0,%hi(var80094ae8)
 /*     d3b0:	24424ae8 */ 	addiu	$v0,$v0,%lo(var80094ae8)

@@ -5365,7 +5365,7 @@ glabel func0f173010
 /*  f1730a4:	0c012048 */ 	jal	func00048120
 /*  f1730a8:	afab002c */ 	sw	$t3,0x2c($sp)
 /*  f1730ac:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f1730b0:	0c013920 */ 	jal	func0004e480
+/*  f1730b0:	0c013920 */ 	jal	osInvalDCache
 /*  f1730b4:	24052000 */ 	addiu	$a1,$zero,0x2000
 /*  f1730b8:	3c0d800b */ 	lui	$t5,0x800b
 /*  f1730bc:	8dadb53c */ 	lw	$t5,-0x4ac4($t5)
@@ -5446,7 +5446,7 @@ glabel func0f173010
 /*  f1731d8:	50200007 */ 	beqzl	$at,.L0f1731f8
 /*  f1731dc:	93ac148b */ 	lbu	$t4,0x148b($sp)
 .L0f1731e0:
-/*  f1731e0:	0c012d20 */ 	jal	func0004b480
+/*  f1731e0:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f1731e4:	8e040000 */ 	lw	$a0,0x0($s0)
 /*  f1731e8:	8fad24f0 */ 	lw	$t5,0x24f0($sp)
 /*  f1731ec:	1000008c */ 	beqz	$zero,.L0f173420
@@ -5598,7 +5598,7 @@ glabel func0f173010
 .L0f17340c:
 /*  f17340c:	8fb9149c */ 	lw	$t9,0x149c($sp)
 .L0f173410:
-/*  f173410:	0c012d20 */ 	jal	func0004b480
+/*  f173410:	0c012d20 */ 	jal	osVirtualToPhysical
 /*  f173414:	8f240004 */ 	lw	$a0,0x4($t9)
 /*  f173418:	8faa24f0 */ 	lw	$t2,0x24f0($sp)
 /*  f17341c:	ad420000 */ 	sw	$v0,0x0($t2)

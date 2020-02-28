@@ -131,7 +131,7 @@ glabel func0004923c
 /*    4935c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    49360:	01c02025 */ 	or	$a0,$t6,$zero
 /*    49364:	8f25001c */ 	lw	$a1,0x1c($t9)
-/*    49368:	0c012238 */ 	jal	func000488e0
+/*    49368:	0c012238 */ 	jal	osSendMesg
 /*    4936c:	00003025 */ 	or	$a2,$zero,$zero
 .L00049370:
 /*    49370:	8faf0024 */ 	lw	$t7,0x24($sp)
@@ -160,7 +160,7 @@ glabel func000493b4
 /*    493b4:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    493b8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    493bc:	afa40028 */ 	sw	$a0,0x28($sp)
-/*    493c0:	0c01256c */ 	jal	func000495b0
+/*    493c0:	0c01256c */ 	jal	__osDisableInt
 /*    493c4:	afa5002c */ 	sw	$a1,0x2c($sp)
 /*    493c8:	0c012144 */ 	jal	func00048510
 /*    493cc:	afa2001c */ 	sw	$v0,0x1c($sp)
@@ -180,7 +180,7 @@ glabel func000493b4
 /*    49404:	afab0024 */ 	sw	$t3,0x24($sp)
 /*    49408:	0c014620 */ 	jal	func00051880
 /*    4940c:	01602025 */ 	or	$a0,$t3,$zero
-/*    49410:	0c012588 */ 	jal	func00049620
+/*    49410:	0c012588 */ 	jal	__osRestoreInt
 /*    49414:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*    49418:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4941c:	27bd0028 */ 	addiu	$sp,$sp,0x28
@@ -192,7 +192,7 @@ GLOBAL_ASM(
 glabel func00049428
 /*    49428:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    4942c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    49430:	0c01256c */ 	jal	func000495b0
+/*    49430:	0c01256c */ 	jal	__osDisableInt
 /*    49434:	afa40038 */ 	sw	$a0,0x38($sp)
 /*    49438:	3c0e8006 */ 	lui	$t6,0x8006
 /*    4943c:	8dce08a0 */ 	lw	$t6,0x8a0($t6)
@@ -284,7 +284,7 @@ glabel func00049428
 /*    49588:	8faa0034 */ 	lw	$t2,0x34($sp)
 /*    4958c:	8fa90038 */ 	lw	$t1,0x38($sp)
 /*    49590:	ad490004 */ 	sw	$t1,0x4($t2)
-/*    49594:	0c012588 */ 	jal	func00049620
+/*    49594:	0c012588 */ 	jal	__osRestoreInt
 /*    49598:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*    4959c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    495a0:	8fa20028 */ 	lw	$v0,0x28($sp)
@@ -294,7 +294,7 @@ glabel func00049428
 );
 
 GLOBAL_ASM(
-glabel func000495b0
+glabel __osDisableInt
 /*    495b0:	3c0a8006 */ 	lui	$t2,%hi(var8005cf70)
 /*    495b4:	254acf70 */ 	addiu	$t2,$t2,%lo(var8005cf70)
 /*    495b8:	8d4b0000 */ 	lw	$t3,0x0($t2)
@@ -327,7 +327,7 @@ glabel func000495b0
 );
 
 GLOBAL_ASM(
-glabel func00049620
+glabel __osRestoreInt
 /*    49620:	40086000 */ 	mfc0	$t0,$12
 /*    49624:	01044025 */ 	or	$t0,$t0,$a0
 /*    49628:	40886000 */ 	mtc0	$t0,$12

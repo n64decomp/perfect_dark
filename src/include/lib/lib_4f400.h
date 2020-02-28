@@ -3,8 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004f400(void);
-u32 func0004f484(void);
-u32 func0004f510(void);
+s32 osContStartReadData(OSMesgQueue *mq);
+void osContGetReadData(OSContPad *data);
 
 #endif

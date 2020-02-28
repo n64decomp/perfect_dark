@@ -404,7 +404,7 @@ glabel func000034f0
 /*     3a54:	00000000 */ 	sll	$zero,$zero,0x0
 /*     3a58:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*     3a5c:	03402825 */ 	or	$a1,$k0,$zero
-/*     3a60:	0c000f2e */ 	jal	func00003cb8
+/*     3a60:	0c000f2e */ 	jal	__osEnqueueThread
 /*     3a64:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 /*     3a68:	08000f44 */ 	j	0x3d10
 /*     3a6c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -470,12 +470,12 @@ glabel func00003ab8
 /*     3b3c:	8d4b0000 */ 	lw	$t3,0x0($t2)
 /*     3b40:	11600008 */ 	beqz	$t3,.L00003b64
 /*     3b44:	00000000 */ 	sll	$zero,$zero,0x0
-/*     3b48:	0c000f40 */ 	jal	func00003d00
+/*     3b48:	0c000f40 */ 	jal	__osPopThread
 /*     3b4c:	01202025 */ 	or	$a0,$t1,$zero
 /*     3b50:	00405025 */ 	or	$t2,$v0,$zero
 /*     3b54:	3c048006 */ 	lui	$a0,%hi(var80060938)
 /*     3b58:	01402825 */ 	or	$a1,$t2,$zero
-/*     3b5c:	0c000f2e */ 	jal	func00003cb8
+/*     3b5c:	0c000f2e */ 	jal	__osEnqueueThread
 /*     3b60:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 .L00003b64:
 /*     3b64:	02400008 */ 	jr	$s2
@@ -497,7 +497,7 @@ glabel func00003ab8
 );
 
 GLOBAL_ASM(
-glabel func00003ba0
+glabel __osEnqueueAndYield
 /*     3ba0:	3c058006 */ 	lui	$a1,0x8006
 /*     3ba4:	8ca50940 */ 	lw	$a1,0x940($a1)
 /*     3ba8:	40086000 */ 	mfc0	$t0,$12
@@ -567,7 +567,7 @@ glabel func00003ba0
 .L00003ca0:
 /*     3ca0:	10800003 */ 	beqz	$a0,.L00003cb0
 /*     3ca4:	acbb0128 */ 	sw	$k1,0x128($a1)
-/*     3ca8:	0c000f2e */ 	jal	func00003cb8
+/*     3ca8:	0c000f2e */ 	jal	__osEnqueueThread
 /*     3cac:	00000000 */ 	sll	$zero,$zero,0x0
 .L00003cb0:
 /*     3cb0:	08000f44 */ 	j	0x3d10
@@ -575,7 +575,7 @@ glabel func00003ba0
 );
 
 GLOBAL_ASM(
-glabel func00003cb8
+glabel __osEnqueueThread
 /*     3cb8:	8c980000 */ 	lw	$t8,0x0($a0)
 /*     3cbc:	8caf0004 */ 	lw	$t7,0x4($a1)
 /*     3cc0:	0080c825 */ 	or	$t9,$a0,$zero
@@ -599,7 +599,7 @@ glabel func00003cb8
 );
 
 GLOBAL_ASM(
-glabel func00003d00
+glabel __osPopThread
 /*     3d00:	8c820000 */ 	lw	$v0,0x0($a0)
 /*     3d04:	8c590000 */ 	lw	$t9,0x0($v0)
 /*     3d08:	03e00008 */ 	jr	$ra
@@ -607,9 +607,9 @@ glabel func00003d00
 );
 
 GLOBAL_ASM(
-glabel func00003d10
+glabel __osDispatchThread
 /*     3d10:	3c048006 */ 	lui	$a0,%hi(var80060938)
-/*     3d14:	0c000f40 */ 	jal	func00003d00
+/*     3d14:	0c000f40 */ 	jal	__osPopThread
 /*     3d18:	24840938 */ 	addiu	$a0,$a0,%lo(var80060938)
 /*     3d1c:	3c018006 */ 	lui	$at,0x8006
 /*     3d20:	ac220940 */ 	sw	$v0,0x940($at)

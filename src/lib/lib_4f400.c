@@ -11,35 +11,35 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004f400
+glabel osContStartReadData
 /*    4f400:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    4f404:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    4f408:	0c012a18 */ 	jal	func0004a860
+/*    4f408:	0c012a18 */ 	jal	__osSiGetAccess
 /*    4f40c:	afa40020 */ 	sw	$a0,0x20($sp)
 /*    4f410:	3c0e800a */ 	lui	$t6,0x800a
 /*    4f414:	91cec820 */ 	lbu	$t6,-0x37e0($t6)
 /*    4f418:	24010001 */ 	addiu	$at,$zero,0x1
 /*    4f41c:	11c1000b */ 	beq	$t6,$at,.L0004f44c
 /*    4f420:	00000000 */ 	sll	$zero,$zero,0x0
-/*    4f424:	0c013d44 */ 	jal	func0004f510
+/*    4f424:	0c013d44 */ 	jal	__osPackReadData
 /*    4f428:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4f42c:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
 /*    4f430:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
-/*    4f434:	0c012a34 */ 	jal	func0004a8d0
+/*    4f434:	0c012a34 */ 	jal	__osSiRawStartDma
 /*    4f438:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    4f43c:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*    4f440:	00002825 */ 	or	$a1,$zero,$zero
-/*    4f444:	0c0121bc */ 	jal	func000486f0
+/*    4f444:	0c0121bc */ 	jal	osRecvMesg
 /*    4f448:	24060001 */ 	addiu	$a2,$zero,0x1
 .L0004f44c:
 /*    4f44c:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
 /*    4f450:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
-/*    4f454:	0c012a34 */ 	jal	func0004a8d0
+/*    4f454:	0c012a34 */ 	jal	__osSiRawStartDma
 /*    4f458:	00002025 */ 	or	$a0,$zero,$zero
 /*    4f45c:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*    4f460:	3c01800a */ 	lui	$at,0x800a
 /*    4f464:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*    4f468:	0c012a29 */ 	jal	func0004a8a4
+/*    4f468:	0c012a29 */ 	jal	__osSiRelAccess
 /*    4f46c:	a02fc820 */ 	sb	$t7,-0x37e0($at)
 /*    4f470:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    4f474:	8fa2001c */ 	lw	$v0,0x1c($sp)
@@ -49,7 +49,7 @@ glabel func0004f400
 );
 
 GLOBAL_ASM(
-glabel func0004f484
+glabel osContGetReadData
 /*    4f484:	3c05800a */ 	lui	$a1,0x800a
 /*    4f488:	24a5c821 */ 	addiu	$a1,$a1,-14303
 /*    4f48c:	90ae0000 */ 	lbu	$t6,0x0($a1)
@@ -91,7 +91,7 @@ glabel func0004f484
 );
 
 GLOBAL_ASM(
-glabel func0004f510
+glabel __osPackReadData
 /*    4f510:	3c05800a */ 	lui	$a1,%hi(var8009c7e0)
 /*    4f514:	24a5c7e0 */ 	addiu	$a1,$a1,%lo(var8009c7e0)
 /*    4f518:	3c04800a */ 	lui	$a0,%hi(var8009c7e0)

@@ -9,7 +9,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004b480
+glabel osVirtualToPhysical
 /*    4b480:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4b484:	afa40018 */ 	sw	$a0,0x18($sp)
 /*    4b488:	8fae0018 */ 	lw	$t6,0x18($sp)
@@ -37,7 +37,7 @@ glabel func0004b480
 /*    4b4dc:	10000003 */ 	beqz	$zero,.L0004b4ec
 /*    4b4e0:	01e11024 */ 	and	$v0,$t7,$at
 .L0004b4e4:
-/*    4b4e4:	0c014724 */ 	jal	func00051c90
+/*    4b4e4:	0c014724 */ 	jal	__osProbeTLB
 /*    4b4e8:	8fa40018 */ 	lw	$a0,0x18($sp)
 .L0004b4ec:
 /*    4b4ec:	8fbf0014 */ 	lw	$ra,0x14($sp)

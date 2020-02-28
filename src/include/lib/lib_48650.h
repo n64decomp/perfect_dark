@@ -4,6 +4,6 @@
 #include "types.h"
 
 u32 func00048650(void);
-u32 func000486f0(void);
+s32 osRecvMesg(OSMesgQueue *mq, OSMesg *msg, s32 flag);
 
 #endif

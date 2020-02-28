@@ -16,7 +16,7 @@ glabel func0004e470
 );
 
 GLOBAL_ASM(
-glabel func0004e480
+glabel osInvalDCache
 /*    4e480:	18a0001f */ 	blez	$a1,.L0004e500
 /*    4e484:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4e488:	240b2000 */ 	addiu	$t3,$zero,0x2000

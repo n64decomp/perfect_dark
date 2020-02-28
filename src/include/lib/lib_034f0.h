@@ -5,9 +5,9 @@
 
 u32 func000034f0(void);
 u32 func00003ab8(void);
-u32 func00003ba0(void);
-u32 func00003cb8(void);
-u32 func00003d00(void);
-u32 func00003d10(void);
+u32 __osEnqueueAndYield(void);
+u32 __osEnqueueThread(void);
+u32 __osPopThread(void);
+u32 __osDispatchThread(void);
 
 #endif
