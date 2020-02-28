@@ -10,9 +10,9 @@
 #include "game/game_0b3350.h"
 #include "game/game_19c990.h"
 #include "gvars/gvars.h"
-#include "library/library_12dc0.h"
-#include "library/library_159b0.h"
-#include "library/library_16110.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_159b0.h"
+#include "lib/lib_16110.h"
 #include "types.h"
 // Too much stack usage and unknown functions to decompile this accurately
 // at the moment.

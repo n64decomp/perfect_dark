@@ -17,8 +17,8 @@
 #include "game/lang.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "library/library_0d0a0.h"
-#include "library/library_12dc0.h"
+#include "lib/lib_0d0a0.h"
+#include "lib/lib_12dc0.h"
 #include "types.h"
 
 /**

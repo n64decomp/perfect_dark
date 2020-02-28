@@ -6,7 +6,7 @@
 #include "game/data/data_020df0.h"
 #include "game/game_16ce10.h"
 #include "gvars/gvars.h"
-#include "library/library_481e0.h"
+#include "lib/lib_481e0.h"
 #include "types.h"
 
 GLOBAL_ASM(

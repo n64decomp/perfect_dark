@@ -1,5 +1,5 @@
 #include "gamefiles.inc"
-#include "libraryfiles.inc"
+#include "libfiles.inc"
 
 OUTPUT_ARCH (mips)
 
@@ -21,11 +21,11 @@ SECTIONS
 	}
 	__rompos += SIZEOF(.boot);
 
-	.library 0x70003050 : AT(__rompos) {
-		LIBRARYFILES(.text)
-		LIBRARYFILES(.rodata)
+	.lib 0x70003050 : AT(__rompos) {
+		LIBFILES(.text)
+		LIBFILES(.rodata)
 	}
-	__rompos += SIZEOF(.library);
+	__rompos += SIZEOF(.lib);
 
 	.gamedata 0x80059fe0 : AT(__rompos) {
 		GAMEFILES(.data)

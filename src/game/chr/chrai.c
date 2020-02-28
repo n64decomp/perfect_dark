@@ -8,9 +8,9 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "gvars/gvars.h"
-#include "library/library_12dc0.h"
-#include "library/library_16110.h"
-#include "library/library_1a500.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_16110.h"
+#include "lib/lib_1a500.h"
 #include "types.h"
 
 s32 chraiGetListIdByList(u8 *ailist, bool *is_global)

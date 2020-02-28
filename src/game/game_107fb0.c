@@ -16,10 +16,10 @@
 #include "game/game_187770.h"
 #include "game/lang.h"
 #include "gvars/gvars.h"
-#include "library/library_09660.h"
-#include "library/library_126b0.h"
-#include "library/library_13130.h"
-#include "library/library_13900.h"
+#include "lib/lib_09660.h"
+#include "lib/lib_126b0.h"
+#include "lib/lib_13130.h"
+#include "lib/lib_13900.h"
 #include "types.h"
 
 const char var7f1b2f00[] = "%s-";

@@ -11,10 +11,10 @@
 #include "game/game_187770.h"
 #include "game/game_197600.h"
 #include "gvars/gvars.h"
-#include "library/library_121e0.h"
-#include "library/library_12dc0.h"
-#include "library/library_16110.h"
-#include "library/library_1a500.h"
+#include "lib/lib_121e0.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_16110.h"
+#include "lib/lib_1a500.h"
 #include "types.h"
 
 GLOBAL_ASM(

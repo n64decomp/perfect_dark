@@ -11,8 +11,8 @@
 #include "game/game_127910.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
-#include "library/library_13130.h"
-#include "library/library_13900.h"
+#include "lib/lib_13130.h"
+#include "lib/lib_13900.h"
 #include "types.h"
 
 GLOBAL_ASM(

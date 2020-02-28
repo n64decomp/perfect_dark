@@ -9,8 +9,8 @@
 #include "game/game_16cfa0.h"
 #include "game/game_176080.h"
 #include "gvars/gvars.h"
-#include "library/library_0e9d0.h"
-#include "library/library_11420.h"
+#include "lib/lib_0e9d0.h"
+#include "lib/lib_11420.h"
 #include "types.h"
 
 GLOBAL_ASM(

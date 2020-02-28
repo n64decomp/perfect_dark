@@ -6,7 +6,7 @@
 #include "game/data/data_020df0.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "library/library_4a360.h"
+#include "lib/lib_4a360.h"
 #include "types.h"
 
 GLOBAL_ASM(

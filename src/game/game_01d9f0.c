@@ -6,10 +6,10 @@
 #include "game/data/data_020df0.h"
 #include "game/game_01d9f0.h"
 #include "gvars/gvars.h"
-#include "library/library_0e9d0.h"
-#include "library/library_12dc0.h"
-#include "library/library_16110.h"
-#include "library/library_317f0.h"
+#include "lib/lib_0e9d0.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_16110.h"
+#include "lib/lib_317f0.h"
 #include "types.h"
 
 const u32 var7f1a8660[] = {0x3e8e38e4};

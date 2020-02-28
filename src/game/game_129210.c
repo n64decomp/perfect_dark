@@ -9,9 +9,9 @@
 #include "game/game_066310.h"
 #include "game/game_129210.h"
 #include "gvars/gvars.h"
-#include "library/library_126b0.h"
-#include "library/library_12dc0.h"
-#include "library/library_1a500.h"
+#include "lib/lib_126b0.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_1a500.h"
 #include "types.h"
 
 GLOBAL_ASM(

@@ -7,7 +7,7 @@
 #include "game/game_00b320.h"
 #include "game/game_00b820.h"
 #include "gvars/gvars.h"
-#include "library/library_121e0.h"
+#include "lib/lib_121e0.h"
 #include "types.h"
 
 GLOBAL_ASM(

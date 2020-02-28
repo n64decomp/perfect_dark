@@ -9,7 +9,7 @@ Actual decompilation:
 | Segment         | Progress                                   |
 |-----------------|--------------------------------------------|
 | 0x1000 boot     | 206/2,068 words decompiled (9.96%)         |
-| 0x3050 library  | 8,225/89,060 words decompiled (9.24%)      |
+| 0x3050 lib      | 8,225/89,060 words decompiled (9.24%)      |
 | 0x4e850 inflate | 150/1,276 words decompiled (11.76%)        |
 | 0x4fc40 game    | 47,897/452,216 words decompiled (10.59%)   |
 | Total           | 56,478/544,620 words decompiled (10.37%)   |
@@ -76,7 +76,7 @@ Before you do anything you need an existing ROM to extract assets from.
 
 The project can do the following:
 
-* Build individual ucode binaries (boot, library, setup, inflate and game) which match the ones extracted from the base ROM.
+* Build individual ucode binaries (boot, lib, setup, inflate and game) which match the ones extracted from the base ROM.
 * Build a functioning ROM by splicing the C source and assets into an existing ROM. The built ROM is not byte perfect yet, but is is functionally equivalent.
 
 * Run `make` to build the assets that will be included in the ROM. These files will be written to `build/ntsc-final` and are matching what's in the `extracted/ntsc-final` folder.

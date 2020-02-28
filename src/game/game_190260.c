@@ -27,10 +27,10 @@
 #include "game/lang.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "library/library_12dc0.h"
-#include "library/library_16110.h"
-#include "library/library_1a500.h"
-#include "library/library_233c0.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_16110.h"
+#include "lib/lib_1a500.h"
+#include "lib/lib_233c0.h"
 #include "types.h"
 
 bool func0f190260(struct chrdata *chr)

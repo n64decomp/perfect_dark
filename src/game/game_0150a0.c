@@ -5,8 +5,8 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_020df0.h"
 #include "gvars/gvars.h"
-#include "library/library_0e9d0.h"
-#include "library/library_317f0.h"
+#include "lib/lib_0e9d0.h"
+#include "lib/lib_317f0.h"
 #include "types.h"
 
 GLOBAL_ASM(

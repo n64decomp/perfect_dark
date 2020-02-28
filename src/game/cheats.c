@@ -13,7 +13,7 @@
 #include "game/game_19c990.h"
 #include "game/lang.h"
 #include "gvars/gvars.h"
-#include "library/library_13130.h"
+#include "lib/lib_13130.h"
 #include "types.h"
 
 u32 cheatIsUnlocked(s32 cheat_id)

@@ -7,11 +7,11 @@
 #include "game/game_166e40.h"
 #include "game/game_175f50.h"
 #include "gvars/gvars.h"
-#include "library/library_074f0.h"
-#include "library/library_0d0a0.h"
-#include "library/library_121e0.h"
-#include "library/library_12dc0.h"
-#include "library/library_13130.h"
+#include "lib/lib_074f0.h"
+#include "lib/lib_0d0a0.h"
+#include "lib/lib_121e0.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_13130.h"
 #include "types.h"
 
 GLOBAL_ASM(

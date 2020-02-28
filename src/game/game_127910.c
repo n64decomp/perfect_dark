@@ -10,8 +10,8 @@
 #include "game/game_0b63b0.h"
 #include "game/game_127910.h"
 #include "gvars/gvars.h"
-#include "library/library_121e0.h"
-#include "library/library_12dc0.h"
+#include "lib/lib_121e0.h"
+#include "lib/lib_12dc0.h"
 #include "types.h"
 
 GLOBAL_ASM(

@@ -6,7 +6,7 @@
 #include "game/data/data_020df0.h"
 #include "game/game_0969d0.h"
 #include "gvars/gvars.h"
-#include "library/library_4a360.h"
+#include "lib/lib_4a360.h"
 #include "types.h"
 
 const u32 var7f1ab830[] = {0x40490fdb};

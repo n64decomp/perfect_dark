@@ -97,7 +97,7 @@ UCODE_BIN_FILES := \
 	$(B_DIR)/ucode/game.bin \
 	$(B_DIR)/ucode/gamedata.bin \
 	$(B_DIR)/ucode/gvars.bin \
-	$(B_DIR)/ucode/library.bin \
+	$(B_DIR)/ucode/lib.bin \
 	$(B_DIR)/ucode/inflate.bin
 
 default: all
@@ -220,13 +220,13 @@ $(B_DIR)/ucode/boot.bin: $(B_DIR)/pd.bin
 boot: $(B_DIR)/ucode/boot.bin
 
 ################################################################################
-# Library
+# Lib
 
-$(B_DIR)/ucode/library.bin: $(B_DIR)/pd.bin
+$(B_DIR)/ucode/lib.bin: $(B_DIR)/pd.bin
 	@mkdir -p $(B_DIR)/ucode
-	B_DIR=$(B_DIR) tools/extract-segment library
+	B_DIR=$(B_DIR) tools/extract-segment lib
 
-library: $(B_DIR)/ucode/library.bin
+lib: $(B_DIR)/ucode/lib.bin
 
 ################################################################################
 # Game data file
@@ -320,4 +320,4 @@ clean:
 
 binclean:
 	rm -f build/ntsc-final/ucode/*.bin
-	find src/{boot,game,gvars,library,inflate} -name '*.o' -delete
+	find src/{boot,game,gvars,lib,inflate} -name '*.o' -delete

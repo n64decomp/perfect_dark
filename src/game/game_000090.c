@@ -8,7 +8,7 @@
 #include "game/game_000130.h"
 #include "game/game_01e250.h"
 #include "gvars/gvars.h"
-#include "library/library_1a500.h"
+#include "lib/lib_1a500.h"
 #include "types.h"
 
 void func0f000090(void)

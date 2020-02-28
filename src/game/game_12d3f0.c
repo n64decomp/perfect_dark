@@ -13,10 +13,10 @@
 #include "game/game_1668e0.h"
 #include "game/game_166e40.h"
 #include "gvars/gvars.h"
-#include "library/library_12dc0.h"
-#include "library/library_16110.h"
-#include "library/library_4a360.h"
-#include "library/library_4b480.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_16110.h"
+#include "lib/lib_4a360.h"
+#include "lib/lib_4b480.h"
 #include "types.h"
 
 GLOBAL_ASM(

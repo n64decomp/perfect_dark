@@ -6,8 +6,8 @@
 #include "game/data/data_020df0.h"
 #include "game/game_0b28d0.h"
 #include "gvars/gvars.h"
-#include "library/library_121e0.h"
-#include "library/library_1a500.h"
+#include "lib/lib_121e0.h"
+#include "lib/lib_1a500.h"
 #include "types.h"
 
 const u32 var7f1ad140[] = {0x42e52ee0};

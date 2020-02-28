@@ -8,7 +8,7 @@
 #include "game/game_012450.h"
 #include "game/game_111600.h"
 #include "gvars/gvars.h"
-#include "library/library_121e0.h"
+#include "lib/lib_121e0.h"
 #include "types.h"
 
 void currentPlayerInitGunsHeld(void)

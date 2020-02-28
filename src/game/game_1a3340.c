@@ -22,10 +22,10 @@
 #include "game/lang.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
-#include "library/library_09660.h"
-#include "library/library_0d520.h"
-#include "library/library_13130.h"
-#include "library/library_1a500.h"
+#include "lib/lib_09660.h"
+#include "lib/lib_0d520.h"
+#include "lib/lib_13130.h"
+#include "lib/lib_1a500.h"
 #include "types.h"
 
 const char var7f1b97d0[] = "\n";

@@ -6,8 +6,8 @@
 #include "game/data/data_020df0.h"
 #include "game/game_176d70.h"
 #include "gvars/gvars.h"
-#include "library/library_121e0.h"
-#include "library/library_4a360.h"
+#include "lib/lib_121e0.h"
+#include "lib/lib_4a360.h"
 #include "types.h"
 
 const char var7f1b7cb0[] = "UM_Make : In\n";

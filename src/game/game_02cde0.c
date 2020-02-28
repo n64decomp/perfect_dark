@@ -17,11 +17,11 @@
 #include "game/game_1a3340.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "library/library_121e0.h"
-#include "library/library_12dc0.h"
-#include "library/library_16110.h"
-#include "library/library_1a500.h"
-#include "library/library_233c0.h"
+#include "lib/lib_121e0.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_16110.h"
+#include "lib/lib_1a500.h"
+#include "lib/lib_233c0.h"
 #include "types.h"
 
 const u32 var7f1a8990[] = {0x7f02ce04};

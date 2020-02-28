@@ -17,7 +17,7 @@
 #include "game/lang.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
-#include "library/library_13130.h"
+#include "lib/lib_13130.h"
 #include "types.h"
 
 const u32 var7f1acdd0[] = {0x3dcccccd};

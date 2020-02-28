@@ -8,9 +8,9 @@
 #include "game/game_157db0.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "library/library_04790.h"
-#include "library/library_121e0.h"
-#include "library/library_233c0.h"
+#include "lib/lib_04790.h"
+#include "lib/lib_121e0.h"
+#include "lib/lib_233c0.h"
 #include "types.h"
 
 GLOBAL_ASM(

@@ -2015,4 +2015,4 @@ d41d8cd98f00b204e9800998ecf8427e  build/ntsc-final/files/ob/ob_mid.seg
 ed0462324d1287de21611707172d316a  build/ntsc-final/ucode/game.bin
 11c9c4c2737f66e7312949909b894dcc  build/ntsc-final/ucode/gamedata.bin
 843285fdc0e80a77576eeb73940d2fd3  build/ntsc-final/ucode/inflate.bin
-6a227624d708b43a10f220e005aef486  build/ntsc-final/ucode/library.bin
+6a227624d708b43a10f220e005aef486  build/ntsc-final/ucode/lib.bin

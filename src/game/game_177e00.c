@@ -18,8 +18,8 @@
 #include "game/lang.h"
 #include "game/pdoptions.h"
 #include "gvars/gvars.h"
-#include "library/library_0d520.h"
-#include "library/library_13130.h"
+#include "lib/lib_0d520.h"
+#include "lib/lib_13130.h"
 #include "types.h"
 
 GLOBAL_ASM(

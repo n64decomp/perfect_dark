@@ -6,7 +6,7 @@
 #include "game/data/data_020df0.h"
 #include "game/game_1668e0.h"
 #include "gvars/gvars.h"
-#include "library/library_159b0.h"
+#include "lib/lib_159b0.h"
 #include "types.h"
 
 const char var7f1b76f0[] = "-mgfx";

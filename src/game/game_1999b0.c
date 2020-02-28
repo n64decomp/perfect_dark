@@ -16,10 +16,10 @@
 #include "game/game_1999b0.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "library/library_12dc0.h"
-#include "library/library_159b0.h"
-#include "library/library_16110.h"
-#include "library/library_233c0.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_159b0.h"
+#include "lib/lib_16110.h"
+#include "lib/lib_233c0.h"
 #include "types.h"
 
 const u32 var7f1b90a0[] = {0x3d4ccccd};

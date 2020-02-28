@@ -7,8 +7,8 @@
 #include "game/game_0969d0.h"
 #include "game/game_096ca0.h"
 #include "gvars/gvars.h"
-#include "library/library_16110.h"
-#include "library/library_4a360.h"
+#include "lib/lib_16110.h"
+#include "lib/lib_4a360.h"
 #include "types.h"
 
 GLOBAL_ASM(

@@ -13,13 +13,13 @@ def main():
     # by the ROM; they are likely a side effect of Rare's linker copying things
     # around in the ROM.
     write_binary(fd, 0x2ea1c, get_boot())
-    write_binary(fd, 0x30a6c, get_library()[:0x8df0])
+    write_binary(fd, 0x30a6c, get_lib()[:0x8df0])
     write_binary(fd, 0x157120, get_unknown())
 
     write_binary(fd, 0, get_header())
     write_binary(fd, 0x40, get_rspboot())
     write_binary(fd, 0x1000, get_boot())
-    write_binary(fd, 0x3050, get_library())
+    write_binary(fd, 0x3050, get_lib())
     write_binary(fd, 0x39850, get_gamedata())
     write_binary(fd, 0x4e850, get_inflate())
     write_binary(fd, 0x4fc40, get_gamezips())
@@ -61,8 +61,8 @@ def get_rspboot():
 def get_boot():
     return getfilecontents('build/ntsc-final/ucode/boot.bin')
 
-def get_library():
-    return zip('build/ntsc-final/ucode/library.bin')
+def get_lib():
+    return zip('build/ntsc-final/ucode/lib.bin')
 
 def get_gamedata():
     return zip('build/ntsc-final/ucode/gamedata.bin')

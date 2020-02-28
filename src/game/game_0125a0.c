@@ -10,9 +10,9 @@
 #include "game/game_157db0.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "library/library_159b0.h"
-#include "library/library_1a500.h"
-#include "library/library_233c0.h"
+#include "lib/lib_159b0.h"
+#include "lib/lib_1a500.h"
+#include "lib/lib_233c0.h"
 #include "types.h"
 
 const u32 var7f1a8280[] = {0x3dccccce};

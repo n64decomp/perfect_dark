@@ -7,7 +7,7 @@
 #include "game/game_000130.h"
 #include "game/game_097890.h"
 #include "gvars/gvars.h"
-#include "library/library_233c0.h"
+#include "lib/lib_233c0.h"
 #include "types.h"
 
 const u32 var7f1a78c0[] = {0x40c907a9};

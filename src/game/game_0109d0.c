@@ -6,7 +6,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/inventory.h"
 #include "gvars/gvars.h"
-#include "library/library_0d520.h"
+#include "lib/lib_0d520.h"
 #include "types.h"
 
 const u32 var7f1a8230[] = {0x3f666666};

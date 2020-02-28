@@ -9,10 +9,10 @@
 #include "game/game_157db0.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "library/library_12dc0.h"
-#include "library/library_233c0.h"
-#include "library/library_4a360.h"
-#include "library/library_4ae00.h"
+#include "lib/lib_12dc0.h"
+#include "lib/lib_233c0.h"
+#include "lib/lib_4a360.h"
+#include "lib/lib_4ae00.h"
 #include "types.h"
 
 const char var7f1b3a80[] = "padhalllv.c";

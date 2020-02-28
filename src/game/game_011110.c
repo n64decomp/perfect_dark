@@ -20,9 +20,9 @@
 #include "game/game_187770.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"
-#include "library/library_121e0.h"
-#include "library/library_16110.h"
-#include "library/library_233c0.h"
+#include "lib/lib_121e0.h"
+#include "lib/lib_16110.h"
+#include "lib/lib_233c0.h"
 #include "types.h"
 
 const u32 var7f1a8240[] = {0x7f011a44};

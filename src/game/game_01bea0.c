@@ -24,10 +24,10 @@
 #include "game/game_19aa80.h"
 #include "game/game_19c990.h"
 #include "gvars/gvars.h"
-#include "library/library_09660.h"
-#include "library/library_0d520.h"
-#include "library/library_0e9d0.h"
-#include "library/library_13900.h"
+#include "lib/lib_09660.h"
+#include "lib/lib_0d520.h"
+#include "lib/lib_0e9d0.h"
+#include "lib/lib_13900.h"
 #include "types.h"
 
 GLOBAL_ASM(
