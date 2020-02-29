@@ -1446,6 +1446,8 @@
 #define OBJHFLAG_00100000          0x00100000
 #define OBJHFLAG_00200000          0x00200000
 #define OBJHFLAG_00400000          0x00400000
+#define OBJHFLAG_04000000          0x04000000
+#define OBJHFLAG_08000000          0x08000000
 
 // obj->hidden2
 #define OBJH2FLAG_08 0x08

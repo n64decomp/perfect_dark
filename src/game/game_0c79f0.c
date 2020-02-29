@@ -342,26 +342,15 @@ struct prop *currentPlayerGetGrabbedProp(void)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel currentPlayerGrabProp
-/*  f0c7cf0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c7cf4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c7cf8:	8c820004 */ 	lw	$v0,0x4($a0)
-/*  f0c7cfc:	8c430040 */ 	lw	$v1,0x40($v0)
-/*  f0c7d00:	00037140 */ 	sll	$t6,$v1,0x5
-/*  f0c7d04:	05c00006 */ 	bltz	$t6,.L0f0c7d20
-/*  f0c7d08:	00037900 */ 	sll	$t7,$v1,0x4
-/*  f0c7d0c:	05e00004 */ 	bltz	$t7,.L0f0c7d20
-/*  f0c7d10:	3c18800a */ 	lui	$t8,0x800a
-/*  f0c7d14:	8f18a244 */ 	lw	$t8,-0x5dbc($t8)
-/*  f0c7d18:	0fc331b8 */ 	jal	func0f0cc6e0
-/*  f0c7d1c:	af041b5c */ 	sw	$a0,0x1b5c($t8)
-.L0f0c7d20:
-/*  f0c7d20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c7d24:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c7d28:	03e00008 */ 	jr	$ra
-/*  f0c7d2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerGrabProp(struct prop *prop)
+{
+	struct defaultobj *obj = prop->obj;
+
+	if ((obj->hidden & OBJHFLAG_04000000) == 0 && (obj->hidden & OBJHFLAG_08000000) == 0) {
+		g_Vars.currentplayer->grabbedprop = prop;
+		func0f0cc6e0();
+	}
+}
 
 void func0f0c7d30(u32 arg)
 {
