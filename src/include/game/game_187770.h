@@ -118,8 +118,8 @@ void func0f18e558(void);
 u32 func0f18e57c(void);
 u32 func0f18e5ac(void);
 s32 teamGetIndex(s32 team);
-s32 func0f18e9ec(s32 arg0, struct prop *token, struct coord *dist, s32 colour, s32 arg4, s32 arg5);
+Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour, s32 arg4, s32 arg5);
 u32 func0f18f874(void);
-u32 func0f190060(void);
+Gfx *radarDrawProps(Gfx *gdl);
 
 #endif
