@@ -191,35 +191,18 @@ glabel func0f0c7a20
 /*  f0c7a2c:	adc40124 */ 	sw	$a0,0x124($t6)
 );
 
-GLOBAL_ASM(
-glabel func0f0c7a30
-/*  f0c7a30:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0c7a34:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0c7a38:	8c6e0318 */ 	lw	$t6,0x318($v1)
-/*  f0c7a3c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c7a40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c7a44:	15c00004 */ 	bnez	$t6,.L0f0c7a58
-/*  f0c7a48:	3c18800b */ 	lui	$t8,0x800b
-/*  f0c7a4c:	8c6f0284 */ 	lw	$t7,0x284($v1)
-/*  f0c7a50:	1000000a */ 	beqz	$zero,.L0f0c7a7c
-/*  f0c7a54:	8de20124 */ 	lw	$v0,0x124($t7)
-.L0f0c7a58:
-/*  f0c7a58:	8f18cb94 */ 	lw	$t8,-0x346c($t8)
-/*  f0c7a5c:	33190008 */ 	andi	$t9,$t8,0x8
-/*  f0c7a60:	53200004 */ 	beqzl	$t9,.L0f0c7a74
-/*  f0c7a64:	8c680288 */ 	lw	$t0,0x288($v1)
-/*  f0c7a68:	10000004 */ 	beqz	$zero,.L0f0c7a7c
-/*  f0c7a6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c7a70:	8c680288 */ 	lw	$t0,0x288($v1)
-.L0f0c7a74:
-/*  f0c7a74:	0fc549e9 */ 	jal	optionsGetAutoAim
-/*  f0c7a78:	8d040070 */ 	lw	$a0,0x70($t0)
-.L0f0c7a7c:
-/*  f0c7a7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c7a80:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c7a84:	03e00008 */ 	jr	$ra
-/*  f0c7a88:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentPlayerIsAutoAimYEnabled(void)
+{
+	if (!g_Vars.normmplayerisrunning) {
+		return g_Vars.currentplayer->autoyaimenabled;
+	}
+
+	if (g_MpSetup.options & MPOPTION_NOAUTOAIM) {
+		return false;
+	}
+
+	return optionsGetAutoAim(g_Vars.unk000288->mpchrnum);
+}
 
 GLOBAL_ASM(
 glabel func0f0c7a8c
@@ -244,7 +227,7 @@ glabel func0f0c7a8c
 /*  f0c7ad0:	10000003 */ 	beqz	$zero,.L0f0c7ae0
 /*  f0c7ad4:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f0c7ad8:
-/*  f0c7ad8:	0fc31e8c */ 	jal	func0f0c7a30
+/*  f0c7ad8:	0fc31e8c */ 	jal	currentPlayerIsAutoAimYEnabled
 /*  f0c7adc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0c7ae0:
 /*  f0c7ae0:	8fbf0014 */ 	lw	$ra,0x14($sp)

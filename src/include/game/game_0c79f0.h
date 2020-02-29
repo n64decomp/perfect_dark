@@ -6,7 +6,7 @@
 u32 func0f0c79f0(void);
 u32 func0f0c7a00(void);
 u32 func0f0c7a20(void);
-u32 func0f0c7a30(void);
+bool currentPlayerIsAutoAimYEnabled(void);
 u32 func0f0c7a8c(void);
 u32 func0f0c7af0(void);
 u32 func0f0c7b00(void);

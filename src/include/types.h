@@ -1091,7 +1091,7 @@ struct player {
 	/*0x0118*/ u32 unk0118;
 	/*0x011c*/ u32 unk011c;
 	/*0x0120*/ u32 unk0120;
-	/*0x0124*/ u32 unk0124;
+	/*0x0124*/ bool autoyaimenabled;
 	/*0x0128*/ u32 unk0128;
 	/*0x012c*/ u32 unk012c;
 	/*0x0130*/ u32 unk0130;
