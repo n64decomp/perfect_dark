@@ -14,7 +14,7 @@ void func0f128ab8(u32 arg0, u32 arg1);
 void currentPlayerSetFovY(f32 fovy);
 void currentPlayerSetAspectRatio(f32 aspect);
 s32 weaponGetModel(s32 arg0);
-u32 func0f128cf0(void);
+void currentPlayerSetWeaponFlag40(s32 weaponslot);
 u32 func0f128d20(void);
 u32 func0f128dbc(void);
 u32 func0f128ec8(void);

@@ -5811,7 +5811,7 @@ bool ai00e9(void)
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
-		func0f08b8b8(chr, cmd[3]);
+		chrSetWeaponFlag40(chr, cmd[3]);
 	}
 
 	g_Vars.aioffset += 4;
@@ -10808,8 +10808,8 @@ bool aiChrSetCutsceneWeapon(void)
 					}
 
 					if (valid) {
-						func0f08b8b8(chr, 1);
-						func0f08b8b8(chr, 0);
+						chrSetWeaponFlag40(chr, 1);
+						chrSetWeaponFlag40(chr, 0);
 					}
 				}
 			} else {
@@ -10818,8 +10818,8 @@ bool aiChrSetCutsceneWeapon(void)
 				}
 			}
 		} else {
-			func0f08b8b8(chr, 1);
-			func0f08b8b8(chr, 0);
+			chrSetWeaponFlag40(chr, 1);
+			chrSetWeaponFlag40(chr, 0);
 
 			if (model_id >= 0) {
 				func0f08b8e8(chr, model_id, cmd[3], 0, 0, 0);

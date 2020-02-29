@@ -42990,7 +42990,7 @@ glabel func0f08b880
 );
 
 GLOBAL_ASM(
-glabel func0f08b8b8
+glabel chrSetWeaponFlag40
 /*  f08b8b8:	10800009 */ 	beqz	$a0,.L0f08b8e0
 /*  f08b8bc:	00057080 */ 	sll	$t6,$a1,0x2
 /*  f08b8c0:	008e7821 */ 	addu	$t7,$a0,$t6
@@ -48963,10 +48963,10 @@ glabel func0f0910ac
 /*  f0910e4:	8dcf00bc */ 	lw	$t7,0xbc($t6)
 /*  f0910e8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0910ec:	8df00004 */ 	lw	$s0,0x4($t7)
-/*  f0910f0:	0fc22e2e */ 	jal	func0f08b8b8
+/*  f0910f0:	0fc22e2e */ 	jal	chrSetWeaponFlag40
 /*  f0910f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0910f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0910fc:	0fc22e2e */ 	jal	func0f08b8b8
+/*  f0910fc:	0fc22e2e */ 	jal	chrSetWeaponFlag40
 /*  f091100:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f091104:	3c16800b */ 	lui	$s6,%hi(g_MpSetup)
 /*  f091108:	26d6cb88 */ 	addiu	$s6,$s6,%lo(g_MpSetup)

@@ -1403,21 +1403,10 @@ glabel weaponGetModel
 //	return -1;
 //}
 
-GLOBAL_ASM(
-glabel func0f128cf0
-/*  f128cf0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f128cf4:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f128cf8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f128cfc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f128d00:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f128d04:	00802825 */ 	or	$a1,$a0,$zero
-/*  f128d08:	0fc22e2e */ 	jal	func0f08b8b8
-/*  f128d0c:	8de40004 */ 	lw	$a0,0x4($t7)
-/*  f128d10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f128d14:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f128d18:	03e00008 */ 	jr	$ra
-/*  f128d1c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerSetWeaponFlag40(s32 weaponslot)
+{
+	chrSetWeaponFlag40(g_Vars.currentplayer->prop->chr, weaponslot);
+}
 
 GLOBAL_ASM(
 glabel func0f128d20
