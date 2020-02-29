@@ -9,10 +9,10 @@ Actual decompilation:
 | Segment         | Progress                                   |
 |-----------------|--------------------------------------------|
 | 0x1000 boot     | 206/2,068 words decompiled (9.96%)         |
-| 0x3050 lib      | 8,225/89,060 words decompiled (9.24%)      |
+| 0x3050 lib      | 8,250/89,060 words decompiled (9.26%)      |
 | 0x4e850 inflate | 150/1,276 words decompiled (11.76%)        |
-| 0x4fc40 game    | 47,897/452,216 words decompiled (10.59%)   |
-| Total           | 56,478/544,620 words decompiled (10.37%)   |
+| 0x4fc40 game    | 60,166/452,216 words decompiled (13.30%)   |
+| Total           | 68,772/544,620 words decompiled (12.63%)   |
 
 Assets:
 
