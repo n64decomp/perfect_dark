@@ -183,7 +183,7 @@ glabel func0f0c7a00
 /*  f0c7a1c:	8dc20114 */ 	lw	$v0,0x114($t6)
 );
 
-void currentPlaySetAutoAimY(bool enabled)
+void currentPlayerSetAutoAimY(bool enabled)
 {
 	g_Vars.currentplayer->autoyaimenabled = enabled;
 }
@@ -272,13 +272,10 @@ glabel func0f0c7b00
 /*  f0c7b60:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c7b64
-/*  f0c7b64:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0c7b68:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f0c7b6c:	03e00008 */ 	jr	$ra
-/*  f0c7b70:	adc40134 */ 	sw	$a0,0x134($t6)
-);
+void currentPlayerSetAutoAimX(bool enabled)
+{
+	g_Vars.currentplayer->autoxaimenabled = enabled;
+}
 
 bool currentPlayerIsAutoAimXEnabled(void)
 {

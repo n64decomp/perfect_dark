@@ -5,12 +5,12 @@
 
 u32 func0f0c79f0(void);
 u32 func0f0c7a00(void);
-void currentPlaySetAutoAimY(bool enabled);
+void currentPlayerSetAutoAimY(bool enabled);
 bool currentPlayerIsAutoAimYEnabled(void);
 u32 func0f0c7a8c(void);
 u32 func0f0c7af0(void);
 u32 func0f0c7b00(void);
-u32 func0f0c7b64(void);
+void currentPlayerSetAutoAimX(bool enabled);
 bool currentPlayerIsAutoAimXEnabled(void);
 u32 func0f0c7bd0(void);
 u32 func0f0c7c34(void);
