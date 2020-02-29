@@ -14,26 +14,18 @@
 #include "lib/lib_12dc0.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f127910
-/*  f127910:	3c013f80 */ 	lui	$at,0x3f80
-/*  f127914:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f127918:	3c02800a */ 	lui	$v0,0x800a
-/*  f12791c:	44810000 */ 	mtc1	$at,$f0
-/*  f127920:	2442a1c0 */ 	addiu	$v0,$v0,-24128
-/*  f127924:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-.L0f127928:
-/*  f127928:	24630080 */ 	addiu	$v1,$v1,0x80
-/*  f12792c:	1462fffe */ 	bne	$v1,$v0,.L0f127928
-/*  f127930:	e4600050 */ 	swc1	$f0,0x50($v1)
-/*  f127934:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f127938:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f12793c:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f127940:	ac400294 */ 	sw	$zero,0x294($v0)
-/*  f127944:	ac430298 */ 	sw	$v1,0x298($v0)
-/*  f127948:	03e00008 */ 	jr	$ra
-/*  f12794c:	ac43029c */ 	sw	$v1,0x29c($v0)
-);
+void func0f127910(void)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		g_Vars.unk000074[i].unk5c = 1;
+	}
+
+	g_Vars.bondplayernum = 0;
+	g_Vars.coopplayernum = -1;
+	g_Vars.antiplayernum = -1;
+}
 
 void playersUnrefAll(void)
 {

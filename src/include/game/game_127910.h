@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f127910(void);
+void func0f127910(void);
 void playersUnrefAll(void);
 void playersAllocate(s32 count);
 void playerAllocate(u32 index);

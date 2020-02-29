@@ -3219,7 +3219,7 @@ struct gvars74 {
 	/*0x50*/ u32 unk50;
 	/*0x54*/ u32 unk54;
 	/*0x58*/ u32 unk58;
-	/*0x5c*/ u32 unk5c;
+	/*0x5c*/ f32 unk5c;
 	/*0x60*/ s32 unk60;
 	/*0x64*/ u32 unk64;
 	/*0x68*/ u32 unk68;
