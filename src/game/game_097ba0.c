@@ -22646,7 +22646,7 @@ glabel func0f0abad0
 /*  f0abafc:	8c680464 */ 	lw	$t0,0x464($v1)
 /*  f0abb00:	5500001b */ 	bnezl	$t0,.L0f0abb70
 /*  f0abb04:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0abb08:	0fc5ae15 */ 	jal	func0f16b854
+/*  f0abb08:	0fc5ae15 */ 	jal	getEffectiveSlowMotion
 /*  f0abb0c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0abb10:	10400003 */ 	beqz	$v0,.L0f0abb20
 /*  f0abb14:	3c048009 */ 	lui	$a0,0x8009
@@ -22700,7 +22700,7 @@ GLOBAL_ASM(
 glabel func0f0abba8
 /*  f0abba8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0abbac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0abbb0:	0fc5ae15 */ 	jal	func0f16b854
+/*  f0abbb0:	0fc5ae15 */ 	jal	getEffectiveSlowMotion
 /*  f0abbb4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0abbb8:	10400005 */ 	beqz	$v0,.L0f0abbd0
 /*  f0abbbc:	00000000 */ 	sll	$zero,$zero,0x0
@@ -22722,7 +22722,7 @@ GLOBAL_ASM(
 glabel func0f0abbe8
 /*  f0abbe8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0abbec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0abbf0:	0fc5ae15 */ 	jal	func0f16b854
+/*  f0abbf0:	0fc5ae15 */ 	jal	getEffectiveSlowMotion
 /*  f0abbf4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0abbf8:	10400005 */ 	beqz	$v0,.L0f0abc10
 /*  f0abbfc:	00000000 */ 	sll	$zero,$zero,0x0

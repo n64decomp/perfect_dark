@@ -261,7 +261,7 @@ glabel func0f167c88
 /*  f167cd4:	0005782b */ 	sltu	$t7,$zero,$a1
 /*  f167cd8:	11e0000a */ 	beqz	$t7,.L0f167d04
 /*  f167cdc:	01e02825 */ 	or	$a1,$t7,$zero
-/*  f167ce0:	0fc5ae15 */ 	jal	func0f16b854
+/*  f167ce0:	0fc5ae15 */ 	jal	getEffectiveSlowMotion
 /*  f167ce4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f167ce8:	2c450001 */ 	sltiu	$a1,$v0,0x1
 /*  f167cec:	10a00005 */ 	beqz	$a1,.L0f167d04
@@ -3308,7 +3308,7 @@ glabel func0f169374
 /*  f16a900:	8e790464 */ 	lw	$t9,0x464($s3)
 /*  f16a904:	57200015 */ 	bnezl	$t9,.L0f16a95c
 /*  f16a908:	2861000f */ 	slti	$at,$v1,0xf
-/*  f16a90c:	0fc5ae15 */ 	jal	func0f16b854
+/*  f16a90c:	0fc5ae15 */ 	jal	getEffectiveSlowMotion
 /*  f16a910:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16a914:	10400003 */ 	beqz	$v0,.L0f16a924
 /*  f16a918:	3c048009 */ 	lui	$a0,0x8009
@@ -4361,7 +4361,7 @@ glabel func0f16b810
 );
 
 GLOBAL_ASM(
-glabel func0f16b854
+glabel getEffectiveSlowMotion
 /*  f16b854:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f16b858:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16b85c:	3c04b000 */ 	lui	$a0,0xb000
@@ -4418,7 +4418,7 @@ glabel func0f16b854
 /*  f16b918:	10000010 */ 	beqz	$zero,.L0f16b95c
 /*  f16b91c:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f16b920:
-/*  f16b920:	0fc47b9c */ 	jal	func0f11ee70
+/*  f16b920:	0fc47b9c */ 	jal	debugGetSlowMotion
 /*  f16b924:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16b928:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f16b92c:	14410003 */ 	bne	$v0,$at,.L0f16b93c
@@ -4426,7 +4426,7 @@ glabel func0f16b854
 /*  f16b934:	10000009 */ 	beqz	$zero,.L0f16b95c
 /*  f16b938:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f16b93c:
-/*  f16b93c:	0fc47b9c */ 	jal	func0f11ee70
+/*  f16b93c:	0fc47b9c */ 	jal	debugGetSlowMotion
 /*  f16b940:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16b944:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f16b948:	54410004 */ 	bnel	$v0,$at,.L0f16b95c
@@ -4440,6 +4440,52 @@ glabel func0f16b854
 /*  f16b964:	03e00008 */ 	jr	$ra
 /*  f16b968:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Can't match the antipiracy part
+//u32 getEffectiveSlowMotion(void)
+//{
+//#if PIRACYCHECKS
+//	u32 salt = func0f16b800(0xb000de8d);
+//	u32 actual;
+//	u32 expected = func0f16b800(0x1741d42a);
+//	func0004e650(salt, &actual);
+//
+//	if (actual != expected) {
+//		extern u32 _rspMicrocodeStart;
+//		extern u32 _rspMicrocodeStartPlusOne;
+//		u32 *ptr = &_rspMicrocodeStart;
+//		u32 *end = &ptr[1024];
+//
+//		if (!(end < &_rspMicrocodeStartPlusOne)) {
+//			do {
+//				*ptr += 8;
+//				ptr++;
+//			} while (ptr < end);
+//		}
+//	}
+//#endif
+//
+//	if (g_Vars.normmplayerisrunning) {
+//		if (g_MpSetup.options & MPOPTION_SLOWMOTION_ON) {
+//			return SLOWMOTION_ON;
+//		}
+//		if (g_MpSetup.options & MPOPTION_SLOWMOTION_SMART) {
+//			return SLOWMOTION_SMART;
+//		}
+//	} else {
+//		if (cheatIsActive(CHEAT_SLOMO)) {
+//			return SLOWMOTION_ON;
+//		}
+//		if (debugGetSlowMotion() == SLOWMOTION_ON) {
+//			return SLOWMOTION_ON;
+//		}
+//		if (debugGetSlowMotion() == SLOWMOTION_SMART) {
+//			return SLOWMOTION_SMART;
+//		}
+//	}
+//
+//	return SLOWMOTION_OFF;
+//}
 
 GLOBAL_ASM(
 glabel func0f16b96c
@@ -4664,7 +4710,7 @@ glabel func0f16b96c
 /*  f16bc68:	100000d4 */ 	beqz	$zero,.L0f16bfbc
 /*  f16bc6c:	8e830034 */ 	lw	$v1,0x34($s4)
 .L0f16bc70:
-/*  f16bc70:	0fc5ae15 */ 	jal	func0f16b854
+/*  f16bc70:	0fc5ae15 */ 	jal	getEffectiveSlowMotion
 /*  f16bc74:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16bc78:	8e8f0040 */ 	lw	$t7,0x40($s4)
 /*  f16bc7c:	24010002 */ 	addiu	$at,$zero,0x2

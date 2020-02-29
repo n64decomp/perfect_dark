@@ -15,7 +15,7 @@ u32 func0f11ee08(void);
 bool func0f11ee20(void);
 u32 func0f11ee28(void);
 u32 func0f11ee40(void);
-u32 func0f11ee70(void);
+u32 debugGetSlowMotion(void);
 bool func0f11ee88(void);
 u32 func0f11ee90(void);
 bool func0f11eea8(void);

@@ -6435,7 +6435,7 @@ glabel func0f023098
 .L0f024034:
 /*  f024034:	afa30124 */ 	sw	$v1,0x124($sp)
 /*  f024038:	afa60110 */ 	sw	$a2,0x110($sp)
-/*  f02403c:	0fc47b9c */ 	jal	func0f11ee70
+/*  f02403c:	0fc47b9c */ 	jal	debugGetSlowMotion
 /*  f024040:	e7b00114 */ 	swc1	$f16,0x114($sp)
 /*  f024044:	8fa30124 */ 	lw	$v1,0x124($sp)
 /*  f024048:	8fa60110 */ 	lw	$a2,0x110($sp)

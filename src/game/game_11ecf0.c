@@ -313,10 +313,13 @@ glabel func0f11ee40
 /*  f11ee6c:	00001025 */ 	or	$v0,$zero,$zero
 );
 
+u32 debugGetSlowMotion(void)
+{
+	return SLOWMOTION_OFF;
+}
+
 GLOBAL_ASM(
-glabel func0f11ee70
-/*  f11ee70:	03e00008 */ 	jr	$ra
-/*  f11ee74:	00001025 */ 	or	$v0,$zero,$zero
+glabel func0f11ee78
 /*  f11ee78:	03e00008 */ 	jr	$ra
 /*  f11ee7c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f11ee80:	03e00008 */ 	jr	$ra
