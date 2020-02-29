@@ -1090,7 +1090,7 @@ struct player {
 	/*0x0114*/ u32 unk0114;
 	/*0x0118*/ u32 unk0118;
 	/*0x011c*/ u32 unk011c;
-	/*0x0120*/ u32 unk0120;
+	/*0x0120*/ bool insightaimmode;
 	/*0x0124*/ bool autoyaimenabled;
 	/*0x0128*/ u32 unk0128;
 	/*0x012c*/ u32 unk012c;

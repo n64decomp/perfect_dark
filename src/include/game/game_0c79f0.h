@@ -8,7 +8,7 @@ u32 func0f0c7a00(void);
 void currentPlayerSetAutoAimY(bool enabled);
 bool currentPlayerIsAutoAimYEnabled(void);
 u32 func0f0c7a8c(void);
-u32 func0f0c7af0(void);
+bool currentPlayerIsInSightAimMode(void);
 u32 func0f0c7b00(void);
 void currentPlayerSetAutoAimX(bool enabled);
 bool currentPlayerIsAutoAimXEnabled(void);

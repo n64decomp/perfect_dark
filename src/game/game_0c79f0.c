@@ -233,13 +233,10 @@ glabel func0f0c7a8c
 /*  f0c7aec:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c7af0
-/*  f0c7af0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0c7af4:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f0c7af8:	03e00008 */ 	jr	$ra
-/*  f0c7afc:	8dc20120 */ 	lw	$v0,0x120($t6)
-);
+bool currentPlayerIsInSightAimMode(void)
+{
+	return g_Vars.currentplayer->insightaimmode;
+}
 
 GLOBAL_ASM(
 glabel func0f0c7b00
