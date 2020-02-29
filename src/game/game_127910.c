@@ -1122,27 +1122,17 @@ glabel propGetPlayerNum
 /*  f128a98:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-GLOBAL_ASM(
-glabel func0f128a9c
-/*  f128a9c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f128aa0:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f128aa4:	8c4e0284 */ 	lw	$t6,0x284($v0)
-/*  f128aa8:	a5c40630 */ 	sh	$a0,0x630($t6)
-/*  f128aac:	8c4f0284 */ 	lw	$t7,0x284($v0)
-/*  f128ab0:	03e00008 */ 	jr	$ra
-/*  f128ab4:	a5e50632 */ 	sh	$a1,0x632($t7)
-);
+void func0f128a9c(u32 arg0, u32 arg1)
+{
+	g_Vars.currentplayer->unk0630 = arg0;
+	g_Vars.currentplayer->unk0632 = arg1;
+}
 
-GLOBAL_ASM(
-glabel func0f128ab8
-/*  f128ab8:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f128abc:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f128ac0:	8c4e0284 */ 	lw	$t6,0x284($v0)
-/*  f128ac4:	a5c40634 */ 	sh	$a0,0x634($t6)
-/*  f128ac8:	8c4f0284 */ 	lw	$t7,0x284($v0)
-/*  f128acc:	03e00008 */ 	jr	$ra
-/*  f128ad0:	a5e50636 */ 	sh	$a1,0x636($t7)
-);
+void func0f128ab8(u32 arg0, u32 arg1)
+{
+	g_Vars.currentplayer->unk0634 = arg0;
+	g_Vars.currentplayer->unk0636 = arg1;
+}
 
 void currentPlayerSetFovY(f32 fovy)
 {
