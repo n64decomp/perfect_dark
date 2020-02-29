@@ -14,7 +14,7 @@ void currentPlayerSetAutoAimX(bool enabled);
 bool currentPlayerIsAutoAimXEnabled(void);
 u32 func0f0c7bd0(void);
 void currentPlayerUpdateAutoAimXProp(struct prop *prop, f32 autoaimx);
-u32 func0f0c7c98(void);
+struct prop *currentPlayerGetHoverbike(void);
 u32 func0f0c7cc4(void);
 void currentPlayerGrabProp(struct prop *prop);
 void func0f0c7d30(u32 arg0);

@@ -10312,7 +10312,9 @@ bool aiChrGrabObject(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
-		if (g_Vars.currentplayer->unk01b0 == 0 && func0f0cc680() == 2 && g_Vars.currentplayer->unk00b4 == 0) {
+		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_NORMAL
+				&& func0f0cc680() == 2
+				&& g_Vars.currentplayer->unk00b4 == 0) {
 			currentPlayerGrabProp(obj->prop);
 		}
 

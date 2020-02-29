@@ -1129,7 +1129,7 @@ struct player {
 	/*0x01a4*/ u32 unk01a4;
 	/*0x01a8*/ u32 unk01a8;
 	/*0x01ac*/ u32 unk01ac;
-	/*0x01b0*/ u32 unk01b0; // related to grabbed object
+	/*0x01b0*/ u32 bondmovemode;
 	/*0x01b4*/ u32 unk01b4;
 	/*0x01b8*/ u32 unk01b8;
 	/*0x01bc*/ u32 unk01bc;
@@ -2637,7 +2637,7 @@ struct player {
 	/*0x1a60*/ u32 unk1a60;
 	/*0x1a64*/ u32 unk1a64;
 	/*0x1a68*/ u32 unk1a68;
-	/*0x1a6c*/ struct prop *unk1a6c;
+	/*0x1a6c*/ struct prop *hoverbike;
 	/*0x1a70*/ u32 unk1a70;
 	/*0x1a74*/ u32 unk1a74;
 	/*0x1a78*/ u32 unk1a78;

@@ -324,21 +324,14 @@ void currentPlayerUpdateAutoAimXProp(struct prop *prop, f32 autoaimx)
 	g_Vars.currentplayer->autoaimx = autoaimx;
 }
 
-GLOBAL_ASM(
-glabel func0f0c7c98
-/*  f0c7c98:	3c03800a */ 	lui	$v1,0x800a
-/*  f0c7c9c:	8c63a244 */ 	lw	$v1,-0x5dbc($v1)
-/*  f0c7ca0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0c7ca4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c7ca8:	8c6e01b0 */ 	lw	$t6,0x1b0($v1)
-/*  f0c7cac:	15c10003 */ 	bne	$t6,$at,.L0f0c7cbc
-/*  f0c7cb0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7cb4:	03e00008 */ 	jr	$ra
-/*  f0c7cb8:	8c621a6c */ 	lw	$v0,0x1a6c($v1)
-.L0f0c7cbc:
-/*  f0c7cbc:	03e00008 */ 	jr	$ra
-/*  f0c7cc0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct prop *currentPlayerGetHoverbike(void)
+{
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOVERBIKE) {
+		return g_Vars.currentplayer->hoverbike;
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f0c7cc4
@@ -379,9 +372,9 @@ glabel currentPlayerGrabProp
 
 void func0f0c7d30(u32 arg)
 {
-	if (g_Vars.currentplayer->unk01b0 == 4) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOLDINGPROP) {
 		func0f0ccac4();
-	} else if (g_Vars.currentplayer->unk01b0 == 3) {
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOVERBIKE) {
 		func0f0d2184();
 	}
 

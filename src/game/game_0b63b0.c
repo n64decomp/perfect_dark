@@ -12745,12 +12745,12 @@ void func0f0c1e54(struct prop *prop, bool enable)
 		chrSetOrUnsetHiddenFlag00000100(prop->chr, enable);
 	}
 
-	if (g_Vars.currentplayer->unk01b0 == 0) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_NORMAL) {
 		if (g_Vars.currentplayer->unk1af0) {
 			propObjSetOrUnsetHiddenFlag00400000(g_Vars.currentplayer->unk1af0, enable);
 		}
-	} else if (g_Vars.currentplayer->unk01b0 == 3) {
-		propObjSetOrUnsetHiddenFlag00400000(g_Vars.currentplayer->unk1a6c, enable);
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOVERBIKE) {
+		propObjSetOrUnsetHiddenFlag00400000(g_Vars.currentplayer->hoverbike, enable);
 	}
 
 	g_Vars.players[playernum]->unk00c0 = enable;
@@ -12886,7 +12886,7 @@ void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	*ymin = g_Vars.currentplayer->unk0074 + 30;
 	*ymax = g_Vars.currentplayer->unk0074 + g_Vars.players[playernum]->unk19c0;
 
-	if (g_Vars.currentplayer->unk01b0 == 0) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_NORMAL) {
 		f32 tmp;
 		*ymax += g_Vars.players[playernum]->unk19b8;
 		tmp = g_Vars.currentplayer->unk0074 + 80;
