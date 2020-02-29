@@ -1091,14 +1091,17 @@ struct player {
 	/*0x0118*/ u32 unk0118;
 	/*0x011c*/ u32 unk011c;
 	/*0x0120*/ bool insightaimmode;
+
 	/*0x0124*/ bool autoyaimenabled;
-	/*0x0128*/ u32 unk0128;
-	/*0x012c*/ u32 unk012c;
-	/*0x0130*/ u32 unk0130;
+	/*0x0128*/ f32 autoaimy;
+	/*0x012c*/ struct prop *autoyaimprop;
+	/*0x0130*/ s32 autoyaimtime60;
+
 	/*0x0134*/ bool autoxaimenabled;
 	/*0x0138*/ f32 autoaimx;
 	/*0x013c*/ struct prop *autoxaimprop;
 	/*0x0140*/ s32 autoxaimtime60;
+
 	/*0x0144*/ f32 unk0144;
 	/*0x0148*/ u32 unk0148;
 	/*0x014c*/ u32 unk014c;

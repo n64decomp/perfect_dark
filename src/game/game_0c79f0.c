@@ -238,36 +238,23 @@ bool currentPlayerIsInSightAimMode(void)
 	return g_Vars.currentplayer->insightaimmode;
 }
 
-GLOBAL_ASM(
-glabel func0f0c7b00
-/*  f0c7b00:	44856000 */ 	mtc1	$a1,$f12
-/*  f0c7b04:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0c7b08:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0c7b0c:	8ca20284 */ 	lw	$v0,0x284($a1)
-/*  f0c7b10:	8c430130 */ 	lw	$v1,0x130($v0)
-/*  f0c7b14:	04620006 */ 	bltzl	$v1,.L0f0c7b30
-/*  f0c7b18:	8c58012c */ 	lw	$t8,0x12c($v0)
-/*  f0c7b1c:	8cae0038 */ 	lw	$t6,0x38($a1)
-/*  f0c7b20:	006e7823 */ 	subu	$t7,$v1,$t6
-/*  f0c7b24:	ac4f0130 */ 	sw	$t7,0x130($v0)
-/*  f0c7b28:	8ca20284 */ 	lw	$v0,0x284($a1)
-/*  f0c7b2c:	8c58012c */ 	lw	$t8,0x12c($v0)
-.L0f0c7b30:
-/*  f0c7b30:	5098000a */ 	beql	$a0,$t8,.L0f0c7b5c
-/*  f0c7b34:	e44c0128 */ 	swc1	$f12,0x128($v0)
-/*  f0c7b38:	8c590130 */ 	lw	$t9,0x130($v0)
-/*  f0c7b3c:	2408001e */ 	addiu	$t0,$zero,0x1e
-/*  f0c7b40:	07210006 */ 	bgez	$t9,.L0f0c7b5c
-/*  f0c7b44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7b48:	ac480130 */ 	sw	$t0,0x130($v0)
-/*  f0c7b4c:	8ca90284 */ 	lw	$t1,0x284($a1)
-/*  f0c7b50:	ad24012c */ 	sw	$a0,0x12c($t1)
-/*  f0c7b54:	8ca20284 */ 	lw	$v0,0x284($a1)
-/*  f0c7b58:	e44c0128 */ 	swc1	$f12,0x128($v0)
-.L0f0c7b5c:
-/*  f0c7b5c:	03e00008 */ 	jr	$ra
-/*  f0c7b60:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerUpdateAutoAimYProp(struct prop *prop, f32 autoaimy)
+{
+	if (g_Vars.currentplayer->autoyaimtime60 >= 0) {
+		g_Vars.currentplayer->autoyaimtime60 -= g_Vars.lvupdate240_60;
+	}
+
+	if (prop != g_Vars.currentplayer->autoyaimprop) {
+		if (g_Vars.currentplayer->autoyaimtime60 < 0) {
+			g_Vars.currentplayer->autoyaimtime60 = 30;
+			g_Vars.currentplayer->autoyaimprop = prop;
+		} else {
+			return;
+		}
+	}
+
+	g_Vars.currentplayer->autoaimy = autoaimy;
+}
 
 void currentPlayerSetAutoAimX(bool enabled)
 {

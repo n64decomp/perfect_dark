@@ -9,7 +9,7 @@ void currentPlayerSetAutoAimY(bool enabled);
 bool currentPlayerIsAutoAimYEnabled(void);
 u32 func0f0c7a8c(void);
 bool currentPlayerIsInSightAimMode(void);
-u32 func0f0c7b00(void);
+void currentPlayerUpdateAutoAimYProp(struct prop *prop, f32 autoaimy);
 void currentPlayerSetAutoAimX(bool enabled);
 bool currentPlayerIsAutoAimXEnabled(void);
 u32 func0f0c7bd0(void);

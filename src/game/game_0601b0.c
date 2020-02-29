@@ -5893,7 +5893,7 @@ glabel func0f064ce8
 /*  f065388:	46123283 */ 	div.s	$f10,$f6,$f18
 /*  f06538c:	46105101 */ 	sub.s	$f4,$f10,$f16
 /*  f065390:	44052000 */ 	mfc1	$a1,$f4
-/*  f065394:	0fc31ec0 */ 	jal	func0f0c7b00
+/*  f065394:	0fc31ec0 */ 	jal	currentPlayerUpdateAutoAimYProp
 /*  f065398:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f06539c:
 /*  f06539c:	0fc31ef4 */ 	jal	func0f0c7bd0
@@ -5965,7 +5965,7 @@ glabel func0f064ce8
 /*  f065494:	1000000a */ 	beqz	$zero,.L0f0654c0
 /*  f065498:	a04a1583 */ 	sb	$t2,0x1583($v0)
 .L0f06549c:
-/*  f06549c:	0fc31ec0 */ 	jal	func0f0c7b00
+/*  f06549c:	0fc31ec0 */ 	jal	currentPlayerUpdateAutoAimYProp
 /*  f0654a0:	24050000 */ 	addiu	$a1,$zero,0x0
 /*  f0654a4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0654a8:	0fc31f0d */ 	jal	currentPlayerUpdateAutoAimXProp
