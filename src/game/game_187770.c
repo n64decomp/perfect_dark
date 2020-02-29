@@ -8373,49 +8373,30 @@ glabel func0f18e5ac
 /*  f18e964:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
 
-GLOBAL_ASM(
-glabel teamGetIndex
-/*  f18e968:	308e0001 */ 	andi	$t6,$a0,0x1
-/*  f18e96c:	15c0001d */ 	bnez	$t6,.L0f18e9e4
-/*  f18e970:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18e974:	308f0002 */ 	andi	$t7,$a0,0x2
-/*  f18e978:	11e00003 */ 	beqz	$t7,.L0f18e988
-/*  f18e97c:	30980004 */ 	andi	$t8,$a0,0x4
-/*  f18e980:	03e00008 */ 	jr	$ra
-/*  f18e984:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18e988:
-/*  f18e988:	13000003 */ 	beqz	$t8,.L0f18e998
-/*  f18e98c:	30990008 */ 	andi	$t9,$a0,0x8
-/*  f18e990:	03e00008 */ 	jr	$ra
-/*  f18e994:	24020002 */ 	addiu	$v0,$zero,0x2
-.L0f18e998:
-/*  f18e998:	13200003 */ 	beqz	$t9,.L0f18e9a8
-/*  f18e99c:	30880010 */ 	andi	$t0,$a0,0x10
-/*  f18e9a0:	03e00008 */ 	jr	$ra
-/*  f18e9a4:	24020003 */ 	addiu	$v0,$zero,0x3
-.L0f18e9a8:
-/*  f18e9a8:	11000003 */ 	beqz	$t0,.L0f18e9b8
-/*  f18e9ac:	30890020 */ 	andi	$t1,$a0,0x20
-/*  f18e9b0:	03e00008 */ 	jr	$ra
-/*  f18e9b4:	24020004 */ 	addiu	$v0,$zero,0x4
-.L0f18e9b8:
-/*  f18e9b8:	11200003 */ 	beqz	$t1,.L0f18e9c8
-/*  f18e9bc:	308a0040 */ 	andi	$t2,$a0,0x40
-/*  f18e9c0:	03e00008 */ 	jr	$ra
-/*  f18e9c4:	24020005 */ 	addiu	$v0,$zero,0x5
-.L0f18e9c8:
-/*  f18e9c8:	11400003 */ 	beqz	$t2,.L0f18e9d8
-/*  f18e9cc:	308b0080 */ 	andi	$t3,$a0,0x80
-/*  f18e9d0:	03e00008 */ 	jr	$ra
-/*  f18e9d4:	24020006 */ 	addiu	$v0,$zero,0x6
-.L0f18e9d8:
-/*  f18e9d8:	11600002 */ 	beqz	$t3,.L0f18e9e4
-/*  f18e9dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18e9e0:	24030007 */ 	addiu	$v1,$zero,0x7
-.L0f18e9e4:
-/*  f18e9e4:	03e00008 */ 	jr	$ra
-/*  f18e9e8:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 teamGetIndex(s32 team)
+{
+	s32 index = 0;
+
+	if (team & 1) {
+		index = 0;
+	} else if (team & 0x02) {
+		index = 1;
+	} else if (team & 0x04) {
+		index = 2;
+	} else if (team & 0x08) {
+		index = 3;
+	} else if (team & 0x10) {
+		index = 4;
+	} else if (team & 0x20) {
+		index = 5;
+	} else if (team & 0x40) {
+		index = 6;
+	} else if (team & 0x80) {
+		index = 7;
+	}
+
+	return index;
+}
 
 GLOBAL_ASM(
 glabel radarDrawDot
