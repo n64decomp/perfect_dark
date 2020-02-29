@@ -1473,34 +1473,19 @@ u32 calculatePlayerIndex(u32 playernum)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f128ec8
-/*  f128ec8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f128ecc:	3c06800a */ 	lui	$a2,0x800a
-/*  f128ed0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f128ed4:	00802825 */ 	or	$a1,$a0,$zero
-/*  f128ed8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f128edc:	24c69fd0 */ 	addiu	$a2,$a2,-24624
-/*  f128ee0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f128ee4:	8c640274 */ 	lw	$a0,0x274($v1)
-.L0f128ee8:
-/*  f128ee8:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f128eec:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f128ef0:	004e7821 */ 	addu	$t7,$v0,$t6
-/*  f128ef4:	8df80064 */ 	lw	$t8,0x64($t7)
-/*  f128ef8:	13000006 */ 	beqz	$t8,.L0f128f14
-/*  f128efc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128f00:	54a00004 */ 	bnezl	$a1,.L0f128f14
-/*  f128f04:	24a5ffff */ 	addiu	$a1,$a1,-1
-/*  f128f08:	03e00008 */ 	jr	$ra
-/*  f128f0c:	00801025 */ 	or	$v0,$a0,$zero
-/*  f128f10:	24a5ffff */ 	addiu	$a1,$a1,-1
-.L0f128f14:
-/*  f128f14:	5466fff4 */ 	bnel	$v1,$a2,.L0f128ee8
-/*  f128f18:	8c640274 */ 	lw	$a0,0x274($v1)
-/*  f128f1c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f128f20:	03e00008 */ 	jr	$ra
-/*  f128f24:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128f28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128f2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 getPlayerByOrderNum(s32 arg0)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		if (g_Vars.players[g_Vars.playerorder[i]]) {
+			if (arg0 == 0) {
+				return g_Vars.playerorder[i];
+			}
+
+			arg0--;
+		}
+	}
+
+	return 0;
+}

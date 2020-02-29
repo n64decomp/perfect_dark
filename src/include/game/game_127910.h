@@ -17,7 +17,7 @@ s32 weaponGetModel(s32 arg0);
 void currentPlayerSetWeaponFlag4(s32 weaponslot);
 void func0f128d20(s32 slot);
 void randomisePlayerOrder(void);
-u32 func0f128ec8(void);
+s32 getPlayerByOrderNum(s32 arg0);
 void setCurrentPlayerNum(u32 playernum);
 u32 calculatePlayerIndex(u32 playernum);
 

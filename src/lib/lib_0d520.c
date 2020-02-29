@@ -1273,7 +1273,7 @@ glabel func0000e324
 /*     e4c8:	1b000038 */ 	blez	$t8,.L0000e5ac
 /*     e4cc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0000e4d0:
-/*     e4d0:	0fc4a3b2 */ 	jal	func0f128ec8
+/*     e4d0:	0fc4a3b2 */ 	jal	getPlayerByOrderNum
 /*     e4d4:	02402025 */ 	or	$a0,$s2,$zero
 /*     e4d8:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*     e4dc:	00402025 */ 	or	$a0,$v0,$zero

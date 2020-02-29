@@ -2272,7 +2272,7 @@ glabel func0f169374
 /*  f1699f8:	1000000a */ 	beqz	$zero,.L0f169a24
 /*  f1699fc:	afb90060 */ 	sw	$t9,0x60($sp)
 .L0f169a00:
-/*  f169a00:	0fc4a3b2 */ 	jal	func0f128ec8
+/*  f169a00:	0fc4a3b2 */ 	jal	getPlayerByOrderNum
 /*  f169a04:	02002025 */ 	or	$a0,$s0,$zero
 /*  f169a08:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f169a0c:	00402025 */ 	or	$a0,$v0,$zero
