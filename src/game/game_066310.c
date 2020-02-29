@@ -42989,22 +42989,13 @@ glabel func0f08b880
 /*  f08b8b4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrSetWeaponFlag40
-/*  f08b8b8:	10800009 */ 	beqz	$a0,.L0f08b8e0
-/*  f08b8bc:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f08b8c0:	008e7821 */ 	addu	$t7,$a0,$t6
-/*  f08b8c4:	8de20170 */ 	lw	$v0,0x170($t7)
-/*  f08b8c8:	10400005 */ 	beqz	$v0,.L0f08b8e0
-/*  f08b8cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08b8d0:	8c430004 */ 	lw	$v1,0x4($v0)
-/*  f08b8d4:	8c780040 */ 	lw	$t8,0x40($v1)
-/*  f08b8d8:	37190004 */ 	ori	$t9,$t8,0x4
-/*  f08b8dc:	ac790040 */ 	sw	$t9,0x40($v1)
-.L0f08b8e0:
-/*  f08b8e0:	03e00008 */ 	jr	$ra
-/*  f08b8e4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void chrSetWeaponFlag4(struct chrdata *chr, s32 slot)
+{
+	if (chr && chr->weapons_held[slot]) {
+		struct defaultobj *obj = chr->weapons_held[slot]->obj;
+		obj->hidden |= OBJHFLAG_00000004;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f08b8e8
@@ -48963,10 +48954,10 @@ glabel func0f0910ac
 /*  f0910e4:	8dcf00bc */ 	lw	$t7,0xbc($t6)
 /*  f0910e8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0910ec:	8df00004 */ 	lw	$s0,0x4($t7)
-/*  f0910f0:	0fc22e2e */ 	jal	chrSetWeaponFlag40
+/*  f0910f0:	0fc22e2e */ 	jal	chrSetWeaponFlag4
 /*  f0910f4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0910f8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0910fc:	0fc22e2e */ 	jal	chrSetWeaponFlag40
+/*  f0910fc:	0fc22e2e */ 	jal	chrSetWeaponFlag4
 /*  f091100:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f091104:	3c16800b */ 	lui	$s6,%hi(g_MpSetup)
 /*  f091108:	26d6cb88 */ 	addiu	$s6,$s6,%lo(g_MpSetup)

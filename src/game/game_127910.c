@@ -1403,9 +1403,9 @@ glabel weaponGetModel
 //	return -1;
 //}
 
-void currentPlayerSetWeaponFlag40(s32 weaponslot)
+void currentPlayerSetWeaponFlag4(s32 weaponslot)
 {
-	chrSetWeaponFlag40(g_Vars.currentplayer->prop->chr, weaponslot);
+	chrSetWeaponFlag4(g_Vars.currentplayer->prop->chr, weaponslot);
 }
 
 GLOBAL_ASM(
