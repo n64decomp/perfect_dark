@@ -958,7 +958,7 @@ glabel func0000db3c
 /*     e048:	ae550298 */ 	sw	$s5,0x298($s2)
 /*     e04c:	ae56029c */ 	sw	$s6,0x29c($s2)
 .L0000e050:
-/*     e050:	0fc49e69 */ 	jal	func0f1279a4
+/*     e050:	0fc49e69 */ 	jal	playersAllocate
 /*     e054:	02202025 */ 	or	$a0,$s1,$zero
 /*     e058:	3c057005 */ 	lui	$a1,%hi(var70053b0c)
 /*     e05c:	24a53b0c */ 	addiu	$a1,$a1,%lo(var70053b0c)

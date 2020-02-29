@@ -5,11 +5,11 @@
 
 u32 func0f127910(void);
 u32 func0f127950(void);
-u32 func0f1279a4(void);
-u32 func0f127ae4(void);
+void playersAllocate(s32 count);
+void playerAllocate(u32 index);
 u32 func0f128834(void);
 u32 propGetPlayerNum(struct prop *prop);
-u32 func0f128a9c(void);
+void func0f128a9c(u32 arg0, u32 arg2);
 u32 func0f128ab8(void);
 u32 func0f128ad4(void);
 u32 func0f128ae4(void);
