@@ -283,35 +283,18 @@ glabel func0f0c7b64
 /*  f0c7b70:	adc40134 */ 	sw	$a0,0x134($t6)
 );
 
-GLOBAL_ASM(
-glabel func0f0c7b74
-/*  f0c7b74:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0c7b78:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0c7b7c:	8c6e0318 */ 	lw	$t6,0x318($v1)
-/*  f0c7b80:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c7b84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c7b88:	15c00004 */ 	bnez	$t6,.L0f0c7b9c
-/*  f0c7b8c:	3c18800b */ 	lui	$t8,0x800b
-/*  f0c7b90:	8c6f0284 */ 	lw	$t7,0x284($v1)
-/*  f0c7b94:	1000000a */ 	beqz	$zero,.L0f0c7bc0
-/*  f0c7b98:	8de20134 */ 	lw	$v0,0x134($t7)
-.L0f0c7b9c:
-/*  f0c7b9c:	8f18cb94 */ 	lw	$t8,-0x346c($t8)
-/*  f0c7ba0:	33190008 */ 	andi	$t9,$t8,0x8
-/*  f0c7ba4:	53200004 */ 	beqzl	$t9,.L0f0c7bb8
-/*  f0c7ba8:	8c680288 */ 	lw	$t0,0x288($v1)
-/*  f0c7bac:	10000004 */ 	beqz	$zero,.L0f0c7bc0
-/*  f0c7bb0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c7bb4:	8c680288 */ 	lw	$t0,0x288($v1)
-.L0f0c7bb8:
-/*  f0c7bb8:	0fc549e9 */ 	jal	optionsGetAutoAim
-/*  f0c7bbc:	8d040070 */ 	lw	$a0,0x70($t0)
-.L0f0c7bc0:
-/*  f0c7bc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c7bc4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c7bc8:	03e00008 */ 	jr	$ra
-/*  f0c7bcc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentPlayerIsAutoAimXEnabled(void)
+{
+	if (!g_Vars.normmplayerisrunning) {
+		return g_Vars.currentplayer->autoxaimenabled;
+	}
+
+	if (g_MpSetup.options & MPOPTION_NOAUTOAIM) {
+		return false;
+	}
+
+	return optionsGetAutoAim(g_Vars.unk000288->mpchrnum);
+}
 
 GLOBAL_ASM(
 glabel func0f0c7bd0
@@ -336,7 +319,7 @@ glabel func0f0c7bd0
 /*  f0c7c14:	10000003 */ 	beqz	$zero,.L0f0c7c24
 /*  f0c7c18:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f0c7c1c:
-/*  f0c7c1c:	0fc31edd */ 	jal	func0f0c7b74
+/*  f0c7c1c:	0fc31edd */ 	jal	currentPlayerIsAutoAimXEnabled
 /*  f0c7c20:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0c7c24:
 /*  f0c7c24:	8fbf0014 */ 	lw	$ra,0x14($sp)

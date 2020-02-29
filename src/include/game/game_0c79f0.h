@@ -11,7 +11,7 @@ u32 func0f0c7a8c(void);
 u32 func0f0c7af0(void);
 u32 func0f0c7b00(void);
 u32 func0f0c7b64(void);
-u32 func0f0c7b74(void);
+bool currentPlayerIsAutoAimXEnabled(void);
 u32 func0f0c7bd0(void);
 u32 func0f0c7c34(void);
 u32 func0f0c7c98(void);

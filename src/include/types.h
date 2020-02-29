@@ -1095,7 +1095,7 @@ struct player {
 	/*0x0128*/ u32 unk0128;
 	/*0x012c*/ u32 unk012c;
 	/*0x0130*/ u32 unk0130;
-	/*0x0134*/ u32 unk0134;
+	/*0x0134*/ bool autoxaimenabled;
 	/*0x0138*/ u32 unk0138;
 	/*0x013c*/ u32 unk013c;
 	/*0x0140*/ u32 unk0140;
