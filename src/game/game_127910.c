@@ -1408,52 +1408,31 @@ void currentPlayerSetWeaponFlag4(s32 weaponslot)
 	chrSetWeaponFlag4(g_Vars.currentplayer->prop->chr, weaponslot);
 }
 
-GLOBAL_ASM(
-glabel func0f128d20
-/*  f128d20:	3c0e800a */ 	lui	$t6,0x800a
-/*  f128d24:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f128d28:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f128d2c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f128d30:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f128d34:	00041880 */ 	sll	$v1,$a0,0x2
-/*  f128d38:	8de20004 */ 	lw	$v0,0x4($t7)
-/*  f128d3c:	0043c021 */ 	addu	$t8,$v0,$v1
-/*  f128d40:	8f190170 */ 	lw	$t9,0x170($t8)
-/*  f128d44:	5720001a */ 	bnezl	$t9,.L0f128db0
-/*  f128d48:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f128d4c:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f128d50:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
-/*  f128d54:	afa30024 */ 	sw	$v1,0x24($sp)
-/*  f128d58:	00402025 */ 	or	$a0,$v0,$zero
-/*  f128d5c:	0fc4a2bd */ 	jal	weaponGetModel
-/*  f128d60:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f128d64:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f128d68:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f128d6c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f128d70:	14610005 */ 	bne	$v1,$at,.L0f128d88
-/*  f128d74:	00402825 */ 	or	$a1,$v0,$zero
-/*  f128d78:	24010022 */ 	addiu	$at,$zero,0x22
-/*  f128d7c:	14c10002 */ 	bne	$a2,$at,.L0f128d88
-/*  f128d80:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128d84:	2405ffff */ 	addiu	$a1,$zero,-1
-.L0f128d88:
-/*  f128d88:	04a00008 */ 	bltz	$a1,.L0f128dac
-/*  f128d8c:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*  f128d90:	14600003 */ 	bnez	$v1,.L0f128da0
-/*  f128d94:	3c071000 */ 	lui	$a3,0x1000
-/*  f128d98:	10000001 */ 	beqz	$zero,.L0f128da0
-/*  f128d9c:	00003825 */ 	or	$a3,$zero,$zero
-.L0f128da0:
-/*  f128da0:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f128da4:	0fc22e3a */ 	jal	func0f08b8e8
-/*  f128da8:	afa00014 */ 	sw	$zero,0x14($sp)
-.L0f128dac:
-/*  f128dac:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f128db0:
-/*  f128db0:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f128db4:	03e00008 */ 	jr	$ra
-/*  f128db8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f128d20(s32 slot)
+{
+	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
+
+	if (chr->weapons_held[slot] == NULL) {
+		s32 weaponnum = getCurrentPlayerWeaponId(slot);
+		s32 modelnum = weaponGetModel(weaponnum);
+
+		if (slot == 1 && weaponnum == WEAPON_REMOTEMINE) {
+			modelnum = -1;
+		}
+
+		if (modelnum >= 0) {
+			u32 flags;
+
+			if (slot == 0) {
+				flags = 0;
+			} else {
+				flags = 0x10000000;
+			}
+
+			func0f08b8e8(chr, modelnum, weaponnum, flags, 0, 0);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f128dbc
