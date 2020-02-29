@@ -7,7 +7,7 @@ void func0f127910(void);
 void playersUnrefAll(void);
 void playersAllocate(s32 count);
 void playerAllocate(u32 index);
-u32 func0f128834(void);
+void currentPlayerCalculateAiBuddyNums(void);
 u32 propGetPlayerNum(struct prop *prop);
 void func0f128a9c(u32 arg0, u32 arg2);
 u32 func0f128ab8(void);

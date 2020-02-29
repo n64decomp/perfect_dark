@@ -954,7 +954,7 @@ glabel playerAllocate
 );
 
 GLOBAL_ASM(
-glabel func0f128834
+glabel currentPlayerCalculateAiBuddyNums
 /*  f128834:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*  f128838:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 /*  f12883c:	8d4e006c */ 	lw	$t6,0x6c($t2)

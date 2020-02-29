@@ -734,7 +734,7 @@ glabel func0f167e7c
 /*  f168390:	314b0002 */ 	andi	$t3,$t2,0x2
 /*  f168394:	51600004 */ 	beqzl	$t3,.L0f1683a8
 /*  f168398:	8e0c006c */ 	lw	$t4,0x6c($s0)
-/*  f16839c:	0fc4a20d */ 	jal	func0f128834
+/*  f16839c:	0fc4a20d */ 	jal	currentPlayerCalculateAiBuddyNums
 /*  f1683a0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1683a4:	8e0c006c */ 	lw	$t4,0x6c($s0)
 .L0f1683a8:
