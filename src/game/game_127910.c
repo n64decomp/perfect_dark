@@ -35,30 +35,24 @@ glabel func0f127910
 /*  f12794c:	ac43029c */ 	sw	$v1,0x29c($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f127950
-/*  f127950:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f127954:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f127958:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f12795c:	240f0002 */ 	addiu	$t7,$zero,0x2
-/*  f127960:	24180003 */ 	addiu	$t8,$zero,0x3
-/*  f127964:	ac400064 */ 	sw	$zero,0x64($v0)
-/*  f127968:	ac400068 */ 	sw	$zero,0x68($v0)
-/*  f12796c:	ac40006c */ 	sw	$zero,0x6c($v0)
-/*  f127970:	ac400070 */ 	sw	$zero,0x70($v0)
-/*  f127974:	ac400284 */ 	sw	$zero,0x284($v0)
-/*  f127978:	ac400290 */ 	sw	$zero,0x290($v0)
-/*  f12797c:	ac400288 */ 	sw	$zero,0x288($v0)
-/*  f127980:	ac40028c */ 	sw	$zero,0x28c($v0)
-/*  f127984:	ac400274 */ 	sw	$zero,0x274($v0)
-/*  f127988:	ac4e0278 */ 	sw	$t6,0x278($v0)
-/*  f12798c:	ac4f027c */ 	sw	$t7,0x27c($v0)
-/*  f127990:	ac580280 */ 	sw	$t8,0x280($v0)
-/*  f127994:	ac4002a0 */ 	sw	$zero,0x2a0($v0)
-/*  f127998:	ac4002a4 */ 	sw	$zero,0x2a4($v0)
-/*  f12799c:	03e00008 */ 	jr	$ra
-/*  f1279a0:	ac4002a8 */ 	sw	$zero,0x2a8($v0)
-);
+void playersUnrefAll(void)
+{
+	g_Vars.players[0] = NULL;
+	g_Vars.players[1] = NULL;
+	g_Vars.players[2] = NULL;
+	g_Vars.players[3] = NULL;
+	g_Vars.currentplayer = NULL;
+	g_Vars.currentplayerindex = 0;
+	g_Vars.unk000288 = NULL;
+	g_Vars.currentplayernum = 0;
+	g_Vars.unk000274[0] = 0;
+	g_Vars.unk000274[1] = 1;
+	g_Vars.unk000274[2] = 2;
+	g_Vars.unk000274[3] = 3;
+	g_Vars.bond = NULL;
+	g_Vars.coop = NULL;
+	g_Vars.anti = NULL;
+}
 
 void playersAllocate(s32 count)
 {

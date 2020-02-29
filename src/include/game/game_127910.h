@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f127910(void);
-u32 func0f127950(void);
+void playersUnrefAll(void);
 void playersAllocate(s32 count);
 void playerAllocate(u32 index);
 u32 func0f128834(void);
