@@ -1144,21 +1144,15 @@ glabel func0f128ab8
 /*  f128ad0:	a5e50636 */ 	sh	$a1,0x636($t7)
 );
 
-GLOBAL_ASM(
-glabel func0f128ad4
-/*  f128ad4:	3c0e800a */ 	lui	$t6,0x800a
-/*  f128ad8:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f128adc:	03e00008 */ 	jr	$ra
-/*  f128ae0:	e5cc1854 */ 	swc1	$f12,0x1854($t6)
-);
+void currentPlayerSetFovY(f32 fovy)
+{
+	g_Vars.currentplayer->fovy = fovy;
+}
 
-GLOBAL_ASM(
-glabel func0f128ae4
-/*  f128ae4:	3c0e800a */ 	lui	$t6,0x800a
-/*  f128ae8:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f128aec:	03e00008 */ 	jr	$ra
-/*  f128af0:	e5cc1858 */ 	swc1	$f12,0x1858($t6)
-);
+void currentPlayerSetAspectRatio(f32 aspect)
+{
+	g_Vars.currentplayer->aspect = aspect;
+}
 
 GLOBAL_ASM(
 glabel func0f128af4

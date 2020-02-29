@@ -1378,7 +1378,8 @@ struct player {
 	/*0x0624*/ u32 unk0624;
 	/*0x0628*/ u32 unk0628;
 	/*0x062c*/ u32 unk062c;
-	/*0x0630*/ u32 unk0630;
+	/*0x0630*/ u16 unk0630;
+	/*0x0632*/ u16 unk0632;
 	/*0x0634*/ u32 unk0634;
 	/*0x0638*/ u8 unk0638;
 	/*0x063c*/ u32 unk063c;
@@ -2535,8 +2536,8 @@ struct player {
 	/*0x1848*/ u32 unk1848;
 	/*0x184c*/ u32 unk184c;
 	/*0x1850*/ u32 unk1850;
-	/*0x1854*/ u32 unk1854;
-	/*0x1858*/ u32 unk1858;
+	/*0x1854*/ f32 fovy;
+	/*0x1858*/ f32 aspect;
 	/*0x185c*/ u32 flags;
 	/*0x1860*/ u32 unk1860;
 	/*0x1864*/ struct invitem *weapons; // circular linked list
