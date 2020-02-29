@@ -96,10 +96,10 @@ void playersUnrefAll(void)
 	g_Vars.currentplayerindex = 0;
 	g_Vars.unk000288 = NULL;
 	g_Vars.currentplayernum = 0;
-	g_Vars.unk000274[0] = 0;
-	g_Vars.unk000274[1] = 1;
-	g_Vars.unk000274[2] = 2;
-	g_Vars.unk000274[3] = 3;
+	g_Vars.playerorder[0] = 0;
+	g_Vars.playerorder[1] = 1;
+	g_Vars.playerorder[2] = 2;
+	g_Vars.playerorder[3] = 3;
 	g_Vars.bond = NULL;
 	g_Vars.coop = NULL;
 	g_Vars.anti = NULL;
@@ -1434,59 +1434,24 @@ void func0f128d20(s32 slot)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f128dbc
-/*  f128dbc:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f128dc0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f128dc4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f128dc8:	3c11800a */ 	lui	$s1,%hi(g_Vars)
-/*  f128dcc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f128dd0:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f128dd4:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f128dd8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f128ddc:	26319fc0 */ 	addiu	$s1,$s1,%lo(g_Vars)
-/*  f128de0:	00008025 */ 	or	$s0,$zero,$zero
-.L0f128de4:
-/*  f128de4:	ae300274 */ 	sw	$s0,0x274($s1)
-/*  f128de8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f128dec:	2a010004 */ 	slti	$at,$s0,0x4
-/*  f128df0:	1420fffc */ 	bnez	$at,.L0f128de4
-/*  f128df4:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f128df8:	3c0e800a */ 	lui	$t6,0x800a
-/*  f128dfc:	25d29fc0 */ 	addiu	$s2,$t6,-24640
-/*  f128e00:	02408825 */ 	or	$s1,$s2,$zero
-/*  f128e04:	00008025 */ 	or	$s0,$zero,$zero
-/*  f128e08:	24140003 */ 	addiu	$s4,$zero,0x3
-/*  f128e0c:	24130004 */ 	addiu	$s3,$zero,0x4
-.L0f128e10:
-/*  f128e10:	0c004b70 */ 	jal	random
-/*  f128e14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128e18:	02707823 */ 	subu	$t7,$s3,$s0
-/*  f128e1c:	004f001b */ 	divu	$zero,$v0,$t7
-/*  f128e20:	0000c010 */ 	mfhi	$t8
-/*  f128e24:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f128e28:	02591821 */ 	addu	$v1,$s2,$t9
-/*  f128e2c:	8c680274 */ 	lw	$t0,0x274($v1)
-/*  f128e30:	8e240274 */ 	lw	$a0,0x274($s1)
-/*  f128e34:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f128e38:	15e00002 */ 	bnez	$t7,.L0f128e44
-/*  f128e3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f128e40:	0007000d */ 	break	0x7
-.L0f128e44:
-/*  f128e44:	ae280274 */ 	sw	$t0,0x274($s1)
-/*  f128e48:	26520004 */ 	addiu	$s2,$s2,0x4
-/*  f128e4c:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f128e50:	1614ffef */ 	bne	$s0,$s4,.L0f128e10
-/*  f128e54:	ac640274 */ 	sw	$a0,0x274($v1)
-/*  f128e58:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f128e5c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f128e60:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f128e64:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f128e68:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f128e6c:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f128e70:	03e00008 */ 	jr	$ra
-/*  f128e74:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void randomisePlayerOrder(void)
+{
+	s32 i;
+
+	// Order them ascending
+	for (i = 0; i < 4; i++) {
+		g_Vars.playerorder[i] = i;
+	}
+
+	// Randomly swap numbers with later elements
+	for (i = 0; i != 3; i++) {
+		s32 otherindex = random() % (4 - i);
+		s32 tmp = g_Vars.playerorder[i];
+
+		g_Vars.playerorder[i] = g_Vars.playerorder[i + otherindex];
+		g_Vars.playerorder[i + otherindex] = tmp;
+	}
+}
 
 u32 calculatePlayerIndex(u32 playernum)
 {
@@ -1494,7 +1459,7 @@ u32 calculatePlayerIndex(u32 playernum)
 	u32 i;
 
 	for (i = 0; i < 4; i++) {
-		u32 thisnum = g_Vars.unk000274[i];
+		u32 thisnum = g_Vars.playerorder[i];
 
 		if (playernum == thisnum) {
 			break;

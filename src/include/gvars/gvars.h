@@ -41,7 +41,7 @@ struct g_vars {
 	/*000060*/ u32 unk000060;
 	/*000064*/ struct player *players[4];
 	/*000074*/ struct gvars74 unk000074[4];
-	/*000274*/ u32 unk000274[4];
+	/*000274*/ u32 playerorder[4];
 	/*000284*/ struct player *currentplayer;
 	/*000288*/ struct gvars74 *unk000288;
 	/*00028c*/ s32 currentplayernum; // 0-3 - controller numbers I think
