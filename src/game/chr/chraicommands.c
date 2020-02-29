@@ -10784,8 +10784,8 @@ bool aiChrSetCutsceneWeapon(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chrFindById(g_Vars.chrdata, cmd[2]);
-	s32 weapon_id = func0f128af4(cmd[3]);
-	s32 fallback_id = func0f128af4(cmd[4]);
+	s32 model_id = weaponGetModel(cmd[3]);
+	s32 fallback_model_id = weaponGetModel(cmd[4]);
 
 	if (chr) {
 		if (cmd[3] == 0xff) {
@@ -10813,20 +10813,20 @@ bool aiChrSetCutsceneWeapon(void)
 					}
 				}
 			} else {
-				if (chr->weapons_held[0] == NULL && chr->weapons_held[1] == NULL && fallback_id >= 0) {
-					func0f08b8e8(chr, fallback_id, cmd[4], 0, 0, 0);
+				if (chr->weapons_held[0] == NULL && chr->weapons_held[1] == NULL && fallback_model_id >= 0) {
+					func0f08b8e8(chr, fallback_model_id, cmd[4], 0, 0, 0);
 				}
 			}
 		} else {
 			func0f08b8b8(chr, 1);
 			func0f08b8b8(chr, 0);
 
-			if (weapon_id >= 0) {
-				func0f08b8e8(chr, weapon_id, cmd[3], 0, 0, 0);
+			if (model_id >= 0) {
+				func0f08b8e8(chr, model_id, cmd[3], 0, 0, 0);
 			}
 
-			if (fallback_id >= 0) {
-				func0f08b8e8(chr, fallback_id, cmd[4], 0x10000000, 0, 0);
+			if (fallback_model_id >= 0) {
+				func0f08b8e8(chr, fallback_model_id, cmd[4], 0x10000000, 0, 0);
 			}
 		}
 	}

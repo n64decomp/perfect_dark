@@ -2417,7 +2417,7 @@ glabel func0f1994b0
 .L0f199698:
 /*  f199698:	55c00018 */ 	bnezl	$t6,.L0f1996fc
 /*  f19969c:	8fa40064 */ 	lw	$a0,0x64($sp)
-/*  f1996a0:	0fc4a2bd */ 	jal	func0f128af4
+/*  f1996a0:	0fc4a2bd */ 	jal	weaponGetModel
 /*  f1996a4:	8fa40064 */ 	lw	$a0,0x64($sp)
 /*  f1996a8:	04400013 */ 	bltz	$v0,.L0f1996f8
 /*  f1996ac:	00402825 */ 	or	$a1,$v0,$zero
@@ -2547,7 +2547,7 @@ glabel func0f19978c
 /*  f199864:	5501001b */ 	bnel	$t0,$at,.L0f1998d4
 /*  f199868:	8e6402d4 */ 	lw	$a0,0x2d4($s3)
 .L0f19986c:
-/*  f19986c:	0fc4a2bd */ 	jal	func0f128af4
+/*  f19986c:	0fc4a2bd */ 	jal	weaponGetModel
 /*  f199870:	86240004 */ 	lh	$a0,0x4($s1)
 /*  f199874:	18400016 */ 	blez	$v0,.L0f1998d0
 /*  f199878:	00402825 */ 	or	$a1,$v0,$zero

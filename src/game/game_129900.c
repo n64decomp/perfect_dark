@@ -29,6 +29,26 @@
 #include "lib/lib_4b480.h"
 #include "types.h"
 
+const char var7f1b5230[] = "VTXSTORE : vtxfixrefs -> Start - p1=%x, p2=%x\n";
+const char var7f1b5260[] = "vtxfixrefs : Part=%x -- Mapping ptr %x -> %x\n";
+const char var7f1b5290[] = "VTXSTORE : vtxfixrefs -> End - Done=%d\n";
+const char var7f1b52b8[] = "vtxstorecheck : memaFree -> %u bytes at Ptr=%x(%x)\n";
+const char var7f1b52ec[] = "vtxstorecheck : At block 1 %d -> Ref1=%x, Ref2=%x\n";
+const char var7f1b5320[] = "vtxstorecheck : At block 2 %d -> Ref1=%x, Ref2=%x\n";
+const char var7f1b5354[] = "vtx buffer low, need to delete objects\n";
+const char var7f1b537c[] = "getfreevertices : %d of type %d -> ref1=%x, ref2=%x\n";
+const char var7f1b53b4[] = "vtxstore: 1st mema alloc of %u bytes\n";
+const char var7f1b53dc[] = "getfreevertices : Return ptr = %x\n";
+const char var7f1b5400[] = "vtxstore: Out of mema (returning NULL)\n";
+const char var7f1b5428[] = "vtxstore: GROSS! CorspeCount > MAX_CORPSES corpses! Freeing corpse %x\n";
+const char var7f1b5470[] = "vtxstore:  CorpseCount %d, Trying to free %d\n";
+const char var7f1b54a0[] = "vtxstore: Freeing corpse %x\n";
+const char var7f1b54c0[] = "vtxstore: Out of vertices type %d wanted %d free %d (returning NULL)\n";
+const char var7f1b5508[] = "vtxstore: freevertices type %d, list %x\n";
+const char var7f1b5534[] = "freevertices: address not found in array %x\n";
+const char var7f1b5564[] = "";
+const char var7f1b5568[] = "";
+const char var7f1b556c[] = "";
 const char var7f1b5570[] = "ecol";
 
 const u32 var7f1b5578[] = {0x44bb8000};

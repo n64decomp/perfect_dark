@@ -2528,7 +2528,7 @@ glabel func0f192628
 .L0f1926a0:
 /*  f1926a0:	8e1902d4 */ 	lw	$t9,0x2d4($s0)
 /*  f1926a4:	8f240020 */ 	lw	$a0,0x20($t9)
-/*  f1926a8:	0fc4a2bd */ 	jal	func0f128af4
+/*  f1926a8:	0fc4a2bd */ 	jal	weaponGetModel
 /*  f1926ac:	afa7002c */ 	sw	$a3,0x2c($sp)
 /*  f1926b0:	8fa7002c */ 	lw	$a3,0x2c($sp)
 /*  f1926b4:	04400009 */ 	bltz	$v0,.L0f1926dc
@@ -5060,7 +5060,7 @@ glabel func0f194b40
 /*  f194d28:	0fc65f3c */ 	jal	func0f197cf0
 /*  f194d2c:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f194d30:	00408025 */ 	or	$s0,$v0,$zero
-/*  f194d34:	0fc4a2bd */ 	jal	func0f128af4
+/*  f194d34:	0fc4a2bd */ 	jal	weaponGetModel
 /*  f194d38:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f194d3c:	12000019 */ 	beqz	$s0,.L0f194da4
 /*  f194d40:	00408825 */ 	or	$s1,$v0,$zero

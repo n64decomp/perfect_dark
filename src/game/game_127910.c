@@ -14,6 +14,65 @@
 #include "lib/lib_12dc0.h"
 #include "types.h"
 
+const u32 var7f1b5150[] = {0xc3653838};
+const u32 var7f1b5154[] = {0x4164924b};
+const u32 var7f1b5158[] = {0x3f6e147b};
+const u32 var7f1b515c[] = {0x3f666666};
+const u32 var7f1b5160[] = {0xc0490fdb};
+const u32 var7f1b5164[] = {0x3faaaaab};
+
+// weaponGetModel
+const u32 var7f1b5168[] = {0x7f128b54};
+const u32 var7f1b516c[] = {0x7f128b54};
+const u32 var7f1b5170[] = {0x7f128b5c};
+const u32 var7f1b5174[] = {0x7f128b8c};
+const u32 var7f1b5178[] = {0x7f128b94};
+const u32 var7f1b517c[] = {0x7f128b64};
+const u32 var7f1b5180[] = {0x7f128b6c};
+const u32 var7f1b5184[] = {0x7f128b84};
+const u32 var7f1b5188[] = {0x7f128b74};
+const u32 var7f1b518c[] = {0x7f128b7c};
+const u32 var7f1b5190[] = {0x7f128b9c};
+const u32 var7f1b5194[] = {0x7f128bc4};
+const u32 var7f1b5198[] = {0x7f128bcc};
+const u32 var7f1b519c[] = {0x7f128bd4};
+const u32 var7f1b51a0[] = {0x7f128bdc};
+const u32 var7f1b51a4[] = {0x7f128bac};
+const u32 var7f1b51a8[] = {0x7f128bbc};
+const u32 var7f1b51ac[] = {0x7f128ba4};
+const u32 var7f1b51b0[] = {0x7f128bb4};
+const u32 var7f1b51b4[] = {0x7f128be4};
+const u32 var7f1b51b8[] = {0x7f128bec};
+const u32 var7f1b51bc[] = {0x7f128c14};
+const u32 var7f1b51c0[] = {0x7f128c0c};
+const u32 var7f1b51c4[] = {0x7f128bfc};
+const u32 var7f1b51c8[] = {0x7f128bf4};
+const u32 var7f1b51cc[] = {0x7f128c04};
+const u32 var7f1b51d0[] = {0x7f128c2c};
+const u32 var7f1b51d4[] = {0x7f128c1c};
+const u32 var7f1b51d8[] = {0x7f128c34};
+const u32 var7f1b51dc[] = {0x7f128c24};
+const u32 var7f1b51e0[] = {0x7f128c4c};
+const u32 var7f1b51e4[] = {0x7f128c44};
+const u32 var7f1b51e8[] = {0x7f128c64};
+const u32 var7f1b51ec[] = {0x7f128c5c};
+const u32 var7f1b51f0[] = {0x7f128c54};
+const u32 var7f1b51f4[] = {0x7f128cbc};
+const u32 var7f1b51f8[] = {0x7f128c7c};
+const u32 var7f1b51fc[] = {0x7f128c84};
+const u32 var7f1b5200[] = {0x7f128c8c};
+const u32 var7f1b5204[] = {0x7f128c94};
+const u32 var7f1b5208[] = {0x7f128c9c};
+const u32 var7f1b520c[] = {0x7f128ca4};
+const u32 var7f1b5210[] = {0x7f128cac};
+const u32 var7f1b5214[] = {0x7f128cb4};
+const u32 var7f1b5218[] = {0x7f128c3c};
+const u32 var7f1b521c[] = {0x7f128cd4};
+const u32 var7f1b5220[] = {0x7f128cd4};
+const u32 var7f1b5224[] = {0x7f128cd4};
+const u32 var7f1b5228[] = {0x7f128cd4};
+const u32 var7f1b522c[] = {0x7f128c74};
+
 void func0f127910(void)
 {
 	s32 i;
@@ -1145,7 +1204,7 @@ void currentPlayerSetAspectRatio(f32 aspect)
 }
 
 GLOBAL_ASM(
-glabel func0f128af4
+glabel weaponGetModel
 /*  f128af4:	28810052 */ 	slti	$at,$a0,0x52
 /*  f128af8:	14200007 */ 	bnez	$at,.L0f128b18
 /*  f128afc:	24010052 */ 	addiu	$at,$zero,0x52
@@ -1283,6 +1342,67 @@ glabel func0f128af4
 /*  f128cec:	00601025 */ 	or	$v0,$v1,$zero
 );
 
+//s32 weaponGetModel(s32 weapon)
+//{
+//	switch (weapon) {
+//	case WEAPON_NONE:
+//	case WEAPON_UNARMED:          return -1;
+//	case WEAPON_FALCON2:          return MODEL_CHRFALCON2;
+//	case WEAPON_MAGSEC4:          return MODEL_CHRLEEGUN1;
+//	case WEAPON_MAULER:           return MODEL_CHRMAULER;
+//	case WEAPON_DY357MAGNUM:      return MODEL_CHRDY357;
+//	case WEAPON_DY357LX:          return MODEL_CHRDY357TRENT;
+//	case WEAPON_PHOENIX:          return MODEL_CHRMAIANPISTOL;
+//	case WEAPON_FALCON2_SILENCER: return MODEL_CHRFALCON2SIL;
+//	case WEAPON_FALCON2_SCOPE:    return MODEL_CHRFALCON2SCOPE;
+//	case WEAPON_CMP150:           return MODEL_CHRCMP150;
+//	case WEAPON_AR34:             return MODEL_CHRAR34;
+//	case WEAPON_DRAGON:           return MODEL_CHRDRAGON;
+//	case WEAPON_SUPERDRAGON:      return MODEL_CHRSUPERDRAGON;
+//	case WEAPON_K7AVENGER:        return MODEL_CHRAVENGER;
+//	case WEAPON_CYCLONE:          return MODEL_CHRCYCLONE;
+//	case WEAPON_CALLISTONTG:      return MODEL_CHRMAIANSMG;
+//	case WEAPON_RCP120:           return MODEL_CHRRCP120;
+//	case WEAPON_LAPTOPGUN:        return MODEL_CHRPCGUN;
+//	case WEAPON_SHOTGUN:          return MODEL_CHRSHOTGUN;
+//	case WEAPON_REAPER:           return MODEL_CHRSKMINIGUN;
+//	case WEAPON_ROCKETLAUNCHER:   return MODEL_CHRDYROCKET;
+//	case WEAPON_DEVASTATOR:       return MODEL_CHRDEVASTATOR;
+//	case WEAPON_SLAYER:           return MODEL_CHRSKROCKET;
+//	case WEAPON_FARSIGHTXR20:     return MODEL_CHRZ2020;
+//	case WEAPON_SNIPERRIFLE:      return MODEL_CHRSNIPERRIFLE;
+//	case WEAPON_CROSSBOW:         return MODEL_CHRCROSSBOW;
+//	case WEAPON_LASER:            return MODEL_CHRLASER;
+//	case WEAPON_COMBATKNIFE:      return MODEL_CHRKNIFE;
+//	case WEAPON_TRANQUILIZER:     return MODEL_CHRDRUGGUN;
+//	case WEAPON_PSYCHOSISGUN:     return MODEL_CHRDRUGGUN;
+//	case WEAPON_NBOMB:            return MODEL_CHRNBOMB;
+//	case WEAPON_GRENADE:          return MODEL_CHRGRENADE;
+//	case WEAPON_REMOTEMINE:       return MODEL_CHRREMOTEMINE;
+//	case WEAPON_PROXIMITYMINE:    return MODEL_CHRPROXIMITYMINE;
+//	case WEAPON_TIMEDMINE:        return MODEL_CHRTIMEDMINE;
+//	case WEAPON_BRIEFCASE2:       return MODEL_CHRBRIEFCASE;
+//	case WEAPON_CLOAKINGDEVICE:   return MODEL_CHRCLOAKER;
+//	case WEAPON_PP9I:             return MODEL_CHRWPPK;
+//	case WEAPON_CC13:             return MODEL_CHRTT33;
+//	case WEAPON_KL01313:          return MODEL_CHRSKORPION;
+//	case WEAPON_KF7SPECIAL:       return MODEL_CHRKALASH;
+//	case WEAPON_ZZT:              return MODEL_CHRUZI;
+//	case WEAPON_DMC:              return MODEL_CHRMP5K;
+//	case WEAPON_AR53:             return MODEL_CHRM16;
+//	case WEAPON_RCP45:            return MODEL_CHRFNP90;
+//	case WEAPON_COMBATBOOST:      return -1;
+//	case WEAPON_HAMMER:           return MODEL_CHRLUMPHAMMER;
+//	case WEAPON_52:               return MODEL_CHRSONICSCREWER;
+//	}
+//
+//	if (weapon <= WEAPON_PSYCHOSISGUN) {
+//		return MODEL_CHRSNIPERRIFLE;
+//	}
+//
+//	return -1;
+//}
+
 GLOBAL_ASM(
 glabel func0f128cf0
 /*  f128cf0:	3c0e800a */ 	lui	$t6,0x800a
@@ -1316,7 +1436,7 @@ glabel func0f128d20
 /*  f128d50:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f128d54:	afa30024 */ 	sw	$v1,0x24($sp)
 /*  f128d58:	00402025 */ 	or	$a0,$v0,$zero
-/*  f128d5c:	0fc4a2bd */ 	jal	func0f128af4
+/*  f128d5c:	0fc4a2bd */ 	jal	weaponGetModel
 /*  f128d60:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f128d64:	8fa30024 */ 	lw	$v1,0x24($sp)
 /*  f128d68:	24010004 */ 	addiu	$at,$zero,0x4

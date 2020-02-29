@@ -2943,7 +2943,7 @@ glabel func0f0b8ba0
 /*  f0b8c88:	8d08ddd0 */ 	lw	$t0,-0x2230($t0)
 /*  f0b8c8c:	afa8006c */ 	sw	$t0,0x6c($sp)
 .L0f0b8c90:
-/*  f0b8c90:	0fc4a2bd */ 	jal	func0f128af4
+/*  f0b8c90:	0fc4a2bd */ 	jal	weaponGetModel
 /*  f0b8c94:	8fa4006c */ 	lw	$a0,0x6c($sp)
 /*  f0b8c98:	3c038009 */ 	lui	$v1,0x8009
 /*  f0b8c9c:	90630af0 */ 	lbu	$v1,0xaf0($v1)
