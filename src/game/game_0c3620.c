@@ -9,7 +9,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0f0c3620
+glabel currentPlayerSetMoveModeCutscene
 /*  f0c3620:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0c3624:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f0c3628:	3c14800a */ 	lui	$s4,%hi(g_Vars)

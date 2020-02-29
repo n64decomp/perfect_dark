@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f0c37d0(void);
+u32 currentPlayerSetMoveModeNormal(void);
 u32 func0f0c3ad0(void);
 u32 func0f0c3af4(void);
 u32 func0f0c3b38(void);

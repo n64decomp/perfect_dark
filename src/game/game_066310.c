@@ -6780,7 +6780,7 @@ glabel setupParseObject
 /*  f06b02c:	14440004 */ 	bne	$v0,$a0,.L0f06b040
 /*  f06b030:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f06b034:
-/*  f06b034:	0fc31f4c */ 	jal	func0f0c7d30
+/*  f06b034:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
 /*  f06b038:	00002025 */ 	or	$a0,$zero,$zero
 /*  f06b03c:	8e240014 */ 	lw	$a0,0x14($s1)
 .L0f06b040:
@@ -37694,7 +37694,7 @@ glabel func0f086d60
 /*  f086f10:	8d08a244 */ 	lw	$t0,-0x5dbc($t0)
 /*  f086f14:	8fb80030 */ 	lw	$t8,0x30($sp)
 /*  f086f18:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f086f1c:	0fc31f4c */ 	jal	func0f0c7d30
+/*  f086f1c:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
 /*  f086f20:	ad181a6c */ 	sw	$t8,0x1a6c($t0)
 /*  f086f24:	10000002 */ 	beqz	$zero,.L0f086f30
 /*  f086f28:	24020001 */ 	addiu	$v0,$zero,0x1

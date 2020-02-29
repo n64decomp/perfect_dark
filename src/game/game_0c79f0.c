@@ -348,11 +348,11 @@ void currentPlayerGrabProp(struct prop *prop)
 
 	if ((obj->hidden & OBJHFLAG_04000000) == 0 && (obj->hidden & OBJHFLAG_08000000) == 0) {
 		g_Vars.currentplayer->grabbedprop = prop;
-		func0f0cc6e0();
+		currentPlayerSetMoveModeGrabbedProp();
 	}
 }
 
-void func0f0c7d30(u32 arg)
+void currentPlayerSetMoveMode(u32 movemode)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRABBEDPROP) {
 		func0f0ccac4();
@@ -360,14 +360,14 @@ void func0f0c7d30(u32 arg)
 		func0f0d2184();
 	}
 
-	if (arg == 3) {
-		func0f0d1fe0();
-	} else if (arg == 4) {
-		func0f0cc6e0();
-	} else if (arg == 5) {
-		func0f0c3620();
-	} else if (arg == 0) {
-		func0f0c37d0();
+	if (movemode == MOVEMODE_HOVERBIKE) {
+		currentPlayerSetMoveModeHoverbike();
+	} else if (movemode == MOVEMODE_GRABBEDPROP) {
+		currentPlayerSetMoveModeGrabbedProp();
+	} else if (movemode == MOVEMODE_CUTSCENE) {
+		currentPlayerSetMoveModeCutscene();
+	} else if (movemode == MOVEMODE_NORMAL) {
+		currentPlayerSetMoveModeNormal();
 	}
 }
 
@@ -419,7 +419,7 @@ glabel releaseObj
 .L0f0c7e84:
 /*  f0c7e84:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f0c7e88:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0c7e8c:	0fc31f4c */ 	jal	func0f0c7d30
+/*  f0c7e8c:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
 /*  f0c7e90:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0c7e94:	8e0c006c */ 	lw	$t4,0x6c($s0)
 /*  f0c7e98:	26310001 */ 	addiu	$s1,$s1,0x1
@@ -5557,7 +5557,7 @@ glabel func0f0cc6ac
 );
 
 GLOBAL_ASM(
-glabel func0f0cc6e0
+glabel currentPlayerSetMoveModeGrabbedProp
 /*  f0cc6e0:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0cc6e4:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*  f0cc6e8:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -7617,7 +7617,7 @@ glabel func0f0ce450
 .L0f0ce480:
 /*  f0ce480:	8c780284 */ 	lw	$t8,0x284($v1)
 /*  f0ce484:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0ce488:	0fc31f4c */ 	jal	func0f0c7d30
+/*  f0ce488:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
 /*  f0ce48c:	af0000d0 */ 	sw	$zero,0xd0($t8)
 .L0f0ce490:
 /*  f0ce490:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -8493,7 +8493,7 @@ glabel func0f0ceec4
 /*  f0cf100:	14400003 */ 	bnez	$v0,.L0f0cf110
 /*  f0cf104:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0cf108:
-/*  f0cf108:	0fc31f4c */ 	jal	func0f0c7d30
+/*  f0cf108:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
 /*  f0cf10c:	00002025 */ 	or	$a0,$zero,$zero
 .L0f0cf110:
 /*  f0cf110:	3c18800a */ 	lui	$t8,0x800a

@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f0d1fe0(void);
+u32 currentPlayerSetMoveModeHoverbike(void);
 u32 func0f0d2184(void);
 u32 func0f0d2294(void);
 u32 func0f0d22f8(void);

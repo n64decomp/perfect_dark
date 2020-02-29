@@ -59,7 +59,7 @@ const u32 var7f1adb98[] = {0x3f333333};
 const u32 var7f1adb9c[] = {0x3c8ef461};
 
 GLOBAL_ASM(
-glabel func0f0d1fe0
+glabel currentPlayerSetMoveModeHoverbike
 /*  f0d1fe0:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f0d1fe4:	afb00034 */ 	sw	$s0,0x34($sp)
 /*  f0d1fe8:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -506,7 +506,7 @@ glabel func0f0d2558
 /*  f0d2678:	8c4b1af8 */ 	lw	$t3,0x1af8($v0)
 /*  f0d267c:	51600006 */ 	beqzl	$t3,.L0f0d2698
 /*  f0d2680:	ac4000d0 */ 	sw	$zero,0xd0($v0)
-/*  f0d2684:	0fc31f4c */ 	jal	func0f0c7d30
+/*  f0d2684:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
 /*  f0d2688:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0d268c:	3c02800a */ 	lui	$v0,0x800a
 /*  f0d2690:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)

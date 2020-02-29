@@ -1557,7 +1557,7 @@ glabel func0f0b77cc
 /*  f0b7894:	8e0b0284 */ 	lw	$t3,0x284($s0)
 /*  f0b7898:	ad6201b0 */ 	sw	$v0,0x1b0($t3)
 /*  f0b789c:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f0b78a0:	0fc31f4c */ 	jal	func0f0c7d30
+/*  f0b78a0:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
 /*  f0b78a4:	ad801af8 */ 	sw	$zero,0x1af8($t4)
 /*  f0b78a8:	8e0d0284 */ 	lw	$t5,0x284($s0)
 /*  f0b78ac:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -3624,7 +3624,7 @@ void func0f0b9674(void)
 {
 	setTickMode(TICKMODE_4);
 	var80070744 = 0;
-	func0f0c7d30(0);
+	currentPlayerSetMoveMode(MOVEMODE_NORMAL);
 	var8009ddd8 = 0;
 	var8009dddc = -90;
 	var8009dde0 = 0;
@@ -3858,7 +3858,7 @@ void func0f0b9a20(void)
 {
 	setTickMode(TICKMODE_1);
 	var80070744 = 0;
-	func0f0c7d30(0);
+	currentPlayerSetMoveMode(MOVEMODE_NORMAL);
 
 	if (getCurrentStageId() == STAGE_TEST_LEN) {
 		currentPlayerSetFadeColour(0, 0, 0, 1);
@@ -4502,7 +4502,7 @@ glabel func0f0ba29c
 /*  f0ba5b0:	44812000 */ 	mtc1	$at,$f4
 /*  f0ba5b4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0ba5b8:	46002481 */ 	sub.s	$f18,$f4,$f0
-/*  f0ba5bc:	0fc31f4c */ 	jal	func0f0c7d30
+/*  f0ba5bc:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
 /*  f0ba5c0:	e7b20104 */ 	swc1	$f18,0x104($sp)
 /*  f0ba5c4:	8e6202a0 */ 	lw	$v0,0x2a0($s3)
 /*  f0ba5c8:	c7aa019c */ 	lwc1	$f10,0x19c($sp)
@@ -12132,7 +12132,7 @@ glabel func0f0c1404
 /*  f0c158c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c1590:	ac441b78 */ 	sw	$a0,0x1b78($v0)
 .L0f0c1594:
-/*  f0c1594:	0fc31f4c */ 	jal	func0f0c7d30
+/*  f0c1594:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
 /*  f0c1598:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0c159c:	0fc28a72 */ 	jal	func0f0a29c8
 /*  f0c15a0:	00000000 */ 	sll	$zero,$zero,0x0
