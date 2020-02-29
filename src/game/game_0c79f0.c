@@ -319,36 +319,23 @@ glabel func0f0c7bd0
 /*  f0c7c30:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c7c34
-/*  f0c7c34:	44856000 */ 	mtc1	$a1,$f12
-/*  f0c7c38:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0c7c3c:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0c7c40:	8ca20284 */ 	lw	$v0,0x284($a1)
-/*  f0c7c44:	8c430140 */ 	lw	$v1,0x140($v0)
-/*  f0c7c48:	04620006 */ 	bltzl	$v1,.L0f0c7c64
-/*  f0c7c4c:	8c58013c */ 	lw	$t8,0x13c($v0)
-/*  f0c7c50:	8cae0038 */ 	lw	$t6,0x38($a1)
-/*  f0c7c54:	006e7823 */ 	subu	$t7,$v1,$t6
-/*  f0c7c58:	ac4f0140 */ 	sw	$t7,0x140($v0)
-/*  f0c7c5c:	8ca20284 */ 	lw	$v0,0x284($a1)
-/*  f0c7c60:	8c58013c */ 	lw	$t8,0x13c($v0)
-.L0f0c7c64:
-/*  f0c7c64:	5098000a */ 	beql	$a0,$t8,.L0f0c7c90
-/*  f0c7c68:	e44c0138 */ 	swc1	$f12,0x138($v0)
-/*  f0c7c6c:	8c590140 */ 	lw	$t9,0x140($v0)
-/*  f0c7c70:	2408001e */ 	addiu	$t0,$zero,0x1e
-/*  f0c7c74:	07210006 */ 	bgez	$t9,.L0f0c7c90
-/*  f0c7c78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7c7c:	ac480140 */ 	sw	$t0,0x140($v0)
-/*  f0c7c80:	8ca90284 */ 	lw	$t1,0x284($a1)
-/*  f0c7c84:	ad24013c */ 	sw	$a0,0x13c($t1)
-/*  f0c7c88:	8ca20284 */ 	lw	$v0,0x284($a1)
-/*  f0c7c8c:	e44c0138 */ 	swc1	$f12,0x138($v0)
-.L0f0c7c90:
-/*  f0c7c90:	03e00008 */ 	jr	$ra
-/*  f0c7c94:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerUpdateAutoAimXProp(struct prop *prop, f32 autoaimx)
+{
+	if (g_Vars.currentplayer->autoxaimtime60 >= 0) {
+		g_Vars.currentplayer->autoxaimtime60 -= g_Vars.lvupdate240_60;
+	}
+
+	if (prop != g_Vars.currentplayer->autoxaimprop) {
+		if (g_Vars.currentplayer->autoxaimtime60 < 0) {
+			g_Vars.currentplayer->autoxaimtime60 = 30;
+			g_Vars.currentplayer->autoxaimprop = prop;
+		} else {
+			return;
+		}
+	}
+
+	g_Vars.currentplayer->autoaimx = autoaimx;
+}
 
 GLOBAL_ASM(
 glabel func0f0c7c98
