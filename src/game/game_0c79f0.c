@@ -183,13 +183,10 @@ glabel func0f0c7a00
 /*  f0c7a1c:	8dc20114 */ 	lw	$v0,0x114($t6)
 );
 
-GLOBAL_ASM(
-glabel func0f0c7a20
-/*  f0c7a20:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0c7a24:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f0c7a28:	03e00008 */ 	jr	$ra
-/*  f0c7a2c:	adc40124 */ 	sw	$a0,0x124($t6)
-);
+void currentPlaySetAutoAimY(bool enabled)
+{
+	g_Vars.currentplayer->autoyaimenabled = enabled;
+}
 
 bool currentPlayerIsAutoAimYEnabled(void)
 {
