@@ -1058,7 +1058,7 @@ struct player {
 	/*0x0094*/ u32 unk0094;
 	/*0x0098*/ u32 unk0098;
 	/*0x009c*/ u32 unk009c;
-	/*0x00a0*/ u32 unk00a0;
+	/*0x00a0*/ f32 unk00a0;
 	/*0x00a4*/ u32 unk00a4;
 	/*0x00a8*/ u32 unk00a8;
 	/*0x00ac*/ s32 crouchpos;

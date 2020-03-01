@@ -289,18 +289,10 @@ glabel currentPlayerWalkInit
 /*  f0c3acc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c3ad0
-/*  f0c3ad0:	44842000 */ 	mtc1	$a0,$f4
-/*  f0c3ad4:	3c014296 */ 	lui	$at,0x4296
-/*  f0c3ad8:	44814000 */ 	mtc1	$at,$f8
-/*  f0c3adc:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0c3ae0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0c3ae4:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f0c3ae8:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f0c3aec:	03e00008 */ 	jr	$ra
-/*  f0c3af0:	e5ca00a0 */ 	swc1	$f10,0xa0($t6)
-);
+void func0f0c3ad0(s32 value)
+{
+	g_Vars.currentplayer->unk00a0 = value * 75.0f;
+}
 
 GLOBAL_ASM(
 glabel func0f0c3af4

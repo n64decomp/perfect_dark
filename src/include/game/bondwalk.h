@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 currentPlayerWalkInit(void);
-u32 func0f0c3ad0(void);
+void func0f0c3ad0(s32 value);
 u32 func0f0c3af4(void);
 u32 func0f0c3b38(void);
 u32 func0f0c3c8c(void);
