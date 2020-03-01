@@ -41,6 +41,6 @@ void func0f0cc19c(struct coord *arg);
 u32 func0f0cc3b8(void);
 u32 func0f0cc654(void);
 s32 currentPlayerGetCrouchPos(void);
-u32 func0f0cc6ac(void);
+s32 playerGetCrouchPos(s32 playernum);
 
 #endif

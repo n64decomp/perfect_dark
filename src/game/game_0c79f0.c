@@ -4510,20 +4510,9 @@ s32 currentPlayerGetCrouchPos(void)
 		: g_Vars.currentplayer->autocrouchpos;
 }
 
-GLOBAL_ASM(
-glabel func0f0cc6ac
-/*  f0cc6ac:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0cc6b0:	3c02800a */ 	lui	$v0,0x800a
-/*  f0cc6b4:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f0cc6b8:	8c42a024 */ 	lw	$v0,-0x5fdc($v0)
-/*  f0cc6bc:	8c4300ac */ 	lw	$v1,0xac($v0)
-/*  f0cc6c0:	8c4500b0 */ 	lw	$a1,0xb0($v0)
-/*  f0cc6c4:	0065082a */ 	slt	$at,$v1,$a1
-/*  f0cc6c8:	10200003 */ 	beqz	$at,.L0f0cc6d8
-/*  f0cc6cc:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0cc6d0:	03e00008 */ 	jr	$ra
-/*  f0cc6d4:	00601025 */ 	or	$v0,$v1,$zero
-.L0f0cc6d8:
-/*  f0cc6d8:	03e00008 */ 	jr	$ra
-/*  f0cc6dc:	00801025 */ 	or	$v0,$a0,$zero
-);
+s32 playerGetCrouchPos(s32 playernum)
+{
+	return (g_Vars.players[playernum]->crouchpos < g_Vars.players[playernum]->autocrouchpos)
+		? g_Vars.players[playernum]->crouchpos
+		: g_Vars.players[playernum]->autocrouchpos;
+}
