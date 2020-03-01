@@ -242,34 +242,14 @@ glabel func0f0d2184
 /*  f0d2290:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0d2294
-/*  f0d2294:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0d2298:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0d229c:	8c830284 */ 	lw	$v1,0x284($a0)
-/*  f0d22a0:	44802000 */ 	mtc1	$zero,$f4
-/*  f0d22a4:	3c0142a0 */ 	lui	$at,0x42a0
-/*  f0d22a8:	8c6e1a6c */ 	lw	$t6,0x1a6c($v1)
-/*  f0d22ac:	44815000 */ 	mtc1	$at,$f10
-/*  f0d22b0:	3c01c248 */ 	lui	$at,0xc248
-/*  f0d22b4:	8dc20004 */ 	lw	$v0,0x4($t6)
-/*  f0d22b8:	8c4f0018 */ 	lw	$t7,0x18($v0)
-/*  f0d22bc:	c5e60014 */ 	lwc1	$f6,0x14($t7)
-/*  f0d22c0:	46062203 */ 	div.s	$f8,$f4,$f6
-/*  f0d22c4:	44812000 */ 	mtc1	$at,$f4
-/*  f0d22c8:	e4681a70 */ 	swc1	$f8,0x1a70($v1)
-/*  f0d22cc:	8c580018 */ 	lw	$t8,0x18($v0)
-/*  f0d22d0:	8c990284 */ 	lw	$t9,0x284($a0)
-/*  f0d22d4:	c7100014 */ 	lwc1	$f16,0x14($t8)
-/*  f0d22d8:	46105483 */ 	div.s	$f18,$f10,$f16
-/*  f0d22dc:	e7321a74 */ 	swc1	$f18,0x1a74($t9)
-/*  f0d22e0:	8c480018 */ 	lw	$t0,0x18($v0)
-/*  f0d22e4:	8c890284 */ 	lw	$t1,0x284($a0)
-/*  f0d22e8:	c5060014 */ 	lwc1	$f6,0x14($t0)
-/*  f0d22ec:	46062203 */ 	div.s	$f8,$f4,$f6
-/*  f0d22f0:	03e00008 */ 	jr	$ra
-/*  f0d22f4:	e5281a78 */ 	swc1	$f8,0x1a78($t1)
-);
+void func0f0d2294(void)
+{
+	struct defaultobj *hoverbike = g_Vars.currentplayer->hoverbike->obj;
+
+	g_Vars.currentplayer->unk1a70 = 0.0f / hoverbike->animdata->unk14;
+	g_Vars.currentplayer->unk1a74 = 80.0f / hoverbike->animdata->unk14;
+	g_Vars.currentplayer->unk1a78 = -50.0f / hoverbike->animdata->unk14;
+}
 
 GLOBAL_ASM(
 glabel func0f0d22f8
