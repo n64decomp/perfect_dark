@@ -15,7 +15,7 @@
 #include "game/game_092610.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b63b0.h"
-#include "game/game_0c37d0.h"
+#include "game/bondwalk.h"
 #include "game/game_0c79f0.h"
 #include "game/game_111600.h"
 #include "game/game_113220.h"
@@ -89,7 +89,7 @@ const u32 var7f1ad858[] = {0x00000000};
 const u32 var7f1ad85c[] = {0x00000000};
 
 GLOBAL_ASM(
-glabel currentPlayerSetMoveModeNormal
+glabel currentPlayerWalkInit
 /*  f0c37d0:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0c37d4:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
 /*  f0c37d8:	8d020284 */ 	lw	$v0,0x284($t0)

@@ -18,7 +18,7 @@
 #include "game/game_0b0420.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
-#include "game/game_0c37d0.h"
+#include "game/bondwalk.h"
 #include "game/game_0c79f0.h"
 #include "game/game_127910.h"
 #include "game/game_129900.h"

@@ -10293,7 +10293,7 @@ bool aiClearInventory(void)
  */
 bool aiReleaseObject(void)
 {
-	setMoveModeForAllPlayers(MOVEMODE_NORMAL);
+	setMoveModeForAllPlayers(MOVEMODE_WALK);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -10313,7 +10313,7 @@ bool aiChrGrabObject(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
-		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_NORMAL
+		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
 				&& func0f0cc680() == 2
 				&& g_Vars.currentplayer->unk00b4 == 0) {
 			currentPlayerGrabProp(obj->prop);

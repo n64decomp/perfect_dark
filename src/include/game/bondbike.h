@@ -1,9 +1,9 @@
-#ifndef IN_GAME_GAME_0D1FE0_H
-#define IN_GAME_GAME_0D1FE0_H
+#ifndef IN_GAME_BONDBIKE_H
+#define IN_GAME_BONDBIKE_H
 #include <ultra64.h>
 #include "types.h"
 
-u32 currentPlayerSetMoveModeHoverbike(void);
+u32 currentPlayerBikeInit(void);
 u32 func0f0d2184(void);
 u32 func0f0d2294(void);
 u32 func0f0d22f8(void);

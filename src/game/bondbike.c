@@ -15,7 +15,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/game_0c79f0.h"
-#include "game/game_0d1fe0.h"
+#include "game/bondbike.h"
 #include "game/game_113220.h"
 #include "game/game_167ae0.h"
 #include "game/pdoptions.h"
@@ -61,7 +61,7 @@ const u32 var7f1adb98[] = {0x3f333333};
 const u32 var7f1adb9c[] = {0x3c8ef461};
 
 GLOBAL_ASM(
-glabel currentPlayerSetMoveModeHoverbike
+glabel currentPlayerBikeInit
 /*  f0d1fe0:	27bdff70 */ 	addiu	$sp,$sp,-144
 /*  f0d1fe4:	afb00034 */ 	sw	$s0,0x34($sp)
 /*  f0d1fe8:	3c10800a */ 	lui	$s0,%hi(g_Vars)

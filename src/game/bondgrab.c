@@ -91,7 +91,7 @@ const char var7f1ada74[] = "l";
 const char var7f1ada78[] = "%s%s";
 
 GLOBAL_ASM(
-glabel currentPlayerSetMoveModeGrabbedProp
+glabel currentPlayerGrabInit
 /*  f0cc6e0:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0cc6e4:	afb0001c */ 	sw	$s0,0x1c($sp)
 /*  f0cc6e8:	3c10800a */ 	lui	$s0,%hi(g_Vars)

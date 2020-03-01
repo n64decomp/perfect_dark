@@ -1,9 +1,9 @@
-#ifndef IN_GAME_GAME_0C37D0_H
-#define IN_GAME_GAME_0C37D0_H
+#ifndef IN_GAME_BONDWALK_H
+#define IN_GAME_BONDWALK_H
 #include <ultra64.h>
 #include "types.h"
 
-u32 currentPlayerSetMoveModeNormal(void);
+u32 currentPlayerWalkInit(void);
 u32 func0f0c3ad0(void);
 u32 func0f0c3af4(void);
 u32 func0f0c3b38(void);

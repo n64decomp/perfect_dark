@@ -20,9 +20,9 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/game_0c3620.h"
-#include "game/game_0c37d0.h"
+#include "game/bondwalk.h"
 #include "game/game_0c79f0.h"
-#include "game/game_0d1fe0.h"
+#include "game/bondbike.h"
 #include "game/game_0fd660.h"
 #include "game/game_113220.h"
 #include "game/game_127910.h"
@@ -207,7 +207,7 @@ void currentPlayerUpdateAutoAimXProp(struct prop *prop, f32 autoaimx)
 
 struct prop *currentPlayerGetHoverbike(void)
 {
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOVERBIKE) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		return g_Vars.currentplayer->hoverbike;
 	}
 
@@ -216,7 +216,7 @@ struct prop *currentPlayerGetHoverbike(void)
 
 struct prop *currentPlayerGetGrabbedProp(void)
 {
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRABBEDPROP) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		return g_Vars.currentplayer->grabbedprop;
 	}
 
@@ -229,26 +229,26 @@ void currentPlayerGrabProp(struct prop *prop)
 
 	if ((obj->hidden & OBJHFLAG_04000000) == 0 && (obj->hidden & OBJHFLAG_08000000) == 0) {
 		g_Vars.currentplayer->grabbedprop = prop;
-		currentPlayerSetMoveModeGrabbedProp();
+		currentPlayerGrabInit();
 	}
 }
 
 void currentPlayerSetMoveMode(u32 movemode)
 {
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRABBEDPROP) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		func0f0ccac4();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOVERBIKE) {
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		func0f0d2184();
 	}
 
-	if (movemode == MOVEMODE_HOVERBIKE) {
-		currentPlayerSetMoveModeHoverbike();
-	} else if (movemode == MOVEMODE_GRABBEDPROP) {
-		currentPlayerSetMoveModeGrabbedProp();
+	if (movemode == MOVEMODE_BIKE) {
+		currentPlayerBikeInit();
+	} else if (movemode == MOVEMODE_GRAB) {
+		currentPlayerGrabInit();
 	} else if (movemode == MOVEMODE_CUTSCENE) {
 		currentPlayerSetMoveModeCutscene();
-	} else if (movemode == MOVEMODE_NORMAL) {
-		currentPlayerSetMoveModeNormal();
+	} else if (movemode == MOVEMODE_WALK) {
+		currentPlayerWalkInit();
 	}
 }
 
@@ -267,33 +267,33 @@ void setMoveModeForAllPlayers(u32 movemode)
 
 void func0f0c7f2c(void)
 {
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOVERBIKE) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		func0f0d2558();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRABBEDPROP) {
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		func0f0ce450();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_NORMAL) {
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 		func0f0c65a8();
 	}
 }
 
 void func0f0c7f98(void)
 {
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOVERBIKE) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		func0f0d26ac();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRABBEDPROP) {
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		func0f0ce608();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_NORMAL) {
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 		func0f0c65c8();
 	}
 }
 
 void func0f0c8004(void)
 {
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOVERBIKE) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		// empty
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRABBEDPROP) {
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		func0f0ce8ac();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_NORMAL) {
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 		func0f0c6948();
 	}
 }
@@ -4165,17 +4165,17 @@ void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3)
 
 	func0f0c8b90(arg0, arg1, arg2, arg3);
 
-	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOVERBIKE) {
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		func0f0d3d50();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRABBEDPROP) {
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		func0f0ceec4();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_CUTSCENE) {
 		func0f0c37c0();
-	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_NORMAL) {
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 		func0f0c785c();
 	}
 
-	if ((g_Vars.currentplayer->bondmovemode == MOVEMODE_NORMAL || g_Vars.currentplayer->bondmovemode == MOVEMODE_GRABBEDPROP)
+	if ((g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK || g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB)
 			&& (g_Vars.currentplayer->unk0170 || g_Vars.currentplayer->unk0168)
 			&& (!g_Vars.normmplayerisrunning || PLAYERCOUNT() == 1)) {
 		chr = g_Vars.currentplayer->prop->chr;
