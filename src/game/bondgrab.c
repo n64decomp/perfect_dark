@@ -2164,54 +2164,24 @@ glabel func0f0ce4a0
 /*  f0ce558:	e4400168 */ 	swc1	$f0,0x168($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f0ce55c
-/*  f0ce55c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0ce560:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0ce564:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce568:	c44019a4 */ 	lwc1	$f0,0x19a4($v0)
-/*  f0ce56c:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0ce570:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce574:	45020011 */ 	bc1fl	.L0f0ce5bc
-/*  f0ce578:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0ce57c:	c464004c */ 	lwc1	$f4,0x4c($v1)
-/*  f0ce580:	46047182 */ 	mul.s	$f6,$f14,$f4
-/*  f0ce584:	46060200 */ 	add.s	$f8,$f0,$f6
-/*  f0ce588:	e44819a4 */ 	swc1	$f8,0x19a4($v0)
-/*  f0ce58c:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce590:	c44019a4 */ 	lwc1	$f0,0x19a4($v0)
-/*  f0ce594:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0ce598:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce59c:	45000018 */ 	bc1f	.L0f0ce600
-/*  f0ce5a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce5a4:	e44c19a4 */ 	swc1	$f12,0x19a4($v0)
-/*  f0ce5a8:	3c02800a */ 	lui	$v0,0x800a
-/*  f0ce5ac:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0ce5b0:	10000013 */ 	beqz	$zero,.L0f0ce600
-/*  f0ce5b4:	c44019a4 */ 	lwc1	$f0,0x19a4($v0)
-/*  f0ce5b8:	4600603c */ 	c.lt.s	$f12,$f0
-.L0f0ce5bc:
-/*  f0ce5bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce5c0:	4500000f */ 	bc1f	.L0f0ce600
-/*  f0ce5c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce5c8:	c46a004c */ 	lwc1	$f10,0x4c($v1)
-/*  f0ce5cc:	460a7402 */ 	mul.s	$f16,$f14,$f10
-/*  f0ce5d0:	46100481 */ 	sub.s	$f18,$f0,$f16
-/*  f0ce5d4:	e45219a4 */ 	swc1	$f18,0x19a4($v0)
-/*  f0ce5d8:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce5dc:	c44019a4 */ 	lwc1	$f0,0x19a4($v0)
-/*  f0ce5e0:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0ce5e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce5e8:	45000005 */ 	bc1f	.L0f0ce600
-/*  f0ce5ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ce5f0:	e44c19a4 */ 	swc1	$f12,0x19a4($v0)
-/*  f0ce5f4:	3c02800a */ 	lui	$v0,0x800a
-/*  f0ce5f8:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0ce5fc:	c44019a4 */ 	lwc1	$f0,0x19a4($v0)
-.L0f0ce600:
-/*  f0ce600:	03e00008 */ 	jr	$ra
-/*  f0ce604:	e4400170 */ 	swc1	$f0,0x170($v0)
-);
+void func0f0ce55c(f32 target, f32 speed)
+{
+	if (target > g_Vars.currentplayer->unk19a4) {
+		g_Vars.currentplayer->unk19a4 += speed * g_Vars.lvupdate240freal;
+
+		if (g_Vars.currentplayer->unk19a4 > target) {
+			g_Vars.currentplayer->unk19a4 = target;
+		}
+	} else if (target < g_Vars.currentplayer->unk19a4) {
+		g_Vars.currentplayer->unk19a4 -= speed * g_Vars.lvupdate240freal;
+
+		if (g_Vars.currentplayer->unk19a4 < target) {
+			g_Vars.currentplayer->unk19a4 = target;
+		}
+	}
+
+	g_Vars.currentplayer->speedforwards = g_Vars.currentplayer->unk19a4;
+}
 
 GLOBAL_ASM(
 glabel func0f0ce608

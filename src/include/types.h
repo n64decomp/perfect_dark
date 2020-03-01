@@ -2582,7 +2582,7 @@ struct player {
 	/*0x1998*/ u32 unk1998;
 	/*0x199c*/ u32 unk199c;
 	/*0x19a0*/ u32 unk19a0;
-	/*0x19a4*/ u32 unk19a4;
+	/*0x19a4*/ f32 unk19a4;
 	/*0x19a8*/ u32 unk19a8;
 	/*0x19ac*/ s32 unk19ac;
 	/*0x19b0*/ u32 unk19b0;
