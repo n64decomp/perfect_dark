@@ -21,7 +21,7 @@ void currentPlayerSetMoveMode(u32 movemode);
 void setMoveModeForAllPlayers(u32 movemode);
 void func0f0c7f2c(void);
 void func0f0c7f98(void);
-u32 func0f0c8004(void);
+void func0f0c8004(void);
 u32 func0f0c805c(void);
 u32 func0f0c80f8(void);
 u32 func0f0c82f8(void);
