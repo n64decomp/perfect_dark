@@ -311,43 +311,43 @@ f32 func0f0c805c(f32 value)
 	return 0;
 }
 
-void func0f0c80f8(f32 value)
+void currentPlayerUpdateSpeedVerta(f32 value)
 {
 	f32 mult = func0000be74() / 60.0f;
 	f32 limit = func0f0c805c(value);
 
 	if (value > 0) {
-		if (g_Vars.currentplayer->unk015c > 0) {
-			g_Vars.currentplayer->unk015c -= 0.05f * g_Vars.lvupdate240freal * mult;
+		if (g_Vars.currentplayer->speedverta > 0) {
+			g_Vars.currentplayer->speedverta -= 0.05f * g_Vars.lvupdate240freal * mult;
 		} else {
-			g_Vars.currentplayer->unk015c -= 0.0125f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedverta -= 0.0125f * g_Vars.lvupdate240freal * mult;
 		}
 
-		if (g_Vars.currentplayer->unk015c < limit) {
-			g_Vars.currentplayer->unk015c = limit;
+		if (g_Vars.currentplayer->speedverta < limit) {
+			g_Vars.currentplayer->speedverta = limit;
 		}
 	} else if (value < 0) {
-		if (g_Vars.currentplayer->unk015c < 0) {
-			g_Vars.currentplayer->unk015c += 0.05f * g_Vars.lvupdate240freal * mult;
+		if (g_Vars.currentplayer->speedverta < 0) {
+			g_Vars.currentplayer->speedverta += 0.05f * g_Vars.lvupdate240freal * mult;
 		} else {
-			g_Vars.currentplayer->unk015c += 0.0125f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedverta += 0.0125f * g_Vars.lvupdate240freal * mult;
 		}
 
-		if (g_Vars.currentplayer->unk015c > limit) {
-			g_Vars.currentplayer->unk015c = limit;
+		if (g_Vars.currentplayer->speedverta > limit) {
+			g_Vars.currentplayer->speedverta = limit;
 		}
 	} else {
-		if (g_Vars.currentplayer->unk015c > limit) {
-			g_Vars.currentplayer->unk015c -= 0.05f * g_Vars.lvupdate240freal * mult;
+		if (g_Vars.currentplayer->speedverta > limit) {
+			g_Vars.currentplayer->speedverta -= 0.05f * g_Vars.lvupdate240freal * mult;
 
-			if (g_Vars.currentplayer->unk015c < limit) {
-				g_Vars.currentplayer->unk015c = limit;
+			if (g_Vars.currentplayer->speedverta < limit) {
+				g_Vars.currentplayer->speedverta = limit;
 			}
 		} else {
-			g_Vars.currentplayer->unk015c += 0.05f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedverta += 0.05f * g_Vars.lvupdate240freal * mult;
 
-			if (g_Vars.currentplayer->unk015c > limit) {
-				g_Vars.currentplayer->unk015c = limit;
+			if (g_Vars.currentplayer->speedverta > limit) {
+				g_Vars.currentplayer->speedverta = limit;
 			}
 		}
 	}
@@ -3481,7 +3481,7 @@ glabel var7f1ad8e4
 /*  f0cb0a8:	45020007 */ 	bc1fl	.L0f0cb0c8
 /*  f0cb0ac:	460c7401 */ 	sub.s	$f16,$f14,$f12
 /*  f0cb0b0:	44816000 */ 	mtc1	$at,$f12
-/*  f0cb0b4:	0fc3203e */ 	jal	func0f0c80f8
+/*  f0cb0b4:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
 /*  f0cb0b8:	e7ae0094 */ 	swc1	$f14,0x94($sp)
 /*  f0cb0bc:	10000010 */ 	beqz	$zero,.L0f0cb100
 /*  f0cb0c0:	c7ae0094 */ 	lwc1	$f14,0x94($sp)
@@ -3493,13 +3493,13 @@ glabel var7f1ad8e4
 /*  f0cb0d4:	45020007 */ 	bc1fl	.L0f0cb0f4
 /*  f0cb0d8:	44806000 */ 	mtc1	$zero,$f12
 /*  f0cb0dc:	44816000 */ 	mtc1	$at,$f12
-/*  f0cb0e0:	0fc3203e */ 	jal	func0f0c80f8
+/*  f0cb0e0:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
 /*  f0cb0e4:	e7ae0094 */ 	swc1	$f14,0x94($sp)
 /*  f0cb0e8:	10000005 */ 	beqz	$zero,.L0f0cb100
 /*  f0cb0ec:	c7ae0094 */ 	lwc1	$f14,0x94($sp)
 /*  f0cb0f0:	44806000 */ 	mtc1	$zero,$f12
 .L0f0cb0f4:
-/*  f0cb0f4:	0fc3203e */ 	jal	func0f0c80f8
+/*  f0cb0f4:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
 /*  f0cb0f8:	e7ae0094 */ 	swc1	$f14,0x94($sp)
 /*  f0cb0fc:	c7ae0094 */ 	lwc1	$f14,0x94($sp)
 .L0f0cb100:
@@ -3602,7 +3602,7 @@ glabel var7f1ad8e4
 /*  f0cb25c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cb260:	45020010 */ 	bc1fl	.L0f0cb2a4
 /*  f0cb264:	44804000 */ 	mtc1	$zero,$f8
-/*  f0cb268:	0fc3203e */ 	jal	func0f0c80f8
+/*  f0cb268:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
 /*  f0cb26c:	46003306 */ 	mov.s	$f12,$f6
 /*  f0cb270:	8fac01c4 */ 	lw	$t4,0x1c4($sp)
 /*  f0cb274:	8fad025c */ 	lw	$t5,0x25c($sp)
@@ -3624,7 +3624,7 @@ glabel var7f1ad8e4
 /*  f0cb2ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cb2b0:	45020010 */ 	bc1fl	.L0f0cb2f4
 /*  f0cb2b4:	44806000 */ 	mtc1	$zero,$f12
-/*  f0cb2b8:	0fc3203e */ 	jal	func0f0c80f8
+/*  f0cb2b8:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
 /*  f0cb2bc:	46008307 */ 	neg.s	$f12,$f16
 /*  f0cb2c0:	8fb801c4 */ 	lw	$t8,0x1c4($sp)
 /*  f0cb2c4:	8fb9025c */ 	lw	$t9,0x25c($sp)
@@ -3641,7 +3641,7 @@ glabel var7f1ad8e4
 /*  f0cb2ec:	ad28010c */ 	sw	$t0,0x10c($t1)
 /*  f0cb2f0:	44806000 */ 	mtc1	$zero,$f12
 .L0f0cb2f4:
-/*  f0cb2f4:	0fc3203e */ 	jal	func0f0c80f8
+/*  f0cb2f4:	0fc3203e */ 	jal	currentPlayerUpdateSpeedVerta
 /*  f0cb2f8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0cb2fc:
 /*  f0cb2fc:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -4217,176 +4217,46 @@ void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0cbf50
-.late_rodata
-glabel var7f1ad908
-.word 0x3c8ef461
-glabel var7f1ad90c
-.word 0x3c8ef461
-glabel var7f1ad910
-.word 0x3c8ef461
-glabel var7f1ad914
-.word 0x3c8ef461
-glabel var7f1ad918
-.word 0x3c8ef461
-.text
-/*  f0cbf50:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0cbf54:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0cbf58:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0cbf5c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0cbf60:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cbf64:	3c01c334 */ 	lui	$at,0xc334
-/*  f0cbf68:	44811000 */ 	mtc1	$at,$f2
-/*  f0cbf6c:	c4400154 */ 	lwc1	$f0,0x154($v0)
-/*  f0cbf70:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f0cbf74:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0cbf78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbf7c:	4502000c */ 	bc1fl	.L0f0cbfb0
-/*  f0cbf80:	3c014334 */ 	lui	$at,0x4334
-/*  f0cbf84:	44817000 */ 	mtc1	$at,$f14
-/*  f0cbf88:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbf8c:	460e0100 */ 	add.s	$f4,$f0,$f14
-.L0f0cbf90:
-/*  f0cbf90:	e4440154 */ 	swc1	$f4,0x154($v0)
-/*  f0cbf94:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0cbf98:	c4400154 */ 	lwc1	$f0,0x154($v0)
-/*  f0cbf9c:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0cbfa0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbfa4:	4503fffa */ 	bc1tl	.L0f0cbf90
-/*  f0cbfa8:	460e0100 */ 	add.s	$f4,$f0,$f14
-/*  f0cbfac:	3c014334 */ 	lui	$at,0x4334
-.L0f0cbfb0:
-/*  f0cbfb0:	44811000 */ 	mtc1	$at,$f2
-/*  f0cbfb4:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f0cbfb8:	44817000 */ 	mtc1	$at,$f14
-/*  f0cbfbc:	4600103e */ 	c.le.s	$f2,$f0
-/*  f0cbfc0:	3c0142b4 */ 	lui	$at,0x42b4
-/*  f0cbfc4:	4502000a */ 	bc1fl	.L0f0cbff0
-/*  f0cbfc8:	44811000 */ 	mtc1	$at,$f2
-/*  f0cbfcc:	460e0181 */ 	sub.s	$f6,$f0,$f14
-.L0f0cbfd0:
-/*  f0cbfd0:	e4460154 */ 	swc1	$f6,0x154($v0)
-/*  f0cbfd4:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0cbfd8:	c4400154 */ 	lwc1	$f0,0x154($v0)
-/*  f0cbfdc:	4600103e */ 	c.le.s	$f2,$f0
-/*  f0cbfe0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbfe4:	4503fffa */ 	bc1tl	.L0f0cbfd0
-/*  f0cbfe8:	460e0181 */ 	sub.s	$f6,$f0,$f14
-/*  f0cbfec:	44811000 */ 	mtc1	$at,$f2
-.L0f0cbff0:
-/*  f0cbff0:	3c01c2b4 */ 	lui	$at,0xc2b4
-/*  f0cbff4:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0cbff8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbffc:	45020005 */ 	bc1fl	.L0f0cc014
-/*  f0cc000:	44811000 */ 	mtc1	$at,$f2
-/*  f0cc004:	e4420154 */ 	swc1	$f2,0x154($v0)
-/*  f0cc008:	10000009 */ 	beqz	$zero,.L0f0cc030
-/*  f0cc00c:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0cc010:	44811000 */ 	mtc1	$at,$f2
-.L0f0cc014:
-/*  f0cc014:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cc018:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0cc01c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cc020:	45000003 */ 	bc1f	.L0f0cc030
-/*  f0cc024:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cc028:	e4420154 */ 	swc1	$f2,0x154($v0)
-/*  f0cc02c:	8c620284 */ 	lw	$v0,0x284($v1)
-.L0f0cc030:
-/*  f0cc030:	3c017f1b */ 	lui	$at,%hi(var7f1ad908)
-/*  f0cc034:	c42ad908 */ 	lwc1	$f10,%lo(var7f1ad908)($at)
-/*  f0cc038:	c4480144 */ 	lwc1	$f8,0x144($v0)
-/*  f0cc03c:	460a4302 */ 	mul.s	$f12,$f8,$f10
-/*  f0cc040:	0c0068f4 */ 	jal	func0001a3d0
-/*  f0cc044:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cc048:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0cc04c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0cc050:	8c6e0284 */ 	lw	$t6,0x284($v1)
-/*  f0cc054:	3c017f1b */ 	lui	$at,%hi(var7f1ad90c)
-/*  f0cc058:	e5c0014c */ 	swc1	$f0,0x14c($t6)
-/*  f0cc05c:	8c6f0284 */ 	lw	$t7,0x284($v1)
-/*  f0cc060:	c432d90c */ 	lwc1	$f18,%lo(var7f1ad90c)($at)
-/*  f0cc064:	c5f00144 */ 	lwc1	$f16,0x144($t7)
-/*  f0cc068:	46128302 */ 	mul.s	$f12,$f16,$f18
-/*  f0cc06c:	0c0068f7 */ 	jal	func0001a3dc
-/*  f0cc070:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cc074:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0cc078:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0cc07c:	8c780284 */ 	lw	$t8,0x284($v1)
-/*  f0cc080:	44803000 */ 	mtc1	$zero,$f6
-/*  f0cc084:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f0cc088:	e7000150 */ 	swc1	$f0,0x150($t8)
-/*  f0cc08c:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0cc090:	44817000 */ 	mtc1	$at,$f14
-/*  f0cc094:	3c017f1b */ 	lui	$at,%hi(var7f1ad910)
-/*  f0cc098:	c4440154 */ 	lwc1	$f4,0x154($v0)
-/*  f0cc09c:	e4440158 */ 	swc1	$f4,0x158($v0)
-/*  f0cc0a0:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0cc0a4:	c4420158 */ 	lwc1	$f2,0x158($v0)
-/*  f0cc0a8:	4606103c */ 	c.lt.s	$f2,$f6
-/*  f0cc0ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cc0b0:	45000005 */ 	bc1f	.L0f0cc0c8
-/*  f0cc0b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cc0b8:	460e1200 */ 	add.s	$f8,$f2,$f14
-/*  f0cc0bc:	e4480158 */ 	swc1	$f8,0x158($v0)
-/*  f0cc0c0:	8c790284 */ 	lw	$t9,0x284($v1)
-/*  f0cc0c4:	c7220158 */ 	lwc1	$f2,0x158($t9)
-.L0f0cc0c8:
-/*  f0cc0c8:	c42ad910 */ 	lwc1	$f10,%lo(var7f1ad910)($at)
-/*  f0cc0cc:	460a1302 */ 	mul.s	$f12,$f2,$f10
-/*  f0cc0d0:	0c0068f4 */ 	jal	func0001a3d0
-/*  f0cc0d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cc0d8:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0cc0dc:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0cc0e0:	8c680284 */ 	lw	$t0,0x284($v1)
-/*  f0cc0e4:	3c017f1b */ 	lui	$at,%hi(var7f1ad914)
-/*  f0cc0e8:	e5000160 */ 	swc1	$f0,0x160($t0)
-/*  f0cc0ec:	8c690284 */ 	lw	$t1,0x284($v1)
-/*  f0cc0f0:	c432d914 */ 	lwc1	$f18,%lo(var7f1ad914)($at)
-/*  f0cc0f4:	c5300158 */ 	lwc1	$f16,0x158($t1)
-/*  f0cc0f8:	46128302 */ 	mul.s	$f12,$f16,$f18
-/*  f0cc0fc:	0c0068f7 */ 	jal	func0001a3dc
-/*  f0cc100:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cc104:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0cc108:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0cc10c:	8c6a0284 */ 	lw	$t2,0x284($v1)
-/*  f0cc110:	44804000 */ 	mtc1	$zero,$f8
-/*  f0cc114:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f0cc118:	e5400164 */ 	swc1	$f0,0x164($t2)
-/*  f0cc11c:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0cc120:	44817000 */ 	mtc1	$at,$f14
-/*  f0cc124:	c4440150 */ 	lwc1	$f4,0x150($v0)
-/*  f0cc128:	46002187 */ 	neg.s	$f6,$f4
-/*  f0cc12c:	e446036c */ 	swc1	$f6,0x36c($v0)
-/*  f0cc130:	8c6b0284 */ 	lw	$t3,0x284($v1)
-/*  f0cc134:	e5680370 */ 	swc1	$f8,0x370($t3)
-/*  f0cc138:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0cc13c:	c44a014c */ 	lwc1	$f10,0x14c($v0)
-/*  f0cc140:	e44a0374 */ 	swc1	$f10,0x374($v0)
-/*  f0cc144:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0cc148:	8c4500bc */ 	lw	$a1,0xbc($v0)
-/*  f0cc14c:	50a00010 */ 	beqzl	$a1,.L0f0cc190
-/*  f0cc150:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cc154:	8ca40004 */ 	lw	$a0,0x4($a1)
-/*  f0cc158:	5080000d */ 	beqzl	$a0,.L0f0cc190
-/*  f0cc15c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cc160:	8c8c0020 */ 	lw	$t4,0x20($a0)
-/*  f0cc164:	5180000a */ 	beqzl	$t4,.L0f0cc190
-/*  f0cc168:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cc16c:	c4500144 */ 	lwc1	$f16,0x144($v0)
-/*  f0cc170:	3c017f1b */ 	lui	$at,%hi(var7f1ad918)
-/*  f0cc174:	c424d918 */ 	lwc1	$f4,%lo(var7f1ad918)($at)
-/*  f0cc178:	46107481 */ 	sub.s	$f18,$f14,$f16
-/*  f0cc17c:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f0cc180:	44053000 */ 	mfc1	$a1,$f6
-/*  f0cc184:	0fc0f94e */ 	jal	func0f03e538
-/*  f0cc188:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cc18c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0cc190:
-/*  f0cc190:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0cc194:	03e00008 */ 	jr	$ra
-/*  f0cc198:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0cbf50(void)
+{
+	while (g_Vars.currentplayer->vv_verta < -180) {
+		g_Vars.currentplayer->vv_verta += 360;
+	}
+
+	while (g_Vars.currentplayer->vv_verta >= 180) {
+		g_Vars.currentplayer->vv_verta -= 360;
+	}
+
+	if (g_Vars.currentplayer->vv_verta > 90) {
+		g_Vars.currentplayer->vv_verta = 90;
+	} else if (g_Vars.currentplayer->vv_verta < -90) {
+		g_Vars.currentplayer->vv_verta = -90;
+	}
+
+	g_Vars.currentplayer->vv_costheta = fcos(g_Vars.currentplayer->vv_theta * 0.017450513318181f);
+	g_Vars.currentplayer->vv_sintheta = fsin(g_Vars.currentplayer->vv_theta * 0.017450513318181f);
+
+	g_Vars.currentplayer->vv_verta360 = g_Vars.currentplayer->vv_verta;
+
+	if (g_Vars.currentplayer->vv_verta360 < 0) {
+		g_Vars.currentplayer->vv_verta360 += 360;
+	}
+
+	g_Vars.currentplayer->vv_cosverta = fcos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
+	g_Vars.currentplayer->vv_sinverta = fsin(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
+
+	g_Vars.currentplayer->unk036c = -g_Vars.currentplayer->vv_sintheta;
+	g_Vars.currentplayer->unk0370 = 0;
+	g_Vars.currentplayer->unk0374 = g_Vars.currentplayer->vv_costheta;
+
+	if (g_Vars.currentplayer->prop) {
+		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
+
+		if (chr && chr->animdata) {
+			func0f03e538(chr, (360 - g_Vars.currentplayer->vv_theta) * 0.017450513318181f);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0cc19c

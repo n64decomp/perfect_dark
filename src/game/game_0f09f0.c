@@ -4498,7 +4498,7 @@ glabel func0f0f38b0
 .L0f0f4218:
 /*  f0f4218:	c4242948 */ 	lwc1	$f4,%lo(var7f1b2948)($at)
 /*  f0f421c:	46040302 */ 	mul.s	$f12,$f0,$f4
-/*  f0f4220:	0c0068f4 */ 	jal	func0001a3d0
+/*  f0f4220:	0c0068f4 */ 	jal	fcos
 /*  f0f4224:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0f4228:	3c013f00 */ 	lui	$at,0x3f00
 /*  f0f422c:	44814000 */ 	mtc1	$at,$f8

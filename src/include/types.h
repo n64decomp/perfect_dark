@@ -1102,15 +1102,17 @@ struct player {
 	/*0x013c*/ struct prop *autoxaimprop;
 	/*0x0140*/ s32 autoxaimtime60;
 
-	/*0x0144*/ f32 unk0144;
-	/*0x0148*/ u32 unk0148;
-	/*0x014c*/ u32 unk014c;
-	/*0x0150*/ u32 unk0150;
-	/*0x0154*/ u32 unk0154;
-	/*0x0158*/ u32 unk0158;
-	/*0x015c*/ f32 unk015c;
-	/*0x0160*/ u32 unk0160;
-	/*0x0164*/ u32 unk0164;
+	/*0x0144*/ f32 vv_theta;
+	/*0x0148*/ f32 speedtheta;
+	/*0x014c*/ f32 vv_costheta;
+	/*0x0150*/ f32 vv_sintheta;
+
+	/*0x0154*/ f32 vv_verta;
+	/*0x0158*/ f32 vv_verta360;
+	/*0x015c*/ f32 speedverta;
+	/*0x0160*/ f32 vv_cosverta;
+	/*0x0164*/ f32 vv_sinverta;
+
 	/*0x0168*/ f32 unk0168;
 	/*0x016c*/ u32 unk016c;
 	/*0x0170*/ f32 unk0170;
@@ -1236,7 +1238,7 @@ struct player {
 	/*0x0360*/ u32 unk0360;
 	/*0x0364*/ u32 unk0364;
 	/*0x0368*/ u32 unk0368;
-	/*0x036c*/ f32 unk036c;
+	/*0x036c*/ f32 unk036c; // probably a coord
 	/*0x0370*/ f32 unk0370;
 	/*0x0374*/ f32 unk0374;
 	/*0x0378*/ f32 width;

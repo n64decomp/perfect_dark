@@ -1107,7 +1107,7 @@ glabel currentPlayerInit
 /*  f0121f4:	8e240284 */ 	lw	$a0,0x284($s1)
 /*  f0121f8:	0fc2e168 */ 	jal	func0f0b85a0
 /*  f0121fc:	2484036c */ 	addiu	$a0,$a0,0x36c
-/*  f012200:	0c0068f7 */ 	jal	func0001a3dc
+/*  f012200:	0c0068f7 */ 	jal	fsin
 /*  f012204:	c7ac0088 */ 	lwc1	$f12,0x88($sp)
 /*  f012208:	8e2f0284 */ 	lw	$t7,0x284($s1)
 /*  f01220c:	46000107 */ 	neg.s	$f4,$f0
@@ -1115,7 +1115,7 @@ glabel currentPlayerInit
 /*  f012214:	e5e4036c */ 	swc1	$f4,0x36c($t7)
 /*  f012218:	8e2a0284 */ 	lw	$t2,0x284($s1)
 /*  f01221c:	e5480370 */ 	swc1	$f8,0x370($t2)
-/*  f012220:	0c0068f4 */ 	jal	func0001a3d0
+/*  f012220:	0c0068f4 */ 	jal	fcos
 /*  f012224:	c7ac0088 */ 	lwc1	$f12,0x88($sp)
 /*  f012228:	8e2e0284 */ 	lw	$t6,0x284($s1)
 /*  f01222c:	e5c00374 */ 	swc1	$f0,0x374($t6)
@@ -1558,9 +1558,9 @@ glabel currentPlayerInit
 //	g_Vars.currentplayer->unk0078 = fVar9;
 //	g_Vars.currentplayer->unk0144 = (fStack32 * 360.0f) / (M_PI * 2);
 //	func0f0b85a0(&g_Vars.currentplayer->unk036c, &pos);
-//	g_Vars.currentplayer->unk036c = -func0001a3dc(fStack32);
+//	g_Vars.currentplayer->unk036c = -fsin(fStack32);
 //	g_Vars.currentplayer->unk0370 = 0;
-//	g_Vars.currentplayer->unk0374 = func0001a3d0(fStack32);
+//	g_Vars.currentplayer->unk0374 = fcos(fStack32);
 //	g_Vars.currentplayer->bondprevpos.x = (tmp = pos.x);
 //	g_Vars.currentplayer->prop->pos.x = tmp;
 //	g_Vars.currentplayer->bondprevpos.y = (tmp = pos.y);
