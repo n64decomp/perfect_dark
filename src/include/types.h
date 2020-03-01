@@ -2604,10 +2604,8 @@ struct player {
 	/*0x19f0*/ u32 unk19f0;
 	/*0x19f4*/ u32 unk19f4;
 	/*0x19f8*/ u32 unk19f8;
-	/*0x19fc*/ u32 unk19fc;
-	/*0x1a00*/ u32 unk1a00;
-	/*0x1a04*/ u32 unk1a04;
-	/*0x1a08*/ u32 unk1a08;
+	/*0x19fc*/ f32 bondprevtheta;
+	/*0x1a00*/ struct coord grabbedprevpos;
 	/*0x1a0c*/ u32 unk1a0c;
 	/*0x1a10*/ u32 unk1a10;
 	/*0x1a14*/ u32 unk1a14;

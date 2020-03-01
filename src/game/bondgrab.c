@@ -1899,39 +1899,18 @@ glabel func0f0ce0bc
 /*  f0ce0fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0ce100
-/*  f0ce100:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0ce104:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0ce108:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce10c:	8c4e00bc */ 	lw	$t6,0xbc($v0)
-/*  f0ce110:	c5c40008 */ 	lwc1	$f4,0x8($t6)
-/*  f0ce114:	e4440310 */ 	swc1	$f4,0x310($v0)
-/*  f0ce118:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce11c:	8c4f00bc */ 	lw	$t7,0xbc($v0)
-/*  f0ce120:	c5e6000c */ 	lwc1	$f6,0xc($t7)
-/*  f0ce124:	e4460314 */ 	swc1	$f6,0x314($v0)
-/*  f0ce128:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce12c:	8c5800bc */ 	lw	$t8,0xbc($v0)
-/*  f0ce130:	c7080010 */ 	lwc1	$f8,0x10($t8)
-/*  f0ce134:	e4480318 */ 	swc1	$f8,0x318($v0)
-/*  f0ce138:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce13c:	c44a0144 */ 	lwc1	$f10,0x144($v0)
-/*  f0ce140:	e44a19fc */ 	swc1	$f10,0x19fc($v0)
-/*  f0ce144:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce148:	8c591b5c */ 	lw	$t9,0x1b5c($v0)
-/*  f0ce14c:	c7300008 */ 	lwc1	$f16,0x8($t9)
-/*  f0ce150:	e4501a00 */ 	swc1	$f16,0x1a00($v0)
-/*  f0ce154:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce158:	8c481b5c */ 	lw	$t0,0x1b5c($v0)
-/*  f0ce15c:	c512000c */ 	lwc1	$f18,0xc($t0)
-/*  f0ce160:	e4521a04 */ 	swc1	$f18,0x1a04($v0)
-/*  f0ce164:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ce168:	8c491b5c */ 	lw	$t1,0x1b5c($v0)
-/*  f0ce16c:	c5240010 */ 	lwc1	$f4,0x10($t1)
-/*  f0ce170:	03e00008 */ 	jr	$ra
-/*  f0ce174:	e4441a08 */ 	swc1	$f4,0x1a08($v0)
-);
+void currentPlayerUpdatePrevPosGrab(void)
+{
+	g_Vars.currentplayer->bondprevpos.x = g_Vars.currentplayer->prop->pos.x;
+	g_Vars.currentplayer->bondprevpos.y = g_Vars.currentplayer->prop->pos.y;
+	g_Vars.currentplayer->bondprevpos.z = g_Vars.currentplayer->prop->pos.z;
+
+	g_Vars.currentplayer->bondprevtheta = g_Vars.currentplayer->vv_theta;
+
+	g_Vars.currentplayer->grabbedprevpos.x = g_Vars.currentplayer->grabbedprop->pos.x;
+	g_Vars.currentplayer->grabbedprevpos.y = g_Vars.currentplayer->grabbedprop->pos.y;
+	g_Vars.currentplayer->grabbedprevpos.z = g_Vars.currentplayer->grabbedprop->pos.z;
+}
 
 GLOBAL_ASM(
 glabel func0f0ce178
@@ -2876,7 +2855,7 @@ GLOBAL_ASM(
 glabel func0f0ceec4
 /*  f0ceec4:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f0ceec8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0ceecc:	0fc33840 */ 	jal	func0f0ce100
+/*  f0ceecc:	0fc33840 */ 	jal	currentPlayerUpdatePrevPosGrab
 /*  f0ceed0:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f0ceed4:	0fc337bc */ 	jal	func0f0cdef0
 /*  f0ceed8:	00000000 */ 	sll	$zero,$zero,0x0

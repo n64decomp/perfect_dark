@@ -3165,7 +3165,7 @@ glabel func0f0c63bc
 /*  f0c6540:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void currentPlayerUpdatePrevPos(void)
+void currentPlayerUpdatePrevPosWalk(void)
 {
 	g_Vars.currentplayer->bondprevpos.x = g_Vars.currentplayer->prop->pos.x;
 	g_Vars.currentplayer->bondprevpos.y = g_Vars.currentplayer->prop->pos.y;
@@ -4513,7 +4513,7 @@ GLOBAL_ASM(
 glabel func0f0c785c
 /*  f0c785c:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f0c7860:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c7864:	0fc31951 */ 	jal	currentPlayerUpdatePrevPos
+/*  f0c7864:	0fc31951 */ 	jal	currentPlayerUpdatePrevPosWalk
 /*  f0c7868:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c786c:	0fc318c6 */ 	jal	func0f0c6318
 /*  f0c7870:	00000000 */ 	sll	$zero,$zero,0x0
