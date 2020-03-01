@@ -3174,18 +3174,12 @@ void currentPlayerUpdatePrevPos(void)
 	roomsCopy(g_Vars.currentplayer->prop->rooms, g_Vars.currentplayer->bondprevrooms);
 }
 
-GLOBAL_ASM(
-glabel func0f0c65a8
-/*  f0c65a8:	3c02800a */ 	lui	$v0,0x800a
-/*  f0c65ac:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0c65b0:	8c4e1af8 */ 	lw	$t6,0x1af8($v0)
-/*  f0c65b4:	11c00002 */ 	beqz	$t6,.L0f0c65c0
-/*  f0c65b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c65bc:	ac4000d0 */ 	sw	$zero,0xd0($v0)
-.L0f0c65c0:
-/*  f0c65c0:	03e00008 */ 	jr	$ra
-/*  f0c65c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0c65a8(void)
+{
+	if (g_Vars.currentplayer->unk1af8) {
+		g_Vars.currentplayer->unk00d0 = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0c65c8
