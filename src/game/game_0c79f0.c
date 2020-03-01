@@ -292,7 +292,7 @@ void func0f0c8004(void)
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		// empty
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
-		func0f0ce8ac();
+		currentPlayerUpdateSpeedThetaGrab();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 		currentPlayerApplyCrouchSpeedTheta();
 	}

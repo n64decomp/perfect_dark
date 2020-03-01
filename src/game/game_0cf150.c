@@ -31,6 +31,13 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+const char var7f1ada40[] = "bondeyespy.c";
+const char var7f1ada50[] = "bondeyespy.c";
+const char var7f1ada60[] = "bondeyespy.c";
+const char var7f1ada70[] = "g";
+const char var7f1ada74[] = "l";
+const char var7f1ada78[] = "%s%s";
+
 const u32 var7f1ada80[] = {0xc6ea6000};
 const u32 var7f1ada84[] = {0x3dcccccd};
 const u32 var7f1ada88[] = {0x3f847ae1};

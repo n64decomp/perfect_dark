@@ -2691,7 +2691,7 @@ struct player {
 	/*0x1b54*/ u32 unk1b54;
 	/*0x1b58*/ u32 unk1b58;
 	/*0x1b5c*/ struct prop *grabbedprop;
-	/*0x1b60*/ u32 unk1b60;
+	/*0x1b60*/ f32 unk1b60;
 	/*0x1b64*/ u32 unk1b64;
 	/*0x1b68*/ u32 unk1b68;
 	/*0x1b6c*/ f32 unk1b6c;
