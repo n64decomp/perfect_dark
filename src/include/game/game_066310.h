@@ -80,7 +80,7 @@ u32 func0f069750(void);
 u32 func0f069850(void);
 u32 func0f069b4c(void);
 u32 func0f069c1c(void);
-u32 func0f069c70(void);
+void func0f069c70(struct defaultobj *obj, bool arg1, bool arg2);
 u32 func0f069cd8(void);
 u32 func0f069d38(void);
 u32 func0f06a170(void);
