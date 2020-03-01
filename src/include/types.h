@@ -2713,7 +2713,7 @@ struct player {
 	/*0x1b90*/ u32 unk1b90;
 	/*0x1b94*/ u32 unk1b94;
 	/*0x1b98*/ u32 unk1b98;
-	/*0x1b9c*/ u32 unk1b9c;
+	/*0x1b9c*/ f32 unk1b9c;
 	/*0x1ba0*/ s32 cam_room;
 	/*0x1ba4*/ s16 autocontrol_aimpad;
 	/*0x1ba6*/ s16 autocontrol_lookup;
