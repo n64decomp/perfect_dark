@@ -3977,73 +3977,23 @@ glabel var7f1ad8e4
 /*  f0cb798:	27bd0260 */ 	addiu	$sp,$sp,0x260
 );
 
-GLOBAL_ASM(
-glabel func0f0cb79c
-/*  f0cb79c:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0cb7a0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0cb7a4:	afb00020 */ 	sw	$s0,0x20($sp)
-/*  f0cb7a8:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f0cb7ac:	afa60058 */ 	sw	$a2,0x58($sp)
-/*  f0cb7b0:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f0cb7b4:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0cb7b8:	8c8400bc */ 	lw	$a0,0xbc($a0)
-/*  f0cb7bc:	00027880 */ 	sll	$t7,$v0,0x2
-/*  f0cb7c0:	3c18800a */ 	lui	$t8,0x800a
-/*  f0cb7c4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f0cb7c8:	8f18a024 */ 	lw	$t8,-0x5fdc($t8)
-/*  f0cb7cc:	8fb90050 */ 	lw	$t9,0x50($sp)
-/*  f0cb7d0:	c70c19c4 */ 	lwc1	$f12,0x19c4($t8)
-/*  f0cb7d4:	8f2400bc */ 	lw	$a0,0xbc($t9)
-/*  f0cb7d8:	0fc4a25f */ 	jal	propGetPlayerNum
-/*  f0cb7dc:	e7ac0034 */ 	swc1	$f12,0x34($sp)
-/*  f0cb7e0:	3c014248 */ 	lui	$at,0x4248
-/*  f0cb7e4:	44810000 */ 	mtc1	$at,$f0
-/*  f0cb7e8:	c6040000 */ 	lwc1	$f4,0x0($s0)
-/*  f0cb7ec:	00024080 */ 	sll	$t0,$v0,0x2
-/*  f0cb7f0:	3c09800a */ 	lui	$t1,0x800a
-/*  f0cb7f4:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f0cb7f8:	46002181 */ 	sub.s	$f6,$f4,$f0
-/*  f0cb7fc:	8d29a024 */ 	lw	$t1,-0x5fdc($t1)
-/*  f0cb800:	8fa30050 */ 	lw	$v1,0x50($sp)
-/*  f0cb804:	c7ac0034 */ 	lwc1	$f12,0x34($sp)
-/*  f0cb808:	c52219c0 */ 	lwc1	$f2,0x19c0($t1)
-/*  f0cb80c:	e7a60044 */ 	swc1	$f6,0x44($sp)
-/*  f0cb810:	c6080004 */ 	lwc1	$f8,0x4($s0)
-/*  f0cb814:	c46a008c */ 	lwc1	$f10,0x8c($v1)
-/*  f0cb818:	3c014120 */ 	lui	$at,0x4120
-/*  f0cb81c:	44817000 */ 	mtc1	$at,$f14
-/*  f0cb820:	460a4401 */ 	sub.s	$f16,$f8,$f10
-/*  f0cb824:	27a40044 */ 	addiu	$a0,$sp,0x44
-/*  f0cb828:	27a50038 */ 	addiu	$a1,$sp,0x38
-/*  f0cb82c:	8fa60058 */ 	lw	$a2,0x58($sp)
-/*  f0cb830:	460c8481 */ 	sub.s	$f18,$f16,$f12
-/*  f0cb834:	24070007 */ 	addiu	$a3,$zero,0x7
-/*  f0cb838:	460e9101 */ 	sub.s	$f4,$f18,$f14
-/*  f0cb83c:	e7a40048 */ 	swc1	$f4,0x48($sp)
-/*  f0cb840:	c6060008 */ 	lwc1	$f6,0x8($s0)
-/*  f0cb844:	46003201 */ 	sub.s	$f8,$f6,$f0
-/*  f0cb848:	e7a8004c */ 	swc1	$f8,0x4c($sp)
-/*  f0cb84c:	c60a0000 */ 	lwc1	$f10,0x0($s0)
-/*  f0cb850:	46005400 */ 	add.s	$f16,$f10,$f0
-/*  f0cb854:	e7b00038 */ 	swc1	$f16,0x38($sp)
-/*  f0cb858:	c6120004 */ 	lwc1	$f18,0x4($s0)
-/*  f0cb85c:	c464008c */ 	lwc1	$f4,0x8c($v1)
-/*  f0cb860:	46049181 */ 	sub.s	$f6,$f18,$f4
-/*  f0cb864:	460c3201 */ 	sub.s	$f8,$f6,$f12
-/*  f0cb868:	46024280 */ 	add.s	$f10,$f8,$f2
-/*  f0cb86c:	460e5400 */ 	add.s	$f16,$f10,$f14
-/*  f0cb870:	e7b0003c */ 	swc1	$f16,0x3c($sp)
-/*  f0cb874:	c6120008 */ 	lwc1	$f18,0x8($s0)
-/*  f0cb878:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0cb87c:	46009100 */ 	add.s	$f4,$f18,$f0
-/*  f0cb880:	0fc59434 */ 	jal	func0f1650d0
-/*  f0cb884:	e7a40040 */ 	swc1	$f4,0x40($sp)
-/*  f0cb888:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0cb88c:	8fb00020 */ 	lw	$s0,0x20($sp)
-/*  f0cb890:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f0cb894:	03e00008 */ 	jr	$ra
-/*  f0cb898:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0cb79c(struct player *player, struct coord *mid, s32 arg2)
+{
+	struct coord lower;
+	struct coord upper;
+	f32 player19c4 = g_Vars.players[propGetPlayerNum(player->prop)]->unk19c4;
+	f32 player19c0 = g_Vars.players[propGetPlayerNum(player->prop)]->unk19c0;
+
+	lower.x = mid->x - 50;
+	lower.y = mid->y - player->unk008c - player19c4 - 10;
+	lower.z = mid->z - 50;
+
+	upper.x = mid->x + 50;
+	upper.y = mid->y - player->unk008c - player19c4 + player19c0 + 10;
+	upper.z = mid->z + 50;
+
+	func0f1650d0(&lower, &upper, arg2, 7, 0);
+}
 
 GLOBAL_ASM(
 glabel func0f0cb89c
