@@ -3021,12 +3021,12 @@ glabel func0f062794
 /*  f062aa0:	8d0900ac */ 	lw	$t1,0xac($t0)
 /*  f062aa4:	15200005 */ 	bnez	$t1,.L0f062abc
 /*  f062aa8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f062aac:	0fc30ebd */ 	jal	func0f0c3af4
+/*  f062aac:	0fc30ebd */ 	jal	currentPlayerAdjustCrouchPos
 /*  f062ab0:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f062ab4:	10000019 */ 	beqz	$zero,.L0f062b1c
 /*  f062ab8:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f062abc:
-/*  f062abc:	0fc30ebd */ 	jal	func0f0c3af4
+/*  f062abc:	0fc30ebd */ 	jal	currentPlayerAdjustCrouchPos
 /*  f062ac0:	2404fffe */ 	addiu	$a0,$zero,-2
 /*  f062ac4:	10000015 */ 	beqz	$zero,.L0f062b1c
 /*  f062ac8:	8fbf0024 */ 	lw	$ra,0x24($sp)

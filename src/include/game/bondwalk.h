@@ -5,7 +5,7 @@
 
 u32 currentPlayerWalkInit(void);
 void func0f0c3ad0(s32 value);
-u32 func0f0c3af4(void);
+void currentPlayerAdjustCrouchPos(s32 value);
 u32 func0f0c3b38(void);
 u32 func0f0c3c8c(void);
 u32 func0f0c3e14(void);

@@ -294,28 +294,16 @@ void func0f0c3ad0(s32 value)
 	g_Vars.currentplayer->unk00a0 = value * 75.0f;
 }
 
-GLOBAL_ASM(
-glabel func0f0c3af4
-/*  f0c3af4:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0c3af8:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0c3afc:	8ca20284 */ 	lw	$v0,0x284($a1)
-/*  f0c3b00:	8c4e00ac */ 	lw	$t6,0xac($v0)
-/*  f0c3b04:	01c47821 */ 	addu	$t7,$t6,$a0
-/*  f0c3b08:	ac4f00ac */ 	sw	$t7,0xac($v0)
-/*  f0c3b0c:	8ca20284 */ 	lw	$v0,0x284($a1)
-/*  f0c3b10:	8c4300ac */ 	lw	$v1,0xac($v0)
-/*  f0c3b14:	04610003 */ 	bgez	$v1,.L0f0c3b24
-/*  f0c3b18:	28610003 */ 	slti	$at,$v1,0x3
-/*  f0c3b1c:	03e00008 */ 	jr	$ra
-/*  f0c3b20:	ac4000ac */ 	sw	$zero,0xac($v0)
-.L0f0c3b24:
-/*  f0c3b24:	14200002 */ 	bnez	$at,.L0f0c3b30
-/*  f0c3b28:	24180002 */ 	addiu	$t8,$zero,0x2
-/*  f0c3b2c:	ac5800ac */ 	sw	$t8,0xac($v0)
-.L0f0c3b30:
-/*  f0c3b30:	03e00008 */ 	jr	$ra
-/*  f0c3b34:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerAdjustCrouchPos(s32 value)
+{
+	g_Vars.currentplayer->crouchpos += value;
+
+	if (g_Vars.currentplayer->crouchpos < 0) {
+		g_Vars.currentplayer->crouchpos = 0;
+	} else if (g_Vars.currentplayer->crouchpos > 2) {
+		g_Vars.currentplayer->crouchpos = 2;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0c3b38
@@ -3029,7 +3017,7 @@ glabel func0f0c6180
 /*  f0c62b0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c62b4:	adac19b8 */ 	sw	$t4,0x19b8($t5)
 /*  f0c62b8:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f0c62bc:	0fc30ebd */ 	jal	func0f0c3af4
+/*  f0c62bc:	0fc30ebd */ 	jal	currentPlayerAdjustCrouchPos
 /*  f0c62c0:	e5c400b8 */ 	swc1	$f4,0xb8($t6)
 .L0f0c62c4:
 /*  f0c62c4:	8e020284 */ 	lw	$v0,0x284($s0)
@@ -3469,7 +3457,7 @@ glabel func0f0c65c8
 /*  f0c68d0:	10400008 */ 	beqz	$v0,.L0f0c68f4
 /*  f0c68d4:	ae0d0064 */ 	sw	$t5,0x64($s0)
 .L0f0c68d8:
-/*  f0c68d8:	0fc30ebd */ 	jal	func0f0c3af4
+/*  f0c68d8:	0fc30ebd */ 	jal	currentPlayerAdjustCrouchPos
 /*  f0c68dc:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f0c68e0:	8e030064 */ 	lw	$v1,0x64($s0)
 /*  f0c68e4:	0003102a */ 	slt	$v0,$zero,$v1
@@ -3483,7 +3471,7 @@ glabel func0f0c65c8
 /*  f0c6900:	10400008 */ 	beqz	$v0,.L0f0c6924
 /*  f0c6904:	ae0f0068 */ 	sw	$t7,0x68($s0)
 .L0f0c6908:
-/*  f0c6908:	0fc30ebd */ 	jal	func0f0c3af4
+/*  f0c6908:	0fc30ebd */ 	jal	currentPlayerAdjustCrouchPos
 /*  f0c690c:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0c6910:	8e030068 */ 	lw	$v1,0x68($s0)
 /*  f0c6914:	0003102a */ 	slt	$v0,$zero,$v1
