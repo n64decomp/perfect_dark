@@ -52,7 +52,7 @@ u32 func0000bd30(void);
 u32 func0000bd7c(void);
 u32 func0000bdc8(void);
 u32 func0000bdd8(void);
-u32 func0000be74(void);
+f32 func0000be74(void);
 u32 func0000be84(void);
 u32 func0000bee0(void);
 u32 func0000bf04(void);
