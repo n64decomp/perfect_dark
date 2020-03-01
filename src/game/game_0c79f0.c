@@ -3995,19 +3995,10 @@ void func0f0cb79c(struct player *player, struct coord *mid, s32 arg2)
 	func0f1650d0(&lower, &upper, arg2, 7, 0);
 }
 
-GLOBAL_ASM(
-glabel func0f0cb89c
-/*  f0cb89c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0cb8a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cb8a4:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f0cb8a8:	8c8500bc */ 	lw	$a1,0xbc($a0)
-/*  f0cb8ac:	0fc32de7 */ 	jal	func0f0cb79c
-/*  f0cb8b0:	24a50008 */ 	addiu	$a1,$a1,0x8
-/*  f0cb8b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cb8b8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0cb8bc:	03e00008 */ 	jr	$ra
-/*  f0cb8c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0cb89c(struct player *player, s32 arg1)
+{
+	func0f0cb79c(player, &player->prop->pos, arg1);
+}
 
 GLOBAL_ASM(
 glabel func0f0cb8c4
