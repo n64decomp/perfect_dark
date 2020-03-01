@@ -371,100 +371,18 @@ void currentPlayerSetMoveMode(u32 movemode)
 	}
 }
 
-GLOBAL_ASM(
-glabel releaseObj
-/*  f0c7dec:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0c7df0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0c7df4:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0c7df8:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0c7dfc:	8e0f006c */ 	lw	$t7,0x6c($s0)
-/*  f0c7e00:	8e0e028c */ 	lw	$t6,0x28c($s0)
-/*  f0c7e04:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0c7e08:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0c7e0c:	00809025 */ 	or	$s2,$a0,$zero
-/*  f0c7e10:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f0c7e14:	00008825 */ 	or	$s1,$zero,$zero
-/*  f0c7e18:	11e00003 */ 	beqz	$t7,.L0f0c7e28
-/*  f0c7e1c:	afae002c */ 	sw	$t6,0x2c($sp)
-/*  f0c7e20:	10000002 */ 	beqz	$zero,.L0f0c7e2c
-/*  f0c7e24:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0c7e28:
-/*  f0c7e28:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0c7e2c:
-/*  f0c7e2c:	8e180068 */ 	lw	$t8,0x68($s0)
-/*  f0c7e30:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0c7e34:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0c7e38:	13000003 */ 	beqz	$t8,.L0f0c7e48
-/*  f0c7e3c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c7e40:	10000001 */ 	beqz	$zero,.L0f0c7e48
-/*  f0c7e44:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0c7e48:
-/*  f0c7e48:	8e190064 */ 	lw	$t9,0x64($s0)
-/*  f0c7e4c:	13200003 */ 	beqz	$t9,.L0f0c7e5c
-/*  f0c7e50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7e54:	10000001 */ 	beqz	$zero,.L0f0c7e5c
-/*  f0c7e58:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0c7e5c:
-/*  f0c7e5c:	8e080070 */ 	lw	$t0,0x70($s0)
-/*  f0c7e60:	11000003 */ 	beqz	$t0,.L0f0c7e70
-/*  f0c7e64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7e68:	10000001 */ 	beqz	$zero,.L0f0c7e70
-/*  f0c7e6c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0c7e70:
-/*  f0c7e70:	00434821 */ 	addu	$t1,$v0,$v1
-/*  f0c7e74:	01245021 */ 	addu	$t2,$t1,$a0
-/*  f0c7e78:	01455821 */ 	addu	$t3,$t2,$a1
-/*  f0c7e7c:	19600023 */ 	blez	$t3,.L0f0c7f0c
-/*  f0c7e80:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0c7e84:
-/*  f0c7e84:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0c7e88:	02202025 */ 	or	$a0,$s1,$zero
-/*  f0c7e8c:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
-/*  f0c7e90:	02402025 */ 	or	$a0,$s2,$zero
-/*  f0c7e94:	8e0c006c */ 	lw	$t4,0x6c($s0)
-/*  f0c7e98:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f0c7e9c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0c7ea0:	11800003 */ 	beqz	$t4,.L0f0c7eb0
-/*  f0c7ea4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0c7ea8:	10000001 */ 	beqz	$zero,.L0f0c7eb0
-/*  f0c7eac:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0c7eb0:
-/*  f0c7eb0:	8e0d0068 */ 	lw	$t5,0x68($s0)
-/*  f0c7eb4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0c7eb8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0c7ebc:	11a00003 */ 	beqz	$t5,.L0f0c7ecc
-/*  f0c7ec0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7ec4:	10000001 */ 	beqz	$zero,.L0f0c7ecc
-/*  f0c7ec8:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0c7ecc:
-/*  f0c7ecc:	8e0e0064 */ 	lw	$t6,0x64($s0)
-/*  f0c7ed0:	11c00003 */ 	beqz	$t6,.L0f0c7ee0
-/*  f0c7ed4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7ed8:	10000001 */ 	beqz	$zero,.L0f0c7ee0
-/*  f0c7edc:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0c7ee0:
-/*  f0c7ee0:	8e0f0070 */ 	lw	$t7,0x70($s0)
-/*  f0c7ee4:	11e00003 */ 	beqz	$t7,.L0f0c7ef4
-/*  f0c7ee8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7eec:	10000001 */ 	beqz	$zero,.L0f0c7ef4
-/*  f0c7ef0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0c7ef4:
-/*  f0c7ef4:	0043c021 */ 	addu	$t8,$v0,$v1
-/*  f0c7ef8:	0304c821 */ 	addu	$t9,$t8,$a0
-/*  f0c7efc:	03254021 */ 	addu	$t0,$t9,$a1
-/*  f0c7f00:	0228082a */ 	slt	$at,$s1,$t0
-/*  f0c7f04:	1420ffdf */ 	bnez	$at,.L0f0c7e84
-/*  f0c7f08:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0c7f0c:
-/*  f0c7f0c:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f0c7f10:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f0c7f14:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f0c7f18:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0c7f1c:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0c7f20:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0c7f24:	03e00008 */ 	jr	$ra
-/*  f0c7f28:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void setMoveModeForAllPlayers(u32 movemode)
+{
+	u32 prevplayernum = g_Vars.currentplayernum;
+	s32 i;
+
+	for (i = 0; i < PLAYERCOUNT(); i++) {
+		setCurrentPlayerNum(i);
+		currentPlayerSetMoveMode(movemode);
+	}
+
+	setCurrentPlayerNum(prevplayernum);
+}
 
 GLOBAL_ASM(
 glabel func0f0c7f2c

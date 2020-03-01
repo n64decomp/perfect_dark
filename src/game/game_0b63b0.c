@@ -3883,7 +3883,7 @@ void func0f0b9afc(void)
 	} else {
 		setTickMode(TICKMODE_1);
 		var80070744 = 0;
-		releaseObj(0);
+		setMoveModeForAllPlayers(MOVEMODE_NORMAL);
 	}
 }
 
@@ -3891,7 +3891,7 @@ void warpBondToPad(s16 pad)
 {
 	setTickMode(TICKMODE_3);
 	var80070744 = 0;
-	releaseObj(5);
+	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
 	func0f0c1d20();
 	g_WarpPadId = pad;
 }
@@ -3900,7 +3900,7 @@ void func0f0b9bac(u32 *cmd, s32 arg1, s32 arg2)
 {
 	setTickMode(TICKMODE_3);
 	var80070744 = 0;
-	releaseObj(5);
+	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
 	func0f0c1d20();
 	g_WarpPadId = -1;
 	var8009ddec = cmd;
@@ -3912,7 +3912,7 @@ void func0f0b9c1c(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5)
 {
 	setTickMode(TICKMODE_3);
 	var80070744 = 0;
-	releaseObj(5);
+	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
 	func0f0c1d20();
 	g_WarpPadId = -1;
 	var8009ddec = NULL;
@@ -4152,7 +4152,7 @@ void func0f0ba010(void)
 {
 	setTickMode(TICKMODE_6);
 	var80070744 = 0;
-	releaseObj(5);
+	setMoveModeForAllPlayers(MOVEMODE_CUTSCENE);
 	func0f0c1d20();
 	var8009de14 = var8009de20;
 	var8009de10 = var8009de20 >> 2;

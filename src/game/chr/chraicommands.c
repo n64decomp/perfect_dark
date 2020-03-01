@@ -10292,7 +10292,7 @@ bool aiClearInventory(void)
  */
 bool aiReleaseObject(void)
 {
-	releaseObj(0);
+	setMoveModeForAllPlayers(MOVEMODE_NORMAL);
 	g_Vars.aioffset += 3;
 
 	return false;
