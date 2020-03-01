@@ -23,7 +23,7 @@ void func0f0c7f2c(void);
 void func0f0c7f98(void);
 void func0f0c8004(void);
 f32 func0f0c805c(f32 value);
-u32 func0f0c80f8(void);
+void func0f0c80f8(f32 value);
 u32 func0f0c82f8(void);
 u32 func0f0c8394(void);
 u32 func0f0c8598(void);
