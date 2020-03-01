@@ -18,7 +18,7 @@ u32 func0f0ce0bc(void);
 void currentPlayerUpdatePrevPosGrab(void);
 void func0f0ce178(void);
 u32 func0f0ce1ac(void);
-u32 func0f0ce450(void);
+void func0f0ce450(void);
 u32 func0f0ce4a0(void);
 u32 func0f0ce55c(void);
 u32 func0f0ce608(void);

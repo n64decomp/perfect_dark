@@ -228,7 +228,7 @@ u32 func0f085eac(void);
 u32 func0f086918(void);
 u32 objIsHealthy(struct defaultobj *obj);
 u32 func0f0869cc(void);
-u32 func0f086d60(void);
+bool func0f086d60(struct prop *prop);
 void func0f086f40(struct prop *prop);
 void propObjSetOrUnsetHiddenFlag00400000(struct prop *prop, bool enable);
 u32 func0f087458(void);

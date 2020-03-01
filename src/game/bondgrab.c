@@ -2101,31 +2101,15 @@ glabel func0f0ce1ac
 /*  f0ce44c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0ce450
-/*  f0ce450:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0ce454:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f0ce458:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0ce45c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ce460:	0fc21b58 */ 	jal	func0f086d60
-/*  f0ce464:	8dc41b5c */ 	lw	$a0,0x1b5c($t6)
-/*  f0ce468:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0ce46c:	10400004 */ 	beqz	$v0,.L0f0ce480
-/*  f0ce470:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0ce474:	8c6f0284 */ 	lw	$t7,0x284($v1)
-/*  f0ce478:	10000005 */ 	beqz	$zero,.L0f0ce490
-/*  f0ce47c:	ade000d0 */ 	sw	$zero,0xd0($t7)
-.L0f0ce480:
-/*  f0ce480:	8c780284 */ 	lw	$t8,0x284($v1)
-/*  f0ce484:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0ce488:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
-/*  f0ce48c:	af0000d0 */ 	sw	$zero,0xd0($t8)
-.L0f0ce490:
-/*  f0ce490:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ce494:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0ce498:	03e00008 */ 	jr	$ra
-/*  f0ce49c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0ce450(void)
+{
+	if (func0f086d60(g_Vars.currentplayer->grabbedprop)) {
+		g_Vars.currentplayer->unk00d0 = 0;
+	} else {
+		g_Vars.currentplayer->unk00d0 = 0;
+		currentPlayerSetMoveMode(MOVEMODE_WALK);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0ce4a0
