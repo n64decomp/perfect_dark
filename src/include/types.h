@@ -1126,9 +1126,7 @@ struct player {
 	/*0x0198*/ f32 unk0198;
 	/*0x019c*/ u32 unk019c;
 	/*0x01a0*/ u32 unk01a0;
-	/*0x01a4*/ u32 unk01a4;
-	/*0x01a8*/ u32 unk01a8;
-	/*0x01ac*/ u32 unk01ac;
+	/*0x01a4*/ struct coord moveinitspeed;
 	/*0x01b0*/ u32 bondmovemode;
 	/*0x01b4*/ u32 unk01b4;
 	/*0x01b8*/ u32 unk01b8;

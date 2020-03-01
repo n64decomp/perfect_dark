@@ -4132,96 +4132,26 @@ void func0f0cba88(f32 *a, f32 *b, struct coord *c, f32 mult1, f32 mult2)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0cbb48
-.late_rodata
-glabel var7f1ad8f0
-.word 0x3a83126f
-glabel var7f1ad8f4
-.word 0xba83126f
-glabel var7f1ad8f8
-.word 0x3f666666
-glabel var7f1ad8fc
-.word 0x3a83126f
-glabel var7f1ad900
-.word 0xba83126f
-glabel var7f1ad904
-.word 0x3f666666
-.text
-/*  f0cbb48:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0cbb4c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0cbb50:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0cbb54:	44801000 */ 	mtc1	$zero,$f2
-/*  f0cbb58:	3c017f1b */ 	lui	$at,%hi(var7f1ad8f0)
-/*  f0cbb5c:	c44001a4 */ 	lwc1	$f0,0x1a4($v0)
-/*  f0cbb60:	46001032 */ 	c.eq.s	$f2,$f0
-/*  f0cbb64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbb68:	4503001c */ 	bc1tl	.L0f0cbbdc
-/*  f0cbb6c:	c44001ac */ 	lwc1	$f0,0x1ac($v0)
-/*  f0cbb70:	c424d8f0 */ 	lwc1	$f4,%lo(var7f1ad8f0)($at)
-/*  f0cbb74:	3c017f1b */ 	lui	$at,%hi(var7f1ad8f4)
-/*  f0cbb78:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f0cbb7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbb80:	45000009 */ 	bc1f	.L0f0cbba8
-/*  f0cbb84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbb88:	c426d8f4 */ 	lwc1	$f6,%lo(var7f1ad8f4)($at)
-/*  f0cbb8c:	4600303c */ 	c.lt.s	$f6,$f0
-/*  f0cbb90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbb94:	45000004 */ 	bc1f	.L0f0cbba8
-/*  f0cbb98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbb9c:	e44201a4 */ 	swc1	$f2,0x1a4($v0)
-/*  f0cbba0:	1000000d */ 	beqz	$zero,.L0f0cbbd8
-/*  f0cbba4:	8c620284 */ 	lw	$v0,0x284($v1)
-.L0f0cbba8:
-/*  f0cbba8:	3c017f1b */ 	lui	$at,%hi(var7f1ad8f8)
-/*  f0cbbac:	c428d8f8 */ 	lwc1	$f8,%lo(var7f1ad8f8)($at)
-/*  f0cbbb0:	46080282 */ 	mul.s	$f10,$f0,$f8
-/*  f0cbbb4:	e44a01a4 */ 	swc1	$f10,0x1a4($v0)
-/*  f0cbbb8:	8c6e0284 */ 	lw	$t6,0x284($v1)
-/*  f0cbbbc:	c472004c */ 	lwc1	$f18,0x4c($v1)
-/*  f0cbbc0:	c4860000 */ 	lwc1	$f6,0x0($a0)
-/*  f0cbbc4:	c5d001a4 */ 	lwc1	$f16,0x1a4($t6)
-/*  f0cbbc8:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f0cbbcc:	46043200 */ 	add.s	$f8,$f6,$f4
-/*  f0cbbd0:	e4880000 */ 	swc1	$f8,0x0($a0)
-/*  f0cbbd4:	8c620284 */ 	lw	$v0,0x284($v1)
-.L0f0cbbd8:
-/*  f0cbbd8:	c44001ac */ 	lwc1	$f0,0x1ac($v0)
-.L0f0cbbdc:
-/*  f0cbbdc:	3c017f1b */ 	lui	$at,%hi(var7f1ad8fc)
-/*  f0cbbe0:	46001032 */ 	c.eq.s	$f2,$f0
-/*  f0cbbe4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbbe8:	45010019 */ 	bc1t	.L0f0cbc50
-/*  f0cbbec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbbf0:	c42ad8fc */ 	lwc1	$f10,%lo(var7f1ad8fc)($at)
-/*  f0cbbf4:	3c017f1b */ 	lui	$at,%hi(var7f1ad900)
-/*  f0cbbf8:	460a003c */ 	c.lt.s	$f0,$f10
-/*  f0cbbfc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbc00:	45000008 */ 	bc1f	.L0f0cbc24
-/*  f0cbc04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbc08:	c430d900 */ 	lwc1	$f16,%lo(var7f1ad900)($at)
-/*  f0cbc0c:	4600803c */ 	c.lt.s	$f16,$f0
-/*  f0cbc10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbc14:	45000003 */ 	bc1f	.L0f0cbc24
-/*  f0cbc18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cbc1c:	03e00008 */ 	jr	$ra
-/*  f0cbc20:	e44201ac */ 	swc1	$f2,0x1ac($v0)
-.L0f0cbc24:
-/*  f0cbc24:	3c017f1b */ 	lui	$at,%hi(var7f1ad904)
-/*  f0cbc28:	c432d904 */ 	lwc1	$f18,%lo(var7f1ad904)($at)
-/*  f0cbc2c:	46120182 */ 	mul.s	$f6,$f0,$f18
-/*  f0cbc30:	e44601ac */ 	swc1	$f6,0x1ac($v0)
-/*  f0cbc34:	8c6f0284 */ 	lw	$t7,0x284($v1)
-/*  f0cbc38:	c468004c */ 	lwc1	$f8,0x4c($v1)
-/*  f0cbc3c:	c4900008 */ 	lwc1	$f16,0x8($a0)
-/*  f0cbc40:	c5e401ac */ 	lwc1	$f4,0x1ac($t7)
-/*  f0cbc44:	46082282 */ 	mul.s	$f10,$f4,$f8
-/*  f0cbc48:	460a8480 */ 	add.s	$f18,$f16,$f10
-/*  f0cbc4c:	e4920008 */ 	swc1	$f18,0x8($a0)
-.L0f0cbc50:
-/*  f0cbc50:	03e00008 */ 	jr	$ra
-/*  f0cbc54:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerUpdateMoveInitSpeed(struct coord *newpos)
+{
+	if (g_Vars.currentplayer->moveinitspeed.x != 0) {
+		if (g_Vars.currentplayer->moveinitspeed.x < 0.001f && g_Vars.currentplayer->moveinitspeed.x > -0.001f) {
+			g_Vars.currentplayer->moveinitspeed.x = 0;
+		} else {
+			g_Vars.currentplayer->moveinitspeed.x *= 0.9f;
+			newpos->x += g_Vars.currentplayer->moveinitspeed.x * g_Vars.lvupdate240freal;
+		}
+	}
+
+	if (g_Vars.currentplayer->moveinitspeed.z != 0) {
+		if (g_Vars.currentplayer->moveinitspeed.z < 0.001f && g_Vars.currentplayer->moveinitspeed.z > -0.001f) {
+			g_Vars.currentplayer->moveinitspeed.z = 0;
+		} else {
+			g_Vars.currentplayer->moveinitspeed.z *= 0.9f;
+			newpos->z += g_Vars.currentplayer->moveinitspeed.z * g_Vars.lvupdate240freal;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0cbc58

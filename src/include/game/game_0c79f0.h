@@ -34,7 +34,7 @@ void func0f0cb89c(struct player *player, s16 *rooms);
 void func0f0cb8c4(struct player *player);
 void func0f0cb904(struct coord *coord);
 void func0f0cba88(f32 *a, f32 *b, struct coord *c, f32 mult1, f32 mult2);
-u32 func0f0cbb48(void);
+void currentPlayerUpdateMoveInitSpeed(struct coord *newpos);
 u32 func0f0cbc58(void);
 u32 func0f0cbf50(void);
 u32 func0f0cc19c(void);
