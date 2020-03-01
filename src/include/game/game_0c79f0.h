@@ -19,7 +19,7 @@ struct prop *currentPlayerGetGrabbedProp(void);
 void currentPlayerGrabProp(struct prop *prop);
 void currentPlayerSetMoveMode(u32 movemode);
 void setMoveModeForAllPlayers(u32 movemode);
-u32 func0f0c7f2c(void);
+void func0f0c7f2c(void);
 u32 func0f0c7f98(void);
 u32 func0f0c8004(void);
 u32 func0f0c805c(void);

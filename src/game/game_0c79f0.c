@@ -384,39 +384,16 @@ void setMoveModeForAllPlayers(u32 movemode)
 	setCurrentPlayerNum(prevplayernum);
 }
 
-GLOBAL_ASM(
-glabel func0f0c7f2c
-/*  f0c7f2c:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0c7f30:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f0c7f34:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c7f38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c7f3c:	8dc201b0 */ 	lw	$v0,0x1b0($t6)
-/*  f0c7f40:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0c7f44:	54410006 */ 	bnel	$v0,$at,.L0f0c7f60
-/*  f0c7f48:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0c7f4c:	0fc34956 */ 	jal	func0f0d2558
-/*  f0c7f50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7f54:	1000000d */ 	beqz	$zero,.L0f0c7f8c
-/*  f0c7f58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c7f5c:	24010004 */ 	addiu	$at,$zero,0x4
-.L0f0c7f60:
-/*  f0c7f60:	14410005 */ 	bne	$v0,$at,.L0f0c7f78
-/*  f0c7f64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7f68:	0fc33914 */ 	jal	func0f0ce450
-/*  f0c7f6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7f70:	10000006 */ 	beqz	$zero,.L0f0c7f8c
-/*  f0c7f74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0c7f78:
-/*  f0c7f78:	54400004 */ 	bnezl	$v0,.L0f0c7f8c
-/*  f0c7f7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c7f80:	0fc3196a */ 	jal	func0f0c65a8
-/*  f0c7f84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7f88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0c7f8c:
-/*  f0c7f8c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c7f90:	03e00008 */ 	jr	$ra
-/*  f0c7f94:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0c7f2c(void)
+{
+	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_HOVERBIKE) {
+		func0f0d2558();
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRABBEDPROP) {
+		func0f0ce450();
+	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_NORMAL) {
+		func0f0c65a8();
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0c7f98
