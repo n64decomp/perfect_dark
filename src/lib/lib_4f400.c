@@ -2,12 +2,13 @@
 #include "constants.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
+#include "game/data/data_00e460.h"
 #include "game/data/data_0160b0.h"
+#include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "gvars/gvars.h"
 #include "lib/lib_48650.h"
 #include "lib/lib_4a810.h"
-#include "lib/lib_4f400.h"
 #include "types.h"
 
 GLOBAL_ASM(

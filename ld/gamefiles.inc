@@ -98,6 +98,7 @@
 	src/game/game_0c3620.o (section); \
 	src/game/game_0c37d0.o (section); \
 	src/game/game_0c79f0.o (section); \
+	src/game/bondgrab.o (section); \
 	src/game/game_0cf150.o (section); \
 	src/game/game_0d1fe0.o (section); \
 	src/game/game_0d4690.o (section); \
