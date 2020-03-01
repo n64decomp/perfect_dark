@@ -1242,9 +1242,7 @@ struct player {
 	/*0x0370*/ f32 unk0370;
 	/*0x0374*/ f32 unk0374;
 	/*0x0378*/ f32 width;
-	/*0x037c*/ u32 unk037c;
-	/*0x0380*/ u32 unk0380;
-	/*0x0384*/ u32 unk0384;
+	/*0x037c*/ struct coord unk037c;
 	/*0x0388*/ struct coord unk0388;
 	/*0x0394*/ struct coord unk0394;
 	/*0x03a0*/ bool resetheadpos;
@@ -2557,7 +2555,7 @@ struct player {
 	/*0x1921*/ u8 buthistlen;
 	/*0x1922*/ u8 invincible;
 	/*0x1924*/ u32 healthdamagetype;
-	/*0x1928*/ u32 bondleandown;
+	/*0x1928*/ f32 bondleandown;
 	/*0x192c*/ u32 mpmenuon;
 	/*0x1930*/ u32 mpquitconfirm;
 	/*0x1934*/ u32 mpjoywascentre;
@@ -2589,7 +2587,7 @@ struct player {
 	/*0x19a0*/ u32 unk19a0;
 	/*0x19a4*/ u32 unk19a4;
 	/*0x19a8*/ u32 unk19a8;
-	/*0x19ac*/ u32 unk19ac;
+	/*0x19ac*/ s32 unk19ac;
 	/*0x19b0*/ u32 unk19b0;
 	/*0x19b4*/ u32 unk19b4;
 	/*0x19b8*/ s32 unk19b8;
@@ -2642,7 +2640,7 @@ struct player {
 	/*0x1a74*/ u32 unk1a74;
 	/*0x1a78*/ u32 unk1a78;
 	/*0x1a7c*/ u32 unk1a7c;
-	/*0x1a80*/ u32 unk1a80;
+	/*0x1a80*/ f32 unk1a80;
 	/*0x1a84*/ u32 unk1a84;
 	/*0x1a88*/ u32 unk1a88;
 	/*0x1a8c*/ u32 unk1a8c;
@@ -2692,7 +2690,7 @@ struct player {
 	/*0x1b3c*/ u32 unk1b3c;
 	/*0x1b40*/ u32 unk1b40;
 	/*0x1b44*/ u32 unk1b44;
-	/*0x1b48*/ u32 unk1b48;
+	/*0x1b48*/ f32 unk1b48;
 	/*0x1b4c*/ u32 unk1b4c;
 	/*0x1b50*/ u32 unk1b50;
 	/*0x1b54*/ u32 unk1b54;

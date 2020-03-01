@@ -37,7 +37,7 @@ void func0f0cba88(f32 *a, f32 *b, struct coord *c, f32 mult1, f32 mult2);
 void currentPlayerUpdateMoveInitSpeed(struct coord *newpos);
 void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3);
 void func0f0cbf50(void);
-u32 func0f0cc19c(void);
+void func0f0cc19c(struct coord *arg);
 u32 func0f0cc3b8(void);
 u32 func0f0cc654(void);
 u32 func0f0cc680(void);
