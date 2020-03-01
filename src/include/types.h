@@ -624,8 +624,8 @@ struct chrdata {
 	/*0x188*/ u16 cmcount;
 	/*0x18a*/ u16 floorcol;
 	/*0x18c*/ f32 oldframe;
-	/*0x190*/ u8 footstep;
-	/*0x191*/ s8 floortype;
+	/*0x190*/ s8 footstep;
+	/*0x191*/ u8 floortype;
 	/*0x192*/ u16 hidden2;
 	/*0x194*/ f32 magicframe;
 	/*0x198*/ f32 magicspeed;
@@ -1050,7 +1050,7 @@ struct player {
 	/*0x0074*/ f32 unk0074;
 	/*0x0078*/ f32 unk0078;
 	/*0x007c*/ u32 unk007c;
-	/*0x0080*/ u32 unk0080;
+	/*0x0080*/ f32 unk0080;
 	/*0x0084*/ u32 unk0084;
 	/*0x0088*/ u32 unk0088;
 	/*0x008c*/ f32 unk008c;
@@ -1111,9 +1111,9 @@ struct player {
 	/*0x015c*/ f32 unk015c;
 	/*0x0160*/ u32 unk0160;
 	/*0x0164*/ u32 unk0164;
-	/*0x0168*/ u32 unk0168;
+	/*0x0168*/ f32 unk0168;
 	/*0x016c*/ u32 unk016c;
-	/*0x0170*/ u32 unk0170;
+	/*0x0170*/ f32 unk0170;
 	/*0x0174*/ u32 unk0174;
 	/*0x0178*/ u32 unk0178;
 	/*0x017c*/ u32 unk017c;
@@ -2407,7 +2407,7 @@ struct player {
 	/*0x1618*/ u16 unk1618;
 	/*0x161a*/ u16 unk161a;
 	/*0x161c*/ u16 unk161c;
-	/*0x161e*/ u16 unk161e;
+	/*0x161e*/ u8 floortype;
 	/*0x1620*/ u32 unk1620;
 	/*0x1624*/ struct prop *lookingatprop;
 	/*0x1628*/ u32 unk1628;
@@ -2738,9 +2738,9 @@ struct player {
 	/*0x1c04*/ u32 training;
 	/*0x1c08*/ u32 deadtimer;
 	/*0x1c0c*/ u32 coopcanrestart;
-	/*0x1c10*/ u32 foot;
-	/*0x1c14*/ u32 footstepdist;
-	/*0x1c18*/ u32 unk1c18;
+	/*0x1c10*/ u32 unk1c10;
+	/*0x1c14*/ s32 foot;
+	/*0x1c18*/ f32 footstepdist;
 	/*0x1c1c*/ u32 unk1c1c;
 	/*0x1c20*/ u32 unk1c20;
 	/*0x1c24*/ u32 unk1c24;

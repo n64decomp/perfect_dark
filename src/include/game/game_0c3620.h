@@ -4,6 +4,6 @@
 #include "types.h"
 
 u32 currentPlayerSetMoveModeCutscene(void);
-u32 func0f0c37c0(void);
+void func0f0c37c0(void);
 
 #endif

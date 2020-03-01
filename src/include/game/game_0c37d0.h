@@ -28,6 +28,6 @@ u32 func0f0c65a8(void);
 u32 func0f0c65c8(void);
 u32 func0f0c6948(void);
 u32 func0f0c69b8(void);
-u32 func0f0c785c(void);
+void func0f0c785c(void);
 
 #endif
