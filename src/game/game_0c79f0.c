@@ -294,7 +294,7 @@ void func0f0c8004(void)
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
 		func0f0ce8ac();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
-		func0f0c6948();
+		currentPlayerApplyCrouchSpeedTheta();
 	}
 }
 
@@ -4176,7 +4176,7 @@ void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3)
 	}
 
 	if ((g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK || g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB)
-			&& (g_Vars.currentplayer->unk0170 || g_Vars.currentplayer->unk0168)
+			&& (g_Vars.currentplayer->speedforwards || g_Vars.currentplayer->speedsideways)
 			&& (!g_Vars.normmplayerisrunning || PLAYERCOUNT() == 1)) {
 		chr = g_Vars.currentplayer->prop->chr;
 

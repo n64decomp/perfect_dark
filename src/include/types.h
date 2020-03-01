@@ -1102,14 +1102,14 @@ struct player {
 	/*0x013c*/ struct prop *autoxaimprop;
 	/*0x0140*/ s32 autoxaimtime60;
 
-	/*0x0144*/ f32 vv_theta;
-	/*0x0148*/ f32 speedtheta;
+	/*0x0144*/ f32 vv_theta;   // turn angle
+	/*0x0148*/ f32 speedtheta; // turn speed
 	/*0x014c*/ f32 vv_costheta;
 	/*0x0150*/ f32 vv_sintheta;
 
-	/*0x0154*/ f32 vv_verta;
+	/*0x0154*/ f32 vv_verta;   // look up/down angle. 0 = horizontal, 90 = up
 	/*0x0158*/ f32 vv_verta360;
-	/*0x015c*/ f32 speedverta;
+	/*0x015c*/ f32 speedverta; // look up/down speed
 	/*0x0160*/ f32 vv_cosverta;
 	/*0x0164*/ f32 vv_sinverta;
 

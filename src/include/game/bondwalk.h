@@ -26,7 +26,7 @@ u32 func0f0c63bc(void);
 void currentPlayerUpdatePrevPos(void);
 void func0f0c65a8(void);
 u32 func0f0c65c8(void);
-u32 func0f0c6948(void);
+void currentPlayerApplyCrouchSpeedTheta(void);
 u32 func0f0c69b8(void);
 void func0f0c785c(void);
 
