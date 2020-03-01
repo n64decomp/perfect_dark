@@ -40,7 +40,7 @@ void func0f0cbf50(void);
 void func0f0cc19c(struct coord *arg);
 u32 func0f0cc3b8(void);
 u32 func0f0cc654(void);
-u32 func0f0cc680(void);
+s32 currentPlayerGetCrouchPos(void);
 u32 func0f0cc6ac(void);
 
 #endif

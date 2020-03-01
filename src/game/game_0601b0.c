@@ -2723,7 +2723,7 @@ glabel func0f062270
 /*  f062644:	0fc0ffcb */ 	jal	func0f03ff2c
 /*  f062648:	afae0010 */ 	sw	$t6,0x10($sp)
 .L0f06264c:
-/*  f06264c:	0fc331a0 */ 	jal	func0f0cc680
+/*  f06264c:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f062650:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f062654:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f062658:	14410003 */ 	bne	$v0,$at,.L0f062668
@@ -2731,7 +2731,7 @@ glabel func0f062270
 /*  f062660:	10000009 */ 	beqz	$zero,.L0f062688
 /*  f062664:	afb9009c */ 	sw	$t9,0x9c($sp)
 .L0f062668:
-/*  f062668:	0fc331a0 */ 	jal	func0f0cc680
+/*  f062668:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f06266c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f062670:	14400004 */ 	bnez	$v0,.L0f062684
 /*  f062674:	2409000f */ 	addiu	$t1,$zero,0xf

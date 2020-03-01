@@ -1061,8 +1061,8 @@ struct player {
 	/*0x00a0*/ u32 unk00a0;
 	/*0x00a4*/ u32 unk00a4;
 	/*0x00a8*/ u32 unk00a8;
-	/*0x00ac*/ u32 unk00ac;
-	/*0x00b0*/ u32 unk00b0;
+	/*0x00ac*/ s32 crouchpos;
+	/*0x00b0*/ s32 autocrouchpos;
 	/*0x00b4*/ f32 unk00b4;
 	/*0x00b8*/ u32 unk00b8;
 	/*0x00bc*/ struct prop *prop;

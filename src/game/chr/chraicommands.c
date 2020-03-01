@@ -10314,7 +10314,7 @@ bool aiChrGrabObject(void)
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
-				&& func0f0cc680() == 2
+				&& currentPlayerGetCrouchPos() == 2
 				&& g_Vars.currentplayer->unk00b4 == 0) {
 			currentPlayerGrabProp(obj->prop);
 		}

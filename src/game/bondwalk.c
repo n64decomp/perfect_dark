@@ -2841,7 +2841,7 @@ GLOBAL_ASM(
 glabel func0f0c5fe8
 /*  f0c5fe8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0c5fec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c5ff0:	0fc331a0 */ 	jal	func0f0cc680
+/*  f0c5ff0:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f0c5ff4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c5ff8:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0c5ffc:	1441000d */ 	bne	$v0,$at,.L0f0c6034
@@ -2859,7 +2859,7 @@ glabel func0f0c5fe8
 /*  f0c602c:	10000010 */ 	beqz	$zero,.L0f0c6070
 /*  f0c6030:	e44a0168 */ 	swc1	$f10,0x168($v0)
 .L0f0c6034:
-/*  f0c6034:	0fc331a0 */ 	jal	func0f0cc680
+/*  f0c6034:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f0c6038:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c603c:	1440000c */ 	bnez	$v0,.L0f0c6070
 /*  f0c6040:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -2959,7 +2959,7 @@ glabel func0f0c6180
 /*  f0c6184:	f7b40020 */ 	sdc1	$f20,0x20($sp)
 /*  f0c6188:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f0c618c:	4480a000 */ 	mtc1	$zero,$f20
-/*  f0c6190:	0fc331a0 */ 	jal	func0f0cc680
+/*  f0c6190:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f0c6194:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f0c6198:	14400004 */ 	bnez	$v0,.L0f0c61ac
 /*  f0c619c:	3c01c2b4 */ 	lui	$at,0xc2b4
@@ -2967,7 +2967,7 @@ glabel func0f0c6180
 /*  f0c61a4:	1000000b */ 	beqz	$zero,.L0f0c61d4
 /*  f0c61a8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0c61ac:
-/*  f0c61ac:	0fc331a0 */ 	jal	func0f0cc680
+/*  f0c61ac:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f0c61b0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c61b4:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0c61b8:	14410004 */ 	bne	$v0,$at,.L0f0c61cc
@@ -2976,7 +2976,7 @@ glabel func0f0c6180
 /*  f0c61c4:	10000003 */ 	beqz	$zero,.L0f0c61d4
 /*  f0c61c8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0c61cc:
-/*  f0c61cc:	0fc331a0 */ 	jal	func0f0cc680
+/*  f0c61cc:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f0c61d0:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0c61d4:
 /*  f0c61d4:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -3443,7 +3443,7 @@ glabel func0f0c65c8
 /*  f0c6860:	11200005 */ 	beqz	$t1,.L0f0c6878
 /*  f0c6864:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0c6868:
-/*  f0c6868:	0fc331a0 */ 	jal	func0f0cc680
+/*  f0c6868:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f0c686c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c6870:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f0c6874:	10410003 */ 	beq	$v0,$at,.L0f0c6884
@@ -3515,7 +3515,7 @@ GLOBAL_ASM(
 glabel func0f0c6948
 /*  f0c6948:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0c694c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c6950:	0fc331a0 */ 	jal	func0f0cc680
+/*  f0c6950:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f0c6954:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c6958:	14400008 */ 	bnez	$v0,.L0f0c697c
 /*  f0c695c:	3c02800a */ 	lui	$v0,0x800a
@@ -3527,7 +3527,7 @@ glabel func0f0c6948
 /*  f0c6974:	1000000c */ 	beqz	$zero,.L0f0c69a8
 /*  f0c6978:	e4480148 */ 	swc1	$f8,0x148($v0)
 .L0f0c697c:
-/*  f0c697c:	0fc331a0 */ 	jal	func0f0cc680
+/*  f0c697c:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
 /*  f0c6980:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c6984:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0c6988:	14410007 */ 	bne	$v0,$at,.L0f0c69a8
