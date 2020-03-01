@@ -18,7 +18,7 @@ void func0f0c4d98(void);
 u32 func0f0c4da0(void);
 u32 func0f0c4ec4(void);
 u32 func0f0c4fd8(void);
-u32 func0f0c5fe8(void);
+void currentPlayerApplyCrouchSpeed(void);
 u32 func0f0c6080(void);
 u32 func0f0c6180(void);
 u32 func0f0c6318(void);

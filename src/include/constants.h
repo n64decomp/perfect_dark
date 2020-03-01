@@ -441,6 +441,10 @@
 #define CREDITSTYLE_C_BIG_C_BIG 10
 #define CREDITSTYLE_TERMINATOR  20
 
+#define CROUCH_SQUAT 0
+#define CROUCH_HALF  1
+#define CROUCH_STAND 2
+
 #define DIFF_A  0x00
 #define DIFF_SA 0x01
 #define DIFF_PA 0x02

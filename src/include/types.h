@@ -1113,9 +1113,9 @@ struct player {
 	/*0x0160*/ f32 vv_cosverta;
 	/*0x0164*/ f32 vv_sinverta;
 
-	/*0x0168*/ f32 unk0168;
+	/*0x0168*/ f32 speedsideways;
 	/*0x016c*/ u32 unk016c;
-	/*0x0170*/ f32 unk0170;
+	/*0x0170*/ f32 speedforwards;
 	/*0x0174*/ u32 unk0174;
 	/*0x0178*/ u32 unk0178;
 	/*0x017c*/ u32 unk017c;
