@@ -353,56 +353,18 @@ void func0f0c80f8(f32 value)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0c82f8
-.late_rodata
-glabel var7f1ad88c
-.word 0xbf333333
-glabel var7f1ad890
-.word 0x3f333333
-.text
-/*  f0c82f8:	44801000 */ 	mtc1	$zero,$f2
-/*  f0c82fc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c8300:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c8304:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f0c8308:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c830c:	4502000d */ 	bc1fl	.L0f0c8344
-/*  f0c8310:	4602603c */ 	c.lt.s	$f12,$f2
-/*  f0c8314:	0c002f9d */ 	jal	func0000be74
-/*  f0c8318:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*  f0c831c:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
-/*  f0c8320:	3c017f1b */ 	lui	$at,%hi(var7f1ad88c)
-/*  f0c8324:	c426d88c */ 	lwc1	$f6,%lo(var7f1ad88c)($at)
-/*  f0c8328:	460c0102 */ 	mul.s	$f4,$f0,$f12
-/*  f0c832c:	3c014270 */ 	lui	$at,0x4270
-/*  f0c8330:	44815000 */ 	mtc1	$at,$f10
-/*  f0c8334:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0c8338:	10000012 */ 	beqz	$zero,.L0f0c8384
-/*  f0c833c:	460a4003 */ 	div.s	$f0,$f8,$f10
-/*  f0c8340:	4602603c */ 	c.lt.s	$f12,$f2
-.L0f0c8344:
-/*  f0c8344:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c8348:	4502000e */ 	bc1fl	.L0f0c8384
-/*  f0c834c:	46001006 */ 	mov.s	$f0,$f2
-/*  f0c8350:	0c002f9d */ 	jal	func0000be74
-/*  f0c8354:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*  f0c8358:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
-/*  f0c835c:	3c017f1b */ 	lui	$at,%hi(var7f1ad890)
-/*  f0c8360:	c424d890 */ 	lwc1	$f4,%lo(var7f1ad890)($at)
-/*  f0c8364:	46006407 */ 	neg.s	$f16,$f12
-/*  f0c8368:	3c014270 */ 	lui	$at,0x4270
-/*  f0c836c:	46100482 */ 	mul.s	$f18,$f0,$f16
-/*  f0c8370:	44814000 */ 	mtc1	$at,$f8
-/*  f0c8374:	46049182 */ 	mul.s	$f6,$f18,$f4
-/*  f0c8378:	10000002 */ 	beqz	$zero,.L0f0c8384
-/*  f0c837c:	46083003 */ 	div.s	$f0,$f6,$f8
-/*  f0c8380:	46001006 */ 	mov.s	$f0,$f2
-.L0f0c8384:
-/*  f0c8384:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c8388:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c838c:	03e00008 */ 	jr	$ra
-/*  f0c8390:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 func0f0c82f8(f32 value)
+{
+	if (value > 0) {
+		return (func0000be74() * value * -0.7f) / 60.0f;
+	}
+
+	if (value < 0) {
+		return (func0000be74() * -value * 0.7f) / 60.0f;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0c8394
