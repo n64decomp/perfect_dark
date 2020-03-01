@@ -3977,7 +3977,7 @@ glabel var7f1ad8e4
 /*  f0cb798:	27bd0260 */ 	addiu	$sp,$sp,0x260
 );
 
-void func0f0cb79c(struct player *player, struct coord *mid, s32 arg2)
+void func0f0cb79c(struct player *player, struct coord *mid, s16 *rooms)
 {
 	struct coord lower;
 	struct coord upper;
@@ -3992,33 +3992,20 @@ void func0f0cb79c(struct player *player, struct coord *mid, s32 arg2)
 	upper.y = mid->y - player->unk008c - player19c4 + player19c0 + 10;
 	upper.z = mid->z + 50;
 
-	func0f1650d0(&lower, &upper, arg2, 7, 0);
+	func0f1650d0(&lower, &upper, rooms, 7, 0);
 }
 
-void func0f0cb89c(struct player *player, s32 arg1)
+void func0f0cb89c(struct player *player, s16 *rooms)
 {
-	func0f0cb79c(player, &player->prop->pos, arg1);
+	func0f0cb79c(player, &player->prop->pos, rooms);
 }
 
-GLOBAL_ASM(
-glabel func0f0cb8c4
-/*  f0cb8c4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0cb8c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cb8cc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0cb8d0:	0fc19711 */ 	jal	func0f065c44
-/*  f0cb8d4:	8c8400bc */ 	lw	$a0,0xbc($a0)
-/*  f0cb8d8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0cb8dc:	8c8500bc */ 	lw	$a1,0xbc($a0)
-/*  f0cb8e0:	0fc32e27 */ 	jal	func0f0cb89c
-/*  f0cb8e4:	24a50028 */ 	addiu	$a1,$a1,0x28
-/*  f0cb8e8:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f0cb8ec:	0fc1972c */ 	jal	func0f065cb0
-/*  f0cb8f0:	8de400bc */ 	lw	$a0,0xbc($t7)
-/*  f0cb8f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cb8f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0cb8fc:	03e00008 */ 	jr	$ra
-/*  f0cb900:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0cb8c4(struct player *player)
+{
+	func0f065c44(player->prop);
+	func0f0cb89c(player, player->prop->rooms);
+	func0f065cb0(player->prop);
+}
 
 GLOBAL_ASM(
 glabel func0f0cb904
