@@ -217,7 +217,7 @@ glabel func0f0cf230
 /*  f0cf364:	0fc19711 */ 	jal	func0f065c44
 /*  f0cf368:	e610000c */ 	swc1	$f16,0xc($s0)
 /*  f0cf36c:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f0cf370:	0fc195e9 */ 	jal	func0f0657a4
+/*  f0cf370:	0fc195e9 */ 	jal	roomsCopy
 /*  f0cf374:	8fa5003c */ 	lw	$a1,0x3c($sp)
 .L0f0cf378:
 /*  f0cf378:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -465,7 +465,7 @@ glabel func0f0cf38c
 /*  f0cf700:	0fc19711 */ 	jal	func0f065c44
 /*  f0cf704:	e6080010 */ 	swc1	$f8,0x10($s0)
 /*  f0cf708:	27a400a8 */ 	addiu	$a0,$sp,0xa8
-/*  f0cf70c:	0fc195e9 */ 	jal	func0f0657a4
+/*  f0cf70c:	0fc195e9 */ 	jal	roomsCopy
 /*  f0cf710:	8fa50040 */ 	lw	$a1,0x40($sp)
 /*  f0cf714:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0f0cf718:
@@ -2220,7 +2220,7 @@ glabel func0f0d0928
 /*  f0d1038:	8dc40000 */ 	lw	$a0,0x0($t6)
 /*  f0d103c:	a3bf00c2 */ 	sb	$ra,0xc2($sp)
 /*  f0d1040:	e7ae00e0 */ 	swc1	$f14,0xe0($sp)
-/*  f0d1044:	0fc195e9 */ 	jal	func0f0657a4
+/*  f0d1044:	0fc195e9 */ 	jal	roomsCopy
 /*  f0d1048:	24840028 */ 	addiu	$a0,$a0,0x28
 /*  f0d104c:	0fc44727 */ 	jal	currentPlayerCanHaveWeapon
 /*  f0d1050:	2404002e */ 	addiu	$a0,$zero,0x2e

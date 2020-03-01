@@ -8223,7 +8223,7 @@ glabel func0f09ed2c
 /*  f09ed74:	e7a6004c */ 	swc1	$f6,0x4c($sp)
 /*  f09ed78:	c4480010 */ 	lwc1	$f8,0x10($v0)
 /*  f09ed7c:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f09ed80:	0fc195e9 */ 	jal	func0f0657a4
+/*  f09ed80:	0fc195e9 */ 	jal	roomsCopy
 /*  f09ed84:	e7a80050 */ 	swc1	$f8,0x50($sp)
 /*  f09ed88:	8fa20034 */ 	lw	$v0,0x34($sp)
 /*  f09ed8c:	8fa3005c */ 	lw	$v1,0x5c($sp)
@@ -8591,7 +8591,7 @@ glabel func0f09f100
 /*  f09f2c8:	c566000c */ 	lwc1	$f6,0xc($t3)
 /*  f09f2cc:	e7a60174 */ 	swc1	$f6,0x174($sp)
 /*  f09f2d0:	c5680010 */ 	lwc1	$f8,0x10($t3)
-/*  f09f2d4:	0fc195e9 */ 	jal	func0f0657a4
+/*  f09f2d4:	0fc195e9 */ 	jal	roomsCopy
 /*  f09f2d8:	e7a80178 */ 	swc1	$f8,0x178($sp)
 .L0f09f2dc:
 /*  f09f2dc:	8fa401d8 */ 	lw	$a0,0x1d8($sp)

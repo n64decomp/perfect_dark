@@ -4702,7 +4702,7 @@ glabel func0f0641f4
 /*  f064248:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f06424c:	8c4400bc */ 	lw	$a0,0xbc($v0)
 /*  f064250:	02602825 */ 	or	$a1,$s3,$zero
-/*  f064254:	0fc195e9 */ 	jal	func0f0657a4
+/*  f064254:	0fc195e9 */ 	jal	roomsCopy
 /*  f064258:	24840028 */ 	addiu	$a0,$a0,0x28
 /*  f06425c:	8e990284 */ 	lw	$t9,0x284($s4)
 /*  f064260:	2412ffff */ 	addiu	$s2,$zero,-1
@@ -6195,7 +6195,7 @@ glabel func0f06554c
 );
 
 GLOBAL_ASM(
-glabel func0f0657a4
+glabel roomsCopy
 /*  f0657a4:	84860000 */ 	lh	$a2,0x0($a0)
 /*  f0657a8:	2407ffff */ 	addiu	$a3,$zero,-1
 /*  f0657ac:	00801025 */ 	or	$v0,$a0,$zero

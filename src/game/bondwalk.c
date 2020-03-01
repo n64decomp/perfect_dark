@@ -443,7 +443,7 @@ glabel var7f1ad784
 /*  f0c3de4:	8e0d0284 */ 	lw	$t5,0x284($s0)
 /*  f0c3de8:	27a40048 */ 	addiu	$a0,$sp,0x48
 /*  f0c3dec:	8da500bc */ 	lw	$a1,0xbc($t5)
-/*  f0c3df0:	0fc195e9 */ 	jal	func0f0657a4
+/*  f0c3df0:	0fc195e9 */ 	jal	roomsCopy
 /*  f0c3df4:	24a50028 */ 	addiu	$a1,$a1,0x28
 /*  f0c3df8:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f0c3dfc:
@@ -736,7 +736,7 @@ glabel var7f1ad788
 /*  f0c421c:	8e190284 */ 	lw	$t9,0x284($s0)
 /*  f0c4220:	27a40094 */ 	addiu	$a0,$sp,0x94
 /*  f0c4224:	8f2500bc */ 	lw	$a1,0xbc($t9)
-/*  f0c4228:	0fc195e9 */ 	jal	func0f0657a4
+/*  f0c4228:	0fc195e9 */ 	jal	roomsCopy
 /*  f0c422c:	24a50028 */ 	addiu	$a1,$a1,0x28
 /*  f0c4230:	8fa300b4 */ 	lw	$v1,0xb4($sp)
 .L0f0c4234:
@@ -975,7 +975,7 @@ glabel func0f0c4250
 /*  f0c45a4:	e4860010 */ 	swc1	$f6,0x10($a0)
 /*  f0c45a8:	8fa500a0 */ 	lw	$a1,0xa0($sp)
 /*  f0c45ac:	27a40058 */ 	addiu	$a0,$sp,0x58
-/*  f0c45b0:	0fc195e9 */ 	jal	func0f0657a4
+/*  f0c45b0:	0fc195e9 */ 	jal	roomsCopy
 /*  f0c45b4:	24a50028 */ 	addiu	$a1,$a1,0x28
 /*  f0c45b8:	0fc0882b */ 	jal	func0f0220ac
 /*  f0c45bc:	8fa40074 */ 	lw	$a0,0x74($sp)
@@ -1819,7 +1819,7 @@ glabel var7f1ad7d0
 /*  f0c514c:	c52a0010 */ 	lwc1	$f10,0x10($t1)
 /*  f0c5150:	e7aa00d4 */ 	swc1	$f10,0xd4($sp)
 /*  f0c5154:	8c4400bc */ 	lw	$a0,0xbc($v0)
-/*  f0c5158:	0fc195e9 */ 	jal	func0f0657a4
+/*  f0c5158:	0fc195e9 */ 	jal	roomsCopy
 /*  f0c515c:	24840028 */ 	addiu	$a0,$a0,0x28
 /*  f0c5160:	8e040284 */ 	lw	$a0,0x284($s0)
 /*  f0c5164:	27a500cc */ 	addiu	$a1,$sp,0xcc
@@ -1878,7 +1878,7 @@ glabel var7f1ad7d0
 /*  f0c5234:	8c4400bc */ 	lw	$a0,0xbc($v0)
 .L0f0c5238:
 /*  f0c5238:	27a500d8 */ 	addiu	$a1,$sp,0xd8
-/*  f0c523c:	0fc195e9 */ 	jal	func0f0657a4
+/*  f0c523c:	0fc195e9 */ 	jal	roomsCopy
 /*  f0c5240:	24840028 */ 	addiu	$a0,$a0,0x28
 /*  f0c5244:	8e040284 */ 	lw	$a0,0x284($s0)
 /*  f0c5248:	27a500cc */ 	addiu	$a1,$sp,0xcc
@@ -2800,7 +2800,7 @@ glabel var7f1ad7d0
 /*  f0c5fc0:	8e0f0284 */ 	lw	$t7,0x284($s0)
 /*  f0c5fc4:	27a400b0 */ 	addiu	$a0,$sp,0xb0
 /*  f0c5fc8:	8de500bc */ 	lw	$a1,0xbc($t7)
-/*  f0c5fcc:	0fc195e9 */ 	jal	func0f0657a4
+/*  f0c5fcc:	0fc195e9 */ 	jal	roomsCopy
 /*  f0c5fd0:	24a50028 */ 	addiu	$a1,$a1,0x28
 /*  f0c5fd4:	8fbf004c */ 	lw	$ra,0x4c($sp)
 .L0f0c5fd8:
@@ -3165,34 +3165,14 @@ glabel func0f0c63bc
 /*  f0c6540:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c6544
-/*  f0c6544:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0c6548:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0c654c:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c6550:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c6554:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c6558:	8c4e00bc */ 	lw	$t6,0xbc($v0)
-/*  f0c655c:	c5c40008 */ 	lwc1	$f4,0x8($t6)
-/*  f0c6560:	e4440310 */ 	swc1	$f4,0x310($v0)
-/*  f0c6564:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c6568:	8c4f00bc */ 	lw	$t7,0xbc($v0)
-/*  f0c656c:	c5e6000c */ 	lwc1	$f6,0xc($t7)
-/*  f0c6570:	e4460314 */ 	swc1	$f6,0x314($v0)
-/*  f0c6574:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c6578:	8c5800bc */ 	lw	$t8,0xbc($v0)
-/*  f0c657c:	c7080010 */ 	lwc1	$f8,0x10($t8)
-/*  f0c6580:	e4480318 */ 	swc1	$f8,0x318($v0)
-/*  f0c6584:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c6588:	8c4400bc */ 	lw	$a0,0xbc($v0)
-/*  f0c658c:	24450284 */ 	addiu	$a1,$v0,0x284
-/*  f0c6590:	0fc195e9 */ 	jal	func0f0657a4
-/*  f0c6594:	24840028 */ 	addiu	$a0,$a0,0x28
-/*  f0c6598:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c659c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c65a0:	03e00008 */ 	jr	$ra
-/*  f0c65a4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerUpdatePrevPos(void)
+{
+	g_Vars.currentplayer->bondprevpos.x = g_Vars.currentplayer->prop->pos.x;
+	g_Vars.currentplayer->bondprevpos.y = g_Vars.currentplayer->prop->pos.y;
+	g_Vars.currentplayer->bondprevpos.z = g_Vars.currentplayer->prop->pos.z;
+
+	roomsCopy(g_Vars.currentplayer->prop->rooms, g_Vars.currentplayer->bondprevrooms);
+}
 
 GLOBAL_ASM(
 glabel func0f0c65a8
@@ -4564,7 +4544,7 @@ GLOBAL_ASM(
 glabel func0f0c785c
 /*  f0c785c:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f0c7860:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c7864:	0fc31951 */ 	jal	func0f0c6544
+/*  f0c7864:	0fc31951 */ 	jal	currentPlayerUpdatePrevPos
 /*  f0c7868:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c786c:	0fc318c6 */ 	jal	func0f0c6318
 /*  f0c7870:	00000000 */ 	sll	$zero,$zero,0x0

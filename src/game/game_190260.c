@@ -1211,7 +1211,7 @@ glabel func0f19124c
 /*  f191274:	8c84001c */ 	lw	$a0,0x1c($a0)
 /*  f191278:	27b30064 */ 	addiu	$s3,$sp,0x64
 /*  f19127c:	02602825 */ 	or	$a1,$s3,$zero
-/*  f191280:	0fc195e9 */ 	jal	func0f0657a4
+/*  f191280:	0fc195e9 */ 	jal	roomsCopy
 /*  f191284:	24840028 */ 	addiu	$a0,$a0,0x28
 /*  f191288:	8e82001c */ 	lw	$v0,0x1c($s4)
 /*  f19128c:	2412ffff */ 	addiu	$s2,$zero,-1
@@ -2472,7 +2472,7 @@ void mpAibotApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 a
 	chr->unk2d4->defendholdpos.x = pos->x;
 	chr->unk2d4->defendholdpos.y = pos->y;
 	chr->unk2d4->defendholdpos.z = pos->z;
-	func0f0657a4(room, &chr->unk2d4->rooms[0]);
+	roomsCopy(room, &chr->unk2d4->rooms[0]);
 	chr->unk2d4->unk098 = arg3;
 	chr->unk2d4->unk0d8 = 1;
 }
@@ -2483,7 +2483,7 @@ void mpAibotApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg
 	chr->unk2d4->defendholdpos.x = pos->x;
 	chr->unk2d4->defendholdpos.y = pos->y;
 	chr->unk2d4->defendholdpos.z = pos->z;
-	func0f0657a4(room, &chr->unk2d4->rooms[0]);
+	roomsCopy(room, &chr->unk2d4->rooms[0]);
 	chr->unk2d4->unk098 = arg3;
 	chr->unk2d4->unk0d8 = 1;
 }
@@ -5979,7 +5979,7 @@ glabel func0f194b40
 /*  f1959fc:	264500f8 */ 	addiu	$a1,$s2,0xf8
 /*  f195a00:	e64600f0 */ 	swc1	$f6,0xf0($s2)
 /*  f195a04:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f195a08:	0fc195e9 */ 	jal	func0f0657a4
+/*  f195a08:	0fc195e9 */ 	jal	roomsCopy
 /*  f195a0c:	e64a00f4 */ 	swc1	$f10,0xf4($s2)
 /*  f195a10:	924e004c */ 	lbu	$t6,0x4c($s2)
 /*  f195a14:	31cfff7f */ 	andi	$t7,$t6,0xff7f
@@ -6039,7 +6039,7 @@ glabel func0f194b40
 /*  f195ae4:	c7a80274 */ 	lwc1	$f8,0x274($sp)
 /*  f195ae8:	2484c11e */ 	addiu	$a0,$a0,-16098
 /*  f195aec:	264500f8 */ 	addiu	$a1,$s2,0xf8
-/*  f195af0:	0fc195e9 */ 	jal	func0f0657a4
+/*  f195af0:	0fc195e9 */ 	jal	roomsCopy
 /*  f195af4:	e64800f4 */ 	swc1	$f8,0xf4($s2)
 /*  f195af8:	8e8f001c */ 	lw	$t7,0x1c($s4)
 /*  f195afc:	3c19800b */ 	lui	$t9,0x800b
@@ -6086,7 +6086,7 @@ glabel func0f194b40
 /*  f195b9c:	c7b2025c */ 	lwc1	$f18,0x25c($sp)
 /*  f195ba0:	2484c11e */ 	addiu	$a0,$a0,-16098
 /*  f195ba4:	264500f8 */ 	addiu	$a1,$s2,0xf8
-/*  f195ba8:	0fc195e9 */ 	jal	func0f0657a4
+/*  f195ba8:	0fc195e9 */ 	jal	roomsCopy
 /*  f195bac:	e65200f4 */ 	swc1	$f18,0xf4($s2)
 /*  f195bb0:	8e8e001c */ 	lw	$t6,0x1c($s4)
 /*  f195bb4:	3c0f800b */ 	lui	$t7,0x800b

@@ -23,7 +23,7 @@ u32 func0f0c6080(void);
 u32 func0f0c6180(void);
 u32 func0f0c6318(void);
 u32 func0f0c63bc(void);
-u32 func0f0c6544(void);
+void currentPlayerUpdatePrevPos(void);
 u32 func0f0c65a8(void);
 u32 func0f0c65c8(void);
 u32 func0f0c6948(void);

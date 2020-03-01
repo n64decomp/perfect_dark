@@ -640,7 +640,7 @@ glabel func0f01e7f4
 /*  f01e830:	14410009 */ 	bne	$v0,$at,.L0f01e858
 /*  f01e834:	02002025 */ 	or	$a0,$s0,$zero
 /*  f01e838:	26040028 */ 	addiu	$a0,$s0,0x28
-/*  f01e83c:	0fc195e9 */ 	jal	func0f0657a4
+/*  f01e83c:	0fc195e9 */ 	jal	roomsCopy
 /*  f01e840:	8fa500e0 */ 	lw	$a1,0xe0($sp)
 /*  f01e844:	8fa400d8 */ 	lw	$a0,0xd8($sp)
 /*  f01e848:	0fc079ef */ 	jal	chrSetOrUnsetHiddenFlag00000100
@@ -1299,7 +1299,7 @@ glabel func0f01e7f4
 /*  f01f204:	c6100010 */ 	lwc1	$f16,0x10($s0)
 /*  f01f208:	e5d00008 */ 	swc1	$f16,0x8($t6)
 /*  f01f20c:	8fa500e0 */ 	lw	$a1,0xe0($sp)
-/*  f01f210:	0fc195e9 */ 	jal	func0f0657a4
+/*  f01f210:	0fc195e9 */ 	jal	roomsCopy
 /*  f01f214:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f01f218:	8fb900d8 */ 	lw	$t9,0xd8($sp)
 /*  f01f21c:	24180001 */ 	addiu	$t8,$zero,0x1
@@ -1348,7 +1348,7 @@ bool func0f01f264(struct chrdata *chr, struct coord *pos, s16 *rooms, f32 arg3, 
 
 	if (result == true && arg4) {
 		pos->y = newpos.y;
-		func0f0657a4(newrooms, rooms);
+		roomsCopy(newrooms, rooms);
 	}
 
 	return result == true;
@@ -1987,7 +1987,7 @@ glabel func0f01f378
 /*  f01fcc4:	e6260008 */ 	swc1	$f6,0x8($s1)
 /*  f01fcc8:	8fa40118 */ 	lw	$a0,0x118($sp)
 /*  f01fccc:	24840028 */ 	addiu	$a0,$a0,0x28
-/*  f01fcd0:	0fc195e9 */ 	jal	func0f0657a4
+/*  f01fcd0:	0fc195e9 */ 	jal	roomsCopy
 /*  f01fcd4:	afa40048 */ 	sw	$a0,0x48($sp)
 /*  f01fcd8:	3c017f1b */ 	lui	$at,%hi(var7f1a86d4)
 /*  f01fcdc:	c43086d4 */ 	lwc1	$f16,%lo(var7f1a86d4)($at)
@@ -2202,7 +2202,7 @@ glabel func0f01f378
 /*  f01fff0:	8fac0118 */ 	lw	$t4,0x118($sp)
 /*  f01fff4:	c5880010 */ 	lwc1	$f8,0x10($t4)
 /*  f01fff8:	e6280008 */ 	swc1	$f8,0x8($s1)
-/*  f01fffc:	0fc195e9 */ 	jal	func0f0657a4
+/*  f01fffc:	0fc195e9 */ 	jal	roomsCopy
 /*  f020000:	8fa40048 */ 	lw	$a0,0x48($sp)
 /*  f020004:	44809000 */ 	mtc1	$zero,$f18
 /*  f020008:	8fae0044 */ 	lw	$t6,0x44($sp)
@@ -2468,7 +2468,7 @@ glabel func0f01f378
 /*  f0203c0:	c6280004 */ 	lwc1	$f8,0x4($s1)
 /*  f0203c4:	e7a800d4 */ 	swc1	$f8,0xd4($sp)
 /*  f0203c8:	c6260008 */ 	lwc1	$f6,0x8($s1)
-/*  f0203cc:	0fc195e9 */ 	jal	func0f0657a4
+/*  f0203cc:	0fc195e9 */ 	jal	roomsCopy
 /*  f0203d0:	e7a600d8 */ 	swc1	$f6,0xd8($sp)
 /*  f0203d4:	c60a00b4 */ 	lwc1	$f10,0xb4($s0)
 /*  f0203d8:	c7a400f8 */ 	lwc1	$f4,0xf8($sp)
@@ -2523,7 +2523,7 @@ glabel func0f01f378
 /*  f02048c:	0fc19711 */ 	jal	func0f065c44
 /*  f020490:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f020494:	27a400fc */ 	addiu	$a0,$sp,0xfc
-/*  f020498:	0fc195e9 */ 	jal	func0f0657a4
+/*  f020498:	0fc195e9 */ 	jal	roomsCopy
 /*  f02049c:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f0204a0:	8fa60118 */ 	lw	$a2,0x118($sp)
 /*  f0204a4:	24010003 */ 	addiu	$at,$zero,0x3
@@ -2970,7 +2970,7 @@ glabel func0f020b14
 /*  f020c2c:	0fc19711 */ 	jal	func0f065c44
 /*  f020c30:	e6300010 */ 	swc1	$f16,0x10($s1)
 /*  f020c34:	8fa40074 */ 	lw	$a0,0x74($sp)
-/*  f020c38:	0fc195e9 */ 	jal	func0f0657a4
+/*  f020c38:	0fc195e9 */ 	jal	roomsCopy
 /*  f020c3c:	26250028 */ 	addiu	$a1,$s1,0x28
 /*  f020c40:	0fc0882b */ 	jal	func0f0220ac
 /*  f020c44:	02002025 */ 	or	$a0,$s0,$zero
