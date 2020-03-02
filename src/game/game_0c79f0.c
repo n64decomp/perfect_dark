@@ -227,7 +227,7 @@ void currentPlayerGrabProp(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if ((obj->hidden & OBJHFLAG_04000000) == 0 && (obj->hidden & OBJHFLAG_08000000) == 0) {
+	if ((obj->hidden & OBJHFLAG_04000000) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
 		g_Vars.currentplayer->grabbedprop = prop;
 		currentPlayerGrabInit();
 	}

@@ -91,7 +91,7 @@ u32 func0f06a580(void);
 u32 func0f06a620(void);
 void func0f06a730(struct defaultobj *obj, struct pad *newpad, f32 *matrix, s16 *arg3, struct pad *arg4);
 u32 func0f06ab60(void);
-u32 func0f06ac40(void);
+void func0f06ac40(struct defaultobj *obj);
 void func0f06ac90(struct prop *prop);
 void setupParseObject(u32 *ptr, bool arg1, bool arg2);
 void setupParseObjectWithArg2False(u32 *ptr, bool arg1);

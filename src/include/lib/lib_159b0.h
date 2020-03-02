@@ -5,7 +5,7 @@
 
 void func000159b0(u32 *obj48_20);
 u32 func000159fc(void);
-void func00015b10(struct coord *globaldrawcameraoffset, struct coord *coord);
+void func00015b10(f32 *matrix, struct coord *coord);
 u32 func00015b64(void);
 u32 func00015be0(void);
 u32 func00015be4(void);

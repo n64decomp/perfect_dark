@@ -5,4 +5,6 @@
 #define M_PI         3.1410926f
 #define M_CORRECT_PI 3.141592741f
 
+#define M_TAU (M_PI * 2)
+
 #endif

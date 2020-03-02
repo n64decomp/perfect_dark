@@ -1674,7 +1674,7 @@ bool ai004d(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (chrGetAngleToTarget(g_Vars.chrdata) < cmd[2] * (M_PI * 2) * 0.00390625f) {
+	if (chrGetAngleToTarget(g_Vars.chrdata) < cmd[2] * M_TAU * 0.00390625f) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1690,7 +1690,7 @@ bool ai004f(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (chrGetAngleToTarget(g_Vars.chrdata) > cmd[2] * (M_PI * 2) * 0.00390625f) {
+	if (chrGetAngleToTarget(g_Vars.chrdata) > cmd[2] * M_TAU * 0.00390625f) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -5255,7 +5255,7 @@ bool aiSetRotarySpeed(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 speedtime = cmd[5] | (cmd[4] << 8);
-	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * (M_PI * 2) / 3600;
+	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * M_TAU / 3600;
 
 	if (g_Vars.heli) {
 		g_Vars.heli->rotaryspeedaim = speedaim;
@@ -5999,10 +5999,7 @@ bool ai00f4(void)
 	s16 e = cmd[11] | (cmd[10] << 8);
 	s32 f = cmd[13] | (cmd[12] << 8);
 
-	func0f0b9c1c(
-			f * (M_PI * 2) / 65536,
-			c * (M_PI * 2) / 65536,
-			a, b, e, d);
+	func0f0b9c1c(f * M_TAU / 65536, c * M_TAU / 65536, a, b, e, d);
 
 	g_Vars.aioffset += 14;
 

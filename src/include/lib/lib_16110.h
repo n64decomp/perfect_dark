@@ -10,7 +10,7 @@ u32 func000161b0(void);
 u32 func00016208(void);
 u32 func00016248(void);
 u32 func000162e8(void);
-u32 func00016374(void);
+void func00016374(f32 arg0, f32 *matrix);
 u32 func00016400(void);
 u32 func0001648c(void);
 u32 func000165d8(void);

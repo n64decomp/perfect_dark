@@ -723,14 +723,22 @@ struct chrdata {
 
 struct obj48 {
 	u32 flags;
-	u32 unk04;
+	f32 unk04;
 	u32 unk08;
-	u32 unk0c;
+	f32 unk0c;
 	u32 unk10;
 	u32 unk14;
 	u32 unk18;
 	u32 unk1c;
 	u32 unk20;
+};
+
+struct hov5c {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ f32 unk10;
 };
 
 struct defaultobj {
@@ -745,7 +753,7 @@ struct defaultobj {
 	/*0x14*/ struct prop *prop;
 	/*0x18*/ struct animdata *animdata;
 	/*0x1c*/ f32 realrot[9];
-	/*0x40*/ u32 hidden; // most significant nibble is the playernum who holds the obj
+	/*0x40*/ u32 hidden;
 	/*0x44*/ struct geo *geo;
 	/*0x48*/ struct obj48 *unk48;
 	/*0x4c*/ s16 damage;
@@ -911,6 +919,16 @@ struct liftobj { // objtype 30
 	/*0x85*/ s8 levelcur;
 	/*0x86*/ s8 levelaim;
 	/*0x88*/ struct coord prevpos;
+};
+
+struct hoverbikeobj { // objtype 33
+	struct defaultobj base;
+	struct hov5c unk5c;
+};
+
+struct hoverpropobj { // objtype 35
+	struct defaultobj base;
+	struct hov5c unk5c;
 };
 
 struct hovercarobj {
@@ -2602,21 +2620,15 @@ struct player {
 	/*0x19f8*/ u32 unk19f8;
 	/*0x19fc*/ f32 bondprevtheta;
 	/*0x1a00*/ struct coord grabbedprevpos;
-	/*0x1a0c*/ u32 unk1a0c;
-	/*0x1a10*/ u32 unk1a10;
-	/*0x1a14*/ u32 unk1a14;
-	/*0x1a18*/ u32 unk1a18;
-	/*0x1a1c*/ u32 unk1a1c;
-	/*0x1a20*/ u32 unk1a20;
-	/*0x1a24*/ u32 unk1a24;
-	/*0x1a28*/ u32 unk1a28;
-	/*0x1a2c*/ u32 unk1a2c;
-	/*0x1a30*/ u32 unk1a30;
-	/*0x1a34*/ u32 unk1a34;
-	/*0x1a38*/ u32 unk1a38;
-	/*0x1a3c*/ u32 unk1a3c;
-	/*0x1a40*/ u32 unk1a40;
-	/*0x1a44*/ u32 unk1a44;
+	/*0x1a0c*/ f32 grabbedrotoffset;
+	/*0x1a10*/ struct coord grabbedposoffset;
+	/*0x1a1c*/ s32 grabbeddoextra;
+	/*0x1a20*/ f32 grabbedrotextra;
+	/*0x1a24*/ u32 pausemode;
+	/*0x1a28*/ u32 pausetime60;
+	/*0x1a2c*/ struct coord grabbedposextra;
+	/*0x1a38*/ f32 grabbedrotextrasum;
+	/*0x1a3c*/ struct coord grabbedposextrasum;
 	/*0x1a48*/ u32 unk1a48;
 	/*0x1a4c*/ u32 unk1a4c;
 	/*0x1a50*/ u32 unk1a50;
@@ -2669,7 +2681,7 @@ struct player {
 	/*0x1b50*/ struct coord walkinitstart;
 	/*0x1b5c*/ struct prop *grabbedprop;
 	/*0x1b60*/ f32 unk1b60;
-	/*0x1b64*/ u32 unk1b64;
+	/*0x1b64*/ s32 grabstarttime;
 	/*0x1b68*/ u32 unk1b68;
 	/*0x1b6c*/ struct coord bondforcespeed;
 	/*0x1b78*/ u32 unk1b78;
@@ -2721,6 +2733,12 @@ struct player {
 	/*0x1c38*/ u32 unk1c38;
 	/*0x1c3c*/ u32 unk1c3c;
 	/*0x1c40*/ s32 unk1c40;
+	/*0x1c44*/ u32 unk1c44;
+	/*0x1c48*/ u32 unk1c48;
+	/*0x1c4c*/ u32 unk1c4c;
+	/*0x1c50*/ u32 unk1c50;
+	/*0x1c54*/ u32 unk1c54;
+	/*0x1c58*/ f32 unk1c58;
 };
 
 struct ailist {

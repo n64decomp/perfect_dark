@@ -1534,15 +1534,15 @@ glabel currentPlayerInit
 //
 //	if (g_NumSpawnPoints > 0) {
 //		if (g_Vars.coopplayernum >= 0) {
-//			fStack32 = M_PI * 2 - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
+//			fStack32 = M_TAU - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
 //		} else if (g_Vars.antiplayernum >= 0) {
-//			fStack32 = M_PI * 2 - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
+//			fStack32 = M_TAU - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
 //		} else {
 //			if (g_Vars.mplayerisrunning == 0) {
 //				g_NumSpawnPoints = 1;
 //			}
 //
-//			fStack32 = M_PI * 2 - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
+//			fStack32 = M_TAU - scenarioCallback2c(30, &pos, &rooms[0], g_Vars.currentplayer->prop);
 //		}
 //	}
 //
@@ -1556,7 +1556,7 @@ glabel currentPlayerInit
 //	pos.y = g_Vars.currentplayer->unk19c4 + fVar9;
 //	g_Vars.currentplayer->unk0074 = fVar9;
 //	g_Vars.currentplayer->unk0078 = fVar9;
-//	g_Vars.currentplayer->unk0144 = (fStack32 * 360.0f) / (M_PI * 2);
+//	g_Vars.currentplayer->unk0144 = (fStack32 * 360.0f) / M_TAU;
 //	func0f0b85a0(&g_Vars.currentplayer->unk036c, &pos);
 //	g_Vars.currentplayer->unk036c = -fsin(fStack32);
 //	g_Vars.currentplayer->unk0370 = 0;

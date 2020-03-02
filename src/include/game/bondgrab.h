@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 currentPlayerGrabInit(void);
+void currentPlayerGrabInit(void);
 u32 func0f0ccac4(void);
 u32 func0f0ccbf0(void);
 u32 func0f0cd05c(void);

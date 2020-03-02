@@ -27946,7 +27946,7 @@ f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos)
 
 	if (chr->prop->type == PROPTYPE_PLAYER) {
 		u32 playernum = propGetPlayerNum(chr->prop);
-		fVar3 = (360 - g_Vars.players[playernum]->vv_theta) * (M_PI * 2 / 360);
+		fVar3 = (360 - g_Vars.players[playernum]->vv_theta) * (M_TAU / 360);
 	} else {
 		fVar3 = func0f03e45c(chr);
 	}
@@ -27956,7 +27956,7 @@ f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos)
 	fVar4 = fVar2 - fVar3;
 
 	if (fVar2 < fVar3) {
-		fVar4 += M_PI * 2;
+		fVar4 += M_TAU;
 	}
 
 	return fVar4;
@@ -28436,7 +28436,7 @@ bool func0f04911c(struct chrdata *chr, struct coord *pos, u8 arg2)
 	f32 angle = chrGetAngleToPos(chr, pos);
 
 	if ((angle < arg2 * 0.024539785459638f && angle < M_CORRECT_PI) ||
-			((M_PI * 2) - arg2 * 0.024539785459638f < angle && M_CORRECT_PI < angle)) {
+			(M_TAU - arg2 * 0.024539785459638f < angle && M_CORRECT_PI < angle)) {
 		return true;
 	}
 
