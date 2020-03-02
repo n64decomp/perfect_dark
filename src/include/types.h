@@ -722,23 +722,79 @@ struct chrdata {
 };
 
 struct obj48 {
-	u32 flags;
-	f32 unk04;
-	u32 unk08;
-	f32 unk0c;
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	u32 unk20;
+	/*0x00*/ u32 flags;
+	/*0x04*/ struct coord unk04;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ u32 unk4c;
+	/*0x50*/ u32 unk50;
+	/*0x54*/ u32 unk54;
+	/*0x58*/ u32 unk58;
+	/*0x5c*/ u32 unk5c;
+	/*0x60*/ u32 unk60;
+	/*0x64*/ u32 unk64;
+	/*0x68*/ u32 unk68;
+	/*0x6c*/ u32 unk6c;
+	/*0x70*/ u32 unk70;
+	/*0x74*/ u32 unk74;
+	/*0x78*/ u32 unk78;
+	/*0x7c*/ u32 unk7c;
+	/*0x80*/ u32 unk80;
+	/*0x84*/ u32 unk84;
+	/*0x88*/ u32 unk88;
+	/*0x8c*/ u32 unk8c;
+	/*0x90*/ u32 unk90;
+	/*0x94*/ u32 unk94;
+	/*0x98*/ u32 unk98;
+	/*0x9c*/ u32 unk9c;
+	/*0xa0*/ u32 unka0;
+	/*0xa4*/ u32 unka4;
+	/*0xa8*/ u32 unka8;
+	/*0xac*/ u32 unkac;
+	/*0xb0*/ u32 unkb0;
+	/*0xb4*/ u32 unkb4;
+	/*0xb8*/ u32 unkb8;
+	/*0xbc*/ u32 unkbc;
+	/*0xc0*/ u32 unkc0;
+	/*0xc4*/ u32 unkc4;
+	/*0xc8*/ u32 unkc8;
+	/*0xcc*/ u32 unkcc;
+	/*0xd0*/ u32 unkd0;
+	/*0xd4*/ u32 unkd4;
+	/*0xd8*/ u32 unkd8;
+	/*0xdc*/ f32 unkdc;
 };
 
-struct hov5c {
+struct hov {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ f32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ u32 unk20;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
 };
 
 struct defaultobj {
@@ -923,12 +979,24 @@ struct liftobj { // objtype 30
 
 struct hoverbikeobj { // objtype 33
 	struct defaultobj base;
-	struct hov5c unk5c;
+	struct hov hov;
+	/*0x09c*/ f32 speed[2];
+	/*0x0a4*/ f32 prevpos[2];
+	/*0x0ac*/ f32 w;
+	/*0x0b0*/ u32 rels;
+	/*0x0b8*/ u32 exreal;
+	/*0x0bc*/ u32 ezreal;
+	/*0x0c0*/ u32 ezreal2;
+	/*0x0c4*/ u32 leanspeed;
+	/*0x0c8*/ u32 leandiff;
+	/*0x0cc*/ u32 maxspeedtime240;
+	/*0x0d0*/ u32 speedabs[2];
+	/*0x0d8*/ u32 speedrel[2];
 };
 
 struct hoverpropobj { // objtype 35
 	struct defaultobj base;
-	struct hov5c unk5c;
+	struct hov hov;
 };
 
 struct hovercarobj {
@@ -2644,29 +2712,12 @@ struct player {
 	/*0x1a78*/ f32 unk1a78;
 	/*0x1a7c*/ u32 unk1a7c;
 	/*0x1a80*/ f32 unk1a80;
-	/*0x1a84*/ u32 unk1a84;
+	/*0x1a84*/ f32 unk1a84;
 	/*0x1a88*/ u32 unk1a88;
 	/*0x1a8c*/ u32 unk1a8c;
-	/*0x1a90*/ u32 unk1a90;
-	/*0x1a94*/ u32 unk1a94;
-	/*0x1a98*/ u32 unk1a98;
-	/*0x1a9c*/ u32 unk1a9c;
-	/*0x1aa0*/ u32 unk1aa0;
-	/*0x1aa4*/ u32 unk1aa4;
-	/*0x1aa8*/ u32 unk1aa8;
-	/*0x1aac*/ u32 unk1aac;
-	/*0x1ab0*/ u32 unk1ab0;
-	/*0x1ab4*/ u32 unk1ab4;
-	/*0x1ab8*/ u32 unk1ab8;
-	/*0x1abc*/ u32 unk1abc;
-	/*0x1ac0*/ u32 unk1ac0;
-	/*0x1ac4*/ u32 unk1ac4;
-	/*0x1ac8*/ u32 unk1ac8;
-	/*0x1acc*/ u32 unk1acc;
-	/*0x1ad0*/ u32 unk1ad0;
-	/*0x1ad4*/ u32 unk1ad4;
-	/*0x1ad8*/ u32 unk1ad8;
-	/*0x1adc*/ u32 unk1adc;
+	/*0x1a90*/ struct coord bondenterpos;
+	/*0x1a9c*/ f32 bondentermtx[16];
+	/*0x1adc*/ f32 unk1adc;
 	/*0x1ae0*/ u32 unk1ae0;
 	/*0x1ae4*/ u32 unk1ae4;
 	/*0x1ae8*/ f32 unk1ae8;

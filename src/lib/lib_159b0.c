@@ -137,6 +137,7 @@ glabel func00015b10
 GLOBAL_ASM(
 glabel func00015b64
 /*    15b64:	00a03020 */ 	add	$a2,$a1,$zero
+glabel func00015b68
 /*    15b68:	c4a00000 */ 	lwc1	$f0,0x0($a1)
 /*    15b6c:	c4a10004 */ 	lwc1	$f1,0x4($a1)
 /*    15b70:	c4a20008 */ 	lwc1	$f2,0x8($a1)

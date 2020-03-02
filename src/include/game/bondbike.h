@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 currentPlayerBikeInit(void);
+void currentPlayerBikeInit(void);
 u32 func0f0d2184(void);
 void func0f0d2294(void);
 u32 func0f0d22f8(void);

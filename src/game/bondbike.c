@@ -60,115 +60,49 @@ const u32 var7f1adb94[] = {0x40c907a9};
 const u32 var7f1adb98[] = {0x3f333333};
 const u32 var7f1adb9c[] = {0x3c8ef461};
 
-GLOBAL_ASM(
-glabel currentPlayerBikeInit
-/*  f0d1fe0:	27bdff70 */ 	addiu	$sp,$sp,-144
-/*  f0d1fe4:	afb00034 */ 	sw	$s0,0x34($sp)
-/*  f0d1fe8:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0d1fec:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0d1ff0:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d1ff4:	afbf003c */ 	sw	$ra,0x3c($sp)
-/*  f0d1ff8:	afb10038 */ 	sw	$s1,0x38($sp)
-/*  f0d1ffc:	f7b40028 */ 	sdc1	$f20,0x28($sp)
-/*  f0d2000:	8c4e1a6c */ 	lw	$t6,0x1a6c($v0)
-/*  f0d2004:	240f0003 */ 	addiu	$t7,$zero,0x3
-/*  f0d2008:	4480a000 */ 	mtc1	$zero,$f20
-/*  f0d200c:	8dd10004 */ 	lw	$s1,0x4($t6)
-/*  f0d2010:	ac4f01b0 */ 	sw	$t7,0x1b0($v0)
-/*  f0d2014:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0d2018:	af001a7c */ 	sw	$zero,0x1a7c($t8)
-/*  f0d201c:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f0d2020:	e7341968 */ 	swc1	$f20,0x1968($t9)
-/*  f0d2024:	8e080284 */ 	lw	$t0,0x284($s0)
-/*  f0d2028:	e51401b4 */ 	swc1	$f20,0x1b4($t0)
-/*  f0d202c:	8e090284 */ 	lw	$t1,0x284($s0)
-/*  f0d2030:	0fc348a5 */ 	jal	func0f0d2294
-/*  f0d2034:	e53401b8 */ 	swc1	$f20,0x1b8($t1)
-/*  f0d2038:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f0d203c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0d2040:	44812000 */ 	mtc1	$at,$f4
-/*  f0d2044:	e5541a80 */ 	swc1	$f20,0x1a80($t2)
-/*  f0d2048:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f0d204c:	2624001c */ 	addiu	$a0,$s1,0x1c
-/*  f0d2050:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0d2054:	e5641a84 */ 	swc1	$f4,0x1a84($t3)
-/*  f0d2058:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d205c:	8c4c00bc */ 	lw	$t4,0xbc($v0)
-/*  f0d2060:	c5860008 */ 	lwc1	$f6,0x8($t4)
-/*  f0d2064:	e4461a90 */ 	swc1	$f6,0x1a90($v0)
-/*  f0d2068:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d206c:	8c4d00bc */ 	lw	$t5,0xbc($v0)
-/*  f0d2070:	c5a8000c */ 	lwc1	$f8,0xc($t5)
-/*  f0d2074:	e4481a94 */ 	swc1	$f8,0x1a94($v0)
-/*  f0d2078:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d207c:	8c4e00bc */ 	lw	$t6,0xbc($v0)
-/*  f0d2080:	c5ca0010 */ 	lwc1	$f10,0x10($t6)
-/*  f0d2084:	0c005755 */ 	jal	func00015d54
-/*  f0d2088:	e44a1a98 */ 	swc1	$f10,0x1a98($v0)
-/*  f0d208c:	8e240014 */ 	lw	$a0,0x14($s1)
-/*  f0d2090:	27a5004c */ 	addiu	$a1,$sp,0x4c
-/*  f0d2094:	0c005775 */ 	jal	func00015dd4
-/*  f0d2098:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0d209c:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d20a0:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f0d20a4:	24451a70 */ 	addiu	$a1,$v0,0x1a70
-/*  f0d20a8:	0c0056da */ 	jal	0x15b68
-/*  f0d20ac:	24461adc */ 	addiu	$a2,$v0,0x1adc
-/*  f0d20b0:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0d20b4:	4405a000 */ 	mfc1	$a1,$f20
-/*  f0d20b8:	4406a000 */ 	mfc1	$a2,$f20
-/*  f0d20bc:	c4500388 */ 	lwc1	$f16,0x388($v0)
-/*  f0d20c0:	4407a000 */ 	mfc1	$a3,$f20
-/*  f0d20c4:	24441a9c */ 	addiu	$a0,$v0,0x1a9c
-/*  f0d20c8:	46008487 */ 	neg.s	$f18,$f16
-/*  f0d20cc:	e7b20010 */ 	swc1	$f18,0x10($sp)
-/*  f0d20d0:	c444038c */ 	lwc1	$f4,0x38c($v0)
-/*  f0d20d4:	46002187 */ 	neg.s	$f6,$f4
-/*  f0d20d8:	e7a60014 */ 	swc1	$f6,0x14($sp)
-/*  f0d20dc:	c4480390 */ 	lwc1	$f8,0x390($v0)
-/*  f0d20e0:	46004287 */ 	neg.s	$f10,$f8
-/*  f0d20e4:	e7aa0018 */ 	swc1	$f10,0x18($sp)
-/*  f0d20e8:	c4500394 */ 	lwc1	$f16,0x394($v0)
-/*  f0d20ec:	e7b0001c */ 	swc1	$f16,0x1c($sp)
-/*  f0d20f0:	c4520398 */ 	lwc1	$f18,0x398($v0)
-/*  f0d20f4:	e7b20020 */ 	swc1	$f18,0x20($sp)
-/*  f0d20f8:	c444039c */ 	lwc1	$f4,0x39c($v0)
-/*  f0d20fc:	0c005ad6 */ 	jal	func00016b58
-/*  f0d2100:	e7a40024 */ 	swc1	$f4,0x24($sp)
-/*  f0d2104:	8e0f0284 */ 	lw	$t7,0x284($s0)
-/*  f0d2108:	e5f40148 */ 	swc1	$f20,0x148($t7)
-/*  f0d210c:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0d2110:	e7141b9c */ 	swc1	$f20,0x1b9c($t8)
-/*  f0d2114:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f0d2118:	e7340170 */ 	swc1	$f20,0x170($t9)
-/*  f0d211c:	8e080284 */ 	lw	$t0,0x284($s0)
-/*  f0d2120:	e5140168 */ 	swc1	$f20,0x168($t0)
-/*  f0d2124:	8e290040 */ 	lw	$t1,0x40($s1)
-/*  f0d2128:	312a0080 */ 	andi	$t2,$t1,0x80
-/*  f0d212c:	51400009 */ 	beqzl	$t2,.L0f0d2154
-/*  f0d2130:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f0d2134:	8e220048 */ 	lw	$v0,0x48($s1)
-/*  f0d2138:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f0d213c:	e626009c */ 	swc1	$f6,0x9c($s1)
-/*  f0d2140:	c448000c */ 	lwc1	$f8,0xc($v0)
-/*  f0d2144:	e62800a0 */ 	swc1	$f8,0xa0($s1)
-/*  f0d2148:	c44a00dc */ 	lwc1	$f10,0xdc($v0)
-/*  f0d214c:	e62a00ac */ 	swc1	$f10,0xac($s1)
-/*  f0d2150:	8e0b0284 */ 	lw	$t3,0x284($s0)
-.L0f0d2154:
-/*  f0d2154:	0fc1ab24 */ 	jal	func0f06ac90
-/*  f0d2158:	8d641a6c */ 	lw	$a0,0x1a6c($t3)
-/*  f0d215c:	8e2c0040 */ 	lw	$t4,0x40($s1)
-/*  f0d2160:	3c010400 */ 	lui	$at,0x400
-/*  f0d2164:	01816825 */ 	or	$t5,$t4,$at
-/*  f0d2168:	ae2d0040 */ 	sw	$t5,0x40($s1)
-/*  f0d216c:	8fbf003c */ 	lw	$ra,0x3c($sp)
-/*  f0d2170:	8fb10038 */ 	lw	$s1,0x38($sp)
-/*  f0d2174:	8fb00034 */ 	lw	$s0,0x34($sp)
-/*  f0d2178:	d7b40028 */ 	ldc1	$f20,0x28($sp)
-/*  f0d217c:	03e00008 */ 	jr	$ra
-/*  f0d2180:	27bd0090 */ 	addiu	$sp,$sp,0x90
-);
+void currentPlayerBikeInit(void)
+{
+	struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;
+	f32 matrix[16];
+
+	g_Vars.currentplayer->bondmovemode = MOVEMODE_BIKE;
+	g_Vars.currentplayer->unk1a7c = 0;
+	g_Vars.currentplayer->unk1968 = 0;
+	g_Vars.currentplayer->gunextraaimx = 0;
+	g_Vars.currentplayer->gunextraaimy = 0;
+
+	func0f0d2294();
+
+	g_Vars.currentplayer->unk1a80 = 0;
+	g_Vars.currentplayer->unk1a84 = 1;
+	g_Vars.currentplayer->bondenterpos.x = g_Vars.currentplayer->prop->pos.x;
+	g_Vars.currentplayer->bondenterpos.y = g_Vars.currentplayer->prop->pos.y;
+	g_Vars.currentplayer->bondenterpos.z = g_Vars.currentplayer->prop->pos.z;
+
+	func00015d54(hoverbike->base.realrot, matrix);
+	func00015dd4(&hoverbike->base.prop->pos, matrix);
+	func00015b68(matrix, &g_Vars.currentplayer->unk1a70, &g_Vars.currentplayer->unk1adc);
+	func00016b58(g_Vars.currentplayer->bondentermtx,
+			0, 0, 0,
+			-g_Vars.currentplayer->unk0388.x, -g_Vars.currentplayer->unk0388.y, -g_Vars.currentplayer->unk0388.z,
+			g_Vars.currentplayer->unk0394.x, g_Vars.currentplayer->unk0394.y, g_Vars.currentplayer->unk0394.z);
+
+	g_Vars.currentplayer->speedtheta = 0;
+	g_Vars.currentplayer->speedthetacontrol = 0;
+	g_Vars.currentplayer->speedforwards = 0;
+	g_Vars.currentplayer->speedsideways = 0;
+
+	if (hoverbike->base.hidden & OBJHFLAG_00000080) {
+		struct obj48 *obj48 = hoverbike->base.unk48;
+		hoverbike->speed[0] = obj48->unk04.x;
+		hoverbike->speed[1] = obj48->unk04.z;
+		hoverbike->w = obj48->unkdc;
+	}
+
+	func0f06ac90(g_Vars.currentplayer->hoverbike);
+
+	hoverbike->base.hidden |= OBJHFLAG_04000000;
+}
 
 GLOBAL_ASM(
 glabel func0f0d2184

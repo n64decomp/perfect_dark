@@ -67,27 +67,27 @@ void currentPlayerGrabInit(void)
 
 	if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
 		struct defaultobj *obj = prop->obj;
-		struct hov5c *hov5c = NULL;
+		struct hov *hov = NULL;
 		bool setthething;
 
 		if (obj->hidden & OBJHFLAG_00000080) {
 			struct obj48 *obj48 = obj->unk48;
-			g_Vars.currentplayer->bondshotspeed[0] += obj48->unk04 * 0.2f;
-			g_Vars.currentplayer->bondshotspeed[2] += obj48->unk0c * 0.2f;
+			g_Vars.currentplayer->bondshotspeed[0] += obj48->unk04.x * 0.2f;
+			g_Vars.currentplayer->bondshotspeed[2] += obj48->unk04.z * 0.2f;
 			func0f06ac40(obj);
 		}
 
 		if (obj->type == OBJTYPE_HOVERPROP) {
-			struct hoverpropobj *hov = (struct hoverpropobj *)prop->obj;
-			hov5c = &hov->unk5c;
+			struct hoverpropobj *hoverprop = (struct hoverpropobj *)prop->obj;
+			hov = &hoverprop->hov;
 		} else if (obj->type == OBJTYPE_HOVERBIKE) {
-			struct hoverbikeobj *hov = (struct hoverbikeobj *)prop->obj;
-			hov5c = &hov->unk5c;
+			struct hoverbikeobj *hoverprop = (struct hoverbikeobj *)prop->obj;
+			hov = &hoverprop->hov;
 		}
 
-		if (hov5c) {
+		if (hov) {
 			g_Vars.currentplayer->grabbedrotoffset =
-				hov5c->unk10 - (M_TAU - (g_Vars.currentplayer->vv_theta * M_TAU) / 360.0f);
+				hov->unk10 - (M_TAU - (g_Vars.currentplayer->vv_theta * M_TAU) / 360.0f);
 
 			if (g_Vars.currentplayer->grabbedrotoffset >= M_TAU) {
 				g_Vars.currentplayer->grabbedrotoffset -= M_TAU;
