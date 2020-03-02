@@ -5922,10 +5922,9 @@ bool ai00ee(void)
 		u32 playernum = propGetPlayerNum(chr->prop);
 		setCurrentPlayerNum(playernum);
 
-		// x/y/z props - might be walkinitstart?
-		g_Vars.currentplayer->unk1b6c = (s8)cmd[3];
-		g_Vars.currentplayer->unk1b70 = 0;
-		g_Vars.currentplayer->unk1b74 = (s8)cmd[4];
+		g_Vars.currentplayer->bondforcespeed.x = (s8)cmd[3];
+		g_Vars.currentplayer->bondforcespeed.y = 0;
+		g_Vars.currentplayer->bondforcespeed.z = (s8)cmd[4];
 
 		setCurrentPlayerNum(prevplayernum);
 	}
@@ -10314,8 +10313,8 @@ bool aiChrGrabObject(void)
 		setCurrentPlayerNum(playernum);
 
 		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK
-				&& currentPlayerGetCrouchPos() == 2
-				&& g_Vars.currentplayer->unk00b4 == 0) {
+				&& currentPlayerGetCrouchPos() == CROUCH_STAND
+				&& g_Vars.currentplayer->crouchoffset == 0) {
 			currentPlayerGrabProp(obj->prop);
 		}
 

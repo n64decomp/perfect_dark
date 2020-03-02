@@ -366,43 +366,43 @@ f32 func0f0c82f8(f32 value)
 	return 0;
 }
 
-void func0f0c8394(f32 value)
+void currentPlayerUpdateSpeedThetaControl(f32 value)
 {
 	f32 mult = func0000be74() / 60.0f;
 	f32 limit = func0f0c82f8(value);
 
 	if (value > 0) {
-		if (g_Vars.currentplayer->unk1b9c > 0) {
-			g_Vars.currentplayer->unk1b9c -= 0.05f * g_Vars.lvupdate240freal * mult;
+		if (g_Vars.currentplayer->speedthetacontrol > 0) {
+			g_Vars.currentplayer->speedthetacontrol -= 0.05f * g_Vars.lvupdate240freal * mult;
 		} else {
-			g_Vars.currentplayer->unk1b9c -= 0.0125f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedthetacontrol -= 0.0125f * g_Vars.lvupdate240freal * mult;
 		}
 
-		if (g_Vars.currentplayer->unk1b9c < limit) {
-			g_Vars.currentplayer->unk1b9c = limit;
+		if (g_Vars.currentplayer->speedthetacontrol < limit) {
+			g_Vars.currentplayer->speedthetacontrol = limit;
 		}
 	} else if (value < 0) {
-		if (g_Vars.currentplayer->unk1b9c < 0.0f) {
-			g_Vars.currentplayer->unk1b9c += 0.05f * g_Vars.lvupdate240freal * mult;
+		if (g_Vars.currentplayer->speedthetacontrol < 0.0f) {
+			g_Vars.currentplayer->speedthetacontrol += 0.05f * g_Vars.lvupdate240freal * mult;
 		} else {
-			g_Vars.currentplayer->unk1b9c += 0.0125f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedthetacontrol += 0.0125f * g_Vars.lvupdate240freal * mult;
 		}
 
-		if (g_Vars.currentplayer->unk1b9c > limit) {
-			g_Vars.currentplayer->unk1b9c = limit;
+		if (g_Vars.currentplayer->speedthetacontrol > limit) {
+			g_Vars.currentplayer->speedthetacontrol = limit;
 		}
 	} else {
-		if (g_Vars.currentplayer->unk1b9c > limit) {
-			g_Vars.currentplayer->unk1b9c -= 0.05f * g_Vars.lvupdate240freal * mult;
+		if (g_Vars.currentplayer->speedthetacontrol > limit) {
+			g_Vars.currentplayer->speedthetacontrol -= 0.05f * g_Vars.lvupdate240freal * mult;
 
-			if (g_Vars.currentplayer->unk1b9c < limit) {
-				g_Vars.currentplayer->unk1b9c = limit;
+			if (g_Vars.currentplayer->speedthetacontrol < limit) {
+				g_Vars.currentplayer->speedthetacontrol = limit;
 			}
 		} else {
-			g_Vars.currentplayer->unk1b9c += 0.05f * g_Vars.lvupdate240freal * mult;
+			g_Vars.currentplayer->speedthetacontrol += 0.05f * g_Vars.lvupdate240freal * mult;
 
-			if (g_Vars.currentplayer->unk1b9c > limit) {
-				g_Vars.currentplayer->unk1b9c = limit;
+			if (g_Vars.currentplayer->speedthetacontrol > limit) {
+				g_Vars.currentplayer->speedthetacontrol = limit;
 			}
 		}
 	}
@@ -3716,7 +3716,7 @@ glabel var7f1ad8e4
 /*  f0cb3f0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cb3f4:	45020006 */ 	bc1fl	.L0f0cb410
 /*  f0cb3f8:	44809000 */ 	mtc1	$zero,$f18
-/*  f0cb3fc:	0fc320e5 */ 	jal	func0f0c8394
+/*  f0cb3fc:	0fc320e5 */ 	jal	currentPlayerUpdateSpeedThetaControl
 /*  f0cb400:	e7ac01f4 */ 	swc1	$f12,0x1f4($sp)
 /*  f0cb404:	10000010 */ 	beqz	$zero,.L0f0cb448
 /*  f0cb408:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -3728,13 +3728,13 @@ glabel var7f1ad8e4
 /*  f0cb41c:	45020007 */ 	bc1fl	.L0f0cb43c
 /*  f0cb420:	44806000 */ 	mtc1	$zero,$f12
 /*  f0cb424:	46000307 */ 	neg.s	$f12,$f0
-/*  f0cb428:	0fc320e5 */ 	jal	func0f0c8394
+/*  f0cb428:	0fc320e5 */ 	jal	currentPlayerUpdateSpeedThetaControl
 /*  f0cb42c:	e7a001f8 */ 	swc1	$f0,0x1f8($sp)
 /*  f0cb430:	10000005 */ 	beqz	$zero,.L0f0cb448
 /*  f0cb434:	8e450284 */ 	lw	$a1,0x284($s2)
 /*  f0cb438:	44806000 */ 	mtc1	$zero,$f12
 .L0f0cb43c:
-/*  f0cb43c:	0fc320e5 */ 	jal	func0f0c8394
+/*  f0cb43c:	0fc320e5 */ 	jal	currentPlayerUpdateSpeedThetaControl
 /*  f0cb440:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0cb444:
 /*  f0cb444:	8e450284 */ 	lw	$a1,0x284($s2)
@@ -3985,11 +3985,11 @@ void func0f0cb79c(struct player *player, struct coord *mid, s16 *rooms)
 	f32 player19c0 = g_Vars.players[propGetPlayerNum(player->prop)]->unk19c0;
 
 	lower.x = mid->x - 50;
-	lower.y = mid->y - player->unk008c - player19c4 - 10;
+	lower.y = mid->y - player->crouchheight - player19c4 - 10;
 	lower.z = mid->z - 50;
 
 	upper.x = mid->x + 50;
-	upper.y = mid->y - player->unk008c - player19c4 + player19c0 + 10;
+	upper.y = mid->y - player->crouchheight - player19c4 + player19c0 + 10;
 	upper.z = mid->z + 50;
 
 	func0f1650d0(&lower, &upper, rooms, 7, 0);
@@ -4181,7 +4181,7 @@ void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3)
 		chr = g_Vars.currentplayer->prop->chr;
 
 		if (g_Vars.currentplayer->cameramode == CAMERAMODE_0
-				&& g_Vars.currentplayer->unk0080 >= -6.0f) {
+				&& g_Vars.currentplayer->bdeltapos.y >= -6.0f) {
 			xdiff = g_Vars.currentplayer->bondprevpos.x - g_Vars.currentplayer->prop->pos.x;
 			ydiff = g_Vars.currentplayer->bondprevpos.y - g_Vars.currentplayer->prop->pos.y;
 			zdiff = g_Vars.currentplayer->bondprevpos.z - g_Vars.currentplayer->prop->pos.z;
@@ -4283,8 +4283,8 @@ void func0f0cc19c(struct coord *arg)
 		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 			mult = g_Vars.currentplayer->unk1a80 * 0.6f + 0.4f;
 		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK && g_Vars.currentplayer->unk1af8) {
-			mult = (1.0f - g_Vars.currentplayer->unk1b48) * 0.6f + 0.4f;
-			g_Vars.currentplayer->unk037c.y += (g_Vars.currentplayer->unk19ac - g_Vars.currentplayer->unk19b8) * g_Vars.currentplayer->unk1b48;
+			mult = (1.0f - g_Vars.currentplayer->walkinitt) * 0.6f + 0.4f;
+			g_Vars.currentplayer->unk037c.y += (g_Vars.currentplayer->unk19ac - g_Vars.currentplayer->unk19b8) * g_Vars.currentplayer->walkinitt;
 		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 			mult = 0.4f;
 			g_Vars.currentplayer->unk037c.y += (g_Vars.currentplayer->unk19ac - g_Vars.currentplayer->unk19b8);

@@ -3,13 +3,13 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 currentPlayerWalkInit(void);
+void currentPlayerWalkInit(void);
 void func0f0c3ad0(s32 value);
 void currentPlayerAdjustCrouchPos(s32 value);
 u32 func0f0c3b38(void);
 u32 func0f0c3c8c(void);
 u32 func0f0c3e14(void);
-u32 func0f0c4250(void);
+void func0f0c4250(struct coord *delta, f32 arg1, bool arg2, f32 arg3, s32 arg4);
 u32 func0f0c4764(void);
 u32 func0f0c47d0(void);
 u32 func0f0c494c(void);
@@ -19,7 +19,7 @@ u32 func0f0c4da0(void);
 u32 func0f0c4ec4(void);
 u32 func0f0c4fd8(void);
 void currentPlayerApplyCrouchSpeed(void);
-u32 func0f0c6080(void);
+void func0f0c6080(void);
 u32 func0f0c6180(void);
 u32 func0f0c6318(void);
 u32 func0f0c63bc(void);
