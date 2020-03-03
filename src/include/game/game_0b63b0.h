@@ -80,7 +80,7 @@ void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 u32 func0f0c2194(void);
 u32 func0f0c21a4(void);
 u32 func0f0c2210(void);
-u32 func0f0c227c(void);
+s32 getMissionTime(void);
 u32 func0f0c228c(void);
 u32 func0f0c2364(void);
 u32 func0f0c2a58(void);

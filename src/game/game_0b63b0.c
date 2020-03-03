@@ -2092,7 +2092,7 @@ glabel func0f0b802c
 /*  f0b807c:	8ef80284 */ 	lw	$t8,0x284($s7)
 /*  f0b8080:	af110328 */ 	sw	$s1,0x328($t8)
 /*  f0b8084:	8ef90284 */ 	lw	$t9,0x284($s7)
-/*  f0b8088:	0fc3089f */ 	jal	func0f0c227c
+/*  f0b8088:	0fc3089f */ 	jal	getMissionTime
 /*  f0b808c:	af201960 */ 	sw	$zero,0x1960($t9)
 /*  f0b8090:	8ee90284 */ 	lw	$t1,0x284($s7)
 /*  f0b8094:	02202025 */ 	or	$a0,$s1,$zero
@@ -12138,7 +12138,7 @@ glabel func0f0c1404
 /*  f0c1598:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0c159c:	0fc28a72 */ 	jal	func0f0a29c8
 /*  f0c15a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c15a4:	0fc3089f */ 	jal	func0f0c227c
+/*  f0c15a4:	0fc3089f */ 	jal	getMissionTime
 /*  f0c15a8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c15ac:	8e0f0284 */ 	lw	$t7,0x284($s0)
 /*  f0c15b0:	8e080288 */ 	lw	$t0,0x288($s0)
@@ -12148,7 +12148,7 @@ glabel func0f0c1404
 /*  f0c15c0:	0329082a */ 	slt	$at,$t9,$t1
 /*  f0c15c4:	10200008 */ 	beqz	$at,.L0f0c15e8
 /*  f0c15c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c15cc:	0fc3089f */ 	jal	func0f0c227c
+/*  f0c15cc:	0fc3089f */ 	jal	getMissionTime
 /*  f0c15d0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c15d4:	8e0a0284 */ 	lw	$t2,0x284($s0)
 /*  f0c15d8:	8e0d0288 */ 	lw	$t5,0x288($s0)
@@ -12156,7 +12156,7 @@ glabel func0f0c1404
 /*  f0c15e0:	004b6023 */ 	subu	$t4,$v0,$t3
 /*  f0c15e4:	adac0050 */ 	sw	$t4,0x50($t5)
 .L0f0c15e8:
-/*  f0c15e8:	0fc3089f */ 	jal	func0f0c227c
+/*  f0c15e8:	0fc3089f */ 	jal	getMissionTime
 /*  f0c15ec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c15f0:	8e0e0284 */ 	lw	$t6,0x284($s0)
 /*  f0c15f4:	adc2195c */ 	sw	$v0,0x195c($t6)
@@ -12973,13 +12973,10 @@ glabel func0f0c2210
 /*  f0c2278:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c227c
-/*  f0c227c:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0c2280:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f0c2284:	03e00008 */ 	jr	$ra
-/*  f0c2288:	8dc21b7c */ 	lw	$v0,0x1b7c($t6)
-);
+s32 getMissionTime(void)
+{
+	return g_Vars.currentplayer->bondviewlevtime60;
+}
 
 GLOBAL_ASM(
 glabel func0f0c228c

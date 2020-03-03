@@ -813,7 +813,7 @@ GLOBAL_ASM(
 glabel func0f10d6e4
 /*  f10d6e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f10d6e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d6ec:	0fc3089f */ 	jal	func0f0c227c
+/*  f10d6ec:	0fc3089f */ 	jal	getMissionTime
 /*  f10d6f0:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f10d6f4:	3c048007 */ 	lui	$a0,0x8007
 /*  f10d6f8:	8c841440 */ 	lw	$a0,0x1440($a0)
@@ -2075,7 +2075,7 @@ glabel func0f10e620
 /*  f10e8dc:	03202025 */ 	or	$a0,$t9,$zero
 /*  f10e8e0:	afa2001c */ 	sw	$v0,0x1c($sp)
 .L0f10e8e4:
-/*  f10e8e4:	0fc3089f */ 	jal	func0f0c227c
+/*  f10e8e4:	0fc3089f */ 	jal	getMissionTime
 /*  f10e8e8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10e8ec:	2401003c */ 	addiu	$at,$zero,0x3c
 /*  f10e8f0:	0041001a */ 	div	$zero,$v0,$at
@@ -2138,7 +2138,7 @@ glabel func0f10e620
 /*  f10e9c8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10e9cc:	104000a5 */ 	beqz	$v0,.L0f10ec64
 /*  f10e9d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10e9d4:	0fc3089f */ 	jal	func0f0c227c
+/*  f10e9d4:	0fc3089f */ 	jal	getMissionTime
 /*  f10e9d8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10e9dc:	2401003c */ 	addiu	$at,$zero,0x3c
 /*  f10e9e0:	0041001a */ 	div	$zero,$v0,$at
