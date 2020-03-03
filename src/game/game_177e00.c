@@ -309,7 +309,7 @@ GLOBAL_ASM(
 glabel func0f1782f8
 /*  f1782f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1782fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178300:	0fc5b37e */ 	jal	getVar80084024
+/*  f178300:	0fc5b37e */ 	jal	mpGetMatchTime
 /*  f178304:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f178308:	3c048007 */ 	lui	$a0,0x8007
 /*  f17830c:	8c841440 */ 	lw	$a0,0x1440($a0)

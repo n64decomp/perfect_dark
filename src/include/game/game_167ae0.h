@@ -35,6 +35,6 @@ void setVar80084028(u32 arg0);
 void setVar8008402c(u32 arg0);
 void setVar80084030(u32 arg0);
 f32 getUptime(void);
-u32 getVar80084024(void);
+u32 mpGetMatchTime(void);
 
 #endif

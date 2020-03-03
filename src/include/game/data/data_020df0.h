@@ -213,7 +213,7 @@ extern void *filetable[];
 extern u32 var80084008;
 extern u32 var80084010;
 extern u32 var80084014;
-extern u32 var80084024;
+extern u32 g_MpMatchTime;
 extern u32 var80084028;
 extern u32 var8008402c;
 extern u32 var80084030;

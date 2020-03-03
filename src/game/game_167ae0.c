@@ -5913,9 +5913,9 @@ f32 getUptime(void)
 	return g_Uptime;
 }
 
-u32 getVar80084024(void)
+u32 mpGetMatchTime(void)
 {
-	return var80084024;
+	return g_MpMatchTime;
 }
 
 GLOBAL_ASM(
