@@ -1419,7 +1419,7 @@ glabel func0f0d579c
 );
 
 GLOBAL_ASM(
-glabel func0f0d57e0
+glabel formatTime
 /*  f0d57e0:	2402003c */ 	addiu	$v0,$zero,0x3c
 /*  f0d57e4:	00a2001a */ 	div	$zero,$a1,$v0
 /*  f0d57e8:	00007010 */ 	mfhi	$t6

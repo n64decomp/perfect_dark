@@ -56,38 +56,7 @@ const char var7f1b3898[] = "";
 const char var7f1b389c[] = "%s: %s\n";
 const char var7f1b38a4[] = "%s\n";
 const char var7f1b38a8[] = "%s: %s\n";
-const char var7f1b38b0[] = "\n";
-const char var7f1b38b4[] = "ctcol";
-const char var7f1b38bc[] = "\n";
-const char var7f1b38c0[] = "Flag %d = %s";
-const char var7f1b38d0[] = "TRUE";
-const char var7f1b38d8[] = "FALSE";
-const char var7f1b38e0[] = "Dark";
-const char var7f1b38e8[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
-const char var7f1b391c[] = "pdoptions.c";
-const char var7f1b3928[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
-const char var7f1b395c[] = "pdoptions.c";
-const char var7f1b3968[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
-const char var7f1b399c[] = "pdoptions.c";
-const char var7f1b39a8[] = "";
-const char var7f1b39ac[] = "";
-const char var7f1b39b0[] = "fileGuid";
-const char var7f1b39bc[] = "bossfile.c";
-const char var7f1b39c8[] = "";
-const char var7f1b39cc[] = "";
-const char var7f1b39d0[] = "Rebuilding pakWad %d:\n";
-
-const u32 var7f1b39e8[] = {0x00000080};
-const u32 var7f1b39ec[] = {0x00000040};
-const u32 var7f1b39f0[] = {0x00000020};
-const u32 var7f1b39f4[] = {0x00000008};
-const u32 var7f1b39f8[] = {0x04000102};
-const u32 var7f1b39fc[] = {0x03000000};
-const u32 var7f1b3a00[] = {0x01020304};
-const u32 var7f1b3a04[] = {0x00000000};
-
-const char var7f1b3a08[] = "tc != NULL";
-const char var7f1b3a14[] = "gamefile.c";
+//const char var7f1b38b0[] = "\n";
 
 s32 menuhandlerDeclineMission(u32 operation, struct menu_item *item, s32 *value)
 {
@@ -809,28 +778,13 @@ glabel func0f10d678
 /*  f10d6e0:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func0f10d6e4
-/*  f10d6e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10d6e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d6ec:	0fc3089f */ 	jal	getMissionTime
-/*  f10d6f0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10d6f4:	3c048007 */ 	lui	$a0,0x8007
-/*  f10d6f8:	8c841440 */ 	lw	$a0,0x1440($a0)
-/*  f10d6fc:	00402825 */ 	or	$a1,$v0,$zero
-/*  f10d700:	0fc355f8 */ 	jal	func0f0d57e0
-/*  f10d704:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f10d708:	3c048007 */ 	lui	$a0,0x8007
-/*  f10d70c:	3c057f1b */ 	lui	$a1,%hi(var7f1b38b0)
-/*  f10d710:	24a538b0 */ 	addiu	$a1,$a1,%lo(var7f1b38b0)
-/*  f10d714:	0c004c89 */ 	jal	func00013224
-/*  f10d718:	8c841440 */ 	lw	$a0,0x1440($a0)
-/*  f10d71c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10d720:	3c028007 */ 	lui	$v0,0x8007
-/*  f10d724:	8c421440 */ 	lw	$v0,0x1440($v0)
-/*  f10d728:	03e00008 */ 	jr	$ra
-/*  f10d72c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *menutextMissionTime(s32 arg0)
+{
+	formatTime(g_StringPointer, getMissionTime(), 3);
+	strcat(g_StringPointer, "\n");
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f10d730
@@ -1829,12 +1783,12 @@ glabel func0f10e4d8
 /*  f10e548:	3c048007 */ 	lui	$a0,0x8007
 /*  f10e54c:	8c841440 */ 	lw	$a0,0x1440($a0)
 /*  f10e550:	00052880 */ 	sll	$a1,$a1,0x2
-/*  f10e554:	0fc355f8 */ 	jal	func0f0d57e0
+/*  f10e554:	0fc355f8 */ 	jal	formatTime
 /*  f10e558:	24060003 */ 	addiu	$a2,$zero,0x3
 /*  f10e55c:	3c048007 */ 	lui	$a0,0x8007
 /*  f10e560:	3c057f1b */ 	lui	$a1,%hi(var7f1b38bc)
 /*  f10e564:	24a538bc */ 	addiu	$a1,$a1,%lo(var7f1b38bc)
-/*  f10e568:	0c004c89 */ 	jal	func00013224
+/*  f10e568:	0c004c89 */ 	jal	strcat
 /*  f10e56c:	8c841440 */ 	lw	$a0,0x1440($a0)
 /*  f10e570:	3c028007 */ 	lui	$v0,0x8007
 /*  f10e574:	8c421440 */ 	lw	$v0,0x1440($v0)
@@ -5217,3 +5171,35 @@ glabel func0f111460
 /*  f1115f8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1115fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+const char var7f1b38b4[] = "ctcol";
+const char var7f1b38bc[] = "\n";
+const char var7f1b38c0[] = "Flag %d = %s";
+const char var7f1b38d0[] = "TRUE";
+const char var7f1b38d8[] = "FALSE";
+const char var7f1b38e0[] = "Dark";
+const char var7f1b38e8[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
+const char var7f1b391c[] = "pdoptions.c";
+const char var7f1b3928[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
+const char var7f1b395c[] = "pdoptions.c";
+const char var7f1b3968[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
+const char var7f1b399c[] = "pdoptions.c";
+const char var7f1b39a8[] = "";
+const char var7f1b39ac[] = "";
+const char var7f1b39b0[] = "fileGuid";
+const char var7f1b39bc[] = "bossfile.c";
+const char var7f1b39c8[] = "";
+const char var7f1b39cc[] = "";
+const char var7f1b39d0[] = "Rebuilding pakWad %d:\n";
+
+const u32 var7f1b39e8[] = {0x00000080};
+const u32 var7f1b39ec[] = {0x00000040};
+const u32 var7f1b39f0[] = {0x00000020};
+const u32 var7f1b39f4[] = {0x00000008};
+const u32 var7f1b39f8[] = {0x04000102};
+const u32 var7f1b39fc[] = {0x03000000};
+const u32 var7f1b3a00[] = {0x01020304};
+const u32 var7f1b3a04[] = {0x00000000};
+
+const char var7f1b3a08[] = "tc != NULL";
+const char var7f1b3a14[] = "gamefile.c";

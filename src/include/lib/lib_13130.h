@@ -5,7 +5,7 @@
 
 char *strcpy(char *dest, char *src);
 u32 func000131c8(void);
-u32 func00013224(char *dst, char *src);
+u32 strcat(char *dst, char *src);
 u32 func00013274(void);
 u32 func00013274(void);
 u32 func000132c0(void);

@@ -11184,12 +11184,12 @@ glabel func0f147e24
 /*  f148304:	15800004 */ 	bnez	$t4,.L0f148318
 /*  f148308:	3c057f1b */ 	lui	$a1,%hi(var7f1b5f14)
 /*  f14830c:	24a55f14 */ 	addiu	$a1,$a1,%lo(var7f1b5f14)
-/*  f148310:	0c004c89 */ 	jal	func00013224
+/*  f148310:	0c004c89 */ 	jal	strcat
 /*  f148314:	27a40100 */ 	addiu	$a0,$sp,0x100
 .L0f148318:
 /*  f148318:	3c057f1b */ 	lui	$a1,%hi(var7f1b5f20)
 /*  f14831c:	24a55f20 */ 	addiu	$a1,$a1,%lo(var7f1b5f20)
-/*  f148320:	0c004c89 */ 	jal	func00013224
+/*  f148320:	0c004c89 */ 	jal	strcat
 /*  f148324:	27a40100 */ 	addiu	$a0,$sp,0x100
 /*  f148328:	0c002f02 */ 	jal	func0000bc08
 /*  f14832c:	00000000 */ 	sll	$zero,$zero,0x0

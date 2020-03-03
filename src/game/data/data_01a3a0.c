@@ -829,7 +829,7 @@ struct menu_item menuitems_1b7bc[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005717, 0x00000000, NULL }, // "Agent Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f10d4d4, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005718, 0x00000000, NULL }, // "Mission Time:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f10d6e4, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&menutextMissionTime, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, 0x00005481, 0x00000000, NULL }, // "Difficulty"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)menutextDifficulty, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -855,7 +855,7 @@ u32 var80075968 = 0xff7f7fff;
 struct menu_item menuitems_1b98c[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005716, (u32)&func0f10d2e0, NULL }, // "Mission Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005717, (u32)&func0f10d4d4, NULL }, // "Agent Status:"
-	{ MENUITEMTYPE_LABEL,       0, 0x01000000, 0x00005718, (u32)&func0f10d6e4, menuhandler0010e064 }, // "Mission Time:"
+	{ MENUITEMTYPE_LABEL,       0, 0x01000000, 0x00005718, (u32)&menutextMissionTime, menuhandler0010e064 }, // "Mission Time:"
 	{ MENUITEMTYPE_LABEL,       1, 0x01000000, 0x000054f2, (u32)&func0f10e4d8, menuhandler0010e064 }, // "Target Time:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x00005481, (u32)&menutextDifficulty, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_SEPARATOR,   2, 0x00000000, 0x00000000, 0x00000000, menuhandler0010e064 },

@@ -598,10 +598,10 @@ char *cheatGetMarquee(struct menu_item *arg0)
 		}
 
 		if (g_Cheats[cheat_id].flags & CHEATFLAG_TRANSFERPAK) {
-			func00013224(g_CheatMarqueeString, langGet(0x548d)); // " or insert Game Boy ..."
+			strcat(g_CheatMarqueeString, langGet(0x548d)); // " or insert Game Boy ..."
 		}
 
-		func00013224(g_CheatMarqueeString, "\n");
+		strcat(g_CheatMarqueeString, "\n");
 
 		return g_CheatMarqueeString;
 	}

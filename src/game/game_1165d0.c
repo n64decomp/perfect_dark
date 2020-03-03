@@ -1781,7 +1781,7 @@ glabel func0f11776c
 /*  f1177f0:	0c004dad */ 	jal	sprintf
 /*  f1177f4:	92260000 */ 	lbu	$a2,0x0($s1)
 /*  f1177f8:	02602025 */ 	or	$a0,$s3,$zero
-/*  f1177fc:	0c004c89 */ 	jal	func00013224
+/*  f1177fc:	0c004c89 */ 	jal	strcat
 /*  f117800:	02402825 */ 	or	$a1,$s2,$zero
 /*  f117804:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f117808:	1614fff1 */ 	bne	$s0,$s4,.L0f1177d0
@@ -1789,7 +1789,7 @@ glabel func0f11776c
 .L0f117810:
 /*  f117810:	3c057f1b */ 	lui	$a1,%hi(var7f1b3bd8)
 /*  f117814:	24a53bd8 */ 	addiu	$a1,$a1,%lo(var7f1b3bd8)
-/*  f117818:	0c004c89 */ 	jal	func00013224
+/*  f117818:	0c004c89 */ 	jal	strcat
 /*  f11781c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f117820:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*  f117824:	8fb00018 */ 	lw	$s0,0x18($sp)

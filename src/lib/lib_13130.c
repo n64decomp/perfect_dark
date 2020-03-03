@@ -99,7 +99,7 @@ glabel func000131c8
 );
 
 GLOBAL_ASM(
-glabel func00013224
+glabel strcat
 /*    13224:	908e0000 */ 	lbu	$t6,0x0($a0)
 /*    13228:	00801025 */ 	or	$v0,$a0,$zero
 /*    1322c:	51c00006 */ 	beqzl	$t6,.L00013248

@@ -22,7 +22,7 @@ u32 func0f0d564c(void);
 u32 func0f0d5690(void);
 u32 func0f0d575c(void);
 u32 func0f0d579c(void);
-u32 func0f0d57e0(void);
+void formatTime(char *dst, s32 time, u32 arg2);
 u32 func0f0d5a7c(void);
 
 #endif

@@ -20,7 +20,7 @@ u32 func0f10d4d4(void);
 u32 func0f10d588(void);
 u32 func0f10d61c(void);
 u32 func0f10d678(void);
-u32 func0f10d6e4(void);
+char *menutextMissionTime(s32 arg0);
 u32 func0f10d730(void);
 u32 func0f10d770(void);
 void func0f10d910(s32 arg0);
