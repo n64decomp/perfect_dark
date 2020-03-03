@@ -11,6 +11,23 @@
 #include "lib/lib_09660.h"
 #include "types.h"
 
+const char var7f1aceb0[] = "MOT : Type 1  = %d/%d (%d)";
+const char var7f1acecc[] = "MOT : Type 2  = %d/%d (%d)";
+const char var7f1acee8[] = "MOT : Type 3  = %d/%d (%d)";
+const char var7f1acf04[] = "MOT : Type OI = %d/%d/%d/%d";
+const char var7f1acf20[] = "MOT : Type OA = %d/%d/%d/%d";
+const char var7f1acf3c[] = "MOT : g_ObjCount = %d";
+const char var7f1acf54[] = "MOT : g_AnimCount = %d";
+const char var7f1acf6c[] = "Allocating %d bytes for objinst structure\n";
+const char var7f1acf98[] = "MotInst: Using cache entry type 1 %d (0x%08x) - Bytes=%d\n";
+const char var7f1acfd4[] = "MotInst: Using cache entry type 2 %d (0x%08x) - Bytes=%d\n";
+const char var7f1ad010[] = "MotInst: Using cache entry type 3 %d (0x%08x) - Bytes=%d\n";
+const char var7f1ad04c[] = "***************************************\n";
+const char var7f1ad078[] = "***************************************\n";
+const char var7f1ad0a4[] = "\nMotInst: Freeing type 2 cache entry %d (0x%08x)\n\n";
+const char var7f1ad0d8[] = "\nMotInst: Freeing type 3 cache entry %d (0x%08x)\n\n";
+const char var7f1ad10c[] = "MotInst -> Attempt to free item not in cache\n";
+
 GLOBAL_ASM(
 glabel func0f0b2150
 /*  f0b2150:	27bdffb0 */ 	addiu	$sp,$sp,-80

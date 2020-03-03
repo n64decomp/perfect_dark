@@ -24,79 +24,6 @@
 
 const u32 var7f1acdd0[] = {0x3dcccccd};
 const u32 var7f1acdd4[] = {0x3dcccccd};
-const u32 var7f1acdd8[] = {0x7f0b1fe0};
-const u32 var7f1acddc[] = {0x7f0b1fe0};
-const u32 var7f1acde0[] = {0x7f0b1fe0};
-const u32 var7f1acde4[] = {0x7f0b1fe0};
-const u32 var7f1acde8[] = {0x7f0b1fe8};
-const u32 var7f1acdec[] = {0x7f0b1fe8};
-const u32 var7f1acdf0[] = {0x7f0b1ff0};
-const u32 var7f1acdf4[] = {0x7f0b1ff8};
-const u32 var7f1acdf8[] = {0x7f0b1fe0};
-const u32 var7f1acdfc[] = {0x7f0b1fe0};
-const u32 var7f1ace00[] = {0x7f0b1fe0};
-const u32 var7f1ace04[] = {0x7f0b1fe0};
-const u32 var7f1ace08[] = {0x7f0b1ff8};
-const u32 var7f1ace0c[] = {0x7f0b1fe0};
-const u32 var7f1ace10[] = {0x7f0b1fe8};
-const u32 var7f1ace14[] = {0x7f0b1fe8};
-const u32 var7f1ace18[] = {0x7f0b1fe8};
-const u32 var7f1ace1c[] = {0x7f0b1fe8};
-const u32 var7f1ace20[] = {0x7f0b1fe8};
-const u32 var7f1ace24[] = {0x7f0b1fe0};
-const u32 var7f1ace28[] = {0x7f0b1ff0};
-const u32 var7f1ace2c[] = {0x7f0b1fe8};
-const u32 var7f1ace30[] = {0x7f0b1ff8};
-const u32 var7f1ace34[] = {0x7f0b1fe0};
-const u32 var7f1ace38[] = {0x7f0b1fe0};
-const u32 var7f1ace3c[] = {0x7f0b1fe0};
-const u32 var7f1ace40[] = {0x7f0b1fe0};
-const u32 var7f1ace44[] = {0x7f0b1fe0};
-const u32 var7f1ace48[] = {0x7f0b1fe0};
-const u32 var7f1ace4c[] = {0x7f0b1fe0};
-const u32 var7f1ace50[] = {0x7f0b1fe0};
-const u32 var7f1ace54[] = {0x7f0b1fe0};
-const u32 var7f1ace58[] = {0x7f0b1fe0};
-const u32 var7f1ace5c[] = {0x7f0b1fe0};
-const u32 var7f1ace60[] = {0x7f0b1fe0};
-const u32 var7f1ace64[] = {0x7f0b2008};
-const u32 var7f1ace68[] = {0x7f0b2000};
-const u32 var7f1ace6c[] = {0x7f0b2000};
-const u32 var7f1ace70[] = {0x7f0b2000};
-const u32 var7f1ace74[] = {0x7f0b2000};
-const u32 var7f1ace78[] = {0x7f0b2000};
-const u32 var7f1ace7c[] = {0x7f0b2000};
-const u32 var7f1ace80[] = {0x7f0b2000};
-const u32 var7f1ace84[] = {0x7f0b2000};
-const u32 var7f1ace88[] = {0x7f0b2008};
-const u32 var7f1ace8c[] = {0x7f0b2008};
-const u32 var7f1ace90[] = {0x7f0b2008};
-const u32 var7f1ace94[] = {0x7f0b2008};
-const u32 var7f1ace98[] = {0x7f0b2008};
-const u32 var7f1ace9c[] = {0x7f0b2008};
-const u32 var7f1acea0[] = {0x7f0b1fd8};
-const u32 var7f1acea4[] = {0x7f0b2008};
-const u32 var7f1acea8[] = {0x7f0b2008};
-const u32 var7f1aceac[] = {0x7f0b1fe0};
-
-const char var7f1aceb0[] = "MOT : Type 1  = %d/%d (%d)";
-const char var7f1acecc[] = "MOT : Type 2  = %d/%d (%d)";
-const char var7f1acee8[] = "MOT : Type 3  = %d/%d (%d)";
-const char var7f1acf04[] = "MOT : Type OI = %d/%d/%d/%d";
-const char var7f1acf20[] = "MOT : Type OA = %d/%d/%d/%d";
-const char var7f1acf3c[] = "MOT : g_ObjCount = %d";
-const char var7f1acf54[] = "MOT : g_AnimCount = %d";
-const char var7f1acf6c[] = "Allocating %d bytes for objinst structure\n";
-const char var7f1acf98[] = "MotInst: Using cache entry type 1 %d (0x%08x) - Bytes=%d\n";
-const char var7f1acfd4[] = "MotInst: Using cache entry type 2 %d (0x%08x) - Bytes=%d\n";
-const char var7f1ad010[] = "MotInst: Using cache entry type 3 %d (0x%08x) - Bytes=%d\n";
-const char var7f1ad04c[] = "***************************************\n";
-const char var7f1ad078[] = "***************************************\n";
-const char var7f1ad0a4[] = "\nMotInst: Freeing type 2 cache entry %d (0x%08x)\n\n";
-const char var7f1ad0d8[] = "\nMotInst: Freeing type 3 cache entry %d (0x%08x)\n\n";
-const char var7f1ad10c[] = "MotInst -> Attempt to free item not in cache\n";
-
-const u32 var7f1ad13c[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0f0b0420
@@ -2137,62 +2064,74 @@ glabel func0f0b1ee8
 /*  f0b1f54:	01201025 */ 	or	$v0,$t1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f0b1f58
-/*  f0b1f58:	3c02800a */ 	lui	$v0,0x800a
-/*  f0b1f5c:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0b1f60:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1f64:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1f68:	9045063b */ 	lbu	$a1,0x63b($v0)
-/*  f0b1f6c:	0fc2c401 */ 	jal	weaponGetFunctionById
-/*  f0b1f70:	90440638 */ 	lbu	$a0,0x638($v0)
-/*  f0b1f74:	10400008 */ 	beqz	$v0,.L0f0b1f98
-/*  f0b1f78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1f7c:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f0b1f80:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0b1f84:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f0b1f88:	15e10003 */ 	bne	$t7,$at,.L0f0b1f98
-/*  f0b1f8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1f90:	1000001e */ 	beqz	$zero,.L0f0b200c
-/*  f0b1f94:	24020007 */ 	addiu	$v0,$zero,0x7
-.L0f0b1f98:
-/*  f0b1f98:	0fc41b99 */ 	jal	cheatIsActive
-/*  f0b1f9c:	2404000f */ 	addiu	$a0,$zero,0xf
-/*  f0b1fa0:	10400003 */ 	beqz	$v0,.L0f0b1fb0
-/*  f0b1fa4:	3c18800a */ 	lui	$t8,0x800a
-/*  f0b1fa8:	10000018 */ 	beqz	$zero,.L0f0b200c
-/*  f0b1fac:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0b1fb0:
-/*  f0b1fb0:	8f18a244 */ 	lw	$t8,-0x5dbc($t8)
-/*  f0b1fb4:	93190638 */ 	lbu	$t9,0x638($t8)
-/*  f0b1fb8:	2f210036 */ 	sltiu	$at,$t9,0x36
-/*  f0b1fbc:	10200012 */ 	beqz	$at,.L0f0b2008
-/*  f0b1fc0:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0b1fc4:	3c017f1b */ 	lui	$at,%hi(var7f1acdd8)
-/*  f0b1fc8:	00390821 */ 	addu	$at,$at,$t9
-/*  f0b1fcc:	8c39cdd8 */ 	lw	$t9,%lo(var7f1acdd8)($at)
-/*  f0b1fd0:	03200008 */ 	jr	$t9
-/*  f0b1fd4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1fd8:	1000000c */ 	beqz	$zero,.L0f0b200c
-/*  f0b1fdc:	24020007 */ 	addiu	$v0,$zero,0x7
-/*  f0b1fe0:	1000000a */ 	beqz	$zero,.L0f0b200c
-/*  f0b1fe4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1fe8:	10000008 */ 	beqz	$zero,.L0f0b200c
-/*  f0b1fec:	24020005 */ 	addiu	$v0,$zero,0x5
-/*  f0b1ff0:	10000006 */ 	beqz	$zero,.L0f0b200c
-/*  f0b1ff4:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f0b1ff8:	10000004 */ 	beqz	$zero,.L0f0b200c
-/*  f0b1ffc:	24020006 */ 	addiu	$v0,$zero,0x6
-/*  f0b2000:	10000002 */ 	beqz	$zero,.L0f0b200c
-/*  f0b2004:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0b2008:
-/*  f0b2008:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b200c:
-/*  f0b200c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b2010:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b2014:	03e00008 */ 	jr	$ra
-/*  f0b2018:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 currentPlayerGetSight(void)
+{
+	struct weaponfunc *func = weaponGetFunctionById(g_Vars.currentplayer->unk0638, g_Vars.currentplayer->unk063b);
+
+	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
+		return SIGHT_NONE;
+	}
+
+	if (cheatIsActive(CHEAT_CLASSICSIGHT)) {
+		return SIGHT_CLASSIC;
+	}
+
+	switch (g_Vars.currentplayer->unk0638) {
+	case WEAPON_HORIZONSCANNER:
+		return SIGHT_NONE;
+	case WEAPON_NONE:
+	case WEAPON_UNARMED:
+	case WEAPON_FALCON2:
+	case WEAPON_FALCON2_SILENCER:
+	case WEAPON_DY357MAGNUM:
+	case WEAPON_DY357LX:
+	case WEAPON_CMP150:
+	case WEAPON_CYCLONE:
+	case WEAPON_RCP120:
+	case WEAPON_SHOTGUN:
+	case WEAPON_DEVASTATOR:
+	case WEAPON_ROCKETLAUNCHER:
+	case WEAPON_SLAYER:
+	case WEAPON_COMBATKNIFE:
+	case WEAPON_CROSSBOW:
+	case WEAPON_TRANQUILIZER:
+	case WEAPON_LASER:
+	case WEAPON_GRENADE:
+	case WEAPON_NBOMB:
+	case WEAPON_TIMEDMINE:
+	case WEAPON_PROXIMITYMINE:
+	case WEAPON_REMOTEMINE:
+	case WEAPON_ECMMINE:
+		return SIGHT_DEFAULT;
+	case WEAPON_FALCON2_SCOPE:
+	case WEAPON_MAGSEC4:
+	case WEAPON_SNIPERRIFLE:
+	case WEAPON_LAPTOPGUN:
+	case WEAPON_DRAGON:
+	case WEAPON_K7AVENGER:
+	case WEAPON_AR34:
+	case WEAPON_SUPERDRAGON:
+		return SIGHT_ZOOM;
+	case WEAPON_MAULER:
+	case WEAPON_REAPER:
+		return SIGHT_SKEDAR;
+	case WEAPON_PHOENIX:
+	case WEAPON_CALLISTONTG:
+	case WEAPON_FARSIGHTXR20:
+		return SIGHT_MAIAN;
+	case WEAPON_PP9I:
+	case WEAPON_CC13:
+	case WEAPON_KL01313:
+	case WEAPON_KF7SPECIAL:
+	case WEAPON_ZZT:
+	case WEAPON_DMC:
+	case WEAPON_AR53:
+	case WEAPON_RCP45:
+		return SIGHT_CLASSIC;
+	}
+
+	return SIGHT_DEFAULT;
+}
 
 GLOBAL_ASM(
 glabel func0f0b201c

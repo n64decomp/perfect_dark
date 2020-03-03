@@ -1655,6 +1655,14 @@
 #define SCREENSPLIT_HORIZONTAL 0
 #define SCREENSPLIT_VERTICAL   1
 
+#define SIGHT_DEFAULT  0
+#define SIGHT_CLASSIC  1
+#define SIGHT_EMPTYBOX 3
+#define SIGHT_SKEDAR   4
+#define SIGHT_ZOOM     5
+#define SIGHT_MAIAN    6
+#define SIGHT_NONE     7
+
 #define SIMTYPE_GENERAL 0
 #define SIMTYPE_PEACE   1
 #define SIMTYPE_SHIELD  2

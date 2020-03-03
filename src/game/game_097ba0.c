@@ -22800,7 +22800,7 @@ glabel func0f0abcb0
 /*  f0abcd4:	8c4f192c */ 	lw	$t7,0x192c($v0)
 /*  f0abcd8:	15e00009 */ 	bnez	$t7,.L0f0abd00
 /*  f0abcdc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0abce0:	0fc2c7d6 */ 	jal	func0f0b1f58
+/*  f0abce0:	0fc2c7d6 */ 	jal	currentPlayerGetSight
 /*  f0abce4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0abce8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0abcec:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -22809,7 +22809,7 @@ glabel func0f0abcb0
 /*  f0abcf8:	10000008 */ 	beqz	$zero,.L0f0abd1c
 /*  f0abcfc:	00408025 */ 	or	$s0,$v0,$zero
 .L0f0abd00:
-/*  f0abd00:	0fc2c7d6 */ 	jal	func0f0b1f58
+/*  f0abd00:	0fc2c7d6 */ 	jal	currentPlayerGetSight
 /*  f0abd04:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0abd08:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0abd0c:	00002825 */ 	or	$a1,$zero,$zero

@@ -46,7 +46,7 @@ u32 func0f0b1e28(void);
 u32 func0f0b1e68(void);
 u32 func0f0b1ea8(void);
 u32 func0f0b1ee8(void);
-u32 func0f0b1f58(void);
+u32 currentPlayerGetSight(void);
 u32 func0f0b201c(void);
 u32 func0f0b20e8(void);
 u32 func0f0b2118(void);
