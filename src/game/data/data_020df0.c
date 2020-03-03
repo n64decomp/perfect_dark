@@ -10072,7 +10072,7 @@ struct menu_item menuitems_2a6cc[] = {
 	{ MENUITEMTYPE_LABEL,       1, 0x00000200, 0x000054a3, (u32)&func0f178050, menuhandlerMpInGameLimitLabel }, // "Score Limit:"
 	{ MENUITEMTYPE_LABEL,       2, 0x00000200, 0x000054a4, (u32)&func0f178050, menuhandlerMpInGameLimitLabel }, // "Team Score Limit:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000511e, (u32)&func0f1782f8, NULL }, // "Game Time:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x0000511e, (u32)&menutextMatchTime, NULL }, // "Game Time:"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, (u32)&menutextPauseOrUnpause, 0x00000000, menuhandlerMpPause },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000024, 0x0000511f, 0x00000000, &menudialog_mpendgame }, // "End Game"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

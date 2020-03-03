@@ -292,23 +292,11 @@ char *menutextPauseOrUnpause(s32 arg0)
 	return langGet(0x5120); // "Pause"
 }
 
-GLOBAL_ASM(
-glabel func0f1782f8
-/*  f1782f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1782fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178300:	0fc5b37e */ 	jal	mpGetMatchTime
-/*  f178304:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f178308:	3c048007 */ 	lui	$a0,0x8007
-/*  f17830c:	8c841440 */ 	lw	$a0,0x1440($a0)
-/*  f178310:	00402825 */ 	or	$a1,$v0,$zero
-/*  f178314:	0fc355f8 */ 	jal	formatTime
-/*  f178318:	24060003 */ 	addiu	$a2,$zero,0x3
-/*  f17831c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f178320:	3c028007 */ 	lui	$v0,0x8007
-/*  f178324:	8c421440 */ 	lw	$v0,0x1440($v0)
-/*  f178328:	03e00008 */ 	jr	$ra
-/*  f17832c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *menutextMatchTime(s32 arg0)
+{
+	formatTime(g_StringPointer, mpGetMatchTime(), 3);
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f178330
