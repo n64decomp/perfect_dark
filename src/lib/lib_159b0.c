@@ -37,6 +37,7 @@ glabel func000159b0
 GLOBAL_ASM(
 glabel func000159fc
 /*    159fc:	00a03020 */ 	add	$a2,$a1,$zero
+glabel func00015a00
 /*    15a00:	4409a000 */ 	mfc1	$t1,$f20
 /*    15a04:	440aa800 */ 	mfc1	$t2,$f21
 /*    15a08:	440bb000 */ 	mfc1	$t3,$f22
@@ -111,6 +112,7 @@ glabel func000159fc
 GLOBAL_ASM(
 glabel func00015b10
 /*    15b10:	00a03020 */ 	add	$a2,$a1,$zero
+glabel func00015b14
 /*    15b14:	c4a00000 */ 	lwc1	$f0,0x0($a1)
 /*    15b18:	c4a10004 */ 	lwc1	$f1,0x4($a1)
 /*    15b1c:	c4a20008 */ 	lwc1	$f2,0x8($a1)

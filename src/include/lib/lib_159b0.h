@@ -5,7 +5,9 @@
 
 void func000159b0(u32 *obj48_20);
 u32 func000159fc(void);
+u32 func00015a00(void);
 void func00015b10(f32 *matrix, struct coord *coord);
+void func00015b14(f32 *matrix, struct coord *coord, s32 arg2);
 u32 func00015b64(void);
 void func00015b68(f32 *matrix, f32 *arg1, f32 *arg2);
 u32 func00015be0(void);
