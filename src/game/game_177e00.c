@@ -283,27 +283,14 @@ s32 menuhandlerMpPause(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1782b8
-/*  f1782b8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1782bc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1782c0:	0fc62590 */ 	jal	mpIsPaused
-/*  f1782c4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1782c8:	10400005 */ 	beqz	$v0,.L0f1782e0
-/*  f1782cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1782d0:	0fc5b9f1 */ 	jal	langGet
-/*  f1782d4:	24045121 */ 	addiu	$a0,$zero,0x5121
-/*  f1782d8:	10000004 */ 	beqz	$zero,.L0f1782ec
-/*  f1782dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1782e0:
-/*  f1782e0:	0fc5b9f1 */ 	jal	langGet
-/*  f1782e4:	24045120 */ 	addiu	$a0,$zero,0x5120
-/*  f1782e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1782ec:
-/*  f1782ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1782f0:	03e00008 */ 	jr	$ra
-/*  f1782f4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menutextPauseOrUnpause(s32 arg0)
+{
+	if (mpIsPaused()) {
+		return langGet(0x5121); // "Unpause"
+	}
+
+	return langGet(0x5120); // "Pause"
+}
 
 GLOBAL_ASM(
 glabel func0f1782f8

@@ -5,7 +5,7 @@
 
 s32 menuhandler00177e00(u32, u32, u32 *);
 u32 func0f178050(void);
-u32 func0f1782b8(void);
+char *menutextPauseOrUnpause(s32 arg0);
 u32 func0f1782f8(void);
 u32 func0f178330(void);
 u32 func0f1783a0(void);
