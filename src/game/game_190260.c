@@ -7608,7 +7608,7 @@ glabel func0f194b40
 /*  f197198:	00008025 */ 	or	$s0,$zero,$zero
 /*  f19719c:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f1971a0:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f1971a4:	0fc2c7ba */ 	jal	func0f0b1ee8
+/*  f1971a4:	0fc2c7ba */ 	jal	weaponGetMaxFireRatePerTick
 /*  f1971a8:	000b2fc2 */ 	srl	$a1,$t3,0x1f
 /*  f1971ac:	5c400030 */ 	bgtzl	$v0,.L0f197270
 /*  f1971b0:	02e08025 */ 	or	$s0,$s7,$zero
@@ -7755,7 +7755,7 @@ glabel func0f194b40
 .L0f1973bc:
 /*  f1973bc:	8e440020 */ 	lw	$a0,0x20($s2)
 /*  f1973c0:	00055880 */ 	sll	$t3,$a1,0x2
-/*  f1973c4:	0fc2c7ba */ 	jal	func0f0b1ee8
+/*  f1973c4:	0fc2c7ba */ 	jal	weaponGetMaxFireRatePerTick
 /*  f1973c8:	000b2fc2 */ 	srl	$a1,$t3,0x1f
 /*  f1973cc:	1c40003f */ 	bgtz	$v0,.L0f1974cc
 /*  f1973d0:	00000000 */ 	sll	$zero,$zero,0x0

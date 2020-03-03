@@ -2030,39 +2030,21 @@ glabel func0f0b1ea8
 /*  f0b1ee4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0b1ee8
-/*  f0b1ee8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0b1eec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1ef0:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0b1ef4:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b1ef8:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0b1efc:	8fae002c */ 	lw	$t6,0x2c($sp)
-/*  f0b1f00:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f0b1f04:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1f08:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0b1f0c:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f0b1f10:	8f030014 */ 	lw	$v1,0x14($t8)
-/*  f0b1f14:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0b1f18:	5060000c */ 	beqzl	$v1,.L0f0b1f4c
-/*  f0b1f1c:	00061600 */ 	sll	$v0,$a2,0x18
-/*  f0b1f20:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f0b1f24:	24010101 */ 	addiu	$at,$zero,0x101
-/*  f0b1f28:	17210007 */ 	bne	$t9,$at,.L0f0b1f48
-/*  f0b1f2c:	3c014561 */ 	lui	$at,0x4561
-/*  f0b1f30:	44812000 */ 	mtc1	$at,$f4
-/*  f0b1f34:	c4660044 */ 	lwc1	$f6,0x44($v1)
-/*  f0b1f38:	46062203 */ 	div.s	$f8,$f4,$f6
-/*  f0b1f3c:	4600428d */ 	trunc.w.s	$f10,$f8
-/*  f0b1f40:	44065000 */ 	mfc1	$a2,$f10
-/*  f0b1f44:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0b1f48:
-/*  f0b1f48:	00061600 */ 	sll	$v0,$a2,0x18
-.L0f0b1f4c:
-/*  f0b1f4c:	00024e03 */ 	sra	$t1,$v0,0x18
-/*  f0b1f50:	03e00008 */ 	jr	$ra
-/*  f0b1f54:	01201025 */ 	or	$v0,$t1,$zero
-);
+s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex)
+{
+	u32 stack[2];
+	s32 result = 0;
+	struct weapon *weapon = weaponFindById(weaponnum);
+	struct weaponfunc *func = weapon->functions[funcindex];
+
+	if (func && func->type == INVENTORYFUNCTYPE_SHOOT_AUTOMATIC) {
+		struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *)func;
+
+		result = 3600.0f / autofunc->maxfirerate;
+	}
+
+	return result;
+}
 
 u32 currentPlayerGetSight(void)
 {

@@ -2896,8 +2896,8 @@ struct weaponfunc_shootauto {
 	/*0x34*/ u32 unk34;
 	/*0x38*/ u32 unk38;
 	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
+	/*0x40*/ f32 initialfirerate; // rounds per minute
+	/*0x44*/ f32 maxfirerate; // rounds per minute
 	/*0x48*/ u32 unk48;
 	/*0x4c*/ u32 unk4c;
 	/*0x50*/ u32 unk50;

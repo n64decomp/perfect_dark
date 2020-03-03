@@ -45,7 +45,7 @@ f32 func0f0b1d28(u8 *weapon_id);
 u32 func0f0b1e28(void);
 u32 func0f0b1e68(void);
 u32 func0f0b1ea8(void);
-u32 func0f0b1ee8(void);
+s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex);
 u32 currentPlayerGetSight(void);
 u32 func0f0b201c(void);
 u32 func0f0b20e8(void);
