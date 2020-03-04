@@ -1290,86 +1290,28 @@ void func0f0c4d98(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f0c4da0
-/*  f0c4da0:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0c4da4:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0c4da8:	8c6e0318 */ 	lw	$t6,0x318($v1)
-/*  f0c4dac:	51c00019 */ 	beqzl	$t6,.L0f0c4e14
-/*  f0c4db0:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c4db4:	8c6f0288 */ 	lw	$t7,0x288($v1)
-/*  f0c4db8:	3c08800b */ 	lui	$t0,0x800b
-/*  f0c4dbc:	3c014f80 */ 	lui	$at,0x4f80
-/*  f0c4dc0:	8df80070 */ 	lw	$t8,0x70($t7)
-/*  f0c4dc4:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0c4dc8:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0c4dcc:	0019c940 */ 	sll	$t9,$t9,0x5
-/*  f0c4dd0:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f0c4dd4:	9508c7d4 */ 	lhu	$t0,-0x382c($t0)
-/*  f0c4dd8:	44882000 */ 	mtc1	$t0,$f4
-/*  f0c4ddc:	05010004 */ 	bgez	$t0,.L0f0c4df0
-/*  f0c4de0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0c4de4:	44814000 */ 	mtc1	$at,$f8
-/*  f0c4de8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4dec:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f0c4df0:
-/*  f0c4df0:	3c0141c8 */ 	lui	$at,0x41c8
-/*  f0c4df4:	44815000 */ 	mtc1	$at,$f10
-/*  f0c4df8:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f0c4dfc:	44819000 */ 	mtc1	$at,$f18
-/*  f0c4e00:	460a3400 */ 	add.s	$f16,$f6,$f10
-/*  f0c4e04:	46128103 */ 	div.s	$f4,$f16,$f18
-/*  f0c4e08:	460c2302 */ 	mul.s	$f12,$f4,$f12
-/*  f0c4e0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4e10:	8c620284 */ 	lw	$v0,0x284($v1)
-.L0f0c4e14:
-/*  f0c4e14:	c440016c */ 	lwc1	$f0,0x16c($v0)
-/*  f0c4e18:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0c4e1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4e20:	45020013 */ 	bc1fl	.L0f0c4e70
-/*  f0c4e24:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0c4e28:	44864000 */ 	mtc1	$a2,$f8
-/*  f0c4e2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4e30:	468041a0 */ 	cvt.s.w	$f6,$f8
-/*  f0c4e34:	46067282 */ 	mul.s	$f10,$f14,$f6
-/*  f0c4e38:	460a0401 */ 	sub.s	$f16,$f0,$f10
-/*  f0c4e3c:	e450016c */ 	swc1	$f16,0x16c($v0)
-/*  f0c4e40:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c4e44:	c440016c */ 	lwc1	$f0,0x16c($v0)
-/*  f0c4e48:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0c4e4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4e50:	4500001a */ 	bc1f	.L0f0c4ebc
-/*  f0c4e54:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4e58:	e44c016c */ 	swc1	$f12,0x16c($v0)
-/*  f0c4e5c:	3c02800a */ 	lui	$v0,0x800a
-/*  f0c4e60:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0c4e64:	10000015 */ 	beqz	$zero,.L0f0c4ebc
-/*  f0c4e68:	c440016c */ 	lwc1	$f0,0x16c($v0)
-/*  f0c4e6c:	460c003c */ 	c.lt.s	$f0,$f12
-.L0f0c4e70:
-/*  f0c4e70:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4e74:	45000011 */ 	bc1f	.L0f0c4ebc
-/*  f0c4e78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4e7c:	44869000 */ 	mtc1	$a2,$f18
-/*  f0c4e80:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4e84:	46809120 */ 	cvt.s.w	$f4,$f18
-/*  f0c4e88:	46047202 */ 	mul.s	$f8,$f14,$f4
-/*  f0c4e8c:	46080180 */ 	add.s	$f6,$f0,$f8
-/*  f0c4e90:	e446016c */ 	swc1	$f6,0x16c($v0)
-/*  f0c4e94:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0c4e98:	c440016c */ 	lwc1	$f0,0x16c($v0)
-/*  f0c4e9c:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0c4ea0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4ea4:	45000005 */ 	bc1f	.L0f0c4ebc
-/*  f0c4ea8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4eac:	e44c016c */ 	swc1	$f12,0x16c($v0)
-/*  f0c4eb0:	3c02800a */ 	lui	$v0,0x800a
-/*  f0c4eb4:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0c4eb8:	c440016c */ 	lwc1	$f0,0x16c($v0)
-.L0f0c4ebc:
-/*  f0c4ebc:	03e00008 */ 	jr	$ra
-/*  f0c4ec0:	e4400168 */ 	swc1	$f0,0x168($v0)
-);
+void currentPlayerUpdateSpeedStrafe(f32 targetspeed, f32 accelspeed, s32 mult)
+{
+	if (g_Vars.normmplayerisrunning) {
+		targetspeed = (g_MpPlayers[g_Vars.unk000288->mpchrnum].base.unk1c + 25.0f) / 100 * targetspeed;
+	}
+
+	if (g_Vars.currentplayer->speedstrafe > targetspeed) {
+		g_Vars.currentplayer->speedstrafe -= accelspeed * mult;
+
+		if (g_Vars.currentplayer->speedstrafe < targetspeed) {
+			g_Vars.currentplayer->speedstrafe = targetspeed;
+		}
+	} else if (g_Vars.currentplayer->speedstrafe < targetspeed) {
+		g_Vars.currentplayer->speedstrafe += accelspeed * mult;
+
+		if (g_Vars.currentplayer->speedstrafe > targetspeed) {
+			g_Vars.currentplayer->speedstrafe = targetspeed;
+		}
+	}
+
+	g_Vars.currentplayer->speedsideways = g_Vars.currentplayer->speedstrafe;
+}
 
 GLOBAL_ASM(
 glabel func0f0c4ec4
@@ -2979,7 +2921,7 @@ glabel var7f1ad7f8
 /*  f0c65f4:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f0c65f8:	44816000 */ 	mtc1	$at,$f12
 /*  f0c65fc:	3c017f1b */ 	lui	$at,%hi(var7f1ad7e0)
-/*  f0c6600:	0fc31368 */ 	jal	func0f0c4da0
+/*  f0c6600:	0fc31368 */ 	jal	currentPlayerUpdateSpeedStrafe
 /*  f0c6604:	c42ed7e0 */ 	lwc1	$f14,%lo(var7f1ad7e0)($at)
 /*  f0c6608:	10000015 */ 	beqz	$zero,.L0f0c6660
 /*  f0c660c:	8e020014 */ 	lw	$v0,0x14($s0)
@@ -2990,7 +2932,7 @@ glabel var7f1ad7f8
 /*  f0c661c:	8e020014 */ 	lw	$v0,0x14($s0)
 /*  f0c6620:	44816000 */ 	mtc1	$at,$f12
 /*  f0c6624:	3c017f1b */ 	lui	$at,%hi(var7f1ad7e4)
-/*  f0c6628:	0fc31368 */ 	jal	func0f0c4da0
+/*  f0c6628:	0fc31368 */ 	jal	currentPlayerUpdateSpeedStrafe
 /*  f0c662c:	c42ed7e4 */ 	lwc1	$f14,%lo(var7f1ad7e4)($at)
 /*  f0c6630:	1000000b */ 	beqz	$zero,.L0f0c6660
 /*  f0c6634:	8e020014 */ 	lw	$v0,0x14($s0)
@@ -3002,7 +2944,7 @@ glabel var7f1ad7f8
 /*  f0c6648:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c664c:	44806000 */ 	mtc1	$zero,$f12
 /*  f0c6650:	c42ed7e8 */ 	lwc1	$f14,%lo(var7f1ad7e8)($at)
-/*  f0c6654:	0fc31368 */ 	jal	func0f0c4da0
+/*  f0c6654:	0fc31368 */ 	jal	currentPlayerUpdateSpeedStrafe
 /*  f0c6658:	8cc69ff8 */ 	lw	$a2,-0x6008($a2)
 /*  f0c665c:	8e020014 */ 	lw	$v0,0x14($s0)
 .L0f0c6660:
@@ -3018,7 +2960,7 @@ glabel var7f1ad7f8
 /*  f0c6684:	8cc69ff8 */ 	lw	$a2,-0x6008($a2)
 /*  f0c6688:	c42ed7f0 */ 	lwc1	$f14,%lo(var7f1ad7f0)($at)
 /*  f0c668c:	46083302 */ 	mul.s	$f12,$f6,$f8
-/*  f0c6690:	0fc31368 */ 	jal	func0f0c4da0
+/*  f0c6690:	0fc31368 */ 	jal	currentPlayerUpdateSpeedStrafe
 /*  f0c6694:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c6698:	8e190020 */ 	lw	$t9,0x20($s0)
 .L0f0c669c:

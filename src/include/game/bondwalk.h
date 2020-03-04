@@ -15,7 +15,7 @@ s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c, struct coord
 u32 func0f0c494c(void);
 u32 func0f0c4a5c(void);
 void func0f0c4d98(void);
-u32 func0f0c4da0(void);
+void currentPlayerUpdateSpeedStrafe(f32 targetspeed, f32 accelspeed, s32 arg2);
 u32 func0f0c4ec4(void);
 u32 func0f0c4fd8(void);
 void currentPlayerApplyCrouchSpeed(void);
