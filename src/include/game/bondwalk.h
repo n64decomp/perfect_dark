@@ -11,7 +11,7 @@ bool func0f0c3c8c(f32 y);
 u32 func0f0c3e14(void);
 bool func0f0c4250(struct coord *delta, f32 arg1, bool arg2, f32 arg3, s32 arg4);
 bool func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 arg3);
-u32 func0f0c47d0(void);
+s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c, struct coord *d, struct coord *e, s32 arg6);
 u32 func0f0c494c(void);
 u32 func0f0c4a5c(void);
 void func0f0c4d98(void);

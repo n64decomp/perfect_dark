@@ -960,110 +960,39 @@ bool func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s
 	return result;
 }
 
-const char var7f1ad774[] = "bondwalk.c";
+s32 func0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
+		struct coord *d, struct coord *e, s32 arg6)
+{
+	struct coord quarter;
+	bool result;
 
-GLOBAL_ASM(
-glabel func0f0c47d0
-/*  f0c47d0:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f0c47d4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0c47d8:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f0c47dc:	afa5003c */ 	sw	$a1,0x3c($sp)
-/*  f0c47e0:	afa60040 */ 	sw	$a2,0x40($sp)
-/*  f0c47e4:	0c0093a9 */ 	jal	func00024ea4
-/*  f0c47e8:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f0c47ec:	50400053 */ 	beqzl	$v0,.L0f0c493c
-/*  f0c47f0:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0c47f4:	0c0093a6 */ 	jal	func00024e98
-/*  f0c47f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c47fc:	8fa30038 */ 	lw	$v1,0x38($sp)
-/*  f0c4800:	3c013e80 */ 	lui	$at,0x3e80
-/*  f0c4804:	44811000 */ 	mtc1	$at,$f2
-/*  f0c4808:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f0c480c:	44806000 */ 	mtc1	$zero,$f12
-/*  f0c4810:	8fae004c */ 	lw	$t6,0x4c($sp)
-/*  f0c4814:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f0c4818:	44056000 */ 	mfc1	$a1,$f12
-/*  f0c481c:	44076000 */ 	mfc1	$a3,$f12
-/*  f0c4820:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/*  f0c4824:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0c4828:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f0c482c:	e7a8002c */ 	swc1	$f8,0x2c($sp)
-/*  f0c4830:	c46a0004 */ 	lwc1	$f10,0x4($v1)
-/*  f0c4834:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f0c4838:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c483c:	46028482 */ 	mul.s	$f18,$f16,$f2
-/*  f0c4840:	e7b20030 */ 	swc1	$f18,0x30($sp)
-/*  f0c4844:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f0c4848:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0c484c:	46002182 */ 	mul.s	$f6,$f4,$f0
-/*  f0c4850:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4854:	46023202 */ 	mul.s	$f8,$f6,$f2
-/*  f0c4858:	0fc31094 */ 	jal	func0f0c4250
-/*  f0c485c:	e7a80034 */ 	swc1	$f8,0x34($sp)
-/*  f0c4860:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0c4864:	14410003 */ 	bne	$v0,$at,.L0f0c4874
-/*  f0c4868:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c486c:	10000033 */ 	beqz	$zero,.L0f0c493c
-/*  f0c4870:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0c4874:
-/*  f0c4874:	14400030 */ 	bnez	$v0,.L0f0c4938
-/*  f0c4878:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*  f0c487c:	3c077f1b */ 	lui	$a3,0x7f1b
-/*  f0c4880:	24e7d774 */ 	addiu	$a3,$a3,-10380
-/*  f0c4884:	8fa40044 */ 	lw	$a0,0x44($sp)
-/*  f0c4888:	0c009393 */ 	jal	func00024e4c
-/*  f0c488c:	2406027b */ 	addiu	$a2,$zero,0x27b
-/*  f0c4890:	8fa2003c */ 	lw	$v0,0x3c($sp)
-/*  f0c4894:	8fa30044 */ 	lw	$v1,0x44($sp)
-/*  f0c4898:	8fa50048 */ 	lw	$a1,0x48($sp)
-/*  f0c489c:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*  f0c48a0:	c46a0000 */ 	lwc1	$f10,0x0($v1)
-/*  f0c48a4:	46105032 */ 	c.eq.s	$f10,$f16
-/*  f0c48a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c48ac:	45000020 */ 	bc1f	.L0f0c4930
-/*  f0c48b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c48b4:	c4720004 */ 	lwc1	$f18,0x4($v1)
-/*  f0c48b8:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f0c48bc:	46049032 */ 	c.eq.s	$f18,$f4
-/*  f0c48c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c48c4:	4500001a */ 	bc1f	.L0f0c4930
-/*  f0c48c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c48cc:	c4660008 */ 	lwc1	$f6,0x8($v1)
-/*  f0c48d0:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f0c48d4:	8fa20040 */ 	lw	$v0,0x40($sp)
-/*  f0c48d8:	46083032 */ 	c.eq.s	$f6,$f8
-/*  f0c48dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c48e0:	45000013 */ 	bc1f	.L0f0c4930
-/*  f0c48e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c48e8:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*  f0c48ec:	c4500000 */ 	lwc1	$f16,0x0($v0)
-/*  f0c48f0:	46105032 */ 	c.eq.s	$f10,$f16
-/*  f0c48f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c48f8:	4500000d */ 	bc1f	.L0f0c4930
-/*  f0c48fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4900:	c4b20004 */ 	lwc1	$f18,0x4($a1)
-/*  f0c4904:	c4440004 */ 	lwc1	$f4,0x4($v0)
-/*  f0c4908:	46049032 */ 	c.eq.s	$f18,$f4
-/*  f0c490c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4910:	45000007 */ 	bc1f	.L0f0c4930
-/*  f0c4914:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4918:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f0c491c:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*  f0c4920:	46083032 */ 	c.eq.s	$f6,$f8
-/*  f0c4924:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c4928:	45030004 */ 	bc1tl	.L0f0c493c
-/*  f0c492c:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0c4930:
-/*  f0c4930:	10000002 */ 	beqz	$zero,.L0f0c493c
-/*  f0c4934:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0c4938:
-/*  f0c4938:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f0c493c:
-/*  f0c493c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0c4940:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f0c4944:	03e00008 */ 	jr	$ra
-/*  f0c4948:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	if (func00024ea4()) {
+		f32 mult = func00024e98();
+		quarter.x = a->x * mult * 0.25f;
+		quarter.y = a->y * mult * 0.25f;
+		quarter.z = a->z * mult * 0.25f;
+		result = func0f0c4250(&quarter, 0, 1, 0, arg6);
+
+		if (result == 1) {
+			return 1;
+		}
+
+		if (result == 0) {
+			func00024e4c(d, e, 0x27b, "bondwalk.c");
+
+			if (b->x != d->x
+					|| b->y != d->y
+					|| b->z != d->z
+					|| c->x != e->x
+					|| c->y != e->y
+					|| c->z != e->z) {
+				return 0;
+			}
+		}
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f0c494c
