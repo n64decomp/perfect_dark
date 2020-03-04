@@ -5242,7 +5242,7 @@ glabel func0f0baf84
 );
 
 GLOBAL_ASM(
-glabel func0f0bb04c
+glabel fadeDraw
 /*  f0bb04c:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f0bb050:	c7ac0080 */ 	lwc1	$f12,0x80($sp)
 /*  f0bb054:	44802000 */ 	mtc1	$zero,$f4
@@ -5413,23 +5413,14 @@ glabel func0f0bb04c
 /*  f0bb2e4:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-GLOBAL_ASM(
-glabel func0f0bb2e8
-/*  f0bb2e8:	3c02800a */ 	lui	$v0,0x800a
-/*  f0bb2ec:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0bb2f0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0bb2f4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0bb2f8:	c44402e4 */ 	lwc1	$f4,0x2e4($v0)
-/*  f0bb2fc:	8c4702e0 */ 	lw	$a3,0x2e0($v0)
-/*  f0bb300:	8c4602dc */ 	lw	$a2,0x2dc($v0)
-/*  f0bb304:	8c4502d8 */ 	lw	$a1,0x2d8($v0)
-/*  f0bb308:	0fc2ec13 */ 	jal	func0f0bb04c
-/*  f0bb30c:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f0bb310:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0bb314:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0bb318:	03e00008 */ 	jr	$ra
-/*  f0bb31c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerDrawFade(Gfx *gdl)
+{
+	fadeDraw(gdl,
+			g_Vars.currentplayer->colourscreenred,
+			g_Vars.currentplayer->colourscreengreen,
+			g_Vars.currentplayer->colourscreenblue,
+			g_Vars.currentplayer->colourscreenfrac);
+}
 
 void currentPlayerSetFadeColour(s32 r, s32 g, s32 b, f32 frac)
 {
@@ -11175,7 +11166,7 @@ glabel func0f0c07c8
 /*  f0c081c:	8df800d8 */ 	lw	$t8,0xd8($t7)
 /*  f0c0820:	57000005 */ 	bnezl	$t8,.L0f0c0838
 /*  f0c0824:	8e1904b4 */ 	lw	$t9,0x4b4($s0)
-/*  f0c0828:	0fc2ecba */ 	jal	func0f0bb2e8
+/*  f0c0828:	0fc2ecba */ 	jal	currentPlayerDrawFade
 /*  f0c082c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0c0830:	afa200a0 */ 	sw	$v0,0xa0($sp)
 /*  f0c0834:	8e1904b4 */ 	lw	$t9,0x4b4($s0)
@@ -11354,7 +11345,7 @@ glabel func0f0c07c8
 /*  f0c0ab0:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0c0ab4:	45000004 */ 	bc1f	.L0f0c0ac8
 /*  f0c0ab8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c0abc:	0fc2ec13 */ 	jal	func0f0bb04c
+/*  f0c0abc:	0fc2ec13 */ 	jal	fadeDraw
 /*  f0c0ac0:	e7a00010 */ 	swc1	$f0,0x10($sp)
 /*  f0c0ac4:	afa200a0 */ 	sw	$v0,0xa0($sp)
 .L0f0c0ac8:
@@ -11845,7 +11836,7 @@ glabel func0f0c07c8
 /*  f0c11c4:	0fc37eb4 */ 	jal	func0f0dfad0
 /*  f0c11c8:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0c11cc:	afa200a0 */ 	sw	$v0,0xa0($sp)
-/*  f0c11d0:	0fc2ecba */ 	jal	func0f0bb2e8
+/*  f0c11d0:	0fc2ecba */ 	jal	currentPlayerDrawFade
 /*  f0c11d4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0c11d8:	1000006d */ 	beqz	$zero,.L0f0c1390
 /*  f0c11dc:	afa200a0 */ 	sw	$v0,0xa0($sp)
@@ -11962,7 +11953,7 @@ glabel func0f0c07c8
 /*  f0c1378:	0fc37eb4 */ 	jal	func0f0dfad0
 /*  f0c137c:	8fa400a0 */ 	lw	$a0,0xa0($sp)
 /*  f0c1380:	afa200a0 */ 	sw	$v0,0xa0($sp)
-/*  f0c1384:	0fc2ecba */ 	jal	func0f0bb2e8
+/*  f0c1384:	0fc2ecba */ 	jal	currentPlayerDrawFade
 /*  f0c1388:	00402025 */ 	or	$a0,$v0,$zero
 /*  f0c138c:	afa200a0 */ 	sw	$v0,0xa0($sp)
 .L0f0c1390:

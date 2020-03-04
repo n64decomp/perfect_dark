@@ -3368,7 +3368,7 @@ glabel func0f169374
 /*  f16a9dc:	240600ff */ 	addiu	$a2,$zero,0xff
 /*  f16a9e0:	240700ff */ 	addiu	$a3,$zero,0xff
 /*  f16a9e4:	46109102 */ 	mul.s	$f4,$f18,$f16
-/*  f16a9e8:	0fc2ec13 */ 	jal	func0f0bb04c
+/*  f16a9e8:	0fc2ec13 */ 	jal	fadeDraw
 /*  f16a9ec:	e7a40010 */ 	swc1	$f4,0x10($sp)
 /*  f16a9f0:	10000029 */ 	beqz	$zero,.L0f16aa98
 /*  f16a9f4:	00409025 */ 	or	$s2,$v0,$zero
@@ -3410,7 +3410,7 @@ glabel func0f169374
 /*  f16aa80:	240700ff */ 	addiu	$a3,$zero,0xff
 /*  f16aa84:	46082281 */ 	sub.s	$f10,$f4,$f8
 /*  f16aa88:	46125402 */ 	mul.s	$f16,$f10,$f18
-/*  f16aa8c:	0fc2ec13 */ 	jal	func0f0bb04c
+/*  f16aa8c:	0fc2ec13 */ 	jal	fadeDraw
 /*  f16aa90:	e7b00010 */ 	swc1	$f16,0x10($sp)
 /*  f16aa94:	00409025 */ 	or	$s2,$v0,$zero
 .L0f16aa98:
