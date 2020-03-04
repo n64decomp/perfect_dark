@@ -1593,6 +1593,10 @@
 #define PATHTYPE_FLYING       2
 #define PATHTYPE_4            4
 
+#define PAUSEMODE_0 0
+#define PAUSEMODE_1 1
+#define PAUSEMODE_3 3
+
 #define PLAYERFLAG_NOCONTROL 0x00000002
 
 #define PROPFLAG_02     0x02

@@ -24,7 +24,7 @@ u32 getEffectiveSlowMotion(void);
 u32 func0f16b96c(void);
 u32 func0f16cb04(void);
 void func0f16cce4(void);
-u32 func0f16cd40(void);
+void func0f16cd40(u32 arg0);
 void fadeConfigure(u32 color, s16 num_frames);
 bool fadeIsActive(void);
 void stageLoad(void);

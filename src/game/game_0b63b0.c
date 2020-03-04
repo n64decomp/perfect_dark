@@ -5172,34 +5172,19 @@ void currentPlayerPause(u32 mode)
 {
 	g_PauseMode = mode;
 
-	if (g_Vars.currentplayer->pausemode == 0) {
-		g_Vars.currentplayer->pausemode = 1;
+	if (g_Vars.currentplayer->pausemode == PAUSEMODE_0) {
+		g_Vars.currentplayer->pausemode = PAUSEMODE_1;
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0baf38
-/*  f0baf38:	3c0e800a */ 	lui	$t6,0x800a
-/*  f0baf3c:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
-/*  f0baf40:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0baf44:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0baf48:	8dcf1a24 */ 	lw	$t7,0x1a24($t6)
-/*  f0baf4c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0baf50:	55e10009 */ 	bnel	$t7,$at,.L0f0baf78
-/*  f0baf54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0baf58:	0fc5b350 */ 	jal	func0f16cd40
-/*  f0baf5c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0baf60:	0fc5b6cf */ 	jal	func0f16db3c
-/*  f0baf64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0baf68:	3c18800a */ 	lui	$t8,0x800a
-/*  f0baf6c:	8f18a244 */ 	lw	$t8,-0x5dbc($t8)
-/*  f0baf70:	af001a24 */ 	sw	$zero,0x1a24($t8)
-/*  f0baf74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0baf78:
-/*  f0baf78:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0baf7c:	03e00008 */ 	jr	$ra
-/*  f0baf80:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0baf38(void)
+{
+	if (g_Vars.currentplayer->pausemode == PAUSEMODE_3) {
+		func0f16cd40(0);
+		func0f16db3c();
+		g_Vars.currentplayer->pausemode = PAUSEMODE_0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0baf84
