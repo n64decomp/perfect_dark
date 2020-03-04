@@ -34,7 +34,7 @@ u32 func0f0ba948(void);
 u32 func0f0baac0(void);
 u32 func0f0bace0(void);
 u32 func0f0bad6c(void);
-u32 func0f0baf0c(void);
+void currentPlayerPause(u32 mode);
 u32 func0f0baf38(void);
 u32 func0f0baf84(void);
 u32 func0f0bb04c(void);

@@ -5168,21 +5168,14 @@ glabel func0f0bad6c
 /*  f0baf08:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0baf0c
-/*  f0baf0c:	3c02800a */ 	lui	$v0,0x800a
-/*  f0baf10:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0baf14:	3c018007 */ 	lui	$at,0x8007
-/*  f0baf18:	ac240840 */ 	sw	$a0,0x840($at)
-/*  f0baf1c:	8c4e1a24 */ 	lw	$t6,0x1a24($v0)
-/*  f0baf20:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f0baf24:	15c00002 */ 	bnez	$t6,.L0f0baf30
-/*  f0baf28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0baf2c:	ac4f1a24 */ 	sw	$t7,0x1a24($v0)
-.L0f0baf30:
-/*  f0baf30:	03e00008 */ 	jr	$ra
-/*  f0baf34:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerPause(u32 mode)
+{
+	g_PauseMode = mode;
+
+	if (g_Vars.currentplayer->pausemode == 0) {
+		g_Vars.currentplayer->pausemode = 1;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0baf38
@@ -8349,7 +8342,7 @@ glabel func0f0bd904
 /*  f0bddf0:	8e6b0314 */ 	lw	$t3,0x314($s3)
 /*  f0bddf4:	15600005 */ 	bnez	$t3,.L0f0bde0c
 /*  f0bddf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0bddfc:	0fc2ebc3 */ 	jal	func0f0baf0c
+/*  f0bddfc:	0fc2ebc3 */ 	jal	currentPlayerPause
 /*  f0bde00:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f0bde04:	10000004 */ 	beqz	$zero,.L0f0bde18
 /*  f0bde08:	8e6c0034 */ 	lw	$t4,0x34($s3)
@@ -9007,7 +9000,7 @@ glabel func0f0bd904
 /*  f0be77c:	8e780314 */ 	lw	$t8,0x314($s3)
 /*  f0be780:	17000005 */ 	bnez	$t8,.L0f0be798
 /*  f0be784:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0be788:	0fc2ebc3 */ 	jal	func0f0baf0c
+/*  f0be788:	0fc2ebc3 */ 	jal	currentPlayerPause
 /*  f0be78c:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f0be790:	10000004 */ 	beqz	$zero,.L0f0be7a4
 /*  f0be794:	83a9023c */ 	lb	$t1,0x23c($sp)

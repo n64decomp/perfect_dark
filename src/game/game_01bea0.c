@@ -450,7 +450,7 @@ glabel func0f01bf28
 /*  f01c43c:	10000001 */ 	beqz	$zero,.L0f01c444
 /*  f01c440:	2404000b */ 	addiu	$a0,$zero,0xb
 .L0f01c444:
-/*  f01c444:	0fc2ebc3 */ 	jal	func0f0baf0c
+/*  f01c444:	0fc2ebc3 */ 	jal	currentPlayerPause
 /*  f01c448:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f01c44c:
 /*  f01c44c:	3c018008 */ 	lui	$at,0x8008
@@ -488,7 +488,7 @@ glabel func0f01bf28
 /*  f01c4c4:	a040251c */ 	sb	$zero,0x251c($v0)
 /*  f01c4c8:	a040338c */ 	sb	$zero,0x338c($v0)
 /*  f01c4cc:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f01c4d0:	0fc2ebc3 */ 	jal	func0f0baf0c
+/*  f01c4d0:	0fc2ebc3 */ 	jal	currentPlayerPause
 /*  f01c4d4:	af001a24 */ 	sw	$zero,0x1a24($t8)
 /*  f01c4d8:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f01c4dc:	3c018006 */ 	lui	$at,0x8006
