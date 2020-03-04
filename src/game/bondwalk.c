@@ -263,8 +263,6 @@ glabel func0f0c3b38
 //}
 
 const char var7f1ad75c[] = "bondwalk.c";
-const char var7f1ad768[] = "bondwalk.c";
-const char var7f1ad774[] = "bondwalk.c";
 
 bool func0f0c3c8c(f32 y)
 {
@@ -951,37 +949,18 @@ glabel func0f0c4250
 /*  f0c4760:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c4764
-/*  f0c4764:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0c4768:	44800000 */ 	mtc1	$zero,$f0
-/*  f0c476c:	afa70034 */ 	sw	$a3,0x34($sp)
-/*  f0c4770:	8fae0034 */ 	lw	$t6,0x34($sp)
-/*  f0c4774:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f0c4778:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0c477c:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f0c4780:	44050000 */ 	mfc1	$a1,$f0
-/*  f0c4784:	44070000 */ 	mfc1	$a3,$f0
-/*  f0c4788:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0c478c:	0fc31094 */ 	jal	func0f0c4250
-/*  f0c4790:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0c4794:	14400009 */ 	bnez	$v0,.L0f0c47bc
-/*  f0c4798:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0c479c:	3c077f1b */ 	lui	$a3,0x7f1b
-/*  f0c47a0:	24e7d768 */ 	addiu	$a3,$a3,-10392
-/*  f0c47a4:	8fa4002c */ 	lw	$a0,0x2c($sp)
-/*  f0c47a8:	8fa50030 */ 	lw	$a1,0x30($sp)
-/*  f0c47ac:	2406025f */ 	addiu	$a2,$zero,0x25f
-/*  f0c47b0:	0c009393 */ 	jal	func00024e4c
-/*  f0c47b4:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0c47b8:	8fa30024 */ 	lw	$v1,0x24($sp)
-.L0f0c47bc:
-/*  f0c47bc:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0c47c0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0c47c4:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0c47c8:	03e00008 */ 	jr	$ra
-/*  f0c47cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 arg3)
+{
+	bool result = func0f0c4250(delta, 0, true, 0, arg3);
+
+	if (!result) {
+		func00024e4c(arg1, arg2, 0x25f, "bondwalk.c");
+	}
+
+	return result;
+}
+
+const char var7f1ad774[] = "bondwalk.c";
 
 GLOBAL_ASM(
 glabel func0f0c47d0
