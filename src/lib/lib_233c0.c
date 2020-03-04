@@ -1915,28 +1915,16 @@ glabel func00024e40
 /*    24e48:	c420a8f0 */ 	lwc1	$f0,-0x5710($at)
 );
 
-GLOBAL_ASM(
-glabel func00024e4c
-/*    24e4c:	3c02800a */ 	lui	$v0,%hi(var8009a8b8)
-/*    24e50:	2442a8b8 */ 	addiu	$v0,$v0,%lo(var8009a8b8)
-/*    24e54:	c4440000 */ 	lwc1	$f4,0x0($v0)
-/*    24e58:	afa60008 */ 	sw	$a2,0x8($sp)
-/*    24e5c:	afa7000c */ 	sw	$a3,0xc($sp)
-/*    24e60:	e4840000 */ 	swc1	$f4,0x0($a0)
-/*    24e64:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*    24e68:	3c03800a */ 	lui	$v1,%hi(var8009a8c8)
-/*    24e6c:	2463a8c8 */ 	addiu	$v1,$v1,%lo(var8009a8c8)
-/*    24e70:	e4860004 */ 	swc1	$f6,0x4($a0)
-/*    24e74:	c4480008 */ 	lwc1	$f8,0x8($v0)
-/*    24e78:	e4880008 */ 	swc1	$f8,0x8($a0)
-/*    24e7c:	c46a0000 */ 	lwc1	$f10,0x0($v1)
-/*    24e80:	e4aa0000 */ 	swc1	$f10,0x0($a1)
-/*    24e84:	c4700004 */ 	lwc1	$f16,0x4($v1)
-/*    24e88:	e4b00004 */ 	swc1	$f16,0x4($a1)
-/*    24e8c:	c4720008 */ 	lwc1	$f18,0x8($v1)
-/*    24e90:	03e00008 */ 	jr	$ra
-/*    24e94:	e4b20008 */ 	swc1	$f18,0x8($a1)
-);
+void func00024e4c(struct coord *a, struct coord *b, u32 arg2, char *filename)
+{
+	a->x = var8009a8b8.x;
+	a->y = var8009a8b8.y;
+	a->z = var8009a8b8.z;
+
+	b->x = var8009a8c8.x;
+	b->y = var8009a8c8.y;
+	b->z = var8009a8c8.z;
+}
 
 GLOBAL_ASM(
 glabel func00024e98
