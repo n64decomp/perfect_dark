@@ -431,32 +431,15 @@ glabel func0f153628
 /*  f15377c:	00801025 */ 	or	$v0,$a0,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f153780
-/*  f153780:	24850008 */ 	addiu	$a1,$a0,0x8
-/*  f153784:	3c0ee700 */ 	lui	$t6,0xe700
-/*  f153788:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f15378c:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f153790:	3c0fba00 */ 	lui	$t7,0xba00
-/*  f153794:	35ef0602 */ 	ori	$t7,$t7,0x602
-/*  f153798:	24a60008 */ 	addiu	$a2,$a1,0x8
-/*  f15379c:	24180040 */ 	addiu	$t8,$zero,0x40
-/*  f1537a0:	acb80004 */ 	sw	$t8,0x4($a1)
-/*  f1537a4:	acaf0000 */ 	sw	$t7,0x0($a1)
-/*  f1537a8:	3c19ba00 */ 	lui	$t9,0xba00
-/*  f1537ac:	37391301 */ 	ori	$t9,$t9,0x1301
-/*  f1537b0:	24c70008 */ 	addiu	$a3,$a2,0x8
-/*  f1537b4:	3c080008 */ 	lui	$t0,0x8
-/*  f1537b8:	3c09ba00 */ 	lui	$t1,0xba00
-/*  f1537bc:	acc80004 */ 	sw	$t0,0x4($a2)
-/*  f1537c0:	acd90000 */ 	sw	$t9,0x0($a2)
-/*  f1537c4:	35291001 */ 	ori	$t1,$t1,0x1001
-/*  f1537c8:	3c0a0001 */ 	lui	$t2,0x1
-/*  f1537cc:	acea0004 */ 	sw	$t2,0x4($a3)
-/*  f1537d0:	ace90000 */ 	sw	$t1,0x0($a3)
-/*  f1537d4:	03e00008 */ 	jr	$ra
-/*  f1537d8:	24e20008 */ 	addiu	$v0,$a3,0x8
-);
+Gfx *func0f153780(Gfx *gdl)
+{
+	gDPPipeSync(gdl++);
+	gDPSetColorDither(gdl++, 0x00000040);
+	gDPSetTexturePersp(gdl++, 0x00080000);
+	gDPSetTextureLOD(gdl++, 0x00010000);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f1537dc

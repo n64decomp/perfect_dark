@@ -9,7 +9,7 @@ u32 func0f1531dc(void);
 u32 func0f153204(void);
 u32 func0f1532ec(void);
 u32 func0f153628(void);
-u32 func0f153780(void);
+Gfx *func0f153780(Gfx *gdl);
 u32 func0f1537dc(void);
 u32 func0f153838(void);
 u32 func0f153858(void);
