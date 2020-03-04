@@ -7,7 +7,7 @@ void currentPlayerWalkInit(void);
 void func0f0c3ad0(s32 value);
 void currentPlayerAdjustCrouchPos(s32 value);
 void func0f0c3b38(struct coord *param_1, struct defaultobj *obj);
-u32 func0f0c3c8c(void);
+bool func0f0c3c8c(f32 y);
 u32 func0f0c3e14(void);
 void func0f0c4250(struct coord *delta, f32 arg1, bool arg2, f32 arg3, s32 arg4);
 u32 func0f0c4764(void);
