@@ -133,6 +133,8 @@ void currentPlayerAdjustCrouchPos(s32 value)
 	}
 }
 
+const char var7f1ad750[] = "bondwalk.c";
+
 GLOBAL_ASM(
 glabel func0f0c3b38
 /*  f0c3b38:	27bdff90 */ 	addiu	$sp,$sp,-112
@@ -224,6 +226,45 @@ glabel func0f0c3b38
 /*  f0c3c84:	03e00008 */ 	jr	$ra
 /*  f0c3c88:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because the operands are swapped for the vector != 0 checks
+//void func0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
+//{
+//	struct coord posunk;
+//	struct coord vector;
+//	struct coord tween;
+//	struct coord globalthinga;
+//	struct coord globalthingb;
+//	struct coord abstarget;
+//
+//	abstarget.x = reltarget->x + g_Vars.currentplayer->prop->pos.x;
+//	abstarget.y = g_Vars.currentplayer->prop->pos.y;
+//	abstarget.z = reltarget->z + g_Vars.currentplayer->prop->pos.z;
+//
+//	func00024e4c(&globalthinga, &globalthingb, 0xdf, "bondwalk.c");
+//
+//	vector.x = globalthingb.z - globalthinga.z;
+//	vector.y = 0;
+//	vector.z = globalthinga.x - globalthingb.x;
+//
+//	if (vector.x != 0 || vector.z != 0) {
+//		scaleTo1(&vector.x, &vector.y, &vector.z);
+//	} else {
+//		vector.z = 1;
+//	}
+//
+//	func0f02e3dc(&globalthinga, &globalthingb, &abstarget, &vector, &posunk);
+//
+//	tween.x = (abstarget.x - g_Vars.currentplayer->prop->pos.x) / g_Vars.lvupdate240freal;
+//	tween.y = 0;
+//	tween.z = (abstarget.z - g_Vars.currentplayer->prop->pos.z) / g_Vars.lvupdate240freal;
+//
+//	func0f082e84(obj, &posunk, &vector, &tween, false);
+//}
+
+const char var7f1ad75c[] = "bondwalk.c";
+const char var7f1ad768[] = "bondwalk.c";
+const char var7f1ad774[] = "bondwalk.c";
 
 GLOBAL_ASM(
 glabel func0f0c3c8c

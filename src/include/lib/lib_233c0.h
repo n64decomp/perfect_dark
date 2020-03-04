@@ -23,7 +23,7 @@ u32 func0002485c(void);
 u32 func00024b64(void);
 u32 func00024c14(void);
 u32 func00024e40(void);
-u32 func00024e4c(void);
+void func00024e4c(struct coord *arg0, struct coord *arg1, u32 arg2, char *filename);
 u32 func00024e98(void);
 u32 func00024ea4(void);
 u32 func00024eb0(void);

@@ -190,11 +190,6 @@ const u32 var7f1ad744[] = {0x3dd66e92};
 const u32 var7f1ad748[] = {0x00000000};
 const u32 var7f1ad74c[] = {0x00000000};
 
-const char var7f1ad750[] = "bondwalk.c";
-const char var7f1ad75c[] = "bondwalk.c";
-const char var7f1ad768[] = "bondwalk.c";
-const char var7f1ad774[] = "bondwalk.c";
-
 GLOBAL_ASM(
 glabel func0f0b28d0
 /*  f0b28d0:	84a30014 */ 	lh	$v1,0x14($a1)
