@@ -2669,13 +2669,13 @@ struct player {
 	/*0x19a0*/ u32 unk19a0;
 	/*0x19a4*/ f32 speedgo;
 	/*0x19a8*/ u32 unk19a8;
-	/*0x19ac*/ s32 unk19ac;
+	/*0x19ac*/ s32 crouchoffsetreal;
 	/*0x19b0*/ u32 unk19b0;
-	/*0x19b4*/ u32 unk19b4;
-	/*0x19b8*/ s32 unk19b8;
+	/*0x19b4*/ f32 crouchoffsetsmall;
+	/*0x19b8*/ s32 crouchoffsetrealsmall;
 	/*0x19bc*/ u32 unk19bc;
 	/*0x19c0*/ f32 unk19c0;
-	/*0x19c4*/ f32 unk19c4;
+	/*0x19c4*/ f32 vv_eyeheight;
 	/*0x19c8*/ u32 unk19c8;
 	/*0x19cc*/ u32 unk19cc;
 	/*0x19d0*/ u32 unk19d0;
