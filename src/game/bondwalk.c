@@ -2492,117 +2492,47 @@ void currentPlayerUpdateCrouchOffsetWalk(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0c6180
-/*  f0c6180:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0c6184:	f7b40020 */ 	sdc1	$f20,0x20($sp)
-/*  f0c6188:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0c618c:	4480a000 */ 	mtc1	$zero,$f20
-/*  f0c6190:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
-/*  f0c6194:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0c6198:	14400004 */ 	bnez	$v0,.L0f0c61ac
-/*  f0c619c:	3c01c2b4 */ 	lui	$at,0xc2b4
-/*  f0c61a0:	4481a000 */ 	mtc1	$at,$f20
-/*  f0c61a4:	1000000b */ 	beqz	$zero,.L0f0c61d4
-/*  f0c61a8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0c61ac:
-/*  f0c61ac:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
-/*  f0c61b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c61b4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0c61b8:	14410004 */ 	bne	$v0,$at,.L0f0c61cc
-/*  f0c61bc:	3c01c234 */ 	lui	$at,0xc234
-/*  f0c61c0:	4481a000 */ 	mtc1	$at,$f20
-/*  f0c61c4:	10000003 */ 	beqz	$zero,.L0f0c61d4
-/*  f0c61c8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0c61cc:
-/*  f0c61cc:	0fc331a0 */ 	jal	currentPlayerGetCrouchPos
-/*  f0c61d0:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0c61d4:
-/*  f0c61d4:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0c61d8:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0c61dc:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0c61e0:	c44000b4 */ 	lwc1	$f0,0xb4($v0)
-/*  f0c61e4:	4600a032 */ 	c.eq.s	$f20,$f0
-/*  f0c61e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c61ec:	45030036 */ 	bc1tl	.L0f0c62c8
-/*  f0c61f0:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0c61f4:	e7a00040 */ 	swc1	$f0,0x40($sp)
-/*  f0c61f8:	8c4e19ac */ 	lw	$t6,0x19ac($v0)
-/*  f0c61fc:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0c6200:	44811000 */ 	mtc1	$at,$f2
-/*  f0c6204:	448e2000 */ 	mtc1	$t6,$f4
-/*  f0c6208:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f0c620c:	44819000 */ 	mtc1	$at,$f18
-/*  f0c6210:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f0c6214:	4405a000 */ 	mfc1	$a1,$f20
-/*  f0c6218:	44071000 */ 	mfc1	$a3,$f2
-/*  f0c621c:	244400b4 */ 	addiu	$a0,$v0,0xb4
-/*  f0c6220:	244600b8 */ 	addiu	$a2,$v0,0xb8
-/*  f0c6224:	e7a6003c */ 	swc1	$f6,0x3c($sp)
-/*  f0c6228:	c44819b4 */ 	lwc1	$f8,0x19b4($v0)
-/*  f0c622c:	e7a80038 */ 	swc1	$f8,0x38($sp)
-/*  f0c6230:	8c4f19b8 */ 	lw	$t7,0x19b8($v0)
-/*  f0c6234:	e7a20010 */ 	swc1	$f2,0x10($sp)
-/*  f0c6238:	e7b20014 */ 	swc1	$f18,0x14($sp)
-/*  f0c623c:	448f5000 */ 	mtc1	$t7,$f10
-/*  f0c6240:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c6244:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f0c6248:	0fc1b643 */ 	jal	func0f06d90c
-/*  f0c624c:	e7b00034 */ 	swc1	$f16,0x34($sp)
-/*  f0c6250:	0fc31820 */ 	jal	currentPlayerUpdateCrouchOffsetWalk
-/*  f0c6254:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c6258:	44806000 */ 	mtc1	$zero,$f12
-/*  f0c625c:	0fc30f23 */ 	jal	func0f0c3c8c
-/*  f0c6260:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c6264:	14400017 */ 	bnez	$v0,.L0f0c62c4
-/*  f0c6268:	c7a40040 */ 	lwc1	$f4,0x40($sp)
-/*  f0c626c:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0c6270:	2404ffff */ 	addiu	$a0,$zero,-1
-/*  f0c6274:	e70400b4 */ 	swc1	$f4,0xb4($t8)
-/*  f0c6278:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*  f0c627c:	8e090284 */ 	lw	$t1,0x284($s0)
-/*  f0c6280:	44802000 */ 	mtc1	$zero,$f4
-/*  f0c6284:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f0c6288:	44084000 */ 	mfc1	$t0,$f8
-/*  f0c628c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c6290:	ad2819ac */ 	sw	$t0,0x19ac($t1)
-/*  f0c6294:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f0c6298:	c7aa0038 */ 	lwc1	$f10,0x38($sp)
-/*  f0c629c:	e54a19b4 */ 	swc1	$f10,0x19b4($t2)
-/*  f0c62a0:	c7b00034 */ 	lwc1	$f16,0x34($sp)
-/*  f0c62a4:	8e0d0284 */ 	lw	$t5,0x284($s0)
-/*  f0c62a8:	4600848d */ 	trunc.w.s	$f18,$f16
-/*  f0c62ac:	440c9000 */ 	mfc1	$t4,$f18
-/*  f0c62b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c62b4:	adac19b8 */ 	sw	$t4,0x19b8($t5)
-/*  f0c62b8:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f0c62bc:	0fc30ebd */ 	jal	currentPlayerAdjustCrouchPos
-/*  f0c62c0:	e5c400b8 */ 	swc1	$f4,0xb8($t6)
-.L0f0c62c4:
-/*  f0c62c4:	8e020284 */ 	lw	$v0,0x284($s0)
-.L0f0c62c8:
-/*  f0c62c8:	3c01c2b4 */ 	lui	$at,0xc2b4
-/*  f0c62cc:	44814000 */ 	mtc1	$at,$f8
-/*  f0c62d0:	c44000b4 */ 	lwc1	$f0,0xb4($v0)
-/*  f0c62d4:	4600a032 */ 	c.eq.s	$f20,$f0
-/*  f0c62d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c62dc:	45020008 */ 	bc1fl	.L0f0c6300
-/*  f0c62e0:	46080283 */ 	div.s	$f10,$f0,$f8
-/*  f0c62e4:	44803000 */ 	mtc1	$zero,$f6
-/*  f0c62e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c62ec:	e44600b8 */ 	swc1	$f6,0xb8($v0)
-/*  f0c62f0:	3c02800a */ 	lui	$v0,0x800a
-/*  f0c62f4:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0c62f8:	c44000b4 */ 	lwc1	$f0,0xb4($v0)
-/*  f0c62fc:	46080283 */ 	div.s	$f10,$f0,$f8
-.L0f0c6300:
-/*  f0c6300:	e44a1968 */ 	swc1	$f10,0x1968($v0)
-/*  f0c6304:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0c6308:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f0c630c:	d7b40020 */ 	ldc1	$f20,0x20($sp)
-/*  f0c6310:	03e00008 */ 	jr	$ra
-/*  f0c6314:	27bd0048 */ 	addiu	$sp,$sp,0x48
-);
+void func0f0c6180(void)
+{
+	f32 targetoffset = 0;
+
+	if (currentPlayerGetCrouchPos() == CROUCH_SQUAT) {
+		targetoffset = -90;
+	} else if (currentPlayerGetCrouchPos() == CROUCH_HALF) {
+		targetoffset = -45;
+	} else if (currentPlayerGetCrouchPos() == CROUCH_STAND) {
+		// empty
+	}
+
+	if (targetoffset != g_Vars.currentplayer->crouchoffset) {
+		f32 prevcrouchoffset = g_Vars.currentplayer->crouchoffset;
+		f32 prevcrouchoffsetreal = g_Vars.currentplayer->crouchoffsetreal;
+		f32 prevcrouchoffsetsmall = g_Vars.currentplayer->crouchoffsetsmall;
+		f32 prevcrouchoffsetrealsmall = g_Vars.currentplayer->crouchoffsetrealsmall;
+
+		// f32 *frac, f32 maxfrac, f32 *fracspeed, f32 accel, f32 decel, f32 maxspeed
+		func0f06d90c(&g_Vars.currentplayer->crouchoffset, targetoffset,
+				&g_Vars.currentplayer->crouchspeed, 0.5, 0.5, 5);
+
+		currentPlayerUpdateCrouchOffsetWalk();
+
+		if (!func0f0c3c8c(0)) {
+			// Crouch adjustment is blocked by ceiling
+			g_Vars.currentplayer->crouchoffset = prevcrouchoffset;
+			g_Vars.currentplayer->crouchoffsetreal = prevcrouchoffsetreal;
+			g_Vars.currentplayer->crouchoffsetsmall = prevcrouchoffsetsmall;
+			g_Vars.currentplayer->crouchoffsetrealsmall = prevcrouchoffsetrealsmall;
+			g_Vars.currentplayer->crouchspeed = 0;
+			currentPlayerAdjustCrouchPos(-1);
+		}
+	}
+
+	if (targetoffset == g_Vars.currentplayer->crouchoffset) {
+		g_Vars.currentplayer->crouchspeed = 0;
+	}
+
+	g_Vars.currentplayer->guncloseroffset = g_Vars.currentplayer->crouchoffset / -90;
+}
 
 GLOBAL_ASM(
 glabel func0f0c6318

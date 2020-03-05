@@ -20,7 +20,7 @@ void currentPlayerUpdateSpeedForwardsWalk(f32 targetspeed, f32 accelspeed);
 u32 func0f0c4fd8(void);
 void currentPlayerApplyCrouchSpeed(void);
 void currentPlayerUpdateCrouchOffsetWalk(void);
-u32 func0f0c6180(void);
+void func0f0c6180(void);
 u32 func0f0c6318(void);
 u32 func0f0c63bc(void);
 void currentPlayerUpdatePrevPosWalk(void);
