@@ -56,7 +56,7 @@ void currentPlayerGrabInit(void)
 	g_Vars.currentplayer->grabbedposextrasum.x = 0;
 	g_Vars.currentplayer->grabbedposextrasum.y = 0;
 	g_Vars.currentplayer->grabbedposextrasum.z = 0;
-	g_Vars.currentplayer->unk1968 = 0;
+	g_Vars.currentplayer->guncloseroffset = 0;
 	g_Vars.currentplayer->gunextraaimx = 0;
 	g_Vars.currentplayer->gunextraaimy = 0;
 
@@ -122,7 +122,7 @@ void currentPlayerGrabInit(void)
 
 		g_Vars.currentplayer->speedsideways = 0;
 		g_Vars.currentplayer->speedstrafe = 0;
-		g_Vars.currentplayer->unk19a4 = 0;
+		g_Vars.currentplayer->speedgo = 0;
 		g_Vars.currentplayer->speedboost = 1;
 		g_Vars.currentplayer->speedmaxtime60 = 0;
 		g_Vars.currentplayer->speedforwards = 0;
@@ -2005,23 +2005,23 @@ glabel func0f0ce4a0
 /*  f0ce558:	e4400168 */ 	swc1	$f0,0x168($v0)
 );
 
-void func0f0ce55c(f32 target, f32 speed)
+void currentPlayerUpdateSpeedForwardsGrab(f32 target, f32 speed)
 {
-	if (target > g_Vars.currentplayer->unk19a4) {
-		g_Vars.currentplayer->unk19a4 += speed * g_Vars.lvupdate240freal;
+	if (g_Vars.currentplayer->speedgo < target) {
+		g_Vars.currentplayer->speedgo += speed * g_Vars.lvupdate240freal;
 
-		if (g_Vars.currentplayer->unk19a4 > target) {
-			g_Vars.currentplayer->unk19a4 = target;
+		if (g_Vars.currentplayer->speedgo > target) {
+			g_Vars.currentplayer->speedgo = target;
 		}
-	} else if (target < g_Vars.currentplayer->unk19a4) {
-		g_Vars.currentplayer->unk19a4 -= speed * g_Vars.lvupdate240freal;
+	} else if (g_Vars.currentplayer->speedgo > target) {
+		g_Vars.currentplayer->speedgo -= speed * g_Vars.lvupdate240freal;
 
-		if (g_Vars.currentplayer->unk19a4 < target) {
-			g_Vars.currentplayer->unk19a4 = target;
+		if (g_Vars.currentplayer->speedgo < target) {
+			g_Vars.currentplayer->speedgo = target;
 		}
 	}
 
-	g_Vars.currentplayer->speedforwards = g_Vars.currentplayer->unk19a4;
+	g_Vars.currentplayer->speedforwards = g_Vars.currentplayer->speedgo;
 }
 
 GLOBAL_ASM(
@@ -2108,7 +2108,7 @@ glabel var7f1ada0c
 /*  f0ce6d4:	8e090024 */ 	lw	$t1,0x24($s0)
 /*  f0ce6d8:	44816000 */ 	mtc1	$at,$f12
 /*  f0ce6dc:	3c017f1b */ 	lui	$at,%hi(var7f1ad9f8)
-/*  f0ce6e0:	0fc33957 */ 	jal	func0f0ce55c
+/*  f0ce6e0:	0fc33957 */ 	jal	currentPlayerUpdateSpeedForwardsGrab
 /*  f0ce6e4:	c42ed9f8 */ 	lwc1	$f14,%lo(var7f1ad9f8)($at)
 /*  f0ce6e8:	3c04800a */ 	lui	$a0,%hi(g_Vars)
 /*  f0ce6ec:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
@@ -2125,7 +2125,7 @@ glabel var7f1ada0c
 /*  f0ce714:	3c01bf80 */ 	lui	$at,0xbf80
 /*  f0ce718:	44816000 */ 	mtc1	$at,$f12
 /*  f0ce71c:	3c017f1b */ 	lui	$at,%hi(var7f1ad9fc)
-/*  f0ce720:	0fc33957 */ 	jal	func0f0ce55c
+/*  f0ce720:	0fc33957 */ 	jal	currentPlayerUpdateSpeedForwardsGrab
 /*  f0ce724:	c42ed9fc */ 	lwc1	$f14,%lo(var7f1ad9fc)($at)
 /*  f0ce728:	10000009 */ 	beqz	$zero,.L0f0ce750
 /*  f0ce72c:	8e030010 */ 	lw	$v1,0x10($s0)
@@ -2135,7 +2135,7 @@ glabel var7f1ada0c
 /*  f0ce738:	14600005 */ 	bnez	$v1,.L0f0ce750
 /*  f0ce73c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0ce740:	44806000 */ 	mtc1	$zero,$f12
-/*  f0ce744:	0fc33957 */ 	jal	func0f0ce55c
+/*  f0ce744:	0fc33957 */ 	jal	currentPlayerUpdateSpeedForwardsGrab
 /*  f0ce748:	c42eda00 */ 	lwc1	$f14,%lo(var7f1ada00)($at)
 /*  f0ce74c:	8e030010 */ 	lw	$v1,0x10($s0)
 .L0f0ce750:
@@ -2150,7 +2150,7 @@ glabel var7f1ada0c
 /*  f0ce770:	c42eda08 */ 	lwc1	$f14,%lo(var7f1ada08)($at)
 /*  f0ce774:	46805420 */ 	cvt.s.w	$f16,$f10
 /*  f0ce778:	46128302 */ 	mul.s	$f12,$f16,$f18
-/*  f0ce77c:	0fc33957 */ 	jal	func0f0ce55c
+/*  f0ce77c:	0fc33957 */ 	jal	currentPlayerUpdateSpeedForwardsGrab
 /*  f0ce780:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0ce784:	8e0b00a8 */ 	lw	$t3,0xa8($s0)
 /*  f0ce788:	3c02800a */ 	lui	$v0,0x800a

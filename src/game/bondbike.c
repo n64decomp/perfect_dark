@@ -67,7 +67,7 @@ void currentPlayerBikeInit(void)
 
 	g_Vars.currentplayer->bondmovemode = MOVEMODE_BIKE;
 	g_Vars.currentplayer->unk1a7c = 0;
-	g_Vars.currentplayer->unk1968 = 0;
+	g_Vars.currentplayer->guncloseroffset = 0;
 	g_Vars.currentplayer->gunextraaimx = 0;
 	g_Vars.currentplayer->gunextraaimy = 0;
 

@@ -441,32 +441,42 @@ Gfx *func0f153780(Gfx *gdl)
 	return gdl;
 }
 
-GLOBAL_ASM(
-glabel func0f1537dc
-/*  f1537dc:	24860008 */ 	addiu	$a2,$a0,0x8
-/*  f1537e0:	3c0ee700 */ 	lui	$t6,0xe700
-/*  f1537e4:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f1537e8:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f1537ec:	3c0fb900 */ 	lui	$t7,0xb900
-/*  f1537f0:	3c180050 */ 	lui	$t8,0x50
-/*  f1537f4:	37184240 */ 	ori	$t8,$t8,0x4240
-/*  f1537f8:	35ef031d */ 	ori	$t7,$t7,0x31d
-/*  f1537fc:	24c70008 */ 	addiu	$a3,$a2,0x8
-/*  f153800:	accf0000 */ 	sw	$t7,0x0($a2)
-/*  f153804:	acd80004 */ 	sw	$t8,0x4($a2)
-/*  f153808:	3c19fcff */ 	lui	$t9,0xfcff
-/*  f15380c:	3c09fffd */ 	lui	$t1,0xfffd
-/*  f153810:	3529f6fb */ 	ori	$t1,$t1,0xf6fb
-/*  f153814:	3739ffff */ 	ori	$t9,$t9,0xffff
-/*  f153818:	24e80008 */ 	addiu	$t0,$a3,0x8
-/*  f15381c:	acf90000 */ 	sw	$t9,0x0($a3)
-/*  f153820:	ace90004 */ 	sw	$t1,0x4($a3)
-/*  f153824:	3c0afa00 */ 	lui	$t2,0xfa00
-/*  f153828:	ad0a0000 */ 	sw	$t2,0x0($t0)
-/*  f15382c:	ad050004 */ 	sw	$a1,0x4($t0)
-/*  f153830:	03e00008 */ 	jr	$ra
-/*  f153834:	25020008 */ 	addiu	$v0,$t0,0x8
-);
+//GLOBAL_ASM(
+//glabel func0f1537dc
+///*  f1537dc:	24860008 */ 	addiu	$a2,$a0,0x8
+///*  f1537e0:	3c0ee700 */ 	lui	$t6,0xe700
+///*  f1537e4:	ac8e0000 */ 	sw	$t6,0x0($a0)
+///*  f1537e8:	ac800004 */ 	sw	$zero,0x4($a0)
+///*  f1537ec:	3c0fb900 */ 	lui	$t7,0xb900
+///*  f1537f0:	3c180050 */ 	lui	$t8,0x50
+///*  f1537f4:	37184240 */ 	ori	$t8,$t8,0x4240
+///*  f1537f8:	35ef031d */ 	ori	$t7,$t7,0x31d
+///*  f1537fc:	24c70008 */ 	addiu	$a3,$a2,0x8
+///*  f153800:	accf0000 */ 	sw	$t7,0x0($a2)
+///*  f153804:	acd80004 */ 	sw	$t8,0x4($a2)
+///*  f153808:	3c19fcff */ 	lui	$t9,0xfcff
+///*  f15380c:	3c09fffd */ 	lui	$t1,0xfffd
+///*  f153810:	3529f6fb */ 	ori	$t1,$t1,0xf6fb
+///*  f153814:	3739ffff */ 	ori	$t9,$t9,0xffff
+///*  f153818:	24e80008 */ 	addiu	$t0,$a3,0x8
+///*  f15381c:	acf90000 */ 	sw	$t9,0x0($a3)
+///*  f153820:	ace90004 */ 	sw	$t1,0x4($a3)
+///*  f153824:	3c0afa00 */ 	lui	$t2,0xfa00
+///*  f153828:	ad0a0000 */ 	sw	$t2,0x0($t0)
+///*  f15382c:	ad050004 */ 	sw	$a1,0x4($t0)
+///*  f153830:	03e00008 */ 	jr	$ra
+///*  f153834:	25020008 */ 	addiu	$v0,$t0,0x8
+//);
+
+Gfx *func0f1537dc(Gfx *gdl, u32 colour)
+{
+	gDPPipeSync(gdl++);
+	gDPSetRenderMode(gdl++, 0x00500000, 0x4240);
+	gDPSetCombine(gdl++, 0xffffff, 0xfffdf6fb);
+	gDPSetPrimColor(gdl++, 0, 0, colour);
+
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f153838

@@ -20,7 +20,7 @@ void func0f0ce178(void);
 u32 func0f0ce1ac(void);
 void func0f0ce450(void);
 u32 func0f0ce4a0(void);
-void func0f0ce55c(f32 target, f32 speed);
+void currentPlayerUpdateSpeedForwardsGrab(f32 target, f32 speed);
 u32 func0f0ce608(void);
 void currentPlayerUpdateSpeedThetaGrab(void);
 u32 func0f0ce924(void);

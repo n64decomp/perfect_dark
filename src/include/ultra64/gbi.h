@@ -482,16 +482,13 @@ typedef union
 
 #define G_SETPRIMCOLOR 0xFA
 
-#define	gDPSetPrimColor(pkt, m, l, r, g, b, a)     \
+#define	gDPSetPrimColor(pkt, m, l, rgba)     \
 {                                                  \
     Gfx *_g = (Gfx *)(pkt);                        \
     _g->words.w0 = _SHIFTL(G_SETPRIMCOLOR, 24, 8)  \
                  | _SHIFTL(m,  8, 8)               \
                  | _SHIFTL(l,  0, 8);              \
-    _g->words.w1 = _SHIFTL(r, 24, 8)               \
-                 | _SHIFTL(g, 16, 8)               \
-                 | _SHIFTL(b,  8, 8)               \
-                 | _SHIFTL(a,  0, 8);              \
+    _g->words.w1 = (rgba);                         \
 }
 
 #define gDPSetEnvColor(pkt, r, g, b, a)  \
@@ -695,7 +692,7 @@ typedef union {
 #define LIGHT_2 2
 #define LIGHT_3 3
 #define LIGHT_4 4
-#define LIGHT_5 5	
+#define LIGHT_5 5
 #define LIGHT_6 6
 #define LIGHT_7 7
 #define LIGHT_8 8
