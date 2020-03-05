@@ -6,7 +6,7 @@
 void currentPlayerGrabInit(void);
 void currentPlayerUpdateGrabbedPropForRelease(void);
 u32 func0f0ccbf0(void);
-u32 func0f0cd05c(void);
+bool func0f0cd05c(f32 y);
 u32 func0f0cd1a4(void);
 u32 func0f0cd970(void);
 u32 func0f0cdb04(void);

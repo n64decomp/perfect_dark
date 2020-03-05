@@ -474,96 +474,40 @@ glabel var7f1ad990
 /*  f0cd058:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0cd05c
-.late_rodata
-glabel var7f1ad994
-.word 0x3dcccccd
-.text
-/*  f0cd05c:	27bdffa0 */ 	addiu	$sp,$sp,-96
-/*  f0cd060:	afb00028 */ 	sw	$s0,0x28($sp)
-/*  f0cd064:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0cd068:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0cd06c:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0cd070:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0cd074:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f0cd078:	8c4e00bc */ 	lw	$t6,0xbc($v0)
-/*  f0cd07c:	27a6003c */ 	addiu	$a2,$sp,0x3c
-/*  f0cd080:	27a70038 */ 	addiu	$a3,$sp,0x38
-/*  f0cd084:	c5c40008 */ 	lwc1	$f4,0x8($t6)
-/*  f0cd088:	e7a40050 */ 	swc1	$f4,0x50($sp)
-/*  f0cd08c:	8c4f00bc */ 	lw	$t7,0xbc($v0)
-/*  f0cd090:	c5e6000c */ 	lwc1	$f6,0xc($t7)
-/*  f0cd094:	460c3200 */ 	add.s	$f8,$f6,$f12
-/*  f0cd098:	e7a80054 */ 	swc1	$f8,0x54($sp)
-/*  f0cd09c:	8c5800bc */ 	lw	$t8,0xbc($v0)
-/*  f0cd0a0:	c70a0010 */ 	lwc1	$f10,0x10($t8)
-/*  f0cd0a4:	e7aa0058 */ 	swc1	$f10,0x58($sp)
-/*  f0cd0a8:	0fc3082e */ 	jal	propPlayerGetBbox
-/*  f0cd0ac:	8c4400bc */ 	lw	$a0,0xbc($v0)
-/*  f0cd0b0:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f0cd0b4:	27a60050 */ 	addiu	$a2,$sp,0x50
-/*  f0cd0b8:	27a70040 */ 	addiu	$a3,$sp,0x40
-/*  f0cd0bc:	8f2200bc */ 	lw	$v0,0xbc($t9)
-/*  f0cd0c0:	24440008 */ 	addiu	$a0,$v0,0x8
-/*  f0cd0c4:	0fc1979d */ 	jal	func0f065e74
-/*  f0cd0c8:	24450028 */ 	addiu	$a1,$v0,0x28
-/*  f0cd0cc:	8e040284 */ 	lw	$a0,0x284($s0)
-/*  f0cd0d0:	27a50050 */ 	addiu	$a1,$sp,0x50
-/*  f0cd0d4:	0fc32de7 */ 	jal	func0f0cb79c
-/*  f0cd0d8:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f0cd0dc:	8e080284 */ 	lw	$t0,0x284($s0)
-/*  f0cd0e0:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0cd0e4:	0fc1905e */ 	jal	func0f064178
-/*  f0cd0e8:	8d0400bc */ 	lw	$a0,0xbc($t0)
-/*  f0cd0ec:	3c017f1b */ 	lui	$at,%hi(var7f1ad994)
-/*  f0cd0f0:	c432d994 */ 	lwc1	$f18,%lo(var7f1ad994)($at)
-/*  f0cd0f4:	c7b00038 */ 	lwc1	$f16,0x38($sp)
-/*  f0cd0f8:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f0cd0fc:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f0cd100:	46128101 */ 	sub.s	$f4,$f16,$f18
-/*  f0cd104:	afa90010 */ 	sw	$t1,0x10($sp)
-/*  f0cd108:	c7a6003c */ 	lwc1	$f6,0x3c($sp)
-/*  f0cd10c:	27a40050 */ 	addiu	$a0,$sp,0x50
-/*  f0cd110:	e7a40038 */ 	swc1	$f4,0x38($sp)
-/*  f0cd114:	8d4b00bc */ 	lw	$t3,0xbc($t2)
-/*  f0cd118:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f0cd11c:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f0cd120:	c560000c */ 	lwc1	$f0,0xc($t3)
-/*  f0cd124:	2407003f */ 	addiu	$a3,$zero,0x3f
-/*  f0cd128:	46003201 */ 	sub.s	$f8,$f6,$f0
-/*  f0cd12c:	46002281 */ 	sub.s	$f10,$f4,$f0
-/*  f0cd130:	e7a80014 */ 	swc1	$f8,0x14($sp)
-/*  f0cd134:	0c00a9a1 */ 	jal	func0002a684
-/*  f0cd138:	e7aa0018 */ 	swc1	$f10,0x18($sp)
-/*  f0cd13c:	8e0c0284 */ 	lw	$t4,0x284($s0)
-/*  f0cd140:	afa2005c */ 	sw	$v0,0x5c($sp)
-/*  f0cd144:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0cd148:	0fc1905e */ 	jal	func0f064178
-/*  f0cd14c:	8d8400bc */ 	lw	$a0,0xbc($t4)
-/*  f0cd150:	8fad005c */ 	lw	$t5,0x5c($sp)
-/*  f0cd154:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0cd158:	55a1000e */ 	bnel	$t5,$at,.L0f0cd194
-/*  f0cd15c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0cd160:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f0cd164:	c7b00054 */ 	lwc1	$f16,0x54($sp)
-/*  f0cd168:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f0cd16c:	e5f0000c */ 	swc1	$f16,0xc($t7)
-/*  f0cd170:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0cd174:	0fc19711 */ 	jal	func0f065c44
-/*  f0cd178:	8f0400bc */ 	lw	$a0,0xbc($t8)
-/*  f0cd17c:	8e190284 */ 	lw	$t9,0x284($s0)
-/*  f0cd180:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f0cd184:	8f2500bc */ 	lw	$a1,0xbc($t9)
-/*  f0cd188:	0fc195e9 */ 	jal	roomsCopy
-/*  f0cd18c:	24a50028 */ 	addiu	$a1,$a1,0x28
-/*  f0cd190:	8fbf002c */ 	lw	$ra,0x2c($sp)
-.L0f0cd194:
-/*  f0cd194:	8fa2005c */ 	lw	$v0,0x5c($sp)
-/*  f0cd198:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f0cd19c:	03e00008 */ 	jr	$ra
-/*  f0cd1a0:	27bd0060 */ 	addiu	$sp,$sp,0x60
-);
+bool func0f0cd05c(f32 y)
+{
+	bool result;
+	struct coord newpos;
+	s16 rooms[8];
+	f32 ymax;
+	f32 ymin;
+	f32 width;
+
+	newpos.x = g_Vars.currentplayer->prop->pos.x;
+	newpos.y = g_Vars.currentplayer->prop->pos.y + y;
+	newpos.z = g_Vars.currentplayer->prop->pos.z;
+
+	propPlayerGetBbox(g_Vars.currentplayer->prop, &width, &ymax, &ymin);
+	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
+	func0f0cb79c(g_Vars.currentplayer, &newpos, rooms);
+	func0f064178(g_Vars.currentplayer->prop, false);
+
+	ymin -= 0.1f;
+
+	result = func0002a684(&newpos, width, rooms, 63, 1,
+			ymax - g_Vars.currentplayer->prop->pos.y,
+			ymin - g_Vars.currentplayer->prop->pos.y);
+
+	func0f064178(g_Vars.currentplayer->prop, true);
+
+	if (result == 1) {
+		g_Vars.currentplayer->prop->pos.y = newpos.y;
+		func0f065c44(g_Vars.currentplayer->prop);
+		roomsCopy(rooms, g_Vars.currentplayer->prop->rooms);
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0cd1a4
