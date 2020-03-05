@@ -1133,8 +1133,8 @@ struct player {
 	/*0x0068*/ u32 unk0068;
 	/*0x006c*/ u32 unk006c;
 	/*0x0070*/ u32 unk0070;
-	/*0x0074*/ f32 unk0074;
-	/*0x0078*/ f32 unk0078;
+	/*0x0074*/ f32 vv_manground;
+	/*0x0078*/ f32 vv_ground;
 	/*0x007c*/ struct coord bdeltapos;
 	/*0x0088*/ f32 sumcrouch;
 	/*0x008c*/ f32 crouchheight;
@@ -2670,11 +2670,11 @@ struct player {
 	/*0x19a4*/ f32 speedgo;
 	/*0x19a8*/ u32 unk19a8;
 	/*0x19ac*/ s32 crouchoffsetreal;
-	/*0x19b0*/ u32 unk19b0;
+	/*0x19b0*/ s16 floorroom;
 	/*0x19b4*/ f32 crouchoffsetsmall;
-	/*0x19b8*/ s32 crouchoffsetrealsmall;
+	/*0x19b8*/ s32 crouchoffsetrealsmall; // 0 = standing, -90 = squatting, can be between during transition
 	/*0x19bc*/ u32 unk19bc;
-	/*0x19c0*/ f32 unk19c0;
+	/*0x19c0*/ f32 vv_headheight;
 	/*0x19c4*/ f32 vv_eyeheight;
 	/*0x19c8*/ u32 unk19c8;
 	/*0x19cc*/ u32 unk19cc;
@@ -2727,7 +2727,7 @@ struct player {
 	/*0x1aec*/ u32 unk1aec;
 	/*0x1af0*/ struct prop *unk1af0;
 	/*0x1af4*/ u32 unk1af4;
-	/*0x1af8*/ u32 unk1af8;
+	/*0x1af8*/ u32 walkinitmove;
 	/*0x1afc*/ struct coord walkinitpos;
 	/*0x1b08*/ f32 walkinitmtx[16];
 	/*0x1b48*/ f32 walkinitt;

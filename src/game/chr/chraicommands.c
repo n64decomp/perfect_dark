@@ -459,8 +459,8 @@ bool aiChrDoAnimation(void)
 			if (chr->prop->type == PROPTYPE_PLAYER) {
 				u32 playernum = propGetPlayerNum(chr->prop);
 				struct player *player = g_Vars.players[playernum];
-				player->unk0078 = chr->ground;
-				player->unk0074 = chr->ground;
+				player->vv_ground = chr->ground;
+				player->vv_manground = chr->ground;
 			}
 		}
 	}

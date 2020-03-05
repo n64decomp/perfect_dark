@@ -3981,15 +3981,15 @@ void func0f0cb79c(struct player *player, struct coord *mid, s16 *rooms)
 {
 	struct coord lower;
 	struct coord upper;
-	f32 player19c4 = g_Vars.players[propGetPlayerNum(player->prop)]->unk19c4;
-	f32 player19c0 = g_Vars.players[propGetPlayerNum(player->prop)]->unk19c0;
+	f32 eyeheight = g_Vars.players[propGetPlayerNum(player->prop)]->vv_eyeheight;
+	f32 headheight = g_Vars.players[propGetPlayerNum(player->prop)]->vv_headheight;
 
 	lower.x = mid->x - 50;
-	lower.y = mid->y - player->crouchheight - player19c4 - 10;
+	lower.y = mid->y - player->crouchheight - eyeheight - 10;
 	lower.z = mid->z - 50;
 
 	upper.x = mid->x + 50;
-	upper.y = mid->y - player->crouchheight - player19c4 + player19c0 + 10;
+	upper.y = mid->y - player->crouchheight - eyeheight + headheight + 10;
 	upper.z = mid->z + 50;
 
 	func0f1650d0(&lower, &upper, rooms, 7, 0);
@@ -4282,21 +4282,21 @@ void func0f0cc19c(struct coord *arg)
 	if (cheatIsActive(CHEAT_SMALLJO)) {
 		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 			mult = g_Vars.currentplayer->unk1a80 * 0.6f + 0.4f;
-		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK && g_Vars.currentplayer->unk1af8) {
+		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK && g_Vars.currentplayer->walkinitmove) {
 			mult = (1.0f - g_Vars.currentplayer->walkinitt) * 0.6f + 0.4f;
-			g_Vars.currentplayer->unk037c.y += (g_Vars.currentplayer->unk19ac - g_Vars.currentplayer->unk19b8) * g_Vars.currentplayer->walkinitt;
+			g_Vars.currentplayer->unk037c.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall) * g_Vars.currentplayer->walkinitt;
 		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 			mult = 0.4f;
-			g_Vars.currentplayer->unk037c.y += (g_Vars.currentplayer->unk19ac - g_Vars.currentplayer->unk19b8);
+			g_Vars.currentplayer->unk037c.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall);
 		} else {
 			mult = 0.4f;
 		}
 
-		g_Vars.currentplayer->unk037c.y = (g_Vars.currentplayer->unk037c.y - g_Vars.currentplayer->unk0074) * mult;
-		g_Vars.currentplayer->unk037c.y += g_Vars.currentplayer->unk0074;
+		g_Vars.currentplayer->unk037c.y = (g_Vars.currentplayer->unk037c.y - g_Vars.currentplayer->vv_manground) * mult;
+		g_Vars.currentplayer->unk037c.y += g_Vars.currentplayer->vv_manground;
 	}
 
-	min = g_Vars.currentplayer->unk0078 + 10;
+	min = g_Vars.currentplayer->vv_ground + 10;
 
 	if (g_Vars.currentplayer->unk037c.y < min) {
 		g_Vars.currentplayer->unk037c.y = min;

@@ -1554,8 +1554,8 @@ glabel currentPlayerInit
 //			0, 0);
 //
 //	pos.y = g_Vars.currentplayer->unk19c4 + fVar9;
-//	g_Vars.currentplayer->unk0074 = fVar9;
-//	g_Vars.currentplayer->unk0078 = fVar9;
+//	g_Vars.currentplayer->vv_manground = fVar9;
+//	g_Vars.currentplayer->vv_ground = fVar9;
 //	g_Vars.currentplayer->unk0144 = (fStack32 * 360.0f) / M_TAU;
 //	func0f0b85a0(&g_Vars.currentplayer->unk036c, &pos);
 //	g_Vars.currentplayer->unk036c = -fsin(fStack32);

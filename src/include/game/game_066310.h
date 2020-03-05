@@ -287,7 +287,7 @@ u32 func0f08bdd4(void);
 u32 func0f08be80(void);
 u32 func0f08bf78(void);
 u32 func0f08c040(void);
-u32 func0f08c190(void);
+void func0f08c190(void);
 u32 func0f08c424(void);
 u32 func0f08c484(void);
 u32 func0f08c54c(struct doorobj *door);

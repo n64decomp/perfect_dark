@@ -91,7 +91,7 @@ void currentPlayerWalkInit(void)
 		g_Vars.currentplayer->speedthetacontrol = 0;
 	}
 
-	if (g_Vars.currentplayer->unk1af8) {
+	if (g_Vars.currentplayer->walkinitmove) {
 		struct coord delta;
 		func00016b58(g_Vars.currentplayer->walkinitmtx,
 				0, 0, 0,
@@ -2701,7 +2701,7 @@ void currentPlayerUpdatePrevPosWalk(void)
 
 void func0f0c65a8(void)
 {
-	if (g_Vars.currentplayer->unk1af8) {
+	if (g_Vars.currentplayer->walkinitmove) {
 		g_Vars.currentplayer->unk00d0 = 0;
 	}
 }
@@ -4034,112 +4034,44 @@ glabel var7f1ad854
 /*  f0c7858:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c785c
-/*  f0c785c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0c7860:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c7864:	0fc31951 */ 	jal	currentPlayerUpdatePrevPosWalk
-/*  f0c7868:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c786c:	0fc318c6 */ 	jal	func0f0c6318
-/*  f0c7870:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7874:	0fc32fd4 */ 	jal	func0f0cbf50
-/*  f0c7878:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c787c:	0fc31a6e */ 	jal	func0f0c69b8
-/*  f0c7880:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c7884:	0fc313f6 */ 	jal	func0f0c4fd8
-/*  f0c7888:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c788c:	3c05800a */ 	lui	$a1,0x800a
-/*  f0c7890:	8ca5a244 */ 	lw	$a1,-0x5dbc($a1)
-/*  f0c7894:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f0c7898:	8ca700bc */ 	lw	$a3,0xbc($a1)
-/*  f0c789c:	84ee0028 */ 	lh	$t6,0x28($a3)
-/*  f0c78a0:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f0c78a4:	10ce0017 */ 	beq	$a2,$t6,.L0f0c7904
-/*  f0c78a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c78ac:	84a419b0 */ 	lh	$a0,0x19b0($a1)
-/*  f0c78b0:	84e30028 */ 	lh	$v1,0x28($a3)
-.L0f0c78b4:
-/*  f0c78b4:	54830010 */ 	bnel	$a0,$v1,.L0f0c78f8
-/*  f0c78b8:	8443002a */ 	lh	$v1,0x2a($v0)
-/*  f0c78bc:	0fc19711 */ 	jal	func0f065c44
-/*  f0c78c0:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f0c78c4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0c78c8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0c78cc:	8c450284 */ 	lw	$a1,0x284($v0)
-/*  f0c78d0:	2406ffff */ 	addiu	$a2,$zero,-1
-/*  f0c78d4:	84af19b0 */ 	lh	$t7,0x19b0($a1)
-/*  f0c78d8:	8cb800bc */ 	lw	$t8,0xbc($a1)
-/*  f0c78dc:	a70f0028 */ 	sh	$t7,0x28($t8)
-/*  f0c78e0:	8c590284 */ 	lw	$t9,0x284($v0)
-/*  f0c78e4:	8f2800bc */ 	lw	$t0,0xbc($t9)
-/*  f0c78e8:	a506002a */ 	sh	$a2,0x2a($t0)
-/*  f0c78ec:	10000005 */ 	beqz	$zero,.L0f0c7904
-/*  f0c78f0:	8c450284 */ 	lw	$a1,0x284($v0)
-/*  f0c78f4:	8443002a */ 	lh	$v1,0x2a($v0)
-.L0f0c78f8:
-/*  f0c78f8:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f0c78fc:	14c3ffed */ 	bne	$a2,$v1,.L0f0c78b4
-/*  f0c7900:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0c7904:
-/*  f0c7904:	0fc32e31 */ 	jal	func0f0cb8c4
-/*  f0c7908:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0c790c:	3c09800a */ 	lui	$t1,0x800a
-/*  f0c7910:	8d29a244 */ 	lw	$t1,-0x5dbc($t1)
-/*  f0c7914:	8d2a00bc */ 	lw	$t2,0xbc($t1)
-/*  f0c7918:	0fc257d8 */ 	jal	objectiveCheckRoomEntered
-/*  f0c791c:	85440028 */ 	lh	$a0,0x28($t2)
-/*  f0c7920:	3c05800a */ 	lui	$a1,0x800a
-/*  f0c7924:	8ca5a244 */ 	lw	$a1,-0x5dbc($a1)
-/*  f0c7928:	8cab1af8 */ 	lw	$t3,0x1af8($a1)
-/*  f0c792c:	11600023 */ 	beqz	$t3,.L0f0c79bc
-/*  f0c7930:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0c7934:	44811000 */ 	mtc1	$at,$f2
-/*  f0c7938:	c4a41b50 */ 	lwc1	$f4,0x1b50($a1)
-/*  f0c793c:	c4a61afc */ 	lwc1	$f6,0x1afc($a1)
-/*  f0c7940:	c4aa1b4c */ 	lwc1	$f10,0x1b4c($a1)
-/*  f0c7944:	8cac00bc */ 	lw	$t4,0xbc($a1)
-/*  f0c7948:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0c794c:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*  f0c7950:	c5840008 */ 	lwc1	$f4,0x8($t4)
-/*  f0c7954:	460a1401 */ 	sub.s	$f16,$f2,$f10
-/*  f0c7958:	46104482 */ 	mul.s	$f18,$f8,$f16
-/*  f0c795c:	46049180 */ 	add.s	$f6,$f18,$f4
-/*  f0c7960:	e7a60030 */ 	swc1	$f6,0x30($sp)
-/*  f0c7964:	8cad00bc */ 	lw	$t5,0xbc($a1)
-/*  f0c7968:	c4b01b4c */ 	lwc1	$f16,0x1b4c($a1)
-/*  f0c796c:	c4aa1b54 */ 	lwc1	$f10,0x1b54($a1)
-/*  f0c7970:	c5a0000c */ 	lwc1	$f0,0xc($t5)
-/*  f0c7974:	46101481 */ 	sub.s	$f18,$f2,$f16
-/*  f0c7978:	46005201 */ 	sub.s	$f8,$f10,$f0
-/*  f0c797c:	46124102 */ 	mul.s	$f4,$f8,$f18
-/*  f0c7980:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f0c7984:	e7a60034 */ 	swc1	$f6,0x34($sp)
-/*  f0c7988:	c4b21b4c */ 	lwc1	$f18,0x1b4c($a1)
-/*  f0c798c:	c4b01b04 */ 	lwc1	$f16,0x1b04($a1)
-/*  f0c7990:	c4aa1b58 */ 	lwc1	$f10,0x1b58($a1)
-/*  f0c7994:	46121101 */ 	sub.s	$f4,$f2,$f18
-/*  f0c7998:	8cae00bc */ 	lw	$t6,0xbc($a1)
-/*  f0c799c:	46105201 */ 	sub.s	$f8,$f10,$f16
-/*  f0c79a0:	c5ca0010 */ 	lwc1	$f10,0x10($t6)
-/*  f0c79a4:	46044182 */ 	mul.s	$f6,$f8,$f4
-/*  f0c79a8:	460a3400 */ 	add.s	$f16,$f6,$f10
-/*  f0c79ac:	0fc33067 */ 	jal	func0f0cc19c
-/*  f0c79b0:	e7b00038 */ 	swc1	$f16,0x38($sp)
-/*  f0c79b4:	10000004 */ 	beqz	$zero,.L0f0c79c8
-/*  f0c79b8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0c79bc:
-/*  f0c79bc:	8ca400bc */ 	lw	$a0,0xbc($a1)
-/*  f0c79c0:	0fc33067 */ 	jal	func0f0cc19c
-/*  f0c79c4:	24840008 */ 	addiu	$a0,$a0,0x8
-.L0f0c79c8:
-/*  f0c79c8:	0fc307fd */ 	jal	func0f0c1ff4
-/*  f0c79cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c79d0:	0fc23064 */ 	jal	func0f08c190
-/*  f0c79d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c79d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c79dc:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0c79e0:	03e00008 */ 	jr	$ra
-/*  f0c79e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c79e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c79ec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0c785c(void)
+{
+	s32 i;
+	struct coord sStack16;
+
+	currentPlayerUpdatePrevPosWalk();
+	func0f0c6318();
+	func0f0cbf50();
+	func0f0c69b8();
+	func0f0c4fd8();
+
+	for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
+		if (g_Vars.currentplayer->floorroom == g_Vars.currentplayer->prop->rooms[i]) {
+			func0f065c44(g_Vars.currentplayer->prop);
+			g_Vars.currentplayer->prop->rooms[0] = g_Vars.currentplayer->floorroom;
+			g_Vars.currentplayer->prop->rooms[1] = -1;
+			break;
+		}
+	}
+
+	func0f0cb8c4(g_Vars.currentplayer);
+	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
+
+	if (g_Vars.currentplayer->walkinitmove) {
+		sStack16.x = (g_Vars.currentplayer->walkinitstart.x - g_Vars.currentplayer->walkinitpos.x)
+			* (1.0f - g_Vars.currentplayer->walkinitt2) + g_Vars.currentplayer->prop->pos.x;
+
+		sStack16.y = (g_Vars.currentplayer->walkinitstart.y - g_Vars.currentplayer->prop->pos.y)
+			* (1.0f - g_Vars.currentplayer->walkinitt2) + g_Vars.currentplayer->prop->pos.y;
+
+		sStack16.z = (g_Vars.currentplayer->walkinitstart.z - g_Vars.currentplayer->walkinitpos.z)
+			* (1.0f - g_Vars.currentplayer->walkinitt2) + g_Vars.currentplayer->prop->pos.z;
+
+		func0f0cc19c(&sStack16);
+	} else {
+		func0f0cc19c(&g_Vars.currentplayer->prop->pos);
+	}
+
+	func0f0c1ff4();
+	func0f08c190();
+}

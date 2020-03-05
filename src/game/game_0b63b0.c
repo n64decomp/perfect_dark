@@ -12854,16 +12854,17 @@ void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	u32 playernum = propGetPlayerNum(prop);
 
 	*width = g_Vars.players[playernum]->width;
-	*ymin = g_Vars.currentplayer->unk0074 + 30;
-	*ymax = g_Vars.currentplayer->unk0074 + g_Vars.players[playernum]->unk19c0;
+	*ymin = g_Vars.currentplayer->vv_manground + 30;
+	*ymax = g_Vars.currentplayer->vv_manground + g_Vars.players[playernum]->vv_headheight;
 
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
-		f32 tmp;
-		*ymax += g_Vars.players[playernum]->unk19b8;
-		tmp = g_Vars.currentplayer->unk0074 + 80;
+		// note: crouchoffsetrealsmall is negative
+		f32 minsane;
+		*ymax += g_Vars.players[playernum]->crouchoffsetrealsmall;
+		minsane = g_Vars.currentplayer->vv_manground + 80;
 
-		if (tmp > *ymax) {
-			*ymax = tmp;
+		if (*ymax < minsane) {
+			*ymax = minsane;
 		}
 	}
 }
