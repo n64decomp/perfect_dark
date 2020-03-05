@@ -28,7 +28,6 @@
 const char var7f1ad940[] = "bondgrab.c";
 const char var7f1ad94c[] = "bondgrab.c";
 const char var7f1ad958[] = "bondgrab.c";
-const char var7f1ad964[] = "bondgrab.c";
 
 void currentPlayerGrabInit(void)
 {
@@ -1493,32 +1492,16 @@ glabel var7f1ad9cc
 /*  f0cdf60:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0cdf64
-/*  f0cdf64:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0cdf68:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cdf6c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0cdf70:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f0cdf74:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f0cdf78:	0fc3365c */ 	jal	func0f0cd970
-/*  f0cdf7c:	24050000 */ 	addiu	$a1,$zero,0x0
-/*  f0cdf80:	14400009 */ 	bnez	$v0,.L0f0cdfa8
-/*  f0cdf84:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0cdf88:	3c077f1b */ 	lui	$a3,0x7f1b
-/*  f0cdf8c:	24e7d964 */ 	addiu	$a3,$a3,-9884
-/*  f0cdf90:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0cdf94:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f0cdf98:	2406032f */ 	addiu	$a2,$zero,0x32f
-/*  f0cdf9c:	0c009393 */ 	jal	func00024e4c
-/*  f0cdfa0:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0cdfa4:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.L0f0cdfa8:
-/*  f0cdfa8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cdfac:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0cdfb0:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0cdfb4:	03e00008 */ 	jr	$ra
-/*  f0cdfb8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
+{
+	bool result = func0f0cd970(delta, 0, true);
+
+	if (!result) {
+		func00024e4c(arg1, arg2, 0x32f, "bondgrab.c");
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0cdfbc
