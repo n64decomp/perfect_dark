@@ -203,7 +203,7 @@ u32 func0f081c18(void);
 u32 func0f081ccc(void);
 u32 func0f0826cc(void);
 void func0f082964(struct prop *prop, s32 arg1);
-u32 func0f082a1c(void);
+void func0f082a1c(struct defaultobj *obj, struct coord *coord, f32 rotate, bool arg3, bool arg4);
 u32 func0f082d74(void);
 void func0f082e84(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3, bool arg4);
 u32 func0f082f88(struct prop *prop);

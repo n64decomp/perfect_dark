@@ -136,97 +136,39 @@ void currentPlayerGrabInit(void)
 	g_Vars.currentplayer->grabstarttime = g_Vars.lvframe60;
 }
 
-GLOBAL_ASM(
-glabel func0f0ccac4
-.late_rodata
-glabel var7f1ad984
-.word 0x40c907a9
-glabel var7f1ad988
-.word 0xc0490fdb
-glabel var7f1ad98c
-.word 0x40490fdb
-.text
-/*  f0ccac4:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f0ccac8:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f0ccacc:	8d0e0284 */ 	lw	$t6,0x284($t0)
-/*  f0ccad0:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f0ccad4:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0ccad8:	8dc31b5c */ 	lw	$v1,0x1b5c($t6)
-/*  f0ccadc:	50600041 */ 	beqzl	$v1,.L0f0ccbe4
-/*  f0ccae0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0ccae4:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f0ccae8:	3c01f7ff */ 	lui	$at,0xf7ff
-/*  f0ccaec:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f0ccaf0:	8c4f0040 */ 	lw	$t7,0x40($v0)
-/*  f0ccaf4:	01e1c024 */ 	and	$t8,$t7,$at
-/*  f0ccaf8:	ac580040 */ 	sw	$t8,0x40($v0)
-/*  f0ccafc:	8d190034 */ 	lw	$t9,0x34($t0)
-/*  f0ccb00:	5b200036 */ 	blezl	$t9,.L0f0ccbdc
-/*  f0ccb04:	8d0c0284 */ 	lw	$t4,0x284($t0)
-/*  f0ccb08:	8d020284 */ 	lw	$v0,0x284($t0)
-/*  f0ccb0c:	c502004c */ 	lwc1	$f2,0x4c($t0)
-/*  f0ccb10:	44808000 */ 	mtc1	$zero,$f16
-/*  f0ccb14:	8c491b5c */ 	lw	$t1,0x1b5c($v0)
-/*  f0ccb18:	c4461a00 */ 	lwc1	$f6,0x1a00($v0)
-/*  f0ccb1c:	3c017f1b */ 	lui	$at,%hi(var7f1ad984)
-/*  f0ccb20:	c5240008 */ 	lwc1	$f4,0x8($t1)
-/*  f0ccb24:	e7b00038 */ 	swc1	$f16,0x38($sp)
-/*  f0ccb28:	c42cd984 */ 	lwc1	$f12,%lo(var7f1ad984)($at)
-/*  f0ccb2c:	46062201 */ 	sub.s	$f8,$f4,$f6
-/*  f0ccb30:	3c0143b4 */ 	lui	$at,0x43b4
-/*  f0ccb34:	46024283 */ 	div.s	$f10,$f8,$f2
-/*  f0ccb38:	e7aa0034 */ 	swc1	$f10,0x34($sp)
-/*  f0ccb3c:	8c4a1b5c */ 	lw	$t2,0x1b5c($v0)
-/*  f0ccb40:	c4441a08 */ 	lwc1	$f4,0x1a08($v0)
-/*  f0ccb44:	c5520010 */ 	lwc1	$f18,0x10($t2)
-/*  f0ccb48:	46049181 */ 	sub.s	$f6,$f18,$f4
-/*  f0ccb4c:	46023203 */ 	div.s	$f8,$f6,$f2
-/*  f0ccb50:	e7a8003c */ 	swc1	$f8,0x3c($sp)
-/*  f0ccb54:	c45019fc */ 	lwc1	$f16,0x19fc($v0)
-/*  f0ccb58:	c44a0144 */ 	lwc1	$f10,0x144($v0)
-/*  f0ccb5c:	44814000 */ 	mtc1	$at,$f8
-/*  f0ccb60:	3c017f1b */ 	lui	$at,%hi(var7f1ad988)
-/*  f0ccb64:	46105481 */ 	sub.s	$f18,$f10,$f16
-/*  f0ccb68:	c42ad988 */ 	lwc1	$f10,%lo(var7f1ad988)($at)
-/*  f0ccb6c:	3c017f1b */ 	lui	$at,%hi(var7f1ad98c)
-/*  f0ccb70:	46009107 */ 	neg.s	$f4,$f18
-/*  f0ccb74:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*  f0ccb78:	46083003 */ 	div.s	$f0,$f6,$f8
-/*  f0ccb7c:	460a003c */ 	c.lt.s	$f0,$f10
-/*  f0ccb80:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ccb84:	45000003 */ 	bc1f	.L0f0ccb94
-/*  f0ccb88:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ccb8c:	10000007 */ 	beqz	$zero,.L0f0ccbac
-/*  f0ccb90:	460c0000 */ 	add.s	$f0,$f0,$f12
-.L0f0ccb94:
-/*  f0ccb94:	c430d98c */ 	lwc1	$f16,%lo(var7f1ad98c)($at)
-/*  f0ccb98:	4600803e */ 	c.le.s	$f16,$f0
-/*  f0ccb9c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ccba0:	45020003 */ 	bc1fl	.L0f0ccbb0
-/*  f0ccba4:	46020003 */ 	div.s	$f0,$f0,$f2
-/*  f0ccba8:	460c0001 */ 	sub.s	$f0,$f0,$f12
-.L0f0ccbac:
-/*  f0ccbac:	46020003 */ 	div.s	$f0,$f0,$f2
-.L0f0ccbb0:
-/*  f0ccbb0:	8c4b1b5c */ 	lw	$t3,0x1b5c($v0)
-/*  f0ccbb4:	27a50034 */ 	addiu	$a1,$sp,0x34
-/*  f0ccbb8:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0ccbbc:	8d640004 */ 	lw	$a0,0x4($t3)
-/*  f0ccbc0:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0ccbc4:	44060000 */ 	mfc1	$a2,$f0
-/*  f0ccbc8:	0fc20a87 */ 	jal	func0f082a1c
-/*  f0ccbcc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ccbd0:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f0ccbd4:	25089fc0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f0ccbd8:	8d0c0284 */ 	lw	$t4,0x284($t0)
-.L0f0ccbdc:
-/*  f0ccbdc:	ad801b5c */ 	sw	$zero,0x1b5c($t4)
-/*  f0ccbe0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0ccbe4:
-/*  f0ccbe4:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f0ccbe8:	03e00008 */ 	jr	$ra
-/*  f0ccbec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerUpdateGrabbedPropForRelease(void)
+{
+	struct coord moveamount;
+	struct defaultobj *obj;
+	f32 rotateamount;
+
+	if (g_Vars.currentplayer->grabbedprop) {
+		struct defaultobj *obj = g_Vars.currentplayer->grabbedprop->obj;
+		obj->hidden &= ~OBJHFLAG_GRABBED;
+
+		if (g_Vars.lvupdate240 > 0) {
+			moveamount.x = (g_Vars.currentplayer->grabbedprop->pos.x - g_Vars.currentplayer->grabbedprevpos.x) / g_Vars.lvupdate240freal;
+			moveamount.y = 0;
+			moveamount.z = (g_Vars.currentplayer->grabbedprop->pos.z - g_Vars.currentplayer->grabbedprevpos.z) / g_Vars.lvupdate240freal;
+
+			rotateamount = -(g_Vars.currentplayer->vv_theta - g_Vars.currentplayer->bondprevtheta)
+				* M_TAU / 360;
+
+			if (rotateamount < -M_CORRECT_PI) {
+				rotateamount += M_TAU;
+			} else if (rotateamount >= M_CORRECT_PI) {
+				rotateamount -= M_TAU;
+			}
+
+			rotateamount /= g_Vars.lvupdate240freal;
+
+			func0f082a1c(g_Vars.currentplayer->grabbedprop->obj, &moveamount,
+					rotateamount, 0, 0);
+		}
+
+		g_Vars.currentplayer->grabbedprop = NULL;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0ccbf0

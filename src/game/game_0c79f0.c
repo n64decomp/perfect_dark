@@ -236,7 +236,7 @@ void currentPlayerGrabProp(struct prop *prop)
 void currentPlayerSetMoveMode(u32 movemode)
 {
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_GRAB) {
-		func0f0ccac4();
+		currentPlayerUpdateGrabbedPropForRelease();
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		func0f0d2184();
 	}

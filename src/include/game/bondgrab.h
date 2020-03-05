@@ -4,7 +4,7 @@
 #include "types.h"
 
 void currentPlayerGrabInit(void);
-u32 func0f0ccac4(void);
+void currentPlayerUpdateGrabbedPropForRelease(void);
 u32 func0f0ccbf0(void);
 u32 func0f0cd05c(void);
 u32 func0f0cd1a4(void);
