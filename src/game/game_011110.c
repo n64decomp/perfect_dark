@@ -697,8 +697,8 @@ glabel currentPlayerInit
 .L0f011c28:
 /*  f011c28:	10000017 */ 	beqz	$zero,.L0f011c88
 /*  f011c2c:	2610000c */ 	addiu	$s0,$s0,0xc
-/*  f011c30:	3c0c800a */ 	lui	$t4,0x800a
-/*  f011c34:	8d8cd050 */ 	lw	$t4,-0x2fb0($t4)
+/*  f011c30:	3c0c800a */ 	lui	$t4,%hi(g_GeCreditsData)
+/*  f011c34:	8d8cd050 */ 	lw	$t4,%lo(g_GeCreditsData)($t4)
 /*  f011c38:	8e0d0004 */ 	lw	$t5,0x4($s0)
 /*  f011c3c:	3c018007 */ 	lui	$at,0x8007
 /*  f011c40:	018d1021 */ 	addu	$v0,$t4,$t5
@@ -1019,8 +1019,8 @@ glabel currentPlayerInit
 /*  f0120ac:	0fc0458c */ 	jal	currentPlayerInitEyespy
 /*  f0120b0:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0120b4:
-/*  f0120b4:	3c0d800a */ 	lui	$t5,0x800a
-/*  f0120b8:	8dadde68 */ 	lw	$t5,-0x2198($t5)
+/*  f0120b4:	3c0d800a */ 	lui	$t5,%hi(g_NumSpawnPoints)
+/*  f0120b8:	8dadde68 */ 	lw	$t5,%lo(g_NumSpawnPoints)($t5)
 /*  f0120bc:	59a0002f */ 	blezl	$t5,.L0f01217c
 /*  f0120c0:	8e220284 */ 	lw	$v0,0x284($s1)
 /*  f0120c4:	8e2c0298 */ 	lw	$t4,0x298($s1)

@@ -87,8 +87,8 @@ glabel func000121e8
 
 GLOBAL_ASM(
 glabel func000122e0
-/*    122e0:	3c0e8009 */ 	lui	$t6,0x8009
-/*    122e4:	91ce0af0 */ 	lbu	$t6,0xaf0($t6)
+/*    122e0:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
+/*    122e4:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
 /*    122e8:	24010001 */ 	addiu	$at,$zero,0x1
 /*    122ec:	3c02800a */ 	lui	$v0,%hi(g_PrimaryMemoryPools)
 /*    122f0:	15c10005 */ 	bne	$t6,$at,.L00012308
@@ -109,8 +109,8 @@ glabel func000122e0
 
 GLOBAL_ASM(
 glabel func00012324
-/*    12324:	3c0e8009 */ 	lui	$t6,0x8009
-/*    12328:	91ce0af0 */ 	lbu	$t6,0xaf0($t6)
+/*    12324:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
+/*    12328:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
 /*    1232c:	24010001 */ 	addiu	$at,$zero,0x1
 /*    12330:	3c03800a */ 	lui	$v1,0x800a
 /*    12334:	15c10004 */ 	bne	$t6,$at,.L00012348

@@ -166,8 +166,8 @@ glabel func0000d28c
 
 GLOBAL_ASM(
 glabel func0000d29c
-/*     d29c:	3c0e8006 */ 	lui	$t6,0x8006
-/*     d2a0:	91ced9a0 */ 	lbu	$t6,-0x2660($t6)
+/*     d29c:	3c0e8006 */ 	lui	$t6,%hi(var8005d9a0)
+/*     d2a0:	91ced9a0 */ 	lbu	$t6,%lo(var8005d9a0)($t6)
 /*     d2a4:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     d2a8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     d2ac:	11c00024 */ 	beqz	$t6,.L0000d340

@@ -93,8 +93,8 @@ glabel func0f013010
 
 GLOBAL_ASM(
 glabel func0f013130
-/*  f013130:	3c0e8009 */ 	lui	$t6,0x8009
-/*  f013134:	91ce0af0 */ 	lbu	$t6,0xaf0($t6)
+/*  f013130:	3c0e8009 */ 	lui	$t6,%hi(g_Is4Mb)
+/*  f013134:	91ce0af0 */ 	lbu	$t6,%lo(g_Is4Mb)($t6)
 /*  f013138:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f01313c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f013140:	15c10006 */ 	bne	$t6,$at,.L0f01315c

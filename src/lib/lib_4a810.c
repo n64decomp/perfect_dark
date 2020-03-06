@@ -42,8 +42,8 @@ glabel __osSiCreateAccessQueue
 
 GLOBAL_ASM(
 glabel __osSiGetAccess
-/*    4a860:	3c0e8006 */ 	lui	$t6,0x8006
-/*    4a864:	8dce0950 */ 	lw	$t6,0x950($t6)
+/*    4a860:	3c0e8006 */ 	lui	$t6,%hi(var80060950)
+/*    4a864:	8dce0950 */ 	lw	$t6,%lo(var80060950)($t6)
 /*    4a868:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    4a86c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4a870:	15c00003 */ 	bnez	$t6,.L0004a880

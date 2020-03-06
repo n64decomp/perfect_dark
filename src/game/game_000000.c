@@ -12,8 +12,8 @@
 
 GLOBAL_ASM(
 glabel func0f000000
-/* f000000:	3c0e8008 */ 	lui	$t6,0x8008
-/*  f000004:	8dce4120 */ 	lw	$t6,0x4120($t6)
+/* f000000:	3c0e8008 */ 	lui	$t6,%hi(g_LanguageId)
+/*  f000004:	8dce4120 */ 	lw	$t6,%lo(g_LanguageId)($t6)
 /*  f000008:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f00000c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f000010:	11c00019 */ 	beqz	$t6,.L0f000078

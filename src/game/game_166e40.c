@@ -19,10 +19,10 @@
 GLOBAL_ASM(
 glabel func0f166e40
 /*  f166e40:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f166e44:	3c028008 */ 	lui	$v0,0x8008
+/*  f166e44:	3c028008 */ 	lui	$v0,%hi(filetable)
 /*  f166e48:	004e1021 */ 	addu	$v0,$v0,$t6
 /*  f166e4c:	03e00008 */ 	jr	$ra
-/*  f166e50:	8c422060 */ 	lw	$v0,0x2060($v0)
+/*  f166e50:	8c422060 */ 	lw	$v0,%lo(filetable)($v0)
 );
 
 GLOBAL_ASM(
@@ -351,19 +351,19 @@ glabel func0f167200
 GLOBAL_ASM(
 glabel func0f167280
 /*  f167280:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f167284:	3c02800a */ 	lui	$v0,0x800a
+/*  f167284:	3c02800a */ 	lui	$v0,%hi(var800a6680)
 /*  f167288:	004e1021 */ 	addu	$v0,$v0,$t6
 /*  f16728c:	03e00008 */ 	jr	$ra
-/*  f167290:	8c426680 */ 	lw	$v0,0x6680($v0)
+/*  f167290:	8c426680 */ 	lw	$v0,%lo(var800a6680)($v0)
 );
 
 GLOBAL_ASM(
 glabel func0f167294
 /*  f167294:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f167298:	3c02800a */ 	lui	$v0,0x800a
+/*  f167298:	3c02800a */ 	lui	$v0,%hi(var800a6684)
 /*  f16729c:	004e1021 */ 	addu	$v0,$v0,$t6
 /*  f1672a0:	03e00008 */ 	jr	$ra
-/*  f1672a4:	8c426684 */ 	lw	$v0,0x6684($v0)
+/*  f1672a4:	8c426684 */ 	lw	$v0,%lo(var800a6684)($v0)
 );
 
 GLOBAL_ASM(
@@ -740,7 +740,7 @@ glabel func0f167350
 /*  f167798:	00004025 */ 	or	$t0,$zero,$zero
 .L0f16779c:
 /*  f16779c:	10a00003 */ 	beqz	$a1,.L0f1677ac
-/*  f1677a0:	3c048008 */ 	lui	$a0,0x8008
+/*  f1677a0:	3c048008 */ 	lui	$a0,%hi(var80083fec)
 /*  f1677a4:	10000002 */ 	beqz	$zero,.L0f1677b0
 /*  f1677a8:	24070001 */ 	addiu	$a3,$zero,0x1
 .L0f1677ac:
@@ -766,7 +766,7 @@ glabel func0f167350
 /*  f1677e4:	00087080 */ 	sll	$t6,$t0,0x2
 /*  f1677e8:	032ec021 */ 	addu	$t8,$t9,$t6
 /*  f1677ec:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f1677f0:	8c843fec */ 	lw	$a0,0x3fec($a0)
+/*  f1677f0:	8c843fec */ 	lw	$a0,%lo(var80083fec)($a0)
 /*  f1677f4:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f1677f8:	00047840 */ 	sll	$t7,$a0,0x1
 /*  f1677fc:	0c0048f2 */ 	jal	malloc
@@ -812,9 +812,9 @@ glabel func0f167350
 /*  f167888:	01d87821 */ 	addu	$t7,$t6,$t8
 /*  f16788c:	00086880 */ 	sll	$t5,$t0,0x2
 /*  f167890:	01edc821 */ 	addu	$t9,$t7,$t5
-/*  f167894:	3c0e8008 */ 	lui	$t6,0x8008
+/*  f167894:	3c0e8008 */ 	lui	$t6,%hi(var80083fec)
 /*  f167898:	01d97021 */ 	addu	$t6,$t6,$t9
-/*  f16789c:	8dce3fec */ 	lw	$t6,0x3fec($t6)
+/*  f16789c:	8dce3fec */ 	lw	$t6,%lo(var80083fec)($t6)
 /*  f1678a0:	8d860000 */ 	lw	$a2,0x0($t4)
 /*  f1678a4:	00004025 */ 	or	$t0,$zero,$zero
 /*  f1678a8:	00001825 */ 	or	$v1,$zero,$zero
@@ -844,9 +844,9 @@ glabel func0f167350
 /*  f1678f8:	032ec021 */ 	addu	$t8,$t9,$t6
 /*  f1678fc:	00087880 */ 	sll	$t7,$t0,0x2
 /*  f167900:	030f6821 */ 	addu	$t5,$t8,$t7
-/*  f167904:	3c198008 */ 	lui	$t9,0x8008
+/*  f167904:	3c198008 */ 	lui	$t9,%hi(var80083fec)
 /*  f167908:	032dc821 */ 	addu	$t9,$t9,$t5
-/*  f16790c:	8f393fec */ 	lw	$t9,0x3fec($t9)
+/*  f16790c:	8f393fec */ 	lw	$t9,%lo(var80083fec)($t9)
 /*  f167910:	8d8e0004 */ 	lw	$t6,0x4($t4)
 /*  f167914:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f167918:	27bd0038 */ 	addiu	$sp,$sp,0x38
@@ -862,16 +862,16 @@ glabel func0f167350
 
 GLOBAL_ASM(
 glabel func0f16793c
-/*  f16793c:	3c0f800b */ 	lui	$t7,0x800b
-/*  f167940:	91efa5a0 */ 	lbu	$t7,-0x5a60($t7)
-/*  f167944:	3c02800b */ 	lui	$v0,0x800b
+/*  f16793c:	3c0f800b */ 	lui	$t7,%hi(var800aa5a0)
+/*  f167940:	91efa5a0 */ 	lbu	$t7,%lo(var800aa5a0)($t7)
+/*  f167944:	3c02800b */ 	lui	$v0,%hi(var800aa580)
 /*  f167948:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f16794c:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f167950:	3c01800b */ 	lui	$at,0x800b
 /*  f167954:	00581021 */ 	addu	$v0,$v0,$t8
 /*  f167958:	ac2ea5a4 */ 	sw	$t6,-0x5a5c($at)
 /*  f16795c:	03e00008 */ 	jr	$ra
-/*  f167960:	8c42a580 */ 	lw	$v0,-0x5a80($v0)
+/*  f167960:	8c42a580 */ 	lw	$v0,%lo(var800aa580)($v0)
 );
 
 GLOBAL_ASM(
@@ -945,7 +945,7 @@ glabel func0f167a18
 /*  f167a1c:	2484a5a0 */ 	addiu	$a0,$a0,%lo(var800aa5a0)
 /*  f167a20:	908e0000 */ 	lbu	$t6,0x0($a0)
 /*  f167a24:	3c01800b */ 	lui	$at,0x800b
-/*  f167a28:	3c19800b */ 	lui	$t9,0x800b
+/*  f167a28:	3c19800b */ 	lui	$t9,%hi(var800aa590)
 /*  f167a2c:	39cf0001 */ 	xori	$t7,$t6,0x1
 /*  f167a30:	a08f0000 */ 	sb	$t7,0x0($a0)
 /*  f167a34:	ac20a5a4 */ 	sw	$zero,-0x5a5c($at)
@@ -954,7 +954,7 @@ glabel func0f167a18
 /*  f167a40:	3c01800b */ 	lui	$at,0x800b
 /*  f167a44:	0002c080 */ 	sll	$t8,$v0,0x2
 /*  f167a48:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f167a4c:	8f39a590 */ 	lw	$t9,-0x5a70($t9)
+/*  f167a4c:	8f39a590 */ 	lw	$t9,%lo(var800aa590)($t9)
 /*  f167a50:	24a54008 */ 	addiu	$a1,$a1,%lo(var80084008)
 /*  f167a54:	240a0002 */ 	addiu	$t2,$zero,0x2
 /*  f167a58:	ac39a59c */ 	sw	$t9,-0x5a64($at)
@@ -970,24 +970,24 @@ glabel func0f167a18
 .L0f167a80:
 /*  f167a80:	03e00008 */ 	jr	$ra
 /*  f167a84:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f167a88:	3c0e800b */ 	lui	$t6,0x800b
-/*  f167a8c:	91cea5a0 */ 	lbu	$t6,-0x5a60($t6)
-/*  f167a90:	3c18800b */ 	lui	$t8,0x800b
+/*  f167a88:	3c0e800b */ 	lui	$t6,%hi(var800aa5a0)
+/*  f167a8c:	91cea5a0 */ 	lbu	$t6,%lo(var800aa5a0)($t6)
+/*  f167a90:	3c18800b */ 	lui	$t8,%hi(var800aa584)
 /*  f167a94:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f167a98:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f167a9c:	8f18a584 */ 	lw	$t8,-0x5a7c($t8)
+/*  f167a9c:	8f18a584 */ 	lw	$t8,%lo(var800aa584)($t8)
 /*  f167aa0:	03041023 */ 	subu	$v0,$t8,$a0
 /*  f167aa4:	0002c8c3 */ 	sra	$t9,$v0,0x3
 /*  f167aa8:	03e00008 */ 	jr	$ra
 /*  f167aac:	03201025 */ 	or	$v0,$t9,$zero
-/*  f167ab0:	3c0e800b */ 	lui	$t6,0x800b
-/*  f167ab4:	91cea5a0 */ 	lbu	$t6,-0x5a60($t6)
-/*  f167ab8:	3c18800b */ 	lui	$t8,0x800b
-/*  f167abc:	3c19800b */ 	lui	$t9,0x800b
+/*  f167ab0:	3c0e800b */ 	lui	$t6,%hi(var800aa5a0)
+/*  f167ab4:	91cea5a0 */ 	lbu	$t6,%lo(var800aa5a0)($t6)
+/*  f167ab8:	3c18800b */ 	lui	$t8,%hi(var800aa594)
+/*  f167abc:	3c19800b */ 	lui	$t9,%hi(var800aa59c)
 /*  f167ac0:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f167ac4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f167ac8:	8f18a594 */ 	lw	$t8,-0x5a6c($t8)
-/*  f167acc:	8f39a59c */ 	lw	$t9,-0x5a64($t9)
+/*  f167ac8:	8f18a594 */ 	lw	$t8,%lo(var800aa594)($t8)
+/*  f167acc:	8f39a59c */ 	lw	$t9,%lo(var800aa59c)($t9)
 /*  f167ad0:	03e00008 */ 	jr	$ra
 /*  f167ad4:	03191023 */ 	subu	$v0,$t8,$t9
 /*  f167ad8:	00000000 */ 	sll	$zero,$zero,0x0

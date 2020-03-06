@@ -13,8 +13,8 @@
 
 GLOBAL_ASM(
 glabel padUnpack
-/*  f115ab0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f115ab4:	8dce2354 */ 	lw	$t6,0x2354($t6)
+/*  f115ab0:	3c0e800a */ 	lui	$t6,%hi(g_PadOffsets)
+/*  f115ab4:	8dce2354 */ 	lw	$t6,%lo(g_PadOffsets)($t6)
 /*  f115ab8:	00047840 */ 	sll	$t7,$a0,0x1
 /*  f115abc:	3c19800a */ 	lui	$t9,0x800a
 /*  f115ac0:	01cfc021 */ 	addu	$t8,$t6,$t7
@@ -550,8 +550,8 @@ glabel padGetCentre
 
 GLOBAL_ASM(
 glabel func0f116068
-/*  f116068:	3c0e800a */ 	lui	$t6,0x800a
-/*  f11606c:	8dce2354 */ 	lw	$t6,0x2354($t6)
+/*  f116068:	3c0e800a */ 	lui	$t6,%hi(g_PadOffsets)
+/*  f11606c:	8dce2354 */ 	lw	$t6,%lo(g_PadOffsets)($t6)
 /*  f116070:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f116074:	00047840 */ 	sll	$t7,$a0,0x1
 /*  f116078:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -691,8 +691,8 @@ s32 coverGetCount(void)
 
 GLOBAL_ASM(
 glabel coverLoad
-/*  f1162e0:	3c0e800a */ 	lui	$t6,0x800a
-/*  f1162e4:	8dce2350 */ 	lw	$t6,0x2350($t6)
+/*  f1162e0:	3c0e800a */ 	lui	$t6,%hi(g_PadsFile)
+/*  f1162e4:	8dce2350 */ 	lw	$t6,%lo(g_PadsFile)($t6)
 /*  f1162e8:	00a03025 */ 	or	$a2,$a1,$zero
 /*  f1162ec:	8dcf0004 */ 	lw	$t7,0x4($t6)
 /*  f1162f0:	008f082a */ 	slt	$at,$a0,$t7
@@ -721,7 +721,7 @@ glabel coverLoad
 /*  f116344:	94ad0018 */ 	lhu	$t5,0x18($a1)
 /*  f116348:	01674021 */ 	addu	$t0,$t3,$a3
 /*  f11634c:	950c0000 */ 	lhu	$t4,0x0($t0)
-/*  f116350:	3c0a800a */ 	lui	$t2,0x800a
+/*  f116350:	3c0a800a */ 	lui	$t2,%hi(g_CoverRooms)
 /*  f116354:	00045880 */ 	sll	$t3,$a0,0x2
 /*  f116358:	018d7025 */ 	or	$t6,$t4,$t5
 /*  f11635c:	a50e0000 */ 	sh	$t6,0x0($t0)
@@ -731,7 +731,7 @@ glabel coverLoad
 /*  f11636c:	01e7c021 */ 	addu	$t8,$t7,$a3
 /*  f116370:	97190000 */ 	lhu	$t9,0x0($t8)
 /*  f116374:	a4d9000c */ 	sh	$t9,0xc($a2)
-/*  f116378:	8d4a2364 */ 	lw	$t2,0x2364($t2)
+/*  f116378:	8d4a2364 */ 	lw	$t2,%lo(g_CoverRooms)($t2)
 /*  f11637c:	014b6021 */ 	addu	$t4,$t2,$t3
 /*  f116380:	8d8d0000 */ 	lw	$t5,0x0($t4)
 /*  f116384:	a4ce000a */ 	sh	$t6,0xa($a2)

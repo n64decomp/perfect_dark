@@ -61,8 +61,8 @@ s32 menuhandler0010cabc(u32 operation, struct menu_item *item, s32 *value)
 
 GLOBAL_ASM(
 glabel func0f10cb2c
-/*  f10cb2c:	3c0e8007 */ 	lui	$t6,0x8007
-/*  f10cb30:	8dce1448 */ 	lw	$t6,0x1448($t6)
+/*  f10cb2c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
+/*  f10cb30:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f10cb34:	3c028006 */ 	lui	$v0,%hi(var80062940)
 /*  f10cb38:	3c018007 */ 	lui	$at,0x8007
 /*  f10cb3c:	24422940 */ 	addiu	$v0,$v0,%lo(var80062940)
@@ -74,8 +74,8 @@ glabel func0f10cb2c
 /*  f10cb54:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f10cb58:	11e0000e */ 	beqz	$t7,.L0f10cb94
 /*  f10cb5c:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f10cb60:	3c188008 */ 	lui	$t8,0x8008
-/*  f10cb64:	8f187260 */ 	lw	$t8,0x7260($t8)
+/*  f10cb60:	3c188008 */ 	lui	$t8,%hi(var80087260)
+/*  f10cb64:	8f187260 */ 	lw	$t8,%lo(var80087260)($t8)
 /*  f10cb68:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f10cb6c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
 /*  f10cb70:	1700001d */ 	bnez	$t8,.L0f10cbe8

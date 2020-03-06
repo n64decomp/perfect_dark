@@ -467,9 +467,9 @@ glabel func0004fbf0
 .L0004fc28:
 /*    4fc28:	304b03ff */ 	andi	$t3,$v0,0x3ff
 /*    4fc2c:	000b6040 */ 	sll	$t4,$t3,0x1
-/*    4fc30:	3c038006 */ 	lui	$v1,0x8006
+/*    4fc30:	3c038006 */ 	lui	$v1,%hi(var800609f0)
 /*    4fc34:	006c1821 */ 	addu	$v1,$v1,$t4
-/*    4fc38:	846309f0 */ 	lh	$v1,0x9f0($v1)
+/*    4fc38:	846309f0 */ 	lh	$v1,%lo(var800609f0)($v1)
 .L0004fc3c:
 /*    4fc3c:	304d0800 */ 	andi	$t5,$v0,0x800
 /*    4fc40:	11a00005 */ 	beqz	$t5,.L0004fc58

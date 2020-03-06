@@ -33,8 +33,8 @@ glabel func0003cdc0
 /*    3ce04:	00000000 */ 	sll	$zero,$zero,0x0
 .L0003ce08:
 /*    3ce08:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*    3ce0c:	3c198006 */ 	lui	$t9,0x8006
-/*    3ce10:	8f39f114 */ 	lw	$t9,-0xeec($t9)
+/*    3ce0c:	3c198006 */ 	lui	$t9,%hi(var8005f114)
+/*    3ce10:	8f39f114 */ 	lw	$t9,%lo(var8005f114)($t9)
 /*    3ce14:	8d2a0008 */ 	lw	$t2,0x8($t1)
 /*    3ce18:	8fad001c */ 	lw	$t5,0x1c($sp)
 /*    3ce1c:	8f28001c */ 	lw	$t0,0x1c($t9)

@@ -18,8 +18,8 @@
 GLOBAL_ASM(
 glabel func0004a980
 /*    4a980:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*    4a984:	3c0e8006 */ 	lui	$t6,0x8006
-/*    4a988:	8dce0960 */ 	lw	$t6,0x960($t6)
+/*    4a984:	3c0e8006 */ 	lui	$t6,%hi(var80060960)
+/*    4a988:	8dce0960 */ 	lw	$t6,%lo(var80060960)($t6)
 /*    4a98c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*    4a990:	afa40070 */ 	sw	$a0,0x70($sp)
 /*    4a994:	afa50074 */ 	sw	$a1,0x74($sp)

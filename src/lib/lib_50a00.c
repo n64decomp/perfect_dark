@@ -371,14 +371,14 @@ glabel func00050d60
 /*    50ec4:	0c012c5c */ 	jal	func0004b170
 /*    50ec8:	afa70088 */ 	sw	$a3,0x88($sp)
 /*    50ecc:	8faa0094 */ 	lw	$t2,0x94($sp)
-/*    50ed0:	3c0b8006 */ 	lui	$t3,0x8006
+/*    50ed0:	3c0b8006 */ 	lui	$t3,%hi(var80061220)
 /*    50ed4:	8fa70088 */ 	lw	$a3,0x88($sp)
 /*    50ed8:	91420047 */ 	lbu	$v0,0x47($t2)
 /*    50edc:	8fac0090 */ 	lw	$t4,0x90($sp)
 /*    50ee0:	28410014 */ 	slti	$at,$v0,0x14
 /*    50ee4:	10200003 */ 	beqz	$at,.L00050ef4
 /*    50ee8:	01625821 */ 	addu	$t3,$t3,$v0
-/*    50eec:	916b1220 */ 	lbu	$t3,0x1220($t3)
+/*    50eec:	916b1220 */ 	lbu	$t3,%lo(var80061220)($t3)
 /*    50ef0:	ad8b004c */ 	sw	$t3,0x4c($t4)
 .L00050ef4:
 /*    50ef4:	8fad0094 */ 	lw	$t5,0x94($sp)

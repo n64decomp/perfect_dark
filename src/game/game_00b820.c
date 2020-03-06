@@ -44,8 +44,8 @@ glabel func0f00b820
 .L0f00b874:
 /*  f00b874:	0c004b70 */ 	jal	random
 /*  f00b878:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f00b87c:	3c188006 */ 	lui	$t8,0x8006
-/*  f00b880:	8f182b00 */ 	lw	$t8,0x2b00($t8)
+/*  f00b87c:	3c188006 */ 	lui	$t8,%hi(var80062b00)
+/*  f00b880:	8f182b00 */ 	lw	$t8,%lo(var80062b00)($t8)
 /*  f00b884:	3c018006 */ 	lui	$at,0x8006
 /*  f00b888:	3c128006 */ 	lui	$s2,%hi(var80062b14)
 /*  f00b88c:	0058001b */ 	divu	$zero,$v0,$t8
@@ -122,15 +122,15 @@ glabel func0f00b820
 /*  f00b984:	24040010 */ 	addiu	$a0,$zero,0x10
 /*  f00b988:	10400005 */ 	beqz	$v0,.L0f00b9a0
 /*  f00b98c:	3c148006 */ 	lui	$s4,%hi(var80062c14)
-/*  f00b990:	3c138006 */ 	lui	$s3,0x8006
+/*  f00b990:	3c138006 */ 	lui	$s3,%hi(var80062b0c)
 /*  f00b994:	26942c14 */ 	addiu	$s4,$s4,%lo(var80062c14)
 /*  f00b998:	10000005 */ 	beqz	$zero,.L0f00b9b0
-/*  f00b99c:	8e732b0c */ 	lw	$s3,0x2b0c($s3)
+/*  f00b99c:	8e732b0c */ 	lw	$s3,%lo(var80062b0c)($s3)
 .L0f00b9a0:
 /*  f00b9a0:	3c148006 */ 	lui	$s4,%hi(var80062b68)
-/*  f00b9a4:	3c138006 */ 	lui	$s3,0x8006
+/*  f00b9a4:	3c138006 */ 	lui	$s3,%hi(var80062b04)
 /*  f00b9a8:	26942b68 */ 	addiu	$s4,$s4,%lo(var80062b68)
-/*  f00b9ac:	8e732b04 */ 	lw	$s3,0x2b04($s3)
+/*  f00b9ac:	8e732b04 */ 	lw	$s3,%lo(var80062b04)($s3)
 .L0f00b9b0:
 /*  f00b9b0:	8eaa0000 */ 	lw	$t2,0x0($s5)
 /*  f00b9b4:	3c12800a */ 	lui	$s2,%hi(g_HeadsA)
@@ -181,14 +181,14 @@ glabel func0f00b820
 /*  f00ba50:	10400006 */ 	beqz	$v0,.L0f00ba6c
 /*  f00ba54:	3c148006 */ 	lui	$s4,%hi(var80062c58)
 /*  f00ba58:	3c148006 */ 	lui	$s4,%hi(var80062c6c)
-/*  f00ba5c:	3c138006 */ 	lui	$s3,0x8006
+/*  f00ba5c:	3c138006 */ 	lui	$s3,%hi(var80062b10)
 /*  f00ba60:	26942c6c */ 	addiu	$s4,$s4,%lo(var80062c6c)
 /*  f00ba64:	10000004 */ 	beqz	$zero,.L0f00ba78
-/*  f00ba68:	8e732b10 */ 	lw	$s3,0x2b10($s3)
+/*  f00ba68:	8e732b10 */ 	lw	$s3,%lo(var80062b10)($s3)
 .L0f00ba6c:
-/*  f00ba6c:	3c138006 */ 	lui	$s3,0x8006
+/*  f00ba6c:	3c138006 */ 	lui	$s3,%hi(var80062b08)
 /*  f00ba70:	26942c58 */ 	addiu	$s4,$s4,%lo(var80062c58)
-/*  f00ba74:	8e732b08 */ 	lw	$s3,0x2b08($s3)
+/*  f00ba74:	8e732b08 */ 	lw	$s3,%lo(var80062b08)($s3)
 .L0f00ba78:
 /*  f00ba78:	8ea50000 */ 	lw	$a1,0x0($s5)
 /*  f00ba7c:	3c12800a */ 	lui	$s2,%hi(g_HeadsB)

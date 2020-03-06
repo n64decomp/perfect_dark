@@ -40,8 +40,8 @@ glabel func00049a90
 
 GLOBAL_ASM(
 glabel func00049ae0
-/*    49ae0:	3c0e8006 */ 	lui	$t6,0x8006
-/*    49ae4:	8dce0920 */ 	lw	$t6,0x920($t6)
+/*    49ae0:	3c0e8006 */ 	lui	$t6,%hi(var80060920)
+/*    49ae4:	8dce0920 */ 	lw	$t6,%lo(var80060920)($t6)
 /*    49ae8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    49aec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    49af0:	15c00003 */ 	bnez	$t6,.L00049b00

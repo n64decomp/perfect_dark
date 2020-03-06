@@ -202,10 +202,10 @@ glabel func00012800
 
 GLOBAL_ASM(
 glabel func00012914
-/*    12914:	3c0f800a */ 	lui	$t7,0x800a
-/*    12918:	8def9470 */ 	lw	$t7,-0x6b90($t7)
-/*    1291c:	3c09800a */ 	lui	$t1,0x800a
-/*    12920:	8d299474 */ 	lw	$t1,-0x6b8c($t1)
+/*    12914:	3c0f800a */ 	lui	$t7,%hi(var80099470)
+/*    12918:	8def9470 */ 	lw	$t7,%lo(var80099470)($t7)
+/*    1291c:	3c09800a */ 	lui	$t1,%hi(var80099474)
+/*    12920:	8d299474 */ 	lw	$t1,%lo(var80099474)($t1)
 /*    12924:	008fc023 */ 	subu	$t8,$a0,$t7
 /*    12928:	0018c940 */ 	sll	$t9,$t8,0x5
 /*    1292c:	0338c823 */ 	subu	$t9,$t9,$t8
@@ -443,8 +443,8 @@ glabel func00012ab0
 
 GLOBAL_ASM(
 glabel func00012c3c
-/*    12c3c:	3c0f800a */ 	lui	$t7,0x800a
-/*    12c40:	8def9484 */ 	lw	$t7,-0x6b7c($t7)
+/*    12c3c:	3c0f800a */ 	lui	$t7,%hi(var80099484)
+/*    12c40:	8def9484 */ 	lw	$t7,%lo(var80099484)($t7)
 /*    12c44:	3c0e800a */ 	lui	$t6,%hi(var80099484)
 /*    12c48:	2407ffff */ 	addiu	$a3,$zero,-1
 /*    12c4c:	25ce9484 */ 	addiu	$t6,$t6,%lo(var80099484)
@@ -500,8 +500,8 @@ glabel func00012cdc
 /*    12ce0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    12ce4:	0c0049ee */ 	jal	func000127b8
 /*    12ce8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*    12cec:	3c0e800a */ 	lui	$t6,0x800a
-/*    12cf0:	8dce9484 */ 	lw	$t6,-0x6b7c($t6)
+/*    12cec:	3c0e800a */ 	lui	$t6,%hi(var80099484)
+/*    12cf0:	8dce9484 */ 	lw	$t6,%lo(var80099484)($t6)
 /*    12cf4:	2405ffff */ 	addiu	$a1,$zero,-1
 /*    12cf8:	3c02800a */ 	lui	$v0,%hi(var80099484)
 /*    12cfc:	8fa40018 */ 	lw	$a0,0x18($sp)
@@ -559,9 +559,9 @@ glabel func00012d48
 /*    12d9c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    12da0:	03e00008 */ 	jr	$ra
 /*    12da4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    12da8:	3c02800a */ 	lui	$v0,0x800a
+/*    12da8:	3c02800a */ 	lui	$v0,%hi(var80099474)
 /*    12dac:	03e00008 */ 	jr	$ra
-/*    12db0:	8c429474 */ 	lw	$v0,-0x6b8c($v0)
+/*    12db0:	8c429474 */ 	lw	$v0,%lo(var80099474)($v0)
 /*    12db4:	00000000 */ 	sll	$zero,$zero,0x0
 /*    12db8:	00000000 */ 	sll	$zero,$zero,0x0
 /*    12dbc:	00000000 */ 	sll	$zero,$zero,0x0
