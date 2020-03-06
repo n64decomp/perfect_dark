@@ -77,7 +77,7 @@ u32 func0002901c(void);
 u32 func000296a0(void);
 u32 func00029ffc(void);
 u32 func0002a13c(void);
-f32 func0002a1b0(struct coord *coord, f32 arg1, s16 *room, u16 *arg3, u16 *arg4, u16 *arg5, u32 *arg6, u32 arg7, u32 arg8);
+f32 func0002a1b0(struct coord *coord, f32 width, s16 *rooms, u16 *floorcol, u8 *floortype, u16 *floorflags, s16 *floorroom, bool *arg7, struct prop **lift);
 f32 func0002a330(struct coord *pos, f32 width, s16 *rooms, s32 arg3, s32 arg4);
 f32 func0002a36c(struct coord *coord, s16 *arg1, s32 arg2, s32 arg3);
 u32 func0002a400(void);

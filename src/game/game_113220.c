@@ -31,20 +31,20 @@ void currentPlayerUpdateIdleHeadRoll(void)
 {
 	f32 mult = 0.00000000023283064365386962890f;
 
-	g_Vars.currentplayer->unk0428[g_Vars.currentplayer->unk0458].x = ((f32)random() * mult - 0.5f) * 0.02f;
-	g_Vars.currentplayer->unk0428[g_Vars.currentplayer->unk0458].z = 1;
-	g_Vars.currentplayer->unk0440[g_Vars.currentplayer->unk0458].x = ((f32)random() * mult - 0.5f) * 0.02f;
-	g_Vars.currentplayer->unk0440[g_Vars.currentplayer->unk0458].y = 1;
+	g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].x = ((f32)random() * mult - 0.5f) * 0.02f;
+	g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].z = 1;
+	g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].x = ((f32)random() * mult - 0.5f) * 0.02f;
+	g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].y = 1;
 
-	if (g_Vars.currentplayer->unk0458) {
-		g_Vars.currentplayer->unk0428[g_Vars.currentplayer->unk0458].y = (f32)random() * mult * 0.01f;
-		g_Vars.currentplayer->unk0440[g_Vars.currentplayer->unk0458].z = (f32)random() * mult * -0.01f;
+	if (g_Vars.currentplayer->standcnt) {
+		g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].y = (f32)random() * mult * 0.01f;
+		g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].z = (f32)random() * mult * -0.01f;
 	} else {
-		g_Vars.currentplayer->unk0428[g_Vars.currentplayer->unk0458].y = (f32)random() * mult * -0.01f;
-		g_Vars.currentplayer->unk0440[g_Vars.currentplayer->unk0458].z = (f32)random() * mult * 0.01f;
+		g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].y = (f32)random() * mult * -0.01f;
+		g_Vars.currentplayer->standup[g_Vars.currentplayer->standcnt].z = (f32)random() * mult * 0.01f;
 	}
 
-	g_Vars.currentplayer->unk0458 = 1 - g_Vars.currentplayer->unk0458;
+	g_Vars.currentplayer->standcnt = 1 - g_Vars.currentplayer->standcnt;
 }
 
 void currentPlayerUpdateHeadPos(struct coord *vel)

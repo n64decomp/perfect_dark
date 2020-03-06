@@ -275,7 +275,7 @@ bool func0f0c3c8c(f32 y)
 	f32 ymin;
 	f32 width;
 
-	if (g_Vars.currentplayer->unk161c & 0x0100) {
+	if (g_Vars.currentplayer->floorflags & FLOORFLAG_0100) {
 		g_Vars.unk00032c = false;
 	} else {
 		g_Vars.unk00032c = true;
