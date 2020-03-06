@@ -95,8 +95,8 @@ void currentPlayerWalkInit(void)
 		struct coord delta;
 		func00016b58(g_Vars.currentplayer->walkinitmtx,
 				0, 0, 0,
-				-g_Vars.currentplayer->unk0388.x, -g_Vars.currentplayer->unk0388.y, -g_Vars.currentplayer->unk0388.z,
-				g_Vars.currentplayer->unk0394.x, g_Vars.currentplayer->unk0394.y, g_Vars.currentplayer->unk0394.z);
+				-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
+				g_Vars.currentplayer->bond2.unk28.x, g_Vars.currentplayer->bond2.unk28.y, g_Vars.currentplayer->bond2.unk28.z);
 		g_Vars.currentplayer->walkinitt = 0;
 		g_Vars.currentplayer->walkinitt2 = 0;
 		g_Vars.currentplayer->walkinitstart.x = g_Vars.currentplayer->prop->pos.x;
@@ -1293,7 +1293,7 @@ void func0f0c4d98(void)
 void currentPlayerUpdateSpeedSidewaysWalk(f32 targetspeed, f32 accelspeed, s32 mult)
 {
 	if (g_Vars.normmplayerisrunning) {
-		targetspeed = (g_MpPlayers[g_Vars.unk000288->mpchrnum].base.unk1c + 25.0f) / 100 * targetspeed;
+		targetspeed = (g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.unk1c + 25.0f) / 100 * targetspeed;
 	}
 
 	if (g_Vars.currentplayer->speedstrafe > targetspeed) {
@@ -1316,7 +1316,7 @@ void currentPlayerUpdateSpeedSidewaysWalk(f32 targetspeed, f32 accelspeed, s32 m
 void currentPlayerUpdateSpeedForwardsWalk(f32 targetspeed, f32 accelspeed)
 {
 	if (g_Vars.normmplayerisrunning) {
-		targetspeed = (g_MpPlayers[g_Vars.unk000288->mpchrnum].base.unk1c + 25.0f) / 100 * targetspeed;
+		targetspeed = (g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.unk1c + 25.0f) / 100 * targetspeed;
 	}
 
 	if (g_Vars.currentplayer->speedgo < targetspeed) {
@@ -2043,7 +2043,7 @@ glabel var7f1ad7d0
 /*  f0c59b8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c59bc:	51e00005 */ 	beqzl	$t7,.L0f0c59d4
 /*  f0c59c0:	8fa4007c */ 	lw	$a0,0x7c($sp)
-/*  f0c59c4:	0fc30501 */ 	jal	func0f0c1404
+/*  f0c59c4:	0fc30501 */ 	jal	currentPlayerDie
 /*  f0c59c8:	afa30104 */ 	sw	$v1,0x104($sp)
 /*  f0c59cc:	8fa30104 */ 	lw	$v1,0x104($sp)
 /*  f0c59d0:	8fa4007c */ 	lw	$a0,0x7c($sp)

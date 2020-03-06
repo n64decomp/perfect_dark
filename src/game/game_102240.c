@@ -315,7 +315,7 @@ s32 menuhandlerReversePitch(u32 operation, struct menu_item *item, bool *enable)
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}
@@ -688,7 +688,7 @@ s32 menuhandlerLookAhead(u32 operation, struct menu_item *item, bool *enable)
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}
@@ -709,7 +709,7 @@ s32 menuhandlerHeadRoll(u32 operation, struct menu_item *item, bool *enable)
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}
@@ -797,7 +797,7 @@ s32 menuhandlerAmmoOnScreen(u32 operation, struct menu_item *item, bool *enable)
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}
@@ -818,7 +818,7 @@ s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enab
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}
@@ -844,7 +844,7 @@ s32 menuhandlerShowMissionTime(u32 operation, struct menu_item *item, bool *enab
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}
@@ -865,7 +865,7 @@ s32 menuhandlerAlwaysShowTarget(u32 operation, struct menu_item *item, bool *ena
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}
@@ -891,7 +891,7 @@ s32 menuhandlerShowZoomRange(u32 operation, struct menu_item *item, bool *enable
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}
@@ -917,7 +917,7 @@ s32 menuhandlerPaintball(u32 operation, struct menu_item *item, bool *enable)
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}
@@ -938,7 +938,7 @@ s32 menuhandlerSightOnScreen(u32 operation, struct menu_item *item, bool *enable
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}
@@ -959,7 +959,7 @@ s32 menuhandlerAutoAim(u32 operation, struct menu_item *item, bool *enable)
 	u32 mpchrnum;
 
 	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		mpchrnum = g_Vars.unk000288->mpchrnum;
+		mpchrnum = g_Vars.currentplayerstats->mpindex;
 	} else {
 		mpchrnum = item->param3;
 	}

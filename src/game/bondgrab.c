@@ -1628,7 +1628,7 @@ void func0f0ce1ac(void)
 	f32 f0;
 
 	f14 = func0002a1b0(&g_Vars.currentplayer->prop->pos,
-			g_Vars.currentplayer->width,
+			g_Vars.currentplayer->bond2.width,
 			g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->floorcol,
 			&g_Vars.currentplayer->floortype,

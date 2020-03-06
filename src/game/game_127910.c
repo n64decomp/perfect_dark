@@ -80,7 +80,7 @@ void func0f127910(void)
 	s32 i;
 
 	for (i = 0; i < 4; i++) {
-		g_Vars.unk000074[i].unk5c = 1;
+		g_Vars.playerstats[i].damagescale = 1;
 	}
 
 	g_Vars.bondplayernum = 0;
@@ -96,7 +96,7 @@ void playersUnrefAll(void)
 	g_Vars.players[3] = NULL;
 	g_Vars.currentplayer = NULL;
 	g_Vars.currentplayerindex = 0;
-	g_Vars.unk000288 = NULL;
+	g_Vars.currentplayerstats = NULL;
 	g_Vars.currentplayernum = 0;
 	g_Vars.playerorder[0] = 0;
 	g_Vars.playerorder[1] = 1;
@@ -1091,7 +1091,7 @@ void setCurrentPlayerNum(u32 playernum)
 {
 	g_Vars.currentplayernum = playernum;
 	g_Vars.currentplayer = g_Vars.players[playernum];
-	g_Vars.unk000288 = &g_Vars.unk000074[playernum];
+	g_Vars.currentplayerstats = &g_Vars.playerstats[playernum];
 	g_Vars.currentplayerindex = calculatePlayerIndex(playernum);
 }
 

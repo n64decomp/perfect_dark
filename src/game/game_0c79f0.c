@@ -79,7 +79,7 @@ bool currentPlayerIsAutoAimYEnabled(void)
 		return false;
 	}
 
-	return optionsGetAutoAim(g_Vars.unk000288->mpchrnum);
+	return optionsGetAutoAim(g_Vars.currentplayerstats->mpindex);
 }
 
 GLOBAL_ASM(
@@ -152,7 +152,7 @@ bool currentPlayerIsAutoAimXEnabled(void)
 		return false;
 	}
 
-	return optionsGetAutoAim(g_Vars.unk000288->mpchrnum);
+	return optionsGetAutoAim(g_Vars.currentplayerstats->mpindex);
 }
 
 GLOBAL_ASM(
@@ -4245,9 +4245,9 @@ void func0f0cbf50(void)
 	g_Vars.currentplayer->vv_cosverta = fcos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
 	g_Vars.currentplayer->vv_sinverta = fsin(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
 
-	g_Vars.currentplayer->unk036c = -g_Vars.currentplayer->vv_sintheta;
-	g_Vars.currentplayer->unk0370 = 0;
-	g_Vars.currentplayer->unk0374 = g_Vars.currentplayer->vv_costheta;
+	g_Vars.currentplayer->bond2.unk00.x = -g_Vars.currentplayer->vv_sintheta;
+	g_Vars.currentplayer->bond2.unk00.y = 0;
+	g_Vars.currentplayer->bond2.unk00.z = g_Vars.currentplayer->vv_costheta;
 
 	if (g_Vars.currentplayer->prop) {
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
@@ -4263,9 +4263,9 @@ void func0f0cc19c(struct coord *arg)
 	f32 min;
 	f32 mult;
 
-	g_Vars.currentplayer->unk037c.x = arg->x;
-	g_Vars.currentplayer->unk037c.y = arg->y;
-	g_Vars.currentplayer->unk037c.z = arg->z;
+	g_Vars.currentplayer->bond2.unk10.x = arg->x;
+	g_Vars.currentplayer->bond2.unk10.y = arg->y;
+	g_Vars.currentplayer->bond2.unk10.z = arg->z;
 
 	if (g_Vars.currentplayer->isdead && g_Vars.currentplayer->bondleandown > 0) {
 		g_Vars.currentplayer->bondleandown -= 0.25f;
@@ -4276,7 +4276,7 @@ void func0f0cc19c(struct coord *arg)
 	}
 
 	if (g_Vars.currentplayer->vv_verta < 0) {
-		g_Vars.currentplayer->unk037c.y += -(1.0f - g_Vars.currentplayer->vv_cosverta) * g_Vars.currentplayer->bondleandown;
+		g_Vars.currentplayer->bond2.unk10.y += -(1.0f - g_Vars.currentplayer->vv_cosverta) * g_Vars.currentplayer->bondleandown;
 	}
 
 	if (cheatIsActive(CHEAT_SMALLJO)) {
@@ -4284,22 +4284,22 @@ void func0f0cc19c(struct coord *arg)
 			mult = g_Vars.currentplayer->unk1a80 * 0.6f + 0.4f;
 		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK && g_Vars.currentplayer->walkinitmove) {
 			mult = (1.0f - g_Vars.currentplayer->walkinitt) * 0.6f + 0.4f;
-			g_Vars.currentplayer->unk037c.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall) * g_Vars.currentplayer->walkinitt;
+			g_Vars.currentplayer->bond2.unk10.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall) * g_Vars.currentplayer->walkinitt;
 		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 			mult = 0.4f;
-			g_Vars.currentplayer->unk037c.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall);
+			g_Vars.currentplayer->bond2.unk10.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall);
 		} else {
 			mult = 0.4f;
 		}
 
-		g_Vars.currentplayer->unk037c.y = (g_Vars.currentplayer->unk037c.y - g_Vars.currentplayer->vv_manground) * mult;
-		g_Vars.currentplayer->unk037c.y += g_Vars.currentplayer->vv_manground;
+		g_Vars.currentplayer->bond2.unk10.y = (g_Vars.currentplayer->bond2.unk10.y - g_Vars.currentplayer->vv_manground) * mult;
+		g_Vars.currentplayer->bond2.unk10.y += g_Vars.currentplayer->vv_manground;
 	}
 
 	min = g_Vars.currentplayer->vv_ground + 10;
 
-	if (g_Vars.currentplayer->unk037c.y < min) {
-		g_Vars.currentplayer->unk037c.y = min;
+	if (g_Vars.currentplayer->bond2.unk10.y < min) {
+		g_Vars.currentplayer->bond2.unk10.y = min;
 	}
 }
 

@@ -8248,7 +8248,7 @@ glabel func0f0bd904
 /*  f0bdce8:	11a00004 */ 	beqz	$t5,.L0f0bdcfc
 /*  f0bdcec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bdcf0:	8e64028c */ 	lw	$a0,0x28c($s3)
-/*  f0bdcf4:	0fc30501 */ 	jal	func0f0c1404
+/*  f0bdcf4:	0fc30501 */ 	jal	currentPlayerDie
 /*  f0bdcf8:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f0bdcfc:
 /*  f0bdcfc:	0fc2ee05 */ 	jal	func0f0bb814
@@ -11986,7 +11986,7 @@ glabel func0f0c13a8
 /*  f0c13e4:	00602025 */ 	or	$a0,$v1,$zero
 /*  f0c13e8:	8cc4028c */ 	lw	$a0,0x28c($a2)
 .L0f0c13ec:
-/*  f0c13ec:	0fc30501 */ 	jal	func0f0c1404
+/*  f0c13ec:	0fc30501 */ 	jal	currentPlayerDie
 /*  f0c13f0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c13f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0c13f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -11994,149 +11994,56 @@ glabel func0f0c13a8
 /*  f0c1400:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c1404
-/*  f0c1404:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0c1408:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0c140c:	3c10800a */ 	lui	$s0,%hi(g_Vars)
-/*  f0c1410:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
-/*  f0c1414:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0c1418:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0c141c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f0c1420:	8c4e00d8 */ 	lw	$t6,0xd8($v0)
-/*  f0c1424:	55c00075 */ 	bnezl	$t6,.L0f0c15fc
-/*  f0c1428:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0c142c:	14a00003 */ 	bnez	$a1,.L0f0c143c
-/*  f0c1430:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c1434:	904f1922 */ 	lbu	$t7,0x1922($v0)
-/*  f0c1438:	15e0006f */ 	bnez	$t7,.L0f0c15f8
-.L0f0c143c:
-/*  f0c143c:	3c028007 */ 	lui	$v0,%hi(g_MpPlayerNum)
-/*  f0c1440:	24421448 */ 	addiu	$v0,$v0,%lo(g_MpPlayerNum)
-/*  f0c1444:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f0c1448:	8e190288 */ 	lw	$t9,0x288($s0)
-/*  f0c144c:	afb80024 */ 	sw	$t8,0x24($sp)
-/*  f0c1450:	8f280070 */ 	lw	$t0,0x70($t9)
-/*  f0c1454:	0fc3e048 */ 	jal	func0f0f8120
-/*  f0c1458:	ac480000 */ 	sw	$t0,0x0($v0)
-/*  f0c145c:	8fa90024 */ 	lw	$t1,0x24($sp)
-/*  f0c1460:	3c018007 */ 	lui	$at,0x8007
-/*  f0c1464:	ac291448 */ 	sw	$t1,0x1448($at)
-/*  f0c1468:	0fc37e94 */ 	jal	func0f0dfa50
-/*  f0c146c:	8e04028c */ 	lw	$a0,0x28c($s0)
-/*  f0c1470:	8e0a0314 */ 	lw	$t2,0x314($s0)
-/*  f0c1474:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f0c1478:	51400004 */ 	beqzl	$t2,.L0f0c148c
-/*  f0c147c:	8e0b0284 */ 	lw	$t3,0x284($s0)
-/*  f0c1480:	0fc2c27d */ 	jal	func0f0b09f4
-/*  f0c1484:	8e05028c */ 	lw	$a1,0x28c($s0)
-/*  f0c1488:	8e0b0284 */ 	lw	$t3,0x284($s0)
-.L0f0c148c:
-/*  f0c148c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0c1490:	8d6c00bc */ 	lw	$t4,0xbc($t3)
-/*  f0c1494:	0fc08946 */ 	jal	chrUncloak
-/*  f0c1498:	8d840004 */ 	lw	$a0,0x4($t4)
-/*  f0c149c:	8e0d0314 */ 	lw	$t5,0x314($s0)
-/*  f0c14a0:	51a0000d */ 	beqzl	$t5,.L0f0c14d8
-/*  f0c14a4:	8e180284 */ 	lw	$t8,0x284($s0)
-/*  f0c14a8:	8e02029c */ 	lw	$v0,0x29c($s0)
-/*  f0c14ac:	04400007 */ 	bltz	$v0,.L0f0c14cc
-/*  f0c14b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c14b4:	8e0e028c */ 	lw	$t6,0x28c($s0)
-/*  f0c14b8:	8faf0028 */ 	lw	$t7,0x28($sp)
-/*  f0c14bc:	144e0003 */ 	bne	$v0,$t6,.L0f0c14cc
-/*  f0c14c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c14c4:	51e20004 */ 	beql	$t7,$v0,.L0f0c14d8
-/*  f0c14c8:	8e180284 */ 	lw	$t8,0x284($s0)
-.L0f0c14cc:
-/*  f0c14cc:	0fc2442b */ 	jal	func0f0910ac
-/*  f0c14d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c14d4:	8e180284 */ 	lw	$t8,0x284($s0)
-.L0f0c14d8:
-/*  f0c14d8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0c14dc:	af0400d8 */ 	sw	$a0,0xd8($t8)
-/*  f0c14e0:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f0c14e4:	01404825 */ 	or	$t1,$t2,$zero
-/*  f0c14e8:	25480030 */ 	addiu	$t0,$t2,0x30
-.L0f0c14ec:
-/*  f0c14ec:	8d21036c */ 	lw	$at,0x36c($t1)
-/*  f0c14f0:	2529000c */ 	addiu	$t1,$t1,0xc
-/*  f0c14f4:	254a000c */ 	addiu	$t2,$t2,0xc
-/*  f0c14f8:	ad41032c */ 	sw	$at,0x32c($t2)
-/*  f0c14fc:	8d210364 */ 	lw	$at,0x364($t1)
-/*  f0c1500:	ad410330 */ 	sw	$at,0x330($t2)
-/*  f0c1504:	8d210368 */ 	lw	$at,0x368($t1)
-/*  f0c1508:	1528fff8 */ 	bne	$t1,$t0,.L0f0c14ec
-/*  f0c150c:	ad410334 */ 	sw	$at,0x334($t2)
-/*  f0c1510:	8d21036c */ 	lw	$at,0x36c($t1)
-/*  f0c1514:	ad410338 */ 	sw	$at,0x338($t2)
-/*  f0c1518:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0c151c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f0c1520:	c4440144 */ 	lwc1	$f4,0x144($v0)
-/*  f0c1524:	e444031c */ 	swc1	$f4,0x31c($v0)
-/*  f0c1528:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0c152c:	c4460154 */ 	lwc1	$f6,0x154($v0)
-/*  f0c1530:	e4460320 */ 	swc1	$f6,0x320($v0)
-/*  f0c1534:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0c1538:	8c4b00bc */ 	lw	$t3,0xbc($v0)
-/*  f0c153c:	c5680008 */ 	lwc1	$f8,0x8($t3)
-/*  f0c1540:	e44802b4 */ 	swc1	$f8,0x2b4($v0)
-/*  f0c1544:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0c1548:	8c4c00bc */ 	lw	$t4,0xbc($v0)
-/*  f0c154c:	c58a000c */ 	lwc1	$f10,0xc($t4)
-/*  f0c1550:	e44a02b8 */ 	swc1	$f10,0x2b8($v0)
-/*  f0c1554:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0c1558:	8c4d00bc */ 	lw	$t5,0xbc($v0)
-/*  f0c155c:	c5b00010 */ 	lwc1	$f16,0x10($t5)
-/*  f0c1560:	e45002bc */ 	swc1	$f16,0x2bc($v0)
-/*  f0c1564:	8e020284 */ 	lw	$v0,0x284($s0)
-/*  f0c1568:	8c4301b0 */ 	lw	$v1,0x1b0($v0)
-/*  f0c156c:	14600006 */ 	bnez	$v1,.L0f0c1588
-/*  f0c1570:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c1574:	8c4e1af0 */ 	lw	$t6,0x1af0($v0)
-/*  f0c1578:	11c00006 */ 	beqz	$t6,.L0f0c1594
-/*  f0c157c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c1580:	10000004 */ 	beqz	$zero,.L0f0c1594
-/*  f0c1584:	ac441b78 */ 	sw	$a0,0x1b78($v0)
-.L0f0c1588:
-/*  f0c1588:	14610002 */ 	bne	$v1,$at,.L0f0c1594
-/*  f0c158c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c1590:	ac441b78 */ 	sw	$a0,0x1b78($v0)
-.L0f0c1594:
-/*  f0c1594:	0fc31f4c */ 	jal	currentPlayerSetMoveMode
-/*  f0c1598:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0c159c:	0fc28a72 */ 	jal	func0f0a29c8
-/*  f0c15a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c15a4:	0fc3089f */ 	jal	getMissionTime
-/*  f0c15a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c15ac:	8e0f0284 */ 	lw	$t7,0x284($s0)
-/*  f0c15b0:	8e080288 */ 	lw	$t0,0x288($s0)
-/*  f0c15b4:	8df8195c */ 	lw	$t8,0x195c($t7)
-/*  f0c15b8:	8d090050 */ 	lw	$t1,0x50($t0)
-/*  f0c15bc:	0058c823 */ 	subu	$t9,$v0,$t8
-/*  f0c15c0:	0329082a */ 	slt	$at,$t9,$t1
-/*  f0c15c4:	10200008 */ 	beqz	$at,.L0f0c15e8
-/*  f0c15c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c15cc:	0fc3089f */ 	jal	getMissionTime
-/*  f0c15d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c15d4:	8e0a0284 */ 	lw	$t2,0x284($s0)
-/*  f0c15d8:	8e0d0288 */ 	lw	$t5,0x288($s0)
-/*  f0c15dc:	8d4b195c */ 	lw	$t3,0x195c($t2)
-/*  f0c15e0:	004b6023 */ 	subu	$t4,$v0,$t3
-/*  f0c15e4:	adac0050 */ 	sw	$t4,0x50($t5)
-.L0f0c15e8:
-/*  f0c15e8:	0fc3089f */ 	jal	getMissionTime
-/*  f0c15ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c15f0:	8e0e0284 */ 	lw	$t6,0x284($s0)
-/*  f0c15f4:	adc2195c */ 	sw	$v0,0x195c($t6)
-.L0f0c15f8:
-/*  f0c15f8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0c15fc:
-/*  f0c15fc:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0c1600:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0c1604:	03e00008 */ 	jr	$ra
-/*  f0c1608:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerDie(u32 playernum, bool force)
+{
+	if (!g_Vars.currentplayer->isdead &&
+			(force || !g_Vars.currentplayer->invincible)) {
+		u32 prevplayernum = g_MpPlayerNum;
+		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
+		func0f0f8120();
+		g_MpPlayerNum = prevplayernum;
+
+		func0f0dfa50(g_Vars.currentplayernum);
+
+		if (g_Vars.mplayerisrunning) {
+			func0f0b09f4(playernum, g_Vars.currentplayernum);
+		}
+
+		chrUncloak(g_Vars.currentplayer->prop->chr, true);
+
+		if (g_Vars.mplayerisrunning &&
+				(g_Vars.antiplayernum < 0
+				 || g_Vars.currentplayernum != g_Vars.antiplayernum
+				 || playernum != g_Vars.antiplayernum)) {
+			func0f0910ac();
+		}
+
+		g_Vars.currentplayer->isdead = true;
+		g_Vars.currentplayer->bonddie = g_Vars.currentplayer->bond2;
+		g_Vars.currentplayer->thetadie = g_Vars.currentplayer->vv_theta;
+		g_Vars.currentplayer->vertadie = g_Vars.currentplayer->vv_verta;
+		g_Vars.currentplayer->posdie.x = g_Vars.currentplayer->prop->pos.x;
+		g_Vars.currentplayer->posdie.y = g_Vars.currentplayer->prop->pos.y;
+		g_Vars.currentplayer->posdie.z = g_Vars.currentplayer->prop->pos.z;
+
+		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
+			if (g_Vars.currentplayer->unk1af0) {
+				g_Vars.currentplayer->bondtankexplode = true;
+			}
+		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
+			g_Vars.currentplayer->bondtankexplode = true;
+		}
+
+		currentPlayerSetMoveMode(MOVEMODE_WALK);
+		func0f0a29c8();
+
+		if (getMissionTime() - g_Vars.currentplayer->lifestarttime60 < g_Vars.currentplayerstats->shortestlife) {
+			g_Vars.currentplayerstats->shortestlife = getMissionTime() - g_Vars.currentplayer->lifestarttime60;
+		}
+
+		g_Vars.currentplayer->lifestarttime60 = getMissionTime();
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0c160c
@@ -12853,7 +12760,7 @@ void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 {
 	u32 playernum = propGetPlayerNum(prop);
 
-	*width = g_Vars.players[playernum]->width;
+	*width = g_Vars.players[playernum]->bond2.width;
 	*ymin = g_Vars.currentplayer->vv_manground + 30;
 	*ymax = g_Vars.currentplayer->vv_manground + g_Vars.players[playernum]->vv_headheight;
 

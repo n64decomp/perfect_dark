@@ -66,7 +66,7 @@ u32 func0f0c00cc(void);
 u32 func0f0c0190(void);
 u32 func0f0c07c8(void);
 void func0f0c13a8(s32 arg0);
-void func0f0c1404(s32 shooter, s32 arg1);
+void currentPlayerDie(u32 playernum, bool force);
 u32 func0f0c160c(void);
 u32 func0f0c16f4(void);
 u32 func0f0c1840(void);

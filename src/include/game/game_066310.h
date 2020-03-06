@@ -335,7 +335,7 @@ u32 func0f0908b8(void);
 u32 func0f090d34(void);
 u32 func0f090db4(void);
 u32 func0f091030(void);
-u32 func0f0910ac(void);
+void func0f0910ac(void);
 u32 func0f091250(void);
 u32 func0f0912dc(void);
 u32 objSetPartVisible(struct defaultobj *obj, u32 arg1, u32 arg2);

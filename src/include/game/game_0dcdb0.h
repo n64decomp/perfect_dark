@@ -23,7 +23,7 @@ u32 func0f0deebc(void);
 u32 func0f0df364(void);
 void currentPlayerUnsetFlag(u32 flag);
 void currentPlayerSetFlag(u32 flag);
-u32 func0f0dfa50(void);
+void func0f0dfa50(u32 playernum);
 u32 func0f0dfad0(void);
 u32 func0f0e0724(void);
 u32 func0f0e0770(void);

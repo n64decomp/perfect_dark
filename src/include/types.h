@@ -1105,6 +1105,14 @@ struct gunheld {
 	s32 totaltime240_60;
 };
 
+struct playerbond {
+	/*0x0338 0x036c*/ struct coord unk00;
+	/*0x0344 0x0378*/ f32 width;
+	/*0x0348 0x037c*/ struct coord unk10;
+	/*0x0354 0x0388*/ struct coord unk1c;
+	/*0x0360 0x0394*/ struct coord unk28;
+};
+
 struct player1630 {
 	struct prop *prop;
 	u32 unk04;
@@ -1291,33 +1299,15 @@ struct player {
 	/*0x0308*/ f32 colourfadefracold;
 	/*0x030c*/ f32 colourfadefracnew;
 	/*0x0310*/ struct coord bondprevpos;
-	/*0x031c*/ u32 unk031c;
-	/*0x0320*/ u32 unk0320;
+	/*0x031c*/ f32 thetadie;
+	/*0x0320*/ f32 vertadie;
 	/*0x0324*/ u32 bondtype;
 	/*0x0328*/ u32 unk0328;
 	/*0x032c*/ u32 unk032c;
 	/*0x0330*/ u32 unk0330;
 	/*0x0334*/ u32 unk0334;
-	/*0x0338*/ u32 unk0338;
-	/*0x033c*/ u32 unk033c;
-	/*0x0340*/ u32 unk0340;
-	/*0x0344*/ u32 unk0344;
-	/*0x0348*/ u32 unk0348;
-	/*0x034c*/ u32 unk034c;
-	/*0x0350*/ u32 unk0350;
-	/*0x0354*/ u32 unk0354;
-	/*0x0358*/ u32 unk0358;
-	/*0x035c*/ u32 unk035c;
-	/*0x0360*/ u32 unk0360;
-	/*0x0364*/ u32 unk0364;
-	/*0x0368*/ u32 unk0368;
-	/*0x036c*/ f32 unk036c; // probably a coord
-	/*0x0370*/ f32 unk0370;
-	/*0x0374*/ f32 unk0374;
-	/*0x0378*/ f32 width;
-	/*0x037c*/ struct coord unk037c;
-	/*0x0388*/ struct coord unk0388;
-	/*0x0394*/ struct coord unk0394;
+	/*0x0338*/ struct playerbond bonddie;
+	/*0x036c*/ struct playerbond bond2;
 	/*0x03a0*/ bool resetheadpos;
 	/*0x03a4*/ bool resetheadrot;
 	/*0x03a8*/ u32 unk03a8;
@@ -2639,7 +2629,7 @@ struct player {
 	/*0x1950*/ u32 lastkilltime60_2;
 	/*0x1954*/ u32 lastkilltime60_3;
 	/*0x1958*/ u32 lastkilltime60_4;
-	/*0x195c*/ u32 lifestarttime60;
+	/*0x195c*/ s32 lifestarttime60;
 	/*0x1960*/ u32 killsthislife;
 	/*0x1964*/ u32 healthdisplaytime60;
 	/*0x1968*/ f32 guncloseroffset;
@@ -2728,7 +2718,7 @@ struct player {
 	/*0x1b64*/ s32 grabstarttime;
 	/*0x1b68*/ u32 unk1b68;
 	/*0x1b6c*/ struct coord bondforcespeed;
-	/*0x1b78*/ u32 unk1b78;
+	/*0x1b78*/ bool bondtankexplode;
 	/*0x1b7c*/ s32 bondviewlevtime60;
 	/*0x1b80*/ f32 bondwatchtime60;
 	/*0x1b84*/ bool tickdiefinished;
@@ -3230,39 +3220,36 @@ struct bootbufferthing {
 	u8 unk00[2400];
 };
 
-struct gvars74 {
-	/*0x00*/ u32 unk00;
+struct playerstats {
+	/*0x00*/ u32 shotcount;
 	/*0x04*/ u32 unk04;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
-	/*0x54*/ u32 unk54;
-	/*0x58*/ u32 unk58;
-	/*0x5c*/ f32 unk5c;
-	/*0x60*/ s32 unk60;
+	/*0x1c*/ u32 killcount;
+	/*0x20*/ u32 ggkillcount;
+	/*0x24*/ u8 kills[16];
+	/*0x34*/ u32 drawplayercount;
+	/*0x38*/ f32 distance;
+	/*0x3c*/ u32 backshotcount;
+	/*0x40*/ u32 armourcount;
+	/*0x44*/ s32 fastest2kills;
+	/*0x48*/ s32 slowest2kills;
+	/*0x4c*/ s32 longestlife;
+	/*0x50*/ s32 shortestlife;
+	/*0x54*/ u32 maxkills;
+	/*0x58*/ u32 maxsimulkills;
+	/*0x5c*/ f32 damagescale;
+	/*0x60*/ s32 tokenheldtime;
 	/*0x64*/ u32 unk64;
-	/*0x68*/ u32 unk68;
-	/*0x6c*/ u32 unk6c;
-	/*0x70*/ u32 mpchrnum;
-	/*0x74*/ u32 unk74;
-	/*0x78*/ u32 unk78;
-	/*0x7c*/ u32 unk7c;
+	/*0x68*/ u32 cloaktime;
+	/*0x6c*/ u32 speedpillcount;
+	/*0x70*/ u32 mpindex;
+	/*0x74*/ u32 scale_bg2gfx;
+	/*0x78*/ u32 damreceived;
+	/*0x7c*/ u32 damtransmitted;
 };
 
 struct credit {

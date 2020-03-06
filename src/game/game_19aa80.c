@@ -1900,7 +1900,7 @@ void mpConsiderMarkingCurrentChallengeComplete(void)
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			setCurrentPlayerNum(i);
-			mpSetChallengeCompletedByChrWithNumPlayers(g_Vars.unk000288->mpchrnum, g_MpChallengeIndex, PLAYERCOUNT(), true);
+			mpSetChallengeCompletedByChrWithNumPlayers(g_Vars.currentplayerstats->mpindex, g_MpChallengeIndex, PLAYERCOUNT(), true);
 		}
 
 		setCurrentPlayerNum(prevplayernum);

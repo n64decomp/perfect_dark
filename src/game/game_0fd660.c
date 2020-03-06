@@ -41,7 +41,7 @@ void mpOpenPickTarget(void)
 	if (!mpIsPaused()) {
 		g_ActiveMenuThings[g_ActiveMenuIndex].unk33 = g_ActiveMenuThings[g_ActiveMenuIndex].allbots;
 		g_Vars.currentplayer->activemenumode = 0;
-		g_MpPlayerNum = g_Vars.unk000288[0].mpchrnum;
+		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
 		func0f0f8330(&menudialog_picktarget, 8);
 		g_MpPlayerNum = prevplayernum;
 	}
@@ -630,7 +630,7 @@ void activemenuApply(s32 slot)
 	case 1: // Function - 0c8
 		if (g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
 				&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST
-				&& g_MpPlayers[g_Vars.unk000288->mpchrnum].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << (g_Vars.currentplayer->unk1580 - 1 & 7))) {
+				&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << (g_Vars.currentplayer->unk1580 - 1 & 7))) {
 			if (slot == 1) {
 				g_ActiveMenuThings[g_ActiveMenuIndex].unk30 = 1;
 			}
@@ -726,7 +726,7 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 				if (!secfunc
 						|| g_Vars.currentplayer->unk1580 < WEAPON_UNARMED
 						|| g_Vars.currentplayer->unk1580 > WEAPON_COMBATBOOST
-						|| (g_MpPlayers[g_Vars.unk000288->mpchrnum].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << (g_Vars.currentplayer->unk1580 - 1 & 7))) == 0) {
+						|| (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << (g_Vars.currentplayer->unk1580 - 1 & 7))) == 0) {
 					*flags |= AMSLOTFLAG_CURRENT;
 				}
 
@@ -737,7 +737,7 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 				if (!prifunc || (
 						g_Vars.currentplayer->unk1580 >= WEAPON_UNARMED
 						&& g_Vars.currentplayer->unk1580 <= WEAPON_COMBATBOOST
-						&& g_MpPlayers[g_Vars.unk000288->mpchrnum].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << (g_Vars.currentplayer->unk1580 - 1 & 7)))) {
+						&& g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[(g_Vars.currentplayer->unk1580 - 1) >> 3] & (1 << (g_Vars.currentplayer->unk1580 - 1 & 7)))) {
 					*flags |= AMSLOTFLAG_CURRENT;
 				}
 

@@ -84,8 +84,8 @@ void currentPlayerBikeInit(void)
 	func00015b68(matrix, &g_Vars.currentplayer->unk1a70, &g_Vars.currentplayer->unk1adc);
 	func00016b58(g_Vars.currentplayer->bondentermtx,
 			0, 0, 0,
-			-g_Vars.currentplayer->unk0388.x, -g_Vars.currentplayer->unk0388.y, -g_Vars.currentplayer->unk0388.z,
-			g_Vars.currentplayer->unk0394.x, g_Vars.currentplayer->unk0394.y, g_Vars.currentplayer->unk0394.z);
+			-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
+			g_Vars.currentplayer->bond2.unk28.x, g_Vars.currentplayer->bond2.unk28.y, g_Vars.currentplayer->bond2.unk28.z);
 
 	g_Vars.currentplayer->speedtheta = 0;
 	g_Vars.currentplayer->speedthetacontrol = 0;

@@ -1522,7 +1522,7 @@ glabel currentPlayerInit
 //		}
 //	} else {
 //		if (g_Vars.mplayerisrunning) {
-//			g_Vars.currentplayer->prop->chr->team = 1 << g_MpPlayers[g_Vars.unk000288->mpchrnum].base.team;
+//			g_Vars.currentplayer->prop->chr->team = 1 << g_MpPlayers[g_Vars.currentplayerstats->mpindex].base.team;
 //		} else {
 //			g_Vars.currentplayer->prop->chr->team = TEAM_ALLY;
 //		}

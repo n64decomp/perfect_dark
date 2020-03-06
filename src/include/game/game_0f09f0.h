@@ -50,7 +50,7 @@ u32 func0f0f7594(void);
 u32 func0f0f7728(void);
 u32 func0f0f7e98(void);
 u32 func0f0f8040(void);
-u32 func0f0f8120(void);
+void func0f0f8120(void);
 void func0f0f820c(struct menu_dialog *dialog, s32 arg1);
 u32 func0f0f82a8(void);
 void func0f0f8300(void);

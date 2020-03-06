@@ -7049,16 +7049,16 @@ void scenarioHtbCallback14(struct chrdata *chr)
 		}
 	} else {
 		if (currentPlayerHasBriefcase()) {
-			g_Vars.unk000288->unk60 += g_Vars.lvupdate240;
+			g_Vars.currentplayerstats->tokenheldtime += g_Vars.lvupdate240;
 
-			if (g_Vars.unk000288->unk60 >= SECSTOFRAMES240(30)) {
+			if (g_Vars.currentplayerstats->tokenheldtime >= SECSTOFRAMES240(30)) {
 				func00010904(var80095200, 0x5b8, 0, -1, -1, -1, -1, -1);
 				var800ac500[g_Vars.currentplayernum]->unk3e++;
-				func0f0ddfa4(langGet(0x5418), 9, 1);
-				g_Vars.unk000288->unk60 = 0;
+				func0f0ddfa4(langGet(0x5418), 9, 1); // "1 Point!"
+				g_Vars.currentplayerstats->tokenheldtime = 0;
 			}
 		} else {
-			g_Vars.unk000288->unk60 = 0;
+			g_Vars.currentplayerstats->tokenheldtime = 0;
 		}
 	}
 }
