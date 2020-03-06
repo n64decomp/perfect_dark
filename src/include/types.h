@@ -496,6 +496,27 @@ struct act_attackamount {
 	/*0x34*/ s8 unk034;
 };
 
+struct act_robotattack {
+	/*0x2c*/ u32 unk02c;
+	/*0x30*/ u32 unk030;
+	/*0x34*/ u32 unk034;
+	/*0x38*/ u32 unk038;
+	/*0x3c*/ u32 unk03c;
+	/*0x40*/ u32 unk040;
+	/*0x44*/ u32 unk044;
+	/*0x48*/ u32 unk048;
+	/*0x4c*/ u32 unk04c;
+	/*0x50*/ u32 unk050;
+	/*0x54*/ u32 unk054;
+	/*0x58*/ u32 unk058;
+	/*0x5c*/ u32 unk05c;
+	/*0x60*/ u32 unk060;
+	/*0x64*/ u32 unk064;
+	/*0x68*/ u32 unk068;
+	/*0x6c*/ u16 unk06c;
+	/*0x6e*/ u8 unk06e;
+};
+
 struct act_skjump {
 	/*0x2c*/ u8 state;
 	/*0x2d*/ u8 needsnewanim;
@@ -562,6 +583,7 @@ struct chrdata {
 		struct act_druggedko act_druggedko;
 		struct act_druggedcomingup act_druggedcomingup;
 		struct act_attackamount act_attackamount;
+		struct act_robotattack act_robotattack;
 		struct act_skjump act_skjump;
 	};
 
