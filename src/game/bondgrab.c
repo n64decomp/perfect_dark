@@ -1690,7 +1690,7 @@ void func0f0ce1ac(void)
 
 	if ((g_Vars.currentplayer->floorflags & FLOORFLAG_4000) &&
 			g_Vars.currentplayer->vv_manground - 20.0f < g_Vars.currentplayer->vv_ground) {
-		func0f0c13a8(true);
+		currentPlayerDie(true);
 	}
 }
 

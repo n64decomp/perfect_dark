@@ -1490,7 +1490,7 @@ glabel func0f0d341c
 /*  f0d360c:	31f84000 */ 	andi	$t8,$t7,0x4000
 /*  f0d3610:	13000003 */ 	beqz	$t8,.L0f0d3620
 /*  f0d3614:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0d3618:	0fc304ea */ 	jal	func0f0c13a8
+/*  f0d3618:	0fc304ea */ 	jal	currentPlayerDie
 /*  f0d361c:	24040001 */ 	addiu	$a0,$zero,0x1
 .L0f0d3620:
 /*  f0d3620:	0fc32fd4 */ 	jal	func0f0cbf50

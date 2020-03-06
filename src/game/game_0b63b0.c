@@ -8248,7 +8248,7 @@ glabel func0f0bd904
 /*  f0bdce8:	11a00004 */ 	beqz	$t5,.L0f0bdcfc
 /*  f0bdcec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bdcf0:	8e64028c */ 	lw	$a0,0x28c($s3)
-/*  f0bdcf4:	0fc30501 */ 	jal	currentPlayerDie
+/*  f0bdcf4:	0fc30501 */ 	jal	currentPlayerDieByShooter
 /*  f0bdcf8:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f0bdcfc:
 /*  f0bdcfc:	0fc2ee05 */ 	jal	func0f0bb814
@@ -11966,35 +11966,21 @@ glabel func0f0c07c8
 /*  f0c13a4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c13a8
-/*  f0c13a8:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f0c13ac:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f0c13b0:	8cce0284 */ 	lw	$t6,0x284($a2)
-/*  f0c13b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0c13b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0c13bc:	8dcf00bc */ 	lw	$t7,0xbc($t6)
-/*  f0c13c0:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0c13c4:	8de20004 */ 	lw	$v0,0x4($t7)
-/*  f0c13c8:	844300ec */ 	lh	$v1,0xec($v0)
-/*  f0c13cc:	04620007 */ 	bltzl	$v1,.L0f0c13ec
-/*  f0c13d0:	8cc4028c */ 	lw	$a0,0x28c($a2)
-/*  f0c13d4:	845800ee */ 	lh	$t8,0xee($v0)
-/*  f0c13d8:	5b000004 */ 	blezl	$t8,.L0f0c13ec
-/*  f0c13dc:	8cc4028c */ 	lw	$a0,0x28c($a2)
-/*  f0c13e0:	10000002 */ 	beqz	$zero,.L0f0c13ec
-/*  f0c13e4:	00602025 */ 	or	$a0,$v1,$zero
-/*  f0c13e8:	8cc4028c */ 	lw	$a0,0x28c($a2)
-.L0f0c13ec:
-/*  f0c13ec:	0fc30501 */ 	jal	currentPlayerDie
-/*  f0c13f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c13f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0c13f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0c13fc:	03e00008 */ 	jr	$ra
-/*  f0c1400:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerDie(bool force)
+{
+	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
+	s32 shooter;
 
-void currentPlayerDie(u32 playernum, bool force)
+	if (chr->lastshooter >= 0 && chr->timeshooter > 0) {
+		shooter = chr->lastshooter;
+	} else {
+		shooter = g_Vars.currentplayernum;
+	}
+
+	currentPlayerDieByShooter(shooter, force);
+}
+
+void currentPlayerDieByShooter(u32 shooter, bool force)
 {
 	if (!g_Vars.currentplayer->isdead &&
 			(force || !g_Vars.currentplayer->invincible)) {
@@ -12006,7 +11992,7 @@ void currentPlayerDie(u32 playernum, bool force)
 		func0f0dfa50(g_Vars.currentplayernum);
 
 		if (g_Vars.mplayerisrunning) {
-			func0f0b09f4(playernum, g_Vars.currentplayernum);
+			func0f0b09f4(shooter, g_Vars.currentplayernum);
 		}
 
 		chrUncloak(g_Vars.currentplayer->prop->chr, true);
@@ -12014,7 +12000,7 @@ void currentPlayerDie(u32 playernum, bool force)
 		if (g_Vars.mplayerisrunning &&
 				(g_Vars.antiplayernum < 0
 				 || g_Vars.currentplayernum != g_Vars.antiplayernum
-				 || playernum != g_Vars.antiplayernum)) {
+				 || shooter != g_Vars.antiplayernum)) {
 			func0f0910ac();
 		}
 
