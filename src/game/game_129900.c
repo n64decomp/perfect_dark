@@ -11,6 +11,7 @@
 #include "game/game_01e250.h"
 #include "game/game_0601b0.h"
 #include "game/game_066310.h"
+#include "game/game_091e10.h"
 #include "game/game_092610.h"
 #include "game/game_0b3350.h"
 #include "game/game_129900.h"

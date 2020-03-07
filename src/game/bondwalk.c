@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/bondwalk.h"
 #include "game/cheats.h"
 #include "game/chr/chraction.h"
 #include "game/data/data_000000.h"
@@ -13,9 +14,9 @@
 #include "game/game_0601b0.h"
 #include "game/game_066310.h"
 #include "game/game_092610.h"
+#include "game/game_095320.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b63b0.h"
-#include "game/bondwalk.h"
 #include "game/game_0c79f0.h"
 #include "game/game_111600.h"
 #include "game/game_113220.h"

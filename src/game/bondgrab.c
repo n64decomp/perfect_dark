@@ -11,7 +11,7 @@
 #include "game/data/data_020df0.h"
 #include "game/game_0601b0.h"
 #include "game/game_066310.h"
-#include "game/game_092610.h"
+#include "game/game_095320.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b63b0.h"
 #include "game/game_0c79f0.h"

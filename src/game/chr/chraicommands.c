@@ -19,6 +19,7 @@
 #include "game/game_066310.h"
 #include "game/game_091e10.h"
 #include "game/game_092610.h"
+#include "game/game_095320.h"
 #include "game/game_096750.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b0420.h"

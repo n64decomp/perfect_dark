@@ -1,6 +1,8 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/bondbike.h"
 #include "game/bondgrab.h"
+#include "game/bondwalk.h"
 #include "game/cheats.h"
 #include "game/chr/chraction.h"
 #include "game/data/data_000000.h"
@@ -20,9 +22,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/game_0c3620.h"
-#include "game/bondwalk.h"
 #include "game/game_0c79f0.h"
-#include "game/bondbike.h"
 #include "game/game_0fd660.h"
 #include "game/game_113220.h"
 #include "game/game_127910.h"

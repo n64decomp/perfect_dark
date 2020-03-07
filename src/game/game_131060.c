@@ -13,7 +13,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
 #include "game/game_0d4690.h"
-#include "game/game_0dcdb0.h"
+#include "game/game_0e0770.h"
 #include "game/game_0f09f0.h"
 #include "game/game_12f6c0.h"
 #include "game/game_131060.h"
