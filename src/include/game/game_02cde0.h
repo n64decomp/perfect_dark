@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f02cde0(void);
+u32 bodyGetRace(u32 bodynum);
 bool bodyLoad(u32 bodynum);
 u32 func0f02ce8c(void);
 u32 func0f02d338(void);

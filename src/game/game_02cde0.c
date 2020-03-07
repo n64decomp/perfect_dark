@@ -26,107 +26,23 @@
 #include "lib/lib_233c0.h"
 #include "types.h"
 
-const u32 var7f1a8990[] = {0x7f02ce04};
-const u32 var7f1a8994[] = {0x7f02ce24};
-const u32 var7f1a8998[] = {0x7f02ce24};
-const u32 var7f1a899c[] = {0x7f02ce24};
-const u32 var7f1a89a0[] = {0x7f02ce24};
-const u32 var7f1a89a4[] = {0x7f02ce24};
-const u32 var7f1a89a8[] = {0x7f02ce24};
-const u32 var7f1a89ac[] = {0x7f02ce24};
-const u32 var7f1a89b0[] = {0x7f02ce24};
-const u32 var7f1a89b4[] = {0x7f02ce24};
-const u32 var7f1a89b8[] = {0x7f02ce24};
-const u32 var7f1a89bc[] = {0x7f02ce24};
-const u32 var7f1a89c0[] = {0x7f02ce24};
-const u32 var7f1a89c4[] = {0x7f02ce24};
-const u32 var7f1a89c8[] = {0x7f02ce24};
-const u32 var7f1a89cc[] = {0x7f02ce0c};
-const u32 var7f1a89d0[] = {0x7f02ce14};
-const u32 var7f1a89d4[] = {0x7f02ce24};
-const u32 var7f1a89d8[] = {0x7f02ce24};
-const u32 var7f1a89dc[] = {0x7f02ce24};
-const u32 var7f1a89e0[] = {0x7f02ce24};
-const u32 var7f1a89e4[] = {0x7f02ce24};
-const u32 var7f1a89e8[] = {0x7f02ce24};
-const u32 var7f1a89ec[] = {0x7f02ce24};
-const u32 var7f1a89f0[] = {0x7f02ce24};
-const u32 var7f1a89f4[] = {0x7f02ce24};
-const u32 var7f1a89f8[] = {0x7f02ce1c};
-const u32 var7f1a89fc[] = {0x7f02ce24};
-const u32 var7f1a8a00[] = {0x7f02ce24};
-const u32 var7f1a8a04[] = {0x7f02ce24};
-const u32 var7f1a8a08[] = {0x7f02ce24};
-const u32 var7f1a8a0c[] = {0x7f02ce04};
-const u32 var7f1a8a10[] = {0x7f02ce24};
-const u32 var7f1a8a14[] = {0x7f02ce24};
-const u32 var7f1a8a18[] = {0x7f02ce24};
-const u32 var7f1a8a1c[] = {0x7f02ce24};
-const u32 var7f1a8a20[] = {0x7f02ce24};
-const u32 var7f1a8a24[] = {0x7f02ce24};
-const u32 var7f1a8a28[] = {0x7f02ce24};
-const u32 var7f1a8a2c[] = {0x7f02ce24};
-const u32 var7f1a8a30[] = {0x7f02ce24};
-const u32 var7f1a8a34[] = {0x7f02ce24};
-const u32 var7f1a8a38[] = {0x7f02ce24};
-const u32 var7f1a8a3c[] = {0x7f02ce24};
-const u32 var7f1a8a40[] = {0x7f02ce24};
-const u32 var7f1a8a44[] = {0x7f02ce24};
-const u32 var7f1a8a48[] = {0x7f02ce24};
-const u32 var7f1a8a4c[] = {0x7f02ce24};
-const u32 var7f1a8a50[] = {0x7f02ce24};
-const u32 var7f1a8a54[] = {0x7f02ce24};
-const u32 var7f1a8a58[] = {0x7f02ce24};
-const u32 var7f1a8a5c[] = {0x7f02ce24};
-const u32 var7f1a8a60[] = {0x7f02ce24};
-const u32 var7f1a8a64[] = {0x7f02ce24};
-const u32 var7f1a8a68[] = {0x7f02ce24};
-const u32 var7f1a8a6c[] = {0x7f02ce04};
-const u32 var7f1a8a70[] = {0x3dccccce};
-const u32 var7f1a8a74[] = {0x3f4ccccd};
-const u32 var7f1a8a78[] = {0x3d4ccccd};
-const u32 var7f1a8a7c[] = {0x3ecccccd};
-const u32 var7f1a8a80[] = {0x3ecccccd};
-const u32 var7f1a8a84[] = {0x3dcccccd};
-const u32 var7f1a8a88[] = {0x7f02de50};
-const u32 var7f1a8a8c[] = {0x7f02de40};
-const u32 var7f1a8a90[] = {0x7f02de68};
-const u32 var7f1a8a94[] = {0x7f02de48};
-const u32 var7f1a8a98[] = {0x7f02de60};
-const u32 var7f1a8a9c[] = {0x7f02de58};
-const u32 var7f1a8aa0[] = {0x7f02de94};
-const u32 var7f1a8aa4[] = {0x7f02dea8};
-const u32 var7f1a8aa8[] = {0x7f02dea4};
-const u32 var7f1a8aac[] = {0x7f02de8c};
-const u32 var7f1a8ab0[] = {0x7f02de9c};
-const u32 var7f1a8ab4[] = {0x7f02dea8};
-const u32 var7f1a8ab8[] = {0x00000000};
-const u32 var7f1a8abc[] = {0x00000000};
+u32 bodyGetRace(u32 bodynum)
+{
+	switch (bodynum) {
+	case BODY_SKEDAR:
+	case BODY_MINISKEDAR:
+	case BODY_SKEDARKING:
+		return RACE_SKEDAR;
+	case BODY_DRCAROLL:
+		return RACE_DRCAROLL;
+	case BODY_EYESPY:
+		return RACE_EYESPY;
+	case BODY_CHICROB:
+		return RACE_ROBOT;
+	}
 
-GLOBAL_ASM(
-glabel func0f02cde0
-/*  f02cde0:	248effa4 */ 	addiu	$t6,$a0,-92
-/*  f02cde4:	2dc10038 */ 	sltiu	$at,$t6,0x38
-/*  f02cde8:	1020000e */ 	beqz	$at,.L0f02ce24
-/*  f02cdec:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f02cdf0:	3c017f1b */ 	lui	$at,%hi(var7f1a8990)
-/*  f02cdf4:	002e0821 */ 	addu	$at,$at,$t6
-/*  f02cdf8:	8c2e8990 */ 	lw	$t6,%lo(var7f1a8990)($at)
-/*  f02cdfc:	01c00008 */ 	jr	$t6
-/*  f02ce00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f02ce04:	03e00008 */ 	jr	$ra
-/*  f02ce08:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f02ce0c:	03e00008 */ 	jr	$ra
-/*  f02ce10:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f02ce14:	03e00008 */ 	jr	$ra
-/*  f02ce18:	24020003 */ 	addiu	$v0,$zero,0x3
-/*  f02ce1c:	03e00008 */ 	jr	$ra
-/*  f02ce20:	24020004 */ 	addiu	$v0,$zero,0x4
-.L0f02ce24:
-/*  f02ce24:	00001025 */ 	or	$v0,$zero,$zero
-/*  f02ce28:	03e00008 */ 	jr	$ra
-/*  f02ce2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	return RACE_HUMAN;
+}
 
 bool bodyLoad(u32 bodynum)
 {
@@ -140,6 +56,20 @@ bool bodyLoad(u32 bodynum)
 
 GLOBAL_ASM(
 glabel func0f02ce8c
+.late_rodata
+glabel var7f1a8a70
+.word 0x3dccccce
+glabel var7f1a8a74
+.word 0x3f4ccccd
+glabel var7f1a8a78
+.word 0x3d4ccccd
+glabel var7f1a8a7c
+.word 0x3ecccccd
+glabel var7f1a8a80
+.word 0x3ecccccd
+glabel var7f1a8a84
+.word 0x3dcccccd
+.text
 /*  f02ce8c:	00047880 */ 	sll	$t7,$a0,0x2
 /*  f02ce90:	01e47821 */ 	addu	$t7,$t7,$a0
 /*  f02ce94:	3c188008 */ 	lui	$t8,%hi(g_Bodies)
@@ -757,7 +687,7 @@ glabel func0f02d4fc
 /*  f02d7dc:	a0c90006 */ 	sb	$t1,0x6($a2)
 /*  f02d7e0:	8faa004c */ 	lw	$t2,0x4c($sp)
 /*  f02d7e4:	a4ca0010 */ 	sh	$t2,0x10($a2)
-/*  f02d7e8:	0fc0b378 */ 	jal	func0f02cde0
+/*  f02d7e8:	0fc0b378 */ 	jal	bodyGetRace
 /*  f02d7ec:	84c40010 */ 	lh	$a0,0x10($a2)
 /*  f02d7f0:	8fa6005c */ 	lw	$a2,0x5c($sp)
 /*  f02d7f4:	3c0e8008 */ 	lui	$t6,0x8008
@@ -1097,7 +1027,7 @@ glabel func0f02dbac
 /*  f02dcb8:	a2000006 */ 	sb	$zero,0x6($s0)
 /*  f02dcbc:	86040010 */ 	lh	$a0,0x10($s0)
 /*  f02dcc0:	e60000f0 */ 	swc1	$f0,0xf0($s0)
-/*  f02dcc4:	0fc0b378 */ 	jal	func0f02cde0
+/*  f02dcc4:	0fc0b378 */ 	jal	bodyGetRace
 /*  f02dcc8:	e60000dc */ 	swc1	$f0,0xdc($s0)
 /*  f02dccc:	a20202fe */ 	sb	$v0,0x2fe($s0)
 /*  f02dcd0:	27ad006c */ 	addiu	$t5,$sp,0x6c
@@ -1165,6 +1095,32 @@ glabel func0f02dbac
 
 GLOBAL_ASM(
 glabel func0f02ddbc
+.late_rodata
+glabel var7f1a8a88
+.word 0x7f02de50
+glabel var7f1a8a8c
+.word 0x7f02de40
+glabel var7f1a8a90
+.word 0x7f02de68
+glabel var7f1a8a94
+.word 0x7f02de48
+glabel var7f1a8a98
+.word 0x7f02de60
+glabel var7f1a8a9c
+.word 0x7f02de58
+glabel var7f1a8aa0
+.word 0x7f02de94
+glabel var7f1a8aa4
+.word 0x7f02dea8
+glabel var7f1a8aa8
+.word 0x7f02dea4
+glabel var7f1a8aac
+.word 0x7f02de8c
+glabel var7f1a8ab0
+.word 0x7f02de9c
+glabel var7f1a8ab4
+.word 0x7f02dea8
+.text
 /*  f02ddbc:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f02ddc0:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f02ddc4:	afb00018 */ 	sw	$s0,0x18($sp)
