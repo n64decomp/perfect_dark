@@ -95,7 +95,7 @@ u32 func0f1a2070(void);
 u32 func0f1a2198(void);
 u32 func0f1a2220(void);
 u32 func0f1a22d4(void);
-u32 func0f1a2450(void);
+bool func0f1a2450(u32 value);
 u32 func0f1a2484(void);
 u32 func0f1a24dc(void);
 u32 func0f1a2554(void);
