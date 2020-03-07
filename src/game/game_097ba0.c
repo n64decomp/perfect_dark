@@ -766,28 +766,6 @@ const u32 var7f1acba8[] = {0x7f0a8e6c};
 const u32 var7f1acbac[] = {0x7f0a8e6c};
 const u32 var7f1acbb0[] = {0xc7c35000};
 const u32 var7f1acbb4[] = {0x47c35000};
-const u32 var7f1acbb8[] = {0x7f0a9934};
-const u32 var7f1acbbc[] = {0x7f0a9974};
-const u32 var7f1acbc0[] = {0x7f0a9950};
-const u32 var7f1acbc4[] = {0x7f0a9974};
-const u32 var7f1acbc8[] = {0x7f0a9974};
-const u32 var7f1acbcc[] = {0x7f0a9974};
-const u32 var7f1acbd0[] = {0x7f0a9974};
-const u32 var7f1acbd4[] = {0x7f0a9974};
-const u32 var7f1acbd8[] = {0x7f0a9974};
-const u32 var7f1acbdc[] = {0x7f0a9974};
-const u32 var7f1acbe0[] = {0x7f0a996c};
-const u32 var7f1acbe4[] = {0x7f0a996c};
-const u32 var7f1acbe8[] = {0x7f0a996c};
-const u32 var7f1acbec[] = {0x7f0a996c};
-const u32 var7f1acbf0[] = {0x7f0a996c};
-const u32 var7f1acbf4[] = {0x7f0a996c};
-const u32 var7f1acbf8[] = {0x7f0a996c};
-const u32 var7f1acbfc[] = {0x7f0a996c};
-const u32 var7f1acc00[] = {0x7f0a996c};
-const u32 var7f1acc04[] = {0x7f0a996c};
-const u32 var7f1acc08[] = {0x7f0a996c};
-const u32 var7f1acc0c[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0f097ba0
@@ -20439,7 +20417,7 @@ glabel func0f0a8d34
 /*  f0a91a8:	24c60001 */ 	addiu	$a2,$a2,0x1
 /*  f0a91ac:	8c440000 */ 	lw	$a0,0x0($v0)
 /*  f0a91b0:	afa6004c */ 	sw	$a2,0x4c($sp)
-/*  f0a91b4:	0fc2a644 */ 	jal	func0f0a9910
+/*  f0a91b4:	0fc2a644 */ 	jal	ammotypeAllowsUnlimitedAmmo
 /*  f0a91b8:	afa50030 */ 	sw	$a1,0x30($sp)
 /*  f0a91bc:	8fa50030 */ 	lw	$a1,0x30($sp)
 /*  f0a91c0:	10400008 */ 	beqz	$v0,.L0f0a91e4
@@ -20995,39 +20973,35 @@ glabel func0f0a98f4
 /*  f0a990c:	8c420368 */ 	lw	$v0,%lo(var80070368)($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f0a9910
-/*  f0a9910:	248efff4 */ 	addiu	$t6,$a0,-12
-/*  f0a9914:	2dc10015 */ 	sltiu	$at,$t6,0x15
-/*  f0a9918:	10200016 */ 	beqz	$at,.L0f0a9974
-/*  f0a991c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0a9920:	3c017f1b */ 	lui	$at,%hi(var7f1acbb8)
-/*  f0a9924:	002e0821 */ 	addu	$at,$at,$t6
-/*  f0a9928:	8c2ecbb8 */ 	lw	$t6,%lo(var7f1acbb8)($at)
-/*  f0a992c:	01c00008 */ 	jr	$t6
-/*  f0a9930:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a9934:	3c0f800a */ 	lui	$t7,0x800a
-/*  f0a9938:	8defa474 */ 	lw	$t7,-0x5b8c($t7)
-/*  f0a993c:	2401001d */ 	addiu	$at,$zero,0x1d
-/*  f0a9940:	55e1000d */ 	bnel	$t7,$at,.L0f0a9978
-/*  f0a9944:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0a9948:	03e00008 */ 	jr	$ra
-/*  f0a994c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a9950:	3c18800a */ 	lui	$t8,0x800a
-/*  f0a9954:	8f18a474 */ 	lw	$t8,-0x5b8c($t8)
-/*  f0a9958:	24010031 */ 	addiu	$at,$zero,0x31
-/*  f0a995c:	57010006 */ 	bnel	$t8,$at,.L0f0a9978
-/*  f0a9960:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0a9964:	03e00008 */ 	jr	$ra
-/*  f0a9968:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a996c:	03e00008 */ 	jr	$ra
-/*  f0a9970:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0a9974:
-/*  f0a9974:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0a9978:
-/*  f0a9978:	03e00008 */ 	jr	$ra
-/*  f0a997c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ammotypeAllowsUnlimitedAmmo(u32 ammotype)
+{
+	switch (ammotype) {
+	case AMMOTYPE_REMOTE_MINE:
+		if (g_Vars.stagenum == STAGE_CHICAGO) {
+			return false;
+		}
+		break;
+	case AMMOTYPE_TIMED_MINE:
+		if (g_Vars.stagenum == STAGE_AIRFORCEONE) {
+			return false;
+		}
+		break;
+	case AMMOTYPE_PSYCHOSIS:
+	case AMMOTYPE_17:
+	case AMMOTYPE_BUG:
+	case AMMOTYPE_MICROCAMERA:
+	case AMMOTYPE_PLASTIQUE:
+	case AMMOTYPE_1B:
+	case AMMOTYPE_1C:
+	case AMMOTYPE_1D:
+	case AMMOTYPE_TOKEN:
+	case AMMOTYPE_1F:
+	case AMMOTYPE_ECM_MINE:
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f0a9980
@@ -21047,7 +21021,7 @@ glabel func0f0a9980
 .L0f0a99b4:
 /*  f0a99b4:	16200004 */ 	bnez	$s1,.L0f0a99c8
 /*  f0a99b8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0a99bc:	0fc2a644 */ 	jal	func0f0a9910
+/*  f0a99bc:	0fc2a644 */ 	jal	ammotypeAllowsUnlimitedAmmo
 /*  f0a99c0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a99c4:	00401825 */ 	or	$v1,$v0,$zero
 .L0f0a99c8:

@@ -97,6 +97,9 @@
 #define AMMOTYPE_BUG          0x18
 #define AMMOTYPE_MICROCAMERA  0x19
 #define AMMOTYPE_PLASTIQUE    0x1a
+#define AMMOTYPE_1B           0x1b
+#define AMMOTYPE_1C           0x1c
+#define AMMOTYPE_1D           0x1d
 #define AMMOTYPE_TOKEN        0x1e
 #define AMMOTYPE_1F           0x1f
 #define AMMOTYPE_ECM_MINE     0x20
