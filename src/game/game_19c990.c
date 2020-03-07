@@ -248,66 +248,6 @@ const u32 var7f1b94dc[] = {0x40490fdb};
 const u32 var7f1b94e0[] = {0x3d0efa35};
 const u32 var7f1b94e4[] = {0x40490fdb};
 const u32 var7f1b94e8[] = {0x3dcccccd};
-const u32 var7f1b94ec[] = {0x7f1a1018};
-const u32 var7f1b94f0[] = {0x7f1a1090};
-const u32 var7f1b94f4[] = {0x7f1a1090};
-const u32 var7f1b94f8[] = {0x7f1a1090};
-const u32 var7f1b94fc[] = {0x7f1a1018};
-const u32 var7f1b9500[] = {0x7f1a1040};
-const u32 var7f1b9504[] = {0x7f1a1090};
-const u32 var7f1b9508[] = {0x7f1a1050};
-const u32 var7f1b950c[] = {0x7f1a1090};
-const u32 var7f1b9510[] = {0x7f1a1090};
-const u32 var7f1b9514[] = {0x7f1a1090};
-const u32 var7f1b9518[] = {0x7f1a1090};
-const u32 var7f1b951c[] = {0x7f1a1090};
-const u32 var7f1b9520[] = {0x7f1a1090};
-const u32 var7f1b9524[] = {0x7f1a1090};
-const u32 var7f1b9528[] = {0x7f1a1090};
-const u32 var7f1b952c[] = {0x7f1a1020};
-const u32 var7f1b9530[] = {0x7f1a1070};
-const u32 var7f1b9534[] = {0x7f1a1090};
-const u32 var7f1b9538[] = {0x7f1a1090};
-const u32 var7f1b953c[] = {0x7f1a1090};
-const u32 var7f1b9540[] = {0x7f1a1030};
-const u32 var7f1b9544[] = {0x7f1a1090};
-const u32 var7f1b9548[] = {0x7f1a1090};
-const u32 var7f1b954c[] = {0x7f1a1090};
-const u32 var7f1b9550[] = {0x7f1a1090};
-const u32 var7f1b9554[] = {0x7f1a1090};
-const u32 var7f1b9558[] = {0x7f1a1090};
-const u32 var7f1b955c[] = {0x7f1a1090};
-const u32 var7f1b9560[] = {0x7f1a1090};
-const u32 var7f1b9564[] = {0x7f1a1090};
-const u32 var7f1b9568[] = {0x7f1a1090};
-const u32 var7f1b956c[] = {0x7f1a1090};
-const u32 var7f1b9570[] = {0x7f1a1090};
-const u32 var7f1b9574[] = {0x7f1a1090};
-const u32 var7f1b9578[] = {0x7f1a1080};
-const u32 var7f1b957c[] = {0x7f1a1090};
-const u32 var7f1b9580[] = {0x7f1a1090};
-const u32 var7f1b9584[] = {0x7f1a1090};
-const u32 var7f1b9588[] = {0x7f1a1090};
-const u32 var7f1b958c[] = {0x7f1a1090};
-const u32 var7f1b9590[] = {0x7f1a1090};
-const u32 var7f1b9594[] = {0x7f1a1090};
-const u32 var7f1b9598[] = {0x7f1a1090};
-const u32 var7f1b959c[] = {0x7f1a1090};
-const u32 var7f1b95a0[] = {0x7f1a1090};
-const u32 var7f1b95a4[] = {0x7f1a1090};
-const u32 var7f1b95a8[] = {0x7f1a1090};
-const u32 var7f1b95ac[] = {0x7f1a1090};
-const u32 var7f1b95b0[] = {0x7f1a1090};
-const u32 var7f1b95b4[] = {0x7f1a1090};
-const u32 var7f1b95b8[] = {0x7f1a1090};
-const u32 var7f1b95bc[] = {0x7f1a1090};
-const u32 var7f1b95c0[] = {0x7f1a1090};
-const u32 var7f1b95c4[] = {0x7f1a1090};
-const u32 var7f1b95c8[] = {0x7f1a1090};
-const u32 var7f1b95cc[] = {0x7f1a1090};
-const u32 var7f1b95d0[] = {0x7f1a1090};
-const u32 var7f1b95d4[] = {0x7f1a1090};
-const u32 var7f1b95d8[] = {0x7f1a1060};
 
 bool ciIsTourDone(void)
 {
@@ -5324,58 +5264,30 @@ glabel func0f1a0fc8
 /*  f1a0fe8:	a059045a */ 	sb	$t9,0x45a($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f1a0fec
-/*  f1a0fec:	248effaa */ 	addiu	$t6,$a0,-86
-/*  f1a0ff0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a0ff4:	2dc1003c */ 	sltiu	$at,$t6,0x3c
-/*  f1a0ff8:	10200025 */ 	beqz	$at,.L0f1a1090
-/*  f1a0ffc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1000:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f1a1004:	3c017f1c */ 	lui	$at,%hi(var7f1b94ec)
-/*  f1a1008:	002e0821 */ 	addu	$at,$at,$t6
-/*  f1a100c:	8c2e94ec */ 	lw	$t6,%lo(var7f1b94ec)($at)
-/*  f1a1010:	01c00008 */ 	jr	$t6
-/*  f1a1014:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1018:	1000001e */ 	beqz	$zero,.L0f1a1094
-/*  f1a101c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1a1020:	0fc672e0 */ 	jal	stageIsComplete
-/*  f1a1024:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1028:	1000001b */ 	beqz	$zero,.L0f1a1098
-/*  f1a102c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1030:	0fc672e0 */ 	jal	stageIsComplete
-/*  f1a1034:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1a1038:	10000017 */ 	beqz	$zero,.L0f1a1098
-/*  f1a103c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1040:	0fc672e0 */ 	jal	stageIsComplete
-/*  f1a1044:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f1a1048:	10000013 */ 	beqz	$zero,.L0f1a1098
-/*  f1a104c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1050:	0fc672e0 */ 	jal	stageIsComplete
-/*  f1a1054:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f1a1058:	1000000f */ 	beqz	$zero,.L0f1a1098
-/*  f1a105c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1060:	0fc672e0 */ 	jal	stageIsComplete
-/*  f1a1064:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f1a1068:	1000000b */ 	beqz	$zero,.L0f1a1098
-/*  f1a106c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1070:	0fc672e0 */ 	jal	stageIsComplete
-/*  f1a1074:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f1a1078:	10000007 */ 	beqz	$zero,.L0f1a1098
-/*  f1a107c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1080:	0fc672e0 */ 	jal	stageIsComplete
-/*  f1a1084:	2404000a */ 	addiu	$a0,$zero,0xa
-/*  f1a1088:	10000003 */ 	beqz	$zero,.L0f1a1098
-/*  f1a108c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a1090:
-/*  f1a1090:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a1094:
-/*  f1a1094:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a1098:
-/*  f1a1098:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a109c:	03e00008 */ 	jr	$ra
-/*  f1a10a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ciIsChrBioUnlocked(u32 bodynum)
+{
+	switch (bodynum) {
+	case BODY_DARK_COMBAT:
+	case BODY_CARRINGTON:
+		return true;
+	case BODY_CASSANDRA:
+		return stageIsComplete(SOLOSTAGEINDEX_DEFECTION);
+	case BODY_DRCAROLL:
+		return stageIsComplete(SOLOSTAGEINDEX_INVESTIGATION);
+	case BODY_MRBLONDE:
+		return stageIsComplete(SOLOSTAGEINDEX_EXTRACTION);
+	case BODY_TRENT:
+		return stageIsComplete(SOLOSTAGEINDEX_G5BUILDING);
+	case BODY_JONATHAN:
+		return stageIsComplete(SOLOSTAGEINDEX_INFILTRATION);
+	case BODY_THEKING:
+		return stageIsComplete(SOLOSTAGEINDEX_RESCUE);
+	case BODY_PRESIDENT:
+		return stageIsComplete(SOLOSTAGEINDEX_AIRFORCEONE);
+	}
+
+	return false;
+}
 
 struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 {
@@ -5436,7 +5348,7 @@ glabel func0f1a11b8
 /*  f1a11d0:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a11d4:	24120097 */ 	addiu	$s2,$zero,0x97
 .L0f1a11d8:
-/*  f1a11d8:	0fc683fb */ 	jal	func0f1a0fec
+/*  f1a11d8:	0fc683fb */ 	jal	ciIsChrBioUnlocked
 /*  f1a11dc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a11e0:	10400002 */ 	beqz	$v0,.L0f1a11ec
 /*  f1a11e4:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5466,7 +5378,7 @@ glabel func0f1a1210
 /*  f1a1230:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a1234:	24120097 */ 	addiu	$s2,$zero,0x97
 .L0f1a1238:
-/*  f1a1238:	0fc683fb */ 	jal	func0f1a0fec
+/*  f1a1238:	0fc683fb */ 	jal	ciIsChrBioUnlocked
 /*  f1a123c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a1240:	10400002 */ 	beqz	$v0,.L0f1a124c
 /*  f1a1244:	00000000 */ 	sll	$zero,$zero,0x0

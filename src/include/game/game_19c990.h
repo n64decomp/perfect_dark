@@ -57,7 +57,7 @@ u32 func0f1a0a70(void);
 u32 func0f1a0c30(void);
 u32 func0f1a0cc0(void);
 u32 func0f1a0fc8(void);
-u32 func0f1a0fec(void);
+bool ciIsChrBioUnlocked(u32 bodynum);
 struct chrbio *ciGetChrBioByBodynum(u32 bodynum);
 u32 func0f1a1184(void);
 u32 func0f1a11b8(void);
