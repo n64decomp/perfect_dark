@@ -669,7 +669,7 @@ glabel func0001190c
 /*    11c90:	3c06800b */ 	lui	$a2,%hi(var800aa5d8)
 /*    11c94:	8e790000 */ 	lw	$t9,0x0($s3)
 /*    11c98:	24c6a5d8 */ 	addiu	$a2,$a2,%lo(var800aa5d8)
-/*    11c9c:	3c0e800b */ 	lui	$t6,0x800b
+/*    11c9c:	3c0e800b */ 	lui	$t6,%hi(var800aa5f4)
 /*    11ca0:	272cffff */ 	addiu	$t4,$t9,-1
 /*    11ca4:	ae6c0000 */ 	sw	$t4,0x0($s3)
 /*    11ca8:	19800019 */ 	blez	$t4,.L00011d10
@@ -677,7 +677,7 @@ glabel func0001190c
 /*    11cb0:	000c68c0 */ 	sll	$t5,$t4,0x3
 /*    11cb4:	01ac6823 */ 	subu	$t5,$t5,$t4
 /*    11cb8:	000d6880 */ 	sll	$t5,$t5,0x2
-/*    11cbc:	25c2a5f4 */ 	addiu	$v0,$t6,-23052
+/*    11cbc:	25c2a5f4 */ 	addiu	$v0,$t6,%lo(var800aa5f4)
 /*    11cc0:	01a21821 */ 	addu	$v1,$t5,$v0
 /*    11cc4:	8c410000 */ 	lw	$at,0x0($v0)
 .L00011cc8:

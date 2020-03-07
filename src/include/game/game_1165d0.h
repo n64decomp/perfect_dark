@@ -134,4 +134,10 @@ u32 func0f11e7f0(void);
 u32 func0f11e844(void);
 u32 func0f11ea34(void);
 
+extern const char var7f1b423c[];
+extern const char var7f1b4244[];
+extern const char var7f1b424c[];
+extern const char var7f1b4254[];
+extern const char var7f1b425c[];
+
 #endif

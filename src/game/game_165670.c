@@ -648,13 +648,13 @@ glabel func0f165eec
 /*  f165f1c:	44803000 */ 	mtc1	$zero,$f6
 /*  f165f20:	3c017f1b */ 	lui	$at,%hi(var7f1b76e8)
 /*  f165f24:	11e00003 */ 	beqz	$t7,.L0f165f34
-/*  f165f28:	3c058008 */ 	lui	$a1,0x8008
+/*  f165f28:	3c058008 */ 	lui	$a1,%hi(smallskies)
 /*  f165f2c:	10000002 */ 	beqz	$zero,.L0f165f38
 /*  f165f30:	8c580064 */ 	lw	$t8,0x64($v0)
 .L0f165f34:
 /*  f165f34:	8c580064 */ 	lw	$t8,0x64($v0)
 .L0f165f38:
-/*  f165f38:	24a31164 */ 	addiu	$v1,$a1,0x1164
+/*  f165f38:	24a31164 */ 	addiu	$v1,$a1,%lo(smallskies)
 /*  f165f3c:	13000003 */ 	beqz	$t8,.L0f165f4c
 /*  f165f40:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f165f44:	10000002 */ 	beqz	$zero,.L0f165f50
@@ -700,8 +700,8 @@ glabel func0f165eec
 /*  f165fd0:	1440fff0 */ 	bnez	$v0,.L0f165f94
 /*  f165fd4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f165fd8:
-/*  f165fd8:	3c058008 */ 	lui	$a1,0x8008
-/*  f165fdc:	24a31164 */ 	addiu	$v1,$a1,0x1164
+/*  f165fd8:	3c058008 */ 	lui	$a1,%hi(smallskies)
+/*  f165fdc:	24a31164 */ 	addiu	$v1,$a1,%lo(smallskies)
 /*  f165fe0:	846c0000 */ 	lh	$t4,0x0($v1)
 /*  f165fe4:	3c0d8008 */ 	lui	$t5,%hi(smallskies)
 /*  f165fe8:	25ad1164 */ 	addiu	$t5,$t5,%lo(smallskies)

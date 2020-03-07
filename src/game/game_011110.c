@@ -27,23 +27,6 @@
 #include "lib/lib_233c0.h"
 #include "types.h"
 
-const u32 var7f1a8240[] = {0x7f011a44};
-const u32 var7f1a8244[] = {0x7f011a90};
-const u32 var7f1a8248[] = {0x7f011b38};
-const u32 var7f1a824c[] = {0x7f011b68};
-const u32 var7f1a8250[] = {0x7f011b70};
-const u32 var7f1a8254[] = {0x7f011b78};
-const u32 var7f1a8258[] = {0x7f011b8c};
-const u32 var7f1a825c[] = {0x7f011b94};
-const u32 var7f1a8260[] = {0x7f011c30};
-const u32 var7f1a8264[] = {0x7f011a80};
-const u32 var7f1a8268[] = {0x7f011a80};
-const u32 var7f1a826c[] = {0x7f011a88};
-const u32 var7f1a8270[] = {0x40c907a9};
-const u32 var7f1a8274[] = {0x40c907a9};
-const u32 var7f1a8278[] = {0x40c907a9};
-const u32 var7f1a827c[] = {0x40c907a9};
-
 void func0f011110(void)
 {
 	var800705a4 = 0;
@@ -481,6 +464,40 @@ struct coord var800623a4 = {0, 0, 0};
 
 GLOBAL_ASM(
 glabel currentPlayerInit
+.late_rodata
+glabel var7f1a8240
+.word 0x7f011a44
+glabel var7f1a8244
+.word 0x7f011a90
+glabel var7f1a8248
+.word 0x7f011b38
+glabel var7f1a824c
+.word 0x7f011b68
+glabel var7f1a8250
+.word 0x7f011b70
+glabel var7f1a8254
+.word 0x7f011b78
+glabel var7f1a8258
+.word 0x7f011b8c
+glabel var7f1a825c
+.word 0x7f011b94
+glabel var7f1a8260
+.word 0x7f011c30
+glabel var7f1a8264
+.word 0x7f011a80
+glabel var7f1a8268
+.word 0x7f011a80
+glabel var7f1a826c
+.word 0x7f011a88
+glabel var7f1a8270
+.word 0x40c907a9
+glabel var7f1a8274
+.word 0x40c907a9
+glabel var7f1a8278
+.word 0x40c907a9
+glabel var7f1a827c
+.word 0x40c907a9
+.text
 /*  f0118f4:	27bdff58 */ 	addiu	$sp,$sp,-168
 /*  f0118f8:	3c0f8006 */ 	lui	$t7,%hi(var800623a4)
 /*  f0118fc:	afbf0034 */ 	sw	$ra,0x34($sp)

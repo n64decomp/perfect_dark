@@ -9,6 +9,11 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
+const u32 var7f1b76d0[] = {0xbf666666};
+const u32 var7f1b76d4[] = {0x00000000};
+const u32 var7f1b76d8[] = {0x00000000};
+const u32 var7f1b76dc[] = {0x00000000};
+
 GLOBAL_ASM(
 glabel func0f165360
 /*  f165360:	440fa000 */ 	mfc1	$t7,$f20

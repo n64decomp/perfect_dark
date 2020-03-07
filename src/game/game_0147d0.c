@@ -66,6 +66,20 @@ glabel func0f014820
 
 GLOBAL_ASM(
 glabel func0f014848
+.late_rodata
+glabel var7f1a82a0
+.word 0x7f014b38
+glabel var7f1a82a4
+.word 0x7f014b40
+glabel var7f1a82a8
+.word 0x7f014b4c
+glabel var7f1a82ac
+.word 0x7f014b58
+glabel var7f1a82b0
+.word 0x7f014b64
+glabel var7f1a82b4
+.word 0x7f014b70
+.text
 /*  f014848:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f01484c:	0005c080 */ 	sll	$t8,$a1,0x2
 /*  f014850:	0305c021 */ 	addu	$t8,$t8,$a1

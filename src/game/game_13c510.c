@@ -22,6 +22,39 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+const u32 var7f1b5990[] = {0x4effffff};
+const u32 var7f1b5994[] = {0x4effffff};
+const u32 var7f1b5998[] = {0xceffffff};
+const u32 var7f1b599c[] = {0x38d1b717};
+const u32 var7f1b59a0[] = {0x38d1b717};
+const u32 var7f1b59a4[] = {0x3ecccccd};
+const u32 var7f1b59a8[] = {0x38d1b717};
+const u32 var7f1b59ac[] = {0x43ff8000};
+const u32 var7f1b59b0[] = {0x46fe8000};
+const u32 var7f1b59b4[] = {0x46fc5800};
+const u32 var7f1b59b8[] = {0x44a28000};
+const u32 var7f1b59bc[] = {0x44a28000};
+const u32 var7f1b59c0[] = {0x3a49a634};
+const u32 var7f1b59c4[] = {0x3f19999a};
+const u32 var7f1b59c8[] = {0x461c3c00};
+const u32 var7f1b59cc[] = {0x461c3c00};
+const u32 var7f1b59d0[] = {0xc61c3c00};
+const u32 var7f1b59d4[] = {0xc61c3c00};
+const u32 var7f1b59d8[] = {0x43ff8000};
+const u32 var7f1b59dc[] = {0x46fe8000};
+const u32 var7f1b59e0[] = {0x3c8efa35};
+const u32 var7f1b59e4[] = {0x4169999a};
+const u32 var7f1b59e8[] = {0x3ecccccd};
+const u32 var7f1b59ec[] = {0x3b808081};
+const u32 var7f1b59f0[] = {0x46d6d800};
+const u32 var7f1b59f4[] = {0x3b808081};
+const u32 var7f1b59f8[] = {0x443b8000};
+const u32 var7f1b59fc[] = {0x3c23d70a};
+const u32 var7f1b5a00[] = {0x3c23d70a};
+const u32 var7f1b5a04[] = {0x3b888889};
+const u32 var7f1b5a08[] = {0x3b888889};
+const u32 var7f1b5a0c[] = {0x3ecccccd};
+
 GLOBAL_ASM(
 glabel func0f13c510
 /*  f13c510:	27bdffe8 */ 	addiu	$sp,$sp,-24

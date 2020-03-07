@@ -11,8 +11,8 @@
 
 GLOBAL_ASM(
 glabel stageFindById
-/*  f1655c0:	3c068008 */ 	lui	$a2,0x8008
-/*  f1655c4:	24c3fcc0 */ 	addiu	$v1,$a2,-832
+/*  f1655c0:	3c068008 */ 	lui	$a2,%hi(g_Stages)
+/*  f1655c4:	24c3fcc0 */ 	addiu	$v1,$a2,%lo(g_Stages)
 /*  f1655c8:	3c0e8008 */ 	lui	$t6,0x8008
 /*  f1655cc:	24620d58 */ 	addiu	$v0,$v1,0xd58
 /*  f1655d0:	25cefcc1 */ 	addiu	$t6,$t6,-831
@@ -39,8 +39,8 @@ glabel stageFindById
 
 GLOBAL_ASM(
 glabel stageGetIndex
-/*  f165614:	3c078008 */ 	lui	$a3,0x8008
-/*  f165618:	24e2fcc0 */ 	addiu	$v0,$a3,-832
+/*  f165614:	3c078008 */ 	lui	$a3,%hi(g_Stages)
+/*  f165618:	24e2fcc0 */ 	addiu	$v0,$a3,%lo(g_Stages)
 /*  f16561c:	3c0e8008 */ 	lui	$t6,0x8008
 /*  f165620:	24430d58 */ 	addiu	$v1,$v0,0xd58
 /*  f165624:	25cefcc1 */ 	addiu	$t6,$t6,-831

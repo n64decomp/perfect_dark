@@ -53,92 +53,6 @@ const u32 var7f1b2d4c[] = {0x570f5710};
 const char var7f1b2d50[] = "\n";
 const char var7f1b2d54[] = "%s: %s\n";
 
-const u32 var7f1b2d5c[] = {0x7f102398};
-const u32 var7f1b2d60[] = {0x7f1023a4};
-const u32 var7f1b2d64[] = {0x7f1023b0};
-const u32 var7f1b2d68[] = {0x7f1023d0};
-const u32 var7f1b2d6c[] = {0x7f1023ec};
-const u32 var7f1b2d70[] = {0x7f10240c};
-const u32 var7f1b2d74[] = {0x7f102430};
-const u32 var7f1b2d78[] = {0x7f1024c8};
-const u32 var7f1b2d7c[] = {0x7f1024c8};
-const u32 var7f1b2d80[] = {0x7f1024c8};
-const u32 var7f1b2d84[] = {0x7f1024c8};
-const u32 var7f1b2d88[] = {0x7f1024c8};
-const u32 var7f1b2d8c[] = {0x7f1024c8};
-const u32 var7f1b2d90[] = {0x7f1024c8};
-const u32 var7f1b2d94[] = {0x7f1024c8};
-const u32 var7f1b2d98[] = {0x7f102480};
-const u32 var7f1b2d9c[] = {0x7f1047ec};
-const u32 var7f1b2da0[] = {0x7f104b00};
-const u32 var7f1b2da4[] = {0x7f1048b0};
-const u32 var7f1b2da8[] = {0x7f104b6c};
-const u32 var7f1b2dac[] = {0x7f104ba0};
-const u32 var7f1b2db0[] = {0x7f10493c};
-const u32 var7f1b2db4[] = {0x7f104a14};
-const u32 var7f1b2db8[] = {0x7f105584};
-const u32 var7f1b2dbc[] = {0x7f105584};
-const u32 var7f1b2dc0[] = {0x7f105584};
-const u32 var7f1b2dc4[] = {0x7f105584};
-const u32 var7f1b2dc8[] = {0x7f105584};
-const u32 var7f1b2dcc[] = {0x7f105584};
-const u32 var7f1b2dd0[] = {0x7f105584};
-const u32 var7f1b2dd4[] = {0x7f105584};
-const u32 var7f1b2dd8[] = {0x7f105584};
-const u32 var7f1b2ddc[] = {0x7f105584};
-const u32 var7f1b2de0[] = {0x7f105584};
-const u32 var7f1b2de4[] = {0x7f104be8};
-const u32 var7f1b2de8[] = {0x7f10557c};
-const u32 var7f1b2dec[] = {0x7f105584};
-const u32 var7f1b2df0[] = {0x7f105584};
-const u32 var7f1b2df4[] = {0x7f105584};
-const u32 var7f1b2df8[] = {0x7f105584};
-const u32 var7f1b2dfc[] = {0x7f104a24};
-const u32 var7f1b2e00[] = {0xbe4ccccd};
-const u32 var7f1b2e04[] = {0x4196cbe4};
-const u32 var7f1b2e08[] = {0x7f106070};
-const u32 var7f1b2e0c[] = {0x7f106058};
-const u32 var7f1b2e10[] = {0x7f106084};
-const u32 var7f1b2e14[] = {0x7f106060};
-const u32 var7f1b2e18[] = {0x7f106068};
-const u32 var7f1b2e1c[] = {0x7f1060a4};
-const u32 var7f1b2e20[] = {0x7f1060b8};
-const u32 var7f1b2e24[] = {0x7f106164};
-const u32 var7f1b2e28[] = {0x7f106164};
-const u32 var7f1b2e2c[] = {0x7f106164};
-const u32 var7f1b2e30[] = {0x7f106164};
-const u32 var7f1b2e34[] = {0x7f106164};
-const u32 var7f1b2e38[] = {0x7f106164};
-const u32 var7f1b2e3c[] = {0x7f106164};
-const u32 var7f1b2e40[] = {0x7f106164};
-const u32 var7f1b2e44[] = {0x7f1060c8};
-const u32 var7f1b2e48[] = {0x7f1061ac};
-const u32 var7f1b2e4c[] = {0x7f106380};
-const u32 var7f1b2e50[] = {0x7f1061c0};
-const u32 var7f1b2e54[] = {0x7f106380};
-const u32 var7f1b2e58[] = {0x7f106380};
-const u32 var7f1b2e5c[] = {0x7f1061d4};
-const u32 var7f1b2e60[] = {0x7f1062b0};
-const u32 var7f1b2e64[] = {0x7f106380};
-const u32 var7f1b2e68[] = {0x7f106380};
-const u32 var7f1b2e6c[] = {0x7f106380};
-const u32 var7f1b2e70[] = {0x7f106380};
-const u32 var7f1b2e74[] = {0x7f106380};
-const u32 var7f1b2e78[] = {0x7f106380};
-const u32 var7f1b2e7c[] = {0x7f1062c4};
-const u32 var7f1b2e80[] = {0x7f106380};
-const u32 var7f1b2e84[] = {0x7f1062f4};
-const u32 var7f1b2e88[] = {0x7f1066b4};
-const u32 var7f1b2e8c[] = {0x7f1067ac};
-const u32 var7f1b2e90[] = {0x7f1066dc};
-const u32 var7f1b2e94[] = {0x7f1067b8};
-const u32 var7f1b2e98[] = {0x7f1067d4};
-const u32 var7f1b2e9c[] = {0x7f10672c};
-const u32 var7f1b2ea0[] = {0x7f10679c};
-const u32 var7f1b2ea4[] = {0x00000000};
-const u32 var7f1b2ea8[] = {0x00000000};
-const u32 var7f1b2eac[] = {0x00000000};
-
 GLOBAL_ASM(
 glabel func0f102240
 /*  f102240:	3c0e800a */ 	lui	$t6,0x800a
@@ -185,6 +99,40 @@ char *menutextDifficulty(s32 arg0)
 
 GLOBAL_ASM(
 glabel func0f102330
+.late_rodata
+glabel var7f1b2d5c
+.word 0x7f102398
+glabel var7f1b2d60
+.word 0x7f1023a4
+glabel var7f1b2d64
+.word 0x7f1023b0
+glabel var7f1b2d68
+.word 0x7f1023d0
+glabel var7f1b2d6c
+.word 0x7f1023ec
+glabel var7f1b2d70
+.word 0x7f10240c
+glabel var7f1b2d74
+.word 0x7f102430
+glabel var7f1b2d78
+.word 0x7f1024c8
+glabel var7f1b2d7c
+.word 0x7f1024c8
+glabel var7f1b2d80
+.word 0x7f1024c8
+glabel var7f1b2d84
+.word 0x7f1024c8
+glabel var7f1b2d88
+.word 0x7f1024c8
+glabel var7f1b2d8c
+.word 0x7f1024c8
+glabel var7f1b2d90
+.word 0x7f1024c8
+glabel var7f1b2d94
+.word 0x7f1024c8
+glabel var7f1b2d98
+.word 0x7f102480
+.text
 /*  f102330:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f102334:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f102338:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -1820,7 +1768,7 @@ glabel func0f103e68
 /*  f103ecc:	00003012 */ 	mflo	$a2
 /*  f103ed0:	2403003c */ 	addiu	$v1,$zero,0x3c
 /*  f103ed4:	14c0002b */ 	bnez	$a2,.L0f103f84
-/*  f103ed8:	3c048007 */ 	lui	$a0,0x8007
+/*  f103ed8:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
 /*  f103edc:	2403003c */ 	addiu	$v1,$zero,0x3c
 /*  f103ee0:	0043001a */ 	div	$zero,$v0,$v1
 /*  f103ee4:	00004812 */ 	mflo	$t1
@@ -1876,7 +1824,7 @@ glabel func0f103e68
 /*  f103f90:	24a52d30 */ 	addiu	$a1,$a1,%lo(var7f1b2d30)
 /*  f103f94:	0143001a */ 	div	$zero,$t2,$v1
 /*  f103f98:	00003810 */ 	mfhi	$a3
-/*  f103f9c:	8c841440 */ 	lw	$a0,0x1440($a0)
+/*  f103f9c:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
 /*  f103fa0:	14600002 */ 	bnez	$v1,.L0f103fac
 /*  f103fa4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f103fa8:	0007000d */ 	break	0x7
@@ -2391,6 +2339,58 @@ glabel func0f104720
 
 GLOBAL_ASM(
 glabel menuhandler0010476c
+.late_rodata
+glabel var7f1b2d9c
+.word 0x7f1047ec
+glabel var7f1b2da0
+.word 0x7f104b00
+glabel var7f1b2da4
+.word 0x7f1048b0
+glabel var7f1b2da8
+.word 0x7f104b6c
+glabel var7f1b2dac
+.word 0x7f104ba0
+glabel var7f1b2db0
+.word 0x7f10493c
+glabel var7f1b2db4
+.word 0x7f104a14
+glabel var7f1b2db8
+.word 0x7f105584
+glabel var7f1b2dbc
+.word 0x7f105584
+glabel var7f1b2dc0
+.word 0x7f105584
+glabel var7f1b2dc4
+.word 0x7f105584
+glabel var7f1b2dc8
+.word 0x7f105584
+glabel var7f1b2dcc
+.word 0x7f105584
+glabel var7f1b2dd0
+.word 0x7f105584
+glabel var7f1b2dd4
+.word 0x7f105584
+glabel var7f1b2dd8
+.word 0x7f105584
+glabel var7f1b2ddc
+.word 0x7f105584
+glabel var7f1b2de0
+.word 0x7f105584
+glabel var7f1b2de4
+.word 0x7f104be8
+glabel var7f1b2de8
+.word 0x7f10557c
+glabel var7f1b2dec
+.word 0x7f105584
+glabel var7f1b2df0
+.word 0x7f105584
+glabel var7f1b2df4
+.word 0x7f105584
+glabel var7f1b2df8
+.word 0x7f105584
+glabel var7f1b2dfc
+.word 0x7f104a24
+.text
 /*  f10476c:	27bdfe08 */ 	addiu	$sp,$sp,-504
 /*  f104770:	3c0e8007 */ 	lui	$t6,%hi(missions)
 /*  f104774:	afb00038 */ 	sw	$s0,0x38($sp)
@@ -3511,6 +3511,10 @@ char *func0f1058d0(s32 arg0)
 
 GLOBAL_ASM(
 glabel func0f105948
+.late_rodata
+glabel var7f1b2e00
+.word 0xbe4ccccd
+.text
 /*  f105948:	27bdf988 */ 	addiu	$sp,$sp,-1656
 /*  f10594c:	3c0f8007 */ 	lui	$t7,%hi(var80072d8c)
 /*  f105950:	25ef2d8c */ 	addiu	$t7,$t7,%lo(var80072d8c)
@@ -3717,6 +3721,10 @@ glabel func0f105948
 
 GLOBAL_ASM(
 glabel menudialog00105c54
+.late_rodata
+glabel var7f1b2e04
+.word 0x4196cbe4
+.text
 /*  f105c54:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f105c58:	24010066 */ 	addiu	$at,$zero,0x66
 /*  f105c5c:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -3966,6 +3974,40 @@ glabel func0f105e80
 
 GLOBAL_ASM(
 glabel menuhandler00106028
+.late_rodata
+glabel var7f1b2e08
+.word 0x7f106070
+glabel var7f1b2e0c
+.word 0x7f106058
+glabel var7f1b2e10
+.word 0x7f106084
+glabel var7f1b2e14
+.word 0x7f106060
+glabel var7f1b2e18
+.word 0x7f106068
+glabel var7f1b2e1c
+.word 0x7f1060a4
+glabel var7f1b2e20
+.word 0x7f1060b8
+glabel var7f1b2e24
+.word 0x7f106164
+glabel var7f1b2e28
+.word 0x7f106164
+glabel var7f1b2e2c
+.word 0x7f106164
+glabel var7f1b2e30
+.word 0x7f106164
+glabel var7f1b2e34
+.word 0x7f106164
+glabel var7f1b2e38
+.word 0x7f106164
+glabel var7f1b2e3c
+.word 0x7f106164
+glabel var7f1b2e40
+.word 0x7f106164
+glabel var7f1b2e44
+.word 0x7f1060c8
+.text
 /*  f106028:	248effff */ 	addiu	$t6,$a0,-1
 /*  f10602c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f106030:	2dc10010 */ 	sltiu	$at,$t6,0x10
@@ -4057,6 +4099,40 @@ glabel menuhandler00106028
 
 GLOBAL_ASM(
 glabel menuhandler00106178
+.late_rodata
+glabel var7f1b2e48
+.word 0x7f1061ac
+glabel var7f1b2e4c
+.word 0x7f106380
+glabel var7f1b2e50
+.word 0x7f1061c0
+glabel var7f1b2e54
+.word 0x7f106380
+glabel var7f1b2e58
+.word 0x7f106380
+glabel var7f1b2e5c
+.word 0x7f1061d4
+glabel var7f1b2e60
+.word 0x7f1062b0
+glabel var7f1b2e64
+.word 0x7f106380
+glabel var7f1b2e68
+.word 0x7f106380
+glabel var7f1b2e6c
+.word 0x7f106380
+glabel var7f1b2e70
+.word 0x7f106380
+glabel var7f1b2e74
+.word 0x7f106380
+glabel var7f1b2e78
+.word 0x7f106380
+glabel var7f1b2e7c
+.word 0x7f1062c4
+glabel var7f1b2e80
+.word 0x7f106380
+glabel var7f1b2e84
+.word 0x7f1062f4
+.text
 /*  f106178:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f10617c:	248effff */ 	addiu	$t6,$a0,-1
 /*  f106180:	2dc10010 */ 	sltiu	$at,$t6,0x10
@@ -4402,6 +4478,22 @@ glabel func0f1065c0
 
 GLOBAL_ASM(
 glabel menuhandler00106644
+.late_rodata
+glabel var7f1b2e88
+.word 0x7f1066b4
+glabel var7f1b2e8c
+.word 0x7f1067ac
+glabel var7f1b2e90
+.word 0x7f1066dc
+glabel var7f1b2e94
+.word 0x7f1067b8
+glabel var7f1b2e98
+.word 0x7f1067d4
+glabel var7f1b2e9c
+.word 0x7f10672c
+glabel var7f1b2ea0
+.word 0x7f10679c
+.text
 /*  f106644:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f106648:	3c0e8007 */ 	lui	$t6,%hi(cutscenegrouptable)
 /*  f10664c:	27a20028 */ 	addiu	$v0,$sp,0x28

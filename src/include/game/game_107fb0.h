@@ -78,4 +78,9 @@ s32 menuhandlerRenameFile(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerSaveElsewhere(u32, u32, u32 *);
 s32 menuhandlerSaveLocation(u32 operation, struct menu_item *item, s32 *value);
 
+extern const char var7f1b3214[];
+extern const char var7f1b3218[];
+extern const char var7f1b321c[];
+extern const char var7f1b3220[];
+
 #endif

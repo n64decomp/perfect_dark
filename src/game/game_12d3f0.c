@@ -21,6 +21,19 @@
 #include "lib/lib_4b480.h"
 #include "types.h"
 
+const u32 var7f1b55d0[] = {0x46ea6000};
+const u32 var7f1b55d4[] = {0x46ea6000};
+const u32 var7f1b55d8[] = {0xc6ea6000};
+const u32 var7f1b55dc[] = {0x3b808081};
+const u32 var7f1b55e0[] = {0x3c23d70a};
+const u32 var7f1b55e4[] = {0x3ca3d70a};
+const u32 var7f1b55e8[] = {0x3ea8f5c3};
+const u32 var7f1b55ec[] = {0x40c907a9};
+const u32 var7f1b55f0[] = {0x3e6b851f};
+const u32 var7f1b55f4[] = {0x00000000};
+const u32 var7f1b55f8[] = {0x00000000};
+const u32 var7f1b55fc[] = {0x00000000};
+
 GLOBAL_ASM(
 glabel func0f12d3f0
 /*  f12d3f0:	27bdff48 */ 	addiu	$sp,$sp,-184

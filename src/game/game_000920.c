@@ -74,33 +74,6 @@ const char var7f1a7d10[] = "L2 -> Allocated %uK for the compressed acoustic shad
 const char var7f1a7d50[] = "L2(%d) -> ";
 const char var7f1a7d5c[] = "L2 -> Finished building portal range table\n";
 
-const u32 var7f1a7d88[] = {0x3b808081};
-const u32 var7f1a7d8c[] = {0x3f169697};
-const u32 var7f1a7d90[] = {0x4b989680};
-const u32 var7f1a7d94[] = {0x3dcccccd};
-const u32 var7f1a7d98[] = {0x7f002cc0};
-const u32 var7f1a7d9c[] = {0x7f002cf8};
-const u32 var7f1a7da0[] = {0x7f002d9c};
-const u32 var7f1a7da4[] = {0x7f002e44};
-const u32 var7f1a7da8[] = {0x7f002ee8};
-const u32 var7f1a7dac[] = {0x3c23d70a};
-const u32 var7f1a7db0[] = {0x3c23d70a};
-const u32 var7f1a7db4[] = {0x3c23d70a};
-const u32 var7f1a7db8[] = {0x3c23d70a};
-const u32 var7f1a7dbc[] = {0x7f0038e0};
-const u32 var7f1a7dc0[] = {0x7f003940};
-const u32 var7f1a7dc4[] = {0x7f003a24};
-const u32 var7f1a7dc8[] = {0x7f003ad4};
-const u32 var7f1a7dcc[] = {0x7f003bbc};
-const u32 var7f1a7dd0[] = {0x40c90fdb};
-const u32 var7f1a7dd4[] = {0x3b808081};
-const u32 var7f1a7dd8[] = {0x3b808081};
-const u32 var7f1a7ddc[] = {0x3b808081};
-const u32 var7f1a7de0[] = {0x46fffe00};
-const u32 var7f1a7de4[] = {0x46fffe00};
-const u32 var7f1a7de8[] = {0x00000000};
-const u32 var7f1a7dec[] = {0x00000000};
-
 GLOBAL_ASM(
 glabel func0f000920
 /*  f000920:	10850014 */ 	beq	$a0,$a1,.L0f000974
@@ -389,6 +362,10 @@ glabel func0f000c54
 
 GLOBAL_ASM(
 glabel func0f000cc4
+.late_rodata
+glabel var7f1a7d88
+.word 0x3b808081
+.text
 /*  f000cc4:	000478c0 */ 	sll	$t7,$a0,0x3
 /*  f000cc8:	01e47821 */ 	addu	$t7,$t7,$a0
 /*  f000ccc:	3c0e800a */ 	lui	$t6,%hi(g_RoomPtrs)
@@ -716,6 +693,10 @@ glabel func0f0010d8
 
 GLOBAL_ASM(
 glabel func0f001138
+.late_rodata
+glabel var7f1a7d8c
+.word 0x3f169697
+.text
 /*  f001138:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f00113c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f001140:	00808025 */ 	or	$s0,$a0,$zero
@@ -1854,8 +1835,8 @@ glabel func0f001c0c
 
 GLOBAL_ASM(
 glabel func0f00215c
-/*  f00215c:	3c0e7f00 */ 	lui	$t6,0x7f00
-/*  f002160:	25ce2334 */ 	addiu	$t6,$t6,0x2334
+/*  f00215c:	3c0e7f00 */ 	lui	$t6,%hi(func0f002334)
+/*  f002160:	25ce2334 */ 	addiu	$t6,$t6,%lo(func0f002334)
 /*  f002164:	3c01800a */ 	lui	$at,0x800a
 /*  f002168:	ac2ecae8 */ 	sw	$t6,-0x3518($at)
 /*  f00216c:	3c014248 */ 	lui	$at,0x4248
@@ -1981,6 +1962,10 @@ glabel func0f00215c
 /*  f002328:	8fb50028 */ 	lw	$s5,0x28($sp)
 /*  f00232c:	03e00008 */ 	jr	$ra
 /*  f002330:	27bd0030 */ 	addiu	$sp,$sp,0x30
+);
+
+GLOBAL_ASM(
+glabel func0f002334
 /*  f002334:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f002338:	44806000 */ 	mtc1	$zero,$f12
 /*  f00233c:	2401ffff */ 	addiu	$at,$zero,-1
@@ -2019,6 +2004,10 @@ glabel func0f00215c
 
 GLOBAL_ASM(
 glabel func0f0023b8
+.late_rodata
+glabel var7f1a7d90
+.word 0x4b989680
+.text
 /*  f0023b8:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0023bc:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
 /*  f0023c0:	8d2e02bc */ 	lw	$t6,0x2bc($t1)
@@ -2153,6 +2142,10 @@ glabel func0f0023b8
 
 GLOBAL_ASM(
 glabel func0f00259c
+.late_rodata
+glabel var7f1a7d94
+.word 0x3dcccccd
+.text
 /*  f00259c:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f0025a0:	afb60034 */ 	sw	$s6,0x34($sp)
 /*  f0025a4:	3c16800a */ 	lui	$s6,%hi(g_Vars)
@@ -2612,6 +2605,26 @@ glabel func0f002b58
 
 GLOBAL_ASM(
 glabel func0f002c28
+.late_rodata
+glabel var7f1a7d98
+.word 0x7f002cc0
+glabel var7f1a7d9c
+.word 0x7f002cf8
+glabel var7f1a7da0
+.word 0x7f002d9c
+glabel var7f1a7da4
+.word 0x7f002e44
+glabel var7f1a7da8
+.word 0x7f002ee8
+glabel var7f1a7dac
+.word 0x3c23d70a
+glabel var7f1a7db0
+.word 0x3c23d70a
+glabel var7f1a7db4
+.word 0x3c23d70a
+glabel var7f1a7db8
+.word 0x3c23d70a
+.text
 /*  f002c28:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f002c2c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f002c30:	afa40018 */ 	sw	$a0,0x18($sp)
@@ -3415,6 +3428,22 @@ glabel func0f00372c
 
 GLOBAL_ASM(
 glabel func0f0037ac
+.late_rodata
+glabel var7f1a7dbc
+.word 0x7f0038e0
+glabel var7f1a7dc0
+.word 0x7f003940
+glabel var7f1a7dc4
+.word 0x7f003a24
+glabel var7f1a7dc8
+.word 0x7f003ad4
+glabel var7f1a7dcc
+.word 0x7f003bbc
+glabel var7f1a7dd0
+.word 0x40c90fdb
+glabel var7f1a7dd4
+.word 0x3b808081
+.text
 /*  f0037ac:	27bdff28 */ 	addiu	$sp,$sp,-216
 /*  f0037b0:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f0037b4:	afbe0050 */ 	sw	$s8,0x50($sp)
@@ -4256,6 +4285,10 @@ glabel func0f004314
 
 GLOBAL_ASM(
 glabel func0f00438c
+.late_rodata
+glabel var7f1a7dd8
+.word 0x3b808081
+.text
 /*  f00438c:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f004390:	afbe0050 */ 	sw	$s8,0x50($sp)
 /*  f004394:	3c1e8006 */ 	lui	$s8,%hi(var80061420)
@@ -4432,6 +4465,10 @@ glabel func0f004558
 
 GLOBAL_ASM(
 glabel func0f004604
+.late_rodata
+glabel var7f1a7ddc
+.word 0x3b808081
+.text
 /*  f004604:	3c06800a */ 	lui	$a2,%hi(g_RoomPtrs)
 /*  f004608:	000428c0 */ 	sll	$a1,$a0,0x3
 /*  f00460c:	24c64928 */ 	addiu	$a2,$a2,%lo(g_RoomPtrs)
@@ -5404,6 +5441,10 @@ glabel func0f00505c
 
 GLOBAL_ASM(
 glabel func0f0053d0
+.late_rodata
+glabel var7f1a7de0
+.word 0x46fffe00
+.text
 /*  f0053d0:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f0053d4:	8fae0088 */ 	lw	$t6,0x88($sp)
 /*  f0053d8:	3c017f1a */ 	lui	$at,%hi(var7f1a7de0)
@@ -5623,6 +5664,10 @@ glabel func0f0053d0
 
 GLOBAL_ASM(
 glabel func0f0056f4
+.late_rodata
+glabel var7f1a7de4
+.word 0x46fffe00
+.text
 /*  f0056f4:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0056f8:	3c0e8006 */ 	lui	$t6,%hi(var80061444)
 /*  f0056fc:	8dce1444 */ 	lw	$t6,%lo(var80061444)($t6)

@@ -80,4 +80,9 @@ u32 func0f0fd548(void);
 u32 func0f0fd570(void);
 bool currentPlayerIsInTraining(void);
 
+extern const char var7f1b2658[];
+extern const char var7f1b265c[];
+extern const char var7f1b2660[];
+extern const char var7f1b2664[];
+
 #endif

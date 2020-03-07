@@ -6,6 +6,7 @@
 #include "game/game_107fb0.h"
 #include "game/game_10c9c0.h"
 #include "game/game_10ccd0.h"
+#include "game/game_1165d0.h"
 #include "game/game_176d70.h"
 #include "game/game_177e00.h"
 #include "game/game_179060.h"
@@ -178,10 +179,10 @@ struct menu_dialog menudialog_1a654 = {
 	NULL,
 };
 
-u32 var8007464c = 0x7f1b3214;
-u32 var80074650 = 0x7f1b3218;
-u32 var80074654 = 0x7f1b321c;
-u32 var80074658 = 0x7f1b3220;
+u32 var8007464c = (u32)&var7f1b3214;
+u32 var80074650 = (u32)&var7f1b3218;
+u32 var80074654 = (u32)&var7f1b321c;
+u32 var80074658 = (u32)&var7f1b3220;
 u32 var8007465c = 0x01020304;
 u32 var80074660 = 0x00000000;
 
@@ -1026,11 +1027,11 @@ u32 var80075d30 = 0x00000003;
 u32 var80075d34 = 0x00000005;
 u32 var80075d38 = 0x00000005;
 u32 var80075d3c = 0x00000005;
-u32 var80075d40 = 0x7f1b423c;
-u32 var80075d44 = 0x7f1b4244;
-u32 var80075d48 = 0x7f1b424c;
-u32 var80075d4c = 0x7f1b4254;
-u32 var80075d50 = 0x7f1b425c;
+u32 var80075d40 = (u32)&var7f1b423c;
+u32 var80075d44 = (u32)&var7f1b4244;
+u32 var80075d48 = (u32)&var7f1b424c;
+u32 var80075d4c = (u32)&var7f1b4254;
+u32 var80075d50 = (u32)&var7f1b425c;
 u32 var80075d54 = 0x00000000;
 u32 var80075d58 = 0x00000000;
 u32 var80075d5c = 0x00000000;

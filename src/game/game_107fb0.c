@@ -66,11 +66,11 @@ const char var7f1b31b4[] = "YOUR TARGET: %x-%x\n";
 const char var7f1b31c8[] = "MyResult: %d\n";
 const char var7f1b31d8[] = "COULD NOT DELETE\n";
 const char var7f1b31ec[] = "Multiplayer %d was using that file...\n";
+const char var7f1b3214[] = "GAM";
+const char var7f1b3218[] = "MPG";
+const char var7f1b321c[] = "MPP";
+const char var7f1b3220[] = "CAM";
 
-const u32 var7f1b3214[] = {0x47414d00};
-const u32 var7f1b3218[] = {0x4d504700};
-const u32 var7f1b321c[] = {0x4d505000};
-const u32 var7f1b3220[] = {0x43414d00};
 const u32 var7f1b3224[] = {0x00000080};
 const u32 var7f1b3228[] = {0x00000040};
 const u32 var7f1b322c[] = {0x00000020};
@@ -5137,9 +5137,9 @@ glabel menucustomChooseAgent
 /*  f10c730:	000c60c0 */ 	sll	$t4,$t4,0x3
 /*  f10c734:	010c1821 */ 	addu	$v1,$t0,$t4
 /*  f10c738:	1060002c */ 	beqz	$v1,.L0f10c7ec
-/*  f10c73c:	3c07800a */ 	lui	$a3,0x800a
+/*  f10c73c:	3c07800a */ 	lui	$a3,%hi(var800a22c0)
 /*  f10c740:	8c6b0000 */ 	lw	$t3,0x0($v1)
-/*  f10c744:	24e422c0 */ 	addiu	$a0,$a3,0x22c0
+/*  f10c744:	24e422c0 */ 	addiu	$a0,$a3,%lo(var800a22c0)
 /*  f10c748:	24050064 */ 	addiu	$a1,$zero,0x64
 /*  f10c74c:	ac8b0000 */ 	sw	$t3,0x0($a0)
 /*  f10c750:	94780004 */ 	lhu	$t8,0x4($v1)

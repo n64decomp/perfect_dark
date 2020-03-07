@@ -15,6 +15,83 @@
 #include "lib/lib_4b480.h"
 #include "types.h"
 
+const char var7f1adbf0[] = "radmax";
+const char var7f1adbf8[] = "radmed";
+const char var7f1adc00[] = "radmin";
+const char var7f1adc08[] = "len1";
+const char var7f1adc10[] = "len2";
+const char var7f1adc18[] = "len3";
+const char var7f1adc20[] = "offx";
+const char var7f1adc28[] = "offy";
+const char var7f1adc30[] = "shieldcol";
+const char var7f1adc3c[] = "armourcol";
+const char var7f1adc48[] = "traumacol";
+const char var7f1adc54[] = "bgcol";
+const char var7f1adc5c[] = "shieldfade";
+const char var7f1adc68[] = "armourfade";
+const char var7f1adc74[] = "traumafade";
+const char var7f1adc80[] = "shielddir";
+const char var7f1adc8c[] = "underleft";
+const char var7f1adc98[] = "undertop";
+const char var7f1adca4[] = "underright";
+const char var7f1adcb0[] = "underbottom";
+const char var7f1adcbc[] = "undercol";
+
+const u32 var7f1adcc8[] = {0x3f8a3d71};
+const u32 var7f1adccc[] = {0x3f6c8b44};
+const u32 var7f1adcd0[] = {0x3f851eb8};
+const u32 var7f1adcd4[] = {0x3ec41893};
+const u32 var7f1adcd8[] = {0x3f6c8b44};
+const u32 var7f1adcdc[] = {0x3ec41893};
+const u32 var7f1adce0[] = {0x3d4ccccd};
+const u32 var7f1adce4[] = {0x3f34fdf4};
+const u32 var7f1adce8[] = {0x3f828f5c};
+const u32 var7f1adcec[] = {0x3f34fdf4};
+const u32 var7f1adcf0[] = {0x3f34fdf4};
+const u32 var7f1adcf4[] = {0x3f34fdf4};
+const u32 var7f1adcf8[] = {0x3dcccccd};
+const u32 var7f1adcfc[] = {0x3ec41893};
+const u32 var7f1add00[] = {0x3f6c8b44};
+const u32 var7f1add04[] = {0x3ec41893};
+const u32 var7f1add08[] = {0x3f6c8b44};
+const u32 var7f1add0c[] = {0x3e19999a};
+const u32 var7f1add10[] = {0x3e4ccccd};
+const u32 var7f1add14[] = {0x3f4ccccd};
+const u32 var7f1add18[] = {0x3f59999a};
+const u32 var7f1add1c[] = {0x3f666666};
+const u32 var7f1add20[] = {0x3f733333};
+const u32 var7f1add24[] = {0x3f666666};
+const u32 var7f1add28[] = {0x3eaf1aa0};
+const u32 var7f1add2c[] = {0x3f70a3d7};
+const u32 var7f1add30[] = {0x3f70a3d7};
+const u32 var7f1add34[] = {0x3f70a3d7};
+const u32 var7f1add38[] = {0x3f249ba6};
+const u32 var7f1add3c[] = {0x3f441893};
+const u32 var7f1add40[] = {0x3f441893};
+const u32 var7f1add44[] = {0x3f7851ec};
+const u32 var7f1add48[] = {0x3f5db22d};
+const u32 var7f1add4c[] = {0x3f7d70a4};
+const u32 var7f1add50[] = {0x3f7c28f6};
+const u32 var7f1add54[] = {0x3e322d0e};
+const u32 var7f1add58[] = {0x3e322d0e};
+const u32 var7f1add5c[] = {0x3f4ccccd};
+const u32 var7f1add60[] = {0x3ec41893};
+const u32 var7f1add64[] = {0x3f6c8b44};
+const u32 var7f1add68[] = {0x3f6c8b44};
+const u32 var7f1add6c[] = {0x3f59999a};
+const u32 var7f1add70[] = {0x3f34fdf4};
+const u32 var7f1add74[] = {0x3f34fdf4};
+const u32 var7f1add78[] = {0x3f34fdf4};
+const u32 var7f1add7c[] = {0x3f666666};
+const u32 var7f1add80[] = {0x3f6c8b44};
+const u32 var7f1add84[] = {0x3ec41893};
+const u32 var7f1add88[] = {0x3ec41893};
+const u32 var7f1add8c[] = {0x3f733333};
+const u32 var7f1add90[] = {0x3a83126f};
+const u32 var7f1add94[] = {0x3a83126f};
+const u32 var7f1add98[] = {0x3a83126f};
+const u32 var7f1add9c[] = {0x00000000};
+
 GLOBAL_ASM(
 glabel func0f0d5a90
 /*  f0d5a90:	44876000 */ 	mtc1	$a3,$f12

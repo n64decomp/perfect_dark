@@ -4210,98 +4210,6 @@ const u32 var7f1b1fa0[] = {0x7f0f08b0};
 const u32 var7f1b1fa4[] = {0x7f0f0908};
 const u32 var7f1b1fa8[] = {0x7f0f0900};
 const u32 var7f1b1fac[] = {0x00000000};
-const u32 var7f1b1fb0[] = {0x20202000};
-const u32 var7f1b1fb4[] = {0x20202000};
-const u32 var7f1b1fb8[] = {0x20202000};
-const u32 var7f1b1fbc[] = {0x4f4f4f00};
-const u32 var7f1b1fc0[] = {0x00000000};
-const u32 var7f1b1fc4[] = {0x00000000};
-const u32 var7f1b1fc8[] = {0x4f4f4f00};
-const u32 var7f1b1fcc[] = {0x4f4f4f00};
-const u32 var7f1b1fd0[] = {0x4f4f4f00};
-const u32 var7f1b1fd4[] = {0x4f4f4f00};
-const u32 var7f1b1fd8[] = {0x00000000};
-const u32 var7f1b1fdc[] = {0x00000000};
-const u32 var7f1b1fe0[] = {0x4f4f4f00};
-const u32 var7f1b1fe4[] = {0x00000000};
-const u32 var7f1b1fe8[] = {0x00000000};
-const u32 var7f1b1fec[] = {0x0060bf7f};
-const u32 var7f1b1ff0[] = {0x0000507f};
-const u32 var7f1b1ff4[] = {0x00f0ff7f};
-const u32 var7f1b1ff8[] = {0xffffffff};
-const u32 var7f1b1ffc[] = {0x00002f7f};
-const u32 var7f1b2000[] = {0x00006f7f};
-const u32 var7f1b2004[] = {0x00ffffff};
-const u32 var7f1b2008[] = {0x007f7fff};
-const u32 var7f1b200c[] = {0xffffffff};
-const u32 var7f1b2010[] = {0x8fffffff};
-const u32 var7f1b2014[] = {0x000044ff};
-const u32 var7f1b2018[] = {0x000030ff};
-const u32 var7f1b201c[] = {0x7f7fffff};
-const u32 var7f1b2020[] = {0xffffffff};
-const u32 var7f1b2024[] = {0x6644ff7f};
-const u32 var7f1b2028[] = {0xbf00007f};
-const u32 var7f1b202c[] = {0x5000007f};
-const u32 var7f1b2030[] = {0xff00007f};
-const u32 var7f1b2034[] = {0xffff00ff};
-const u32 var7f1b2038[] = {0x2f00007f};
-const u32 var7f1b203c[] = {0x6f00007f};
-const u32 var7f1b2040[] = {0xff7050ff};
-const u32 var7f1b2044[] = {0x7f0000ff};
-const u32 var7f1b2048[] = {0xffff00ff};
-const u32 var7f1b204c[] = {0xff9070ff};
-const u32 var7f1b2050[] = {0x440000ff};
-const u32 var7f1b2054[] = {0x003000ff};
-const u32 var7f1b2058[] = {0xffff00ff};
-const u32 var7f1b205c[] = {0xffffffff};
-const u32 var7f1b2060[] = {0xff44447f};
-const u32 var7f1b2064[] = {0x00bf007f};
-const u32 var7f1b2068[] = {0x0050007f};
-const u32 var7f1b206c[] = {0x00ff007f};
-const u32 var7f1b2070[] = {0xffff00ff};
-const u32 var7f1b2074[] = {0x002f007f};
-const u32 var7f1b2078[] = {0x00ff0028};
-const u32 var7f1b207c[] = {0x55ff55ff};
-const u32 var7f1b2080[] = {0x006f00af};
-const u32 var7f1b2084[] = {0xffffffff};
-const u32 var7f1b2088[] = {0x00000000};
-const u32 var7f1b208c[] = {0x004400ff};
-const u32 var7f1b2090[] = {0x003000ff};
-const u32 var7f1b2094[] = {0xffff00ff};
-const u32 var7f1b2098[] = {0xffffffff};
-const u32 var7f1b209c[] = {0x44ff447f};
-const u32 var7f1b20a0[] = {0xffffffff};
-const u32 var7f1b20a4[] = {0xffffff7f};
-const u32 var7f1b20a8[] = {0xffffffff};
-const u32 var7f1b20ac[] = {0xffffffff};
-const u32 var7f1b20b0[] = {0xffffff7f};
-const u32 var7f1b20b4[] = {0xffffffff};
-const u32 var7f1b20b8[] = {0xffffffff};
-const u32 var7f1b20bc[] = {0xffffffff};
-const u32 var7f1b20c0[] = {0xffffffff};
-const u32 var7f1b20c4[] = {0xffffffff};
-const u32 var7f1b20c8[] = {0x00000000};
-const u32 var7f1b20cc[] = {0xffffff5f};
-const u32 var7f1b20d0[] = {0xffffffff};
-const u32 var7f1b20d4[] = {0xffffff7f};
-const u32 var7f1b20d8[] = {0xffffffff};
-const u32 var7f1b20dc[] = {0xaaaaaaff};
-const u32 var7f1b20e0[] = {0xaaaaaa7f};
-const u32 var7f1b20e4[] = {0xaaaaaaff};
-const u32 var7f1b20e8[] = {0xffffffff};
-const u32 var7f1b20ec[] = {0xffffff2f};
-const u32 var7f1b20f0[] = {0xffffffff};
-const u32 var7f1b20f4[] = {0xffffffff};
-const u32 var7f1b20f8[] = {0xffffffff};
-const u32 var7f1b20fc[] = {0xff8888ff};
-const u32 var7f1b2100[] = {0xffffffff};
-const u32 var7f1b2104[] = {0x00000000};
-const u32 var7f1b2108[] = {0xffffff5f};
-const u32 var7f1b210c[] = {0xffffffff};
-const u32 var7f1b2110[] = {0xffffff7f};
-const u32 var7f1b2114[] = {0xffffffff};
-const u32 var7f1b2118[] = {0xffffff00};
-const u32 var7f1b211c[] = {0xffffff00};
 
 GLOBAL_ASM(
 glabel func0f0dcdb0
@@ -4856,7 +4764,7 @@ glabel func0f0dd2ac
 /*  f0dd550:	27a40084 */ 	addiu	$a0,$sp,0x84
 /*  f0dd554:	3c0f8008 */ 	lui	$t7,%hi(var8007fafc)
 /*  f0dd558:	8deffafc */ 	lw	$t7,%lo(var8007fafc)($t7)
-/*  f0dd55c:	3c078008 */ 	lui	$a3,0x8008
+/*  f0dd55c:	3c078008 */ 	lui	$a3,%hi(var8007dea8)
 /*  f0dd560:	8ce7fb00 */ 	lw	$a3,%lo(var7f1afb00)($a3)
 /*  f0dd564:	27a4006c */ 	addiu	$a0,$sp,0x6c
 /*  f0dd568:	27a50070 */ 	addiu	$a1,$sp,0x70
@@ -4981,7 +4889,7 @@ glabel func0f0dd2ac
 /*  f0dd744:	460054a1 */ 	cvt.d.s	$f18,$f10
 /*  f0dd748:	3c077f1b */ 	lui	$a3,%hi(var7f1afb00)
 /*  f0dd74c:	afa200c0 */ 	sw	$v0,0xc0($sp)
-/*  f0dd750:	24e7dea8 */ 	addiu	$a3,$a3,-8536
+/*  f0dd750:	24e7dea8 */ 	addiu	$a3,$a3,%lo(var8007dea8)
 /*  f0dd754:	f7b20010 */ 	sdc1	$f18,0x10($sp)
 /*  f0dd758:	24c6dea4 */ 	addiu	$a2,$a2,%lo(var7f1adea4)
 /*  f0dd75c:	24a5de98 */ 	addiu	$a1,$a1,%lo(var7f1ade98)
@@ -14198,7 +14106,7 @@ glabel func0f0e5d2c
 /*  f0e5dec:	00d4082a */ 	slt	$at,$a2,$s4
 .L0f0e5df0:
 /*  f0e5df0:	10200018 */ 	beqz	$at,.L0f0e5e54
-/*  f0e5df4:	3c038007 */ 	lui	$v1,0x8007
+/*  f0e5df4:	3c038007 */ 	lui	$v1,%hi(var800711a8)
 /*  f0e5df8:	afa60050 */ 	sw	$a2,0x50($sp)
 /*  f0e5dfc:	8e790010 */ 	lw	$t9,0x10($s3)
 /*  f0e5e00:	02a03025 */ 	or	$a2,$s5,$zero
@@ -14225,7 +14133,7 @@ glabel func0f0e5d2c
 /*  f0e5e4c:	1000000f */ 	beqz	$zero,.L0f0e5e8c
 /*  f0e5e50:	00512821 */ 	addu	$a1,$v0,$s1
 .L0f0e5e54:
-/*  f0e5e54:	8c6311a8 */ 	lw	$v1,0x11a8($v1)
+/*  f0e5e54:	8c6311a8 */ 	lw	$v1,%lo(var800711a8)($v1)
 /*  f0e5e58:	2404270f */ 	addiu	$a0,$zero,0x270f
 /*  f0e5e5c:	0203001a */ 	div	$zero,$s0,$v1
 /*  f0e5e60:	00001012 */ 	mflo	$v0

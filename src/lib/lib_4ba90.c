@@ -75,10 +75,10 @@ glabel __osPfsGetStatus
 GLOBAL_ASM(
 glabel __osPfsRequestOneChannel
 /*    4bb60:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*    4bb64:	3c068009 */ 	lui	$a2,0x8009
+/*    4bb64:	3c068009 */ 	lui	$a2,%hi(var80090a20)
 /*    4bb68:	240700fe */ 	addiu	$a3,$zero,0xfe
 /*    4bb6c:	3c01800a */ 	lui	$at,0x800a
-/*    4bb70:	24c20a20 */ 	addiu	$v0,$a2,0xa20
+/*    4bb70:	24c20a20 */ 	addiu	$v0,$a2,%lo(var80090a20)
 /*    4bb74:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*    4bb78:	a027c820 */ 	sb	$a3,-0x37e0($at)
 /*    4bb7c:	240f0001 */ 	addiu	$t7,$zero,0x1

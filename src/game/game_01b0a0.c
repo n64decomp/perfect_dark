@@ -17,6 +17,11 @@
 #include "lib/lib_13900.h"
 #include "types.h"
 
+const u32 var7f1a85a0[] = {0x00000000};
+const u32 var7f1a85a4[] = {0x3e89374c};
+const u32 var7f1a85a8[] = {0x4196cbe4};
+const u32 var7f1a85ac[] = {0x4196cbe4};
+
 GLOBAL_ASM(
 glabel func0f01b0a0
 /*  f01b0a0:	44800000 */ 	mtc1	$zero,$f0

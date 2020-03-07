@@ -38,45 +38,12 @@ const char var7f1ada70[] = "g";
 const char var7f1ada74[] = "l";
 const char var7f1ada78[] = "%s%s";
 
-const u32 var7f1ada80[] = {0xc6ea6000};
-const u32 var7f1ada84[] = {0x3dcccccd};
-const u32 var7f1ada88[] = {0x3f847ae1};
-const u32 var7f1ada8c[] = {0x47ae147b};
-const u32 var7f1ada90[] = {0x3c23d70a};
-const u32 var7f1ada94[] = {0x411ffffe};
-const u32 var7f1ada98[] = {0x3c8efa35};
-const u32 var7f1ada9c[] = {0x3c8efa35};
-const u32 var7f1adaa0[] = {0x3f75c28f};
-const u32 var7f1adaa4[] = {0x3e99999a};
-const u32 var7f1adaa8[] = {0x3c4ccccd};
-const u32 var7f1adaac[] = {0x3c4ccccd};
-const u32 var7f1adab0[] = {0x3f75c28f};
-const u32 var7f1adab4[] = {0x3c8efa35};
-const u32 var7f1adab8[] = {0x3c8efa35};
-const u32 var7f1adabc[] = {0x3c8efa35};
-const u32 var7f1adac0[] = {0x3c8efa35};
-const u32 var7f1adac4[] = {0x3d23d70a};
-const u32 var7f1adac8[] = {0x3d23d70a};
-const u32 var7f1adacc[] = {0x3c8efa35};
-const u32 var7f1adad0[] = {0x3c8efa35};
-const u32 var7f1adad4[] = {0x3e19999a};
-const u32 var7f1adad8[] = {0x3e19999a};
-const u32 var7f1adadc[] = {0x42b48000};
-const u32 var7f1adae0[] = {0x3dcccccd};
-const u32 var7f1adae4[] = {0x3ccccccd};
-const u32 var7f1adae8[] = {0x7f0d1aac};
-const u32 var7f1adaec[] = {0x7f0d1ba8};
-const u32 var7f1adaf0[] = {0x7f0d1b54};
-const u32 var7f1adaf4[] = {0x7f0d1bfc};
-const u32 var7f1adaf8[] = {0x7f0d1b00};
-const u32 var7f1adafc[] = {0x40c907a9};
-const u32 var7f1adb00[] = {0x461c4000};
-const u32 var7f1adb04[] = {0x00000000};
-const u32 var7f1adb08[] = {0x00000000};
-const u32 var7f1adb0c[] = {0x00000000};
-
 GLOBAL_ASM(
 glabel func0f0cf150
+.late_rodata
+glabel var7f1ada80
+.word 0xc6ea6000
+.text
 /*  f0cf150:	3c0e800a */ 	lui	$t6,0x800a
 /*  f0cf154:	8dcea244 */ 	lw	$t6,-0x5dbc($t6)
 /*  f0cf158:	27bdffa8 */ 	addiu	$sp,$sp,-88
@@ -140,6 +107,14 @@ glabel func0f0cf150
 
 GLOBAL_ASM(
 glabel func0f0cf230
+.late_rodata
+glabel var7f1ada84
+.word 0x3dcccccd
+glabel var7f1ada88
+.word 0x3f847ae1
+glabel var7f1ada8c
+.word 0x47ae147b
+.text
 /*  f0cf230:	3c04800a */ 	lui	$a0,%hi(g_Vars)
 /*  f0cf234:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
 /*  f0cf238:	8c820284 */ 	lw	$v0,0x284($a0)
@@ -973,6 +948,12 @@ glabel func0f0cfdd0
 
 GLOBAL_ASM(
 glabel func0f0cfe24
+.late_rodata
+glabel var7f1ada90
+.word 0x3c23d70a
+glabel var7f1ada94
+.word 0x411ffffe
+.text
 /*  f0cfe24:	3c02800a */ 	lui	$v0,0x800a
 /*  f0cfe28:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
 /*  f0cfe2c:	27bdff48 */ 	addiu	$sp,$sp,-184
@@ -1312,6 +1293,12 @@ glabel func0f0cfe24
 
 GLOBAL_ASM(
 glabel func0f0d0310
+.late_rodata
+glabel var7f1ada98
+.word 0x3c8efa35
+glabel var7f1ada9c
+.word 0x3c8efa35
+.text
 /*  f0d0310:	27bdff40 */ 	addiu	$sp,$sp,-192
 /*  f0d0314:	afb00044 */ 	sw	$s0,0x44($sp)
 /*  f0d0318:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -1714,6 +1701,58 @@ glabel func0f0d0310
 
 GLOBAL_ASM(
 glabel func0f0d0928
+.late_rodata
+glabel var7f1adaa0
+.word 0x3f75c28f
+glabel var7f1adaa4
+.word 0x3e99999a
+glabel var7f1adaa8
+.word 0x3c4ccccd
+glabel var7f1adaac
+.word 0x3c4ccccd
+glabel var7f1adab0
+.word 0x3f75c28f
+glabel var7f1adab4
+.word 0x3c8efa35
+glabel var7f1adab8
+.word 0x3c8efa35
+glabel var7f1adabc
+.word 0x3c8efa35
+glabel var7f1adac0
+.word 0x3c8efa35
+glabel var7f1adac4
+.word 0x3d23d70a
+glabel var7f1adac8
+.word 0x3d23d70a
+glabel var7f1adacc
+.word 0x3c8efa35
+glabel var7f1adad0
+.word 0x3c8efa35
+glabel var7f1adad4
+.word 0x3e19999a
+glabel var7f1adad8
+.word 0x3e19999a
+glabel var7f1adadc
+.word 0x42b48000
+glabel var7f1adae0
+.word 0x3dcccccd
+glabel var7f1adae4
+.word 0x3ccccccd
+glabel var7f1adae8
+.word 0x7f0d1aac
+glabel var7f1adaec
+.word 0x7f0d1ba8
+glabel var7f1adaf0
+.word 0x7f0d1b54
+glabel var7f1adaf4
+.word 0x7f0d1bfc
+glabel var7f1adaf8
+.word 0x7f0d1b00
+glabel var7f1adafc
+.word 0x40c907a9
+glabel var7f1adb00
+.word 0x461c4000
+.text
 /*  f0d0928:	3c09800a */ 	lui	$t1,%hi(g_Vars)
 /*  f0d092c:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
 /*  f0d0930:	8d2e0284 */ 	lw	$t6,0x284($t1)

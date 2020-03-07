@@ -3477,6 +3477,10 @@ glabel func0f02143c
 /*  f021520:	d7b40010 */ 	ldc1	$f20,0x10($sp)
 /*  f021524:	03e00008 */ 	jr	$ra
 /*  f021528:	27bd0020 */ 	addiu	$sp,$sp,0x20
+);
+
+GLOBAL_ASM(
+glabel func0f02152c
 /*  f02152c:	3c013f80 */ 	lui	$at,0x3f80
 /*  f021530:	44812000 */ 	mtc1	$at,$f4
 /*  f021534:	27bdfea8 */ 	addiu	$sp,$sp,-344
@@ -6257,8 +6261,8 @@ glabel func0f023098
 /*  f023d90:	0c006943 */ 	jal	func0001a50c
 /*  f023d94:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f023d98:
-/*  f023d98:	3c0c7f02 */ 	lui	$t4,0x7f02
-/*  f023d9c:	258c152c */ 	addiu	$t4,$t4,0x152c
+/*  f023d98:	3c0c7f02 */ 	lui	$t4,%hi(func0f02152c)
+/*  f023d9c:	258c152c */ 	addiu	$t4,$t4,%lo(func0f02152c)
 /*  f023da0:	3c018006 */ 	lui	$at,0x8006
 /*  f023da4:	ac2cefcc */ 	sw	$t4,-0x1034($at)
 /*  f023da8:	3c01800a */ 	lui	$at,0x800a
@@ -7196,6 +7200,10 @@ glabel func0f024738
 /*  f024b0c:	8fbe0038 */ 	lw	$s8,0x38($sp)
 /*  f024b10:	03e00008 */ 	jr	$ra
 /*  f024b14:	27bd0280 */ 	addiu	$sp,$sp,0x280
+);
+
+GLOBAL_ASM(
+glabel func0f024b18
 /*  f024b18:	27bdfee8 */ 	addiu	$sp,$sp,-280
 /*  f024b1c:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f024b20:	afbe0040 */ 	sw	$s8,0x40($sp)
@@ -8318,8 +8326,8 @@ glabel func0f025288
 /*  f025b44:	ac4d0034 */ 	sw	$t5,0x34($v0)
 /*  f025b48:	10400005 */ 	beqz	$v0,.L0f025b60
 /*  f025b4c:	27a400a0 */ 	addiu	$a0,$sp,0xa0
-/*  f025b50:	3c097f02 */ 	lui	$t1,0x7f02
-/*  f025b54:	25294b18 */ 	addiu	$t1,$t1,0x4b18
+/*  f025b50:	3c097f02 */ 	lui	$t1,%hi(func0f024b18)
+/*  f025b54:	25294b18 */ 	addiu	$t1,$t1,%lo(func0f024b18)
 /*  f025b58:	3c018006 */ 	lui	$at,0x8006
 /*  f025b5c:	ac29efc4 */ 	sw	$t1,-0x103c($at)
 .L0f025b60:
@@ -9563,8 +9571,8 @@ glabel func0f0268bc
 /*  f026cf0:	afaa0118 */ 	sw	$t2,0x118($sp)
 /*  f026cf4:	1880000d */ 	blez	$a0,.L0f026d2c
 /*  f026cf8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f026cfc:	3c0f800a */ 	lui	$t7,0x800a
-/*  f026d00:	25e29fc0 */ 	addiu	$v0,$t7,-24640
+/*  f026cfc:	3c0f800a */ 	lui	$t7,%hi(g_Vars)
+/*  f026d00:	25e29fc0 */ 	addiu	$v0,$t7,%lo(g_Vars)
 /*  f026d04:	0004c080 */ 	sll	$t8,$a0,0x2
 /*  f026d08:	03021821 */ 	addu	$v1,$t8,$v0
 /*  f026d0c:	8c5902c4 */ 	lw	$t9,0x2c4($v0)

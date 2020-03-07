@@ -1106,9 +1106,9 @@ glabel func00005770
 GLOBAL_ASM(
 glabel func000058fc
 /*     58fc:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/*     5900:	3c058009 */ 	lui	$a1,0x8009
+/*     5900:	3c058009 */ 	lui	$a1,%hi(var80090a20)
 /*     5904:	3c01800a */ 	lui	$at,0x800a
-/*     5908:	24a20a20 */ 	addiu	$v0,$a1,0xa20
+/*     5908:	24a20a20 */ 	addiu	$v0,$a1,%lo(var80090a20)
 /*     590c:	afa40010 */ 	sw	$a0,0x10($sp)
 /*     5910:	a024c820 */ 	sb	$a0,-0x37e0($at)
 /*     5914:	240f0001 */ 	addiu	$t7,$zero,0x1

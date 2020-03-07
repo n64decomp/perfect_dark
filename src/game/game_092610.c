@@ -76,6 +76,7 @@ const u32 var7f1ab77c[] = {0x451c4000};
 const u32 var7f1ab780[] = {0x453b8000};
 const u32 var7f1ab784[] = {0x4b18967f};
 const u32 var7f1ab788[] = {0x4b18967f};
+
 const u32 var7f1ab78c[] = {0x00000000};
 const u32 var7f1ab790[] = {0x00000000};
 const u32 var7f1ab794[] = {0x00000000};
@@ -106,18 +107,6 @@ const u32 var7f1ab7f0[] = {0x7f095ab4};
 const u32 var7f1ab7f4[] = {0x7f095ac8};
 const u32 var7f1ab7f8[] = {0x00000000};
 const u32 var7f1ab7fc[] = {0x00000000};
-const u32 var7f1ab800[] = {0x40c907a9};
-const u32 var7f1ab804[] = {0x3cc907a9};
-const u32 var7f1ab808[] = {0x40c907a9};
-const u32 var7f1ab80c[] = {0x3cc907a9};
-const u32 var7f1ab810[] = {0x40c907a9};
-const u32 var7f1ab814[] = {0x3cc907a9};
-const u32 var7f1ab818[] = {0x3fd55555};
-const u32 var7f1ab81c[] = {0x40555555};
-const u32 var7f1ab820[] = {0x3fd55555};
-const u32 var7f1ab824[] = {0x3fd55555};
-const u32 var7f1ab828[] = {0x40555555};
-const u32 var7f1ab82c[] = {0x3e8e38e4};
 
 GLOBAL_ASM(
 glabel func0f092610

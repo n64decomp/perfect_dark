@@ -23,6 +23,11 @@
 #include "lib/lib_12dc0.h"
 #include "types.h"
 
+const char var7f1b9170[] = "";
+const u32 var7f1b9174[] = {0x00000000};
+const u32 var7f1b9178[] = {0x00000000};
+const u32 var7f1b917c[] = {0x00000000};
+
 /**
  * @cmd 0185
  */

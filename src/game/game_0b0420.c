@@ -22,6 +22,13 @@
 #include "lib/lib_13130.h"
 #include "types.h"
 
+const char var7f1acda0[] = "%s: %d\n";
+const char var7f1acda8[] = "%s %d %s\n";
+const char var7f1acdb4[] = "%s: %d\n";
+const char var7f1acdbc[] = "%s %s";
+const char var7f1acdc4[] = "%s %s";
+
+const u32 var7f1acdcc[] = {0x00000000};
 const u32 var7f1acdd0[] = {0x3dcccccd};
 const u32 var7f1acdd4[] = {0x3dcccccd};
 

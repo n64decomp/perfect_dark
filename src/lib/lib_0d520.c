@@ -813,8 +813,8 @@ glabel func0000db3c
 /*     de38:	1100000d */ 	beqz	$t0,.L0000de70
 /*     de3c:	3c0b8006 */ 	lui	$t3,%hi(var8005d9d8)
 /*     de40:	8c84d9b4 */ 	lw	$a0,-0x264c($a0)
-/*     de44:	3c098006 */ 	lui	$t1,0x8006
-/*     de48:	2522d9d8 */ 	addiu	$v0,$t1,-9768
+/*     de44:	3c098006 */ 	lui	$t1,%hi(var8005d9d8)
+/*     de48:	2522d9d8 */ 	addiu	$v0,$t1,%lo(var8005d9d8)
 /*     de4c:	8c430000 */ 	lw	$v1,0x0($v0)
 /*     de50:	24840190 */ 	addiu	$a0,$a0,%lo(var80060190)
 .L0000de54:
@@ -840,8 +840,8 @@ glabel func0000db3c
 /*     de94:	00002825 */ 	or	$a1,$zero,$zero
 /*     de98:	3c048006 */ 	lui	$a0,%hi(g_StageNum)
 /*     de9c:	1180000b */ 	beqz	$t4,.L0000decc
-/*     dea0:	3c0d8006 */ 	lui	$t5,0x8006
-/*     dea4:	25a2d9d8 */ 	addiu	$v0,$t5,-9768
+/*     dea0:	3c0d8006 */ 	lui	$t5,%hi(var8005d9d8)
+/*     dea4:	25a2d9d8 */ 	addiu	$v0,$t5,%lo(var8005d9d8)
 /*     dea8:	8c430000 */ 	lw	$v1,0x0($v0)
 /*     deac:	8c84d9b4 */ 	lw	$a0,%lo(g_StageNum)($a0)
 .L0000deb0:

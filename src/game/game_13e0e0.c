@@ -34,6 +34,144 @@
 #include "lib/lib_4b480.h"
 #include "types.h"
 
+const char var7f1b5a10[] = "WallHit_MakeSpaceRoom : ERROR - Couldn't find any space in room %d\n";
+const char var7f1b5a54[] = "wallhit";
+const char var7f1b5a5c[] = "g_MaxRound = %s%s%f";
+const char var7f1b5a70[] = "";
+const char var7f1b5a74[] = "";
+const char var7f1b5a78[] = "g_MinRound = %s%s%f";
+const char var7f1b5a8c[] = "";
+const char var7f1b5a90[] = "";
+const char var7f1b5a94[] = "Done %d Z buffer calcs";
+const char var7f1b5aac[] = "ZOOM : g_ZoomFactor=%s%s%f";
+const char var7f1b5ac8[] = "";
+const char var7f1b5acc[] = "";
+const char var7f1b5ad0[] = "ZOOM : g_ZoomScalar=%s%s%f";
+const char var7f1b5aec[] = "";
+const char var7f1b5af0[] = "";
+const char var7f1b5af4[] = "ZOOM : scale=%s%s%f";
+const char var7f1b5b08[] = "";
+const char var7f1b5b0c[] = "";
+const char var7f1b5b10[] = "WallHit_Tick : Status - RED";
+const char var7f1b5b2c[] = "WallHit_Tick : Status - YELLOW (%u)";
+const char var7f1b5b50[] = "WallHit_Tick : Status - GREEN";
+const char var7f1b5b70[] = "WallHit_Tick : %d Used";
+const char var7f1b5b88[] = "WallHit_Tick : %d Free";
+const char var7f1b5ba0[] = "WallHit_Tick : %d Pending";
+const char var7f1b5bbc[] = "WallHit_Tick : %d Blood";
+const char var7f1b5bd4[] = "WallHit_Tick : %d Other";
+const char var7f1b5bec[] = "WallHit_Tick : %d Ratio";
+const char var7f1b5c04[] = "WallHit_Tick : %d(%d) Prop Hits";
+const char var7f1b5c24[] = "tLifeTime=%s%s%f, tScalarGbl=%f";
+const char var7f1b5c44[] = "";
+const char var7f1b5c48[] = "";
+const char var7f1b5c4c[] = "wallhit.c";
+const char var7f1b5c58[] = "wallhit.c";
+const char var7f1b5c64[] = "wallhit.c";
+const char var7f1b5c70[] = "AFT : tVecU (along) = (%s%s%f,%f,%f)\n";
+const char var7f1b5c98[] = "";
+const char var7f1b5c9c[] = "";
+const char var7f1b5ca0[] = "AFT : tVecV (up)    = (%s%s%f,%f,%f)\n";
+const char var7f1b5cc8[] = "";
+const char var7f1b5ccc[] = "";
+const char var7f1b5cd0[] = "Wallhit colour %d not implemented, substituting black\n";
+
+const u32 var7f1b5d08[] = {0x3f19999a};
+const u32 var7f1b5d0c[] = {0x3fc90fdb};
+const u32 var7f1b5d10[] = {0x3e4ccccd};
+const u32 var7f1b5d14[] = {0x3f19999a};
+const u32 var7f1b5d18[] = {0x3e4ccccd};
+const u32 var7f1b5d1c[] = {0x3dcccccd};
+const u32 var7f1b5d20[] = {0x3f19999a};
+const u32 var7f1b5d24[] = {0x7f13f608};
+const u32 var7f1b5d28[] = {0x7f13f5ec};
+const u32 var7f1b5d2c[] = {0x7f13f5ec};
+const u32 var7f1b5d30[] = {0x7f13f608};
+const u32 var7f1b5d34[] = {0x7f13f608};
+const u32 var7f1b5d38[] = {0x7f13f608};
+const u32 var7f1b5d3c[] = {0x7f13f608};
+const u32 var7f1b5d40[] = {0x7f13f608};
+const u32 var7f1b5d44[] = {0x7f13f608};
+const u32 var7f1b5d48[] = {0x7f13f608};
+const u32 var7f1b5d4c[] = {0x7f13f5ec};
+const u32 var7f1b5d50[] = {0x7f13f608};
+const u32 var7f1b5d54[] = {0x3c8efa35};
+const u32 var7f1b5d58[] = {0x3b808081};
+const u32 var7f1b5d5c[] = {0x7f14034c};
+const u32 var7f1b5d60[] = {0x7f140300};
+const u32 var7f1b5d64[] = {0x7f1403c4};
+const u32 var7f1b5d68[] = {0x7f14043c};
+const u32 var7f1b5d6c[] = {0x7f14045c};
+
+const char var7f1b5d70[] = "envcol";
+const char var7f1b5d78[] = "primcol";
+const char var7f1b5d80[] = "envcol";
+const char var7f1b5d88[] = "primcol";
+const char var7f1b5d90[] = "sfxxx";
+const char var7f1b5d98[] = "sfyyy";
+const char var7f1b5da0[] = "interlaceGfx";
+const char var7f1b5db0[] = "BlueInterlaceGfx";
+const char var7f1b5dc4[] = "stretchBlurGfx";
+const char var7f1b5dd4[] = "blurGfxFisheye";
+const char var7f1b5de4[] = "%s %s%5.2f";
+const char var7f1b5df0[] = "";
+const char var7f1b5df4[] = "%s %s%4.2f";
+const char var7f1b5e00[] = "";
+const char var7f1b5e04[] = "%s %d";
+const char var7f1b5e0c[] = "%s %d";
+const char var7f1b5e14[] = "%s";
+const char var7f1b5e18[] = "%s";
+const char var7f1b5e1c[] = "%s";
+const char var7f1b5e20[] = "%s";
+const char var7f1b5e24[] = "   %s";
+const char var7f1b5e2c[] = "   %s";
+const char var7f1b5e34[] = "   %s";
+const char var7f1b5e3c[] = "%s";
+const char var7f1b5e40[] = "%s";
+const char var7f1b5e44[] = "%s";
+const char var7f1b5e48[] = "%s";
+const char var7f1b5e4c[] = "%s";
+const char var7f1b5e50[] = "Fullscreen_DrawFaultScope";
+const char var7f1b5e6c[] = "Fullscreen_DrawFaultScope";
+const char var7f1b5e88[] = "IntroFaderBlurGfx";
+const char var7f1b5e9c[] = "IntroTextInterfereGfx";
+const char var7f1b5eb4[] = "BinocularViewGfx";
+const char var7f1b5ec8[] = ">> ";
+const char var7f1b5ecc[] = " >>";
+const char var7f1b5ed0[] = "%s %s:%03d";
+const char var7f1b5edc[] = "%s %s%s%4.2fh";
+const char var7f1b5eec[] = "";
+const char var7f1b5ef0[] = "";
+const char var7f1b5ef4[] = "%s %s%s%4.2fX";
+const char var7f1b5f04[] = "";
+const char var7f1b5f08[] = "";
+const char var7f1b5f0c[] = " JMBC";
+const char var7f1b5f14[] = " WIDE BAND";
+const char var7f1b5f20[] = " SCANNER\n";
+
+const u32 var7f1b5f2c[] = {0x3f060a92};
+const u32 var7f1b5f30[] = {0x40278d36};
+const u32 var7f1b5f34[] = {0x3c23d70a};
+const u32 var7f1b5f38[] = {0x3bcccccd};
+const u32 var7f1b5f3c[] = {0x3c23d70a};
+const u32 var7f1b5f40[] = {0x3f83d70a};
+const u32 var7f1b5f44[] = {0x3bcccccd};
+const u32 var7f1b5f48[] = {0x3c23d70a};
+const u32 var7f1b5f4c[] = {0x3a83126f};
+const u32 var7f1b5f50[] = {0x3f19999a};
+const u32 var7f1b5f54[] = {0x3c23d70a};
+const u32 var7f1b5f58[] = {0x3bcccccd};
+const u32 var7f1b5f5c[] = {0x40490fdb};
+const u32 var7f1b5f60[] = {0x40933333};
+const u32 var7f1b5f64[] = {0x4465599a};
+const u32 var7f1b5f68[] = {0x00000000};
+const u32 var7f1b5f6c[] = {0x00000000};
+
+const char var7f1b5f70[] = "Splat Tick - P=%x, B=%d, T=%d, S=%d, W=%d, D=%d, H=%d\n";
+const char var7f1b5fa8[] = "SPLAT : Not Dead Enough %s%s%f";
+const char var7f1b5fc8[] = "";
+const char var7f1b5fcc[] = "";
+
 GLOBAL_ASM(
 glabel func0f13e0e0
 /*  f13e0e0:	3c028008 */ 	lui	$v0,%hi(var8007f754)
@@ -3820,7 +3958,7 @@ glabel func0f14159c
 .L0f141674:
 /*  f141674:	3c0a800a */ 	lui	$t2,0x800a
 /*  f141678:	10200007 */ 	beqz	$at,.L0f141698
-/*  f14167c:	3c03800a */ 	lui	$v1,0x800a
+/*  f14167c:	3c03800a */ 	lui	$v1,%hi(var8009cc44)
 /*  f141680:	02002025 */ 	or	$a0,$s0,$zero
 .L0f141684:
 /*  f141684:	0fc4f990 */ 	jal	func0f13e640
@@ -3839,7 +3977,7 @@ glabel func0f14159c
 /*  f1416b4:	000d7100 */ 	sll	$t6,$t5,0x4
 /*  f1416b8:	01c27826 */ 	xor	$t7,$t6,$v0
 /*  f1416bc:	ae0f0070 */ 	sw	$t7,0x70($s0)
-/*  f1416c0:	8c63cc44 */ 	lw	$v1,-0x33bc($v1)
+/*  f1416c0:	8c63cc44 */ 	lw	$v1,%lo(var8009cc44)($v1)
 .L0f1416c4:
 /*  f1416c4:	26310001 */ 	addiu	$s1,$s1,0x1
 .L0f1416c8:

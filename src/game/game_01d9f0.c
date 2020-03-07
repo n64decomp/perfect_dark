@@ -18,10 +18,6 @@ const u32 var7f1a8660[] = {0x3e8e38e4};
 const u32 var7f1a8664[] = {0x3f7ae148};
 const u32 var7f1a8668[] = {0x00000000};
 const u32 var7f1a866c[] = {0x00000000};
-const u32 var7f1a8670[] = {0x46ea6000};
-const u32 var7f1a8674[] = {0xc6ea6000};
-const u32 var7f1a8678[] = {0x3dcccccd};
-const u32 var7f1a867c[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0f01d9f0

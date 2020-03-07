@@ -16,6 +16,21 @@
 #include "lib/lib_13130.h"
 #include "types.h"
 
+const char var7f1b76f0[] = "-mgfx";
+const char var7f1b76f8[] = "-mgfx";
+const char var7f1b7700[] = "-mgfxtra";
+const char var7f1b770c[] = "-mgfxtra";
+const char var7f1b7718[] = "-mvtx";
+const char var7f1b7720[] = "-mvtx";
+const char var7f1b7728[] = "";
+const char var7f1b772c[] = "";
+const char var7f1b7730[] = "fr: %d\n";
+const char var7f1b7738[] = "cutsceneframe: %d\n";
+const char var7f1b774c[] = "pos:%s%s %.2f %.2f %.2f\n";
+
+const u32 var7f1b7768[] = {0x00000000};
+const u32 var7f1b776c[] = {0x00000000};
+
 GLOBAL_ASM(
 glabel func0f166e40
 /*  f166e40:	00047080 */ 	sll	$t6,$a0,0x2

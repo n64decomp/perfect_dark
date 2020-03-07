@@ -5,6 +5,9 @@
 #include "game/cheats.h"
 #include "game/game_107fb0.h"
 #include "game/game_10ccd0.h"
+#include "game/game_148b80.h"
+#include "game/game_167ae0.h"
+#include "game/game_16e810.h"
 #include "game/game_176d70.h"
 #include "game/game_177e00.h"
 #include "game/game_179060.h"
@@ -6821,13 +6824,13 @@ u32 var8007f8b0 = 0x43340000;
 u32 var8007f8b4 = 0x40a00000;
 u32 var8007f8b8 = 0x42480000;
 u32 var8007f8bc = 0x00000000;
-u32 var8007f8c0 = 0x7f1b6050;
-u32 var8007f8c4 = 0x7f1b6058;
-u32 var8007f8c8 = 0x7f1b606c;
-u32 var8007f8cc = 0x7f1b6080;
-u32 var8007f8d0 = 0x7f1b6088;
-u32 var8007f8d4 = 0x7f1b6090;
-u32 var8007f8d8 = 0x7f1b6098;
+u32 var8007f8c0 = (u32)&var7f1b6050;
+u32 var8007f8c4 = (u32)&var7f1b6058;
+u32 var8007f8c8 = (u32)&var7f1b606c;
+u32 var8007f8cc = (u32)&var7f1b6080;
+u32 var8007f8d0 = (u32)&var7f1b6088;
+u32 var8007f8d4 = (u32)&var7f1b6090;
+u32 var8007f8d8 = (u32)&var7f1b6098;
 u32 var8007f8dc = 0x00000000;
 u32 var8007f8e0 = 0x00000000;
 u32 var8007f8e4 = 0x00000000;
@@ -9638,13 +9641,13 @@ u32 var800840f0 = 0x00000000;
 u32 var800840f4 = 0x00000000;
 u32 var800840f8 = 0x00000078;
 u32 var800840fc = 0x00000000;
-u32 var80084100 = 0x7f1b78c0;
-u32 var80084104 = 0x7f1b78c8;
-u32 var80084108 = 0x7f1b78d4;
-u32 var8008410c = 0x7f1b78f4;
-u32 var80084110 = 0x7f1b7900;
-u32 var80084114 = 0x7f1b7908;
-u32 var80084118 = 0x7f1b7910;
+u32 var80084100 = (u32)&var7f1b78c0;
+u32 var80084104 = (u32)&var7f1b78c8;
+u32 var80084108 = (u32)&var7f1b78d4;
+u32 var8008410c = (u32)&var7f1b78f4;
+u32 var80084110 = (u32)&var7f1b7900;
+u32 var80084114 = (u32)&var7f1b7908;
+u32 var80084118 = (u32)&var7f1b7910;
 u32 var8008411c = 0x00000000;
 u32 g_LanguageId = 0;
 
@@ -9957,21 +9960,21 @@ struct something *somethings[] = {
 
 // 2a4b4
 u32 somethingpointers[] = {
-	/* 0*/ 0x7f1b7ba0,
-	/* 1*/ 0x7f1b7ba8,
-	/* 2*/ 0x7f1b7bb0,
-	/* 3*/ 0x7f1b7bb8,
-	/* 4*/ 0x7f1b7bc0,
-	/* 5*/ 0x7f1b7bc8,
-	/* 6*/ 0x7f1b7bd8,
-	/* 7*/ 0x7f1b7be0,
-	/* 8*/ 0x7f1b7be8,
-	/* 9*/ 0x7f1b7bec,
-	/*10*/ 0x7f1b7bf4,
-	/*11*/ 0x7f1b7c00,
-	/*12*/ 0x7f1b7c04,
-	/*13*/ 0x7f1b7c10,
-	/*14*/ 0x7f1b7c18,
+	/* 0*/ (u32)&var7f1b7ba0,
+	/* 1*/ (u32)&var7f1b7ba8,
+	/* 2*/ (u32)&var7f1b7bb0,
+	/* 3*/ (u32)&var7f1b7bb8,
+	/* 4*/ (u32)&var7f1b7bc0,
+	/* 5*/ (u32)&var7f1b7bc8,
+	/* 6*/ (u32)&var7f1b7bd8,
+	/* 7*/ (u32)&var7f1b7be0,
+	/* 8*/ (u32)&var7f1b7be8,
+	/* 9*/ (u32)&var7f1b7bec,
+	/*10*/ (u32)&var7f1b7bf4,
+	/*11*/ (u32)&var7f1b7c00,
+	/*12*/ (u32)&var7f1b7c04,
+	/*13*/ (u32)&var7f1b7c10,
+	/*14*/ (u32)&var7f1b7c18,
 };
 
 u32 var800844d0 = 0x00000000;

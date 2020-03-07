@@ -13,6 +13,15 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+const u32 var7f1ab870[] = {0x3c23d70a};
+const u32 var7f1ab874[] = {0xbf7fff58};
+const u32 var7f1ab878[] = {0x3f7fff58};
+const u32 var7f1ab87c[] = {0xbf7fff58};
+const u32 var7f1ab880[] = {0x3f7fff58};
+const u32 var7f1ab884[] = {0x00000000};
+const u32 var7f1ab888[] = {0x00000000};
+const u32 var7f1ab88c[] = {0x00000000};
+
 GLOBAL_ASM(
 glabel func0f096ca0
 /*  f096ca0:	27bdffc0 */ 	addiu	$sp,$sp,-64

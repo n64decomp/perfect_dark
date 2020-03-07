@@ -56,6 +56,7 @@
 	src/game/game_01afc0.o (section); \
 	src/game/game_01b0a0.o (section); \
 	src/game/game_01bea0.o (section); \
+	src/game/game_01d770.o (section); \
 	src/game/game_01d860.o (section); \
 	src/game/game_01d990.o (section); \
 	src/game/game_01d9f0.o (section); \

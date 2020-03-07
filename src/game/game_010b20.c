@@ -12,6 +12,11 @@
 #include "lib/lib_121e0.h"
 #include "types.h"
 
+const u32 var7f1a8230[] = {0x3f666666};
+const u32 var7f1a8234[] = {0xc0490fdb};
+const u32 var7f1a8238[] = {0x00000000};
+const u32 var7f1a823c[] = {0x00000000};
+
 GLOBAL_ASM(
 glabel func0f010b20
 /*  f010b20:	3c04800a */ 	lui	$a0,%hi(var8009d0d0)

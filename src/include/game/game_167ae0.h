@@ -37,4 +37,12 @@ void setVar80084030(u32 arg0);
 f32 getUptime(void);
 u32 mpGetMatchTime(void);
 
+extern const char var7f1b78c0[];
+extern const char var7f1b78c8[];
+extern const char var7f1b78d4[];
+extern const char var7f1b78f4[];
+extern const char var7f1b7900[];
+extern const char var7f1b7908[];
+extern const char var7f1b7910[];
+
 #endif

@@ -269,8 +269,8 @@ glabel func0000eb2c
 /*     ecc0:	5420fff9 */ 	bnezl	$at,.L0000eca8
 /*     ecc4:	8cad0000 */ 	lw	$t5,0x0($a1)
 .L0000ecc8:
-/*     ecc8:	3c188009 */ 	lui	$t8,0x8009
-/*     eccc:	27025210 */ 	addiu	$v0,$t8,0x5210
+/*     ecc8:	3c188009 */ 	lui	$t8,%hi(var80095210)
+/*     eccc:	27025210 */ 	addiu	$v0,$t8,%lo(var80095210)
 /*     ecd0:	3c058009 */ 	lui	$a1,0x8009
 /*     ecd4:	24a5523d */ 	addiu	$a1,$a1,0x523d
 /*     ecd8:	00401825 */ 	or	$v1,$v0,$zero

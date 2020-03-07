@@ -24,6 +24,9 @@
 #include "lib/lib_13130.h"
 #include "types.h"
 
+const char var7f1b7e80[] = "";
+const char var7f1b7e84[] = "\n";
+
 GLOBAL_ASM(
 glabel menuhandler00177e00
 /*  f177e00:	24010001 */ 	addiu	$at,$zero,0x1

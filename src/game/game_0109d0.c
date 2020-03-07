@@ -11,11 +11,6 @@
 #include "lib/lib_0d520.h"
 #include "types.h"
 
-const u32 var7f1a8230[] = {0x3f666666};
-const u32 var7f1a8234[] = {0xc0490fdb};
-const u32 var7f1a8238[] = {0x00000000};
-const u32 var7f1a823c[] = {0x00000000};
-
 GLOBAL_ASM(
 glabel func0f0109d0
 /*  f0109d0:	27bdffe8 */ 	addiu	$sp,$sp,-24

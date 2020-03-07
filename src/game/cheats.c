@@ -433,9 +433,9 @@ glabel cheatMenuHandleDialog
 /*  f1079c8:	24040023 */ 	addiu	$a0,$zero,0x23
 .L0f1079cc:
 /*  f1079cc:	3c067000 */ 	lui	$a2,%hi(func00002148)
-/*  f1079d0:	3c057000 */ 	lui	$a1,0x7000
+/*  f1079d0:	3c057000 */ 	lui	$a1,%hi(func000022e0)
 /*  f1079d4:	24c62148 */ 	addiu	$a2,$a2,%lo(func00002148)
-/*  f1079d8:	24a422e0 */ 	addiu	$a0,$a1,0x22e0
+/*  f1079d8:	24a422e0 */ 	addiu	$a0,$a1,%lo(func000022e0)
 /*  f1079dc:	00c4082b */ 	sltu	$at,$a2,$a0
 /*  f1079e0:	00c01025 */ 	or	$v0,$a2,$zero
 /*  f1079e4:	10200007 */ 	beqz	$at,.L0f107a04

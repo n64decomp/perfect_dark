@@ -105,6 +105,100 @@
 #include "lib/lib_4e530.h"
 #include "types.h"
 
+const u32 var7f1b7770[] = {0x7f1681e8};
+const u32 var7f1b7774[] = {0x7f1681f0};
+const u32 var7f1b7778[] = {0x7f1681f0};
+const u32 var7f1b777c[] = {0x7f1681f0};
+const u32 var7f1b7780[] = {0x7f1681f0};
+const u32 var7f1b7784[] = {0x7f1681f0};
+const u32 var7f1b7788[] = {0x7f1681f0};
+const u32 var7f1b778c[] = {0x7f1681f0};
+const u32 var7f1b7790[] = {0x7f1681f0};
+const u32 var7f1b7794[] = {0x7f1681e8};
+const u32 var7f1b7798[] = {0x7f1681f0};
+const u32 var7f1b779c[] = {0x7f1681f0};
+const u32 var7f1b77a0[] = {0x7f1681f0};
+const u32 var7f1b77a4[] = {0x7f1681f0};
+const u32 var7f1b77a8[] = {0x7f1681f0};
+const u32 var7f1b77ac[] = {0x7f1681f0};
+const u32 var7f1b77b0[] = {0x7f1681f0};
+const u32 var7f1b77b4[] = {0x7f1681f0};
+const u32 var7f1b77b8[] = {0x7f1681f0};
+const u32 var7f1b77bc[] = {0x7f1681f0};
+const u32 var7f1b77c0[] = {0x7f1681f0};
+const u32 var7f1b77c4[] = {0x7f1681f0};
+const u32 var7f1b77c8[] = {0x7f1681e8};
+const u32 var7f1b77cc[] = {0x7f1681e8};
+const u32 var7f1b77d0[] = {0x7f1681f0};
+const u32 var7f1b77d4[] = {0x7f1681f0};
+const u32 var7f1b77d8[] = {0x7f1681f0};
+const u32 var7f1b77dc[] = {0x7f1681e8};
+const u32 var7f1b77e0[] = {0x7f168a64};
+const u32 var7f1b77e4[] = {0x7f168ac8};
+const u32 var7f1b77e8[] = {0x7f168974};
+const u32 var7f1b77ec[] = {0x7f168a64};
+const u32 var7f1b77f0[] = {0x7f168ac8};
+const u32 var7f1b77f4[] = {0x7f16894c};
+const u32 var7f1b77f8[] = {0x7f168ac8};
+const u32 var7f1b77fc[] = {0x7f168ac8};
+const u32 var7f1b7800[] = {0x7f168c70};
+const u32 var7f1b7804[] = {0x7f168c84};
+const u32 var7f1b7808[] = {0x7f168c84};
+const u32 var7f1b780c[] = {0x7f168c84};
+const u32 var7f1b7810[] = {0x7f168c84};
+const u32 var7f1b7814[] = {0x7f168c84};
+const u32 var7f1b7818[] = {0x7f168c84};
+const u32 var7f1b781c[] = {0x7f168c84};
+const u32 var7f1b7820[] = {0x7f168c84};
+const u32 var7f1b7824[] = {0x7f168c84};
+const u32 var7f1b7828[] = {0x7f168c84};
+const u32 var7f1b782c[] = {0x7f168c84};
+const u32 var7f1b7830[] = {0x7f168c84};
+const u32 var7f1b7834[] = {0x7f168c84};
+const u32 var7f1b7838[] = {0x7f168c84};
+const u32 var7f1b783c[] = {0x7f168c68};
+const u32 var7f1b7840[] = {0x7f168c68};
+const u32 var7f1b7844[] = {0x7f168c68};
+const u32 var7f1b7848[] = {0x7f168c68};
+const u32 var7f1b784c[] = {0x7f168c68};
+const u32 var7f1b7850[] = {0x3f866666};
+const u32 var7f1b7854[] = {0x3ca3d70b};
+const u32 var7f1b7858[] = {0x3f8ccccd};
+const u32 var7f1b785c[] = {0x3bda740e};
+const u32 var7f1b7860[] = {0x3ca3d70b};
+const u32 var7f1b7864[] = {0x3f8ccccd};
+const u32 var7f1b7868[] = {0x3bda740e};
+const u32 var7f1b786c[] = {0x3eb33333};
+const u32 var7f1b7870[] = {0x3e4ccccd};
+const u32 var7f1b7874[] = {0x3f19999a};
+const u32 var7f1b7878[] = {0x3f8ccccd};
+const u32 var7f1b787c[] = {0x3f333333};
+const u32 var7f1b7880[] = {0x3f266666};
+const u32 var7f1b7884[] = {0x3f19999a};
+const u32 var7f1b7888[] = {0x3e4ccccd};
+const u32 var7f1b788c[] = {0x3f8ccccd};
+const u32 var7f1b7890[] = {0x3e4ccccd};
+const u32 var7f1b7894[] = {0x3f19999a};
+const u32 var7f1b7898[] = {0x3ef33334};
+const u32 var7f1b789c[] = {0x3f19999a};
+const u32 var7f1b78a0[] = {0x3e4ccccd};
+const u32 var7f1b78a4[] = {0x3f4ccccd};
+const u32 var7f1b78a8[] = {0x3f19999a};
+const u32 var7f1b78ac[] = {0x3f8ccccd};
+const u32 var7f1b78b0[] = {0x3f966666};
+const u32 var7f1b78b4[] = {0x3e4ccccd};
+const u32 var7f1b78b8[] = {0x3f8ccccd};
+const u32 var7f1b78bc[] = {0x00000000};
+
+const char var7f1b78c0[] = "null";
+const char var7f1b78c8[] = "leveltune";
+const char var7f1b78d4[] = "nrgtune,watchtune,mpdeathtune";
+const char var7f1b78f4[] = "ambience";
+const char var7f1b7900[] = "NULL";
+const char var7f1b7908[] = "playing";
+const char var7f1b7910[] = "paused";
+const char var7f1b7918[] = "MUSIC : activedeath=%d\n";
+
 GLOBAL_ASM(
 glabel func0f167ae0
 /*  f167ae0:	3c028008 */ 	lui	$v0,%hi(var80084040)
@@ -518,8 +612,8 @@ glabel func0f167e7c
 /*  f168068:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f16806c:	8e0a0314 */ 	lw	$t2,0x314($s0)
 .L0f168070:
-/*  f168070:	3c0c800a */ 	lui	$t4,0x800a
-/*  f168074:	25859fc0 */ 	addiu	$a1,$t4,-24640
+/*  f168070:	3c0c800a */ 	lui	$t4,%hi(g_Vars)
+/*  f168074:	25859fc0 */ 	addiu	$a1,$t4,%lo(g_Vars)
 /*  f168078:	15400007 */ 	bnez	$t2,.L0f168098
 /*  f16807c:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f168080:	3c02800b */ 	lui	$v0,%hi(g_MpPlayers)
@@ -824,10 +918,10 @@ glabel func0f167e7c
 /*  f1684c4:	e42a4018 */ 	swc1	$f10,0x4018($at)
 /*  f1684c8:	0fc5b350 */ 	jal	func0f16cd40
 /*  f1684cc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1684d0:	3c057f17 */ 	lui	$a1,0x7f17
-/*  f1684d4:	3c067f17 */ 	lui	$a2,0x7f17
-/*  f1684d8:	24a2b854 */ 	addiu	$v0,$a1,-18348
-/*  f1684dc:	24c4b96c */ 	addiu	$a0,$a2,-18068
+/*  f1684d0:	3c057f17 */ 	lui	$a1,%hi(getEffectiveSlowMotion)
+/*  f1684d4:	3c067f17 */ 	lui	$a2,%hi(func0f16b96c)
+/*  f1684d8:	24a2b854 */ 	addiu	$v0,$a1,%lo(getEffectiveSlowMotion)
+/*  f1684dc:	24c4b96c */ 	addiu	$a0,$a2,%lo(func0f16b96c)
 /*  f1684e0:	0044082b */ 	sltu	$at,$v0,$a0
 /*  f1684e4:	10200006 */ 	beqz	$at,.L0f168500
 /*  f1684e8:	00001825 */ 	or	$v1,$zero,$zero
@@ -2750,7 +2844,7 @@ glabel func0f169374
 /*  f16a0cc:	17c30032 */ 	bne	$s8,$v1,.L0f16a198
 /*  f16a0d0:	3c188008 */ 	lui	$t8,%hi(var80084088)
 /*  f16a0d4:	8e0a0490 */ 	lw	$t2,0x490($s0)
-/*  f16a0d8:	3c048009 */ 	lui	$a0,0x8009
+/*  f16a0d8:	3c048009 */ 	lui	$a0,%hi(var80090008)
 /*  f16a0dc:	24058052 */ 	addiu	$a1,$zero,-32686
 /*  f16a0e0:	11400024 */ 	beqz	$t2,.L0f16a174
 /*  f16a0e4:	00003025 */ 	or	$a2,$zero,$zero
@@ -2786,7 +2880,7 @@ glabel func0f169374
 /*  f16a15c:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f16a160:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f16a164:	0fc244b7 */ 	jal	func0f0912dc
-/*  f16a168:	24860008 */ 	addiu	$a2,$a0,0x8
+/*  f16a168:	24860008 */ 	addiu	$a2,$a0,%lo(var80090008)
 /*  f16a16c:	10000008 */ 	beqz	$zero,.L0f16a190
 /*  f16a170:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f16a174:
@@ -3986,7 +4080,7 @@ glabel func0f16b0c8
 /*  f16b2dc:	e4202cac */ 	swc1	$f0,0x2cac($at)
 /*  f16b2e0:	8c440298 */ 	lw	$a0,0x298($v0)
 .L0f16b2e4:
-/*  f16b2e4:	3c028008 */ 	lui	$v0,0x8008
+/*  f16b2e4:	3c028008 */ 	lui	$v0,%hi(g_Difficulty)
 /*  f16b2e8:	0480007c */ 	bltz	$a0,.L0f16b4dc
 /*  f16b2ec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16b2f0:	3c028008 */ 	lui	$v0,%hi(g_Difficulty)
@@ -4119,7 +4213,7 @@ glabel func0f16b0c8
 /*  f16b4d4:	100000c6 */ 	beqz	$zero,.L0f16b7f0
 /*  f16b4d8:	e4202cac */ 	swc1	$f0,0x2cac($at)
 .L0f16b4dc:
-/*  f16b4dc:	8c424020 */ 	lw	$v0,0x4020($v0)
+/*  f16b4dc:	8c424020 */ 	lw	$v0,%lo(g_Difficulty)($v0)
 /*  f16b4e0:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f16b4e4:	1440004d */ 	bnez	$v0,.L0f16b61c
 /*  f16b4e8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -4379,8 +4473,8 @@ glabel getEffectiveSlowMotion
 /*  f16b884:	27a50028 */ 	addiu	$a1,$sp,0x28
 /*  f16b888:	8fae0028 */ 	lw	$t6,0x28($sp)
 /*  f16b88c:	8faf0024 */ 	lw	$t7,0x24($sp)
-/*  f16b890:	3c058006 */ 	lui	$a1,0x8006
-/*  f16b894:	24a29fe0 */ 	addiu	$v0,$a1,-24608
+/*  f16b890:	3c058006 */ 	lui	$a1,%hi(var80059fe0)
+/*  f16b894:	24a29fe0 */ 	addiu	$v0,$a1,%lo(var80059fe0)
 /*  f16b898:	11cf000d */ 	beq	$t6,$t7,.L0f16b8d0
 /*  f16b89c:	3c09800a */ 	lui	$t1,0x800a
 /*  f16b8a0:	3c188006 */ 	lui	$t8,0x8006
@@ -5466,8 +5560,8 @@ glabel func0f16b96c
 .L0f16c70c:
 /*  f16c70c:	3c04800b */ 	lui	$a0,%hi(g_MpNumPlayers)
 /*  f16c710:	8c84c530 */ 	lw	$a0,%lo(g_MpNumPlayers)($a0)
-/*  f16c714:	3c0c800b */ 	lui	$t4,0x800b
-/*  f16c718:	2582c4d0 */ 	addiu	$v0,$t4,-15152
+/*  f16c714:	3c0c800b */ 	lui	$t4,%hi(g_MpPlayerChrs)
+/*  f16c718:	2582c4d0 */ 	addiu	$v0,$t4,%lo(g_MpPlayerChrs)
 /*  f16c71c:	1880000c */ 	blez	$a0,.L0f16c750
 /*  f16c720:	3c188008 */ 	lui	$t8,%hi(var8008402c)
 /*  f16c724:	00046880 */ 	sll	$t5,$a0,0x2

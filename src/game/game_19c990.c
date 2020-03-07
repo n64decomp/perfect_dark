@@ -43,6 +43,28 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+const char var7f1b9180[] = "%s %d\n";
+const char var7f1b9188[] = "%02d\n";
+const char var7f1b9190[] = "%03d\n";
+const char var7f1b9198[] = "%s %d\n";
+const char var7f1b91a0[] = "";
+const char var7f1b91a4[] = "%s%s%.2f%%\n";
+const char var7f1b91b0[] = "";
+const char var7f1b91b4[] = "";
+const char var7f1b91b8[] = "%s %d%%\n";
+const char var7f1b91c4[] = "%02d:%02d\n";
+const char var7f1b91d0[] = "%s";
+const char var7f1b91d4[] = "%s";
+const char var7f1b91d8[] = "%s %02d:%02d\n";
+const char var7f1b91e8[] = "010\n";
+const char var7f1b91f0[] = "%03d\n";
+const char var7f1b91f8[] = "%s";
+const char var7f1b91fc[] = "%s";
+const char var7f1b9200[] = "%s";
+const char var7f1b9204[] = "%s";
+const char var7f1b9208[] = "%s";
+const char var7f1b920c[] = "\n";
+
 const u32 var7f1b9210[] = {0x7f19caa8};
 const u32 var7f1b9214[] = {0x7f19caa8};
 const u32 var7f1b9218[] = {0x7f19caa8};
@@ -3945,7 +3967,7 @@ glabel func0f19f994
 /*  f19fad4:	11e0000b */ 	beqz	$t7,.L0f19fb04
 /*  f19fad8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19fadc:	11f30010 */ 	beq	$t7,$s3,.L0f19fb20
-/*  f19fae0:	3c048009 */ 	lui	$a0,0x8009
+/*  f19fae0:	3c048009 */ 	lui	$a0,%hi(var80095200)
 /*  f19fae4:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f19fae8:	11e10012 */ 	beq	$t7,$at,.L0f19fb34
 /*  f19faec:	3c048009 */ 	lui	$a0,%hi(var80095200)
@@ -3998,7 +4020,7 @@ glabel func0f19f994
 /*  f19fb98:	afac001c */ 	sw	$t4,0x1c($sp)
 /*  f19fb9c:	afab0018 */ 	sw	$t3,0x18($sp)
 /*  f19fba0:	afaa0010 */ 	sw	$t2,0x10($sp)
-/*  f19fba4:	8c845200 */ 	lw	$a0,0x5200($a0)
+/*  f19fba4:	8c845200 */ 	lw	$a0,%lo(var80095200)($a0)
 /*  f19fba8:	240505dc */ 	addiu	$a1,$zero,0x5dc
 /*  f19fbac:	00003025 */ 	or	$a2,$zero,$zero
 /*  f19fbb0:	2407ffff */ 	addiu	$a3,$zero,-1

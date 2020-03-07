@@ -19,6 +19,15 @@
 #include "lib/lib_4b480.h"
 #include "types.h"
 
+const u32 var7f1b5600[] = {0xb8d1b717};
+const u32 var7f1b5604[] = {0xb8d1b717};
+const u32 var7f1b5608[] = {0x3d4ccccd};
+const u32 var7f1b560c[] = {0x469c4000};
+const u32 var7f1b5610[] = {0x3e4ccccd};
+const u32 var7f1b5614[] = {0x00000000};
+const u32 var7f1b5618[] = {0x00000000};
+const u32 var7f1b561c[] = {0x00000000};
+
 GLOBAL_ASM(
 glabel func0f12f6c0
 /*  f12f6c0:	3c03800a */ 	lui	$v1,%hi(var800a3fc0)

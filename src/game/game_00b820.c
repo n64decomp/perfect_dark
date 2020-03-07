@@ -86,7 +86,7 @@ glabel func0f00b820
 .L0f00b90c:
 /*  f00b90c:	8ccb0070 */ 	lw	$t3,0x70($a2)
 /*  f00b910:	240f0004 */ 	addiu	$t7,$zero,0x4
-/*  f00b914:	3c198006 */ 	lui	$t9,0x8006
+/*  f00b914:	3c198006 */ 	lui	$t9,%hi(var80061700)
 /*  f00b918:	11600003 */ 	beqz	$t3,.L0f00b928
 /*  f00b91c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f00b920:	10000001 */ 	beqz	$zero,.L0f00b928
@@ -97,7 +97,7 @@ glabel func0f00b820
 /*  f00b930:	01a57021 */ 	addu	$t6,$t5,$a1
 /*  f00b934:	29c10002 */ 	slti	$at,$t6,0x2
 /*  f00b938:	14200005 */ 	bnez	$at,.L0f00b950
-/*  f00b93c:	27221700 */ 	addiu	$v0,$t9,0x1700
+/*  f00b93c:	27221700 */ 	addiu	$v0,$t9,%lo(var80061700)
 /*  f00b940:	3c15800a */ 	lui	$s5,%hi(g_MaxHeadsPerBank)
 /*  f00b944:	26b5cd20 */ 	addiu	$s5,$s5,%lo(g_MaxHeadsPerBank)
 /*  f00b948:	1000000d */ 	beqz	$zero,.L0f00b980

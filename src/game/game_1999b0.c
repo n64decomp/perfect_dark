@@ -75,33 +75,6 @@ const u32 var7f1b915c[] = {0x41855555};
 const u32 var7f1b9160[] = {0x4096c5bf};
 const u32 var7f1b9164[] = {0x404907a9};
 const u32 var7f1b9168[] = {0x3eb2b17a};
-const u32 var7f1b916c[] = {0x00000000};
-const u32 var7f1b9170[] = {0x00000000};
-const u32 var7f1b9174[] = {0x00000000};
-const u32 var7f1b9178[] = {0x00000000};
-const u32 var7f1b917c[] = {0x00000000};
-
-const char var7f1b9180[] = "%s %d\n";
-const char var7f1b9188[] = "%02d\n";
-const char var7f1b9190[] = "%03d\n";
-const char var7f1b9198[] = "%s %d\n";
-const char var7f1b91a0[] = "";
-const char var7f1b91a4[] = "%s%s%.2f%%\n";
-const char var7f1b91b0[] = "";
-const char var7f1b91b4[] = "";
-const char var7f1b91b8[] = "%s %d%%\n";
-const char var7f1b91c4[] = "%02d:%02d\n";
-const char var7f1b91d0[] = "%s";
-const char var7f1b91d4[] = "%s";
-const char var7f1b91d8[] = "%s %02d:%02d\n";
-const char var7f1b91e8[] = "010\n";
-const char var7f1b91f0[] = "%03d\n";
-const char var7f1b91f8[] = "%s";
-const char var7f1b91fc[] = "%s";
-const char var7f1b9200[] = "%s";
-const char var7f1b9204[] = "%s";
-const char var7f1b9208[] = "%s";
-const char var7f1b920c[] = "\n";
 
 GLOBAL_ASM(
 glabel func0f1999b0

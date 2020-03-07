@@ -58,6 +58,14 @@ glabel func0f11f000
 
 GLOBAL_ASM(
 glabel func0f11f07c
+.late_rodata
+glabel var7f1b4fe0
+.word 0x38d1b717
+glabel var7f1b4fe4
+.word 0x3c23d70a
+glabel var7f1b4fe8
+.word 0x48927c00
+.text
 /*  f11f07c:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f11f080:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f11f084:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -162,6 +170,14 @@ glabel func0f11f07c
 
 GLOBAL_ASM(
 glabel func0f11f1fc
+.late_rodata
+glabel var7f1b4fec
+.word 0x38d1b717
+glabel var7f1b4ff0
+.word 0xbc23d70a
+glabel var7f1b4ff4
+.word 0x48927c00
+.text
 /*  f11f1fc:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f11f200:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f11f204:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -327,6 +343,10 @@ glabel func0f11f410
 
 GLOBAL_ASM(
 glabel func0f11f438
+.late_rodata
+glabel var7f1b4ff8
+.word 0x3b808081
+.text
 /*  f11f438:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f11f43c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f11f440:	afa5001c */ 	sw	$a1,0x1c($sp)
@@ -517,6 +537,10 @@ glabel func0f11f438
 
 GLOBAL_ASM(
 glabel func0f11f6ec
+.late_rodata
+glabel var7f1b4ffc
+.word 0x3b808081
+.text
 /*  f11f6ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f11f6f0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f11f6f4:	afa5001c */ 	sw	$a1,0x1c($sp)
@@ -699,6 +723,110 @@ glabel func0f11f6ec
 
 GLOBAL_ASM(
 glabel func0f11f984
+.late_rodata
+glabel var7f1b5000
+.word 0x3dcccccd
+glabel var7f1b5004
+.word 0x7f120024
+glabel var7f1b5008
+.word 0x7f1208a8
+glabel var7f1b500c
+.word 0x7f1209f8
+glabel var7f1b5010
+.word 0x7f120130
+glabel var7f1b5014
+.word 0x7f120b48
+glabel var7f1b5018
+.word 0x7f12045c
+glabel var7f1b501c
+.word 0x7f120de8
+glabel var7f1b5020
+.word 0x7f1207d8
+glabel var7f1b5024
+.word 0x7f120c98
+glabel var7f1b5028
+.word 0x7f120de8
+glabel var7f1b502c
+.word 0x7f120350
+glabel var7f1b5030
+.word 0x7f120708
+glabel var7f1b5034
+.word 0x7f12023c
+glabel var7f1b5038
+.word 0x7f120638
+glabel var7f1b503c
+.word 0x7f120568
+glabel var7f1b5040
+.word 0x7f120014
+glabel var7f1b5044
+.word 0x3d088889
+glabel var7f1b5048
+.word 0x3d088889
+glabel var7f1b504c
+.word 0x3d088889
+glabel var7f1b5050
+.word 0x3d088889
+glabel var7f1b5054
+.word 0x3d088889
+glabel var7f1b5058
+.word 0x3d088889
+glabel var7f1b505c
+.word 0x3d088889
+glabel var7f1b5060
+.word 0x3d088889
+glabel var7f1b5064
+.word 0x3d088889
+glabel var7f1b5068
+.word 0x3d088889
+glabel var7f1b506c
+.word 0x3d088889
+glabel var7f1b5070
+.word 0x3d088889
+glabel var7f1b5074
+.word 0x3d088889
+glabel var7f1b5078
+.word 0x3d088889
+glabel var7f1b507c
+.word 0x477fff00
+glabel var7f1b5080
+.word 0x449fe000
+glabel var7f1b5084
+.word 0x446fc000
+glabel var7f1b5088
+.word 0x7f12136c
+glabel var7f1b508c
+.word 0x7f121994
+glabel var7f1b5090
+.word 0x7f121a84
+glabel var7f1b5094
+.word 0x7f1215ec
+glabel var7f1b5098
+.word 0x7f121b74
+glabel var7f1b509c
+.word 0x7f121724
+glabel var7f1b50a0
+.word 0x7f122378
+glabel var7f1b50a4
+.word 0x7f1221f0
+glabel var7f1b50a8
+.word 0x7f121c64
+glabel var7f1b50ac
+.word 0x7f122378
+glabel var7f1b50b0
+.word 0x7f12185c
+glabel var7f1b50b4
+.word 0x7f122068
+glabel var7f1b50b8
+.word 0x7f1214b0
+glabel var7f1b50bc
+.word 0x7f121edc
+glabel var7f1b50c0
+.word 0x7f121d54
+glabel var7f1b50c4
+.word 0x7f121374
+glabel var7f1b50c8
+.word 0x477fff00
+.text
 /*  f11f984:	27bdf950 */ 	addiu	$sp,$sp,-1712
 /*  f11f988:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f11f98c:	afb10050 */ 	sw	$s1,0x50($sp)
@@ -3776,6 +3904,18 @@ glabel func0f11f984
 
 GLOBAL_ASM(
 glabel func0f1228d0
+.late_rodata
+glabel var7f1b50cc
+.word 0x46fffe00
+glabel var7f1b50d0
+.word 0x46fffe00
+glabel var7f1b50d4
+.word 0x43ff8000
+glabel var7f1b50d8
+.word 0xc57fa000
+glabel var7f1b50dc
+.word 0xc57fa000
+.text
 /*  f1228d0:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f1228d4:	30ceffff */ 	andi	$t6,$a2,0xffff
 /*  f1228d8:	448e2000 */ 	mtc1	$t6,$f4
@@ -4080,6 +4220,16 @@ glabel func0f122ce8
 
 GLOBAL_ASM(
 glabel func0f122d4c
+.late_rodata
+glabel var7f1b50e0
+.word 0xc4eac000
+glabel var7f1b50e4
+.word 0xc4eac000
+glabel var7f1b50e8
+.word 0xc4eac000
+glabel var7f1b50ec
+.word 0x46fffe00
+.text
 /*  f122d4c:	27bdfb78 */ 	addiu	$sp,$sp,-1160
 /*  f122d50:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f122d54:	00808025 */ 	or	$s0,$a0,$zero
@@ -5313,6 +5463,20 @@ glabel func0f122d4c
 
 GLOBAL_ASM(
 glabel func0f123fd4
+.late_rodata
+glabel var7f1b50f0
+.word 0xc4eac000
+glabel var7f1b50f4
+.word 0xc4eac000
+glabel var7f1b50f8
+.word 0xc4eac000
+glabel var7f1b50fc
+.word 0xc4eac000
+glabel var7f1b5100
+.word 0x44eaa000
+glabel var7f1b5104
+.word 0x46fffe00
+.text
 /*  f123fd4:	27bdfb30 */ 	addiu	$sp,$sp,-1232
 /*  f123fd8:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f123fdc:	00808025 */ 	or	$s0,$a0,$zero
@@ -7098,6 +7262,10 @@ glabel func0f125a1c
 
 GLOBAL_ASM(
 glabel func0f125a6c
+.late_rodata
+glabel var7f1b5108
+.word 0x3d888889
+.text
 /*  f125a6c:	27bdfe90 */ 	addiu	$sp,$sp,-368
 /*  f125a70:	afbf008c */ 	sw	$ra,0x8c($sp)
 /*  f125a74:	afbe0088 */ 	sw	$s8,0x88($sp)
@@ -7704,6 +7872,18 @@ glabel func0f125a6c
 
 GLOBAL_ASM(
 glabel func0f126384
+.late_rodata
+glabel var7f1b510c
+.word 0x3c23d70a
+glabel var7f1b5110
+.word 0x3bb60b61
+glabel var7f1b5114
+.word 0x3d088889
+glabel var7f1b5118
+.word 0x3c4ccccd
+glabel var7f1b511c
+.word 0x3dcccccd
+.text
 /*  f126384:	27bdfe70 */ 	addiu	$sp,$sp,-400
 /*  f126388:	3c0f8008 */ 	lui	$t7,%hi(var8007dba0)
 /*  f12638c:	afbf0084 */ 	sw	$ra,0x84($sp)
@@ -8390,6 +8570,24 @@ glabel func0f126c3c
 
 GLOBAL_ASM(
 glabel func0f126de8
+.late_rodata
+glabel var7f1b5120
+.word 0x40c907a9
+glabel var7f1b5124
+.word 0x3ea8f5c3
+glabel var7f1b5128
+.word 0x3f28f5c3
+glabel var7f1b512c
+.word 0x3ea8f5c3
+glabel var7f1b5130
+.word 0x3fa66666
+glabel var7f1b5134
+.word 0x3fd9999a
+glabel var7f1b5138
+.word 0x40490fdb
+glabel var7f1b513c
+.word 0x3fa0d2ee
+.text
 /*  f126de8:	27bdfea8 */ 	addiu	$sp,$sp,-344
 /*  f126dec:	3c018006 */ 	lui	$at,0x8006
 /*  f126df0:	c4241630 */ 	lwc1	$f4,0x1630($at)
@@ -8873,6 +9071,10 @@ glabel func0f127490
 
 GLOBAL_ASM(
 glabel func0f1274d8
+.late_rodata
+glabel var7f1b5140
+.word 0x3eaaaaab
+.text
 /*  f1274d8:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f1274dc:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f1274e0:	3c11800a */ 	lui	$s1,%hi(g_Vars)

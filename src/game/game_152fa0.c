@@ -14,25 +14,6 @@ const u32 var7f1b73a4[] = {0xc6ffffcd};
 const u32 var7f1b73a8[] = {0x00000000};
 const u32 var7f1b73ac[] = {0x00000000};
 
-const char var7f1b73b0[] = "burncol";
-const char var7f1b73b8[] = "sbrd";
-const char var7f1b73c0[] = "lalpha";
-const char var7f1b73c8[] = "subtlety";
-const char var7f1b73d4[] = "subtletx";
-const char var7f1b73e0[] = "coly";
-const char var7f1b73e8[] = "colx";
-const char var7f1b73f0[] = "lfade";
-const char var7f1b73f8[] = "llimbo";
-
-const u32 var7f1b7400[] = {0x453b8000};
-const u32 var7f1b7404[] = {0x453b8000};
-const u32 var7f1b7408[] = {0x00000000};
-const u32 var7f1b740c[] = {0x00000000};
-const u32 var7f1b7410[] = {0x7f7fffff};
-const u32 var7f1b7414[] = {0x7f7fffff};
-const u32 var7f1b7418[] = {0x00000000};
-const u32 var7f1b741c[] = {0x00000000};
-
 GLOBAL_ASM(
 glabel func0f152fa0
 /*  f152fa0:	3c017f1b */ 	lui	$at,%hi(var7f1b73a0)

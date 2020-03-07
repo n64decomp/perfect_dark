@@ -79,6 +79,91 @@
 #include "lib/lib_4e270.h"
 #include "types.h"
 
+const char var7f1a9f60[] = "debugdoors";
+const char var7f1a9f6c[] = "scol";
+const char var7f1a9f74[] = "salp";
+const char var7f1a9f7c[] = "propobj.c";
+const char var7f1a9f88[] = "propobj.c";
+const char var7f1a9f94[] = "propobj.c";
+const char var7f1a9fa0[] = "propobj.c";
+const char var7f1a9fac[] = "propobj.c";
+const char var7f1a9fb8[] = "propobj.c";
+const char var7f1a9fc4[] = "propobj.c";
+const char var7f1a9fd0[] = "kkg";
+const char var7f1a9fd4[] = "kkd";
+const char var7f1a9fd8[] = "kkp";
+const char var7f1a9fdc[] = "debugdoor";
+const char var7f1a9fe8[] = "************** RWI : Door Stuck Mate -> Sort it out\n";
+const char var7f1aa020[] = "propobj.c";
+const char var7f1aa02c[] = "propobj.c";
+const char var7f1aa038[] = "propobj.c";
+const char var7f1aa044[] = "propobj.c";
+const char var7f1aa050[] = "HC: %x - visible\n";
+const char var7f1aa064[] = "\n";
+const char var7f1aa068[] = ".\n";
+const char var7f1aa06c[] = "";
+const char var7f1aa070[] = "";
+const char var7f1aa074[] = "";
+const char var7f1aa078[] = "";
+const char var7f1aa07c[] = "";
+const char var7f1aa080[] = "";
+const char var7f1aa084[] = "";
+const char var7f1aa088[] = "";
+const char var7f1aa08c[] = "";
+const char var7f1aa090[] = "";
+const char var7f1aa094[] = "";
+const char var7f1aa098[] = "";
+const char var7f1aa09c[] = "";
+const char var7f1aa0a0[] = "";
+const char var7f1aa0a4[] = "";
+const char var7f1aa0a8[] = "";
+const char var7f1aa0ac[] = "";
+const char var7f1aa0b0[] = "";
+const char var7f1aa0b4[] = "";
+const char var7f1aa0b8[] = "";
+const char var7f1aa0bc[] = "";
+const char var7f1aa0c0[] = "";
+const char var7f1aa0c4[] = "";
+const char var7f1aa0c8[] = "";
+const char var7f1aa0cc[] = "";
+const char var7f1aa0d0[] = "s";
+const char var7f1aa0d4[] = "\n";
+const char var7f1aa0d8[] = ".\n";
+
+// Either array or char[100] string
+const char var7f1aa0dc[] = {0x00000000};
+const char var7f1aa0e0[] = {0x00000000};
+const char var7f1aa0e4[] = {0x00000000};
+const char var7f1aa0e8[] = {0x00000000};
+const char var7f1aa0ec[] = {0x00000000};
+const char var7f1aa0f0[] = {0x00000000};
+const char var7f1aa0f4[] = {0x00000000};
+const char var7f1aa0f8[] = {0x00000000};
+const char var7f1aa0fc[] = {0x00000000};
+const char var7f1aa100[] = {0x00000000};
+const char var7f1aa104[] = {0x00000000};
+const char var7f1aa108[] = {0x00000000};
+const char var7f1aa10c[] = {0x00000000};
+const char var7f1aa110[] = {0x00000000};
+const char var7f1aa114[] = {0x00000000};
+const char var7f1aa118[] = {0x00000000};
+const char var7f1aa11c[] = {0x00000000};
+const char var7f1aa120[] = {0x00000000};
+const char var7f1aa124[] = {0x00000000};
+const char var7f1aa128[] = {0x00000000};
+const char var7f1aa12c[] = {0x00000000};
+const char var7f1aa130[] = {0x00000000};
+const char var7f1aa134[] = {0x00000000};
+const char var7f1aa138[] = {0x00000000};
+const char var7f1aa13c[] = {0x00000000};
+
+const char var7f1aa140[] = "autodoorcanclose:      blocking door\n\n";
+const char var7f1aa168[] = ":\n";
+const char var7f1aa16c[] = "ALARM : PAN 1 = %d (%s%f)";
+const char var7f1aa188[] = "";
+const char var7f1aa18c[] = "ALARM : DIR 1 = %d";
+const char var7f1aa1a0[] = "ALARM : ADD 1 = %d (%s%f)";
+const char var7f1aa1bc[] = "";
 const char var7f1aa1c0[] = "propobj.c";
 
 const u32 var7f1aa1cc[] = {0x3a83126f};
@@ -36918,7 +37003,7 @@ glabel func0f085eac
 .L0f08640c:
 /*  f08640c:	8defabc0 */ 	lw	$t7,%lo(var800aabc0)($t7)
 /*  f086410:	0003c8c0 */ 	sll	$t9,$v1,0x3
-/*  f086414:	3c068008 */ 	lui	$a2,0x8008
+/*  f086414:	3c068008 */ 	lui	$a2,%hi(somethings)
 /*  f086418:	01f95821 */ 	addu	$t3,$t7,$t9
 /*  f08641c:	91620000 */ 	lbu	$v0,0x0($t3)
 /*  f086420:	3058000f */ 	andi	$t8,$v0,0xf
@@ -36930,7 +37015,7 @@ glabel func0f085eac
 /*  f086438:	10000002 */ 	beqz	$zero,.L0f086444
 /*  f08643c:	8cc64458 */ 	lw	$a2,%lo(somethings)($a2)
 .L0f086440:
-/*  f086440:	8cc64458 */ 	lw	$a2,0x4458($a2)
+/*  f086440:	8cc64458 */ 	lw	$a2,%lo(somethings)($a2)
 .L0f086444:
 /*  f086444:	84cd000a */ 	lh	$t5,0xa($a2)
 /*  f086448:	19a0005f */ 	blez	$t5,.L0f0865c8
@@ -48256,7 +48341,7 @@ glabel func0f09054c
 /*  f0906dc:	c42ace38 */ 	lwc1	$f10,-0x31c8($at)
 /*  f0906e0:	c4400000 */ 	lwc1	$f0,0x0($v0)
 /*  f0906e4:	3c01800a */ 	lui	$at,0x800a
-/*  f0906e8:	3c048007 */ 	lui	$a0,0x8007
+/*  f0906e8:	3c048007 */ 	lui	$a0,%hi(var80069900)
 /*  f0906ec:	460a003c */ 	c.lt.s	$f0,$f10
 /*  f0906f0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0906f4:	45000037 */ 	bc1f	.L0f0907d4
@@ -48317,7 +48402,7 @@ glabel func0f09054c
 /*  f0907cc:	1000000b */ 	beqz	$zero,.L0f0907fc
 /*  f0907d0:	8fbf002c */ 	lw	$ra,0x2c($sp)
 .L0f0907d4:
-/*  f0907d4:	8c849900 */ 	lw	$a0,-0x6700($a0)
+/*  f0907d4:	8c849900 */ 	lw	$a0,%lo(var80069900)($a0)
 /*  f0907d8:	50800008 */ 	beqzl	$a0,.L0f0907fc
 /*  f0907dc:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f0907e0:	0c00cdfc */ 	jal	func000337f0

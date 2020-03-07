@@ -24,6 +24,10 @@
 #include "lib/lib_0e9d0.h"
 #include "types.h"
 
+const char var7f1adda0[] = "sight";
+const char var7f1adda8[] = "sout";
+const char var7f1addb0[] = "sin";
+
 GLOBAL_ASM(
 glabel func0f0d7070
 /*  f0d7070:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -273,6 +277,30 @@ glabel func0f0d7364
 
 GLOBAL_ASM(
 glabel func0f0d7390
+.late_rodata
+glabel var7f1addb4
+.word 0x7f0d7514
+glabel var7f1addb8
+.word 0x7f0d7514
+glabel var7f1addbc
+.word 0x7f0d7514
+glabel var7f1addc0
+.word 0x7f0d7514
+glabel var7f1addc4
+.word 0x7f0d7514
+glabel var7f1addc8
+.word 0x7f0d7880
+glabel var7f1addcc
+.word 0x7f0d75e8
+glabel var7f1addd0
+.word 0x7f0d75e8
+glabel var7f1addd4
+.word 0x7f0d76ac
+glabel var7f1addd8
+.word 0x7f0d7798
+glabel var7f1adddc
+.word 0x7f0d7880
+.text
 /*  f0d7390:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f0d7394:	afb00030 */ 	sw	$s0,0x30($sp)
 /*  f0d7398:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -1643,6 +1671,14 @@ glabel func0f0d7f54
 
 GLOBAL_ASM(
 glabel func0f0d87a8
+.late_rodata
+glabel var7f1adde0
+.word 0x3d4ccccd
+glabel var7f1adde4
+.word 0xbd4ccccd
+glabel var7f1adde8
+.word 0xbd4ccccd
+.text
 /*  f0d87a8:	27bdff30 */ 	addiu	$sp,$sp,-208
 /*  f0d87ac:	3c03800a */ 	lui	$v1,0x800a
 /*  f0d87b0:	8c639ff8 */ 	lw	$v1,-0x6008($v1)
@@ -2167,6 +2203,60 @@ glabel func0f0d87a8
 
 GLOBAL_ASM(
 glabel func0f0d8f78
+.late_rodata
+glabel var7f1addec
+.word 0x7f0d9034
+glabel var7f1addf0
+.word 0x7f0d906c
+glabel var7f1addf4
+.word 0x7f0d913c
+glabel var7f1addf8
+.word 0x7f0d9288
+glabel var7f1addfc
+.word 0x7f0d9350
+glabel var7f1ade00
+.word 0x7f0d9350
+glabel var7f1ade04
+.word 0x7f0d9450
+glabel var7f1ade08
+.word 0x7f0d9460
+glabel var7f1ade0c
+.word 0x7f0d9460
+glabel var7f1ade10
+.word 0x7f0d9460
+glabel var7f1ade14
+.word 0x7f0d9460
+glabel var7f1ade18
+.word 0x7f0d9460
+glabel var7f1ade1c
+.word 0x7f0d9460
+glabel var7f1ade20
+.word 0x7f0d9460
+glabel var7f1ade24
+.word 0x7f0d9460
+glabel var7f1ade28
+.word 0x7f0d9460
+glabel var7f1ade2c
+.word 0x7f0d9460
+glabel var7f1ade30
+.word 0x7f0d9460
+glabel var7f1ade34
+.word 0x7f0d9460
+glabel var7f1ade38
+.word 0x7f0d9460
+glabel var7f1ade3c
+.word 0x7f0d9460
+glabel var7f1ade40
+.word 0x7f0d9400
+glabel var7f1ade44
+.word 0x7f0d941c
+glabel var7f1ade48
+.word 0x7f0d9438
+glabel var7f1ade4c
+.word 0x7f0d9440
+glabel var7f1ade50
+.word 0x7f0d9448
+.text
 /*  f0d8f78:	27bdff68 */ 	addiu	$sp,$sp,-152
 /*  f0d8f7c:	3c08800a */ 	lui	$t0,0x800a
 /*  f0d8f80:	8d08a244 */ 	lw	$t0,-0x5dbc($t0)
@@ -3512,6 +3602,10 @@ glabel func0f0d9ba0
 
 GLOBAL_ASM(
 glabel func0f0da2dc
+.late_rodata
+glabel var7f1ade54
+.word 0x3e4ccccd
+.text
 /*  f0da2dc:	27bdff00 */ 	addiu	$sp,$sp,-256
 /*  f0da2e0:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0da2e4:	afa50104 */ 	sw	$a1,0x104($sp)
@@ -6206,6 +6300,24 @@ glabel func0f0dca28
 
 GLOBAL_ASM(
 glabel func0f0dca48
+.late_rodata
+glabel var7f1ade58
+.word 0x7f0dcb84
+glabel var7f1ade5c
+.word 0x7f0dcbb8
+glabel var7f1ade60
+.word 0x7f0dcbec
+glabel var7f1ade64
+.word 0x7f0dcc20
+glabel var7f1ade68
+.word 0x7f0dcc54
+glabel var7f1ade6c
+.word 0x7f0dcc88
+glabel var7f1ade70
+.word 0x7f0dccbc
+glabel var7f1ade74
+.word 0x7f0dcd14
+.text
 /*  f0dca48:	00c03825 */ 	or	$a3,$a2,$zero
 /*  f0dca4c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0dca50:	27bdffd0 */ 	addiu	$sp,$sp,-48

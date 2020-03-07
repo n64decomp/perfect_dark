@@ -30,6 +30,7 @@ u32 chrSetHudpieceVisible(struct chrdata *chr, u32 arg1);
 void func0f024668(struct chrdata *chr);
 u32 func0f0246e4(void);
 u32 func0f024738(void);
+u32 func0f024b18(void);
 u32 func0f025074(void);
 u32 func0f025144(void);
 u32 func0f025288(void);

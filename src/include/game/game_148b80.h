@@ -95,4 +95,12 @@ void func0f149864(void);
 void chrInitSplats(struct chrdata *chr);
 void func0f14a3bc(void);
 
+extern const char var7f1b6050[];
+extern const char var7f1b6058[];
+extern const char var7f1b606c[];
+extern const char var7f1b6080[];
+extern const char var7f1b6088[];
+extern const char var7f1b6090[];
+extern const char var7f1b6098[];
+
 #endif

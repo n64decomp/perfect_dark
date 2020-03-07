@@ -16,6 +16,20 @@
 #include "lib/lib_159b0.h"
 #include "lib/lib_16110.h"
 #include "types.h"
+
+const u32 var7f1ab800[] = {0x40c907a9};
+const u32 var7f1ab804[] = {0x3cc907a9};
+const u32 var7f1ab808[] = {0x40c907a9};
+const u32 var7f1ab80c[] = {0x3cc907a9};
+const u32 var7f1ab810[] = {0x40c907a9};
+const u32 var7f1ab814[] = {0x3cc907a9};
+const u32 var7f1ab818[] = {0x3fd55555};
+const u32 var7f1ab81c[] = {0x40555555};
+const u32 var7f1ab820[] = {0x3fd55555};
+const u32 var7f1ab824[] = {0x3fd55555};
+const u32 var7f1ab828[] = {0x40555555};
+const u32 var7f1ab82c[] = {0x3e8e38e4};
+
 // Too much stack usage and unknown functions to decompile this accurately
 // at the moment.
 //void objectiveCheckHolograph(s32 arg0)
