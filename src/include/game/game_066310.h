@@ -236,7 +236,7 @@ void propObjGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
 u32 func0f087638(void);
 u32 func0f087668(void);
 u32 func0f08791c(void);
-u32 func0f087b0c(void);
+void func0f087b0c(u32 arg0);
 u32 func0f087c0c(void);
 u32 func0f087d10(void);
 u32 func0f087e40(void);
