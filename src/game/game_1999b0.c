@@ -55,26 +55,6 @@ const u32 var7f1b910c[] = {0x7f19a308};
 const u32 var7f1b9110[] = {0x7f19a310};
 const u32 var7f1b9114[] = {0x7f19a310};
 const u32 var7f1b9118[] = {0x7f19a310};
-const u32 var7f1b911c[] = {0x7f19a348};
-const u32 var7f1b9120[] = {0x7f19a370};
-const u32 var7f1b9124[] = {0x7f19a350};
-const u32 var7f1b9128[] = {0x7f19a370};
-const u32 var7f1b912c[] = {0x7f19a370};
-const u32 var7f1b9130[] = {0x7f19a358};
-const u32 var7f1b9134[] = {0x7f19a360};
-const u32 var7f1b9138[] = {0x7f19a368};
-const u32 var7f1b913c[] = {0x7f19a370};
-const u32 var7f1b9140[] = {0x7f19a370};
-const u32 var7f1b9144[] = {0x7f19a370};
-const u32 var7f1b9148[] = {0x7f19a340};
-const u32 var7f1b914c[] = {0x41855555};
-const u32 var7f1b9150[] = {0x3eb2b17a};
-const u32 var7f1b9154[] = {0x3eb2b17a};
-const u32 var7f1b9158[] = {0x3eb2b17a};
-const u32 var7f1b915c[] = {0x41855555};
-const u32 var7f1b9160[] = {0x4096c5bf};
-const u32 var7f1b9164[] = {0x404907a9};
-const u32 var7f1b9168[] = {0x3eb2b17a};
 
 GLOBAL_ASM(
 glabel func0f1999b0
@@ -762,37 +742,40 @@ glabel func0f19a2dc
 /*  f19a318:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19a31c
-/*  f19a31c:	248efff9 */ 	addiu	$t6,$a0,-7
-/*  f19a320:	2dc1000c */ 	sltiu	$at,$t6,0xc
-/*  f19a324:	10200012 */ 	beqz	$at,.L0f19a370
-/*  f19a328:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19a32c:	3c017f1c */ 	lui	$at,%hi(var7f1b911c)
-/*  f19a330:	002e0821 */ 	addu	$at,$at,$t6
-/*  f19a334:	8c2e911c */ 	lw	$t6,%lo(var7f1b911c)($at)
-/*  f19a338:	01c00008 */ 	jr	$t6
-/*  f19a33c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19a340:	03e00008 */ 	jr	$ra
-/*  f19a344:	2402001f */ 	addiu	$v0,$zero,0x1f
-/*  f19a348:	03e00008 */ 	jr	$ra
-/*  f19a34c:	2402001e */ 	addiu	$v0,$zero,0x1e
-/*  f19a350:	03e00008 */ 	jr	$ra
-/*  f19a354:	2402001a */ 	addiu	$v0,$zero,0x1a
-/*  f19a358:	03e00008 */ 	jr	$ra
-/*  f19a35c:	24020022 */ 	addiu	$v0,$zero,0x22
-/*  f19a360:	03e00008 */ 	jr	$ra
-/*  f19a364:	24020021 */ 	addiu	$v0,$zero,0x21
-/*  f19a368:	03e00008 */ 	jr	$ra
-/*  f19a36c:	24020020 */ 	addiu	$v0,$zero,0x20
-.L0f19a370:
-/*  f19a370:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19a374:	03e00008 */ 	jr	$ra
-/*  f19a378:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f19a31c(u32 value)
+{
+	switch (value) {
+	case 18: return 31;
+	case 7:  return 30;
+	case 9:  return 26;
+	case 12: return 34;
+	case 13: return 33;
+	case 14: return 32;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f19a37c
+.late_rodata
+glabel var7f1b914c
+.word 0x41855555
+glabel var7f1b9150
+.word 0x3eb2b17a
+glabel var7f1b9154
+.word 0x3eb2b17a
+glabel var7f1b9158
+.word 0x3eb2b17a
+glabel var7f1b915c
+.word 0x41855555
+glabel var7f1b9160
+.word 0x4096c5bf
+glabel var7f1b9164
+.word 0x404907a9
+glabel var7f1b9168
+.word 0x3eb2b17a
+.text
 /*  f19a37c:	27bdff10 */ 	addiu	$sp,$sp,-240
 /*  f19a380:	3c0f8009 */ 	lui	$t7,%hi(var80088494)
 /*  f19a384:	afbf0024 */ 	sw	$ra,0x24($sp)
