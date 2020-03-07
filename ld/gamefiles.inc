@@ -14,6 +14,7 @@
 	src/game/game_000910.o (section); \
 	src/game/game_000920.o (section); \
 	src/game/game_005fd0.o (section); \
+	src/game/game_006bd0.o (section); \
 	src/game/game_00b190.o (section); \
 	src/game/game_00b200.o (section); \
 	src/game/game_00b210.o (section); \
