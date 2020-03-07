@@ -561,52 +561,6 @@ const u32 var7f1b2a58[] = {0x3e99999a};
 const u32 var7f1b2a5c[] = {0x3e99999a};
 const u32 var7f1b2a60[] = {0x3e4ccccd};
 const u32 var7f1b2a64[] = {0x3f4ccccd};
-const u32 var7f1b2a68[] = {0x7f0fa6e0};
-const u32 var7f1b2a6c[] = {0x7f0fa6e0};
-const u32 var7f1b2a70[] = {0x7f0fa6f4};
-const u32 var7f1b2a74[] = {0x7f0fa6f4};
-const u32 var7f1b2a78[] = {0x7f0fa6e0};
-const u32 var7f1b2a7c[] = {0x7f0fa6f4};
-const u32 var7f1b2a80[] = {0x7f0fa6f4};
-const u32 var7f1b2a84[] = {0x7f0fa6f4};
-const u32 var7f1b2a88[] = {0x7f0fa6f4};
-const u32 var7f1b2a8c[] = {0x7f0fa6e0};
-const u32 var7f1b2a90[] = {0x7f0fa6f4};
-const u32 var7f1b2a94[] = {0x7f0fa6e0};
-const u32 var7f1b2a98[] = {0x7f0fb414};
-const u32 var7f1b2a9c[] = {0x7f0fb414};
-const u32 var7f1b2aa0[] = {0x7f0fb33c};
-const u32 var7f1b2aa4[] = {0x7f0fb3c4};
-const u32 var7f1b2aa8[] = {0x7f0fb414};
-const u32 var7f1b2aac[] = {0x7f0fb458};
-const u32 var7f1b2ab0[] = {0x7f0fb458};
-const u32 var7f1b2ab4[] = {0x7f0fb458};
-const u32 var7f1b2ab8[] = {0x7f0fb458};
-const u32 var7f1b2abc[] = {0x7f0fb458};
-const u32 var7f1b2ac0[] = {0x7f0fb33c};
-const u32 var7f1b2ac4[] = {0x7f0fb458};
-const u32 var7f1b2ac8[] = {0x7f0fb414};
-const u32 var7f1b2acc[] = {0x7f0fb4c8};
-const u32 var7f1b2ad0[] = {0x7f0fb5b4};
-const u32 var7f1b2ad4[] = {0x7f0fb84c};
-const u32 var7f1b2ad8[] = {0x7f0fb978};
-const u32 var7f1b2adc[] = {0x7f0fbaf4};
-const u32 var7f1b2ae0[] = {0x7f0fbb88};
-const u32 var7f1b2ae4[] = {0x7f0fb6b4};
-const u32 var7f1b2ae8[] = {0x7f0fb5b4};
-const u32 var7f1b2aec[] = {0x7f0fbb40};
-const u32 var7f1b2af0[] = {0x3f847ae1};
-const u32 var7f1b2af4[] = {0x47ae147b};
-const u32 var7f1b2af8[] = {0xc34d8000};
-const u32 var7f1b2afc[] = {0x4374b333};
-const u32 var7f1b2b00[] = {0x7f0fd38c};
-const u32 var7f1b2b04[] = {0x7f0fd370};
-const u32 var7f1b2b08[] = {0x7f0fd370};
-const u32 var7f1b2b0c[] = {0x7f0fd44c};
-const u32 var7f1b2b10[] = {0x7f0fd468};
-const u32 var7f1b2b14[] = {0x00000000};
-const u32 var7f1b2b18[] = {0x00000000};
-const u32 var7f1b2b1c[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0f0f09f0
@@ -11559,35 +11513,49 @@ glabel func0f0fa574
 /*  f0fa6a8:	27bd0038 */ 	addiu	$sp,$sp,0x38
 );
 
-GLOBAL_ASM(
-glabel func0f0fa6ac
-/*  f0fa6ac:	3c0e800a */ 	lui	$t6,%hi(var800a19c4)
-/*  f0fa6b0:	8dce19c4 */ 	lw	$t6,%lo(var800a19c4)($t6)
-/*  f0fa6b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0fa6b8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0fa6bc:	25cffffe */ 	addiu	$t7,$t6,-2
-/*  f0fa6c0:	2de1000c */ 	sltiu	$at,$t7,0xc
-/*  f0fa6c4:	1020000b */ 	beqz	$at,.L0f0fa6f4
-/*  f0fa6c8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0fa6cc:	3c017f1b */ 	lui	$at,%hi(var7f1b2a68)
-/*  f0fa6d0:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0fa6d4:	8c2f2a68 */ 	lw	$t7,%lo(var7f1b2a68)($at)
-/*  f0fa6d8:	01e00008 */ 	jr	$t7
-/*  f0fa6dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fa6e0:	0fc2ebce */ 	jal	func0f0baf38
-/*  f0fa6e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fa6e8:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f0fa6ec:	3c018007 */ 	lui	$at,0x8007
-/*  f0fa6f0:	ac380750 */ 	sw	$t8,0x750($at)
-.L0f0fa6f4:
-/*  f0fa6f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fa6f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0fa6fc:	03e00008 */ 	jr	$ra
-/*  f0fa700:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0fa6ac(void)
+{
+	switch (var800a19c4) {
+	case 2:
+	case 3:
+	case 6:
+	case 11:
+	case 13:
+		func0f0baf38();
+		g_PlayersWithControl[0] = true;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0fa704
+.late_rodata
+glabel var7f1b2a98
+.word 0x7f0fb414
+glabel var7f1b2a9c
+.word 0x7f0fb414
+glabel var7f1b2aa0
+.word 0x7f0fb33c
+glabel var7f1b2aa4
+.word 0x7f0fb3c4
+glabel var7f1b2aa8
+.word 0x7f0fb414
+glabel var7f1b2aac
+.word 0x7f0fb458
+glabel var7f1b2ab0
+.word 0x7f0fb458
+glabel var7f1b2ab4
+.word 0x7f0fb458
+glabel var7f1b2ab8
+.word 0x7f0fb458
+glabel var7f1b2abc
+.word 0x7f0fb458
+glabel var7f1b2ac0
+.word 0x7f0fb33c
+glabel var7f1b2ac4
+.word 0x7f0fb458
+glabel var7f1b2ac8
+.word 0x7f0fb414
+.text
 /*  f0fa704:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f0fa708:	afb70034 */ 	sw	$s7,0x34($sp)
 /*  f0fa70c:	3c178007 */ 	lui	$s7,%hi(g_MpPlayerNum)
@@ -12587,6 +12555,30 @@ glabel func0f0fa704
 
 GLOBAL_ASM(
 glabel func0f0fb488
+.late_rodata
+glabel var7f1b2acc
+.word 0x7f0fb4c8
+glabel var7f1b2ad0
+.word 0x7f0fb5b4
+glabel var7f1b2ad4
+.word 0x7f0fb84c
+glabel var7f1b2ad8
+.word 0x7f0fb978
+glabel var7f1b2adc
+.word 0x7f0fbaf4
+glabel var7f1b2ae0
+.word 0x7f0fbb88
+glabel var7f1b2ae4
+.word 0x7f0fb6b4
+glabel var7f1b2ae8
+.word 0x7f0fb5b4
+glabel var7f1b2aec
+.word 0x7f0fbb40
+glabel var7f1b2af0
+.word 0x3f847ae1
+glabel var7f1b2af4
+.word 0x47ae147b
+.text
 /*  f0fb488:	30ae00ff */ 	andi	$t6,$a1,0xff
 /*  f0fb48c:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f0fb490:	25cfffff */ 	addiu	$t7,$t6,-1
@@ -13107,6 +13099,12 @@ glabel func0f0fbba0
 
 GLOBAL_ASM(
 glabel func0f0fbc30
+.late_rodata
+glabel var7f1b2af8
+.word 0xc34d8000
+glabel var7f1b2afc
+.word 0x4374b333
+.text
 /*  f0fbc30:	27bdfee8 */ 	addiu	$sp,$sp,-280
 /*  f0fbc34:	afb10038 */ 	sw	$s1,0x38($sp)
 /*  f0fbc38:	3c118007 */ 	lui	$s1,%hi(g_MpPlayerNum)
@@ -14701,6 +14699,18 @@ glabel func0f0fd1f4
 
 GLOBAL_ASM(
 glabel func0f0fd320
+.late_rodata
+glabel var7f1b2b00
+.word 0x7f0fd38c
+glabel var7f1b2b04
+.word 0x7f0fd370
+glabel var7f1b2b08
+.word 0x7f0fd370
+glabel var7f1b2b0c
+.word 0x7f0fd44c
+glabel var7f1b2b10
+.word 0x7f0fd468
+.text
 /*  f0fd320:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0fd324:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f0fd328:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
