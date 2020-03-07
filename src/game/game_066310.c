@@ -692,63 +692,6 @@ const u32 var7f1aa9f4[] = {0x7f084b38};
 const u32 var7f1aa9f8[] = {0x7f084b38};
 const u32 var7f1aa9fc[] = {0x7f084b2c};
 const u32 var7f1aaa00[] = {0x7f084a74};
-const u32 var7f1aaa04[] = {0x7f085180};
-const u32 var7f1aaa08[] = {0x7f085188};
-const u32 var7f1aaa0c[] = {0x7f085180};
-const u32 var7f1aaa10[] = {0x7f085188};
-const u32 var7f1aaa14[] = {0x7f085180};
-const u32 var7f1aaa18[] = {0x7f085180};
-const u32 var7f1aaa1c[] = {0x7f085188};
-const u32 var7f1aaa20[] = {0x7f085188};
-const u32 var7f1aaa24[] = {0x7f085188};
-const u32 var7f1aaa28[] = {0x7f085180};
-const u32 var7f1aaa2c[] = {0x7f085180};
-const u32 var7f1aaa30[] = {0x7f085180};
-const u32 var7f1aaa34[] = {0x7f085180};
-const u32 var7f1aaa38[] = {0x7f085188};
-const u32 var7f1aaa3c[] = {0x7f085180};
-const u32 var7f1aaa40[] = {0x7f085188};
-const u32 var7f1aaa44[] = {0x7f085188};
-const u32 var7f1aaa48[] = {0x7f085188};
-const u32 var7f1aaa4c[] = {0x7f085188};
-const u32 var7f1aaa50[] = {0x7f085188};
-const u32 var7f1aaa54[] = {0x7f085188};
-const u32 var7f1aaa58[] = {0x7f085188};
-const u32 var7f1aaa5c[] = {0x7f085188};
-const u32 var7f1aaa60[] = {0x7f085188};
-const u32 var7f1aaa64[] = {0x7f085188};
-const u32 var7f1aaa68[] = {0x7f085188};
-const u32 var7f1aaa6c[] = {0x7f085188};
-const u32 var7f1aaa70[] = {0x7f085188};
-const u32 var7f1aaa74[] = {0x7f085188};
-const u32 var7f1aaa78[] = {0x7f085188};
-const u32 var7f1aaa7c[] = {0x7f085188};
-const u32 var7f1aaa80[] = {0x7f085188};
-const u32 var7f1aaa84[] = {0x7f085188};
-const u32 var7f1aaa88[] = {0x7f085188};
-const u32 var7f1aaa8c[] = {0x7f085188};
-const u32 var7f1aaa90[] = {0x7f085180};
-const u32 var7f1aaa94[] = {0x7f085188};
-const u32 var7f1aaa98[] = {0x7f085188};
-const u32 var7f1aaa9c[] = {0x7f085188};
-const u32 var7f1aaaa0[] = {0x7f085188};
-const u32 var7f1aaaa4[] = {0x7f085180};
-const u32 var7f1aaaa8[] = {0x7f085180};
-const u32 var7f1aaaac[] = {0x7f085180};
-const u32 var7f1aaab0[] = {0x7f085188};
-const u32 var7f1aaab4[] = {0x7f085188};
-const u32 var7f1aaab8[] = {0x7f085188};
-const u32 var7f1aaabc[] = {0x7f085180};
-const u32 var7f1aaac0[] = {0x7f085180};
-const u32 var7f1aaac4[] = {0x7f085188};
-const u32 var7f1aaac8[] = {0x7f085188};
-const u32 var7f1aaacc[] = {0x7f085180};
-const u32 var7f1aaad0[] = {0x7f085188};
-const u32 var7f1aaad4[] = {0x7f085180};
-const u32 var7f1aaad8[] = {0x7f085180};
-const u32 var7f1aaadc[] = {0x7f085180};
-const u32 var7f1aaae0[] = {0x7f085188};
-const u32 var7f1aaae4[] = {0x7f085180};
 
 GLOBAL_ASM(
 glabel func0f066310
@@ -35208,23 +35151,36 @@ glabel func0f085050
 /*  f08514c:	8fb40038 */ 	lw	$s4,0x38($sp)
 /*  f085150:	03e00008 */ 	jr	$ra
 /*  f085154:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f085158:	908e0003 */ 	lbu	$t6,0x3($a0)
-/*  f08515c:	25cfffff */ 	addiu	$t7,$t6,-1
-/*  f085160:	2de10039 */ 	sltiu	$at,$t7,0x39
-/*  f085164:	10200008 */ 	beqz	$at,.L0f085188
-/*  f085168:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f08516c:	3c017f1b */ 	lui	$at,%hi(var7f1aaa04)
-/*  f085170:	002f0821 */ 	addu	$at,$at,$t7
-/*  f085174:	8c2faa04 */ 	lw	$t7,%lo(var7f1aaa04)($at)
-/*  f085178:	01e00008 */ 	jr	$t7
-/*  f08517c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f085180:	03e00008 */ 	jr	$ra
-/*  f085184:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f085188:
-/*  f085188:	00001025 */ 	or	$v0,$zero,$zero
-/*  f08518c:	03e00008 */ 	jr	$ra
-/*  f085190:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+bool func0f085158(struct defaultobj *obj)
+{
+	switch (obj->type) {
+	case OBJTYPE_DOOR:
+	case OBJTYPE_BASIC:
+	case OBJTYPE_05:
+	case OBJTYPE_CAMERA:
+	case OBJTYPE_SINGLEMONITOR:
+	case OBJTYPE_MULTIMONITOR:
+	case OBJTYPE_0C:
+	case OBJTYPE_AUTOGUN:
+	case OBJTYPE_DEBRIS:
+	case OBJTYPE_24:
+	case OBJTYPE_29:
+	case OBJTYPE_GLASS:
+	case OBJTYPE_2B:
+	case OBJTYPE_TINTEDGLASS:
+	case OBJTYPE_LIFT:
+	case OBJTYPE_HOVERBIKE:
+	case OBJTYPE_HOVERPROP:
+	case OBJTYPE_VENTFAN:
+	case OBJTYPE_HOVERCAR:
+	case OBJTYPE_CHOPPER:
+		return true;
+	}
+
+	return false;
+}
 
 bool func0f085194(struct defaultobj *obj)
 {
