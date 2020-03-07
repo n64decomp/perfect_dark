@@ -564,7 +564,7 @@ glabel func0f13e5c8
 /*  f13e5fc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f13e600:
 /*  f13e600:	84640010 */ 	lh	$a0,0x10($v1)
-/*  f13e604:	0fc09451 */ 	jal	func0f025144
+/*  f13e604:	0fc09451 */ 	jal	bodyGetBloodColour
 /*  f13e608:	00003025 */ 	or	$a2,$zero,$zero
 /*  f13e60c:	10000009 */ 	beqz	$zero,.L0f13e634
 /*  f13e610:	8fbf0014 */ 	lw	$ra,0x14($sp)

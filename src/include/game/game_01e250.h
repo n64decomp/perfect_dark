@@ -32,7 +32,7 @@ u32 func0f0246e4(void);
 u32 func0f024738(void);
 u32 func0f024b18(void);
 u32 func0f025074(void);
-u32 func0f025144(void);
+void bodyGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2);
 u32 func0f025288(void);
 u32 func0f025ea4(void);
 u32 func0f0260c4(void);
