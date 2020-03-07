@@ -65,40 +65,6 @@ const char var7f1b9204[] = "%s";
 const char var7f1b9208[] = "%s";
 const char var7f1b920c[] = "\n";
 
-const u32 var7f1b9210[] = {0x7f19caa8};
-const u32 var7f1b9214[] = {0x7f19caa8};
-const u32 var7f1b9218[] = {0x7f19caa8};
-const u32 var7f1b921c[] = {0x7f19caa8};
-const u32 var7f1b9220[] = {0x7f19caa8};
-const u32 var7f1b9224[] = {0x7f19caa8};
-const u32 var7f1b9228[] = {0x7f19caa8};
-const u32 var7f1b922c[] = {0x7f19caa8};
-const u32 var7f1b9230[] = {0x7f19caa8};
-const u32 var7f1b9234[] = {0x7f19caa8};
-const u32 var7f1b9238[] = {0x7f19caa8};
-const u32 var7f1b923c[] = {0x7f19caa8};
-const u32 var7f1b9240[] = {0x7f19caa8};
-const u32 var7f1b9244[] = {0x7f19caa8};
-const u32 var7f1b9248[] = {0x7f19caa8};
-const u32 var7f1b924c[] = {0x7f19caa8};
-const u32 var7f1b9250[] = {0x7f19caa8};
-const u32 var7f1b9254[] = {0x7f19caa8};
-const u32 var7f1b9258[] = {0x7f19caa8};
-const u32 var7f1b925c[] = {0x7f19caa8};
-const u32 var7f1b9260[] = {0x7f19caa8};
-const u32 var7f1b9264[] = {0x7f19caa8};
-const u32 var7f1b9268[] = {0x7f19caa8};
-const u32 var7f1b926c[] = {0x7f19caa8};
-const u32 var7f1b9270[] = {0x7f19caa8};
-const u32 var7f1b9274[] = {0x7f19caa8};
-const u32 var7f1b9278[] = {0x7f19caa8};
-const u32 var7f1b927c[] = {0x7f19caa8};
-const u32 var7f1b9280[] = {0x7f19caa8};
-const u32 var7f1b9284[] = {0x7f19caac};
-const u32 var7f1b9288[] = {0x7f19caa8};
-const u32 var7f1b928c[] = {0x7f19caa8};
-const u32 var7f1b9290[] = {0x7f19caa8};
-
 bool ciIsTourDone(void)
 {
 	return savefileHasFlag(SAVEFILEFLAG_CI_TOUR_DONE);
@@ -151,33 +117,57 @@ glabel func0f19c9e4
 /*  f19ca6c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*  f19ca70:	03e00008 */ 	jr	$ra
 /*  f19ca74:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19ca78:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f19ca7c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19ca80:	24050033 */ 	addiu	$a1,$zero,0x33
-/*  f19ca84:	244efffe */ 	addiu	$t6,$v0,-2
-.L0f19ca88:
-/*  f19ca88:	2dc10021 */ 	sltiu	$at,$t6,0x21
-/*  f19ca8c:	10200007 */ 	beqz	$at,.L0f19caac
-/*  f19ca90:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19ca94:	3c017f1c */ 	lui	$at,%hi(var7f1b9210)
-/*  f19ca98:	002e0821 */ 	addu	$at,$at,$t6
-/*  f19ca9c:	8c2e9210 */ 	lw	$t6,%lo(var7f1b9210)($at)
-/*  f19caa0:	01c00008 */ 	jr	$t6
-/*  f19caa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19caa8:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f19caac:
-/*  f19caac:	54440004 */ 	bnel	$v0,$a0,.L0f19cac0
-/*  f19cab0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f19cab4:	03e00008 */ 	jr	$ra
-/*  f19cab8:	00601025 */ 	or	$v0,$v1,$zero
-/*  f19cabc:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f19cac0:
-/*  f19cac0:	5445fff1 */ 	bnel	$v0,$a1,.L0f19ca88
-/*  f19cac4:	244efffe */ 	addiu	$t6,$v0,-2
-/*  f19cac8:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f19cacc:	03e00008 */ 	jr	$ra
-/*  f19cad0:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+s32 func0f19ca78(u32 weaponnum)
+{
+	s32 slot = -1;
+	s32 i;
+
+	for (i = 0; i <= WEAPON_HORIZONSCANNER; i++) {
+		switch (i) {
+		case WEAPON_FALCON2:
+		case WEAPON_FALCON2_SCOPE:
+		case WEAPON_FALCON2_SILENCER:
+		case WEAPON_MAGSEC4:
+		case WEAPON_MAULER:
+		case WEAPON_PHOENIX:
+		case WEAPON_DY357MAGNUM:
+		case WEAPON_DY357LX:
+		case WEAPON_CMP150:
+		case WEAPON_CYCLONE:
+		case WEAPON_CALLISTONTG:
+		case WEAPON_RCP120:
+		case WEAPON_LAPTOPGUN:
+		case WEAPON_DRAGON:
+		case WEAPON_K7AVENGER:
+		case WEAPON_AR34:
+		case WEAPON_SUPERDRAGON:
+		case WEAPON_SHOTGUN:
+		case WEAPON_SNIPERRIFLE:
+		case WEAPON_FARSIGHTXR20:
+		case WEAPON_CROSSBOW:
+		case WEAPON_TRANQUILIZER:
+		case WEAPON_REAPER:
+		case WEAPON_DEVASTATOR:
+		case WEAPON_ROCKETLAUNCHER:
+		case WEAPON_SLAYER:
+		case WEAPON_COMBATKNIFE:
+		case WEAPON_LASER:
+		case WEAPON_GRENADE:
+		case WEAPON_TIMEDMINE:
+		case WEAPON_PROXIMITYMINE:
+		case WEAPON_REMOTEMINE:
+			slot++;
+		}
+
+		if (i == weaponnum) {
+			return slot;
+		}
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel func0f19cad4
