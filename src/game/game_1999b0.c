@@ -46,15 +46,6 @@ const u32 var7f1b90e8[] = {0x7f19a2c8};
 const u32 var7f1b90ec[] = {0x7f19a2c8};
 const u32 var7f1b90f0[] = {0x7f19a2c8};
 const u32 var7f1b90f4[] = {0x7f19a2c8};
-const u32 var7f1b90f8[] = {0x7f19a300};
-const u32 var7f1b90fc[] = {0x7f19a310};
-const u32 var7f1b9100[] = {0x7f19a310};
-const u32 var7f1b9104[] = {0x7f19a310};
-const u32 var7f1b9108[] = {0x7f19a308};
-const u32 var7f1b910c[] = {0x7f19a308};
-const u32 var7f1b9110[] = {0x7f19a310};
-const u32 var7f1b9114[] = {0x7f19a310};
-const u32 var7f1b9118[] = {0x7f19a310};
 
 GLOBAL_ASM(
 glabel func0f1999b0
@@ -721,26 +712,24 @@ glabel func0f19a29c
 /*  f19a2d8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19a2dc
-/*  f19a2dc:	248effe6 */ 	addiu	$t6,$a0,-26
-/*  f19a2e0:	2dc10009 */ 	sltiu	$at,$t6,0x9
-/*  f19a2e4:	1020000a */ 	beqz	$at,.L0f19a310
-/*  f19a2e8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19a2ec:	3c017f1c */ 	lui	$at,%hi(var7f1b90f8)
-/*  f19a2f0:	002e0821 */ 	addu	$at,$at,$t6
-/*  f19a2f4:	8c2e90f8 */ 	lw	$t6,%lo(var7f1b90f8)($at)
-/*  f19a2f8:	01c00008 */ 	jr	$t6
-/*  f19a2fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19a300:	03e00008 */ 	jr	$ra
-/*  f19a304:	24020078 */ 	addiu	$v0,$zero,0x78
-/*  f19a308:	03e00008 */ 	jr	$ra
-/*  f19a30c:	2402005a */ 	addiu	$v0,$zero,0x5a
-.L0f19a310:
-/*  f19a310:	2402003c */ 	addiu	$v0,$zero,0x3c
-/*  f19a314:	03e00008 */ 	jr	$ra
-/*  f19a318:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f19a2dc(u32 value)
+{
+	switch (value) {
+	case 26:
+		return 120;
+	case 30:
+	case 31:
+		return 90;
+	case 27:
+	case 28:
+	case 29:
+	case 32:
+	case 33:
+	case 34:
+	default:
+		return 60;
+	}
+}
 
 u32 func0f19a31c(u32 value)
 {
