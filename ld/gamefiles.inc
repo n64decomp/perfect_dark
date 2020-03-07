@@ -109,6 +109,7 @@
 	src/game/game_0d5a90.o (section); \
 	src/game/game_0d7070.o (section); \
 	src/game/game_0dcdb0.o (section); \
+	src/game/game_0e0770.o (section); \
 	src/game/game_0e5ce0.o (section); \
 	src/game/game_0f09f0.o (section); \
 	src/game/game_0fd660.o (section); \
