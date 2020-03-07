@@ -5243,4 +5243,11 @@ struct var800705c0 {
 	u32 unk28;
 };
 
+struct chrbio {
+	u32 name;
+	u32 race;
+	u32 age;
+	u32 profile;
+};
+
 #endif
