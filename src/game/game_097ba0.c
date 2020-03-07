@@ -12169,7 +12169,7 @@ glabel func0f0a1a10
 /*  f0a1a20:	24050400 */ 	addiu	$a1,$zero,0x400
 /*  f0a1a24:	1040000b */ 	beqz	$v0,.L0f0a1a54
 /*  f0a1a28:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0a1a2c:	0fc2a685 */ 	jal	func0f0a9a14
+/*  f0a1a2c:	0fc2a685 */ 	jal	weaponGetAmmoType
 /*  f0a1a30:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a1a34:	10400005 */ 	beqz	$v0,.L0f0a1a4c
 /*  f0a1a38:	8fa40018 */ 	lw	$a0,0x18($sp)
@@ -12792,7 +12792,7 @@ glabel func0f0a2218
 /*  f0a222c:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
 /*  f0a2230:	afae001c */ 	sw	$t6,0x1c($sp)
 /*  f0a2234:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a2238:	0fc2a685 */ 	jal	func0f0a9a14
+/*  f0a2238:	0fc2a685 */ 	jal	weaponGetAmmoType
 /*  f0a223c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a2240:	1040000f */ 	beqz	$v0,.L0f0a2280
 /*  f0a2244:	8fb80020 */ 	lw	$t8,0x20($sp)
@@ -21500,13 +21500,13 @@ glabel currentPlayerGiveAmmo
 /*  f0a9654:	afa20030 */ 	sw	$v0,0x30($sp)
 /*  f0a9658:	2410ffff */ 	addiu	$s0,$zero,-1
 /*  f0a965c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0a9660:	0fc2a685 */ 	jal	func0f0a9a14
+/*  f0a9660:	0fc2a685 */ 	jal	weaponGetAmmoType
 /*  f0a9664:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0a9668:	14520002 */ 	bne	$v0,$s2,.L0f0a9674
 /*  f0a966c:	8fa40030 */ 	lw	$a0,0x30($sp)
 /*  f0a9670:	00008025 */ 	or	$s0,$zero,$zero
 .L0f0a9674:
-/*  f0a9674:	0fc2a685 */ 	jal	func0f0a9a14
+/*  f0a9674:	0fc2a685 */ 	jal	weaponGetAmmoType
 /*  f0a9678:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0a967c:	14520002 */ 	bne	$v0,$s2,.L0f0a9688
 /*  f0a9680:	2401ffff */ 	addiu	$at,$zero,-1
@@ -21777,7 +21777,7 @@ glabel func0f0a9980
 );
 
 GLOBAL_ASM(
-glabel func0f0a9a14
+glabel weaponGetAmmoType
 /*  f0a9a14:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0a9a18:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0a9a1c:	0fc2c3f4 */ 	jal	weaponFindById

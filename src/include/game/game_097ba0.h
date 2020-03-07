@@ -157,7 +157,7 @@ s32 currentPlayerGetAmmoCount(s8 arg0);
 u32 func0f0a98f4(void);
 bool ammotypeAllowsUnlimitedAmmo(u32 ammotype);
 u32 func0f0a9980(void);
-u32 func0f0a9a14(void);
+s32 weaponGetAmmoType(s32 weaponnum, u32 func);
 u32 func0f0a9a74(void);
 u32 func0f0a9ac4(void);
 u32 func0f0a9b10(void);

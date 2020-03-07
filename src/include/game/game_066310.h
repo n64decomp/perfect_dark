@@ -243,7 +243,7 @@ u32 func0f087e40(void);
 u32 func0f087fb0(void);
 u32 func0f088028(void);
 u32 func0f08819c(void);
-u32 func0f088254(void);
+s32 weaponGetPickupAmmoQty(struct weaponobj *weapon);
 u32 func0f08841c(void);
 u32 func0f0887c8(void);
 u32 func0f088840(struct prop *prop, s32 arg1);
@@ -339,16 +339,5 @@ void func0f0910ac(void);
 u32 func0f091250(void);
 u32 func0f0912dc(void);
 u32 objSetPartVisible(struct defaultobj *obj, u32 arg1, u32 arg2);
-u32 setupGetCommandLength(u32 *cmd);
-u32 *setupGetPtrToCommandByIndex(u32 cmdindex);
-u32 func0f092098(struct tag *tag);
-u32 func0f092124(void);
-bool propLoad(s32 propnum);
-bool func0f09220c(struct defaultobj *obj, struct coord *pos, f32 *realrot, u32 arg3, u32 arg4);
-bool func0f092304(struct defaultobj *obj, u32 arg1, u32 arg2);
-void func0f09233c(struct defaultobj *obj, struct coord *pos, f32 *realrot, s16 *rooms);
-void func0f0923d4(struct defaultobj *obj);
-struct defaultobj *setupCommandGetObject(u32 cmdindex);
-u32 func0f092484(void);
 
 #endif

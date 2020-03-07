@@ -754,7 +754,7 @@ glabel var7f1b8ea0
 .L0f190a60:
 /*  f190a60:	0fc21f03 */ 	jal	func0f087c0c
 /*  f190a64:	8fa400a0 */ 	lw	$a0,0xa0($sp)
-/*  f190a68:	0fc22095 */ 	jal	func0f088254
+/*  f190a68:	0fc22095 */ 	jal	weaponGetPickupAmmoQty
 /*  f190a6c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f190a70:	10400006 */ 	beqz	$v0,.L0f190a8c
 /*  f190a74:	00403825 */ 	or	$a3,$v0,$zero

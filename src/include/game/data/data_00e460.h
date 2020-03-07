@@ -43,6 +43,7 @@ extern u32 var80069924;
 extern u32 var80069928;
 extern u32 var8006992c;
 extern u32 var8006993c;
+extern f32 g_AmmoMultiplier;
 extern u32 var80069964;
 extern u32 var80069968;
 extern u32 var80069970;
