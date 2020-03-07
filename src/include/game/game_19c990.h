@@ -11,7 +11,7 @@ void func0f19cb38(s32 weaponnum);
 bool stageIsComplete(s32 solostageindex);
 u32 func0f19cbcc(void);
 u32 func0f19cc50(void);
-u32 func0f19ccc0(void);
+u32 func0f19ccc0(u32 weaponnum);
 u32 func0f19cdf0(u32 weaponnum);
 u32 func0f19cf20(s32 stage_index); // firing range related
 u32 func0f19d250(void);

@@ -98,39 +98,6 @@ const u32 var7f1b9284[] = {0x7f19caac};
 const u32 var7f1b9288[] = {0x7f19caa8};
 const u32 var7f1b928c[] = {0x7f19caa8};
 const u32 var7f1b9290[] = {0x7f19caa8};
-const u32 var7f1b9294[] = {0x7f19cce4};
-const u32 var7f1b9298[] = {0x7f19ccf4};
-const u32 var7f1b929c[] = {0x7f19ccec};
-const u32 var7f1b92a0[] = {0x7f19ccfc};
-const u32 var7f1b92a4[] = {0x7f19cd04};
-const u32 var7f1b92a8[] = {0x7f19cd0c};
-const u32 var7f1b92ac[] = {0x7f19cd14};
-const u32 var7f1b92b0[] = {0x7f19cd1c};
-const u32 var7f1b92b4[] = {0x7f19cd24};
-const u32 var7f1b92b8[] = {0x7f19cd2c};
-const u32 var7f1b92bc[] = {0x7f19cd34};
-const u32 var7f1b92c0[] = {0x7f19cd3c};
-const u32 var7f1b92c4[] = {0x7f19cd44};
-const u32 var7f1b92c8[] = {0x7f19cd4c};
-const u32 var7f1b92cc[] = {0x7f19cd54};
-const u32 var7f1b92d0[] = {0x7f19cd5c};
-const u32 var7f1b92d4[] = {0x7f19cd64};
-const u32 var7f1b92d8[] = {0x7f19cd6c};
-const u32 var7f1b92dc[] = {0x7f19cd94};
-const u32 var7f1b92e0[] = {0x7f19cd74};
-const u32 var7f1b92e4[] = {0x7f19cd7c};
-const u32 var7f1b92e8[] = {0x7f19cd9c};
-const u32 var7f1b92ec[] = {0x7f19cda4};
-const u32 var7f1b92f0[] = {0x7f19cdac};
-const u32 var7f1b92f4[] = {0x7f19cdb4};
-const u32 var7f1b92f8[] = {0x7f19cd84};
-const u32 var7f1b92fc[] = {0x7f19cd8c};
-const u32 var7f1b9300[] = {0x7f19cdbc};
-const u32 var7f1b9304[] = {0x7f19cdc4};
-const u32 var7f1b9308[] = {0x7f19cde4};
-const u32 var7f1b930c[] = {0x7f19cdcc};
-const u32 var7f1b9310[] = {0x7f19cdd4};
-const u32 var7f1b9314[] = {0x7f19cddc};
 
 bool ciIsTourDone(void)
 {
@@ -371,86 +338,45 @@ glabel func0f19cc50
 /*  f19ccbc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19ccc0
-/*  f19ccc0:	248efffe */ 	addiu	$t6,$a0,-2
-/*  f19ccc4:	2dc10021 */ 	sltiu	$at,$t6,0x21
-/*  f19ccc8:	10200046 */ 	beqz	$at,.L0f19cde4
-/*  f19cccc:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19ccd0:	3c017f1c */ 	lui	$at,%hi(var7f1b9294)
-/*  f19ccd4:	002e0821 */ 	addu	$at,$at,$t6
-/*  f19ccd8:	8c2e9294 */ 	lw	$t6,%lo(var7f1b9294)($at)
-/*  f19ccdc:	01c00008 */ 	jr	$t6
-/*  f19cce0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19cce4:	03e00008 */ 	jr	$ra
-/*  f19cce8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19ccec:	03e00008 */ 	jr	$ra
-/*  f19ccf0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f19ccf4:	03e00008 */ 	jr	$ra
-/*  f19ccf8:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f19ccfc:	03e00008 */ 	jr	$ra
-/*  f19cd00:	24020003 */ 	addiu	$v0,$zero,0x3
-/*  f19cd04:	03e00008 */ 	jr	$ra
-/*  f19cd08:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f19cd0c:	03e00008 */ 	jr	$ra
-/*  f19cd10:	24020005 */ 	addiu	$v0,$zero,0x5
-/*  f19cd14:	03e00008 */ 	jr	$ra
-/*  f19cd18:	24020006 */ 	addiu	$v0,$zero,0x6
-/*  f19cd1c:	03e00008 */ 	jr	$ra
-/*  f19cd20:	24020007 */ 	addiu	$v0,$zero,0x7
-/*  f19cd24:	03e00008 */ 	jr	$ra
-/*  f19cd28:	24020008 */ 	addiu	$v0,$zero,0x8
-/*  f19cd2c:	03e00008 */ 	jr	$ra
-/*  f19cd30:	24020009 */ 	addiu	$v0,$zero,0x9
-/*  f19cd34:	03e00008 */ 	jr	$ra
-/*  f19cd38:	2402000a */ 	addiu	$v0,$zero,0xa
-/*  f19cd3c:	03e00008 */ 	jr	$ra
-/*  f19cd40:	2402000b */ 	addiu	$v0,$zero,0xb
-/*  f19cd44:	03e00008 */ 	jr	$ra
-/*  f19cd48:	2402000c */ 	addiu	$v0,$zero,0xc
-/*  f19cd4c:	03e00008 */ 	jr	$ra
-/*  f19cd50:	2402000d */ 	addiu	$v0,$zero,0xd
-/*  f19cd54:	03e00008 */ 	jr	$ra
-/*  f19cd58:	2402000e */ 	addiu	$v0,$zero,0xe
-/*  f19cd5c:	03e00008 */ 	jr	$ra
-/*  f19cd60:	2402000f */ 	addiu	$v0,$zero,0xf
-/*  f19cd64:	03e00008 */ 	jr	$ra
-/*  f19cd68:	24020010 */ 	addiu	$v0,$zero,0x10
-/*  f19cd6c:	03e00008 */ 	jr	$ra
-/*  f19cd70:	24020011 */ 	addiu	$v0,$zero,0x11
-/*  f19cd74:	03e00008 */ 	jr	$ra
-/*  f19cd78:	24020012 */ 	addiu	$v0,$zero,0x12
-/*  f19cd7c:	03e00008 */ 	jr	$ra
-/*  f19cd80:	24020013 */ 	addiu	$v0,$zero,0x13
-/*  f19cd84:	03e00008 */ 	jr	$ra
-/*  f19cd88:	24020014 */ 	addiu	$v0,$zero,0x14
-/*  f19cd8c:	03e00008 */ 	jr	$ra
-/*  f19cd90:	24020015 */ 	addiu	$v0,$zero,0x15
-/*  f19cd94:	03e00008 */ 	jr	$ra
-/*  f19cd98:	24020016 */ 	addiu	$v0,$zero,0x16
-/*  f19cd9c:	03e00008 */ 	jr	$ra
-/*  f19cda0:	24020017 */ 	addiu	$v0,$zero,0x17
-/*  f19cda4:	03e00008 */ 	jr	$ra
-/*  f19cda8:	24020018 */ 	addiu	$v0,$zero,0x18
-/*  f19cdac:	03e00008 */ 	jr	$ra
-/*  f19cdb0:	24020019 */ 	addiu	$v0,$zero,0x19
-/*  f19cdb4:	03e00008 */ 	jr	$ra
-/*  f19cdb8:	2402001a */ 	addiu	$v0,$zero,0x1a
-/*  f19cdbc:	03e00008 */ 	jr	$ra
-/*  f19cdc0:	2402001b */ 	addiu	$v0,$zero,0x1b
-/*  f19cdc4:	03e00008 */ 	jr	$ra
-/*  f19cdc8:	2402001c */ 	addiu	$v0,$zero,0x1c
-/*  f19cdcc:	03e00008 */ 	jr	$ra
-/*  f19cdd0:	2402001d */ 	addiu	$v0,$zero,0x1d
-/*  f19cdd4:	03e00008 */ 	jr	$ra
-/*  f19cdd8:	2402001e */ 	addiu	$v0,$zero,0x1e
-/*  f19cddc:	03e00008 */ 	jr	$ra
-/*  f19cde0:	2402001f */ 	addiu	$v0,$zero,0x1f
-.L0f19cde4:
-/*  f19cde4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19cde8:	03e00008 */ 	jr	$ra
-/*  f19cdec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f19ccc0(u32 weaponnum)
+{
+	switch (weaponnum) {
+	case WEAPON_FALCON2:          return 0;
+	case WEAPON_FALCON2_SCOPE:    return 1;
+	case WEAPON_FALCON2_SILENCER: return 2;
+	case WEAPON_MAGSEC4:          return 3;
+	case WEAPON_MAULER:           return 4;
+	case WEAPON_PHOENIX:          return 5;
+	case WEAPON_DY357MAGNUM:      return 6;
+	case WEAPON_DY357LX:          return 7;
+	case WEAPON_CMP150:           return 8;
+	case WEAPON_CYCLONE:          return 9;
+	case WEAPON_CALLISTONTG:      return 10;
+	case WEAPON_RCP120:           return 11;
+	case WEAPON_LAPTOPGUN:        return 12;
+	case WEAPON_DRAGON:           return 13;
+	case WEAPON_K7AVENGER:        return 14;
+	case WEAPON_AR34:             return 15;
+	case WEAPON_SUPERDRAGON:      return 16;
+	case WEAPON_SHOTGUN:          return 17;
+	case WEAPON_SNIPERRIFLE:      return 18;
+	case WEAPON_FARSIGHTXR20:     return 19;
+	case WEAPON_CROSSBOW:         return 20;
+	case WEAPON_TRANQUILIZER:     return 21;
+	case WEAPON_REAPER:           return 22;
+	case WEAPON_DEVASTATOR:       return 23;
+	case WEAPON_ROCKETLAUNCHER:   return 24;
+	case WEAPON_SLAYER:           return 25;
+	case WEAPON_COMBATKNIFE:      return 26;
+	case WEAPON_LASER:            return 27;
+	case WEAPON_GRENADE:          return 28;
+	case WEAPON_TIMEDMINE:        return 29;
+	case WEAPON_PROXIMITYMINE:    return 30;
+	case WEAPON_REMOTEMINE:       return 31;
+	}
+
+	return 0;
+}
 
 u32 func0f19cdf0(u32 weaponnum)
 {
