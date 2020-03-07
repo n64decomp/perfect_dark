@@ -869,28 +869,6 @@ const u32 var7f1aacb8[] = {0x7f087b38};
 const u32 var7f1aacbc[] = {0x7f087bfc};
 const u32 var7f1aacc0[] = {0x7f087b7c};
 
-const u32 var7f1aacc4[] = {0x7f0881c8};
-const u32 var7f1aacc8[] = {0x7f0881d0};
-const u32 var7f1aaccc[] = {0x7f0881d8};
-const u32 var7f1aacd0[] = {0x7f0881e0};
-const u32 var7f1aacd4[] = {0x7f0881e8};
-const u32 var7f1aacd8[] = {0x7f088214};
-const u32 var7f1aacdc[] = {0x7f088214};
-const u32 var7f1aace0[] = {0x7f088214};
-const u32 var7f1aace4[] = {0x7f088214};
-const u32 var7f1aace8[] = {0x7f0881f0};
-const u32 var7f1aacec[] = {0x7f088214};
-const u32 var7f1aacf0[] = {0x7f088214};
-const u32 var7f1aacf4[] = {0x7f088214};
-const u32 var7f1aacf8[] = {0x7f088214};
-const u32 var7f1aacfc[] = {0x7f0881f8};
-const u32 var7f1aad00[] = {0x7f088214};
-const u32 var7f1aad04[] = {0x7f088200};
-const u32 var7f1aad08[] = {0x7f088214};
-const u32 var7f1aad0c[] = {0x7f088210};
-const u32 var7f1aad10[] = {0x7f088208};
-const u32 var7f1aad14[] = {0x7f088214};
-
 GLOBAL_ASM(
 glabel func0f066310
 /*  f066310:	27bdffc0 */ 	addiu	$sp,$sp,-64
@@ -38761,57 +38739,30 @@ glabel func0f088028
 /*  f088198:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f08819c
-/*  f08819c:	8c8e005c */ 	lw	$t6,0x5c($a0)
-/*  f0881a0:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0881a4:	25cfffff */ 	addiu	$t7,$t6,-1
-/*  f0881a8:	2de10015 */ 	sltiu	$at,$t7,0x15
-/*  f0881ac:	10200019 */ 	beqz	$at,.L0f088214
-/*  f0881b0:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0881b4:	3c017f1b */ 	lui	$at,%hi(var7f1aacc4)
-/*  f0881b8:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0881bc:	8c2facc4 */ 	lw	$t7,%lo(var7f1aacc4)($at)
-/*  f0881c0:	01e00008 */ 	jr	$t7
-/*  f0881c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0881c8:	10000012 */ 	beqz	$zero,.L0f088214
-/*  f0881cc:	2403000a */ 	addiu	$v1,$zero,0xa
-/*  f0881d0:	10000010 */ 	beqz	$zero,.L0f088214
-/*  f0881d4:	2403000a */ 	addiu	$v1,$zero,0xa
-/*  f0881d8:	1000000e */ 	beqz	$zero,.L0f088214
-/*  f0881dc:	2403000a */ 	addiu	$v1,$zero,0xa
-/*  f0881e0:	1000000c */ 	beqz	$zero,.L0f088214
-/*  f0881e4:	2403000a */ 	addiu	$v1,$zero,0xa
-/*  f0881e8:	1000000a */ 	beqz	$zero,.L0f088214
-/*  f0881ec:	24030005 */ 	addiu	$v1,$zero,0x5
-/*  f0881f0:	10000008 */ 	beqz	$zero,.L0f088214
-/*  f0881f4:	24030005 */ 	addiu	$v1,$zero,0x5
-/*  f0881f8:	10000006 */ 	beqz	$zero,.L0f088214
-/*  f0881fc:	240300c8 */ 	addiu	$v1,$zero,0xc8
-/*  f088200:	10000004 */ 	beqz	$zero,.L0f088214
-/*  f088204:	24030004 */ 	addiu	$v1,$zero,0x4
-/*  f088208:	10000002 */ 	beqz	$zero,.L0f088214
-/*  f08820c:	240304b0 */ 	addiu	$v1,$zero,0x4b0
-/*  f088210:	24030010 */ 	addiu	$v1,$zero,0x10
-.L0f088214:
-/*  f088214:	28610002 */ 	slti	$at,$v1,0x2
-/*  f088218:	1420000c */ 	bnez	$at,.L0f08824c
-/*  f08821c:	3c18800a */ 	lui	$t8,0x800a
-/*  f088220:	8f18a2d8 */ 	lw	$t8,-0x5d28($t8)
-/*  f088224:	17000009 */ 	bnez	$t8,.L0f08824c
-/*  f088228:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08822c:	44832000 */ 	mtc1	$v1,$f4
-/*  f088230:	3c018007 */ 	lui	$at,0x8007
-/*  f088234:	c428995c */ 	lwc1	$f8,-0x66a4($at)
-/*  f088238:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f08823c:	46083282 */ 	mul.s	$f10,$f6,$f8
-/*  f088240:	4600540d */ 	trunc.w.s	$f16,$f10
-/*  f088244:	44038000 */ 	mfc1	$v1,$f16
-/*  f088248:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f08824c:
-/*  f08824c:	03e00008 */ 	jr	$ra
-/*  f088250:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 ammocrateGetPickupAmmoQty(struct ammocrateobj *crate)
+{
+	s32 qty = 1;
+
+	switch (crate->ammotype) {
+	case AMMOTYPE_PISTOL   : qty = 10;   break;
+	case AMMOTYPE_SMG      : qty = 10;   break;
+	case AMMOTYPE_CROSSBOW : qty = 10;   break;
+	case AMMOTYPE_RIFLE    : qty = 10;   break;
+	case AMMOTYPE_SHOTGUN  : qty = 5;    break;
+	case AMMOTYPE_MAGNUM   : qty = 5;    break;
+	case AMMOTYPE_REAPER   : qty = 200;  break;
+	case AMMOTYPE_DART     : qty = 4;    break;
+	case AMMOTYPE_CLOAK    : qty = 1200; break;
+	case AMMOTYPE_SEDATIVE : qty = 16;   break;
+	case AMMOTYPE_BOOST    : qty = 1;    break;
+	}
+
+	if (qty > 1 && !g_Vars.normmplayerisrunning) {
+		qty *= g_AmmoMultiplier;
+	}
+
+	return qty;
+}
 
 s32 weaponGetPickupAmmoQty(struct weaponobj *weapon)
 {
@@ -39334,7 +39285,7 @@ glabel var7f1aae70
 /*  f08892c:	1000019d */ 	beqz	$zero,.L0f088fa4
 /*  f088930:	24020004 */ 	addiu	$v0,$zero,0x4
 /*  f088934:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f088938:	0fc22067 */ 	jal	func0f08819c
+/*  f088938:	0fc22067 */ 	jal	ammocrateGetPickupAmmoQty
 /*  f08893c:	afa6008c */ 	sw	$a2,0x8c($sp)
 /*  f088940:	3c06800a */ 	lui	$a2,0x800a
 /*  f088944:	8cc6a48c */ 	lw	$a2,-0x5b74($a2)

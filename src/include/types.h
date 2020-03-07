@@ -955,6 +955,11 @@ struct autogunobj { // objtype 0d
 	/*0xa8*/ u8 autogun_type;
 };
 
+struct ammocrateobj { // objtype 14
+	struct defaultobj base;
+	/*0x5c*/ u32 ammotype;
+};
+
 struct truckobj {
 	struct defaultobj base;
 	/*0x5c*/ u8 *ailist;

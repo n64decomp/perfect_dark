@@ -242,7 +242,7 @@ u32 func0f087d10(void);
 u32 func0f087e40(void);
 u32 func0f087fb0(void);
 u32 func0f088028(void);
-u32 func0f08819c(void);
+s32 ammocrateGetPickupAmmoQty(struct ammocrateobj *crate);
 s32 weaponGetPickupAmmoQty(struct weaponobj *weapon);
 u32 func0f08841c(void);
 u32 func0f0887c8(void);
