@@ -391,29 +391,6 @@ const u32 var7f1b9718[] = {0x7f1a15bc};
 const u32 var7f1b971c[] = {0x7f1a15c4};
 const u32 var7f1b9720[] = {0x7f1a15cc};
 const u32 var7f1b9724[] = {0x7f1a15d4};
-const u32 var7f1b9728[] = {0x7f1a160c};
-const u32 var7f1b972c[] = {0x7f1a1614};
-const u32 var7f1b9730[] = {0x7f1a161c};
-const u32 var7f1b9734[] = {0x7f1a162c};
-const u32 var7f1b9738[] = {0x7f1a1634};
-const u32 var7f1b973c[] = {0x7f1a163c};
-const u32 var7f1b9740[] = {0x7f1a1644};
-const u32 var7f1b9744[] = {0x7f1a164c};
-const u32 var7f1b9748[] = {0x7f1a1654};
-const u32 var7f1b974c[] = {0x7f1a165c};
-const u32 var7f1b9750[] = {0x7f1a1664};
-const u32 var7f1b9754[] = {0x7f1a166c};
-const u32 var7f1b9758[] = {0x7f1a1674};
-const u32 var7f1b975c[] = {0x7f1a167c};
-const u32 var7f1b9760[] = {0x7f1a162c};
-const u32 var7f1b9764[] = {0x7f1a160c};
-const u32 var7f1b9768[] = {0x7f1a1644};
-const u32 var7f1b976c[] = {0x7f1a161c};
-const u32 var7f1b9770[] = {0x7f1a1624};
-const u32 var7f1b9774[] = {0x7f1a163c};
-const u32 var7f1b9778[] = {0x7f1a1644};
-const u32 var7f1b977c[] = {0x7f1a165c};
-const u32 var7f1b9780[] = {0x7f1a1674};
 
 bool ciIsTourDone(void)
 {
@@ -552,7 +529,7 @@ glabel func0f19cb38
 );
 
 GLOBAL_ASM(
-glabel func0f19cb80
+glabel stageIsComplete
 /*  f19cb80:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f19cb84:	01c47023 */ 	subu	$t6,$t6,$a0
 /*  f19cb88:	3c0f800a */ 	lui	$t7,%hi(g_SoloSaveFile)
@@ -591,7 +568,7 @@ glabel func0f19cbcc
 .L0f19cbf4:
 /*  f19cbf4:	14a10007 */ 	bne	$a1,$at,.L0f19cc14
 /*  f19cbf8:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f19cbfc:	0fc672e0 */ 	jal	func0f19cb80
+/*  f19cbfc:	0fc672e0 */ 	jal	stageIsComplete
 /*  f19cc00:	afa50018 */ 	sw	$a1,0x18($sp)
 /*  f19cc04:	10400003 */ 	beqz	$v0,.L0f19cc14
 /*  f19cc08:	8fa50018 */ 	lw	$a1,0x18($sp)
@@ -601,7 +578,7 @@ glabel func0f19cbcc
 /*  f19cc14:	24010031 */ 	addiu	$at,$zero,0x31
 /*  f19cc18:	14a10007 */ 	bne	$a1,$at,.L0f19cc38
 /*  f19cc1c:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f19cc20:	0fc672e0 */ 	jal	func0f19cb80
+/*  f19cc20:	0fc672e0 */ 	jal	stageIsComplete
 /*  f19cc24:	afa50018 */ 	sw	$a1,0x18($sp)
 /*  f19cc28:	10400003 */ 	beqz	$v0,.L0f19cc38
 /*  f19cc2c:	8fa50018 */ 	lw	$a1,0x18($sp)
@@ -5445,31 +5422,31 @@ glabel func0f1a0fec
 /*  f1a1014:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a1018:	1000001e */ 	beqz	$zero,.L0f1a1094
 /*  f1a101c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1a1020:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1020:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a1024:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a1028:	1000001b */ 	beqz	$zero,.L0f1a1098
 /*  f1a102c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1030:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1030:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a1034:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f1a1038:	10000017 */ 	beqz	$zero,.L0f1a1098
 /*  f1a103c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1040:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1040:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a1044:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f1a1048:	10000013 */ 	beqz	$zero,.L0f1a1098
 /*  f1a104c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1050:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1050:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a1054:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f1a1058:	1000000f */ 	beqz	$zero,.L0f1a1098
 /*  f1a105c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1060:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1060:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a1064:	24040006 */ 	addiu	$a0,$zero,0x6
 /*  f1a1068:	1000000b */ 	beqz	$zero,.L0f1a1098
 /*  f1a106c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1070:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1070:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a1074:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f1a1078:	10000007 */ 	beqz	$zero,.L0f1a1098
 /*  f1a107c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1080:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1080:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a1084:	2404000a */ 	addiu	$a0,$zero,0xa
 /*  f1a1088:	10000003 */ 	beqz	$zero,.L0f1a1098
 /*  f1a108c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -5527,7 +5504,7 @@ glabel func0f1a10a4
 /*  f1a113c:	27a20068 */ 	addiu	$v0,$sp,0x68
 /*  f1a1140:	1000000c */ 	beqz	$zero,.L0f1a1174
 /*  f1a1144:	27a20078 */ 	addiu	$v0,$sp,0x78
-/*  f1a1148:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1148:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a114c:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f1a1150:	10400003 */ 	beqz	$v0,.L0f1a1160
 /*  f1a1154:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5694,17 +5671,17 @@ glabel func0f1a1328
 /*  f1a1350:	1000000d */ 	beqz	$zero,.L0f1a1388
 /*  f1a1354:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1a1358:
-/*  f1a1358:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1358:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a135c:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f1a1360:	1000000a */ 	beqz	$zero,.L0f1a138c
 /*  f1a1364:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f1a1368:
-/*  f1a1368:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1368:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a136c:	2404000f */ 	addiu	$a0,$zero,0xf
 /*  f1a1370:	10000006 */ 	beqz	$zero,.L0f1a138c
 /*  f1a1374:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f1a1378:
-/*  f1a1378:	0fc672e0 */ 	jal	func0f19cb80
+/*  f1a1378:	0fc672e0 */ 	jal	stageIsComplete
 /*  f1a137c:	24040011 */ 	addiu	$a0,$zero,0x11
 /*  f1a1380:	10000002 */ 	beqz	$zero,.L0f1a138c
 /*  f1a1384:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -5891,60 +5868,70 @@ glabel func0f1a14b4
 /*  f1a15e0:	27bd0170 */ 	addiu	$sp,$sp,0x170
 );
 
-GLOBAL_ASM(
-glabel func0f1a15e4
-/*  f1a15e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a15e8:	2c810017 */ 	sltiu	$at,$a0,0x17
-/*  f1a15ec:	10200025 */ 	beqz	$at,.L0f1a1684
-/*  f1a15f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a15f4:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1a15f8:	3c017f1c */ 	lui	$at,%hi(var7f1b9728)
-/*  f1a15fc:	002e0821 */ 	addu	$at,$at,$t6
-/*  f1a1600:	8c2e9728 */ 	lw	$t6,%lo(var7f1b9728)($at)
-/*  f1a1604:	01c00008 */ 	jr	$t6
-/*  f1a1608:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a160c:	10000021 */ 	beqz	$zero,.L0f1a1694
-/*  f1a1610:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1a1614:	1000001d */ 	beqz	$zero,.L0f1a168c
-/*  f1a1618:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a161c:	1000001b */ 	beqz	$zero,.L0f1a168c
-/*  f1a1620:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1a1624:	10000019 */ 	beqz	$zero,.L0f1a168c
-/*  f1a1628:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f1a162c:	10000017 */ 	beqz	$zero,.L0f1a168c
-/*  f1a1630:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f1a1634:	10000015 */ 	beqz	$zero,.L0f1a168c
-/*  f1a1638:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f1a163c:	10000013 */ 	beqz	$zero,.L0f1a168c
-/*  f1a1640:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f1a1644:	10000011 */ 	beqz	$zero,.L0f1a168c
-/*  f1a1648:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f1a164c:	1000000f */ 	beqz	$zero,.L0f1a168c
-/*  f1a1650:	24040009 */ 	addiu	$a0,$zero,0x9
-/*  f1a1654:	1000000d */ 	beqz	$zero,.L0f1a168c
-/*  f1a1658:	2404000a */ 	addiu	$a0,$zero,0xa
-/*  f1a165c:	1000000b */ 	beqz	$zero,.L0f1a168c
-/*  f1a1660:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f1a1664:	10000009 */ 	beqz	$zero,.L0f1a168c
-/*  f1a1668:	2404000c */ 	addiu	$a0,$zero,0xc
-/*  f1a166c:	10000007 */ 	beqz	$zero,.L0f1a168c
-/*  f1a1670:	2404000d */ 	addiu	$a0,$zero,0xd
-/*  f1a1674:	10000005 */ 	beqz	$zero,.L0f1a168c
-/*  f1a1678:	2404000e */ 	addiu	$a0,$zero,0xe
-/*  f1a167c:	10000003 */ 	beqz	$zero,.L0f1a168c
-/*  f1a1680:	2404000f */ 	addiu	$a0,$zero,0xf
-.L0f1a1684:
-/*  f1a1684:	10000003 */ 	beqz	$zero,.L0f1a1694
-/*  f1a1688:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a168c:
-/*  f1a168c:	0fc672e0 */ 	jal	func0f19cb80
-/*  f1a1690:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a1694:
-/*  f1a1694:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1698:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a169c:	03e00008 */ 	jr	$ra
-/*  f1a16a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool bioIsUnlocked(u32 bioindex)
+{
+	u32 stage;
+
+	// bioindex is an index into place_bios
+	switch (bioindex) {
+	case 0:
+	case 15:
+		return true;
+	case 1:
+		stage = SOLOSTAGEINDEX_DEFECTION;
+		break;
+	case 2:
+	case 17:
+		stage = SOLOSTAGEINDEX_INVESTIGATION;
+		break;
+	case 18:
+		stage = SOLOSTAGEINDEX_EXTRACTION;
+		break;
+	case 3:
+	case 14:
+		stage = SOLOSTAGEINDEX_VILLA;
+		break;
+	case 4:
+		stage = SOLOSTAGEINDEX_CHICAGO;
+		break;
+	case 5:
+	case 19:
+		stage = SOLOSTAGEINDEX_G5BUILDING;
+		break;
+	case 6:
+	case 16:
+	case 20:
+		stage = SOLOSTAGEINDEX_INFILTRATION;
+		break;
+	case 7:
+		stage = SOLOSTAGEINDEX_AIRBASE;
+		break;
+	case 8:
+		stage = SOLOSTAGEINDEX_AIRFORCEONE;
+		break;
+	case 9:
+	case 21:
+		stage = SOLOSTAGEINDEX_CRASHSITE;
+		break;
+	case 10:
+		stage = SOLOSTAGEINDEX_PELAGIC;
+		break;
+	case 11:
+		stage = SOLOSTAGEINDEX_DEEPSEA;
+		break;
+	case 12:
+	case 22:
+		stage = SOLOSTAGEINDEX_DEFENSE;
+		break;
+	case 13:
+		stage = SOLOSTAGEINDEX_ATTACKSHIP;
+		break;
+	default:
+		return false;
+	}
+
+	return stageIsComplete(stage);
+}
 
 GLOBAL_ASM(
 glabel func0f1a16a4
@@ -5964,7 +5951,7 @@ glabel func0f1a16a4
 /*  f1a16d4:	10000009 */ 	beqz	$zero,.L0f1a16fc
 /*  f1a16d8:	02201025 */ 	or	$v0,$s1,$zero
 .L0f1a16dc:
-/*  f1a16dc:	0fc68579 */ 	jal	func0f1a15e4
+/*  f1a16dc:	0fc68579 */ 	jal	bioIsUnlocked
 /*  f1a16e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a16e4:	10400002 */ 	beqz	$v0,.L0f1a16f0
 /*  f1a16e8:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5993,7 +5980,7 @@ glabel func0f1a1714
 /*  f1a172c:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a1730:	24120017 */ 	addiu	$s2,$zero,0x17
 .L0f1a1734:
-/*  f1a1734:	0fc68579 */ 	jal	func0f1a15e4
+/*  f1a1734:	0fc68579 */ 	jal	bioIsUnlocked
 /*  f1a1738:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a173c:	10400002 */ 	beqz	$v0,.L0f1a1748
 /*  f1a1740:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -6023,7 +6010,7 @@ glabel func0f1a176c
 /*  f1a178c:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a1790:	24120017 */ 	addiu	$s2,$zero,0x17
 .L0f1a1794:
-/*  f1a1794:	0fc68579 */ 	jal	func0f1a15e4
+/*  f1a1794:	0fc68579 */ 	jal	bioIsUnlocked
 /*  f1a1798:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a179c:	10400002 */ 	beqz	$v0,.L0f1a17a8
 /*  f1a17a0:	00000000 */ 	sll	$zero,$zero,0x0
