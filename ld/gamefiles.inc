@@ -79,6 +79,7 @@
 	src/game/game_066310.o (section); \
 	src/game/game_091e10.o (section); \
 	src/game/game_092610.o (section); \
+	src/game/game_095320.o (section); \
 	src/game/game_096360.o (section); \
 	src/game/game_096700.o (section); \
 	src/game/game_096750.o (section); \
