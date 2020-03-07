@@ -57,7 +57,7 @@ u32 func0f0eff78(void);
 u32 func0f0f057c(void);
 u32 func0f0f059c(void);
 u32 func0f0f0704(void);
-u32 func0f0f0860(void);
+void func0f0f0860(u8 *arg0, u32 *arg1);
 u32 func0f0f0918(void);
 
 #endif
