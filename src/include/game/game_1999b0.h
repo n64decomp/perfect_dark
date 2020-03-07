@@ -12,7 +12,7 @@ u32 func0f199d70(void);
 u32 func0f199e3c(void);
 u32 func0f199ef4(void);
 u32 func0f199f84(void);
-u32 func0f19a29c(void);
+bool func0f19a29c(u32 value, bool fallback);
 u32 func0f19a2dc(u32 value);
 u32 func0f19a31c(u32 value);
 u32 func0f19a37c(void);

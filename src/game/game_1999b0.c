@@ -24,29 +24,6 @@
 #include "lib/lib_233c0.h"
 #include "types.h"
 
-const u32 var7f1b90a0[] = {0x3d4ccccd};
-const u32 var7f1b90a4[] = {0x7f19a2c0};
-const u32 var7f1b90a8[] = {0x7f19a2c0};
-const u32 var7f1b90ac[] = {0x7f19a2d0};
-const u32 var7f1b90b0[] = {0x7f19a2d0};
-const u32 var7f1b90b4[] = {0x7f19a2d0};
-const u32 var7f1b90b8[] = {0x7f19a2d0};
-const u32 var7f1b90bc[] = {0x7f19a2d0};
-const u32 var7f1b90c0[] = {0x7f19a2d0};
-const u32 var7f1b90c4[] = {0x7f19a2d0};
-const u32 var7f1b90c8[] = {0x7f19a2d0};
-const u32 var7f1b90cc[] = {0x7f19a2d0};
-const u32 var7f1b90d0[] = {0x7f19a2d0};
-const u32 var7f1b90d4[] = {0x7f19a2c0};
-const u32 var7f1b90d8[] = {0x7f19a2d0};
-const u32 var7f1b90dc[] = {0x7f19a2d0};
-const u32 var7f1b90e0[] = {0x7f19a2d0};
-const u32 var7f1b90e4[] = {0x7f19a2c8};
-const u32 var7f1b90e8[] = {0x7f19a2c8};
-const u32 var7f1b90ec[] = {0x7f19a2c8};
-const u32 var7f1b90f0[] = {0x7f19a2c8};
-const u32 var7f1b90f4[] = {0x7f19a2c8};
-
 GLOBAL_ASM(
 glabel func0f1999b0
 /*  f1999b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -480,6 +457,10 @@ glabel func0f199ef4
 
 GLOBAL_ASM(
 glabel func0f199f84
+.late_rodata
+glabel var7f1b90a0
+.word 0x3d4ccccd
+.text
 /*  f199f84:	27bdff38 */ 	addiu	$sp,$sp,-200
 /*  f199f88:	afb7006c */ 	sw	$s7,0x6c($sp)
 /*  f199f8c:	afb3005c */ 	sw	$s3,0x5c($sp)
@@ -691,26 +672,23 @@ glabel func0f199f84
 /*  f19a298:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19a29c
-/*  f19a29c:	248efff2 */ 	addiu	$t6,$a0,-14
-/*  f19a2a0:	2dc10015 */ 	sltiu	$at,$t6,0x15
-/*  f19a2a4:	1020000a */ 	beqz	$at,.L0f19a2d0
-/*  f19a2a8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19a2ac:	3c017f1c */ 	lui	$at,%hi(var7f1b90a4)
-/*  f19a2b0:	002e0821 */ 	addu	$at,$at,$t6
-/*  f19a2b4:	8c2e90a4 */ 	lw	$t6,%lo(var7f1b90a4)($at)
-/*  f19a2b8:	01c00008 */ 	jr	$t6
-/*  f19a2bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19a2c0:	03e00008 */ 	jr	$ra
-/*  f19a2c4:	00a01025 */ 	or	$v0,$a1,$zero
-/*  f19a2c8:	03e00008 */ 	jr	$ra
-/*  f19a2cc:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19a2d0:
-/*  f19a2d0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19a2d4:	03e00008 */ 	jr	$ra
-/*  f19a2d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f19a29c(u32 value, bool fallback)
+{
+	switch (value) {
+	case 14:
+	case 15:
+	case 26:
+		return fallback;
+	case 30:
+	case 31:
+	case 32:
+	case 33:
+	case 34:
+		return true;
+	}
+
+	return false;
+}
 
 u32 func0f19a2dc(u32 value)
 {
