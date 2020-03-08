@@ -49,6 +49,7 @@
 #include "game/game_177e00.h"
 #include "game/game_17f930.h"
 #include "game/game_187770.h"
+#include "game/game_18e5a0.h"
 #include "game/game_19c990.h"
 #include "game/game_1a3340.h"
 #include "game/pad.h"

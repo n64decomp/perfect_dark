@@ -166,6 +166,7 @@
 	src/game/game_179060.o (section); \
 	src/game/game_17f930.o (section); \
 	src/game/game_187770.o (section); \
+	src/game/game_18e5a0.o (section); \
 	src/game/game_190260.o (section); \
 	src/game/game_197600.o (section); \
 	src/game/game_1999b0.o (section); \
