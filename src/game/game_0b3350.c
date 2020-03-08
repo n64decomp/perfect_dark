@@ -11,6 +11,7 @@
 #include "game/game_127910.h"
 #include "game/game_157db0.h"
 #include "game/game_16e810.h"
+#include "game/game_173a00.h"
 #include "gvars/gvars.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_4a360.h"

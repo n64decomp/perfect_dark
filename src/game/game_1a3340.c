@@ -18,6 +18,7 @@
 #include "game/game_1531a0.h"
 #include "game/game_166e40.h"
 #include "game/game_16e810.h"
+#include "game/game_173a00.h"
 #include "game/game_187770.h"
 #include "game/game_19c990.h"
 #include "game/game_1a3340.h"

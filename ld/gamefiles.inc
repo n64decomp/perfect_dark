@@ -156,6 +156,7 @@
 	src/game/game_16cfa0.o (section); \
 	src/game/lang.o (section); \
 	src/game/game_16e810.o (section); \
+	src/game/game_173a00.o (section); \
 	src/game/game_175f50.o (section); \
 	src/game/game_175f90.o (section); \
 	src/game/game_176000.o (section); \

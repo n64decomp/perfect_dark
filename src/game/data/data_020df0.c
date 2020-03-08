@@ -7,7 +7,7 @@
 #include "game/game_10ccd0.h"
 #include "game/game_149c90.h"
 #include "game/game_16ce10.h"
-#include "game/game_16e810.h"
+#include "game/game_173a00.h"
 #include "game/game_176d70.h"
 #include "game/game_177e00.h"
 #include "game/game_179060.h"
