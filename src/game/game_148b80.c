@@ -32,6 +32,11 @@
 #include "lib/lib_4ae00.h"
 #include "types.h"
 
+const char var7f1b5f70[] = "Splat Tick - P=%x, B=%d, T=%d, S=%d, W=%d, D=%d, H=%d\n";
+const char var7f1b5fa8[] = "SPLAT : Not Dead Enough %s%s%f";
+const char var7f1b5fc8[] = "";
+const char var7f1b5fcc[] = "";
+
 const char var7f1b5fd0[] = "splat.c";
 const char var7f1b5fd8[] = "splat.c";
 const char var7f1b5fe0[] = "Splat : Out of range\n";

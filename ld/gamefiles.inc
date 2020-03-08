@@ -138,6 +138,7 @@
 	src/game/game_13b670.o (section); \
 	src/game/game_13c510.o (section); \
 	src/game/game_13e0e0.o (section); \
+	src/game/game_141820.o (section); \
 	src/game/game_148b80.o (section); \
 	src/game/game_150820.o (section); \
 	src/game/pdoptions.o (section); \
