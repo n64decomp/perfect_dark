@@ -17,15 +17,6 @@
 const char var7f1b5960[] = "modula";
 const char var7f1b5968[] = "ripsize";
 
-const u32 var7f1b5970[] = {0x40c907a9};
-const u32 var7f1b5974[] = {0x7f13bf20};
-const u32 var7f1b5978[] = {0x7f13bf74};
-const u32 var7f1b597c[] = {0x7f13bf90};
-const u32 var7f1b5980[] = {0x7f13bf3c};
-const u32 var7f1b5984[] = {0x7f13bf58};
-const u32 var7f1b5988[] = {0x7f13c00c};
-const u32 var7f1b598c[] = {0x7f13bfcc};
-
 GLOBAL_ASM(
 glabel func0f13b670
 /*  f13b670:	3c018006 */ 	lui	$at,0x8006
@@ -188,6 +179,10 @@ glabel func0f13b7bc
 
 GLOBAL_ASM(
 glabel func0f13b8a0
+.late_rodata
+glabel var7f1b5970
+.word 0x40c907a9
+.text
 /*  f13b8a0:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f13b8a4:	3c018006 */ 	lui	$at,0x8006
 /*  f13b8a8:	c4241634 */ 	lwc1	$f4,0x1634($at)
@@ -443,6 +438,22 @@ glabel func0f13bb5c
 
 GLOBAL_ASM(
 glabel func0f13bc48
+.late_rodata
+glabel var7f1b5974
+.word 0x7f13bf20
+glabel var7f1b5978
+.word 0x7f13bf74
+glabel var7f1b597c
+.word 0x7f13bf90
+glabel var7f1b5980
+.word 0x7f13bf3c
+glabel var7f1b5984
+.word 0x7f13bf58
+glabel var7f1b5988
+.word 0x7f13c00c
+glabel var7f1b598c
+.word 0x7f13bfcc
+.text
 /*  f13bc48:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f13bc4c:	3c038008 */ 	lui	$v1,%hi(var8007f6f0)
 /*  f13bc50:	8c63f6f0 */ 	lw	$v1,%lo(var8007f6f0)($v1)

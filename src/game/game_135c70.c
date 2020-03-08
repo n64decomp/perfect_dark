@@ -20,17 +20,22 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
-const u32 var7f1b57a0[] = {0x7f135d68};
-const u32 var7f1b57a4[] = {0x7f135d68};
-const u32 var7f1b57a8[] = {0x7f135da8};
-const u32 var7f1b57ac[] = {0x7f135da8};
-const u32 var7f1b57b0[] = {0x7f135dec};
-const u32 var7f1b57b4[] = {0x7f135dec};
-const u32 var7f1b57b8[] = {0x3c8efa03};
-const u32 var7f1b57bc[] = {0x43837333};
-
 GLOBAL_ASM(
 glabel func0f135c70
+.late_rodata
+glabel var7f1b57a0
+.word 0x7f135d68
+glabel var7f1b57a4
+.word 0x7f135d68
+glabel var7f1b57a8
+.word 0x7f135da8
+glabel var7f1b57ac
+.word 0x7f135da8
+glabel var7f1b57b0
+.word 0x7f135dec
+glabel var7f1b57b4
+.word 0x7f135dec
+.text
 /*  f135c70:	27bdff80 */ 	addiu	$sp,$sp,-128
 /*  f135c74:	afb60050 */ 	sw	$s6,0x50($sp)
 /*  f135c78:	3c16800a */ 	lui	$s6,%hi(var800a4158)
@@ -881,6 +886,12 @@ glabel func0f1360e8
 
 GLOBAL_ASM(
 glabel func0f13687c
+.late_rodata
+glabel var7f1b57b8
+.word 0x3c8efa03
+glabel var7f1b57bc
+.word 0x43837333
+.text
 /*  f13687c:	27bdfe50 */ 	addiu	$sp,$sp,-432
 /*  f136880:	afbf006c */ 	sw	$ra,0x6c($sp)
 /*  f136884:	afb1004c */ 	sw	$s1,0x4c($sp)
