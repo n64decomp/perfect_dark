@@ -23,58 +23,6 @@ const u32 var7f1b515c[] = {0x3f666666};
 const u32 var7f1b5160[] = {0xc0490fdb};
 const u32 var7f1b5164[] = {0x3faaaaab};
 
-// weaponGetModel
-const u32 var7f1b5168[] = {0x7f128b54};
-const u32 var7f1b516c[] = {0x7f128b54};
-const u32 var7f1b5170[] = {0x7f128b5c};
-const u32 var7f1b5174[] = {0x7f128b8c};
-const u32 var7f1b5178[] = {0x7f128b94};
-const u32 var7f1b517c[] = {0x7f128b64};
-const u32 var7f1b5180[] = {0x7f128b6c};
-const u32 var7f1b5184[] = {0x7f128b84};
-const u32 var7f1b5188[] = {0x7f128b74};
-const u32 var7f1b518c[] = {0x7f128b7c};
-const u32 var7f1b5190[] = {0x7f128b9c};
-const u32 var7f1b5194[] = {0x7f128bc4};
-const u32 var7f1b5198[] = {0x7f128bcc};
-const u32 var7f1b519c[] = {0x7f128bd4};
-const u32 var7f1b51a0[] = {0x7f128bdc};
-const u32 var7f1b51a4[] = {0x7f128bac};
-const u32 var7f1b51a8[] = {0x7f128bbc};
-const u32 var7f1b51ac[] = {0x7f128ba4};
-const u32 var7f1b51b0[] = {0x7f128bb4};
-const u32 var7f1b51b4[] = {0x7f128be4};
-const u32 var7f1b51b8[] = {0x7f128bec};
-const u32 var7f1b51bc[] = {0x7f128c14};
-const u32 var7f1b51c0[] = {0x7f128c0c};
-const u32 var7f1b51c4[] = {0x7f128bfc};
-const u32 var7f1b51c8[] = {0x7f128bf4};
-const u32 var7f1b51cc[] = {0x7f128c04};
-const u32 var7f1b51d0[] = {0x7f128c2c};
-const u32 var7f1b51d4[] = {0x7f128c1c};
-const u32 var7f1b51d8[] = {0x7f128c34};
-const u32 var7f1b51dc[] = {0x7f128c24};
-const u32 var7f1b51e0[] = {0x7f128c4c};
-const u32 var7f1b51e4[] = {0x7f128c44};
-const u32 var7f1b51e8[] = {0x7f128c64};
-const u32 var7f1b51ec[] = {0x7f128c5c};
-const u32 var7f1b51f0[] = {0x7f128c54};
-const u32 var7f1b51f4[] = {0x7f128cbc};
-const u32 var7f1b51f8[] = {0x7f128c7c};
-const u32 var7f1b51fc[] = {0x7f128c84};
-const u32 var7f1b5200[] = {0x7f128c8c};
-const u32 var7f1b5204[] = {0x7f128c94};
-const u32 var7f1b5208[] = {0x7f128c9c};
-const u32 var7f1b520c[] = {0x7f128ca4};
-const u32 var7f1b5210[] = {0x7f128cac};
-const u32 var7f1b5214[] = {0x7f128cb4};
-const u32 var7f1b5218[] = {0x7f128c3c};
-const u32 var7f1b521c[] = {0x7f128cd4};
-const u32 var7f1b5220[] = {0x7f128cd4};
-const u32 var7f1b5224[] = {0x7f128cd4};
-const u32 var7f1b5228[] = {0x7f128cd4};
-const u32 var7f1b522c[] = {0x7f128c74};
-
 void func0f127910(void)
 {
 	s32 i;
@@ -153,6 +101,109 @@ void playersAllocate(s32 count)
 
 GLOBAL_ASM(
 glabel playerAllocate
+# This rodata belongs to weaponGetModel
+.late_rodata
+glabel var7f1b5168
+.word 0x7f128b54
+glabel var7f1b516c
+.word 0x7f128b54
+glabel var7f1b5170
+.word 0x7f128b5c
+glabel var7f1b5174
+.word 0x7f128b8c
+glabel var7f1b5178
+.word 0x7f128b94
+glabel var7f1b517c
+.word 0x7f128b64
+glabel var7f1b5180
+.word 0x7f128b6c
+glabel var7f1b5184
+.word 0x7f128b84
+glabel var7f1b5188
+.word 0x7f128b74
+glabel var7f1b518c
+.word 0x7f128b7c
+glabel var7f1b5190
+.word 0x7f128b9c
+glabel var7f1b5194
+.word 0x7f128bc4
+glabel var7f1b5198
+.word 0x7f128bcc
+glabel var7f1b519c
+.word 0x7f128bd4
+glabel var7f1b51a0
+.word 0x7f128bdc
+glabel var7f1b51a4
+.word 0x7f128bac
+glabel var7f1b51a8
+.word 0x7f128bbc
+glabel var7f1b51ac
+.word 0x7f128ba4
+glabel var7f1b51b0
+.word 0x7f128bb4
+glabel var7f1b51b4
+.word 0x7f128be4
+glabel var7f1b51b8
+.word 0x7f128bec
+glabel var7f1b51bc
+.word 0x7f128c14
+glabel var7f1b51c0
+.word 0x7f128c0c
+glabel var7f1b51c4
+.word 0x7f128bfc
+glabel var7f1b51c8
+.word 0x7f128bf4
+glabel var7f1b51cc
+.word 0x7f128c04
+glabel var7f1b51d0
+.word 0x7f128c2c
+glabel var7f1b51d4
+.word 0x7f128c1c
+glabel var7f1b51d8
+.word 0x7f128c34
+glabel var7f1b51dc
+.word 0x7f128c24
+glabel var7f1b51e0
+.word 0x7f128c4c
+glabel var7f1b51e4
+.word 0x7f128c44
+glabel var7f1b51e8
+.word 0x7f128c64
+glabel var7f1b51ec
+.word 0x7f128c5c
+glabel var7f1b51f0
+.word 0x7f128c54
+glabel var7f1b51f4
+.word 0x7f128cbc
+glabel var7f1b51f8
+.word 0x7f128c7c
+glabel var7f1b51fc
+.word 0x7f128c84
+glabel var7f1b5200
+.word 0x7f128c8c
+glabel var7f1b5204
+.word 0x7f128c94
+glabel var7f1b5208
+.word 0x7f128c9c
+glabel var7f1b520c
+.word 0x7f128ca4
+glabel var7f1b5210
+.word 0x7f128cac
+glabel var7f1b5214
+.word 0x7f128cb4
+glabel var7f1b5218
+.word 0x7f128c3c
+glabel var7f1b521c
+.word 0x7f128cd4
+glabel var7f1b5220
+.word 0x7f128cd4
+glabel var7f1b5224
+.word 0x7f128cd4
+glabel var7f1b5228
+.word 0x7f128cd4
+glabel var7f1b522c
+.word 0x7f128c74
+.text
 /*  f127ae4:	27bdf838 */ 	addiu	$sp,$sp,-1992
 /*  f127ae8:	3c0f8008 */ 	lui	$t7,%hi(var8007dc10)
 /*  f127aec:	25efdc10 */ 	addiu	$t7,$t7,%lo(var8007dc10)
