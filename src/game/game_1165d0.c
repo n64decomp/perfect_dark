@@ -302,23 +302,6 @@ const u32 var7f1b4e24[] = {0x7f11713c};
 const u32 var7f1b4e28[] = {0x7f11713c};
 const u32 var7f1b4e2c[] = {0x7f117120};
 
-const u32 var7f1b4e30[] = {0x7f11932c};
-const u32 var7f1b4e34[] = {0x7f11932c};
-const u32 var7f1b4e38[] = {0x7f11932c};
-const u32 var7f1b4e3c[] = {0x7f11932c};
-const u32 var7f1b4e40[] = {0x7f11932c};
-const u32 var7f1b4e44[] = {0x7f119334};
-const u32 var7f1b4e48[] = {0x7f119334};
-const u32 var7f1b4e4c[] = {0x7f119334};
-const u32 var7f1b4e50[] = {0x7f119314};
-const u32 var7f1b4e54[] = {0x7f119334};
-const u32 var7f1b4e58[] = {0x7f119334};
-const u32 var7f1b4e5c[] = {0x7f119334};
-const u32 var7f1b4e60[] = {0x7f119334};
-const u32 var7f1b4e64[] = {0x7f119334};
-const u32 var7f1b4e68[] = {0x7f11931c};
-const u32 var7f1b4e6c[] = {0x7f119324};
-
 GLOBAL_ASM(
 glabel func0f1165d0
 /*  f1165d0:	00047600 */ 	sll	$t6,$a0,0x18
@@ -3623,53 +3606,29 @@ glabel func0f1190bc
 /*  f119294:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f119298
-/*  f119298:	00047600 */ 	sll	$t6,$a0,0x18
-/*  f11929c:	000e7e03 */ 	sra	$t7,$t6,0x18
-/*  f1192a0:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f1192a4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1192a8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1192ac:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1192b0:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1192b4:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1192b8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1192bc:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f1192c0:	3c19800a */ 	lui	$t9,%hi(var800a2380)
-/*  f1192c4:	27392380 */ 	addiu	$t9,$t9,%lo(var800a2380)
-/*  f1192c8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f1192cc:	03191021 */ 	addu	$v0,$t8,$t9
-/*  f1192d0:	8c480000 */ 	lw	$t0,0x0($v0)
-/*  f1192d4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1192d8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1192dc:	51010004 */ 	beql	$t0,$at,.L0f1192f0
-/*  f1192e0:	8c490010 */ 	lw	$t1,0x10($v0)
-/*  f1192e4:	03e00008 */ 	jr	$ra
-/*  f1192e8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1192ec:	8c490010 */ 	lw	$t1,0x10($v0)
-.L0f1192f0:
-/*  f1192f0:	252afffd */ 	addiu	$t2,$t1,-3
-/*  f1192f4:	2d410010 */ 	sltiu	$at,$t2,0x10
-/*  f1192f8:	1020000e */ 	beqz	$at,.L0f119334
-/*  f1192fc:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f119300:	3c017f1b */ 	lui	$at,%hi(var7f1b4e30)
-/*  f119304:	002a0821 */ 	addu	$at,$at,$t2
-/*  f119308:	8c2a4e30 */ 	lw	$t2,%lo(var7f1b4e30)($at)
-/*  f11930c:	01400008 */ 	jr	$t2
-/*  f119310:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f119314:	03e00008 */ 	jr	$ra
-/*  f119318:	00001025 */ 	or	$v0,$zero,$zero
-/*  f11931c:	03e00008 */ 	jr	$ra
-/*  f119320:	2402000e */ 	addiu	$v0,$zero,0xe
-/*  f119324:	03e00008 */ 	jr	$ra
-/*  f119328:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f11932c:	03e00008 */ 	jr	$ra
-/*  f119330:	2402000d */ 	addiu	$v0,$zero,0xd
-.L0f119334:
-/*  f119334:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f119338:	03e00008 */ 	jr	$ra
-/*  f11933c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f119298(s8 index)
+{
+	if (var800a2380[index].unk000 != 2) {
+		return 1;
+	}
+
+	switch (var800a2380[index].unk010) {
+	case 11:
+		return 0;
+	case 17:
+		return 14;
+	case 18:
+		return 4;
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+		return 13;
+	}
+
+	return 1;
+}
 
 void func0f119340(u32 arg0)
 {

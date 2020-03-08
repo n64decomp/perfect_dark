@@ -63,7 +63,7 @@ u32 func0f118ae4(void);
 u32 func0f118bc8(void);
 u32 func0f118d18(void);
 u32 func0f1190bc(void);
-u32 func0f119298(void);
+u32 func0f119298(s8 index);
 void func0f119340(u32 arg0);
 u32 func0f119368(void);
 u32 func0f119478(void);
