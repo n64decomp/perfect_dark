@@ -13294,8 +13294,8 @@ glabel var7f1b2afc
 .L0f0fbdc4:
 /*  f0fbdc4:	3c012f80 */ 	lui	$at,0x2f80
 /*  f0fbdc8:	44812000 */ 	mtc1	$at,$f4
-/*  f0fbdcc:	3c017f1b */ 	lui	$at,0x7f1b
-/*  f0fbdd0:	d42a2af0 */ 	ldc1	$f10,0x2af0($at)
+/*  f0fbdcc:	3c017f1b */ 	lui	$at,%hi(var7f1b2af0)
+/*  f0fbdd0:	d42a2af0 */ 	ldc1	$f10,%lo(var7f1b2af0)($at)
 /*  f0fbdd4:	46048182 */ 	mul.s	$f6,$f16,$f4
 /*  f0fbdd8:	46003221 */ 	cvt.d.s	$f8,$f6
 /*  f0fbddc:	462a403c */ 	c.lt.d	$f8,$f10

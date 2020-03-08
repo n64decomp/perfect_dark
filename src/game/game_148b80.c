@@ -747,7 +747,7 @@ glabel func0f149274
 /*  f14959c:	8fb904ec */ 	lw	$t9,0x4ec($sp)
 .L0f1495a0:
 /*  f1495a0:	27a400bc */ 	addiu	$a0,$sp,0xbc
-/*  f1495a4:	3c017f1b */ 	lui	$at,0x7f1b
+/*  f1495a4:	3c017f1b */ 	lui	$at,%hi(var7f1b6030)
 /*  f1495a8:	13200019 */ 	beqz	$t9,.L0f149610
 /*  f1495ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1495b0:	0fc5dd18 */ 	jal	func0f177460
@@ -776,7 +776,7 @@ glabel func0f149274
 /*  f149608:	10000002 */ 	beqz	$zero,.L0f149614
 /*  f14960c:	afa004ec */ 	sw	$zero,0x4ec($sp)
 .L0f149610:
-/*  f149610:	c42c6030 */ 	lwc1	$f12,0x6030($at)
+/*  f149610:	c42c6030 */ 	lwc1	$f12,%lo(var7f1b6030)($at)
 .L0f149614:
 /*  f149614:	8faf05fc */ 	lw	$t7,0x5fc($sp)
 /*  f149618:	3c018008 */ 	lui	$at,0x8008
