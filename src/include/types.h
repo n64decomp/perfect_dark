@@ -2832,7 +2832,7 @@ struct stagesetup {
 	/*0x04*/ void *unk04;
 	/*0x08*/ struct coverdefinition *cover;
 	/*0x0c*/ s32 *intro;
-	/*0x10*/ u8 *props;
+	/*0x10*/ u32 *props;
 	/*0x14*/ struct path *paths;
 	/*0x18*/ struct ailist *ailists;
 	/*0x1c*/ s8 *padfiledata;
