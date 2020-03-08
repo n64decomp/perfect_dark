@@ -36,24 +36,7 @@
 #include "lib/lib_513b0.h"
 #include "types.h"
 
-const u32 var7f1b3a90[] = {0x002a2a2a};
-const u32 var7f1b3a94[] = {0x2a2a2a2a};
-const u32 var7f1b3a98[] = {0x2a2a2a2a};
-const u32 var7f1b3a9c[] = {0x2a2a2a20};
-const u32 var7f1b3aa0[] = {0x30313233};
-const u32 var7f1b3aa4[] = {0x34353637};
-const u32 var7f1b3aa8[] = {0x38394142};
-const u32 var7f1b3aac[] = {0x43444546};
-const u32 var7f1b3ab0[] = {0x4748494a};
-const u32 var7f1b3ab4[] = {0x4b4c4d4e};
-const u32 var7f1b3ab8[] = {0x4f505152};
-const u32 var7f1b3abc[] = {0x53545556};
-const u32 var7f1b3ac0[] = {0x5758595a};
-const u32 var7f1b3ac4[] = {0x21222327};
-const u32 var7f1b3ac8[] = {0x2a2b2c2d};
-const u32 var7f1b3acc[] = {0x2e2f3a3d};
-const u32 var7f1b3ad0[] = {0x3f400000};
-
+const char var7f1b3a90[] = "\0************** 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#'*+,-./:=?@";
 const char var7f1b3ad4[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorPakFatal\n";
 const char var7f1b3b18[] = "Pak %d -> Pak_UpdateAndGetPakNoteInfo - ERROR - ekPakErrorNoPakPresent\n";
 const char var7f1b3b60[] = "-> Unknown PakFileType_e - %d\n";
@@ -384,48 +367,6 @@ const u32 var7f1b4f28[] = {0x7f11c9e4};
 const u32 var7f1b4f2c[] = {0x7f11c9e4};
 const u32 var7f1b4f30[] = {0x7f11c9e4};
 const u32 var7f1b4f34[] = {0x7f11c9e4};
-const u32 var7f1b4f38[] = {0x7f11cbc0};
-const u32 var7f1b4f3c[] = {0x7f11cbc0};
-const u32 var7f1b4f40[] = {0x7f11cbc0};
-const u32 var7f1b4f44[] = {0x7f11cbc0};
-const u32 var7f1b4f48[] = {0x7f11cbc0};
-const u32 var7f1b4f4c[] = {0x7f11cbc0};
-const u32 var7f1b4f50[] = {0x7f11cbc0};
-const u32 var7f1b4f54[] = {0x7f11cbc0};
-const u32 var7f1b4f58[] = {0x7f11cbc0};
-const u32 var7f1b4f5c[] = {0x7f11cbc0};
-const u32 var7f1b4f60[] = {0x7f11cbc0};
-const u32 var7f1b4f64[] = {0x7f11cbc0};
-const u32 var7f1b4f68[] = {0x7f11cbc0};
-const u32 var7f1b4f6c[] = {0x7f11e34c};
-const u32 var7f1b4f70[] = {0x7f11dffc};
-const u32 var7f1b4f74[] = {0x7f11e048};
-const u32 var7f1b4f78[] = {0x7f11e07c};
-const u32 var7f1b4f7c[] = {0x7f11e0e8};
-const u32 var7f1b4f80[] = {0x7f11e118};
-const u32 var7f1b4f84[] = {0x7f11e138};
-const u32 var7f1b4f88[] = {0x7f11e0c0};
-const u32 var7f1b4f8c[] = {0x7f11e160};
-const u32 var7f1b4f90[] = {0x7f11e178};
-const u32 var7f1b4f94[] = {0x7f11e188};
-const u32 var7f1b4f98[] = {0x7f11e34c};
-const u32 var7f1b4f9c[] = {0x7f11e1ac};
-const u32 var7f1b4fa0[] = {0x7f11e34c};
-const u32 var7f1b4fa4[] = {0x7f11e24c};
-const u32 var7f1b4fa8[] = {0x7f11e1b8};
-const u32 var7f1b4fac[] = {0x7f11e2ac};
-const u32 var7f1b4fb0[] = {0x7f11e34c};
-const u32 var7f1b4fb4[] = {0x7f11e34c};
-const u32 var7f1b4fb8[] = {0x7f11e34c};
-const u32 var7f1b4fbc[] = {0x7f11e34c};
-const u32 var7f1b4fc0[] = {0x7f11e30c};
-const u32 var7f1b4fc4[] = {0x7f11e330};
-const u32 var7f1b4fc8[] = {0x7f11e34c};
-const u32 var7f1b4fcc[] = {0x7f11e194};
-const u32 var7f1b4fd0[] = {0x7f11e1a0};
-const u32 var7f1b4fd4[] = {0x7f11e218};
-const u32 var7f1b4fd8[] = {0x7f11e240};
-const u32 var7f1b4fdc[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0f1165d0
@@ -7803,20 +7744,28 @@ glabel func0f11ca30
 /*  f11cb98:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
+void func0f11cb9c(u32 arg0)
+{
+	switch (arg0) {
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		case 10:
+		case 11:
+		case 12:
+		case 13:
+			break;
+	}
+}
+
 GLOBAL_ASM(
-glabel func0f11cb9c
-/*  f11cb9c:	248effff */ 	addiu	$t6,$a0,-1
-/*  f11cba0:	2dc1000d */ 	sltiu	$at,$t6,0xd
-/*  f11cba4:	10200006 */ 	beqz	$at,.L0f11cbc0
-/*  f11cba8:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f11cbac:	3c017f1b */ 	lui	$at,%hi(var7f1b4f38)
-/*  f11cbb0:	002e0821 */ 	addu	$at,$at,$t6
-/*  f11cbb4:	8c2e4f38 */ 	lw	$t6,%lo(var7f1b4f38)($at)
-/*  f11cbb8:	01c00008 */ 	jr	$t6
-/*  f11cbbc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f11cbc0:
-/*  f11cbc0:	03e00008 */ 	jr	$ra
-/*  f11cbc4:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f11cbc8
 /*  f11cbc8:	03e00008 */ 	jr	$ra
 /*  f11cbcc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f11cbd0:	03e00008 */ 	jr	$ra
@@ -9232,6 +9181,64 @@ void func0f11df8c(void)
 
 GLOBAL_ASM(
 glabel func0f11df94
+.late_rodata
+glabel var7f1b4f6c
+.word 0x7f11e34c
+glabel var7f1b4f70
+.word 0x7f11dffc
+glabel var7f1b4f74
+.word 0x7f11e048
+glabel var7f1b4f78
+.word 0x7f11e07c
+glabel var7f1b4f7c
+.word 0x7f11e0e8
+glabel var7f1b4f80
+.word 0x7f11e118
+glabel var7f1b4f84
+.word 0x7f11e138
+glabel var7f1b4f88
+.word 0x7f11e0c0
+glabel var7f1b4f8c
+.word 0x7f11e160
+glabel var7f1b4f90
+.word 0x7f11e178
+glabel var7f1b4f94
+.word 0x7f11e188
+glabel var7f1b4f98
+.word 0x7f11e34c
+glabel var7f1b4f9c
+.word 0x7f11e1ac
+glabel var7f1b4fa0
+.word 0x7f11e34c
+glabel var7f1b4fa4
+.word 0x7f11e24c
+glabel var7f1b4fa8
+.word 0x7f11e1b8
+glabel var7f1b4fac
+.word 0x7f11e2ac
+glabel var7f1b4fb0
+.word 0x7f11e34c
+glabel var7f1b4fb4
+.word 0x7f11e34c
+glabel var7f1b4fb8
+.word 0x7f11e34c
+glabel var7f1b4fbc
+.word 0x7f11e34c
+glabel var7f1b4fc0
+.word 0x7f11e30c
+glabel var7f1b4fc4
+.word 0x7f11e330
+glabel var7f1b4fc8
+.word 0x7f11e34c
+glabel var7f1b4fcc
+.word 0x7f11e194
+glabel var7f1b4fd0
+.word 0x7f11e1a0
+glabel var7f1b4fd4
+.word 0x7f11e218
+glabel var7f1b4fd8
+.word 0x7f11e240
+.text
 /*  f11df94:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f11df98:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f11df9c:	83ae0023 */ 	lb	$t6,0x23($sp)

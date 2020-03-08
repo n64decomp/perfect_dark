@@ -95,7 +95,7 @@ u32 func0f11c54c(void);
 u32 func0f11c6d0(void);
 u32 func0f11c7a0(void);
 u32 func0f11ca30(void);
-u32 func0f11cb9c(void);
+void func0f11cb9c(u32 arg0);
 u32 func0f11cbd8(void);
 u32 func0f11cc6c(void);
 u32 func0f11cd00(void);
