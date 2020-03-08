@@ -140,6 +140,7 @@
 	src/game/game_13e0e0.o (section); \
 	src/game/game_141820.o (section); \
 	src/game/game_148b80.o (section); \
+	src/game/game_149c90.o (section); \
 	src/game/game_150820.o (section); \
 	src/game/pdoptions.o (section); \
 	src/game/game_152fa0.o (section); \
