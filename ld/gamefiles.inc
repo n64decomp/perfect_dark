@@ -133,6 +133,9 @@
 	src/game/game_12d3f0.o (section); \
 	src/game/game_12f6c0.o (section); \
 	src/game/game_131060.o (section); \
+	src/game/game_135c70.o (section); \
+	src/game/game_1371b0.o (section); \
+	src/game/game_13b670.o (section); \
 	src/game/game_13c510.o (section); \
 	src/game/game_13e0e0.o (section); \
 	src/game/game_148b80.o (section); \

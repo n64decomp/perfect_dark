@@ -75,6 +75,8 @@
 #include "game/game_129900.h"
 #include "game/game_12f6c0.h"
 #include "game/game_131060.h"
+#include "game/game_135c70.h"
+#include "game/game_1371b0.h"
 #include "game/game_13c510.h"
 #include "game/game_13e0e0.h"
 #include "game/game_148b80.h"
