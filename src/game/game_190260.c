@@ -21,6 +21,7 @@
 #include "game/game_148b80.h"
 #include "game/game_157db0.h"
 #include "game/game_179060.h"
+#include "game/game_17f930.h"
 #include "game/game_187770.h"
 #include "game/game_190260.h"
 #include "game/game_197600.h"

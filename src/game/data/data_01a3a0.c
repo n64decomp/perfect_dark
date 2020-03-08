@@ -10,6 +10,7 @@
 #include "game/game_176d70.h"
 #include "game/game_177e00.h"
 #include "game/game_179060.h"
+#include "game/game_17f930.h"
 #include "game/game_1a3340.h"
 #include "gvars/gvars.h"
 #include "game/data/data_0160b0.h"

@@ -18,7 +18,7 @@
 #include "game/game_0c79f0.h"
 #include "game/game_111600.h"
 #include "game/game_1655c0.h"
-#include "game/game_179060.h"
+#include "game/game_17f930.h"
 #include "game/game_187770.h"
 #include "game/pad.h"
 #include "gvars/gvars.h"

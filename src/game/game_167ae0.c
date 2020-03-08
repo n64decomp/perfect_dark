@@ -92,6 +92,7 @@
 #include "game/game_176080.h"
 #include "game/game_176d70.h"
 #include "game/game_179060.h"
+#include "game/game_17f930.h"
 #include "game/game_187770.h"
 #include "game/game_19aa80.h"
 #include "game/game_19c990.h"

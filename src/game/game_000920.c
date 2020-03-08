@@ -20,7 +20,7 @@
 #include "game/game_167ae0.h"
 #include "game/game_176080.h"
 #include "game/game_176d70.h"
-#include "game/game_179060.h"
+#include "game/game_17f930.h"
 #include "gvars/gvars.h"
 #include "lib/lib_0e9d0.h"
 #include "lib/lib_121e0.h"

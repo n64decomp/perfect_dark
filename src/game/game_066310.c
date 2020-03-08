@@ -52,6 +52,7 @@
 #include "game/game_166e40.h"
 #include "game/game_167ae0.h"
 #include "game/game_179060.h"
+#include "game/game_17f930.h"
 #include "game/game_187770.h"
 #include "game/game_190260.h"
 #include "game/game_1999b0.h"
