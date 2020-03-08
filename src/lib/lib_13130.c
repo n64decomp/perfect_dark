@@ -457,6 +457,10 @@ glabel func00013408
 /*    13684:	03e00008 */ 	jr	$ra
 /*    13688:	27bd0060 */ 	addiu	$sp,$sp,0x60
 /*    1368c:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+GLOBAL_ASM(
+glabel func00013690
 /*    13690:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    13694:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    13698:	0c012978 */ 	jal	func0004a5e0
@@ -476,8 +480,8 @@ glabel sprintf
 /*    136c0:	afa50024 */ 	sw	$a1,0x24($sp)
 /*    136c4:	afa60028 */ 	sw	$a2,0x28($sp)
 /*    136c8:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*    136cc:	3c047001 */ 	lui	$a0,0x7001
-/*    136d0:	24843690 */ 	addiu	$a0,$a0,0x3690
+/*    136cc:	3c047001 */ 	lui	$a0,%hi(func00013690)
+/*    136d0:	24843690 */ 	addiu	$a0,$a0,%lo(func00013690)
 /*    136d4:	27a70028 */ 	addiu	$a3,$sp,0x28
 /*    136d8:	8fa60024 */ 	lw	$a2,0x24($sp)
 /*    136dc:	0c013b40 */ 	jal	func0004ed00

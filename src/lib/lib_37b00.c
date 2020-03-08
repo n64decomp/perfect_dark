@@ -173,9 +173,9 @@ glabel func00037b00
 /*    37d5c:	3c01800a */ 	lui	$at,0x800a
 /*    37d60:	a420c3a6 */ 	sh	$zero,-0x3c5a($at)
 .L00037d64:
-/*    37d64:	3c047004 */ 	lui	$a0,0x7004
+/*    37d64:	3c047004 */ 	lui	$a0,%hi(func00038ba8)
 /*    37d68:	0c00e2e4 */ 	jal	func00038b90
-/*    37d6c:	24848ba8 */ 	addiu	$a0,$a0,-29784
+/*    37d6c:	24848ba8 */ 	addiu	$a0,$a0,%lo(func00038ba8)
 /*    37d70:	10000001 */ 	beqz	$zero,.L00037d78
 /*    37d74:	00000000 */ 	sll	$zero,$zero,0x0
 .L00037d78:
@@ -1177,6 +1177,10 @@ glabel func00038b90
 /*    38b9c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    38ba0:	03e00008 */ 	jr	$ra
 /*    38ba4:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+GLOBAL_ASM(
+glabel func00038ba8
 /*    38ba8:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    38bac:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    38bb0:	afa40020 */ 	sw	$a0,0x20($sp)

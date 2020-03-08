@@ -35,6 +35,10 @@ glabel func0002fa08
 /*    2fa3c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    2fa40:	03e00008 */ 	jr	$ra
 /*    2fa44:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+GLOBAL_ASM(
+glabel func0002fa48
 /*    2fa48:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    2fa4c:	afb20020 */ 	sw	$s2,0x20($sp)
 /*    2fa50:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -70,8 +74,8 @@ glabel func0002faa4
 /*    2fab0:	afa50024 */ 	sw	$a1,0x24($sp)
 /*    2fab4:	afa60028 */ 	sw	$a2,0x28($sp)
 /*    2fab8:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*    2fabc:	3c047003 */ 	lui	$a0,0x7003
-/*    2fac0:	2484fa48 */ 	addiu	$a0,$a0,-1464
+/*    2fabc:	3c047003 */ 	lui	$a0,%hi(func0002fa48)
+/*    2fac0:	2484fa48 */ 	addiu	$a0,$a0,%lo(func0002fa48)
 /*    2fac4:	27a70024 */ 	addiu	$a3,$sp,0x24
 /*    2fac8:	8fa60020 */ 	lw	$a2,0x20($sp)
 /*    2facc:	0c013b40 */ 	jal	func0004ed00

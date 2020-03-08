@@ -74,6 +74,10 @@ glabel func00049b24
 /*    49b48:	03e00008 */ 	jr	$ra
 /*    49b4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    49b50:	27bdffe8 */ 	addiu	$sp,$sp,-24
+);
+
+GLOBAL_ASM(
+glabel func00049b54
 /*    49b54:	3c03a460 */ 	lui	$v1,0xa460
 /*    49b58:	34630010 */ 	ori	$v1,$v1,0x10
 /*    49b5c:	afbf0014 */ 	sw	$ra,0x14($sp)

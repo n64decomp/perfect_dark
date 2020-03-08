@@ -10309,6 +10309,10 @@ glabel func00042990
 .L00042e30:
 /*    42e30:	03e00008 */ 	jr	$ra
 /*    42e34:	27bd0010 */ 	addiu	$sp,$sp,0x10
+);
+
+GLOBAL_ASM(
+glabel func00042e38
 /*    42e38:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    42e3c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    42e40:	afa40038 */ 	sw	$a0,0x38($sp)
@@ -10916,6 +10920,10 @@ glabel func00042990
 /*    43710:	27bd0038 */ 	addiu	$sp,$sp,0x38
 /*    43714:	03e00008 */ 	jr	$ra
 /*    43718:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+GLOBAL_ASM(
+glabel func0004371c
 /*    4371c:	27bdf6a8 */ 	addiu	$sp,$sp,-2392
 /*    43720:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    43724:	afa40958 */ 	sw	$a0,0x958($sp)

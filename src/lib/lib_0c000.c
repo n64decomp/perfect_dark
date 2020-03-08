@@ -74,10 +74,10 @@ glabel func0000c000
 /*     c020:	3c0e8009 */ 	lui	$t6,%hi(var80092eb0)
 /*     c024:	25ce2eb0 */ 	addiu	$t6,$t6,%lo(var80092eb0)
 /*     c028:	3c048009 */ 	lui	$a0,%hi(var80092880)
-/*     c02c:	3c067001 */ 	lui	$a2,0x7001
+/*     c02c:	3c067001 */ 	lui	$a2,%hi(func0000c06c)
 /*     c030:	240f0028 */ 	addiu	$t7,$zero,0x28
 /*     c034:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*     c038:	24c6c06c */ 	addiu	$a2,$a2,-16276
+/*     c038:	24c6c06c */ 	addiu	$a2,$a2,%lo(func0000c06c)
 /*     c03c:	24842880 */ 	addiu	$a0,$a0,%lo(var80092880)
 /*     c040:	afae0010 */ 	sw	$t6,0x10($sp)
 /*     c044:	24050005 */ 	addiu	$a1,$zero,0x5
@@ -90,6 +90,10 @@ glabel func0000c000
 /*     c060:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*     c064:	03e00008 */ 	jr	$ra
 /*     c068:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+GLOBAL_ASM(
+glabel func0000c06c
 /*     c06c:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*     c070:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*     c074:	3c118009 */ 	lui	$s1,%hi(var80094ab0)

@@ -157,6 +157,10 @@ glabel func00049c20
 /*    49df4:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*    49df8:	03e00008 */ 	jr	$ra
 /*    49dfc:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+GLOBAL_ASM(
+glabel func00049e00
 /*    49e00:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*    49e04:	afb3002c */ 	sw	$s3,0x2c($sp)
 /*    49e08:	afbe0040 */ 	sw	$s8,0x40($sp)
