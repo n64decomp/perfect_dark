@@ -7193,21 +7193,21 @@ GLOBAL_ASM(
 glabel func0f024b18
 .late_rodata
 glabel var7f1a87dc
-.word 0x7f024dd0
+.word func0f024b18+0x2b8 # f024dd0
 glabel var7f1a87e0
-.word 0x7f024dec
+.word func0f024b18+0x2d4 # f024dec
 glabel var7f1a87e4
-.word 0x7f024e08
+.word func0f024b18+0x2f0 # f024e08
 glabel var7f1a87e8
-.word 0x7f024e24
+.word func0f024b18+0x30c # f024e24
 glabel var7f1a87ec
-.word 0x7f024e40
+.word func0f024b18+0x328 # f024e40
 glabel var7f1a87f0
-.word 0x7f024e5c
+.word func0f024b18+0x344 # f024e5c
 glabel var7f1a87f4
-.word 0x7f024e78
+.word func0f024b18+0x360 # f024e78
 glabel var7f1a87f8
-.word 0x7f024e94
+.word func0f024b18+0x37c # f024e94
 .text
 /*  f024b18:	27bdfee8 */ 	addiu	$sp,$sp,-280
 /*  f024b1c:	afbf0044 */ 	sw	$ra,0x44($sp)
@@ -9264,39 +9264,39 @@ GLOBAL_ASM(
 glabel func0f0268bc
 .late_rodata
 glabel var7f1a8904
-.word 0x7f027034
+.word func0f0268bc+0x778 # f027034
 glabel var7f1a8908
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a890c
-.word 0x7f026ce0
+.word func0f0268bc+0x424 # f026ce0
 glabel var7f1a8910
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a8914
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a8918
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a891c
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a8920
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a8924
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a8928
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a892c
-.word 0x7f02704c
+.word func0f0268bc+0x790 # f02704c
 glabel var7f1a8930
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a8934
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a8938
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a893c
-.word 0x7f027078
+.word func0f0268bc+0x7bc # f027078
 glabel var7f1a8940
-.word 0x7f027064
+.word func0f0268bc+0x7a8 # f027064
 glabel var7f1a8944
-.word 0x7f026d40
+.word func0f0268bc+0x484 # f026d40
 .text
 /*  f0268bc:	27bdfee0 */ 	addiu	$sp,$sp,-288
 /*  f0268c0:	afb00018 */ 	sw	$s0,0x18($sp)

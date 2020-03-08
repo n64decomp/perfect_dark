@@ -1097,29 +1097,29 @@ GLOBAL_ASM(
 glabel func0f02ddbc
 .late_rodata
 glabel var7f1a8a88
-.word 0x7f02de50
+.word func0f02ddbc+0x94 # f02de50
 glabel var7f1a8a8c
-.word 0x7f02de40
+.word func0f02ddbc+0x84 # f02de40
 glabel var7f1a8a90
-.word 0x7f02de68
+.word func0f02ddbc+0xac # f02de68
 glabel var7f1a8a94
-.word 0x7f02de48
+.word func0f02ddbc+0x8c # f02de48
 glabel var7f1a8a98
-.word 0x7f02de60
+.word func0f02ddbc+0xa4 # f02de60
 glabel var7f1a8a9c
-.word 0x7f02de58
+.word func0f02ddbc+0x9c # f02de58
 glabel var7f1a8aa0
-.word 0x7f02de94
+.word func0f02ddbc+0xd8 # f02de94
 glabel var7f1a8aa4
-.word 0x7f02dea8
+.word func0f02ddbc+0xec # f02dea8
 glabel var7f1a8aa8
-.word 0x7f02dea4
+.word func0f02ddbc+0xe8 # f02dea4
 glabel var7f1a8aac
-.word 0x7f02de8c
+.word func0f02ddbc+0xd0 # f02de8c
 glabel var7f1a8ab0
-.word 0x7f02de9c
+.word func0f02ddbc+0xe0 # f02de9c
 glabel var7f1a8ab4
-.word 0x7f02dea8
+.word func0f02ddbc+0xec # f02dea8
 .text
 /*  f02ddbc:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f02ddc0:	afbf001c */ 	sw	$ra,0x1c($sp)

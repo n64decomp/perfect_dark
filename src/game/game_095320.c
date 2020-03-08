@@ -282,27 +282,27 @@ GLOBAL_ASM(
 glabel objectiveGetStatus
 .late_rodata
 glabel var7f1ab7cc
-.word 0x7f095ad8
+.word objectiveGetStatus+0x454 # f095ad8
 glabel var7f1ab7d0
-.word 0x7f095ad8
+.word objectiveGetStatus+0x454 # f095ad8
 glabel var7f1ab7d4
-.word 0x7f09571c
+.word objectiveGetStatus+0x98 # f09571c
 glabel var7f1ab7d8
-.word 0x7f095750
+.word objectiveGetStatus+0xcc # f095750
 glabel var7f1ab7dc
-.word 0x7f09576c
+.word objectiveGetStatus+0xe8 # f09576c
 glabel var7f1ab7e0
-.word 0x7f095788
+.word objectiveGetStatus+0x104 # f095788
 glabel var7f1ab7e4
-.word 0x7f09590c
+.word objectiveGetStatus+0x288 # f09590c
 glabel var7f1ab7e8
-.word 0x7f095a68
+.word objectiveGetStatus+0x3e4 # f095a68
 glabel var7f1ab7ec
-.word 0x7f095ad8
+.word objectiveGetStatus+0x454 # f095ad8
 glabel var7f1ab7f0
-.word 0x7f095ab4
+.word objectiveGetStatus+0x430 # f095ab4
 glabel var7f1ab7f4
-.word 0x7f095ac8
+.word objectiveGetStatus+0x444 # f095ac8
 .text
 /*  f095684:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f095688:	afb60030 */ 	sw	$s6,0x30($sp)

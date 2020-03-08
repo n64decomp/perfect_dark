@@ -373,23 +373,23 @@ GLOBAL_ASM(
 glabel pakIsConnected
 .late_rodata
 glabel var7f1b4d8c
-.word 0x7f116794
+.word pakIsConnected+0x74 # f116794
 glabel var7f1b4d90
-.word 0x7f116794
+.word pakIsConnected+0x74 # f116794
 glabel var7f1b4d94
-.word 0x7f11679c
+.word pakIsConnected+0x7c # f11679c
 glabel var7f1b4d98
-.word 0x7f11679c
+.word pakIsConnected+0x7c # f11679c
 glabel var7f1b4d9c
-.word 0x7f11679c
+.word pakIsConnected+0x7c # f11679c
 glabel var7f1b4da0
-.word 0x7f116794
+.word pakIsConnected+0x74 # f116794
 glabel var7f1b4da4
-.word 0x7f116794
+.word pakIsConnected+0x74 # f116794
 glabel var7f1b4da8
-.word 0x7f11679c
+.word pakIsConnected+0x7c # f11679c
 glabel var7f1b4dac
-.word 0x7f116794
+.word pakIsConnected+0x74 # f116794
 .text
 /*  f116720:	00047600 */ 	sll	$t6,$a0,0x18
 /*  f116724:	000e7e03 */ 	sra	$t7,$t6,0x18
@@ -7047,63 +7047,63 @@ GLOBAL_ASM(
 glabel func0f11c39c
 .late_rodata
 glabel var7f1b4e9c
-.word 0x7f11c3e0
+.word func0f11c39c+0x44 # f11c3e0
 glabel var7f1b4ea0
-.word 0x7f11c4ec
+.word func0f11c39c+0x150 # f11c4ec
 glabel var7f1b4ea4
-.word 0x7f11c468
+.word func0f11c39c+0xcc # f11c468
 glabel var7f1b4ea8
-.word 0x7f11c4ec
+.word func0f11c39c+0x150 # f11c4ec
 glabel var7f1b4eac
-.word 0x7f11c4ec
+.word func0f11c39c+0x150 # f11c4ec
 glabel var7f1b4eb0
-.word 0x7f11c4ec
+.word func0f11c39c+0x150 # f11c4ec
 glabel var7f1b4eb4
-.word 0x7f11c4ac
+.word func0f11c39c+0x110 # f11c4ac
 glabel var7f1b4eb8
-.word 0x7f11c4ac
+.word func0f11c39c+0x110 # f11c4ac
 glabel var7f1b4ebc
-.word 0x7f11c4ec
+.word func0f11c39c+0x150 # f11c4ec
 glabel var7f1b4ec0
-.word 0x7f11c468
+.word func0f11c39c+0xcc # f11c468
 glabel var7f1b4ec4
-.word 0x7f11c424
+.word func0f11c39c+0x88 # f11c424
 glabel var7f1b4ec8
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4ecc
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4ed0
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4ed4
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4ed8
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4edc
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4ee0
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4ee4
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4ee8
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4eec
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4ef0
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4ef4
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4ef8
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4efc
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4f00
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4f04
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4f08
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 glabel var7f1b4f0c
-.word 0x7f11c540
+.word func0f11c39c+0x1a4 # f11c540
 .text
 /*  f11c39c:	afa50004 */ 	sw	$a1,0x4($sp)
 /*  f11c3a0:	00057600 */ 	sll	$t6,$a1,0x18
@@ -7332,15 +7332,15 @@ GLOBAL_ASM(
 glabel func0f11c6d0
 .late_rodata
 glabel var7f1b4f10
-.word 0x7f11c73c
+.word func0f11c6d0+0x6c # f11c73c
 glabel var7f1b4f14
-.word 0x7f11c73c
+.word func0f11c6d0+0x6c # f11c73c
 glabel var7f1b4f18
-.word 0x7f11c73c
+.word func0f11c6d0+0x6c # f11c73c
 glabel var7f1b4f1c
-.word 0x7f11c73c
+.word func0f11c6d0+0x6c # f11c73c
 glabel var7f1b4f20
-.word 0x7f11c73c
+.word func0f11c6d0+0x6c # f11c73c
 .text
 /*  f11c6d0:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f11c6d4:	afb30020 */ 	sw	$s3,0x20($sp)
@@ -7402,15 +7402,15 @@ GLOBAL_ASM(
 glabel func0f11c7a0
 .late_rodata
 glabel var7f1b4f24
-.word 0x7f11c9e4
+.word func0f11c7a0+0x244 # f11c9e4
 glabel var7f1b4f28
-.word 0x7f11c9e4
+.word func0f11c7a0+0x244 # f11c9e4
 glabel var7f1b4f2c
-.word 0x7f11c9e4
+.word func0f11c7a0+0x244 # f11c9e4
 glabel var7f1b4f30
-.word 0x7f11c9e4
+.word func0f11c7a0+0x244 # f11c9e4
 glabel var7f1b4f34
-.word 0x7f11c9e4
+.word func0f11c7a0+0x244 # f11c9e4
 .text
 /*  f11c7a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f11c7a4:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -9133,61 +9133,61 @@ GLOBAL_ASM(
 glabel func0f11df94
 .late_rodata
 glabel var7f1b4f6c
-.word 0x7f11e34c
+.word func0f11df94+0x3b8 # f11e34c
 glabel var7f1b4f70
-.word 0x7f11dffc
+.word func0f11df94+0x68 # f11dffc
 glabel var7f1b4f74
-.word 0x7f11e048
+.word func0f11df94+0xb4 # f11e048
 glabel var7f1b4f78
-.word 0x7f11e07c
+.word func0f11df94+0xe8 # f11e07c
 glabel var7f1b4f7c
-.word 0x7f11e0e8
+.word func0f11df94+0x154 # f11e0e8
 glabel var7f1b4f80
-.word 0x7f11e118
+.word func0f11df94+0x184 # f11e118
 glabel var7f1b4f84
-.word 0x7f11e138
+.word func0f11df94+0x1a4 # f11e138
 glabel var7f1b4f88
-.word 0x7f11e0c0
+.word func0f11df94+0x12c # f11e0c0
 glabel var7f1b4f8c
-.word 0x7f11e160
+.word func0f11df94+0x1cc # f11e160
 glabel var7f1b4f90
-.word 0x7f11e178
+.word func0f11df94+0x1e4 # f11e178
 glabel var7f1b4f94
-.word 0x7f11e188
+.word func0f11df94+0x1f4 # f11e188
 glabel var7f1b4f98
-.word 0x7f11e34c
+.word func0f11df94+0x3b8 # f11e34c
 glabel var7f1b4f9c
-.word 0x7f11e1ac
+.word func0f11df94+0x218 # f11e1ac
 glabel var7f1b4fa0
-.word 0x7f11e34c
+.word func0f11df94+0x3b8 # f11e34c
 glabel var7f1b4fa4
-.word 0x7f11e24c
+.word func0f11df94+0x2b8 # f11e24c
 glabel var7f1b4fa8
-.word 0x7f11e1b8
+.word func0f11df94+0x224 # f11e1b8
 glabel var7f1b4fac
-.word 0x7f11e2ac
+.word func0f11df94+0x318 # f11e2ac
 glabel var7f1b4fb0
-.word 0x7f11e34c
+.word func0f11df94+0x3b8 # f11e34c
 glabel var7f1b4fb4
-.word 0x7f11e34c
+.word func0f11df94+0x3b8 # f11e34c
 glabel var7f1b4fb8
-.word 0x7f11e34c
+.word func0f11df94+0x3b8 # f11e34c
 glabel var7f1b4fbc
-.word 0x7f11e34c
+.word func0f11df94+0x3b8 # f11e34c
 glabel var7f1b4fc0
-.word 0x7f11e30c
+.word func0f11df94+0x378 # f11e30c
 glabel var7f1b4fc4
-.word 0x7f11e330
+.word func0f11df94+0x39c # f11e330
 glabel var7f1b4fc8
-.word 0x7f11e34c
+.word func0f11df94+0x3b8 # f11e34c
 glabel var7f1b4fcc
-.word 0x7f11e194
+.word func0f11df94+0x200 # f11e194
 glabel var7f1b4fd0
-.word 0x7f11e1a0
+.word func0f11df94+0x20c # f11e1a0
 glabel var7f1b4fd4
-.word 0x7f11e218
+.word func0f11df94+0x284 # f11e218
 glabel var7f1b4fd8
-.word 0x7f11e240
+.word func0f11df94+0x2ac # f11e240
 .text
 /*  f11df94:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f11df98:	afa40020 */ 	sw	$a0,0x20($sp)

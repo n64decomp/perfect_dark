@@ -466,29 +466,29 @@ GLOBAL_ASM(
 glabel currentPlayerInit
 .late_rodata
 glabel var7f1a8240
-.word 0x7f011a44
+.word currentPlayerInit+0x150 # f011a44
 glabel var7f1a8244
-.word 0x7f011a90
+.word currentPlayerInit+0x19c # f011a90
 glabel var7f1a8248
-.word 0x7f011b38
+.word currentPlayerInit+0x244 # f011b38
 glabel var7f1a824c
-.word 0x7f011b68
+.word currentPlayerInit+0x274 # f011b68
 glabel var7f1a8250
-.word 0x7f011b70
+.word currentPlayerInit+0x27c # f011b70
 glabel var7f1a8254
-.word 0x7f011b78
+.word currentPlayerInit+0x284 # f011b78
 glabel var7f1a8258
-.word 0x7f011b8c
+.word currentPlayerInit+0x298 # f011b8c
 glabel var7f1a825c
-.word 0x7f011b94
+.word currentPlayerInit+0x2a0 # f011b94
 glabel var7f1a8260
-.word 0x7f011c30
+.word currentPlayerInit+0x33c # f011c30
 glabel var7f1a8264
-.word 0x7f011a80
+.word currentPlayerInit+0x18c # f011a80
 glabel var7f1a8268
-.word 0x7f011a80
+.word currentPlayerInit+0x18c # f011a80
 glabel var7f1a826c
-.word 0x7f011a88
+.word currentPlayerInit+0x194 # f011a88
 glabel var7f1a8270
 .word 0x40c907a9
 glabel var7f1a8274

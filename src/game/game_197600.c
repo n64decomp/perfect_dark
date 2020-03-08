@@ -980,67 +980,67 @@ GLOBAL_ASM(
 glabel func0f198338
 .late_rodata
 glabel var7f1b9010
-.word 0x7f198508
+.word func0f198338+0x1d0 # f198508
 glabel var7f1b9014
-.word 0x7f198570
+.word func0f198338+0x238 # f198570
 glabel var7f1b9018
-.word 0x7f198588
+.word func0f198338+0x250 # f198588
 glabel var7f1b901c
-.word 0x7f1985a0
+.word func0f198338+0x268 # f1985a0
 glabel var7f1b9020
-.word 0x7f1985b8
+.word func0f198338+0x280 # f1985b8
 glabel var7f1b9024
-.word 0x7f198bd8
+.word func0f198338+0x8a0 # f198bd8
 glabel var7f1b9028
-.word 0x7f1985dc
+.word func0f198338+0x2a4 # f1985dc
 glabel var7f1b902c
-.word 0x7f198644
+.word func0f198338+0x30c # f198644
 glabel var7f1b9030
-.word 0x7f19865c
+.word func0f198338+0x324 # f19865c
 glabel var7f1b9034
-.word 0x7f198bd8
+.word func0f198338+0x8a0 # f198bd8
 glabel var7f1b9038
-.word 0x7f198674
+.word func0f198338+0x33c # f198674
 glabel var7f1b903c
-.word 0x7f198698
+.word func0f198338+0x360 # f198698
 glabel var7f1b9040
-.word 0x7f1986bc
+.word func0f198338+0x384 # f1986bc
 glabel var7f1b9044
-.word 0x7f198730
+.word func0f198338+0x3f8 # f198730
 glabel var7f1b9048
-.word 0x7f198748
+.word func0f198338+0x410 # f198748
 glabel var7f1b904c
-.word 0x7f198bd8
+.word func0f198338+0x8a0 # f198bd8
 glabel var7f1b9050
-.word 0x7f198bd8
+.word func0f198338+0x8a0 # f198bd8
 glabel var7f1b9054
-.word 0x7f198760
+.word func0f198338+0x428 # f198760
 glabel var7f1b9058
-.word 0x7f198794
+.word func0f198338+0x45c # f198794
 glabel var7f1b905c
-.word 0x7f1987b8
+.word func0f198338+0x480 # f1987b8
 glabel var7f1b9060
-.word 0x7f198bd8
+.word func0f198338+0x8a0 # f198bd8
 glabel var7f1b9064
-.word 0x7f198bd8
+.word func0f198338+0x8a0 # f198bd8
 glabel var7f1b9068
-.word 0x7f1987d0
+.word func0f198338+0x498 # f1987d0
 glabel var7f1b906c
-.word 0x7f1987e8
+.word func0f198338+0x4b0 # f1987e8
 glabel var7f1b9070
-.word 0x7f19880c
+.word func0f198338+0x4d4 # f19880c
 glabel var7f1b9074
-.word 0x7f198960
+.word func0f198338+0x628 # f198960
 glabel var7f1b9078
-.word 0x7f198978
+.word func0f198338+0x640 # f198978
 glabel var7f1b907c
-.word 0x7f198a04
+.word func0f198338+0x6cc # f198a04
 glabel var7f1b9080
-.word 0x7f198bd8
+.word func0f198338+0x8a0 # f198bd8
 glabel var7f1b9084
-.word 0x7f198bd8
+.word func0f198338+0x8a0 # f198bd8
 glabel var7f1b9088
-.word 0x7f198ba0
+.word func0f198338+0x868 # f198ba0
 glabel var7f1b908c
 .word 0x3991a2b4
 .text

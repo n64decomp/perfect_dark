@@ -2061,15 +2061,15 @@ GLOBAL_ASM(
 glabel func0f138e6c
 .late_rodata
 glabel var7f1b5828
-.word 0x7f139260
+.word func0f138e6c+0x3f4 # f139260
 glabel var7f1b582c
-.word 0x7f138ecc
+.word func0f138e6c+0x60 # f138ecc
 glabel var7f1b5830
-.word 0x7f138fc4
+.word func0f138e6c+0x158 # f138fc4
 glabel var7f1b5834
-.word 0x7f139060
+.word func0f138e6c+0x1f4 # f139060
 glabel var7f1b5838
-.word 0x7f13915c
+.word func0f138e6c+0x2f0 # f13915c
 glabel var7f1b583c
 .word 0x40c907a9
 glabel var7f1b5840
@@ -3577,95 +3577,95 @@ GLOBAL_ASM(
 glabel func0f13a3ec
 .late_rodata
 glabel var7f1b5878
-.word 0x7f13a544
+.word func0f13a3ec+0x158 # f13a544
 glabel var7f1b587c
-.word 0x7f13a544
+.word func0f13a3ec+0x158 # f13a544
 glabel var7f1b5880
-.word 0x7f13a544
+.word func0f13a3ec+0x158 # f13a544
 glabel var7f1b5884
-.word 0x7f13a560
+.word func0f13a3ec+0x174 # f13a560
 glabel var7f1b5888
-.word 0x7f13a57c
+.word func0f13a3ec+0x190 # f13a57c
 glabel var7f1b588c
-.word 0x7f13a560
+.word func0f13a3ec+0x174 # f13a560
 glabel var7f1b5890
-.word 0x7f13a544
+.word func0f13a3ec+0x158 # f13a544
 glabel var7f1b5894
-.word 0x7f13a544
+.word func0f13a3ec+0x158 # f13a544
 glabel var7f1b5898
-.word 0x7f13a560
+.word func0f13a3ec+0x174 # f13a560
 glabel var7f1b589c
-.word 0x7f13a544
+.word func0f13a3ec+0x158 # f13a544
 glabel var7f1b58a0
-.word 0x7f13a560
+.word func0f13a3ec+0x174 # f13a560
 glabel var7f1b58a4
-.word 0x7f13a6b4
+.word func0f13a3ec+0x2c8 # f13a6b4
 glabel var7f1b58a8
-.word 0x7f13a6b4
+.word func0f13a3ec+0x2c8 # f13a6b4
 glabel var7f1b58ac
-.word 0x7f13a6b4
+.word func0f13a3ec+0x2c8 # f13a6b4
 glabel var7f1b58b0
-.word 0x7f13a6b4
+.word func0f13a3ec+0x2c8 # f13a6b4
 glabel var7f1b58b4
-.word 0x7f13a6b4
+.word func0f13a3ec+0x2c8 # f13a6b4
 glabel var7f1b58b8
-.word 0x7f13a6b4
+.word func0f13a3ec+0x2c8 # f13a6b4
 glabel var7f1b58bc
-.word 0x7f13a6ec
+.word func0f13a3ec+0x300 # f13a6ec
 glabel var7f1b58c0
-.word 0x7f13a6d8
+.word func0f13a3ec+0x2ec # f13a6d8
 glabel var7f1b58c4
-.word 0x7f13a6d8
+.word func0f13a3ec+0x2ec # f13a6d8
 glabel var7f1b58c8
-.word 0x7f13a6b4
+.word func0f13a3ec+0x2c8 # f13a6b4
 glabel var7f1b58cc
-.word 0x7f13a6ec
+.word func0f13a3ec+0x300 # f13a6ec
 glabel var7f1b58d0
-.word 0x7f13a72c
+.word func0f13a3ec+0x340 # f13a72c
 glabel var7f1b58d4
-.word 0x7f13a748
+.word func0f13a3ec+0x35c # f13a748
 glabel var7f1b58d8
-.word 0x7f13a748
+.word func0f13a3ec+0x35c # f13a748
 glabel var7f1b58dc
-.word 0x7f13a748
+.word func0f13a3ec+0x35c # f13a748
 glabel var7f1b58e0
-.word 0x7f13a748
+.word func0f13a3ec+0x35c # f13a748
 glabel var7f1b58e4
-.word 0x7f13a748
+.word func0f13a3ec+0x35c # f13a748
 glabel var7f1b58e8
-.word 0x7f13a780
+.word func0f13a3ec+0x394 # f13a780
 glabel var7f1b58ec
-.word 0x7f13a76c
+.word func0f13a3ec+0x380 # f13a76c
 glabel var7f1b58f0
-.word 0x7f13a76c
+.word func0f13a3ec+0x380 # f13a76c
 glabel var7f1b58f4
-.word 0x7f13a748
+.word func0f13a3ec+0x35c # f13a748
 glabel var7f1b58f8
-.word 0x7f13a76c
+.word func0f13a3ec+0x380 # f13a76c
 glabel var7f1b58fc
 .word 0x3e116873
 glabel var7f1b5900
 .word 0x3e116873
 glabel var7f1b5904
-.word 0x7f13aca4
+.word func0f13a3ec+0x8b8 # f13aca4
 glabel var7f1b5908
-.word 0x7f13aca8
+.word func0f13a3ec+0x8bc # f13aca8
 glabel var7f1b590c
-.word 0x7f13aca8
+.word func0f13a3ec+0x8bc # f13aca8
 glabel var7f1b5910
-.word 0x7f13aca8
+.word func0f13a3ec+0x8bc # f13aca8
 glabel var7f1b5914
-.word 0x7f13aca8
+.word func0f13a3ec+0x8bc # f13aca8
 glabel var7f1b5918
-.word 0x7f13ac94
+.word func0f13a3ec+0x8a8 # f13ac94
 glabel var7f1b591c
-.word 0x7f13ac9c
+.word func0f13a3ec+0x8b0 # f13ac9c
 glabel var7f1b5920
-.word 0x7f13ac9c
+.word func0f13a3ec+0x8b0 # f13ac9c
 glabel var7f1b5924
-.word 0x7f13aca8
+.word func0f13a3ec+0x8bc # f13aca8
 glabel var7f1b5928
-.word 0x7f13ac9c
+.word func0f13a3ec+0x8b0 # f13ac9c
 glabel var7f1b592c
 .word 0x3d4ccccd
 .text

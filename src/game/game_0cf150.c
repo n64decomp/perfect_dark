@@ -1739,15 +1739,15 @@ glabel var7f1adae0
 glabel var7f1adae4
 .word 0x3ccccccd
 glabel var7f1adae8
-.word 0x7f0d1aac
+.word func0f0d0928+0x1184 # f0d1aac
 glabel var7f1adaec
-.word 0x7f0d1ba8
+.word func0f0d0928+0x1280 # f0d1ba8
 glabel var7f1adaf0
-.word 0x7f0d1b54
+.word func0f0d0928+0x122c # f0d1b54
 glabel var7f1adaf4
-.word 0x7f0d1bfc
+.word func0f0d0928+0x12d4 # f0d1bfc
 glabel var7f1adaf8
-.word 0x7f0d1b00
+.word func0f0d0928+0x11d8 # f0d1b00
 glabel var7f1adafc
 .word 0x40c907a9
 glabel var7f1adb00

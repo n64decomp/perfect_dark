@@ -469,95 +469,95 @@ GLOBAL_ASM(
 glabel func0f190784
 .late_rodata
 glabel var7f1b8df0
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8df4
-.word 0x7f1907f8
+.word func0f190784+0x74 # f1907f8
 glabel var7f1b8df8
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8dfc
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e00
-.word 0x7f1907f8
+.word func0f190784+0x74 # f1907f8
 glabel var7f1b8e04
-.word 0x7f190a08
+.word func0f190784+0x284 # f190a08
 glabel var7f1b8e08
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e0c
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e10
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e14
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e18
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e1c
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e20
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e24
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e28
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e2c
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e30
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e34
-.word 0x7f1908b0
+.word func0f190784+0x12c # f1908b0
 glabel var7f1b8e38
-.word 0x7f190b34
+.word func0f190784+0x3b0 # f190b34
 glabel var7f1b8e3c
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e40
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e44
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e48
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e4c
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e50
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e54
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e58
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e5c
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e60
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e64
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e68
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e6c
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e70
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e74
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e78
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e7c
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e80
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e84
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e88
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e8c
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e90
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e94
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e98
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8e9c
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 glabel var7f1b8ea0
-.word 0x7f190bcc
+.word func0f190784+0x448 # f190bcc
 .text
 /*  f190784:	27bdff60 */ 	addiu	$sp,$sp,-160
 /*  f190788:	afbf004c */ 	sw	$ra,0x4c($sp)
@@ -2290,17 +2290,17 @@ glabel var7f1b8ef8
 glabel var7f1b8efc
 .word 0x3b397ab1
 glabel var7f1b8f00
-.word 0x7f1920a8
+.word func0f191fa4+0x104 # f1920a8
 glabel var7f1b8f04
-.word 0x7f1920c0
+.word func0f191fa4+0x11c # f1920c0
 glabel var7f1b8f08
-.word 0x7f1920d4
+.word func0f191fa4+0x130 # f1920d4
 glabel var7f1b8f0c
-.word 0x7f1920e8
+.word func0f191fa4+0x144 # f1920e8
 glabel var7f1b8f10
-.word 0x7f1920fc
+.word func0f191fa4+0x158 # f1920fc
 glabel var7f1b8f14
-.word 0x7f192110
+.word func0f191fa4+0x16c # f192110
 glabel var7f1b8f18
 .word 0x40c66666
 glabel var7f1b8f1c
@@ -5133,61 +5133,61 @@ glabel func0f194b40
 glabel var7f1b8f54
 .word 0x49742400
 glabel var7f1b8f58
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f5c
-.word 0x7f196f24
+.word func0f194b40+0x23e4 # f196f24
 glabel var7f1b8f60
-.word 0x7f196f24
+.word func0f194b40+0x23e4 # f196f24
 glabel var7f1b8f64
-.word 0x7f196f24
+.word func0f194b40+0x23e4 # f196f24
 glabel var7f1b8f68
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f6c
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f70
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f74
-.word 0x7f196f24
+.word func0f194b40+0x23e4 # f196f24
 glabel var7f1b8f78
-.word 0x7f196f24
+.word func0f194b40+0x23e4 # f196f24
 glabel var7f1b8f7c
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f80
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f84
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f88
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f8c
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f90
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f94
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f98
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8f9c
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8fa0
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8fa4
-.word 0x7f196f9c
+.word func0f194b40+0x245c # f196f9c
 glabel var7f1b8fa8
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8fac
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8fb0
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8fb4
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8fb8
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8fbc
-.word 0x7f196f24
+.word func0f194b40+0x23e4 # f196f24
 glabel var7f1b8fc0
-.word 0x7f196ec0
+.word func0f194b40+0x2380 # f196ec0
 glabel var7f1b8fc4
-.word 0x7f196f78
+.word func0f194b40+0x2438 # f196f78
 glabel var7f1b8fc8
 .word 0x3d4ccccd
 .text

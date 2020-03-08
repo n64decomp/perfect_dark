@@ -91,31 +91,31 @@ glabel func0f01bf28
 glabel var7f1a8608
 .word 0x3ca3d70a
 glabel var7f1a860c
-.word 0x7f01d5b4
+.word func0f01bf28+0x168c # f01d5b4
 glabel var7f1a8610
-.word 0x7f01d5b4
+.word func0f01bf28+0x168c # f01d5b4
 glabel var7f1a8614
-.word 0x7f01d5b4
+.word func0f01bf28+0x168c # f01d5b4
 glabel var7f1a8618
-.word 0x7f01d5e8
+.word func0f01bf28+0x16c0 # f01d5e8
 glabel var7f1a861c
-.word 0x7f01d5b4
+.word func0f01bf28+0x168c # f01d5b4
 glabel var7f1a8620
-.word 0x7f01d5b4
+.word func0f01bf28+0x168c # f01d5b4
 glabel var7f1a8624
-.word 0x7f01d5b4
+.word func0f01bf28+0x168c # f01d5b4
 glabel var7f1a8628
-.word 0x7f01d5e8
+.word func0f01bf28+0x16c0 # f01d5e8
 glabel var7f1a862c
-.word 0x7f01d5e8
+.word func0f01bf28+0x16c0 # f01d5e8
 glabel var7f1a8630
-.word 0x7f01d5b4
+.word func0f01bf28+0x168c # f01d5b4
 glabel var7f1a8634
-.word 0x7f01d5b4
+.word func0f01bf28+0x168c # f01d5b4
 glabel var7f1a8638
-.word 0x7f01d5e8
+.word func0f01bf28+0x16c0 # f01d5e8
 glabel var7f1a863c
-.word 0x7f01d5b4
+.word func0f01bf28+0x168c # f01d5b4
 .text
 /*  f01bf28:	27bdfe98 */ 	addiu	$sp,$sp,-360
 /*  f01bf2c:	3c0e8007 */ 	lui	$t6,%hi(var800706c8)

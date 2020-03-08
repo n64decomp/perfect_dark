@@ -951,17 +951,17 @@ GLOBAL_ASM(
 glabel func0f14986c
 .late_rodata
 glabel var7f1b6034
-.word 0x7f149988
+.word func0f14986c+0x11c # f149988
 glabel var7f1b6038
-.word 0x7f149988
+.word func0f14986c+0x11c # f149988
 glabel var7f1b603c
-.word 0x7f149988
+.word func0f14986c+0x11c # f149988
 glabel var7f1b6040
-.word 0x7f149998
+.word func0f14986c+0x12c # f149998
 glabel var7f1b6044
-.word 0x7f149998
+.word func0f14986c+0x12c # f149998
 glabel var7f1b6048
-.word 0x7f1499a8
+.word func0f14986c+0x13c # f1499a8
 .text
 /*  f14986c:	27bdff50 */ 	addiu	$sp,$sp,-176
 /*  f149870:	240e00c0 */ 	addiu	$t6,$zero,0xc0

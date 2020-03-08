@@ -51,45 +51,45 @@ GLOBAL_ASM(
 glabel menuhandler000fd6f0
 .late_rodata
 glabel var7f1b2c8c
-.word 0x7f0fd724
+.word menuhandler000fd6f0+0x34 # f0fd724
 glabel var7f1b2c90
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2c94
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2c98
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2c9c
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2ca0
-.word 0x7f0fd894
+.word menuhandler000fd6f0+0x1a4 # f0fd894
 glabel var7f1b2ca4
-.word 0x7f0fd9d8
+.word menuhandler000fd6f0+0x2e8 # f0fd9d8
 glabel var7f1b2ca8
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2cac
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2cb0
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2cb4
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2cb8
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2cbc
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2cc0
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2cc4
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2cc8
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2ccc
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2cd0
-.word 0x7f0fdc60
+.word menuhandler000fd6f0+0x570 # f0fdc60
 glabel var7f1b2cd4
-.word 0x7f0fd9ec
+.word menuhandler000fd6f0+0x2fc # f0fd9ec
 glabel var7f1b2cd8
-.word 0x7f0fdc54
+.word menuhandler000fd6f0+0x564 # f0fdc54
 .text
 /*  f0fd6f0:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f0fd6f4:	248effff */ 	addiu	$t6,$a0,-1
