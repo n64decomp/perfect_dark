@@ -11,6 +11,15 @@
 #include "lib/lib_481e0.h"
 #include "types.h"
 
+const char var7f1b78c0[] = "null";
+const char var7f1b78c8[] = "leveltune";
+const char var7f1b78d4[] = "nrgtune,watchtune,mpdeathtune";
+const char var7f1b78f4[] = "ambience";
+const char var7f1b7900[] = "NULL";
+const char var7f1b7908[] = "playing";
+const char var7f1b7910[] = "paused";
+const char var7f1b7918[] = "MUSIC : activedeath=%d\n";
+
 GLOBAL_ASM(
 glabel func0f16ce10
 /*  f16ce10:	27bdffe8 */ 	addiu	$sp,$sp,-24
