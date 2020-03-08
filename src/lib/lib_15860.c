@@ -62,12 +62,12 @@ void initGlobalVariables(void)
 	g_Vars.unk000498 = 0;
 	g_Vars.unk00049c = 0;
 	g_Vars.unk0004a0 = 1;
-	g_Vars.unk0004a4 = 1;
+	g_Vars.mpquickteamnumsims = 1;
 	g_Vars.unk0004a8 = 2;
-	g_Vars.unk0004ac = 0;
-	g_Vars.unk0004ad = 1;
-	g_Vars.unk0004ae = 2;
-	g_Vars.unk0004af = 3;
+	g_Vars.mpplayerteams[0] = 0;
+	g_Vars.mpplayerteams[1] = 1;
+	g_Vars.mpplayerteams[2] = 2;
+	g_Vars.mpplayerteams[3] = 3;
 	g_Vars.mpquickteam = MPQUICKTEAM_5;
 	g_Vars.unk0004c8 = 0;
 	g_Vars.in_cutscene = false;
