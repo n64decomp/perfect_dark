@@ -10,7 +10,7 @@ u32 func0f0dd2ac(void);
 u32 func0f0dd848(void);
 u32 func0f0ddb1c(void);
 u32 func0f0ddd44(void);
-u32 func0f0ddda0(void);
+void func0f0ddda0(void);
 u32 func0f0dde60(void);
 u32 func0f0ddeac(void);
 void currentPlayerQueueMessage(char *text, u32 arg1);

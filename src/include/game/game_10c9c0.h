@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f10cb2c(void);
+void func0f10cb2c(void);
 s32 menuhandler4MbDropOut(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler0010ca1c(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler4MbAdvancedSetup(u32 operation, struct menu_item *item, s32 *value);

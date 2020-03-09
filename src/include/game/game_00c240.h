@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f00c240(void);
+void func0f00c240(void);
 u32 func0f00c390(void);
 
 #endif

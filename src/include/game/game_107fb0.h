@@ -46,7 +46,7 @@ u32 func0f10b7cc(void);
 u32 func0f10b83c(void);
 u32 func0f10b924(void);
 u32 func0f10c900(void);
-u32 func0f10c970(void);
+void func0f10c970(void);
 void menucustomChooseAgent(void);
 void menucustomDeleteGameNote(void);
 void menucustomFileToCopy(void);

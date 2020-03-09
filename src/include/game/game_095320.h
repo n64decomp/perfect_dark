@@ -6,7 +6,7 @@
 u32 func0f095320(void);
 u32 func0f095330(void);
 u32 func0f095340(void);
-u32 func0f0953cc(void);
+void func0f0953cc(void);
 u32 func0f095560(void);
 s32 objectiveGetCount(void);
 u32 objectiveGetDifficultyBits(s32 index);

@@ -275,19 +275,19 @@ glabel var7f1b8d94
 /*  f1879bc:	aeb8031c */ 	sw	$t8,0x31c($s5)
 .L0f1879c0:
 /*  f1879c0:	8eb90298 */ 	lw	$t9,0x298($s5)
-/*  f1879c4:	3c04800b */ 	lui	$a0,%hi(var800aca38)
-/*  f1879c8:	2484ca38 */ 	addiu	$a0,$a0,%lo(var800aca38)
+/*  f1879c4:	3c04800b */ 	lui	$a0,0x800b
+/*  f1879c8:	2484ca38 */ 	addiu	$a0,$a0,-13768
 /*  f1879cc:	07210003 */ 	bgez	$t9,.L0f1879dc
 /*  f1879d0:	27a20048 */ 	addiu	$v0,$sp,0x48
 /*  f1879d4:	8ea8029c */ 	lw	$t0,0x29c($s5)
 /*  f1879d8:	0500008d */ 	bltz	$t0,.L0f187c10
 .L0f1879dc:
-/*  f1879dc:	3c05800b */ 	lui	$a1,%hi(var800acad8)
+/*  f1879dc:	3c05800b */ 	lui	$a1,0x800b
 /*  f1879e0:	3c06800b */ 	lui	$a2,0x800b
 /*  f1879e4:	3c14800b */ 	lui	$s4,%hi(g_MpPlayers)
 /*  f1879e8:	2694c7b8 */ 	addiu	$s4,$s4,%lo(g_MpPlayers)
 /*  f1879ec:	24c6c858 */ 	addiu	$a2,$a2,-14248
-/*  f1879f0:	24a5cad8 */ 	addiu	$a1,$a1,%lo(var800acad8)
+/*  f1879f0:	24a5cad8 */ 	addiu	$a1,$a1,-13608
 /*  f1879f4:	24070002 */ 	addiu	$a3,$zero,0x2
 /*  f1879f8:	00805825 */ 	or	$t3,$a0,$zero
 /*  f1879fc:	00406025 */ 	or	$t4,$v0,$zero
@@ -7673,9 +7673,9 @@ glabel func0f18df5c
 /*  f18e108:	0fc354fe */ 	jal	scenarioDefaultCallback40
 /*  f18e10c:	24050009 */ 	addiu	$a1,$zero,0x9
 /*  f18e110:	3c10800b */ 	lui	$s0,%hi(g_MpPlayers)
-/*  f18e114:	3c11800b */ 	lui	$s1,%hi(var800aca38)
+/*  f18e114:	3c11800b */ 	lui	$s1,0x800b
 /*  f18e118:	a6a20014 */ 	sh	$v0,0x14($s5)
-/*  f18e11c:	2631ca38 */ 	addiu	$s1,$s1,%lo(var800aca38)
+/*  f18e11c:	2631ca38 */ 	addiu	$s1,$s1,-13768
 /*  f18e120:	2610c7b8 */ 	addiu	$s0,$s0,%lo(g_MpPlayers)
 .L0f18e124:
 /*  f18e124:	02602025 */ 	or	$a0,$s3,$zero
@@ -7832,8 +7832,8 @@ glabel func0f18e16c
 /*  f18e34c:	0fc354be */ 	jal	scenarioDefaultCallback44
 /*  f18e350:	24060009 */ 	addiu	$a2,$zero,0x9
 /*  f18e354:	3c10800b */ 	lui	$s0,%hi(g_MpPlayers)
-/*  f18e358:	3c11800b */ 	lui	$s1,%hi(var800aca38)
-/*  f18e35c:	2631ca38 */ 	addiu	$s1,$s1,%lo(var800aca38)
+/*  f18e358:	3c11800b */ 	lui	$s1,0x800b
+/*  f18e35c:	2631ca38 */ 	addiu	$s1,$s1,-13768
 /*  f18e360:	2610c7b8 */ 	addiu	$s0,$s0,%lo(g_MpPlayers)
 /*  f18e364:	02402025 */ 	or	$a0,$s2,$zero
 .L0f18e368:

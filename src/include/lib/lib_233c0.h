@@ -5,7 +5,7 @@
 
 u32 func000233c0(void);
 u32 func00023640(void);
-u32 func0002373c(void);
+void func0002373c(void);
 s32 animGetNumFrames(s16 anim_id);
 u32 func00023794(void);
 u32 func000237dc(void);

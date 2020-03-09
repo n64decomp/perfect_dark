@@ -107,7 +107,7 @@ void func0f185568(void);
 u32 func0f185774(void);
 u32 func0f185c14(void);
 u32 func0f185e20(void);
-u32 func0f18620c(void);
+void func0f18620c(void);
 u32 func0f186508(void);
 void func0f1866b8(s32 playernum, char *message);
 u32 func0f186780(void);

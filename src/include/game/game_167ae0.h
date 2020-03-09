@@ -5,13 +5,13 @@
 
 u32 func0f167ae0(void);
 u32 func0f167af8(void);
-u32 func0f167b10(void);
+void func0f167b10(void);
 u32 func0f167b48(void);
 u32 func0f167b84(void);
 u32 func0f167c88(void);
-u32 func0f167e7c(void);
+void func0f167e7c(s32 stagenum);
 u32 func0f1685d8(void);
-u32 func0f1688c8(void);
+void func0f1688c8(void);
 u32 func0f1688fc(void);
 u32 func0f168b4c(void);
 u32 func0f168f24(void);

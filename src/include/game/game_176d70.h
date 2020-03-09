@@ -14,7 +14,7 @@ u32 func0f1773c8(void);
 u32 func0f177460(void);
 u32 func0f1776cc(void);
 u32 func0f17776c(void);
-u32 func0f1777f8(void);
+void func0f1777f8(void);
 u32 func0f177a54(void);
 u32 func0f177bb4(void);
 u32 func0f177c8c(void);

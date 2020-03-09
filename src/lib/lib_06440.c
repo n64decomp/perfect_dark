@@ -13,7 +13,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00006440
+glabel osEepromLongWrite
 /*     6440:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*     6444:	afb70040 */ 	sw	$s7,0x40($sp)
 /*     6448:	afb6003c */ 	sw	$s6,0x3c($sp)

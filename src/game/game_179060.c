@@ -6162,10 +6162,10 @@ glabel var7f1b829c
 /*  f17f1e4:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
 /*  f17f1e8:	8c8d000c */ 	lw	$t5,0xc($a0)
 /*  f17f1ec:	3c02800b */ 	lui	$v0,%hi(g_MpPlayers)
-/*  f17f1f0:	3c03800b */ 	lui	$v1,%hi(var800aca38)
+/*  f17f1f0:	3c03800b */ 	lui	$v1,0x800b
 /*  f17f1f4:	35ae0002 */ 	ori	$t6,$t5,0x2
 /*  f17f1f8:	ac8e000c */ 	sw	$t6,0xc($a0)
-/*  f17f1fc:	2463ca38 */ 	addiu	$v1,$v1,%lo(var800aca38)
+/*  f17f1fc:	2463ca38 */ 	addiu	$v1,$v1,-13768
 /*  f17f200:	2442c7b8 */ 	addiu	$v0,$v0,%lo(g_MpPlayers)
 .L0f17f204:
 /*  f17f204:	244200a0 */ 	addiu	$v0,$v0,0xa0

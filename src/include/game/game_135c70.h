@@ -5,7 +5,7 @@
 
 u32 func0f135c70(void);
 u32 func0f135f08(void);
-u32 func0f1360e8(void);
+void func0f1360e8(void);
 u32 func0f13687c(void);
 
 #endif

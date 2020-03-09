@@ -59,7 +59,7 @@ u32 func0f0f85e0(void);
 u32 func0f0f8634(void);
 u32 func0f0f86a8(void);
 u32 func0f0f8bb4(void);
-u32 func0f0f8c98(void);
+void func0f0f8c98(void);
 u32 func0f0f9030(void);
 u32 func0f0f935c(void);
 u32 func0f0fa574(void);

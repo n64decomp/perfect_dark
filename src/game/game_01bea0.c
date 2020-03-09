@@ -1380,19 +1380,19 @@ glabel var7f1a863c
 /*  f01d0a8:	8e630298 */ 	lw	$v1,0x298($s3)
 .L0f01d0ac:
 /*  f01d0ac:	8e630298 */ 	lw	$v1,0x298($s3)
-/*  f01d0b0:	3c04800b */ 	lui	$a0,%hi(var800aca38)
-/*  f01d0b4:	2484ca38 */ 	addiu	$a0,$a0,%lo(var800aca38)
+/*  f01d0b0:	3c04800b */ 	lui	$a0,0x800b
+/*  f01d0b4:	2484ca38 */ 	addiu	$a0,$a0,-13768
 /*  f01d0b8:	04610003 */ 	bgez	$v1,.L0f01d0c8
 /*  f01d0bc:	27a20070 */ 	addiu	$v0,$sp,0x70
 /*  f01d0c0:	8e78029c */ 	lw	$t8,0x29c($s3)
 /*  f01d0c4:	0700005a */ 	bltz	$t8,.L0f01d230
 .L0f01d0c8:
-/*  f01d0c8:	3c05800b */ 	lui	$a1,%hi(var800acad8)
+/*  f01d0c8:	3c05800b */ 	lui	$a1,0x800b
 /*  f01d0cc:	3c06800b */ 	lui	$a2,0x800b
 /*  f01d0d0:	3c07800b */ 	lui	$a3,%hi(g_MpPlayers)
 /*  f01d0d4:	24e7c7b8 */ 	addiu	$a3,$a3,%lo(g_MpPlayers)
 /*  f01d0d8:	24c6c858 */ 	addiu	$a2,$a2,-14248
-/*  f01d0dc:	24a5cad8 */ 	addiu	$a1,$a1,%lo(var800acad8)
+/*  f01d0dc:	24a5cad8 */ 	addiu	$a1,$a1,-13608
 /*  f01d0e0:	00807825 */ 	or	$t7,$a0,$zero
 /*  f01d0e4:	00407025 */ 	or	$t6,$v0,$zero
 /*  f01d0e8:	2499009c */ 	addiu	$t9,$a0,0x9c

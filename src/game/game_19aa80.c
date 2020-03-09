@@ -1629,8 +1629,8 @@ glabel func0f19c1cc
 /*  f19c1ec:	0fc62fdc */ 	jal	mpSetLock
 /*  f19c1f0:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f19c1f4:	3c03800b */ 	lui	$v1,%hi(g_MpPlayers)
-/*  f19c1f8:	3c02800b */ 	lui	$v0,%hi(var800aca38)
-/*  f19c1fc:	2442ca38 */ 	addiu	$v0,$v0,%lo(var800aca38)
+/*  f19c1f8:	3c02800b */ 	lui	$v0,0x800b
+/*  f19c1fc:	2442ca38 */ 	addiu	$v0,$v0,-13768
 /*  f19c200:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_MpPlayers)
 .L0f19c204:
 /*  f19c204:	246300a0 */ 	addiu	$v1,$v1,0xa0

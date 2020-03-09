@@ -1285,7 +1285,8 @@ struct player {
 	/*0x0240*/ u32 unk0240;
 	/*0x0244*/ u32 unk0244;
 	/*0x0248*/ u32 unk0248;
-	/*0x024c*/ u32 unk024c;
+	/*0x024c*/ s16 invdowntime;
+	/*0x024e*/ s16 usedowntime;
 	/*0x0250*/ u8 activemenumode;
 	/*0x0254*/ u32 unk0254;
 	/*0x0258*/ u32 unk0258;
@@ -3257,11 +3258,11 @@ struct playerstats {
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 killcount;
 	/*0x20*/ u32 ggkillcount;
-	/*0x24*/ u8 kills[16];
+	/*0x24*/ u32 kills[4];
 	/*0x34*/ u32 drawplayercount;
 	/*0x38*/ f32 distance;
 	/*0x3c*/ u32 backshotcount;
-	/*0x40*/ u32 armourcount;
+	/*0x40*/ f32 armourcount;
 	/*0x44*/ s32 fastest2kills;
 	/*0x48*/ s32 slowest2kills;
 	/*0x4c*/ s32 longestlife;
@@ -3273,10 +3274,10 @@ struct playerstats {
 	/*0x64*/ u32 unk64;
 	/*0x68*/ u32 cloaktime;
 	/*0x6c*/ u32 speedpillcount;
-	/*0x70*/ u32 mpindex;
+	/*0x70*/ s32 mpindex;
 	/*0x74*/ u32 scale_bg2gfx;
-	/*0x78*/ u32 damreceived;
-	/*0x7c*/ u32 damtransmitted;
+	/*0x78*/ f32 damreceived;
+	/*0x7c*/ f32 damtransmitted;
 };
 
 struct credit {

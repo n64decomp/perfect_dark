@@ -8,7 +8,7 @@ u32 func0000e9d0(void);
 u32 func0000e9dc(void);
 void audioSetSfxVolume(u16 volume);
 u32 func0000ea80(void);
-u32 func0000eadc(void);
+void func0000eadc(void);
 u32 func0000eb2c(void);
 u32 func0000ed14(void);
 u32 func0000ed68(void);

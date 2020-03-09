@@ -7,7 +7,7 @@ u32 func0f1531a0(void);
 u32 func0f1531b8(void);
 u32 func0f1531dc(void);
 u32 func0f153204(void);
-u32 func0f1532ec(void);
+void func0f1532ec(void);
 u32 func0f153628(void);
 Gfx *func0f153780(Gfx *gdl);
 Gfx *func0f1537dc(Gfx *gdl, u32 colour);

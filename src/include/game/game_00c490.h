@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f00c490(void);
+void func0f00c490(void);
 u32 func0f00cc14(void);
 u32 func0f00cc2c(void);
 u32 func0f00cc44(void);
@@ -27,7 +27,7 @@ u32 func0f00e2b0(void);
 u32 func0f00e368(void);
 u32 func0f00e90c(void);
 u32 func0f00e980(void);
-u32 func0f00eb64(void);
-u32 func0f00f174(void);
+void func0f00eb64(s32 stagenum);
+void func0f00f174(s32 stagenum);
 
 #endif
