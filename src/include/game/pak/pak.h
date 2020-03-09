@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_1165D0_H
-#define IN_GAME_GAME_1165D0_H
+#ifndef IN_GAME_PAK_PAK_H
+#define IN_GAME_PAK_PAK_H
 #include <ultra64.h>
 #include "types.h"
 

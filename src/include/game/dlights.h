@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_000920_H
-#define IN_GAME_GAME_000920_H
+#ifndef IN_GAME_DLIGHTS_H
+#define IN_GAME_DLIGHTS_H
 #include <ultra64.h>
 #include "types.h"
 

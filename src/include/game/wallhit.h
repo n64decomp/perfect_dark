@@ -1,5 +1,5 @@
-#ifndef _IN_GAME_GAME_13E0E0_H
-#define _IN_GAME_GAME_13E0E0_H
+#ifndef _IN_GAME_WALLHIT_H
+#define _IN_GAME_WALLHIT_H
 #include <ultra64.h>
 #include "types.h"
 

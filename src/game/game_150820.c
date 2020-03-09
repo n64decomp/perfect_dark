@@ -6,7 +6,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
-#include "game/game_000920.h"
+#include "game/dlights.h"
 #include "game/game_092610.h"
 #include "game/game_096750.h"
 #include "game/game_0b3350.h"

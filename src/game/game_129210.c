@@ -8,7 +8,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/game_01e250.h"
-#include "game/game_066310.h"
+#include "game/propobj.h"
 #include "game/game_129210.h"
 #include "gvars/gvars.h"
 #include "lib/lib_126b0.h"

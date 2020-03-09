@@ -9,7 +9,7 @@
 #include "game/game_0b3350.h"
 #include "game/game_0d4690.h"
 #include "game/game_166e40.h"
-#include "game/game_176d70.h"
+#include "game/utils.h"
 #include "gvars/gvars.h"
 #include "lib/lib_09660.h"
 #include "lib/lib_0d520.h"

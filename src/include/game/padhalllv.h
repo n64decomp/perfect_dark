@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_114240_H
-#define IN_GAME_GAME_114240_H
+#ifndef IN_GAME_PADHALLLV_H
+#define IN_GAME_PADHALLLV_H
 #include <ultra64.h>
 #include "types.h"
 

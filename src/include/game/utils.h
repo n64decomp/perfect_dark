@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_176D70_H
-#define IN_GAME_GAME_176D70_H
+#ifndef IN_GAME_UTILS_H
+#define IN_GAME_UTILS_H
 #include <ultra64.h>
 #include "types.h"
 

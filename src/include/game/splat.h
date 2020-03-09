@@ -1,5 +1,5 @@
-#ifndef _IN_GAME_GAME_148B80_H
-#define _IN_GAME_GAME_148B80_H
+#ifndef _IN_GAME_SPLAT_H
+#define _IN_GAME_SPLAT_H
 #include <ultra64.h>
 #include "types.h"
 

@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_066310_H
-#define IN_GAME_GAME_066310_H
+#ifndef IN_GAME_PROPOBJ_H
+#define IN_GAME_PROPOBJ_H
 #include <ultra64.h>
 #include "types.h"
 

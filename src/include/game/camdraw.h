@@ -1,5 +1,5 @@
-#ifndef _IN_GAME_GAME_149C90_H
-#define _IN_GAME_GAME_149C90_H
+#ifndef _IN_GAME_CAMDRAW_H
+#define _IN_GAME_CAMDRAW_H
 #include <ultra64.h>
 #include "types.h"
 

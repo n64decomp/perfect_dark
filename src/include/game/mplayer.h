@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_187770_H
-#define IN_GAME_GAME_187770_H
+#ifndef IN_GAME_MPLAYER_H
+#define IN_GAME_MPLAYER_H
 #include <ultra64.h>
 #include "types.h"
 

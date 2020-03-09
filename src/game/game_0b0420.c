@@ -14,7 +14,7 @@
 #include "game/game_0dcdb0.h"
 #include "game/game_127910.h"
 #include "game/game_179060.h"
-#include "game/game_187770.h"
+#include "game/mplayer.h"
 #include "game/game_197600.h"
 #include "game/lang.h"
 #include "game/pdoptions.h"

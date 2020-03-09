@@ -21,7 +21,7 @@
 #include "game/game_16cfa0.h"
 #include "game/game_177e00.h"
 #include "game/game_179060.h"
-#include "game/game_187770.h"
+#include "game/mplayer.h"
 #include "game/game_19aa80.h"
 #include "game/game_19c990.h"
 #include "gvars/gvars.h"

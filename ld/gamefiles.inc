@@ -12,7 +12,7 @@
 	src/game/game_0008f0.o (section); \
 	src/game/game_000900.o (section); \
 	src/game/game_000910.o (section); \
-	src/game/game_000920.o (section); \
+	src/game/dlights.o (section); \
 	src/game/game_005fd0.o (section); \
 	src/game/game_006bd0.o (section); \
 	src/game/game_00b190.o (section); \
@@ -76,7 +76,7 @@
 	src/game/chr/chrai.o (section); \
 	src/game/chr/chraicommands.o (section); \
 	src/game/game_0601b0.o (section); \
-	src/game/game_066310.o (section); \
+	src/game/propobj.o (section); \
 	src/game/game_091e10.o (section); \
 	src/game/game_092610.o (section); \
 	src/game/game_095320.o (section); \
@@ -101,9 +101,9 @@
 	src/game/game_0c33f0.o (section); \
 	src/game/game_0c3620.o (section); \
 	src/game/bondwalk.o (section); \
-	src/game/game_0c79f0.o (section); \
+	src/game/bondmove.o (section); \
 	src/game/bondgrab.o (section); \
-	src/game/game_0cf150.o (section); \
+	src/game/bondeyespy.o (section); \
 	src/game/bondbike.o (section); \
 	src/game/game_0d4690.o (section); \
 	src/game/game_0d5a90.o (section); \
@@ -121,9 +121,9 @@
 	src/game/game_10ccd0.o (section); \
 	src/game/game_111600.o (section); \
 	src/game/game_113220.o (section); \
-	src/game/game_114240.o (section); \
+	src/game/padhalllv.o (section); \
 	src/game/pad.o (section); \
-	src/game/game_1165d0.o (section); \
+	src/game/pak/pak.o (section); \
 	src/game/game_11ecf0.o (section); \
 	src/game/game_11f000.o (section); \
 	src/game/game_127910.o (section); \
@@ -137,10 +137,10 @@
 	src/game/game_1371b0.o (section); \
 	src/game/game_13b670.o (section); \
 	src/game/game_13c510.o (section); \
-	src/game/game_13e0e0.o (section); \
+	src/game/wallhit.o (section); \
 	src/game/game_141820.o (section); \
-	src/game/game_148b80.o (section); \
-	src/game/game_149c90.o (section); \
+	src/game/splat.o (section); \
+	src/game/camdraw.o (section); \
 	src/game/game_150820.o (section); \
 	src/game/pdoptions.o (section); \
 	src/game/game_152fa0.o (section); \
@@ -161,11 +161,11 @@
 	src/game/game_175f90.o (section); \
 	src/game/game_176000.o (section); \
 	src/game/game_176080.o (section); \
-	src/game/game_176d70.o (section); \
+	src/game/utils.o (section); \
 	src/game/game_177e00.o (section); \
 	src/game/game_179060.o (section); \
 	src/game/game_17f930.o (section); \
-	src/game/game_187770.o (section); \
+	src/game/mplayer.o (section); \
 	src/game/game_18e5a0.o (section); \
 	src/game/game_190260.o (section); \
 	src/game/game_197600.o (section); \

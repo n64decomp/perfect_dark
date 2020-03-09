@@ -22,7 +22,7 @@
 #include "game/game_111600.h"
 #include "game/game_1531a0.h"
 #include "game/game_167ae0.h"
-#include "game/game_187770.h"
+#include "game/mplayer.h"
 #include "game/game_19aa80.h"
 #include "game/game_19c990.h"
 #include "game/lang.h"

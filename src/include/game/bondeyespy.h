@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_0CF150_H
-#define IN_GAME_GAME_0CF150_H
+#ifndef IN_GAME_BONDEYESPY_H
+#define IN_GAME_BONDEYESPY_H
 #include <ultra64.h>
 #include "types.h"
 

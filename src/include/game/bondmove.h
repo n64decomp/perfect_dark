@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_0C79F0_H
-#define IN_GAME_GAME_0C79F0_H
+#ifndef IN_GAME_BONDMOVE_H
+#define IN_GAME_BONDMOVE_H
 #include <ultra64.h>
 #include "types.h"
 
