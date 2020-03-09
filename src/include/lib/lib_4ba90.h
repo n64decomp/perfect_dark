@@ -6,8 +6,8 @@
 u32 __osPfsGetStatus(void);
 u32 __osPfsRequestOneChannel(void);
 u32 __osPfsGetOneChannelData(void);
-u32 func0004bcc0(void);
-u32 func0004be38(void);
-u32 func0004bee4(void);
+s32 osEepromWrite(OSMesgQueue *mq, u8 address, u8 *buffer);
+u32 __osPackEepWriteData(void);
+u32 __osEepStatus(void);
 
 #endif

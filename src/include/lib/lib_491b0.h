@@ -5,8 +5,8 @@
 
 u32 func000491b0(void);
 u32 func0004923c(void);
-u32 func000493b4(void);
-u32 func00049428(void);
+u32 __osSetTimerIntr(void);
+u32 __osInsertTimer(void);
 u32 __osDisableInt(void);
 u32 __osRestoreInt(void);
 

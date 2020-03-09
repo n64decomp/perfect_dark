@@ -11273,7 +11273,7 @@ GLOBAL_ASM(
 glabel ai01dd
 /*  f05ffa0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f05ffa4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f05ffa8:	0c012144 */ 	jal	func00048510
+/*  f05ffa8:	0c012144 */ 	jal	osGetCount
 /*  f05ffac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f05ffb0:	00402825 */ 	or	$a1,$v0,$zero
 /*  f05ffb4:	24040000 */ 	addiu	$a0,$zero,0x0

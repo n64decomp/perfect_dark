@@ -8,6 +8,6 @@ void osStartThread(OSThread *thread);
 void osCreateMesgQueue(OSMesgQueue *mq, OSMesg *msgBuf, s32 count);
 void func00048370(s32 arg0);
 void func00048430(s32 arg0, s32 arg1);
-u32 func00048510(void);
+u32 osGetCount(void);
 
 #endif

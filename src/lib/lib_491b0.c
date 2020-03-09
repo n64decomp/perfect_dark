@@ -67,13 +67,13 @@ glabel func0004923c
 /*    49260:	8f190000 */ 	lw	$t9,0x0($t8)
 /*    49264:	17380006 */ 	bne	$t9,$t8,.L00049280
 /*    49268:	afb90024 */ 	sw	$t9,0x24($sp)
-/*    4926c:	0c014620 */ 	jal	func00051880
+/*    4926c:	0c014620 */ 	jal	__osSetCompare
 /*    49270:	00002025 */ 	or	$a0,$zero,$zero
 /*    49274:	3c01800a */ 	lui	$at,0x800a
 /*    49278:	1000004a */ 	beqz	$zero,.L000493a4
 /*    4927c:	ac20c790 */ 	sw	$zero,-0x3870($at)
 .L00049280:
-/*    49280:	0c012144 */ 	jal	func00048510
+/*    49280:	0c012144 */ 	jal	osGetCount
 /*    49284:	00000000 */ 	sll	$zero,$zero,0x0
 /*    49288:	afa20020 */ 	sw	$v0,0x20($sp)
 /*    4928c:	3c09800a */ 	lui	$t1,%hi(var8009c790)
@@ -110,7 +110,7 @@ glabel func0004923c
 /*    49304:	af280010 */ 	sw	$t0,0x10($t9)
 /*    49308:	8fae0024 */ 	lw	$t6,0x24($sp)
 /*    4930c:	8dc40010 */ 	lw	$a0,0x10($t6)
-/*    49310:	0c0124ed */ 	jal	func000493b4
+/*    49310:	0c0124ed */ 	jal	__osSetTimerIntr
 /*    49314:	8dc50014 */ 	lw	$a1,0x14($t6)
 /*    49318:	10000022 */ 	beqz	$zero,.L000493a4
 /*    4931c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -146,7 +146,7 @@ glabel func0004923c
 .L0004938c:
 /*    4938c:	adf80010 */ 	sw	$t8,0x10($t7)
 /*    49390:	adf90014 */ 	sw	$t9,0x14($t7)
-/*    49394:	0c01250a */ 	jal	func00049428
+/*    49394:	0c01250a */ 	jal	__osInsertTimer
 /*    49398:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*    4939c:	1000ffae */ 	beqz	$zero,.L00049258
 /*    493a0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -158,13 +158,13 @@ glabel func0004923c
 );
 
 GLOBAL_ASM(
-glabel func000493b4
+glabel __osSetTimerIntr
 /*    493b4:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    493b8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    493bc:	afa40028 */ 	sw	$a0,0x28($sp)
 /*    493c0:	0c01256c */ 	jal	__osDisableInt
 /*    493c4:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*    493c8:	0c012144 */ 	jal	func00048510
+/*    493c8:	0c012144 */ 	jal	osGetCount
 /*    493cc:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*    493d0:	3c01800a */ 	lui	$at,0x800a
 /*    493d4:	ac22c790 */ 	sw	$v0,-0x3870($at)
@@ -180,7 +180,7 @@ glabel func000493b4
 /*    493fc:	01485021 */ 	addu	$t2,$t2,$t0
 /*    49400:	afaa0020 */ 	sw	$t2,0x20($sp)
 /*    49404:	afab0024 */ 	sw	$t3,0x24($sp)
-/*    49408:	0c014620 */ 	jal	func00051880
+/*    49408:	0c014620 */ 	jal	__osSetCompare
 /*    4940c:	01602025 */ 	or	$a0,$t3,$zero
 /*    49410:	0c012588 */ 	jal	__osRestoreInt
 /*    49414:	8fa4001c */ 	lw	$a0,0x1c($sp)
@@ -191,7 +191,7 @@ glabel func000493b4
 );
 
 GLOBAL_ASM(
-glabel func00049428
+glabel __osInsertTimer
 /*    49428:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    4942c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    49430:	0c01256c */ 	jal	__osDisableInt

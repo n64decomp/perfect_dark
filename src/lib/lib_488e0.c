@@ -161,7 +161,7 @@ glabel func00048a30
 /*    48ae4:	8de90000 */ 	lw	$t1,0x0($t7)
 /*    48ae8:	152f0003 */ 	bne	$t1,$t7,.L00048af8
 /*    48aec:	00000000 */ 	sll	$zero,$zero,0x0
-/*    48af0:	0c014620 */ 	jal	func00051880
+/*    48af0:	0c014620 */ 	jal	__osSetCompare
 /*    48af4:	00002025 */ 	or	$a0,$zero,$zero
 .L00048af8:
 /*    48af8:	0c012588 */ 	jal	__osRestoreInt

@@ -24,7 +24,7 @@ GLOBAL_ASM(
 glabel func0f16ce10
 /*  f16ce10:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f16ce14:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16ce18:	0c012144 */ 	jal	func00048510
+/*  f16ce18:	0c012144 */ 	jal	osGetCount
 /*  f16ce1c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16ce20:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f16ce24:	3c03800a */ 	lui	$v1,%hi(g_Vars)
@@ -81,7 +81,7 @@ glabel func0f16ce94
 /*  f16ced0:	3631ebc2 */ 	ori	$s1,$s1,0xebc2
 /*  f16ced4:	26109fc0 */ 	addiu	$s0,$s0,%lo(g_Vars)
 .L0f16ced8:
-/*  f16ced8:	0c012144 */ 	jal	func00048510
+/*  f16ced8:	0c012144 */ 	jal	osGetCount
 /*  f16cedc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16cee0:	8e0e0018 */ 	lw	$t6,0x18($s0)
 /*  f16cee4:	8e0f0020 */ 	lw	$t7,0x20($s0)

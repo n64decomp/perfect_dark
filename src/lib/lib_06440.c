@@ -40,7 +40,7 @@ glabel osEepromLongWrite
 /*     649c:	02e02025 */ 	or	$a0,$s7,$zero
 .L000064a0:
 /*     64a0:	322500ff */ 	andi	$a1,$s1,0xff
-/*     64a4:	0c012f30 */ 	jal	func0004bcc0
+/*     64a4:	0c012f30 */ 	jal	osEepromWrite
 /*     64a8:	02403025 */ 	or	$a2,$s2,$zero
 /*     64ac:	10400003 */ 	beqz	$v0,.L000064bc
 /*     64b0:	0040b025 */ 	or	$s6,$v0,$zero
@@ -61,7 +61,7 @@ glabel osEepromLongWrite
 /*     64e8:	02802025 */ 	or	$a0,$s4,$zero
 /*     64ec:	24060000 */ 	addiu	$a2,$zero,0x0
 /*     64f0:	afb30018 */ 	sw	$s3,0x18($sp)
-/*     64f4:	0c0122c8 */ 	jal	func00048b20
+/*     64f4:	0c0122c8 */ 	jal	osSetTimer
 /*     64f8:	afb5001c */ 	sw	$s5,0x1c($sp)
 /*     64fc:	02602025 */ 	or	$a0,$s3,$zero
 /*     6500:	00002825 */ 	or	$a1,$zero,$zero

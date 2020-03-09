@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00051880(void);
+u32 __osSetCompare(void);
 
 #endif

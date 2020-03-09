@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00048b20(void);
+u32 osSetTimer(OSTimer *, OSTime, u64, OSMesgQueue *, OSMesg);
 
 #endif

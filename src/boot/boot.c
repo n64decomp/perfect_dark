@@ -882,14 +882,14 @@ void func00001b40(u32 arg0)
 {
 	if ((var8005ce68 && var8005ce64) || var8005ce60) {
 		func0000cf54(arg0);
-		var8005ce70 = func00048510();
+		var8005ce70 = osGetCount();
 	}
 }
 
 void func00001b98(u32 value)
 {
 	if ((value & 0xf) == 0 && ((var8005ce68 && var8005ce64) || var8005ce60)) {
-		if (func00048510() - var8005ce70 > var8005ce6c) {
+		if (osGetCount() - var8005ce70 > var8005ce6c) {
 			func0000cf54(var8009cac0);
 			func0000cf54(var8009cac4);
 		}
@@ -898,7 +898,7 @@ void func00001b98(u32 value)
 
 void func00001c28(void)
 {
-	var8005ce70 = func00048510();
+	var8005ce70 = osGetCount();
 }
 
 GLOBAL_ASM(
@@ -1234,7 +1234,7 @@ glabel func00002078
 /*     20f0:	2484de18 */ 	addiu	$a0,$a0,%lo(var8008de18)
 /*     20f4:	afac001c */ 	sw	$t4,0x1c($sp)
 /*     20f8:	24060000 */ 	addiu	$a2,$zero,0x0
-/*     20fc:	0c0122c8 */ 	jal	func00048b20
+/*     20fc:	0c0122c8 */ 	jal	osSetTimer
 /*     2100:	afa20018 */ 	sw	$v0,0x18($sp)
 /*     2104:	3c038006 */ 	lui	$v1,%hi(var8005ced0)
 /*     2108:	8063ced0 */ 	lb	$v1,%lo(var8005ced0)($v1)

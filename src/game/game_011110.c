@@ -33,7 +33,7 @@ void func0f011110(void)
 	var800705a0 = 0;
 }
 
-void func0f011124(s32 value)
+void func0f011124(bool value)
 {
 	var800705a8 = value;
 }

@@ -176,7 +176,7 @@ glabel __osPfsGetOneChannelData
 );
 
 GLOBAL_ASM(
-glabel func0004bcc0
+glabel osEepromWrite
 /*    4bcc0:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*    4bcc4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    4bcc8:	afb10018 */ 	sw	$s1,0x18($sp)
@@ -187,7 +187,7 @@ glabel func0004bcc0
 /*    4bcdc:	afa60050 */ 	sw	$a2,0x50($sp)
 /*    4bce0:	27b0002c */ 	addiu	$s0,$sp,0x2c
 /*    4bce4:	02002825 */ 	or	$a1,$s0,$zero
-/*    4bce8:	0c012fb9 */ 	jal	func0004bee4
+/*    4bce8:	0c012fb9 */ 	jal	__osEepStatus
 /*    4bcec:	02202025 */ 	or	$a0,$s1,$zero
 /*    4bcf0:	14400015 */ 	bnez	$v0,.L0004bd48
 /*    4bcf4:	00401825 */ 	or	$v1,$v0,$zero
@@ -225,7 +225,7 @@ glabel func0004bcc0
 /*    4bd64:	11200007 */ 	beqz	$t1,.L0004bd84
 /*    4bd68:	02202025 */ 	or	$a0,$s1,$zero
 .L0004bd6c:
-/*    4bd6c:	0c012fb9 */ 	jal	func0004bee4
+/*    4bd6c:	0c012fb9 */ 	jal	__osEepStatus
 /*    4bd70:	02002825 */ 	or	$a1,$s0,$zero
 /*    4bd74:	93aa002e */ 	lbu	$t2,0x2e($sp)
 /*    4bd78:	314b0080 */ 	andi	$t3,$t2,0x80
@@ -233,7 +233,7 @@ glabel func0004bcc0
 /*    4bd80:	02202025 */ 	or	$a0,$s1,$zero
 .L0004bd84:
 /*    4bd84:	93a4004f */ 	lbu	$a0,0x4f($sp)
-/*    4bd88:	0c012f8e */ 	jal	func0004be38
+/*    4bd88:	0c012f8e */ 	jal	__osPackEepWriteData
 /*    4bd8c:	8fa50050 */ 	lw	$a1,0x50($sp)
 /*    4bd90:	3c05800a */ 	lui	$a1,%hi(var8009ca80)
 /*    4bd94:	24a5ca80 */ 	addiu	$a1,$a1,%lo(var8009ca80)
@@ -281,7 +281,7 @@ glabel func0004bcc0
 );
 
 GLOBAL_ASM(
-glabel func0004be38
+glabel __osPackEepWriteData
 /*    4be38:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4be3c:	3c07800a */ 	lui	$a3,%hi(var8009ca80)
 /*    4be40:	24e7ca80 */ 	addiu	$a3,$a3,%lo(var8009ca80)
@@ -329,7 +329,7 @@ glabel func0004be38
 );
 
 GLOBAL_ASM(
-glabel func0004bee4
+glabel __osEepStatus
 /*    4bee4:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*    4bee8:	3c02800a */ 	lui	$v0,%hi(var8009ca80)
 /*    4beec:	3c03800a */ 	lui	$v1,%hi(var8009cac0)

@@ -251,7 +251,7 @@ glabel func00048430
 );
 
 GLOBAL_ASM(
-glabel func00048510
+glabel osGetCount
 /*    48510:	40024800 */ 	mfc0	$v0,$9
 /*    48514:	03e00008 */ 	jr	$ra
 /*    48518:	00000000 */ 	sll	$zero,$zero,0x0

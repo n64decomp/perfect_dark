@@ -223,7 +223,7 @@ glabel func0000d520
 /*     d5b0:	afae0010 */ 	sw	$t6,0x10($sp)
 /*     d5b4:	34e7868c */ 	ori	$a3,$a3,0x868c
 /*     d5b8:	27a414a8 */ 	addiu	$a0,$sp,0x14a8
-/*     d5bc:	0c0122c8 */ 	jal	func00048b20
+/*     d5bc:	0c0122c8 */ 	jal	osSetTimer
 /*     d5c0:	24060000 */ 	addiu	$a2,$zero,0x0
 /*     d5c4:	27a41490 */ 	addiu	$a0,$sp,0x1490
 /*     d5c8:	27a514cc */ 	addiu	$a1,$sp,0x14cc
@@ -700,7 +700,7 @@ glabel func0000db3c
 /*     dc98:	00000000 */ 	sll	$zero,$zero,0x0
 /*     dc9c:	ac580000 */ 	sw	$t8,0x0($v0)
 .L0000dca0:
-/*     dca0:	0c012144 */ 	jal	func00048510
+/*     dca0:	0c012144 */ 	jal	osGetCount
 /*     dca4:	24160001 */ 	addiu	$s6,$zero,0x1
 /*     dca8:	0c004b82 */ 	jal	func00012e08
 /*     dcac:	00402025 */ 	or	$a0,$v0,$zero
@@ -1093,7 +1093,7 @@ glabel func0000db3c
 /*     e224:	1000001a */ 	beqz	$zero,.L0000e290
 /*     e228:	8eeb0000 */ 	lw	$t3,0x0($s7)
 .L0000e22c:
-/*     e22c:	0c012144 */ 	jal	func00048510
+/*     e22c:	0c012144 */ 	jal	osGetCount
 /*     e230:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e234:	8e580028 */ 	lw	$t8,0x28($s2)
 /*     e238:	3c01000b */ 	lui	$at,0xb
