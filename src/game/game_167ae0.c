@@ -392,7 +392,7 @@ glabel func0f167c88
 
 void func0f167e7c(s32 stagenum)
 {
-	func0f1688c8();
+	fadeCancel();
 
 	var80084014 = 0;
 	var80084010 = 0;
@@ -845,22 +845,14 @@ bool fadeIsActive(void)
 	return fade80084058 >= 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1688c8
-/*  f1688c8:	3c018008 */ 	lui	$at,0x8008
-/*  f1688cc:	a4204054 */ 	sh	$zero,0x4054($at)
-/*  f1688d0:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f1688d4:	44812000 */ 	mtc1	$at,$f4
-/*  f1688d8:	3c018008 */ 	lui	$at,0x8008
-/*  f1688dc:	e4244058 */ 	swc1	$f4,0x4058($at)
-/*  f1688e0:	3c018008 */ 	lui	$at,0x8008
-/*  f1688e4:	ac20405c */ 	sw	$zero,0x405c($at)
-/*  f1688e8:	3c018008 */ 	lui	$at,0x8008
-/*  f1688ec:	ac204060 */ 	sw	$zero,0x4060($at)
-/*  f1688f0:	3c018008 */ 	lui	$at,0x8008
-/*  f1688f4:	03e00008 */ 	jr	$ra
-/*  f1688f8:	a4204064 */ 	sh	$zero,0x4064($at)
-);
+void fadeCancel(void)
+{
+	g_FadeNumFrames = 0;
+	fade80084058 = -1;
+	g_FadePrevColor = 0;
+	g_FadeColor = 0;
+	fade80084064 = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f1688fc
