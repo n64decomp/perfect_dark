@@ -12,12 +12,12 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00049640
+glabel __osViInit
 /*    49640:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    49644:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    49648:	3c048006 */ 	lui	$a0,%hi(var800608b0)
 /*    4964c:	248408b0 */ 	addiu	$a0,$a0,%lo(var800608b0)
-/*    49650:	0c012c30 */ 	jal	func0004b0c0
+/*    49650:	0c012c30 */ 	jal	bzero
 /*    49654:	24050060 */ 	addiu	$a1,$zero,0x60
 /*    49658:	3c0e8006 */ 	lui	$t6,%hi(var800608b0)
 /*    4965c:	25ce08b0 */ 	addiu	$t6,$t6,%lo(var800608b0)
@@ -91,7 +91,7 @@ glabel func00049640
 /*    4975c:	00000000 */ 	sll	$zero,$zero,0x0
 .L00049760:
 /*    49760:	3c0aa440 */ 	lui	$t2,0xa440
-/*    49764:	0c0125e4 */ 	jal	func00049790
+/*    49764:	0c0125e4 */ 	jal	__osViSwapContext
 /*    49768:	ad400000 */ 	sw	$zero,0x0($t2)
 /*    4976c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    49770:	27bd0018 */ 	addiu	$sp,$sp,0x18

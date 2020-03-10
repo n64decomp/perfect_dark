@@ -38,15 +38,15 @@ const u32 var700524a8[] = {0x3a83126f};
 const u32 var700524ac[] = {0x00000000};
 
 GLOBAL_ASM(
-glabel func000034f0
-/*     34f0:	3c1a7000 */ 	lui	$k0,%hi(func00003500)
-/*     34f4:	275a3500 */ 	addiu	$k0,$k0,%lo(func00003500)
+glabel __osExceptionPreamble
+/*     34f0:	3c1a7000 */ 	lui	$k0,%hi(__osException)
+/*     34f4:	275a3500 */ 	addiu	$k0,$k0,%lo(__osException)
 /*     34f8:	03400008 */ 	jr	$k0
 /*     34fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
 GLOBAL_ASM(
-glabel func00003500
+glabel __osException
 /*     3500:	3c1a8009 */ 	lui	$k0,%hi(var800907f0)
 /*     3504:	275a07f0 */ 	addiu	$k0,$k0,%lo(var800907f0)
 /*     3508:	ff410020 */ 	sd	$at,0x20($k0)
@@ -729,8 +729,8 @@ glabel __osDispatchThread
 );
 
 GLOBAL_ASM(
-glabel func00003ecc
-/*     3ecc:	0c012894 */ 	jal	func0004a250
+glabel __osCleanupThread
+/*     3ecc:	0c012894 */ 	jal	__osDestroyThread
 /*     3ed0:	00002025 */ 	or	$a0,$zero,$zero
 /*     3ed4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     3ed8:	00000000 */ 	sll	$zero,$zero,0x0

@@ -460,10 +460,10 @@ glabel func00013408
 );
 
 GLOBAL_ASM(
-glabel func00013690
+glabel proutSprintf
 /*    13690:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    13694:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*    13698:	0c012978 */ 	jal	func0004a5e0
+/*    13698:	0c012978 */ 	jal	memcpy
 /*    1369c:	afa60020 */ 	sw	$a2,0x20($sp)
 /*    136a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*    136a4:	8fae0020 */ 	lw	$t6,0x20($sp)
@@ -480,11 +480,11 @@ glabel sprintf
 /*    136c0:	afa50024 */ 	sw	$a1,0x24($sp)
 /*    136c4:	afa60028 */ 	sw	$a2,0x28($sp)
 /*    136c8:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*    136cc:	3c047001 */ 	lui	$a0,%hi(func00013690)
-/*    136d0:	24843690 */ 	addiu	$a0,$a0,%lo(func00013690)
+/*    136cc:	3c047001 */ 	lui	$a0,%hi(proutSprintf)
+/*    136d0:	24843690 */ 	addiu	$a0,$a0,%lo(proutSprintf)
 /*    136d4:	27a70028 */ 	addiu	$a3,$sp,0x28
 /*    136d8:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*    136dc:	0c013b40 */ 	jal	func0004ed00
+/*    136dc:	0c013b40 */ 	jal	_Printf
 /*    136e0:	8fa50020 */ 	lw	$a1,0x20($sp)
 /*    136e4:	04400004 */ 	bltz	$v0,.L000136f8
 /*    136e8:	00401825 */ 	or	$v1,$v0,$zero

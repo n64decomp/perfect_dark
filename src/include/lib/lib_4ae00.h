@@ -9,6 +9,6 @@ u32 func0004ae68(void);
 u32 func0004aea4(void);
 u32 func0004af0c(void);
 u32 func0004af68(void);
-u32 func0004b0c0(void);
+void bzero(void *s, size_t size);
 
 #endif

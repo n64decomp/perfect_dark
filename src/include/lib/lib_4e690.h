@@ -4,6 +4,6 @@
 #include "types.h"
 
 u32 func0004e690(void);
-u32 func0004ed00(void);
+u32 _Printf(void);
 
 #endif

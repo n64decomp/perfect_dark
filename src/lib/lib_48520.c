@@ -12,7 +12,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00048520
+glabel osSetEventMesg
 /*    48520:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    48524:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    48528:	afa40028 */ 	sw	$a0,0x28($sp)

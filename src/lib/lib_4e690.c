@@ -470,7 +470,7 @@ glabel func0004e690
 );
 
 GLOBAL_ASM(
-glabel func0004ed00
+glabel _Printf
 /*    4ed00:	27bdff28 */ 	addiu	$sp,$sp,-216
 /*    4ed04:	afb70034 */ 	sw	$s7,0x34($sp)
 /*    4ed08:	afb60030 */ 	sw	$s6,0x30($sp)

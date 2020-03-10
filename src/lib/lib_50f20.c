@@ -63,7 +63,7 @@ glabel func50f20
 /*    50fc8:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*    50fcc:	27a40070 */ 	addiu	$a0,$sp,0x70
 .L00050fd0:
-/*    50fd0:	0c012c30 */ 	jal	func0004b0c0
+/*    50fd0:	0c012c30 */ 	jal	bzero
 /*    50fd4:	2405000c */ 	addiu	$a1,$zero,0xc
 /*    50fd8:	24080080 */ 	addiu	$t0,$zero,0x80
 /*    50fdc:	24020080 */ 	addiu	$v0,$zero,0x80
@@ -221,7 +221,7 @@ glabel func50f20
 /*    51208:	000d7080 */ 	sll	$t6,$t5,0x2
 /*    5120c:	27af0070 */ 	addiu	$t7,$sp,0x70
 /*    51210:	01cf2021 */ 	addu	$a0,$t6,$t7
-/*    51214:	0c012c30 */ 	jal	func0004b0c0
+/*    51214:	0c012c30 */ 	jal	bzero
 /*    51218:	24050004 */ 	addiu	$a1,$zero,0x4
 .L0005121c:
 /*    5121c:	8faa0068 */ 	lw	$t2,0x68($sp)

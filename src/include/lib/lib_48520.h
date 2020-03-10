@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00048520(void);
+void osSetEventMesg(OSEvent e, OSMesgQueue *mq, OSMesg msg);
 
 #endif

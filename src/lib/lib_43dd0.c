@@ -69,7 +69,7 @@ glabel func00043dd0
 /*    43e90:	8f093f88 */ 	lw	$t1,0x3f88($t8)
 /*    43e94:	03082021 */ 	addu	$a0,$t8,$t0
 /*    43e98:	2484001c */ 	addiu	$a0,$a0,0x1c
-/*    43e9c:	0c012c30 */ 	jal	func0004b0c0
+/*    43e9c:	0c012c30 */ 	jal	bzero
 /*    43ea0:	01282823 */ 	subu	$a1,$t1,$t0
 .L00043ea4:
 /*    43ea4:	8faf0020 */ 	lw	$t7,0x20($sp)
@@ -520,7 +520,7 @@ glabel func00044460
 /*    44508:	ac200475 */ 	sw	$zero,0x475($at)
 /*    4450c:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*    44510:	24050900 */ 	addiu	$a1,$zero,0x900
-/*    44514:	0c012c30 */ 	jal	func0004b0c0
+/*    44514:	0c012c30 */ 	jal	bzero
 /*    44518:	24846a64 */ 	addiu	$a0,$a0,0x6a64
 /*    4451c:	10000003 */ 	beqz	$zero,.L0004452c
 /*    44520:	8fa2001c */ 	lw	$v0,0x1c($sp)

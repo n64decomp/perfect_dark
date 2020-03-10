@@ -19,7 +19,7 @@ glabel func00049780
 );
 
 GLOBAL_ASM(
-glabel func00049790
+glabel __osViSwapContext
 /*    49790:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*    49794:	afb00018 */ 	sw	$s0,0x18($sp)
 /*    49798:	afbf001c */ 	sw	$ra,0x1c($sp)

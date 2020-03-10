@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00049640(void);
+u32 __osViInit(void);
 
 #endif

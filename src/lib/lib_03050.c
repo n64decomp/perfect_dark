@@ -30,7 +30,7 @@ const u32 var70052448[] = {0x70002d14};
 const u32 var7005244c[] = {0x00000000};
 
 GLOBAL_ASM(
-glabel func00003050
+glabel osCreateViManager
 /*     3050:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     3054:	afb00020 */ 	sw	$s0,0x20($sp)
 /*     3058:	3c108006 */ 	lui	$s0,%hi(var8005cee0)
@@ -40,7 +40,7 @@ glabel func00003050
 /*     3068:	afa40030 */ 	sw	$a0,0x30($sp)
 /*     306c:	55c00054 */ 	bnezl	$t6,.L000031c0
 /*     3070:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     3074:	0c01246c */ 	jal	func000491b0
+/*     3074:	0c01246c */ 	jal	__osTimerServicesInit
 /*     3078:	00000000 */ 	sll	$zero,$zero,0x0
 /*     307c:	3c018006 */ 	lui	$at,0x8006
 /*     3080:	3c048009 */ 	lui	$a0,%hi(var80090230)
@@ -64,24 +64,24 @@ glabel func00003050
 /*     30c8:	a0e00002 */ 	sb	$zero,0x2($a3)
 /*     30cc:	ace00004 */ 	sw	$zero,0x4($a3)
 /*     30d0:	24a50230 */ 	addiu	$a1,$a1,%lo(var80090230)
-/*     30d4:	0c012148 */ 	jal	func00048520
+/*     30d4:	0c012148 */ 	jal	osSetEventMesg
 /*     30d8:	24040007 */ 	addiu	$a0,$zero,0x7
 /*     30dc:	3c078009 */ 	lui	$a3,%hi(var80090278)
 /*     30e0:	3c058009 */ 	lui	$a1,%hi(var80090230)
 /*     30e4:	24e60278 */ 	addiu	$a2,$a3,%lo(var80090278)
 /*     30e8:	24a50230 */ 	addiu	$a1,$a1,%lo(var80090230)
-/*     30ec:	0c012148 */ 	jal	func00048520
+/*     30ec:	0c012148 */ 	jal	osSetEventMesg
 /*     30f0:	24040003 */ 	addiu	$a0,$zero,0x3
 /*     30f4:	2419ffff */ 	addiu	$t9,$zero,-1
 /*     30f8:	afb90028 */ 	sw	$t9,0x28($sp)
-/*     30fc:	0c012230 */ 	jal	func000488c0
+/*     30fc:	0c012230 */ 	jal	osGetThreadPri
 /*     3100:	00002025 */ 	or	$a0,$zero,$zero
 /*     3104:	8fa80030 */ 	lw	$t0,0x30($sp)
 /*     3108:	00002025 */ 	or	$a0,$zero,$zero
 /*     310c:	0048082a */ 	slt	$at,$v0,$t0
 /*     3110:	10200003 */ 	beqz	$at,.L00003120
 /*     3114:	01002825 */ 	or	$a1,$t0,$zero
-/*     3118:	0c01210c */ 	jal	func00048430
+/*     3118:	0c01210c */ 	jal	osSetThreadPri
 /*     311c:	afa20028 */ 	sw	$v0,0x28($sp)
 .L00003120:
 /*     3120:	0c01256c */ 	jal	__osDisableInt
@@ -107,9 +107,9 @@ glabel func00003050
 /*     3170:	afaa0010 */ 	sw	$t2,0x10($sp)
 /*     3174:	00002825 */ 	or	$a1,$zero,$zero
 /*     3178:	02003825 */ 	or	$a3,$s0,$zero
-/*     317c:	0c000fb8 */ 	jal	func00003ee0
+/*     317c:	0c000fb8 */ 	jal	osCreateThread
 /*     3180:	afab0014 */ 	sw	$t3,0x14($sp)
-/*     3184:	0c012590 */ 	jal	func00049640
+/*     3184:	0c012590 */ 	jal	__osViInit
 /*     3188:	00000000 */ 	sll	$zero,$zero,0x0
 /*     318c:	3c048009 */ 	lui	$a0,%hi(var8008fe00)
 /*     3190:	0c01207c */ 	jal	osStartThread
@@ -121,7 +121,7 @@ glabel func00003050
 /*     31a8:	00002025 */ 	or	$a0,$zero,$zero
 /*     31ac:	51810004 */ 	beql	$t4,$at,.L000031c0
 /*     31b0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     31b4:	0c01210c */ 	jal	func00048430
+/*     31b4:	0c01210c */ 	jal	osSetThreadPri
 /*     31b8:	01802825 */ 	or	$a1,$t4,$zero
 /*     31bc:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L000031c0:
@@ -178,7 +178,7 @@ glabel func000031d0
 /*     326c:	1000fff6 */ 	beqz	$zero,.L00003248
 /*     3270:	8ee4000c */ 	lw	$a0,0xc($s7)
 .L00003274:
-/*     3274:	0c0125e4 */ 	jal	func00049790
+/*     3274:	0c0125e4 */ 	jal	__osViSwapContext
 /*     3278:	00000000 */ 	sll	$zero,$zero,0x0
 /*     327c:	3c038009 */ 	lui	$v1,%hi(var80090290)
 /*     3280:	94630290 */ 	lhu	$v1,%lo(var80090290)($v1)
@@ -220,7 +220,7 @@ glabel func000031d0
 /*     3308:	1000ffce */ 	beqz	$zero,.L00003244
 /*     330c:	ae2f0004 */ 	sw	$t7,0x4($s1)
 .L00003310:
-/*     3310:	0c01248f */ 	jal	func0004923c
+/*     3310:	0c01248f */ 	jal	__osTimerInterrupt
 /*     3314:	00000000 */ 	sll	$zero,$zero,0x0
 /*     3318:	1000ffcb */ 	beqz	$zero,.L00003248
 /*     331c:	8ee4000c */ 	lw	$a0,0xc($s7)
@@ -243,7 +243,7 @@ glabel func000031d0
 );
 
 GLOBAL_ASM(
-glabel func00003360
+glabel osCreatePiPanager
 /*     3360:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*     3364:	afb00020 */ 	sw	$s0,0x20($sp)
 /*     3368:	3c108006 */ 	lui	$s0,%hi(var8005cf00)
@@ -268,25 +268,25 @@ glabel func00003360
 /*     33b4:	8def0920 */ 	lw	$t7,%lo(var80060920)($t7)
 /*     33b8:	15e00003 */ 	bnez	$t7,.L000033c8
 /*     33bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     33c0:	0c0126a4 */ 	jal	func00049a90
+/*     33c0:	0c0126a4 */ 	jal	__osPiCreateAccessQueue
 /*     33c4:	00000000 */ 	sll	$zero,$zero,0x0
 .L000033c8:
 /*     33c8:	3c058009 */ 	lui	$a1,%hi(var800907c0)
 /*     33cc:	3c062222 */ 	lui	$a2,0x2222
 /*     33d0:	34c62222 */ 	ori	$a2,$a2,0x2222
 /*     33d4:	24a507c0 */ 	addiu	$a1,$a1,%lo(var800907c0)
-/*     33d8:	0c012148 */ 	jal	func00048520
+/*     33d8:	0c012148 */ 	jal	osSetEventMesg
 /*     33dc:	24040008 */ 	addiu	$a0,$zero,0x8
 /*     33e0:	2418ffff */ 	addiu	$t8,$zero,-1
 /*     33e4:	afb80028 */ 	sw	$t8,0x28($sp)
-/*     33e8:	0c012230 */ 	jal	func000488c0
+/*     33e8:	0c012230 */ 	jal	osGetThreadPri
 /*     33ec:	00002025 */ 	or	$a0,$zero,$zero
 /*     33f0:	8fb90030 */ 	lw	$t9,0x30($sp)
 /*     33f4:	00002025 */ 	or	$a0,$zero,$zero
 /*     33f8:	0059082a */ 	slt	$at,$v0,$t9
 /*     33fc:	10200003 */ 	beqz	$at,.L0000340c
 /*     3400:	03202825 */ 	or	$a1,$t9,$zero
-/*     3404:	0c01210c */ 	jal	func00048430
+/*     3404:	0c01210c */ 	jal	osSetThreadPri
 /*     3408:	afa20028 */ 	sw	$v0,0x28($sp)
 .L0000340c:
 /*     340c:	0c01256c */ 	jal	__osDisableInt
@@ -297,14 +297,14 @@ glabel func00003360
 /*     3420:	3c0a8009 */ 	lui	$t2,%hi(var800907c0)
 /*     3424:	3c0b800a */ 	lui	$t3,%hi(var8009c7a8)
 /*     3428:	3c0c7005 */ 	lui	$t4,0x7005
-/*     342c:	3c0d7005 */ 	lui	$t5,%hi(func00049c20)
+/*     342c:	3c0d7005 */ 	lui	$t5,%hi(osEPiRawStartDma)
 /*     3430:	3c0e8009 */ 	lui	$t6,%hi(var800907c0)
 /*     3434:	24840390 */ 	addiu	$a0,$a0,%lo(var80090390)
 /*     3438:	24080001 */ 	addiu	$t0,$zero,0x1
 /*     343c:	254a07c0 */ 	addiu	$t2,$t2,%lo(var800907c0)
 /*     3440:	256bc7a8 */ 	addiu	$t3,$t3,%lo(var8009c7a8)
 /*     3444:	258c9b50 */ 	addiu	$t4,$t4,-25776
-/*     3448:	25ad9c20 */ 	addiu	$t5,$t5,%lo(func00049c20)
+/*     3448:	25ad9c20 */ 	addiu	$t5,$t5,%lo(osEPiRawStartDma)
 /*     344c:	25ce07c0 */ 	addiu	$t6,$t6,%lo(var800907c0)
 /*     3450:	3c067005 */ 	lui	$a2,%hi(func00049e00)
 /*     3454:	afa2002c */ 	sw	$v0,0x2c($sp)
@@ -319,7 +319,7 @@ glabel func00003360
 /*     3478:	00002825 */ 	or	$a1,$zero,$zero
 /*     347c:	02003825 */ 	or	$a3,$s0,$zero
 /*     3480:	ae090008 */ 	sw	$t1,0x8($s0)
-/*     3484:	0c000fb8 */ 	jal	func00003ee0
+/*     3484:	0c000fb8 */ 	jal	osCreateThread
 /*     3488:	afaf0014 */ 	sw	$t7,0x14($sp)
 /*     348c:	3c048009 */ 	lui	$a0,%hi(var80090390)
 /*     3490:	0c01207c */ 	jal	osStartThread
@@ -331,7 +331,7 @@ glabel func00003360
 /*     34a8:	00002025 */ 	or	$a0,$zero,$zero
 /*     34ac:	53010004 */ 	beql	$t8,$at,.L000034c0
 /*     34b0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*     34b4:	0c01210c */ 	jal	func00048430
+/*     34b4:	0c01210c */ 	jal	osSetThreadPri
 /*     34b8:	03002825 */ 	or	$a1,$t8,$zero
 .L000034bc:
 /*     34bc:	8fbf0024 */ 	lw	$ra,0x24($sp)

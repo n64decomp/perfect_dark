@@ -131,7 +131,7 @@ glabel osCreateMesgQueue
 );
 
 GLOBAL_ASM(
-glabel func00048370
+glabel osStopThread
 /*    48370:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    48374:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*    48378:	afa40038 */ 	sw	$a0,0x38($sp)
@@ -174,7 +174,7 @@ glabel func00048370
 /*    483fc:	a5280010 */ 	sh	$t0,0x10($t1)
 /*    48400:	8faa0038 */ 	lw	$t2,0x38($sp)
 /*    48404:	8d440008 */ 	lw	$a0,0x8($t2)
-/*    48408:	0c012884 */ 	jal	func0004a210
+/*    48408:	0c012884 */ 	jal	__osDequeueThread
 /*    4840c:	01402825 */ 	or	$a1,$t2,$zero
 .L00048410:
 /*    48410:	0c012588 */ 	jal	__osRestoreInt
@@ -188,7 +188,7 @@ glabel func00048370
 );
 
 GLOBAL_ASM(
-glabel func00048430
+glabel osSetThreadPri
 /*    48430:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*    48434:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*    48438:	afa40028 */ 	sw	$a0,0x28($sp)
@@ -219,7 +219,7 @@ glabel func00048430
 /*    48498:	11610008 */ 	beq	$t3,$at,.L000484bc
 /*    4849c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    484a0:	8d240008 */ 	lw	$a0,0x8($t1)
-/*    484a4:	0c012884 */ 	jal	func0004a210
+/*    484a4:	0c012884 */ 	jal	__osDequeueThread
 /*    484a8:	01202825 */ 	or	$a1,$t1,$zero
 /*    484ac:	8fac0028 */ 	lw	$t4,0x28($sp)
 /*    484b0:	8d840008 */ 	lw	$a0,0x8($t4)

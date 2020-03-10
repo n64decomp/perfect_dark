@@ -3,8 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00049c20(void);
-u32 func0004a210(void);
-u32 func0004a250(void);
+u32 osEPiRawStartDma(void);
+u32 __osDequeueThread(void);
+u32 __osDestroyThread(void);
 
 #endif

@@ -20,7 +20,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00049c20
+glabel osEPiRawStartDma
 /*    49c20:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*    49c24:	3c03a460 */ 	lui	$v1,0xa460
 /*    49c28:	34630010 */ 	ori	$v1,$v1,0x10
@@ -437,7 +437,7 @@ glabel func00049e00
 );
 
 GLOBAL_ASM(
-glabel func0004a210
+glabel __osDequeueThread
 /*    4a210:	00803025 */ 	or	$a2,$a0,$zero
 /*    4a214:	8cc70000 */ 	lw	$a3,0x0($a2)
 /*    4a218:	27bdfff8 */ 	addiu	$sp,$sp,-8
@@ -460,7 +460,7 @@ glabel func0004a210
 );
 
 GLOBAL_ASM(
-glabel func0004a250
+glabel __osDestroyThread
 /*    4a250:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*    4a254:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*    4a258:	afa40038 */ 	sw	$a0,0x38($sp)
@@ -483,7 +483,7 @@ glabel func0004a250
 /*    4a298:	13210004 */ 	beq	$t9,$at,.L0004a2ac
 /*    4a29c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4a2a0:	8f040008 */ 	lw	$a0,0x8($t8)
-/*    4a2a4:	0c012884 */ 	jal	func0004a210
+/*    4a2a4:	0c012884 */ 	jal	__osDequeueThread
 /*    4a2a8:	03002825 */ 	or	$a1,$t8,$zero
 .L0004a2ac:
 /*    4a2ac:	3c088006 */ 	lui	$t0,%hi(var8006093c)

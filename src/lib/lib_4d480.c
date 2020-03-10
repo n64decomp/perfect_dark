@@ -126,7 +126,7 @@ glabel func0004d480
 /*    4d5fc:	1000000d */ 	beqz	$zero,.L0004d634
 /*    4d600:	24020003 */ 	addiu	$v0,$zero,0x3
 .L0004d604:
-/*    4d604:	0c012c30 */ 	jal	func0004b0c0
+/*    4d604:	0c012c30 */ 	jal	bzero
 /*    4d608:	24050020 */ 	addiu	$a1,$zero,0x20
 /*    4d60c:	8e4d005c */ 	lw	$t5,0x5c($s2)
 /*    4d610:	8fae016c */ 	lw	$t6,0x16c($sp)

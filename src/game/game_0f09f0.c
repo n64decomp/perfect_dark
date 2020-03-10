@@ -485,14 +485,14 @@ glabel var7f1b27fc
 /*  f0f0ac0:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0f0ac4:	afa20034 */ 	sw	$v0,0x34($sp)
 /*  f0f0ac8:	afa3003c */ 	sw	$v1,0x3c($sp)
-/*  f0f0acc:	0c012230 */ 	jal	func000488c0
+/*  f0f0acc:	0c012230 */ 	jal	osGetThreadPri
 /*  f0f0ad0:	afa80038 */ 	sw	$t0,0x38($sp)
 /*  f0f0ad4:	3c048009 */ 	lui	$a0,%hi(var800915e0)
 /*  f0f0ad8:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f0f0adc:	0c012230 */ 	jal	func000488c0
+/*  f0f0adc:	0c012230 */ 	jal	osGetThreadPri
 /*  f0f0ae0:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
 /*  f0f0ae4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0f0ae8:	0c01210c */ 	jal	func00048430
+/*  f0f0ae8:	0c01210c */ 	jal	osSetThreadPri
 /*  f0f0aec:	24450001 */ 	addiu	$a1,$v0,0x1
 /*  f0f0af0:	8fa3003c */ 	lw	$v1,0x3c($sp)
 /*  f0f0af4:	3c01bf80 */ 	lui	$at,0xbf80
@@ -530,7 +530,7 @@ glabel var7f1b27fc
 /*  f0f0b70:	24064000 */ 	addiu	$a2,$zero,0x4000
 .L0f0f0b74:
 /*  f0f0b74:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0f0b78:	0c01210c */ 	jal	func00048430
+/*  f0f0b78:	0c01210c */ 	jal	osSetThreadPri
 /*  f0f0b7c:	8fa50028 */ 	lw	$a1,0x28($sp)
 .L0f0f0b80:
 /*  f0f0b80:	8fbf0024 */ 	lw	$ra,0x24($sp)

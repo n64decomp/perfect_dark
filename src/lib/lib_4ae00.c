@@ -222,7 +222,7 @@ glabel func0004af68
 );
 
 GLOBAL_ASM(
-glabel func0004b0c0
+glabel bzero
 /*    4b0c0:	28a1000c */ 	slti	$at,$a1,0xc
 /*    4b0c4:	1420001d */ 	bnez	$at,.L0004b13c
 /*    4b0c8:	00041823 */ 	negu	$v1,$a0

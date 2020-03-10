@@ -14,7 +14,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func000491b0
+glabel __osTimerServicesInit
 /*    491b0:	3c01800a */ 	lui	$at,0x800a
 /*    491b4:	240e0000 */ 	addiu	$t6,$zero,0x0
 /*    491b8:	240f0000 */ 	addiu	$t7,$zero,0x0
@@ -53,7 +53,7 @@ glabel func000491b0
 );
 
 GLOBAL_ASM(
-glabel func0004923c
+glabel __osTimerInterrupt
 /*    4923c:	3c0e8006 */ 	lui	$t6,%hi(var800608a0)
 /*    49240:	8dce08a0 */ 	lw	$t6,%lo(var800608a0)($t6)
 /*    49244:	27bdffd8 */ 	addiu	$sp,$sp,-40

@@ -482,7 +482,7 @@ glabel func00008a48
 /*     90b4:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
 /*     90b8:	24050004 */ 	addiu	$a1,$zero,0x4
 /*     90bc:	00003825 */ 	or	$a3,$zero,$zero
-/*     90c0:	0c000fb8 */ 	jal	func00003ee0
+/*     90c0:	0c000fb8 */ 	jal	osCreateThread
 /*     90c4:	afa80010 */ 	sw	$t0,0x10($sp)
 /*     90c8:	8fbf0034 */ 	lw	$ra,0x34($sp)
 /*     90cc:	8fb0001c */ 	lw	$s0,0x1c($sp)
@@ -525,7 +525,7 @@ glabel func00009124
 /*     9130:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*     9134:	11c00003 */ 	beqz	$t6,.L00009144
 /*     9138:	3c048009 */ 	lui	$a0,%hi(var800915e0)
-/*     913c:	0c0120dc */ 	jal	func00048370
+/*     913c:	0c0120dc */ 	jal	osStopThread
 /*     9140:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
 .L00009144:
 /*     9144:	8fbf0014 */ 	lw	$ra,0x14($sp)

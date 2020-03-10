@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func000034f0(void);
+u32 __osExceptionPreamble(void);
 u32 func00003ab8(void);
 u32 __osEnqueueAndYield(void);
 u32 __osEnqueueThread(void);

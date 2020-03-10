@@ -11,7 +11,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00003ee0
+glabel osCreateThread
 /*     3ee0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*     3ee4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*     3ee8:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -25,8 +25,8 @@ glabel func00003ee0
 /*     3f08:	ac87003c */ 	sw	$a3,0x3c($a0)
 /*     3f0c:	ac8e0004 */ 	sw	$t6,0x4($a0)
 /*     3f10:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*     3f14:	3c0c7000 */ 	lui	$t4,%hi(func00003ecc)
-/*     3f18:	258c3ecc */ 	addiu	$t4,$t4,%lo(func00003ecc)
+/*     3f14:	3c0c7000 */ 	lui	$t4,%hi(__osCleanupThread)
+/*     3f18:	258c3ecc */ 	addiu	$t4,$t4,%lo(__osCleanupThread)
 /*     3f1c:	000f47c3 */ 	sra	$t0,$t7,0x1f
 /*     3f20:	2de10010 */ 	sltiu	$at,$t7,0x10
 /*     3f24:	01015023 */ 	subu	$t2,$t0,$at

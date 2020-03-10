@@ -10,7 +10,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004a5e0
+glabel memcpy
 /*    4a5e0:	00801025 */ 	or	$v0,$a0,$zero
 /*    4a5e4:	10c00007 */ 	beqz	$a2,.L0004a604
 /*    4a5e8:	00a01825 */ 	or	$v1,$a1,$zero

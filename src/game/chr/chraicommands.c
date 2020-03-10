@@ -10678,16 +10678,16 @@ bool aiChrBeginOrEndTeleport(void)
 		g_Vars.currentplayer->teleportpad = pad_id;
 		g_Vars.currentplayer->teleportcamerapad = 0;
 
-		a = func000488c0(0);
-		b = func000488c0(&var800915e0);
-		func00048430(0, b + 1);
+		a = osGetThreadPri(0);
+		b = osGetThreadPri(&var800915e0);
+		osSetThreadPri(0, b + 1);
 		c = func00010904(var80095200, 1075, 0, -1, -1, -1, -1, -1);
 
 		if (c) {
 			func00033e50(c, 16, fvalue[0]);
 		}
 
-		func00048430(0, a);
+		osSetThreadPri(0, a);
 	}
 
 	g_Vars.aioffset += 5;
@@ -10719,16 +10719,16 @@ bool aiIfChrTeleportFullWhite(void)
 		g_Vars.aioffset += 4;
 	} else {
 		fvalue[0] = 0.4;
-		a = func000488c0(0);
-		b = func000488c0(&var800915e0);
-		func00048430(0, b + 1);
+		a = osGetThreadPri(0);
+		b = osGetThreadPri(&var800915e0);
+		osSetThreadPri(0, b + 1);
 		c = func00010904(var80095200, -32683, 0, -1, -1, -1, -1, -1);
 
 		if (c) {
 			func00033e50(c, 16, fvalue[0]);
 		}
 
-		func00048430(0, a);
+		osSetThreadPri(0, a);
 		g_Vars.currentplayer->teleportstate = TELEPORTSTATE_3;
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	}

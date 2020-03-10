@@ -162,7 +162,7 @@ glabel func0004d6f0
 /*    4d8f8:	1181001c */ 	beq	$t4,$at,.L0004d96c
 .L0004d8fc:
 /*    4d8fc:	27a4029c */ 	addiu	$a0,$sp,0x29c
-/*    4d900:	0c012c30 */ 	jal	func0004b0c0
+/*    4d900:	0c012c30 */ 	jal	bzero
 /*    4d904:	24050020 */ 	addiu	$a1,$zero,0x20
 /*    4d908:	926e0065 */ 	lbu	$t6,0x65($s3)
 /*    4d90c:	02602025 */ 	or	$a0,$s3,$zero

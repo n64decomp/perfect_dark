@@ -13,6 +13,6 @@
 
 void func00013710(void)
 {
-	func00003360(0x96, &var80099a00, &var80099900, 0x40);
+	osCreatePiPanager(0x96, &var80099a00, &var80099900, 0x40);
 }
 

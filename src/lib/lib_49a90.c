@@ -15,7 +15,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00049a90
+glabel __osPiCreateAccessQueue
 /*    49a90:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    49a94:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    49a98:	240e0001 */ 	addiu	$t6,$zero,0x1
@@ -46,7 +46,7 @@ glabel func00049ae0
 /*    49aec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    49af0:	15c00003 */ 	bnez	$t6,.L00049b00
 /*    49af4:	00000000 */ 	sll	$zero,$zero,0x0
-/*    49af8:	0c0126a4 */ 	jal	func00049a90
+/*    49af8:	0c0126a4 */ 	jal	__osPiCreateAccessQueue
 /*    49afc:	00000000 */ 	sll	$zero,$zero,0x0
 .L00049b00:
 /*    49b00:	3c04800a */ 	lui	$a0,%hi(var8009c7a8)
@@ -73,11 +73,11 @@ glabel func00049b24
 /*    49b44:	27bd0018 */ 	addiu	$sp,$sp,0x18
 /*    49b48:	03e00008 */ 	jr	$ra
 /*    49b4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*    49b50:	27bdffe8 */ 	addiu	$sp,$sp,-24
 );
 
 GLOBAL_ASM(
-glabel func00049b54
+glabel osPiRawStartDma
+/*    49b50:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    49b54:	3c03a460 */ 	lui	$v1,0xa460
 /*    49b58:	34630010 */ 	ori	$v1,$v1,0x10
 /*    49b5c:	afbf0014 */ 	sw	$ra,0x14($sp)

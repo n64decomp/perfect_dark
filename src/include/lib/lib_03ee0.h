@@ -3,6 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00003ee0(void);
+void osCreateThread(OSThread *thread, OSId id, void (*entry)(void *),
+		void *arg, void *sp, OSPri pri);
 
 #endif

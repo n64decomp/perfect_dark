@@ -59,7 +59,7 @@ glabel func000488b0
 );
 
 GLOBAL_ASM(
-glabel func000488c0
+glabel osGetThreadPri
 /*    488c0:	14800003 */ 	bnez	$a0,.L000488d0
 /*    488c4:	00000000 */ 	sll	$zero,$zero,0x0
 /*    488c8:	3c048006 */ 	lui	$a0,%hi(var80060940)

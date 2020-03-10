@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004a5e0(void);
+u32 memcpy(void);
 u32 func0004a60c(void);
 u32 strchr(void);
 

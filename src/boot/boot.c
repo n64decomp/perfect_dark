@@ -684,7 +684,7 @@ glabel func000016cc
 /*     187c:	02002025 */ 	or	$a0,$s0,$zero
 /*     1880:	24050003 */ 	addiu	$a1,$zero,0x3
 /*     1884:	00003825 */ 	or	$a3,$zero,$zero
-/*     1888:	0c000fb8 */ 	jal	func00003ee0
+/*     1888:	0c000fb8 */ 	jal	osCreateThread
 /*     188c:	afa20010 */ 	sw	$v0,0x10($sp)
 /*     1890:	0c01207c */ 	jal	osStartThread
 /*     1894:	02002025 */ 	or	$a0,$s0,$zero
@@ -735,8 +735,7 @@ glabel func000018ac
 /*     1930:	2442fff8 */ 	addiu	$v0,$v0,-8
 );
 
-// This is possibly the idle thread's callback
-void func00001934(u32 arg)
+void idle(void *data)
 {
 	while (true);
 }
@@ -749,13 +748,13 @@ glabel func00001948
 /*     1954:	0c00062b */ 	jal	func000018ac
 /*     1958:	24050040 */ 	addiu	$a1,$zero,0x40
 /*     195c:	3c048009 */ 	lui	$a0,%hi(var8008d4a0)
-/*     1960:	3c067000 */ 	lui	$a2,%hi(func00001934)
-/*     1964:	24c61934 */ 	addiu	$a2,$a2,%lo(func00001934)
+/*     1960:	3c067000 */ 	lui	$a2,%hi(idle)
+/*     1964:	24c61934 */ 	addiu	$a2,$a2,%lo(idle)
 /*     1968:	2484d4a0 */ 	addiu	$a0,$a0,%lo(var8008d4a0)
 /*     196c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*     1970:	00003825 */ 	or	$a3,$zero,$zero
 /*     1974:	afa20010 */ 	sw	$v0,0x10($sp)
-/*     1978:	0c000fb8 */ 	jal	func00003ee0
+/*     1978:	0c000fb8 */ 	jal	osCreateThread
 /*     197c:	afa00014 */ 	sw	$zero,0x14($sp)
 /*     1980:	3c048009 */ 	lui	$a0,%hi(var8008d4a0)
 /*     1984:	0c01207c */ 	jal	osStartThread
@@ -781,7 +780,7 @@ glabel func0000199c
 /*     19c4:	2484d270 */ 	addiu	$a0,$a0,%lo(var8008d270)
 /*     19c8:	00002825 */ 	or	$a1,$zero,$zero
 /*     19cc:	00003825 */ 	or	$a3,$zero,$zero
-/*     19d0:	0c000fb8 */ 	jal	func00003ee0
+/*     19d0:	0c000fb8 */ 	jal	osCreateThread
 /*     19d4:	afa20010 */ 	sw	$v0,0x10($sp)
 /*     19d8:	3c048009 */ 	lui	$a0,%hi(var8008d270)
 /*     19dc:	0c01207c */ 	jal	osStartThread
@@ -850,10 +849,10 @@ void func00001aa4(u32 value)
 	func0000199c();
 
 	if (func00012f30()) {
-		func00048370(0);
+		osStopThread(0);
 	}
 
-	func00048430(0, 10);
+	osSetThreadPri(0, 10);
 	func000019f4();
 	func0000dae8();
 }
@@ -933,7 +932,7 @@ glabel func00001c4c
 /*     1cb8:	26050090 */ 	addiu	$a1,$s0,0x90
 /*     1cbc:	0c0120d0 */ 	jal	osCreateMesgQueue
 /*     1cc0:	24060008 */ 	addiu	$a2,$zero,0x8
-/*     1cc4:	0c000c14 */ 	jal	func00003050
+/*     1cc4:	0c000c14 */ 	jal	osCreateViManager
 /*     1cc8:	240400fe */ 	addiu	$a0,$zero,0xfe
 /*     1ccc:	93b80033 */ 	lbu	$t8,0x33($sp)
 /*     1cd0:	3c098006 */ 	lui	$t1,%hi(var8005f710)
@@ -995,11 +994,11 @@ glabel func00001c4c
 /*     1da8:	ad610000 */ 	sw	$at,0x0($t3)
 /*     1dac:	8d490004 */ 	lw	$t1,0x4($t2)
 /*     1db0:	2406029b */ 	addiu	$a2,$zero,0x29b
-/*     1db4:	0c012148 */ 	jal	func00048520
+/*     1db4:	0c012148 */ 	jal	osSetEventMesg
 /*     1db8:	ad690004 */ 	sw	$t1,0x4($t3)
 /*     1dbc:	24040009 */ 	addiu	$a0,$zero,0x9
 /*     1dc0:	02202825 */ 	or	$a1,$s1,$zero
-/*     1dc4:	0c012148 */ 	jal	func00048520
+/*     1dc4:	0c012148 */ 	jal	osSetEventMesg
 /*     1dc8:	2406029c */ 	addiu	$a2,$zero,0x29c
 /*     1dcc:	02202025 */ 	or	$a0,$s1,$zero
 /*     1dd0:	2405029a */ 	addiu	$a1,$zero,0x29a
@@ -1017,7 +1016,7 @@ glabel func00001c4c
 /*     1e00:	24c61e94 */ 	addiu	$a2,$a2,%lo(func00001e94)
 /*     1e04:	afa20010 */ 	sw	$v0,0x10($sp)
 /*     1e08:	24050002 */ 	addiu	$a1,$zero,0x2
-/*     1e0c:	0c000fb8 */ 	jal	func00003ee0
+/*     1e0c:	0c000fb8 */ 	jal	osCreateThread
 /*     1e10:	02003825 */ 	or	$a3,$s0,$zero
 /*     1e14:	0c01207c */ 	jal	osStartThread
 /*     1e18:	8e0400b0 */ 	lw	$a0,0xb0($s0)
@@ -1149,11 +1148,11 @@ glabel func00001fa8
 /*     1fb8:	afa50034 */ 	sw	$a1,0x34($sp)
 /*     1fbc:	afa00028 */ 	sw	$zero,0x28($sp)
 /*     1fc0:	afa00024 */ 	sw	$zero,0x24($sp)
-/*     1fc4:	0c012230 */ 	jal	func000488c0
+/*     1fc4:	0c012230 */ 	jal	osGetThreadPri
 /*     1fc8:	00002025 */ 	or	$a0,$zero,$zero
 /*     1fcc:	afa20020 */ 	sw	$v0,0x20($sp)
 /*     1fd0:	00002025 */ 	or	$a0,$zero,$zero
-/*     1fd4:	0c01210c */ 	jal	func00048430
+/*     1fd4:	0c01210c */ 	jal	osSetThreadPri
 /*     1fd8:	2405001f */ 	addiu	$a1,$zero,0x1f
 /*     1fdc:	02002025 */ 	or	$a0,$s0,$zero
 /*     1fe0:	0c000a87 */ 	jal	func00002a1c
@@ -1189,7 +1188,7 @@ glabel func00001fa8
 /*     2054:	8fa60024 */ 	lw	$a2,0x24($sp)
 /*     2058:	00002025 */ 	or	$a0,$zero,$zero
 .L0000205c:
-/*     205c:	0c01210c */ 	jal	func00048430
+/*     205c:	0c01210c */ 	jal	osSetThreadPri
 /*     2060:	8fa50020 */ 	lw	$a1,0x20($sp)
 /*     2064:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*     2068:	8fb00018 */ 	lw	$s0,0x18($sp)
@@ -2163,10 +2162,10 @@ glabel func00002e00
 /*     2e2c:	0c002449 */ 	jal	func00009124
 /*     2e30:	a02eced0 */ 	sb	$t6,-0x3130($at)
 /*     2e34:	3c048009 */ 	lui	$a0,%hi(var8008d6d0)
-/*     2e38:	0c0120dc */ 	jal	func00048370
+/*     2e38:	0c0120dc */ 	jal	osStopThread
 /*     2e3c:	2484d6d0 */ 	addiu	$a0,$a0,%lo(var8008d6d0)
 /*     2e40:	00002025 */ 	or	$a0,$zero,$zero
-/*     2e44:	0c01210c */ 	jal	func00048430
+/*     2e44:	0c01210c */ 	jal	osSetThreadPri
 /*     2e48:	2405000b */ 	addiu	$a1,$zero,0xb
 /*     2e4c:	3c0f8000 */ 	lui	$t7,0x8000
 /*     2e50:	8def0300 */ 	lw	$t7,0x300($t7)
@@ -2261,7 +2260,7 @@ glabel func00002f70
 /*     2f90:	3c058009 */ 	lui	$a1,%hi(var8008faa8)
 /*     2f94:	24a5faa8 */ 	addiu	$a1,$a1,%lo(var8008faa8)
 /*     2f98:	2404000e */ 	addiu	$a0,$zero,0xe
-/*     2f9c:	0c012148 */ 	jal	func00048520
+/*     2f9c:	0c012148 */ 	jal	osSetEventMesg
 /*     2fa0:	2406029d */ 	addiu	$a2,$zero,0x29d
 /*     2fa4:	3c0e8009 */ 	lui	$t6,%hi(var8008fdf0)
 /*     2fa8:	25cefdf0 */ 	addiu	$t6,$t6,%lo(var8008fdf0)
@@ -2273,7 +2272,7 @@ glabel func00002f70
 /*     2fc0:	2484fac0 */ 	addiu	$a0,$a0,%lo(var8008fac0)
 /*     2fc4:	afae0010 */ 	sw	$t6,0x10($sp)
 /*     2fc8:	24050006 */ 	addiu	$a1,$zero,0x6
-/*     2fcc:	0c000fb8 */ 	jal	func00003ee0
+/*     2fcc:	0c000fb8 */ 	jal	osCreateThread
 /*     2fd0:	00003825 */ 	or	$a3,$zero,$zero
 /*     2fd4:	3c048009 */ 	lui	$a0,%hi(var8008fac0)
 /*     2fd8:	0c01207c */ 	jal	osStartThread
