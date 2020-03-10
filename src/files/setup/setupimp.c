@@ -142,7 +142,7 @@
 #define AILIST_CARRINGTON             0x043e
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -157,7 +157,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x2201)
 	briefing(1, 0x2200)
 	briefing(2, 0x2202)

@@ -5,7 +5,7 @@
 #include "stagesetup.h"
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -29,7 +29,7 @@ char *text_objective1 = "\n\n\n";
 char *text_objective2 = "\n\n\n";
 char *text_objective3 = "\n";
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x0020)
 	briefing(1, 0x0024)
 	briefing(2, 0x0028)

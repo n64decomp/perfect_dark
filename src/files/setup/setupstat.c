@@ -55,7 +55,7 @@
 #define GROUP_KING3_SKEDAR 4
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -70,7 +70,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x4601)
 	briefing(1, 0x4600)
 	briefing(2, 0x4602)

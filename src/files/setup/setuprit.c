@@ -114,7 +114,7 @@
 #define AILIST_REMOVE_IF_OFFSCREEN 0x042c
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -129,7 +129,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x3601)
 	briefing(1, 0x3600)
 	briefing(2, 0x3602)

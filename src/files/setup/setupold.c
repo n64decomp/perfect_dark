@@ -5,7 +5,7 @@
 #include "stagesetup.h"
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -20,7 +20,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	tag(0x00, 1)
 	stdobject(0x0100, MODEL_A51_CRATE1, 0xffff, 0x00021501, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	tag(0x01, 1)

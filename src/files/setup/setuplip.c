@@ -117,7 +117,7 @@
 #define AILIST_INIT_BIOTECH2          0x0433
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -132,7 +132,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x2a01)
 	briefing(1, 0x2a00)
 	briefing(2, 0x2a02)

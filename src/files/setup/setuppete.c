@@ -94,7 +94,7 @@
 #define GROUP_ALARM_RESPONDER 0x09
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -109,7 +109,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x3201)
 	briefing(1, 0x3200)
 	briefing(2, 0x3202)

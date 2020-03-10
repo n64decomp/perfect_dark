@@ -58,7 +58,7 @@
 #define AILIST_HIDE                0x0422
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -73,7 +73,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x0a01)
 	briefing(1, 0x0a00)
 	briefing(2, 0x0a02)

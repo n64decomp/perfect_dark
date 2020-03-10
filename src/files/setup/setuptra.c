@@ -93,7 +93,7 @@
 #define SPAWNGROUP4 0x0d
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -108,7 +108,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x4801)
 	briefing(1, 0x4800)
 	briefing(2, 0x4802)

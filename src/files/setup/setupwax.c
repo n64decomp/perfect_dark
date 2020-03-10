@@ -44,7 +44,7 @@
 #define AILIST_OUTRO                0x0417
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -59,7 +59,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x4a01)
 	briefing(1, 0x4a00)
 	briefing(2, 0x4a02)

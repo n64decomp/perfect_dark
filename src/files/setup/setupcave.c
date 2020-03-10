@@ -79,7 +79,7 @@
 #define AILIST_FOYER_CLONE                0x042c
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -94,7 +94,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x0e01)
 	briefing(1, 0x0e00)
 	briefing(2, 0x0e02)

@@ -134,7 +134,7 @@
 #define AILIST_INIT_FALCON_GUARD  0x0430
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -149,7 +149,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x0201)
 	briefing(1, 0x0200)
 	briefing(2, 0x0202)

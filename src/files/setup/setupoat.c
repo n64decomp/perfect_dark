@@ -9,7 +9,7 @@
 #define AILIST_INIT_MAIAN 0x0402
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -24,7 +24,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	endprops
 };
 

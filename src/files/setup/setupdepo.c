@@ -99,7 +99,7 @@
 #define AILIST_CLOAK2_GUARD      0x0414
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -114,7 +114,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x1801)
 	briefing(1, 0x1800)
 	briefing(2, 0x1802)

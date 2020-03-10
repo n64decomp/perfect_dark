@@ -5,7 +5,7 @@
 #include "stagesetup.h"
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -31,7 +31,7 @@ char *text_objective3 = "intercept data backup\n";
 char *text_objective4 = "bungee jump from platform\n";
 char *text_objective5 = "Byelomorye Dam, Archangel, USSR\n";
 
-u8 props[] = {
+u32 props[] = {
 	endprops
 };
 

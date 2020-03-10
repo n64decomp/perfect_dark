@@ -77,7 +77,7 @@
 #define AILIST_ACTIVATE_LASERS            0x0424
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -92,7 +92,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x2c01)
 	briefing(1, 0x2c00)
 	briefing(2, 0x2c02)

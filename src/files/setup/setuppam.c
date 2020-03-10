@@ -96,7 +96,7 @@
 #define PAD_DRCAROLLROOM_ENTRY 0x01cb
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -111,7 +111,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x3001)
 	briefing(1, 0x3000)
 	briefing(2, 0x3002)

@@ -26,7 +26,7 @@
 #define AILIST_TRENT_INIT   0x0407
 
 s32 intro[];
-u8 props[];
+u32 props[];
 struct path paths[];
 struct ailist ailists[];
 
@@ -41,7 +41,7 @@ struct stagesetup setup = {
 	NULL,
 };
 
-u8 props[] = {
+u32 props[] = {
 	briefing(0, 0x5e01)
 	briefing(1, 0x5e00)
 	briefing(2, 0x5e02)
