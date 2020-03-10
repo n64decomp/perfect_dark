@@ -62,15 +62,15 @@ u32 props[] = {
 	briefing(2, 0x3c02)
 	briefing(3, 0x3c03)
 
-	beginobjective(0, 0x3c04, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Sabotage enemy medical experiment"
+	beginobjective(0, L_SEV(4), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Sabotage enemy medical experiment"
 		complete_flags(STAGEFLAG_EXPERIMENT_DESTROYED)
 	endobjective
 
-	beginobjective(1, 0x3c05, (DIFFBIT_PA | DIFFBIT_PD)) // "Destroy captured Maian saucer"
+	beginobjective(1, L_SEV(5), (DIFFBIT_PA | DIFFBIT_PD)) // "Destroy captured Maian saucer"
 		complete_flags(STAGEFLAG_SAUCER_DESTROYED)
 	endobjective
 
-	beginobjective(2, 0x3c06, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate distress signal"
+	beginobjective(2, L_SEV(6), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate distress signal"
 		complete_flags(STAGEFLAG_CONSOLE_ACTIVATED)
 		fail_flags(STAGEFLAG_CONSOLE_DESTROYED)
 		fail_flags(STAGEFLAG_TRAPPED_AT_START)
@@ -1131,7 +1131,7 @@ u8 func100d_start_lifts[] = {
 u8 func1003_check_experiment_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_EXPERIMENT, /*goto*/ 0x2c)
-		message(CHR_BOND, 0x3c07) // "Medical experiment has been sabotaged."
+		message(CHR_BOND, L_SEV(7)) // "Medical experiment has been sabotaged."
 		set_stage_flag(STAGEFLAG_EXPERIMENT_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -1143,7 +1143,7 @@ u8 func1003_check_experiment_destroyed[] = {
 u8 func1004_check_saucer_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(0x3e, /*goto*/ 0x2c)
-		message(CHR_BOND, 0x3c08) // "Captured Maian saucer has been destroyed."
+		message(CHR_BOND, L_SEV(8)) // "Captured Maian saucer has been destroyed."
 		set_stage_flag(STAGEFLAG_SAUCER_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -1327,13 +1327,13 @@ u8 func1008_check_console[] = {
 	label(0x2c)
 	assign_sound(0x8111, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_CONSOLE, 0x012c, 0x0190)
-	message(CHR_BOND, 0x3c09) // "Distress signal has been sent."
+	message(CHR_BOND, L_SEV(9)) // "Distress signal has been sent."
 	set_stage_flag(STAGEFLAG_CONSOLE_ACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Console destroyed
 	label(0x08)
-	message(CHR_BOND, 0x3c0a) // "Critical mission object has been destroyed."
+	message(CHR_BOND, L_SEV(10)) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_CONSOLE_DESTROYED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1486,7 +1486,7 @@ u8 func100b_check_medlab_escapable[] = {
 
 		// Player has psychosis gun but ammo depleted
 		label(0x2c)
-		message(CHR_BOND, 0x3c0b) // "Mission failed - cannot escape from medlab."
+		message(CHR_BOND, L_SEV(11)) // "Mission failed - cannot escape from medlab."
 		set_stage_flag(STAGEFLAG_TRAPPED_AT_START)
 		goto_next(0x0e)
 
@@ -1505,7 +1505,7 @@ u8 func100b_check_medlab_escapable[] = {
 		endloop(0x0e)
 
 		label(0x06)
-		message(CHR_BOND, 0x3c0c) // "Alternative escape route found."
+		message(CHR_BOND, L_SEV(12)) // "Alternative escape route found."
 		unset_stage_flag(STAGEFLAG_TRAPPED_AT_START)
 	goto_first(0x04)
 

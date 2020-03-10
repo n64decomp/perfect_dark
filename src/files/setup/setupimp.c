@@ -163,7 +163,7 @@ u32 props[] = {
 	briefing(2, 0x2202)
 	briefing(3, 0x2203)
 
-	beginobjective(0, 0x2205, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Reactivate automatic defenses"
+	beginobjective(0, L_IMP(5), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Reactivate automatic defenses"
 		complete_flags(STAGEFLAG_AUTOGUN1_ACTIVE)
 		complete_flags(STAGEFLAG_AUTOGUN2_ACTIVE)
 		complete_flags(STAGEFLAG_AUTOGUN3_ACTIVE)
@@ -171,21 +171,21 @@ u32 props[] = {
 		fail_flags(STAGEFLAG_00000001)
 	endobjective
 
-	beginobjective(1, 0x2206, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Release hostages"
+	beginobjective(1, L_IMP(6), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Release hostages"
 		complete_flags(STAGEFLAG_ENOUGH_HOSTAGES_SAVED)
 		fail_flags(STAGEFLAG_TOO_MANY_HOSTAGES_KILLED)
 	endobjective
 
-	beginobjective(2, 0x2207, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retrieve experimental weapon"
+	beginobjective(2, L_IMP(7), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Retrieve experimental weapon"
 		require_object_collected(OBJ_RCP120)
 		fail_flags(STAGEFLAG_FR_PC_DESTROYED)
 	endobjective
 
-	beginobjective(3, 0x2208, (DIFFBIT_PA | DIFFBIT_PD)) // "Destroy sensitive information"
+	beginobjective(3, L_IMP(8), (DIFFBIT_PA | DIFFBIT_PD)) // "Destroy sensitive information"
 		complete_flags(STAGEFLAG_SAFEINFO_DESTROYED)
 	endobjective
 
-	beginobjective(4, 0x2209, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Deactivate bomb"
+	beginobjective(4, L_IMP(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Deactivate bomb"
 		complete_flags(STAGEFLAG_BOMB_AIRBORNE)
 		fail_flags(STAGEFLAG_BOMB_EXPLODING_ON_GROUND)
 		fail_flags(STAGEFLAG_CARRINGTON_DEAD)
@@ -414,13 +414,13 @@ u32 props[] = {
 	weapon(0x0180, MODEL_CHRRCP120, 0x011a, 0x00100008, 0x00000000, 0x20400000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_RCP120, 0x00ffffff, 0x00000000)
 	tag(0x09, 1)
 	stdobject(0x0480, MODEL_SENSITIVEINFO, 0x010f, 0x000204e8, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
-	rename_object(-1, 0x4e, 0x220a, 0x220b, 0x220c, 0x220d, 0x220e, 0x0000, 0x0000) // "Obtain sensitive info."
+	rename_object(-1, 0x4e, L_IMP(10), L_IMP(11), L_IMP(12), L_IMP(13), L_IMP(14), 0x0000, 0x0000) // "Obtain sensitive info."
 	tag(0x4f, 1)
 	weapon(0x0180, MODEL_CHRDATATHIEF, 0xffff, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DATAUPLINK, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x36, 0x2239, 0x223a, 0x223b, 0x223c, 0x223d, 0x0000, 0x0000) // "Obtain Data Uplink."
+	rename_object(-1, 0x36, L_IMP(57), L_IMP(58), L_IMP(59), L_IMP(60), L_IMP(61), 0x0000, 0x0000) // "Obtain Data Uplink."
 	tag(0x50, 1)
 	weapon(0x0180, MODEL_CHRDATATHIEF, 0xffff, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DATAUPLINK, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x36, 0x2239, 0x223a, 0x223b, 0x223c, 0x223d, 0x0000, 0x0000) // "Obtain Data Uplink."
+	rename_object(-1, 0x36, L_IMP(57), L_IMP(58), L_IMP(59), L_IMP(60), L_IMP(61), 0x0000, 0x0000) // "Obtain Data Uplink."
 	door(0x0100, MODEL_INSTFRONTDOOR, 0x018f, 0x10000600, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0000f333, 0x00010000, 0x00007fff, 0x00014000, 0x00000666, 0x00040000, 0x00000008, 0x00000384, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000001, 0x00000000, 0x00000300, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
 	door(0x0100, MODEL_INSTFRONTDOOR, 0x0190, 0x10000600, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0000f333, 0x00010000, 0x00007fff, 0x00014000, 0x00000666, 0x00040000, 0x00000008, 0x00000384, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffffff, 0x00000000, 0x00000000, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
 	door(0x0100, MODEL_DOOR2_G5, 0x0168, 0x10000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0000f333, 0x00010000, 0x0001aaaa, 0x0001aaaa, 0x00000222, 0x00060000, 0x00000000, 0x00000258, 0x00000000, 0x00000000, 0x00000000, 0x012c0320, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000001, 0x00000000, 0x00000300, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
@@ -777,7 +777,7 @@ u8 func1004_check_hostages_killed[] = {
 	label(0x08)
 	if_stage_flag_eq(STAGEFLAG_ENOUGH_HOSTAGES_SAVED, TRUE, /*goto*/ 0x2e)
 	set_stage_flag(STAGEFLAG_TOO_MANY_HOSTAGES_KILLED)
-	message(CHR_BOND, 0x2210) // "Too many hostages killed."
+	message(CHR_BOND, L_IMP(16)) // "Too many hostages killed."
 
 	label(0x2e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -793,7 +793,7 @@ u8 func1005_check_safeinfo_destroyed[] = {
 	endloop(0x04)
 
 	label(0x08)
-	message(CHR_BOND, 0x2212) // "Sensitive information has been destroyed."
+	message(CHR_BOND, L_IMP(18)) // "Sensitive information has been destroyed."
 	set_stage_flag(STAGEFLAG_SAFEINFO_DESTROYED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1030,7 +1030,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x0162, CHANNEL_10)
 
 	wait_until(570, 0x71)
-	speak(CHR_BOND, 0x2231, 0x747d, CHANNEL_10, COLOR_09_BLUE) // "Get clear! I'll hold them off... You can come back..."
+	speak(CHR_BOND, L_IMP(49), 0x747d, CHANNEL_10, COLOR_09_BLUE) // "Get clear! I'll hold them off... You can come back..."
 
 	wait_until(847, 0x87)
 	play_sound(0x0161, CHANNEL_10)
@@ -1058,7 +1058,7 @@ u8 func0c01_outro[] = {
 
 	label(0x08)
 	set_chr_shooting_in_cutscene(CHR_BOND, FALSE)
-	speak(CHR_BOND, 0x2232, 0x747e, CHANNEL_10, COLOR_09_BLUE) // "At least, I hope you can."
+	speak(CHR_BOND, L_IMP(50), 0x747e, CHANNEL_10, COLOR_09_BLUE) // "At least, I hope you can."
 
 	wait_until(1018, 0x8c)
 	set_chr_shooting_in_cutscene(CHR_BOND, TRUE)
@@ -1185,7 +1185,7 @@ u8 func1002_intro[] = {
 	set_cutscene_weapon(0x1a, WEAPON_AR34, WEAPON_NONE)
 
 	wait_until(4, 0x71)
-	speak(CHR_BOND, 0x2229, 0x7475, CHANNEL_10, COLOR_06_WHITE) // "All ready, Joanna? We can't keep the Maian delegat..."
+	speak(CHR_BOND, L_IMP(41), 0x7475, CHANNEL_10, COLOR_06_WHITE) // "All ready, Joanna? We can't keep the Maian delegat..."
 
 	wait_until(72, 0x72)
 	play_sound(0x0161, CHANNEL_10)
@@ -1194,7 +1194,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0162, CHANNEL_10)
 
 	wait_until(450, 0x74)
-	speak(CHR_BOND, 0x222a, 0x7476, CHANNEL_10, COLOR_09_BLUE) // "Am I ready? What do you mean? I was ready half an ..."
+	speak(CHR_BOND, L_IMP(42), 0x7476, CHANNEL_10, COLOR_09_BLUE) // "Am I ready? What do you mean? I was ready half an ..."
 
 	wait_until(688, 0x76)
 	play_sound(0x0163, CHANNEL_10)
@@ -1203,7 +1203,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0164, CHANNEL_10)
 
 	wait_until(800, 0x75)
-	speak(CHR_BOND, 0x222b, 0x7477, CHANNEL_10, COLOR_06_WHITE) // "But you know how it is, Joanna... I had to make su..."
+	speak(CHR_BOND, L_IMP(43), 0x7477, CHANNEL_10, COLOR_06_WHITE) // "But you know how it is, Joanna... I had to make su..."
 
 	wait_until(822, 0x78)
 	play_sound(0x0165, CHANNEL_10)
@@ -1245,7 +1245,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0165, CHANNEL_10)
 
 	wait_until(1160, 0x82)
-	speak(CHR_BOND, 0x222c, 0x7478, CHANNEL_10, COLOR_09_BLUE) // "They should keep you away from mirrors. Nervous?"
+	speak(CHR_BOND, L_IMP(44), 0x7478, CHANNEL_10, COLOR_09_BLUE) // "They should keep you away from mirrors. Nervous?"
 
 	wait_until(1170, 0x86)
 	play_sound(0x0166, CHANNEL_10)
@@ -1257,7 +1257,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0168, CHANNEL_10)
 
 	wait_until(1440, 0x89)
-	speak(CHR_BOND, 0x222d, 0x7479, CHANNEL_10, COLOR_06_WHITE) // "Very. I've waited for this moment for so many year..."
+	speak(CHR_BOND, L_IMP(45), 0x7479, CHANNEL_10, COLOR_06_WHITE) // "Very. I've waited for this moment for so many year..."
 
 	wait_until(1442, 0x8a)
 	play_sound(0x0162, CHANNEL_10)
@@ -1290,7 +1290,7 @@ u8 func1002_intro[] = {
 	play_sound(0x00b5, CHANNEL_10)
 
 	wait_until(2410, 0x94)
-	speak(CHR_BOND, 0x222e, 0x747a, CHANNEL_10, COLOR_06_WHITE) // "Where did that come from?"
+	speak(CHR_BOND, L_IMP(46), 0x747a, CHANNEL_10, COLOR_06_WHITE) // "Where did that come from?"
 
 	wait_until(2416, 0x95)
 	play_sound(0x0165, CHANNEL_10)
@@ -1308,7 +1308,7 @@ u8 func1002_intro[] = {
 	play_sound(0x00b2, CHANNEL_10)
 
 	wait_until(2628, 0x9b)
-	speak(CHR_BOND, 0x222f, 0x747b, CHANNEL_10, COLOR_09_BLUE) // "It was up on ground level..."
+	speak(CHR_BOND, L_IMP(47), 0x747b, CHANNEL_10, COLOR_09_BLUE) // "It was up on ground level..."
 
 	wait_until(2804, 0x9c)
 	play_sound(0x00b5, CHANNEL_10)
@@ -1325,7 +1325,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0168, CHANNEL_10)
 
 	wait_until(2970, 0x9d)
-	speak(CHR_BOND, 0x2230, 0x747c, CHANNEL_10, COLOR_09_BLUE) // "Looks like someone doesn't know when to quit. We'v..."
+	speak(CHR_BOND, L_IMP(48), 0x747c, CHANNEL_10, COLOR_09_BLUE) // "Looks like someone doesn't know when to quit. We'v..."
 
 	wait_until(2984, 0xa1)
 	play_sound(0x0165, CHANNEL_10)
@@ -1567,7 +1567,7 @@ u8 func100c_check_carrington_dead[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_BOND, 0x2213) // "Carrington has been killed."
+	message(CHR_BOND, L_IMP(19)) // "Carrington has been killed."
 	set_stage_flag(STAGEFLAG_CARRINGTON_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2631,7 +2631,7 @@ u8 func1013_check_hostages_saved[] = {
 	// All rooms done
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_TOO_MANY_HOSTAGES_KILLED, TRUE, /*goto*/ 0x2e)
-	message(CHR_BOND, 0x2211) // "Hostages have been saved."
+	message(CHR_BOND, L_IMP(17)) // "Hostages have been saved."
 	set_stage_flag(STAGEFLAG_ENOUGH_HOSTAGES_SAVED)
 
 	label(0x2e)
@@ -2672,7 +2672,7 @@ u8 func1014_carrington_messages[] = {
 	label(0x08)
 	restart_timer
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0d)
-	speak(CHR_BOND, 0x2214, 0x8193, CHANNEL_6, COLOR_06_WHITE) // "Joanna - we're under attack."
+	speak(CHR_BOND, L_IMP(20), 0x8193, CHANNEL_6, COLOR_06_WHITE) // "Joanna - we're under attack."
 
 	beginloop(0x0b)
 		carrington_sanity_checks
@@ -2680,7 +2680,7 @@ u8 func1014_carrington_messages[] = {
 	endloop(0x0b)
 
 	label(0x08)
-	speak(CHR_BOND, 0x2215, 0x8194, CHANNEL_6, COLOR_06_WHITE) // "Get the guns back on line - hurry."
+	speak(CHR_BOND, L_IMP(21), 0x8194, CHANNEL_6, COLOR_06_WHITE) // "Get the guns back on line - hurry."
 
 	beginloop(0x0c)
 		carrington_sanity_checks
@@ -2708,7 +2708,7 @@ u8 func1014_carrington_messages[] = {
 
 	label(0xda)
 	restart_timer
-	speak(CHR_BOND, 0x2216, 0x8195, CHANNEL_6, COLOR_06_WHITE) // "The Skedar have taken hostages."
+	speak(CHR_BOND, L_IMP(22), 0x8195, CHANNEL_6, COLOR_06_WHITE) // "The Skedar have taken hostages."
 
 	beginloop(0x0e)
 		carrington_sanity_checks
@@ -2717,7 +2717,7 @@ u8 func1014_carrington_messages[] = {
 
 	label(0x08)
 	restart_timer
-	speak(CHR_BOND, 0x2217, 0x8196, CHANNEL_6, COLOR_06_WHITE) // "Get up to the offices and save them."
+	speak(CHR_BOND, L_IMP(23), 0x8196, CHANNEL_6, COLOR_06_WHITE) // "Get up to the offices and save them."
 
 	beginloop(0x0f)
 		carrington_sanity_checks
@@ -2745,7 +2745,7 @@ u8 func1014_carrington_messages[] = {
 
 	label(0x08)
 	restart_timer
-	speak(CHR_BOND, 0x2218, 0x8197, CHANNEL_6, COLOR_06_WHITE) // "They're using a new form of shield technology."
+	speak(CHR_BOND, L_IMP(24), 0x8197, CHANNEL_6, COLOR_06_WHITE) // "They're using a new form of shield technology."
 
 	beginloop(0x11)
 		carrington_sanity_checks
@@ -2754,7 +2754,7 @@ u8 func1014_carrington_messages[] = {
 
 	label(0x08)
 	restart_timer
-	speak(CHR_BOND, 0x2219, 0x8198, CHANNEL_6, COLOR_06_WHITE) // "Foster was working on a new weapon which may be us..."
+	speak(CHR_BOND, L_IMP(25), 0x8198, CHANNEL_6, COLOR_06_WHITE) // "Foster was working on a new weapon which may be us..."
 
 	beginloop(0x12)
 		carrington_sanity_checks
@@ -2777,7 +2777,7 @@ u8 func1014_carrington_messages[] = {
 
 	label(0x08)
 	restart_timer
-	speak(CHR_BOND, 0x221a, 0x8199, CHANNEL_6, COLOR_06_WHITE) // "Damn it. My office... If they get access..."
+	speak(CHR_BOND, L_IMP(26), 0x8199, CHANNEL_6, COLOR_06_WHITE) // "Damn it. My office... If they get access..."
 
 	beginloop(0xc1)
 		carrington_sanity_checks
@@ -2786,7 +2786,7 @@ u8 func1014_carrington_messages[] = {
 
 	label(0x08)
 	restart_timer
-	speak(CHR_BOND, 0x221b, 0x819a, CHANNEL_6, COLOR_06_WHITE) // "Get there first, Jo, and destroy the files."
+	speak(CHR_BOND, L_IMP(27), 0x819a, CHANNEL_6, COLOR_06_WHITE) // "Get there first, Jo, and destroy the files."
 
 	beginloop(0xc2)
 		carrington_sanity_checks
@@ -2837,7 +2837,7 @@ u8 func1014_carrington_messages[] = {
 
 	label(0x08)
 	restart_timer
-	speak(CHR_BOND, 0x221c, 0x819b, CHANNEL_6, COLOR_06_WHITE) // "Things are desperate. They've planted a bomb."
+	speak(CHR_BOND, L_IMP(28), 0x819b, CHANNEL_6, COLOR_06_WHITE) // "Things are desperate. They've planted a bomb."
 
 	beginloop(0xc5)
 		carrington_sanity_checks
@@ -2846,7 +2846,7 @@ u8 func1014_carrington_messages[] = {
 
 	label(0x08)
 	restart_timer
-	speak(CHR_BOND, 0x221d, 0x819c, CHANNEL_6, COLOR_06_WHITE) // "Find it and get it out of the building."
+	speak(CHR_BOND, L_IMP(29), 0x819c, CHANNEL_6, COLOR_06_WHITE) // "Find it and get it out of the building."
 
 	beginloop(0xc6)
 		carrington_sanity_checks
@@ -2877,7 +2877,7 @@ u8 func1014_carrington_messages[] = {
 	label(0x2e)
 	carrington_sanity_checks
 	restart_timer
-	speak(CHR_BOND, 0x2220, 0x819d, CHANNEL_6, COLOR_06_WHITE) // "Well done, Joanna. We're nearly clear..."
+	speak(CHR_BOND, L_IMP(32), 0x819d, CHANNEL_6, COLOR_06_WHITE) // "Well done, Joanna. We're nearly clear..."
 
 	beginloop(0xc9)
 		if_timer_gt(180, /*goto*/ 0x08)
@@ -2885,7 +2885,7 @@ u8 func1014_carrington_messages[] = {
 
 	label(0x08)
 	carrington_sanity_checks
-	speak(CHR_BOND, 0x2221, 0x819e, CHANNEL_6, COLOR_06_WHITE) // "The last dropship is waiting for you. Hurry."
+	speak(CHR_BOND, L_IMP(33), 0x819e, CHANNEL_6, COLOR_06_WHITE) // "The last dropship is waiting for you. Hurry."
 
 	beginloop(0xca)
 		if_timer_gt(180, /*goto*/ 0xcb)
@@ -2937,14 +2937,14 @@ u8 func1015_firingrange_pc[] = {
 		reloop(0x0a)
 
 		label(0x2f)
-		message(CHR_BOND, 0x2222) // "Critical mission object has been destroyed."
+		message(CHR_BOND, L_IMP(34)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_FR_PC_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x08)
 		play_sound(0x8116, -1)
 		if_objective_complete(1, /*goto*/ 0x08)
-		message(CHR_P1P2, 0x221e) // "Access denied - authorization failure."
+		message(CHR_P1P2, L_IMP(30)) // "Access denied - authorization failure."
 		restart_timer
 
 		beginloop(0x0b)
@@ -2955,7 +2955,7 @@ u8 func1015_firingrange_pc[] = {
 	endloop(0x0a)
 
 	label(0x08)
-	message(CHR_P1P2, 0x221f) // "Emergency overrides have been engaged."
+	message(CHR_P1P2, L_IMP(31)) // "Emergency overrides have been engaged."
 	unset_object_flag(OBJ_RCP120, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag(OBJ_RCP120_GLASS, OBJFLAG_INVINCIBLE)
 	destroy_object(OBJ_RCP120_GLASS)
@@ -3458,7 +3458,7 @@ u8 func101b_msg_autodefenses[] = {
 	label(0x2e)
 	yield
 	yield
-	speak(CHR_BOND, 0x2223, 0x73d8, CHANNEL_6, COLOR_09_BLUE) // "The autodefenses will really help me out."
+	speak(CHR_BOND, L_IMP(35), 0x73d8, CHANNEL_6, COLOR_09_BLUE) // "The autodefenses will really help me out."
 	label(0x0a)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3482,7 +3482,7 @@ u8 func101c_msg_fosterworkingon[] = {
 	endloop(0x0a)
 
 	label(0x2e)
-	speak(CHR_P1P2, 0x2224, 0x73d9, CHANNEL_6, COLOR_09_BLUE) // "So this is what Foster was working on."
+	speak(CHR_P1P2, L_IMP(36), 0x73d9, CHANNEL_6, COLOR_09_BLUE) // "So this is what Foster was working on."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3504,7 +3504,7 @@ u8 func101d_msg_countingonme[] = {
 	endloop(0x0a)
 
 	label(0x2e)
-	speak(CHR_BOND, 0x2225, 0x73da, CHANNEL_6, COLOR_09_BLUE) // "I'll have to go carefully... The hostages are coun..."
+	speak(CHR_BOND, L_IMP(37), 0x73da, CHANNEL_6, COLOR_09_BLUE) // "I'll have to go carefully... The hostages are coun..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3517,7 +3517,7 @@ u8 func101e_msg_wontknow[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_BOND, 0x2226, 0x73db, CHANNEL_6, COLOR_09_BLUE) // "Well, at least I won't know if I'm doing anything ..."
+	speak(CHR_BOND, L_IMP(38), 0x73db, CHANNEL_6, COLOR_09_BLUE) // "Well, at least I won't know if I'm doing anything ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3609,7 +3609,7 @@ u8 func1023_check_skeder_shuttle_destroyed[] = {
 
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_BOMB_AIRBORNE, TRUE, /*goto*/ 0x0f)
-	message(CHR_BOND, 0x2227) // "The bomb has been detonated..."
+	message(CHR_BOND, L_IMP(39)) // "The bomb has been detonated..."
 	set_stage_flag(STAGEFLAG_BOMB_EXPLODING_ON_GROUND)
 	explosions_around_chr(CHR_BOND)
 	restart_timer
@@ -3707,12 +3707,12 @@ u8 func1027_uplink[] = {
 		label(0x08)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_DATAUPLINK, /*goto*/ 0x2e)
 		play_sound(0x8116, -1)
-		message(CHR_TARGET, 0x2233) // "You need the Data Uplink."
+		message(CHR_TARGET, L_IMP(51)) // "You need the Data Uplink."
 		reloop(0x04)
 
 		// Activated with uplink
 		label(0x2e)
-		message(CHR_TARGET, 0x2234) // "Connection has been made."
+		message(CHR_TARGET, L_IMP(52)) // "Connection has been made."
 		restart_timer
 
 		beginloop(0x0a)
@@ -3733,7 +3733,7 @@ u8 func1027_uplink[] = {
 
 		// 1 second since uplink
 		label(0x08)
-		message(CHR_TARGET, 0x2235) // "Bypassing security systems."
+		message(CHR_TARGET, L_IMP(53)) // "Bypassing security systems."
 		restart_timer
 		assign_sound(0x01bf, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_SKEDAR_SHUTTLE, TRUE)
@@ -3759,9 +3759,9 @@ u8 func1027_uplink[] = {
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c1, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, OBJ_SKEDAR_SHUTTLE, TRUE)
-		message(CHR_TARGET, 0x2236) // "Virus has been downloaded successfully."
+		message(CHR_TARGET, L_IMP(54)) // "Virus has been downloaded successfully."
 		yield
-		message(CHR_TARGET, 0x2237) // "Ship's engines have been activated."
+		message(CHR_TARGET, L_IMP(55)) // "Ship's engines have been activated."
 		set_stage_flag(STAGEFLAG_TRIGGER_SHUTTLE_TAKEOFF)
 
 		beginloop(0x14)
@@ -3774,7 +3774,7 @@ u8 func1027_uplink[] = {
 
 		// Connection broken
 		label(0x0b)
-		message(CHR_TARGET, 0x2238) // "Connection to ship has been broken."
+		message(CHR_TARGET, L_IMP(56)) // "Connection to ship has been broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c0, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, OBJ_SKEDAR_SHUTTLE, TRUE)

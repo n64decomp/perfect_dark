@@ -3426,9 +3426,9 @@ s32 menuhandlerMpTimeLimitSlider(u32 operation, struct menu_item *item, struct n
 		break;
 	case MENUOP_GETSLIDERLABEL:
 		if (value->num == 60) {
-			sprintf(value->text, langGet(0x5070)); // "No Limit"
+			sprintf(value->text, langGet(L_MPMENU(112))); // "No Limit"
 		} else {
-			sprintf(value->text, langGet(0x5072), value->num + 1); // "%d Min"
+			sprintf(value->text, langGet(L_MPMENU(114)), value->num + 1); // "%d Min"
 		}
 	}
 	return 0;
@@ -3445,9 +3445,9 @@ s32 menuhandlerMpScoreLimitSlider(u32 operation, struct menu_item *item, struct 
 		break;
 	case MENUOP_GETSLIDERLABEL:
 		if (value->num == 100) {
-			sprintf(value->text, langGet(0x5070)); // "No Limit"
+			sprintf(value->text, langGet(L_MPMENU(112))); // "No Limit"
 		} else {
-			sprintf(value->text, langGet(0x5071), value->num + 1); // "%d"
+			sprintf(value->text, langGet(L_MPMENU(113)), value->num + 1); // "%d"
 		}
 	}
 
@@ -3465,9 +3465,9 @@ s32 menuhandlerMpTeamScoreLimitSlider(u32 operation, struct menu_item *item, str
 		break;
 	case MENUOP_GETSLIDERLABEL:
 		if (value->num == 400) {
-			sprintf(value->text, langGet(0x5070)); // "No Limit"
+			sprintf(value->text, langGet(L_MPMENU(112))); // "No Limit"
 		} else {
-			sprintf(value->text, langGet(0x5071), value->num + 1); // "%d"
+			sprintf(value->text, langGet(L_MPMENU(113)), value->num + 1); // "%d"
 		}
 	}
 
@@ -5921,7 +5921,7 @@ char *menuhandlerMpLock(u32 operation, struct menu_item *item, s32 *value)
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		if (mpGetLockType() == MPLOCKTYPE_CHALLENGE) {
-			return langGet(0x5031); // "Challenge"
+			return langGet(L_MPMENU(49)); // "Challenge"
 		}
 		if ((u32)*value <= 3) {
 			return langGet(labels[*value]);

@@ -411,7 +411,7 @@ char *cheatGetNameIfUnlocked(struct menu_item *item)
 		return langGet(g_Cheats[item->param].nametextid);
 	}
 
-	return langGet(0x544a); // "----------"
+	return langGet(L_MPWEAPONS(74)); // "----------"
 }
 
 GLOBAL_ASM(
@@ -541,14 +541,14 @@ char *cheatGetMarquee(struct menu_item *arg0)
 
 		if (g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_CheatsBuddiesMenuDialog && g_MenuStack[g_MpPlayerNum].unk00->item == &g_CheatsBuddiesMenuItems[0]) {
 			// Velvet
-			sprintf(g_CheatMarqueeString, "%s: %s", langGet(0x548f), langGet(0x5475)); // "Buddy Available", "Velvet Dark"
+			sprintf(g_CheatMarqueeString, "%s: %s", langGet(L_MPWEAPONS(143)), langGet(L_MPWEAPONS(117))); // "Buddy Available", "Velvet Dark"
 			return g_CheatMarqueeString;
 		}
 
 		if (cheatIsUnlocked(cheat_id)) {
 			// Show cheat name
 			sprintf(g_CheatMarqueeString, "%s: %s\n",
-					g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_CheatsBuddiesMenuDialog ? langGet(0x548f) : langGet(0x5488), // "Buddy Available", "Cheat available"
+					g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS(143)) : langGet(L_MPWEAPONS(136)), // "Buddy Available", "Cheat available"
 					langGet(g_Cheats[cheat_id].nametextid)
 			);
 			return g_CheatMarqueeString;
@@ -566,10 +566,10 @@ char *cheatGetMarquee(struct menu_item *arg0)
 
 		if (g_Cheats[cheat_id].flags & CHEATFLAG_COMPLETION) {
 			sprintf(g_CheatMarqueeString, "%s %s: %s %s %s",
-					langGet(0x5489), // "Complete"
+					langGet(L_MPWEAPONS(137)), // "Complete"
 					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
 					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
-					langGet(0x548a), // "for cheat:"
+					langGet(L_MPWEAPONS(138)), // "for cheat:"
 					&cheatname
 			);
 		} else {
@@ -584,21 +584,21 @@ char *cheatGetMarquee(struct menu_item *arg0)
 			*ptr = '\0';
 
 			sprintf(g_CheatMarqueeString, "%s %s: %s %s %s %s %d:%02d %s %s",
-					langGet(0x5489), // "Complete"
+					langGet(L_MPWEAPONS(137)), // "Complete"
 					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name1),
 					langGet(g_StageNames[g_Cheats[cheat_id].stage_index].name2),
-					langGet(0x548b), // "on"
+					langGet(L_MPWEAPONS(139)), // "on"
 					&difficultyname,
-					langGet(0x548c), // "in under"
+					langGet(L_MPWEAPONS(140)), // "in under"
 					g_Cheats[cheat_id].time / 60,
 					g_Cheats[cheat_id].time % 60,
-					langGet(0x548a), // "for cheat:"
+					langGet(L_MPWEAPONS(138)), // "for cheat:"
 					&cheatname
 			);
 		}
 
 		if (g_Cheats[cheat_id].flags & CHEATFLAG_TRANSFERPAK) {
-			strcat(g_CheatMarqueeString, langGet(0x548d)); // " or insert Game Boy ..."
+			strcat(g_CheatMarqueeString, langGet(L_MPWEAPONS(141))); // " or insert Game Boy ..."
 		}
 
 		strcat(g_CheatMarqueeString, "\n");
@@ -607,7 +607,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 	}
 
 	// No cheat selected
-	return langGet(0x548e); // "Select cheat for information"
+	return langGet(L_MPWEAPONS(142)); // "Select cheat for information"
 }
 
 bool cheatMenuHandleTurnOffAllCheats(u32 operation, u32 arg1, u32 *arg2)

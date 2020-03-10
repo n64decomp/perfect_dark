@@ -99,24 +99,24 @@ u32 props[] = {
 	briefing(2, 0x0602)
 	briefing(3, 0x0603)
 
-	beginobjective(0, 0x0609, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Access foyer elevator"
+	beginobjective(0, L_ARK(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Access foyer elevator"
 		complete_flags(STAGEFLAG_ACCESSED_FOYER_ELEVATOR)
 	endobjective
 
-	beginobjective(1, 0x060a, (DIFFBIT_PA | DIFFBIT_PD)) // "Reactivate office elevator"
+	beginobjective(1, L_ARK(10), (DIFFBIT_PA | DIFFBIT_PD)) // "Reactivate office elevator"
 		complete_flags(STAGEFLAG_ELEVATOR_UNLOCKED)
 		fail_flags(STAGEFLAG_ELEVATOR_PC_DESTROYED)
 	endobjective
 
-	beginobjective(2, 0x060b, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Destroy dataDyne hovercopter"
+	beginobjective(2, L_ARK(11), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Destroy dataDyne hovercopter"
 		complete_flags(STAGEFLAG_HOVERCOPTER_DESTROYED)
 	endobjective
 
-	beginobjective(3, 0x060c, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Defeat Cassandra's bodyguards"
+	beginobjective(3, L_ARK(12), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Defeat Cassandra's bodyguards"
 		complete_flags(STAGEFLAG_OBJECTIVE_BODYGUARDS_DEAD)
 	endobjective
 
-	beginobjective(4, 0x060d, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Rendezvous at helipad"
+	beginobjective(4, L_ARK(13), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Rendezvous at helipad"
 		complete_flags(STAGEFLAG_REACHED_HELIPAD)
 		fail_flags(STAGEFLAG_DRCAROLL_DEAD)
 	endobjective
@@ -360,10 +360,10 @@ u32 props[] = {
 	tag(0x09, -1)
 	tag(0x0e, 1)
 	stdobject(0x0100, MODEL_CHRNIGHTSIGHT, 0xffff, 0x012405e1, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
-	rename_object(-1, 0x2d, 0x061b, 0x061c, 0x061d, 0x061e, 0x061f, 0x0000, 0x0000) // "Obtain Night Vision."
+	rename_object(-1, 0x2d, L_ARK(27), L_ARK(28), L_ARK(29), L_ARK(30), L_ARK(31), 0x0000, 0x0000) // "Obtain Night Vision."
 	tag(0x17, 1)
 	stdobject(0x0100, MODEL_CHRNIGHTSIGHT, 0xffff, 0x012405e1, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
-	rename_object(-1, 0x2d, 0x061b, 0x061c, 0x061d, 0x061e, 0x061f, 0x0000, 0x0000) // "Obtain Night Vision."
+	rename_object(-1, 0x2d, L_ARK(27), L_ARK(28), L_ARK(29), L_ARK(30), L_ARK(31), 0x0000, 0x0000) // "Obtain Night Vision."
 	chr(0x00000400, 0x00, 0x0210, BODY_DRCAROLL, HEAD_RANDOM, AILIST_INIT_DRCAROLL, -1, -1, 1000, 100, 0x00000000, 0x00000000, TEAM_ALLY, SQUADRON_00, -1, 0, 0x00000000)
 	chr(0x00000200, 0x01, 0x0215, BODY_DDSHOCK, HEAD_DDSHOCK, AILIST_INIT_SHOCK, -1, -1, 1000, 7, 0x00014400, 0x00000000, TEAM_ENEMY, SQUADRON_01, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRCMP150, 0x0001, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_CMP150, 0x00ffffff, 0x00000000)
@@ -429,7 +429,7 @@ u32 props[] = {
 	chr(0x00000200, 0x22, 0x007e, BODY_DDSHOCK, HEAD_DDSHOCK, AILIST_INIT_SHOCK, -1, -1, 1000, 9, 0x80012400, 0x00000000, TEAM_ENEMY, SQUADRON_01, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRCMP150, 0x0022, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_CMP150, 0x00ffffff, 0x00000000)
 	key(0x0080, MODEL_KEYCARD, 0x0022, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000040)
-	rename_object(-1, 0x4c, 0x0637, 0x0638, 0x0639, 0x063a, 0x063b, 0x0000, 0x0000) // "Obtain alpha key card."
+	rename_object(-1, 0x4c, L_ARK(55), L_ARK(56), L_ARK(57), L_ARK(58), L_ARK(59), 0x0000, 0x0000) // "Obtain alpha key card."
 	link_scenery(1, 0, 2)
 	door(0x0100, MODEL_DD_AC_UNEXP, 0x019b, 0x13520d00, 0x20304300, 0x04000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00010000, 0x03e80000, 0x03e80000, 0x00010000, 0x00000000, 0x00000080, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
 	stdobject(0x0100, MODEL_DD_AC_EXP, 0x019d, 0x031204e8, 0x00304300, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
@@ -1327,7 +1327,7 @@ u8 func1002_check_accessed_foyer_elevator[] = {
 
 	label(0x00)
 	set_stage_flag(STAGEFLAG_ACCESSED_FOYER_ELEVATOR)
-	message(CHR_TARGET, 0x0621) // "Foyer elevator accessed."
+	message(CHR_TARGET, L_ARK(33)) // "Foyer elevator accessed."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1393,13 +1393,13 @@ u8 func1004_elevator_unlocking[] = {
 	label(0x28)
 	if_stage_flag_eq(STAGEFLAG_ELEVATOR_UNLOCKED, TRUE, /*goto*/ 0x00)
 	set_stage_flag(STAGEFLAG_ELEVATOR_PC_DESTROYED)
-	message(CHR_BOND, 0x062d) // "Critical mission object destroyed."
+	message(CHR_BOND, L_ARK(45)) // "Critical mission object destroyed."
 	label(0x00)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Computer activated
 	label(0x20)
-	message(CHR_TARGET, 0x060e) // "Accessing elevator controls..."
+	message(CHR_TARGET, L_ARK(14)) // "Accessing elevator controls..."
 	assign_sound(0x8116, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, 0x01, TRUE)
 	restart_timer
@@ -1438,7 +1438,7 @@ u8 func1004_elevator_unlocking[] = {
 	play_sound(0x81b0, -1)
 	unlock_door(0x02, 0x01)
 	unlock_door(0x03, 0x01)
-	message(CHR_TARGET, 0x0622) // "Office elevator door has been unlocked."
+	message(CHR_TARGET, L_ARK(34)) // "Office elevator door has been unlocked."
 	set_stage_flag(STAGEFLAG_ELEVATOR_UNLOCKED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1482,7 +1482,7 @@ u8 func1005_check_bodyguards_dead[] = {
 
 	label(0x20)
 	label(0x26)
-	message(CHR_BOND, 0x0624) // "Cassandra's bodyguards have been defeated."
+	message(CHR_BOND, L_ARK(36)) // "Cassandra's bodyguards have been defeated."
 	set_stage_flag(STAGEFLAG_OBJECTIVE_BODYGUARDS_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1493,7 +1493,7 @@ u8 func1006_check_hovercopter_destroyed[] = {
 
 	beginloop(0x1f)
 		if_object_in_good_condition(OBJ_HOVERCOPTER, /*goto*/ 0x00)
-		message(CHR_BOND, 0x0623) // "DataDyne Hovercopter eliminated."
+		message(CHR_BOND, L_ARK(35)) // "DataDyne Hovercopter eliminated."
 		set_stage_flag(STAGEFLAG_HOVERCOPTER_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x00)
@@ -1526,18 +1526,18 @@ u8 func100e_drcaroll_warnings[] = {
 		// Dead
 		label(0x21)
 		label(0x00)
-		message(CHR_BOND, 0x0610) // "Dr. Caroll has been killed!"
+		message(CHR_BOND, L_ARK(16)) // "Dr. Caroll has been killed!"
 		set_stage_flag(STAGEFLAG_DRCAROLL_DEAD)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		// Shield under 100
 		label(0x30)
-		message(CHR_BOND, 0x0611) // "Dr. Caroll is under attack!"
+		message(CHR_BOND, L_ARK(17)) // "Dr. Caroll is under attack!"
 		set_stage_flag(STAGEFLAG_DRCAROLL_ATTACKED)
 		reloop(0x1f)
 
 		label(0x31)
-		message(CHR_BOND, 0x0612) // "Dr. Caroll has been damaged!"
+		message(CHR_BOND, L_ARK(18)) // "Dr. Caroll has been damaged!"
 		set_stage_flag(STAGEFLAG_DRCAROLL_DAMAGED)
 	endloop(0x1f)
 
@@ -1665,7 +1665,7 @@ u8 func0409_tech_conversation[] = {
 	label(0x20)
 	dprint 'T','E','C','H',' ','2',' ','L','O','O','P','\n',0,
 	chr_do_animation(ANIM_TALKING_00A0, 0, -1, 0x10, 0x14, CHR_SELF, 2)
-	speak(CHR_PRESET, 0x0625, 0x811d, CHANNEL_7, COLOR_06_WHITE) // "That's not how it goes."
+	speak(CHR_PRESET, L_ARK(37), 0x811d, CHANNEL_7, COLOR_06_WHITE) // "That's not how it goes."
 	restart_timer
 
 	beginloop(0x21)
@@ -1687,7 +1687,7 @@ u8 func0409_tech_conversation[] = {
 	label(0x20)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, 0, -1, 0x10, 0x14, CHR_SELF, 2)
 	chr_do_animation(ANIM_TALKING_00A0, -1, -1, 0x02, 0x14, 0x10, 2)
-	speak(CHR_PRESET, 0x0626, 0x8120, CHANNEL_7, COLOR_08_RED) // "Yes, it is."
+	speak(CHR_PRESET, L_ARK(38), 0x8120, CHANNEL_7, COLOR_08_RED) // "Yes, it is."
 
 	beginloop(0x22)
 		if_saw_injury(0x00, /*goto*/ 0x33)
@@ -1708,7 +1708,7 @@ u8 func0409_tech_conversation[] = {
 	label(0x20)
 	chr_do_animation(ANIM_TALKING_00A0, 0, -1, 0x10, 0x14, CHR_SELF, 2)
 	chr_do_animation(0x0205, -1, -1, 0x02, 0x14, 0x10, 2)
-	speak(CHR_PRESET, 0x0627, 0x811e, CHANNEL_7, COLOR_06_WHITE) // "Give it to me - you're doing it wrong."
+	speak(CHR_PRESET, L_ARK(39), 0x811e, CHANNEL_7, COLOR_06_WHITE) // "Give it to me - you're doing it wrong."
 
 	beginloop(0x23)
 		if_saw_injury(0x00, /*goto*/ 0x33)
@@ -1729,7 +1729,7 @@ u8 func0409_tech_conversation[] = {
 	label(0x20)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, 0, -1, 0x10, 0x14, CHR_SELF, 2)
 	chr_do_animation(ANIM_TALKING_00A0, -1, -1, 0x02, 0x14, 0x10, 2)
-	speak(CHR_PRESET, 0x0628, 0x8121, CHANNEL_7, COLOR_08_RED) // "Stop annoying me."
+	speak(CHR_PRESET, L_ARK(40), 0x8121, CHANNEL_7, COLOR_08_RED) // "Stop annoying me."
 
 	beginloop(0x24)
 		if_saw_injury(0x00, /*goto*/ 0x33)
@@ -1751,7 +1751,7 @@ u8 func0409_tech_conversation[] = {
 	chr_do_animation(ANIM_TWO_GUN_HOLD, 0, -1, 0x10, 0x14, CHR_SELF, 2)
 	chr_do_animation(ANIM_TALKING_00A0, -1, -1, 0x02, 0x14, CHR_RLSHOCK, 2)
 	chr_do_animation(0x0206, -1, -1, 0x02, 0x14, 0x10, 2)
-	speak(CHR_PRESET, 0x0629, 0x8123, CHANNEL_7, COLOR_09_BLUE) // "Will you just hurry up!"
+	speak(CHR_PRESET, L_ARK(41), 0x8123, CHANNEL_7, COLOR_09_BLUE) // "Will you just hurry up!"
 
 	beginloop(0x25)
 		if_saw_injury(0x00, /*goto*/ 0x33)
@@ -1791,7 +1791,7 @@ u8 func0409_tech_conversation[] = {
 	increase_squadron_alertness(100)
 	open_door(0x04)
 	restart_timer
-	speak(CHR_TARGET, 0x062a, 0x811f, CHANNEL_7, COLOR_06_WHITE) // "Oh, no...too late."
+	speak(CHR_TARGET, L_ARK(42), 0x811f, CHANNEL_7, COLOR_06_WHITE) // "Oh, no...too late."
 	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x34)
@@ -1885,7 +1885,7 @@ u8 func040a_tech2[] = {
 
 	label(0x20)
 	chr_do_animation(ANIM_SURRENDER_002E, 0, -1, 0x18, 0x0a, CHR_SELF, 2)
-	speak(CHR_TARGET, 0x062b, 0x8122, CHANNEL_7, COLOR_08_RED) // "She's here..."
+	speak(CHR_TARGET, L_ARK(43), 0x8122, CHANNEL_7, COLOR_08_RED) // "She's here..."
 
 	beginloop(0x22)
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x35)
@@ -1985,7 +1985,7 @@ u8 func040d_cass[] = {
 
 	label(0x00)
 	restart_timer
-	speak(CHR_TARGET, 0x0620, 0x80ff, CHANNEL_6, COLOR_04_ORANGE) // "We meet again, girl!"
+	speak(CHR_TARGET, L_ARK(32), 0x80ff, CHANNEL_6, COLOR_04_ORANGE) // "We meet again, girl!"
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x27)
@@ -1995,7 +1995,7 @@ u8 func040d_cass[] = {
 
 	label(0x00)
 	restart_timer
-	speak(CHR_TARGET, 0x0614, 0x80fe, CHANNEL_6, COLOR_04_ORANGE) // "You've become quite an annoyance..."
+	speak(CHR_TARGET, L_ARK(20), 0x80fe, CHANNEL_6, COLOR_04_ORANGE) // "You've become quite an annoyance..."
 	chr_do_animation(ANIM_TALKING_00A3, 0, 193, 0x10, 0x14, CHR_SELF, 2)
 
 	beginloop(0x28)
@@ -2011,13 +2011,13 @@ u8 func040d_cass[] = {
 	endloop(0x29)
 
 	label(0x20)
-	speak(CHR_TARGET, 0x062c, 0x8101, CHANNEL_6, COLOR_04_ORANGE) // "Get her!"
+	speak(CHR_TARGET, L_ARK(44), 0x8101, CHANNEL_6, COLOR_04_ORANGE) // "Get her!"
 	chr_do_animation(ANIM_TALKING_00A3, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 	goto_next(0x20)
 
 	label(0x00)
 	restart_timer
-	speak(CHR_TARGET, 0x0615, 0x8100, CHANNEL_6, COLOR_04_ORANGE) // "Good night, Ms. Dark."
+	speak(CHR_TARGET, L_ARK(21), 0x8100, CHANNEL_6, COLOR_04_ORANGE) // "Good night, Ms. Dark."
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x2a)
@@ -2343,10 +2343,10 @@ u8 func100d_intro[] = {
 	play_sound(0x0427, -1)
 
 	wait_until(540, 0x64)
-	speak(CHR_BOND, 0x063c, 0x7bf3, CHANNEL_7, COLOR_06_WHITE) // "Sound the alarm - she's here!"
+	speak(CHR_BOND, L_ARK(60), 0x7bf3, CHANNEL_7, COLOR_06_WHITE) // "Sound the alarm - she's here!"
 
 	wait_until(640, 0x65)
-	speak(CHR_BOND, 0x063d, 0x73f4, CHANNEL_7, COLOR_09_BLUE) // "Lights out!"
+	speak(CHR_BOND, L_ARK(61), 0x73f4, CHANNEL_7, COLOR_09_BLUE) // "Lights out!"
 
 	wait_until(690, 0x66)
 	play_sound(0x0428, -1)
@@ -2364,7 +2364,7 @@ u8 func100d_intro[] = {
 	close_door(0x0c)
 
 	wait_until(1000, 0x6b)
-	speak(CHR_BOND, 0x063e, 0x73f5, CHANNEL_7, COLOR_09_BLUE) // "What the...?"
+	speak(CHR_BOND, L_ARK(62), 0x73f5, CHANNEL_7, COLOR_09_BLUE) // "What the...?"
 
 	beginloop(0x21)
 		if_camera_animating(/*goto*/ 0x20)
@@ -2484,27 +2484,27 @@ u8 func0412_outro[] = {
 	outro_wait_until(90, 0x7f)
 
 	outro_wait_until(120, 0x60)
-	speak(CHR_P1P2, 0x063f, 0x73f6, CHANNEL_7, COLOR_04_ORANGE) // "Going somewhere?"
+	speak(CHR_P1P2, L_ARK(63), 0x73f6, CHANNEL_7, COLOR_04_ORANGE) // "Going somewhere?"
 
 	outro_wait_until(188, 0x61)
 	play_sound(0x01d9, -1)
 
 	outro_wait_until(350, 0x62)
-	speak(CHR_P1P2, 0x0640, 0x73f7, CHANNEL_7, COLOR_09_BLUE) // "Something I can do for you, old woman?"
+	speak(CHR_P1P2, L_ARK(64), 0x73f7, CHANNEL_7, COLOR_09_BLUE) // "Something I can do for you, old woman?"
 
 	outro_wait_until(500, 0x63)
-	speak(CHR_P1P2, 0x0641, 0x73f8, CHANNEL_7, COLOR_04_ORANGE) // "Return our sapient immediately! You don't know wha..."
+	speak(CHR_P1P2, L_ARK(65), 0x73f8, CHANNEL_7, COLOR_04_ORANGE) // "Return our sapient immediately! You don't know wha..."
 
 	outro_wait_until(720, 0x64)
 	play_sound(0x0424, -1)
 
 	outro_wait_until(740, 0x65)
-	speak(CHR_P1P2, 0x0642, 0x73f9, CHANNEL_7, COLOR_09_BLUE) // "Yes I do. I'm leaving."
+	speak(CHR_P1P2, L_ARK(66), 0x73f9, CHANNEL_7, COLOR_09_BLUE) // "Yes I do. I'm leaving."
 
 	outro_wait_until(858, 0x73)
 
 	outro_wait_until(980, 0x66)
-	speak(CHR_P1P2, 0x0643, 0x73fa, CHANNEL_7, COLOR_04_ORANGE) // "One more chance! Give it back, and you could come ..."
+	speak(CHR_P1P2, L_ARK(67), 0x73fa, CHANNEL_7, COLOR_04_ORANGE) // "One more chance! Give it back, and you could come ..."
 
 	outro_wait_until(990, 0x68)
 	play_sound(0x804f, -1)
@@ -2534,7 +2534,7 @@ u8 func0412_outro[] = {
 	set_chr_shooting_in_cutscene(CHR_OUTRO_GUARD2, FALSE)
 
 	outro_wait_until(1425, 0x6c)
-	speak(CHR_P1P2, 0x0644, 0x73fb, CHANNEL_7, COLOR_09_BLUE) // "Sorry! Gotta shoot."
+	speak(CHR_P1P2, L_ARK(68), 0x73fb, CHANNEL_7, COLOR_09_BLUE) // "Sorry! Gotta shoot."
 
 	outro_wait_until(1447, 0x6d)
 	play_sound(0x80ca, -1)
@@ -2575,7 +2575,7 @@ u8 func0412_outro[] = {
 	play_sound(0x0425, -1)
 
 	outro_wait_until(1940, 0x77)
-	speak(CHR_P1P2, 0x0645, 0x73fc, CHANNEL_7, COLOR_03_RED) // "You must get the sapient back. We cannot proceed w..."
+	speak(CHR_P1P2, L_ARK(69), 0x73fc, CHANNEL_7, COLOR_03_RED) // "You must get the sapient back. We cannot proceed w..."
 
 	outro_wait_until(1944, 0x76)
 	play_sound(0x80c4, -1)
@@ -2587,7 +2587,7 @@ u8 func0412_outro[] = {
 	play_sound(0x80c6, -1)
 
 	outro_wait_until(2190, 0x78)
-	speak(CHR_P1P2, 0x0646, 0x73fd, CHANNEL_7, COLOR_04_ORANGE) // "I know that!"
+	speak(CHR_P1P2, L_ARK(70), 0x73fd, CHANNEL_7, COLOR_04_ORANGE) // "I know that!"
 
 	outro_wait_until(2300, 0x79)
 	play_sound(0x80c7, -1)
@@ -2604,7 +2604,7 @@ u8 func0412_outro[] = {
 	outro_wait_until(2344, 0x7b)
 
 	outro_wait_until(2393, 0x7c)
-	speak(CHR_P1P2, 0x0647, 0x73fe, CHANNEL_7, COLOR_04_ORANGE) // "I also know who to talk to... Mr. Carrington."
+	speak(CHR_P1P2, L_ARK(71), 0x73fe, CHANNEL_7, COLOR_04_ORANGE) // "I also know who to talk to... Mr. Carrington."
 
 	outro_wait_until(2497, 0x7d)
 
@@ -2716,7 +2716,7 @@ u8 func1012_msg_lockeddown[] = {
 	endloop(0x1f)
 
 	label(0x20)
-	speak(CHR_BOND, 0x0633, 0x8176, CHANNEL_6, COLOR_09_BLUE) // "They've locked down the ground floor - get to the ..."
+	speak(CHR_BOND, L_ARK(51), 0x8176, CHANNEL_6, COLOR_09_BLUE) // "They've locked down the ground floor - get to the ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2736,7 +2736,7 @@ u8 func1013_msg_thatcopter[] = {
 	endloop(0x21)
 
 	label(0x20)
-	speak(CHR_BOND, 0x0634, 0x8177, CHANNEL_6, COLOR_09_BLUE) // "That copter needs to be taken out, or the jumpship..."
+	speak(CHR_BOND, L_ARK(52), 0x8177, CHANNEL_6, COLOR_09_BLUE) // "That copter needs to be taken out, or the jumpship..."
 
 	label(0x26)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2762,7 +2762,7 @@ u8 func1014_msg_cantleaveany[] = {
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x26)
 	if_chr_dying(CHR_BOND, /*goto*/ 0x26)
 	if_chr_unloaded(CHR_BOND, /*goto*/ 0x26)
-	speak(CHR_BOND, 0x0635, 0x73aa, CHANNEL_6, COLOR_09_BLUE) // "I can't leave any bodyguards standing."
+	speak(CHR_BOND, L_ARK(53), 0x73aa, CHANNEL_6, COLOR_09_BLUE) // "I can't leave any bodyguards standing."
 
 	label(0x26)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x27)
@@ -2796,7 +2796,7 @@ u8 func1015_msg_jumpshipwaiting[] = {
 	endloop(0x1f)
 
 	label(0x20)
-	speak(CHR_BOND, 0x0636, 0x8178, CHANNEL_6, COLOR_09_BLUE) // "Don't keep the jumpship waiting - get back to the ..."
+	speak(CHR_BOND, L_ARK(54), 0x8178, CHANNEL_6, COLOR_09_BLUE) // "Don't keep the jumpship waiting - get back to the ..."
 
 	label(0x00)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

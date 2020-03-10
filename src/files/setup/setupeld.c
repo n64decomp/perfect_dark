@@ -107,32 +107,32 @@ u32 props[] = {
 	briefing(2, 0x2002)
 	briefing(3, 0x2003)
 
-	beginobjective(0, 0x2005, (DIFFBIT_A | DIFFBIT_SA)) // "Save the negotiator"
+	beginobjective(0, L_ELD(5), (DIFFBIT_A | DIFFBIT_SA)) // "Save the negotiator"
 		complete_flags(STAGEFLAG_NEGOTIATOR_ESCAPED)
 		fail_flags(STAGEFLAG_NEGOTIATOR_DEAD)
 	endobjective
 
-	beginobjective(1, 0x2006, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Eliminate rooftop snipers"
+	beginobjective(1, L_ELD(6), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Eliminate rooftop snipers"
 		complete_flags(STAGEFLAG_SNIPERS_DEAD)
 	endobjective
 
-	beginobjective(2, 0x2007, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate wind generator"
+	beginobjective(2, L_ELD(7), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate wind generator"
 		complete_flags(STAGEFLAG_WINDMILL_ACTIVATED)
 		fail_flags(STAGEFLAG_WINDMILL_SWITCH_DESTROYED)
 	endobjective
 
-	beginobjective(3, 0x2008, (DIFFBIT_PA | DIFFBIT_PD)) // "Locate and eliminate dataDyne hackers"
+	beginobjective(3, L_ELD(8), (DIFFBIT_PA | DIFFBIT_PD)) // "Locate and eliminate dataDyne hackers"
 		complete_flags(STAGEFLAG_HACKERS_DEAD)
 		fail_flags(STAGEFLAG_HACKERS_SUCCEEDED)
 		fail_flags(STAGEFLAG_HACKER_PC_DESTROYED)
 	endobjective
 
-	beginobjective(4, 0x200a, (DIFFBIT_PA | DIFFBIT_PD)) // "Capture dataDyne guard"
+	beginobjective(4, L_ELD(10), (DIFFBIT_PA | DIFFBIT_PD)) // "Capture dataDyne guard"
 		complete_flags(STAGEFLAG_GUARD_CAPTURED)
 		fail_flags(STAGEFLAG_FORGOT_TO_KO_GUARD)
 	endobjective
 
-	beginobjective(5, 0x2009, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Rescue Carrington"
+	beginobjective(5, L_ELD(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Rescue Carrington"
 		complete_flags(STAGEFLAG_CARRINGTON_RESCUED)
 	endobjective
 
@@ -609,16 +609,16 @@ u32 props[] = {
 	stdobject(0x0100, MODEL_DROPSHIP, 0xffff, 0x00021401, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	tag(0x01, 1)
 	weapon(0x0100, MODEL_CHRDATATHIEF, 0x00bf, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_LAPTOPGUN, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x0e, 0x201b, 0x201b, 0x201b, 0x201b, 0x201b, 0x0000, 0x0000) // "PC gun"
+	rename_object(-1, 0x0e, L_ELD(27), L_ELD(27), L_ELD(27), L_ELD(27), L_ELD(27), 0x0000, 0x0000) // "PC gun"
 	tag(0x89, 1)
 	weapon(0x0100, MODEL_CHRDATATHIEF, 0x00bf, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_LAPTOPGUN, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x0e, 0x201b, 0x201b, 0x201b, 0x201b, 0x201b, 0x0000, 0x0000) // "PC gun"
+	rename_object(-1, 0x0e, L_ELD(27), L_ELD(27), L_ELD(27), L_ELD(27), L_ELD(27), 0x0000, 0x0000) // "PC gun"
 	tag(0x02, 1)
 	weapon(0x0100, MODEL_CHRDATATHIEF, 0x00c0, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_SNIPERRIFLE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x15, 0x201c, 0x201c, 0x201c, 0x201c, 0x201c, 0x0000, 0x0000) // "Sniper rifle"
+	rename_object(-1, 0x15, L_ELD(28), L_ELD(28), L_ELD(28), L_ELD(28), L_ELD(28), 0x0000, 0x0000) // "Sniper rifle"
 	tag(0x8a, 1)
 	weapon(0x0100, MODEL_CHRDATATHIEF, 0x00c0, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_SNIPERRIFLE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x15, 0x201c, 0x201c, 0x201c, 0x201c, 0x201c, 0x0000, 0x0000) // "Sniper rifle"
+	rename_object(-1, 0x15, L_ELD(28), L_ELD(28), L_ELD(28), L_ELD(28), L_ELD(28), 0x0000, 0x0000) // "Sniper rifle"
 	stdobject(0x00cc, MODEL_CV_TABLE, 0x01ef, 0x000205e1, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	tag(0x8c, 1)
 	stdobject(0x0100, MODEL_CV_CHAIR4, 0x01f0, 0x000205e1, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
@@ -656,7 +656,7 @@ u32 props[] = {
 	door(0x0100, MODEL_AIVILLADOOR2A, 0x0186, 0x10000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x005a0000, 0x03e80000, 0x012c0000, 0x012c0000, 0x00030000, 0x00000005, 0x00000000, 0x000005dc, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffffff, 0x00000000, 0x00000000, 0x00000000, 0xff000000, 0x00000000, 0x00000000, 0x00000000)
 	tag(0x0a, 1)
 	key(0x0080, MODEL_KEYCARD, 0x004b, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000040)
-	rename_object(-1, 0x4a, 0x201e, 0x201f, 0x2020, 0x2021, 0x2022, 0x0000, 0x0000) // "Obtain door key."
+	rename_object(-1, 0x4a, L_ELD(30), L_ELD(31), L_ELD(32), L_ELD(33), L_ELD(34), 0x0000, 0x0000) // "Obtain door key."
 	stdobject(0x0100, MODEL_CV_SOFA, 0x01a5, 0x000005e1, 0x00004100, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	stdobject(0x0100, MODEL_CV_SOFA, 0x01a6, 0x000005e1, 0x00004100, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	stdobject(0x0100, MODEL_CV_COFFEE_TABLE, 0x01af, 0x000005e1, 0x00004000, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
@@ -819,7 +819,7 @@ u8 func1002_intro[] = {
 
 
 	wait_until(205, 0xab)
-	speak(CHR_BOND, 0x2027, 0x73ff, CHANNEL_4, COLOR_09_BLUE) // "Agent Dark Mission Log, 1846 hours. Last night we ..."
+	speak(CHR_BOND, L_ELD(39), 0x73ff, CHANNEL_4, COLOR_09_BLUE) // "Agent Dark Mission Log, 1846 hours. Last night we ..."
 
 	wait_until(680, 0x66)
 	play_sound(0x0161, CHANNEL_7)
@@ -846,7 +846,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0161, CHANNEL_7)
 
 	wait_until(1100, 0xac)
-	speak(CHR_BOND, 0x2028, 0x7400, CHANNEL_4, COLOR_09_BLUE) // "Unfortunately, we don't have it. Daniel and Dr. Ca..."
+	speak(CHR_BOND, L_ELD(40), 0x7400, CHANNEL_4, COLOR_09_BLUE) // "Unfortunately, we don't have it. Daniel and Dr. Ca..."
 
 	wait_until(1118, 0x6e)
 	play_sound(0x0162, CHANNEL_7)
@@ -961,7 +961,7 @@ u8 func1002_intro[] = {
 	restart_timer
 
 	wait_until(50, 0xaa)
-	speak(CHR_BOND, 0x2029, 0x7401, CHANNEL_4, COLOR_09_BLUE) // "Hopefully our phoney negotiator ploy will give me ..."
+	speak(CHR_BOND, L_ELD(41), 0x7401, CHANNEL_4, COLOR_09_BLUE) // "Hopefully our phoney negotiator ploy will give me ..."
 
 	restart_timer
 	wait_until(295, 0x89)
@@ -1279,7 +1279,7 @@ u8 func0408_outro[] = {
 	play_sound(0x80d1, CHANNEL_6)
 
 	outro_wait_until1(40, '3', 0x68)
-	speak(CHR_P1P2, 0x202a, 0x7402, CHANNEL_4, COLOR_09_BLUE) // "Sir? Are you injured?"
+	speak(CHR_P1P2, L_ELD(42), 0x7402, CHANNEL_4, COLOR_09_BLUE) // "Sir? Are you injured?"
 
 	outro_wait_until1(58, '4', 0xad)
 	play_sound(0x80d2, CHANNEL_7)
@@ -1297,7 +1297,7 @@ u8 func0408_outro[] = {
 	play_sound(0x80cc, CHANNEL_7)
 
 	outro_wait_until1(165, '9', 0xae)
-	speak(CHR_P1P2, 0x202b, 0x7403, CHANNEL_4, COLOR_05_GREEN) // "No, Joanna, I'm okay, but those dataDyne thugs mad..."
+	speak(CHR_P1P2, L_ELD(43), 0x7403, CHANNEL_4, COLOR_05_GREEN) // "No, Joanna, I'm okay, but those dataDyne thugs mad..."
 
 	outro_wait_until2(195, '1','0', 0x6d)
 	play_sound(0x80cd, CHANNEL_7)
@@ -1319,13 +1319,13 @@ u8 func0408_outro[] = {
 	endloop(0xaf)
 
 	label(0x06)
-	speak(CHR_P1P2, 0x202c, 0x7404, CHANNEL_4, COLOR_09_BLUE) // "It's not your fault, sir. I should have been quick..."
+	speak(CHR_P1P2, L_ELD(44), 0x7404, CHANNEL_4, COLOR_09_BLUE) // "It's not your fault, sir. I should have been quick..."
 
 	outro_wait_until2(956, '1','5', 0xb0)
-	speak(CHR_P1P2, 0x202d, 0x7405, CHANNEL_4, COLOR_05_GREEN) // "Don't blame yourself, Joanna. Dr. Caroll told me t..."
+	speak(CHR_P1P2, L_ELD(45), 0x7405, CHANNEL_4, COLOR_05_GREEN) // "Don't blame yourself, Joanna. Dr. Caroll told me t..."
 
 	outro_wait_until2(2280, '2','2', 0xb1)
-	speak(CHR_P1P2, 0x202e, 0x7406, CHANNEL_4, COLOR_09_BLUE) // "That won't be a problem, sir. So, did Dr. Caroll h..."
+	speak(CHR_P1P2, L_ELD(46), 0x7406, CHANNEL_4, COLOR_09_BLUE) // "That won't be a problem, sir. So, did Dr. Caroll h..."
 
 	outro_wait_until2(2457, '1','6', 0x71)
 	play_sound(0x80cc, CHANNEL_7)
@@ -1334,7 +1334,7 @@ u8 func0408_outro[] = {
 	play_sound(0x80cd, CHANNEL_7)
 
 	outro_wait_until2(2620, '2','6', 0x7a)
-	speak(CHR_P1P2, 0x202f, 0x7407, CHANNEL_5, COLOR_05_GREEN) // "Oh, yes, indeed. He certainly did, and I'll brief ..."
+	speak(CHR_P1P2, L_ELD(47), 0x7407, CHANNEL_5, COLOR_05_GREEN) // "Oh, yes, indeed. He certainly did, and I'll brief ..."
 
 	outro_wait_until2(2730, '1','8', 0x73)
 	play_sound(0x80ce, CHANNEL_7)
@@ -1438,7 +1438,7 @@ u8 func1004_check_negotiator[] = {
 	endloop(0x04)
 
 	label(0x06)
-	message(CHR_BOND, 0x200b) // "Negotiator has been killed."
+	message(CHR_BOND, L_ELD(11)) // "Negotiator has been killed."
 	set_stage_flag(STAGEFLAG_NEGOTIATOR_DEAD)
 
 	// PA
@@ -1680,7 +1680,7 @@ u8 func0403_negotiator[] = {
 	endloop(0x08)
 
 	label(0x06)
-	message(CHR_BOND, 0x200d) // "Negotiator has escaped to safety."
+	message(CHR_BOND, L_ELD(13)) // "Negotiator has escaped to safety."
 	set_stage_flag(STAGEFLAG_NEGOTIATOR_ESCAPED)
 	stop_music_channel(CHANNEL_1)
 	remove_chr(CHR_SELF)
@@ -1949,7 +1949,7 @@ u8 func1006_check_snipers_dead[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_BOND, 0x200c) // "Snipers have been eliminated."
+	message(CHR_BOND, L_ELD(12)) // "Snipers have been eliminated."
 	set_stage_flag(STAGEFLAG_SNIPERS_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1965,7 +1965,7 @@ u8 func1007_cooling_switch[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_COOLING_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_COOLING_ACTIVE, TRUE, /*goto*/ 0x06)
-		message(CHR_P1P2, 0x200e) // "Cooling systems have been activated."
+		message(CHR_P1P2, L_ELD(14)) // "Cooling systems have been activated."
 		set_stage_flag(STAGEFLAG_COOLING_ACTIVE)
 		assign_sound(0x8148, CHANNEL_1)
 		control_sound_from_object(CHANNEL_1, OBJ_COOLING_SWITCH, TRUE)
@@ -1985,12 +1985,12 @@ u8 func1007_cooling_switch[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_COOLING_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, FALSE, /*goto*/ 0x2d)
-		message(CHR_P1P2, 0x2030) // "Operation denied - windmill is active."
+		message(CHR_P1P2, L_ELD(48)) // "Operation denied - windmill is active."
 		goto_next(0x67)
 		label(0x2d)
 		assign_sound(0x8149, CHANNEL_1)
 		control_sound_from_object(CHANNEL_1, OBJ_COOLING_SWITCH, TRUE)
-		message(CHR_P1P2, 0x200f) // "Cooling systems have been deactivated."
+		message(CHR_P1P2, L_ELD(15)) // "Cooling systems have been deactivated."
 		unset_stage_flag(STAGEFLAG_COOLING_ACTIVE)
 		label(0x67)
 		restart_timer
@@ -2015,7 +2015,7 @@ u8 func1008_power_switch[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_POWER_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_POWER_ACTIVE, TRUE, /*goto*/ 0x06)
-		message(CHR_P1P2, 0x2010) // "Power systems have been activated."
+		message(CHR_P1P2, L_ELD(16)) // "Power systems have been activated."
 		set_stage_flag(STAGEFLAG_POWER_ACTIVE)
 		assign_sound(0x8148, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_POWER_SWITCH, TRUE)
@@ -2035,12 +2035,12 @@ u8 func1008_power_switch[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_POWER_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, FALSE, /*goto*/ 0x2d)
-		message(CHR_P1P2, 0x2030) // "Operation denied - windmill is active."
+		message(CHR_P1P2, L_ELD(48)) // "Operation denied - windmill is active."
 		goto_next(0x67)
 		label(0x2d)
 		assign_sound(0x8149, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_POWER_SWITCH, TRUE)
-		message(CHR_P1P2, 0x2011) // "Power systems have been deactivated."
+		message(CHR_P1P2, L_ELD(17)) // "Power systems have been deactivated."
 		unset_stage_flag(STAGEFLAG_POWER_ACTIVE)
 		label(0x67)
 		restart_timer
@@ -2079,7 +2079,7 @@ u8 func1009_windmill_switch[] = {
 		label(0x2d)
 		assign_sound(0x0438, CHANNEL_2)
 		play_sound_from_object(CHANNEL_2, OBJ_WINDMILL_SWITCH, 0x0708, 0x0960)
-		message(CHR_P1P2, 0x2012) // "Windmill has been reactivated."
+		message(CHR_P1P2, L_ELD(18)) // "Windmill has been reactivated."
 		yield
 		set_stage_flag(STAGEFLAG_WINDMILL_ACTIVATED)
 		set_object_flag2(OBJ_WINDMILL, OBJFLAG2_AICANNOTUSE)
@@ -2107,21 +2107,21 @@ u8 func100a_check_switches_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(0x03, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_COOLING_ACTIVE, TRUE, /*goto*/ 0x2d)
-		message(CHR_BOND, 0x2015) // "Critical mission object has been destroyed."
+		message(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_WINDMILL_SWITCH_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
 		if_object_in_good_condition(0x04, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_POWER_ACTIVE, TRUE, /*goto*/ 0x2d)
-		message(CHR_BOND, 0x2015) // "Critical mission object has been destroyed."
+		message(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_WINDMILL_SWITCH_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
 		if_object_in_good_condition(0x05, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, TRUE, /*goto*/ 0x2d)
-		message(CHR_BOND, 0x2015) // "Critical mission object has been destroyed."
+		message(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_WINDMILL_SWITCH_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2161,7 +2161,7 @@ u8 func100b_invoke_hackers[] = {
 	endloop(0x08)
 
 	label(0x06)
-	speak(CHR_BOND, 0x2016, 0x819f, CHANNEL_4, COLOR_05_GREEN) // "Joanna! It's Grimshaw. We've got hackers at the vi..."
+	speak(CHR_BOND, L_ELD(22), 0x819f, CHANNEL_4, COLOR_05_GREEN) // "Joanna! It's Grimshaw. We've got hackers at the vi..."
 	set_stage_flag(STAGEFLAG_HACKERS_STARTED)
 	set_object_flag3(0x0b, OBJFLAG3_RTRACKED_YELLOW)
 	set_object_flag3(0x0d, OBJFLAG3_RTRACKED_YELLOW)
@@ -2191,7 +2191,7 @@ u8 func100b_invoke_hackers[] = {
 
 	// Timer expired
 	label(0x06)
-	message(CHR_BOND, 0x2017) // "Hackers have uploaded vital data."
+	message(CHR_BOND, L_ELD(23)) // "Hackers have uploaded vital data."
 	set_stage_flag(STAGEFLAG_HACKERS_SUCCEEDED)
 
 	// Hackers dead
@@ -2275,7 +2275,7 @@ u8 func100c_check_hackers_dead[] = {
 
 	label(0x2d)
 	if_stage_flag_eq(STAGEFLAG_HACKERS_SUCCEEDED, TRUE, /*goto*/ 0x2d)
-	message(CHR_BOND, 0x2018) // "Hackers have been eliminated."
+	message(CHR_BOND, L_ELD(24)) // "Hackers have been eliminated."
 	set_stage_flag(STAGEFLAG_HACKERS_DEAD)
 
 	// Hackers succeeded
@@ -2296,7 +2296,7 @@ u8 func100e_check_objectives_complete[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_P1P2, 0x2019) // "Carrington has been rescued."
+	message(CHR_P1P2, L_ELD(25)) // "Carrington has been rescued."
 	set_stage_flag(STAGEFLAG_CARRINGTON_RESCUED)
 	yield
 	yield
@@ -2305,7 +2305,7 @@ u8 func100e_check_objectives_complete[] = {
 	hide_countdown_timer
 	stop_countdown_timer
 	if_all_objectives_complete(/*goto*/ 0x5c)
-	message(CHR_BOND, 0x201a) // "All objectives not completed - mission failed."
+	message(CHR_BOND, L_ELD(26)) // "All objectives not completed - mission failed."
 
 	// If all objectives aren't complete, the player is shown the message, but
 	// if the objective completes within the next 4 seconds you pass the level
@@ -2393,7 +2393,7 @@ u8 func1013_check_guard_subdued[] = {
 		// Captured someone
 		label(0x06)
 		if_stage_flag_eq(STAGEFLAG_GUARD_CAPTURED, TRUE, /*goto*/ 0x2e)
-		message(CHR_BOND, 0x201d) // "Enemy guard has been subdued."
+		message(CHR_BOND, L_ELD(29)) // "Enemy guard has been subdued."
 		label(0x2e)
 		unset_stage_flag(STAGEFLAG_FORGOT_TO_KO_GUARD)
 		yield
@@ -2483,7 +2483,7 @@ u8 func1015_check_computers_destroyed[] = {
 	endloop(0x04)
 
 	label(0x08)
-	message(CHR_BOND, 0x2015) // "Critical mission object has been destroyed."
+	message(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_HACKER_PC_DESTROYED)
 	label(0x09)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2537,7 +2537,7 @@ u8 func1016_msg_generator[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	speak(CHR_P1P2, 0x2023, 0x73ac, CHANNEL_6, COLOR_09_BLUE) // "If I get the wind generator back online, I'll get ..."
+	speak(CHR_P1P2, L_ELD(35), 0x73ac, CHANNEL_6, COLOR_09_BLUE) // "If I get the wind generator back online, I'll get ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2561,7 +2561,7 @@ u8 func1017_msg_gottobequick[] = {
 	endloop(0x08)
 
 	label(0x06)
-	speak(CHR_BOND, 0x2024, 0x73ad, CHANNEL_6, COLOR_09_BLUE) // "I've got to be quick, or they'll kill the negotiat..."
+	speak(CHR_BOND, L_ELD(36), 0x73ad, CHANNEL_6, COLOR_09_BLUE) // "I've got to be quick, or they'll kill the negotiat..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2583,7 +2583,7 @@ u8 func1018_msg_hidingdaniel[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	speak(CHR_P1P2, 0x2025, 0x73ae, CHANNEL_6, COLOR_09_BLUE) // "Here's where they must be holding Daniel."
+	speak(CHR_P1P2, L_ELD(37), 0x73ae, CHANNEL_6, COLOR_09_BLUE) // "Here's where they must be holding Daniel."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2601,7 +2601,7 @@ u8 func1019_msg_hackershavetobestopped[] = {
 	endloop(0x08)
 
 	label(0x2d)
-	speak(CHR_BOND, 0x2026, 0x73af, CHANNEL_6, COLOR_09_BLUE) // "Those hackers have to be stopped before I rescue D..."
+	speak(CHR_BOND, L_ELD(38), 0x73af, CHANNEL_6, COLOR_09_BLUE) // "Those hackers have to be stopped before I rescue D..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2924,7 +2924,7 @@ u8 func101d_dual_cmp150[] = {
 
 	label(0x2d)
 	pause_timer
-	play_sound(0x04c6, -1) // "My gun!"
+	play_sound(L_ARCH(198), -1) // "My gun!"
 
 	beginloop(0x08)
 		if_chr_death_animation_finished(0x06, /*goto*/ 0x2d)
@@ -3207,7 +3207,7 @@ u8 func1025_check_basement_entered_without_subdue[] = {
 	endloop(0x04)
 
 	label(0x06)
-	message(CHR_P1P2, 0x2031) // "Mission unsuccessful - enemy guard not captured."
+	message(CHR_P1P2, L_ELD(49)) // "Mission unsuccessful - enemy guard not captured."
 	set_stage_flag(STAGEFLAG_FORGOT_TO_KO_GUARD)
 
 	label(0x0d)

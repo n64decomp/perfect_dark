@@ -117,24 +117,24 @@ u32 props[] = {
 	briefing(2, 0x3002)
 	briefing(3, 0x3003)
 
-	beginobjective(0, 0x3005, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Reactivate teleportals"
+	beginobjective(0, L_PAM(5), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Reactivate teleportals"
 		complete_flags(STAGEFLAG_TELEPORTALS_ACTIVATED)
 	endobjective
 
-	beginobjective(1, 0x3006, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable Cetan megaweapon"
+	beginobjective(1, L_PAM(6), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable Cetan megaweapon"
 		complete_flags(STAGEFLAG_MEGAWEAPON_DISABLED)
 		fail_flags(STAGEFLAG_FARSIGHT_AMMO_WASTED)
 	endobjective
 
-	beginobjective(2, 0x3007, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Secure control room"
+	beginobjective(2, L_PAM(7), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Secure control room"
 		complete_flags(STAGEFLAG_BLONDES_DEAD)
 	endobjective
 
-	beginobjective(3, 0x3008, (DIFFBIT_PA | DIFFBIT_PD)) // "Restore Dr. Caroll's personality"
+	beginobjective(3, L_PAM(8), (DIFFBIT_PA | DIFFBIT_PD)) // "Restore Dr. Caroll's personality"
 		complete_flags(STAGEFLAG_DRCAROLL_RESTORED)
 	endobjective
 
-	beginobjective(4, 0x3009, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Escape from Cetan ship"
+	beginobjective(4, L_PAM(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Escape from Cetan ship"
 		complete_flags(STAGEFLAG_ESCAPED)
 		fail_flags(STAGEFLAG_ALLY_DEAD)
 		fail_flags(STAGEFLAG_TIMER_EXPIRED)
@@ -549,7 +549,7 @@ u32 props[] = {
 	stdobject(0x0040, MODEL_ZIGGYCARD, 0xffff, 0x00021401, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	tag(0x74, 1)
 	weapon(0x0180, MODEL_CHRDATATHIEF, 0xffff, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_BACKUPDISK, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x44, 0x3017, 0x3018, 0x3019, 0x301a, 0x301b, 0x0000, 0x0000) // ""
+	rename_object(-1, 0x44, L_PAM(23), L_PAM(24), L_PAM(25), L_PAM(26), L_PAM(27), 0x0000, 0x0000) // ""
 	tag(0x76, 1)
 	stdobject(0x0100, MODEL_CHRREMOTEMINE, 0xffff, 0x00001401, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	tag(0x77, 1)
@@ -873,7 +873,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 	// In teleport control room
 	label(0x5f)
 	stop_chr
-	speak(CHR_TARGET, 0x301d, 0x14eb, CHANNEL_6, COLOR_04_ORANGE) // "Time to reactivate those teleportals."
+	speak(CHR_TARGET, L_PAM(29), 0x14eb, CHANNEL_6, COLOR_04_ORANGE) // "Time to reactivate those teleportals."
 	jog_to_pad(0x01c3)
 
 	beginloop(0x0f)
@@ -891,7 +891,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
-	message(CHR_BOND, 0x301e) // "Teleportals have been reactivated."
+	message(CHR_BOND, L_PAM(30)) // "Teleportals have been reactivated."
 	set_stage_flag(STAGEFLAG_TELEPORTALS_ACTIVATED)
 	set_self_chrflag(CHRCFLAG_01000000)
 	play_sound(0x8148, -1)
@@ -1032,7 +1032,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 
 	// In Agent megaweapon room
 	label(0x1d)
-	speak(CHR_TARGET, 0x301c, 0x14ec, CHANNEL_6, COLOR_04_ORANGE) // "It looks like this could benefit from a little bit..."
+	speak(CHR_TARGET, L_PAM(28), 0x14ec, CHANNEL_6, COLOR_04_ORANGE) // "It looks like this could benefit from a little bit..."
 	label(0x5f)
 	set_stage_flag(STAGEFLAG_ELVIS_SAID_SABOTAGE)
 	stop_chr
@@ -1055,7 +1055,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	label(0x06)
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 	set_self_chrflag(CHRCFLAG_01000000)
-	message(CHR_BOND, 0x3014) // "Cetan megaweapon has been disabled."
+	message(CHR_BOND, L_PAM(20)) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_AGENT_MEGAWEAPON_DISABLED)
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	set_lights_state(0x006c, 0x03, 0x64, 0xff, 0x78)
@@ -1246,7 +1246,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 	label(0x2e)
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	set_self_chrflag(CHRCFLAG_01000000)
-	message(CHR_BOND, 0x3014) // "Cetan megaweapon has been disabled."
+	message(CHR_BOND, L_PAM(20)) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	try_equip_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x04)
 	label(0x04)
@@ -1385,7 +1385,7 @@ u8 func0403_elvis_give_farsight[] = {
 	stop_chr
 	label(0x09)
 	do_preset_animation(5)
-	speak(CHR_TARGET, 0x3012, 0x12ea, CHANNEL_6, COLOR_04_ORANGE) // "Here, take this gun and keep those Skedar off my b..."
+	speak(CHR_TARGET, L_PAM(18), 0x12ea, CHANNEL_6, COLOR_04_ORANGE) // "Here, take this gun and keep those Skedar off my b..."
 	give_object_to_chr(0x73, CHR_TARGET)
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_MINISKEDAR_SPAWNING)
@@ -1532,7 +1532,7 @@ u8 func0c01_midcutscene[] = {
 
 
 	wait_until(114, 0x63)
-	speak(CHR_BOND, 0x3023, 0x746d, CHANNEL_10, COLOR_09_BLUE) // "Here goes. I just hope dataDyne haven't done anyth..."
+	speak(CHR_BOND, L_PAM(35), 0x746d, CHANNEL_10, COLOR_09_BLUE) // "Here goes. I just hope dataDyne haven't done anyth..."
 
 	wait_until(300, 0x64)
 	play_sound(0x0171, CHANNEL_2)
@@ -1547,7 +1547,7 @@ u8 func0c01_midcutscene[] = {
 	play_sound(0x04f7, CHANNEL_10)
 
 	wait_until(490, 0x6b)
-	speak(CHR_BOND, 0x3024, 0x746e, CHANNEL_10, COLOR_04_ORANGE) // "Virus detected."
+	speak(CHR_BOND, L_PAM(36), 0x746e, CHANNEL_10, COLOR_04_ORANGE) // "Virus detected."
 
 	wait_until(570, 0x69)
 
@@ -1562,7 +1562,7 @@ u8 func0c01_midcutscene[] = {
 
 	label(0x06)
 	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESFROWNING, DRCAROLLIMAGE_EYESFROWNING)
-	speak(CHR_BOND, 0x3025, 0x746f, CHANNEL_10, COLOR_09_BLUE) // "Me and my big mouth."
+	speak(CHR_BOND, L_PAM(37), 0x746f, CHANNEL_10, COLOR_09_BLUE) // "Me and my big mouth."
 
 	wait_until(700, 0x6d)
 	play_sound(0x0172, CHANNEL_6)
@@ -1581,7 +1581,7 @@ u8 func0c01_midcutscene[] = {
 	goto_first(0x71)
 
 	label(0x06)
-	speak(CHR_BOND, 0x3026, 0x7470, CHANNEL_10, COLOR_04_ORANGE) // "Commencing countermeasures. Commenc..... *** ooOOo..."
+	speak(CHR_BOND, L_PAM(38), 0x7470, CHANNEL_10, COLOR_04_ORANGE) // "Commencing countermeasures. Commenc..... *** ooOOo..."
 
 	wait_until_with_images(746, 0x73, DRCAROLLIMAGE_EYESFROWNING, DRCAROLLIMAGE_RANDOM)
 	play_sound(0x0128, CHANNEL_5)
@@ -1687,7 +1687,7 @@ u8 func0c01_midcutscene[] = {
 	play_sound(0x0171, CHANNEL_3)
 
 	wait_until_with_images(1500, 0xd4, DRCAROLLIMAGE_RANDOM, DRCAROLLIMAGE_EYESDEFAULT)
-	speak(CHR_BOND, 0x3027, 0x7471, CHANNEL_10, COLOR_09_BLUE) // "Dr. Caroll? Are you in control again? Can you stop..."
+	speak(CHR_BOND, L_PAM(39), 0x7471, CHANNEL_10, COLOR_09_BLUE) // "Dr. Caroll? Are you in control again? Can you stop..."
 	set_drcaroll_images(CHR_DRCAROLL, DRCAROLLIMAGE_EYESDEFAULT, DRCAROLLIMAGE_EYESDEFAULT)
 
 	wait_until(1534, 0xd6)
@@ -1700,7 +1700,7 @@ u8 func0c01_midcutscene[] = {
 	play_sound(0x0175, CHANNEL_5)
 
 	wait_until(1810, 0xe3)
-	speak(CHR_BOND, 0x3028, 0x7472, CHANNEL_10, COLOR_04_ORANGE) // "Yes, I'm back again, my dear. But the program has ..."
+	speak(CHR_BOND, L_PAM(40), 0x7472, CHANNEL_10, COLOR_04_ORANGE) // "Yes, I'm back again, my dear. But the program has ..."
 
 	wait_until(1810, 0xe5)
 	play_sound(0x0177, CHANNEL_3)
@@ -1710,10 +1710,10 @@ u8 func0c01_midcutscene[] = {
 
 	wait_until(2378, 0xe9)
 	mute_channel(CHANNEL_7)
-	speak(CHR_BOND, 0x3029, 0x7473, CHANNEL_10, COLOR_09_BLUE) // "What do you mean?"
+	speak(CHR_BOND, L_PAM(41), 0x7473, CHANNEL_10, COLOR_09_BLUE) // "What do you mean?"
 
 	wait_until(2510, 0xea)
-	speak(CHR_BOND, 0x302a, 0x7474, CHANNEL_10, COLOR_04_ORANGE) // "When the program has run, I will have control of a..."
+	speak(CHR_BOND, L_PAM(42), 0x7474, CHANNEL_10, COLOR_04_ORANGE) // "When the program has run, I will have control of a..."
 
 	wait_until(3126, 0xf5)
 	play_sound(0x012b, CHANNEL_5)
@@ -2066,7 +2066,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0171, CHANNEL_7)
 
 	wait_until(1210, 0x65)
-	speak(CHR_BOND, 0x301f, 0x7469, CHANNEL_10, COLOR_04_ORANGE) // "This doesn't seem normal. No one's around."
+	speak(CHR_BOND, L_PAM(31), 0x7469, CHANNEL_10, COLOR_04_ORANGE) // "This doesn't seem normal. No one's around."
 
 	wait_until(1266, 0x66)
 	play_sound(0x0172, CHANNEL_7)
@@ -2079,7 +2079,7 @@ u8 func1002_intro[] = {
 	play_sound_from_object2(CHANNEL_5, 0x07, 0x81a9, 0x00, 0x00)
 
 	wait_until(1522, 0x6c)
-	speak(CHR_BOND, 0x3020, 0x746a, CHANNEL_10, COLOR_09_BLUE) // "No signs of conflict. No spent ammo cases or bulle..."
+	speak(CHR_BOND, L_PAM(32), 0x746a, CHANNEL_10, COLOR_09_BLUE) // "No signs of conflict. No spent ammo cases or bulle..."
 
 	wait_until(1548, 0x6d)
 	play_sound(0x0174, CHANNEL_7)
@@ -2094,7 +2094,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0177, CHANNEL_7)
 
 	wait_until(1945, 0x71)
-	speak(CHR_BOND, 0x3021, 0x746b, CHANNEL_10, COLOR_04_ORANGE) // "But there ought to be a rear guard at least. It ma..."
+	speak(CHR_BOND, L_PAM(33), 0x746b, CHANNEL_10, COLOR_04_ORANGE) // "But there ought to be a rear guard at least. It ma..."
 
 	wait_until(1958, 0x72)
 	play_sound(0x0178, CHANNEL_7)
@@ -2124,7 +2124,7 @@ u8 func1002_intro[] = {
 	play_sound(0x0178, CHANNEL_7)
 
 	wait_until(2420, 0x7b)
-	speak(CHR_BOND, 0x3022, 0x746c, CHANNEL_10, COLOR_09_BLUE) // "There has to be someone farther inside. Cover me."
+	speak(CHR_BOND, L_PAM(34), 0x746c, CHANNEL_10, COLOR_09_BLUE) // "There has to be someone farther inside. Cover me."
 
 	wait_until(2426, 0x7c)
 	play_sound(0x0171, CHANNEL_7)
@@ -2251,7 +2251,7 @@ u8 func1006_msg_thiswillhelpus[] = {
 	endloop(0x08)
 
 	label(0x2e)
-	speak(CHR_P1P2, 0x300a, 0x73d4, CHANNEL_6, COLOR_04_ORANGE) // "This will help us to get round the ship quicker."
+	speak(CHR_P1P2, L_PAM(10), 0x73d4, CHANNEL_6, COLOR_04_ORANGE) // "This will help us to get round the ship quicker."
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2268,7 +2268,7 @@ u8 func1007_msg_antibodymasking[] = {
 
 	// Unreachable
 	label(0x2e)
-	speak(CHR_BOND, 0x300b, 0x73d5, CHANNEL_6, COLOR_09_BLUE) // "This antibody masking will protect us from the aut..."
+	speak(CHR_BOND, L_PAM(11), 0x73d5, CHANNEL_6, COLOR_09_BLUE) // "This antibody masking will protect us from the aut..."
 
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2297,7 +2297,7 @@ u8 func1008_msg_theresdrcaroll[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_BOND, 0x300c, 0x73d6, CHANNEL_6, COLOR_04_ORANGE) // "There's Dr. Caroll. Let's see if we can reverse wh..."
+	speak(CHR_BOND, L_PAM(12), 0x73d6, CHANNEL_6, COLOR_04_ORANGE) // "There's Dr. Caroll. Let's see if we can reverse wh..."
 
 	// Elvis dead, Dr Caroll dead, or Elvis didn't get teleported
 	label(0x0d)
@@ -2321,7 +2321,7 @@ u8 func1009_msg_getoutofhere[] = {
 	endloop(0x08)
 
 	label(0x2e)
-	speak(CHR_BOND, 0x300d, 0x73d7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
+	speak(CHR_BOND, L_PAM(13), 0x73d7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
 
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2562,7 +2562,7 @@ u8 func0415_teleport_bond_to_drcaroll[] = {
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	goto_next(0x63)
 	label(0x07)
-	message(CHR_BOND, 0x300e) // "Elvis has been killed."
+	message(CHR_BOND, L_PAM(14)) // "Elvis has been killed."
 
 	label(0x62)
 
@@ -2933,7 +2933,7 @@ u8 func0418_teleport_coop_to_drcaroll[] = {
 	goto_next(0x63)
 
 	label(0x07)
-	message(CHR_BOND, 0x300e) // "Elvis has been killed."
+	message(CHR_BOND, L_PAM(14)) // "Elvis has been killed."
 	label(0x62)
 
 	beginloop(0x63)
@@ -3299,7 +3299,7 @@ u8 func100c_countdown_timer[] = {
 
 	// Player escaped
 	label(0x2e)
-	message(CHR_P1P2, 0x3010) // "Cetan ship evacuation successful."
+	message(CHR_P1P2, L_PAM(16)) // "Cetan ship evacuation successful."
 	set_stage_flag(STAGEFLAG_ESCAPED)
 	restart_timer
 	stop_countdown_timer
@@ -3341,7 +3341,7 @@ u8 func100e_check_elvis_dead[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_BOND, 0x300e) // "Elvis has been killed."
+	message(CHR_BOND, L_PAM(14)) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ALLY_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3355,7 +3355,7 @@ u8 func100f_check_drcaroll_dead[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_BOND, 0x300f) // "Dr. Caroll has been killed."
+	message(CHR_BOND, L_PAM(15)) // "Dr. Caroll has been killed."
 	set_stage_flag(STAGEFLAG_ALLY_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3975,7 +3975,7 @@ u8 func040a_check_pa_canisters_destroyed[] = {
 
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_MEGAWEAPON_DISABLED, TRUE, /*goto*/ 0x2e)
-	message(CHR_BOND, 0x302b) // "Cetan megaweapon has been disabled."
+	message(CHR_BOND, L_PAM(43)) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	label(0x2e)
 	open_door(0x0f)
@@ -4210,7 +4210,7 @@ u8 func1022_control_room[] = {
 	goto_first(0x04)
 
 	label(0x2e)
-	message(CHR_P1P2, 0x3015) // "Control Room has been secured."
+	message(CHR_P1P2, L_PAM(21)) // "Control Room has been secured."
 	set_stage_flag(STAGEFLAG_BLONDES_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -4730,7 +4730,7 @@ u8 func102d_check_farsight_ammo_wasted[] = {
 	endloop(0x63)
 
 	label(0x2e)
-	message(CHR_BOND, 0x302c) // "Ammo wasted - unable to disable megaweapon."
+	message(CHR_BOND, L_PAM(44)) // "Ammo wasted - unable to disable megaweapon."
 	set_stage_flag(STAGEFLAG_FARSIGHT_AMMO_WASTED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x0d)

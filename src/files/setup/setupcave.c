@@ -100,7 +100,7 @@ u32 props[] = {
 	briefing(2, 0x0e02)
 	briefing(3, 0x0e03)
 
-	beginobjective(0, 0x0e05, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Obtain disguise and enter base"
+	beginobjective(0, L_CAVE(5), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Obtain disguise and enter base"
 		complete_flags(STAGEFLAG_DISGUISED2)
 		complete_flags(STAGEFLAG_ENTERED_BASE)
 		fail_flags(STAGEFLAG_CIVILIANS_KILLED)
@@ -111,23 +111,23 @@ u32 props[] = {
 		fail_flags(STAGEFLAG_SECRETARY_DEAD)
 	endobjective
 
-	beginobjective(1, 0x0e06, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Check in equipment"
+	beginobjective(1, L_CAVE(6), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Check in equipment"
 		complete_flags(STAGEFLAG_SUITCASE_DEPOSITED)
 		fail_flags(STAGEFLAG_WEAPONS_DETECTED)
 		fail_flags(STAGEFLAG_TROLLEY_SHUT_DOWN_WITHOUT_BRIEFCASE)
 	endobjective
 
-	beginobjective(2, 0x0e07, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Subvert security monitoring system"
+	beginobjective(2, L_CAVE(7), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Subvert security monitoring system"
 		complete_flags(STAGEFLAG_SECURITY_SHUT_DOWN)
 		fail_flags(STAGEFLAG_SUITCASE_SCANNED)
 		fail_flags(STAGEFLAG_CONSOLE_DESTROYED)
 	endobjective
 
-	beginobjective(3, 0x0e08, (DIFFBIT_PA | DIFFBIT_PD)) // "Obtain flight plans from safe"
+	beginobjective(3, L_CAVE(8), (DIFFBIT_PA | DIFFBIT_PD)) // "Obtain flight plans from safe"
 		require_object_collected(OBJ_FLIGHTPLANS)
 	endobjective
 
-	beginobjective(4, 0x0e09, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Board Air Force One"
+	beginobjective(4, L_CAVE(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Board Air Force One"
 		complete_flags(STAGEFLAG_BOARDED_PLANE)
 	endobjective
 
@@ -261,12 +261,12 @@ u32 props[] = {
 	weapon(0x0100, MODEL_CHRDRAGON, 0x004c, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DRAGON, 0x00ffffff, 0x00000000)
 	tag(0x00, 1)
 	weapon(0x0180, MODEL_CHRBRIEFCASE, 0x0113, 0x00420001, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_SUITCASE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x4d, 0x0e0a, 0x0e0b, 0x0e0c, 0x0e0d, 0x0e0e, 0x0000, 0x0000) // "Obtain suitcase."
+	rename_object(-1, 0x4d, L_CAVE(10), L_CAVE(11), L_CAVE(12), L_CAVE(13), L_CAVE(14), 0x0000, 0x0000) // "Obtain suitcase."
 	tag(0x01, 1)
 	multimonitor(0x0099, MODEL_PD_CONSOLE, 0x0156, 0x000001a1, 0x00000001, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x03030000)
 	tag(0x02, 1)
 	weapon(0x0080, MODEL_STEWARDESS_TROLLEY, 0x00b6, 0x00000008, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DISGUISE41, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x41, 0x0e0f, 0x0e10, 0x0e11, 0x0e12, 0x0e13, 0x0000, 0x0000) // "Obtain air stewardess uniform."
+	rename_object(-1, 0x41, L_CAVE(15), L_CAVE(16), L_CAVE(17), L_CAVE(18), L_CAVE(19), 0x0000, 0x0000) // "Obtain air stewardess uniform."
 	tag(0x06, 1)
 	stdobject(0x0100, MODEL_CHRBRIEFCASE, 0x00c4, 0x014204e1, 0x00086000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	tag(0x42, 6)
@@ -448,7 +448,7 @@ u32 props[] = {
 	hovercar(0x004c, MODEL_TESTERBOT, 0x01c3, 0xe0000008, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000064, 0x00000000, 0x00000000, 0x0fff0000, 0x00000432, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000)
 	tag(0x03, 1)
 	weapon(0x0040, MODEL_SAFEITEM, 0x00d6, 0x00000008, 0x00000000, 0x00400000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_FLIGHTPLANS, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x42, 0x0e14, 0x0e15, 0x0e16, 0x0e17, 0x0e18, 0x0000, 0x0000) // "Obtain flight plans from safe."
+	rename_object(-1, 0x42, L_CAVE(20), L_CAVE(21), L_CAVE(22), L_CAVE(23), L_CAVE(24), 0x0000, 0x0000) // "Obtain flight plans from safe."
 	tag(0x1f, 1)
 	lift(0x0100, MODEL_DD_LIFTDOOR, 0x0151, 0x035204e8, 0x00304300, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x0151, 0x0150, 0xffffffff, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000071c, 0x0010aaaa, 0x01000000, 0x00000000, 0x00000000, 0x00000000)
 	tag(0x1a, 1)
@@ -1235,7 +1235,7 @@ u8 func0407_stewardess[] = {
 	endloop(0x05)
 
 	label(0x02)
-	speak(CHR_TARGET, 0x0e19, 0x1adc, CHANNEL_4, COLOR_07_RED) // "Look out - it's an intruder..."
+	speak(CHR_TARGET, L_CAVE(25), 0x1adc, CHANNEL_4, COLOR_07_RED) // "Look out - it's an intruder..."
 	increase_squadron_alertness(100)
 	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
@@ -1298,7 +1298,7 @@ u8 func0407_stewardess[] = {
 
 	label(0x4a)
 	unset_self_flag_bankx(CHRFLAG0_CAN_EXAMINE_BODY, BANK_0)
-	speak(CHR_TARGET, 0x0e1b, 0x1add, CHANNEL_4, COLOR_07_RED) // "Is he OK?"
+	speak(CHR_TARGET, L_CAVE(27), 0x1add, CHANNEL_4, COLOR_07_RED) // "Is he OK?"
 	stop_chr
 	restart_timer
 
@@ -1314,7 +1314,7 @@ u8 func0407_stewardess[] = {
 	endloop(0x4b)
 
 	label(0x02)
-	speak(CHR_TARGET, 0x0e1c, 0x1ade, CHANNEL_4, COLOR_07_RED) // "I'll go and get some help."
+	speak(CHR_TARGET, L_CAVE(28), 0x1ade, CHANNEL_4, COLOR_07_RED) // "I'll go and get some help."
 	restart_timer
 	stop_chr
 
@@ -1372,7 +1372,7 @@ u8 func1005_check_civilians_killed[] = {
 	endloop(0x00)
 
 	label(0x31)
-	message(CHR_BOND, 0x0e1a) // "Innocent civilians have been killed."
+	message(CHR_BOND, L_CAVE(26)) // "Innocent civilians have been killed."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1541,7 +1541,7 @@ u8 func0408_secretary[] = {
 	mute_channel(CHANNEL_4)
 	yield
 	label(0x02)
-	speak(CHR_TARGET, 0x0e20, 0x8162, CHANNEL_4, COLOR_06_WHITE) // "Oh, my God!"
+	speak(CHR_TARGET, L_CAVE(32), 0x8162, CHANNEL_4, COLOR_06_WHITE) // "Oh, my God!"
 
 	label(0x67)
 	increase_squadron_alertness(100)
@@ -1579,7 +1579,7 @@ u8 func0408_secretary[] = {
 	// FIRST TALK
 	//
 	label(0x32)
-	speak(CHR_TARGET, 0x0e1d, 0x8161, CHANNEL_4, COLOR_06_WHITE) // "Good afternoon."
+	speak(CHR_TARGET, L_CAVE(29), 0x8161, CHANNEL_4, COLOR_06_WHITE) // "Good afternoon."
 	chr_do_animation(ANIM_TALKING_0231, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	restart_timer
 	set_morale(2)
@@ -1609,7 +1609,7 @@ u8 func0408_secretary[] = {
 	// WEAPON TALK 1
 	//
 	label(0x32)
-	speak(CHR_TARGET, 0x0e1f, 0x1273, CHANNEL_4, COLOR_06_WHITE) // "You'll have to check that weapon in here."
+	speak(CHR_TARGET, L_CAVE(31), 0x1273, CHANNEL_4, COLOR_06_WHITE) // "You'll have to check that weapon in here."
 	restart_timer
 	chr_do_animation(ANIM_TALKING_0232, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	set_morale(3)
@@ -1634,7 +1634,7 @@ u8 func0408_secretary[] = {
 	goto_next(0x02)
 
 	label(0x32)
-	speak(CHR_TARGET, 0x0e21, 0x1274, CHANNEL_4, COLOR_06_WHITE) // "Weapons are not allowed in the base."
+	speak(CHR_TARGET, L_CAVE(33), 0x1274, CHANNEL_4, COLOR_06_WHITE) // "Weapons are not allowed in the base."
 	restart_timer
 	chr_do_animation(ANIM_TALKING_0233, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	set_morale(4)
@@ -1665,7 +1665,7 @@ u8 func0408_secretary[] = {
 
 	// Calling security
 	label(0x77)
-	speak(CHR_TARGET, 0x0e22, 0x1276, CHANNEL_4, COLOR_06_WHITE) // "Right, I'm calling security."
+	speak(CHR_TARGET, L_CAVE(34), 0x1276, CHANNEL_4, COLOR_06_WHITE) // "Right, I'm calling security."
 	set_stage_flag(STAGEFLAG_RECEPTIONIST_CALLED_SECURITY)
 	activate_alarm
 	restart_timer
@@ -1685,7 +1685,7 @@ u8 func0408_secretary[] = {
 	// TALK 2
 	//
 	label(0x31)
-	speak(CHR_TARGET, 0x0e1e, 0x1272, CHANNEL_4, COLOR_06_WHITE) // "OK, you know the way from here."
+	speak(CHR_TARGET, L_CAVE(30), 0x1272, CHANNEL_4, COLOR_06_WHITE) // "OK, you know the way from here."
 	chr_do_animation(0x0232, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	unlock_door(0x18, 0x02)
 
@@ -1735,7 +1735,7 @@ u8 func1007_console_activation[] = {
 	set_object_image(OBJ_CONSOLE, 0x00, 0x0f)
 	set_object_image(OBJ_CONSOLE, 0x01, 0x0f)
 	set_chr_flag_bankx(0x12, CHRFLAG0_00002000, BANK_0)
-	message(CHR_P1P2, 0x0e23) // "System shutdown initiated..."
+	message(CHR_P1P2, L_CAVE(35)) // "System shutdown initiated..."
 	mute_channel(CHANNEL_1)
 	assign_sound(0x01b9, CHANNEL_1)
 	control_sound_from_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
@@ -1754,7 +1754,7 @@ u8 func1007_console_activation[] = {
 	mute_channel(CHANNEL_1)
 	assign_sound(0x0479, CHANNEL_1)
 	control_sound_from_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
-	message(CHR_P1P2, 0x0e24) // "Security systems have been shut down."
+	message(CHR_P1P2, L_CAVE(36)) // "Security systems have been shut down."
 	set_stage_flag(STAGEFLAG_SECURITY_SHUT_DOWN)
 	unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED)
 	restart_timer
@@ -1951,10 +1951,10 @@ u8 func1009_carousel_activation[] = {
 		// Shut down without depositing
 		label(0x31)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x09)
-		message(CHR_BOND, 0x0e42) // "Hover trolley has been shut down."
+		message(CHR_BOND, L_CAVE(66)) // "Hover trolley has been shut down."
 		set_stage_flag(STAGEFLAG_TROLLEY_SHUT_DOWN_WITHOUT_BRIEFCASE)
 		yield
-		message(CHR_BOND, 0x0e43) // "Equipment cannot be checked in."
+		message(CHR_BOND, L_CAVE(67)) // "Equipment cannot be checked in."
 		label(0x09)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1964,7 +1964,7 @@ u8 func1009_carousel_activation[] = {
 	endloop(0x00)
 
 	label(0x02)
-	message(CHR_P1P2, 0x0e26) // "Suitcase has been deposited."
+	message(CHR_P1P2, L_CAVE(38)) // "Suitcase has been deposited."
 	chr_draw_weapon_in_cutscene(CHR_P1P2, WEAPON_UNARMED)
 	set_stage_flag(STAGEFLAG_SUITCASE_DEPOSITED)
 	play_sound(0x80aa, CHANNEL_7)
@@ -2028,7 +2028,7 @@ u8 func100b_suitcase_scanning[] = {
 
 	// Scanned
 	label(0x02)
-	message(CHR_BOND, 0x0e27) // "Suitcase has been scanned."
+	message(CHR_BOND, L_CAVE(39)) // "Suitcase has been scanned."
 	set_stage_flag(STAGEFLAG_SUITCASE_SCANNED)
 
 	// Agent
@@ -2091,7 +2091,7 @@ u8 func0409_office1[] = {
 	// Disguised and unarmed-ish
 	label(0x31)
 	chr_do_animation(ANIM_SITTING_0265, 0, -1, 0x14, 0x10, CHR_SELF, 2)
-	speak(CHR_TARGET, 0x0e29, 0x1ae6, CHANNEL_4, COLOR_08_RED) // "Are you new around here?"
+	speak(CHR_TARGET, L_CAVE(41), 0x1ae6, CHANNEL_4, COLOR_08_RED) // "Are you new around here?"
 
 	beginloop(0x09)
 		if_saw_injury(0x00, /*goto*/ LABEL_RUN_TO_FOYER)
@@ -2128,7 +2128,7 @@ u8 func0409_office1[] = {
 	endloop(0x0b)
 
 	label(0x02)
-	speak(CHR_TARGET, 0x0e2a, 0x1ae7, CHANNEL_4, COLOR_08_RED) // "Hey - give me back my case."
+	speak(CHR_TARGET, L_CAVE(42), 0x1ae7, CHANNEL_4, COLOR_08_RED) // "Hey - give me back my case."
 	restart_timer
 	increase_squadron_alertness(100)
 
@@ -2152,7 +2152,7 @@ u8 func0409_office1[] = {
 
 	label(0x72)
 	label(0x02)
-	speak(CHR_TARGET, 0x0e28, 0x1ae5, CHANNEL_4, COLOR_08_RED) // "Hey, you - this is a restricted area."
+	speak(CHR_TARGET, L_CAVE(40), 0x1ae5, CHANNEL_4, COLOR_08_RED) // "Hey, you - this is a restricted area."
 	increase_squadron_alertness(100)
 	restart_timer
 	chr_do_animation(ANIM_WALK_BACKWARDS, -1, -1, 0x10, 0x10, CHR_SELF, 2)
@@ -2170,7 +2170,7 @@ u8 func0409_office1[] = {
 	endloop(0x08)
 
 	label(0x02)
-	speak(CHR_TARGET, 0x0e2c, 0x1ae8, CHANNEL_4, COLOR_08_RED) // "Upstairs...there's an intruder."
+	speak(CHR_TARGET, L_CAVE(44), 0x1ae8, CHANNEL_4, COLOR_08_RED) // "Upstairs...there's an intruder."
 	increase_squadron_alertness(100)
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
 	activate_alarm
@@ -2249,7 +2249,7 @@ u8 func040a_office2[] = {
 	if_chr_dying(CHR_OFFICE1, /*goto*/ 0x02)
 	if_chr_death_animation_finished(CHR_OFFICE1, /*goto*/ 0x02)
 	if_chr_unloaded(CHR_OFFICE1, /*goto*/ 0x02)
-	speak(CHR_TARGET, 0x0e2b, 0x1ae9, CHANNEL_4, COLOR_09_BLUE) // "You get security - I'll deal with her..."
+	speak(CHR_TARGET, L_CAVE(43), 0x1ae9, CHANNEL_4, COLOR_09_BLUE) // "You get security - I'll deal with her..."
 	increase_squadron_alertness(100)
 	restart_timer
 
@@ -2358,12 +2358,12 @@ u8 func100d_laser_panel[] = {
 		label(0x04)
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_LASER_PANEL, TRUE)
-		message(CHR_P1P2, 0x0e2d) // "Laser grid access denied."
+		message(CHR_P1P2, L_CAVE(45)) // "Laser grid access denied."
 	endloop(0x00)
 
 	label(0x05)
 	set_stage_flag(STAGEFLAG_LASERS_OVERLOADED)
-	message(CHR_P1P2, 0x0e2e) // "Laser grid system has been overloaded."
+	message(CHR_P1P2, L_CAVE(46)) // "Laser grid system has been overloaded."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2392,7 +2392,7 @@ u8 func100e_check_alaskans_killed[] = {
 	endloop(0x00)
 
 	label(0x31)
-	message(CHR_BOND, 0x0e2f) // "Too many neutral casualties inflicted."
+	message(CHR_BOND, L_CAVE(47)) // "Too many neutral casualties inflicted."
 	set_stage_flag(STAGEFLAG_TOO_MANY_NEUTRALS_KILLED)
 	label(0x02)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2647,7 +2647,7 @@ u8 func0411_takeover_lackey[] = {
 	endloop(0x04)
 
 	label(0x02)
-	speak(CHR_TARGET, 0x0e41, 0x05bf, CHANNEL_6, COLOR_08_RED) // "We're taking over!!"
+	speak(CHR_TARGET, L_CAVE(65), 0x05bf, CHANNEL_6, COLOR_08_RED) // "We're taking over!!"
 
 	beginloop(0x09)
 		if_chr_stopped(/*goto*/ 0x02)
@@ -2750,7 +2750,7 @@ u8 func0414_officeworker[] = {
 
 	label(0x02)
 	do_preset_animation(7)
-	speak(CHR_TARGET, 0x0e36, 0x1b38, CHANNEL_4, COLOR_08_RED) // "Stop them - they're breaking into the safe..."
+	speak(CHR_TARGET, L_CAVE(54), 0x1b38, CHANNEL_4, COLOR_08_RED) // "Stop them - they're breaking into the safe..."
 
 	beginloop(0x05)
 		if_sound_finished(CHANNEL_4, /*goto*/ 0x79)
@@ -3580,7 +3580,7 @@ u8 func101a_check_disguise_used[] = {
 	endloop(0x00)
 
 	label(0x31)
-	message(CHR_P1P2, 0x0e31) // "Disguise worn."
+	message(CHR_P1P2, L_CAVE(49)) // "Disguise worn."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3636,7 +3636,7 @@ u8 func1003_intro[] = {
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 
 	wait_until(30, 0x6d)
-	speak(CHR_BOND, 0x0e37, 0x7447, CHANNEL_7, COLOR_09_BLUE) // "Agent Dark in prop. I can see the main entranc..."
+	speak(CHR_BOND, L_CAVE(55), 0x7447, CHANNEL_7, COLOR_09_BLUE) // "Agent Dark in prop. I can see the main entranc..."
 
 	wait_until(312, 0x89)
 	play_sound(0x0594, CHANNEL_10)
@@ -3645,13 +3645,13 @@ u8 func1003_intro[] = {
 	play_sound(0x0595, CHANNEL_10)
 
 	wait_until(580, 0x76)
-	speak(CHR_BOND, 0x0e38, 0x7448, CHANNEL_10, COLOR_06_WHITE) // "Excellent, Joanna. That cable car is your way in....."
+	speak(CHR_BOND, L_CAVE(56), 0x7448, CHANNEL_10, COLOR_06_WHITE) // "Excellent, Joanna. That cable car is your way in....."
 
 	wait_until(968, 0x8b)
 	play_sound(0x0596, CHANNEL_10)
 
 	wait_until(1315, 0x77)
-	speak(CHR_BOND, 0x0e39, 0x77db, CHANNEL_10, COLOR_09_BLUE) // "That they're probably innocent of any involvement ..."
+	speak(CHR_BOND, L_CAVE(57), 0x77db, CHANNEL_10, COLOR_09_BLUE) // "That they're probably innocent of any involvement ..."
 
 	wait_until(1411, 0x8e)
 	play_sound(0x04af, CHANNEL_0)
@@ -3667,7 +3667,7 @@ u8 func1003_intro[] = {
 	play_sound(0x04ec, CHANNEL_10)
 
 	wait_until(1900, 0x78)
-	speak(CHR_BOND, 0x0e3a, 0x7449, CHANNEL_5, COLOR_06_WHITE) // "I don't know how far the conspiracy has spread thr..."
+	speak(CHR_BOND, L_CAVE(58), 0x7449, CHANNEL_5, COLOR_06_WHITE) // "I don't know how far the conspiracy has spread thr..."
 
 	wait_until(1970, 0x8c)
 	play_sound(0x0171, CHANNEL_10)
@@ -3732,7 +3732,7 @@ u8 func1003_intro[] = {
 	play_sound(0x0168, CHANNEL_10)
 
 	wait_until(2700, 0x79)
-	speak(CHR_BOND, 0x0e3b, 0x744a, CHANNEL_7, COLOR_09_BLUE) // "Yes, and protect him from his abductors. Do you ha..."
+	speak(CHR_BOND, L_CAVE(59), 0x744a, CHANNEL_7, COLOR_09_BLUE) // "Yes, and protect him from his abductors. Do you ha..."
 
 	wait_until(2704, 0xa3)
 	play_sound(0x0161, CHANNEL_10)
@@ -3783,7 +3783,7 @@ u8 func1003_intro[] = {
 	play_sound(0x0164, CHANNEL_10)
 
 	wait_until(3250, 0x7a)
-	speak(CHR_BOND, 0x0e3c, 0x744b, CHANNEL_5, COLOR_06_WHITE) // "Only vague suspicions, and I won't distract you wi..."
+	speak(CHR_BOND, L_CAVE(60), 0x744b, CHANNEL_5, COLOR_06_WHITE) // "Only vague suspicions, and I won't distract you wi..."
 
 	wait_until(3387, 0xb3)
 	play_sound(0x0166, CHANNEL_10)
@@ -3861,7 +3861,7 @@ u8 func101c_msg_nowsyourchance[] = {
 	endloop(0x00)
 
 	label(0x31)
-	speak(CHR_BOND, 0x0e32, 0x8182, CHANNEL_6, COLOR_09_BLUE) // "Now's your chance! Grab the stewardess's bag and g..."
+	speak(CHR_BOND, L_CAVE(50), 0x8182, CHANNEL_6, COLOR_09_BLUE) // "Now's your chance! Grab the stewardess's bag and g..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3888,7 +3888,7 @@ u8 func101d_msg_usethatcase[] = {
 	endloop(0x04)
 
 	label(0x31)
-	speak(CHR_P1P2, 0x0e33, 0x8183, CHANNEL_4, COLOR_09_BLUE) // "Use that case to conceal your equipment."
+	speak(CHR_P1P2, L_CAVE(51), 0x8183, CHANNEL_4, COLOR_09_BLUE) // "Use that case to conceal your equipment."
 
 	label(0x09)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3908,7 +3908,7 @@ u8 func101e_msg_casewillgetstopped[] = {
 	endloop(0x04)
 
 	label(0x31)
-	speak(CHR_BOND, 0x0e34, 0x8184, CHANNEL_6, COLOR_09_BLUE) // "The case will get stopped unless you do something."
+	speak(CHR_BOND, L_CAVE(52), 0x8184, CHANNEL_6, COLOR_09_BLUE) // "The case will get stopped unless you do something."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3921,7 +3921,7 @@ u8 func101f_msg_smallerthanithought[] = {
 	endloop(0x00)
 
 	label(0x31)
-	speak(CHR_P1P2, 0x0e35, 0x73c7, CHANNEL_6, COLOR_09_BLUE) // "So that's Air Force One? ... Huh, smaller than I t..."
+	speak(CHR_P1P2, L_CAVE(53), 0x73c7, CHANNEL_6, COLOR_09_BLUE) // "So that's Air Force One? ... Huh, smaller than I t..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4158,7 +4158,7 @@ u8 func1029_lift_doors[] = {
 
 		label(0x31)
 		if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x05)
-		message(CHR_P1P2, 0x0e3d) // "Lift inoperative - security system is active."
+		message(CHR_P1P2, L_CAVE(61)) // "Lift inoperative - security system is active."
 		restart_timer
 
 		beginloop(0x04)
@@ -4196,7 +4196,7 @@ u8 func102b_check_secretary_dead[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x31)
-	message(CHR_BOND, 0x0e3e) // "Critical mission personnel disabled."
+	message(CHR_BOND, L_CAVE(62)) // "Critical mission personnel disabled."
 	set_stage_flag(STAGEFLAG_SECRETARY_DEAD)
 	label(0x09)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -4227,7 +4227,7 @@ u8 func102d_check_console_destroyed[] = {
 	mute_channel(CHANNEL_1)
 	if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x31)
 	set_stage_flag(STAGEFLAG_CONSOLE_DESTROYED)
-	message(CHR_BOND, 0x0e3f) // "Critical mission object destroyed."
+	message(CHR_BOND, L_CAVE(63)) // "Critical mission object destroyed."
 	label(0x31)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -4240,7 +4240,7 @@ u8 func102e_check_base_entered[] = {
 	endloop(0x00)
 
 	label(0x31)
-	message(CHR_BOND, 0x0e40) // "Entrance to base secured."
+	message(CHR_BOND, L_CAVE(64)) // "Entrance to base secured."
 	set_stage_flag(STAGEFLAG_ENTERED_BASE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

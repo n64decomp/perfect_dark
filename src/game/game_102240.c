@@ -3490,7 +3490,7 @@ char *func0f105864(s32 arg0)
 		return langGet(primaryfunc->name);
 	}
 
-	return langGet(0x5603); // "\n"
+	return langGet(L_OPTIONS(3)); // "\n"
 }
 
 char *func0f1058d0(s32 arg0)
@@ -3506,7 +3506,7 @@ char *func0f1058d0(s32 arg0)
 		return langGet(primaryfunc->name);
 	}
 
-	return langGet(0x5603); // "\n"
+	return langGet(L_OPTIONS(3)); // "\n"
 }
 
 GLOBAL_ASM(
@@ -3819,14 +3819,14 @@ char *func0f105d9c(s32 arg0)
 	struct weapon *weapon = weaponFindById(var800a21c0);
 
 	if (weapon) {
-		if (weapon->manufacturer == 0x4c00) { // "\n"
-			return langGet(0x5603); // "\n"
+		if (weapon->manufacturer == L_GUN(0)) { // "\n"
+			return langGet(L_OPTIONS(3)); // "\n"
 		}
 
 		return langGet(weapon->name);
 	}
 
-	return langGet(0x5603); // "\n"
+	return langGet(L_OPTIONS(3)); // "\n"
 }
 
 /**
@@ -3835,7 +3835,7 @@ char *func0f105d9c(s32 arg0)
 char *func0f105e04(s32 arg0)
 {
 	struct weapon *weapon = weaponFindById(var800a21c0);
-	u32 textid = 0x4c00; // "\n"
+	u32 textid = L_GUN(0); // "\n"
 
 	if (weapon) {
 		textid = weapon->manufacturer;
@@ -3851,7 +3851,7 @@ char *func0f105e04(s32 arg0)
 		return langGet(weapon->name);
 	}
 
-	return langGet(0x5603); // "\n"
+	return langGet(L_OPTIONS(3)); // "\n"
 }
 
 GLOBAL_ASM(

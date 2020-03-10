@@ -108,17 +108,17 @@ u32 props[] = {
 	briefing(2, 0x1602)
 	briefing(3, 0x1603)
 
-	beginobjective(0, 0x1606, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable primary power source"
+	beginobjective(0, L_DAM(6), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable primary power source"
 		complete_flags(STAGEFLAG_REACTOR_SHUT_DOWN)
 		fail_flags(STAGEFLAG_REACTOR_SWITCH_DESTROYED)
 	endobjective
 
-	beginobjective(1, 0x1607, (DIFFBIT_PA | DIFFBIT_PD)) // "Secure laboratories and research data"
+	beginobjective(1, L_DAM(7), (DIFFBIT_PA | DIFFBIT_PD)) // "Secure laboratories and research data"
 		complete_flags(STAGEFLAG_COLLECTED_RESEARCH_DATA)
 		fail_flags(STAGEFLAG_LABTECH_DEAD)
 	endobjective
 
-	beginobjective(2, 0x1605, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Deactivate GPS and autopilot"
+	beginobjective(2, L_DAM(5), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Deactivate GPS and autopilot"
 		complete_flags(STAGEFLAG_GPS_DISABLED)
 		complete_flags(STAGEFLAG_AUTOPILOT_DISABLED)
 		fail_flags(STAGEFLAG_00000400)
@@ -126,12 +126,12 @@ u32 props[] = {
 		fail_flags(STAGEFLAG_JO_KILLED_A_PILOT)
 	endobjective
 
-	beginobjective(3, 0x1608, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate Moon Pool lift"
+	beginobjective(3, L_DAM(8), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Activate Moon Pool lift"
 		complete_flags(STAGEFLAG_MOONPOOL_ACTIVATED)
 		fail_flags(STAGEFLAG_MOONPOOL_SWITCH_DESTROYED)
 	endobjective
 
-	beginobjective(4, 0x1609, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Rendezvous and escape with Elvis"
+	beginobjective(4, L_DAM(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Rendezvous and escape with Elvis"
 		complete_flags(STAGEFLAG_LOCATED_DIVING_AREA)
 		fail_flags(STAGEFLAG_ELVIS_DEAD)
 	endobjective
@@ -507,13 +507,13 @@ u32 props[] = {
 	multimonitor(0x0099, MODEL_COMHUB, 0x01fa, 0x000000e2, 0x00000001, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x13131300)
 	tag(0x14, 1)
 	key(0x0080, MODEL_CHRBRIEFCASE, 0x004e, 0x01244000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000)
-	rename_object(-1, 0x43, 0x1616, 0x1617, 0x1618, 0x1619, 0x161a, 0x0000, 0x0000) // ""
+	rename_object(-1, 0x43, L_DAM(22), L_DAM(23), L_DAM(24), L_DAM(25), L_DAM(26), 0x0000, 0x0000) // ""
 	tag(0x15, 1)
 	key(0x0080, MODEL_CHRBRIEFCASE, 0x0050, 0x01244000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000)
-	rename_object(-1, 0x43, 0x1616, 0x1617, 0x1618, 0x1619, 0x161a, 0x0000, 0x0000) // ""
+	rename_object(-1, 0x43, L_DAM(22), L_DAM(23), L_DAM(24), L_DAM(25), L_DAM(26), 0x0000, 0x0000) // ""
 	tag(0x16, 1)
 	key(0x0080, MODEL_CHRBRIEFCASE, 0x004f, 0x01244000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000)
-	rename_object(-1, 0x43, 0x1616, 0x1617, 0x1618, 0x1619, 0x161a, 0x0000, 0x0000) // ""
+	rename_object(-1, 0x43, L_DAM(22), L_DAM(23), L_DAM(24), L_DAM(25), L_DAM(26), 0x0000, 0x0000) // ""
 	tag(0x21, 5)
 	tag(0x22, 5)
 	tag(0x23, 5)
@@ -879,7 +879,7 @@ u8 func0c01_outro[] = {
 	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, 0x042d, 0x00, 0x00)
 
 	wait_until(180, 0x3b)
-	speak(CHR_BOND, 0x1627, 0x7465, CHANNEL_10, COLOR_06_WHITE) // "Right. The diving operation has been disrupted on ..."
+	speak(CHR_BOND, L_DAM(39), 0x7465, CHANNEL_10, COLOR_06_WHITE) // "Right. The diving operation has been disrupted on ..."
 
 	wait_until(200, 0x48)
 	play_sound(0x0173, CHANNEL_10)
@@ -905,7 +905,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x0171, CHANNEL_10)
 
 	wait_until(570, 0x4f)
-	speak(CHR_BOND, 0x1628, 0x7466, CHANNEL_10, COLOR_09_BLUE) // "I hope the government don't want to use this ship ..."
+	speak(CHR_BOND, L_DAM(40), 0x7466, CHANNEL_10, COLOR_09_BLUE) // "I hope the government don't want to use this ship ..."
 
 	wait_until(582, 0x50)
 	play_sound(0x0171, CHANNEL_10)
@@ -935,7 +935,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x80a2, CHANNEL_10)
 
 	wait_until(950, 0x58)
-	speak(CHR_BOND, 0x1629, 0x7467, CHANNEL_10, COLOR_06_WHITE) // "Do you think we were a little heavy-handed?"
+	speak(CHR_BOND, L_DAM(41), 0x7467, CHANNEL_10, COLOR_06_WHITE) // "Do you think we were a little heavy-handed?"
 
 	wait_until(1088, 0x59)
 	play_sound(0x80a3, CHANNEL_10)
@@ -944,7 +944,7 @@ u8 func0c01_outro[] = {
 	play_sound(0x0176, CHANNEL_10)
 
 	wait_until(1190, 0x5b)
-	speak(CHR_BOND, 0x162a, 0x7468, CHANNEL_10, COLOR_09_BLUE) // "Naaahhhh."
+	speak(CHR_BOND, L_DAM(42), 0x7468, CHANNEL_10, COLOR_09_BLUE) // "Naaahhhh."
 
 	wait_until(1228, 0x5c)
 	play_sound(0x0174, CHANNEL_10)
@@ -1016,7 +1016,7 @@ u8 func1004_msg_controlledfrom[] = {
 	endloop(0x00)
 
 	label(0x07)
-	speak(CHR_P1P2, 0x160b, 0x73d1, CHANNEL_6, COLOR_09_BLUE) // "This must be where the sub's controlled from."
+	speak(CHR_P1P2, L_DAM(11), 0x73d1, CHANNEL_6, COLOR_09_BLUE) // "This must be where the sub's controlled from."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1028,7 +1028,7 @@ u8 func1005_msg_withoutautopilot[] = {
 	endloop(0x00)
 
 	label(0x07)
-	speak(CHR_P1P2, 0x160c, 0x73d2, CHANNEL_6, COLOR_09_BLUE) // "Without the autopilot and the GPS, the ship will w..."
+	speak(CHR_P1P2, L_DAM(12), 0x73d2, CHANNEL_6, COLOR_09_BLUE) // "Without the autopilot and the GPS, the ship will w..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1040,7 +1040,7 @@ u8 func1006_msg_conductoperations[] = {
 	endloop(0x00)
 
 	label(0x07)
-	speak(CHR_P1P2, 0x160d, 0x73d3, CHANNEL_6, COLOR_09_BLUE) // "They'll be unable to conduct any operations withou..."
+	speak(CHR_P1P2, L_DAM(13), 0x73d3, CHANNEL_6, COLOR_09_BLUE) // "They'll be unable to conduct any operations withou..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1059,7 +1059,7 @@ u8 unregistered_function2[] = {
 	endloop(0x00)
 
 	label(0x04)
-	message(CHR_BOND, 0x1610) // "Critical mission object has been destroyed."
+	message(CHR_BOND, L_DAM(16)) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_00000400)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1087,7 +1087,7 @@ u8 func1009_open_reactor_hatch[] = {
 	label(0x07)
 	hide_object(OBJ_REACTOR_HATCH)
 	set_object_flag2(OBJ_REACTOR_HATCH, OBJFLAG2_INVISIBLE)
-	message(CHR_P1P2, 0x1611) // "Reactor shutdown control hatch opened."
+	message(CHR_P1P2, L_DAM(17)) // "Reactor shutdown control hatch opened."
 	set_stage_flag(STAGEFLAG_REACTOR_HATCH_OPEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1097,7 +1097,7 @@ u8 func100a_reactor_switch[] = {
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_REACTOR_SWITCH, /*goto*/ 0x07)
-		message(CHR_BOND, 0x1624) // "Critical mission object has been destroyed."
+		message(CHR_BOND, L_DAM(36)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_REACTOR_SWITCH_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1118,7 +1118,7 @@ u8 func100a_reactor_switch[] = {
 	set_object_image(OBJ_REACTOR_SWITCH, 0x00, 0x12)
 	set_object_image(OBJ_REACTOR_SWITCH, 0x01, 0x12)
 	set_object_image(OBJ_REACTOR_SWITCH, 0x02, 0x12)
-	message(CHR_P1P2, 0x1612) // "Reactor has been shut down."
+	message(CHR_P1P2, L_DAM(18)) // "Reactor has been shut down."
 	set_stage_flag(STAGEFLAG_REACTOR_SHUT_DOWN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1140,7 +1140,7 @@ u8 func100b_check_diving_area_located[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_P1P2, 0x1613) // "Diving control center has been located."
+	message(CHR_P1P2, L_DAM(19)) // "Diving control center has been located."
 	set_stage_flag(STAGEFLAG_LOCATED_DIVING_AREA)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1257,7 +1257,7 @@ u8 func100e_check_labtech_dead[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_BOND, 0x1614) // "Critical mission personnel killed."
+	message(CHR_BOND, L_DAM(20)) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_LABTECH_DEAD)
 	label(0x0b)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1281,7 +1281,7 @@ u8 func100f_check_researchdata_collected[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_BOND, 0x1615) // "Research data has been secured."
+	message(CHR_BOND, L_DAM(21)) // "Research data has been secured."
 	set_stage_flag(STAGEFLAG_COLLECTED_RESEARCH_DATA)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1938,12 +1938,12 @@ u8 func0401_pilot[] = {
 	goto_first(0x0b)
 
 	label(0x07)
-	speak(CHR_TARGET, 0x162b, 0x7325, CHANNEL_7, COLOR_09_BLUE) // "Pull the plug on that now."
+	speak(CHR_TARGET, L_DAM(43), 0x7325, CHANNEL_7, COLOR_09_BLUE) // "Pull the plug on that now."
 	set_stage_flag(STAGEFLAG_SAID_PULLTHEPLUG)
 	goto_next(0x0c)
 
 	label(0x08)
-	speak(CHR_TARGET, 0x162c, 0x7326, CHANNEL_7, COLOR_09_BLUE) // "Switch this thing off."
+	speak(CHR_TARGET, L_DAM(44), 0x7326, CHANNEL_7, COLOR_09_BLUE) // "Switch this thing off."
 	set_stage_flag(STAGEFLAG_SAID_SWITCHTHINGOFF)
 	goto_next(0x0c)
 
@@ -1954,11 +1954,11 @@ u8 func0401_pilot[] = {
 	label(0x07)
 	set_self_flag_bankx(CHRFLAG0_08000000, BANK_0)
 	if_stage_flag_eq(STAGEFLAG_SAID_SWITCHTHINGOFF, FALSE, /*goto*/ 0x07)
-	speak(CHR_TARGET, 0x162d, 0x128e, CHANNEL_6, COLOR_04_ORANGE) // "I'll shut it down."
+	speak(CHR_TARGET, L_DAM(45), 0x128e, CHANNEL_6, COLOR_04_ORANGE) // "I'll shut it down."
 	goto_next(0x08)
 
 	label(0x07)
-	speak(CHR_TARGET, 0x162e, 0x1280, CHANNEL_6, COLOR_04_ORANGE) // "Please don't hurt me."
+	speak(CHR_TARGET, L_DAM(46), 0x1280, CHANNEL_6, COLOR_04_ORANGE) // "Please don't hurt me."
 	label(0x08)
 	do_preset_animation(-1)
 
@@ -1999,7 +1999,7 @@ u8 func0401_pilot[] = {
 
 	label(0x07)
 	if_stage_flag_eq(STAGEFLAG_AUTOPILOT_DISABLED, TRUE, /*goto*/ 0x07)
-	message(CHR_TARGET, 0x160e) // "Autopilot system has been deactivated."
+	message(CHR_TARGET, L_DAM(14)) // "Autopilot system has been deactivated."
 	set_stage_flag(STAGEFLAG_TRIGGER_ANGRY_PILOT)
 	yield
 	yield
@@ -2016,7 +2016,7 @@ u8 func0401_pilot[] = {
 	goto_first(0x0b)
 
 	label(0x07)
-	message(CHR_TARGET, 0x160f) // "GPS system has been deactivated."
+	message(CHR_TARGET, L_DAM(15)) // "GPS system has been deactivated."
 	set_stage_flag(STAGEFLAG_GPS_DISABLED)
 	surrender
 	goto_first(0x0b)
@@ -2055,7 +2055,7 @@ u8 func1011_check_pilots_dead[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x07)
-	message(CHR_BOND, 0x161b) // "Critical mission personnel have been killed."
+	message(CHR_BOND, L_DAM(27)) // "Critical mission personnel have been killed."
 	set_stage_flag(STAGEFLAG_PILOT_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2111,7 +2111,7 @@ u8 func1012_choose_angry_pilot[] = {
 
 	// Killed a pilot
 	label(0x08)
-	message(CHR_BOND, 0x1623) // "Civilians have been killed."
+	message(CHR_BOND, L_DAM(35)) // "Civilians have been killed."
 	set_stage_flag(STAGEFLAG_JO_KILLED_A_PILOT)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2140,7 +2140,7 @@ u8 func0404_angry_pilot[] = {
 	// Alive
 	label(0x04)
 	set_self_flag_bankx(CHRFLAG0_00000004, BANK_0)
-	speak(CHR_TARGET, 0x162f, 0x14dd, CHANNEL_7, COLOR_04_ORANGE) // "Die, you traitors."
+	speak(CHR_TARGET, L_DAM(47), 0x14dd, CHANNEL_7, COLOR_04_ORANGE) // "Die, you traitors."
 	chr_do_animation(ANIM_DRAW_PISTOL_0245, -1, 120, 0x06, 0x00, CHR_SELF, 3)
 	try_equip_weapon(MODEL_CHRDY357, WEAPON_DY357MAGNUM, 0x00000000, /*goto*/ 0x6c)
 
@@ -2233,7 +2233,7 @@ u8 func1013_lift_switch[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_P1P2, 0x161c) // "Lift door has been unlocked."
+	message(CHR_P1P2, L_DAM(28)) // "Lift door has been unlocked."
 	unlock_door(0x18, 0x02)
 	unlock_door(0x19, 0x02)
 	open_door(0x18)
@@ -2248,7 +2248,7 @@ u8 func1014_moonpool_switch[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_MOONPOOL_SWITCH, /*goto*/ 0x08)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x10)
-		message(CHR_P1P2, 0x1624) // "Critical mission object has been destroyed."
+		message(CHR_P1P2, L_DAM(36)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_MOONPOOL_SWITCH_DESTROYED)
 
 		label(0x10)
@@ -2260,7 +2260,7 @@ u8 func1014_moonpool_switch[] = {
 
 	label(0x07)
 	label(0x07)
-	message(CHR_P1P2, 0x161d) // "Lift has been activated."
+	message(CHR_P1P2, L_DAM(29)) // "Lift has been activated."
 	set_stage_flag(STAGEFLAG_MOONPOOL_ACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2410,7 +2410,7 @@ u8 func101a_badhatchswitches[] = {
 	goto_next(0x04)
 
 	label(0x04)
-	message(CHR_P1P2, 0x161f) // "Unlocking sequence has been reset."
+	message(CHR_P1P2, L_DAM(31)) // "Unlocking sequence has been reset."
 	set_stage_flag(STAGEFLAG_HATCHSWITCHES_RESETTING)
 	restart_timer
 
@@ -2464,7 +2464,7 @@ u8 func0415_elvis_at_start[] = {
 
 	label(0x07)
 	do_preset_animation(-1)
-	speak(CHR_TARGET, 0x1620, 0x14dc, CHANNEL_6, COLOR_06_WHITE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
+	speak(CHR_TARGET, L_DAM(32), 0x14dc, CHANNEL_6, COLOR_06_WHITE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
 
 	beginloop(0x0c)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x07)
@@ -2668,7 +2668,7 @@ u8 func101c_check_elvis_dead[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_BOND, 0x1621) // "Elvis has been killed."
+	message(CHR_BOND, L_DAM(33)) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2693,7 +2693,7 @@ u8 func0418_elvis_at_moonpool[] = {
 	if_chr_unloaded(CHR_SELF, /*goto*/ 0x07)
 	do_preset_animation(-1)
 	set_stage_flag(STAGEFLAG_MET_ELVIS)
-	speak(CHR_P1P2, 0x1622, 0x81a4, CHANNEL_6, COLOR_06_WHITE) // "Joanna... What took you so long? Follow me - let's..."
+	speak(CHR_P1P2, L_DAM(34), 0x81a4, CHANNEL_6, COLOR_06_WHITE) // "Joanna... What took you so long? Follow me - let's..."
 
 	beginloop(0x0b)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x07)
@@ -2812,12 +2812,12 @@ u8 func101d_alarm_switches[] = {
 	label(0x07)
 	if_alarm_active(/*goto*/ 0x07)
 	activate_alarm
-	message(CHR_P1P2, 0x1625) // "Alarm has been activated."
+	message(CHR_P1P2, L_DAM(37)) // "Alarm has been activated."
 	goto_next(0x0c)
 
 	label(0x07)
 	deactivate_alarm
-	message(CHR_BOND, 0x1626) // "Alarm has been deactivated."
+	message(CHR_BOND, L_DAM(38)) // "Alarm has been deactivated."
 	goto_next(0x0c)
 
 	label(0x0c)

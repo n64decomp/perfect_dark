@@ -289,10 +289,10 @@ s32 menuhandlerMpPause(u32 operation, struct menu_item *item, s32 *value)
 char *menutextPauseOrUnpause(s32 arg0)
 {
 	if (mpIsPaused()) {
-		return langGet(0x5121); // "Unpause"
+		return langGet(L_MPMENU(289)); // "Unpause"
 	}
 
-	return langGet(0x5120); // "Pause"
+	return langGet(L_MPMENU(288)); // "Pause"
 }
 
 char *menutextMatchTime(s32 arg0)

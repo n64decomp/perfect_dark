@@ -98,28 +98,28 @@ u32 props[] = {
 	briefing(2, 0x2c02)
 	briefing(3, 0x2c03)
 
-	beginobjective(0, 0x2c09, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Shut down air intercept radar"
+	beginobjective(0, L_LUE(9), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Shut down air intercept radar"
 		complete_flags(STAGEFLAG_RADAR_SHUT_DOWN)
 	endobjective
 
-	beginobjective(1, 0x2c0a, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Plant comms device on antenna"
+	beginobjective(1, L_LUE(10), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Plant comms device on antenna"
 		complete_flags(STAGEFLAG_COMMSBUG_PLACED)
 		fail_flags(STAGEFLAG_COMMSBUG_MISPLACED)
 		fail_flags(STAGEFLAG_ANTENNA_DESTROYED)
 	endobjective
 
-	beginobjective(2, 0x2c0b, (DIFFBIT_PA | DIFFBIT_PD)) // "Disable all robot interceptors"
+	beginobjective(2, L_LUE(11), (DIFFBIT_PA | DIFFBIT_PD)) // "Disable all robot interceptors"
 		complete_flags(STAGEFLAG_INTERCEPTOR1_DESTROYED)
 		complete_flags(STAGEFLAG_INTERCEPTOR2_DESTROYED)
 		complete_flags(STAGEFLAG_INTERCEPTOR3_DESTROYED)
 	endobjective
 
-	beginobjective(3, 0x2c0c, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain access to hangar lift"
+	beginobjective(3, L_LUE(12), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain access to hangar lift"
 		complete_flags(STAGEFLAG_HANGAR_ACCESSED)
 		fail_flags(STAGEFLAG_LIFT_SWITCHES_DESTROYED)
 	endobjective
 
-	beginobjective(4, 0x2c0d, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Make contact with CI spy"
+	beginobjective(4, L_LUE(13), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Make contact with CI spy"
 		complete_flags(STAGEFLAG_MET_JON)
 	endobjective
 
@@ -202,7 +202,7 @@ u32 props[] = {
 	chr(0x00010800, 0x30, 0x0358, BODY_OVERALL, HEAD_RANDOM, AILIST_MECHANIC, -1, -1, 1000, 5, 0x80002400, 0x20000000, TEAM_NONCOMBAT, SQUADRON_07, -1, 0, 0x00000000)
 	tag(0x0a, 1)
 	key(0x0080, MODEL_KEYCARD, 0x0030, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000)
-	rename_object(-1, 0x4b, 0x2c1f, 0x2c20, 0x2c21, 0x2c22, 0x2c23, 0x0000, 0x0000) // "Obtain lift key card."
+	rename_object(-1, 0x4b, L_LUE(31), L_LUE(32), L_LUE(33), L_LUE(34), L_LUE(35), 0x0000, 0x0000) // "Obtain lift key card."
 	chr(0x00000200, 0x14, 0x035d, BODY_A51AIRMAN, HEAD_RANDOM, AILIST_DRAGON_UNALERTED, -1, -1, 1000, 100, 0xcc080800, 0x00004000, TEAM_ENEMY, SQUADRON_08, -1, 0, 0x00000000)
 	weapon(0x0100, MODEL_CHRDRAGON, 0x0014, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DRAGON, 0x00ffffff, 0x00000000)
 	chr(0x00000200, 0x15, 0x0362, BODY_A51AIRMAN, HEAD_RANDOM, AILIST_DRAGON_UNALERTED, -1, -1, 1000, 100, 0xcc080800, 0x00004000, TEAM_ENEMY, SQUADRON_08, -1, 0, 0x00000000)
@@ -319,16 +319,16 @@ u32 props[] = {
 	singlemonitor(0x0100, MODEL_MODEMBOX, 0x0409, 0x10000002, 0x00000800, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffff12)
 	tag(0x08, 1)
 	weapon(0x0180, MODEL_CHRBUG, 0xffff, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_COMMSRIDER, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x3d, 0x2c15, 0x2c16, 0x2c17, 0x2c18, 0x2c19, 0x0000, 0x0000) // "Obtain comms rider."
+	rename_object(-1, 0x3d, L_LUE(21), L_LUE(22), L_LUE(23), L_LUE(24), L_LUE(25), 0x0000, 0x0000) // "Obtain comms rider."
 	tag(0x36, 1)
 	weapon(0x0180, MODEL_CHRBUG, 0xffff, 0x00100001, 0x00080000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_COMMSRIDER, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x3d, 0x2c15, 0x2c16, 0x2c17, 0x2c18, 0x2c19, 0x0000, 0x0000) // "Obtain comms rider."
+	rename_object(-1, 0x3d, L_LUE(21), L_LUE(22), L_LUE(23), L_LUE(24), L_LUE(25), 0x0000, 0x0000) // "Obtain comms rider."
 	tag(0x2e, 1)
 	stdobject(0x0100, MODEL_CHRBUG, 0x035b, 0x012404e1, 0x00004000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
-	rename_object(-1, 0x3b, 0x2c30, 0x2c31, 0x2c32, 0x2c33, 0x2c34, 0x0000, 0x0000) // "Obtain explosive."
+	rename_object(-1, 0x3b, L_LUE(48), L_LUE(49), L_LUE(50), L_LUE(51), L_LUE(52), 0x0000, 0x0000) // "Obtain explosive."
 	tag(0x37, 1)
 	stdobject(0x0100, MODEL_CHRBUG, 0x035b, 0x013004e1, 0x00084000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
-	rename_object(-1, 0x3b, 0x2c30, 0x2c31, 0x2c32, 0x2c33, 0x2c34, 0x0000, 0x0000) // "Obtain explosive."
+	rename_object(-1, 0x3b, L_LUE(48), L_LUE(49), L_LUE(50), L_LUE(51), L_LUE(52), 0x0000, 0x0000) // "Obtain explosive."
 	tag(0x09, 1)
 	singlemonitor(0x0100, MODEL_MODEMBOX, 0x0406, 0x10000002, 0x00002001, 0x00010000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffff13)
 	tag(0x0b, 1)
@@ -935,25 +935,25 @@ u8 func140e_check_interceptors_destroyed[] = {
 		if_object_in_good_condition(OBJ_INTERCEPTOR1, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR1_DESTROYED, TRUE, /*goto*/ 0x2e)
 		set_stage_flag(STAGEFLAG_INTERCEPTOR1_DESTROYED)
-		message(CHR_BOND, 0x2c13) // "Robot interceptor disabled."
+		message(CHR_BOND, L_LUE(19)) // "Robot interceptor disabled."
 
 		label(0x2e)
 		if_object_in_good_condition(OBJ_INTERCEPTOR2, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR2_DESTROYED, TRUE, /*goto*/ 0x2e)
 		set_stage_flag(STAGEFLAG_INTERCEPTOR2_DESTROYED)
-		message(CHR_BOND, 0x2c13) // "Robot interceptor disabled."
+		message(CHR_BOND, L_LUE(19)) // "Robot interceptor disabled."
 
 		label(0x2e)
 		if_object_in_good_condition(OBJ_INTERCEPTOR3, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR3_DESTROYED, TRUE, /*goto*/ 0x2e)
 		set_stage_flag(STAGEFLAG_INTERCEPTOR3_DESTROYED)
-		message(CHR_BOND, 0x2c13) // "Robot interceptor disabled."
+		message(CHR_BOND, L_LUE(19)) // "Robot interceptor disabled."
 
 		label(0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR1_DESTROYED, FALSE, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR2_DESTROYED, FALSE, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR3_DESTROYED, FALSE, /*goto*/ 0x2e)
-		message(CHR_BOND, 0x2c14) // "All robot interceptors disabled."
+		message(CHR_BOND, L_LUE(20)) // "All robot interceptors disabled."
 
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2e)
@@ -979,7 +979,7 @@ u8 func100c_maingate_switch[] = {
 		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
 		set_object_image(OBJ_MAINGATE_SWITCH, 0x00, 0x13)
 		if_door_state(OBJ_MAINGATE1, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
-		message(CHR_P1P2, 0x2c2b) // "Main gate has been opened."
+		message(CHR_P1P2, L_LUE(43)) // "Main gate has been opened."
 		open_door(OBJ_MAINGATE1)
 		open_door(OBJ_MAINGATE2)
 		restart_timer
@@ -995,7 +995,7 @@ u8 func100c_maingate_switch[] = {
 		assign_sound(0x043f, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
 		set_object_image(OBJ_MAINGATE_SWITCH, 0x00, 0x12)
-		message(CHR_P1P2, 0x2c2c) // "Main gate has been closed."
+		message(CHR_P1P2, L_LUE(44)) // "Main gate has been closed."
 		close_door(OBJ_MAINGATE1)
 		close_door(OBJ_MAINGATE2)
 		restart_timer
@@ -1094,7 +1094,7 @@ u8 func1023_check_bug_wasted_coop[] = {
 u8 func1004_check_antenna_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_ANTENNA, /*goto*/ 0x2e)
-		message(CHR_BOND, 0x2c1c) // "Antenna has been destroyed."
+		message(CHR_BOND, L_LUE(28)) // "Antenna has been destroyed."
 		set_stage_flag(STAGEFLAG_ANTENNA_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2e)
@@ -1117,7 +1117,7 @@ u8 func1405_antenna_switch[] = {
 		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, 0x00cd, 0x00, 0x02)
 		set_object_image(OBJ_ANTENNA_SWITCH, 0x00, 0x12)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
-		message(CHR_P1P2, 0x2c1e) // "Antenna lowered."
+		message(CHR_P1P2, L_LUE(30)) // "Antenna lowered."
 		set_stage_flag(STAGEFLAG_ANTENNA_LOWERED)
 		restart_timer
 
@@ -1141,7 +1141,7 @@ u8 func1405_antenna_switch[] = {
 		set_object_image(OBJ_ANTENNA_SWITCH, 0x00, 0x13)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_ANTENNA_LOWERED)
-		message(CHR_P1P2, 0x2c1d) // "Antenna raised."
+		message(CHR_P1P2, L_LUE(29)) // "Antenna raised."
 		restart_timer
 
 		beginloop(0x0a)
@@ -1172,7 +1172,7 @@ u8 func1006_lift_switches[] = {
 		assign_sound(0x043f, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_LIFT1_SWITCH, 0x012c, 0x0190, 0x00)
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2e)
-		message(CHR_P1P2, 0x2c24) // "Lift access denied - key card needed."
+		message(CHR_P1P2, L_LUE(36)) // "Lift access denied - key card needed."
 		goto_next(0x0b)
 
 		label(0x2e)
@@ -1183,18 +1183,18 @@ u8 func1006_lift_switches[] = {
 		open_door(0x38)
 		unlock_door(0x0e, 0x02)
 		unlock_door(0x38, 0x02)
-		message(CHR_P1P2, 0x2c25) // "Key card accepted - lift operational."
+		message(CHR_P1P2, L_LUE(37)) // "Key card accepted - lift operational."
 		goto_next(0x0b)
 
 		label(0x06)
-		message(CHR_P1P2, 0x2c26) // "Lift is fully operational."
+		message(CHR_P1P2, L_LUE(38)) // "Lift is fully operational."
 		goto_next(0x0b)
 
 		label(0x0a)
 		assign_sound(0x043f, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_LIFT2_SWITCH, 0x012c, 0x0190, 0x00)
 		if_chr_has_object(CHR_BOND, OBJ_KEYCARD, /*goto*/ 0x2e)
-		message(CHR_P1P2, 0x2c24) // "Lift access denied - key card needed."
+		message(CHR_P1P2, L_LUE(36)) // "Lift access denied - key card needed."
 		goto_next(0x0b)
 
 		label(0x2e)
@@ -1207,11 +1207,11 @@ u8 func1006_lift_switches[] = {
 		yield
 		unlock_door(0x0f, 0x02)
 		unlock_door(0x39, 0x02)
-		message(CHR_P1P2, 0x2c25) // "Key card accepted - lift operational."
+		message(CHR_P1P2, L_LUE(37)) // "Key card accepted - lift operational."
 		goto_next(0x0b)
 
 		label(0x06)
-		message(CHR_P1P2, 0x2c26) // "Lift is fully operational."
+		message(CHR_P1P2, L_LUE(38)) // "Lift is fully operational."
 		goto_next(0x0b)
 
 		label(0x0b)
@@ -1236,7 +1236,7 @@ u8 func1007_check_hangar_accessed[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_HANGAR_ACCESSED)
-	message(CHR_P1P2, 0x2c27) // "Hangar has been accessed."
+	message(CHR_P1P2, L_LUE(39)) // "Hangar has been accessed."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1253,7 +1253,7 @@ u8 func1008_check_end_level[] = {
 	endloop(0x09)
 
 	label(0x06)
-	message(CHR_P1P2, 0x2c28) // "Met up with CI agent."
+	message(CHR_P1P2, L_LUE(40)) // "Met up with CI agent."
 	set_stage_flag(STAGEFLAG_MET_JON)
 	yield
 	yield
@@ -1287,7 +1287,7 @@ u8 func1009_check_radar_shut_down[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_BOND, 0x2c29) // "Air intercept radar shut down."
+	message(CHR_BOND, L_LUE(41)) // "Air intercept radar shut down."
 	mute_channel(CHANNEL_0)
 	set_stage_flag(STAGEFLAG_RADAR_SHUT_DOWN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1787,7 +1787,7 @@ u8 func040e_outro[] = {
 
 
 	wait_until(1, 0x60)
-	speak(CHR_P1P2, 0x2c43, 0x7421, CHANNEL_5, COLOR_07_RED) // "Agent Dark! Over here!"
+	speak(CHR_P1P2, L_LUE(67), 0x7421, CHANNEL_5, COLOR_07_RED) // "Agent Dark! Over here!"
 
 	wait_until(46, 0x61)
 	play_sound(0x0171, CHANNEL_7)
@@ -1799,7 +1799,7 @@ u8 func040e_outro[] = {
 	play_sound(0x0173, CHANNEL_7)
 
 	wait_until(150, 0x65)
-	speak(CHR_P1P2, 0x2c44, 0x7422, CHANNEL_5, COLOR_09_BLUE) // "There you are! I was beginning to wonder if..."
+	speak(CHR_P1P2, L_LUE(68), 0x7422, CHANNEL_5, COLOR_09_BLUE) // "There you are! I was beginning to wonder if..."
 
 	wait_until(188, 0x66)
 	play_sound(0x0174, CHANNEL_6)
@@ -1823,7 +1823,7 @@ u8 func040e_outro[] = {
 	play_sound(0x808e, CHANNEL_10)
 
 	wait_until(406, 0x6c)
-	speak(CHR_P1P2, 0x2c45, 0x7423, CHANNEL_5, COLOR_07_RED) // "If what?"
+	speak(CHR_P1P2, L_LUE(69), 0x7423, CHANNEL_5, COLOR_07_RED) // "If what?"
 
 	wait_until(410, 0x6a)
 	play_sound(0x0176, CHANNEL_6)
@@ -1838,19 +1838,19 @@ u8 func040e_outro[] = {
 	play_sound(0x007d, CHANNEL_10)
 
 	wait_until(472, 0x6e)
-	speak(CHR_P1P2, 0x2c46, 0x7424, CHANNEL_5, COLOR_09_BLUE) // "If you'd been discovered yet. And frankly, if this..."
+	speak(CHR_P1P2, L_LUE(70), 0x7424, CHANNEL_5, COLOR_09_BLUE) // "If you'd been discovered yet. And frankly, if this..."
 
 	wait_until(900, 0x70)
-	speak(CHR_P1P2, 0x2c47, 0x7425, CHANNEL_5, COLOR_07_RED) // "I was tidying up one of your loose ends."
+	speak(CHR_P1P2, L_LUE(71), 0x7425, CHANNEL_5, COLOR_07_RED) // "I was tidying up one of your loose ends."
 
 	wait_until(936, 0x6f)
 	play_sound(0x0178, CHANNEL_7)
 
 	wait_until(1080, 0x71)
-	speak(CHR_P1P2, 0x2c48, 0x7426, CHANNEL_5, COLOR_09_BLUE) // "My loose ends?"
+	speak(CHR_P1P2, L_LUE(72), 0x7426, CHANNEL_5, COLOR_09_BLUE) // "My loose ends?"
 
 	wait_until(1180, 0x72)
-	speak(CHR_P1P2, 0x2c49, 0x7427, CHANNEL_5, COLOR_07_RED) // "I'm sorry, I didn't realize you wanted him to shoo..."
+	speak(CHR_P1P2, L_LUE(73), 0x7427, CHANNEL_5, COLOR_07_RED) // "I'm sorry, I didn't realize you wanted him to shoo..."
 
 	wait_until(1228, 0x73)
 	play_sound(0x0171, CHANNEL_7)
@@ -1865,7 +1865,7 @@ u8 func040e_outro[] = {
 	play_sound(0x0174, CHANNEL_6)
 
 	wait_until(1585, 0x76)
-	speak(CHR_P1P2, 0x2c4a, 0x7428, CHANNEL_5, COLOR_09_BLUE) // "Okay, okay, forget about it. I'm going to let the ..."
+	speak(CHR_P1P2, L_LUE(74), 0x7428, CHANNEL_5, COLOR_09_BLUE) // "Okay, okay, forget about it. I'm going to let the ..."
 
 	wait_until(1588, 0x78)
 	play_sound(0x0175, CHANNEL_7)
@@ -1909,18 +1909,18 @@ u8 func0410_intro[] = {
 	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2, WEAPON_NONE)
 
 	wait_until(26, 0x60)
-	speak(CHR_BOND, 0x2c3a, 0x7418, CHANNEL_7, COLOR_06_WHITE) // "Okay, Joanna, take a look at this. Our operative i..."
+	speak(CHR_BOND, L_LUE(58), 0x7418, CHANNEL_7, COLOR_06_WHITE) // "Okay, Joanna, take a look at this. Our operative i..."
 
 	wait_until(500, 0x61)
-	speak(CHR_BOND, 0x2c3b, 0x7419, CHANNEL_7, COLOR_06_WHITE) // "This is your entry point... A deserted helipad on ..."
+	speak(CHR_BOND, L_LUE(59), 0x7419, CHANNEL_7, COLOR_06_WHITE) // "This is your entry point... A deserted helipad on ..."
 
 	wait_until(800, 0x62)
-	speak(CHR_BOND, 0x2c3c, 0x741a, CHANNEL_7, COLOR_06_WHITE) // "The lift down to the hangars and the rendezvous po..."
+	speak(CHR_BOND, L_LUE(60), 0x741a, CHANNEL_7, COLOR_06_WHITE) // "The lift down to the hangars and the rendezvous po..."
 
 	wait_until(1200, 0x63)
 
 	wait_until(1236, 0x64)
-	speak(CHR_BOND, 0x2c3d, 0x741b, CHANNEL_7, COLOR_06_WHITE) // "Here is the communications antenna. Attach a comms..."
+	speak(CHR_BOND, L_LUE(61), 0x741b, CHANNEL_7, COLOR_06_WHITE) // "Here is the communications antenna. Attach a comms..."
 
 	beginloop(0x09)
 		if_camera_animating(/*goto*/ 0x2e)
@@ -1961,10 +1961,10 @@ u8 func0410_intro[] = {
 	restart_timer
 
 	wait_until(186, 0x65)
-	speak(CHR_BOND, 0x2c3e, 0x81b9, CHANNEL_7, COLOR_09_BLUE) // "Oh, my God!"
+	speak(CHR_BOND, L_LUE(62), 0x81b9, CHANNEL_7, COLOR_09_BLUE) // "Oh, my God!"
 
 	wait_until(380, 0x66)
-	speak(CHR_BOND, 0x2c3f, 0x741d, CHANNEL_7, COLOR_06_WHITE) // "Here is our friend. He appears to be physically un..."
+	speak(CHR_BOND, L_LUE(63), 0x741d, CHANNEL_7, COLOR_06_WHITE) // "Here is our friend. He appears to be physically un..."
 
 	beginloop(0x0a)
 		if_camera_animating(/*goto*/ 0x2e)
@@ -2002,10 +2002,10 @@ u8 func0410_intro[] = {
 	restart_timer
 
 	wait_until(416, 0x67)
-	speak(CHR_BOND, 0x2c40, 0x741e, CHANNEL_7, COLOR_09_BLUE) // "But who was...?"
+	speak(CHR_BOND, L_LUE(64), 0x741e, CHANNEL_7, COLOR_09_BLUE) // "But who was...?"
 
 	wait_until(485, 0x68)
-	speak(CHR_BOND, 0x2c41, 0x741f, CHANNEL_7, COLOR_06_WHITE) // "Any questions? No. Good. Away you go to the hangar..."
+	speak(CHR_BOND, L_LUE(65), 0x741f, CHANNEL_7, COLOR_06_WHITE) // "Any questions? No. Good. Away you go to the hangar..."
 
 	beginloop(0x0b)
 		if_camera_animating(/*goto*/ 0x2e)
@@ -2034,7 +2034,7 @@ u8 func0410_intro[] = {
 	restart_timer
 
 	wait_until(1, 0x69)
-	speak(CHR_BOND, 0x2c42, 0x7420, CHANNEL_10, COLOR_09_BLUE) // "Agent Dark Mission Log, 1028 hours. Against my bet..."
+	speak(CHR_BOND, L_LUE(66), 0x7420, CHANNEL_10, COLOR_09_BLUE) // "Agent Dark Mission Log, 1028 hours. Against my bet..."
 
 	wait_until(340, 0x6a)
 	play_sound(0x80d5, CHANNEL_10)
@@ -2370,12 +2370,12 @@ u8 func1011_bunker_explosives[] = {
 
 		label(0x2e)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_EXPLOSIVES, /*goto*/ 0x2e)
-		message(CHR_P1P2, 0x2c2d) // "Access denied."
+		message(CHR_P1P2, L_LUE(45)) // "Access denied."
 	goto_first(0x04)
 
 	label(0x2e)
 	unset_object_flag2(OBJ_EXPLOSIVE_BRICK, OBJFLAG2_INVISIBLE)
-	message(CHR_P1P2, 0x2c2e) // "Explosive has been placed."
+	message(CHR_P1P2, L_LUE(46)) // "Explosive has been placed."
 	remove_weapon_from_inventory(WEAPON_EXPLOSIVES)
 	set_stage_flag(STAGEFLAG_EXPLOSIVES_PLACED)
 	restart_timer
@@ -2389,12 +2389,12 @@ u8 func1011_bunker_explosives[] = {
 	set_countdown_timer(20)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2e)
 	if_stage_flag_eq(STAGEFLAG_ANY_LASER_DESTROYED, TRUE, /*goto*/ 0x06)
-	message(CHR_P1P2, 0x2c2f) // "Intruder detected - security system online."
+	message(CHR_P1P2, L_LUE(47)) // "Intruder detected - security system online."
 	goto_next(0x06)
 
 	// Agent
 	label(0x2e)
-	message(CHR_P1P2, 0x2c4b) // "Foreign object detected - security alerted."
+	message(CHR_P1P2, L_LUE(75)) // "Foreign object detected - security alerted."
 	label(0x06)
 	play_x_music(CHANNEL_10, 20)
 	yield
@@ -2828,7 +2828,7 @@ u8 func101b_msg_airinterceptradar[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_P1P2, 0x2c35, 0x817d, CHANNEL_6, COLOR_09_BLUE) // "The air intercept radar is controlled from that bu..."
+	speak(CHR_P1P2, L_LUE(53), 0x817d, CHANNEL_6, COLOR_09_BLUE) // "The air intercept radar is controlled from that bu..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2843,7 +2843,7 @@ u8 func101c_msg_cantthrow[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_P1P2, 0x2c36, 0x73b9, CHANNEL_6, COLOR_09_BLUE) // "There's the antenna, but... I can't throw a bug th..."
+	speak(CHR_P1P2, L_LUE(54), 0x73b9, CHANNEL_6, COLOR_09_BLUE) // "There's the antenna, but... I can't throw a bug th..."
 	label(0x0e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2864,7 +2864,7 @@ u8 func101d_msg_hangarlift[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_P1P2, 0x2c37, 0x817e, CHANNEL_6, COLOR_09_BLUE) // "The hangar lift is on the other side of that huge ..."
+	speak(CHR_P1P2, L_LUE(55), 0x817e, CHANNEL_6, COLOR_09_BLUE) // "The hangar lift is on the other side of that huge ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2876,7 +2876,7 @@ u8 func101e_msg_triggerfinger[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	speak(CHR_P1P2, 0x2c38, 0x817f, CHANNEL_6, COLOR_09_BLUE) // "Careful with that trigger finger, Agent Dark - you..."
+	speak(CHR_P1P2, L_LUE(56), 0x817f, CHANNEL_6, COLOR_09_BLUE) // "Careful with that trigger finger, Agent Dark - you..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2969,7 +2969,7 @@ u8 func1022_check_lift_switches_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_LIFT2_CALLED, TRUE, /*goto*/ 0x06)
 		if_object_in_good_condition(OBJ_LIFT1_SWITCH, /*goto*/ 0x2e)
 		if_object_in_good_condition(OBJ_LIFT2_SWITCH, /*goto*/ 0x2e)
-		message(CHR_BOND, 0x2c39) // "Lift access terminals destroyed."
+		message(CHR_BOND, L_LUE(57)) // "Lift access terminals destroyed."
 		set_stage_flag(STAGEFLAG_LIFT_SWITCHES_DESTROYED)
 		goto_next(0x06)
 
@@ -3164,7 +3164,7 @@ u8 func0424_activate_lasers[] = {
 	if_stage_flag_eq(STAGEFLAG_ANY_LASER_DESTROYED, TRUE, /*goto*/ 0x2e)
 	set_stage_flag(STAGEFLAG_ANY_LASER_DESTROYED)
 	if_stage_flag_eq(STAGEFLAG_EXPLOSIVES_PLACED, TRUE, /*goto*/ 0x2e)
-	message(CHR_BOND, 0x2c2f) // "Intruder detected - security system online."
+	message(CHR_BOND, L_LUE(47)) // "Intruder detected - security system online."
 
 	// A and SA
 	label(0x2e)
@@ -3205,7 +3205,7 @@ u8 func102d_check_antenna_switch_destroyed[] = {
 
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_ANTENNA_LOWERED, TRUE, /*goto*/ 0x2e)
-	message(CHR_BOND, 0x2c2a) // "Critical mission object destroyed."
+	message(CHR_BOND, L_LUE(42)) // "Critical mission object destroyed."
 	set_stage_flag(STAGEFLAG_ANTENNA_DESTROYED)
 	label(0x2e)
 	label(0x0e)

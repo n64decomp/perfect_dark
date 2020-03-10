@@ -857,16 +857,16 @@ s16 g_SpecialQuipBank[][4] = {
 };
 
 s16 g_QuipTexts[][4] = {
-	{  1, 0x0253, 0x0254, 0x0255 }, // "How dare you disturb me!", "You will regret this intrusion, girl!", "If I were you, I'd leave...NOW!"
-	{  2, 0x0256, 0x0257, 0x0256 }, // "Please don't kill me!", "Don't shoot!"
-	{  3, 0x1e40, 0x1e41, 0x1e42 }, // "What are you doing in my lab?", "I haven't seen you before...", "Who the hell are you?"
-	{  4, 0x1e43, 0x1e44, 0x1e45 }, // "Shut down the experiment.", "Pull the plug on that, NOW.", "Switch this thing off."
-	{  5, 0x1e46, 0x1e47, 0x1e48 }, // "I'll shut it down.", "Please don't hurt me.", "Allow me to assist you."
-	{  6, 0x1e49, 0x1e4a, 0x1e4b }, // "My experiments!", "There the experiment is down.", "Leave this area NOW!"
-	{  7, 0x1e4c, 0x1e4d, 0x1e4e }, // "Security!", "I'm calling security.", "Accidents will happen."
-	{  8, 0x1e4f, 0x1e50, 0x1e51 }, // "How did that happen?", "Looks like it's off already.", "Have you been tampering with this?"
-	{  9, 0x1e52, 0x1e53, 0x1e54 }, // "Someone's broken my equipment.", "What's happened to the terminal?", "You vandal - you've broken it."
-	{ 10, 0x4a0a, 0x4a0c, 0x4a0c }, // "How dare you disturb me!", "If I were you, I'd leave... NOW!"
+	{  1, L_AME(83), L_AME(84), L_AME(85) }, // "How dare you disturb me!", "You will regret this intrusion, girl!", "If I were you, I'd leave...NOW!"
+	{  2, L_AME(86), L_AME(87), L_AME(86) }, // "Please don't kill me!", "Don't shoot!"
+	{  3, L_EAR(64), L_EAR(65), L_EAR(66) }, // "What are you doing in my lab?", "I haven't seen you before...", "Who the hell are you?"
+	{  4, L_EAR(67), L_EAR(68), L_EAR(69) }, // "Shut down the experiment.", "Pull the plug on that, NOW.", "Switch this thing off."
+	{  5, L_EAR(70), L_EAR(71), L_EAR(72) }, // "I'll shut it down.", "Please don't hurt me.", "Allow me to assist you."
+	{  6, L_EAR(73), L_EAR(74), L_EAR(75) }, // "My experiments!", "There the experiment is down.", "Leave this area NOW!"
+	{  7, L_EAR(76), L_EAR(77), L_EAR(78) }, // "Security!", "I'm calling security.", "Accidents will happen."
+	{  8, L_EAR(79), L_EAR(80), L_EAR(81) }, // "How did that happen?", "Looks like it's off already.", "Have you been tampering with this?"
+	{  9, L_EAR(82), L_EAR(83), L_EAR(84) }, // "Someone's broken my equipment.", "What's happened to the terminal?", "You vandal - you've broken it."
+	{ 10, L_WAX(10), L_WAX(12), L_WAX(12) }, // "How dare you disturb me!", "If I were you, I'd leave... NOW!"
 };
 
 s16 g_SkedarQuipBank[][4] = {

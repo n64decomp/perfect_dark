@@ -869,7 +869,7 @@ void scenarioHtbCallback14(struct chrdata *chr)
 			if (g_Vars.currentplayerstats->tokenheldtime >= SECSTOFRAMES240(30)) {
 				func00010904(var80095200, 0x5b8, 0, -1, -1, -1, -1, -1);
 				var800ac500[g_Vars.currentplayernum]->unk3e++;
-				func0f0ddfa4(langGet(0x5418), 9, 1); // "1 Point!"
+				func0f0ddfa4(langGet(L_MPWEAPONS(24)), 9, 1); // "1 Point!"
 				g_Vars.currentplayerstats->tokenheldtime = 0;
 			}
 		} else {
@@ -1829,7 +1829,7 @@ s32 menuhandlerMpHillTime(u32 operation, struct menu_item *item, struct numandte
 		g_Vars.mphilltime = (u8)value->num;
 		break;
 	case MENUOP_GETSLIDERLABEL:
-		sprintf(value->text, langGet(0x5417), value->num + 10); // "%ds/Point"
+		sprintf(value->text, langGet(L_MPWEAPONS(23)), value->num + 10); // "%ds/Point"
 		break;
 	}
 
@@ -4860,7 +4860,7 @@ glabel scenarioPacCallback10
 //			if (g_ScenarioData.pac.age240 > SECSTOFRAMES240(60)) {
 //				g_ScenarioData.pac.age240 = 0;
 //				g_ScenarioData.pac.wincounts[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]++;
-//				func0f1866b8(g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex], langGet(0x5407)); // "Have a point for living!"
+//				func0f1866b8(g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex], langGet(L_MPWEAPONS(7))); // "Have a point for living!"
 //			}
 //		}
 //	}

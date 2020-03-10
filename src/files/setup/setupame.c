@@ -155,37 +155,37 @@ u32 props[] = {
 	briefing(2, 0x0202)
 	briefing(3, 0x0203)
 
-	beginobjective(0, 0x0210, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable internal security hub"
+	beginobjective(0, L_AME(16), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable internal security hub"
 		complete_flags(STAGEFLAG_SECURITYHUB_COMPLETE)
 		fail_flags(STAGEFLAG_SECURITYHUB_MINES_WASTED)
 		fail_flags(STAGEFLAG_SECURITYHUB_DESTROYED)
 	endobjective
 
-	beginobjective(1, 0x0211, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Obtain keycode necklace"
+	beginobjective(1, L_AME(17), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Obtain keycode necklace"
 		require_object_collected(OBJ_NECKLACE)
 		fail_flags(STAGEFLAG_DOORSWITCH_DESTROYED)
 		fail_flags(STAGEFLAG_CIVILIANS_KILLED)
 	endobjective
 
-	beginobjective(2, 0x0212, (DIFFBIT_PA | DIFFBIT_PD)) // "Download project files"
+	beginobjective(2, L_AME(18), (DIFFBIT_PA | DIFFBIT_PD)) // "Download project files"
 		complete_flags(STAGEFLAG_DOWNLOAD_COMPLETE)
 		fail_flags(STAGEFLAG_PROGRAMMER_DEAD)
 		fail_flags(STAGEFLAG_DELETED_WITHOUT_DOWNLOAD)
 		fail_flags(STAGEFLAG_PC_DESTROYED)
 	endobjective
 
-	beginobjective(3, 0x0213, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable external comms hub"
+	beginobjective(3, L_AME(19), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Disable external comms hub"
 		complete_flags(STAGEFLAG_EXTCOMMSHUB_COMPLETE)
 		fail_flags(STAGEFLAG_EXTCOMMSHUB_MINES_WASTED)
 		fail_flags(STAGEFLAG_EXTCOMMSHUB_DESTROYED)
 	endobjective
 
-	beginobjective(4, 0x0214, DIFFBIT_A) // "Gain entrance to laboratory"
+	beginobjective(4, L_AME(20), DIFFBIT_A) // "Gain entrance to laboratory"
 		complete_flags(STAGEFLAG_LAB_LIFT_LOCATED)
 		fail_flags(STAGEFLAG_CIVILIANS_KILLED)
 	endobjective
 
-	beginobjective(5, 0x0214, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain entrance to laboratory"
+	beginobjective(5, L_AME(20), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Gain entrance to laboratory"
 		complete_flags(STAGEFLAG_LAB_LIFT_LOCATED)
 	endobjective
 
@@ -540,23 +540,23 @@ u32 props[] = {
 
 	tag(0x31, 1)
 	weapon(0x0180, MODEL_CHRECMMINE, 0xffff, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_ECMMINE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x0035, 0x023a, 0x023b, 0x023c, 0x023d, 0x023e, 0x0000, 0x0000) // "Obtain ECM Mines."
+	rename_object(-1, 0x0035, L_AME(58), L_AME(59), L_AME(60), L_AME(61), L_AME(62), 0x0000, 0x0000) // "Obtain ECM Mines."
 
 	tag(0x32, 1)
 	weapon(0x0180, MODEL_CHRDATATHIEF, 0xffff, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DATAUPLINK, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x0036, 0x023f, 0x0240, 0x0241, 0x0242, 0x0243, 0x0000, 0x0000) // "Obtain Data Uplink."
+	rename_object(-1, 0x0036, L_AME(63), L_AME(64), L_AME(65), L_AME(66), L_AME(67), 0x0000, 0x0000) // "Obtain Data Uplink."
 
 	tag(0x3e, 1)
 	weapon(0x0180, MODEL_CHRECMMINE, 0xffff, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_ECMMINE, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x0035, 0x023a, 0x023b, 0x023c, 0x023d, 0x023e, 0x0000, 0x0000) // "Obtain ECM Mines."
+	rename_object(-1, 0x0035, L_AME(58), L_AME(59), L_AME(60), L_AME(61), L_AME(62), 0x0000, 0x0000) // "Obtain ECM Mines."
 
 	tag(0x3f, 1)
 	weapon(0x0180, MODEL_CHRDATATHIEF, 0xffff, 0x00000001, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, WEAPON_DATAUPLINK, 0x00ffffff, 0x00000000)
-	rename_object(-1, 0x0036, 0x023f, 0x0240, 0x0241, 0x0242, 0x0243, 0x0000, 0x0000) // "Obtain Data Uplink."
+	rename_object(-1, 0x0036, L_AME(63), L_AME(64), L_AME(65), L_AME(66), L_AME(67), 0x0000, 0x0000) // "Obtain Data Uplink."
 
 	tag(0x00, 1)
 	key(0x0100, MODEL_CHRCHAIN, CHR_CASS, 0x01244000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000020)
-	rename_object(-1, 0x0050, 0x020b, 0x020c, 0x020d, 0x020e, 0x020f, 0x0000, 0x0000) // "Obtain De Vries' necklace."
+	rename_object(-1, 0x0050, L_AME(11), L_AME(12), L_AME(13), L_AME(14), L_AME(15), 0x0000, 0x0000) // "Obtain De Vries' necklace."
 
 	stdobject(0x0100, MODEL_DD_STONEDESK, 0x0134, 0x000205e1, 0x00204000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000)
 	singlemonitor(0x0100, MODEL_PC1, 0x0132, 0x000004e1, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000003e8, 0x00000000, 0x00000000, 0x0fff0000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xffffff21)
@@ -1247,7 +1247,7 @@ u8 func040f_cass[] = {
 	endloop(0x5b)
 
 	label(0x5c)
-	speak(CHR_TARGET, 0x0215, 0x0af4, CHANNEL_6, COLOR_04_ORANGE) // "Who are you and what are you doing here?"
+	speak(CHR_TARGET, L_AME(21), 0x0af4, CHANNEL_6, COLOR_04_ORANGE) // "Who are you and what are you doing here?"
 	restart_timer
 	chr_do_animation(ANIM_TALKING_0098, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
@@ -1293,7 +1293,7 @@ u8 func040f_cass[] = {
 	goto_next(0x66)
 
 	label(0x2c)
-	speak(CHR_TARGET, 0x0217, 0x0af5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me, foolish child!"
+	speak(CHR_TARGET, L_AME(23), 0x0af5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me, foolish child!"
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 	beginloop(0x66)
@@ -1315,7 +1315,7 @@ u8 func040f_cass[] = {
 
 	label(0x2c)
 	chr_do_animation(ANIM_TALKING_00A3, 0, 193, 0x18, 0x10, CHR_SELF, 2)
-	speak(CHR_TARGET, 0x0218, 0x0af6, CHANNEL_6, COLOR_04_ORANGE) // "Don't you know who I am?"
+	speak(CHR_TARGET, L_AME(24), 0x0af6, CHANNEL_6, COLOR_04_ORANGE) // "Don't you know who I am?"
 
 	beginloop(0x68)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x69)
@@ -1364,7 +1364,7 @@ u8 func040f_cass[] = {
 	goto_next(0x06)
 
 	label(0x2c)
-	speak(CHR_TARGET, 0x0219, 0x0af7, CHANNEL_6, COLOR_04_ORANGE) // "Let's see how you deal with security."
+	speak(CHR_TARGET, L_AME(25), 0x0af7, CHANNEL_6, COLOR_04_ORANGE) // "Let's see how you deal with security."
 	label(0x06)
 	chr_do_animation(ANIM_PUSH_BUTTON, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
@@ -1472,7 +1472,7 @@ u8 func0411_secretary[] = {
 	restart_timer
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x2c)
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x2c)
-	speak(CHR_TARGET, 0x0216, 0x1aed, CHANNEL_5, COLOR_07_RED) // "Look out! She's got a gun."
+	speak(CHR_TARGET, L_AME(22), 0x1aed, CHANNEL_5, COLOR_07_RED) // "Look out! She's got a gun."
 	label(0x2c)
 	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
@@ -1566,7 +1566,7 @@ u8 func0414_programmer[] = {
 	goto_next(0x2c)
 
 	label(0x90)
-	speak(CHR_TARGET, 0x0235, 0x12fe, CHANNEL_3, COLOR_03_RED) // "Don't shoot, don't shoot!"
+	speak(CHR_TARGET, L_AME(53), 0x12fe, CHANNEL_3, COLOR_03_RED) // "Don't shoot, don't shoot!"
 	label(0x2c)
 	restart_timer
 
@@ -1618,7 +1618,7 @@ u8 func0414_programmer[] = {
 	// speaks.
 	label(0x2c)
 	restart_timer
-	speak(CHR_TARGET, 0x0244, 0x8104, CHANNEL_3, COLOR_03_RED) // "Yes, yes, I agree. Personality is expendable in th..."
+	speak(CHR_TARGET, L_AME(68), 0x8104, CHANNEL_3, COLOR_03_RED) // "Yes, yes, I agree. Personality is expendable in th..."
 	restart_timer
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
@@ -1636,7 +1636,7 @@ u8 func0414_programmer[] = {
 	yield
 	yield
 	yield
-	speak(CHR_TARGET, 0x0245, 0x8105, CHANNEL_3, COLOR_03_RED) // "No, I can start the process from my office termina..."
+	speak(CHR_TARGET, L_AME(69), 0x8105, CHANNEL_3, COLOR_03_RED) // "No, I can start the process from my office termina..."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1650,7 +1650,7 @@ u8 func0414_programmer[] = {
 	endloop(0x0e)
 
 	label(0x06)
-	speak(CHR_TARGET, 0x0246, 0x8106, CHANNEL_3, COLOR_03_RED) // "I'll begin at once. Goodbye."
+	speak(CHR_TARGET, L_AME(70), 0x8106, CHANNEL_3, COLOR_03_RED) // "I'll begin at once. Goodbye."
 
 	beginloop(0x0f)
 		if_sound_finished(CHANNEL_3, /*goto*/ 0x06)
@@ -1704,7 +1704,7 @@ u8 func0414_programmer[] = {
 
 		label(0x06)
 		if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x06)
-		speak(CHR_TARGET, 0x0224, 0x1300, CHANNEL_3, COLOR_03_RED) // "HELP - Intruder!"
+		speak(CHR_TARGET, L_AME(36), 0x1300, CHANNEL_3, COLOR_03_RED) // "HELP - Intruder!"
 		chr_do_animation(ANIM_SURRENDER_002E, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 
 		beginloop(0xa3)
@@ -1726,11 +1726,11 @@ u8 func0414_programmer[] = {
 		if_stage_flag_eq(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD, TRUE, /*goto*/ 0x06)
 
 		label(0x2c)
-		speak(CHR_TARGET, 0x024f, 0x8107, CHANNEL_3, COLOR_03_RED) // "Security... Help me!"
+		speak(CHR_TARGET, L_AME(79), 0x8107, CHANNEL_3, COLOR_03_RED) // "Security... Help me!"
 		goto_next(0xa1)
 
 		label(0x06)
-		speak(CHR_TARGET, 0x0226, 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
+		speak(CHR_TARGET, L_AME(38), 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
 		label(0xa1)
 		restart_timer
 		set_stage_flag(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD)
@@ -1781,17 +1781,17 @@ u8 func0414_programmer[] = {
 		endloop(0xa6)
 
 		label(0xa7)
-		speak(CHR_TARGET, 0x0226, 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
+		speak(CHR_TARGET, L_AME(38), 0x8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
 		increase_squadron_alertness(100)
 	endloop(0x99)
 
 	label(LABEL_JO_SPEAK)
 	restart_timer
 	if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x2c)
-	speak(CHR_TARGET, 0x0248, 0x7322, CHANNEL_3, COLOR_09_BLUE) // "I've got a password problem, and you're the man to..."
+	speak(CHR_TARGET, L_AME(72), 0x7322, CHANNEL_3, COLOR_09_BLUE) // "I've got a password problem, and you're the man to..."
 	goto_next(0x06)
 	label(0x2c)
-	speak(CHR_TARGET, 0x0247, 0x7323, CHANNEL_3, COLOR_09_BLUE) // "Move it!"
+	speak(CHR_TARGET, L_AME(71), 0x7323, CHANNEL_3, COLOR_09_BLUE) // "Move it!"
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TALKED_TO_PROGRAMMER)
 	try_face_entity(0x0200, 0x0000, /*goto*/ 0x9b)
@@ -1811,11 +1811,11 @@ u8 func0414_programmer[] = {
 
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x2c)
-	speak(CHR_TARGET, 0x0223, 0x12ff, CHANNEL_5, COLOR_03_RED) // "I'll do what you want!"
+	speak(CHR_TARGET, L_AME(35), 0x12ff, CHANNEL_5, COLOR_03_RED) // "I'll do what you want!"
 	set_stage_flag(STAGEFLAG_TALKED_TO_PROGRAMMER)
 	goto_next(0x06)
 	label(0x2c)
-	speak(CHR_TARGET, 0x0249, 0x12fe, CHANNEL_5, COLOR_03_RED) // "Don't shoot, don't shoot!"
+	speak(CHR_TARGET, L_AME(73), 0x12fe, CHANNEL_5, COLOR_03_RED) // "Don't shoot, don't shoot!"
 	label(0x06)
 	chr_do_animation(ANIM_DONT_SHOOT, 0, -1, 0x10, 0x10, CHR_SELF, 2)
 
@@ -1843,7 +1843,7 @@ u8 func0414_programmer[] = {
 
 	label(LABEL_NEAR_LAPTOPGUN_ROOM)
 	stop_chr
-	speak(CHR_TARGET, 0x0227, 0x12ff, CHANNEL_3, COLOR_03_RED) // "I'll do what you want..."
+	speak(CHR_TARGET, L_AME(39), 0x12ff, CHANNEL_3, COLOR_03_RED) // "I'll do what you want..."
 	restart_timer
 	label(0x06)
 	walk_to_pad(0x0062)
@@ -1856,10 +1856,10 @@ u8 func0414_programmer[] = {
 	restart_timer
 	if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
 	if_detected_chr(CHR_TARGET, /*goto*/ 0x2c)
-	speak(CHR_TARGET, 0x0228, 0x1301, CHANNEL_3, COLOR_03_RED) // "Logging on now..."
+	speak(CHR_TARGET, L_AME(40), 0x1301, CHANNEL_3, COLOR_03_RED) // "Logging on now..."
 	goto_next(0x06)
 	label(0x2c)
-	speak(CHR_TARGET, 0x026d, 0x1304, CHANNEL_3, COLOR_03_RED) // "I...I'm logging on now."
+	speak(CHR_TARGET, L_AME(109), 0x1304, CHANNEL_3, COLOR_03_RED) // "I...I'm logging on now."
 	label(0x06)
 	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	speak(CHR_TARGET, -1, 0x8116, -1, COLOR_00_GREEN)
@@ -1874,10 +1874,10 @@ u8 func0414_programmer[] = {
 	chr_do_animation(ANIM_PUSH_BUTTON, 0, 193, 0x18, 0x10, CHR_SELF, 2)
 	set_stage_flag(STAGEFLAG_PROGRAMMER_LOGGED_IN)
 	if_detected_chr(CHR_TARGET, /*goto*/ 0x2c)
-	speak(CHR_TARGET, 0x0229, 0x1302, CHANNEL_3, COLOR_03_RED) // "Okay, I'm in..."
+	speak(CHR_TARGET, L_AME(41), 0x1302, CHANNEL_3, COLOR_03_RED) // "Okay, I'm in..."
 	goto_next(0x06)
 	label(0x2c)
-	speak(CHR_TARGET, 0x026c, 0x1305, CHANNEL_3, COLOR_03_RED) // "Right, I'm in..."
+	speak(CHR_TARGET, L_AME(108), 0x1305, CHANNEL_3, COLOR_03_RED) // "Right, I'm in..."
 	label(0x06)
 	speak(CHR_TARGET, -1, 0x8117, -1, COLOR_00_GREEN)
 
@@ -1892,7 +1892,7 @@ u8 func0414_programmer[] = {
 	set_stage_flag(STAGEFLAG_PERSONALITY_DELETED)
 	set_chr_maxdamage(CHR_SELF, 1)
 	chr_do_animation(ANIM_TALKING_003D, 0, 193, 0x18, 0x10, CHR_SELF, 2)
-	speak(CHR_TARGET, 0x022a, 0x1303, CHANNEL_3, COLOR_03_RED) // "Goodbye, Dr. Caroll."
+	speak(CHR_TARGET, L_AME(42), 0x1303, CHANNEL_3, COLOR_03_RED) // "Goodbye, Dr. Caroll."
 	if_stage_flag_eq(STAGEFLAG_DOWNLOAD_COMPLETE, TRUE, /*goto*/ 0x2c)
 	set_stage_flag(STAGEFLAG_DELETED_WITHOUT_DOWNLOAD)
 	label(0x2c)
@@ -1906,7 +1906,7 @@ u8 func0414_programmer[] = {
 
 	label(LABEL_PC_BROKEN)
 	set_self_flag_bankx(CHRFLAG0_CANT_ALERT_GROUP, BANK_0)
-	speak(CHR_TARGET, 0x0262, 0x1289, CHANNEL_3, COLOR_03_RED) // "You vandal, you've broken it!"
+	speak(CHR_TARGET, L_AME(98), 0x1289, CHANNEL_3, COLOR_03_RED) // "You vandal, you've broken it!"
 	do_preset_animation(-1)
 
 	beginloop(0xc6)
@@ -2002,23 +2002,23 @@ u8 func100e_check_ecm_mines[] = {
 
 		label(0x08)
 		reset_timer
-		message(CHR_BOND, 0x021d) // "ECM Mine placed correctly."
+		message(CHR_BOND, L_AME(29)) // "ECM Mine placed correctly."
 		yield
 		mute_channel(CHANNEL_0)
 		assign_sound(0x8113, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, TRUE)
-		message(CHR_BOND, 0x024c) // "Internal security system temporarily disabled."
+		message(CHR_BOND, L_AME(76)) // "Internal security system temporarily disabled."
 		set_stage_flag(STAGEFLAG_SECURITYHUB_COMPLETE)
 		reloop(0x00)
 
 		label(0x0a)
 		reset_timer
-		message(CHR_BOND, 0x021d) // "ECM Mine placed correctly."
+		message(CHR_BOND, L_AME(29)) // "ECM Mine placed correctly."
 		yield
 		mute_channel(CHANNEL_1)
 		assign_sound(0x8113, CHANNEL_1)
 		control_sound_from_object(CHANNEL_1, OBJ_EXTCOMMSHUB, TRUE)
-		message(CHR_BOND, 0x024d) // "External communications hub disabled."
+		message(CHR_BOND, L_AME(77)) // "External communications hub disabled."
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_COMPLETE)
 		reloop(0x00)
 
@@ -2087,13 +2087,13 @@ u8 func100e_check_ecm_mines[] = {
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_MINES_WASTED)
 
 		label(0x8c)
-		message(CHR_BOND, 0x021c) // "Badly placed ECM Mine."
+		message(CHR_BOND, L_AME(28)) // "Badly placed ECM Mine."
 		reloop(0x00)
 
 		// Mines wasted with both hubs remaining
 		label(0x8d)
-		message(CHR_BOND, 0x021c) // "Badly placed ECM Mine."
-		message(CHR_BOND, 0x0220) // "CANNOT complete all objectives."
+		message(CHR_BOND, L_AME(28)) // "Badly placed ECM Mine."
+		message(CHR_BOND, L_AME(32)) // "CANNOT complete all objectives."
 		set_stage_flag(STAGEFLAG_SECURITYHUB_MINES_WASTED)
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_MINES_WASTED)
 		reloop(0x00)
@@ -2118,7 +2118,7 @@ u8 func1004_check_lab_lift_located[] = {
 
 		label(0x2c)
 		if_stage_flag_eq(STAGEFLAG_LAB_LIFT_LOCATED, TRUE, /*goto*/ 0x2c)
-		message(CHR_P1P2, 0x024e) // "Laboratory lift located."
+		message(CHR_P1P2, L_AME(78)) // "Laboratory lift located."
 		set_stage_flag(STAGEFLAG_LAB_LIFT_LOCATED)
 		label(0x2c)
 		yield
@@ -2157,7 +2157,7 @@ u8 func1006_check_programmer_dead[] = {
 
 	label(0x2c)
 	if_stage_flag_eq(STAGEFLAG_PROGRAMMER_LOGGED_IN, TRUE, /*goto*/ 0x06)
-	message(CHR_BOND, 0x0239) // "Critical mission personnel killed."
+	message(CHR_BOND, L_AME(57)) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_PROGRAMMER_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2188,7 +2188,7 @@ u8 func1007_uplinking[] = {
 
 		label(0xc0)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_DATAUPLINK, /*goto*/ 0x2c)
-		message(CHR_TARGET, 0x0231) // "Unable to download - Data Uplink needed."
+		message(CHR_TARGET, L_AME(49)) // "Unable to download - Data Uplink needed."
 		call_rng
 		if_rand_lt(60, /*goto*/ 0x0d)
 		if_rand_lt(120, /*goto*/ 0x0e)
@@ -2222,7 +2222,7 @@ u8 func1007_uplinking[] = {
 		label(0x2c)
 		if_stage_flag_eq(STAGEFLAG_PROGRAMMER_LOGGED_IN, TRUE, /*goto*/ 0xae)
 		restart_timer
-		message(CHR_TARGET, 0x022e) // "ACCESS DENIED - password needed."
+		message(CHR_TARGET, L_AME(46)) // "ACCESS DENIED - password needed."
 		assign_sound(0x01c0, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_PC, FALSE)
 
@@ -2235,7 +2235,7 @@ u8 func1007_uplinking[] = {
 		goto_first(0x04)
 
 		label(0xae)
-		message(CHR_TARGET, 0x022c) // "File download initiated."
+		message(CHR_TARGET, L_AME(44)) // "File download initiated."
 		assign_sound(0x01bf, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_PC, TRUE)
 		restart_timer
@@ -2251,13 +2251,13 @@ u8 func1007_uplinking[] = {
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c1, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_PC, TRUE)
-		message(CHR_TARGET, 0x022d) // "File download completed."
+		message(CHR_TARGET, L_AME(45)) // "File download completed."
 		yield
 		set_stage_flag(STAGEFLAG_DOWNLOAD_COMPLETE)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2c)
-		message(CHR_TARGET, 0x024a) // "Datalink broken - connection terminated."
+		message(CHR_TARGET, L_AME(74)) // "Datalink broken - connection terminated."
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c0, CHANNEL_6)
 		play_sound_from_object(CHANNEL_6, OBJ_PC, 0x012c, 0x0190)
@@ -2272,7 +2272,7 @@ u8 func1007_uplinking[] = {
 		reloop(0x04)
 
 		label(0x12)
-		message(CHR_TARGET, 0x024b) // "Datalink error - incomplete file download."
+		message(CHR_TARGET, L_AME(75)) // "Datalink error - incomplete file download."
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c0, CHANNEL_6)
 		play_sound_from_object(CHANNEL_6, OBJ_PC, 0x012c, 0x0190)
@@ -2309,7 +2309,7 @@ u8 func1008_doorswitch[] = {
 
 	label(0x2c)
 	play_sound(0x00ba, -1)
-	message(CHR_P1P2, 0x022f) // "Door unlocked."
+	message(CHR_P1P2, L_AME(47)) // "Door unlocked."
 	set_stage_flag(STAGEFLAG_OFFICE_DOOR_UNLOCKED)
 	unlock_door(OBJ_OFFICEDOOR1, 0x01)
 	unlock_door(OBJ_OFFICEDOOR2, 0x01)
@@ -2337,12 +2337,12 @@ u8 func1009_check_civilians_killed[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	message(CHR_BOND, 0x0237) // "Unacceptable civilian casualties."
+	message(CHR_BOND, L_AME(55)) // "Unacceptable civilian casualties."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x09)
-	message(CHR_BOND, 0x0239) // "Critical mission personnel killed."
+	message(CHR_BOND, L_AME(57)) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2437,7 +2437,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_object_in_good_condition(OBJ_SECURITYHUB, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_SECURITYHUB_DESTROYED)
 		mute_channel(CHANNEL_0)
-		message(CHR_BOND, 0x0236) // "Critical mission object destroyed."
+		message(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
 
 		// PA only - check door switch
 		label(0x2c)
@@ -2446,7 +2446,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_DOORSWITCH_DESTROYED, TRUE, /*goto*/ 0x2c)
 		if_object_in_good_condition(OBJ_DOORSWITCH, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_DOORSWITCH_DESTROYED)
-		message(CHR_BOND, 0x0236) // "Critical mission object destroyed."
+		message(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
 
 		// PA only - check PC
 		label(0x2c)
@@ -2456,7 +2456,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_objective_failed(2, /*goto*/ 0x2c)
 		if_object_in_good_condition(OBJ_PC, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_PC_DESTROYED)
-		message(CHR_BOND, 0x0236) // "Critical mission object destroyed."
+		message(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
 
 		// Check comms hub
 		label(0x2c)
@@ -2464,7 +2464,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_object_in_good_condition(OBJ_EXTCOMMSHUB, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_DESTROYED)
 		mute_channel(CHANNEL_1)
-		message(CHR_BOND, 0x0236) // "Critical mission object destroyed."
+		message(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
 		label(0x2c)
 	endloop(0x04)
 
@@ -3289,7 +3289,7 @@ u8 func1011_check_hubs_activated[] = {
 		reloop(0x04)
 
 		label(0x08)
-		message(CHR_BOND, 0x0250) // "ECM Mine needed to disable security hub."
+		message(CHR_BOND, L_AME(80)) // "ECM Mine needed to disable security hub."
 		restart_timer
 
 		beginloop(0x09)
@@ -3297,7 +3297,7 @@ u8 func1011_check_hubs_activated[] = {
 		endloop(0x09)
 
 		label(0x0a)
-		message(CHR_BOND, 0x0251) // "ECM Mine needed to disable comms hub."
+		message(CHR_BOND, L_AME(81)) // "ECM Mine needed to disable comms hub."
 		restart_timer
 
 		beginloop(0x0b)
@@ -3389,7 +3389,7 @@ u8 func1013_msg_commshubnearby[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x025d, 0x8170, CHANNEL_6, COLOR_09_BLUE) // "We're getting a positive reading - the internal co..."
+	speak(CHR_BOND, L_AME(93), 0x8170, CHANNEL_6, COLOR_09_BLUE) // "We're getting a positive reading - the internal co..."
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3404,7 +3404,7 @@ u8 func1014_msg_officefloor[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x025e, 0x8171, CHANNEL_6, COLOR_09_BLUE) // "You're on the same floor as Cassandra's office."
+	speak(CHR_BOND, L_AME(94), 0x8171, CHANNEL_6, COLOR_09_BLUE) // "You're on the same floor as Cassandra's office."
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3418,7 +3418,7 @@ u8 func1015_msg_securityroom[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x025f, 0x73a2, CHANNEL_6, COLOR_09_BLUE) // "The other hub has got to be in the Security Room."
+	speak(CHR_BOND, L_AME(95), 0x73a2, CHANNEL_6, COLOR_09_BLUE) // "The other hub has got to be in the Security Room."
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3430,7 +3430,7 @@ u8 func1016_msg_basementelevator[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x0260, 0x8172, CHANNEL_6, COLOR_09_BLUE) // "The basement elevator must be around there somewhe..."
+	speak(CHR_BOND, L_AME(96), 0x8172, CHANNEL_6, COLOR_09_BLUE) // "The basement elevator must be around there somewhe..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3465,7 +3465,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0xb6)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x0264, 0x73e4, CHANNEL_6, COLOR_09_BLUE) // "Why the big hurry?"
+	speak(CHR_BOND, L_AME(100), 0x73e4, CHANNEL_6, COLOR_09_BLUE) // "Why the big hurry?"
 
 	beginloop(0x08)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3473,7 +3473,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x0265, 0x73e5, CHANNEL_6, COLOR_06_WHITE) // "If Dr. Caroll is not extracted tonight, dataDyne w..."
+	speak(CHR_BOND, L_AME(101), 0x73e5, CHANNEL_6, COLOR_06_WHITE) // "If Dr. Caroll is not extracted tonight, dataDyne w..."
 
 	beginloop(0x09)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3481,7 +3481,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x09)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x0266, 0x73e6, CHANNEL_6, COLOR_09_BLUE) // "Are they all expendable?"
+	speak(CHR_BOND, L_AME(102), 0x73e6, CHANNEL_6, COLOR_09_BLUE) // "Are they all expendable?"
 
 	beginloop(0x0a)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3489,7 +3489,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x0a)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x0267, 0x73e7, CHANNEL_6, COLOR_06_WHITE) // "Don't joke! You have to be careful, Joanna. Code k..."
+	speak(CHR_BOND, L_AME(103), 0x73e7, CHANNEL_6, COLOR_06_WHITE) // "Don't joke! You have to be careful, Joanna. Code k..."
 
 	beginloop(0x0b)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3497,7 +3497,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x0b)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x0268, 0x73e8, CHANNEL_6, COLOR_09_BLUE) // "What's the target location?"
+	speak(CHR_BOND, L_AME(104), 0x73e8, CHANNEL_6, COLOR_09_BLUE) // "What's the target location?"
 
 	beginloop(0x0c)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3505,7 +3505,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x0c)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x0269, 0x73e9, CHANNEL_6, COLOR_06_WHITE) // "Work your way down the building to the ground leve..."
+	speak(CHR_BOND, L_AME(105), 0x73e9, CHANNEL_6, COLOR_06_WHITE) // "Work your way down the building to the ground leve..."
 
 	beginloop(0x0d)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3513,7 +3513,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x0d)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x026a, 0x73ea, CHANNEL_6, COLOR_09_BLUE) // "How will I recognize him?"
+	speak(CHR_BOND, L_AME(106), 0x73ea, CHANNEL_6, COLOR_09_BLUE) // "How will I recognize him?"
 
 	beginloop(0x0e)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3521,7 +3521,7 @@ u8 func0422_intro_speaking[] = {
 	endloop(0x0e)
 
 	label(0x2c)
-	speak(CHR_BOND, 0x026b, 0x73eb, CHANNEL_6, COLOR_06_WHITE) // "We don't have an image record, and we can't find a..."
+	speak(CHR_BOND, L_AME(107), 0x73eb, CHANNEL_6, COLOR_06_WHITE) // "We don't have an image record, and we can't find a..."
 
 	beginloop(0x0f)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3669,7 +3669,7 @@ u8 func101d_disable_cameras[] = {
 	unset_object_flag(OBJ_CAMERA6, OBJFLAG_DEACTIVATED)
 
 	label(0x06)
-	message(CHR_BOND, 0x0261) // "Security system is now back online."
+	message(CHR_BOND, L_AME(97)) // "Security system is now back online."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3678,7 +3678,7 @@ u8 func101d_disable_cameras[] = {
  * @unregistered
  */
 u8 unregistered_function7[] = {
-	message(CHR_BOND, 0x0263) // "2023 AD, 2214 Hours Lucerne Tower - dataDyne HQ"
+	message(CHR_BOND, L_AME(99)) // "2023 AD, 2214 Hours Lucerne Tower - dataDyne HQ"
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

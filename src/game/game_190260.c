@@ -2619,7 +2619,7 @@ glabel var7f1b8f34
 char *mpGetBotCommandName(s32 command)
 {
 	if (command < 0 || command >= NUM_MPBOTCOMMANDS) {
-		return langGet(0x58b3); // "Normal"
+		return langGet(L_MISC(179)); // "Normal"
 	}
 
 	return langGet(g_MpBotCommands[command]);

@@ -675,7 +675,7 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 	switch (g_ActiveMenuThings[g_ActiveMenuIndex].screenindex) {
 	case 0: // Weapon screen
 		if (slot == 4) {
-			strcpy(label, langGet(0x58aa)); // "Weapon"
+			strcpy(label, langGet(L_MISC(170))); // "Weapon"
 			return;
 		}
 
@@ -717,7 +717,7 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 		strcpy(label, "");
 
 		if (slot == 4) {
-			strcpy(label, langGet(0x58ab)); // "Function"
+			strcpy(label, langGet(L_MISC(171))); // "Function"
 		} else if (slot == 1 || slot == 7) {
 			prifunc = weaponGetFunction(&g_Vars.currentplayer->unk0638, 0);
 			secfunc = weaponGetFunction(&g_Vars.currentplayer->unk0638, 1);
@@ -752,17 +752,17 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 
 		if (g_MissionConfig.iscoop) {
 			if (slot == 4) {
-				strcpy(label, langGet(0x59da)); // "Perfect Buddies"
+				strcpy(label, langGet(L_MISC(474))); // "Perfect Buddies"
 			} else if (slot == 1) {
-				strcpy(label, langGet(0x59d8)); // "Aggressive"
+				strcpy(label, langGet(L_MISC(472))); // "Aggressive"
 			} else if (slot == 7) {
-				strcpy(label, langGet(0x59d9)); // "Passive"
+				strcpy(label, langGet(L_MISC(473))); // "Passive"
 			} else if (slot == 3) {
-				strcpy(label, langGet(0x59db)); // "Stealth"
+				strcpy(label, langGet(L_MISC(475))); // "Stealth"
 			}
 		} else {
 			if (slot == 4) {
-				strcpy(label, langGet(0x58ac)); // "Orders"
+				strcpy(label, langGet(L_MISC(172))); // "Orders"
 			} else {
 				strcpy(label, mpGetBotCommandName(g_ActiveMenuMpBotCommands[slot]));
 			}

@@ -59,15 +59,15 @@ struct cheat g_Cheats[NUM_CHEATS] = {
 };
 
 struct menu_item g_CheatWarningMenuItems[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, 0x000051df, 0x00000000, NULL }, // "If you activate any cheats, then you will be unable to progress further in the game while those cheats are active."
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x000051e0, 0x00000000, NULL }, // "OK"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x000051e1, 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(479), 0x00000000, NULL }, // "If you activate any cheats, then you will be unable to progress further in the game while those cheats are active."
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(480), 0x00000000, NULL }, // "OK"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(481), 0x00000000, NULL }, // "Cancel"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menu_dialog g_CheatWarningMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
-	0x51de, // "Warning"
+	L_MPMENU(478), // "Warning"
 	g_CheatWarningMenuItems,
 	NULL,
 	0x00000000,
@@ -84,13 +84,13 @@ struct menu_item g_CheatsFunMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, (u32) &cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, L_MPMENU(477), 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menu_dialog g_CheatsFunMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x5476, // "Fun"
+	L_MPWEAPONS(118), // "Fun"
 	g_CheatsFunMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -109,13 +109,13 @@ struct menu_item g_CheatsGameplayMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, (u32) &cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, L_MPMENU(477), 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menu_dialog g_CheatsGameplayMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x5477, // "Gameplay"
+	L_MPWEAPONS(119), // "Gameplay"
 	g_CheatsGameplayMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -134,13 +134,13 @@ struct menu_item g_CheatsSoloWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, (u32) &cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, L_MPMENU(477), 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menu_dialog g_CheatsSoloWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x547a, // "Weapons for Jo in Solo"
+	L_MPWEAPONS(122), // "Weapons for Jo in Solo"
 	g_CheatsSoloWeaponsMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -165,7 +165,7 @@ struct menu_item g_CheatsClassicWeaponsMenuItems[] = {
 
 struct menu_dialog g_CheatsClassicWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x547b, // "Classic Weapons for Jo in Solo"
+	L_MPWEAPONS(123), // "Classic Weapons for Jo in Solo"
 	g_CheatsClassicWeaponsMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -184,13 +184,13 @@ struct menu_item g_CheatsWeaponsMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, (u32) &cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, L_MPMENU(477), 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menu_dialog g_CheatsWeaponsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x5478, // "Weapons"
+	L_MPWEAPONS(120), // "Weapons"
 	g_CheatsWeaponsMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -198,7 +198,7 @@ struct menu_dialog g_CheatsWeaponsMenuDialog = {
 };
 
 struct menu_item g_CheatsBuddiesMenuItems[] = {
-	{ MENUITEMTYPE_CHECKBOX,     0, 0x00000000, 0x00005475, 0x00000000, cheatMenuHandleBuddyCheckbox }, // "Velvet Dark"
+	{ MENUITEMTYPE_CHECKBOX,     0, 0x00000000, L_MPWEAPONS(117), 0x00000000, cheatMenuHandleBuddyCheckbox }, // "Velvet Dark"
 	{ MENUITEMTYPE_CHECKBOX,    22, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,    23, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
 	{ MENUITEMTYPE_CHECKBOX,    24, 0x00000000, (u32) &cheatGetNameIfUnlocked, 0x00000000, cheatMenuHandleBuddyCheckbox },
@@ -206,13 +206,13 @@ struct menu_item g_CheatsBuddiesMenuItems[] = {
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
 	{ MENUITEMTYPE_MARQUEE,      0, 0x00000a00, (u32) &cheatGetMarquee, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE,   0, 0x00000028, L_MPMENU(477), 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menu_dialog g_CheatsBuddiesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x5479, // "Buddies"
+	L_MPWEAPONS(121), // "Buddies"
 	g_CheatsBuddiesMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,
@@ -220,22 +220,22 @@ struct menu_dialog g_CheatsBuddiesMenuDialog = {
 };
 
 struct menu_item g_CheatsMenuItems[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005476, 0x00000000, &g_CheatsFunMenuDialog }, // "Fun"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005477, 0x00000000, &g_CheatsGameplayMenuDialog }, // "Gameplay"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000547a, 0x00000000, &g_CheatsSoloWeaponsMenuDialog }, // "Weapons for Jo in Solo"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x0000547b, 0x00000000, &g_CheatsClassicWeaponsMenuDialog }, // "Classic Weapons for Jo in Solo"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005478, 0x00000000, &g_CheatsWeaponsMenuDialog }, // "Weapons"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, 0x00005479, 0x00000000, &g_CheatsBuddiesMenuDialog }, // "Buddies"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPWEAPONS(118), 0x00000000, &g_CheatsFunMenuDialog }, // "Fun"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPWEAPONS(119), 0x00000000, &g_CheatsGameplayMenuDialog }, // "Gameplay"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPWEAPONS(122), 0x00000000, &g_CheatsSoloWeaponsMenuDialog }, // "Weapons for Jo in Solo"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPWEAPONS(123), 0x00000000, &g_CheatsClassicWeaponsMenuDialog }, // "Classic Weapons for Jo in Solo"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPWEAPONS(120), 0x00000000, &g_CheatsWeaponsMenuDialog }, // "Weapons"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPWEAPONS(121), 0x00000000, &g_CheatsBuddiesMenuDialog }, // "Buddies"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, 0x000054d9, 0x00000000, cheatMenuHandleTurnOffAllCheats }, // "Turn of all Cheats"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(217), 0x00000000, cheatMenuHandleTurnOffAllCheats }, // "Turn of all Cheats"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000096, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, 0x000051dd, 0x00000000, NULL }, // "Done"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(477), 0x00000000, NULL }, // "Done"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 struct menu_dialog g_CheatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x51dc, // "Cheats"
+	L_MPMENU(476), // "Cheats"
 	g_CheatsMenuItems,
 	cheatMenuHandleDialog,
 	0x00000000,

@@ -48752,9 +48752,9 @@ bool func0f09018c(struct prop *doorprop)
 			if (override && override->activatetextid) {
 				func0f0ddfa4(langGet(override->activatetextid), 0, 1);
 			} else if (intraining) {
-				func0f0ddfa4(langGet(0x1c50), 0, 1); // "Cannot exit while training is in progress."
+				func0f0ddfa4(langGet(L_DISH(80)), 0, 1); // "Cannot exit while training is in progress."
 			} else {
-				func0f0ddfa4(langGet(0x522c), 0, 1); // "This door is locked."
+				func0f0ddfa4(langGet(L_PROPOBJ(44)), 0, 1); // "This door is locked."
 			}
 		}
 

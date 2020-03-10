@@ -76,16 +76,16 @@ u32 props[] = {
 	briefing(2, 0x4602)
 	briefing(3, 0x4603)
 
-	beginobjective(0, 0x4604, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Kill Skedar King."
+	beginobjective(0, L_STAT(4), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Kill Skedar King."
 		complete_flags(STAGEFLAG_KING1_DEAD)
 		fail_flags(STAGEFLAG_LEADER_DEAD)
 	endobjective
 
-	beginobjective(1, 0x4605, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Kill Skedar King 2."
+	beginobjective(1, L_STAT(5), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Kill Skedar King 2."
 		complete_flags(STAGEFLAG_KING2_DEAD)
 	endobjective
 
-	beginobjective(2, 0x4606, (DIFFBIT_PA | DIFFBIT_PD)) // "Kill Skedar King 3."
+	beginobjective(2, L_STAT(6), (DIFFBIT_PA | DIFFBIT_PD)) // "Kill Skedar King 3."
 		complete_flags(STAGEFLAG_KING3_DEAD)
 	endobjective
 
@@ -907,7 +907,7 @@ u8 func1005_check_leader_dead[] = {
 	endloop(0x03)
 
 	label(0x2d)
-	message(CHR_BOND, 0x4607) // "Maian leader has been killed."
+	message(CHR_BOND, L_STAT(7)) // "Maian leader has been killed."
 	set_stage_flag(STAGEFLAG_LEADER_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -923,7 +923,7 @@ u8 func1009_check_king1_dead[] = {
 	endloop(0x03)
 
 	label(0x2d)
-	message(CHR_BOND, 0x4608) // "Skedar King has been killed."
+	message(CHR_BOND, L_STAT(8)) // "Skedar King has been killed."
 	set_stage_flag(STAGEFLAG_KING1_DEAD)
 	unlock_door(0x3e, 0x40)
 	unlock_door(0x3f, 0x40)
@@ -942,7 +942,7 @@ u8 func100a_check_king2_dead[] = {
 	endloop(0x03)
 
 	label(0x2d)
-	message(CHR_BOND, 0x4608) // "Skedar King has been killed."
+	message(CHR_BOND, L_STAT(8)) // "Skedar King has been killed."
 	set_stage_flag(STAGEFLAG_KING2_DEAD)
 	label(0x0e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -960,7 +960,7 @@ u8 func100b_check_king3_dead[] = {
 	endloop(0x03)
 
 	label(0x2d)
-	message(CHR_BOND, 0x4608) // "Skedar King has been killed."
+	message(CHR_BOND, L_STAT(8)) // "Skedar King has been killed."
 	set_stage_flag(STAGEFLAG_KING3_DEAD)
 	label(0x0e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

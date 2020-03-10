@@ -47,15 +47,15 @@ u32 props[] = {
 	briefing(2, 0x5e02)
 	briefing(3, 0x5e03)
 
-	beginobjective(0, 0x5e04, (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Defeat dataDyne guard"
+	beginobjective(0, L_ATE(4), (DIFFBIT_A | DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Defeat dataDyne guard"
 		complete_flags(STAGEFLAG_GUARD_DEAD)
 	endobjective
 
-	beginobjective(1, 0x5e05, (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Defeat Jonathan Dark"
+	beginobjective(1, L_ATE(5), (DIFFBIT_SA | DIFFBIT_PA | DIFFBIT_PD)) // "Defeat Jonathan Dark"
 		complete_flags(STAGEFLAG_JONATHAN_DEAD)
 	endobjective
 
-	beginobjective(2, 0x5e06, (DIFFBIT_PA | DIFFBIT_PD)) // "Defeat Trent Easton"
+	beginobjective(2, L_ATE(6), (DIFFBIT_PA | DIFFBIT_PD)) // "Defeat Trent Easton"
 		complete_flags(STAGEFLAG_TRENT_DEAD)
 	endobjective
 
@@ -102,10 +102,10 @@ u8 func1002_first_walk[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	display_text(0x00, COLOR_02_WHITE, 0x5e07) // "THE DUEL"
+	display_text(0x00, COLOR_02_WHITE, L_ATE(7)) // "THE DUEL"
 	chr_do_animation(ANIM_RELOAD, -1, -1, 0x06, 0x00, CHR_GUARD, 2)
 	label(0x2d)
-	message(CHR_BOND, 0x5e0c) // "Opponent skill level: AGENT"
+	message(CHR_BOND, L_ATE(12)) // "Opponent skill level: AGENT"
 
 	// Wait for camera to stop animating
 	restart_timer
@@ -169,7 +169,7 @@ u8 func1007_second_walk[] = {
 	chr_do_animation(ANIM_GRAB_CROTCH, -1, -1, 0x06, 0x00, CHR_JONATHAN, 2)
 
 	label(0x2d)
-	message(CHR_BOND, 0x5e0d) // "Opponent skill level: SPECIAL AGENT"
+	message(CHR_BOND, L_ATE(13)) // "Opponent skill level: SPECIAL AGENT"
 	restart_timer
 
 	beginloop(0x08)
@@ -249,7 +249,7 @@ u8 func1008_third_walk[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(ANIM_HEAD_ROLL, -1, -1, 0x06, 0x00, CHR_TRENT, 2)
 	label(0x2d)
-	message(CHR_BOND, 0x5e0e) // "Opponent skill level: PERFECT AGENT"
+	message(CHR_BOND, L_ATE(14)) // "Opponent skill level: PERFECT AGENT"
 
 	// Wait for cutscene to finish
 	restart_timer
@@ -295,7 +295,7 @@ u8 func1005_main[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_BOND, 0x5e09) // "Well done! You were too quick for him!"
+	message(CHR_BOND, L_ATE(9)) // "Well done! You were too quick for him!"
 	set_stage_flag(STAGEFLAG_GUARD_DEAD)
 	restart_timer
 
@@ -322,7 +322,7 @@ u8 func1005_main[] = {
 	endloop(0x09)
 
 	label(0x2d)
-	message(CHR_BOND, 0x5e0a) // "Well done! You were too quick for him!"
+	message(CHR_BOND, L_ATE(10)) // "Well done! You were too quick for him!"
 	set_stage_flag(STAGEFLAG_JONATHAN_DEAD)
 	restart_timer
 
@@ -349,7 +349,7 @@ u8 func1005_main[] = {
 	endloop(0x0c)
 
 	label(0x2d)
-	message(CHR_BOND, 0x5e0b) // "Well done! You were too quick for him!"
+	message(CHR_BOND, L_ATE(11)) // "Well done! You were too quick for him!"
 	set_stage_flag(STAGEFLAG_TRENT_DEAD)
 	restart_timer
 
