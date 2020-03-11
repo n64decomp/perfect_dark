@@ -30,8 +30,8 @@ glabel func00005e40
 /*     5e64:	00000000 */ 	sll	$zero,$zero,0x0
 /*     5e68:	0c012d20 */ 	jal	osVirtualToPhysical
 /*     5e6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     5e70:	3c018009 */ 	lui	$at,0x8009
-/*     5e74:	ac220a80 */ 	sw	$v0,0xa80($at)
+/*     5e70:	3c018009 */ 	lui	$at,%hi(var80090a80)
+/*     5e74:	ac220a80 */ 	sw	$v0,%lo(var80090a80)($at)
 .L00005e78:
 /*     5e78:	3c048009 */ 	lui	$a0,%hi(var80090a88)
 /*     5e7c:	8c840a88 */ 	lw	$a0,%lo(var80090a88)($a0)
@@ -39,8 +39,8 @@ glabel func00005e40
 /*     5e84:	00000000 */ 	sll	$zero,$zero,0x0
 /*     5e88:	0c012d20 */ 	jal	osVirtualToPhysical
 /*     5e8c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     5e90:	3c018009 */ 	lui	$at,0x8009
-/*     5e94:	ac220a88 */ 	sw	$v0,0xa88($at)
+/*     5e90:	3c018009 */ 	lui	$at,%hi(var80090a88)
+/*     5e94:	ac220a88 */ 	sw	$v0,%lo(var80090a88)($at)
 .L00005e98:
 /*     5e98:	3c048009 */ 	lui	$a0,%hi(var80090a90)
 /*     5e9c:	8c840a90 */ 	lw	$a0,%lo(var80090a90)($a0)
@@ -48,8 +48,8 @@ glabel func00005e40
 /*     5ea4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     5ea8:	0c012d20 */ 	jal	osVirtualToPhysical
 /*     5eac:	00000000 */ 	sll	$zero,$zero,0x0
-/*     5eb0:	3c018009 */ 	lui	$at,0x8009
-/*     5eb4:	ac220a90 */ 	sw	$v0,0xa90($at)
+/*     5eb0:	3c018009 */ 	lui	$at,%hi(var80090a90)
+/*     5eb4:	ac220a90 */ 	sw	$v0,%lo(var80090a90)($at)
 .L00005eb8:
 /*     5eb8:	3c048009 */ 	lui	$a0,%hi(var80090a98)
 /*     5ebc:	8c840a98 */ 	lw	$a0,%lo(var80090a98)($a0)
@@ -57,8 +57,8 @@ glabel func00005e40
 /*     5ec4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     5ec8:	0c012d20 */ 	jal	osVirtualToPhysical
 /*     5ecc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     5ed0:	3c018009 */ 	lui	$at,0x8009
-/*     5ed4:	ac220a98 */ 	sw	$v0,0xa98($at)
+/*     5ed0:	3c018009 */ 	lui	$at,%hi(var80090a98)
+/*     5ed4:	ac220a98 */ 	sw	$v0,%lo(var80090a98)($at)
 .L00005ed8:
 /*     5ed8:	3c048009 */ 	lui	$a0,%hi(var80090a9c)
 /*     5edc:	8c840a9c */ 	lw	$a0,%lo(var80090a9c)($a0)
@@ -66,8 +66,8 @@ glabel func00005e40
 /*     5ee4:	00000000 */ 	sll	$zero,$zero,0x0
 /*     5ee8:	0c012d20 */ 	jal	osVirtualToPhysical
 /*     5eec:	00000000 */ 	sll	$zero,$zero,0x0
-/*     5ef0:	3c018009 */ 	lui	$at,0x8009
-/*     5ef4:	ac220a9c */ 	sw	$v0,0xa9c($at)
+/*     5ef0:	3c018009 */ 	lui	$at,%hi(var80090a9c)
+/*     5ef4:	ac220a9c */ 	sw	$v0,%lo(var80090a9c)($at)
 .L00005ef8:
 /*     5ef8:	3c048009 */ 	lui	$a0,%hi(var80090aa0)
 /*     5efc:	8c840aa0 */ 	lw	$a0,%lo(var80090aa0)($a0)
@@ -75,8 +75,8 @@ glabel func00005e40
 /*     5f04:	00000000 */ 	sll	$zero,$zero,0x0
 /*     5f08:	0c012d20 */ 	jal	osVirtualToPhysical
 /*     5f0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     5f10:	3c018009 */ 	lui	$at,0x8009
-/*     5f14:	ac220aa0 */ 	sw	$v0,0xaa0($at)
+/*     5f10:	3c018009 */ 	lui	$at,%hi(var80090aa0)
+/*     5f14:	ac220aa0 */ 	sw	$v0,%lo(var80090aa0)($at)
 .L00005f18:
 /*     5f18:	3c048009 */ 	lui	$a0,%hi(var80090aa8)
 /*     5f1c:	8c840aa8 */ 	lw	$a0,%lo(var80090aa8)($a0)
@@ -84,8 +84,8 @@ glabel func00005e40
 /*     5f24:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     5f28:	0c012d20 */ 	jal	osVirtualToPhysical
 /*     5f2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     5f30:	3c018009 */ 	lui	$at,0x8009
-/*     5f34:	ac220aa8 */ 	sw	$v0,0xaa8($at)
+/*     5f30:	3c018009 */ 	lui	$at,%hi(var80090aa8)
+/*     5f34:	ac220aa8 */ 	sw	$v0,%lo(var80090aa8)($at)
 /*     5f38:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L00005f3c:
 /*     5f3c:	3c028009 */ 	lui	$v0,%hi(var80090a70)

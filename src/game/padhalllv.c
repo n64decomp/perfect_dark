@@ -95,8 +95,8 @@ glabel waypointFindClosestToPos
 /*  f114340:	10ec0068 */ 	beq	$a3,$t4,.L0f1144e4
 /*  f114344:	0000a025 */ 	or	$s4,$zero,$zero
 /*  f114348:	27b50360 */ 	addiu	$s5,$sp,0x360
-/*  f11434c:	3c03800a */ 	lui	$v1,%hi(var8009fffc)
-/*  f114350:	8c634928 */ 	lw	$v1,0x4928($v1)
+/*  f11434c:	3c03800a */ 	lui	$v1,%hi(g_RoomPtrs)
+/*  f114350:	8c634928 */ 	lw	$v1,%lo(g_RoomPtrs)($v1)
 /*  f114354:	86a40000 */ 	lh	$a0,0x0($s5)
 /*  f114358:	2417008c */ 	addiu	$s7,$zero,0x8c
 .L0f11435c:
@@ -111,8 +111,8 @@ glabel waypointFindClosestToPos
 /*  f11437c:	0000a025 */ 	or	$s4,$zero,$zero
 /*  f114380:	9458000c */ 	lhu	$t8,0xc($v0)
 .L0f114384:
-/*  f114384:	3c0e800a */ 	lui	$t6,0x800a
-/*  f114388:	8dcea020 */ 	lw	$t6,-0x5fe0($t6)
+/*  f114384:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x60)
+/*  f114388:	8dcea020 */ 	lw	$t6,%lo(g_Vars+0x60)($t6)
 /*  f11438c:	0018c840 */ 	sll	$t9,$t8,0x1
 /*  f114390:	8fcc0000 */ 	lw	$t4,0x0($s8)
 /*  f114394:	01d95021 */ 	addu	$t2,$t6,$t9
@@ -177,7 +177,7 @@ glabel waypointFindClosestToPos
 /*  f11446c:	c4520000 */ 	lwc1	$f18,0x0($v0)
 /*  f114470:	2442fffc */ 	addiu	$v0,$v0,-4
 /*  f114474:	0045082b */ 	sltu	$at,$v0,$a1
-/*  f114478:	2463fffc */ 	addiu	$v1,$v1,%lo(var8009fffc)
+/*  f114478:	2463fffc */ 	addiu	$v1,$v1,-4
 /*  f11447c:	ac790008 */ 	sw	$t9,0x8($v1)
 /*  f114480:	1020fff9 */ 	beqz	$at,.L0f114468
 /*  f114484:	e4520008 */ 	swc1	$f18,0x8($v0)
@@ -443,11 +443,11 @@ glabel func0f114810
 /*  f114834:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f114838:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f11483c:	8c820000 */ 	lw	$v0,0x0($a0)
-/*  f114840:	3c15800a */ 	lui	$s5,0x800a
+/*  f114840:	3c15800a */ 	lui	$s5,%hi(g_StageSetup+0x4)
 /*  f114844:	00808825 */ 	or	$s1,$a0,$zero
 /*  f114848:	00c0b825 */ 	or	$s7,$a2,$zero
 /*  f11484c:	00a0f025 */ 	or	$s8,$a1,$zero
-/*  f114850:	8eb5d034 */ 	lw	$s5,-0x2fcc($s5)
+/*  f114850:	8eb5d034 */ 	lw	$s5,%lo(g_StageSetup+0x4)($s5)
 /*  f114854:	04400033 */ 	bltz	$v0,.L0f114924
 /*  f114858:	0000b025 */ 	or	$s6,$zero,$zero
 /*  f11485c:	3c13800a */ 	lui	$s3,%hi(g_Vars)
@@ -524,10 +524,10 @@ glabel func0f114810
 GLOBAL_ASM(
 glabel func0f114958
 /*  f114958:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f11495c:	3c02800a */ 	lui	$v0,0x800a
+/*  f11495c:	3c02800a */ 	lui	$v0,%hi(g_StageSetup+0x4)
 /*  f114960:	00a03825 */ 	or	$a3,$a1,$zero
 /*  f114964:	04600010 */ 	bltz	$v1,.L0f1149a8
-/*  f114968:	8c42d034 */ 	lw	$v0,-0x2fcc($v0)
+/*  f114968:	8c42d034 */ 	lw	$v0,%lo(g_StageSetup+0x4)($v0)
 /*  f11496c:	2408000c */ 	addiu	$t0,$zero,0xc
 /*  f114970:	00667024 */ 	and	$t6,$v1,$a2
 .L0f114974:
@@ -1094,7 +1094,7 @@ glabel func0f11505c
 /*  f1150ec:	00084900 */ 	sll	$t1,$t0,0x4
 /*  f1150f0:	01331821 */ 	addu	$v1,$t1,$s3
 /*  f1150f4:	8c6a0008 */ 	lw	$t2,0x8($v1)
-/*  f1150f8:	3c0d800a */ 	lui	$t5,0x800a
+/*  f1150f8:	3c0d800a */ 	lui	$t5,%hi(g_Vars+0x330)
 /*  f1150fc:	015e0019 */ 	multu	$t2,$s8
 /*  f115100:	00005812 */ 	mflo	$t3
 /*  f115104:	01746021 */ 	addu	$t4,$t3,$s4
@@ -1102,7 +1102,7 @@ glabel func0f11505c
 /*  f11510c:	8e020004 */ 	lw	$v0,0x4($s0)
 /*  f115110:	aed20000 */ 	sw	$s2,0x0($s6)
 /*  f115114:	aea30000 */ 	sw	$v1,0x0($s5)
-/*  f115118:	8dada2f0 */ 	lw	$t5,-0x5d10($t5)
+/*  f115118:	8dada2f0 */ 	lw	$t5,%lo(g_Vars+0x330)($t5)
 /*  f11511c:	24040000 */ 	addiu	$a0,$zero,0x0
 /*  f115120:	24060000 */ 	addiu	$a2,$zero,0x0
 /*  f115124:	11a0001f */ 	beqz	$t5,.L0f1151a4
@@ -1167,8 +1167,8 @@ GLOBAL_ASM(
 glabel waypointFindRoute
 /*  f1151ec:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f1151f0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1151f4:	3c10800a */ 	lui	$s0,0x800a
-/*  f1151f8:	8e10d034 */ 	lw	$s0,-0x2fcc($s0)
+/*  f1151f4:	3c10800a */ 	lui	$s0,%hi(g_StageSetup+0x4)
+/*  f1151f8:	8e10d034 */ 	lw	$s0,%lo(g_StageSetup+0x4)($s0)
 /*  f1151fc:	afb60030 */ 	sw	$s6,0x30($sp)
 /*  f115200:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f115204:	afb30024 */ 	sw	$s3,0x24($sp)
@@ -1278,8 +1278,8 @@ glabel waypointFindRoute
 
 GLOBAL_ASM(
 glabel func0f115390
-/*  f115390:	3c02800a */ 	lui	$v0,%hi(var800a0010)
-/*  f115394:	8c42d030 */ 	lw	$v0,-0x2fd0($v0)
+/*  f115390:	3c02800a */ 	lui	$v0,%hi(g_StageSetup)
+/*  f115394:	8c42d030 */ 	lw	$v0,%lo(g_StageSetup)($v0)
 /*  f115398:	2403ffff */ 	addiu	$v1,$zero,-1
 /*  f11539c:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f1153a0:	05c00006 */ 	bltz	$t6,.L0f1153bc
@@ -1287,7 +1287,7 @@ glabel func0f115390
 /*  f1153a8:	8c4f0010 */ 	lw	$t7,0x10($v0)
 .L0f1153ac:
 /*  f1153ac:	ac43000c */ 	sw	$v1,0xc($v0)
-/*  f1153b0:	24420010 */ 	addiu	$v0,$v0,%lo(var800a0010)
+/*  f1153b0:	24420010 */ 	addiu	$v0,$v0,16
 /*  f1153b4:	05e3fffd */ 	bgezl	$t7,.L0f1153ac
 /*  f1153b8:	8c4f0010 */ 	lw	$t7,0x10($v0)
 .L0f1153bc:
@@ -1409,8 +1409,8 @@ glabel func0f1154cc
 /*  f115534:	10200013 */ 	beqz	$at,.L0f115584
 /*  f115538:	01201825 */ 	or	$v1,$t1,$zero
 /*  f11553c:	0003c080 */ 	sll	$t8,$v1,0x2
-/*  f115540:	3c05800a */ 	lui	$a1,0x800a
-/*  f115544:	8ca5d034 */ 	lw	$a1,-0x2fcc($a1)
+/*  f115540:	3c05800a */ 	lui	$a1,%hi(g_StageSetup+0x4)
+/*  f115544:	8ca5d034 */ 	lw	$a1,%lo(g_StageSetup+0x4)($a1)
 /*  f115548:	01581021 */ 	addu	$v0,$t2,$t8
 /*  f11554c:	2407000c */ 	addiu	$a3,$zero,0xc
 .L0f115550:
@@ -1432,8 +1432,8 @@ glabel func0f1154cc
 /*  f115584:	2407000c */ 	addiu	$a3,$zero,0xc
 /*  f115588:	19200011 */ 	blez	$t1,.L0f1155d0
 /*  f11558c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f115590:	3c05800a */ 	lui	$a1,0x800a
-/*  f115594:	8ca5d034 */ 	lw	$a1,-0x2fcc($a1)
+/*  f115590:	3c05800a */ 	lui	$a1,%hi(g_StageSetup+0x4)
+/*  f115594:	8ca5d034 */ 	lw	$a1,%lo(g_StageSetup+0x4)($a1)
 /*  f115598:	01401025 */ 	or	$v0,$t2,$zero
 .L0f11559c:
 /*  f11559c:	8c4e0000 */ 	lw	$t6,0x0($v0)
@@ -1460,8 +1460,8 @@ glabel func0f1154cc
 
 GLOBAL_ASM(
 glabel func0f1155e0
-/*  f1155e0:	3c06800a */ 	lui	$a2,0x800a
-/*  f1155e4:	8cc6d034 */ 	lw	$a2,-0x2fcc($a2)
+/*  f1155e0:	3c06800a */ 	lui	$a2,%hi(g_StageSetup+0x4)
+/*  f1155e4:	8cc6d034 */ 	lw	$a2,%lo(g_StageSetup+0x4)($a2)
 /*  f1155e8:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f1155ec:	afb10020 */ 	sw	$s1,0x20($sp)
 /*  f1155f0:	00808825 */ 	or	$s1,$a0,$zero

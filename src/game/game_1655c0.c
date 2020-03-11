@@ -16,10 +16,10 @@ glabel stageFindById
 /*  f1655c8:	3c0e8008 */ 	lui	$t6,0x8008
 /*  f1655cc:	24620d58 */ 	addiu	$v0,$v1,0xd58
 /*  f1655d0:	25cefcc1 */ 	addiu	$t6,$t6,-831
-/*  f1655d4:	3c05800a */ 	lui	$a1,0x800a
+/*  f1655d4:	3c05800a */ 	lui	$a1,%hi(g_Vars+0x4b4)
 /*  f1655d8:	004e082b */ 	sltu	$at,$v0,$t6
 /*  f1655dc:	1420000a */ 	bnez	$at,.L0f165608
-/*  f1655e0:	8ca5a474 */ 	lw	$a1,-0x5b8c($a1)
+/*  f1655e0:	8ca5a474 */ 	lw	$a1,%lo(g_Vars+0x4b4)($a1)
 /*  f1655e4:	846f0000 */ 	lh	$t7,0x0($v1)
 .L0f1655e8:
 /*  f1655e8:	54af0004 */ 	bnel	$a1,$t7,.L0f1655fc

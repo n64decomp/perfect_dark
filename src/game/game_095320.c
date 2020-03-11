@@ -103,8 +103,8 @@ glabel func0f095340
 
 GLOBAL_ASM(
 glabel func0f0953cc
-/*  f0953cc:	3c02800a */ 	lui	$v0,%hi(var800a0004)
-/*  f0953d0:	8c42d0b0 */ 	lw	$v0,-0x2f50($v0)
+/*  f0953cc:	3c02800a */ 	lui	$v0,%hi(var8009d0b0)
+/*  f0953d0:	8c42d0b0 */ 	lw	$v0,%lo(var8009d0b0)($v0)
 /*  f0953d4:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f0953d8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0953dc:	10400009 */ 	beqz	$v0,.L0f095404
@@ -147,7 +147,7 @@ glabel func0f0953cc
 /*  f095460:	01024821 */ 	addu	$t1,$t0,$v0
 /*  f095464:	ad200000 */ 	sw	$zero,0x0($t1)
 /*  f095468:	8cea0000 */ 	lw	$t2,0x0($a3)
-/*  f09546c:	24420004 */ 	addiu	$v0,$v0,%lo(var800a0004)
+/*  f09546c:	24420004 */ 	addiu	$v0,$v0,4
 /*  f095470:	00ca082a */ 	slt	$at,$a2,$t2
 /*  f095474:	5420fff9 */ 	bnezl	$at,.L0f09545c
 /*  f095478:	8c680000 */ 	lw	$t0,0x0($v1)

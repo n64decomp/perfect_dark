@@ -79,13 +79,13 @@ glabel func0f00c240
 /*  f00c330:	240a0007 */ 	addiu	$t2,$zero,0x7
 /*  f00c334:	a20a0358 */ 	sb	$t2,0x358($s0)
 .L0f00c338:
-/*  f00c338:	3c04800a */ 	lui	$a0,0x800a
+/*  f00c338:	3c04800a */ 	lui	$a0,%hi(g_Vars+0xc4)
 /*  f00c33c:	a2000359 */ 	sb	$zero,0x359($s0)
 /*  f00c340:	a200035a */ 	sb	$zero,0x35a($s0)
 /*  f00c344:	a200035b */ 	sb	$zero,0x35b($s0)
 /*  f00c348:	a60b035c */ 	sh	$t3,0x35c($s0)
 /*  f00c34c:	a60c035e */ 	sh	$t4,0x35e($s0)
-/*  f00c350:	2484a084 */ 	addiu	$a0,$a0,-24444
+/*  f00c350:	2484a084 */ 	addiu	$a0,$a0,%lo(g_Vars+0xc4)
 /*  f00c354:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
 /*  f00c358:	24030002 */ 	addiu	$v1,$zero,0x2
 .L0f00c35c:

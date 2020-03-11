@@ -181,8 +181,8 @@ glabel func0f19ab70
 .L0f19ace0:
 /*  f19ace0:	3c0b800a */ 	lui	$t3,%hi(g_RoomPtrs)
 /*  f19ace4:	8d6b4928 */ 	lw	$t3,%lo(g_RoomPtrs)($t3)
-/*  f19ace8:	3c0a800a */ 	lui	$t2,0x800a
-/*  f19acec:	8d4aa020 */ 	lw	$t2,-0x5fe0($t2)
+/*  f19ace8:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x60)
+/*  f19acec:	8d4aa020 */ 	lw	$t2,%lo(g_Vars+0x60)($t2)
 /*  f19acf0:	01776021 */ 	addu	$t4,$t3,$s7
 /*  f19acf4:	958d000c */ 	lhu	$t5,0xc($t4)
 /*  f19acf8:	3c08800a */ 	lui	$t0,%hi(g_StageSetup)
@@ -748,17 +748,17 @@ glabel func0f19afdc
 
 GLOBAL_ASM(
 glabel func0f19b540
-/*  f19b540:	3c0e800b */ 	lui	$t6,0x800b
-/*  f19b544:	91cecc10 */ 	lbu	$t6,-0x33f0($t6)
+/*  f19b540:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x88)
+/*  f19b544:	91cecc10 */ 	lbu	$t6,%lo(g_MpSetup+0x88)($t6)
 /*  f19b548:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f19b54c:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f19b550:	15c10038 */ 	bne	$t6,$at,.L0f19b634
 /*  f19b554:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19b558:	3c07800b */ 	lui	$a3,0x800b
+/*  f19b558:	3c07800b */ 	lui	$a3,%hi(g_MpSetup+0x16)
 /*  f19b55c:	3c03800b */ 	lui	$v1,%hi(g_MpPlayers)
 /*  f19b560:	00002825 */ 	or	$a1,$zero,$zero
 /*  f19b564:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_MpPlayers)
-/*  f19b568:	94e7cb9e */ 	lhu	$a3,-0x3462($a3)
+/*  f19b568:	94e7cb9e */ 	lhu	$a3,%lo(g_MpSetup+0x16)($a3)
 /*  f19b56c:	00001025 */ 	or	$v0,$zero,$zero
 /*  f19b570:	24060080 */ 	addiu	$a2,$zero,0x80
 /*  f19b574:	240400a0 */ 	addiu	$a0,$zero,0xa0
@@ -810,9 +810,9 @@ glabel func0f19b540
 /*  f19b61c:	24010004 */ 	addiu	$at,$zero,0x4
 /*  f19b620:	240a000a */ 	addiu	$t2,$zero,0xa
 /*  f19b624:	1521000b */ 	bne	$t1,$at,.L0f19b654
-/*  f19b628:	3c01800a */ 	lui	$at,0x800a
+/*  f19b628:	3c01800a */ 	lui	$at,%hi(g_Vars+0x484)
 /*  f19b62c:	10000009 */ 	beqz	$zero,.L0f19b654
-/*  f19b630:	ac2aa444 */ 	sw	$t2,-0x5bbc($at)
+/*  f19b630:	ac2aa444 */ 	sw	$t2,%lo(g_Vars+0x484)($at)
 .L0f19b634:
 /*  f19b634:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f19b638:	24040040 */ 	addiu	$a0,$zero,0x40
@@ -1629,8 +1629,8 @@ glabel func0f19c1cc
 /*  f19c1ec:	0fc62fdc */ 	jal	mpSetLock
 /*  f19c1f0:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f19c1f4:	3c03800b */ 	lui	$v1,%hi(g_MpPlayers)
-/*  f19c1f8:	3c02800b */ 	lui	$v0,0x800b
-/*  f19c1fc:	2442ca38 */ 	addiu	$v0,$v0,-13768
+/*  f19c1f8:	3c02800b */ 	lui	$v0,%hi(g_MpPlayers+0x280)
+/*  f19c1fc:	2442ca38 */ 	addiu	$v0,$v0,%lo(g_MpPlayers+0x280)
 /*  f19c200:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_MpPlayers)
 .L0f19c204:
 /*  f19c204:	246300a0 */ 	addiu	$v1,$v1,0xa0

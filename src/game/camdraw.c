@@ -885,9 +885,9 @@ glabel func0f14a328
 /*  f14a374:	02202025 */ 	or	$a0,$s1,$zero
 /*  f14a378:	0c0048f2 */ 	jal	malloc
 /*  f14a37c:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f14a380:	3c01800a */ 	lui	$at,0x800a
+/*  f14a380:	3c01800a */ 	lui	$at,%hi(var800a45a0)
 /*  f14a384:	0fc52890 */ 	jal	func0f14a240
-/*  f14a388:	ac2245a0 */ 	sw	$v0,0x45a0($at)
+/*  f14a388:	ac2245a0 */ 	sw	$v0,%lo(var800a45a0)($at)
 /*  f14a38c:	00008025 */ 	or	$s0,$zero,$zero
 /*  f14a390:	24110004 */ 	addiu	$s1,$zero,0x4
 .L0f14a394:
@@ -7389,10 +7389,10 @@ glabel func0f14fbfc
 GLOBAL_ASM(
 glabel func0f14fdb0
 /*  f14fdb0:	27bdfed0 */ 	addiu	$sp,$sp,-304
-/*  f14fdb4:	3c08800a */ 	lui	$t0,%hi(var800a0004)
+/*  f14fdb4:	3c08800a */ 	lui	$t0,%hi(var800a45a0)
 /*  f14fdb8:	44801000 */ 	mtc1	$zero,$f2
 /*  f14fdbc:	afa50134 */ 	sw	$a1,0x134($sp)
-/*  f14fdc0:	8d0845a0 */ 	lw	$t0,0x45a0($t0)
+/*  f14fdc0:	8d0845a0 */ 	lw	$t0,%lo(var800a45a0)($t0)
 /*  f14fdc4:	27a60030 */ 	addiu	$a2,$sp,0x30
 /*  f14fdc8:	27ac0130 */ 	addiu	$t4,$sp,0x130
 /*  f14fdcc:	00803825 */ 	or	$a3,$a0,$zero
@@ -7518,7 +7518,7 @@ glabel func0f14fdb0
 /*  f14ff7c:	24840004 */ 	addiu	$a0,$a0,0x4
 /*  f14ff80:	24420001 */ 	addiu	$v0,$v0,0x1
 /*  f14ff84:	144affc4 */ 	bne	$v0,$t2,.L0f14fe98
-/*  f14ff88:	25080004 */ 	addiu	$t0,$t0,%lo(var800a0004)
+/*  f14ff88:	25080004 */ 	addiu	$t0,$t0,4
 /*  f14ff8c:	03e00008 */ 	jr	$ra
 /*  f14ff90:	27bd0130 */ 	addiu	$sp,$sp,0x130
 );
@@ -7855,8 +7855,8 @@ glabel func0f15015c
 /*  f150440:	10000004 */ 	beqz	$zero,.L0f150454
 /*  f150444:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f150448:
-/*  f150448:	3c01800a */ 	lui	$at,0x800a
-/*  f15044c:	ac2321f8 */ 	sw	$v1,0x21f8($at)
+/*  f150448:	3c01800a */ 	lui	$at,%hi(var800a21f8)
+/*  f15044c:	ac2321f8 */ 	sw	$v1,%lo(var800a21f8)($at)
 /*  f150450:	00001025 */ 	or	$v0,$zero,$zero
 .L0f150454:
 /*  f150454:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -8080,8 +8080,8 @@ glabel func0f15015c
 /*  f150784:	10000004 */ 	beqz	$zero,.L0f150798
 /*  f150788:	ae2903f8 */ 	sw	$t1,0x3f8($s1)
 .L0f15078c:
-/*  f15078c:	3c01800a */ 	lui	$at,0x800a
-/*  f150790:	ac2321f8 */ 	sw	$v1,0x21f8($at)
+/*  f15078c:	3c01800a */ 	lui	$at,%hi(var800a21f8)
+/*  f150790:	ac2321f8 */ 	sw	$v1,%lo(var800a21f8)($at)
 /*  f150794:	2402ffff */ 	addiu	$v0,$zero,-1
 .L0f150798:
 /*  f150798:	8fbf002c */ 	lw	$ra,0x2c($sp)

@@ -3359,14 +3359,14 @@ struct fireslot {
 	/*0x2c*/ u32 unk2c;
 };
 
-struct menustackitem00 {
+struct menustackitem4f8 {
 	struct menu_dialog *dialog;
 	u32 unk04;
 	struct menu_item *item;
 };
 
 struct menustackitem {
-	/*0x000*/ struct menustackitem00 *unk00;
+	/*0x000*/ u32 unk000;
 	/*0x004*/ u32 unk004;
 	/*0x008*/ u32 unk008;
 	/*0x00c*/ u32 unk00c;
@@ -3684,7 +3684,7 @@ struct menustackitem {
 	/*0x4ec*/ u32 unk4ec;
 	/*0x4f0*/ u32 unk4f0;
 	/*0x4f4*/ u32 unk4f4;
-	/*0x4f8*/ u32 unk4f8;
+	/*0x4f8*/ struct menustackitem4f8 *unk4f8;
 	/*0x4fc*/ u32 unk4fc;
 	/*0x500*/ u32 unk500;
 	/*0x504*/ u32 unk504;
@@ -3951,34 +3951,27 @@ struct menustackitem {
 	/*0x918*/ u32 unk918;
 	/*0x91c*/ u32 unk91c;
 	/*0x920*/ u32 unk920;
-	/*0x924*/ s32 slotindex;
-	/*0x928*/ u32 slotcount;
+	/*0x924*/ u32 unk924;
+	/*0x928*/ u32 unk928;
 	/*0x92c*/ u32 unk92c;
 	/*0x930*/ u32 unk930;
 	/*0x934*/ u32 unk934;
 	/*0x938*/ u32 unk938;
 	/*0x93c*/ u32 unk93c;
 	/*0x940*/ u32 unk940;
-	/*0x944*/ u8 unk944_00 : 1;
-	/*0x944*/ u8 unk944_01 : 7;
-	/*0x945*/ u8 unk945;
-	/*0x946*/ u8 unk946;
-	/*0x947*/ u8 unk947;
-	/*0x948*/ u8 unk948;
-	/*0x949*/ u8 unk949;
-	/*0x94a*/ u8 unk94a;
+	/*0x944*/ u32 unk944;
+	/*0x948*/ u32 unk948;
 	/*0x94c*/ u32 unk94c;
 	/*0x950*/ u32 unk950;
 	/*0x954*/ u32 unk954;
-	/*0x958*/ u16 unk958;
-	/*0x95a*/ u8 unk95a;
+	/*0x958*/ u32 unk958;
 	/*0x95c*/ u32 unk95c;
 	/*0x960*/ u32 unk960;
 	/*0x964*/ u32 unk964;
 	/*0x968*/ u32 unk968;
 	/*0x96c*/ u32 unk96c;
 	/*0x970*/ u32 unk970;
-	/*0x974*/ s8 unk974;
+	/*0x974*/ u32 unk974;
 	/*0x978*/ u32 unk978;
 	/*0x97c*/ u32 unk97c;
 	/*0x980*/ u32 unk980;
@@ -4276,30 +4269,34 @@ struct menustackitem {
 	/*0xe10*/ u32 unke10;
 	/*0xe14*/ u32 unke14;
 	/*0xe18*/ u32 unke18;
-	/*0xe1c*/ u32 unke1c;
-	/*0xe20*/ u32 unke20;
+	/*0xe1c*/ s32 slotindex;
+	/*0xe20*/ u32 slotcount;
 	/*0xe24*/ u32 unke24;
 	/*0xe28*/ u32 unke28;
 	/*0xe2c*/ u32 unke2c;
 	/*0xe30*/ u32 unke30;
 	/*0xe34*/ u32 unke34;
 	/*0xe38*/ u32 unke38;
-	/*0xe3c*/ u32 unke3c;
-	/*0xe40*/ u32 unke40;
+	/*0xe3c*/ u8 unke3c_00 : 1;
+	/*0xe3c*/ u8 unke3c_01 : 7;
+	/*0xe3d*/ u8 unke3d;
+	/*0xe3e*/ u8 unke3e;
+	/*0xe3f*/ u8 unke3f;
+	/*0xe40*/ u8 unke40;
+	/*0xe41*/ u8 unke41;
+	/*0xe42*/ u8 unke42;
 	/*0xe44*/ u32 unke44;
 	/*0xe48*/ u32 unke48;
 	/*0xe4c*/ u32 unke4c;
-	/*0xe50*/ u8 unke50;
-	/*0xe51*/ u8 unke51;
+	/*0xe50*/ u16 unke50;
 	/*0xe52*/ u8 unke52;
-	/*0xe53*/ char unke53[1];
 	/*0xe54*/ u32 unke54;
 	/*0xe58*/ u32 unke58;
 	/*0xe5c*/ u32 unke5c;
 	/*0xe60*/ u32 unke60;
 	/*0xe64*/ u32 unke64;
 	/*0xe68*/ u32 unke68;
-	/*0xe6c*/ u32 unke6c;
+	/*0xe6c*/ s8 unke6c;
 };
 
 struct savefile_solo {

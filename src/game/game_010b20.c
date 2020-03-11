@@ -23,10 +23,10 @@ glabel func0f010b20
 /*  f010b24:	2484d0d0 */ 	addiu	$a0,$a0,%lo(var8009d0d0)
 /*  f010b28:	ac800000 */ 	sw	$zero,0x0($a0)
 /*  f010b2c:	ac800004 */ 	sw	$zero,0x4($a0)
-/*  f010b30:	3c01800a */ 	lui	$at,0x800a
+/*  f010b30:	3c01800a */ 	lui	$at,%hi(var8009d0d8)
 /*  f010b34:	3c03800a */ 	lui	$v1,%hi(var8009d0e0)
 /*  f010b38:	3c02800a */ 	lui	$v0,%hi(var8009d0f0)
-/*  f010b3c:	ac20d0d8 */ 	sw	$zero,-0x2f28($at)
+/*  f010b3c:	ac20d0d8 */ 	sw	$zero,%lo(var8009d0d8)($at)
 /*  f010b40:	2442d0f0 */ 	addiu	$v0,$v0,%lo(var8009d0f0)
 /*  f010b44:	2463d0e0 */ 	addiu	$v1,$v1,%lo(var8009d0e0)
 .L0f010b48:

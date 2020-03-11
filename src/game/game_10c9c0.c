@@ -131,8 +131,8 @@ bool menudialog4MbMainMenu(u32 operation, struct menu_dialog *dialog, struct men
 		g_Vars.unk000497 = 0;
 	}
 
-	if (g_MenuStack[g_MpPlayerNum].unk00 &&
-			g_MenuStack[g_MpPlayerNum].unk00->dialog == &g_4MbMainMenu &&
+	if (g_MenuStack[g_MpPlayerNum].unk4f8 &&
+			g_MenuStack[g_MpPlayerNum].unk4f8->dialog == &g_4MbMainMenu &&
 			operation == MENUOP_102) {
 		g_Vars.unk000490 = 2;
 		g_Vars.mpquickteam = MPQUICKTEAM_5;

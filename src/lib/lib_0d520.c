@@ -972,7 +972,7 @@ glabel func0000db3c
 /*     e070:	ae56031c */ 	sw	$s6,0x31c($s2)
 .L0000e074:
 /*     e074:	8e4f0298 */ 	lw	$t7,0x298($s2)
-/*     e078:	3c01800b */ 	lui	$at,0x800b
+/*     e078:	3c01800b */ 	lui	$at,%hi(g_MpSetup+0x16)
 /*     e07c:	05e10004 */ 	bgez	$t7,.L0000e090
 /*     e080:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e084:	8e48029c */ 	lw	$t0,0x29c($s2)
@@ -980,7 +980,7 @@ glabel func0000db3c
 /*     e08c:	8e4a0470 */ 	lw	$t2,0x470($s2)
 .L0000e090:
 /*     e090:	0fc61e51 */ 	jal	func0f187944
-/*     e094:	a429cb9e */ 	sh	$t1,-0x3462($at)
+/*     e094:	a429cb9e */ 	sh	$t1,%lo(g_MpSetup+0x16)($at)
 /*     e098:	10000033 */ 	beqz	$zero,.L0000e168
 /*     e09c:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e0a0:	8e4a0470 */ 	lw	$t2,0x470($s2)
@@ -1008,8 +1008,8 @@ glabel func0000db3c
 /*     e0f0:	1040001d */ 	beqz	$v0,.L0000e168
 /*     e0f4:	240d0001 */ 	addiu	$t5,$zero,0x1
 .L0000e0f8:
-/*     e0f8:	3c01800b */ 	lui	$at,0x800b
-/*     e0fc:	a42dcb9e */ 	sh	$t5,-0x3462($at)
+/*     e0f8:	3c01800b */ 	lui	$at,%hi(g_MpSetup+0x16)
+/*     e0fc:	a42dcb9e */ 	sh	$t5,%lo(g_MpSetup+0x16)($at)
 /*     e100:	2a210002 */ 	slti	$at,$s1,0x2
 /*     e104:	14200006 */ 	bnez	$at,.L0000e120
 /*     e108:	3c0a8006 */ 	lui	$t2,%hi(g_StageNum)
@@ -1029,16 +1029,16 @@ glabel func0000db3c
 .L0000e13c:
 /*     e13c:	2a210004 */ 	slti	$at,$s1,0x4
 /*     e140:	14200005 */ 	bnez	$at,.L0000e158
-/*     e144:	3c08800b */ 	lui	$t0,0x800b
-/*     e148:	9508cb9e */ 	lhu	$t0,-0x3462($t0)
-/*     e14c:	3c01800b */ 	lui	$at,0x800b
+/*     e144:	3c08800b */ 	lui	$t0,%hi(g_MpSetup+0x16)
+/*     e148:	9508cb9e */ 	lhu	$t0,%lo(g_MpSetup+0x16)($t0)
+/*     e14c:	3c01800b */ 	lui	$at,%hi(g_MpSetup+0x16)
 /*     e150:	35090008 */ 	ori	$t1,$t0,0x8
-/*     e154:	a429cb9e */ 	sh	$t1,-0x3462($at)
+/*     e154:	a429cb9e */ 	sh	$t1,%lo(g_MpSetup+0x16)($at)
 .L0000e158:
 /*     e158:	8d4ad9b4 */ 	lw	$t2,%lo(g_StageNum)($t2)
-/*     e15c:	3c01800b */ 	lui	$at,0x800b
+/*     e15c:	3c01800b */ 	lui	$at,%hi(g_MpSetup+0x11)
 /*     e160:	0fc61e51 */ 	jal	func0f187944
-/*     e164:	a02acb99 */ 	sb	$t2,-0x3467($at)
+/*     e164:	a02acb99 */ 	sb	$t2,%lo(g_MpSetup+0x11)($at)
 .L0000e168:
 /*     e168:	0fc59cd4 */ 	jal	func0f167350
 /*     e16c:	00000000 */ 	sll	$zero,$zero,0x0

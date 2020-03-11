@@ -75,8 +75,8 @@ glabel func0f176ddc
 /*  f176de4:	24042710 */ 	addiu	$a0,$zero,0x2710
 /*  f176de8:	0c0048f2 */ 	jal	malloc
 /*  f176dec:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f176df0:	3c01800b */ 	lui	$at,0x800b
-/*  f176df4:	ac22c0d0 */ 	sw	$v0,-0x3f30($at)
+/*  f176df0:	3c01800b */ 	lui	$at,%hi(var800ac0d0)
+/*  f176df4:	ac22c0d0 */ 	sw	$v0,%lo(var800ac0d0)($at)
 /*  f176df8:	0fc5db69 */ 	jal	func0f176da4
 /*  f176dfc:	24043900 */ 	addiu	$a0,$zero,0x3900
 /*  f176e00:	afa20018 */ 	sw	$v0,0x18($sp)
@@ -1003,11 +1003,11 @@ glabel func0f177a54
 /*  f177b4c:	2401ffff */ 	addiu	$at,$zero,-1
 /*  f177b50:	14610003 */ 	bne	$v1,$at,.L0f177b60
 /*  f177b54:	3c04800b */ 	lui	$a0,%hi(var800ac108)
-/*  f177b58:	3c01800b */ 	lui	$at,0x800b
-/*  f177b5c:	ac20c108 */ 	sw	$zero,-0x3ef8($at)
+/*  f177b58:	3c01800b */ 	lui	$at,%hi(var800ac108)
+/*  f177b5c:	ac20c108 */ 	sw	$zero,%lo(var800ac108)($at)
 .L0f177b60:
 /*  f177b60:	8c84c108 */ 	lw	$a0,%lo(var800ac108)($a0)
-/*  f177b64:	3c01800b */ 	lui	$at,0x800b
+/*  f177b64:	3c01800b */ 	lui	$at,%hi(var800ac108)
 /*  f177b68:	00c43821 */ 	addu	$a3,$a2,$a0
 /*  f177b6c:	90ee0000 */ 	lbu	$t6,0x0($a3)
 /*  f177b70:	55c0000b */ 	bnezl	$t6,.L0f177ba0
@@ -1028,7 +1028,7 @@ glabel func0f177a54
 /*  f177ba4:	90e20000 */ 	lbu	$v0,0x0($a3)
 /*  f177ba8:	24840001 */ 	addiu	$a0,$a0,0x1
 /*  f177bac:	03e00008 */ 	jr	$ra
-/*  f177bb0:	ac24c108 */ 	sw	$a0,-0x3ef8($at)
+/*  f177bb0:	ac24c108 */ 	sw	$a0,%lo(var800ac108)($at)
 );
 
 GLOBAL_ASM(

@@ -405,9 +405,9 @@ glabel func0f1360e8
 /*  f1361b4:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f1361b8:	ad0d0000 */ 	sw	$t5,0x0($t0)
 /*  f1361bc:	240e0640 */ 	addiu	$t6,$zero,0x640
-/*  f1361c0:	3c01800a */ 	lui	$at,0x800a
+/*  f1361c0:	3c01800a */ 	lui	$at,%hi(var800a4150)
 /*  f1361c4:	10000018 */ 	beqz	$zero,.L0f136228
-/*  f1361c8:	ac2e4150 */ 	sw	$t6,0x4150($at)
+/*  f1361c8:	ac2e4150 */ 	sw	$t6,%lo(var800a4150)($at)
 .L0f1361cc:
 /*  f1361cc:	24010030 */ 	addiu	$at,$zero,0x30
 /*  f1361d0:	10410003 */ 	beq	$v0,$at,.L0f1361e0
@@ -415,8 +415,8 @@ glabel func0f1360e8
 /*  f1361d8:	24010022 */ 	addiu	$at,$zero,0x22
 /*  f1361dc:	14410005 */ 	bne	$v0,$at,.L0f1361f4
 .L0f1361e0:
-/*  f1361e0:	3c01800a */ 	lui	$at,0x800a
-/*  f1361e4:	ac2f4150 */ 	sw	$t7,0x4150($at)
+/*  f1361e0:	3c01800a */ 	lui	$at,%hi(var800a4150)
+/*  f1361e4:	ac2f4150 */ 	sw	$t7,%lo(var800a4150)($at)
 /*  f1361e8:	24180002 */ 	addiu	$t8,$zero,0x2
 /*  f1361ec:	1000000e */ 	beqz	$zero,.L0f136228
 /*  f1361f0:	ac780000 */ 	sw	$t8,0x0($v1)
@@ -427,12 +427,12 @@ glabel func0f1360e8
 /*  f136200:	24190001 */ 	addiu	$t9,$zero,0x1
 /*  f136204:	ad190000 */ 	sw	$t9,0x0($t0)
 /*  f136208:	240904b0 */ 	addiu	$t1,$zero,0x4b0
-/*  f13620c:	3c01800a */ 	lui	$at,0x800a
+/*  f13620c:	3c01800a */ 	lui	$at,%hi(var800a4150)
 /*  f136210:	10000005 */ 	beqz	$zero,.L0f136228
-/*  f136214:	ac294150 */ 	sw	$t1,0x4150($at)
+/*  f136214:	ac294150 */ 	sw	$t1,%lo(var800a4150)($at)
 .L0f136218:
-/*  f136218:	3c01800a */ 	lui	$at,0x800a
-/*  f13621c:	ac2a4150 */ 	sw	$t2,0x4150($at)
+/*  f136218:	3c01800a */ 	lui	$at,%hi(var800a4150)
+/*  f13621c:	ac2a4150 */ 	sw	$t2,%lo(var800a4150)($at)
 /*  f136220:	240b0002 */ 	addiu	$t3,$zero,0x2
 /*  f136224:	ac6b0000 */ 	sw	$t3,0x0($v1)
 .L0f136228:
@@ -509,10 +509,10 @@ glabel func0f1360e8
 /*  f13633c:	8c8c0000 */ 	lw	$t4,0x0($a0)
 .L0f136340:
 /*  f136340:	00035880 */ 	sll	$t3,$v1,0x2
-/*  f136344:	3c01800a */ 	lui	$at,0x800a
+/*  f136344:	3c01800a */ 	lui	$at,%hi(var800a4154)
 /*  f136348:	016c7021 */ 	addu	$t6,$t3,$t4
 /*  f13634c:	0fc4d71c */ 	jal	func0f135c70
-/*  f136350:	ac2e4154 */ 	sw	$t6,0x4154($at)
+/*  f136350:	ac2e4154 */ 	sw	$t6,%lo(var800a4154)($at)
 /*  f136354:	3c0d800a */ 	lui	$t5,%hi(var800a4150)
 /*  f136358:	8dad4150 */ 	lw	$t5,%lo(var800a4150)($t5)
 /*  f13635c:	3c013f80 */ 	lui	$at,0x3f80

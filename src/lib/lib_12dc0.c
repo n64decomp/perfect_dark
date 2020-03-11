@@ -162,9 +162,9 @@ glabel func00012f30
 /*    12f50:	3631ff00 */ 	ori	$s1,$s1,0xff00
 /*    12f54:	10400004 */ 	beqz	$v0,.L00012f68
 /*    12f58:	3c10800a */ 	lui	$s0,%hi(var80099880)
-/*    12f5c:	3c01800a */ 	lui	$at,0x800a
+/*    12f5c:	3c01800a */ 	lui	$at,%hi(var80099880)
 /*    12f60:	1000000a */ 	beqz	$zero,.L00012f8c
-/*    12f64:	ac209880 */ 	sw	$zero,-0x6780($at)
+/*    12f64:	ac209880 */ 	sw	$zero,%lo(var80099880)($at)
 .L00012f68:
 /*    12f68:	3c12800a */ 	lui	$s2,%hi(var800998f8)
 /*    12f6c:	265298f8 */ 	addiu	$s2,$s2,%lo(var800998f8)

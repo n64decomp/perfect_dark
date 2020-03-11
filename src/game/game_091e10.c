@@ -85,13 +85,13 @@ glabel setupGetPtrToCommandByIndex
 /*  f092004:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f092008:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f09200c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f092010:	3c11800a */ 	lui	$s1,0x800a
+/*  f092010:	3c11800a */ 	lui	$s1,%hi(g_StageSetup+0x10)
 /*  f092014:	00809825 */ 	or	$s3,$a0,$zero
 /*  f092018:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f09201c:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*  f092020:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f092024:	04800014 */ 	bltz	$a0,.L0f092078
-/*  f092028:	8e31d040 */ 	lw	$s1,-0x2fc0($s1)
+/*  f092028:	8e31d040 */ 	lw	$s1,%lo(g_StageSetup+0x10)($s1)
 /*  f09202c:	52200013 */ 	beqzl	$s1,.L0f09207c
 /*  f092030:	00001025 */ 	or	$v0,$zero,$zero
 /*  f092034:	922e0003 */ 	lbu	$t6,0x3($s1)
@@ -129,8 +129,8 @@ GLOBAL_ASM(
 glabel func0f092098
 /*  f092098:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f09209c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f0920a0:	3c10800a */ 	lui	$s0,0x800a
-/*  f0920a4:	8e10d040 */ 	lw	$s0,-0x2fc0($s0)
+/*  f0920a0:	3c10800a */ 	lui	$s0,%hi(g_StageSetup+0x10)
+/*  f0920a4:	8e10d040 */ 	lw	$s0,%lo(g_StageSetup+0x10)($s0)
 /*  f0920a8:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f0920ac:	00809825 */ 	or	$s3,$a0,$zero
 /*  f0920b0:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -172,8 +172,8 @@ GLOBAL_ASM(
 glabel func0f092124
 /*  f092124:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f092128:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f09212c:	3c10800a */ 	lui	$s0,0x800a
-/*  f092130:	8e10d040 */ 	lw	$s0,-0x2fc0($s0)
+/*  f09212c:	3c10800a */ 	lui	$s0,%hi(g_StageSetup+0x10)
+/*  f092130:	8e10d040 */ 	lw	$s0,%lo(g_StageSetup+0x10)($s0)
 /*  f092134:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f092138:	00809825 */ 	or	$s3,$a0,$zero
 /*  f09213c:	afbf0024 */ 	sw	$ra,0x24($sp)
@@ -420,8 +420,8 @@ GLOBAL_ASM(
 glabel func0f092484
 /*  f092484:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f092488:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f09248c:	3c10800a */ 	lui	$s0,0x800a
-/*  f092490:	8e10d040 */ 	lw	$s0,-0x2fc0($s0)
+/*  f09248c:	3c10800a */ 	lui	$s0,%hi(g_StageSetup+0x10)
+/*  f092490:	8e10d040 */ 	lw	$s0,%lo(g_StageSetup+0x10)($s0)
 /*  f092494:	afb70034 */ 	sw	$s7,0x34($sp)
 /*  f092498:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f09249c:	afb20020 */ 	sw	$s2,0x20($sp)

@@ -562,8 +562,8 @@ glabel func0004453c
 /*    44598:	14400006 */ 	bnez	$v0,.L000445b4
 /*    4459c:	00000000 */ 	sll	$zero,$zero,0x0
 /*    445a0:	240c0003 */ 	addiu	$t4,$zero,0x3
-/*    445a4:	3c01800a */ 	lui	$at,0x800a
-/*    445a8:	ac2cc3e0 */ 	sw	$t4,-0x3c20($at)
+/*    445a4:	3c01800a */ 	lui	$at,%hi(var8009c3e0)
+/*    445a8:	ac2cc3e0 */ 	sw	$t4,%lo(var8009c3e0)($at)
 /*    445ac:	10000024 */ 	beqz	$zero,.L00044640
 /*    445b0:	00001025 */ 	or	$v0,$zero,$zero
 .L000445b4:

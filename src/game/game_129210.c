@@ -19,8 +19,8 @@
 GLOBAL_ASM(
 glabel func0f129210
 /*  f129210:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f129214:	3c0e800a */ 	lui	$t6,0x800a
-/*  f129218:	8dcea2fc */ 	lw	$t6,-0x5d04($t6)
+/*  f129214:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x33c)
+/*  f129218:	8dcea2fc */ 	lw	$t6,%lo(g_Vars+0x33c)($t6)
 /*  f12921c:	afbe0038 */ 	sw	$s8,0x38($sp)
 /*  f129220:	afb70034 */ 	sw	$s7,0x34($sp)
 /*  f129224:	0080b825 */ 	or	$s7,$a0,$zero
