@@ -4,7 +4,7 @@
 #include "types.h"
 
 void func0f01bea0(void);
-u32 func0f01bee0(void);
+void menuCountDialogs(void);
 u32 func0f01bf28(void);
 
 #endif
