@@ -82,40 +82,6 @@ const char var7f1b326c[] = "COULDNT GET THE RAM!\n";
 const char var7f1b3284[] = "Saving...\n";
 const char var7f1b3290[] = "%s";
 const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
-const char var7f1b32d8[] = "%s\n";
-const char var7f1b32dc[] = "SetFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
-const char var7f1b3320[] = "CheckFileName: Comparing range %d-%d\n";
-const char var7f1b3348[] = "Compare '%s' to '%s' = %d\n";
-const char var7f1b3364[] = "OI! DUPLICATE FILE NAME! NO!\n";
-const char var7f1b3384[] = "()()()()()() Writing MPLAYER\n";
-const char var7f1b33a4[] = "()()()()()() Writing MGAME\n";
-const char var7f1b33c0[] = "Write Attempt Made...\n";
-const char var7f1b33d8[] = "decided location: %d\n";
-const char var7f1b33f0[] = "%s\n";
-const char var7f1b33f4[] = "\n";
-const char var7f1b33f8[] = "%d";
-const char var7f1b33fc[] = "GOT OKed!, item->data = %d\n";
-const char var7f1b3418[] = "GOT CANCELLED!\n";
-const char var7f1b3428[] = "Picking Location, type %d wadtype %d wad %d\n";
-const char var7f1b3458[] = "Torching file %d\n";
-const char var7f1b346c[] = "Copying file %d\n";
-const char var7f1b3480[] = "item: %x\n";
-const char var7f1b348c[] = "Switched Wads Back\n";
-const char var7f1b34a0[] = "MenuClosed\n";
-const char var7f1b34ac[] = "Deleting files, wad %d\n";
-const char var7f1b34c4[] = "%d:\n";
-const char var7f1b34cc[] = "%s\n";
-const char var7f1b34d0[] = "%s\n";
-const char var7f1b34d4[] = "%d\n";
-const char var7f1b34d8[] = "";
-const char var7f1b34dc[] = "GOT OKed!\n";
-const char var7f1b34e8[] = "Try to find last opened file...\n";
-const char var7f1b350c[] = "%s %s";
-const char var7f1b3514[] = "\n";
-const char var7f1b3518[] = "%s %d:%02d:%02d";
-const char var7f1b3528[] = "%s %02d:%02d";
-const char var7f1b3538[] = ".%02d";
-const char var7f1b3540[] = "%s %d\n";
 
 GLOBAL_ASM(
 glabel func0f107fb0
@@ -2267,140 +2233,71 @@ glabel var7f1b3710
 /*  f109bb0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f109bb4
-.late_rodata
-glabel var7f1b3714
-.word func0f109bb4+0x60 # f109c14
-glabel var7f1b3718
-.word func0f109bb4+0x78 # f109c2c
-glabel var7f1b371c
-.word func0f109bb4+0x78 # f109c2c
-glabel var7f1b3720
-.word func0f109bb4+0x78 # f109c2c
-glabel var7f1b3724
-.word func0f109bb4+0x78 # f109c2c
-glabel var7f1b3728
-.word func0f109bb4+0xc8 # f109c7c
-glabel var7f1b372c
-.word func0f109bb4+0x8c # f109c40
-glabel var7f1b3730
-.word func0f109bb4+0xb8 # f109c6c
-glabel var7f1b3734
-.word func0f109bb4+0xc8 # f109c7c
-glabel var7f1b3738
-.word func0f109bb4+0x60 # f109c14
-glabel var7f1b373c
-.word func0f109bb4+0x60 # f109c14
-glabel var7f1b3740
-.word func0f109bb4+0x60 # f109c14
-glabel var7f1b3744
-.word func0f109bb4+0x8c # f109c40
-glabel var7f1b3748
-.word func0f109bb4+0xb8 # f109c6c
-glabel var7f1b374c
-.word func0f109bb4+0xc8 # f109c7c
-glabel var7f1b3750
-.word func0f109bb4+0x78 # f109c2c
-glabel var7f1b3754
-.word func0f109bb4+0x78 # f109c2c
-# Note: rodata continued in next function
-.text
-/*  f109bb4:	3c028007 */ 	lui	$v0,%hi(g_MpPlayerNum)
-/*  f109bb8:	8c421448 */ 	lw	$v0,%lo(g_MpPlayerNum)($v0)
-/*  f109bbc:	3c0f800a */ 	lui	$t7,0x800a
-/*  f109bc0:	25efe000 */ 	addiu	$t7,$t7,-8192
-/*  f109bc4:	000270c0 */ 	sll	$t6,$v0,0x3
-/*  f109bc8:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f109bcc:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f109bd0:	01c27021 */ 	addu	$t6,$t6,$v0
-/*  f109bd4:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f109bd8:	01c27023 */ 	subu	$t6,$t6,$v0
-/*  f109bdc:	000e7100 */ 	sll	$t6,$t6,0x4
-/*  f109be0:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f109be4:	90780e3e */ 	lbu	$t8,0xe3e($v1)
-/*  f109be8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f109bec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f109bf0:	2f010012 */ 	sltiu	$at,$t8,0x12
-/*  f109bf4:	10200021 */ 	beqz	$at,.L0f109c7c
-/*  f109bf8:	00803025 */ 	or	$a2,$a0,$zero
-/*  f109bfc:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f109c00:	3c017f1b */ 	lui	$at,%hi(var7f1b3714)
-/*  f109c04:	00380821 */ 	addu	$at,$at,$t8
-/*  f109c08:	8c383714 */ 	lw	$t8,%lo(var7f1b3714)($at)
-/*  f109c0c:	03000008 */ 	jr	$t8
-/*  f109c10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f109c14:	3c04800a */ 	lui	$a0,%hi(g_SoloSaveFile)
-/*  f109c18:	24842200 */ 	addiu	$a0,$a0,%lo(g_SoloSaveFile)
-/*  f109c1c:	0c004c4c */ 	jal	strcpy
-/*  f109c20:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f109c24:	10000016 */ 	beqz	$zero,.L0f109c80
-/*  f109c28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f109c2c:	24640e53 */ 	addiu	$a0,$v1,0xe53
-/*  f109c30:	0c004c4c */ 	jal	strcpy
-/*  f109c34:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f109c38:	10000011 */ 	beqz	$zero,.L0f109c80
-/*  f109c3c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f109c40:	0002c880 */ 	sll	$t9,$v0,0x2
-/*  f109c44:	0322c821 */ 	addu	$t9,$t9,$v0
-/*  f109c48:	3c08800b */ 	lui	$t0,%hi(g_MpPlayers)
-/*  f109c4c:	2508c7b8 */ 	addiu	$t0,$t0,%lo(g_MpPlayers)
-/*  f109c50:	0019c940 */ 	sll	$t9,$t9,0x5
-/*  f109c54:	3c057f1b */ 	lui	$a1,%hi(var7f1b32d8)
-/*  f109c58:	24a532d8 */ 	addiu	$a1,$a1,%lo(var7f1b32d8)
-/*  f109c5c:	0c004dad */ 	jal	sprintf
-/*  f109c60:	03282021 */ 	addu	$a0,$t9,$t0
-/*  f109c64:	10000006 */ 	beqz	$zero,.L0f109c80
-/*  f109c68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f109c6c:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f109c70:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f109c74:	0c004c4c */ 	jal	strcpy
-/*  f109c78:	00c02825 */ 	or	$a1,$a2,$zero
-.L0f109c7c:
-/*  f109c7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f109c80:
-/*  f109c80:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f109c84:	03e00008 */ 	jr	$ra
-/*  f109c88:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f109bb4(char *name)
+{
+	switch (g_MenuStack[g_MpPlayerNum].unke3e) {
+	case 0:
+	case 9:
+	case 10:
+	case 11:
+		strcpy(g_SoloSaveFile.name, name);
+		break;
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 15:
+	case 16:
+	case 17:
+		strcpy(g_MenuStack[g_MpPlayerNum].unke53, name);
+		break;
+	case 12:
+	case 6:
+		sprintf(g_MpPlayers[g_MpPlayerNum].base.name, "%s\n", name);
+		break;
+	case 7:
+	case 13:
+		strcpy(g_MpSetup.namebuffer, name);
+		break;
+	}
+}
 
-// Mismatch because game calculates address of g_MenuStack differently
-//void func0f109bb4(char *name)
-//{
-//	switch (g_MenuStack[g_MpPlayerNum].unke3e) {
-//	case 0:
-//	case 9:
-//	case 10:
-//	case 11:
-//		strcpy(g_SoloSaveFile.name, name);
-//		break;
-//	case 1:
-//	case 2:
-//	case 3:
-//	case 4:
-//	case 15:
-//	case 16:
-//	case 17:
-//		strcpy(g_MenuStack[g_MpPlayerNum].unke53, name);
-//		break;
-//	case 12:
-//	case 6:
-//		sprintf(g_MpPlayers[g_MpPlayerNum].base.name, "%s\n", name);
-//		break;
-//	case 7:
-//	case 13:
-//		strcpy(g_MpSetup.namebuffer, name);
-//		break;
-//	}
-//}
+const char var7f1b32dc[] = "SetFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
+const char var7f1b3320[] = "CheckFileName: Comparing range %d-%d\n";
+const char var7f1b3348[] = "Compare '%s' to '%s' = %d\n";
+const char var7f1b3364[] = "OI! DUPLICATE FILE NAME! NO!\n";
+const char var7f1b3384[] = "()()()()()() Writing MPLAYER\n";
+const char var7f1b33a4[] = "()()()()()() Writing MGAME\n";
+const char var7f1b33c0[] = "Write Attempt Made...\n";
+const char var7f1b33d8[] = "decided location: %d\n";
+const char var7f1b33f0[] = "%s\n";
+const char var7f1b33f4[] = "\n";
+const char var7f1b33f8[] = "%d";
+const char var7f1b33fc[] = "GOT OKed!, item->data = %d\n";
+const char var7f1b3418[] = "GOT CANCELLED!\n";
+const char var7f1b3428[] = "Picking Location, type %d wadtype %d wad %d\n";
+const char var7f1b3458[] = "Torching file %d\n";
+const char var7f1b346c[] = "Copying file %d\n";
+const char var7f1b3480[] = "item: %x\n";
+const char var7f1b348c[] = "Switched Wads Back\n";
+const char var7f1b34a0[] = "MenuClosed\n";
+const char var7f1b34ac[] = "Deleting files, wad %d\n";
+const char var7f1b34c4[] = "%d:\n";
+const char var7f1b34cc[] = "%s\n";
+const char var7f1b34d0[] = "%s\n";
+const char var7f1b34d4[] = "%d\n";
+const char var7f1b34d8[] = "";
+const char var7f1b34dc[] = "GOT OKed!\n";
+const char var7f1b34e8[] = "Try to find last opened file...\n";
+const char var7f1b350c[] = "%s %s";
+const char var7f1b3514[] = "\n";
+const char var7f1b3518[] = "%s %d:%02d:%02d";
+const char var7f1b3528[] = "%s %02d:%02d";
+const char var7f1b3538[] = ".%02d";
+const char var7f1b3540[] = "%s %d\n";
 
 GLOBAL_ASM(
 glabel func0f109c8c
-# Note: rodata continues from above function
-.late_rodata
-glabel var7f1b3758
-.word func0f109bb4+0x78 # f109c2c
-.text
 /*  f109c8c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f109c90:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f109c94:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0xe3f)
