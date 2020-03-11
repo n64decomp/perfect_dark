@@ -2787,78 +2787,25 @@ glabel func0f10a2ec
 /*  f10a3a0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerSaveLocation
-/*  f10a3a4:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10a3a8:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10a3ac:	3c18800a */ 	lui	$t8,0x800a
-/*  f10a3b0:	2718e000 */ 	addiu	$t8,$t8,-8192
-/*  f10a3b4:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10a3b8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10a3bc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10a3c0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10a3c4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10a3c8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10a3cc:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10a3d0:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f10a3d4:	90590e3f */ 	lbu	$t9,0xe3f($v0)
-/*  f10a3d8:	3c038007 */ 	lui	$v1,%hi(g_SaveLocations)
-/*  f10a3dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10a3e0:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f10a3e4:	00681821 */ 	addu	$v1,$v1,$t0
-/*  f10a3e8:	8c635bc0 */ 	lw	$v1,%lo(g_SaveLocations)($v1)
-/*  f10a3ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10a3f0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10a3f4:	14600003 */ 	bnez	$v1,.L0f10a404
-/*  f10a3f8:	2401000c */ 	addiu	$at,$zero,0xc
-/*  f10a3fc:	10000011 */ 	beqz	$zero,.L0f10a444
-/*  f10a400:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10a404:
-/*  f10a404:	54810009 */ 	bnel	$a0,$at,.L0f10a42c
-/*  f10a408:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10a40c:	90a90001 */ 	lbu	$t1,0x1($a1)
-/*  f10a410:	00695021 */ 	addu	$t2,$v1,$t1
-/*  f10a414:	814b02d2 */ 	lb	$t3,0x2d2($t2)
-/*  f10a418:	5d600004 */ 	bgtzl	$t3,.L0f10a42c
-/*  f10a41c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10a420:	10000008 */ 	beqz	$zero,.L0f10a444
-/*  f10a424:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f10a428:	24010006 */ 	addiu	$at,$zero,0x6
-.L0f10a42c:
-/*  f10a42c:	54810005 */ 	bnel	$a0,$at,.L0f10a444
-/*  f10a430:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10a434:	90ac0001 */ 	lbu	$t4,0x1($a1)
-/*  f10a438:	0fc427b1 */ 	jal	func0f109ec4
-/*  f10a43c:	a04c0e52 */ 	sb	$t4,0xe52($v0)
-/*  f10a440:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10a444:
-/*  f10a444:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10a448:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10a44c:	03e00008 */ 	jr	$ra
-/*  f10a450:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerSaveLocation(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (g_SaveLocations[g_MenuStack[g_MpPlayerNum].unke3f] == NULL) {
+		return 0;
+	}
 
-// Mismatch because the game's code calculates g_MenuStack by loading a lower
-// number into %hi then compensating with a larger number in %lo.
-//s32 menuhandlerSaveLocation(u32 operation, struct menu_item *item, s32 *value)
-//{
-//	if (g_SaveLocations[g_MenuStack[g_MpPlayerNum].unke3f] == NULL) {
-//		return 0;
-//	}
-//
-//	if (operation == MENUOP_CHECKDISABLED) {
-//		if (g_SaveLocations[g_MenuStack[g_MpPlayerNum].unke3f]->unk2d2[item->param] < 1) {
-//			return true;
-//		}
-//	}
-//
-//	if (operation == MENUOP_SET) {
-//		g_MenuStack[g_MpPlayerNum].unk95a = item->param;
-//		func0f109ec4();
-//	}
-//
-//	return 0;
-//}
+	if (operation == MENUOP_CHECKDISABLED) {
+		if (g_SaveLocations[g_MenuStack[g_MpPlayerNum].unke3f]->unk2d2[item->param] < 1) {
+			return true;
+		}
+	}
+
+	if (operation == MENUOP_SET) {
+		g_MenuStack[g_MpPlayerNum].unke52 = item->param;
+		func0f109ec4();
+	}
+
+	return 0;
+}
 
 s32 menuhandlerPakCancelSave(u32 operation, struct menu_item *item, s32 *value)
 {
