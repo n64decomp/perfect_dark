@@ -10,6 +10,8 @@ s32 func000018ac(void);
 void func00001b28(u32 arg0);
 s32 func00001e30(void);
 s32 func00001fa8(void);
+s32 func00002078(void);
+s32 func00002148(void);
 s32 func00002148(void);
 s32 func000022e0(void);
 s32 func00002ff0(void);

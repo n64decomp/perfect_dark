@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "boot/boot.h"
 #include "game/cheats.h"
 #include "game/chr/chraction.h"
 #include "game/data/data_000000.h"
@@ -11454,6 +11455,52 @@ glabel var7f1a8948
 /*  f02876c:	03e00008 */ 	jr	$ra
 /*  f028770:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
+
+// Mismatch due to not storing 0.75f in rodata
+// and suspected ASM hack in piracy check.
+//void func0f028590(f32 arg0)
+//{
+//	s32 i;
+//	f32 add = 0.75f;
+//
+//	for (i = 0; i < g_NumChrsA; i++) {
+//		if (g_ChrsA[i].animdata) {
+//			struct prop *prop = g_ChrsA[i].prop;
+//
+//			if (prop && prop->type == PROPTYPE_CHR &&
+//					chrGetTargetProp(&g_ChrsA[i]) == g_Vars.currentplayer->prop) {
+//
+//				f32 distance = chrGetDistanceToCurrentPlayer(&g_ChrsA[i]);
+//
+//				if (distance == 0) {
+//					distance = 2;
+//				} else {
+//					distance = (arg0 * 100 * g_ChrsA[i].hearingscale * (1.0f + add)) / distance;
+//				}
+//
+//				if (distance > 1.0f) {
+//					chrRecordLastHearTargetTime(&g_ChrsA[i]);
+//#if PIRACYCHECKS
+//					{
+//						s32 *i = (s32 *)&func00002078;
+//						s32 *end = (s32 *)&func00002148;
+//						u32 checksum = 0;
+//
+//						while (i < end) {
+//							checksum = *i + 2 * checksum;
+//							i++;
+//						}
+//
+//						if (checksum != 0xe1ab0f90) {
+//							g_Bodies[BODY_SKEDARKING].bodyfileid = 0;
+//						}
+//					}
+//#endif
+//				}
+//			}
+//		}
+//	}
+//}
 
 struct chrdata *chrFindByLiteralId(s32 chrnum)
 {
