@@ -766,6 +766,18 @@
 #define MENUOP_101             101
 #define MENUOP_102             102
 
+#define MENUROOT_SOLOENDSCREEN 1
+#define MENUROOT_SOLOPAUSE     2
+#define MENUROOT_COMBATSIM     3
+#define MENUROOT_MPPAUSE       4
+#define MENUROOT_MPENDSCREEN   5
+#define MENUROOT_FILESELECT    6
+#define MENUROOT_BOOTPAKMGR    7
+#define MENUROOT_9             9
+#define MENUROOT_10            10
+#define MENUROOT_4MBMAINMENU   11
+#define MENUROOT_TRAINING      13
+
 // Models
 #define MODEL_ROOFGUN               0x0000
 #define MODEL_GROUNDGUN             0x0001

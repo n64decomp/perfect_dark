@@ -221,11 +221,11 @@ void optionsSetHeadRoll(s32 mpchrnum, bool enable)
 
 s32 optionsGetEffectiveScreenSize(void)
 {
-	if (g_Is4Mb == 1) {
+	if (g_Is4Mb == true) {
 		return SCREENSIZE_FULL;
 	}
 
-	if (var800a19c4 == 13) {
+	if (g_MenuRoot == MENUROOT_TRAINING) {
 		g_MpPlayerNum = 0;
 
 		if (g_MenuStack[g_MpPlayerNum].unk4f8 && var8009dfc0) {
@@ -240,7 +240,7 @@ s32 optionsGetEffectiveScreenSize(void)
 		return SCREENSIZE_FULL;
 	}
 
-	if (PLAYERCOUNT() >= 2 || var800a19c4 == 3) {
+	if (PLAYERCOUNT() >= 2 || g_MenuRoot == MENUROOT_COMBATSIM) {
 		return SCREENSIZE_FULL;
 	}
 
