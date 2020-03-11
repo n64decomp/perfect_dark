@@ -4427,70 +4427,18 @@ glabel menudialog0010ba10
 /*  f10bb34:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerOpenCopyFile
-/*  f10bb38:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10bb3c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10bb40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10bb44:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f10bb48:	14810023 */ 	bne	$a0,$at,.L0f10bbd8
-/*  f10bb4c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f10bb50:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
-/*  f10bb54:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f10bb58:	90ae0001 */ 	lbu	$t6,0x1($a1)
-/*  f10bb5c:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe1c)
-/*  f10bb60:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/*  f10bb64:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10bb68:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f10bb6c:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f10bb70:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f10bb74:	0338c823 */ 	subu	$t9,$t9,$t8
-/*  f10bb78:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f10bb7c:	00390821 */ 	addu	$at,$at,$t9
-/*  f10bb80:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f10bb84:	ac2fee1c */ 	sw	$t7,%lo(g_MenuStack+0xe1c)($at)
-/*  f10bb88:	90a50001 */ 	lbu	$a1,0x1($a1)
-/*  f10bb8c:	0fc44317 */ 	jal	func0f110c5c
-/*  f10bb90:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10bb94:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f10bb98:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
-/*  f10bb9c:	3c0a800a */ 	lui	$t2,0x800a
-/*  f10bba0:	254ae000 */ 	addiu	$t2,$t2,-8192
-/*  f10bba4:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f10bba8:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10bbac:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f10bbb0:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f10bbb4:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f10bbb8:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f10bbbc:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f10bbc0:	012a1021 */ 	addu	$v0,$t1,$t2
-/*  f10bbc4:	3c048007 */ 	lui	$a0,%hi(menudialog_copyfile)
-/*  f10bbc8:	a0400e3f */ 	sb	$zero,0xe3f($v0)
-/*  f10bbcc:	ac400e28 */ 	sw	$zero,0xe28($v0)
-/*  f10bbd0:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f10bbd4:	24844a34 */ 	addiu	$a0,$a0,%lo(menudialog_copyfile)
-.L0f10bbd8:
-/*  f10bbd8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10bbdc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10bbe0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10bbe4:	03e00008 */ 	jr	$ra
-/*  f10bbe8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerOpenCopyFile(u32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		g_MenuStack[g_MpPlayerNum].slotindex = item->param + 1;
+		func0f110c5c(0, item->param);
+		g_MenuStack[g_MpPlayerNum].unke3f = 0;
+		g_MenuStack[g_MpPlayerNum].unke28 = 0;
+		menuPushDialog(&menudialog_copyfile);
+	}
 
-// Mismatch because the game's code calculates g_MenuStack by loading a lower
-// number into %hi then compensating with a larger number in %lo.
-//s32 menuhandlerOpenCopyFile(u32 operation, struct menu_item *item, s32 *value)
-//{
-//	if (operation == MENUOP_SET) {
-//		g_MenuStack[g_MpPlayerNum].slotindex = item->param + 1;
-//		func0f110c5c(0, item->param);
-//		g_MenuStack[g_MpPlayerNum].unke3f = 0;
-//		g_MenuStack[g_MpPlayerNum].unke28 = 0;
-//		menuPushDialog(&menudialog_copyfile);
-//	}
-//
-//	return 0;
-//}
+	return 0;
+}
 
 s32 menuhandlerOpenDeleteFile(u32 operation, struct menu_item *item, s32 *value)
 {
