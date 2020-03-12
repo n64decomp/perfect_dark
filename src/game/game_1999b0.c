@@ -732,15 +732,15 @@ u32 func0f19a2dc(u32 value)
 	}
 }
 
-u32 func0f19a31c(u32 value)
+u32 ammotypeGetWeapon(u32 ammotype)
 {
-	switch (value) {
-	case 18: return 31;
-	case 7:  return 30;
-	case 9:  return 26;
-	case 12: return 34;
-	case 13: return 33;
-	case 14: return 32;
+	switch (ammotype) {
+	case AMMOTYPE_NBOMB:       return WEAPON_NBOMB;
+	case AMMOTYPE_GRENADE:     return WEAPON_GRENADE;
+	case AMMOTYPE_KNIFE:       return WEAPON_COMBATKNIFE;
+	case AMMOTYPE_REMOTE_MINE: return WEAPON_REMOTEMINE;
+	case AMMOTYPE_PROXY_MINE:  return WEAPON_PROXIMITYMINE;
+	case AMMOTYPE_TIMED_MINE:  return WEAPON_TIMEDMINE;
 	}
 
 	return 0;

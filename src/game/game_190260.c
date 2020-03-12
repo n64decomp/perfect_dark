@@ -580,7 +580,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 						result = 2;
 					}
 				} else {
-					chrGiveWeapon(chr, prop);
+					aibotGiveProp(chr, prop);
 					result = 1;
 				}
 
@@ -851,7 +851,7 @@ glabel var7f1b8ea8
 .L0f190ed8:
 /*  f190ed8:	24500001 */ 	addiu	$s0,$v0,0x1
 /*  f190edc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f190ee0:	0fc668c7 */ 	jal	func0f19a31c
+/*  f190ee0:	0fc668c7 */ 	jal	ammotypeGetWeapon
 /*  f190ee4:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f190ee8:	8fa30028 */ 	lw	$v1,0x28($sp)
 /*  f190eec:	afa20068 */ 	sw	$v0,0x68($sp)
@@ -884,7 +884,7 @@ glabel var7f1b8ea8
 /*  f190f58:	0fc47bba */ 	jal	dprint
 /*  f190f5c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f190f60:	8fa4008c */ 	lw	$a0,0x8c($sp)
-/*  f190f64:	0fc65fdb */ 	jal	chrGiveWeapon
+/*  f190f64:	0fc65fdb */ 	jal	aibotGiveProp
 /*  f190f68:	8fa50088 */ 	lw	$a1,0x88($sp)
 /*  f190f6c:	10000006 */ 	beqz	$zero,.L0f190f88
 /*  f190f70:	8faa0064 */ 	lw	$t2,0x64($sp)
@@ -3862,7 +3862,7 @@ glabel var7f1b8f50
 /*  f193a90:	966d005e */ 	lhu	$t5,0x5e($s3)
 /*  f193a94:	59a0003f */ 	blezl	$t5,.L0f193b94
 /*  f193a98:	26940001 */ 	addiu	$s4,$s4,0x1
-/*  f193a9c:	0fc668c7 */ 	jal	func0f19a31c
+/*  f193a9c:	0fc668c7 */ 	jal	ammotypeGetWeapon
 /*  f193aa0:	02802025 */ 	or	$a0,$s4,$zero
 /*  f193aa4:	18400022 */ 	blez	$v0,.L0f193b30
 /*  f193aa8:	00008025 */ 	or	$s0,$zero,$zero

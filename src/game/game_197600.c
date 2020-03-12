@@ -671,7 +671,7 @@ s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum)
 }
 
 GLOBAL_ASM(
-glabel chrGiveWeapon
+glabel aibotGiveProp
 /*  f197f6c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f197f70:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f197f74:	00809825 */ 	or	$s3,$a0,$zero
@@ -720,7 +720,7 @@ glabel chrGiveWeapon
 /*  f198010:	9629005e */ 	lhu	$t1,0x5e($s1)
 /*  f198014:	59200008 */ 	blezl	$t1,.L0f198038
 /*  f198018:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19801c:	0fc668c7 */ 	jal	func0f19a31c
+/*  f19801c:	0fc668c7 */ 	jal	ammotypeGetWeapon
 /*  f198020:	26040001 */ 	addiu	$a0,$s0,0x1
 /*  f198024:	18400003 */ 	blez	$v0,.L0f198034
 /*  f198028:	00402825 */ 	or	$a1,$v0,$zero

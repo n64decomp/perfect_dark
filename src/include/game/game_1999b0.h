@@ -14,7 +14,7 @@ void aibotGiveAmmo(struct aibot *aibot, u32 ammotype, s32 quantity);
 u32 func0f199f84(void);
 bool func0f19a29c(u32 value, bool fallback);
 u32 func0f19a2dc(u32 value);
-u32 func0f19a31c(u32 value);
+u32 ammotypeGetWeapon(u32 ammotype);
 u32 func0f19a37c(void);
 u32 func0f19a60c(void);
 u32 func0f19a6d0(void);
