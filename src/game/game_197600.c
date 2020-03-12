@@ -595,7 +595,7 @@ glabel func0f197d94
 );
 
 GLOBAL_ASM(
-glabel func0f197e40
+glabel chrHasWeapon
 /*  f197e40:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f197e44:	10800004 */ 	beqz	$a0,.L0f197e58
 /*  f197e48:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -634,7 +634,7 @@ glabel func0f197e8c
 /*  f197eac:	10000011 */ 	beqz	$zero,.L0f197ef4
 /*  f197eb0:	00001025 */ 	or	$v0,$zero,$zero
 .L0f197eb4:
-/*  f197eb4:	0fc65f90 */ 	jal	func0f197e40
+/*  f197eb4:	0fc65f90 */ 	jal	chrHasWeapon
 /*  f197eb8:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f197ebc:	1440000c */ 	bnez	$v0,.L0f197ef0
 /*  f197ec0:	8fa40018 */ 	lw	$a0,0x18($sp)
@@ -660,7 +660,7 @@ glabel func0f197e8c
 );
 
 GLOBAL_ASM(
-glabel func0f197f04
+glabel chrGiveDualWeapon
 /*  f197f04:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f197f08:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f197f0c:	0fc65f3c */ 	jal	func0f197cf0
@@ -676,7 +676,7 @@ glabel func0f197f04
 );
 
 GLOBAL_ASM(
-glabel func0f197f30
+glabel chrGetWeaponPad
 /*  f197f30:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f197f34:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f197f38:	0fc65f3c */ 	jal	func0f197cf0
@@ -697,7 +697,7 @@ glabel func0f197f30
 );
 
 GLOBAL_ASM(
-glabel func0f197f6c
+glabel chrGiveWeapon
 /*  f197f6c:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f197f70:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f197f74:	00809825 */ 	or	$s3,$a0,$zero

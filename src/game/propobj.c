@@ -6089,7 +6089,7 @@ glabel setupParseObject
 /*  f06b348:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-void setupParseObjectWithArg2False(u32 *ptr, bool arg1)
+void setupParseObjectWithArg2False(void *ptr, bool arg1)
 {
 	setupParseObject(ptr, arg1, false);
 }
@@ -35815,7 +35815,7 @@ bool func0f085194(struct defaultobj *obj)
 {
 	switch (obj->type) {
 	case OBJTYPE_KEY:
-	case OBJTYPE_07:
+	case OBJTYPE_AMMOCRATE:
 	case OBJTYPE_WEAPON:
 	case OBJTYPE_11:
 	case OBJTYPE_MULTIAMMOCRATE:
@@ -38887,7 +38887,7 @@ void func0f087b0c(u32 arg0)
 }
 
 GLOBAL_ASM(
-glabel func0f087c0c
+glabel propPlayPickupSound
 /*  f087c0c:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f087c10:	2402001a */ 	addiu	$v0,$zero,0x1a
 /*  f087c14:	afbf0044 */ 	sw	$ra,0x44($sp)
@@ -39928,7 +39928,7 @@ glabel var7f1aae70
 /*  f088a54:	24010036 */ 	addiu	$at,$zero,0x36
 /*  f088a58:	8c4a00bc */ 	lw	$t2,0xbc($v0)
 /*  f088a5c:	8fa500a0 */ 	lw	$a1,0xa0($sp)
-/*  f088a60:	0fc61a26 */ 	jal	func0f186898
+/*  f088a60:	0fc61a26 */ 	jal	chrGiveBriefcase
 /*  f088a64:	8d440004 */ 	lw	$a0,0x4($t2)
 /*  f088a68:	10400006 */ 	beqz	$v0,.L0f088a84
 /*  f088a6c:	00401825 */ 	or	$v1,$v0,$zero
@@ -39946,7 +39946,7 @@ glabel var7f1aae70
 /*  f088a94:	8d0f04cc */ 	lw	$t7,0x4cc($t0)
 /*  f088a98:	8c4c00bc */ 	lw	$t4,0xbc($v0)
 /*  f088a9c:	8fa500a0 */ 	lw	$a1,0xa0($sp)
-/*  f088aa0:	0fc61d04 */ 	jal	func0f187410
+/*  f088aa0:	0fc61d04 */ 	jal	chrGiveUplink
 /*  f088aa4:	8d840004 */ 	lw	$a0,0x4($t4)
 /*  f088aa8:	10400006 */ 	beqz	$v0,.L0f088ac4
 /*  f088aac:	00401825 */ 	or	$v1,$v0,$zero

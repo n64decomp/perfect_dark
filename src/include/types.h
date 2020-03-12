@@ -893,6 +893,11 @@ struct image {
 	/*0x14*/ u32 unk14;
 };
 
+struct ammocrateobj { // objtype 0x07
+	struct defaultobj base;
+	/*0x5c*/ u32 ammotype;
+};
+
 struct weaponobj { // objtype 0x08
 	struct defaultobj base;
 	/*0x5c*/ u8 weapon_id;
@@ -955,9 +960,15 @@ struct autogunobj { // objtype 0d
 	/*0xa8*/ u8 autogun_type;
 };
 
-struct ammocrateobj { // objtype 14
+struct multiammocrateobj { // objtype 14
 	struct defaultobj base;
-	/*0x5c*/ u32 ammotype;
+	/*0x5c*/ u32 quantities[19]; // indexed by ammotype minus 1
+};
+
+struct shieldobj { // objtype 15
+	struct defaultobj base;
+	/*0x5c*/ f32 unk5c;
+	/*0x60*/ f32 amount;
 };
 
 struct truckobj {

@@ -413,7 +413,7 @@ glabel func0f199e3c
 );
 
 GLOBAL_ASM(
-glabel func0f199ef4
+glabel aibotGiveAmmo
 /*  f199ef4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f199ef8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f199efc:	8c8e001c */ 	lw	$t6,0x1c($a0)

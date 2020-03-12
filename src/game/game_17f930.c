@@ -6854,7 +6854,7 @@ glabel func0f186780
 );
 
 GLOBAL_ASM(
-glabel func0f186898
+glabel chrGiveBriefcase
 /*  f186898:	27bdfed8 */ 	addiu	$sp,$sp,-296
 /*  f18689c:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f1868a0:	afb10028 */ 	sw	$s1,0x28($sp)
@@ -6885,7 +6885,7 @@ glabel func0f186898
 /*  f186904:	8fac0120 */ 	lw	$t4,0x120($sp)
 /*  f186908:	8fa4012c */ 	lw	$a0,0x12c($sp)
 /*  f18690c:	afab0050 */ 	sw	$t3,0x50($sp)
-/*  f186910:	0fc21f03 */ 	jal	func0f087c0c
+/*  f186910:	0fc21f03 */ 	jal	propPlayPickupSound
 /*  f186914:	9185005c */ 	lbu	$a1,0x5c($t4)
 /*  f186918:	8fa40128 */ 	lw	$a0,0x128($sp)
 /*  f18691c:	24050057 */ 	addiu	$a1,$zero,0x57
@@ -7350,7 +7350,7 @@ glabel func0f186898
 /*  f186f88:	a06d009c */ 	sb	$t5,0x9c($v1)
 /*  f186f8c:	8fac0120 */ 	lw	$t4,0x120($sp)
 /*  f186f90:	8fa4012c */ 	lw	$a0,0x12c($sp)
-/*  f186f94:	0fc21f03 */ 	jal	func0f087c0c
+/*  f186f94:	0fc21f03 */ 	jal	propPlayPickupSound
 /*  f186f98:	9185005c */ 	lbu	$a1,0x5c($t4)
 /*  f186f9c:	8faa0120 */ 	lw	$t2,0x120($sp)
 .L0f186fa0:
@@ -7669,7 +7669,7 @@ glabel func0f187288
 );
 
 GLOBAL_ASM(
-glabel func0f187410
+glabel chrGiveUplink
 /*  f187410:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x10)
 /*  f187414:	91cecb98 */ 	lbu	$t6,%lo(g_MpSetup+0x10)($t6)
 /*  f187418:	27bdff70 */ 	addiu	$sp,$sp,-144
@@ -7827,7 +7827,7 @@ glabel func0f187410
 /*  f187634:	8fa40094 */ 	lw	$a0,0x94($sp)
 /*  f187638:	13000010 */ 	beqz	$t8,.L0f18767c
 /*  f18763c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f187640:	0fc21f03 */ 	jal	func0f087c0c
+/*  f187640:	0fc21f03 */ 	jal	propPlayPickupSound
 /*  f187644:	24050036 */ 	addiu	$a1,$zero,0x36
 /*  f187648:	02202025 */ 	or	$a0,$s1,$zero
 /*  f18764c:	0fc65fa3 */ 	jal	func0f197e8c

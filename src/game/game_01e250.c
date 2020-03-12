@@ -4535,7 +4535,7 @@ void chrUncloak(struct chrdata *chr, bool value)
 #if PIRACYCHECKS
 		{
 			u32 checksum = 0;
-			u32 *i = (u32 *)&func0f190784;
+			u32 *i = (u32 *)&propobjHandlePickupByAibot;
 			u32 *end = (u32 *)&func0f190be4;
 
 			while (i < end) {

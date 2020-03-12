@@ -414,7 +414,7 @@ bool func0f111cf8(s32 weapon1, s32 weapon2)
 	if (g_Vars.currentplayer->equipallguns &&
 			weapon1 <= WEAPON_PSYCHOSISGUN &&
 			weapon1 == weapon2 &&
-			weaponHasFlag(weapon1, WEAPONFLAG_00001000) &&
+			weaponHasFlag(weapon1, WEAPONFLAG_DUALWIELD) &&
 			currentPlayerCanHaveAllGunsWeapon(weapon1)) {
 		return true;
 	}
@@ -453,7 +453,7 @@ bool currentPlayerGiveWeapon(s32 weaponnum)
 bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2)
 {
 	if (func0f111ab0(weapon1, weapon2) == 0) {
-		if (weaponHasFlag(weapon1, WEAPONFLAG_00001000)) {
+		if (weaponHasFlag(weapon1, WEAPONFLAG_DUALWIELD)) {
 			struct invitem *item = currentPlayerGetUnusedInvItem();
 
 			if (item) {

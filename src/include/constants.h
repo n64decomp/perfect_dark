@@ -1544,6 +1544,7 @@
 #define OBJHFLAG_GRABBED           0x08000000
 
 // obj->hidden2
+#define OBJH2FLAG_04 0x04
 #define OBJH2FLAG_08 0x08
 
 #define OBJTYPE_DOOR             0x01
@@ -1552,7 +1553,7 @@
 #define OBJTYPE_KEY              0x04
 #define OBJTYPE_05               0x05
 #define OBJTYPE_CAMERA           0x06
-#define OBJTYPE_07               0x07
+#define OBJTYPE_AMMOCRATE        0x07
 #define OBJTYPE_WEAPON           0x08
 #define OBJTYPE_CHR              0x09
 #define OBJTYPE_SINGLEMONITOR    0x0a
@@ -2084,7 +2085,7 @@
 
 #define WEAPONFLAG_00000010      0x00000010
 #define WEAPONFLAG_TRACKTIMEUSED 0x00000200
-#define WEAPONFLAG_00001000      0x00001000
+#define WEAPONFLAG_DUALWIELD      0x00001000 // Suspected dual wield
 
 // Heads and bodies
 #define HEAD_RANDOM           -1

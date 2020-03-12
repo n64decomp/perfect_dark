@@ -24,7 +24,7 @@ void setupParseObjects(void)
 			case OBJTYPE_KEY:
 			case OBJTYPE_05:
 			case OBJTYPE_CAMERA:
-			case OBJTYPE_07:
+			case OBJTYPE_AMMOCRATE:
 			case OBJTYPE_WEAPON:
 			case OBJTYPE_SINGLEMONITOR:
 			case OBJTYPE_MULTIMONITOR:
