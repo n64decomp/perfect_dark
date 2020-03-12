@@ -21692,7 +21692,7 @@ glabel currentPlayerGetAmmoCount
 );
 
 GLOBAL_ASM(
-glabel func0f0a98f4
+glabel ammotypeGetMaxCapacity
 /*  f0a98f4:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f0a98f8:	01c47023 */ 	subu	$t6,$t6,$a0
 /*  f0a98fc:	000e7080 */ 	sll	$t6,$t6,0x2

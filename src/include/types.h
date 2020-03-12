@@ -137,8 +137,8 @@ struct animdata {
 	/*0x20*/ struct anim *anim;
 };
 
-struct aibot_01c {
-	u32 unk00[33];
+struct aibotammotype {
+	s32 quantities[33];
 };
 
 struct aibot {
@@ -150,7 +150,7 @@ struct aibot {
 	/*0x010*/ struct prop *prop;
 	/*0x014*/ u32 unk014;
 	/*0x018*/ u32 unk018;
-	/*0x01c*/ struct aibot_01c *unk01c;
+	/*0x01c*/ struct aibotammotype *ammotypes;
 	/*0x020*/ u32 unk020;
 	/*0x024*/ u32 unk024;
 	/*0x028*/ u32 unk028;

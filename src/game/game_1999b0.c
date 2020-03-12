@@ -203,7 +203,7 @@ glabel func0f199be4
 /*  f199c1c:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f199c20:	0fc6666c */ 	jal	func0f1999b0
 /*  f199c24:	00c02825 */ 	or	$a1,$a2,$zero
-/*  f199c28:	0fc2a63d */ 	jal	func0f0a98f4
+/*  f199c28:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
 /*  f199c2c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f199c30:	10000007 */ 	beqz	$zero,.L0f199c50
 /*  f199c34:	00401825 */ 	or	$v1,$v0,$zero
@@ -260,7 +260,7 @@ glabel func0f199cb8
 /*  f199ce0:	31cf0001 */ 	andi	$t7,$t6,0x1
 /*  f199ce4:	51e00007 */ 	beqzl	$t7,.L0f199d04
 /*  f199ce8:	8cf8001c */ 	lw	$t8,0x1c($a3)
-/*  f199cec:	0fc2a63d */ 	jal	func0f0a98f4
+/*  f199cec:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
 /*  f199cf0:	afa70020 */ 	sw	$a3,0x20($sp)
 /*  f199cf4:	8fa70020 */ 	lw	$a3,0x20($sp)
 /*  f199cf8:	10000005 */ 	beqz	$zero,.L0f199d10
@@ -393,7 +393,7 @@ glabel func0f199e3c
 /*  f199eb0:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f199eb4:	0fc6666c */ 	jal	func0f1999b0
 /*  f199eb8:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f199ebc:	0fc2a63d */ 	jal	func0f0a98f4
+/*  f199ebc:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
 /*  f199ec0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f199ec4:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f199ec8:	8c6c0000 */ 	lw	$t4,0x0($v1)
@@ -436,7 +436,7 @@ glabel aibotGiveAmmo
 /*  f199f40:	8c680000 */ 	lw	$t0,0x0($v1)
 /*  f199f44:	01064821 */ 	addu	$t1,$t0,$a2
 /*  f199f48:	ac690000 */ 	sw	$t1,0x0($v1)
-/*  f199f4c:	0fc2a63d */ 	jal	func0f0a98f4
+/*  f199f4c:	0fc2a63d */ 	jal	ammotypeGetMaxCapacity
 /*  f199f50:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f199f54:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f199f58:	8c6a0000 */ 	lw	$t2,0x0($v1)
@@ -454,6 +454,29 @@ glabel aibotGiveAmmo
 /*  f199f7c:	03e00008 */ 	jr	$ra
 /*  f199f80:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatches because the target saves the heldquantity pointer to the stack
+// before calling to ammotypeGetMaxCapacity, despite it already being saved.
+//void aibotGiveAmmo(struct aibot *aibot, u32 ammotype, s32 quantity)
+//{
+//	s32 max;
+//	s32 *heldquantity = &aibot->ammotypes->quantities[ammotype];
+//
+//	if (!aibot || (aibot->unk064 & 1) || quantity <= 0) {
+//		return;
+//	}
+//
+//	dprint();
+//
+//	*heldquantity += quantity;
+//	max = ammotypeGetMaxCapacity(ammotype);
+//
+//	if (*heldquantity > max) {
+//		*heldquantity = max;
+//	}
+//
+//	dprint();
+//}
 
 GLOBAL_ASM(
 glabel func0f199f84
