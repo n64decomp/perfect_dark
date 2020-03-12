@@ -598,7 +598,7 @@ u32 aibotGetInvItemType(struct chrdata *chr, u32 weaponnum)
 {
 	struct invitem *item;
 
-	if (!chr || !chr->unk2d4) {
+	if (!chr || !chr->aibot) {
 		return 0;
 	}
 

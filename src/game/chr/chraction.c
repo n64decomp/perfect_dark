@@ -828,7 +828,7 @@ void func0f02e9a0(struct chrdata *chr, f32 arg1)
 
 	chr->sleep = fsleep;
 
-	if (func0001db94(chr->animdata) && !chr->unk2d4) {
+	if (func0001db94(chr->animdata) && !chr->aibot) {
 		chr->hidden |= CHRHFLAG_00200000;
 	} else {
 		func0f02e6dc(chr, arg1);
@@ -857,7 +857,7 @@ void chrStand(struct chrdata *chr)
 			chr->sleep = 0;
 			chr->act_stand.face_target = false;
 
-			if (chr->unk2d4 == NULL) {
+			if (chr->aibot == NULL) {
 				if (animGetId(chr->animdata) == ANIM_KNEEL_SHOOT_RIGHT_HAND) {
 					result = func0f02e15c(chr, 0.5, 0.8);
 					func0001dccc(chr->animdata, ANIM_KNEEL_SHOOT_RIGHT_HAND,
@@ -3360,7 +3360,7 @@ void func0f03119c(struct chrdata *chr)
 		}
 
 		chr->actiontype = ACT_DEAD;
-		chr->act_dead.unk038 = chr->unk2d4 ? 0 : -1;
+		chr->act_dead.unk038 = chr->aibot ? 0 : -1;
 		chr->act_dead.unk02c = 0;
 		chr->act_dead.unk030 = 0;
 		chr->act_dead.unk034 = 0;
@@ -9145,13 +9145,13 @@ void func0f036358(struct chrdata *chr, s32 arg1)
 		chr->aioffset = 0;
 
 		func0f0b09f4(arg1, mpPlayerGetIndex(chr));
-		func0f199964(chr, chr->unk2d4->unk020);
+		func0f199964(chr, chr->aibot->unk020);
 
-		chr->unk2d4->unk09c_00 = 0;
-		chr->unk2d4->unk09c_01 = 0;
-		chr->unk2d4->unk04c_04 = 0;
-		chr->unk2d4->unk04c_03 = 0;
-		chr->unk2d4->unk04c_05 = 0;
+		chr->aibot->unk09c_00 = 0;
+		chr->aibot->unk09c_01 = 0;
+		chr->aibot->unk04c_04 = 0;
+		chr->aibot->unk04c_03 = 0;
+		chr->aibot->unk04c_05 = 0;
 	}
 }
 
@@ -11863,7 +11863,7 @@ glabel chrGoToPos
 //			func0f036ee4(chr, &chr->act_gopos.unk068, &auStack52[0], &prevpos);
 //		}
 //
-//		if (chr->act_gopos.unk068 != MAX_CHRWAYPOINTS && func0001db94(chr->animdata) != 0 && !chr->unk2d4) {
+//		if (chr->act_gopos.unk068 != MAX_CHRWAYPOINTS && func0001db94(chr->animdata) != 0 && !chr->aibot) {
 //			chr->hidden |= CHRHFLAG_00200000;
 //			return true;
 //		} else {
@@ -16254,7 +16254,7 @@ void func0f03cd04(struct chrdata *chr)
 
 void chrTickDead(struct chrdata *chr)
 {
-	struct chr2d4 *chr2d4 = chr->unk2d4;
+	struct aibot *aibot = chr->aibot;
 
 	if (chr->act_dead.unk038 >= 0) {
 		chr->act_dead.unk038 += g_Vars.lvupdate240_60;
@@ -16262,7 +16262,7 @@ void chrTickDead(struct chrdata *chr)
 		if (chr->act_dead.unk038 >= 90) {
 			chr->fadealpha = 0;
 
-			if (chr2d4) {
+			if (aibot) {
 				mpInitSimulant(chr, true);
 			} else {
 				chr->hidden |= CHRHFLAG_00000020;
@@ -16283,7 +16283,7 @@ void chrTickDead(struct chrdata *chr)
 		}
 
 		if (chr->act_dead.unk030 && chr->act_dead.unk034 >= 120) {
-			if (chr2d4 == 0) {
+			if (aibot == 0) {
 				chr->hidden |= CHRHFLAG_00000020;
 			}
 
@@ -16293,7 +16293,7 @@ void chrTickDead(struct chrdata *chr)
 		}
 	}
 
-	if (chr2d4 == NULL) {
+	if (aibot == NULL) {
 		chr->ailist = NULL;
 	}
 }
@@ -16799,7 +16799,7 @@ void chrTickDruggedDrop(struct chrdata *chr)
 
 	if (animGetFrame(animdata) >= func0001d1a0(animdata)) {
 		chr->actiontype = ACT_DRUGGEDKO;
-		chr->act_druggedko.unk038 = chr->unk2d4 ? 0 : -1;
+		chr->act_druggedko.unk038 = chr->aibot ? 0 : -1;
 		chr->act_druggedko.unk02c = 0;
 		chr->act_druggedko.unk030 = 0;
 		chr->act_druggedko.unk034 = 0;
@@ -17176,8 +17176,8 @@ glabel var7f1a8f24
 
 void func0f03e538(struct chrdata *chr, f32 arg1)
 {
-	if (chr->unk2d4) {
-		chr->unk2d4->unk0b0 = arg1;
+	if (chr->aibot) {
+		chr->aibot->unk0b0 = arg1;
 	} else {
 		func0001ae90(chr->animdata, arg1);
 	}
@@ -17185,8 +17185,8 @@ void func0f03e538(struct chrdata *chr, f32 arg1)
 
 f32 func0f03e578(struct chrdata *chr)
 {
-	if (chr->unk2d4) {
-		return chr->unk2d4->unk0a4;
+	if (chr->aibot) {
+		return chr->aibot->unk0a4;
 	}
 
 	return func0001ae44(chr->animdata);
@@ -17194,8 +17194,8 @@ f32 func0f03e578(struct chrdata *chr)
 
 void func0f03e5b0(struct chrdata *chr, f32 arg1)
 {
-	if (chr->unk2d4) {
-		chr->unk2d4->unk0a4 = arg1;
+	if (chr->aibot) {
+		chr->aibot->unk0a4 = arg1;
 	} else {
 		func0001ae90(chr->animdata, arg1);
 	}
@@ -18600,7 +18600,7 @@ void chrStopFiring(struct chrdata *chr)
 {
 	u8 race = CHRRACE(chr);
 
-	if (race != RACE_DRCAROLL && race != RACE_EYESPY && chr->unk2d4 == NULL) {
+	if (race != RACE_DRCAROLL && race != RACE_EYESPY && chr->aibot == NULL) {
 		chrSetFiring(chr, 0, false);
 		chrSetFiring(chr, 1, false);
 		chrResetAimEndProperties(chr);
@@ -23428,9 +23428,9 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 				chr->runfrompos.y = g_DangerousProps[i]->pos.y;
 				chr->runfrompos.z = g_DangerousProps[i]->pos.z;
 
-				if (chr->unk2d4) {
-					chr->unk2d4->unk064 |= 0x0004;
-					chr->unk2d4->unk00c = i;
+				if (chr->aibot) {
+					chr->aibot->unk064 |= 0x0004;
+					chr->aibot->unk00c = i;
 				}
 
 				return true;
@@ -23438,9 +23438,9 @@ bool chrDetectDangerousObject(struct chrdata *chr, u8 flags)
 		}
 	}
 
-	if (chr->unk2d4) {
-		chr->unk2d4->unk064 &= ~0x0004;
-		chr->unk2d4->unk00c = -1;
+	if (chr->aibot) {
+		chr->aibot->unk064 &= ~0x0004;
+		chr->aibot->unk00c = -1;
 	}
 
 	return false;
@@ -27436,8 +27436,8 @@ void chrTick(struct chrdata *chr)
 	chr->soundtimer += g_Vars.lvupdate240_60;
 	chr->talktimer += g_Vars.lvupdate240_60;
 
-	if (chr->unk2d4) {
-		chr->unk2d4->unk030 += g_Vars.lvupdate240_60;
+	if (chr->aibot) {
+		chr->aibot->unk030 += g_Vars.lvupdate240_60;
 	}
 
 	if (chr->hidden & CHRHFLAG_TIMER_RUNNING) {
@@ -27449,7 +27449,7 @@ void chrTick(struct chrdata *chr)
 	if (chr->sleep < 0
 			|| (chr->chrflags & CHRCFLAG_00040000)
 			|| chr->alertness >= 65
-			|| (chr->unk2d4 && (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD))) {
+			|| (chr->aibot && (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD))) {
 		u8 pass = race == RACE_HUMAN || race == RACE_SKEDAR;
 		chr->sleep = 0;
 

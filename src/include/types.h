@@ -137,11 +137,11 @@ struct animdata {
 	/*0x20*/ struct anim *anim;
 };
 
-struct chr2d4_01c {
+struct aibot_01c {
 	u32 unk00[33];
 };
 
-struct chr2d4 {
+struct aibot {
 	/*0x000*/ u8 unk000;
 	/*0x004*/ struct mpsim *simulant;
 	/*0x008*/ u16 unk008;
@@ -150,7 +150,7 @@ struct chr2d4 {
 	/*0x010*/ struct prop *prop;
 	/*0x014*/ u32 unk014;
 	/*0x018*/ u32 unk018;
-	/*0x01c*/ struct chr2d4_01c *unk01c;
+	/*0x01c*/ struct aibot_01c *unk01c;
 	/*0x020*/ u32 unk020;
 	/*0x024*/ u32 unk024;
 	/*0x028*/ u32 unk028;
@@ -673,7 +673,7 @@ struct chrdata {
 	/*0x2b4*/ u32 unk2b4;
 	/*0x2b8*/ s16 oldrooms[8];
 	/*0x2c8*/ struct coord runfrompos;
-	/*0x2d4*/ struct chr2d4 *unk2d4;
+	/*0x2d4*/ struct aibot *aibot;
 	/*0x2d8*/ s16 blurdrugamount;
 	/*0x2da*/ u16 cloakpause;
 	/*0x2dc*/ f32 drugheadsway;

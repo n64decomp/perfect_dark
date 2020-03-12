@@ -39,7 +39,7 @@
 
 bool func0f190260(struct chrdata *chr)
 {
-	return chr->blurdrugamount >= var80087d14[chr->unk2d4->simulant->unk48].blurdrugamount;
+	return chr->blurdrugamount >= var80087d14[chr->aibot->simulant->unk48].blurdrugamount;
 }
 
 GLOBAL_ASM(
@@ -277,8 +277,8 @@ glabel mpChrReset
 //	s32 i;
 //	u32 rand;
 //
-//	if (chr->unk2d4) {
-//		struct chr2d4 *chr2d4 = chr->unk2d4;
+//	if (chr->aibot) {
+//		struct aibot *aibot = chr->aibot;
 //
 //		chr->fadealpha = -1;
 //		chr->chrflags &= ~CHRCFLAG_JUST_INJURED;
@@ -311,104 +311,104 @@ glabel mpChrReset
 //			chr->chrheight = 185;
 //
 //			for (i = 0; i < 33; i++) {
-//				chr2d4->unk01c->unk00[i] = 0;
+//				aibot->unk01c->unk00[i] = 0;
 //			}
 //
 //			func0f197c00(chr);
 //
-//			chr2d4->unk04c_02 = 0;
-//			chr2d4->unk04c_01 = 1;
-//			chr2d4->unk09c_00 = 0;
-//			chr2d4->unk04c_06 = 0;
-//			chr2d4->unk04c_04 = 0;
-//			chr2d4->unk04c_03 = 0;
-//			chr2d4->unk09c_01 = 0;
-//			chr2d4->unk04c_05 = 0;
-//			chr2d4->unk020 = 1;
-//			chr2d4->unk024 = 0;
-//			chr2d4->unk028 = 0;
-//			chr2d4->prop = NULL;
-//			chr2d4->unk02c = 0;
-//			chr2d4->unk02e = 0;
-//			chr2d4->unk05c = 0;
-//			chr2d4->unk060 = 0;
-//			chr2d4->unk074 = -1;
-//			chr2d4->unk030 = 301;
-//			chr2d4->unk034 = 0;
-//			chr2d4->unk04d = 0;
-//			chr2d4->unk04e = 0;
-//			chr2d4->unk044 = 0;
-//			chr2d4->unk0a0 = 0;
-//			chr2d4->unk09c_02 = 0;
-//			chr2d4->unk064 = 0;
-//			chr2d4->unk04c_00 = 0;
-//			chr2d4->unk048 = -1;
-//			chr2d4->unk04a = -1;
-//			chr2d4->unk0bc = -1;
-//			chr2d4->unk0c8 = 0;
-//			chr2d4->unk0c4 = 0;
-//			chr2d4->unk0cc = 0;
-//			chr2d4->unk0d0 = 0;
-//			chr2d4->unk0d8 = 0;
-//			chr2d4->unk0dc = 0;
-//			chr2d4->unk03e = -1;
-//			chr2d4->unk03c = 0;
-//			chr2d4->unk0e2 = 0;
-//			chr2d4->unk0e0 = 0;
-//			chr2d4->unk118 = 0;
-//			chr2d4->unk11c = 0;
-//			chr2d4->unk120 = -1;
-//			chr2d4->unk124 = -1;
-//			chr2d4->unk128 = 0;
-//			chr2d4->unk12c = 0;
-//			chr2d4->unk040 = 0;
-//			chr2d4->unk06c = 0;
-//			chr2d4->unk070 = 0;
-//			chr2d4->unk0e8 = 0;
-//			chr2d4->unk0e4 = 0;
-//			chr2d4->unk108 = 0;
-//			chr2d4->unk10c = 0;
-//			chr2d4->unk110 = 0;
+//			aibot->unk04c_02 = 0;
+//			aibot->unk04c_01 = 1;
+//			aibot->unk09c_00 = 0;
+//			aibot->unk04c_06 = 0;
+//			aibot->unk04c_04 = 0;
+//			aibot->unk04c_03 = 0;
+//			aibot->unk09c_01 = 0;
+//			aibot->unk04c_05 = 0;
+//			aibot->unk020 = 1;
+//			aibot->unk024 = 0;
+//			aibot->unk028 = 0;
+//			aibot->prop = NULL;
+//			aibot->unk02c = 0;
+//			aibot->unk02e = 0;
+//			aibot->unk05c = 0;
+//			aibot->unk060 = 0;
+//			aibot->unk074 = -1;
+//			aibot->unk030 = 301;
+//			aibot->unk034 = 0;
+//			aibot->unk04d = 0;
+//			aibot->unk04e = 0;
+//			aibot->unk044 = 0;
+//			aibot->unk0a0 = 0;
+//			aibot->unk09c_02 = 0;
+//			aibot->unk064 = 0;
+//			aibot->unk04c_00 = 0;
+//			aibot->unk048 = -1;
+//			aibot->unk04a = -1;
+//			aibot->unk0bc = -1;
+//			aibot->unk0c8 = 0;
+//			aibot->unk0c4 = 0;
+//			aibot->unk0cc = 0;
+//			aibot->unk0d0 = 0;
+//			aibot->unk0d8 = 0;
+//			aibot->unk0dc = 0;
+//			aibot->unk03e = -1;
+//			aibot->unk03c = 0;
+//			aibot->unk0e2 = 0;
+//			aibot->unk0e0 = 0;
+//			aibot->unk118 = 0;
+//			aibot->unk11c = 0;
+//			aibot->unk120 = -1;
+//			aibot->unk124 = -1;
+//			aibot->unk128 = 0;
+//			aibot->unk12c = 0;
+//			aibot->unk040 = 0;
+//			aibot->unk06c = 0;
+//			aibot->unk070 = 0;
+//			aibot->unk0e8 = 0;
+//			aibot->unk0e4 = 0;
+//			aibot->unk108 = 0;
+//			aibot->unk10c = 0;
+//			aibot->unk110 = 0;
 //
 //			for (i = 0; i != 12; i++) {
-//				chr2d4->unk130[i] = -1;
-//				chr2d4->unk13c[i] = 4294967296;
-//				chr2d4->unk16c[i] = 0;
-//				chr2d4->unk178[i] = -1;
-//				chr2d4->unk1a8[i] = -1;
+//				aibot->unk130[i] = -1;
+//				aibot->unk13c[i] = 4294967296;
+//				aibot->unk16c[i] = 0;
+//				aibot->unk178[i] = -1;
+//				aibot->unk1a8[i] = -1;
 //			}
 //
-//			chr2d4->unk1e8 = 0;
-//			chr2d4->unk208 = 0;
-//			chr2d4->unk210 = random();
-//			chr2d4->unk20c = 0;
-//			chr2d4->unk2c8 = 0;
-//			chr2d4->unk09c_03 = 0;
-//			chr2d4->unk2cc = 0;
-//			chr2d4->unk2c4 = 0;
+//			aibot->unk1e8 = 0;
+//			aibot->unk208 = 0;
+//			aibot->unk210 = random();
+//			aibot->unk20c = 0;
+//			aibot->unk2c8 = 0;
+//			aibot->unk09c_03 = 0;
+//			aibot->unk2cc = 0;
+//			aibot->unk2c4 = 0;
 //
-//			chr2d4->unk2d0 = random();
-//			chr2d4->unk2d4 = random();
-//			chr2d4->unk078 = 0;
-//			chr2d4->unk09c_07 = 0;
-//			chr2d4->unk050 = 0;
-//			chr2d4->unk09d = 0;
+//			aibot->unk2d0 = random();
+//			aibot->aibot = random();
+//			aibot->unk078 = 0;
+//			aibot->unk09c_07 = 0;
+//			aibot->unk050 = 0;
+//			aibot->unk09d = 0;
 //		}
 //
-//		if (chr2d4->simulant->type == SIMTYPE_TURTLE || chr2d4->simulant->type == SIMTYPE_SHIELD) {
+//		if (aibot->simulant->type == SIMTYPE_TURTLE || aibot->simulant->type == SIMTYPE_SHIELD) {
 //			chr->cshield = 8;
 //		}
 //
-//		if (chr2d4->simulant->unk48 == 5) {
-//			chr2d4->unk064 &= ~1;
+//		if (aibot->simulant->unk48 == 5) {
+//			aibot->unk064 &= ~1;
 //
 //			if (func0f198278()) {
 //				chr->cshield = 8;
 //			}
 //		}
 //
-//		chr2d4->unk059 = 1;
-//		chr2d4->unk058 = 120;
+//		aibot->unk059 = 1;
+//		aibot->unk058 = 120;
 //	}
 //}
 
@@ -417,7 +417,7 @@ void mpInitSimulant(struct chrdata *chr, u8 full)
 	f32 thing;
 	struct prop *prop;
 	struct defaultobj *obj;
-	struct chr2d4 *chr2d4 = chr->unk2d4;
+	struct aibot *aibot = chr->aibot;
 	struct coord pos;
 	s16 rooms[8];
 
@@ -435,18 +435,18 @@ void mpInitSimulant(struct chrdata *chr, u8 full)
 		}
 	}
 
-	if (chr2d4) {
+	if (aibot) {
 		mpChrReset(chr, full);
 		chrInitSplats(chr);
 		thing = scenarioCallback2c(chr->chrwidth, &pos, rooms, chr->prop);
 		chr->hidden |= CHRHFLAG_00100000;
 		chrMoveToPos(chr, &pos, rooms, thing, true);
-		chr->unk2d4->unk0a4 = func0001ae44(chr->animdata);
-		chr->unk2d4->unk0a8 = 0;
-		chr->unk2d4->unk0ac = 0;
-		chr->unk2d4->unk0b0 = func0001ae44(chr->animdata);
-		chr->unk2d4->unk0b4 = 0;
-		chr->unk2d4->unk0b8 = 0;
+		chr->aibot->unk0a4 = func0001ae44(chr->animdata);
+		chr->aibot->unk0a8 = 0;
+		chr->aibot->unk0ac = 0;
+		chr->aibot->unk0b0 = func0001ae44(chr->animdata);
+		chr->aibot->unk0b4 = 0;
+		chr->aibot->unk0b8 = 0;
 		func0f02e9a0(chr, 0);
 	}
 }
@@ -469,7 +469,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if (!chr || !chr->unk2d4) {
+	if (!chr || !chr->aibot) {
 		return 0;
 	}
 
@@ -487,7 +487,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 			dprint();
 
 			if (qty) {
-				aibotGiveAmmo(chr->unk2d4, crate->ammotype, qty);
+				aibotGiveAmmo(chr->aibot, crate->ammotype, qty);
 			}
 
 			func0f0939f8(NULL, prop, 0xea, -1,
@@ -536,7 +536,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				}
 
 				if (qty) {
-					aibotGiveAmmo(chr->unk2d4, i + 1, qty);
+					aibotGiveAmmo(chr->aibot, i + 1, qty);
 				}
 			}
 
@@ -562,7 +562,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 				qty = weaponGetPickupAmmoQty(weapon);
 
 				if (qty) {
-					func0f199e3c(chr->unk2d4, weapon->weapon_id, weapon->dragonthrown, qty);
+					func0f199e3c(chr->aibot, weapon->weapon_id, weapon->dragonthrown, qty);
 				}
 
 				if (itemtype) {
@@ -1330,8 +1330,8 @@ glabel var7f1b8eb4
 
 u32 func0f1915b4(struct chrdata *chr)
 {
-	if (chr->unk2d4) {
-		return chr->unk2d4->unk020;
+	if (chr->aibot) {
+		return chr->aibot->unk020;
 	}
 
 	return g_Vars.players[propGetPlayerNum(chr->prop)]->unk0638;
@@ -2404,51 +2404,51 @@ char *mpGetBotCommandName(s32 command)
 
 void mpAibotApplyAttack(struct chrdata *chr, struct prop *prop)
 {
-	chr->unk2d4->command = AIBOTCMD_ATTACK;
-	chr->unk2d4->attackpropnum = prop - g_Vars.props;
-	chr->unk2d4->unk0d8 = 1;
+	chr->aibot->command = AIBOTCMD_ATTACK;
+	chr->aibot->attackpropnum = prop - g_Vars.props;
+	chr->aibot->unk0d8 = 1;
 }
 
 void mpAibotApplyFollow(struct chrdata *chr, struct prop *prop)
 {
-	chr->unk2d4->command = AIBOTCMD_FOLLOW;
-	chr->unk2d4->followprotectpropnum = prop - g_Vars.props;
-	chr->unk2d4->unk0d8 = 1;
+	chr->aibot->command = AIBOTCMD_FOLLOW;
+	chr->aibot->followprotectpropnum = prop - g_Vars.props;
+	chr->aibot->unk0d8 = 1;
 }
 
 void mpAibotApplyProtect(struct chrdata *chr, struct prop *prop)
 {
-	chr->unk2d4->command = AIBOTCMD_PROTECT;
-	chr->unk2d4->followprotectpropnum = prop - g_Vars.props;
-	chr->unk2d4->unk0d8 = 1;
+	chr->aibot->command = AIBOTCMD_PROTECT;
+	chr->aibot->followprotectpropnum = prop - g_Vars.props;
+	chr->aibot->unk0d8 = 1;
 }
 
 void mpAibotApplyDefend(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
 {
-	chr->unk2d4->command = AIBOTCMD_DEFEND;
-	chr->unk2d4->defendholdpos.x = pos->x;
-	chr->unk2d4->defendholdpos.y = pos->y;
-	chr->unk2d4->defendholdpos.z = pos->z;
-	roomsCopy(room, &chr->unk2d4->rooms[0]);
-	chr->unk2d4->unk098 = arg3;
-	chr->unk2d4->unk0d8 = 1;
+	chr->aibot->command = AIBOTCMD_DEFEND;
+	chr->aibot->defendholdpos.x = pos->x;
+	chr->aibot->defendholdpos.y = pos->y;
+	chr->aibot->defendholdpos.z = pos->z;
+	roomsCopy(room, &chr->aibot->rooms[0]);
+	chr->aibot->unk098 = arg3;
+	chr->aibot->unk0d8 = 1;
 }
 
 void mpAibotApplyHold(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3)
 {
-	chr->unk2d4->command = AIBOTCMD_HOLD;
-	chr->unk2d4->defendholdpos.x = pos->x;
-	chr->unk2d4->defendholdpos.y = pos->y;
-	chr->unk2d4->defendholdpos.z = pos->z;
-	roomsCopy(room, &chr->unk2d4->rooms[0]);
-	chr->unk2d4->unk098 = arg3;
-	chr->unk2d4->unk0d8 = 1;
+	chr->aibot->command = AIBOTCMD_HOLD;
+	chr->aibot->defendholdpos.x = pos->x;
+	chr->aibot->defendholdpos.y = pos->y;
+	chr->aibot->defendholdpos.z = pos->z;
+	roomsCopy(room, &chr->aibot->rooms[0]);
+	chr->aibot->unk098 = arg3;
+	chr->aibot->unk0d8 = 1;
 }
 
 void mpAibotApplyScenarioCommand(struct chrdata *chr, u32 command)
 {
-	chr->unk2d4->command = command;
-	chr->unk2d4->unk0d8 = 1;
+	chr->aibot->command = command;
+	chr->aibot->unk0d8 = 1;
 }
 
 GLOBAL_ASM(
@@ -3524,13 +3524,13 @@ bool mpIsChrFollowedByChr(struct chrdata *leader, struct chrdata *follower)
 	bool result = true;
 
 	while (true) {
-		struct chr2d4 *chr2d4 = follower->unk2d4;
+		struct aibot *aibot = follower->aibot;
 
-		if (!chr2d4 || follower->myaction[0] != MA_AIBOTFOLLOW || chr2d4->followingplayernum < 0) {
+		if (!aibot || follower->myaction[0] != MA_AIBOTFOLLOW || aibot->followingplayernum < 0) {
 			break;
 		}
 
-		follower = g_MpPlayerChrs[chr2d4->followingplayernum];
+		follower = g_MpPlayerChrs[aibot->followingplayernum];
 
 		if (follower == leader) {
 			result = false;
@@ -3546,7 +3546,7 @@ s32 func0f193530(struct chrdata *chr, f32 arg1)
 	s32 result = -1;
 
 	if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-		if (chr->myaction[0] != MA_AIBOTFOLLOW && (random() % 100) < chr->unk2d4->unk000) {
+		if (chr->myaction[0] != MA_AIBOTFOLLOW && (random() % 100) < chr->aibot->unk000) {
 			f32 bestvalue = 0;
 			s32 bestindex = -1;
 			s32 i;
@@ -3556,7 +3556,7 @@ s32 func0f193530(struct chrdata *chr, f32 arg1)
 						!chrIsDead(g_MpPlayerChrs[i]) &&
 						chr->team == g_MpPlayerChrs[i]->team &&
 						mpIsChrFollowedByChr(chr, g_MpPlayerChrs[i])) {
-					f32 value = chr->unk2d4->unk13c[i];
+					f32 value = chr->aibot->unk13c[i];
 
 					if (bestindex < 0 || value < bestvalue) {
 						bestindex = i;
@@ -4740,7 +4740,7 @@ s32 mpCountAibotsWithCommand(struct chrdata *self, u32 command, bool includeself
 	for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
 		if (self->team == g_MpPlayerChrs[i]->team) {
 			if (includeself || self != g_MpPlayerChrs[i]) {
-				if (command == g_MpPlayerChrs[i]->unk2d4->command) {
+				if (command == g_MpPlayerChrs[i]->aibot->command) {
 					count++;
 				}
 			}
@@ -4760,8 +4760,8 @@ s32 scenarioCtcIsChrsTokenHeld(struct chrdata *chr)
 
 bool func0f19489c(struct chrdata *chr)
 {
-	if (chr->unk2d4->unk09c_01) {
-		if (chr->unk2d4->unk04f_00 == 0 || mpGetNumPlayerTeammates(chr) >= 2 || !scenarioCtcIsChrsTokenHeld(chr)) {
+	if (chr->aibot->unk09c_01) {
+		if (chr->aibot->unk04f_00 == 0 || mpGetNumPlayerTeammates(chr) >= 2 || !scenarioCtcIsChrsTokenHeld(chr)) {
 			return true;
 		}
 	}
@@ -4776,7 +4776,7 @@ s32 mpGetNumTeammatesDefendingHill(struct chrdata *bot)
 
 	for (i = 0; i < g_MpNumPlayers; i++) {
 		if (bot->team == g_MpPlayerChrs[i]->team && g_MpPlayerChrs[i]->prop->rooms[0] == g_ScenarioData.cbt.unk0e[0]) {
-			if (g_MpPlayerChrs[i]->unk2d4->command == AIBOTCMD_DEFHILL || g_MpPlayerChrs[i]->unk2d4->command == AIBOTCMD_HOLDHILL) {
+			if (g_MpPlayerChrs[i]->aibot->command == AIBOTCMD_DEFHILL || g_MpPlayerChrs[i]->aibot->command == AIBOTCMD_HOLDHILL) {
 				count++;
 			}
 		}
@@ -7902,11 +7902,11 @@ glabel var7f1b8fc8
 void func0f197544(struct chrdata *chr)
 {
 	bool pass = false;
-	struct chr2d4 *chr2d4 = chr->unk2d4;
+	struct aibot *aibot = chr->aibot;
 
 	if (chr->myaction[0] == MA_AIBOTGETITEM) {
 		if (chr->act_gopos.waypoints[chr->act_gopos.nextwaypointindex] == 0) {
-			struct prop *prop = chr2d4->prop;
+			struct prop *prop = aibot->prop;
 
 			if (prop && !prop->parent && prop->timetoregen == 0) {
 				if (prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_OBJ) {
@@ -7915,7 +7915,7 @@ void func0f197544(struct chrdata *chr)
 			}
 		}
 
-		chr2d4->unk0d8 = 1;
+		aibot->unk0d8 = 1;
 		pass = true;
 	}
 

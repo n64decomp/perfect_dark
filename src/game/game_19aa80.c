@@ -44,22 +44,22 @@ bool aiMpInitSimulants(void)
 bool ai0176(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	struct chr2d4 *chr2d4;
+	struct aibot *aibot;
 
 	/**
 	 * @bug: Missing return means a crash will occur if either of these are
 	 * null.
 	 */
-	if (!g_Vars.chrdata || !g_Vars.chrdata->unk2d4) {
+	if (!g_Vars.chrdata || !g_Vars.chrdata->aibot) {
 		g_Vars.aioffset += 3;
 		//return false;
 	}
 
-	chr2d4 = g_Vars.chrdata->unk2d4;
+	aibot = g_Vars.chrdata->aibot;
 
-	if (chr2d4->unk059 == 1) {
+	if (aibot->unk059 == 1) {
 		g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
-		chr2d4->unk059 = 0;
+		aibot->unk059 = 0;
 	} else {
 		g_Vars.aioffset += 3;
 	}

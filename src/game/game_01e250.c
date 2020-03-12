@@ -2724,7 +2724,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->runfrompos.y = 0;
 	chr->runfrompos.z = 0;
 	chr->oldrooms[0] = -1;
-	chr->unk2d4 = NULL;
+	chr->aibot = NULL;
 	chr->blurdrugamount = 0;
 	chr->drugheadsway = 0;
 	chr->drugheadcount = 0;

@@ -825,7 +825,7 @@ void scenarioHtbCallback10(void)
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htb.token == NULL) {
 		for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
-			if (g_MpPlayerChrs[i]->prop && g_MpPlayerChrs[i]->unk2d4->unk09c_00) {
+			if (g_MpPlayerChrs[i]->prop && g_MpPlayerChrs[i]->aibot->unk09c_00) {
 				g_ScenarioData.htb.token = g_MpPlayerChrs[i]->prop;
 				break;
 			}
@@ -851,16 +851,16 @@ void scenarioHtbCallback10(void)
 void scenarioHtbCallback14(struct chrdata *chr)
 {
 	if (chr) {
-		if (chr->unk2d4->unk09c_00) {
-			chr->unk2d4->unk0a0 += g_Vars.lvupdate240;
+		if (chr->aibot->unk09c_00) {
+			chr->aibot->unk0a0 += g_Vars.lvupdate240;
 
-			if (chr->unk2d4->unk0a0 >= SECSTOFRAMES240(30)) {
+			if (chr->aibot->unk0a0 >= SECSTOFRAMES240(30)) {
 				func00010904(var80095200, 0x5b8, 0, -1, -1, -1, -1, -1);
 				var800ac500[mpPlayerGetIndex(chr)]->unk3e++;
-				chr->unk2d4->unk0a0 = 0;
+				chr->aibot->unk0a0 = 0;
 			}
 		} else {
-			chr->unk2d4->unk0a0 = 0;
+			chr->aibot->unk0a0 = 0;
 		}
 	} else {
 		if (currentPlayerHasBriefcase()) {
@@ -3305,7 +3305,7 @@ void scenarioHtmCallback10(void)
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htm.uplink == NULL) {
 		for (i = PLAYERCOUNT(); i < g_MpNumPlayers; i++) {
-			if (g_MpPlayerChrs[i]->unk2d4->unk04c_05) {
+			if (g_MpPlayerChrs[i]->aibot->unk04c_05) {
 				g_ScenarioData.htm.uplink = g_MpPlayerChrs[i]->prop;
 				break;
 			}
