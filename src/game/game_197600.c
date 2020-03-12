@@ -487,7 +487,7 @@ glabel func0f197c70
 );
 
 GLOBAL_ASM(
-glabel func0f197cf0
+glabel aibotGetInvItem
 /*  f197cf0:	10800004 */ 	beqz	$a0,.L0f197d04
 /*  f197cf4:	00a03825 */ 	or	$a3,$a1,$zero
 /*  f197cf8:	8c8202d4 */ 	lw	$v0,0x2d4($a0)
@@ -606,7 +606,7 @@ glabel chrHasWeapon
 /*  f197e58:	10000008 */ 	beqz	$zero,.L0f197e7c
 /*  f197e5c:	00001025 */ 	or	$v0,$zero,$zero
 .L0f197e60:
-/*  f197e60:	0fc65f3c */ 	jal	func0f197cf0
+/*  f197e60:	0fc65f3c */ 	jal	aibotGetInvItem
 /*  f197e64:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f197e68:	50400004 */ 	beqzl	$v0,.L0f197e7c
 /*  f197e6c:	00001025 */ 	or	$v0,$zero,$zero
@@ -659,27 +659,20 @@ glabel func0f197e8c
 /*  f197f00:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel chrGiveDualWeapon
-/*  f197f04:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f197f08:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f197f0c:	0fc65f3c */ 	jal	func0f197cf0
-/*  f197f10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f197f14:	10400002 */ 	beqz	$v0,.L0f197f20
-/*  f197f18:	240e0003 */ 	addiu	$t6,$zero,0x3
-/*  f197f1c:	ac4e0000 */ 	sw	$t6,0x0($v0)
-.L0f197f20:
-/*  f197f20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f197f24:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f197f28:	03e00008 */ 	jr	$ra
-/*  f197f2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum)
+{
+	struct invitem *item = aibotGetInvItem(chr, weaponnum);
+
+	if (item) {
+		item->type = INVITEMTYPE_3;
+	}
+}
 
 GLOBAL_ASM(
 glabel chrGetWeaponPad
 /*  f197f30:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f197f34:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f197f38:	0fc65f3c */ 	jal	func0f197cf0
+/*  f197f38:	0fc65f3c */ 	jal	aibotGetInvItem
 /*  f197f3c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f197f40:	10400007 */ 	beqz	$v0,.L0f197f60
 /*  f197f44:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -730,7 +723,7 @@ glabel chrGiveWeapon
 /*  f197fd8:	10400019 */ 	beqz	$v0,.L0f198040
 /*  f197fdc:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*  f197fe0:	02602025 */ 	or	$a0,$s3,$zero
-/*  f197fe4:	0fc65f3c */ 	jal	func0f197cf0
+/*  f197fe4:	0fc65f3c */ 	jal	aibotGetInvItem
 /*  f197fe8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f197fec:	86390006 */ 	lh	$t9,0x6($s1)
 /*  f197ff0:	10000013 */ 	beqz	$zero,.L0f198040
@@ -2307,7 +2300,7 @@ glabel func0f1994b0
 /*  f199508:	02402025 */ 	or	$a0,$s2,$zero
 /*  f19950c:	51e10009 */ 	beql	$t7,$at,.L0f199534
 /*  f199510:	8fb90064 */ 	lw	$t9,0x64($sp)
-/*  f199514:	0fc65f3c */ 	jal	func0f197cf0
+/*  f199514:	0fc65f3c */ 	jal	aibotGetInvItem
 /*  f199518:	01e02825 */ 	or	$a1,$t7,$zero
 /*  f19951c:	14400004 */ 	bnez	$v0,.L0f199530
 /*  f199520:	afa2005c */ 	sw	$v0,0x5c($sp)

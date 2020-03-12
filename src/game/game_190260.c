@@ -574,7 +574,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 							&& weapondef
 							&& (weapondef->flags & WEAPONFLAG_DUALWIELD)
 							&& originalpad != currentpad) {
-						chrGiveDualWeapon(chr, weapon->weapon_id);
+						aibotGiveDualWeapon(chr, weapon->weapon_id);
 						result = 1;
 					} else {
 						result = 2;
@@ -3730,7 +3730,7 @@ glabel var7f1b8f50
 /*  f1938ac:	27b100f4 */ 	addiu	$s1,$sp,0xf4
 .L0f1938b0:
 /*  f1938b0:	03c02025 */ 	or	$a0,$s8,$zero
-/*  f1938b4:	0fc65f3c */ 	jal	func0f197cf0
+/*  f1938b4:	0fc65f3c */ 	jal	aibotGetInvItem
 /*  f1938b8:	8e650000 */ 	lw	$a1,0x0($s3)
 /*  f1938bc:	26100004 */ 	addiu	$s0,$s0,0x4
 /*  f1938c0:	26940001 */ 	addiu	$s4,$s4,0x1
@@ -5098,7 +5098,7 @@ glabel var7f1b8fc8
 /*  f194d1c:	004fc823 */ 	subu	$t9,$v0,$t7
 /*  f194d20:	1f20003f */ 	bgtz	$t9,.L0f194e20
 /*  f194d24:	ae5900cc */ 	sw	$t9,0xcc($s2)
-/*  f194d28:	0fc65f3c */ 	jal	func0f197cf0
+/*  f194d28:	0fc65f3c */ 	jal	aibotGetInvItem
 /*  f194d2c:	8e450020 */ 	lw	$a1,0x20($s2)
 /*  f194d30:	00408025 */ 	or	$s0,$v0,$zero
 /*  f194d34:	0fc4a2bd */ 	jal	weaponGetModel
