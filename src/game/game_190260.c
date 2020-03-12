@@ -567,7 +567,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 
 				if (hasweapon) {
 					struct weapon *weapondef = weaponFindById(weapon->weapon_id);
-					u32 originalpad = chrGetWeaponPad(chr, weapon->weapon_id);
+					u32 originalpad = aibotGetWeaponPad(chr, weapon->weapon_id);
 					u32 currentpad = obj->pad;
 
 					if (hasweapon == true

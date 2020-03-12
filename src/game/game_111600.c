@@ -440,7 +440,7 @@ bool currentPlayerGiveWeapon(s32 weaponnum)
 		if (item) {
 			item->type = INVITEMTYPE_1;
 			item->type1.weapon1 = weaponnum;
-			item->type1.weapon2 = -1;
+			item->type1.pickuppad = -1;
 			currentPlayerInsertInvItem(item);
 		}
 

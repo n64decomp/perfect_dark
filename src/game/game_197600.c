@@ -668,26 +668,16 @@ void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum)
 	}
 }
 
-GLOBAL_ASM(
-glabel chrGetWeaponPad
-/*  f197f30:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f197f34:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f197f38:	0fc65f3c */ 	jal	aibotGetInvItem
-/*  f197f3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f197f40:	10400007 */ 	beqz	$v0,.L0f197f60
-/*  f197f44:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f197f48:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f197f4c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f197f50:	55c10004 */ 	bnel	$t6,$at,.L0f197f64
-/*  f197f54:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f197f58:	10000002 */ 	beqz	$zero,.L0f197f64
-/*  f197f5c:	84420006 */ 	lh	$v0,0x6($v0)
-.L0f197f60:
-/*  f197f60:	2402ffff */ 	addiu	$v0,$zero,-1
-.L0f197f64:
-/*  f197f64:	03e00008 */ 	jr	$ra
-/*  f197f68:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum)
+{
+	struct invitem *item = aibotGetInvItem(chr, weaponnum);
+
+	if (item && item->type == INVITEMTYPE_1) {
+		return item->type1.pickuppad;
+	}
+
+	return -1;
+}
 
 GLOBAL_ASM(
 glabel chrGiveWeapon

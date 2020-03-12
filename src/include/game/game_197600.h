@@ -12,7 +12,7 @@ u32 func0f197d94(void);
 bool chrHasWeapon(struct chrdata *chr, u32 weaponnum);
 u32 func0f197e8c(void);
 void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum);
-u32 chrGetWeaponPad(struct chrdata *chr, u32 weaponnum);
+s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum);
 void chrGiveWeapon(struct chrdata *chr, struct prop *prop);
 u32 func0f198068(void);
 u32 func0f198278(void);

@@ -5149,7 +5149,7 @@ struct memorypool {
 
 struct invitem_type1 {
 	s16 weapon1;
-	s16 weapon2;
+	s16 pickuppad;
 };
 
 struct invitem_typeprop {
