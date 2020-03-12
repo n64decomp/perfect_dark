@@ -585,9 +585,9 @@
 #define INVENTORYFUNCTYPE_SPECIAL          0x0004
 #define INVENTORYFUNCTYPE_VISUAL           0x0005
 
-#define INVITEMTYPE_1    1
+#define INVITEMTYPE_WEAP 1
 #define INVITEMTYPE_PROP 2
-#define INVITEMTYPE_3    3
+#define INVITEMTYPE_DUAL 3
 
 #define L_AME(index)       TEXT(1, index)
 #define L_ARCH(index)      TEXT(2, index)

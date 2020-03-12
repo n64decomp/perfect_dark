@@ -594,31 +594,22 @@ glabel func0f197d94
 /*  f197e3c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-GLOBAL_ASM(
-glabel chrHasWeapon
-/*  f197e40:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f197e44:	10800004 */ 	beqz	$a0,.L0f197e58
-/*  f197e48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f197e4c:	8c8e02d4 */ 	lw	$t6,0x2d4($a0)
-/*  f197e50:	15c00003 */ 	bnez	$t6,.L0f197e60
-/*  f197e54:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f197e58:
-/*  f197e58:	10000008 */ 	beqz	$zero,.L0f197e7c
-/*  f197e5c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f197e60:
-/*  f197e60:	0fc65f3c */ 	jal	aibotGetInvItem
-/*  f197e64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f197e68:	50400004 */ 	beqzl	$v0,.L0f197e7c
-/*  f197e6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f197e70:	10000002 */ 	beqz	$zero,.L0f197e7c
-/*  f197e74:	8c420000 */ 	lw	$v0,0x0($v0)
-/*  f197e78:	00001025 */ 	or	$v0,$zero,$zero
-.L0f197e7c:
-/*  f197e7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f197e80:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f197e84:	03e00008 */ 	jr	$ra
-/*  f197e88:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 aibotGetInvItemType(struct chrdata *chr, u32 weaponnum)
+{
+	struct invitem *item;
+
+	if (!chr || !chr->unk2d4) {
+		return 0;
+	}
+
+	item = aibotGetInvItem(chr, weaponnum);
+
+	if (item) {
+		return item->type;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f197e8c
@@ -634,7 +625,7 @@ glabel func0f197e8c
 /*  f197eac:	10000011 */ 	beqz	$zero,.L0f197ef4
 /*  f197eb0:	00001025 */ 	or	$v0,$zero,$zero
 .L0f197eb4:
-/*  f197eb4:	0fc65f90 */ 	jal	chrHasWeapon
+/*  f197eb4:	0fc65f90 */ 	jal	aibotGetInvItemType
 /*  f197eb8:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f197ebc:	1440000c */ 	bnez	$v0,.L0f197ef0
 /*  f197ec0:	8fa40018 */ 	lw	$a0,0x18($sp)
@@ -664,7 +655,7 @@ void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum)
 	struct invitem *item = aibotGetInvItem(chr, weaponnum);
 
 	if (item) {
-		item->type = INVITEMTYPE_3;
+		item->type = INVITEMTYPE_DUAL;
 	}
 }
 
@@ -672,8 +663,8 @@ s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum)
 {
 	struct invitem *item = aibotGetInvItem(chr, weaponnum);
 
-	if (item && item->type == INVITEMTYPE_1) {
-		return item->type1.pickuppad;
+	if (item && item->type == INVITEMTYPE_WEAP) {
+		return item->type_weap.pickuppad;
 	}
 
 	return -1;

@@ -5147,16 +5147,16 @@ struct memorypool {
 	/*0x10*/ u32 unk10;
 };
 
-struct invitem_type1 {
+struct invitem_weap {
 	s16 weapon1;
 	s16 pickuppad;
 };
 
-struct invitem_typeprop {
+struct invitem_prop {
 	struct prop *prop;
 };
 
-struct invitem_type3 {
+struct invitem_dual {
 	s32 weapon1;
 	s32 weapon2;
 };
@@ -5165,9 +5165,9 @@ struct invitem {
 	/*0x00*/ s32 type;
 
 	union {
-		struct invitem_type1 type1;
-		struct invitem_typeprop type_prop;
-		struct invitem_type3 type3;
+		struct invitem_weap type_weap;
+		struct invitem_prop type_prop;
+		struct invitem_dual type_dual;
 	};
 
 	/*0x0c*/ struct invitem *next;

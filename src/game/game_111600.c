@@ -43,11 +43,11 @@ void currentPlayerSortInvItem(struct invitem *subject)
 	s32 candweapon2;
 
 	// Prepare subject's properties for comparisons
-	if (subject->type == INVITEMTYPE_1) {
-		subjweapon1 = subject->type1.weapon1;
-	} else if (subject->type == INVITEMTYPE_3) {
-		subjweapon1 = subject->type3.weapon1;
-		subjweapon2 = subject->type3.weapon2;
+	if (subject->type == INVITEMTYPE_WEAP) {
+		subjweapon1 = subject->type_weap.weapon1;
+	} else if (subject->type == INVITEMTYPE_DUAL) {
+		subjweapon1 = subject->type_dual.weapon1;
+		subjweapon2 = subject->type_dual.weapon2;
 	} else if (subject->type == INVITEMTYPE_PROP) {
 		subjweapon1 = 2000;
 	}
@@ -59,11 +59,11 @@ void currentPlayerSortInvItem(struct invitem *subject)
 		candweapon1 = -1;
 		candweapon2 = -1;
 
-		if (subject->next->type == INVITEMTYPE_1) {
-			candweapon1 = subject->next->type1.weapon1;
-		} else if (subject->next->type == INVITEMTYPE_3) {
-			candweapon1 = subject->next->type3.weapon1;
-			candweapon2 = subject->next->type3.weapon2;
+		if (subject->next->type == INVITEMTYPE_WEAP) {
+			candweapon1 = subject->next->type_weap.weapon1;
+		} else if (subject->next->type == INVITEMTYPE_DUAL) {
+			candweapon1 = subject->next->type_dual.weapon1;
+			candweapon2 = subject->next->type_dual.weapon2;
 		} else if (subject->next->type == INVITEMTYPE_PROP) {
 			candweapon1 = 1000;
 		}
@@ -200,7 +200,7 @@ struct invitem *currentPlayerGetWeaponInvItem(s32 weaponnum)
 	struct invitem *item = first;
 
 	while (item) {
-		if (item->type == INVITEMTYPE_1 && item->type1.weapon1 == weaponnum) {
+		if (item->type == INVITEMTYPE_WEAP && item->type_weap.weapon1 == weaponnum) {
 			return item;
 		}
 
@@ -225,9 +225,9 @@ struct invitem *func0f111a4c(s32 weapon1, s32 weapon2)
 	struct invitem *item = first;
 
 	while (item) {
-		if (item->type == INVITEMTYPE_3
-				&& item->type3.weapon1 == weapon1
-				&& item->type3.weapon2 == weapon2) {
+		if (item->type == INVITEMTYPE_DUAL
+				&& item->type_dual.weapon1 == weapon1
+				&& item->type_dual.weapon2 == weapon2) {
 			return item;
 		}
 
@@ -306,8 +306,8 @@ glabel func0f111ad4
 //	struct invitem *item = g_Vars.currentplayer->weapons;
 //
 //	while (item) {
-//		if (item->type == INVITEMTYPE_1) {
-//			if (weaponnum == item->type1.weapon1) {
+//		if (item->type == INVITEMTYPE_WEAP) {
+//			if (weaponnum == item->type_weap.weapon1) {
 //				return true;
 //			}
 //		} else if (item->type == INVITEMTYPE_PROP) {
@@ -438,9 +438,9 @@ bool currentPlayerGiveWeapon(s32 weaponnum)
 		item = currentPlayerGetUnusedInvItem();
 
 		if (item) {
-			item->type = INVITEMTYPE_1;
-			item->type1.weapon1 = weaponnum;
-			item->type1.pickuppad = -1;
+			item->type = INVITEMTYPE_WEAP;
+			item->type_weap.weapon1 = weaponnum;
+			item->type_weap.pickuppad = -1;
 			currentPlayerInsertInvItem(item);
 		}
 
@@ -457,9 +457,9 @@ bool currentPlayerGiveWeaponWithArgument(s32 weapon1, s32 weapon2)
 			struct invitem *item = currentPlayerGetUnusedInvItem();
 
 			if (item) {
-				item->type = INVITEMTYPE_3;
-				item->type3.weapon1 = weapon1;
-				item->type3.weapon2 = weapon2;
+				item->type = INVITEMTYPE_DUAL;
+				item->type_dual.weapon1 = weapon1;
+				item->type_dual.weapon2 = weapon2;
 				currentPlayerInsertInvItem(item);
 			}
 
@@ -494,12 +494,12 @@ void currentPlayerRemoveWeapon(s32 weaponnum)
 				if (override && override->weapon == weaponnum) {
 					currentPlayerRemoveInvItem(item);
 				}
-			} else if (item->type == INVITEMTYPE_1) {
-				if (item->type1.weapon1 == weaponnum) {
+			} else if (item->type == INVITEMTYPE_WEAP) {
+				if (item->type_weap.weapon1 == weaponnum) {
 					currentPlayerRemoveInvItem(item);
 				}
-			} else if (item->type == INVITEMTYPE_3) {
-				if (item->type3.weapon1 == weaponnum || item->type3.weapon2 == weaponnum) {
+			} else if (item->type == INVITEMTYPE_DUAL) {
+				if (item->type_dual.weapon1 == weaponnum || item->type_dual.weapon2 == weaponnum) {
 					currentPlayerRemoveInvItem(item);
 				}
 			}
@@ -1222,9 +1222,9 @@ s32 currentPlayerGetNumInvItems(void)
 					}
 				}
 			}
-		} else if (item->type == INVITEMTYPE_1) {
+		} else if (item->type == INVITEMTYPE_WEAP) {
 			if (g_Vars.currentplayer->equipallguns == false
-					|| item->type1.weapon1 > WEAPON_PSYCHOSISGUN) {
+					|| item->type_weap.weapon1 > WEAPON_PSYCHOSISGUN) {
 				numitems++;
 			}
 		}
@@ -1278,9 +1278,9 @@ struct invitem *currentPlayerGetInvItemByIndex(s32 index)
 					}
 				}
 			}
-		} else if (item->type == INVITEMTYPE_1) {
+		} else if (item->type == INVITEMTYPE_WEAP) {
 			if (g_Vars.currentplayer->equipallguns == false
-					|| item->type1.weapon1 > WEAPON_PSYCHOSISGUN) {
+					|| item->type_weap.weapon1 > WEAPON_PSYCHOSISGUN) {
 				if (index == 0) {
 					return item;
 				}
@@ -1340,8 +1340,8 @@ s32 currentPlayerGetWeaponNumByInvIndex(s32 index)
 			if (override) {
 				return override->weapon;
 			}
-		} else if (item->type == INVITEMTYPE_1) {
-			return item->type1.weapon1;
+		} else if (item->type == INVITEMTYPE_WEAP) {
+			return item->type_weap.weapon1;
 		}
 	} else if (g_Vars.currentplayer->equipallguns) {
 		if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
@@ -1371,8 +1371,8 @@ u16 currentPlayerGetInvNameIdByIndex(s32 index)
 
 				weaponnum = override->weapon;
 			}
-		} else if (item->type == INVITEMTYPE_1) {
-			weaponnum = item->type1.weapon1;
+		} else if (item->type == INVITEMTYPE_WEAP) {
+			weaponnum = item->type_weap.weapon1;
 			override = weaponGetTextOverride(weaponnum);
 
 			if (override && override->unk14) {
@@ -1414,8 +1414,8 @@ char *currentPlayerGetInvShortNameByIndex(s32 index)
 
 				weaponnum = override->weapon;
 			}
-		} else if (item->type == INVITEMTYPE_1) {
-			weaponnum = item->type1.weapon1;
+		} else if (item->type == INVITEMTYPE_WEAP) {
+			weaponnum = item->type_weap.weapon1;
 			override = weaponGetTextOverride(weaponnum);
 
 			if (override && override->unk14) {

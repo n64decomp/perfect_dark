@@ -9,7 +9,7 @@ void func0f197c00(struct chrdata *chr);
 u32 func0f197c70(void);
 struct invitem *aibotGetInvItem(struct chrdata *chr, u32 weaponnum);
 u32 func0f197d94(void);
-bool chrHasWeapon(struct chrdata *chr, u32 weaponnum);
+u32 aibotGetInvItemType(struct chrdata *chr, u32 weaponnum);
 u32 func0f197e8c(void);
 void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum);
 s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum);

@@ -549,7 +549,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 	case OBJTYPE_WEAPON:
 		{
 			struct weaponobj *weapon = prop->weapon;
-			bool hasweapon = chrHasWeapon(chr, weapon->weapon_id);
+			u32 itemtype = aibotGetInvItemType(chr, weapon->weapon_id);
 			u32 result;
 			u32 qty;
 
@@ -565,12 +565,12 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 					func0f199e3c(chr->unk2d4, weapon->weapon_id, weapon->dragonthrown, qty);
 				}
 
-				if (hasweapon) {
+				if (itemtype) {
 					struct weapon *weapondef = weaponFindById(weapon->weapon_id);
 					u32 originalpad = aibotGetWeaponPad(chr, weapon->weapon_id);
 					u32 currentpad = obj->pad;
 
-					if (hasweapon == true
+					if (itemtype == INVITEMTYPE_WEAP
 							&& weapondef
 							&& (weapondef->flags & WEAPONFLAG_DUALWIELD)
 							&& originalpad != currentpad) {
@@ -753,7 +753,7 @@ glabel var7f1b8ea8
 /*  f190d6c:	8dc20004 */ 	lw	$v0,0x4($t6)
 /*  f190d70:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f190d74:	9045005c */ 	lbu	$a1,0x5c($v0)
-/*  f190d78:	0fc65f90 */ 	jal	chrHasWeapon
+/*  f190d78:	0fc65f90 */ 	jal	aibotGetInvItemType
 /*  f190d7c:	afa20080 */ 	sw	$v0,0x80($sp)
 /*  f190d80:	8faf0080 */ 	lw	$t7,0x80($sp)
 /*  f190d84:	91e4005c */ 	lbu	$a0,0x5c($t7)
@@ -877,7 +877,7 @@ glabel var7f1b8ea8
 /*  f190f3c:	8fa4008c */ 	lw	$a0,0x8c($sp)
 /*  f190f40:	51200011 */ 	beqzl	$t1,.L0f190f88
 /*  f190f44:	8faa0064 */ 	lw	$t2,0x64($sp)
-/*  f190f48:	0fc65f90 */ 	jal	chrHasWeapon
+/*  f190f48:	0fc65f90 */ 	jal	aibotGetInvItemType
 /*  f190f4c:	01202825 */ 	or	$a1,$t1,$zero
 /*  f190f50:	5440000d */ 	bnezl	$v0,.L0f190f88
 /*  f190f54:	8faa0064 */ 	lw	$t2,0x64($sp)
