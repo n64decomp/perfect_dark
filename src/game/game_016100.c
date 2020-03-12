@@ -56,7 +56,7 @@ glabel func0f016100
 /*  f01613c:	10000001 */ 	beqz	$zero,.L0f016144
 /*  f016140:	8fa40024 */ 	lw	$a0,0x24($sp)
 .L0f016144:
-/*  f016144:	0fc28857 */ 	jal	func0f0a215c
+/*  f016144:	0fc28857 */ 	jal	weaponGetName
 /*  f016148:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01614c:	afa2002c */ 	sw	$v0,0x2c($sp)
 /*  f016150:	0fc4a24b */ 	jal	setCurrentPlayerNum

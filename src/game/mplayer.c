@@ -1668,7 +1668,7 @@ glabel mpGetWeaponLabel
 /*  f188cd0:	1000000c */ 	beqz	$zero,.L0f188d04
 /*  f188cd4:	8fbf0024 */ 	lw	$ra,0x24($sp)
 .L0f188cd8:
-/*  f188cd8:	0fc28857 */ 	jal	func0f0a215c
+/*  f188cd8:	0fc28857 */ 	jal	weaponGetName
 /*  f188cdc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f188ce0:	10000008 */ 	beqz	$zero,.L0f188d04
 /*  f188ce4:	8fbf0024 */ 	lw	$ra,0x24($sp)

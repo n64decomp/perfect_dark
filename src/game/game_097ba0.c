@@ -116,7 +116,6 @@ const char var7f1ac0b8[] = "Gun   : After Cached Setup : Base 0x%08x Free %d\n";
 const char var7f1ac0ec[] = "Gun   : TotalUsed %d, Free %d\n";
 const char var7f1ac10c[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_LOADED\n";
 const char var7f1ac144[] = "GunLockTimer: %d\n";
-const char var7f1ac158[] = "** error\n";
 
 GLOBAL_ASM(
 glabel func0f097ba0
@@ -12714,29 +12713,16 @@ glabel func0f0a212c
 /*  f0a2158:	8f020ce4 */ 	lw	$v0,0xce4($t8)
 );
 
-GLOBAL_ASM(
-glabel func0f0a215c
-/*  f0a215c:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0a2160:	3c028007 */ 	lui	$v0,%hi(g_Weapons)
-/*  f0a2164:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f0a2168:	8c42ff18 */ 	lw	$v0,%lo(g_Weapons)($v0)
-/*  f0a216c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a2170:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a2174:	10400005 */ 	beqz	$v0,.L0f0a218c
-/*  f0a2178:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a217c:	0fc5b9f1 */ 	jal	langGet
-/*  f0a2180:	94440046 */ 	lhu	$a0,0x46($v0)
-/*  f0a2184:	10000004 */ 	beqz	$zero,.L0f0a2198
-/*  f0a2188:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0a218c:
-/*  f0a218c:	3c027f1b */ 	lui	$v0,%hi(var7f1ac158)
-/*  f0a2190:	2442c158 */ 	addiu	$v0,$v0,%lo(var7f1ac158)
-/*  f0a2194:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0a2198:
-/*  f0a2198:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a219c:	03e00008 */ 	jr	$ra
-/*  f0a21a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *weaponGetName(s32 weaponnum)
+{
+	struct weapon *weapon = g_Weapons[weaponnum];
+
+	if (weapon) {
+		return langGet(weapon->name);
+	}
+
+	return "** error\n";
+}
 
 u16 weaponGetNameId(s32 weaponnum)
 {

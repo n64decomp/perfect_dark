@@ -39512,7 +39512,7 @@ glabel func0f08841c
 .L0f088664:
 /*  f088664:	1160000b */ 	beqz	$t3,.L0f088694
 /*  f088668:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f08866c:	0fc28857 */ 	jal	func0f0a215c
+/*  f08866c:	0fc28857 */ 	jal	weaponGetName
 /*  f088670:	8fa40024 */ 	lw	$a0,0x24($sp)
 /*  f088674:	8fa40020 */ 	lw	$a0,0x20($sp)
 /*  f088678:	0c004c89 */ 	jal	strcat
