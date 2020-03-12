@@ -6935,7 +6935,7 @@ glabel chrGiveBriefcase
 /*  f1869bc:	0fc5b9f1 */ 	jal	langGet
 /*  f1869c0:	24045400 */ 	addiu	$a0,$zero,0x5400
 /*  f1869c4:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f1869c8:	0fc28874 */ 	jal	weaponGetName
+/*  f1869c8:	0fc28874 */ 	jal	weaponGetShortName
 /*  f1869cc:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f1869d0:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f1869d4:	27a400d4 */ 	addiu	$a0,$sp,0xd4
@@ -7174,7 +7174,7 @@ glabel chrGiveBriefcase
 /*  f186d14:	0fc5b9f1 */ 	jal	langGet
 /*  f186d18:	24045404 */ 	addiu	$a0,$zero,0x5404
 /*  f186d1c:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f186d20:	0fc28874 */ 	jal	weaponGetName
+/*  f186d20:	0fc28874 */ 	jal	weaponGetShortName
 /*  f186d24:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f186d28:	00106880 */ 	sll	$t5,$s0,0x2
 /*  f186d2c:	01b06823 */ 	subu	$t5,$t5,$s0
@@ -7190,7 +7190,7 @@ glabel chrGiveBriefcase
 /*  f186d54:	0fc5b9f1 */ 	jal	langGet
 /*  f186d58:	24045405 */ 	addiu	$a0,$zero,0x5405
 /*  f186d5c:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f186d60:	0fc28874 */ 	jal	weaponGetName
+/*  f186d60:	0fc28874 */ 	jal	weaponGetShortName
 /*  f186d64:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f186d68:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f186d6c:	27a40094 */ 	addiu	$a0,$sp,0x94
@@ -7200,7 +7200,7 @@ glabel chrGiveBriefcase
 /*  f186d7c:	0fc5b9f1 */ 	jal	langGet
 /*  f186d80:	24045406 */ 	addiu	$a0,$zero,0x5406
 /*  f186d84:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f186d88:	0fc28874 */ 	jal	weaponGetName
+/*  f186d88:	0fc28874 */ 	jal	weaponGetShortName
 /*  f186d8c:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f186d90:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f186d94:	27a40054 */ 	addiu	$a0,$sp,0x54
@@ -7364,7 +7364,7 @@ glabel chrGiveBriefcase
 /*  f186fbc:	0fc5b9f1 */ 	jal	langGet
 /*  f186fc0:	ac39c168 */ 	sw	$t9,%lo(g_ScenarioData+0x58)($at)
 /*  f186fc4:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f186fc8:	0fc28874 */ 	jal	weaponGetName
+/*  f186fc8:	0fc28874 */ 	jal	weaponGetShortName
 /*  f186fcc:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f186fd0:	8fb80120 */ 	lw	$t8,0x120($sp)
 /*  f186fd4:	3c10800b */ 	lui	$s0,%hi(g_MpSetup+0x28)
@@ -7382,7 +7382,7 @@ glabel chrGiveBriefcase
 /*  f187004:	0fc5b9f1 */ 	jal	langGet
 /*  f187008:	24045402 */ 	addiu	$a0,$zero,0x5402
 /*  f18700c:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f187010:	0fc28874 */ 	jal	weaponGetName
+/*  f187010:	0fc28874 */ 	jal	weaponGetShortName
 /*  f187014:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f187018:	8fa50048 */ 	lw	$a1,0x48($sp)
 /*  f18701c:	27a40094 */ 	addiu	$a0,$sp,0x94
@@ -7392,7 +7392,7 @@ glabel chrGiveBriefcase
 /*  f18702c:	0fc5b9f1 */ 	jal	langGet
 /*  f187030:	24045403 */ 	addiu	$a0,$zero,0x5403
 /*  f187034:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f187038:	0fc28874 */ 	jal	weaponGetName
+/*  f187038:	0fc28874 */ 	jal	weaponGetShortName
 /*  f18703c:	afa20048 */ 	sw	$v0,0x48($sp)
 /*  f187040:	8fae0120 */ 	lw	$t6,0x120($sp)
 /*  f187044:	8fa50048 */ 	lw	$a1,0x48($sp)
@@ -7694,7 +7694,7 @@ bool chrGiveUplink(struct chrdata *chr, struct prop *prop)
 		}
 
 		// "%shas the\n%s"
-		sprintf(message, langGet(L_MPWEAPONS(0)), mpchr->name, weaponGetName(WEAPON_DATAUPLINK));
+		sprintf(message, langGet(L_MPWEAPONS(0)), mpchr->name, weaponGetShortName(WEAPON_DATAUPLINK));
 		playernum = g_Vars.currentplayernum;
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {

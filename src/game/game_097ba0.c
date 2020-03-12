@@ -8,6 +8,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
+#include "game/data/inventory.h"
 #include "game/game_005fd0.h"
 #include "game/game_01e250.h"
 #include "game/game_0601b0.h"
@@ -116,11 +117,6 @@ const char var7f1ac0ec[] = "Gun   : TotalUsed %d, Free %d\n";
 const char var7f1ac10c[] = "BriGun: Set Master State: MASTER_GUN_LOADSTATE_LOADED\n";
 const char var7f1ac144[] = "GunLockTimer: %d\n";
 const char var7f1ac158[] = "** error\n";
-const char var7f1ac164[] = "** error\n";
-const char var7f1ac170[] = "wantedfn %d tiggle %d\n";
-const char var7f1ac188[] = "%d\n";
-const char var7f1ac18c[] = "%02d:%02d:%02d\n";
-const char var7f1ac19c[] = "%02d:%02d\n";
 
 GLOBAL_ASM(
 glabel func0f097ba0
@@ -12758,29 +12754,21 @@ glabel func0f0a21a4
 /*  f0a21cc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel weaponGetName
-/*  f0a21d0:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0a21d4:	3c028007 */ 	lui	$v0,%hi(g_Weapons)
-/*  f0a21d8:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f0a21dc:	8c42ff18 */ 	lw	$v0,%lo(g_Weapons)($v0)
-/*  f0a21e0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a21e4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a21e8:	10400005 */ 	beqz	$v0,.L0f0a2200
-/*  f0a21ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a21f0:	0fc5b9f1 */ 	jal	langGet
-/*  f0a21f4:	94440044 */ 	lhu	$a0,0x44($v0)
-/*  f0a21f8:	10000004 */ 	beqz	$zero,.L0f0a220c
-/*  f0a21fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0a2200:
-/*  f0a2200:	3c027f1b */ 	lui	$v0,%hi(var7f1ac164)
-/*  f0a2204:	2442c164 */ 	addiu	$v0,$v0,%lo(var7f1ac164)
-/*  f0a2208:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0a220c:
-/*  f0a220c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a2210:	03e00008 */ 	jr	$ra
-/*  f0a2214:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *weaponGetShortName(s32 weaponnum)
+{
+	struct weapon *weapon = g_Weapons[weaponnum];
+
+	if (weapon) {
+		return langGet(weapon->shortname);
+	}
+
+	return "** error\n";
+}
+
+const char var7f1ac170[] = "wantedfn %d tiggle %d\n";
+const char var7f1ac188[] = "%d\n";
+const char var7f1ac18c[] = "%02d:%02d:%02d\n";
+const char var7f1ac19c[] = "%02d:%02d\n";
 
 GLOBAL_ASM(
 glabel func0f0a2218
