@@ -113,7 +113,7 @@ void func0f1866b8(s32 playernum, char *message);
 u32 func0f186780(void);
 u32 chrGiveBriefcase(struct chrdata *chr, struct prop *prop);
 u32 func0f187288(void);
-u32 chrGiveUplink(struct chrdata *chr, struct prop *prop);
+bool chrGiveUplink(struct chrdata *chr, struct prop *prop);
 u32 func0f1876e4(void);
 s32 menuhandlerMpDropOut(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpTeamsLabel(u32 operation, struct menu_item *item, s32 *value);

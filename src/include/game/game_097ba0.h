@@ -102,7 +102,7 @@ u32 func0f0a20fc(void);
 u32 func0f0a212c(void);
 u32 func0f0a215c(void);
 u16 func0f0a21a4(s32 arg0);
-char *func0f0a21d0(s32 arg0);
+char *weaponGetName(s32 arg0);
 u32 func0f0a2218(void);
 u32 func0f0a2290(void);
 u32 func0f0a2308(void);

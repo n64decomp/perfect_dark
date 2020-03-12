@@ -10,7 +10,7 @@ u32 func0f197c70(void);
 struct invitem *aibotGetInvItem(struct chrdata *chr, u32 weaponnum);
 u32 func0f197d94(void);
 u32 aibotGetInvItemType(struct chrdata *chr, u32 weaponnum);
-u32 func0f197e8c(void);
+void func0f197e8c(struct chrdata *chr, u32 weaponnum);
 void aibotGiveDualWeapon(struct chrdata *chr, u32 weaponnum);
 s16 aibotGetWeaponPad(struct chrdata *chr, u32 weaponnum);
 void aibotGiveProp(struct chrdata *chr, struct prop *prop);

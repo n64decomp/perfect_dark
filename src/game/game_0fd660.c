@@ -1893,7 +1893,7 @@ glabel var7f1b2ce0
 /*  f0ffa38:	10000004 */ 	beqz	$zero,.L0f0ffa4c
 /*  f0ffa3c:	afa20080 */ 	sw	$v0,0x80($sp)
 .L0f0ffa40:
-/*  f0ffa40:	0fc28874 */ 	jal	func0f0a21d0
+/*  f0ffa40:	0fc28874 */ 	jal	weaponGetName
 /*  f0ffa44:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0ffa48:	afa20080 */ 	sw	$v0,0x80($sp)
 .L0f0ffa4c:

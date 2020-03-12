@@ -1425,11 +1425,11 @@ char *currentPlayerGetInvShortNameByIndex(s32 index)
 	} else if (g_Vars.currentplayer->equipallguns) {
 		if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
 			index++;
-			return func0f0a21d0(func0f111b88(index));
+			return weaponGetName(func0f111b88(index));
 		}
 	}
 
-	return func0f0a21d0(weaponnum);
+	return weaponGetName(weaponnum);
 }
 
 void textoverrideInsert(struct textoverride *override)

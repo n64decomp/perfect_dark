@@ -12759,7 +12759,7 @@ glabel func0f0a21a4
 );
 
 GLOBAL_ASM(
-glabel func0f0a21d0
+glabel weaponGetName
 /*  f0a21d0:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f0a21d4:	3c028007 */ 	lui	$v0,%hi(g_Weapons)
 /*  f0a21d8:	004e1021 */ 	addu	$v0,$v0,$t6
