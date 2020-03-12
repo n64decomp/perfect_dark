@@ -12738,21 +12738,16 @@ glabel func0f0a215c
 /*  f0a21a0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0a21a4
-/*  f0a21a4:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0a21a8:	3c038007 */ 	lui	$v1,%hi(g_Weapons)
-/*  f0a21ac:	006e1821 */ 	addu	$v1,$v1,$t6
-/*  f0a21b0:	8c63ff18 */ 	lw	$v1,%lo(g_Weapons)($v1)
-/*  f0a21b4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a21b8:	10600003 */ 	beqz	$v1,.L0f0a21c8
-/*  f0a21bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a21c0:	03e00008 */ 	jr	$ra
-/*  f0a21c4:	94620046 */ 	lhu	$v0,0x46($v1)
-.L0f0a21c8:
-/*  f0a21c8:	03e00008 */ 	jr	$ra
-/*  f0a21cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u16 weaponGetNameId(s32 weaponnum)
+{
+	struct weapon *weapon = g_Weapons[weaponnum];
+
+	if (weapon) {
+		return weapon->name;
+	}
+
+	return 0;
+}
 
 char *weaponGetShortName(s32 weaponnum)
 {

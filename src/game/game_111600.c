@@ -1383,12 +1383,12 @@ u16 currentPlayerGetInvNameIdByIndex(s32 index)
 		if (g_Vars.currentplayer->equipallguns) {
 			if (index < WEAPON_PSYCHOSISGUN - currentStageForbidsSlayer()) {
 				index++;
-				return func0f0a21a4(func0f111b88(index));
+				return weaponGetNameId(func0f111b88(index));
 			}
 		}
 	}
 
-	return func0f0a21a4(weaponnum);
+	return weaponGetNameId(weaponnum);
 }
 
 char *currentPlayerGetInvNameByIndex(s32 index)

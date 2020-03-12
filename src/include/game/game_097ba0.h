@@ -101,7 +101,7 @@ void currentPlayerEquipWeapon(u32 arg0, u32 arg1);
 u32 func0f0a20fc(void);
 u32 func0f0a212c(void);
 u32 func0f0a215c(void);
-u16 func0f0a21a4(s32 arg0);
+u16 weaponGetNameId(s32 weaponnum);
 char *weaponGetShortName(s32 arg0);
 u32 func0f0a2218(void);
 u32 func0f0a2290(void);
