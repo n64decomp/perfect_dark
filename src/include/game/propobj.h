@@ -213,7 +213,7 @@ u32 func0f0840ac(void);
 u32 func0f0841dc(void);
 u32 func0f084594(void);
 u32 func0f0849dc(void);
-u32 func0f084ce0(void);
+u32 add43214321(u32 value);
 u32 func0f084cf0(void);
 u32 func0f084e58(void);
 u32 func0f084f64(void);
