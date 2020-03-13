@@ -8,7 +8,7 @@ u32 func0f129940(void);
 u32 func0f129b08(void);
 u32 func0f129ba4(void);
 u32 func0f129c08(void);
-u32 func0f129cfc(void);
+void alertNearbyChrsToNoise(f32 *radius, struct coord *noisepos);
 u32 func0f129f54(void);
 u32 func0f12acec(void);
 u32 func0f12af5c(void);
