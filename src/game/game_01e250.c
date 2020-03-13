@@ -2891,12 +2891,12 @@ glabel var7f1a8724
 /*  f020cc4:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-struct prop *func0f020cc8(s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4)
+struct prop *func0f020cc8(s32 arg0, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist)
 {
 	struct prop *prop = propAllocate();
 
 	if (prop) {
-		prop = func0f020b14(prop, arg0, arg1, arg2, arg3, arg4);
+		prop = func0f020b14(prop, arg0, pos, rooms, arg3, ailist);
 
 		if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
 			chrSetShield(prop->chr, 8);

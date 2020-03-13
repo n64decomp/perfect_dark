@@ -4,13 +4,13 @@
 #include "types.h"
 
 u32 func0f01e250(void);
-u32 chrSetChrnum(struct chrdata *chr, u32 arg1);
+u32 chrSetChrnum(struct chrdata *chr, s16 arg1);
 u32 func0f01e6a4(void);
 u32 func0f01e7f4(void);
 u32 func0f01f264(struct chrdata *chr, struct coord *pos, s16 *room, f32 arg3, bool arg4);
 u32 func0f020538(void);
 s32 getLowestUnusedChrId(void);
-struct prop *func0f020b14(struct prop *prop, s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4);
+struct prop *func0f020b14(struct prop *prop, s32 arg0, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
 u32 func0f020d44(void);
 u32 func0f021258(void);
 u32 func0f02133c(void);
@@ -74,7 +74,7 @@ f32 chrGetMaxDamage(struct chrdata *chr);
 void chrAddHealth(struct chrdata *chr, f32 health);
 f32 chrGetArmor(struct chrdata *chr);
 void chrInit(struct prop *prop, u8 *ailist);
-struct prop *func0f020cc8(s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4);
+struct prop *func0f020cc8(s32 arg0, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
 void propClearReferences(s32 propnum);
 void func0f022084(struct chrdata *chr, s16 *room);
 void func0f0220ac(struct chrdata *chr);

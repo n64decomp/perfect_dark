@@ -556,7 +556,7 @@ struct chrdata {
 	/*0x00d*/ s8 arghrating;
 	/*0x00e*/ u8 aimendcount;
 	/*0x00f*/ u8 grenadeprob;
-	/*0x010*/ u16 bodynum;
+	/*0x010*/ s16 bodynum;
 	/*0x012*/ s8 flinchcnt;
 	/*0x013*/ s8 path;
 	/*0x014*/ u32 hidden;

@@ -20,13 +20,14 @@
 #include "game/pad.h"
 #include "gvars/gvars.h"
 #include "lib/lib_121e0.h"
+#include "lib/lib_126b0.h"
 #include "lib/lib_12dc0.h"
 #include "lib/lib_16110.h"
 #include "lib/lib_1a500.h"
 #include "lib/lib_233c0.h"
 #include "types.h"
 
-u32 bodyGetRace(u32 bodynum)
+u32 bodyGetRace(s32 bodynum)
 {
 	switch (bodynum) {
 	case BODY_SKEDAR:
@@ -951,144 +952,93 @@ glabel func0f02d4fc
 /*  f02dba8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+struct prop *propAllocateEyespy(struct pad *pad, s16 room)
+{
+	s16 rooms[2];
+	struct prop *prop;
+	struct chrdata *chr;
+	u32 lVar3;
+	bool thing;
+	struct prop *lift;
+	f32 ground;
+	u32 stack[2];
+
+	rooms[0] = room;
+	rooms[1] = -1;
+
+#if PIRACYCHECKS
+	{
+		u32 checksum = 0;
+		s32 *ptr = (s32 *)&func0f167e7c;
+		s32 *end = (s32 *)&fadeConfigure;
+
+		while (ptr < end) {
+			checksum <<= 1;
+			checksum ^= *ptr;
+			ptr++;
+		}
+
+		if (checksum != 0xa7be1bf0) {
+			s32 *ptr2 = (s32 *)func00012914;
+			s32 *end2 = (s32 *)func00012a0c;
+
+			while (ptr2 < end2) {
+				ptr2[0] = 0;
+				ptr2++;
+			}
+		}
+	}
+#endif
+
+	lVar3 = func0f02d36c(BODY_EYESPY, 0, 0);
+
+	if (lVar3) {
+		prop = func0f020cc8(lVar3, &pad->pos, rooms, 0, ailistFindById(GAILIST_IDLE));
+
+		if (prop) {
+			func0f0604bc(prop);
+			propHide(prop);
+			chr = prop->chr;
+			chrSetChrnum(chr, getLowestUnusedChrId());
+			chr->bodynum = BODY_EYESPY;
+			chr->padpreset1 = 0;
+			chr->chrpreset1 = 0;
+			chr->headnum = 0;
+			chr->hearingscale = 0;
+			chr->visionrange = 0;
+			chr->race = bodyGetRace(chr->bodynum);
+
+			ground = func0002a1b0(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &thing, &lift);
+			chr->ground = ground;
+			chr->manground = ground;
+
+			chr->flags = 0;
+			chr->flags2 = 0;
+			chr->team = 0;
+			chr->squadron = 0;
+			chr->maxdamage = 2;
+			chr->tude = random() & 3;
+			chr->voicebox = random() % 3;
+			chr->naturalanim[0] = 0;
+			chr->myspecial = 0;
+			chr->yvisang = 0;
+			chr->teamscandist = 0;
+			chr->convtalk = 0;
+			chr->chrwidth = 26;
+			chr->chrheight = 200;
+			func0f02e9a0(chr, 0);
+			chr->chrflags |= CHRCFLAG_HIDDEN;
+			chr->hidden2 |= CHRH2FLAG_0040;
+
+			return prop;
+		}
+	}
+
+	return NULL;
+}
+
 GLOBAL_ASM(
-glabel func0f02dbac
-/*  f02dbac:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f02dbb0:	3c077f16 */ 	lui	$a3,%hi(func0f167e7c)
-/*  f02dbb4:	3c087f17 */ 	lui	$t0,%hi(fadeConfigure)
-/*  f02dbb8:	24e37e7c */ 	addiu	$v1,$a3,%lo(func0f167e7c)
-/*  f02dbbc:	2506856c */ 	addiu	$a2,$t0,%lo(fadeConfigure)
-/*  f02dbc0:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f02dbc4:	0066082b */ 	sltu	$at,$v1,$a2
-/*  f02dbc8:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f02dbcc:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f02dbd0:	afa40080 */ 	sw	$a0,0x80($sp)
-/*  f02dbd4:	afa50084 */ 	sw	$a1,0x84($sp)
-/*  f02dbd8:	a7a5007c */ 	sh	$a1,0x7c($sp)
-/*  f02dbdc:	a7b8007e */ 	sh	$t8,0x7e($sp)
-/*  f02dbe0:	10200007 */ 	beqz	$at,.L0f02dc00
-/*  f02dbe4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f02dbe8:
-/*  f02dbe8:	8c690000 */ 	lw	$t1,0x0($v1)
-/*  f02dbec:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f02dbf0:	0002c840 */ 	sll	$t9,$v0,0x1
-/*  f02dbf4:	0066082b */ 	sltu	$at,$v1,$a2
-/*  f02dbf8:	1420fffb */ 	bnez	$at,.L0f02dbe8
-/*  f02dbfc:	03291026 */ 	xor	$v0,$t9,$t1
-.L0f02dc00:
-/*  f02dc00:	3c01a7be */ 	lui	$at,0xa7be
-/*  f02dc04:	34211bf0 */ 	ori	$at,$at,0x1bf0
-/*  f02dc08:	1041000b */ 	beq	$v0,$at,.L0f02dc38
-/*  f02dc0c:	00003025 */ 	or	$a2,$zero,$zero
-/*  f02dc10:	3c047001 */ 	lui	$a0,%hi(func00012914)
-/*  f02dc14:	3c057001 */ 	lui	$a1,%hi(func00012a0c)
-/*  f02dc18:	24822914 */ 	addiu	$v0,$a0,%lo(func00012914)
-/*  f02dc1c:	24a32a0c */ 	addiu	$v1,$a1,%lo(func00012a0c)
-/*  f02dc20:	0043082b */ 	sltu	$at,$v0,$v1
-/*  f02dc24:	10200004 */ 	beqz	$at,.L0f02dc38
-.L0f02dc28:
-/*  f02dc28:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f02dc2c:	0043082b */ 	sltu	$at,$v0,$v1
-/*  f02dc30:	1420fffd */ 	bnez	$at,.L0f02dc28
-/*  f02dc34:	ac40fffc */ 	sw	$zero,-0x4($v0)
-.L0f02dc38:
-/*  f02dc38:	2404006c */ 	addiu	$a0,$zero,0x6c
-/*  f02dc3c:	0fc0b4db */ 	jal	func0f02d36c
-/*  f02dc40:	00002825 */ 	or	$a1,$zero,$zero
-/*  f02dc44:	10400055 */ 	beqz	$v0,.L0f02dd9c
-/*  f02dc48:	00408025 */ 	or	$s0,$v0,$zero
-/*  f02dc4c:	0c006134 */ 	jal	ailistFindById
-/*  f02dc50:	00002025 */ 	or	$a0,$zero,$zero
-/*  f02dc54:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02dc58:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f02dc5c:	27a6007c */ 	addiu	$a2,$sp,0x7c
-/*  f02dc60:	24070000 */ 	addiu	$a3,$zero,0x0
-/*  f02dc64:	0fc08332 */ 	jal	func0f020cc8
-/*  f02dc68:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f02dc6c:	1040004b */ 	beqz	$v0,.L0f02dd9c
-/*  f02dc70:	00402025 */ 	or	$a0,$v0,$zero
-/*  f02dc74:	0fc1812f */ 	jal	func0f0604bc
-/*  f02dc78:	afa20078 */ 	sw	$v0,0x78($sp)
-/*  f02dc7c:	0fc180bc */ 	jal	propHide
-/*  f02dc80:	8fa40078 */ 	lw	$a0,0x78($sp)
-/*  f02dc84:	8faa0078 */ 	lw	$t2,0x78($sp)
-/*  f02dc88:	0fc0817b */ 	jal	getLowestUnusedChrId
-/*  f02dc8c:	8d500004 */ 	lw	$s0,0x4($t2)
-/*  f02dc90:	00022c00 */ 	sll	$a1,$v0,0x10
-/*  f02dc94:	00055c03 */ 	sra	$t3,$a1,0x10
-/*  f02dc98:	01602825 */ 	or	$a1,$t3,$zero
-/*  f02dc9c:	0fc07937 */ 	jal	chrSetChrnum
-/*  f02dca0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02dca4:	44800000 */ 	mtc1	$zero,$f0
-/*  f02dca8:	240c006c */ 	addiu	$t4,$zero,0x6c
-/*  f02dcac:	a60c0010 */ 	sh	$t4,0x10($s0)
-/*  f02dcb0:	a6000128 */ 	sh	$zero,0x128($s0)
-/*  f02dcb4:	a600012a */ 	sh	$zero,0x12a($s0)
-/*  f02dcb8:	a2000006 */ 	sb	$zero,0x6($s0)
-/*  f02dcbc:	86040010 */ 	lh	$a0,0x10($s0)
-/*  f02dcc0:	e60000f0 */ 	swc1	$f0,0xf0($s0)
-/*  f02dcc4:	0fc0b378 */ 	jal	bodyGetRace
-/*  f02dcc8:	e60000dc */ 	swc1	$f0,0xdc($s0)
-/*  f02dccc:	a20202fe */ 	sb	$v0,0x2fe($s0)
-/*  f02dcd0:	27ad006c */ 	addiu	$t5,$sp,0x6c
-/*  f02dcd4:	27ae0068 */ 	addiu	$t6,$sp,0x68
-/*  f02dcd8:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f02dcdc:	afad001c */ 	sw	$t5,0x1c($sp)
-/*  f02dce0:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f02dce4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f02dce8:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f02dcec:	8fa40080 */ 	lw	$a0,0x80($sp)
-/*  f02dcf0:	3c0541f0 */ 	lui	$a1,0x41f0
-/*  f02dcf4:	27a6007c */ 	addiu	$a2,$sp,0x7c
-/*  f02dcf8:	0c00a86c */ 	jal	func0002a1b0
-/*  f02dcfc:	00003825 */ 	or	$a3,$zero,$zero
-/*  f02dd00:	3c014000 */ 	lui	$at,0x4000
-/*  f02dd04:	44812000 */ 	mtc1	$at,$f4
-/*  f02dd08:	e60000b8 */ 	swc1	$f0,0xb8($s0)
-/*  f02dd0c:	e60000b4 */ 	swc1	$f0,0xb4($s0)
-/*  f02dd10:	ae000114 */ 	sw	$zero,0x114($s0)
-/*  f02dd14:	ae000118 */ 	sw	$zero,0x118($s0)
-/*  f02dd18:	a2000125 */ 	sb	$zero,0x125($s0)
-/*  f02dd1c:	a20002a2 */ 	sb	$zero,0x2a2($s0)
-/*  f02dd20:	0c004b70 */ 	jal	random
-/*  f02dd24:	e6040104 */ 	swc1	$f4,0x104($s0)
-/*  f02dd28:	304f0003 */ 	andi	$t7,$v0,0x3
-/*  f02dd2c:	0c004b70 */ 	jal	random
-/*  f02dd30:	a20f02b0 */ 	sb	$t7,0x2b0($s0)
-/*  f02dd34:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f02dd38:	0041001b */ 	divu	$zero,$v0,$at
-/*  f02dd3c:	3c0141d0 */ 	lui	$at,0x41d0
-/*  f02dd40:	44813000 */ 	mtc1	$at,$f6
-/*  f02dd44:	3c014348 */ 	lui	$at,0x4348
-/*  f02dd48:	44814000 */ 	mtc1	$at,$f8
-/*  f02dd4c:	0000c010 */ 	mfhi	$t8
-/*  f02dd50:	a21802b1 */ 	sb	$t8,0x2b1($s0)
-/*  f02dd54:	a20002e3 */ 	sb	$zero,0x2e3($s0)
-/*  f02dd58:	ae0002e4 */ 	sw	$zero,0x2e4($s0)
-/*  f02dd5c:	a20002fc */ 	sb	$zero,0x2fc($s0)
-/*  f02dd60:	a20002e2 */ 	sb	$zero,0x2e2($s0)
-/*  f02dd64:	ae0002a4 */ 	sw	$zero,0x2a4($s0)
-/*  f02dd68:	02002025 */ 	or	$a0,$s0,$zero
-/*  f02dd6c:	24050000 */ 	addiu	$a1,$zero,0x0
-/*  f02dd70:	e6060024 */ 	swc1	$f6,0x24($s0)
-/*  f02dd74:	0fc0ba68 */ 	jal	func0f02e9a0
-/*  f02dd78:	e6080028 */ 	swc1	$f8,0x28($s0)
-/*  f02dd7c:	8e190018 */ 	lw	$t9,0x18($s0)
-/*  f02dd80:	960a0192 */ 	lhu	$t2,0x192($s0)
-/*  f02dd84:	37290400 */ 	ori	$t1,$t9,0x400
-/*  f02dd88:	354b0040 */ 	ori	$t3,$t2,0x40
-/*  f02dd8c:	ae090018 */ 	sw	$t1,0x18($s0)
-/*  f02dd90:	a60b0192 */ 	sh	$t3,0x192($s0)
-/*  f02dd94:	10000002 */ 	beqz	$zero,.L0f02dda0
-/*  f02dd98:	8fa20078 */ 	lw	$v0,0x78($sp)
-.L0f02dd9c:
-/*  f02dd9c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f02dda0:
-/*  f02dda0:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f02dda4:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f02dda8:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f02ddac:	03e00008 */ 	jr	$ra
-/*  f02ddb0:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f02ddb4
 /*  f02ddb4:	03e00008 */ 	jr	$ra
 /*  f02ddb8:	00000000 */ 	sll	$zero,$zero,0x0
 );
