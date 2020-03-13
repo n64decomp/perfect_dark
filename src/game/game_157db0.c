@@ -7,6 +7,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/dlights.h"
+#include "game/game_005fd0.h"
 #include "game/game_013550.h"
 #include "game/game_013ee0.h"
 #include "game/game_01e250.h"
@@ -5397,6 +5398,43 @@ glabel func0f15c920
 /*  f15c9f8:	03e00008 */ 	jr	$ra
 /*  f15c9fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because it calculates end by adding 24 to &func0f16b908,
+// but needs to calculating it by adding 4 to ptr.
+//void func0f15c920(void)
+//{
+//	var8007fc3c++;
+//
+//	if (var8007fc3c == 0xffff) {
+//		var8007fc3c = 1;
+//		func0f15cd28();
+//	}
+//
+//#if PIRACYCHECKS
+//	if ((var8007fc3c & 0xff) == 0xff) {
+//		u32 checksum = 0;
+//		s32 *ptr = (s32 *)&func0f0069dc;
+//		s32 *end = (s32 *)&func0f006b08;
+//
+//		while (ptr < end) {
+//			checksum ^= ~*ptr;
+//			checksum ^= *ptr << 5;
+//			checksum ^= *ptr >> 15;
+//			ptr++;
+//		}
+//
+//		if (checksum != 0x2c7b82c8) {
+//			ptr = (s32 *)&func0f15b908 + 20;
+//			end = &ptr[4];
+//
+//			while (ptr < end) {
+//				*ptr -= 0x24e21;
+//				ptr++;
+//			}
+//		}
+//	}
+//#endif
+//}
 
 GLOBAL_ASM(
 glabel func0f15ca00

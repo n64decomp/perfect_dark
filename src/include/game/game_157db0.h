@@ -30,7 +30,7 @@ u32 func0f15c880(void);
 f32 func0f15c888(void);
 u32 func0f15c8b8(void);
 u32 func0f15c8c8(void);
-u32 func0f15c920(void);
+void func0f15c920(void);
 u32 func0f15ca00(void);
 u32 func0f15cae0(void);
 u32 func0f15cb74(void);
