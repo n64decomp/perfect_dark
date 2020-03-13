@@ -1037,11 +1037,10 @@ struct prop *propAllocateEyespy(struct pad *pad, s16 room)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f02ddb4
-/*  f02ddb4:	03e00008 */ 	jr	$ra
-/*  f02ddb8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f02ddbf(void)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f02ddbc
