@@ -10928,7 +10928,7 @@ bool aiSetPortalFlag(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 portalnum = cmd[3] | (cmd[2] << 8);
 
-	g_Portals[portalnum].flags |= cmd[4];
+	g_PortalSomethings[portalnum].flags |= cmd[4];
 	g_Vars.aioffset += 5;
 
 	return false;

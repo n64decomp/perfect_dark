@@ -4831,10 +4831,19 @@ struct scenariodata {
 	};
 };
 
-struct portal {
+struct portalsomething {
 	u32 unk00;
 	u16 unk04;
 	u8 flags;
+};
+
+struct portal {
+	u16 unk00;
+	u16 unk02;
+	u16 unk04;
+	s16 unk06;
+	u32 unk08;
+	u32 unk0c;
 };
 
 struct trainingdata {

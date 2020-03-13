@@ -196,7 +196,7 @@ extern u32 var8007fc30;
 extern u32 var8007fc34;
 extern u32 var8007fc38;
 extern u16 var8007fc3c;
-extern u32 var8007fc40;
+extern s32 g_NumPortals;
 extern u32 var8007fc44;
 extern u32 var8007fc4c;
 extern u32 var8007fc54;
