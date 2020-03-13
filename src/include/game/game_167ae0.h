@@ -18,7 +18,7 @@ u32 func0f168f24(void);
 u32 func0f1691c0(void);
 u32 func0f169374(void);
 u32 func0f16b0c8(void);
-u32 func0f16b800(u32 arg0);
+u32 addFfff2bcf(u32 value);
 u32 func0f16b810(void);
 u32 getEffectiveSlowMotion(void);
 u32 func0f16b96c(void);

@@ -4206,13 +4206,10 @@ glabel var7f1b78b8
 /*  f16b7fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f16b800
-/*  f16b800:	3c01ffff */ 	lui	$at,0xffff
-/*  f16b804:	34212bcf */ 	ori	$at,$at,0x2bcf
-/*  f16b808:	03e00008 */ 	jr	$ra
-/*  f16b80c:	00811021 */ 	addu	$v0,$a0,$at
-);
+u32 addFfff2bcf(u32 value)
+{
+	return value + 0xffff2bcf;
+}
 
 GLOBAL_ASM(
 glabel func0f16b810
@@ -4241,11 +4238,11 @@ glabel getEffectiveSlowMotion
 /*  f16b854:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f16b858:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16b85c:	3c04b000 */ 	lui	$a0,0xb000
-/*  f16b860:	0fc5ae00 */ 	jal	func0f16b800
+/*  f16b860:	0fc5ae00 */ 	jal	addFfff2bcf
 /*  f16b864:	3484de8d */ 	ori	$a0,$a0,0xde8d
 /*  f16b868:	3c041741 */ 	lui	$a0,0x1741
 /*  f16b86c:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f16b870:	0fc5ae00 */ 	jal	func0f16b800
+/*  f16b870:	0fc5ae00 */ 	jal	addFfff2bcf
 /*  f16b874:	3484d42a */ 	ori	$a0,$a0,0xd42a
 /*  f16b878:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f16b87c:	8fa4002c */ 	lw	$a0,0x2c($sp)
@@ -4321,9 +4318,9 @@ glabel getEffectiveSlowMotion
 //u32 getEffectiveSlowMotion(void)
 //{
 //#if PIRACYCHECKS
-//	u32 salt = func0f16b800(0xb000de8d);
+//	u32 salt = addFfff2bcf(0xb000de8d);
 //	u32 actual;
-//	u32 expected = func0f16b800(0x1741d42a);
+//	u32 expected = addFfff2bcf(0x1741d42a);
 //	func0004e650(salt, &actual);
 //
 //	if (actual != expected) {
