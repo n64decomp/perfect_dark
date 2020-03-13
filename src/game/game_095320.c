@@ -54,19 +54,20 @@ u32 xorBabeffff(u32 value)
 	return value ^ 0xbabeffff;
 }
 
+u32 xorBoobless(u32 value)
+{
+	return value ^ 0xb00b1e55;
+}
+
 GLOBAL_ASM(
-glabel func0f095340
-/*  f095340:	3c01b00b */ 	lui	$at,0xb00b
-/*  f095344:	34211e55 */ 	ori	$at,$at,0x1e55
-/*  f095348:	03e00008 */ 	jr	$ra
-/*  f09534c:	00811026 */ 	xor	$v0,$a0,$at
+glabel func0f095350
 /*  f095350:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f095354:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f095358:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f09535c:	0c0126b8 */ 	jal	func00049ae0
 /*  f095360:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f095364:	3c04b46b */ 	lui	$a0,0xb46b
-/*  f095368:	0fc254d0 */ 	jal	func0f095340
+/*  f095368:	0fc254d0 */ 	jal	xorBoobless
 /*  f09536c:	34841e45 */ 	ori	$a0,$a0,0x1e45
 /*  f095370:	3c05a000 */ 	lui	$a1,0xa000
 /*  f095374:	00452025 */ 	or	$a0,$v0,$a1
