@@ -22,7 +22,7 @@ u32 func0f15b23c(void);
 u32 func0f15b274(void);
 u32 func0f15b4c0(void);
 u32 func0f15b51c(u32 arg);
-u32 func0f15b524(void);
+u32 xorBabebabe(u32 value);
 void func0f15b534(s32 stagenum);
 void func0f15b908(s32 stagenum);
 u32 func0f15c850(void);
