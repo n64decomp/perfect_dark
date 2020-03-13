@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f095320(void);
+u32 xorBaffbeff(u32 value);
 u32 func0f095330(void);
 u32 func0f095340(void);
 void func0f0953cc(void);

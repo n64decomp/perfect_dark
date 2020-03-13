@@ -44,13 +44,10 @@ const u32 var7f1ab7c0[] = {0x00000000};
 
 const char var7f1ab7c4[] = "%s %d: ";
 
-GLOBAL_ASM(
-glabel func0f095320
-/*  f095320:	3c01baff */ 	lui	$at,0xbaff
-/*  f095324:	3421beff */ 	ori	$at,$at,0xbeff
-/*  f095328:	03e00008 */ 	jr	$ra
-/*  f09532c:	00811026 */ 	xor	$v0,$a0,$at
-);
+u32 xorBaffbeff(u32 value)
+{
+	return value ^ 0xbaffbeff;
+}
 
 GLOBAL_ASM(
 glabel func0f095330
@@ -168,7 +165,7 @@ glabel func0f0953cc
 /*  f0954ac:	5440fffa */ 	bnezl	$v0,.L0f095498
 /*  f0954b0:	944c0004 */ 	lhu	$t4,0x4($v0)
 .L0f0954b4:
-/*  f0954b4:	0fc254c8 */ 	jal	func0f095320
+/*  f0954b4:	0fc254c8 */ 	jal	xorBaffbeff
 /*  f0954b8:	3484b4a3 */ 	ori	$a0,$a0,0xb4a3
 /*  f0954bc:	3c04adfe */ 	lui	$a0,0xadfe
 /*  f0954c0:	0fc254cc */ 	jal	func0f095330
