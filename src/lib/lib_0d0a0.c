@@ -148,13 +148,10 @@ glabel func0000d0f8
 /*     d278:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel func0000d27c
-/*     d27c:	3c01dead */ 	lui	$at,0xdead
-/*     d280:	3421beef */ 	ori	$at,$at,0xbeef
-/*     d284:	03e00008 */ 	jr	$ra
-/*     d288:	00811026 */ 	xor	$v0,$a0,$at
-);
+u32 xorDeadbeef(u32 value)
+{
+	return value ^ 0xdeadbeef;
+}
 
 GLOBAL_ASM(
 glabel func0000d28c
@@ -176,7 +173,7 @@ glabel func0000d29c
 /*     d2b8:	14200021 */ 	bnez	$at,.L0000d340
 /*     d2bc:	3c04dd9d */ 	lui	$a0,0xdd9d
 /*     d2c0:	348476cf */ 	ori	$a0,$a0,0x76cf
-/*     d2c4:	0c00349f */ 	jal	func0000d27c
+/*     d2c4:	0c00349f */ 	jal	xorDeadbeef
 /*     d2c8:	afa60030 */ 	sw	$a2,0x30($sp)
 /*     d2cc:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*     d2d0:	00002025 */ 	or	$a0,$zero,$zero
