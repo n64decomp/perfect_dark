@@ -22,7 +22,7 @@ s32 sub54321(s32 value);
 void updateCutsceneTime(void);
 s32 getEffectiveSlowMotion(void);
 void func0f16b96c(void);
-u32 func0f16cb04(void);
+void currentPlayerRecordDistanceMoved(void);
 void func0f16cce4(void);
 void setVar80084014(bool arg0);
 void fadeConfigure(u32 color, s16 num_frames);

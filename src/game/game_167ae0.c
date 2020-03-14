@@ -5968,50 +5968,24 @@ glabel func0f16b96c
 //	}
 //}
 
-GLOBAL_ASM(
-glabel func0f16cb04
-/*  f16cb04:	3c0e8007 */ 	lui	$t6,%hi(var80075d64)
-/*  f16cb08:	8dce5d64 */ 	lw	$t6,%lo(var80075d64)($t6)
-/*  f16cb0c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16cb10:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f16cb14:	144e000b */ 	bne	$v0,$t6,.L0f16cb44
-/*  f16cb18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16cb1c:	3c0f8007 */ 	lui	$t7,%hi(var80075d68)
-/*  f16cb20:	8def5d68 */ 	lw	$t7,%lo(var80075d68)($t7)
-/*  f16cb24:	144f0005 */ 	bne	$v0,$t7,.L0f16cb3c
-/*  f16cb28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cb2c:	0fc2f641 */ 	jal	func0f0bd904
-/*  f16cb30:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f16cb34:	10000003 */ 	beqz	$zero,.L0f16cb44
-/*  f16cb38:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f16cb3c:
-/*  f16cb3c:	0fc2f641 */ 	jal	func0f0bd904
-/*  f16cb40:	00002025 */ 	or	$a0,$zero,$zero
-.L0f16cb44:
-/*  f16cb44:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f16cb48:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f16cb4c:	8c4300bc */ 	lw	$v1,0xbc($v0)
-/*  f16cb50:	c4460310 */ 	lwc1	$f6,0x310($v0)
-/*  f16cb54:	c44a0318 */ 	lwc1	$f10,0x318($v0)
-/*  f16cb58:	c4640008 */ 	lwc1	$f4,0x8($v1)
-/*  f16cb5c:	c4680010 */ 	lwc1	$f8,0x10($v1)
-/*  f16cb60:	46062001 */ 	sub.s	$f0,$f4,$f6
-/*  f16cb64:	460a4081 */ 	sub.s	$f2,$f8,$f10
-/*  f16cb68:	46000402 */ 	mul.s	$f16,$f0,$f0
-/*  f16cb6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cb70:	46021482 */ 	mul.s	$f18,$f2,$f2
-/*  f16cb74:	0c012974 */ 	jal	sqrtf
-/*  f16cb78:	46128300 */ 	add.s	$f12,$f16,$f18
-/*  f16cb7c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x288)
-/*  f16cb80:	8c42a248 */ 	lw	$v0,%lo(g_Vars+0x288)($v0)
-/*  f16cb84:	c4440038 */ 	lwc1	$f4,0x38($v0)
-/*  f16cb88:	46002180 */ 	add.s	$f6,$f4,$f0
-/*  f16cb8c:	e4460038 */ 	swc1	$f6,0x38($v0)
-/*  f16cb90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16cb94:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f16cb98:	03e00008 */ 	jr	$ra
-/*  f16cb9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerRecordDistanceMoved(void)
+{
+	f32 xdiff;
+	f32 zdiff;
+
+	if (var80075d64 == 2) {
+		if (var80075d68 == 2) {
+			func0f0bd904(true);
+		} else {
+			func0f0bd904(false);
+		}
+	}
+
+	xdiff = g_Vars.currentplayer->prop->pos.x - g_Vars.currentplayer->bondprevpos.x;
+	zdiff = g_Vars.currentplayer->prop->pos.z - g_Vars.currentplayer->bondprevpos.z;
+
+	g_Vars.currentplayerstats->distance += sqrtf(xdiff * xdiff + zdiff * zdiff);
+}
 
 void stageLoad(void)
 {

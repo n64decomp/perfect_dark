@@ -1301,7 +1301,7 @@ glabel func0000e324
 /*     e524:	0c002f76 */ 	jal	func0000bdd8
 /*     e528:	86070632 */ 	lh	$a3,0x632($s0)
 .L0000e52c:
-/*     e52c:	0fc5b2c1 */ 	jal	func0f16cb04
+/*     e52c:	0fc5b2c1 */ 	jal	currentPlayerRecordDistanceMoved
 /*     e530:	00000000 */ 	sll	$zero,$zero,0x0
 /*     e534:	8e2f006c */ 	lw	$t7,0x6c($s1)
 /*     e538:	26520001 */ 	addiu	$s2,$s2,0x1

@@ -69,5 +69,7 @@ extern u32 var80075d18;
 extern u32 var80075d2c;
 extern u32 var80075d40;
 extern u32 var80075d54;
+extern u32 var80075d64;
+extern u32 var80075d68;
 
 #endif
