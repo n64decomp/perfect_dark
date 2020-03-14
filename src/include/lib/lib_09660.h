@@ -47,7 +47,7 @@ u32 func0000bc98(void);
 u32 func0000bca8(void);
 u32 func0000bd00(void);
 u32 func0000bd10(void);
-u32 func0000bd20(void);
+void func0000bd20(bool arg0);
 u32 func0000bd30(void);
 u32 func0000bd7c(void);
 u32 func0000bdc8(void);

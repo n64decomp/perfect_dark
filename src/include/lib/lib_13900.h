@@ -4,7 +4,7 @@
 #include "types.h"
 
 void func00013900(void);
-u32 func00013938(void);
+void func00013938(void);
 u32 func00013974(void);
 u32 func00013980(void);
 u32 func0001398c(void);
@@ -32,10 +32,10 @@ u32 func000149c0(void);
 u32 func00014a78(void);
 u32 func00014b50(void);
 u32 func00014c98(void);
-u32 func00014e10(void);
-u32 func00014eb8(void);
-u32 func00014f60(void);
-u32 func00015020(void);
+s32 func00014e10(u32 arg0);
+s32 func00014eb8(u32 arg0);
+s32 func00014f60(u32 arg0, u16 arg1);
+s32 func00015020(u32 arg0, u16 arg1);
 u32 func000150c4(void);
 u32 func000150e8(void);
 u32 func00015144(void);

@@ -6393,7 +6393,7 @@ glabel func0f15d744
 );
 
 GLOBAL_ASM(
-glabel func0f15d7a0
+glabel roomIsVisibleByPlayer
 /*  f15d7a0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x314)
 /*  f15d7a4:	8dcea2d4 */ 	lw	$t6,%lo(g_Vars+0x314)($t6)
 /*  f15d7a8:	000460c0 */ 	sll	$t4,$a0,0x3

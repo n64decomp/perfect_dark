@@ -9581,12 +9581,12 @@ u32 var8008401c = 0x00000001;
 
 s32 g_Difficulty = 0;
 
-u32 g_MpMatchTime = 0x00000000;
-u32 var80084028 = 36000;
-u32 var8008402c = 10;
-u32 var80084030 = 20;
+s32 g_MpTimeElapsed = 0;
+s32 g_MpTimeLimit = 36000;
+s32 g_MpScoreLimit = 10;
+s32 g_MpTeamScoreLimit = 20;
 s32 var80084034 = 0;
-u32 var80084038 = 0;
+s32 var80084038 = 0;
 f32 g_Uptime = 0;
 bool var80084040 = true;
 u32 var80084044 = 0x000005c8;
@@ -10017,7 +10017,7 @@ struct stagemusic stagemusictable[] = {
 	{ STAGE_RETAKING,      MUSIC_CI_OPERATIVE,   -1,                      MUSIC_CI_OPERATIVE    },
 	{ STAGE_WAR,           MUSIC_ALIEN_CONFLICT, MUSIC_SKEDAR_WIND,       MUSIC_ALIEN_CONFLICT  },
 	{ STAGE_DUEL,          MUSIC_CREDITS,        -1,                      MUSIC_CREDITS         },
-	{ STAGE_5C,            MUSIC_ALIEN_CONFLICT, -1,                      MUSIC_ALIEN_CONFLICT  },
+	{ STAGE_CREDITS,       MUSIC_ALIEN_CONFLICT, -1,                      MUSIC_ALIEN_CONFLICT  },
 };
 
 u32 var800845c0 = 0x00000000;

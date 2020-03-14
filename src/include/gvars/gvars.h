@@ -17,7 +17,7 @@ struct g_vars {
 	/*000000*/ s32 diffframe60;
 	/*000004*/ f32 diffframe60f;
 	/*000008*/ s32 lvframe60;
-	/*00000c*/ s32 lvframenum;
+	/*00000c*/ s32 lvframenum; // increments by 1 each frame when not paused
 	/*000010*/ f32 diffframe60freal;
 	/*000014*/ s32 lastframetime;
 	/*000018*/ s32 thisframetime;
@@ -27,7 +27,7 @@ struct g_vars {
 	/*000028*/ u32 mininc60;
 	/*00002c*/ s32 roomportalrecursionlimit;
 	/*000030*/ s32 lvframe240;
-	/*000034*/ s32 lvupdate240;
+	/*000034*/ s32 lvupdate240; // 0 = paused, 4 = slowmo, 8 = normal
 	/*000038*/ s32 lvupdate240_60;
 	/*00003c*/ s32 lvupdate240_60error;
 	/*000040*/ s32 diffframe240;
@@ -190,7 +190,7 @@ struct g_vars {
 	/*0004d5*/ u8 unk0004d5;
 	/*0004d6*/ s8 unk0004d6;
 	/*0004d7*/ u8 unk0004d7;
-	/*0004d8*/ u32 unk0004d8;
+	/*0004d8*/ s32 unk0004d8;
 	/*0004dc*/ u32 unk0004dc;
 	/*0004e0*/ u8 unk0004e0;
 	/*0004e1*/ u8 unk0004e1;

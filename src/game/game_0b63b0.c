@@ -669,7 +669,7 @@ glabel func0f0b69d0
 /*  f0b6b80:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b6b84:	46007506 */ 	mov.s	$f20,$f14
 .L0f0b6b88:
-/*  f0b6b88:	0fc575e8 */ 	jal	func0f15d7a0
+/*  f0b6b88:	0fc575e8 */ 	jal	roomIsVisibleByPlayer
 /*  f0b6b8c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b6b90:	10400002 */ 	beqz	$v0,.L0f0b6b9c
 /*  f0b6b94:	02202825 */ 	or	$a1,$s1,$zero

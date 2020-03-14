@@ -1341,9 +1341,9 @@ struct player {
 	/*0x031c*/ f32 thetadie;
 	/*0x0320*/ f32 vertadie;
 	/*0x0324*/ u32 bondtype;
-	/*0x0328*/ u32 unk0328;
-	/*0x032c*/ u32 unk032c;
-	/*0x0330*/ u32 unk0330;
+	/*0x0328*/ bool startnewbonddie;
+	/*0x032c*/ bool redbloodfinished;
+	/*0x0330*/ bool deathanimfinished;
 	/*0x0334*/ u32 unk0334;
 	/*0x0338*/ struct playerbond bonddie;
 	/*0x036c*/ struct playerbond bond2;
@@ -2805,7 +2805,7 @@ struct player {
 	/*0x1c34*/ u32 unk1c34;
 	/*0x1c38*/ u32 unk1c38;
 	/*0x1c3c*/ u32 unk1c3c;
-	/*0x1c40*/ s32 unk1c40;
+	/*0x1c40*/ u32 joybutinhibit;
 	/*0x1c44*/ u32 unk1c44;
 	/*0x1c48*/ u32 unk1c48;
 	/*0x1c4c*/ u32 unk1c4c;
@@ -5253,6 +5253,14 @@ struct chrbio {
 	u32 race;
 	u32 age;
 	u32 profile;
+};
+
+struct mpteaminfo {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	s32 score;
 };
 
 #endif

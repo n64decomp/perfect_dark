@@ -1903,10 +1903,10 @@
 #define STAGE_TEST_OLD      0x4e
 #define STAGE_DUEL          0x4f
 #define STAGE_TEST_LAM      0x50
-#define STAGE_5A            0x5a
-#define STAGE_5B            0x5b
-#define STAGE_5C            0x5c
-#define STAGE_5D            0x5d
+#define STAGE_TITLE         0x5a
+#define STAGE_BOOTPAKMENU   0x5b
+#define STAGE_CREDITS       0x5c
+#define STAGE_4MBMENU       0x5d
 
 #define STAGEINDEX_MAIANSOS      0x00
 #define STAGEINDEX_TEST_SILO     0x01

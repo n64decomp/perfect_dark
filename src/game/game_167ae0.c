@@ -417,7 +417,7 @@ void func0f167e7c(s32 stagenum)
 	g_Vars.lvupdate240frealprev = 1.0f;
 	g_Vars.lvupdate240freal = g_Vars.lvupdate240frealprev;
 
-	g_MpMatchTime = 0;
+	g_MpTimeElapsed = 0;
 	g_Uptime = 0;
 
 	g_Vars.speedpilltime = 0;
@@ -449,13 +449,13 @@ void func0f167e7c(s32 stagenum)
 		func0f00b480();
 	}
 
-	if (stagenum == STAGE_5A) {
+	if (stagenum == STAGE_TITLE) {
 		func0f00b480();
-	} else if (stagenum == STAGE_5B) {
+	} else if (stagenum == STAGE_BOOTPAKMENU) {
 		// empty
-	} else if (stagenum == STAGE_5C) {
+	} else if (stagenum == STAGE_CREDITS) {
 		// empty
-	} else if (stagenum == STAGE_5D) {
+	} else if (stagenum == STAGE_4MBMENU) {
 		// empty
 	} else {
 		s32 i;
@@ -542,15 +542,15 @@ void func0f167e7c(s32 stagenum)
 	func0f0139f0();
 	func0f19d4ec();
 
-	if (g_Vars.stagenum == STAGE_5A) {
+	if (g_Vars.stagenum == STAGE_TITLE) {
 		// empty
-	} else if (stagenum == STAGE_5B) {
+	} else if (stagenum == STAGE_BOOTPAKMENU) {
 		setCurrentPlayerNum(0);
 		func0f0f8c98();
-	} else if (stagenum == STAGE_5D) {
+	} else if (stagenum == STAGE_4MBMENU) {
 		setCurrentPlayerNum(0);
 		func0f0f8c98();
-	} else if (stagenum == STAGE_5C) {
+	} else if (stagenum == STAGE_CREDITS) {
 		func0f13b4c4();
 	} else {
 		s32 i;
@@ -590,11 +590,11 @@ void func0f167e7c(s32 stagenum)
 	func0f11a2e4();
 	func0000eadc();
 
-	if (stagenum == STAGE_5B) {
+	if (stagenum == STAGE_BOOTPAKMENU) {
 		func0f10c970();
 	}
 
-	if (stagenum == STAGE_5D) {
+	if (stagenum == STAGE_4MBMENU) {
 		func0f10cb2c();
 	}
 
@@ -4705,7 +4705,7 @@ glabel func0f16b96c
 /*  f16be0c:	8d8d00d8 */ 	lw	$t5,0xd8($t4)
 /*  f16be10:	55a00007 */ 	bnezl	$t5,.L0f16be30
 /*  f16be14:	8e89006c */ 	lw	$t1,0x6c($s4)
-/*  f16be18:	0fc575e8 */ 	jal	func0f15d7a0
+/*  f16be18:	0fc575e8 */ 	jal	roomIsVisibleByPlayer
 /*  f16be1c:	86240000 */ 	lh	$a0,0x0($s1)
 /*  f16be20:	50400003 */ 	beqzl	$v0,.L0f16be30
 /*  f16be24:	8e89006c */ 	lw	$t1,0x6c($s4)
@@ -5109,11 +5109,11 @@ glabel func0f16b96c
 /*  f16c3e4:	11a00116 */ 	beqz	$t5,.L0f16c840
 /*  f16c3e8:	ae200000 */ 	sw	$zero,0x0($s1)
 /*  f16c3ec:	8e8e04b4 */ 	lw	$t6,0x4b4($s4)
-/*  f16c3f0:	3c068008 */ 	lui	$a2,%hi(var80084028)
+/*  f16c3f0:	3c068008 */ 	lui	$a2,%hi(g_MpTimeLimit)
 /*  f16c3f4:	29c1005a */ 	slti	$at,$t6,0x5a
 /*  f16c3f8:	10200111 */ 	beqz	$at,.L0f16c840
 /*  f16c3fc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16c400:	8cc64028 */ 	lw	$a2,%lo(var80084028)($a2)
+/*  f16c400:	8cc64028 */ 	lw	$a2,%lo(g_MpTimeLimit)($a2)
 /*  f16c404:	3c028008 */ 	lui	$v0,0x8008
 /*  f16c408:	58c00077 */ 	blezl	$a2,.L0f16c5e8
 /*  f16c40c:	8e8d0034 */ 	lw	$t5,0x34($s4)
@@ -5201,8 +5201,8 @@ glabel func0f16b96c
 /*  f16c530:	0219082a */ 	slt	$at,$s0,$t9
 /*  f16c534:	1420ffdc */ 	bnez	$at,.L0f16c4a8
 /*  f16c538:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16c53c:	3c068008 */ 	lui	$a2,%hi(var80084028)
-/*  f16c540:	8cc64028 */ 	lw	$a2,%lo(var80084028)($a2)
+/*  f16c53c:	3c068008 */ 	lui	$a2,%hi(g_MpTimeLimit)
+/*  f16c540:	8cc64028 */ 	lw	$a2,%lo(g_MpTimeLimit)($a2)
 .L0f16c544:
 /*  f16c544:	0266082a */ 	slt	$at,$s3,$a2
 .L0f16c548:
@@ -5212,8 +5212,8 @@ glabel func0f16b96c
 /*  f16c554:	24ccfda8 */ 	addiu	$t4,$a2,-600
 /*  f16c558:	0c0039a1 */ 	jal	func0000e684
 /*  f16c55c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16c560:	3c068008 */ 	lui	$a2,%hi(var80084028)
-/*  f16c564:	8cc64028 */ 	lw	$a2,%lo(var80084028)($a2)
+/*  f16c560:	3c068008 */ 	lui	$a2,%hi(g_MpTimeLimit)
+/*  f16c564:	8cc64028 */ 	lw	$a2,%lo(g_MpTimeLimit)($a2)
 .L0f16c568:
 /*  f16c568:	24ccfda8 */ 	addiu	$t4,$a2,-600
 .L0f16c56c:
@@ -5227,8 +5227,8 @@ glabel func0f16b96c
 /*  f16c588:	0fc5b364 */ 	jal	getVar80084014
 /*  f16c58c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c590:	14400014 */ 	bnez	$v0,.L0f16c5e4
-/*  f16c594:	3c0e8008 */ 	lui	$t6,%hi(var80084028)
-/*  f16c598:	8dce4028 */ 	lw	$t6,%lo(var80084028)($t6)
+/*  f16c594:	3c0e8008 */ 	lui	$t6,%hi(g_MpTimeLimit)
+/*  f16c598:	8dce4028 */ 	lw	$t6,%lo(g_MpTimeLimit)($t6)
 /*  f16c59c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f16c5a0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f16c5a4:	024e082a */ 	slt	$at,$s2,$t6
@@ -5340,7 +5340,7 @@ glabel func0f16b96c
 /*  f16c714:	3c0c800b */ 	lui	$t4,%hi(g_MpPlayerChrs)
 /*  f16c718:	2582c4d0 */ 	addiu	$v0,$t4,%lo(g_MpPlayerChrs)
 /*  f16c71c:	1880000c */ 	blez	$a0,.L0f16c750
-/*  f16c720:	3c188008 */ 	lui	$t8,%hi(var8008402c)
+/*  f16c720:	3c188008 */ 	lui	$t8,%hi(g_MpScoreLimit)
 /*  f16c724:	00046880 */ 	sll	$t5,$a0,0x2
 /*  f16c728:	01a21821 */ 	addu	$v1,$t5,$v0
 /*  f16c72c:	8c4e0000 */ 	lw	$t6,0x0($v0)
@@ -5355,7 +5355,7 @@ glabel func0f16b96c
 /*  f16c748:	5420fff9 */ 	bnezl	$at,.L0f16c730
 /*  f16c74c:	8c4e0000 */ 	lw	$t6,0x0($v0)
 .L0f16c750:
-/*  f16c750:	8f18402c */ 	lw	$t8,%lo(var8008402c)($t8)
+/*  f16c750:	8f18402c */ 	lw	$t8,%lo(g_MpScoreLimit)($t8)
 /*  f16c754:	27a4016c */ 	addiu	$a0,$sp,0x16c
 /*  f16c758:	1b000017 */ 	blez	$t8,.L0f16c7b8
 /*  f16c75c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5366,10 +5366,10 @@ glabel func0f16b96c
 /*  f16c770:	00036880 */ 	sll	$t5,$v1,0x2
 /*  f16c774:	01a36821 */ 	addu	$t5,$t5,$v1
 /*  f16c778:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f16c77c:	3c048008 */ 	lui	$a0,%hi(var8008402c)
+/*  f16c77c:	3c048008 */ 	lui	$a0,%hi(g_MpScoreLimit)
 /*  f16c780:	27a2016c */ 	addiu	$v0,$sp,0x16c
 /*  f16c784:	01a22821 */ 	addu	$a1,$t5,$v0
-/*  f16c788:	8c84402c */ 	lw	$a0,%lo(var8008402c)($a0)
+/*  f16c788:	8c84402c */ 	lw	$a0,%lo(g_MpScoreLimit)($a0)
 /*  f16c78c:	8c4c0010 */ 	lw	$t4,0x10($v0)
 .L0f16c790:
 /*  f16c790:	24420014 */ 	addiu	$v0,$v0,0x14
@@ -5384,8 +5384,8 @@ glabel func0f16b96c
 /*  f16c7b0:	5420fff7 */ 	bnezl	$at,.L0f16c790
 /*  f16c7b4:	8c4c0010 */ 	lw	$t4,0x10($v0)
 .L0f16c7b8:
-/*  f16c7b8:	3c188008 */ 	lui	$t8,%hi(var80084030)
-/*  f16c7bc:	8f184030 */ 	lw	$t8,%lo(var80084030)($t8)
+/*  f16c7b8:	3c188008 */ 	lui	$t8,%hi(g_MpTeamScoreLimit)
+/*  f16c7bc:	8f184030 */ 	lw	$t8,%lo(g_MpTeamScoreLimit)($t8)
 /*  f16c7c0:	27a40078 */ 	addiu	$a0,$sp,0x78
 /*  f16c7c4:	5b000018 */ 	blezl	$t8,.L0f16c828
 /*  f16c7c8:	8e380000 */ 	lw	$t8,0x0($s1)
@@ -5396,10 +5396,10 @@ glabel func0f16b96c
 /*  f16c7dc:	0003c880 */ 	sll	$t9,$v1,0x2
 /*  f16c7e0:	0323c821 */ 	addu	$t9,$t9,$v1
 /*  f16c7e4:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f16c7e8:	3c048008 */ 	lui	$a0,%hi(var80084030)
+/*  f16c7e8:	3c048008 */ 	lui	$a0,%hi(g_MpTeamScoreLimit)
 /*  f16c7ec:	27a20078 */ 	addiu	$v0,$sp,0x78
 /*  f16c7f0:	03222821 */ 	addu	$a1,$t9,$v0
-/*  f16c7f4:	8c844030 */ 	lw	$a0,%lo(var80084030)($a0)
+/*  f16c7f4:	8c844030 */ 	lw	$a0,%lo(g_MpTeamScoreLimit)($a0)
 /*  f16c7f8:	8c4c0010 */ 	lw	$t4,0x10($v0)
 .L0f16c7fc:
 /*  f16c7fc:	24420014 */ 	addiu	$v0,$v0,0x14
@@ -5423,8 +5423,8 @@ glabel func0f16b96c
 /*  f16c838:	0c0039a1 */ 	jal	func0000e684
 /*  f16c83c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f16c840:
-/*  f16c840:	3c198008 */ 	lui	$t9,%hi(g_MpMatchTime)
-/*  f16c844:	8f394024 */ 	lw	$t9,%lo(g_MpMatchTime)($t9)
+/*  f16c840:	3c198008 */ 	lui	$t9,%hi(g_MpTimeElapsed)
+/*  f16c844:	8f394024 */ 	lw	$t9,%lo(g_MpTimeElapsed)($t9)
 /*  f16c848:	8e8d0038 */ 	lw	$t5,0x38($s4)
 /*  f16c84c:	3c018008 */ 	lui	$at,0x8008
 /*  f16c850:	24040001 */ 	addiu	$a0,$zero,0x1
@@ -5614,6 +5614,372 @@ glabel func0f16b96c
 /*  f16cb00:	27bd0290 */ 	addiu	$sp,$sp,0x290
 );
 
+// Mismatch because the code below uses s5 for g_MpTimeElapsed
+//void func0f16b96c(void)
+//{
+//	s32 i;
+//
+//	func0f16cce4();
+//
+//	if (g_Vars.unk0004e4) {
+//		func0f11c54c();
+//	}
+//
+//	// 9b0
+//	if (g_Vars.unk0004d8 > 0) {
+//		g_Vars.unk0004d8--;
+//	} else if (g_Vars.unk0004d8 == 0) {
+//		func00013938();
+//
+//		if (g_Vars.stagenum == STAGE_TITLE
+//				|| g_Vars.stagenum == STAGE_BOOTPAKMENU
+//				|| g_Vars.stagenum == STAGE_CREDITS
+//				|| g_Vars.stagenum == STAGE_4MBMENU) {
+//			g_Vars.unk0004d1 = 0;
+//		} else {
+//			g_Vars.unk0004d1 = 31;
+//			func0f11df38();
+//		}
+//
+//		g_Vars.unk0004d8 = -1;
+//	}
+//
+//	// a20
+//	if (g_Is4Mb == true) {
+//		func0f19ab40();
+//	}
+//
+//	// a34
+//	for (i = 0; i < PLAYERCOUNT(); i++) {
+//		g_Vars.players[i]->unk1490 = 0;
+//		g_Vars.players[i]->unk0cec = 0;
+//	}
+//
+//	// b3c
+//	if (getVar80084014()) {
+//		g_Vars.lvupdate240 = 0;
+//	} else if (mpIsPaused()) {
+//		g_Vars.lvupdate240 = 0;
+//
+//		for (i = 0; i < PLAYERCOUNT(); i++) {
+//			g_Vars.players[i]->joybutinhibit = 0xefffefff;
+//		}
+//	} else {
+//		// c70
+//		s32 slowmo = getEffectiveSlowMotion();
+//		g_Vars.lvupdate240 = g_Vars.diffframe240;
+//
+//		if (slowmo == SLOWMOTION_ON) {
+//			// c88
+//			if (g_Vars.speedpillon == false || g_Vars.in_cutscene) {
+//				if (g_Vars.lvupdate240 > 4) {
+//					g_Vars.lvupdate240 = 4;
+//				}
+//			}
+//		} else if (slowmo == SLOWMOTION_SMART) {
+//			// cc8
+//			if (g_Vars.speedpillon == false || g_Vars.in_cutscene) {
+//				// ce4
+//				if (g_Vars.mplayerisrunning) {
+//					// cec
+//					bool foundnearbychr = false;
+//					s32 playernum;
+//
+//					// Check if another player is in a nearby room
+//					for (playernum = 0; playernum < PLAYERCOUNT() && !foundnearbychr; playernum++) {
+//						// d78
+//						if (g_Vars.players[playernum]->isdead == false) {
+//							s16 *rooms = g_Vars.players[playernum]->prop->rooms;
+//							s32 r;
+//
+//							for (r = 0; rooms[r] != -1 && !foundnearbychr; r++) {
+//								s32 otherplayernum;
+//								// da0
+//								for (otherplayernum = 0; otherplayernum < PLAYERCOUNT(); otherplayernum++) {
+//									// df8
+//									if (playernum != otherplayernum
+//											&& g_Vars.players[otherplayernum]->isdead == false
+//											&& roomIsVisibleByPlayer(rooms[r], otherplayernum)) {
+//										// e28
+//										foundnearbychr = true;
+//									}
+//								}
+//							}
+//						}
+//					}
+//
+//					// f20
+//					if (foundnearbychr) {
+//						if (g_Vars.lvupdate240 > 4) {
+//							g_Vars.lvupdate240 = 4;
+//						}
+//					} else {
+//						if (g_Vars.lvupdate240 > 8) {
+//							g_Vars.lvupdate240 = 8;
+//						}
+//					}
+//				} else {
+//					// f6c
+//					if (g_Vars.lvupdate240 > 4) {
+//						g_Vars.lvupdate240 = 4;
+//					}
+//				}
+//			}
+//		} else {
+//			// Slow motion settings are off
+//			// f88
+//			if (g_Vars.speedpillon && g_Vars.in_cutscene == false) {
+//				if (g_Vars.lvupdate240 > 4) {
+//					g_Vars.lvupdate240 = 4;
+//				}
+//			}
+//		}
+//	}
+//
+//	// fbc
+//	g_Vars.lvupdate240_60 = g_Vars.lvupdate240 + g_Vars.lvupdate240_60error;
+//	g_Vars.lvupdate240_60error = g_Vars.lvupdate240_60 & 3;
+//	g_Vars.lvupdate240_60 >>= 2;
+//
+//	if (g_Vars.lvupdate240 > 0) {
+//		g_Vars.lvframenum++;
+//	}
+//
+//	g_Vars.lvupdate240f = g_Vars.lvupdate240 * 0.25f;
+//	g_Vars.lvframe60 += g_Vars.lvupdate240_60;
+//	g_Vars.lvframe240 += g_Vars.lvupdate240;
+//	g_Vars.lvupdate240frealprev = g_Vars.lvupdate240freal;
+//	g_Vars.lvupdate240freal = g_Vars.lvupdate240f;
+//
+//	func0f0abc28();
+//	func0f0df364();
+//
+//	// 040
+//	if ((func00015020(0, 0xffff) != 0
+//				|| func00014e10(0) > 10
+//				|| func00014e10(0) < -10
+//				|| func00014eb8(0) > 10
+//				|| func00014eb8(0) < -10
+//				|| func00015020(1, 0xffff) != 0
+//				|| func00014e10(1) > 10
+//				|| func00014e10(1) < -10
+//				|| func00014eb8(1) > 10
+//				|| func00014eb8(1) < -10
+//				|| func00015020(2, 0xffff) != 0
+//				|| func00014e10(2) > 10
+//				|| func00014e10(2) < -10
+//				|| func00014eb8(2) > 10
+//				|| func00014eb8(2) < -10
+//				|| func00015020(3, 0xffff) != 0
+//				|| func00014e10(3) > 10
+//				|| func00014e10(3) < -10
+//				|| func00014eb8(3) > 10
+//				|| func00014eb8(3) < -10) && var800624a4) {
+//		if (g_Vars.stagenum != STAGE_TITLE) {
+//			func0f01a7e4(5);
+//			func0000e95c(STAGE_TITLE);
+//		}
+//
+//		var800624a4 = 0;
+//	}
+//
+//	if (g_Vars.stagenum < STAGE_TITLE && !var800624a4 && !g_Vars.in_cutscene) {
+//		if (func00014f60(0, 0xffff) == 0
+//				&& func00014e10(0) < 10
+//				&& func00014e10(0) > -10
+//				&& func00014eb8(0) < 10
+//				&& func00014eb8(0) > -10
+//				&& func00014f60(1, 0xffff) == 0
+//				&& func00014e10(1) < 10
+//				&& func00014e10(1) > -10
+//				&& func00014eb8(1) < 10
+//				&& func00014eb8(1) > -10
+//				&& func00014f60(2, 0xffff) == 0
+//				&& func00014e10(2) < 10
+//				&& func00014e10(2) > -10
+//				&& func00014eb8(2) < 10
+//				&& func00014eb8(2) > -10
+//				&& func00014f60(3, 0xffff) == 0
+//				&& func00014e10(3) < 10
+//				&& func00014e10(3) > -10
+//				&& func00014eb8(3) < 10
+//				&& func00014eb8(3) > -10) {
+//			var800624b0 += g_Vars.diffframe60;
+//		} else {
+//			var800624b0 = 0;
+//		}
+//	} else {
+//		var800624b0 = 0;
+//	}
+//
+//	var80084038 = 0;
+//
+//	// 3e4
+//	if (g_Vars.normmplayerisrunning && g_Vars.stagenum < STAGE_TITLE) {
+//		// 400
+//		if (g_MpTimeLimit > 0) {
+//			s32 nexttime = g_Vars.lvupdate240_60 + g_MpTimeElapsed;
+//			s32 warntime = g_MpTimeLimit - 3600;
+//
+//			// Show HUD message at one minute remaining
+//			if (g_MpTimeElapsed < warntime && nexttime >= warntime) {
+//				s32 i;
+//				for (i = 0; i < PLAYERCOUNT(); i++) {
+//					setCurrentPlayerNum(i);
+//					currentPlayerQueueMessage(langGet(L_MISC(68)), 0); // "One minute left."
+//				}
+//			}
+//
+//			if (g_MpTimeElapsed < g_MpTimeLimit && nexttime >= g_MpTimeLimit) {
+//				// Match is ending due to time limit reached
+//				func0000e684();
+//			}
+//
+//			// Sound alarm at 10 seconds remaining
+//			if (nexttime >= g_MpTimeLimit - 600
+//					&& var80084034 == 0
+//					&& !getVar80084014()
+//					&& nexttime < g_MpTimeLimit) {
+//				// 5dc
+//				func00010718(&var80084034, 0, 0x7fff, 0x40, 163, 1, 1, -1, 1);
+//			}
+//		}
+//
+//		if (g_Vars.lvupdate240 != 0) {
+//			s32 numdying = 0;
+//
+//			for (i = 0; i < PLAYERCOUNT(); i++) {
+//				if (g_Vars.players[i]->isdead) {
+//					if (g_Vars.players[i]->redbloodfinished == false
+//							|| g_Vars.players[i]->deathanimfinished == false
+//							|| g_Vars.players[i]->colourfadetimemax60 >= 0) {
+//						numdying++;
+//					}
+//				}
+//			}
+//
+//			for (i = 0; i < g_MpNumPlayers; i++) {
+//				if (g_MpPlayerChrs[i]->actiontype == ACT_DIE) {
+//					numdying++;
+//				}
+//			}
+//
+//			if (g_MpScoreLimit > 0) {
+//				struct mpteaminfo info[12];
+//				s32 count = func0f1885e4(info);
+//
+//				for (i = 0; i < count; i++) {
+//					if (info[i].score >= g_MpScoreLimit) {
+//						var80084038++;
+//					}
+//				}
+//			}
+//
+//			if (g_MpTeamScoreLimit > 0) {
+//				struct mpteaminfo info[12];
+//				s32 count = func0f188a84(info);
+//
+//				for (i = 0; i < count; i++) {
+//					if (info[i].score >= g_MpTeamScoreLimit) {
+//						var80084038++;
+//					}
+//				}
+//			}
+//
+//			// 820
+//			if (var80084038 > 0 && numdying == 0) {
+//				func0000e684();
+//			}
+//		}
+//	}
+//
+//	g_MpTimeElapsed += g_Vars.lvupdate240_60;
+//	g_Uptime = g_MpTimeElapsed / 60.0f;
+//
+//	// 874
+//	func0000bd20(true);
+//
+//	if (g_Vars.stagenum == STAGE_TEST_OLD) {
+//		func0f01ae30();
+//		func00011d84();
+//	}
+//
+//	if (g_Vars.stagenum == STAGE_TITLE) {
+//		func0f01a810();
+//		func0f01d860();
+//		func00011d84();
+//	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
+//		setCurrentPlayerNum(0);
+//		func0f01bf28();
+//		func00011d84();
+//		func0f01d860();
+//		func0f11c7a0();
+//	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
+//		func0f01bf28();
+//		func00011d84();
+//		func0f01d860();
+//		func0f11c7a0();
+//	} else if (g_Vars.stagenum == STAGE_CREDITS) {
+//		func00011d84();
+//		func0f01d860();
+//	} else {
+//		func0f16b810();
+//		func0f12939c();
+//		func0f16b0c8();
+//		func0f01d8c0();
+//		func0f01d990();
+//		func0f01dd6c();
+//		func0f01de30();
+//		func0f01e050();
+//		func0f13eb44();
+//		func0f149864();
+//
+//		if (var800623f0) {
+//			func0f01d770();
+//		}
+//
+//		if (var80061640) {
+//			func0f009eac();
+//		}
+//
+//		func0f167c88();
+//		func0000fe88();
+//		func0f11c7a0();
+//		func0f0033b0();
+//		func0f0b2904();
+//		func0f0aefb8();
+//		func0f01b160();
+//		func0f01bf28();
+//		scenarioCallback10();
+//
+//		if (var8005d9d0 == 0) {
+//			func0f01e250();
+//		}
+//
+//		func00011d84();
+//		func0f01d860();
+//		func0f063dcc();
+//
+//		if (getCurrentStageId() == STAGE_CITRAINING) {
+//			struct trainingdata *trainingdata = ciGetTrainingData();
+//			s16 room = g_Vars.currentplayer->prop->rooms[0];
+//
+//			if ((room < 0x16 || room > 0x19)
+//					&& room != 0x0a
+//					&& (trainingdata == NULL || trainingdata->unk00_00 == 0)) {
+//				chrUnsetStageFlag(NULL, 0x00000001);
+//			}
+//
+//			func0f19f994();
+//
+//			if (g_Vars.lvupdate240 != 0) {
+//				func0f1a1998();
+//				func0f1a2070();
+//			}
+//		}
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0f16cb04
 /*  f16cb04:	3c0e8007 */ 	lui	$t6,%hi(var80075d64)
@@ -5766,17 +6132,17 @@ void setDifficulty(s32 difficulty)
 
 void setVar80084028(u32 arg0)
 {
-	var80084028 = arg0;
+	g_MpTimeLimit = arg0;
 }
 
 void setVar8008402c(u32 arg0)
 {
-	var8008402c = arg0;
+	g_MpScoreLimit = arg0;
 }
 
 void setVar80084030(u32 arg0)
 {
-	var80084030 = arg0;
+	g_MpTeamScoreLimit = arg0;
 }
 
 f32 getUptime(void)
@@ -5784,9 +6150,9 @@ f32 getUptime(void)
 	return g_Uptime;
 }
 
-u32 mpGetMatchTime(void)
+u32 mpGetTimeElapsed(void)
 {
-	return g_MpMatchTime;
+	return g_MpTimeElapsed;
 }
 
 GLOBAL_ASM(

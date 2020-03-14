@@ -1196,7 +1196,7 @@ void activemenuClose(void)
 	}
 
 	g_Vars.currentplayer->activemenumode = 0;
-	g_Vars.currentplayer->unk1c40 = -1;
+	g_Vars.currentplayer->joybutinhibit = 0xffffffff;
 	g_PlayersWithControl[g_Vars.currentplayernum] = 1;
 }
 

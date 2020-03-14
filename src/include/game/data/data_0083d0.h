@@ -4,6 +4,7 @@
 #include "types.h"
 
 extern u32 var800623b0;
+extern u32 var800623f0;
 extern u32 var80062400;
 extern u32 var80062410;
 extern u32 var80062414;

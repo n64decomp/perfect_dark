@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f01e250(void);
+void func0f01e250(void);
 u32 chrSetChrnum(struct chrdata *chr, s16 arg1);
 u32 func0f01e6a4(void);
 u32 func0f01e7f4(void);

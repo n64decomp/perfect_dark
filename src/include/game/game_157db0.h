@@ -46,7 +46,7 @@ u32 func0f15d63c(void);
 u32 func0f15d6c4(void);
 bool roomIsActive(s32 room_id);
 u32 func0f15d744(void);
-u32 func0f15d7a0(void);
+bool roomIsVisibleByPlayer(s16 room, u32 playernum);
 u32 func0f15d808(void);
 u32 func0f15d870(void);
 u32 func0f15d9a8(void);

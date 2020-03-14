@@ -297,7 +297,7 @@ char *menutextPauseOrUnpause(s32 arg0)
 
 char *menutextMatchTime(s32 arg0)
 {
-	formatTime(g_StringPointer, mpGetMatchTime(), 3);
+	formatTime(g_StringPointer, mpGetTimeElapsed(), 3);
 	return g_StringPointer;
 }
 
