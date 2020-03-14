@@ -9259,7 +9259,7 @@ glabel func0f0f85e0
 .L0f0f8604:
 /*  f0f8604:	0fc3e0cc */ 	jal	func0f0f8330
 /*  f0f8608:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0f860c:	0fc5b350 */ 	jal	func0f16cd40
+/*  f0f860c:	0fc5b350 */ 	jal	setVar80084014
 /*  f0f8610:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0f8614:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
 /*  f0f8618:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
@@ -14534,7 +14534,7 @@ glabel func0f0fce8c
 /*  f0fcf58:	00e02025 */ 	or	$a0,$a3,$zero
 /*  f0fcf5c:	0fc3e0cc */ 	jal	func0f0f8330
 /*  f0fcf60:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f0fcf64:	0fc5b350 */ 	jal	func0f16cd40
+/*  f0fcf64:	0fc5b350 */ 	jal	setVar80084014
 /*  f0fcf68:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0fcf6c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0fcf70:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)

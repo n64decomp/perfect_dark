@@ -212,7 +212,7 @@ extern u32 var80082050;
 extern void *filetable[];
 extern u32 var80084008;
 extern u32 var80084010;
-extern u32 var80084014;
+extern bool var80084014;
 extern f32 var80084018;
 extern s32 g_MpTimeElapsed;
 extern s32 g_MpTimeLimit;
