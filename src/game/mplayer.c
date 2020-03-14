@@ -1119,7 +1119,7 @@ glabel func0f188530
 /*  f188540:	2841003c */ 	slti	$at,$v0,0x3c
 /*  f188544:	14200005 */ 	bnez	$at,.L0f18855c
 /*  f188548:	000220c0 */ 	sll	$a0,$v0,0x3
-/*  f18854c:	0fc5b372 */ 	jal	setVar80084028
+/*  f18854c:	0fc5b372 */ 	jal	mpSetTimeLimit
 /*  f188550:	00002025 */ 	or	$a0,$zero,$zero
 /*  f188554:	10000007 */ 	beqz	$zero,.L0f188574
 /*  f188558:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1128,7 +1128,7 @@ glabel func0f188530
 /*  f188560:	00042140 */ 	sll	$a0,$a0,0x5
 /*  f188564:	00822021 */ 	addu	$a0,$a0,$v0
 /*  f188568:	00042100 */ 	sll	$a0,$a0,0x4
-/*  f18856c:	0fc5b372 */ 	jal	setVar80084028
+/*  f18856c:	0fc5b372 */ 	jal	mpSetTimeLimit
 /*  f188570:	24840e10 */ 	addiu	$a0,$a0,0xe10
 .L0f188574:
 /*  f188574:	3c02800b */ 	lui	$v0,%hi(g_MpSetup+0x13)
@@ -1136,12 +1136,12 @@ glabel func0f188530
 /*  f18857c:	28410064 */ 	slti	$at,$v0,0x64
 /*  f188580:	14200005 */ 	bnez	$at,.L0f188598
 /*  f188584:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f188588:	0fc5b375 */ 	jal	setVar8008402c
+/*  f188588:	0fc5b375 */ 	jal	mpSetScoreLimit
 /*  f18858c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f188590:	10000003 */ 	beqz	$zero,.L0f1885a0
 /*  f188594:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f188598:
-/*  f188598:	0fc5b375 */ 	jal	setVar8008402c
+/*  f188598:	0fc5b375 */ 	jal	mpSetScoreLimit
 /*  f18859c:	24440001 */ 	addiu	$a0,$v0,0x1
 .L0f1885a0:
 /*  f1885a0:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x14)
@@ -1149,14 +1149,14 @@ glabel func0f188530
 /*  f1885a8:	29c10190 */ 	slti	$at,$t6,0x190
 /*  f1885ac:	14200005 */ 	bnez	$at,.L0f1885c4
 /*  f1885b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1885b4:	0fc5b378 */ 	jal	setVar80084030
+/*  f1885b4:	0fc5b378 */ 	jal	mpSetTeamScoreLimit
 /*  f1885b8:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1885bc:	10000006 */ 	beqz	$zero,.L0f1885d8
 /*  f1885c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f1885c4:
 /*  f1885c4:	0fc62113 */ 	jal	func0f18844c
 /*  f1885c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1885cc:	0fc5b378 */ 	jal	setVar80084030
+/*  f1885cc:	0fc5b378 */ 	jal	mpSetTeamScoreLimit
 /*  f1885d0:	24440001 */ 	addiu	$a0,$v0,0x1
 /*  f1885d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f1885d8:

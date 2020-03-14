@@ -4206,9 +4206,9 @@ glabel var7f1b78b8
 /*  f16b7fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-u32 addFfff2bcf(u32 value)
+s32 sub54321(s32 value)
 {
-	return value + 0xffff2bcf;
+	return value - 54321;
 }
 
 void updateCutsceneTime(void)
@@ -4226,11 +4226,11 @@ glabel getEffectiveSlowMotion
 /*  f16b854:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f16b858:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f16b85c:	3c04b000 */ 	lui	$a0,0xb000
-/*  f16b860:	0fc5ae00 */ 	jal	addFfff2bcf
+/*  f16b860:	0fc5ae00 */ 	jal	sub54321
 /*  f16b864:	3484de8d */ 	ori	$a0,$a0,0xde8d
 /*  f16b868:	3c041741 */ 	lui	$a0,0x1741
 /*  f16b86c:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f16b870:	0fc5ae00 */ 	jal	addFfff2bcf
+/*  f16b870:	0fc5ae00 */ 	jal	sub54321
 /*  f16b874:	3484d42a */ 	ori	$a0,$a0,0xd42a
 /*  f16b878:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f16b87c:	8fa4002c */ 	lw	$a0,0x2c($sp)
@@ -4306,9 +4306,9 @@ glabel getEffectiveSlowMotion
 //u32 getEffectiveSlowMotion(void)
 //{
 //#if PIRACYCHECKS
-//	u32 salt = addFfff2bcf(0xb000de8d);
+//	u32 salt = sub54321(0xb000de8d);
 //	u32 actual;
-//	u32 expected = addFfff2bcf(0x1741d42a);
+//	u32 expected = sub54321(0x1741d42a);
 //	func0004e650(salt, &actual);
 //
 //	if (actual != expected) {
@@ -6118,19 +6118,19 @@ void setDifficulty(s32 difficulty)
 	g_Difficulty = difficulty;
 }
 
-void setVar80084028(u32 arg0)
+void mpSetTimeLimit(u32 limit)
 {
-	g_MpTimeLimit = arg0;
+	g_MpTimeLimit = limit;
 }
 
-void setVar8008402c(u32 arg0)
+void mpSetScoreLimit(u32 limit)
 {
-	g_MpScoreLimit = arg0;
+	g_MpScoreLimit = limit;
 }
 
-void setVar80084030(u32 arg0)
+void mpSetTeamScoreLimit(u32 limit)
 {
-	g_MpTeamScoreLimit = arg0;
+	g_MpTeamScoreLimit = limit;
 }
 
 f32 getUptime(void)
