@@ -112,11 +112,13 @@
 #include "lib/lib_4e530.h"
 #include "types.h"
 
+u32 getVar80084040(void)
+{
+	return var80084040;
+}
+
 GLOBAL_ASM(
-glabel func0f167ae0
-/*  f167ae0:	3c028008 */ 	lui	$v0,%hi(var80084040)
-/*  f167ae4:	03e00008 */ 	jr	$ra
-/*  f167ae8:	8c424040 */ 	lw	$v0,%lo(var80084040)($v0)
+glabel func0f167aec
 /*  f167aec:	3c018008 */ 	lui	$at,0x8008
 /*  f167af0:	03e00008 */ 	jr	$ra
 /*  f167af4:	ac244040 */ 	sw	$a0,0x4040($at)
