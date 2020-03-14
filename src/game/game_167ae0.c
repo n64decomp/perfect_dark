@@ -122,15 +122,11 @@ void setVar80084040(u32 value)
 	var80084040 = value;
 }
 
-GLOBAL_ASM(
-glabel func0f167af8
-/*  f167af8:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f167afc:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f167b00:	240effff */ 	addiu	$t6,$zero,-1
-/*  f167b04:	ac400320 */ 	sw	$zero,0x320($v0)
-/*  f167b08:	03e00008 */ 	jr	$ra
-/*  f167b0c:	ac4e04d8 */ 	sw	$t6,0x4d8($v0)
-);
+void func0f167af8(void)
+{
+	g_Vars.unk000320 = 0;
+	g_Vars.unk0004d8 = -1;
+}
 
 GLOBAL_ASM(
 glabel func0f167b10
