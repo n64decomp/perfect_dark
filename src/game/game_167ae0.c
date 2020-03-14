@@ -117,12 +117,10 @@ u32 getVar80084040(void)
 	return var80084040;
 }
 
-GLOBAL_ASM(
-glabel func0f167aec
-/*  f167aec:	3c018008 */ 	lui	$at,0x8008
-/*  f167af0:	03e00008 */ 	jr	$ra
-/*  f167af4:	ac244040 */ 	sw	$a0,0x4040($at)
-);
+void setVar80084040(u32 value)
+{
+	var80084040 = value;
+}
 
 GLOBAL_ASM(
 glabel func0f167af8
