@@ -4211,27 +4211,15 @@ u32 addFfff2bcf(u32 value)
 	return value + 0xffff2bcf;
 }
 
-GLOBAL_ASM(
-glabel func0f16b810
-/*  f16b810:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f16b814:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f16b818:	8c4e04cc */ 	lw	$t6,0x4cc($v0)
-/*  f16b81c:	3c038008 */ 	lui	$v1,%hi(var800840a4)
-/*  f16b820:	246340a4 */ 	addiu	$v1,$v1,%lo(var800840a4)
-/*  f16b824:	11c00006 */ 	beqz	$t6,.L0f16b840
-/*  f16b828:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16b82c:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f16b830:	8c580038 */ 	lw	$t8,0x38($v0)
-/*  f16b834:	01f8c821 */ 	addu	$t9,$t7,$t8
-/*  f16b838:	03e00008 */ 	jr	$ra
-/*  f16b83c:	ac790000 */ 	sw	$t9,0x0($v1)
-.L0f16b840:
-/*  f16b840:	3c038008 */ 	lui	$v1,%hi(var800840a4)
-/*  f16b844:	246340a4 */ 	addiu	$v1,$v1,%lo(var800840a4)
-/*  f16b848:	ac600000 */ 	sw	$zero,0x0($v1)
-/*  f16b84c:	03e00008 */ 	jr	$ra
-/*  f16b850:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void updateCutsceneTime(void)
+{
+	if (g_Vars.in_cutscene) {
+		g_CutsceneTime240_60 += g_Vars.lvupdate240_60;
+		return;
+	}
+
+	g_CutsceneTime240_60 = 0;
+}
 
 GLOBAL_ASM(
 glabel getEffectiveSlowMotion
@@ -5500,7 +5488,7 @@ glabel func0f16b96c
 /*  f16c958:	10000062 */ 	beqz	$zero,.L0f16cae4
 /*  f16c95c:	8fbf0044 */ 	lw	$ra,0x44($sp)
 .L0f16c960:
-/*  f16c960:	0fc5ae04 */ 	jal	func0f16b810
+/*  f16c960:	0fc5ae04 */ 	jal	updateCutsceneTime
 /*  f16c964:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c968:	0fc4a4e7 */ 	jal	func0f12939c
 /*  f16c96c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5923,7 +5911,7 @@ glabel func0f16b96c
 //		func00011d84();
 //		func0f01d860();
 //	} else {
-//		func0f16b810();
+//		updateCutsceneTime();
 //		func0f12939c();
 //		func0f16b0c8();
 //		func0f01d8c0();

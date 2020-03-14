@@ -19,7 +19,7 @@ u32 func0f1691c0(void);
 u32 func0f169374(void);
 void func0f16b0c8(void);
 u32 addFfff2bcf(u32 value);
-void func0f16b810(void);
+void updateCutsceneTime(void);
 s32 getEffectiveSlowMotion(void);
 void func0f16b96c(void);
 u32 func0f16cb04(void);

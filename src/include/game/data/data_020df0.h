@@ -227,7 +227,7 @@ extern u32 var80084068;
 extern u32 var80084078;
 extern u32 var80084088;
 extern u32 var80084098;
-extern u32 var800840a4;
+extern u32 g_CutsceneTime240_60;
 extern u32 var800840c4;
 extern u32 var800840d4;
 extern u32 var800840e0;
