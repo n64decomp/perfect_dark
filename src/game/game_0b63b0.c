@@ -7898,7 +7898,7 @@ void currentPlayerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8
 void func0f0bd4a8(u32 arg0)
 {
 	g_Vars.currentplayer->unk0264 = arg0;
-	g_Vars.currentplayer->unk0010 = 2;
+	g_Vars.currentplayer->visionmode = VISIONMODE_SLAYERROCKET;
 	g_Vars.currentplayer->unk00c4 &= ~0x0000000f;
 	g_Vars.currentplayer->unk00c8 = 0;
 }

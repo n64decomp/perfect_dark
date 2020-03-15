@@ -7,7 +7,7 @@ u32 getVar80084040(void);
 void func0f167af8(void);
 void func0f167b10(void);
 u32 func0f167b48(void);
-u32 func0f167b84(void);
+void func0f167b84(u32 arg0, u32 arg1);
 void func0f167c88(void);
 void func0f167e7c(s32 stagenum);
 u32 func0f1685d8(void);
