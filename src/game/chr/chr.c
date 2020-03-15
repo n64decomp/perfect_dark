@@ -15,7 +15,7 @@ const u32 var7f1a8688[] = {0x00000000};
 const u32 var7f1a868c[] = {0x00000000};
 
 GLOBAL_ASM(
-glabel func0f01e050
+glabel sparksTick
 /*  f01e050:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f01e054:	3c0b8008 */ 	lui	$t3,%hi(var8007f0b8)
 /*  f01e058:	256bf0b8 */ 	addiu	$t3,$t3,%lo(var8007f0b8)

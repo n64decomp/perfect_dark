@@ -74,36 +74,36 @@ void menuCountDialogs(void)
 }
 
 GLOBAL_ASM(
-glabel func0f01bf28
+glabel menuTick
 .late_rodata
 glabel var7f1a8608
 .word 0x3ca3d70a
 glabel var7f1a860c
-.word func0f01bf28+0x168c # f01d5b4
+.word menuTick+0x168c # f01d5b4
 glabel var7f1a8610
-.word func0f01bf28+0x168c # f01d5b4
+.word menuTick+0x168c # f01d5b4
 glabel var7f1a8614
-.word func0f01bf28+0x168c # f01d5b4
+.word menuTick+0x168c # f01d5b4
 glabel var7f1a8618
-.word func0f01bf28+0x16c0 # f01d5e8
+.word menuTick+0x16c0 # f01d5e8
 glabel var7f1a861c
-.word func0f01bf28+0x168c # f01d5b4
+.word menuTick+0x168c # f01d5b4
 glabel var7f1a8620
-.word func0f01bf28+0x168c # f01d5b4
+.word menuTick+0x168c # f01d5b4
 glabel var7f1a8624
-.word func0f01bf28+0x168c # f01d5b4
+.word menuTick+0x168c # f01d5b4
 glabel var7f1a8628
-.word func0f01bf28+0x16c0 # f01d5e8
+.word menuTick+0x16c0 # f01d5e8
 glabel var7f1a862c
-.word func0f01bf28+0x16c0 # f01d5e8
+.word menuTick+0x16c0 # f01d5e8
 glabel var7f1a8630
-.word func0f01bf28+0x168c # f01d5b4
+.word menuTick+0x168c # f01d5b4
 glabel var7f1a8634
-.word func0f01bf28+0x168c # f01d5b4
+.word menuTick+0x168c # f01d5b4
 glabel var7f1a8638
-.word func0f01bf28+0x16c0 # f01d5e8
+.word menuTick+0x16c0 # f01d5e8
 glabel var7f1a863c
-.word func0f01bf28+0x168c # f01d5b4
+.word menuTick+0x168c # f01d5b4
 .text
 /*  f01bf28:	27bdfe98 */ 	addiu	$sp,$sp,-360
 /*  f01bf2c:	3c0e8007 */ 	lui	$t6,%hi(var800706c8)

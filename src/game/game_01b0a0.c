@@ -98,7 +98,7 @@ glabel func0f01b154
 );
 
 GLOBAL_ASM(
-glabel func0f01b160
+glabel activemenuTick
 /*  f01b160:	27bdff20 */ 	addiu	$sp,$sp,-224
 /*  f01b164:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f01b168:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)

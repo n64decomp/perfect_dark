@@ -240,7 +240,7 @@ glabel func0f167b84
 /*  f167c84:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f167c88(void)
+void doBoostAndSlayerSfx(void)
 {
 	s32 i;
 
@@ -5336,7 +5336,7 @@ glabel func0f16b96c
 /*  f16c8d4:	2401005d */ 	addiu	$at,$zero,0x5d
 /*  f16c8d8:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f16c8dc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f16c8e0:	0fc06fca */ 	jal	func0f01bf28
+/*  f16c8e0:	0fc06fca */ 	jal	menuTick
 /*  f16c8e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c8e8:	0c004761 */ 	jal	func00011d84
 /*  f16c8ec:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5350,7 +5350,7 @@ glabel func0f16b96c
 .L0f16c90c:
 /*  f16c90c:	5441000c */ 	bnel	$v0,$at,.L0f16c940
 /*  f16c910:	2401005c */ 	addiu	$at,$zero,0x5c
-/*  f16c914:	0fc06fca */ 	jal	func0f01bf28
+/*  f16c914:	0fc06fca */ 	jal	menuTick
 /*  f16c918:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c91c:	0c004761 */ 	jal	func00011d84
 /*  f16c920:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5385,7 +5385,7 @@ glabel func0f16b96c
 /*  f16c98c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c990:	0fc0778c */ 	jal	func0f01de30
 /*  f16c994:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16c998:	0fc07814 */ 	jal	func0f01e050
+/*  f16c998:	0fc07814 */ 	jal	sparksTick
 /*  f16c99c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c9a0:	0fc4fad1 */ 	jal	func0f13eb44
 /*  f16c9a4:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5405,7 +5405,7 @@ glabel func0f16b96c
 /*  f16c9d8:	0fc027ab */ 	jal	func0f009eac
 /*  f16c9dc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f16c9e0:
-/*  f16c9e0:	0fc59f22 */ 	jal	func0f167c88
+/*  f16c9e0:	0fc59f22 */ 	jal	doBoostAndSlayerSfx
 /*  f16c9e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c9e8:	0c003fa2 */ 	jal	func0000fe88
 /*  f16c9ec:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5417,9 +5417,9 @@ glabel func0f16b96c
 /*  f16ca04:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16ca08:	0fc2bbee */ 	jal	func0f0aefb8
 /*  f16ca0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16ca10:	0fc06c58 */ 	jal	func0f01b160
+/*  f16ca10:	0fc06c58 */ 	jal	activemenuTick
 /*  f16ca14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16ca18:	0fc06fca */ 	jal	func0f01bf28
+/*  f16ca18:	0fc06fca */ 	jal	menuTick
 /*  f16ca1c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16ca20:	0fc615ab */ 	jal	scenarioCallback10
 /*  f16ca24:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5781,12 +5781,12 @@ glabel func0f16b96c
 //		func00011d84();
 //	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 //		setCurrentPlayerNum(0);
-//		func0f01bf28();
+//		menuTick();
 //		func00011d84();
 //		func0f01d860();
 //		func0f11c7a0();
 //	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
-//		func0f01bf28();
+//		menuTick();
 //		func00011d84();
 //		func0f01d860();
 //		func0f11c7a0();
@@ -5801,7 +5801,7 @@ glabel func0f16b96c
 //		func0f01d990();
 //		func0f01dd6c();
 //		func0f01de30();
-//		func0f01e050();
+//		sparksTick();
 //		func0f13eb44();
 //		func0f149864();
 //
@@ -5813,14 +5813,14 @@ glabel func0f16b96c
 //			func0f009eac();
 //		}
 //
-//		func0f167c88();
+//		doBoostAndSlayerSfx();
 //		func0000fe88();
 //		func0f11c7a0();
 //		func0f0033b0();
 //		func0f0b2904();
 //		func0f0aefb8();
-//		func0f01b160();
-//		func0f01bf28();
+//		activemenuTick();
+//		menuTick();
 //		scenarioCallback10();
 //
 //		if (var8005d9d0 == 0) {

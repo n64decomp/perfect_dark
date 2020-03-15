@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f01e050(void);
+void sparksTick(void);
 
 u32 func0f04e418(void);
 
