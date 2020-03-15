@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f0cf150(void);
+f32 eyespyFindGround(s16 *floorroom);
 u32 func0f0cf230(void);
 u32 func0f0cf38c(void);
 u32 func0f0cf728(void);

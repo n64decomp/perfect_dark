@@ -38,72 +38,40 @@ const char var7f1ada70[] = "g";
 const char var7f1ada74[] = "l";
 const char var7f1ada78[] = "%s%s";
 
-GLOBAL_ASM(
-glabel func0f0cf150
-.late_rodata
-glabel var7f1ada80
-.word 0xc6ea6000
-.text
-/*  f0cf150:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0cf154:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0cf158:	27bdffa8 */ 	addiu	$sp,$sp,-88
-/*  f0cf15c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0cf160:	afa40058 */ 	sw	$a0,0x58($sp)
-/*  f0cf164:	8dc20480 */ 	lw	$v0,0x480($t6)
-/*  f0cf168:	3c014248 */ 	lui	$at,0x4248
-/*  f0cf16c:	44810000 */ 	mtc1	$at,$f0
-/*  f0cf170:	3c018007 */ 	lui	$at,0x8007
-/*  f0cf174:	c4240ed0 */ 	lwc1	$f4,0xed0($at)
-/*  f0cf178:	c4460060 */ 	lwc1	$f6,0x60($v0)
-/*  f0cf17c:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f0cf180:	46062081 */ 	sub.s	$f2,$f4,$f6
-/*  f0cf184:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0cf188:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cf18c:	45020003 */ 	bc1fl	.L0f0cf19c
-/*  f0cf190:	44801000 */ 	mtc1	$zero,$f2
-/*  f0cf194:	46001006 */ 	mov.s	$f0,$f2
-/*  f0cf198:	44801000 */ 	mtc1	$zero,$f2
-.L0f0cf19c:
-/*  f0cf19c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cf1a0:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f0cf1a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cf1a8:	45020003 */ 	bc1fl	.L0f0cf1b8
-/*  f0cf1ac:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f0cf1b0:	46001006 */ 	mov.s	$f0,$f2
-/*  f0cf1b4:	c4680008 */ 	lwc1	$f8,0x8($v1)
-.L0f0cf1b8:
-/*  f0cf1b8:	8faf0058 */ 	lw	$t7,0x58($sp)
-/*  f0cf1bc:	27b80050 */ 	addiu	$t8,$sp,0x50
-/*  f0cf1c0:	e7a80040 */ 	swc1	$f8,0x40($sp)
-/*  f0cf1c4:	c46a000c */ 	lwc1	$f10,0xc($v1)
-/*  f0cf1c8:	27b9004c */ 	addiu	$t9,$sp,0x4c
-/*  f0cf1cc:	27a40040 */ 	addiu	$a0,$sp,0x40
-/*  f0cf1d0:	46005400 */ 	add.s	$f16,$f10,$f0
-/*  f0cf1d4:	3c0541d0 */ 	lui	$a1,0x41d0
-/*  f0cf1d8:	24660028 */ 	addiu	$a2,$v1,0x28
-/*  f0cf1dc:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0cf1e0:	e7b00044 */ 	swc1	$f16,0x44($sp)
-/*  f0cf1e4:	c4720010 */ 	lwc1	$f18,0x10($v1)
-/*  f0cf1e8:	afb90020 */ 	sw	$t9,0x20($sp)
-/*  f0cf1ec:	afb8001c */ 	sw	$t8,0x1c($sp)
-/*  f0cf1f0:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f0cf1f4:	afa00010 */ 	sw	$zero,0x10($sp)
-/*  f0cf1f8:	afaf0018 */ 	sw	$t7,0x18($sp)
-/*  f0cf1fc:	0c00a86c */ 	jal	func0002a1b0
-/*  f0cf200:	e7b20048 */ 	swc1	$f18,0x48($sp)
-/*  f0cf204:	3c017f1b */ 	lui	$at,%hi(var7f1ada80)
-/*  f0cf208:	c42cda80 */ 	lwc1	$f12,%lo(var7f1ada80)($at)
-/*  f0cf20c:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0cf210:	46000086 */ 	mov.s	$f2,$f0
-/*  f0cf214:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0cf218:	27bd0058 */ 	addiu	$sp,$sp,0x58
-/*  f0cf21c:	45000002 */ 	bc1f	.L0f0cf228
-/*  f0cf220:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cf224:	46006086 */ 	mov.s	$f2,$f12
-.L0f0cf228:
-/*  f0cf228:	03e00008 */ 	jr	$ra
-/*  f0cf22c:	46001006 */ 	mov.s	$f0,$f2
-);
+/**
+ * Determines the eyespy's ground Y value by doing a collision check for a
+ * position 50 units above the current position, or less if the eyespy is near
+ * the top of its height range.
+ */
+f32 eyespyFindGround(s16 *floorroom)
+{
+	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
+	bool thing;
+	struct prop *lift;
+	struct coord pos;
+	f32 yoffset = 50;
+	f32 ground;
+
+	if (g_EyespyMaxHeight - g_Vars.currentplayer->eyespy->height < 50) {
+		yoffset = g_EyespyMaxHeight - g_Vars.currentplayer->eyespy->height;
+	}
+
+	if (yoffset < 0) {
+		yoffset = 0;
+	}
+
+	pos.x = prop->pos.x;
+	pos.y = prop->pos.y + yoffset;
+	pos.z = prop->pos.z;
+
+	ground = func0002a1b0(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &thing, &lift);
+
+	if (ground < -30000) {
+		ground = -30000;
+	}
+
+	return ground;
+}
 
 GLOBAL_ASM(
 glabel func0f0cf230
@@ -224,7 +192,7 @@ glabel func0f0cf38c
 /*  f0cf3b4:	8f100000 */ 	lw	$s0,0x0($t8)
 /*  f0cf3b8:	8e190004 */ 	lw	$t9,0x4($s0)
 /*  f0cf3bc:	afa600d0 */ 	sw	$a2,0xd0($sp)
-/*  f0cf3c0:	0fc33c54 */ 	jal	func0f0cf150
+/*  f0cf3c0:	0fc33c54 */ 	jal	eyespyFindGround
 /*  f0cf3c4:	afb900c4 */ 	sw	$t9,0xc4($sp)
 /*  f0cf3c8:	8fa600d0 */ 	lw	$a2,0xd0($sp)
 /*  f0cf3cc:	44800000 */ 	mtc1	$zero,$f0
@@ -1074,7 +1042,7 @@ glabel var7f1ada94
 /*  f0cffe8:	c58e00b4 */ 	lwc1	$f14,0xb4($t4)
 /*  f0cffec:	e7b00078 */ 	swc1	$f16,0x78($sp)
 /*  f0cfff0:	e7ae006c */ 	swc1	$f14,0x6c($sp)
-/*  f0cfff4:	0fc33c54 */ 	jal	func0f0cf150
+/*  f0cfff4:	0fc33c54 */ 	jal	eyespyFindGround
 /*  f0cfff8:	e7ac0074 */ 	swc1	$f12,0x74($sp)
 /*  f0cfffc:	8fa30088 */ 	lw	$v1,0x88($sp)
 /*  f0d0000:	c7ac0074 */ 	lwc1	$f12,0x74($sp)

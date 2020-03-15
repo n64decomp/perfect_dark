@@ -1118,7 +1118,7 @@ struct eyespy {
 	/*0x4c*/ struct coord unk4c;
 	/*0x58*/ f32 speed;
 	/*0x5c*/ f32 oldground;
-	/*0x60*/ f32 height;
+	/*0x60*/ f32 height; // height above ground - 80 to 160
 	/*0x64*/ f32 gravity;
 	/*0x68*/ u8 camerashuttertime;
 	/*0x69*/ u8 hit;
