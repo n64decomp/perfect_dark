@@ -1880,23 +1880,16 @@ u32 currentPlayerGetUnk1758(void)
 	return g_Vars.currentplayer->unk1758;
 }
 
-GLOBAL_ASM(
-glabel func0f0b5018
-/*  f0b5018:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b501c:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b5020:	3c0f8008 */ 	lui	$t7,%hi(var80084008)
-/*  f0b5024:	3c19800b */ 	lui	$t9,%hi(var800aa59c)
-/*  f0b5028:	8c4e1740 */ 	lw	$t6,0x1740($v0)
-/*  f0b502c:	ac441740 */ 	sw	$a0,0x1740($v0)
-/*  f0b5030:	8c580484 */ 	lw	$t8,0x484($v0)
-/*  f0b5034:	ac4e1760 */ 	sw	$t6,0x1760($v0)
-/*  f0b5038:	8def4008 */ 	lw	$t7,%lo(var80084008)($t7)
-/*  f0b503c:	ac580488 */ 	sw	$t8,0x488($v0)
-/*  f0b5040:	ac4f1744 */ 	sw	$t7,0x1744($v0)
-/*  f0b5044:	8f39a59c */ 	lw	$t9,%lo(var800aa59c)($t9)
-/*  f0b5048:	03e00008 */ 	jr	$ra
-/*  f0b504c:	ac590484 */ 	sw	$t9,0x484($v0)
-);
+void currentPlayerSetUnk1740(u32 value)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	player->unk1760 = player->unk1740;
+	player->unk1740 = value;
+	player->unk1744 = var80084008;
+	player->unk0488 = player->unk0484;
+	player->unk0484 = var800aa59c;
+}
 
 GLOBAL_ASM(
 glabel func0f0b5050
