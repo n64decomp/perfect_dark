@@ -1620,7 +1620,7 @@ void currentPlayerSetCameraScale(void)
 	f32 fVar5;
 	f32 fVar2;
 
-	player->c_scaley = fsin(player->c_perspfovy * (M_CORRECT_PI / 360.0f)) / (fcos(player->c_perspfovy * (M_CORRECT_PI / 360.0f)) * player->c_halfheight);
+	player->c_scaley = fsin(player->c_perspfovy * (M_PI / 360.0f)) / (fcos(player->c_perspfovy * (M_PI / 360.0f)) * player->c_halfheight);
 	player->c_scalelod = player->c_scaley;
 	player->c_scalex = (player->c_scaley * player->c_perspaspect * player->c_halfheight) / player->c_halfwidth;
 

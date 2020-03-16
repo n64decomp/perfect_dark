@@ -153,9 +153,9 @@ void currentPlayerUpdateGrabbedPropForRelease(void)
 			rotateamount = -(g_Vars.currentplayer->vv_theta - g_Vars.currentplayer->bondprevtheta)
 				* M_TAU / 360;
 
-			if (rotateamount < -M_CORRECT_PI) {
+			if (rotateamount < -M_PI) {
 				rotateamount += M_TAU;
-			} else if (rotateamount >= M_CORRECT_PI) {
+			} else if (rotateamount >= M_PI) {
 				rotateamount -= M_TAU;
 			}
 

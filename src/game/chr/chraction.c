@@ -27387,7 +27387,7 @@ void chrTickSkJump(struct chrdata *chr)
 
 			if (chr->act_skjump.unk04c > 0) {
 				fVar6 = 1.0f - chr->act_skjump.unk03c / (f32)chr->act_skjump.unk04c;
-				fVar7 = fsin(M_CORRECT_PI * fVar6);
+				fVar7 = fsin(M_PI * fVar6);
 				fVar7 = fVar7 * 160.0f + chr->act_skjump.y;
 			} else {
 				fVar6 = 1;
@@ -28562,8 +28562,8 @@ bool func0f04911c(struct chrdata *chr, struct coord *pos, u8 arg2)
 {
 	f32 angle = chrGetAngleToPos(chr, pos);
 
-	if ((angle < arg2 * 0.024539785459638f && angle < M_CORRECT_PI) ||
-			(M_TAU - arg2 * 0.024539785459638f < angle && M_CORRECT_PI < angle)) {
+	if ((angle < arg2 * 0.024539785459638f && angle < M_PI) ||
+			(M_TAU - arg2 * 0.024539785459638f < angle && M_PI < angle)) {
 		return true;
 	}
 
