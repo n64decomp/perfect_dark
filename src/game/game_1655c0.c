@@ -10,7 +10,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel stageFindById
+glabel stageGetCurrent
 /*  f1655c0:	3c068008 */ 	lui	$a2,%hi(g_Stages)
 /*  f1655c4:	24c3fcc0 */ 	addiu	$v1,$a2,%lo(g_Stages)
 /*  f1655c8:	3c0e8008 */ 	lui	$t6,0x8008

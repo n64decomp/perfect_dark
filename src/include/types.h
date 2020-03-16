@@ -2628,11 +2628,11 @@ struct player {
 	/*0x1834*/ u32 unk1834;
 	/*0x1838*/ u32 unk1838;
 	/*0x183c*/ u32 unk183c;
-	/*0x1840*/ u32 unk1840;
-	/*0x1844*/ u32 unk1844;
-	/*0x1848*/ u32 unk1848;
-	/*0x184c*/ u32 unk184c;
-	/*0x1850*/ u32 unk1850;
+	/*0x1840*/ f32 zoomintime;
+	/*0x1844*/ f32 zoomintimemax;
+	/*0x1848*/ f32 zoominfovy;
+	/*0x184c*/ f32 zoominfovyold;
+	/*0x1850*/ f32 zoominfovynew;
 	/*0x1854*/ f32 fovy;
 	/*0x1858*/ f32 aspect;
 	/*0x185c*/ u32 flags;

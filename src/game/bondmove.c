@@ -3228,7 +3228,7 @@ glabel var7f1ad8e4
 .L0f0cad18:
 /*  f0cad18:	0fc2ea2c */ 	jal	func0f0ba8b0
 /*  f0cad1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cad20:	0fc2eab0 */ 	jal	func0f0baac0
+/*  f0cad20:	0fc2eab0 */ 	jal	currentPlayerUpdateZoom
 /*  f0cad24:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0cad28:
 /*  f0cad28:	0fc31fe6 */ 	jal	func0f0c7f98

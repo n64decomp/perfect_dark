@@ -1984,9 +1984,10 @@
 #define TICKMODE_6        6
 #define TICKMODE_AUTOWALK 7
 
+#define TELEPORTSTATE_0        0
 #define TELEPORTSTATE_STARTING 1
-#define TELEPORTSTATE_3 3
-#define TELEPORTSTATE_4 4
+#define TELEPORTSTATE_3        3
+#define TELEPORTSTATE_4        4
 
 #define VISIONMODE_NORMAL       0
 #define VISIONMODE_XRAY         1

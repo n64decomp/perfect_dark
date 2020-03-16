@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 stageFindById(void);
+struct stagetableentry *stageGetCurrent(void);
 s32 stageGetIndex(s32 stagenum);
 
 #endif
