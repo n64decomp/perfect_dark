@@ -28,7 +28,7 @@ u32 func0f0ba190(u32 arg0);
 u32 func0f0ba29c(void);
 u32 func0f0ba838(void);
 void currentPlayerSetZoomFovY(f32 fovy, f32 timemax);
-f32 func0f0ba87c(void);
+f32 currentPlayerGetZoomFovY(void);
 void func0f0ba8b0(f32 value);
 f32 currentPlayerGetTeleportFovY(void);
 void currentPlayerUpdateZoom(void);

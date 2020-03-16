@@ -4822,27 +4822,18 @@ void currentPlayerSetZoomFovY(f32 fovy, f32 timemax)
 	g_Vars.currentplayer->zoominfovynew = fovy;
 }
 
-GLOBAL_ASM(
-glabel func0f0ba87c
-/*  f0ba87c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0ba880:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0ba884:	c4441840 */ 	lwc1	$f4,0x1840($v0)
-/*  f0ba888:	c4461844 */ 	lwc1	$f6,0x1844($v0)
-/*  f0ba88c:	4606203c */ 	c.lt.s	$f4,$f6
-/*  f0ba890:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ba894:	45020004 */ 	bc1fl	.L0f0ba8a8
-/*  f0ba898:	c4401848 */ 	lwc1	$f0,0x1848($v0)
-/*  f0ba89c:	03e00008 */ 	jr	$ra
-/*  f0ba8a0:	c4401850 */ 	lwc1	$f0,0x1850($v0)
-/*  f0ba8a4:	c4401848 */ 	lwc1	$f0,0x1848($v0)
-.L0f0ba8a8:
-/*  f0ba8a8:	03e00008 */ 	jr	$ra
-/*  f0ba8ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 currentPlayerGetZoomFovY(void)
+{
+	if (g_Vars.currentplayer->zoomintimemax > g_Vars.currentplayer->zoomintime) {
+		return g_Vars.currentplayer->zoominfovynew;
+	}
+
+	return g_Vars.currentplayer->zoominfovy;
+}
 
 void func0f0ba8b0(f32 fovy)
 {
-	if (func0f0ba87c() != fovy) {
+	if (currentPlayerGetZoomFovY() != fovy) {
 		if (fovy < g_Vars.currentplayer->zoominfovy) {
 			currentPlayerSetZoomFovY(fovy, (g_Vars.currentplayer->zoominfovy - fovy) * 15.0f / 30.0f);
 		} else {
