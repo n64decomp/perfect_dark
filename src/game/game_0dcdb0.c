@@ -1339,44 +1339,22 @@ void func0f0de034(char *text, s32 confignum, u8 colournum)
 			-1, 0);
 }
 
-GLOBAL_ASM(
-glabel func0f0de0d4
-/*  f0de0d4:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f0de0d8:	afb00048 */ 	sw	$s0,0x48($sp)
-/*  f0de0dc:	00c08025 */ 	or	$s0,$a2,$zero
-/*  f0de0e0:	afbf004c */ 	sw	$ra,0x4c($sp)
-/*  f0de0e4:	afa7005c */ 	sw	$a3,0x5c($sp)
-/*  f0de0e8:	920e0002 */ 	lbu	$t6,0x2($s0)
-/*  f0de0ec:	92070001 */ 	lbu	$a3,0x1($s0)
-/*  f0de0f0:	90c60000 */ 	lbu	$a2,0x0($a2)
-/*  f0de0f4:	afae0010 */ 	sw	$t6,0x10($sp)
-/*  f0de0f8:	8e0f0004 */ 	lw	$t7,0x4($s0)
-/*  f0de0fc:	8fad005c */ 	lw	$t5,0x5c($sp)
-/*  f0de100:	240e0004 */ 	addiu	$t6,$zero,0x4
-/*  f0de104:	afaf0014 */ 	sw	$t7,0x14($sp)
-/*  f0de108:	8e180008 */ 	lw	$t8,0x8($s0)
-/*  f0de10c:	afb80018 */ 	sw	$t8,0x18($sp)
-/*  f0de110:	8e19000c */ 	lw	$t9,0xc($s0)
-/*  f0de114:	afb9001c */ 	sw	$t9,0x1c($sp)
-/*  f0de118:	8e080010 */ 	lw	$t0,0x10($s0)
-/*  f0de11c:	afa80020 */ 	sw	$t0,0x20($sp)
-/*  f0de120:	92090014 */ 	lbu	$t1,0x14($s0)
-/*  f0de124:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f0de128:	860a0016 */ 	lh	$t2,0x16($s0)
-/*  f0de12c:	afaa0028 */ 	sw	$t2,0x28($sp)
-/*  f0de130:	920b0015 */ 	lbu	$t3,0x15($s0)
-/*  f0de134:	afab002c */ 	sw	$t3,0x2c($sp)
-/*  f0de138:	860c0018 */ 	lh	$t4,0x18($s0)
-/*  f0de13c:	afae0038 */ 	sw	$t6,0x38($sp)
-/*  f0de140:	afad0034 */ 	sw	$t5,0x34($sp)
-/*  f0de144:	0fc37baf */ 	jal	func0f0deebc
-/*  f0de148:	afac0030 */ 	sw	$t4,0x30($sp)
-/*  f0de14c:	8fbf004c */ 	lw	$ra,0x4c($sp)
-/*  f0de150:	8fb00048 */ 	lw	$s0,0x48($sp)
-/*  f0de154:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f0de158:	03e00008 */ 	jr	$ra
-/*  f0de15c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0de0d4(char *text, s32 confignum, struct hudmessageconfig *config, s32 arg3)
+{
+	func0f0deebc(text, confignum,
+			config->unk00,
+			config->unk01,
+			config->unk02,
+			config->unk04,
+			config->unk08,
+			config->colour,
+			config->unk10,
+			config->alignh,
+			config->unk16,
+			config->alignv,
+			config->unk18,
+			arg3, 4);
+}
 
 GLOBAL_ASM(
 glabel func0f0de160

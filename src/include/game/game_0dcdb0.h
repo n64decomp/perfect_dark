@@ -16,7 +16,7 @@ u32 func0f0ddeac(void);
 void currentPlayerQueueMessage(char *text, s32 confignum);
 void func0f0ddfa4(char *text, s32 confignum, s32 arg2);
 void func0f0de034(char *text, s32 confignum, u8 colour);
-u32 func0f0de0d4(void);
+void func0f0de0d4(char *text, s32 confignum, struct hudmessageconfig *config, s32 arg3);
 u32 func0f0de160(void);
 u32 func0f0de7fc(void);
 u32 func0f0deebc(char *text, s32 confignum, u8 conf00, u8 conf01, u8 conf02,
