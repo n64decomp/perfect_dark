@@ -18,7 +18,7 @@ f32 func0f0b49b8(f32 arg0);
 void currentPlayerSetCameraScale(void);
 u32 func0f0b4c3c(void);
 void func0f0b4d04(struct coord *in, struct coord *out);
-u32 func0f0b4d68(void);
+void func0f0b4d68(struct coord *in, struct coord *out);
 u32 func0f0b4dec(void);
 u32 func0f0b4e68(void);
 u32 func0f0b4eb8(void);

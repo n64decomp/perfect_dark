@@ -1734,48 +1734,23 @@ void func0f0b4d04(struct coord *in, struct coord *out)
 		- in->x * value * player->c_recipscalex;
 }
 
-GLOBAL_ASM(
-glabel func0f0b4d68
-.late_rodata
-glabel var7f1ad150
-.word 0xe0ad78ec
-.text
-/*  f0b4d68:	c4800008 */ 	lwc1	$f0,0x8($a0)
-/*  f0b4d6c:	44802000 */ 	mtc1	$zero,$f4
-/*  f0b4d70:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b4d74:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b4d78:	46002032 */ 	c.eq.s	$f4,$f0
-/*  f0b4d7c:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b4d80:	45020005 */ 	bc1fl	.L0f0b4d98
-/*  f0b4d84:	44813000 */ 	mtc1	$at,$f6
-/*  f0b4d88:	3c017f1b */ 	lui	$at,%hi(var7f1ad150)
-/*  f0b4d8c:	10000004 */ 	beqz	$zero,.L0f0b4da0
-/*  f0b4d90:	c422d150 */ 	lwc1	$f2,%lo(var7f1ad150)($at)
-/*  f0b4d94:	44813000 */ 	mtc1	$at,$f6
-.L0f0b4d98:
-/*  f0b4d98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b4d9c:	46003083 */ 	div.s	$f2,$f6,$f0
-.L0f0b4da0:
-/*  f0b4da0:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f0b4da4:	c4501734 */ 	lwc1	$f16,0x1734($v0)
-/*  f0b4da8:	c4441710 */ 	lwc1	$f4,0x1710($v0)
-/*  f0b4dac:	46024282 */ 	mul.s	$f10,$f8,$f2
-/*  f0b4db0:	c4461724 */ 	lwc1	$f6,0x1724($v0)
-/*  f0b4db4:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0b4db8:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f0b4dbc:	46089280 */ 	add.s	$f10,$f18,$f8
-/*  f0b4dc0:	e4aa0004 */ 	swc1	$f10,0x4($a1)
-/*  f0b4dc4:	c4920000 */ 	lwc1	$f18,0x0($a0)
-/*  f0b4dc8:	c4441720 */ 	lwc1	$f4,0x1720($v0)
-/*  f0b4dcc:	c450170c */ 	lwc1	$f16,0x170c($v0)
-/*  f0b4dd0:	46029202 */ 	mul.s	$f8,$f18,$f2
-/*  f0b4dd4:	c44a1730 */ 	lwc1	$f10,0x1730($v0)
-/*  f0b4dd8:	46048180 */ 	add.s	$f6,$f16,$f4
-/*  f0b4ddc:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f0b4de0:	46103101 */ 	sub.s	$f4,$f6,$f16
-/*  f0b4de4:	03e00008 */ 	jr	$ra
-/*  f0b4de8:	e4a40000 */ 	swc1	$f4,0x0($a1)
-);
+void func0f0b4d68(struct coord *in, struct coord *out)
+{
+	struct player *player = g_Vars.currentplayer;
+	f32 value;
+
+	if (in->z == 0.0f) {
+		value = -100000000000000000000.0f;
+	} else {
+		value = 1.0f / in->z;
+	}
+
+	out->y = in->y * value * player->c_recipscaley
+		+ (player->c_screentop + player->c_halfheight);
+
+	out->x = (player->c_screenleft + player->c_halfwidth) -
+		in->x * value * player->c_recipscalex;
+}
 
 GLOBAL_ASM(
 glabel func0f0b4dec
