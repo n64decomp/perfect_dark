@@ -3150,7 +3150,7 @@ glabel var7f1ad8e4
 /*  f0cabf8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cabfc:	e7a001f8 */ 	swc1	$f0,0x1f8($sp)
 .L0f0cac00:
-/*  f0cac00:	0fc2d602 */ 	jal	func0f0b5808
+/*  f0cac00:	0fc2d602 */ 	jal	currentPlayerGetScreenTop
 /*  f0cac04:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cac08:	0fc2d5fa */ 	jal	currentPlayerGetScreenHeight
 /*  f0cac0c:	e7a00054 */ 	swc1	$f0,0x54($sp)
@@ -3172,7 +3172,7 @@ glabel var7f1ad8e4
 /*  f0cac4c:	10000016 */ 	beqz	$zero,.L0f0caca8
 /*  f0cac50:	e7a601f0 */ 	swc1	$f6,0x1f0($sp)
 .L0f0cac54:
-/*  f0cac54:	0fc2d602 */ 	jal	func0f0b5808
+/*  f0cac54:	0fc2d602 */ 	jal	currentPlayerGetScreenTop
 /*  f0cac58:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cac5c:	0fc2d5fa */ 	jal	currentPlayerGetScreenHeight
 /*  f0cac60:	e7a00054 */ 	swc1	$f0,0x54($sp)

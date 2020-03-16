@@ -63,8 +63,8 @@ const u32 var7f1ab82c[] = {0x3e8e38e4};
 //
 //					if (currentPlayerGetScreenLeft() < fStack56 && fStack56 < currentPlayerGetScreenWidth() + currentPlayerGetScreenLeft() &&
 //							currentPlayerGetScreenLeft() < fStack64 && fStack64 < currentPlayerGetScreenWidth() + currentPlayerGetScreenLeft() &&
-//							func0f0b5808() < fStack52 && fStack52 < currentPlayerGetScreenHeight() + func0f0b5808() &&
-//							func0f0b5808() < fStack60 && fStack60 < currentPlayerGetScreenHeight() + func0f0b5808()) {
+//							currentPlayerGetScreenTop() < fStack52 && fStack52 < currentPlayerGetScreenHeight() + currentPlayerGetScreenTop() &&
+//							currentPlayerGetScreenTop() < fStack60 && fStack60 < currentPlayerGetScreenHeight() + currentPlayerGetScreenTop()) {
 //						criteria->status = OBJECTIVE_COMPLETE;
 //
 //						if (g_Vars.stagenum == STAGE_CITRAINING) {
