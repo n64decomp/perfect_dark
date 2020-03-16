@@ -12,7 +12,7 @@ u32 func0f0b35b8(void);
 u32 func0f0b3988(void);
 u32 func0f0b39c0(void);
 u32 func0f0b4958(void);
-u32 func0f0b4984(void);
+void currentPlayerSetScreenPosition(f32 left, f32 top);
 void currentPlayerSetPerspective(f32 near, f32 fovy, f32 aspect);
 f32 func0f0b49b8(f32 arg0);
 u32 func0f0b4a24(void);

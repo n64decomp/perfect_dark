@@ -2555,8 +2555,8 @@ struct player {
 	/*0x1700*/ u32 unk1700;
 	/*0x1704*/ u32 unk1704;
 	/*0x1708*/ u32 unk1708;
-	/*0x170c*/ u32 unk170c;
-	/*0x1710*/ u32 unk1710;
+	/*0x170c*/ f32 c_screenleft;
+	/*0x1710*/ f32 c_screentop;
 	/*0x1714*/ f32 c_perspnear;
 	/*0x1718*/ f32 c_perspfovy;
 	/*0x171c*/ f32 c_perspaspect;

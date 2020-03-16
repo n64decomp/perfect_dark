@@ -1605,14 +1605,13 @@ glabel func0f0b4958
 /*  f0b4980:	e4461724 */ 	swc1	$f6,0x1724($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f0b4984
-/*  f0b4984:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b4988:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b498c:	e44c170c */ 	swc1	$f12,0x170c($v0)
-/*  f0b4990:	03e00008 */ 	jr	$ra
-/*  f0b4994:	e44e1710 */ 	swc1	$f14,0x1710($v0)
-);
+void currentPlayerSetScreenPosition(f32 left, f32 top)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	player->c_screenleft = left;
+	player->c_screentop = top;
+}
 
 void currentPlayerSetPerspective(f32 near, f32 fovy, f32 aspect)
 {
