@@ -2769,7 +2769,7 @@ glabel func0001c664
 /*    1c6b8:	10000011 */ 	beqz	$zero,.L0001c700
 /*    1c6bc:	8fa2002c */ 	lw	$v0,0x2c($sp)
 .L0001c6c0:
-/*    1c6c0:	0fc2d5ee */ 	jal	func0f0b57b8
+/*    1c6c0:	0fc2d5ee */ 	jal	currentPlayerGetLodScaleZ
 /*    1c6c4:	afa30024 */ 	sw	$v1,0x24($sp)
 /*    1c6c8:	3c018006 */ 	lui	$at,0x8006
 /*    1c6cc:	8fa30024 */ 	lw	$v1,0x24($sp)

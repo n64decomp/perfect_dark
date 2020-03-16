@@ -439,7 +439,7 @@ glabel var7f1b5584
 .L0f129fcc:
 /*  f129fcc:	16e7003f */ 	bne	$s7,$a3,.L0f12a0cc
 /*  f129fd0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f129fd4:	0fc2d5ee */ 	jal	func0f0b57b8
+/*  f129fd4:	0fc2d5ee */ 	jal	currentPlayerGetLodScaleZ
 /*  f129fd8:	afaa0158 */ 	sw	$t2,0x158($sp)
 /*  f129fdc:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
 /*  f129fe0:	8fa30164 */ 	lw	$v1,0x164($sp)

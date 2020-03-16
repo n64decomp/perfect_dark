@@ -41,7 +41,7 @@ void currentPlayerSetUnk174c(u32 value);
 u32 currentPlayerGetUnk174c(void);
 void currentPlayerSetUnk175c(u32 value);
 u32 currentPlayerGetUnk175c(void);
-u32 func0f0b57b8(void);
+f32 currentPlayerGetLodScaleZ(void);
 f32 func0f0b57d8(void);
 f32 func0f0b57e8(void);
 f32 func0f0b57f8(void);
