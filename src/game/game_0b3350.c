@@ -17,59 +17,42 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f0b3350
-/*  f0b3350:	28810002 */ 	slti	$at,$a0,0x2
-/*  f0b3354:	50200004 */ 	beqzl	$at,.L0f0b3368
-/*  f0b3358:	28810003 */ 	slti	$at,$a0,0x3
-/*  f0b335c:	03e00008 */ 	jr	$ra
-/*  f0b3360:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b3364:	28810003 */ 	slti	$at,$a0,0x3
-.L0f0b3368:
-/*  f0b3368:	50200004 */ 	beqzl	$at,.L0f0b337c
-/*  f0b336c:	28810005 */ 	slti	$at,$a0,0x5
-/*  f0b3370:	03e00008 */ 	jr	$ra
-/*  f0b3374:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0b3378:	28810005 */ 	slti	$at,$a0,0x5
-.L0f0b337c:
-/*  f0b337c:	50200004 */ 	beqzl	$at,.L0f0b3390
-/*  f0b3380:	28810009 */ 	slti	$at,$a0,0x9
-/*  f0b3384:	03e00008 */ 	jr	$ra
-/*  f0b3388:	24020002 */ 	addiu	$v0,$zero,0x2
-/*  f0b338c:	28810009 */ 	slti	$at,$a0,0x9
-.L0f0b3390:
-/*  f0b3390:	50200004 */ 	beqzl	$at,.L0f0b33a4
-/*  f0b3394:	28810011 */ 	slti	$at,$a0,0x11
-/*  f0b3398:	03e00008 */ 	jr	$ra
-/*  f0b339c:	24020003 */ 	addiu	$v0,$zero,0x3
-/*  f0b33a0:	28810011 */ 	slti	$at,$a0,0x11
-.L0f0b33a4:
-/*  f0b33a4:	50200004 */ 	beqzl	$at,.L0f0b33b8
-/*  f0b33a8:	28810021 */ 	slti	$at,$a0,0x21
-/*  f0b33ac:	03e00008 */ 	jr	$ra
-/*  f0b33b0:	24020004 */ 	addiu	$v0,$zero,0x4
-/*  f0b33b4:	28810021 */ 	slti	$at,$a0,0x21
-.L0f0b33b8:
-/*  f0b33b8:	50200004 */ 	beqzl	$at,.L0f0b33cc
-/*  f0b33bc:	28810041 */ 	slti	$at,$a0,0x41
-/*  f0b33c0:	03e00008 */ 	jr	$ra
-/*  f0b33c4:	24020005 */ 	addiu	$v0,$zero,0x5
-/*  f0b33c8:	28810041 */ 	slti	$at,$a0,0x41
-.L0f0b33cc:
-/*  f0b33cc:	50200004 */ 	beqzl	$at,.L0f0b33e0
-/*  f0b33d0:	28810081 */ 	slti	$at,$a0,0x81
-/*  f0b33d4:	03e00008 */ 	jr	$ra
-/*  f0b33d8:	24020006 */ 	addiu	$v0,$zero,0x6
-/*  f0b33dc:	28810081 */ 	slti	$at,$a0,0x81
-.L0f0b33e0:
-/*  f0b33e0:	10200003 */ 	beqz	$at,.L0f0b33f0
-/*  f0b33e4:	24020008 */ 	addiu	$v0,$zero,0x8
-/*  f0b33e8:	03e00008 */ 	jr	$ra
-/*  f0b33ec:	24020007 */ 	addiu	$v0,$zero,0x7
-.L0f0b33f0:
-/*  f0b33f0:	03e00008 */ 	jr	$ra
-/*  f0b33f4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f0b3350(s32 value)
+{
+	if (value < 2) {
+		return 0;
+	}
+
+	if (value < 3) {
+		return 1;
+	}
+
+	if (value < 5) {
+		return 2;
+	}
+
+	if (value < 9) {
+		return 3;
+	}
+
+	if (value < 17) {
+		return 4;
+	}
+
+	if (value < 33) {
+		return 5;
+	}
+
+	if (value < 65) {
+		return 6;
+	}
+
+	if (value < 129) {
+		return 7;
+	}
+
+	return 8;
+}
 
 GLOBAL_ASM(
 glabel func0f0b33f8
