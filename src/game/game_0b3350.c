@@ -2421,13 +2421,10 @@ u32 currentPlayerGetUnk174c(void)
 	return g_Vars.currentplayer->unk174c;
 }
 
-GLOBAL_ASM(
-glabel func0f0b5788
-/*  f0b5788:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b578c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b5790:	03e00008 */ 	jr	$ra
-/*  f0b5794:	8dc21768 */ 	lw	$v0,0x1768($t6)
-);
+u32 currentPlayerGetUnk1768(void)
+{
+	return g_Vars.currentplayer->unk1768;
+}
 
 GLOBAL_ASM(
 glabel func0f0b5798
