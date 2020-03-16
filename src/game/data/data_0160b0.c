@@ -928,17 +928,21 @@ u32 var80070fa4 = 0x00000000;
 u32 var80070fa8 = 0x00000000;
 u32 var80070fac = 0x00000000;
 u32 var80070fb0 = 0x00000000;
-u32 var80070fb4 = 0x00ff0000;
-u32 var80070fb8 = 0x9999ff00;
-u32 var80070fbc = 0xffffff00;
-u32 var80070fc0 = 0xff777700;
-u32 var80070fc4 = 0xffff5500;
-u32 var80070fc8 = 0x00ff0000;
-u32 var80070fcc = 0xcccccc00;
-u32 var80070fd0 = 0xff888800;
-u32 var80070fd4 = 0xffaa5500;
-u32 var80070fd8 = 0x55aaff00;
-u32 var80070fdc = 0xaa55ff00;
+
+u32 g_Colours[] = {
+	/* 0*/ 0x00ff0000, // green
+	/* 1*/ 0x9999ff00, // pastel blue
+	/* 2*/ 0xffffff00, // white
+	/* 3*/ 0xff777700, // pastel red
+	/* 4*/ 0xffff5500, // yellow
+	/* 5*/ 0x00ff0000, // green
+	/* 6*/ 0xcccccc00, // gray
+	/* 7*/ 0xff888800, // pastel red
+	/* 8*/ 0xffaa5500, // orange
+	/* 9*/ 0x55aaff00, // sky blue
+	/*10*/ 0xaa55ff00, // purple
+};
+
 u32 var80070fe0 = 0x0000000a;
 u32 var80070fe4 = 0x00000018;
 u32 var80070fe8 = 0x00000000;

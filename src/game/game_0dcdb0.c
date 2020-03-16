@@ -1343,49 +1343,24 @@ glabel func0f0ddfa4
 /*  f0de030:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0de034
-/*  f0de034:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0de038:	3c0f8007 */ 	lui	$t7,%hi(g_HudMessageConfigs)
-/*  f0de03c:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(g_HudMessageConfigs)
-/*  f0de040:	00057140 */ 	sll	$t6,$a1,0x5
-/*  f0de044:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0de048:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f0de04c:	93b80053 */ 	lbu	$t8,0x53($sp)
-/*  f0de050:	3c038007 */ 	lui	$v1,%hi(var80070fb4)
-/*  f0de054:	90480002 */ 	lbu	$t0,0x2($v0)
-/*  f0de058:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0de05c:	00791821 */ 	addu	$v1,$v1,$t9
-/*  f0de060:	8c630fb4 */ 	lw	$v1,%lo(var80070fb4)($v1)
-/*  f0de064:	8c490004 */ 	lw	$t1,0x4($v0)
-/*  f0de068:	8c4a0008 */ 	lw	$t2,0x8($v0)
-/*  f0de06c:	8c4b0010 */ 	lw	$t3,0x10($v0)
-/*  f0de070:	904c0014 */ 	lbu	$t4,0x14($v0)
-/*  f0de074:	844d0016 */ 	lh	$t5,0x16($v0)
-/*  f0de078:	904e0015 */ 	lbu	$t6,0x15($v0)
-/*  f0de07c:	844f0018 */ 	lh	$t7,0x18($v0)
-/*  f0de080:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f0de084:	2418ffff */ 	addiu	$t8,$zero,-1
-/*  f0de088:	afb80034 */ 	sw	$t8,0x34($sp)
-/*  f0de08c:	90460000 */ 	lbu	$a2,0x0($v0)
-/*  f0de090:	90470001 */ 	lbu	$a3,0x1($v0)
-/*  f0de094:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f0de098:	afa80010 */ 	sw	$t0,0x10($sp)
-/*  f0de09c:	ac43000c */ 	sw	$v1,0xc($v0)
-/*  f0de0a0:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0de0a4:	afa90014 */ 	sw	$t1,0x14($sp)
-/*  f0de0a8:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f0de0ac:	afab0020 */ 	sw	$t3,0x20($sp)
-/*  f0de0b0:	afac0024 */ 	sw	$t4,0x24($sp)
-/*  f0de0b4:	afad0028 */ 	sw	$t5,0x28($sp)
-/*  f0de0b8:	afae002c */ 	sw	$t6,0x2c($sp)
-/*  f0de0bc:	0fc37baf */ 	jal	func0f0deebc
-/*  f0de0c0:	afaf0030 */ 	sw	$t7,0x30($sp)
-/*  f0de0c4:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0de0c8:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0de0cc:	03e00008 */ 	jr	$ra
-/*  f0de0d0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0de034(char *text, s32 confignum, u8 colournum)
+{
+	g_HudMessageConfigs[confignum].colour = g_Colours[colournum];
+
+	func0f0deebc(text, confignum,
+			g_HudMessageConfigs[confignum].unk00,
+			g_HudMessageConfigs[confignum].unk01,
+			g_HudMessageConfigs[confignum].unk02,
+			g_HudMessageConfigs[confignum].unk04,
+			g_HudMessageConfigs[confignum].unk08,
+			g_HudMessageConfigs[confignum].colour,
+			g_HudMessageConfigs[confignum].unk10,
+			g_HudMessageConfigs[confignum].alignh,
+			g_HudMessageConfigs[confignum].unk16,
+			g_HudMessageConfigs[confignum].alignv,
+			g_HudMessageConfigs[confignum].unk18,
+			-1, 0);
+}
 
 GLOBAL_ASM(
 glabel func0f0de0d4
@@ -1470,9 +1445,9 @@ glabel func0f0de160
 /*  f0de1f4:	0015c080 */ 	sll	$t8,$s5,0x2
 /*  f0de1f8:	3c0f8007 */ 	lui	$t7,%hi(g_HudMessageConfigs)
 /*  f0de1fc:	00197140 */ 	sll	$t6,$t9,0x5
-/*  f0de200:	3c198007 */ 	lui	$t9,%hi(var80070fb4)
+/*  f0de200:	3c198007 */ 	lui	$t9,%hi(g_Colours)
 /*  f0de204:	0338c821 */ 	addu	$t9,$t9,$t8
-/*  f0de208:	8f390fb4 */ 	lw	$t9,%lo(var80070fb4)($t9)
+/*  f0de208:	8f390fb4 */ 	lw	$t9,%lo(g_Colours)($t9)
 /*  f0de20c:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(g_HudMessageConfigs)
 /*  f0de210:	01cf8021 */ 	addu	$s0,$t6,$t7
 /*  f0de214:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x2ac)

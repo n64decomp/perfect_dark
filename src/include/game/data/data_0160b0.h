@@ -132,6 +132,7 @@ extern u32 var80070f80;
 extern u32 var80070f94;
 extern u32 var80070f9c;
 extern u32 var80070fa0;
+extern u32 g_Colours[];
 extern u32 var80070fe8;
 extern u32 var80070fec;
 extern struct hudmessageconfig g_HudMessageConfigs[];
