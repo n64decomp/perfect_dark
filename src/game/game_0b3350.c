@@ -1614,17 +1614,14 @@ glabel func0f0b4984
 /*  f0b4994:	e44e1710 */ 	swc1	$f14,0x1710($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f0b4998
-/*  f0b4998:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b499c:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b49a0:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f0b49a4:	e44c1714 */ 	swc1	$f12,0x1714($v0)
-/*  f0b49a8:	e44e1718 */ 	swc1	$f14,0x1718($v0)
-/*  f0b49ac:	c7a40008 */ 	lwc1	$f4,0x8($sp)
-/*  f0b49b0:	03e00008 */ 	jr	$ra
-/*  f0b49b4:	e444171c */ 	swc1	$f4,0x171c($v0)
-);
+void currentPlayerSetPerspective(f32 near, f32 fovy, f32 aspect)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	player->c_perspnear = near;
+	player->c_perspfovy = fovy;
+	player->c_perspaspect = aspect;
+}
 
 f32 func0f0b49b8(f32 arg0)
 {
