@@ -2471,13 +2471,10 @@ f32 currentPlayerGetPerspFovY(void)
 	return g_Vars.currentplayer->c_perspfovy;
 }
 
-GLOBAL_ASM(
-glabel func0f0b5828
-/*  f0b5828:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b582c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b5830:	03e00008 */ 	jr	$ra
-/*  f0b5834:	c5c0171c */ 	lwc1	$f0,0x171c($t6)
-);
+f32 currentPlayerGetPerspAspect(void)
+{
+	return g_Vars.currentplayer->c_perspaspect;
+}
 
 GLOBAL_ASM(
 glabel func0f0b5838

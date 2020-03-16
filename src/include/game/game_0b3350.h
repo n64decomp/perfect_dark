@@ -46,7 +46,7 @@ f32 currentPlayerGetScreenWidth(void);
 f32 currentPlayerGetScreenHeight(void);
 f32 currentPlayerGetScreenLeft(void);
 f32 currentPlayerGetScreenTop(void);
-u32 func0f0b5828(void);
+f32 currentPlayerGetPerspAspect(void);
 u32 func0f0b5838(void);
 u32 func0f0b5b9c(void);
 u32 func0f0b5d38(void);
