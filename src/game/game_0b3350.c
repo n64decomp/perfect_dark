@@ -1590,20 +1590,15 @@ glabel func0f0b39c0
 /*  f0b4954:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0b4958
-/*  f0b4958:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0b495c:	44810000 */ 	mtc1	$at,$f0
-/*  f0b4960:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b4964:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b4968:	46006102 */ 	mul.s	$f4,$f12,$f0
-/*  f0b496c:	e44c1704 */ 	swc1	$f12,0x1704($v0)
-/*  f0b4970:	46007182 */ 	mul.s	$f6,$f14,$f0
-/*  f0b4974:	e44e1708 */ 	swc1	$f14,0x1708($v0)
-/*  f0b4978:	e4441720 */ 	swc1	$f4,0x1720($v0)
-/*  f0b497c:	03e00008 */ 	jr	$ra
-/*  f0b4980:	e4461724 */ 	swc1	$f6,0x1724($v0)
-);
+void currentPlayerSetScreenSize(f32 width, f32 height)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	player->c_screenwidth = width;
+	player->c_screenheight = height;
+	player->c_halfwidth = width * 0.5f;
+	player->c_halfheight = height * 0.5f;
+}
 
 void currentPlayerSetScreenPosition(f32 left, f32 top)
 {
@@ -1624,7 +1619,7 @@ void currentPlayerSetPerspective(f32 near, f32 fovy, f32 aspect)
 
 f32 func0f0b49b8(f32 arg0)
 {
-	f32 result = func0f096750(g_Vars.currentplayer->unk176c * arg0 * g_Vars.currentplayer->unk1724, 1.0f);
+	f32 result = func0f096750(g_Vars.currentplayer->unk176c * arg0 * g_Vars.currentplayer->c_halfheight, 1.0f);
 	result *= 114.591552f;
 
 	if (result < 0) {
