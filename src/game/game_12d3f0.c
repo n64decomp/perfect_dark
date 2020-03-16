@@ -2090,7 +2090,7 @@ GLOBAL_ASM(
 glabel func0f12f184
 /*  f12f184:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f12f188:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f12f18c:	0fc2d5be */ 	jal	func0f0b56f8
+/*  f12f18c:	0fc2d5be */ 	jal	currentPlayerGetUnk1740
 /*  f12f190:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f12f194:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*  f12f198:	c4440008 */ 	lwc1	$f4,0x8($v0)

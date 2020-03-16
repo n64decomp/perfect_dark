@@ -10626,7 +10626,7 @@ void currentPlayerSetGlobalDrawCameraOffset(void)
 	g_Vars.currentplayer->globaldrawcameraoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
 	g_Vars.currentplayer->globaldrawcameraoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
 
-	func00015b10(func0f0b56f8(), &g_Vars.currentplayer->globaldrawcameraoffset);
+	func00015b10(currentPlayerGetUnk1740(), &g_Vars.currentplayer->globaldrawcameraoffset);
 }
 
 GLOBAL_ASM(

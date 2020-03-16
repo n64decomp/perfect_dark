@@ -2568,7 +2568,7 @@ struct player {
 	/*0x1734*/ f32 c_recipscaley;
 	/*0x1738*/ u32 unk1738;
 	/*0x173c*/ u32 unk173c;
-	/*0x1740*/ u32 unk1740;
+	/*0x1740*/ f32 *unk1740;
 	/*0x1744*/ u32 unk1744;
 	/*0x1748*/ u32 unk1748;
 	/*0x174c*/ u32 unk174c;
@@ -2576,7 +2576,7 @@ struct player {
 	/*0x1754*/ u32 unk1754;
 	/*0x1758*/ u32 unk1758;
 	/*0x175c*/ u32 unk175c;
-	/*0x1760*/ u32 unk1760;
+	/*0x1760*/ f32 *unk1760;
 	/*0x1764*/ u32 unk1764;
 	/*0x1768*/ u32 unk1768;
 	/*0x176c*/ f32 c_scalelod60;

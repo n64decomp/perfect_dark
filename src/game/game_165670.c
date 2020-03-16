@@ -1228,7 +1228,7 @@ glabel func0f1666f8
 /*  f166738:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f16673c:	afa3001c */ 	sw	$v1,0x1c($sp)
 .L0f166740:
-/*  f166740:	0fc2d5be */ 	jal	func0f0b56f8
+/*  f166740:	0fc2d5be */ 	jal	currentPlayerGetUnk1740
 /*  f166744:	afa40030 */ 	sw	$a0,0x30($sp)
 /*  f166748:	8fa3001c */ 	lw	$v1,0x1c($sp)
 /*  f16674c:	8fa40030 */ 	lw	$a0,0x30($sp)
