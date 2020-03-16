@@ -1830,12 +1830,13 @@ glabel var7f1ad154
 /*  f0b4f74:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+void currentPlayerSetUnk1738(u32 value)
+{
+	g_Vars.currentplayer->unk1738 = value;
+}
+
 GLOBAL_ASM(
-glabel func0f0b4f78
-/*  f0b4f78:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b4f7c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b4f80:	03e00008 */ 	jr	$ra
-/*  f0b4f84:	adc41738 */ 	sw	$a0,0x1738($t6)
+glabel func0f0b4f88
 /*  f0b4f88:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f0b4f8c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f0b4f90:	03e00008 */ 	jr	$ra
