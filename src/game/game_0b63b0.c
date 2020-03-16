@@ -72,6 +72,20 @@
 #include "lib/lib_4b480.h"
 #include "types.h"
 
+const char var7f1ad160[] = "ACOUSTIC -> Allocating %d bytes for %d portal AV structures\n";
+const char var7f1ad1a0[] = "ACOUSTIC -> DGD WARNING: portalAVInit no portals!\n";
+const char var7f1ad1d4[] = "ACOUSTIC -> portalAVReset: checking propobj type %d\n";
+const char var7f1ad20c[] = "ACOUSTIC -> portalAVReset: found PROPDEF_WINDOWFADE for portal %d\n";
+const char var7f1ad250[] = "ACOUSTIC -> portalAVReset: found PROPDEF_WINDOW for portal %d\n";
+const char var7f1ad290[] = "ACOUSTIC -> Portal %3d - A=%.2f, V=%.2f\n";
+const char var7f1ad2bc[] = "ACOUSTIC -> DGD WARNING: portalAVReset no portals!\n";
+const char var7f1ad2f0[] = "Acoustic Reset -> Allocating %d bytes for %d roomacousticdata structures\n";
+const char var7f1ad33c[] = "ACOUSTIC ->    room %d bb %f %f\n";
+const char var7f1ad360[] = "ACOUSTIC -> DGD: acousticReset room %d does not have a 3D bounding box => radata[room].roomvolume is bodged!\n";
+const char var7f1ad3d0[] = "%s%sL2 -> Surface area bodged for room %d - using %f\n";
+const u32 var7f1ad408[] = {0x00000000};
+const u32 var7f1ad40c[] = {0x00000000};
+
 const u32 var7f1ad410[] = {0x3b808081};
 const u32 var7f1ad414[] = {0x3d888889};
 const u32 var7f1ad418[] = {0x4b989680};

@@ -17,30 +17,6 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
-const u32 var7f1ad140[] = {0x42e52ee0};
-const u32 var7f1ad144[] = {0x3c0efa35};
-const u32 var7f1ad148[] = {0x3f060a92};
-const u32 var7f1ad14c[] = {0x3f060a92};
-const u32 var7f1ad150[] = {0xe0ad78ec};
-const u32 var7f1ad154[] = {0x3c0efa35};
-const u32 var7f1ad158[] = {0x00000000};
-const u32 var7f1ad15c[] = {0x00000000};
-
-const char var7f1ad160[] = "ACOUSTIC -> Allocating %d bytes for %d portal AV structures\n";
-const char var7f1ad1a0[] = "ACOUSTIC -> DGD WARNING: portalAVInit no portals!\n";
-const char var7f1ad1d4[] = "ACOUSTIC -> portalAVReset: checking propobj type %d\n";
-const char var7f1ad20c[] = "ACOUSTIC -> portalAVReset: found PROPDEF_WINDOWFADE for portal %d\n";
-const char var7f1ad250[] = "ACOUSTIC -> portalAVReset: found PROPDEF_WINDOW for portal %d\n";
-const char var7f1ad290[] = "ACOUSTIC -> Portal %3d - A=%.2f, V=%.2f\n";
-const char var7f1ad2bc[] = "ACOUSTIC -> DGD WARNING: portalAVReset no portals!\n";
-const char var7f1ad2f0[] = "Acoustic Reset -> Allocating %d bytes for %d roomacousticdata structures\n";
-const char var7f1ad33c[] = "ACOUSTIC ->    room %d bb %f %f\n";
-const char var7f1ad360[] = "ACOUSTIC -> DGD: acousticReset room %d does not have a 3D bounding box => radata[room].roomvolume is bodged!\n";
-const char var7f1ad3d0[] = "%s%sL2 -> Surface area bodged for room %d - using %f\n";
-
-const u32 var7f1ad408[] = {0x00000000};
-const u32 var7f1ad40c[] = {0x00000000};
-
 GLOBAL_ASM(
 glabel func0f0b3350
 /*  f0b3350:	28810002 */ 	slti	$at,$a0,0x2
@@ -1650,40 +1626,28 @@ glabel func0f0b4998
 /*  f0b49b4:	e444171c */ 	swc1	$f4,0x171c($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f0b49b8
-/*  f0b49b8:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b49bc:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b49c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b49c4:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*  f0b49c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b49cc:	c7a60018 */ 	lwc1	$f6,0x18($sp)
-/*  f0b49d0:	c444176c */ 	lwc1	$f4,0x176c($v0)
-/*  f0b49d4:	c44a1724 */ 	lwc1	$f10,0x1724($v0)
-/*  f0b49d8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b49dc:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0b49e0:	44817000 */ 	mtc1	$at,$f14
-/*  f0b49e4:	460a4302 */ 	mul.s	$f12,$f8,$f10
-/*  f0b49e8:	0fc259d4 */ 	jal	func0f096750
-/*  f0b49ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b49f0:	3c017f1b */ 	lui	$at,%hi(var7f1ad140)
-/*  f0b49f4:	c430d140 */ 	lwc1	$f16,%lo(var7f1ad140)($at)
-/*  f0b49f8:	44809000 */ 	mtc1	$zero,$f18
-/*  f0b49fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b4a00:	46100082 */ 	mul.s	$f2,$f0,$f16
-/*  f0b4a04:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0b4a08:	4612103c */ 	c.lt.s	$f2,$f18
-/*  f0b4a0c:	46001306 */ 	mov.s	$f12,$f2
-/*  f0b4a10:	45000002 */ 	bc1f	.L0f0b4a1c
-/*  f0b4a14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b4a18:	46001307 */ 	neg.s	$f12,$f2
-.L0f0b4a1c:
-/*  f0b4a1c:	03e00008 */ 	jr	$ra
-/*  f0b4a20:	46006006 */ 	mov.s	$f0,$f12
-);
+f32 func0f0b49b8(f32 arg0)
+{
+	f32 result = func0f096750(g_Vars.currentplayer->unk176c * arg0 * g_Vars.currentplayer->unk1724, 1.0f);
+	result *= 114.591552f;
+
+	if (result < 0) {
+		result = -result;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0b4a24
+.late_rodata
+glabel var7f1ad144
+.word 0x3c0efa35
+glabel var7f1ad148
+.word 0x3f060a92
+glabel var7f1ad14c
+.word 0x3f060a92
+.text
 /*  f0b4a24:	27bdffc0 */ 	addiu	$sp,$sp,-64
 /*  f0b4a28:	afb00020 */ 	sw	$s0,0x20($sp)
 /*  f0b4a2c:	3c10800a */ 	lui	$s0,%hi(g_Vars+0x284)
@@ -1910,6 +1874,10 @@ glabel func0f0b4d04
 
 GLOBAL_ASM(
 glabel func0f0b4d68
+.late_rodata
+glabel var7f1ad150
+.word 0xe0ad78ec
+.text
 /*  f0b4d68:	c4800008 */ 	lwc1	$f0,0x8($a0)
 /*  f0b4d6c:	44802000 */ 	mtc1	$zero,$f4
 /*  f0b4d70:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
@@ -2009,6 +1977,10 @@ glabel func0f0b4e68
 
 GLOBAL_ASM(
 glabel func0f0b4eb8
+.late_rodata
+glabel var7f1ad154
+.word 0x3c0efa35
+.text
 /*  f0b4eb8:	3c017f1b */ 	lui	$at,%hi(var7f1ad154)
 /*  f0b4ebc:	44867000 */ 	mtc1	$a2,$f14
 /*  f0b4ec0:	c424d154 */ 	lwc1	$f4,%lo(var7f1ad154)($at)
