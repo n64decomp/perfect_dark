@@ -15,7 +15,7 @@ void currentPlayerSetScreenSize(f32 width, f32 height);
 void currentPlayerSetScreenPosition(f32 left, f32 top);
 void currentPlayerSetPerspective(f32 near, f32 fovy, f32 aspect);
 f32 func0f0b49b8(f32 arg0);
-u32 func0f0b4a24(void);
+void currentPlayerSetCameraScale(void);
 u32 func0f0b4c3c(void);
 u32 func0f0b4d04(void);
 u32 func0f0b4d68(void);
