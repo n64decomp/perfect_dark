@@ -1286,49 +1286,28 @@ glabel func0f0ddeac
 /*  f0ddf18:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel currentPlayerQueueMessage
-/*  f0ddf1c:	3c0f8007 */ 	lui	$t7,%hi(var80070ff0)
-/*  f0ddf20:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(var80070ff0)
-/*  f0ddf24:	00057140 */ 	sll	$t6,$a1,0x5
-/*  f0ddf28:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0ddf2c:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f0ddf30:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f0ddf34:	8c590004 */ 	lw	$t9,0x4($v0)
-/*  f0ddf38:	8c480008 */ 	lw	$t0,0x8($v0)
-/*  f0ddf3c:	8c49000c */ 	lw	$t1,0xc($v0)
-/*  f0ddf40:	8c4a0010 */ 	lw	$t2,0x10($v0)
-/*  f0ddf44:	904b0014 */ 	lbu	$t3,0x14($v0)
-/*  f0ddf48:	844c0016 */ 	lh	$t4,0x16($v0)
-/*  f0ddf4c:	904d0015 */ 	lbu	$t5,0x15($v0)
-/*  f0ddf50:	844e0018 */ 	lh	$t6,0x18($v0)
-/*  f0ddf54:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f0ddf58:	240fffff */ 	addiu	$t7,$zero,-1
-/*  f0ddf5c:	afaf0034 */ 	sw	$t7,0x34($sp)
-/*  f0ddf60:	90460000 */ 	lbu	$a2,0x0($v0)
-/*  f0ddf64:	90470001 */ 	lbu	$a3,0x1($v0)
-/*  f0ddf68:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f0ddf6c:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f0ddf70:	afb90014 */ 	sw	$t9,0x14($sp)
-/*  f0ddf74:	afa80018 */ 	sw	$t0,0x18($sp)
-/*  f0ddf78:	afa9001c */ 	sw	$t1,0x1c($sp)
-/*  f0ddf7c:	afaa0020 */ 	sw	$t2,0x20($sp)
-/*  f0ddf80:	afab0024 */ 	sw	$t3,0x24($sp)
-/*  f0ddf84:	afac0028 */ 	sw	$t4,0x28($sp)
-/*  f0ddf88:	afad002c */ 	sw	$t5,0x2c($sp)
-/*  f0ddf8c:	0fc37baf */ 	jal	func0f0deebc
-/*  f0ddf90:	afae0030 */ 	sw	$t6,0x30($sp)
-/*  f0ddf94:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0ddf98:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f0ddf9c:	03e00008 */ 	jr	$ra
-/*  f0ddfa0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerQueueMessage(char *text, s32 confignum)
+{
+	func0f0deebc(text, confignum,
+			g_HudMessageConfigs[confignum].unk00,
+			g_HudMessageConfigs[confignum].unk01,
+			g_HudMessageConfigs[confignum].unk02,
+			g_HudMessageConfigs[confignum].unk04,
+			g_HudMessageConfigs[confignum].unk08,
+			g_HudMessageConfigs[confignum].colour,
+			g_HudMessageConfigs[confignum].unk10,
+			g_HudMessageConfigs[confignum].alignh,
+			g_HudMessageConfigs[confignum].unk16,
+			g_HudMessageConfigs[confignum].alignv,
+			g_HudMessageConfigs[confignum].unk18,
+			-1, 0);
+}
 
 GLOBAL_ASM(
 glabel func0f0ddfa4
 /*  f0ddfa4:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0ddfa8:	3c0f8007 */ 	lui	$t7,%hi(var80070ff0)
-/*  f0ddfac:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(var80070ff0)
+/*  f0ddfa8:	3c0f8007 */ 	lui	$t7,%hi(g_HudMessageConfigs)
+/*  f0ddfac:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(g_HudMessageConfigs)
 /*  f0ddfb0:	00057140 */ 	sll	$t6,$a1,0x5
 /*  f0ddfb4:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*  f0ddfb8:	90580002 */ 	lbu	$t8,0x2($v0)
@@ -1367,8 +1346,8 @@ glabel func0f0ddfa4
 GLOBAL_ASM(
 glabel func0f0de034
 /*  f0de034:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f0de038:	3c0f8007 */ 	lui	$t7,%hi(var80070ff0)
-/*  f0de03c:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(var80070ff0)
+/*  f0de038:	3c0f8007 */ 	lui	$t7,%hi(g_HudMessageConfigs)
+/*  f0de03c:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(g_HudMessageConfigs)
 /*  f0de040:	00057140 */ 	sll	$t6,$a1,0x5
 /*  f0de044:	01cf1021 */ 	addu	$v0,$t6,$t7
 /*  f0de048:	afa60050 */ 	sw	$a2,0x50($sp)
@@ -1489,12 +1468,12 @@ glabel func0f0de160
 .L0f0de1f0:
 /*  f0de1f0:	8fb904c4 */ 	lw	$t9,0x4c4($sp)
 /*  f0de1f4:	0015c080 */ 	sll	$t8,$s5,0x2
-/*  f0de1f8:	3c0f8007 */ 	lui	$t7,%hi(var80070ff0)
+/*  f0de1f8:	3c0f8007 */ 	lui	$t7,%hi(g_HudMessageConfigs)
 /*  f0de1fc:	00197140 */ 	sll	$t6,$t9,0x5
 /*  f0de200:	3c198007 */ 	lui	$t9,%hi(var80070fb4)
 /*  f0de204:	0338c821 */ 	addu	$t9,$t9,$t8
 /*  f0de208:	8f390fb4 */ 	lw	$t9,%lo(var80070fb4)($t9)
-/*  f0de20c:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(var80070ff0)
+/*  f0de20c:	25ef0ff0 */ 	addiu	$t7,$t7,%lo(g_HudMessageConfigs)
 /*  f0de210:	01cf8021 */ 	addu	$s0,$t6,$t7
 /*  f0de214:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x2ac)
 /*  f0de218:	ae19000c */ 	sw	$t9,0xc($s0)
@@ -2726,7 +2705,7 @@ glabel func0f0deebc
 /*  f0df2f8:	ae2c01d4 */ 	sw	$t4,0x1d4($s1)
 /*  f0df2fc:	8fad0230 */ 	lw	$t5,0x230($sp)
 /*  f0df300:	8fb901fc */ 	lw	$t9,0x1fc($sp)
-/*  f0df304:	3c0a8007 */ 	lui	$t2,%hi(var8007100c)
+/*  f0df304:	3c0a8007 */ 	lui	$t2,%hi(g_HudMessageConfigs+0x1c)
 /*  f0df308:	31ae0004 */ 	andi	$t6,$t5,0x4
 /*  f0df30c:	11c00007 */ 	beqz	$t6,.L0f0df32c
 /*  f0df310:	00195940 */ 	sll	$t3,$t9,0x5
@@ -2738,7 +2717,7 @@ glabel func0f0deebc
 /*  f0df328:	ae3801bc */ 	sw	$t8,0x1bc($s1)
 .L0f0df32c:
 /*  f0df32c:	014b5021 */ 	addu	$t2,$t2,$t3
-/*  f0df330:	8d4a100c */ 	lw	$t2,%lo(var8007100c)($t2)
+/*  f0df330:	8d4a100c */ 	lw	$t2,%lo(g_HudMessageConfigs+0x1c)($t2)
 /*  f0df334:	24030001 */ 	addiu	$v1,$zero,0x1
 /*  f0df338:	ae2a01bc */ 	sw	$t2,0x1bc($s1)
 /*  f0df33c:	8fac022c */ 	lw	$t4,0x22c($sp)

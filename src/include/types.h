@@ -5257,4 +5257,19 @@ struct mpteaminfo {
 	s32 score;
 };
 
+struct hudmessageconfig {
+	/*0x00*/ u8 unk00;
+	/*0x01*/ u8 unk01;
+	/*0x02*/ u8 unk02;
+	/*0x04*/ void *unk04;
+	/*0x08*/ void *unk08;
+	/*0x0c*/ u32 colour;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u8 alignh;
+	/*0x15*/ u8 alignv;
+	/*0x16*/ s16 unk16;
+	/*0x18*/ s16 unk18;
+	/*0x1c*/ s32 duration;
+};
+
 #endif
