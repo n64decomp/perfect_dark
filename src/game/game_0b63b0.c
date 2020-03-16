@@ -4850,49 +4850,16 @@ glabel func0f0ba87c
 /*  f0ba8ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0ba8b0
-/*  f0ba8b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0ba8b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0ba8b8:	0fc2ea1f */ 	jal	func0f0ba87c
-/*  f0ba8bc:	e7ac0018 */ 	swc1	$f12,0x18($sp)
-/*  f0ba8c0:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
-/*  f0ba8c4:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0ba8c8:	460c0032 */ 	c.eq.s	$f0,$f12
-/*  f0ba8cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ba8d0:	4503001a */ 	bc1tl	.L0f0ba93c
-/*  f0ba8d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ba8d8:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0ba8dc:	3c014170 */ 	lui	$at,0x4170
-/*  f0ba8e0:	c5c01848 */ 	lwc1	$f0,0x1848($t6)
-/*  f0ba8e4:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f0ba8e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ba8ec:	4502000c */ 	bc1fl	.L0f0ba920
-/*  f0ba8f0:	46006401 */ 	sub.s	$f16,$f12,$f0
-/*  f0ba8f4:	460c0101 */ 	sub.s	$f4,$f0,$f12
-/*  f0ba8f8:	3c014170 */ 	lui	$at,0x4170
-/*  f0ba8fc:	44813000 */ 	mtc1	$at,$f6
-/*  f0ba900:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f0ba904:	44815000 */ 	mtc1	$at,$f10
-/*  f0ba908:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0ba90c:	0fc2ea11 */ 	jal	func0f0ba844
-/*  f0ba910:	460a4383 */ 	div.s	$f14,$f8,$f10
-/*  f0ba914:	10000009 */ 	beqz	$zero,.L0f0ba93c
-/*  f0ba918:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ba91c:	46006401 */ 	sub.s	$f16,$f12,$f0
-.L0f0ba920:
-/*  f0ba920:	44819000 */ 	mtc1	$at,$f18
-/*  f0ba924:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f0ba928:	44813000 */ 	mtc1	$at,$f6
-/*  f0ba92c:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f0ba930:	0fc2ea11 */ 	jal	func0f0ba844
-/*  f0ba934:	46062383 */ 	div.s	$f14,$f4,$f6
-/*  f0ba938:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ba93c:
-/*  f0ba93c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0ba940:	03e00008 */ 	jr	$ra
-/*  f0ba944:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0ba8b0(f32 value)
+{
+	if (func0f0ba87c() != value) {
+		if (value < g_Vars.currentplayer->zoominfovy) {
+			func0f0ba844(value, (g_Vars.currentplayer->zoominfovy - value) * 15.0f / 30.0f);
+		} else {
+			func0f0ba844(value, (value - g_Vars.currentplayer->zoominfovy) * 15.0f / 30.0f);
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel currentPlayerGetTeleportFovY
