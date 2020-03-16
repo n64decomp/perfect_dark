@@ -2416,12 +2416,13 @@ void currentPlayerSetUnk174c(u32 value)
 	player->unk174c = value;
 }
 
+u32 currentPlayerGetUnk174c(void)
+{
+	return g_Vars.currentplayer->unk174c;
+}
+
 GLOBAL_ASM(
-glabel func0f0b5778
-/*  f0b5778:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b577c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b5780:	03e00008 */ 	jr	$ra
-/*  f0b5784:	8dc2174c */ 	lw	$v0,0x174c($t6)
+glabel func0f0b5788
 /*  f0b5788:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f0b578c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f0b5790:	03e00008 */ 	jr	$ra
