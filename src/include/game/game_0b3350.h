@@ -23,7 +23,7 @@ void func0f0b4dec(struct coord *in, struct coord *out);
 void func0f0b4e68(struct coord *in, f32 divisor, struct coord *out);
 u32 func0f0b4eb8(void);
 void currentPlayerSetUnk1738(u32 value);
-u32 func0f0b4f98(void);
+void currentPlayerSetUnk173c(u32 value);
 u32 func0f0b4fa8(void);
 u32 func0f0b4fb8(void);
 u32 func0f0b4fc8(void);
