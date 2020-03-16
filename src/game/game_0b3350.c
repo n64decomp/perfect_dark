@@ -1722,34 +1722,17 @@ glabel func0f0b4c3c
 /*  f0b4d00:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0b4d04
-/*  f0b4d04:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b4d08:	44812000 */ 	mtc1	$at,$f4
-/*  f0b4d0c:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*  f0b4d10:	c4880004 */ 	lwc1	$f8,0x4($a0)
-/*  f0b4d14:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b4d18:	46062003 */ 	div.s	$f0,$f4,$f6
-/*  f0b4d1c:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b4d20:	c4501734 */ 	lwc1	$f16,0x1734($v0)
-/*  f0b4d24:	c4441710 */ 	lwc1	$f4,0x1710($v0)
-/*  f0b4d28:	c4461724 */ 	lwc1	$f6,0x1724($v0)
-/*  f0b4d2c:	46004282 */ 	mul.s	$f10,$f8,$f0
-/*  f0b4d30:	46062200 */ 	add.s	$f8,$f4,$f6
-/*  f0b4d34:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f0b4d38:	46089280 */ 	add.s	$f10,$f18,$f8
-/*  f0b4d3c:	e4aa0004 */ 	swc1	$f10,0x4($a1)
-/*  f0b4d40:	c4920000 */ 	lwc1	$f18,0x0($a0)
-/*  f0b4d44:	c4441720 */ 	lwc1	$f4,0x1720($v0)
-/*  f0b4d48:	c450170c */ 	lwc1	$f16,0x170c($v0)
-/*  f0b4d4c:	46009202 */ 	mul.s	$f8,$f18,$f0
-/*  f0b4d50:	c44a1730 */ 	lwc1	$f10,0x1730($v0)
-/*  f0b4d54:	46048180 */ 	add.s	$f6,$f16,$f4
-/*  f0b4d58:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f0b4d5c:	46103101 */ 	sub.s	$f4,$f6,$f16
-/*  f0b4d60:	03e00008 */ 	jr	$ra
-/*  f0b4d64:	e4a40000 */ 	swc1	$f4,0x0($a1)
-);
+void func0f0b4d04(struct coord *in, struct coord *out)
+{
+	struct player *player = g_Vars.currentplayer;
+	f32 value = 1.0f / in->z;
+
+	out->y = in->y * value * player->c_recipscaley
+		+ (player->c_screentop + player->c_halfheight);
+
+	out->x = (player->c_screenleft + player->c_halfwidth)
+		- in->x * value * player->c_recipscalex;
+}
 
 GLOBAL_ASM(
 glabel func0f0b4d68
