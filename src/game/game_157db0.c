@@ -5305,31 +5305,11 @@ glabel func0f15c8b8
 /*  f15c8c4:	c5c00074 */ 	lwc1	$f0,0x74($t6)
 );
 
-GLOBAL_ASM(
-glabel func0f15c8c8
-/*  f15c8c8:	3c0e8008 */ 	lui	$t6,%hi(var8007fc00)
-/*  f15c8cc:	8dcefc00 */ 	lw	$t6,%lo(var8007fc00)($t6)
-/*  f15c8d0:	3c018008 */ 	lui	$at,0x8008
-/*  f15c8d4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f15c8d8:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f15c8dc:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f15c8e0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f15c8e4:	002f0821 */ 	addu	$at,$at,$t7
-/*  f15c8e8:	c424fcd8 */ 	lwc1	$f4,-0x328($at)
-/*  f15c8ec:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f15c8f0:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f15c8f4:	460c2182 */ 	mul.s	$f6,$f4,$f12
-/*  f15c8f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f15c8fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f15c900:	e7060074 */ 	swc1	$f6,0x74($t8)
-/*  f15c904:	8c590288 */ 	lw	$t9,0x288($v0)
-/*  f15c908:	0c0059d2 */ 	jal	func00016748
-/*  f15c90c:	c72c0074 */ 	lwc1	$f12,0x74($t9)
-/*  f15c910:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f15c914:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f15c918:	03e00008 */ 	jr	$ra
-/*  f15c91c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerSetScaleBg2Gfx(f32 scale)
+{
+	g_Vars.currentplayerstats->scale_bg2gfx = g_Stages[var8007fc00].unk18 * scale;
+	func00016748(g_Vars.currentplayerstats->scale_bg2gfx);
+}
 
 GLOBAL_ASM(
 glabel func0f15c920

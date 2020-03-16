@@ -3044,29 +3044,29 @@ struct body {
 };
 
 struct stagetableentry {
-	s16 id;
-	u8 light_type;
-	u8 light_alpha;
-	u8 light_width;
-	u8 light_height;
-	u16 unk06;
-	u16 bgfileid;
-	u16 tilefileid;
-	u16 padsfileid;
-	u16 setupfileid;
-	u16 mpsetupfileid;
-	f32 unk14;
-	f32 unk18;
-	f32 unk1c;
-	u16 unk20;
-	u8 unk22;
-	s8 unk23;
-	u32 unk24;
-	u32 unk28;
-	s16 unk2c;
-	u16 unk2e;
-	u16 unk30;
-	f32 unk34;
+	/*0x00*/ s16 id;
+	/*0x02*/ u8 light_type;
+	/*0x03*/ u8 light_alpha;
+	/*0x04*/ u8 light_width;
+	/*0x05*/ u8 light_height;
+	/*0x06*/ u16 unk06;
+	/*0x08*/ u16 bgfileid;
+	/*0x0a*/ u16 tilefileid;
+	/*0x0c*/ u16 padsfileid;
+	/*0x0e*/ u16 setupfileid;
+	/*0x10*/ u16 mpsetupfileid;
+	/*0x14*/ f32 unk14;
+	/*0x18*/ f32 unk18;
+	/*0x1c*/ f32 unk1c;
+	/*0x20*/ u16 unk20;
+	/*0x22*/ u8 unk22;
+	/*0x23*/ s8 unk23;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ s16 unk2c;
+	/*0x2e*/ u16 unk2e;
+	/*0x30*/ u16 unk30;
+	/*0x34*/ f32 unk34;
 };
 
 struct mpweaponset {
@@ -3280,7 +3280,7 @@ struct playerstats {
 	/*0x68*/ u32 cloaktime;
 	/*0x6c*/ u32 speedpillcount;
 	/*0x70*/ s32 mpindex;
-	/*0x74*/ u32 scale_bg2gfx;
+	/*0x74*/ f32 scale_bg2gfx;
 	/*0x78*/ f32 damreceived;
 	/*0x7c*/ f32 damtransmitted;
 };

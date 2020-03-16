@@ -5048,7 +5048,7 @@ void currentPlayerUpdateZoom(void)
 	}
 
 	stage = stageGetCurrent();
-	func0f15c8c8((1 - (1 - stage->unk34) * (1 - scale) * (10.f / 9.0f)) * scale);
+	currentPlayerSetScaleBg2Gfx((1 - (1 - stage->unk34) * (1 - scale) * (10.f / 9.0f)) * scale);
 }
 
 GLOBAL_ASM(
