@@ -2441,13 +2441,10 @@ f32 currentPlayerGetLodScaleZ(void)
 	return g_Vars.currentplayer->c_lodscalez;
 }
 
-GLOBAL_ASM(
-glabel func0f0b57c8
-/*  f0b57c8:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b57cc:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b57d0:	03e00008 */ 	jr	$ra
-/*  f0b57d4:	8dc21778 */ 	lw	$v0,0x1778($t6)
-);
+u32 currentPlayerGetLodScaleZU32(void)
+{
+	return g_Vars.currentplayer->c_lodscalezu32;
+}
 
 GLOBAL_ASM(
 glabel func0f0b57d8
