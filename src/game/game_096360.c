@@ -61,8 +61,8 @@ const u32 var7f1ab82c[] = {0x3e8e38e4};
 //				if (pass && func0f0899dc(obj->prop, a, b, c))  {
 //					func0f06803c(a, b, c, &fStack56);
 //
-//					if (func0f0b57f8() < fStack56 && fStack56 < func0f0b57d8() + func0f0b57f8() &&
-//							func0f0b57f8() < fStack64 && fStack64 < func0f0b57d8() + func0f0b57f8() &&
+//					if (func0f0b57f8() < fStack56 && fStack56 < currentPlayerGetScreenWidth() + func0f0b57f8() &&
+//							func0f0b57f8() < fStack64 && fStack64 < currentPlayerGetScreenWidth() + func0f0b57f8() &&
 //							func0f0b5808() < fStack52 && fStack52 < func0f0b57e8() + func0f0b5808() &&
 //							func0f0b5808() < fStack60 && fStack60 < func0f0b57e8() + func0f0b5808()) {
 //						criteria->status = OBJECTIVE_COMPLETE;

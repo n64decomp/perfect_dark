@@ -2446,13 +2446,10 @@ u32 currentPlayerGetLodScaleZU32(void)
 	return g_Vars.currentplayer->c_lodscalezu32;
 }
 
-GLOBAL_ASM(
-glabel func0f0b57d8
-/*  f0b57d8:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b57dc:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b57e0:	03e00008 */ 	jr	$ra
-/*  f0b57e4:	c5c01704 */ 	lwc1	$f0,0x1704($t6)
-);
+f32 currentPlayerGetScreenWidth(void)
+{
+	return g_Vars.currentplayer->c_screenwidth;
+}
 
 GLOBAL_ASM(
 glabel func0f0b57e8
