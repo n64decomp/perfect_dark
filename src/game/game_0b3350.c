@@ -2466,13 +2466,10 @@ f32 currentPlayerGetScreenTop(void)
 	return g_Vars.currentplayer->c_screentop;
 }
 
-GLOBAL_ASM(
-glabel func0f0b5818
-/*  f0b5818:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b581c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b5820:	03e00008 */ 	jr	$ra
-/*  f0b5824:	c5c01718 */ 	lwc1	$f0,0x1718($t6)
-);
+f32 currentPlayerGetPerspFovY(void)
+{
+	return g_Vars.currentplayer->c_perspfovy;
+}
 
 GLOBAL_ASM(
 glabel func0f0b5828
