@@ -3152,7 +3152,7 @@ glabel var7f1ad8e4
 .L0f0cac00:
 /*  f0cac00:	0fc2d602 */ 	jal	func0f0b5808
 /*  f0cac04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cac08:	0fc2d5fa */ 	jal	func0f0b57e8
+/*  f0cac08:	0fc2d5fa */ 	jal	currentPlayerGetScreenHeight
 /*  f0cac0c:	e7a00054 */ 	swc1	$f0,0x54($sp)
 /*  f0cac10:	3c013f00 */ 	lui	$at,0x3f00
 /*  f0cac14:	44815000 */ 	mtc1	$at,$f10
@@ -3174,7 +3174,7 @@ glabel var7f1ad8e4
 .L0f0cac54:
 /*  f0cac54:	0fc2d602 */ 	jal	func0f0b5808
 /*  f0cac58:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cac5c:	0fc2d5fa */ 	jal	func0f0b57e8
+/*  f0cac5c:	0fc2d5fa */ 	jal	currentPlayerGetScreenHeight
 /*  f0cac60:	e7a00054 */ 	swc1	$f0,0x54($sp)
 /*  f0cac64:	3c013f00 */ 	lui	$at,0x3f00
 /*  f0cac68:	44814000 */ 	mtc1	$at,$f8

@@ -43,7 +43,7 @@ void currentPlayerSetUnk175c(u32 value);
 u32 currentPlayerGetUnk175c(void);
 f32 currentPlayerGetLodScaleZ(void);
 f32 currentPlayerGetScreenWidth(void);
-f32 func0f0b57e8(void);
+f32 currentPlayerGetScreenHeight(void);
 f32 func0f0b57f8(void);
 f32 func0f0b5808(void);
 u32 func0f0b5828(void);
