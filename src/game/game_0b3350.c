@@ -2397,12 +2397,13 @@ f32 *currentPlayerGetUnk1760(void)
 	return g_Vars.currentplayer->unk1760;
 }
 
+void currentPlayerSetUnk1748(u32 value)
+{
+	g_Vars.currentplayer->unk1748 = value;
+}
+
 GLOBAL_ASM(
-glabel func0f0b5738
-/*  f0b5738:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b573c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b5740:	03e00008 */ 	jr	$ra
-/*  f0b5744:	adc41748 */ 	sw	$a0,0x1748($t6)
+glabel func0f0b5748
 /*  f0b5748:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f0b574c:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f0b5750:	03e00008 */ 	jr	$ra
