@@ -26,7 +26,7 @@ u32 func0f0b9cbc(void);
 void cameraDoAnimation(s16 anim_id);
 u32 func0f0ba190(u32 arg0);
 u32 func0f0ba29c(void);
-u32 func0f0ba838(void);
+f32 getVar8009de1c(void);
 void currentPlayerSetZoomFovY(f32 fovy, f32 timemax);
 f32 currentPlayerGetZoomFovY(void);
 void func0f0ba8b0(f32 value);

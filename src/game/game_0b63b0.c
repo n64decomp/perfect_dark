@@ -4807,12 +4807,10 @@ glabel var7f1ad5dc
 /*  f0ba834:	27bd01a8 */ 	addiu	$sp,$sp,0x1a8
 );
 
-GLOBAL_ASM(
-glabel func0f0ba838
-/*  f0ba838:	3c01800a */ 	lui	$at,0x800a
-/*  f0ba83c:	03e00008 */ 	jr	$ra
-/*  f0ba840:	c420de1c */ 	lwc1	$f0,-0x21e4($at)
-);
+f32 getVar8009de1c(void)
+{
+	return var8009de1c;
+}
 
 void currentPlayerSetZoomFovY(f32 fovy, f32 timemax)
 {
