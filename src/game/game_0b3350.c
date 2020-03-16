@@ -1752,41 +1752,21 @@ void func0f0b4d68(struct coord *in, struct coord *out)
 		in->x * value * player->c_recipscalex;
 }
 
-GLOBAL_ASM(
-glabel func0f0b4dec
-/*  f0b4dec:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b4df0:	44812000 */ 	mtc1	$at,$f4
-/*  f0b4df4:	c4860008 */ 	lwc1	$f6,0x8($a0)
-/*  f0b4df8:	44804000 */ 	mtc1	$zero,$f8
-/*  f0b4dfc:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0b4e00:	46062003 */ 	div.s	$f0,$f4,$f6
-/*  f0b4e04:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0b4e08:	4608003c */ 	c.lt.s	$f0,$f8
-/*  f0b4e0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b4e10:	45020003 */ 	bc1fl	.L0f0b4e20
-/*  f0b4e14:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-/*  f0b4e18:	46000007 */ 	neg.s	$f0,$f0
-/*  f0b4e1c:	c48a0004 */ 	lwc1	$f10,0x4($a0)
-.L0f0b4e20:
-/*  f0b4e20:	c4521734 */ 	lwc1	$f18,0x1734($v0)
-/*  f0b4e24:	c4461710 */ 	lwc1	$f6,0x1710($v0)
-/*  f0b4e28:	46005402 */ 	mul.s	$f16,$f10,$f0
-/*  f0b4e2c:	c4481724 */ 	lwc1	$f8,0x1724($v0)
-/*  f0b4e30:	46083280 */ 	add.s	$f10,$f6,$f8
-/*  f0b4e34:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f0b4e38:	460a2400 */ 	add.s	$f16,$f4,$f10
-/*  f0b4e3c:	e4b00004 */ 	swc1	$f16,0x4($a1)
-/*  f0b4e40:	c4840000 */ 	lwc1	$f4,0x0($a0)
-/*  f0b4e44:	c4461720 */ 	lwc1	$f6,0x1720($v0)
-/*  f0b4e48:	c452170c */ 	lwc1	$f18,0x170c($v0)
-/*  f0b4e4c:	46002282 */ 	mul.s	$f10,$f4,$f0
-/*  f0b4e50:	c4501730 */ 	lwc1	$f16,0x1730($v0)
-/*  f0b4e54:	46069200 */ 	add.s	$f8,$f18,$f6
-/*  f0b4e58:	46105482 */ 	mul.s	$f18,$f10,$f16
-/*  f0b4e5c:	46124181 */ 	sub.s	$f6,$f8,$f18
-/*  f0b4e60:	03e00008 */ 	jr	$ra
-/*  f0b4e64:	e4a60000 */ 	swc1	$f6,0x0($a1)
-);
+void func0f0b4dec(struct coord *in, struct coord *out)
+{
+	struct player *player = g_Vars.currentplayer;
+	f32 value = 1.0f / in->z;
+
+	if (value < 0) {
+		value = -value;
+	}
+
+	out->y = in->y * value * player->c_recipscaley +
+		(player->c_screentop + player->c_halfheight);
+
+	out->x = (player->c_screenleft + player->c_halfwidth)
+		- in->x * value * player->c_recipscalex;
+}
 
 GLOBAL_ASM(
 glabel func0f0b4e68
