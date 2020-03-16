@@ -1768,29 +1768,11 @@ void func0f0b4dec(struct coord *in, struct coord *out)
 		- in->x * value * player->c_recipscalex;
 }
 
-GLOBAL_ASM(
-glabel func0f0b4e68
-/*  f0b4e68:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b4e6c:	44856000 */ 	mtc1	$a1,$f12
-/*  f0b4e70:	44812000 */ 	mtc1	$at,$f4
-/*  f0b4e74:	c4860004 */ 	lwc1	$f6,0x4($a0)
-/*  f0b4e78:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0b4e7c:	460c2003 */ 	div.s	$f0,$f4,$f12
-/*  f0b4e80:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0b4e84:	8c4e0284 */ 	lw	$t6,0x284($v0)
-/*  f0b4e88:	c5ca1734 */ 	lwc1	$f10,0x1734($t6)
-/*  f0b4e8c:	46003202 */ 	mul.s	$f8,$f6,$f0
-/*  f0b4e90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b4e94:	460a4402 */ 	mul.s	$f16,$f8,$f10
-/*  f0b4e98:	e4d00004 */ 	swc1	$f16,0x4($a2)
-/*  f0b4e9c:	c4920000 */ 	lwc1	$f18,0x0($a0)
-/*  f0b4ea0:	8c4f0284 */ 	lw	$t7,0x284($v0)
-/*  f0b4ea4:	46009102 */ 	mul.s	$f4,$f18,$f0
-/*  f0b4ea8:	c5e61730 */ 	lwc1	$f6,0x1730($t7)
-/*  f0b4eac:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0b4eb0:	03e00008 */ 	jr	$ra
-/*  f0b4eb4:	e4c80000 */ 	swc1	$f8,0x0($a2)
-);
+void func0f0b4e68(struct coord *in, f32 divisor, struct coord *out)
+{
+	out->y = in->y * (1.0f / divisor) * g_Vars.currentplayer->c_recipscaley;
+	out->x = in->x * (1.0f / divisor) * g_Vars.currentplayer->c_recipscalex;
+}
 
 GLOBAL_ASM(
 glabel func0f0b4eb8
