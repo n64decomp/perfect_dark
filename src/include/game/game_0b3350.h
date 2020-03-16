@@ -40,7 +40,7 @@ u32 currentPlayerGetUnk1754(void);
 void currentPlayerSetUnk174c(u32 value);
 u32 currentPlayerGetUnk174c(void);
 void currentPlayerSetUnk175c(u32 value);
-u32 func0f0b57a8(void);
+u32 currentPlayerGetUnk175c(void);
 u32 func0f0b57b8(void);
 f32 func0f0b57d8(void);
 f32 func0f0b57e8(void);
