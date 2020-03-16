@@ -5297,13 +5297,10 @@ glabel func0f15c888
 /*  f15c8b4:	46062003 */ 	div.s	$f0,$f4,$f6
 );
 
-GLOBAL_ASM(
-glabel func0f15c8b8
-/*  f15c8b8:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
-/*  f15c8bc:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
-/*  f15c8c0:	03e00008 */ 	jr	$ra
-/*  f15c8c4:	c5c00074 */ 	lwc1	$f0,0x74($t6)
-);
+f32 currentPlayerGetScaleBg2Gfx(void)
+{
+	return g_Vars.currentplayerstats->scale_bg2gfx;
+}
 
 void currentPlayerSetScaleBg2Gfx(f32 scale)
 {

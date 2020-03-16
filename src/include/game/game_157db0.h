@@ -28,7 +28,7 @@ void func0f15b908(s32 stagenum);
 u32 func0f15c850(void);
 u32 func0f15c880(void);
 f32 func0f15c888(void);
-u32 func0f15c8b8(void);
+f32 currentPlayerGetScaleBg2Gfx(void);
 void currentPlayerSetScaleBg2Gfx(f32 arg0);
 void func0f15c920(void);
 u32 func0f15ca00(void);
