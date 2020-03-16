@@ -3032,7 +3032,7 @@ glabel var7f1ad8e4
 /*  f0caa34:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0caa38:	45020004 */ 	bc1fl	.L0f0caa4c
 /*  f0caa3c:	8e590284 */ 	lw	$t9,0x284($s2)
-/*  f0caa40:	0fc2c5a9 */ 	jal	func0f0b16a4
+/*  f0caa40:	0fc2c5a9 */ 	jal	currentPlayerUpdateGunZoomFovs
 /*  f0caa44:	e7ac0214 */ 	swc1	$f12,0x214($sp)
 /*  f0caa48:	8e590284 */ 	lw	$t9,0x284($s2)
 .L0f0caa4c:

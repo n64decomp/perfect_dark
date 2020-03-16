@@ -2551,9 +2551,7 @@ struct player {
 	/*0x16e8*/ u32 unk16e8;
 	/*0x16ec*/ u32 unk16ec;
 	/*0x16f0*/ u32 unk16f0;
-	/*0x16f4*/ u32 unk16f4;
-	/*0x16f8*/ u32 unk16f8;
-	/*0x16fc*/ u32 unk16fc;
+	/*0x16f4*/ f32 gunzoomfovs[3];
 	/*0x1700*/ u32 unk1700;
 	/*0x1704*/ u32 unk1704;
 	/*0x1708*/ u32 unk1708;

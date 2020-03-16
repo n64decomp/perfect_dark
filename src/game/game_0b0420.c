@@ -30,7 +30,6 @@ const char var7f1acdc4[] = "%s %s";
 
 const u32 var7f1acdcc[] = {0x00000000};
 const u32 var7f1acdd0[] = {0x3dcccccd};
-const u32 var7f1acdd4[] = {0x3dcccccd};
 
 GLOBAL_ASM(
 glabel func0f0b0420
@@ -1401,86 +1400,30 @@ glabel func0f0b1588
 /*  f0b16a0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0b16a4
-/*  f0b16a4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b16a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b16ac:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f0b16b0:	e7ac0020 */ 	swc1	$f12,0x20($sp)
-/*  f0b16b4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b16b8:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
-/*  f0b16bc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b16c0:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f0b16c4:	10410008 */ 	beq	$v0,$at,.L0f0b16e8
-/*  f0b16c8:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0b16cc:	24010016 */ 	addiu	$at,$zero,0x16
-/*  f0b16d0:	10410007 */ 	beq	$v0,$at,.L0f0b16f0
-/*  f0b16d4:	24010032 */ 	addiu	$at,$zero,0x32
-/*  f0b16d8:	50410008 */ 	beql	$v0,$at,.L0f0b16fc
-/*  f0b16dc:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f0b16e0:	10000006 */ 	beqz	$zero,.L0f0b16fc
-/*  f0b16e4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0b16e8:
-/*  f0b16e8:	10000004 */ 	beqz	$zero,.L0f0b16fc
-/*  f0b16ec:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0b16f0:
-/*  f0b16f0:	10000002 */ 	beqz	$zero,.L0f0b16fc
-/*  f0b16f4:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0b16f8:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f0b16fc:
-/*  f0b16fc:	04a0002c */ 	bltz	$a1,.L0f0b17b0
-/*  f0b1700:	c7a40020 */ 	lwc1	$f4,0x20($sp)
-/*  f0b1704:	3c013e80 */ 	lui	$at,0x3e80
-/*  f0b1708:	44813000 */ 	mtc1	$at,$f6
-/*  f0b170c:	3c01800a */ 	lui	$at,0x800a
-/*  f0b1710:	c42aa004 */ 	lwc1	$f10,-0x5ffc($at)
-/*  f0b1714:	46062202 */ 	mul.s	$f8,$f4,$f6
-/*  f0b1718:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b171c:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b1720:	460a4002 */ 	mul.s	$f0,$f8,$f10
-/*  f0b1724:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
-/*  f0b1728:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f0b172c:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f0b1730:	24010016 */ 	addiu	$at,$zero,0x16
-/*  f0b1734:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f0b1738:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0b173c:	14410006 */ 	bne	$v0,$at,.L0f0b1758
-/*  f0b1740:	c7a00018 */ 	lwc1	$f0,0x18($sp)
-/*  f0b1744:	3c013f00 */ 	lui	$at,0x3f00
-/*  f0b1748:	44818000 */ 	mtc1	$at,$f16
-/*  f0b174c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b1750:	46100002 */ 	mul.s	$f0,$f0,$f16
-/*  f0b1754:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0b1758:
-/*  f0b1758:	3c014000 */ 	lui	$at,0x4000
-/*  f0b175c:	44811000 */ 	mtc1	$at,$f2
-/*  f0b1760:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0b1764:	44819000 */ 	mtc1	$at,$f18
-/*  f0b1768:	3c017f1b */ 	lui	$at,%hi(var7f1acdd4)
-/*  f0b176c:	c424cdd4 */ 	lwc1	$f4,%lo(var7f1acdd4)($at)
-/*  f0b1770:	8c8e0284 */ 	lw	$t6,0x284($a0)
-/*  f0b1774:	00051080 */ 	sll	$v0,$a1,0x2
-/*  f0b1778:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f0b177c:	01c21821 */ 	addu	$v1,$t6,$v0
-/*  f0b1780:	c46a16f4 */ 	lwc1	$f10,0x16f4($v1)
-/*  f0b1784:	46069200 */ 	add.s	$f8,$f18,$f6
-/*  f0b1788:	46085403 */ 	div.s	$f16,$f10,$f8
-/*  f0b178c:	e47016f4 */ 	swc1	$f16,0x16f4($v1)
-/*  f0b1790:	8c8f0284 */ 	lw	$t7,0x284($a0)
-/*  f0b1794:	01e21821 */ 	addu	$v1,$t7,$v0
-/*  f0b1798:	c46416f4 */ 	lwc1	$f4,0x16f4($v1)
-/*  f0b179c:	4602203c */ 	c.lt.s	$f4,$f2
-/*  f0b17a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b17a4:	45020003 */ 	bc1fl	.L0f0b17b4
-/*  f0b17a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b17ac:	e46216f4 */ 	swc1	$f2,0x16f4($v1)
-.L0f0b17b0:
-/*  f0b17b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0b17b4:
-/*  f0b17b4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b17b8:	03e00008 */ 	jr	$ra
-/*  f0b17bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerUpdateGunZoomFovs(f32 arg0)
+{
+	s32 index = -1;
+
+	switch (getCurrentPlayerWeaponIdWrapper(0)) {
+	case WEAPON_SNIPERRIFLE:    index = 0; break;
+	case WEAPON_FARSIGHTXR20:   index = 1; break;
+	case WEAPON_HORIZONSCANNER: index = 2; break;
+	}
+
+	if (index >= 0) {
+		f32 value = arg0 * 0.25f * g_Vars.lvupdate240f;
+
+		if (getCurrentPlayerWeaponIdWrapper(0) == WEAPON_FARSIGHTXR20) {
+			value *= 0.5f;
+		}
+
+		g_Vars.currentplayer->gunzoomfovs[index] /= 1 + value * 0.1f;
+
+		if (g_Vars.currentplayer->gunzoomfovs[index] < 2) {
+			g_Vars.currentplayer->gunzoomfovs[index] = 2;
+		}
+	}
+}
 
 bool weaponHasFlag(s32 itemid, u32 flag)
 {
