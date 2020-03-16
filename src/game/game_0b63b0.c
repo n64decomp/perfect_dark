@@ -4814,23 +4814,13 @@ glabel func0f0ba838
 /*  f0ba840:	c420de1c */ 	lwc1	$f0,-0x21e4($at)
 );
 
-GLOBAL_ASM(
-glabel func0f0ba844
-/*  f0ba844:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0ba848:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0ba84c:	8c6e0284 */ 	lw	$t6,0x284($v1)
-/*  f0ba850:	44802000 */ 	mtc1	$zero,$f4
-/*  f0ba854:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ba858:	e5c41840 */ 	swc1	$f4,0x1840($t6)
-/*  f0ba85c:	8c6f0284 */ 	lw	$t7,0x284($v1)
-/*  f0ba860:	e5ee1844 */ 	swc1	$f14,0x1844($t7)
-/*  f0ba864:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0ba868:	c4461848 */ 	lwc1	$f6,0x1848($v0)
-/*  f0ba86c:	e446184c */ 	swc1	$f6,0x184c($v0)
-/*  f0ba870:	8c780284 */ 	lw	$t8,0x284($v1)
-/*  f0ba874:	03e00008 */ 	jr	$ra
-/*  f0ba878:	e70c1850 */ 	swc1	$f12,0x1850($t8)
-);
+void currentPlayerSetZoomFovY(f32 fovy, f32 timemax)
+{
+	g_Vars.currentplayer->zoomintime = 0;
+	g_Vars.currentplayer->zoomintimemax = timemax;
+	g_Vars.currentplayer->zoominfovyold = g_Vars.currentplayer->zoominfovy;
+	g_Vars.currentplayer->zoominfovynew = fovy;
+}
 
 GLOBAL_ASM(
 glabel func0f0ba87c
@@ -4850,13 +4840,13 @@ glabel func0f0ba87c
 /*  f0ba8ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-void func0f0ba8b0(f32 value)
+void func0f0ba8b0(f32 fovy)
 {
-	if (func0f0ba87c() != value) {
-		if (value < g_Vars.currentplayer->zoominfovy) {
-			func0f0ba844(value, (g_Vars.currentplayer->zoominfovy - value) * 15.0f / 30.0f);
+	if (func0f0ba87c() != fovy) {
+		if (fovy < g_Vars.currentplayer->zoominfovy) {
+			currentPlayerSetZoomFovY(fovy, (g_Vars.currentplayer->zoominfovy - fovy) * 15.0f / 30.0f);
 		} else {
-			func0f0ba844(value, (value - g_Vars.currentplayer->zoominfovy) * 15.0f / 30.0f);
+			currentPlayerSetZoomFovY(fovy, (fovy - g_Vars.currentplayer->zoominfovy) * 15.0f / 30.0f);
 		}
 	}
 }
