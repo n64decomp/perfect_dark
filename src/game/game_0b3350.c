@@ -2456,13 +2456,10 @@ f32 currentPlayerGetScreenHeight(void)
 	return g_Vars.currentplayer->c_screenheight;
 }
 
-GLOBAL_ASM(
-glabel func0f0b57f8
-/*  f0b57f8:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b57fc:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b5800:	03e00008 */ 	jr	$ra
-/*  f0b5804:	c5c0170c */ 	lwc1	$f0,0x170c($t6)
-);
+f32 currentPlayerGetScreenLeft(void)
+{
+	return g_Vars.currentplayer->c_screenleft;
+}
 
 GLOBAL_ASM(
 glabel func0f0b5808
