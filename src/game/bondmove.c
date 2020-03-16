@@ -3806,7 +3806,7 @@ glabel var7f1ad8e4
 .L0f0cb528:
 /*  f0cb528:	1120007d */ 	beqz	$t1,.L0f0cb720
 /*  f0cb52c:	8fb901b8 */ 	lw	$t9,0x1b8($sp)
-/*  f0cb530:	0fc2a4f4 */ 	jal	func0f0a93d0
+/*  f0cb530:	0fc2a4f4 */ 	jal	currentPlayerSetAimType
 /*  f0cb534:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0cb538:	8faa022c */ 	lw	$t2,0x22c($sp)
 /*  f0cb53c:	11400015 */ 	beqz	$t2,.L0f0cb594
@@ -3944,7 +3944,7 @@ glabel var7f1ad8e4
 .L0f0cb720:
 /*  f0cb720:	53200014 */ 	beqzl	$t9,.L0f0cb774
 /*  f0cb724:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f0cb728:	0fc2a4f4 */ 	jal	func0f0a93d0
+/*  f0cb728:	0fc2a4f4 */ 	jal	currentPlayerSetAimType
 /*  f0cb72c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0cb730:	8fa30248 */ 	lw	$v1,0x248($sp)
 /*  f0cb734:	8fa4024c */ 	lw	$a0,0x24c($sp)

@@ -145,7 +145,7 @@ u32 func0f0a8c50(void);
 u32 func0f0a8c7c(void);
 u32 func0f0a8d34(void);
 void func0f0a92ac(u32 arg0);
-u32 func0f0a93d0(void);
+void currentPlayerSetAimType(u32 aimtype);
 u32 func0f0a93e0(void);
 u32 func0f0a9464(void);
 u32 func0f0a9494(void);

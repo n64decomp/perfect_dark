@@ -21266,13 +21266,10 @@ glabel func0f0a92ac
 /*  f0a93cc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0a93d0
-/*  f0a93d0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0a93d4:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0a93d8:	03e00008 */ 	jr	$ra
-/*  f0a93dc:	adc41620 */ 	sw	$a0,0x1620($t6)
-);
+void currentPlayerSetAimType(u32 aimtype)
+{
+	g_Vars.currentplayer->aimtype = aimtype;
+}
 
 GLOBAL_ASM(
 glabel func0f0a93e0

@@ -2509,7 +2509,7 @@ struct player {
 	/*0x161a*/ u16 floorcol;
 	/*0x161c*/ u16 floorflags;
 	/*0x161e*/ u8 floortype;
-	/*0x1620*/ u32 unk1620;
+	/*0x1620*/ u32 aimtype;
 	/*0x1624*/ struct prop *lookingatprop;
 	/*0x1628*/ u32 unk1628;
 	/*0x162c*/ u32 unk162c;
