@@ -57,7 +57,7 @@ u32 func0001a110(void);
 u32 func0001a1c0(void);
 u32 func0001a25c(void);
 u32 func0001a2dc(void);
-f32 fcos(f32 arg0);
-f32 fsin(f32 arg0);
+f32 cosf(f32 arg0);
+f32 sinf(f32 arg0);
 
 #endif

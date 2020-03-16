@@ -1620,14 +1620,14 @@ void currentPlayerSetCameraScale(void)
 	f32 fVar5;
 	f32 fVar2;
 
-	player->c_scaley = fsin(player->c_perspfovy * (M_PI / 360.0f)) / (fcos(player->c_perspfovy * (M_PI / 360.0f)) * player->c_halfheight);
+	player->c_scaley = sinf(player->c_perspfovy * (M_PI / 360.0f)) / (cosf(player->c_perspfovy * (M_PI / 360.0f)) * player->c_halfheight);
 	player->c_scalelod = player->c_scaley;
 	player->c_scalex = (player->c_scaley * player->c_perspaspect * player->c_halfheight) / player->c_halfwidth;
 
 	player->c_recipscalex = 1.0f / player->c_scalex;
 	player->c_recipscaley = 1.0f / player->c_scaley;
 
-	fVar4 = fsin(0.52359879016876f) / (fcos(0.52359879016876f) * 120.0f);
+	fVar4 = sinf(0.52359879016876f) / (cosf(0.52359879016876f) * 120.0f);
 	player->c_scalelod60 = fVar4;
 	player->c_lodscalez = player->c_scalelod / fVar4;
 	tmp = player->c_lodscalez * 65536.0f;
@@ -1775,10 +1775,10 @@ glabel var7f1ad154
 /*  f0b4edc:	afa50034 */ 	sw	$a1,0x34($sp)
 /*  f0b4ee0:	afa7003c */ 	sw	$a3,0x3c($sp)
 /*  f0b4ee4:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f0b4ee8:	0c0068f4 */ 	jal	fcos
+/*  f0b4ee8:	0c0068f4 */ 	jal	cosf
 /*  f0b4eec:	e7ac0018 */ 	swc1	$f12,0x18($sp)
 /*  f0b4ef0:	c7ac0018 */ 	lwc1	$f12,0x18($sp)
-/*  f0b4ef4:	0c0068f7 */ 	jal	fsin
+/*  f0b4ef4:	0c0068f7 */ 	jal	sinf
 /*  f0b4ef8:	e7a0001c */ 	swc1	$f0,0x1c($sp)
 /*  f0b4efc:	8fa20024 */ 	lw	$v0,0x24($sp)
 /*  f0b4f00:	8fa30030 */ 	lw	$v1,0x30($sp)

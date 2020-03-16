@@ -3128,7 +3128,7 @@ glabel var7f1ad854
 .L0f0c6b14:
 /*  f0c6b14:	c42ad80c */ 	lwc1	$f10,%lo(var7f1ad80c)($at)
 /*  f0c6b18:	460a0302 */ 	mul.s	$f12,$f0,$f10
-/*  f0c6b1c:	0c0068f4 */ 	jal	fcos
+/*  f0c6b1c:	0c0068f4 */ 	jal	cosf
 /*  f0c6b20:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0c6b24:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0c6b28:	44811000 */ 	mtc1	$at,$f2

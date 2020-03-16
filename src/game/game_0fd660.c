@@ -3646,7 +3646,7 @@ glabel func0f100ad0
 /*  f1013b4:	24120005 */ 	addiu	$s2,$zero,0x5
 /*  f1013b8:	24130003 */ 	addiu	$s3,$zero,0x3
 .L0f1013bc:
-/*  f1013bc:	0c0068f7 */ 	jal	fsin
+/*  f1013bc:	0c0068f7 */ 	jal	sinf
 /*  f1013c0:	c60c001c */ 	lwc1	$f12,0x1c($s0)
 /*  f1013c4:	3c013f80 */ 	lui	$at,0x3f80
 /*  f1013c8:	44812000 */ 	mtc1	$at,$f4
