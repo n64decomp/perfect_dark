@@ -1529,7 +1529,7 @@ glabel func0f151780
 /*  f151e6c:	35290040 */ 	ori	$t1,$t1,0x40
 /*  f151e70:	02608825 */ 	or	$s1,$s3,$zero
 /*  f151e74:	ae290000 */ 	sw	$t1,0x0($s1)
-/*  f151e78:	0fc2d3ea */ 	jal	func0f0b4fa8
+/*  f151e78:	0fc2d3ea */ 	jal	currentPlayerGetUnk173c
 /*  f151e7c:	26730008 */ 	addiu	$s3,$s3,0x8
 /*  f151e80:	ae220004 */ 	sw	$v0,0x4($s1)
 .L0f151e84:
@@ -2077,7 +2077,7 @@ glabel func0f151ed0
 /*  f152680:	35080040 */ 	ori	$t0,$t0,0x40
 /*  f152684:	26380008 */ 	addiu	$t8,$s1,0x8
 /*  f152688:	afb80140 */ 	sw	$t8,0x140($sp)
-/*  f15268c:	0fc2d3ea */ 	jal	func0f0b4fa8
+/*  f15268c:	0fc2d3ea */ 	jal	currentPlayerGetUnk173c
 /*  f152690:	ae280000 */ 	sw	$t0,0x0($s1)
 /*  f152694:	ae220004 */ 	sw	$v0,0x4($s1)
 .L0f152698:
