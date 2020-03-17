@@ -1144,7 +1144,7 @@ void func0f0ddd44(s32 value)
 	s32 i;
 
 	for (i = 0; i < g_NumHudMessages; i++) {
-		if (g_HudMessages[i].unk000 && g_HudMessages[i].unk1b0 == value) {
+		if (g_HudMessages[i].active && g_HudMessages[i].unk1b0 == value) {
 			g_HudMessages[i].unk1c4 |= 2;
 			break;
 		}
@@ -1212,45 +1212,28 @@ void hudmsgRemoveAll(void)
 	s32 i;
 
 	for (i = 0; i < g_NumHudMessages; i++) {
-		g_HudMessages[i].unk000 = 0;
+		g_HudMessages[i].active = false;
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0ddeac
-/*  f0ddeac:	3c068007 */ 	lui	$a2,%hi(g_NumHudMessages)
-/*  f0ddeb0:	8cc60fe8 */ 	lw	$a2,%lo(g_NumHudMessages)($a2)
-/*  f0ddeb4:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0ddeb8:	2402ffff */ 	addiu	$v0,$zero,-1
-/*  f0ddebc:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f0ddec0:	18c00014 */ 	blez	$a2,.L0f0ddf14
-/*  f0ddec4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0ddec8:	3c048007 */ 	lui	$a0,%hi(var800701dc)
-/*  f0ddecc:	8c840fec */ 	lw	$a0,0xfec($a0)
-.L0f0dded0:
-/*  f0dded0:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f0dded4:	51c0000c */ 	beqzl	$t6,.L0f0ddf08
-/*  f0dded8:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f0ddedc:	8c8801b8 */ 	lw	$t0,0x1b8($a0)
-/*  f0ddee0:	00e8082a */ 	slt	$at,$a3,$t0
-/*  f0ddee4:	50200008 */ 	beqzl	$at,.L0f0ddf08
-/*  f0ddee8:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f0ddeec:	04400003 */ 	bltz	$v0,.L0f0ddefc
-/*  f0ddef0:	0102082a */ 	slt	$at,$t0,$v0
-/*  f0ddef4:	50200004 */ 	beqzl	$at,.L0f0ddf08
-/*  f0ddef8:	24a50001 */ 	addiu	$a1,$a1,0x1
-.L0f0ddefc:
-/*  f0ddefc:	00a01825 */ 	or	$v1,$a1,$zero
-/*  f0ddf00:	01001025 */ 	or	$v0,$t0,$zero
-/*  f0ddf04:	24a50001 */ 	addiu	$a1,$a1,0x1
-.L0f0ddf08:
-/*  f0ddf08:	00a6082a */ 	slt	$at,$a1,$a2
-/*  f0ddf0c:	1420fff0 */ 	bnez	$at,.L0f0dded0
-/*  f0ddf10:	248401dc */ 	addiu	$a0,$a0,%lo(var800701dc)
-.L0f0ddf14:
-/*  f0ddf14:	03e00008 */ 	jr	$ra
-/*  f0ddf18:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 func0f0ddeac(s32 arg0)
+{
+	s32 bestvalue = -1;
+	s32 bestindex = -1;
+	s32 i;
+
+	// Finding the smallest unk1b8 that is greater than arg0
+	for (i = 0; i < g_NumHudMessages; i++) {
+		if (g_HudMessages[i].active && g_HudMessages[i].unk1b8 > arg0) {
+			if (bestvalue < 0 || g_HudMessages[i].unk1b8 < bestvalue) {
+				bestindex = i;
+				bestvalue = g_HudMessages[i].unk1b8;
+			}
+		}
+	}
+
+	return bestindex;
+}
 
 void hudmsgCreateViaPreset(char *text, s32 confignum)
 {
@@ -4025,6 +4008,6 @@ void hudmsgsReset(void)
 	s32 i;
 
 	for (i = 0; i < g_NumHudMessages; i++) {
-		g_HudMessages[i].unk000 = 0;
+		g_HudMessages[i].active = false;
 	}
 }

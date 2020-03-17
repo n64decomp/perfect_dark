@@ -12,7 +12,7 @@ u32 func0f0ddb1c(void);
 void func0f0ddd44(s32 value);
 void func0f0ddda0(void);
 void hudmsgRemoveAll(void);
-u32 func0f0ddeac(void);
+s32 func0f0ddeac(s32 param_1);
 void hudmsgCreateViaPreset(char *text, s32 confignum);
 void func0f0ddfa4(char *text, s32 confignum, s32 arg2);
 void hudmsgCreateViaPresetWithColour(char *text, s32 confignum, u8 colour);

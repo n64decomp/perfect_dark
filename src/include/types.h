@@ -5273,7 +5273,7 @@ struct hudmessageconfig {
 };
 
 struct hudmessage {
-	/*0x000*/ u8 unk000;
+	/*0x000*/ u8 active;
 	/*0x004*/ u32 unk004;
 	/*0x008*/ u32 unk008;
 	/*0x00c*/ u32 unk00c;
@@ -5383,7 +5383,7 @@ struct hudmessage {
 	/*0x1ac*/ u32 unk1ac;
 	/*0x1b0*/ u32 unk1b0;
 	/*0x1b4*/ u32 unk1b4;
-	/*0x1b8*/ u32 unk1b8;
+	/*0x1b8*/ s32 unk1b8;
 	/*0x1bc*/ u32 unk1bc;
 	/*0x1c0*/ u32 unk1c0;
 	/*0x1c4*/ u32 unk1c4;
