@@ -326,7 +326,7 @@ void func0f167e7c(s32 stagenum)
 	func0f013b80();
 	func0f1735c0();
 	func0f1532ec();
-	func0f0ddda0();
+	hudmsgSystemInit();
 
 	if (stagenum == STAGE_TEST_OLD) {
 		func0f00b480();

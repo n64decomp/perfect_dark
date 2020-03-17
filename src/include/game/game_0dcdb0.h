@@ -10,7 +10,7 @@ u32 func0f0dd2ac(void);
 u32 func0f0dd848(void);
 u32 func0f0ddb1c(void);
 void func0f0ddd44(s32 value);
-void func0f0ddda0(void);
+void hudmsgSystemInit(void);
 void hudmsgRemoveAll(void);
 s32 func0f0ddeac(s32 param_1);
 void hudmsgCreateViaPreset(char *text, s32 confignum);

@@ -1151,61 +1151,19 @@ void func0f0ddd44(s32 value)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0ddda0
-/*  f0ddda0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x314)
-/*  f0ddda4:	8dcea2d4 */ 	lw	$t6,%lo(g_Vars+0x314)($t6)
-/*  f0ddda8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0dddac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0dddb0:	11c00006 */ 	beqz	$t6,.L0f0dddcc
-/*  f0dddb4:	3c068007 */ 	lui	$a2,%hi(g_NumHudMessages)
-/*  f0dddb8:	3c068007 */ 	lui	$a2,%hi(g_NumHudMessages)
-/*  f0dddbc:	24c60fe8 */ 	addiu	$a2,$a2,%lo(g_NumHudMessages)
-/*  f0dddc0:	240f0014 */ 	addiu	$t7,$zero,0x14
-/*  f0dddc4:	10000004 */ 	beqz	$zero,.L0f0dddd8
-/*  f0dddc8:	accf0000 */ 	sw	$t7,0x0($a2)
-.L0f0dddcc:
-/*  f0dddcc:	24c60fe8 */ 	addiu	$a2,$a2,%lo(g_NumHudMessages)
-/*  f0dddd0:	24180008 */ 	addiu	$t8,$zero,0x8
-/*  f0dddd4:	acd80000 */ 	sw	$t8,0x0($a2)
-.L0f0dddd8:
-/*  f0dddd8:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f0ddddc:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f0ddde0:	0004c900 */ 	sll	$t9,$a0,0x4
-/*  f0ddde4:	0324c823 */ 	subu	$t9,$t9,$a0
-/*  f0ddde8:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0dddec:	0324c823 */ 	subu	$t9,$t9,$a0
-/*  f0dddf0:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0dddf4:	2724003f */ 	addiu	$a0,$t9,0x3f
-/*  f0dddf8:	3488003f */ 	ori	$t0,$a0,0x3f
-/*  f0dddfc:	0c0048f2 */ 	jal	malloc
-/*  f0dde00:	3904003f */ 	xori	$a0,$t0,0x3f
-/*  f0dde04:	3c068007 */ 	lui	$a2,%hi(g_NumHudMessages)
-/*  f0dde08:	24c60fe8 */ 	addiu	$a2,$a2,%lo(g_NumHudMessages)
-/*  f0dde0c:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f0dde10:	3c048007 */ 	lui	$a0,%hi(g_HudMessages)
-/*  f0dde14:	24840fec */ 	addiu	$a0,$a0,%lo(g_HudMessages)
-/*  f0dde18:	ac820000 */ 	sw	$v0,0x0($a0)
-/*  f0dde1c:	1940000b */ 	blez	$t2,.L0f0dde4c
-/*  f0dde20:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0dde24:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0dde28:	8c8b0000 */ 	lw	$t3,0x0($a0)
-.L0f0dde2c:
-/*  f0dde2c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0dde30:	01626021 */ 	addu	$t4,$t3,$v0
-/*  f0dde34:	a1800000 */ 	sb	$zero,0x0($t4)
-/*  f0dde38:	8ccd0000 */ 	lw	$t5,0x0($a2)
-/*  f0dde3c:	244201dc */ 	addiu	$v0,$v0,0x1dc
-/*  f0dde40:	006d082a */ 	slt	$at,$v1,$t5
-/*  f0dde44:	5420fff9 */ 	bnezl	$at,.L0f0dde2c
-/*  f0dde48:	8c8b0000 */ 	lw	$t3,0x0($a0)
-.L0f0dde4c:
-/*  f0dde4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0dde50:	3c01800a */ 	lui	$at,%hi(var8009dea0)
-/*  f0dde54:	ac20dea0 */ 	sw	$zero,%lo(var8009dea0)($at)
-/*  f0dde58:	03e00008 */ 	jr	$ra
-/*  f0dde5c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void hudmsgSystemInit(void)
+{
+	s32 i;
+
+	g_NumHudMessages = g_Vars.mplayerisrunning ? 20 : 8;
+	g_HudMessages = malloc((sizeof(struct hudmessage) * g_NumHudMessages + 0x3f | 0x3f) ^ 0x3f, 4);
+
+	for (i = 0; i < g_NumHudMessages; i++) {
+		g_HudMessages[i].active = false;
+	}
+
+	var8009dea0 = 0;
+}
 
 void hudmsgRemoveAll(void)
 {
