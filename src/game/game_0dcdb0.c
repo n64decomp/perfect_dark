@@ -4038,27 +4038,11 @@ glabel var7f1adef4
 /*  f0e0720:	27bd0100 */ 	addiu	$sp,$sp,0x100
 );
 
-GLOBAL_ASM(
-glabel func0f0e0724
-/*  f0e0724:	3c048007 */ 	lui	$a0,%hi(g_NumHudMessages)
-/*  f0e0728:	24840fe8 */ 	addiu	$a0,$a0,%lo(g_NumHudMessages)
-/*  f0e072c:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f0e0730:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0e0734:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0e0738:	19c0000b */ 	blez	$t6,.L0f0e0768
-/*  f0e073c:	3c058007 */ 	lui	$a1,%hi(g_HudMessages)
-/*  f0e0740:	24a50fec */ 	addiu	$a1,$a1,%lo(g_HudMessages)
-/*  f0e0744:	8caf0000 */ 	lw	$t7,0x0($a1)
-.L0f0e0748:
-/*  f0e0748:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0e074c:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f0e0750:	a3000000 */ 	sb	$zero,0x0($t8)
-/*  f0e0754:	8c990000 */ 	lw	$t9,0x0($a0)
-/*  f0e0758:	246301dc */ 	addiu	$v1,$v1,0x1dc
-/*  f0e075c:	0059082a */ 	slt	$at,$v0,$t9
-/*  f0e0760:	5420fff9 */ 	bnezl	$at,.L0f0e0748
-/*  f0e0764:	8caf0000 */ 	lw	$t7,0x0($a1)
-.L0f0e0768:
-/*  f0e0768:	03e00008 */ 	jr	$ra
-/*  f0e076c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void hudmsgsReset(void)
+{
+	s32 i;
+
+	for (i = 0; i < g_NumHudMessages; i++) {
+		g_HudMessages[i].unk000 = 0;
+	}
+}

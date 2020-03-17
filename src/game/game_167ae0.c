@@ -5899,7 +5899,7 @@ void stageLoad(void)
 	func0f015470();
 	func0f0150a0();
 	func0f16d9fc();
-	func0f0e0724();
+	hudmsgsReset();
 
 	if (g_Vars.stagenum < NUM_STAGES) {
 		func0f15c850();
