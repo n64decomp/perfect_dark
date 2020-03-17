@@ -1139,35 +1139,17 @@ glabel func0f0ddb1c
 /*  f0ddd40:	01001025 */ 	or	$v0,$t0,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f0ddd44
-/*  f0ddd44:	3c038007 */ 	lui	$v1,%hi(g_NumHudMessages)
-/*  f0ddd48:	8c630fe8 */ 	lw	$v1,%lo(g_NumHudMessages)($v1)
-/*  f0ddd4c:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0ddd50:	3c048007 */ 	lui	$a0,%hi(var800701dc)
-/*  f0ddd54:	18600010 */ 	blez	$v1,.L0f0ddd98
-/*  f0ddd58:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0ddd5c:	8c840fec */ 	lw	$a0,0xfec($a0)
-.L0f0ddd60:
-/*  f0ddd60:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f0ddd64:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0ddd68:	0043082a */ 	slt	$at,$v0,$v1
-/*  f0ddd6c:	11c00008 */ 	beqz	$t6,.L0f0ddd90
-/*  f0ddd70:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ddd74:	8c8f01b0 */ 	lw	$t7,0x1b0($a0)
-/*  f0ddd78:	14af0005 */ 	bne	$a1,$t7,.L0f0ddd90
-/*  f0ddd7c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ddd80:	8c9801c4 */ 	lw	$t8,0x1c4($a0)
-/*  f0ddd84:	37190002 */ 	ori	$t9,$t8,0x2
-/*  f0ddd88:	03e00008 */ 	jr	$ra
-/*  f0ddd8c:	ac9901c4 */ 	sw	$t9,0x1c4($a0)
-.L0f0ddd90:
-/*  f0ddd90:	1420fff3 */ 	bnez	$at,.L0f0ddd60
-/*  f0ddd94:	248401dc */ 	addiu	$a0,$a0,%lo(var800701dc)
-.L0f0ddd98:
-/*  f0ddd98:	03e00008 */ 	jr	$ra
-/*  f0ddd9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0ddd44(s32 value)
+{
+	s32 i;
+
+	for (i = 0; i < g_NumHudMessages; i++) {
+		if (g_HudMessages[i].unk000 && g_HudMessages[i].unk1b0 == value) {
+			g_HudMessages[i].unk1c4 |= 2;
+			break;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0ddda0

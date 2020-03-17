@@ -9,7 +9,7 @@ u32 func0f0dcef4(void);
 u32 func0f0dd2ac(void);
 u32 func0f0dd848(void);
 u32 func0f0ddb1c(void);
-u32 func0f0ddd44(void);
+void func0f0ddd44(s32 value);
 void func0f0ddda0(void);
 void hudmsgRemoveAll(void);
 u32 func0f0ddeac(void);
