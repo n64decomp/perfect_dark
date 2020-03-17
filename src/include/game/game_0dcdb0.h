@@ -25,7 +25,7 @@ u32 hudmsgCreate(char *text, s32 confignum, u8 conf00, u8 conf01, u8 conf02,
 void func0f0df364(void);
 void currentPlayerUnsetFlag(u32 flag);
 void currentPlayerSetFlag(u32 flag);
-void func0f0dfa50(u32 playernum);
+void hudmsgRemoveByPlayer(s32 playernum);
 u32 func0f0dfad0(void);
 void hudmsgsReset(void);
 

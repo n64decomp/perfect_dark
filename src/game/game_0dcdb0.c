@@ -1145,7 +1145,7 @@ void func0f0ddd44(s32 value)
 
 	for (i = 0; i < g_NumHudMessages; i++) {
 		if (g_HudMessages[i].active && g_HudMessages[i].unk1b0 == value) {
-			g_HudMessages[i].unk1c4 |= 2;
+			g_HudMessages[i].flags |= HUDMSGFLAG_00000002;
 			break;
 		}
 	}
@@ -3106,44 +3106,19 @@ void currentPlayerSetFlag(u32 flag)
 	g_Vars.currentplayer->flags |= flag;
 }
 
-GLOBAL_ASM(
-glabel func0f0dfa50
-/*  f0dfa50:	3c038007 */ 	lui	$v1,%hi(g_NumHudMessages)
-/*  f0dfa54:	8c630fe8 */ 	lw	$v1,%lo(g_NumHudMessages)($v1)
-/*  f0dfa58:	00803025 */ 	or	$a2,$a0,$zero
-/*  f0dfa5c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0dfa60:	18600019 */ 	blez	$v1,.L0f0dfac8
-/*  f0dfa64:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0dfa68:	3c078007 */ 	lui	$a3,%hi(g_HudMessages)
-/*  f0dfa6c:	24e70fec */ 	addiu	$a3,$a3,%lo(g_HudMessages)
-.L0f0dfa70:
-/*  f0dfa70:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f0dfa74:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0dfa78:	01c42821 */ 	addu	$a1,$t6,$a0
-/*  f0dfa7c:	90af0000 */ 	lbu	$t7,0x0($a1)
-/*  f0dfa80:	51e0000f */ 	beqzl	$t7,.L0f0dfac0
-/*  f0dfa84:	0043082a */ 	slt	$at,$v0,$v1
-/*  f0dfa88:	8cb801c0 */ 	lw	$t8,0x1c0($a1)
-/*  f0dfa8c:	54d8000c */ 	bnel	$a2,$t8,.L0f0dfac0
-/*  f0dfa90:	0043082a */ 	slt	$at,$v0,$v1
-/*  f0dfa94:	8cb901c4 */ 	lw	$t9,0x1c4($a1)
-/*  f0dfa98:	33280001 */ 	andi	$t0,$t9,0x1
-/*  f0dfa9c:	51000008 */ 	beqzl	$t0,.L0f0dfac0
-/*  f0dfaa0:	0043082a */ 	slt	$at,$v0,$v1
-/*  f0dfaa4:	a0a00000 */ 	sb	$zero,0x0($a1)
-/*  f0dfaa8:	8ce90000 */ 	lw	$t1,0x0($a3)
-/*  f0dfaac:	3c038007 */ 	lui	$v1,%hi(g_NumHudMessages)
-/*  f0dfab0:	01245021 */ 	addu	$t2,$t1,$a0
-/*  f0dfab4:	a5400006 */ 	sh	$zero,0x6($t2)
-/*  f0dfab8:	8c630fe8 */ 	lw	$v1,%lo(g_NumHudMessages)($v1)
-/*  f0dfabc:	0043082a */ 	slt	$at,$v0,$v1
-.L0f0dfac0:
-/*  f0dfac0:	1420ffeb */ 	bnez	$at,.L0f0dfa70
-/*  f0dfac4:	248401dc */ 	addiu	$a0,$a0,0x1dc
-.L0f0dfac8:
-/*  f0dfac8:	03e00008 */ 	jr	$ra
-/*  f0dfacc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void hudmsgRemoveByPlayer(s32 playernum)
+{
+	s32 i;
+
+	for (i = 0; i < g_NumHudMessages; i++) {
+		if (g_HudMessages[i].active
+				&& g_HudMessages[i].playernum == playernum
+				&& (g_HudMessages[i].flags & HUDMSGFLAG_00000001)) {
+			g_HudMessages[i].active = false;
+			g_HudMessages[i].unk006 = 0;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0dfad0
