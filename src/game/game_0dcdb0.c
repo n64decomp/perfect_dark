@@ -1141,8 +1141,8 @@ glabel func0f0ddb1c
 
 GLOBAL_ASM(
 glabel func0f0ddd44
-/*  f0ddd44:	3c038007 */ 	lui	$v1,%hi(var80070fe8)
-/*  f0ddd48:	8c630fe8 */ 	lw	$v1,%lo(var80070fe8)($v1)
+/*  f0ddd44:	3c038007 */ 	lui	$v1,%hi(g_NumHudMessages)
+/*  f0ddd48:	8c630fe8 */ 	lw	$v1,%lo(g_NumHudMessages)($v1)
 /*  f0ddd4c:	00802825 */ 	or	$a1,$a0,$zero
 /*  f0ddd50:	3c048007 */ 	lui	$a0,%hi(var800701dc)
 /*  f0ddd54:	18600010 */ 	blez	$v1,.L0f0ddd98
@@ -1176,14 +1176,14 @@ glabel func0f0ddda0
 /*  f0ddda8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0dddac:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0dddb0:	11c00006 */ 	beqz	$t6,.L0f0dddcc
-/*  f0dddb4:	3c068007 */ 	lui	$a2,%hi(var80070fe8)
-/*  f0dddb8:	3c068007 */ 	lui	$a2,%hi(var80070fe8)
-/*  f0dddbc:	24c60fe8 */ 	addiu	$a2,$a2,%lo(var80070fe8)
+/*  f0dddb4:	3c068007 */ 	lui	$a2,%hi(g_NumHudMessages)
+/*  f0dddb8:	3c068007 */ 	lui	$a2,%hi(g_NumHudMessages)
+/*  f0dddbc:	24c60fe8 */ 	addiu	$a2,$a2,%lo(g_NumHudMessages)
 /*  f0dddc0:	240f0014 */ 	addiu	$t7,$zero,0x14
 /*  f0dddc4:	10000004 */ 	beqz	$zero,.L0f0dddd8
 /*  f0dddc8:	accf0000 */ 	sw	$t7,0x0($a2)
 .L0f0dddcc:
-/*  f0dddcc:	24c60fe8 */ 	addiu	$a2,$a2,%lo(var80070fe8)
+/*  f0dddcc:	24c60fe8 */ 	addiu	$a2,$a2,%lo(g_NumHudMessages)
 /*  f0dddd0:	24180008 */ 	addiu	$t8,$zero,0x8
 /*  f0dddd4:	acd80000 */ 	sw	$t8,0x0($a2)
 .L0f0dddd8:
@@ -1198,11 +1198,11 @@ glabel func0f0ddda0
 /*  f0dddf8:	3488003f */ 	ori	$t0,$a0,0x3f
 /*  f0dddfc:	0c0048f2 */ 	jal	malloc
 /*  f0dde00:	3904003f */ 	xori	$a0,$t0,0x3f
-/*  f0dde04:	3c068007 */ 	lui	$a2,%hi(var80070fe8)
-/*  f0dde08:	24c60fe8 */ 	addiu	$a2,$a2,%lo(var80070fe8)
+/*  f0dde04:	3c068007 */ 	lui	$a2,%hi(g_NumHudMessages)
+/*  f0dde08:	24c60fe8 */ 	addiu	$a2,$a2,%lo(g_NumHudMessages)
 /*  f0dde0c:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f0dde10:	3c048007 */ 	lui	$a0,%hi(var80070fec)
-/*  f0dde14:	24840fec */ 	addiu	$a0,$a0,%lo(var80070fec)
+/*  f0dde10:	3c048007 */ 	lui	$a0,%hi(g_HudMessages)
+/*  f0dde14:	24840fec */ 	addiu	$a0,$a0,%lo(g_HudMessages)
 /*  f0dde18:	ac820000 */ 	sw	$v0,0x0($a0)
 /*  f0dde1c:	1940000b */ 	blez	$t2,.L0f0dde4c
 /*  f0dde20:	00001825 */ 	or	$v1,$zero,$zero
@@ -1225,35 +1225,19 @@ glabel func0f0ddda0
 /*  f0dde5c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f0dde60
-/*  f0dde60:	3c048007 */ 	lui	$a0,%hi(var80070fe8)
-/*  f0dde64:	24840fe8 */ 	addiu	$a0,$a0,%lo(var80070fe8)
-/*  f0dde68:	8c8e0000 */ 	lw	$t6,0x0($a0)
-/*  f0dde6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0dde70:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0dde74:	19c0000b */ 	blez	$t6,.L0f0ddea4
-/*  f0dde78:	3c058007 */ 	lui	$a1,%hi(var80070fec)
-/*  f0dde7c:	24a50fec */ 	addiu	$a1,$a1,%lo(var80070fec)
-/*  f0dde80:	8caf0000 */ 	lw	$t7,0x0($a1)
-.L0f0dde84:
-/*  f0dde84:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0dde88:	01e3c021 */ 	addu	$t8,$t7,$v1
-/*  f0dde8c:	a3000000 */ 	sb	$zero,0x0($t8)
-/*  f0dde90:	8c990000 */ 	lw	$t9,0x0($a0)
-/*  f0dde94:	246301dc */ 	addiu	$v1,$v1,0x1dc
-/*  f0dde98:	0059082a */ 	slt	$at,$v0,$t9
-/*  f0dde9c:	5420fff9 */ 	bnezl	$at,.L0f0dde84
-/*  f0ddea0:	8caf0000 */ 	lw	$t7,0x0($a1)
-.L0f0ddea4:
-/*  f0ddea4:	03e00008 */ 	jr	$ra
-/*  f0ddea8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void hudmsgRemoveAll(void)
+{
+	s32 i;
+
+	for (i = 0; i < g_NumHudMessages; i++) {
+		g_HudMessages[i].unk000 = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0ddeac
-/*  f0ddeac:	3c068007 */ 	lui	$a2,%hi(var80070fe8)
-/*  f0ddeb0:	8cc60fe8 */ 	lw	$a2,%lo(var80070fe8)($a2)
+/*  f0ddeac:	3c068007 */ 	lui	$a2,%hi(g_NumHudMessages)
+/*  f0ddeb0:	8cc60fe8 */ 	lw	$a2,%lo(g_NumHudMessages)($a2)
 /*  f0ddeb4:	00803825 */ 	or	$a3,$a0,$zero
 /*  f0ddeb8:	2402ffff */ 	addiu	$v0,$zero,-1
 /*  f0ddebc:	2403ffff */ 	addiu	$v1,$zero,-1
@@ -2380,8 +2364,8 @@ glabel func0f0deebc
 /*  f0def4c:	31ae0008 */ 	andi	$t6,$t5,0x8
 /*  f0def50:	15c0001b */ 	bnez	$t6,.L0f0defc0
 /*  f0def54:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f0def58:	3c048007 */ 	lui	$a0,%hi(var80070fe8)
-/*  f0def5c:	8c840fe8 */ 	lw	$a0,%lo(var80070fe8)($a0)
+/*  f0def58:	3c048007 */ 	lui	$a0,%hi(g_NumHudMessages)
+/*  f0def5c:	8c840fe8 */ 	lw	$a0,%lo(g_NumHudMessages)($a0)
 /*  f0def60:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f0def64:	00008025 */ 	or	$s0,$zero,$zero
 /*  f0def68:	18800014 */ 	blez	$a0,.L0f0defbc
@@ -2413,8 +2397,8 @@ glabel func0f0deebc
 /*  f0defc0:	3c0a8007 */ 	lui	$t2,%hi(var800706c8)
 /*  f0defc4:	8d4a06c8 */ 	lw	$t2,%lo(var800706c8)($t2)
 /*  f0defc8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0defcc:	3c048007 */ 	lui	$a0,%hi(var80070fe8)
-/*  f0defd0:	8c840fe8 */ 	lw	$a0,%lo(var80070fe8)($a0)
+/*  f0defcc:	3c048007 */ 	lui	$a0,%hi(g_NumHudMessages)
+/*  f0defd0:	8c840fe8 */ 	lw	$a0,%lo(g_NumHudMessages)($a0)
 /*  f0defd4:	146a0005 */ 	bne	$v1,$t2,.L0f0defec
 /*  f0defd8:	00008025 */ 	or	$s0,$zero,$zero
 /*  f0defdc:	240b0002 */ 	addiu	$t3,$zero,0x2
@@ -2458,8 +2442,8 @@ glabel func0f0deebc
 /*  f0df058:	24110003 */ 	addiu	$s1,$zero,0x3
 .L0f0df05c:
 /*  f0df05c:	00520019 */ 	multu	$v0,$s2
-/*  f0df060:	3c058007 */ 	lui	$a1,%hi(var80070fec)
-/*  f0df064:	8ca50fec */ 	lw	$a1,%lo(var80070fec)($a1)
+/*  f0df060:	3c058007 */ 	lui	$a1,%hi(g_HudMessages)
+/*  f0df064:	8ca50fec */ 	lw	$a1,%lo(g_HudMessages)($a1)
 /*  f0df068:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0df06c:	00007012 */ 	mflo	$t6
 /*  f0df070:	00ae2021 */ 	addu	$a0,$a1,$t6
@@ -2489,14 +2473,14 @@ glabel func0f0deebc
 .L0f0df0c8:
 /*  f0df0c8:	0600009e */ 	bltz	$s0,.L0f0df344
 /*  f0df0cc:	241201dc */ 	addiu	$s2,$zero,0x1dc
-/*  f0df0d0:	3c0a8007 */ 	lui	$t2,%hi(var80070fe8)
-/*  f0df0d4:	8d4a0fe8 */ 	lw	$t2,%lo(var80070fe8)($t2)
+/*  f0df0d0:	3c0a8007 */ 	lui	$t2,%hi(g_NumHudMessages)
+/*  f0df0d4:	8d4a0fe8 */ 	lw	$t2,%lo(g_NumHudMessages)($t2)
 /*  f0df0d8:	020a082a */ 	slt	$at,$s0,$t2
 /*  f0df0dc:	10200099 */ 	beqz	$at,.L0f0df344
 /*  f0df0e0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0df0e4:	02120019 */ 	multu	$s0,$s2
-/*  f0df0e8:	3c0c8007 */ 	lui	$t4,%hi(var80070fec)
-/*  f0df0ec:	8d8c0fec */ 	lw	$t4,%lo(var80070fec)($t4)
+/*  f0df0e8:	3c0c8007 */ 	lui	$t4,%hi(g_HudMessages)
+/*  f0df0ec:	8d8c0fec */ 	lw	$t4,%lo(g_HudMessages)($t4)
 /*  f0df0f0:	afa001d8 */ 	sw	$zero,0x1d8($sp)
 /*  f0df0f4:	27a401d8 */ 	addiu	$a0,$sp,0x1d8
 /*  f0df0f8:	8fa50220 */ 	lw	$a1,0x220($sp)
@@ -2703,15 +2687,15 @@ glabel var7f1aded8
 /*  f0df3b0:	3c018008 */ 	lui	$at,0x8008
 /*  f0df3b4:	ac32fac0 */ 	sw	$s2,-0x540($at)
 .L0f0df3b8:
-/*  f0df3b8:	3c088007 */ 	lui	$t0,%hi(var80070fe8)
-/*  f0df3bc:	8d080fe8 */ 	lw	$t0,%lo(var80070fe8)($t0)
+/*  f0df3b8:	3c088007 */ 	lui	$t0,%hi(g_NumHudMessages)
+/*  f0df3bc:	8d080fe8 */ 	lw	$t0,%lo(g_NumHudMessages)($t0)
 /*  f0df3c0:	3c13800a */ 	lui	$s3,%hi(g_Vars)
 /*  f0df3c4:	26739fc0 */ 	addiu	$s3,$s3,%lo(g_Vars)
 /*  f0df3c8:	8e74028c */ 	lw	$s4,0x28c($s3)
 /*  f0df3cc:	19000032 */ 	blez	$t0,.L0f0df498
 /*  f0df3d0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0df3d4:	3c168007 */ 	lui	$s6,%hi(var80070fec)
-/*  f0df3d8:	26d60fec */ 	addiu	$s6,$s6,%lo(var80070fec)
+/*  f0df3d4:	3c168007 */ 	lui	$s6,%hi(g_HudMessages)
+/*  f0df3d8:	26d60fec */ 	addiu	$s6,$s6,%lo(g_HudMessages)
 /*  f0df3dc:	00008025 */ 	or	$s0,$zero,$zero
 /*  f0df3e0:	241101dc */ 	addiu	$s1,$zero,0x1dc
 .L0f0df3e4:
@@ -2741,8 +2725,8 @@ glabel var7f1aded8
 /*  f0df43c:	24630001 */ 	addiu	$v1,$v1,0x1
 /*  f0df440:	a0400000 */ 	sb	$zero,0x0($v0)
 /*  f0df444:	8ec40000 */ 	lw	$a0,0x0($s6)
-/*  f0df448:	3c088007 */ 	lui	$t0,%hi(var80070fe8)
-/*  f0df44c:	8d080fe8 */ 	lw	$t0,%lo(var80070fe8)($t0)
+/*  f0df448:	3c088007 */ 	lui	$t0,%hi(g_NumHudMessages)
+/*  f0df44c:	8d080fe8 */ 	lw	$t0,%lo(g_NumHudMessages)($t0)
 /*  f0df450:	00902821 */ 	addu	$a1,$a0,$s0
 /*  f0df454:	24630001 */ 	addiu	$v1,$v1,0x1
 .L0f0df458:
@@ -2757,8 +2741,8 @@ glabel var7f1aded8
 /*  f0df470:	8ece0000 */ 	lw	$t6,0x0($s6)
 /*  f0df474:	0fc379ff */ 	jal	func0f0de7fc
 /*  f0df478:	020e2021 */ 	addu	$a0,$s0,$t6
-/*  f0df47c:	3c088007 */ 	lui	$t0,%hi(var80070fe8)
-/*  f0df480:	8d080fe8 */ 	lw	$t0,%lo(var80070fe8)($t0)
+/*  f0df47c:	3c088007 */ 	lui	$t0,%hi(g_NumHudMessages)
+/*  f0df480:	8d080fe8 */ 	lw	$t0,%lo(g_NumHudMessages)($t0)
 /*  f0df484:	8fa6006c */ 	lw	$a2,0x6c($sp)
 /*  f0df488:	24c60001 */ 	addiu	$a2,$a2,0x1
 .L0f0df48c:
@@ -2766,8 +2750,8 @@ glabel var7f1aded8
 /*  f0df490:	1420ffd4 */ 	bnez	$at,.L0f0df3e4
 /*  f0df494:	261001dc */ 	addiu	$s0,$s0,0x1dc
 .L0f0df498:
-/*  f0df498:	3c168007 */ 	lui	$s6,%hi(var80070fec)
-/*  f0df49c:	26d60fec */ 	addiu	$s6,$s6,%lo(var80070fec)
+/*  f0df498:	3c168007 */ 	lui	$s6,%hi(g_HudMessages)
+/*  f0df49c:	26d60fec */ 	addiu	$s6,$s6,%lo(g_HudMessages)
 /*  f0df4a0:	241101dc */ 	addiu	$s1,$zero,0x1dc
 /*  f0df4a4:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f0df4a8:	02802025 */ 	or	$a0,$s4,$zero
@@ -2831,7 +2815,7 @@ glabel var7f1aded8
 /*  f0df584:	8e0d01c0 */ 	lw	$t5,0x1c0($s0)
 .L0f0df588:
 /*  f0df588:	02404825 */ 	or	$t1,$s2,$zero
-/*  f0df58c:	3c088007 */ 	lui	$t0,%hi(var80070fe8)
+/*  f0df58c:	3c088007 */ 	lui	$t0,%hi(g_NumHudMessages)
 /*  f0df590:	000d7080 */ 	sll	$t6,$t5,0x2
 /*  f0df594:	026e7821 */ 	addu	$t7,$s3,$t6
 /*  f0df598:	8df80064 */ 	lw	$t8,0x64($t7)
@@ -2842,7 +2826,7 @@ glabel var7f1aded8
 .L0f0df5ac:
 /*  f0df5ac:	1120003f */ 	beqz	$t1,.L0f0df6ac
 /*  f0df5b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0df5b4:	8d080fe8 */ 	lw	$t0,%lo(var80070fe8)($t0)
+/*  f0df5b4:	8d080fe8 */ 	lw	$t0,%lo(g_NumHudMessages)($t0)
 /*  f0df5b8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0df5bc:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0df5c0:	1900003a */ 	blez	$t0,.L0f0df6ac
@@ -3159,14 +3143,14 @@ void currentPlayerSetFlag(u32 flag)
 
 GLOBAL_ASM(
 glabel func0f0dfa50
-/*  f0dfa50:	3c038007 */ 	lui	$v1,%hi(var80070fe8)
-/*  f0dfa54:	8c630fe8 */ 	lw	$v1,%lo(var80070fe8)($v1)
+/*  f0dfa50:	3c038007 */ 	lui	$v1,%hi(g_NumHudMessages)
+/*  f0dfa54:	8c630fe8 */ 	lw	$v1,%lo(g_NumHudMessages)($v1)
 /*  f0dfa58:	00803025 */ 	or	$a2,$a0,$zero
 /*  f0dfa5c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0dfa60:	18600019 */ 	blez	$v1,.L0f0dfac8
 /*  f0dfa64:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0dfa68:	3c078007 */ 	lui	$a3,%hi(var80070fec)
-/*  f0dfa6c:	24e70fec */ 	addiu	$a3,$a3,%lo(var80070fec)
+/*  f0dfa68:	3c078007 */ 	lui	$a3,%hi(g_HudMessages)
+/*  f0dfa6c:	24e70fec */ 	addiu	$a3,$a3,%lo(g_HudMessages)
 .L0f0dfa70:
 /*  f0dfa70:	8cee0000 */ 	lw	$t6,0x0($a3)
 /*  f0dfa74:	24420001 */ 	addiu	$v0,$v0,0x1
@@ -3183,10 +3167,10 @@ glabel func0f0dfa50
 /*  f0dfaa0:	0043082a */ 	slt	$at,$v0,$v1
 /*  f0dfaa4:	a0a00000 */ 	sb	$zero,0x0($a1)
 /*  f0dfaa8:	8ce90000 */ 	lw	$t1,0x0($a3)
-/*  f0dfaac:	3c038007 */ 	lui	$v1,%hi(var80070fe8)
+/*  f0dfaac:	3c038007 */ 	lui	$v1,%hi(g_NumHudMessages)
 /*  f0dfab0:	01245021 */ 	addu	$t2,$t1,$a0
 /*  f0dfab4:	a5400006 */ 	sh	$zero,0x6($t2)
-/*  f0dfab8:	8c630fe8 */ 	lw	$v1,%lo(var80070fe8)($v1)
+/*  f0dfab8:	8c630fe8 */ 	lw	$v1,%lo(g_NumHudMessages)($v1)
 /*  f0dfabc:	0043082a */ 	slt	$at,$v0,$v1
 .L0f0dfac0:
 /*  f0dfac0:	1420ffeb */ 	bnez	$at,.L0f0dfa70
@@ -3250,7 +3234,7 @@ glabel var7f1adef4
 /*  f0dfb4c:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x298)
 /*  f0dfb50:	8f39a258 */ 	lw	$t9,%lo(g_Vars+0x298)($t9)
 /*  f0dfb54:	00409025 */ 	or	$s2,$v0,$zero
-/*  f0dfb58:	3c048007 */ 	lui	$a0,%hi(var80070fe8)
+/*  f0dfb58:	3c048007 */ 	lui	$a0,%hi(g_NumHudMessages)
 /*  f0dfb5c:	07210005 */ 	bgez	$t9,.L0f0dfb74
 /*  f0dfb60:	3c0141f0 */ 	lui	$at,0x41f0
 /*  f0dfb64:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x29c)
@@ -3272,7 +3256,7 @@ glabel var7f1adef4
 /*  f0dfba0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0dfba4:	afa000dc */ 	sw	$zero,0xdc($sp)
 .L0f0dfba8:
-/*  f0dfba8:	8c840fe8 */ 	lw	$a0,%lo(var80070fe8)($a0)
+/*  f0dfba8:	8c840fe8 */ 	lw	$a0,%lo(g_NumHudMessages)($a0)
 /*  f0dfbac:	27b700e4 */ 	addiu	$s7,$sp,0xe4
 /*  f0dfbb0:	27b600e8 */ 	addiu	$s6,$sp,0xe8
 /*  f0dfbb4:	1880029b */ 	blez	$a0,.L0f0e0624
@@ -3287,8 +3271,8 @@ glabel var7f1adef4
 /*  f0dfbd8:	afa00088 */ 	sw	$zero,0x88($sp)
 /*  f0dfbdc:	241e00ff */ 	addiu	$s8,$zero,0xff
 .L0f0dfbe0:
-/*  f0dfbe0:	3c0d8007 */ 	lui	$t5,%hi(var80070fec)
-/*  f0dfbe4:	8dad0fec */ 	lw	$t5,%lo(var80070fec)($t5)
+/*  f0dfbe0:	3c0d8007 */ 	lui	$t5,%hi(g_HudMessages)
+/*  f0dfbe4:	8dad0fec */ 	lw	$t5,%lo(g_HudMessages)($t5)
 /*  f0dfbe8:	8fac0088 */ 	lw	$t4,0x88($sp)
 /*  f0dfbec:	00041100 */ 	sll	$v0,$a0,0x4
 /*  f0dfbf0:	00441023 */ 	subu	$v0,$v0,$a0
@@ -3971,8 +3955,8 @@ glabel var7f1adef4
 /*  f0e05ec:	01ea6825 */ 	or	$t5,$t7,$t2
 /*  f0e05f0:	ae6d0004 */ 	sw	$t5,0x4($s3)
 .L0f0e05f4:
-/*  f0e05f4:	3c048007 */ 	lui	$a0,%hi(var80070fe8)
-/*  f0e05f8:	8c840fe8 */ 	lw	$a0,%lo(var80070fe8)($a0)
+/*  f0e05f4:	3c048007 */ 	lui	$a0,%hi(g_NumHudMessages)
+/*  f0e05f8:	8c840fe8 */ 	lw	$a0,%lo(g_NumHudMessages)($a0)
 /*  f0e05fc:	00041100 */ 	sll	$v0,$a0,0x4
 /*  f0e0600:	00441023 */ 	subu	$v0,$v0,$a0
 /*  f0e0604:	000210c0 */ 	sll	$v0,$v0,0x3
@@ -4056,14 +4040,14 @@ glabel var7f1adef4
 
 GLOBAL_ASM(
 glabel func0f0e0724
-/*  f0e0724:	3c048007 */ 	lui	$a0,%hi(var80070fe8)
-/*  f0e0728:	24840fe8 */ 	addiu	$a0,$a0,%lo(var80070fe8)
+/*  f0e0724:	3c048007 */ 	lui	$a0,%hi(g_NumHudMessages)
+/*  f0e0728:	24840fe8 */ 	addiu	$a0,$a0,%lo(g_NumHudMessages)
 /*  f0e072c:	8c8e0000 */ 	lw	$t6,0x0($a0)
 /*  f0e0730:	00001025 */ 	or	$v0,$zero,$zero
 /*  f0e0734:	00001825 */ 	or	$v1,$zero,$zero
 /*  f0e0738:	19c0000b */ 	blez	$t6,.L0f0e0768
-/*  f0e073c:	3c058007 */ 	lui	$a1,%hi(var80070fec)
-/*  f0e0740:	24a50fec */ 	addiu	$a1,$a1,%lo(var80070fec)
+/*  f0e073c:	3c058007 */ 	lui	$a1,%hi(g_HudMessages)
+/*  f0e0740:	24a50fec */ 	addiu	$a1,$a1,%lo(g_HudMessages)
 /*  f0e0744:	8caf0000 */ 	lw	$t7,0x0($a1)
 .L0f0e0748:
 /*  f0e0748:	24420001 */ 	addiu	$v0,$v0,0x1

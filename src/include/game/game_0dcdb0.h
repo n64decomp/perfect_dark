@@ -11,7 +11,7 @@ u32 func0f0dd848(void);
 u32 func0f0ddb1c(void);
 u32 func0f0ddd44(void);
 void func0f0ddda0(void);
-u32 func0f0dde60(void);
+void hudmsgRemoveAll(void);
 u32 func0f0ddeac(void);
 void currentPlayerQueueMessage(char *text, s32 confignum);
 void func0f0ddfa4(char *text, s32 confignum, s32 arg2);

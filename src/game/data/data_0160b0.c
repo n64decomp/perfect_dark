@@ -945,8 +945,8 @@ u32 g_Colours[] = {
 
 u32 var80070fe0 = 0x0000000a;
 u32 var80070fe4 = 0x00000018;
-u32 var80070fe8 = 0x00000000;
-u32 var80070fec = 0x00000000;
+s32 g_NumHudMessages = 0;
+struct hudmessage *g_HudMessages = NULL;
 
 struct hudmessageconfig g_HudMessageConfigs[] = {
 	/* 0*/ { 1, 1, 0, (void*)0x8007fb10, (void*)0x8007fb0c, 0x00ff0000, 0x000000a0, 1, 6, 0, 0, 80  }, // bottom left

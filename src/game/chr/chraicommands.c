@@ -4774,7 +4774,7 @@ bool aiShowText(void)
 		char *text = langGet(text_id);
 		func0f0de034(text, 8, cmd[3]);
 	} else {
-		func0f0dde60();
+		hudmsgRemoveAll();
 	}
 
 	g_Vars.aioffset += 6;
