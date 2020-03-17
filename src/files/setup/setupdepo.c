@@ -541,7 +541,7 @@ u8 func1008_check_generator[] = {
 		// Destroyed
 		mute_channel(CHANNEL_4)
 		if_difficulty_lt(DIFF_PA, /*goto*/ 0x06)
-		message(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_GENERATOR_DESTROYED)
 		label(0x06)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -557,13 +557,13 @@ u8 func1008_check_generator[] = {
 		mute_channel(CHANNEL_0)
 		assign_sound(0x8147, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_GENERATOR, TRUE)
-		message(CHR_P1P2, L_DEPO(25)) // "Damping field generator shut down."
+		show_hudmsg(CHR_P1P2, L_DEPO(25)) // "Damping field generator shut down."
 		set_stage_flag(STAGEFLAG_GENERATOR_SHUT_DOWN2)
 		set_stage_flag(STAGEFLAG_GENERATOR_SHUT_DOWN)
 		reloop(0x04)
 
 		label(0x09)
-		message(CHR_P1P2, L_DEPO(26)) // "Generator cannot be restarted."
+		show_hudmsg(CHR_P1P2, L_DEPO(26)) // "Generator cannot be restarted."
 	endloop(0x04)
 
 	endlist
@@ -578,7 +578,7 @@ u8 func1003_laser_switch_1[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH1, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH1, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET1_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH1_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -590,7 +590,7 @@ u8 func1003_laser_switch_1[] = {
 
 		// Deactivated
 		set_object_image(OBJ_LASERSWITCH1, 0x00, 0x14)
-		message(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
+		show_hudmsg(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET1_DISABLED)
 		open_door(OBJ_LASER_1A)
 		open_door(OBJ_LASER_1B)
@@ -610,7 +610,7 @@ u8 func1003_laser_switch_1[] = {
 
 		// Activated
 		label(0x09)
-		message(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
+		show_hudmsg(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET1_DISABLED)
 		set_object_image(OBJ_LASERSWITCH1, 0x00, 0x13)
 		close_door(OBJ_LASER_1A)
@@ -644,7 +644,7 @@ u8 func1004_laser_switch_2[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH2, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH2, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET2_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH2_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -657,7 +657,7 @@ u8 func1004_laser_switch_2[] = {
 
 		// Deactivated
 		set_object_image(OBJ_LASERSWITCH2, 0x00, 0x14)
-		message(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
+		show_hudmsg(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET2_DISABLED)
 		open_door(OBJ_LASER_2A)
 		open_door(OBJ_LASER_2B)
@@ -678,7 +678,7 @@ u8 func1004_laser_switch_2[] = {
 		// Activated
 		label(0x09)
 		set_object_image(OBJ_LASERSWITCH2, 0x00, 0x13)
-		message(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
+		show_hudmsg(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET2_DISABLED)
 		close_door(OBJ_LASER_2A)
 		close_door(OBJ_LASER_2B)
@@ -711,7 +711,7 @@ u8 func1005_laser_switch_3[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH3, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH3, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH3_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -723,7 +723,7 @@ u8 func1005_laser_switch_3[] = {
 
 		// Deactivated
 		set_object_image(OBJ_LASERSWITCH3, 0x00, 0x14)
-		message(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
+		show_hudmsg(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET3_DISABLED)
 		open_door(OBJ_LASER_3A)
 		open_door(OBJ_LASER_3B)
@@ -744,7 +744,7 @@ u8 func1005_laser_switch_3[] = {
 		// Activated
 		label(0x09)
 		set_object_image(OBJ_LASERSWITCH3, 0x00, 0x13)
-		message(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
+		show_hudmsg(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET3_DISABLED)
 		close_door(OBJ_LASER_3A)
 		close_door(OBJ_LASER_3B)
@@ -777,7 +777,7 @@ u8 func1006_laser_switch_4[] = {
 		if_chr_activated_object(CHR_P1P2, OBJ_LASERSWITCH4, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_LASERSWITCH4, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET4_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO(24)) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_LASERSWITCH4_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -789,7 +789,7 @@ u8 func1006_laser_switch_4[] = {
 
 		// Deactivated
 		set_object_image(OBJ_LASERSWITCH4, 0x00, 0x14)
-		message(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
+		show_hudmsg(CHR_P1P2, L_DEPO(27)) // "Laser grid unit shut down."
 		set_stage_flag(STAGEFLAG_LASERSET4_DISABLED)
 		open_door(OBJ_LASER_4A)
 		open_door(OBJ_LASER_4B)
@@ -810,7 +810,7 @@ u8 func1006_laser_switch_4[] = {
 		// Activated
 		label(0x09)
 		set_object_image(OBJ_LASERSWITCH4, 0x00, 0x13)
-		message(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
+		show_hudmsg(CHR_P1P2, L_DEPO(28)) // "Laser grid unit activated."
 		unset_stage_flag(STAGEFLAG_LASERSET4_DISABLED)
 		close_door(OBJ_LASER_4A)
 		close_door(OBJ_LASER_4B)
@@ -872,7 +872,7 @@ u8 func1007_init_lasers[] = {
 		if_stage_flag_eq(STAGEFLAG_LASERSET3_DISABLED, FALSE, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_LASERSET4_DISABLED, FALSE, /*goto*/ 0x2c)
 		if_stage_flag_eq(STAGEFLAG_ALL_LASERS_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_BOND, L_DEPO(29)) // "All laser grid systems shut down."
+		show_hudmsg(CHR_BOND, L_DEPO(29)) // "All laser grid systems shut down."
 		set_stage_flag(STAGEFLAG_ALL_LASERS_DISABLED)
 		label(0x2c)
 	endloop(0x04)
@@ -1267,7 +1267,7 @@ u8 func100e_check_conspirators_alerted[] = {
 		set_ailist(CHR_CASS, AILIST_RUN_FROM_MEETING)
 		set_ailist(0x1c, AILIST_RUN_FROM_MEETING) // chr doesn't exist
 		set_ailist(CHR_BLONDE, AILIST_RUN_FROM_MEETING)
-		message(CHR_BOND, L_DEPO(41)) // "Conspirators have been alerted."
+		show_hudmsg(CHR_BOND, L_DEPO(41)) // "Conspirators have been alerted."
 
 		// Wait until alarm not active
 		label(0x06)
@@ -1296,13 +1296,13 @@ u8 func100f_alarm_switches[] = {
 
 		label(0x2c)
 		if_stage_flag_eq(STAGEFLAG_ALARM_SOUNDING, TRUE, /*goto*/ 0x06)
-		message(CHR_P1P2, L_DEPO(42)) // "Alarm activated."
+		show_hudmsg(CHR_P1P2, L_DEPO(42)) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM_SOUNDING)
 		activate_alarm
 		reloop(0x04)
 
 		label(0x06)
-		message(CHR_P1P2, L_DEPO(43)) // "Alarm deactivated."
+		show_hudmsg(CHR_P1P2, L_DEPO(43)) // "Alarm deactivated."
 		unset_stage_flag(STAGEFLAG_ALARM_SOUNDING)
 		deactivate_alarm
 	endloop(0x04)
@@ -1315,7 +1315,7 @@ u8 func1010_safe_cracking[] = {
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_SAFEKEYPAD, /*goto*/ 0x2c)
-		message(CHR_BOND, L_DEPO(64)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO(64)) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_SAFEKEYPAD_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -1324,11 +1324,11 @@ u8 func1010_safe_cracking[] = {
 
 		label(0x2c)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DOORDECODER, /*goto*/ 0x2c)
-		message(CHR_P1P2, L_DEPO(44)) // "Safe door is locked."
+		show_hudmsg(CHR_P1P2, L_DEPO(44)) // "Safe door is locked."
 	endloop(0x04)
 
 	label(0x2c)
-	message(CHR_P1P2, L_DEPO(45)) // "Door Decoder attached."
+	show_hudmsg(CHR_P1P2, L_DEPO(45)) // "Door Decoder attached."
 	remove_weapon_from_inventory(WEAPON_DOORDECODER)
 	move_object_to_pad(OBJ_DECODER, 0x0075)
 	set_stage_flag(STAGEFLAG_DECODER_ATTACHED)
@@ -1345,7 +1345,7 @@ u8 func1010_safe_cracking[] = {
 	play_x_music(CHANNEL_10, 180)
 	yield
 	set_countdown_timer(60)
-	message(CHR_P1P2, L_DEPO(36)) // "Initiating cracking routines."
+	show_hudmsg(CHR_P1P2, L_DEPO(36)) // "Initiating cracking routines."
 	yield
 	show_countdown_timer
 	start_countdown_timer
@@ -1360,7 +1360,7 @@ u8 func1010_safe_cracking[] = {
 
 	beginloop(0x08)
 		if_object_in_good_condition(OBJ_SAFEKEYPAD, /*goto*/ 0x2c)
-		message(CHR_BOND, L_DEPO(64)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_DEPO(64)) // "Mission critical object destroyed."
 		set_stage_flag(STAGEFLAG_SAFEKEYPAD_DESTROYED)
 		hide_countdown_timer
 		set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1373,7 +1373,7 @@ u8 func1010_safe_cracking[] = {
 	mute_channel(CHANNEL_1)
 	assign_sound(0x8145, CHANNEL_1)
 	control_sound_from_object(CHANNEL_1, OBJ_SAFEKEYPAD, TRUE)
-	message(CHR_P1P2, L_DEPO(37)) // "Door Decoder finished - door unlocked."
+	show_hudmsg(CHR_P1P2, L_DEPO(37)) // "Door Decoder finished - door unlocked."
 	unlock_door(OBJ_SAFEDOOR, 0x40)
 	unset_object_flag2(OBJ_SAFEDOOR, OBJFLAG2_AICANNOTUSE)
 	open_door(OBJ_SAFEDOOR)
@@ -1408,7 +1408,7 @@ u8 func1012_check_for_end[] = {
 	hide_countdown_timer
 	stop_countdown_timer
 	if_all_objectives_complete(/*goto*/ 0x53)
-	message(CHR_BOND, L_DEPO(51)) // "Objectives incomplete - MISSION FAILED."
+	show_hudmsg(CHR_BOND, L_DEPO(51)) // "Objectives incomplete - MISSION FAILED."
 	label(0x2c)
 	restart_timer
 

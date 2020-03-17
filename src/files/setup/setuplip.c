@@ -882,7 +882,7 @@ u8 func1007_check_disguise_collected[] = {
 u8 func1026_check_records_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(0x04, /*goto*/ 0x06)
-		message(CHR_BOND, L_LIP(14)) // "Research records destroyed."
+		show_hudmsg(CHR_BOND, L_LIP(14)) // "Research records destroyed."
 		set_stage_flag(STAGEFLAG_RECORDS_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x06)
@@ -900,17 +900,17 @@ u8 func1003_uplink_doors[] = {
 		label(0x2d)
 		if_stage_flag_eq(STAGEFLAG_DOOR_VIRUS_DOWNLOADED, FALSE, /*goto*/ 0x06)
 		play_sound(0x8116, -1)
-		message(CHR_P1P2, L_LIP(48)) // "Virus has already been downloaded."
+		show_hudmsg(CHR_P1P2, L_LIP(48)) // "Virus has already been downloaded."
 		reloop(0x04)
 
 		label(0x06)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ 0x2d)
 		play_sound(0x8116, -1)
-		message(CHR_P1P2, L_LIP(20)) // "Access to door control systems denied."
+		show_hudmsg(CHR_P1P2, L_LIP(20)) // "Access to door control systems denied."
 		reloop(0x04)
 
 		label(0x2d)
-		message(CHR_P1P2, L_LIP(30)) // "Data Uplink connected."
+		show_hudmsg(CHR_P1P2, L_LIP(30)) // "Data Uplink connected."
 		restart_timer
 
 		beginloop(0x08)
@@ -923,7 +923,7 @@ u8 func1003_uplink_doors[] = {
 		endloop(0x08)
 
 		label(0x06)
-		message(CHR_P1P2, L_LIP(49)) // "Initiating virus download."
+		show_hudmsg(CHR_P1P2, L_LIP(49)) // "Initiating virus download."
 		restart_timer
 		assign_sound(0x01bf, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x02, TRUE)
@@ -945,13 +945,13 @@ u8 func1003_uplink_doors[] = {
 		label(0x2d)
 		assign_sound(0x01c1, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x02, TRUE)
-		message(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
+		show_hudmsg(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
 		yield
 		set_stage_flag(STAGEFLAG_DOOR_VIRUS_DOWNLOADED)
 		reloop(0x04)
 
 		label(0x09)
-		message(CHR_P1P2, L_LIP(31)) // "Data Uplink connection broken."
+		show_hudmsg(CHR_P1P2, L_LIP(31)) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c0, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, 0x02, TRUE)
@@ -977,17 +977,17 @@ u8 func1004_uplink_lights[] = {
 		label(0x2d)
 		if_stage_flag_eq(STAGEFLAG_LIGHT_VIRUS_DONE, FALSE, /*goto*/ 0x06)
 		play_sound(0x8116, -1)
-		message(CHR_P1P2, L_LIP(48)) // "Virus has already been downloaded."
+		show_hudmsg(CHR_P1P2, L_LIP(48)) // "Virus has already been downloaded."
 		reloop(0x04)
 
 		label(0x06)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ 0x2d)
 		play_sound(0x8116, -1)
-		message(CHR_P1P2, L_LIP(21)) // "Access to light control systems denied."
+		show_hudmsg(CHR_P1P2, L_LIP(21)) // "Access to light control systems denied."
 		reloop(0x04)
 
 		label(0x2d)
-		message(CHR_P1P2, L_LIP(30)) // "Data Uplink connected."
+		show_hudmsg(CHR_P1P2, L_LIP(30)) // "Data Uplink connected."
 		restart_timer
 
 		beginloop(0x08)
@@ -1000,7 +1000,7 @@ u8 func1004_uplink_lights[] = {
 		endloop(0x08)
 
 		label(0x06)
-		message(CHR_P1P2, L_LIP(49)) // "Initiating virus download."
+		show_hudmsg(CHR_P1P2, L_LIP(49)) // "Initiating virus download."
 		restart_timer
 		assign_sound(0x01bf, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x01, TRUE)
@@ -1022,9 +1022,9 @@ u8 func1004_uplink_lights[] = {
 		label(0x2d)
 		assign_sound(0x01c1, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x01, TRUE)
-		message(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
+		show_hudmsg(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
 		yield
-		message(CHR_P1P2, L_LIP(88)) // "Lighting systems overloaded."
+		show_hudmsg(CHR_P1P2, L_LIP(88)) // "Lighting systems overloaded."
 		misc_command(0x00c4, 0x0c, 0x6e)
 		misc_command(0x00c3, 0x0c, 0x6e)
 		misc_command(0x00c8, 0x0c, 0x6e)
@@ -1042,7 +1042,7 @@ u8 func1004_uplink_lights[] = {
 		reloop(0x04)
 
 		label(0x09)
-		message(CHR_P1P2, L_LIP(31)) // "Data Uplink connection broken."
+		show_hudmsg(CHR_P1P2, L_LIP(31)) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c0, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, 0x01, TRUE)
@@ -1068,17 +1068,17 @@ u8 func1005_uplink_autoguns[] = {
 		label(0x2d)
 		if_stage_flag_eq(STAGEFLAG_LIGHT_VIRUS_DONE, FALSE, /*goto*/ 0x06)
 		play_sound(0x8116, -1)
-		message(CHR_P1P2, L_LIP(48)) // "Virus has already been downloaded."
+		show_hudmsg(CHR_P1P2, L_LIP(48)) // "Virus has already been downloaded."
 		reloop(0x04)
 
 		label(0x06)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ 0x2d)
 		play_sound(0x8116, -1)
-		message(CHR_P1P2, L_LIP(22)) // "Access to security control systems denied."
+		show_hudmsg(CHR_P1P2, L_LIP(22)) // "Access to security control systems denied."
 		reloop(0x04)
 
 		label(0x2d)
-		message(CHR_P1P2, L_LIP(30)) // "Data Uplink connected."
+		show_hudmsg(CHR_P1P2, L_LIP(30)) // "Data Uplink connected."
 		restart_timer
 
 		beginloop(0x08)
@@ -1091,7 +1091,7 @@ u8 func1005_uplink_autoguns[] = {
 		endloop(0x08)
 
 		label(0x06)
-		message(CHR_P1P2, L_LIP(49)) // "Initiating virus download."
+		show_hudmsg(CHR_P1P2, L_LIP(49)) // "Initiating virus download."
 		restart_timer
 		assign_sound(0x01bf, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x03, TRUE)
@@ -1112,14 +1112,14 @@ u8 func1005_uplink_autoguns[] = {
 		label(0x2d)
 		assign_sound(0x01c1, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, 0x00, TRUE)
-		message(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
+		show_hudmsg(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
 		yield
-		message(CHR_P1P2, L_LIP(105)) // "Automatic Defenses Disabled."
+		show_hudmsg(CHR_P1P2, L_LIP(105)) // "Automatic Defenses Disabled."
 		set_stage_flag(STAGEFLAG_AUTOGUN_VIRUS_DONE)
 		reloop(0x04)
 
 		label(0x09)
-		message(CHR_P1P2, L_LIP(31)) // "Data Uplink connection broken."
+		show_hudmsg(CHR_P1P2, L_LIP(31)) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c0, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, 0x03, TRUE)
@@ -1133,7 +1133,7 @@ u8 func1005_uplink_autoguns[] = {
 		mute_channel(CHANNEL_6)
 		reloop(0x04)
 
-		message(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
+		show_hudmsg(CHR_P1P2, L_LIP(23)) // "Virus downloaded to console."
 		set_stage_flag(STAGEFLAG_AUTOGUN_VIRUS_DONE)
 	endloop(0x04)
 
@@ -1147,7 +1147,7 @@ u8 func1006_check_lab_accessed[] = {
 	endloop(0x04)
 
 	label(0x06)
-	message(CHR_P1P2, L_LIP(29)) // "Laboratory accessed successfully."
+	show_hudmsg(CHR_P1P2, L_LIP(29)) // "Laboratory accessed successfully."
 	set_stage_flag(STAGEFLAG_ENTERED_LAB)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1584,7 +1584,7 @@ u8 func1009_disguise_timer[] = {
 	activate_alarm
 	yield
 	label(0x2d)
-	message(CHR_BOND, L_LIP(47)) // "The enemy has discovered the disguise."
+	show_hudmsg(CHR_BOND, L_LIP(47)) // "The enemy has discovered the disguise."
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
 	hide_countdown_timer
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1756,7 +1756,7 @@ u8 func0418_doorman[] = {
 
 	label(0x2d)
 	set_stage_flag(STAGEFLAG_DOORMAN_REJECTED)
-	message(CHR_TARGET, L_LIP(57)) // "Cannot gain access to autopsy lab."
+	show_hudmsg(CHR_TARGET, L_LIP(57)) // "Cannot gain access to autopsy lab."
 	goto_next(0x64)
 
 	// Disguised
@@ -1791,7 +1791,7 @@ u8 func0418_doorman[] = {
 	restart_timer
 	label(0x10)
 	set_stage_flag(STAGEFLAG_DOORMAN_REJECTED)
-	message(CHR_TARGET, L_LIP(57)) // "Cannot gain access to autopsy lab."
+	show_hudmsg(CHR_TARGET, L_LIP(57)) // "Cannot gain access to autopsy lab."
 	goto_next(0x64)
 
 	// Jo disguised and unarmed
@@ -1871,7 +1871,7 @@ u8 func100b_check_doorman_dead[] = {
 		if_chr_in_room(CHR_BOND, 0x00, 0x0088, /*goto*/ 0x06)
 		if_chr_in_room(CHR_BOND, 0x00, 0x0089, /*goto*/ 0x06)
 		if_chr_in_room(CHR_BOND, 0x00, 0x008a, /*goto*/ 0x06)
-		message(CHR_P1P2, L_LIP(56)) // "Critical mission personnel killed."
+		show_hudmsg(CHR_P1P2, L_LIP(56)) // "Critical mission personnel killed."
 		restart_timer
 
 		beginloop(0x08)
@@ -1879,7 +1879,7 @@ u8 func100b_check_doorman_dead[] = {
 		endloop(0x08)
 
 		label(0x2d)
-		message(CHR_P1P2, L_LIP(57)) // "Cannot gain access to autopsy lab."
+		show_hudmsg(CHR_P1P2, L_LIP(57)) // "Cannot gain access to autopsy lab."
 		restart_timer
 		set_stage_flag(STAGEFLAG_DOORMAN_DEAD)
 
@@ -2141,7 +2141,7 @@ u8 func100e_elvis_timer[] = {
 	stop_countdown_timer
 	hide_countdown_timer
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
-	message(CHR_BOND, L_LIP(64)) // "Elvis has been killed."
+	show_hudmsg(CHR_BOND, L_LIP(64)) // "Elvis has been killed."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2d)
@@ -2449,7 +2449,7 @@ u8 func1013_check_chamber_switch_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_CHAMBER1_SWITCH, /*goto*/ 0x06)
 		if_stage_flag_eq(STAGEFLAG_CHAMBER1_RAISED, TRUE, /*goto*/ 0x2d)
-		message(CHR_BOND, L_LIP(68)) // "Mission critical equipment destroyed."
+		show_hudmsg(CHR_BOND, L_LIP(68)) // "Mission critical equipment destroyed."
 		set_stage_flag(STAGEFLAG_CHAMBER_SWITCH_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2485,7 +2485,7 @@ u8 func1014_check_crate_destroyed[] = {
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
-		message(CHR_BOND, L_LIP(68)) // "Mission critical equipment destroyed."
+		show_hudmsg(CHR_BOND, L_LIP(68)) // "Mission critical equipment destroyed."
 		set_stage_flag(STAGEFLAG_CRATE_DESTROYED)
 
 		beginloop(0x08)
@@ -2497,7 +2497,7 @@ u8 func1014_check_crate_destroyed[] = {
 
 		label(0x2e)
 		unset_stage_flag(STAGEFLAG_CRATE_DESTROYED)
-		message(CHR_BOND, L_LIP(89)) // "Alternative entrance to medlabs created."
+		show_hudmsg(CHR_BOND, L_LIP(89)) // "Alternative entrance to medlabs created."
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x06)
@@ -3165,7 +3165,7 @@ u8 func1018_disable_chambers[] = {
 		control_sound_from_object(CHANNEL_0, chamber, TRUE) \
 		assign_sound(0x043a, CHANNEL_7) \
 		control_sound_from_object(CHANNEL_7, switch, TRUE) \
-		message(CHR_P1P2, 0x2a42) /* "Containment unit raised up." */ \
+		show_hudmsg(CHR_P1P2, 0x2a42) /* "Containment unit raised up." */ \
 		set_object_image(switch, 0x00, 0x13) \
 		unset_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 		set_stage_flag(stageflag) \
@@ -3189,7 +3189,7 @@ u8 func1018_disable_chambers[] = {
 		control_sound_from_object(CHANNEL_0, chamber, TRUE) \
 		assign_sound(0x043a, CHANNEL_7) \
 		control_sound_from_object(CHANNEL_7, switch, TRUE) \
-		message(CHR_P1P2, 0x2a43) /* "Containment unit lowered down." */ \
+		show_hudmsg(CHR_P1P2, 0x2a43) /* "Containment unit lowered down." */ \
 		set_object_image(switch, 0x00, 0x12) \
 		unset_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 		unset_stage_flag(stageflag) \
@@ -3228,7 +3228,7 @@ u8 func1019_chamber1[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER1_SWITCH, 0x00, 0x13)
-		message(CHR_P1P2, L_LIP(66)) // "Containment unit raised up."
+		show_hudmsg(CHR_P1P2, L_LIP(66)) // "Containment unit raised up."
 		unset_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER1_RAISED)
 		restart_timer
@@ -3264,7 +3264,7 @@ u8 func1019_chamber1[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER1_SWITCH, 0x00, 0x12)
-		message(CHR_P1P2, L_LIP(67)) // "Containment unit lowered down."
+		show_hudmsg(CHR_P1P2, L_LIP(67)) // "Containment unit lowered down."
 		unset_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER1_RAISED)
 		restart_timer
@@ -3299,7 +3299,7 @@ u8 func101a_chamber2[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER2_SWITCH, 0x00, 0x13)
-		message(CHR_P1P2, L_LIP(66)) // "Containment unit raised up."
+		show_hudmsg(CHR_P1P2, L_LIP(66)) // "Containment unit raised up."
 		unset_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER2_RAISED)
 		restart_timer
@@ -3324,7 +3324,7 @@ u8 func101a_chamber2[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER2_SWITCH, 0x00, 0x12)
-		message(CHR_P1P2, L_LIP(67)) // "Containment unit lowered down."
+		show_hudmsg(CHR_P1P2, L_LIP(67)) // "Containment unit lowered down."
 		unset_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER2_RAISED)
 		restart_timer
@@ -3385,7 +3385,7 @@ u8 func1020_chamber8[] = {
 		control_sound_from_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
-		message(CHR_P1P2, L_LIP(66)) // "Containment unit raised up."
+		show_hudmsg(CHR_P1P2, L_LIP(66)) // "Containment unit raised up."
 		set_object_image(OBJ_CHAMBER8_SWITCH, 0x00, 0x13)
 		unset_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 		set_stage_flag(STAGEFLAG_CHAMBER8_RAISED)
@@ -3411,7 +3411,7 @@ u8 func1020_chamber8[] = {
 
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
-		message(CHR_P1P2, L_LIP(67)) // "Containment unit lowered down."
+		show_hudmsg(CHR_P1P2, L_LIP(67)) // "Containment unit lowered down."
 		set_object_image(OBJ_CHAMBER8_SWITCH, 0x00, 0x12)
 		unset_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_CHAMBER8_RAISED)
@@ -3497,7 +3497,7 @@ u8 func1021_xray_scanning[] = {
 		reloop(0x04)
 
 		label(0x06)
-		message(CHR_P1P2, L_LIP(74)) // "Scanner target acquired."
+		show_hudmsg(CHR_P1P2, L_LIP(74)) // "Scanner target acquired."
 		restart_timer
 
 		beginloop(0x08)
@@ -3506,12 +3506,12 @@ u8 func1021_xray_scanning[] = {
 		endloop(0x08)
 
 		label(0x06)
-		message(CHR_P1P2, L_LIP(75)) // "Target ID confirmed - XT origin."
+		show_hudmsg(CHR_P1P2, L_LIP(75)) // "Target ID confirmed - XT origin."
 		set_stage_flag(STAGEFLAG_XRAY_DONE)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
-		message(CHR_P1P2, L_LIP(76)) // "Scanner lock lost."
+		show_hudmsg(CHR_P1P2, L_LIP(76)) // "Scanner lock lost."
 	endloop(0x04)
 
 	endlist
@@ -4151,7 +4151,7 @@ u8 func1027_check_disguise_worn[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_BOND, L_LIP(77)) // "Disguise has been worn."
+	show_hudmsg(CHR_BOND, L_LIP(77)) // "Disguise has been worn."
 	set_returnlist(0x00, 0x0401)
 	set_returnlist(0x01, 0x0402)
 	set_returnlist(0x02, 0x0403)
@@ -4694,7 +4694,7 @@ u8 func1036_check_door_terminal_destroyed[] = {
 	beginloop(0x0b)
 		if_object_in_good_condition(OBJ_DOOR_TERMINAL, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_DOOR_VIRUS_DOWNLOADED, TRUE, /*goto*/ 0x2e)
-		message(CHR_BOND, L_LIP(68)) // "Mission critical equipment destroyed."
+		show_hudmsg(CHR_BOND, L_LIP(68)) // "Mission critical equipment destroyed."
 		set_stage_flag(STAGEFLAG_UPLINK_TERMINAL_DESTROYED)
 		label(0x2e)
 		set_ailist(CHR_SELF, GAILIST_IDLE)

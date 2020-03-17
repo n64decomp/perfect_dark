@@ -891,7 +891,7 @@ u8 func0402_elvis_follow_and_reactive_teleportals[] = {
 
 	label(0x06)
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
-	message(CHR_BOND, L_PAM(30)) // "Teleportals have been reactivated."
+	show_hudmsg(CHR_BOND, L_PAM(30)) // "Teleportals have been reactivated."
 	set_stage_flag(STAGEFLAG_TELEPORTALS_ACTIVATED)
 	set_self_chrflag(CHRCFLAG_01000000)
 	play_sound(0x8148, -1)
@@ -1055,7 +1055,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	label(0x06)
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x03, 0xff, BANK_1, 0x00, 0x00)
 	set_self_chrflag(CHRCFLAG_01000000)
-	message(CHR_BOND, L_PAM(20)) // "Cetan megaweapon has been disabled."
+	show_hudmsg(CHR_BOND, L_PAM(20)) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_AGENT_MEGAWEAPON_DISABLED)
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	set_lights_state(0x006c, 0x03, 0x64, 0xff, 0x78)
@@ -1246,7 +1246,7 @@ u8 func0406_elvis_follow_and_do_sa_megaweapon[] = {
 	label(0x2e)
 	say_quip(CHR_BOND, 0x2c, 0xff, 0x0f, 0xff, BANK_1, 0x00, 0x00)
 	set_self_chrflag(CHRCFLAG_01000000)
-	message(CHR_BOND, L_PAM(20)) // "Cetan megaweapon has been disabled."
+	show_hudmsg(CHR_BOND, L_PAM(20)) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	try_equip_weapon(MODEL_CHRMAIANPISTOL, WEAPON_PHOENIX, 0x00000000, /*goto*/ 0x04)
 	label(0x04)
@@ -2562,7 +2562,7 @@ u8 func0415_teleport_bond_to_drcaroll[] = {
 	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
 	goto_next(0x63)
 	label(0x07)
-	message(CHR_BOND, L_PAM(14)) // "Elvis has been killed."
+	show_hudmsg(CHR_BOND, L_PAM(14)) // "Elvis has been killed."
 
 	label(0x62)
 
@@ -2933,7 +2933,7 @@ u8 func0418_teleport_coop_to_drcaroll[] = {
 	goto_next(0x63)
 
 	label(0x07)
-	message(CHR_BOND, L_PAM(14)) // "Elvis has been killed."
+	show_hudmsg(CHR_BOND, L_PAM(14)) // "Elvis has been killed."
 	label(0x62)
 
 	beginloop(0x63)
@@ -3299,7 +3299,7 @@ u8 func100c_countdown_timer[] = {
 
 	// Player escaped
 	label(0x2e)
-	message(CHR_P1P2, L_PAM(16)) // "Cetan ship evacuation successful."
+	show_hudmsg(CHR_P1P2, L_PAM(16)) // "Cetan ship evacuation successful."
 	set_stage_flag(STAGEFLAG_ESCAPED)
 	restart_timer
 	stop_countdown_timer
@@ -3341,7 +3341,7 @@ u8 func100e_check_elvis_dead[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_BOND, L_PAM(14)) // "Elvis has been killed."
+	show_hudmsg(CHR_BOND, L_PAM(14)) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ALLY_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3355,7 +3355,7 @@ u8 func100f_check_drcaroll_dead[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_BOND, L_PAM(15)) // "Dr. Caroll has been killed."
+	show_hudmsg(CHR_BOND, L_PAM(15)) // "Dr. Caroll has been killed."
 	set_stage_flag(STAGEFLAG_ALLY_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3975,7 +3975,7 @@ u8 func040a_check_pa_canisters_destroyed[] = {
 
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_MEGAWEAPON_DISABLED, TRUE, /*goto*/ 0x2e)
-	message(CHR_BOND, L_PAM(43)) // "Cetan megaweapon has been disabled."
+	show_hudmsg(CHR_BOND, L_PAM(43)) // "Cetan megaweapon has been disabled."
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	label(0x2e)
 	open_door(0x0f)
@@ -4210,7 +4210,7 @@ u8 func1022_control_room[] = {
 	goto_first(0x04)
 
 	label(0x2e)
-	message(CHR_P1P2, L_PAM(21)) // "Control Room has been secured."
+	show_hudmsg(CHR_P1P2, L_PAM(21)) // "Control Room has been secured."
 	set_stage_flag(STAGEFLAG_BLONDES_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -4730,7 +4730,7 @@ u8 func102d_check_farsight_ammo_wasted[] = {
 	endloop(0x63)
 
 	label(0x2e)
-	message(CHR_BOND, L_PAM(44)) // "Ammo wasted - unable to disable megaweapon."
+	show_hudmsg(CHR_BOND, L_PAM(44)) // "Ammo wasted - unable to disable megaweapon."
 	set_stage_flag(STAGEFLAG_FARSIGHT_AMMO_WASTED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	label(0x0d)

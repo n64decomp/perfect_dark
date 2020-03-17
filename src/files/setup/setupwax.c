@@ -1464,7 +1464,7 @@ u8 func1004_check_cass_dead[] = {
 	endloop(0x03)
 
 	label(0x2c)
-	message(CHR_BOND, L_WAX(14)) // "Cassandra has been immobilized."
+	show_hudmsg(CHR_BOND, L_WAX(14)) // "Cassandra has been immobilized."
 	set_stage_flag(STAGEFLAG_CASS_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1477,7 +1477,7 @@ u8 func1005_check_cass_captured[] = {
 		if_chr_dying(CHR_CASS, /*goto*/ 0x0d)
 		if_chr_unloaded(CHR_CASS, /*goto*/ 0x0d)
 		if_chr_y(CHR_CASS, 0, OPERATOR_LESS_THAN, /*goto*/ 0x2c)
-		message(CHR_BOND, L_WAX(15)) // "Cassandra has been captured successfully."
+		show_hudmsg(CHR_BOND, L_WAX(15)) // "Cassandra has been captured successfully."
 		set_stage_flag(STAGEFLAG_CASS_CAPTURED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1520,7 +1520,7 @@ u8 func1006_lift_disabling[] = {
 	unset_object_flag(OBJ_CHIEF_LIFT, OBJFLAG_DEACTIVATED)
 	unset_chr_chrflag(CHR_CHIEF, CHRCFLAG_HIDDEN)
 	set_ailist(CHR_CHIEF, AILIST_CHIEF)
-	message(CHR_BOND, L_WAX(25)) // "Lift has been disabled."
+	show_hudmsg(CHR_BOND, L_WAX(25)) // "Lift has been disabled."
 
 	// Wait until chief dead
 	beginloop(0x08)
@@ -1530,7 +1530,7 @@ u8 func1006_lift_disabling[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	message(CHR_BOND, L_WAX(16)) // "Security chief has been eliminated."
+	show_hudmsg(CHR_BOND, L_WAX(16)) // "Security chief has been eliminated."
 	set_stage_flag(STAGEFLAG_CHIEF_DEAD)
 	restart_timer
 
@@ -1646,7 +1646,7 @@ u8 func1007_bomb_logic[] = {
 
 	// Plant bomb
 	label(0x2c)
-	message(CHR_BOND, L_WAX(22)) // "Skedar bomb has been placed successfully."
+	show_hudmsg(CHR_BOND, L_WAX(22)) // "Skedar bomb has been placed successfully."
 	remove_weapon_from_inventory(WEAPON_SKEDARBOMB)
 	set_stage_flag(STAGEFLAG_BOMB_PLANTED)
 	hide_object(OBJ_BOND_BOMB)
@@ -1678,7 +1678,7 @@ u8 func1007_bomb_logic[] = {
 	set_countdown_timer(0)
 	stop_countdown_timer
 	set_stage_flag(STAGEFLAG_BOMB_EXPIRED)
-	message(CHR_BOND, L_WAX(23)) // "Skedar bomb has detonated."
+	show_hudmsg(CHR_BOND, L_WAX(23)) // "Skedar bomb has detonated."
 
 	// Wait 2 seconds
 	restart_timer
@@ -1741,7 +1741,7 @@ u8 func1008_check_bomb_unplantable[] = {
 
 		// Fail mission
 		label(0x2c)
-		message(CHR_BOND, L_WAX(24)) // "Lift doors locked - bomb cannot be placed."
+		show_hudmsg(CHR_BOND, L_WAX(24)) // "Lift doors locked - bomb cannot be placed."
 		set_stage_flag(STAGEFLAG_BOMB_UNPLANTABLE)
 
 		// Difficulty is agent or bomb has been planted - return

@@ -205,8 +205,8 @@
 /*0x00c8*/ bool aiTryEquipWeapon(void);
 /*0x00c9*/ bool aiTryEquipHat(void);
 /*0x00ca*/ bool aiDuplicateChr(void);
-/*0x00cb*/ bool aiMessage(void);
-/*0x00cc*/ bool aiShowText2(void);
+/*0x00cb*/ bool aiShowHudmsg(void);
+/*0x00cc*/ bool aiShowHudmsgTopMiddle(void);
 /*0x00cd*/ bool aiSpeak(void);
 /*0x00ce*/ bool aiPlaySound(void);
 /*0x00cf*/ bool ai00cf(void);
@@ -387,7 +387,7 @@
 /*0x01a1*/ bool aiSetRoomToSearch(void);
 /*0x01a2*/ bool aiSayCiStaffQuip(void);
 /*0x01a3*/ bool aiDoPresetAnimation(void);
-/*0x01a4*/ bool aiShowText(void);
+/*0x01a4*/ bool aiShowHudmsgMiddle(void);
 /*0x01a5*/ bool ai01a5(void);
 /*0x01a6*/ bool aiIfTargetYDifferenceLessThan(void);
 /*0x01a7*/ bool aiIfChrPropsoundcountZero(void);

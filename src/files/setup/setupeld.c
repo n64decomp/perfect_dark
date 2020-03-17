@@ -1438,7 +1438,7 @@ u8 func1004_check_negotiator[] = {
 	endloop(0x04)
 
 	label(0x06)
-	message(CHR_BOND, L_ELD(11)) // "Negotiator has been killed."
+	show_hudmsg(CHR_BOND, L_ELD(11)) // "Negotiator has been killed."
 	set_stage_flag(STAGEFLAG_NEGOTIATOR_DEAD)
 
 	// PA
@@ -1680,7 +1680,7 @@ u8 func0403_negotiator[] = {
 	endloop(0x08)
 
 	label(0x06)
-	message(CHR_BOND, L_ELD(13)) // "Negotiator has escaped to safety."
+	show_hudmsg(CHR_BOND, L_ELD(13)) // "Negotiator has escaped to safety."
 	set_stage_flag(STAGEFLAG_NEGOTIATOR_ESCAPED)
 	stop_music_channel(CHANNEL_1)
 	remove_chr(CHR_SELF)
@@ -1949,7 +1949,7 @@ u8 func1006_check_snipers_dead[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_BOND, L_ELD(12)) // "Snipers have been eliminated."
+	show_hudmsg(CHR_BOND, L_ELD(12)) // "Snipers have been eliminated."
 	set_stage_flag(STAGEFLAG_SNIPERS_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1965,7 +1965,7 @@ u8 func1007_cooling_switch[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_COOLING_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_COOLING_ACTIVE, TRUE, /*goto*/ 0x06)
-		message(CHR_P1P2, L_ELD(14)) // "Cooling systems have been activated."
+		show_hudmsg(CHR_P1P2, L_ELD(14)) // "Cooling systems have been activated."
 		set_stage_flag(STAGEFLAG_COOLING_ACTIVE)
 		assign_sound(0x8148, CHANNEL_1)
 		control_sound_from_object(CHANNEL_1, OBJ_COOLING_SWITCH, TRUE)
@@ -1985,12 +1985,12 @@ u8 func1007_cooling_switch[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_COOLING_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, FALSE, /*goto*/ 0x2d)
-		message(CHR_P1P2, L_ELD(48)) // "Operation denied - windmill is active."
+		show_hudmsg(CHR_P1P2, L_ELD(48)) // "Operation denied - windmill is active."
 		goto_next(0x67)
 		label(0x2d)
 		assign_sound(0x8149, CHANNEL_1)
 		control_sound_from_object(CHANNEL_1, OBJ_COOLING_SWITCH, TRUE)
-		message(CHR_P1P2, L_ELD(15)) // "Cooling systems have been deactivated."
+		show_hudmsg(CHR_P1P2, L_ELD(15)) // "Cooling systems have been deactivated."
 		unset_stage_flag(STAGEFLAG_COOLING_ACTIVE)
 		label(0x67)
 		restart_timer
@@ -2015,7 +2015,7 @@ u8 func1008_power_switch[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_POWER_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_POWER_ACTIVE, TRUE, /*goto*/ 0x06)
-		message(CHR_P1P2, L_ELD(16)) // "Power systems have been activated."
+		show_hudmsg(CHR_P1P2, L_ELD(16)) // "Power systems have been activated."
 		set_stage_flag(STAGEFLAG_POWER_ACTIVE)
 		assign_sound(0x8148, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_POWER_SWITCH, TRUE)
@@ -2035,12 +2035,12 @@ u8 func1008_power_switch[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_POWER_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, FALSE, /*goto*/ 0x2d)
-		message(CHR_P1P2, L_ELD(48)) // "Operation denied - windmill is active."
+		show_hudmsg(CHR_P1P2, L_ELD(48)) // "Operation denied - windmill is active."
 		goto_next(0x67)
 		label(0x2d)
 		assign_sound(0x8149, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_POWER_SWITCH, TRUE)
-		message(CHR_P1P2, L_ELD(17)) // "Power systems have been deactivated."
+		show_hudmsg(CHR_P1P2, L_ELD(17)) // "Power systems have been deactivated."
 		unset_stage_flag(STAGEFLAG_POWER_ACTIVE)
 		label(0x67)
 		restart_timer
@@ -2079,7 +2079,7 @@ u8 func1009_windmill_switch[] = {
 		label(0x2d)
 		assign_sound(0x0438, CHANNEL_2)
 		play_sound_from_object(CHANNEL_2, OBJ_WINDMILL_SWITCH, 0x0708, 0x0960)
-		message(CHR_P1P2, L_ELD(18)) // "Windmill has been reactivated."
+		show_hudmsg(CHR_P1P2, L_ELD(18)) // "Windmill has been reactivated."
 		yield
 		set_stage_flag(STAGEFLAG_WINDMILL_ACTIVATED)
 		set_object_flag2(OBJ_WINDMILL, OBJFLAG2_AICANNOTUSE)
@@ -2107,21 +2107,21 @@ u8 func100a_check_switches_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(0x03, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_COOLING_ACTIVE, TRUE, /*goto*/ 0x2d)
-		message(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
+		show_hudmsg(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_WINDMILL_SWITCH_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
 		if_object_in_good_condition(0x04, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_POWER_ACTIVE, TRUE, /*goto*/ 0x2d)
-		message(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
+		show_hudmsg(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_WINDMILL_SWITCH_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
 		if_object_in_good_condition(0x05, /*goto*/ 0x2d)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, TRUE, /*goto*/ 0x2d)
-		message(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
+		show_hudmsg(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_WINDMILL_SWITCH_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2191,7 +2191,7 @@ u8 func100b_invoke_hackers[] = {
 
 	// Timer expired
 	label(0x06)
-	message(CHR_BOND, L_ELD(23)) // "Hackers have uploaded vital data."
+	show_hudmsg(CHR_BOND, L_ELD(23)) // "Hackers have uploaded vital data."
 	set_stage_flag(STAGEFLAG_HACKERS_SUCCEEDED)
 
 	// Hackers dead
@@ -2275,7 +2275,7 @@ u8 func100c_check_hackers_dead[] = {
 
 	label(0x2d)
 	if_stage_flag_eq(STAGEFLAG_HACKERS_SUCCEEDED, TRUE, /*goto*/ 0x2d)
-	message(CHR_BOND, L_ELD(24)) // "Hackers have been eliminated."
+	show_hudmsg(CHR_BOND, L_ELD(24)) // "Hackers have been eliminated."
 	set_stage_flag(STAGEFLAG_HACKERS_DEAD)
 
 	// Hackers succeeded
@@ -2296,7 +2296,7 @@ u8 func100e_check_objectives_complete[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_P1P2, L_ELD(25)) // "Carrington has been rescued."
+	show_hudmsg(CHR_P1P2, L_ELD(25)) // "Carrington has been rescued."
 	set_stage_flag(STAGEFLAG_CARRINGTON_RESCUED)
 	yield
 	yield
@@ -2305,7 +2305,7 @@ u8 func100e_check_objectives_complete[] = {
 	hide_countdown_timer
 	stop_countdown_timer
 	if_all_objectives_complete(/*goto*/ 0x5c)
-	message(CHR_BOND, L_ELD(26)) // "All objectives not completed - mission failed."
+	show_hudmsg(CHR_BOND, L_ELD(26)) // "All objectives not completed - mission failed."
 
 	// If all objectives aren't complete, the player is shown the message, but
 	// if the objective completes within the next 4 seconds you pass the level
@@ -2393,7 +2393,7 @@ u8 func1013_check_guard_subdued[] = {
 		// Captured someone
 		label(0x06)
 		if_stage_flag_eq(STAGEFLAG_GUARD_CAPTURED, TRUE, /*goto*/ 0x2e)
-		message(CHR_BOND, L_ELD(29)) // "Enemy guard has been subdued."
+		show_hudmsg(CHR_BOND, L_ELD(29)) // "Enemy guard has been subdued."
 		label(0x2e)
 		unset_stage_flag(STAGEFLAG_FORGOT_TO_KO_GUARD)
 		yield
@@ -2483,7 +2483,7 @@ u8 func1015_check_computers_destroyed[] = {
 	endloop(0x04)
 
 	label(0x08)
-	message(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
+	show_hudmsg(CHR_BOND, L_ELD(21)) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_HACKER_PC_DESTROYED)
 	label(0x09)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3207,7 +3207,7 @@ u8 func1025_check_basement_entered_without_subdue[] = {
 	endloop(0x04)
 
 	label(0x06)
-	message(CHR_P1P2, L_ELD(49)) // "Mission unsuccessful - enemy guard not captured."
+	show_hudmsg(CHR_P1P2, L_ELD(49)) // "Mission unsuccessful - enemy guard not captured."
 	set_stage_flag(STAGEFLAG_FORGOT_TO_KO_GUARD)
 
 	label(0x0d)

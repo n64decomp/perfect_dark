@@ -1804,7 +1804,7 @@
  *
  * The chr argument should be a player.
  */
-#define message(chr, text) \
+#define show_hudmsg(chr, text) \
 	mkshort(0x00cb), \
 	chr, \
 	mkshort(text),
@@ -1815,7 +1815,7 @@
  * The chr argument should be a player.
  * The color argument should be a COLOR constant.
  */
-#define display_text_top_middle(chr, text, color) \
+#define show_hudmsg_top_middle(chr, text, color) \
 	mkshort(0x00cc), \
 	chr, \
 	mkshort(text), \
@@ -3451,9 +3451,18 @@
 	mkshort(0x01a3), \
 	value,
 
-#define display_text(prop, color, text) \
+/**
+ * Show or remove a HUD message.
+ *
+ * If operation is 0, show it in the top middle with infinite duration.
+ * If operation is 1, show it in the bottom middle with a long duration.
+ * If operation is 2, remove all HUD messages.
+ *
+ * For removing HUD messages, consider using remove_hudmsgs instead.
+ */
+#define show_hudmsg_middle(operation, color, text) \
 	mkshort(0x01a4), \
-	prop, \
+	operation, \
 	color, \
 	mkshort(text),
 
@@ -3981,7 +3990,7 @@
 
 #define reloop(id) goto_first(id)
 
-#define remove_displayed_text display_text(0x02, 0, 0x0002)
+#define remove_hudmsgs show_hudmsg_middle(0x02, 0, 0x0002)
 
 #define if_stage_is_not(stage, label) if_stage_lt(stage, label) if_stage_gt(stage, label)
 

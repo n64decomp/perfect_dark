@@ -5036,7 +5036,7 @@ glabel func0f16b96c
 /*  f16c4b0:	0fc5b9f1 */ 	jal	langGet
 /*  f16c4b4:	24045844 */ 	addiu	$a0,$zero,0x5844
 /*  f16c4b8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f16c4bc:	0fc377c7 */ 	jal	currentPlayerQueueMessage
+/*  f16c4bc:	0fc377c7 */ 	jal	hudmsgCreateViaPreset
 /*  f16c4c0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f16c4c4:	8e99006c */ 	lw	$t9,0x6c($s4)
 /*  f16c4c8:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5697,7 +5697,7 @@ glabel func0f16b96c
 //				s32 i;
 //				for (i = 0; i < PLAYERCOUNT(); i++) {
 //					setCurrentPlayerNum(i);
-//					currentPlayerQueueMessage(langGet(L_MISC(68)), 0); // "One minute left."
+//					hudmsgCreateViaPreset(langGet(L_MISC(68)), 0); // "One minute left."
 //				}
 //			}
 //

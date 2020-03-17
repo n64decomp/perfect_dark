@@ -1372,7 +1372,7 @@ u8 func1005_check_civilians_killed[] = {
 	endloop(0x00)
 
 	label(0x31)
-	message(CHR_BOND, L_CAVE(26)) // "Innocent civilians have been killed."
+	show_hudmsg(CHR_BOND, L_CAVE(26)) // "Innocent civilians have been killed."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1735,7 +1735,7 @@ u8 func1007_console_activation[] = {
 	set_object_image(OBJ_CONSOLE, 0x00, 0x0f)
 	set_object_image(OBJ_CONSOLE, 0x01, 0x0f)
 	set_chr_flag_bankx(0x12, CHRFLAG0_00002000, BANK_0)
-	message(CHR_P1P2, L_CAVE(35)) // "System shutdown initiated..."
+	show_hudmsg(CHR_P1P2, L_CAVE(35)) // "System shutdown initiated..."
 	mute_channel(CHANNEL_1)
 	assign_sound(0x01b9, CHANNEL_1)
 	control_sound_from_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
@@ -1754,7 +1754,7 @@ u8 func1007_console_activation[] = {
 	mute_channel(CHANNEL_1)
 	assign_sound(0x0479, CHANNEL_1)
 	control_sound_from_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
-	message(CHR_P1P2, L_CAVE(36)) // "Security systems have been shut down."
+	show_hudmsg(CHR_P1P2, L_CAVE(36)) // "Security systems have been shut down."
 	set_stage_flag(STAGEFLAG_SECURITY_SHUT_DOWN)
 	unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED)
 	restart_timer
@@ -1907,7 +1907,7 @@ u8 func1007_console_activation[] = {
 	endloop(0x07) \
  \
 	label(0x02) \
-	message(chr, 0x0e25) /* "Weapons have been detected." */ \
+	show_hudmsg(chr, 0x0e25) /* "Weapons have been detected." */ \
 	set_stage_flag(STAGEFLAG_WEAPONS_DETECTED) \
 	label(0x31) \
 	mute_channel(CHANNEL_6) \
@@ -1951,10 +1951,10 @@ u8 func1009_carousel_activation[] = {
 		// Shut down without depositing
 		label(0x31)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x09)
-		message(CHR_BOND, L_CAVE(66)) // "Hover trolley has been shut down."
+		show_hudmsg(CHR_BOND, L_CAVE(66)) // "Hover trolley has been shut down."
 		set_stage_flag(STAGEFLAG_TROLLEY_SHUT_DOWN_WITHOUT_BRIEFCASE)
 		yield
-		message(CHR_BOND, L_CAVE(67)) // "Equipment cannot be checked in."
+		show_hudmsg(CHR_BOND, L_CAVE(67)) // "Equipment cannot be checked in."
 		label(0x09)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1964,7 +1964,7 @@ u8 func1009_carousel_activation[] = {
 	endloop(0x00)
 
 	label(0x02)
-	message(CHR_P1P2, L_CAVE(38)) // "Suitcase has been deposited."
+	show_hudmsg(CHR_P1P2, L_CAVE(38)) // "Suitcase has been deposited."
 	chr_draw_weapon_in_cutscene(CHR_P1P2, WEAPON_UNARMED)
 	set_stage_flag(STAGEFLAG_SUITCASE_DEPOSITED)
 	play_sound(0x80aa, CHANNEL_7)
@@ -2028,7 +2028,7 @@ u8 func100b_suitcase_scanning[] = {
 
 	// Scanned
 	label(0x02)
-	message(CHR_BOND, L_CAVE(39)) // "Suitcase has been scanned."
+	show_hudmsg(CHR_BOND, L_CAVE(39)) // "Suitcase has been scanned."
 	set_stage_flag(STAGEFLAG_SUITCASE_SCANNED)
 
 	// Agent
@@ -2358,12 +2358,12 @@ u8 func100d_laser_panel[] = {
 		label(0x04)
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_LASER_PANEL, TRUE)
-		message(CHR_P1P2, L_CAVE(45)) // "Laser grid access denied."
+		show_hudmsg(CHR_P1P2, L_CAVE(45)) // "Laser grid access denied."
 	endloop(0x00)
 
 	label(0x05)
 	set_stage_flag(STAGEFLAG_LASERS_OVERLOADED)
-	message(CHR_P1P2, L_CAVE(46)) // "Laser grid system has been overloaded."
+	show_hudmsg(CHR_P1P2, L_CAVE(46)) // "Laser grid system has been overloaded."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2392,7 +2392,7 @@ u8 func100e_check_alaskans_killed[] = {
 	endloop(0x00)
 
 	label(0x31)
-	message(CHR_BOND, L_CAVE(47)) // "Too many neutral casualties inflicted."
+	show_hudmsg(CHR_BOND, L_CAVE(47)) // "Too many neutral casualties inflicted."
 	set_stage_flag(STAGEFLAG_TOO_MANY_NEUTRALS_KILLED)
 	label(0x02)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3580,7 +3580,7 @@ u8 func101a_check_disguise_used[] = {
 	endloop(0x00)
 
 	label(0x31)
-	message(CHR_P1P2, L_CAVE(49)) // "Disguise worn."
+	show_hudmsg(CHR_P1P2, L_CAVE(49)) // "Disguise worn."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4158,7 +4158,7 @@ u8 func1029_lift_doors[] = {
 
 		label(0x31)
 		if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x05)
-		message(CHR_P1P2, L_CAVE(61)) // "Lift inoperative - security system is active."
+		show_hudmsg(CHR_P1P2, L_CAVE(61)) // "Lift inoperative - security system is active."
 		restart_timer
 
 		beginloop(0x04)
@@ -4196,7 +4196,7 @@ u8 func102b_check_secretary_dead[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x31)
-	message(CHR_BOND, L_CAVE(62)) // "Critical mission personnel disabled."
+	show_hudmsg(CHR_BOND, L_CAVE(62)) // "Critical mission personnel disabled."
 	set_stage_flag(STAGEFLAG_SECRETARY_DEAD)
 	label(0x09)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -4227,7 +4227,7 @@ u8 func102d_check_console_destroyed[] = {
 	mute_channel(CHANNEL_1)
 	if_stage_flag_eq(STAGEFLAG_SECURITY_SHUT_DOWN, TRUE, /*goto*/ 0x31)
 	set_stage_flag(STAGEFLAG_CONSOLE_DESTROYED)
-	message(CHR_BOND, L_CAVE(63)) // "Critical mission object destroyed."
+	show_hudmsg(CHR_BOND, L_CAVE(63)) // "Critical mission object destroyed."
 	label(0x31)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -4240,7 +4240,7 @@ u8 func102e_check_base_entered[] = {
 	endloop(0x00)
 
 	label(0x31)
-	message(CHR_BOND, L_CAVE(64)) // "Entrance to base secured."
+	show_hudmsg(CHR_BOND, L_CAVE(64)) // "Entrance to base secured."
 	set_stage_flag(STAGEFLAG_ENTERED_BASE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

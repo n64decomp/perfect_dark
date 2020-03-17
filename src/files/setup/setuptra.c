@@ -1300,7 +1300,7 @@ u8 func0413_jonathan_hangar[] = {
 	open_door(0x2d)
 	set_object_flag(0x2c, OBJFLAG_40000000)
 	set_object_flag(0x2d, OBJFLAG_40000000)
-	message(CHR_P1P2, L_TRA(39)) // "Inner hangar door is opening."
+	show_hudmsg(CHR_P1P2, L_TRA(39)) // "Inner hangar door is opening."
 
 	label(0x32)
 	set_self_flag_bankx(CHRFLAG0_00004000, BANK_0)
@@ -1326,7 +1326,7 @@ u8 func0413_jonathan_hangar[] = {
 	open_door(0x2f)
 	set_object_flag(0x2e, OBJFLAG_40000000)
 	set_object_flag(0x2f, OBJFLAG_40000000)
-	message(CHR_P1P2, L_TRA(37)) // "Outer hangar door is opening."
+	show_hudmsg(CHR_P1P2, L_TRA(37)) // "Outer hangar door is opening."
 
 	beginloop(0x20)
 		set_ailist(CHR_SELF, AILIST_JONATHAN_AFTER_TERMINALS)
@@ -1858,7 +1858,7 @@ u8 func100a_check_hangar_accessed[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_ENTERED_HANGAR)
-	message(CHR_P1P2, L_TRA(31)) // "The secret hangar has been located."
+	show_hudmsg(CHR_P1P2, L_TRA(31)) // "The secret hangar has been located."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1886,7 +1886,7 @@ u8 func100b_check_jonathan_dead[] = {
 
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_STARTED_OUTRO, TRUE, /*goto*/ 0x32)
-	message(CHR_BOND, L_TRA(29)) // "Jonathan has been killed."
+	show_hudmsg(CHR_BOND, L_TRA(29)) // "Jonathan has been killed."
 	set_stage_flag(STAGEFLAG_JON_DEAD)
 
 	label(0x32)
@@ -1911,7 +1911,7 @@ u8 func100c_medpack_activation[] = {
 
 	label(0x32)
 	set_stage_flag(STAGEFLAG_MEDPACK_STARTED)
-	message(CHR_P1P2, L_TRA(33)) // "Alien medpack activated."
+	show_hudmsg(CHR_P1P2, L_TRA(33)) // "Alien medpack activated."
 	assign_sound(0x814c, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_HOVERBED, TRUE)
 	restart_timer
@@ -1934,7 +1934,7 @@ u8 func100c_medpack_activation[] = {
 	mute_channel(CHANNEL_7)
 	assign_sound(0x814e, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, 0x00, TRUE)
-	message(CHR_P1P2, L_TRA(35)) // "Alien medpack has been administered."
+	show_hudmsg(CHR_P1P2, L_TRA(35)) // "Alien medpack has been administered."
 	yield
 
 	beginloop(0x0c)
@@ -2040,13 +2040,13 @@ u8 func100f_terminals[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_TERMINAL1, TRUE)
 		if_stage_flag_eq(STAGEFLAG_HANGAR_X_MUSIC_STARTED, TRUE, /*goto*/ 0x32)
-		message(CHR_P1P2, L_TRA(80)) // "Console is not active."
+		show_hudmsg(CHR_P1P2, L_TRA(80)) // "Console is not active."
 		goto_next(0x0f)
 
 		// Terminal 1 active
 		label(0x32)
 		if_stage_flag_eq(STAGEFLAG_INNER_DOOR_OPENING, TRUE, /*goto*/ 0x0f)
-		message(CHR_P1P2, L_TRA(39)) // "Inner hangar door is opening."
+		show_hudmsg(CHR_P1P2, L_TRA(39)) // "Inner hangar door is opening."
 		if_stage_flag_eq(STAGEFLAG_HANGAR_X_MUSIC_STARTED, FALSE, /*goto*/ 0x32)
 		set_stage_flag(STAGEFLAG_INNER_DOOR_OPENING)
 		label(0x32)
@@ -2061,13 +2061,13 @@ u8 func100f_terminals[] = {
 		assign_sound(0x043a, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_TERMINAL2, TRUE)
 		if_stage_flag_eq(STAGEFLAG_HANGAR_X_MUSIC_STARTED, TRUE, /*goto*/ 0x32)
-		message(CHR_P1P2, L_TRA(80)) // "Console is not active."
+		show_hudmsg(CHR_P1P2, L_TRA(80)) // "Console is not active."
 		goto_next(0x0f)
 
 		// Terminal 2 active
 		label(0x32)
 		if_stage_flag_eq(STAGEFLAG_OUTER_DOOR_OPENING, TRUE, /*goto*/ 0x0f)
-		message(CHR_P1P2, L_TRA(37)) // "Outer hangar door is opening."
+		show_hudmsg(CHR_P1P2, L_TRA(37)) // "Outer hangar door is opening."
 		if_stage_flag_eq(STAGEFLAG_HANGAR_X_MUSIC_STARTED, FALSE, /*goto*/ 0x32)
 		set_stage_flag(STAGEFLAG_OUTER_DOOR_OPENING)
 		label(0x32)
@@ -2108,7 +2108,7 @@ u8 func100d_check_terminals_destroyed[] = {
 	endloop(0x04)
 
 	label(0x08)
-	message(CHR_BOND, L_TRA(36)) // "Mission critical object destroyed."
+	show_hudmsg(CHR_BOND, L_TRA(36)) // "Mission critical object destroyed."
 	set_stage_flag(STAGEFLAG_HANGAR_TERMINAL_DESTROYED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2124,7 +2124,7 @@ u8 func100e_check_elvis_dead[] = {
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_STARTED_OUTRO, TRUE, /*goto*/ 0x32)
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
-	message(CHR_BOND, L_TRA(30)) // "Elvis has been killed."
+	show_hudmsg(CHR_BOND, L_TRA(30)) // "Elvis has been killed."
 	label(0x32)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2359,7 +2359,7 @@ u8 func1017_check_both_hangar_doors_open[] = {
 	endloop(0x04)
 
 	label(0x32)
-	message(CHR_BOND, L_TRA(53)) // "The hangar doors are now open."
+	show_hudmsg(CHR_BOND, L_TRA(53)) // "The hangar doors are now open."
 	set_stage_flag(STAGEFLAG_BOTH_HANGAR_DOORS_OPEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3292,7 +3292,7 @@ u8 func101a_medpack_switch[] = {
 		if_object_in_good_condition(OBJ_MEDPACK_SWITCH, /*goto*/ 0x32)
 		if_difficulty_lt(DIFF_PA, /*goto*/ 0x06)
 		set_stage_flag(STAGEFLAG_MEDPACK_SWITCH_DESTROYED)
-		message(CHR_BOND, L_TRA(36)) // "Mission critical object destroyed."
+		show_hudmsg(CHR_BOND, L_TRA(36)) // "Mission critical object destroyed."
 		label(0x06)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -3303,7 +3303,7 @@ u8 func101a_medpack_switch[] = {
 	label(0x32)
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_MEDPACK_SWITCH, TRUE)
-	message(CHR_P1P2, L_TRA(54)) // "Medical containment doors unlocked."
+	show_hudmsg(CHR_P1P2, L_TRA(54)) // "Medical containment doors unlocked."
 	unlock_door(0x12, 0x40)
 	unlock_door(0x13, 0x40)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

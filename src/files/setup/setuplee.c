@@ -552,7 +552,7 @@ u8 func1019_check_shields_lowered[] = {
 		if_object_in_good_condition(OBJ_SHIELDCONSOLE1, /*goto*/ 0x06)
 		if_object_in_good_condition(OBJ_SHIELDCONSOLE2, /*goto*/ 0x06)
 		if_object_in_good_condition(OBJ_SHIELDCONSOLE3, /*goto*/ 0x06)
-		message(CHR_BOND, L_LEE(10)) // "Ship's shields have been lowered."
+		show_hudmsg(CHR_BOND, L_LEE(10)) // "Ship's shields have been lowered."
 		set_stage_flag(STAGEFLAG_SHIELDS_DISABLED)
 		if_difficulty_lt(DIFF_PA, /*goto*/ 0x09)
 		restart_timer
@@ -587,7 +587,7 @@ u8 func1004_check_hangar_doors_opened[] = {
 		if_object_in_good_condition(OBJ_HANGARDOORCONSOLE, /*goto*/ 0x2d)
 
 		// Console destroyed
-		message(CHR_BOND, L_LEE(48)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_LEE(48)) // "Critical mission object destroyed."
 		set_stage_flag(STAGEFLAG_HANGAR_DOOR_CONSOLE_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -603,7 +603,7 @@ u8 func1004_check_hangar_doors_opened[] = {
 		// Console activated
 		label(0x06)
 		if_stage_flag_eq(STAGEFLAG_SHIELDS_DISABLED, TRUE, /*goto*/ 0x2c)
-		message(CHR_BOND, L_LEE(47)) // "Hangar doors locked - shields still active."
+		show_hudmsg(CHR_BOND, L_LEE(47)) // "Hangar doors locked - shields still active."
 		restart_timer
 
 		beginloop(0x65)
@@ -615,7 +615,7 @@ u8 func1004_check_hangar_doors_opened[] = {
 
 	// PA - console activated after shields disabled
 	label(0x2c)
-	message(CHR_P1P2, L_LEE(11)) // "Hangar doors have been opened."
+	show_hudmsg(CHR_P1P2, L_LEE(11)) // "Hangar doors have been opened."
 	set_stage_flag(STAGEFLAG_HANGAR_DOORS_OPEN)
 
 	// A and SA once shields disabled, or follow through from above
@@ -757,7 +757,7 @@ u8 func040e_elvis_give_ar34[] = {
 	label(0x06)
 	speak(CHR_P1P2, L_LEE(20), 0x12e2, CHANNEL_6, COLOR_04_ORANGE) // "Take this - you should find it useful..."
 	give_object_to_chr(OBJ_AR34, CHR_PRESET)
-	message(CHR_PRESET, L_LEE(21)) // "Received AR34 assault rifle."
+	show_hudmsg(CHR_PRESET, L_LEE(21)) // "Received AR34 assault rifle."
 	restart_timer
 
 	beginloop(0x0d)
@@ -914,7 +914,7 @@ u8 func0409_elvis_follow[] = {
 
 	label(0x06)
 	do_preset_animation(-1)
-	message(CHR_BOND, L_LEE(13)) // "Navigational information has been retrieved."
+	show_hudmsg(CHR_BOND, L_LEE(13)) // "Navigational information has been retrieved."
 	speak(CHR_PRESET, L_LEE(31), 0x12e4, CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards..."
 	restart_timer
 	set_stage_flag(STAGEFLAG_NAVIGATION_ROOM_DONE)
@@ -1103,7 +1103,7 @@ u8 func1005_check_elvis_dead[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	message(CHR_BOND, L_LEE(12)) // "Elvis has been killed."
+	show_hudmsg(CHR_BOND, L_LEE(12)) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1801,7 +1801,7 @@ u8 func0419_hangar_maian[] = {
 	endloop(0x10)
 
 	label(0x06)
-	message(CHR_BOND, L_LEE(13)) // "Navigational information has been retrieved."
+	show_hudmsg(CHR_BOND, L_LEE(13)) // "Navigational information has been retrieved."
 	set_stage_flag(STAGEFLAG_NAVIGATION_ROOM_DONE)
 	goto_first(0x03)
 
@@ -1943,7 +1943,7 @@ u8 func100c_engineroom[] = {
 	destroy_object(0x1e)
 	destroy_object(0x1f)
 	destroy_object(0x20)
-	message(CHR_BOND, L_LEE(23)) // "Engines have been disabled."
+	show_hudmsg(CHR_BOND, L_LEE(23)) // "Engines have been disabled."
 	set_stage_flag(STAGEFLAG_ENGINES_DESTROYED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2469,7 +2469,7 @@ u8 func1010_check_bridge_captured[] = {
 	goto_first(0x09)
 
 	label(0x2c)
-	message(CHR_BOND, L_LEE(25)) // "Bridge has been captured."
+	show_hudmsg(CHR_BOND, L_LEE(25)) // "Bridge has been captured."
 	set_stage_flag(STAGEFLAG_BRIDGE_CAPTURED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3547,7 +3547,7 @@ u8 func1021_check_ammo_wasted[] = {
 	// Ammo wasted
 	label(0x2c)
 	set_stage_flag(STAGEFLAG_AMMO_WASTED)
-	message(CHR_BOND, L_LEE(49)) // "Ammo depleted - consoles can't be destroyed."
+	show_hudmsg(CHR_BOND, L_LEE(49)) // "Ammo depleted - consoles can't be destroyed."
 
 	beginloop(0x66)
 		if_stage_flag_eq(STAGEFLAG_SHIELDS_DISABLED, TRUE, /*goto*/ 0x2c)

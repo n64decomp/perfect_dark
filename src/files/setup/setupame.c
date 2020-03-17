@@ -2002,23 +2002,23 @@ u8 func100e_check_ecm_mines[] = {
 
 		label(0x08)
 		reset_timer
-		message(CHR_BOND, L_AME(29)) // "ECM Mine placed correctly."
+		show_hudmsg(CHR_BOND, L_AME(29)) // "ECM Mine placed correctly."
 		yield
 		mute_channel(CHANNEL_0)
 		assign_sound(0x8113, CHANNEL_0)
 		control_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, TRUE)
-		message(CHR_BOND, L_AME(76)) // "Internal security system temporarily disabled."
+		show_hudmsg(CHR_BOND, L_AME(76)) // "Internal security system temporarily disabled."
 		set_stage_flag(STAGEFLAG_SECURITYHUB_COMPLETE)
 		reloop(0x00)
 
 		label(0x0a)
 		reset_timer
-		message(CHR_BOND, L_AME(29)) // "ECM Mine placed correctly."
+		show_hudmsg(CHR_BOND, L_AME(29)) // "ECM Mine placed correctly."
 		yield
 		mute_channel(CHANNEL_1)
 		assign_sound(0x8113, CHANNEL_1)
 		control_sound_from_object(CHANNEL_1, OBJ_EXTCOMMSHUB, TRUE)
-		message(CHR_BOND, L_AME(77)) // "External communications hub disabled."
+		show_hudmsg(CHR_BOND, L_AME(77)) // "External communications hub disabled."
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_COMPLETE)
 		reloop(0x00)
 
@@ -2087,13 +2087,13 @@ u8 func100e_check_ecm_mines[] = {
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_MINES_WASTED)
 
 		label(0x8c)
-		message(CHR_BOND, L_AME(28)) // "Badly placed ECM Mine."
+		show_hudmsg(CHR_BOND, L_AME(28)) // "Badly placed ECM Mine."
 		reloop(0x00)
 
 		// Mines wasted with both hubs remaining
 		label(0x8d)
-		message(CHR_BOND, L_AME(28)) // "Badly placed ECM Mine."
-		message(CHR_BOND, L_AME(32)) // "CANNOT complete all objectives."
+		show_hudmsg(CHR_BOND, L_AME(28)) // "Badly placed ECM Mine."
+		show_hudmsg(CHR_BOND, L_AME(32)) // "CANNOT complete all objectives."
 		set_stage_flag(STAGEFLAG_SECURITYHUB_MINES_WASTED)
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_MINES_WASTED)
 		reloop(0x00)
@@ -2118,7 +2118,7 @@ u8 func1004_check_lab_lift_located[] = {
 
 		label(0x2c)
 		if_stage_flag_eq(STAGEFLAG_LAB_LIFT_LOCATED, TRUE, /*goto*/ 0x2c)
-		message(CHR_P1P2, L_AME(78)) // "Laboratory lift located."
+		show_hudmsg(CHR_P1P2, L_AME(78)) // "Laboratory lift located."
 		set_stage_flag(STAGEFLAG_LAB_LIFT_LOCATED)
 		label(0x2c)
 		yield
@@ -2157,7 +2157,7 @@ u8 func1006_check_programmer_dead[] = {
 
 	label(0x2c)
 	if_stage_flag_eq(STAGEFLAG_PROGRAMMER_LOGGED_IN, TRUE, /*goto*/ 0x06)
-	message(CHR_BOND, L_AME(57)) // "Critical mission personnel killed."
+	show_hudmsg(CHR_BOND, L_AME(57)) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_PROGRAMMER_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2188,7 +2188,7 @@ u8 func1007_uplinking[] = {
 
 		label(0xc0)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_DATAUPLINK, /*goto*/ 0x2c)
-		message(CHR_TARGET, L_AME(49)) // "Unable to download - Data Uplink needed."
+		show_hudmsg(CHR_TARGET, L_AME(49)) // "Unable to download - Data Uplink needed."
 		call_rng
 		if_rand_lt(60, /*goto*/ 0x0d)
 		if_rand_lt(120, /*goto*/ 0x0e)
@@ -2222,7 +2222,7 @@ u8 func1007_uplinking[] = {
 		label(0x2c)
 		if_stage_flag_eq(STAGEFLAG_PROGRAMMER_LOGGED_IN, TRUE, /*goto*/ 0xae)
 		restart_timer
-		message(CHR_TARGET, L_AME(46)) // "ACCESS DENIED - password needed."
+		show_hudmsg(CHR_TARGET, L_AME(46)) // "ACCESS DENIED - password needed."
 		assign_sound(0x01c0, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_PC, FALSE)
 
@@ -2235,7 +2235,7 @@ u8 func1007_uplinking[] = {
 		goto_first(0x04)
 
 		label(0xae)
-		message(CHR_TARGET, L_AME(44)) // "File download initiated."
+		show_hudmsg(CHR_TARGET, L_AME(44)) // "File download initiated."
 		assign_sound(0x01bf, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_PC, TRUE)
 		restart_timer
@@ -2251,13 +2251,13 @@ u8 func1007_uplinking[] = {
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c1, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_PC, TRUE)
-		message(CHR_TARGET, L_AME(45)) // "File download completed."
+		show_hudmsg(CHR_TARGET, L_AME(45)) // "File download completed."
 		yield
 		set_stage_flag(STAGEFLAG_DOWNLOAD_COMPLETE)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2c)
-		message(CHR_TARGET, L_AME(74)) // "Datalink broken - connection terminated."
+		show_hudmsg(CHR_TARGET, L_AME(74)) // "Datalink broken - connection terminated."
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c0, CHANNEL_6)
 		play_sound_from_object(CHANNEL_6, OBJ_PC, 0x012c, 0x0190)
@@ -2272,7 +2272,7 @@ u8 func1007_uplinking[] = {
 		reloop(0x04)
 
 		label(0x12)
-		message(CHR_TARGET, L_AME(75)) // "Datalink error - incomplete file download."
+		show_hudmsg(CHR_TARGET, L_AME(75)) // "Datalink error - incomplete file download."
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c0, CHANNEL_6)
 		play_sound_from_object(CHANNEL_6, OBJ_PC, 0x012c, 0x0190)
@@ -2309,7 +2309,7 @@ u8 func1008_doorswitch[] = {
 
 	label(0x2c)
 	play_sound(0x00ba, -1)
-	message(CHR_P1P2, L_AME(47)) // "Door unlocked."
+	show_hudmsg(CHR_P1P2, L_AME(47)) // "Door unlocked."
 	set_stage_flag(STAGEFLAG_OFFICE_DOOR_UNLOCKED)
 	unlock_door(OBJ_OFFICEDOOR1, 0x01)
 	unlock_door(OBJ_OFFICEDOOR2, 0x01)
@@ -2337,12 +2337,12 @@ u8 func1009_check_civilians_killed[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	message(CHR_BOND, L_AME(55)) // "Unacceptable civilian casualties."
+	show_hudmsg(CHR_BOND, L_AME(55)) // "Unacceptable civilian casualties."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x09)
-	message(CHR_BOND, L_AME(57)) // "Critical mission personnel killed."
+	show_hudmsg(CHR_BOND, L_AME(57)) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_CIVILIANS_KILLED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2437,7 +2437,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_object_in_good_condition(OBJ_SECURITYHUB, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_SECURITYHUB_DESTROYED)
 		mute_channel(CHANNEL_0)
-		message(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
 
 		// PA only - check door switch
 		label(0x2c)
@@ -2446,7 +2446,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_DOORSWITCH_DESTROYED, TRUE, /*goto*/ 0x2c)
 		if_object_in_good_condition(OBJ_DOORSWITCH, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_DOORSWITCH_DESTROYED)
-		message(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
 
 		// PA only - check PC
 		label(0x2c)
@@ -2456,7 +2456,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_objective_failed(2, /*goto*/ 0x2c)
 		if_object_in_good_condition(OBJ_PC, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_PC_DESTROYED)
-		message(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
 
 		// Check comms hub
 		label(0x2c)
@@ -2464,7 +2464,7 @@ u8 func100d_check_objects_destroyed[] = {
 		if_object_in_good_condition(OBJ_EXTCOMMSHUB, /*goto*/ 0x2c)
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_DESTROYED)
 		mute_channel(CHANNEL_1)
-		message(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_AME(54)) // "Critical mission object destroyed."
 		label(0x2c)
 	endloop(0x04)
 
@@ -3289,7 +3289,7 @@ u8 func1011_check_hubs_activated[] = {
 		reloop(0x04)
 
 		label(0x08)
-		message(CHR_BOND, L_AME(80)) // "ECM Mine needed to disable security hub."
+		show_hudmsg(CHR_BOND, L_AME(80)) // "ECM Mine needed to disable security hub."
 		restart_timer
 
 		beginloop(0x09)
@@ -3297,7 +3297,7 @@ u8 func1011_check_hubs_activated[] = {
 		endloop(0x09)
 
 		label(0x0a)
-		message(CHR_BOND, L_AME(81)) // "ECM Mine needed to disable comms hub."
+		show_hudmsg(CHR_BOND, L_AME(81)) // "ECM Mine needed to disable comms hub."
 		restart_timer
 
 		beginloop(0x0b)
@@ -3669,7 +3669,7 @@ u8 func101d_disable_cameras[] = {
 	unset_object_flag(OBJ_CAMERA6, OBJFLAG_DEACTIVATED)
 
 	label(0x06)
-	message(CHR_BOND, L_AME(97)) // "Security system is now back online."
+	show_hudmsg(CHR_BOND, L_AME(97)) // "Security system is now back online."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3678,7 +3678,7 @@ u8 func101d_disable_cameras[] = {
  * @unregistered
  */
 u8 unregistered_function7[] = {
-	message(CHR_BOND, L_AME(99)) // "2023 AD, 2214 Hours Lucerne Tower - dataDyne HQ"
+	show_hudmsg(CHR_BOND, L_AME(99)) // "2023 AD, 2214 Hours Lucerne Tower - dataDyne HQ"
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

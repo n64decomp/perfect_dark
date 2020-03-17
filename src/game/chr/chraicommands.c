@@ -4733,7 +4733,7 @@ glabel aiDuplicateChr
 /**
  * @cmd 00cb
  */
-bool aiMessage(void)
+bool aiShowHudmsg(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	char *text = langGet(cmd[4] | (cmd[3] << 8));
@@ -4747,7 +4747,7 @@ bool aiMessage(void)
 	}
 
 	setCurrentPlayerNum(playernum);
-	currentPlayerQueueMessage(text, 0);
+	hudmsgCreateViaPreset(text, 0);
 	setCurrentPlayerNum(prevplayernum);
 
 	g_Vars.aioffset += 5;
@@ -4758,21 +4758,18 @@ bool aiMessage(void)
 /**
  * @cmd 01a4
  */
-bool aiShowText(void)
+bool aiShowHudmsgMiddle(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-
-	// cmd[2] = prop
-	// cmd[3] = color
 
 	if (cmd[2] == 0) {
 		u32 text_id = cmd[5] | (cmd[4] << 8);
 		char *text = langGet(text_id);
-		func0f0de034(text, 7, cmd[3]);
+		hudmsgCreateViaPresetWithColour(text, 7, cmd[3]);
 	} else if (cmd[2] == 1) {
 		u32 text_id = cmd[5] | (cmd[4] << 8);
 		char *text = langGet(text_id);
-		func0f0de034(text, 8, cmd[3]);
+		hudmsgCreateViaPresetWithColour(text, 8, cmd[3]);
 	} else {
 		hudmsgRemoveAll();
 	}
@@ -4785,7 +4782,7 @@ bool aiShowText(void)
 /**
  * @cmd 00cc
  */
-bool aiShowText2(void)
+bool aiShowHudmsgTopMiddle(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	char *text = langGet(cmd[4] | (cmd[3] << 8));
@@ -4799,7 +4796,7 @@ bool aiShowText2(void)
 	}
 
 	setCurrentPlayerNum(playernum);
-	func0f0de034(text, 6, cmd[5]);
+	hudmsgCreateViaPresetWithColour(text, 6, cmd[5]);
 	setCurrentPlayerNum(prevplayernum);
 
 	g_Vars.aioffset += 6;
@@ -7941,7 +7938,7 @@ glabel aiSayQuip
 /*  f05a8a0:	8fa40080 */ 	lw	$a0,0x80($sp)
 /*  f05a8a4:	8fae009c */ 	lw	$t6,0x9c($sp)
 /*  f05a8a8:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f05a8ac:	0fc3780d */ 	jal	func0f0de034
+/*  f05a8ac:	0fc3780d */ 	jal	hudmsgCreateViaPresetWithColour
 /*  f05a8b0:	91c60009 */ 	lbu	$a2,0x9($t6)
 /*  f05a8b4:	100000be */ 	beqz	$zero,.L0f05abb0
 /*  f05a8b8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -7964,7 +7961,7 @@ glabel aiSayQuip
 /*  f05a8f8:	8fa40080 */ 	lw	$a0,0x80($sp)
 /*  f05a8fc:	8fac009c */ 	lw	$t4,0x9c($sp)
 /*  f05a900:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f05a904:	0fc3780d */ 	jal	func0f0de034
+/*  f05a904:	0fc3780d */ 	jal	hudmsgCreateViaPresetWithColour
 /*  f05a908:	91860009 */ 	lbu	$a2,0x9($t4)
 /*  f05a90c:	100000a8 */ 	beqz	$zero,.L0f05abb0
 /*  f05a910:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8132,7 +8129,7 @@ glabel aiSayQuip
 /*  f05ab6c:	8fa40080 */ 	lw	$a0,0x80($sp)
 /*  f05ab70:	8fab009c */ 	lw	$t3,0x9c($sp)
 /*  f05ab74:	24050006 */ 	addiu	$a1,$zero,0x6
-/*  f05ab78:	0fc3780d */ 	jal	func0f0de034
+/*  f05ab78:	0fc3780d */ 	jal	hudmsgCreateViaPresetWithColour
 /*  f05ab7c:	91660009 */ 	lbu	$a2,0x9($t3)
 /*  f05ab80:	1000000b */ 	beqz	$zero,.L0f05abb0
 /*  f05ab84:	00000000 */ 	sll	$zero,$zero,0x0
@@ -8339,14 +8336,14 @@ glabel aiSayQuip
 //
 //					if (!audioIsFiltered(audioid)) {
 //						// 8ac
-//						func0f0de034(text, 6, cmd[9]);
+//						hudmsgCreateViaPresetWithColour(text, 6, cmd[9]);
 //					}
 //				} else if (cmd[8]) {
 //					text = langGet(g_QuipTexts[cmd[8] - 1][1 + g_Vars.chrdata->tude]);
 //
 //					if (!audioIsFiltered(audioid)) {
 //						// 904
-//						func0f0de034(text, 6, cmd[9]);
+//						hudmsgCreateViaPresetWithColour(text, 6, cmd[9]);
 //					}
 //				}
 //			} else {
@@ -8398,7 +8395,7 @@ glabel aiSayQuip
 //
 //						if (!audioIsFiltered(audioid)) {
 //							// b78
-//							func0f0de034(text, 6, cmd[9]);
+//							hudmsgCreateViaPresetWithColour(text, 6, cmd[9]);
 //						}
 //					}
 //				} else {

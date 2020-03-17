@@ -935,25 +935,25 @@ u8 func140e_check_interceptors_destroyed[] = {
 		if_object_in_good_condition(OBJ_INTERCEPTOR1, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR1_DESTROYED, TRUE, /*goto*/ 0x2e)
 		set_stage_flag(STAGEFLAG_INTERCEPTOR1_DESTROYED)
-		message(CHR_BOND, L_LUE(19)) // "Robot interceptor disabled."
+		show_hudmsg(CHR_BOND, L_LUE(19)) // "Robot interceptor disabled."
 
 		label(0x2e)
 		if_object_in_good_condition(OBJ_INTERCEPTOR2, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR2_DESTROYED, TRUE, /*goto*/ 0x2e)
 		set_stage_flag(STAGEFLAG_INTERCEPTOR2_DESTROYED)
-		message(CHR_BOND, L_LUE(19)) // "Robot interceptor disabled."
+		show_hudmsg(CHR_BOND, L_LUE(19)) // "Robot interceptor disabled."
 
 		label(0x2e)
 		if_object_in_good_condition(OBJ_INTERCEPTOR3, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR3_DESTROYED, TRUE, /*goto*/ 0x2e)
 		set_stage_flag(STAGEFLAG_INTERCEPTOR3_DESTROYED)
-		message(CHR_BOND, L_LUE(19)) // "Robot interceptor disabled."
+		show_hudmsg(CHR_BOND, L_LUE(19)) // "Robot interceptor disabled."
 
 		label(0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR1_DESTROYED, FALSE, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR2_DESTROYED, FALSE, /*goto*/ 0x2e)
 		if_stage_flag_eq(STAGEFLAG_INTERCEPTOR3_DESTROYED, FALSE, /*goto*/ 0x2e)
-		message(CHR_BOND, L_LUE(20)) // "All robot interceptors disabled."
+		show_hudmsg(CHR_BOND, L_LUE(20)) // "All robot interceptors disabled."
 
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2e)
@@ -979,7 +979,7 @@ u8 func100c_maingate_switch[] = {
 		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
 		set_object_image(OBJ_MAINGATE_SWITCH, 0x00, 0x13)
 		if_door_state(OBJ_MAINGATE1, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
-		message(CHR_P1P2, L_LUE(43)) // "Main gate has been opened."
+		show_hudmsg(CHR_P1P2, L_LUE(43)) // "Main gate has been opened."
 		open_door(OBJ_MAINGATE1)
 		open_door(OBJ_MAINGATE2)
 		restart_timer
@@ -995,7 +995,7 @@ u8 func100c_maingate_switch[] = {
 		assign_sound(0x043f, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
 		set_object_image(OBJ_MAINGATE_SWITCH, 0x00, 0x12)
-		message(CHR_P1P2, L_LUE(44)) // "Main gate has been closed."
+		show_hudmsg(CHR_P1P2, L_LUE(44)) // "Main gate has been closed."
 		close_door(OBJ_MAINGATE1)
 		close_door(OBJ_MAINGATE2)
 		restart_timer
@@ -1048,7 +1048,7 @@ u8 func1400_give_bugs[] = {
  \
 	label(0x0a) \
 	set_stage_flag(STAGEFLAG_COMMSBUG_PLACED) \
-	message(chr, 0x2c1a) /* "Communications bug placed correctly." */ \
+	show_hudmsg(chr, 0x2c1a) /* "Communications bug placed correctly." */ \
 	set_ailist(CHR_SELF, GAILIST_IDLE) \
  \
 	label(0x0b) \
@@ -1058,7 +1058,7 @@ u8 func1400_give_bugs[] = {
  \
 	label(0x2e) \
 	set_stage_flag(STAGEFLAG_COMMSBUG_MISPLACED) \
-	message(chr, 0x2c1b) /* "Communications bug placed incorrectly." */ \
+	show_hudmsg(chr, 0x2c1b) /* "Communications bug placed incorrectly." */ \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 
@@ -1094,7 +1094,7 @@ u8 func1023_check_bug_wasted_coop[] = {
 u8 func1004_check_antenna_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_ANTENNA, /*goto*/ 0x2e)
-		message(CHR_BOND, L_LUE(28)) // "Antenna has been destroyed."
+		show_hudmsg(CHR_BOND, L_LUE(28)) // "Antenna has been destroyed."
 		set_stage_flag(STAGEFLAG_ANTENNA_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2e)
@@ -1117,7 +1117,7 @@ u8 func1405_antenna_switch[] = {
 		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, 0x00cd, 0x00, 0x02)
 		set_object_image(OBJ_ANTENNA_SWITCH, 0x00, 0x12)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
-		message(CHR_P1P2, L_LUE(30)) // "Antenna lowered."
+		show_hudmsg(CHR_P1P2, L_LUE(30)) // "Antenna lowered."
 		set_stage_flag(STAGEFLAG_ANTENNA_LOWERED)
 		restart_timer
 
@@ -1141,7 +1141,7 @@ u8 func1405_antenna_switch[] = {
 		set_object_image(OBJ_ANTENNA_SWITCH, 0x00, 0x13)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		unset_stage_flag(STAGEFLAG_ANTENNA_LOWERED)
-		message(CHR_P1P2, L_LUE(29)) // "Antenna raised."
+		show_hudmsg(CHR_P1P2, L_LUE(29)) // "Antenna raised."
 		restart_timer
 
 		beginloop(0x0a)
@@ -1172,7 +1172,7 @@ u8 func1006_lift_switches[] = {
 		assign_sound(0x043f, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_LIFT1_SWITCH, 0x012c, 0x0190, 0x00)
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2e)
-		message(CHR_P1P2, L_LUE(36)) // "Lift access denied - key card needed."
+		show_hudmsg(CHR_P1P2, L_LUE(36)) // "Lift access denied - key card needed."
 		goto_next(0x0b)
 
 		label(0x2e)
@@ -1183,18 +1183,18 @@ u8 func1006_lift_switches[] = {
 		open_door(0x38)
 		unlock_door(0x0e, 0x02)
 		unlock_door(0x38, 0x02)
-		message(CHR_P1P2, L_LUE(37)) // "Key card accepted - lift operational."
+		show_hudmsg(CHR_P1P2, L_LUE(37)) // "Key card accepted - lift operational."
 		goto_next(0x0b)
 
 		label(0x06)
-		message(CHR_P1P2, L_LUE(38)) // "Lift is fully operational."
+		show_hudmsg(CHR_P1P2, L_LUE(38)) // "Lift is fully operational."
 		goto_next(0x0b)
 
 		label(0x0a)
 		assign_sound(0x043f, CHANNEL_7)
 		play_sound_from_entity(CHANNEL_7, OBJ_LIFT2_SWITCH, 0x012c, 0x0190, 0x00)
 		if_chr_has_object(CHR_BOND, OBJ_KEYCARD, /*goto*/ 0x2e)
-		message(CHR_P1P2, L_LUE(36)) // "Lift access denied - key card needed."
+		show_hudmsg(CHR_P1P2, L_LUE(36)) // "Lift access denied - key card needed."
 		goto_next(0x0b)
 
 		label(0x2e)
@@ -1207,11 +1207,11 @@ u8 func1006_lift_switches[] = {
 		yield
 		unlock_door(0x0f, 0x02)
 		unlock_door(0x39, 0x02)
-		message(CHR_P1P2, L_LUE(37)) // "Key card accepted - lift operational."
+		show_hudmsg(CHR_P1P2, L_LUE(37)) // "Key card accepted - lift operational."
 		goto_next(0x0b)
 
 		label(0x06)
-		message(CHR_P1P2, L_LUE(38)) // "Lift is fully operational."
+		show_hudmsg(CHR_P1P2, L_LUE(38)) // "Lift is fully operational."
 		goto_next(0x0b)
 
 		label(0x0b)
@@ -1236,7 +1236,7 @@ u8 func1007_check_hangar_accessed[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_HANGAR_ACCESSED)
-	message(CHR_P1P2, L_LUE(39)) // "Hangar has been accessed."
+	show_hudmsg(CHR_P1P2, L_LUE(39)) // "Hangar has been accessed."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1253,7 +1253,7 @@ u8 func1008_check_end_level[] = {
 	endloop(0x09)
 
 	label(0x06)
-	message(CHR_P1P2, L_LUE(40)) // "Met up with CI agent."
+	show_hudmsg(CHR_P1P2, L_LUE(40)) // "Met up with CI agent."
 	set_stage_flag(STAGEFLAG_MET_JON)
 	yield
 	yield
@@ -1287,7 +1287,7 @@ u8 func1009_check_radar_shut_down[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_BOND, L_LUE(41)) // "Air intercept radar shut down."
+	show_hudmsg(CHR_BOND, L_LUE(41)) // "Air intercept radar shut down."
 	mute_channel(CHANNEL_0)
 	set_stage_flag(STAGEFLAG_RADAR_SHUT_DOWN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2370,12 +2370,12 @@ u8 func1011_bunker_explosives[] = {
 
 		label(0x2e)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_EXPLOSIVES, /*goto*/ 0x2e)
-		message(CHR_P1P2, L_LUE(45)) // "Access denied."
+		show_hudmsg(CHR_P1P2, L_LUE(45)) // "Access denied."
 	goto_first(0x04)
 
 	label(0x2e)
 	unset_object_flag2(OBJ_EXPLOSIVE_BRICK, OBJFLAG2_INVISIBLE)
-	message(CHR_P1P2, L_LUE(46)) // "Explosive has been placed."
+	show_hudmsg(CHR_P1P2, L_LUE(46)) // "Explosive has been placed."
 	remove_weapon_from_inventory(WEAPON_EXPLOSIVES)
 	set_stage_flag(STAGEFLAG_EXPLOSIVES_PLACED)
 	restart_timer
@@ -2389,12 +2389,12 @@ u8 func1011_bunker_explosives[] = {
 	set_countdown_timer(20)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2e)
 	if_stage_flag_eq(STAGEFLAG_ANY_LASER_DESTROYED, TRUE, /*goto*/ 0x06)
-	message(CHR_P1P2, L_LUE(47)) // "Intruder detected - security system online."
+	show_hudmsg(CHR_P1P2, L_LUE(47)) // "Intruder detected - security system online."
 	goto_next(0x06)
 
 	// Agent
 	label(0x2e)
-	message(CHR_P1P2, L_LUE(75)) // "Foreign object detected - security alerted."
+	show_hudmsg(CHR_P1P2, L_LUE(75)) // "Foreign object detected - security alerted."
 	label(0x06)
 	play_x_music(CHANNEL_10, 20)
 	yield
@@ -2969,7 +2969,7 @@ u8 func1022_check_lift_switches_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_LIFT2_CALLED, TRUE, /*goto*/ 0x06)
 		if_object_in_good_condition(OBJ_LIFT1_SWITCH, /*goto*/ 0x2e)
 		if_object_in_good_condition(OBJ_LIFT2_SWITCH, /*goto*/ 0x2e)
-		message(CHR_BOND, L_LUE(57)) // "Lift access terminals destroyed."
+		show_hudmsg(CHR_BOND, L_LUE(57)) // "Lift access terminals destroyed."
 		set_stage_flag(STAGEFLAG_LIFT_SWITCHES_DESTROYED)
 		goto_next(0x06)
 
@@ -3164,7 +3164,7 @@ u8 func0424_activate_lasers[] = {
 	if_stage_flag_eq(STAGEFLAG_ANY_LASER_DESTROYED, TRUE, /*goto*/ 0x2e)
 	set_stage_flag(STAGEFLAG_ANY_LASER_DESTROYED)
 	if_stage_flag_eq(STAGEFLAG_EXPLOSIVES_PLACED, TRUE, /*goto*/ 0x2e)
-	message(CHR_BOND, L_LUE(47)) // "Intruder detected - security system online."
+	show_hudmsg(CHR_BOND, L_LUE(47)) // "Intruder detected - security system online."
 
 	// A and SA
 	label(0x2e)
@@ -3205,7 +3205,7 @@ u8 func102d_check_antenna_switch_destroyed[] = {
 
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_ANTENNA_LOWERED, TRUE, /*goto*/ 0x2e)
-	message(CHR_BOND, L_LUE(42)) // "Critical mission object destroyed."
+	show_hudmsg(CHR_BOND, L_LUE(42)) // "Critical mission object destroyed."
 	set_stage_flag(STAGEFLAG_ANTENNA_DESTROYED)
 	label(0x2e)
 	label(0x0e)

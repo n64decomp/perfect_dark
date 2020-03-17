@@ -1270,9 +1270,9 @@ glabel func0f0ddeac
 /*  f0ddf18:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-void currentPlayerQueueMessage(char *text, s32 confignum)
+void hudmsgCreateViaPreset(char *text, s32 confignum)
 {
-	func0f0deebc(text, confignum,
+	hudmsgCreate(text, confignum,
 			g_HudMessageConfigs[confignum].unk00,
 			g_HudMessageConfigs[confignum].unk01,
 			g_HudMessageConfigs[confignum].unk02,
@@ -1289,7 +1289,7 @@ void currentPlayerQueueMessage(char *text, s32 confignum)
 
 void func0f0ddfa4(char *text, s32 confignum, s32 arg2)
 {
-	func0f0deebc(text, confignum,
+	hudmsgCreate(text, confignum,
 			g_HudMessageConfigs[confignum].unk00,
 			g_HudMessageConfigs[confignum].unk01,
 			g_HudMessageConfigs[confignum].unk02,
@@ -1304,11 +1304,11 @@ void func0f0ddfa4(char *text, s32 confignum, s32 arg2)
 			-1, arg2);
 }
 
-void func0f0de034(char *text, s32 confignum, u8 colournum)
+void hudmsgCreateViaPresetWithColour(char *text, s32 confignum, u8 colournum)
 {
 	g_HudMessageConfigs[confignum].colour = g_Colours[colournum];
 
-	func0f0deebc(text, confignum,
+	hudmsgCreate(text, confignum,
 			g_HudMessageConfigs[confignum].unk00,
 			g_HudMessageConfigs[confignum].unk01,
 			g_HudMessageConfigs[confignum].unk02,
@@ -1323,9 +1323,9 @@ void func0f0de034(char *text, s32 confignum, u8 colournum)
 			-1, 0);
 }
 
-void func0f0de0d4(char *text, s32 confignum, struct hudmessageconfig *config, s32 arg3)
+void hudmsgCreateViaStruct(char *text, s32 confignum, struct hudmessageconfig *config, s32 arg3)
 {
-	func0f0deebc(text, confignum,
+	hudmsgCreate(text, confignum,
 			config->unk00,
 			config->unk01,
 			config->unk02,
@@ -1656,7 +1656,7 @@ glabel func0f0de160
 /*  f0de5c4:	02c02025 */ 	or	$a0,$s6,$zero
 /*  f0de5c8:	4600328d */ 	trunc.w.s	$f10,$f6
 /*  f0de5cc:	44075000 */ 	mfc1	$a3,$f10
-/*  f0de5d0:	0fc37835 */ 	jal	func0f0de0d4
+/*  f0de5d0:	0fc37835 */ 	jal	hudmsgCreateViaStruct
 /*  f0de5d4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0de5d8:	24090072 */ 	addiu	$t1,$zero,0x72
 /*  f0de5dc:	240a0052 */ 	addiu	$t2,$zero,0x52
@@ -1682,7 +1682,7 @@ glabel func0f0de160
 /*  f0de628:	8fa504c4 */ 	lw	$a1,0x4c4($sp)
 /*  f0de62c:	4600818d */ 	trunc.w.s	$f6,$f16
 /*  f0de630:	44073000 */ 	mfc1	$a3,$f6
-/*  f0de634:	0fc37835 */ 	jal	func0f0de0d4
+/*  f0de634:	0fc37835 */ 	jal	hudmsgCreateViaStruct
 /*  f0de638:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0de63c:	24090072 */ 	addiu	$t1,$zero,0x72
 /*  f0de640:	240a0052 */ 	addiu	$t2,$zero,0x52
@@ -1733,7 +1733,7 @@ glabel func0f0de160
 /*  f0de6dc:	46049202 */ 	mul.s	$f8,$f18,$f4
 /*  f0de6e0:	4600440d */ 	trunc.w.s	$f16,$f8
 /*  f0de6e4:	44078000 */ 	mfc1	$a3,$f16
-/*  f0de6e8:	0fc37835 */ 	jal	func0f0de0d4
+/*  f0de6e8:	0fc37835 */ 	jal	hudmsgCreateViaStruct
 /*  f0de6ec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0de6f0:	1000001b */ 	beqz	$zero,.L0f0de760
 /*  f0de6f4:	8fbf006c */ 	lw	$ra,0x6c($sp)
@@ -1762,7 +1762,7 @@ glabel func0f0de160
 /*  f0de748:	860f0018 */ 	lh	$t7,0x18($s0)
 /*  f0de74c:	afa00038 */ 	sw	$zero,0x38($sp)
 /*  f0de750:	afb40034 */ 	sw	$s4,0x34($sp)
-/*  f0de754:	0fc37baf */ 	jal	func0f0deebc
+/*  f0de754:	0fc37baf */ 	jal	hudmsgCreate
 /*  f0de758:	afaf0030 */ 	sw	$t7,0x30($sp)
 .L0f0de75c:
 /*  f0de75c:	8fbf006c */ 	lw	$ra,0x6c($sp)
@@ -1800,7 +1800,7 @@ glabel func0f0de160
 /*  f0de7d8:	afaa0028 */ 	sw	$t2,0x28($sp)
 /*  f0de7dc:	afab002c */ 	sw	$t3,0x2c($sp)
 /*  f0de7e0:	afac0030 */ 	sw	$t4,0x30($sp)
-/*  f0de7e4:	0fc37baf */ 	jal	func0f0deebc
+/*  f0de7e4:	0fc37baf */ 	jal	hudmsgCreate
 /*  f0de7e8:	afad0034 */ 	sw	$t5,0x34($sp)
 /*  f0de7ec:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f0de7f0:	27bd0048 */ 	addiu	$sp,$sp,0x48
@@ -2320,7 +2320,7 @@ glabel var7f1adec0
 );
 
 GLOBAL_ASM(
-glabel func0f0deebc
+glabel hudmsgCreate
 /*  f0deebc:	27bdfe08 */ 	addiu	$sp,$sp,-504
 /*  f0deec0:	afb10024 */ 	sw	$s1,0x24($sp)
 /*  f0deec4:	24110006 */ 	addiu	$s1,$zero,0x6

@@ -1087,7 +1087,7 @@ u8 func0404_scientist[] = {
 	if_self_flag_bankx_eq(CHRFLAG0_00004000, TRUE, BANK_0, /*goto*/ 0x2f)
 	if_object_in_good_condition(OBJ_GOODTERM3, /*goto*/ 0x19)
 	say_quip(CHR_TARGET, 0x10, 0xff, 0x00, 0xff, 0x81, 0x09, 0x08)
-	display_text_top_middle(CHR_TARGET, L_EAR(44), COLOR_00_GREEN) // "It appears someone has broken my PC."
+	show_hudmsg_top_middle(CHR_TARGET, L_EAR(44), COLOR_00_GREEN) // "It appears someone has broken my PC."
 	goto_next(0x0e)
 
 	label(0x19)
@@ -1137,7 +1137,7 @@ u8 func0404_scientist[] = {
 	goto_next(0x0f)
 
 	label(0x0f)
-	message(CHR_TARGET, L_EAR(28)) // "Powering down active systems."
+	show_hudmsg(CHR_TARGET, L_EAR(28)) // "Powering down active systems."
 	speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
 	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
@@ -1146,7 +1146,7 @@ u8 func0404_scientist[] = {
 	endloop(0x0d)
 
 	label(0x06)
-	message(CHR_TARGET, L_EAR(29)) // "Experiment has been shut down."
+	show_hudmsg(CHR_TARGET, L_EAR(29)) // "Experiment has been shut down."
 	stop_chr
 
 	beginloop(0x0e)
@@ -1314,7 +1314,7 @@ u8 func1009_weaponscache[] = {
 
 	label(0x2f)
 	if_chr_has_hiddenflag(CHR_BOND, CHRHFLAG_PSYCHOSISED, /*goto*/ 0x2f)
-	message(CHR_TARGET, L_EAR(98)) // "Secret weapons compartment opened."
+	show_hudmsg(CHR_TARGET, L_EAR(98)) // "Secret weapons compartment opened."
 	play_sound(0x00f7, -1)
 	assign_sound(0x043b, CHANNEL_5)
 	control_sound_from_object(CHANNEL_5, OBJ_CMP150_1, TRUE)
@@ -1329,7 +1329,7 @@ u8 func1009_weaponscache[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2f)
-	message(CHR_TARGET, L_EAR(99)) // "Enemy detected - weapon cache locked."
+	show_hudmsg(CHR_TARGET, L_EAR(99)) // "Enemy detected - weapon cache locked."
 	play_sound(0x00f7, -1)
 	unset_stage_flag(STAGEFLAG_BOT_ACTIVE)
 	unset_stage_flag(STAGEFLAG_BOT_REPROGRAMMED)
@@ -1369,25 +1369,25 @@ u8 func1002_bot_activation_terminal[] = {
 		play_sound(0x01ca, -1)
 		assign_sound(0x01c5, CHANNEL_3)
 		play_sound_from_object(CHANNEL_3, OBJ_PURPLEBOT, 0x0258, 0x0320)
-		message(CHR_TARGET, L_EAR(15)) // "Maintenance robots activated."
+		show_hudmsg(CHR_TARGET, L_EAR(15)) // "Maintenance robots activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE)
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE_NOPROGRAM)
 		reloop(0x04)
 
 		// Activating after reprogramming
 		label(0x2f)
-		message(CHR_TARGET, L_EAR(15)) // "Maintenance robots activated."
+		show_hudmsg(CHR_TARGET, L_EAR(15)) // "Maintenance robots activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE)
 		yield
 		play_sound(0x00f7, -1)
-		message(CHR_TARGET, L_EAR(18)) // "Maintenance cycle activated."
+		show_hudmsg(CHR_TARGET, L_EAR(18)) // "Maintenance cycle activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE_MAINTENANCE)
 		reloop(0x04)
 
 		// Attempting to deactivate while bot reprogrammed and running
 		label(0x08)
 		play_sound(0x00f7, -1)
-		message(CHR_TARGET, L_EAR(20)) // "Operation not allowed - robots busy."
+		show_hudmsg(CHR_TARGET, L_EAR(20)) // "Operation not allowed - robots busy."
 		restart_timer
 
 		beginloop(0x09)
@@ -1399,7 +1399,7 @@ u8 func1002_bot_activation_terminal[] = {
 
 		// Deactivating
 		label(0x0a)
-		message(CHR_TARGET, L_EAR(21)) // "Maintenance robots deactivated."
+		show_hudmsg(CHR_TARGET, L_EAR(21)) // "Maintenance robots deactivated."
 		unset_stage_flag(STAGEFLAG_BOT_ACTIVE)
 		unset_stage_flag(STAGEFLAG_BOT_ACTIVE_CLEANING)
 		unset_stage_flag(STAGEFLAG_BOT_ACTIVE_NOPROGRAM)
@@ -1409,7 +1409,7 @@ u8 func1002_bot_activation_terminal[] = {
 
 		label(0x0b)
 		play_sound(0x00f7, -1)
-		message(CHR_TARGET, L_EAR(23)) // "Maintenance robot system offline."
+		show_hudmsg(CHR_TARGET, L_EAR(23)) // "Maintenance robot system offline."
 	endloop(0x04)
 
 	endlist
@@ -1444,7 +1444,7 @@ u8 func1003_bot_programming_terminal[] = {
 
 		// Reprogramming
 		play_sound(0x00f7, -1)
-		message(CHR_TARGET, L_EAR(16)) // "Maintenance robots reprogrammed."
+		show_hudmsg(CHR_TARGET, L_EAR(16)) // "Maintenance robots reprogrammed."
 		set_stage_flag(STAGEFLAG_BOT_REPROGRAMMED)
 		if_stage_flag_eq(STAGEFLAG_BOT_ACTIVE, TRUE, /*goto*/ 0x2f)
 		reloop(0x04)
@@ -1452,7 +1452,7 @@ u8 func1003_bot_programming_terminal[] = {
 		label(0x2f)
 		yield
 		play_sound(0x00f7, -1)
-		message(CHR_TARGET, L_EAR(19)) // "Routine cleaning cycle activated."
+		show_hudmsg(CHR_TARGET, L_EAR(19)) // "Routine cleaning cycle activated."
 		set_stage_flag(STAGEFLAG_BOT_ACTIVE_CLEANING)
 		restart_timer
 
@@ -1466,7 +1466,7 @@ u8 func1003_bot_programming_terminal[] = {
 		// Attempting to reprogram while bot already reprogrammed and running
 		label(0x09)
 		play_sound(0x00f7, -1)
-		message(CHR_TARGET, L_EAR(20)) // "Operation not allowed - robots busy."
+		show_hudmsg(CHR_TARGET, L_EAR(20)) // "Operation not allowed - robots busy."
 		restart_timer
 
 		beginloop(0x0a)
@@ -1477,7 +1477,7 @@ u8 func1003_bot_programming_terminal[] = {
 		reloop(0x04)
 
 		label(0x0b)
-		message(CHR_TARGET, L_EAR(23)) // "Maintenance robot system offline."
+		show_hudmsg(CHR_TARGET, L_EAR(23)) // "Maintenance robot system offline."
 	endloop(0x04)
 
 	endlist
@@ -1522,7 +1522,7 @@ u8 func1018_item_pickup_messages[] = {
 		goto_next(0x2f)
 
 		label(0x06)
-		message(CHR_P1P2, L_EAR(86)) // "Experimental item 1 acquired."
+		show_hudmsg(CHR_P1P2, L_EAR(86)) // "Experimental item 1 acquired."
 		set_stage_flag(STAGEFLAG_HAS_K7AVENGER)
 		label(0x2f)
 		if_stage_flag_eq(STAGEFLAG_HAS_NIGHTVISION, TRUE, /*goto*/ 0x2f)
@@ -1530,7 +1530,7 @@ u8 func1018_item_pickup_messages[] = {
 		goto_next(0x2f)
 
 		label(0x06)
-		message(CHR_P1P2, L_EAR(87)) // "Experimental item 2 acquired."
+		show_hudmsg(CHR_P1P2, L_EAR(87)) // "Experimental item 2 acquired."
 		set_stage_flag(STAGEFLAG_HAS_NIGHTVISION)
 		label(0x2f)
 		if_stage_flag_eq(STAGEFLAG_HAS_SHIELD, TRUE, /*goto*/ 0x2f)
@@ -1538,7 +1538,7 @@ u8 func1018_item_pickup_messages[] = {
 		goto_next(0x2f)
 
 		label(0x06)
-		message(CHR_P1P2, L_EAR(88)) // "Experimental item 3 acquired."
+		show_hudmsg(CHR_P1P2, L_EAR(88)) // "Experimental item 3 acquired."
 		set_stage_flag(STAGEFLAG_HAS_SHIELD)
 		label(0x2f)
 	endloop(0x04)
@@ -1600,7 +1600,7 @@ u8 func1005_check_unacceptable_casualties[] = {
 	label(0x2f)
 	label(0x0f)
 	set_stage_flag(STAGEFLAG_UNACCEPTABLE_CASUALTIES)
-	message(CHR_BOND, L_EAR(26)) // "Unacceptable scientist casualties."
+	show_hudmsg(CHR_BOND, L_EAR(26)) // "Unacceptable scientist casualties."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1640,7 +1640,7 @@ u8 func1006_terminal_activation[] = {
 		// Inactive terminal
 		label(0x2f)
 		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(CHR_TARGET, L_EAR(27)) // "Terminal is not active."
+		show_hudmsg(CHR_TARGET, L_EAR(27)) // "Terminal is not active."
 		restart_timer
 
 		beginloop(0x56)
@@ -1661,11 +1661,11 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x56)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(42)) // "Experiment already powered down."
+		show_hudmsg(CHR_TARGET, L_EAR(42)) // "Experiment already powered down."
 		reloop(0x04)
 
 		label(0x2f)
-		message(CHR_TARGET, L_EAR(28)) // "Powering down active systems."
+		show_hudmsg(CHR_TARGET, L_EAR(28)) // "Powering down active systems."
 		assign_sound(0x01c3, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM1, TRUE)
 		restart_timer
@@ -1675,7 +1675,7 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x0a)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(29)) // "Experiment has been shut down."
+		show_hudmsg(CHR_TARGET, L_EAR(29)) // "Experiment has been shut down."
 		set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT1)
 		reloop(0x04)
 
@@ -1690,11 +1690,11 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x57)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(42)) // "Experiment already powered down."
+		show_hudmsg(CHR_TARGET, L_EAR(42)) // "Experiment already powered down."
 		goto_first(0x04)
 
 		label(0x2f)
-		message(CHR_TARGET, L_EAR(28)) // "Powering down active systems."
+		show_hudmsg(CHR_TARGET, L_EAR(28)) // "Powering down active systems."
 		assign_sound(0x01c3, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM2, TRUE)
 		restart_timer
@@ -1704,7 +1704,7 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x0e)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(29)) // "Experiment has been shut down."
+		show_hudmsg(CHR_TARGET, L_EAR(29)) // "Experiment has been shut down."
 		set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT2)
 		reloop(0x04)
 
@@ -1719,11 +1719,11 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x58)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(42)) // "Experiment already powered down."
+		show_hudmsg(CHR_TARGET, L_EAR(42)) // "Experiment already powered down."
 		reloop(0x04)
 
 		label(0x2f)
-		message(CHR_TARGET, L_EAR(28)) // "Powering down active systems."
+		show_hudmsg(CHR_TARGET, L_EAR(28)) // "Powering down active systems."
 		assign_sound(0x01c3, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_GOODTERM3, TRUE)
 		restart_timer
@@ -1733,7 +1733,7 @@ u8 func1006_terminal_activation[] = {
 		endloop(0x10)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(29)) // "Experiment has been shut down."
+		show_hudmsg(CHR_TARGET, L_EAR(29)) // "Experiment has been shut down."
 		set_stage_flag(STAGEFLAG_SHUT_DOWN_EXPERIMENT3)
 		reloop(0x04)
 
@@ -1741,13 +1741,13 @@ u8 func1006_terminal_activation[] = {
 		label(0x09)
 		if_alarm_active(/*goto*/ 0x06)
 		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(CHR_TARGET, L_EAR(30)) // "Alarm activated."
+		show_hudmsg(CHR_TARGET, L_EAR(30)) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM1_ACTIVE)
 		activate_alarm
 		reloop(0x04)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(31)) // "Alarm deactivated."
+		show_hudmsg(CHR_TARGET, L_EAR(31)) // "Alarm deactivated."
 		unset_stage_flag(STAGEFLAG_ALARM1_ACTIVE)
 		deactivate_alarm
 		reloop(0x04)
@@ -1756,13 +1756,13 @@ u8 func1006_terminal_activation[] = {
 		label(0x0b)
 		if_alarm_active(/*goto*/ 0x06)
 		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(CHR_TARGET, L_EAR(30)) // "Alarm activated."
+		show_hudmsg(CHR_TARGET, L_EAR(30)) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM2_ACTIVE)
 		activate_alarm
 		reloop(0x04)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(31)) // "Alarm deactivated."
+		show_hudmsg(CHR_TARGET, L_EAR(31)) // "Alarm deactivated."
 		unset_stage_flag(STAGEFLAG_ALARM2_ACTIVE)
 		deactivate_alarm
 		reloop(0x04)
@@ -1771,13 +1771,13 @@ u8 func1006_terminal_activation[] = {
 		label(0x0c)
 		if_alarm_active(/*goto*/ 0x06)
 		speak(CHR_TARGET, 0xffff, 0x8118, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(CHR_TARGET, L_EAR(30)) // "Alarm activated."
+		show_hudmsg(CHR_TARGET, L_EAR(30)) // "Alarm activated."
 		set_stage_flag(STAGEFLAG_ALARM3_ACTIVE)
 		activate_alarm
 		reloop(0x04)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(31)) // "Alarm deactivated."
+		show_hudmsg(CHR_TARGET, L_EAR(31)) // "Alarm deactivated."
 		unset_stage_flag(STAGEFLAG_ALARM3_ACTIVE)
 		deactivate_alarm
 		reloop(0x04)
@@ -1804,7 +1804,7 @@ u8 func1007_uplink[] = {
 
 		// Activating a second time
 		speak(CHR_TARGET, 0xffff, 0x8116, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(CHR_TARGET, L_EAR(41)) // "Security door already unlocked."
+		show_hudmsg(CHR_TARGET, L_EAR(41)) // "Security door already unlocked."
 		reloop(0x04)
 
 		label(0x06)
@@ -1812,12 +1812,12 @@ u8 func1007_uplink[] = {
 
 		// Activated computer without uplink
 		speak(CHR_TARGET, 0xffff, 0x8116, CHANNEL_9, COLOR_00_GREEN) // unknown text
-		message(CHR_TARGET, L_EAR(36)) // "ACCESS DENIED - security code required."
+		show_hudmsg(CHR_TARGET, L_EAR(36)) // "ACCESS DENIED - security code required."
 		reloop(0x04)
 
 		// Uplinking
 		label(0x2f)
-		message(CHR_TARGET, L_EAR(60)) // "Connection established."
+		show_hudmsg(CHR_TARGET, L_EAR(60)) // "Connection established."
 		restart_timer
 
 		// First second of uplinking
@@ -1839,7 +1839,7 @@ u8 func1007_uplink[] = {
 		endloop(0x08)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(37)) // "Searching for password."
+		show_hudmsg(CHR_TARGET, L_EAR(37)) // "Searching for password."
 		restart_timer
 		set_stage_flag(STAGEFLAG_UPLINK_SEARCHING)
 		assign_sound(0x01bf, CHANNEL_5)
@@ -1861,9 +1861,9 @@ u8 func1007_uplink[] = {
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c1, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, OBJ_UPLINKPC, TRUE)
-		message(CHR_TARGET, L_EAR(39)) // "Password located - bypassing lock."
+		show_hudmsg(CHR_TARGET, L_EAR(39)) // "Password located - bypassing lock."
 		yield
-		message(CHR_TARGET, L_EAR(17)) // "Security doors unlocked."
+		show_hudmsg(CHR_TARGET, L_EAR(17)) // "Security doors unlocked."
 		set_stage_flag(STAGEFLAG_UPLINK_FINISHED)
 		unlock_door(OBJ_UPLINKDOOR, 0x02)
 
@@ -1878,7 +1878,7 @@ u8 func1007_uplink[] = {
 
 		// Moved away from PC or switched weapon
 		label(0x09)
-		message(CHR_TARGET, L_EAR(40)) // "Contact broken - reestablish link."
+		show_hudmsg(CHR_TARGET, L_EAR(40)) // "Contact broken - reestablish link."
 		mute_channel(CHANNEL_5)
 		mute_channel(CHANNEL_6)
 		assign_sound(0x01c0, CHANNEL_6)
@@ -1901,7 +1901,7 @@ u8 func1007_uplink[] = {
 		endloop(0x0c)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(85)) // "Connection broken - experiments still active."
+		show_hudmsg(CHR_TARGET, L_EAR(85)) // "Connection broken - experiments still active."
 		mute_channel(CHANNEL_5)
 		mute_channel(CHANNEL_6)
 		assign_sound(0x01c0, CHANNEL_6)
@@ -1930,13 +1930,13 @@ u8 func1008_check_bot_terminals_destroyed[] = {
 		if_object_in_good_condition(OBJ_BOT_ACTIVATION_TERMINAL, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_BOT_ACTIVATION_TERMINAL_DESTROYED)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x2f)
-		message(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
 		label(0x2f)
 		if_stage_flag_eq(STAGEFLAG_BOT_PROGRAMMING_TERMINAL_DESTROYED, TRUE, /*goto*/ 0x2f)
 		if_object_in_good_condition(OBJ_BOT_PROGRAMMING_TERMINAL, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_BOT_PROGRAMMING_TERMINAL_DESTROYED)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x2f)
-		message(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
 		label(0x2f)
 	endloop(0x04)
 
@@ -2055,7 +2055,7 @@ u8 func100b_check_uplink_pc_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_UPLINK_FINISHED, TRUE, /*goto*/ 0x08)
 		if_object_in_good_condition(OBJ_UPLINKPC, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_UPLINKPC_DESTROYED)
-		message(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
 		goto_next(0x08)
 		label(0x2f)
 	endloop(0x04)
@@ -2202,21 +2202,21 @@ u8 func100e_experiment_terminals_destroyed[] = {
 		if_stage_flag_eq(STAGEFLAG_GOODTERM_DESTROYED, TRUE, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT1, TRUE, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_GOODTERM_DESTROYED)
-		message(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
 
 		label(0x2f)
 		if_object_in_good_condition(OBJ_GOODTERM2, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_GOODTERM_DESTROYED, TRUE, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT2, TRUE, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_GOODTERM_DESTROYED)
-		message(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
 
 		label(0x2f)
 		if_object_in_good_condition(0x09, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_GOODTERM_DESTROYED, TRUE, /*goto*/ 0x2f)
 		if_stage_flag_eq(STAGEFLAG_SHUT_DOWN_EXPERIMENT3, TRUE, /*goto*/ 0x2f)
 		set_stage_flag(STAGEFLAG_GOODTERM_DESTROYED)
-		message(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
+		show_hudmsg(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
 
 		label(0x2f)
 	endloop(0x04)
@@ -2744,12 +2744,12 @@ u8 func1013_hatch_pc[] = {
 
 		label(0x56)
 		play_sound(0x00f7, -1)
-		message(CHR_TARGET, L_EAR(61)) // "Maintenance hatch is now open."
+		show_hudmsg(CHR_TARGET, L_EAR(61)) // "Maintenance hatch is now open."
 		unlock_door(0x3f, 0x08)
 		reloop(0x04)
 
 		label(0x2f)
-		message(CHR_TARGET, L_EAR(62)) // "Maintenance hatch is already open."
+		show_hudmsg(CHR_TARGET, L_EAR(62)) // "Maintenance hatch is already open."
 		restart_timer
 
 		beginloop(0x57)
@@ -2777,7 +2777,7 @@ u8 func0415_radioactivity[] = {
 		reloop(0x04)
 
 		label(0x06)
-		message(CHR_TARGET, L_EAR(63)) // "WARNING - radioactive matter detected."
+		show_hudmsg(CHR_TARGET, L_EAR(63)) // "WARNING - radioactive matter detected."
 		restart_timer
 		label(0x08)
 		yield
@@ -3215,7 +3215,7 @@ u8 func101f_check_bot_destroyed[] = {
 	if_chr_in_room(CHR_COOP, 0x00, 0x006a, /*goto*/ 0x06)
 
 	label(0x0b)
-	message(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
+	show_hudmsg(CHR_BOND, L_EAR(22)) // "Critical mission object destroyed."
 	set_stage_flag(STAGEFLAG_00000008)
 	set_stage_flag(STAGEFLAG_00000004)
 	if_stage_flag_eq(STAGEFLAG_HAS_K7AVENGER, TRUE, /*goto*/ 0x2f)

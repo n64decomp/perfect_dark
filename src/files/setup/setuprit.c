@@ -663,7 +663,7 @@ u8 func1005_check_neutrals_killed[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_BOND, L_RIT(20)) // "Too many neutral casualties inflicted."
+	show_hudmsg(CHR_BOND, L_RIT(20)) // "Too many neutral casualties inflicted."
 	set_stage_flag(STAGEFLAG_KILLED_NEUTRALS)
 
 	label(0x06)
@@ -938,7 +938,7 @@ u8 unregistered_function1[] = {
  \
 	/* Commshub damaged */ \
 	label(0x06) \
-	message(CHR_BOND, 0x3615) /* "UFO attachment damaged." */ \
+	show_hudmsg(CHR_BOND, 0x3615) /* "UFO attachment damaged." */ \
 	set_stage_flag(STAGEFLAG_UFO_ATTACHMENT_DAMAGED) \
 	unset_stage_flag(STAGEFLAG_BOTH_MINES_WASTED) \
 	set_ailist(CHR_SELF, GAILIST_IDLE) \
@@ -950,7 +950,7 @@ u8 unregistered_function1[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE) \
  \
 	label(0x2d) \
-	message(CHR_BOND, 0x3645) /* "Timed mine has been wasted." */ \
+	show_hudmsg(CHR_BOND, 0x3645) /* "Timed mine has been wasted." */ \
 	set_stage_flag(STAGEFLAG_BOTH_MINES_WASTED) \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1142,8 +1142,8 @@ u8 func100a_autopilot_switch[] = {
 	set_object_image(OBJ_AUTOPILOT_SWITCH, 0x00, 0x13)
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 	yield
-	message(CHR_P1P2, L_RIT(24)) // "Air Force One has been stabilized."
-	message(CHR_P1P2, L_RIT(23)) // "Autopilot has been activated."
+	show_hudmsg(CHR_P1P2, L_RIT(24)) // "Air Force One has been stabilized."
+	show_hudmsg(CHR_P1P2, L_RIT(23)) // "Autopilot has been activated."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1156,7 +1156,7 @@ u8 func100a_autopilot_switch[] = {
 
 	// Switch destroyed
 	label(0x08)
-	message(CHR_P1P2, L_RIT(25)) // "Autopilot systems have been destroyed."
+	show_hudmsg(CHR_P1P2, L_RIT(25)) // "Autopilot systems have been destroyed."
 	set_stage_flag(STAGEFLAG_AUTOPILOT_DESTROYED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1459,7 +1459,7 @@ u8 func0404_president_running[] = {
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	if_stage_flag_eq(STAGEFLAG_PRESIDENT_INJURED, TRUE, /*goto*/ 0x56)
 	set_stage_flag(STAGEFLAG_PRESIDENT_INJURED)
-	message(CHR_BOND, L_RIT(72)) // "The President is under attack."
+	show_hudmsg(CHR_BOND, L_RIT(72)) // "The President is under attack."
 
 	beginloop(0x56)
 		if_num_times_shot_lt(1, /*goto*/ 0x06)
@@ -1629,7 +1629,7 @@ u8 func100b_check_president_dead[] = {
 
 	label(0x06)
 	set_stage_flag(STAGEFLAG_PRESIDENT_DEAD)
-	message(CHR_BOND, L_RIT(26)) // "The President has been incapacitated."
+	show_hudmsg(CHR_BOND, L_RIT(26)) // "The President has been incapacitated."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1861,7 +1861,7 @@ u8 func100c_cockpit[] = {
 	damage_chr(CHR_PILOT2, 18)
 	yield
 	set_stage_flag(STAGEFLAG_PILOTS_DEAD)
-	message(CHR_BOND, L_RIT(27)) // "Pilots have been killed."
+	show_hudmsg(CHR_BOND, L_RIT(27)) // "Pilots have been killed."
 	goto_next(0x06)
 
 	// Both takers dead
@@ -1895,7 +1895,7 @@ u8 func100c_cockpit[] = {
 
 	label(0x0b)
 	if_stage_flag_eq(STAGEFLAG_ALL_OBJECTIVES_COMPLETE, TRUE, /*goto*/ 0x11)
-	message(CHR_BOND, L_RIT(29)) // "Air Force One is about to crash."
+	show_hudmsg(CHR_BOND, L_RIT(29)) // "Air Force One is about to crash."
 
 	// Wait until the 50 second mark
 	beginloop(0x0c)
@@ -1923,7 +1923,7 @@ u8 func100c_cockpit[] = {
 	label(0x2d)
 	set_object_image(0x03, 0x00, 0x13)
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
-	message(CHR_BOND, L_RIT(28)) // "Pilots have been saved."
+	show_hudmsg(CHR_BOND, L_RIT(28)) // "Pilots have been saved."
 	reset_ambience
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -3625,7 +3625,7 @@ u8 func101a_equipment_switch[] = {
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2d)
 
 		restart_timer
-		message(CHR_P1P2, L_RIT(63)) // "Access denied - lift key card required."
+		show_hudmsg(CHR_P1P2, L_RIT(63)) // "Access denied - lift key card required."
 
 		beginloop(0x77)
 			if_timer_gt(120, /*goto*/ 0x06)
@@ -3639,7 +3639,7 @@ u8 func101a_equipment_switch[] = {
 	set_object_image(OBJ_EQUIPMENT_SWITCH, 0x00, 0x13)
 	set_stage_flag(STAGEFLAG_EQUIPMENT_RAISED)
 	open_door(0x1c)
-	message(CHR_P1P2, L_RIT(61)) // "Cargo bay has been raised."
+	show_hudmsg(CHR_P1P2, L_RIT(61)) // "Cargo bay has been raised."
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_EQUIPMENT_SWITCH, TRUE)
 	unset_object_flag(0x1b, OBJFLAG_DEACTIVATED)
@@ -3690,7 +3690,7 @@ u8 func101b_hoverbike_switch[] = {
 		label(0x0a)
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2d)
 		restart_timer
-		message(CHR_P1P2, L_RIT(63)) // "Access denied - lift key card required."
+		show_hudmsg(CHR_P1P2, L_RIT(63)) // "Access denied - lift key card required."
 
 		beginloop(0x77)
 			if_timer_gt(120, /*goto*/ 0x06)
@@ -3702,7 +3702,7 @@ u8 func101b_hoverbike_switch[] = {
 	// Activated with keycard
 	label(0x2d)
 	set_object_image(OBJ_HOVERBIKE_SWITCH, 0x00, 0x13)
-	message(CHR_P1P2, L_RIT(60)) // "Cargo bay has been lowered."
+	show_hudmsg(CHR_P1P2, L_RIT(60)) // "Cargo bay has been lowered."
 	set_savefile_flag(SAVEFILEFLAG_CRASHSITE_BIKE)
 	assign_sound(0x043a, CHANNEL_7)
 	control_sound_from_object(CHANNEL_7, OBJ_HOVERBIKE_SWITCH, TRUE)
@@ -3738,7 +3738,7 @@ u8 func101c_check_equipment_switch_destroyed[] = {
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_EQUIPMENT_RAISED, TRUE, /*goto*/ 0x2d)
 	set_stage_flag(STAGEFLAG_EQUIPMENT_SWITCH_DESTROYED)
-	message(CHR_BOND, L_RIT(62)) // "Mission critical object has been destroyed."
+	show_hudmsg(CHR_BOND, L_RIT(62)) // "Mission critical object has been destroyed."
 	label(0x2d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3833,7 +3833,7 @@ u8 func101d_handle_early_president_death[] = {
 u8 func1007_check_pod_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_ESCAPE_POD, /*goto*/ 0x2d)
-		message(CHR_BOND, L_RIT(62)) // "Mission critical object has been destroyed."
+		show_hudmsg(CHR_BOND, L_RIT(62)) // "Mission critical object has been destroyed."
 		set_stage_flag(STAGEFLAG_POD_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2d)
@@ -3908,7 +3908,7 @@ u8 func1022_pilots_stabilizing[] = {
 	endloop(0x93)
 
 	label(0x06)
-	message(CHR_BOND, L_RIT(84)) // "The pilots have stabilized Air Force One."
+	show_hudmsg(CHR_BOND, L_RIT(84)) // "The pilots have stabilized Air Force One."
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 
 	label(0x0e)

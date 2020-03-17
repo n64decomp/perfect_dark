@@ -1131,7 +1131,7 @@ u8 func100d_start_lifts[] = {
 u8 func1003_check_experiment_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(OBJ_EXPERIMENT, /*goto*/ 0x2c)
-		message(CHR_BOND, L_SEV(7)) // "Medical experiment has been sabotaged."
+		show_hudmsg(CHR_BOND, L_SEV(7)) // "Medical experiment has been sabotaged."
 		set_stage_flag(STAGEFLAG_EXPERIMENT_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -1143,7 +1143,7 @@ u8 func1003_check_experiment_destroyed[] = {
 u8 func1004_check_saucer_destroyed[] = {
 	beginloop(0x04)
 		if_object_in_good_condition(0x3e, /*goto*/ 0x2c)
-		message(CHR_BOND, L_SEV(8)) // "Captured Maian saucer has been destroyed."
+		show_hudmsg(CHR_BOND, L_SEV(8)) // "Captured Maian saucer has been destroyed."
 		set_stage_flag(STAGEFLAG_SAUCER_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x2c)
@@ -1327,13 +1327,13 @@ u8 func1008_check_console[] = {
 	label(0x2c)
 	assign_sound(0x8111, CHANNEL_0)
 	play_sound_from_object(CHANNEL_0, OBJ_CONSOLE, 0x012c, 0x0190)
-	message(CHR_BOND, L_SEV(9)) // "Distress signal has been sent."
+	show_hudmsg(CHR_BOND, L_SEV(9)) // "Distress signal has been sent."
 	set_stage_flag(STAGEFLAG_CONSOLE_ACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Console destroyed
 	label(0x08)
-	message(CHR_BOND, L_SEV(10)) // "Critical mission object has been destroyed."
+	show_hudmsg(CHR_BOND, L_SEV(10)) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_CONSOLE_DESTROYED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1486,7 +1486,7 @@ u8 func100b_check_medlab_escapable[] = {
 
 		// Player has psychosis gun but ammo depleted
 		label(0x2c)
-		message(CHR_BOND, L_SEV(11)) // "Mission failed - cannot escape from medlab."
+		show_hudmsg(CHR_BOND, L_SEV(11)) // "Mission failed - cannot escape from medlab."
 		set_stage_flag(STAGEFLAG_TRAPPED_AT_START)
 		goto_next(0x0e)
 
@@ -1505,7 +1505,7 @@ u8 func100b_check_medlab_escapable[] = {
 		endloop(0x0e)
 
 		label(0x06)
-		message(CHR_BOND, L_SEV(12)) // "Alternative escape route found."
+		show_hudmsg(CHR_BOND, L_SEV(12)) // "Alternative escape route found."
 		unset_stage_flag(STAGEFLAG_TRAPPED_AT_START)
 	goto_first(0x04)
 

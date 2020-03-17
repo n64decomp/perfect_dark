@@ -1047,7 +1047,7 @@ u8 func100c_check_army_defeated[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_BOND, L_SHO(29)) // "Skedar secret army has been defeated."
+	show_hudmsg(CHR_BOND, L_SHO(29)) // "Skedar secret army has been defeated."
 	set_stage_flag(STAGEFLAG_ARMY_DEFEATED)
 
 	beginloop(0x91)
@@ -1250,7 +1250,7 @@ u8 func1007_bug_throws_bond[] = {
 	dprint '1',' ','P','L','A','C','E','D','\n',0,
 	if_stage_flag_eq(STAGEFLAG_PILLAR1_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR1_MARKED)
-	message(CHR_BOND, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_BOND, L_SHO(25)) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1258,7 +1258,7 @@ u8 func1007_bug_throws_bond[] = {
 	dprint '2',' ','P','L','A','C','E','D','\n',0,
 	if_stage_flag_eq(STAGEFLAG_PILLAR2_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR2_MARKED)
-	message(CHR_BOND, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_BOND, L_SHO(25)) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1266,7 +1266,7 @@ u8 func1007_bug_throws_bond[] = {
 	dprint '3',' ','P','L','A','C','E','D','\n',0,
 	if_stage_flag_eq(STAGEFLAG_PILLAR3_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR3_MARKED)
-	message(CHR_BOND, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_BOND, L_SHO(25)) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_BOND, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1290,7 +1290,7 @@ u8 func1007_bug_throws_bond[] = {
 	set_stage_flag(STAGEFLAG_BOND_BUGS_WASTED)
 	if_stage_flag_eq(STAGEFLAG_COOP_BUGS_WASTED, FALSE, /*goto*/ 0x0f)
 	set_stage_flag(STAGEFLAG_BUG_WASTED)
-	message(CHR_BOND, L_SHO(26)) // "Target Amplifier placed incorrectly."
+	show_hudmsg(CHR_BOND, L_SHO(26)) // "Target Amplifier placed incorrectly."
 	label(0x2d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1368,7 +1368,7 @@ u8 func101b_bug_throws_coop[] = {
 	unset_object_flag3(OBJ_PILLAR1, OBJFLAG3_RTRACKED_YELLOW)
 	if_stage_flag_eq(STAGEFLAG_PILLAR1_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR1_MARKED)
-	message(CHR_COOP, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_COOP, L_SHO(25)) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_COOP, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1377,7 +1377,7 @@ u8 func101b_bug_throws_coop[] = {
 	unset_object_flag3(OBJ_PILLAR2, OBJFLAG3_RTRACKED_YELLOW)
 	if_stage_flag_eq(STAGEFLAG_PILLAR2_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR2_MARKED)
-	message(CHR_COOP, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_COOP, L_SHO(25)) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_COOP, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1386,7 +1386,7 @@ u8 func101b_bug_throws_coop[] = {
 	unset_object_flag3(OBJ_PILLAR3, OBJFLAG3_RTRACKED_YELLOW)
 	if_stage_flag_eq(STAGEFLAG_PILLAR3_MARKED, TRUE, /*goto*/ 0x0d)
 	set_stage_flag(STAGEFLAG_PILLAR3_MARKED)
-	message(CHR_COOP, L_SHO(25)) // "Target Amplifier placed correctly."
+	show_hudmsg(CHR_COOP, L_SHO(25)) // "Target Amplifier placed correctly."
 	if_ammo_quantity_lt(CHR_COOP, AMMOTYPE_BUG, 1, /*goto*/ 0x0d)
 	goto_first(0x03)
 
@@ -1409,7 +1409,7 @@ u8 func101b_bug_throws_coop[] = {
 	set_stage_flag(STAGEFLAG_COOP_BUGS_WASTED)
 	if_self_flag_bankx_eq(CHRFLAG0_00000010, FALSE, BANK_0, /*goto*/ 0x0f)
 	set_stage_flag(STAGEFLAG_BUG_WASTED)
-	message(CHR_COOP, L_SHO(26)) // "Target Amplifier placed incorrectly."
+	show_hudmsg(CHR_COOP, L_SHO(26)) // "Target Amplifier placed incorrectly."
 	label(0x2d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1461,7 +1461,7 @@ u8 func1009_altar[] = {
 	// At pad, or invalid weapon equipped
 	label(0x2e)
 	set_object_flag2(OBJ_ALTAR, OBJFLAG2_00002000)
-	message(CHR_P1P2, L_SHO(51)) // "Make your sacrifice to the God of War."
+	show_hudmsg(CHR_P1P2, L_SHO(51)) // "Make your sacrifice to the God of War."
 	restart_timer
 
 	beginloop(0x91)
@@ -1540,7 +1540,7 @@ u8 func1009_altar[] = {
 
 	label(0x2d)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x2d)
-	message(CHR_P1P2, L_SHO(27)) // "Generator has been reactivated."
+	show_hudmsg(CHR_P1P2, L_SHO(27)) // "Generator has been reactivated."
 	label(0x2d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1856,7 +1856,7 @@ u8 func100b_check_sanctum_accessed[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_P1P2, L_SHO(28)) // "Skedar Inner Sanctum has been reached."
+	show_hudmsg(CHR_P1P2, L_SHO(28)) // "Skedar Inner Sanctum has been reached."
 	set_stage_flag(STAGEFLAG_ACCESSED_SANCTUM)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3643,7 +3643,7 @@ u8 unregistered_function1[] = {
 
 	label(0x2d)
 	chr_drop_weapon(CHR_BOND)
-	message(CHR_BOND, L_SHO(26)) // "Target Amplifier placed incorrectly."
+	show_hudmsg(CHR_BOND, L_SHO(26)) // "Target Amplifier placed incorrectly."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3698,12 +3698,12 @@ u8 func1024_check_grenades_wasted[] = {
 
 		// Blown up using other means (eg. Phoenix or all guns cheat)
 		unset_stage_flag(STAGEFLAG_GRENADES_WASTED)
-		message(CHR_BOND, L_SHO(53)) // "Alternative entrance to Shrine created."
+		show_hudmsg(CHR_BOND, L_SHO(53)) // "Alternative entrance to Shrine created."
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x2d)
 		if_stage_flag_eq(STAGEFLAG_GRENADES_WASTED, TRUE, /*goto*/ 0x2d)
-		message(CHR_BOND, L_SHO(52)) // "Grenade ammo used up - can't enter Shrine."
+		show_hudmsg(CHR_BOND, L_SHO(52)) // "Grenade ammo used up - can't enter Shrine."
 		set_stage_flag(STAGEFLAG_GRENADES_WASTED)
 		label(0x2d)
 	endloop(0x09)

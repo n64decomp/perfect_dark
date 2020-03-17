@@ -1054,7 +1054,7 @@ u8 func1008_escapepod[] = {
 
 		// Pod destroyed
 		mute_channel(CHANNEL_0)
-		message(CHR_BOND, L_AZT(15)) // "Critical mission object has been destroyed."
+		show_hudmsg(CHR_BOND, L_AZT(15)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_ESCAPEPOD_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1068,7 +1068,7 @@ u8 func1008_escapepod[] = {
 		label(0x31)
 		assign_sound(0x8115, CHANNEL_0)
 		play_sound_from_object(CHANNEL_0, OBJ_ESCAPEPOD, 0x0320, 0x0640)
-		message(CHR_P1P2, L_AZT(14)) // "Distress beacon has been activated."
+		show_hudmsg(CHR_P1P2, L_AZT(14)) // "Distress beacon has been activated."
 		set_stage_flag(STAGEFLAG_BEACON_ACTIVATED)
 	endloop(0x06)
 
@@ -1085,7 +1085,7 @@ u8 func1009_check_shuttle_destroyed[] = {
 
 	beginloop(0x06)
 		if_object_in_good_condition(OBJ_SKEDAR_SHUTTLE, /*goto*/ 0x31)
-		message(CHR_BOND, L_AZT(21)) // "Jamming device has been shut down."
+		show_hudmsg(CHR_BOND, L_AZT(21)) // "Jamming device has been shut down."
 		set_stage_flag(STAGEFLAG_SKEDAR_SHUTTLE_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x31)
@@ -1102,7 +1102,7 @@ u8 func100a_check_president_dead[] = {
 	endloop(0x06)
 
 	label(0x31)
-	message(CHR_BOND, L_AZT(22)) // "President has been killed."
+	show_hudmsg(CHR_BOND, L_AZT(22)) // "President has been killed."
 	set_stage_flag(STAGEFLAG_PRESIDENT_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1116,7 +1116,7 @@ u8 func100b_check_clone_dead[] = {
 	endloop(0x06)
 
 	label(0x31)
-	message(CHR_BOND, L_AZT(23)) // "Presidential clone has been eliminated."
+	show_hudmsg(CHR_BOND, L_AZT(23)) // "Presidential clone has been eliminated."
 	set_stage_flag(STAGEFLAG_CLONE_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1638,7 +1638,7 @@ u8 func041d_president_running[] = {
 	rebuild_teams
 	rebuild_squadrons
 	if_stage_flag_eq(STAGEFLAG_PRESIDENT_RESCUED, TRUE, /*goto*/ 0x31)
-	message(CHR_TARGET, L_AZT(25)) // "President has been rescued."
+	show_hudmsg(CHR_TARGET, L_AZT(25)) // "President has been rescued."
 	set_stage_flag(STAGEFLAG_PRESIDENT_RESCUED)
 	label(0x31)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

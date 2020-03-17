@@ -1327,7 +1327,7 @@ u8 func1002_check_accessed_foyer_elevator[] = {
 
 	label(0x00)
 	set_stage_flag(STAGEFLAG_ACCESSED_FOYER_ELEVATOR)
-	message(CHR_TARGET, L_ARK(33)) // "Foyer elevator accessed."
+	show_hudmsg(CHR_TARGET, L_ARK(33)) // "Foyer elevator accessed."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1393,13 +1393,13 @@ u8 func1004_elevator_unlocking[] = {
 	label(0x28)
 	if_stage_flag_eq(STAGEFLAG_ELEVATOR_UNLOCKED, TRUE, /*goto*/ 0x00)
 	set_stage_flag(STAGEFLAG_ELEVATOR_PC_DESTROYED)
-	message(CHR_BOND, L_ARK(45)) // "Critical mission object destroyed."
+	show_hudmsg(CHR_BOND, L_ARK(45)) // "Critical mission object destroyed."
 	label(0x00)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	// Computer activated
 	label(0x20)
-	message(CHR_TARGET, L_ARK(14)) // "Accessing elevator controls..."
+	show_hudmsg(CHR_TARGET, L_ARK(14)) // "Accessing elevator controls..."
 	assign_sound(0x8116, CHANNEL_6)
 	control_sound_from_object(CHANNEL_6, 0x01, TRUE)
 	restart_timer
@@ -1438,7 +1438,7 @@ u8 func1004_elevator_unlocking[] = {
 	play_sound(0x81b0, -1)
 	unlock_door(0x02, 0x01)
 	unlock_door(0x03, 0x01)
-	message(CHR_TARGET, L_ARK(34)) // "Office elevator door has been unlocked."
+	show_hudmsg(CHR_TARGET, L_ARK(34)) // "Office elevator door has been unlocked."
 	set_stage_flag(STAGEFLAG_ELEVATOR_UNLOCKED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1482,7 +1482,7 @@ u8 func1005_check_bodyguards_dead[] = {
 
 	label(0x20)
 	label(0x26)
-	message(CHR_BOND, L_ARK(36)) // "Cassandra's bodyguards have been defeated."
+	show_hudmsg(CHR_BOND, L_ARK(36)) // "Cassandra's bodyguards have been defeated."
 	set_stage_flag(STAGEFLAG_OBJECTIVE_BODYGUARDS_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1493,7 +1493,7 @@ u8 func1006_check_hovercopter_destroyed[] = {
 
 	beginloop(0x1f)
 		if_object_in_good_condition(OBJ_HOVERCOPTER, /*goto*/ 0x00)
-		message(CHR_BOND, L_ARK(35)) // "DataDyne Hovercopter eliminated."
+		show_hudmsg(CHR_BOND, L_ARK(35)) // "DataDyne Hovercopter eliminated."
 		set_stage_flag(STAGEFLAG_HOVERCOPTER_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(0x00)
@@ -1526,18 +1526,18 @@ u8 func100e_drcaroll_warnings[] = {
 		// Dead
 		label(0x21)
 		label(0x00)
-		message(CHR_BOND, L_ARK(16)) // "Dr. Caroll has been killed!"
+		show_hudmsg(CHR_BOND, L_ARK(16)) // "Dr. Caroll has been killed!"
 		set_stage_flag(STAGEFLAG_DRCAROLL_DEAD)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		// Shield under 100
 		label(0x30)
-		message(CHR_BOND, L_ARK(17)) // "Dr. Caroll is under attack!"
+		show_hudmsg(CHR_BOND, L_ARK(17)) // "Dr. Caroll is under attack!"
 		set_stage_flag(STAGEFLAG_DRCAROLL_ATTACKED)
 		reloop(0x1f)
 
 		label(0x31)
-		message(CHR_BOND, L_ARK(18)) // "Dr. Caroll has been damaged!"
+		show_hudmsg(CHR_BOND, L_ARK(18)) // "Dr. Caroll has been damaged!"
 		set_stage_flag(STAGEFLAG_DRCAROLL_DAMAGED)
 	endloop(0x1f)
 

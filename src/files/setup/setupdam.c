@@ -1059,7 +1059,7 @@ u8 unregistered_function2[] = {
 	endloop(0x00)
 
 	label(0x04)
-	message(CHR_BOND, L_DAM(16)) // "Critical mission object has been destroyed."
+	show_hudmsg(CHR_BOND, L_DAM(16)) // "Critical mission object has been destroyed."
 	set_stage_flag(STAGEFLAG_00000400)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1087,7 +1087,7 @@ u8 func1009_open_reactor_hatch[] = {
 	label(0x07)
 	hide_object(OBJ_REACTOR_HATCH)
 	set_object_flag2(OBJ_REACTOR_HATCH, OBJFLAG2_INVISIBLE)
-	message(CHR_P1P2, L_DAM(17)) // "Reactor shutdown control hatch opened."
+	show_hudmsg(CHR_P1P2, L_DAM(17)) // "Reactor shutdown control hatch opened."
 	set_stage_flag(STAGEFLAG_REACTOR_HATCH_OPEN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1097,7 +1097,7 @@ u8 func100a_reactor_switch[] = {
 	beginloop(0x00)
 		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_REACTOR_SWITCH, /*goto*/ 0x07)
-		message(CHR_BOND, L_DAM(36)) // "Critical mission object has been destroyed."
+		show_hudmsg(CHR_BOND, L_DAM(36)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_REACTOR_SWITCH_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1118,7 +1118,7 @@ u8 func100a_reactor_switch[] = {
 	set_object_image(OBJ_REACTOR_SWITCH, 0x00, 0x12)
 	set_object_image(OBJ_REACTOR_SWITCH, 0x01, 0x12)
 	set_object_image(OBJ_REACTOR_SWITCH, 0x02, 0x12)
-	message(CHR_P1P2, L_DAM(18)) // "Reactor has been shut down."
+	show_hudmsg(CHR_P1P2, L_DAM(18)) // "Reactor has been shut down."
 	set_stage_flag(STAGEFLAG_REACTOR_SHUT_DOWN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1140,7 +1140,7 @@ u8 func100b_check_diving_area_located[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_P1P2, L_DAM(19)) // "Diving control center has been located."
+	show_hudmsg(CHR_P1P2, L_DAM(19)) // "Diving control center has been located."
 	set_stage_flag(STAGEFLAG_LOCATED_DIVING_AREA)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1257,7 +1257,7 @@ u8 func100e_check_labtech_dead[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_BOND, L_DAM(20)) // "Critical mission personnel killed."
+	show_hudmsg(CHR_BOND, L_DAM(20)) // "Critical mission personnel killed."
 	set_stage_flag(STAGEFLAG_LABTECH_DEAD)
 	label(0x0b)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -1281,7 +1281,7 @@ u8 func100f_check_researchdata_collected[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_BOND, L_DAM(21)) // "Research data has been secured."
+	show_hudmsg(CHR_BOND, L_DAM(21)) // "Research data has been secured."
 	set_stage_flag(STAGEFLAG_COLLECTED_RESEARCH_DATA)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1999,7 +1999,7 @@ u8 func0401_pilot[] = {
 
 	label(0x07)
 	if_stage_flag_eq(STAGEFLAG_AUTOPILOT_DISABLED, TRUE, /*goto*/ 0x07)
-	message(CHR_TARGET, L_DAM(14)) // "Autopilot system has been deactivated."
+	show_hudmsg(CHR_TARGET, L_DAM(14)) // "Autopilot system has been deactivated."
 	set_stage_flag(STAGEFLAG_TRIGGER_ANGRY_PILOT)
 	yield
 	yield
@@ -2016,7 +2016,7 @@ u8 func0401_pilot[] = {
 	goto_first(0x0b)
 
 	label(0x07)
-	message(CHR_TARGET, L_DAM(15)) // "GPS system has been deactivated."
+	show_hudmsg(CHR_TARGET, L_DAM(15)) // "GPS system has been deactivated."
 	set_stage_flag(STAGEFLAG_GPS_DISABLED)
 	surrender
 	goto_first(0x0b)
@@ -2055,7 +2055,7 @@ u8 func1011_check_pilots_dead[] = {
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x07)
-	message(CHR_BOND, L_DAM(27)) // "Critical mission personnel have been killed."
+	show_hudmsg(CHR_BOND, L_DAM(27)) // "Critical mission personnel have been killed."
 	set_stage_flag(STAGEFLAG_PILOT_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2111,7 +2111,7 @@ u8 func1012_choose_angry_pilot[] = {
 
 	// Killed a pilot
 	label(0x08)
-	message(CHR_BOND, L_DAM(35)) // "Civilians have been killed."
+	show_hudmsg(CHR_BOND, L_DAM(35)) // "Civilians have been killed."
 	set_stage_flag(STAGEFLAG_JO_KILLED_A_PILOT)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2233,7 +2233,7 @@ u8 func1013_lift_switch[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_P1P2, L_DAM(28)) // "Lift door has been unlocked."
+	show_hudmsg(CHR_P1P2, L_DAM(28)) // "Lift door has been unlocked."
 	unlock_door(0x18, 0x02)
 	unlock_door(0x19, 0x02)
 	open_door(0x18)
@@ -2248,7 +2248,7 @@ u8 func1014_moonpool_switch[] = {
 		chr_toggle_p1p2(CHR_SELF)
 		if_object_in_good_condition(OBJ_MOONPOOL_SWITCH, /*goto*/ 0x08)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x10)
-		message(CHR_P1P2, L_DAM(36)) // "Critical mission object has been destroyed."
+		show_hudmsg(CHR_P1P2, L_DAM(36)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_MOONPOOL_SWITCH_DESTROYED)
 
 		label(0x10)
@@ -2260,7 +2260,7 @@ u8 func1014_moonpool_switch[] = {
 
 	label(0x07)
 	label(0x07)
-	message(CHR_P1P2, L_DAM(29)) // "Lift has been activated."
+	show_hudmsg(CHR_P1P2, L_DAM(29)) // "Lift has been activated."
 	set_stage_flag(STAGEFLAG_MOONPOOL_ACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2410,7 +2410,7 @@ u8 func101a_badhatchswitches[] = {
 	goto_next(0x04)
 
 	label(0x04)
-	message(CHR_P1P2, L_DAM(31)) // "Unlocking sequence has been reset."
+	show_hudmsg(CHR_P1P2, L_DAM(31)) // "Unlocking sequence has been reset."
 	set_stage_flag(STAGEFLAG_HATCHSWITCHES_RESETTING)
 	restart_timer
 
@@ -2668,7 +2668,7 @@ u8 func101c_check_elvis_dead[] = {
 	endloop(0x00)
 
 	label(0x07)
-	message(CHR_BOND, L_DAM(33)) // "Elvis has been killed."
+	show_hudmsg(CHR_BOND, L_DAM(33)) // "Elvis has been killed."
 	set_stage_flag(STAGEFLAG_ELVIS_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2812,12 +2812,12 @@ u8 func101d_alarm_switches[] = {
 	label(0x07)
 	if_alarm_active(/*goto*/ 0x07)
 	activate_alarm
-	message(CHR_P1P2, L_DAM(37)) // "Alarm has been activated."
+	show_hudmsg(CHR_P1P2, L_DAM(37)) // "Alarm has been activated."
 	goto_next(0x0c)
 
 	label(0x07)
 	deactivate_alarm
-	message(CHR_BOND, L_DAM(38)) // "Alarm has been deactivated."
+	show_hudmsg(CHR_BOND, L_DAM(38)) // "Alarm has been deactivated."
 	goto_next(0x0c)
 
 	label(0x0c)

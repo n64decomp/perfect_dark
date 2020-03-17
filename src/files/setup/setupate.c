@@ -102,10 +102,10 @@ u8 func1002_first_walk[] = {
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
-	display_text(0x00, COLOR_02_WHITE, L_ATE(7)) // "THE DUEL"
+	show_hudmsg_middle(0x00, COLOR_02_WHITE, L_ATE(7)) // "THE DUEL"
 	chr_do_animation(ANIM_RELOAD, -1, -1, 0x06, 0x00, CHR_GUARD, 2)
 	label(0x2d)
-	message(CHR_BOND, L_ATE(12)) // "Opponent skill level: AGENT"
+	show_hudmsg(CHR_BOND, L_ATE(12)) // "Opponent skill level: AGENT"
 
 	// Wait for camera to stop animating
 	restart_timer
@@ -118,7 +118,7 @@ u8 func1002_first_walk[] = {
 
 	// Start walking
 	label(0x06)
-	remove_displayed_text
+	remove_hudmsgs
 	revoke_control(CHR_BOND, 0)
 	enter_firstperson
 	force_walk(CHR_BOND, 0x0275, 40, 5, 0, 100)
@@ -169,7 +169,7 @@ u8 func1007_second_walk[] = {
 	chr_do_animation(ANIM_GRAB_CROTCH, -1, -1, 0x06, 0x00, CHR_JONATHAN, 2)
 
 	label(0x2d)
-	message(CHR_BOND, L_ATE(13)) // "Opponent skill level: SPECIAL AGENT"
+	show_hudmsg(CHR_BOND, L_ATE(13)) // "Opponent skill level: SPECIAL AGENT"
 	restart_timer
 
 	beginloop(0x08)
@@ -181,7 +181,7 @@ u8 func1007_second_walk[] = {
 	// Start force walk
 	label(0x06)
 	label(0x2d)
-	remove_displayed_text
+	remove_hudmsgs
 	revoke_control(CHR_BOND, 0)
 	enter_firstperson
 	yield
@@ -249,7 +249,7 @@ u8 func1008_third_walk[] = {
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
 	chr_do_animation(ANIM_HEAD_ROLL, -1, -1, 0x06, 0x00, CHR_TRENT, 2)
 	label(0x2d)
-	message(CHR_BOND, L_ATE(14)) // "Opponent skill level: PERFECT AGENT"
+	show_hudmsg(CHR_BOND, L_ATE(14)) // "Opponent skill level: PERFECT AGENT"
 
 	// Wait for cutscene to finish
 	restart_timer
@@ -262,7 +262,7 @@ u8 func1008_third_walk[] = {
 
 	// Begin force walk
 	label(0x06)
-	remove_displayed_text
+	remove_hudmsgs
 	revoke_control(CHR_BOND, 0)
 	enter_firstperson
 	force_walk(CHR_BOND, 0x0275, 40, 5, 0, 100)
@@ -295,7 +295,7 @@ u8 func1005_main[] = {
 	endloop(0x04)
 
 	label(0x2d)
-	message(CHR_BOND, L_ATE(9)) // "Well done! You were too quick for him!"
+	show_hudmsg(CHR_BOND, L_ATE(9)) // "Well done! You were too quick for him!"
 	set_stage_flag(STAGEFLAG_GUARD_DEAD)
 	restart_timer
 
@@ -322,7 +322,7 @@ u8 func1005_main[] = {
 	endloop(0x09)
 
 	label(0x2d)
-	message(CHR_BOND, L_ATE(10)) // "Well done! You were too quick for him!"
+	show_hudmsg(CHR_BOND, L_ATE(10)) // "Well done! You were too quick for him!"
 	set_stage_flag(STAGEFLAG_JONATHAN_DEAD)
 	restart_timer
 
@@ -349,7 +349,7 @@ u8 func1005_main[] = {
 	endloop(0x0c)
 
 	label(0x2d)
-	message(CHR_BOND, L_ATE(11)) // "Well done! You were too quick for him!"
+	show_hudmsg(CHR_BOND, L_ATE(11)) // "Well done! You were too quick for him!"
 	set_stage_flag(STAGEFLAG_TRENT_DEAD)
 	restart_timer
 

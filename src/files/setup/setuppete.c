@@ -774,7 +774,7 @@ u8 func100f_check_mine[] = {
 
 	label(0x03)
 	set_stage_flag(STAGEFLAG_MINE_PLACED)
-	message(CHR_P1P2, L_PETE(15)) // "Mine placed correctly."
+	show_hudmsg(CHR_P1P2, L_PETE(15)) // "Mine placed correctly."
 
 	// Check that the player hasn't detonated the mine
 	beginloop(0x2d)
@@ -786,12 +786,12 @@ u8 func100f_check_mine[] = {
 
 	label(0x04)
 	set_stage_flag(STAGEFLAG_MINE_WASTED)
-	message(CHR_P1P2, L_PETE(72)) // "Remote Mine has been wasted."
+	show_hudmsg(CHR_P1P2, L_PETE(72)) // "Remote Mine has been wasted."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x07)
 	set_stage_flag(STAGEFLAG_MINE_WASTED)
-	message(CHR_P1P2, L_PETE(16)) // "Mine placed incorrectly."
+	show_hudmsg(CHR_P1P2, L_PETE(16)) // "Mine placed incorrectly."
 
 	label(0x0a)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -806,17 +806,17 @@ u8 func1026_uplink[] = {
 
 		label(0x03)
 		if_stage_flag_eq(STAGEFLAG_TAXI_REPROGRAMMED, FALSE, /*goto*/ 0x04)
-		message(CHR_P1P2, L_PETE(17)) // "Virus already downloaded into NavComp."
+		show_hudmsg(CHR_P1P2, L_PETE(17)) // "Virus already downloaded into NavComp."
 		reloop(0x10)
 
 		label(0x04)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ 0x03)
-		message(CHR_P1P2, L_PETE(18)) // "Hovcab is unresponsive - need Reprogrammer."
+		show_hudmsg(CHR_P1P2, L_PETE(18)) // "Hovcab is unresponsive - need Reprogrammer."
 		reloop(0x10)
 
 		// Uplinking
 		label(0x03)
-		message(CHR_P1P2, L_PETE(19)) // "Accessing hovercab navigation systems."
+		show_hudmsg(CHR_P1P2, L_PETE(19)) // "Accessing hovercab navigation systems."
 		assign_sound(0x0456, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_TAXI, TRUE)
 		restart_timer
@@ -827,9 +827,9 @@ u8 func1026_uplink[] = {
 		endloop(0x05)
 
 		label(0x04)
-		message(CHR_P1P2, L_PETE(20)) // "Virus downloaded successfully."
+		show_hudmsg(CHR_P1P2, L_PETE(20)) // "Virus downloaded successfully."
 		yield
-		message(CHR_P1P2, L_PETE(21)) // "Hovercab navigation systems reprogrammed."
+		show_hudmsg(CHR_P1P2, L_PETE(21)) // "Hovercab navigation systems reprogrammed."
 		mute_channel(CHANNEL_7)
 		assign_sound(0x01c1, CHANNEL_7)
 		control_sound_from_object(CHANNEL_7, OBJ_TAXI, TRUE)
@@ -839,7 +839,7 @@ u8 func1026_uplink[] = {
 
 		// Moved away while uplinking
 		label(0x06)
-		message(CHR_P1P2, L_PETE(22)) // "Connection to hovercab broken."
+		show_hudmsg(CHR_P1P2, L_PETE(22)) // "Connection to hovercab broken."
 		mute_channel(CHANNEL_7)
 		yield
 		yield
@@ -906,7 +906,7 @@ u8 func040d_limo[] = {
 	if_stage_flag_eq(STAGEFLAG_TRACERBUG_PLACED, TRUE, /*goto*/ 0x03)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x03)
 	set_stage_flag(STAGEFLAG_LIMO_ESCAPED)
-	message(CHR_BOND, L_PETE(28)) // "DataDyne limo has escaped."
+	show_hudmsg(CHR_BOND, L_PETE(28)) // "DataDyne limo has escaped."
 	label(0x03)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -1040,7 +1040,7 @@ u8 func040c_taxi[] = {
 	label(0x06) \
 	set_stage_flag(STAGEFLAG_TRACERBUG_PLACED) \
 	unset_stage_flag(STAGEFLAG_TRACERBUG_WASTED) \
-	message(chr, 0x3217) /* "Tracer Bug placed correctly." */ \
+	show_hudmsg(chr, 0x3217) /* "Tracer Bug placed correctly." */ \
 	restart_timer \
  \
 	beginloop(0x08) \
@@ -1063,7 +1063,7 @@ u8 func040c_taxi[] = {
 	label(0x03) \
 	dprint 'W','R','O','N','G','3','\n',0, \
 	set_stage_flag(STAGEFLAG_TRACERBUG_WASTED) \
-	message(chr, 0x3218) /* "Tracer Bug placed incorrectly." */ \
+	show_hudmsg(chr, 0x3218) /* "Tracer Bug placed incorrectly." */ \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 
@@ -1095,7 +1095,7 @@ u8 func1005_check_things_destroyed[] = {
 		set_stage_flag(STAGEFLAG_LIMO_DESTROYED)
 		mute_channel(CHANNEL_1)
 		if_difficulty_lt(DIFF_SA, /*goto*/ 0x03)
-		message(CHR_BOND, L_PETE(25)) // "Mission critical vehicle destroyed."
+		show_hudmsg(CHR_BOND, L_PETE(25)) // "Mission critical vehicle destroyed."
 
 		// Check taxi
 		label(0x03)
@@ -1104,7 +1104,7 @@ u8 func1005_check_things_destroyed[] = {
 		if_object_in_good_condition(OBJ_TAXI, /*goto*/ 0x03)
 		mute_channel(CHANNEL_0)
 		set_stage_flag(STAGEFLAG_TAXI_DESTROYED)
-		message(CHR_BOND, L_PETE(25)) // "Mission critical vehicle destroyed."
+		show_hudmsg(CHR_BOND, L_PETE(25)) // "Mission critical vehicle destroyed."
 
 		// Check robot
 		label(0x03)
@@ -1122,7 +1122,7 @@ u8 func1005_check_things_destroyed[] = {
 
 		label(0x04)
 		set_stage_flag(STAGEFLAG_ROBOT_DESTROYED)
-		message(CHR_BOND, L_PETE(25)) // "Mission critical vehicle destroyed."
+		show_hudmsg(CHR_BOND, L_PETE(25)) // "Mission critical vehicle destroyed."
 		label(0x03)
 	endloop(0x10)
 
@@ -1169,7 +1169,7 @@ u8 func1006_check_for_end[] = {
 	if_all_objectives_complete(/*goto*/ 0x05)
 
 	// Objectives failed
-	message(CHR_P1P2, L_PETE(26)) // "MISSION FAILED"
+	show_hudmsg(CHR_P1P2, L_PETE(26)) // "MISSION FAILED"
 	label(0x03)
 	restart_timer
 
@@ -1637,7 +1637,7 @@ u8 func0413_bugspotter[] = {
 	assign_sound(0x044a, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_stage_flag(STAGEFLAG_TRACERBUG_SPOTTED)
-	message(CHR_BOND, L_PETE(67)) // "Tracer Bug has been spotted."
+	show_hudmsg(CHR_BOND, L_PETE(67)) // "Tracer Bug has been spotted."
 
 	// Wait for talking animation to finish
 	beginloop(0x05)
@@ -1909,7 +1909,7 @@ u8 func041d_fbi[] = {
  \
 	label(0x05) \
 	set_stage_flag(STAGEFLAG_CIVILIAN_DEAD) \
-	message(CHR_BOND, 0x321d) /* "Mission failed - unacceptable civilian casualties." */ \
+	show_hudmsg(CHR_BOND, 0x321d) /* "Mission failed - unacceptable civilian casualties." */ \
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 
@@ -1934,7 +1934,7 @@ u8 func100a_check_cia2_dead[] = {
 
 	label(0x05)
 	set_stage_flag(STAGEFLAG_CIVILIAN_DEAD)
-	message(CHR_BOND, L_PETE(29)) // "Mission failed - unacceptable civilian casualties."
+	show_hudmsg(CHR_BOND, L_PETE(29)) // "Mission failed - unacceptable civilian casualties."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2209,7 +2209,7 @@ u8 func041e_sealer1[] = {
 	set_stage_flag(STAGEFLAG_ELEVATOR_SEALED)
 	assign_sound(0x0469, CHANNEL_6)
 	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
-	message(CHR_BOND, L_PETE(33)) // "Elevator access sealed."
+	show_hudmsg(CHR_BOND, L_PETE(33)) // "Elevator access sealed."
 	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, 0x10, 0x10, CHR_SELF, 2)
 
 	beginloop(0x06)
@@ -2472,12 +2472,12 @@ u8 func1010_elevator_switch[] = {
 	lock_door(0x10, 0x02)
 	lock_door(0x11, 0x02)
 	if_stage_flag_eq(STAGEFLAG_ELEVATOR_SEALED, TRUE, /*goto*/ 0x04)
-	message(CHR_P1P2, L_PETE(33)) // "Elevator access sealed."
+	show_hudmsg(CHR_P1P2, L_PETE(33)) // "Elevator access sealed."
 	set_stage_flag(STAGEFLAG_ELEVATOR_SEALED)
 	goto_first(0x10)
 
 	label(0x04)
-	message(CHR_P1P2, L_PETE(48)) // "Elevator door cannot be reopened."
+	show_hudmsg(CHR_P1P2, L_PETE(48)) // "Elevator door cannot be reopened."
 	goto_first(0x10)
 
 	endlist
@@ -2509,7 +2509,7 @@ u8 func1014_crash[] = {
 	move_object_to_pad(OBJ_MINE1, 0x0029)
 	destroy_object(OBJ_MINE1)
 	set_stage_flag(STAGEFLAG_DIVERSION_CREATED)
-	message(CHR_BOND, L_PETE(54)) // "Diversion has been created."
+	show_hudmsg(CHR_BOND, L_PETE(54)) // "Diversion has been created."
 	destroy_object(OBJ_TAXI)
 	restart_timer
 
@@ -3040,7 +3040,7 @@ u8 func101e_check_sealer_guards_dead[] = {
 
 	label(0x03)
 	if_stage_flag_eq(STAGEFLAG_DIVERSION_CREATED, TRUE, /*goto*/ 0x03)
-	message(CHR_BOND, L_PETE(66)) // "An alternative diversion has been created!"
+	show_hudmsg(CHR_BOND, L_PETE(66)) // "An alternative diversion has been created!"
 	unset_stage_flag(STAGEFLAG_TAXI_DESTROYED)
 	unset_stage_flag(STAGEFLAG_ROBOT_DESTROYED)
 	set_stage_flag(STAGEFLAG_DIVERSION_CREATED)

@@ -777,7 +777,7 @@ u8 func1004_check_hostages_killed[] = {
 	label(0x08)
 	if_stage_flag_eq(STAGEFLAG_ENOUGH_HOSTAGES_SAVED, TRUE, /*goto*/ 0x2e)
 	set_stage_flag(STAGEFLAG_TOO_MANY_HOSTAGES_KILLED)
-	message(CHR_BOND, L_IMP(16)) // "Too many hostages killed."
+	show_hudmsg(CHR_BOND, L_IMP(16)) // "Too many hostages killed."
 
 	label(0x2e)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -793,7 +793,7 @@ u8 func1005_check_safeinfo_destroyed[] = {
 	endloop(0x04)
 
 	label(0x08)
-	message(CHR_BOND, L_IMP(18)) // "Sensitive information has been destroyed."
+	show_hudmsg(CHR_BOND, L_IMP(18)) // "Sensitive information has been destroyed."
 	set_stage_flag(STAGEFLAG_SAFEINFO_DESTROYED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -818,7 +818,7 @@ u8 func1005_check_safeinfo_destroyed[] = {
 	/* Switch activated */ \
 	label(0x08) \
 	play_sound(0x043a, CHANNEL_7) \
-	message(CHR_P1P2, 0x220f) /* "Automatic gun activated." */ \
+	show_hudmsg(CHR_P1P2, 0x220f) /* "Automatic gun activated." */ \
 	label(0x0e) \
 	unset_object_flag(autogun, OBJFLAG_DEACTIVATED) \
 	set_stage_flag(stageflag) \
@@ -833,7 +833,7 @@ u8 func1005_check_safeinfo_destroyed[] = {
 	/* Autogun or switch destroyed */ \
 	label(0x0b) \
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x11) \
-	message(CHR_BOND, 0x2222) /* "Critical mission object has been destroyed." */ \
+	show_hudmsg(CHR_BOND, 0x2222) /* "Critical mission object has been destroyed." */ \
 	set_stage_flag(STAGEFLAG_AUTOGUN_SWITCH_DESTROYED)
 
 
@@ -1567,7 +1567,7 @@ u8 func100c_check_carrington_dead[] = {
 	endloop(0x04)
 
 	label(0x2e)
-	message(CHR_BOND, L_IMP(19)) // "Carrington has been killed."
+	show_hudmsg(CHR_BOND, L_IMP(19)) // "Carrington has been killed."
 	set_stage_flag(STAGEFLAG_CARRINGTON_DEAD)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2631,7 +2631,7 @@ u8 func1013_check_hostages_saved[] = {
 	// All rooms done
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_TOO_MANY_HOSTAGES_KILLED, TRUE, /*goto*/ 0x2e)
-	message(CHR_BOND, L_IMP(17)) // "Hostages have been saved."
+	show_hudmsg(CHR_BOND, L_IMP(17)) // "Hostages have been saved."
 	set_stage_flag(STAGEFLAG_ENOUGH_HOSTAGES_SAVED)
 
 	label(0x2e)
@@ -2937,14 +2937,14 @@ u8 func1015_firingrange_pc[] = {
 		reloop(0x0a)
 
 		label(0x2f)
-		message(CHR_BOND, L_IMP(34)) // "Critical mission object has been destroyed."
+		show_hudmsg(CHR_BOND, L_IMP(34)) // "Critical mission object has been destroyed."
 		set_stage_flag(STAGEFLAG_FR_PC_DESTROYED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x08)
 		play_sound(0x8116, -1)
 		if_objective_complete(1, /*goto*/ 0x08)
-		message(CHR_P1P2, L_IMP(30)) // "Access denied - authorization failure."
+		show_hudmsg(CHR_P1P2, L_IMP(30)) // "Access denied - authorization failure."
 		restart_timer
 
 		beginloop(0x0b)
@@ -2955,7 +2955,7 @@ u8 func1015_firingrange_pc[] = {
 	endloop(0x0a)
 
 	label(0x08)
-	message(CHR_P1P2, L_IMP(31)) // "Emergency overrides have been engaged."
+	show_hudmsg(CHR_P1P2, L_IMP(31)) // "Emergency overrides have been engaged."
 	unset_object_flag(OBJ_RCP120, OBJFLAG_UNCOLLECTABLE)
 	unset_object_flag(OBJ_RCP120_GLASS, OBJFLAG_INVINCIBLE)
 	destroy_object(OBJ_RCP120_GLASS)
@@ -3609,7 +3609,7 @@ u8 func1023_check_skeder_shuttle_destroyed[] = {
 
 	label(0x2e)
 	if_stage_flag_eq(STAGEFLAG_BOMB_AIRBORNE, TRUE, /*goto*/ 0x0f)
-	message(CHR_BOND, L_IMP(39)) // "The bomb has been detonated..."
+	show_hudmsg(CHR_BOND, L_IMP(39)) // "The bomb has been detonated..."
 	set_stage_flag(STAGEFLAG_BOMB_EXPLODING_ON_GROUND)
 	explosions_around_chr(CHR_BOND)
 	restart_timer
@@ -3707,12 +3707,12 @@ u8 func1027_uplink[] = {
 		label(0x08)
 		if_chr_weapon_equipped(CHR_TARGET, WEAPON_DATAUPLINK, /*goto*/ 0x2e)
 		play_sound(0x8116, -1)
-		message(CHR_TARGET, L_IMP(51)) // "You need the Data Uplink."
+		show_hudmsg(CHR_TARGET, L_IMP(51)) // "You need the Data Uplink."
 		reloop(0x04)
 
 		// Activated with uplink
 		label(0x2e)
-		message(CHR_TARGET, L_IMP(52)) // "Connection has been made."
+		show_hudmsg(CHR_TARGET, L_IMP(52)) // "Connection has been made."
 		restart_timer
 
 		beginloop(0x0a)
@@ -3733,7 +3733,7 @@ u8 func1027_uplink[] = {
 
 		// 1 second since uplink
 		label(0x08)
-		message(CHR_TARGET, L_IMP(53)) // "Bypassing security systems."
+		show_hudmsg(CHR_TARGET, L_IMP(53)) // "Bypassing security systems."
 		restart_timer
 		assign_sound(0x01bf, CHANNEL_5)
 		control_sound_from_object(CHANNEL_5, OBJ_SKEDAR_SHUTTLE, TRUE)
@@ -3759,9 +3759,9 @@ u8 func1027_uplink[] = {
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c1, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, OBJ_SKEDAR_SHUTTLE, TRUE)
-		message(CHR_TARGET, L_IMP(54)) // "Virus has been downloaded successfully."
+		show_hudmsg(CHR_TARGET, L_IMP(54)) // "Virus has been downloaded successfully."
 		yield
-		message(CHR_TARGET, L_IMP(55)) // "Ship's engines have been activated."
+		show_hudmsg(CHR_TARGET, L_IMP(55)) // "Ship's engines have been activated."
 		set_stage_flag(STAGEFLAG_TRIGGER_SHUTTLE_TAKEOFF)
 
 		beginloop(0x14)
@@ -3774,7 +3774,7 @@ u8 func1027_uplink[] = {
 
 		// Connection broken
 		label(0x0b)
-		message(CHR_TARGET, L_IMP(56)) // "Connection to ship has been broken."
+		show_hudmsg(CHR_TARGET, L_IMP(56)) // "Connection to ship has been broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(0x01c0, CHANNEL_6)
 		control_sound_from_object(CHANNEL_6, OBJ_SKEDAR_SHUTTLE, TRUE)
