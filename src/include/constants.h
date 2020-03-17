@@ -185,6 +185,8 @@
 #define BANK_3 3
 
 #define CAMERAMODE_0 0
+#define CAMERAMODE_1 1
+#define CAMERAMODE_2 2
 
 #define CASING_NONE     -1
 #define CASING_STANDARD 0

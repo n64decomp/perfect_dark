@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f0dcdb0(void);
-u32 func0f0dcdbc(void);
+s32 func0f0dcdbc(void);
 u32 func0f0dcef4(void);
 u32 func0f0dd2ac(void);
 u32 func0f0dd848(void);

@@ -43,94 +43,18 @@ glabel func0f0dcdb0
 /*  f0dcdb8:	90420fb0 */ 	lbu	$v0,%lo(var80070fb0)($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f0dcdbc
-/*  f0dcdbc:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0dcdc0:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0dcdc4:	8cae0288 */ 	lw	$t6,0x288($a1)
-/*  f0dcdc8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0dcdcc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0dcdd0:	0fc54a28 */ 	jal	optionsGetShowZoomRange
-/*  f0dcdd4:	8dc40070 */ 	lw	$a0,0x70($t6)
-/*  f0dcdd8:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0dcddc:	0002782b */ 	sltu	$t7,$zero,$v0
-/*  f0dcde0:	01e01025 */ 	or	$v0,$t7,$zero
-/*  f0dcde4:	11e0003f */ 	beqz	$t7,.L0f0dcee4
-/*  f0dcde8:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0dcdec:	8cb8006c */ 	lw	$t8,0x6c($a1)
-/*  f0dcdf0:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0dcdf4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0dcdf8:	13000003 */ 	beqz	$t8,.L0f0dce08
-/*  f0dcdfc:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0dce00:	10000001 */ 	beqz	$zero,.L0f0dce08
-/*  f0dce04:	24070001 */ 	addiu	$a3,$zero,0x1
-.L0f0dce08:
-/*  f0dce08:	8cb90068 */ 	lw	$t9,0x68($a1)
-/*  f0dce0c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0dce10:	13200003 */ 	beqz	$t9,.L0f0dce20
-/*  f0dce14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0dce18:	10000001 */ 	beqz	$zero,.L0f0dce20
-/*  f0dce1c:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0dce20:
-/*  f0dce20:	8ca80064 */ 	lw	$t0,0x64($a1)
-/*  f0dce24:	11000003 */ 	beqz	$t0,.L0f0dce34
-/*  f0dce28:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0dce2c:	10000001 */ 	beqz	$zero,.L0f0dce34
-/*  f0dce30:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0dce34:
-/*  f0dce34:	8ca90070 */ 	lw	$t1,0x70($a1)
-/*  f0dce38:	11200003 */ 	beqz	$t1,.L0f0dce48
-/*  f0dce3c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0dce40:	10000001 */ 	beqz	$zero,.L0f0dce48
-/*  f0dce44:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0dce48:
-/*  f0dce48:	00665021 */ 	addu	$t2,$v1,$a2
-/*  f0dce4c:	01445821 */ 	addu	$t3,$t2,$a0
-/*  f0dce50:	01671021 */ 	addu	$v0,$t3,$a3
-/*  f0dce54:	384c0001 */ 	xori	$t4,$v0,0x1
-/*  f0dce58:	1180000d */ 	beqz	$t4,.L0f0dce90
-/*  f0dce5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0dce60:	8ca20314 */ 	lw	$v0,0x314($a1)
-/*  f0dce64:	2c4d0001 */ 	sltiu	$t5,$v0,0x1
-/*  f0dce68:	15a00009 */ 	bnez	$t5,.L0f0dce90
-/*  f0dce6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0dce70:	8ca20298 */ 	lw	$v0,0x298($a1)
-/*  f0dce74:	04410006 */ 	bgez	$v0,.L0f0dce90
-/*  f0dce78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0dce7c:	8ca2029c */ 	lw	$v0,0x29c($a1)
-/*  f0dce80:	284f0000 */ 	slti	$t7,$v0,0x0
-/*  f0dce84:	39e20001 */ 	xori	$v0,$t7,0x1
-/*  f0dce88:	50400017 */ 	beqzl	$v0,.L0f0dcee8
-/*  f0dce8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0dce90:
-/*  f0dce90:	3c028007 */ 	lui	$v0,%hi(var80075d60)
-/*  f0dce94:	8c425d60 */ 	lw	$v0,%lo(var80075d60)($v0)
-/*  f0dce98:	38580002 */ 	xori	$t8,$v0,0x2
-/*  f0dce9c:	2f020001 */ 	sltiu	$v0,$t8,0x1
-/*  f0dcea0:	50400011 */ 	beqzl	$v0,.L0f0dcee8
-/*  f0dcea4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0dcea8:	0fc2c7d6 */ 	jal	currentPlayerGetSight
-/*  f0dceac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0dceb0:	38590005 */ 	xori	$t9,$v0,0x5
-/*  f0dceb4:	2f220001 */ 	sltiu	$v0,$t9,0x1
-/*  f0dceb8:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f0dcebc:	10400009 */ 	beqz	$v0,.L0f0dcee4
-/*  f0dcec0:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f0dcec4:	8ca80284 */ 	lw	$t0,0x284($a1)
-/*  f0dcec8:	8d030000 */ 	lw	$v1,0x0($t0)
-/*  f0dcecc:	38620002 */ 	xori	$v0,$v1,0x2
-/*  f0dced0:	0002102b */ 	sltu	$v0,$zero,$v0
-/*  f0dced4:	50400004 */ 	beqzl	$v0,.L0f0dcee8
-/*  f0dced8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0dcedc:	38620001 */ 	xori	$v0,$v1,0x1
-/*  f0dcee0:	0002102b */ 	sltu	$v0,$zero,$v0
-.L0f0dcee4:
-/*  f0dcee4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0dcee8:
-/*  f0dcee8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0dceec:	03e00008 */ 	jr	$ra
-/*  f0dcef0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f0dcdbc(void)
+{
+	return optionsGetShowZoomRange(g_Vars.currentplayerstats->mpindex)
+		&& (PLAYERCOUNT() == 1
+				|| !g_Vars.mplayerisrunning
+				|| g_Vars.coopplayernum >= 0
+				|| g_Vars.antiplayernum >= 0)
+		&& var80075d60 == 2
+		&& currentPlayerGetSight() == SIGHT_ZOOM
+		&& g_Vars.currentplayer->cameramode != CAMERAMODE_2
+		&& g_Vars.currentplayer->cameramode != CAMERAMODE_1;
+}
 
 GLOBAL_ASM(
 glabel func0f0dcef4
