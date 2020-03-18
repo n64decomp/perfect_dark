@@ -4466,6 +4466,13 @@ struct mpscenario {
 	void (*unk44)(s32 *arg0);
 };
 
+struct mpscenariooverview {
+	u16 name;
+	u16 shortname;
+	u8 unk04;
+	u8 unk05;
+};
+
 // Throwaway struct for passing two values to menu handlers
 struct numandtext {
 	s32 num;

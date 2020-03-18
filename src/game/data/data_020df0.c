@@ -11216,7 +11216,7 @@ struct menu_dialog menudialog_mpscenario;
 
 // 2c39c
 struct menu_item menuitems_mpgamesetup3[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, L_MPMENU(19), (u32)&func0f184fb0, &menudialog_mpscenario }, // "Scenario"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, L_MPMENU(19), (u32)&mpMenuTextScenarioShortName, &menudialog_mpscenario }, // "Scenario"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU(21), 0x00000000, menuhandlerMpOpenOptions }, // "Options"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(20), (u32)&func0f17f024, &menudialog_mparena }, // "Arena"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(23), 0x00000000, &menudialog_mpweapons }, // "Weapons"
@@ -11273,7 +11273,7 @@ struct menu_dialog menudialog_mpscenario2;
 
 // 2c538
 struct menu_item menuitems_mpquickteamgamesetup[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, L_MPMENU(19), (u32)&func0f184fb0, &menudialog_mpscenario2 }, // "Scenario"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, L_MPMENU(19), (u32)&mpMenuTextScenarioShortName, &menudialog_mpscenario2 }, // "Scenario"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU(21), 0x00000000, menuhandlerMpOpenOptions }, // "Options"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(20), (u32)&func0f17f024, &menudialog_mparena }, // "Arena"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(23), (u32)&func0f17f088, &menudialog_mpweapons2 }, // "Weapons"
@@ -11608,14 +11608,14 @@ struct mpscenario g_MpScenarios[] = {
 };
 
 // 2d168
-u16 mpscenarios[] = {
+struct mpscenariooverview g_MpScenarioOverviews[] = {
 	// Full name, short name, unlock flags?
-	L_MPMENU(246), L_MPMENU(253), 0x0000, // "Combat", "Combat"
-	L_MPMENU(247), L_MPMENU(254), L_ELD(0), // "Hold the Briefcase", "Briefcase"
-	L_MPMENU(248), L_MPMENU(255), L_TITLE(0), // "Hacker Central", "Hacker"
-	L_MPMENU(249), L_MPMENU(256), L_GUN(256), // "Pop a Cap", "Pop"
-	L_MPMENU(250), L_MPMENU(257), L_EAR(257), // "King of the Hill", "Hill"
-	L_MPMENU(251), L_MPMENU(258), L_ELD(257), // "Capture the Case", "Capture"
+	{ L_MPMENU(246), L_MPMENU(253), 0x00, false }, // "Combat", "Combat"
+	{ L_MPMENU(247), L_MPMENU(254), 0x20, false }, // "Hold the Briefcase", "Briefcase"
+	{ L_MPMENU(248), L_MPMENU(255), 0x4e, false }, // "Hacker Central", "Hacker"
+	{ L_MPMENU(249), L_MPMENU(256), 0x4d, false }, // "Pop a Cap", "Pop"
+	{ L_MPMENU(250), L_MPMENU(257), 0x1f, true  }, // "King of the Hill", "Hill"
+	{ L_MPMENU(251), L_MPMENU(258), 0x21, true  }, // "Capture the Case", "Capture"
 };
 
 u32 var8008716c = 0x00000000;

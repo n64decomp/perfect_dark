@@ -70,10 +70,6 @@ const char var7f1b8850[] = "PopACapReset -> Victim %d is player %d\n";
 const char var7f1b8878[] = "PopACapReset -> Done\n";
 const char var7f1b8890[] = "PopACapTick : Current Victim = %d (Player %d)\n";
 const char var7f1b88c0[] = "%d:%02d";
-const char var7f1b88c8[] = "%s\n";
-const char var7f1b88cc[] = "%s\n";
-const char var7f1b88d0[] = "%s:\n";
-const char var7f1b88d8[] = "%s\n";
 
 bool menudialogCombatSimulator(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
 {
@@ -5204,8 +5200,8 @@ glabel menudialog00184ec0
 /*  f184f54:	1420fffa */ 	bnez	$at,.L0f184f40
 /*  f184f58:	24630048 */ 	addiu	$v1,$v1,0x48
 .L0f184f5c:
-/*  f184f5c:	3c0d8008 */ 	lui	$t5,%hi(mpscenarios)
-/*  f184f60:	25ad7148 */ 	addiu	$t5,$t5,%lo(mpscenarios)
+/*  f184f5c:	3c0d8008 */ 	lui	$t5,%hi(g_MpScenarioOverviews)
+/*  f184f60:	25ad7148 */ 	addiu	$t5,$t5,%lo(g_MpScenarioOverviews)
 /*  f184f64:	006d082b */ 	sltu	$at,$v1,$t5
 /*  f184f68:	5020000d */ 	beqzl	$at,.L0f184fa0
 /*  f184f6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -5229,32 +5225,15 @@ glabel menudialog00184ec0
 /*  f184fac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f184fb0
-/*  f184fb0:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x10)
-/*  f184fb4:	91cecb98 */ 	lbu	$t6,%lo(g_MpSetup+0x10)($t6)
-/*  f184fb8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f184fbc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f184fc0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f184fc4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f184fc8:	000f7840 */ 	sll	$t7,$t7,0x1
-/*  f184fcc:	3c048008 */ 	lui	$a0,0x8008
-/*  f184fd0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f184fd4:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f184fd8:	0fc5b9f1 */ 	jal	langGet
-/*  f184fdc:	9484714a */ 	lhu	$a0,0x714a($a0)
-/*  f184fe0:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f184fe4:	3c057f1c */ 	lui	$a1,%hi(var7f1b88c8)
-/*  f184fe8:	24a588c8 */ 	addiu	$a1,$a1,%lo(var7f1b88c8)
-/*  f184fec:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f184ff0:	0c004dad */ 	jal	sprintf
-/*  f184ff4:	00403025 */ 	or	$a2,$v0,$zero
-/*  f184ff8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f184ffc:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f185000:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f185004:	03e00008 */ 	jr	$ra
-/*  f185008:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *mpMenuTextScenarioShortName(struct menu_item *item)
+{
+	sprintf(g_StringPointer, "%s\n", langGet(g_MpScenarioOverviews[g_MpSetup.scenario].shortname));
+	return g_StringPointer;
+}
+
+const char var7f1b88cc[] = "%s\n";
+const char var7f1b88d0[] = "%s:\n";
+const char var7f1b88d8[] = "%s\n";
 
 GLOBAL_ASM(
 glabel func0f18500c
@@ -5265,11 +5244,11 @@ glabel func0f18500c
 /*  f18501c:	000e7880 */ 	sll	$t7,$t6,0x2
 /*  f185020:	01ee7823 */ 	subu	$t7,$t7,$t6
 /*  f185024:	000f7840 */ 	sll	$t7,$t7,0x1
-/*  f185028:	3c048008 */ 	lui	$a0,%hi(mpscenarios)
+/*  f185028:	3c048008 */ 	lui	$a0,%hi(g_MpScenarioOverviews)
 /*  f18502c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f185030:	008f2021 */ 	addu	$a0,$a0,$t7
 /*  f185034:	0fc5b9f1 */ 	jal	langGet
-/*  f185038:	94847148 */ 	lhu	$a0,%lo(mpscenarios)($a0)
+/*  f185038:	94847148 */ 	lhu	$a0,%lo(g_MpScenarioOverviews)($a0)
 /*  f18503c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
 /*  f185040:	3c057f1c */ 	lui	$a1,%hi(var7f1b88cc)
 /*  f185044:	24a588cc */ 	addiu	$a1,$a1,%lo(var7f1b88cc)
@@ -5345,10 +5324,10 @@ glabel var7f1b897c
 /*  f185104:	8c298964 */ 	lw	$t1,%lo(var7f1b8964)($at)
 /*  f185108:	01200008 */ 	jr	$t1
 /*  f18510c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f185110:	3c108008 */ 	lui	$s0,%hi(mpscenarios)
+/*  f185110:	3c108008 */ 	lui	$s0,%hi(g_MpScenarioOverviews)
 /*  f185114:	3c118008 */ 	lui	$s1,%hi(var8008716c)
 /*  f185118:	2631716c */ 	addiu	$s1,$s1,%lo(var8008716c)
-/*  f18511c:	26107148 */ 	addiu	$s0,$s0,%lo(mpscenarios)
+/*  f18511c:	26107148 */ 	addiu	$s0,$s0,%lo(g_MpScenarioOverviews)
 .L0f185120:
 /*  f185120:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f185124:	92040004 */ 	lbu	$a0,0x4($s0)
@@ -5367,10 +5346,10 @@ glabel var7f1b897c
 /*  f185150:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f185154:	10000080 */ 	beqz	$zero,.L0f185358
 /*  f185158:	aeb20000 */ 	sw	$s2,0x0($s5)
-/*  f18515c:	3c108008 */ 	lui	$s0,%hi(mpscenarios)
+/*  f18515c:	3c108008 */ 	lui	$s0,%hi(g_MpScenarioOverviews)
 /*  f185160:	3c118008 */ 	lui	$s1,%hi(var8008716c)
 /*  f185164:	2631716c */ 	addiu	$s1,$s1,%lo(var8008716c)
-/*  f185168:	26107148 */ 	addiu	$s0,$s0,%lo(mpscenarios)
+/*  f185168:	26107148 */ 	addiu	$s0,$s0,%lo(g_MpScenarioOverviews)
 .L0f18516c:
 /*  f18516c:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f185170:	92040004 */ 	lbu	$a0,0x4($s0)
@@ -5397,8 +5376,8 @@ glabel var7f1b897c
 /*  f1851b8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1851bc:	10000067 */ 	beqz	$zero,.L0f18535c
 /*  f1851c0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1851c4:	3c108008 */ 	lui	$s0,%hi(mpscenarios)
-/*  f1851c8:	26107148 */ 	addiu	$s0,$s0,%lo(mpscenarios)
+/*  f1851c4:	3c108008 */ 	lui	$s0,%hi(g_MpScenarioOverviews)
+/*  f1851c8:	26107148 */ 	addiu	$s0,$s0,%lo(g_MpScenarioOverviews)
 /*  f1851cc:	00008825 */ 	or	$s1,$zero,$zero
 /*  f1851d0:	24130006 */ 	addiu	$s3,$zero,0x6
 .L0f1851d4:
@@ -5428,8 +5407,8 @@ glabel var7f1b897c
 /*  f185220:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f185224:	1000004d */ 	beqz	$zero,.L0f18535c
 /*  f185228:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18522c:	3c108008 */ 	lui	$s0,%hi(mpscenarios)
-/*  f185230:	26107148 */ 	addiu	$s0,$s0,%lo(mpscenarios)
+/*  f18522c:	3c108008 */ 	lui	$s0,%hi(g_MpScenarioOverviews)
+/*  f185230:	26107148 */ 	addiu	$s0,$s0,%lo(g_MpScenarioOverviews)
 /*  f185234:	00008825 */ 	or	$s1,$zero,$zero
 /*  f185238:	24130006 */ 	addiu	$s3,$zero,0x6
 .L0f18523c:
@@ -5480,8 +5459,8 @@ glabel var7f1b897c
 /*  f1852dc:	10000020 */ 	beqz	$zero,.L0f185360
 /*  f1852e0:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f1852e4:	8ead0000 */ 	lw	$t5,0x0($s5)
-/*  f1852e8:	3c108008 */ 	lui	$s0,%hi(mpscenarios)
-/*  f1852ec:	26107148 */ 	addiu	$s0,$s0,%lo(mpscenarios)
+/*  f1852e8:	3c108008 */ 	lui	$s0,%hi(g_MpScenarioOverviews)
+/*  f1852ec:	26107148 */ 	addiu	$s0,$s0,%lo(g_MpScenarioOverviews)
 /*  f1852f0:	000dc0c0 */ 	sll	$t8,$t5,0x3
 /*  f1852f4:	02787821 */ 	addu	$t7,$s3,$t8
 /*  f1852f8:	8dee0000 */ 	lw	$t6,0x0($t7)
@@ -5608,14 +5587,14 @@ glabel func0f185568
 .L0f1855cc:
 /*  f1855cc:	3c18800b */ 	lui	$t8,%hi(g_MpSetup+0x10)
 /*  f1855d0:	9318cb98 */ 	lbu	$t8,%lo(g_MpSetup+0x10)($t8)
-/*  f1855d4:	3c048008 */ 	lui	$a0,%hi(mpscenarios)
+/*  f1855d4:	3c048008 */ 	lui	$a0,%hi(g_MpScenarioOverviews)
 /*  f1855d8:	27b5007c */ 	addiu	$s5,$sp,0x7c
 /*  f1855dc:	0018c880 */ 	sll	$t9,$t8,0x2
 /*  f1855e0:	0338c823 */ 	subu	$t9,$t9,$t8
 /*  f1855e4:	0019c840 */ 	sll	$t9,$t9,0x1
 /*  f1855e8:	00992021 */ 	addu	$a0,$a0,$t9
 /*  f1855ec:	0fc5b9f1 */ 	jal	langGet
-/*  f1855f0:	94847148 */ 	lhu	$a0,%lo(mpscenarios)($a0)
+/*  f1855f0:	94847148 */ 	lhu	$a0,%lo(g_MpScenarioOverviews)($a0)
 /*  f1855f4:	27b20040 */ 	addiu	$s2,$sp,0x40
 /*  f1855f8:	3c057f1c */ 	lui	$a1,%hi(var7f1b88d8)
 /*  f1855fc:	24a588d8 */ 	addiu	$a1,$a1,%lo(var7f1b88d8)
