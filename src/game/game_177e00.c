@@ -262,7 +262,7 @@ char *menutextMatchTime(s32 arg0)
 
 char *mpMenuTextWeaponDescription(struct menu_item *item)
 {
-	struct weapon *weapon = weaponFindById(g_MenuStack[g_MpPlayerNum].weaponnum);
+	struct weapon *weapon = weaponFindById(g_MenuStack[g_MpPlayerNum].unke28);
 
 	if (weapon) {
 		return langGet(weapon->description);
@@ -323,7 +323,7 @@ glabel func0f1783a0
 
 char *mpMenuTextWeaponOfChoiceName(struct menu_item *item)
 {
-	return mpPlayerGetWeaponOfChoiceName(g_MenuStack[g_MpPlayerNum].playernum, false);
+	return mpPlayerGetWeaponOfChoiceName(g_MenuStack[g_MpPlayerNum].playernum, 0);
 }
 
 GLOBAL_ASM(

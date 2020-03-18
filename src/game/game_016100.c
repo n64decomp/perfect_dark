@@ -36,37 +36,25 @@
 #include "lib/lib_4a5e0.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel mpPlayerGetWeaponOfChoiceName
-/*  f016100:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x28c)
-/*  f016104:	8dcea24c */ 	lw	$t6,%lo(g_Vars+0x28c)($t6)
-/*  f016108:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f01610c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f016110:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f016114:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f016118:	afae0020 */ 	sw	$t6,0x20($sp)
-/*  f01611c:	27a40028 */ 	addiu	$a0,$sp,0x28
-/*  f016120:	0fc44c6b */ 	jal	currentPlayerGetWeaponOfChoice
-/*  f016124:	27a50024 */ 	addiu	$a1,$sp,0x24
-/*  f016128:	8faf0034 */ 	lw	$t7,0x34($sp)
-/*  f01612c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f016130:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f016134:	15e10003 */ 	bne	$t7,$at,.L0f016144
-/*  f016138:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01613c:	10000001 */ 	beqz	$zero,.L0f016144
-/*  f016140:	8fa40024 */ 	lw	$a0,0x24($sp)
-.L0f016144:
-/*  f016144:	0fc28857 */ 	jal	weaponGetName
-/*  f016148:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01614c:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f016150:	0fc4a24b */ 	jal	setCurrentPlayerNum
-/*  f016154:	8fa40020 */ 	lw	$a0,0x20($sp)
-/*  f016158:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f01615c:	8fa2002c */ 	lw	$v0,0x2c($sp)
-/*  f016160:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f016164:	03e00008 */ 	jr	$ra
-/*  f016168:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot)
+{
+	char *name;
+	s32 weapon1;
+	s32 weapon2;
+	u32 prevplayernum = g_Vars.currentplayernum;
+	s32 weapon;
+
+	setCurrentPlayerNum(playernum);
+
+	currentPlayerGetWeaponOfChoice(&weapon1, &weapon2);
+
+	weapon = slot == 1 ? weapon2 : weapon1;
+
+	name = weaponGetName(weapon);
+	setCurrentPlayerNum(prevplayernum);
+
+	return name;
+}
 
 GLOBAL_ASM(
 glabel func0f01616c
