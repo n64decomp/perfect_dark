@@ -10226,7 +10226,7 @@ u16 rankings[] = {
 // 2a950
 struct menu_item menuitems_2a950[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x01000010, (u32)&mpGetCurrentPlayerName, (u32)&func0f17853c, menuhandler001785c4 },
-	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_MPMENU(261), (u32)&func0f178bb0, menuhandler00178a94 }, // "Title:"
+	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_MPMENU(261), (u32)&mpMenuTextPlayerTitle, menuhandler00178a94 }, // "Title:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, L_AME(16), L_MPMENU(262), 0x00000000, NULL }, // "Weapon of Choice:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&func0f178450, 0x00000000, NULL },
@@ -10571,33 +10571,33 @@ u32 var800851d4 = 0x2e280000;
 
 // 2b1f8
 struct menu_item menuitems_mpplayerstats[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(146), (u32)&func0f17a658, NULL }, // "Kills:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(147), (u32)&func0f17a6ac, NULL }, // "Deaths:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(148), (u32)&func0f17ace8, NULL }, // "Accuracy:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(149), (u32)&func0f17a7fc, NULL }, // "Head Shots:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(146), (u32)&mpMenuTextKills, NULL }, // "Kills:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(147), (u32)&mpMenuTextDeaths, NULL }, // "Deaths:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(148), (u32)&mpMenuTextAccuracy, NULL }, // "Accuracy:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(149), (u32)&mpMenuTextHeadShots, NULL }, // "Head Shots:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(150), (u32)&func0f17a9a0, NULL }, // "Ammo Used:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(151), (u32)&func0f17af9c, NULL }, // "Damage Dealt:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(152), (u32)&func0f17af1c, NULL }, // "Pain Received:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(150), (u32)&mpMenuTextAmmoUsed, NULL }, // "Ammo Used:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(151), (u32)&mpMenuTextDamageDealt, NULL }, // "Damage Dealt:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(152), (u32)&mpMenuTextPainReceived, NULL }, // "Pain Received:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(153), (u32)&func0f17a700, NULL }, // "Games Played:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(154), (u32)&func0f17a754, NULL }, // "Games Won:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(155), (u32)&func0f17a7a8, NULL }, // "Games Lost:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(156), (u32)&func0f17ab38, NULL }, // "Time:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(157), (u32)&func0f17aaa0, NULL }, // "Distance:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(153), (u32)&mpMenuTextGamesPlayed, NULL }, // "Games Played:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(154), (u32)&mpMenuTextGamesWon, NULL }, // "Games Won:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(155), (u32)&mpMenuTextGamesLost, NULL }, // "Games Lost:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(156), (u32)&mpMenuTextTime, NULL }, // "Time:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(157), (u32)&mpMenuTextDistance, NULL }, // "Distance:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, L_AME(16), L_MPMENU(158), 0x00000000, NULL }, // "Medals Won:"
-	{ MENUITEMTYPE_LABEL,       2, 0x00200000, L_MPMENU(159), (u32)&func0f17a850, menuhandlerMpMedal }, // "Accuracy:"
-	{ MENUITEMTYPE_LABEL,       1, 0x00200000, L_MPMENU(160), (u32)&func0f17a8a4, menuhandlerMpMedal }, // "Head Shot:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00200000, L_MPMENU(161), (u32)&func0f17a8f8, menuhandlerMpMedal }, // "KillMaster:"
-	{ MENUITEMTYPE_LABEL,       3, 0x00200000, L_MPMENU(162), (u32)&func0f17a94c, menuhandlerMpMedal }, // "Survivor:"
+	{ MENUITEMTYPE_LABEL,       2, 0x00200000, L_MPMENU(159), (u32)&mpMenuTextMedalAccuracy, menuhandlerMpMedal }, // "Accuracy:"
+	{ MENUITEMTYPE_LABEL,       1, 0x00200000, L_MPMENU(160), (u32)&mpMenuTextMedalHeadShot, menuhandlerMpMedal }, // "Head Shot:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00200000, L_MPMENU(161), (u32)&mpMenuTextMedalKillMaster, menuhandlerMpMedal }, // "KillMaster:"
+	{ MENUITEMTYPE_LABEL,       3, 0x00200000, L_MPMENU(162), (u32)&mpMenuTextMedalSurvivor, menuhandlerMpMedal }, // "Survivor:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(163), 0x00000000, NULL }, // "Your Title:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f178bb0, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextPlayerTitle, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, L_AME(0), L_MPWEAPONS(219), 0x00000000, menuhandlerMpUsernamePassword }, // "USERNAME:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000220, (u32)&func0f17b408, 0x00000000, menuhandlerMpUsernamePassword },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000220, (u32)&mpMenuTextUsernamePassword, 0x00000000, menuhandlerMpUsernamePassword },
 	{ MENUITEMTYPE_LABEL,       0, L_AME(0), L_MPWEAPONS(220), 0x00000000, menuhandlerMpUsernamePassword }, // "PASSWORD:"
-	{ MENUITEMTYPE_LABEL,       1, 0x00000220, (u32)&func0f17b408, 0x00000000, menuhandlerMpUsernamePassword },
+	{ MENUITEMTYPE_LABEL,       1, 0x00000220, (u32)&mpMenuTextUsernamePassword, 0x00000000, menuhandlerMpUsernamePassword },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(164), 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },

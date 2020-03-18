@@ -908,7 +908,7 @@ glabel menuhandler00178a94
 );
 
 GLOBAL_ASM(
-glabel func0f178bb0
+glabel mpMenuTextPlayerTitle
 /*  f178bb0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f178bb4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f178bb8:	27bdffe8 */ 	addiu	$sp,$sp,-24

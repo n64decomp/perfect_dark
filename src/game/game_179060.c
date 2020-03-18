@@ -1395,7 +1395,7 @@ glabel menuhandler0017a20c
 );
 
 GLOBAL_ASM(
-glabel func0f17a658
+glabel mpMenuTextKills
 /*  f17a658:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a65c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a660:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1420,7 +1420,7 @@ glabel func0f17a658
 );
 
 GLOBAL_ASM(
-glabel func0f17a6ac
+glabel mpMenuTextDeaths
 /*  f17a6ac:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a6b0:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a6b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1445,7 +1445,7 @@ glabel func0f17a6ac
 );
 
 GLOBAL_ASM(
-glabel func0f17a700
+glabel mpMenuTextGamesPlayed
 /*  f17a700:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a704:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a708:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1470,7 +1470,7 @@ glabel func0f17a700
 );
 
 GLOBAL_ASM(
-glabel func0f17a754
+glabel mpMenuTextGamesWon
 /*  f17a754:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a758:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a75c:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1495,7 +1495,7 @@ glabel func0f17a754
 );
 
 GLOBAL_ASM(
-glabel func0f17a7a8
+glabel mpMenuTextGamesLost
 /*  f17a7a8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a7ac:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a7b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1520,7 +1520,7 @@ glabel func0f17a7a8
 );
 
 GLOBAL_ASM(
-glabel func0f17a7fc
+glabel mpMenuTextHeadShots
 /*  f17a7fc:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a800:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a804:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1545,7 +1545,7 @@ glabel func0f17a7fc
 );
 
 GLOBAL_ASM(
-glabel func0f17a850
+glabel mpMenuTextMedalAccuracy
 /*  f17a850:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a854:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a858:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1570,7 +1570,7 @@ glabel func0f17a850
 );
 
 GLOBAL_ASM(
-glabel func0f17a8a4
+glabel mpMenuTextMedalHeadShot
 /*  f17a8a4:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a8a8:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a8ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1595,7 +1595,7 @@ glabel func0f17a8a4
 );
 
 GLOBAL_ASM(
-glabel func0f17a8f8
+glabel mpMenuTextMedalKillMaster
 /*  f17a8f8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a8fc:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a900:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1620,7 +1620,7 @@ glabel func0f17a8f8
 );
 
 GLOBAL_ASM(
-glabel func0f17a94c
+glabel mpMenuTextMedalSurvivor
 /*  f17a94c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a950:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a954:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -1645,7 +1645,7 @@ glabel func0f17a94c
 );
 
 GLOBAL_ASM(
-glabel func0f17a9a0
+glabel mpMenuTextAmmoUsed
 /*  f17a9a0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17a9a4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17a9a8:	3c06800b */ 	lui	$a2,%hi(g_MpPlayers+0x80)
@@ -1720,7 +1720,7 @@ glabel func0f17a9a0
 );
 
 GLOBAL_ASM(
-glabel func0f17aaa0
+glabel mpMenuTextDistance
 /*  f17aaa0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17aaa4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17aaa8:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers+0x6c)
@@ -1763,7 +1763,7 @@ glabel func0f17aaa0
 );
 
 GLOBAL_ASM(
-glabel func0f17ab38
+glabel mpMenuTextTime
 /*  f17ab38:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17ab3c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17ab40:	3c02800b */ 	lui	$v0,%hi(g_MpPlayers+0x68)
@@ -1891,7 +1891,7 @@ glabel func0f17ab38
 );
 
 GLOBAL_ASM(
-glabel func0f17ace8
+glabel mpMenuTextAccuracy
 /*  f17ace8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17acec:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17acf0:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers+0x70)
@@ -2057,7 +2057,7 @@ glabel var7f1b80ec
 );
 
 GLOBAL_ASM(
-glabel func0f17af1c
+glabel mpMenuTextPainReceived
 /*  f17af1c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17af20:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17af24:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers+0x78)
@@ -2094,7 +2094,7 @@ glabel func0f17af1c
 );
 
 GLOBAL_ASM(
-glabel func0f17af9c
+glabel mpMenuTextDamageDealt
 /*  f17af9c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f17afa0:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f17afa4:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers+0x74)
@@ -2390,7 +2390,7 @@ s32 menuhandlerMpUsernamePassword(u32 operation, struct menu_item *item, s32 *va
 }
 
 GLOBAL_ASM(
-glabel func0f17b408
+glabel mpMenuTextUsernamePassword
 /*  f17b408:	3c0f8008 */ 	lui	$t7,%hi(var800851bc)
 /*  f17b40c:	25ef51bc */ 	addiu	$t7,$t7,%lo(var800851bc)
 /*  f17b410:	8de10000 */ 	lw	$at,0x0($t7)
