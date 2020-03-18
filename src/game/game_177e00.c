@@ -331,28 +331,10 @@ char *mpMenuTextAward1(struct menu_item *item)
 	return g_Vars.players[g_MenuStack[g_MpPlayerNum].playernum]->award1;
 }
 
-GLOBAL_ASM(
-glabel func0f1784f0
-/*  f1784f0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f1784f4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1784f8:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0x83b)
-/*  f1784fc:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x64)
-/*  f178500:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f178504:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f178508:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17850c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f178510:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f178514:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f178518:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17851c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f178520:	9318e83b */ 	lbu	$t8,%lo(g_MenuStack+0x83b)($t8)
-/*  f178524:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f178528:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f17852c:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f178530:	8d08a024 */ 	lw	$t0,%lo(g_Vars+0x64)($t0)
-/*  f178534:	03e00008 */ 	jr	$ra
-/*  f178538:	8d021978 */ 	lw	$v0,0x1978($t0)
-);
+char *mpMenuTextAward2(struct menu_item *item)
+{
+	return g_Vars.players[g_MenuStack[g_MpPlayerNum].playernum]->award2;
+}
 
 GLOBAL_ASM(
 glabel func0f17853c

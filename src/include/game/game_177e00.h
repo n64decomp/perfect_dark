@@ -11,7 +11,7 @@ char *mpMenuTextWeaponDescription(struct menu_item *item);
 u32 func0f1783a0(void);
 char *mpMenuTextWeaponOfChoiceName(struct menu_item *item);
 char *mpMenuTextAward1(struct menu_item *item);
-u32 func0f1784f0(void);
+char *mpMenuTextAward2(struct menu_item *item);
 u32 func0f17853c(void);
 s32 menuhandler001785c4(u32, u32, u32 *);
 s32 menuhandler001786d8(u32, u32, u32 *);

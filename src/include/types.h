@@ -2669,7 +2669,7 @@ struct player {
 	/*0x196c*/ u32 shootrotx;
 	/*0x1970*/ u32 shootroty;
 	/*0x1974*/ char *award1;
-	/*0x1978*/ u32 unk1978;
+	/*0x1978*/ char *award2;
 	/*0x197c*/ u32 unk197c;
 	/*0x1980*/ u32 unk1980;
 	/*0x1984*/ u32 unk1984;
