@@ -10,7 +10,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00048150
+glabel osInvalICache
 /*    48150:	18a00011 */ 	blez	$a1,.L00048198
 /*    48154:	00000000 */ 	sll	$zero,$zero,0x0
 /*    48158:	240b4000 */ 	addiu	$t3,$zero,0x4000

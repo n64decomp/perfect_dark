@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004ace0(void);
+u32 __osSiRawReadIo(void);
 
 #endif

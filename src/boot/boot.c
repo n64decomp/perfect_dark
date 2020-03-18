@@ -661,16 +661,16 @@ glabel func000016cc
 /*     1820:	ac80fffc */ 	sw	$zero,-0x4($a0)
 /*     1824:	1462fffc */ 	bne	$v1,$v0,.L00001818
 /*     1828:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*     182c:	0c0016d8 */ 	jal	func00005b60
+/*     182c:	0c0016d8 */ 	jal	osInitialize
 /*     1830:	00000000 */ 	sll	$zero,$zero,0x0
 /*     1834:	0c012048 */ 	jal	func00048120
 /*     1838:	00000000 */ 	sll	$zero,$zero,0x0
 /*     183c:	3c048000 */ 	lui	$a0,0x8000
-/*     1840:	0c012054 */ 	jal	func00048150
+/*     1840:	0c012054 */ 	jal	osInvalICache
 /*     1844:	24054000 */ 	addiu	$a1,$zero,0x4000
 /*     1848:	0c012074 */ 	jal	func000481d0
 /*     184c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     1850:	0c012078 */ 	jal	func000481e0
+/*     1850:	0c012078 */ 	jal	__osSetFpcCsr
 /*     1854:	34440e80 */ 	ori	$a0,$v0,0xe80
 /*     1858:	24040003 */ 	addiu	$a0,$zero,0x3
 /*     185c:	0c00062b */ 	jal	func000018ac
@@ -2284,7 +2284,7 @@ glabel func00002f70
 );
 
 GLOBAL_ASM(
-glabel func00002ff0
+glabel osMapTLBRdb
 /*     2ff0:	40085000 */ 	mfc0	$t0,$10
 /*     2ff4:	24090001 */ 	addiu	$t1,$zero,0x1
 /*     2ff8:	40890000 */ 	mtc0	$t1,$0

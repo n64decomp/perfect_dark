@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func00048150(void);
+void osInvalICache(void *vaddr, s32 nbytes);
 
 #endif

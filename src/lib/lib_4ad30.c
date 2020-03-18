@@ -11,11 +11,11 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0004ad30
+glabel __osSiRawWriteIo
 /*    4ad30:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    4ad34:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    4ad38:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    4ad3c:	0c014718 */ 	jal	func00051c60
+/*    4ad3c:	0c014718 */ 	jal	__osSiDeviceBusy
 /*    4ad40:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*    4ad44:	10400003 */ 	beqz	$v0,.L0004ad54
 /*    4ad48:	8fae001c */ 	lw	$t6,0x1c($sp)

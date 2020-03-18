@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func000481e0(void);
+void __osSetFpcCsr(void);
 void osStartThread(OSThread *thread);
 void osCreateMesgQueue(OSMesgQueue *mq, OSMesg *msgBuf, s32 count);
 void osStopThread(OSThread *thread);

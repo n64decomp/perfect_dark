@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004acc0(void);
-u32 func0004acd0(void);
+u32 __osSetSR(void);
+u32 __osGetSR(void);
 
 #endif

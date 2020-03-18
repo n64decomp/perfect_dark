@@ -10,7 +10,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00051c60
+glabel __osSiDeviceBusy
 /*    51c60:	3c0ea480 */ 	lui	$t6,0xa480
 /*    51c64:	8dc40018 */ 	lw	$a0,0x18($t6)
 /*    51c68:	27bdfff8 */ 	addiu	$sp,$sp,-8

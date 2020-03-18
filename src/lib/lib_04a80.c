@@ -1290,31 +1290,31 @@ glabel func00005b30
 );
 
 GLOBAL_ASM(
-glabel func00005b60
+glabel osInitialize
 /*     5b60:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*     5b64:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*     5b68:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*     5b6c:	3c018009 */ 	lui	$at,%hi(var80090a60)
 /*     5b70:	afb10018 */ 	sw	$s1,0x18($sp)
 /*     5b74:	afb00014 */ 	sw	$s0,0x14($sp)
-/*     5b78:	0c012b34 */ 	jal	func0004acd0
+/*     5b78:	0c012b34 */ 	jal	__osGetSR
 /*     5b7c:	ac2e0a60 */ 	sw	$t6,%lo(var80090a60)($at)
 /*     5b80:	3c012000 */ 	lui	$at,0x2000
-/*     5b84:	0c012b30 */ 	jal	func0004acc0
+/*     5b84:	0c012b30 */ 	jal	__osSetSR
 /*     5b88:	00412025 */ 	or	$a0,$v0,$at
 /*     5b8c:	3c040100 */ 	lui	$a0,0x100
-/*     5b90:	0c012078 */ 	jal	func000481e0
+/*     5b90:	0c012078 */ 	jal	__osSetFpcCsr
 /*     5b94:	34840800 */ 	ori	$a0,$a0,0x800
 /*     5b98:	3c101fc0 */ 	lui	$s0,0x1fc0
 /*     5b9c:	361007fc */ 	ori	$s0,$s0,0x7fc
 /*     5ba0:	27b10034 */ 	addiu	$s1,$sp,0x34
 /*     5ba4:	02202825 */ 	or	$a1,$s1,$zero
-/*     5ba8:	0c012b38 */ 	jal	func0004ace0
+/*     5ba8:	0c012b38 */ 	jal	__osSiRawReadIo
 /*     5bac:	02002025 */ 	or	$a0,$s0,$zero
 /*     5bb0:	10400005 */ 	beqz	$v0,.L00005bc8
 /*     5bb4:	02002025 */ 	or	$a0,$s0,$zero
 .L00005bb8:
-/*     5bb8:	0c012b38 */ 	jal	func0004ace0
+/*     5bb8:	0c012b38 */ 	jal	__osSiRawReadIo
 /*     5bbc:	02202825 */ 	or	$a1,$s1,$zero
 /*     5bc0:	5440fffd */ 	bnezl	$v0,.L00005bb8
 /*     5bc4:	02002025 */ 	or	$a0,$s0,$zero
@@ -1322,7 +1322,7 @@ glabel func00005b60
 /*     5bc8:	8fa50034 */ 	lw	$a1,0x34($sp)
 /*     5bcc:	02002025 */ 	or	$a0,$s0,$zero
 /*     5bd0:	34af0008 */ 	ori	$t7,$a1,0x8
-/*     5bd4:	0c012b4c */ 	jal	func0004ad30
+/*     5bd4:	0c012b4c */ 	jal	__osSiRawWriteIo
 /*     5bd8:	01e02825 */ 	or	$a1,$t7,$zero
 /*     5bdc:	10400008 */ 	beqz	$v0,.L00005c00
 /*     5be0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1330,7 +1330,7 @@ glabel func00005b60
 .L00005be8:
 /*     5be8:	02002025 */ 	or	$a0,$s0,$zero
 /*     5bec:	34b80008 */ 	ori	$t8,$a1,0x8
-/*     5bf0:	0c012b4c */ 	jal	func0004ad30
+/*     5bf0:	0c012b4c */ 	jal	__osSiRawWriteIo
 /*     5bf4:	03002825 */ 	or	$a1,$t8,$zero
 /*     5bf8:	5440fffb */ 	bnezl	$v0,.L00005be8
 /*     5bfc:	8fa50034 */ 	lw	$a1,0x34($sp)
@@ -1380,11 +1380,11 @@ glabel func00005b60
 /*     5ca8:	0c012b60 */ 	jal	osWritebackDCache
 /*     5cac:	adf9000c */ 	sw	$t9,0xc($t7)
 /*     5cb0:	02002025 */ 	or	$a0,$s0,$zero
-/*     5cb4:	0c012054 */ 	jal	func00048150
+/*     5cb4:	0c012054 */ 	jal	osInvalICache
 /*     5cb8:	24050190 */ 	addiu	$a1,$zero,0x190
 /*     5cbc:	0c001770 */ 	jal	func00005dc0
 /*     5cc0:	00000000 */ 	sll	$zero,$zero,0x0
-/*     5cc4:	0c000bfc */ 	jal	func00002ff0
+/*     5cc4:	0c000bfc */ 	jal	osMapTLBRdb
 /*     5cc8:	00000000 */ 	sll	$zero,$zero,0x0
 /*     5ccc:	3c108006 */ 	lui	$s0,%hi(var8005cf60)
 /*     5cd0:	2610cf60 */ 	addiu	$s0,$s0,%lo(var8005cf60)
@@ -1431,7 +1431,7 @@ glabel func00005b60
 /*     5d68:	3c018006 */ 	lui	$at,0x8006
 /*     5d6c:	ac2bcf68 */ 	sw	$t3,-0x3098($at)
 .L00005d70:
-/*     5d70:	0c012c58 */ 	jal	func0004b160
+/*     5d70:	0c012c58 */ 	jal	__osGetCause
 /*     5d74:	00000000 */ 	sll	$zero,$zero,0x0
 /*     5d78:	304d1000 */ 	andi	$t5,$v0,0x1000
 /*     5d7c:	11a00003 */ 	beqz	$t5,.L00005d8c

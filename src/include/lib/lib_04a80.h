@@ -15,7 +15,7 @@ u32 func00005a60(void);
 u32 func00005a7c(void);
 u32 func00005b18(void);
 u32 func00005b30(void);
-u32 func00005b60(void);
+void osInitialize(void);
 u32 func00005dc0(void);
 
 #endif

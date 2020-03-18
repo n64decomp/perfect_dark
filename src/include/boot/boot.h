@@ -14,6 +14,6 @@ s32 func00002078(void);
 s32 func00002148(void);
 s32 func00002148(void);
 s32 func000022e0(void);
-s32 func00002ff0(void);
+void osMapTLBRdb(void);
 
 #endif
