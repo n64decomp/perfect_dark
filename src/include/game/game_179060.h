@@ -6,7 +6,7 @@
 char *mpGetCurrentPlayerName(struct menu_item *item);
 u32 func0f179104(void);
 s32 menuhandler001791c8(u32, u32, u32 *);
-u32 func0f17960c(void);
+char *mpMenuTextWeaponNameForSlot(struct menu_item *item);
 u32 func0f179b58(void);
 s32 func0f179da4(u32 operation, struct menu_item *item, s32 *value, s32 arg3, s32 arg4, s32 arg5);
 s32 menudialog0017a174(u32, u32, u32 *);

@@ -452,19 +452,10 @@ char *menuhandlerMpWeaponSlot(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f17960c
-/*  f17960c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f179610:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f179614:	0fc62365 */ 	jal	mpGetWeaponSlot
-/*  f179618:	90840001 */ 	lbu	$a0,0x1($a0)
-/*  f17961c:	0fc6230f */ 	jal	mpGetWeaponLabel
-/*  f179620:	00402025 */ 	or	$a0,$v0,$zero
-/*  f179624:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f179628:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17962c:	03e00008 */ 	jr	$ra
-/*  f179630:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextWeaponNameForSlot(struct menu_item *item)
+{
+	return mpGetWeaponLabel(mpGetWeaponSlot(item->param));
+}
 
 s32 menuhandlerMpWeaponSetDropdown(u32 operation, struct menu_item *item, s32 *value)
 {

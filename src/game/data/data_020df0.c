@@ -10474,11 +10474,11 @@ struct menu_dialog menudialog_mpweapons = {
 struct menu_item menuitems_mpweapons2[] = {
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020090, L_MPMENU(174), 0x00000000, menuhandlerMpWeaponSetDropdown }, // "Set:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(176), (u32)&func0f17960c, NULL }, // "1:"
-	{ MENUITEMTYPE_LABEL,       1, 0x00000002, L_MPMENU(177), (u32)&func0f17960c, NULL }, // "2:"
-	{ MENUITEMTYPE_LABEL,       2, 0x00000002, L_MPMENU(178), (u32)&func0f17960c, NULL }, // "3:"
-	{ MENUITEMTYPE_LABEL,       3, 0x00000002, L_MPMENU(179), (u32)&func0f17960c, NULL }, // "4:"
-	{ MENUITEMTYPE_LABEL,       4, 0x00000002, L_MPMENU(180), (u32)&func0f17960c, NULL }, // "5:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(176), (u32)&mpMenuTextWeaponNameForSlot, NULL }, // "1:"
+	{ MENUITEMTYPE_LABEL,       1, 0x00000002, L_MPMENU(177), (u32)&mpMenuTextWeaponNameForSlot, NULL }, // "2:"
+	{ MENUITEMTYPE_LABEL,       2, 0x00000002, L_MPMENU(178), (u32)&mpMenuTextWeaponNameForSlot, NULL }, // "3:"
+	{ MENUITEMTYPE_LABEL,       3, 0x00000002, L_MPMENU(179), (u32)&mpMenuTextWeaponNameForSlot, NULL }, // "4:"
+	{ MENUITEMTYPE_LABEL,       4, 0x00000002, L_MPMENU(180), (u32)&mpMenuTextWeaponNameForSlot, NULL }, // "5:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(182), 0x00000000, NULL }, // "Back"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
