@@ -16,7 +16,7 @@ u32 func0f17853c(void);
 s32 menuhandler001785c4(u32, u32, u32 *);
 s32 menuhandler001786d8(u32, u32, u32 *);
 s32 menuhandler00178a94(u32, u32, u32 *);
-u32 mpMenuTextPlayerTitle(void);
+char *mpMenuTextPlayerTitle(s32 arg0);
 s32 menuhandler00178bf4(u32, u32, u32 *);
 u32 func0f178dbc(void);
 u32 func0f178ef0(void);

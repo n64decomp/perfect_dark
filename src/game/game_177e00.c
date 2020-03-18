@@ -907,26 +907,10 @@ glabel menuhandler00178a94
 /*  f178bac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel mpMenuTextPlayerTitle
-/*  f178bb0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f178bb4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f178bb8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f178bbc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f178bc0:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f178bc4:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f178bc8:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f178bcc:	3c04800b */ 	lui	$a0,%hi(g_MpPlayers+0x95)
-/*  f178bd0:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f178bd4:	9084c84d */ 	lbu	$a0,%lo(g_MpPlayers+0x95)($a0)
-/*  f178bd8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178bdc:	0fc5b9f1 */ 	jal	langGet
-/*  f178be0:	248458b9 */ 	addiu	$a0,$a0,0x58b9
-/*  f178be4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f178be8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f178bec:	03e00008 */ 	jr	$ra
-/*  f178bf0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextPlayerTitle(s32 arg0)
+{
+	return langGet(L_MISC(185) + g_MpPlayers[g_MpPlayerNum].title);
+}
 
 GLOBAL_ASM(
 glabel menuhandler00178bf4
