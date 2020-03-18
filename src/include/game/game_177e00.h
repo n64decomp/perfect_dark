@@ -9,7 +9,7 @@ char *menutextPauseOrUnpause(s32 arg0);
 char *menutextMatchTime(s32 arg0);
 char *mpMenuTextWeaponDescription(struct menu_item *item);
 u32 func0f1783a0(void);
-u32 func0f178450(void);
+char *mpMenuTextWeaponOfChoiceName(struct menu_item *item);
 u32 func0f1784a4(void);
 u32 func0f1784f0(void);
 u32 func0f17853c(void);

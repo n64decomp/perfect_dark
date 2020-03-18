@@ -37,7 +37,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func0f016100
+glabel mpPlayerGetWeaponOfChoiceName
 /*  f016100:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x28c)
 /*  f016104:	8dcea24c */ 	lw	$t6,%lo(g_Vars+0x28c)($t6)
 /*  f016108:	27bdffd0 */ 	addiu	$sp,$sp,-48

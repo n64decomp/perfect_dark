@@ -321,30 +321,10 @@ glabel func0f1783a0
 /*  f17844c:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f178450
-/*  f178450:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f178454:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f178458:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17845c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f178460:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f178464:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f178468:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17846c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f178470:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f178474:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f178478:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17847c:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0x83b)
-/*  f178480:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178484:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f178488:	9084e83b */ 	lbu	$a0,%lo(g_MenuStack+0x83b)($a0)
-/*  f17848c:	0fc05840 */ 	jal	func0f016100
-/*  f178490:	00002825 */ 	or	$a1,$zero,$zero
-/*  f178494:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f178498:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17849c:	03e00008 */ 	jr	$ra
-/*  f1784a0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextWeaponOfChoiceName(struct menu_item *item)
+{
+	return mpPlayerGetWeaponOfChoiceName(g_MenuStack[g_MpPlayerNum].playernum, false);
+}
 
 GLOBAL_ASM(
 glabel func0f1784a4

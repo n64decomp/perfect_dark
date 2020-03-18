@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f016100(void);
+char *mpPlayerGetWeaponOfChoiceName(u32 playernum, bool arg1);
 u32 func0f01616c(void);
 u32 func0f016404(void);
 u32 func0f01644c(void);

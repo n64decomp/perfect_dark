@@ -10228,8 +10228,8 @@ struct menu_item menuitems_2a950[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x01000010, (u32)&mpGetCurrentPlayerName, (u32)&func0f17853c, menuhandler001785c4 },
 	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_MPMENU(261), (u32)&mpMenuTextPlayerTitle, menuhandler00178a94 }, // "Title:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, L_AME(16), L_MPMENU(262), 0x00000000, NULL }, // "Weapon of Choice:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&func0f178450, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_MPMENU(262), 0x00000000, NULL }, // "Weapon of Choice:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&mpMenuTextWeaponOfChoiceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00200210, L_MPMENU(263), 0x00000000, menuhandler001786d8 }, // "Awards:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000120, (u32)&func0f1784a4, 0x00000000, NULL },
