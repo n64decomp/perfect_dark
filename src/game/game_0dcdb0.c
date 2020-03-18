@@ -1068,8 +1068,8 @@ void func0f0ddd44(s32 value)
 	s32 i;
 
 	for (i = 0; i < g_NumHudMessages; i++) {
-		if (g_HudMessages[i].active && g_HudMessages[i].unk1b0 == value) {
-			g_HudMessages[i].flags |= HUDMSGFLAG_00000002;
+		if (g_HudMessages[i].state && g_HudMessages[i].unk1b0 == value) {
+			g_HudMessages[i].flags |= HUDMSGFLAG_2;
 			break;
 		}
 	}
@@ -1083,10 +1083,10 @@ void hudmsgSystemInit(void)
 	g_HudMessages = malloc((sizeof(struct hudmessage) * g_NumHudMessages + 0x3f | 0x3f) ^ 0x3f, 4);
 
 	for (i = 0; i < g_NumHudMessages; i++) {
-		g_HudMessages[i].active = false;
+		g_HudMessages[i].state = HUDMSGSTATE_FREE;
 	}
 
-	var8009dea0 = 0;
+	g_NextHudMessageId = 0;
 }
 
 void hudmsgRemoveAll(void)
@@ -1094,22 +1094,22 @@ void hudmsgRemoveAll(void)
 	s32 i;
 
 	for (i = 0; i < g_NumHudMessages; i++) {
-		g_HudMessages[i].active = false;
+		g_HudMessages[i].state = HUDMSGSTATE_FREE;
 	}
 }
 
-s32 func0f0ddeac(s32 arg0)
+s32 hudmsgGetNext(s32 refid)
 {
-	s32 bestvalue = -1;
+	s32 bestid = -1;
 	s32 bestindex = -1;
 	s32 i;
 
-	// Finding the smallest unk1b8 that is greater than arg0
+	// Finding the smallest ID that is greater than refid
 	for (i = 0; i < g_NumHudMessages; i++) {
-		if (g_HudMessages[i].active && g_HudMessages[i].unk1b8 > arg0) {
-			if (bestvalue < 0 || g_HudMessages[i].unk1b8 < bestvalue) {
+		if (g_HudMessages[i].state && g_HudMessages[i].id > refid) {
+			if (bestid < 0 || g_HudMessages[i].id < bestid) {
 				bestindex = i;
-				bestvalue = g_HudMessages[i].unk1b8;
+				bestid = g_HudMessages[i].id;
 			}
 		}
 	}
@@ -2280,7 +2280,7 @@ glabel hudmsgCreate
 .L0f0df03c:
 /*  f0df03c:	2404ffff */ 	addiu	$a0,$zero,-1
 .L0f0df040:
-/*  f0df040:	0fc377ab */ 	jal	func0f0ddeac
+/*  f0df040:	0fc377ab */ 	jal	hudmsgGetNext
 /*  f0df044:	afa901ec */ 	sw	$t1,0x1ec($sp)
 /*  f0df048:	8fa901ec */ 	lw	$t1,0x1ec($sp)
 /*  f0df04c:	0440001d */ 	bltz	$v0,.L0f0df0c4
@@ -2310,7 +2310,7 @@ glabel hudmsgCreate
 /*  f0df0a4:	00007812 */ 	mflo	$t7
 /*  f0df0a8:	00afc821 */ 	addu	$t9,$a1,$t7
 /*  f0df0ac:	8f2401b8 */ 	lw	$a0,0x1b8($t9)
-/*  f0df0b0:	0fc377ab */ 	jal	func0f0ddeac
+/*  f0df0b0:	0fc377ab */ 	jal	hudmsgGetNext
 /*  f0df0b4:	afa901ec */ 	sw	$t1,0x1ec($sp)
 /*  f0df0b8:	8fa901ec */ 	lw	$t1,0x1ec($sp)
 /*  f0df0bc:	0441ffe7 */ 	bgez	$v0,.L0f0df05c
@@ -2409,17 +2409,17 @@ glabel hudmsgCreate
 /*  f0df21c:	8fa901ec */ 	lw	$t1,0x1ec($sp)
 .L0f0df220:
 /*  f0df220:	2406018f */ 	addiu	$a2,$zero,0x18f
-/*  f0df224:	0c004c72 */ 	jal	func000131c8
+/*  f0df224:	0c004c72 */ 	jal	strncpy
 /*  f0df228:	afa901ec */ 	sw	$t1,0x1ec($sp)
 /*  f0df22c:	8fa901ec */ 	lw	$t1,0x1ec($sp)
 /*  f0df230:	a22001af */ 	sb	$zero,0x1af($s1)
 .L0f0df234:
 /*  f0df234:	8fae0230 */ 	lw	$t6,0x230($sp)
 /*  f0df238:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x28c)
-/*  f0df23c:	3c02800a */ 	lui	$v0,%hi(var8009dea0)
+/*  f0df23c:	3c02800a */ 	lui	$v0,%hi(g_NextHudMessageId)
 /*  f0df240:	ae2e01c4 */ 	sw	$t6,0x1c4($s1)
 /*  f0df244:	8f18a24c */ 	lw	$t8,%lo(g_Vars+0x28c)($t8)
-/*  f0df248:	2442dea0 */ 	addiu	$v0,$v0,%lo(var8009dea0)
+/*  f0df248:	2442dea0 */ 	addiu	$v0,$v0,%lo(g_NextHudMessageId)
 /*  f0df24c:	240c0001 */ 	addiu	$t4,$zero,0x1
 /*  f0df250:	ae3801c0 */ 	sw	$t8,0x1c0($s1)
 /*  f0df254:	8faf01fc */ 	lw	$t7,0x1fc($sp)
@@ -2494,6 +2494,151 @@ glabel hudmsgCreate
 /*  f0df35c:	03e00008 */ 	jr	$ra
 /*  f0df360:	27bd01f8 */ 	addiu	$sp,$sp,0x1f8
 );
+
+// Mismatch due to regalloc in duplicate check near:
+// g_HudMessages[index].playernum == g_Vars.currentplayernum
+//void hudmsgCreate(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02,
+//		struct hudmessagething *conf04, struct hudmessagething *conf08,
+//		u32 textcolour, u32 shadowcolour,
+//		u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14, u32 flags)
+//{
+//	char *pos;
+//	struct hudmessage *msg;
+//	s32 hash = 0;
+//	s32 i;
+//	s32 index;
+//	s32 uStack24;
+//	u32 uStack28;
+//	u32 uStack32;
+//	s32 iStack36;
+//	char stacktext[400];
+//	s32 writeindex;
+//
+//	if (type == HUDMSGTYPE_SUBTITLE && !optionsGetInGameSubtitles()) {
+//		return;
+//	}
+//
+//	pos = text;
+//
+//	while (*pos) {
+//		hash = hash + *pos;
+//		pos++;
+//	}
+//
+//	if ((flags & HUDMSGFLAG_ONLYIFALIVE) == 0 || !g_Vars.currentplayer->isdead) {
+//		if ((flags & HUDMSGFLAG_ALLOWDUPES) == 0) {
+//			// Check for duplicate messages
+//			s32 dupeofindex = -1;
+//
+//			for (index = 0; index < g_NumHudMessages; index++) {
+//				if (g_HudMessages[index].state
+//						&& g_HudMessages[index].state != HUDMSGSTATE_ONSCREEN
+//						&& g_HudMessages[index].playernum == g_Vars.currentplayernum
+//						&& g_HudMessages[index].hash == hash) {
+//					dupeofindex = index;
+//				}
+//			}
+//
+//			if (dupeofindex >= 0) {
+//				return;
+//			}
+//		}
+//
+//		var8007fac0 = var800706c8 == 1 ? 2 : 1;
+//
+//		// Find an unused index for the new message
+//		for (index = 0; index < g_NumHudMessages; index++) {
+//			if (g_HudMessages[index].state == HUDMSGSTATE_FREE) {
+//				break;
+//			}
+//		}
+//
+//		if (index >= g_NumHudMessages
+//				&& (type == HUDMSGTYPE_OBJECTIVECOMPLETE
+//					|| type == HUDMSGTYPE_OBJECTIVEFAILED
+//					|| type == HUDMSGTYPE_SUBTITLE)) {
+//			// Out of space - Check if an existing message can be replaced
+//			index = hudmsgGetNext(-1);
+//
+//			while (index >= 0) {
+//				if (g_HudMessages[index].state == HUDMSGSTATE_QUEUED) {
+//					if (g_HudMessages[index].type == HUDMSGTYPE_DEFAULT
+//							|| g_HudMessages[index].type == HUDMSGTYPE_3
+//							|| g_HudMessages[index].type == HUDMSGTYPE_4) {
+//						// Good to replace this one
+//						break;
+//					}
+//				}
+//
+//				// Can't replace - try and find another
+//				index = hudmsgGetNext(g_HudMessages[index].id);
+//			}
+//		}
+//
+//		if (index >= 0 && index < g_NumHudMessages) {
+//			uStack32 = 0;
+//			msg = &g_HudMessages[index];
+//			iStack36 = func0f0ddb1c(&uStack32, conf16);
+//			func0f1572f8(&uStack28, &uStack24, text, conf04->unk00, conf08->unk00, 0);
+//
+//			if (iStack36 < uStack24) {
+//				i = 0;
+//				writeindex = 0;
+//
+//				while (i < 400 && text[i] != '\0') {
+//					if (text[i] != '\n') {
+//						stacktext[writeindex++] = text[i];
+//					}
+//
+//					i++;
+//				}
+//
+//				stacktext[writeindex++] = '\n';
+//				stacktext[writeindex++] = '\0';
+//
+//				func0f157520(iStack36, stacktext, msg->text, conf04->unk00, conf08->unk00);
+//				func0f1572f8(&uStack28, &uStack24, msg->text, conf04->unk00, conf08->unk00, 0);
+//			} else {
+//				strncpy(msg->text, text, 399);
+//				msg->text[399] = '\0';
+//			}
+//
+//			msg->flags = flags;
+//			msg->playernum = g_Vars.currentplayernum;
+//			msg->type = type;
+//			msg->id = g_NextHudMessageId++;
+//			msg->state = HUDMSGSTATE_QUEUED;
+//			msg->unk006 = 0;
+//			msg->unk001 = conf00;
+//			msg->unk002 = conf01;
+//			msg->unk003 = conf02;
+//			msg->unk008 = conf04->unk00;
+//			msg->unk00c = conf08->unk00;
+//			msg->textcolour = textcolour;
+//			msg->shadowcolour = shadowcolour;
+//			msg->alignh = alignh;
+//			msg->alignv = alignv;
+//			msg->unk01c = uStack24;
+//			msg->unk01e = uStack28;
+//			msg->unk1cc = uStack32;
+//			msg->unk1d0 = conf16;
+//			msg->unk1d4 = conf18;
+//			msg->hash = hash;
+//
+//			func0f0de7fc(msg);
+//
+//			if (flags & HUDMSGFLAG_4) {
+//				msg->unk1bc = arg14;
+//				msg->unk1b0 = -1;
+//			} else {
+//				msg->unk1bc = g_HudMessageConfigs[type].duration;
+//				msg->unk1b0 = arg14;
+//			}
+//		}
+//
+//		var8007fac0 = 1;
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f0df364
@@ -2606,7 +2751,7 @@ glabel var7f1aded8
 /*  f0df4b0:	24150004 */ 	addiu	$s5,$zero,0x4
 /*  f0df4b4:	2414000b */ 	addiu	$s4,$zero,0xb
 .L0f0df4b8:
-/*  f0df4b8:	0fc377ab */ 	jal	func0f0ddeac
+/*  f0df4b8:	0fc377ab */ 	jal	hudmsgGetNext
 /*  f0df4bc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0df4c0:	0440014a */ 	bltz	$v0,.L0f0df9ec
 /*  f0df4c4:	240a00ff */ 	addiu	$t2,$zero,0xff
@@ -2988,15 +3133,15 @@ void currentPlayerSetFlag(u32 flag)
 	g_Vars.currentplayer->flags |= flag;
 }
 
-void hudmsgRemoveByPlayer(s32 playernum)
+void hudmsgRemoveForDeadPlayer(s32 playernum)
 {
 	s32 i;
 
 	for (i = 0; i < g_NumHudMessages; i++) {
-		if (g_HudMessages[i].active
+		if (g_HudMessages[i].state
 				&& g_HudMessages[i].playernum == playernum
-				&& (g_HudMessages[i].flags & HUDMSGFLAG_00000001)) {
-			g_HudMessages[i].active = false;
+				&& (g_HudMessages[i].flags & HUDMSGFLAG_ONLYIFALIVE)) {
+			g_HudMessages[i].state = HUDMSGSTATE_FREE;
 			g_HudMessages[i].unk006 = 0;
 		}
 	}
@@ -3865,6 +4010,6 @@ void hudmsgsReset(void)
 	s32 i;
 
 	for (i = 0; i < g_NumHudMessages; i++) {
-		g_HudMessages[i].active = false;
+		g_HudMessages[i].state = HUDMSGSTATE_FREE;
 	}
 }

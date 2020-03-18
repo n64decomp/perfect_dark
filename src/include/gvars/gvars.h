@@ -627,7 +627,7 @@ extern s32 g_NumSpawnPoints;
 extern u32 var8009de78;
 extern u32 var8009de98;
 extern u32 var8009de9c;
-extern u32 var8009dea0;
+extern u32 g_NextHudMessageId;
 extern u32 var8009deb0;
 extern char g_CheatMarqueeString[];
 extern u32 var8009dfbc;

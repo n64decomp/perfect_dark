@@ -4,7 +4,7 @@
 #include "types.h"
 
 char *strcpy(char *dest, char *src);
-u32 func000131c8(void);
+char *strncpy(char *dest, char *src, u32 len);
 u32 strcat(char *dst, char *src);
 u32 func00013274(void);
 u32 func00013274(void);

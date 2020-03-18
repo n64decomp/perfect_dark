@@ -44,7 +44,7 @@ u32 func0f156790(void);
 u32 func0f156a24(void);
 u32 func0f156e48(void);
 void func0f1572f8(u32 *arg0, s32 *arg1, char *label, u32 arg3, u32 arg4, u32 arg5);
-u32 func0f157520(void);
+void func0f157520(s32 arg0, char *arg1, char *arg2, u32 arg3, u32 arg4);
 u32 func0f1577f0(void);
 u32 func0f1578c8(void);
 u32 func0f1579cc(void);

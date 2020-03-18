@@ -12115,7 +12115,7 @@ void currentPlayerDieByShooter(u32 shooter, bool force)
 		func0f0f8120();
 		g_MpPlayerNum = prevplayernum;
 
-		hudmsgRemoveByPlayer(g_Vars.currentplayernum);
+		hudmsgRemoveForDeadPlayer(g_Vars.currentplayernum);
 
 		if (g_Vars.mplayerisrunning) {
 			func0f0b09f4(shooter, g_Vars.currentplayernum);

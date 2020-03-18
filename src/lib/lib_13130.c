@@ -67,7 +67,7 @@ glabel strcpy
 );
 
 GLOBAL_ASM(
-glabel func000131c8
+glabel strncpy
 /*    131c8:	90a20000 */ 	lbu	$v0,0x0($a1)
 /*    131cc:	24830001 */ 	addiu	$v1,$a0,0x1
 /*    131d0:	24a50001 */ 	addiu	$a1,$a1,0x1
