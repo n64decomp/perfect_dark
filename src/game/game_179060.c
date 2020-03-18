@@ -3569,8 +3569,8 @@ s32 menuhandlerMpRestoreHandicapDefaults(u32 operation, struct menu_item *item, 
 bool menudialogMpReady(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
 {
 	if (operation == MENUOP_100) {
-		if (g_MpPlayers[g_MpPlayerNum].unk4c && g_MpPlayers[g_MpPlayerNum].unk50) {
-			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].unk4c, 3, g_MpPlayerNum);
+		if (g_MpPlayers[g_MpPlayerNum].saved && g_MpPlayers[g_MpPlayerNum].unk50) {
+			func0f1094e4(&g_MpPlayers[g_MpPlayerNum].saved, 3, g_MpPlayerNum);
 		}
 	}
 
@@ -5873,7 +5873,7 @@ char *menuhandlerMpLock(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandlerMpSavePlayer(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		if (g_MpPlayers[g_MpPlayerNum].unk4c == 0) {
+		if (g_MpPlayers[g_MpPlayerNum].saved == false) {
 			func0f10a51c(6, 2);
 		} else {
 			menuPushDialog(&g_MpSaveChrMenuDialog);
@@ -5883,34 +5883,14 @@ s32 menuhandlerMpSavePlayer(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f17eed4
-/*  f17eed4:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17eed8:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17eedc:	3c18800b */ 	lui	$t8,%hi(g_MpPlayers+0x4c)
-/*  f17eee0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17eee4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f17eee8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17eeec:	000f7940 */ 	sll	$t7,$t7,0x5
-/*  f17eef0:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f17eef4:	8f18c804 */ 	lw	$t8,%lo(g_MpPlayers+0x4c)($t8)
-/*  f17eef8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17eefc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17ef00:	17000005 */ 	bnez	$t8,.L0f17ef18
-/*  f17ef04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17ef08:	0fc5b9f1 */ 	jal	langGet
-/*  f17ef0c:	24045026 */ 	addiu	$a0,$zero,0x5026
-/*  f17ef10:	10000004 */ 	beqz	$zero,.L0f17ef24
-/*  f17ef14:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17ef18:
-/*  f17ef18:	0fc5b9f1 */ 	jal	langGet
-/*  f17ef1c:	24045027 */ 	addiu	$a0,$zero,0x5027
-/*  f17ef20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17ef24:
-/*  f17ef24:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17ef28:	03e00008 */ 	jr	$ra
-/*  f17ef2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextSavePlayerOrCopy(struct menu_item *item)
+{
+	if (g_MpPlayers[g_MpPlayerNum].saved == false) {
+		return langGet(L_MPMENU(38)); // "Save Player"
+	}
+
+	return langGet(L_MPMENU(39)); // "Save Copy of Player"
+}
 
 s32 menuhandler0017ef30(u32 operation, struct menu_item *item, s32 *value)
 {

@@ -4365,7 +4365,7 @@ struct mpchr {
 struct mpplayer {
 	/*0x00*/ struct mpchr base;
 	/*0x48*/ u16 options;
-	/*0x4c*/ u32 unk4c;
+	/*0x4c*/ bool saved;
 	/*0x50*/ u16 unk50;
 	/*0x54*/ u32 kills;
 	/*0x58*/ u32 deaths;
