@@ -4698,27 +4698,14 @@ char *menuhandlerMpTeamSlot(u32 operation, struct menu_item *item, s32 *value)
 	return func0f17dac4(operation, item, value);
 }
 
-GLOBAL_ASM(
-glabel func0f17dc44
-/*  f17dc44:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17dc48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17dc4c:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
-/*  f17dc50:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17dc54:	10400005 */ 	beqz	$v0,.L0f17dc6c
-/*  f17dc58:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17dc5c:	0fc5b9f1 */ 	jal	langGet
-/*  f17dc60:	24045045 */ 	addiu	$a0,$zero,0x5045
-/*  f17dc64:	10000004 */ 	beqz	$zero,.L0f17dc78
-/*  f17dc68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17dc6c:
-/*  f17dc6c:	0fc5b9f1 */ 	jal	langGet
-/*  f17dc70:	24045044 */ 	addiu	$a0,$zero,0x5044
-/*  f17dc74:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17dc78:
-/*  f17dc78:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17dc7c:	03e00008 */ 	jr	$ra
-/*  f17dc80:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextSelectTuneOrTunes(struct menu_item *item)
+{
+	if (mpGetUsingMultipleTunes()) {
+		return langGet(L_MPMENU(69)); // "Select Tune"
+	}
+
+	return langGet(L_MPMENU(68)); // "Select Tunes"
+}
 
 GLOBAL_ASM(
 glabel menuhandler0017dc84

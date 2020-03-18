@@ -10950,7 +10950,7 @@ struct menu_item menuitems_2bd18[] = {
 // 2bd40
 struct menu_dialog menudialog_2bd40 = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f17dc44,
+	(u32)&mpMenuTextSelectTuneOrTunes,
 	menuitems_2bd18,
 	menudialogMpSelectTune,
 	0x00000010,
@@ -10962,7 +10962,7 @@ struct menu_item menuitems_mpsoundtrack[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(63), 0x00000000, NULL }, // "Current:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(3), (u32)&mpMenuTextCurrentTrack, NULL }, // ""
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, (u32)&func0f17dc44, 0x00000000, &menudialog_2bd40 },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, (u32)&mpMenuTextSelectTuneOrTunes, 0x00000000, &menudialog_2bd40 },
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(64), 0x00000000, menuhandlerMpMultipleTunes }, // "Multiple Tunes"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(65), 0x00000000, NULL }, // "Back"

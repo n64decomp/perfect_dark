@@ -49,7 +49,7 @@ u32 func0f17d378(void);
 s32 func0f17d4b0(u32 operation, struct menu_item *item, s32 *value, s32 numteams);
 char *mpMenuTextChrNameForTeamSetup(struct menu_item *item);
 char *func0f17dac4(u32 operation, struct menu_item *item, s32 *value);
-u32 func0f17dc44(void);
+char *mpMenuTextSelectTuneOrTunes(struct menu_item *item);
 s32 menuhandler0017dc84(u32, u32, u32 *);
 char *mpMenuTextCurrentTrack(struct menu_item *item);
 s32 menuhandler0017e06c(u32, u32, u32 *);
