@@ -82,10 +82,6 @@ const char var7f1b802c[] = "%s";
 const char var7f1b8030[] = "";
 const char var7f1b8034[] = "";
 const char var7f1b8038[] = "%d:\n";
-const char var7f1b8040[] = "";
-const char var7f1b8044[] = "\n";
-const char var7f1b8048[] = "%s:\n";
-const char var7f1b8050[] = "\n";
 
 s32 menuhandlerMpDropOut(u32 operation, struct menu_item *item, s32 *value)
 {
@@ -4608,23 +4604,20 @@ s32 menuhandlerMpHumanSimulantPairs(u32 operation, struct menu_item *item, s32 *
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f17da94
-/*  f17da94:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17da98:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17da9c:	0fc631e5 */ 	jal	func0f18c794
-/*  f17daa0:	90840001 */ 	lbu	$a0,0x1($a0)
-/*  f17daa4:	10400003 */ 	beqz	$v0,.L0f17dab4
-/*  f17daa8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17daac:	10000003 */ 	beqz	$zero,.L0f17dabc
-/*  f17dab0:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f17dab4:
-/*  f17dab4:	3c027f1c */ 	lui	$v0,%hi(var7f1b8040)
-/*  f17dab8:	24428040 */ 	addiu	$v0,$v0,%lo(var7f1b8040)
-.L0f17dabc:
-/*  f17dabc:	03e00008 */ 	jr	$ra
-/*  f17dac0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *mpMenuTextChrNameForTeamSetup(struct menu_item *item)
+{
+	struct mpchr *mpchr = func0f18c794(item->param);
+
+	if (mpchr) {
+		return mpchr->name;
+	}
+
+	return "";
+}
+
+const char var7f1b8044[] = "\n";
+const char var7f1b8048[] = "%s:\n";
+const char var7f1b8050[] = "\n";
 
 GLOBAL_ASM(
 glabel func0f17dac4

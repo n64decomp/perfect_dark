@@ -47,7 +47,7 @@ s32 menuhandlerMpSimulantDifficulty(u32, u32, u32 *);
 u32 func0f17cfc0(void);
 u32 func0f17d378(void);
 s32 func0f17d4b0(u32 operation, struct menu_item *item, s32 *value, s32 numteams);
-u32 func0f17da94(void);
+char *mpMenuTextChrNameForTeamSetup(struct menu_item *item);
 char *func0f17dac4(u32 operation, struct menu_item *item, s32 *value);
 u32 func0f17dc44(void);
 s32 menuhandler0017dc84(u32, u32, u32 *);
