@@ -25,7 +25,6 @@
 #include "types.h"
 
 const char var7f1b7e80[] = "";
-const char var7f1b7e84[] = "\n";
 
 GLOBAL_ASM(
 glabel menuhandler00177e00
@@ -261,39 +260,16 @@ char *menutextMatchTime(s32 arg0)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f178330
-/*  f178330:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f178334:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f178338:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17833c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f178340:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f178344:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f178348:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17834c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f178350:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f178354:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f178358:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17835c:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe28)
-/*  f178360:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178364:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f178368:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f17836c:	8c84ee28 */ 	lw	$a0,%lo(g_MenuStack+0xe28)($a0)
-/*  f178370:	10400005 */ 	beqz	$v0,.L0f178388
-/*  f178374:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f178378:	0fc5b9f1 */ 	jal	langGet
-/*  f17837c:	9444004a */ 	lhu	$a0,0x4a($v0)
-/*  f178380:	10000004 */ 	beqz	$zero,.L0f178394
-/*  f178384:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f178388:
-/*  f178388:	3c027f1b */ 	lui	$v0,%hi(var7f1b7e84)
-/*  f17838c:	24427e84 */ 	addiu	$v0,$v0,%lo(var7f1b7e84)
-/*  f178390:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f178394:
-/*  f178394:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f178398:	03e00008 */ 	jr	$ra
-/*  f17839c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextWeaponDescription(struct menu_item *item)
+{
+	struct weapon *weapon = weaponFindById(g_MenuStack[g_MpPlayerNum].weaponnum);
+
+	if (weapon) {
+		return langGet(weapon->description);
+	}
+
+	return "\n";
+}
 
 GLOBAL_ASM(
 glabel func0f1783a0

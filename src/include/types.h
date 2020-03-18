@@ -4277,7 +4277,7 @@ struct menustackitem {
 	/*0xe1c*/ s32 slotindex;
 	/*0xe20*/ u32 slotcount;
 	/*0xe24*/ u32 unke24;
-	/*0xe28*/ u32 unke28;
+	/*0xe28*/ u32 weaponnum;
 	/*0xe2c*/ u32 unke2c;
 	/*0xe30*/ u32 unke30;
 	/*0xe34*/ u32 unke34;

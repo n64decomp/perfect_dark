@@ -10095,7 +10095,7 @@ struct menu_dialog menudialog_2a794 = {
 // 2a7ac
 struct menu_item menuitems_2a7ac[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x00000078, 0x00000042, menuhandler00106178 },
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f178330, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&mpMenuTextWeaponDescription, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
