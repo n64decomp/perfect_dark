@@ -10784,7 +10784,7 @@ u32 var800857dc = 0x50680000; // "Special Simulants"
 // 2b800
 struct menu_item menuitems_mpaddchangesimulant[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00020000, 0x00000078, 0x00000042, menuhandler0017c6a4 },
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f17ca40, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&mpMenuTextSimulantDescription, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

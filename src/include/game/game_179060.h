@@ -41,7 +41,7 @@ s32 menuhandler0017bfc0(u32, u32, u32 *);
 s32 menuhandlerMpHandicapPlayer(u32, u32, u32 *);
 u32 func0f17c524(void);
 s32 menuhandler0017c6a4(u32, u32, u32 *);
-u32 func0f17ca40(void);
+char *mpMenuTextSimulantDescription(struct menu_item *item);
 s32 menudialog0017ccfc(u32, u32, u32 *);
 s32 menuhandlerMpSimulantDifficulty(u32, u32, u32 *);
 u32 func0f17cfc0(void);

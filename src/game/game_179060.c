@@ -3881,30 +3881,10 @@ glabel var7f1b81e8
 /*  f17ca3c:	27bd0058 */ 	addiu	$sp,$sp,0x58
 );
 
-GLOBAL_ASM(
-glabel func0f17ca40
-/*  f17ca40:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f17ca44:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f17ca48:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17ca4c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17ca50:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f17ca54:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17ca58:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f17ca5c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f17ca60:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f17ca64:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f17ca68:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f17ca6c:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe24)
-/*  f17ca70:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f17ca74:	8c84ee24 */ 	lw	$a0,%lo(g_MenuStack+0xe24)($a0)
-/*  f17ca78:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17ca7c:	0fc5b9f1 */ 	jal	langGet
-/*  f17ca80:	2484586a */ 	addiu	$a0,$a0,0x586a
-/*  f17ca84:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17ca88:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17ca8c:	03e00008 */ 	jr	$ra
-/*  f17ca90:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextSimulantDescription(struct menu_item *item)
+{
+	return langGet(L_MISC(106) + g_MenuStack[g_MpPlayerNum].unke24);
+}
 
 s32 menuhandlerMpSimulantHead(u32 operation, struct menu_item *item, s32 *value)
 {
