@@ -598,10 +598,10 @@ s32 menuhandlerMpPlayerName(u32 operation, struct menu_item *item, char **value)
 
 	switch (operation) {
 	case MENUOP_GETTEXT:
-		strcpy(ptr, g_MpSetup.namebuffer);
+		strcpy(ptr, g_MpSetup.name);
 		break;
 	case MENUOP_SETTEXT:
-		strcpy(g_MpSetup.namebuffer, ptr);
+		strcpy(g_MpSetup.name, ptr);
 		break;
 	case MENUOP_SET:
 		func0f10a51c(7, 1);
@@ -631,12 +631,13 @@ s32 menuhandlerMpSaveSetupCopy(u32 operation, struct menu_item *item, s32 *value
 	return 0;
 }
 
+char *mpMenuTextSetupName(struct menu_item *item)
+{
+	return g_MpSetup.name;
+}
+
 GLOBAL_ASM(
-glabel func0f179b58
-/*  f179b58:	3c02800b */ 	lui	$v0,%hi(g_MpSetup)
-/*  f179b5c:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f179b60:	03e00008 */ 	jr	$ra
-/*  f179b64:	2442cb88 */ 	addiu	$v0,$v0,%lo(g_MpSetup)
+glabel func0f179b68
 /*  f179b68:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f179b6c:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f179b70:	afbf0014 */ 	sw	$ra,0x14($sp)

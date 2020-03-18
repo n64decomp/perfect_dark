@@ -2257,7 +2257,7 @@ void func0f109bb4(char *name)
 		break;
 	case 7:
 	case 13:
-		strcpy(g_MpSetup.namebuffer, name);
+		strcpy(g_MpSetup.name, name);
 		break;
 	}
 }

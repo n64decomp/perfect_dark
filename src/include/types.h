@@ -4417,7 +4417,7 @@ struct missionconfig {
 };
 
 struct mpsetup {
-	/*0x8009cb88*/ char namebuffer[12];
+	/*0x8009cb88*/ char name[12];
 	/*0x8009cb94*/ u32 options;
 	/*0x8009cb98*/ u8 scenario;
 	/*0x8009cb99*/ u8 stagenum;
