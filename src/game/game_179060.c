@@ -129,12 +129,12 @@ glabel func0f179104
 /*  f179108:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f17910c:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f179110:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f179114:	3c108008 */ 	lui	$s0,%hi(mpstages)
-/*  f179118:	3c118008 */ 	lui	$s1,%hi(var80084bf8)
+/*  f179114:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
+/*  f179118:	3c118008 */ 	lui	$s1,0x8008
 /*  f17911c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f179120:	00009025 */ 	or	$s2,$zero,$zero
-/*  f179124:	26314bf8 */ 	addiu	$s1,$s1,%lo(var80084bf8)
-/*  f179128:	26104b98 */ 	addiu	$s0,$s0,%lo(mpstages)
+/*  f179124:	26314bf8 */ 	addiu	$s1,$s1,19448
+/*  f179128:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
 .L0f17912c:
 /*  f17912c:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f179130:	92040002 */ 	lbu	$a0,0x2($s0)
@@ -153,10 +153,10 @@ glabel func0f179104
 /*  f179160:	0007000d */ 	break	0x7
 .L0f179164:
 /*  f179164:	00008810 */ 	mfhi	$s1
-/*  f179168:	3c128008 */ 	lui	$s2,%hi(var80084bf8)
-/*  f17916c:	3c108008 */ 	lui	$s0,%hi(mpstages)
-/*  f179170:	26104b98 */ 	addiu	$s0,$s0,%lo(mpstages)
-/*  f179174:	26524bf8 */ 	addiu	$s2,$s2,%lo(var80084bf8)
+/*  f179168:	3c128008 */ 	lui	$s2,0x8008
+/*  f17916c:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
+/*  f179170:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
+/*  f179174:	26524bf8 */ 	addiu	$s2,$s2,19448
 /*  f179178:	00001825 */ 	or	$v1,$zero,$zero
 .L0f17917c:
 /*  f17917c:	0fc67244 */ 	jal	mpIsChallengeComplete
@@ -233,8 +233,8 @@ glabel var7f1b8074
 /*  f17923c:	8c29805c */ 	lw	$t1,%lo(var7f1b805c)($at)
 /*  f179240:	01200008 */ 	jr	$t1
 /*  f179244:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f179248:	3c108008 */ 	lui	$s0,%hi(mpstages)
-/*  f17924c:	26104b98 */ 	addiu	$s0,$s0,%lo(mpstages)
+/*  f179248:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
+/*  f17924c:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
 .L0f179250:
 /*  f179250:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f179254:	92040002 */ 	lbu	$a0,0x2($s0)
@@ -248,8 +248,8 @@ glabel var7f1b8074
 /*  f179270:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f179274:	10000088 */ 	beqz	$zero,.L0f179498
 /*  f179278:	ae510000 */ 	sw	$s1,0x0($s2)
-/*  f17927c:	3c108008 */ 	lui	$s0,%hi(mpstages)
-/*  f179280:	26104b98 */ 	addiu	$s0,$s0,%lo(mpstages)
+/*  f17927c:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
+/*  f179280:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
 .L0f179284:
 /*  f179284:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f179288:	92040002 */ 	lbu	$a0,0x2($s0)
@@ -270,8 +270,8 @@ glabel var7f1b8074
 /*  f1792c0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1792c4:	10000075 */ 	beqz	$zero,.L0f17949c
 /*  f1792c8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1792cc:	3c108008 */ 	lui	$s0,%hi(mpstages)
-/*  f1792d0:	26104b98 */ 	addiu	$s0,$s0,%lo(mpstages)
+/*  f1792cc:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
+/*  f1792d0:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
 .L0f1792d4:
 /*  f1792d4:	0fc67244 */ 	jal	mpIsChallengeComplete
 /*  f1792d8:	92040002 */ 	lbu	$a0,0x2($s0)
@@ -290,8 +290,8 @@ glabel var7f1b8074
 /*  f179304:	3c01800b */ 	lui	$at,%hi(g_MpSetup+0x11)
 /*  f179308:	10000063 */ 	beqz	$zero,.L0f179498
 /*  f17930c:	a038cb99 */ 	sb	$t8,%lo(g_MpSetup+0x11)($at)
-/*  f179310:	3c108008 */ 	lui	$s0,%hi(mpstages)
-/*  f179314:	26104b98 */ 	addiu	$s0,$s0,%lo(mpstages)
+/*  f179310:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
+/*  f179314:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
 .L0f179318:
 /*  f179318:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x11)
 /*  f17931c:	91cecb99 */ 	lbu	$t6,%lo(g_MpSetup+0x11)($t6)
@@ -375,8 +375,8 @@ glabel var7f1b8074
 /*  f179440:	27b90040 */ 	addiu	$t9,$sp,0x40
 /*  f179444:	01b92821 */ 	addu	$a1,$t5,$t9
 /*  f179448:	8cb80000 */ 	lw	$t8,0x0($a1)
-/*  f17944c:	3c108008 */ 	lui	$s0,%hi(mpstages)
-/*  f179450:	26104b98 */ 	addiu	$s0,$s0,%lo(mpstages)
+/*  f17944c:	3c108008 */ 	lui	$s0,%hi(g_MpArenas)
+/*  f179450:	26104b98 */ 	addiu	$s0,$s0,%lo(g_MpArenas)
 /*  f179454:	1b00000f */ 	blez	$t8,.L0f179494
 /*  f179458:	00001825 */ 	or	$v1,$zero,$zero
 /*  f17945c:	92040002 */ 	lbu	$a0,0x2($s0)
@@ -3163,9 +3163,9 @@ glabel func0f17be2c
 /*  f17bea8:	27a70040 */ 	addiu	$a3,$sp,0x40
 /*  f17beac:	0fc638e7 */ 	jal	func0f18e39c
 /*  f17beb0:	afa80038 */ 	sw	$t0,0x38($sp)
-/*  f17beb4:	3c038008 */ 	lui	$v1,%hi(mpstages)
+/*  f17beb4:	3c038008 */ 	lui	$v1,%hi(g_MpArenas)
 /*  f17beb8:	8fa80038 */ 	lw	$t0,0x38($sp)
-/*  f17bebc:	24634b98 */ 	addiu	$v1,$v1,%lo(mpstages)
+/*  f17bebc:	24634b98 */ 	addiu	$v1,$v1,%lo(g_MpArenas)
 /*  f17bec0:	00001025 */ 	or	$v0,$zero,$zero
 /*  f17bec4:	97a40040 */ 	lhu	$a0,0x40($sp)
 /*  f17bec8:	24050011 */ 	addiu	$a1,$zero,0x11
@@ -4617,7 +4617,6 @@ char *mpMenuTextChrNameForTeamSetup(struct menu_item *item)
 
 const char var7f1b8044[] = "\n";
 const char var7f1b8048[] = "%s:\n";
-const char var7f1b8050[] = "\n";
 
 GLOBAL_ASM(
 glabel func0f17dac4
@@ -5923,37 +5922,18 @@ s32 menuhandlerMpSaveSettings(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f17f024
-/*  f17f024:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17f028:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17f02c:	3c048008 */ 	lui	$a0,0x8008
-/*  f17f030:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0x11)
-/*  f17f034:	3c028008 */ 	lui	$v0,%hi(mpstages)
-/*  f17f038:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17f03c:	24424b98 */ 	addiu	$v0,$v0,%lo(mpstages)
-/*  f17f040:	9063cb99 */ 	lbu	$v1,%lo(g_MpSetup+0x11)($v1)
-/*  f17f044:	24844bfe */ 	addiu	$a0,$a0,0x4bfe
-/*  f17f048:	844e0000 */ 	lh	$t6,0x0($v0)
-.L0f17f04c:
-/*  f17f04c:	546e0006 */ 	bnel	$v1,$t6,.L0f17f068
-/*  f17f050:	24420006 */ 	addiu	$v0,$v0,0x6
-/*  f17f054:	0fc5b9f1 */ 	jal	langGet
-/*  f17f058:	94440004 */ 	lhu	$a0,0x4($v0)
-/*  f17f05c:	10000007 */ 	beqz	$zero,.L0f17f07c
-/*  f17f060:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17f064:	24420006 */ 	addiu	$v0,$v0,0x6
-.L0f17f068:
-/*  f17f068:	5444fff8 */ 	bnel	$v0,$a0,.L0f17f04c
-/*  f17f06c:	844e0000 */ 	lh	$t6,0x0($v0)
-/*  f17f070:	3c027f1c */ 	lui	$v0,%hi(var7f1b8050)
-/*  f17f074:	24428050 */ 	addiu	$v0,$v0,%lo(var7f1b8050)
-/*  f17f078:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17f07c:
-/*  f17f07c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17f080:	03e00008 */ 	jr	$ra
-/*  f17f084:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextArenaName(struct menu_item *item)
+{
+	s32 i;
+
+	for (i = 0; i != ARRAYCOUNT(g_MpArenas); i++) {
+		if (g_MpArenas[i].stagenum == g_MpSetup.stagenum) {
+			return langGet(g_MpArenas[i].name);
+		}
+	}
+
+	return "\n";
+}
 
 GLOBAL_ASM(
 glabel func0f17f088

@@ -10343,28 +10343,26 @@ struct menu_dialog menudialog_2aba0 = {
 };
 
 // 2abb8
-u16 mpstages[] = {
+struct mparena g_MpArenas[] = {
 	// Stage, unlock, name
-	STAGE_MP_SKEDAR,     0x0000, 0x5077,
-	STAGE_MP_PIPES,      0x0000, 0x5078,
-	STAGE_MP_RAVINE,     0x2600, 0x5079,
-	STAGE_MP_G5BUILDING, 0x2800, 0x507a,
-	STAGE_MP_SEWERS,     0x2c00, 0x507b,
-	STAGE_MP_WAREHOUSE,  0x2500, 0x507c,
-	STAGE_MP_GRID,       0x2900, 0x507d,
-	STAGE_MP_RUINS,      0x2d00, 0x507e,
-	STAGE_MP_AREA52,     0x0000, 0x507f,
-	STAGE_MP_BASE,       0x2e00, 0x5080,
-	STAGE_MP_FORTRESS,   0x3000, 0x5082,
-	STAGE_MP_VILLA,      0x2b00, 0x5083,
-	STAGE_MP_CARPARK,    0x2300, 0x5084,
-	STAGE_MP_TEMPLE,     0x2700, 0x5085,
-	STAGE_MP_COMPLEX,    0x2400, 0x5086,
-	STAGE_MP_FELICITY,   0x2a00, 0x5087,
+	{ STAGE_MP_SKEDAR,     0x00, L_MPMENU(119) },
+	{ STAGE_MP_PIPES,      0x00, L_MPMENU(120) },
+	{ STAGE_MP_RAVINE,     0x26, L_MPMENU(121) },
+	{ STAGE_MP_G5BUILDING, 0x28, L_MPMENU(122) },
+	{ STAGE_MP_SEWERS,     0x2c, L_MPMENU(123) },
+	{ STAGE_MP_WAREHOUSE,  0x25, L_MPMENU(124) },
+	{ STAGE_MP_GRID,       0x29, L_MPMENU(125) },
+	{ STAGE_MP_RUINS,      0x2d, L_MPMENU(126) },
+	{ STAGE_MP_AREA52,     0x00, L_MPMENU(127) },
+	{ STAGE_MP_BASE,       0x2e, L_MPMENU(128) },
+	{ STAGE_MP_FORTRESS,   0x30, L_MPMENU(130) },
+	{ STAGE_MP_VILLA,      0x2b, L_MPMENU(131) },
+	{ STAGE_MP_CARPARK,    0x23, L_MPMENU(132) },
+	{ STAGE_MP_TEMPLE,     0x27, L_MPMENU(133) },
+	{ STAGE_MP_COMPLEX,    0x24, L_MPMENU(134) },
+	{ STAGE_MP_FELICITY,   0x2a, L_MPMENU(135) },
+	{ 1,                   0x00, L_MPMENU(136) }, // "Random"
 };
-
-u32 var80084bf8 = 0x00010000;
-u32 var80084bfc = 0x50880000; // "Random"
 
 // 2ac20
 u32 var80084c00[] = {
@@ -11218,7 +11216,7 @@ struct menu_dialog menudialog_mpscenario;
 struct menu_item menuitems_mpgamesetup3[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, L_MPMENU(19), (u32)&mpMenuTextScenarioShortName, &menudialog_mpscenario }, // "Scenario"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU(21), 0x00000000, menuhandlerMpOpenOptions }, // "Options"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(20), (u32)&func0f17f024, &menudialog_mparena }, // "Arena"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(20), (u32)&mpMenuTextArenaName, &menudialog_mparena }, // "Arena"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(23), 0x00000000, &menudialog_mpweapons }, // "Weapons"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(24), 0x00000000, &menudialog_mplimits }, // "Limits"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPWEAPONS(184), 0x00000000, &menudialog_mpplayerhandicaps }, // "Player Handicaps"
@@ -11275,7 +11273,7 @@ struct menu_dialog menudialog_mpscenario2;
 struct menu_item menuitems_mpquickteamgamesetup[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, L_MPMENU(19), (u32)&mpMenuTextScenarioShortName, &menudialog_mpscenario2 }, // "Scenario"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU(21), 0x00000000, menuhandlerMpOpenOptions }, // "Options"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(20), (u32)&func0f17f024, &menudialog_mparena }, // "Arena"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(20), (u32)&mpMenuTextArenaName, &menudialog_mparena }, // "Arena"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(23), (u32)&func0f17f088, &menudialog_mpweapons2 }, // "Weapons"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(24), 0x00000000, &menudialog_mplimits }, // "Limits"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, menuhandlerQuickTeamSeparator },

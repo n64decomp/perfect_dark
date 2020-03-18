@@ -4420,7 +4420,7 @@ struct mpsetup {
 	/*0x8009cb88*/ char namebuffer[12];
 	/*0x8009cb94*/ u32 options;
 	/*0x8009cb98*/ u8 scenario;
-	/*0x8009cb99*/ u8 unk11;
+	/*0x8009cb99*/ u8 stagenum;
 	/*0x8009cb9a*/ u8 timelimit;
 	/*0x8009cb9b*/ u8 scorelimit;
 	/*0x8009cb9c*/ u16 teamscorelimit;
@@ -4471,6 +4471,12 @@ struct mpscenariooverview {
 	u16 shortname;
 	u8 unk04;
 	u8 unk05;
+};
+
+struct mparena {
+	s16 stagenum;
+	u8 unlock;
+	u16 name;
 };
 
 // Throwaway struct for passing two values to menu handlers

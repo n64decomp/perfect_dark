@@ -254,7 +254,7 @@ extern struct menu_dialog menudialog_2aa60;
 extern struct menu_dialog menudialog_2aa78;
 extern struct menu_dialog menudialog_2ab34;
 extern struct menu_dialog menudialog_2aba0;
-extern u16 mpstages[];
+extern struct mparena g_MpArenas[17];
 extern u32 var80084bf8;
 extern u32 var80084c00[];
 extern u16 g_MpControlStyleLabels[4];

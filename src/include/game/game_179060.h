@@ -60,7 +60,7 @@ s32 menuhandler0017e4d4(u32, u32, u32 *);
 u32 func0f17eac8(void);
 s32 menudialog0017eb34(u32, u32, u32 *);
 char *mpMenuTextSavePlayerOrCopy(struct menu_item *item);
-u32 func0f17f024(void);
+char *mpMenuTextArenaName(struct menu_item *item);
 u32 func0f17f088(void);
 u32 func0f17f100(void);
 u32 func0f17f260(void);
