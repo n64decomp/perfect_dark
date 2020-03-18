@@ -189,64 +189,24 @@ s32 menuhandler00178018(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f178050
-/*  f178050:	3c0e8007 */ 	lui	$t6,%hi(g_StringPointer)
-/*  f178054:	8dce1440 */ 	lw	$t6,%lo(g_StringPointer)($t6)
-/*  f178058:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f17805c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178060:	a1c00000 */ 	sb	$zero,0x0($t6)
-/*  f178064:	90820001 */ 	lbu	$v0,0x1($a0)
-/*  f178068:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f17806c:	10400007 */ 	beqz	$v0,.L0f17808c
-/*  f178070:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f178074:	10410010 */ 	beq	$v0,$at,.L0f1780b8
-/*  f178078:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f17807c:	10410019 */ 	beq	$v0,$at,.L0f1780e4
-/*  f178080:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f178084:	10000021 */ 	beqz	$zero,.L0f17810c
-/*  f178088:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17808c:
-/*  f17808c:	0fc5b9f1 */ 	jal	langGet
-/*  f178090:	24045072 */ 	addiu	$a0,$zero,0x5072
-/*  f178094:	3c06800b */ 	lui	$a2,%hi(g_MpSetup+0x12)
-/*  f178098:	90c6cb9a */ 	lbu	$a2,%lo(g_MpSetup+0x12)($a2)
-/*  f17809c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1780a0:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1780a4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1780a8:	0c004dad */ 	jal	sprintf
-/*  f1780ac:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f1780b0:	10000016 */ 	beqz	$zero,.L0f17810c
-/*  f1780b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1780b8:
-/*  f1780b8:	0fc5b9f1 */ 	jal	langGet
-/*  f1780bc:	24045071 */ 	addiu	$a0,$zero,0x5071
-/*  f1780c0:	3c06800b */ 	lui	$a2,%hi(g_MpSetup+0x13)
-/*  f1780c4:	90c6cb9b */ 	lbu	$a2,%lo(g_MpSetup+0x13)($a2)
-/*  f1780c8:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1780cc:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1780d0:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1780d4:	0c004dad */ 	jal	sprintf
-/*  f1780d8:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f1780dc:	1000000b */ 	beqz	$zero,.L0f17810c
-/*  f1780e0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1780e4:
-/*  f1780e4:	0fc5b9f1 */ 	jal	langGet
-/*  f1780e8:	24045071 */ 	addiu	$a0,$zero,0x5071
-/*  f1780ec:	0fc62113 */ 	jal	func0f18844c
-/*  f1780f0:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f1780f4:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1780f8:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1780fc:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f178100:	0c004dad */ 	jal	sprintf
-/*  f178104:	24460001 */ 	addiu	$a2,$v0,0x1
-/*  f178108:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17810c:
-/*  f17810c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f178110:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f178114:	03e00008 */ 	jr	$ra
-/*  f178118:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+char *mpMenuTextInGameLimit(struct menu_item *item)
+{
+	*g_StringPointer = 0;
+
+	switch (item->param) {
+	case 0:
+		sprintf(g_StringPointer, langGet(L_MPMENU(114)), g_MpSetup.timelimit + 1);
+		break;
+	case 1:
+		sprintf(g_StringPointer, langGet(L_MPMENU(113)), g_MpSetup.scorelimit + 1);
+		break;
+	case 2:
+		sprintf(g_StringPointer, langGet(L_MPMENU(113)), func0f18844c() + 1);
+		break;
+	}
+
+	return g_StringPointer;
+}
 
 s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menu_item *item, s32 *value)
 {

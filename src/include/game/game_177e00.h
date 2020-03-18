@@ -4,7 +4,7 @@
 #include "types.h"
 
 s32 menuhandler00177e00(u32, u32, u32 *);
-u32 func0f178050(void);
+char *mpMenuTextInGameLimit(struct menu_item *item);
 char *menutextPauseOrUnpause(s32 arg0);
 char *menutextMatchTime(s32 arg0);
 u32 func0f178330(void);
