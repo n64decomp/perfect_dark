@@ -7,6 +7,7 @@
 #define true  1
 
 #define ABS(val)              (val > 0 ? val : -val)
+#define ARRAYCOUNT(a)         (sizeof(a) / sizeof(a[0]))
 #define CHRRACE(chr)          (chr ? chr->race : RACE_HUMAN)
 #define FRAMEDURATION         (1 / 60.0f)
 #define PLAYERCOUNT()         ((g_Vars.players[0] ? 1 : 0) + (g_Vars.players[1] ? 1 : 0) + (g_Vars.players[2] ? 1 : 0) + (g_Vars.players[3] ? 1 : 0))

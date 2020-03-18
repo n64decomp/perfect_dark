@@ -55,7 +55,7 @@ s32 mpGetBodyId(u8 bodynum);
 s32 mpGetBodyIndexByBodyId(u16 bodyid);
 char *mpGetBodyName(u8 bodynum);
 u8 mpGetBodyUnk06(u8 bodynum);
-s32 func0f18bc9c(s32 arg0);
+s32 mpBodyGetMpHeadIndex(s32 bodynum);
 u32 func0f18bee8(void);
 s32 mpSetLock(s32 arg0, s32 arg1);
 u32 mpGetLockType(void);

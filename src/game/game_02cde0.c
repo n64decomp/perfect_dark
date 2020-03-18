@@ -466,7 +466,7 @@ u32 bodyGetHead(u32 bodynum)
 {
 	u32 head;
 
-	if (g_Bodies[bodynum].headbank) {
+	if (g_Bodies[bodynum].ismale) {
 		head = g_HeadsA[g_HeadsAIndex++];
 
 		if (g_HeadsAIndex == g_MaxHeadsPerBank) {

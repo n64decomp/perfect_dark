@@ -3034,7 +3034,7 @@ struct cheat {
 };
 
 struct body {
-	u16 headbank : 1;
+	u16 ismale : 1;
 	u16 flags_01 : 15;
 	u16 bodyfileid;
 	f32 unk04;
@@ -3090,7 +3090,7 @@ struct mpsimulant {
 struct mpbody {
 	s16 bodyid;
 	s16 name;
-	u16 unk04;
+	s16 headid;
 	u8 unk06;
 };
 

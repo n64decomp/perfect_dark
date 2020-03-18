@@ -1041,7 +1041,7 @@ s32 menuhandlerMpCharacterBody(u32 operation, struct menu_item *item, struct num
 	case MENUOP_SET:
 		if (g_MpPlayers[g_MpPlayerNum].base.headnum < mpGetNumHeads()) {
 			if (!value->text) {
-				g_MpPlayers[g_MpPlayerNum].base.headnum = func0f18bc9c(value->num);
+				g_MpPlayers[g_MpPlayerNum].base.headnum = mpBodyGetMpHeadIndex(value->num);
 			}
 		}
 		g_MpPlayers[g_MpPlayerNum].base.bodynum = value->num;
