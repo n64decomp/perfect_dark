@@ -10,7 +10,7 @@ char *menutextMatchTime(s32 arg0);
 char *mpMenuTextWeaponDescription(struct menu_item *item);
 u32 func0f1783a0(void);
 char *mpMenuTextWeaponOfChoiceName(struct menu_item *item);
-u32 func0f1784a4(void);
+char *mpMenuTextAward1(struct menu_item *item);
 u32 func0f1784f0(void);
 u32 func0f17853c(void);
 s32 menuhandler001785c4(u32, u32, u32 *);

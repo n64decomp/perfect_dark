@@ -2668,7 +2668,7 @@ struct player {
 	/*0x1968*/ f32 guncloseroffset;
 	/*0x196c*/ u32 shootrotx;
 	/*0x1970*/ u32 shootroty;
-	/*0x1974*/ u32 unk1974;
+	/*0x1974*/ char *award1;
 	/*0x1978*/ u32 unk1978;
 	/*0x197c*/ u32 unk197c;
 	/*0x1980*/ u32 unk1980;

@@ -326,28 +326,10 @@ char *mpMenuTextWeaponOfChoiceName(struct menu_item *item)
 	return mpPlayerGetWeaponOfChoiceName(g_MenuStack[g_MpPlayerNum].playernum, 0);
 }
 
-GLOBAL_ASM(
-glabel func0f1784a4
-/*  f1784a4:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f1784a8:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1784ac:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0x83b)
-/*  f1784b0:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x64)
-/*  f1784b4:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1784b8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1784bc:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1784c0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1784c4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1784c8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1784cc:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1784d0:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f1784d4:	9318e83b */ 	lbu	$t8,%lo(g_MenuStack+0x83b)($t8)
-/*  f1784d8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f1784dc:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f1784e0:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f1784e4:	8d08a024 */ 	lw	$t0,%lo(g_Vars+0x64)($t0)
-/*  f1784e8:	03e00008 */ 	jr	$ra
-/*  f1784ec:	8d021974 */ 	lw	$v0,0x1974($t0)
-);
+char *mpMenuTextAward1(struct menu_item *item)
+{
+	return g_Vars.players[g_MenuStack[g_MpPlayerNum].playernum]->award1;
+}
 
 GLOBAL_ASM(
 glabel func0f1784f0
