@@ -32,7 +32,7 @@ s32 menuhandlerMpMedal(u32, u32, u32 *);
 u32 func0f17b360(void);
 u32 mpMenuTextUsernamePassword(void);
 s32 func0f17b4f8(u32 operation, struct menu_item *item, s32 *value, s32 arg3, s32 arg4);
-u32 func0f17b8b0(void);
+char *mpMenuTextBodyName(struct menu_item *item);
 u32 func0f17b8f0(void);
 s32 menuhandler0017b91c(u32, u32, u32 *);
 s32 menuhandler0017bab4(u32, u32, u32 *);

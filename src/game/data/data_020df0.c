@@ -10618,7 +10618,7 @@ u32 var8008544c = 0x0400ff00;
 
 // 2b470
 struct menu_item menuitems_mpcharacter[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00004230, (u32)&func0f17b8b0, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00004230, (u32)&mpMenuTextBodyName, 0x00000000, NULL },
 	{ MENUITEMTYPE_CAROUSEL,    0, 0x00000000, 0x00000000, 0x00000022, menuhandlerMpCharacterHead },
 	{ MENUITEMTYPE_CAROUSEL,    0, 0x00000000, 0x00000000, 0x0000001b, menuhandlerMpCharacterBody },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
