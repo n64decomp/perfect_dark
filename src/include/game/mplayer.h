@@ -77,7 +77,7 @@ u32 func0f18c3e4(void);
 u32 func0f18c40c(void);
 u32 func0f18c430(void);
 u32 func0f18c478(void);
-u32 func0f18c488(void);
+u32 mpGetTrackNum(void);
 u32 func0f18c4c0(void);
 struct mpchr *func0f18c794(s32 index);
 u32 func0f18c828(void);

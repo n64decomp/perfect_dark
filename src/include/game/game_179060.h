@@ -51,7 +51,7 @@ char *mpMenuTextChrNameForTeamSetup(struct menu_item *item);
 char *func0f17dac4(u32 operation, struct menu_item *item, s32 *value);
 u32 func0f17dc44(void);
 s32 menuhandler0017dc84(u32, u32, u32 *);
-u32 func0f17dfac(void);
+char *mpMenuTextCurrentTrack(struct menu_item *item);
 s32 menuhandler0017e06c(u32, u32, u32 *);
 u32 func0f17e288(void);
 u32 func0f17e318(void);

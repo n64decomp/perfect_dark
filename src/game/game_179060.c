@@ -4909,7 +4909,7 @@ glabel var7f1b8228
 /*  f17deb8:	10000029 */ 	beqz	$zero,.L0f17df60
 /*  f17debc:	acca0000 */ 	sw	$t2,0x0($a2)
 .L0f17dec0:
-/*  f17dec0:	0fc63122 */ 	jal	func0f18c488
+/*  f17dec0:	0fc63122 */ 	jal	mpGetTrackNum
 /*  f17dec4:	afa60038 */ 	sw	$a2,0x38($sp)
 /*  f17dec8:	04410006 */ 	bgez	$v0,.L0f17dee4
 /*  f17decc:	8fa60038 */ 	lw	$a2,0x38($sp)
@@ -4973,36 +4973,22 @@ bool menudialogMpSelectTune(u32 operation, struct menu_dialog *dialog, struct me
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f17dfac
-/*  f17dfac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17dfb0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17dfb4:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
-/*  f17dfb8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17dfbc:	10400005 */ 	beqz	$v0,.L0f17dfd4
-/*  f17dfc0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17dfc4:	0fc5b9f1 */ 	jal	langGet
-/*  f17dfc8:	24045042 */ 	addiu	$a0,$zero,0x5042
-/*  f17dfcc:	1000000c */ 	beqz	$zero,.L0f17e000
-/*  f17dfd0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17dfd4:
-/*  f17dfd4:	0fc63122 */ 	jal	func0f18c488
-/*  f17dfd8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17dfdc:	04400005 */ 	bltz	$v0,.L0f17dff4
-/*  f17dfe0:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17dfe4:	0fc63097 */ 	jal	mpGetTrackName
-/*  f17dfe8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17dfec:	10000004 */ 	beqz	$zero,.L0f17e000
-/*  f17dff0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17dff4:
-/*  f17dff4:	0fc5b9f1 */ 	jal	langGet
-/*  f17dff8:	24045043 */ 	addiu	$a0,$zero,0x5043
-/*  f17dffc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17e000:
-/*  f17e000:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17e004:	03e00008 */ 	jr	$ra
-/*  f17e008:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextCurrentTrack(struct menu_item *item)
+{
+	s32 tracknum;
+
+	if (mpGetUsingMultipleTunes()) {
+		return langGet(L_MPMENU(66)); // "Multiple Tunes"
+	}
+
+	tracknum = mpGetTrackNum();
+
+	if (tracknum >= 0) {
+		return mpGetTrackName(tracknum);
+	}
+
+	return langGet(L_MPMENU(67)); // "Random"
+}
 
 s32 menuhandlerMpMultipleTunes(u32 operation, struct menu_item *item, s32 *value)
 {

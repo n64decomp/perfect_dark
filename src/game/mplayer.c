@@ -5609,7 +5609,7 @@ glabel func0f18c478
 );
 
 GLOBAL_ASM(
-glabel func0f18c488
+glabel mpGetTrackNum
 /*  f18c488:	3c04800b */ 	lui	$a0,%hi(var800acc14)
 /*  f18c48c:	8084cc14 */ 	lb	$a0,%lo(var800acc14)($a0)
 /*  f18c490:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -5761,7 +5761,7 @@ glabel func0f18c4c0
 /*  f18c688:	10000038 */ 	beqz	$zero,.L0f18c76c
 /*  f18c68c:	00031242 */ 	srl	$v0,$v1,0x9
 .L0f18c690:
-/*  f18c690:	0fc63122 */ 	jal	func0f18c488
+/*  f18c690:	0fc63122 */ 	jal	mpGetTrackNum
 /*  f18c694:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c698:	04410022 */ 	bgez	$v0,.L0f18c724
 /*  f18c69c:	00409825 */ 	or	$s3,$v0,$zero
