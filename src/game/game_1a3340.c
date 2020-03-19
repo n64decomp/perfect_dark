@@ -899,63 +899,23 @@ char *frMenuTextTargetsDestroyedValue(struct menu_item *item)
 	return g_StringPointer;
 }
 
-const char var7f1b9804[] = "%s%s%.1f%%\n";
-const char var7f1b9810[] = "";
-const char var7f1b9814[] = "";
+char *frMenuTextAccuracyValue(struct menu_item *item)
+{
+	struct frdata *frdata = getFiringRangeData();
+	f32 totalhits = (frdata->numhitstype4 + frdata->numhitstype1 + frdata->numhitstype2 + frdata->numhitstype3) * 100.0f;
+	f32 accuracy = 0;
 
-GLOBAL_ASM(
-glabel func0f1a402c
-/*  f1a402c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1a4030:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1a4034:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a4038:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f1a403c:	944e0462 */ 	lhu	$t6,0x462($v0)
-/*  f1a4040:	944f045c */ 	lhu	$t7,0x45c($v0)
-/*  f1a4044:	9459045e */ 	lhu	$t9,0x45e($v0)
-/*  f1a4048:	94490460 */ 	lhu	$t1,0x460($v0)
-/*  f1a404c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f1a4050:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f1a4054:	01095021 */ 	addu	$t2,$t0,$t1
-/*  f1a4058:	448a2000 */ 	mtc1	$t2,$f4
-/*  f1a405c:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f1a4060:	44816000 */ 	mtc1	$at,$f12
-/*  f1a4064:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f1a4068:	94430458 */ 	lhu	$v1,0x458($v0)
-/*  f1a406c:	44800000 */ 	mtc1	$zero,$f0
-/*  f1a4070:	3c057f1c */ 	lui	$a1,%hi(var7f1b9804)
-/*  f1a4074:	24a59804 */ 	addiu	$a1,$a1,%lo(var7f1b9804)
-/*  f1a4078:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a407c:	460c3082 */ 	mul.s	$f2,$f6,$f12
-/*  f1a4080:	10600009 */ 	beqz	$v1,.L0f1a40a8
-/*  f1a4084:	3c067f1c */ 	lui	$a2,%hi(var7f1b9810)
-/*  f1a4088:	44834000 */ 	mtc1	$v1,$f8
-/*  f1a408c:	3c014f80 */ 	lui	$at,0x4f80
-/*  f1a4090:	04610004 */ 	bgez	$v1,.L0f1a40a4
-/*  f1a4094:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f1a4098:	44818000 */ 	mtc1	$at,$f16
-/*  f1a409c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a40a0:	46105280 */ 	add.s	$f10,$f10,$f16
-.L0f1a40a4:
-/*  f1a40a4:	460a1003 */ 	div.s	$f0,$f2,$f10
-.L0f1a40a8:
-/*  f1a40a8:	4600603c */ 	c.lt.s	$f12,$f0
-/*  f1a40ac:	3c077f1c */ 	lui	$a3,%hi(var7f1b9814)
-/*  f1a40b0:	24e79814 */ 	addiu	$a3,$a3,%lo(var7f1b9814)
-/*  f1a40b4:	24c69810 */ 	addiu	$a2,$a2,%lo(var7f1b9810)
-/*  f1a40b8:	45020003 */ 	bc1fl	.L0f1a40c8
-/*  f1a40bc:	460004a1 */ 	cvt.d.s	$f18,$f0
-/*  f1a40c0:	46006006 */ 	mov.s	$f0,$f12
-/*  f1a40c4:	460004a1 */ 	cvt.d.s	$f18,$f0
-.L0f1a40c8:
-/*  f1a40c8:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a40cc:	0c004dad */ 	jal	sprintf
-/*  f1a40d0:	f7b20010 */ 	sdc1	$f18,0x10($sp)
-/*  f1a40d4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1a40d8:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a40dc:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a40e0:	03e00008 */ 	jr	$ra
-/*  f1a40e4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+	if (frdata->numshots) {
+		accuracy = totalhits / frdata->numshots;
+	}
+
+	if (accuracy > 100.0f) {
+		accuracy = 100.0f;
+	}
+
+	sprintf(g_StringPointer, "%s%s%.1f%%\n", "", "", accuracy);
+	return g_StringPointer;
+}
 
 char *frMenuTextGoalScoreLabel(struct menu_item *item)
 {

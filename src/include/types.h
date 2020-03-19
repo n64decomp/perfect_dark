@@ -5612,9 +5612,12 @@ struct frdata {
 	/*0x454*/ u8 unk454;
 	/*0x455*/ u8 targetsdestroyed;
 	/*0x456*/ u16 unk456;
-	/*0x458*/ u32 unk458;
-	/*0x45c*/ u32 unk45c;
-	/*0x460*/ u32 unk460;
+	/*0x458*/ u16 numshots;
+	/*0x45a*/ u16 unk45a;
+	/*0x45c*/ u16 numhitstype1;
+	/*0x45e*/ u16 numhitstype2;
+	/*0x460*/ u16 numhitstype3;
+	/*0x462*/ u16 numhitstype4;
 	/*0x464*/ u32 unk464;
 	/*0x468*/ u32 unk468;
 	/*0x46c*/ u32 unk46c;

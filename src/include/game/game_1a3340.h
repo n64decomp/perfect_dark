@@ -9,7 +9,7 @@ char *frMenuTextTimeTakenValue(struct menu_item *item);
 char *frMenuTextScoreValue(struct menu_item *item);
 char *frMenuTextWeaponName(struct menu_item *item);
 char *frMenuTextTargetsDestroyedValue(struct menu_item *item);
-u32 func0f1a402c(void);
+char *frMenuTextAccuracyValue(struct menu_item *item);
 char *frMenuTextGoalScoreLabel(struct menu_item *item);
 char *frMenuTextGoalScoreValue(struct menu_item *item);
 char *frMenuTextMinAccuracyOrTargetsLabel(struct menu_item *item);
