@@ -12877,7 +12877,7 @@ struct menu_item menuitems_frtraininginfo[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(443), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&frMenuTextGoalScoreLabel, (u32)&frMenuTextGoalScoreValue, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&frMenuTextMinAccuracyOrTargetsLabel, (u32)&frMenuTextMinAccuracyOrTargetsValue, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&frMenuTextTimeLimitLabel, (u32)&func0f1a431c, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&frMenuTextTimeLimitLabel, (u32)&frMenuTextTimeLimitValue, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a43b8, (u32)&func0f1a441c, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SCROLLABLE,  6, 0x00004000, 0x0000010e, 0x0000005f, NULL },
@@ -12902,7 +12902,7 @@ struct menu_item menuitems_frtraininginfo2[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(443), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&frMenuTextGoalScoreLabel, (u32)&frMenuTextGoalScoreValue, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&frMenuTextMinAccuracyOrTargetsLabel, (u32)&frMenuTextMinAccuracyOrTargetsValue, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&frMenuTextTimeLimitLabel, (u32)&func0f1a431c, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&frMenuTextTimeLimitLabel, (u32)&frMenuTextTimeLimitValue, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a43b8, (u32)&func0f1a441c, NULL },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SCROLLABLE,  6, 0x00004000, 0x0000010e, 0x0000005f, NULL },

@@ -1107,54 +1107,30 @@ char *frMenuTextTimeLimitLabel(struct menu_item *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f1a431c
-/*  f1a431c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a4320:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a4324:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a4328:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a432c:	90430005 */ 	lbu	$v1,0x5($v0)
-/*  f1a4330:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f1a4334:	10610018 */ 	beq	$v1,$at,.L0f1a4398
-/*  f1a4338:	00603825 */ 	or	$a3,$v1,$zero
-/*  f1a433c:	2861003c */ 	slti	$at,$v1,0x3c
-/*  f1a4340:	14200005 */ 	bnez	$at,.L0f1a4358
-/*  f1a4344:	00003025 */ 	or	$a2,$zero,$zero
-.L0f1a4348:
-/*  f1a4348:	24e7ffc4 */ 	addiu	$a3,$a3,-60
-/*  f1a434c:	28e1003c */ 	slti	$at,$a3,0x3c
-/*  f1a4350:	1020fffd */ 	beqz	$at,.L0f1a4348
-/*  f1a4354:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f1a4358:
-/*  f1a4358:	18c00008 */ 	blez	$a2,.L0f1a437c
-/*  f1a435c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
-/*  f1a4360:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
-/*  f1a4364:	3c057f1c */ 	lui	$a1,%hi(var7f1b9838)
-/*  f1a4368:	24a59838 */ 	addiu	$a1,$a1,%lo(var7f1b9838)
-/*  f1a436c:	0c004dad */ 	jal	sprintf
-/*  f1a4370:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
-/*  f1a4374:	1000000a */ 	beqz	$zero,.L0f1a43a0
-/*  f1a4378:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a437c:
-/*  f1a437c:	3c057f1c */ 	lui	$a1,%hi(var7f1b9844)
-/*  f1a4380:	24a59844 */ 	addiu	$a1,$a1,%lo(var7f1b9844)
-/*  f1a4384:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
-/*  f1a4388:	0c004dad */ 	jal	sprintf
-/*  f1a438c:	00e03025 */ 	or	$a2,$a3,$zero
-/*  f1a4390:	10000003 */ 	beqz	$zero,.L0f1a43a0
-/*  f1a4394:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a4398:
-/*  f1a4398:	10000003 */ 	beqz	$zero,.L0f1a43a8
-/*  f1a439c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a43a0:
-/*  f1a43a0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer2)
-/*  f1a43a4:	8c421444 */ 	lw	$v0,%lo(g_StringPointer2)($v0)
-.L0f1a43a8:
-/*  f1a43a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a43ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a43b0:	03e00008 */ 	jr	$ra
-/*  f1a43b4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *frMenuTextTimeLimitValue(struct menu_item *item)
+{
+	struct frdata *frdata = getFiringRangeData();
+
+	if (frdata->timelimit != 255) {
+		s32 secs = frdata->timelimit;
+		s32 mins = 0;
+
+		while (secs >= 60) {
+			secs -= 60;
+			mins++;
+		}
+
+		if (mins > 0) {
+			sprintf(g_StringPointer2, "%dm %ds\n", mins, secs);
+		} else {
+			sprintf(g_StringPointer2, "%ds\n", secs);
+		}
+	} else {
+		return NULL;
+	}
+
+	return g_StringPointer2;
+}
 
 GLOBAL_ASM(
 glabel func0f1a43b8
@@ -4775,8 +4751,6 @@ void *func0f1a7878(u16 fileid, s32 arg1, s32 arg2)
 	return func0f1a7794(fileid, arg1, arg2, 0);
 }
 
-const char var7f1b9838[] = "%dm %ds\n";
-const char var7f1b9844[] = "%ds\n";
 const char var7f1b984c[] = "%s";
 const char var7f1b9850[] = "/%d";
 const char var7f1b9854[] = "%d%s\n";
