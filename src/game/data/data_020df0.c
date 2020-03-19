@@ -12931,7 +12931,7 @@ struct menu_item menuitems_frtrainingstats[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(452), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(453), (u32)&frMenuTextTimeTakenValue, NULL }, // "Time Taken:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(454), (u32)&func0f1a3fc0, NULL }, // "Weapon:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(454), (u32)&frMenuTextWeaponName, NULL }, // "Weapon:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(455), (u32)&func0f1a402c, NULL }, // "Accuracy:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_MODEL,       0, 0x00200002, 0x000000d2, 0x00000050, menuhandler001a44c0 },
@@ -12958,7 +12958,7 @@ struct menu_item menuitems_frtrainingstats2[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(452), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(453), (u32)&frMenuTextTimeTakenValue, NULL }, // "Time Taken:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(454), (u32)&func0f1a3fc0, NULL }, // "Weapon:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(454), (u32)&frMenuTextWeaponName, NULL }, // "Weapon:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(455), (u32)&func0f1a402c, NULL }, // "Accuracy:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_MODEL,       0, 0x00200002, 0x000000d2, 0x00000050, menuhandler001a44c0 },

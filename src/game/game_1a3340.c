@@ -884,21 +884,10 @@ glabel func0f1a3f84
 /*  f1a3fbc:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f1a3fc0
-/*  f1a3fc0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a3fc4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3fc8:	0fc67494 */ 	jal	func0f19d250
-/*  f1a3fcc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a3fd0:	0fc6749a */ 	jal	func0f19d268
-/*  f1a3fd4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a3fd8:	0fc28857 */ 	jal	weaponGetName
-/*  f1a3fdc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a3fe0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3fe4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a3fe8:	03e00008 */ 	jr	$ra
-/*  f1a3fec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *frMenuTextWeaponName(struct menu_item *item)
+{
+	return weaponGetName(func0f19d268(func0f19d250()));
+}
 
 const char var7f1b97fc[] = "%d\n";
 

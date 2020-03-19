@@ -7,7 +7,7 @@ u32 func0f1a3d98(void);
 char *frMenuTextDifficultyName(struct menu_item *item);
 char *frMenuTextTimeTakenValue(struct menu_item *item);
 char *frMenuTextScoreValue(struct menu_item *item);
-u32 func0f1a3fc0(void);
+char *frMenuTextWeaponName(struct menu_item *item);
 char *frMenuTextTargetsDestroyedValue(struct menu_item *item);
 u32 func0f1a402c(void);
 char *frMenuTextGoalScoreLabel(struct menu_item *item);
