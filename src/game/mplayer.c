@@ -1932,7 +1932,7 @@ glabel func0f189088
 );
 
 GLOBAL_ASM(
-glabel func0f1890a8
+glabel mpGetWeaponSetName
 /*  f1890a8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1890ac:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1890b0:	0fc623e7 */ 	jal	func0f188f9c
@@ -1976,6 +1976,26 @@ glabel func0f1890a8
 /*  f189134:	03e00008 */ 	jr	$ra
 /*  f189138:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// regalloc
+//char *mpGetWeaponSetName(s32 arg0)
+//{
+//	s32 index = func0f188f9c(arg0);
+//
+//	if (index < 0 || index >= 14) {
+//		return langGet(L_MPWEAPONS(41)); // "Custom"
+//	}
+//
+//	if (index == 13) {
+//		return langGet(L_MPWEAPONS(42)); // "Random"
+//	}
+//
+//	if (index == 12) {
+//		return langGet(L_MPWEAPONS(43)); // "Random Five"
+//	}
+//
+//	return langGet(g_MpWeaponSets[index].name);
+//}
 
 GLOBAL_ASM(
 glabel func0f18913c

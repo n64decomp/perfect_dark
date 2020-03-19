@@ -460,7 +460,7 @@ s32 menuhandlerMpWeaponSetDropdown(u32 operation, struct menu_item *item, s32 *v
 		*value = func0f189058(item->param);
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return func0f1890a8(*value);
+		return mpGetWeaponSetName(*value);
 	case MENUOP_SET:
 		func0f1895bc(*value);
 		break;
@@ -5942,7 +5942,7 @@ glabel func0f17f088
 /*  f17f08c:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f17f090:	0fc62587 */ 	jal	func0f18961c
 /*  f17f094:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17f098:	0fc6242a */ 	jal	func0f1890a8
+/*  f17f098:	0fc6242a */ 	jal	mpGetWeaponSetName
 /*  f17f09c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f17f0a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f17f0a4:	27bd0018 */ 	addiu	$sp,$sp,0x18
