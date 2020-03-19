@@ -14,7 +14,7 @@ char *frMenuTextGoalScoreLabel(struct menu_item *item);
 char *frMenuTextGoalScoreValue(struct menu_item *item);
 char *frMenuTextMinAccuracyOrTargetsLabel(struct menu_item *item);
 char *frMenuTextMinAccuracyOrTargetsValue(struct menu_item *item);
-u32 func0f1a42b8(void);
+char *frMenuTextTimeLimitLabel(struct menu_item *item);
 u32 func0f1a431c(void);
 u32 func0f1a43b8(void);
 u32 func0f1a441c(void);
