@@ -1079,47 +1079,20 @@ char *frMenuTextMinAccuracyOrTargetsLabel(struct menu_item *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f1a4230
-/*  f1a4230:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a4234:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a4238:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a423c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a4240:	904e0008 */ 	lbu	$t6,0x8($v0)
-/*  f1a4244:	00401825 */ 	or	$v1,$v0,$zero
-/*  f1a4248:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
-/*  f1a424c:	19c00007 */ 	blez	$t6,.L0f1a426c
-/*  f1a4250:	3c057f1c */ 	lui	$a1,%hi(var7f1b9828)
-/*  f1a4254:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
-/*  f1a4258:	24a59828 */ 	addiu	$a1,$a1,%lo(var7f1b9828)
-/*  f1a425c:	0c004dad */ 	jal	sprintf
-/*  f1a4260:	90660008 */ 	lbu	$a2,0x8($v1)
-/*  f1a4264:	1000000e */ 	beqz	$zero,.L0f1a42a0
-/*  f1a4268:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a426c:
-/*  f1a426c:	904f0004 */ 	lbu	$t7,0x4($v0)
-/*  f1a4270:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f1a4274:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
-/*  f1a4278:	11e10007 */ 	beq	$t7,$at,.L0f1a4298
-/*  f1a427c:	3c057f1c */ 	lui	$a1,%hi(var7f1b9830)
-/*  f1a4280:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
-/*  f1a4284:	24a59830 */ 	addiu	$a1,$a1,%lo(var7f1b9830)
-/*  f1a4288:	0c004dad */ 	jal	sprintf
-/*  f1a428c:	90660004 */ 	lbu	$a2,0x4($v1)
-/*  f1a4290:	10000003 */ 	beqz	$zero,.L0f1a42a0
-/*  f1a4294:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a4298:
-/*  f1a4298:	10000003 */ 	beqz	$zero,.L0f1a42a8
-/*  f1a429c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a42a0:
-/*  f1a42a0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer2)
-/*  f1a42a4:	8c421444 */ 	lw	$v0,%lo(g_StringPointer2)($v0)
-.L0f1a42a8:
-/*  f1a42a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a42ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a42b0:	03e00008 */ 	jr	$ra
-/*  f1a42b4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *frMenuTextMinAccuracyOrTargetsValue(struct menu_item *item)
+{
+	struct frdata *frdata = getFiringRangeData();
+
+	if (frdata->goalaccuracy > 0) {
+		sprintf(g_StringPointer2, "%d%%\n", frdata->goalaccuracy);
+	} else if (frdata->goaltargets != 255) {
+		sprintf(g_StringPointer2, "%d\n", frdata->goaltargets);
+	} else {
+		return NULL;
+	}
+
+	return g_StringPointer2;
+}
 
 GLOBAL_ASM(
 glabel func0f1a42b8
@@ -4821,8 +4794,6 @@ void *func0f1a7878(u16 fileid, s32 arg1, s32 arg2)
 	return func0f1a7794(fileid, arg1, arg2, 0);
 }
 
-const char var7f1b9828[] = "%d%%\n";
-const char var7f1b9830[] = "%d\n";
 const char var7f1b9834[] = "%s";
 const char var7f1b9838[] = "%dm %ds\n";
 const char var7f1b9844[] = "%ds\n";

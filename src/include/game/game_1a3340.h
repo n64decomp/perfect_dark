@@ -13,7 +13,7 @@ u32 func0f1a402c(void);
 char *frMenuTextGoalScoreLabel(struct menu_item *item);
 char *frMenuTextGoalScoreValue(struct menu_item *item);
 char *frMenuTextMinAccuracyOrTargetsLabel(struct menu_item *item);
-u32 func0f1a4230(void);
+char *frMenuTextMinAccuracyOrTargetsValue(struct menu_item *item);
 u32 func0f1a42b8(void);
 u32 func0f1a431c(void);
 u32 func0f1a43b8(void);
