@@ -1064,93 +1064,20 @@ char *frMenuTextGoalScoreValue(struct menu_item *item)
 	return NULL;
 }
 
-const char var7f1b9820[] = "%s";
-const char var7f1b9824[] = "%s";
-const char var7f1b9828[] = "%d%%\n";
-const char var7f1b9830[] = "%d\n";
-const char var7f1b9834[] = "%s";
-const char var7f1b9838[] = "%dm %ds\n";
-const char var7f1b9844[] = "%ds\n";
-const char var7f1b984c[] = "%s";
-const char var7f1b9850[] = "/%d";
-const char var7f1b9854[] = "%d%s\n";
-const char var7f1b985c[] = "x1";
-const char var7f1b9860[] = "x2";
-const char var7f1b9864[] = "y1";
-const char var7f1b9868[] = "y2";
-const char var7f1b986c[] = "x3";
-const char var7f1b9870[] = "x4";
-const char var7f1b9874[] = "y3";
-const char var7f1b9878[] = "y4";
-const char var7f1b987c[] = "%d\n";
-const char var7f1b9880[] = "%d\n";
-const char var7f1b9884[] = "%d\n";
-const char var7f1b9888[] = "%d\n";
-const char var7f1b988c[] = "%d\n";
-const char var7f1b9890[] = "%d\n";
-const char var7f1b9894[] = "%d\n";
-const char var7f1b9898[] = "%d\n";
-const char var7f1b989c[] = "%d\n";
-const char var7f1b98a0[] = "%s\n";
-const char var7f1b98a4[] = "%s\n";
-const char var7f1b98a8[] = "%s\n";
-const char var7f1b98ac[] = "%s\n";
-const char var7f1b98b0[] = "%dm %2ds\n";
-const char var7f1b98bc[] = "%s%s%2.2fs\n";
-const char var7f1b98c8[] = "";
-const char var7f1b98cc[] = "";
-const char var7f1b98d0[] = "%dm %2ds\n";
-const char var7f1b98dc[] = "%s%s%2.2fs\n";
-const char var7f1b98e8[] = "";
-const char var7f1b98ec[] = "";
-const char var7f1b98f0[] = "%s\n";
+char *frMenuTextMinAccuracyOrTargetsLabel(struct menu_item *item)
+{
+	struct frdata *frdata = getFiringRangeData();
 
-GLOBAL_ASM(
-glabel func0f1a4194
-/*  f1a4194:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a4198:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a419c:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a41a0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a41a4:	904e0008 */ 	lbu	$t6,0x8($v0)
-/*  f1a41a8:	59c0000c */ 	blezl	$t6,.L0f1a41dc
-/*  f1a41ac:	904f0004 */ 	lbu	$t7,0x4($v0)
-/*  f1a41b0:	0fc5b9f1 */ 	jal	langGet
-/*  f1a41b4:	240451d9 */ 	addiu	$a0,$zero,0x51d9
-/*  f1a41b8:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a41bc:	3c057f1c */ 	lui	$a1,%hi(var7f1b9820)
-/*  f1a41c0:	24a59820 */ 	addiu	$a1,$a1,%lo(var7f1b9820)
-/*  f1a41c4:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a41c8:	0c004dad */ 	jal	sprintf
-/*  f1a41cc:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a41d0:	10000011 */ 	beqz	$zero,.L0f1a4218
-/*  f1a41d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a41d8:	904f0004 */ 	lbu	$t7,0x4($v0)
-.L0f1a41dc:
-/*  f1a41dc:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f1a41e0:	11e1000b */ 	beq	$t7,$at,.L0f1a4210
-/*  f1a41e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a41e8:	0fc5b9f1 */ 	jal	langGet
-/*  f1a41ec:	240451da */ 	addiu	$a0,$zero,0x51da
-/*  f1a41f0:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a41f4:	3c057f1c */ 	lui	$a1,%hi(var7f1b9824)
-/*  f1a41f8:	24a59824 */ 	addiu	$a1,$a1,%lo(var7f1b9824)
-/*  f1a41fc:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a4200:	0c004dad */ 	jal	sprintf
-/*  f1a4204:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a4208:	10000003 */ 	beqz	$zero,.L0f1a4218
-/*  f1a420c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a4210:
-/*  f1a4210:	10000003 */ 	beqz	$zero,.L0f1a4220
-/*  f1a4214:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a4218:
-/*  f1a4218:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a421c:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f1a4220:
-/*  f1a4220:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a4224:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a4228:	03e00008 */ 	jr	$ra
-/*  f1a422c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	if (frdata->goalaccuracy > 0) {
+		sprintf(g_StringPointer, "%s", langGet(L_MPMENU(473))); // "Min Accuracy:"
+	} else if (frdata->goaltargets != 255) {
+		sprintf(g_StringPointer, "%s", langGet(L_MPMENU(474))); // "Goal Targets:"
+	} else {
+		return NULL;
+	}
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f1a4230
@@ -4893,3 +4820,43 @@ void *func0f1a7878(u16 fileid, s32 arg1, s32 arg2)
 {
 	return func0f1a7794(fileid, arg1, arg2, 0);
 }
+
+const char var7f1b9828[] = "%d%%\n";
+const char var7f1b9830[] = "%d\n";
+const char var7f1b9834[] = "%s";
+const char var7f1b9838[] = "%dm %ds\n";
+const char var7f1b9844[] = "%ds\n";
+const char var7f1b984c[] = "%s";
+const char var7f1b9850[] = "/%d";
+const char var7f1b9854[] = "%d%s\n";
+const char var7f1b985c[] = "x1";
+const char var7f1b9860[] = "x2";
+const char var7f1b9864[] = "y1";
+const char var7f1b9868[] = "y2";
+const char var7f1b986c[] = "x3";
+const char var7f1b9870[] = "x4";
+const char var7f1b9874[] = "y3";
+const char var7f1b9878[] = "y4";
+const char var7f1b987c[] = "%d\n";
+const char var7f1b9880[] = "%d\n";
+const char var7f1b9884[] = "%d\n";
+const char var7f1b9888[] = "%d\n";
+const char var7f1b988c[] = "%d\n";
+const char var7f1b9890[] = "%d\n";
+const char var7f1b9894[] = "%d\n";
+const char var7f1b9898[] = "%d\n";
+const char var7f1b989c[] = "%d\n";
+const char var7f1b98a0[] = "%s\n";
+const char var7f1b98a4[] = "%s\n";
+const char var7f1b98a8[] = "%s\n";
+const char var7f1b98ac[] = "%s\n";
+const char var7f1b98b0[] = "%dm %2ds\n";
+const char var7f1b98bc[] = "%s%s%2.2fs\n";
+const char var7f1b98c8[] = "";
+const char var7f1b98cc[] = "";
+const char var7f1b98d0[] = "%dm %2ds\n";
+const char var7f1b98dc[] = "%s%s%2.2fs\n";
+const char var7f1b98e8[] = "";
+const char var7f1b98ec[] = "";
+const char var7f1b98f0[] = "%s\n";
+

@@ -5330,8 +5330,11 @@ struct hudmessage {
 struct frdata {
 	/*0x000*/ u16 unk000;
 	/*0x002*/ u16 goalscore;
-	/*0x004*/ u32 unk004;
-	/*0x008*/ u32 unk008;
+	/*0x004*/ u8 goaltargets;
+	/*0x005*/ u8 unk005;
+	/*0x006*/ u8 unk006;
+	/*0x007*/ u8 unk007;
+	/*0x008*/ u8 goalaccuracy;
 	/*0x00c*/ u32 unk00c;
 	/*0x010*/ u32 unk010;
 	/*0x014*/ u32 unk014;
