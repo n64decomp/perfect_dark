@@ -37,12 +37,6 @@ const char var7f1b97d8[] = "%dm %2ds\n";
 const char var7f1b97e4[] = "%s%s%2.2fs\n";
 const char var7f1b97f0[] = "";
 const char var7f1b97f4[] = "";
-const char var7f1b97f8[] = "%d\n";
-const char var7f1b97fc[] = "%d\n";
-const char var7f1b9800[] = "%d\n";
-const char var7f1b9804[] = "%s%s%.1f%%\n";
-const char var7f1b9810[] = "";
-const char var7f1b9814[] = "";
 
 GLOBAL_ASM(
 glabel menuhandler001a3340
@@ -917,23 +911,16 @@ glabel func0f1a3e40
 /*  f1a3f44:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+char *frMenuTextScoreValue(struct menu_item *item)
+{
+	struct frdata *frdata = getFiringRangeData();
+
+	sprintf(g_StringPointer, "%d\n", frdata->score);
+	return g_StringPointer;
+}
+
 GLOBAL_ASM(
-glabel func0f1a3f48
-/*  f1a3f48:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a3f4c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3f50:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a3f54:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a3f58:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a3f5c:	3c057f1c */ 	lui	$a1,%hi(var7f1b97f8)
-/*  f1a3f60:	24a597f8 */ 	addiu	$a1,$a1,%lo(var7f1b97f8)
-/*  f1a3f64:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a3f68:	0c004dad */ 	jal	sprintf
-/*  f1a3f6c:	8c460450 */ 	lw	$a2,0x450($v0)
-/*  f1a3f70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3f74:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a3f78:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a3f7c:	03e00008 */ 	jr	$ra
-/*  f1a3f80:	27bd0018 */ 	addiu	$sp,$sp,0x18
+glabel func0f1a3f84
 /*  f1a3f84:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a3f88:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1a3f8c:	0fc675f3 */ 	jal	getFiringRangeData
@@ -985,6 +972,12 @@ glabel func0f1a3ff0
 /*  f1a4024:	03e00008 */ 	jr	$ra
 /*  f1a4028:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
+
+const char var7f1b97fc[] = "%d\n";
+const char var7f1b9800[] = "%d\n";
+const char var7f1b9804[] = "%s%s%.1f%%\n";
+const char var7f1b9810[] = "";
+const char var7f1b9814[] = "";
 
 GLOBAL_ASM(
 glabel func0f1a402c
