@@ -33,10 +33,6 @@
 
 const char var7f1b97d0[] = "\n";
 const char var7f1b97d4[] = "\n";
-const char var7f1b97d8[] = "%dm %2ds\n";
-const char var7f1b97e4[] = "%s%s%2.2fs\n";
-const char var7f1b97f0[] = "";
-const char var7f1b97f4[] = "";
 
 GLOBAL_ASM(
 glabel menuhandler001a3340
@@ -835,81 +831,31 @@ char *frMenuTextDifficultyName(struct menu_item *item)
 	return langGet(names[frdata->difficulty]);
 }
 
-GLOBAL_ASM(
-glabel func0f1a3e40
-/*  f1a3e40:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f1a3e44:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1a3e48:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a3e4c:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f1a3e50:	8c4e044c */ 	lw	$t6,0x44c($v0)
-/*  f1a3e54:	904f0005 */ 	lbu	$t7,0x5($v0)
-/*  f1a3e58:	3c014270 */ 	lui	$at,0x4270
-/*  f1a3e5c:	448e2000 */ 	mtc1	$t6,$f4
-/*  f1a3e60:	44810000 */ 	mtc1	$at,$f0
-/*  f1a3e64:	448f4000 */ 	mtc1	$t7,$f8
-/*  f1a3e68:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f1a3e6c:	3c057f1c */ 	lui	$a1,%hi(var7f1b97e4)
-/*  f1a3e70:	3c014f80 */ 	lui	$at,0x4f80
-/*  f1a3e74:	24a597e4 */ 	addiu	$a1,$a1,%lo(var7f1b97e4)
-/*  f1a3e78:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a3e7c:	3c067f1c */ 	lui	$a2,%hi(var7f1b97f0)
-/*  f1a3e80:	46003303 */ 	div.s	$f12,$f6,$f0
-/*  f1a3e84:	05e10004 */ 	bgez	$t7,.L0f1a3e98
-/*  f1a3e88:	468040a0 */ 	cvt.s.w	$f2,$f8
-/*  f1a3e8c:	44815000 */ 	mtc1	$at,$f10
-/*  f1a3e90:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a3e94:	460a1080 */ 	add.s	$f2,$f2,$f10
-.L0f1a3e98:
-/*  f1a3e98:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f1a3e9c:	3c077f1c */ 	lui	$a3,%hi(var7f1b97f4)
-/*  f1a3ea0:	24e797f4 */ 	addiu	$a3,$a3,%lo(var7f1b97f4)
-/*  f1a3ea4:	24c697f0 */ 	addiu	$a2,$a2,%lo(var7f1b97f0)
-/*  f1a3ea8:	45020003 */ 	bc1fl	.L0f1a3eb8
-/*  f1a3eac:	460c003e */ 	c.le.s	$f0,$f12
-/*  f1a3eb0:	46001306 */ 	mov.s	$f12,$f2
-/*  f1a3eb4:	460c003e */ 	c.le.s	$f0,$f12
-.L0f1a3eb8:
-/*  f1a3eb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a3ebc:	45020019 */ 	bc1fl	.L0f1a3f24
-/*  f1a3ec0:	460064a1 */ 	cvt.d.s	$f18,$f12
-/*  f1a3ec4:	460c003e */ 	c.le.s	$f0,$f12
-/*  f1a3ec8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1a3ecc:	45000007 */ 	bc1f	.L0f1a3eec
-/*  f1a3ed0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a3ed4:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f1a3ed8:
-/*  f1a3ed8:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f1a3edc:	460c003e */ 	c.le.s	$f0,$f12
-/*  f1a3ee0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a3ee4:	4503fffc */ 	bc1tl	.L0f1a3ed8
-/*  f1a3ee8:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f1a3eec:
-/*  f1a3eec:	0fc25e5c */ 	jal	func0f097970
-/*  f1a3ef0:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f1a3ef4:	4600040d */ 	trunc.w.s	$f16,$f0
-/*  f1a3ef8:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a3efc:	3c057f1c */ 	lui	$a1,%hi(var7f1b97d8)
-/*  f1a3f00:	24a597d8 */ 	addiu	$a1,$a1,%lo(var7f1b97d8)
-/*  f1a3f04:	44078000 */ 	mfc1	$a3,$f16
-/*  f1a3f08:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a3f0c:	0c004dad */ 	jal	sprintf
-/*  f1a3f10:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f1a3f14:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a3f18:	10000007 */ 	beqz	$zero,.L0f1a3f38
-/*  f1a3f1c:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a3f20:	460064a1 */ 	cvt.d.s	$f18,$f12
-.L0f1a3f24:
-/*  f1a3f24:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a3f28:	0c004dad */ 	jal	sprintf
-/*  f1a3f2c:	f7b20010 */ 	sdc1	$f18,0x10($sp)
-/*  f1a3f30:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a3f34:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f1a3f38:
-/*  f1a3f38:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1a3f3c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1a3f40:	03e00008 */ 	jr	$ra
-/*  f1a3f44:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *frMenuTextTimeTakenValue(struct menu_item *item)
+{
+	struct frdata *frdata = getFiringRangeData();
+	f32 secs = frdata->timetaken / 60.0f;
+
+	if (secs > frdata->timelimit) {
+		secs = frdata->timelimit;
+	}
+
+	if (secs >= 60.0f) {
+		s32 mins = 0;
+
+		while (secs >= 60.0f) {
+			secs -= 60.0f;
+			mins++;
+		}
+
+		sprintf(g_StringPointer, "%dm %2ds\n", mins, (s32)func0f097970(secs));
+		return g_StringPointer;
+	} else {
+		sprintf(g_StringPointer, "%s%s%2.2fs\n", "", "", secs);
+	}
+
+	return g_StringPointer;
+}
 
 char *frMenuTextScoreValue(struct menu_item *item)
 {

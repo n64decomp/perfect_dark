@@ -5607,7 +5607,7 @@ struct frdata {
 	/*0x440*/ u32 unk440;
 	/*0x444*/ u32 unk444;
 	/*0x448*/ u8 difficulty;
-	/*0x44c*/ u32 unk44c;
+	/*0x44c*/ s32 timetaken;
 	/*0x450*/ u32 score;
 	/*0x454*/ u8 unk454;
 	/*0x455*/ u8 targetsdestroyed;
