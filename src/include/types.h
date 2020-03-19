@@ -3070,8 +3070,15 @@ struct stagetableentry {
 };
 
 struct mpweaponset {
-	u16 namefileid;
-	u8 slots[16];
+	/*0x00*/ u16 name;
+	/*0x02*/ u8 slots[6];
+	/*0x08*/ u8 unlocks[4];
+	/*0x0c*/ u8 unk0c;
+	/*0x0d*/ u8 unk0d;
+	/*0x0e*/ u8 unk0e;
+	/*0x0f*/ u8 unk0f;
+	/*0x10*/ u8 unk10;
+	/*0x11*/ u8 unk11;
 };
 
 struct mphead {
