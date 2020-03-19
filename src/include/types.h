@@ -5328,7 +5328,8 @@ struct hudmessage {
 };
 
 struct frdata {
-	/*0x000*/ u32 unk000;
+	/*0x000*/ u16 unk000;
+	/*0x002*/ u16 goalscore;
 	/*0x004*/ u32 unk004;
 	/*0x008*/ u32 unk008;
 	/*0x00c*/ u32 unk00c;

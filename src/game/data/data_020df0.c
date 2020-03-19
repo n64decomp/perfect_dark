@@ -12875,7 +12875,7 @@ struct menu_dialog g_frWeaponMenuDialog = {
 // 2edb0
 struct menu_item menuitems_frtraininginfo[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(443), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a40e8, (u32)&func0f1a4144, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&frMenuTextGoalScoreLabel, (u32)&func0f1a4144, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a4194, (u32)&func0f1a4230, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a42b8, (u32)&func0f1a431c, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a43b8, (u32)&func0f1a441c, NULL },
@@ -12900,7 +12900,7 @@ struct menu_dialog menudialog_frtraininginfo = {
 // 2eea4
 struct menu_item menuitems_frtraininginfo2[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(443), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a40e8, (u32)&func0f1a4144, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&frMenuTextGoalScoreLabel, (u32)&func0f1a4144, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a4194, (u32)&func0f1a4230, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a42b8, (u32)&func0f1a431c, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a43b8, (u32)&func0f1a441c, NULL },

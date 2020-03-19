@@ -10,7 +10,7 @@ u32 func0f1a3f48(void);
 u32 func0f1a3fc0(void);
 u32 func0f1a3ff0(void);
 u32 func0f1a402c(void);
-u32 func0f1a40e8(void);
+char *frMenuTextGoalScoreLabel(struct menu_item *item);
 u32 func0f1a4144(void);
 u32 func0f1a4194(void);
 u32 func0f1a4230(void);
