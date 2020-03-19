@@ -5603,6 +5603,19 @@ struct frdata {
 	/*0x440*/ u32 unk440;
 	/*0x444*/ u32 unk444;
 	/*0x448*/ u8 difficulty;
+	/*0x44c*/ u32 unk44c;
+	/*0x450*/ u32 unk450;
+	/*0x454*/ u32 unk454;
+	/*0x458*/ u32 unk458;
+	/*0x45c*/ u32 unk45c;
+	/*0x460*/ u32 unk460;
+	/*0x464*/ u32 unk464;
+	/*0x468*/ u32 unk468;
+	/*0x46c*/ u32 unk46c;
+	/*0x470*/ u32 unk470;
+	/*0x474*/ u32 unk474;
+	/*0x478*/ u32 unk478;
+	/*0x47c*/ u32 unk47c;
 };
 
 #endif
