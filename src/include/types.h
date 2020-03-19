@@ -5333,7 +5333,7 @@ struct frdata {
 	/*0x004*/ u8 goaltargets;
 	/*0x005*/ u8 timelimit;
 	/*0x006*/ u8 ammolimit;
-	/*0x007*/ u8 unk007;
+	/*0x007*/ u8 sdgrenadelimit;
 	/*0x008*/ u8 goalaccuracy;
 	/*0x00c*/ u32 unk00c;
 	/*0x010*/ u32 unk010;
@@ -5609,7 +5609,8 @@ struct frdata {
 	/*0x448*/ u8 difficulty;
 	/*0x44c*/ u32 unk44c;
 	/*0x450*/ u32 unk450;
-	/*0x454*/ u32 unk454;
+	/*0x454*/ u16 unk454;
+	/*0x456*/ u16 unk456;
 	/*0x458*/ u32 unk458;
 	/*0x45c*/ u32 unk45c;
 	/*0x460*/ u32 unk460;

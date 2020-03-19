@@ -1145,55 +1145,28 @@ char *frMenuTextAmmoLimitLabel(struct menu_item *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f1a441c
-/*  f1a441c:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1a4420:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a4424:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a4428:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f1a442c:	904e0006 */ 	lbu	$t6,0x6($v0)
-/*  f1a4430:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f1a4434:	11c1001b */ 	beq	$t6,$at,.L0f1a44a4
-/*  f1a4438:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a443c:	94440456 */ 	lhu	$a0,0x456($v0)
-/*  f1a4440:	0fc6749a */ 	jal	func0f19d268
-/*  f1a4444:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f1a4448:	24010012 */ 	addiu	$at,$zero,0x12
-/*  f1a444c:	1441000b */ 	bne	$v0,$at,.L0f1a447c
-/*  f1a4450:	8fa30034 */ 	lw	$v1,0x34($sp)
-/*  f1a4454:	90660007 */ 	lbu	$a2,0x7($v1)
-/*  f1a4458:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f1a445c:	27a40024 */ 	addiu	$a0,$sp,0x24
-/*  f1a4460:	10c10006 */ 	beq	$a2,$at,.L0f1a447c
-/*  f1a4464:	3c057f1c */ 	lui	$a1,%hi(var7f1b9850)
-/*  f1a4468:	24a59850 */ 	addiu	$a1,$a1,%lo(var7f1b9850)
-/*  f1a446c:	0c004dad */ 	jal	sprintf
-/*  f1a4470:	afa30034 */ 	sw	$v1,0x34($sp)
-/*  f1a4474:	10000002 */ 	beqz	$zero,.L0f1a4480
-/*  f1a4478:	8fa30034 */ 	lw	$v1,0x34($sp)
-.L0f1a447c:
-/*  f1a447c:	a3a00024 */ 	sb	$zero,0x24($sp)
-.L0f1a4480:
-/*  f1a4480:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
-/*  f1a4484:	3c057f1c */ 	lui	$a1,%hi(var7f1b9854)
-/*  f1a4488:	24a59854 */ 	addiu	$a1,$a1,%lo(var7f1b9854)
-/*  f1a448c:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
-/*  f1a4490:	90660006 */ 	lbu	$a2,0x6($v1)
-/*  f1a4494:	0c004dad */ 	jal	sprintf
-/*  f1a4498:	27a70024 */ 	addiu	$a3,$sp,0x24
-/*  f1a449c:	10000003 */ 	beqz	$zero,.L0f1a44ac
-/*  f1a44a0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer2)
-.L0f1a44a4:
-/*  f1a44a4:	10000002 */ 	beqz	$zero,.L0f1a44b0
-/*  f1a44a8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a44ac:
-/*  f1a44ac:	8c421444 */ 	lw	$v0,%lo(g_StringPointer2)($v0)
-.L0f1a44b0:
-/*  f1a44b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a44b4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f1a44b8:	03e00008 */ 	jr	$ra
-/*  f1a44bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *frMenuTextAmmoLimitValue(struct menu_item *item)
+{
+	struct frdata *frdata = getFiringRangeData();
+	char suffix[16];
+	s32 weaponnum;
+
+	if (frdata->ammolimit != 255) {
+		weaponnum = func0f19d268(frdata->unk456);
+
+		if (weaponnum == WEAPON_SUPERDRAGON && frdata->sdgrenadelimit != 255) {
+			sprintf(suffix, "/%d", frdata->sdgrenadelimit);
+		} else {
+			suffix[0] = '\0';
+		}
+
+		sprintf(g_StringPointer2, "%d%s\n", frdata->ammolimit, suffix);
+	} else {
+		return NULL;
+	}
+
+	return g_StringPointer2;
+}
 
 GLOBAL_ASM(
 glabel menuhandler001a44c0
@@ -4732,8 +4705,6 @@ void *func0f1a7878(u16 fileid, s32 arg1, s32 arg2)
 	return func0f1a7794(fileid, arg1, arg2, 0);
 }
 
-const char var7f1b9850[] = "/%d";
-const char var7f1b9854[] = "%d%s\n";
 const char var7f1b985c[] = "x1";
 const char var7f1b9860[] = "x2";
 const char var7f1b9864[] = "y1";
