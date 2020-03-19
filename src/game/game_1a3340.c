@@ -954,27 +954,16 @@ glabel func0f1a3fc0
 /*  f1a3fec:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a3ff0
-/*  f1a3ff0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a3ff4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3ff8:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a3ffc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a4000:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a4004:	3c057f1c */ 	lui	$a1,%hi(var7f1b9800)
-/*  f1a4008:	24a59800 */ 	addiu	$a1,$a1,%lo(var7f1b9800)
-/*  f1a400c:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a4010:	0c004dad */ 	jal	sprintf
-/*  f1a4014:	90460455 */ 	lbu	$a2,0x455($v0)
-/*  f1a4018:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a401c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a4020:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a4024:	03e00008 */ 	jr	$ra
-/*  f1a4028:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
-
 const char var7f1b97fc[] = "%d\n";
-const char var7f1b9800[] = "%d\n";
+
+char *frMenuTextTargetsDestroyedValue(struct menu_item *item)
+{
+	struct frdata *frdata = getFiringRangeData();
+
+	sprintf(g_StringPointer, "%d\n", frdata->targetsdestroyed);
+	return g_StringPointer;
+}
+
 const char var7f1b9804[] = "%s%s%.1f%%\n";
 const char var7f1b9810[] = "";
 const char var7f1b9814[] = "";

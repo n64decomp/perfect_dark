@@ -12926,7 +12926,7 @@ struct menu_dialog menudialog_frtraininginfo2 = {
 struct menu_item menuitems_frtrainingstats[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, L_MPMENU(449), 0x00000000, NULL }, // "Completed!"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&frMenuTextScoreValue, NULL }, // "Score:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&func0f1a3ff0, NULL }, // "Targets Destroyed:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(452), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(453), (u32)&func0f1a3e40, NULL }, // "Time Taken:"
@@ -12953,7 +12953,7 @@ struct menu_dialog menudialog_frtrainingstats = {
 struct menu_item menuitems_frtrainingstats2[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f1a3d98, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&frMenuTextScoreValue, NULL }, // "Score:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&func0f1a3ff0, NULL }, // "Targets Destroyed:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(452), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(453), (u32)&func0f1a3e40, NULL }, // "Time Taken:"
