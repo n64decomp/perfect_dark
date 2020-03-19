@@ -16,7 +16,7 @@ char *frMenuTextMinAccuracyOrTargetsLabel(struct menu_item *item);
 char *frMenuTextMinAccuracyOrTargetsValue(struct menu_item *item);
 char *frMenuTextTimeLimitLabel(struct menu_item *item);
 char *frMenuTextTimeLimitValue(struct menu_item *item);
-u32 func0f1a43b8(void);
+char *frMenuTextAmmoLimitLabel(struct menu_item *item);
 u32 func0f1a441c(void);
 u32 func0f1a628c(void);
 u32 func0f1a62e0(void);

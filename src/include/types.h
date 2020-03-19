@@ -5332,7 +5332,7 @@ struct frdata {
 	/*0x002*/ u16 goalscore;
 	/*0x004*/ u8 goaltargets;
 	/*0x005*/ u8 timelimit;
-	/*0x006*/ u8 unk006;
+	/*0x006*/ u8 ammolimit;
 	/*0x007*/ u8 unk007;
 	/*0x008*/ u8 goalaccuracy;
 	/*0x00c*/ u32 unk00c;
