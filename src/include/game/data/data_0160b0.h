@@ -151,6 +151,7 @@ extern u32 var800711e8;
 extern u32 var800711f4;
 extern u32 var8007142c;
 extern char *g_StringPointer;
+extern char *g_StringPointer2;
 extern u32 g_MpPlayerNum;
 extern u32 var8007144c;
 extern u32 var80071468;

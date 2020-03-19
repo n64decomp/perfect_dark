@@ -1052,7 +1052,18 @@ char *frMenuTextGoalScoreLabel(struct menu_item *item)
 	return NULL;
 }
 
-const char var7f1b981c[] = "%d\n";
+char *frMenuTextGoalScoreValue(struct menu_item *item)
+{
+	struct frdata *frdata = getFiringRangeData();
+
+	if (frdata->goalscore > 0) {
+		sprintf(g_StringPointer2, "%d\n", frdata->goalscore);
+		return g_StringPointer2;
+	}
+
+	return NULL;
+}
+
 const char var7f1b9820[] = "%s";
 const char var7f1b9824[] = "%s";
 const char var7f1b9828[] = "%d%%\n";
@@ -1093,32 +1104,6 @@ const char var7f1b98dc[] = "%s%s%2.2fs\n";
 const char var7f1b98e8[] = "";
 const char var7f1b98ec[] = "";
 const char var7f1b98f0[] = "%s\n";
-
-GLOBAL_ASM(
-glabel func0f1a4144
-/*  f1a4144:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a4148:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a414c:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a4150:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a4154:	944e0002 */ 	lhu	$t6,0x2($v0)
-/*  f1a4158:	3c057f1c */ 	lui	$a1,%hi(var7f1b981c)
-/*  f1a415c:	24a5981c */ 	addiu	$a1,$a1,%lo(var7f1b981c)
-/*  f1a4160:	19c00007 */ 	blez	$t6,.L0f1a4180
-/*  f1a4164:	3c048007 */ 	lui	$a0,%hi(var80071444)
-/*  f1a4168:	8c841444 */ 	lw	$a0,%lo(var80071444)($a0)
-/*  f1a416c:	0c004dad */ 	jal	sprintf
-/*  f1a4170:	94460002 */ 	lhu	$a2,0x2($v0)
-/*  f1a4174:	3c028007 */ 	lui	$v0,%hi(var80071444)
-/*  f1a4178:	10000002 */ 	beqz	$zero,.L0f1a4184
-/*  f1a417c:	8c421444 */ 	lw	$v0,%lo(var80071444)($v0)
-.L0f1a4180:
-/*  f1a4180:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a4184:
-/*  f1a4184:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a4188:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a418c:	03e00008 */ 	jr	$ra
-/*  f1a4190:	00000000 */ 	sll	$zero,$zero,0x0
-);
 
 GLOBAL_ASM(
 glabel func0f1a4194
@@ -1175,10 +1160,10 @@ glabel func0f1a4230
 /*  f1a423c:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f1a4240:	904e0008 */ 	lbu	$t6,0x8($v0)
 /*  f1a4244:	00401825 */ 	or	$v1,$v0,$zero
-/*  f1a4248:	3c048007 */ 	lui	$a0,%hi(var80071444)
+/*  f1a4248:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
 /*  f1a424c:	19c00007 */ 	blez	$t6,.L0f1a426c
 /*  f1a4250:	3c057f1c */ 	lui	$a1,%hi(var7f1b9828)
-/*  f1a4254:	8c841444 */ 	lw	$a0,%lo(var80071444)($a0)
+/*  f1a4254:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
 /*  f1a4258:	24a59828 */ 	addiu	$a1,$a1,%lo(var7f1b9828)
 /*  f1a425c:	0c004dad */ 	jal	sprintf
 /*  f1a4260:	90660008 */ 	lbu	$a2,0x8($v1)
@@ -1187,10 +1172,10 @@ glabel func0f1a4230
 .L0f1a426c:
 /*  f1a426c:	904f0004 */ 	lbu	$t7,0x4($v0)
 /*  f1a4270:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f1a4274:	3c048007 */ 	lui	$a0,%hi(var80071444)
+/*  f1a4274:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
 /*  f1a4278:	11e10007 */ 	beq	$t7,$at,.L0f1a4298
 /*  f1a427c:	3c057f1c */ 	lui	$a1,%hi(var7f1b9830)
-/*  f1a4280:	8c841444 */ 	lw	$a0,%lo(var80071444)($a0)
+/*  f1a4280:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
 /*  f1a4284:	24a59830 */ 	addiu	$a1,$a1,%lo(var7f1b9830)
 /*  f1a4288:	0c004dad */ 	jal	sprintf
 /*  f1a428c:	90660004 */ 	lbu	$a2,0x4($v1)
@@ -1200,8 +1185,8 @@ glabel func0f1a4230
 /*  f1a4298:	10000003 */ 	beqz	$zero,.L0f1a42a8
 /*  f1a429c:	00001025 */ 	or	$v0,$zero,$zero
 .L0f1a42a0:
-/*  f1a42a0:	3c028007 */ 	lui	$v0,%hi(var80071444)
-/*  f1a42a4:	8c421444 */ 	lw	$v0,%lo(var80071444)($v0)
+/*  f1a42a0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer2)
+/*  f1a42a4:	8c421444 */ 	lw	$v0,%lo(g_StringPointer2)($v0)
 .L0f1a42a8:
 /*  f1a42a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1a42ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -1261,18 +1246,18 @@ glabel func0f1a431c
 /*  f1a4354:	24c60001 */ 	addiu	$a2,$a2,0x1
 .L0f1a4358:
 /*  f1a4358:	18c00008 */ 	blez	$a2,.L0f1a437c
-/*  f1a435c:	3c048007 */ 	lui	$a0,%hi(var80071444)
-/*  f1a4360:	3c048007 */ 	lui	$a0,%hi(var80071444)
+/*  f1a435c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
+/*  f1a4360:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
 /*  f1a4364:	3c057f1c */ 	lui	$a1,%hi(var7f1b9838)
 /*  f1a4368:	24a59838 */ 	addiu	$a1,$a1,%lo(var7f1b9838)
 /*  f1a436c:	0c004dad */ 	jal	sprintf
-/*  f1a4370:	8c841444 */ 	lw	$a0,%lo(var80071444)($a0)
+/*  f1a4370:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
 /*  f1a4374:	1000000a */ 	beqz	$zero,.L0f1a43a0
 /*  f1a4378:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1a437c:
 /*  f1a437c:	3c057f1c */ 	lui	$a1,%hi(var7f1b9844)
 /*  f1a4380:	24a59844 */ 	addiu	$a1,$a1,%lo(var7f1b9844)
-/*  f1a4384:	8c841444 */ 	lw	$a0,%lo(var80071444)($a0)
+/*  f1a4384:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
 /*  f1a4388:	0c004dad */ 	jal	sprintf
 /*  f1a438c:	00e03025 */ 	or	$a2,$a3,$zero
 /*  f1a4390:	10000003 */ 	beqz	$zero,.L0f1a43a0
@@ -1281,8 +1266,8 @@ glabel func0f1a431c
 /*  f1a4398:	10000003 */ 	beqz	$zero,.L0f1a43a8
 /*  f1a439c:	00001025 */ 	or	$v0,$zero,$zero
 .L0f1a43a0:
-/*  f1a43a0:	3c028007 */ 	lui	$v0,%hi(var80071444)
-/*  f1a43a4:	8c421444 */ 	lw	$v0,%lo(var80071444)($v0)
+/*  f1a43a0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer2)
+/*  f1a43a4:	8c421444 */ 	lw	$v0,%lo(g_StringPointer2)($v0)
 .L0f1a43a8:
 /*  f1a43a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1a43ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -1351,20 +1336,20 @@ glabel func0f1a441c
 .L0f1a447c:
 /*  f1a447c:	a3a00024 */ 	sb	$zero,0x24($sp)
 .L0f1a4480:
-/*  f1a4480:	3c048007 */ 	lui	$a0,%hi(var80071444)
+/*  f1a4480:	3c048007 */ 	lui	$a0,%hi(g_StringPointer2)
 /*  f1a4484:	3c057f1c */ 	lui	$a1,%hi(var7f1b9854)
 /*  f1a4488:	24a59854 */ 	addiu	$a1,$a1,%lo(var7f1b9854)
-/*  f1a448c:	8c841444 */ 	lw	$a0,%lo(var80071444)($a0)
+/*  f1a448c:	8c841444 */ 	lw	$a0,%lo(g_StringPointer2)($a0)
 /*  f1a4490:	90660006 */ 	lbu	$a2,0x6($v1)
 /*  f1a4494:	0c004dad */ 	jal	sprintf
 /*  f1a4498:	27a70024 */ 	addiu	$a3,$sp,0x24
 /*  f1a449c:	10000003 */ 	beqz	$zero,.L0f1a44ac
-/*  f1a44a0:	3c028007 */ 	lui	$v0,%hi(var80071444)
+/*  f1a44a0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer2)
 .L0f1a44a4:
 /*  f1a44a4:	10000002 */ 	beqz	$zero,.L0f1a44b0
 /*  f1a44a8:	00001025 */ 	or	$v0,$zero,$zero
 .L0f1a44ac:
-/*  f1a44ac:	8c421444 */ 	lw	$v0,%lo(var80071444)($v0)
+/*  f1a44ac:	8c421444 */ 	lw	$v0,%lo(g_StringPointer2)($v0)
 .L0f1a44b0:
 /*  f1a44b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1a44b4:	27bd0038 */ 	addiu	$sp,$sp,0x38
