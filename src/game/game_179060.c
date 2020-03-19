@@ -453,7 +453,7 @@ char *mpMenuTextWeaponNameForSlot(struct menu_item *item)
 	return mpGetWeaponLabel(mpGetWeaponSlot(item->param));
 }
 
-s32 menuhandlerMpWeaponSetDropdown(u32 operation, struct menu_item *item, s32 *value)
+char *menuhandlerMpWeaponSetDropdown(u32 operation, struct menu_item *item, s32 *value)
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
@@ -469,7 +469,7 @@ s32 menuhandlerMpWeaponSetDropdown(u32 operation, struct menu_item *item, s32 *v
 		break;
 	}
 
-	return 0;
+	return NULL;
 }
 
 s32 menuhandlerMpControlCheckbox(u32 operation, struct menu_item *item, s32 *value)
@@ -5936,19 +5936,10 @@ char *mpMenuTextArenaName(struct menu_item *item)
 	return "\n";
 }
 
-GLOBAL_ASM(
-glabel func0f17f088
-/*  f17f088:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17f08c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17f090:	0fc62587 */ 	jal	func0f18961c
-/*  f17f094:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17f098:	0fc6242a */ 	jal	mpGetWeaponSetName
-/*  f17f09c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17f0a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17f0a4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17f0a8:	03e00008 */ 	jr	$ra
-/*  f17f0ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextWeaponSetName(struct menu_item *item)
+{
+	return mpGetWeaponSetName(func0f18961c());
+}
 
 bool menudialogMpGameSetup(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
 {

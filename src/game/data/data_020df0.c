@@ -11274,7 +11274,7 @@ struct menu_item menuitems_mpquickteamgamesetup[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00020004, L_MPMENU(19), (u32)&mpMenuTextScenarioShortName, &menudialog_mpscenario2 }, // "Scenario"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPMENU(21), 0x00000000, menuhandlerMpOpenOptions }, // "Options"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(20), (u32)&mpMenuTextArenaName, &menudialog_mparena }, // "Arena"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(23), (u32)&func0f17f088, &menudialog_mpweapons2 }, // "Weapons"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(23), (u32)&mpMenuTextWeaponSetName, &menudialog_mpweapons2 }, // "Weapons"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_MPMENU(24), 0x00000000, &menudialog_mplimits }, // "Limits"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, menuhandlerQuickTeamSeparator },
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_MISC(449), 0x00000000, menuhandlerPlayerTeam }, // "Player 1 Team"
