@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f1a3d98(void);
-u32 func0f1a3df0(void);
+char *frMenuTextDifficultyName(struct menu_item *item);
 u32 func0f1a3e40(void);
 u32 func0f1a3f48(void);
 u32 func0f1a3fc0(void);

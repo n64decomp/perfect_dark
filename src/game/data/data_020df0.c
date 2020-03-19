@@ -12819,8 +12819,13 @@ u32 var80088c74 = 0x51b90000;
 u32 var80088c78 = 0x51c851c9;
 u32 var80088c7c = 0x51ca51cb;
 u32 var80088c80 = 0x51cc0000;
-u32 var80088c84 = 0x51b751b8;
-u32 var80088c88 = 0x51b90000;
+
+u16 g_FiringRangeDifficultyNames[] = {
+	L_MPMENU(439), // "Bronze"
+	L_MPMENU(440), // "Silver"
+	L_MPMENU(441), // "Gold"
+};
+
 u32 var80088c8c = 0x00000000;
 u32 var80088c90 = 0x00000000;
 u32 var80088c94 = 0x00000000;
@@ -12869,7 +12874,7 @@ struct menu_dialog g_frWeaponMenuDialog = {
 
 // 2edb0
 struct menu_item menuitems_frtraininginfo[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(443), (u32)&func0f1a3df0, NULL }, // "Difficulty"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(443), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a40e8, (u32)&func0f1a4144, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a4194, (u32)&func0f1a4230, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a42b8, (u32)&func0f1a431c, NULL },
@@ -12894,7 +12899,7 @@ struct menu_dialog menudialog_frtraininginfo = {
 
 // 2eea4
 struct menu_item menuitems_frtraininginfo2[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(443), (u32)&func0f1a3df0, NULL }, // "Difficulty:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(443), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a40e8, (u32)&func0f1a4144, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a4194, (u32)&func0f1a4230, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, (u32)&func0f1a42b8, (u32)&func0f1a431c, NULL },
@@ -12923,7 +12928,7 @@ struct menu_item menuitems_frtrainingstats[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&func0f1a3f48, NULL }, // "Score:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&func0f1a3ff0, NULL }, // "Targets Destroyed:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(452), (u32)&func0f1a3df0, NULL }, // "Difficulty:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(452), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(453), (u32)&func0f1a3e40, NULL }, // "Time Taken:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(454), (u32)&func0f1a3fc0, NULL }, // "Weapon:"
@@ -12950,7 +12955,7 @@ struct menu_item menuitems_frtrainingstats2[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&func0f1a3f48, NULL }, // "Score:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&func0f1a3ff0, NULL }, // "Targets Destroyed:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(452), (u32)&func0f1a3df0, NULL }, // "Difficulty:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(452), (u32)&frMenuTextDifficultyName, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(453), (u32)&func0f1a3e40, NULL }, // "Time Taken:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(454), (u32)&func0f1a3fc0, NULL }, // "Weapon:"

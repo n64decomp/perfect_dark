@@ -25,7 +25,7 @@ u32 func0f19d560(void);
 u32 func0f19d5c0(void);
 u32 func0f19d5e8(void);
 u32 func0f19d5f4(void);
-u32 func0f19d7cc(void);
+struct frdata *getFiringRangeData(void);
 u32 func0f19d7d8(void);
 u32 func0f19d8a4(void);
 u32 func0f19d90c(void);

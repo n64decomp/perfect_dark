@@ -1050,7 +1050,7 @@ glabel func0f19d5f4
 );
 
 GLOBAL_ASM(
-glabel func0f19d7cc
+glabel getFiringRangeData
 /*  f19d7cc:	3c02800b */ 	lui	$v0,%hi(var800acd20)
 /*  f19d7d0:	03e00008 */ 	jr	$ra
 /*  f19d7d4:	2442cd20 */ 	addiu	$v0,$v0,%lo(var800acd20)
