@@ -12643,7 +12643,7 @@ u32 var80088890 = 0x00000018;
 u32 var80088894 = 0x00000019;
 u32 var80088898 = 0x0000001a;
 u32 var8008889c = 0x00000001;
-u32 var800888a0 = 0x00000000;
+u8 var800888a0 = 0;
 
 // 2e8c4
 struct chrbio g_ChrBios[10] = {
@@ -13026,7 +13026,7 @@ u32 var80089280 = 0x0300ff00;
 // 2f2a4
 struct menu_item menuitems_characterprofile[] = {
 	{ MENUITEMTYPE_MODEL,       0, 0x00000002, 0x00000046, 0x00000096, NULL },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000003, L_MPMENU(432), (u32)&func0f1a628c, NULL }, // "Name:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000003, L_MPMENU(432), (u32)&ciMenuTextBioName, NULL }, // "Name:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(433), (u32)&func0f1a62e0, NULL }, // "Age:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(434), (u32)&func0f1a6334, NULL }, // "Race:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000002, 0x00000000, 0x00000000, NULL },

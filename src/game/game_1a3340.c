@@ -3028,30 +3028,31 @@ glabel var7f1b9978
 /*  f1a6288:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a628c
-/*  f1a628c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a6290:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a6294:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6298:	3c048009 */ 	lui	$a0,%hi(var800888a0)
-/*  f1a629c:	0fc68484 */ 	jal	func0f1a1210
-/*  f1a62a0:	908488a0 */ 	lbu	$a0,%lo(var800888a0)($a0)
-/*  f1a62a4:	0fc68429 */ 	jal	ciGetChrBioByBodynum
-/*  f1a62a8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a62ac:	0fc5b9f1 */ 	jal	langGet
-/*  f1a62b0:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f1a62b4:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a62b8:	3c057f1c */ 	lui	$a1,%hi(var7f1b98a0)
-/*  f1a62bc:	24a598a0 */ 	addiu	$a1,$a1,%lo(var7f1b98a0)
-/*  f1a62c0:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a62c4:	0c004dad */ 	jal	sprintf
-/*  f1a62c8:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a62cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a62d0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a62d4:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a62d8:	03e00008 */ 	jr	$ra
-/*  f1a62dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+const char var7f1b985c[] = "x1";
+const char var7f1b9860[] = "x2";
+const char var7f1b9864[] = "y1";
+const char var7f1b9868[] = "y2";
+const char var7f1b986c[] = "x3";
+const char var7f1b9870[] = "x4";
+const char var7f1b9874[] = "y3";
+const char var7f1b9878[] = "y4";
+const char var7f1b987c[] = "%d\n";
+const char var7f1b9880[] = "%d\n";
+const char var7f1b9884[] = "%d\n";
+const char var7f1b9888[] = "%d\n";
+const char var7f1b988c[] = "%d\n";
+const char var7f1b9890[] = "%d\n";
+const char var7f1b9894[] = "%d\n";
+const char var7f1b9898[] = "%d\n";
+const char var7f1b989c[] = "%d\n";
+
+char *ciMenuTextBioName(struct menu_item *item)
+{
+	struct chrbio *bio = ciGetChrBioByBodynum(func0f1a1210(var800888a0));
+	sprintf(g_StringPointer, "%s\n", langGet(bio->name));
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f1a62e0
@@ -4582,24 +4583,6 @@ void *func0f1a7878(u16 fileid, s32 arg1, s32 arg2)
 	return func0f1a7794(fileid, arg1, arg2, 0);
 }
 
-const char var7f1b985c[] = "x1";
-const char var7f1b9860[] = "x2";
-const char var7f1b9864[] = "y1";
-const char var7f1b9868[] = "y2";
-const char var7f1b986c[] = "x3";
-const char var7f1b9870[] = "x4";
-const char var7f1b9874[] = "y3";
-const char var7f1b9878[] = "y4";
-const char var7f1b987c[] = "%d\n";
-const char var7f1b9880[] = "%d\n";
-const char var7f1b9884[] = "%d\n";
-const char var7f1b9888[] = "%d\n";
-const char var7f1b988c[] = "%d\n";
-const char var7f1b9890[] = "%d\n";
-const char var7f1b9894[] = "%d\n";
-const char var7f1b9898[] = "%d\n";
-const char var7f1b989c[] = "%d\n";
-const char var7f1b98a0[] = "%s\n";
 const char var7f1b98a4[] = "%s\n";
 const char var7f1b98a8[] = "%s\n";
 const char var7f1b98ac[] = "%s\n";
