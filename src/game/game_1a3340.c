@@ -3062,30 +3062,13 @@ char *ciMenuTextBioAge(struct menu_item *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f1a6334
-/*  f1a6334:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a6338:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a633c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6340:	3c048009 */ 	lui	$a0,%hi(var800888a0)
-/*  f1a6344:	0fc68484 */ 	jal	func0f1a1210
-/*  f1a6348:	908488a0 */ 	lbu	$a0,%lo(var800888a0)($a0)
-/*  f1a634c:	0fc68429 */ 	jal	ciGetChrBioByBodynum
-/*  f1a6350:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a6354:	0fc5b9f1 */ 	jal	langGet
-/*  f1a6358:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f1a635c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a6360:	3c057f1c */ 	lui	$a1,%hi(var7f1b98a8)
-/*  f1a6364:	24a598a8 */ 	addiu	$a1,$a1,%lo(var7f1b98a8)
-/*  f1a6368:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a636c:	0c004dad */ 	jal	sprintf
-/*  f1a6370:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a6374:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a6378:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a637c:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a6380:	03e00008 */ 	jr	$ra
-/*  f1a6384:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *ciMenuTextBioRace(struct menu_item *item)
+{
+	struct chrbio *bio = ciGetChrBioByBodynum(func0f1a1210(var800888a0));
+	sprintf(g_StringPointer, "%s\n", langGet(bio->race));
+
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f1a6388
@@ -4566,7 +4549,6 @@ void *func0f1a7878(u16 fileid, s32 arg1, s32 arg2)
 	return func0f1a7794(fileid, arg1, arg2, 0);
 }
 
-const char var7f1b98a8[] = "%s\n";
 const char var7f1b98ac[] = "%s\n";
 const char var7f1b98b0[] = "%dm %2ds\n";
 const char var7f1b98bc[] = "%s%s%2.2fs\n";

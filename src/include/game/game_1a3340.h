@@ -20,7 +20,7 @@ char *frMenuTextAmmoLimitLabel(struct menu_item *item);
 char *frMenuTextAmmoLimitValue(struct menu_item *item);
 char *ciMenuTextBioName(struct menu_item *item);
 char *ciMenuTextBioAge(struct menu_item *item);
-u32 func0f1a6334(void);
+char *ciMenuTextBioRace(struct menu_item *item);
 u32 func0f1a6388(void);
 u32 func0f1a64a0(void);
 u32 func0f1a67b0(void);
