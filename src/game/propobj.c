@@ -48692,11 +48692,12 @@ bool func0f09018c(struct prop *doorprop)
 			u8 intraining = false;
 
 			if (g_Vars.stagenum == STAGE_CITRAINING) {
-				struct trainingdata *a = getDeviceTrainingData();
-				struct trainingdata *b = getHoloTrainingData();
+				struct trainingdata *devdata = getDeviceTrainingData();
+				struct trainingdata *holodata = getHoloTrainingData();
 
-				intraining = (a && a->unk00_00) || (b && b->unk00_00) ||
-					g_Vars.currentplayer->prop->rooms[0] == 0x0a;
+				intraining = (devdata && devdata->intraining)
+					|| (holodata && holodata->intraining)
+					|| g_Vars.currentplayer->prop->rooms[0] == 0x0a;
 			}
 
 			if (override && override->activatetextid) {

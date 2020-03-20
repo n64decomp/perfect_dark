@@ -3537,29 +3537,16 @@ char *htMenuTextOkOrResume(struct menu_item *item)
 	return langGet(L_MPMENU(427)); // "Ok"
 }
 
-GLOBAL_ASM(
-glabel func0f1a6b34
-/*  f1a6b34:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a6b38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6b3c:	0fc687f8 */ 	jal	getHoloTrainingData
-/*  f1a6b40:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a6b44:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f1a6b48:	000e7fc2 */ 	srl	$t7,$t6,0x1f
-/*  f1a6b4c:	11e00005 */ 	beqz	$t7,.L0f1a6b64
-/*  f1a6b50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a6b54:	0fc5b9f1 */ 	jal	langGet
-/*  f1a6b58:	240451ae */ 	addiu	$a0,$zero,0x51ae
-/*  f1a6b5c:	10000004 */ 	beqz	$zero,.L0f1a6b70
-/*  f1a6b60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a6b64:
-/*  f1a6b64:	0fc5b9f1 */ 	jal	langGet
-/*  f1a6b68:	240451ad */ 	addiu	$a0,$zero,0x51ad
-/*  f1a6b6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a6b70:
-/*  f1a6b70:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a6b74:	03e00008 */ 	jr	$ra
-/*  f1a6b78:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *htMenuTextCancelOrAbort(struct menu_item *item)
+{
+	struct trainingdata *data = getHoloTrainingData();
+
+	if (data->intraining) {
+		return langGet(L_MPMENU(430)); // "Abort"
+	}
+
+	return langGet(L_MPMENU(429)); // "Cancel"
+}
 
 char *htMenuTextTimeTakenValue(struct menu_item *item)
 {
