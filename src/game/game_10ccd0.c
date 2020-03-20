@@ -44,19 +44,6 @@
 
 const char var7f1b3860[] = "%s: %s\n";
 const char var7f1b3868[] = "%s: %s\n";
-const char var7f1b3870[] = "%d";
-const char var7f1b3874[] = "%d";
-const char var7f1b3878[] = "%d";
-const char var7f1b387c[] = "%d";
-const char var7f1b3880[] = "%d";
-const char var7f1b3884[] = "%d";
-const char var7f1b3888[] = "%s%s%.1f%%";
-const char var7f1b3894[] = "";
-const char var7f1b3898[] = "";
-const char var7f1b389c[] = "%s: %s\n";
-const char var7f1b38a4[] = "%s\n";
-const char var7f1b38a8[] = "%s: %s\n";
-//const char var7f1b38b0[] = "\n";
 
 s32 menuhandlerDeclineMission(u32 operation, struct menu_item *item, s32 *value)
 {
@@ -282,24 +269,11 @@ s32 menuhandlerReplayPreviousMission(u32 operation, struct menu_item *item, s32 
 	return menuhandlerAcceptMission(operation, NULL, value);
 }
 
-GLOBAL_ASM(
-glabel func0f10d044
-/*  f10d044:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10d048:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d04c:	0fc2c1cf */ 	jal	func0f0b073c
-/*  f10d050:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10d054:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10d058:	3c057f1b */ 	lui	$a1,%hi(var7f1b3870)
-/*  f10d05c:	24a53870 */ 	addiu	$a1,$a1,%lo(var7f1b3870)
-/*  f10d060:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10d064:	0c004dad */ 	jal	sprintf
-/*  f10d068:	00403025 */ 	or	$a2,$v0,$zero
-/*  f10d06c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10d070:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10d074:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f10d078:	03e00008 */ 	jr	$ra
-/*  f10d07c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *soloMenuTextNumKills(struct menu_item *item)
+{
+	sprintf(g_StringPointer, "%d", currentPlayerGetNumKills());
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f10d080
@@ -657,7 +631,19 @@ glabel func0f10d678
 /*  f10d6e0:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-char *menutextMissionTime(s32 arg0)
+const char var7f1b3874[] = "%d";
+const char var7f1b3878[] = "%d";
+const char var7f1b387c[] = "%d";
+const char var7f1b3880[] = "%d";
+const char var7f1b3884[] = "%d";
+const char var7f1b3888[] = "%s%s%.1f%%";
+const char var7f1b3894[] = "";
+const char var7f1b3898[] = "";
+const char var7f1b389c[] = "%s: %s\n";
+const char var7f1b38a4[] = "%s\n";
+const char var7f1b38a8[] = "%s: %s\n";
+
+char *soloMenuTextMissionTime(struct menu_item *item)
 {
 	formatTime(g_StringPointer, getMissionTime(), 3);
 	strcat(g_StringPointer, "\n");

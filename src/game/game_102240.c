@@ -80,20 +80,20 @@ glabel func0f102240
 /*  f102298:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-char *menutextDifficulty(s32 arg0)
+char *soloMenuTextDifficulty(struct menu_item *item)
 {
 	if (g_MissionConfig.pdmode) {
-		return langGet(0x54dd);
+		return langGet(L_MPWEAPONS(221));
 	}
 
 	switch (g_MissionConfig.difficulty) {
 	case DIFF_SA:
-		return langGet(0x56fc);
+		return langGet(L_OPTIONS(252));
 	case DIFF_PA:
-		return langGet(0x56fd);
+		return langGet(L_OPTIONS(253));
 	case DIFF_A:
 	default:
-		return langGet(0x56fb);
+		return langGet(L_OPTIONS(251));
 	}
 }
 

@@ -262,7 +262,7 @@ glabel func0f0b05a4
 );
 
 GLOBAL_ASM(
-glabel func0f0b073c
+glabel currentPlayerGetNumKills
 /*  f0b073c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
 /*  f0b0740:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
 /*  f0b0744:	03e00008 */ 	jr	$ra
