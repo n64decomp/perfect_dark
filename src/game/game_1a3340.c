@@ -3574,7 +3574,7 @@ GLOBAL_ASM(
 glabel func0f1a6aec
 /*  f1a6aec:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a6af0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6af4:	0fc687f8 */ 	jal	func0f1a1fe0
+/*  f1a6af4:	0fc687f8 */ 	jal	getHoloTrainingData
 /*  f1a6af8:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f1a6afc:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f1a6b00:	000e7fc2 */ 	srl	$t7,$t6,0x1f
@@ -3598,7 +3598,7 @@ GLOBAL_ASM(
 glabel func0f1a6b34
 /*  f1a6b34:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a6b38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6b3c:	0fc687f8 */ 	jal	func0f1a1fe0
+/*  f1a6b3c:	0fc687f8 */ 	jal	getHoloTrainingData
 /*  f1a6b40:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f1a6b44:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f1a6b48:	000e7fc2 */ 	srl	$t7,$t6,0x1f
@@ -3618,67 +3618,27 @@ glabel func0f1a6b34
 /*  f1a6b78:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a6b7c
-/*  f1a6b7c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f1a6b80:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1a6b84:	0fc687f8 */ 	jal	func0f1a1fe0
-/*  f1a6b88:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f1a6b8c:	8c4e0004 */ 	lw	$t6,0x4($v0)
-/*  f1a6b90:	3c014270 */ 	lui	$at,0x4270
-/*  f1a6b94:	44810000 */ 	mtc1	$at,$f0
-/*  f1a6b98:	448e2000 */ 	mtc1	$t6,$f4
-/*  f1a6b9c:	3c057f1c */ 	lui	$a1,%hi(var7f1b98dc)
-/*  f1a6ba0:	3c067f1c */ 	lui	$a2,%hi(var7f1b98e8)
-/*  f1a6ba4:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f1a6ba8:	3c077f1c */ 	lui	$a3,%hi(var7f1b98ec)
-/*  f1a6bac:	24e798ec */ 	addiu	$a3,$a3,%lo(var7f1b98ec)
-/*  f1a6bb0:	24c698e8 */ 	addiu	$a2,$a2,%lo(var7f1b98e8)
-/*  f1a6bb4:	24a598dc */ 	addiu	$a1,$a1,%lo(var7f1b98dc)
-/*  f1a6bb8:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a6bbc:	46003303 */ 	div.s	$f12,$f6,$f0
-/*  f1a6bc0:	460c003e */ 	c.le.s	$f0,$f12
-/*  f1a6bc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a6bc8:	45020019 */ 	bc1fl	.L0f1a6c30
-/*  f1a6bcc:	460062a1 */ 	cvt.d.s	$f10,$f12
-/*  f1a6bd0:	460c003e */ 	c.le.s	$f0,$f12
-/*  f1a6bd4:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1a6bd8:	45000007 */ 	bc1f	.L0f1a6bf8
-/*  f1a6bdc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a6be0:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f1a6be4:
-/*  f1a6be4:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f1a6be8:	460c003e */ 	c.le.s	$f0,$f12
-/*  f1a6bec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a6bf0:	4503fffc */ 	bc1tl	.L0f1a6be4
-/*  f1a6bf4:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f1a6bf8:
-/*  f1a6bf8:	0fc25e5c */ 	jal	func0f097970
-/*  f1a6bfc:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f1a6c00:	4600020d */ 	trunc.w.s	$f8,$f0
-/*  f1a6c04:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a6c08:	3c057f1c */ 	lui	$a1,%hi(var7f1b98d0)
-/*  f1a6c0c:	24a598d0 */ 	addiu	$a1,$a1,%lo(var7f1b98d0)
-/*  f1a6c10:	44074000 */ 	mfc1	$a3,$f8
-/*  f1a6c14:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a6c18:	0c004dad */ 	jal	sprintf
-/*  f1a6c1c:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f1a6c20:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a6c24:	10000007 */ 	beqz	$zero,.L0f1a6c44
-/*  f1a6c28:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a6c2c:	460062a1 */ 	cvt.d.s	$f10,$f12
-.L0f1a6c30:
-/*  f1a6c30:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a6c34:	0c004dad */ 	jal	sprintf
-/*  f1a6c38:	f7aa0010 */ 	sdc1	$f10,0x10($sp)
-/*  f1a6c3c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a6c40:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f1a6c44:
-/*  f1a6c44:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1a6c48:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1a6c4c:	03e00008 */ 	jr	$ra
-/*  f1a6c50:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *htMenuTextTimeTakenValue(struct menu_item *item)
+{
+	struct trainingdata *data = getHoloTrainingData();
+	f32 secs = data->timetaken / 60.0f;
+
+	if (secs >= 60.0f) {
+		s32 mins = 0;
+
+		while (secs >= 60.0f) {
+			secs -= 60.0f;
+			mins++;
+		}
+
+		sprintf(g_StringPointer, "%dm %2ds\n", mins, (s32)func0f097970(secs));
+		return g_StringPointer;
+	} else {
+		sprintf(g_StringPointer, "%s%s%2.2fs\n", "", "", secs);
+	}
+
+	return g_StringPointer;
+}
 
 bool menudialogFiringRangeResults(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
 {

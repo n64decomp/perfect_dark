@@ -37966,7 +37966,7 @@ glabel func0f086f40
 .L0f086fd4:
 /*  f086fd4:	54410015 */ 	bnel	$v0,$at,.L0f08702c
 /*  f086fd8:	2401007f */ 	addiu	$at,$zero,0x7f
-/*  f086fdc:	0fc687f8 */ 	jal	func0f1a1fe0
+/*  f086fdc:	0fc687f8 */ 	jal	getHoloTrainingData
 /*  f086fe0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f086fe4:	24080001 */ 	addiu	$t0,$zero,0x1
 /*  f086fe8:	a3a8002b */ 	sb	$t0,0x2b($sp)
@@ -48693,7 +48693,7 @@ bool func0f09018c(struct prop *doorprop)
 
 			if (g_Vars.stagenum == STAGE_CITRAINING) {
 				struct trainingdata *a = getDeviceTrainingData();
-				struct trainingdata *b = func0f1a1fe0();
+				struct trainingdata *b = getHoloTrainingData();
 
 				intraining = (a && a->unk00_00) || (b && b->unk00_00) ||
 					g_Vars.currentplayer->prop->rooms[0] == 0x0a;

@@ -29,7 +29,7 @@ char *dtMenuTextTimeTakenValue(struct menu_item *item);
 u32 func0f1a6a04(void);
 u32 func0f1a6aec(void);
 u32 func0f1a6b34(void);
-u32 func0f1a6b7c(void);
+char *htMenuTextTimeTakenValue(struct menu_item *item);
 u32 func0f1a6c8c(void);
 u32 func0f1a6cc4(void);
 u32 func0f1a7554(void);
