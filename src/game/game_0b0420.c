@@ -115,15 +115,10 @@ glabel func0f0b0520
 /*  f0b0528:	ac200590 */ 	sw	$zero,0x590($at)
 );
 
-GLOBAL_ASM(
-glabel currentPlayerGetShotCount
-/*  f0b052c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
-/*  f0b0530:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
-/*  f0b0534:	00047880 */ 	sll	$t7,$a0,0x2
-/*  f0b0538:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0b053c:	03e00008 */ 	jr	$ra
-/*  f0b0540:	8f020000 */ 	lw	$v0,0x0($t8)
-);
+s32 currentPlayerGetShotCount(u32 type)
+{
+	return g_Vars.currentplayerstats->shotcount[type];
+}
 
 void incrementKillCount(void)
 {
