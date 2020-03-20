@@ -537,60 +537,26 @@ char *soloMenuTextMissionStatus(struct menu_item *item)
 	return langGet(L_OPTIONS(294)); // "Completed"
 }
 
-GLOBAL_ASM(
-glabel func0f10d4d4
-/*  f10d4d4:	3c0e800a */ 	lui	$t6,%hi(g_CheatsActiveBank0)
-/*  f10d4d8:	8dce21d0 */ 	lw	$t6,%lo(g_CheatsActiveBank0)($t6)
-/*  f10d4dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10d4e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d4e4:	15c00006 */ 	bnez	$t6,.L0f10d500
-/*  f10d4e8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10d4ec:	3c0f800a */ 	lui	$t7,%hi(g_CheatsActiveBank1)
-/*  f10d4f0:	8def21d4 */ 	lw	$t7,%lo(g_CheatsActiveBank1)($t7)
-/*  f10d4f4:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f10d4f8:	11e00005 */ 	beqz	$t7,.L0f10d510
-/*  f10d4fc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f10d500:
-/*  f10d500:	0fc5b9f1 */ 	jal	langGet
-/*  f10d504:	24045486 */ 	addiu	$a0,$zero,0x5486
-/*  f10d508:	1000001c */ 	beqz	$zero,.L0f10d57c
-/*  f10d50c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10d510:
-/*  f10d510:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f10d514:	8c58048c */ 	lw	$t8,0x48c($v0)
-/*  f10d518:	53000006 */ 	beqzl	$t8,.L0f10d534
-/*  f10d51c:	8c5900d8 */ 	lw	$t9,0xd8($v0)
-/*  f10d520:	0fc5b9f1 */ 	jal	langGet
-/*  f10d524:	24045724 */ 	addiu	$a0,$zero,0x5724
-/*  f10d528:	10000014 */ 	beqz	$zero,.L0f10d57c
-/*  f10d52c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10d530:	8c5900d8 */ 	lw	$t9,0xd8($v0)
-.L0f10d534:
-/*  f10d534:	3c088008 */ 	lui	$t0,%hi(g_StageIndex)
-/*  f10d538:	13200005 */ 	beqz	$t9,.L0f10d550
-/*  f10d53c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10d540:	0fc5b9f1 */ 	jal	langGet
-/*  f10d544:	24045722 */ 	addiu	$a0,$zero,0x5722
-/*  f10d548:	1000000c */ 	beqz	$zero,.L0f10d57c
-/*  f10d54c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10d550:
-/*  f10d550:	8d08fc00 */ 	lw	$t0,%lo(g_StageIndex)($t0)
-/*  f10d554:	24010019 */ 	addiu	$at,$zero,0x19
-/*  f10d558:	15010005 */ 	bne	$t0,$at,.L0f10d570
-/*  f10d55c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10d560:	0fc5b9f1 */ 	jal	langGet
-/*  f10d564:	2404543f */ 	addiu	$a0,$zero,0x543f
-/*  f10d568:	10000004 */ 	beqz	$zero,.L0f10d57c
-/*  f10d56c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10d570:
-/*  f10d570:	0fc5b9f1 */ 	jal	langGet
-/*  f10d574:	24045723 */ 	addiu	$a0,$zero,0x5723
-/*  f10d578:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10d57c:
-/*  f10d57c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10d580:	03e00008 */ 	jr	$ra
-/*  f10d584:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *soloMenuTextAgentStatus(struct menu_item *item)
+{
+	if (g_CheatsActiveBank0 || g_CheatsActiveBank1) {
+		return langGet(L_MPWEAPONS(134)); // "Dishonored"
+	}
+
+	if (g_Vars.currentplayer->aborted) {
+		return langGet(L_OPTIONS(292)); // "Disavowed"
+	}
+
+	if (g_Vars.currentplayer->isdead) {
+		return langGet(L_OPTIONS(290)); // "Deceased"
+	}
+
+	if (g_StageIndex == STAGEINDEX_DEFENSE) {
+		return langGet(L_MPWEAPONS(63)); // "Missing"
+	}
+
+	return langGet(L_OPTIONS(291)); // "Active"
+}
 
 GLOBAL_ASM(
 glabel func0f10d588

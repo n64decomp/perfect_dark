@@ -829,7 +829,7 @@ struct menu_item menuitems_1b7bc[] = {
 	{ MENUITEMTYPE_LABEL,       0, L_AME(16), L_OPTIONS(278), 0x00000000, NULL }, // "Mission Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&soloMenuTextMissionStatus, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, L_AME(16), L_OPTIONS(279), 0x00000000, NULL }, // "Agent Status:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f10d4d4, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&soloMenuTextAgentStatus, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, L_AME(16), L_OPTIONS(280), 0x00000000, NULL }, // "Mission Time:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&menutextMissionTime, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, L_AME(16), L_MPWEAPONS(129), 0x00000000, NULL }, // "Difficulty"
@@ -856,7 +856,7 @@ u32 var80075968 = 0xff7f7fff;
 // 1b98c
 struct menu_item menuitems_1b98c[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(278), (u32)&soloMenuTextMissionStatus, NULL }, // "Mission Status:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(279), (u32)&func0f10d4d4, NULL }, // "Agent Status:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(279), (u32)&soloMenuTextAgentStatus, NULL }, // "Agent Status:"
 	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_OPTIONS(280), (u32)&menutextMissionTime, menuhandler0010e064 }, // "Mission Time:"
 	{ MENUITEMTYPE_LABEL,       1, 0x01000000, L_MPWEAPONS(242), (u32)&func0f10e4d8, menuhandler0010e064 }, // "Target Time:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPWEAPONS(129), (u32)&menutextDifficulty, NULL }, // "Difficulty:"
