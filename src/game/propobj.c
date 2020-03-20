@@ -37942,7 +37942,7 @@ glabel func0f086f40
 /*  f086f78:	24010010 */ 	addiu	$at,$zero,0x10
 /*  f086f7c:	54410015 */ 	bnel	$v0,$at,.L0f086fd4
 /*  f086f80:	24010045 */ 	addiu	$at,$zero,0x45
-/*  f086f84:	0fc68606 */ 	jal	ciGetTrainingData
+/*  f086f84:	0fc68606 */ 	jal	getDeviceTrainingData
 /*  f086f88:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f086f8c:	240f0001 */ 	addiu	$t7,$zero,0x1
 /*  f086f90:	a3af002b */ 	sb	$t7,0x2b($sp)
@@ -48692,7 +48692,7 @@ bool func0f09018c(struct prop *doorprop)
 			u8 intraining = false;
 
 			if (g_Vars.stagenum == STAGE_CITRAINING) {
-				struct trainingdata *a = ciGetTrainingData();
+				struct trainingdata *a = getDeviceTrainingData();
 				struct trainingdata *b = func0f1a1fe0();
 
 				intraining = (a && a->unk00_00) || (b && b->unk00_00) ||

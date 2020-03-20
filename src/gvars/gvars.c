@@ -26154,13 +26154,7 @@ u32 var800acd14 = 0;
 u32 var800acd18 = 0;
 u32 var800acd1c = 0;
 struct frdata g_FiringRangeData = {0};
-struct trainingdata g_TrainingData = {0};
-u32 var800ad1a4 = 0;
-u32 var800ad1a8 = 0;
-u32 var800ad1ac = 0;
-u32 var800ad1b0 = 0;
-u32 var800ad1b4 = 0;
-u32 var800ad1b8 = 0;
-u32 var800ad1bc = 0;
+struct trainingdata g_DeviceTrainingData = {0};
+struct trainingdata g_HoloTrainingData = {0};
 u32 var800ad1c0 = 0;
 

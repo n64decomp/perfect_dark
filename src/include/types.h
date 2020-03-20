@@ -4868,6 +4868,9 @@ struct trainingdata {
 	u32 unk00_02 : 1;
 	u32 unk00_03 : 1;
 	u32 holographedpc : 1;
+	s32 timetaken;
+	u32 unk08;
+	u32 unk0c;
 };
 
 struct activemenuthing {

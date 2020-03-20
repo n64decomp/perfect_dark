@@ -3377,7 +3377,7 @@ GLOBAL_ASM(
 glabel func0f1a67b0
 /*  f1a67b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a67b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a67b8:	0fc68606 */ 	jal	ciGetTrainingData
+/*  f1a67b8:	0fc68606 */ 	jal	getDeviceTrainingData
 /*  f1a67bc:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f1a67c0:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f1a67c4:	000e7fc2 */ 	srl	$t7,$t6,0x1f
@@ -3401,7 +3401,7 @@ GLOBAL_ASM(
 glabel func0f1a67f8
 /*  f1a67f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a67fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6800:	0fc68606 */ 	jal	ciGetTrainingData
+/*  f1a6800:	0fc68606 */ 	jal	getDeviceTrainingData
 /*  f1a6804:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f1a6808:	8c4e0000 */ 	lw	$t6,0x0($v0)
 /*  f1a680c:	000e7fc2 */ 	srl	$t7,$t6,0x1f
@@ -3421,67 +3421,29 @@ glabel func0f1a67f8
 /*  f1a683c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a6840
-/*  f1a6840:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f1a6844:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1a6848:	0fc68606 */ 	jal	ciGetTrainingData
-/*  f1a684c:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f1a6850:	8c4e0004 */ 	lw	$t6,0x4($v0)
-/*  f1a6854:	3c014270 */ 	lui	$at,0x4270
-/*  f1a6858:	44810000 */ 	mtc1	$at,$f0
-/*  f1a685c:	448e2000 */ 	mtc1	$t6,$f4
-/*  f1a6860:	3c057f1c */ 	lui	$a1,%hi(var7f1b98bc)
-/*  f1a6864:	3c067f1c */ 	lui	$a2,%hi(var7f1b98c8)
-/*  f1a6868:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f1a686c:	3c077f1c */ 	lui	$a3,%hi(var7f1b98cc)
-/*  f1a6870:	24e798cc */ 	addiu	$a3,$a3,%lo(var7f1b98cc)
-/*  f1a6874:	24c698c8 */ 	addiu	$a2,$a2,%lo(var7f1b98c8)
-/*  f1a6878:	24a598bc */ 	addiu	$a1,$a1,%lo(var7f1b98bc)
-/*  f1a687c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a6880:	46003303 */ 	div.s	$f12,$f6,$f0
-/*  f1a6884:	460c003e */ 	c.le.s	$f0,$f12
-/*  f1a6888:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a688c:	45020019 */ 	bc1fl	.L0f1a68f4
-/*  f1a6890:	460062a1 */ 	cvt.d.s	$f10,$f12
-/*  f1a6894:	460c003e */ 	c.le.s	$f0,$f12
-/*  f1a6898:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1a689c:	45000007 */ 	bc1f	.L0f1a68bc
-/*  f1a68a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a68a4:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f1a68a8:
-/*  f1a68a8:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f1a68ac:	460c003e */ 	c.le.s	$f0,$f12
-/*  f1a68b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a68b4:	4503fffc */ 	bc1tl	.L0f1a68a8
-/*  f1a68b8:	46006301 */ 	sub.s	$f12,$f12,$f0
-.L0f1a68bc:
-/*  f1a68bc:	0fc25e5c */ 	jal	func0f097970
-/*  f1a68c0:	afa60024 */ 	sw	$a2,0x24($sp)
-/*  f1a68c4:	4600020d */ 	trunc.w.s	$f8,$f0
-/*  f1a68c8:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a68cc:	3c057f1c */ 	lui	$a1,%hi(var7f1b98b0)
-/*  f1a68d0:	24a598b0 */ 	addiu	$a1,$a1,%lo(var7f1b98b0)
-/*  f1a68d4:	44074000 */ 	mfc1	$a3,$f8
-/*  f1a68d8:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a68dc:	0c004dad */ 	jal	sprintf
-/*  f1a68e0:	8fa60024 */ 	lw	$a2,0x24($sp)
-/*  f1a68e4:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a68e8:	10000007 */ 	beqz	$zero,.L0f1a6908
-/*  f1a68ec:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a68f0:	460062a1 */ 	cvt.d.s	$f10,$f12
-.L0f1a68f4:
-/*  f1a68f4:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a68f8:	0c004dad */ 	jal	sprintf
-/*  f1a68fc:	f7aa0010 */ 	sdc1	$f10,0x10($sp)
-/*  f1a6900:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a6904:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f1a6908:
-/*  f1a6908:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1a690c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1a6910:	03e00008 */ 	jr	$ra
-/*  f1a6914:	00000000 */ 	sll	$zero,$zero,0x0
-);
+const char var7f1b98ac[] = "%s\n";
+
+char *dtMenuTextTimeTakenValue(struct menu_item *item)
+{
+	struct trainingdata *data = getDeviceTrainingData();
+	f32 secs = data->timetaken / 60.0f;
+
+	if (secs >= 60.0f) {
+		s32 mins = 0;
+
+		while (secs >= 60.0f) {
+			secs -= 60.0f;
+			mins++;
+		}
+
+		sprintf(g_StringPointer, "%dm %2ds\n", mins, (s32)func0f097970(secs));
+		return g_StringPointer;
+	} else {
+		sprintf(g_StringPointer, "%s%s%2.2fs\n", "", "", secs);
+	}
+
+	return g_StringPointer;
+}
 
 bool menudialogDeviceTrainingResults(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
 {
@@ -4549,11 +4511,6 @@ void *func0f1a7878(u16 fileid, s32 arg1, s32 arg2)
 	return func0f1a7794(fileid, arg1, arg2, 0);
 }
 
-const char var7f1b98ac[] = "%s\n";
-const char var7f1b98b0[] = "%dm %2ds\n";
-const char var7f1b98bc[] = "%s%s%2.2fs\n";
-const char var7f1b98c8[] = "";
-const char var7f1b98cc[] = "";
 const char var7f1b98d0[] = "%dm %2ds\n";
 const char var7f1b98dc[] = "%s%s%2.2fs\n";
 const char var7f1b98e8[] = "";

@@ -74,7 +74,7 @@ u32 func0f1a16a4(void);
 u32 func0f1a1714(void);
 u32 func0f1a176c(void);
 u32 func0f1a17e4(void);
-struct trainingdata *ciGetTrainingData(void);
+struct trainingdata *getDeviceTrainingData(void);
 u32 func0f1a1824(void);
 u32 func0f1a190c(void);
 void func0f1a1998(void);

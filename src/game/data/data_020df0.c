@@ -13108,7 +13108,7 @@ struct menu_dialog menudialog_2f49c = {
 struct menu_item menuitems_trainingstats_failed[] = {
 	{ MENUITEMTYPE_LABEL,        0, 0x00000032, L_MPMENU(426), 0x00000000, NULL }, // "Failed!"
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000002, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,        0, 0x00000002, L_MPMENU(424), (u32)&func0f1a6840, NULL }, // "Time Taken:"
+	{ MENUITEMTYPE_LABEL,        0, 0x00000002, L_MPMENU(424), (u32)&dtMenuTextTimeTakenValue, NULL }, // "Time Taken:"
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000002, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SCROLLABLE,  11, 0x00000000, 0x00000082, 0x00000064, NULL },
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -13128,7 +13128,7 @@ struct menu_dialog menudialog_trainingstats_failed = {
 struct menu_item menuitems_trainingstats_completed[] = {
 	{ MENUITEMTYPE_LABEL,        0, 0x00000032, L_MPMENU(425), 0x00000000, NULL }, // "Completed!"
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000002, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,        0, 0x00000002, L_MPMENU(424), (u32)&func0f1a6840, NULL }, // "Time Taken:"
+	{ MENUITEMTYPE_LABEL,        0, 0x00000002, L_MPMENU(424), (u32)&dtMenuTextTimeTakenValue, NULL }, // "Time Taken:"
 	{ MENUITEMTYPE_SEPARATOR,    0, 0x00000002, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SCROLLABLE,  12, 0x00000000, 0x00000082, 0x00000064, NULL },
 	{ MENUITEMTYPE_END,          0, 0x00000000, 0x00000000, 0x00000000, NULL },

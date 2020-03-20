@@ -5441,7 +5441,7 @@ glabel func0f16b96c
 /*  f16ca60:	24010026 */ 	addiu	$at,$zero,0x26
 /*  f16ca64:	5441001f */ 	bnel	$v0,$at,.L0f16cae4
 /*  f16ca68:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f16ca6c:	0fc68606 */ 	jal	ciGetTrainingData
+/*  f16ca6c:	0fc68606 */ 	jal	getDeviceTrainingData
 /*  f16ca70:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16ca74:	8e990284 */ 	lw	$t9,0x284($s4)
 /*  f16ca78:	8f2d00bc */ 	lw	$t5,0xbc($t9)
@@ -5832,7 +5832,7 @@ glabel func0f16b96c
 //		func0f063dcc();
 //
 //		if (getCurrentStageId() == STAGE_CITRAINING) {
-//			struct trainingdata *trainingdata = ciGetTrainingData();
+//			struct trainingdata *trainingdata = getDeviceTrainingData();
 //			s16 room = g_Vars.currentplayer->prop->rooms[0];
 //
 //			if ((room < 0x16 || room > 0x19)
