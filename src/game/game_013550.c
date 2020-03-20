@@ -451,8 +451,8 @@ glabel func0f0139f0
 /*  f013b68:	8c890000 */ 	lw	$t1,0x0($a0)
 .L0f013b6c:
 /*  f013b6c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f013b70:	3c018008 */ 	lui	$at,0x8008
-/*  f013b74:	ac20fa80 */ 	sw	$zero,-0x580($at)
+/*  f013b70:	3c018008 */ 	lui	$at,%hi(var8007fa80)
+/*  f013b74:	ac20fa80 */ 	sw	$zero,%lo(var8007fa80)($at)
 /*  f013b78:	03e00008 */ 	jr	$ra
 /*  f013b7c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );

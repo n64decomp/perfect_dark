@@ -86,8 +86,8 @@ GLOBAL_ASM(
 glabel func0f00b420
 /*  f00b420:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f00b424:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00b428:	3c018006 */ 	lui	$at,0x8006
-/*  f00b42c:	ac202410 */ 	sw	$zero,0x2410($at)
+/*  f00b428:	3c018006 */ 	lui	$at,%hi(var80062410)
+/*  f00b42c:	ac202410 */ 	sw	$zero,%lo(var80062410)($at)
 /*  f00b430:	24040080 */ 	addiu	$a0,$zero,0x80
 /*  f00b434:	0c0048f2 */ 	jal	malloc
 /*  f00b438:	24050004 */ 	addiu	$a1,$zero,0x4

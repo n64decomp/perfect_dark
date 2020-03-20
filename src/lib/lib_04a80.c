@@ -1415,21 +1415,21 @@ glabel osInitialize
 /*     5d30:	354ab2d2 */ 	ori	$t2,$t2,0xb2d2
 /*     5d34:	14400004 */ 	bnez	$v0,.L00005d48
 /*     5d38:	24010002 */ 	addiu	$at,$zero,0x2
-/*     5d3c:	3c018006 */ 	lui	$at,0x8006
+/*     5d3c:	3c018006 */ 	lui	$at,%hi(var8005cf68)
 /*     5d40:	1000000b */ 	beqz	$zero,.L00005d70
-/*     5d44:	ac2acf68 */ 	sw	$t2,-0x3098($at)
+/*     5d44:	ac2acf68 */ 	sw	$t2,%lo(var8005cf68)($at)
 .L00005d48:
 /*     5d48:	14410006 */ 	bne	$v0,$at,.L00005d64
 /*     5d4c:	3c0b02e6 */ 	lui	$t3,0x2e6
 /*     5d50:	3c0902e6 */ 	lui	$t1,0x2e6
 /*     5d54:	3529d354 */ 	ori	$t1,$t1,0xd354
-/*     5d58:	3c018006 */ 	lui	$at,0x8006
+/*     5d58:	3c018006 */ 	lui	$at,%hi(var8005cf68)
 /*     5d5c:	10000004 */ 	beqz	$zero,.L00005d70
-/*     5d60:	ac29cf68 */ 	sw	$t1,-0x3098($at)
+/*     5d60:	ac29cf68 */ 	sw	$t1,%lo(var8005cf68)($at)
 .L00005d64:
 /*     5d64:	356bd354 */ 	ori	$t3,$t3,0xd354
-/*     5d68:	3c018006 */ 	lui	$at,0x8006
-/*     5d6c:	ac2bcf68 */ 	sw	$t3,-0x3098($at)
+/*     5d68:	3c018006 */ 	lui	$at,%hi(var8005cf68)
+/*     5d6c:	ac2bcf68 */ 	sw	$t3,%lo(var8005cf68)($at)
 .L00005d70:
 /*     5d70:	0c012c58 */ 	jal	__osGetCause
 /*     5d74:	00000000 */ 	sll	$zero,$zero,0x0

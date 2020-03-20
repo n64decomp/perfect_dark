@@ -15,13 +15,13 @@ GLOBAL_ASM(
 glabel func0f015280
 /*  f015280:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f015284:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f015288:	3c018008 */ 	lui	$at,0x8008
+/*  f015288:	3c018008 */ 	lui	$at,%hi(var8007e4a0)
 /*  f01528c:	44806000 */ 	mtc1	$zero,$f12
 /*  f015290:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f015294:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f015298:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f01529c:	0c002a94 */ 	jal	func0000aa50
-/*  f0152a0:	ac20e4a0 */ 	sw	$zero,-0x1b60($at)
+/*  f0152a0:	ac20e4a0 */ 	sw	$zero,%lo(var8007e4a0)($at)
 /*  f0152a4:	3c11800a */ 	lui	$s1,%hi(var800a3430)
 /*  f0152a8:	26313430 */ 	addiu	$s1,$s1,%lo(var800a3430)
 /*  f0152ac:	8e2e0000 */ 	lw	$t6,0x0($s1)

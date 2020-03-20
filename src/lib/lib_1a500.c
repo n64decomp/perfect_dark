@@ -288,9 +288,9 @@ const u32 var7005468c[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0001a500
-/*    1a500:	3c018006 */ 	lui	$at,0x8006
+/*    1a500:	3c018006 */ 	lui	$at,%hi(var8005efb4)
 /*    1a504:	03e00008 */ 	jr	$ra
-/*    1a508:	ac24efb4 */ 	sw	$a0,-0x104c($at)
+/*    1a508:	ac24efb4 */ 	sw	$a0,%lo(var8005efb4)($at)
 );
 
 GLOBAL_ASM(
@@ -302,9 +302,9 @@ glabel func0001a50c
 
 GLOBAL_ASM(
 glabel func0001a518
-/*    1a518:	3c018006 */ 	lui	$at,0x8006
+/*    1a518:	3c018006 */ 	lui	$at,%hi(var8005efc8)
 /*    1a51c:	03e00008 */ 	jr	$ra
-/*    1a520:	ac24efc8 */ 	sw	$a0,-0x1038($at)
+/*    1a520:	ac24efc8 */ 	sw	$a0,%lo(var8005efc8)($at)
 );
 
 GLOBAL_ASM(
@@ -4817,9 +4817,9 @@ glabel func0001e14c
 
 GLOBAL_ASM(
 glabel func0001e29c
-/*    1e29c:	3c018006 */ 	lui	$at,0x8006
+/*    1e29c:	3c018006 */ 	lui	$at,%hi(var8005efdc)
 /*    1e2a0:	03e00008 */ 	jr	$ra
-/*    1e2a4:	ac24efdc */ 	sw	$a0,-0x1024($at)
+/*    1e2a4:	ac24efdc */ 	sw	$a0,%lo(var8005efdc)($at)
 );
 
 GLOBAL_ASM(

@@ -23,9 +23,9 @@ glabel func0f013260
 /*  f013280:	ac60ffe4 */ 	sw	$zero,-0x1c($v1)
 /*  f013284:	3c01800a */ 	lui	$at,%hi(var800a4130)
 /*  f013288:	ac204130 */ 	sw	$zero,%lo(var800a4130)($at)
-/*  f01328c:	3c018008 */ 	lui	$at,0x8008
+/*  f01328c:	3c018008 */ 	lui	$at,%hi(var8007f0b8)
 /*  f013290:	03e00008 */ 	jr	$ra
-/*  f013294:	ac20f0b8 */ 	sw	$zero,-0xf48($at)
+/*  f013294:	ac20f0b8 */ 	sw	$zero,%lo(var8007f0b8)($at)
 /*  f013298:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01329c:	00000000 */ 	sll	$zero,$zero,0x0
 );

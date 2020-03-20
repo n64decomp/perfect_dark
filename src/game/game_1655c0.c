@@ -13,9 +13,9 @@ GLOBAL_ASM(
 glabel stageGetCurrent
 /*  f1655c0:	3c068008 */ 	lui	$a2,%hi(g_Stages)
 /*  f1655c4:	24c3fcc0 */ 	addiu	$v1,$a2,%lo(g_Stages)
-/*  f1655c8:	3c0e8008 */ 	lui	$t6,0x8008
+/*  f1655c8:	3c0e8008 */ 	lui	$t6,%hi(g_Stages+0x1)
 /*  f1655cc:	24620d58 */ 	addiu	$v0,$v1,0xd58
-/*  f1655d0:	25cefcc1 */ 	addiu	$t6,$t6,-831
+/*  f1655d0:	25cefcc1 */ 	addiu	$t6,$t6,%lo(g_Stages+0x1)
 /*  f1655d4:	3c05800a */ 	lui	$a1,%hi(g_Vars+0x4b4)
 /*  f1655d8:	004e082b */ 	sltu	$at,$v0,$t6
 /*  f1655dc:	1420000a */ 	bnez	$at,.L0f165608
@@ -41,9 +41,9 @@ GLOBAL_ASM(
 glabel stageGetIndex
 /*  f165614:	3c078008 */ 	lui	$a3,%hi(g_Stages)
 /*  f165618:	24e2fcc0 */ 	addiu	$v0,$a3,%lo(g_Stages)
-/*  f16561c:	3c0e8008 */ 	lui	$t6,0x8008
+/*  f16561c:	3c0e8008 */ 	lui	$t6,%hi(g_Stages+0x1)
 /*  f165620:	24430d58 */ 	addiu	$v1,$v0,0xd58
-/*  f165624:	25cefcc1 */ 	addiu	$t6,$t6,-831
+/*  f165624:	25cefcc1 */ 	addiu	$t6,$t6,%lo(g_Stages+0x1)
 /*  f165628:	006e082b */ 	sltu	$at,$v1,$t6
 /*  f16562c:	1420000a */ 	bnez	$at,.L0f165658
 /*  f165630:	00003025 */ 	or	$a2,$zero,$zero

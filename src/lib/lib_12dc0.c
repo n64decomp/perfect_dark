@@ -195,16 +195,16 @@ glabel func00012f30
 /*    12fc4:	10400004 */ 	beqz	$v0,.L00012fd8
 /*    12fc8:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    12fcc:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    12fd0:	3c018006 */ 	lui	$at,0x8006
-/*    12fd4:	ac2fdda0 */ 	sw	$t7,-0x2260($at)
+/*    12fd0:	3c018006 */ 	lui	$at,%hi(var8005dda0)
+/*    12fd4:	ac2fdda0 */ 	sw	$t7,%lo(var8005dda0)($at)
 .L00012fd8:
 /*    12fd8:	3c057005 */ 	lui	$a1,%hi(var70053ffc)
 /*    12fdc:	0c004c04 */ 	jal	func00013010
 /*    12fe0:	24a53ffc */ 	addiu	$a1,$a1,%lo(var70053ffc)
 /*    12fe4:	10400003 */ 	beqz	$v0,.L00012ff4
 /*    12fe8:	24180001 */ 	addiu	$t8,$zero,0x1
-/*    12fec:	3c018008 */ 	lui	$at,0x8008
-/*    12ff0:	ac384120 */ 	sw	$t8,0x4120($at)
+/*    12fec:	3c018008 */ 	lui	$at,%hi(g_LanguageId)
+/*    12ff0:	ac384120 */ 	sw	$t8,%lo(g_LanguageId)($at)
 .L00012ff4:
 /*    12ff4:	8fbf0024 */ 	lw	$ra,0x24($sp)
 /*    12ff8:	8fa20028 */ 	lw	$v0,0x28($sp)

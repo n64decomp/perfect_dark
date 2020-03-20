@@ -710,8 +710,8 @@ glabel var7f1adeac
 .word 0x40490fdb
 .text
 /*  f0dd848:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0dd84c:	3c018007 */ 	lui	$at,0x8007
-/*  f0dd850:	a02e0fb0 */ 	sb	$t6,0xfb0($at)
+/*  f0dd84c:	3c018007 */ 	lui	$at,%hi(var80070fb0)
+/*  f0dd850:	a02e0fb0 */ 	sb	$t6,%lo(var80070fb0)($at)
 /*  f0dd854:	27bdff90 */ 	addiu	$sp,$sp,-112
 /*  f0dd858:	3c0142b4 */ 	lui	$at,0x42b4
 /*  f0dd85c:	44812000 */ 	mtc1	$at,$f4
@@ -2216,8 +2216,8 @@ glabel hudmsgCreate
 /*  f0def60:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f0def64:	00008025 */ 	or	$s0,$zero,$zero
 /*  f0def68:	18800014 */ 	blez	$a0,.L0f0defbc
-/*  f0def6c:	3c028007 */ 	lui	$v0,%hi(var800701dc)
-/*  f0def70:	8c420fec */ 	lw	$v0,0xfec($v0)
+/*  f0def6c:	3c028007 */ 	lui	$v0,%hi(g_HudMessages)
+/*  f0def70:	8c420fec */ 	lw	$v0,%lo(g_HudMessages)($v0)
 /*  f0def74:	24050005 */ 	addiu	$a1,$zero,0x5
 .L0f0def78:
 /*  f0def78:	90430000 */ 	lbu	$v1,0x0($v0)
@@ -2237,7 +2237,7 @@ glabel hudmsgCreate
 .L0f0defb0:
 /*  f0defb0:	0204082a */ 	slt	$at,$s0,$a0
 /*  f0defb4:	1420fff0 */ 	bnez	$at,.L0f0def78
-/*  f0defb8:	244201dc */ 	addiu	$v0,$v0,%lo(var800701dc)
+/*  f0defb8:	244201dc */ 	addiu	$v0,$v0,476
 .L0f0defbc:
 /*  f0defbc:	04c100e3 */ 	bgez	$a2,.L0f0df34c
 .L0f0defc0:
@@ -2249,16 +2249,16 @@ glabel hudmsgCreate
 /*  f0defd4:	146a0005 */ 	bne	$v1,$t2,.L0f0defec
 /*  f0defd8:	00008025 */ 	or	$s0,$zero,$zero
 /*  f0defdc:	240b0002 */ 	addiu	$t3,$zero,0x2
-/*  f0defe0:	3c018008 */ 	lui	$at,0x8008
+/*  f0defe0:	3c018008 */ 	lui	$at,%hi(var8007fac0)
 /*  f0defe4:	10000003 */ 	beqz	$zero,.L0f0deff4
-/*  f0defe8:	ac2bfac0 */ 	sw	$t3,-0x540($at)
+/*  f0defe8:	ac2bfac0 */ 	sw	$t3,%lo(var8007fac0)($at)
 .L0f0defec:
-/*  f0defec:	3c018008 */ 	lui	$at,0x8008
-/*  f0deff0:	ac23fac0 */ 	sw	$v1,-0x540($at)
+/*  f0defec:	3c018008 */ 	lui	$at,%hi(var8007fac0)
+/*  f0deff0:	ac23fac0 */ 	sw	$v1,%lo(var8007fac0)($at)
 .L0f0deff4:
 /*  f0deff4:	18800009 */ 	blez	$a0,.L0f0df01c
-/*  f0deff8:	3c028007 */ 	lui	$v0,%hi(var800701dc)
-/*  f0deffc:	8c420fec */ 	lw	$v0,0xfec($v0)
+/*  f0deff8:	3c028007 */ 	lui	$v0,%hi(g_HudMessages)
+/*  f0deffc:	8c420fec */ 	lw	$v0,%lo(g_HudMessages)($v0)
 .L0f0df000:
 /*  f0df000:	904c0000 */ 	lbu	$t4,0x0($v0)
 /*  f0df004:	51800006 */ 	beqzl	$t4,.L0f0df020
@@ -2266,7 +2266,7 @@ glabel hudmsgCreate
 /*  f0df00c:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f0df010:	0204082a */ 	slt	$at,$s0,$a0
 /*  f0df014:	1420fffa */ 	bnez	$at,.L0f0df000
-/*  f0df018:	244201dc */ 	addiu	$v0,$v0,%lo(var800701dc)
+/*  f0df018:	244201dc */ 	addiu	$v0,$v0,476
 .L0f0df01c:
 /*  f0df01c:	0204082a */ 	slt	$at,$s0,$a0
 .L0f0df020:
@@ -2484,8 +2484,8 @@ glabel hudmsgCreate
 /*  f0df33c:	8fac022c */ 	lw	$t4,0x22c($sp)
 /*  f0df340:	ae2c01b0 */ 	sw	$t4,0x1b0($s1)
 .L0f0df344:
-/*  f0df344:	3c018008 */ 	lui	$at,0x8008
-/*  f0df348:	ac23fac0 */ 	sw	$v1,-0x540($at)
+/*  f0df344:	3c018008 */ 	lui	$at,%hi(var8007fac0)
+/*  f0df348:	ac23fac0 */ 	sw	$v1,%lo(var8007fac0)($at)
 .L0f0df34c:
 /*  f0df34c:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /*  f0df350:	8fb00020 */ 	lw	$s0,0x20($sp)
@@ -2661,7 +2661,7 @@ glabel var7f1aded8
 /*  f0df36c:	8dce06c8 */ 	lw	$t6,%lo(var800706c8)($t6)
 /*  f0df370:	afb20030 */ 	sw	$s2,0x30($sp)
 /*  f0df374:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f0df378:	3c018007 */ 	lui	$at,0x8007
+/*  f0df378:	3c018007 */ 	lui	$at,%hi(var80070fb0)
 /*  f0df37c:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f0df380:	afb60040 */ 	sw	$s6,0x40($sp)
 /*  f0df384:	afb5003c */ 	sw	$s5,0x3c($sp)
@@ -2670,14 +2670,14 @@ glabel var7f1aded8
 /*  f0df390:	afb1002c */ 	sw	$s1,0x2c($sp)
 /*  f0df394:	afb00028 */ 	sw	$s0,0x28($sp)
 /*  f0df398:	164e0005 */ 	bne	$s2,$t6,.L0f0df3b0
-/*  f0df39c:	a0200fb0 */ 	sb	$zero,0xfb0($at)
+/*  f0df39c:	a0200fb0 */ 	sb	$zero,%lo(var80070fb0)($at)
 /*  f0df3a0:	240f0002 */ 	addiu	$t7,$zero,0x2
-/*  f0df3a4:	3c018008 */ 	lui	$at,0x8008
+/*  f0df3a4:	3c018008 */ 	lui	$at,%hi(var8007fac0)
 /*  f0df3a8:	10000003 */ 	beqz	$zero,.L0f0df3b8
-/*  f0df3ac:	ac2ffac0 */ 	sw	$t7,-0x540($at)
+/*  f0df3ac:	ac2ffac0 */ 	sw	$t7,%lo(var8007fac0)($at)
 .L0f0df3b0:
-/*  f0df3b0:	3c018008 */ 	lui	$at,0x8008
-/*  f0df3b4:	ac32fac0 */ 	sw	$s2,-0x540($at)
+/*  f0df3b0:	3c018008 */ 	lui	$at,%hi(var8007fac0)
+/*  f0df3b4:	ac32fac0 */ 	sw	$s2,%lo(var8007fac0)($at)
 .L0f0df3b8:
 /*  f0df3b8:	3c088007 */ 	lui	$t0,%hi(g_NumHudMessages)
 /*  f0df3bc:	8d080fe8 */ 	lw	$t0,%lo(g_NumHudMessages)($t0)
@@ -3110,8 +3110,8 @@ glabel var7f1aded8
 /*  f0df9e8:	8fa40068 */ 	lw	$a0,0x68($sp)
 .L0f0df9ec:
 /*  f0df9ec:	8fbf0044 */ 	lw	$ra,0x44($sp)
-/*  f0df9f0:	3c018008 */ 	lui	$at,0x8008
-/*  f0df9f4:	ac32fac0 */ 	sw	$s2,-0x540($at)
+/*  f0df9f0:	3c018008 */ 	lui	$at,%hi(var8007fac0)
+/*  f0df9f4:	ac32fac0 */ 	sw	$s2,%lo(var8007fac0)($at)
 /*  f0df9f8:	8fb20030 */ 	lw	$s2,0x30($sp)
 /*  f0df9fc:	8fb00028 */ 	lw	$s0,0x28($sp)
 /*  f0dfa00:	8fb1002c */ 	lw	$s1,0x2c($sp)
@@ -3189,12 +3189,12 @@ glabel var7f1adef4
 /*  f0dfb24:	144f0005 */ 	bne	$v0,$t7,.L0f0dfb3c
 /*  f0dfb28:	afa200dc */ 	sw	$v0,0xdc($sp)
 /*  f0dfb2c:	24180002 */ 	addiu	$t8,$zero,0x2
-/*  f0dfb30:	3c018008 */ 	lui	$at,0x8008
+/*  f0dfb30:	3c018008 */ 	lui	$at,%hi(var8007fac0)
 /*  f0dfb34:	10000003 */ 	beqz	$zero,.L0f0dfb44
-/*  f0dfb38:	ac38fac0 */ 	sw	$t8,-0x540($at)
+/*  f0dfb38:	ac38fac0 */ 	sw	$t8,%lo(var8007fac0)($at)
 .L0f0dfb3c:
-/*  f0dfb3c:	3c018008 */ 	lui	$at,0x8008
-/*  f0dfb40:	ac22fac0 */ 	sw	$v0,-0x540($at)
+/*  f0dfb3c:	3c018008 */ 	lui	$at,%hi(var8007fac0)
+/*  f0dfb40:	ac22fac0 */ 	sw	$v0,%lo(var8007fac0)($at)
 .L0f0dfb44:
 /*  f0dfb44:	0fc54d8a */ 	jal	func0f153628
 /*  f0dfb48:	02402025 */ 	or	$a0,$s2,$zero
@@ -3986,7 +3986,7 @@ glabel var7f1adef4
 /*  f0e06d4:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0e06d8:	8fbf007c */ 	lw	$ra,0x7c($sp)
 /*  f0e06dc:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0e06e0:	3c018008 */ 	lui	$at,0x8008
+/*  f0e06e0:	3c018008 */ 	lui	$at,%hi(var8007fac0)
 /*  f0e06e4:	d7b40038 */ 	ldc1	$f20,0x38($sp)
 /*  f0e06e8:	d7b60040 */ 	ldc1	$f22,0x40($sp)
 /*  f0e06ec:	d7b80048 */ 	ldc1	$f24,0x48($sp)
@@ -4000,7 +4000,7 @@ glabel var7f1adef4
 /*  f0e070c:	8fb60070 */ 	lw	$s6,0x70($sp)
 /*  f0e0710:	8fb70074 */ 	lw	$s7,0x74($sp)
 /*  f0e0714:	8fbe0078 */ 	lw	$s8,0x78($sp)
-/*  f0e0718:	ac2afac0 */ 	sw	$t2,-0x540($at)
+/*  f0e0718:	ac2afac0 */ 	sw	$t2,%lo(var8007fac0)($at)
 /*  f0e071c:	03e00008 */ 	jr	$ra
 /*  f0e0720:	27bd0100 */ 	addiu	$sp,$sp,0x100
 );

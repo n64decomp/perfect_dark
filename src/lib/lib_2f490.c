@@ -315,9 +315,9 @@ glabel func0002f8a0
 /*    2f8d4:	3c038006 */ 	lui	$v1,%hi(var8005f044)
 /*    2f8d8:	2463f044 */ 	addiu	$v1,$v1,%lo(var8005f044)
 /*    2f8dc:	ac620000 */ 	sw	$v0,0x0($v1)
-/*    2f8e0:	3c018006 */ 	lui	$at,0x8006
+/*    2f8e0:	3c018006 */ 	lui	$at,%hi(var8005f040)
 /*    2f8e4:	0044c021 */ 	addu	$t8,$v0,$a0
-/*    2f8e8:	ac38f040 */ 	sw	$t8,-0xfc0($at)
+/*    2f8e8:	ac38f040 */ 	sw	$t8,%lo(var8005f040)($at)
 /*    2f8ec:	03e00008 */ 	jr	$ra
 /*    2f8f0:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );

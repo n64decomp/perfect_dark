@@ -410,10 +410,10 @@ GLOBAL_ASM(
 glabel func000118f4
 /*    118f4:	afa50004 */ 	sw	$a1,0x4($sp)
 /*    118f8:	8c8e0004 */ 	lw	$t6,0x4($a0)
-/*    118fc:	3c018008 */ 	lui	$at,0x8008
+/*    118fc:	3c018008 */ 	lui	$at,%hi(var800840e0)
 /*    11900:	24020001 */ 	addiu	$v0,$zero,0x1
 /*    11904:	03e00008 */ 	jr	$ra
-/*    11908:	ac2e40e0 */ 	sw	$t6,0x40e0($at)
+/*    11908:	ac2e40e0 */ 	sw	$t6,%lo(var800840e0)($at)
 );
 
 GLOBAL_ASM(
@@ -619,8 +619,8 @@ glabel func0001190c
 /*    11bd4:	0319082a */ 	slt	$at,$t8,$t9
 /*    11bd8:	10200058 */ 	beqz	$at,.L00011d3c
 .L00011bdc:
-/*    11bdc:	3c018008 */ 	lui	$at,0x8008
-/*    11be0:	ac2340e4 */ 	sw	$v1,0x40e4($at)
+/*    11bdc:	3c018008 */ 	lui	$at,%hi(var800840e4)
+/*    11be0:	ac2340e4 */ 	sw	$v1,%lo(var800840e4)($at)
 /*    11be4:	8e6c0000 */ 	lw	$t4,0x0($s3)
 /*    11be8:	11800054 */ 	beqz	$t4,.L00011d3c
 .L00011bec:
@@ -720,10 +720,10 @@ glabel func0001190c
 /*    11d48:	3c0c800a */ 	lui	$t4,%hi(g_Vars+0x40)
 /*    11d4c:	8d8ca000 */ 	lw	$t4,%lo(g_Vars+0x40)($t4)
 /*    11d50:	8f3940e4 */ 	lw	$t9,%lo(var800840e4)($t9)
-/*    11d54:	3c018008 */ 	lui	$at,0x8008
+/*    11d54:	3c018008 */ 	lui	$at,%hi(var800840e4)
 /*    11d58:	032c6823 */ 	subu	$t5,$t9,$t4
 /*    11d5c:	10000002 */ 	beqz	$zero,.L00011d68
-/*    11d60:	ac2d40e4 */ 	sw	$t5,0x40e4($at)
+/*    11d60:	ac2d40e4 */ 	sw	$t5,%lo(var800840e4)($at)
 .L00011d64:
 /*    11d64:	ac2040e4 */ 	sw	$zero,0x40e4($at)
 .L00011d68:
@@ -840,16 +840,16 @@ glabel func00011d84
 /*    11f00:	016c082a */ 	slt	$at,$t3,$t4
 /*    11f04:	1020000b */ 	beqz	$at,.L00011f34
 /*    11f08:	24060001 */ 	addiu	$a2,$zero,0x1
-/*    11f0c:	3c018008 */ 	lui	$at,0x8008
+/*    11f0c:	3c018008 */ 	lui	$at,%hi(var800840f4)
 /*    11f10:	0fc5b4ab */ 	jal	func0f16d2ac
-/*    11f14:	ac2040f4 */ 	sw	$zero,0x40f4($at)
+/*    11f14:	ac2040f4 */ 	sw	$zero,%lo(var800840f4)($at)
 /*    11f18:	240d0078 */ 	addiu	$t5,$zero,0x78
-/*    11f1c:	3c018008 */ 	lui	$at,0x8008
+/*    11f1c:	3c018008 */ 	lui	$at,%hi(var800840fc)
 /*    11f20:	3c028008 */ 	lui	$v0,%hi(var80087264)
 /*    11f24:	3c0a800a */ 	lui	$t2,%hi(g_Vars)
 /*    11f28:	254a9fc0 */ 	addiu	$t2,$t2,%lo(g_Vars)
 /*    11f2c:	8c427264 */ 	lw	$v0,%lo(var80087264)($v0)
-/*    11f30:	ac2d40fc */ 	sw	$t5,0x40fc($at)
+/*    11f30:	ac2d40fc */ 	sw	$t5,%lo(var800840fc)($at)
 .L00011f34:
 /*    11f34:	3c048008 */ 	lui	$a0,%hi(var800840fc)
 /*    11f38:	3c058008 */ 	lui	$a1,%hi(var800840f4)

@@ -689,8 +689,8 @@ glabel func0f12f9f0
 .L0f130024:
 /*  f130024:	240e0001 */ 	addiu	$t6,$zero,0x1
 .L0f130028:
-/*  f130028:	3c018008 */ 	lui	$at,0x8008
-/*  f13002c:	ac2ef0b8 */ 	sw	$t6,-0xf48($at)
+/*  f130028:	3c018008 */ 	lui	$at,%hi(var8007f0b8)
+/*  f13002c:	ac2ef0b8 */ 	sw	$t6,%lo(var8007f0b8)($at)
 .L0f130030:
 /*  f130030:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f130034:	8fb00014 */ 	lw	$s0,0x14($sp)

@@ -832,17 +832,17 @@ glabel func0004c934
 .L0004cbb8:
 /*    4cbb8:	93ab0067 */ 	lbu	$t3,0x67($sp)
 .L0004cbbc:
-/*    4cbbc:	3c018006 */ 	lui	$at,0x8006
+/*    4cbbc:	3c018006 */ 	lui	$at,%hi(var80060984)
 /*    4cbc0:	3c05800a */ 	lui	$a1,%hi(var8009c870)
 /*    4cbc4:	24a5c870 */ 	addiu	$a1,$a1,%lo(var8009c870)
 /*    4cbc8:	8fa4005c */ 	lw	$a0,0x5c($sp)
 /*    4cbcc:	24060100 */ 	addiu	$a2,$zero,0x100
 /*    4cbd0:	0c012c5c */ 	jal	func0004b170
-/*    4cbd4:	a02b0984 */ 	sb	$t3,0x984($at)
+/*    4cbd4:	a02b0984 */ 	sb	$t3,%lo(var80060984)($at)
 /*    4cbd8:	8e4e0008 */ 	lw	$t6,0x8($s2)
-/*    4cbdc:	3c018006 */ 	lui	$at,0x8006
+/*    4cbdc:	3c018006 */ 	lui	$at,%hi(var80060980)
 /*    4cbe0:	00001025 */ 	or	$v0,$zero,$zero
-/*    4cbe4:	ac2e0980 */ 	sw	$t6,0x980($at)
+/*    4cbe4:	ac2e0980 */ 	sw	$t6,%lo(var80060980)($at)
 .L0004cbe8:
 /*    4cbe8:	8fbf0034 */ 	lw	$ra,0x34($sp)
 .L0004cbec:

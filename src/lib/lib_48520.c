@@ -50,8 +50,8 @@ glabel osSetEventMesg
 /*    485a8:	00003025 */ 	or	$a2,$zero,$zero
 .L000485ac:
 /*    485ac:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*    485b0:	3c018006 */ 	lui	$at,0x8006
-/*    485b4:	ac2e0890 */ 	sw	$t6,0x890($at)
+/*    485b0:	3c018006 */ 	lui	$at,%hi(var80060890)
+/*    485b4:	ac2e0890 */ 	sw	$t6,%lo(var80060890)($at)
 .L000485b8:
 /*    485b8:	0c012588 */ 	jal	__osRestoreInt
 /*    485bc:	02002025 */ 	or	$a0,$s0,$zero

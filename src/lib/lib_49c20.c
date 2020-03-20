@@ -492,9 +492,9 @@ glabel __osDestroyThread
 /*    4a2b8:	15090005 */ 	bne	$t0,$t1,.L0004a2d0
 /*    4a2bc:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4a2c0:	8d0a000c */ 	lw	$t2,0xc($t0)
-/*    4a2c4:	3c018006 */ 	lui	$at,0x8006
+/*    4a2c4:	3c018006 */ 	lui	$at,%hi(var8006093c)
 /*    4a2c8:	10000013 */ 	beqz	$zero,.L0004a318
-/*    4a2cc:	ac2a093c */ 	sw	$t2,0x93c($at)
+/*    4a2cc:	ac2a093c */ 	sw	$t2,%lo(var8006093c)($at)
 .L0004a2d0:
 /*    4a2d0:	3c118006 */ 	lui	$s1,%hi(var8006093c)
 /*    4a2d4:	8e31093c */ 	lw	$s1,%lo(var8006093c)($s1)

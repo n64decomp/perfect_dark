@@ -71,9 +71,9 @@ glabel func0f0b046c
 /*  f0b0498:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x288)
 /*  f0b049c:	8defa248 */ 	lw	$t7,%lo(g_Vars+0x288)($t7)
 /*  f0b04a0:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f0b04a4:	3c018007 */ 	lui	$at,0x8007
+/*  f0b04a4:	3c018007 */ 	lui	$at,%hi(var80070590)
 /*  f0b04a8:	0006c080 */ 	sll	$t8,$a2,0x2
-/*  f0b04ac:	ac2e0590 */ 	sw	$t6,0x590($at)
+/*  f0b04ac:	ac2e0590 */ 	sw	$t6,%lo(var80070590)($at)
 /*  f0b04b0:	01f81021 */ 	addu	$v0,$t7,$t8
 /*  f0b04b4:	8c590000 */ 	lw	$t9,0x0($v0)
 /*  f0b04b8:	27280001 */ 	addiu	$t0,$t9,0x1
@@ -98,8 +98,8 @@ glabel func0f0b046c
 /*  f0b0500:	258d0001 */ 	addiu	$t5,$t4,0x1
 /*  f0b0504:	ac4d0000 */ 	sw	$t5,0x0($v0)
 .L0f0b0508:
-/*  f0b0508:	3c018007 */ 	lui	$at,0x8007
-/*  f0b050c:	ac200590 */ 	sw	$zero,0x590($at)
+/*  f0b0508:	3c018007 */ 	lui	$at,%hi(var80070590)
+/*  f0b050c:	ac200590 */ 	sw	$zero,%lo(var80070590)($at)
 .L0f0b0510:
 /*  f0b0510:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f0b0514:
@@ -110,9 +110,9 @@ glabel func0f0b046c
 
 GLOBAL_ASM(
 glabel func0f0b0520
-/*  f0b0520:	3c018007 */ 	lui	$at,0x8007
+/*  f0b0520:	3c018007 */ 	lui	$at,%hi(var80070590)
 /*  f0b0524:	03e00008 */ 	jr	$ra
-/*  f0b0528:	ac200590 */ 	sw	$zero,0x590($at)
+/*  f0b0528:	ac200590 */ 	sw	$zero,%lo(var80070590)($at)
 );
 
 s32 currentPlayerGetShotCount(u32 type)

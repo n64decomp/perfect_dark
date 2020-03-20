@@ -460,10 +460,10 @@ glabel func0004fbf0
 /*    4fc0c:	330803ff */ 	andi	$t0,$t8,0x3ff
 /*    4fc10:	00084840 */ 	sll	$t1,$t0,0x1
 /*    4fc14:	00095023 */ 	negu	$t2,$t1
-/*    4fc18:	3c038006 */ 	lui	$v1,0x8006
+/*    4fc18:	3c038006 */ 	lui	$v1,%hi(var800611ec+0x2)
 /*    4fc1c:	006a1821 */ 	addu	$v1,$v1,$t2
 /*    4fc20:	10000006 */ 	beqz	$zero,.L0004fc3c
-/*    4fc24:	846311ee */ 	lh	$v1,0x11ee($v1)
+/*    4fc24:	846311ee */ 	lh	$v1,%lo(var800611ec+0x2)($v1)
 .L0004fc28:
 /*    4fc28:	304b03ff */ 	andi	$t3,$v0,0x3ff
 /*    4fc2c:	000b6040 */ 	sll	$t4,$t3,0x1

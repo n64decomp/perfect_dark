@@ -89,9 +89,9 @@ glabel func0f11edc0
 /*  f11edc8:	3c028007 */ 	lui	$v0,%hi(var80075d70)
 /*  f11edcc:	03e00008 */ 	jr	$ra
 /*  f11edd0:	8c425d70 */ 	lw	$v0,%lo(var80075d70)($v0)
-/*  f11edd4:	3c018007 */ 	lui	$at,0x8007
+/*  f11edd4:	3c018007 */ 	lui	$at,%hi(var80075d70)
 /*  f11edd8:	03e00008 */ 	jr	$ra
-/*  f11eddc:	ac245d70 */ 	sw	$a0,0x5d70($at)
+/*  f11eddc:	ac245d70 */ 	sw	$a0,%lo(var80075d70)($at)
 /*  f11ede0:	03e00008 */ 	jr	$ra
 /*  f11ede4:	00001025 */ 	or	$v0,$zero,$zero
 /*  f11ede8:	03e00008 */ 	jr	$ra
@@ -109,9 +109,9 @@ glabel func0f11ee08
 /*  f11ee08:	3c028007 */ 	lui	$v0,%hi(var80075d74)
 /*  f11ee0c:	03e00008 */ 	jr	$ra
 /*  f11ee10:	8c425d74 */ 	lw	$v0,%lo(var80075d74)($v0)
-/*  f11ee14:	3c018007 */ 	lui	$at,0x8007
+/*  f11ee14:	3c018007 */ 	lui	$at,%hi(var80075d74)
 /*  f11ee18:	03e00008 */ 	jr	$ra
-/*  f11ee1c:	ac245d74 */ 	sw	$a0,0x5d74($at)
+/*  f11ee1c:	ac245d74 */ 	sw	$a0,%lo(var80075d74)($at)
 );
 
 bool func0f11ee20(void)

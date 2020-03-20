@@ -2335,10 +2335,10 @@ glabel func00018148
 .L000181d0:
 /*    181d0:	3c198006 */ 	lui	$t9,%hi(var8005ef20)
 /*    181d4:	9339ef20 */ 	lbu	$t9,%lo(var8005ef20)($t9)
-/*    181d8:	3c018006 */ 	lui	$at,0x8006
+/*    181d8:	3c018006 */ 	lui	$at,%hi(var8005ef20)
 /*    181dc:	27be007c */ 	addiu	$s8,$sp,0x7c
 /*    181e0:	27290001 */ 	addiu	$t1,$t9,0x1
-/*    181e4:	a029ef20 */ 	sb	$t1,-0x10e0($at)
+/*    181e4:	a029ef20 */ 	sb	$t1,%lo(var8005ef20)($at)
 /*    181e8:	240100ff */ 	addiu	$at,$zero,0xff
 /*    181ec:	312a00ff */ 	andi	$t2,$t1,0xff
 /*    181f0:	15410010 */ 	bne	$t2,$at,.L00018234
@@ -2358,8 +2358,8 @@ glabel func00018148
 /*    18224:	a043fffe */ 	sb	$v1,-0x2($v0)
 /*    18228:	0000b825 */ 	or	$s7,$zero,$zero
 .L0001822c:
-/*    1822c:	3c018006 */ 	lui	$at,0x8006
-/*    18230:	a020ef20 */ 	sb	$zero,-0x10e0($at)
+/*    1822c:	3c018006 */ 	lui	$at,%hi(var8005ef20)
+/*    18230:	a020ef20 */ 	sb	$zero,%lo(var8005ef20)($at)
 .L00018234:
 /*    18234:	26944cc8 */ 	addiu	$s4,$s4,%lo(g_PortalSomethings)
 /*    18238:	87b5009c */ 	lh	$s5,0x9c($sp)

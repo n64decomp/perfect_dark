@@ -64,9 +64,9 @@ glabel func0f10cb2c
 /*  f10cb2c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10cb30:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f10cb34:	3c028006 */ 	lui	$v0,%hi(var80062940)
-/*  f10cb38:	3c018007 */ 	lui	$at,0x8007
+/*  f10cb38:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
 /*  f10cb3c:	24422940 */ 	addiu	$v0,$v0,%lo(var80062940)
-/*  f10cb40:	ac201448 */ 	sw	$zero,0x1448($at)
+/*  f10cb40:	ac201448 */ 	sw	$zero,%lo(g_MpPlayerNum)($at)
 /*  f10cb44:	904f0000 */ 	lbu	$t7,0x0($v0)
 /*  f10cb48:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f10cb4c:	afbf001c */ 	sw	$ra,0x1c($sp)
@@ -114,12 +114,12 @@ glabel func0f10cb2c
 /*  f10cbe8:	8fbf001c */ 	lw	$ra,0x1c($sp)
 .L0f10cbec:
 /*  f10cbec:	8fa90020 */ 	lw	$t1,0x20($sp)
-/*  f10cbf0:	3c018007 */ 	lui	$at,0x8007
+/*  f10cbf0:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
 /*  f10cbf4:	8fb00014 */ 	lw	$s0,0x14($sp)
 /*  f10cbf8:	8fb10018 */ 	lw	$s1,0x18($sp)
 /*  f10cbfc:	27bd0028 */ 	addiu	$sp,$sp,0x28
 /*  f10cc00:	03e00008 */ 	jr	$ra
-/*  f10cc04:	ac291448 */ 	sw	$t1,0x1448($at)
+/*  f10cc04:	ac291448 */ 	sw	$t1,%lo(g_MpPlayerNum)($at)
 );
 
 bool menudialog4MbMainMenu(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)

@@ -30,9 +30,9 @@ glabel func0004a980
 /*    4a9a8:	00001025 */ 	or	$v0,$zero,$zero
 .L0004a9ac:
 /*    4a9ac:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*    4a9b0:	3c018006 */ 	lui	$at,0x8006
+/*    4a9b0:	3c018006 */ 	lui	$at,%hi(var80060960)
 /*    4a9b4:	0c012448 */ 	jal	func00049120
-/*    4a9b8:	ac2f0960 */ 	sw	$t7,0x960($at)
+/*    4a9b8:	ac2f0960 */ 	sw	$t7,%lo(var80060960)($at)
 /*    4a9bc:	afa20060 */ 	sw	$v0,0x60($sp)
 /*    4a9c0:	8fb80060 */ 	lw	$t8,0x60($sp)
 /*    4a9c4:	afa30064 */ 	sw	$v1,0x64($sp)

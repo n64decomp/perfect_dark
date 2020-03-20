@@ -85,16 +85,16 @@ glabel func0f01b114
 
 GLOBAL_ASM(
 glabel func0f01b148
-/*  f01b148:	3c018006 */ 	lui	$at,0x8006
+/*  f01b148:	3c018006 */ 	lui	$at,%hi(var800624e0)
 /*  f01b14c:	03e00008 */ 	jr	$ra
-/*  f01b150:	ac2424e0 */ 	sw	$a0,0x24e0($at)
+/*  f01b150:	ac2424e0 */ 	sw	$a0,%lo(var800624e0)($at)
 );
 
 GLOBAL_ASM(
 glabel func0f01b154
-/*  f01b154:	3c018006 */ 	lui	$at,0x8006
+/*  f01b154:	3c018006 */ 	lui	$at,%hi(var800624e4)
 /*  f01b158:	03e00008 */ 	jr	$ra
-/*  f01b15c:	ac2424e4 */ 	sw	$a0,0x24e4($at)
+/*  f01b15c:	ac2424e4 */ 	sw	$a0,%lo(var800624e4)($at)
 );
 
 GLOBAL_ASM(

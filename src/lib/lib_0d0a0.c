@@ -201,8 +201,8 @@ glabel func0000d29c
 /*     d32c:	03284826 */ 	xor	$t1,$t9,$t0
 /*     d330:	1482fffa */ 	bne	$a0,$v0,.L0000d31c
 /*     d334:	ac69fffc */ 	sw	$t1,-0x4($v1)
-/*     d338:	3c018006 */ 	lui	$at,0x8006
-/*     d33c:	a020d9a0 */ 	sb	$zero,-0x2660($at)
+/*     d338:	3c018006 */ 	lui	$at,%hi(var8005d9a0)
+/*     d33c:	a020d9a0 */ 	sb	$zero,%lo(var8005d9a0)($at)
 .L0000d340:
 /*     d340:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     d344:	27bd0030 */ 	addiu	$sp,$sp,0x30

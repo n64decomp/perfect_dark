@@ -2243,8 +2243,8 @@ glabel func0f0adcc8
 /*  f0addd4:	14c9ffe5 */ 	bne	$a2,$t1,.L0f0add6c
 /*  f0addd8:	24e70006 */ 	addiu	$a3,$a3,0x6
 /*  f0adddc:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f0adde0:	3c018007 */ 	lui	$at,0x8007
-/*  f0adde4:	ac2a0524 */ 	sw	$t2,0x524($at)
+/*  f0adde0:	3c018007 */ 	lui	$at,%hi(var80070524)
+/*  f0adde4:	ac2a0524 */ 	sw	$t2,%lo(var80070524)($at)
 /*  f0adde8:	10000001 */ 	beqz	$zero,.L0f0addf0
 /*  f0addec:	01001025 */ 	or	$v0,$t0,$zero
 .L0f0addf0:

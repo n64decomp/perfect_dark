@@ -5385,8 +5385,8 @@ glabel func0f135bd8
 /*  f135c50:	0c00cec9 */ 	jal	func00033b24
 /*  f135c54:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f135c58:
-/*  f135c58:	3c018008 */ 	lui	$at,0x8008
-/*  f135c5c:	ac20f0c0 */ 	sw	$zero,-0xf40($at)
+/*  f135c58:	3c018008 */ 	lui	$at,%hi(var8007f0c0)
+/*  f135c5c:	ac20f0c0 */ 	sw	$zero,%lo(var8007f0c0)($at)
 /*  f135c60:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f135c64:
 /*  f135c64:	27bd0018 */ 	addiu	$sp,$sp,0x18

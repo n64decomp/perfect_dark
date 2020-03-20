@@ -1076,9 +1076,9 @@ glabel func0f178ef0
 /*  f179044:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f179048:
 /*  f179048:	8fa9001c */ 	lw	$t1,0x1c($sp)
-/*  f17904c:	3c018007 */ 	lui	$at,0x8007
+/*  f17904c:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
 /*  f179050:	27bd0020 */ 	addiu	$sp,$sp,0x20
 /*  f179054:	03e00008 */ 	jr	$ra
-/*  f179058:	ac291448 */ 	sw	$t1,0x1448($at)
+/*  f179058:	ac291448 */ 	sw	$t1,%lo(g_MpPlayerNum)($at)
 /*  f17905c:	00000000 */ 	sll	$zero,$zero,0x0
 );

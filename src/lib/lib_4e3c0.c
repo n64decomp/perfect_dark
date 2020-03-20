@@ -32,12 +32,12 @@ glabel func0004e3c0
 /*    4e3fc:	15400005 */ 	bnez	$t2,.L0004e414
 /*    4e400:	00000000 */ 	sll	$zero,$zero,0x0
 /*    4e404:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*    4e408:	3c018006 */ 	lui	$at,0x8006
+/*    4e408:	3c018006 */ 	lui	$at,%hi(var80060990)
 /*    4e40c:	10000003 */ 	beqz	$zero,.L0004e41c
-/*    4e410:	a02b0990 */ 	sb	$t3,0x990($at)
+/*    4e410:	a02b0990 */ 	sb	$t3,%lo(var80060990)($at)
 .L0004e414:
-/*    4e414:	3c018006 */ 	lui	$at,0x8006
-/*    4e418:	a0200990 */ 	sb	$zero,0x990($at)
+/*    4e414:	3c018006 */ 	lui	$at,%hi(var80060990)
+/*    4e418:	a0200990 */ 	sb	$zero,%lo(var80060990)($at)
 .L0004e41c:
 /*    4e41c:	0c0147b0 */ 	jal	func00051ec0
 /*    4e420:	00000000 */ 	sll	$zero,$zero,0x0

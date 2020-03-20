@@ -12,10 +12,10 @@
 
 GLOBAL_ASM(
 glabel func0f013010
-/*  f013010:	3c018008 */ 	lui	$at,0x8008
-/*  f013014:	ac20e4a0 */ 	sw	$zero,-0x1b60($at)
-/*  f013018:	3c018008 */ 	lui	$at,0x8008
-/*  f01301c:	ac20e4a4 */ 	sw	$zero,-0x1b5c($at)
+/*  f013010:	3c018008 */ 	lui	$at,%hi(var8007e4a0)
+/*  f013014:	ac20e4a0 */ 	sw	$zero,%lo(var8007e4a0)($at)
+/*  f013018:	3c018008 */ 	lui	$at,%hi(var8007e4a4)
+/*  f01301c:	ac20e4a4 */ 	sw	$zero,%lo(var8007e4a4)($at)
 /*  f013020:	3c013f80 */ 	lui	$at,0x3f80
 /*  f013024:	44812000 */ 	mtc1	$at,$f4
 /*  f013028:	3c08800a */ 	lui	$t0,%hi(var800a3434)

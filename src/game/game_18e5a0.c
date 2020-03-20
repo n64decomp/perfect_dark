@@ -33,9 +33,9 @@ const u32 var7f1b8dec[] = {0x00000000};
 
 GLOBAL_ASM(
 glabel func0f18e5a0
-/*  f18e5a0:	3c018008 */ 	lui	$at,0x8008
+/*  f18e5a0:	3c018008 */ 	lui	$at,%hi(var80087cc0)
 /*  f18e5a4:	03e00008 */ 	jr	$ra
-/*  f18e5a8:	ac247cc0 */ 	sw	$a0,0x7cc0($at)
+/*  f18e5a8:	ac247cc0 */ 	sw	$a0,%lo(var80087cc0)($at)
 );
 
 GLOBAL_ASM(
@@ -1360,12 +1360,12 @@ glabel func0f18f874
 /*  f18f9e8:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f18f9ec:	14590004 */ 	bne	$v0,$t9,.L0f18fa00
 /*  f18f9f0:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f18f9f4:	3c018008 */ 	lui	$at,0x8008
+/*  f18f9f4:	3c018008 */ 	lui	$at,%hi(var8007fac0)
 /*  f18f9f8:	10000003 */ 	beqz	$zero,.L0f18fa08
-/*  f18f9fc:	ac2afac0 */ 	sw	$t2,-0x540($at)
+/*  f18f9fc:	ac2afac0 */ 	sw	$t2,%lo(var8007fac0)($at)
 .L0f18fa00:
-/*  f18fa00:	3c018008 */ 	lui	$at,0x8008
-/*  f18fa04:	ac22fac0 */ 	sw	$v0,-0x540($at)
+/*  f18fa00:	3c018008 */ 	lui	$at,%hi(var8007fac0)
+/*  f18fa04:	ac22fac0 */ 	sw	$v0,%lo(var8007fac0)($at)
 .L0f18fa08:
 /*  f18fa08:	0c002f40 */ 	jal	func0000bd00
 /*  f18fa0c:	afa6003c */ 	sw	$a2,0x3c($sp)
@@ -1795,8 +1795,8 @@ glabel func0f18f874
 /*  f190034:	afa20088 */ 	sw	$v0,0x88($sp)
 /*  f190038:	240c0001 */ 	addiu	$t4,$zero,0x1
 .L0f19003c:
-/*  f19003c:	3c018008 */ 	lui	$at,0x8008
-/*  f190040:	ac2cfac0 */ 	sw	$t4,-0x540($at)
+/*  f19003c:	3c018008 */ 	lui	$at,%hi(var8007fac0)
+/*  f190040:	ac2cfac0 */ 	sw	$t4,%lo(var8007fac0)($at)
 /*  f190044:	8fa20088 */ 	lw	$v0,0x88($sp)
 .L0f190048:
 /*  f190048:	8fbf002c */ 	lw	$ra,0x2c($sp)

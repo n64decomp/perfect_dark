@@ -59,9 +59,9 @@ glabel func0f014820
 /*  f014830:	24630004 */ 	addiu	$v1,$v1,0x4
 /*  f014834:	1462fffe */ 	bne	$v1,$v0,.L0f014830
 /*  f014838:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f01483c:	3c018008 */ 	lui	$at,0x8008
+/*  f01483c:	3c018008 */ 	lui	$at,%hi(g_NumMpSimulantChrs)
 /*  f014840:	03e00008 */ 	jr	$ra
-/*  f014844:	a0207d10 */ 	sb	$zero,0x7d10($at)
+/*  f014844:	a0207d10 */ 	sb	$zero,%lo(g_NumMpSimulantChrs)($at)
 );
 
 GLOBAL_ASM(

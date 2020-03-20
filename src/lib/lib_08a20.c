@@ -114,9 +114,9 @@ glabel func00008a48
 /*     8b50:	3c018009 */ 	lui	$at,%hi(var800918e4)
 /*     8b54:	256d0050 */ 	addiu	$t5,$t3,0x50
 /*     8b58:	ac2d18e4 */ 	sw	$t5,%lo(var800918e4)($at)
-/*     8b5c:	3c018006 */ 	lui	$at,0x8006
+/*     8b5c:	3c018006 */ 	lui	$at,%hi(var8005cf94)
 /*     8b60:	0c002598 */ 	jal	func00009660
-/*     8b64:	a020cf94 */ 	sb	$zero,-0x306c($at)
+/*     8b64:	a020cf94 */ 	sb	$zero,%lo(var8005cf94)($at)
 /*     8b68:	3c048009 */ 	lui	$a0,%hi(var80091848)
 /*     8b6c:	3c058009 */ 	lui	$a1,%hi(var80091860)
 /*     8b70:	24a51860 */ 	addiu	$a1,$a1,%lo(var80091860)
@@ -504,8 +504,8 @@ glabel func000090ec
 /*     90fc:	248415e0 */ 	addiu	$a0,$a0,%lo(var800915e0)
 /*     9100:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*     9104:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*     9108:	3c018006 */ 	lui	$at,0x8006
-/*     910c:	a02ed510 */ 	sb	$t6,-0x2af0($at)
+/*     9108:	3c018006 */ 	lui	$at,%hi(var8005d510)
+/*     910c:	a02ed510 */ 	sb	$t6,%lo(var8005d510)($at)
 /*     9110:	03e00008 */ 	jr	$ra
 /*     9114:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
@@ -706,8 +706,8 @@ glabel func00009154
 /*     93d8:	0c0121bc */ 	jal	osRecvMesg
 /*     93dc:	24060001 */ 	addiu	$a2,$zero,0x1
 .L000093e0:
-/*     93e0:	3c018006 */ 	lui	$at,0x8006
-/*     93e4:	ac20d514 */ 	sw	$zero,-0x2aec($at)
+/*     93e0:	3c018006 */ 	lui	$at,%hi(var8005d514)
+/*     93e4:	ac20d514 */ 	sw	$zero,%lo(var8005d514)($at)
 /*     93e8:	0c002585 */ 	jal	func00009614
 /*     93ec:	8fa40060 */ 	lw	$a0,0x60($sp)
 /*     93f0:	10000004 */ 	beqz	$zero,.L00009404
@@ -869,10 +869,10 @@ glabel func00009614
 /*     9628:	15c00006 */ 	bnez	$t6,.L00009644
 /*     962c:	3c0f8006 */ 	lui	$t7,%hi(var8005d518)
 /*     9630:	8defd518 */ 	lw	$t7,%lo(var8005d518)($t7)
-/*     9634:	3c018006 */ 	lui	$at,0x8006
+/*     9634:	3c018006 */ 	lui	$at,%hi(var8005d518)
 /*     9638:	55e00003 */ 	bnezl	$t7,.L00009648
 /*     963c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     9640:	ac20d518 */ 	sw	$zero,-0x2ae8($at)
+/*     9640:	ac20d518 */ 	sw	$zero,%lo(var8005d518)($at)
 .L00009644:
 /*     9644:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L00009648:

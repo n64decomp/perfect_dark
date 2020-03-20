@@ -32,9 +32,9 @@
 GLOBAL_ASM(
 glabel func0f0132a0
 /*  f0132a0:	3c038008 */ 	lui	$v1,%hi(var8007f0c0)
-/*  f0132a4:	3c018006 */ 	lui	$at,0x8006
+/*  f0132a4:	3c018006 */ 	lui	$at,%hi(var800623f0)
 /*  f0132a8:	2463f0c0 */ 	addiu	$v1,$v1,%lo(var8007f0c0)
-/*  f0132ac:	ac2023f0 */ 	sw	$zero,0x23f0($at)
+/*  f0132ac:	ac2023f0 */ 	sw	$zero,%lo(var800623f0)($at)
 /*  f0132b0:	ac600000 */ 	sw	$zero,0x0($v1)
 /*  f0132b4:	3c048008 */ 	lui	$a0,%hi(g_StageIndex)
 /*  f0132b8:	8c84fc00 */ 	lw	$a0,%lo(g_StageIndex)($a0)
@@ -183,7 +183,7 @@ glabel func0f0132a0
 /*  f0134cc:	44818000 */ 	mtc1	$at,$f16
 /*  f0134d0:	ad000078 */ 	sw	$zero,0x78($t0)
 /*  f0134d4:	8c690000 */ 	lw	$t1,0x0($v1)
-/*  f0134d8:	3c018006 */ 	lui	$at,0x8006
+/*  f0134d8:	3c018006 */ 	lui	$at,%hi(var800623f0)
 /*  f0134dc:	ad200084 */ 	sw	$zero,0x84($t1)
 /*  f0134e0:	8c6a0000 */ 	lw	$t2,0x0($v1)
 /*  f0134e4:	e54a00b8 */ 	swc1	$f10,0xb8($t2)
@@ -203,7 +203,7 @@ glabel func0f0132a0
 /*  f01351c:	af2000d0 */ 	sw	$zero,0xd0($t9)
 /*  f013520:	8c680000 */ 	lw	$t0,0x0($v1)
 /*  f013524:	ad0000d4 */ 	sw	$zero,0xd4($t0)
-/*  f013528:	ac2523f0 */ 	sw	$a1,0x23f0($at)
+/*  f013528:	ac2523f0 */ 	sw	$a1,%lo(var800623f0)($at)
 .L0f01352c:
 /*  f01352c:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f013530:	27bd0018 */ 	addiu	$sp,$sp,0x18
