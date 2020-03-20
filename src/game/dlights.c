@@ -984,7 +984,7 @@ glabel func0f0013c8
 /*  f001554:	240d0022 */ 	addiu	$t5,$zero,0x22
 /*  f001558:	24010030 */ 	addiu	$at,$zero,0x30
 /*  f00155c:	106d0002 */ 	beq	$v1,$t5,.L0f001568
-/*  f001560:	3c028008 */ 	lui	$v0,%hi(var8007fc00)
+/*  f001560:	3c028008 */ 	lui	$v0,%hi(g_StageIndex)
 /*  f001564:	14610004 */ 	bne	$v1,$at,.L0f001578
 .L0f001568:
 /*  f001568:	2401215c */ 	addiu	$at,$zero,0x215c
@@ -992,7 +992,7 @@ glabel func0f0013c8
 /*  f001570:	24180002 */ 	addiu	$t8,$zero,0x2
 /*  f001574:	a118004c */ 	sb	$t8,0x4c($t0)
 .L0f001578:
-/*  f001578:	8c42fc00 */ 	lw	$v0,%lo(var8007fc00)($v0)
+/*  f001578:	8c42fc00 */ 	lw	$v0,%lo(g_StageIndex)($v0)
 /*  f00157c:	2401001b */ 	addiu	$at,$zero,0x1b
 /*  f001580:	24090001 */ 	addiu	$t1,$zero,0x1
 /*  f001584:	10410007 */ 	beq	$v0,$at,.L0f0015a4

@@ -914,8 +914,8 @@ glabel func0f13c07c
 
 GLOBAL_ASM(
 glabel func0f13c2e8
-/*  f13c2e8:	3c028008 */ 	lui	$v0,%hi(var8007fc00)
-/*  f13c2ec:	8c42fc00 */ 	lw	$v0,%lo(var8007fc00)($v0)
+/*  f13c2e8:	3c028008 */ 	lui	$v0,%hi(g_StageIndex)
+/*  f13c2ec:	8c42fc00 */ 	lw	$v0,%lo(g_StageIndex)($v0)
 /*  f13c2f0:	00047400 */ 	sll	$t6,$a0,0x10
 /*  f13c2f4:	000e7c03 */ 	sra	$t7,$t6,0x10
 /*  f13c2f8:	afa40000 */ 	sw	$a0,0x0($sp)

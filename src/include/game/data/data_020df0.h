@@ -184,7 +184,7 @@ extern u32 var8007fbcc;
 extern u32 var8007fbdc;
 extern u32 var8007fbe8;
 extern u32 var8007fbec;
-extern u32 var8007fc00;
+extern u32 g_StageIndex;
 extern u32 var8007fc0c;
 extern u32 var8007fc10;
 extern u32 var8007fc14;

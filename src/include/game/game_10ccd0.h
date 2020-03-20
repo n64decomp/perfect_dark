@@ -15,7 +15,7 @@ u32 func0f10d100(void);
 u32 func0f10d140(void);
 u32 func0f10d180(void);
 u32 func0f10d1d0(void);
-u32 func0f10d2e0(void);
+char *soloMenuTextMissionStatus(struct menu_item *item);
 u32 func0f10d4d4(void);
 u32 func0f10d588(void);
 u32 func0f10d61c(void);

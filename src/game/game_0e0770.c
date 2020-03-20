@@ -4929,9 +4929,9 @@ GLOBAL_ASM(
 glabel func0f0e5000
 /*  f0e5000:	27bdfeb0 */ 	addiu	$sp,$sp,-336
 /*  f0e5004:	3c0140a0 */ 	lui	$at,0x40a0
-/*  f0e5008:	3c0e8008 */ 	lui	$t6,%hi(var8007fc00)
+/*  f0e5008:	3c0e8008 */ 	lui	$t6,%hi(g_StageIndex)
 /*  f0e500c:	44812000 */ 	mtc1	$at,$f4
-/*  f0e5010:	8dcefc00 */ 	lw	$t6,%lo(var8007fc00)($t6)
+/*  f0e5010:	8dcefc00 */ 	lw	$t6,%lo(g_StageIndex)($t6)
 /*  f0e5014:	24010019 */ 	addiu	$at,$zero,0x19
 /*  f0e5018:	afbf0064 */ 	sw	$ra,0x64($sp)
 /*  f0e501c:	afb30060 */ 	sw	$s3,0x60($sp)
