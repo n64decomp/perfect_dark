@@ -862,7 +862,7 @@ struct menu_item menuitems_1b98c[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPWEAPONS(129), (u32)&soloMenuTextDifficulty, NULL }, // "Difficulty:"
 	{ MENUITEMTYPE_SEPARATOR,   2, 0x00000000, 0x00000000, 0x00000000, menuhandler0010e064 },
 	{ MENUITEMTYPE_LABEL,       2, 0x00000000, L_MPWEAPONS(243), 0x00000000, menuhandler0010e064 }, // "New Cheat Available!:"
-	{ MENUITEMTYPE_LABEL,       3, 0x01000020, (u32)&func0f10e3fc, 0x00000000, menuhandler0010e064 },
+	{ MENUITEMTYPE_LABEL,       3, 0x01000020, (u32)&soloMenuTextCheatName, 0x00000000, menuhandler0010e064 },
 	{ MENUITEMTYPE_LABEL,       5, 0x01000020, (u32)&func0f10e468, 0x00000000, menuhandler0010e064 },
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(281), (u32)&mpMenuTextWeaponOfChoiceName, NULL }, // "Weapon of Choice"
