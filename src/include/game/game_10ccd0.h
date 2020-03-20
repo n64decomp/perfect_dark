@@ -11,7 +11,7 @@ u32 func0f10cf2c(void);
 char *soloMenuTextNumKills(struct menu_item *item);
 char *soloMenuTextNumShots(struct menu_item *item);
 char *soloMenuTextNumHeadShots(struct menu_item *item);
-u32 func0f10d100(void);
+char *soloMenuTextNumBodyShots(struct menu_item *item);
 u32 func0f10d140(void);
 u32 func0f10d180(void);
 u32 func0f10d1d0(void);

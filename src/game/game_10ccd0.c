@@ -287,25 +287,11 @@ char *soloMenuTextNumHeadShots(struct menu_item *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f10d100
-/*  f10d100:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10d104:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d108:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10d10c:	0fc2c14b */ 	jal	currentPlayerGetShotCount
-/*  f10d110:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f10d114:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10d118:	3c057f1b */ 	lui	$a1,%hi(var7f1b387c)
-/*  f10d11c:	24a5387c */ 	addiu	$a1,$a1,%lo(var7f1b387c)
-/*  f10d120:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10d124:	0c004dad */ 	jal	sprintf
-/*  f10d128:	00403025 */ 	or	$a2,$v0,$zero
-/*  f10d12c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10d130:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10d134:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f10d138:	03e00008 */ 	jr	$ra
-/*  f10d13c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *soloMenuTextNumBodyShots(struct menu_item *item)
+{
+	sprintf(g_StringPointer, "%d", currentPlayerGetShotCount(2));
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f10d140
@@ -603,7 +589,6 @@ glabel func0f10d678
 /*  f10d6e0:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-const char var7f1b387c[] = "%d";
 const char var7f1b3880[] = "%d";
 const char var7f1b3884[] = "%d";
 const char var7f1b3888[] = "%s%s%.1f%%";
