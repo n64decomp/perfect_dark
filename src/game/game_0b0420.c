@@ -261,12 +261,13 @@ glabel func0f0b05a4
 /*  f0b0738:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+s32 currentPlayerGetNumKills(void)
+{
+	return g_Vars.currentplayerstats->killcount;
+}
+
 GLOBAL_ASM(
-glabel currentPlayerGetNumKills
-/*  f0b073c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
-/*  f0b0740:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
-/*  f0b0744:	03e00008 */ 	jr	$ra
-/*  f0b0748:	8dc2001c */ 	lw	$v0,0x1c($t6)
+glabel func0f0b074c
 /*  f0b074c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x288)
 /*  f0b0750:	8c42a248 */ 	lw	$v0,%lo(g_Vars+0x288)($v0)
 /*  f0b0754:	8c4e0020 */ 	lw	$t6,0x20($v0)
