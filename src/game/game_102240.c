@@ -4617,53 +4617,17 @@ bool menudialogMainMenu(u32 operation, struct menu_dialog *dialog, struct menust
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f106a7c
-/*  f106a7c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f106a80:	3c0e8007 */ 	lui	$t6,%hi(mainmenulabels_nocheats)
-/*  f106a84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f106a88:	25ce39c0 */ 	addiu	$t6,$t6,%lo(mainmenulabels_nocheats)
-/*  f106a8c:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f106a90:	27a20020 */ 	addiu	$v0,$sp,0x20
-/*  f106a94:	3c088007 */ 	lui	$t0,%hi(mainmenulabels_withcheats)
-/*  f106a98:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f106a9c:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f106aa0:	250839c8 */ 	addiu	$t0,$t0,%lo(mainmenulabels_withcheats)
-/*  f106aa4:	27a30018 */ 	addiu	$v1,$sp,0x18
-/*  f106aa8:	ac590004 */ 	sw	$t9,0x4($v0)
-/*  f106aac:	8d010000 */ 	lw	$at,0x0($t0)
-/*  f106ab0:	3c0c800a */ 	lui	$t4,%hi(g_CheatsEnabledBank0)
-/*  f106ab4:	00802825 */ 	or	$a1,$a0,$zero
-/*  f106ab8:	ac610000 */ 	sw	$at,0x0($v1)
-/*  f106abc:	8d0b0004 */ 	lw	$t3,0x4($t0)
-/*  f106ac0:	3c0d800a */ 	lui	$t5,%hi(g_CheatsEnabledBank1)
-/*  f106ac4:	ac6b0004 */ 	sw	$t3,0x4($v1)
-/*  f106ac8:	8d8c21d8 */ 	lw	$t4,%lo(g_CheatsEnabledBank0)($t4)
-/*  f106acc:	55800005 */ 	bnezl	$t4,.L0f106ae4
-/*  f106ad0:	90b80001 */ 	lbu	$t8,0x1($a1)
-/*  f106ad4:	8dad21dc */ 	lw	$t5,%lo(g_CheatsEnabledBank1)($t5)
-/*  f106ad8:	51a00009 */ 	beqzl	$t5,.L0f106b00
-/*  f106adc:	90b90001 */ 	lbu	$t9,0x1($a1)
-/*  f106ae0:	90b80001 */ 	lbu	$t8,0x1($a1)
-.L0f106ae4:
-/*  f106ae4:	00187840 */ 	sll	$t7,$t8,0x1
-/*  f106ae8:	006f7021 */ 	addu	$t6,$v1,$t7
-/*  f106aec:	0fc5b9f1 */ 	jal	langGet
-/*  f106af0:	95c40000 */ 	lhu	$a0,0x0($t6)
-/*  f106af4:	10000007 */ 	beqz	$zero,.L0f106b14
-/*  f106af8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f106afc:	90b90001 */ 	lbu	$t9,0x1($a1)
-.L0f106b00:
-/*  f106b00:	00195040 */ 	sll	$t2,$t9,0x1
-/*  f106b04:	004a4821 */ 	addu	$t1,$v0,$t2
-/*  f106b08:	0fc5b9f1 */ 	jal	langGet
-/*  f106b0c:	95240000 */ 	lhu	$a0,0x0($t1)
-/*  f106b10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f106b14:
-/*  f106b14:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f106b18:	03e00008 */ 	jr	$ra
-/*  f106b1c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mainMenuTextLabel(struct menu_item *item)
+{
+	u16 nocheats[4] = g_MainMenuLabelsNoCheats;
+	u16 withcheats[4] = g_MainMenuLabelsWithCheats;
+
+	if (g_CheatsEnabledBank0 || g_CheatsEnabledBank1) {
+		return langGet(withcheats[item->param]);
+	}
+
+	return langGet(nocheats[item->param]);
+}
 
 GLOBAL_ASM(
 glabel func0f106b20

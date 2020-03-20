@@ -2800,7 +2800,7 @@ struct menu_dialog g_SelectMissionMenuDialog = {
 };
 
 // 199e0
-u16 mainmenulabels_nocheats[] = {
+u16 g_MainMenuLabelsNoCheats[] = {
 	L_OPTIONS(117), // "Solo Missions"
 	L_OPTIONS(118), // "Combat Simulator"
 	L_OPTIONS(119), // "Co-Operative"
@@ -2808,7 +2808,7 @@ u16 mainmenulabels_nocheats[] = {
 };
 
 // 199e8
-u16 mainmenulabels_withcheats[] = {
+u16 g_MainMenuLabelsWithCheats[] = {
 	L_MPWEAPONS(130), // "Cheat Solo Missions"
 	L_MPWEAPONS(131), // "Cheat Combat Simulator"
 	L_MPWEAPONS(132), // "Cheat Co-Operative"
@@ -2818,10 +2818,10 @@ u16 mainmenulabels_withcheats[] = {
 // 199f0
 struct menu_item menuitems_mainmenu[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400008, L_MISC(446), 0x00000001, NULL }, // "Carrington Institute"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, (u32)&func0f106a7c, 0x00000002, menuhandlerMainMenuSoloMissions },
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, (u32)&func0f106a7c, 0x00000003, menuhandlerMainMenuCombatSimulator },
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, (u32)&func0f106a7c, 0x00000004, menuhandlerMainMenuCooperative },
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, (u32)&func0f106a7c, 0x00000005, menuhandlerMainMenuCounterOperative },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, (u32)&mainMenuTextLabel, 0x00000002, menuhandlerMainMenuSoloMissions },
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, (u32)&mainMenuTextLabel, 0x00000003, menuhandlerMainMenuCombatSimulator },
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, (u32)&mainMenuTextLabel, 0x00000004, menuhandlerMainMenuCooperative },
+	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, (u32)&mainMenuTextLabel, 0x00000005, menuhandlerMainMenuCounterOperative },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(187), 0x00000006, &menudialog_changeagent }, // "Change Agent..."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
