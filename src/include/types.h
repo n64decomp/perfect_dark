@@ -4864,7 +4864,7 @@ struct portal {
 };
 
 struct trainingdata {
-	u32 unk00_00 : 1;
+	u32 intraining : 1;
 	u32 unk00_01 : 1;
 	u32 unk00_02 : 1;
 	u32 unk00_03 : 1;
