@@ -842,7 +842,7 @@ struct menu_item menuitems_1b7bc[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(283), (u32)&func0f10d1d0, NULL }, // "Accuracy:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(284), (u32)&soloMenuTextNumShots, NULL }, // "Shot Total:"
-	{ MENUITEMTYPE_LABEL,       0, L_AME(0), L_OPTIONS(285), (u32)&func0f10d0c0, NULL }, // "Head Shots:"
+	{ MENUITEMTYPE_LABEL,       0, L_AME(0), L_OPTIONS(285), (u32)&soloMenuTextNumHeadShots, NULL }, // "Head Shots:"
 	{ MENUITEMTYPE_LABEL,       0, L_AME(0), L_OPTIONS(286), (u32)&func0f10d100, NULL }, // "Body Shots:"
 	{ MENUITEMTYPE_LABEL,       0, L_AME(0), L_OPTIONS(287), (u32)&func0f10d140, NULL }, // "Limb Shots:"
 	{ MENUITEMTYPE_LABEL,       0, L_AME(0), L_OPTIONS(288), (u32)&func0f10d180, NULL }, // "Others:"
@@ -870,7 +870,7 @@ struct menu_item menuitems_1b98c[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(283), (u32)&func0f10d1d0, NULL }, // "Accuracy:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(284), (u32)&soloMenuTextNumShots, NULL }, // "Shot Total:"
-	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(285), (u32)&func0f10d0c0, NULL }, // "Head Shots:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(285), (u32)&soloMenuTextNumHeadShots, NULL }, // "Head Shots:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_OPTIONS(286), (u32)&func0f10d100, NULL }, // "Body Shots:"
 	{ MENUITEMTYPE_LABEL,       6, 0x00000000, L_OPTIONS(287), (u32)&func0f10d140, menuhandler0010e064 }, // "Limb Shots:"
 	{ MENUITEMTYPE_LABEL,       4, 0x00000000, L_OPTIONS(288), (u32)&func0f10d180, menuhandler0010e064 }, // "Others:"
