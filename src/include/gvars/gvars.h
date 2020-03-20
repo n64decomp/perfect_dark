@@ -648,7 +648,7 @@ extern struct activemenuthing g_ActiveMenuThings[4];
 extern u32 var800a21b0;
 extern u32 var800a21b4;
 extern u32 g_ActiveMenuIndex;
-extern u8 var800a21c0;
+extern u8 g_InventoryWeapon;
 extern u32 g_CheatsActiveBank0;
 extern u32 g_CheatsActiveBank1;
 extern u32 g_CheatsEnabledBank0;

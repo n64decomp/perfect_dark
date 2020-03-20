@@ -20,7 +20,7 @@ char *invMenuTextSecondaryFunction(struct menu_item *item);
 u32 func0f105948(void);
 char *invMenuTextWeaponName(struct menu_item *item);
 char *invMenuTextWeaponManufacturer(struct menu_item *item);
-u32 func0f105e80(void);
+char *invMenuTextWeaponDescription(struct menu_item *item);
 u32 func0f106508(void);
 u32 func0f1065c0(void);
 u32 func0f106a7c(void);

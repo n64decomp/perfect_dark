@@ -2527,13 +2527,36 @@ u32 var800733a8 = 0x40c66666;
 u32 var800733ac = 0x3f800000;
 u32 var800733b0 = 0x40bccb14;
 u32 var800733b4 = 0x40033d32;
-u32 var800733b8 = 0x4c56715b;
-u32 var800733bc = 0x6566727a;
-u32 var800733c0 = 0x835a0000;
-u32 var800733c4 = 0x4d40595f;
-u32 var800733c8 = 0x6e716958;
-u32 var800733cc = 0x726c7568;
-u32 var800733d0 = 0x69380000;
+
+u8 g_CassNecklaceUsername[] = {
+	'C' + 9,
+	'D' + 18,
+	'V' + 27,
+	'7' + 36,
+	'8' + 45,
+	'0' + 54,
+	'3' + 63,
+	'2' + 72,
+	'2' + 81,
+	'\0' + 90,
+};
+
+u8 g_CassNecklacePassword[] = {
+	'I' + 4,
+	'8' + 8,
+	'M' + 12,
+	'O' + 16,
+	'Z' + 20,
+	'Y' + 24,
+	'M' + 28,
+	'8' + 32,
+	'N' + 36,
+	'D' + 40,
+	'I' + 44,
+	'8' + 48,
+	'5' + 52,
+	'\0' + 56,
+};
 
 // 193f4
 struct menu_item menuitems_inventory[] = {
@@ -2543,7 +2566,7 @@ struct menu_item menuitems_inventory[] = {
 	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS(3), (u32)&invMenuTextPrimaryFunction, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS(3), (u32)&invMenuTextSecondaryFunction, NULL }, // ""
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f105e80, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&invMenuTextWeaponDescription, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2555,7 +2578,7 @@ struct menu_item menuitems_weaponsavailable[] = {
 	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x0212, L_OPTIONS(3), (u32)&invMenuTextPrimaryFunction, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x0212, L_OPTIONS(3), (u32)&invMenuTextSecondaryFunction, NULL }, // ""
-	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f105e80, 0x00000000, NULL },
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&invMenuTextWeaponDescription, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 

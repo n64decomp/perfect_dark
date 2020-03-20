@@ -3483,8 +3483,8 @@ s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value)
 
 char *invMenuTextPrimaryFunction(struct menu_item *item)
 {
-	struct weaponfunc *primaryfunc = weaponGetFunctionById(var800a21c0, 0);
-	struct weaponfunc *secondaryfunc = weaponGetFunctionById(var800a21c0, 1);
+	struct weaponfunc *primaryfunc = weaponGetFunctionById(g_InventoryWeapon, 0);
+	struct weaponfunc *secondaryfunc = weaponGetFunctionById(g_InventoryWeapon, 1);
 
 	if (primaryfunc && secondaryfunc) {
 		return langGet(primaryfunc->name);
@@ -3495,8 +3495,8 @@ char *invMenuTextPrimaryFunction(struct menu_item *item)
 
 char *invMenuTextSecondaryFunction(struct menu_item *item)
 {
-	struct weaponfunc *primaryfunc = weaponGetFunctionById(var800a21c0, 0);
-	struct weaponfunc *secondaryfunc = weaponGetFunctionById(var800a21c0, 1);
+	struct weaponfunc *primaryfunc = weaponGetFunctionById(g_InventoryWeapon, 0);
+	struct weaponfunc *secondaryfunc = weaponGetFunctionById(g_InventoryWeapon, 1);
 
 	if (secondaryfunc) {
 		return langGet(secondaryfunc->name);
@@ -3763,18 +3763,18 @@ glabel var7f1b2e04
 /*  f105ce0:	e4420d68 */ 	swc1	$f2,0xd68($v0)
 /*  f105ce4:	e4420d90 */ 	swc1	$f2,0xd90($v0)
 /*  f105ce8:	46062002 */ 	mul.s	$f0,$f4,$f6
-/*  f105cec:	3c04800a */ 	lui	$a0,%hi(var800a21c0)
+/*  f105cec:	3c04800a */ 	lui	$a0,%hi(g_InventoryWeapon)
 /*  f105cf0:	3c0b8007 */ 	lui	$t3,%hi(var80072d88)
 /*  f105cf4:	e4400d8c */ 	swc1	$f0,0xd8c($v0)
 /*  f105cf8:	e4400d64 */ 	swc1	$f0,0xd64($v0)
 /*  f105cfc:	916b2d88 */ 	lbu	$t3,%lo(var80072d88)($t3)
-/*  f105d00:	908421c0 */ 	lbu	$a0,%lo(var800a21c0)($a0)
+/*  f105d00:	908421c0 */ 	lbu	$a0,%lo(g_InventoryWeapon)($a0)
 /*  f105d04:	508b0008 */ 	beql	$a0,$t3,.L0f105d28
 /*  f105d08:	24010040 */ 	addiu	$at,$zero,0x40
 /*  f105d0c:	0fc41652 */ 	jal	func0f105948
 /*  f105d10:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f105d14:	3c02800a */ 	lui	$v0,%hi(var800a21c0)
-/*  f105d18:	904421c0 */ 	lbu	$a0,%lo(var800a21c0)($v0)
+/*  f105d14:	3c02800a */ 	lui	$v0,%hi(g_InventoryWeapon)
+/*  f105d18:	904421c0 */ 	lbu	$a0,%lo(g_InventoryWeapon)($v0)
 /*  f105d1c:	3c018007 */ 	lui	$at,0x8007
 /*  f105d20:	a0242d88 */ 	sb	$a0,0x2d88($at)
 /*  f105d24:	24010040 */ 	addiu	$at,$zero,0x40
@@ -3820,7 +3820,7 @@ glabel var7f1b2e04
  */
 char *invMenuTextWeaponName(struct menu_item *item)
 {
-	struct weapon *weapon = weaponFindById(var800a21c0);
+	struct weapon *weapon = weaponFindById(g_InventoryWeapon);
 
 	if (weapon) {
 		if (weapon->manufacturer == L_GUN(0)) { // "\n"
@@ -3838,7 +3838,7 @@ char *invMenuTextWeaponName(struct menu_item *item)
  */
 char *invMenuTextWeaponManufacturer(struct menu_item *item)
 {
-	struct weapon *weapon = weaponFindById(var800a21c0);
+	struct weapon *weapon = weaponFindById(g_InventoryWeapon);
 	u32 textid = L_GUN(0); // "\n"
 
 	if (weapon) {
@@ -3849,7 +3849,7 @@ char *invMenuTextWeaponManufacturer(struct menu_item *item)
 		return langGet(textid);
 	}
 
-	weapon = weaponFindById(var800a21c0);
+	weapon = weaponFindById(g_InventoryWeapon);
 
 	if (weapon) {
 		return langGet(weapon->name);
@@ -3858,123 +3858,46 @@ char *invMenuTextWeaponManufacturer(struct menu_item *item)
 	return langGet(L_OPTIONS(3)); // "\n"
 }
 
-GLOBAL_ASM(
-glabel func0f105e80
-/*  f105e80:	27bdffb0 */ 	addiu	$sp,$sp,-80
-/*  f105e84:	afa40050 */ 	sw	$a0,0x50($sp)
-/*  f105e88:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f105e8c:	3c04800a */ 	lui	$a0,%hi(var800a21c0)
-/*  f105e90:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f105e94:	908421c0 */ 	lbu	$a0,%lo(var800a21c0)($a0)
-/*  f105e98:	1040005d */ 	beqz	$v0,.L0f106010
-/*  f105e9c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f105ea0:	3c02800a */ 	lui	$v0,%hi(var800a21c0)
-/*  f105ea4:	904221c0 */ 	lbu	$v0,%lo(var800a21c0)($v0)
-/*  f105ea8:	2401002e */ 	addiu	$at,$zero,0x2e
-/*  f105eac:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f105eb0:	54410015 */ 	bnel	$v0,$at,.L0f105f08
-/*  f105eb4:	24010050 */ 	addiu	$at,$zero,0x50
-/*  f105eb8:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f105ebc:	8dc30480 */ 	lw	$v1,0x480($t6)
-/*  f105ec0:	50600011 */ 	beqzl	$v1,.L0f105f08
-/*  f105ec4:	24010050 */ 	addiu	$at,$zero,0x50
-/*  f105ec8:	9064006b */ 	lbu	$a0,0x6b($v1)
-/*  f105ecc:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f105ed0:	54810006 */ 	bnel	$a0,$at,.L0f105eec
-/*  f105ed4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f105ed8:	0fc5b9f1 */ 	jal	langGet
-/*  f105edc:	24044ced */ 	addiu	$a0,$zero,0x4ced
-/*  f105ee0:	1000004e */ 	beqz	$zero,.L0f10601c
-/*  f105ee4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f105ee8:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f105eec:
-/*  f105eec:	54810006 */ 	bnel	$a0,$at,.L0f105f08
-/*  f105ef0:	24010050 */ 	addiu	$at,$zero,0x50
-/*  f105ef4:	0fc5b9f1 */ 	jal	langGet
-/*  f105ef8:	24044cec */ 	addiu	$a0,$zero,0x4cec
-/*  f105efc:	10000047 */ 	beqz	$zero,.L0f10601c
-/*  f105f00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f105f04:	24010050 */ 	addiu	$at,$zero,0x50
-.L0f105f08:
-/*  f105f08:	1441003d */ 	bne	$v0,$at,.L0f106000
-/*  f105f0c:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x4b4)
-/*  f105f10:	8defa474 */ 	lw	$t7,%lo(g_Vars+0x4b4)($t7)
-/*  f105f14:	24010034 */ 	addiu	$at,$zero,0x34
-/*  f105f18:	15e10039 */ 	bne	$t7,$at,.L0f106000
-/*  f105f1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f105f20:	0fc5b367 */ 	jal	getDifficulty
-/*  f105f24:	afa5004c */ 	sw	$a1,0x4c($sp)
-/*  f105f28:	28410002 */ 	slti	$at,$v0,0x2
-/*  f105f2c:	14200034 */ 	bnez	$at,.L0f106000
-/*  f105f30:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*  f105f34:	3c198007 */ 	lui	$t9,%hi(var800733b8)
-/*  f105f38:	273933b8 */ 	addiu	$t9,$t9,%lo(var800733b8)
-/*  f105f3c:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f105f40:	27b80040 */ 	addiu	$t8,$sp,0x40
-/*  f105f44:	8f290004 */ 	lw	$t1,0x4($t9)
-/*  f105f48:	af010000 */ 	sw	$at,0x0($t8)
-/*  f105f4c:	97210008 */ 	lhu	$at,0x8($t9)
-/*  f105f50:	3c0b8007 */ 	lui	$t3,%hi(var800733c4)
-/*  f105f54:	256b33c4 */ 	addiu	$t3,$t3,%lo(var800733c4)
-/*  f105f58:	af090004 */ 	sw	$t1,0x4($t8)
-/*  f105f5c:	a7010008 */ 	sh	$at,0x8($t8)
-/*  f105f60:	8d610000 */ 	lw	$at,0x0($t3)
-/*  f105f64:	27aa0030 */ 	addiu	$t2,$sp,0x30
-/*  f105f68:	8d6d0004 */ 	lw	$t5,0x4($t3)
-/*  f105f6c:	ad410000 */ 	sw	$at,0x0($t2)
-/*  f105f70:	8d610008 */ 	lw	$at,0x8($t3)
-/*  f105f74:	27a20040 */ 	addiu	$v0,$sp,0x40
-/*  f105f78:	00001825 */ 	or	$v1,$zero,$zero
-/*  f105f7c:	ad410008 */ 	sw	$at,0x8($t2)
-/*  f105f80:	9561000c */ 	lhu	$at,0xc($t3)
-/*  f105f84:	24040038 */ 	addiu	$a0,$zero,0x38
-/*  f105f88:	ad4d0004 */ 	sw	$t5,0x4($t2)
-/*  f105f8c:	a541000c */ 	sh	$at,0xc($t2)
-.L0f105f90:
-/*  f105f90:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f105f94:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f105f98:	01c37823 */ 	subu	$t7,$t6,$v1
-/*  f105f9c:	24630009 */ 	addiu	$v1,$v1,0x9
-/*  f105fa0:	2861005a */ 	slti	$at,$v1,0x5a
-/*  f105fa4:	25e8fff7 */ 	addiu	$t0,$t7,-9
-/*  f105fa8:	1420fff9 */ 	bnez	$at,.L0f105f90
-/*  f105fac:	a048ffff */ 	sb	$t0,-0x1($v0)
-/*  f105fb0:	27a20030 */ 	addiu	$v0,$sp,0x30
-/*  f105fb4:	00001825 */ 	or	$v1,$zero,$zero
-.L0f105fb8:
-/*  f105fb8:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f105fbc:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f105fc0:	0303c823 */ 	subu	$t9,$t8,$v1
-/*  f105fc4:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f105fc8:	2729fffc */ 	addiu	$t1,$t9,-4
-/*  f105fcc:	1464fffa */ 	bne	$v1,$a0,.L0f105fb8
-/*  f105fd0:	a049ffff */ 	sb	$t1,-0x1($v0)
-/*  f105fd4:	0fc5b9f1 */ 	jal	langGet
-/*  f105fd8:	24044cef */ 	addiu	$a0,$zero,0x4cef
-/*  f105fdc:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f105fe0:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f105fe4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f105fe8:	27a60040 */ 	addiu	$a2,$sp,0x40
-/*  f105fec:	0c004dad */ 	jal	sprintf
-/*  f105ff0:	27a70030 */ 	addiu	$a3,$sp,0x30
-/*  f105ff4:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f105ff8:	10000007 */ 	beqz	$zero,.L0f106018
-/*  f105ffc:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f106000:
-/*  f106000:	0fc5b9f1 */ 	jal	langGet
-/*  f106004:	94a4004a */ 	lhu	$a0,0x4a($a1)
-/*  f106008:	10000004 */ 	beqz	$zero,.L0f10601c
-/*  f10600c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f106010:
-/*  f106010:	0fc5b9f1 */ 	jal	langGet
-/*  f106014:	24045603 */ 	addiu	$a0,$zero,0x5603
-.L0f106018:
-/*  f106018:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10601c:
-/*  f10601c:	27bd0050 */ 	addiu	$sp,$sp,0x50
-/*  f106020:	03e00008 */ 	jr	$ra
-/*  f106024:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *invMenuTextWeaponDescription(struct menu_item *item)
+{
+	struct weapon *weapon = weaponFindById(g_InventoryWeapon);
+
+	if (weapon) {
+		if (g_InventoryWeapon == WEAPON_CAMSPY && g_Vars.currentplayer->eyespy) {
+			if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
+				return langGet(L_GUN(237)); // Drugspy description
+			}
+
+			if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_BOMBSPY) {
+				return langGet(L_GUN(236)); // Bombspy description
+			}
+		}
+
+		if (g_InventoryWeapon == WEAPON_NECKLACE
+				&& g_Vars.stagenum == STAGE_ATTACKSHIP
+				&& getDifficulty() >= DIFF_PA) {
+			u8 username[10] = g_CassNecklaceUsername;
+			u8 password[14] = g_CassNecklacePassword;
+			s32 i;
+
+			for (i = 0; i < 10; i++) {
+				username[i] -= i * 9 + 9;
+			}
+
+			for (i = 0; i != 14; i++) {
+				password[i] -= i * 4 + 4;
+			}
+
+			// "Cassandra De Vries' replacement necklace.  Username: %s  Password: %s"
+			sprintf(g_StringPointer, langGet(L_GUN(239)), &username, &password);
+			return g_StringPointer;
+		}
+
+		return langGet(weapon->description);
+	}
+
+	return langGet(L_OPTIONS(3)); // "\n"
+}
 
 GLOBAL_ASM(
 glabel menuhandler00106028
@@ -4055,8 +3978,8 @@ glabel var7f1b2e44
 /*  f1060c8:	8cc40000 */ 	lw	$a0,0x0($a2)
 /*  f1060cc:	0fc6749a */ 	jal	func0f19d268
 /*  f1060d0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1060d4:	3c03800a */ 	lui	$v1,%hi(var800a21c0)
-/*  f1060d8:	246321c0 */ 	addiu	$v1,$v1,%lo(var800a21c0)
+/*  f1060d4:	3c03800a */ 	lui	$v1,%hi(g_InventoryWeapon)
+/*  f1060d8:	246321c0 */ 	addiu	$v1,$v1,%lo(g_InventoryWeapon)
 /*  f1060dc:	a0620000 */ 	sb	$v0,0x0($v1)
 /*  f1060e0:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
 /*  f1060e4:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
@@ -4240,8 +4163,8 @@ glabel var7f1b2e84
 /*  f1062f4:	8fa80028 */ 	lw	$t0,0x28($sp)
 /*  f1062f8:	0fc44b11 */ 	jal	currentPlayerGetWeaponNumByInvIndex
 /*  f1062fc:	8d040000 */ 	lw	$a0,0x0($t0)
-/*  f106300:	3c03800a */ 	lui	$v1,%hi(var800a21c0)
-/*  f106304:	246321c0 */ 	addiu	$v1,$v1,%lo(var800a21c0)
+/*  f106300:	3c03800a */ 	lui	$v1,%hi(g_InventoryWeapon)
+/*  f106304:	246321c0 */ 	addiu	$v1,$v1,%lo(g_InventoryWeapon)
 /*  f106308:	a0620000 */ 	sb	$v0,0x0($v1)
 /*  f10630c:	3c0a8007 */ 	lui	$t2,%hi(g_MpPlayerNum)
 /*  f106310:	8d4a1448 */ 	lw	$t2,%lo(g_MpPlayerNum)($t2)
