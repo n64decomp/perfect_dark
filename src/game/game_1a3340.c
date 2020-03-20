@@ -3526,29 +3526,16 @@ bool menudialog001a6aa4(u32 operation, struct menu_dialog *dialog, struct menust
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f1a6aec
-/*  f1a6aec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a6af0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6af4:	0fc687f8 */ 	jal	getHoloTrainingData
-/*  f1a6af8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a6afc:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f1a6b00:	000e7fc2 */ 	srl	$t7,$t6,0x1f
-/*  f1a6b04:	11e00005 */ 	beqz	$t7,.L0f1a6b1c
-/*  f1a6b08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a6b0c:	0fc5b9f1 */ 	jal	langGet
-/*  f1a6b10:	240451ac */ 	addiu	$a0,$zero,0x51ac
-/*  f1a6b14:	10000004 */ 	beqz	$zero,.L0f1a6b28
-/*  f1a6b18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a6b1c:
-/*  f1a6b1c:	0fc5b9f1 */ 	jal	langGet
-/*  f1a6b20:	240451ab */ 	addiu	$a0,$zero,0x51ab
-/*  f1a6b24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a6b28:
-/*  f1a6b28:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a6b2c:	03e00008 */ 	jr	$ra
-/*  f1a6b30:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *htMenuTextOkOrResume(struct menu_item *item)
+{
+	struct trainingdata *data = getHoloTrainingData();
+
+	if (data->intraining) {
+		return langGet(L_MPMENU(428)); // "Resume"
+	}
+
+	return langGet(L_MPMENU(427)); // "Ok"
+}
 
 GLOBAL_ASM(
 glabel func0f1a6b34

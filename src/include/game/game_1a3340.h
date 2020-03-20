@@ -27,7 +27,7 @@ char *dtMenuTextOkOrResume(struct menu_item *item);
 char *dtMenuTextCancelOrAbort(struct menu_item *item);
 char *dtMenuTextTimeTakenValue(struct menu_item *item);
 u32 func0f1a6a04(void);
-u32 func0f1a6aec(void);
+char *htMenuTextOkOrResume(struct menu_item *item);
 u32 func0f1a6b34(void);
 char *htMenuTextTimeTakenValue(struct menu_item *item);
 u32 func0f1a6c8c(void);
