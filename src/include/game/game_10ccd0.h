@@ -14,7 +14,7 @@ char *soloMenuTextNumHeadShots(struct menu_item *item);
 char *soloMenuTextNumBodyShots(struct menu_item *item);
 char *soloMenuTextNumLimbShots(struct menu_item *item);
 char *soloMenuTextNumOtherShots(struct menu_item *item);
-u32 func0f10d1d0(void);
+char *soloMenuTextAccuracy(struct menu_item *item);
 char *soloMenuTextMissionStatus(struct menu_item *item);
 char *soloMenuTextAgentStatus(struct menu_item *item);
 u32 func0f10d588(void);
