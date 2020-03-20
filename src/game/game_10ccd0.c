@@ -1371,39 +1371,14 @@ char *soloMenuTextCheatName(struct menu_item *item)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f10e468
-/*  f10e468:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10e46c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10e470:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe20)
-/*  f10e474:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10e478:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10e47c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10e480:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10e484:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f10e488:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10e48c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10e490:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10e494:	004f1021 */ 	addu	$v0,$v0,$t7
-/*  f10e498:	8c42ee20 */ 	lw	$v0,%lo(g_MenuStack+0xe20)($v0)
-/*  f10e49c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10e4a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10e4a4:	30580800 */ 	andi	$t8,$v0,0x800
-/*  f10e4a8:	13000006 */ 	beqz	$t8,.L0f10e4c4
-/*  f10e4ac:	00022402 */ 	srl	$a0,$v0,0x10
-/*  f10e4b0:	309900ff */ 	andi	$t9,$a0,0xff
-/*  f10e4b4:	0fc41fde */ 	jal	cheatGetName
-/*  f10e4b8:	03202025 */ 	or	$a0,$t9,$zero
-/*  f10e4bc:	10000003 */ 	beqz	$zero,.L0f10e4cc
-/*  f10e4c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10e4c4:
-/*  f10e4c4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10e4c8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10e4cc:
-/*  f10e4cc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10e4d0:	03e00008 */ 	jr	$ra
-/*  f10e4d4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *soloMenuTextCheatName2(struct menu_item *item)
+{
+	if (g_MenuStack[g_MpPlayerNum].slotcount & 0x00000800) {
+		return cheatGetName((g_MenuStack[g_MpPlayerNum].slotcount >> 16) & 0xff);
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel soloMenuTextTargetTime
