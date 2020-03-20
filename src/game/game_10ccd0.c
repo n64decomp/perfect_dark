@@ -1110,6 +1110,8 @@ glabel menudialog0010de58
 /*  f10e060:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+const char var7f1b38b4[] = "ctcol";
+
 GLOBAL_ASM(
 glabel menuhandler0010e064
 /*  f10e064:	27bdffe0 */ 	addiu	$sp,$sp,-32
@@ -1428,7 +1430,7 @@ glabel func0f10e468
 );
 
 GLOBAL_ASM(
-glabel func0f10e4d8
+glabel soloMenuTextTargetTime
 /*  f10e4d8:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
 /*  f10e4dc:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
 /*  f10e4e0:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe20)
@@ -1477,6 +1479,28 @@ glabel func0f10e4d8
 /*  f10e580:	03e00008 */ 	jr	$ra
 /*  f10e584:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+const char var7f1b38bc[] = "\n";
+
+// regalloc
+//char *soloMenuTextTargetTime(struct menu_item *item)
+//{
+//	s32 time;
+//
+//	if ((g_MenuStack[g_MpPlayerNum].slotcount & 0x00000100) == 0) {
+//		return NULL;
+//	}
+//
+//	time = cheatGetTime(g_MenuStack[g_MpPlayerNum].slotcount & 0xff);
+//
+//	if (!time) {
+//		return NULL;
+//	}
+//
+//	formatTime(g_StringPointer, time * 60, 3);
+//	strcat(g_StringPointer, "\n");
+//	return g_StringPointer;
+//}
 
 GLOBAL_ASM(
 glabel func0f10e588
@@ -4851,8 +4875,6 @@ glabel func0f111460
 /*  f1115fc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-const char var7f1b38b4[] = "ctcol";
-const char var7f1b38bc[] = "\n";
 const char var7f1b38c0[] = "Flag %d = %s";
 const char var7f1b38d0[] = "TRUE";
 const char var7f1b38d8[] = "FALSE";

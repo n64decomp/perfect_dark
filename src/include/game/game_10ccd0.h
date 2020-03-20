@@ -26,7 +26,7 @@ void func0f10d770(void);
 void func0f10d910(s32 arg0);
 u32 func0f10e3fc(void);
 u32 func0f10e468(void);
-u32 func0f10e4d8(void);
+char *soloMenuTextTargetTime(struct menu_item *item);
 u32 func0f10e588(void);
 u32 func0f10e620(void);
 u32 func0f10ecb4(void);
