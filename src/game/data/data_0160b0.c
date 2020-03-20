@@ -2538,11 +2538,11 @@ u32 var800733d0 = 0x69380000;
 // 193f4
 struct menu_item menuitems_inventory[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106178 },
-	{ MENUITEMTYPE_LABEL,       0, L_AME(3), L_OPTIONS(3), (u32)&func0f105e04, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, L_AME(258), L_OPTIONS(3), (u32)&func0f105d9c, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000203, L_OPTIONS(3), (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000302, L_OPTIONS(3), (u32)&invMenuTextWeaponName, NULL }, // ""
 	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
-	{ MENUITEMTYPE_LABEL,       0, L_AME(2), L_OPTIONS(3), (u32)&func0f105864, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, L_AME(2), L_OPTIONS(3), (u32)&func0f1058d0, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS(3), (u32)&invMenuTextPrimaryFunction, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS(3), (u32)&invMenuTextSecondaryFunction, NULL }, // ""
 	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f105e80, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
@@ -2550,11 +2550,11 @@ struct menu_item menuitems_inventory[] = {
 // 19494
 struct menu_item menuitems_weaponsavailable[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106028 },
-	{ MENUITEMTYPE_LABEL,       0, L_AME(19), L_OPTIONS(3), (u32)&func0f105e04, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, L_AME(274), L_OPTIONS(3), (u32)&func0f105d9c, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x0213, L_OPTIONS(3), (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x0312, L_OPTIONS(3), (u32)&invMenuTextWeaponName, NULL }, // ""
 	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
-	{ MENUITEMTYPE_LABEL,       0, L_AME(18), L_OPTIONS(3), (u32)&func0f105864, NULL }, // ""
-	{ MENUITEMTYPE_LABEL,       0, L_AME(18), L_OPTIONS(3), (u32)&func0f1058d0, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x0212, L_OPTIONS(3), (u32)&invMenuTextPrimaryFunction, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x0212, L_OPTIONS(3), (u32)&invMenuTextSecondaryFunction, NULL }, // ""
 	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&func0f105e80, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };

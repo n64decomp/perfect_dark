@@ -3481,7 +3481,7 @@ s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-char *func0f105864(s32 arg0)
+char *invMenuTextPrimaryFunction(struct menu_item *item)
 {
 	struct weaponfunc *primaryfunc = weaponGetFunctionById(var800a21c0, 0);
 	struct weaponfunc *secondaryfunc = weaponGetFunctionById(var800a21c0, 1);
@@ -3493,7 +3493,7 @@ char *func0f105864(s32 arg0)
 	return langGet(L_OPTIONS(3)); // "\n"
 }
 
-char *func0f1058d0(s32 arg0)
+char *invMenuTextSecondaryFunction(struct menu_item *item)
 {
 	struct weaponfunc *primaryfunc = weaponGetFunctionById(var800a21c0, 0);
 	struct weaponfunc *secondaryfunc = weaponGetFunctionById(var800a21c0, 1);
@@ -3814,7 +3814,11 @@ glabel var7f1b2e04
 /*  f105d98:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-char *func0f105d9c(s32 arg0)
+/**
+ * Return name, but if there is no manufacturer then return a blank value
+ * because the name is being shown in the manufacturer slot.
+ */
+char *invMenuTextWeaponName(struct menu_item *item)
 {
 	struct weapon *weapon = weaponFindById(var800a21c0);
 
@@ -3832,7 +3836,7 @@ char *func0f105d9c(s32 arg0)
 /**
  * Return manufacturer, with fallback to weapon name if manufacturer is blank.
  */
-char *func0f105e04(s32 arg0)
+char *invMenuTextWeaponManufacturer(struct menu_item *item)
 {
 	struct weapon *weapon = weaponFindById(var800a21c0);
 	u32 textid = L_GUN(0); // "\n"
@@ -3841,7 +3845,7 @@ char *func0f105e04(s32 arg0)
 		textid = weapon->manufacturer;
 	}
 
-	if (textid != 0x4c00) {
+	if (textid != L_GUN(0)) {
 		return langGet(textid);
 	}
 
