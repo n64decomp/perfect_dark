@@ -275,32 +275,18 @@ char *soloMenuTextNumKills(struct menu_item *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f10d080
-/*  f10d080:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10d084:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10d088:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10d08c:	0fc2c14b */ 	jal	func0f0b052c
-/*  f10d090:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10d094:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f10d098:	3c057f1b */ 	lui	$a1,%hi(var7f1b3874)
-/*  f10d09c:	24a53874 */ 	addiu	$a1,$a1,%lo(var7f1b3874)
-/*  f10d0a0:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10d0a4:	0c004dad */ 	jal	sprintf
-/*  f10d0a8:	00403025 */ 	or	$a2,$v0,$zero
-/*  f10d0ac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10d0b0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f10d0b4:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f10d0b8:	03e00008 */ 	jr	$ra
-/*  f10d0bc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *soloMenuTextNumShots(struct menu_item *item)
+{
+	sprintf(g_StringPointer, "%d", currentPlayerGetShotCount(0));
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel func0f10d0c0
 /*  f10d0c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f10d0c4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10d0c8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10d0cc:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d0cc:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d0d0:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f10d0d4:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
 /*  f10d0d8:	3c057f1b */ 	lui	$a1,%hi(var7f1b3878)
@@ -320,7 +306,7 @@ glabel func0f10d100
 /*  f10d100:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f10d104:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10d108:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10d10c:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d10c:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d110:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f10d114:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
 /*  f10d118:	3c057f1b */ 	lui	$a1,%hi(var7f1b387c)
@@ -340,7 +326,7 @@ glabel func0f10d140
 /*  f10d140:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f10d144:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10d148:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10d14c:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d14c:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d150:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f10d154:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
 /*  f10d158:	3c057f1b */ 	lui	$a1,%hi(var7f1b3880)
@@ -360,10 +346,10 @@ glabel func0f10d180
 /*  f10d180:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f10d184:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f10d188:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f10d18c:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d18c:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d190:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f10d194:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f10d198:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d198:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d19c:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f10d1a0:	8fae0018 */ 	lw	$t6,0x18($sp)
 /*  f10d1a4:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
@@ -384,25 +370,25 @@ glabel func0f10d1d0
 /*  f10d1d0:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f10d1d4:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f10d1d8:	afa40038 */ 	sw	$a0,0x38($sp)
-/*  f10d1dc:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d1dc:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d1e0:	00002025 */ 	or	$a0,$zero,$zero
 /*  f10d1e4:	afa20034 */ 	sw	$v0,0x34($sp)
-/*  f10d1e8:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d1e8:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d1ec:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f10d1f0:	afa20030 */ 	sw	$v0,0x30($sp)
-/*  f10d1f4:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d1f4:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d1f8:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f10d1fc:	afa2002c */ 	sw	$v0,0x2c($sp)
-/*  f10d200:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d200:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d204:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f10d208:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f10d20c:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d20c:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d210:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f10d214:	afa20024 */ 	sw	$v0,0x24($sp)
-/*  f10d218:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d218:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d21c:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f10d220:	afa20020 */ 	sw	$v0,0x20($sp)
-/*  f10d224:	0fc2c14b */ 	jal	func0f0b052c
+/*  f10d224:	0fc2c14b */ 	jal	currentPlayerGetShotCount
 /*  f10d228:	24040006 */ 	addiu	$a0,$zero,0x6
 /*  f10d22c:	8fa30034 */ 	lw	$v1,0x34($sp)
 /*  f10d230:	3c057f1b */ 	lui	$a1,%hi(var7f1b3888)
@@ -631,7 +617,6 @@ glabel func0f10d678
 /*  f10d6e0:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-const char var7f1b3874[] = "%d";
 const char var7f1b3878[] = "%d";
 const char var7f1b387c[] = "%d";
 const char var7f1b3880[] = "%d";

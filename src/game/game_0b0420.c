@@ -116,7 +116,7 @@ glabel func0f0b0520
 );
 
 GLOBAL_ASM(
-glabel func0f0b052c
+glabel currentPlayerGetShotCount
 /*  f0b052c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
 /*  f0b0530:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
 /*  f0b0534:	00047880 */ 	sll	$t7,$a0,0x2

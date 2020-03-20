@@ -6,7 +6,7 @@
 u32 func0f0b0420(void);
 u32 func0f0b046c(void);
 u32 func0f0b0520(void);
-u32 func0f0b052c(void);
+s32 currentPlayerGetShotCount(u32 type);
 void incrementKillCount(void);
 void incrementKnockoutCount(void);
 void decrementKnockoutCount(void);

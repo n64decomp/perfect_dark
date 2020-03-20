@@ -9,7 +9,7 @@ void savefileUnsetFlag(u32 value);
 u32 func0f10ce74(void);
 u32 func0f10cf2c(void);
 char *soloMenuTextNumKills(struct menu_item *item);
-u32 func0f10d080(void);
+char *soloMenuTextNumShots(struct menu_item *item);
 u32 func0f10d0c0(void);
 u32 func0f10d100(void);
 u32 func0f10d140(void);
