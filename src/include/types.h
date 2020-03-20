@@ -4358,6 +4358,7 @@ struct mpchr {
 	/*0x14*/ u32 displayoptions;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u16 unk1c;
+	/*0x1c*/ s8 scoreposition;
 	/*0x20*/ u32 unk20;
 	/*0x24*/ s16 unk24[12];
 	/*0x3c*/ s16 unk3c;

@@ -246,7 +246,7 @@ extern u32 var800845dc;
 extern u32 var800845f4;
 extern struct menu_dialog menudialog_2a8b0;
 extern struct menu_dialog menudialog_2a908;
-extern u16 rankings[];
+extern u16 g_OrdinalSuffixes[12];
 extern struct menu_dialog menudialog_2aa18;
 extern struct menu_dialog menudialog_2aa30;
 extern struct menu_dialog menudialog_2aa48;

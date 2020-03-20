@@ -12,7 +12,7 @@ u32 func0f1783a0(void);
 char *mpMenuTextWeaponOfChoiceName(struct menu_item *item);
 char *mpMenuTextAward1(struct menu_item *item);
 char *mpMenuTextAward2(struct menu_item *item);
-u32 func0f17853c(void);
+char *mpMenuTextScorePositionWithSuffix(struct menu_item *item);
 s32 menuhandler001785c4(u32, u32, u32 *);
 s32 menuhandler001786d8(u32, u32, u32 *);
 s32 menuhandler00178a94(u32, u32, u32 *);

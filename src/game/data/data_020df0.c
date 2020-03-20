@@ -10208,7 +10208,7 @@ struct menu_dialog menudialog_2a920 = {
 };
 
 // 2a938
-u16 rankings[] = {
+u16 g_OrdinalSuffixes[] = {
 	L_MPMENU(264), // "1st"
 	L_MPMENU(265), // "2nd"
 	L_MPMENU(266), // "3rd"
@@ -10225,7 +10225,7 @@ u16 rankings[] = {
 
 // 2a950
 struct menu_item menuitems_2a950[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x01000010, (u32)&mpGetCurrentPlayerName, (u32)&func0f17853c, menuhandler001785c4 },
+	{ MENUITEMTYPE_LABEL,       0, 0x01000010, (u32)&mpGetCurrentPlayerName, (u32)&mpMenuTextScorePositionWithSuffix, menuhandler001785c4 },
 	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_MPMENU(261), (u32)&mpMenuTextPlayerTitle, menuhandler00178a94 }, // "Title:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000210, L_MPMENU(262), 0x00000000, NULL }, // "Weapon of Choice:"

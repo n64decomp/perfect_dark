@@ -336,43 +336,12 @@ char *mpMenuTextAward2(struct menu_item *item)
 	return g_Vars.players[g_MenuStack[g_MpPlayerNum].playernum]->award2;
 }
 
-GLOBAL_ASM(
-glabel func0f17853c
-/*  f17853c:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f178540:	3c0e8008 */ 	lui	$t6,%hi(rankings)
-/*  f178544:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178548:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f17854c:	25ce4918 */ 	addiu	$t6,$t6,%lo(rankings)
-/*  f178550:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f178554:	27a20018 */ 	addiu	$v0,$sp,0x18
-/*  f178558:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f17855c:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f178560:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f178564:	3c0a800b */ 	lui	$t2,%hi(g_MpPlayers+0x1e)
-/*  f178568:	ac590004 */ 	sw	$t9,0x4($v0)
-/*  f17856c:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f178570:	ac410008 */ 	sw	$at,0x8($v0)
-/*  f178574:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*  f178578:	ac59000c */ 	sw	$t9,0xc($v0)
-/*  f17857c:	8dc10010 */ 	lw	$at,0x10($t6)
-/*  f178580:	ac410010 */ 	sw	$at,0x10($v0)
-/*  f178584:	8dd90014 */ 	lw	$t9,0x14($t6)
-/*  f178588:	ac590014 */ 	sw	$t9,0x14($v0)
-/*  f17858c:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
-/*  f178590:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f178594:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f178598:	00094940 */ 	sll	$t1,$t1,0x5
-/*  f17859c:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f1785a0:	814ac7d6 */ 	lb	$t2,%lo(g_MpPlayers+0x1e)($t2)
-/*  f1785a4:	000a5840 */ 	sll	$t3,$t2,0x1
-/*  f1785a8:	004b6021 */ 	addu	$t4,$v0,$t3
-/*  f1785ac:	0fc5b9f1 */ 	jal	langGet
-/*  f1785b0:	95840000 */ 	lhu	$a0,0x0($t4)
-/*  f1785b4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1785b8:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f1785bc:	03e00008 */ 	jr	$ra
-/*  f1785c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextScorePositionWithSuffix(struct menu_item *item)
+{
+	u16 suffixes[12] = g_OrdinalSuffixes;
+
+	return langGet(suffixes[g_MpPlayers[g_MpPlayerNum].base.scoreposition]);
+}
 
 GLOBAL_ASM(
 glabel menuhandler001785c4
