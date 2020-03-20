@@ -796,31 +796,13 @@ glabel menuhandlerFrDifficulty
 /*  f1a3d94:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a3d98
-/*  f1a3d98:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a3d9c:	3c0f8009 */ 	lui	$t7,%hi(var80088c78)
-/*  f1a3da0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3da4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f1a3da8:	25ef8c78 */ 	addiu	$t7,$t7,%lo(var80088c78)
-/*  f1a3dac:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a3db0:	27ae001c */ 	addiu	$t6,$sp,0x1c
-/*  f1a3db4:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f1a3db8:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1a3dbc:	95e10008 */ 	lhu	$at,0x8($t7)
-/*  f1a3dc0:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f1a3dc4:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a3dc8:	a5c10008 */ 	sh	$at,0x8($t6)
-/*  f1a3dcc:	9049045b */ 	lbu	$t1,0x45b($v0)
-/*  f1a3dd0:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f1a3dd4:	03aa2021 */ 	addu	$a0,$sp,$t2
-/*  f1a3dd8:	0fc5b9f1 */ 	jal	langGet
-/*  f1a3ddc:	9484001c */ 	lhu	$a0,0x1c($a0)
-/*  f1a3de0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3de4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f1a3de8:	03e00008 */ 	jr	$ra
-/*  f1a3dec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *frMenuTextFailReason(struct menu_item *item)
+{
+	u16 reasons[5] = g_FiringRangeFailReasons;
+	struct frdata *frdata = getFiringRangeData();
+
+	return langGet(reasons[frdata->failreason]);
+}
 
 char *frMenuTextDifficultyName(struct menu_item *item)
 {

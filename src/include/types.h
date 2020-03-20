@@ -5617,7 +5617,8 @@ struct frdata {
 	/*0x455*/ u8 targetsdestroyed;
 	/*0x456*/ u16 unk456;
 	/*0x458*/ u16 numshots;
-	/*0x45a*/ u16 unk45a;
+	/*0x45a*/ u8 unk45a;
+	/*0x45b*/ u8 failreason;
 	/*0x45c*/ u16 numhitstype1;
 	/*0x45e*/ u16 numhitstype2;
 	/*0x460*/ u16 numhitstype3;

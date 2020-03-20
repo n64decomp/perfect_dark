@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f1a3d98(void);
+char *frMenuTextFailReason(struct menu_item *item);
 char *frMenuTextDifficultyName(struct menu_item *item);
 char *frMenuTextTimeTakenValue(struct menu_item *item);
 char *frMenuTextScoreValue(struct menu_item *item);

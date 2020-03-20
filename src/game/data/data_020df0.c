@@ -12816,9 +12816,14 @@ u32 var80088c68 = 0x000059ab;
 u32 var80088c6c = 0x00000000;
 u32 var80088c70 = 0x51b751b8;
 u32 var80088c74 = 0x51b90000;
-u32 var80088c78 = 0x51c851c9;
-u32 var80088c7c = 0x51ca51cb;
-u32 var80088c80 = 0x51cc0000;
+
+u16 g_FiringRangeFailReasons[] = {
+	L_MPMENU(456), // "Not Failed"
+	L_MPMENU(457), // "Out of Ammo"
+	L_MPMENU(458), // "Time Over"
+	L_MPMENU(459), // "Score Unattainable"
+	L_MPMENU(460), // "Too Inaccurate"
+};
 
 u16 g_FiringRangeDifficultyNames[] = {
 	L_MPMENU(439), // "Bronze"
@@ -12951,7 +12956,7 @@ struct menu_dialog menudialog_frtrainingstats = {
 
 // 2f0b4
 struct menu_item menuitems_frtrainingstats2[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f1a3d98, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&frMenuTextFailReason, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(450), (u32)&frMenuTextScoreValue, NULL }, // "Score:"
 	{ MENUITEMTYPE_LABEL,       0, 0x00000002, L_MPMENU(451), (u32)&frMenuTextTargetsDestroyedValue, NULL }, // "Targets Destroyed:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
