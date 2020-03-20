@@ -10070,7 +10070,7 @@ struct menu_dialog menudialog_mpendgame = {
 
 // 2a6cc
 struct menu_item menuitems_2a6cc[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f17eac8, 0x00000000, menuhandler00178018 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextChallengeName, 0x00000000, menuhandler00178018 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextScenarioName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, L_AME(0), L_MPWEAPONS(162), (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Time Limit:"
 	{ MENUITEMTYPE_LABEL,       1, L_AME(0), L_MPWEAPONS(163), (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Score Limit:"
@@ -11050,7 +11050,7 @@ struct menu_item menuitems_mpchallengedetails[] = {
 // 2c038
 struct menu_dialog menudialog_mpchallengedetails = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f17eac8,
+	(u32)&mpMenuTextChallengeName,
 	menuitems_mpchallengedetails,
 	menudialog0017eb34,
 	0x00000808,
@@ -11062,7 +11062,7 @@ struct menu_dialog menudialog_mpgamesetup2;
 // 2c050
 struct menu_dialog menudialog_mpchallengedetails2 = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f17eac8,
+	(u32)&mpMenuTextChallengeName,
 	menuitems_mpchallengedetails,
 	menudialog0017eb34,
 	0x00000808,

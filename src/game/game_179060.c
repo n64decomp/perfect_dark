@@ -4617,7 +4617,6 @@ char *mpMenuTextChrNameForTeamSetup(struct menu_item *item)
 }
 
 const char var7f1b8044[] = "\n";
-const char var7f1b8048[] = "%s:\n";
 
 GLOBAL_ASM(
 glabel func0f17dac4
@@ -5703,38 +5702,15 @@ s32 menuhandlerMpStartChallenge(u32 operation, struct menu_item *item, s32 *valu
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f17eac8
-/*  f17eac8:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x88)
-/*  f17eacc:	91cecc10 */ 	lbu	$t6,%lo(g_MpSetup+0x88)($t6)
-/*  f17ead0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f17ead4:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f17ead8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f17eadc:	11c10005 */ 	beq	$t6,$at,.L0f17eaf4
-/*  f17eae0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f17eae4:	0fc5b9f1 */ 	jal	langGet
-/*  f17eae8:	24045032 */ 	addiu	$a0,$zero,0x5032
-/*  f17eaec:	1000000e */ 	beqz	$zero,.L0f17eb28
-/*  f17eaf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17eaf4:
-/*  f17eaf4:	0fc66dfd */ 	jal	mpGetCurrentChallengeIndex
-/*  f17eaf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17eafc:	0fc66daf */ 	jal	mpChallengeGetName
-/*  f17eb00:	00402025 */ 	or	$a0,$v0,$zero
-/*  f17eb04:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f17eb08:	3c057f1c */ 	lui	$a1,%hi(var7f1b8048)
-/*  f17eb0c:	24a58048 */ 	addiu	$a1,$a1,%lo(var7f1b8048)
-/*  f17eb10:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f17eb14:	0c004dad */ 	jal	sprintf
-/*  f17eb18:	00403025 */ 	or	$a2,$v0,$zero
-/*  f17eb1c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f17eb20:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f17eb24:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f17eb28:
-/*  f17eb28:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f17eb2c:	03e00008 */ 	jr	$ra
-/*  f17eb30:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *mpMenuTextChallengeName(struct menu_item *item)
+{
+	if (g_MpSetup.locktype != MPLOCKTYPE_CHALLENGE) {
+		return langGet(L_MPMENU(50)); // "Combat Challenges"
+	}
+
+	sprintf(g_StringPointer, "%s:\n", mpChallengeGetName(mpGetCurrentChallengeIndex()));
+	return g_StringPointer;
+}
 
 GLOBAL_ASM(
 glabel menudialog0017eb34

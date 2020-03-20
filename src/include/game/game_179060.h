@@ -57,7 +57,7 @@ u32 func0f17e288(void);
 u32 func0f17e318(void);
 s32 menudialog0017e3fc(u32, u32, u32 *);
 s32 menuhandler0017e4d4(u32, u32, u32 *);
-u32 func0f17eac8(void);
+char *mpMenuTextChallengeName(struct menu_item *item);
 s32 menudialog0017eb34(u32, u32, u32 *);
 char *mpMenuTextSavePlayerOrCopy(struct menu_item *item);
 char *mpMenuTextArenaName(struct menu_item *item);
