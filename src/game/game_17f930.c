@@ -5231,36 +5231,14 @@ char *mpMenuTextScenarioShortName(struct menu_item *item)
 	return g_StringPointer;
 }
 
-const char var7f1b88cc[] = "%s\n";
+char *mpMenuTextScenarioName(struct menu_item *item)
+{
+	sprintf(g_StringPointer, "%s\n", langGet(g_MpScenarioOverviews[g_MpSetup.scenario].name));
+	return g_StringPointer;
+}
+
 const char var7f1b88d0[] = "%s:\n";
 const char var7f1b88d8[] = "%s\n";
-
-GLOBAL_ASM(
-glabel func0f18500c
-/*  f18500c:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x10)
-/*  f185010:	91cecb98 */ 	lbu	$t6,%lo(g_MpSetup+0x10)($t6)
-/*  f185014:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f185018:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f18501c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f185020:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f185024:	000f7840 */ 	sll	$t7,$t7,0x1
-/*  f185028:	3c048008 */ 	lui	$a0,%hi(g_MpScenarioOverviews)
-/*  f18502c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f185030:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f185034:	0fc5b9f1 */ 	jal	langGet
-/*  f185038:	94847148 */ 	lhu	$a0,%lo(g_MpScenarioOverviews)($a0)
-/*  f18503c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f185040:	3c057f1c */ 	lui	$a1,%hi(var7f1b88cc)
-/*  f185044:	24a588cc */ 	addiu	$a1,$a1,%lo(var7f1b88cc)
-/*  f185048:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f18504c:	0c004dad */ 	jal	sprintf
-/*  f185050:	00403025 */ 	or	$a2,$v0,$zero
-/*  f185054:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f185058:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f18505c:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f185060:	03e00008 */ 	jr	$ra
-/*  f185064:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
 
 GLOBAL_ASM(
 glabel menuhandler00185068

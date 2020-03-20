@@ -4471,9 +4471,5 @@ void *func0f1a7878(u16 fileid, s32 arg1, s32 arg2)
 	return func0f1a7794(fileid, arg1, arg2, 0);
 }
 
-const char var7f1b98d0[] = "%dm %2ds\n";
-const char var7f1b98dc[] = "%s%s%2.2fs\n";
-const char var7f1b98e8[] = "";
-const char var7f1b98ec[] = "";
 const char var7f1b98f0[] = "%s\n";
 

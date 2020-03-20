@@ -10071,7 +10071,7 @@ struct menu_dialog menudialog_mpendgame = {
 // 2a6cc
 struct menu_item menuitems_2a6cc[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f17eac8, 0x00000000, menuhandler00178018 },
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f18500c, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextScenarioName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, L_AME(0), L_MPWEAPONS(162), (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Time Limit:"
 	{ MENUITEMTYPE_LABEL,       1, L_AME(0), L_MPWEAPONS(163), (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Score Limit:"
 	{ MENUITEMTYPE_LABEL,       2, L_AME(0), L_MPWEAPONS(164), (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Team Score Limit:"
