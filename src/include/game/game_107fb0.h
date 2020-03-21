@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f107fb0(void);
+char *getSaveLocationName(s32 index);
 u32 func0f108078(void);
 u32 func0f1080d0(void);
 u32 func0f1082b0(void);

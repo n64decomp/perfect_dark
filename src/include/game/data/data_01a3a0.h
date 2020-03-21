@@ -2,7 +2,6 @@
 #define IN_GAME_DATA_01A3A0_H
 #include <ultra64.h>
 
-extern u16 iomessages[];
 extern struct menu_dialog menudialog_1a410;
 extern u16 savelocations2[];
 extern u16 iomessages2[];

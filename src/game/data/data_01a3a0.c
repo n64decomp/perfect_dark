@@ -19,26 +19,6 @@
 #include "stagesetup.h"
 #include "types.h"
 
-// 1a3a0
-u16 iomessages[] = {
-	L_OPTIONS(112), // "Controller Pak 1"
-	L_OPTIONS(113), // "Controller Pak 2"
-	L_OPTIONS(114), // "Controller Pak 3"
-	L_OPTIONS(115), // "Controller Pak 4"
-	L_OPTIONS(111), // "Game Pak"
-	L_MPWEAPONS(229), // "Controller Pak Not Found"
-	L_OPTIONS(322), // "The Controller Pak was not found in any controller."
-	L_OPTIONS(323), // "File was not saved."
-	L_OPTIONS(324), // "File would not load."
-	L_OPTIONS(325), // "Could not delete the file."
-	L_OPTIONS(326), // "Out of memory."
-	L_OPTIONS(327), // "This player is already loaded for this game."
-	L_OPTIONS(328), // "has been removed."
-	L_OPTIONS(329), // "Controller Pak is damaged or incorrectly inserted."
-	L_OPTIONS(330), // "Game not delete failed."
-	0x0000,
-};
-
 // 1a3c0
 struct menu_item menuitems_1a3c0[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, (u32)&func0f108550, 0x00000000, menuhandler001084b8 },
