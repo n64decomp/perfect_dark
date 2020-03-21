@@ -3017,12 +3017,7 @@ struct cutsceneentry {
 	u16 stage_id;
 	u16 mission;
 	u32 scene;
-	u16 namefileid;
-};
-
-struct cutscenegroup {
-	u32 first_cutscene_index;
-	u16 namefileid;
+	u16 name;
 };
 
 struct cheat {

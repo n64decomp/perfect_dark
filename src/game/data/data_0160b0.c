@@ -2068,8 +2068,6 @@ struct menu_item menuitems_18c18[] = {
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
-struct menu_dialog menudialog_cinema;
-
 // 18ca4
 struct menu_item menuitems_18ca4[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b5, 0x00000001, &menudialog_audiooptions },
@@ -2077,7 +2075,7 @@ struct menu_item menuitems_18ca4[] = {
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b7, 0x00000003, &menudialog_189dc },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b8, 0x00000004, &menudialog_displayoptions_2pplayer1 },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b9, 0x00000005, &g_CheatsMenuDialog },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x00005679, 0x00000006, &menudialog_cinema },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x00005679, 0x00000006, &g_CinemaMenuDialog },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -2730,118 +2728,5 @@ struct cutsceneentry cutscenetable[] = {
 // 198c0
 // Indexes into the above cutscenetable, where each entry is the first cutscene
 // of each mission.
-u32 cutsceneindexes[] = {
-	/* 0*/ 1,
-	/* 1*/ 3,
-	/* 2*/ 5,
-	/* 3*/ 7,
-	/* 4*/ 9,
-	/* 5*/ 11,
-	/* 6*/ 14,
-	/* 7*/ 16,
-	/* 8*/ 18,
-	/* 9*/ 21,
-	/*10*/ 23,
-	/*11*/ 26,
-	/*12*/ 28,
-	/*13*/ 30,
-	/*14*/ 33,
-	/*15*/ 35,
-	/*16*/ 37,
-	/*17*/ 38,
-};
 
 // 19908
-struct cutscenegroup cutscenegrouptable[] = {
-	// first_cutscene_index, name file id
-	{ /* 0*/  0, 0x57b4 },
-	{ /* 1*/  1, 0x57b6 },
-	{ /* 2*/  7, 0x57b7 },
-	{ /* 3*/  9, 0x57b8 },
-	{ /* 4*/ 14, 0x57b9 },
-	{ /* 5*/ 21, 0x57ba },
-	{ /* 6*/ 28, 0x57bb },
-	{ /* 7*/ 33, 0x57bc },
-	{ /* 8*/ 35, 0x57bd },
-	{ /* 9*/ 37, 0x57be },
-	{ /*10*/ 39, 0x57bf },
-};
-
-// 19960
-struct menu_item menuitems_cinema[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x000000eb, 0x00000000, menuhandler00106644 },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 19988
-struct menu_dialog menudialog_cinema = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS(490), // "Cinema"
-	menuitems_cinema,
-	NULL,
-	0x00000004,
-	NULL,
-};
-
-// 199a0
-struct menu_item menuitems_missionselect[] = {
-	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x000000eb, 0x00000000, menuhandler0010476c },
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 199c8
-struct menu_dialog g_SelectMissionMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS(122), // "Mission Select"
-	menuitems_missionselect,
-	NULL,
-	0x00000004,
-	NULL,
-};
-
-// 199e0
-u16 g_MainMenuLabelsNoCheats[] = {
-	L_OPTIONS(117), // "Solo Missions"
-	L_OPTIONS(118), // "Combat Simulator"
-	L_OPTIONS(119), // "Co-Operative"
-	L_OPTIONS(120), // "Counter-Operative"
-};
-
-// 199e8
-u16 g_MainMenuLabelsWithCheats[] = {
-	L_MPWEAPONS(130), // "Cheat Solo Missions"
-	L_MPWEAPONS(131), // "Cheat Combat Simulator"
-	L_MPWEAPONS(132), // "Cheat Co-Operative"
-	L_MPWEAPONS(133), // "Cheat Counter-Operative"
-};
-
-// 199f0
-struct menu_item menuitems_mainmenu[] = {
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400008, L_MISC(446), 0x00000001, NULL }, // "Carrington Institute"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, (u32)&mainMenuTextLabel, 0x00000002, menuhandlerMainMenuSoloMissions },
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, (u32)&mainMenuTextLabel, 0x00000003, menuhandlerMainMenuCombatSimulator },
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, (u32)&mainMenuTextLabel, 0x00000004, menuhandlerMainMenuCooperative },
-	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, (u32)&mainMenuTextLabel, 0x00000005, menuhandlerMainMenuCounterOperative },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(187), 0x00000006, &menudialog_changeagent }, // "Change Agent..."
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
-};
-
-// 19a7c
-struct menu_dialog g_MainMenuMenuDialog = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS(116), // "Perfect Menu"
-	menuitems_mainmenu,
-	menudialogMainMenu,
-	0x00000004,
-	&menudialog_18d48,
-};
-
-// 19a94
-struct menu_dialog g_CiMainMenuDialogViaPause = {
-	MENUDIALOGTYPE_DEFAULT,
-	L_OPTIONS(116), // "Perfect Menu"
-	menuitems_mainmenu,
-	menudialogMainMenu,
-	0x00000004,
-	&menudialog_18d60,
-};

@@ -774,7 +774,10 @@
 #define MENUITEMTYPE_END         0x1a
 
 #define MENUOP_GETOPTIONCOUNT  1
+#define MENUOP_2               2
 #define MENUOP_GETOPTIONTEXT   3
+#define MENUOP_4               4
+#define MENUOP_5               5
 #define MENUOP_SET             6
 #define MENUOP_GETOPTIONVALUE  7
 #define MENUOP_GET             8

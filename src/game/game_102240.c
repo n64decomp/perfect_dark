@@ -4403,141 +4403,127 @@ glabel func0f1065c0
 /*  f106640:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel menuhandler00106644
-.late_rodata
-glabel var7f1b2e88
-.word menuhandler00106644+0x70 # f1066b4
-glabel var7f1b2e8c
-.word menuhandler00106644+0x168 # f1067ac
-glabel var7f1b2e90
-.word menuhandler00106644+0x98 # f1066dc
-glabel var7f1b2e94
-.word menuhandler00106644+0x174 # f1067b8
-glabel var7f1b2e98
-.word menuhandler00106644+0x190 # f1067d4
-glabel var7f1b2e9c
-.word menuhandler00106644+0xe8 # f10672c
-glabel var7f1b2ea0
-.word menuhandler00106644+0x158 # f10679c
-.text
-/*  f106644:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f106648:	3c0e8007 */ 	lui	$t6,%hi(cutscenegrouptable)
-/*  f10664c:	27a20028 */ 	addiu	$v0,$sp,0x28
-/*  f106650:	25ce38e8 */ 	addiu	$t6,$t6,%lo(cutscenegrouptable)
-/*  f106654:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f106658:	afa50084 */ 	sw	$a1,0x84($sp)
-/*  f10665c:	25d90054 */ 	addiu	$t9,$t6,0x54
-/*  f106660:	00404025 */ 	or	$t0,$v0,$zero
-.L0f106664:
-/*  f106664:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f106668:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f10666c:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f106670:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f106674:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f106678:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f10667c:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f106680:	15d9fff8 */ 	bne	$t6,$t9,.L0f106664
-/*  f106684:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f106688:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f10668c:	2489ffff */ 	addiu	$t1,$a0,-1
-/*  f106690:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f106694:	2d210007 */ 	sltiu	$at,$t1,0x7
-/*  f106698:	10200053 */ 	beqz	$at,.L0f1067e8
-/*  f10669c:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f1066a0:	3c017f1b */ 	lui	$at,%hi(var7f1b2e88)
-/*  f1066a4:	00290821 */ 	addu	$at,$at,$t1
-/*  f1066a8:	8c292e88 */ 	lw	$t1,%lo(var7f1b2e88)($at)
-/*  f1066ac:	01200008 */ 	jr	$t1
-/*  f1066b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1066b4:	0fc41970 */ 	jal	func0f1065c0
-/*  f1066b8:	afa60088 */ 	sw	$a2,0x88($sp)
-/*  f1066bc:	00025080 */ 	sll	$t2,$v0,0x2
-/*  f1066c0:	3c0b8007 */ 	lui	$t3,%hi(cutsceneindexes)
-/*  f1066c4:	016a5821 */ 	addu	$t3,$t3,$t2
-/*  f1066c8:	8d6b38a0 */ 	lw	$t3,%lo(cutsceneindexes)($t3)
-/*  f1066cc:	8fa60088 */ 	lw	$a2,0x88($sp)
-/*  f1066d0:	256c0001 */ 	addiu	$t4,$t3,0x1
-/*  f1066d4:	10000044 */ 	beqz	$zero,.L0f1067e8
-/*  f1066d8:	accc0000 */ 	sw	$t4,0x0($a2)
-/*  f1066dc:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f1066e0:	3c048007 */ 	lui	$a0,%hi(menudialog_status+0x14)
-/*  f1066e4:	1440000a */ 	bnez	$v0,.L0f106710
-/*  f1066e8:	00026880 */ 	sll	$t5,$v0,0x2
-/*  f1066ec:	0fc5b9f1 */ 	jal	langGet
-/*  f1066f0:	240457c0 */ 	addiu	$a0,$zero,0x57c0
-/*  f1066f4:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1066f8:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1066fc:	0c004dad */ 	jal	sprintf
-/*  f106700:	00402825 */ 	or	$a1,$v0,$zero
-/*  f106704:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f106708:	10000038 */ 	beqz	$zero,.L0f1067ec
-/*  f10670c:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f106710:
-/*  f106710:	01a26823 */ 	subu	$t5,$t5,$v0
-/*  f106714:	000d6880 */ 	sll	$t5,$t5,0x2
-/*  f106718:	008d2021 */ 	addu	$a0,$a0,$t5
-/*  f10671c:	0fc5b9f1 */ 	jal	langGet
-/*  f106720:	948436d4 */ 	lhu	$a0,%lo(menudialog_status+0x14)($a0)
-/*  f106724:	10000032 */ 	beqz	$zero,.L0f1067f0
-/*  f106728:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10672c:	8cc20000 */ 	lw	$v0,0x0($a2)
-/*  f106730:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f106734:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f106738:	14400010 */ 	bnez	$v0,.L0f10677c
-/*  f10673c:	2459ffff */ 	addiu	$t9,$v0,-1
-/*  f106740:	0fc41970 */ 	jal	func0f1065c0
-/*  f106744:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106748:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f10674c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f106750:	0002c080 */ 	sll	$t8,$v0,0x2
-/*  f106754:	3c0f8007 */ 	lui	$t7,%hi(cutsceneindexes)
-/*  f106758:	a06004d4 */ 	sb	$zero,0x4d4($v1)
-/*  f10675c:	01f87821 */ 	addu	$t7,$t7,$t8
-/*  f106760:	8def38a0 */ 	lw	$t7,%lo(cutsceneindexes)($t7)
-/*  f106764:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f106768:	a06f04d5 */ 	sb	$t7,0x4d5($v1)
-/*  f10676c:	0fc06fa8 */ 	jal	func0f01bea0
-/*  f106770:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106774:	1000001d */ 	beqz	$zero,.L0f1067ec
-/*  f106778:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10677c:
-/*  f10677c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f106780:	a07904d4 */ 	sb	$t9,0x4d4($v1)
-/*  f106784:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f106788:	a06e04d5 */ 	sb	$t6,0x4d5($v1)
-/*  f10678c:	0fc06fa8 */ 	jal	func0f01bea0
-/*  f106790:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106794:	10000015 */ 	beqz	$zero,.L0f1067ec
-/*  f106798:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10679c:	3c08000f */ 	lui	$t0,0xf
-/*  f1067a0:	3508ffff */ 	ori	$t0,$t0,0xffff
-/*  f1067a4:	10000010 */ 	beqz	$zero,.L0f1067e8
-/*  f1067a8:	acc80000 */ 	sw	$t0,0x0($a2)
-/*  f1067ac:	2409000b */ 	addiu	$t1,$zero,0xb
-/*  f1067b0:	1000000d */ 	beqz	$zero,.L0f1067e8
-/*  f1067b4:	acc90000 */ 	sw	$t1,0x0($a2)
-/*  f1067b8:	8cca0000 */ 	lw	$t2,0x0($a2)
-/*  f1067bc:	000a58c0 */ 	sll	$t3,$t2,0x3
-/*  f1067c0:	004b6021 */ 	addu	$t4,$v0,$t3
-/*  f1067c4:	0fc5b9f1 */ 	jal	langGet
-/*  f1067c8:	95840004 */ 	lhu	$a0,0x4($t4)
-/*  f1067cc:	10000008 */ 	beqz	$zero,.L0f1067f0
-/*  f1067d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1067d4:	8ccd0000 */ 	lw	$t5,0x0($a2)
-/*  f1067d8:	000dc0c0 */ 	sll	$t8,$t5,0x3
-/*  f1067dc:	00587821 */ 	addu	$t7,$v0,$t8
-/*  f1067e0:	8df90000 */ 	lw	$t9,0x0($t7)
-/*  f1067e4:	acd90008 */ 	sw	$t9,0x8($a2)
-.L0f1067e8:
-/*  f1067e8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1067ec:
-/*  f1067ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1067f0:
-/*  f1067f0:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f1067f4:	03e00008 */ 	jr	$ra
-/*  f1067f8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+//-----------------------------------------------------------------------------\
+// @dialog Cinema -------------------------------------------------------------/
+//----------------------------------------------------------------------------/
+
+u32 g_CutsceneIndexes[] = {
+	/* 0*/ 1,
+	/* 1*/ 3,
+	/* 2*/ 5,
+	/* 3*/ 7,
+	/* 4*/ 9,
+	/* 5*/ 11,
+	/* 6*/ 14,
+	/* 7*/ 16,
+	/* 8*/ 18,
+	/* 9*/ 21,
+	/*10*/ 23,
+	/*11*/ 26,
+	/*12*/ 28,
+	/*13*/ 30,
+	/*14*/ 33,
+	/*15*/ 35,
+	/*16*/ 37,
+	/*17*/ 38,
+};
+
+struct cutscenegroup {
+	u32 first_cutscene_index;
+	u16 name;
+};
+
+char *menuhandlerCinema(u32 operation, struct menu_item *item, s32 *value)
+{
+	struct cutscenegroup groups[] = {
+		{ /* 0*/  0, L_OPTIONS(436) }, // "Special"
+		{ /* 1*/  1, L_OPTIONS(438) }, // "Mission 1 - dataDyne Central"
+		{ /* 2*/  7, L_OPTIONS(439) },
+		{ /* 3*/  9, L_OPTIONS(440) },
+		{ /* 4*/ 14, L_OPTIONS(441) },
+		{ /* 5*/ 21, L_OPTIONS(442) },
+		{ /* 6*/ 28, L_OPTIONS(443) },
+		{ /* 7*/ 33, L_OPTIONS(444) },
+		{ /* 8*/ 35, L_OPTIONS(445) },
+		{ /* 9*/ 37, L_OPTIONS(446) }, // "Mission 9 - Skedar Ruins"
+		{ /*10*/ 39, L_OPTIONS(447) }, // "Finale"
+	};
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = g_CutsceneIndexes[func0f1065c0()] + 1;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		if (*value == 0) {
+			sprintf(g_StringPointer, langGet(L_OPTIONS(448))); // "Play All"
+			return g_StringPointer;
+		}
+		return langGet(cutscenetable[*value - 1].name);
+	case MENUOP_SET:
+		if (*value == 0) {
+			s32 index = func0f1065c0();
+			g_Vars.unk0004d4 = 0;
+			g_Vars.unk0004d5 = g_CutsceneIndexes[index];
+			menuPopDialog();
+			func0f01bea0();
+		} else {
+			g_Vars.unk0004d4 = *value - 1;
+			g_Vars.unk0004d5 = 1;
+			menuPopDialog();
+			func0f01bea0();
+		}
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = 0xfffff;
+		break;
+	case MENUOP_2:
+		*value = ARRAYCOUNT(groups);
+		break;
+	case MENUOP_4:
+		return langGet(groups[*value].name);
+	case MENUOP_5:
+		value[2] = groups[*value].first_cutscene_index;
+		break;
+	}
+
+	return NULL;
+}
+
+struct menu_item g_CinemaMenuItems[] = {
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x000000eb, 0x00000000, menuhandlerCinema },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog g_CinemaMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(490), // "Cinema"
+	g_CinemaMenuItems,
+	NULL,
+	0x00000004,
+	NULL,
+};
+
+//-----------------------------------------------------------------------------\
+// @dialog SelectMission ------------------------------------------------------/
+//----------------------------------------------------------------------------/
+
+struct menu_item g_SelectMissionMenuItems[] = {
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x000000eb, 0x00000000, menuhandler0010476c },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog g_SelectMissionMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(122), // "Mission Select"
+	g_SelectMissionMenuItems,
+	NULL,
+	0x00000004,
+	NULL,
+};
+
+//-----------------------------------------------------------------------------\
+// @dialog MainMenu -----------------------------------------------------------/
+//----------------------------------------------------------------------------/
 
 s32 menuhandlerMainMenuSoloMissions(u32 operation, struct menu_item *item, s32 *value)
 {
@@ -4548,7 +4534,7 @@ s32 menuhandlerMainMenuSoloMissions(u32 operation, struct menu_item *item, s32 *
 	}
 
 	if (operation == MENUOP_CHECKPREFOCUSED) {
-		if (isStageDifficultyUnlocked(1, DIFF_A)) {
+		if (isStageDifficultyUnlocked(SOLOSTAGEINDEX_INVESTIGATION, DIFF_A)) {
 			return true;
 		}
 	}
@@ -4619,8 +4605,19 @@ bool menudialogMainMenu(u32 operation, struct menu_dialog *dialog, struct menust
 
 char *mainMenuTextLabel(struct menu_item *item)
 {
-	u16 nocheats[4] = g_MainMenuLabelsNoCheats;
-	u16 withcheats[4] = g_MainMenuLabelsWithCheats;
+	u16 nocheats[] = {
+		L_OPTIONS(117), // "Solo Missions"
+		L_OPTIONS(118), // "Combat Simulator"
+		L_OPTIONS(119), // "Co-Operative"
+		L_OPTIONS(120), // "Counter-Operative"
+	};
+
+	u16 withcheats[] = {
+		L_MPWEAPONS(130), // "Cheat Solo Missions"
+		L_MPWEAPONS(131), // "Cheat Combat Simulator"
+		L_MPWEAPONS(132), // "Cheat Co-Operative"
+		L_MPWEAPONS(133), // "Cheat Counter-Operative"
+	};
 
 	if (g_CheatsEnabledBank0 || g_CheatsEnabledBank1) {
 		return langGet(withcheats[item->param]);
@@ -4628,6 +4625,34 @@ char *mainMenuTextLabel(struct menu_item *item)
 
 	return langGet(nocheats[item->param]);
 }
+
+struct menu_item menuitems_mainmenu[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400008, L_MISC(446), 0x00000001, NULL }, // "Carrington Institute"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400000, (u32)&mainMenuTextLabel, 0x00000002, menuhandlerMainMenuSoloMissions },
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00400000, (u32)&mainMenuTextLabel, 0x00000003, menuhandlerMainMenuCombatSimulator },
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00400000, (u32)&mainMenuTextLabel, 0x00000004, menuhandlerMainMenuCooperative },
+	{ MENUITEMTYPE_SELECTABLE,  3, 0x00400000, (u32)&mainMenuTextLabel, 0x00000005, menuhandlerMainMenuCounterOperative },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(187), 0x00000006, &menudialog_changeagent }, // "Change Agent..."
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog g_MainMenuMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(116), // "Perfect Menu"
+	menuitems_mainmenu,
+	menudialogMainMenu,
+	0x00000004,
+	&menudialog_18d48,
+};
+
+struct menu_dialog g_CiMainMenuDialogViaPause = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(116), // "Perfect Menu"
+	menuitems_mainmenu,
+	menudialogMainMenu,
+	0x00000004,
+	&menudialog_18d60,
+};
 
 bool soloChoosePauseDialog(void)
 {
