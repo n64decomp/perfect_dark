@@ -336,11 +336,11 @@ char *mpMenuTextAward2(struct menu_item *item)
 	return g_Vars.players[g_MenuStack[g_MpPlayerNum].playernum]->award2;
 }
 
-char *mpMenuTextScorePositionWithSuffix(struct menu_item *item)
+char *mpMenuTextPlacementWithSuffix(struct menu_item *item)
 {
 	u16 suffixes[12] = g_OrdinalSuffixes;
 
-	return langGet(suffixes[g_MpPlayers[g_MpPlayerNum].base.scoreposition]);
+	return langGet(suffixes[g_MpPlayers[g_MpPlayerNum].base.placement]);
 }
 
 GLOBAL_ASM(
