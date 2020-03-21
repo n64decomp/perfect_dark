@@ -54,7 +54,7 @@ u32 func0f19f524(void);
 void func0f19f994(void);
 u32 func0f1a0924(void);
 u32 func0f1a0a70(void);
-u32 func0f1a0c30(void);
+s32 func0f1a0c30(void);
 u32 func0f1a0cc0(void);
 u32 func0f1a0fc8(void);
 bool ciIsChrBioUnlocked(u32 bodynum);

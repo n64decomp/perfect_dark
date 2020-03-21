@@ -4934,49 +4934,17 @@ glabel func0f1a0a70
 /*  f1a0c2c:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel func0f1a0c30
-/*  f1a0c30:	3c03800b */ 	lui	$v1,%hi(g_FiringRangeData)
-/*  f1a0c34:	2463cd20 */ 	addiu	$v1,$v1,%lo(g_FiringRangeData)
-/*  f1a0c38:	806e0464 */ 	lb	$t6,0x464($v1)
-/*  f1a0c3c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a0c40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a0c44:	19c0000a */ 	blez	$t6,.L0f1a0c70
-/*  f1a0c48:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f1a0c4c:	90620465 */ 	lbu	$v0,0x465($v1)
-/*  f1a0c50:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1a0c54:	00027942 */ 	srl	$t7,$v0,0x5
-/*  f1a0c58:	11e10003 */ 	beq	$t7,$at,.L0f1a0c68
-/*  f1a0c5c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f1a0c60:	15e10003 */ 	bne	$t7,$at,.L0f1a0c70
-/*  f1a0c64:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a0c68:
-/*  f1a0c68:	10000011 */ 	beqz	$zero,.L0f1a0cb0
-/*  f1a0c6c:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1a0c70:
-/*  f1a0c70:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f1a0c74:	8f1900bc */ 	lw	$t9,0xbc($t8)
-/*  f1a0c78:	87220028 */ 	lh	$v0,0x28($t9)
-/*  f1a0c7c:	3848000a */ 	xori	$t0,$v0,0xa
-/*  f1a0c80:	2d020001 */ 	sltiu	$v0,$t0,0x1
-/*  f1a0c84:	5040000b */ 	beqzl	$v0,.L0f1a0cb4
-/*  f1a0c88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a0c8c:	3c028009 */ 	lui	$v0,%hi(var80088804)
-/*  f1a0c90:	90428804 */ 	lbu	$v0,%lo(var80088804)($v0)
-/*  f1a0c94:	0002482b */ 	sltu	$t1,$zero,$v0
-/*  f1a0c98:	11200005 */ 	beqz	$t1,.L0f1a0cb0
-/*  f1a0c9c:	01201025 */ 	or	$v0,$t1,$zero
-/*  f1a0ca0:	0c003a61 */ 	jal	getCurrentStageId
-/*  f1a0ca4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a0ca8:	384a0026 */ 	xori	$t2,$v0,0x26
-/*  f1a0cac:	2d420001 */ 	sltiu	$v0,$t2,0x1
-.L0f1a0cb0:
-/*  f1a0cb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a0cb4:
-/*  f1a0cb4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a0cb8:	03e00008 */ 	jr	$ra
-/*  f1a0cbc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f1a0c30(void)
+{
+	if (g_FiringRangeData.unk464 > 0 &&
+			(g_FiringRangeData.unk465 == 2 || g_FiringRangeData.unk465 == 3)) {
+		return true;
+	}
+
+	return g_Vars.currentplayer->prop->rooms[0] == CIROOM_FIRINGRANGE
+		&& var80088804
+		&& getCurrentStageId() == STAGE_CITRAINING;
+}
 
 GLOBAL_ASM(
 glabel func0f1a0cc0
