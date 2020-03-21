@@ -2312,31 +2312,23 @@ glabel func0f104664
 /*  f10471c:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f104720
-/*  f104720:	3c05800a */ 	lui	$a1,%hi(g_SoloSaveFile)
-/*  f104724:	00001025 */ 	or	$v0,$zero,$zero
-/*  f104728:	24a52200 */ 	addiu	$a1,$a1,%lo(g_SoloSaveFile)
-/*  f10472c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f104730:	24060003 */ 	addiu	$a2,$zero,0x3
-.L0f104734:
-/*  f104734:	94ae0080 */ 	lhu	$t6,0x80($a1)
-/*  f104738:	51c00003 */ 	beqzl	$t6,.L0f104748
-/*  f10473c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f104740:	24620001 */ 	addiu	$v0,$v1,0x1
-/*  f104744:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f104748:
-/*  f104748:	1466fffa */ 	bne	$v1,$a2,.L0f104734
-/*  f10474c:	24a50002 */ 	addiu	$a1,$a1,0x2
-/*  f104750:	0082082a */ 	slt	$at,$a0,$v0
-/*  f104754:	10200003 */ 	beqz	$at,.L0f104764
-/*  f104758:	24020014 */ 	addiu	$v0,$zero,0x14
-/*  f10475c:	03e00008 */ 	jr	$ra
-/*  f104760:	24820011 */ 	addiu	$v0,$a0,0x11
-.L0f104764:
-/*  f104764:	03e00008 */ 	jr	$ra
-/*  f104768:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f104720(s32 value)
+{
+	s32 next = 0;
+	s32 d;
+
+	for (d = 0; d != 3; d++) {
+		if (g_SoloSaveFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][d]) {
+			next = d + 1;
+		}
+	}
+
+	if (next > value) {
+		return 17 + value;
+	}
+
+	return 20;
+}
 
 GLOBAL_ASM(
 glabel menuhandler0010476c
