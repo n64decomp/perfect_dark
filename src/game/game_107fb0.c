@@ -238,40 +238,17 @@ s32 menuhandler00108254(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1082b0
-/*  f1082b0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f1082b4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1082b8:	3c18800a */ 	lui	$t8,0x800a
-/*  f1082bc:	2718e000 */ 	addiu	$t8,$t8,-8192
-/*  f1082c0:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1082c4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1082c8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1082cc:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1082d0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1082d4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1082d8:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1082dc:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f1082e0:	8c450e38 */ 	lw	$a1,0xe38($v0)
-/*  f1082e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1082e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1082ec:	10a00008 */ 	beqz	$a1,.L0f108310
-/*  f1082f0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1082f4:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1082f8:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1082fc:	0fc42034 */ 	jal	func0f1080d0
-/*  f108300:	90460e3d */ 	lbu	$a2,0xe3d($v0)
-/*  f108304:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f108308:	10000002 */ 	beqz	$zero,.L0f108314
-/*  f10830c:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f108310:
-/*  f108310:	00001025 */ 	or	$v0,$zero,$zero
-.L0f108314:
-/*  f108314:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108318:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10831c:	03e00008 */ 	jr	$ra
-/*  f108320:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *func0f1082b0(struct menu_item *item)
+{
+	if (g_MenuStack[g_MpPlayerNum].unke38) {
+		func0f1080d0(g_StringPointer,
+				g_MenuStack[g_MpPlayerNum].unke38,
+				g_MenuStack[g_MpPlayerNum].unke3d);
+		return g_StringPointer;
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f108324
