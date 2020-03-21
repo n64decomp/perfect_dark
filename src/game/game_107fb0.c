@@ -101,18 +101,6 @@ char *getSaveLocationName(s32 index)
 	return NULL;
 }
 
-u16 iomessages3[] = {
-	L_OPTIONS(322), // "The Controller Pak was not found in any controller."
-	L_OPTIONS(323), // "File was not saved."
-	L_OPTIONS(324), // "File would not load."
-	L_OPTIONS(325), // "Could not delete the file."
-	L_OPTIONS(326), // "Out of memory."
-	L_OPTIONS(327), // "This player is already loaded for this game."
-	L_OPTIONS(328), // "has been removed."
-	L_OPTIONS(329), // "Controller Pak is damaged or incorrectly inserted."
-	L_OPTIONS(330), // "Game note delete failed."
-};
-
 s32 menuhandler00108014(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
@@ -384,32 +372,25 @@ glabel func0f1083d0
 /*  f108420:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+u16 g_PakFailReasons[] = {
+	L_OPTIONS(322), // "The Controller Pak was not found in any controller."
+	L_OPTIONS(323), // "File was not saved."
+	L_OPTIONS(324), // "File would not load."
+	L_OPTIONS(325), // "Could not delete the file."
+	L_OPTIONS(326), // "Out of memory."
+	L_OPTIONS(327), // "This player is already loaded for this game."
+	L_OPTIONS(328), // "has been removed."
+	L_OPTIONS(329), // "Controller Pak is damaged or incorrectly inserted."
+	L_OPTIONS(330), // "Game note delete failed."
+};
+
+char *pakMenuTextFailReason(struct menu_item *item)
+{
+	return langGet(g_PakFailReasons[g_MenuStack[g_MpPlayerNum].unke34]);
+}
+
 GLOBAL_ASM(
-glabel func0f108424
-/*  f108424:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f108428:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10842c:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0xe34)
-/*  f108430:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108434:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f108438:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10843c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f108440:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f108444:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f108448:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10844c:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f108450:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f108454:	9718ee34 */ 	lhu	$t8,%lo(g_MenuStack+0xe34)($t8)
-/*  f108458:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f10845c:	3c048007 */ 	lui	$a0,%hi(iomessages3)
-/*  f108460:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f108464:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108468:	00992021 */ 	addu	$a0,$a0,$t9
-/*  f10846c:	0fc5b9f1 */ 	jal	langGet
-/*  f108470:	9484438c */ 	lhu	$a0,%lo(iomessages3)($a0)
-/*  f108474:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108478:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10847c:	03e00008 */ 	jr	$ra
-/*  f108480:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f108484
 /*  f108484:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f108488:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f10848c:	afbf0014 */ 	sw	$ra,0x14($sp)

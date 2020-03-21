@@ -4283,7 +4283,7 @@ struct menustackitem {
 	/*0xe28*/ u32 unke28;
 	/*0xe2c*/ u32 unke2c;
 	/*0xe30*/ u32 unke30;
-	/*0xe34*/ u32 unke34;
+	/*0xe34*/ u16 unke34; // I/O error code
 	/*0xe38*/ u32 unke38;
 	/*0xe3c*/ u8 unke3c_00 : 1;
 	/*0xe3c*/ u8 unke3c_01 : 7;
