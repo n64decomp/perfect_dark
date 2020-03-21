@@ -35,7 +35,7 @@ u32 func0f0b1804(void);
 u32 func0f0b184c(void);
 s32 currentPlayerHasWeaponEquipped(u32 arg0);
 void func0f0b1948(s32 weaponum, s32 arg1);
-u32 func0f0b1a18(void);
+u32 func0f0b1a18(s32 weaponnum);
 u32 func0f0b1ad0(void);
 u32 func0f0b1af0(void);
 u32 func0f0b1c24(void);

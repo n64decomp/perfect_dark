@@ -3471,6 +3471,15 @@ s32 menuhandler001057ec(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
+struct menu_dialog menudialog_18d90 = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(180), // "Options"
+	menuitems_18c18,
+	menudialog0010559c,
+	0x00000000,
+	&menudialog_18058,
+};
+
 s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
@@ -3508,215 +3517,155 @@ char *invMenuTextSecondaryFunction(struct menu_item *item)
 	return langGet(L_OPTIONS(3)); // "\n"
 }
 
-GLOBAL_ASM(
-glabel func0f105948
-.late_rodata
-glabel var7f1b2e00
-.word 0xbe4ccccd
-.text
-/*  f105948:	27bdf988 */ 	addiu	$sp,$sp,-1656
-/*  f10594c:	3c0f8007 */ 	lui	$t7,%hi(var80072d8c)
-/*  f105950:	25ef2d8c */ 	addiu	$t7,$t7,%lo(var80072d8c)
-/*  f105954:	afbf0034 */ 	sw	$ra,0x34($sp)
-/*  f105958:	afb00030 */ 	sw	$s0,0x30($sp)
-/*  f10595c:	25ea0624 */ 	addiu	$t2,$t7,0x624
-/*  f105960:	27ae004c */ 	addiu	$t6,$sp,0x4c
-.L0f105964:
-/*  f105964:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f105968:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f10596c:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f105970:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f105974:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*  f105978:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f10597c:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*  f105980:	15eafff8 */ 	bne	$t7,$t2,.L0f105964
-/*  f105984:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f105988:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f10598c:	8dea0004 */ 	lw	$t2,0x4($t7)
-/*  f105990:	2488fffe */ 	addiu	$t0,$a0,-2
-/*  f105994:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f105998:	2901004f */ 	slti	$at,$t0,0x4f
-/*  f10599c:	01004825 */ 	or	$t1,$t0,$zero
-/*  f1059a0:	14200002 */ 	bnez	$at,.L0f1059ac
-/*  f1059a4:	adca0004 */ 	sw	$t2,0x4($t6)
-/*  f1059a8:	00004825 */ 	or	$t1,$zero,$zero
-.L0f1059ac:
-/*  f1059ac:	3c050004 */ 	lui	$a1,0x4
-/*  f1059b0:	afa40678 */ 	sw	$a0,0x678($sp)
-/*  f1059b4:	afa8003c */ 	sw	$t0,0x3c($sp)
-/*  f1059b8:	0fc2c5f0 */ 	jal	weaponHasFlag
-/*  f1059bc:	afa90048 */ 	sw	$t1,0x48($sp)
-/*  f1059c0:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*  f1059c4:	1440008f */ 	bnez	$v0,.L0f105c04
-/*  f1059c8:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*  f1059cc:	0520008d */ 	bltz	$t1,.L0f105c04
-/*  f1059d0:	8fa40678 */ 	lw	$a0,0x678($sp)
-/*  f1059d4:	afa8003c */ 	sw	$t0,0x3c($sp)
-/*  f1059d8:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f1059dc:	afa90048 */ 	sw	$t1,0x48($sp)
-/*  f1059e0:	3c0b8007 */ 	lui	$t3,%hi(g_MpPlayerNum)
-/*  f1059e4:	8d6b1448 */ 	lw	$t3,%lo(g_MpPlayerNum)($t3)
-/*  f1059e8:	3c0d800a */ 	lui	$t5,0x800a
-/*  f1059ec:	25ade000 */ 	addiu	$t5,$t5,-8192
-/*  f1059f0:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f1059f4:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f1059f8:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f1059fc:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f105a00:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f105a04:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f105a08:	000c6100 */ 	sll	$t4,$t4,0x4
-/*  f105a0c:	018d8021 */ 	addu	$s0,$t4,$t5
-/*  f105a10:	24190008 */ 	addiu	$t9,$zero,0x8
-/*  f105a14:	afa20044 */ 	sw	$v0,0x44($sp)
-/*  f105a18:	a2190840 */ 	sb	$t9,0x840($s0)
-/*  f105a1c:	ae000850 */ 	sw	$zero,0x850($s0)
-/*  f105a20:	0fc2c686 */ 	jal	func0f0b1a18
-/*  f105a24:	8fa40678 */ 	lw	$a0,0x678($sp)
-/*  f105a28:	3c188007 */ 	lui	$t8,%hi(g_MpPlayerNum)
-/*  f105a2c:	8f181448 */ 	lw	$t8,%lo(g_MpPlayerNum)($t8)
-/*  f105a30:	8fa90048 */ 	lw	$t1,0x48($sp)
-/*  f105a34:	3c0f800a */ 	lui	$t7,0x800a
-/*  f105a38:	001850c0 */ 	sll	$t2,$t8,0x3
-/*  f105a3c:	01585023 */ 	subu	$t2,$t2,$t8
-/*  f105a40:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f105a44:	01585021 */ 	addu	$t2,$t2,$t8
-/*  f105a48:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f105a4c:	01585023 */ 	subu	$t2,$t2,$t8
-/*  f105a50:	44800000 */ 	mtc1	$zero,$f0
-/*  f105a54:	000a5100 */ 	sll	$t2,$t2,0x4
-/*  f105a58:	25efe000 */ 	addiu	$t7,$t7,-8192
-/*  f105a5c:	014f8021 */ 	addu	$s0,$t2,$t7
-/*  f105a60:	00097080 */ 	sll	$t6,$t1,0x2
-/*  f105a64:	01c97021 */ 	addu	$t6,$t6,$t1
-/*  f105a68:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f105a6c:	27ab004c */ 	addiu	$t3,$sp,0x4c
-/*  f105a70:	01cb1821 */ 	addu	$v1,$t6,$t3
-/*  f105a74:	c4640000 */ 	lwc1	$f4,0x0($v1)
-/*  f105a78:	c4660004 */ 	lwc1	$f6,0x4($v1)
-/*  f105a7c:	c4680008 */ 	lwc1	$f8,0x8($v1)
-/*  f105a80:	c462000c */ 	lwc1	$f2,0xc($v1)
-/*  f105a84:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f105a88:	e7a00014 */ 	swc1	$f0,0x14($sp)
-/*  f105a8c:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f105a90:	c46a0010 */ 	lwc1	$f10,0x10($v1)
-/*  f105a94:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f105a98:	44050000 */ 	mfc1	$a1,$f0
-/*  f105a9c:	44060000 */ 	mfc1	$a2,$f0
-/*  f105aa0:	44070000 */ 	mfc1	$a3,$f0
-/*  f105aa4:	ae02084c */ 	sw	$v0,0x84c($s0)
-/*  f105aa8:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f105aac:	26040840 */ 	addiu	$a0,$s0,0x840
-/*  f105ab0:	e6000d78 */ 	swc1	$f0,0xd78($s0)
-/*  f105ab4:	e6000d50 */ 	swc1	$f0,0xd50($s0)
-/*  f105ab8:	e6000d7c */ 	swc1	$f0,0xd7c($s0)
-/*  f105abc:	e6000d54 */ 	swc1	$f0,0xd54($s0)
-/*  f105ac0:	e6000d80 */ 	swc1	$f0,0xd80($s0)
-/*  f105ac4:	e6000d58 */ 	swc1	$f0,0xd58($s0)
-/*  f105ac8:	e6000d90 */ 	swc1	$f0,0xd90($s0)
-/*  f105acc:	e6000d68 */ 	swc1	$f0,0xd68($s0)
-/*  f105ad0:	e6040d6c */ 	swc1	$f4,0xd6c($s0)
-/*  f105ad4:	e6060d70 */ 	swc1	$f6,0xd70($s0)
-/*  f105ad8:	e6080d74 */ 	swc1	$f8,0xd74($s0)
-/*  f105adc:	e6020d88 */ 	swc1	$f2,0xd88($s0)
-/*  f105ae0:	e6020d60 */ 	swc1	$f2,0xd60($s0)
-/*  f105ae4:	0fc3cdcb */ 	jal	func0f0f372c
-/*  f105ae8:	e7aa001c */ 	swc1	$f10,0x1c($sp)
-/*  f105aec:	3c0d8007 */ 	lui	$t5,%hi(g_MpPlayerNum)
-/*  f105af0:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f105af4:	44800000 */ 	mtc1	$zero,$f0
-/*  f105af8:	3c18800a */ 	lui	$t8,0x800a
-/*  f105afc:	000dc8c0 */ 	sll	$t9,$t5,0x3
-/*  f105b00:	032dc823 */ 	subu	$t9,$t9,$t5
-/*  f105b04:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f105b08:	032dc821 */ 	addu	$t9,$t9,$t5
-/*  f105b0c:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f105b10:	032dc823 */ 	subu	$t9,$t9,$t5
-/*  f105b14:	8faa0044 */ 	lw	$t2,0x44($sp)
-/*  f105b18:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f105b1c:	2718e000 */ 	addiu	$t8,$t8,-8192
-/*  f105b20:	03388021 */ 	addu	$s0,$t9,$t8
-/*  f105b24:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f105b28:	8fa8003c */ 	lw	$t0,0x3c($sp)
-/*  f105b2c:	44818000 */ 	mtc1	$at,$f16
-/*  f105b30:	e6000d5c */ 	swc1	$f0,0xd5c($s0)
-/*  f105b34:	8d4f0040 */ 	lw	$t7,0x40($t2)
-/*  f105b38:	2401003e */ 	addiu	$at,$zero,0x3e
-/*  f105b3c:	e6100d94 */ 	swc1	$f16,0xd94($s0)
-/*  f105b40:	11010003 */ 	beq	$t0,$at,.L0f105b50
-/*  f105b44:	ae0f0df4 */ 	sw	$t7,0xdf4($s0)
-/*  f105b48:	2401003f */ 	addiu	$at,$zero,0x3f
-/*  f105b4c:	1501003c */ 	bne	$t0,$at,.L0f105c40
-.L0f105b50:
-/*  f105b50:	2401003e */ 	addiu	$at,$zero,0x3e
-/*  f105b54:	15010005 */ 	bne	$t0,$at,.L0f105b6c
-/*  f105b58:	26040840 */ 	addiu	$a0,$s0,0x840
-/*  f105b5c:	3c0e0a01 */ 	lui	$t6,0xa01
-/*  f105b60:	35ceffff */ 	ori	$t6,$t6,0xffff
-/*  f105b64:	10000004 */ 	beqz	$zero,.L0f105b78
-/*  f105b68:	ae0e084c */ 	sw	$t6,0x84c($s0)
-.L0f105b6c:
-/*  f105b6c:	3c0b0400 */ 	lui	$t3,0x400
-/*  f105b70:	356bffff */ 	ori	$t3,$t3,0xffff
-/*  f105b74:	ae0b084c */ 	sw	$t3,0x84c($s0)
-.L0f105b78:
-/*  f105b78:	3c013f80 */ 	lui	$at,0x3f80
-/*  f105b7c:	44819000 */ 	mtc1	$at,$f18
-/*  f105b80:	44050000 */ 	mfc1	$a1,$f0
-/*  f105b84:	44060000 */ 	mfc1	$a2,$f0
-/*  f105b88:	44070000 */ 	mfc1	$a3,$f0
-/*  f105b8c:	240c0001 */ 	addiu	$t4,$zero,0x1
-/*  f105b90:	ae000df4 */ 	sw	$zero,0xdf4($s0)
-/*  f105b94:	ae000dc0 */ 	sw	$zero,0xdc0($s0)
-/*  f105b98:	afac0020 */ 	sw	$t4,0x20($sp)
-/*  f105b9c:	e7a00010 */ 	swc1	$f0,0x10($sp)
-/*  f105ba0:	e7a00014 */ 	swc1	$f0,0x14($sp)
-/*  f105ba4:	e7a00018 */ 	swc1	$f0,0x18($sp)
-/*  f105ba8:	0fc3cdcb */ 	jal	func0f0f372c
-/*  f105bac:	e7b2001c */ 	swc1	$f18,0x1c($sp)
-/*  f105bb0:	3c0d8007 */ 	lui	$t5,%hi(g_MpPlayerNum)
-/*  f105bb4:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f105bb8:	3c18800a */ 	lui	$t8,0x800a
-/*  f105bbc:	3c017f1b */ 	lui	$at,%hi(var7f1b2e00)
-/*  f105bc0:	000dc8c0 */ 	sll	$t9,$t5,0x3
-/*  f105bc4:	032dc823 */ 	subu	$t9,$t9,$t5
-/*  f105bc8:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f105bcc:	032dc821 */ 	addu	$t9,$t9,$t5
-/*  f105bd0:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f105bd4:	032dc823 */ 	subu	$t9,$t9,$t5
-/*  f105bd8:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f105bdc:	2718e000 */ 	addiu	$t8,$t8,-8192
-/*  f105be0:	c4202e00 */ 	lwc1	$f0,%lo(var7f1b2e00)($at)
-/*  f105be4:	03388021 */ 	addu	$s0,$t9,$t8
-/*  f105be8:	240a003c */ 	addiu	$t2,$zero,0x3c
-/*  f105bec:	240f0078 */ 	addiu	$t7,$zero,0x78
-/*  f105bf0:	ae0a0db8 */ 	sw	$t2,0xdb8($s0)
-/*  f105bf4:	ae0f0db4 */ 	sw	$t7,0xdb4($s0)
-/*  f105bf8:	e6000d8c */ 	swc1	$f0,0xd8c($s0)
-/*  f105bfc:	10000010 */ 	beqz	$zero,.L0f105c40
-/*  f105c00:	e6000d64 */ 	swc1	$f0,0xd64($s0)
-.L0f105c04:
-/*  f105c04:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f105c08:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f105c0c:	3c0c800a */ 	lui	$t4,0x800a
-/*  f105c10:	258ce000 */ 	addiu	$t4,$t4,-8192
-/*  f105c14:	000e58c0 */ 	sll	$t3,$t6,0x3
-/*  f105c18:	016e5823 */ 	subu	$t3,$t3,$t6
-/*  f105c1c:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f105c20:	016e5821 */ 	addu	$t3,$t3,$t6
-/*  f105c24:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f105c28:	016e5823 */ 	subu	$t3,$t3,$t6
-/*  f105c2c:	000b5900 */ 	sll	$t3,$t3,0x4
-/*  f105c30:	016c8021 */ 	addu	$s0,$t3,$t4
-/*  f105c34:	ae000894 */ 	sw	$zero,0x894($s0)
-/*  f105c38:	ae000850 */ 	sw	$zero,0x850($s0)
-/*  f105c3c:	ae00084c */ 	sw	$zero,0x84c($s0)
-.L0f105c40:
-/*  f105c40:	8fbf0034 */ 	lw	$ra,0x34($sp)
-/*  f105c44:	8fb00030 */ 	lw	$s0,0x30($sp)
-/*  f105c48:	27bd0678 */ 	addiu	$sp,$sp,0x678
-/*  f105c4c:	03e00008 */ 	jr	$ra
-/*  f105c50:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 var80072d88 = 0xff000000;
+
+void func0f105948(s32 weaponnum)
+{
+	f32 gunconfig[][5] = {
+		{ 23.299999237061f,   -16.799999237061f,  -153.39999389648f,  6.4140100479126f, 0.48769000172615f },
+		{ 22.299999237061f,   -13.5f,             -216.60000610352f,  6.443009853363f,  0.34057000279427f },
+		{ 19.5f,              -31.89999961853f,   -154.89999389648f,  6.3730101585388f, 0.41813001036644f },
+		{ -2.5f,              14.300000190735f,   16.200000762939f,   6.4340100288391f, 0.34057000279427f },
+		{ -2.4000000953674f,  21.0f,              -98.900001525879f,  5.7630100250244f, 0.32354000210762f },
+		{ -4.0999999046326f,  -30.5f,             -29.39999961853f,   6.3770098686218f, 0.37735998630524f },
+		{ 0.69999998807907f,  13.89999961853f,    23.10000038147f,    6.4730100631714f, 0.37735998630524f },
+		{ 0.69999998807907f,  13.89999961853f,    23.10000038147f,    6.4730100631714f, 0.37735998630524f },
+		{ -5.1999998092651f,  36.5f,              -370.39999389648f,  6.5040102005005f, 0.37735998630524f },
+		{ -5.5f,              -79.5f,             -661.0f,            6.3190097808838f, 0.214640006423f   },
+		{ -2.9000000953674f,  -57.200000762939f,  -110.09999847412f,  6.3170099258423f, 0.27739998698235f },
+		{ -6.1999998092651f,  -33.900001525879f,  101.40000152588f,   6.3320097923279f, 0.27739998698235f },
+		{ -23.5f,             -4.0999999046326f,  -209.60000610352f,  6.1110100746155f, 0.214640006423f   },
+		{ -3.9000000953674f,  -63.099998474121f,  -872.0f,            6.3720102310181f, 0.214640006423f   },
+		{ 218.19999694824f,   -56.299999237061f,  -210.89999389648f,  6.3500099182129f, 0.22594000399113f },
+		{ 0.5f,               -84.599998474121f,  -377.20001220703f,  6.1880102157593f, 0.18402999639511f },
+		{ -1.6000000238419f,  -68.400001525879f,  -874.5f,            6.3720102310181f, 0.214640006423f   },
+		{ -3.7999999523163f,  -145.5f,            52.5f,              6.3170099258423f, 0.32354000210762f },
+		{ 117.19999694824f,   -13.800000190735f,  -177.60000610352f,  6.1730098724365f, 0.23782999813557f },
+		{ -69.699996948242f,  -135.10000610352f,  -146.10000610352f,  6.18901014328f,   0.16608999669552f },
+		{ 0.20000000298023f,  -176.60000610352f,  -276.29998779297f,  6.2660098075867f, 0.16608999669552f },
+		{ -0.80000001192093f, -21.200000762939f,  3.5999999046326f,   6.3030200004578f, 0.26352998614311f },
+		{ -94.800003051758f,  -13.300000190735f,  -307.70001220703f,  6.2500200271606f, 0.25034999847412f },
+		{ -2.2000000476837f,  -45.599998474121f,  -131.89999389648f,  6.3580098152161f, 0.19371999800205f },
+		{ -148.69999694824f,  26.10000038147f,    -251.69999694824f,  42.328819274902f, 0.32354000210762f },
+		{ -4.0f,              -3.0f,              -157.60000610352f,  43.489791870117f, 0.48769000172615f },
+		{ -4.8000001907349f,  14.0f,              -89.0f,             43.927791595459f, 0.5688099861145f  },
+		{ -0.40000000596046f, -29.89999961853f,   -8.8000001907349f,  43.981800079346f, 0.73510998487473f },
+		{ -23.700000762939f,  -35.799999237061f,  -237.89999389648f,  43.153789520264f, 0.6983500123024f  },
+		{ -23.700000762939f,  -35.799999237061f,  -237.89999389648f,  43.153789520264f, 0.6983500123024f  },
+		{ 63.700000762939f,   53.0f,              -171.60000610352f,  43.153789520264f, 0.9025200009346f  },
+		{ 63.700000762939f,   53.0f,              -171.60000610352f,  43.153789520264f, 0.9025200009346f  },
+		{ 63.700000762939f,   53.0f,              -171.60000610352f,  43.153789520264f, 0.9025200009346f  },
+		{ 0.20000000298023f,  -1.5f,              1.0f,               43.288791656494f, 6.6717000007629f  },
+		{ -68.400001525879f,  14.699999809265f,   -92.5f,             44.255790710449f, 0.59876000881195f },
+		{ -2.9000000953674f,  33.5f,              61.400001525879f,   44.254791259766f, 0.48769000172615f },
+		{ -1.5f,              41.599998474121f,   -49.900001525879f,  44.198810577393f, 0.41813001036644f },
+		{ -2.5999999046326f,  -0.20000000298023f, -237.10000610352f,  44.029800415039f, 0.21465000510216f },
+		{ -1.2999999523163f,  13.39999961853f,    -43.700000762939f,  44.2587890625f,   0.34057000279427f },
+		{ 0.10000000149012f,  32.099998474121f,   -161.69999694824f,  44.111789703369f, 0.39722999930382f },
+		{ -1.0f,              -31.89999961853f,   -300.0f,            44.034790039062f, 0.18402999639511f },
+		{ 0.30000001192093f,  -44.900001525879f,  45.099998474121f,   44.078788757324f, 0.27739998698235f },
+		{ -4.8000001907349f,  14.0f,              -89.0f,             43.927791595459f, 0.5688099861145f  },
+		{ -0.69999998807907f, -1.7000000476837f,  -9.3000001907349f,  44.255809783936f, 3.6051800251007f  },
+		{ 16.0f,              -56.099998474121f,  7.5f,               44.468811035156f, 0.77380001544952f },
+		{ -0.69999998807907f, -1.7000000476837f,  -9.3000001907349f,  44.255809783936f, 3.6051800251007f  },
+		{ -1.3999999761581f,  -41.5f,             -120.30000305176f,  44.265800476074f, 0.3585000038147f  },
+		{ 1.6000000238419f,   3.5f,               -0.20000000298023f, 44.75479888916f,  0.48769000172615f },
+		{ -5.0999999046326f,  -9.5f,              2.0f,               43.715789794922f, 0.44014000892639f },
+		{ -1.3999999761581f,  -41.5f,             -120.30000305176f,  44.265800476074f, 0.3585000038147f  },
+		{ -1.3999999761581f,  -41.5f,             -120.30000305176f,  44.265800476074f, 0.3585000038147f  },
+		{ -50.099998474121f,  20.0f,              -139.5f,            43.179790496826f, 0.69836002588272f },
+		{ 60.700000762939f,   27.60000038147f,    -146.30000305176f,  43.265789031982f, 0.81453001499176f },
+		{ 0.60000002384186f,  -1.6000000238419f,  -0.5f,              38.538738250732f, 0.90254002809525f },
+		{ 0.60000002384186f,  -1.6000000238419f,  -0.5f,              38.538738250732f, 0.90254002809525f },
+		{ 0.40000000596046f,  0.5f,               -0.60000002384186f, 38.68675994873f,  0.66345000267029f },
+		{ -22.700000762939f,  -1.7999999523163f,  -12.300000190735f,  5.8997898101807f, 0.25036001205444f },
+		{ 4.1999998092651f,   -13.199999809265f,  4.0999999046326f,   43.32479095459f,  0.21465000510216f },
+		{ -8.5f,              -8.1000003814697f,  10.199999809265f,   42.137790679932f, 0.16608999669552f },
+		{ -8.5f,              -8.1000003814697f,  10.199999809265f,   43.388809204102f, 0.54038000106812f },
+		{ -8.5f,              -8.1000003814697f,  10.199999809265f,   43.388809204102f, 0.54038000106812f },
+		{ -8.5f,              -8.1000003814697f,  10.199999809265f,   43.388809204102f, 0.54038000106812f },
+		{ -0.89999997615814f, -14.10000038147f,   1.7000000476837f,   0.0f,             1.0f              },
+		{ -0.89999997615814f, -14.10000038147f,   1.7000000476837f,   0.0f,             1.0f              },
+		{ -2.7000000476837f,  9.1000003814697f,   -2.9000000953674f,  43.391819000244f, 0.54038000106812f },
+		{ -6.0999999046326f,  -0.69999998807907f, -2.0f,              43.391819000244f, 0.69836002588272f },
+		{ 0.40000000596046f,  -7.0f,              1.7999999523163f,   43.211811065674f, 1.6702300310135f  },
+		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
+		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
+		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
+		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
+		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
+		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
+		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
+		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
+		{ 281.89999389648f,   0.89999997615814f,  8.3999996185303f,   5.0027899742126f, 0.18402999639511f },
+		{ -1.8999999761581f,  0.89999997615814f,  -55.0f,             43.142780303955f, 0.14989000558853f },
+		{ -3.7999999523163f,  6.1999998092651f,   1.0f,               5.6747899055481f, 0.29199999570847f },
+		{ -3.7999999523163f,  6.1999998092651f,   1.0f,               5.8997898101807f, 2.0506100654602f  },
+	};
+
+	s32 useindex;
+	struct weapon *weapon;
+	s8 *gptr;
+	s32 wantindex;
+
+	useindex = weaponnum - 2;
+	wantindex = useindex;
+
+	if ((u32)wantindex < 0 || wantindex >= ARRAYCOUNT(gunconfig)) {
+		useindex = 0;
+	}
+
+	if (weaponHasFlag(weaponnum, WEAPONFLAG_00040000) == false && (u32)wantindex >= 0 && useindex >= 0) {
+		weapon = weaponFindById(weaponnum);
+
+		g_MenuStack[g_MpPlayerNum].unk840 = 8;
+		g_MenuStack[g_MpPlayerNum].unk850 = 0;
+
+		g_MenuStack[g_MpPlayerNum].unk84c = func0f0b1a18(weaponnum);
+		g_MenuStack[g_MpPlayerNum].unkd78 = 0;
+		g_MenuStack[g_MpPlayerNum].unkd50 = 0;
+		g_MenuStack[g_MpPlayerNum].unkd7c = 0;
+		g_MenuStack[g_MpPlayerNum].unkd54 = 0;
+		g_MenuStack[g_MpPlayerNum].unkd80 = 0;
+		g_MenuStack[g_MpPlayerNum].unkd58 = 0;
+		g_MenuStack[g_MpPlayerNum].unkd90 = 0;
+		g_MenuStack[g_MpPlayerNum].unkd68 = 0;
+		g_MenuStack[g_MpPlayerNum].unkd6c = gunconfig[useindex][0];
+		g_MenuStack[g_MpPlayerNum].unkd70 = gunconfig[useindex][1];
+		g_MenuStack[g_MpPlayerNum].unkd74 = gunconfig[useindex][2];
+		g_MenuStack[g_MpPlayerNum].unkd88 = gunconfig[useindex][3];
+		g_MenuStack[g_MpPlayerNum].unkd60 = gunconfig[useindex][3]; // @bug? Wrong index?
+
+		func0f0f372c(&g_MenuStack[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, gunconfig[useindex][4], 1);
+
+		g_MenuStack[g_MpPlayerNum].unkd5c = 0;
+		g_MenuStack[g_MpPlayerNum].unkdf4 = weapon->gptr;
+		g_MenuStack[g_MpPlayerNum].unkd94 = -1;
+
+		// These indexes correspond to WEAPON_DISGUISE40 and WEAPON_DISGUISE41
+		if (wantindex == 0x3e || wantindex == 0x3f) {
+			if ((u32)wantindex == 0x3e) {
+				g_MenuStack[g_MpPlayerNum].unk84c = 0x0a01ffff;
+			} else {
+				g_MenuStack[g_MpPlayerNum].unk84c = 0x0400ffff;
+			}
+
+			g_MenuStack[g_MpPlayerNum].unkdf4 = NULL;
+			g_MenuStack[g_MpPlayerNum].unkdc0 = 0;
+
+			func0f0f372c(&g_MenuStack[g_MpPlayerNum].unk840, 0, 0, 0, 0, 0, 0, 1, 1);
+
+			g_MenuStack[g_MpPlayerNum].unkdb8 = 60;
+			g_MenuStack[g_MpPlayerNum].unkdb4 = 120;
+			g_MenuStack[g_MpPlayerNum].unkd8c = -0.2f;
+			g_MenuStack[g_MpPlayerNum].unkd64 = -0.2f;
+		}
+	} else {
+		g_MenuStack[g_MpPlayerNum].unk894 = 0;
+		g_MenuStack[g_MpPlayerNum].unk850 = 0;
+		g_MenuStack[g_MpPlayerNum].unk84c = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel menudialog00105c54
@@ -3875,8 +3824,36 @@ char *invMenuTextWeaponDescription(struct menu_item *item)
 		if (g_InventoryWeapon == WEAPON_NECKLACE
 				&& g_Vars.stagenum == STAGE_ATTACKSHIP
 				&& getDifficulty() >= DIFF_PA) {
-			u8 username[10] = g_CassNecklaceUsername;
-			u8 password[14] = g_CassNecklacePassword;
+			u8 username[] = {
+				'C' + 9,
+				'D' + 18,
+				'V' + 27,
+				'7' + 36,
+				'8' + 45,
+				'0' + 54,
+				'3' + 63,
+				'2' + 72,
+				'2' + 81,
+				'\0' + 90,
+			};
+
+			u8 password[] = {
+				'I' + 4,
+				'8' + 8,
+				'M' + 12,
+				'O' + 16,
+				'Z' + 20,
+				'Y' + 24,
+				'M' + 28,
+				'8' + 32,
+				'N' + 36,
+				'D' + 40,
+				'I' + 44,
+				'8' + 48,
+				'5' + 52,
+				'\0' + 56,
+			};
+
 			s32 i;
 
 			for (i = 0; i < 10; i++) {
@@ -4203,6 +4180,52 @@ glabel var7f1b2e84
 /*  f106390:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+struct menu_item menuitems_inventory[] = {
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106178 },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000203, L_OPTIONS(3), (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000302, L_OPTIONS(3), (u32)&invMenuTextWeaponName, NULL }, // ""
+	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS(3), (u32)&invMenuTextPrimaryFunction, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x00000202, L_OPTIONS(3), (u32)&invMenuTextSecondaryFunction, NULL }, // ""
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&invMenuTextWeaponDescription, 0x00000000, NULL },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_item menuitems_weaponsavailable[] = {
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x0000006e, 0x00000063, menuhandler00106028 },
+	{ MENUITEMTYPE_LABEL,       0, 0x0213, L_OPTIONS(3), (u32)&invMenuTextWeaponManufacturer, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x0312, L_OPTIONS(3), (u32)&invMenuTextWeaponName, NULL }, // ""
+	{ MENUITEMTYPE_MODEL,       0, 0x00000000, 0x0000008c, 0x00000037, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x0212, L_OPTIONS(3), (u32)&invMenuTextPrimaryFunction, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x0212, L_OPTIONS(3), (u32)&invMenuTextSecondaryFunction, NULL }, // ""
+	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&invMenuTextWeaponDescription, 0x00000000, NULL },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog menudialog_19534 = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(178), // "Inventory"
+	menuitems_inventory,
+	menudialog00105c54,
+	0x00000602,
+	&menudialog_18d30,
+};
+
+struct menu_dialog menudialog_weaponsavailable = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(179), // "Weapons Available"
+	menuitems_weaponsavailable,
+	menudialog00105c54,
+	0x00000602,
+	NULL,
+};
+
+u32 var80073544 = 0;
+
+//-----------------------------------------------------------------------------\
+// @dialog SoloAbort ----------------------------------------------------------/
+//----------------------------------------------------------------------------/
+
 s32 menuhandlerAbortMission(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
@@ -4220,6 +4243,42 @@ glabel menudialog001063d4
 /*  f1063dc:	03e00008 */ 	jr	$ra
 /*  f1063e0:	00001025 */ 	or	$v0,$zero,$zero
 );
+
+struct menu_item g_SoloAbortMenuItems[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_OPTIONS(175), 0x00000000, NULL }, // "Do you want to abort the mission?"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS(176), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(177), 0x00000000, menuhandlerAbortMission }, // "Abort"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog g_SoloAbortMenuDialog = {
+	MENUDIALOGTYPE_DANGER,
+	L_OPTIONS(174), // "Warning"
+	g_SoloAbortMenuItems,
+	menudialog001063d4,
+	0x00000000,
+	NULL,
+};
+
+struct menu_item g_SoloAbortShortMenuItems[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_MPWEAPONS(155), 0x00000000, NULL }, // "Do you want to abort the mission"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS(176), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(177), 0x00000000, menuhandlerAbortMission }, // "Abort"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog g_SoloAbortShortMenuDialog = {
+	MENUDIALOGTYPE_DANGER,
+	L_OPTIONS(174), // "Warning"
+	g_SoloAbortShortMenuItems,
+	menudialog001063d4,
+	0x00000000,
+	NULL,
+};
+
+//-----------------------------------------------------------------------------\
+// @dialog SoloPauseStatus ----------------------------------------------------/
+//----------------------------------------------------------------------------/
 
 s32 soloMenuDialogPauseStatus(u32 operation, s32 arg1, s32 arg2)
 {
@@ -4276,9 +4335,111 @@ char *soloMenuTitlePauseStatus(struct menu_dialog *dialog)
 	return g_StringPointer;
 }
 
+struct menu_item menuitems_status[] = {
+	{ MENUITEMTYPE_OBJECTIVES,  2, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(173), 0x00000000, &g_SoloAbortShortMenuDialog }, // "Abort!"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_item menuitems_19674[] = {
+	{ MENUITEMTYPE_OBJECTIVES,  0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(173), 0x00000000, &g_SoloAbortMenuDialog }, // "Abort!"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog g_SoloPauseMenuDialog = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&soloMenuTitlePauseStatus,
+	menuitems_19674,
+	soloMenuDialogPauseStatus,
+	0x00000048,
+	&menudialog_19534,
+};
+
+struct menu_dialog menudialog_196c8 = {
+	MENUDIALOGTYPE_DEFAULT,
+	(u32)&soloMenuTitlePauseStatus,
+	menuitems_19674,
+	soloMenuDialogPauseStatus,
+	0x00000048,
+	&menudialog_2a800,
+};
+
+struct menu_dialog menudialog_status = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(172), // "Status"
+	menuitems_status,
+	soloMenuDialogPauseStatus,
+	0x00000048,
+	&menudialog_2a818,
+};
+
 //-----------------------------------------------------------------------------\
 // @dialog Cinema -------------------------------------------------------------/
 //----------------------------------------------------------------------------/
+
+struct cutscene g_Cutscenes[] = {
+	// stage ID, mission, scene, name
+	{ /* 0*/ STAGE_DEFECTION,      0, 0, L_OPTIONS(450) },
+	{ /* 1*/ STAGE_DEFECTION,      0, 1, L_OPTIONS(451) },
+	{ /* 2*/ STAGE_INVESTIGATION,  1, 0, L_OPTIONS(452) },
+	{ /* 3*/ STAGE_INVESTIGATION,  1, 1, L_OPTIONS(453) },
+	{ /* 4*/ STAGE_EXTRACTION,     2, 0, L_OPTIONS(454) },
+	{ /* 5*/ STAGE_EXTRACTION,     2, 1, L_OPTIONS(455) },
+	{ /* 6*/ STAGE_VILLA,          3, 0, L_OPTIONS(456) },
+	{ /* 7*/ STAGE_VILLA,          3, 2, L_OPTIONS(458) },
+	{ /* 8*/ STAGE_CHICAGO,        4, 0, L_OPTIONS(459) },
+	{ /* 9*/ STAGE_CHICAGO,        4, 1, L_OPTIONS(460) },
+	{ /*10*/ STAGE_G5BUILDING,     5, 0, L_OPTIONS(461) },
+	{ /*11*/ STAGE_G5BUILDING,     5, 1, L_OPTIONS(462) },
+	{ /*12*/ STAGE_G5BUILDING,     5, 2, L_OPTIONS(463) },
+	{ /*13*/ STAGE_INFILTRATION,   6, 0, L_OPTIONS(464) },
+	{ /*14*/ STAGE_INFILTRATION,   6, 1, L_OPTIONS(465) },
+	{ /*15*/ STAGE_RESCUE,         7, 0, L_OPTIONS(466) },
+	{ /*16*/ STAGE_RESCUE,         7, 1, L_OPTIONS(467) },
+	{ /*17*/ STAGE_ESCAPE,         8, 0, L_OPTIONS(468) },
+	{ /*18*/ STAGE_ESCAPE,         8, 1, L_OPTIONS(469) },
+	{ /*19*/ STAGE_ESCAPE,         8, 2, L_OPTIONS(470) },
+	{ /*20*/ STAGE_AIRBASE,        9, 0, L_OPTIONS(471) },
+	{ /*21*/ STAGE_AIRBASE,        9, 1, L_OPTIONS(472) },
+	{ /*22*/ STAGE_AIRFORCEONE,   10, 0, L_OPTIONS(473) },
+	{ /*23*/ STAGE_AIRFORCEONE,   10, 1, L_OPTIONS(474) },
+	{ /*24*/ STAGE_AIRFORCEONE,   10, 2, L_OPTIONS(475) },
+	{ /*25*/ STAGE_CRASHSITE,     11, 0, L_OPTIONS(476) },
+	{ /*26*/ STAGE_CRASHSITE,     11, 1, L_OPTIONS(477) },
+	{ /*27*/ STAGE_PELAGIC,       12, 0, L_OPTIONS(478) },
+	{ /*28*/ STAGE_PELAGIC,       12, 1, L_OPTIONS(479) },
+	{ /*29*/ STAGE_DEEPSEA,       13, 0, L_OPTIONS(480) },
+	{ /*30*/ STAGE_DEEPSEA,       13, 1, L_OPTIONS(481) },
+	{ /*31*/ STAGE_DEEPSEA,       13, 2, L_OPTIONS(482) },
+	{ /*32*/ STAGE_DEFENSE,       14, 0, L_OPTIONS(483) },
+	{ /*33*/ STAGE_DEFENSE,       14, 1, L_OPTIONS(484) },
+	{ /*34*/ STAGE_ATTACKSHIP,    15, 0, L_OPTIONS(485) },
+	{ /*35*/ STAGE_ATTACKSHIP,    15, 1, L_OPTIONS(486) },
+	{ /*36*/ STAGE_SKEDARRUINS,   16, 0, L_OPTIONS(487) },
+	{ /*37*/ STAGE_SKEDARRUINS,   16, 1, L_OPTIONS(488) },
+};
+
+u32 g_CutsceneIndexes[] = {
+	/* 0*/ 1,
+	/* 1*/ 3,
+	/* 2*/ 5,
+	/* 3*/ 7,
+	/* 4*/ 9,
+	/* 5*/ 11,
+	/* 6*/ 14,
+	/* 7*/ 16,
+	/* 8*/ 18,
+	/* 9*/ 21,
+	/*10*/ 23,
+	/*11*/ 26,
+	/*12*/ 28,
+	/*13*/ 30,
+	/*14*/ 33,
+	/*15*/ 35,
+	/*16*/ 37,
+	/*17*/ 38,
+};
 
 s32 getNumCompletedMissions(void)
 {
@@ -4304,27 +4465,6 @@ s32 getNumCompletedMissions(void)
 
 	return count;
 }
-
-u32 g_CutsceneIndexes[] = {
-	/* 0*/ 1,
-	/* 1*/ 3,
-	/* 2*/ 5,
-	/* 3*/ 7,
-	/* 4*/ 9,
-	/* 5*/ 11,
-	/* 6*/ 14,
-	/* 7*/ 16,
-	/* 8*/ 18,
-	/* 9*/ 21,
-	/*10*/ 23,
-	/*11*/ 26,
-	/*12*/ 28,
-	/*13*/ 30,
-	/*14*/ 33,
-	/*15*/ 35,
-	/*16*/ 37,
-	/*17*/ 38,
-};
 
 struct cutscenegroup {
 	u32 first_cutscene_index;

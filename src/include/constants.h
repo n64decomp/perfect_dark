@@ -2125,7 +2125,8 @@
 
 #define WEAPONFLAG_00000010      0x00000010
 #define WEAPONFLAG_TRACKTIMEUSED 0x00000200
-#define WEAPONFLAG_DUALWIELD      0x00001000 // Suspected dual wield
+#define WEAPONFLAG_DUALWIELD     0x00001000
+#define WEAPONFLAG_00040000      0x00040000
 
 // Heads and bodies
 #define HEAD_RANDOM           -1
