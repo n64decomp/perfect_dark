@@ -21,7 +21,7 @@ u32 func0f105948(void);
 char *invMenuTextWeaponName(struct menu_item *item);
 char *invMenuTextWeaponManufacturer(struct menu_item *item);
 char *invMenuTextWeaponDescription(struct menu_item *item);
-u32 func0f106508(void);
+char *soloMenuTitlePauseStatus(struct menu_dialog *dialog);
 bool soloChoosePauseDialog(void);
 s32 menudialog00103368(u32, u32, u32 *);
 void menudialog00103608(void);

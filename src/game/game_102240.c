@@ -51,7 +51,6 @@ const u32 var7f1b2d48[] = {0x57090000};
 const u32 var7f1b2d4c[] = {0x570f5710};
 
 const char var7f1b2d50[] = "\n";
-const char var7f1b2d54[] = "%s: %s\n";
 
 GLOBAL_ASM(
 glabel func0f102240
@@ -4308,57 +4307,18 @@ glabel menudialog001063e4
 /*  f106504:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f106508
-/*  f106508:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10650c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f106510:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0x4f8)
-/*  f106514:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f106518:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10651c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f106520:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f106524:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f106528:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10652c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f106530:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f106534:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f106538:	8f18e4f8 */ 	lw	$t8,%lo(g_MenuStack+0x4f8)($t8)
-/*  f10653c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f106540:	3c08800a */ 	lui	$t0,%hi(g_MissionConfig+0x2)
-/*  f106544:	8f190000 */ 	lw	$t9,0x0($t8)
-/*  f106548:	10990005 */ 	beq	$a0,$t9,.L0f106560
-/*  f10654c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106550:	0fc5b9f1 */ 	jal	langGet
-/*  f106554:	240456ac */ 	addiu	$a0,$zero,0x56ac
-/*  f106558:	10000016 */ 	beqz	$zero,.L0f1065b4
-/*  f10655c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f106560:
-/*  f106560:	9108dfea */ 	lbu	$t0,%lo(g_MissionConfig+0x2)($t0)
-/*  f106564:	3c048007 */ 	lui	$a0,%hi(g_StageNames+0xa)
-/*  f106568:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f10656c:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f106570:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f106574:	00892021 */ 	addu	$a0,$a0,$t1
-/*  f106578:	0fc5b9f1 */ 	jal	langGet
-/*  f10657c:	94841e76 */ 	lhu	$a0,%lo(g_StageNames+0xa)($a0)
-/*  f106580:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f106584:	0fc5b9f1 */ 	jal	langGet
-/*  f106588:	240456ac */ 	addiu	$a0,$zero,0x56ac
-/*  f10658c:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f106590:	3c057f1b */ 	lui	$a1,%hi(var7f1b2d54)
-/*  f106594:	24a52d54 */ 	addiu	$a1,$a1,%lo(var7f1b2d54)
-/*  f106598:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f10659c:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f1065a0:	0c004dad */ 	jal	sprintf
-/*  f1065a4:	00403825 */ 	or	$a3,$v0,$zero
-/*  f1065a8:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1065ac:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1065b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1065b4:
-/*  f1065b4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1065b8:	03e00008 */ 	jr	$ra
-/*  f1065bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *soloMenuTitlePauseStatus(struct menu_dialog *dialog)
+{
+	if (dialog != g_MenuStack[g_MpPlayerNum].unk4f8->dialog) {
+		return langGet(L_OPTIONS(172)); // "Status"
+	}
+
+	sprintf(g_StringPointer, "%s: %s\n",
+			langGet(g_StageNames[g_MissionConfig.stageindex].name3),
+			langGet(L_OPTIONS(172)));
+
+	return g_StringPointer;
+}
 
 //-----------------------------------------------------------------------------\
 // @dialog Cinema -------------------------------------------------------------/
