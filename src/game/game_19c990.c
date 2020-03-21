@@ -5911,46 +5911,20 @@ glabel func0f1a1824
 /*  f1a1908:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel dtPushEndscreen
-/*  f1a190c:	3c02800b */ 	lui	$v0,%hi(g_DeviceTrainingData)
-/*  f1a1910:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_DeviceTrainingData)
-/*  f1a1914:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f1a1918:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a191c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1920:	00037880 */ 	sll	$t7,$v1,0x2
-/*  f1a1924:	05e10008 */ 	bgez	$t7,.L0f1a1948
-/*  f1a1928:	0003c840 */ 	sll	$t9,$v1,0x1
-/*  f1a192c:	3c048009 */ 	lui	$a0,%hi(menudialog_trainingstats_completed)
-/*  f1a1930:	2484959c */ 	addiu	$a0,$a0,%lo(menudialog_trainingstats_completed)
-/*  f1a1934:	0fc3e178 */ 	jal	func0f0f85e0
-/*  f1a1938:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f1a193c:	3c02800b */ 	lui	$v0,%hi(g_DeviceTrainingData)
-/*  f1a1940:	10000008 */ 	beqz	$zero,.L0f1a1964
-/*  f1a1944:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_DeviceTrainingData)
-.L0f1a1948:
-/*  f1a1948:	07210006 */ 	bgez	$t9,.L0f1a1964
-/*  f1a194c:	3c048009 */ 	lui	$a0,%hi(menudialog_trainingstats_failed)
-/*  f1a1950:	2484950c */ 	addiu	$a0,$a0,%lo(menudialog_trainingstats_failed)
-/*  f1a1954:	0fc3e178 */ 	jal	func0f0f85e0
-/*  f1a1958:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f1a195c:	3c02800b */ 	lui	$v0,%hi(g_DeviceTrainingData)
-/*  f1a1960:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_DeviceTrainingData)
-.L0f1a1964:
-/*  f1a1964:	90480000 */ 	lbu	$t0,0x0($v0)
-/*  f1a1968:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a196c:	a0400001 */ 	sb	$zero,0x1($v0)
-/*  f1a1970:	310affdf */ 	andi	$t2,$t0,0xffdf
-/*  f1a1974:	314c00bf */ 	andi	$t4,$t2,0xbf
-/*  f1a1978:	a04a0000 */ 	sb	$t2,0x0($v0)
-/*  f1a197c:	318e00ef */ 	andi	$t6,$t4,0xef
-/*  f1a1980:	a04c0000 */ 	sb	$t4,0x0($v0)
-/*  f1a1984:	a04e0000 */ 	sb	$t6,0x0($v0)
-/*  f1a1988:	31cf00f7 */ 	andi	$t7,$t6,0xf7
-/*  f1a198c:	a04f0000 */ 	sb	$t7,0x0($v0)
-/*  f1a1990:	03e00008 */ 	jr	$ra
-/*  f1a1994:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void dtPushEndscreen(void)
+{
+	if (g_DeviceTrainingData.completed) {
+		func0f0f85e0(&g_DeviceTrainingStatsCompletedMenuDialog, MENUROOT_TRAINING);
+	} else if (g_DeviceTrainingData.failed) {
+		func0f0f85e0(&g_DeviceTrainingStatsFailedMenuDialog, MENUROOT_TRAINING);
+	}
+
+	g_DeviceTrainingData.unk01 = 0;
+	g_DeviceTrainingData.completed = false;
+	g_DeviceTrainingData.failed = false;
+	g_DeviceTrainingData.finished = false;
+	g_DeviceTrainingData.holographedpc = false;
+}
 
 GLOBAL_ASM(
 glabel func0f1a1998
