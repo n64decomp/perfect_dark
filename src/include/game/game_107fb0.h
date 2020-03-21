@@ -9,7 +9,7 @@ void func0f1080d0(char *dst, u32 ar1, u32 arg2);
 char *func0f1082b0(struct menu_item *item);
 void func0f108324(s32 arg0);
 u32 func0f1083b0(void);
-u32 func0f1083d0(void);
+void func0f1083d0(s32 arg0, s32 arg1);
 char *pakMenuTextFailReason(struct menu_item *item);
 u32 func0f108550(void);
 u32 func0f10865c(void);

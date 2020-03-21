@@ -273,30 +273,12 @@ glabel func0f1083b0
 /*  f1083cc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1083d0
-/*  f1083d0:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f1083d4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f1083d8:	3c18800a */ 	lui	$t8,0x800a
-/*  f1083dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1083e0:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f1083e4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1083e8:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f1083ec:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f1083f0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f1083f4:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1083f8:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1083fc:	2718e000 */ 	addiu	$t8,$t8,-8192
-/*  f108400:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f108404:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f108408:	a0450e3d */ 	sb	$a1,0xe3d($v0)
-/*  f10840c:	0fc420ec */ 	jal	func0f1083b0
-/*  f108410:	ac440e38 */ 	sw	$a0,0xe38($v0)
-/*  f108414:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f108418:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f10841c:	03e00008 */ 	jr	$ra
-/*  f108420:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f1083d0(s32 arg0, s32 arg1)
+{
+	g_MenuStack[g_MpPlayerNum].unke3d = arg1;
+	g_MenuStack[g_MpPlayerNum].unke38 = arg0;
+	func0f1083b0();
+}
 
 u16 g_PakFailReasons[] = {
 	L_OPTIONS(322), // "The Controller Pak was not found in any controller."
