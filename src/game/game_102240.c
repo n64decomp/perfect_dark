@@ -2255,62 +2255,30 @@ s32 menuhandlerAntiDifficulty(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f104664
-/*  f104664:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f104668:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f10466c:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f104670:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f104674:	3c02800a */ 	lui	$v0,%hi(g_SoloSaveFile)
-/*  f104678:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f10467c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f104680:	00009825 */ 	or	$s3,$zero,$zero
-/*  f104684:	24120001 */ 	addiu	$s2,$zero,0x1
-/*  f104688:	24422200 */ 	addiu	$v0,$v0,%lo(g_SoloSaveFile)
-/*  f10468c:	00008025 */ 	or	$s0,$zero,$zero
-.L0f104690:
-/*  f104690:	944e0080 */ 	lhu	$t6,0x80($v0)
-/*  f104694:	51c00003 */ 	beqzl	$t6,.L0f1046a4
-/*  f104698:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10469c:	26130001 */ 	addiu	$s3,$s0,0x1
-/*  f1046a0:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1046a4:
-/*  f1046a4:	2a010003 */ 	slti	$at,$s0,0x3
-/*  f1046a8:	1420fff9 */ 	bnez	$at,.L0f104690
-/*  f1046ac:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f1046b0:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f1046b4:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f1046b8:	80580003 */ 	lb	$t8,0x3($v0)
-/*  f1046bc:	07000007 */ 	bltz	$t8,.L0f1046dc
-/*  f1046c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1046c4:	8c590000 */ 	lw	$t9,0x0($v0)
-/*  f1046c8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1046cc:	24110020 */ 	addiu	$s1,$zero,0x20
-/*  f1046d0:	00194e40 */ 	sll	$t1,$t9,0x19
-/*  f1046d4:	05210003 */ 	bgez	$t1,.L0f1046e4
-/*  f1046d8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1046dc:
-/*  f1046dc:	10000008 */ 	beqz	$zero,.L0f104700
-/*  f1046e0:	00009025 */ 	or	$s2,$zero,$zero
-.L0f1046e4:
-/*  f1046e4:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f1046e8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1046ec:	1c400002 */ 	bgtz	$v0,.L0f1046f8
-/*  f1046f0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1046f4:	00009025 */ 	or	$s2,$zero,$zero
-.L0f1046f8:
-/*  f1046f8:	1611fffa */ 	bne	$s0,$s1,.L0f1046e4
-/*  f1046fc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f104700:
-/*  f104700:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f104704:	02721021 */ 	addu	$v0,$s3,$s2
-/*  f104708:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f10470c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f104710:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f104714:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f104718:	03e00008 */ 	jr	$ra
-/*  f10471c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 getNumUnlockedSpecialStages(void)
+{
+	s32 next = 0;
+	s32 offsetforduel = 1;
+	s32 i;
+
+	for (i = 0; i < 3; i++) {
+		if (g_SoloSaveFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][i]) {
+			next = i + 1;
+		}
+	}
+
+	if (g_MissionConfig.iscoop || g_MissionConfig.isanti) {
+		offsetforduel = 0;
+	} else {
+		for (i = 0; i != 32; i++) {
+			if (ciGetFiringRangeScore(i) <= 0) {
+				offsetforduel = 0;
+			}
+		}
+	}
+
+	return next + offsetforduel;
+}
 
 s32 func0f104720(s32 value)
 {
@@ -2467,7 +2435,7 @@ glabel var7f1b2dfc
 /*  f104890:	14cbffe0 */ 	bne	$a2,$t3,.L0f104814
 /*  f104894:	254a0006 */ 	addiu	$t2,$t2,0x6
 .L0f104898:
-/*  f104898:	0fc41199 */ 	jal	func0f104664
+/*  f104898:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f10489c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1048a0:	8e0e0000 */ 	lw	$t6,0x0($s0)
 /*  f1048a4:	01c2c021 */ 	addu	$t8,$t6,$v0
@@ -2480,7 +2448,7 @@ glabel var7f1b2dfc
 /*  f1048c0:	8e030000 */ 	lw	$v1,0x0($s0)
 /*  f1048c4:	0fc411db */ 	jal	menuhandler0010476c
 /*  f1048c8:	8fa501fc */ 	lw	$a1,0x1fc($sp)
-/*  f1048cc:	0fc41199 */ 	jal	func0f104664
+/*  f1048cc:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f1048d0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1048d4:	8fb9018c */ 	lw	$t9,0x18c($sp)
 /*  f1048d8:	03222823 */ 	subu	$a1,$t9,$v0
@@ -2516,7 +2484,7 @@ glabel var7f1b2dfc
 /*  f104948:	27a60178 */ 	addiu	$a2,$sp,0x178
 /*  f10494c:	0fc411db */ 	jal	menuhandler0010476c
 /*  f104950:	afa70188 */ 	sw	$a3,0x188($sp)
-/*  f104954:	0fc41199 */ 	jal	func0f104664
+/*  f104954:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104958:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f10495c:	8fb90178 */ 	lw	$t9,0x178($sp)
 /*  f104960:	8fa70188 */ 	lw	$a3,0x188($sp)
@@ -2591,7 +2559,7 @@ glabel var7f1b2dfc
 /*  f104a68:	ae190000 */ 	sw	$t9,0x0($s0)
 /*  f104a6c:	0fc411db */ 	jal	menuhandler0010476c
 /*  f104a70:	8fa501fc */ 	lw	$a1,0x1fc($sp)
-/*  f104a74:	0fc41199 */ 	jal	func0f104664
+/*  f104a74:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104a78:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f104a7c:	8faf0168 */ 	lw	$t7,0x168($sp)
 /*  f104a80:	01e27023 */ 	subu	$t6,$t7,$v0
@@ -2600,7 +2568,7 @@ glabel var7f1b2dfc
 /*  f104a8c:	030e082b */ 	sltu	$at,$t8,$t6
 /*  f104a90:	542002bd */ 	bnezl	$at,.L0f105588
 /*  f104a94:	00001025 */ 	or	$v0,$zero,$zero
-/*  f104a98:	0fc41199 */ 	jal	func0f104664
+/*  f104a98:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104a9c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f104aa0:	8fb90168 */ 	lw	$t9,0x168($sp)
 /*  f104aa4:	00401825 */ 	or	$v1,$v0,$zero
@@ -2632,7 +2600,7 @@ glabel var7f1b2dfc
 /*  f104b04:	8fa501fc */ 	lw	$a1,0x1fc($sp)
 /*  f104b08:	0fc411db */ 	jal	menuhandler0010476c
 /*  f104b0c:	27a60150 */ 	addiu	$a2,$sp,0x150
-/*  f104b10:	0fc41199 */ 	jal	func0f104664
+/*  f104b10:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104b14:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f104b18:	8faf0150 */ 	lw	$t7,0x150($sp)
 /*  f104b1c:	27a301a8 */ 	addiu	$v1,$sp,0x1a8
@@ -2679,7 +2647,7 @@ glabel var7f1b2dfc
 /*  f104bb4:	000370c0 */ 	sll	$t6,$v1,0x3
 /*  f104bb8:	0fc411db */ 	jal	menuhandler0010476c
 /*  f104bbc:	27a6013c */ 	addiu	$a2,$sp,0x13c
-/*  f104bc0:	0fc41199 */ 	jal	func0f104664
+/*  f104bc0:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104bc4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f104bc8:	8faf013c */ 	lw	$t7,0x13c($sp)
 /*  f104bcc:	01e2c023 */ 	subu	$t8,$t7,$v0
@@ -2703,7 +2671,7 @@ glabel var7f1b2dfc
 /*  f104c10:	27a600dc */ 	addiu	$a2,$sp,0xdc
 /*  f104c14:	0fc411db */ 	jal	menuhandler0010476c
 /*  f104c18:	afaa0134 */ 	sw	$t2,0x134($sp)
-/*  f104c1c:	0fc41199 */ 	jal	func0f104664
+/*  f104c1c:	0fc41199 */ 	jal	getNumUnlockedSpecialStages
 /*  f104c20:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f104c24:	8fae00dc */ 	lw	$t6,0xdc($sp)
 /*  f104c28:	8faa0134 */ 	lw	$t2,0x134($sp)

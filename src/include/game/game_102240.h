@@ -11,7 +11,7 @@ f32 func0f1036ac(s32 arg0, s32 arg1);
 bool isStageDifficultyUnlocked(s32 stageindex, s32 difficulty);
 u32 func0f103e68(void);
 u32 getMaxAiBuddies(void);
-u32 func0f104664(void);
+s32 getNumUnlockedSpecialStages(void);
 s32 func0f104720(s32 value);
 char *func0f105664(struct menu_item *item);
 char *func0f1056a0(struct menu_item *item);
