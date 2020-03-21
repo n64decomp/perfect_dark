@@ -6423,12 +6423,10 @@ glabel func0f1a1f70
 /*  f1a1fdc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel getHoloTrainingData
-/*  f1a1fe0:	3c02800b */ 	lui	$v0,%hi(g_HoloTrainingData)
-/*  f1a1fe4:	03e00008 */ 	jr	$ra
-/*  f1a1fe8:	2442d1b0 */ 	addiu	$v0,$v0,%lo(g_HoloTrainingData)
-);
+struct trainingdata *getHoloTrainingData(void)
+{
+	return &g_HoloTrainingData;
+}
 
 GLOBAL_ASM(
 glabel htPushEndscreen
