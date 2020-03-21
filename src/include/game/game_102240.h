@@ -13,7 +13,7 @@ u32 func0f103e68(void);
 u32 getMaxAiBuddies(void);
 u32 func0f104664(void);
 u32 func0f104720(void);
-u32 func0f105664(void);
+char *func0f105664(struct menu_item *item);
 char *func0f1056a0(struct menu_item *item);
 char *invMenuTextPrimaryFunction(struct menu_item *item);
 char *invMenuTextSecondaryFunction(struct menu_item *item);

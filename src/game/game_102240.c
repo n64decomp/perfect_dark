@@ -3400,24 +3400,14 @@ glabel menudialog0010559c
 /*  f105660:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f105664
-/*  f105664:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f105668:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10566c:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f105670:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f105674:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f105678:	0fc40937 */ 	jal	menuhandler001024dc
-/*  f10567c:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f105680:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f105684:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f105688:	0fc40937 */ 	jal	menuhandler001024dc
-/*  f10568c:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f105690:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f105694:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f105698:	03e00008 */ 	jr	$ra
-/*  f10569c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *func0f105664(struct menu_item *item)
+{
+	s32 stack[4];
+
+	menuhandler001024dc(MENUOP_GETOPTIONVALUE, item, stack);
+
+	return menuhandler001024dc(MENUOP_GETOPTIONTEXT, item, stack);
+}
 
 char *func0f1056a0(struct menu_item *item)
 {
