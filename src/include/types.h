@@ -4893,6 +4893,11 @@ struct objective {
 	/*0x0f*/ s8 difficulties;
 };
 
+struct briefing {
+	u16 objectivenames[6];
+	u16 objectivedifficulties[6];
+};
+
 struct criteria_roomentered {
 	u32 unk00;
 	u32 pad;
@@ -4913,6 +4918,13 @@ struct criteria_holograph {
 	u32 obj;
 	u32 status;
 	struct criteria_holograph *next;
+};
+
+struct objectivething {
+	u32 unk00;
+	u32 unk04;
+	u32 name;
+	struct objectivething *next;
 };
 
 struct mppreset {

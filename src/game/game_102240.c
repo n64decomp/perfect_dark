@@ -1232,8 +1232,8 @@ glabel menudialog00103608
 /*  f103660:	01f81021 */ 	addu	$v0,$t7,$t8
 /*  f103664:	ac400850 */ 	sw	$zero,0x850($v0)
 /*  f103668:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x1)
-/*  f10366c:	3c07800a */ 	lui	$a3,%hi(var8009dfc8)
-/*  f103670:	24e7dfc8 */ 	addiu	$a3,$a3,%lo(var8009dfc8)
+/*  f10366c:	3c07800a */ 	lui	$a3,0x800a
+/*  f103670:	24e7dfc8 */ 	addiu	$a3,$a3,-8248
 /*  f103674:	9084dfe9 */ 	lbu	$a0,%lo(g_MissionConfig+0x1)($a0)
 /*  f103678:	8c450844 */ 	lw	$a1,0x844($v0)
 /*  f10367c:	0fc03a60 */ 	jal	func0f00e980
@@ -4221,91 +4221,47 @@ glabel menudialog001063d4
 /*  f1063e0:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-GLOBAL_ASM(
-glabel menudialog001063e4
-/*  f1063e4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1063e8:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f1063ec:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1063f0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1063f4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1063f8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1063fc:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f106400:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f106404:	14810038 */ 	bne	$a0,$at,.L0f1064e8
-/*  f106408:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f10640c:	3c10800a */ 	lui	$s0,%hi(var8009d0b4)
-/*  f106410:	8e10d0b4 */ 	lw	$s0,%lo(var8009d0b4)($s0)
-/*  f106414:	0fc5b367 */ 	jal	getDifficulty
-/*  f106418:	24110001 */ 	addiu	$s1,$zero,0x1
-/*  f10641c:	14400002 */ 	bnez	$v0,.L0f106428
-/*  f106420:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106424:	24110003 */ 	addiu	$s1,$zero,0x3
-.L0f106428:
-/*  f106428:	0fc5b367 */ 	jal	getDifficulty
-/*  f10642c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106430:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f106434:	14410002 */ 	bne	$v0,$at,.L0f106440
-/*  f106438:	3c13800a */ 	lui	$s3,%hi(var8009dfc8)
-/*  f10643c:	24110002 */ 	addiu	$s1,$zero,0x2
-.L0f106440:
-/*  f106440:	2673dfc8 */ 	addiu	$s3,$s3,%lo(var8009dfc8)
-/*  f106444:	240e582a */ 	addiu	$t6,$zero,0x582a
-/*  f106448:	12000010 */ 	beqz	$s0,.L0f10648c
-/*  f10644c:	a66e0000 */ 	sh	$t6,0x0($s3)
-/*  f106450:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f106454:	8e020004 */ 	lw	$v0,0x4($s0)
-.L0f106458:
-/*  f106458:	14620004 */ 	bne	$v1,$v0,.L0f10646c
-/*  f10645c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106460:	8e0f0008 */ 	lw	$t7,0x8($s0)
-/*  f106464:	a66f0000 */ 	sh	$t7,0x0($s3)
-/*  f106468:	8e020004 */ 	lw	$v0,0x4($s0)
-.L0f10646c:
-/*  f10646c:	56220005 */ 	bnel	$s1,$v0,.L0f106484
-/*  f106470:	8e10000c */ 	lw	$s0,0xc($s0)
-/*  f106474:	8e180008 */ 	lw	$t8,0x8($s0)
-/*  f106478:	10000004 */ 	beqz	$zero,.L0f10648c
-/*  f10647c:	a6780000 */ 	sh	$t8,0x0($s3)
-/*  f106480:	8e10000c */ 	lw	$s0,0xc($s0)
-.L0f106484:
-/*  f106484:	5600fff4 */ 	bnezl	$s0,.L0f106458
-/*  f106488:	8e020004 */ 	lw	$v0,0x4($s0)
-.L0f10648c:
-/*  f10648c:	0fc2557d */ 	jal	objectiveGetCount
-/*  f106490:	00008025 */ 	or	$s0,$zero,$zero
-/*  f106494:	18400014 */ 	blez	$v0,.L0f1064e8
-/*  f106498:	0010c880 */ 	sll	$t9,$s0,0x2
-/*  f10649c:	3c08800a */ 	lui	$t0,%hi(g_Objectives)
-/*  f1064a0:	2508d060 */ 	addiu	$t0,$t0,%lo(g_Objectives)
-/*  f1064a4:	03289021 */ 	addu	$s2,$t9,$t0
-/*  f1064a8:	8e420000 */ 	lw	$v0,0x0($s2)
-.L0f1064ac:
-/*  f1064ac:	00104840 */ 	sll	$t1,$s0,0x1
-/*  f1064b0:	02698821 */ 	addu	$s1,$s3,$t1
-/*  f1064b4:	50400007 */ 	beqzl	$v0,.L0f1064d4
-/*  f1064b8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1064bc:	8c4a0008 */ 	lw	$t2,0x8($v0)
-/*  f1064c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1064c4:	0fc25594 */ 	jal	objectiveGetDifficultyBits
-/*  f1064c8:	a62a0002 */ 	sh	$t2,0x2($s1)
-/*  f1064cc:	a622000e */ 	sh	$v0,0xe($s1)
-/*  f1064d0:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1064d4:
-/*  f1064d4:	0fc2557d */ 	jal	objectiveGetCount
-/*  f1064d8:	26520004 */ 	addiu	$s2,$s2,0x4
-/*  f1064dc:	0202082a */ 	slt	$at,$s0,$v0
-/*  f1064e0:	5420fff2 */ 	bnezl	$at,.L0f1064ac
-/*  f1064e4:	8e420000 */ 	lw	$v0,0x0($s2)
-.L0f1064e8:
-/*  f1064e8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1064ec:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1064f0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1064f4:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f1064f8:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f1064fc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f106500:	03e00008 */ 	jr	$ra
-/*  f106504:	00001025 */ 	or	$v0,$zero,$zero
-);
+s32 menudialog001063e4(u32 operation, s32 arg1, s32 arg2)
+{
+	if (operation == MENUOP_100) {
+		struct objectivething *thing = var8009d0b4;
+		struct objective *objective;
+		s32 iVar3 = 1;
+		s32 i;
+
+		if (getDifficulty() == DIFF_A) {
+			iVar3 = 3;
+		}
+
+		if (getDifficulty() == DIFF_SA) {
+			iVar3 = 2;
+		}
+
+		g_Briefing.objectivenames[0] = L_MISC(42); // "No briefing for this mission"
+
+		while (thing) {
+			if (thing->unk04 == 1) {
+				g_Briefing.objectivenames[0] = thing->name;
+			}
+
+			if (thing->unk04 == iVar3) {
+				g_Briefing.objectivenames[0] = thing->name;
+				break;
+			}
+
+			thing = thing->next;
+		}
+
+		for (i = 0; i < objectiveGetCount(); i++) {
+			if (g_Objectives[i]) {
+				g_Briefing.objectivenames[i + 1] = g_Objectives[i]->text;
+				g_Briefing.objectivedifficulties[i + 1] = objectiveGetDifficultyBits(i);
+			}
+		}
+	}
+
+	return 0;
+}
 
 char *soloMenuTitlePauseStatus(struct menu_dialog *dialog)
 {
