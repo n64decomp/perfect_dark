@@ -4360,52 +4360,34 @@ glabel func0f106508
 /*  f1065bc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1065c0
-/*  f1065c0:	3c06800a */ 	lui	$a2,%hi(g_SoloSaveFile)
-/*  f1065c4:	3c08800a */ 	lui	$t0,%hi(g_SoloSaveFile)
-/*  f1065c8:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1065cc:	25082200 */ 	addiu	$t0,$t0,%lo(g_SoloSaveFile)
-/*  f1065d0:	24c62200 */ 	addiu	$a2,$a2,%lo(g_SoloSaveFile)
-/*  f1065d4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1065d8:	240a0003 */ 	addiu	$t2,$zero,0x3
-/*  f1065dc:	24090011 */ 	addiu	$t1,$zero,0x11
-.L0f1065e0:
-/*  f1065e0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1065e4:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1065e8:	00c03825 */ 	or	$a3,$a2,$zero
-.L0f1065ec:
-/*  f1065ec:	94ee0020 */ 	lhu	$t6,0x20($a3)
-/*  f1065f0:	00057880 */ 	sll	$t7,$a1,0x2
-/*  f1065f4:	24a50001 */ 	addiu	$a1,$a1,0x1
-/*  f1065f8:	15c00007 */ 	bnez	$t6,.L0f106618
-/*  f1065fc:	010fc021 */ 	addu	$t8,$t0,$t7
-/*  f106600:	8f1900a0 */ 	lw	$t9,0xa0($t8)
-/*  f106604:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f106608:	004b6004 */ 	sllv	$t4,$t3,$v0
-/*  f10660c:	032c6824 */ 	and	$t5,$t9,$t4
-/*  f106610:	11a00004 */ 	beqz	$t5,.L0f106624
-/*  f106614:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f106618:
-/*  f106618:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f10661c:	10000003 */ 	beqz	$zero,.L0f10662c
-/*  f106620:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f106624:
-/*  f106624:	14aafff1 */ 	bne	$a1,$t2,.L0f1065ec
-/*  f106628:	24e70002 */ 	addiu	$a3,$a3,0x2
-.L0f10662c:
-/*  f10662c:	10800003 */ 	beqz	$a0,.L0f10663c
-/*  f106630:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f106634:	1449ffea */ 	bne	$v0,$t1,.L0f1065e0
-/*  f106638:	24c60006 */ 	addiu	$a2,$a2,0x6
-.L0f10663c:
-/*  f10663c:	03e00008 */ 	jr	$ra
-/*  f106640:	00601025 */ 	or	$v0,$v1,$zero
-);
-
 //-----------------------------------------------------------------------------\
 // @dialog Cinema -------------------------------------------------------------/
 //----------------------------------------------------------------------------/
+
+s32 getNumCompletedMissions(void)
+{
+	s32 s;
+	s32 d;
+	s32 count = 0;
+
+	for (s = 0; s != 17; s++) {
+		bool done = false;
+
+		for (d = 0; d != 3; d++) {
+			if (g_SoloSaveFile.besttimes[s][d] || (g_SoloSaveFile.coopcompletions[d] & (1 << s))) {
+				count++;
+				done = true;
+				break;
+			}
+		}
+
+		if (!done) {
+			break;
+		}
+	}
+
+	return count;
+}
 
 u32 g_CutsceneIndexes[] = {
 	/* 0*/ 1,
@@ -4451,17 +4433,17 @@ char *menuhandlerCinema(u32 operation, struct menu_item *item, s32 *value)
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		*value = g_CutsceneIndexes[func0f1065c0()] + 1;
+		*value = g_CutsceneIndexes[getNumCompletedMissions()] + 1;
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		if (*value == 0) {
 			sprintf(g_StringPointer, langGet(L_OPTIONS(448))); // "Play All"
 			return g_StringPointer;
 		}
-		return langGet(cutscenetable[*value - 1].name);
+		return langGet(g_Cutscenes[*value - 1].name);
 	case MENUOP_SET:
 		if (*value == 0) {
-			s32 index = func0f1065c0();
+			s32 index = getNumCompletedMissions();
 			g_Vars.unk0004d4 = 0;
 			g_Vars.unk0004d5 = g_CutsceneIndexes[index];
 			menuPopDialog();

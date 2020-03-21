@@ -3013,7 +3013,7 @@ struct weapon {
 	/*0x4c*/ u32 flags;
 };
 
-struct cutsceneentry {
+struct cutscene {
 	u16 stage_id;
 	u16 mission;
 	u32 scene;
@@ -4315,9 +4315,7 @@ struct savefile_solo {
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ u16 besttimes[NUM_SOLOSTAGES][3];
-	/*0xa0*/ u32 var800a22a0;
-	/*0xa4*/ u32 var800a22a4;
-	/*0xa8*/ u32 var800a22a8;
+	/*0xa0*/ s32 coopcompletions[3];
 	/*0xac*/ u8 firingrangescores[4];
 };
 

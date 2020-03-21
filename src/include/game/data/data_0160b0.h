@@ -211,7 +211,7 @@ extern struct menu_dialog menudialog_weaponsavailable;
 extern struct menu_dialog g_SoloPauseMenuDialog;
 extern struct menu_dialog menudialog_196c8;
 extern struct menu_dialog menudialog_status;
-extern struct cutsceneentry cutscenetable[];
+extern struct cutscene g_Cutscenes[];
 extern struct cutscenegroup cutscenegrouptable[];
 extern struct menu_dialog g_CinemaMenuDialog;
 extern struct menu_dialog g_SelectMissionMenuDialog;
