@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "game/data/cheats.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
 #include "game/data/data_00e460.h"
@@ -22,6 +23,7 @@
 #include "game/game_111600.h"
 #include "game/game_1531a0.h"
 #include "game/game_167ae0.h"
+#include "game/game_177e00.h"
 #include "game/mplayer.h"
 #include "game/game_19aa80.h"
 #include "game/game_19c990.h"
@@ -247,12 +249,12 @@ glabel var7f1b2d98
 /*  f1024d8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s32 menuhandler001024dc(u32 operation, struct menu_item *item, s32 *value)
+char *menuhandler001024dc(u32 operation, struct menu_item *item, s32 *value)
 {
 	return func0f102330(operation, item, value, 4);
 }
 
-s32 menuhandler001024fc(u32 operation, struct menu_item *item, s32 *value)
+char *menuhandler001024fc(u32 operation, struct menu_item *item, s32 *value)
 {
 	return func0f102330(operation, item, value, 5);
 }
@@ -3417,24 +3419,14 @@ glabel func0f105664
 /*  f10569c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1056a0
-/*  f1056a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1056a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1056a8:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f1056ac:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f1056b0:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f1056b4:	0fc4093f */ 	jal	menuhandler001024fc
-/*  f1056b8:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f1056bc:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f1056c0:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f1056c4:	0fc4093f */ 	jal	menuhandler001024fc
-/*  f1056c8:	27a60018 */ 	addiu	$a2,$sp,0x18
-/*  f1056cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1056d0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f1056d4:	03e00008 */ 	jr	$ra
-/*  f1056d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *func0f1056a0(struct menu_item *item)
+{
+	s32 stack[4];
+
+	menuhandler001024fc(MENUOP_GETOPTIONVALUE, item, stack);
+
+	return menuhandler001024fc(MENUOP_GETOPTIONTEXT, item, stack);
+}
 
 s32 menuhandlerLangFilter(u32 operation, struct menu_item *item, u32 *enable)
 {
@@ -3471,6 +3463,105 @@ s32 menuhandler001057ec(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
+s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value)
+{
+	if (operation == MENUOP_SET) {
+		func0f0f820c(NULL, -7);
+	}
+
+	return 0;
+}
+
+struct menu_item menuitems_changeagent[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_OPTIONS(189), 0x00000000, NULL }, // "Do you want to load another agent?"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(190), 0x00000000, menuhandlerChangeAgent }, // "Yes"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS(191), 0x00000000, NULL }, // "No"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog menudialog_changeagent = {
+	MENUDIALOGTYPE_DANGER,
+	L_OPTIONS(188), // "Warning"
+	menuitems_changeagent,
+	NULL,
+	0x00000000,
+	NULL,
+};
+
+struct menu_item menuitems_18b28[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(181), 0x00000000, &menudialog_audiooptions }, // "Audio"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(182), 0x00000000, &menudialog_videooptions }, // "Video"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(183), 0x00000000, &menudialog_controloptions }, // "Control"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, L_OPTIONS(184), 0x00000000, &menudialog_displayoptions }, // "Display"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_item menuitems_18b8c[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(181), 0x00000000, &menudialog_audiooptions }, // "Audio"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(182), 0x00000000, &menudialog_videooptionsshort }, // "Video"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(183), 0x00000000, &menudialog_controloptions }, // "Control"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(184), 0x00000000, &menudialog_displayoptions }, // "Display"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000064, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&menutextPauseOrUnpause, 0x00000000, menuhandlerMpPause },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_item menuitems_18c18[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(181), 0x00000000, &menudialog_audiooptionsshort }, // "Audio"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(182), 0x00000000, &menudialog_videooptionsshort }, // "Video"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(183), 0x00000000, &menudialog_controloptions }, // "Control"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000004, L_OPTIONS(184), 0x00000000, &menudialog_displayoptionsshort }, // "Display"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000064, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, (u32)&menutextPauseOrUnpause, 0x00000000, menuhandlerMpPause },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_item menuitems_18ca4[] = {
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b5, 0x00000001, &menudialog_audiooptions },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b6, 0x00000002, &menudialog_videooptions },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b7, 0x00000003, &menudialog_189dc },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b8, 0x00000004, &menudialog_displayoptions_2pplayer1 },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x000056b9, 0x00000005, &g_CheatsMenuDialog },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00400004, 0x00005679, 0x00000006, &g_CinemaMenuDialog },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog menudialog_18d30 = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(180), // "Options"
+	menuitems_18b28,
+	menudialog0010559c,
+	0x00000000,
+	&menudialog_18028,
+};
+
+struct menu_dialog menudialog_18d48 = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(180), // "Options"
+	menuitems_18ca4,
+	menudialog0010559c,
+	0x00000000,
+	NULL,
+};
+
+struct menu_dialog menudialog_18d60 = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(180), // "Options"
+	menuitems_18ca4,
+	menudialog0010559c,
+	0x00000000,
+	NULL,
+};
+
+struct menu_dialog menudialog_18d78 = {
+	MENUDIALOGTYPE_DEFAULT,
+	L_OPTIONS(180), // "Options"
+	menuitems_18b8c,
+	menudialog0010559c,
+	0x00000000,
+	&menudialog_18040,
+};
+
 struct menu_dialog menudialog_18d90 = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(180), // "Options"
@@ -3480,14 +3571,11 @@ struct menu_dialog menudialog_18d90 = {
 	&menudialog_18058,
 };
 
-s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value)
-{
-	if (operation == MENUOP_SET) {
-		func0f0f820c(NULL, -7);
-	}
+u32 var80072d88 = 0xff000000;
 
-	return 0;
-}
+//-----------------------------------------------------------------------------\
+// @dialog Inventory ----------------------------------------------------------/
+//----------------------------------------------------------------------------/
 
 char *invMenuTextPrimaryFunction(struct menu_item *item)
 {
@@ -3516,8 +3604,6 @@ char *invMenuTextSecondaryFunction(struct menu_item *item)
 
 	return langGet(L_OPTIONS(3)); // "\n"
 }
-
-u32 var80072d88 = 0xff000000;
 
 void func0f105948(s32 weaponnum)
 {

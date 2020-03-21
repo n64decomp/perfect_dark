@@ -5,7 +5,7 @@
 
 u32 func0f102240(void);
 char *soloMenuTextDifficulty(struct menu_item *item);
-s32 func0f102330(u32 operation, struct menu_item *item, s32 *value, s32 arg3);
+char *func0f102330(u32 operation, struct menu_item *item, s32 *value, s32 arg3);
 u32 func0f103550(void);
 f32 func0f1036ac(s32 arg0, s32 arg1);
 bool isStageDifficultyUnlocked(s32 stageindex, s32 difficulty);
@@ -14,7 +14,7 @@ u32 getMaxAiBuddies(void);
 u32 func0f104664(void);
 u32 func0f104720(void);
 u32 func0f105664(void);
-u32 func0f1056a0(void);
+char *func0f1056a0(struct menu_item *item);
 char *invMenuTextPrimaryFunction(struct menu_item *item);
 char *invMenuTextSecondaryFunction(struct menu_item *item);
 void func0f105948(s32 weaponnum);
@@ -29,8 +29,8 @@ s32 menudialog0010559c(u32, u32, u32 *);
 s32 menudialog00105c54(u32, u32, u32 *);
 s32 menudialog001063d4(u32, u32, u32 *);
 s32 soloMenuDialogPauseStatus(u32 operation, s32 arg1, s32 arg2);
-s32 menuhandler001024dc(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandler001024fc(u32 operation, struct menu_item *item, s32 *value);
+char *menuhandler001024dc(u32 operation, struct menu_item *item, s32 *value);
+char *menuhandler001024fc(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerAcceptMission(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerAcceptPdModeSettings(s32 operation, struct menu_item *item, bool *value);
 s32 menuhandlerBuddyOptionsContinue(u32 operation, struct menu_item *item, s32 *value);
