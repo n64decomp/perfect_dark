@@ -112,31 +112,10 @@ s32 menuhandler00108014(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f108078
-/*  f108078:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f10807c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f108080:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f108084:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f108088:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f10808c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f108090:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f108094:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f108098:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f10809c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f1080a0:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f1080a4:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe3c)
-/*  f1080a8:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f1080ac:	9084ee3c */ 	lbu	$a0,%lo(g_MenuStack+0xe3c)($a0)
-/*  f1080b0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1080b4:	3098007f */ 	andi	$t8,$a0,0x7f
-/*  f1080b8:	0fc41fec */ 	jal	getSaveLocationName
-/*  f1080bc:	03002025 */ 	or	$a0,$t8,$zero
-/*  f1080c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1080c4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1080c8:	03e00008 */ 	jr	$ra
-/*  f1080cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *pakMenuTextLocationName(struct menu_item *item)
+{
+	return getSaveLocationName(g_MenuStack[g_MpPlayerNum].unke3c_01);
+}
 
 GLOBAL_ASM(
 glabel func0f1080d0

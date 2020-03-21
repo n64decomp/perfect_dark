@@ -4,7 +4,7 @@
 #include "types.h"
 
 char *getSaveLocationName(s32 index);
-u32 func0f108078(void);
+char *pakMenuTextLocationName(struct menu_item *item);
 u32 func0f1080d0(void);
 u32 func0f1082b0(void);
 void func0f108324(s32 arg0);
