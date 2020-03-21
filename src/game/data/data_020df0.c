@@ -13196,7 +13196,7 @@ struct menu_item menuitems_trainingstats_failed2[] = {
 };
 
 // 2f71c
-struct menu_dialog menudialog_trainingstats_failed2 = {
+struct menu_dialog g_HoloTrainingStatsFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU(423), // "Training Stats"
 	menuitems_trainingstats_failed2,
@@ -13216,7 +13216,7 @@ struct menu_item menuitems_trainingstats_completed2[] = {
 };
 
 // 2f7ac
-struct menu_dialog menudialog_trainingstats_completed2 = {
+struct menu_dialog g_HoloTrainingStatsCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU(423), // "Training Stats"
 	menuitems_trainingstats_completed2,

@@ -4857,11 +4857,12 @@ struct portal {
 };
 
 struct trainingdata {
-	u32 intraining : 1;
-	u32 unk00_01 : 1;
-	u32 unk00_02 : 1;
-	u32 finished : 1;
-	u32 holographedpc : 1;
+	u8 intraining : 1;
+	u8 failed : 1;
+	u8 completed : 1;
+	u8 finished : 1;
+	u8 holographedpc : 1;
+	u8 unk01;
 	s32 timetaken;
 	u32 unk08;
 	u32 unk0c;

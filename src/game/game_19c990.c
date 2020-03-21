@@ -6428,44 +6428,19 @@ struct trainingdata *getHoloTrainingData(void)
 	return &g_HoloTrainingData;
 }
 
-GLOBAL_ASM(
-glabel htPushEndscreen
-/*  f1a1fec:	3c02800b */ 	lui	$v0,%hi(g_HoloTrainingData)
-/*  f1a1ff0:	2442d1b0 */ 	addiu	$v0,$v0,%lo(g_HoloTrainingData)
-/*  f1a1ff4:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f1a1ff8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a1ffc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a2000:	00037880 */ 	sll	$t7,$v1,0x2
-/*  f1a2004:	05e10008 */ 	bgez	$t7,.L0f1a2028
-/*  f1a2008:	0003c840 */ 	sll	$t9,$v1,0x1
-/*  f1a200c:	3c048009 */ 	lui	$a0,%hi(menudialog_trainingstats_completed2)
-/*  f1a2010:	2484978c */ 	addiu	$a0,$a0,%lo(menudialog_trainingstats_completed2)
-/*  f1a2014:	0fc3e178 */ 	jal	func0f0f85e0
-/*  f1a2018:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f1a201c:	3c02800b */ 	lui	$v0,%hi(g_HoloTrainingData)
-/*  f1a2020:	10000008 */ 	beqz	$zero,.L0f1a2044
-/*  f1a2024:	2442d1b0 */ 	addiu	$v0,$v0,%lo(g_HoloTrainingData)
-.L0f1a2028:
-/*  f1a2028:	07210006 */ 	bgez	$t9,.L0f1a2044
-/*  f1a202c:	3c048009 */ 	lui	$a0,%hi(menudialog_trainingstats_failed2)
-/*  f1a2030:	248496fc */ 	addiu	$a0,$a0,%lo(menudialog_trainingstats_failed2)
-/*  f1a2034:	0fc3e178 */ 	jal	func0f0f85e0
-/*  f1a2038:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f1a203c:	3c02800b */ 	lui	$v0,%hi(g_HoloTrainingData)
-/*  f1a2040:	2442d1b0 */ 	addiu	$v0,$v0,%lo(g_HoloTrainingData)
-.L0f1a2044:
-/*  f1a2044:	90480000 */ 	lbu	$t0,0x0($v0)
-/*  f1a2048:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a204c:	a0400001 */ 	sb	$zero,0x1($v0)
-/*  f1a2050:	310affdf */ 	andi	$t2,$t0,0xffdf
-/*  f1a2054:	314c00bf */ 	andi	$t4,$t2,0xbf
-/*  f1a2058:	a04a0000 */ 	sb	$t2,0x0($v0)
-/*  f1a205c:	a04c0000 */ 	sb	$t4,0x0($v0)
-/*  f1a2060:	318d00ef */ 	andi	$t5,$t4,0xef
-/*  f1a2064:	a04d0000 */ 	sb	$t5,0x0($v0)
-/*  f1a2068:	03e00008 */ 	jr	$ra
-/*  f1a206c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void htPushEndscreen(void)
+{
+	if (g_HoloTrainingData.completed) {
+		func0f0f85e0(&g_HoloTrainingStatsCompletedMenuDialog, MENUROOT_TRAINING);
+	} else if (g_HoloTrainingData.failed) {
+		func0f0f85e0(&g_HoloTrainingStatsFailedMenuDialog, MENUROOT_TRAINING);
+	}
+
+	g_HoloTrainingData.unk01 = 0;
+	g_HoloTrainingData.completed = false;
+	g_HoloTrainingData.failed = false;
+	g_HoloTrainingData.finished = false;
+}
 
 GLOBAL_ASM(
 glabel func0f1a2070

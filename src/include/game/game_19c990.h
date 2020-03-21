@@ -90,7 +90,7 @@ u32 func0f1a1e90(void);
 u32 func0f1a1f00(void);
 u32 func0f1a1f70(void);
 struct trainingdata *getHoloTrainingData(void);
-u32 htPushEndscreen(void);
+void htPushEndscreen(void);
 void func0f1a2070(void);
 u32 func0f1a2198(void);
 u32 func0f1a2220(void);
