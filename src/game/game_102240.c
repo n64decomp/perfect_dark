@@ -4629,157 +4629,71 @@ char *mainMenuTextLabel(struct menu_item *item)
 	return langGet(nocheats[item->param]);
 }
 
-GLOBAL_ASM(
-glabel func0f106b20
-/*  f106b20:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f106b24:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f106b28:	3c18800a */ 	lui	$t8,0x800a
-/*  f106b2c:	2718e000 */ 	addiu	$t8,$t8,-8192
-/*  f106b30:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f106b34:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f106b38:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f106b3c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f106b40:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f106b44:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f106b48:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f106b4c:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f106b50:	9059083c */ 	lbu	$t9,0x83c($v0)
-/*  f106b54:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f106b58:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f106b5c:	17200071 */ 	bnez	$t9,.L0f106d24
-/*  f106b60:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x4b4)
-/*  f106b64:	a040083b */ 	sb	$zero,0x83b($v0)
-/*  f106b68:	8d08a474 */ 	lw	$t0,%lo(g_Vars+0x4b4)($t0)
-/*  f106b6c:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f106b70:	3c048007 */ 	lui	$a0,%hi(menudialog_196b0)
-/*  f106b74:	15010067 */ 	bne	$t0,$at,.L0f106d14
-/*  f106b78:	24843690 */ 	addiu	$a0,$a0,%lo(menudialog_196b0)
-/*  f106b7c:	0fc67264 */ 	jal	ciIsTourDone
-/*  f106b80:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f106b84:	1040005c */ 	beqz	$v0,.L0f106cf8
-/*  f106b88:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f106b8c:	0fc68606 */ 	jal	getDeviceTrainingData
-/*  f106b90:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f106b94:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x284)
-/*  f106b98:	8d29a244 */ 	lw	$t1,%lo(g_Vars+0x284)($t1)
-/*  f106b9c:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f106ba0:	8d2a00bc */ 	lw	$t2,0xbc($t1)
-/*  f106ba4:	85440028 */ 	lh	$a0,0x28($t2)
-/*  f106ba8:	28810016 */ 	slti	$at,$a0,0x16
-/*  f106bac:	1420001a */ 	bnez	$at,.L0f106c18
-/*  f106bb0:	2881001a */ 	slti	$at,$a0,0x1a
-/*  f106bb4:	50200019 */ 	beqzl	$at,.L0f106c1c
-/*  f106bb8:	2401001e */ 	addiu	$at,$zero,0x1e
-/*  f106bbc:	0fc687f8 */ 	jal	getHoloTrainingData
-/*  f106bc0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106bc4:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f106bc8:	3c048009 */ 	lui	$a0,%hi(menudialog_2f68c)
-/*  f106bcc:	2484966c */ 	addiu	$a0,$a0,%lo(menudialog_2f68c)
-/*  f106bd0:	00035fc2 */ 	srl	$t3,$v1,0x1f
-/*  f106bd4:	11600005 */ 	beqz	$t3,.L0f106bec
-/*  f106bd8:	000368c0 */ 	sll	$t5,$v1,0x3
-/*  f106bdc:	0fc3e0cc */ 	jal	func0f0f8330
-/*  f106be0:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f106be4:	10000044 */ 	beqz	$zero,.L0f106cf8
-/*  f106be8:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106bec:
-/*  f106bec:	05a10005 */ 	bgez	$t5,.L0f106c04
-/*  f106bf0:	3c048009 */ 	lui	$a0,%hi(menudialog_holotraining)
-/*  f106bf4:	0fc687fb */ 	jal	func0f1a1fec
-/*  f106bf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106bfc:	1000003e */ 	beqz	$zero,.L0f106cf8
-/*  f106c00:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106c04:
-/*  f106c04:	248495dc */ 	addiu	$a0,$a0,%lo(menudialog_holotraining)
-/*  f106c08:	0fc3e0cc */ 	jal	func0f0f8330
-/*  f106c0c:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f106c10:	10000039 */ 	beqz	$zero,.L0f106cf8
-/*  f106c14:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106c18:
-/*  f106c18:	2401001e */ 	addiu	$at,$zero,0x1e
-.L0f106c1c:
-/*  f106c1c:	54810017 */ 	bnel	$a0,$at,.L0f106c7c
-/*  f106c20:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f106c24:	8c430000 */ 	lw	$v1,0x0($v0)
-/*  f106c28:	3c048009 */ 	lui	$a0,%hi(menudialog_2f49c)
-/*  f106c2c:	2484947c */ 	addiu	$a0,$a0,%lo(menudialog_2f49c)
-/*  f106c30:	000377c2 */ 	srl	$t6,$v1,0x1f
-/*  f106c34:	11c00005 */ 	beqz	$t6,.L0f106c4c
-/*  f106c38:	0003c0c0 */ 	sll	$t8,$v1,0x3
-/*  f106c3c:	0fc3e0cc */ 	jal	func0f0f8330
-/*  f106c40:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f106c44:	1000002c */ 	beqz	$zero,.L0f106cf8
-/*  f106c48:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106c4c:
-/*  f106c4c:	07010005 */ 	bgez	$t8,.L0f106c64
-/*  f106c50:	3c048009 */ 	lui	$a0,%hi(menudialog_devicelist)
-/*  f106c54:	0fc68643 */ 	jal	func0f1a190c
-/*  f106c58:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106c5c:	10000026 */ 	beqz	$zero,.L0f106cf8
-/*  f106c60:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106c64:
-/*  f106c64:	248493e0 */ 	addiu	$a0,$a0,%lo(menudialog_devicelist)
-/*  f106c68:	0fc3e0cc */ 	jal	func0f0f8330
-/*  f106c6c:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f106c70:	10000021 */ 	beqz	$zero,.L0f106cf8
-/*  f106c74:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f106c78:	8c430000 */ 	lw	$v1,0x0($v0)
-.L0f106c7c:
-/*  f106c7c:	0003cfc2 */ 	srl	$t9,$v1,0x1f
-/*  f106c80:	13200007 */ 	beqz	$t9,.L0f106ca0
-/*  f106c84:	000348c0 */ 	sll	$t1,$v1,0x3
-/*  f106c88:	3c048009 */ 	lui	$a0,%hi(menudialog_2f49c)
-/*  f106c8c:	2484947c */ 	addiu	$a0,$a0,%lo(menudialog_2f49c)
-/*  f106c90:	0fc3e0cc */ 	jal	func0f0f8330
-/*  f106c94:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f106c98:	10000017 */ 	beqz	$zero,.L0f106cf8
-/*  f106c9c:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106ca0:
-/*  f106ca0:	05210005 */ 	bgez	$t1,.L0f106cb8
-/*  f106ca4:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f106ca8:	0fc68643 */ 	jal	func0f1a190c
-/*  f106cac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106cb0:	10000011 */ 	beqz	$zero,.L0f106cf8
-/*  f106cb4:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106cb8:
-/*  f106cb8:	1481000f */ 	bne	$a0,$at,.L0f106cf8
-/*  f106cbc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106cc0:	0fc6830c */ 	jal	func0f1a0c30
-/*  f106cc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106cc8:	10400007 */ 	beqz	$v0,.L0f106ce8
-/*  f106ccc:	3c048009 */ 	lui	$a0,%hi(g_frWeaponMenuDialog)
-/*  f106cd0:	3c048009 */ 	lui	$a0,%hi(menudialog_frtraininginfo)
-/*  f106cd4:	24848e6c */ 	addiu	$a0,$a0,%lo(menudialog_frtraininginfo)
-/*  f106cd8:	0fc3e0cc */ 	jal	func0f0f8330
-/*  f106cdc:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f106ce0:	10000005 */ 	beqz	$zero,.L0f106cf8
-/*  f106ce4:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106ce8:
-/*  f106ce8:	24848d78 */ 	addiu	$a0,$a0,%lo(g_frWeaponMenuDialog)
-/*  f106cec:	0fc3e0cc */ 	jal	func0f0f8330
-/*  f106cf0:	2405000d */ 	addiu	$a1,$zero,0xd
-/*  f106cf4:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f106cf8:
-/*  f106cf8:	14a00008 */ 	bnez	$a1,.L0f106d1c
-/*  f106cfc:	3c048007 */ 	lui	$a0,%hi(g_MainMenu4MbMenuDialog)
-/*  f106d00:	24843a74 */ 	addiu	$a0,$a0,%lo(g_MainMenu4MbMenuDialog)
-/*  f106d04:	0fc3e0cc */ 	jal	func0f0f8330
-/*  f106d08:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f106d0c:	10000006 */ 	beqz	$zero,.L0f106d28
-/*  f106d10:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f106d14:
-/*  f106d14:	0fc3e0cc */ 	jal	func0f0f8330
-/*  f106d18:	24050002 */ 	addiu	$a1,$zero,0x2
-.L0f106d1c:
-/*  f106d1c:	10000002 */ 	beqz	$zero,.L0f106d28
-/*  f106d20:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f106d24:
-/*  f106d24:	00001025 */ 	or	$v0,$zero,$zero
-.L0f106d28:
-/*  f106d28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f106d2c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f106d30:	03e00008 */ 	jr	$ra
-/*  f106d34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106d38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f106d3c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool soloChoosePauseDialog(void)
+{
+	if (g_MenuStack[g_MpPlayerNum].unk83c == 0) {
+		g_MenuStack[g_MpPlayerNum].playernum = 0;
+
+		if (g_Vars.stagenum == STAGE_CITRAINING) {
+			bool handled = false;
+
+			if (ciIsTourDone()) {
+				struct trainingdata *dtdata = getDeviceTrainingData();
+				s32 room = g_Vars.currentplayer->prop->rooms[0];
+
+				if (room >= CIROOM_HOLOSTART && room <= CIROOM_HOLOEND) {
+					struct trainingdata *htdata = getHoloTrainingData();
+
+					if (htdata->intraining) {
+						menuPushRootDialog(&g_HoloTrainingDetailsMenuDialog, MENUROOT_TRAINING);
+					} else if (htdata->finished) {
+						htPushEndscreen();
+					} else {
+						menuPushRootDialog(&g_HoloTrainingListMenuDialog, MENUROOT_TRAINING);
+					}
+
+					handled = true;
+				} else {
+					if (room == CIROOM_DEVICEROOM) {
+						if (dtdata->intraining) {
+							menuPushRootDialog(&g_DeviceTrainingDetailsMenuDialog, MENUROOT_TRAINING);
+						} else if (dtdata->finished) {
+							dtPushEndscreen();
+						} else {
+							menuPushRootDialog(&g_DeviceTrainingListMenuDialog, MENUROOT_TRAINING);
+						}
+
+						handled = true;
+					} else {
+						if (dtdata->intraining) {
+							menuPushRootDialog(&g_DeviceTrainingDetailsMenuDialog, MENUROOT_TRAINING);
+							handled = true;
+						} else if (dtdata->finished) {
+							dtPushEndscreen();
+							handled = true;
+						} else if (room == CIROOM_FIRINGRANGE) {
+							if (func0f1a0c30()) {
+								menuPushRootDialog(&g_FrTrainingInfoMenuDialog, MENUROOT_TRAINING);
+							} else {
+								menuPushRootDialog(&g_FrWeaponListMenuDialog, MENUROOT_TRAINING);
+							}
+
+							handled = true;
+						}
+					}
+				}
+			}
+
+			if (!handled) {
+				menuPushRootDialog(&g_CiMainMenuDialogViaPause, MENUROOT_SOLOPAUSE);
+				return true;
+			}
+		} else {
+			menuPushRootDialog(&g_SoloPauseMenuDialog, MENUROOT_SOLOPAUSE);
+		}
+
+		return true;
+	}
+
+	return false;
+}

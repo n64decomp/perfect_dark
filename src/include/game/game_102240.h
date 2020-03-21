@@ -24,7 +24,7 @@ char *invMenuTextWeaponDescription(struct menu_item *item);
 u32 func0f106508(void);
 u32 func0f1065c0(void);
 char *mainMenuTextLabel(struct menu_item *item);
-u32 func0f106b20(void);
+bool soloChoosePauseDialog(void);
 s32 menudialog00103368(u32, u32, u32 *);
 void menudialog00103608(void);
 bool menudialogCoopAntiOptions(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);

@@ -54,7 +54,7 @@ void func0f0f8120(void);
 void func0f0f820c(struct menu_dialog *dialog, s32 arg1);
 u32 func0f0f82a8(void);
 void func0f0f8300(void);
-void func0f0f8330(struct menu_dialog *dialog, s32 arg1);
+void menuPushRootDialog(struct menu_dialog *dialog, s32 arg1);
 u32 func0f0f85e0(void);
 u32 func0f0f8634(void);
 u32 func0f0f86a8(void);

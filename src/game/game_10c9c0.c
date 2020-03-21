@@ -33,7 +33,7 @@ s32 menuhandler0010ca1c(u32 operation, struct menu_item *item, s32 *value)
 		if (g_Vars.stagenum == 0x5d) {
 			func0f0f820c(&g_4MbMainMenu, 11);
 		} else {
-			func0f0f820c(&menudialog_196b0, 2);
+			func0f0f820c(&g_SoloPauseMenuDialog, 2);
 		}
 	}
 
@@ -83,7 +83,7 @@ glabel func0f10cb2c
 /*  f10cb78:	3c048007 */ 	lui	$a0,%hi(g_4MbMainMenu)
 /*  f10cb7c:	ac590490 */ 	sw	$t9,0x490($v0)
 /*  f10cb80:	24845294 */ 	addiu	$a0,$a0,%lo(g_4MbMainMenu)
-/*  f10cb84:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f10cb84:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f10cb88:	2405000b */ 	addiu	$a1,$zero,0xb
 /*  f10cb8c:	10000017 */ 	beqz	$zero,.L0f10cbec
 /*  f10cb90:	8fbf001c */ 	lw	$ra,0x1c($sp)
@@ -108,7 +108,7 @@ glabel func0f10cb2c
 /*  f10cbd4:	ac43029c */ 	sw	$v1,0x29c($v0)
 /*  f10cbd8:	3c048007 */ 	lui	$a0,%hi(menudialog_fileselect2)
 /*  f10cbdc:	24844f34 */ 	addiu	$a0,$a0,%lo(menudialog_fileselect2)
-/*  f10cbe0:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f10cbe0:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f10cbe4:	2405000a */ 	addiu	$a1,$zero,0xa
 .L0f10cbe8:
 /*  f10cbe8:	8fbf001c */ 	lw	$ra,0x1c($sp)

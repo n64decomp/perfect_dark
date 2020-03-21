@@ -5912,7 +5912,7 @@ glabel func0f1a1824
 );
 
 GLOBAL_ASM(
-glabel func0f1a190c
+glabel dtPushEndscreen
 /*  f1a190c:	3c02800b */ 	lui	$v0,%hi(g_DeviceTrainingData)
 /*  f1a1910:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_DeviceTrainingData)
 /*  f1a1914:	8c430000 */ 	lw	$v1,0x0($v0)
@@ -6020,7 +6020,7 @@ glabel func0f1a1998
 /*  f1a1a88:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
 /*  f1a1a8c:	5c400006 */ 	bgtzl	$v0,.L0f1a1aa8
 /*  f1a1a90:	8c990038 */ 	lw	$t9,0x38($a0)
-/*  f1a1a94:	0fc68643 */ 	jal	func0f1a190c
+/*  f1a1a94:	0fc68643 */ 	jal	dtPushEndscreen
 /*  f1a1a98:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a1a9c:	10000005 */ 	beqz	$zero,.L0f1a1ab4
 /*  f1a1aa0:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -6431,7 +6431,7 @@ glabel getHoloTrainingData
 );
 
 GLOBAL_ASM(
-glabel func0f1a1fec
+glabel htPushEndscreen
 /*  f1a1fec:	3c02800b */ 	lui	$v0,%hi(g_HoloTrainingData)
 /*  f1a1ff0:	2442d1b0 */ 	addiu	$v0,$v0,%lo(g_HoloTrainingData)
 /*  f1a1ff4:	8c430000 */ 	lw	$v1,0x0($v0)
@@ -6537,7 +6537,7 @@ glabel func0f1a2070
 /*  f1a2160:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
 /*  f1a2164:	5c400006 */ 	bgtzl	$v0,.L0f1a2180
 /*  f1a2168:	8c990038 */ 	lw	$t9,0x38($a0)
-/*  f1a216c:	0fc687fb */ 	jal	func0f1a1fec
+/*  f1a216c:	0fc687fb */ 	jal	htPushEndscreen
 /*  f1a2170:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a2174:	10000005 */ 	beqz	$zero,.L0f1a218c
 /*  f1a2178:	8fbf0014 */ 	lw	$ra,0x14($sp)

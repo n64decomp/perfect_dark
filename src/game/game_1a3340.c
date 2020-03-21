@@ -2638,7 +2638,7 @@ s32 menuhandlerFrFailedContinue(u32 operation, struct menu_item *item, s32 *valu
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.currentplayer->prop->rooms[0] == 0xa) {
-			func0f0f3704(&g_frWeaponMenuDialog);
+			func0f0f3704(&g_FrWeaponListMenuDialog);
 		} else {
 			menuPopDialog();
 		}
@@ -3124,8 +3124,8 @@ glabel var7f1b9994
 /*  f1a6444:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1a6448:	8ccf0000 */ 	lw	$t7,0x0($a2)
 /*  f1a644c:	3c018009 */ 	lui	$at,%hi(var80088ad8)
-/*  f1a6450:	3c048009 */ 	lui	$a0,%hi(menudialog_2f49c)
-/*  f1a6454:	2484947c */ 	addiu	$a0,$a0,%lo(menudialog_2f49c)
+/*  f1a6450:	3c048009 */ 	lui	$a0,%hi(g_DeviceTrainingDetailsMenuDialog)
+/*  f1a6454:	2484947c */ 	addiu	$a0,$a0,%lo(g_DeviceTrainingDetailsMenuDialog)
 /*  f1a6458:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f1a645c:	a02f8ad8 */ 	sb	$t7,%lo(var80088ad8)($at)
 /*  f1a6460:	1000000b */ 	beqz	$zero,.L0f1a6490
@@ -3453,8 +3453,8 @@ glabel var7f1b99b4
 /*  f1a69a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f1a69ac:	8ccf0000 */ 	lw	$t7,0x0($a2)
 /*  f1a69b0:	3c018009 */ 	lui	$at,%hi(var80088bb4)
-/*  f1a69b4:	3c048009 */ 	lui	$a0,%hi(menudialog_2f68c)
-/*  f1a69b8:	2484966c */ 	addiu	$a0,$a0,%lo(menudialog_2f68c)
+/*  f1a69b4:	3c048009 */ 	lui	$a0,%hi(g_HoloTrainingDetailsMenuDialog)
+/*  f1a69b8:	2484966c */ 	addiu	$a0,$a0,%lo(g_HoloTrainingDetailsMenuDialog)
 /*  f1a69bc:	0fc3cbd3 */ 	jal	menuPushDialog
 /*  f1a69c0:	a02f8bb4 */ 	sb	$t7,%lo(var80088bb4)($at)
 /*  f1a69c4:	1000000b */ 	beqz	$zero,.L0f1a69f4
@@ -4208,9 +4208,9 @@ glabel var7f1b99d8
 
 GLOBAL_ASM(
 glabel func0f1a7554
-/*  f1a7554:	3c028009 */ 	lui	$v0,%hi(g_frWeaponMenuDialog)
+/*  f1a7554:	3c028009 */ 	lui	$v0,%hi(g_FrWeaponListMenuDialog)
 /*  f1a7558:	03e00008 */ 	jr	$ra
-/*  f1a755c:	24428d78 */ 	addiu	$v0,$v0,%lo(g_frWeaponMenuDialog)
+/*  f1a755c:	24428d78 */ 	addiu	$v0,$v0,%lo(g_FrWeaponListMenuDialog)
 );
 
 GLOBAL_ASM(

@@ -937,13 +937,13 @@ glabel func0f178dbc
 /*  f178e60:	13000007 */ 	beqz	$t8,.L0f178e80
 /*  f178e64:	24844890 */ 	addiu	$a0,$a0,%lo(menudialog_2a8b0)
 /*  f178e68:	3c048008 */ 	lui	$a0,%hi(menudialog_2a908)
-/*  f178e6c:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f178e6c:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f178e70:	248448e8 */ 	addiu	$a0,$a0,%lo(menudialog_2a908)
 /*  f178e74:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
 /*  f178e78:	10000017 */ 	beqz	$zero,.L0f178ed8
 /*  f178e7c:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
 .L0f178e80:
-/*  f178e80:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f178e80:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f178e84:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f178e88:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
 /*  f178e8c:	10000012 */ 	beqz	$zero,.L0f178ed8
@@ -956,14 +956,14 @@ glabel func0f178dbc
 /*  f178ea4:	3c048007 */ 	lui	$a0,%hi(menudialog_196c8)
 /*  f178ea8:	3c048007 */ 	lui	$a0,%hi(menudialog_status)
 /*  f178eac:	248436c0 */ 	addiu	$a0,$a0,%lo(menudialog_status)
-/*  f178eb0:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f178eb0:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f178eb4:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f178eb8:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
 /*  f178ebc:	10000006 */ 	beqz	$zero,.L0f178ed8
 /*  f178ec0:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
 .L0f178ec4:
 /*  f178ec4:	248436a8 */ 	addiu	$a0,$a0,%lo(menudialog_196c8)
-/*  f178ec8:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f178ec8:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f178ecc:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f178ed0:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
 /*  f178ed4:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
@@ -1018,7 +1018,7 @@ glabel func0f178ef0
 /*  f178f78:	11600005 */ 	beqz	$t3,.L0f178f90
 /*  f178f7c:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f178f80:
-/*  f178f80:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f178f80:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f178f84:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f178f88:	10000018 */ 	beqz	$zero,.L0f178fec
 /*  f178f8c:	00000000 */ 	sll	$zero,$zero,0x0
@@ -1029,25 +1029,25 @@ glabel func0f178ef0
 /*  f178f9c:	3c048008 */ 	lui	$a0,%hi(menudialog_2aa78)
 /*  f178fa0:	3c048008 */ 	lui	$a0,%hi(menudialog_2aa48)
 /*  f178fa4:	24844a28 */ 	addiu	$a0,$a0,%lo(menudialog_2aa48)
-/*  f178fa8:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f178fa8:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f178fac:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f178fb0:	1000000e */ 	beqz	$zero,.L0f178fec
 /*  f178fb4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f178fb8:
 /*  f178fb8:	24844a58 */ 	addiu	$a0,$a0,%lo(menudialog_2aa78)
-/*  f178fbc:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f178fbc:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f178fc0:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f178fc4:	10000009 */ 	beqz	$zero,.L0f178fec
 /*  f178fc8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f178fcc:
-/*  f178fcc:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f178fcc:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f178fd0:	24050005 */ 	addiu	$a1,$zero,0x5
 /*  f178fd4:	10000005 */ 	beqz	$zero,.L0f178fec
 /*  f178fd8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f178fdc:
 /*  f178fdc:	3c048008 */ 	lui	$a0,%hi(menudialog_2aa18)
 /*  f178fe0:	248449f8 */ 	addiu	$a0,$a0,%lo(menudialog_2aa18)
-/*  f178fe4:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f178fe4:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f178fe8:	24050005 */ 	addiu	$a1,$zero,0x5
 .L0f178fec:
 /*  f178fec:	3c0c8007 */ 	lui	$t4,%hi(g_MpPlayerNum)

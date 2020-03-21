@@ -3901,7 +3901,7 @@ struct menustackitem {
 	/*0x838*/ u16 unk838;
 	/*0x83a*/ u8 unk83a;
 	/*0x83b*/ u8 playernum;
-	/*0x83c*/ u32 unk83c;
+	/*0x83c*/ u8 unk83c;
 	/*0x840*/ u32 unk840;
 	/*0x844*/ u32 unk844;
 	/*0x848*/ u32 unk848;
@@ -4860,7 +4860,7 @@ struct trainingdata {
 	u32 intraining : 1;
 	u32 unk00_01 : 1;
 	u32 unk00_02 : 1;
-	u32 unk00_03 : 1;
+	u32 finished : 1;
 	u32 holographedpc : 1;
 	s32 timetaken;
 	u32 unk08;

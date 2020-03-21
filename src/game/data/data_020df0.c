@@ -12868,7 +12868,7 @@ struct menu_item menuitems_frweapon[] = {
 };
 
 // 2ed98
-struct menu_dialog g_frWeaponMenuDialog = {
+struct menu_dialog g_FrWeaponListMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(446), // "Weapon"
 	menuitems_frweapon,
@@ -12893,7 +12893,7 @@ struct menu_item menuitems_frtraininginfo[] = {
 };
 
 // 2ee8c
-struct menu_dialog menudialog_frtraininginfo = {
+struct menu_dialog g_FrTrainingInfoMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51bf,
 	menuitems_frtraininginfo,
@@ -13076,7 +13076,7 @@ struct menu_item menuitems_devicelist[] = {
 };
 
 // 2f400
-struct menu_dialog menudialog_devicelist = {
+struct menu_dialog g_DeviceTrainingListMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(417), // "Device List"
 	menuitems_devicelist,
@@ -13100,7 +13100,7 @@ struct menu_item menuitems_2f424[] = {
 };
 
 // 2f49c
-struct menu_dialog menudialog_2f49c = {
+struct menu_dialog g_DeviceTrainingDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f1a64a0,
 	menuitems_2f424,
@@ -13126,7 +13126,7 @@ struct menu_dialog menudialog_trainingstats_failed = {
 	menuitems_trainingstats_failed,
 	menudialogDeviceTrainingResults,
 	0x00000200,
-	&menudialog_devicelist,
+	&g_DeviceTrainingListMenuDialog,
 };
 
 // 2f544
@@ -13146,7 +13146,7 @@ struct menu_dialog menudialog_trainingstats_completed = {
 	menuitems_trainingstats_completed,
 	menudialogDeviceTrainingResults,
 	0x00000200,
-	&menudialog_devicelist,
+	&g_DeviceTrainingListMenuDialog,
 };
 
 // 2f5d4
@@ -13156,7 +13156,7 @@ struct menu_item menuitems_holotraining[] = {
 };
 
 // 2f5fc
-struct menu_dialog menudialog_holotraining = {
+struct menu_dialog g_HoloTrainingListMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	0x51a0,
 	menuitems_holotraining,
@@ -13176,7 +13176,7 @@ struct menu_item menuitems_2f614[] = {
 };
 
 // 2f68c
-struct menu_dialog menudialog_2f68c = {
+struct menu_dialog g_HoloTrainingDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f1a6a04,
 	menuitems_2f614,
@@ -13202,7 +13202,7 @@ struct menu_dialog menudialog_trainingstats_failed2 = {
 	menuitems_trainingstats_failed2,
 	menudialogFiringRangeResults,
 	0x00000200,
-	&menudialog_holotraining,
+	&g_HoloTrainingListMenuDialog,
 };
 
 // 2f734
@@ -13222,7 +13222,7 @@ struct menu_dialog menudialog_trainingstats_completed2 = {
 	menuitems_trainingstats_completed2,
 	menudialogFiringRangeResults,
 	0x00000200,
-	&menudialog_holotraining,
+	&g_HoloTrainingListMenuDialog,
 };
 
 u32 var800897a4 = 0x00000000;

@@ -414,6 +414,11 @@
 #define CHRCFLAG_40000000                    0x40000000 // Not used in scripts
 #define CHRCFLAG_INJURED                     0x80000000
 
+#define CIROOM_FIRINGRANGE 0x0a
+#define CIROOM_HOLOSTART   0x16
+#define CIROOM_HOLOEND     0x19
+#define CIROOM_DEVICEROOM  0x1e
+
 #define CMD_LABEL 0x0002
 #define CMD_END   0x0004
 #define CMD_PRINT 0x00b5

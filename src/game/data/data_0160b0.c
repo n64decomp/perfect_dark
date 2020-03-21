@@ -2655,7 +2655,7 @@ struct menu_item menuitems_19674[] = {
 };
 
 // 196b0
-struct menu_dialog menudialog_196b0 = {
+struct menu_dialog g_SoloPauseMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f106508,
 	menuitems_19674,
@@ -2837,7 +2837,7 @@ struct menu_dialog g_MainMenuMenuDialog = {
 };
 
 // 19a94
-struct menu_dialog g_MainMenu4MbMenuDialog = {
+struct menu_dialog g_CiMainMenuDialogViaPause = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(116), // "Perfect Menu"
 	menuitems_mainmenu,

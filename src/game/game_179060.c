@@ -5873,12 +5873,12 @@ s32 menuhandler0017ef30(u32 operation, struct menu_item *item, s32 *value)
 	if (operation == MENUOP_SET) {
 		if (g_Vars.stagenum == STAGE_CITRAINING) {
 			if (g_Is4Mb == 1) {
-				func0f0f820c(&g_MainMenu4MbMenuDialog, 2);
+				func0f0f820c(&g_CiMainMenuDialogViaPause, 2);
 			} else {
 				func0f0f820c(&g_MainMenuMenuDialog, 2);
 			}
 		} else {
-			func0f0f820c(&menudialog_196b0, 2);
+			func0f0f820c(&g_SoloPauseMenuDialog, 2);
 		}
 	}
 

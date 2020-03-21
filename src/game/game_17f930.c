@@ -310,7 +310,7 @@ glabel func0f17fcb0
 /*  f17fcf8:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f17fcfc:	3c048007 */ 	lui	$a0,%hi(g_4MbAdvancedSetupMenuDialog)
 /*  f17fd00:	24845538 */ 	addiu	$a0,$a0,%lo(g_4MbAdvancedSetupMenuDialog)
-/*  f17fd04:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f17fd04:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f17fd08:	2405000b */ 	addiu	$a1,$zero,0xb
 /*  f17fd0c:	0fc3e0c0 */ 	jal	func0f0f8300
 /*  f17fd10:	00000000 */ 	sll	$zero,$zero,0x0
@@ -325,12 +325,12 @@ glabel func0f17fcb0
 /*  f17fd30:	2484646c */ 	addiu	$a0,$a0,%lo(menudialog_mpgamesetup3)
 /*  f17fd34:	3c048008 */ 	lui	$a0,%hi(menudialog_mpchallengedetails2)
 /*  f17fd38:	24846030 */ 	addiu	$a0,$a0,%lo(menudialog_mpchallengedetails2)
-/*  f17fd3c:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f17fd3c:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f17fd40:	24050003 */ 	addiu	$a1,$zero,0x3
 /*  f17fd44:	10000003 */ 	beqz	$zero,.L0f17fd54
 /*  f17fd48:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f17fd4c:
-/*  f17fd4c:	0fc3e0cc */ 	jal	func0f0f8330
+/*  f17fd4c:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f17fd50:	24050003 */ 	addiu	$a1,$zero,0x3
 .L0f17fd54:
 /*  f17fd54:	0fc3e0c0 */ 	jal	func0f0f8300

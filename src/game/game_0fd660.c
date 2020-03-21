@@ -42,7 +42,7 @@ void mpOpenPickTarget(void)
 		g_ActiveMenuThings[g_ActiveMenuIndex].unk33 = g_ActiveMenuThings[g_ActiveMenuIndex].allbots;
 		g_Vars.currentplayer->activemenumode = 0;
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
-		func0f0f8330(&menudialog_picktarget, 8);
+		menuPushRootDialog(&menudialog_picktarget, 8);
 		g_MpPlayerNum = prevplayernum;
 	}
 }
