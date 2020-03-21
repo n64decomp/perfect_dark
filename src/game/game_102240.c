@@ -3341,64 +3341,29 @@ glabel var7f1b2dfc
 /*  f105598:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menudialog0010559c
-/*  f10559c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1055a0:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f1055a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1055a8:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1055ac:	10810028 */ 	beq	$a0,$at,.L0f105650
-/*  f1055b0:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f1055b4:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f1055b8:	14810025 */ 	bne	$a0,$at,.L0f105650
-/*  f1055bc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f1055c0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f1055c4:	8c620458 */ 	lw	$v0,0x458($v1)
-/*  f1055c8:	304e0001 */ 	andi	$t6,$v0,0x1
-/*  f1055cc:	51c00016 */ 	beqzl	$t6,.L0f105628
-/*  f1055d0:	304b0004 */ 	andi	$t3,$v0,0x4
-/*  f1055d4:	8c6f0298 */ 	lw	$t7,0x298($v1)
-/*  f1055d8:	05e30013 */ 	bgezl	$t7,.L0f105628
-/*  f1055dc:	304b0004 */ 	andi	$t3,$v0,0x4
-/*  f1055e0:	8c78029c */ 	lw	$t8,0x29c($v1)
-/*  f1055e4:	3c04800a */ 	lui	$a0,%hi(var800a22c0)
-/*  f1055e8:	248422c0 */ 	addiu	$a0,$a0,%lo(var800a22c0)
-/*  f1055ec:	0701000d */ 	bgez	$t8,.L0f105624
-/*  f1055f0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1055f4:	0fc42539 */ 	jal	func0f1094e4
-/*  f1055f8:	00003025 */ 	or	$a2,$zero,$zero
-/*  f1055fc:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f105600:	14400004 */ 	bnez	$v0,.L0f105614
-/*  f105604:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f105608:	8fa80020 */ 	lw	$t0,0x20($sp)
-/*  f10560c:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f105610:	ad190000 */ 	sw	$t9,0x0($t0)
-.L0f105614:
-/*  f105614:	8c690458 */ 	lw	$t1,0x458($v1)
-/*  f105618:	2401fffe */ 	addiu	$at,$zero,-2
-/*  f10561c:	01211024 */ 	and	$v0,$t1,$at
-/*  f105620:	ac620458 */ 	sw	$v0,0x458($v1)
-.L0f105624:
-/*  f105624:	304b0004 */ 	andi	$t3,$v0,0x4
-.L0f105628:
-/*  f105628:	5160000a */ 	beqzl	$t3,.L0f105654
-/*  f10562c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f105630:	0fc44270 */ 	jal	func0f1109c0
-/*  f105634:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f105638:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f10563c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f105640:	8c6c0458 */ 	lw	$t4,0x458($v1)
-/*  f105644:	2401fffb */ 	addiu	$at,$zero,-5
-/*  f105648:	01816824 */ 	and	$t5,$t4,$at
-/*  f10564c:	ac6d0458 */ 	sw	$t5,0x458($v1)
-.L0f105650:
-/*  f105650:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f105654:
-/*  f105654:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f105658:	00001025 */ 	or	$v0,$zero,$zero
-/*  f10565c:	03e00008 */ 	jr	$ra
-/*  f105660:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menudialog0010559c(u32 operation, struct menu_dialog *dialog, struct menustackitem *item)
+{
+	switch (operation) {
+	case MENUOP_100:
+		break;
+	case MENUOP_101:
+		if ((g_Vars.unk000458 & 1) && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
+			if (func0f1094e4(&var800a22c0, 1, 0) == 0) {
+				item->unk000 = 1;
+			}
+
+			g_Vars.unk000458 &= ~0x00000001;
+		}
+
+		if (g_Vars.unk000458 & 4) {
+			func0f1109c0();
+			g_Vars.unk000458 &= ~0x00000004;
+		}
+		break;
+	}
+
+	return 0;
+}
 
 char *func0f105664(struct menu_item *item)
 {
