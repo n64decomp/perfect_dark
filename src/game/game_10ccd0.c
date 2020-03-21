@@ -2617,13 +2617,13 @@ glabel func0f10f204
 /*  f10f660:	0fc47961 */ 	jal	func0f11e584
 /*  f10f664:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10f668:	10400005 */ 	beqz	$v0,.L0f10f680
-/*  f10f66c:	3c01800a */ 	lui	$at,0x800a
+/*  f10f66c:	3c01800a */ 	lui	$at,%hi(g_Vars+0x44c)
 /*  f10f670:	240e0001 */ 	addiu	$t6,$zero,0x1
 /*  f10f674:	3c01800a */ 	lui	$at,%hi(g_Vars+0x44c)
 /*  f10f678:	10000002 */ 	beqz	$zero,.L0f10f684
 /*  f10f67c:	ac2ea40c */ 	sw	$t6,%lo(g_Vars+0x44c)($at)
 .L0f10f680:
-/*  f10f680:	ac20a40c */ 	sw	$zero,-0x5bf4($at)
+/*  f10f680:	ac20a40c */ 	sw	$zero,%lo(g_Vars+0x44c)($at)
 .L0f10f684:
 /*  f10f684:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f10f688:	8fb00018 */ 	lw	$s0,0x18($sp)

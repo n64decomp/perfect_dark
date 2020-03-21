@@ -752,7 +752,7 @@ struct menu_dialog menudialog_1b708 = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(300), // "Objectives"
 	menuitems_1b6b8,
-	menudialog001063e4,
+	soloMenuDialogPauseStatus,
 	0x00000048,
 	NULL,
 };
@@ -762,7 +762,7 @@ struct menu_dialog menudialog_1b720 = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_OPTIONS(300), // "Objectives"
 	menuitems_1b6b8,
-	menudialog001063e4,
+	soloMenuDialogPauseStatus,
 	0x00000048,
 	NULL,
 };
@@ -772,7 +772,7 @@ struct menu_dialog menudialog_1b738 = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS(300), // "Objectives"
 	menuitems_1b668,
-	menudialog001063e4,
+	soloMenuDialogPauseStatus,
 	0x00000048,
 	NULL,
 };
@@ -782,7 +782,7 @@ struct menu_dialog menudialog_1b750 = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_OPTIONS(300), // "Objectives"
 	menuitems_1b668,
-	menudialog001063e4,
+	soloMenuDialogPauseStatus,
 	0x00000048,
 	NULL,
 };

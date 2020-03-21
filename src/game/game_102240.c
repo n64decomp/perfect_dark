@@ -1232,8 +1232,8 @@ glabel menudialog00103608
 /*  f103660:	01f81021 */ 	addu	$v0,$t7,$t8
 /*  f103664:	ac400850 */ 	sw	$zero,0x850($v0)
 /*  f103668:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x1)
-/*  f10366c:	3c07800a */ 	lui	$a3,0x800a
-/*  f103670:	24e7dfc8 */ 	addiu	$a3,$a3,-8248
+/*  f10366c:	3c07800a */ 	lui	$a3,%hi(g_Briefing)
+/*  f103670:	24e7dfc8 */ 	addiu	$a3,$a3,%lo(g_Briefing)
 /*  f103674:	9084dfe9 */ 	lbu	$a0,%lo(g_MissionConfig+0x1)($a0)
 /*  f103678:	8c450844 */ 	lw	$a1,0x844($v0)
 /*  f10367c:	0fc03a60 */ 	jal	func0f00e980
@@ -4221,7 +4221,7 @@ glabel menudialog001063d4
 /*  f1063e0:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-s32 menudialog001063e4(u32 operation, s32 arg1, s32 arg2)
+s32 soloMenuDialogPauseStatus(u32 operation, s32 arg1, s32 arg2)
 {
 	if (operation == MENUOP_100) {
 		struct objectivething *thing = var8009d0b4;

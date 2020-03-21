@@ -2657,7 +2657,7 @@ struct menu_dialog g_SoloPauseMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&soloMenuTitlePauseStatus,
 	menuitems_19674,
-	menudialog001063e4,
+	soloMenuDialogPauseStatus,
 	0x00000048,
 	&menudialog_19534,
 };
@@ -2667,7 +2667,7 @@ struct menu_dialog menudialog_196c8 = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&soloMenuTitlePauseStatus,
 	menuitems_19674,
-	menudialog001063e4,
+	soloMenuDialogPauseStatus,
 	0x00000048,
 	&menudialog_2a800,
 };
@@ -2677,7 +2677,7 @@ struct menu_dialog menudialog_status = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS(172), // "Status"
 	menuitems_status,
-	menudialog001063e4,
+	soloMenuDialogPauseStatus,
 	0x00000048,
 	&menudialog_2a818,
 };

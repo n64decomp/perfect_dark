@@ -2465,7 +2465,7 @@ glabel var7f1b7868
 /*  f16a0cc:	17c30032 */ 	bne	$s8,$v1,.L0f16a198
 /*  f16a0d0:	3c188008 */ 	lui	$t8,%hi(g_Stages+0x33f)
 /*  f16a0d4:	8e0a0490 */ 	lw	$t2,0x490($s0)
-/*  f16a0d8:	3c048009 */ 	lui	$a0,0x8009
+/*  f16a0d8:	3c048009 */ 	lui	$a0,%hi(var80090008)
 /*  f16a0dc:	24058052 */ 	addiu	$a1,$zero,-32686
 /*  f16a0e0:	11400024 */ 	beqz	$t2,.L0f16a174
 /*  f16a0e4:	00003025 */ 	or	$a2,$zero,$zero
@@ -2501,7 +2501,7 @@ glabel var7f1b7868
 /*  f16a15c:	afa00014 */ 	sw	$zero,0x14($sp)
 /*  f16a160:	afaf0010 */ 	sw	$t7,0x10($sp)
 /*  f16a164:	0fc244b7 */ 	jal	func0f0912dc
-/*  f16a168:	24860008 */ 	addiu	$a2,$a0,8
+/*  f16a168:	24860008 */ 	addiu	$a2,$a0,%lo(var80090008)
 /*  f16a16c:	10000008 */ 	beqz	$zero,.L0f16a190
 /*  f16a170:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f16a174:
