@@ -127,7 +127,7 @@ void func0f11e530(u32 value, u32 *flags, bool set);
 u32 func0f11e584(u32 value, u32 *flags);
 u32 func0f11e5bc(void);
 u32 func0f11e618(void);
-u32 func0f11e6b0(void);
+s32 func0f11e6b0(s32 arg0);
 u32 func0f11e750(void);
 u32 func0f11e78c(void);
 u32 func0f11e7f0(void);
