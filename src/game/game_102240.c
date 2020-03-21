@@ -50,9 +50,6 @@ const char var7f1b2d30[] = "%dh:%02dm:%02ds";
 const u32 var7f1b2d40[] = {0x57055706};
 const u32 var7f1b2d44[] = {0x57075708};
 const u32 var7f1b2d48[] = {0x57090000};
-const u32 var7f1b2d4c[] = {0x570f5710};
-
-const char var7f1b2d50[] = "\n";
 
 GLOBAL_ASM(
 glabel func0f102240
@@ -2166,61 +2163,29 @@ s32 menuhandlerAntiRadar(u32 operation, struct menu_item *item, bool *enable)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menuhandlerAntiPlayer
-/*  f104484:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f104488:	3c0e7f1b */ 	lui	$t6,%hi(var7f1b2d4c)
-/*  f10448c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f104490:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f104494:	25ce2d4c */ 	addiu	$t6,$t6,%lo(var7f1b2d4c)
-/*  f104498:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f10449c:	27a2001c */ 	addiu	$v0,$sp,0x1c
-/*  f1044a0:	24080002 */ 	addiu	$t0,$zero,0x2
-/*  f1044a4:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f1044a8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1044ac:	1081000a */ 	beq	$a0,$at,.L0f1044d8
-/*  f1044b0:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f1044b4:	1081000a */ 	beq	$a0,$at,.L0f1044e0
-/*  f1044b8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1044bc:	1081000f */ 	beq	$a0,$at,.L0f1044fc
-/*  f1044c0:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1044c4:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f1044c8:	10810013 */ 	beq	$a0,$at,.L0f104518
-/*  f1044cc:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1044d0:	10000015 */ 	beqz	$zero,.L0f104528
-/*  f1044d4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1044d8:
-/*  f1044d8:	10000012 */ 	beqz	$zero,.L0f104524
-/*  f1044dc:	acc80000 */ 	sw	$t0,0x0($a2)
-.L0f1044e0:
-/*  f1044e0:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f1044e4:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f1044e8:	004a5821 */ 	addu	$t3,$v0,$t2
-/*  f1044ec:	0fc5b9f1 */ 	jal	langGet
-/*  f1044f0:	95640000 */ 	lhu	$a0,0x0($t3)
-/*  f1044f4:	1000000d */ 	beqz	$zero,.L0f10452c
-/*  f1044f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1044fc:
-/*  f1044fc:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f104500:	8c4d0458 */ 	lw	$t5,0x458($v0)
-/*  f104504:	8ccc0000 */ 	lw	$t4,0x0($a2)
-/*  f104508:	35b80001 */ 	ori	$t8,$t5,0x1
-/*  f10450c:	ac580458 */ 	sw	$t8,0x458($v0)
-/*  f104510:	10000004 */ 	beqz	$zero,.L0f104524
-/*  f104514:	ac4c0450 */ 	sw	$t4,0x450($v0)
-.L0f104518:
-/*  f104518:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f10451c:	8c4f0450 */ 	lw	$t7,0x450($v0)
-/*  f104520:	accf0000 */ 	sw	$t7,0x0($a2)
-.L0f104524:
-/*  f104524:	00001025 */ 	or	$v0,$zero,$zero
-.L0f104528:
-/*  f104528:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10452c:
-/*  f10452c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f104530:	03e00008 */ 	jr	$ra
-/*  f104534:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menuhandlerAntiPlayer(u32 operation, struct menu_dialog *dialog, s32 *value)
+{
+	const u16 labels[] = {L_OPTIONS(271), L_OPTIONS(272)};
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = 2;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return langGet(labels[*value]);
+	case MENUOP_SET:
+		g_Vars.pendingantiplayernum = *value;
+		g_Vars.unk000458 |= 1;
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = g_Vars.pendingantiplayernum;
+		break;
+	}
+
+	return NULL;
+}
+
+const char var7f1b2d50[] = "\n";
 
 s32 menuhandlerCoopDifficulty(u32 operation, struct menu_item *item, s32 *value)
 {

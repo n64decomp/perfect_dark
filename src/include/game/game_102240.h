@@ -46,7 +46,7 @@ char *menuhandlerAimControl(u32 operation, struct menu_item *item, bool *value);
 s32 menuhandlerAlternativeTitle(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerAlwaysShowTarget(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerAmmoOnScreen(u32 operation, struct menu_item *item, bool *enable);
-s32 menuhandlerAntiPlayer(u32 operation, struct menu_item *item, bool *enable);
+char *menuhandlerAntiPlayer(u32 operation, struct menu_dialog *dialog, s32 *value);
 s32 menuhandlerAntiRadar(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerAutoAim(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerChangeAgent(s32 operation, struct menu_item *item, s32 *value);
