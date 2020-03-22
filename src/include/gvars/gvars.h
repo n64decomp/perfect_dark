@@ -633,6 +633,7 @@ extern char g_CheatMarqueeString[];
 extern u32 var8009dfbc;
 extern u32 var8009dfc0;
 extern struct briefing g_Briefing;
+extern u16 var8009dfe0[2];
 extern struct missionconfig g_MissionConfig;
 extern struct menustackitem g_MenuStack[4];
 extern u32 g_MenuCount;

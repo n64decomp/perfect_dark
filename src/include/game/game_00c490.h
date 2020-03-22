@@ -26,7 +26,7 @@ u32 func0f00e1f8(void);
 u32 func0f00e2b0(void);
 u32 func0f00e368(void);
 u32 func0f00e90c(void);
-u32 func0f00e980(void);
+void func0f00e980(s32 stagenum, s32 arg0, s32 arg1, struct briefing *briefing);
 void func0f00eb64(s32 stagenum);
 void func0f00f174(s32 stagenum);
 

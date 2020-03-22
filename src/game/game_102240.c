@@ -1192,53 +1192,23 @@ glabel func0f103550
 /*  f103604:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menudialog00103608
-/*  f103608:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10360c:	24010064 */ 	addiu	$at,$zero,0x64
-/*  f103610:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f103614:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f103618:	10810006 */ 	beq	$a0,$at,.L0f103634
-/*  f10361c:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f103620:	24010065 */ 	addiu	$at,$zero,0x65
-/*  f103624:	10810019 */ 	beq	$a0,$at,.L0f10368c
-/*  f103628:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10362c:	1000001b */ 	beqz	$zero,.L0f10369c
-/*  f103630:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f103634:
-/*  f103634:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f103638:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f10363c:	3c18800a */ 	lui	$t8,0x800a
-/*  f103640:	2718e000 */ 	addiu	$t8,$t8,-8192
-/*  f103644:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f103648:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10364c:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f103650:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f103654:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f103658:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f10365c:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f103660:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f103664:	ac400850 */ 	sw	$zero,0x850($v0)
-/*  f103668:	3c04800a */ 	lui	$a0,%hi(g_MissionConfig+0x1)
-/*  f10366c:	3c07800a */ 	lui	$a3,%hi(g_Briefing)
-/*  f103670:	24e7dfc8 */ 	addiu	$a3,$a3,%lo(g_Briefing)
-/*  f103674:	9084dfe9 */ 	lbu	$a0,%lo(g_MissionConfig+0x1)($a0)
-/*  f103678:	8c450844 */ 	lw	$a1,0x844($v0)
-/*  f10367c:	0fc03a60 */ 	jal	func0f00e980
-/*  f103680:	8c460848 */ 	lw	$a2,0x848($v0)
-/*  f103684:	10000005 */ 	beqz	$zero,.L0f10369c
-/*  f103688:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10368c:
-/*  f10368c:	3c04800a */ 	lui	$a0,%hi(var8009dfe0+0x2)
-/*  f103690:	0fc5b9ec */ 	jal	langClearBank
-/*  f103694:	9484dfe2 */ 	lhu	$a0,%lo(var8009dfe0+0x2)($a0)
-/*  f103698:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10369c:
-/*  f10369c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1036a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1036a4:	03e00008 */ 	jr	$ra
-/*  f1036a8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menudialog00103608(u32 operation, struct menu_dialog *dialog, struct menustackitem *item)
+{
+	switch (operation) {
+	case MENUOP_100:
+		g_MenuStack[g_MpPlayerNum].unk850 = 0;
+
+		func0f00e980(g_MissionConfig.stagenum,
+				g_MenuStack[g_MpPlayerNum].unk844,
+				g_MenuStack[g_MpPlayerNum].unk848, &g_Briefing);
+		break;
+	case MENUOP_101:
+		langClearBank(var8009dfe0[1]);
+		break;
+	}
+
+	return 0;
+}
 
 f32 func0f1036ac(u8 value, s32 prop)
 {
