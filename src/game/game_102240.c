@@ -1885,43 +1885,30 @@ s32 menuhandlerBuddyOptionsContinue(u32 operation, struct menu_item *item, s32 *
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel getMaxAiBuddies
-/*  f10408c:	3c0e800a */ 	lui	$t6,%hi(g_MissionConfig)
-/*  f104090:	8dcedfe8 */ 	lw	$t6,%lo(g_MissionConfig)($t6)
-/*  f104094:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f104098:	3c05800a */ 	lui	$a1,%hi(g_SoloSaveFile)
-/*  f10409c:	000e7e42 */ 	srl	$t7,$t6,0x19
-/*  f1040a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1040a4:	030f1823 */ 	subu	$v1,$t8,$t7
-/*  f1040a8:	24a52200 */ 	addiu	$a1,$a1,%lo(g_SoloSaveFile)
-/*  f1040ac:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1040b0:	24080003 */ 	addiu	$t0,$zero,0x3
-/*  f1040b4:	3c07fffe */ 	lui	$a3,0xfffe
-/*  f1040b8:	2406ffff */ 	addiu	$a2,$zero,-1
-.L0f1040bc:
-/*  f1040bc:	8cb900a0 */ 	lw	$t9,0xa0($a1)
-/*  f1040c0:	03274825 */ 	or	$t1,$t9,$a3
-/*  f1040c4:	54c90003 */ 	bnel	$a2,$t1,.L0f1040d4
-/*  f1040c8:	24840001 */ 	addiu	$a0,$a0,0x1
-/*  f1040cc:	24820001 */ 	addiu	$v0,$a0,0x1
-/*  f1040d0:	24840001 */ 	addiu	$a0,$a0,0x1
-.L0f1040d4:
-/*  f1040d4:	1488fff9 */ 	bne	$a0,$t0,.L0f1040bc
-/*  f1040d8:	24a50004 */ 	addiu	$a1,$a1,0x4
-/*  f1040dc:	00621821 */ 	addu	$v1,$v1,$v0
-/*  f1040e0:	28610005 */ 	slti	$at,$v1,0x5
-/*  f1040e4:	14200002 */ 	bnez	$at,.L0f1040f0
-/*  f1040e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1040ec:	24030004 */ 	addiu	$v1,$zero,0x4
-.L0f1040f0:
-/*  f1040f0:	1c600002 */ 	bgtz	$v1,.L0f1040fc
-/*  f1040f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1040f8:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f1040fc:
-/*  f1040fc:	03e00008 */ 	jr	$ra
-/*  f104100:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 getMaxAiBuddies(void)
+{
+	s32 extra = 0;
+	s32 max = 1 - g_MissionConfig.difficulty;
+	s32 d;
+
+	for (d = 0; d != 3; d++) {
+		if ((g_SoloSaveFile.coopcompletions[d] | 0xfffe0000) == 0xffffffff) {
+			extra = d + 1;
+		}
+	}
+
+	max += extra;
+
+	if (max > 4) {
+		max = 4;
+	}
+
+	if (max < 1) {
+		max = 1;
+	}
+
+	return max;
+}
 
 GLOBAL_ASM(
 glabel menudialogCoopAntiOptions
