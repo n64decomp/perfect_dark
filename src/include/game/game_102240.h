@@ -7,7 +7,7 @@ u32 func0f102240(void);
 char *soloMenuTextDifficulty(struct menu_item *item);
 char *func0f102330(u32 operation, struct menu_item *item, s32 *value, s32 arg3);
 u32 func0f103550(void);
-f32 func0f1036ac(s32 arg0, s32 arg1);
+f32 func0f1036ac(u8 value, s32 prop);
 bool isStageDifficultyUnlocked(s32 stageindex, s32 difficulty);
 char *soloMenuTextBestTime(struct menu_item *item);
 s32 getMaxAiBuddies(void);

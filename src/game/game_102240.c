@@ -1240,35 +1240,14 @@ glabel menudialog00103608
 /*  f1036a8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1036ac
-/*  f1036ac:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1036b0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1036b4:	308e00ff */ 	andi	$t6,$a0,0xff
-/*  f1036b8:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f1036bc:	14a0000c */ 	bnez	$a1,.L0f1036f0
-/*  f1036c0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1036c4:	44842000 */ 	mtc1	$a0,$f4
-/*  f1036c8:	3c014f80 */ 	lui	$at,0x4f80
-/*  f1036cc:	05c10004 */ 	bgez	$t6,.L0f1036e0
-/*  f1036d0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f1036d4:	44814000 */ 	mtc1	$at,$f8
-/*  f1036d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1036dc:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f1036e0:
-/*  f1036e0:	3c01437f */ 	lui	$at,0x437f
-/*  f1036e4:	44815000 */ 	mtc1	$at,$f10
-/*  f1036e8:	10000003 */ 	beqz	$zero,.L0f1036f8
-/*  f1036ec:	460a3003 */ 	div.s	$f0,$f6,$f10
-.L0f1036f0:
-/*  f1036f0:	0fc61ddc */ 	jal	func0f187770
-/*  f1036f4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1036f8:
-/*  f1036f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1036fc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f103700:	03e00008 */ 	jr	$ra
-/*  f103704:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 func0f1036ac(u8 value, s32 prop)
+{
+	if (prop == PDMODEPROP_REACTION) {
+		return value / 255.0f;
+	}
+
+	return func0f187770(value);
+}
 
 s32 menuhandlerPdModeSetting(u32 operation, struct menu_item *item, struct numandtext *value)
 {
@@ -1276,10 +1255,10 @@ s32 menuhandlerPdModeSetting(u32 operation, struct menu_item *item, struct numan
 	f32 fvalue;
 
 	switch (item->param) {
-	case 0: property = &g_MissionConfig.pdmodereaction; break;
-	case 1: property = &g_MissionConfig.pdmodehealth;   break;
-	case 2: property = &g_MissionConfig.pdmodedamage;   break;
-	case 3: property = &g_MissionConfig.pdmodeaccuracy; break;
+	case PDMODEPROP_REACTION: property = &g_MissionConfig.pdmodereaction; break;
+	case PDMODEPROP_HEALTH:   property = &g_MissionConfig.pdmodehealth;   break;
+	case PDMODEPROP_DAMAGE:   property = &g_MissionConfig.pdmodedamage;   break;
+	case PDMODEPROP_ACCURACY: property = &g_MissionConfig.pdmodeaccuracy; break;
 	default: return 0;
 	}
 
@@ -1306,9 +1285,9 @@ s32 menuhandlerAcceptPdModeSettings(s32 operation, struct menu_item *item, bool 
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.pdmode = true;
-		g_MissionConfig.pdmodehealthf = func0f1036ac(g_MissionConfig.pdmodehealth, 1);
-		g_MissionConfig.pdmodedamagef = func0f1036ac(g_MissionConfig.pdmodedamage, 2);
-		g_MissionConfig.pdmodeaccuracyf = func0f1036ac(g_MissionConfig.pdmodeaccuracy, 3);
+		g_MissionConfig.pdmodehealthf = func0f1036ac(g_MissionConfig.pdmodehealth, PDMODEPROP_HEALTH);
+		g_MissionConfig.pdmodedamagef = func0f1036ac(g_MissionConfig.pdmodedamage, PDMODEPROP_DAMAGE);
+		g_MissionConfig.pdmodeaccuracyf = func0f1036ac(g_MissionConfig.pdmodeaccuracy, PDMODEPROP_ACCURACY);
 		g_MissionConfig.difficulty = DIFF_PA;
 		setDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
