@@ -37,34 +37,11 @@
 #include "lib/lib_13900.h"
 #include "types.h"
 
-const char var7f1b2cf0[] = "%s\n";
-
-GLOBAL_ASM(
-glabel func0f102240
-/*  f102240:	3c0e800a */ 	lui	$t6,%hi(g_MissionConfig+0x2)
-/*  f102244:	91cedfea */ 	lbu	$t6,%lo(g_MissionConfig+0x2)($t6)
-/*  f102248:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f10224c:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f102250:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f102254:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f102258:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10225c:	3c048007 */ 	lui	$a0,%hi(g_StageNames+0xa)
-/*  f102260:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102264:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f102268:	0fc5b9f1 */ 	jal	langGet
-/*  f10226c:	94841e76 */ 	lhu	$a0,%lo(g_StageNames+0xa)($a0)
-/*  f102270:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f102274:	3c057f1b */ 	lui	$a1,%hi(var7f1b2cf0)
-/*  f102278:	24a52cf0 */ 	addiu	$a1,$a1,%lo(var7f1b2cf0)
-/*  f10227c:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f102280:	0c004dad */ 	jal	sprintf
-/*  f102284:	00403025 */ 	or	$a2,$v0,$zero
-/*  f102288:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10228c:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f102290:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f102294:	03e00008 */ 	jr	$ra
-/*  f102298:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *menuTextCurrentStageName(struct menu_item *item)
+{
+	sprintf(g_StringPointer, "%s\n", langGet(g_StageNames[g_MissionConfig.stageindex].name3));
+	return g_StringPointer;
+}
 
 char *soloMenuTextDifficulty(struct menu_item *item)
 {

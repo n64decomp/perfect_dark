@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f102240(void);
+char *menuTextCurrentStageName(struct menu_item *item);
 char *soloMenuTextDifficulty(struct menu_item *item);
 char *menuhandlerControlStyleImpl(u32 operation, struct menu_item *item, s32 *value, s32 arg3);
 char *soloMenuTitleStageOverview(struct menu_dialog *dialog);
