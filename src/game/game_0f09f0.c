@@ -371,27 +371,9 @@ const u32 var7f1b264c[] = {0x88445500};
 const u32 var7f1b2650[] = {0x48242000};
 const u32 var7f1b2654[] = {0x88445500};
 
-const char var7f1b2658[] = "1\n";
-const char var7f1b265c[] = "2\n";
-const char var7f1b2660[] = "3\n";
-const char var7f1b2664[] = "4\n";
-const char var7f1b2668[] = "[]-[] Terminate Complete\n";
-const char var7f1b2684[] = "Enabling control %d\n";
-const char var7f1b269c[] = "NOT IN MODE MULTIINGAME!\n";
-const char var7f1b26b8[] = "Numactive now:%d\n";
-const char var7f1b26cc[] = "[]-[] SwitchMenuMode called, context %d\n";
-const char var7f1b26f8[] = "cthresh";
-const char var7f1b2700[] = "[]-[] slide from %d";
-const char var7f1b2714[] = " to %d\n";
-const char var7f1b271c[] = "UNPAUSE: enabling control 0\n";
-const char var7f1b273c[] = "file: type %d guid %x-%x data %x err %d\n";
-const char var7f1b2768[] = "StartSelects\n";
-const char var7f1b2778[] = "bblur";
-const char var7f1b2780[] = "cone";
-const char var7f1b2788[] = "usePiece";
-const char var7f1b2794[] = "%s%s";
-const char var7f1b279c[] = "%s%s";
-const char var7f1b27a4[] = "Tune Selector - mode %d\n";
+char *g_StringPointer = g_CheatMarqueeString;
+char *g_StringPointer2 = (char *)0x8009df3d;
+u32 g_MpPlayerNum = 0;
 
 GLOBAL_ASM(
 glabel func0f0f09f0
@@ -650,6 +632,14 @@ glabel func0f0f0ca0
 /*  f0f0ce0:	03e00008 */ 	jr	$ra
 /*  f0f0ce4:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+u32 var8007144c = 0x51e451e5;
+u32 var80071450 = 0x51e651e7;
+u32 var80071454 = 0x51e851e9;
+u32 var80071458 = 0x51ea51eb;
+u32 var8007145c = 0x51ec51ed;
+u32 var80071460 = 0x51ee0000;
+u32 var80071464 = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f0f0ce8
@@ -3805,6 +3795,35 @@ glabel func0f0f37a4
 /*  f0f38ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+u32 var80071468 = 0x96969600;
+u32 var8007146c = 0x96969600;
+
+u32 var80071470 = 0xffffff00;
+u32 var80071474 = 0xffffff00;
+u32 var80071478 = 0xb24d2e00;
+u32 var8007147c = 0x00000000;
+
+u32 var80071480 = 0x00000000;
+u32 var80071484 = 0x00000001;
+u32 var80071488 = 0x00000003;
+u32 var8007148c = 0x00000000;
+u32 var80071490 = 0x00000000;
+u32 var80071494 = 0x00000000;
+u32 var80071498 = 0x00000000;
+u32 var8007149c = 0x00000000;
+u32 var800714a0 = 0x00000000;
+u32 var800714a4 = 0x00000000;
+u32 var800714a8 = 0x00000000;
+u32 var800714ac = 0x00000000;
+u32 var800714b0 = 0x00000000;
+u32 var800714b4 = 0x00000000;
+u32 var800714b8 = 0x00000000;
+u32 var800714bc = 0x00000000;
+
+u32 var800714c0 = 0x0000000a;
+
+u32 var800714c4 = 0x0000012c;
+
 GLOBAL_ASM(
 glabel func0f0f38b0
 .late_rodata
@@ -5647,6 +5666,34 @@ glabel func0f0f50fc
 /*  f0f5358:	03e00008 */ 	jr	$ra
 /*  f0f535c:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+const char var7f1b2658[] = "1\n";
+const char var7f1b265c[] = "2\n";
+const char var7f1b2660[] = "3\n";
+const char var7f1b2664[] = "4\n";
+
+u32 var800714c8 = (u32)&var7f1b2658;
+u32 var800714cc = (u32)&var7f1b265c;
+u32 var800714d0 = (u32)&var7f1b2660;
+u32 var800714d4 = (u32)&var7f1b2664;
+
+const char var7f1b2668[] = "[]-[] Terminate Complete\n";
+const char var7f1b2684[] = "Enabling control %d\n";
+const char var7f1b269c[] = "NOT IN MODE MULTIINGAME!\n";
+const char var7f1b26b8[] = "Numactive now:%d\n";
+const char var7f1b26cc[] = "[]-[] SwitchMenuMode called, context %d\n";
+const char var7f1b26f8[] = "cthresh";
+const char var7f1b2700[] = "[]-[] slide from %d";
+const char var7f1b2714[] = " to %d\n";
+const char var7f1b271c[] = "UNPAUSE: enabling control 0\n";
+const char var7f1b273c[] = "file: type %d guid %x-%x data %x err %d\n";
+const char var7f1b2768[] = "StartSelects\n";
+const char var7f1b2778[] = "bblur";
+const char var7f1b2780[] = "cone";
+const char var7f1b2788[] = "usePiece";
+const char var7f1b2794[] = "%s%s";
+const char var7f1b279c[] = "%s%s";
+const char var7f1b27a4[] = "Tune Selector - mode %d\n";
 
 GLOBAL_ASM(
 glabel func0f0f5360
@@ -7987,6 +8034,8 @@ glabel var7f1b296c
 /*  f0f7590:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+u32 var800714d8 = 0x00000001;
+
 GLOBAL_ASM(
 glabel func0f0f7594
 /*  f0f7594:	3c0e800a */ 	lui	$t6,%hi(g_MenuRoot)
@@ -9271,6 +9320,8 @@ glabel func0f0f85e0
 /*  f0f8630:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+u32 var800714dc = 0x00000078;
+
 GLOBAL_ASM(
 glabel func0f0f8634
 /*  f0f8634:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -9303,6 +9354,10 @@ glabel func0f0f8634
 /*  f0f86a0:	03e00008 */ 	jr	$ra
 /*  f0f86a4:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+u32 var800714e0 = 0x00000000;
+u32 var800714e4 = 0x00000000;
+u32 var800714e8 = 0x00000000;
 
 GLOBAL_ASM(
 glabel func0f0f86a8
@@ -12632,6 +12687,8 @@ glabel var7f1b2ac8
 /*  f0fb484:	27bd0130 */ 	addiu	$sp,$sp,0x130
 );
 
+u32 var800714ec = 0x00000001;
+
 GLOBAL_ASM(
 glabel func0f0fb488
 .late_rodata
@@ -13132,6 +13189,8 @@ glabel var7f1b2af4
 /*  f0fbb9c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+u32 var800714f0 = 0x00000001;
+
 GLOBAL_ASM(
 glabel func0f0fbba0
 /*  f0fbba0:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -13175,6 +13234,8 @@ glabel func0f0fbba0
 /*  f0fbc28:	03e00008 */ 	jr	$ra
 /*  f0fbc2c:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+u32 var800714f4 = 0x00000001;
 
 GLOBAL_ASM(
 glabel func0f0fbc30
@@ -14561,6 +14622,80 @@ glabel func0f0fce8c
 /*  f0fcfb4:	ac2a1448 */ 	sw	$t2,%lo(g_MpPlayerNum)($at)
 );
 
+struct menu_item menuitems_pakremoved[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(174), 0x00000000, NULL }, // "The Controller Pak has been removed."
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(73), 0x00000000, menuhandler000fcc34 }, // "OK"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog menudialog_pakremoved = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPWEAPONS(173), // "Error"
+	menuitems_pakremoved,
+	NULL,
+	0x00000000,
+	NULL,
+};
+
+struct menu_item menuitems_pakrepaired[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000054b5, 0x00000000, NULL },
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, 0x00005449, 0x00000000, menuhandler000fcc34 },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog g_PakRepairSuccessMenuDialog = {
+	MENUDIALOGTYPE_SUCCESS,
+	0x54b4,
+	menuitems_pakrepaired,
+	menudialog000fcd48,
+	0x00000000,
+	NULL,
+};
+
+struct menu_item menuitems_pakrepairfailed[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(183), 0x00000000, NULL }, // "The Controller Pak cannot be repaired. You will not be able to load from or save to this Controller Pak."
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(73), 0x00000000, NULL }, // "OK"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog g_PakRepairFailedMenuDialog = {
+	MENUDIALOGTYPE_DANGER,
+	0x54b6,
+	menuitems_pakrepairfailed,
+	menudialog000fcd48,
+	0x00000000,
+	NULL,
+};
+
+struct menu_item menuitems_pakattemptrepair[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(176), 0x00000000, NULL }, // "Are you sure you want to attempt repair of this Controller Pak?"
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(177), 0x00000000, NULL }, // "Data may be lost!"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(178), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000020, L_MPWEAPONS(179), 0x00000000, menuhandlerRepairPak }, // "Repair"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog g_PakAttemptRepairMenuDialog = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPWEAPONS(175), // "Attempt Repair"
+	menuitems_pakattemptrepair,
+	menudialog000fcd48,
+	0x00000000,
+	NULL,
+};
+
+u16 savelocations[] = {
+	L_OPTIONS(112), // "Controller Pak 1"
+	L_OPTIONS(113), // "Controller Pak 2"
+	L_OPTIONS(114), // "Controller Pak 3"
+	L_OPTIONS(115), // "Controller Pak 4"
+	L_OPTIONS(111), // "Game Pak"
+};
+
 GLOBAL_ASM(
 glabel func0f0fcfb8
 /*  f0fcfb8:	27bdffd8 */ 	addiu	$sp,$sp,-40
@@ -15025,3 +15160,77 @@ bool currentPlayerIsInTraining(void)
 {
 	return g_Vars.currentplayer->training;
 }
+
+struct menu_item menuitems_damagedcontrollerpak[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f0fcfb8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(65), 0x00000000, NULL }, // "is damaged or"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(66), 0x00000000, NULL }, // "inserted incorrectly"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(67), 0x00000000, menuhandlerWarnRepairPak }, // "Attempt Repair"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(68), 0x00000000, menuhandlerRetrySavePak }, // "Retry"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(69), 0x00000000, NULL }, // "Continue without using the Controller Pak"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog menudialog_damagedcontrollerpak = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPWEAPONS(64), // "Damaged Controller Pak"
+	menuitems_damagedcontrollerpak,
+	menudialog000fcd48,
+	0x00000020,
+	NULL,
+};
+
+struct menu_item menuitems_fullcontrollerpak[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f0fcfb8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS(71), 0x00000000, NULL }, // "is too full to save note - 1 note and 28 pages required to save"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000220, L_OPTIONS(3), 0x00000000, NULL }, // ""
+	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS(72), 0x00000000, NULL }, // "Enter the Controller Pak Menu to free some space (hold START while powering up.)"
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(73), 0x00000000, NULL }, // "OK"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog menudialog_fullcontrollerpak = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPWEAPONS(70), // "Full Controller Pak"
+	menuitems_fullcontrollerpak,
+	menudialog000fcd48,
+	0x00000020,
+	NULL,
+};
+
+struct menu_item menuitems_cannotreadgameboy[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(254), 0x00000000, NULL }, // "Cannot read Game Boy Game Pak. Check connections and make sure correct Game Boy Game Pak is being used."
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(255), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog menudialog_cannotreadgameboy = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPWEAPONS(253), // "Error"
+	menuitems_cannotreadgameboy,
+	NULL,
+	0x00000020,
+	NULL,
+};
+
+struct menu_item menuitems_datalost[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f0fcfb8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(257), 0x00000000, NULL }, // "The saved data has"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(258), 0x00000000, NULL }, // "been erased due to"
+	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(259), 0x00000000, NULL }, // "corruption or damage."
+	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPWEAPONS(260), 0x00000000, NULL }, // "Cancel"
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+struct menu_dialog menudialog_datalost = {
+	MENUDIALOGTYPE_DANGER,
+	L_MPWEAPONS(256), // "Error"
+	menuitems_datalost,
+	NULL,
+	0x00000020,
+	NULL,
+};
