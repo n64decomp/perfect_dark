@@ -1508,9 +1508,9 @@ struct menu_dialog g_PdModeSettingsDialog = {
 // 17b80
 struct menu_item menuitems_selectdifficulty[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000012, L_OPTIONS(249), L_OPTIONS(250), NULL }, // "Difficulty"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(251), (u32)&func0f103e68, menuhandlerSoloDifficulty }, // "Agent"
-	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS(252), (u32)&func0f103e68, menuhandlerSoloDifficulty }, // "Special Agent"
-	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_OPTIONS(253), (u32)&func0f103e68, menuhandlerSoloDifficulty }, // "Perfect Agent"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(251), (u32)&soloMenuTextBestTime, menuhandlerSoloDifficulty }, // "Agent"
+	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS(252), (u32)&soloMenuTextBestTime, menuhandlerSoloDifficulty }, // "Special Agent"
+	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_OPTIONS(253), (u32)&soloMenuTextBestTime, menuhandlerSoloDifficulty }, // "Perfect Agent"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_MPWEAPONS(221), 0x00000000, menuhandlerPdMode }, // "Perfect Dark"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_OPTIONS(254), 0x00000000, NULL }, // "Cancel"

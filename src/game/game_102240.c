@@ -42,14 +42,6 @@ const char var7f1b2cf4[] = "%s: %s\n";
 const char var7f1b2cfc[] = "%s%s%.00f%%\n";
 const char var7f1b2d0c[] = "";
 const char var7f1b2d10[] = "";
-const char var7f1b2d14[] = "--:--\n";
-const char var7f1b2d1c[] = "==:==\n";
-const char var7f1b2d24[] = "%dm:%02ds";
-const char var7f1b2d30[] = "%dh:%02dm:%02ds";
-
-const u32 var7f1b2d40[] = {0x57055706};
-const u32 var7f1b2d44[] = {0x57075708};
-const u32 var7f1b2d48[] = {0x57090000};
 
 GLOBAL_ASM(
 glabel func0f102240
@@ -1734,142 +1726,33 @@ s32 menuhandlerPdMode(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f103e68
-/*  f103e68:	3c0e800a */ 	lui	$t6,%hi(g_MissionConfig+0x2)
-/*  f103e6c:	91cedfea */ 	lbu	$t6,%lo(g_MissionConfig+0x2)($t6)
-/*  f103e70:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f103e74:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f103e78:	90980001 */ 	lbu	$t8,0x1($a0)
-/*  f103e7c:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f103e80:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f103e84:	000f7840 */ 	sll	$t7,$t7,0x1
-/*  f103e88:	0018c840 */ 	sll	$t9,$t8,0x1
-/*  f103e8c:	01f94021 */ 	addu	$t0,$t7,$t9
-/*  f103e90:	3c03800a */ 	lui	$v1,%hi(g_SoloSaveFile+0x20)
-/*  f103e94:	00681821 */ 	addu	$v1,$v1,$t0
-/*  f103e98:	94622220 */ 	lhu	$v0,%lo(g_SoloSaveFile+0x20)($v1)
-/*  f103e9c:	14400004 */ 	bnez	$v0,.L0f103eb0
-/*  f103ea0:	28410fff */ 	slti	$at,$v0,0xfff
-/*  f103ea4:	3c027f1b */ 	lui	$v0,%hi(var7f1b2d14)
-/*  f103ea8:	1000005f */ 	beqz	$zero,.L0f104028
-/*  f103eac:	24422d14 */ 	addiu	$v0,$v0,%lo(var7f1b2d14)
-.L0f103eb0:
-/*  f103eb0:	54200005 */ 	bnezl	$at,.L0f103ec8
-/*  f103eb4:	24010e10 */ 	addiu	$at,$zero,0xe10
-/*  f103eb8:	3c027f1b */ 	lui	$v0,%hi(var7f1b2d1c)
-/*  f103ebc:	1000005a */ 	beqz	$zero,.L0f104028
-/*  f103ec0:	24422d1c */ 	addiu	$v0,$v0,%lo(var7f1b2d1c)
-/*  f103ec4:	24010e10 */ 	addiu	$at,$zero,0xe10
-.L0f103ec8:
-/*  f103ec8:	0041001a */ 	div	$zero,$v0,$at
-/*  f103ecc:	00003012 */ 	mflo	$a2
-/*  f103ed0:	2403003c */ 	addiu	$v1,$zero,0x3c
-/*  f103ed4:	14c0002b */ 	bnez	$a2,.L0f103f84
-/*  f103ed8:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f103edc:	2403003c */ 	addiu	$v1,$zero,0x3c
-/*  f103ee0:	0043001a */ 	div	$zero,$v0,$v1
-/*  f103ee4:	00004812 */ 	mflo	$t1
-/*  f103ee8:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f103eec:	3c057f1b */ 	lui	$a1,%hi(var7f1b2d24)
-/*  f103ef0:	0123001a */ 	div	$zero,$t1,$v1
-/*  f103ef4:	00003010 */ 	mfhi	$a2
-/*  f103ef8:	24a52d24 */ 	addiu	$a1,$a1,%lo(var7f1b2d24)
-/*  f103efc:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f103f00:	0043001a */ 	div	$zero,$v0,$v1
-/*  f103f04:	14600002 */ 	bnez	$v1,.L0f103f10
-/*  f103f08:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103f0c:	0007000d */ 	break	0x7
-.L0f103f10:
-/*  f103f10:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f103f14:	14610004 */ 	bne	$v1,$at,.L0f103f28
-/*  f103f18:	3c018000 */ 	lui	$at,0x8000
-/*  f103f1c:	14410002 */ 	bne	$v0,$at,.L0f103f28
-/*  f103f20:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103f24:	0006000d */ 	break	0x6
-.L0f103f28:
-/*  f103f28:	00003810 */ 	mfhi	$a3
-/*  f103f2c:	14600002 */ 	bnez	$v1,.L0f103f38
-/*  f103f30:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103f34:	0007000d */ 	break	0x7
-.L0f103f38:
-/*  f103f38:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f103f3c:	14610004 */ 	bne	$v1,$at,.L0f103f50
-/*  f103f40:	3c018000 */ 	lui	$at,0x8000
-/*  f103f44:	15210002 */ 	bne	$t1,$at,.L0f103f50
-/*  f103f48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103f4c:	0006000d */ 	break	0x6
-.L0f103f50:
-/*  f103f50:	14600002 */ 	bnez	$v1,.L0f103f5c
-/*  f103f54:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103f58:	0007000d */ 	break	0x7
-.L0f103f5c:
-/*  f103f5c:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f103f60:	14610004 */ 	bne	$v1,$at,.L0f103f74
-/*  f103f64:	3c018000 */ 	lui	$at,0x8000
-/*  f103f68:	14410002 */ 	bne	$v0,$at,.L0f103f74
-/*  f103f6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103f70:	0006000d */ 	break	0x6
-.L0f103f74:
-/*  f103f74:	0c004dad */ 	jal	sprintf
-/*  f103f78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103f7c:	10000028 */ 	beqz	$zero,.L0f104020
-/*  f103f80:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f103f84:
-/*  f103f84:	0043001a */ 	div	$zero,$v0,$v1
-/*  f103f88:	00005012 */ 	mflo	$t2
-/*  f103f8c:	3c057f1b */ 	lui	$a1,%hi(var7f1b2d30)
-/*  f103f90:	24a52d30 */ 	addiu	$a1,$a1,%lo(var7f1b2d30)
-/*  f103f94:	0143001a */ 	div	$zero,$t2,$v1
-/*  f103f98:	00003810 */ 	mfhi	$a3
-/*  f103f9c:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f103fa0:	14600002 */ 	bnez	$v1,.L0f103fac
-/*  f103fa4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103fa8:	0007000d */ 	break	0x7
-.L0f103fac:
-/*  f103fac:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f103fb0:	14610004 */ 	bne	$v1,$at,.L0f103fc4
-/*  f103fb4:	3c018000 */ 	lui	$at,0x8000
-/*  f103fb8:	14410002 */ 	bne	$v0,$at,.L0f103fc4
-/*  f103fbc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103fc0:	0006000d */ 	break	0x6
-.L0f103fc4:
-/*  f103fc4:	0043001a */ 	div	$zero,$v0,$v1
-/*  f103fc8:	14600002 */ 	bnez	$v1,.L0f103fd4
-/*  f103fcc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103fd0:	0007000d */ 	break	0x7
-.L0f103fd4:
-/*  f103fd4:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f103fd8:	14610004 */ 	bne	$v1,$at,.L0f103fec
-/*  f103fdc:	3c018000 */ 	lui	$at,0x8000
-/*  f103fe0:	15410002 */ 	bne	$t2,$at,.L0f103fec
-/*  f103fe4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103fe8:	0006000d */ 	break	0x6
-.L0f103fec:
-/*  f103fec:	00005810 */ 	mfhi	$t3
-/*  f103ff0:	afab0010 */ 	sw	$t3,0x10($sp)
-/*  f103ff4:	14600002 */ 	bnez	$v1,.L0f104000
-/*  f103ff8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103ffc:	0007000d */ 	break	0x7
-.L0f104000:
-/*  f104000:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f104004:	14610004 */ 	bne	$v1,$at,.L0f104018
-/*  f104008:	3c018000 */ 	lui	$at,0x8000
-/*  f10400c:	14410002 */ 	bne	$v0,$at,.L0f104018
-/*  f104010:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f104014:	0006000d */ 	break	0x6
-.L0f104018:
-/*  f104018:	0c004dad */ 	jal	sprintf
-/*  f10401c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f104020:
-/*  f104020:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f104024:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-.L0f104028:
-/*  f104028:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f10402c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f104030:	03e00008 */ 	jr	$ra
-/*  f104034:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *soloMenuTextBestTime(struct menu_item *item)
+{
+	u16 time = g_SoloSaveFile.besttimes[g_MissionConfig.stageindex][item->param];
+	s32 hours = time / 3600;
+
+	if (time == 0) {
+		return "--:--\n";
+	}
+
+	if (time >= 0xfff) { // 1 hour, 8 minutes, 15 seconds
+		return "==:==\n";
+	}
+
+	if (hours == 0) {
+		s32 mins = time / 60;
+		sprintf(g_StringPointer, "%dm:%02ds", mins % 60, time % 60);
+	} else {
+		s32 mins = time / 60;
+		sprintf(g_StringPointer, "%dh:%02dm:%02ds", hours, mins % 60, time % 60);
+	}
+
+	return g_StringPointer;
+}
+
+const u32 var7f1b2d40[] = {0x57055706};
+const u32 var7f1b2d44[] = {0x57075708};
+const u32 var7f1b2d48[] = {0x57090000};
 
 s32 menuhandlerBuddyOptionsContinue(u32 operation, struct menu_item *item, s32 *value)
 {
