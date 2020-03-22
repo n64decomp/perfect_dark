@@ -29,6 +29,23 @@ const char var7f1ad940[] = "bondgrab.c";
 const char var7f1ad94c[] = "bondgrab.c";
 const char var7f1ad958[] = "bondgrab.c";
 
+u32 var80070e80 = 0x00000000;
+u32 var80070e84 = 0x00000000;
+u32 var80070e88 = 0x00000000;
+u32 var80070e8c = 0x00000000;
+u32 var80070e90 = 0x00000000;
+u32 var80070e94 = 0x00000000;
+u32 var80070e98 = 0x00000000;
+u32 var80070e9c = 0x00000000;
+u32 var80070ea0 = 0x00000000;
+u32 var80070ea4 = 0x00000000;
+u32 var80070ea8 = 0x00000000;
+u32 var80070eac = 0x00000000;
+u32 var80070eb0 = 0x00000000;
+u32 var80070eb4 = 0x00000000;
+u32 var80070eb8 = 0x00000000;
+u32 var80070ebc = 0x00000000;
+
 void currentPlayerGrabInit(void)
 {
 	u32 prevmode = g_Vars.currentplayer->bondmovemode;

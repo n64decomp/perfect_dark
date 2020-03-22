@@ -38,6 +38,15 @@ const char var7f1ada70[] = "g";
 const char var7f1ada74[] = "l";
 const char var7f1ada78[] = "%s%s";
 
+u32 var80070ec0 = 0x00000000;
+u32 var80070ec4 = 0x00000000;
+u32 var80070ec8 = 0x00000000;
+u32 var80070ecc = 0x00000000;
+f32 g_EyespyMaxHeight = 160;
+u32 var80070ed4 = 0x42a00000;
+u32 var80070ed8 = 0x00000064;
+u32 var80070edc = 0x00000bb8;
+
 /**
  * Determines the eyespy's ground Y value by doing a collision check for a
  * position 50 units above the current position, or less if the eyespy is near

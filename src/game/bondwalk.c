@@ -32,6 +32,20 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+
+u32 var80070e50 = 0x0000046f;
+u32 var80070e54 = 0x000005b6;
+u32 var80070e58 = 0x000005b7;
+u32 var80070e5c = 0x00000000;
+u32 var80070e60 = 0x00000000;
+u32 var80070e64 = 0x00000000;
+u32 var80070e68 = 0x00000000;
+u32 var80070e6c = 0x00000000;
+u32 var80070e70 = 0x00000000;
+u32 var80070e74 = 0x00000000;
+u32 var80070e78 = 0x00000000;
+u32 var80070e7c = 0x00000000;
+
 void currentPlayerWalkInit(void)
 {
 	u32 prevmode = g_Vars.currentplayer->bondmovemode;

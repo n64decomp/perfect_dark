@@ -62,6 +62,19 @@ const u32 var7f1adb94[] = {0x40c907a9};
 const u32 var7f1adb98[] = {0x3f333333};
 const u32 var7f1adb9c[] = {0x3c8ef461};
 
+u32 var80070ee0 = 0x00000000;
+u32 var80070ee4 = 0x00000000;
+u32 var80070ee8 = 0x00000000;
+u32 var80070eec = 0x00000000;
+u32 var80070ef0 = 0x00000000;
+u32 var80070ef4 = 0x00000000;
+u32 var80070ef8 = 0x00000000;
+u32 var80070efc = 0x00000000;
+u32 var80070f00 = 0x00000000;
+u32 var80070f04 = 0x00000000;
+u32 var80070f08 = 0x00000000;
+u32 var80070f0c = 0x00000000;
+
 void currentPlayerBikeInit(void)
 {
 	struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;

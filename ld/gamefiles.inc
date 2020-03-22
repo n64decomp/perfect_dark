@@ -112,12 +112,9 @@
 	src/game/game_102230.o (section); \
 	src/game/game_102240.o (section); \
 	src/game/cheats.o (section); \
-	src/game/data/cheats.o (section); \
 	src/game/game_107fb0.o (section); \
-	src/game/data/data_01a3a0.o (section); \
-	src/game/data/ailists.o (section); \
-	src/game/data/data_020df0.o (section); \
 	src/game/game_10c9c0.o (section); \
+	src/game/data/data_01a3a0.o (section); \
 	src/game/game_10ccd0.o (section); \
 	src/game/game_111600.o (section); \
 	src/game/game_113220.o (section); \
@@ -125,6 +122,8 @@
 	src/game/pad.o (section); \
 	src/game/pak/pak.o (section); \
 	src/game/game_11ecf0.o (section); \
+	src/game/data/ailists.o (section); \
+	src/game/data/data_020df0.o (section); \
 	src/game/game_11f000.o (section); \
 	src/game/game_127910.o (section); \
 	src/game/game_128f30.o (section); \

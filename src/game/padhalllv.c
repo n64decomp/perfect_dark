@@ -19,7 +19,7 @@
 
 const char var7f1b3a80[] = "padhalllv.c";
 
-const u32 var7f1b3a8c[] = {0x00000000};
+s32 g_WaypointHashes[2] = {0};
 
 void waypointSetHashThing(s32 hash1, s32 hash2)
 {

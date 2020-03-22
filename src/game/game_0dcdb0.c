@@ -36,6 +36,51 @@ const char var7f1ade98[] = "%s%s%4.2fX";
 const char var7f1adea4[] = "";
 const char var7f1adea8[] = "";
 
+u32 var80070fb0 = 0x00000000;
+
+u32 g_Colours[] = {
+	/* 0*/ 0x00ff0000, // green
+	/* 1*/ 0x9999ff00, // pastel blue
+	/* 2*/ 0xffffff00, // white
+	/* 3*/ 0xff777700, // pastel red
+	/* 4*/ 0xffff5500, // yellow
+	/* 5*/ 0x00ff0000, // green
+	/* 6*/ 0xcccccc00, // gray
+	/* 7*/ 0xff888800, // pastel red
+	/* 8*/ 0xffaa5500, // orange
+	/* 9*/ 0x55aaff00, // sky blue
+	/*10*/ 0xaa55ff00, // purple
+};
+
+u32 var80070fe0 = 0x0000000a;
+u32 var80070fe4 = 0x00000018;
+s32 g_NumHudMessages = 0;
+struct hudmessage *g_HudMessages = NULL;
+
+struct hudmessageconfig g_HudMessageConfigs[] = {
+	/* 0*/ { 1, 1, 0, (void*)0x8007fb10, (void*)0x8007fb0c, 0x00ff0000, 0x000000a0, 1, 6, 0, 0, 80  }, // bottom left
+	/* 1*/ { 0, 1, 0, (void*)0x8007fb18, (void*)0x8007fb14, 0x00ff0000, 0x000000a0, 3, 7, 0, 0, 120 }, // middle of screen, larger font, like objectives
+	/* 2*/ { 0, 0, 1, (void*)0x8007fb18, (void*)0x8007fb14, 0xff000000, 0xffffffa0, 3, 7, 0, 0, 120 }, // middle of screen, larger font, like objectives
+	/* 3*/ { 0, 1, 0, (void*)0x8007fb18, (void*)0x8007fb14, 0x00ff0000, 0x000000a0, 1, 6, 0, 0, 120 }, // bottom left, large font
+	/* 4*/ { 1, 1, 0, (void*)0x8007fb10, (void*)0x8007fb0c, 0x00ffc000, 0x000000a0, 1, 6, 0, 0, 40  }, // bottom left
+	/* 5*/ { 0, 0, 0, (void*)0x8007fb18, (void*)0x8007fb14, 0x00ff0000, 0x000000a0, 1, 5, 0, 0, 120 }, // top left, large font
+	/* 6*/ { 1, 0, 0, (void*)0x8007fb10, (void*)0x8007fb0c, 0x00ff0000, 0x000000a0, 3, 5, 0, 0, 120 }, // top middle
+	/* 7*/ { 1, 1, 0, (void*)0x8007fb10, (void*)0x8007fb0c, 0x00ff0000, 0x000000a0, 3, 5, 0, 0, -1  }, // top middle
+	/* 8*/ { 1, 1, 0, (void*)0x8007fb10, (void*)0x8007fb0c, 0x00ffc000, 0x000000a0, 3, 6, 0, 0, 500 }, // bottom middle
+	/* 9*/ { 1, 1, 0, (void*)0x8007fb08, (void*)0x8007fb04, 0x00ff0000, 0x000000a0, 1, 6, 0, 0, 120 }, // bottom left, smaller font
+	/*10*/ { 1, 1, 0, (void*)0x8007fb10, (void*)0x8007fb0c, 0x00ff0000, 0x000000a0, 1, 6, 0, 0, 240 }, // bottom left but longer duration
+	/*11*/ { 0, 0, 0, (void*)0x8007fb10, (void*)0x8007fb0c, 0x00ff0000, 0x000000a0, 3, 8, 0, 0, 120 }, // none
+};
+
+u32 var80071170 = 0x2e3b213f;
+u32 var80071174 = 0x2c000000;
+u32 var80071178 = 0x00000000;
+u32 var8007117c = 0x00000000;
+u32 var80071180 = 0x00000001;
+u32 var80071184 = 0x00000000;
+u32 var80071188 = 0x00000000;
+u32 var8007118c = 0x00000000;
+
 GLOBAL_ASM(
 glabel func0f0dcdb0
 /*  f0dcdb0:	3c028007 */ 	lui	$v0,%hi(var80070fb0)

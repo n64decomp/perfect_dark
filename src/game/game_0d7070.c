@@ -28,6 +28,16 @@ const char var7f1adda0[] = "sight";
 const char var7f1adda8[] = "sout";
 const char var7f1addb0[] = "sin";
 
+u32 var80070f80 = 0x310a0000;
+u32 var80070f84 = 0x43200000;
+u32 var80070f88 = 0x42f00000;
+u32 var80070f8c = 0x00000000;
+u32 var80070f90 = 0x00000000;
+u32 var80070f94 = 0x00000000;
+u32 var80070f98 = 0x00000000;
+u32 var80070f9c = 0x00ff00ff;
+u32 var80070fa0 = 0x00ff0011;
+
 GLOBAL_ASM(
 glabel func0f0d7070
 /*  f0d7070:	27bdffe8 */ 	addiu	$sp,$sp,-24
