@@ -270,80 +270,32 @@ s32 menuhandlerReversePitch(u32 operation, struct menu_item *item, bool *enable)
 	return 0;
 }
 
-u16 g_AimControlOptions[] = {
-	L_OPTIONS(201), // "Hold"
-	L_OPTIONS(202), // "Toggle"
-};
+char *menuhandlerAimControl(u32 operation, struct menu_item *item, s32 *value)
+{
+	u32 playernum = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
+		? g_Vars.currentplayerstats->mpindex : item->param3;
 
-GLOBAL_ASM(
-glabel menuhandlerAimControl
-/*  f1025b4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f1025b8:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f1025bc:	8c4e0298 */ 	lw	$t6,0x298($v0)
-/*  f1025c0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1025c4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1025c8:	05c10004 */ 	bgez	$t6,.L0f1025dc
-/*  f1025cc:	00803825 */ 	or	$a3,$a0,$zero
-/*  f1025d0:	8c4f029c */ 	lw	$t7,0x29c($v0)
-/*  f1025d4:	05e20005 */ 	bltzl	$t7,.L0f1025ec
-/*  f1025d8:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f1025dc:
-/*  f1025dc:	8c580288 */ 	lw	$t8,0x288($v0)
-/*  f1025e0:	10000002 */ 	beqz	$zero,.L0f1025ec
-/*  f1025e4:	8f040070 */ 	lw	$a0,0x70($t8)
-/*  f1025e8:	8ca4000c */ 	lw	$a0,0xc($a1)
-.L0f1025ec:
-/*  f1025ec:	3c198007 */ 	lui	$t9,%hi(g_AimControlOptions)
-/*  f1025f0:	273919e4 */ 	addiu	$t9,$t9,%lo(g_AimControlOptions)
-/*  f1025f4:	8f210000 */ 	lw	$at,0x0($t9)
-/*  f1025f8:	27a30020 */ 	addiu	$v1,$sp,0x20
-/*  f1025fc:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f102600:	ac610000 */ 	sw	$at,0x0($v1)
-/*  f102604:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f102608:	10e10009 */ 	beq	$a3,$at,.L0f102630
-/*  f10260c:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f102610:	10e10009 */ 	beq	$a3,$at,.L0f102638
-/*  f102614:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f102618:	10e1000e */ 	beq	$a3,$at,.L0f102654
-/*  f10261c:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f102620:	10e10014 */ 	beq	$a3,$at,.L0f102674
-/*  f102624:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102628:	10000017 */ 	beqz	$zero,.L0f102688
-/*  f10262c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102630:
-/*  f102630:	10000014 */ 	beqz	$zero,.L0f102684
-/*  f102634:	acca0000 */ 	sw	$t2,0x0($a2)
-.L0f102638:
-/*  f102638:	8ccb0000 */ 	lw	$t3,0x0($a2)
-/*  f10263c:	000b6040 */ 	sll	$t4,$t3,0x1
-/*  f102640:	006c6821 */ 	addu	$t5,$v1,$t4
-/*  f102644:	0fc5b9f1 */ 	jal	langGet
-/*  f102648:	95a40000 */ 	lhu	$a0,0x0($t5)
-/*  f10264c:	1000000f */ 	beqz	$zero,.L0f10268c
-/*  f102650:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102654:
-/*  f102654:	0fc54a94 */ 	jal	optionsSetAimControl
-/*  f102658:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f10265c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102660:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102664:	8c4e0458 */ 	lw	$t6,0x458($v0)
-/*  f102668:	35cf0001 */ 	ori	$t7,$t6,0x1
-/*  f10266c:	10000005 */ 	beqz	$zero,.L0f102684
-/*  f102670:	ac4f0458 */ 	sw	$t7,0x458($v0)
-.L0f102674:
-/*  f102674:	0fc549fb */ 	jal	optionsGetAimControl
-/*  f102678:	afa60030 */ 	sw	$a2,0x30($sp)
-/*  f10267c:	8fa60030 */ 	lw	$a2,0x30($sp)
-/*  f102680:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f102684:
-/*  f102684:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102688:
-/*  f102688:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f10268c:
-/*  f10268c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f102690:	03e00008 */ 	jr	$ra
-/*  f102694:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	u16 options[] = {
+		L_OPTIONS(201), // "Hold"
+		L_OPTIONS(202), // "Toggle"
+	};
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = 2;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return langGet(options[*value]);
+	case MENUOP_SET:
+		optionsSetAimControl(playernum, *value);
+		g_Vars.unk000458 |= 1;
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = optionsGetAimControl(playernum);
+	}
+
+	return NULL;
+}
 
 char *menuhandlerSoundMode(u32 operation, struct menu_item *item, s32 *value)
 {
