@@ -65,7 +65,7 @@ s32 menuhandlerPdMode(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerPdModeSetting(u32 operation, struct menu_item *item, struct numandtext *value);
 s32 menuhandlerReversePitch(u32 operation, struct menu_item *item, bool *enable);
 char *menuhandlerScreenRatio(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerScreenSize(u32 operation, struct menu_item *item, bool *enable);
+char *menuhandlerScreenSize(u32 operation, struct menu_item *item, s32 *value);
 char *menuhandlerScreenSplit(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerSfxVolume(u32 operation, struct menu_item *item, u32 *volume);
 s32 menuhandlerShowGunFunction(u32 operation, struct menu_item *item, bool *enable);
