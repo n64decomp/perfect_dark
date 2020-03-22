@@ -47,6 +47,15 @@ void mpOpenPickTarget(void)
 	}
 }
 
+u32 var80071940 = 0xff666600;
+u32 var80071944 = 0xffff0000;
+u32 var80071948 = 0x4444ff00;
+u32 var8007194c = 0xff00ff00;
+u32 var80071950 = 0x00ffff00;
+u32 var80071954 = 0xff885500;
+u32 var80071958 = 0x8800ff00;
+u32 var8007195c = 0x88445500;
+
 GLOBAL_ASM(
 glabel menuhandler000fd6f0
 .late_rodata
@@ -493,6 +502,23 @@ bool menudialogMpPickTarget(u32 operation, struct menu_dialog *dialog, struct me
 
 	return false;
 }
+
+
+// 17980
+struct menu_item menuitems_picktarget[] = {
+	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x0000005a, 0x00000000, menuhandler000fd6f0 },
+	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+};
+
+// 179a8
+struct menu_dialog menudialog_picktarget = {
+	MENUDIALOGTYPE_DANGER,
+	L_OPTIONS(492), // "Pick Target"
+	menuitems_picktarget,
+	menudialogMpPickTarget,
+	0x00000000,
+	NULL,
+};
 
 void activemenuSetAiBuddyTemperament(bool aggressive)
 {
@@ -3045,6 +3071,16 @@ glabel func0f100128
 /*  f100ac8:	03e00008 */ 	jr	$ra
 /*  f100acc:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+u32 var800719a0 = 0x00010203;
+u32 var800719a4 = 0x04050607;
+u32 var800719a8 = 0x08000000;
+u32 var800719ac = 0xff00004f;
+u32 var800719b0 = 0x3f00008f;
+u32 var800719b4 = 0xff4f00ff;
+u32 var800719b8 = 0xffff7fff;
+u32 var800719bc = 0xff4f00ff;
+u32 var800719c0 = 0xff4f00ff;
 
 GLOBAL_ASM(
 glabel func0f100ad0
