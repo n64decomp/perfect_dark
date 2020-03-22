@@ -83,170 +83,72 @@ char *soloMenuTextDifficulty(struct menu_item *item)
 	}
 }
 
-u16 options_controlmode[] = {
-	L_OPTIONS(237), // "Single"
-	L_OPTIONS(238), // "Double"
+u16 g_ControlStyleOptions[] = {
+	L_OPTIONS(239), // "1.1"
+	L_OPTIONS(240), // "1.2"
+	L_OPTIONS(241), // "1.3"
+	L_OPTIONS(242), // "1.4"
+	L_OPTIONS(243), // "2.1"
+	L_OPTIONS(244), // "2.2"
+	L_OPTIONS(245), // "2.3"
+	L_OPTIONS(246), // "2.4"
 };
 
-GLOBAL_ASM(
-glabel func0f102330
-.late_rodata
-glabel var7f1b2d5c
-.word func0f102330+0x68 # f102398
-glabel var7f1b2d60
-.word func0f102330+0x74 # f1023a4
-glabel var7f1b2d64
-.word func0f102330+0x80 # f1023b0
-glabel var7f1b2d68
-.word func0f102330+0xa0 # f1023d0
-glabel var7f1b2d6c
-.word func0f102330+0xbc # f1023ec
-glabel var7f1b2d70
-.word func0f102330+0xdc # f10240c
-glabel var7f1b2d74
-.word func0f102330+0x100 # f102430
-glabel var7f1b2d78
-.word func0f102330+0x198 # f1024c8
-glabel var7f1b2d7c
-.word func0f102330+0x198 # f1024c8
-glabel var7f1b2d80
-.word func0f102330+0x198 # f1024c8
-glabel var7f1b2d84
-.word func0f102330+0x198 # f1024c8
-glabel var7f1b2d88
-.word func0f102330+0x198 # f1024c8
-glabel var7f1b2d8c
-.word func0f102330+0x198 # f1024c8
-glabel var7f1b2d90
-.word func0f102330+0x198 # f1024c8
-glabel var7f1b2d94
-.word func0f102330+0x198 # f1024c8
-glabel var7f1b2d98
-.word func0f102330+0x150 # f102480
-.text
-/*  f102330:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f102334:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102338:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f10233c:	3c0e8007 */ 	lui	$t6,%hi(options_controlmode)
-/*  f102340:	8c480298 */ 	lw	$t0,0x298($v0)
-/*  f102344:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102348:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f10234c:	25ce19e0 */ 	addiu	$t6,$t6,%lo(options_controlmode)
-/*  f102350:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f102354:	27a3001c */ 	addiu	$v1,$sp,0x1c
-/*  f102358:	05010004 */ 	bgez	$t0,.L0f10236c
-/*  f10235c:	ac610000 */ 	sw	$at,0x0($v1)
-/*  f102360:	8c49029c */ 	lw	$t1,0x29c($v0)
-/*  f102364:	05220004 */ 	bltzl	$t1,.L0f102378
-/*  f102368:	248bffff */ 	addiu	$t3,$a0,-1
-.L0f10236c:
-/*  f10236c:	8c4a0288 */ 	lw	$t2,0x288($v0)
-/*  f102370:	8d470070 */ 	lw	$a3,0x70($t2)
-/*  f102374:	248bffff */ 	addiu	$t3,$a0,-1
-.L0f102378:
-/*  f102378:	2d610010 */ 	sltiu	$at,$t3,0x10
-/*  f10237c:	10200052 */ 	beqz	$at,.L0f1024c8
-/*  f102380:	000b5880 */ 	sll	$t3,$t3,0x2
-/*  f102384:	3c017f1b */ 	lui	$at,%hi(var7f1b2d5c)
-/*  f102388:	002b0821 */ 	addu	$at,$at,$t3
-/*  f10238c:	8c2b2d5c */ 	lw	$t3,%lo(var7f1b2d5c)($at)
-/*  f102390:	01600008 */ 	jr	$t3
-/*  f102394:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f102398:	240c0008 */ 	addiu	$t4,$zero,0x8
-/*  f10239c:	1000004a */ 	beqz	$zero,.L0f1024c8
-/*  f1023a0:	accc0000 */ 	sw	$t4,0x0($a2)
-/*  f1023a4:	240d0002 */ 	addiu	$t5,$zero,0x2
-/*  f1023a8:	10000047 */ 	beqz	$zero,.L0f1024c8
-/*  f1023ac:	accd0000 */ 	sw	$t5,0x0($a2)
-/*  f1023b0:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f1023b4:	3c048007 */ 	lui	$a0,%hi(options_controlstyle)
-/*  f1023b8:	00187840 */ 	sll	$t7,$t8,0x1
-/*  f1023bc:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f1023c0:	0fc5b9f1 */ 	jal	langGet
-/*  f1023c4:	948419d0 */ 	lhu	$a0,%lo(options_controlstyle)($a0)
-/*  f1023c8:	10000041 */ 	beqz	$zero,.L0f1024d0
-/*  f1023cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1023d0:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f1023d4:	000ec840 */ 	sll	$t9,$t6,0x1
-/*  f1023d8:	00794021 */ 	addu	$t0,$v1,$t9
-/*  f1023dc:	0fc5b9f1 */ 	jal	langGet
-/*  f1023e0:	95040000 */ 	lhu	$a0,0x0($t0)
-/*  f1023e4:	1000003a */ 	beqz	$zero,.L0f1024d0
-/*  f1023e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1023ec:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f1023f0:	240a0004 */ 	addiu	$t2,$zero,0x4
-/*  f1023f4:	15200003 */ 	bnez	$t1,.L0f102404
-/*  f1023f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1023fc:	10000032 */ 	beqz	$zero,.L0f1024c8
-/*  f102400:	acc00008 */ 	sw	$zero,0x8($a2)
-.L0f102404:
-/*  f102404:	10000030 */ 	beqz	$zero,.L0f1024c8
-/*  f102408:	acca0008 */ 	sw	$t2,0x8($a2)
-/*  f10240c:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f102410:	0fc549cb */ 	jal	optionsSetControlMode
-/*  f102414:	8cc50000 */ 	lw	$a1,0x0($a2)
-/*  f102418:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f10241c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102420:	8c4b0458 */ 	lw	$t3,0x458($v0)
-/*  f102424:	356c0001 */ 	ori	$t4,$t3,0x1
-/*  f102428:	10000027 */ 	beqz	$zero,.L0f1024c8
-/*  f10242c:	ac4c0458 */ 	sw	$t4,0x458($v0)
-/*  f102430:	00e02025 */ 	or	$a0,$a3,$zero
-/*  f102434:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f102438:	0fc549c4 */ 	jal	optionsGetControlMode
-/*  f10243c:	afa7002c */ 	sw	$a3,0x2c($sp)
-/*  f102440:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f102444:	8fa7002c */ 	lw	$a3,0x2c($sp)
-/*  f102448:	3c0d8007 */ 	lui	$t5,%hi(g_MpPlayerNum)
-/*  f10244c:	acc20000 */ 	sw	$v0,0x0($a2)
-/*  f102450:	8dad1448 */ 	lw	$t5,%lo(g_MpPlayerNum)($t5)
-/*  f102454:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe24)
-/*  f102458:	000dc0c0 */ 	sll	$t8,$t5,0x3
-/*  f10245c:	030dc023 */ 	subu	$t8,$t8,$t5
-/*  f102460:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f102464:	030dc021 */ 	addu	$t8,$t8,$t5
-/*  f102468:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f10246c:	030dc023 */ 	subu	$t8,$t8,$t5
-/*  f102470:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f102474:	00380821 */ 	addu	$at,$at,$t8
-/*  f102478:	10000013 */ 	beqz	$zero,.L0f1024c8
-/*  f10247c:	ac27ee24 */ 	sw	$a3,%lo(g_MenuStack+0xe24)($at)
-/*  f102480:	3c0f800a */ 	lui	$t7,%hi(g_MenuRoot)
-/*  f102484:	8def19c4 */ 	lw	$t7,%lo(g_MenuRoot)($t7)
-/*  f102488:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f10248c:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f102490:	55e1000e */ 	bnel	$t7,$at,.L0f1024cc
-/*  f102494:	00001025 */ 	or	$v0,$zero,$zero
-/*  f102498:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f10249c:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f1024a0:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xe20)
-/*  f1024a4:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f1024a8:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f1024ac:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f1024b0:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f1024b4:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f1024b8:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f1024bc:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f1024c0:	00280821 */ 	addu	$at,$at,$t0
-/*  f1024c4:	ac2eee20 */ 	sw	$t6,%lo(g_MenuStack+0xe20)($at)
-.L0f1024c8:
-/*  f1024c8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1024cc:
-/*  f1024cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1024d0:
-/*  f1024d0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1024d4:	03e00008 */ 	jr	$ra
-/*  f1024d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menuhandlerControlStyleImpl(u32 operation, struct menu_item *item, s32 *value, s32 mpindex)
+{
+	u16 categories[] = {
+		L_OPTIONS(237), // "Single"
+		L_OPTIONS(238), // "Double"
+	};
+
+	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
+		mpindex = g_Vars.currentplayerstats->mpindex;
+	}
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = 8;
+		break;
+	case MENUOP_GETOPTGROUPCOUNT:
+		*value = 2;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return langGet(g_ControlStyleOptions[*value]);
+	case MENUOP_GETOPTGROUPTEXT:
+		return langGet(categories[*value]);
+	case MENUOP_GETGROUPSTARTINDEX:
+		if (*value == 0) {
+			value[2] = 0;
+		} else {
+			value[2] = 4;
+		}
+		break;
+	case MENUOP_SET:
+		optionsSetControlMode(mpindex, *value);
+		g_Vars.unk000458 |= 1;
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = optionsGetControlMode(mpindex);
+		g_MenuStack[g_MpPlayerNum].unke24 = mpindex;
+		break;
+	case MENUOP_16:
+		if (g_MenuRoot == MENUROOT_SOLOPAUSE) {
+			g_MenuStack[g_MpPlayerNum].slotcount = *value;
+		}
+		break;
+	}
+
+	return NULL;
+}
 
 char *menuhandler001024dc(u32 operation, struct menu_item *item, s32 *value)
 {
-	return func0f102330(operation, item, value, 4);
+	return menuhandlerControlStyleImpl(operation, item, value, 4);
 }
 
 char *menuhandler001024fc(u32 operation, struct menu_item *item, s32 *value)
 {
-	return func0f102330(operation, item, value, 5);
+	return menuhandlerControlStyleImpl(operation, item, value, 5);
 }
 
 s32 menuhandlerReversePitch(u32 operation, struct menu_item *item, bool *enable)
@@ -4503,12 +4405,12 @@ char *menuhandlerCinema(u32 operation, struct menu_item *item, s32 *value)
 	case MENUOP_GETOPTIONVALUE:
 		*value = 0xfffff;
 		break;
-	case MENUOP_2:
+	case MENUOP_GETOPTGROUPCOUNT:
 		*value = ARRAYCOUNT(groups);
 		break;
-	case MENUOP_4:
+	case MENUOP_GETOPTGROUPTEXT:
 		return langGet(groups[*value].name);
-	case MENUOP_5:
+	case MENUOP_GETGROUPSTARTINDEX:
 		value[2] = groups[*value].first_cutscene_index;
 		break;
 	}

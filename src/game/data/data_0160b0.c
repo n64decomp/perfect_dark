@@ -1396,16 +1396,3 @@ u32 var800719c0 = 0xff4f00ff;
 u32 var800719c4 = 0x00000000;
 u32 var800719c8 = 0x00000000;
 u32 var800719cc = 0x00000000;
-
-// 179f0
-u16 options_controlstyle[] = {
-	L_OPTIONS(239), // "1.1"
-	L_OPTIONS(240), // "1.2"
-	L_OPTIONS(241), // "1.3"
-	L_OPTIONS(242), // "1.4"
-	L_OPTIONS(243), // "2.1"
-	L_OPTIONS(244), // "2.2"
-	L_OPTIONS(245), // "2.3"
-	L_OPTIONS(246), // "2.4"
-};
-
