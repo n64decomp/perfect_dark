@@ -73,6 +73,6 @@ s32 menuhandlerShowMissionTime(u32 operation, struct menu_item *item, bool *enab
 s32 menuhandlerShowZoomRange(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerSightOnScreen(u32 operation, struct menu_item *item, bool *enable);
 s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value);
-s32 menuhandlerSoundMode(u32 operation, struct menu_item *item, bool *enable);
+char *menuhandlerSoundMode(u32 operation, struct menu_item *item, s32 *value);
 
 #endif

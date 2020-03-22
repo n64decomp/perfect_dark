@@ -83,6 +83,11 @@ char *soloMenuTextDifficulty(struct menu_item *item)
 	}
 }
 
+u16 options_controlmode[] = {
+	L_OPTIONS(237), // "Single"
+	L_OPTIONS(238), // "Double"
+};
+
 GLOBAL_ASM(
 glabel func0f102330
 .late_rodata
@@ -265,6 +270,11 @@ s32 menuhandlerReversePitch(u32 operation, struct menu_item *item, bool *enable)
 	return 0;
 }
 
+u16 g_AimControlOptions[] = {
+	L_OPTIONS(201), // "Hold"
+	L_OPTIONS(202), // "Toggle"
+};
+
 GLOBAL_ASM(
 glabel menuhandlerAimControl
 /*  f1025b4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
@@ -335,63 +345,31 @@ glabel menuhandlerAimControl
 /*  f102694:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerSoundMode
-/*  f102698:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f10269c:	3c0e8007 */ 	lui	$t6,%hi(g_SoundModeOptions)
-/*  f1026a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1026a4:	afa5002c */ 	sw	$a1,0x2c($sp)
-/*  f1026a8:	25ce19e8 */ 	addiu	$t6,$t6,%lo(g_SoundModeOptions)
-/*  f1026ac:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1026b0:	27a20020 */ 	addiu	$v0,$sp,0x20
-/*  f1026b4:	24080004 */ 	addiu	$t0,$zero,0x4
-/*  f1026b8:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f1026bc:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f1026c0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1026c4:	1081000a */ 	beq	$a0,$at,.L0f1026f0
-/*  f1026c8:	ac590004 */ 	sw	$t9,0x4($v0)
-/*  f1026cc:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f1026d0:	10810009 */ 	beq	$a0,$at,.L0f1026f8
-/*  f1026d4:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1026d8:	1081000e */ 	beq	$a0,$at,.L0f102714
-/*  f1026dc:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f1026e0:	10810014 */ 	beq	$a0,$at,.L0f102734
-/*  f1026e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1026e8:	10000016 */ 	beqz	$zero,.L0f102744
-/*  f1026ec:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1026f0:
-/*  f1026f0:	10000013 */ 	beqz	$zero,.L0f102740
-/*  f1026f4:	acc80000 */ 	sw	$t0,0x0($a2)
-.L0f1026f8:
-/*  f1026f8:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f1026fc:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f102700:	004a5821 */ 	addu	$t3,$v0,$t2
-/*  f102704:	0fc5b9f1 */ 	jal	langGet
-/*  f102708:	95640000 */ 	lhu	$a0,0x0($t3)
-/*  f10270c:	1000000e */ 	beqz	$zero,.L0f102748
-/*  f102710:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102714:
-/*  f102714:	0c003ce3 */ 	jal	audioSetSoundMode
-/*  f102718:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f10271c:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102720:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102724:	8c4c0458 */ 	lw	$t4,0x458($v0)
-/*  f102728:	358d0001 */ 	ori	$t5,$t4,0x1
-/*  f10272c:	10000004 */ 	beqz	$zero,.L0f102740
-/*  f102730:	ac4d0458 */ 	sw	$t5,0x458($v0)
-.L0f102734:
-/*  f102734:	3c188006 */ 	lui	$t8,%hi(g_SoundMode)
-/*  f102738:	8f18ddcc */ 	lw	$t8,%lo(g_SoundMode)($t8)
-/*  f10273c:	acd80000 */ 	sw	$t8,0x0($a2)
-.L0f102740:
-/*  f102740:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102744:
-/*  f102744:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102748:
-/*  f102748:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f10274c:	03e00008 */ 	jr	$ra
-/*  f102750:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menuhandlerSoundMode(u32 operation, struct menu_item *item, s32 *value)
+{
+	u16 options[] = {
+		L_OPTIONS(232), // "Mono"
+		L_OPTIONS(233), // "Stereo"
+		L_OPTIONS(234), // "Headphone"
+		L_OPTIONS(235), // "Surround"
+	};
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = 4;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return langGet(options[*value]);
+	case MENUOP_SET:
+		audioSetSoundMode(*value);
+		g_Vars.unk000458 |= 1;
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = g_SoundMode;
+	}
+
+	return NULL;
+}
 
 char *menuhandlerScreenSize(u32 operation, struct menu_item *item, s32 *value)
 {

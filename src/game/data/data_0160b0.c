@@ -1409,22 +1409,3 @@ u16 options_controlstyle[] = {
 	L_OPTIONS(246), // "2.4"
 };
 
-// 17a00
-u16 options_controlmode[] = {
-	L_OPTIONS(237), // "Single"
-	L_OPTIONS(238), // "Double"
-};
-
-// 17a04
-u16 g_AimControlOptions[] = {
-	L_OPTIONS(201), // "Hold"
-	L_OPTIONS(202), // "Toggle"
-};
-
-// 17a08
-u16 g_SoundModeOptions[] = {
-	L_OPTIONS(232), // "Mono"
-	L_OPTIONS(233), // "Stereo"
-	L_OPTIONS(234), // "Headphone"
-	L_OPTIONS(235), // "Surround"
-};
