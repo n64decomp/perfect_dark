@@ -4403,14 +4403,14 @@ struct missionconfig {
 	u8 iscoop : 1;
 	u8 isanti : 1;
 
-	/*0x04*/ u8 unk04;
-	/*0x05*/ u8 updmodehealth;
-	/*0x06*/ u8 updmodedamage;
-	/*0x07*/ u8 updmodeaccuracy;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ f32 fpdmodehealth;
-	/*0x10*/ f32 fpdmodedamage;
-	/*0x14*/ f32 fpdmodeaccuracy;
+	/*0x04*/ u8 pdmodereaction;
+	/*0x05*/ u8 pdmodehealth;
+	/*0x06*/ u8 pdmodedamage;
+	/*0x07*/ u8 pdmodeaccuracy;
+	/*0x08*/ f32 pdmodereactionf;
+	/*0x0c*/ f32 pdmodehealthf;
+	/*0x10*/ f32 pdmodedamagef;
+	/*0x14*/ f32 pdmodeaccuracyf;
 };
 
 struct mpsetup {

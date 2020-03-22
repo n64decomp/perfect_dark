@@ -39,9 +39,6 @@
 
 const char var7f1b2cf0[] = "%s\n";
 const char var7f1b2cf4[] = "%s: %s\n";
-const char var7f1b2cfc[] = "%s%s%.00f%%\n";
-const char var7f1b2d0c[] = "";
-const char var7f1b2d10[] = "";
 
 GLOBAL_ASM(
 glabel func0f102240
@@ -1273,105 +1270,45 @@ glabel func0f1036ac
 /*  f103704:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerPdModeSetting
-/*  f103708:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f10370c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f103710:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f103714:	90a70001 */ 	lbu	$a3,0x1($a1)
-/*  f103718:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10371c:	10e00009 */ 	beqz	$a3,.L0f103744
-/*  f103720:	00e01025 */ 	or	$v0,$a3,$zero
-/*  f103724:	1041000a */ 	beq	$v0,$at,.L0f103750
-/*  f103728:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f10372c:	1041000b */ 	beq	$v0,$at,.L0f10375c
-/*  f103730:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f103734:	1041000c */ 	beq	$v0,$at,.L0f103768
-/*  f103738:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10373c:	1000003b */ 	beqz	$zero,.L0f10382c
-/*  f103740:	00001025 */ 	or	$v0,$zero,$zero
-.L0f103744:
-/*  f103744:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig+0x4)
-/*  f103748:	1000000c */ 	beqz	$zero,.L0f10377c
-/*  f10374c:	2442dfec */ 	addiu	$v0,$v0,%lo(g_MissionConfig+0x4)
-.L0f103750:
-/*  f103750:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig+0x5)
-/*  f103754:	10000009 */ 	beqz	$zero,.L0f10377c
-/*  f103758:	2442dfed */ 	addiu	$v0,$v0,%lo(g_MissionConfig+0x5)
-.L0f10375c:
-/*  f10375c:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig+0x6)
-/*  f103760:	10000006 */ 	beqz	$zero,.L0f10377c
-/*  f103764:	2442dfee */ 	addiu	$v0,$v0,%lo(g_MissionConfig+0x6)
-.L0f103768:
-/*  f103768:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig+0x7)
-/*  f10376c:	10000003 */ 	beqz	$zero,.L0f10377c
-/*  f103770:	2442dfef */ 	addiu	$v0,$v0,%lo(g_MissionConfig+0x7)
-/*  f103774:	1000002d */ 	beqz	$zero,.L0f10382c
-/*  f103778:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10377c:
-/*  f10377c:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f103780:	1081000a */ 	beq	$a0,$at,.L0f1037ac
-/*  f103784:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f103788:	10810005 */ 	beq	$a0,$at,.L0f1037a0
-/*  f10378c:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f103790:	10810009 */ 	beq	$a0,$at,.L0f1037b8
-/*  f103794:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f103798:	10000024 */ 	beqz	$zero,.L0f10382c
-/*  f10379c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1037a0:
-/*  f1037a0:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f1037a4:	10000020 */ 	beqz	$zero,.L0f103828
-/*  f1037a8:	accf0000 */ 	sw	$t7,0x0($a2)
-.L0f1037ac:
-/*  f1037ac:	94d80002 */ 	lhu	$t8,0x2($a2)
-/*  f1037b0:	1000001d */ 	beqz	$zero,.L0f103828
-/*  f1037b4:	a0580000 */ 	sb	$t8,0x0($v0)
-.L0f1037b8:
-/*  f1037b8:	90440000 */ 	lbu	$a0,0x0($v0)
-/*  f1037bc:	0fc40dab */ 	jal	func0f1036ac
-/*  f1037c0:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f1037c4:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*  f1037c8:	46000086 */ 	mov.s	$f2,$f0
-/*  f1037cc:	3c014080 */ 	lui	$at,0x4080
-/*  f1037d0:	93280001 */ 	lbu	$t0,0x1($t9)
-/*  f1037d4:	55000007 */ 	bnezl	$t0,.L0f1037f4
-/*  f1037d8:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f1037dc:	44812000 */ 	mtc1	$at,$f4
-/*  f1037e0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1037e4:	44814000 */ 	mtc1	$at,$f8
-/*  f1037e8:	46040182 */ 	mul.s	$f6,$f0,$f4
-/*  f1037ec:	46083080 */ 	add.s	$f2,$f6,$f8
-/*  f1037f0:	3c0142c8 */ 	lui	$at,0x42c8
-.L0f1037f4:
-/*  f1037f4:	44815000 */ 	mtc1	$at,$f10
-/*  f1037f8:	8fa90028 */ 	lw	$t1,0x28($sp)
-/*  f1037fc:	3c057f1b */ 	lui	$a1,%hi(var7f1b2cfc)
-/*  f103800:	460a1402 */ 	mul.s	$f16,$f2,$f10
-/*  f103804:	3c067f1b */ 	lui	$a2,%hi(var7f1b2d0c)
-/*  f103808:	3c077f1b */ 	lui	$a3,%hi(var7f1b2d10)
-/*  f10380c:	8d240004 */ 	lw	$a0,0x4($t1)
-/*  f103810:	24e72d10 */ 	addiu	$a3,$a3,%lo(var7f1b2d10)
-/*  f103814:	24c62d0c */ 	addiu	$a2,$a2,%lo(var7f1b2d0c)
-/*  f103818:	24a52cfc */ 	addiu	$a1,$a1,%lo(var7f1b2cfc)
-/*  f10381c:	460084a1 */ 	cvt.d.s	$f18,$f16
-/*  f103820:	0c004dad */ 	jal	sprintf
-/*  f103824:	f7b20010 */ 	sdc1	$f18,0x10($sp)
-.L0f103828:
-/*  f103828:	00001025 */ 	or	$v0,$zero,$zero
-.L0f10382c:
-/*  f10382c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f103830:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f103834:	03e00008 */ 	jr	$ra
-/*  f103838:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 menuhandlerPdModeSetting(u32 operation, struct menu_item *item, struct numandtext *value)
+{
+	u8 *property;
+	f32 fvalue;
+
+	switch (item->param) {
+	case 0: property = &g_MissionConfig.pdmodereaction; break;
+	case 1: property = &g_MissionConfig.pdmodehealth;   break;
+	case 2: property = &g_MissionConfig.pdmodedamage;   break;
+	case 3: property = &g_MissionConfig.pdmodeaccuracy; break;
+	default: return 0;
+	}
+
+	switch (operation) {
+	case MENUOP_GETSLIDER:
+		value->num = *property;
+		break;
+	case MENUOP_SET:
+		*property = (u16)value->num;
+		break;
+	case MENUOP_GETSLIDERLABEL:
+		fvalue = func0f1036ac(*property, item->param);
+		if (item->param == 0) {
+			fvalue = fvalue * 4 + 1.0f;
+		}
+		sprintf(value->text, "%s%s%.00f%%\n", "", "", fvalue * 100.0f);
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandlerAcceptPdModeSettings(s32 operation, struct menu_item *item, bool *value)
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.pdmode = true;
-		g_MissionConfig.fpdmodehealth = func0f1036ac(g_MissionConfig.updmodehealth, 1);
-		g_MissionConfig.fpdmodedamage = func0f1036ac(g_MissionConfig.updmodedamage, 2);
-		g_MissionConfig.fpdmodeaccuracy = func0f1036ac(g_MissionConfig.updmodeaccuracy, 3);
+		g_MissionConfig.pdmodehealthf = func0f1036ac(g_MissionConfig.pdmodehealth, 1);
+		g_MissionConfig.pdmodedamagef = func0f1036ac(g_MissionConfig.pdmodedamage, 2);
+		g_MissionConfig.pdmodeaccuracyf = func0f1036ac(g_MissionConfig.pdmodeaccuracy, 3);
 		g_MissionConfig.difficulty = DIFF_PA;
 		setDifficulty(g_MissionConfig.difficulty);
 		menuPopDialog();
