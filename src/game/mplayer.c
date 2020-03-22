@@ -82,68 +82,29 @@ const char var7f1b8cf0[] = "LoadMultiGameFile : PakId=0x%x, FileId=0x%x\n";
 const char var7f1b8d20[] = "LoadGame Result: %d\n";
 const char var7f1b8d38[] = "GBCHead: Call to create head for slot %d (gbcheadobjs[slotno]=%x)\n";
 
-GLOBAL_ASM(
-glabel func0f187770
-.late_rodata
-glabel var7f1b8d7c
-.word 0x3f666666
-glabel var7f1b8d80
-.word 0x3dcccccd
-.text
-/*  f187770:	308e00ff */ 	andi	$t6,$a0,0xff
-/*  f187774:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f187778:	29c1007f */ 	slti	$at,$t6,0x7f
-/*  f18777c:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f187780:	10200014 */ 	beqz	$at,.L0f1877d4
-/*  f187784:	01c01025 */ 	or	$v0,$t6,$zero
-/*  f187788:	44842000 */ 	mtc1	$a0,$f4
-/*  f18778c:	3c014f80 */ 	lui	$at,0x4f80
-/*  f187790:	05c10004 */ 	bgez	$t6,.L0f1877a4
-/*  f187794:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f187798:	44814000 */ 	mtc1	$at,$f8
-/*  f18779c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1877a0:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f1877a4:
-/*  f1877a4:	3c0142fe */ 	lui	$at,0x42fe
-/*  f1877a8:	44815000 */ 	mtc1	$at,$f10
-/*  f1877ac:	3c017f1c */ 	lui	$at,%hi(var7f1b8d7c)
-/*  f1877b0:	c4328d7c */ 	lwc1	$f18,%lo(var7f1b8d7c)($at)
-/*  f1877b4:	460a3083 */ 	div.s	$f2,$f6,$f10
-/*  f1877b8:	3c017f1c */ 	lui	$at,%hi(var7f1b8d80)
-/*  f1877bc:	c4288d80 */ 	lwc1	$f8,%lo(var7f1b8d80)($at)
-/*  f1877c0:	46021402 */ 	mul.s	$f16,$f2,$f2
-/*  f1877c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1877c8:	46128102 */ 	mul.s	$f4,$f16,$f18
-/*  f1877cc:	03e00008 */ 	jr	$ra
-/*  f1877d0:	46082000 */ 	add.s	$f0,$f4,$f8
-.L0f1877d4:
-/*  f1877d4:	2401007f */ 	addiu	$at,$zero,0x7f
-/*  f1877d8:	14410005 */ 	bne	$v0,$at,.L0f1877f0
-/*  f1877dc:	244fff80 */ 	addiu	$t7,$v0,-128
-/*  f1877e0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1877e4:	44810000 */ 	mtc1	$at,$f0
-/*  f1877e8:	03e00008 */ 	jr	$ra
-/*  f1877ec:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1877f0:
-/*  f1877f0:	448f3000 */ 	mtc1	$t7,$f6
-/*  f1877f4:	3c0142fe */ 	lui	$at,0x42fe
-/*  f1877f8:	44818000 */ 	mtc1	$at,$f16
-/*  f1877fc:	468032a0 */ 	cvt.s.w	$f10,$f6
-/*  f187800:	3c013f80 */ 	lui	$at,0x3f80
-/*  f187804:	44812000 */ 	mtc1	$at,$f4
-/*  f187808:	3c014040 */ 	lui	$at,0x4040
-/*  f18780c:	44813000 */ 	mtc1	$at,$f6
-/*  f187810:	3c014000 */ 	lui	$at,0x4000
-/*  f187814:	46105483 */ 	div.s	$f18,$f10,$f16
-/*  f187818:	44818000 */ 	mtc1	$at,$f16
-/*  f18781c:	46049080 */ 	add.s	$f2,$f18,$f4
-/*  f187820:	46021202 */ 	mul.s	$f8,$f2,$f2
-/*  f187824:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f187828:	46064282 */ 	mul.s	$f10,$f8,$f6
-/*  f18782c:	46105001 */ 	sub.s	$f0,$f10,$f16
-/*  f187830:	03e00008 */ 	jr	$ra
-/*  f187834:	00000000 */ 	sll	$zero,$zero,0x0
-);
+/**
+ * Converts the given value into a float on a curved scale from 0.1 to 10.
+ *
+ * value 0 will return 0.1
+ * value 127 will return 1
+ * value 255 will return 10
+ */
+f32 func0f187770(u8 value)
+{
+	f32 tmp;
+
+	if (value < 127) {
+		return (value / 127.0f) * (value / 127.0f) * 0.9f + 0.1f;
+	}
+
+	if (value == 127) {
+		return 1;
+	}
+
+	tmp = (value - 128) / 127.0f + 1;
+
+	return tmp * tmp * 3 - 2;
+}
 
 GLOBAL_ASM(
 glabel func0f187838
