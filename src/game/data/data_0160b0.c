@@ -1476,7 +1476,7 @@ struct menu_item menuitems_objectives[] = {
 // 17ab0
 struct menu_dialog g_ObjectivesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(u32)&func0f103550,
+	(u32)&soloMenuTitleStageOverview,
 	menuitems_objectives,
 	menudialog00103608,
 	0x0000000c,

@@ -38,7 +38,6 @@
 #include "types.h"
 
 const char var7f1b2cf0[] = "%s\n";
-const char var7f1b2cf4[] = "%s: %s\n";
 
 GLOBAL_ASM(
 glabel func0f102240
@@ -1140,57 +1139,18 @@ glabel menuhandlerAcceptMission
 //	return 0;
 //}
 
-GLOBAL_ASM(
-glabel func0f103550
-/*  f103550:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f103554:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f103558:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0x4f8)
-/*  f10355c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f103560:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f103564:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f103568:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f10356c:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f103570:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f103574:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f103578:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f10357c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f103580:	8f18e4f8 */ 	lw	$t8,%lo(g_MenuStack+0x4f8)($t8)
-/*  f103584:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f103588:	3c08800a */ 	lui	$t0,%hi(g_MissionConfig+0x2)
-/*  f10358c:	8f190000 */ 	lw	$t9,0x0($t8)
-/*  f103590:	10990005 */ 	beq	$a0,$t9,.L0f1035a8
-/*  f103594:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f103598:	0fc5b9f1 */ 	jal	langGet
-/*  f10359c:	24045711 */ 	addiu	$a0,$zero,0x5711
-/*  f1035a0:	10000016 */ 	beqz	$zero,.L0f1035fc
-/*  f1035a4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1035a8:
-/*  f1035a8:	9108dfea */ 	lbu	$t0,%lo(g_MissionConfig+0x2)($t0)
-/*  f1035ac:	3c048007 */ 	lui	$a0,%hi(g_StageNames+0xa)
-/*  f1035b0:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f1035b4:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f1035b8:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f1035bc:	00892021 */ 	addu	$a0,$a0,$t1
-/*  f1035c0:	0fc5b9f1 */ 	jal	langGet
-/*  f1035c4:	94841e76 */ 	lhu	$a0,%lo(g_StageNames+0xa)($a0)
-/*  f1035c8:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f1035cc:	0fc5b9f1 */ 	jal	langGet
-/*  f1035d0:	24045711 */ 	addiu	$a0,$zero,0x5711
-/*  f1035d4:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1035d8:	3c057f1b */ 	lui	$a1,%hi(var7f1b2cf4)
-/*  f1035dc:	24a52cf4 */ 	addiu	$a1,$a1,%lo(var7f1b2cf4)
-/*  f1035e0:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1035e4:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f1035e8:	0c004dad */ 	jal	sprintf
-/*  f1035ec:	00403825 */ 	or	$a3,$v0,$zero
-/*  f1035f0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1035f4:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1035f8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1035fc:
-/*  f1035fc:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f103600:	03e00008 */ 	jr	$ra
-/*  f103604:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *soloMenuTitleStageOverview(struct menu_dialog *dialog)
+{
+	if (dialog != g_MenuStack[g_MpPlayerNum].unk4f8->dialog) {
+		return langGet(L_OPTIONS(273)); // "Overview"
+	}
+
+	sprintf(g_StringPointer, "%s: %s\n",
+			langGet(g_StageNames[g_MissionConfig.stageindex].name3),
+			langGet(L_OPTIONS(273)));
+
+	return g_StringPointer;
+}
 
 s32 menudialog00103608(u32 operation, struct menu_dialog *dialog, struct menustackitem *item)
 {
