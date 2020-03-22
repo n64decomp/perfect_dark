@@ -1,5 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "constants.h"
 #include "game/cheats.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"

@@ -1,5 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
+#include "constants.h"
+#include "game/bondmove.h"
 #include "game/cheats.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0083d0.h"
@@ -15,7 +17,6 @@
 #include "game/game_091e10.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b63b0.h"
-#include "game/bondmove.h"
 #include "game/game_111600.h"
 #include "game/game_1655c0.h"
 #include "game/game_17f930.h"

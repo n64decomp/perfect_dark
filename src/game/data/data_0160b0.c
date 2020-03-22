@@ -12,7 +12,6 @@
 #include "gvars/gvars.h"
 #include "game/data/data_000000.h"
 #include "game/data/data_0160b0.h"
-#include "game/data/cheats.h"
 #include "game/data/data_020df0.h"
 #include "stagesetup.h"
 #include "types.h"

@@ -116,6 +116,7 @@
 	src/game/game_10c9c0.o (section); \
 	src/game/data/data_01a3a0.o (section); \
 	src/game/game_10ccd0.o (section); \
+	src/game/gamefile.o (section); \
 	src/game/game_111600.o (section); \
 	src/game/game_113220.o (section); \
 	src/game/padhalllv.o (section); \

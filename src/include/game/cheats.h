@@ -3,6 +3,8 @@
 #include <ultra64.h>
 #include "types.h"
 
+extern struct menu_dialog g_CheatsMenuDialog;
+
 u32 cheatIsUnlocked(s32 cheat_id);
 bool cheatIsActive(s32 cheat_id);
 void cheatActivate(s32 cheat_id);

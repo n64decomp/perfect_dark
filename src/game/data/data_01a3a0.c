@@ -8,6 +8,7 @@
 #include "game/game_10ccd0.h"
 #include "game/pak/pak.h"
 #include "game/utils.h"
+#include "game/game_10ccd0.h"
 #include "game/game_177e00.h"
 #include "game/game_179060.h"
 #include "game/game_17f930.h"
