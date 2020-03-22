@@ -221,6 +221,7 @@ extern struct menu_dialog menudialog_displayoptions_2pplayer1;
 extern struct menu_dialog menudialog_18028;
 extern struct menu_dialog menudialog_18040;
 extern struct menu_dialog menudialog_18058;
+extern struct menu_dialog menudialog_18aa8;
 extern struct menu_dialog menudialog_189dc;
 extern struct menu_item menuitems_18c18[];
 extern struct menu_dialog menudialog_18d30;
