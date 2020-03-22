@@ -452,63 +452,6 @@ glabel menuhandlerScreenSize
 /*  f102810:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuhandlerScreenRatio
-/*  f102814:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f102818:	3c0e8007 */ 	lui	$t6,%hi(g_ScreenRatioOptions)
-/*  f10281c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f102820:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f102824:	25ce19f8 */ 	addiu	$t6,$t6,%lo(g_ScreenRatioOptions)
-/*  f102828:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f10282c:	27a2001c */ 	addiu	$v0,$sp,0x1c
-/*  f102830:	24080002 */ 	addiu	$t0,$zero,0x2
-/*  f102834:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f102838:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f10283c:	10810009 */ 	beq	$a0,$at,.L0f102864
-/*  f102840:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f102844:	10810009 */ 	beq	$a0,$at,.L0f10286c
-/*  f102848:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f10284c:	1081000e */ 	beq	$a0,$at,.L0f102888
-/*  f102850:	24010007 */ 	addiu	$at,$zero,0x7
-/*  f102854:	10810014 */ 	beq	$a0,$at,.L0f1028a8
-/*  f102858:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10285c:	10000017 */ 	beqz	$zero,.L0f1028bc
-/*  f102860:	00001025 */ 	or	$v0,$zero,$zero
-.L0f102864:
-/*  f102864:	10000014 */ 	beqz	$zero,.L0f1028b8
-/*  f102868:	acc80000 */ 	sw	$t0,0x0($a2)
-.L0f10286c:
-/*  f10286c:	8cc90000 */ 	lw	$t1,0x0($a2)
-/*  f102870:	00095040 */ 	sll	$t2,$t1,0x1
-/*  f102874:	004a5821 */ 	addu	$t3,$v0,$t2
-/*  f102878:	0fc5b9f1 */ 	jal	langGet
-/*  f10287c:	95640000 */ 	lhu	$a0,0x0($t3)
-/*  f102880:	1000000f */ 	beqz	$zero,.L0f1028c0
-/*  f102884:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f102888:
-/*  f102888:	0fc54bca */ 	jal	optionsSetScreenRatio
-/*  f10288c:	8cc40000 */ 	lw	$a0,0x0($a2)
-/*  f102890:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f102894:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f102898:	8c4c0458 */ 	lw	$t4,0x458($v0)
-/*  f10289c:	358d0001 */ 	ori	$t5,$t4,0x1
-/*  f1028a0:	10000005 */ 	beqz	$zero,.L0f1028b8
-/*  f1028a4:	ac4d0458 */ 	sw	$t5,0x458($v0)
-.L0f1028a8:
-/*  f1028a8:	0fc54bc7 */ 	jal	optionsGetScreenRatio
-/*  f1028ac:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f1028b0:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f1028b4:	acc20000 */ 	sw	$v0,0x0($a2)
-.L0f1028b8:
-/*  f1028b8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1028bc:
-/*  f1028bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1028c0:
-/*  f1028c0:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1028c4:	03e00008 */ 	jr	$ra
-/*  f1028c8:	00000000 */ 	sll	$zero,$zero,0x0
-);
-
 u16 g_ScreenSizeOptions[] = {
 	L_OPTIONS(220), // "Full"
 	L_OPTIONS(221), // "Wide"
@@ -516,10 +459,29 @@ u16 g_ScreenSizeOptions[] = {
 	0x0000, // ""
 };
 
-u16 g_ScreenRatioOptions[] = {
-	L_OPTIONS(223), // "Normal"
-	L_OPTIONS(224), // "16:9"
-};
+char *menuhandlerScreenRatio(u32 operation, struct menu_item *item, s32 *value)
+{
+	u16 options[] = {
+		L_OPTIONS(223), // "Normal"
+		L_OPTIONS(224), // "16:9"
+	};
+
+	switch (operation) {
+	case MENUOP_GETOPTIONCOUNT:
+		*value = 2;
+		break;
+	case MENUOP_GETOPTIONTEXT:
+		return langGet(options[*value]);
+	case MENUOP_SET:
+		optionsSetScreenRatio(*value);
+		g_Vars.unk000458 |= 1;
+		break;
+	case MENUOP_GETOPTIONVALUE:
+		*value = optionsGetScreenRatio();
+	}
+
+	return NULL;
+}
 
 char *menuhandlerScreenSplit(u32 operation, struct menu_item *item, s32 *value)
 {
