@@ -29,7 +29,7 @@
 #include "game/game_0dcdb0.h"
 #include "game/game_10ccd0.h"
 #include "game/game_111600.h"
-#include "game/game_11ecf0.h"
+#include "game/debug.h"
 #include "game/game_127910.h"
 #include "game/game_129900.h"
 #include "game/game_12d3f0.h"

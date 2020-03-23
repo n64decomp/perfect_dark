@@ -11,7 +11,7 @@
 #include "game/game_097970.h"
 #include "game/game_0b0420.h"
 #include "game/game_0fd660.h"
-#include "game/game_11ecf0.h"
+#include "game/debug.h"
 #include "game/game_127910.h"
 #include "game/game_179060.h"
 #include "game/game_190260.h"

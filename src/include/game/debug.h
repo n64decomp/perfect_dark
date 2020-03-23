@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_11ECF0_H
-#define IN_GAME_GAME_11ECF0_H
+#ifndef IN_GAME_DEBUG_H
+#define IN_GAME_DEBUG_H
 #include <ultra64.h>
 #include "types.h"
 

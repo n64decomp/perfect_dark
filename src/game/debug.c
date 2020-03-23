@@ -6,7 +6,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
-#include "game/game_11ecf0.h"
+#include "game/debug.h"
 #include "gvars/gvars.h"
 #include "types.h"
 
@@ -478,15 +478,7 @@ void debug0f11efd4(void)
 	// empty
 }
 
-GLOBAL_ASM(
-glabel func0f11efdc
-/*  f11efdc:	03e00008 */ 	jr	$ra
-/*  f11efe0:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f11efe4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11efe8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11efec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11eff0:	03e00008 */ 	jr	$ra
-/*  f11eff4:	00801025 */ 	or	$v0,$a0,$zero
-/*  f11eff8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f11effc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void debug0f11efdc(s32 arg0)
+{
+	// empty
+}

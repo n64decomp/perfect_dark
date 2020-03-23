@@ -122,7 +122,8 @@
 	src/game/padhalllv.o (section); \
 	src/game/pad.o (section); \
 	src/game/pak/pak.o (section); \
-	src/game/game_11ecf0.o (section); \
+	src/game/debug.o (section); \
+	src/game/game_11eff0.o (section); \
 	src/game/data/ailists.o (section); \
 	src/game/data/data_020df0.o (section); \
 	src/game/game_11f000.o (section); \

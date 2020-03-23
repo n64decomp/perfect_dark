@@ -19,7 +19,7 @@
 #include "game/game_0b63b0.h"
 #include "game/game_111600.h"
 #include "game/game_113220.h"
-#include "game/game_11ecf0.h"
+#include "game/debug.h"
 #include "game/game_127910.h"
 #include "game/propobj.h"
 #include "gvars/gvars.h"

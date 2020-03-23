@@ -67,7 +67,7 @@
 #include "game/game_0fd660.h"
 #include "game/game_107fb0.h"
 #include "game/game_10c9c0.h"
-#include "game/game_11ecf0.h"
+#include "game/debug.h"
 #include "game/game_11f000.h"
 #include "game/game_127910.h"
 #include "game/game_129210.h"
