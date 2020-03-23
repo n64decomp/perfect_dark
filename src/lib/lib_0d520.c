@@ -182,7 +182,7 @@ const char var70053b14[] = "-play";
 const char var70053b1c[] = "";
 
 GLOBAL_ASM(
-glabel func0000d520
+glabel mainInit
 /*     d520:	27bdeb28 */ 	addiu	$sp,$sp,-5336
 /*     d524:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*     d528:	0c002fec */ 	jal	func0000bfb0
@@ -576,28 +576,16 @@ glabel func0000d520
 /*     dae4:	27bd14d8 */ 	addiu	$sp,$sp,0x14d8
 );
 
-GLOBAL_ASM(
-glabel func0000dae8
-/*     dae8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*     daec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*     daf0:	0c003548 */ 	jal	func0000d520
-/*     daf4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     daf8:	0c00be28 */ 	jal	func0002f8a0
-/*     dafc:	00000000 */ 	sll	$zero,$zero,0x0
-/*     db00:	0c003e01 */ 	jal	func0000f804
-/*     db04:	00000000 */ 	sll	$zero,$zero,0x0
-.L0000db08:
-/*     db08:	0c0036cf */ 	jal	func0000db3c
-/*     db0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     db10:	1000fffd */ 	beqz	$zero,.L0000db08
-/*     db14:	00000000 */ 	sll	$zero,$zero,0x0
-/*     db18:	00000000 */ 	sll	$zero,$zero,0x0
-/*     db1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*     db20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*     db24:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*     db28:	03e00008 */ 	jr	$ra
-/*     db2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void mainLoop(void)
+{
+	mainInit();
+	func0002f8a0();
+	func0000f804();
+
+	while (true) {
+		mainTick();
+	}
+}
 
 GLOBAL_ASM(
 glabel func0000db30
@@ -607,7 +595,7 @@ glabel func0000db30
 );
 
 GLOBAL_ASM(
-glabel func0000db3c
+glabel mainTick
 /*     db3c:	27bdff78 */ 	addiu	$sp,$sp,-136
 /*     db40:	3c0f8006 */ 	lui	$t7,%hi(var8005dd5c)
 /*     db44:	afbf003c */ 	sw	$ra,0x3c($sp)

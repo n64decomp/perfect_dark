@@ -677,10 +677,10 @@ glabel func000016cc
 /*     1860:	34059800 */ 	dli	$a1,0x9800
 /*     1864:	3c108009 */ 	lui	$s0,%hi(var8008d6d0)
 /*     1868:	2610d6d0 */ 	addiu	$s0,$s0,%lo(var8008d6d0)
-/*     186c:	3c067000 */ 	lui	$a2,%hi(func00001aa4)
+/*     186c:	3c067000 */ 	lui	$a2,%hi(mainproc)
 /*     1870:	2409000a */ 	addiu	$t1,$zero,0xa
 /*     1874:	afa90014 */ 	sw	$t1,0x14($sp)
-/*     1878:	24c61aa4 */ 	addiu	$a2,$a2,%lo(func00001aa4)
+/*     1878:	24c61aa4 */ 	addiu	$a2,$a2,%lo(mainproc)
 /*     187c:	02002025 */ 	or	$a0,$s0,$zero
 /*     1880:	24050003 */ 	addiu	$a1,$zero,0x3
 /*     1884:	00003825 */ 	or	$a3,$zero,$zero
@@ -841,7 +841,7 @@ glabel func000019f4
 /*     1aa0:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-void func00001aa4(u32 value)
+void mainproc(u32 value)
 {
 	func00001948();
 	func00013750();
@@ -854,7 +854,7 @@ void func00001aa4(u32 value)
 
 	osSetThreadPri(0, 10);
 	func000019f4();
-	func0000dae8();
+	mainLoop();
 }
 
 void func00001b10(u32 value)

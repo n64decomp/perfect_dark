@@ -3,10 +3,10 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0000d520(void);
-void func0000dae8(void);
+u32 mainInit(void);
+void mainLoop(void);
 u32 func0000db30(void);
-u32 func0000db3c(void);
+u32 mainTick(void);
 u32 func0000e324(void);
 void func0000e684(void);
 void func0000e95c(s32 stagenum);
