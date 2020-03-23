@@ -3664,19 +3664,11 @@ void menuPopDialog(void)
 	func0f0f361c();
 }
 
-GLOBAL_ASM(
-glabel func0f0f3704
-/*  f0f3704:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f3708:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f370c:	0fc3ccef */ 	jal	func0f0f33bc
-/*  f0f3710:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0f3714:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f0f3718:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0f371c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f3720:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f3724:	03e00008 */ 	jr	$ra
-/*  f0f3728:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0f3704(struct menu_dialog *dialog)
+{
+	func0f0f33bc();
+	menuPushDialog(dialog);
+}
 
 GLOBAL_ASM(
 glabel func0f0f372c
