@@ -3658,19 +3658,11 @@ glabel func0f0f361c
 /*  f0f36d8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel menuPopDialog
-/*  f0f36dc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f36e0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f36e4:	0fc3ccef */ 	jal	func0f0f33bc
-/*  f0f36e8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f36ec:	0fc3cd87 */ 	jal	func0f0f361c
-/*  f0f36f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f36f4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f36f8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f36fc:	03e00008 */ 	jr	$ra
-/*  f0f3700:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void menuPopDialog(void)
+{
+	func0f0f33bc();
+	func0f0f361c();
+}
 
 GLOBAL_ASM(
 glabel func0f0f3704
