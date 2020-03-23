@@ -7062,7 +7062,7 @@ glabel func0f0bc4c0
 /*  f0bc4e0:	05e0000b */ 	bltz	$t7,.L0f0bc510
 /*  f0bc4e4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0bc4e8:
-/*  f0bc4e8:	0fc3f303 */ 	jal	func0f0fcc0c
+/*  f0bc4e8:	0fc3f303 */ 	jal	menuGetRoot
 /*  f0bc4ec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bc4f0:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f0bc4f4:	14410006 */ 	bne	$v0,$at,.L0f0bc510
@@ -7083,7 +7083,7 @@ glabel func0f0bc4c0
 /*  f0bc52c:	15000005 */ 	bnez	$t0,.L0f0bc544
 /*  f0bc530:	01001025 */ 	or	$v0,$t0,$zero
 .L0f0bc534:
-/*  f0bc534:	0fc3f303 */ 	jal	func0f0fcc0c
+/*  f0bc534:	0fc3f303 */ 	jal	menuGetRoot
 /*  f0bc538:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bc53c:	38490009 */ 	xori	$t1,$v0,0x9
 /*  f0bc540:	2d220001 */ 	sltiu	$v0,$t1,0x1

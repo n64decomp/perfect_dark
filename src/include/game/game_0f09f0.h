@@ -69,7 +69,7 @@ u32 func0f0fb488(void);
 u32 func0f0fbba0(void);
 u32 func0f0fbc30(void);
 u32 func0f0fc9f4(void);
-u32 func0f0fcc0c(void);
+u32 menuGetRoot(void);
 u32 func0f0fce8c(void);
 u32 func0f0fcfb8(void);
 u32 func0f0fd118(void);

@@ -5712,7 +5712,7 @@ glabel func0f0f5360
 /*  f0f53d0:	0722000c */ 	bltzl	$t9,.L0f0f5404
 /*  f0f53d4:	8fb001ec */ 	lw	$s0,0x1ec($sp)
 .L0f0f53d8:
-/*  f0f53d8:	0fc3f303 */ 	jal	func0f0fcc0c
+/*  f0f53d8:	0fc3f303 */ 	jal	menuGetRoot
 /*  f0f53dc:	afb001ec */ 	sw	$s0,0x1ec($sp)
 /*  f0f53e0:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f0f53e4:	14410006 */ 	bne	$v0,$at,.L0f0f5400
@@ -5850,7 +5850,7 @@ glabel func0f0f5360
 /*  f0f55d8:	0720000b */ 	bltz	$t9,.L0f0f5608
 /*  f0f55dc:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0f55e0:
-/*  f0f55e0:	0fc3f303 */ 	jal	func0f0fcc0c
+/*  f0f55e0:	0fc3f303 */ 	jal	menuGetRoot
 /*  f0f55e4:	e7a00170 */ 	swc1	$f0,0x170($sp)
 /*  f0f55e8:	24010005 */ 	addiu	$at,$zero,0x5
 /*  f0f55ec:	14410006 */ 	bne	$v0,$at,.L0f0f5608
@@ -10756,7 +10756,7 @@ glabel var7f1b2a64
 /*  f0f9a64:	05c00024 */ 	bltz	$t6,.L0f0f9af8
 /*  f0f9a68:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f0f9a6c:
-/*  f0f9a6c:	0fc3f303 */ 	jal	func0f0fcc0c
+/*  f0f9a6c:	0fc3f303 */ 	jal	menuGetRoot
 /*  f0f9a70:	afb10124 */ 	sw	$s1,0x124($sp)
 /*  f0f9a74:	3c013f80 */ 	lui	$at,0x3f80
 /*  f0f9a78:	44816000 */ 	mtc1	$at,$f12
@@ -14346,20 +14346,14 @@ glabel func0f0fc9f4
 /*  f0fcc08:	00001025 */ 	or	$v0,$zero,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f0fcc0c
-/*  f0fcc0c:	3c03800a */ 	lui	$v1,%hi(g_MenuData)
-/*  f0fcc10:	246319c0 */ 	addiu	$v1,$v1,%lo(g_MenuData)
-/*  f0fcc14:	8c6e0000 */ 	lw	$t6,0x0($v1)
-/*  f0fcc18:	55c00004 */ 	bnezl	$t6,.L0f0fcc2c
-/*  f0fcc1c:	8c620004 */ 	lw	$v0,0x4($v1)
-/*  f0fcc20:	03e00008 */ 	jr	$ra
-/*  f0fcc24:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fcc28:	8c620004 */ 	lw	$v0,0x4($v1)
-.L0f0fcc2c:
-/*  f0fcc2c:	03e00008 */ 	jr	$ra
-/*  f0fcc30:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 menuGetRoot(void)
+{
+	if (g_MenuData.count == 0) {
+		return 0;
+	}
+
+	return g_MenuData.root;
+}
 
 GLOBAL_ASM(
 glabel menuhandler000fcc34
