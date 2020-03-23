@@ -2113,8 +2113,8 @@ glabel func00002c8c
 
 GLOBAL_ASM(
 glabel func00002d90
-/*     2d90:	3c04800a */ 	lui	$a0,%hi(g_MenuCount)
-/*     2d94:	248419c0 */ 	addiu	$a0,$a0,%lo(g_MenuCount)
+/*     2d90:	3c04800a */ 	lui	$a0,0x800a
+/*     2d94:	248419c0 */ 	addiu	$a0,$a0,6592
 /*     2d98:	90820016 */ 	lbu	$v0,0x16($a0)
 /*     2d9c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*     2da0:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -2127,8 +2127,8 @@ glabel func00002d90
 /*     2dbc:	300200ff */ 	andi	$v0,$zero,0xff
 /*     2dc0:	0fc381dc */ 	jal	func0f0e0770
 /*     2dc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*     2dc8:	3c04800a */ 	lui	$a0,%hi(g_MenuCount)
-/*     2dcc:	248419c0 */ 	addiu	$a0,$a0,%lo(g_MenuCount)
+/*     2dc8:	3c04800a */ 	lui	$a0,0x800a
+/*     2dcc:	248419c0 */ 	addiu	$a0,$a0,6592
 /*     2dd0:	300200ff */ 	andi	$v0,$zero,0xff
 .L00002dd4:
 /*     2dd4:	00401825 */ 	or	$v1,$v0,$zero

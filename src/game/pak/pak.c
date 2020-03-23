@@ -7652,8 +7652,8 @@ glabel func0f11ca30
 /*  f11ca64:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f11ca68:	15c10005 */ 	bne	$t6,$at,.L0f11ca80
 /*  f11ca6c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f11ca70:	3c0f800a */ 	lui	$t7,%hi(g_MenuCount)
-/*  f11ca74:	8def19c0 */ 	lw	$t7,%lo(g_MenuCount)($t7)
+/*  f11ca70:	3c0f800a */ 	lui	$t7,0x800a
+/*  f11ca74:	8def19c0 */ 	lw	$t7,6592($t7)
 /*  f11ca78:	59e0003d */ 	blezl	$t7,.L0f11cb70
 /*  f11ca7c:	8fbf003c */ 	lw	$ra,0x3c($sp)
 .L0f11ca80:

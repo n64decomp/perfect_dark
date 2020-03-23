@@ -65,11 +65,11 @@ glabel func0f01bea0
 void menuCountDialogs(void)
 {
 	s32 i;
-	g_MenuCount = 0;
+	g_MenuData.count = 0;
 
 	for (i = 0; i < 4; i++) {
 		if (g_MenuStack[i].unk4f8) {
-			g_MenuCount++;
+			g_MenuData.count++;
 		}
 	}
 }
@@ -131,12 +131,12 @@ glabel var7f1a863c
 .L0f01bf7c:
 /*  f01bf7c:	0fc01a77 */ 	jal	func0f0069dc
 /*  f01bf80:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01bf84:	3c15800a */ 	lui	$s5,%hi(g_MenuCount)
+/*  f01bf84:	3c15800a */ 	lui	$s5,0x800a
 /*  f01bf88:	0fc06fb8 */ 	jal	menuCountDialogs
-/*  f01bf8c:	26b519c0 */ 	addiu	$s5,$s5,%lo(g_MenuCount)
+/*  f01bf8c:	26b519c0 */ 	addiu	$s5,$s5,6592
 /*  f01bf90:	3c03800a */ 	lui	$v1,0x800a
-/*  f01bf94:	3c05800a */ 	lui	$a1,%hi(g_MenuCount)
-/*  f01bf98:	24a519c0 */ 	addiu	$a1,$a1,%lo(g_MenuCount)
+/*  f01bf94:	3c05800a */ 	lui	$a1,0x800a
+/*  f01bf98:	24a519c0 */ 	addiu	$a1,$a1,6592
 /*  f01bf9c:	2463e000 */ 	addiu	$v1,$v1,-8192
 /*  f01bfa0:	9062083c */ 	lbu	$v0,0x83c($v1)
 .L0f01bfa4:
@@ -175,8 +175,8 @@ glabel var7f1a863c
 /*  f01c018:	00003025 */ 	or	$a2,$zero,$zero
 /*  f01c01c:	11e00024 */ 	beqz	$t7,.L0f01c0b0
 /*  f01c020:	3c04800a */ 	lui	$a0,0x800a
-/*  f01c024:	3c05800a */ 	lui	$a1,%hi(g_MenuCount)
-/*  f01c028:	24a519c0 */ 	addiu	$a1,$a1,%lo(g_MenuCount)
+/*  f01c024:	3c05800a */ 	lui	$a1,0x800a
+/*  f01c028:	24a519c0 */ 	addiu	$a1,$a1,6592
 /*  f01c02c:	2484e000 */ 	addiu	$a0,$a0,-8192
 /*  f01c030:	24090002 */ 	addiu	$t1,$zero,0x2
 /*  f01c034:	8c8304f8 */ 	lw	$v1,0x4f8($a0)
@@ -1020,10 +1020,10 @@ glabel var7f1a863c
 .L0f01cbc0:
 /*  f01cbc0:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
 /*  f01cbc4:	3c03800a */ 	lui	$v1,0x800a
-/*  f01cbc8:	3c02800a */ 	lui	$v0,%hi(g_MenuCount)
+/*  f01cbc8:	3c02800a */ 	lui	$v0,0x800a
 /*  f01cbcc:	ac201448 */ 	sw	$zero,%lo(g_MpPlayerNum)($at)
 /*  f01cbd0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f01cbd4:	244219c0 */ 	addiu	$v0,$v0,%lo(g_MenuCount)
+/*  f01cbd4:	244219c0 */ 	addiu	$v0,$v0,6592
 /*  f01cbd8:	2463e000 */ 	addiu	$v1,$v1,-8192
 /*  f01cbdc:	8c6d04f8 */ 	lw	$t5,0x4f8($v1)
 .L0f01cbe0:

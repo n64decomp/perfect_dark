@@ -109,7 +109,7 @@ char *menuhandlerControlStyleImpl(u32 operation, struct menu_item *item, s32 *va
 		g_MenuStack[g_MpPlayerNum].unke24 = mpindex;
 		break;
 	case MENUOP_16:
-		if (g_MenuRoot == MENUROOT_SOLOPAUSE) {
+		if (g_MenuData.root == MENUROOT_SOLOPAUSE) {
 			g_MenuStack[g_MpPlayerNum].slotcount = *value;
 		}
 		break;

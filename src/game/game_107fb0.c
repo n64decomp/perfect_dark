@@ -3033,11 +3033,11 @@ glabel func0f10a97c
 /*  f10a9d0:	0fc3f55c */ 	jal	func0f0fd570
 /*  f10a9d4:	24844f34 */ 	addiu	$a0,$a0,%lo(menudialog_fileselect2)
 /*  f10a9d8:	10400003 */ 	beqz	$v0,.L0f10a9e8
-/*  f10a9dc:	3c09800a */ 	lui	$t1,%hi(g_MenuRoot)
+/*  f10a9dc:	3c09800a */ 	lui	$t1,0x800a
 /*  f10a9e0:	10000038 */ 	beqz	$zero,.L0f10aac4
 /*  f10a9e4:	00001025 */ 	or	$v0,$zero,$zero
 .L0f10a9e8:
-/*  f10a9e8:	8d2919c4 */ 	lw	$t1,%lo(g_MenuRoot)($t1)
+/*  f10a9e8:	8d2919c4 */ 	lw	$t1,6596($t1)
 /*  f10a9ec:	24010006 */ 	addiu	$at,$zero,0x6
 /*  f10a9f0:	3c02800a */ 	lui	$v0,%hi(var800a22c0)
 /*  f10a9f4:	15210003 */ 	bne	$t1,$at,.L0f10aa04

@@ -5635,4 +5635,15 @@ struct frdata {
 	/*0x47c*/ u32 unk47c;
 };
 
+struct menudata {
+	/*0x00*/ u32 count;
+	/*0x04*/ u32 root;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u8 unk14;
+	/*0x15*/ u8 unk15;
+	/*0x16*/ u8 unk16;
+};
+
 #endif

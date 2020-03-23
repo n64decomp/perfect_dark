@@ -225,7 +225,7 @@ s32 optionsGetEffectiveScreenSize(void)
 		return SCREENSIZE_FULL;
 	}
 
-	if (g_MenuRoot == MENUROOT_TRAINING) {
+	if (g_MenuData.root == MENUROOT_TRAINING) {
 		g_MpPlayerNum = 0;
 
 		if (g_MenuStack[g_MpPlayerNum].unk4f8 && var8009dfc0) {
@@ -240,7 +240,7 @@ s32 optionsGetEffectiveScreenSize(void)
 		return SCREENSIZE_FULL;
 	}
 
-	if (PLAYERCOUNT() >= 2 || g_MenuRoot == MENUROOT_COMBATSIM) {
+	if (PLAYERCOUNT() >= 2 || g_MenuData.root == MENUROOT_COMBATSIM) {
 		return SCREENSIZE_FULL;
 	}
 

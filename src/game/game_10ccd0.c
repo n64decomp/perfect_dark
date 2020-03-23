@@ -1505,9 +1505,9 @@ glabel func0f10e620
 /*  f10e650:	000f7900 */ 	sll	$t7,$t7,0x4
 /*  f10e654:	2718e000 */ 	addiu	$t8,$t8,-8192
 /*  f10e658:	01f84021 */ 	addu	$t0,$t7,$t8
-/*  f10e65c:	3c03800a */ 	lui	$v1,%hi(g_MenuRoot)
+/*  f10e65c:	3c03800a */ 	lui	$v1,0x800a
 /*  f10e660:	ad060e2c */ 	sw	$a2,0xe2c($t0)
-/*  f10e664:	8c6319c4 */ 	lw	$v1,%lo(g_MenuRoot)($v1)
+/*  f10e664:	8c6319c4 */ 	lw	$v1,6596($v1)
 /*  f10e668:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f10e66c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f10e670:	10610183 */ 	beq	$v1,$at,.L0f10ec80
@@ -1919,8 +1919,8 @@ glabel func0f10e620
 /*  f10ec6c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f10ec70:	0fc42539 */ 	jal	func0f1094e4
 /*  f10ec74:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10ec78:	3c03800a */ 	lui	$v1,%hi(g_MenuRoot)
-/*  f10ec7c:	8c6319c4 */ 	lw	$v1,%lo(g_MenuRoot)($v1)
+/*  f10ec78:	3c03800a */ 	lui	$v1,0x800a
+/*  f10ec7c:	8c6319c4 */ 	lw	$v1,6596($v1)
 .L0f10ec80:
 /*  f10ec80:	24010001 */ 	addiu	$at,$zero,0x1
 .L0f10ec84:
