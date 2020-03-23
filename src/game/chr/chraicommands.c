@@ -5325,7 +5325,7 @@ bool aiNoOp00db(void)
  */
 bool aiEndLevel(void)
 {
-	if (func0f11ef48()) {
+	if (debugAllowEndLevel()) {
 		if (var800624a4) {
 			func0000e95c(90);
 		} else if (g_Vars.unk0004d3) {

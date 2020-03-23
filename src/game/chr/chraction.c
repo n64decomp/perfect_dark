@@ -27727,7 +27727,7 @@ glabel func0f048398
 /*  f04858c:	3c018007 */ 	lui	$at,%hi(var80068454)
 /*  f048590:	ac208454 */ 	sw	$zero,%lo(var80068454)($at)
 .L0f048594:
-/*  f048594:	0fc47bac */ 	jal	func0f11eeb0
+/*  f048594:	0fc47bac */ 	jal	debug0f11eeb0
 /*  f048598:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f04859c:	10400003 */ 	beqz	$v0,.L0f0485ac
 /*  f0485a0:	00000000 */ 	sll	$zero,$zero,0x0

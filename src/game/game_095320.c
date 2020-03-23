@@ -638,7 +638,7 @@ glabel var7f1ab7f4
 /*  f095b20:	5461fef5 */ 	bnel	$v1,$at,.L0f0956f8
 /*  f095b24:	246effe9 */ 	addiu	$t6,$v1,-23
 .L0f095b28:
-/*  f095b28:	0fc47b88 */ 	jal	func0f11ee20
+/*  f095b28:	0fc47b88 */ 	jal	debug0f11ee20
 /*  f095b2c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f095b30:	10400002 */ 	beqz	$v0,.L0f095b3c
 /*  f095b34:	8fb00018 */ 	lw	$s0,0x18($sp)
