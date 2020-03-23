@@ -9008,23 +9008,16 @@ bool func0f0f82a8(s32 arg0)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0f8300
-/*  f0f8300:	3c0e800a */ 	lui	$t6,%hi(g_MenuData)
-/*  f0f8304:	8dce19c0 */ 	lw	$t6,%lo(g_MenuData)($t6)
-/*  f0f8308:	3c03800a */ 	lui	$v1,%hi(g_MenuData)
-/*  f0f830c:	246319c0 */ 	addiu	$v1,$v1,%lo(g_MenuData)
-/*  f0f8310:	15c00005 */ 	bnez	$t6,.L0f0f8328
-/*  f0f8314:	3c02800a */ 	lui	$v0,%hi(g_MenuData+0x4)
-/*  f0f8318:	244219c4 */ 	addiu	$v0,$v0,%lo(g_MenuData+0x4)
-.L0f0f831c:
-/*  f0f831c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f0f8320:	1462fffe */ 	bne	$v1,$v0,.L0f0f831c
-/*  f0f8324:	a0600016 */ 	sb	$zero,0x16($v1)
-.L0f0f8328:
-/*  f0f8328:	03e00008 */ 	jr	$ra
-/*  f0f832c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0f8300(void)
+{
+	s32 i;
+
+	if (g_MenuData.count == 0) {
+		for (i = 0; i < 4; i++) {
+			g_MenuData.unk017[i] = 0;
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel menuPushRootDialog
