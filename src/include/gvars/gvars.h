@@ -637,7 +637,6 @@ extern u16 var8009dfe0[2];
 extern struct missionconfig g_MissionConfig;
 extern struct menustackitem g_MenuStack[4];
 extern struct menudata g_MenuData;
-extern u32 var800a19dc;
 extern u32 var800a2038;
 extern u32 var800a203c;
 extern u32 var800a2040;
