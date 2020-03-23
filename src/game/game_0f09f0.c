@@ -1146,30 +1146,14 @@ glabel func0f0f1418
 /*  f0f1490:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0f1494
-/*  f0f1494:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f0f1498:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f0f149c:	3c18800a */ 	lui	$t8,0x800a
-/*  f0f14a0:	2718e000 */ 	addiu	$t8,$t8,-8192
-/*  f0f14a4:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0f14a8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f14ac:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f14b0:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0f14b4:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f14b8:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f14bc:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f14c0:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f0f14c4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0f14c8:	24040004 */ 	addiu	$a0,$zero,0x4
-.L0f0f14cc:
-/*  f0f14cc:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0f14d0:	24630008 */ 	addiu	$v1,$v1,0x8
-/*  f0f14d4:	1444fffd */ 	bne	$v0,$a0,.L0f0f14cc
-/*  f0f14d8:	ac600df4 */ 	sw	$zero,0xdf4($v1)
-/*  f0f14dc:	03e00008 */ 	jr	$ra
-/*  f0f14e0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0f1494(void)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		g_MenuStack[g_MpPlayerNum].unkdfc[i].unk00 = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0f14e4

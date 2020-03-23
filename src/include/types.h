@@ -3366,6 +3366,11 @@ struct menustackitem4f8 {
 	struct menu_item *item;
 };
 
+struct menustackdfc {
+	u32 unk00;
+	u32 unk04;
+};
+
 struct menustackitem {
 	/*0x000*/ u32 unk000;
 	/*0x004*/ u32 unk004;
@@ -4267,14 +4272,7 @@ struct menustackitem {
 	/*0xdf0*/ u32 unkdf0;
 	/*0xdf4*/ s8 *unkdf4;
 	/*0xdf8*/ u8 unkdf8;
-	/*0xdfc*/ u32 unkdfc;
-	/*0xe00*/ u32 unke00;
-	/*0xe04*/ u32 unke04;
-	/*0xe08*/ u32 unke08;
-	/*0xe0c*/ u32 unke0c;
-	/*0xe10*/ u32 unke10;
-	/*0xe14*/ u32 unke14;
-	/*0xe18*/ u32 unke18;
+	/*0xdfc*/ struct menustackdfc unkdfc[4];
 	/*0xe1c*/ s32 slotindex;
 	/*0xe20*/ u32 slotcount;
 	/*0xe24*/ u32 unke24;
