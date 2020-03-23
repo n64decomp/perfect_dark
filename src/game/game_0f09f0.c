@@ -590,25 +590,14 @@ glabel func0f0f0bec
 /*  f0f0c64:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0f0c68
-/*  f0f0c68:	3c02800a */ 	lui	$v0,%hi(g_MenuData)
-/*  f0f0c6c:	244219c0 */ 	addiu	$v0,$v0,%lo(g_MenuData)
-/*  f0f0c70:	904e0014 */ 	lbu	$t6,0x14($v0)
-/*  f0f0c74:	15c00006 */ 	bnez	$t6,.L0f0f0c90
-/*  f0f0c78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f0c7c:	904f0015 */ 	lbu	$t7,0x15($v0)
-/*  f0f0c80:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f0f0c84:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0f0c88:	11e10003 */ 	beq	$t7,$at,.L0f0f0c98
-/*  f0f0c8c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0f0c90:
-/*  f0f0c90:	03e00008 */ 	jr	$ra
-/*  f0f0c94:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0f0c98:
-/*  f0f0c98:	03e00008 */ 	jr	$ra
-/*  f0f0c9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f0f0c68(void)
+{
+	if (g_MenuData.unk014 || g_MenuData.unk015 != 255) {
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f0f0ca0
