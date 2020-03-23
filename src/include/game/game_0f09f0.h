@@ -7,7 +7,7 @@ void func0f0f09f0(s32 arg0);
 u32 func0f0f0b90(void);
 u32 func0f0f0bec(void);
 bool func0f0f0c68(void);
-u32 func0f0f0ca0(void);
+void func0f0f0ca0(s32 value, bool allplayers);
 u32 func0f0f0ce8(void);
 u32 func0f0f1338(void);
 u32 func0f0f139c(void);

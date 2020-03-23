@@ -4266,7 +4266,7 @@ struct menustackitem {
 	/*0xdec*/ u32 unkdec;
 	/*0xdf0*/ u32 unkdf0;
 	/*0xdf4*/ s8 *unkdf4;
-	/*0xdf8*/ u32 unkdf8;
+	/*0xdf8*/ u8 unkdf8;
 	/*0xdfc*/ u32 unkdfc;
 	/*0xe00*/ u32 unke00;
 	/*0xe04*/ u32 unke04;
@@ -5645,6 +5645,7 @@ struct menudata {
 	/*0x015*/ u8 unk015;
 	/*0x016*/ u8 unk016;
 	/*0x017*/ u8 unk017[4];
+	/*0x01b*/ u8 unk01b;
 	/*0x01c*/ u32 unk01c;
 	/*0x020*/ u32 unk020;
 	/*0x024*/ u32 unk024;

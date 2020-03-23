@@ -599,28 +599,15 @@ bool func0f0f0c68(void)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f0f0ca0
-/*  f0f0ca0:	10a00004 */ 	beqz	$a1,.L0f0f0cb4
-/*  f0f0ca4:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f0f0ca8:	3c01800a */ 	lui	$at,%hi(g_MenuData+0x1b)
-/*  f0f0cac:	03e00008 */ 	jr	$ra
-/*  f0f0cb0:	a02419db */ 	sb	$a0,%lo(g_MenuData+0x1b)($at)
-.L0f0f0cb4:
-/*  f0f0cb4:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f0f0cb8:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0xdf8)
-/*  f0f0cbc:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0f0cc0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f0cc4:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f0cc8:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0f0ccc:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f0cd0:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f0cd4:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f0cd8:	002f0821 */ 	addu	$at,$at,$t7
-/*  f0f0cdc:	a024edf8 */ 	sb	$a0,%lo(g_MenuStack+0xdf8)($at)
-/*  f0f0ce0:	03e00008 */ 	jr	$ra
-/*  f0f0ce4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0f0ca0(s32 value, bool allplayers)
+{
+	if (allplayers) {
+		g_MenuData.unk01b = value;
+		return;
+	}
+
+	g_MenuStack[g_MpPlayerNum].unkdf8 = value;
+}
 
 u32 var8007144c = 0x51e451e5;
 u32 var80071450 = 0x51e651e7;
