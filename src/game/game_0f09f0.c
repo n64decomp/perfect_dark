@@ -3281,6 +3281,73 @@ glabel menuPushDialog
 /*  f0f321c:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
+// regalloc: s1 (layer) and s2 (sibling) are swapped
+//void menuPushDialog(struct menu_dialog *dialog)
+//{
+//	if (dialog) {
+//		func0f0f37a4(&g_MenuStack[g_MpPlayerNum].unk840);
+//
+//		if (g_MenuStack[g_MpPlayerNum].depth < 6 && g_MenuStack[g_MpPlayerNum].numframes < 10) {
+//			struct menulayer *layer = &g_MenuStack[g_MpPlayerNum].layers[g_MenuStack[g_MpPlayerNum].depth];
+//			struct menu_dialog *sibling;
+//			struct menuframe *frame;
+//
+//			g_MenuStack[g_MpPlayerNum].depth++;
+//
+//			layer->numsiblings = 1;
+//			layer->cursibling = 0;
+//
+//			frame = &g_MenuStack[g_MpPlayerNum].frames[g_MenuStack[g_MpPlayerNum].numframes];
+//			g_MenuStack[g_MpPlayerNum].numframes++;
+//			layer->siblings[0] = frame;
+//			g_MenuStack[g_MpPlayerNum].curframe = frame;
+//			frame->unk6d = 0;
+//
+//			func0f0f2cf4(dialog, frame, &g_MenuStack[g_MpPlayerNum]);
+//
+//			frame->unk2c = (func0000bc08() - frame->unk1c) / 2;
+//			frame->unk30 = (func0000bc18() - frame->unk20) / 2;
+//
+//			g_MenuStack[g_MpPlayerNum].unke40 |= 0x80;
+//			sibling = dialog->nextsibling;
+//
+//			while (sibling && layer->numsiblings < 5) {
+//				// If this limit were to be reached, the game would soft lock
+//				// because sibling is incremented inside the if-statement block.
+//				if (g_MenuStack[g_MpPlayerNum].numframes < 10) {
+//					frame = &g_MenuStack[g_MpPlayerNum].frames[g_MenuStack[g_MpPlayerNum].numframes];
+//					g_MenuStack[g_MpPlayerNum].numframes++;
+//
+//					layer->siblings[layer->numsiblings] = frame;
+//					layer->numsiblings++;
+//
+//					frame->unk6d = -1;
+//
+//					func0f0f2cf4(sibling, frame, &g_MenuStack[g_MpPlayerNum]);
+//
+//					frame->unk14 = -320;
+//					frame->unk2c = -320;
+//					frame->unk18 = (func0000bc18() - frame->unk20) / 2;
+//					frame->unk30 = frame->unk18;
+//					frame->unk3c = 0;
+//
+//					sibling = sibling->nextsibling;
+//				}
+//			}
+//
+//			func0f0f09f0(1);
+//
+//			if (dialog->type == MENUDIALOGTYPE_DANGER) {
+//				func0f0f09f0(4);
+//			}
+//
+//			if (dialog->type == MENUDIALOGTYPE_SUCCESS) {
+//				func0f0f09f0(14);
+//			}
+//		}
+//	}
+//}
+
 GLOBAL_ASM(
 glabel func0f0f3220
 /*  f0f3220:	3c03800a */ 	lui	$v1,%hi(g_MenuData+0x669)

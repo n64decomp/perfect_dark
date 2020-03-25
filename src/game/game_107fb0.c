@@ -1165,8 +1165,8 @@ glabel func0f108d8c
 bool menudialog00108e58(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem)
 {
 	if (operation == MENUOP_102) {
-		if (g_MenuStack[g_MpPlayerNum].unk4f8 &&
-				g_MenuStack[g_MpPlayerNum].unk4f8->dialog == dialog) {
+		if (g_MenuStack[g_MpPlayerNum].curframe &&
+				g_MenuStack[g_MpPlayerNum].curframe->dialog == dialog) {
 			func0f109038(0);
 		}
 	}

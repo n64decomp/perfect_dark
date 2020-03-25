@@ -826,7 +826,7 @@ glabel menuhandlerAcceptMission
 
 char *soloMenuTitleStageOverview(struct menu_dialog *dialog)
 {
-	if (dialog != g_MenuStack[g_MpPlayerNum].unk4f8->dialog) {
+	if (dialog != g_MenuStack[g_MpPlayerNum].curframe->dialog) {
 		return langGet(L_OPTIONS(273)); // "Overview"
 	}
 
@@ -1453,15 +1453,15 @@ glabel menudialogCoopAntiOptions
 //	}
 //
 //	if (operation == MENUOP_102) {
-//		if (g_MenuStack[g_MpPlayerNum].unk4f8 &&
-//				g_MenuStack[g_MpPlayerNum].unk4f8->dialog == dialog) {
-//			struct menustackitem4f8 *unk4f8 = stackitem->unk4f8;
+//		if (g_MenuStack[g_MpPlayerNum].curframe &&
+//				g_MenuStack[g_MpPlayerNum].curframe->dialog == dialog) {
+//			struct menuframe *curframe = stackitem->curframe;
 //
-//			if (unk4f8->unk0a) {
+//			if (curframe->unk0a) {
 //				menuhandlerBuddyOptionsContinue(MENUOP_SET, NULL, NULL);
 //			}
 //
-//			unk4f8->unk0a = 0;
+//			curframe->unk0a = 0;
 //		}
 //	}
 //
@@ -2835,7 +2835,7 @@ glabel var7f1b2dfc
 /*  f105598:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s32 menudialog0010559c(u32 operation, struct menu_dialog *dialog, struct menustackitem *item)
+s32 menudialog0010559c(u32 operation, struct menu_dialog *dialog, s32 *arg2)
 {
 	switch (operation) {
 	case MENUOP_100:
@@ -2843,7 +2843,7 @@ s32 menudialog0010559c(u32 operation, struct menu_dialog *dialog, struct menusta
 	case MENUOP_101:
 		if ((g_Vars.unk000458 & 1) && g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
 			if (func0f1094e4(&var800a22c0, 1, 0) == 0) {
-				item->unk000 = 1;
+				*arg2 = 1;
 			}
 
 			g_Vars.unk000458 &= ~0x00000001;
@@ -4192,7 +4192,7 @@ s32 soloMenuDialogPauseStatus(u32 operation, s32 arg1, s32 arg2)
 
 char *soloMenuTitlePauseStatus(struct menu_dialog *dialog)
 {
-	if (dialog != g_MenuStack[g_MpPlayerNum].unk4f8->dialog) {
+	if (dialog != g_MenuStack[g_MpPlayerNum].curframe->dialog) {
 		return langGet(L_OPTIONS(172)); // "Status"
 	}
 
@@ -4498,8 +4498,8 @@ bool menudialogMainMenu(u32 operation, struct menu_dialog *dialog, struct menust
 		g_MenuStack[g_MpPlayerNum].unke2c = 0;
 		break;
 	case MENUOP_102:
-		if (g_MenuStack[g_MpPlayerNum].unk4f8 &&
-				g_MenuStack[g_MpPlayerNum].unk4f8->dialog == dialog) {
+		if (g_MenuStack[g_MpPlayerNum].curframe &&
+				g_MenuStack[g_MpPlayerNum].curframe->dialog == dialog) {
 			g_MissionConfig.iscoop = false;
 			g_MissionConfig.isanti = false;
 		}

@@ -25,7 +25,7 @@ bool soloChoosePauseDialog(void);
 s32 menudialog00103368(u32, u32, u32 *);
 s32 menudialog00103608(u32 operation, struct menu_dialog *dialog, struct menustackitem *item);
 bool menudialogCoopAntiOptions(u32 operation, struct menu_dialog *dialog, struct menustackitem *stackitem);
-s32 menudialog0010559c(u32 operation, struct menu_dialog *dialog, struct menustackitem *item);
+s32 menudialog0010559c(u32 operation, struct menu_dialog *dialog, s32 *arg2);
 s32 menudialog00105c54(u32, u32, u32 *);
 s32 menudialog001063d4(u32, u32, u32 *);
 s32 soloMenuDialogPauseStatus(u32 operation, s32 arg1, s32 arg2);

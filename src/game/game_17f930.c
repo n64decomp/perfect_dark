@@ -80,9 +80,9 @@ bool menudialogCombatSimulator(u32 operation, struct menu_dialog *dialog, struct
 		g_Vars.unk000497 = 0;
 	}
 
-	if (g_MenuStack[g_MpPlayerNum].unk4f8 &&
-			g_MenuStack[g_MpPlayerNum].unk4f8->dialog == &g_CombatSimulatorMenuDialog &&
-			operation == MENUOP_102) {
+	if (g_MenuStack[g_MpPlayerNum].curframe
+			&& g_MenuStack[g_MpPlayerNum].curframe->dialog == &g_CombatSimulatorMenuDialog
+			&& operation == MENUOP_102) {
 		g_Vars.unk000490 = 2;
 		g_Vars.mpquickteam = MPQUICKTEAM_5;
 		g_Vars.unk00049c = 0;

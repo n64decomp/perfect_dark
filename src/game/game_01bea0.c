@@ -68,7 +68,7 @@ void menuCountDialogs(void)
 	g_MenuData.count = 0;
 
 	for (i = 0; i < 4; i++) {
-		if (g_MenuStack[i].unk4f8) {
+		if (g_MenuStack[i].curframe) {
 			g_MenuData.count++;
 		}
 	}

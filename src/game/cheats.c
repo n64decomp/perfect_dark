@@ -581,10 +581,10 @@ char *cheatGetMarquee(struct menu_item *arg0)
 	char difficultyname[256];
 	char cheatname[256];
 
-	if (g_MenuStack[g_MpPlayerNum].unk4f8 && g_MenuStack[g_MpPlayerNum].unk4f8->item && g_MenuStack[g_MpPlayerNum].unk4f8->item->type == MENUITEMTYPE_CHECKBOX) {
-		cheat_id = g_MenuStack[g_MpPlayerNum].unk4f8->item->param;
+	if (g_MenuStack[g_MpPlayerNum].curframe && g_MenuStack[g_MpPlayerNum].curframe->item && g_MenuStack[g_MpPlayerNum].curframe->item->type == MENUITEMTYPE_CHECKBOX) {
+		cheat_id = g_MenuStack[g_MpPlayerNum].curframe->item->param;
 
-		if (g_MenuStack[g_MpPlayerNum].unk4f8->dialog == &g_CheatsBuddiesMenuDialog && g_MenuStack[g_MpPlayerNum].unk4f8->item == &g_CheatsBuddiesMenuItems[0]) {
+		if (g_MenuStack[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog && g_MenuStack[g_MpPlayerNum].curframe->item == &g_CheatsBuddiesMenuItems[0]) {
 			// Velvet
 			sprintf(g_CheatMarqueeString, "%s: %s", langGet(L_MPWEAPONS(143)), langGet(L_MPWEAPONS(117))); // "Buddy Available", "Velvet Dark"
 			return g_CheatMarqueeString;
@@ -593,7 +593,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 		if (cheatIsUnlocked(cheat_id)) {
 			// Show cheat name
 			sprintf(g_CheatMarqueeString, "%s: %s\n",
-					g_MenuStack[g_MpPlayerNum].unk4f8->dialog == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS(143)) : langGet(L_MPWEAPONS(136)), // "Buddy Available", "Cheat available"
+					g_MenuStack[g_MpPlayerNum].curframe->dialog == &g_CheatsBuddiesMenuDialog ? langGet(L_MPWEAPONS(143)) : langGet(L_MPWEAPONS(136)), // "Buddy Available", "Cheat available"
 					langGet(g_Cheats[cheat_id].nametextid)
 			);
 			return g_CheatMarqueeString;

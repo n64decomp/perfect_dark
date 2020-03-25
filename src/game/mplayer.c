@@ -2325,7 +2325,9 @@ glabel func0f18961c
 
 bool mpIsPaused(void)
 {
-	if (PLAYERCOUNT() == 1 && g_Vars.mplayerisrunning && g_MenuStack[g_Vars.currentplayerstats->mpindex].unk4f8) {
+	if (PLAYERCOUNT() == 1
+			&& g_Vars.mplayerisrunning
+			&& g_MenuStack[g_Vars.currentplayerstats->mpindex].curframe) {
 		return true;
 	}
 
