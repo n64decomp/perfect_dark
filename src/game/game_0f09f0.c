@@ -14103,11 +14103,10 @@ bool func0f0fcbcc(void)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f0fcc04
-/*  f0fcc04:	03e00008 */ 	jr	$ra
-/*  f0fcc08:	00001025 */ 	or	$v0,$zero,$zero
-);
+bool func0f0fcc04(void)
+{
+	return false;
+}
 
 u32 menuGetRoot(void)
 {
