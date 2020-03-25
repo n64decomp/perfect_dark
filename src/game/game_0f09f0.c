@@ -521,36 +521,22 @@ glabel var7f1b27fc
 /*  f0f0b8c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0f0b90
-/*  f0f0b90:	3c02800a */ 	lui	$v0,%hi(g_MenuData+0x4)
-/*  f0f0b94:	8c4219c4 */ 	lw	$v0,%lo(g_MenuData+0x4)($v0)
-/*  f0f0b98:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0f0b9c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x4b4)
-/*  f0f0ba0:	10410005 */ 	beq	$v0,$at,.L0f0f0bb8
-/*  f0f0ba4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0f0ba8:	1041000b */ 	beq	$v0,$at,.L0f0f0bd8
-/*  f0f0bac:	2401000d */ 	addiu	$at,$zero,0xd
-/*  f0f0bb0:	5441000c */ 	bnel	$v0,$at,.L0f0f0be4
-/*  f0f0bb4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0f0bb8:
-/*  f0f0bb8:	8dcea474 */ 	lw	$t6,%lo(g_Vars+0x4b4)($t6)
-/*  f0f0bbc:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f0f0bc0:	15c10003 */ 	bne	$t6,$at,.L0f0f0bd0
-/*  f0f0bc4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f0bc8:	03e00008 */ 	jr	$ra
-/*  f0f0bcc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0f0bd0:
-/*  f0f0bd0:	03e00008 */ 	jr	$ra
-/*  f0f0bd4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0f0bd8:
-/*  f0f0bd8:	03e00008 */ 	jr	$ra
-/*  f0f0bdc:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f0f0be0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0f0be4:
-/*  f0f0be4:	03e00008 */ 	jr	$ra
-/*  f0f0be8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool menuIsSoloMissionOrMp(void)
+{
+	switch (g_MenuData.root) {
+	case MENUROOT_SOLOPAUSE:
+	case MENUROOT_TRAINING:
+		if (g_Vars.stagenum == STAGE_CITRAINING) {
+			return false;
+		}
+
+		return true;
+	case MENUROOT_MPPAUSE:
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f0f0bec
@@ -559,7 +545,7 @@ glabel func0f0f0bec
 /*  f0f0bf4:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0f0bf8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0f0bfc:	8dc30070 */ 	lw	$v1,0x70($t6)
-/*  f0f0c00:	0fc3c2e4 */ 	jal	func0f0f0b90
+/*  f0f0c00:	0fc3c2e4 */ 	jal	menuIsSoloMissionOrMp
 /*  f0f0c04:	afa3001c */ 	sw	$v1,0x1c($sp)
 /*  f0f0c08:	10400012 */ 	beqz	$v0,.L0f0f0c54
 /*  f0f0c0c:	8fa3001c */ 	lw	$v1,0x1c($sp)
@@ -9234,7 +9220,7 @@ glabel var7f1b29f8
 /*  f0f85b0:	24190005 */ 	addiu	$t9,$zero,0x5
 /*  f0f85b4:	a0790014 */ 	sb	$t9,0x14($v1)
 .L0f0f85b8:
-/*  f0f85b8:	0fc3c2e4 */ 	jal	func0f0f0b90
+/*  f0f85b8:	0fc3c2e4 */ 	jal	menuIsSoloMissionOrMp
 /*  f0f85bc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0f85c0:	50400004 */ 	beqzl	$v0,.L0f0f85d4
 /*  f0f85c4:	8fbf0014 */ 	lw	$ra,0x14($sp)

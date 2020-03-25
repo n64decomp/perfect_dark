@@ -4,7 +4,7 @@
 #include "types.h"
 
 void func0f0f09f0(s32 arg0);
-u32 func0f0f0b90(void);
+bool menuIsSoloMissionOrMp(void);
 u32 func0f0f0bec(void);
 bool func0f0f0c68(void);
 void func0f0f0ca0(s32 value, bool allplayers);
