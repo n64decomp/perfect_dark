@@ -4018,7 +4018,7 @@ struct menustackitem {
 	/*0xe60*/ u32 unke60;
 	/*0xe64*/ u32 unke64;
 	/*0xe68*/ u32 unke68;
-	/*0xe6c*/ s8 unke6c;
+	/*0xe6c*/ s8 savedevice; // 0-3 = controller pak 1-4, 4 = game pak
 };
 
 struct savefile_solo {

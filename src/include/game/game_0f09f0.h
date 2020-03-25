@@ -71,7 +71,7 @@ u32 func0f0fbc30(void);
 u32 func0f0fc9f4(void);
 u32 menuGetRoot(void);
 u32 func0f0fce8c(void);
-u32 func0f0fcfb8(void);
+char *menuTextSaveDeviceName(struct menu_item *item);
 u32 func0f0fd118(void);
 u32 func0f0fd1f4(void);
 u32 func0f0fd320(void);

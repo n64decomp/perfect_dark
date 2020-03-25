@@ -14382,7 +14382,7 @@ glabel menudialog000fcd48
 s32 menuhandlerRepairPak(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		if (pakRepair(g_MenuStack[g_MpPlayerNum].unke6c)) {
+		if (pakRepair(g_MenuStack[g_MpPlayerNum].savedevice)) {
 			func0f0f3704(&g_PakRepairSuccessMenuDialog);
 		} else {
 			func0f0f3704(&g_PakRepairFailedMenuDialog);
@@ -14545,56 +14545,22 @@ struct menu_dialog g_PakAttemptRepairMenuDialog = {
 	NULL,
 };
 
-u16 savelocations[] = {
-	L_OPTIONS(112), // "Controller Pak 1"
-	L_OPTIONS(113), // "Controller Pak 2"
-	L_OPTIONS(114), // "Controller Pak 3"
-	L_OPTIONS(115), // "Controller Pak 4"
-	L_OPTIONS(111), // "Game Pak"
-};
+char *menuTextSaveDeviceName(struct menu_item *item)
+{
+	u16 devices[] = {
+		L_OPTIONS(112), // "Controller Pak 1"
+		L_OPTIONS(113), // "Controller Pak 2"
+		L_OPTIONS(114), // "Controller Pak 3"
+		L_OPTIONS(115), // "Controller Pak 4"
+		L_OPTIONS(111), // "Game Pak"
+	};
 
-GLOBAL_ASM(
-glabel func0f0fcfb8
-/*  f0fcfb8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f0fcfbc:	3c0e8007 */ 	lui	$t6,%hi(savelocations)
-/*  f0fcfc0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0fcfc4:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f0fcfc8:	25ce16c0 */ 	addiu	$t6,$t6,%lo(savelocations)
-/*  f0fcfcc:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f0fcfd0:	27a3001c */ 	addiu	$v1,$sp,0x1c
-/*  f0fcfd4:	3c088007 */ 	lui	$t0,%hi(g_MpPlayerNum)
-/*  f0fcfd8:	ac610000 */ 	sw	$at,0x0($v1)
-/*  f0fcfdc:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f0fcfe0:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0xe6c)
-/*  f0fcfe4:	ac790004 */ 	sw	$t9,0x4($v1)
-/*  f0fcfe8:	95c10008 */ 	lhu	$at,0x8($t6)
-/*  f0fcfec:	a4610008 */ 	sh	$at,0x8($v1)
-/*  f0fcff0:	8d081448 */ 	lw	$t0,%lo(g_MpPlayerNum)($t0)
-/*  f0fcff4:	000848c0 */ 	sll	$t1,$t0,0x3
-/*  f0fcff8:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f0fcffc:	00094880 */ 	sll	$t1,$t1,0x2
-/*  f0fd000:	01284821 */ 	addu	$t1,$t1,$t0
-/*  f0fd004:	000948c0 */ 	sll	$t1,$t1,0x3
-/*  f0fd008:	01284823 */ 	subu	$t1,$t1,$t0
-/*  f0fd00c:	00094900 */ 	sll	$t1,$t1,0x4
-/*  f0fd010:	00491021 */ 	addu	$v0,$v0,$t1
-/*  f0fd014:	9042ee6c */ 	lbu	$v0,%lo(g_MenuStack+0xe6c)($v0)
-/*  f0fd018:	28410005 */ 	slti	$at,$v0,0x5
-/*  f0fd01c:	10200006 */ 	beqz	$at,.L0f0fd038
-/*  f0fd020:	00025040 */ 	sll	$t2,$v0,0x1
-/*  f0fd024:	006a5821 */ 	addu	$t3,$v1,$t2
-/*  f0fd028:	0fc5b9f1 */ 	jal	langGet
-/*  f0fd02c:	95640000 */ 	lhu	$a0,0x0($t3)
-/*  f0fd030:	10000003 */ 	beqz	$zero,.L0f0fd040
-/*  f0fd034:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0fd038:
-/*  f0fd038:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fd03c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0fd040:
-/*  f0fd040:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f0fd044:	03e00008 */ 	jr	$ra
-/*  f0fd048:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	if ((u8)g_MenuStack[g_MpPlayerNum].savedevice < 5) {
+		return langGet(devices[(u8)g_MenuStack[g_MpPlayerNum].savedevice]);
+	}
+
+	return NULL;
+}
 
 s32 menuhandlerRetrySavePak(u32 operation, struct menu_item *item, s32 *value)
 {
@@ -14602,7 +14568,7 @@ s32 menuhandlerRetrySavePak(u32 operation, struct menu_item *item, s32 *value)
 		menuPopDialog();
 		g_Vars.unk0004e4 &= 0xfff0;
 		g_Vars.unk0004e4 |= 8;
-		g_Vars.unk0004e4 |= 1 << ((u8)g_MenuStack[g_MpPlayerNum].unke6c + 8);
+		g_Vars.unk0004e4 |= 1 << ((u8)g_MenuStack[g_MpPlayerNum].savedevice + 8);
 	}
 
 	return 0;
@@ -15011,7 +14977,7 @@ bool currentPlayerIsInTraining(void)
 }
 
 struct menu_item menuitems_damagedcontrollerpak[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f0fcfb8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(65), 0x00000000, NULL }, // "is damaged or"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(66), 0x00000000, NULL }, // "inserted incorrectly"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
@@ -15031,7 +14997,7 @@ struct menu_dialog menudialog_damagedcontrollerpak = {
 };
 
 struct menu_item menuitems_fullcontrollerpak[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&func0f0fcfb8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS(71), 0x00000000, NULL }, // "is too full to save note - 1 note and 28 pages required to save"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000220, L_OPTIONS(3), 0x00000000, NULL }, // ""
 	{ MENUITEMTYPE_LABEL,       0, 0x02000210, L_MPWEAPONS(72), 0x00000000, NULL }, // "Enter the Controller Pak Menu to free some space (hold START while powering up.)"
@@ -15066,7 +15032,7 @@ struct menu_dialog menudialog_cannotreadgameboy = {
 };
 
 struct menu_item menuitems_datalost[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&func0f0fcfb8, 0x00000000, NULL },
+	{ MENUITEMTYPE_LABEL,       0, 0x00000030, (u32)&menuTextSaveDeviceName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(257), 0x00000000, NULL }, // "The saved data has"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(258), 0x00000000, NULL }, // "been erased due to"
 	{ MENUITEMTYPE_LABEL,       0, 0x02000030, L_MPWEAPONS(259), 0x00000000, NULL }, // "corruption or damage."
