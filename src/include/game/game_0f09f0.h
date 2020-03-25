@@ -5,7 +5,7 @@
 
 void func0f0f09f0(s32 arg0);
 bool menuIsSoloMissionOrMp(void);
-u32 func0f0f0bec(void);
+bool currentPlayerIsMenuOpenInSoloOrMp(void);
 bool func0f0f0c68(void);
 void func0f0f0ca0(s32 value, bool allplayers);
 u32 func0f0f0ce8(void);

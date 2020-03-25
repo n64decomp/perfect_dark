@@ -538,43 +538,22 @@ bool menuIsSoloMissionOrMp(void)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f0f0bec
-/*  f0f0bec:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x288)
-/*  f0f0bf0:	8dcea248 */ 	lw	$t6,%lo(g_Vars+0x288)($t6)
-/*  f0f0bf4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0f0bf8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f0bfc:	8dc30070 */ 	lw	$v1,0x70($t6)
-/*  f0f0c00:	0fc3c2e4 */ 	jal	menuIsSoloMissionOrMp
-/*  f0f0c04:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0f0c08:	10400012 */ 	beqz	$v0,.L0f0f0c54
-/*  f0f0c0c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0f0c10:	28610004 */ 	slti	$at,$v1,0x4
-/*  f0f0c14:	14200002 */ 	bnez	$at,.L0f0f0c20
-/*  f0f0c18:	3c18800a */ 	lui	$t8,%hi(g_MenuStack+0x4f8)
-/*  f0f0c1c:	2463fffc */ 	addiu	$v1,$v1,-4
-.L0f0f0c20:
-/*  f0f0c20:	000378c0 */ 	sll	$t7,$v1,0x3
-/*  f0f0c24:	01e37823 */ 	subu	$t7,$t7,$v1
-/*  f0f0c28:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f0c2c:	01e37821 */ 	addu	$t7,$t7,$v1
-/*  f0f0c30:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f0c34:	01e37823 */ 	subu	$t7,$t7,$v1
-/*  f0f0c38:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f0c3c:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f0f0c40:	8f18e4f8 */ 	lw	$t8,%lo(g_MenuStack+0x4f8)($t8)
-/*  f0f0c44:	53000004 */ 	beqzl	$t8,.L0f0f0c58
-/*  f0f0c48:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0f0c4c:	10000002 */ 	beqz	$zero,.L0f0f0c58
-/*  f0f0c50:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0f0c54:
-/*  f0f0c54:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0f0c58:
-/*  f0f0c58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f0c5c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0f0c60:	03e00008 */ 	jr	$ra
-/*  f0f0c64:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool currentPlayerIsMenuOpenInSoloOrMp(void)
+{
+	s32 mpindex = g_Vars.currentplayerstats->mpindex;
+
+	if (menuIsSoloMissionOrMp()) {
+		if (mpindex >= 4) {
+			mpindex -= 4;
+		}
+
+		if (g_MenuStack[mpindex].curframe) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 bool func0f0f0c68(void)
 {
@@ -8203,7 +8182,7 @@ glabel var7f1b2990
 /*  f0f7808:	87ae001a */ 	lh	$t6,0x1a($sp)
 /*  f0f780c:	004e2021 */ 	addu	$a0,$v0,$t6
 /*  f0f7810:	2484fffc */ 	addiu	$a0,$a0,-4
-/*  f0f7814:	0fc3c2fb */ 	jal	func0f0f0bec
+/*  f0f7814:	0fc3c2fb */ 	jal	currentPlayerIsMenuOpenInSoloOrMp
 /*  f0f7818:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f0f781c:	8fa30030 */ 	lw	$v1,0x30($sp)
 /*  f0f7820:	8fa40028 */ 	lw	$a0,0x28($sp)
