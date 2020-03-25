@@ -9,7 +9,7 @@ bool currentPlayerIsMenuOpenInSoloOrMp(void);
 bool func0f0f0c68(void);
 void func0f0f0ca0(s32 value, bool allplayers);
 u32 func0f0f0ce8(void);
-u32 func0f0f1338(void);
+struct menustackdfc *func0f0f1338(u32 arg0);
 u32 func0f0f139c(void);
 u32 func0f0f13ec(void);
 void func0f0f1418(void);
