@@ -968,31 +968,22 @@ struct menustackdfc *func0f0f1338(u32 arg0)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f0f139c
-/*  f0f139c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f13a0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f13a4:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0f13a8:	0fc3c4ce */ 	jal	func0f0f1338
-/*  f0f13ac:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0f13b0:	10400003 */ 	beqz	$v0,.L0f0f13c0
-/*  f0f13b4:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*  f0f13b8:	10000008 */ 	beqz	$zero,.L0f0f13dc
-/*  f0f13bc:	e4440004 */ 	swc1	$f4,0x4($v0)
-.L0f0f13c0:
-/*  f0f13c0:	0fc3c4ce */ 	jal	func0f0f1338
-/*  f0f13c4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0f13c8:	10400004 */ 	beqz	$v0,.L0f0f13dc
-/*  f0f13cc:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f0f13d0:	ac4e0000 */ 	sw	$t6,0x0($v0)
-/*  f0f13d4:	c7a6001c */ 	lwc1	$f6,0x1c($sp)
-/*  f0f13d8:	e4460004 */ 	swc1	$f6,0x4($v0)
-.L0f0f13dc:
-/*  f0f13dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f13e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f13e4:	03e00008 */ 	jr	$ra
-/*  f0f13e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0f139c(s32 arg0, f32 arg1)
+{
+	struct menustackdfc *thing = func0f0f1338(arg0);
+
+	if (thing) {
+		thing->unk04 = arg1;
+		return;
+	}
+
+	thing = func0f0f1338(0);
+
+	if (thing) {
+		thing->unk00 = arg0;
+		thing->unk04 = arg1;
+	}
+}
 
 void func0f0f13ec(s32 arg0)
 {

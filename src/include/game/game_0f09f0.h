@@ -10,7 +10,7 @@ bool func0f0f0c68(void);
 void func0f0f0ca0(s32 value, bool allplayers);
 u32 func0f0f0ce8(void);
 struct menustackdfc *func0f0f1338(u32 arg0);
-u32 func0f0f139c(void);
+void func0f0f139c(s32 arg0, f32 arg1);
 void func0f0f13ec(s32 arg0);
 void func0f0f1418(void);
 void func0f0f1494(void);
