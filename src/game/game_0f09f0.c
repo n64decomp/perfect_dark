@@ -31,6 +31,7 @@
 #include "game/game_179060.h"
 #include "game/game_19aa80.h"
 #include "game/game_1a3340.h"
+#include "game/game_1a78b0.h"
 #include "game/lang.h"
 #include "game/mplayer.h"
 #include "game/pak/pak.h"
@@ -324,53 +325,6 @@ const u32 var7f1b23dc[] = {0xffffffff};
 const u32 var7f1b23e0[] = {0xffffff7f};
 const u32 var7f1b23e4[] = {0xffffffff};
 const u32 var7f1b23e8[] = {0x544d0000};
-const u32 var7f1b23ec[] = {0x00000000};
-const u32 var7f1b23f0[] = {0x00000000};
-const u32 var7f1b23f4[] = {0x00000000};
-const u32 var7f1b23f8[] = {0x00000000};
-const u32 var7f1b23fc[] = {0x00000000};
-
-const char var7f1b2400[] = "(BNC:Menu) findItem Warning: Item not found\n";
-const char var7f1b2430[] = "(BNC:Menu) menuFirstFocus - Menu %s does not have any focusable item!\n";
-const char var7f1b2478[] = "(BNC:Menu) menuLastFocus - Menu %s does not have any focusable item!\n";
-const char var7f1b24c0[] = "Init menu %x\n";
-const char var7f1b24d0[] = "[]-[] Added Main menu to ctl slot %d\n";
-const char var7f1b24f8[] = "[]-[] Added Slide menu to ctl slot %d\n";
-const char var7f1b2520[] = "[]-[] StackStart Stats: slides %d, ctlPtr %d slidePtr %d\n";
-const char var7f1b255c[] = "$-$-$avePtr: %d\n";
-const char var7f1b2570[] = "[]-[] Menu End: now %d slides\n";
-const char var7f1b2590[] = "Freeing challenge mem\n";
-const char var7f1b25a8[] = "IG:) style %d gbHead:%d\n";
-const char var7f1b25c4[] = "GRABBED GUN MEM!\n";
-const char var7f1b25d8[] = "Freeing challenge mem\n";
-const char var7f1b25f0[] = "mzn";
-const char var7f1b25f4[] = "mzf";
-
-const u32 var7f1b25f8[] = {0xbf000000};
-const u32 var7f1b25fc[] = {0x50000000};
-const u32 var7f1b2600[] = {0xff000000};
-const u32 var7f1b2604[] = {0xbfbf0000};
-const u32 var7f1b2608[] = {0x50500000};
-const u32 var7f1b260c[] = {0xffff0000};
-const u32 var7f1b2610[] = {0x0000bf00};
-const u32 var7f1b2614[] = {0x00005000};
-const u32 var7f1b2618[] = {0x0000ff00};
-const u32 var7f1b261c[] = {0xbf00bf00};
-const u32 var7f1b2620[] = {0x50005000};
-const u32 var7f1b2624[] = {0xff00ff00};
-const u32 var7f1b2628[] = {0x00bfbf00};
-const u32 var7f1b262c[] = {0x00505000};
-const u32 var7f1b2630[] = {0x00ffff00};
-const u32 var7f1b2634[] = {0xff885500};
-const u32 var7f1b2638[] = {0x7f482000};
-const u32 var7f1b263c[] = {0xff885500};
-const u32 var7f1b2640[] = {0xff888800};
-const u32 var7f1b2644[] = {0x7f484800};
-const u32 var7f1b2648[] = {0xff888800};
-const u32 var7f1b264c[] = {0x88445500};
-const u32 var7f1b2650[] = {0x48242000};
-const u32 var7f1b2654[] = {0x88445500};
-
 char *g_StringPointer = g_CheatMarqueeString;
 char *g_StringPointer2 = (char *)0x8009df3d;
 u32 g_MpPlayerNum = 0;
@@ -1094,52 +1048,84 @@ void func0f0f1494(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0f14e4
-/*  f0f14e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f14e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f14ec:	14800003 */ 	bnez	$a0,.L0f0f14fc
-/*  f0f14f0:	00803025 */ 	or	$a2,$a0,$zero
-/*  f0f14f4:	10000015 */ 	beqz	$zero,.L0f0f154c
-/*  f0f14f8:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0f14fc:
-/*  f0f14fc:	2cc15a00 */ 	sltiu	$at,$a2,0x5a00
-/*  f0f1500:	10200005 */ 	beqz	$at,.L0f0f1518
-/*  f0f1504:	3c0e7f1a */ 	lui	$t6,%hi(func0f1a78b0)
-/*  f0f1508:	0fc5b9f1 */ 	jal	langGet
-/*  f0f150c:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f0f1510:	1000000f */ 	beqz	$zero,.L0f0f1550
-/*  f0f1514:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0f1518:
-/*  f0f1518:	25ce78b0 */ 	addiu	$t6,$t6,%lo(func0f1a78b0)
-/*  f0f151c:	01c6082b */ 	sltu	$at,$t6,$a2
-/*  f0f1520:	10200003 */ 	beqz	$at,.L0f0f1530
-/*  f0f1524:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f1528:	10000008 */ 	beqz	$zero,.L0f0f154c
-/*  f0f152c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0f1530:
-/*  f0f1530:	10c00005 */ 	beqz	$a2,.L0f0f1548
-/*  f0f1534:	3c027f1b */ 	lui	$v0,%hi(var7f1b23ec)
-/*  f0f1538:	00c0f809 */ 	jalr	$a2
-/*  f0f153c:	00a02025 */ 	or	$a0,$a1,$zero
-/*  f0f1540:	10000003 */ 	beqz	$zero,.L0f0f1550
-/*  f0f1544:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0f1548:
-/*  f0f1548:	244223ec */ 	addiu	$v0,$v0,%lo(var7f1b23ec)
-.L0f0f154c:
-/*  f0f154c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0f1550:
-/*  f0f1550:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f1554:	03e00008 */ 	jr	$ra
-/*  f0f1558:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menuResolveText(void *thing, struct menu_item *item)
+{
+	char *(*handler)(struct menu_item *item) = thing;
+
+	// Null/zero
+	if (thing == NULL) {
+		return NULL;
+	}
+
+	// Text ID
+	if ((u32)thing < 0x5a00) {
+		return langGet((u32)thing);
+	}
+
+	if ((u32)thing > (u32)func0f1a78b0) {
+		return NULL;
+	}
+
+	// Function pointer
+	if (handler) {
+		return handler(item);
+	}
+
+	return "";
+}
+
+const u32 var7f1b23f0[] = {0x00000000};
+const u32 var7f1b23f4[] = {0x00000000};
+const u32 var7f1b23f8[] = {0x00000000};
+const u32 var7f1b23fc[] = {0x00000000};
+
+const char var7f1b2400[] = "(BNC:Menu) findItem Warning: Item not found\n";
+const char var7f1b2430[] = "(BNC:Menu) menuFirstFocus - Menu %s does not have any focusable item!\n";
+const char var7f1b2478[] = "(BNC:Menu) menuLastFocus - Menu %s does not have any focusable item!\n";
+const char var7f1b24c0[] = "Init menu %x\n";
+const char var7f1b24d0[] = "[]-[] Added Main menu to ctl slot %d\n";
+const char var7f1b24f8[] = "[]-[] Added Slide menu to ctl slot %d\n";
+const char var7f1b2520[] = "[]-[] StackStart Stats: slides %d, ctlPtr %d slidePtr %d\n";
+const char var7f1b255c[] = "$-$-$avePtr: %d\n";
+const char var7f1b2570[] = "[]-[] Menu End: now %d slides\n";
+const char var7f1b2590[] = "Freeing challenge mem\n";
+const char var7f1b25a8[] = "IG:) style %d gbHead:%d\n";
+const char var7f1b25c4[] = "GRABBED GUN MEM!\n";
+const char var7f1b25d8[] = "Freeing challenge mem\n";
+const char var7f1b25f0[] = "mzn";
+const char var7f1b25f4[] = "mzf";
+
+const u32 var7f1b25f8[] = {0xbf000000};
+const u32 var7f1b25fc[] = {0x50000000};
+const u32 var7f1b2600[] = {0xff000000};
+const u32 var7f1b2604[] = {0xbfbf0000};
+const u32 var7f1b2608[] = {0x50500000};
+const u32 var7f1b260c[] = {0xffff0000};
+const u32 var7f1b2610[] = {0x0000bf00};
+const u32 var7f1b2614[] = {0x00005000};
+const u32 var7f1b2618[] = {0x0000ff00};
+const u32 var7f1b261c[] = {0xbf00bf00};
+const u32 var7f1b2620[] = {0x50005000};
+const u32 var7f1b2624[] = {0xff00ff00};
+const u32 var7f1b2628[] = {0x00bfbf00};
+const u32 var7f1b262c[] = {0x00505000};
+const u32 var7f1b2630[] = {0x00ffff00};
+const u32 var7f1b2634[] = {0xff885500};
+const u32 var7f1b2638[] = {0x7f482000};
+const u32 var7f1b263c[] = {0xff885500};
+const u32 var7f1b2640[] = {0xff888800};
+const u32 var7f1b2644[] = {0x7f484800};
+const u32 var7f1b2648[] = {0xff888800};
+const u32 var7f1b264c[] = {0x88445500};
+const u32 var7f1b2650[] = {0x48242000};
+const u32 var7f1b2654[] = {0x88445500};
 
 GLOBAL_ASM(
 glabel func0f0f155c
 /*  f0f155c:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0f1560:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0f1564:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0f1568:	0fc3c539 */ 	jal	func0f0f14e4
+/*  f0f1568:	0fc3c539 */ 	jal	menuResolveText
 /*  f0f156c:	8c840008 */ 	lw	$a0,0x8($a0)
 /*  f0f1570:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0f1574:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -1152,7 +1138,7 @@ glabel func0f0f1580
 /*  f0f1580:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0f1584:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0f1588:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0f158c:	0fc3c539 */ 	jal	func0f0f14e4
+/*  f0f158c:	0fc3c539 */ 	jal	menuResolveText
 /*  f0f1590:	8c840004 */ 	lw	$a0,0x4($a0)
 /*  f0f1594:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0f1598:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -1585,7 +1571,7 @@ glabel var7f1b28c0
 .L0f0f1b00:
 /*  f0f1b00:	5580001c */ 	bnezl	$t4,.L0f0f1b74
 /*  f0f1b04:	8e020004 */ 	lw	$v0,0x4($s0)
-/*  f0f1b08:	0fc3c539 */ 	jal	func0f0f14e4
+/*  f0f1b08:	0fc3c539 */ 	jal	menuResolveText
 /*  f0f1b0c:	8e04000c */ 	lw	$a0,0xc($s0)
 /*  f0f1b10:	10400017 */ 	beqz	$v0,.L0f0f1b70
 /*  f0f1b14:	00403025 */ 	or	$a2,$v0,$zero
