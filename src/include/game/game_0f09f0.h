@@ -36,7 +36,7 @@ void func0f0f2cf4(struct menu_dialog *dialog, struct menuframe *arg1, struct men
 void menuPushDialog(struct menu_dialog *dialog);
 u32 func0f0f3220(void);
 u32 func0f0f33bc(void);
-u32 func0f0f361c(void);
+void menuUpdateCurFrame(void);
 void menuPopDialog(void);
 void func0f0f3704(struct menu_dialog *dialog);
 void func0f0f372c(u8 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, s32 arg8);
@@ -49,7 +49,7 @@ u32 func0f0f74a8(void);
 u32 func0f0f7594(void);
 u32 func0f0f7728(void);
 u32 func0f0f7e98(void);
-u32 func0f0f8040(void);
+void func0f0f8040(void);
 void func0f0f8120(void);
 void func0f0f820c(struct menu_dialog *dialog, s32 arg1);
 bool func0f0f82a8(s32 arg0);

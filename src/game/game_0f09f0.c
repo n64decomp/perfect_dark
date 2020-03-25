@@ -3631,64 +3631,26 @@ glabel func0f0f33bc
 /*  f0f3618:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel func0f0f361c
-/*  f0f361c:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f0f3620:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f0f3624:	3c18800a */ 	lui	$t8,0x800a
-/*  f0f3628:	2718e000 */ 	addiu	$t8,$t8,-8192
-/*  f0f362c:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0f3630:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f3634:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f3638:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0f363c:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f3640:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f3644:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f3648:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f0f364c:	846404f4 */ 	lh	$a0,0x4f4($v1)
-/*  f0f3650:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f3654:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f3658:	14800013 */ 	bnez	$a0,.L0f0f36a8
-/*  f0f365c:	00045880 */ 	sll	$t3,$a0,0x2
-/*  f0f3660:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f0f3664:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f0f3668:	2419ffff */ 	addiu	$t9,$zero,-1
-/*  f0f366c:	0fc3e010 */ 	jal	func0f0f8040
-/*  f0f3670:	ad191c40 */ 	sw	$t9,0x1c40($t0)
-/*  f0f3674:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
-/*  f0f3678:	8d291448 */ 	lw	$t1,%lo(g_MpPlayerNum)($t1)
-/*  f0f367c:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0x4f8)
-/*  f0f3680:	000950c0 */ 	sll	$t2,$t1,0x3
-/*  f0f3684:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f0f3688:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f0f368c:	01495021 */ 	addu	$t2,$t2,$t1
-/*  f0f3690:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f0f3694:	01495023 */ 	subu	$t2,$t2,$t1
-/*  f0f3698:	000a5100 */ 	sll	$t2,$t2,0x4
-/*  f0f369c:	002a0821 */ 	addu	$at,$at,$t2
-/*  f0f36a0:	1000000a */ 	beqz	$zero,.L0f0f36cc
-/*  f0f36a4:	ac20e4f8 */ 	sw	$zero,%lo(g_MenuStack+0x4f8)($at)
-.L0f0f36a8:
-/*  f0f36a8:	01645823 */ 	subu	$t3,$t3,$a0
-/*  f0f36ac:	000b58c0 */ 	sll	$t3,$t3,0x3
-/*  f0f36b0:	006b1021 */ 	addu	$v0,$v1,$t3
-/*  f0f36b4:	804c0461 */ 	lb	$t4,0x461($v0)
-/*  f0f36b8:	2442044c */ 	addiu	$v0,$v0,0x44c
-/*  f0f36bc:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f0f36c0:	004d7021 */ 	addu	$t6,$v0,$t5
-/*  f0f36c4:	8dcf0000 */ 	lw	$t7,0x0($t6)
-/*  f0f36c8:	ac6f04f8 */ 	sw	$t7,0x4f8($v1)
-.L0f0f36cc:
-/*  f0f36cc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f36d0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f36d4:	03e00008 */ 	jr	$ra
-/*  f0f36d8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void menuUpdateCurFrame(void)
+{
+	s32 depth = g_MenuStack[g_MpPlayerNum].depth;
+
+	if (depth == 0) {
+		// No more parent menus - return control to the player
+		g_Vars.currentplayer->joybutinhibit = 0xffffffff;
+		func0f0f8040();
+		g_MenuStack[g_MpPlayerNum].curframe = NULL;
+	} else {
+		// Set up parent menu
+		struct menulayer *layer = &g_MenuStack[g_MpPlayerNum].layers[depth - 1];
+		g_MenuStack[g_MpPlayerNum].curframe = layer->siblings[layer->cursibling];
+	}
+}
 
 void menuPopDialog(void)
 {
 	func0f0f33bc();
-	func0f0f361c();
+	menuUpdateCurFrame();
 }
 
 void func0f0f3704(struct menu_dialog *dialog)

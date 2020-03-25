@@ -1069,7 +1069,7 @@ s32 menuhandlerPakCancelSave2(u32 operation, struct menu_item *item, s32 *value)
 	if (operation == MENUOP_SET) {
 		func0f0f33bc();
 		func0f10898c();
-		func0f0f361c();
+		menuUpdateCurFrame();
 	}
 
 	return 0;
@@ -1098,7 +1098,7 @@ s32 menuhandlerAcknowledgePakFileLost(u32 operation, struct menu_item *item, s32
 	if (operation == MENUOP_SET) {
 		func0f0f33bc();
 		func0f10898c();
-		func0f0f361c();
+		menuUpdateCurFrame();
 	}
 
 	return 0;
@@ -1591,7 +1591,7 @@ glabel var7f1b36c8
 /*  f1094c0:	afa60044 */ 	sw	$a2,0x44($sp)
 /*  f1094c4:	8fa60044 */ 	lw	$a2,0x44($sp)
 .L0f1094c8:
-/*  f1094c8:	0fc3cd87 */ 	jal	func0f0f361c
+/*  f1094c8:	0fc3cd87 */ 	jal	menuUpdateCurFrame
 /*  f1094cc:	afa60044 */ 	sw	$a2,0x44($sp)
 /*  f1094d0:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f1094d4:	8fa20044 */ 	lw	$v0,0x44($sp)
@@ -4040,7 +4040,7 @@ glabel menudialog0010b674
 /*  f10b738:	0fc42197 */ 	jal	func0f10865c
 /*  f10b73c:	24040006 */ 	addiu	$a0,$zero,0x6
 .L0f10b740:
-/*  f10b740:	0fc3cd87 */ 	jal	func0f0f361c
+/*  f10b740:	0fc3cd87 */ 	jal	menuUpdateCurFrame
 /*  f10b744:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f10b748:
 /*  f10b748:	8fbf0014 */ 	lw	$ra,0x14($sp)
