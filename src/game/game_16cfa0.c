@@ -722,7 +722,7 @@ glabel func0f16d89c
 /*  f16d8dc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16d8e0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f16d8e4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16d8e8:	0fc3f27d */ 	jal	func0f0fc9f4
+/*  f16d8e8:	0fc3f27d */ 	jal	menuChooseMusic
 /*  f16d8ec:	e7ac0020 */ 	swc1	$f12,0x20($sp)
 /*  f16d8f0:	0fc5b3e8 */ 	jal	func0f16cfa0
 /*  f16d8f4:	afa20018 */ 	sw	$v0,0x18($sp)
@@ -897,7 +897,7 @@ GLOBAL_ASM(
 glabel func0f16db14
 /*  f16db14:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f16db18:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16db1c:	0fc3f27d */ 	jal	func0f0fc9f4
+/*  f16db1c:	0fc3f27d */ 	jal	menuChooseMusic
 /*  f16db20:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16db24:	0fc5b647 */ 	jal	func0f16d91c
 /*  f16db28:	00402025 */ 	or	$a0,$v0,$zero
