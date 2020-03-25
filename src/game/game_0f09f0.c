@@ -14094,23 +14094,17 @@ u32 menuChooseMusic(void)
 	return MUSIC_PAUSEMENU;
 }
 
+bool func0f0fcbcc(void)
+{
+	if (var80062940 == 0 && g_Vars.stagenum == STAGE_CITRAINING) {
+		return true;
+	}
+
+	return false;
+}
+
 GLOBAL_ASM(
-glabel func0f0fcbcc
-/*  f0fcbcc:	3c0e8006 */ 	lui	$t6,%hi(var80062940)
-/*  f0fcbd0:	91ce2940 */ 	lbu	$t6,%lo(var80062940)($t6)
-/*  f0fcbd4:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x4b4)
-/*  f0fcbd8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0fcbdc:	15c00007 */ 	bnez	$t6,.L0f0fcbfc
-/*  f0fcbe0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fcbe4:	8defa474 */ 	lw	$t7,%lo(g_Vars+0x4b4)($t7)
-/*  f0fcbe8:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f0fcbec:	15e10003 */ 	bne	$t7,$at,.L0f0fcbfc
-/*  f0fcbf0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fcbf4:	03e00008 */ 	jr	$ra
-/*  f0fcbf8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f0fcbfc:
-/*  f0fcbfc:	03e00008 */ 	jr	$ra
-/*  f0fcc00:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f0fcc04
 /*  f0fcc04:	03e00008 */ 	jr	$ra
 /*  f0fcc08:	00001025 */ 	or	$v0,$zero,$zero
 );
