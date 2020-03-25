@@ -3400,7 +3400,7 @@ struct menuframe {
 
 struct menustackdfc {
 	u32 unk00;
-	u32 unk04;
+	f32 unk04;
 };
 
 struct menustackitem {

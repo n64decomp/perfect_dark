@@ -1074,42 +1074,16 @@ glabel func0f0f13ec
 /*  f0f1414:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0f1418
-/*  f0f1418:	3c0e8007 */ 	lui	$t6,%hi(g_MpPlayerNum)
-/*  f0f141c:	8dce1448 */ 	lw	$t6,%lo(g_MpPlayerNum)($t6)
-/*  f0f1420:	3c18800a */ 	lui	$t8,0x800a
-/*  f0f1424:	3c014270 */ 	lui	$at,0x4270
-/*  f0f1428:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f0f142c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f1430:	000f7880 */ 	sll	$t7,$t7,0x2
-/*  f0f1434:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0f1438:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f0f143c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f0f1440:	000f7900 */ 	sll	$t7,$t7,0x4
-/*  f0f1444:	2718e000 */ 	addiu	$t8,$t8,-8192
-/*  f0f1448:	3c02800a */ 	lui	$v0,%hi(g_Vars)
-/*  f0f144c:	44810000 */ 	mtc1	$at,$f0
-/*  f0f1450:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
-/*  f0f1454:	01f82021 */ 	addu	$a0,$t7,$t8
-/*  f0f1458:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0f145c:	24050020 */ 	addiu	$a1,$zero,0x20
-.L0f0f1460:
-/*  f0f1460:	8c990dfc */ 	lw	$t9,0xdfc($a0)
-/*  f0f1464:	24630008 */ 	addiu	$v1,$v1,0x8
-/*  f0f1468:	13200006 */ 	beqz	$t9,.L0f0f1484
-/*  f0f146c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f1470:	c4460004 */ 	lwc1	$f6,0x4($v0)
-/*  f0f1474:	c4840e00 */ 	lwc1	$f4,0xe00($a0)
-/*  f0f1478:	46003203 */ 	div.s	$f8,$f6,$f0
-/*  f0f147c:	46082280 */ 	add.s	$f10,$f4,$f8
-/*  f0f1480:	e48a0e00 */ 	swc1	$f10,0xe00($a0)
-.L0f0f1484:
-/*  f0f1484:	1465fff6 */ 	bne	$v1,$a1,.L0f0f1460
-/*  f0f1488:	24840008 */ 	addiu	$a0,$a0,0x8
-/*  f0f148c:	03e00008 */ 	jr	$ra
-/*  f0f1490:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0f1418(void)
+{
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		if (g_MenuStack[g_MpPlayerNum].unkdfc[i].unk00) {
+			g_MenuStack[g_MpPlayerNum].unkdfc[i].unk04 += g_Vars.diffframe60f / 60.0f;
+		}
+	}
+}
 
 void func0f0f1494(void)
 {
