@@ -994,21 +994,14 @@ glabel func0f0f139c
 /*  f0f13e8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0f13ec
-/*  f0f13ec:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f13f0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f13f4:	0fc3c4ce */ 	jal	func0f0f1338
-/*  f0f13f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0f13fc:	50400003 */ 	beqzl	$v0,.L0f0f140c
-/*  f0f1400:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f1404:	ac400000 */ 	sw	$zero,0x0($v0)
-/*  f0f1408:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0f140c:
-/*  f0f140c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f1410:	03e00008 */ 	jr	$ra
-/*  f0f1414:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0f13ec(s32 arg0)
+{
+	struct menustackdfc *thing = func0f0f1338(arg0);
+
+	if (thing) {
+		thing->unk00 = 0;
+	}
+}
 
 void func0f0f1418(void)
 {

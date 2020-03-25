@@ -11,7 +11,7 @@ void func0f0f0ca0(s32 value, bool allplayers);
 u32 func0f0f0ce8(void);
 struct menustackdfc *func0f0f1338(u32 arg0);
 u32 func0f0f139c(void);
-u32 func0f0f13ec(void);
+void func0f0f13ec(s32 arg0);
 void func0f0f1418(void);
 void func0f0f1494(void);
 char *menuResolveText(u32 thing, struct menu_item *item);
