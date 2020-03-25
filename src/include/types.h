@@ -3203,7 +3203,7 @@ struct hoverprop {
 struct menu_item {
 	u8 type;
 	u8 param;
-	u32 flags;
+	u32 param1;
 	u32 param2;
 	u32 param3;
 	void *handler;
