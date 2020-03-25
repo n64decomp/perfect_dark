@@ -9247,31 +9247,16 @@ glabel var7f1b29f8
 /*  f0f85dc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0f85e0
-/*  f0f85e0:	3c0e8007 */ 	lui	$t6,%hi(g_MainMenuMenuDialog)
-/*  f0f85e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0f85e8:	25ce3a5c */ 	addiu	$t6,$t6,%lo(g_MainMenuMenuDialog)
-/*  f0f85ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0f85f0:	148e0004 */ 	bne	$a0,$t6,.L0f0f8604
-/*  f0f85f4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0f85f8:	0fc5b6c5 */ 	jal	func0f16db14
-/*  f0f85fc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0f8600:	8fa40018 */ 	lw	$a0,0x18($sp)
-.L0f0f8604:
-/*  f0f8604:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f0f8608:	8fa5001c */ 	lw	$a1,0x1c($sp)
-/*  f0f860c:	0fc5b350 */ 	jal	setVar80084014
-/*  f0f8610:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0f8614:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f0f8618:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f0f861c:	240f0003 */ 	addiu	$t7,$zero,0x3
-/*  f0f8620:	af0f1a24 */ 	sw	$t7,0x1a24($t8)
-/*  f0f8624:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0f8628:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0f862c:	03e00008 */ 	jr	$ra
-/*  f0f8630:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0f85e0(struct menu_dialog *dialog, s32 root)
+{
+	if (dialog == &g_MainMenuMenuDialog) {
+		func0f16db14();
+	}
+
+	menuPushRootDialog(dialog, root);
+	setVar80084014(true);
+	g_Vars.currentplayer->pausemode = PAUSEMODE_3;
+}
 
 u32 var800714dc = 0x00000078;
 
