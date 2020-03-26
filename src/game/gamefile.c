@@ -42,12 +42,10 @@ const u32 var7f1b3a04[] = {0x00000000};
 const char var7f1b3a08[] = "tc != NULL";
 const char var7f1b3a14[] = "gamefile.c";
 
-GLOBAL_ASM(
-glabel func0f10f130
-/*  f10f130:	3c02800a */ 	lui	$v0,%hi(g_SoloSaveFile+0x14)
-/*  f10f134:	03e00008 */ 	jr	$ra
-/*  f10f138:	24422214 */ 	addiu	$v0,$v0,%lo(g_SoloSaveFile+0x14)
-);
+u32 *savefileGetFlags(void)
+{
+	return &g_SoloSaveFile.flags;
+}
 
 void savefileSetFlag(u32 value)
 {
