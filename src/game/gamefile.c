@@ -62,31 +62,14 @@ u32 savefileHasFlag(u32 value)
 	return func0f11e584(value, &g_SoloSaveFile.flags);
 }
 
-GLOBAL_ASM(
-glabel func0f10f1b0
-/*  f10f1b0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f10f1b4:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f10f1b8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f10f1bc:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f10f1c0:	3c11800a */ 	lui	$s1,%hi(g_SoloSaveFile+0x14)
-/*  f10f1c4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f10f1c8:	26312214 */ 	addiu	$s1,$s1,%lo(g_SoloSaveFile+0x14)
-/*  f10f1cc:	24100023 */ 	addiu	$s0,$zero,0x23
-/*  f10f1d0:	2412004f */ 	addiu	$s2,$zero,0x4f
-/*  f10f1d4:	02002025 */ 	or	$a0,$s0,$zero
-.L0f10f1d8:
-/*  f10f1d8:	0fc47961 */ 	jal	func0f11e584
-/*  f10f1dc:	02202825 */ 	or	$a1,$s1,$zero
-/*  f10f1e0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10f1e4:	5612fffc */ 	bnel	$s0,$s2,.L0f10f1d8
-/*  f10f1e8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f10f1ec:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f10f1f0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f10f1f4:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f10f1f8:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f10f1fc:	03e00008 */ 	jr	$ra
-/*  f10f200:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f10f1b0(void)
+{
+	s32 i;
+
+	for (i = 0x23; i != 0x4f; i++) {
+		func0f11e584(i, &g_SoloSaveFile.flags);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f10f204
