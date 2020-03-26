@@ -28,11 +28,6 @@
 #include "lib/lib_4b170.h"
 #include "types.h"
 
-
-const char var7f1b38c0[] = "Flag %d = %s";
-const char var7f1b38d0[] = "TRUE";
-const char var7f1b38d8[] = "FALSE";
-
 u32 *savefileGetFlags(void)
 {
 	return &g_SoloSaveFile.flags;
@@ -53,12 +48,13 @@ u32 savefileHasFlag(u32 value)
 	return bitGetByIndex(value, &g_SoloSaveFile.flags);
 }
 
-void func0f10f1b0(void)
+void savefilePrintFlags(void)
 {
 	s32 i;
 
 	for (i = 0x23; i != 0x4f; i++) {
-		bitGetByIndex(i, &g_SoloSaveFile.flags);
+		osSyncPrintf("Flag %d = %s", i,
+				bitGetByIndex(i, &g_SoloSaveFile.flags) ? "TRUE" : "FALSE");
 	}
 }
 

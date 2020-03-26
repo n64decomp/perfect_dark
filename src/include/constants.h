@@ -6,6 +6,8 @@
 #define false 0
 #define true  1
 
+#define osSyncPrintf
+
 #define ABS(val)              (val > 0 ? val : -val)
 #define ARRAYCOUNT(a)         (s32)(sizeof(a) / sizeof(a[0]))
 #define CHRRACE(chr)          (chr ? chr->race : RACE_HUMAN)
