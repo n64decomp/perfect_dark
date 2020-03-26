@@ -1045,14 +1045,15 @@ glabel func0f1105fc
 /*  f110674:	27bd00f8 */ 	addiu	$sp,$sp,0xf8
 /*  f110678:	03e00008 */ 	jr	$ra
 /*  f11067c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f110680:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f110684:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f110688:	0fc442da */ 	jal	func0f110b68
-/*  f11068c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f110690:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f110694:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f110698:	03e00008 */ 	jr	$ra
-/*  f11069c:	00000000 */ 	sll	$zero,$zero,0x0
+);
+
+void func0f110680(void)
+{
+	func0f110b68();
+}
+
+GLOBAL_ASM(
+glabel func0f06a0
 /*  f1106a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1106a4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1106a8:	0fc442da */ 	jal	func0f110b68
