@@ -1064,10 +1064,13 @@ bool func0f1106c8(void)
 	return true;
 }
 
+void func0f1106ec(void)
+{
+	// empty
+}
+
 GLOBAL_ASM(
-glabel func0f06ec
-/*  f1106ec:	03e00008 */ 	jr	$ra
-/*  f1106f0:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f1106f4
 /*  f1106f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1106f8:	00802825 */ 	or	$a1,$a0,$zero
 /*  f1106fc:	afbf0014 */ 	sw	$ra,0x14($sp)
