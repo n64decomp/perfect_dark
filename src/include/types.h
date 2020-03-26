@@ -4130,13 +4130,13 @@ struct missionconfig {
 };
 
 struct mpsetup {
-	/*0x8009cb88*/ char name[12];
-	/*0x8009cb94*/ u32 options;
-	/*0x8009cb98*/ u8 scenario;
-	/*0x8009cb99*/ u8 stagenum;
-	/*0x8009cb9a*/ u8 timelimit;
-	/*0x8009cb9b*/ u8 scorelimit;
-	/*0x8009cb9c*/ u16 teamscorelimit;
+	/*0x800acb88*/ char name[12];
+	/*0x800acb94*/ u32 options;
+	/*0x800acb98*/ u8 scenario;
+	/*0x800acb99*/ u8 stagenum;
+	/*0x800acb9a*/ u8 timelimit;
+	/*0x800acb9b*/ u8 scorelimit;
+	/*0x800acb9c*/ u16 teamscorelimit;
 
 	/**
 	 * Each bit signifies that a player or sim is participating.
@@ -4145,17 +4145,22 @@ struct mpsetup {
 	 * Bits 0x0ff0 are for sims
 	 * Bits 0xf000 are probably not used
 	 */
-	/*0x8009cb9e*/ u16 chrslots;
-	/*0x8009cba0*/ u32 unk18;
-	/*0x8009cba4*/ u16 unk1c;
-	/*0x8009cba6*/ u8 paused;
-	/*0x8009cba8*/ bool saved;
-	/*0x8009cbac*/ u16 unk24;
-	/*0x8009cbae*/ u16 unk26;
+	/*0x800acb9e*/ u16 chrslots;
+	/*0x800acba0*/ u32 unk18;
+	/*0x800acba4*/ u16 unk1c;
+	/*0x800acba6*/ u8 paused;
+	/*0x800acba8*/ bool saved;
+	/*0x800acbac*/ u16 unk24;
+	/*0x800acbae*/ u16 unk26;
+};
+
+struct savefile_setup {
 	/*0x800acbb0*/ char teamnames[8][12];
 	/*0x800acc10*/ u8 locktype;
 	/*0x800acc11*/ u8 unk89;
 	/*0x800acc12*/ u8 usingmultipletunes;
+	/*0x800acc13*/ u8 unk8b;
+	/*0x800acc14*/ s8 unk8c;
 };
 
 struct mpscenario {

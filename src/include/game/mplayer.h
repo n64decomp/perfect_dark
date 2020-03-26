@@ -73,7 +73,7 @@ bool mpGetUsingMultipleTunes(void);
 u32 func0f18c2b0(void);
 u32 func0f18c304(void);
 u32 func0f18c38c(void);
-u32 func0f18c3e4(void);
+void func0f18c3e4(void);
 u32 func0f18c40c(void);
 u32 func0f18c430(void);
 u32 func0f18c478(void);

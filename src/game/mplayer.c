@@ -5206,7 +5206,7 @@ glabel mpSetLock
 
 u32 mpGetLockType(void)
 {
-	return g_MpSetup.locktype;
+	return g_MpSetupSaveFile.locktype;
 }
 
 u32 mpGetLockPlayerNum(void)
@@ -5216,7 +5216,7 @@ u32 mpGetLockPlayerNum(void)
 
 bool mpIsPlayerLockedOut(u32 playernum)
 {
-	if (g_MpSetup.locktype == MPLOCKTYPE_NONE) {
+	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_NONE) {
 		return false;
 	}
 
@@ -5390,12 +5390,12 @@ char *mpGetTrackName(s32 slotindex)
 
 void mpSetUsingMultipleTunes(bool enable)
 {
-	g_MpSetup.usingmultipletunes = enable;
+	g_MpSetupSaveFile.usingmultipletunes = enable;
 }
 
 bool mpGetUsingMultipleTunes(void)
 {
-	return g_MpSetup.usingmultipletunes;
+	return g_MpSetupSaveFile.usingmultipletunes;
 }
 
 GLOBAL_ASM(
@@ -5406,9 +5406,9 @@ glabel func0f18c2b0
 /*  f18c2bc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c2c0:	000270c3 */ 	sra	$t6,$v0,0x3
 /*  f18c2c4:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f18c2c8:	3c18800b */ 	lui	$t8,%hi(var800acc14+0x1)
+/*  f18c2c8:	3c18800b */ 	lui	$t8,%hi(g_MpSetupSaveFile+0x65)
 /*  f18c2cc:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f18c2d0:	9318cc15 */ 	lbu	$t8,%lo(var800acc14+0x1)($t8)
+/*  f18c2d0:	9318cc15 */ 	lbu	$t8,%lo(g_MpSetupSaveFile+0x65)($t8)
 /*  f18c2d4:	30590007 */ 	andi	$t9,$v0,0x7
 /*  f18c2d8:	24080001 */ 	addiu	$t0,$zero,0x1
 /*  f18c2dc:	03284804 */ 	sllv	$t1,$t0,$t9
@@ -5484,8 +5484,8 @@ glabel func0f18c38c
 .L0f18c3c4:
 /*  f18c3c4:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
 /*  f18c3c8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f18c3cc:	3c01800b */ 	lui	$at,%hi(var800acc14)
-/*  f18c3d0:	a022cc14 */ 	sb	$v0,%lo(var800acc14)($at)
+/*  f18c3cc:	3c01800b */ 	lui	$at,%hi(g_MpSetupSaveFile+0x64)
+/*  f18c3d0:	a022cc14 */ 	sb	$v0,%lo(g_MpSetupSaveFile+0x64)($at)
 /*  f18c3d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f18c3d8:
 /*  f18c3d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -5548,15 +5548,15 @@ glabel func0f18c430
 GLOBAL_ASM(
 glabel func0f18c478
 /*  f18c478:	240effff */ 	addiu	$t6,$zero,-1
-/*  f18c47c:	3c01800b */ 	lui	$at,%hi(var800acc14)
+/*  f18c47c:	3c01800b */ 	lui	$at,%hi(g_MpSetupSaveFile+0x64)
 /*  f18c480:	03e00008 */ 	jr	$ra
-/*  f18c484:	a02ecc14 */ 	sb	$t6,%lo(var800acc14)($at)
+/*  f18c484:	a02ecc14 */ 	sb	$t6,%lo(g_MpSetupSaveFile+0x64)($at)
 );
 
 GLOBAL_ASM(
 glabel mpGetTrackNum
-/*  f18c488:	3c04800b */ 	lui	$a0,%hi(var800acc14)
-/*  f18c48c:	8084cc14 */ 	lb	$a0,%lo(var800acc14)($a0)
+/*  f18c488:	3c04800b */ 	lui	$a0,%hi(g_MpSetupSaveFile+0x64)
+/*  f18c48c:	8084cc14 */ 	lb	$a0,%lo(g_MpSetupSaveFile+0x64)($a0)
 /*  f18c490:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f18c494:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f18c498:	04810003 */ 	bgez	$a0,.L0f18c4a8

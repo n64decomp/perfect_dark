@@ -180,7 +180,7 @@ s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandler00178018(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpSetup.locktype != MPLOCKTYPE_CHALLENGE) {
+		if (g_MpSetupSaveFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}

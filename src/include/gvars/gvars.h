@@ -157,7 +157,8 @@ struct g_vars {
 	/*000474*/ s32 numaibuddies;
 	/*000478*/ u32 unk000478;
 	/*00047c*/ u32 unk00047c;
-	/*000480*/ u32 unk000480;
+	/*000480*/ u16 unk000480;
+	/*000482*/ u16 unk000482;
 	/*000484*/ s32 mphilltime;
 	/*000488*/ u32 unk000488;
 	/*00048c*/ u32 unk00048c;
@@ -814,6 +815,7 @@ extern u32 var800ac798[8];
 extern struct mpplayer g_MpPlayers[6];
 extern u8 g_ActiveMenuMpBotCommands[16];
 extern struct mpsetup g_MpSetup;
+extern struct savefile_setup g_MpSetupSaveFile;
 extern s8 g_MpLockPlayerNum;
 extern u32 var800acc28;
 extern u32 var800acc70;

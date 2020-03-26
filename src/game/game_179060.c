@@ -5665,7 +5665,7 @@ glabel var7f1b8288
 s32 menuhandler0017e9d8(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpSetup.locktype != MPLOCKTYPE_CHALLENGE) {
+		if (g_MpSetupSaveFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -5676,7 +5676,7 @@ s32 menuhandler0017e9d8(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandlerMpAbortChallenge(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpSetup.locktype != MPLOCKTYPE_CHALLENGE) {
+		if (g_MpSetupSaveFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -5691,7 +5691,7 @@ s32 menuhandlerMpAbortChallenge(u32 operation, struct menu_item *item, s32 *valu
 s32 menuhandlerMpStartChallenge(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
-		if (g_MpSetup.locktype != MPLOCKTYPE_CHALLENGE) {
+		if (g_MpSetupSaveFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
@@ -5704,7 +5704,7 @@ s32 menuhandlerMpStartChallenge(u32 operation, struct menu_item *item, s32 *valu
 
 char *mpMenuTextChallengeName(struct menu_item *item)
 {
-	if (g_MpSetup.locktype != MPLOCKTYPE_CHALLENGE) {
+	if (g_MpSetupSaveFile.locktype != MPLOCKTYPE_CHALLENGE) {
 		return langGet(L_MPMENU(50)); // "Combat Challenges"
 	}
 
