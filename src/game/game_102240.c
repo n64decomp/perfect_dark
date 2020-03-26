@@ -1257,7 +1257,7 @@ s32 menuhandlerSoloDifficulty(u32 operation, struct menu_item *item, s32 *value)
 			if (item->param3 == 0) {
 				return true;
 			}
-			if ((g_SoloSaveFile.unk08 & 7) >= item->param) {
+			if (item->param <= (u32)g_SoloSaveFile.unk0b_5) {
 				return true;
 			}
 		}

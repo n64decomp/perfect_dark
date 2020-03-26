@@ -2260,20 +2260,3 @@ glabel func0f10ef10
 /*  f10f128:	03e00008 */ 	jr	$ra
 /*  f10f12c:	ac2b1448 */ 	sw	$t3,%lo(g_MpPlayerNum)($at)
 );
-
-const char var7f1b38c0[] = "Flag %d = %s";
-const char var7f1b38d0[] = "TRUE";
-const char var7f1b38d8[] = "FALSE";
-const char var7f1b38e0[] = "Dark";
-const char var7f1b38e8[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
-const char var7f1b391c[] = "pdoptions.c";
-const char var7f1b3928[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
-const char var7f1b395c[] = "pdoptions.c";
-const char var7f1b3968[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
-const char var7f1b399c[] = "pdoptions.c";
-const char var7f1b39a8[] = "";
-const char var7f1b39ac[] = "";
-const char var7f1b39b0[] = "fileGuid";
-const char var7f1b39bc[] = "bossfile.c";
-const char var7f1b39c8[] = "";
-const char var7f1b39cc[] = "";

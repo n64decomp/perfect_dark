@@ -1806,6 +1806,9 @@
 #define SAVEFILEFLAG_RESCUE_MECHANIC_DEAD 0x3e
 #define SAVEFILEFLAG_G5_MINE              0x3f // true if thrown on top door
 #define SAVEFILEFLAG_LANGFILTERON         0x40
+#define SAVEFILEFLAG_41                   0x41
+#define SAVEFILEFLAG_42                   0x42
+#define SAVEFILEFLAG_43                   0x43
 
 #define SCREENRATIO_NORMAL 0
 #define SCREENRATIO_16_9   1

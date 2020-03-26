@@ -4026,16 +4026,19 @@ struct savefile_solo {
 	 * This is a little weird. The name entry is clearly 10 characters plus a
 	 * null byte, but there is other code that uses unk08 for other purposes.
 	 */
-	/*0x00*/ char name[8];
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
+	/*0x00*/ char name[11];
+	/*0x0b*/ u8 unk0b_0 : 5;
+	/*0x0b*/ u8 unk0b_5 : 3;
+	/*0x0c*/ u8 unk0c;
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 flags;
 	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
+	/*0x1c*/ u16 unk1c;
+	/*0x1e*/ u16 unk1e;
 	/*0x20*/ u16 besttimes[NUM_SOLOSTAGES][3];
 	/*0xa0*/ s32 coopcompletions[3];
-	/*0xac*/ u8 firingrangescores[4];
+	/*0xac*/ u8 firingrangescores[9];
+	/*0xb5*/ u8 unkb5[6];
 };
 
 struct propstate {

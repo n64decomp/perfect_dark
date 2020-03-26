@@ -3026,7 +3026,7 @@ glabel func0f1189d8
 /*  f118a94:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f118a98:	3c10800a */ 	lui	$s0,%hi(g_SoloSaveFile)
 /*  f118a9c:	26102200 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile)
-/*  f118aa0:	0fc43da6 */ 	jal	func0f10f698
+/*  f118aa0:	0fc43da6 */ 	jal	savefileLoadDefaults
 /*  f118aa4:	02002025 */ 	or	$a0,$s0,$zero
 /*  f118aa8:	0fc43c81 */ 	jal	savefileApplyOptions
 /*  f118aac:	02002025 */ 	or	$a0,$s0,$zero
@@ -9627,7 +9627,7 @@ glabel func0f11e4d4
 );
 
 GLOBAL_ASM(
-glabel func0f11e530
+glabel bitSetByIndex
 /*  f11e530:	10c0000a */ 	beqz	$a2,.L0f11e55c
 /*  f11e534:	000458c2 */ 	srl	$t3,$a0,0x3
 /*  f11e538:	000470c2 */ 	srl	$t6,$a0,0x3
@@ -9684,7 +9684,7 @@ glabel func0f11e5bc
 /*  f11e5dc:	02002025 */ 	or	$a0,$s0,$zero
 .L0f11e5e0:
 /*  f11e5e0:	02202825 */ 	or	$a1,$s1,$zero
-/*  f11e5e4:	0fc4794c */ 	jal	func0f11e530
+/*  f11e5e4:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11e5e8:	00003025 */ 	or	$a2,$zero,$zero
 /*  f11e5ec:	26100001 */ 	addiu	$s0,$s0,0x1
 /*  f11e5f0:	5612fffb */ 	bnel	$s0,$s2,.L0f11e5e0

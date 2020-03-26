@@ -28,19 +28,10 @@
 #include "lib/lib_4b170.h"
 #include "types.h"
 
-const char var7f1b39d0[] = "Rebuilding pakWad %d:\n";
 
-const u32 var7f1b39e8[] = {0x00000080};
-const u32 var7f1b39ec[] = {0x00000040};
-const u32 var7f1b39f0[] = {0x00000020};
-const u32 var7f1b39f4[] = {0x00000008};
-const u32 var7f1b39f8[] = {0x04000102};
-const u32 var7f1b39fc[] = {0x03000000};
-const u32 var7f1b3a00[] = {0x01020304};
-const u32 var7f1b3a04[] = {0x00000000};
-
-const char var7f1b3a08[] = "tc != NULL";
-const char var7f1b3a14[] = "gamefile.c";
+const char var7f1b38c0[] = "Flag %d = %s";
+const char var7f1b38d0[] = "TRUE";
+const char var7f1b38d8[] = "FALSE";
 
 u32 *savefileGetFlags(void)
 {
@@ -49,12 +40,12 @@ u32 *savefileGetFlags(void)
 
 void savefileSetFlag(u32 value)
 {
-	func0f11e530(value, &g_SoloSaveFile.flags, true);
+	bitSetByIndex(value, &g_SoloSaveFile.flags, true);
 }
 
 void savefileUnsetFlag(u32 value)
 {
-	func0f11e530(value, &g_SoloSaveFile.flags, false);
+	bitSetByIndex(value, &g_SoloSaveFile.flags, false);
 }
 
 u32 savefileHasFlag(u32 value)
@@ -73,20 +64,8 @@ void func0f10f1b0(void)
 
 void savefileApplyOptions(struct savefile_solo *file)
 {
-	s32 player1;
-	s32 player2;
-
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		player1 = 0;
-	} else {
-		player1 = 4;
-	}
-
-	if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
-		player2 = 1;
-	} else {
-		player2 = 5;
-	}
+	s32 player1 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 0 : 4;
+	s32 player2 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 1 : 5;
 
 	optionsSetForwardPitch(player1, bitGetByIndex(SAVEFILEFLAG_P1_FORWARDPITCH, &file->flags));
 	optionsSetAutoAim(player1, bitGetByIndex(SAVEFILEFLAG_P1_AUTOAIM, &file->flags));
@@ -154,289 +133,124 @@ void savefileApplyOptions(struct savefile_solo *file)
 	g_Vars.antiradaron = bitGetByIndex(SAVEFILEFLAG_ANTIRADARON, &file->flags) ? 1 : 0;
 }
 
-GLOBAL_ASM(
-glabel func0f10f698
-/*  f10f698:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f10f69c:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f10f6a0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f10f6a4:	8c620298 */ 	lw	$v0,0x298($v1)
-/*  f10f6a8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f10f6ac:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f10f6b0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f10f6b4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f10f6b8:	04410005 */ 	bgez	$v0,.L0f10f6d0
-/*  f10f6bc:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f10f6c0:	8c6e029c */ 	lw	$t6,0x29c($v1)
-/*  f10f6c4:	24110004 */ 	addiu	$s1,$zero,0x4
-/*  f10f6c8:	05c00003 */ 	bltz	$t6,.L0f10f6d8
-/*  f10f6cc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f10f6d0:
-/*  f10f6d0:	10000001 */ 	beqz	$zero,.L0f10f6d8
-/*  f10f6d4:	00008825 */ 	or	$s1,$zero,$zero
-.L0f10f6d8:
-/*  f10f6d8:	04410005 */ 	bgez	$v0,.L0f10f6f0
-/*  f10f6dc:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f10f6e0:	8c6f029c */ 	lw	$t7,0x29c($v1)
-/*  f10f6e4:	24100005 */ 	addiu	$s0,$zero,0x5
-/*  f10f6e8:	05e00003 */ 	bltz	$t7,.L0f10f6f8
-/*  f10f6ec:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f10f6f0:
-/*  f10f6f0:	10000001 */ 	beqz	$zero,.L0f10f6f8
-/*  f10f6f4:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f10f6f8:
-/*  f10f6f8:	3c057f1b */ 	lui	$a1,%hi(var7f1b38e0)
-/*  f10f6fc:	0c004c4c */ 	jal	strcpy
-/*  f10f700:	24a538e0 */ 	addiu	$a1,$a1,%lo(var7f1b38e0)
-/*  f10f704:	8fa20028 */ 	lw	$v0,0x28($sp)
-/*  f10f708:	24045000 */ 	addiu	$a0,$zero,0x5000
-/*  f10f70c:	9058000b */ 	lbu	$t8,0xb($v0)
-/*  f10f710:	a040000c */ 	sb	$zero,0xc($v0)
-/*  f10f714:	ac400010 */ 	sw	$zero,0x10($v0)
-/*  f10f718:	3308ff07 */ 	andi	$t0,$t8,0xff07
-/*  f10f71c:	310900f8 */ 	andi	$t1,$t0,0xf8
-/*  f10f720:	a048000b */ 	sb	$t0,0xb($v0)
-/*  f10f724:	0c003a87 */ 	jal	audioSetSfxVolume
-/*  f10f728:	a049000b */ 	sb	$t1,0xb($v0)
-/*  f10f72c:	0fc54bdc */ 	jal	optionsSetMusicVolume
-/*  f10f730:	24045000 */ 	addiu	$a0,$zero,0x5000
-/*  f10f734:	0c003ce3 */ 	jal	audioSetSoundMode
-/*  f10f738:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f10f73c:	02202025 */ 	or	$a0,$s1,$zero
-/*  f10f740:	0fc549cb */ 	jal	optionsSetControlMode
-/*  f10f744:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10f748:	02002025 */ 	or	$a0,$s0,$zero
-/*  f10f74c:	0fc549cb */ 	jal	optionsSetControlMode
-/*  f10f750:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10f754:	8fb00028 */ 	lw	$s0,0x28($sp)
-/*  f10f758:	26100014 */ 	addiu	$s0,$s0,0x14
-/*  f10f75c:	0fc4796f */ 	jal	func0f11e5bc
-/*  f10f760:	02002025 */ 	or	$a0,$s0,$zero
-/*  f10f764:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10f768:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f76c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f770:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f774:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f10f778:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f77c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f780:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f784:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f10f788:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f78c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f790:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f794:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f10f798:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f79c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f7a0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f7a4:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f10f7a8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f7ac:	0fc4794c */ 	jal	func0f11e530
-/*  f10f7b0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f7b4:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f10f7b8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f7bc:	0fc4794c */ 	jal	func0f11e530
-/*  f10f7c0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f7c4:	24040009 */ 	addiu	$a0,$zero,0x9
-/*  f10f7c8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f7cc:	0fc4794c */ 	jal	func0f11e530
-/*  f10f7d0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f7d4:	2404000a */ 	addiu	$a0,$zero,0xa
-/*  f10f7d8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f7dc:	0fc4794c */ 	jal	func0f11e530
-/*  f10f7e0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f7e4:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f10f7e8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f7ec:	0fc4794c */ 	jal	func0f11e530
-/*  f10f7f0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f7f4:	24040015 */ 	addiu	$a0,$zero,0x15
-/*  f10f7f8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f7fc:	0fc4794c */ 	jal	func0f11e530
-/*  f10f800:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f804:	24040017 */ 	addiu	$a0,$zero,0x17
-/*  f10f808:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f80c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f810:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f814:	2404001a */ 	addiu	$a0,$zero,0x1a
-/*  f10f818:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f81c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f820:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f824:	24040020 */ 	addiu	$a0,$zero,0x20
-/*  f10f828:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f82c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f830:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f834:	2404000c */ 	addiu	$a0,$zero,0xc
-/*  f10f838:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f83c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f840:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f844:	2404000d */ 	addiu	$a0,$zero,0xd
-/*  f10f848:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f84c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f850:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f854:	2404000e */ 	addiu	$a0,$zero,0xe
-/*  f10f858:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f85c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f860:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f864:	2404000f */ 	addiu	$a0,$zero,0xf
-/*  f10f868:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f86c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f870:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f874:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f10f878:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f87c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f880:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f884:	24040011 */ 	addiu	$a0,$zero,0x11
-/*  f10f888:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f88c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f890:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f894:	24040012 */ 	addiu	$a0,$zero,0x12
-/*  f10f898:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f89c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f8a0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f8a4:	24040013 */ 	addiu	$a0,$zero,0x13
-/*  f10f8a8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f8ac:	0fc4794c */ 	jal	func0f11e530
-/*  f10f8b0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f8b4:	24040014 */ 	addiu	$a0,$zero,0x14
-/*  f10f8b8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f8bc:	0fc4794c */ 	jal	func0f11e530
-/*  f10f8c0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f8c4:	24040016 */ 	addiu	$a0,$zero,0x16
-/*  f10f8c8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f8cc:	0fc4794c */ 	jal	func0f11e530
-/*  f10f8d0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f8d4:	24040018 */ 	addiu	$a0,$zero,0x18
-/*  f10f8d8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f8dc:	0fc4794c */ 	jal	func0f11e530
-/*  f10f8e0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f8e4:	2404001b */ 	addiu	$a0,$zero,0x1b
-/*  f10f8e8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f8ec:	0fc4794c */ 	jal	func0f11e530
-/*  f10f8f0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f8f4:	24040021 */ 	addiu	$a0,$zero,0x21
-/*  f10f8f8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f8fc:	0fc4794c */ 	jal	func0f11e530
-/*  f10f900:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f904:	24040019 */ 	addiu	$a0,$zero,0x19
-/*  f10f908:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f90c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f910:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f914:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f10f918:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f91c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f920:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f924:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f10f928:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f92c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f930:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f934:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f10f938:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f93c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f940:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f944:	24040022 */ 	addiu	$a0,$zero,0x22
-/*  f10f948:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f94c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f950:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f954:	24040040 */ 	addiu	$a0,$zero,0x40
-/*  f10f958:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f95c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f960:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f964:	24040041 */ 	addiu	$a0,$zero,0x41
-/*  f10f968:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f96c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f970:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f974:	24040042 */ 	addiu	$a0,$zero,0x42
-/*  f10f978:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f97c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f980:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f984:	24040043 */ 	addiu	$a0,$zero,0x43
-/*  f10f988:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f98c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f990:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10f994:	2404001c */ 	addiu	$a0,$zero,0x1c
-/*  f10f998:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f99c:	0fc4794c */ 	jal	func0f11e530
-/*  f10f9a0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f9a4:	2404001d */ 	addiu	$a0,$zero,0x1d
-/*  f10f9a8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f9ac:	0fc4794c */ 	jal	func0f11e530
-/*  f10f9b0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f9b4:	2404001e */ 	addiu	$a0,$zero,0x1e
-/*  f10f9b8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f9bc:	0fc4794c */ 	jal	func0f11e530
-/*  f10f9c0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f9c4:	2404001f */ 	addiu	$a0,$zero,0x1f
-/*  f10f9c8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10f9cc:	0fc4794c */ 	jal	func0f11e530
-/*  f10f9d0:	24060001 */ 	addiu	$a2,$zero,0x1
-/*  f10f9d4:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f10f9d8:	00009025 */ 	or	$s2,$zero,$zero
-/*  f10f9dc:	24030003 */ 	addiu	$v1,$zero,0x3
-/*  f10f9e0:	a480001e */ 	sh	$zero,0x1e($a0)
-.L0f10f9e4:
-/*  f10f9e4:	00008025 */ 	or	$s0,$zero,$zero
-/*  f10f9e8:	00801025 */ 	or	$v0,$a0,$zero
-.L0f10f9ec:
-/*  f10f9ec:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10f9f0:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f10f9f4:	1603fffd */ 	bne	$s0,$v1,.L0f10f9ec
-/*  f10f9f8:	a440001e */ 	sh	$zero,0x1e($v0)
-/*  f10f9fc:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f10fa00:	2a410015 */ 	slti	$at,$s2,0x15
-/*  f10fa04:	1420fff7 */ 	bnez	$at,.L0f10f9e4
-/*  f10fa08:	24840006 */ 	addiu	$a0,$a0,0x6
-/*  f10fa0c:	00009025 */ 	or	$s2,$zero,$zero
-/*  f10fa10:	24110005 */ 	addiu	$s1,$zero,0x5
-/*  f10fa14:	24100001 */ 	addiu	$s0,$zero,0x1
-.L0f10fa18:
-/*  f10fa18:	02402025 */ 	or	$a0,$s2,$zero
-.L0f10fa1c:
-/*  f10fa1c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10fa20:	0fc67103 */ 	jal	mpSetChallengeCompletedByAnyChrWithNumPlayers
-/*  f10fa24:	00003025 */ 	or	$a2,$zero,$zero
-/*  f10fa28:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f10fa2c:	5611fffb */ 	bnel	$s0,$s1,.L0f10fa1c
-/*  f10fa30:	02402025 */ 	or	$a0,$s2,$zero
-/*  f10fa34:	26520001 */ 	addiu	$s2,$s2,0x1
-/*  f10fa38:	2a41001e */ 	slti	$at,$s2,0x1e
-/*  f10fa3c:	5420fff6 */ 	bnezl	$at,.L0f10fa18
-/*  f10fa40:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f10fa44:	0fc66bf7 */ 	jal	func0f19afdc
-/*  f10fa48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10fa4c:	3c02800a */ 	lui	$v0,%hi(g_SoloSaveFile)
-/*  f10fa50:	3c03800a */ 	lui	$v1,%hi(g_SoloSaveFile+0xc)
-/*  f10fa54:	2463220c */ 	addiu	$v1,$v1,%lo(g_SoloSaveFile+0xc)
-/*  f10fa58:	24422200 */ 	addiu	$v0,$v0,%lo(g_SoloSaveFile)
-.L0f10fa5c:
-/*  f10fa5c:	24420004 */ 	addiu	$v0,$v0,0x4
-/*  f10fa60:	0043082b */ 	sltu	$at,$v0,$v1
-/*  f10fa64:	1420fffd */ 	bnez	$at,.L0f10fa5c
-/*  f10fa68:	ac40009c */ 	sw	$zero,0x9c($v0)
-/*  f10fa6c:	3c02800a */ 	lui	$v0,%hi(g_SoloSaveFile)
-/*  f10fa70:	3c03800a */ 	lui	$v1,%hi(g_SoloSaveFile+0x9)
-/*  f10fa74:	24632209 */ 	addiu	$v1,$v1,%lo(g_SoloSaveFile+0x9)
-/*  f10fa78:	24422200 */ 	addiu	$v0,$v0,%lo(g_SoloSaveFile)
-.L0f10fa7c:
-/*  f10fa7c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f10fa80:	0043082b */ 	sltu	$at,$v0,$v1
-/*  f10fa84:	1420fffd */ 	bnez	$at,.L0f10fa7c
-/*  f10fa88:	a04000ab */ 	sb	$zero,0xab($v0)
-/*  f10fa8c:	3c02800a */ 	lui	$v0,%hi(g_SoloSaveFile)
-/*  f10fa90:	3c03800a */ 	lui	$v1,%hi(g_SoloSaveFile+0x6)
-/*  f10fa94:	24632206 */ 	addiu	$v1,$v1,%lo(g_SoloSaveFile+0x6)
-/*  f10fa98:	24422200 */ 	addiu	$v0,$v0,%lo(g_SoloSaveFile)
-.L0f10fa9c:
-/*  f10fa9c:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f10faa0:	1443fffe */ 	bne	$v0,$v1,.L0f10fa9c
-/*  f10faa4:	a04000b4 */ 	sb	$zero,0xb4($v0)
-/*  f10faa8:	0fc43c81 */ 	jal	savefileApplyOptions
-/*  f10faac:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f10fab0:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f10fab4:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f10fab8:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f10fabc:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f10fac0:	03e00008 */ 	jr	$ra
-/*  f10fac4:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void savefileLoadDefaults(struct savefile_solo *file)
+{
+	s32 player1 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 0 : 4;
+	s32 player2 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 1 : 5;
+	s32 i;
+	s32 j;
 
+	strcpy(file->name, "Dark");
+	file->unk0b_0 = 0;
+	file->unk0b_5 = 0;
+	file->unk0c = 0;
+	file->unk10 = 0;
+	audioSetSfxVolume(0x5000);
+	optionsSetMusicVolume(0x5000);
+	audioSetSoundMode(SOUNDMODE_STEREO);
+	optionsSetControlMode(player1, CONTROLMODE_SINGLE);
+	optionsSetControlMode(player2, CONTROLMODE_SINGLE);
+	func0f11e5bc(&file->flags);
+
+	bitSetByIndex(SAVEFILEFLAG_P1_FORWARDPITCH, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_P1_AUTOAIM, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P1_AIMCONTROL, &file->flags, AIMCONTROL_HOLD);
+	bitSetByIndex(SAVEFILEFLAG_P1_SIGHTONSCREEN, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P1_LOOKAHEAD, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P1_AMMOONSCREEN, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P1_HEADROLL, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P1_SHOWGUNFUNCTION, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_INGAMESUBTITLES, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P1_ALWAYSSHOWTARGET, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P1_SHOWZOOMRANGE, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P1_SHOWMISSIONTIME, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_P1_PAINTBALL, &file->flags, false);
+
+	bitSetByIndex(SAVEFILEFLAG_P2_FORWARDPITCH, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_P2_AUTOAIM, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P2_AIMCONTROL, &file->flags, AIMCONTROL_HOLD);
+	bitSetByIndex(SAVEFILEFLAG_P2_SIGHTONSCREEN, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P2_LOOKAHEAD, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P2_AMMOONSCREEN, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P2_HEADROLL, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P2_SHOWGUNFUNCTION, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_CUTSCENESUBTITLES, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_P2_ALWAYSSHOWTARGET, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P2_SHOWZOOMRANGE, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_P2_SHOWMISSIONTIME, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_P2_PAINTBALL, &file->flags, false);
+
+	bitSetByIndex(SAVEFILEFLAG_SCREENSPLIT, &file->flags, SCREENSPLIT_HORIZONTAL);
+	bitSetByIndex(SAVEFILEFLAG_SCREENRATIO, &file->flags, SCREENRATIO_NORMAL);
+	bitSetByIndex(SAVEFILEFLAG_SCREENSIZE_CINEMA, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_SCREENSIZE_WIDE, &file->flags, false);
+
+	bitSetByIndex(SAVEFILEFLAG_HIRES, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_LANGFILTERON, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_41, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_42, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_43, &file->flags, false);
+	bitSetByIndex(SAVEFILEFLAG_COOPRADARON, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_COOPFRIENDLYFIRE, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_ANTIRADARON, &file->flags, true);
+	bitSetByIndex(SAVEFILEFLAG_ANTIPLAYERNUM, &file->flags, 1);
+
+	file->unk1e = 0;
+
+	for (i = 0; i < 21; i++) {
+		for (j = 0; j < 3; j++) {
+			file->besttimes[i][j] = 0;
+		}
+	}
+
+	for (i = 0; i < 30; i++) {
+		for (j = 1; j != 5; j++) {
+			mpSetChallengeCompletedByAnyChrWithNumPlayers(i, j, false);
+		}
+	}
+
+	func0f19afdc();
+
+	for (i = 0; i < 3; i++) {
+		g_SoloSaveFile.coopcompletions[i] = 0;
+	}
+
+	for (i = 0; i < 9; i++) {
+		g_SoloSaveFile.firingrangescores[i] = 0;
+	}
+
+	for (i = 0; i < 6; i++) {
+		g_SoloSaveFile.unkb5[i] = 0;
+	}
+
+	savefileApplyOptions(file);
+}
+
+const char var7f1b38e8[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
+const char var7f1b391c[] = "pdoptions.c";
+const char var7f1b3928[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
+const char var7f1b395c[] = "pdoptions.c";
+const char var7f1b3968[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
+const char var7f1b399c[] = "pdoptions.c";
+const char var7f1b39a8[] = "";
+const char var7f1b39ac[] = "";
+const char var7f1b39b0[] = "fileGuid";
+const char var7f1b39bc[] = "bossfile.c";
+const char var7f1b39c8[] = "";
+const char var7f1b39cc[] = "";
+const char var7f1b39d0[] = "Rebuilding pakWad %d:\n";
+
+const u32 var7f1b39e8[] = {0x00000080};
+const u32 var7f1b39ec[] = {0x00000040};
+const u32 var7f1b39f0[] = {0x00000020};
+const u32 var7f1b39f4[] = {0x00000008};
+const u32 var7f1b39f8[] = {0x04000102};
+const u32 var7f1b39fc[] = {0x03000000};
+const u32 var7f1b3a00[] = {0x01020304};
+const u32 var7f1b3a04[] = {0x00000000};
+
+const char var7f1b3a08[] = "tc != NULL";
+const char var7f1b3a14[] = "gamefile.c";
 GLOBAL_ASM(
 glabel func0f10fac8
 /*  f10fac8:	27bdfec0 */ 	addiu	$sp,$sp,-320
@@ -753,164 +567,164 @@ glabel func0f10feac
 /*  f10ff34:	26102214 */ 	addiu	$s0,$s0,%lo(g_SoloSaveFile+0x14)
 /*  f10ff38:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10ff3c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f10ff40:	0fc4794c */ 	jal	func0f11e530
+/*  f10ff40:	0fc4794c */ 	jal	bitSetByIndex
 /*  f10ff44:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ff48:	0fc549e9 */ 	jal	optionsGetAutoAim
 /*  f10ff4c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ff50:	02402025 */ 	or	$a0,$s2,$zero
 /*  f10ff54:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ff58:	0fc4794c */ 	jal	func0f11e530
+/*  f10ff58:	0fc4794c */ 	jal	bitSetByIndex
 /*  f10ff5c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ff60:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f10ff64:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ff68:	24040002 */ 	addiu	$a0,$zero,0x2
 /*  f10ff6c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ff70:	0fc4794c */ 	jal	func0f11e530
+/*  f10ff70:	0fc4794c */ 	jal	bitSetByIndex
 /*  f10ff74:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ff78:	0fc54a04 */ 	jal	optionsGetSightOnScreen
 /*  f10ff7c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ff80:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f10ff84:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ff88:	0fc4794c */ 	jal	func0f11e530
+/*  f10ff88:	0fc4794c */ 	jal	bitSetByIndex
 /*  f10ff8c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ff90:	0fc549f2 */ 	jal	optionsGetLookAhead
 /*  f10ff94:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ff98:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f10ff9c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ffa0:	0fc4794c */ 	jal	func0f11e530
+/*  f10ffa0:	0fc4794c */ 	jal	bitSetByIndex
 /*  f10ffa4:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ffa8:	0fc54a0d */ 	jal	optionsGetAmmoOnScreen
 /*  f10ffac:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ffb0:	24040005 */ 	addiu	$a0,$zero,0x5
 /*  f10ffb4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ffb8:	0fc4794c */ 	jal	func0f11e530
+/*  f10ffb8:	0fc4794c */ 	jal	bitSetByIndex
 /*  f10ffbc:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ffc0:	0fc54a49 */ 	jal	optionsGetHeadRoll
 /*  f10ffc4:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ffc8:	24040009 */ 	addiu	$a0,$zero,0x9
 /*  f10ffcc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ffd0:	0fc4794c */ 	jal	func0f11e530
+/*  f10ffd0:	0fc4794c */ 	jal	bitSetByIndex
 /*  f10ffd4:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10ffd8:	0fc54a16 */ 	jal	optionsGetShowGunFunction
 /*  f10ffdc:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10ffe0:	2404000a */ 	addiu	$a0,$zero,0xa
 /*  f10ffe4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f10ffe8:	0fc4794c */ 	jal	func0f11e530
+/*  f10ffe8:	0fc4794c */ 	jal	bitSetByIndex
 /*  f10ffec:	00403025 */ 	or	$a2,$v0,$zero
 /*  f10fff0:	0fc54a1f */ 	jal	optionsGetAlwaysShowTarget
 /*  f10fff4:	02602025 */ 	or	$a0,$s3,$zero
 /*  f10fff8:	24040015 */ 	addiu	$a0,$zero,0x15
 /*  f10fffc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110000:	0fc4794c */ 	jal	func0f11e530
+/*  f110000:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110004:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110008:	0fc54a28 */ 	jal	optionsGetShowZoomRange
 /*  f11000c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f110010:	24040017 */ 	addiu	$a0,$zero,0x17
 /*  f110014:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110018:	0fc4794c */ 	jal	func0f11e530
+/*  f110018:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11001c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110020:	0fc54a3a */ 	jal	optionsGetShowMissionTime
 /*  f110024:	02602025 */ 	or	$a0,$s3,$zero
 /*  f110028:	2404001a */ 	addiu	$a0,$zero,0x1a
 /*  f11002c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110030:	0fc4794c */ 	jal	func0f11e530
+/*  f110030:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110034:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110038:	0fc54a31 */ 	jal	optionsGetPaintball
 /*  f11003c:	02602025 */ 	or	$a0,$s3,$zero
 /*  f110040:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f110044:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110048:	0fc4794c */ 	jal	func0f11e530
+/*  f110048:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11004c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110050:	0fc549e0 */ 	jal	optionsGetForwardPitch
 /*  f110054:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110058:	2404000c */ 	addiu	$a0,$zero,0xc
 /*  f11005c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110060:	0fc4794c */ 	jal	func0f11e530
+/*  f110060:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110064:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110068:	0fc549e9 */ 	jal	optionsGetAutoAim
 /*  f11006c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110070:	2404000d */ 	addiu	$a0,$zero,0xd
 /*  f110074:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110078:	0fc4794c */ 	jal	func0f11e530
+/*  f110078:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11007c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110080:	0fc549fb */ 	jal	optionsGetAimControl
 /*  f110084:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110088:	2404000e */ 	addiu	$a0,$zero,0xe
 /*  f11008c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110090:	0fc4794c */ 	jal	func0f11e530
+/*  f110090:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110094:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110098:	0fc54a04 */ 	jal	optionsGetSightOnScreen
 /*  f11009c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1100a0:	2404000f */ 	addiu	$a0,$zero,0xf
 /*  f1100a4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1100a8:	0fc4794c */ 	jal	func0f11e530
+/*  f1100a8:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1100ac:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1100b0:	0fc549f2 */ 	jal	optionsGetLookAhead
 /*  f1100b4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1100b8:	24040010 */ 	addiu	$a0,$zero,0x10
 /*  f1100bc:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1100c0:	0fc4794c */ 	jal	func0f11e530
+/*  f1100c0:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1100c4:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1100c8:	0fc54a0d */ 	jal	optionsGetAmmoOnScreen
 /*  f1100cc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1100d0:	24040011 */ 	addiu	$a0,$zero,0x11
 /*  f1100d4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1100d8:	0fc4794c */ 	jal	func0f11e530
+/*  f1100d8:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1100dc:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1100e0:	0fc54a49 */ 	jal	optionsGetHeadRoll
 /*  f1100e4:	02202025 */ 	or	$a0,$s1,$zero
 /*  f1100e8:	24040012 */ 	addiu	$a0,$zero,0x12
 /*  f1100ec:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1100f0:	0fc4794c */ 	jal	func0f11e530
+/*  f1100f0:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1100f4:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1100f8:	0fc54a16 */ 	jal	optionsGetShowGunFunction
 /*  f1100fc:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110100:	24040013 */ 	addiu	$a0,$zero,0x13
 /*  f110104:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110108:	0fc4794c */ 	jal	func0f11e530
+/*  f110108:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11010c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110110:	0fc54a1f */ 	jal	optionsGetAlwaysShowTarget
 /*  f110114:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110118:	24040016 */ 	addiu	$a0,$zero,0x16
 /*  f11011c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110120:	0fc4794c */ 	jal	func0f11e530
+/*  f110120:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110124:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110128:	0fc54a28 */ 	jal	optionsGetShowZoomRange
 /*  f11012c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110130:	24040018 */ 	addiu	$a0,$zero,0x18
 /*  f110134:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110138:	0fc4794c */ 	jal	func0f11e530
+/*  f110138:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11013c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110140:	0fc54a3a */ 	jal	optionsGetShowMissionTime
 /*  f110144:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110148:	2404001b */ 	addiu	$a0,$zero,0x1b
 /*  f11014c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110150:	0fc4794c */ 	jal	func0f11e530
+/*  f110150:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110154:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110158:	0fc54a31 */ 	jal	optionsGetPaintball
 /*  f11015c:	02202025 */ 	or	$a0,$s1,$zero
 /*  f110160:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f110164:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110168:	0fc4794c */ 	jal	func0f11e530
+/*  f110168:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11016c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110170:	0fc54bcd */ 	jal	optionsGetScreenSplit
 /*  f110174:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f110178:	24040019 */ 	addiu	$a0,$zero,0x19
 /*  f11017c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110180:	0fc4794c */ 	jal	func0f11e530
+/*  f110180:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110184:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110188:	0fc54bc7 */ 	jal	optionsGetScreenRatio
 /*  f11018c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f110190:	24040007 */ 	addiu	$a0,$zero,0x7
 /*  f110194:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110198:	0fc4794c */ 	jal	func0f11e530
+/*  f110198:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11019c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f1101a0:	0fc54bc1 */ 	jal	optionsGetScreenSize
 /*  f1101a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1101a8:	00523026 */ 	xor	$a2,$v0,$s2
 /*  f1101ac:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1101b0:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f1101b4:	0fc4794c */ 	jal	func0f11e530
+/*  f1101b4:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1101b8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1101bc:	0fc54bc1 */ 	jal	optionsGetScreenSize
 /*  f1101c0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -918,48 +732,48 @@ glabel func0f10feac
 /*  f1101c8:	00553026 */ 	xor	$a2,$v0,$s5
 /*  f1101cc:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1101d0:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f1101d4:	0fc4794c */ 	jal	func0f11e530
+/*  f1101d4:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1101d8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1101dc:	3c188007 */ 	lui	$t8,%hi(var800706c8)
 /*  f1101e0:	8f1806c8 */ 	lw	$t8,%lo(var800706c8)($t8)
 /*  f1101e4:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f1101e8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1101ec:	02583026 */ 	xor	$a2,$s2,$t8
-/*  f1101f0:	0fc4794c */ 	jal	func0f11e530
+/*  f1101f0:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1101f4:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1101f8:	0fc54a43 */ 	jal	optionsGetInGameSubtitles
 /*  f1101fc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f110200:	2404000b */ 	addiu	$a0,$zero,0xb
 /*  f110204:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110208:	0fc4794c */ 	jal	func0f11e530
+/*  f110208:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11020c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110210:	0fc54a46 */ 	jal	optionsGetCutsceneSubtitles
 /*  f110214:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f110218:	24040014 */ 	addiu	$a0,$zero,0x14
 /*  f11021c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110220:	0fc4794c */ 	jal	func0f11e530
+/*  f110220:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110224:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110228:	24040040 */ 	addiu	$a0,$zero,0x40
 /*  f11022c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110230:	0fc4794c */ 	jal	func0f11e530
+/*  f110230:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110234:	928604e3 */ 	lbu	$a2,0x4e3($s4)
 /*  f110238:	0fc672b5 */ 	jal	func0f19cad4
 /*  f11023c:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f110240:	24040041 */ 	addiu	$a0,$zero,0x41
 /*  f110244:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110248:	0fc4794c */ 	jal	func0f11e530
+/*  f110248:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11024c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110250:	0fc672b5 */ 	jal	func0f19cad4
 /*  f110254:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f110258:	24040042 */ 	addiu	$a0,$zero,0x42
 /*  f11025c:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110260:	0fc4794c */ 	jal	func0f11e530
+/*  f110260:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110264:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110268:	0fc672b5 */ 	jal	func0f19cad4
 /*  f11026c:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f110270:	24040043 */ 	addiu	$a0,$zero,0x43
 /*  f110274:	02002825 */ 	or	$a1,$s0,$zero
-/*  f110278:	0fc4794c */ 	jal	func0f11e530
+/*  f110278:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11027c:	00403025 */ 	or	$a2,$v0,$zero
 /*  f110280:	0fc54bc1 */ 	jal	optionsGetScreenSize
 /*  f110284:	00000000 */ 	sll	$zero,$zero,0x0
@@ -970,25 +784,25 @@ glabel func0f10feac
 /*  f110294:	2404001f */ 	addiu	$a0,$zero,0x1f
 /*  f110298:	02002825 */ 	or	$a1,$s0,$zero
 /*  f11029c:	02593026 */ 	xor	$a2,$s2,$t9
-/*  f1102a0:	0fc4794c */ 	jal	func0f11e530
+/*  f1102a0:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1102a4:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1102a8:	8e880448 */ 	lw	$t0,0x448($s4)
 /*  f1102ac:	2404001c */ 	addiu	$a0,$zero,0x1c
 /*  f1102b0:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1102b4:	02483026 */ 	xor	$a2,$s2,$t0
-/*  f1102b8:	0fc4794c */ 	jal	func0f11e530
+/*  f1102b8:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1102bc:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1102c0:	8e890454 */ 	lw	$t1,0x454($s4)
 /*  f1102c4:	2404001d */ 	addiu	$a0,$zero,0x1d
 /*  f1102c8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1102cc:	02493026 */ 	xor	$a2,$s2,$t1
-/*  f1102d0:	0fc4794c */ 	jal	func0f11e530
+/*  f1102d0:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1102d4:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1102d8:	8e8a044c */ 	lw	$t2,0x44c($s4)
 /*  f1102dc:	2404001e */ 	addiu	$a0,$zero,0x1e
 /*  f1102e0:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1102e4:	024a3026 */ 	xor	$a2,$s2,$t2
-/*  f1102e8:	0fc4794c */ 	jal	func0f11e530
+/*  f1102e8:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1102ec:	2cc60001 */ 	sltiu	$a2,$a2,0x1
 /*  f1102f0:	8fab0148 */ 	lw	$t3,0x148($sp)
 /*  f1102f4:	27b4004c */ 	addiu	$s4,$sp,0x4c
