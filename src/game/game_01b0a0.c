@@ -22,12 +22,10 @@ const u32 var7f1a85a4[] = {0x3e89374c};
 const u32 var7f1a85a8[] = {0x4196cbe4};
 const u32 var7f1a85ac[] = {0x4196cbe4};
 
-GLOBAL_ASM(
-glabel func0f01b0a0
-/*  f01b0a0:	44800000 */ 	mtc1	$zero,$f0
-/*  f01b0a4:	03e00008 */ 	jr	$ra
-/*  f01b0a8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 pdmodeGetReaction(void)
+{
+	return 0;
+}
 
 f32 pdmodeGetHealth(void)
 {
@@ -35,7 +33,7 @@ f32 pdmodeGetHealth(void)
 		return g_MissionConfig.pdmodehealthf;
 	}
 
-	return 1.0f;
+	return 1;
 }
 
 f32 pdmodeGetDamage(void)
@@ -44,7 +42,7 @@ f32 pdmodeGetDamage(void)
 		return g_MissionConfig.pdmodedamagef;
 	}
 
-	return 1.0f;
+	return 1;
 }
 
 f32 pdmodeGetAccuracy(void)
@@ -53,7 +51,7 @@ f32 pdmodeGetAccuracy(void)
 		return g_MissionConfig.pdmodeaccuracyf;
 	}
 
-	return 1.0f;
+	return 1;
 }
 
 GLOBAL_ASM(

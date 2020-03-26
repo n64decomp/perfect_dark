@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f01b0a0(void);
+f32 pdmodeGetReaction(void);
 f32 pdmodeGetHealth(void);
 f32 pdmodeGetDamage(void);
 f32 pdmodeGetAccuracy(void);
