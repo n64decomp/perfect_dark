@@ -5,7 +5,7 @@
 
 u32 mainInit(void);
 void mainLoop(void);
-u32 func0000db30(void);
+void func0000db30(char *arg0, u32 *arg1);
 u32 mainTick(void);
 u32 func0000e324(void);
 void func0000e684(void);

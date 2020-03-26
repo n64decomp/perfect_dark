@@ -66,7 +66,7 @@ u32 func0f0fa574(void);
 void func0f0fa6ac(void);
 u32 func0f0fa704(void);
 u32 func0f0fb488(void);
-u32 func0f0fbba0(void);
+Gfx *func0f0fbba0(Gfx *gdl, u8 param_2, s32 arg2);
 u32 func0f0fbc30(void);
 u32 menuChooseMusic(void);
 u32 menuGetRoot(void);

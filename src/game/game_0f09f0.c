@@ -5537,11 +5537,6 @@ const char var7f1b271c[] = "UNPAUSE: enabling control 0\n";
 const char var7f1b273c[] = "file: type %d guid %x-%x data %x err %d\n";
 const char var7f1b2768[] = "StartSelects\n";
 const char var7f1b2778[] = "bblur";
-const char var7f1b2780[] = "cone";
-const char var7f1b2788[] = "usePiece";
-const char var7f1b2794[] = "%s%s";
-const char var7f1b279c[] = "%s%s";
-const char var7f1b27a4[] = "Tune Selector - mode %d\n";
 
 GLOBAL_ASM(
 glabel func0f0f5360
@@ -13002,51 +12997,25 @@ glabel var7f1b2af4
 /*  f0fbb9c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-u32 var800714f0 = 0x00000001;
+u32 var800714f0 = 1;
 
-GLOBAL_ASM(
-glabel func0f0fbba0
-/*  f0fbba0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0fbba4:	30ae00ff */ 	andi	$t6,$a1,0xff
-/*  f0fbba8:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0fbbac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0fbbb0:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0fbbb4:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0fbbb8:	11c10003 */ 	beq	$t6,$at,.L0f0fbbc8
-/*  f0fbbbc:	afa60020 */ 	sw	$a2,0x20($sp)
-/*  f0fbbc0:	24010009 */ 	addiu	$at,$zero,0x9
-/*  f0fbbc4:	15c10015 */ 	bne	$t6,$at,.L0f0fbc1c
-.L0f0fbbc8:
-/*  f0fbbc8:	3c047f1b */ 	lui	$a0,%hi(var7f1b2780)
-/*  f0fbbcc:	3c058007 */ 	lui	$a1,%hi(var800714f0)
-/*  f0fbbd0:	24a514f0 */ 	addiu	$a1,$a1,%lo(var800714f0)
-/*  f0fbbd4:	0c0036cc */ 	jal	func0000db30
-/*  f0fbbd8:	24842780 */ 	addiu	$a0,$a0,%lo(var7f1b2780)
-/*  f0fbbdc:	3c0f8007 */ 	lui	$t7,%hi(var800714f0)
-/*  f0fbbe0:	8def14f0 */ 	lw	$t7,%lo(var800714f0)($t7)
-/*  f0fbbe4:	3c02800a */ 	lui	$v0,%hi(g_MenuData+0x15)
-/*  f0fbbe8:	51e0000d */ 	beqzl	$t7,.L0f0fbc20
-/*  f0fbbec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fbbf0:	904219d5 */ 	lbu	$v0,%lo(g_MenuData+0x15)($v0)
-/*  f0fbbf4:	24010004 */ 	addiu	$at,$zero,0x4
-/*  f0fbbf8:	10410005 */ 	beq	$v0,$at,.L0f0fbc10
-/*  f0fbbfc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fbc00:	10400003 */ 	beqz	$v0,.L0f0fbc10
-/*  f0fbc04:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f0fbc08:	54410005 */ 	bnel	$v0,$at,.L0f0fbc20
-/*  f0fbc0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0fbc10:
-/*  f0fbc10:	0fc39064 */ 	jal	func0f0e4190
-/*  f0fbc14:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f0fbc18:	afa20018 */ 	sw	$v0,0x18($sp)
-.L0f0fbc1c:
-/*  f0fbc1c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0fbc20:
-/*  f0fbc20:	8fa20018 */ 	lw	$v0,0x18($sp)
-/*  f0fbc24:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0fbc28:	03e00008 */ 	jr	$ra
-/*  f0fbc2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+Gfx *func0f0fbba0(Gfx *gdl, u8 param_2, s32 arg2)
+{
+	if (param_2 == 4 || param_2 == 9) {
+		func0000db30("cone", &var800714f0);
+
+		if (var800714f0 && (g_MenuData.unk015 == 4 || g_MenuData.unk015 == 0 || g_MenuData.unk015 == 255)) {
+			gdl = func0f0e4190(gdl);
+		}
+	}
+
+	return gdl;
+}
+
+const char var7f1b2788[] = "usePiece";
+const char var7f1b2794[] = "%s%s";
+const char var7f1b279c[] = "%s%s";
+const char var7f1b27a4[] = "Tune Selector - mode %d\n";
 
 u32 var800714f4 = 0x00000001;
 
