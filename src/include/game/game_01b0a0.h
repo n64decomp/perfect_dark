@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 func0f01b0a0(void);
-u32 func0f01b0ac(void);
+f32 pdmodeGetHealth(void);
 u32 func0f01b0e0(void);
 u32 func0f01b114(void);
 u32 func0f01b148(void);

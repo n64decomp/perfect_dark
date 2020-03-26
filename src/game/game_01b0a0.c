@@ -29,23 +29,14 @@ glabel func0f01b0a0
 /*  f01b0a8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f01b0ac
-/*  f01b0ac:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f01b0b0:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f01b0b4:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f01b0b8:	31cf0001 */ 	andi	$t7,$t6,0x1
-/*  f01b0bc:	51e00004 */ 	beqzl	$t7,.L0f01b0d0
-/*  f01b0c0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f01b0c4:	03e00008 */ 	jr	$ra
-/*  f01b0c8:	c440000c */ 	lwc1	$f0,0xc($v0)
-/*  f01b0cc:	3c013f80 */ 	lui	$at,0x3f80
-.L0f01b0d0:
-/*  f01b0d0:	44810000 */ 	mtc1	$at,$f0
-/*  f01b0d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01b0d8:	03e00008 */ 	jr	$ra
-/*  f01b0dc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 pdmodeGetHealth(void)
+{
+	if (g_MissionConfig.pdmode) {
+		return g_MissionConfig.pdmodehealthf;
+	}
+
+	return 1.0f;
+}
 
 GLOBAL_ASM(
 glabel func0f01b0e0

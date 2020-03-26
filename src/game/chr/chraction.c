@@ -7335,7 +7335,7 @@ glabel var7f1a8d98
 .L0f034994:
 /*  f034994:	50610007 */ 	beql	$v1,$at,.L0f0349b4
 /*  f034998:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f03499c:	0fc06c2b */ 	jal	func0f01b0ac
+/*  f03499c:	0fc06c2b */ 	jal	pdmodeGetHealth
 /*  f0349a0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0349a4:	8fa50128 */ 	lw	$a1,0x128($sp)
 /*  f0349a8:	4600a503 */ 	div.s	$f20,$f20,$f0
@@ -7417,7 +7417,7 @@ glabel var7f1a8d98
 .L0f034ac4:
 /*  f034ac4:	50610007 */ 	beql	$v1,$at,.L0f034ae4
 /*  f034ac8:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f034acc:	0fc06c2b */ 	jal	func0f01b0ac
+/*  f034acc:	0fc06c2b */ 	jal	pdmodeGetHealth
 /*  f034ad0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f034ad4:	8fa50128 */ 	lw	$a1,0x128($sp)
 /*  f034ad8:	4600a503 */ 	div.s	$f20,$f20,$f0
@@ -7498,7 +7498,7 @@ glabel var7f1a8d98
 .L0f034bf4:
 /*  f034bf4:	10a20008 */ 	beq	$a1,$v0,.L0f034c18
 /*  f034bf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f034bfc:	0fc06c2b */ 	jal	func0f01b0ac
+/*  f034bfc:	0fc06c2b */ 	jal	pdmodeGetHealth
 /*  f034c00:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f034c04:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x2a0)
 /*  f034c08:	8defa260 */ 	lw	$t7,%lo(g_Vars+0x2a0)($t7)
