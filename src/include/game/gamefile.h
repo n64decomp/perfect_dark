@@ -12,7 +12,7 @@ void savefileLoadDefaults(struct savefile_solo *file);
 u32 func0f10fac8(void);
 u32 func0f10feac(void);
 u32 func0f1105fc(void);
-u32 func0f1106c8(void);
+bool func0f1106c8(void);
 u32 func0f110720(void);
 u32 func0f11080c(void);
 void func0f1109c0(void);

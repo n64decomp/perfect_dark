@@ -1058,17 +1058,14 @@ void func0f1106a0(void)
 	func0f1109c0();
 }
 
+bool func0f1106c8(void)
+{
+	func0f11080c();
+	return true;
+}
+
 GLOBAL_ASM(
-glabel func0f1106c8
-/*  f1106c8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1106cc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1106d0:	0fc44203 */ 	jal	func0f11080c
-/*  f1106d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1106d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1106dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1106e0:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1106e4:	03e00008 */ 	jr	$ra
-/*  f1106e8:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f06ec
 /*  f1106ec:	03e00008 */ 	jr	$ra
 /*  f1106f0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1106f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
