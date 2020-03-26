@@ -14488,90 +14488,40 @@ glabel func0f0fd118
 /*  f0fd1f0:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f0fd1f4
-/*  f0fd1f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0fd1f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0fd1fc:	0fc3f446 */ 	jal	func0f0fd118
-/*  f0fd200:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0fd204:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0fd208:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0fd20c:	8c6e000c */ 	lw	$t6,0xc($v1)
-/*  f0fd210:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f0fd214:	3c0f8006 */ 	lui	$t7,%hi(var80062940)
-/*  f0fd218:	29c10014 */ 	slti	$at,$t6,0x14
-/*  f0fd21c:	10200002 */ 	beqz	$at,.L0f0fd228
-/*  f0fd220:	0002c8c0 */ 	sll	$t9,$v0,0x3
-/*  f0fd224:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0fd228:
-/*  f0fd228:	91ef2940 */ 	lbu	$t7,%lo(var80062940)($t7)
-/*  f0fd22c:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  f0fd230:	0019c880 */ 	sll	$t9,$t9,0x2
-/*  f0fd234:	15e00002 */ 	bnez	$t7,.L0f0fd240
-/*  f0fd238:	0322c821 */ 	addu	$t9,$t9,$v0
-/*  f0fd23c:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0fd240:
-/*  f0fd240:	8c7804b4 */ 	lw	$t8,0x4b4($v1)
-/*  f0fd244:	2401005b */ 	addiu	$at,$zero,0x5b
-/*  f0fd248:	0019c8c0 */ 	sll	$t9,$t9,0x3
-/*  f0fd24c:	17010002 */ 	bne	$t8,$at,.L0f0fd258
-/*  f0fd250:	0322c823 */ 	subu	$t9,$t9,$v0
-/*  f0fd254:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0fd258:
-/*  f0fd258:	0019c900 */ 	sll	$t9,$t9,0x4
-/*  f0fd25c:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0x4f8)
-/*  f0fd260:	00992021 */ 	addu	$a0,$a0,$t9
-/*  f0fd264:	8c84e4f8 */ 	lw	$a0,%lo(g_MenuStack+0x4f8)($a0)
-/*  f0fd268:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0fd26c:	3c02800a */ 	lui	$v0,%hi(g_MenuData)
-/*  f0fd270:	1080001d */ 	beqz	$a0,.L0f0fd2e8
-/*  f0fd274:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0fd278:	8c830000 */ 	lw	$v1,0x0($a0)
-/*  f0fd27c:	3c088007 */ 	lui	$t0,%hi(menudialog_damagedcontrollerpak)
-/*  f0fd280:	2508176c */ 	addiu	$t0,$t0,%lo(menudialog_damagedcontrollerpak)
-/*  f0fd284:	11030016 */ 	beq	$t0,$v1,.L0f0fd2e0
-/*  f0fd288:	3c098007 */ 	lui	$t1,%hi(menudialog_cannotreadgameboy)
-/*  f0fd28c:	25291878 */ 	addiu	$t1,$t1,%lo(menudialog_cannotreadgameboy)
-/*  f0fd290:	11230013 */ 	beq	$t1,$v1,.L0f0fd2e0
-/*  f0fd294:	3c0a8007 */ 	lui	$t2,%hi(menudialog_datalost)
-/*  f0fd298:	254a191c */ 	addiu	$t2,$t2,%lo(menudialog_datalost)
-/*  f0fd29c:	11430010 */ 	beq	$t2,$v1,.L0f0fd2e0
-/*  f0fd2a0:	3c0b8007 */ 	lui	$t3,%hi(menudialog_fullcontrollerpak)
-/*  f0fd2a4:	256b1810 */ 	addiu	$t3,$t3,%lo(menudialog_fullcontrollerpak)
-/*  f0fd2a8:	1163000d */ 	beq	$t3,$v1,.L0f0fd2e0
-/*  f0fd2ac:	3c0c8007 */ 	lui	$t4,%hi(g_PakAttemptRepairMenuDialog)
-/*  f0fd2b0:	258c16a8 */ 	addiu	$t4,$t4,%lo(g_PakAttemptRepairMenuDialog)
-/*  f0fd2b4:	1183000a */ 	beq	$t4,$v1,.L0f0fd2e0
-/*  f0fd2b8:	3c0d8007 */ 	lui	$t5,%hi(menudialog_pakremoved)
-/*  f0fd2bc:	25ad1548 */ 	addiu	$t5,$t5,%lo(menudialog_pakremoved)
-/*  f0fd2c0:	11a30007 */ 	beq	$t5,$v1,.L0f0fd2e0
-/*  f0fd2c4:	3c0e8007 */ 	lui	$t6,%hi(g_PakRepairSuccessMenuDialog)
-/*  f0fd2c8:	25ce15b0 */ 	addiu	$t6,$t6,%lo(g_PakRepairSuccessMenuDialog)
-/*  f0fd2cc:	11c30004 */ 	beq	$t6,$v1,.L0f0fd2e0
-/*  f0fd2d0:	3c0f8007 */ 	lui	$t7,%hi(g_PakRepairFailedMenuDialog)
-/*  f0fd2d4:	25ef1618 */ 	addiu	$t7,$t7,%lo(g_PakRepairFailedMenuDialog)
-/*  f0fd2d8:	15e3000f */ 	bne	$t7,$v1,.L0f0fd318
-/*  f0fd2dc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0fd2e0:
-/*  f0fd2e0:	1000000d */ 	beqz	$zero,.L0f0fd318
-/*  f0fd2e4:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0fd2e8:
-/*  f0fd2e8:	244219c0 */ 	addiu	$v0,$v0,%lo(g_MenuData)
-/*  f0fd2ec:	90580015 */ 	lbu	$t8,0x15($v0)
-/*  f0fd2f0:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f0fd2f4:	57010008 */ 	bnel	$t8,$at,.L0f0fd318
-/*  f0fd2f8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0fd2fc:	90590014 */ 	lbu	$t9,0x14($v0)
-/*  f0fd300:	57200005 */ 	bnezl	$t9,.L0f0fd318
-/*  f0fd304:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0fd308:	904805d4 */ 	lbu	$t0,0x5d4($v0)
-/*  f0fd30c:	11000002 */ 	beqz	$t0,.L0f0fd318
-/*  f0fd310:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0fd314:	00002825 */ 	or	$a1,$zero,$zero
-.L0f0fd318:
-/*  f0fd318:	03e00008 */ 	jr	$ra
-/*  f0fd31c:	00a01025 */ 	or	$v0,$a1,$zero
-);
+bool func0f0fd1f4(u32 arg0, u32 arg1)
+{
+	s32 playernum = func0f0fd118(arg0);
+	bool result = true;
+
+	if (g_Vars.lvframenum < 20) {
+		result = false;
+	}
+
+	if (var80062940 == 0) {
+		result = false;
+	}
+
+	if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
+		result = true;
+	}
+
+	if (g_MenuStack[playernum].curframe) {
+		if (g_MenuStack[playernum].curframe->dialog == &menudialog_damagedcontrollerpak
+				|| g_MenuStack[playernum].curframe->dialog == &menudialog_cannotreadgameboy
+				|| g_MenuStack[playernum].curframe->dialog == &menudialog_datalost
+				|| g_MenuStack[playernum].curframe->dialog == &menudialog_fullcontrollerpak
+				|| g_MenuStack[playernum].curframe->dialog == &g_PakAttemptRepairMenuDialog
+				|| g_MenuStack[playernum].curframe->dialog == &menudialog_pakremoved
+				|| g_MenuStack[playernum].curframe->dialog == &g_PakRepairSuccessMenuDialog
+				|| g_MenuStack[playernum].curframe->dialog == &g_PakRepairFailedMenuDialog) {
+			result = false;
+		}
+	} else if (g_MenuData.unk015 != 255 || g_MenuData.unk014 || g_MenuData.unk5d4) {
+		result = false;
+	}
+
+	return result;
+}
 
 GLOBAL_ASM(
 glabel func0f0fd320

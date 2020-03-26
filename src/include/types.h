@@ -5736,7 +5736,7 @@ struct menudata {
 	/*0x5c8*/ u32 unk5c8;
 	/*0x5cc*/ u32 unk5cc;
 	/*0x5d0*/ u32 unk5d0;
-	/*0x5d4*/ u32 unk5d4;
+	/*0x5d4*/ u8 unk5d4;
 	/*0x5d8*/ u32 unk5d8;
 	/*0x5dc*/ u32 unk5dc;
 	/*0x5e0*/ u32 unk5e0;
