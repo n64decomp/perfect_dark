@@ -38,23 +38,14 @@ f32 pdmodeGetHealth(void)
 	return 1.0f;
 }
 
-GLOBAL_ASM(
-glabel func0f01b0e0
-/*  f01b0e0:	3c02800a */ 	lui	$v0,%hi(g_MissionConfig)
-/*  f01b0e4:	2442dfe8 */ 	addiu	$v0,$v0,%lo(g_MissionConfig)
-/*  f01b0e8:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f01b0ec:	31cf0001 */ 	andi	$t7,$t6,0x1
-/*  f01b0f0:	51e00004 */ 	beqzl	$t7,.L0f01b104
-/*  f01b0f4:	3c013f80 */ 	lui	$at,0x3f80
-/*  f01b0f8:	03e00008 */ 	jr	$ra
-/*  f01b0fc:	c4400010 */ 	lwc1	$f0,0x10($v0)
-/*  f01b100:	3c013f80 */ 	lui	$at,0x3f80
-.L0f01b104:
-/*  f01b104:	44810000 */ 	mtc1	$at,$f0
-/*  f01b108:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01b10c:	03e00008 */ 	jr	$ra
-/*  f01b110:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 pdmodeGetDamage(void)
+{
+	if (g_MissionConfig.pdmode) {
+		return g_MissionConfig.pdmodedamagef;
+	}
+
+	return 1.0f;
+}
 
 GLOBAL_ASM(
 glabel func0f01b114
