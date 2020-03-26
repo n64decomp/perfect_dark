@@ -18945,7 +18945,7 @@ glabel var7f1a90b4
 /*  f03fcc0:	46081082 */ 	mul.s	$f2,$f2,$f8
 /*  f03fcc4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f03fcc8:
-/*  f03fcc8:	0fc06c45 */ 	jal	func0f01b114
+/*  f03fcc8:	0fc06c45 */ 	jal	pdmodeGetAccuracy
 /*  f03fccc:	e7a20024 */ 	swc1	$f2,0x24($sp)
 /*  f03fcd0:	3c013f80 */ 	lui	$at,0x3f80
 /*  f03fcd4:	44815000 */ 	mtc1	$at,$f10
@@ -18954,14 +18954,14 @@ glabel var7f1a90b4
 /*  f03fce0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f03fce4:	45000007 */ 	bc1f	.L0f03fd04
 /*  f03fce8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f03fcec:	0fc06c45 */ 	jal	func0f01b114
+/*  f03fcec:	0fc06c45 */ 	jal	pdmodeGetAccuracy
 /*  f03fcf0:	e7a20024 */ 	swc1	$f2,0x24($sp)
 /*  f03fcf4:	c7a20024 */ 	lwc1	$f2,0x24($sp)
 /*  f03fcf8:	46001082 */ 	mul.s	$f2,$f2,$f0
 /*  f03fcfc:	1000000c */ 	beqz	$zero,.L0f03fd30
 /*  f03fd00:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f03fd04:
-/*  f03fd04:	0fc06c45 */ 	jal	func0f01b114
+/*  f03fd04:	0fc06c45 */ 	jal	pdmodeGetAccuracy
 /*  f03fd08:	e7a20024 */ 	swc1	$f2,0x24($sp)
 /*  f03fd0c:	3c014110 */ 	lui	$at,0x4110
 /*  f03fd10:	44813000 */ 	mtc1	$at,$f6
