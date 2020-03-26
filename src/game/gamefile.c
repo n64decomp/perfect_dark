@@ -1052,19 +1052,11 @@ void func0f110680(void)
 	func0f110b68();
 }
 
-GLOBAL_ASM(
-glabel func0f06a0
-/*  f1106a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1106a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1106a8:	0fc442da */ 	jal	func0f110b68
-/*  f1106ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1106b0:	0fc44270 */ 	jal	func0f1109c0
-/*  f1106b4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1106b8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1106bc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1106c0:	03e00008 */ 	jr	$ra
-/*  f1106c4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f1106a0(void)
+{
+	func0f110b68();
+	func0f1109c0();
+}
 
 GLOBAL_ASM(
 glabel func0f1106c8
