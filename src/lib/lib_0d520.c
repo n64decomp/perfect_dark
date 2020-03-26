@@ -587,12 +587,10 @@ void mainLoop(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0000db30
-/*     db30:	afa40000 */ 	sw	$a0,0x0($sp)
-/*     db34:	03e00008 */ 	jr	$ra
-/*     db38:	afa50004 */ 	sw	$a1,0x4($sp)
-);
+void func0000db30(char *string, u32 *ptr)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel mainTick
