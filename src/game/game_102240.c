@@ -2918,9 +2918,9 @@ s32 menuhandlerLangFilter(u32 operation, struct menu_item *item, u32 *enable)
 {
 	switch (operation) {
 	case MENUOP_GET:
-		return g_Vars.langFilterActive;
+		return g_Vars.langfilteron;
 	case MENUOP_SET:
-		g_Vars.langFilterActive = *enable;
+		g_Vars.langfilteron = *enable;
 		g_Vars.unk000458 |= 1;
 	}
 

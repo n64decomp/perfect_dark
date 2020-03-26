@@ -7,7 +7,7 @@ u32 savefileHasFlag(u32 value);
 void savefileSetFlag(u32 value);
 void savefileUnsetFlag(u32 value);
 void func0f10f1b0(void);
-u32 func0f10f204(void);
+void savefileApplyOptions(struct savefile_solo *file);
 u32 func0f10f698(void);
 u32 func0f10fac8(void);
 u32 func0f10feac(void);

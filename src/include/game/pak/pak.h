@@ -124,7 +124,7 @@ u32 func0f11e3fc(void);
 u32 func0f11e478(void);
 u32 func0f11e4d4(void);
 void func0f11e530(u32 value, u32 *flags, bool set);
-u32 func0f11e584(u32 value, u32 *flags);
+u32 bitGetByIndex(u32 value, u32 *flags);
 u32 func0f11e5bc(void);
 u32 func0f11e618(void);
 s32 func0f11e6b0(s32 arg0);
