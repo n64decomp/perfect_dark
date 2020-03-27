@@ -42,7 +42,7 @@ u32 func0f189cc0(void);
 u32 func0f189dc8(void);
 u32 func0f189ed0(void);
 u32 func0f18a030(void);
-u32 func0f18a190(void);
+void mpCalculatePlayerTitle(struct mpplayer *mpplayer);
 u32 func0f18a56c(void);
 u32 func0f18b9e4(void);
 u32 func0f18bb1c(void);

@@ -4089,9 +4089,9 @@ struct mpplayer {
 	/*0x60*/ u32 gameswon;
 	/*0x64*/ u32 gameslost;
 	/*0x68*/ u32 time;
-	/*0x6c*/ f32 distance;
+	/*0x6c*/ u32 distance;
 	/*0x70*/ f32 accuracy;
-	/*0x74*/ f32 damagedealt;
+	/*0x74*/ u32 damagedealt;
 	/*0x78*/ f32 painreceived;
 	/*0x7c*/ u32 headshots;
 	/*0x80*/ u32 ammoused;

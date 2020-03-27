@@ -167,6 +167,7 @@
 	src/game/game_179060.o (section); \
 	src/game/game_17f930.o (section); \
 	src/game/mplayer.o (section); \
+	src/game/data/data_02da90.o (section); \
 	src/game/game_18e5a0.o (section); \
 	src/game/game_190260.o (section); \
 	src/game/game_197600.o (section); \

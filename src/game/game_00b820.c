@@ -8,6 +8,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
+#include "game/data/data_02da90.h"
 #include "game/game_00b820.h"
 #include "game/game_011110.h"
 #include "game/game_02cde0.h"

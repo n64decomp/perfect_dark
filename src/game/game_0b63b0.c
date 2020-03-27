@@ -10,6 +10,7 @@
 #include "game/data/data_0160b0.h"
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
+#include "game/data/data_02da90.h"
 #include "game/game_006bd0.h"
 #include "game/game_016100.h"
 #include "game/game_01e250.h"
