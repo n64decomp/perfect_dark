@@ -86,7 +86,7 @@ u32 func0f18c8b8(void);
 u32 func0f18c984(void);
 u32 func0f18cb60(void);
 u32 func0f18cbb8(void);
-void mpRemoveSimulant(s32 slotindex);
+void mpRemoveSimulant(s32 index);
 bool mpHasSimulants(void);
 u32 func0f18cc8c(void);
 bool mpIsSimSlotEnabled(s32 slotindex);

@@ -6175,35 +6175,13 @@ glabel func0f18cbb8
 /*  f18cbf8:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel mpRemoveSimulant
-/*  f18cbfc:	3c02800b */ 	lui	$v0,%hi(g_MpSetup)
-/*  f18cc00:	2442cb88 */ 	addiu	$v0,$v0,%lo(g_MpSetup)
-/*  f18cc04:	00045080 */ 	sll	$t2,$a0,0x2
-/*  f18cc08:	944e0016 */ 	lhu	$t6,0x16($v0)
-/*  f18cc0c:	248f0004 */ 	addiu	$t7,$a0,0x4
-/*  f18cc10:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f18cc14:	01445021 */ 	addu	$t2,$t2,$a0
-/*  f18cc18:	01f8c804 */ 	sllv	$t9,$t8,$t7
-/*  f18cc1c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f18cc20:	03204027 */ 	nor	$t0,$t9,$zero
-/*  f18cc24:	01445023 */ 	subu	$t2,$t2,$a0
-/*  f18cc28:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18cc2c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f18cc30:	3c01800b */ 	lui	$at,%hi(g_MpSimulants)
-/*  f18cc34:	01c84824 */ 	and	$t1,$t6,$t0
-/*  f18cc38:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18cc3c:	a4490016 */ 	sh	$t1,0x16($v0)
-/*  f18cc40:	002a0821 */ 	addu	$at,$at,$t2
-/*  f18cc44:	0fc62075 */ 	jal	func0f1881d4
-/*  f18cc48:	a020c538 */ 	sb	$zero,%lo(g_MpSimulants)($at)
-/*  f18cc4c:	0fc63377 */ 	jal	func0f18cddc
-/*  f18cc50:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18cc54:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18cc58:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18cc5c:	03e00008 */ 	jr	$ra
-/*  f18cc60:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void mpRemoveSimulant(s32 index)
+{
+	g_MpSetup.chrslots &= ~(1 << (index + 4));
+	g_MpSimulants[index].base.name[0] = '\0';
+	func0f1881d4();
+	func0f18cddc();
+}
 
 bool mpHasSimulants(void)
 {
