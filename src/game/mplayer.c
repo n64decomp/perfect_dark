@@ -189,7 +189,7 @@ glabel var7f1b8d94
 /*  f18799c:	aea00318 */ 	sw	$zero,0x318($s5)
 /*  f1879a0:	aea20318 */ 	sw	$v0,0x318($s5)
 .L0f1879a4:
-/*  f1879a4:	0fc63319 */ 	jal	func0f18cc64
+/*  f1879a4:	0fc63319 */ 	jal	mpHasSimulants
 /*  f1879a8:	aea00470 */ 	sw	$zero,0x470($s5)
 /*  f1879ac:	3c03800b */ 	lui	$v1,%hi(g_MpNumPlayers)
 /*  f1879b0:	10400003 */ 	beqz	$v0,.L0f1879c0
@@ -6205,20 +6205,14 @@ glabel mpRemoveSimulant
 /*  f18cc60:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18cc64
-/*  f18cc64:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x16)
-/*  f18cc68:	95cecb9e */ 	lhu	$t6,%lo(g_MpSetup+0x16)($t6)
-/*  f18cc6c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18cc70:	31cffff0 */ 	andi	$t7,$t6,0xfff0
-/*  f18cc74:	11e00003 */ 	beqz	$t7,.L0f18cc84
-/*  f18cc78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18cc7c:	03e00008 */ 	jr	$ra
-/*  f18cc80:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18cc84:
-/*  f18cc84:	03e00008 */ 	jr	$ra
-/*  f18cc88:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool mpHasSimulants(void)
+{
+	if ((g_MpSetup.chrslots & 0xfff0) != 0) {
+		return true;
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f18cc8c
