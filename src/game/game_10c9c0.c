@@ -20,7 +20,7 @@ s32 menuhandler4MbDropOut(u32 operation, struct menu_item *item, s32 *value)
 		menuPopDialog();
 		menuPopDialog();
 
-		if (func0f18c87c() == 1) {
+		if (mpGetNumChrs() == 1) {
 			func0f0f820c(&g_4MbMainMenu, 11);
 		}
 	}

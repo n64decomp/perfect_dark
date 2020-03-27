@@ -5909,26 +5909,19 @@ glabel func0f18c828
 /*  f18c878:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel func0f18c87c
-/*  f18c87c:	3c04800b */ 	lui	$a0,%hi(g_MpSetup+0x16)
-/*  f18c880:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18c884:	9484cb9e */ 	lhu	$a0,%lo(g_MpSetup+0x16)($a0)
-/*  f18c888:	00001025 */ 	or	$v0,$zero,$zero
-/*  f18c88c:	2405000c */ 	addiu	$a1,$zero,0xc
-/*  f18c890:	240e0001 */ 	addiu	$t6,$zero,0x1
-.L0f18c894:
-/*  f18c894:	004e7804 */ 	sllv	$t7,$t6,$v0
-/*  f18c898:	008fc024 */ 	and	$t8,$a0,$t7
-/*  f18c89c:	13000002 */ 	beqz	$t8,.L0f18c8a8
-/*  f18c8a0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f18c8a4:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f18c8a8:
-/*  f18c8a8:	5445fffa */ 	bnel	$v0,$a1,.L0f18c894
-/*  f18c8ac:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f18c8b0:	03e00008 */ 	jr	$ra
-/*  f18c8b4:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 mpGetNumChrs(void)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = 0; i != MAX_MPCHRS; i++) {
+		if (g_MpSetup.chrslots & (1 << i)) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 GLOBAL_ASM(
 glabel func0f18c8b8
