@@ -1346,7 +1346,7 @@ glabel func0f1885e4
 /*  f1888f4:	24010003 */ 	addiu	$at,$zero,0x3
 /*  f1888f8:	57210005 */ 	bnel	$t9,$at,.L0f188910
 /*  f1888fc:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f188900:	0fc62fba */ 	jal	func0f18bee8
+/*  f188900:	0fc62fba */ 	jal	mpChooseRandomLockPlayer
 /*  f188904:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f188908:	a2220000 */ 	sb	$v0,0x0($s1)
 /*  f18890c:	8fbf002c */ 	lw	$ra,0x2c($sp)
@@ -5137,7 +5137,7 @@ glabel func0f18bd90
 );
 
 GLOBAL_ASM(
-glabel func0f18bee8
+glabel mpChooseRandomLockPlayer
 /*  f18bee8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f18beec:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f18bef0:	0c004b70 */ 	jal	random
@@ -5178,31 +5178,18 @@ glabel func0f18bee8
 /*  f18bf6c:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel mpSetLock
-/*  f18bf70:	3c02800b */ 	lui	$v0,%hi(g_MpSetup+0x28)
-/*  f18bf74:	2442cbb0 */ 	addiu	$v0,$v0,%lo(g_MpSetup+0x28)
-/*  f18bf78:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18bf7c:	308e00ff */ 	andi	$t6,$a0,0xff
-/*  f18bf80:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f18bf84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18bf88:	15c10006 */ 	bne	$t6,$at,.L0f18bfa4
-/*  f18bf8c:	a0440060 */ 	sb	$a0,0x60($v0)
-/*  f18bf90:	0fc62fba */ 	jal	func0f18bee8
-/*  f18bf94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18bf98:	3c01800b */ 	lui	$at,%hi(g_MpLockPlayerNum)
-/*  f18bf9c:	10000003 */ 	beqz	$zero,.L0f18bfac
-/*  f18bfa0:	a022cc20 */ 	sb	$v0,%lo(g_MpLockPlayerNum)($at)
-.L0f18bfa4:
-/*  f18bfa4:	3c01800b */ 	lui	$at,%hi(g_MpLockPlayerNum)
-/*  f18bfa8:	a025cc20 */ 	sb	$a1,%lo(g_MpLockPlayerNum)($at)
-.L0f18bfac:
-/*  f18bfac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18bfb0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18bfb4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f18bfb8:	03e00008 */ 	jr	$ra
-/*  f18bfbc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool mpSetLock(s32 locktype, s32 playernum)
+{
+	g_MpSetupSaveFile.locktype = locktype;
+
+	if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_RANDOM) {
+		g_MpLockPlayerNum = mpChooseRandomLockPlayer();
+	} else {
+		g_MpLockPlayerNum = playernum;
+	}
+
+	return true;
+}
 
 u32 mpGetLockType(void)
 {
@@ -5266,7 +5253,7 @@ glabel func0f18c014
 /*  f18c090:	2408ffff */ 	addiu	$t0,$zero,-1
 /*  f18c094:	a0680002 */ 	sb	$t0,0x2($v1)
 /*  f18c098:	80690002 */ 	lb	$t1,0x2($v1)
-/*  f18c09c:	0fc62fba */ 	jal	func0f18bee8
+/*  f18c09c:	0fc62fba */ 	jal	mpChooseRandomLockPlayer
 /*  f18c0a0:	a0690001 */ 	sb	$t1,0x1($v1)
 /*  f18c0a4:	3c03800b */ 	lui	$v1,%hi(g_MpLockPlayerNum)
 /*  f18c0a8:	2463cc20 */ 	addiu	$v1,$v1,%lo(g_MpLockPlayerNum)
