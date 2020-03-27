@@ -33,10 +33,6 @@
 
 const char var7f1ada40[] = "bondeyespy.c";
 const char var7f1ada50[] = "bondeyespy.c";
-const char var7f1ada60[] = "bondeyespy.c";
-const char var7f1ada70[] = "g";
-const char var7f1ada74[] = "l";
-const char var7f1ada78[] = "%s%s";
 
 u32 var80070ec0 = 0x00000000;
 u32 var80070ec4 = 0x00000000;
@@ -897,31 +893,20 @@ glabel func0f0cfafc
 /*  f0cfdcc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0cfdd0
-/*  f0cfdd0:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0cfdd4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0cfdd8:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f0cfddc:	0fc33dca */ 	jal	func0f0cf728
-/*  f0cfde0:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f0cfde4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0cfde8:	10410009 */ 	beq	$v0,$at,.L0f0cfe10
-/*  f0cfdec:	00401825 */ 	or	$v1,$v0,$zero
-/*  f0cfdf0:	3c077f1b */ 	lui	$a3,%hi(var7f1ada60)
-/*  f0cfdf4:	24e7da60 */ 	addiu	$a3,$a3,%lo(var7f1ada60)
-/*  f0cfdf8:	8fa40024 */ 	lw	$a0,0x24($sp)
-/*  f0cfdfc:	8fa50028 */ 	lw	$a1,0x28($sp)
-/*  f0cfe00:	240601d9 */ 	addiu	$a2,$zero,0x1d9
-/*  f0cfe04:	0c009393 */ 	jal	func00024e4c
-/*  f0cfe08:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0cfe0c:	8fa3001c */ 	lw	$v1,0x1c($sp)
-.L0f0cfe10:
-/*  f0cfe10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0cfe14:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0cfe18:	00601025 */ 	or	$v0,$v1,$zero
-/*  f0cfe1c:	03e00008 */ 	jr	$ra
-/*  f0cfe20:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 func0f0cfdd0(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+{
+	s32 iVar1 = func0f0cf728(arg0);
+
+	if (iVar1 != 1) {
+		func00024e4c(arg1, arg2, 0x1d9, "bondeyespy.c");
+	}
+
+	return iVar1;
+}
+
+const char var7f1ada70[] = "g";
+const char var7f1ada74[] = "l";
+const char var7f1ada78[] = "%s%s";
 
 GLOBAL_ASM(
 glabel func0f0cfe24
