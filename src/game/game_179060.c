@@ -3711,7 +3711,7 @@ glabel var7f1b81e8
 /*  f17c7d8:	3c18800b */ 	lui	$t8,%hi(g_MpSetup+0x16)
 /*  f17c7dc:	05810007 */ 	bgez	$t4,.L0f17c7fc
 /*  f17c7e0:	afac003c */ 	sw	$t4,0x3c($sp)
-/*  f17c7e4:	0fc632ee */ 	jal	func0f18cbb8
+/*  f17c7e4:	0fc632ee */ 	jal	mpGetNumSimulants
 /*  f17c7e8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17c7ec:	240d0001 */ 	addiu	$t5,$zero,0x1
 /*  f17c7f0:	afa2003c */ 	sw	$v0,0x3c($sp)
@@ -6111,7 +6111,7 @@ glabel var7f1b82dc
 /*  f17f2c0:	19e0000c */ 	blez	$t7,.L0f17f2f4
 /*  f17f2c4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f17f2c8:
-/*  f17f2c8:	0fc632ee */ 	jal	func0f18cbb8
+/*  f17f2c8:	0fc632ee */ 	jal	mpGetNumSimulants
 /*  f17f2cc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17f2d0:	04400003 */ 	bltz	$v0,.L0f17f2e0
 /*  f17f2d4:	00402025 */ 	or	$a0,$v0,$zero
@@ -6133,7 +6133,7 @@ glabel var7f1b82dc
 /*  f17f30c:	1b20000c */ 	blez	$t9,.L0f17f340
 /*  f17f310:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f17f314:
-/*  f17f314:	0fc632ee */ 	jal	func0f18cbb8
+/*  f17f314:	0fc632ee */ 	jal	mpGetNumSimulants
 /*  f17f318:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17f31c:	04400003 */ 	bltz	$v0,.L0f17f32c
 /*  f17f320:	00402025 */ 	or	$a0,$v0,$zero
@@ -6175,7 +6175,7 @@ glabel var7f1b82dc
 /*  f17f3a0:	59200013 */ 	blezl	$t1,.L0f17f3f0
 /*  f17f3a4:	26d6ffff */ 	addiu	$s6,$s6,-1
 .L0f17f3a8:
-/*  f17f3a8:	0fc632ee */ 	jal	func0f18cbb8
+/*  f17f3a8:	0fc632ee */ 	jal	mpGetNumSimulants
 /*  f17f3ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17f3b0:	04400009 */ 	bltz	$v0,.L0f17f3d8
 /*  f17f3b4:	00408025 */ 	or	$s0,$v0,$zero

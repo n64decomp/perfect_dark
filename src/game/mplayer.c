@@ -6152,28 +6152,17 @@ glabel func0f18cb60
 /*  f18cbb4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18cbb8
-/*  f18cbb8:	3c02800b */ 	lui	$v0,%hi(g_MpSetup+0x16)
-/*  f18cbbc:	9442cb9e */ 	lhu	$v0,%lo(g_MpSetup+0x16)($v0)
-/*  f18cbc0:	00001825 */ 	or	$v1,$zero,$zero
-/*  f18cbc4:	304e0010 */ 	andi	$t6,$v0,0x10
-/*  f18cbc8:	11c0000a */ 	beqz	$t6,.L0f18cbf4
-/*  f18cbcc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18cbd0:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f18cbd4:
-/*  f18cbd4:	28610007 */ 	slti	$at,$v1,0x7
-/*  f18cbd8:	10200006 */ 	beqz	$at,.L0f18cbf4
-/*  f18cbdc:	246f0004 */ 	addiu	$t7,$v1,0x4
-/*  f18cbe0:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f18cbe4:	01f8c804 */ 	sllv	$t9,$t8,$t7
-/*  f18cbe8:	00594024 */ 	and	$t0,$v0,$t9
-/*  f18cbec:	5500fff9 */ 	bnezl	$t0,.L0f18cbd4
-/*  f18cbf0:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f18cbf4:
-/*  f18cbf4:	03e00008 */ 	jr	$ra
-/*  f18cbf8:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 mpGetNumSimulants(void)
+{
+	s32 i = 0;
+
+	// @bug: This won't count the last simulant if there's 8
+	while (i < MAX_SIMULANTS - 1 && g_MpSetup.chrslots & (1 << (i + 4))) {
+		i++;
+	}
+
+	return i;
+}
 
 void mpRemoveSimulant(s32 index)
 {
