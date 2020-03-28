@@ -4064,9 +4064,10 @@ struct mpchr {
 	/*0x10*/ u8 bodynum;
 	/*0x11*/ u8 team;
 	/*0x14*/ u32 displayoptions;
-	/*0x18*/ u32 unk18;
+	/*0x18*/ u16 unk18;
+	/*0x1a*/ u16 unk1a;
 	/*0x1c*/ u16 unk1c;
-	/*0x1c*/ s8 placement;
+	/*0x1e*/ s8 placement;
 	/*0x20*/ u32 unk20;
 	/*0x24*/ s16 unk24[12];
 	/*0x3c*/ s16 unk3c;

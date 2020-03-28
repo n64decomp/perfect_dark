@@ -626,21 +626,12 @@ glabel func0f187e70
 /*  f187fb8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f187fbc
-/*  f187fbc:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f187fc0:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f187fc4:	3c0f800b */ 	lui	$t7,%hi(g_MpPlayers)
-/*  f187fc8:	25efc7b8 */ 	addiu	$t7,$t7,%lo(g_MpPlayers)
-/*  f187fcc:	000e7140 */ 	sll	$t6,$t6,0x5
-/*  f187fd0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f187fd4:	24030050 */ 	addiu	$v1,$zero,0x50
-/*  f187fd8:	2418004b */ 	addiu	$t8,$zero,0x4b
-/*  f187fdc:	a4430018 */ 	sh	$v1,0x18($v0)
-/*  f187fe0:	a443001a */ 	sh	$v1,0x1a($v0)
-/*  f187fe4:	03e00008 */ 	jr	$ra
-/*  f187fe8:	a458001c */ 	sh	$t8,0x1c($v0)
-);
+void func0f187fbc(s32 playernum)
+{
+	g_MpPlayers[playernum].base.unk18 = 80;
+	g_MpPlayers[playernum].base.unk1a = 80;
+	g_MpPlayers[playernum].base.unk1c = 75;
+}
 
 void func0f187fec(void)
 {
