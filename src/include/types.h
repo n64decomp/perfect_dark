@@ -4165,7 +4165,7 @@ struct savefile_setup {
 	/*0x62*/ u8 usingmultipletunes;
 	/*0x63*/ u8 unk8b;
 	/*0x64*/ s8 tracknum; // -1 = random
-	/*0x8d*/ u8 unk8d[5];
+	/*0x8d*/ u8 multipletracknums[5];
 };
 
 struct mpscenario {

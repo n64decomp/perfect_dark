@@ -5460,79 +5460,52 @@ glabel func0f18c2b0
 /*  f18c300:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f18c304
-/*  f18c304:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18c308:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c30c:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
-/*  f18c310:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f18c314:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f18c318:	3c18800b */ 	lui	$t8,%hi(g_MpSetup+0x28)
-/*  f18c31c:	2718cbb0 */ 	addiu	$t8,$t8,%lo(g_MpSetup+0x28)
-/*  f18c320:	11c0000d */ 	beqz	$t6,.L0f18c358
-/*  f18c324:	304a0007 */ 	andi	$t2,$v0,0x7
-/*  f18c328:	000278c3 */ 	sra	$t7,$v0,0x3
-/*  f18c32c:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0x28)
-/*  f18c330:	2739cbb0 */ 	addiu	$t9,$t9,%lo(g_MpSetup+0x28)
-/*  f18c334:	31f800ff */ 	andi	$t8,$t7,0xff
-/*  f18c338:	03191821 */ 	addu	$v1,$t8,$t9
-/*  f18c33c:	90680065 */ 	lbu	$t0,0x65($v1)
-/*  f18c340:	30490007 */ 	andi	$t1,$v0,0x7
-/*  f18c344:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f18c348:	012a6004 */ 	sllv	$t4,$t2,$t1
-/*  f18c34c:	010c6825 */ 	or	$t5,$t0,$t4
-/*  f18c350:	1000000a */ 	beqz	$zero,.L0f18c37c
-/*  f18c354:	a06d0065 */ 	sb	$t5,0x65($v1)
-.L0f18c358:
-/*  f18c358:	000270c3 */ 	sra	$t6,$v0,0x3
-/*  f18c35c:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f18c360:	01f81821 */ 	addu	$v1,$t7,$t8
-/*  f18c364:	90790065 */ 	lbu	$t9,0x65($v1)
-/*  f18c368:	24090001 */ 	addiu	$t1,$zero,0x1
-/*  f18c36c:	01494004 */ 	sllv	$t0,$t1,$t2
-/*  f18c370:	01006027 */ 	nor	$t4,$t0,$zero
-/*  f18c374:	032c6824 */ 	and	$t5,$t9,$t4
-/*  f18c378:	a06d0065 */ 	sb	$t5,0x65($v1)
-.L0f18c37c:
-/*  f18c37c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18c380:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18c384:	03e00008 */ 	jr	$ra
-/*  f18c388:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void mpSetMultiTrackSlotEnabled(s32 slot, bool enable)
+{
+	s32 tracknum = mpGetTrackNumAtSlotIndex(slot);
+	u8 value = 1 << (tracknum & 7);
+	u8 index = tracknum >> 3;
 
-void func0f18c38c(s32 slot)
+	if (enable) {
+		g_MpSetupSaveFile.multipletracknums[index] |= value;
+	} else {
+		g_MpSetupSaveFile.multipletracknums[index] &= ~value;
+	}
+}
+
+void mpSetTrackSlotEnabled(s32 slot)
 {
 	if (mpGetUsingMultipleTunes()) {
-		func0f18c304(slot, 1 - func0f18c2b0(slot));
+		mpSetMultiTrackSlotEnabled(slot, 1 - func0f18c2b0(slot));
 	} else {
 		g_MpSetupSaveFile.tracknum = mpGetTrackNumAtSlotIndex(slot);
 	}
 }
 
-void func0f18c3e4(void)
+void mpEnableAllMultiTracks(void)
 {
 	s32 i;
 
 	for (i = 0; i != 6; i++) {
-		g_MpSetupSaveFile.unk8d[i] = -1;
+		g_MpSetupSaveFile.multipletracknums[i] = 0xff;
 	}
 }
 
-void func0f18c40c(void)
+void mpDisableAllMultiTracks(void)
 {
 	s32 i;
 
 	for (i = 0; i != 6; i++) {
-		g_MpSetupSaveFile.unk8d[i] = 0;
+		g_MpSetupSaveFile.multipletracknums[i] = 0;
 	}
 }
 
-void func0f18c430(void)
+void mpRandomiseMultiTracks(void)
 {
 	s32 i;
 
 	for (i = 0; i != 6; i++) {
-		g_MpSetupSaveFile.unk8d[i] = random();
+		g_MpSetupSaveFile.multipletracknums[i] = random();
 	}
 }
 

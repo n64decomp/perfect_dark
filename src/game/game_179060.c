@@ -4824,7 +4824,7 @@ glabel var7f1b8228
 /*  f17ddb0:	8cc90004 */ 	lw	$t1,0x4($a2)
 /*  f17ddb4:	15200003 */ 	bnez	$t1,.L0f17ddc4
 /*  f17ddb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f17ddbc:	0fc630e3 */ 	jal	func0f18c38c
+/*  f17ddbc:	0fc630e3 */ 	jal	mpSetTrackSlotEnabled
 /*  f17ddc0:	00602025 */ 	or	$a0,$v1,$zero
 .L0f17ddc4:
 /*  f17ddc4:	3c02800a */ 	lui	$v0,%hi(g_Vars)
@@ -4852,7 +4852,7 @@ glabel var7f1b8228
 /*  f17de18:	10000052 */ 	beqz	$zero,.L0f17df64
 /*  f17de1c:	00001025 */ 	or	$v0,$zero,$zero
 .L0f17de20:
-/*  f17de20:	0fc630f9 */ 	jal	func0f18c3e4
+/*  f17de20:	0fc630f9 */ 	jal	mpEnableAllMultiTracks
 /*  f17de24:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17de28:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f17de2c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -4861,7 +4861,7 @@ glabel var7f1b8228
 /*  f17de38:	10000049 */ 	beqz	$zero,.L0f17df60
 /*  f17de3c:	ac4e0458 */ 	sw	$t6,0x458($v0)
 .L0f17de40:
-/*  f17de40:	0fc63103 */ 	jal	func0f18c40c
+/*  f17de40:	0fc63103 */ 	jal	mpDisableAllMultiTracks
 /*  f17de44:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17de48:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f17de4c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -4870,7 +4870,7 @@ glabel var7f1b8228
 /*  f17de58:	10000041 */ 	beqz	$zero,.L0f17df60
 /*  f17de5c:	ac4f0458 */ 	sw	$t7,0x458($v0)
 .L0f17de60:
-/*  f17de60:	0fc6310c */ 	jal	func0f18c430
+/*  f17de60:	0fc6310c */ 	jal	mpRandomiseMultiTracks
 /*  f17de64:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17de68:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f17de6c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)

@@ -1404,7 +1404,7 @@ void func0f110b68(void)
 	g_MpSetupSaveFile.teamnames[7][0] = '\0';
 
 	g_MpSetupSaveFile.tracknum = -1;
-	func0f18c3e4();
+	mpEnableAllMultiTracks();
 	g_MpSetupSaveFile.usingmultipletunes = false;
 	g_MpSetupSaveFile.unk89 = 0;
 	g_MpSetupSaveFile.locktype = MPLOCKTYPE_NONE;
