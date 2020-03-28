@@ -442,7 +442,7 @@ glabel var7f1b8d94
 /*  f187d30:	1840000b */ 	blez	$v0,.L0f187d60
 /*  f187d34:	00409025 */ 	or	$s2,$v0,$zero
 .L0f187d38:
-/*  f187d38:	0fc630ac */ 	jal	func0f18c2b0
+/*  f187d38:	0fc630ac */ 	jal	mpIsMultiTrackSlotEnabled
 /*  f187d3c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f187d40:	10400002 */ 	beqz	$v0,.L0f187d4c
 /*  f187d44:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5433,32 +5433,18 @@ bool mpGetUsingMultipleTunes(void)
 	return g_MpSetupSaveFile.usingmultipletunes;
 }
 
-GLOBAL_ASM(
-glabel func0f18c2b0
-/*  f18c2b0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18c2b4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c2b8:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
-/*  f18c2bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18c2c0:	000270c3 */ 	sra	$t6,$v0,0x3
-/*  f18c2c4:	31cf00ff */ 	andi	$t7,$t6,0xff
-/*  f18c2c8:	3c18800b */ 	lui	$t8,%hi(g_MpSetupSaveFile+0x65)
-/*  f18c2cc:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f18c2d0:	9318cc15 */ 	lbu	$t8,%lo(g_MpSetupSaveFile+0x65)($t8)
-/*  f18c2d4:	30590007 */ 	andi	$t9,$v0,0x7
-/*  f18c2d8:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f18c2dc:	03284804 */ 	sllv	$t1,$t0,$t9
-/*  f18c2e0:	312a00ff */ 	andi	$t2,$t1,0xff
-/*  f18c2e4:	030a5824 */ 	and	$t3,$t8,$t2
-/*  f18c2e8:	15600003 */ 	bnez	$t3,.L0f18c2f8
-/*  f18c2ec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18c2f0:	10000002 */ 	beqz	$zero,.L0f18c2fc
-/*  f18c2f4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f18c2f8:
-/*  f18c2f8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f18c2fc:
-/*  f18c2fc:	03e00008 */ 	jr	$ra
-/*  f18c300:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool mpIsMultiTrackSlotEnabled(s32 slot)
+{
+	s32 tracknum = mpGetTrackNumAtSlotIndex(slot);
+	u8 index = tracknum >> 3;
+	u8 value = 1 << (tracknum & 7);
+
+	if ((g_MpSetupSaveFile.multipletracknums[index] & value) == 0) {
+		return false;
+	}
+
+	return true;
+}
 
 void mpSetMultiTrackSlotEnabled(s32 slot, bool enable)
 {
@@ -5476,7 +5462,7 @@ void mpSetMultiTrackSlotEnabled(s32 slot, bool enable)
 void mpSetTrackSlotEnabled(s32 slot)
 {
 	if (mpGetUsingMultipleTunes()) {
-		mpSetMultiTrackSlotEnabled(slot, 1 - func0f18c2b0(slot));
+		mpSetMultiTrackSlotEnabled(slot, 1 - mpIsMultiTrackSlotEnabled(slot));
 	} else {
 		g_MpSetupSaveFile.tracknum = mpGetTrackNumAtSlotIndex(slot);
 	}
@@ -5544,7 +5530,7 @@ glabel func0f18c4c0
 /*  f18c500:	18400009 */ 	blez	$v0,.L0f18c528
 /*  f18c504:	00008025 */ 	or	$s0,$zero,$zero
 .L0f18c508:
-/*  f18c508:	0fc630ac */ 	jal	func0f18c2b0
+/*  f18c508:	0fc630ac */ 	jal	mpIsMultiTrackSlotEnabled
 /*  f18c50c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f18c510:	10400002 */ 	beqz	$v0,.L0f18c51c
 /*  f18c514:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5604,7 +5590,7 @@ glabel func0f18c4c0
 /*  f18c5d0:	5a80000d */ 	blezl	$s4,.L0f18c608
 /*  f18c5d4:	2401ffff */ 	addiu	$at,$zero,-1
 .L0f18c5d8:
-/*  f18c5d8:	0fc630ac */ 	jal	func0f18c2b0
+/*  f18c5d8:	0fc630ac */ 	jal	mpIsMultiTrackSlotEnabled
 /*  f18c5dc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f18c5e0:	50400006 */ 	beqzl	$v0,.L0f18c5fc
 /*  f18c5e4:	26100001 */ 	addiu	$s0,$s0,0x1

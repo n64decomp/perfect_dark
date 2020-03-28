@@ -70,7 +70,7 @@ s32 mpGetTrackAudioId(s32 slotindex);
 char *mpGetTrackName(s32 slotindex);
 void mpSetUsingMultipleTunes(bool enable);
 bool mpGetUsingMultipleTunes(void);
-u32 func0f18c2b0(s32 slot);
+bool mpIsMultiTrackSlotEnabled(s32 slot);
 void mpSetMultiTrackSlotEnabled(s32 slot, bool enable);
 void mpSetTrackSlotEnabled(s32 slot);
 void mpEnableAllMultiTracks(void);
