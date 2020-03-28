@@ -5580,30 +5580,19 @@ glabel func0f18c430
 /*  f18c474:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-void func0f18c478(void)
+void mpSetTrackToRandom(void)
 {
-	g_MpSetupSaveFile.unk8c = -1;
+	g_MpSetupSaveFile.tracknum = -1;
 }
 
-GLOBAL_ASM(
-glabel mpGetTrackNum
-/*  f18c488:	3c04800b */ 	lui	$a0,%hi(g_MpSetupSaveFile+0x64)
-/*  f18c48c:	8084cc14 */ 	lb	$a0,%lo(g_MpSetupSaveFile+0x64)($a0)
-/*  f18c490:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18c494:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c498:	04810003 */ 	bgez	$a0,.L0f18c4a8
-/*  f18c49c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18c4a0:	10000003 */ 	beqz	$zero,.L0f18c4b0
-/*  f18c4a4:	00801025 */ 	or	$v0,$a0,$zero
-.L0f18c4a8:
-/*  f18c4a8:	0fc6304e */ 	jal	mpGetTrackSlotIndex
-/*  f18c4ac:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f18c4b0:
-/*  f18c4b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f18c4b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18c4b8:	03e00008 */ 	jr	$ra
-/*  f18c4bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 mpGetCurrentTrackSlotNum(void)
+{
+	if (g_MpSetupSaveFile.tracknum < 0) {
+		return g_MpSetupSaveFile.tracknum;
+	}
+
+	return mpGetTrackSlotIndex(g_MpSetupSaveFile.tracknum);
+}
 
 GLOBAL_ASM(
 glabel func0f18c4c0
@@ -5738,7 +5727,7 @@ glabel func0f18c4c0
 /*  f18c688:	10000038 */ 	beqz	$zero,.L0f18c76c
 /*  f18c68c:	00031242 */ 	srl	$v0,$v1,0x9
 .L0f18c690:
-/*  f18c690:	0fc63122 */ 	jal	mpGetTrackNum
+/*  f18c690:	0fc63122 */ 	jal	mpGetCurrentTrackSlotNum
 /*  f18c694:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18c698:	04410022 */ 	bgez	$v0,.L0f18c724
 /*  f18c69c:	00409825 */ 	or	$s3,$v0,$zero

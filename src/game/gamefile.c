@@ -1403,7 +1403,7 @@ void func0f110b68(void)
 	g_MpSetupSaveFile.teamnames[6][0] = '\0';
 	g_MpSetupSaveFile.teamnames[7][0] = '\0';
 
-	g_MpSetupSaveFile.unk8c = -1;
+	g_MpSetupSaveFile.tracknum = -1;
 	func0f18c3e4();
 	g_MpSetupSaveFile.usingmultipletunes = false;
 	g_MpSetupSaveFile.unk89 = 0;

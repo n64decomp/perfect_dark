@@ -4879,7 +4879,7 @@ glabel var7f1b8228
 /*  f17de78:	10000039 */ 	beqz	$zero,.L0f17df60
 /*  f17de7c:	ac480458 */ 	sw	$t0,0x458($v0)
 .L0f17de80:
-/*  f17de80:	0fc6311e */ 	jal	func0f18c478
+/*  f17de80:	0fc6311e */ 	jal	mpSetTrackToRandom
 /*  f17de84:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17de88:	3c02800a */ 	lui	$v0,%hi(g_Vars)
 /*  f17de8c:	24429fc0 */ 	addiu	$v0,$v0,%lo(g_Vars)
@@ -4896,7 +4896,7 @@ glabel var7f1b8228
 /*  f17deb8:	10000029 */ 	beqz	$zero,.L0f17df60
 /*  f17debc:	acca0000 */ 	sw	$t2,0x0($a2)
 .L0f17dec0:
-/*  f17dec0:	0fc63122 */ 	jal	mpGetTrackNum
+/*  f17dec0:	0fc63122 */ 	jal	mpGetCurrentTrackSlotNum
 /*  f17dec4:	afa60038 */ 	sw	$a2,0x38($sp)
 /*  f17dec8:	04410006 */ 	bgez	$v0,.L0f17dee4
 /*  f17decc:	8fa60038 */ 	lw	$a2,0x38($sp)
@@ -4962,16 +4962,16 @@ bool menudialogMpSelectTune(u32 operation, struct menu_dialog *dialog, struct me
 
 char *mpMenuTextCurrentTrack(struct menu_item *item)
 {
-	s32 tracknum;
+	s32 slotnum;
 
 	if (mpGetUsingMultipleTunes()) {
 		return langGet(L_MPMENU(66)); // "Multiple Tunes"
 	}
 
-	tracknum = mpGetTrackNum();
+	slotnum = mpGetCurrentTrackSlotNum();
 
-	if (tracknum >= 0) {
-		return mpGetTrackName(tracknum);
+	if (slotnum >= 0) {
+		return mpGetTrackName(slotnum);
 	}
 
 	return langGet(L_MPMENU(67)); // "Random"
