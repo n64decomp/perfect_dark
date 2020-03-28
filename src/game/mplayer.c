@@ -5500,33 +5500,14 @@ glabel func0f18c304
 /*  f18c388:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18c38c
-/*  f18c38c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f18c390:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f18c394:	0fc630a9 */ 	jal	mpGetUsingMultipleTunes
-/*  f18c398:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f18c39c:	10400009 */ 	beqz	$v0,.L0f18c3c4
-/*  f18c3a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18c3a4:	0fc630ac */ 	jal	func0f18c2b0
-/*  f18c3a8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f18c3ac:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f18c3b0:	01c22823 */ 	subu	$a1,$t6,$v0
-/*  f18c3b4:	0fc630c1 */ 	jal	func0f18c304
-/*  f18c3b8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f18c3bc:	10000006 */ 	beqz	$zero,.L0f18c3d8
-/*  f18c3c0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f18c3c4:
-/*  f18c3c4:	0fc63065 */ 	jal	mpGetTrackNumAtSlotIndex
-/*  f18c3c8:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f18c3cc:	3c01800b */ 	lui	$at,%hi(g_MpSetupSaveFile+0x64)
-/*  f18c3d0:	a022cc14 */ 	sb	$v0,%lo(g_MpSetupSaveFile+0x64)($at)
-/*  f18c3d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f18c3d8:
-/*  f18c3d8:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f18c3dc:	03e00008 */ 	jr	$ra
-/*  f18c3e0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f18c38c(s32 slot)
+{
+	if (mpGetUsingMultipleTunes()) {
+		func0f18c304(slot, 1 - func0f18c2b0(slot));
+	} else {
+		g_MpSetupSaveFile.tracknum = mpGetTrackNumAtSlotIndex(slot);
+	}
+}
 
 void func0f18c3e4(void)
 {
