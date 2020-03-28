@@ -3160,17 +3160,6 @@ const char var7f1b8bc0[] = "PakId for player %d: %d\n";
 const char var7f1b8bdc[] = "Save Player Result: %d   New GUID: %x\n";
 const char var7f1b8c04[] = "PakId for player %d: %d\n";
 const char var7f1b8c20[] = "Load Player - Result: %d\n";
-const char var7f1b8c3c[] = "";
-const char var7f1b8c40[] = "bot %d headId %d bodyId %d\n";
-const char var7f1b8c5c[] = "team change %s %d\n";
-const char var7f1b8c70[] = "mplayer.c";
-const char var7f1b8c7c[] = "team change %s %d\n";
-const char var7f1b8c90[] = "mplayer.c";
-const char var7f1b8c9c[] = "SaveMultiGameFile : PakId=0x%x, FileId=0x%x\n";
-const char var7f1b8ccc[] = "SaveGame Result: %d   New GUID: %x\n";
-const char var7f1b8cf0[] = "LoadMultiGameFile : PakId=0x%x, FileId=0x%x\n";
-const char var7f1b8d20[] = "LoadGame Result: %d\n";
-const char var7f1b8d38[] = "GBCHead: Call to create head for slot %d (gbcheadobjs[slotno]=%x)\n";
 
 struct mphead g_MpBeauHeads[NUM_MPBEAUHEADS] = {
 	// head, unlock value
@@ -7137,47 +7126,33 @@ s32 mpGetNumUnlockedPresets(void)
 	return numunlocked;
 }
 
-GLOBAL_ASM(
-glabel mpGetPresetNameBySlot
-/*  f18dc64:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f18dc68:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f18dc6c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f18dc70:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f18dc74:	00808825 */ 	or	$s1,$a0,$zero
-/*  f18dc78:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f18dc7c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f18dc80:	2412000e */ 	addiu	$s2,$zero,0xe
-.L0f18dc84:
-/*  f18dc84:	0fc636e1 */ 	jal	mpIsPresetUnlocked
-/*  f18dc88:	02002025 */ 	or	$a0,$s0,$zero
-/*  f18dc8c:	5040000d */ 	beqzl	$v0,.L0f18dcc4
-/*  f18dc90:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18dc94:	16200009 */ 	bnez	$s1,.L0f18dcbc
-/*  f18dc98:	00107080 */ 	sll	$t6,$s0,0x2
-/*  f18dc9c:	01d07023 */ 	subu	$t6,$t6,$s0
-/*  f18dca0:	000e70c0 */ 	sll	$t6,$t6,0x3
-/*  f18dca4:	3c048008 */ 	lui	$a0,%hi(g_MpPresets)
-/*  f18dca8:	008e2021 */ 	addu	$a0,$a0,$t6
-/*  f18dcac:	0fc5b9f1 */ 	jal	langGet
-/*  f18dcb0:	94847b6c */ 	lhu	$a0,%lo(g_MpPresets)($a0)
-/*  f18dcb4:	10000008 */ 	beqz	$zero,.L0f18dcd8
-/*  f18dcb8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f18dcbc:
-/*  f18dcbc:	2631ffff */ 	addiu	$s1,$s1,-1
-/*  f18dcc0:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f18dcc4:
-/*  f18dcc4:	1612ffef */ 	bne	$s0,$s2,.L0f18dc84
-/*  f18dcc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18dccc:	3c027f1c */ 	lui	$v0,%hi(var7f1b8c3c)
-/*  f18dcd0:	24428c3c */ 	addiu	$v0,$v0,%lo(var7f1b8c3c)
-/*  f18dcd4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f18dcd8:
-/*  f18dcd8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f18dcdc:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f18dce0:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f18dce4:	03e00008 */ 	jr	$ra
-/*  f18dce8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+char *mpGetPresetNameBySlot(s32 slot)
+{
+	s32 i;
+
+	for (i = 0; i != 14; i++) {
+		if (mpIsPresetUnlocked(i)) {
+			if (slot == 0) {
+				return langGet(g_MpPresets[i].name);
+			}
+
+			slot--;
+		}
+	}
+
+	return "";
+}
+
+const char var7f1b8c40[] = "bot %d headId %d bodyId %d\n";
+const char var7f1b8c5c[] = "team change %s %d\n";
+const char var7f1b8c70[] = "mplayer.c";
+const char var7f1b8c7c[] = "team change %s %d\n";
+const char var7f1b8c90[] = "mplayer.c";
+const char var7f1b8c9c[] = "SaveMultiGameFile : PakId=0x%x, FileId=0x%x\n";
+const char var7f1b8ccc[] = "SaveGame Result: %d   New GUID: %x\n";
+const char var7f1b8cf0[] = "LoadMultiGameFile : PakId=0x%x, FileId=0x%x\n";
+const char var7f1b8d20[] = "LoadGame Result: %d\n";
+const char var7f1b8d38[] = "GBCHead: Call to create head for slot %d (gbcheadobjs[slotno]=%x)\n";
 
 GLOBAL_ASM(
 glabel func0f18dcec
