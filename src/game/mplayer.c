@@ -5528,20 +5528,14 @@ glabel func0f18c38c
 /*  f18c3e0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18c3e4
-/*  f18c3e4:	3c03800b */ 	lui	$v1,%hi(g_MpSetup+0x28)
-/*  f18c3e8:	3c04800b */ 	lui	$a0,%hi(g_MpSetup+0x2e)
-/*  f18c3ec:	2484cbb6 */ 	addiu	$a0,$a0,%lo(g_MpSetup+0x2e)
-/*  f18c3f0:	2463cbb0 */ 	addiu	$v1,$v1,%lo(g_MpSetup+0x28)
-/*  f18c3f4:	240200ff */ 	addiu	$v0,$zero,0xff
-.L0f18c3f8:
-/*  f18c3f8:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f18c3fc:	1464fffe */ 	bne	$v1,$a0,.L0f18c3f8
-/*  f18c400:	a0620064 */ 	sb	$v0,0x64($v1)
-/*  f18c404:	03e00008 */ 	jr	$ra
-/*  f18c408:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f18c3e4(void)
+{
+	s32 i;
+
+	for (i = 0; i != 6; i++) {
+		g_MpSetupSaveFile.unk8d[i] = -1;
+	}
+}
 
 void func0f18c40c(void)
 {
