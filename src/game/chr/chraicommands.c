@@ -62,72 +62,6 @@
 #include "lib/lib_4ae00.h"
 #include "types.h"
 
-const char var7f1a9450[] = " (%d)\n";
-const char var7f1a9458[] = " (%d)\n";
-const char var7f1a9460[] = "set shot list(void) doesn't work for g_Vars.CommandInfo.truck!\n";
-const char var7f1a94a0[] = "set shot list(void) doesn't work for g_Vars.CommandInfo.heli!\n";
-const char var7f1a94e0[] = "set shot list(void) doesn't work for g_Vars.CommandInfo.hovercar!\n";
-const char var7f1a9524[] = "BOND IN ROOM \n";
-const char var7f1a9534[] = "bond not in room \n";
-const char var7f1a9548[] = "aTimer%s%s: %f\n";
-const char var7f1a9558[] = "";
-const char var7f1a955c[] = "";
-const char var7f1a9560[] = "bTimer:%s%s %f\n";
-const char var7f1a9570[] = "";
-const char var7f1a9574[] = "";
-const char var7f1a9578[] = "ai_ifbondintank: tank code has been removed.\n";
-const char var7f1a95a8[] = "AI_BONDENABLECONTROL\n";
-const char var7f1a95c0[] = "ai(void) enery tune on (%d, %d, %d)\n";
-const char var7f1a95e8[] = "ai(void) enery tune off (%d)\n";
-const char var7f1a9608[] = "%s%sAI_PRINT(void) height = %f ptop =  %f \n\n";
-const char var7f1a9638[] = "";
-const char var7f1a963c[] = "";
-const char var7f1a9640[] = "Preset character = %d, my target = %d \n";
-const char var7f1a9668[] = "characters target is %d \n";
-const char var7f1a9684[] = "(DGD)chrai.c(void) aiIfChrsTargetIsChr does not support CHR_BOND as chr1!\n";
-const char var7f1a96d0[] = "(DGD)chrai.c(void) aiIfChrsTargetIsChr does not support CHR_BOND as chr1!\n";
-const char var7f1a971c[] = "DGD(void) (chrai.c) WARNING! attempt to use invalid CHR_PRESET1 - defaulting to JO\n";
-const char var7f1a9770[] = "RISK CHECK = %d \n";
-const char var7f1a9784[] = "aiIfOpportunityFireJumpF() called with no botdata!\n";
-const char var7f1a97b8[] = "TARGET %d PASSED THE DISTANCE 2 TESTS \n";
-const char var7f1a97e0[] = "%d I NOTICE THE TARGET %d\n";
-const char var7f1a97fc[] = "%d I NOTICE THE TARGET %d\n";
-const char var7f1a9818[] = "%d OPPORTUNITY FIRE A CHARACTER = %d \n";
-const char var7f1a9840[] = "%d  CANNOT OPPORTUNITY FIRE A TARGET \n";
-const char var7f1a9868[] = " RISK CHECK = %d \n";
-const char var7f1a987c[] = "dist = %d \n";
-const char var7f1a9888[] = "USING VOICE NUMBER %d \n";
-const char var7f1a98a0[] = "SETORDERS COMMAND  \n";
-const char var7f1a98b8[] = "SQUADRON MEMBER CHR NUMBER = %d \n";
-const char var7f1a98dc[] = "DOING DIST CHECK \n";
-const char var7f1a98f0[] = "%d SYNCHED WITH A CHARACTER %d \n";
-const char var7f1a9914[] = "synched = %d \n";
-const char var7f1a9924[] = "LEADER'S GOING TO COVER \n";
-const char var7f1a9940[] = "LEADER IS BREAKING COVER \n";
-const char var7f1a995c[] = " I AM SAFE TO BREAK COVER \n";
-const char var7f1a9978[] = "not safe to break cover \n";
-const char var7f1a9994[] = "LEADER IS COVER SEEN \n";
-const char var7f1a99ac[] = "LEADER IS FLANKING LEFT \n";
-const char var7f1a99c8[] = "LEADER IS FLANKING RIGHT \n";
-const char var7f1a99e4[] = "LEADER IS DODGING \n";
-const char var7f1a99f8[] = "LEADER IS THROWING GRENADE \n";
-const char var7f1a9a18[] = "LEADER HAS SEEN FROM WAIT \n";
-const char var7f1a9a34[] = "UNKNOWN LEADER ACTION \n";
-const char var7f1a9a4c[] = "ORDERS CARRIED OUT  ";
-const char var7f1a9a64[] = "WITHDRAWING!!!!!!!!!!!\n";
-const char var7f1a9a7c[] = "CHECKING MY ORDERS  ";
-const char var7f1a9a94[] = "ACTING ON MY ORDERS  ";
-const char var7f1a9aac[] = "DOING DIST CHECK VS CHAR %d\n";
-const char var7f1a9acc[] = "I'm just carrying out my ORDERS \n";
-const char var7f1a9af0[] = "SQUAD IS DOING THAT ACTION\n";
-const char var7f1a9b0c[] = "SQUAD NOT DOING ACTION\n";
-const char var7f1a9b24[] = "g_Vars.CommandInfo.chrdata ->soundtimer = %d, g_Vars.CommandInfo.chrdata->talkgap = %d , soundgap = %d\n";
-const char var7f1a9b8c[] = "RESETTING THE LISTENING \n";
-const char var7f1a9ba8[] = "couldn't go to cover from danger !\n";
-const char var7f1a9bcc[] = "couldn't find cover from danger !\n";
-const char var7f1a9bf0[] = "Randnum = %d,    Alarmrandnum = %d \n";
-const char var7f1a9c18[] = "IVE FOUND MY PAD %d \n";
-
 /**
  * @cmd 0000
  */
@@ -135,6 +69,8 @@ bool aiGoToNext(void)
 {
 	u8 *buffer = g_Vars.ailist + g_Vars.aioffset;
 	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, buffer[2]);
+	osSyncPrintf(" (%d)\n", g_Vars.aioffset);
+
 	return false;
 }
 
@@ -145,6 +81,8 @@ bool aiGoToFirst(void)
 {
 	u8 *buffer = g_Vars.ailist + g_Vars.aioffset;
 	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, 0, buffer[2]);
+	osSyncPrintf(" (%d)\n", g_Vars.aioffset);
+
 	return false;
 }
 
@@ -245,43 +183,86 @@ bool aiSetReturnList(void)
 /**
  * @cmd 0007
  */
-GLOBAL_ASM(
-glabel aiSetShotList
-/*  f04de88:	3c06800a */ 	lui	$a2,%hi(g_Vars)
-/*  f04de8c:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)
-/*  f04de90:	8cc30438 */ 	lw	$v1,0x438($a2)
-/*  f04de94:	8cce0434 */ 	lw	$t6,0x434($a2)
-/*  f04de98:	8cc50424 */ 	lw	$a1,0x424($a2)
-/*  f04de9c:	01c31021 */ 	addu	$v0,$t6,$v1
-/*  f04dea0:	904f0002 */ 	lbu	$t7,0x2($v0)
-/*  f04dea4:	90590003 */ 	lbu	$t9,0x3($v0)
-/*  f04dea8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f04deac:	000fc200 */ 	sll	$t8,$t7,0x8
-/*  f04deb0:	03192025 */ 	or	$a0,$t8,$t9
-/*  f04deb4:	10a00004 */ 	beqz	$a1,.L0f04dec8
-/*  f04deb8:	3088ffff */ 	andi	$t0,$a0,0xffff
-/*  f04debc:	a4a80110 */ 	sh	$t0,0x110($a1)
-/*  f04dec0:	10000001 */ 	beqz	$zero,.L0f04dec8
-/*  f04dec4:	8cc30438 */ 	lw	$v1,0x438($a2)
-.L0f04dec8:
-/*  f04dec8:	246a0004 */ 	addiu	$t2,$v1,0x4
-/*  f04decc:	03e00008 */ 	jr	$ra
-/*  f04ded0:	acca0438 */ 	sw	$t2,0x438($a2)
-);
+bool aiSetShotList(void)
+{
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	u16 ailistid = cmd[3] | (cmd[2] << 8);
 
-//bool aiSetShotList(void)
-//{
-//	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-//	u16 ailistid = cmd[3] | (cmd[2] << 8);
-//
-//	if (g_Vars.chrdata) {
-//		g_Vars.chrdata->aishotlist = ailistid;
-//	}
-//
-//	g_Vars.aioffset += 4;
-//
-//	return false;
-//}
+	if (g_Vars.chrdata) {
+		g_Vars.chrdata->aishotlist = ailistid;
+	} else if (g_Vars.truck) {
+		osSyncPrintf("set shot list(void) doesn't work for g_Vars.CommandInfo.truck!\n");
+	} else if (g_Vars.heli) {
+		osSyncPrintf("set shot list(void) doesn't work for g_Vars.CommandInfo.heli!\n");
+	} else if (g_Vars.hovercar) {
+		osSyncPrintf("set shot list(void) doesn't work for g_Vars.CommandInfo.hovercar!\n");
+	}
+
+	g_Vars.aioffset += 4;
+
+	return false;
+}
+
+const char var7f1a9524[] = "BOND IN ROOM \n";
+const char var7f1a9534[] = "bond not in room \n";
+const char var7f1a9548[] = "aTimer%s%s: %f\n";
+const char var7f1a9558[] = "";
+const char var7f1a955c[] = "";
+const char var7f1a9560[] = "bTimer:%s%s %f\n";
+const char var7f1a9570[] = "";
+const char var7f1a9574[] = "";
+const char var7f1a9578[] = "ai_ifbondintank: tank code has been removed.\n";
+const char var7f1a95a8[] = "AI_BONDENABLECONTROL\n";
+const char var7f1a95c0[] = "ai(void) enery tune on (%d, %d, %d)\n";
+const char var7f1a95e8[] = "ai(void) enery tune off (%d)\n";
+const char var7f1a9608[] = "%s%sAI_PRINT(void) height = %f ptop =  %f \n\n";
+const char var7f1a9638[] = "";
+const char var7f1a963c[] = "";
+const char var7f1a9640[] = "Preset character = %d, my target = %d \n";
+const char var7f1a9668[] = "characters target is %d \n";
+const char var7f1a9684[] = "(DGD)chrai.c(void) aiIfChrsTargetIsChr does not support CHR_BOND as chr1!\n";
+const char var7f1a96d0[] = "(DGD)chrai.c(void) aiIfChrsTargetIsChr does not support CHR_BOND as chr1!\n";
+const char var7f1a971c[] = "DGD(void) (chrai.c) WARNING! attempt to use invalid CHR_PRESET1 - defaulting to JO\n";
+const char var7f1a9770[] = "RISK CHECK = %d \n";
+const char var7f1a9784[] = "aiIfOpportunityFireJumpF() called with no botdata!\n";
+const char var7f1a97b8[] = "TARGET %d PASSED THE DISTANCE 2 TESTS \n";
+const char var7f1a97e0[] = "%d I NOTICE THE TARGET %d\n";
+const char var7f1a97fc[] = "%d I NOTICE THE TARGET %d\n";
+const char var7f1a9818[] = "%d OPPORTUNITY FIRE A CHARACTER = %d \n";
+const char var7f1a9840[] = "%d  CANNOT OPPORTUNITY FIRE A TARGET \n";
+const char var7f1a9868[] = " RISK CHECK = %d \n";
+const char var7f1a987c[] = "dist = %d \n";
+const char var7f1a9888[] = "USING VOICE NUMBER %d \n";
+const char var7f1a98a0[] = "SETORDERS COMMAND  \n";
+const char var7f1a98b8[] = "SQUADRON MEMBER CHR NUMBER = %d \n";
+const char var7f1a98dc[] = "DOING DIST CHECK \n";
+const char var7f1a98f0[] = "%d SYNCHED WITH A CHARACTER %d \n";
+const char var7f1a9914[] = "synched = %d \n";
+const char var7f1a9924[] = "LEADER'S GOING TO COVER \n";
+const char var7f1a9940[] = "LEADER IS BREAKING COVER \n";
+const char var7f1a995c[] = " I AM SAFE TO BREAK COVER \n";
+const char var7f1a9978[] = "not safe to break cover \n";
+const char var7f1a9994[] = "LEADER IS COVER SEEN \n";
+const char var7f1a99ac[] = "LEADER IS FLANKING LEFT \n";
+const char var7f1a99c8[] = "LEADER IS FLANKING RIGHT \n";
+const char var7f1a99e4[] = "LEADER IS DODGING \n";
+const char var7f1a99f8[] = "LEADER IS THROWING GRENADE \n";
+const char var7f1a9a18[] = "LEADER HAS SEEN FROM WAIT \n";
+const char var7f1a9a34[] = "UNKNOWN LEADER ACTION \n";
+const char var7f1a9a4c[] = "ORDERS CARRIED OUT  ";
+const char var7f1a9a64[] = "WITHDRAWING!!!!!!!!!!!\n";
+const char var7f1a9a7c[] = "CHECKING MY ORDERS  ";
+const char var7f1a9a94[] = "ACTING ON MY ORDERS  ";
+const char var7f1a9aac[] = "DOING DIST CHECK VS CHAR %d\n";
+const char var7f1a9acc[] = "I'm just carrying out my ORDERS \n";
+const char var7f1a9af0[] = "SQUAD IS DOING THAT ACTION\n";
+const char var7f1a9b0c[] = "SQUAD NOT DOING ACTION\n";
+const char var7f1a9b24[] = "g_Vars.CommandInfo.chrdata ->soundtimer = %d, g_Vars.CommandInfo.chrdata->talkgap = %d , soundgap = %d\n";
+const char var7f1a9b8c[] = "RESETTING THE LISTENING \n";
+const char var7f1a9ba8[] = "couldn't go to cover from danger !\n";
+const char var7f1a9bcc[] = "couldn't find cover from danger !\n";
+const char var7f1a9bf0[] = "Randnum = %d,    Alarmrandnum = %d \n";
+const char var7f1a9c18[] = "IVE FOUND MY PAD %d \n";
 
 /**
  * @cmd 01c1
