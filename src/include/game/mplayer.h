@@ -74,7 +74,7 @@ u32 func0f18c2b0(void);
 u32 func0f18c304(void);
 u32 func0f18c38c(void);
 void func0f18c3e4(void);
-u32 func0f18c40c(void);
+void func0f18c40c(void);
 void func0f18c430(void);
 void mpSetTrackToRandom(void);
 s32 mpGetCurrentTrackSlotNum(void);
