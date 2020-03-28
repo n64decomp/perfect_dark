@@ -642,17 +642,12 @@ glabel func0f187fbc
 /*  f187fe8:	a458001c */ 	sh	$t8,0x1c($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f187fec
-/*  f187fec:	3c02800b */ 	lui	$v0,%hi(g_MpSetup)
-/*  f187ff0:	2442cb88 */ 	addiu	$v0,$v0,%lo(g_MpSetup)
-/*  f187ff4:	24030009 */ 	addiu	$v1,$zero,0x9
-/*  f187ff8:	240e0013 */ 	addiu	$t6,$zero,0x13
-/*  f187ffc:	a0430012 */ 	sb	$v1,0x12($v0)
-/*  f188000:	a0430013 */ 	sb	$v1,0x13($v0)
-/*  f188004:	03e00008 */ 	jr	$ra
-/*  f188008:	a44e0014 */ 	sh	$t6,0x14($v0)
-);
+void func0f187fec(void)
+{
+	g_MpSetup.timelimit = 9;
+	g_MpSetup.scorelimit = 9;
+	g_MpSetup.teamscorelimit = 19;
+}
 
 GLOBAL_ASM(
 glabel func0f18800c
