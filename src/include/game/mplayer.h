@@ -11,7 +11,7 @@ void func0f187e70(void);
 void func0f187fbc(s32 playernum);
 void func0f187fec(void);
 u32 func0f18800c(void);
-u32 func0f1881d4(void);
+void func0f1881d4(s32 index);
 u32 func0f188210(void);
 void func0f18836c(void);
 u32 func0f18844c(void);

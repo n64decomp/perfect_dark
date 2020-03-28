@@ -769,24 +769,14 @@ glabel func0f18800c
 /*  f1881d0:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f1881d4
-/*  f1881d4:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f1881d8:	01c47021 */ 	addu	$t6,$t6,$a0
-/*  f1881dc:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f1881e0:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f1881e4:	3c0f800b */ 	lui	$t7,%hi(g_MpSimulants)
-/*  f1881e8:	25efc538 */ 	addiu	$t7,$t7,%lo(g_MpSimulants)
-/*  f1881ec:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f1881f0:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f1881f4:	24180006 */ 	addiu	$t8,$zero,0x6
-/*  f1881f8:	a0400000 */ 	sb	$zero,0x0($v0)
-/*  f1881fc:	a040000f */ 	sb	$zero,0xf($v0)
-/*  f188200:	a0400010 */ 	sb	$zero,0x10($v0)
-/*  f188204:	a0400047 */ 	sb	$zero,0x47($v0)
-/*  f188208:	03e00008 */ 	jr	$ra
-/*  f18820c:	a0580048 */ 	sb	$t8,0x48($v0)
-);
+void func0f1881d4(s32 index)
+{
+	g_MpSimulants[index].base.name[0] = '\0';
+	g_MpSimulants[index].base.headnum = 0;
+	g_MpSimulants[index].base.bodynum = 0;
+	g_MpSimulants[index].base.simtype = SIMTYPE_GENERAL;
+	g_MpSimulants[index].unk48 = 6;
+}
 
 GLOBAL_ASM(
 glabel func0f188210
@@ -6147,7 +6137,7 @@ void mpRemoveSimulant(s32 index)
 {
 	g_MpSetup.chrslots &= ~(1 << (index + 4));
 	g_MpSimulants[index].base.name[0] = '\0';
-	func0f1881d4();
+	func0f1881d4(index);
 	func0f18cddc();
 }
 
