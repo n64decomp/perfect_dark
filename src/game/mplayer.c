@@ -5557,28 +5557,14 @@ glabel func0f18c40c
 /*  f18c42c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18c430
-/*  f18c430:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f18c434:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f18c438:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f18c43c:	3c10800b */ 	lui	$s0,%hi(g_MpSetup+0x28)
-/*  f18c440:	3c11800b */ 	lui	$s1,%hi(g_MpSetup+0x2e)
-/*  f18c444:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f18c448:	2631cbb6 */ 	addiu	$s1,$s1,%lo(g_MpSetup+0x2e)
-/*  f18c44c:	2610cbb0 */ 	addiu	$s0,$s0,%lo(g_MpSetup+0x28)
-.L0f18c450:
-/*  f18c450:	0c004b70 */ 	jal	random
-/*  f18c454:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18c458:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f18c45c:	1611fffc */ 	bne	$s0,$s1,.L0f18c450
-/*  f18c460:	a2020064 */ 	sb	$v0,0x64($s0)
-/*  f18c464:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f18c468:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f18c46c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f18c470:	03e00008 */ 	jr	$ra
-/*  f18c474:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+void func0f18c430(void)
+{
+	s32 i;
+
+	for (i = 0; i != 6; i++) {
+		g_MpSetupSaveFile.unk8d[i] = random();
+	}
+}
 
 void mpSetTrackToRandom(void)
 {

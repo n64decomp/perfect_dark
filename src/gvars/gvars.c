@@ -25684,7 +25684,6 @@ struct mpplayer g_MpPlayers[6] = {0};
 u8 g_ActiveMenuMpBotCommands[16] = {0};
 struct mpsetup g_MpSetup = {0};
 struct savefile_setup g_MpSetupSaveFile = {0};
-u32 var800acc18 = 0;
 u32 var800acc1c = 0;
 s8 g_MpLockPlayerNum = 0;
 u32 var800acc24 = 0;

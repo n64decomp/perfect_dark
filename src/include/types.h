@@ -4159,12 +4159,13 @@ struct mpsetup {
 };
 
 struct savefile_setup {
-	/*0x800acbb0*/ char teamnames[8][12];
-	/*0x800acc10*/ u8 locktype;
-	/*0x800acc11*/ u8 unk89;
-	/*0x800acc12*/ u8 usingmultipletunes;
-	/*0x800acc13*/ u8 unk8b;
-	/*0x800acc14*/ s8 tracknum; // -1 = random
+	/*0x00*/ char teamnames[8][12];
+	/*0x60*/ u8 locktype;
+	/*0x61*/ u8 unk89;
+	/*0x62*/ u8 usingmultipletunes;
+	/*0x63*/ u8 unk8b;
+	/*0x64*/ s8 tracknum; // -1 = random
+	/*0x8d*/ u8 unk8d[5];
 };
 
 struct mpscenario {
