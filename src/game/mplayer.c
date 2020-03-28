@@ -5580,13 +5580,10 @@ glabel func0f18c430
 /*  f18c474:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
 
-GLOBAL_ASM(
-glabel func0f18c478
-/*  f18c478:	240effff */ 	addiu	$t6,$zero,-1
-/*  f18c47c:	3c01800b */ 	lui	$at,%hi(g_MpSetupSaveFile+0x64)
-/*  f18c480:	03e00008 */ 	jr	$ra
-/*  f18c484:	a02ecc14 */ 	sb	$t6,%lo(g_MpSetupSaveFile+0x64)($at)
-);
+void func0f18c478(void)
+{
+	g_MpSetupSaveFile.unk8c = -1;
+}
 
 GLOBAL_ASM(
 glabel mpGetTrackNum
