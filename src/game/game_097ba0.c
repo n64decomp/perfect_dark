@@ -21658,16 +21658,10 @@ glabel currentPlayerGetAmmoCount
 /*  f0a98f0:	00601025 */ 	or	$v0,$v1,$zero
 );
 
-GLOBAL_ASM(
-glabel ammotypeGetMaxCapacity
-/*  f0a98f4:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f0a98f8:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f0a98fc:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0a9900:	3c028007 */ 	lui	$v0,%hi(g_AmmoTypes)
-/*  f0a9904:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f0a9908:	03e00008 */ 	jr	$ra
-/*  f0a990c:	8c420368 */ 	lw	$v0,%lo(g_AmmoTypes)($v0)
-);
+u32 ammotypeGetMaxCapacity(u32 ammotype)
+{
+	return g_AmmoTypes[ammotype].capacity;
+}
 
 bool ammotypeAllowsUnlimitedAmmo(u32 ammotype)
 {
