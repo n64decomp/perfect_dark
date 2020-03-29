@@ -1914,7 +1914,12 @@ struct player {
 	/*0x0cf0*/ struct coord unk0cf0;
 	/*0x0cfc*/ struct coord unk0cfc;
 	/*0x0d08*/ u32 unk0d08;
-	/*0x0d0c*/ u32 unk0d0c;
+	/*0x0d0c*/ u8 unk0d0c;
+	/*0x0d0e*/ u8 unk0d0d;
+	/*0x0d0d*/ u8 unk0d0e;
+	/*0x0d0f*/ u8 unk0d0f_00 : 3;
+	/*0x0d0f*/ u8 unk0d0f_03 : 1;
+	/*0x0d0f*/ u8 unk0d0f_04 : 4;
 	/*0x0d10*/ u32 unk0d10;
 	/*0x0d14*/ u32 unk0d14;
 	/*0x0d18*/ u32 unk0d18;
@@ -2450,7 +2455,13 @@ struct player {
 	/*0x1580*/ s8 unk1580;
 	/*0x1581*/ u8 unk1581;
 	/*0x1582*/ u8 unk1582;
-	/*0x1583*/ u8 unk1583_00 : 7;
+	/*0x1583*/ u8 unk1583_00 : 1;
+	/*0x1583*/ u8 unk1583_01 : 1;
+	/*0x1583*/ u8 unk1583_02 : 1;
+	/*0x1583*/ u8 unk1583_03 : 1;
+	/*0x1583*/ u8 unk1583_04 : 1;
+	/*0x1583*/ u8 unk1583_05 : 1;
+	/*0x1583*/ u8 unk1583_06 : 1;
 	/*0x1583*/ u8 unk1583_07 : 1;
 	/*0x1584*/ u32 unk1584;
 	/*0x1588*/ u32 unk1588;

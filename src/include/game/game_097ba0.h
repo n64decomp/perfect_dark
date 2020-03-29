@@ -141,7 +141,7 @@ u32 func0f0a8404(void);
 u32 func0f0a84c8(void);
 u32 func0f0a8910(void);
 u32 func0f0a895c(void);
-u32 func0f0a8c50(void);
+void func0f0a8c50(void);
 u32 func0f0a8c7c(void);
 u32 func0f0a8d34(void);
 void func0f0a92ac(u32 arg0);

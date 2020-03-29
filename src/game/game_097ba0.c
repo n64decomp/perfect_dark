@@ -20651,21 +20651,12 @@ glabel var7f1acb14
 /*  f0a8c4c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0a8c50
-/*  f0a8c50:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a8c54:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0a8c58:	8c4e0d0c */ 	lw	$t6,0xd0c($v0)
-/*  f0a8c5c:	000ec6c0 */ 	sll	$t8,$t6,0x1b
-/*  f0a8c60:	07000004 */ 	bltz	$t8,.L0f0a8c74
-/*  f0a8c64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a8c68:	90591583 */ 	lbu	$t9,0x1583($v0)
-/*  f0a8c6c:	3328ffdf */ 	andi	$t0,$t9,0xffdf
-/*  f0a8c70:	a0481583 */ 	sb	$t0,0x1583($v0)
-.L0f0a8c74:
-/*  f0a8c74:	03e00008 */ 	jr	$ra
-/*  f0a8c78:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0a8c50(void)
+{
+	if (g_Vars.currentplayer->unk0d0f_03 == 0) {
+		g_Vars.currentplayer->unk1583_02 = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0a8c7c
