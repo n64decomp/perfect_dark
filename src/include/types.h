@@ -1828,9 +1828,7 @@ struct player {
 	/*0x0b88*/ u32 unk0b88;
 	/*0x0b8c*/ u32 unk0b8c;
 	/*0x0b90*/ u32 unk0b90;
-	/*0x0b94*/ u32 unk0b94;
-	/*0x0b98*/ u32 unk0b98;
-	/*0x0b9c*/ u32 unk0b9c;
+	/*0x0b94*/ struct coord unk0b94;
 	/*0x0ba0*/ u32 unk0ba0;
 	/*0x0ba4*/ u32 unk0ba4;
 	/*0x0ba8*/ u32 unk0ba8;
@@ -2313,9 +2311,7 @@ struct player {
 	/*0x132c*/ u32 unk132c;
 	/*0x1330*/ u32 unk1330;
 	/*0x1334*/ u32 unk1334;
-	/*0x1338*/ u32 unk1338;
-	/*0x133c*/ u32 unk133c;
-	/*0x1340*/ u32 unk1340;
+	/*0x1338*/ struct coord unk1338;
 	/*0x1344*/ u32 unk1344;
 	/*0x1348*/ u32 unk1348;
 	/*0x134c*/ u32 unk134c;

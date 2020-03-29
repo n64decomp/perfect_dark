@@ -21309,21 +21309,14 @@ glabel func0f0a93e0
 /*  f0a9460:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0a9464
-/*  f0a9464:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a9468:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0a946c:	c4800000 */ 	lwc1	$f0,0x0($a0)
-/*  f0a9470:	e4400b94 */ 	swc1	$f0,0xb94($v0)
-/*  f0a9474:	e4401338 */ 	swc1	$f0,0x1338($v0)
-/*  f0a9478:	c4800004 */ 	lwc1	$f0,0x4($a0)
-/*  f0a947c:	e4400b98 */ 	swc1	$f0,0xb98($v0)
-/*  f0a9480:	e440133c */ 	swc1	$f0,0x133c($v0)
-/*  f0a9484:	c4800008 */ 	lwc1	$f0,0x8($a0)
-/*  f0a9488:	e4400b9c */ 	swc1	$f0,0xb9c($v0)
-/*  f0a948c:	03e00008 */ 	jr	$ra
-/*  f0a9490:	e4401340 */ 	swc1	$f0,0x1340($v0)
-);
+void func0f0a9464(struct coord *coord)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	player->unk1338.x = player->unk0b94.x = coord->x;
+	player->unk1338.y = player->unk0b94.y = coord->y;
+	player->unk1338.z = player->unk0b94.z = coord->z;
+}
 
 void func0f0a9494(u32 operation)
 {
