@@ -37458,49 +37458,24 @@ glabel func0f085eac
 /*  f086914:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel propobjGetCiTagId
-/*  f086918:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f08691c:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f086920:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f086924:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f086928:	10800018 */ 	beqz	$a0,.L0f08698c
-/*  f08692c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f086930:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x4b4)
-/*  f086934:	8dcea474 */ 	lw	$t6,%lo(g_Vars+0x4b4)($t6)
-/*  f086938:	24010026 */ 	addiu	$at,$zero,0x26
-/*  f08693c:	27af0038 */ 	addiu	$t7,$sp,0x38
-/*  f086940:	15c10012 */ 	bne	$t6,$at,.L0f08698c
-/*  f086944:	3c188007 */ 	lui	$t8,%hi(var8006ac64)
-/*  f086948:	2718ac64 */ 	addiu	$t8,$t8,%lo(var8006ac64)
-/*  f08694c:	8f010000 */ 	lw	$at,0x0($t8)
-/*  f086950:	8f080004 */ 	lw	$t0,0x4($t8)
-/*  f086954:	27b00038 */ 	addiu	$s0,$sp,0x38
-/*  f086958:	ade10000 */ 	sw	$at,0x0($t7)
-/*  f08695c:	ade80004 */ 	sw	$t0,0x4($t7)
-/*  f086960:	8c910004 */ 	lw	$s1,0x4($a0)
-/*  f086964:	27b20040 */ 	addiu	$s2,$sp,0x40
-.L0f086968:
-/*  f086968:	0fc2556c */ 	jal	objFindByTagId
-/*  f08696c:	92040000 */ 	lbu	$a0,0x0($s0)
-/*  f086970:	56220004 */ 	bnel	$s1,$v0,.L0f086984
-/*  f086974:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f086978:	10000005 */ 	beqz	$zero,.L0f086990
-/*  f08697c:	92020000 */ 	lbu	$v0,0x0($s0)
-/*  f086980:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f086984:
-/*  f086984:	1612fff8 */ 	bne	$s0,$s2,.L0f086968
-/*  f086988:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f08698c:
-/*  f08698c:	00001025 */ 	or	$v0,$zero,$zero
-.L0f086990:
-/*  f086990:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f086994:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f086998:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f08699c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0869a0:	03e00008 */ 	jr	$ra
-/*  f0869a4:	27bd0040 */ 	addiu	$sp,$sp,0x40
-);
+u32 propobjGetCiTagId(struct prop *prop)
+{
+	if (prop && g_Vars.stagenum == STAGE_CITRAINING) {
+		u8 tags[8] = g_CiTaggedTerminals;
+		struct defaultobj *obj = prop->obj;
+		u32 i;
+
+		for (i = 0; i != 8; i++) {
+			struct defaultobj *taggedobj = objFindByTagId(tags[i]);
+
+			if (obj == taggedobj) {
+				return tags[i];
+			}
+		}
+	}
+
+	return 0;
+}
 
 bool objIsHealthy(struct defaultobj *obj)
 {

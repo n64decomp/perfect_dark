@@ -127,7 +127,7 @@ extern u32 var8006abe4;
 extern u32 var8006abf0;
 extern u32 var8006abfc;
 extern u32 var8006ac08;
-extern u32 var8006ac64;
+extern u8 g_CiTaggedTerminals[8];
 extern u32 var8006ac6c;
 extern u32 var8006acc8;
 extern u32 var8006ad24;
