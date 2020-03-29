@@ -21325,26 +21325,16 @@ glabel func0f0a9464
 /*  f0a9490:	e4401340 */ 	swc1	$f0,0x1340($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f0a9494
-/*  f0a9494:	10800006 */ 	beqz	$a0,.L0f0a94b0
-/*  f0a9498:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0a949c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0a94a0:	10810009 */ 	beq	$a0,$at,.L0f0a94c8
-/*  f0a94a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a94a8:	03e00008 */ 	jr	$ra
-/*  f0a94ac:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0a94b0:
-/*  f0a94b0:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0a94b4:	8c6e0284 */ 	lw	$t6,0x284($v1)
-/*  f0a94b8:	adc00cec */ 	sw	$zero,0xcec($t6)
-/*  f0a94bc:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0a94c0:	8c4f0cec */ 	lw	$t7,0xcec($v0)
-/*  f0a94c4:	ac4f1490 */ 	sw	$t7,0x1490($v0)
-.L0f0a94c8:
-/*  f0a94c8:	03e00008 */ 	jr	$ra
-/*  f0a94cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0a9494(u32 operation)
+{
+	switch (operation) {
+	case 0:
+		g_Vars.currentplayer->unk1490 = g_Vars.currentplayer->unk0cec = false;
+		break;
+	case 1:
+		break;
+	}
+}
 
 void func0f0a94d0(u32 operation, struct coord *a, struct coord *b)
 {
