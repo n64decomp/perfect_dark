@@ -150,8 +150,6 @@ struct weaponfunc_shootsingle invfunc_00011160 = {
 
 // 111a0
 struct inventory_ammo invammo_default = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -568,8 +566,6 @@ struct weaponfunc_close invfunc_falcon2_pistolwhip = {
 
 // 11720
 struct inventory_ammo invammo_falcon2 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
@@ -579,8 +575,6 @@ struct inventory_ammo invammo_falcon2 = {
 
 // 11734
 struct inventory_ammo invammo_falcon2scope = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
@@ -792,8 +786,6 @@ struct weaponfunc_shootsingle invfunc_magsec_burst = {
 
 // 11a10
 struct inventory_ammo invammo_magsec = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	9, // clip size
@@ -1000,8 +992,6 @@ struct weaponfunc_close invfunc_dy357_pistolwhip = {
 
 // 11d48
 struct inventory_ammo invammo_dy357 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_MAGNUM,
 	CASING_STANDARD,
 	6, // clip size
@@ -1160,8 +1150,6 @@ struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
 
 // 11f40
 struct inventory_ammo invammo_phoenix = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_PISTOL,
 	CASING_NONE,
 	8, // clip size
@@ -1313,8 +1301,6 @@ struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 
 // 1216c
 struct inventory_ammo invammo_mauler = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_PISTOL,
 	CASING_NONE,
 	20, // clip size
@@ -1484,8 +1470,6 @@ struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
 
 // 123d0
 struct inventory_ammo invammo_cmp150 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	32, // clip size
@@ -1623,8 +1607,6 @@ struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
 
 // 1257c
 struct inventory_ammo invammo_cyclone = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_NONE,
 	50, // clip size
@@ -1737,8 +1719,6 @@ struct weaponfunc_special invfunc_rcp120_cloak = {
 
 // 126e0
 struct inventory_ammo invammo_rcp120 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	120, // clip size
@@ -1859,8 +1839,6 @@ struct weaponfunc_shootauto invfunc_callisto_highimpactshells = {
 
 // 12854
 struct inventory_ammo invammo_callisto = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_NONE,
 	32, // clip size
@@ -1970,8 +1948,6 @@ struct weaponfunc_throw invfunc_dragon_selfdestruct = {
 
 // 129a4
 struct inventory_ammo invammo_dragon = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -2134,8 +2110,6 @@ struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
 
 // 12bc8
 struct inventory_ammo invammo_superdragon = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -2145,8 +2119,6 @@ struct inventory_ammo invammo_superdragon = {
 
 // 12bdc
 struct inventory_ammo invammo_superdragon_grenades = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_DEVASTATOR,
 	CASING_NONE,
 	6, // clip size
@@ -2279,8 +2251,6 @@ struct weaponfunc_shootauto invfunc_ar34_usescope = {
 
 // 12d8c
 struct inventory_ammo invammo_ar34 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -2429,8 +2399,6 @@ struct weaponfunc_shootauto invfunc_k7avenger_threatdetector = {
 
 // 12f64
 struct inventory_ammo invammo_k7avenger = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	25, // clip size
@@ -2575,8 +2543,6 @@ struct weaponfunc_throw invfunc_laptopgun_deploy = {
 
 // 13178
 struct inventory_ammo invammo_laptopgun = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_NONE,
 	50, // clip size
@@ -2698,8 +2664,6 @@ struct weaponfunc_shootsingle invfunc_shotgun_double = {
 
 // 132f8
 struct inventory_ammo invammo_shotgun = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SHOTGUN,
 	CASING_SHOTGUN,
 	9, // clip size
@@ -2858,8 +2822,6 @@ struct weaponfunc_close invfunc_reaper_grind = {
 
 // 134fc
 struct inventory_ammo invammo_reaper = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_REAPER,
 	CASING_REAPER,
 	200, // clip size
@@ -3005,8 +2967,6 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
 
 // 136d8
 struct inventory_ammo invammo_rocketlauncher = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_ROCKET,
 	CASING_NONE,
 	1, // clip size
@@ -3121,8 +3081,6 @@ struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
 
 // 1384c
 struct inventory_ammo invammo_slayer = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_ROCKET,
 	CASING_NONE,
 	1, // clip size
@@ -3248,8 +3206,6 @@ struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
 
 // 139fc
 struct inventory_ammo invammo_devastator = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_DEVASTATOR,
 	CASING_NONE,
 	8, // clip size
@@ -3335,8 +3291,6 @@ struct weaponfunc_throw invfunc_timedmine_throw = {
 
 // 13adc
 struct inventory_ammo invammo_timedmine = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_TIMED_MINE,
 	CASING_NONE,
 	1, // clip size
@@ -3439,8 +3393,6 @@ struct weaponfunc_special invfunc_remotemine_detonate = {
 
 // 13bf8
 struct inventory_ammo invammo_remotemine = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_REMOTE_MINE,
 	CASING_NONE,
 	1, // clip size
@@ -3495,8 +3447,6 @@ struct weaponfunc_throw invfunc_proxymine_throw = {
 
 // 13c84
 struct inventory_ammo invammo_proximitymine = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_PROXY_MINE,
 	CASING_NONE,
 	1, // clip size
@@ -3566,8 +3516,6 @@ struct weaponfunc_throw invfunc_ecmmine_throw = {
 
 // 13d44
 struct inventory_ammo invammo_ecmmine = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_ECM_MINE,
 	CASING_NONE,
 	1, // clip size
@@ -3679,8 +3627,6 @@ struct weaponfunc_throw invfunc_grenade_pinball = {
 
 // 13e94
 struct inventory_ammo invammo_grenade = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_GRENADE,
 	CASING_NONE,
 	1, // clip size
@@ -3746,8 +3692,6 @@ struct weaponfunc_throw invfunc_nbomb_proxy = {
 
 // 13f40
 struct inventory_ammo invammo_nbomb = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_NBOMB,
 	CASING_NONE,
 	1, // clip size
@@ -3864,8 +3808,6 @@ struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 
 // 14098
 struct inventory_ammo invammo_farsight = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_FARSIGHT,
 	CASING_NONE,
 	8, // clip size
@@ -4020,8 +3962,6 @@ struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
 
 // 142a8
 struct inventory_ammo invammo_crossbow = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_CROSSBOW,
 	CASING_NONE,
 	5, // clip size
@@ -4157,8 +4097,6 @@ struct weaponfunc_close invfunc_tranquilizer_lethal = {
 
 // 14480
 struct inventory_ammo invammo_tranquilizer = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SEDATIVE,
 	CASING_NONE,
 	8, // clip size
@@ -4198,8 +4136,6 @@ struct weapon invitem_tranquilizer = {
 
 // 144ec
 struct inventory_ammo invammo_psychosisgun = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_PSYCHOSIS,
 	CASING_NONE,
 	8, // clip size
@@ -4335,8 +4271,6 @@ struct weaponfunc_special invfunc_sniperrifle_crouch = {
 
 // 1468c
 struct inventory_ammo invammo_sniperrifle = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	8, // clip size
@@ -4505,8 +4439,6 @@ struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 
 // 14868
 struct inventory_ammo invammo_pp9i = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	7, // clip size
@@ -4571,8 +4503,6 @@ struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 
 // 14924
 struct inventory_ammo invammo_cc13 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
@@ -4635,8 +4565,6 @@ struct weaponfunc_shootauto invfunc_kl01313_shoot = {
 
 // 149dc
 struct inventory_ammo invammo_kl01313 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	20, // clip size
@@ -4699,8 +4627,6 @@ struct weaponfunc_shootauto invfunc_kf7special_shoot = {
 
 // 14a94
 struct inventory_ammo invammo_kf7special = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -4763,8 +4689,6 @@ struct weaponfunc_shootauto invfunc_zzt9mm_shoot = {
 
 // 14b4c
 struct inventory_ammo invammo_zzt9mm = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	32, // clip size
@@ -4827,8 +4751,6 @@ struct weaponfunc_shootauto invfunc_dmc_shoot = {
 
 // 14c04
 struct inventory_ammo invammo_dmc = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	30, // clip size
@@ -4891,8 +4813,6 @@ struct weaponfunc_shootauto invfunc_ar53_shoot = {
 
 // 14cbc
 struct inventory_ammo invammo_ar53 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -4955,8 +4875,6 @@ struct weaponfunc_shootauto invfunc_rcp45_shoot = {
 
 // 14d74
 struct inventory_ammo invammo_rcp45 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	80, // clip size
@@ -5062,8 +4980,6 @@ struct weaponfunc_shootauto invfunc_59_rapidfire = {
 
 // 14ea4
 struct inventory_ammo invammo_59 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_RIFLE,
 	27, // clip size
@@ -5126,8 +5042,6 @@ struct weaponfunc_shootauto invfunc_5a_rapidfire = {
 
 // 14f5c
 struct inventory_ammo invammo_5a = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_SMG,
 	CASING_RIFLE,
 	27, // clip size
@@ -5271,8 +5185,6 @@ struct weaponfunc_throw invfunc_combatknife_throw = {
 
 // 1511c
 struct inventory_ammo invammo_combatknife = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_KNIFE,
 	CASING_NONE,
 	1, // clip size
@@ -5338,8 +5250,6 @@ struct weaponfunc_throw invfunc_targetamplifier_throw = {
 
 // 151c8
 struct inventory_ammo invammo_bug = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_BUG,
 	CASING_NONE,
 	1, // clip size
@@ -5526,8 +5436,6 @@ struct weaponfunc_visual invfunc_cloak_primary = {
 
 // 153d0
 struct inventory_ammo invammo_cloakingdevice = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_CLOAK,
 	CASING_NONE,
 	10, // clip size
@@ -5591,8 +5499,6 @@ struct weaponfunc_special invfunc_combatboost_revert = {
 
 // 15474
 struct inventory_ammo invammo_combatboost = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_BOOST,
 	CASING_NONE,
 	4, // clip size
@@ -6446,8 +6352,6 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
 
 // 15e20
 struct inventory_ammo invammo_rocketlauncher34 = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_ROCKET,
 	CASING_NONE,
 	1, // clip size
@@ -6511,8 +6415,6 @@ struct weaponfunc_shootsingle invfunc_tester_primary = {
 
 // 15ed4
 struct inventory_ammo invammo_tester = {
-	0x0000, // unk00
-	0x00, // unk02
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size

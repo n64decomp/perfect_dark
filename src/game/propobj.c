@@ -38015,7 +38015,7 @@ bool propobjInteract(struct prop *prop)
 				func0f087d10(WEAPON_LAPTOPGUN);
 
 				if (laptop->unka9 > 0 && laptop->unka9 != 255) {
-					func0f0a9ac4(WEAPON_LAPTOPGUN, 0, func0f0a9a74(WEAPON_LAPTOPGUN, 0) + laptop->unka9);
+					currentPlayerGiveAmmoForWeapon(WEAPON_LAPTOPGUN, 0, func0f0a9a74(WEAPON_LAPTOPGUN, 0) + laptop->unka9);
 				}
 			}
 		} else {
@@ -42756,7 +42756,7 @@ glabel var7f1aae98
 /*  f08b554:	00cc3023 */ 	subu	$a2,$a2,$t4
 .L0f08b558:
 /*  f08b558:	2404000e */ 	addiu	$a0,$zero,0xe
-/*  f08b55c:	0fc2a6b1 */ 	jal	func0f0a9ac4
+/*  f08b55c:	0fc2a6b1 */ 	jal	currentPlayerGiveAmmoForWeapon
 /*  f08b560:	00002825 */ 	or	$a1,$zero,$zero
 /*  f08b564:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f08b568:	8fa40030 */ 	lw	$a0,0x30($sp)

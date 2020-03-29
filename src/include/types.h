@@ -2980,9 +2980,7 @@ struct weaponfunc_visual {
 };
 
 struct inventory_ammo {
-	u16 unk00;
-	u8 unk02;
-	u8 type;
+	u32 type;
 	u32 casingeject;
 	u16 clipsize;
 	u32 *reload_animation;
@@ -2997,8 +2995,7 @@ struct weapon {
 	/*0x0c*/ u32 *pritosec_animation;
 	/*0x10*/ u32 *sectopri_animation;
 	/*0x14*/ void *functions[2];
-	/*0x1c*/ struct inventory_ammo *pri_ammo;
-	/*0x20*/ struct inventory_ammo *sec_ammo;
+	/*0x1c*/ struct inventory_ammo *ammos[2];
 	/*0x24*/ struct inventory_typee *eptr;
 	/*0x28*/ f32 sway;
 	/*0x2c*/ f32 leftright;
