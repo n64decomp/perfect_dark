@@ -1255,8 +1255,8 @@ struct player {
 	/*0x0190*/ f32 unk0190;
 	/*0x0194*/ f32 unk0194;
 	/*0x0198*/ f32 unk0198;
-	/*0x019c*/ u32 unk019c;
-	/*0x01a0*/ u32 unk01a0;
+	/*0x019c*/ s32 activatetimelast;
+	/*0x01a0*/ s32 activatetimethis;
 	/*0x01a4*/ struct coord moveinitspeed;
 	/*0x01b0*/ u32 bondmovemode;
 	/*0x01b4*/ f32 gunextraaimx;

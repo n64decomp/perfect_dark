@@ -1714,7 +1714,7 @@ void func0f0ce1ac(void)
 
 void func0f0ce450(void)
 {
-	if (func0f086d60(g_Vars.currentplayer->grabbedprop)) {
+	if (currentPlayerTryMountHoverbike(g_Vars.currentplayer->grabbedprop)) {
 		g_Vars.currentplayer->unk00d0 = 0;
 	} else {
 		g_Vars.currentplayer->unk00d0 = 0;
