@@ -21431,25 +21431,14 @@ glabel var7f1acbb4
 /*  f0a95e8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0a95ec
-/*  f0a95ec:	10a00008 */ 	beqz	$a1,.L0f0a9610
-/*  f0a95f0:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0x36d8)
-/*  f0a95f4:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a95f8:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0a95fc:	00807827 */ 	nor	$t7,$a0,$zero
-/*  f0a9600:	8c4e16d8 */ 	lw	$t6,%lo(g_MenuStack+0x36d8)($v0)
-/*  f0a9604:	01cfc024 */ 	and	$t8,$t6,$t7
-/*  f0a9608:	03e00008 */ 	jr	$ra
-/*  f0a960c:	ac5816d8 */ 	sw	$t8,0x16d8($v0)
-.L0f0a9610:
-/*  f0a9610:	8c42a244 */ 	lw	$v0,-0x5dbc($v0)
-/*  f0a9614:	8c5916d8 */ 	lw	$t9,0x16d8($v0)
-/*  f0a9618:	03244025 */ 	or	$t0,$t9,$a0
-/*  f0a961c:	ac4816d8 */ 	sw	$t0,0x16d8($v0)
-/*  f0a9620:	03e00008 */ 	jr	$ra
-/*  f0a9624:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0a95ec(u32 arg0, bool enable)
+{
+	if (enable) {
+		g_Vars.currentplayer->unk16d8 &= ~arg0;
+	} else {
+		g_Vars.currentplayer->unk16d8 |= arg0;
+	}
+}
 
 GLOBAL_ASM(
 glabel currentPlayerGiveAmmo
