@@ -215,7 +215,7 @@ glabel func0f0d7240
 /*  f0d72b4:	10000018 */ 	beqz	$zero,.L0f0d7318
 /*  f0d72b8:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f0d72bc:
-/*  f0d72bc:	0fc1a1ee */ 	jal	objIsBroken
+/*  f0d72bc:	0fc1a1ee */ 	jal	func0f0687b8
 /*  f0d72c0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0d72c4:	58400014 */ 	blezl	$v0,.L0f0d7318
 /*  f0d72c8:	24020001 */ 	addiu	$v0,$zero,0x1

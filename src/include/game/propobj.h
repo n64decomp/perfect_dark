@@ -62,7 +62,7 @@ u32 func0f068694(void);
 u32 func0f0686e0(void);
 u32 func0f0686f0(void);
 u32 func0f068760(void);
-bool objIsBroken(struct defaultobj *obj);
+u32 func0f0687b8(struct defaultobj *obj);
 u32 func0f0687e4(void);
 u32 func0f0688f4(void);
 u32 func0f06896c(void);

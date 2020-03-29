@@ -1580,6 +1580,7 @@
 // obj->hidden2
 #define OBJH2FLAG_04 0x04
 #define OBJH2FLAG_08 0x08
+#define OBJH2FLAG_40 0x40
 
 #define OBJTYPE_DOOR             0x01
 #define OBJTYPE_DOORSCALE        0x02
