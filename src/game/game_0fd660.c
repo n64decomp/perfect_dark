@@ -1200,7 +1200,7 @@ glabel func0f0fecd4
 
 void activemenuOpen(void)
 {
-	if ((g_Vars.currentplayer->unk1580_s32 & 1) == 0) {
+	if (g_Vars.currentplayer->unk1583_07 == 0) {
 		g_ActiveMenuIndex = g_Vars.currentplayernum;
 		g_Vars.currentplayer->activemenumode = 1;
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;
