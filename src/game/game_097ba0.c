@@ -21272,42 +21272,18 @@ void currentPlayerSetAimType(u32 aimtype)
 	g_Vars.currentplayer->aimtype = aimtype;
 }
 
-GLOBAL_ASM(
-glabel func0f0a93e0
-/*  f0a93e0:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a93e4:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0a93e8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0a93ec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a93f0:	00802825 */ 	or	$a1,$a0,$zero
-/*  f0a93f4:	afa50020 */ 	sw	$a1,0x20($sp)
-/*  f0a93f8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a93fc:	0fc2c4bb */ 	jal	func0f0b12ec
-/*  f0a9400:	afa2001c */ 	sw	$v0,0x1c($sp)
-/*  f0a9404:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f0a9408:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f0a940c:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0a9410:	c4a40000 */ 	lwc1	$f4,0x0($a1)
-/*  f0a9414:	46040180 */ 	add.s	$f6,$f0,$f4
-/*  f0a9418:	e44607f8 */ 	swc1	$f6,0x7f8($v0)
-/*  f0a941c:	c4a80004 */ 	lwc1	$f8,0x4($a1)
-/*  f0a9420:	e44807fc */ 	swc1	$f8,0x7fc($v0)
-/*  f0a9424:	c4aa0008 */ 	lwc1	$f10,0x8($a1)
-/*  f0a9428:	0fc2c4bb */ 	jal	func0f0b12ec
-/*  f0a942c:	e44a0800 */ 	swc1	$f10,0x800($v0)
-/*  f0a9430:	8fa50020 */ 	lw	$a1,0x20($sp)
-/*  f0a9434:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f0a9438:	c4b00000 */ 	lwc1	$f16,0x0($a1)
-/*  f0a943c:	46100480 */ 	add.s	$f18,$f0,$f16
-/*  f0a9440:	e4520f9c */ 	swc1	$f18,0xf9c($v0)
-/*  f0a9444:	c4a40004 */ 	lwc1	$f4,0x4($a1)
-/*  f0a9448:	e4440fa0 */ 	swc1	$f4,0xfa0($v0)
-/*  f0a944c:	c4a60008 */ 	lwc1	$f6,0x8($a1)
-/*  f0a9450:	e4460fa4 */ 	swc1	$f6,0xfa4($v0)
-/*  f0a9454:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a9458:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0a945c:	03e00008 */ 	jr	$ra
-/*  f0a9460:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0a93e0(struct coord *coord)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	player->unk07f8.x = func0f0b12ec(0) + coord->x;
+	player->unk07f8.y = coord->y;
+	player->unk07f8.z = coord->z;
+
+	player->unk0f9c.x = func0f0b12ec(1) + coord->x;
+	player->unk0f9c.y = coord->y;
+	player->unk0f9c.z = coord->z;
+}
 
 void func0f0a9464(struct coord *coord)
 {

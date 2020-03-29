@@ -25,7 +25,7 @@ struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which);
 u32 func0f0b10ec(void);
 u32 func0f0b11bc(void);
 u32 func0f0b11ec(void);
-u32 func0f0b12ec(void);
+f32 func0f0b12ec(u32 arg0);
 u32 func0f0b131c(void);
 u32 func0f0b14d8(void);
 u32 func0f0b1588(void);

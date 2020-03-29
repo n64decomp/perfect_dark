@@ -146,7 +146,7 @@ u32 func0f0a8c7c(void);
 u32 func0f0a8d34(void);
 void func0f0a92ac(u32 arg0);
 void currentPlayerSetAimType(u32 aimtype);
-u32 func0f0a93e0(void);
+void func0f0a93e0(struct coord *coord);
 void func0f0a9464(struct coord *coord);
 void func0f0a9494(u32 operation);
 void func0f0a94d0(u32 operation, struct coord *a, struct coord *b);
