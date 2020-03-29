@@ -21128,7 +21128,7 @@ glabel var7f1acbac
 /*  f0a91e8:	24010002 */ 	addiu	$at,$zero,0x2
 /*  f0a91ec:	14c1ffe9 */ 	bne	$a2,$at,.L0f0a9194
 /*  f0a91f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a91f4:	0fc2a660 */ 	jal	func0f0a9980
+/*  f0a91f4:	0fc2a660 */ 	jal	currentPlayerGiveUnlimitedAmmo
 /*  f0a91f8:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0a91fc:	10000007 */ 	beqz	$zero,.L0f0a921c
 /*  f0a9200:	00000000 */ 	sll	$zero,$zero,0x0
@@ -21137,7 +21137,7 @@ glabel var7f1acbac
 /*  f0a9208:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f0a920c:	10400003 */ 	beqz	$v0,.L0f0a921c
 /*  f0a9210:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a9214:	0fc2a660 */ 	jal	func0f0a9980
+/*  f0a9214:	0fc2a660 */ 	jal	currentPlayerGiveUnlimitedAmmo
 /*  f0a9218:	00002025 */ 	or	$a0,$zero,$zero
 .L0f0a921c:
 /*  f0a921c:	0fc273e2 */ 	jal	func0f09cf88
@@ -21520,9 +21520,9 @@ glabel currentPlayerGiveAmmo
 /*  f0a9714:	00127080 */ 	sll	$t6,$s2,0x2
 /*  f0a9718:	01d27023 */ 	subu	$t6,$t6,$s2
 /*  f0a971c:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0a9720:	3c0f8007 */ 	lui	$t7,%hi(var80070368)
+/*  f0a9720:	3c0f8007 */ 	lui	$t7,%hi(g_AmmoTypes)
 /*  f0a9724:	01ee7821 */ 	addu	$t7,$t7,$t6
-/*  f0a9728:	8def0368 */ 	lw	$t7,%lo(var80070368)($t7)
+/*  f0a9728:	8def0368 */ 	lw	$t7,%lo(g_AmmoTypes)($t7)
 /*  f0a972c:	8fa4003c */ 	lw	$a0,0x3c($sp)
 /*  f0a9730:	00124080 */ 	sll	$t0,$s2,0x2
 /*  f0a9734:	01e31023 */ 	subu	$v0,$t7,$v1
@@ -21663,10 +21663,10 @@ glabel ammotypeGetMaxCapacity
 /*  f0a98f4:	00047080 */ 	sll	$t6,$a0,0x2
 /*  f0a98f8:	01c47023 */ 	subu	$t6,$t6,$a0
 /*  f0a98fc:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0a9900:	3c028007 */ 	lui	$v0,%hi(var80070368)
+/*  f0a9900:	3c028007 */ 	lui	$v0,%hi(g_AmmoTypes)
 /*  f0a9904:	004e1021 */ 	addu	$v0,$v0,$t6
 /*  f0a9908:	03e00008 */ 	jr	$ra
-/*  f0a990c:	8c420368 */ 	lw	$v0,%lo(var80070368)($v0)
+/*  f0a990c:	8c420368 */ 	lw	$v0,%lo(g_AmmoTypes)($v0)
 );
 
 bool ammotypeAllowsUnlimitedAmmo(u32 ammotype)
@@ -21699,49 +21699,22 @@ bool ammotypeAllowsUnlimitedAmmo(u32 ammotype)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f0a9980
-/*  f0a9980:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f0a9984:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f0a9988:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f0a998c:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f0a9990:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f0a9994:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f0a9998:	3c128007 */ 	lui	$s2,%hi(var80070368)
-/*  f0a999c:	00808825 */ 	or	$s1,$a0,$zero
-/*  f0a99a0:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f0a99a4:	26520368 */ 	addiu	$s2,$s2,%lo(var80070368)
-/*  f0a99a8:	00008025 */ 	or	$s0,$zero,$zero
-/*  f0a99ac:	2413000c */ 	addiu	$s3,$zero,0xc
-/*  f0a99b0:	24140021 */ 	addiu	$s4,$zero,0x21
-.L0f0a99b4:
-/*  f0a99b4:	16200004 */ 	bnez	$s1,.L0f0a99c8
-/*  f0a99b8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0a99bc:	0fc2a644 */ 	jal	ammotypeAllowsUnlimitedAmmo
-/*  f0a99c0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a99c4:	00401825 */ 	or	$v1,$v0,$zero
-.L0f0a99c8:
-/*  f0a99c8:	50600008 */ 	beqzl	$v1,.L0f0a99ec
-/*  f0a99cc:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f0a99d0:	02130019 */ 	multu	$s0,$s3
-/*  f0a99d4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f0a99d8:	00007012 */ 	mflo	$t6
-/*  f0a99dc:	024e7821 */ 	addu	$t7,$s2,$t6
-/*  f0a99e0:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
-/*  f0a99e4:	8de50000 */ 	lw	$a1,0x0($t7)
-/*  f0a99e8:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f0a99ec:
-/*  f0a99ec:	1614fff1 */ 	bne	$s0,$s4,.L0f0a99b4
-/*  f0a99f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a99f4:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f0a99f8:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f0a99fc:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f0a9a00:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f0a9a04:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f0a9a08:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f0a9a0c:	03e00008 */ 	jr	$ra
-/*  f0a9a10:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+void currentPlayerGiveUnlimitedAmmo(bool force)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(g_AmmoTypes); i++) {
+		bool give = true;
+
+		if (!force) {
+			give = ammotypeAllowsUnlimitedAmmo(i);
+		}
+
+		if (give) {
+			currentPlayerGiveAmmo(i, g_AmmoTypes[i].capacity);
+		}
+	}
+}
 
 u32 weaponGetAmmoType(u32 weaponnum, u32 func)
 {
@@ -21801,13 +21774,13 @@ glabel func0f0a9b10
 /*  f0a9b38:	10600009 */ 	beqz	$v1,.L0f0a9b60
 /*  f0a9b3c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a9b40:	8c790000 */ 	lw	$t9,0x0($v1)
-/*  f0a9b44:	3c028007 */ 	lui	$v0,%hi(var80070368)
+/*  f0a9b44:	3c028007 */ 	lui	$v0,%hi(g_AmmoTypes)
 /*  f0a9b48:	00194080 */ 	sll	$t0,$t9,0x2
 /*  f0a9b4c:	01194023 */ 	subu	$t0,$t0,$t9
 /*  f0a9b50:	00084080 */ 	sll	$t0,$t0,0x2
 /*  f0a9b54:	00481021 */ 	addu	$v0,$v0,$t0
 /*  f0a9b58:	10000001 */ 	beqz	$zero,.L0f0a9b60
-/*  f0a9b5c:	8c420368 */ 	lw	$v0,%lo(var80070368)($v0)
+/*  f0a9b5c:	8c420368 */ 	lw	$v0,%lo(g_AmmoTypes)($v0)
 .L0f0a9b60:
 /*  f0a9b60:	03e00008 */ 	jr	$ra
 /*  f0a9b64:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -23765,13 +23738,13 @@ glabel func0f0aa86c
 .L0f0ab788:
 /*  f0ab788:	8fb900a4 */ 	lw	$t9,0xa4($sp)
 .L0f0ab78c:
-/*  f0ab78c:	3c0b8007 */ 	lui	$t3,%hi(var80070368)
+/*  f0ab78c:	3c0b8007 */ 	lui	$t3,%hi(g_AmmoTypes)
 /*  f0ab790:	8faf00fc */ 	lw	$t7,0xfc($sp)
 /*  f0ab794:	00197080 */ 	sll	$t6,$t9,0x2
 /*  f0ab798:	01d97023 */ 	subu	$t6,$t6,$t9
 /*  f0ab79c:	000e7080 */ 	sll	$t6,$t6,0x2
 /*  f0ab7a0:	016e5821 */ 	addu	$t3,$t3,$t6
-/*  f0ab7a4:	8d6b0368 */ 	lw	$t3,%lo(var80070368)($t3)
+/*  f0ab7a4:	8d6b0368 */ 	lw	$t3,%lo(g_AmmoTypes)($t3)
 /*  f0ab7a8:	01e9c021 */ 	addu	$t8,$t7,$t1
 /*  f0ab7ac:	5960003e */ 	blezl	$t3,.L0f0ab8a8
 /*  f0ab7b0:	8faf005c */ 	lw	$t7,0x5c($sp)

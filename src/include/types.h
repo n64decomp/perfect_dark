@@ -5780,4 +5780,10 @@ struct menudata {
 	/*0x66f*/ u8 unk66f;
 };
 
+struct ammotype {
+	u32 capacity;
+	u32 unk04;
+	f32 unk08;
+};
+
 #endif

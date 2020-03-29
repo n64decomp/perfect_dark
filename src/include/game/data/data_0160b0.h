@@ -34,7 +34,7 @@ extern u32 var800702ec;
 extern u32 var80070314;
 extern u32 var80070318;
 extern u32 var80070360;
-extern u32 var80070368;
+extern struct ammotype g_AmmoTypes[33];
 extern u32 var80070500;
 extern u32 var8007050c;
 extern u32 var80070518;
