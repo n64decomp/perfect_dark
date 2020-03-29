@@ -4604,7 +4604,7 @@ bool soloChoosePauseDialog(void)
 							dtPushEndscreen();
 							handled = true;
 						} else if (room == CIROOM_FIRINGRANGE) {
-							if (func0f1a0c30()) {
+							if (frIsInTraining()) {
 								menuPushRootDialog(&g_FrTrainingInfoMenuDialog, MENUROOT_TRAINING);
 							} else {
 								menuPushRootDialog(&g_FrWeaponListMenuDialog, MENUROOT_TRAINING);

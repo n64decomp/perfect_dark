@@ -33,7 +33,7 @@ u32 func00010360(void);
 u32 func0001036c(void);
 u32 func000104a0(void);
 void func00010718(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8);
-s32 func00010904(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7);
+s32 func00010904(s32 arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, f32 arg5, s32 arg6, s32 arg7);
 u32 func00010ae4(void);
 void func00010db0(s32 room_id);
 void func00010de0(s32 room_id);

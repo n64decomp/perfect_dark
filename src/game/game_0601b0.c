@@ -5483,7 +5483,7 @@ glabel func0f064ce8
 /*  f064d6c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f064d70:	24100001 */ 	addiu	$s0,$zero,0x1
 .L0f064d74:
-/*  f064d74:	0fc6830c */ 	jal	func0f1a0c30
+/*  f064d74:	0fc6830c */ 	jal	frIsInTraining
 /*  f064d78:	24140003 */ 	addiu	$s4,$zero,0x3
 /*  f064d7c:	10400009 */ 	beqz	$v0,.L0f064da4
 /*  f064d80:	00000000 */ 	sll	$zero,$zero,0x0

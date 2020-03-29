@@ -238,7 +238,7 @@ u32 func0f087668(void);
 u32 func0f08791c(void);
 void func0f087b0c(u32 arg0);
 u32 propPlayPickupSound(struct prop *prop, s32 weapon);
-void func0f087d10(u32 weaponnum);
+void func0f087d10(s32 weaponnum);
 u32 func0f087e40(void);
 u32 func0f087fb0(void);
 u32 func0f088028(void);

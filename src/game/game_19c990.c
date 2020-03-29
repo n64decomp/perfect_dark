@@ -4935,7 +4935,7 @@ glabel func0f1a0a70
 /*  f1a0c2c:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-s32 func0f1a0c30(void)
+s32 frIsInTraining(void)
 {
 	if (g_FiringRangeData.unk464 > 0 &&
 			(g_FiringRangeData.unk465 == 2 || g_FiringRangeData.unk465 == 3)) {
