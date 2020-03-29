@@ -38014,8 +38014,9 @@ bool propobjInteract(struct prop *prop)
 				func0f0887c8(WEAPON_LAPTOPGUN, 0);
 				func0f087d10(WEAPON_LAPTOPGUN);
 
-				if (laptop->unka9 > 0 && laptop->unka9 != 255) {
-					currentPlayerGiveAmmoForWeapon(WEAPON_LAPTOPGUN, 0, func0f0a9a74(WEAPON_LAPTOPGUN, 0) + laptop->unka9);
+				if (laptop->ammoquantity > 0 && laptop->ammoquantity != 255) {
+					s32 newqty = currentPlayerGetAmmoQuantityForWeapon(WEAPON_LAPTOPGUN, FUNC_PRIMARY) + laptop->ammoquantity;
+					currentPlayerGiveAmmoForWeapon(WEAPON_LAPTOPGUN, FUNC_PRIMARY, newqty);
 				}
 			}
 		} else {
@@ -40205,7 +40206,7 @@ glabel var7f1aae84
 .L0f089290:
 /*  f089290:	90e4005c */ 	lbu	$a0,0x5c($a3)
 /*  f089294:	afa70080 */ 	sw	$a3,0x80($sp)
-/*  f089298:	0fc2a69d */ 	jal	func0f0a9a74
+/*  f089298:	0fc2a69d */ 	jal	currentPlayerGetAmmoQuantityForWeapon
 /*  f08929c:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0892a0:	8fa70080 */ 	lw	$a3,0x80($sp)
 /*  f0892a4:	00002825 */ 	or	$a1,$zero,$zero
@@ -40222,7 +40223,7 @@ glabel var7f1aae84
 /*  f0892cc:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0892d0:	1481000e */ 	bne	$a0,$at,.L0f08930c
 /*  f0892d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0892d8:	0fc2a69d */ 	jal	func0f0a9a74
+/*  f0892d8:	0fc2a69d */ 	jal	currentPlayerGetAmmoQuantityForWeapon
 /*  f0892dc:	afa70080 */ 	sw	$a3,0x80($sp)
 /*  f0892e0:	8fa70080 */ 	lw	$a3,0x80($sp)
 /*  f0892e4:	24050001 */ 	addiu	$a1,$zero,0x1
@@ -42732,7 +42733,7 @@ glabel var7f1aae98
 /*  f08b500:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f08b504:	00402025 */ 	or	$a0,$v0,$zero
 /*  f08b508:	2404000e */ 	addiu	$a0,$zero,0xe
-/*  f08b50c:	0fc2a69d */ 	jal	func0f0a9a74
+/*  f08b50c:	0fc2a69d */ 	jal	currentPlayerGetAmmoQuantityForWeapon
 /*  f08b510:	00002825 */ 	or	$a1,$zero,$zero
 /*  f08b514:	284100c8 */ 	slti	$at,$v0,0xc8
 /*  f08b518:	14200004 */ 	bnez	$at,.L0f08b52c

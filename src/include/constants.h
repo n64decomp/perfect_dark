@@ -519,6 +519,10 @@
 #define FLOORFLAG_0100 0x0100
 #define FLOORFLAG_4000 0x4000
 
+// Weapon functions
+#define FUNC_PRIMARY   0
+#define FUNC_SECONDARY 1
+
 #define GAILIST_IDLE                   0x0000
 #define GAILIST_UNALERTED_0001         0x0001
 #define GAILIST_UNALERTED_0002         0x0002
