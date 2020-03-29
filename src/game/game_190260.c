@@ -602,7 +602,7 @@ u32 propobjHandlePickupByAibot(struct prop *prop, struct chrdata *chr)
 		}
 		return 3;
 	case OBJTYPE_BASIC:
-	case OBJTYPE_05:
+	case OBJTYPE_ALARM:
 	case OBJTYPE_CAMERA:
 	case OBJTYPE_CHR:
 	case OBJTYPE_SINGLEMONITOR:

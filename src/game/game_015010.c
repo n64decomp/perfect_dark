@@ -23,7 +23,7 @@ void setupParseObjects(void)
 			case OBJTYPE_DOOR:
 			case OBJTYPE_BASIC:
 			case OBJTYPE_KEY:
-			case OBJTYPE_05:
+			case OBJTYPE_ALARM:
 			case OBJTYPE_CAMERA:
 			case OBJTYPE_AMMOCRATE:
 			case OBJTYPE_WEAPON:

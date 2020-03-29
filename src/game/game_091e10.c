@@ -30,7 +30,7 @@ u32 setupGetCommandLength(u32 *cmd)
 	case OBJTYPE_2B:               return 23;
 	case OBJTYPE_24:               return 23;
 	case OBJTYPE_KEY:              return 24;
-	case OBJTYPE_05:               return 23;
+	case OBJTYPE_ALARM:            return 23;
 	case OBJTYPE_CAMERA:           return 49;
 	case OBJTYPE_AMMOCRATE:        return 24;
 	case OBJTYPE_WEAPON:           return 26;
@@ -356,7 +356,7 @@ struct defaultobj *setupCommandGetObject(u32 cmdindex)
 		case OBJTYPE_DOOR:
 		case OBJTYPE_BASIC:
 		case OBJTYPE_KEY:
-		case OBJTYPE_05:
+		case OBJTYPE_ALARM:
 		case OBJTYPE_CAMERA:
 		case OBJTYPE_AMMOCRATE:
 		case OBJTYPE_WEAPON:

@@ -45,7 +45,7 @@ extern u32 var8006992c;
 extern u32 var8006993c;
 extern f32 g_AmmoMultiplier;
 extern u32 var80069964;
-extern u32 var80069968;
+extern struct autogunobj *g_ThrownLaptops;
 extern u32 var80069970;
 extern u32 var80069974;
 extern u32 var80069978;

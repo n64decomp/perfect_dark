@@ -67,9 +67,9 @@
  */
 bool aiGoToNext(void)
 {
-	u8 *buffer = g_Vars.ailist + g_Vars.aioffset;
-	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, buffer[2]);
-	osSyncPrintf(" (%d)\n", g_Vars.aioffset);
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
+	osSyncPrintf(" (%d)\n", cmd[2]);
 
 	return false;
 }
@@ -79,9 +79,9 @@ bool aiGoToNext(void)
  */
 bool aiGoToFirst(void)
 {
-	u8 *buffer = g_Vars.ailist + g_Vars.aioffset;
-	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, 0, buffer[2]);
-	osSyncPrintf(" (%d)\n", g_Vars.aioffset);
+	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
+	g_Vars.aioffset = chraiGoToLabel(g_Vars.ailist, 0, cmd[2]);
+	osSyncPrintf(" (%d)\n", cmd[2]);
 
 	return false;
 }
@@ -2330,7 +2330,7 @@ bool ai0065(void)
 		if (obj->prop->type == PROPTYPE_DOOR) {
 			doorActivateWrapper(obj->prop, 0);
 		} else if (obj->prop->type == PROPTYPE_OBJ || obj->prop->type == PROPTYPE_WEAPON) {
-			func0f086f40(obj->prop);
+			propobjInteract(obj->prop);
 		}
 	}
 
@@ -2350,7 +2350,7 @@ bool aiDestroyObject(void)
 	if (obj && obj->prop && func0f0687b8(obj) == 0) {
 		struct defaultobj *entity = obj->prop->obj;
 
-		if (entity->obj == 0xeb) {
+		if (entity->obj == MODEL_ELVIS_SAUCER) {
 			obj->flags = (obj->flags & ~OBJFLAG_00010000) | OBJFLAG_INVINCIBLE;
 			func0f129900(entity->prop, &entity->prop->pos, &entity->prop->rooms[0], 3, 0);
 			func0f12e714(entity->prop, 0x16);

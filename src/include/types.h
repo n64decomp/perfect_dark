@@ -958,6 +958,7 @@ struct autogunobj { // objtype 0d
 	/*0xa0*/ u32 unka0;
 	/*0xa4*/ u32 unka4;
 	/*0xa8*/ u8 autogun_type;
+	/*0xa9*/ u8 unka9;
 };
 
 struct multiammocrateobj { // objtype 14

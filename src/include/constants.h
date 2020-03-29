@@ -1477,7 +1477,7 @@
 #define OBJFLAG_00010000             0x00010000 // Not used in scripts
 #define OBJFLAG_INVINCIBLE           0x00020000
 #define OBJFLAG_COLLECTABLE          0x00040000
-#define OBJFLAG_00080000             0x00080000 // Not used in scripts
+#define OBJFLAG_00080000             0x00080000 // Thrown laptop?
 #define OBJFLAG_UNCOLLECTABLE        0x00100000
 #define OBJFLAG_00200000             0x00200000 // Editor: "Bounce and Destroy If Shot"
 #define OBJFLAG_00400000             0x00400000 // Not used in scripts
@@ -1581,7 +1581,7 @@
 #define OBJTYPE_DOORSCALE        0x02
 #define OBJTYPE_BASIC            0x03
 #define OBJTYPE_KEY              0x04
-#define OBJTYPE_05               0x05
+#define OBJTYPE_ALARM            0x05
 #define OBJTYPE_CAMERA           0x06
 #define OBJTYPE_AMMOCRATE        0x07
 #define OBJTYPE_WEAPON           0x08

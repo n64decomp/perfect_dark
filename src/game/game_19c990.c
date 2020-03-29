@@ -2719,8 +2719,8 @@ glabel func0f19ecdc
 /*  f19ed70:	0fc678f8 */ 	jal	func0f19e3e0
 /*  f19ed74:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f19ed78:
-/*  f19ed78:	3c048007 */ 	lui	$a0,%hi(var80069968)
-/*  f19ed7c:	8c849968 */ 	lw	$a0,%lo(var80069968)($a0)
+/*  f19ed78:	3c048007 */ 	lui	$a0,%hi(g_ThrownLaptops)
+/*  f19ed7c:	8c849968 */ 	lw	$a0,%lo(g_ThrownLaptops)($a0)
 /*  f19ed80:	8c890014 */ 	lw	$t1,0x14($a0)
 /*  f19ed84:	51200004 */ 	beqzl	$t1,.L0f19ed98
 /*  f19ed88:	8e8a0284 */ 	lw	$t2,0x284($s4)
