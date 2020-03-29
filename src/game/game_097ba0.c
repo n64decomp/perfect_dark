@@ -1748,7 +1748,7 @@ glabel func0f099188
 /*  f0991a0:	afa2001c */ 	sw	$v0,0x1c($sp)
 /*  f0991a4:	0fc2c3f4 */ 	jal	weaponFindById
 /*  f0991a8:	91c40000 */ 	lbu	$a0,0x0($t6)
-/*  f0991ac:	0fc2a31f */ 	jal	func0f0a8c7c
+/*  f0991ac:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
 /*  f0991b0:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f0991b4:	8faf0024 */ 	lw	$t7,0x24($sp)
 /*  f0991b8:	8fa4001c */ 	lw	$a0,0x1c($sp)
@@ -1774,7 +1774,7 @@ glabel func0f0991e4
 /*  f0991f0:	00c08025 */ 	or	$s0,$a2,$zero
 /*  f0991f4:	afa40040 */ 	sw	$a0,0x40($sp)
 /*  f0991f8:	afa50044 */ 	sw	$a1,0x44($sp)
-/*  f0991fc:	0fc2a31f */ 	jal	func0f0a8c7c
+/*  f0991fc:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
 /*  f099200:	afa7004c */ 	sw	$a3,0x4c($sp)
 /*  f099204:	afa20038 */ 	sw	$v0,0x38($sp)
 /*  f099208:	8e0e0684 */ 	lw	$t6,0x684($s0)
@@ -2207,7 +2207,7 @@ glabel var7f1ac1b4
 /*  f099814:	00c08025 */ 	or	$s0,$a2,$zero
 /*  f099818:	afa40060 */ 	sw	$a0,0x60($sp)
 /*  f09981c:	afa50064 */ 	sw	$a1,0x64($sp)
-/*  f099820:	0fc2a31f */ 	jal	func0f0a8c7c
+/*  f099820:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
 /*  f099824:	afa7006c */ 	sw	$a3,0x6c($sp)
 /*  f099828:	afa20054 */ 	sw	$v0,0x54($sp)
 /*  f09982c:	820e0008 */ 	lb	$t6,0x8($s0)
@@ -4381,7 +4381,7 @@ glabel func0f09b260
 /*  f09b3d4:	24010022 */ 	addiu	$at,$zero,0x22
 /*  f09b3d8:	1501000e */ 	bne	$t0,$at,.L0f09b414
 /*  f09b3dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f09b3e0:	0fc2a31f */ 	jal	func0f0a8c7c
+/*  f09b3e0:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
 /*  f09b3e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f09b3e8:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f09b3ec:	14450009 */ 	bne	$v0,$a1,.L0f09b414
@@ -18646,7 +18646,7 @@ glabel var7f1aca88
 /*  f0a7084:	3109ff0f */ 	andi	$t1,$t0,0xff0f
 /*  f0a7088:	a06914b2 */ 	sb	$t1,0x14b2($v1)
 .L0f0a708c:
-/*  f0a708c:	0fc2a31f */ 	jal	func0f0a8c7c
+/*  f0a708c:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
 /*  f0a7090:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a7094:	8fbf001c */ 	lw	$ra,0x1c($sp)
 /*  f0a7098:	8fb00018 */ 	lw	$s0,0x18($sp)
@@ -20501,7 +20501,7 @@ glabel var7f1acb14
 /*  f0a8a24:	8fb90020 */ 	lw	$t9,0x20($sp)
 /*  f0a8a28:	1320000b */ 	beqz	$t9,.L0f0a8a58
 /*  f0a8a2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a8a30:	0fc2a31f */ 	jal	func0f0a8c7c
+/*  f0a8a30:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
 /*  f0a8a34:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a8a38:	3c08800a */ 	lui	$t0,%hi(g_Vars)
 /*  f0a8a3c:	24010001 */ 	addiu	$at,$zero,0x1
@@ -20654,12 +20654,12 @@ glabel var7f1acb14
 void func0f0a8c50(void)
 {
 	if (g_Vars.currentplayer->unk0d0f_03 == 0) {
-		g_Vars.currentplayer->unk1583_02 = 0;
+		g_Vars.currentplayer->invertgunfunc = false;
 	}
 }
 
 GLOBAL_ASM(
-glabel func0f0a8c7c
+glabel currentPlayerIsUsingSecondaryFunction
 /*  f0a8c7c:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f0a8c80:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
 /*  f0a8c84:	8ca20284 */ 	lw	$v0,0x284($a1)
@@ -20711,6 +20711,31 @@ glabel func0f0a8c7c
 /*  f0a8d2c:	03e00008 */ 	jr	$ra
 /*  f0a8d30:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// regalloc
+//bool currentPlayerIsUsingSecondaryFunction(void)
+//{
+//	s32 weaponnum = g_Vars.currentplayer->unk1580;
+//
+//	if (weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_COMBATBOOST) {
+//		s32 index = (weaponnum - 1) >> 3;
+//		s32 value = 1 << ((weaponnum - 1) & 7);
+//
+//		if (g_MpPlayers[g_Vars.currentplayerstats->mpindex].gunfuncs[index] & value) {
+//			if (g_Vars.currentplayer->invertgunfunc == true) {
+//				return false;
+//			}
+//
+//			return true;
+//		}
+//	}
+//
+//	if (g_Vars.currentplayer->invertgunfunc == true) {
+//		return true;
+//	}
+//
+//	return false;
+//}
 
 GLOBAL_ASM(
 glabel func0f0a8d34
@@ -22749,7 +22774,7 @@ glabel func0f0aa86c
 /*  f0aaacc:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0aaad0:	0fc26313 */ 	jal	func0f098c4c
 /*  f0aaad4:	afb900f0 */ 	sw	$t9,0xf0($sp)
-/*  f0aaad8:	0fc2a31f */ 	jal	func0f0a8c7c
+/*  f0aaad8:	0fc2a31f */ 	jal	currentPlayerIsUsingSecondaryFunction
 /*  f0aaadc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0aaae0:	afa200e8 */ 	sw	$v0,0xe8($sp)
 /*  f0aaae4:	00402025 */ 	or	$a0,$v0,$zero
