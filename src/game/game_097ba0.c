@@ -21346,90 +21346,33 @@ glabel func0f0a9494
 /*  f0a94cc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0a94d0
-.late_rodata
-glabel var7f1acbb0
-.word 0xc7c35000
-glabel var7f1acbb4
-.word 0x47c35000
-.text
-/*  f0a94d0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0a94d4:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f0a94d8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0a94dc:	00803825 */ 	or	$a3,$a0,$zero
-/*  f0a94e0:	10800008 */ 	beqz	$a0,.L0f0a9504
-/*  f0a94e4:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f0a94e8:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0a94ec:	10830039 */ 	beq	$a0,$v1,.L0f0a95d4
-/*  f0a94f0:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f0a94f4:	10810037 */ 	beq	$a0,$at,.L0f0a95d4
-/*  f0a94f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a94fc:	10000038 */ 	beqz	$zero,.L0f0a95e0
-/*  f0a9500:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0a9504:
-/*  f0a9504:	3c017f1b */ 	lui	$at,%hi(var7f1acbb0)
-/*  f0a9508:	c422cbb0 */ 	lwc1	$f2,%lo(var7f1acbb0)($at)
-/*  f0a950c:	c4a00000 */ 	lwc1	$f0,0x0($a1)
-/*  f0a9510:	3c017f1b */ 	lui	$at,%hi(var7f1acbb4)
-/*  f0a9514:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a9518:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a951c:	45020030 */ 	bc1fl	.L0f0a95e0
-/*  f0a9520:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a9524:	c42ccbb4 */ 	lwc1	$f12,%lo(var7f1acbb4)($at)
-/*  f0a9528:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0a952c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a9530:	4502002b */ 	bc1fl	.L0f0a95e0
-/*  f0a9534:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a9538:	c4a00004 */ 	lwc1	$f0,0x4($a1)
-/*  f0a953c:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a9540:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a9544:	45020026 */ 	bc1fl	.L0f0a95e0
-/*  f0a9548:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a954c:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0a9550:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a9554:	45020022 */ 	bc1fl	.L0f0a95e0
-/*  f0a9558:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a955c:	c4a00008 */ 	lwc1	$f0,0x8($a1)
-/*  f0a9560:	4600103c */ 	c.lt.s	$f2,$f0
-/*  f0a9564:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a9568:	4502001d */ 	bc1fl	.L0f0a95e0
-/*  f0a956c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a9570:	460c003c */ 	c.lt.s	$f0,$f12
-/*  f0a9574:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0a9578:	45020019 */ 	bc1fl	.L0f0a95e0
-/*  f0a957c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0a9580:	ac430cec */ 	sw	$v1,0xcec($v0)
-/*  f0a9584:	ac431490 */ 	sw	$v1,0x1490($v0)
-/*  f0a9588:	c4a00000 */ 	lwc1	$f0,0x0($a1)
-/*  f0a958c:	e4400cf0 */ 	swc1	$f0,0xcf0($v0)
-/*  f0a9590:	e4401494 */ 	swc1	$f0,0x1494($v0)
-/*  f0a9594:	c4a00004 */ 	lwc1	$f0,0x4($a1)
-/*  f0a9598:	e4400cf4 */ 	swc1	$f0,0xcf4($v0)
-/*  f0a959c:	e4401498 */ 	swc1	$f0,0x1498($v0)
-/*  f0a95a0:	c4a00008 */ 	lwc1	$f0,0x8($a1)
-/*  f0a95a4:	e4400cf8 */ 	swc1	$f0,0xcf8($v0)
-/*  f0a95a8:	e440149c */ 	swc1	$f0,0x149c($v0)
-/*  f0a95ac:	c4c00000 */ 	lwc1	$f0,0x0($a2)
-/*  f0a95b0:	e4400cfc */ 	swc1	$f0,0xcfc($v0)
-/*  f0a95b4:	e44014a0 */ 	swc1	$f0,0x14a0($v0)
-/*  f0a95b8:	c4c00004 */ 	lwc1	$f0,0x4($a2)
-/*  f0a95bc:	e4400d00 */ 	swc1	$f0,0xd00($v0)
-/*  f0a95c0:	e44014a4 */ 	swc1	$f0,0x14a4($v0)
-/*  f0a95c4:	c4c00008 */ 	lwc1	$f0,0x8($a2)
-/*  f0a95c8:	e4400d04 */ 	swc1	$f0,0xd04($v0)
-/*  f0a95cc:	10000003 */ 	beqz	$zero,.L0f0a95dc
-/*  f0a95d0:	e44014a8 */ 	swc1	$f0,0x14a8($v0)
-.L0f0a95d4:
-/*  f0a95d4:	0fc2c0d0 */ 	jal	func0f0b0340
-/*  f0a95d8:	24e4ffff */ 	addiu	$a0,$a3,-1
-.L0f0a95dc:
-/*  f0a95dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0a95e0:
-/*  f0a95e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0a95e4:	03e00008 */ 	jr	$ra
-/*  f0a95e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0a94d0(u32 operation, struct coord *a, struct coord *b)
+{
+	struct player *player = g_Vars.currentplayer;
+
+	switch (operation) {
+	case 0:
+		if (a->x > -100000.0f && a->x < 100000.0f
+				&& a->y > -100000.0f && a->y < 100000.0f
+				&& a->z > -100000.0f && a->z < 100000.0f) {
+			player->unk0cec = true;
+			player->unk1490 = true;
+
+			player->unk1494.x = player->unk0cf0.x = a->x;
+			player->unk1494.y = player->unk0cf0.y = a->y;
+			player->unk1494.z = player->unk0cf0.z = a->z;
+
+			player->unk14a0.x = player->unk0cfc.x = b->x;
+			player->unk14a0.y = player->unk0cfc.y = b->y;
+			player->unk14a0.z = player->unk0cfc.z = b->z;
+		}
+		break;
+	case 1:
+	case 2:
+		func0f0b0340(operation - 1);
+		break;
+	}
+}
 
 void func0f0a95ec(u32 arg0, bool enable)
 {

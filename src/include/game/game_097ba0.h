@@ -149,7 +149,7 @@ void currentPlayerSetAimType(u32 aimtype);
 u32 func0f0a93e0(void);
 u32 func0f0a9464(void);
 u32 func0f0a9494(void);
-u32 func0f0a94d0(void);
+void func0f0a94d0(u32 operation, struct coord *a, struct coord *b);
 void func0f0a95ec(u32 arg0, bool enable);
 void currentPlayerGiveAmmo(s32 ammotype, s32 quantity);
 s32 ammoGetQuantity(u32 type);
