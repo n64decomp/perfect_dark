@@ -848,31 +848,17 @@ char *frMenuTextScoreValue(struct menu_item *item)
 	return g_StringPointer;
 }
 
-GLOBAL_ASM(
-glabel func0f1a3f84
-/*  f1a3f84:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a3f88:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3f8c:	0fc675f3 */ 	jal	getFiringRangeData
-/*  f1a3f90:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a3f94:	3c048007 */ 	lui	$a0,%hi(g_StringPointer)
-/*  f1a3f98:	3c057f1c */ 	lui	$a1,%hi(var7f1b97fc)
-/*  f1a3f9c:	24a597fc */ 	addiu	$a1,$a1,%lo(var7f1b97fc)
-/*  f1a3fa0:	8c841440 */ 	lw	$a0,%lo(g_StringPointer)($a0)
-/*  f1a3fa4:	0c004dad */ 	jal	sprintf
-/*  f1a3fa8:	94460002 */ 	lhu	$a2,0x2($v0)
-/*  f1a3fac:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a3fb0:	3c028007 */ 	lui	$v0,%hi(g_StringPointer)
-/*  f1a3fb4:	8c421440 */ 	lw	$v0,%lo(g_StringPointer)($v0)
-/*  f1a3fb8:	03e00008 */ 	jr	$ra
-/*  f1a3fbc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+char *frMenuTextGoalScoreValueUnconditional(struct menu_item *item)
+{
+	struct frdata *frdata = getFiringRangeData();
+	sprintf(g_StringPointer, "%d\n", frdata->goalscore);
+	return g_StringPointer;
+}
 
 char *frMenuTextWeaponName(struct menu_item *item)
 {
 	return weaponGetName(func0f19d268(func0f19d250()));
 }
-
-const char var7f1b97fc[] = "%d\n";
 
 char *frMenuTextTargetsDestroyedValue(struct menu_item *item)
 {
