@@ -6885,7 +6885,7 @@ glabel chrGiveBriefcase
 /*  f1869a0:	0fc44762 */ 	jal	currentPlayerGiveWeapon
 /*  f1869a4:	24040057 */ 	addiu	$a0,$zero,0x57
 /*  f1869a8:	24040057 */ 	addiu	$a0,$zero,0x57
-/*  f1869ac:	0fc221f2 */ 	jal	func0f0887c8
+/*  f1869ac:	0fc221f2 */ 	jal	currentPlayerQueuePickupWeaponHudmsg
 /*  f1869b0:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1869b4:	0fc21f44 */ 	jal	func0f087d10
 /*  f1869b8:	24040057 */ 	addiu	$a0,$zero,0x57
@@ -7672,7 +7672,7 @@ bool chrGiveUplink(struct chrdata *chr, struct prop *prop)
 			return false;
 		} else {
 			currentPlayerGiveWeapon(WEAPON_DATAUPLINK);
-			func0f0887c8(WEAPON_DATAUPLINK, 0);
+			currentPlayerQueuePickupWeaponHudmsg(WEAPON_DATAUPLINK, false);
 			func0f087d10(WEAPON_DATAUPLINK);
 			setupParseObject(obj, 0, obj->hidden2 & OBJH2FLAG_04);
 			return true;

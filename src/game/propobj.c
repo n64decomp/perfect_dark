@@ -37837,7 +37837,7 @@ bool propobjInteract(struct prop *prop)
 			if (playernum >= 0 && laptop == &g_ThrownLaptops[playernum]) {
 				obj->hidden |= OBJHFLAG_00000004;
 				currentPlayerGiveWeapon(WEAPON_LAPTOPGUN);
-				func0f0887c8(WEAPON_LAPTOPGUN, 0);
+				currentPlayerQueuePickupWeaponHudmsg(WEAPON_LAPTOPGUN, false);
 				func0f087d10(WEAPON_LAPTOPGUN);
 
 				if (laptop->ammoquantity > 0 && laptop->ammoquantity != 255) {
@@ -38974,32 +38974,13 @@ void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual)
 	strcat(buffer, ".\n");
 }
 
-// Either array or char[100] string
-const char var7f1aa0dc[] = {0x00000000};
-const char var7f1aa0e0[] = {0x00000000};
-const char var7f1aa0e4[] = {0x00000000};
-const char var7f1aa0e8[] = {0x00000000};
-const char var7f1aa0ec[] = {0x00000000};
-const char var7f1aa0f0[] = {0x00000000};
-const char var7f1aa0f4[] = {0x00000000};
-const char var7f1aa0f8[] = {0x00000000};
-const char var7f1aa0fc[] = {0x00000000};
-const char var7f1aa100[] = {0x00000000};
-const char var7f1aa104[] = {0x00000000};
-const char var7f1aa108[] = {0x00000000};
-const char var7f1aa10c[] = {0x00000000};
-const char var7f1aa110[] = {0x00000000};
-const char var7f1aa114[] = {0x00000000};
-const char var7f1aa118[] = {0x00000000};
-const char var7f1aa11c[] = {0x00000000};
-const char var7f1aa120[] = {0x00000000};
-const char var7f1aa124[] = {0x00000000};
-const char var7f1aa128[] = {0x00000000};
-const char var7f1aa12c[] = {0x00000000};
-const char var7f1aa130[] = {0x00000000};
-const char var7f1aa134[] = {0x00000000};
-const char var7f1aa138[] = {0x00000000};
-const char var7f1aa13c[] = {0x00000000};
+void currentPlayerQueuePickupWeaponHudmsg(u32 weaponnum, bool dual)
+{
+	char buffer[100] = "";
+
+	weaponGetPickupText(buffer, weaponnum, dual);
+	func0f0ddfa4(buffer, HUDMSGTYPE_DEFAULT, 9);
+}
 
 const char var7f1aa140[] = "autodoorcanclose:      blocking door\n\n";
 const char var7f1aa168[] = ":\n";
@@ -39009,42 +38990,6 @@ const char var7f1aa18c[] = "ALARM : DIR 1 = %d";
 const char var7f1aa1a0[] = "ALARM : ADD 1 = %d (%s%f)";
 const char var7f1aa1bc[] = "";
 const char var7f1aa1c0[] = "propobj.c";
-
-
-GLOBAL_ASM(
-glabel func0f0887c8
-/*  f0887c8:	27bdff80 */ 	addiu	$sp,$sp,-128
-/*  f0887cc:	afa40080 */ 	sw	$a0,0x80($sp)
-/*  f0887d0:	3c0e7f1b */ 	lui	$t6,%hi(var7f1aa0dc)
-/*  f0887d4:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f0887d8:	00a03025 */ 	or	$a2,$a1,$zero
-/*  f0887dc:	25cea0dc */ 	addiu	$t6,$t6,%lo(var7f1aa0dc)
-/*  f0887e0:	8fa50080 */ 	lw	$a1,0x80($sp)
-/*  f0887e4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0887e8:	25d90060 */ 	addiu	$t9,$t6,0x60
-/*  f0887ec:	00804025 */ 	or	$t0,$a0,$zero
-.L0f0887f0:
-/*  f0887f0:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f0887f4:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f0887f8:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f0887fc:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f088800:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f088804:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f088808:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f08880c:	15d9fff8 */ 	bne	$t6,$t9,.L0f0887f0
-/*  f088810:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f088814:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f088818:	0fc22107 */ 	jal	weaponGetPickupText
-/*  f08881c:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f088820:	27a4001c */ 	addiu	$a0,$sp,0x1c
-/*  f088824:	00002825 */ 	or	$a1,$zero,$zero
-/*  f088828:	0fc377e9 */ 	jal	func0f0ddfa4
-/*  f08882c:	24060009 */ 	addiu	$a2,$zero,0x9
-/*  f088830:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f088834:	27bd0080 */ 	addiu	$sp,$sp,0x80
-/*  f088838:	03e00008 */ 	jr	$ra
-/*  f08883c:	00000000 */ 	sll	$zero,$zero,0x0
-);
 
 GLOBAL_ASM(
 glabel func0f088840
@@ -39359,7 +39304,7 @@ glabel var7f1aae70
 /*  f088b60:	8fad0074 */ 	lw	$t5,0x74($sp)
 /*  f088b64:	38ae0002 */ 	xori	$t6,$a1,0x2
 /*  f088b68:	2dc50001 */ 	sltiu	$a1,$t6,0x1
-/*  f088b6c:	0fc221f2 */ 	jal	func0f0887c8
+/*  f088b6c:	0fc221f2 */ 	jal	currentPlayerQueuePickupWeaponHudmsg
 /*  f088b70:	91a4005c */ 	lbu	$a0,0x5c($t5)
 /*  f088b74:	240f0001 */ 	addiu	$t7,$zero,0x1
 .L0f088b78:
@@ -39418,7 +39363,7 @@ glabel var7f1aae70
 /*  f088c34:	11200004 */ 	beqz	$t1,.L0f088c48
 /*  f088c38:	38ab0002 */ 	xori	$t3,$a1,0x2
 /*  f088c3c:	9144005c */ 	lbu	$a0,0x5c($t2)
-/*  f088c40:	0fc221f2 */ 	jal	func0f0887c8
+/*  f088c40:	0fc221f2 */ 	jal	currentPlayerQueuePickupWeaponHudmsg
 /*  f088c44:	2d650001 */ 	sltiu	$a1,$t3,0x1
 .L0f088c48:
 /*  f088c48:	240c0001 */ 	addiu	$t4,$zero,0x1

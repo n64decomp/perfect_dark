@@ -245,7 +245,7 @@ u32 func0f088028(void);
 s32 ammocrateGetPickupAmmoQty(struct ammocrateobj *crate);
 s32 weaponGetPickupAmmoQty(struct weaponobj *weapon);
 void weaponGetPickupText(char *buffer, s32 weaponnum, bool dual);
-void func0f0887c8(u32 weaponnum, u32 arg1);
+void currentPlayerQueuePickupWeaponHudmsg(u32 weaponnum, bool dual);
 u32 func0f088840(struct prop *prop, s32 arg1);
 u32 func0f089014(void);
 u32 func0f0899dc(void);
