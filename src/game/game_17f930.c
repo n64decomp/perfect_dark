@@ -7684,43 +7684,19 @@ bool chrGiveUplink(struct chrdata *chr, struct prop *prop)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f1876e4
-/*  f1876e4:	3c0e800b */ 	lui	$t6,%hi(g_MpSetup+0x10)
-/*  f1876e8:	91cecb98 */ 	lbu	$t6,%lo(g_MpSetup+0x10)($t6)
-/*  f1876ec:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1876f0:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1876f4:	15c10017 */ 	bne	$t6,$at,.L0f187754
-/*  f1876f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1876fc:	8ca30004 */ 	lw	$v1,0x4($a1)
-/*  f187700:	8c6f0010 */ 	lw	$t7,0x10($v1)
-/*  f187704:	31f82000 */ 	andi	$t8,$t7,0x2000
-/*  f187708:	53000013 */ 	beqzl	$t8,.L0f187758
-/*  f18770c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f187710:	0fc633fe */ 	jal	mpPlayerGetIndex
-/*  f187714:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f187718:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f18771c:	3c010fff */ 	lui	$at,0xfff
-/*  f187720:	3421ffff */ 	ori	$at,$at,0xffff
-/*  f187724:	8c640040 */ 	lw	$a0,0x40($v1)
-/*  f187728:	00025700 */ 	sll	$t2,$v0,0x1c
-/*  f18772c:	30994000 */ 	andi	$t9,$a0,0x4000
-/*  f187730:	17200008 */ 	bnez	$t9,.L0f187754
-/*  f187734:	00814024 */ 	and	$t0,$a0,$at
-/*  f187738:	3c01f000 */ 	lui	$at,0xf000
-/*  f18773c:	01415824 */ 	and	$t3,$t2,$at
-/*  f187740:	010b6025 */ 	or	$t4,$t0,$t3
-/*  f187744:	ac680040 */ 	sw	$t0,0x40($v1)
-/*  f187748:	ac6c0040 */ 	sw	$t4,0x40($v1)
-/*  f18774c:	358e4000 */ 	ori	$t6,$t4,0x4000
-/*  f187750:	ac6e0040 */ 	sw	$t6,0x40($v1)
-.L0f187754:
-/*  f187754:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f187758:
-/*  f187758:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f18775c:	03e00008 */ 	jr	$ra
-/*  f187760:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f187764:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f187768:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18776c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void scenarioHtmActivateUplink(struct chrdata *chr, struct prop *terminal)
+{
+	if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
+		struct defaultobj *obj = terminal->obj;
+
+		if (obj->flags3 & OBJFLAG3_00002000) {
+			u32 mpindex = mpPlayerGetIndex(chr);
+
+			if ((obj->hidden & OBJHFLAG_ACTIVATED_BY_BOND) == 0) {
+				obj->hidden &= 0x0fffffff;
+				obj->hidden |= (mpindex << 28) & 0xf0000000;
+				obj->hidden |= OBJHFLAG_ACTIVATED_BY_BOND;
+			}
+		}
+	}
+}

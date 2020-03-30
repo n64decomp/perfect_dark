@@ -114,7 +114,7 @@ u32 func0f186780(void);
 u32 chrGiveBriefcase(struct chrdata *chr, struct prop *prop);
 u32 func0f187288(void);
 bool chrGiveUplink(struct chrdata *chr, struct prop *prop);
-void func0f1876e4(struct chrdata *chr, struct prop *prop);
+void scenarioHtmActivateUplink(struct chrdata *chr, struct prop *prop);
 s32 menuhandlerMpDropOut(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpTeamsLabel(u32 operation, struct menu_item *item, s32 *value);
 u32 func0f1790fc(void);

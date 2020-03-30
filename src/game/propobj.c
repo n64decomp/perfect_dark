@@ -37858,7 +37858,7 @@ bool propobjInteract(struct prop *prop)
 	}
 
 	if (g_Vars.normmplayerisrunning) {
-		func0f1876e4(g_Vars.currentplayer->prop->chr, prop);
+		scenarioHtmActivateUplink(g_Vars.currentplayer->prop->chr, prop);
 	} else {
 		if (g_Vars.currentplayernum == g_Vars.coopplayernum) {
 			obj->hidden |= OBJHFLAG_ACTIVATED_BY_COOP;
