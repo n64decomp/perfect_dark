@@ -7193,7 +7193,7 @@ glabel func0f0f5360
 .L0f0f6bc4:
 /*  f0f6bc4:	8fa401e8 */ 	lw	$a0,0x1e8($sp)
 .L0f0f6bc8:
-/*  f0f6bc8:	0fc3c167 */ 	jal	func0f0f059c
+/*  f0f6bc8:	0fc3c167 */ 	jal	menuRenderItem
 /*  f0f6bcc:	27a50198 */ 	addiu	$a1,$sp,0x198
 /*  f0f6bd0:	8fab0118 */ 	lw	$t3,0x118($sp)
 /*  f0f6bd4:	afa201e8 */ 	sw	$v0,0x1e8($sp)
