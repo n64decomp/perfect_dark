@@ -46325,6 +46325,22 @@ glabel var7f1ab170
 /*  f08ea4c:	00601025 */ 	or	$v0,$v1,$zero
 );
 
+// Goal ASM loads the address of cam_pos an extra time for no reason
+//bool func0f08e9e4(struct coord *arg)
+//{
+//	f32 x = arg->x - g_Vars.currentplayer->cam_pos.x;
+//	f32 y = arg->y - g_Vars.currentplayer->cam_pos.y;
+//	f32 z = arg->z - g_Vars.currentplayer->cam_pos.z;
+//	f32 aggregate = x * x + y * y + z * z;
+//	bool result = true;
+//
+//	if (aggregate > 1024000000) {
+//		result = false;
+//	}
+//
+//	return result;
+//}
+
 GLOBAL_ASM(
 glabel func0f08ea50
 /*  f08ea50:	27bdff18 */ 	addiu	$sp,$sp,-232

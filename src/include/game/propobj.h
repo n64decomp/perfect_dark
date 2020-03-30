@@ -314,7 +314,7 @@ u32 func0f08e5a8(void);
 u32 func0f08e6bc(void);
 u32 func0f08e794(void);
 u32 func0f08e8ac(void);
-u32 func0f08e9e4(void);
+bool func0f08e9e4(struct coord *arg);
 void func0f08ea50(struct doorobj *door);
 bool func0f08ed74(struct doorobj *door);
 u32 func0f08f11c(void);
