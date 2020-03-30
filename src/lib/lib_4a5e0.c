@@ -28,7 +28,7 @@ glabel memcpy
 );
 
 GLOBAL_ASM(
-glabel func0004a60c
+glabel strlen
 /*    4a60c:	908e0000 */ 	lbu	$t6,0x0($a0)
 /*    4a610:	00801825 */ 	or	$v1,$a0,$zero
 /*    4a614:	11c00005 */ 	beqz	$t6,.L0004a62c

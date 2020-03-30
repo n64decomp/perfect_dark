@@ -4,7 +4,7 @@
 #include "types.h"
 
 u32 memcpy(void);
-u32 func0004a60c(void);
+u32 strlen(char *str);
 u32 strchr(void);
 
 #endif
