@@ -6564,38 +6564,17 @@ glabel func0f065ae0
 /*  f065c40:	27bd0010 */ 	addiu	$sp,$sp,0x10
 );
 
-GLOBAL_ASM(
-glabel func0f065c44
-/*  f065c44:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f065c48:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f065c4c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f065c50:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f065c54:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f065c58:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f065c5c:	84900028 */ 	lh	$s0,0x28($a0)
-/*  f065c60:	2413ffff */ 	addiu	$s3,$zero,-1
-/*  f065c64:	00809025 */ 	or	$s2,$a0,$zero
-/*  f065c68:	1213000a */ 	beq	$s0,$s3,.L0f065c94
-/*  f065c6c:	24910028 */ 	addiu	$s1,$a0,0x28
-/*  f065c70:	00102c00 */ 	sll	$a1,$s0,0x10
-.L0f065c74:
-/*  f065c74:	00057403 */ 	sra	$t6,$a1,0x10
-/*  f065c78:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f065c7c:	0fc196b8 */ 	jal	func0f065ae0
-/*  f065c80:	02402025 */ 	or	$a0,$s2,$zero
-/*  f065c84:	86300002 */ 	lh	$s0,0x2($s1)
-/*  f065c88:	26310002 */ 	addiu	$s1,$s1,0x2
-/*  f065c8c:	5613fff9 */ 	bnel	$s0,$s3,.L0f065c74
-/*  f065c90:	00102c00 */ 	sll	$a1,$s0,0x10
-.L0f065c94:
-/*  f065c94:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f065c98:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f065c9c:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f065ca0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f065ca4:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f065ca8:	03e00008 */ 	jr	$ra
-/*  f065cac:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+void func0f065c44(struct prop *prop)
+{
+	s16 *rooms = prop->rooms;
+	s16 room = *rooms;
+
+	while (room != -1) {
+		func0f065ae0(prop, room);
+		rooms++;
+		room = *rooms;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f065cb0
