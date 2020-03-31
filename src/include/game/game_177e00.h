@@ -18,7 +18,7 @@ s32 menuhandler001786d8(u32, u32, u32 *);
 s32 menuhandler00178a94(u32, u32, u32 *);
 char *mpMenuTextPlayerTitle(s32 arg0);
 s32 menuhandler00178bf4(u32, u32, u32 *);
-u32 func0f178dbc(void);
+void mpPushPauseDialog(void);
 void mpPushEndscreenDialog(u32 arg0, u32 playernum);
 s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler00178018(u32 operation, struct menu_item *item, s32 *value);

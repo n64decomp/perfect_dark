@@ -892,93 +892,34 @@ glabel menuhandler00178bf4
 /*  f178db8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f178dbc
-/*  f178dbc:	3c04800b */ 	lui	$a0,%hi(g_MpSetup)
-/*  f178dc0:	2484cb88 */ 	addiu	$a0,$a0,%lo(g_MpSetup)
-/*  f178dc4:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
-/*  f178dc8:	908f001e */ 	lbu	$t7,0x1e($a0)
-/*  f178dcc:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
-/*  f178dd0:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f178dd4:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f178dd8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f178ddc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178de0:	11e1003f */ 	beq	$t7,$at,.L0f178ee0
-/*  f178de4:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f178de8:	3c188006 */ 	lui	$t8,%hi(var8005d9d0)
-/*  f178dec:	8f18d9d0 */ 	lw	$t8,%lo(var8005d9d0)($t8)
-/*  f178df0:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f178df4:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f178df8:	5700003a */ 	bnezl	$t8,.L0f178ee4
-/*  f178dfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f178e00:	8c790288 */ 	lw	$t9,0x288($v1)
-/*  f178e04:	3c0b800a */ 	lui	$t3,0x800a
-/*  f178e08:	256be000 */ 	addiu	$t3,$t3,-8192
-/*  f178e0c:	8f280070 */ 	lw	$t0,0x70($t9)
-/*  f178e10:	000850c0 */ 	sll	$t2,$t0,0x3
-/*  f178e14:	01485023 */ 	subu	$t2,$t2,$t0
-/*  f178e18:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f178e1c:	01485021 */ 	addu	$t2,$t2,$t0
-/*  f178e20:	000a50c0 */ 	sll	$t2,$t2,0x3
-/*  f178e24:	01485023 */ 	subu	$t2,$t2,$t0
-/*  f178e28:	000a5100 */ 	sll	$t2,$t2,0x4
-/*  f178e2c:	014b1021 */ 	addu	$v0,$t2,$t3
-/*  f178e30:	904c083c */ 	lbu	$t4,0x83c($v0)
-/*  f178e34:	acc80000 */ 	sw	$t0,0x0($a2)
-/*  f178e38:	55800028 */ 	bnezl	$t4,.L0f178edc
-/*  f178e3c:	8fb9001c */ 	lw	$t9,0x1c($sp)
-/*  f178e40:	8c6e0318 */ 	lw	$t6,0x318($v1)
-/*  f178e44:	8c6d028c */ 	lw	$t5,0x28c($v1)
-/*  f178e48:	11c00012 */ 	beqz	$t6,.L0f178e94
-/*  f178e4c:	a04d083b */ 	sb	$t5,0x83b($v0)
-/*  f178e50:	8c8f000c */ 	lw	$t7,0xc($a0)
-/*  f178e54:	3c048008 */ 	lui	$a0,%hi(g_MpPausePlayerRankingMenuDialog)
-/*  f178e58:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f178e5c:	31f80002 */ 	andi	$t8,$t7,0x2
-/*  f178e60:	13000007 */ 	beqz	$t8,.L0f178e80
-/*  f178e64:	24844890 */ 	addiu	$a0,$a0,%lo(g_MpPausePlayerRankingMenuDialog)
-/*  f178e68:	3c048008 */ 	lui	$a0,%hi(g_MpPauseTeamRankingMenuDialog)
-/*  f178e6c:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f178e70:	248448e8 */ 	addiu	$a0,$a0,%lo(g_MpPauseTeamRankingMenuDialog)
-/*  f178e74:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
-/*  f178e78:	10000017 */ 	beqz	$zero,.L0f178ed8
-/*  f178e7c:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
-.L0f178e80:
-/*  f178e80:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f178e84:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f178e88:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
-/*  f178e8c:	10000012 */ 	beqz	$zero,.L0f178ed8
-/*  f178e90:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
-.L0f178e94:
-/*  f178e94:	0fc54bcd */ 	jal	optionsGetScreenSplit
-/*  f178e98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f178e9c:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f178ea0:	14410008 */ 	bne	$v0,$at,.L0f178ec4
-/*  f178ea4:	3c048007 */ 	lui	$a0,%hi(menudialog_196c8)
-/*  f178ea8:	3c048007 */ 	lui	$a0,%hi(menudialog_status)
-/*  f178eac:	248436c0 */ 	addiu	$a0,$a0,%lo(menudialog_status)
-/*  f178eb0:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f178eb4:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f178eb8:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
-/*  f178ebc:	10000006 */ 	beqz	$zero,.L0f178ed8
-/*  f178ec0:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
-.L0f178ec4:
-/*  f178ec4:	248436a8 */ 	addiu	$a0,$a0,%lo(menudialog_196c8)
-/*  f178ec8:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f178ecc:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f178ed0:	3c068007 */ 	lui	$a2,%hi(g_MpPlayerNum)
-/*  f178ed4:	24c61448 */ 	addiu	$a2,$a2,%lo(g_MpPlayerNum)
-.L0f178ed8:
-/*  f178ed8:	8fb9001c */ 	lw	$t9,0x1c($sp)
-.L0f178edc:
-/*  f178edc:	acd90000 */ 	sw	$t9,0x0($a2)
-.L0f178ee0:
-/*  f178ee0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f178ee4:
-/*  f178ee4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f178ee8:	03e00008 */ 	jr	$ra
-/*  f178eec:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void mpPushPauseDialog(void)
+{
+	u32 prevplayernum = g_MpPlayerNum;
+
+	if (g_MpSetup.paused != 2 && var8005d9d0 == 0) {
+		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
+
+		if (g_MenuStack[g_MpPlayerNum].unk83c == 0) {
+			g_MenuStack[g_MpPlayerNum].playernum = g_Vars.currentplayernum;
+
+			if (g_Vars.normmplayerisrunning) {
+				if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+					menuPushRootDialog(&g_MpPauseTeamRankingMenuDialog, MENUROOT_MPPAUSE);
+				} else {
+					menuPushRootDialog(&g_MpPausePlayerRankingMenuDialog, MENUROOT_MPPAUSE);
+				}
+			} else {
+				if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+					menuPushRootDialog(&menudialog_status, MENUROOT_MPPAUSE);
+				} else {
+					menuPushRootDialog(&menudialog_196c8, MENUROOT_MPPAUSE);
+				}
+			}
+		}
+
+		g_MpPlayerNum = prevplayernum;
+	}
+}
 
 void mpPushEndscreenDialog(u32 arg0, u32 playernum)
 {
