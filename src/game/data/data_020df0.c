@@ -10050,7 +10050,7 @@ u32 var80084628 = 0x00000000;
 u32 var8008462c = 0x00000000;
 
 // 2a650
-struct menu_item menuitems_mpendgame[] = {
+struct menu_item g_MpEndGameMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x02000020, L_MPMENU(291), 0x00000000, NULL }, // "Are you sure?"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPMENU(292), 0x00000000, NULL }, // "Cancel"
@@ -10059,17 +10059,17 @@ struct menu_item menuitems_mpendgame[] = {
 };
 
 // 2a6b4
-struct menu_dialog menudialog_mpendgame = {
+struct menu_dialog g_MpEndGameMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU(290), // "End Game"
-	menuitems_mpendgame,
+	g_MpEndGameMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
 // 2a6cc
-struct menu_item menuitems_2a6cc[] = {
+struct menu_item g_MpPauseControlMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextChallengeName, 0x00000000, menuhandler00178018 },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000020, (u32)&mpMenuTextScenarioName, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, L_AME(0), L_MPWEAPONS(162), (u32)&mpMenuTextInGameLimit, menuhandlerMpInGameLimitLabel }, // "Time Limit:"
@@ -10078,42 +10078,42 @@ struct menu_item menuitems_2a6cc[] = {
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000082, 0x00000000, NULL },
 	{ MENUITEMTYPE_LABEL,       0, 0x00000000, L_MPMENU(286), (u32)&menutextMatchTime, NULL }, // "Game Time:"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000020, (u32)&menutextPauseOrUnpause, 0x00000000, menuhandlerMpPause },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000024, L_MPMENU(287), 0x00000000, &menudialog_mpendgame }, // "End Game"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000024, L_MPMENU(287), 0x00000000, &g_MpEndGameMenuDialog }, // "End Game"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2a794
-struct menu_dialog menudialog_2a794 = {
+struct menu_dialog g_MpPauseControlMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(285), // "Control"
-	menuitems_2a6cc,
+	g_MpPauseControlMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
 // 2a7ac
-struct menu_item menuitems_2a7ac[] = {
+struct menu_item g_MpInventoryMenuItems[] = {
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00000000, 0x00000078, 0x00000042, menuhandler00106178 },
 	{ MENUITEMTYPE_MARQUEE,     0, 0x00000a00, (u32)&mpMenuTextWeaponDescription, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2a7e8
-struct menu_dialog menudialog_2a7e8 = {
+struct menu_dialog g_MpPauseInventoryMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(284), // "Inventory"
-	menuitems_2a7ac,
+	g_MpInventoryMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2a794,
+	&g_MpPauseControlMenuDialog,
 };
 
 // 2a800
 struct menu_dialog menudialog_2a800 = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(284), // "Inventory"
-	menuitems_2a7ac,
+	g_MpInventoryMenuItems,
 	NULL,
 	0x00000000,
 	&menudialog_18d78,
@@ -10123,88 +10123,88 @@ struct menu_dialog menudialog_2a800 = {
 struct menu_dialog menudialog_2a818 = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(284), // "Inventory"
-	menuitems_2a7ac,
+	g_MpInventoryMenuItems,
 	NULL,
 	0x00000000,
 	&menudialog_18d90,
 };
 
 // 2a830
-struct menu_item menuitems_2a830[] = {
+struct menu_item g_MpPlayerStatsMenuItems[] = {
 	{ MENUITEMTYPE_PLAYERSTATS, 0, 0x00000000, 0x00000000, 0x00000000, menuhandler00177e00 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2a858
-struct menu_dialog menudialog_2a858 = {
+struct menu_dialog g_MpPausePlayerStatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f1783a0,
-	menuitems_2a830,
+	g_MpPlayerStatsMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2a7e8,
+	&g_MpPauseInventoryMenuDialog,
 };
 
 // 2a870
-struct menu_dialog menudialog_2a870 = {
+struct menu_dialog g_MpEndscreenPlayerStatsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f1783a0,
-	menuitems_2a830,
+	g_MpPlayerStatsMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
 // 2a888
-struct menu_item menuitems_2a888[] = {
+struct menu_item g_MpPlayerRankingMenuItems[] = {
 	{ MENUITEMTYPE_RANKING,     0, 0x00000000, 0x00000000, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2a8b0
-struct menu_dialog menudialog_2a8b0 = {
+struct menu_dialog g_MpPausePlayerRankingMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(276), // "Player Ranking"
-	menuitems_2a888,
+	g_MpPlayerRankingMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2a858,
+	&g_MpPausePlayerStatsMenuDialog,
 };
 
 // 2a8c8
-struct menu_dialog menudialog_2a8c8 = {
+struct menu_dialog g_MpEndscreenPlayerRankingMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(276), // "Player Ranking"
-	menuitems_2a888,
+	g_MpPlayerRankingMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2a870,
+	&g_MpEndscreenPlayerStatsMenuDialog,
 };
 
 // 2a8e0
-struct menu_item menuitems_2a8e0[] = {
+struct menu_item g_MpTeamRankingMenuItems[] = {
 	{ MENUITEMTYPE_RANKING,     0, 0x00000000, 0x00000001, 0x00000000, NULL },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2a908
-struct menu_dialog menudialog_2a908 = {
+struct menu_dialog g_MpPauseTeamRankingMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(279), // "Team Ranking"
-	menuitems_2a8e0,
+	g_MpTeamRankingMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2a8b0,
+	&g_MpPausePlayerRankingMenuDialog,
 };
 
 // 2a920
-struct menu_dialog menudialog_2a920 = {
+struct menu_dialog g_MpEndscreenTeamRankingMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(279), // "Team Ranking"
-	menuitems_2a8e0,
+	g_MpTeamRankingMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2a8c8,
+	&g_MpEndscreenPlayerRankingMenuDialog,
 };
 
 // 2a938
@@ -10224,7 +10224,7 @@ u16 g_OrdinalSuffixes[] = {
 };
 
 // 2a950
-struct menu_item menuitems_2a950[] = {
+struct menu_item g_MpGameOverMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x01000010, (u32)&mpGetCurrentPlayerName, (u32)&mpMenuTextPlacementWithSuffix, menuhandler001785c4 },
 	{ MENUITEMTYPE_LABEL,       0, 0x01000000, L_MPMENU(261), (u32)&mpMenuTextPlayerTitle, menuhandler00178a94 }, // "Title:"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
@@ -10238,85 +10238,85 @@ struct menu_item menuitems_2a950[] = {
 };
 
 // 2aa18
-struct menu_dialog menudialog_2aa18 = {
+struct menu_dialog g_MpEndscreenChallengeGameOverMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(260), // "Game Over"
-	menuitems_2a950,
+	g_MpGameOverMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2a8c8,
+	&g_MpEndscreenPlayerRankingMenuDialog,
 };
 
 // 2aa30
-struct menu_dialog menudialog_2aa30 = {
+struct menu_dialog g_MpEndscreenGameOverMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(260), // "Game Over"
-	menuitems_2a950,
+	g_MpGameOverMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2a920,
+	&g_MpEndscreenTeamRankingMenuDialog,
 };
 
 // 2aa48
-struct menu_dialog menudialog_2aa48 = {
+struct menu_dialog g_MpEndscreenChallengeCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPWEAPONS(165), // "Challenge Completed!"
-	menuitems_2a8e0,
+	g_MpTeamRankingMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2aa18,
+	&g_MpEndscreenChallengeGameOverMenuDialog,
 };
 
 // 2aa60
-struct menu_dialog menudialog_2aa60 = {
+struct menu_dialog g_MpEndscreenChallengeCheatedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(167), // "Challenge Cheated!"
-	menuitems_2a8e0,
+	g_MpTeamRankingMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2aa18,
+	&g_MpEndscreenChallengeGameOverMenuDialog,
 };
 
 // 2aa78
-struct menu_dialog menudialog_2aa78 = {
+struct menu_dialog g_MpEndscreenChallengeFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPWEAPONS(166), // "Challenge Failed!"
-	menuitems_2a8e0,
+	g_MpTeamRankingMenuItems,
 	NULL,
 	0x00000000,
-	&menudialog_2aa18,
+	&g_MpEndscreenChallengeGameOverMenuDialog,
 };
 
 // 2aa90
-struct menu_item menuitems_2aa90[] = {
-	{ MENUITEMTYPE_LABEL,       0, 0x00000010, 0x000054fa, 0x00000000, NULL },
+struct menu_item g_MpEndscreenConfirmPlayerNameMenuItems[] = {
+	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(250), 0x00000000, NULL }, // "Confirm player name:"
 	{ MENUITEMTYPE_KEYBOARD,    0, 0x00000000, 0x00000000, 0x00000000, menuhandler00178bf4 },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2aacc
-struct menu_dialog menudialog_2aacc = {
+struct menu_dialog g_MpEndscreenConfirmPlayerNameMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(142), // "Player Name"
-	menuitems_2aa90,
+	g_MpEndscreenConfirmPlayerNameMenuItems,
 	NULL,
 	0x00000000,
 	NULL,
 };
 
 // 2aae4
-struct menu_item menuitems_2aae4[] = {
+struct menu_item g_MpEndscreenSavePlayerMenuItems[] = {
 	{ MENUITEMTYPE_LABEL,       0, 0x00000010, L_MPWEAPONS(247), 0x00000000, NULL }, // "Save new player and statistics?"
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x0000002c, L_MPWEAPONS(248), 0x00000000, &menudialog_2aacc }, // "Save Now"
+	{ MENUITEMTYPE_SELECTABLE,  0, 0x0000002c, L_MPWEAPONS(248), 0x00000000, &g_MpEndscreenConfirmPlayerNameMenuDialog }, // "Save Now"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000028, L_MPWEAPONS(249), 0x00000000, NULL }, // "No Thanks!"
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
 // 2ab34
-struct menu_dialog menudialog_2ab34 = {
+struct menu_dialog g_MpEndscreenSavePlayerMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPWEAPONS(246), // "Save Player"
-	menuitems_2aae4,
+	g_MpEndscreenSavePlayerMenuItems,
 	NULL,
 	0x00000004,
 	NULL,
