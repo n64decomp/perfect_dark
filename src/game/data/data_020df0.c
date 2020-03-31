@@ -10238,7 +10238,7 @@ struct menu_item g_MpGameOverMenuItems[] = {
 };
 
 // 2aa18
-struct menu_dialog g_MpEndscreenChallengeGameOverMenuDialog = {
+struct menu_dialog g_MpEndscreenIndividualGameOverMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(260), // "Game Over"
 	g_MpGameOverMenuItems,
@@ -10248,7 +10248,7 @@ struct menu_dialog g_MpEndscreenChallengeGameOverMenuDialog = {
 };
 
 // 2aa30
-struct menu_dialog g_MpEndscreenGameOverMenuDialog = {
+struct menu_dialog g_MpEndscreenTeamGameOverMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU(260), // "Game Over"
 	g_MpGameOverMenuItems,
@@ -10264,7 +10264,7 @@ struct menu_dialog g_MpEndscreenChallengeCompletedMenuDialog = {
 	g_MpTeamRankingMenuItems,
 	NULL,
 	0x00000000,
-	&g_MpEndscreenChallengeGameOverMenuDialog,
+	&g_MpEndscreenIndividualGameOverMenuDialog,
 };
 
 // 2aa60
@@ -10274,7 +10274,7 @@ struct menu_dialog g_MpEndscreenChallengeCheatedMenuDialog = {
 	g_MpTeamRankingMenuItems,
 	NULL,
 	0x00000000,
-	&g_MpEndscreenChallengeGameOverMenuDialog,
+	&g_MpEndscreenIndividualGameOverMenuDialog,
 };
 
 // 2aa78
@@ -10284,7 +10284,7 @@ struct menu_dialog g_MpEndscreenChallengeFailedMenuDialog = {
 	g_MpTeamRankingMenuItems,
 	NULL,
 	0x00000000,
-	&g_MpEndscreenChallengeGameOverMenuDialog,
+	&g_MpEndscreenIndividualGameOverMenuDialog,
 };
 
 // 2aa90

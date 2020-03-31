@@ -19,7 +19,7 @@ s32 menuhandler00178a94(u32, u32, u32 *);
 char *mpMenuTextPlayerTitle(s32 arg0);
 s32 menuhandler00178bf4(u32, u32, u32 *);
 u32 func0f178dbc(void);
-u32 func0f178ef0(void);
+void mpPushEndscreenDialog(u32 arg0, u32 playernum);
 s32 menuhandlerMpEndGame(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandler00178018(u32 operation, struct menu_item *item, s32 *value);
 s32 menuhandlerMpInGameLimitLabel(u32 operation, struct menu_item *item, s32 *value);

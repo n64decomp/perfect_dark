@@ -980,106 +980,35 @@ glabel func0f178dbc
 /*  f178eec:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f178ef0
-/*  f178ef0:	3c028007 */ 	lui	$v0,%hi(g_MpPlayerNum)
-/*  f178ef4:	0005c0c0 */ 	sll	$t8,$a1,0x3
-/*  f178ef8:	24421448 */ 	addiu	$v0,$v0,%lo(g_MpPlayerNum)
-/*  f178efc:	0305c023 */ 	subu	$t8,$t8,$a1
-/*  f178f00:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f178f04:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f178f08:	ac450000 */ 	sw	$a1,0x0($v0)
-/*  f178f0c:	0305c021 */ 	addu	$t8,$t8,$a1
-/*  f178f10:	3c19800b */ 	lui	$t9,%hi(g_MpSetup+0xc)
-/*  f178f14:	8f39cb94 */ 	lw	$t9,%lo(g_MpSetup+0xc)($t9)
-/*  f178f18:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f178f1c:	0305c023 */ 	subu	$t8,$t8,$a1
-/*  f178f20:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f178f24:	3c01800a */ 	lui	$at,%hi(g_MenuStack+0x83b)
-/*  f178f28:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f178f2c:	00380821 */ 	addu	$at,$at,$t8
-/*  f178f30:	33280002 */ 	andi	$t0,$t9,0x2
-/*  f178f34:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f178f38:	a024e83b */ 	sb	$a0,%lo(g_MenuStack+0x83b)($at)
-/*  f178f3c:	11000027 */ 	beqz	$t0,.L0f178fdc
-/*  f178f40:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f178f44:	3c09800b */ 	lui	$t1,%hi(g_MpSetup+0x88)
-/*  f178f48:	9129cc10 */ 	lbu	$t1,%lo(g_MpSetup+0x88)($t1)
-/*  f178f4c:	24010005 */ 	addiu	$at,$zero,0x5
-/*  f178f50:	3c048008 */ 	lui	$a0,%hi(g_MpEndscreenGameOverMenuDialog)
-/*  f178f54:	1521001d */ 	bne	$t1,$at,.L0f178fcc
-/*  f178f58:	24844a10 */ 	addiu	$a0,$a0,%lo(g_MpEndscreenGameOverMenuDialog)
-/*  f178f5c:	3c0a800a */ 	lui	$t2,%hi(g_CheatsActiveBank0)
-/*  f178f60:	8d4a21d0 */ 	lw	$t2,%lo(g_CheatsActiveBank0)($t2)
-/*  f178f64:	3c048008 */ 	lui	$a0,%hi(g_MpEndscreenChallengeCheatedMenuDialog)
-/*  f178f68:	3c0b800a */ 	lui	$t3,%hi(g_CheatsActiveBank1)
-/*  f178f6c:	15400004 */ 	bnez	$t2,.L0f178f80
-/*  f178f70:	24844a40 */ 	addiu	$a0,$a0,%lo(g_MpEndscreenChallengeCheatedMenuDialog)
-/*  f178f74:	8d6b21d4 */ 	lw	$t3,%lo(g_CheatsActiveBank1)($t3)
-/*  f178f78:	11600005 */ 	beqz	$t3,.L0f178f90
-/*  f178f7c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f178f80:
-/*  f178f80:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f178f84:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f178f88:	10000018 */ 	beqz	$zero,.L0f178fec
-/*  f178f8c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f178f90:
-/*  f178f90:	0fc6714f */ 	jal	func0f19c53c
-/*  f178f94:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f178f98:	10400007 */ 	beqz	$v0,.L0f178fb8
-/*  f178f9c:	3c048008 */ 	lui	$a0,%hi(g_MpEndscreenChallengeFailedMenuDialog)
-/*  f178fa0:	3c048008 */ 	lui	$a0,%hi(g_MpEndscreenChallengeCompletedMenuDialog)
-/*  f178fa4:	24844a28 */ 	addiu	$a0,$a0,%lo(g_MpEndscreenChallengeCompletedMenuDialog)
-/*  f178fa8:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f178fac:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f178fb0:	1000000e */ 	beqz	$zero,.L0f178fec
-/*  f178fb4:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f178fb8:
-/*  f178fb8:	24844a58 */ 	addiu	$a0,$a0,%lo(g_MpEndscreenChallengeFailedMenuDialog)
-/*  f178fbc:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f178fc0:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f178fc4:	10000009 */ 	beqz	$zero,.L0f178fec
-/*  f178fc8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f178fcc:
-/*  f178fcc:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f178fd0:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f178fd4:	10000005 */ 	beqz	$zero,.L0f178fec
-/*  f178fd8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f178fdc:
-/*  f178fdc:	3c048008 */ 	lui	$a0,%hi(g_MpEndscreenChallengeGameOverMenuDialog)
-/*  f178fe0:	248449f8 */ 	addiu	$a0,$a0,%lo(g_MpEndscreenChallengeGameOverMenuDialog)
-/*  f178fe4:	0fc3e0cc */ 	jal	menuPushRootDialog
-/*  f178fe8:	24050005 */ 	addiu	$a1,$zero,0x5
-.L0f178fec:
-/*  f178fec:	3c0c8007 */ 	lui	$t4,%hi(g_MpPlayerNum)
-/*  f178ff0:	8d8c1448 */ 	lw	$t4,%lo(g_MpPlayerNum)($t4)
-/*  f178ff4:	3c0e800b */ 	lui	$t6,%hi(g_MpPlayers)
-/*  f178ff8:	25cec7b8 */ 	addiu	$t6,$t6,%lo(g_MpPlayers)
-/*  f178ffc:	000c6880 */ 	sll	$t5,$t4,0x2
-/*  f179000:	01ac6821 */ 	addu	$t5,$t5,$t4
-/*  f179004:	000d6940 */ 	sll	$t5,$t5,0x5
-/*  f179008:	01ae1021 */ 	addu	$v0,$t5,$t6
-/*  f17900c:	94430048 */ 	lhu	$v1,0x48($v0)
-/*  f179010:	306f4000 */ 	andi	$t7,$v1,0x4000
-/*  f179014:	55e0000c */ 	bnezl	$t7,.L0f179048
-/*  f179018:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17901c:	8c58004c */ 	lw	$t8,0x4c($v0)
-/*  f179020:	57000009 */ 	bnezl	$t8,.L0f179048
-/*  f179024:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f179028:	94590050 */ 	lhu	$t9,0x50($v0)
-/*  f17902c:	3c048008 */ 	lui	$a0,%hi(g_MpEndscreenSavePlayerMenuDialog)
-/*  f179030:	34684000 */ 	ori	$t0,$v1,0x4000
-/*  f179034:	17200003 */ 	bnez	$t9,.L0f179044
-/*  f179038:	24844b14 */ 	addiu	$a0,$a0,%lo(g_MpEndscreenSavePlayerMenuDialog)
-/*  f17903c:	0fc3cbd3 */ 	jal	menuPushDialog
-/*  f179040:	a4480048 */ 	sh	$t0,0x48($v0)
-.L0f179044:
-/*  f179044:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f179048:
-/*  f179048:	8fa9001c */ 	lw	$t1,0x1c($sp)
-/*  f17904c:	3c018007 */ 	lui	$at,%hi(g_MpPlayerNum)
-/*  f179050:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f179054:	03e00008 */ 	jr	$ra
-/*  f179058:	ac291448 */ 	sw	$t1,%lo(g_MpPlayerNum)($at)
-/*  f17905c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void mpPushEndscreenDialog(u32 arg0, u32 playernum)
+{
+	u32 prevplayernum = g_MpPlayerNum;
+	g_MpPlayerNum = playernum;
+
+	g_MenuStack[g_MpPlayerNum].playernum = arg0;
+
+	if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
+		if (g_MpSetupSaveFile.locktype == MPLOCKTYPE_CHALLENGE) {
+			if (g_CheatsActiveBank0 || g_CheatsActiveBank1) {
+				menuPushRootDialog(&g_MpEndscreenChallengeCheatedMenuDialog, MENUROOT_MPENDSCREEN);
+			} else if (mpIsChallengeCompleteForEndscreen()) {
+				menuPushRootDialog(&g_MpEndscreenChallengeCompletedMenuDialog, MENUROOT_MPENDSCREEN);
+			} else {
+				menuPushRootDialog(&g_MpEndscreenChallengeFailedMenuDialog, MENUROOT_MPENDSCREEN);
+			}
+		} else {
+			menuPushRootDialog(&g_MpEndscreenTeamGameOverMenuDialog, MENUROOT_MPENDSCREEN);
+		}
+	} else {
+		menuPushRootDialog(&g_MpEndscreenIndividualGameOverMenuDialog, MENUROOT_MPENDSCREEN);
+	}
+
+	if ((g_MpPlayers[g_MpPlayerNum].options & OPTION_ASKEDSAVEPLAYER) == 0
+			&& g_MpPlayers[g_MpPlayerNum].saved == false
+			&& g_MpPlayers[g_MpPlayerNum].unk50 == 0) {
+		g_MpPlayers[g_MpPlayerNum].options |= OPTION_ASKEDSAVEPLAYER;
+		menuPushDialog(&g_MpEndscreenSavePlayerMenuDialog);
+	}
+
+	g_MpPlayerNum = prevplayernum;
+}

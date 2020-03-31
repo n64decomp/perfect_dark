@@ -1753,7 +1753,7 @@ void mpSetChallengeCompletedByChrWithNumPlayers(u32 mpchrnum, s32 index, s32 num
 }
 
 GLOBAL_ASM(
-glabel func0f19c53c
+glabel mpIsChallengeCompleteForEndscreen
 /*  f19c53c:	27bdfec0 */ 	addiu	$sp,$sp,-320
 /*  f19c540:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f19c544:	3c10800a */ 	lui	$s0,%hi(g_Vars)
@@ -1869,7 +1869,7 @@ glabel func0f19c53c
  * This uses about 256 extra bytes of stack and passes it to func0f188a84.
  * Should decompile func0f188a84 first.
  */
-//bool func0f19c53c(void)
+//bool mpIsChallengeCompleteForEndscreen(void)
 //{
 //	bool result = false;
 //	bool aborting = false;
@@ -1895,7 +1895,7 @@ glabel func0f19c53c
 
 void mpConsiderMarkingCurrentChallengeComplete(void)
 {
-	bool result = func0f19c53c();
+	bool result = mpIsChallengeCompleteForEndscreen();
 
 	if (g_CheatsActiveBank0 == 0 && g_CheatsActiveBank1 == 0 && result) {
 		u32 prevplayernum;
