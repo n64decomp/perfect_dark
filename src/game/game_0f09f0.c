@@ -14344,7 +14344,7 @@ struct menu_item menuitems_pakrepaired[] = {
 
 struct menu_dialog g_PakRepairSuccessMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
-	0x54b4,
+	L_MPWEAPONS(180), // "Repair Successful"
 	menuitems_pakrepaired,
 	menudialog000fcd48,
 	0x00000000,
@@ -14360,7 +14360,7 @@ struct menu_item menuitems_pakrepairfailed[] = {
 
 struct menu_dialog g_PakRepairFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	0x54b6,
+	L_MPWEAPONS(182), // "Repair Failed"
 	menuitems_pakrepairfailed,
 	menudialog000fcd48,
 	0x00000000,

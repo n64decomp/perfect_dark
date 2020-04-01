@@ -3019,8 +3019,8 @@ struct menu_dialog menudialog_control4 = {
 };
 
 struct menu_item menuitems_audiooptions[] = {
-	{ MENUITEMTYPE_SLIDER,      0, L_LEN(0), L_OPTIONS(228), L_MPMENU(0), menuhandlerSfxVolume }, // "Sound"
-	{ MENUITEMTYPE_SLIDER,      0, L_LEN(0), L_OPTIONS(229), L_MPMENU(0), menuhandlerMusicVolume }, // "Music"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS(228), L_MPMENU(0), menuhandlerSfxVolume }, // "Sound"
+	{ MENUITEMTYPE_SLIDER,      0, 0x00002800, L_OPTIONS(229), L_MPMENU(0), menuhandlerMusicVolume }, // "Music"
 	{ MENUITEMTYPE_DROPDOWN,    0, 0x00000000, L_OPTIONS(230), 0x00000000, menuhandlerSoundMode }, // "Sound Mode"
 	{ MENUITEMTYPE_CHECKBOX,    0, 0x00000000, L_MPWEAPONS(218), 0x00000000, menuhandlerLangFilter }, // "Language Filter"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },

@@ -620,7 +620,7 @@ char *cheatGetMarquee(struct menu_item *arg0)
 			);
 		} else {
 			// Timed
-			strcpy(difficultyname, langGet(0x56fb + g_Cheats[cheat_id].difficulty));
+			strcpy(difficultyname, langGet(L_OPTIONS(251) + g_Cheats[cheat_id].difficulty));
 			ptr = difficultyname;
 
 			while (*ptr != '\n') {

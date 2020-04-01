@@ -21,48 +21,48 @@
 // 2da90
 struct mptrack g_MpTracks[NUM_MPTRACKS] = {
 	// Audio ID, duration, name, unlock after stage
-	/*0x00*/ { 0x3a, 160, 0x587c, -1 },
-	/*0x01*/ { 0x3b, 170, 0x587d, -1 },
-	/*0x02*/ { 0x3d, 170, 0x587e, -1 },
-	/*0x03*/ { 0x3e, 180, 0x587f, -1 },
-	/*0x04*/ { 0x3f, 200, 0x5880, -1 },
-	/*0x05*/ { 0x40, 197, 0x5881, -1 },
-	/*0x06*/ { 0x0d, 120, 0x5882, -1 },
-	/*0x07*/ { 0x09, 120, 0x5883, SOLOSTAGEINDEX_DEFECTION },
-	/*0x08*/ { 0x10, 120, 0x5884, SOLOSTAGEINDEX_DEFECTION },
-	/*0x09*/ { 0x12, 120, 0x5885, SOLOSTAGEINDEX_INVESTIGATION },
-	/*0x0a*/ { 0x13, 120, 0x5886, SOLOSTAGEINDEX_INVESTIGATION },
-	/*0x0b*/ { 0x02, 120, 0x5887, SOLOSTAGEINDEX_EXTRACTION },
-	/*0x0c*/ { 0x11, 120, 0x5888, SOLOSTAGEINDEX_EXTRACTION },
-	/*0x0d*/ { 0x0c, 120, 0x5889, SOLOSTAGEINDEX_VILLA },
-	/*0x0e*/ { 0x27, 120, 0x588a, SOLOSTAGEINDEX_VILLA },
-	/*0x0f*/ { 0x0e, 120, 0x588b, SOLOSTAGEINDEX_CHICAGO },
-	/*0x10*/ { 0x28, 120, 0x588c, SOLOSTAGEINDEX_CHICAGO },
-	/*0x11*/ { 0x0f, 120, 0x588d, SOLOSTAGEINDEX_G5BUILDING },
-	/*0x12*/ { 0x29, 120, 0x588e, SOLOSTAGEINDEX_G5BUILDING },
-	/*0x13*/ { 0x14, 120, 0x588f, SOLOSTAGEINDEX_INFILTRATION },
-	/*0x14*/ { 0x2a, 120, 0x5890, SOLOSTAGEINDEX_INFILTRATION },
-	/*0x15*/ { 0x16, 120, 0x5891, SOLOSTAGEINDEX_RESCUE },
-	/*0x16*/ { 0x32, 120, 0x5892, SOLOSTAGEINDEX_RESCUE },
-	/*0x17*/ { 0x06, 120, 0x5893, SOLOSTAGEINDEX_ESCAPE },
-	/*0x18*/ { 0x33, 120, 0x5894, SOLOSTAGEINDEX_ESCAPE },
-	/*0x19*/ { 0x17, 120, 0x5895, SOLOSTAGEINDEX_AIRBASE },
-	/*0x1a*/ { 0x34, 120, 0x5896, SOLOSTAGEINDEX_AIRBASE },
-	/*0x1b*/ { 0x18, 120, 0x5897, SOLOSTAGEINDEX_AIRFORCEONE },
-	/*0x1c*/ { 0x35, 120, 0x5898, SOLOSTAGEINDEX_AIRFORCEONE },
-	/*0x1d*/ { 0x1d, 120, 0x5899, SOLOSTAGEINDEX_CRASHSITE },
-	/*0x1e*/ { 0x1e, 120, 0x589a, SOLOSTAGEINDEX_CRASHSITE },
-	/*0x1f*/ { 0x1c, 120, 0x589b, SOLOSTAGEINDEX_PELAGIC },
-	/*0x20*/ { 0x36, 120, 0x589c, SOLOSTAGEINDEX_PELAGIC },
-	/*0x21*/ { 0x07, 120, 0x589d, SOLOSTAGEINDEX_DEEPSEA },
-	/*0x22*/ { 0x37, 120, 0x589e, SOLOSTAGEINDEX_DEEPSEA },
-	/*0x23*/ { 0x04, 120, 0x589f, SOLOSTAGEINDEX_DEFENSE },
-	/*0x24*/ { 0x24, 120, 0x58a0, SOLOSTAGEINDEX_DEFENSE },
-	/*0x25*/ { 0x1f, 120, 0x58a1, SOLOSTAGEINDEX_ATTACKSHIP },
-	/*0x26*/ { 0x20, 120, 0x58a2, SOLOSTAGEINDEX_ATTACKSHIP },
-	/*0x27*/ { 0x21, 120, 0x58a3, SOLOSTAGEINDEX_SKEDARRUINS },
-	/*0x28*/ { 0x38, 120, 0x58a4, SOLOSTAGEINDEX_SKEDARRUINS },
-	/*0x29*/ { 0x58, 120, 0x58a5, SOLOSTAGEINDEX_SKEDARRUINS },
+	/*0x00*/ { 0x3a, 160, L_MISC(124), -1 }, // "Dark Combat"
+	/*0x01*/ { 0x3b, 170, L_MISC(125), -1 }, // "Skedar Mystery"
+	/*0x02*/ { 0x3d, 170, L_MISC(126), -1 }, // "CI Operative"
+	/*0x03*/ { 0x3e, 180, L_MISC(127), -1 }, // "dataDyne Action"
+	/*0x04*/ { 0x3f, 200, L_MISC(128), -1 }, // "Maian Tears"
+	/*0x05*/ { 0x40, 197, L_MISC(129), -1 }, // "Alien Conflict"
+	/*0x06*/ { 0x0d, 120, L_MISC(130), -1 }, // "Carrington Institute"
+	/*0x07*/ { 0x09, 120, L_MISC(131), SOLOSTAGEINDEX_DEFECTION }, // "dD Central"
+	/*0x08*/ { 0x10, 120, L_MISC(132), SOLOSTAGEINDEX_DEFECTION }, // "dD Central X"
+	/*0x09*/ { 0x12, 120, L_MISC(133), SOLOSTAGEINDEX_INVESTIGATION }, // "dD Research"
+	/*0x0a*/ { 0x13, 120, L_MISC(134), SOLOSTAGEINDEX_INVESTIGATION }, // "dD Research X"
+	/*0x0b*/ { 0x02, 120, L_MISC(135), SOLOSTAGEINDEX_EXTRACTION }, // "dD Extraction"
+	/*0x0c*/ { 0x11, 120, L_MISC(136), SOLOSTAGEINDEX_EXTRACTION }, // "dD Extraction X"
+	/*0x0d*/ { 0x0c, 120, L_MISC(137), SOLOSTAGEINDEX_VILLA }, // "Carrington Villa"
+	/*0x0e*/ { 0x27, 120, L_MISC(138), SOLOSTAGEINDEX_VILLA }, // "Carrington Villa X"
+	/*0x0f*/ { 0x0e, 120, L_MISC(139), SOLOSTAGEINDEX_CHICAGO }, // "Chicago"
+	/*0x10*/ { 0x28, 120, L_MISC(140), SOLOSTAGEINDEX_CHICAGO }, // "Chicago X"
+	/*0x11*/ { 0x0f, 120, L_MISC(141), SOLOSTAGEINDEX_G5BUILDING }, // "G5 Building"
+	/*0x12*/ { 0x29, 120, L_MISC(142), SOLOSTAGEINDEX_G5BUILDING }, // "G5 Building X"
+	/*0x13*/ { 0x14, 120, L_MISC(143), SOLOSTAGEINDEX_INFILTRATION }, // "A51 Infiltration"
+	/*0x14*/ { 0x2a, 120, L_MISC(144), SOLOSTAGEINDEX_INFILTRATION }, // "A51 Infiltration X"
+	/*0x15*/ { 0x16, 120, L_MISC(145), SOLOSTAGEINDEX_RESCUE }, // "A51 Rescue"
+	/*0x16*/ { 0x32, 120, L_MISC(146), SOLOSTAGEINDEX_RESCUE }, // "A51 Rescue X"
+	/*0x17*/ { 0x06, 120, L_MISC(147), SOLOSTAGEINDEX_ESCAPE }, // "A51 Escape"
+	/*0x18*/ { 0x33, 120, L_MISC(148), SOLOSTAGEINDEX_ESCAPE }, // "A51 Escape X"
+	/*0x19*/ { 0x17, 120, L_MISC(149), SOLOSTAGEINDEX_AIRBASE }, // "Air Base"
+	/*0x1a*/ { 0x34, 120, L_MISC(150), SOLOSTAGEINDEX_AIRBASE }, // "Air Base X"
+	/*0x1b*/ { 0x18, 120, L_MISC(151), SOLOSTAGEINDEX_AIRFORCEONE }, // "Air Force One"
+	/*0x1c*/ { 0x35, 120, L_MISC(152), SOLOSTAGEINDEX_AIRFORCEONE }, // "Air Force One X"
+	/*0x1d*/ { 0x1d, 120, L_MISC(153), SOLOSTAGEINDEX_CRASHSITE }, // "Crash Site"
+	/*0x1e*/ { 0x1e, 120, L_MISC(154), SOLOSTAGEINDEX_CRASHSITE }, // "Crash Site X"
+	/*0x1f*/ { 0x1c, 120, L_MISC(155), SOLOSTAGEINDEX_PELAGIC }, // "Pelagic II"
+	/*0x20*/ { 0x36, 120, L_MISC(156), SOLOSTAGEINDEX_PELAGIC }, // "Pelagic II X"
+	/*0x21*/ { 0x07, 120, L_MISC(157), SOLOSTAGEINDEX_DEEPSEA }, // "Deep Sea"
+	/*0x22*/ { 0x37, 120, L_MISC(158), SOLOSTAGEINDEX_DEEPSEA }, // "Deep Sea X"
+	/*0x23*/ { 0x04, 120, L_MISC(159), SOLOSTAGEINDEX_DEFENSE }, // "Institute Defense"
+	/*0x24*/ { 0x24, 120, L_MISC(160), SOLOSTAGEINDEX_DEFENSE }, // "Institute Defense X"
+	/*0x25*/ { 0x1f, 120, L_MISC(161), SOLOSTAGEINDEX_ATTACKSHIP }, // "Attack Ship"
+	/*0x26*/ { 0x20, 120, L_MISC(162), SOLOSTAGEINDEX_ATTACKSHIP }, // "Attack Ship X"
+	/*0x27*/ { 0x21, 120, L_MISC(163), SOLOSTAGEINDEX_SKEDARRUINS }, // "Skedar Ruins"
+	/*0x28*/ { 0x38, 120, L_MISC(164), SOLOSTAGEINDEX_SKEDARRUINS }, // "Skedar Ruins X"
+	/*0x29*/ { 0x58, 120, L_MISC(165), SOLOSTAGEINDEX_SKEDARRUINS }, // "End Credits"
 };
 
 // 2db8c
@@ -564,36 +564,36 @@ u32 var800884b4 = 0;
 
 // 2e4d8
 struct challenge g_MpChallenges[NUM_CHALLENGES] = {
-	{ 0x5796, 0x0e },
-	{ 0x5797, 0x0f },
-	{ 0x5798, 0x10 },
-	{ 0x5799, 0x11 },
-	{ 0x579a, 0x12 },
-	{ 0x579b, 0x13 },
-	{ 0x579c, 0x14 },
-	{ 0x579d, 0x15 },
-	{ 0x579e, 0x16 },
-	{ 0x579f, 0x17 },
-	{ 0x57a0, 0x18 },
-	{ 0x57a1, 0x19 },
-	{ 0x57a2, 0x1a },
-	{ 0x57a3, 0x1b },
-	{ 0x57a4, 0x1c },
-	{ 0x57a5, 0x1d },
-	{ 0x57a6, 0x1e },
-	{ 0x57a7, 0x1f },
-	{ 0x57a8, 0x20 },
-	{ 0x57a9, 0x21 },
-	{ 0x57aa, 0x22 },
-	{ 0x57ab, 0x23 },
-	{ 0x57ac, 0x24 },
-	{ 0x57ad, 0x25 },
-	{ 0x57ae, 0x26 },
-	{ 0x57af, 0x27 },
-	{ 0x57b0, 0x28 },
-	{ 0x57b1, 0x29 },
-	{ 0x57b2, 0x2a },
-	{ 0x57b3, 0x2b },
+	{ L_OPTIONS(406), 0x0e }, // "Challenge 1"
+	{ L_OPTIONS(407), 0x0f }, // "Challenge 2"
+	{ L_OPTIONS(408), 0x10 }, // "Challenge 3"
+	{ L_OPTIONS(409), 0x11 }, // "Challenge 4"
+	{ L_OPTIONS(410), 0x12 }, // "Challenge 5"
+	{ L_OPTIONS(411), 0x13 }, // "Challenge 6"
+	{ L_OPTIONS(412), 0x14 }, // "Challenge 7"
+	{ L_OPTIONS(413), 0x15 }, // "Challenge 8"
+	{ L_OPTIONS(414), 0x16 }, // "Challenge 9"
+	{ L_OPTIONS(415), 0x17 }, // "Challenge 10"
+	{ L_OPTIONS(416), 0x18 }, // "Challenge 11"
+	{ L_OPTIONS(417), 0x19 }, // "Challenge 12"
+	{ L_OPTIONS(418), 0x1a }, // "Challenge 13"
+	{ L_OPTIONS(419), 0x1b }, // "Challenge 14"
+	{ L_OPTIONS(420), 0x1c }, // "Challenge 15"
+	{ L_OPTIONS(421), 0x1d }, // "Challenge 16"
+	{ L_OPTIONS(422), 0x1e }, // "Challenge 17"
+	{ L_OPTIONS(423), 0x1f }, // "Challenge 18"
+	{ L_OPTIONS(424), 0x20 }, // "Challenge 19"
+	{ L_OPTIONS(425), 0x21 }, // "Challenge 20"
+	{ L_OPTIONS(426), 0x22 }, // "Challenge 21"
+	{ L_OPTIONS(427), 0x23 }, // "Challenge 22"
+	{ L_OPTIONS(428), 0x24 }, // "Challenge 23"
+	{ L_OPTIONS(429), 0x25 }, // "Challenge 24"
+	{ L_OPTIONS(430), 0x26 }, // "Challenge 25"
+	{ L_OPTIONS(431), 0x27 }, // "Challenge 26"
+	{ L_OPTIONS(432), 0x28 }, // "Challenge 27"
+	{ L_OPTIONS(433), 0x29 }, // "Challenge 28"
+	{ L_OPTIONS(434), 0x2a }, // "Challenge 29"
+	{ L_OPTIONS(435), 0x2b }, // "Challenge 30"
 };
 
 u32 var800887c4 = 0x007d1c20;
@@ -656,25 +656,25 @@ u8 var800888a0 = 0;
 // 2e8c4
 struct chrbio g_ChrBios[10] = {
 	// name, race, age, profile
-	/*0x00*/ { 0x58db, 0x58dc, 0x58dd, 0x58de }, // Joanna Dark
-	/*0x01*/ { 0x58df, 0x58e0, 0x58e1, 0x58e2 }, // Jonathan
-	/*0x02*/ { 0x58e3, 0x58e4, 0x58e5, 0x58e6 }, // Daniel Carrington
-	/*0x03*/ { 0x58e7, 0x58e8, 0x58e9, 0x58ea }, // Cassandra De Vries
-	/*0x04*/ { 0x58eb, 0x58ec, 0x58ed, 0x58ee }, // Trent Easton
-	/*0x05*/ { 0x58ef, 0x58f0, 0x58f1, 0x58f2 }, // Dr. Caroll
-	/*0x06*/ { 0x58f3, 0x58f4, 0x58f5, 0x58f6 }, // Elvis
-	/*0x07*/ { 0x58f7, 0x58f8, 0x58f9, 0x58fa }, // Mr. Blonde
-	/*0x08*/ { 0x58fb, 0x58fc, 0x58fd, 0x58fe }, // Mr. Blonde (repeat)
-	/*0x09*/ { 0x58ff, 0x5900, 0x5901, 0x5902 }, // The U.S. President
+	/*0x00*/ { L_MISC(219), L_MISC(220), L_MISC(221), L_MISC(222) }, // Joanna Dark
+	/*0x01*/ { L_MISC(223), L_MISC(224), L_MISC(225), L_MISC(226) }, // Jonathan
+	/*0x02*/ { L_MISC(227), L_MISC(228), L_MISC(229), L_MISC(230) }, // Daniel Carrington
+	/*0x03*/ { L_MISC(231), L_MISC(232), L_MISC(233), L_MISC(234) }, // Cassandra De Vries
+	/*0x04*/ { L_MISC(235), L_MISC(236), L_MISC(237), L_MISC(238) }, // Trent Easton
+	/*0x05*/ { L_MISC(239), L_MISC(240), L_MISC(241), L_MISC(242) }, // Dr. Caroll
+	/*0x06*/ { L_MISC(243), L_MISC(244), L_MISC(245), L_MISC(246) }, // Elvis
+	/*0x07*/ { L_MISC(247), L_MISC(248), L_MISC(249), L_MISC(250) }, // Mr. Blonde
+	/*0x08*/ { L_MISC(251), L_MISC(252), L_MISC(253), L_MISC(254) }, // Mr. Blonde (repeat)
+	/*0x09*/ { L_MISC(255), L_MISC(256), L_MISC(257), L_MISC(258) }, // The U.S. President
 };
 
 // 2e964
 u32 misc_bios[] = {
 	// name, description
-	0x5903, 0x5904, // Maians
-	0x5905, 0x5906, // Skedar Warrior
-	0x5907, 0x5908, // Background
-	0x5909, 0x590a, // The Story
+	L_MISC(259), L_MISC(260), // Maians
+	L_MISC(261), L_MISC(262), // Skedar Warrior
+	L_MISC(263), L_MISC(264), // Background
+	L_MISC(265), L_MISC(266), // The Story
 };
 
 u32 var80088964 = 0;
@@ -682,29 +682,29 @@ u32 var80088964 = 0;
 // 2e988
 u32 place_bios[] = {
 	// name, description
-	0x5922, 0x5939, 0, 0, // Carrington Institute
-	0x5923, 0x593a, 0, 0, // Lucerne Tower
-	0x5924, 0x593b, 0, 0, // Laboratory Basement
-	0x5925, 0x593c, 0, 0, // Carrington Villa
-	0x5926, 0x593d, 0, 0, // Chicago
-	0x5927, 0x593e, 0, 0, // G5 Building
-	0x5928, 0x593f, 0, 0, // Area 51
-	0x5929, 0x5940, 0, 0, // Alaskan Air Base
-	0x592a, 0x5941, 0, 0, // Air Force One
-	0x592b, 0x5942, 0, 0, // Crash Site
-	0x592c, 0x5943, 0, 0, // Pelagic II
-	0x592d, 0x5944, 0, 0, // Cetan Ship
-	0x592e, 0x5945, 0, 0, // Skedar Assault Ship
-	0x592f, 0x5946, 0, 0, // Skedar Homeworld
-	0x5930, 0x5947, 0, 0, // Jumpship
-	0x5931, 0x5948, 0, 0, // HoverCrate
-	0x5932, 0x5949, 0, 0, // HoverBike
-	0x5933, 0x594a, 0, 0, // Cleaning Hovbot
-	0x5934, 0x594b, 0, 0, // Hovercopter
-	0x5935, 0x594c, 0, 0, // G5 Robot
-	0x5936, 0x594d, 0, 0, // A51 Interceptor
-	0x5937, 0x594e, 0, 0, // Maian Vessel
-	0x5938, 0x594f, 0, 0, // Skedar Shuttle
+	L_MISC(290), L_MISC(313), 0, 0, // Carrington Institute
+	L_MISC(291), L_MISC(314), 0, 0, // Lucerne Tower
+	L_MISC(292), L_MISC(315), 0, 0, // Laboratory Basement
+	L_MISC(293), L_MISC(316), 0, 0, // Carrington Villa
+	L_MISC(294), L_MISC(317), 0, 0, // Chicago
+	L_MISC(295), L_MISC(318), 0, 0, // G5 Building
+	L_MISC(296), L_MISC(319), 0, 0, // Area 51
+	L_MISC(297), L_MISC(320), 0, 0, // Alaskan Air Base
+	L_MISC(298), L_MISC(321), 0, 0, // Air Force One
+	L_MISC(299), L_MISC(322), 0, 0, // Crash Site
+	L_MISC(300), L_MISC(323), 0, 0, // Pelagic II
+	L_MISC(301), L_MISC(324), 0, 0, // Cetan Ship
+	L_MISC(302), L_MISC(325), 0, 0, // Skedar Assault Ship
+	L_MISC(303), L_MISC(326), 0, 0, // Skedar Homeworld
+	L_MISC(304), L_MISC(327), 0, 0, // Jumpship
+	L_MISC(305), L_MISC(328), 0, 0, // HoverCrate
+	L_MISC(306), L_MISC(329), 0, 0, // HoverBike
+	L_MISC(307), L_MISC(330), 0, 0, // Cleaning Hovbot
+	L_MISC(308), L_MISC(331), 0, 0, // Hovercopter
+	L_MISC(309), L_MISC(332), 0, 0, // G5 Robot
+	L_MISC(310), L_MISC(333), 0, 0, // A51 Interceptor
+	L_MISC(311), L_MISC(334), 0, 0, // Maian Vessel
+	L_MISC(312), L_MISC(335), 0, 0, // Skedar Shuttle
 };
 
 u32 var80088ad8 = 0x00000000;
@@ -735,44 +735,44 @@ u32 var80088b38 = 0x00020000;
 
 // 2eb5c
 u32 device_descriptions[] = {
-	/*0*/ 0x5918,
-	/*1*/ 0x5917,
-	/*2*/ 0x590f,
-	/*3*/ 0x5910,
-	/*4*/ 0x5911,
-	/*5*/ 0x5915,
-	/*6*/ 0x5914,
-	/*7*/ 0x5912,
-	/*8*/ 0x5913,
-	/*9*/ 0x5916,
+	/*0*/ L_MISC(280), // Data uplink
+	/*1*/ L_MISC(279), // ECM mine
+	/*2*/ L_MISC(271), // CamSpy
+	/*3*/ L_MISC(272), // Night vision
+	/*4*/ L_MISC(273), // Door decoder
+	/*5*/ L_MISC(277), // R-tracker
+	/*6*/ L_MISC(276), // IR scanner
+	/*7*/ L_MISC(274), // X-ray scanner
+	/*8*/ L_MISC(275), // Disguise
+	/*9*/ L_MISC(278), // Cloak
 };
 
 // 2eb84
 u32 device_tips1[] = {
-	/*0*/ 0x5965,
-	/*1*/ 0x5966,
-	/*2*/ 0x5967,
-	/*3*/ 0x5968,
-	/*4*/ 0x5969,
-	/*5*/ 0x596a,
-	/*6*/ 0x596b,
-	/*7*/ 0x596c,
-	/*8*/ 0x596d,
-	/*9*/ 0x596e,
+	/*0*/ L_MISC(357),
+	/*1*/ L_MISC(358),
+	/*2*/ L_MISC(359),
+	/*3*/ L_MISC(360),
+	/*4*/ L_MISC(361),
+	/*5*/ L_MISC(362),
+	/*6*/ L_MISC(363),
+	/*7*/ L_MISC(364),
+	/*8*/ L_MISC(365),
+	/*9*/ L_MISC(366),
 };
 
 // 2ebac
 u32 device_tips2[] = {
-	/*0*/ 0x596f,
-	/*1*/ 0x5970,
-	/*2*/ 0x5971,
-	/*3*/ 0x5972,
-	/*4*/ 0x5973,
-	/*5*/ 0x5974,
-	/*6*/ 0x5975,
-	/*7*/ 0x5976,
-	/*8*/ 0x5977,
-	/*9*/ 0x5978,
+	/*0*/ L_MISC(367),
+	/*1*/ L_MISC(368),
+	/*2*/ L_MISC(369),
+	/*3*/ L_MISC(370),
+	/*4*/ L_MISC(371),
+	/*5*/ L_MISC(372),
+	/*6*/ L_MISC(373),
+	/*7*/ L_MISC(374),
+	/*8*/ L_MISC(375),
+	/*9*/ L_MISC(376),
 };
 
 u32 var80088bb4 = 0x00000000;
@@ -903,7 +903,7 @@ struct menu_item menuitems_frtraininginfo[] = {
 // 2ee8c
 struct menu_dialog g_FrTrainingInfoMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x51bf,
+	L_MPMENU(447), // "Training Info"
 	menuitems_frtraininginfo,
 	menudialog001a39a8,
 	0x00000602,
@@ -955,7 +955,7 @@ struct menu_item menuitems_frtrainingstats[] = {
 // 2f09c
 struct menu_dialog menudialog_frtrainingstats = {
 	MENUDIALOGTYPE_SUCCESS,
-	0x51c0,
+	L_MPMENU(448), // "Training Stats"
 	menuitems_frtrainingstats,
 	menudialog001a3af4,
 	0x00000004,
@@ -1052,7 +1052,7 @@ struct menu_item menuitems_characterprofile[] = {
 // 2f358
 struct menu_dialog menudialog_characterprofile = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x51af,
+	L_MPMENU(431), // "Character Profile"
 	menuitems_characterprofile,
 	menudialog001a5f48,
 	0x00000002,
@@ -1150,7 +1150,7 @@ struct menu_item menuitems_trainingstats_completed[] = {
 // 2f5bc
 struct menu_dialog g_DeviceTrainingStatsCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
-	0x51a7,
+	L_MPMENU(423), // "Training Stats"
 	menuitems_trainingstats_completed,
 	menudialogDeviceTrainingResults,
 	0x00000200,
@@ -1166,7 +1166,7 @@ struct menu_item menuitems_holotraining[] = {
 // 2f5fc
 struct menu_dialog g_HoloTrainingListMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x51a0,
+	L_MPMENU(416), // "Holotraining"
 	menuitems_holotraining,
 	NULL,
 	0x00000000,
@@ -1280,7 +1280,7 @@ struct menu_item menuitems_holograph[] = {
 // 2f920
 struct menu_dialog menudialog_holograph = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x59d7,
+	L_MISC(471), // "Holograph"
 	menuitems_holograph,
 	menudialog001a737c,
 	0x00000202,
@@ -1316,7 +1316,7 @@ struct menu_item menuitems_hangarinformation[] = {
 // 2f990
 struct menu_dialog menudialog_hangarinformation = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x519f,
+	L_MPMENU(415), // "Hangar Information"
 	menuitems_hangarinformation,
 	NULL,
 	0x00000000,

@@ -5523,9 +5523,9 @@ struct menu_dialog menudialog_1a984 = {
 
 // 1a99c
 struct menu_item menuitems_deletefile[] = {
-	{ MENUITEMTYPE_LABEL,       0, L_SEVXB(16), L_OPTIONS(377), 0x00000000, NULL }, // "Select a file to delete:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(377), 0x00000000, NULL }, // "Select a file to delete:"
 	{ MENUITEMTYPE_CUSTOM,      1, 0x00200000, 0x00000000, 0x00000000, menucustomFileToDelete },
-	{ MENUITEMTYPE_LABEL,       0, L_SEVXB(48), L_OPTIONS(378), 0x00000000, NULL }, // "Press B Button to exit."
+	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS(378), 0x00000000, NULL }, // "Press B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -5541,9 +5541,9 @@ struct menu_dialog menudialog_deletefile = {
 
 // 1aa04
 struct menu_item menuitems_copyfile[] = {
-	{ MENUITEMTYPE_LABEL,       0, L_SEVXB(16), L_OPTIONS(374), 0x00000000, NULL }, // "Select a file to copy:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(374), 0x00000000, NULL }, // "Select a file to copy:"
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x00000000, 0x00000000, menucustomFileToCopy },
-	{ MENUITEMTYPE_LABEL,       0, L_SEVXB(48), L_OPTIONS(375), 0x00000000, NULL }, // "Press B Button to exit."
+	{ MENUITEMTYPE_LABEL,       0, 0x00004030, L_OPTIONS(375), 0x00000000, NULL }, // "Press B Button to exit."
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };
 
@@ -5570,7 +5570,7 @@ struct menu_item menuitems_deletegamenote[] = {
 // 1aac0
 struct menu_dialog menudialog_deletegamenote = {
 	MENUDIALOGTYPE_DANGER,
-	0x577f,
+	L_OPTIONS(383), // "Delete Game Note"
 	menuitems_deletegamenote,
 	NULL,
 	0x00000000,
@@ -5625,12 +5625,12 @@ struct menu_dialog menudialog_controllerpakmenu = {
 
 // 1ac70
 struct menu_item menuitems_gamefiles[] = {
-	{ MENUITEMTYPE_LABEL,       0, L_SEVXB(16), L_OPTIONS(100), 0x00000000, NULL }, // "Copy:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(100), 0x00000000, NULL }, // "Copy:"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(103), 0x00000000, menuhandlerOpenCopyFile }, // "Single Player Agent File"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS(104), 0x00000000, menuhandlerOpenCopyFile }, // "Combat Simulator Settings File"
 	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_OPTIONS(105), 0x00000000, menuhandlerOpenCopyFile }, // "Combat Simulator Player File"
 	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_LABEL,       0, L_SEVXB(16), L_OPTIONS(101), 0x00000000, NULL }, // "Delete:"
+	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(101), 0x00000000, NULL }, // "Delete:"
 	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000000, L_OPTIONS(103), 0x00000000, menuhandlerOpenDeleteFile }, // "Single Player Agent File"
 	{ MENUITEMTYPE_SELECTABLE,  1, 0x00000000, L_OPTIONS(104), 0x00000000, menuhandlerOpenDeleteFile }, // "Combat Simulator Settings File"
 	{ MENUITEMTYPE_SELECTABLE,  2, 0x00000000, L_OPTIONS(105), 0x00000000, menuhandlerOpenDeleteFile }, // "Combat Simulator Player File"
@@ -5642,7 +5642,7 @@ struct menu_item menuitems_gamefiles[] = {
 // 1ad60
 struct menu_dialog menudialog_gamefiles = {
 	MENUDIALOGTYPE_DEFAULT,
-	0x5663,
+	L_OPTIONS(99), // "Game Files"
 	menuitems_gamefiles,
 	NULL,
 	0x00000020,
@@ -5667,7 +5667,7 @@ struct menu_dialog menudialog_enteragentname = {
 
 // 1adb8
 struct menu_item menuitems_fileselect[] = {
-	{ MENUITEMTYPE_LABEL,       0, L_SEVXB(16), L_OPTIONS(96), 0x00000000, NULL }, // "Choose Your Reality"
+	{ MENUITEMTYPE_LABEL,       0, 0x00004010, L_OPTIONS(96), 0x00000000, NULL }, // "Choose Your Reality"
 	{ MENUITEMTYPE_CUSTOM,      0, 0x00200000, 0x000000f5, 0x00000000, menucustomChooseAgent },
 	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
 };

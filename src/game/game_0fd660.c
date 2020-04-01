@@ -722,7 +722,7 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 				qty = ammoGetQuantity(AMMOTYPE_CLOAK);
 				secs = qty / 60;
 				modulo = (qty - (secs * 60)) * 100 / 60;
-				sprintf(label, langGet(0x57eb), secs + (modulo > 0 ? 1 : 0));
+				sprintf(label, langGet(L_OPTIONS(491)), secs + (modulo > 0 ? 1 : 0)); // "cloak %d"
 			} else {
 				strcpy(label, currentPlayerGetInvShortNameByIndex(g_ActiveMenuThings[g_ActiveMenuIndex].weaponnums[slot]));
 			}
