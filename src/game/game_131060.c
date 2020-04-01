@@ -1882,22 +1882,13 @@ glabel var7f1b5734
 /*  f1329b8:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel rainConfigure
-/*  f1329bc:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
-/*  f1329c0:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
-/*  f1329c4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1329c8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1329cc:	50400004 */ 	beqzl	$v0,.L0f1329e0
-/*  f1329d0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1329d4:	0fc4c5c7 */ 	jal	func0f13171c
-/*  f1329d8:	ac400020 */ 	sw	$zero,0x20($v0)
-/*  f1329dc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1329e0:
-/*  f1329e0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1329e4:	03e00008 */ 	jr	$ra
-/*  f1329e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void rainConfigure(u32 intensity)
+{
+	if (g_WeatherData) {
+		g_WeatherData->unk20 = 0;
+		func0f13171c(intensity);
+	}
+}
 
 GLOBAL_ASM(
 glabel snowConfigure
