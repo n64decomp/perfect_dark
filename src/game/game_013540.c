@@ -10,10 +10,7 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f013540
-/*  f013540:	03e00008 */ 	jr	$ra
-/*  f013544:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f013548:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f01354c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f013540(void)
+{
+	// empty
+}
