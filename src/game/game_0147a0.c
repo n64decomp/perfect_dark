@@ -10,18 +10,9 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f0147a0
-/*  f0147a0:	3c01800a */ 	lui	$at,%hi(var800a33a0)
-/*  f0147a4:	ac2433a0 */ 	sw	$a0,%lo(var800a33a0)($at)
-/*  f0147a8:	3c01800a */ 	lui	$at,%hi(var800a33a4)
-/*  f0147ac:	ac2033a4 */ 	sw	$zero,%lo(var800a33a4)($at)
-/*  f0147b0:	3c013f80 */ 	lui	$at,0x3f80
-/*  f0147b4:	44812000 */ 	mtc1	$at,$f4
-/*  f0147b8:	3c018008 */ 	lui	$at,0x8008
-/*  f0147bc:	03e00008 */ 	jr	$ra
-/*  f0147c0:	e424db84 */ 	swc1	$f4,-0x247c($at)
-/*  f0147c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0147c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0147cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0147a0(u32 stagenum)
+{
+	var800a33a0 = stagenum;
+	var800a33a4 = 0;
+	var8007db84 = 1;
+}

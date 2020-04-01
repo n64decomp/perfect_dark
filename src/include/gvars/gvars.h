@@ -673,6 +673,7 @@ extern struct var800a2380 var800a2380[4];
 extern u32 var800a2eb0;
 extern u8 var800a316c[4];
 extern u32 var800a3180;
+extern u32 var800a33a0;
 extern u32 var800a33a4;
 extern u32 var800a33a8;
 extern u32 var800a33e8;

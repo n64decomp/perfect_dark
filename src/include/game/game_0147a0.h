@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f0147a0(s32 stagenum);
+void func0f0147a0(u32 stagenum);
 
 #endif
