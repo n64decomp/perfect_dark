@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f097a50(void);
+f32 func0f097a50(f32 value);
 
 #endif
