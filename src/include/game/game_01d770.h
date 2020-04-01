@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f01d770(void);
+void weatherTick(void);
 
 #endif

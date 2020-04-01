@@ -45,8 +45,8 @@ const char var7f1b56c0[] = "snowcol2";
 
 GLOBAL_ASM(
 glabel func0f131060
-/*  f131060:	3c058008 */ 	lui	$a1,%hi(var8007f0c0)
-/*  f131064:	8ca5f0c0 */ 	lw	$a1,%lo(var8007f0c0)($a1)
+/*  f131060:	3c058008 */ 	lui	$a1,%hi(g_WeatherData)
+/*  f131064:	8ca5f0c0 */ 	lw	$a1,%lo(g_WeatherData)($a1)
 /*  f131068:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f13106c:	afbf0024 */ 	sw	$ra,0x24($sp)
 /*  f131070:	14a00003 */ 	bnez	$a1,.L0f131080
@@ -480,10 +480,10 @@ glabel func0f131678
 /*  f131678:	24830001 */ 	addiu	$v1,$a0,0x1
 /*  f13167c:	18600025 */ 	blez	$v1,.L0f131714
 /*  f131680:	00001025 */ 	or	$v0,$zero,$zero
-/*  f131684:	3c078008 */ 	lui	$a3,%hi(var8007f0c0)
+/*  f131684:	3c078008 */ 	lui	$a3,%hi(g_WeatherData)
 /*  f131688:	44801000 */ 	mtc1	$zero,$f2
 /*  f13168c:	44800000 */ 	mtc1	$zero,$f0
-/*  f131690:	24e7f0c0 */ 	addiu	$a3,$a3,%lo(var8007f0c0)
+/*  f131690:	24e7f0c0 */ 	addiu	$a3,$a3,%lo(g_WeatherData)
 /*  f131694:	00002025 */ 	or	$a0,$zero,$zero
 /*  f131698:	24080064 */ 	addiu	$t0,$zero,0x64
 .L0f13169c:
@@ -535,8 +535,8 @@ glabel var7f1b56d4
 glabel var7f1b56d8
 .word 0x3cf5c28f
 .text
-/*  f13171c:	3c078008 */ 	lui	$a3,%hi(var8007f0c0)
-/*  f131720:	24e7f0c0 */ 	addiu	$a3,$a3,%lo(var8007f0c0)
+/*  f13171c:	3c078008 */ 	lui	$a3,%hi(g_WeatherData)
+/*  f131720:	24e7f0c0 */ 	addiu	$a3,$a3,%lo(g_WeatherData)
 /*  f131724:	8ce60000 */ 	lw	$a2,0x0($a3)
 /*  f131728:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f13172c:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -560,8 +560,8 @@ glabel var7f1b56d8
 /*  f131770:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f131774:	0fc4c584 */ 	jal	func0f131610
 /*  f131778:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f13177c:	3c078008 */ 	lui	$a3,%hi(var8007f0c0)
-/*  f131780:	24e7f0c0 */ 	addiu	$a3,$a3,%lo(var8007f0c0)
+/*  f13177c:	3c078008 */ 	lui	$a3,%hi(g_WeatherData)
+/*  f131780:	24e7f0c0 */ 	addiu	$a3,$a3,%lo(g_WeatherData)
 /*  f131784:	8ce60000 */ 	lw	$a2,0x0($a3)
 /*  f131788:	8faa0018 */ 	lw	$t2,0x18($sp)
 .L0f13178c:
@@ -743,8 +743,8 @@ glabel var7f1b56d8
 /*  f131a04:	04810004 */ 	bgez	$a0,.L0f131a18
 /*  f131a08:	00046823 */ 	negu	$t5,$a0
 /*  f131a0c:	ac6d0060 */ 	sw	$t5,0x60($v1)
-/*  f131a10:	3c068008 */ 	lui	$a2,%hi(var8007f0c0)
-/*  f131a14:	8cc6f0c0 */ 	lw	$a2,%lo(var8007f0c0)($a2)
+/*  f131a10:	3c068008 */ 	lui	$a2,%hi(g_WeatherData)
+/*  f131a14:	8cc6f0c0 */ 	lw	$a2,%lo(g_WeatherData)($a2)
 .L0f131a18:
 /*  f131a18:	8fae0020 */ 	lw	$t6,0x20($sp)
 /*  f131a1c:	acce00cc */ 	sw	$t6,0xcc($a2)
@@ -1089,8 +1089,8 @@ glabel var7f1b56f4
 /*  f131ec4:	0003c023 */ 	negu	$t8,$v1
 /*  f131ec8:	ae580010 */ 	sw	$t8,0x10($s2)
 .L0f131ecc:
-/*  f131ecc:	3c198008 */ 	lui	$t9,%hi(var8007f0c0)
-/*  f131ed0:	8f39f0c0 */ 	lw	$t9,%lo(var8007f0c0)($t9)
+/*  f131ecc:	3c198008 */ 	lui	$t9,%hi(g_WeatherData)
+/*  f131ed0:	8f39f0c0 */ 	lw	$t9,%lo(g_WeatherData)($t9)
 /*  f131ed4:	4480b000 */ 	mtc1	$zero,$f22
 /*  f131ed8:	00009825 */ 	or	$s3,$zero,$zero
 /*  f131edc:	8f310024 */ 	lw	$s1,0x24($t9)
@@ -1485,8 +1485,8 @@ glabel var7f1b5734
 /*  f1323fc:	3c017f1b */ 	lui	$at,%hi(var7f1b5718)
 /*  f132400:	c42c5718 */ 	lwc1	$f12,%lo(var7f1b5718)($at)
 /*  f132404:	c6b00044 */ 	lwc1	$f16,0x44($s5)
-/*  f132408:	3c098008 */ 	lui	$t1,%hi(var8007f0c0)
-/*  f13240c:	8d29f0c0 */ 	lw	$t1,%lo(var8007f0c0)($t1)
+/*  f132408:	3c098008 */ 	lui	$t1,%hi(g_WeatherData)
+/*  f13240c:	8d29f0c0 */ 	lw	$t1,%lo(g_WeatherData)($t1)
 /*  f132410:	46106202 */ 	mul.s	$f8,$f12,$f16
 /*  f132414:	4480a000 */ 	mtc1	$zero,$f20
 /*  f132418:	8d310024 */ 	lw	$s1,0x24($t1)
@@ -1884,8 +1884,8 @@ glabel var7f1b5734
 
 GLOBAL_ASM(
 glabel rainConfigure
-/*  f1329bc:	3c028008 */ 	lui	$v0,%hi(var8007f0c0)
-/*  f1329c0:	8c42f0c0 */ 	lw	$v0,%lo(var8007f0c0)($v0)
+/*  f1329bc:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
+/*  f1329c0:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
 /*  f1329c4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1329c8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1329cc:	50400004 */ 	beqzl	$v0,.L0f1329e0
@@ -1901,8 +1901,8 @@ glabel rainConfigure
 
 GLOBAL_ASM(
 glabel snowConfigure
-/*  f1329ec:	3c028008 */ 	lui	$v0,%hi(var8007f0c0)
-/*  f1329f0:	8c42f0c0 */ 	lw	$v0,%lo(var8007f0c0)($v0)
+/*  f1329ec:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
+/*  f1329f0:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
 /*  f1329f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1329f8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1329fc:	10400003 */ 	beqz	$v0,.L0f132a0c
@@ -5350,8 +5350,8 @@ glabel var7f1b5790
 
 GLOBAL_ASM(
 glabel func0f135bd8
-/*  f135bd8:	3c028008 */ 	lui	$v0,%hi(var8007f0c0)
-/*  f135bdc:	8c42f0c0 */ 	lw	$v0,%lo(var8007f0c0)($v0)
+/*  f135bd8:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
+/*  f135bdc:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
 /*  f135be0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f135be4:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f135be8:	5040001e */ 	beqzl	$v0,.L0f135c64
@@ -5361,24 +5361,24 @@ glabel func0f135bd8
 /*  f135bf8:	8c440038 */ 	lw	$a0,0x38($v0)
 /*  f135bfc:	0c00cec9 */ 	jal	func00033b24
 /*  f135c00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135c04:	3c028008 */ 	lui	$v0,%hi(var8007f0c0)
-/*  f135c08:	8c42f0c0 */ 	lw	$v0,%lo(var8007f0c0)($v0)
+/*  f135c04:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
+/*  f135c08:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
 /*  f135c0c:	8c440038 */ 	lw	$a0,0x38($v0)
 .L0f135c10:
 /*  f135c10:	50800006 */ 	beqzl	$a0,.L0f135c2c
 /*  f135c14:	8c44003c */ 	lw	$a0,0x3c($v0)
 /*  f135c18:	0c00cec9 */ 	jal	func00033b24
 /*  f135c1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135c20:	3c028008 */ 	lui	$v0,%hi(var8007f0c0)
-/*  f135c24:	8c42f0c0 */ 	lw	$v0,%lo(var8007f0c0)($v0)
+/*  f135c20:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
+/*  f135c24:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
 /*  f135c28:	8c44003c */ 	lw	$a0,0x3c($v0)
 .L0f135c2c:
 /*  f135c2c:	50800006 */ 	beqzl	$a0,.L0f135c48
 /*  f135c30:	8c440040 */ 	lw	$a0,0x40($v0)
 /*  f135c34:	0c00cec9 */ 	jal	func00033b24
 /*  f135c38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135c3c:	3c028008 */ 	lui	$v0,%hi(var8007f0c0)
-/*  f135c40:	8c42f0c0 */ 	lw	$v0,%lo(var8007f0c0)($v0)
+/*  f135c3c:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
+/*  f135c40:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
 /*  f135c44:	8c440040 */ 	lw	$a0,0x40($v0)
 .L0f135c48:
 /*  f135c48:	10800003 */ 	beqz	$a0,.L0f135c58
@@ -5386,8 +5386,8 @@ glabel func0f135bd8
 /*  f135c50:	0c00cec9 */ 	jal	func00033b24
 /*  f135c54:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f135c58:
-/*  f135c58:	3c018008 */ 	lui	$at,%hi(var8007f0c0)
-/*  f135c5c:	ac20f0c0 */ 	sw	$zero,%lo(var8007f0c0)($at)
+/*  f135c58:	3c018008 */ 	lui	$at,%hi(g_WeatherData)
+/*  f135c5c:	ac20f0c0 */ 	sw	$zero,%lo(g_WeatherData)($at)
 /*  f135c60:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f135c64:
 /*  f135c64:	27bd0018 */ 	addiu	$sp,$sp,0x18

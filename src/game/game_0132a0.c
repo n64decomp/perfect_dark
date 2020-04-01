@@ -32,9 +32,9 @@
 
 GLOBAL_ASM(
 glabel func0f0132a0
-/*  f0132a0:	3c038008 */ 	lui	$v1,%hi(var8007f0c0)
+/*  f0132a0:	3c038008 */ 	lui	$v1,%hi(g_WeatherData)
 /*  f0132a4:	3c018006 */ 	lui	$at,%hi(var800623f0)
-/*  f0132a8:	2463f0c0 */ 	addiu	$v1,$v1,%lo(var8007f0c0)
+/*  f0132a8:	2463f0c0 */ 	addiu	$v1,$v1,%lo(g_WeatherData)
 /*  f0132ac:	ac2023f0 */ 	sw	$zero,%lo(var800623f0)($at)
 /*  f0132b0:	ac600000 */ 	sw	$zero,0x0($v1)
 /*  f0132b4:	3c048008 */ 	lui	$a0,%hi(g_StageIndex)
@@ -87,12 +87,12 @@ glabel func0f0132a0
 /*  f01335c:	24040100 */ 	addiu	$a0,$zero,0x100
 /*  f013360:	0c0048f2 */ 	jal	malloc
 /*  f013364:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f013368:	3c038008 */ 	lui	$v1,%hi(var8007f0c0)
-/*  f01336c:	2463f0c0 */ 	addiu	$v1,$v1,%lo(var8007f0c0)
+/*  f013368:	3c038008 */ 	lui	$v1,%hi(g_WeatherData)
+/*  f01336c:	2463f0c0 */ 	addiu	$v1,$v1,%lo(g_WeatherData)
 /*  f013370:	0fc4c4cd */ 	jal	func0f131334
 /*  f013374:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f013378:	3c038008 */ 	lui	$v1,%hi(var8007f0c0)
-/*  f01337c:	2463f0c0 */ 	addiu	$v1,$v1,%lo(var8007f0c0)
+/*  f013378:	3c038008 */ 	lui	$v1,%hi(g_WeatherData)
+/*  f01337c:	2463f0c0 */ 	addiu	$v1,$v1,%lo(g_WeatherData)
 /*  f013380:	8c6b0000 */ 	lw	$t3,0x0($v1)
 /*  f013384:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f013388:	44800000 */ 	mtc1	$zero,$f0

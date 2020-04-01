@@ -5396,7 +5396,7 @@ glabel func0f16b96c
 /*  f16c9b4:	8dce23f0 */ 	lw	$t6,%lo(var800623f0)($t6)
 /*  f16c9b8:	11c00003 */ 	beqz	$t6,.L0f16c9c8
 /*  f16c9bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16c9c0:	0fc075dc */ 	jal	func0f01d770
+/*  f16c9c0:	0fc075dc */ 	jal	weatherTick
 /*  f16c9c4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f16c9c8:
 /*  f16c9c8:	3c0f8006 */ 	lui	$t7,%hi(var80061640)
@@ -5807,7 +5807,7 @@ glabel func0f16b96c
 //		func0f149864();
 //
 //		if (var800623f0) {
-//			func0f01d770();
+//			weatherTick();
 //		}
 //
 //		if (var80061640) {

@@ -5780,4 +5780,16 @@ struct ammotype {
 	f32 unk08;
 };
 
+struct weatherdata {
+	u32 unk00;
+	u32 unk04;
+	u32 unk08;
+	u32 unk0c;
+	u32 unk10;
+	u32 unk14;
+	u32 unk18;
+	u32 unk1c;
+	u32 unk20;
+};
+
 #endif

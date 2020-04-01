@@ -133,7 +133,7 @@ extern struct explosiontype g_ExplosionTypes[NUM_EXPLOSIONTYPES];
 extern struct smoketype g_SmokeTypes[NUM_SMOKETYPES];
 extern u32 sparktable[];
 extern u32 var8007f0b8;
-extern u32 var8007f0c0;
+extern struct weatherdata *g_WeatherData;
 extern u32 var8007f0c4;
 extern u32 var8007f0d4;
 extern u32 var8007f0d8;
