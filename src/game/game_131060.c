@@ -526,7 +526,7 @@ glabel func0f131678
 );
 
 GLOBAL_ASM(
-glabel func0f13171c
+glabel weatherSetIntensity
 .late_rodata
 glabel var7f1b56d0
 .word 0x3a83126f
@@ -756,7 +756,7 @@ glabel var7f1b56d8
 );
 
 GLOBAL_ASM(
-glabel func0f131a30
+glabel rainTick
 .late_rodata
 glabel var7f1b56dc
 .word 0x46fffe00
@@ -1300,7 +1300,7 @@ glabel var7f1b56f4
 );
 
 GLOBAL_ASM(
-glabel func0f1321d0
+glabel snowTick
 .late_rodata
 glabel var7f1b56f8
 .word 0x3fc90fdb
@@ -1885,27 +1885,18 @@ glabel var7f1b5734
 void rainConfigure(u32 intensity)
 {
 	if (g_WeatherData) {
-		g_WeatherData->unk20 = 0;
-		func0f13171c(intensity);
+		g_WeatherData->type = WEATHERTYPE_RAIN;
+		weatherSetIntensity(intensity);
 	}
 }
 
-GLOBAL_ASM(
-glabel snowConfigure
-/*  f1329ec:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
-/*  f1329f0:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
-/*  f1329f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1329f8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1329fc:	10400003 */ 	beqz	$v0,.L0f132a0c
-/*  f132a00:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f132a04:	0fc4c5c7 */ 	jal	func0f13171c
-/*  f132a08:	ac4e0020 */ 	sw	$t6,0x20($v0)
-.L0f132a0c:
-/*  f132a0c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f132a10:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f132a14:	03e00008 */ 	jr	$ra
-/*  f132a18:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void snowConfigure(u32 intensity)
+{
+	if (g_WeatherData) {
+		g_WeatherData->type = WEATHERTYPE_SNOW;
+		weatherSetIntensity(intensity);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f132a1c

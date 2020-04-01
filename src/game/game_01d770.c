@@ -24,12 +24,12 @@ void weatherTick(void)
 	func0000db30("windspeed", &var80062950);
 
 	if (var80062954) {
-		switch (g_WeatherData->unk20) {
-		case 0:
-			func0f131a30(g_WeatherData);
+		switch (g_WeatherData->type) {
+		case WEATHERTYPE_RAIN:
+			rainTick(g_WeatherData);
 			break;
-		case 1:
-			func0f1321d0(g_WeatherData);
+		case WEATHERTYPE_SNOW:
+			snowTick(g_WeatherData);
 			break;
 		}
 	}

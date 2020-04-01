@@ -5789,7 +5789,7 @@ struct weatherdata {
 	u32 unk14;
 	u32 unk18;
 	u32 unk1c;
-	u32 unk20;
+	u32 type;
 };
 
 #endif

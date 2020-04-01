@@ -2191,6 +2191,9 @@
 #define WEAPONFLAG_DETERMINER_S_SOME 0x10000000
 #define WEAPONFLAG_DETERMINER_F_SOME 0x20000000
 
+#define WEATHERTYPE_RAIN 0
+#define WEATHERTYPE_SNOW 1
+
 // Heads and bodies
 #define HEAD_RANDOM           -1
 #define BODY_DJBOND           0x00
