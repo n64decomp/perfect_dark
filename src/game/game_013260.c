@@ -30,3 +30,21 @@ glabel func0f013260
 /*  f013298:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f01329c:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+// Mismatch because the lui %hi instructions are swapped
+//void func0f013260(void)
+//{
+//	struct gvars800a3fc8 *current;
+//	struct gvars800a3fc8 *end;
+//	var800a3fc0 = 0;
+//	end = &var800a3fc8[10];
+//	current = &var800a3fc8[0];
+//
+//	while (current != end) {
+//		current->unk08 = 0;
+//		current++;
+//	}
+//
+//	var800a4130 = 0;
+//	var8007f0b8 = 0;
+//}

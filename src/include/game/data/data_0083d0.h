@@ -4,7 +4,7 @@
 #include "types.h"
 
 extern u32 var800623b0;
-extern u32 var800623f0;
+extern bool g_WeatherEnabled;
 extern u32 var80062400;
 extern u32 var80062410;
 extern u32 var80062414;
@@ -84,7 +84,7 @@ extern u8 var80062940;
 extern u32 var80062944;
 extern u32 var80062948;
 extern u32 var80062950;
-extern u32 var80062954;
+extern bool g_WeatherTickEnabled;
 extern u32 var80062960;
 extern u32 var80062964;
 extern u32 var80062968;

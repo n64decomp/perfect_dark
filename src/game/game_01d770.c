@@ -20,10 +20,10 @@ void weatherTick(void)
 		return;
 	}
 
-	func0000db30("wettick", &var80062954);
+	func0000db30("wettick", &g_WeatherTickEnabled);
 	func0000db30("windspeed", &var80062950);
 
-	if (var80062954) {
+	if (g_WeatherTickEnabled) {
 		switch (g_WeatherData->type) {
 		case WEATHERTYPE_RAIN:
 			weatherTickRain(g_WeatherData);

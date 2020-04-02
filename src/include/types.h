@@ -5789,10 +5789,10 @@ struct weather58 {
 struct weatherdata {
 	/*0x00*/ u32 unk00;
 	/*0x04*/ u32 unk04;
-	/*0x08*/ u32 unk08;
-	/*0x0c*/ u32 unk0c;
+	/*0x08*/ f32 unk08;
+	/*0x0c*/ f32 unk0c;
 	/*0x10*/ u32 unk10;
-	/*0x14*/ u32 unk14;
+	/*0x14*/ f32 unk14;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ s32 type;
@@ -5810,13 +5810,13 @@ struct weatherdata {
 	/*0x50*/ u32 unk50;
 	/*0x54*/ u32 unk54;
 	/*0x58*/ struct weather58 unk58[3];
-	/*0x7c*/ u32 unk7c;
+	/*0x7c*/ f32 unk7c;
 	/*0x80*/ u32 unk80;
 	/*0x84*/ u32 unk84;
-	/*0x88*/ u32 unk88;
+	/*0x88*/ f32 unk88;
 	/*0x8c*/ u32 unk8c;
 	/*0x90*/ u32 unk90;
-	/*0x94*/ u32 unk94;
+	/*0x94*/ s32 unk94;
 	/*0x98*/ u32 unk98;
 	/*0x9c*/ u32 unk9c;
 	/*0xa0*/ u32 unka0;
@@ -5825,7 +5825,7 @@ struct weatherdata {
 	/*0xac*/ u32 unkac;
 	/*0xb0*/ u32 unkb0;
 	/*0xb4*/ u32 unkb4;
-	/*0xb8*/ u32 unkb8;
+	/*0xb8*/ f32 unkb8;
 	/*0xbc*/ f32 unkbc;
 	/*0xc0*/ s32 unkc0;
 	/*0xc4*/ f32 unkc4;
@@ -5833,6 +5833,16 @@ struct weatherdata {
 	/*0xcc*/ s32 intensity;
 	/*0xd0*/ u32 unkd0;
 	/*0xd4*/ u32 unkd4;
+	/*0xd8*/ u32 unkd8;
+	/*0xdc*/ u32 unkdc;
+	/*0xe0*/ u32 unke0;
+	/*0xe4*/ u32 unke4;
+	/*0xe8*/ u32 unke8;
+	/*0xec*/ u32 unkec;
+	/*0xf0*/ u32 unkf0;
+	/*0xf4*/ u32 unkf4;
+	/*0xf8*/ u32 unkf8;
+	/*0xfc*/ u32 unkfc;
 };
 
 #endif

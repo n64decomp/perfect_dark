@@ -405,7 +405,7 @@ void func0f167e7c(s32 stagenum)
 	func0f013010();
 	func0f013130();
 	func0f013260();
-	func0f0132a0();
+	weatherAllocate();
 	func0f167b10();
 
 	switch (g_Vars.stagenum) {
@@ -5392,8 +5392,8 @@ glabel func0f16b96c
 /*  f16c9a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c9a8:	0fc52619 */ 	jal	func0f149864
 /*  f16c9ac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16c9b0:	3c0e8006 */ 	lui	$t6,%hi(var800623f0)
-/*  f16c9b4:	8dce23f0 */ 	lw	$t6,%lo(var800623f0)($t6)
+/*  f16c9b0:	3c0e8006 */ 	lui	$t6,%hi(g_WeatherEnabled)
+/*  f16c9b4:	8dce23f0 */ 	lw	$t6,%lo(g_WeatherEnabled)($t6)
 /*  f16c9b8:	11c00003 */ 	beqz	$t6,.L0f16c9c8
 /*  f16c9bc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c9c0:	0fc075dc */ 	jal	weatherTick
@@ -5806,7 +5806,7 @@ glabel func0f16b96c
 //		func0f13eb44();
 //		func0f149864();
 //
-//		if (var800623f0) {
+//		if (g_WeatherEnabled) {
 //			weatherTick();
 //		}
 //
