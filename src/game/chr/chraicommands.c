@@ -9873,7 +9873,7 @@ glabel aiIfLiftAtStop
 bool aiConfigureRain(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	rainConfigure(cmd[2]);
+	weatherConfigureRain(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
@@ -9885,7 +9885,7 @@ bool aiConfigureRain(void)
 bool aiConfigureSnow(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	snowConfigure(cmd[2]);
+	weatherConfigureSnow(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;

@@ -26,10 +26,10 @@ void weatherTick(void)
 	if (var80062954) {
 		switch (g_WeatherData->type) {
 		case WEATHERTYPE_RAIN:
-			rainTick(g_WeatherData);
+			weatherTickRain(g_WeatherData);
 			break;
 		case WEATHERTYPE_SNOW:
-			snowTick(g_WeatherData);
+			weatherTickSnow(g_WeatherData);
 			break;
 		}
 	}

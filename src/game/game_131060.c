@@ -44,7 +44,7 @@ const char var7f1b56b4[] = "snowcol1";
 const char var7f1b56c0[] = "snowcol2";
 
 GLOBAL_ASM(
-glabel func0f131060
+glabel weatherRender
 /*  f131060:	3c058008 */ 	lui	$a1,%hi(g_WeatherData)
 /*  f131064:	8ca5f0c0 */ 	lw	$a1,%lo(g_WeatherData)($a1)
 /*  f131068:	27bdffd0 */ 	addiu	$sp,$sp,-48
@@ -196,13 +196,13 @@ glabel func0f131060
 /*  f13129c:	8fa20030 */ 	lw	$v0,0x30($sp)
 .L0f1312a0:
 /*  f1312a0:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f1312a4:	0fc4cb8a */ 	jal	func0f132e28
+/*  f1312a4:	0fc4cb8a */ 	jal	weatherRenderRain
 /*  f1312a8:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1312ac:	10000005 */ 	beqz	$zero,.L0f1312c4
 /*  f1312b0:	afa20030 */ 	sw	$v0,0x30($sp)
 .L0f1312b4:
 /*  f1312b4:	8fa5002c */ 	lw	$a1,0x2c($sp)
-/*  f1312b8:	0fc4d1ac */ 	jal	func0f1346b0
+/*  f1312b8:	0fc4d1ac */ 	jal	weatherRenderSnow
 /*  f1312bc:	00003025 */ 	or	$a2,$zero,$zero
 /*  f1312c0:	afa20030 */ 	sw	$v0,0x30($sp)
 .L0f1312c4:
@@ -582,7 +582,7 @@ void weatherSetIntensity(s32 intensity)
 }
 
 GLOBAL_ASM(
-glabel rainTick
+glabel weatherTickRain
 .late_rodata
 glabel var7f1b56dc
 .word 0x46fffe00
@@ -1126,7 +1126,7 @@ glabel var7f1b56f4
 );
 
 GLOBAL_ASM(
-glabel snowTick
+glabel weatherTickSnow
 .late_rodata
 glabel var7f1b56f8
 .word 0x3fc90fdb
@@ -1708,7 +1708,7 @@ glabel var7f1b5734
 /*  f1329b8:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-void rainConfigure(u32 intensity)
+void weatherConfigureRain(u32 intensity)
 {
 	if (g_WeatherData) {
 		g_WeatherData->type = WEATHERTYPE_RAIN;
@@ -1716,7 +1716,7 @@ void rainConfigure(u32 intensity)
 	}
 }
 
-void snowConfigure(u32 intensity)
+void weatherConfigureSnow(u32 intensity)
 {
 	if (g_WeatherData) {
 		g_WeatherData->type = WEATHERTYPE_SNOW;
@@ -1997,7 +1997,7 @@ glabel func0f132a1c
 );
 
 GLOBAL_ASM(
-glabel func0f132e28
+glabel weatherRenderRain
 .late_rodata
 glabel var7f1b5738
 .word 0x3f7d70a4
@@ -3705,7 +3705,7 @@ glabel var7f1b5780
 );
 
 GLOBAL_ASM(
-glabel func0f1346b0
+glabel weatherRenderSnow
 .late_rodata
 glabel var7f1b5784
 .word 0x4096cbe4
