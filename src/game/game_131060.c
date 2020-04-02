@@ -445,35 +445,14 @@ glabel var7f1b56cc
 /*  f13160c:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel func0f131610
-/*  f131610:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f131614:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f131618:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f13161c:	00808025 */ 	or	$s0,$a0,$zero
-/*  f131620:	0c004b70 */ 	jal	random
-/*  f131624:	ac800094 */ 	sw	$zero,0x94($a0)
-/*  f131628:	304e0007 */ 	andi	$t6,$v0,0x7
-/*  f13162c:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f131630:	0c004b70 */ 	jal	random
-/*  f131634:	ae0f0098 */ 	sw	$t7,0x98($s0)
-/*  f131638:	30580007 */ 	andi	$t8,$v0,0x7
-/*  f13163c:	27190001 */ 	addiu	$t9,$t8,0x1
-/*  f131640:	0c004b70 */ 	jal	random
-/*  f131644:	ae19009c */ 	sw	$t9,0x9c($s0)
-/*  f131648:	30480007 */ 	andi	$t0,$v0,0x7
-/*  f13164c:	25090001 */ 	addiu	$t1,$t0,0x1
-/*  f131650:	0c004b70 */ 	jal	random
-/*  f131654:	ae0900a0 */ 	sw	$t1,0xa0($s0)
-/*  f131658:	304a000f */ 	andi	$t2,$v0,0xf
-/*  f13165c:	254b000a */ 	addiu	$t3,$t2,0xa
-/*  f131660:	ae0b00a4 */ 	sw	$t3,0xa4($s0)
-/*  f131664:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f131668:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f13166c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f131670:	03e00008 */ 	jr	$ra
-/*  f131674:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f131610(struct weatherdata *weather)
+{
+	weather->unk94 = 0;
+	weather->unk98 = (random() & 7) + 1;
+	weather->unk9c = (random() & 7) + 1;
+	weather->unka0 = (random() & 7) + 1;
+	weather->unka4 = (random() & 0xf) + 10;
+}
 
 GLOBAL_ASM(
 glabel func0f131678
