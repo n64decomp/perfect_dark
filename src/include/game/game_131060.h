@@ -16,6 +16,6 @@ void snowConfigure(u32 intensity);
 u32 func0f132a1c(void);
 u32 func0f132e28(void);
 u32 func0f1346b0(void);
-u32 func0f135bd8(void);
+void weatherFree(void);
 
 #endif

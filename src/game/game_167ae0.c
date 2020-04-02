@@ -5894,7 +5894,7 @@ void stageLoad(void)
 	func0f0153f0();
 	func0f014fe0();
 	setupParseObjects();
-	func0f135bd8();
+	weatherFree();
 	func0f0151f0();
 	func0f015260();
 	func0f015470();

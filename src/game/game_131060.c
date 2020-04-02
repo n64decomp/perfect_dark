@@ -5189,49 +5189,25 @@ glabel var7f1b5790
 /*  f135bd4:	27bd1398 */ 	addiu	$sp,$sp,0x1398
 );
 
-GLOBAL_ASM(
-glabel func0f135bd8
-/*  f135bd8:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
-/*  f135bdc:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
-/*  f135be0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f135be4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f135be8:	5040001e */ 	beqzl	$v0,.L0f135c64
-/*  f135bec:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f135bf0:	8c440034 */ 	lw	$a0,0x34($v0)
-/*  f135bf4:	50800006 */ 	beqzl	$a0,.L0f135c10
-/*  f135bf8:	8c440038 */ 	lw	$a0,0x38($v0)
-/*  f135bfc:	0c00cec9 */ 	jal	func00033b24
-/*  f135c00:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135c04:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
-/*  f135c08:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
-/*  f135c0c:	8c440038 */ 	lw	$a0,0x38($v0)
-.L0f135c10:
-/*  f135c10:	50800006 */ 	beqzl	$a0,.L0f135c2c
-/*  f135c14:	8c44003c */ 	lw	$a0,0x3c($v0)
-/*  f135c18:	0c00cec9 */ 	jal	func00033b24
-/*  f135c1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135c20:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
-/*  f135c24:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
-/*  f135c28:	8c44003c */ 	lw	$a0,0x3c($v0)
-.L0f135c2c:
-/*  f135c2c:	50800006 */ 	beqzl	$a0,.L0f135c48
-/*  f135c30:	8c440040 */ 	lw	$a0,0x40($v0)
-/*  f135c34:	0c00cec9 */ 	jal	func00033b24
-/*  f135c38:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135c3c:	3c028008 */ 	lui	$v0,%hi(g_WeatherData)
-/*  f135c40:	8c42f0c0 */ 	lw	$v0,%lo(g_WeatherData)($v0)
-/*  f135c44:	8c440040 */ 	lw	$a0,0x40($v0)
-.L0f135c48:
-/*  f135c48:	10800003 */ 	beqz	$a0,.L0f135c58
-/*  f135c4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f135c50:	0c00cec9 */ 	jal	func00033b24
-/*  f135c54:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f135c58:
-/*  f135c58:	3c018008 */ 	lui	$at,%hi(g_WeatherData)
-/*  f135c5c:	ac20f0c0 */ 	sw	$zero,%lo(g_WeatherData)($at)
-/*  f135c60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f135c64:
-/*  f135c64:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f135c68:	03e00008 */ 	jr	$ra
-/*  f135c6c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void weatherFree(void)
+{
+	if (g_WeatherData) {
+		if (g_WeatherData->unk34) {
+			func00033b24(g_WeatherData->unk34);
+		}
+
+		if (g_WeatherData->unk38) {
+			func00033b24(g_WeatherData->unk38);
+		}
+
+		if (g_WeatherData->unk3c) {
+			func00033b24(g_WeatherData->unk3c);
+		}
+
+		if (g_WeatherData->unk40) {
+			func00033b24(g_WeatherData->unk40);
+		}
+
+		g_WeatherData = NULL;
+	}
+}
