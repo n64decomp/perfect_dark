@@ -7,7 +7,7 @@ u32 func0f131060(void);
 u32 func0f1312d8(void);
 u32 func0f131334(void);
 void func0f131610(struct weatherdata *weather);
-u32 func0f131678(void);
+void func0f131678(s32 arg0);
 void weatherSetIntensity(s32 intensity);
 void rainTick(struct weatherdata *weather);
 void snowTick(struct weatherdata *weather);

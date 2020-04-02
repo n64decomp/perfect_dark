@@ -5780,10 +5780,10 @@ struct ammotype {
 	f32 unk08;
 };
 
-struct weather5c {
+struct weather58 {
 	f32 unk00;
-	s32 unk04;
-	u32 unk08;
+	f32 unk04;
+	s32 unk08;
 };
 
 struct weatherdata {
@@ -5809,8 +5809,8 @@ struct weatherdata {
 	/*0x4c*/ u32 unk4c;
 	/*0x50*/ u32 unk50;
 	/*0x54*/ u32 unk54;
-	/*0x58*/ u32 unk58;
-	/*0x5c*/ struct weather5c unk5c[3];
+	/*0x58*/ struct weather58 unk58[3];
+	/*0x7c*/ u32 unk7c;
 	/*0x80*/ u32 unk80;
 	/*0x84*/ u32 unk84;
 	/*0x88*/ u32 unk88;

@@ -454,55 +454,22 @@ void func0f131610(struct weatherdata *weather)
 	weather->unka4 = (random() & 0xf) + 10;
 }
 
-GLOBAL_ASM(
-glabel func0f131678
-/*  f131678:	24830001 */ 	addiu	$v1,$a0,0x1
-/*  f13167c:	18600025 */ 	blez	$v1,.L0f131714
-/*  f131680:	00001025 */ 	or	$v0,$zero,$zero
-/*  f131684:	3c078008 */ 	lui	$a3,%hi(g_WeatherData)
-/*  f131688:	44801000 */ 	mtc1	$zero,$f2
-/*  f13168c:	44800000 */ 	mtc1	$zero,$f0
-/*  f131690:	24e7f0c0 */ 	addiu	$a3,$a3,%lo(g_WeatherData)
-/*  f131694:	00002025 */ 	or	$a0,$zero,$zero
-/*  f131698:	24080064 */ 	addiu	$t0,$zero,0x64
-.L0f13169c:
-/*  f13169c:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f1316a0:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f1316a4:	01c42821 */ 	addu	$a1,$t6,$a0
-/*  f1316a8:	8ca60060 */ 	lw	$a2,0x60($a1)
-/*  f1316ac:	18c00006 */ 	blez	$a2,.L0f1316c8
-/*  f1316b0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1316b4:	c4a4005c */ 	lwc1	$f4,0x5c($a1)
-/*  f1316b8:	4604003c */ 	c.lt.s	$f0,$f4
-/*  f1316bc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1316c0:	45030009 */ 	bc1tl	.L0f1316e8
-/*  f1316c4:	e4a0005c */ 	swc1	$f0,0x5c($a1)
-.L0f1316c8:
-/*  f1316c8:	1cc00010 */ 	bgtz	$a2,.L0f13170c
-/*  f1316cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1316d0:	c4a60058 */ 	lwc1	$f6,0x58($a1)
-/*  f1316d4:	4606103c */ 	c.lt.s	$f2,$f6
-/*  f1316d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1316dc:	4500000b */ 	bc1f	.L0f13170c
-/*  f1316e0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1316e4:	e4a0005c */ 	swc1	$f0,0x5c($a1)
-.L0f1316e8:
-/*  f1316e8:	8cef0000 */ 	lw	$t7,0x0($a3)
-/*  f1316ec:	01e4c021 */ 	addu	$t8,$t7,$a0
-/*  f1316f0:	af080060 */ 	sw	$t0,0x60($t8)
-/*  f1316f4:	8cf90000 */ 	lw	$t9,0x0($a3)
-/*  f1316f8:	03242821 */ 	addu	$a1,$t9,$a0
-/*  f1316fc:	8ca60060 */ 	lw	$a2,0x60($a1)
-/*  f131700:	04c10002 */ 	bgez	$a2,.L0f13170c
-/*  f131704:	00064823 */ 	negu	$t1,$a2
-/*  f131708:	aca90060 */ 	sw	$t1,0x60($a1)
-.L0f13170c:
-/*  f13170c:	1443ffe3 */ 	bne	$v0,$v1,.L0f13169c
-/*  f131710:	2484000c */ 	addiu	$a0,$a0,0xc
-.L0f131714:
-/*  f131714:	03e00008 */ 	jr	$ra
-/*  f131718:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f131678(s32 arg0)
+{
+	s32 i;
+
+	for (i = 0; i < arg0 + 1; i++) {
+		if ((g_WeatherData->unk58[i].unk08 > 0 && g_WeatherData->unk58[i].unk04 > 0.0f)
+				|| (g_WeatherData->unk58[i].unk08 < 1 && g_WeatherData->unk58[i].unk00 > 0)) {
+			g_WeatherData->unk58[i].unk04 = 0.0f;
+			g_WeatherData->unk58[i].unk08 = 100;
+
+			if (g_WeatherData->unk58[i].unk08 < 0) {
+				g_WeatherData->unk58[i].unk08 = -g_WeatherData->unk58[i].unk08;
+			}
+		}
+	}
+}
 
 void weatherSetIntensity(s32 intensity)
 {
@@ -592,22 +559,22 @@ void weatherSetIntensity(s32 intensity)
 	if (dotheloop >= 0) {
 		for (i = 0; i != 3; i++) {
 			if (i != special) {
-				g_WeatherData->unk5c[i].unk00 = 0;
-				g_WeatherData->unk5c[i].unk04 = 100;
+				g_WeatherData->unk58[i].unk04 = 0;
+				g_WeatherData->unk58[i].unk08 = 100;
 
-				if (g_WeatherData->unk5c[i].unk04 < 0) {
-					g_WeatherData->unk5c[i].unk04 = -g_WeatherData->unk5c[i].unk04;
+				if (g_WeatherData->unk58[i].unk08 < 0) {
+					g_WeatherData->unk58[i].unk08 = -g_WeatherData->unk58[i].unk08;
 				}
 			}
 		}
 	}
 
 	if (special >= 0) {
-		g_WeatherData->unk5c[special].unk00 = 1;
-		g_WeatherData->unk5c[special].unk04 = 100;
+		g_WeatherData->unk58[special].unk04 = 1;
+		g_WeatherData->unk58[special].unk08 = 100;
 
-		if (g_WeatherData->unk5c[special].unk04 < 0) {
-			g_WeatherData->unk5c[special].unk04 = -g_WeatherData->unk5c[special].unk04;
+		if (g_WeatherData->unk58[special].unk08 < 0) {
+			g_WeatherData->unk58[special].unk08 = -g_WeatherData->unk58[special].unk08;
 		}
 	}
 
