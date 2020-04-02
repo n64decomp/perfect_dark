@@ -33,7 +33,7 @@
 #include "game/game_127910.h"
 #include "game/game_129900.h"
 #include "game/game_12d3f0.h"
-#include "game/game_131060.h"
+#include "game/weather.h"
 #include "game/game_157db0.h"
 #include "game/game_1655c0.h"
 #include "game/game_165670.h"

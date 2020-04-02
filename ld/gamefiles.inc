@@ -33,7 +33,7 @@
 	src/game/game_012d50.o (section); \
 	src/game/game_013010.o (section); \
 	src/game/game_013260.o (section); \
-	src/game/game_0132a0.o (section); \
+	src/game/weatherallocate.o (section); \
 	src/game/game_013540.o (section); \
 	src/game/game_013550.o (section); \
 	src/game/game_013cf0.o (section); \
@@ -57,7 +57,7 @@
 	src/game/game_01afc0.o (section); \
 	src/game/game_01b0a0.o (section); \
 	src/game/game_01bea0.o (section); \
-	src/game/game_01d770.o (section); \
+	src/game/weathertick.o (section); \
 	src/game/game_01d860.o (section); \
 	src/game/game_01d990.o (section); \
 	src/game/game_01d9f0.o (section); \
@@ -133,7 +133,7 @@
 	src/game/game_129900.o (section); \
 	src/game/game_12d3f0.o (section); \
 	src/game/game_12f6c0.o (section); \
-	src/game/game_131060.o (section); \
+	src/game/weather.o (section); \
 	src/game/game_135c70.o (section); \
 	src/game/game_1371b0.o (section); \
 	src/game/game_13b670.o (section); \

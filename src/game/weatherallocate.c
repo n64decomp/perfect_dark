@@ -8,7 +8,7 @@
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
 #include "game/game_013260.h"
-#include "game/game_131060.h"
+#include "game/weather.h"
 #include "gvars/gvars.h"
 #include "lib/lib_121e0.h"
 #include "types.h"
