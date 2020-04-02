@@ -5780,16 +5780,59 @@ struct ammotype {
 	f32 unk08;
 };
 
-struct weatherdata {
-	u32 unk00;
-	u32 unk04;
+struct weather5c {
+	f32 unk00;
+	s32 unk04;
 	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	u32 type;
+};
+
+struct weatherdata {
+	/*0x00*/ u32 unk00;
+	/*0x04*/ u32 unk04;
+	/*0x08*/ u32 unk08;
+	/*0x0c*/ u32 unk0c;
+	/*0x10*/ u32 unk10;
+	/*0x14*/ u32 unk14;
+	/*0x18*/ u32 unk18;
+	/*0x1c*/ u32 unk1c;
+	/*0x20*/ s32 type;
+	/*0x24*/ u32 unk24;
+	/*0x28*/ u32 unk28;
+	/*0x2c*/ u32 unk2c;
+	/*0x30*/ u32 unk30;
+	/*0x34*/ u32 unk34;
+	/*0x38*/ u32 unk38;
+	/*0x3c*/ u32 unk3c;
+	/*0x40*/ u32 unk40;
+	/*0x44*/ u32 unk44;
+	/*0x48*/ u32 unk48;
+	/*0x4c*/ u32 unk4c;
+	/*0x50*/ u32 unk50;
+	/*0x54*/ u32 unk54;
+	/*0x58*/ u32 unk58;
+	/*0x5c*/ struct weather5c unk5c[3];
+	/*0x80*/ u32 unk80;
+	/*0x84*/ u32 unk84;
+	/*0x88*/ u32 unk88;
+	/*0x8c*/ u32 unk8c;
+	/*0x90*/ u32 unk90;
+	/*0x94*/ u32 unk94;
+	/*0x98*/ u32 unk98;
+	/*0x9c*/ u32 unk9c;
+	/*0xa0*/ u32 unka0;
+	/*0xa4*/ u32 unka4;
+	/*0xa8*/ u32 unka8;
+	/*0xac*/ u32 unkac;
+	/*0xb0*/ u32 unkb0;
+	/*0xb4*/ u32 unkb4;
+	/*0xb8*/ u32 unkb8;
+	/*0xbc*/ f32 unkbc;
+	/*0xc0*/ s32 unkc0;
+	/*0xc4*/ f32 unkc4;
+	/*0xc8*/ f32 unkc8;
+	/*0xcc*/ s32 intensity;
+	/*0xd0*/ u32 unkd0;
+	/*0xd4*/ u32 unkd4;
 };
 
 #endif

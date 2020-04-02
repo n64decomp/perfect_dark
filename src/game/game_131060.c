@@ -525,235 +525,115 @@ glabel func0f131678
 /*  f131718:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel weatherSetIntensity
-.late_rodata
-glabel var7f1b56d0
-.word 0x3a83126f
-glabel var7f1b56d4
-.word 0x3c23d70a
-glabel var7f1b56d8
-.word 0x3cf5c28f
-.text
-/*  f13171c:	3c078008 */ 	lui	$a3,%hi(g_WeatherData)
-/*  f131720:	24e7f0c0 */ 	addiu	$a3,$a3,%lo(g_WeatherData)
-/*  f131724:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f131728:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f13172c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f131730:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f131734:	8cc200cc */ 	lw	$v0,0xcc($a2)
-/*  f131738:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f13173c:	240affff */ 	addiu	$t2,$zero,-1
-/*  f131740:	508200b8 */ 	beql	$a0,$v0,.L0f131a24
-/*  f131744:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f131748:	8cc30020 */ 	lw	$v1,0x20($a2)
-/*  f13174c:	10600007 */ 	beqz	$v1,.L0f13176c
-/*  f131750:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f131754:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f131758:	10620079 */ 	beq	$v1,$v0,.L0f131940
-/*  f13175c:	8fb80020 */ 	lw	$t8,0x20($sp)
-/*  f131760:	240b0064 */ 	addiu	$t3,$zero,0x64
-/*  f131764:	10000082 */ 	beqz	$zero,.L0f131970
-/*  f131768:	24090003 */ 	addiu	$t1,$zero,0x3
-.L0f13176c:
-/*  f13176c:	14400007 */ 	bnez	$v0,.L0f13178c
-/*  f131770:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f131774:	0fc4c584 */ 	jal	func0f131610
-/*  f131778:	afaa0018 */ 	sw	$t2,0x18($sp)
-/*  f13177c:	3c078008 */ 	lui	$a3,%hi(g_WeatherData)
-/*  f131780:	24e7f0c0 */ 	addiu	$a3,$a3,%lo(g_WeatherData)
-/*  f131784:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f131788:	8faa0018 */ 	lw	$t2,0x18($sp)
-.L0f13178c:
-/*  f13178c:	8faf0020 */ 	lw	$t7,0x20($sp)
-/*  f131790:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f131794:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f131798:	11e0000a */ 	beqz	$t7,.L0f1317c4
-/*  f13179c:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f1317a0:	11e2001c */ 	beq	$t7,$v0,.L0f131814
-/*  f1317a4:	3c014170 */ 	lui	$at,0x4170
-/*  f1317a8:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1317ac:	11e10032 */ 	beq	$t7,$at,.L0f131878
-/*  f1317b0:	24090003 */ 	addiu	$t1,$zero,0x3
-/*  f1317b4:	11e9004a */ 	beq	$t7,$t1,.L0f1318e0
-/*  f1317b8:	3c0141f0 */ 	lui	$at,0x41f0
-/*  f1317bc:	1000006c */ 	beqz	$zero,.L0f131970
-/*  f1317c0:	240b0064 */ 	addiu	$t3,$zero,0x64
-.L0f1317c4:
-/*  f1317c4:	acc000d4 */ 	sw	$zero,0xd4($a2)
-/*  f1317c8:	8cf80000 */ 	lw	$t8,0x0($a3)
-/*  f1317cc:	44812000 */ 	mtc1	$at,$f4
-/*  f1317d0:	240b0064 */ 	addiu	$t3,$zero,0x64
-/*  f1317d4:	3c01bf80 */ 	lui	$at,0xbf80
-/*  f1317d8:	e70400bc */ 	swc1	$f4,0xbc($t8)
-/*  f1317dc:	8cf90000 */ 	lw	$t9,0x0($a3)
-/*  f1317e0:	44813000 */ 	mtc1	$at,$f6
-/*  f1317e4:	24090003 */ 	addiu	$t1,$zero,0x3
-/*  f1317e8:	af2b00c0 */ 	sw	$t3,0xc0($t9)
-/*  f1317ec:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f1317f0:	8cc200c0 */ 	lw	$v0,0xc0($a2)
-/*  f1317f4:	04410003 */ 	bgez	$v0,.L0f131804
-/*  f1317f8:	00026023 */ 	negu	$t4,$v0
-/*  f1317fc:	accc00c0 */ 	sw	$t4,0xc0($a2)
-/*  f131800:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f131804:
-/*  f131804:	e4c600c4 */ 	swc1	$f6,0xc4($a2)
-/*  f131808:	2405ffff */ 	addiu	$a1,$zero,-1
-/*  f13180c:	10000058 */ 	beqz	$zero,.L0f131970
-/*  f131810:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f131814:
-/*  f131814:	44814000 */ 	mtc1	$at,$f8
-/*  f131818:	240d00c8 */ 	addiu	$t5,$zero,0xc8
-/*  f13181c:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f131820:	e4c800c8 */ 	swc1	$f8,0xc8($a2)
-/*  f131824:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f131828:	44815000 */ 	mtc1	$at,$f10
-/*  f13182c:	240b0064 */ 	addiu	$t3,$zero,0x64
-/*  f131830:	adcd00d4 */ 	sw	$t5,0xd4($t6)
-/*  f131834:	8cef0000 */ 	lw	$t7,0x0($a3)
-/*  f131838:	3c017f1b */ 	lui	$at,%hi(var7f1b56d0)
-/*  f13183c:	e5ea00bc */ 	swc1	$f10,0xbc($t7)
-/*  f131840:	8cf80000 */ 	lw	$t8,0x0($a3)
-/*  f131844:	af0b00c0 */ 	sw	$t3,0xc0($t8)
-/*  f131848:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f13184c:	8cc200c0 */ 	lw	$v0,0xc0($a2)
-/*  f131850:	04410003 */ 	bgez	$v0,.L0f131860
-/*  f131854:	0002c823 */ 	negu	$t9,$v0
-/*  f131858:	acd900c0 */ 	sw	$t9,0xc0($a2)
-/*  f13185c:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f131860:
-/*  f131860:	c43056d0 */ 	lwc1	$f16,%lo(var7f1b56d0)($at)
-/*  f131864:	00005025 */ 	or	$t2,$zero,$zero
-/*  f131868:	24090003 */ 	addiu	$t1,$zero,0x3
-/*  f13186c:	e4d000c4 */ 	swc1	$f16,0xc4($a2)
-/*  f131870:	1000003f */ 	beqz	$zero,.L0f131970
-/*  f131874:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f131878:
-/*  f131878:	3c014190 */ 	lui	$at,0x4190
-/*  f13187c:	44819000 */ 	mtc1	$at,$f18
-/*  f131880:	240c0190 */ 	addiu	$t4,$zero,0x190
-/*  f131884:	3c014316 */ 	lui	$at,0x4316
-/*  f131888:	e4d200c8 */ 	swc1	$f18,0xc8($a2)
-/*  f13188c:	8ced0000 */ 	lw	$t5,0x0($a3)
-/*  f131890:	44812000 */ 	mtc1	$at,$f4
-/*  f131894:	240b0064 */ 	addiu	$t3,$zero,0x64
-/*  f131898:	adac00d4 */ 	sw	$t4,0xd4($t5)
-/*  f13189c:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f1318a0:	3c017f1b */ 	lui	$at,%hi(var7f1b56d4)
-/*  f1318a4:	e5c400bc */ 	swc1	$f4,0xbc($t6)
-/*  f1318a8:	8cef0000 */ 	lw	$t7,0x0($a3)
-/*  f1318ac:	adeb00c0 */ 	sw	$t3,0xc0($t7)
-/*  f1318b0:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f1318b4:	8cc200c0 */ 	lw	$v0,0xc0($a2)
-/*  f1318b8:	04410003 */ 	bgez	$v0,.L0f1318c8
-/*  f1318bc:	0002c023 */ 	negu	$t8,$v0
-/*  f1318c0:	acd800c0 */ 	sw	$t8,0xc0($a2)
-/*  f1318c4:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f1318c8:
-/*  f1318c8:	c42656d4 */ 	lwc1	$f6,%lo(var7f1b56d4)($at)
-/*  f1318cc:	240a0001 */ 	addiu	$t2,$zero,0x1
-/*  f1318d0:	24090003 */ 	addiu	$t1,$zero,0x3
-/*  f1318d4:	e4c600c4 */ 	swc1	$f6,0xc4($a2)
-/*  f1318d8:	10000025 */ 	beqz	$zero,.L0f131970
-/*  f1318dc:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f1318e0:
-/*  f1318e0:	44814000 */ 	mtc1	$at,$f8
-/*  f1318e4:	241901f4 */ 	addiu	$t9,$zero,0x1f4
-/*  f1318e8:	3c014396 */ 	lui	$at,0x4396
-/*  f1318ec:	e4c800c8 */ 	swc1	$f8,0xc8($a2)
-/*  f1318f0:	8cec0000 */ 	lw	$t4,0x0($a3)
-/*  f1318f4:	44815000 */ 	mtc1	$at,$f10
-/*  f1318f8:	240b0064 */ 	addiu	$t3,$zero,0x64
-/*  f1318fc:	ad9900d4 */ 	sw	$t9,0xd4($t4)
-/*  f131900:	8ced0000 */ 	lw	$t5,0x0($a3)
-/*  f131904:	3c017f1b */ 	lui	$at,%hi(var7f1b56d8)
-/*  f131908:	e5aa00bc */ 	swc1	$f10,0xbc($t5)
-/*  f13190c:	8cee0000 */ 	lw	$t6,0x0($a3)
-/*  f131910:	adcb00c0 */ 	sw	$t3,0xc0($t6)
-/*  f131914:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f131918:	8cc200c0 */ 	lw	$v0,0xc0($a2)
-/*  f13191c:	04410003 */ 	bgez	$v0,.L0f13192c
-/*  f131920:	00027823 */ 	negu	$t7,$v0
-/*  f131924:	accf00c0 */ 	sw	$t7,0xc0($a2)
-/*  f131928:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f13192c:
-/*  f13192c:	c43056d8 */ 	lwc1	$f16,%lo(var7f1b56d8)($at)
-/*  f131930:	240a0002 */ 	addiu	$t2,$zero,0x2
-/*  f131934:	e4d000c4 */ 	swc1	$f16,0xc4($a2)
-/*  f131938:	1000000d */ 	beqz	$zero,.L0f131970
-/*  f13193c:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f131940:
-/*  f131940:	13000005 */ 	beqz	$t8,.L0f131958
-/*  f131944:	240b0064 */ 	addiu	$t3,$zero,0x64
-/*  f131948:	13020006 */ 	beq	$t8,$v0,.L0f131964
-/*  f13194c:	241901f4 */ 	addiu	$t9,$zero,0x1f4
-/*  f131950:	10000007 */ 	beqz	$zero,.L0f131970
-/*  f131954:	24090003 */ 	addiu	$t1,$zero,0x3
-.L0f131958:
-/*  f131958:	acc000d4 */ 	sw	$zero,0xd4($a2)
-/*  f13195c:	10000003 */ 	beqz	$zero,.L0f13196c
-/*  f131960:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f131964:
-/*  f131964:	acd900d4 */ 	sw	$t9,0xd4($a2)
-/*  f131968:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f13196c:
-/*  f13196c:	24090003 */ 	addiu	$t1,$zero,0x3
-.L0f131970:
-/*  f131970:	04a00016 */ 	bltz	$a1,.L0f1319cc
-/*  f131974:	00001825 */ 	or	$v1,$zero,$zero
-/*  f131978:	44800000 */ 	mtc1	$zero,$f0
-/*  f13197c:	2408000c */ 	addiu	$t0,$zero,0xc
-.L0f131980:
-/*  f131980:	506a0010 */ 	beql	$v1,$t2,.L0f1319c4
-/*  f131984:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f131988:	00680019 */ 	multu	$v1,$t0
-/*  f13198c:	00001012 */ 	mflo	$v0
-/*  f131990:	00c26021 */ 	addu	$t4,$a2,$v0
-/*  f131994:	e580005c */ 	swc1	$f0,0x5c($t4)
-/*  f131998:	8ced0000 */ 	lw	$t5,0x0($a3)
-/*  f13199c:	01a27021 */ 	addu	$t6,$t5,$v0
-/*  f1319a0:	adcb0060 */ 	sw	$t3,0x60($t6)
-/*  f1319a4:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f1319a8:	00c22021 */ 	addu	$a0,$a2,$v0
-/*  f1319ac:	8c850060 */ 	lw	$a1,0x60($a0)
-/*  f1319b0:	04a10003 */ 	bgez	$a1,.L0f1319c0
-/*  f1319b4:	00057823 */ 	negu	$t7,$a1
-/*  f1319b8:	ac8f0060 */ 	sw	$t7,0x60($a0)
-/*  f1319bc:	8ce60000 */ 	lw	$a2,0x0($a3)
-.L0f1319c0:
-/*  f1319c0:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f1319c4:
-/*  f1319c4:	1469ffee */ 	bne	$v1,$t1,.L0f131980
-/*  f1319c8:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1319cc:
-/*  f1319cc:	05400012 */ 	bltz	$t2,.L0f131a18
-/*  f1319d0:	2408000c */ 	addiu	$t0,$zero,0xc
-/*  f1319d4:	01480019 */ 	multu	$t2,$t0
-/*  f1319d8:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1319dc:	44819000 */ 	mtc1	$at,$f18
-/*  f1319e0:	00001012 */ 	mflo	$v0
-/*  f1319e4:	00c2c021 */ 	addu	$t8,$a2,$v0
-/*  f1319e8:	e712005c */ 	swc1	$f18,0x5c($t8)
-/*  f1319ec:	8cf90000 */ 	lw	$t9,0x0($a3)
-/*  f1319f0:	03226021 */ 	addu	$t4,$t9,$v0
-/*  f1319f4:	ad8b0060 */ 	sw	$t3,0x60($t4)
-/*  f1319f8:	8ce60000 */ 	lw	$a2,0x0($a3)
-/*  f1319fc:	00c21821 */ 	addu	$v1,$a2,$v0
-/*  f131a00:	8c640060 */ 	lw	$a0,0x60($v1)
-/*  f131a04:	04810004 */ 	bgez	$a0,.L0f131a18
-/*  f131a08:	00046823 */ 	negu	$t5,$a0
-/*  f131a0c:	ac6d0060 */ 	sw	$t5,0x60($v1)
-/*  f131a10:	3c068008 */ 	lui	$a2,%hi(g_WeatherData)
-/*  f131a14:	8cc6f0c0 */ 	lw	$a2,%lo(g_WeatherData)($a2)
-.L0f131a18:
-/*  f131a18:	8fae0020 */ 	lw	$t6,0x20($sp)
-/*  f131a1c:	acce00cc */ 	sw	$t6,0xcc($a2)
-/*  f131a20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f131a24:
-/*  f131a24:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f131a28:	03e00008 */ 	jr	$ra
-/*  f131a2c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void weatherSetIntensity(s32 intensity)
+{
+	s32 dotheloop = -1;
+	s32 special = -1;
+	s32 i;
+
+	if (intensity == g_WeatherData->intensity) {
+		return;
+	}
+
+	switch (g_WeatherData->type) {
+	case WEATHERTYPE_RAIN:
+		if (g_WeatherData->intensity == 0) {
+			func0f131610(g_WeatherData);
+		}
+
+		special = -1;
+		dotheloop = 1;
+
+		switch (intensity) {
+		case 0:
+			g_WeatherData->unkd4 = 0;
+			g_WeatherData->unkbc = 100;
+			g_WeatherData->unkc0 = 100;
+
+			if (g_WeatherData->unkc0 < 0) {
+				g_WeatherData->unkc0 = -g_WeatherData->unkc0;
+			}
+
+			dotheloop = -1;
+			g_WeatherData->unkc4 = -1;
+			break;
+		case 1:
+			g_WeatherData->unkc8 = 15;
+			g_WeatherData->unkd4 = 200;
+			g_WeatherData->unkbc = 100;
+			g_WeatherData->unkc0 = 100;
+
+			if (g_WeatherData->unkc0 < 0) {
+				g_WeatherData->unkc0 = -g_WeatherData->unkc0;
+			}
+
+			special = 0;
+			g_WeatherData->unkc4 = 0.001f;
+			break;
+		case 2:
+			g_WeatherData->unkc8 = 18;
+			g_WeatherData->unkd4 = 400;
+			g_WeatherData->unkbc = 150;
+			g_WeatherData->unkc0 = 100;
+
+			if (g_WeatherData->unkc0 < 0) {
+				g_WeatherData->unkc0 = -g_WeatherData->unkc0;
+			}
+
+			special = 1;
+			g_WeatherData->unkc4 = 0.01f;
+			break;
+		case 3:
+			g_WeatherData->unkc8 = 30;
+			g_WeatherData->unkd4 = 500;
+			g_WeatherData->unkbc = 300;
+			g_WeatherData->unkc0 = 100;
+
+			if (g_WeatherData->unkc0 < 0) {
+				g_WeatherData->unkc0 = -g_WeatherData->unkc0;
+			}
+
+			special = 2;
+			g_WeatherData->unkc4 = 0.03f;
+			break;
+		}
+		break;
+	case WEATHERTYPE_SNOW:
+		switch (intensity) {
+		case 0:
+			g_WeatherData->unkd4 = 0;
+			break;
+		case 1:
+			g_WeatherData->unkd4 = 500;
+			break;
+		}
+		break;
+	}
+
+	if (dotheloop >= 0) {
+		for (i = 0; i != 3; i++) {
+			if (i != special) {
+				g_WeatherData->unk5c[i].unk00 = 0;
+				g_WeatherData->unk5c[i].unk04 = 100;
+
+				if (g_WeatherData->unk5c[i].unk04 < 0) {
+					g_WeatherData->unk5c[i].unk04 = -g_WeatherData->unk5c[i].unk04;
+				}
+			}
+		}
+	}
+
+	if (special >= 0) {
+		g_WeatherData->unk5c[special].unk00 = 1;
+		g_WeatherData->unk5c[special].unk04 = 100;
+
+		if (g_WeatherData->unk5c[special].unk04 < 0) {
+			g_WeatherData->unk5c[special].unk04 = -g_WeatherData->unk5c[special].unk04;
+		}
+	}
+
+	g_WeatherData->intensity = intensity;
+}
 
 GLOBAL_ASM(
 glabel rainTick
