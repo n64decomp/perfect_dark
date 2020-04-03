@@ -214,34 +214,12 @@ glabel weatherRender
 /*  f1312d4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1312d8
-/*  f1312d8:	44866000 */ 	mtc1	$a2,$f12
-/*  f1312dc:	44801000 */ 	mtc1	$zero,$f2
-/*  f1312e0:	44877000 */ 	mtc1	$a3,$f14
-/*  f1312e4:	00057080 */ 	sll	$t6,$a1,0x2
-/*  f1312e8:	460c103c */ 	c.lt.s	$f2,$f12
-/*  f1312ec:	008e1021 */ 	addu	$v0,$a0,$t6
-/*  f1312f0:	e44c3e98 */ 	swc1	$f12,0x3e98($v0)
-/*  f1312f4:	e44e3e8c */ 	swc1	$f14,0x3e8c($v0)
-/*  f1312f8:	45020004 */ 	bc1fl	.L0f13130c
-/*  f1312fc:	46006007 */ 	neg.s	$f0,$f12
-/*  f131300:	10000002 */ 	beqz	$zero,.L0f13130c
-/*  f131304:	46006006 */ 	mov.s	$f0,$f12
-/*  f131308:	46006007 */ 	neg.s	$f0,$f12
-.L0f13130c:
-/*  f13130c:	460e103c */ 	c.lt.s	$f2,$f14
-/*  f131310:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f131314:	45020004 */ 	bc1fl	.L0f131328
-/*  f131318:	46007087 */ 	neg.s	$f2,$f14
-/*  f13131c:	10000002 */ 	beqz	$zero,.L0f131328
-/*  f131320:	46007086 */ 	mov.s	$f2,$f14
-/*  f131324:	46007087 */ 	neg.s	$f2,$f14
-.L0f131328:
-/*  f131328:	46001100 */ 	add.s	$f4,$f2,$f0
-/*  f13132c:	03e00008 */ 	jr	$ra
-/*  f131330:	e4443ea4 */ 	swc1	$f4,0x3ea4($v0)
-);
+void func0f1312d8(struct weatherparticledata *data, s32 index, f32 min, f32 max)
+{
+	data->unk3e98[index] = min;
+	data->unk3e8c[index] = max;
+	data->unk3ea4[index] = ABS(min) + ABS(max);
+}
 
 struct weatherparticledata *weatherAllocateParticles(void)
 {

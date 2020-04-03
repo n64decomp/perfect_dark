@@ -5857,15 +5857,9 @@ struct weatherparticledata {
 	/*0x3e80*/ f32 unk3e80;
 	/*0x3e84*/ f32 unk3e84;
 	/*0x3e88*/ f32 unk3e88;
-	/*0x3e8c*/ u32 unk3e8c;
-	/*0x3e90*/ u32 unk3e90;
-	/*0x3e94*/ u32 unk3e94;
-	/*0x3e98*/ u32 unk3e98;
-	/*0x3e9c*/ u32 unk3e9c;
-	/*0x3ea0*/ u32 unk3ea0;
-	/*0x3ea4*/ u32 unk3ea4;
-	/*0x3ea8*/ u32 unk3ea8;
-	/*0x3eac*/ u32 unk3eac;
+	/*0x3e8c*/ f32 unk3e8c[3];
+	/*0x3e98*/ f32 unk3e98[3];
+	/*0x3ea4*/ f32 unk3ea4[3];
 	/*0x3eb0*/ u32 unk3eb0;
 	/*0x3eb4*/ u32 unk3eb4;
 	/*0x3eb8*/ u32 unk3eb8;
