@@ -4,7 +4,7 @@
 #include "types.h"
 
 void func0f16ce10(void);
-u32 func0f16ce3c(void);
+void func0f16ce3c(s32 difframe60, s32 difframe240, s32 frametime);
 u32 func0f16ce94(void);
 u32 func0f16cf94(void);
 

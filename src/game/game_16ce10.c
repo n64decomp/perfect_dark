@@ -27,31 +27,19 @@ void func0f16ce10(void)
 	g_Vars.lastframetime = g_Vars.thisframetime;
 }
 
-GLOBAL_ASM(
-glabel func0f16ce3c
-/*  f16ce3c:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f16ce40:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f16ce44:	44842000 */ 	mtc1	$a0,$f4
-/*  f16ce48:	44855000 */ 	mtc1	$a1,$f10
-/*  f16ce4c:	8c620058 */ 	lw	$v0,0x58($v1)
-/*  f16ce50:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f16ce54:	8c6e0018 */ 	lw	$t6,0x18($v1)
-/*  f16ce58:	00457821 */ 	addu	$t7,$v0,$a1
-/*  f16ce5c:	ac660018 */ 	sw	$a2,0x18($v1)
-/*  f16ce60:	ac640000 */ 	sw	$a0,0x0($v1)
-/*  f16ce64:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f16ce68:	e4660004 */ 	swc1	$f6,0x4($v1)
-/*  f16ce6c:	c4680004 */ 	lwc1	$f8,0x4($v1)
-/*  f16ce70:	ac6f0058 */ 	sw	$t7,0x58($v1)
-/*  f16ce74:	ac650040 */ 	sw	$a1,0x40($v1)
-/*  f16ce78:	ac620054 */ 	sw	$v0,0x54($v1)
-/*  f16ce7c:	e4700048 */ 	swc1	$f16,0x48($v1)
-/*  f16ce80:	c4720048 */ 	lwc1	$f18,0x48($v1)
-/*  f16ce84:	ac6e0014 */ 	sw	$t6,0x14($v1)
-/*  f16ce88:	e4680010 */ 	swc1	$f8,0x10($v1)
-/*  f16ce8c:	03e00008 */ 	jr	$ra
-/*  f16ce90:	e472005c */ 	swc1	$f18,0x5c($v1)
-);
+void func0f16ce3c(s32 difframe60, s32 difframe240, s32 frametime)
+{
+	g_Vars.lastframetime = g_Vars.thisframetime;
+	g_Vars.thisframetime = frametime;
+
+	g_Vars.diffframe60 = difframe60;
+	g_Vars.diffframe60freal = g_Vars.diffframe60f = difframe60;
+
+	g_Vars.lastframe240 = g_Vars.thisframe240;
+	g_Vars.thisframe240 += difframe240;
+	g_Vars.diffframe240 = difframe240;
+	g_Vars.diffframe240freal = g_Vars.diffframe240f = difframe240;
+}
 
 GLOBAL_ASM(
 glabel func0f16ce94
