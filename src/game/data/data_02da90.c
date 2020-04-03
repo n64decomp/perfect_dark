@@ -6,7 +6,7 @@
 #include "game/game_107fb0.h"
 #include "game/game_10ccd0.h"
 #include "game/camdraw.h"
-#include "game/game_16ce10.h"
+#include "game/timing.h"
 #include "game/game_173a00.h"
 #include "game/utils.h"
 #include "game/game_177e00.h"

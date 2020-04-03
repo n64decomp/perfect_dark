@@ -153,7 +153,7 @@
 	src/game/game_1668e0.o (section); \
 	src/game/game_166e40.o (section); \
 	src/game/game_167ae0.o (section); \
-	src/game/game_16ce10.o (section); \
+	src/game/timing.o (section); \
 	src/game/game_16cfa0.o (section); \
 	src/game/lang.o (section); \
 	src/game/game_16e810.o (section); \

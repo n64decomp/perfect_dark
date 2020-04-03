@@ -1,5 +1,5 @@
-#ifndef _IN_GAME_GAME_16CE10_H
-#define _IN_GAME_GAME_16CE10_H
+#ifndef _IN_GAME_TIMING_H
+#define _IN_GAME_TIMING_H
 #include <ultra64.h>
 #include "types.h"
 
