@@ -5792,11 +5792,11 @@ struct weatherdata {
 	/*0x08*/ f32 unk08;
 	/*0x0c*/ f32 unk0c;
 	/*0x10*/ u32 unk10;
-	/*0x14*/ f32 unk14;
+	/*0x14*/ f32 windspeed;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
 	/*0x20*/ s32 type;
-	/*0x24*/ u32 unk24;
+	/*0x24*/ struct weatherparticledata *particledata;
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u32 unk30;
@@ -5843,6 +5843,42 @@ struct weatherdata {
 	/*0xf4*/ u32 unkf4;
 	/*0xf8*/ u32 unkf8;
 	/*0xfc*/ u32 unkfc;
+};
+
+struct weatherparticle {
+	struct coord unk00;
+	s32 active;
+	struct coord unk10;
+	f32 unk1c;
+};
+
+struct weatherparticledata {
+	struct weatherparticle particles[500];
+	/*0x3e80*/ f32 unk3e80;
+	/*0x3e84*/ f32 unk3e84;
+	/*0x3e88*/ f32 unk3e88;
+	/*0x3e8c*/ u32 unk3e8c;
+	/*0x3e90*/ u32 unk3e90;
+	/*0x3e94*/ u32 unk3e94;
+	/*0x3e98*/ u32 unk3e98;
+	/*0x3e9c*/ u32 unk3e9c;
+	/*0x3ea0*/ u32 unk3ea0;
+	/*0x3ea4*/ u32 unk3ea4;
+	/*0x3ea8*/ u32 unk3ea8;
+	/*0x3eac*/ u32 unk3eac;
+	/*0x3eb0*/ u32 unk3eb0;
+	/*0x3eb4*/ u32 unk3eb4;
+	/*0x3eb8*/ u32 unk3eb8;
+	/*0x3ebc*/ u32 unk3ebc;
+	/*0x3ec0*/ u32 unk3ec0;
+	/*0x3ec4*/ u32 unk3ec4;
+	/*0x3ec8*/ f32 unk3ec8[8];
+	/*0x3ee8*/ u32 unk3ee8;
+	/*0x3eec*/ u32 unk3eec;
+	/*0x3ef0*/ u32 unk3ef0;
+	/*0x3ef4*/ u32 unk3ef4;
+	/*0x3ef8*/ u32 unk3ef8;
+	/*0x3efc*/ u32 unk3efc;
 };
 
 #endif

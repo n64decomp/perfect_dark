@@ -4,8 +4,8 @@
 #include "types.h"
 
 u32 weatherRender(void);
-u32 func0f1312d8(void);
-u32 func0f131334(void);
+void func0f1312d8(struct weatherparticledata *data, u32 arg1, f32 arg2, f32 arg3);
+struct weatherparticledata *weatherAllocateParticles(void);
 void func0f131610(struct weatherdata *weather);
 void func0f131678(s32 arg0);
 void weatherSetIntensity(s32 intensity);

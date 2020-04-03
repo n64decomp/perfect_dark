@@ -64,7 +64,7 @@ glabel func0f113220
 
 void currentPlayerUpdateIdleHeadRoll(void)
 {
-	f32 mult = 0.00000000023283064365386962890f;
+	f32 mult = 1.0f / U32_MAX;
 
 	g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].x = ((f32)random() * mult - 0.5f) * 0.02f;
 	g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].z = 1;

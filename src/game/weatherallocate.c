@@ -24,18 +24,18 @@ void weatherAllocate(void)
 				|| g_StageIndex == STAGEINDEX_CRASHSITE)
 			&& PLAYERCOUNT() < 2) {
 		g_WeatherData = malloc(sizeof(struct weatherdata), 4);
-		g_WeatherData->unk24 = func0f131334();
+		g_WeatherData->particledata = weatherAllocateParticles();
 		g_WeatherData->type = -1;
 		g_WeatherData->unk08 = 0;
 		g_WeatherData->unk0c = 0;
 		g_WeatherData->unk10 = 1;
 
 		if (g_StageIndex == STAGEINDEX_CHICAGO || g_StageIndex == STAGEINDEX_G5BUILDING) {
-			g_WeatherData->unk14 = 20;
+			g_WeatherData->windspeed = 20;
 		} else if (g_StageIndex == STAGEINDEX_CRASHSITE) {
-			g_WeatherData->unk14 = 10;
+			g_WeatherData->windspeed = 10;
 		} else {
-			g_WeatherData->unk14 = 5;
+			g_WeatherData->windspeed = 5;
 		}
 
 		g_WeatherData->unk34 = 0;

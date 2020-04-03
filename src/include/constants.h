@@ -8,6 +8,8 @@
 
 #define osSyncPrintf
 
+#define U32_MAX 4294967295
+
 #define ABS(val)              (val > 0 ? val : -val)
 #define ARRAYCOUNT(a)         (s32)(sizeof(a) / sizeof(a[0]))
 #define CHRRACE(chr)          (chr ? chr->race : RACE_HUMAN)
