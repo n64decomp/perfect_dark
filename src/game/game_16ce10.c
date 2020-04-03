@@ -21,20 +21,11 @@ const char var7f1b7908[] = "playing";
 const char var7f1b7910[] = "paused";
 const char var7f1b7918[] = "MUSIC : activedeath=%d\n";
 
-GLOBAL_ASM(
-glabel func0f16ce10
-/*  f16ce10:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f16ce14:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f16ce18:	0c012144 */ 	jal	osGetCount
-/*  f16ce1c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16ce20:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f16ce24:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f16ce28:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f16ce2c:	ac620018 */ 	sw	$v0,0x18($v1)
-/*  f16ce30:	ac620014 */ 	sw	$v0,0x14($v1)
-/*  f16ce34:	03e00008 */ 	jr	$ra
-/*  f16ce38:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+void func0f16ce10(void)
+{
+	g_Vars.thisframetime = osGetCount();
+	g_Vars.lastframetime = g_Vars.thisframetime;
+}
 
 GLOBAL_ASM(
 glabel func0f16ce3c
