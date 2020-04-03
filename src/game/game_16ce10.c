@@ -27,18 +27,18 @@ void func0f16ce10(void)
 	g_Vars.lastframetime = g_Vars.thisframetime;
 }
 
-void func0f16ce3c(s32 difframe60, s32 difframe240, s32 frametime)
+void func0f16ce3c(s32 diffframe60, s32 diffframe240, s32 frametime)
 {
 	g_Vars.lastframetime = g_Vars.thisframetime;
 	g_Vars.thisframetime = frametime;
 
-	g_Vars.diffframe60 = difframe60;
-	g_Vars.diffframe60freal = g_Vars.diffframe60f = difframe60;
+	g_Vars.diffframe60 = diffframe60;
+	g_Vars.diffframe60freal = g_Vars.diffframe60f = diffframe60;
 
 	g_Vars.lastframe240 = g_Vars.thisframe240;
-	g_Vars.thisframe240 += difframe240;
-	g_Vars.diffframe240 = difframe240;
-	g_Vars.diffframe240freal = g_Vars.diffframe240f = difframe240;
+	g_Vars.thisframe240 += diffframe240;
+	g_Vars.diffframe240 = diffframe240;
+	g_Vars.diffframe240freal = g_Vars.diffframe240f = diffframe240;
 }
 
 GLOBAL_ASM(
@@ -108,6 +108,30 @@ glabel func0f16ce94
 /*  f16cf80:	8fb40028 */ 	lw	$s4,0x28($sp)
 /*  f16cf84:	03e00008 */ 	jr	$ra
 /*  f16cf88:	27bd0030 */ 	addiu	$sp,$sp,0x30
+);
+
+// Mismatch most likely due to signedness not being right
+//void func0f16ce94(void)
+//{
+//	u32 thisframeticks;
+//	u32 diffframe60;
+//	u32 diffframe240;
+//
+//	do {
+//		g_Vars.thisframeticks = thisframeticks = osGetCount() - g_Vars.thisframetime;
+//		diffframe60 = (thisframeticks + g_Vars.lostframetime + 390625) / 781250;
+//		diffframe240 = (thisframeticks + g_Vars.lostframetime240 + 97656) / 195312;
+//	} while (diffframe60 < g_Vars.mininc60);
+//
+//	g_Vars.mininc60 = 1;
+//	g_Vars.lostframetime += thisframeticks - diffframe60 * 781250;
+//	g_Vars.lostframetime240 += thisframeticks - diffframe240 * 195312;
+//
+//	func0f16ce3c(diffframe60, diffframe240, thisframeticks);
+//}
+
+GLOBAL_ASM(
+glabel func0f16cf8c
 /*  f16cf8c:	03e00008 */ 	jr	$ra
 /*  f16cf90:	afa40000 */ 	sw	$a0,0x0($sp)
 );
