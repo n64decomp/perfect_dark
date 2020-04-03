@@ -130,15 +130,12 @@ glabel func0f16ce94
 //	func0f16ce3c(diffframe60, diffframe240, thisframeticks);
 //}
 
-GLOBAL_ASM(
-glabel func0f16cf8c
-/*  f16cf8c:	03e00008 */ 	jr	$ra
-/*  f16cf90:	afa40000 */ 	sw	$a0,0x0($sp)
-);
+void func0f16cf8c(s32 arg0)
+{
+	// empty
+}
 
-GLOBAL_ASM(
-glabel func0f16cf94
-/*  f16cf94:	03e00008 */ 	jr	$ra
-/*  f16cf98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cf9c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f16cf94(void)
+{
+	// empty
+}
