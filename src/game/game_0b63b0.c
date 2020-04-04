@@ -5549,7 +5549,7 @@ glabel var7f1ad630
 /*  f0bae0c:	0fc68606 */ 	jal	getDeviceTrainingData
 /*  f0bae10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bae14:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f0bae18:	0fc5b350 */ 	jal	setVar80084014
+/*  f0bae18:	0fc5b350 */ 	jal	soloSetPaused
 /*  f0bae1c:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f0bae20:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f0bae24:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
@@ -5603,7 +5603,7 @@ glabel var7f1ad630
 /*  f0baed4:	2b210014 */ 	slti	$at,$t9,0x14
 /*  f0baed8:	54200009 */ 	bnezl	$at,.L0f0baf00
 /*  f0baedc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0baee0:	0fc5b350 */ 	jal	setVar80084014
+/*  f0baee0:	0fc5b350 */ 	jal	soloSetPaused
 /*  f0baee4:	00002025 */ 	or	$a0,$zero,$zero
 /*  f0baee8:	3c05800a */ 	lui	$a1,%hi(g_Vars)
 /*  f0baeec:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
@@ -5630,7 +5630,7 @@ void currentPlayerPause(u32 mode)
 void func0f0baf38(void)
 {
 	if (g_Vars.currentplayer->pausemode == PAUSEMODE_3) {
-		setVar80084014(0);
+		soloSetPaused(0);
 		func0f16db3c();
 		g_Vars.currentplayer->pausemode = PAUSEMODE_0;
 	}
@@ -8928,7 +8928,7 @@ glabel var7f1ad6ac
 /*  f0bdf40:	2411ffd8 */ 	addiu	$s1,$zero,-40
 /*  f0bdf44:	a611024c */ 	sh	$s1,0x24c($s0)
 .L0f0bdf48:
-/*  f0bdf48:	0fc5b364 */ 	jal	getVar80084014
+/*  f0bdf48:	0fc5b364 */ 	jal	soloIsPaused
 /*  f0bdf4c:	2411ffd8 */ 	addiu	$s1,$zero,-40
 /*  f0bdf50:	50400004 */ 	beqzl	$v0,.L0f0bdf64
 /*  f0bdf54:	8e700284 */ 	lw	$s0,0x284($s3)
@@ -10713,7 +10713,7 @@ glabel var7f1ad6ac
 /*  f0bf960:	8d440070 */ 	lw	$a0,0x70($t2)
 /*  f0bf964:	00028600 */ 	sll	$s0,$v0,0x18
 /*  f0bf968:	00105e03 */ 	sra	$t3,$s0,0x18
-/*  f0bf96c:	0fc5b364 */ 	jal	getVar80084014
+/*  f0bf96c:	0fc5b364 */ 	jal	soloIsPaused
 /*  f0bf970:	01608025 */ 	or	$s0,$t3,$zero
 /*  f0bf974:	1440002c */ 	bnez	$v0,.L0f0bfa28
 /*  f0bf978:	8fad0330 */ 	lw	$t5,0x330($sp)

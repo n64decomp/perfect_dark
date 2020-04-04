@@ -489,7 +489,7 @@ void func0f167e7c(s32 stagenum)
 	func0f011124(false);
 	var80084018 = 1;
 	func00002560();
-	setVar80084014(0);
+	soloSetPaused(0);
 
 #if PIRACYCHECKS
 	{
@@ -4367,7 +4367,7 @@ glabel func0f16b96c
 /*  f16bb34:	5420ffde */ 	bnezl	$at,.L0f16bab0
 /*  f16bb38:	8cce0064 */ 	lw	$t6,0x64($a2)
 .L0f16bb3c:
-/*  f16bb3c:	0fc5b364 */ 	jal	getVar80084014
+/*  f16bb3c:	0fc5b364 */ 	jal	soloIsPaused
 /*  f16bb40:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16bb44:	10400003 */ 	beqz	$v0,.L0f16bb54
 /*  f16bb48:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5096,7 +5096,7 @@ glabel func0f16b96c
 /*  f16c57c:	8e0d0000 */ 	lw	$t5,0x0($s0)
 /*  f16c580:	55a00019 */ 	bnezl	$t5,.L0f16c5e8
 /*  f16c584:	8e8d0034 */ 	lw	$t5,0x34($s4)
-/*  f16c588:	0fc5b364 */ 	jal	getVar80084014
+/*  f16c588:	0fc5b364 */ 	jal	soloIsPaused
 /*  f16c58c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16c590:	14400014 */ 	bnez	$v0,.L0f16c5e4
 /*  f16c594:	3c0e8008 */ 	lui	$t6,%hi(g_MpTimeLimit)
@@ -5528,7 +5528,7 @@ glabel func0f16b96c
 //	}
 //
 //	// b3c
-//	if (getVar80084014()) {
+//	if (soloIsPaused()) {
 //		g_Vars.lvupdate240 = 0;
 //	} else if (mpIsPaused()) {
 //		g_Vars.lvupdate240 = 0;
@@ -5710,7 +5710,7 @@ glabel func0f16b96c
 //			// Sound alarm at 10 seconds remaining
 //			if (nexttime >= g_MpTimeLimit - 600
 //					&& var80084034 == 0
-//					&& !getVar80084014()
+//					&& !soloIsPaused()
 //					&& nexttime < g_MpTimeLimit) {
 //				// 5dc
 //				func00010718(&var80084034, 0, 0x7fff, 0x40, 163, 1, 1, -1, 1);
@@ -5931,9 +5931,9 @@ void func0f16cce4(void)
 	var80084010 = paused;
 }
 
-void setVar80084014(bool value)
+void soloSetPaused(bool paused)
 {
-	if (value) {
+	if (paused) {
 		func0f11deb8();
 		func0000fe20();
 	} else {
@@ -5941,10 +5941,10 @@ void setVar80084014(bool value)
 		func0f11df38();
 	}
 
-	var80084014 = value;
+	var80084014 = paused;
 }
 
-bool getVar80084014(void)
+bool soloIsPaused(void)
 {
 	return var80084014;
 }

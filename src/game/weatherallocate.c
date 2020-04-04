@@ -26,7 +26,7 @@ void weatherAllocate(void)
 		g_WeatherData = malloc(sizeof(struct weatherdata), 4);
 		g_WeatherData->particledata = weatherAllocateParticles();
 		g_WeatherData->type = -1;
-		g_WeatherData->unk08 = 0;
+		g_WeatherData->windanglerad = 0;
 		g_WeatherData->unk0c = 0;
 		g_WeatherData->unk10 = 1;
 
@@ -38,10 +38,10 @@ void weatherAllocate(void)
 			g_WeatherData->windspeed = 5;
 		}
 
-		g_WeatherData->unk34 = 0;
-		g_WeatherData->unk38 = 0;
-		g_WeatherData->unk3c = 0;
-		g_WeatherData->unk40 = 0;
+		g_WeatherData->unk34[0] = 0;
+		g_WeatherData->unk34[1] = 0;
+		g_WeatherData->unk34[2] = 0;
+		g_WeatherData->unk34[3] = 0;
 		g_WeatherData->unk44 = 0;
 		g_WeatherData->unk94 = -1;
 		g_WeatherData->unk48 = 1;

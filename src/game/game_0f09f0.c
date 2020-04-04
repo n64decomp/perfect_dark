@@ -9125,7 +9125,7 @@ void func0f0f85e0(struct menu_dialog *dialog, s32 root)
 	}
 
 	menuPushRootDialog(dialog, root);
-	setVar80084014(true);
+	soloSetPaused(true);
 	g_Vars.currentplayer->pausemode = PAUSEMODE_3;
 }
 
@@ -14292,7 +14292,7 @@ glabel func0f0fce8c
 /*  f0fcf58:	00e02025 */ 	or	$a0,$a3,$zero
 /*  f0fcf5c:	0fc3e0cc */ 	jal	menuPushRootDialog
 /*  f0fcf60:	24050002 */ 	addiu	$a1,$zero,0x2
-/*  f0fcf64:	0fc5b350 */ 	jal	setVar80084014
+/*  f0fcf64:	0fc5b350 */ 	jal	soloSetPaused
 /*  f0fcf68:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f0fcf6c:	3c06800a */ 	lui	$a2,%hi(g_Vars)
 /*  f0fcf70:	24c69fc0 */ 	addiu	$a2,$a2,%lo(g_Vars)

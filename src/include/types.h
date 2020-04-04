@@ -5787,11 +5787,11 @@ struct weather58 {
 };
 
 struct weatherdata {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ u32 unk04;
-	/*0x08*/ f32 unk08;
+	/*0x00*/ f32 windspeedx;
+	/*0x04*/ f32 windspeedz;
+	/*0x08*/ f32 windanglerad;
 	/*0x0c*/ f32 unk0c;
-	/*0x10*/ u32 unk10;
+	/*0x10*/ s32 unk10;
 	/*0x14*/ f32 windspeed;
 	/*0x18*/ u32 unk18;
 	/*0x1c*/ u32 unk1c;
@@ -5800,22 +5800,16 @@ struct weatherdata {
 	/*0x28*/ u32 unk28;
 	/*0x2c*/ u32 unk2c;
 	/*0x30*/ u32 unk30;
-	/*0x34*/ u32 unk34;
-	/*0x38*/ u32 unk38;
-	/*0x3c*/ u32 unk3c;
-	/*0x40*/ u32 unk40;
-	/*0x44*/ u32 unk44;
-	/*0x48*/ u32 unk48;
-	/*0x4c*/ u32 unk4c;
-	/*0x50*/ u32 unk50;
-	/*0x54*/ u32 unk54;
-	/*0x58*/ struct weather58 unk58[3];
-	/*0x7c*/ f32 unk7c;
-	/*0x80*/ u32 unk80;
-	/*0x84*/ u32 unk84;
+	/*0x34*/ s32 unk34[4];
+	/*0x44*/ s32 unk44;
+	/*0x48*/ s32 unk48;
+	/*0x4c*/ s32 unk4c;
+	/*0x50*/ s32 unk50;
+	/*0x54*/ s32 unk54;
+	/*0x58*/ struct weather58 unk58[4];
 	/*0x88*/ f32 unk88;
-	/*0x8c*/ u32 unk8c;
-	/*0x90*/ u32 unk90;
+	/*0x8c*/ f32 unk8c;
+	/*0x90*/ s32 unk90;
 	/*0x94*/ s32 unk94;
 	/*0x98*/ u32 unk98;
 	/*0x9c*/ u32 unk9c;
@@ -5831,8 +5825,8 @@ struct weatherdata {
 	/*0xc4*/ f32 unkc4;
 	/*0xc8*/ f32 unkc8;
 	/*0xcc*/ s32 intensity;
-	/*0xd0*/ u32 unkd0;
-	/*0xd4*/ u32 unkd4;
+	/*0xd0*/ s32 unkd0;
+	/*0xd4*/ s32 unkd4;
 	/*0xd8*/ u32 unkd8;
 	/*0xdc*/ u32 unkdc;
 	/*0xe0*/ u32 unke0;
@@ -5841,14 +5835,14 @@ struct weatherdata {
 	/*0xec*/ u32 unkec;
 	/*0xf0*/ u32 unkf0;
 	/*0xf4*/ u32 unkf4;
-	/*0xf8*/ u32 unkf8;
+	/*0xf8*/ s16 unkf8;
 	/*0xfc*/ u32 unkfc;
 };
 
 struct weatherparticle {
-	struct coord unk00;
+	struct coord pos;
 	s32 active;
-	struct coord unk10;
+	struct coord inc;
 	f32 unk1c;
 };
 
@@ -5857,9 +5851,9 @@ struct weatherparticledata {
 	/*0x3e80*/ f32 unk3e80;
 	/*0x3e84*/ f32 unk3e84;
 	/*0x3e88*/ f32 unk3e88;
-	/*0x3e8c*/ f32 unk3e8c[3];
-	/*0x3e98*/ f32 unk3e98[3];
-	/*0x3ea4*/ f32 unk3ea4[3];
+	/*0x3e8c*/ struct coord boundarymax;
+	/*0x3e98*/ struct coord boundarymin;
+	/*0x3ea4*/ struct coord boundaryrange;
 	/*0x3eb0*/ u32 unk3eb0;
 	/*0x3eb4*/ u32 unk3eb4;
 	/*0x3eb8*/ u32 unk3eb8;

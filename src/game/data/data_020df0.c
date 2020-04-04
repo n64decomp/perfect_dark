@@ -6359,11 +6359,15 @@ u32 sparktable[] = {
 u32 var8007f0b8 = 0x00000000;
 u32 var8007f0bc = 0x00000000;
 struct weatherdata *g_WeatherData = NULL;
-u32 var8007f0c4 = 0x000080b7;
-u32 var8007f0c8 = 0x000080b6;
-u32 var8007f0cc = 0x000080b8;
-u32 var8007f0d0 = 0xffffffff;
-u32 var8007f0d4 = 0x00000014;
+
+s32 var8007f0c4[4] = {
+	0x000080b7,
+	0x000080b6,
+	0x000080b8,
+	-1,
+};
+
+u32 g_RainSpeedExtra = 20;
 u32 var8007f0d8 = 0x0000000f;
 u32 var8007f0dc = 0x0000000a;
 u32 var8007f0e0 = 0x00000001;

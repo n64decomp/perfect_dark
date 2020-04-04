@@ -77,7 +77,7 @@ void currentPlayerGrabInit(void)
 	g_Vars.currentplayer->gunextraaimx = 0;
 	g_Vars.currentplayer->gunextraaimy = 0;
 
-	func00016374((g_Vars.currentplayer->vv_theta * M_TAU) / 360.0f, matrix);
+	func00016374((g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f, matrix);
 	func00015b10(matrix, &g_Vars.currentplayer->grabbedposoffset);
 
 	g_Vars.currentplayer->bondprevtheta = g_Vars.currentplayer->vv_theta;
@@ -104,12 +104,12 @@ void currentPlayerGrabInit(void)
 
 		if (hov) {
 			g_Vars.currentplayer->grabbedrotoffset =
-				hov->unk10 - (M_TAU - (g_Vars.currentplayer->vv_theta * M_TAU) / 360.0f);
+				hov->unk10 - (M_BADTAU - (g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f);
 
-			if (g_Vars.currentplayer->grabbedrotoffset >= M_TAU) {
-				g_Vars.currentplayer->grabbedrotoffset -= M_TAU;
+			if (g_Vars.currentplayer->grabbedrotoffset >= M_BADTAU) {
+				g_Vars.currentplayer->grabbedrotoffset -= M_BADTAU;
 			} else if (g_Vars.currentplayer->grabbedrotoffset < 0) {
-				g_Vars.currentplayer->grabbedrotoffset += M_TAU;
+				g_Vars.currentplayer->grabbedrotoffset += M_BADTAU;
 			}
 		}
 
@@ -169,12 +169,12 @@ void currentPlayerUpdateGrabbedPropForRelease(void)
 			moveamount.z = (g_Vars.currentplayer->grabbedprop->pos.z - g_Vars.currentplayer->grabbedprevpos.z) / g_Vars.lvupdate240freal;
 
 			rotateamount = -(g_Vars.currentplayer->vv_theta - g_Vars.currentplayer->bondprevtheta)
-				* M_TAU / 360;
+				* M_BADTAU / 360;
 
 			if (rotateamount < -M_PI) {
-				rotateamount += M_TAU;
+				rotateamount += M_BADTAU;
 			} else if (rotateamount >= M_PI) {
-				rotateamount -= M_TAU;
+				rotateamount -= M_BADTAU;
 			}
 
 			rotateamount /= g_Vars.lvupdate240freal;

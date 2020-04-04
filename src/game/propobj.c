@@ -9869,7 +9869,7 @@ glabel func0f06e87c
 /*  f06e924:	3406ffff */ 	dli	$a2,0xffff
 /*  f06e928:	0fc249af */ 	jal	func0f0926bc
 /*  f06e92c:	8e040014 */ 	lw	$a0,0x14($s0)
-/*  f06e930:	0fc5b364 */ 	jal	getVar80084014
+/*  f06e930:	0fc5b364 */ 	jal	soloIsPaused
 /*  f06e934:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f06e938:	1440001f */ 	bnez	$v0,.L0f06e9b8
 /*  f06e93c:	3c01bf80 */ 	lui	$at,0xbf80
@@ -22812,7 +22812,7 @@ glabel var7f1aa5a8
 .text
 /*  f079f1c:	27bdfe68 */ 	addiu	$sp,$sp,-408
 /*  f079f20:	afbf0044 */ 	sw	$ra,0x44($sp)
-/*  f079f24:	0fc5b364 */ 	jal	getVar80084014
+/*  f079f24:	0fc5b364 */ 	jal	soloIsPaused
 /*  f079f28:	afa40198 */ 	sw	$a0,0x198($sp)
 /*  f079f2c:	14400363 */ 	bnez	$v0,.L0f07acbc
 /*  f079f30:	8fae0198 */ 	lw	$t6,0x198($sp)
@@ -28729,7 +28729,7 @@ glabel var7f1aa6ec
 /*  f07f29c:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f07f2a0:	1580002a */ 	bnez	$t4,.L0f07f34c
 /*  f07f2a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f07f2a8:	0fc5b364 */ 	jal	getVar80084014
+/*  f07f2a8:	0fc5b364 */ 	jal	soloIsPaused
 /*  f07f2ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f07f2b0:	54400037 */ 	bnezl	$v0,.L0f07f390
 /*  f07f2b4:	92020003 */ 	lbu	$v0,0x3($s0)
@@ -37736,7 +37736,7 @@ bool currentPlayerTryMountHoverbike(struct prop *prop)
 		thing -= func0f0720d8(obj);
 
 		if (thing < 0) {
-			thing += M_TAU;
+			thing += M_BADTAU;
 		}
 
 		if ((thing > 0.3926365673542f && thing < 2.3558194637299f)
@@ -48335,7 +48335,7 @@ glabel var7f1ab19c
 /*  f090714:	8d089900 */ 	lw	$t0,%lo(var80069900)($t0)
 /*  f090718:	15000016 */ 	bnez	$t0,.L0f090774
 /*  f09071c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f090720:	0fc5b364 */ 	jal	getVar80084014
+/*  f090720:	0fc5b364 */ 	jal	soloIsPaused
 /*  f090724:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f090728:	14400012 */ 	bnez	$v0,.L0f090774
 /*  f09072c:	24090037 */ 	addiu	$t1,$zero,0x37
@@ -48877,7 +48877,7 @@ glabel var7f1ab208
 .L0f090e24:
 /*  f090e24:	240500a3 */ 	addiu	$a1,$zero,0xa3
 .L0f090e28:
-/*  f090e28:	0fc5b364 */ 	jal	getVar80084014
+/*  f090e28:	0fc5b364 */ 	jal	soloIsPaused
 /*  f090e2c:	a7a50036 */ 	sh	$a1,0x36($sp)
 /*  f090e30:	14400057 */ 	bnez	$v0,.L0f090f90
 /*  f090e34:	87a50036 */ 	lh	$a1,0x36($sp)
@@ -49233,7 +49233,7 @@ glabel var7f1ab214
 /*  f0912e4:	afa40200 */ 	sw	$a0,0x200($sp)
 /*  f0912e8:	afa50204 */ 	sw	$a1,0x204($sp)
 /*  f0912ec:	afa60208 */ 	sw	$a2,0x208($sp)
-/*  f0912f0:	0fc5b364 */ 	jal	getVar80084014
+/*  f0912f0:	0fc5b364 */ 	jal	soloIsPaused
 /*  f0912f4:	afa7020c */ 	sw	$a3,0x20c($sp)
 /*  f0912f8:	1440029e */ 	bnez	$v0,.L0f091d74
 /*  f0912fc:	8fa30208 */ 	lw	$v1,0x208($sp)

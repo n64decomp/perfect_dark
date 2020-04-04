@@ -8472,7 +8472,7 @@ glabel var7f1a8d98
 /*  f0359fc:	25f80001 */ 	addiu	$t8,$t7,0x1
 /*  f035a00:	a21802ff */ 	sb	$t8,0x2ff($s0)
 .L0f035a04:
-/*  f035a04:	0fc5b364 */ 	jal	getVar80084014
+/*  f035a04:	0fc5b364 */ 	jal	soloIsPaused
 /*  f035a08:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f035a0c:	14400005 */ 	bnez	$v0,.L0f035a24
 /*  f035a10:	8fad00f4 */ 	lw	$t5,0xf4($sp)
@@ -28074,7 +28074,7 @@ f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos)
 
 	if (chr->prop->type == PROPTYPE_PLAYER) {
 		u32 playernum = propGetPlayerNum(chr->prop);
-		fVar3 = (360 - g_Vars.players[playernum]->vv_theta) * (M_TAU / 360);
+		fVar3 = (360 - g_Vars.players[playernum]->vv_theta) * (M_BADTAU / 360);
 	} else {
 		fVar3 = func0f03e45c(chr);
 	}
@@ -28084,7 +28084,7 @@ f32 chrGetAngleToPos(struct chrdata *chr, struct coord *pos)
 	fVar4 = fVar2 - fVar3;
 
 	if (fVar2 < fVar3) {
-		fVar4 += M_TAU;
+		fVar4 += M_BADTAU;
 	}
 
 	return fVar4;
@@ -28564,7 +28564,7 @@ bool func0f04911c(struct chrdata *chr, struct coord *pos, u8 arg2)
 	f32 angle = chrGetAngleToPos(chr, pos);
 
 	if ((angle < arg2 * 0.024539785459638f && angle < M_PI) ||
-			(M_TAU - arg2 * 0.024539785459638f < angle && M_PI < angle)) {
+			(M_BADTAU - arg2 * 0.024539785459638f < angle && M_PI < angle)) {
 		return true;
 	}
 
