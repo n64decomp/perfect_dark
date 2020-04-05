@@ -35,10 +35,7 @@ void currentPlayerSetMoveModeCutscene(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0c37c0
-/*  f0c37c0:	03e00008 */ 	jr	$ra
-/*  f0c37c4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c37c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0c37cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0c37c0(void)
+{
+	// empty
+}
