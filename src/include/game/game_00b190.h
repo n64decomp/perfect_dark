@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f00b190(void);
+void loadTextureList(void);
 
 #endif

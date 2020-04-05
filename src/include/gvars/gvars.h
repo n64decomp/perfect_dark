@@ -772,7 +772,7 @@ extern u32 var800aaa98;
 extern char *g_LangBanks[69];
 extern u32 var800aabb4;
 extern u32 var800aabb8;
-extern u32 var800aabc0;
+extern struct texture *g_Textures;
 extern u32 var800aabc8;
 extern u32 var800aabd8;
 extern u32 var800ab538;

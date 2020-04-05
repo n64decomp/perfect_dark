@@ -9,6 +9,8 @@ SECTIONS
 	_gamedataSegmentRomStart = 0x39850;
 	_inflateSegmentRomStart = 0x4e850;
 	_ziplistSegmentRomStart = 0x4fc40;
+	_textureSegmentRomStart = 0x01ff7ca0;
+	_textureSegmentRomEnd = 0x01ffea20;
 	_rspMicrocodeStart = 0x80059fe0;
 	_rspMicrocodeStartPlusOne = 0x80059fe1;
 	_rspMicrocodeEnd = 0x8005afe0;

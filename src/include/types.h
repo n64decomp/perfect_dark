@@ -5876,4 +5876,11 @@ struct weatherparticledata {
 	/*0x3efc*/ u32 unk3efc;
 };
 
+struct texture {
+	u8 unk00;
+	u8 unk01;
+	u16 dataoffset;
+	u32 unk08;
+};
+
 #endif

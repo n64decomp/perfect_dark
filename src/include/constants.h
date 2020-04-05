@@ -1535,6 +1535,7 @@
 #define NUM_SOLONORMALSTAGES 17
 #define NUM_SOLOSTAGES       21
 #define NUM_STAGES           90
+#define NUM_TEXTURES         3504
 #define NUM_WEAPONS          94
 
 // obj->flags

@@ -11025,12 +11025,12 @@ glabel func0f027e1c
 /*  f02815c:	04400003 */ 	bltz	$v0,.L0f02816c
 /*  f028160:	28410daf */ 	slti	$at,$v0,0xdaf
 /*  f028164:	14200003 */ 	bnez	$at,.L0f028174
-/*  f028168:	3c0f800b */ 	lui	$t7,%hi(var800aabc0)
+/*  f028168:	3c0f800b */ 	lui	$t7,%hi(g_Textures)
 .L0f02816c:
 /*  f02816c:	10000007 */ 	beqz	$zero,.L0f02818c
 /*  f028170:	00001825 */ 	or	$v1,$zero,$zero
 .L0f028174:
-/*  f028174:	8defabc0 */ 	lw	$t7,%lo(var800aabc0)($t7)
+/*  f028174:	8defabc0 */ 	lw	$t7,%lo(g_Textures)($t7)
 /*  f028178:	0002c0c0 */ 	sll	$t8,$v0,0x3
 /*  f02817c:	01f8c821 */ 	addu	$t9,$t7,$t8
 /*  f028180:	93230000 */ 	lbu	$v1,0x0($t9)
@@ -11109,13 +11109,13 @@ glabel func0f027e1c
 /*  f028290:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f028294:	8622003a */ 	lh	$v0,0x3a($s1)
 /*  f028298:	3c038008 */ 	lui	$v1,%hi(somethings)
-/*  f02829c:	3c0f800b */ 	lui	$t7,%hi(var800aabc0)
+/*  f02829c:	3c0f800b */ 	lui	$t7,%hi(g_Textures)
 /*  f0282a0:	04410003 */ 	bgez	$v0,.L0f0282b0
 /*  f0282a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0282a8:	1000000a */ 	beqz	$zero,.L0f0282d4
 /*  f0282ac:	8c634458 */ 	lw	$v1,%lo(somethings)($v1)
 .L0f0282b0:
-/*  f0282b0:	8defabc0 */ 	lw	$t7,%lo(var800aabc0)($t7)
+/*  f0282b0:	8defabc0 */ 	lw	$t7,%lo(g_Textures)($t7)
 /*  f0282b4:	0002c0c0 */ 	sll	$t8,$v0,0x3
 /*  f0282b8:	3c038008 */ 	lui	$v1,%hi(somethings)
 /*  f0282bc:	01f8c821 */ 	addu	$t9,$t7,$t8
