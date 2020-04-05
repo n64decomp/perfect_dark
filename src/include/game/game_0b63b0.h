@@ -104,7 +104,7 @@ void func0f0bb57c(f32 arg0, f32 arg1);
 void optionsSetHiRes(bool enable);
 void currentPlayerAutoWalk(s16 aimpad, u8 walkspeed, u8 turnspeed, u8 lookup, u8 dist);
 void func0f0bd4a8(u32 arg0);
-void currentPlayerSetGlobalDrawWorldOffset(s32 arg0);
+void currentPlayerSetGlobalDrawWorldOffset(s32 room);
 void currentPlayerSetGlobalDrawCameraOffset(void);
 bool currentPlayerGet00fc(void);
 void currentPlayerSetCameraMode(s32 mode);

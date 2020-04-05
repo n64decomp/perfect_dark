@@ -10873,15 +10873,15 @@ glabel var7f1ad6ac
 /*  f0bfbb4:	27bd0330 */ 	addiu	$sp,$sp,0x330
 );
 
-void currentPlayerSetGlobalDrawWorldOffset(s32 arg0)
+void currentPlayerSetGlobalDrawWorldOffset(s32 room)
 {
-	func0f166df0(arg0, &g_Vars.currentplayer->globaldrawworldoffset);
+	func0f166df0(room, &g_Vars.currentplayer->globaldrawworldoffset);
 
 	g_Vars.currentplayer->globaldrawworldbgoffset.x = g_Vars.currentplayer->globaldrawworldoffset.x;
 	g_Vars.currentplayer->globaldrawworldbgoffset.y = g_Vars.currentplayer->globaldrawworldoffset.y;
 	g_Vars.currentplayer->globaldrawworldbgoffset.z = g_Vars.currentplayer->globaldrawworldoffset.z;
 
-	func0f1668e0(arg0);
+	currentPlayerSetLastRoomForOffset(room);
 }
 
 void currentPlayerSetGlobalDrawCameraOffset(void)

@@ -12,13 +12,10 @@
 #include "lib/lib_159b0.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f1668e0
-/*  f1668e0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f1668e4:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f1668e8:	03e00008 */ 	jr	$ra
-/*  f1668ec:	adc41700 */ 	sw	$a0,0x1700($t6)
-);
+void currentPlayerSetLastRoomForOffset(s32 room)
+{
+	g_Vars.currentplayer->lastroomforoffset = room;
+}
 
 GLOBAL_ASM(
 glabel func0f1668f0

@@ -2554,7 +2554,7 @@ struct player {
 	/*0x16ec*/ u32 unk16ec;
 	/*0x16f0*/ u32 unk16f0;
 	/*0x16f4*/ f32 gunzoomfovs[3];
-	/*0x1700*/ u32 unk1700;
+	/*0x1700*/ u32 lastroomforoffset;
 	/*0x1704*/ f32 c_screenwidth;
 	/*0x1708*/ f32 c_screenheight;
 	/*0x170c*/ f32 c_screenleft;
