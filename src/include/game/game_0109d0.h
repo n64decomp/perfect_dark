@@ -9,6 +9,6 @@ u32 func0f010a80(void);
 u32 func0f010a98(void);
 u32 func0f010ad4(void);
 u32 func0f010aec(void);
-u32 func0f010b04(void);
+void objectiveAddHolographCriteria(struct criteria_holograph *criteria);
 
 #endif
