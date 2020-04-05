@@ -262,15 +262,10 @@ s32 currentPlayerGetNumKills(void)
 	return g_Vars.currentplayerstats->killcount;
 }
 
-GLOBAL_ASM(
-glabel func0f0b074c
-/*  f0b074c:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x288)
-/*  f0b0750:	8c42a248 */ 	lw	$v0,%lo(g_Vars+0x288)($v0)
-/*  f0b0754:	8c4e0020 */ 	lw	$t6,0x20($v0)
-/*  f0b0758:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f0b075c:	03e00008 */ 	jr	$ra
-/*  f0b0760:	ac4f0020 */ 	sw	$t7,0x20($v0)
-);
+void currentPlayerIncrementGgKillCount(void)
+{
+	g_Vars.currentplayerstats->ggkillcount++;
+}
 
 void currentPlayerIncrementDeathCount(void)
 {
