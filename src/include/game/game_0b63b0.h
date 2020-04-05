@@ -77,7 +77,7 @@ void func0f0c1e54(struct prop *prop, bool enable);
 u32 func0f0c1f08(void);
 void func0f0c1ff4(void);
 void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin);
-u32 func0f0c2194(void);
+f32 currentPlayerGetHealth(void);
 u32 func0f0c21a4(void);
 u32 func0f0c2210(void);
 s32 getMissionTime(void);

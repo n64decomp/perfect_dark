@@ -6220,7 +6220,7 @@ glabel var7f1ad674
 /*  f0bb854:	8c4900d8 */ 	lw	$t1,0xd8($v0)
 /*  f0bb858:	0fc2af1d */ 	jal	func0f0abc74
 /*  f0bb85c:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0bb860:	0fc30865 */ 	jal	func0f0c2194
+/*  f0bb860:	0fc30865 */ 	jal	currentPlayerGetHealth
 /*  f0bb864:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bb868:	3c014100 */ 	lui	$at,0x4100
 /*  f0bb86c:	44814000 */ 	mtc1	$at,$f8
@@ -6350,7 +6350,7 @@ glabel var7f1ad674
 /*  f0bba38:	8c4900fc */ 	lw	$t1,0xfc($v0)
 /*  f0bba3c:	5521001f */ 	bnel	$t1,$at,.L0f0bbabc
 /*  f0bba40:	8c4e00d8 */ 	lw	$t6,0xd8($v0)
-/*  f0bba44:	0fc30865 */ 	jal	func0f0c2194
+/*  f0bba44:	0fc30865 */ 	jal	currentPlayerGetHealth
 /*  f0bba48:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0bba4c:	0fc30869 */ 	jal	func0f0c21a4
 /*  f0bba50:	e7a0001c */ 	swc1	$f0,0x1c($sp)
@@ -13330,13 +13330,10 @@ void propPlayerGetBbox(struct prop *prop, f32 *width, f32 *ymax, f32 *ymin)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f0c2194
-/*  f0c2194:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0c2198:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0c219c:	03e00008 */ 	jr	$ra
-/*  f0c21a0:	c5c000dc */ 	lwc1	$f0,0xdc($t6)
-);
+f32 currentPlayerGetHealth(void)
+{
+	return g_Vars.currentplayer->bondhealth;
+}
 
 GLOBAL_ASM(
 glabel func0f0c21a4
