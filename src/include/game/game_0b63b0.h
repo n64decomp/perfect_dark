@@ -85,7 +85,7 @@ u32 func0f0c228c(void);
 u32 func0f0c2364(void);
 u32 func0f0c2a58(void);
 u32 func0f0c32a0(void);
-u32 func0f0c32fc(void);
+Gfx *currentPlayerLoadMatrix(Gfx *gdl);
 u32 func0f0c3320(void);
 void setTickMode(s32 tickmode);
 void func0f0b9650(void);

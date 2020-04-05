@@ -14610,18 +14610,11 @@ glabel func0f0c32a0
 /*  f0c32f8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0c32fc
-/*  f0c32fc:	3c0e0102 */ 	lui	$t6,0x102
-/*  f0c3300:	35ce0040 */ 	ori	$t6,$t6,0x40
-/*  f0c3304:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/*  f0c3308:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x284)
-/*  f0c330c:	8defa244 */ 	lw	$t7,%lo(g_Vars+0x284)($t7)
-/*  f0c3310:	24820008 */ 	addiu	$v0,$a0,0x8
-/*  f0c3314:	8df8005c */ 	lw	$t8,0x5c($t7)
-/*  f0c3318:	03e00008 */ 	jr	$ra
-/*  f0c331c:	ac980004 */ 	sw	$t8,0x4($a0)
-);
+Gfx *currentPlayerLoadMatrix(Gfx *gdl)
+{
+	gSPMatrix(gdl++, g_Vars.currentplayer->matrix, G_MTX_LOAD);
+	return gdl;
+}
 
 GLOBAL_ASM(
 glabel func0f0c3320
