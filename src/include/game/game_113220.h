@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f113220(void);
+void currentPlayerFlipAnimation(void);
 void currentPlayerUpdateIdleHeadRoll(void);
 void currentPlayerUpdateHeadPos(struct coord *vel);
 void currentPlayerUpdateHeadRot(struct coord *lookvel, struct coord *upvel);

@@ -51,16 +51,10 @@ u32 var80075c94 = 0x00000000;
 u32 var80075c98 = 0x00000000;
 u32 var80075c9c = 0x00000000;
 
-GLOBAL_ASM(
-glabel func0f113220
-/*  f113220:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f113224:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f113228:	8dc3047c */ 	lw	$v1,0x47c($t6)
-/*  f11322c:	80620008 */ 	lb	$v0,0x8($v1)
-/*  f113230:	2c4f0001 */ 	sltiu	$t7,$v0,0x1
-/*  f113234:	03e00008 */ 	jr	$ra
-/*  f113238:	a06f0008 */ 	sb	$t7,0x8($v1)
-);
+void currentPlayerFlipAnimation(void)
+{
+	g_Vars.currentplayer->animdata.anim->flip = !g_Vars.currentplayer->animdata.anim->flip;
+}
 
 void currentPlayerUpdateIdleHeadRoll(void)
 {
@@ -682,8 +676,8 @@ glabel func0f113f10
 /*  f114020:	2484045c */ 	addiu	$a0,$a0,1116
 /*  f114024:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x284)
 /*  f114028:	8c84a244 */ 	lw	$a0,%lo(g_Vars+0x284)($a0)
-/*  f11402c:	3c057f11 */ 	lui	$a1,%hi(func0f113220)
-/*  f114030:	24a53220 */ 	addiu	$a1,$a1,%lo(func0f113220)
+/*  f11402c:	3c057f11 */ 	lui	$a1,%hi(currentPlayerFlipAnimation)
+/*  f114030:	24a53220 */ 	addiu	$a1,$a1,%lo(currentPlayerFlipAnimation)
 /*  f114034:	0c0077a6 */ 	jal	func0001de98
 /*  f114038:	2484045c */ 	addiu	$a0,$a0,1116
 /*  f11403c:	3c0a800a */ 	lui	$t2,%hi(g_Vars+0x284)
