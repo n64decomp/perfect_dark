@@ -5888,4 +5888,9 @@ struct var800aabb8 {
 	u16 unk00_02 : 14;
 };
 
+struct fileinfo {
+	u32 unk00;
+	u32 unk04;
+};
+
 #endif

@@ -755,7 +755,7 @@ extern u32 var800a6630;
 extern u32 var800a6660;
 extern u32 var800a6668;
 extern u32 var800a666c;
-extern u32 var800a6680;
+extern struct fileinfo g_FileInfo[NUM_FILES];
 extern u32 var800aa580;
 extern u32 var800aa590;
 extern u32 var800aa59c;

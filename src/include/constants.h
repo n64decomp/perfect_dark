@@ -1523,6 +1523,7 @@
 #define NUM_CHALLENGES       30
 #define NUM_CHEATS           42
 #define NUM_EXPLOSIONTYPES   26
+#define NUM_FILES            2014
 #define NUM_FIRESLOTS        20
 #define NUM_MPBEAUHEADS      5
 #define NUM_MPBOTCOMMANDS    14

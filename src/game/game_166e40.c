@@ -141,12 +141,12 @@ glabel func0f166f74
 /*  f166f7c:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f166f80:	afb40028 */ 	sw	$s4,0x28($sp)
 /*  f166f84:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f166f88:	3c11800a */ 	lui	$s1,%hi(var800a6680)
+/*  f166f88:	3c11800a */ 	lui	$s1,%hi(g_FileInfo)
 /*  f166f8c:	3c128008 */ 	lui	$s2,%hi(filetable)
 /*  f166f90:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f166f94:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f166f98:	26522060 */ 	addiu	$s2,$s2,%lo(filetable)
-/*  f166f9c:	26316680 */ 	addiu	$s1,$s1,%lo(var800a6680)
+/*  f166f9c:	26316680 */ 	addiu	$s1,$s1,%lo(g_FileInfo)
 /*  f166fa0:	24100001 */ 	addiu	$s0,$zero,0x1
 /*  f166fa4:	241407de */ 	addiu	$s4,$zero,0x7de
 /*  f166fa8:	001070c0 */ 	sll	$t6,$s0,0x3
@@ -264,8 +264,8 @@ glabel func0f1670fc
 /*  f167120:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f167124:
 /*  f167124:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*  f167128:	3c19800a */ 	lui	$t9,%hi(var800a6680)
-/*  f16712c:	27396680 */ 	addiu	$t9,$t9,%lo(var800a6680)
+/*  f167128:	3c19800a */ 	lui	$t9,%hi(g_FileInfo)
+/*  f16712c:	27396680 */ 	addiu	$t9,$t9,%lo(g_FileInfo)
 /*  f167130:	000fc0c0 */ 	sll	$t8,$t7,0x3
 /*  f167134:	03198021 */ 	addu	$s0,$t8,$t9
 /*  f167138:	8e080000 */ 	lw	$t0,0x0($s0)
@@ -325,6 +325,43 @@ glabel func0f1670fc
 /*  f1671fc:	ac202060 */ 	sw	$zero,%lo(filetable)($at)
 );
 
+//void *func0f1670fc(u32 filenum, u32 arg1)
+//{
+//	struct fileinfo *info;
+//	u32 stack;
+//	void *ptr;
+//
+//	if (arg1 == 0x11 || arg1 == 0x22) {
+//		// 124
+//		info = &g_FileInfo[filenum];
+//
+//		// 13c
+//		if (info->unk00 == 0) {
+//			info->unk00 = (func0f167054(filenum) + 0x20) & 0xfffffff0;
+//
+//			// 164
+//			if (arg1 == 0x11) {
+//				info->unk00 += 0x8000;
+//			}
+//		}
+//
+//		// 174
+//		ptr = malloc(info->unk00, 4);
+//		info->unk04 = info->unk00;
+//		func0f166eb4(ptr, info->unk00, &filetable[filenum], info);
+//
+//		if (arg1 != 0x11) {
+//			func00012430(ptr, info->unk00, 4);
+//		}
+//	} else {
+//		while (true) {
+//			// empty
+//		}
+//	}
+//
+//	return ptr;
+//}
+
 GLOBAL_ASM(
 glabel func0f167200
 /*  f167200:	27bdffe8 */ 	addiu	$sp,$sp,-24
@@ -340,8 +377,8 @@ glabel func0f167200
 .L0f167228:
 /*  f167228:	8fae0018 */ 	lw	$t6,0x18($sp)
 /*  f16722c:	8fb90024 */ 	lw	$t9,0x24($sp)
-/*  f167230:	3c18800a */ 	lui	$t8,%hi(var800a6680)
-/*  f167234:	27186680 */ 	addiu	$t8,$t8,%lo(var800a6680)
+/*  f167230:	3c18800a */ 	lui	$t8,%hi(g_FileInfo)
+/*  f167234:	27186680 */ 	addiu	$t8,$t8,%lo(g_FileInfo)
 /*  f167238:	000e78c0 */ 	sll	$t7,$t6,0x3
 /*  f16723c:	01f83821 */ 	addu	$a3,$t7,$t8
 /*  f167240:	acf90004 */ 	sw	$t9,0x4($a3)
@@ -367,25 +404,25 @@ glabel func0f167200
 GLOBAL_ASM(
 glabel func0f167280
 /*  f167280:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f167284:	3c02800a */ 	lui	$v0,%hi(var800a6680)
+/*  f167284:	3c02800a */ 	lui	$v0,%hi(g_FileInfo)
 /*  f167288:	004e1021 */ 	addu	$v0,$v0,$t6
 /*  f16728c:	03e00008 */ 	jr	$ra
-/*  f167290:	8c426680 */ 	lw	$v0,%lo(var800a6680)($v0)
+/*  f167290:	8c426680 */ 	lw	$v0,%lo(g_FileInfo)($v0)
 );
 
 GLOBAL_ASM(
 glabel func0f167294
 /*  f167294:	000470c0 */ 	sll	$t6,$a0,0x3
-/*  f167298:	3c02800a */ 	lui	$v0,%hi(var800a6684)
+/*  f167298:	3c02800a */ 	lui	$v0,%hi(g_FileInfo+0x4)
 /*  f16729c:	004e1021 */ 	addu	$v0,$v0,$t6
 /*  f1672a0:	03e00008 */ 	jr	$ra
-/*  f1672a4:	8c426684 */ 	lw	$v0,%lo(var800a6684)($v0)
+/*  f1672a4:	8c426684 */ 	lw	$v0,%lo(g_FileInfo+0x4)($v0)
 );
 
 GLOBAL_ASM(
 glabel func0f1672a8
-/*  f1672a8:	3c0f800a */ 	lui	$t7,%hi(var800a6680)
-/*  f1672ac:	25ef6680 */ 	addiu	$t7,$t7,%lo(var800a6680)
+/*  f1672a8:	3c0f800a */ 	lui	$t7,%hi(g_FileInfo)
+/*  f1672ac:	25ef6680 */ 	addiu	$t7,$t7,%lo(g_FileInfo)
 /*  f1672b0:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f1672b4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1672b8:	01cf1021 */ 	addu	$v0,$t6,$t7
@@ -409,8 +446,8 @@ GLOBAL_ASM(
 glabel func0f1672f0
 /*  f1672f0:	afa40000 */ 	sw	$a0,0x0($sp)
 /*  f1672f4:	308300ff */ 	andi	$v1,$a0,0xff
-/*  f1672f8:	3c05800a */ 	lui	$a1,%hi(var800a6680)
-/*  f1672fc:	24a56680 */ 	addiu	$a1,$a1,%lo(var800a6680)
+/*  f1672f8:	3c05800a */ 	lui	$a1,%hi(g_FileInfo)
+/*  f1672fc:	24a56680 */ 	addiu	$a1,$a1,%lo(g_FileInfo)
 /*  f167300:	24040004 */ 	addiu	$a0,$zero,0x4
 /*  f167304:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f167308:	240607de */ 	addiu	$a2,$zero,0x7de
