@@ -920,12 +920,10 @@ glabel func0f19d5c0
 /*  f19d5e4:	a024d168 */ 	sb	$a0,%lo(g_FiringRangeData+0x448)($at)
 );
 
-GLOBAL_ASM(
-glabel func0f19d5e8
-/*  f19d5e8:	3c02800b */ 	lui	$v0,%hi(g_FiringRangeData+0x448)
-/*  f19d5ec:	03e00008 */ 	jr	$ra
-/*  f19d5f0:	9042d168 */ 	lbu	$v0,%lo(g_FiringRangeData+0x448)($v0)
-);
+u32 frGetDifficulty(void)
+{
+	return g_FiringRangeData.difficulty;
+}
 
 GLOBAL_ASM(
 glabel func0f19d5f4

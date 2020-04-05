@@ -676,7 +676,7 @@ glabel menudialog001a3af4
 /*  f1a3bec:	10000006 */ 	beqz	$zero,.L0f1a3c08
 /*  f1a3bf0:	00001025 */ 	or	$v0,$zero,$zero
 .L0f1a3bf4:
-/*  f1a3bf4:	0fc6757a */ 	jal	func0f19d5e8
+/*  f1a3bf4:	0fc6757a */ 	jal	frGetDifficulty
 /*  f1a3bf8:	afa60030 */ 	sw	$a2,0x30($sp)
 /*  f1a3bfc:	8fa60030 */ 	lw	$a2,0x30($sp)
 /*  f1a3c00:	acc20000 */ 	sw	$v0,0x0($a2)
