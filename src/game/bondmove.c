@@ -45,13 +45,10 @@
 
 const char var7f1ad860[] = "bondmove.c";
 
-GLOBAL_ASM(
-glabel func0f0c79f0
-/*  f0c79f0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0c79f4:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0c79f8:	03e00008 */ 	jr	$ra
-/*  f0c79fc:	adc40334 */ 	sw	$a0,0x334($t6)
-);
+void currentPlayerSetControlDef(u32 controldef)
+{
+	g_Vars.currentplayer->controldef = controldef;
+}
 
 GLOBAL_ASM(
 glabel func0f0c7a00

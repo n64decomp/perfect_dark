@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f0c79f0(void);
+void currentPlayerSetControlDef(u32 controldef);
 u32 func0f0c7a00(void);
 void currentPlayerSetAutoAimY(bool enabled);
 bool currentPlayerIsAutoAimYEnabled(void);
