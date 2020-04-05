@@ -97,15 +97,11 @@ glabel func0f010a98
 /*  f010ad0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f010ad4
-/*  f010ad4:	3c02800a */ 	lui	$v0,%hi(g_RoomEnteredCriterias)
-/*  f010ad8:	2442d0b8 */ 	addiu	$v0,$v0,%lo(g_RoomEnteredCriterias)
-/*  f010adc:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f010ae0:	ac8e000c */ 	sw	$t6,0xc($a0)
-/*  f010ae4:	03e00008 */ 	jr	$ra
-/*  f010ae8:	ac440000 */ 	sw	$a0,0x0($v0)
-);
+void objectiveAddRoomEnteredCriteria(struct criteria_roomentered *criteria)
+{
+	criteria->next = g_RoomEnteredCriterias;
+	g_RoomEnteredCriterias = criteria;
+}
 
 void objectiveAddMultiroomEnteredCriteria(struct criteria_multiroomentered *criteria)
 {

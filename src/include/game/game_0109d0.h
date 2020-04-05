@@ -7,7 +7,7 @@ void func0f0109d0(void);
 u32 func0f010a68(void);
 u32 func0f010a80(void);
 u32 func0f010a98(void);
-u32 func0f010ad4(void);
+void objectiveAddRoomEnteredCriteria(struct criteria_roomentered *criteria);
 void objectiveAddMultiroomEnteredCriteria(struct criteria_multiroomentered *criteria);
 void objectiveAddHolographCriteria(struct criteria_holograph *criteria);
 
