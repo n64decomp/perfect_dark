@@ -13,7 +13,7 @@
 #include "game/game_013ee0.h"
 #include "game/game_01e250.h"
 #include "game/game_0601b0.h"
-#include "game/game_097970.h"
+#include "game/ceil.h"
 #include "game/game_097ba0.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"

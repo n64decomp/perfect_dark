@@ -83,8 +83,8 @@
 	src/game/game_0969d0.o (section); \
 	src/game/game_096b20.o (section); \
 	src/game/game_096ca0.o (section); \
-	src/game/game_097890.o (section); \
-	src/game/game_097970.o (section); \
+	src/game/floor.o (section); \
+	src/game/ceil.o (section); \
 	src/game/game_097a50.o (section); \
 	src/game/game_097aa0.o (section); \
 	src/game/game_097ba0.o (section); \

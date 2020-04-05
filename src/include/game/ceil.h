@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_097970_H
-#define IN_GAME_GAME_097970_H
+#ifndef IN_GAME_CEIL_H
+#define IN_GAME_CEIL_H
 #include <ultra64.h>
 #include "types.h"
 

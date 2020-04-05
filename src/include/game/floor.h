@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_097890_H
-#define IN_GAME_GAME_097890_H
+#ifndef IN_GAME_FLOOR_H
+#define IN_GAME_FLOOR_H
 #include <ultra64.h>
 #include "types.h"
 
