@@ -5,6 +5,6 @@
 
 u32 func0f096890(void);
 u32 func0f096910(s32 value);
-u32 func0f096964(void);
+s32 func0f096964(s32 value);
 
 #endif

@@ -4,6 +4,6 @@
 #include "types.h"
 
 f32 func0f0969d0(f32 value);
-u32 func0f096a7c(void);
+f32 func0f096a7c(f32 value);
 
 #endif
