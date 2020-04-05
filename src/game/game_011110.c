@@ -12,7 +12,7 @@
 #include "game/data/data_02da90.h"
 #include "game/data/inventory.h"
 #include "game/game_011110.h"
-#include "game/game_01e250.h"
+#include "game/chr/chr.h"
 #include "game/game_02cde0.h"
 #include "game/game_0601b0.h"
 #include "game/game_091e10.h"

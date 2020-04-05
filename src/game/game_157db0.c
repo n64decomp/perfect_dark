@@ -11,7 +11,7 @@
 #include "game/dlights.h"
 #include "game/game_013550.h"
 #include "game/game_013ee0.h"
-#include "game/game_01e250.h"
+#include "game/chr/chr.h"
 #include "game/game_0601b0.h"
 #include "game/ceil.h"
 #include "game/game_097ba0.h"

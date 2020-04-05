@@ -62,8 +62,8 @@
 	src/game/game_01d990.o (section); \
 	src/game/game_01d9f0.o (section); \
 	src/game/game_01de30.o (section); \
+	src/game/sparkstick.o (section); \
 	src/game/chr/chr.o (section); \
-	src/game/game_01e250.o (section); \
 	src/game/game_02cde0.o (section); \
 	src/game/chr/chraction.o (section); \
 	src/game/data/data_00e460.o (section); \
