@@ -5883,4 +5883,9 @@ struct texture {
 	u32 unk08;
 };
 
+struct var800aabb8 {
+	u16 unk00_00 : 2;
+	u16 unk00_02 : 14;
+};
+
 #endif
