@@ -280,7 +280,7 @@ extern s32 g_MpTimeElapsed;
 extern s32 g_MpTimeLimit;
 extern s32 g_MpScoreLimit;
 extern s32 g_MpTeamScoreLimit;
-extern s32 var80084034;
+extern void *var80084034;
 extern s32 var80084038;
 extern f32 g_Uptime;
 extern bool var80084040;

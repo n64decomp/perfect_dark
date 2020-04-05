@@ -20653,7 +20653,7 @@ glabel var7f1acb14
 
 void func0f0a8c50(void)
 {
-	if (g_Vars.currentplayer->unk0d0f_03 == 0) {
+	if (g_Vars.currentplayer->unk0638[0].unk0d0f_03 == 0) {
 		g_Vars.currentplayer->invertgunfunc = false;
 	}
 }
@@ -21292,29 +21292,29 @@ void func0f0a93e0(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->unk07f8.x = func0f0b12ec(0) + coord->x;
-	player->unk07f8.y = coord->y;
-	player->unk07f8.z = coord->z;
+	player->unk0638[0].unk07f8.x = func0f0b12ec(0) + coord->x;
+	player->unk0638[0].unk07f8.y = coord->y;
+	player->unk0638[0].unk07f8.z = coord->z;
 
-	player->unk0f9c.x = func0f0b12ec(1) + coord->x;
-	player->unk0f9c.y = coord->y;
-	player->unk0f9c.z = coord->z;
+	player->unk0638[1].unk07f8.x = func0f0b12ec(1) + coord->x;
+	player->unk0638[1].unk07f8.y = coord->y;
+	player->unk0638[1].unk07f8.z = coord->z;
 }
 
 void func0f0a9464(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->unk1338.x = player->unk0b94.x = coord->x;
-	player->unk1338.y = player->unk0b94.y = coord->y;
-	player->unk1338.z = player->unk0b94.z = coord->z;
+	player->unk0638[1].unk0b94.x = player->unk0638[0].unk0b94.x = coord->x;
+	player->unk0638[1].unk0b94.y = player->unk0638[0].unk0b94.y = coord->y;
+	player->unk0638[1].unk0b94.z = player->unk0638[0].unk0b94.z = coord->z;
 }
 
 void func0f0a9494(u32 operation)
 {
 	switch (operation) {
 	case 0:
-		g_Vars.currentplayer->unk1490 = g_Vars.currentplayer->unk0cec = false;
+		g_Vars.currentplayer->unk0638[1].unk0cec = g_Vars.currentplayer->unk0638[0].unk0cec = false;
 		break;
 	case 1:
 		break;
@@ -21330,16 +21330,16 @@ void func0f0a94d0(u32 operation, struct coord *a, struct coord *b)
 		if (a->x > -100000.0f && a->x < 100000.0f
 				&& a->y > -100000.0f && a->y < 100000.0f
 				&& a->z > -100000.0f && a->z < 100000.0f) {
-			player->unk0cec = true;
-			player->unk1490 = true;
+			player->unk0638[0].unk0cec = true;
+			player->unk0638[1].unk0cec = true;
 
-			player->unk1494.x = player->unk0cf0.x = a->x;
-			player->unk1494.y = player->unk0cf0.y = a->y;
-			player->unk1494.z = player->unk0cf0.z = a->z;
+			player->unk0638[1].unk0cf0.x = player->unk0638[0].unk0cf0.x = a->x;
+			player->unk0638[1].unk0cf0.y = player->unk0638[0].unk0cf0.y = a->y;
+			player->unk0638[1].unk0cf0.z = player->unk0638[0].unk0cf0.z = a->z;
 
-			player->unk14a0.x = player->unk0cfc.x = b->x;
-			player->unk14a0.y = player->unk0cfc.y = b->y;
-			player->unk14a0.z = player->unk0cfc.z = b->z;
+			player->unk0638[1].unk0cfc.x = player->unk0638[0].unk0cfc.x = b->x;
+			player->unk0638[1].unk0cfc.y = player->unk0638[0].unk0cfc.y = b->y;
+			player->unk0638[1].unk0cfc.z = player->unk0638[0].unk0cfc.z = b->z;
 		}
 		break;
 	case 1:

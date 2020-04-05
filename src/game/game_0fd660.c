@@ -625,7 +625,7 @@ void activemenuApply(s32 slot)
 				if (var80088804 != 0) {
 					uVar6 = func0f19d268(func0f19d250());
 
-					if (uVar6 == g_Vars.currentplayer->unk0638) {
+					if (uVar6 == g_Vars.currentplayer->unk0638[0].unk0638) {
 						pass = false;
 					}
 				}
@@ -746,8 +746,8 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 		if (slot == 4) {
 			strcpy(label, langGet(L_MISC(171))); // "Function"
 		} else if (slot == 1 || slot == 7) {
-			prifunc = weaponGetFunction(&g_Vars.currentplayer->unk0638, 0);
-			secfunc = weaponGetFunction(&g_Vars.currentplayer->unk0638, 1);
+			prifunc = weaponGetFunction(&g_Vars.currentplayer->unk0638[0].unk0638, 0);
+			secfunc = weaponGetFunction(&g_Vars.currentplayer->unk0638[0].unk0638, 1);
 
 			if (slot == 1) {
 				if (!secfunc

@@ -269,7 +269,7 @@ void doBoostAndSlayerSfx(void)
 		func0f167b84(2, usingrocket);
 	}
 
-	if (g_Vars.lvupdate240 == 0 && var80084034 != 0 && func000337f0(var80084034)) {
+	if (g_Vars.lvupdate240 == 0 && var80084034 && func000337f0(var80084034)) {
 		func00033b24(var80084034);
 	}
 }
@@ -320,7 +320,7 @@ void func0f167e7c(s32 stagenum)
 	g_Vars.unk0004d6 = 0;
 	g_Vars.unk0004d7 = 0;
 
-	var80084034 = 0;
+	var80084034 = NULL;
 
 	func0f16d324();
 	func0f011124(true);
@@ -5709,7 +5709,7 @@ glabel func0f16b96c
 //
 //			// Sound alarm at 10 seconds remaining
 //			if (nexttime >= g_MpTimeLimit - 600
-//					&& var80084034 == 0
+//					&& var80084034 == NULL
 //					&& !soloIsPaused()
 //					&& nexttime < g_MpTimeLimit) {
 //				// 5dc
@@ -5875,7 +5875,7 @@ void stageLoad(void)
 {
 	func0f11dcb0(1);
 
-	if (var80084034 != 0 && func000337f0(var80084034)) {
+	if (var80084034 && func000337f0(var80084034)) {
 		func00033b24(var80084034);
 	}
 

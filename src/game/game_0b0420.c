@@ -1995,7 +1995,7 @@ s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex)
 
 u32 currentPlayerGetSight(void)
 {
-	struct weaponfunc *func = weaponGetFunctionById(g_Vars.currentplayer->unk0638, g_Vars.currentplayer->unk063b);
+	struct weaponfunc *func = weaponGetFunctionById(g_Vars.currentplayer->unk0638[0].unk0638, g_Vars.currentplayer->unk0638[0].unk063b);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
 		return SIGHT_NONE;
@@ -2005,7 +2005,7 @@ u32 currentPlayerGetSight(void)
 		return SIGHT_CLASSIC;
 	}
 
-	switch (g_Vars.currentplayer->unk0638) {
+	switch (g_Vars.currentplayer->unk0638[0].unk0638) {
 	case WEAPON_HORIZONSCANNER:
 		return SIGHT_NONE;
 	case WEAPON_NONE:

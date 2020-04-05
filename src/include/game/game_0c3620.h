@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 currentPlayerSetMoveModeCutscene(void);
+void currentPlayerSetMoveModeCutscene(void);
 void func0f0c37c0(void);
 
 #endif
