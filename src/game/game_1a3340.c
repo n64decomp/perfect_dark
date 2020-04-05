@@ -4193,12 +4193,10 @@ glabel var7f1b99d8
 /*  f1a7550:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a7554
-/*  f1a7554:	3c028009 */ 	lui	$v0,%hi(g_FrWeaponListMenuDialog)
-/*  f1a7558:	03e00008 */ 	jr	$ra
-/*  f1a755c:	24428d78 */ 	addiu	$v0,$v0,%lo(g_FrWeaponListMenuDialog)
-);
+struct menu_dialog *ciGetFrWeaponListMenuDialog(void)
+{
+	return &g_FrWeaponListMenuDialog;
+}
 
 GLOBAL_ASM(
 glabel func0f1a7560

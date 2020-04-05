@@ -32,7 +32,7 @@ char *htMenuTextCancelOrAbort(struct menu_item *item);
 char *htMenuTextTimeTakenValue(struct menu_item *item);
 u32 func0f1a6c8c(void);
 u32 func0f1a6cc4(void);
-u32 func0f1a7554(void);
+struct menu_dialog *ciGetFrWeaponListMenuDialog(void);
 void func0f1a7560(void *ptr, u16 fileid, u32 arg2, void *arg3, s32 arg4, bool arg5);
 void func0f1a7730(void *ptr);
 void *func0f1a7794(u16 fileid, u32 arg1, s32 arg2, s32 arg3);

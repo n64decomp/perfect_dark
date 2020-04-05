@@ -3729,7 +3729,7 @@ glabel var7f1b94e4
 /*  f19fafc:	1000037d */ 	beqz	$zero,.L0f1a08f4
 /*  f19fb00:	8fbf007c */ 	lw	$ra,0x7c($sp)
 .L0f19fb04:
-/*  f19fb04:	0fc69d55 */ 	jal	func0f1a7554
+/*  f19fb04:	0fc69d55 */ 	jal	ciGetFrWeaponListMenuDialog
 /*  f19fb08:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19fb0c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f19fb10:	0fc3e178 */ 	jal	func0f0f85e0
