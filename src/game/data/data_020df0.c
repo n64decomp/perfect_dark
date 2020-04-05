@@ -6368,8 +6368,8 @@ s32 var8007f0c4[4] = {
 };
 
 u32 g_RainSpeedExtra = 20;
-u32 var8007f0d8 = 0x0000000f;
-u32 var8007f0dc = 0x0000000a;
+u32 g_SnowSpeed = 15;
+u32 g_SnowSpeedExtra = 10;
 u32 var8007f0e0 = 0x00000001;
 u32 var8007f0e4 = 0xaaaaaa1f;
 u32 var8007f0e8 = 0x11111844;

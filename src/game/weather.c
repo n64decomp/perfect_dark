@@ -1086,21 +1086,6 @@ const char var7f1b5620[] = "rainspeedxtra";
 //	}
 //}
 
-const char var7f1b5630[] = "snowspeed";
-const char var7f1b563c[] = "snowspeedxtra";
-const char var7f1b564c[] = "raincol1";
-const char var7f1b5658[] = "raincol2";
-const char var7f1b5664[] = "rainwidth";
-const char var7f1b5670[] = "rainout";
-const char var7f1b5678[] = "cddiv";
-const char var7f1b5680[] = "wetclip";
-const char var7f1b5688[] = "bounder";
-const char var7f1b5690[] = "trypitch";
-const char var7f1b569c[] = "snowwidth";
-const char var7f1b56a8[] = "snowheight";
-const char var7f1b56b4[] = "snowcol1";
-const char var7f1b56c0[] = "snowcol2";
-
 GLOBAL_ASM(
 glabel weatherTickSnow
 .late_rodata
@@ -1144,7 +1129,7 @@ glabel var7f1b5734
 /*  f1321e0:	afb60040 */ 	sw	$s6,0x40($sp)
 /*  f1321e4:	afb40038 */ 	sw	$s4,0x38($sp)
 /*  f1321e8:	3c047f1b */ 	lui	$a0,%hi(var7f1b5630)
-/*  f1321ec:	3c058008 */ 	lui	$a1,%hi(var8007f0d8)
+/*  f1321ec:	3c058008 */ 	lui	$a1,%hi(g_SnowSpeed)
 /*  f1321f0:	0000b025 */ 	or	$s6,$zero,$zero
 /*  f1321f4:	afb5003c */ 	sw	$s5,0x3c($sp)
 /*  f1321f8:	afb30034 */ 	sw	$s3,0x34($sp)
@@ -1153,12 +1138,12 @@ glabel var7f1b5734
 /*  f132204:	f7b60020 */ 	sdc1	$f22,0x20($sp)
 /*  f132208:	f7b40018 */ 	sdc1	$f20,0x18($sp)
 /*  f13220c:	0000a025 */ 	or	$s4,$zero,$zero
-/*  f132210:	24a5f0d8 */ 	addiu	$a1,$a1,%lo(var8007f0d8)
+/*  f132210:	24a5f0d8 */ 	addiu	$a1,$a1,%lo(g_SnowSpeed)
 /*  f132214:	0c0036cc */ 	jal	func0000db30
 /*  f132218:	24845630 */ 	addiu	$a0,$a0,%lo(var7f1b5630)
 /*  f13221c:	3c047f1b */ 	lui	$a0,%hi(var7f1b563c)
-/*  f132220:	3c058008 */ 	lui	$a1,%hi(var8007f0dc)
-/*  f132224:	24a5f0dc */ 	addiu	$a1,$a1,%lo(var8007f0dc)
+/*  f132220:	3c058008 */ 	lui	$a1,%hi(g_SnowSpeedExtra)
+/*  f132224:	24a5f0dc */ 	addiu	$a1,$a1,%lo(g_SnowSpeedExtra)
 /*  f132228:	0c0036cc */ 	jal	func0000db30
 /*  f13222c:	2484563c */ 	addiu	$a0,$a0,%lo(var7f1b563c)
 /*  f132230:	3c0e8008 */ 	lui	$t6,%hi(g_StageIndex)
@@ -1587,8 +1572,8 @@ glabel var7f1b5734
 /*  f132850:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f132854:	46102100 */ 	add.s	$f4,$f4,$f16
 .L0f132858:
-/*  f132858:	3c0a8008 */ 	lui	$t2,%hi(var8007f0dc)
-/*  f13285c:	8d4af0dc */ 	lw	$t2,%lo(var8007f0dc)($t2)
+/*  f132858:	3c0a8008 */ 	lui	$t2,%hi(g_SnowSpeedExtra)
+/*  f13285c:	8d4af0dc */ 	lw	$t2,%lo(g_SnowSpeedExtra)($t2)
 /*  f132860:	46162182 */ 	mul.s	$f6,$f4,$f22
 /*  f132864:	3c014f80 */ 	lui	$at,0x4f80
 /*  f132868:	448a9000 */ 	mtc1	$t2,$f18
@@ -1600,8 +1585,8 @@ glabel var7f1b5734
 /*  f132880:	46085280 */ 	add.s	$f10,$f10,$f8
 .L0f132884:
 /*  f132884:	460a3402 */ 	mul.s	$f16,$f6,$f10
-/*  f132888:	3c0b8008 */ 	lui	$t3,%hi(var8007f0d8)
-/*  f13288c:	8d6bf0d8 */ 	lw	$t3,%lo(var8007f0d8)($t3)
+/*  f132888:	3c0b8008 */ 	lui	$t3,%hi(g_SnowSpeed)
+/*  f13288c:	8d6bf0d8 */ 	lw	$t3,%lo(g_SnowSpeed)($t3)
 /*  f132890:	3c014f80 */ 	lui	$at,0x4f80
 /*  f132894:	448b9000 */ 	mtc1	$t3,$f18
 /*  f132898:	46028103 */ 	div.s	$f4,$f16,$f2
@@ -1683,6 +1668,200 @@ glabel var7f1b5734
 /*  f1329b4:	03e00008 */ 	jr	$ra
 /*  f1329b8:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
+
+const char var7f1b5630[] = "snowspeed";
+const char var7f1b563c[] = "snowspeedxtra";
+
+// Mismatch because goal initialises $s6 earlier
+//void weatherTickSnow(struct weatherdata *weather)
+//{
+//	s32 lVar7 = 0; // $s6
+//	s32 iVar6 = 0;
+//	f32 rand;
+//	s32 lvupdate;
+//	s32 i;
+//	struct weatherparticledata *data;
+//
+//	func0000db30("snowspeed", &g_SnowSpeed);
+//	func0000db30("snowspeedxtra", &g_SnowSpeedExtra);
+//
+//	if (g_StageIndex == STAGEINDEX_AIRBASE) {
+//		weather->windanglerad = 1.5707963705063f;
+//		weather->windspeedz = -weather->windspeed;
+//		weather->windspeedx = 0;
+//	} else if (weather->unk10 > 0) {
+//		s32 lvupdate = g_Vars.lvupdate240_60;
+//
+//		if (weather->unk10 < lvupdate) {
+//			weather->windanglerad = weather->unk0c;
+//		} else {
+//			weather->windanglerad += lvupdate * ((weather->unk0c - weather->windanglerad) / weather->unk10);
+//			weather->unk10 -= lvupdate;
+//		}
+//
+//		if (weather->windanglerad > M_TAU) {
+//			weather->windanglerad = 0;
+//		}
+//
+//		weather->windspeedx = cosf(weather->windanglerad) * weather->windspeed;
+//		weather->windspeedz = sinf(weather->windanglerad) * weather->windspeed;
+//		lVar7 = 1;
+//	} else if (random() * (1.0f / U32_MAX) > 0.99f) {
+//		rand = random() * (1.0f / U32_MAX);
+//
+//		weather->unk0c = (rand + rand) * M_PI;
+//		weather->unk10 = (weather->unk0c - weather->windanglerad) / 0.01f;
+//
+//		if (weather->unk10 < 0) {
+//			weather->unk10 = -weather->unk10;
+//		}
+//	}
+//
+//	data = g_WeatherData->particledata;
+//
+//	// 0
+//	data->unk3ec8[0] += 0.04f * g_Vars.lvupdate240f;
+//
+//	if (data->unk3ec8[0] < 0) {
+//		data->unk3ec8[0] += M_TAU;
+//	}
+//
+//	if (data->unk3ec8[0] > M_TAU) {
+//		data->unk3ec8[0] -= M_TAU;
+//	}
+//
+//	// 1
+//	data->unk3ec8[1] += -0.03f * g_Vars.lvupdate240f;
+//
+//	if (data->unk3ec8[1] < 0) {
+//		data->unk3ec8[1] += M_TAU;
+//	}
+//
+//	if (data->unk3ec8[1] > M_TAU) {
+//		data->unk3ec8[1] -= M_TAU;
+//	}
+//
+//	// 2
+//	data->unk3ec8[2] += 0.04f * g_Vars.lvupdate240f;
+//
+//	if (data->unk3ec8[2] < 0) {
+//		data->unk3ec8[2] += M_TAU;
+//	}
+//
+//	if (data->unk3ec8[2] > M_TAU) {
+//		data->unk3ec8[2] -= M_TAU;
+//	}
+//
+//	// 3
+//	data->unk3ec8[3] += 0.03f * g_Vars.lvupdate240f;
+//
+//	if (data->unk3ec8[3] < 0) {
+//		data->unk3ec8[3] += M_TAU;
+//	}
+//
+//	if (data->unk3ec8[3] > M_TAU) {
+//		data->unk3ec8[3] -= M_TAU;
+//	}
+//
+//	// 4
+//	data->unk3ec8[4] += 0.02f * g_Vars.lvupdate240f;
+//
+//	if (data->unk3ec8[4] < 0) {
+//		data->unk3ec8[4] += M_TAU;
+//	}
+//
+//	if (data->unk3ec8[4] > M_TAU) {
+//		data->unk3ec8[4] -= M_TAU;
+//	}
+//
+//	// 5
+//	data->unk3ec8[5] += 0.01f * g_Vars.lvupdate240f;
+//
+//	if (data->unk3ec8[5] < 0) {
+//		data->unk3ec8[5] += M_TAU;
+//	}
+//
+//	if (data->unk3ec8[5] > M_TAU) {
+//		data->unk3ec8[5] -= M_TAU;
+//	}
+//
+//	// 6
+//	data->unk3ec8[6] += -0.01f * g_Vars.lvupdate240f;
+//
+//	if (data->unk3ec8[6] < 0) {
+//		data->unk3ec8[6] += M_TAU;
+//	}
+//
+//	if (data->unk3ec8[6] > M_TAU) {
+//		data->unk3ec8[6] -= M_TAU;
+//	}
+//
+//	// 7
+//	data->unk3ec8[7] += -0.02f * g_Vars.lvupdate240f;
+//
+//	if (data->unk3ec8[7] < 0) {
+//		data->unk3ec8[7] += M_TAU;
+//	}
+//
+//	if (data->unk3ec8[7] > M_TAU) {
+//		data->unk3ec8[7] -= M_TAU;
+//	}
+//
+//	for (i = 0; i < ARRAYCOUNT(data->particles); i++) {
+//		struct weatherparticle *particle = &data->particles[i];
+//
+//		particle->pos.x += particle->inc.x * g_Vars.lvupdate240f;
+//		particle->pos.y += particle->inc.y * g_Vars.lvupdate240f;
+//		particle->pos.z += particle->inc.z * g_Vars.lvupdate240f;
+//
+//		if (particle->pos.y < data->boundarymin.y) {
+//			lVar7 = 2;
+//
+//			particle->pos.x = data->boundarymin.x + (random() * (1.0f / U32_MAX)) * (ABS(data->boundarymin.x) + ABS(data->boundarymax.x));
+//			particle->pos.z = data->boundarymin.z + (random() * (1.0f / U32_MAX)) * (ABS(data->boundarymin.z) + ABS(data->boundarymax.z));
+//
+//			particle->unk1c = random() * (1.0f / U32_MAX) + 0.7f;
+//
+//			particle->inc.y = -(g_SnowSpeed / 10.0f) - (random() * (1.0f / U32_MAX) * g_SnowSpeedExtra) / 10.0f;
+//			particle->inc.x = weather->windspeedx * particle->unk1c;
+//			particle->inc.z = weather->windspeedz * particle->unk1c;
+//
+//			if (ABS(iVar6) < 20 && weather->unkd0 != weather->unkd4) {
+//				if (weather->unkd0 < weather->unkd4) {
+//					if ((particle->active & 3) == 0) {
+//						particle->active = true;
+//						iVar6++;
+//						weather->unkd0++;
+//					}
+//				} else {
+//					if (particle->active & 3) {
+//						particle->active = false;
+//						iVar6--;
+//						weather->unkd0--;
+//					}
+//				}
+//			}
+//		}
+//
+//		if (lVar7 > 0) {
+//			particle->inc.x = weather->windspeedx * particle->unk1c;
+//			particle->inc.z = weather->windspeedz * particle->unk1c;
+//		}
+//	}
+//}
+
+const char var7f1b564c[] = "raincol1";
+const char var7f1b5658[] = "raincol2";
+const char var7f1b5664[] = "rainwidth";
+const char var7f1b5670[] = "rainout";
+const char var7f1b5678[] = "cddiv";
+const char var7f1b5680[] = "wetclip";
+const char var7f1b5688[] = "bounder";
+const char var7f1b5690[] = "trypitch";
+const char var7f1b569c[] = "snowwidth";
+const char var7f1b56a8[] = "snowheight";
+const char var7f1b56b4[] = "snowcol1";
+const char var7f1b56c0[] = "snowcol2";
 
 void weatherConfigureRain(u32 intensity)
 {
