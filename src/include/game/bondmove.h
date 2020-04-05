@@ -4,7 +4,7 @@
 #include "types.h"
 
 void currentPlayerSetControlDef(u32 controldef);
-u32 func0f0c7a00(void);
+void currentPlayerSetAutoMoveCentreEnabled(bool enabled);
 void currentPlayerSetAutoAimY(bool enabled);
 bool currentPlayerIsAutoAimYEnabled(void);
 u32 func0f0c7a8c(void);

@@ -1710,7 +1710,7 @@ struct player {
 	/*0x0108*/ u32 unk0108;
 	/*0x010c*/ u32 unk010c;
 	/*0x0110*/ u32 unk0110;
-	/*0x0114*/ u32 unk0114;
+	/*0x0114*/ bool automovecentreenabled;
 	/*0x0118*/ u32 unk0118;
 	/*0x011c*/ u32 unk011c;
 	/*0x0120*/ bool insightaimmode;

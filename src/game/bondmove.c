@@ -50,12 +50,13 @@ void currentPlayerSetControlDef(u32 controldef)
 	g_Vars.currentplayer->controldef = controldef;
 }
 
+void currentPlayerSetAutoMoveCentreEnabled(bool enabled)
+{
+	g_Vars.currentplayer->automovecentreenabled = enabled;
+}
+
 GLOBAL_ASM(
-glabel func0f0c7a00
-/*  f0c7a00:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0c7a04:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0c7a08:	03e00008 */ 	jr	$ra
-/*  f0c7a0c:	adc40114 */ 	sw	$a0,0x114($t6)
+glabel func0f0c7a10
 /*  f0c7a10:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f0c7a14:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f0c7a18:	03e00008 */ 	jr	$ra
