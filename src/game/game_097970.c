@@ -46,34 +46,19 @@ glabel func0f097970
 /*  f0979e4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0979e8
-/*  f0979e8:	44802000 */ 	mtc1	$zero,$f4
-/*  f0979ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0979f0:	4604603e */ 	c.le.s	$f12,$f4
-/*  f0979f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0979f8:	45020006 */ 	bc1fl	.L0f097a14
-/*  f0979fc:	4600620d */ 	trunc.w.s	$f8,$f12
-/*  f097a00:	4600618d */ 	trunc.w.s	$f6,$f12
-/*  f097a04:	44023000 */ 	mfc1	$v0,$f6
-/*  f097a08:	03e00008 */ 	jr	$ra
-/*  f097a0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f097a10:	4600620d */ 	trunc.w.s	$f8,$f12
-.L0f097a14:
-/*  f097a14:	44034000 */ 	mfc1	$v1,$f8
-/*  f097a18:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f097a1c:	44835000 */ 	mtc1	$v1,$f10
-/*  f097a20:	24620001 */ 	addiu	$v0,$v1,0x1
-/*  f097a24:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f097a28:	46106032 */ 	c.eq.s	$f12,$f16
-/*  f097a2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f097a30:	45000003 */ 	bc1f	.L0f097a40
-/*  f097a34:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f097a38:	03e00008 */ 	jr	$ra
-/*  f097a3c:	00601025 */ 	or	$v0,$v1,$zero
-.L0f097a40:
-/*  f097a40:	03e00008 */ 	jr	$ra
-/*  f097a44:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f097a48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f097a4c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 ceil(f32 value)
+{
+	s32 ivalue;
+
+	if (value <= 0) {
+		return value;
+	}
+
+	ivalue = value;
+
+	if (ivalue == value) {
+		return value;
+	}
+
+	return ivalue + 1;
+}
