@@ -345,7 +345,7 @@ void func0f167e7c(s32 stagenum)
 		s32 i;
 		s32 j;
 
-		func0f013cf0();
+		stageLoadTiles();
 		func0f15b534(g_Vars.stagenum);
 		func0f15b908(g_Vars.stagenum);
 		func0f0147a0(g_Vars.stagenum);

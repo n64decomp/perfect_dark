@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-void func0f013cf0(void);
-u32 func0f013d74(void);
+void stageLoadTiles(void);
+void func0f013d74(void);
 
 #endif

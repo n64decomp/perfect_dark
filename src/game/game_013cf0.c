@@ -13,54 +13,32 @@
 #include "gvars/gvars.h"
 #include "types.h"
 
-GLOBAL_ASM(
-glabel func0f013cf0
-/*  f013cf0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f013cf4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f013cf8:	3c04800a */ 	lui	$a0,%hi(g_Vars+0x4b4)
-/*  f013cfc:	0fc56c8f */ 	jal	func0f15b23c
-/*  f013d00:	8c84a474 */ 	lw	$a0,%lo(g_Vars+0x4b4)($a0)
-/*  f013d04:	04410002 */ 	bgez	$v0,.L0f013d10
-/*  f013d08:	00401825 */ 	or	$v1,$v0,$zero
-/*  f013d0c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f013d10:
-/*  f013d10:	000378c0 */ 	sll	$t7,$v1,0x3
-/*  f013d14:	01e37823 */ 	subu	$t7,$t7,$v1
-/*  f013d18:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f013d1c:	3c048008 */ 	lui	$a0,%hi(g_Stages+0xa)
-/*  f013d20:	240e0002 */ 	addiu	$t6,$zero,0x2
-/*  f013d24:	3c018006 */ 	lui	$at,%hi(var8005d9a0)
-/*  f013d28:	008f2021 */ 	addu	$a0,$a0,$t7
-/*  f013d2c:	a02ed9a0 */ 	sb	$t6,%lo(var8005d9a0)($at)
-/*  f013d30:	9484fcca */ 	lhu	$a0,%lo(g_Stages+0xa)($a0)
-/*  f013d34:	0fc59c3f */ 	jal	func0f1670fc
-/*  f013d38:	24050022 */ 	addiu	$a1,$zero,0x22
-/*  f013d3c:	3c04800a */ 	lui	$a0,%hi(var8009a8a0)
-/*  f013d40:	2484a8a0 */ 	addiu	$a0,$a0,%lo(var8009a8a0)
-/*  f013d44:	ac820000 */ 	sw	$v0,0x0($a0)
-/*  f013d48:	8c580000 */ 	lw	$t8,0x0($v0)
-/*  f013d4c:	3c01800a */ 	lui	$at,%hi(var8009a8a4)
-/*  f013d50:	24590004 */ 	addiu	$t9,$v0,0x4
-/*  f013d54:	ac38a8a4 */ 	sw	$t8,%lo(var8009a8a4)($at)
-/*  f013d58:	3c01800a */ 	lui	$at,%hi(var8009a8a8)
-/*  f013d5c:	0fc04f5d */ 	jal	func0f013d74
-/*  f013d60:	ac39a8a8 */ 	sw	$t9,%lo(var8009a8a8)($at)
-/*  f013d64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f013d68:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f013d6c:	03e00008 */ 	jr	$ra
-/*  f013d70:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void stageLoadTiles(void)
+{
+	s32 index = func0f15b23c(g_Vars.stagenum);
+
+	if (index < 0) {
+		index = 0;
+	}
+
+	var8005d9a0 = 2;
+	g_TileFileData = func0f1670fc(g_Stages[index].tilefileid, 0x22);
+	g_TileNumRooms = *g_TileFileData;
+	g_TileRooms = g_TileFileData + 1;
+
+	func0f013d74();
+}
 
 GLOBAL_ASM(
 glabel func0f013d74
-/*  f013d74:	3c03800a */ 	lui	$v1,%hi(var8009a8a8)
-/*  f013d78:	8c63a8a8 */ 	lw	$v1,%lo(var8009a8a8)($v1)
+/*  f013d74:	3c03800a */ 	lui	$v1,%hi(g_TileRooms)
+/*  f013d78:	8c63a8a8 */ 	lw	$v1,%lo(g_TileRooms)($v1)
 /*  f013d7c:	27bdfff8 */ 	addiu	$sp,$sp,-8
-/*  f013d80:	3c0f800a */ 	lui	$t7,%hi(var8009a8a4)
-/*  f013d84:	8defa8a4 */ 	lw	$t7,%lo(var8009a8a4)($t7)
+/*  f013d80:	3c0f800a */ 	lui	$t7,%hi(g_TileNumRooms)
+/*  f013d84:	8defa8a4 */ 	lw	$t7,%lo(g_TileNumRooms)($t7)
 /*  f013d88:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f013d8c:	3c04800a */ 	lui	$a0,%hi(var8009a8a0)
-/*  f013d90:	8c84a8a0 */ 	lw	$a0,%lo(var8009a8a0)($a0)
+/*  f013d8c:	3c04800a */ 	lui	$a0,%hi(g_TileFileData)
+/*  f013d90:	8c84a8a0 */ 	lw	$a0,%lo(g_TileFileData)($a0)
 /*  f013d94:	8c6e0000 */ 	lw	$t6,0x0($v1)
 /*  f013d98:	000fc080 */ 	sll	$t8,$t7,0x2
 /*  f013d9c:	0078c821 */ 	addu	$t9,$v1,$t8
