@@ -162,8 +162,19 @@ class Extractor:
     #
 
     def extract_textures(self):
-        # Not implemented
-        pass
+        base = self.val('textures')
+        datalen = 0x294960 if self.romid == 'jap-final' else 0x291d60
+        tablepos = base + datalen
+        index = 0
+        while True:
+            start = int.from_bytes(self.rom[tablepos+1:tablepos+4], 'big')
+            end = int.from_bytes(self.rom[tablepos+9:tablepos+12], 'big')
+            if int.from_bytes(self.rom[tablepos+12:tablepos+16], 'big') != 0:
+                return
+            texturedata = self.rom[base+start:base+end]
+            self.write('textures/%04x.bin' % index, texturedata)
+            index += 1
+            tablepos += 8
 
     #
     # Ucodes
@@ -229,36 +240,42 @@ class Extractor:
             'files': 0x28080,
             'gamedata': 0x39850,
             'sfxctl': 0x80a250,
+            'textures': 0x01d65f40,
         },
         'ntsc-1.0': {
             'game': 0x4fc40,
             'files': 0x28080,
             'gamedata': 0x39850,
             'sfxctl': 0x80a250,
+            'textures': 0x01d65f40,
         },
         'ntsc-beta': {
             'game': 0x43c40,
             'files': 0x29160,
             'gamedata': 0x30850,
             'sfxctl': 0x7be940,
+            'textures': 0x01d12fe0,
         },
         'pal-final': {
             'game': 0x4fc40,
             'files': 0x28910,
             'gamedata': 0x39850,
             'sfxctl': 0x7f87e0,
+            'textures': 0x01d5ca20,
         },
         'pal-beta': {
             'game': 0x4fc40,
             'files': 0x29b90,
             'gamedata': 0x39850,
             'sfxctl': 0x7f87e0,
+            'textures': 0x01d5bb50,
         },
         'jap-final': {
             'game': 0x4fc40,
             'files': 0x28800,
             'gamedata': 0x39850,
             'sfxctl': 0x7fc670,
+            'textures': 0x01d61f90,
         },
     }
 
