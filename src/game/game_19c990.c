@@ -904,21 +904,18 @@ glabel func0f19d560
 /*  f19d5bc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19d5c0
-/*  f19d5c0:	04830003 */ 	bgezl	$a0,.L0f19d5d0
-/*  f19d5c4:	28810003 */ 	slti	$at,$a0,0x3
-/*  f19d5c8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19d5cc:	28810003 */ 	slti	$at,$a0,0x3
-.L0f19d5d0:
-/*  f19d5d0:	14200002 */ 	bnez	$at,.L0f19d5dc
-/*  f19d5d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19d5d8:	24040002 */ 	addiu	$a0,$zero,0x2
-.L0f19d5dc:
-/*  f19d5dc:	3c01800b */ 	lui	$at,%hi(g_FiringRangeData+0x448)
-/*  f19d5e0:	03e00008 */ 	jr	$ra
-/*  f19d5e4:	a024d168 */ 	sb	$a0,%lo(g_FiringRangeData+0x448)($at)
-);
+void frSetDifficulty(s32 difficulty)
+{
+	if (difficulty < DIFF_A) {
+		difficulty = DIFF_A;
+	}
+
+	if (difficulty > DIFF_PA) {
+		difficulty = DIFF_PA;
+	}
+
+	g_FiringRangeData.difficulty = difficulty;
+}
 
 u32 frGetDifficulty(void)
 {

@@ -215,7 +215,7 @@ glabel var7f1b9940
 /*  f1a3540:	8fa400a4 */ 	lw	$a0,0xa4($sp)
 /*  f1a3544:	0fc6726c */ 	jal	ciGetFiringRangeScore
 /*  f1a3548:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a354c:	0fc67570 */ 	jal	func0f19d5c0
+/*  f1a354c:	0fc67570 */ 	jal	frSetDifficulty
 /*  f1a3550:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a3554:	3c048009 */ 	lui	$a0,%hi(menudialog_frdifficulty)
 /*  f1a3558:	0fc3cbd3 */ 	jal	menuPushDialog
@@ -223,7 +223,7 @@ glabel var7f1b9940
 /*  f1a3560:	1000010d */ 	beqz	$zero,.L0f1a3998
 /*  f1a3564:	00001025 */ 	or	$v0,$zero,$zero
 .L0f1a3568:
-/*  f1a3568:	0fc67570 */ 	jal	func0f19d5c0
+/*  f1a3568:	0fc67570 */ 	jal	frSetDifficulty
 /*  f1a356c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a3570:	3c048009 */ 	lui	$a0,%hi(menudialog_frtraininginfo2)
 /*  f1a3574:	0fc3cbd3 */ 	jal	menuPushDialog
@@ -668,7 +668,7 @@ glabel menudialog001a3af4
 /*  f1a3bd0:	1000000e */ 	beqz	$zero,.L0f1a3c0c
 /*  f1a3bd4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f1a3bd8:
-/*  f1a3bd8:	0fc67570 */ 	jal	func0f19d5c0
+/*  f1a3bd8:	0fc67570 */ 	jal	frSetDifficulty
 /*  f1a3bdc:	8cc40000 */ 	lw	$a0,0x0($a2)
 /*  f1a3be0:	3c048009 */ 	lui	$a0,%hi(menudialog_frtraininginfo2)
 /*  f1a3be4:	0fc3cbd3 */ 	jal	menuPushDialog
@@ -720,7 +720,7 @@ glabel menuhandlerFrDifficulty
 /*  f1a3c7c:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f1a3c80:
 /*  f1a3c80:	8fb8001c */ 	lw	$t8,0x1c($sp)
-/*  f1a3c84:	0fc67570 */ 	jal	func0f19d5c0
+/*  f1a3c84:	0fc67570 */ 	jal	frSetDifficulty
 /*  f1a3c88:	93040001 */ 	lbu	$a0,0x1($t8)
 /*  f1a3c8c:	3c048009 */ 	lui	$a0,%hi(menudialog_frtraininginfo2)
 /*  f1a3c90:	0fc3cbd3 */ 	jal	menuPushDialog
