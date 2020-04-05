@@ -33,30 +33,10 @@ void stageLoadCommonLang(s32 stagenum)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f00b420
-/*  f00b420:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f00b424:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f00b428:	3c018006 */ 	lui	$at,%hi(var80062410)
-/*  f00b42c:	ac202410 */ 	sw	$zero,%lo(var80062410)($at)
-/*  f00b430:	24040080 */ 	addiu	$a0,$zero,0x80
-/*  f00b434:	0c0048f2 */ 	jal	malloc
-/*  f00b438:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f00b43c:	3c01800a */ 	lui	$at,%hi(var8009cc80)
-/*  f00b440:	ac22cc80 */ 	sw	$v0,%lo(var8009cc80)($at)
-/*  f00b444:	24040080 */ 	addiu	$a0,$zero,0x80
-/*  f00b448:	0c0048f2 */ 	jal	malloc
-/*  f00b44c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f00b450:	3c01800a */ 	lui	$at,%hi(var8009cc84)
-/*  f00b454:	ac22cc84 */ 	sw	$v0,%lo(var8009cc84)($at)
-/*  f00b458:	24040080 */ 	addiu	$a0,$zero,0x80
-/*  f00b45c:	0c0048f2 */ 	jal	malloc
-/*  f00b460:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f00b464:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f00b468:	3c01800a */ 	lui	$at,%hi(var8009cc88)
-/*  f00b46c:	ac22cc88 */ 	sw	$v0,%lo(var8009cc88)($at)
-/*  f00b470:	03e00008 */ 	jr	$ra
-/*  f00b474:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f00b478:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f00b47c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f00b420(void)
+{
+	var80062410 = 0;
+	var8009cc80 = malloc(0x80, 4);
+	var8009cc84 = malloc(0x80, 4);
+	var8009cc88 = malloc(0x80, 4);
+}

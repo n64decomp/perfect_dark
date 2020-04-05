@@ -4,6 +4,6 @@
 #include "types.h"
 
 void stageLoadCommonLang(s32 stagenum);
-u32 func0f00b420(void);
+void func0f00b420(void);
 
 #endif
