@@ -95,7 +95,7 @@
 	src/game/game_0b3350.o (section); \
 	src/game/game_0b63b0.o (section); \
 	src/game/game_0c33f0.o (section); \
-	src/game/game_0c3620.o (section); \
+	src/game/bondcutscene.o (section); \
 	src/game/bondwalk.o (section); \
 	src/game/bondmove.o (section); \
 	src/game/bondgrab.o (section); \

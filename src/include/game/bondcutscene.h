@@ -1,5 +1,5 @@
-#ifndef IN_GAME_GAME_0C3620_H
-#define IN_GAME_GAME_0C3620_H
+#ifndef IN_GAME_BONDCUTSCENE_H
+#define IN_GAME_BONDCUTSCENE_H
 #include <ultra64.h>
 #include "types.h"
 

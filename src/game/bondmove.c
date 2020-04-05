@@ -22,7 +22,7 @@
 #include "game/game_0b0420.h"
 #include "game/game_0b3350.h"
 #include "game/game_0b63b0.h"
-#include "game/game_0c3620.h"
+#include "game/bondcutscene.h"
 #include "game/game_0fd660.h"
 #include "game/game_113220.h"
 #include "game/game_127910.h"
