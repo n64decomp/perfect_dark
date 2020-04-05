@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0f00b320(void);
+void stageLoadCommonLang(s32 stagenum);
 u32 func0f00b420(void);
 
 #endif

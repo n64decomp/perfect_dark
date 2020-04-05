@@ -15,77 +15,77 @@
 
 u32 langGetLangBankIndexFromStagenum(s32 stagenum)
 {
-	u32 index;
+	u32 bank;
 
 	switch (stagenum) {
-	case STAGE_PELAGIC:       index = 0x0b; break;
-	case STAGE_EXTRACTION:    index = 0x03; break;
-	case STAGE_TEST_RUN:      index = 0x1c; break;
-	case STAGE_24:            index = 0x1f; break;
-	case STAGE_MAIANSOS:      index = 0x1e; break;
-	case STAGE_TEST_DEST:     index = 0x0d; break;
-	case STAGE_2B:            index = 0x20; break;
-	case STAGE_RETAKING:      index = 0x1d; break;
-	case STAGE_WAR:           index = 0x23; break;
-	case STAGE_CHICAGO:       index = 0x19; break;
-	case STAGE_G5BUILDING:    index = 0x0c; break;
-	case STAGE_ESCAPE:        index = 0x24; break;
-	case STAGE_MP_TEMPLE:     index = 0x12; break;
-	case STAGE_MP_PIPES:      index = 0x09; break;
-	case STAGE_MP_G5BUILDING: index = 0x0a; break;
-	case STAGE_CITRAINING:    index = 0x0e; break;
-	case STAGE_MP_COMPLEX:    index = 0x1a; break;
-	case STAGE_MP_SKEDAR:     index = 0x17; break;
-	case STAGE_TEST_LEN:      index = 0x14; break;
-	case STAGE_DEFECTION:     index = 0x01; break;
-	case STAGE_VILLA:         index = 0x10; break;
-	case STAGE_DEFENSE:       index = 0x11; break;
-	case STAGE_TEST_ASH:      index = 0x04; break;
-	case STAGE_INVESTIGATION: index = 0x0f; break;
-	case STAGE_ATTACKSHIP:    index = 0x13; break;
-	case STAGE_RESCUE:        index = 0x15; break;
-	case STAGE_INFILTRATION:  index = 0x16; break;
-	case STAGE_28:            index = 0x0b; break;
-	case STAGE_DEEPSEA:       index = 0x18; break;
-	case STAGE_SKEDARRUINS:   index = 0x21; break;
-	case STAGE_AIRFORCEONE:   index = 0x1b; break;
-	case STAGE_TEST_ARCH:     index = 0x02; break;
-	case STAGE_MP_RAVINE:     index = 0x08; break;
-	case STAGE_CRASHSITE:     index = 0x05; break;
-	case STAGE_AIRBASE:       index = 0x07; break;
-	case STAGE_TEST_UFF:      index = 0x2d; break;
-	case STAGE_TEST_OLD:      index = 0x2e; break;
-	case STAGE_DUEL:          index = 0x2f; break;
-	case STAGE_TEST_LAM:      index = 0x30; break;
-	case STAGE_MP_BASE:       index = 0x31; break;
-	case STAGE_TEST_MP2:      index = 0x32; break;
-	case STAGE_MP_AREA52:     index = 0x33; break;
-	case STAGE_MP_WAREHOUSE:  index = 0x34; break;
-	case STAGE_MP_CARPARK:    index = 0x35; break;
-	case STAGE_TEST_MP6:      index = 0x36; break;
-	case STAGE_TEST_MP7:      index = 0x37; break;
-	case STAGE_TEST_MP8:      index = 0x38; break;
-	case STAGE_MP_RUINS:      index = 0x39; break;
-	case STAGE_MP_SEWERS:     index = 0x3a; break;
-	case STAGE_MP_FELICITY:   index = 0x3b; break;
-	case STAGE_MP_FORTRESS:   index = 0x3c; break;
-	case STAGE_MP_VILLA:      index = 0x3d; break;
-	case STAGE_TEST_MP14:     index = 0x3e; break;
-	case STAGE_MP_GRID:       index = 0x3f; break;
-	case STAGE_TEST_MP16:     index = 0x40; break;
-	case STAGE_TEST_MP17:     index = 0x41; break;
-	case STAGE_TEST_MP18:     index = 0x42; break;
-	case STAGE_TEST_MP19:     index = 0x43; break;
-	case STAGE_TEST_MP20:     index = 0x44; break;
-	case STAGE_MBR:           index = 0x25; break;
-	case STAGE_TEST_SILO:     index = 0x22; break;
+	case STAGE_PELAGIC:       bank = LANGBANK_DAM; break;
+	case STAGE_EXTRACTION:    bank = LANGBANK_ARK; break;
+	case STAGE_TEST_RUN:      bank = LANGBANK_RUN; break;
+	case STAGE_24:            bank = LANGBANK_SEVX; break;
+	case STAGE_MAIANSOS:      bank = LANGBANK_SEV; break;
+	case STAGE_TEST_DEST:     bank = LANGBANK_DEST; break;
+	case STAGE_2B:            bank = LANGBANK_SEVXB; break;
+	case STAGE_RETAKING:      bank = LANGBANK_SEVB; break;
+	case STAGE_WAR:           bank = LANGBANK_STAT; break;
+	case STAGE_CHICAGO:       bank = LANGBANK_PETE; break;
+	case STAGE_G5BUILDING:    bank = LANGBANK_DEPO; break;
+	case STAGE_ESCAPE:        bank = LANGBANK_TRA; break;
+	case STAGE_MP_TEMPLE:     bank = LANGBANK_JUN; break;
+	case STAGE_MP_PIPES:      bank = LANGBANK_CRAD; break;
+	case STAGE_MP_G5BUILDING: bank = LANGBANK_CRYP; break;
+	case STAGE_CITRAINING:    bank = LANGBANK_DISH; break;
+	case STAGE_MP_COMPLEX:    bank = LANGBANK_REF; break;
+	case STAGE_MP_SKEDAR:     bank = LANGBANK_OAT; break;
+	case STAGE_TEST_LEN:      bank = LANGBANK_LEN; break;
+	case STAGE_DEFECTION:     bank = LANGBANK_AME; break;
+	case STAGE_VILLA:         bank = LANGBANK_ELD; break;
+	case STAGE_DEFENSE:       bank = LANGBANK_IMP; break;
+	case STAGE_TEST_ASH:      bank = LANGBANK_ASH; break;
+	case STAGE_INVESTIGATION: bank = LANGBANK_EAR; break;
+	case STAGE_ATTACKSHIP:    bank = LANGBANK_LEE; break;
+	case STAGE_RESCUE:        bank = LANGBANK_LIP; break;
+	case STAGE_INFILTRATION:  bank = LANGBANK_LUE; break;
+	case STAGE_28:            bank = LANGBANK_DAM; break;
+	case STAGE_DEEPSEA:       bank = LANGBANK_PAM; break;
+	case STAGE_SKEDARRUINS:   bank = LANGBANK_SHO; break;
+	case STAGE_AIRFORCEONE:   bank = LANGBANK_RIT; break;
+	case STAGE_TEST_ARCH:     bank = LANGBANK_ARCH; break;
+	case STAGE_MP_RAVINE:     bank = LANGBANK_AREC; break;
+	case STAGE_CRASHSITE:     bank = LANGBANK_AZT; break;
+	case STAGE_AIRBASE:       bank = LANGBANK_CAVE; break;
+	case STAGE_TEST_UFF:      bank = LANGBANK_UFF; break;
+	case STAGE_TEST_OLD:      bank = LANGBANK_OLD; break;
+	case STAGE_DUEL:          bank = LANGBANK_ATE; break;
+	case STAGE_TEST_LAM:      bank = LANGBANK_LAM; break;
+	case STAGE_MP_BASE:       bank = LANGBANK_MP1; break;
+	case STAGE_TEST_MP2:      bank = LANGBANK_MP2; break;
+	case STAGE_MP_AREA52:     bank = LANGBANK_MP3; break;
+	case STAGE_MP_WAREHOUSE:  bank = LANGBANK_MP4; break;
+	case STAGE_MP_CARPARK:    bank = LANGBANK_MP5; break;
+	case STAGE_TEST_MP6:      bank = LANGBANK_MP6; break;
+	case STAGE_TEST_MP7:      bank = LANGBANK_MP7; break;
+	case STAGE_TEST_MP8:      bank = LANGBANK_MP8; break;
+	case STAGE_MP_RUINS:      bank = LANGBANK_MP9; break;
+	case STAGE_MP_SEWERS:     bank = LANGBANK_MP10; break;
+	case STAGE_MP_FELICITY:   bank = LANGBANK_MP11; break;
+	case STAGE_MP_FORTRESS:   bank = LANGBANK_MP12; break;
+	case STAGE_MP_VILLA:      bank = LANGBANK_MP13; break;
+	case STAGE_TEST_MP14:     bank = LANGBANK_MP14; break;
+	case STAGE_MP_GRID:       bank = LANGBANK_MP15; break;
+	case STAGE_TEST_MP16:     bank = LANGBANK_MP16; break;
+	case STAGE_TEST_MP17:     bank = LANGBANK_MP17; break;
+	case STAGE_TEST_MP18:     bank = LANGBANK_MP18; break;
+	case STAGE_TEST_MP19:     bank = LANGBANK_MP19; break;
+	case STAGE_TEST_MP20:     bank = LANGBANK_MP20; break;
+	case STAGE_MBR:           bank = LANGBANK_WAX; break;
+	case STAGE_TEST_SILO:     bank = LANGBANK_SILO; break;
 	default:
 		while (true) {
 			// empty
 		}
 	}
 
-	return index;
+	return bank;
 }
 
 GLOBAL_ASM(
@@ -303,10 +303,10 @@ glabel func0f16e3fc
  */
 s32 langGetLanguageId(void)
 {
-	s32 ret = 0;
+	s32 ret = LANGUAGE_ENGLISH;
 
-	if (g_LanguageId != 0) {
-		ret = 1;
+	if (g_LanguageId != LANGUAGE_ENGLISH) {
+		ret = LANGUAGE_JAPANESE;
 	}
 
 	return ret;
