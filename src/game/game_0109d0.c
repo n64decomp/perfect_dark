@@ -107,15 +107,11 @@ glabel func0f010ad4
 /*  f010ae8:	ac440000 */ 	sw	$a0,0x0($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f010aec
-/*  f010aec:	3c02800a */ 	lui	$v0,%hi(g_MultiroomEnteredCriterias)
-/*  f010af0:	2442d0bc */ 	addiu	$v0,$v0,%lo(g_MultiroomEnteredCriterias)
-/*  f010af4:	8c4e0000 */ 	lw	$t6,0x0($v0)
-/*  f010af8:	ac8e0010 */ 	sw	$t6,0x10($a0)
-/*  f010afc:	03e00008 */ 	jr	$ra
-/*  f010b00:	ac440000 */ 	sw	$a0,0x0($v0)
-);
+void objectiveAddMultiroomEnteredCriteria(struct criteria_multiroomentered *criteria)
+{
+	criteria->next = g_MultiroomEnteredCriterias;
+	g_MultiroomEnteredCriterias = criteria;
+}
 
 void objectiveAddHolographCriteria(struct criteria_holograph *criteria)
 {
