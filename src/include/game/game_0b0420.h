@@ -14,7 +14,7 @@ u8 getKnockoutCount(void);
 u32 getKillCount(void);
 u32 func0f0b05a4(void);
 s32 currentPlayerGetNumKills(void);
-u32 func0f0b0764(void);
+void currentPlayerIncrementDeathCount(void);
 u32 func0f0b0818(void);
 s32 func0f0b09f4(s32 arg0, s32 playernum);
 struct weapon *weaponFindById(s32 itemid);

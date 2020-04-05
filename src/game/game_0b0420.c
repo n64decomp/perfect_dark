@@ -272,57 +272,25 @@ glabel func0f0b074c
 /*  f0b0760:	ac4f0020 */ 	sw	$t7,0x20($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f0b0764
-/*  f0b0764:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0b0768:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0b076c:	8c620284 */ 	lw	$v0,0x284($v1)
-/*  f0b0770:	27bdfed0 */ 	addiu	$sp,$sp,-304
-/*  f0b0774:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0b0778:	8c4e1940 */ 	lw	$t6,0x1940($v0)
-/*  f0b077c:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f0b0780:	ac4f1940 */ 	sw	$t7,0x1940($v0)
-/*  f0b0784:	8c780318 */ 	lw	$t8,0x318($v1)
-/*  f0b0788:	53000020 */ 	beqzl	$t8,.L0f0b080c
-/*  f0b078c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0b0790:	8c790284 */ 	lw	$t9,0x284($v1)
-/*  f0b0794:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f0b0798:	8f281940 */ 	lw	$t0,0x1940($t9)
-/*  f0b079c:	15010008 */ 	bne	$t0,$at,.L0f0b07c0
-/*  f0b07a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b07a4:	0fc5b9f1 */ 	jal	langGet
-/*  f0b07a8:	24044c02 */ 	addiu	$a0,$zero,0x4c02
-/*  f0b07ac:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*  f0b07b0:	0c004dad */ 	jal	sprintf
-/*  f0b07b4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f0b07b8:	10000011 */ 	beqz	$zero,.L0f0b0800
-/*  f0b07bc:	27a40030 */ 	addiu	$a0,$sp,0x30
-.L0f0b07c0:
-/*  f0b07c0:	0fc5b9f1 */ 	jal	langGet
-/*  f0b07c4:	24044c03 */ 	addiu	$a0,$zero,0x4c03
-/*  f0b07c8:	afa20028 */ 	sw	$v0,0x28($sp)
-/*  f0b07cc:	0fc5b9f1 */ 	jal	langGet
-/*  f0b07d0:	24044c04 */ 	addiu	$a0,$zero,0x4c04
-/*  f0b07d4:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f0b07d8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f0b07dc:	8c690284 */ 	lw	$t1,0x284($v1)
-/*  f0b07e0:	3c057f1b */ 	lui	$a1,%hi(var7f1acda8)
-/*  f0b07e4:	24a5cda8 */ 	addiu	$a1,$a1,%lo(var7f1acda8)
-/*  f0b07e8:	8d271940 */ 	lw	$a3,0x1940($t1)
-/*  f0b07ec:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f0b07f0:	27a40030 */ 	addiu	$a0,$sp,0x30
-/*  f0b07f4:	0c004dad */ 	jal	sprintf
-/*  f0b07f8:	8fa60028 */ 	lw	$a2,0x28($sp)
-/*  f0b07fc:	27a40030 */ 	addiu	$a0,$sp,0x30
-.L0f0b0800:
-/*  f0b0800:	0fc377c7 */ 	jal	hudmsgCreateViaPreset
-/*  f0b0804:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0b0808:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f0b080c:
-/*  f0b080c:	27bd0130 */ 	addiu	$sp,$sp,0x130
-/*  f0b0810:	03e00008 */ 	jr	$ra
-/*  f0b0814:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void currentPlayerIncrementDeathCount(void)
+{
+	char buffer[256];
+
+	g_Vars.currentplayer->deathcount++;
+
+	if (g_Vars.normmplayerisrunning) {
+		if (g_Vars.currentplayer->deathcount == 1) {
+			sprintf(buffer, langGet(L_GUN(2))); // "Died once"
+		} else {
+			sprintf(buffer, var7f1acda8,
+					langGet(L_GUN(3)), // "Died"
+					g_Vars.currentplayer->deathcount,
+					langGet(L_GUN(4))); // "times"
+		}
+
+		hudmsgCreateViaPreset(buffer, HUDMSGTYPE_DEFAULT);
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f0b0818
@@ -675,7 +643,7 @@ glabel func0f0b09f4
 /*  f0b0d04:	0fc377c7 */ 	jal	hudmsgCreateViaPreset
 /*  f0b0d08:	00002825 */ 	or	$a1,$zero,$zero
 .L0f0b0d0c:
-/*  f0b0d0c:	0fc2c1d9 */ 	jal	func0f0b0764
+/*  f0b0d0c:	0fc2c1d9 */ 	jal	currentPlayerIncrementDeathCount
 /*  f0b0d10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b0d14:	0fc4a24b */ 	jal	setCurrentPlayerNum
 /*  f0b0d18:	8fa4013c */ 	lw	$a0,0x13c($sp)
