@@ -831,7 +831,7 @@ char *frMenuTextTimeTakenValue(struct menu_item *item)
 			mins++;
 		}
 
-		sprintf(g_StringPointer, "%dm %2ds\n", mins, (s32)func0f097970(secs));
+		sprintf(g_StringPointer, "%dm %2ds\n", mins, (s32)ceilf(secs));
 		return g_StringPointer;
 	} else {
 		sprintf(g_StringPointer, "%s%s%2.2fs\n", "", "", secs);
@@ -3379,7 +3379,7 @@ char *dtMenuTextTimeTakenValue(struct menu_item *item)
 			mins++;
 		}
 
-		sprintf(g_StringPointer, "%dm %2ds\n", mins, (s32)func0f097970(secs));
+		sprintf(g_StringPointer, "%dm %2ds\n", mins, (s32)ceilf(secs));
 		return g_StringPointer;
 	} else {
 		sprintf(g_StringPointer, "%s%s%2.2fs\n", "", "", secs);
@@ -3548,7 +3548,7 @@ char *htMenuTextTimeTakenValue(struct menu_item *item)
 			mins++;
 		}
 
-		sprintf(g_StringPointer, "%dm %2ds\n", mins, (s32)func0f097970(secs));
+		sprintf(g_StringPointer, "%dm %2ds\n", mins, (s32)ceilf(secs));
 		return g_StringPointer;
 	} else {
 		sprintf(g_StringPointer, "%s%s%2.2fs\n", "", "", secs);
