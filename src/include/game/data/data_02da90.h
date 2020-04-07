@@ -31,6 +31,7 @@ extern struct chrbio g_ChrBios[10];
 extern u32 misc_bios[];
 extern u32 var80088964;
 extern u32 place_bios[];
+extern u8 var80088ad8;
 extern u32 var80088adc;
 extern u32 var80088ae0;
 extern u32 var80088aec;

@@ -3157,7 +3157,7 @@ glabel func0f1a64a0
 s32 menuhandler001a64d8(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		func0f1a1b54();
+		dtBegin();
 		func0f0f8120();
 	}
 

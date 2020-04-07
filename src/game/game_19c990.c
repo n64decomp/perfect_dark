@@ -6016,47 +6016,18 @@ glabel func0f1a1ac0
 /*  f1a1b50:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a1b54
-/*  f1a1b54:	3c02800b */ 	lui	$v0,%hi(g_DeviceTrainingData)
-/*  f1a1b58:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_DeviceTrainingData)
-/*  f1a1b5c:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f1a1b60:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a1b64:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1b68:	35f80080 */ 	ori	$t8,$t7,0x80
-/*  f1a1b6c:	a0580000 */ 	sb	$t8,0x0($v0)
-/*  f1a1b70:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f1a1b74:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1b78:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a1b7c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f1a1b80:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1b84:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a1b88:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f1a1b8c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1b90:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a1b94:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f1a1b98:	3c048009 */ 	lui	$a0,%hi(var80088ad8)
-/*  f1a1b9c:	0fc6875a */ 	jal	func0f1a1d68
-/*  f1a1ba0:	90848ad8 */ 	lbu	$a0,%lo(var80088ad8)($a0)
-/*  f1a1ba4:	0fc6878e */ 	jal	func0f1a1e38
-/*  f1a1ba8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a1bac:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1bb0:	0fc127cb */ 	jal	chrSetStageFlag
-/*  f1a1bb4:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1a1bb8:	3c08800a */ 	lui	$t0,%hi(g_Vars+0x284)
-/*  f1a1bbc:	8d08a244 */ 	lw	$t0,%lo(g_Vars+0x284)($t0)
-/*  f1a1bc0:	24190001 */ 	addiu	$t9,$zero,0x1
-/*  f1a1bc4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1bc8:	0fc2a4ab */ 	jal	func0f0a92ac
-/*  f1a1bcc:	ad191c08 */ 	sw	$t9,0x1c08($t0)
-/*  f1a1bd0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1bd4:	0fc127cb */ 	jal	chrSetStageFlag
-/*  f1a1bd8:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1a1bdc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1be0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a1be4:	03e00008 */ 	jr	$ra
-/*  f1a1be8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void dtBegin(void)
+{
+	g_DeviceTrainingData.intraining = true;
+	g_DeviceTrainingData.timetaken = 0;
+	chrUnsetStageFlag(NULL, 0x00000004);
+	chrUnsetStageFlag(NULL, 0x00000008);
+	chrUnsetStageFlag(NULL, 0x00000010);
+	chrSetStageFlag(NULL, func0f1a1e38(func0f1a1d68(var80088ad8)));
+	g_Vars.currentplayer->deadtimer = 1;
+	func0f0a92ac(false);
+	chrSetStageFlag(NULL, 0x00000001);
+}
 
 GLOBAL_ASM(
 glabel func0f1a1bec

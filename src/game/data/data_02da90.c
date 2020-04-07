@@ -707,7 +707,7 @@ u32 place_bios[] = {
 	L_MISC(312), L_MISC(335), 0, 0, // Skedar Shuttle
 };
 
-u32 var80088ad8 = 0x00000000;
+u8 var80088ad8 = 0x00000000;
 u32 var80088adc = 0x00000000;
 u32 var80088ae0 = 0x39383736;
 u32 var80088ae4 = 0x35343332;
