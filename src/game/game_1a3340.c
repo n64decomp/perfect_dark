@@ -3154,9 +3154,11 @@ glabel func0f1a64a0
 /*  f1a64d4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s32 menuhandler001a64d8(u32 operation, struct menu_item *item, s32 *value)
+s32 menuhandlerDtOkOrResume(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
+		// @bug: dtBegin() should not be called if training is already in
+		// progress. Doing this resets the training timer.
 		dtBegin();
 		func0f0f8120();
 	}
