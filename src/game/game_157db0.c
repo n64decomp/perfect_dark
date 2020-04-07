@@ -3739,8 +3739,8 @@ glabel func0f15b23c
 GLOBAL_ASM(
 glabel func0f15b274
 /*  f15b274:	27bdff50 */ 	addiu	$sp,$sp,-176
-/*  f15b278:	3c02800a */ 	lui	$v0,%hi(g_PortalSomethings)
-/*  f15b27c:	8c424cc8 */ 	lw	$v0,%lo(g_PortalSomethings)($v0)
+/*  f15b278:	3c02800a */ 	lui	$v0,%hi(g_Portals)
+/*  f15b27c:	8c424cc8 */ 	lw	$v0,%lo(g_Portals)($v0)
 /*  f15b280:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f15b284:	afbf005c */ 	sw	$ra,0x5c($sp)
 /*  f15b288:	afb40058 */ 	sw	$s4,0x58($sp)
@@ -3833,8 +3833,8 @@ glabel func0f15b274
 /*  f15b3d8:	8fb40058 */ 	lw	$s4,0x58($sp)
 /*  f15b3dc:	03e00008 */ 	jr	$ra
 /*  f15b3e0:	27bd00b0 */ 	addiu	$sp,$sp,0xb0
-/*  f15b3e4:	3c03800a */ 	lui	$v1,%hi(g_PortalSomethings)
-/*  f15b3e8:	8c634cc8 */ 	lw	$v1,%lo(g_PortalSomethings)($v1)
+/*  f15b3e4:	3c03800a */ 	lui	$v1,%hi(g_Portals)
+/*  f15b3e8:	8c634cc8 */ 	lw	$v1,%lo(g_Portals)($v1)
 /*  f15b3ec:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f15b3f0:	006e7821 */ 	addu	$t7,$v1,$t6
 /*  f15b3f4:	95f80000 */ 	lhu	$t8,0x0($t7)
@@ -4151,10 +4151,10 @@ glabel func0f15b534
 /*  f15b870:	8c7802bc */ 	lw	$t8,0x2bc($v1)
 /*  f15b874:	8caa0008 */ 	lw	$t2,0x8($a1)
 .L0f15b878:
-/*  f15b878:	3c01800a */ 	lui	$at,%hi(g_PortalSomethings)
+/*  f15b878:	3c01800a */ 	lui	$at,%hi(g_Portals)
 /*  f15b87c:	01445821 */ 	addu	$t3,$t2,$a0
 /*  f15b880:	01676021 */ 	addu	$t4,$t3,$a3
-/*  f15b884:	ac2c4cc8 */ 	sw	$t4,%lo(g_PortalSomethings)($at)
+/*  f15b884:	ac2c4cc8 */ 	sw	$t4,%lo(g_Portals)($at)
 /*  f15b888:	8ca2000c */ 	lw	$v0,0xc($a1)
 /*  f15b88c:	3c01800a */ 	lui	$at,%hi(var800a4cd4)
 /*  f15b890:	14400004 */ 	bnez	$v0,.L0f15b8a4
@@ -4359,8 +4359,8 @@ glabel var7f1b75d0
 /*  f15bb50:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f15bb54:	3c0e800a */ 	lui	$t6,%hi(var800a4920)
 /*  f15bb58:	8dce4920 */ 	lw	$t6,%lo(var800a4920)($t6)
-/*  f15bb5c:	3c17800a */ 	lui	$s7,%hi(g_PortalSomethings)
-/*  f15bb60:	26f74cc8 */ 	addiu	$s7,$s7,%lo(g_PortalSomethings)
+/*  f15bb5c:	3c17800a */ 	lui	$s7,%hi(g_Portals)
+/*  f15bb60:	26f74cc8 */ 	addiu	$s7,$s7,%lo(g_Portals)
 /*  f15bb64:	15c00324 */ 	bnez	$t6,.L0f15c7f8
 /*  f15bb68:	24050004 */ 	addiu	$a1,$zero,0x4
 /*  f15bb6c:	8ef00000 */ 	lw	$s0,0x0($s7)
@@ -4376,15 +4376,15 @@ glabel var7f1b75d0
 /*  f15bb90:	94580008 */ 	lhu	$t8,0x8($v0)
 .L0f15bb94:
 /*  f15bb94:	001ec900 */ 	sll	$t9,$s8,0x4
-/*  f15bb98:	3c028008 */ 	lui	$v0,%hi(g_NumPortals)
+/*  f15bb98:	3c028008 */ 	lui	$v0,%hi(g_NumPortalThings)
 /*  f15bb9c:	2724000f */ 	addiu	$a0,$t9,0xf
-/*  f15bba0:	2442fc40 */ 	addiu	$v0,$v0,%lo(g_NumPortals)
+/*  f15bba0:	2442fc40 */ 	addiu	$v0,$v0,%lo(g_NumPortalThings)
 /*  f15bba4:	348e000f */ 	ori	$t6,$a0,0xf
 /*  f15bba8:	ac5e0000 */ 	sw	$s8,0x0($v0)
 /*  f15bbac:	0c0048f2 */ 	jal	malloc
 /*  f15bbb0:	39c4000f */ 	xori	$a0,$t6,0xf
-/*  f15bbb4:	3c01800a */ 	lui	$at,%hi(g_Portals)
-/*  f15bbb8:	ac224cec */ 	sw	$v0,%lo(g_Portals)($at)
+/*  f15bbb4:	3c01800a */ 	lui	$at,%hi(g_PortalThings)
+/*  f15bbb8:	ac224cec */ 	sw	$v0,%lo(g_PortalThings)($at)
 /*  f15bbbc:	001e20c0 */ 	sll	$a0,$s8,0x3
 /*  f15bbc0:	24840008 */ 	addiu	$a0,$a0,0x8
 /*  f15bbc4:	8ef00000 */ 	lw	$s0,0x0($s7)
@@ -5645,10 +5645,10 @@ void func0f15cd28(void)
 {
 	s32 i;
 
-	for (i = 0; i < g_NumPortals; i++) {
-		g_Portals[i].unk06 = -1;
-		g_Portals[i].unk04 = 0;
-		g_Portals[i].unk00 = 0;
+	for (i = 0; i < g_NumPortalThings; i++) {
+		g_PortalThings[i].unk06 = -1;
+		g_PortalThings[i].unk04 = 0;
+		g_PortalThings[i].unk00 = 0;
 	}
 }
 
@@ -5908,8 +5908,8 @@ glabel func0f15d08c
 
 GLOBAL_ASM(
 glabel func0f15d10c
-/*  f15d10c:	3c07800a */ 	lui	$a3,%hi(g_Portals)
-/*  f15d110:	24e74cec */ 	addiu	$a3,$a3,%lo(g_Portals)
+/*  f15d10c:	3c07800a */ 	lui	$a3,%hi(g_PortalThings)
+/*  f15d110:	24e74cec */ 	addiu	$a3,$a3,%lo(g_PortalThings)
 /*  f15d114:	27bdfd00 */ 	addiu	$sp,$sp,-768
 /*  f15d118:	8cee0000 */ 	lw	$t6,0x0($a3)
 /*  f15d11c:	afb20020 */ 	sw	$s2,0x20($sp)
@@ -6126,8 +6126,8 @@ glabel func0f15d10c
 /*  f15d41c:	150cffde */ 	bne	$t0,$t4,.L0f15d398
 /*  f15d420:	254a0004 */ 	addiu	$t2,$t2,0x4
 .L0f15d424:
-/*  f15d424:	3c03800a */ 	lui	$v1,%hi(g_Portals)
-/*  f15d428:	24634cec */ 	addiu	$v1,$v1,%lo(g_Portals)
+/*  f15d424:	3c03800a */ 	lui	$v1,%hi(g_PortalThings)
+/*  f15d428:	24634cec */ 	addiu	$v1,$v1,%lo(g_PortalThings)
 /*  f15d42c:	8c6f0000 */ 	lw	$t7,0x0($v1)
 /*  f15d430:	862e0000 */ 	lh	$t6,0x0($s1)
 /*  f15d434:	01601025 */ 	or	$v0,$t3,$zero
@@ -6433,8 +6433,8 @@ glabel func0f15d808
 
 GLOBAL_ASM(
 glabel func0f15d870
-/*  f15d870:	3c02800a */ 	lui	$v0,%hi(g_PortalSomethings)
-/*  f15d874:	8c424cc8 */ 	lw	$v0,%lo(g_PortalSomethings)($v0)
+/*  f15d870:	3c02800a */ 	lui	$v0,%hi(g_Portals)
+/*  f15d874:	8c424cc8 */ 	lw	$v0,%lo(g_Portals)($v0)
 /*  f15d878:	00803825 */ 	or	$a3,$a0,$zero
 /*  f15d87c:	00001825 */ 	or	$v1,$zero,$zero
 /*  f15d880:	944e0000 */ 	lhu	$t6,0x0($v0)
@@ -11259,9 +11259,9 @@ glabel func0f161c08
 /*  f161c48:	846c000e */ 	lh	$t4,0xe($v1)
 /*  f161c4c:	8d6b4ce0 */ 	lw	$t3,%lo(var800a4ce0)($t3)
 /*  f161c50:	3c08800a */ 	lui	$t0,%hi(var800a4ccc)
-/*  f161c54:	3c0a800a */ 	lui	$t2,%hi(g_PortalSomethings)
+/*  f161c54:	3c0a800a */ 	lui	$t2,%hi(g_Portals)
 /*  f161c58:	000c6840 */ 	sll	$t5,$t4,0x1
-/*  f161c5c:	254a4cc8 */ 	addiu	$t2,$t2,%lo(g_PortalSomethings)
+/*  f161c5c:	254a4cc8 */ 	addiu	$t2,$t2,%lo(g_Portals)
 /*  f161c60:	8d084ccc */ 	lw	$t0,%lo(var800a4ccc)($t0)
 /*  f161c64:	c4e20008 */ 	lwc1	$f2,0x8($a3)
 /*  f161c68:	c4ec0000 */ 	lwc1	$f12,0x0($a3)
@@ -11350,7 +11350,7 @@ glabel func0f161d30
 /*  f161d94:	e7a60074 */ 	swc1	$f6,0x74($sp)
 /*  f161d98:	c4c80034 */ 	lwc1	$f8,0x34($a2)
 /*  f161d9c:	3c09800a */ 	lui	$t1,%hi(var800a4ce0)
-/*  f161da0:	3c08800a */ 	lui	$t0,%hi(g_PortalSomethings)
+/*  f161da0:	3c08800a */ 	lui	$t0,%hi(g_Portals)
 /*  f161da4:	e7a80078 */ 	swc1	$f8,0x78($sp)
 /*  f161da8:	c4ca0038 */ 	lwc1	$f10,0x38($a2)
 /*  f161dac:	3c0a800a */ 	lui	$t2,%hi(var800a4ccc)
@@ -11363,7 +11363,7 @@ glabel func0f161d30
 /*  f161dc8:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f161dcc:	4480b000 */ 	mtc1	$zero,$f22
 /*  f161dd0:	8d294ce0 */ 	lw	$t1,%lo(var800a4ce0)($t1)
-/*  f161dd4:	8d084cc8 */ 	lw	$t0,%lo(g_PortalSomethings)($t0)
+/*  f161dd4:	8d084cc8 */ 	lw	$t0,%lo(g_Portals)($t0)
 /*  f161dd8:	8d4a4ccc */ 	lw	$t2,%lo(var800a4ccc)($t2)
 /*  f161ddc:	84ce000e */ 	lh	$t6,0xe($a2)
 .L0f161de0:
@@ -11888,7 +11888,7 @@ glabel func0f162194
 );
 
 GLOBAL_ASM(
-glabel func0f16254c
+glabel portalPushValue
 /*  f16254c:	3c058008 */ 	lui	$a1,%hi(var8007fca8)
 /*  f162550:	24a5fca8 */ 	addiu	$a1,$a1,%lo(var8007fca8)
 /*  f162554:	8ca30000 */ 	lw	$v1,0x0($a1)
@@ -11907,7 +11907,7 @@ glabel func0f16254c
 );
 
 GLOBAL_ASM(
-glabel func0f162588
+glabel portalPopValue
 /*  f162588:	3c048008 */ 	lui	$a0,%hi(var8007fca8)
 /*  f16258c:	2484fca8 */ 	addiu	$a0,$a0,%lo(var8007fca8)
 /*  f162590:	8c8e0000 */ 	lw	$t6,0x0($a0)
@@ -11940,125 +11940,125 @@ glabel func0f1625bc
 );
 
 GLOBAL_ASM(
-glabel func0f1625ec
+glabel portalCommandExecute
 .late_rodata
 glabel var7f1b75e0
-.word func0f1625ec+0x614 # f162c00
+.word portalCommandExecute+0x614 # f162c00
 glabel var7f1b75e4
-.word func0f1625ec+0x650 # f162c3c
+.word portalCommandExecute+0x650 # f162c3c
 glabel var7f1b75e8
-.word func0f1625ec+0x638 # f162c24
+.word portalCommandExecute+0x638 # f162c24
 glabel var7f1b75ec
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b75f0
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b75f4
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b75f8
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b75fc
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7600
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7604
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7608
-.word func0f1625ec+0x674 # f162c60
+.word portalCommandExecute+0x674 # f162c60
 glabel var7f1b760c
-.word func0f1625ec+0x6ac # f162c98
+.word portalCommandExecute+0x6ac # f162c98
 glabel var7f1b7610
-.word func0f1625ec+0x6c4 # f162cb0
+.word portalCommandExecute+0x6c4 # f162cb0
 glabel var7f1b7614
-.word func0f1625ec+0xb8 # f1626a4
+.word portalCommandExecute+0xb8 # f1626a4
 glabel var7f1b7618
-.word func0f1625ec+0xc0 # f1626ac
+.word portalCommandExecute+0xc0 # f1626ac
 glabel var7f1b761c
-.word func0f1625ec+0xe0 # f1626cc
+.word portalCommandExecute+0xe0 # f1626cc
 glabel var7f1b7620
-.word func0f1625ec+0x100 # f1626ec
+.word portalCommandExecute+0x100 # f1626ec
 glabel var7f1b7624
-.word func0f1625ec+0x130 # f16271c
+.word portalCommandExecute+0x130 # f16271c
 glabel var7f1b7628
-.word func0f1625ec+0x160 # f16274c
+.word portalCommandExecute+0x160 # f16274c
 glabel var7f1b762c
-.word func0f1625ec+0x188 # f162774
+.word portalCommandExecute+0x188 # f162774
 glabel var7f1b7630
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7634
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7638
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b763c
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7640
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7644
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7648
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b764c
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7650
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7654
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7658
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b765c
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7660
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7664
-.word func0f1625ec+0x1b8 # f1627a4
+.word portalCommandExecute+0x1b8 # f1627a4
 glabel var7f1b7668
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b766c
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7670
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7674
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7678
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b767c
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7680
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7684
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b7688
-.word func0f1625ec+0x6d4 # f162cc0
+.word portalCommandExecute+0x6d4 # f162cc0
 glabel var7f1b768c
-.word func0f1625ec+0x1fc # f1627e8
+.word portalCommandExecute+0x1fc # f1627e8
 glabel var7f1b7690
-.word func0f1625ec+0x26c # f162858
+.word portalCommandExecute+0x26c # f162858
 glabel var7f1b7694
-.word func0f1625ec+0x418 # f162a04
+.word portalCommandExecute+0x418 # f162a04
 glabel var7f1b7698
-.word func0f1625ec+0x5f8 # f162be4
+.word portalCommandExecute+0x5f8 # f162be4
 glabel var7f1b769c
-.word func0f1625ec+0x2e8 # f1628d4
+.word portalCommandExecute+0x2e8 # f1628d4
 glabel var7f1b76a0
-.word func0f1625ec+0x374 # f162960
+.word portalCommandExecute+0x374 # f162960
 glabel var7f1b76a4
-.word func0f1625ec+0x484 # f162a70
+.word portalCommandExecute+0x484 # f162a70
 glabel var7f1b76a8
-.word func0f1625ec+0x4c8 # f162ab4
+.word portalCommandExecute+0x4c8 # f162ab4
 glabel var7f1b76ac
-.word func0f1625ec+0x530 # f162b1c
+.word portalCommandExecute+0x530 # f162b1c
 glabel var7f1b76b0
-.word func0f1625ec+0x540 # f162b2c
+.word portalCommandExecute+0x540 # f162b2c
 glabel var7f1b76b4
-.word func0f1625ec+0x550 # f162b3c
+.word portalCommandExecute+0x550 # f162b3c
 glabel var7f1b76b8
-.word func0f1625ec+0x56c # f162b58
+.word portalCommandExecute+0x56c # f162b58
 glabel var7f1b76bc
-.word func0f1625ec+0x5bc # f162ba8
+.word portalCommandExecute+0x5bc # f162ba8
 .text
 /*  f1625ec:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f1625f0:	afb2001c */ 	sw	$s2,0x1c($sp)
 /*  f1625f4:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1625f8:	3c01800a */ 	lui	$at,%hi(var800a65d0)
+/*  f1625f8:	3c01800a */ 	lui	$at,%hi(g_PortalDisableParentExec)
 /*  f1625fc:	00808025 */ 	or	$s0,$a0,$zero
 /*  f162600:	00a09025 */ 	or	$s2,$a1,$zero
 /*  f162604:	afbf0034 */ 	sw	$ra,0x34($sp)
@@ -12069,18 +12069,18 @@ glabel var7f1b76bc
 /*  f162618:	afb30020 */ 	sw	$s3,0x20($sp)
 /*  f16261c:	afb10018 */ 	sw	$s1,0x18($sp)
 /*  f162620:	14800003 */ 	bnez	$a0,.L0f162630
-/*  f162624:	ac2065d0 */ 	sw	$zero,%lo(var800a65d0)($at)
+/*  f162624:	ac2065d0 */ 	sw	$zero,%lo(g_PortalDisableParentExec)($at)
 /*  f162628:	100001a6 */ 	beqz	$zero,.L0f162cc4
 /*  f16262c:	00801025 */ 	or	$v0,$a0,$zero
 .L0f162630:
-/*  f162630:	3c17800a */ 	lui	$s7,%hi(g_PortalSomethings)
+/*  f162630:	3c17800a */ 	lui	$s7,%hi(g_Portals)
 /*  f162634:	3c15800a */ 	lui	$s5,%hi(var800a65c0)
 /*  f162638:	3c14800a */ 	lui	$s4,%hi(g_RoomPtrs)
-/*  f16263c:	3c138008 */ 	lui	$s3,%hi(var8007fcac)
-/*  f162640:	2673fcac */ 	addiu	$s3,$s3,%lo(var8007fcac)
+/*  f16263c:	3c138008 */ 	lui	$s3,%hi(g_PortalMode)
+/*  f162640:	2673fcac */ 	addiu	$s3,$s3,%lo(g_PortalMode)
 /*  f162644:	26944928 */ 	addiu	$s4,$s4,%lo(g_RoomPtrs)
 /*  f162648:	26b565c0 */ 	addiu	$s5,$s5,%lo(var800a65c0)
-/*  f16264c:	26f74cc8 */ 	addiu	$s7,$s7,%lo(g_PortalSomethings)
+/*  f16264c:	26f74cc8 */ 	addiu	$s7,$s7,%lo(g_Portals)
 /*  f162650:	24160001 */ 	addiu	$s6,$zero,0x1
 .L0f162654:
 /*  f162654:	92040000 */ 	lbu	$a0,0x0($s0)
@@ -12109,7 +12109,7 @@ glabel var7f1b76bc
 /*  f1626a8:	02001025 */ 	or	$v0,$s0,$zero
 /*  f1626ac:	52400004 */ 	beqzl	$s2,.L0f1626c0
 /*  f1626b0:	92180001 */ 	lbu	$t8,0x1($s0)
-/*  f1626b4:	0fc58953 */ 	jal	func0f16254c
+/*  f1626b4:	0fc58953 */ 	jal	portalPushValue
 /*  f1626b8:	8e040004 */ 	lw	$a0,0x4($s0)
 /*  f1626bc:	92180001 */ 	lbu	$t8,0x1($s0)
 .L0f1626c0:
@@ -12118,7 +12118,7 @@ glabel var7f1b76bc
 /*  f1626c8:	02198021 */ 	addu	$s0,$s0,$t9
 /*  f1626cc:	52400004 */ 	beqzl	$s2,.L0f1626e0
 /*  f1626d0:	92080001 */ 	lbu	$t0,0x1($s0)
-/*  f1626d4:	0fc58962 */ 	jal	func0f162588
+/*  f1626d4:	0fc58962 */ 	jal	portalPopValue
 /*  f1626d8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1626dc:	92080001 */ 	lbu	$t0,0x1($s0)
 .L0f1626e0:
@@ -12127,11 +12127,11 @@ glabel var7f1b76bc
 /*  f1626e8:	02098021 */ 	addu	$s0,$s0,$t1
 /*  f1626ec:	52400008 */ 	beqzl	$s2,.L0f162710
 /*  f1626f0:	920a0001 */ 	lbu	$t2,0x1($s0)
-/*  f1626f4:	0fc58962 */ 	jal	func0f162588
+/*  f1626f4:	0fc58962 */ 	jal	portalPopValue
 /*  f1626f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1626fc:	0fc58962 */ 	jal	func0f162588
+/*  f1626fc:	0fc58962 */ 	jal	portalPopValue
 /*  f162700:	00408825 */ 	or	$s1,$v0,$zero
-/*  f162704:	0fc58953 */ 	jal	func0f16254c
+/*  f162704:	0fc58953 */ 	jal	portalPushValue
 /*  f162708:	00512024 */ 	and	$a0,$v0,$s1
 /*  f16270c:	920a0001 */ 	lbu	$t2,0x1($s0)
 .L0f162710:
@@ -12140,11 +12140,11 @@ glabel var7f1b76bc
 /*  f162718:	020b8021 */ 	addu	$s0,$s0,$t3
 /*  f16271c:	52400008 */ 	beqzl	$s2,.L0f162740
 /*  f162720:	920c0001 */ 	lbu	$t4,0x1($s0)
-/*  f162724:	0fc58962 */ 	jal	func0f162588
+/*  f162724:	0fc58962 */ 	jal	portalPopValue
 /*  f162728:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16272c:	0fc58962 */ 	jal	func0f162588
+/*  f16272c:	0fc58962 */ 	jal	portalPopValue
 /*  f162730:	00408825 */ 	or	$s1,$v0,$zero
-/*  f162734:	0fc58953 */ 	jal	func0f16254c
+/*  f162734:	0fc58953 */ 	jal	portalPushValue
 /*  f162738:	00512025 */ 	or	$a0,$v0,$s1
 /*  f16273c:	920c0001 */ 	lbu	$t4,0x1($s0)
 .L0f162740:
@@ -12153,9 +12153,9 @@ glabel var7f1b76bc
 /*  f162748:	020d8021 */ 	addu	$s0,$s0,$t5
 /*  f16274c:	52400006 */ 	beqzl	$s2,.L0f162768
 /*  f162750:	920e0001 */ 	lbu	$t6,0x1($s0)
-/*  f162754:	0fc58962 */ 	jal	func0f162588
+/*  f162754:	0fc58962 */ 	jal	portalPopValue
 /*  f162758:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16275c:	0fc58953 */ 	jal	func0f16254c
+/*  f16275c:	0fc58953 */ 	jal	portalPushValue
 /*  f162760:	2c440001 */ 	sltiu	$a0,$v0,0x1
 /*  f162764:	920e0001 */ 	lbu	$t6,0x1($s0)
 .L0f162768:
@@ -12164,11 +12164,11 @@ glabel var7f1b76bc
 /*  f162770:	020f8021 */ 	addu	$s0,$s0,$t7
 /*  f162774:	52400008 */ 	beqzl	$s2,.L0f162798
 /*  f162778:	92180001 */ 	lbu	$t8,0x1($s0)
-/*  f16277c:	0fc58962 */ 	jal	func0f162588
+/*  f16277c:	0fc58962 */ 	jal	portalPopValue
 /*  f162780:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f162784:	0fc58962 */ 	jal	func0f162588
+/*  f162784:	0fc58962 */ 	jal	portalPopValue
 /*  f162788:	00408825 */ 	or	$s1,$v0,$zero
-/*  f16278c:	0fc58953 */ 	jal	func0f16254c
+/*  f16278c:	0fc58953 */ 	jal	portalPushValue
 /*  f162790:	00512026 */ 	xor	$a0,$v0,$s1
 /*  f162794:	92180001 */ 	lbu	$t8,0x1($s0)
 .L0f162798:
@@ -12187,7 +12187,7 @@ glabel var7f1b76bc
 /*  f1627c8:	0122202a */ 	slt	$a0,$t1,$v0
 /*  f1627cc:	38840001 */ 	xori	$a0,$a0,0x1
 .L0f1627d0:
-/*  f1627d0:	0fc58953 */ 	jal	func0f16254c
+/*  f1627d0:	0fc58953 */ 	jal	portalPushValue
 /*  f1627d4:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1627d8:
 /*  f1627d8:	920a0001 */ 	lbu	$t2,0x1($s0)
@@ -12450,7 +12450,7 @@ glabel var7f1b76bc
 /*  f162b88:	2c980001 */ 	sltiu	$t8,$a0,0x1
 /*  f162b8c:	2f040001 */ 	sltiu	$a0,$t8,0x1
 .L0f162b90:
-/*  f162b90:	0fc58953 */ 	jal	func0f16254c
+/*  f162b90:	0fc58953 */ 	jal	portalPushValue
 /*  f162b94:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162b98:	92190001 */ 	lbu	$t9,0x1($s0)
 .L0f162b9c:
@@ -12484,15 +12484,15 @@ glabel var7f1b76bc
 /*  f162c00:	92190001 */ 	lbu	$t9,0x1($s0)
 /*  f162c04:	02402825 */ 	or	$a1,$s2,$zero
 /*  f162c08:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f162c0c:	0fc5897b */ 	jal	func0f1625ec
+/*  f162c0c:	0fc5897b */ 	jal	portalCommandExecute
 /*  f162c10:	01102021 */ 	addu	$a0,$t0,$s0
 /*  f162c14:	904a0001 */ 	lbu	$t2,0x1($v0)
 /*  f162c18:	000a48c0 */ 	sll	$t1,$t2,0x3
 /*  f162c1c:	1000fe8d */ 	beqz	$zero,.L0f162654
 /*  f162c20:	00498021 */ 	addu	$s0,$v0,$t1
 /*  f162c24:	920b0001 */ 	lbu	$t3,0x1($s0)
-/*  f162c28:	3c01800a */ 	lui	$at,%hi(var800a65d0)
-/*  f162c2c:	ac2065d0 */ 	sw	$zero,%lo(var800a65d0)($at)
+/*  f162c28:	3c01800a */ 	lui	$at,%hi(g_PortalDisableParentExec)
+/*  f162c2c:	ac2065d0 */ 	sw	$zero,%lo(g_PortalDisableParentExec)($at)
 /*  f162c30:	000b60c0 */ 	sll	$t4,$t3,0x3
 /*  f162c34:	10000023 */ 	beqz	$zero,.L0f162cc4
 /*  f162c38:	020c1021 */ 	addu	$v0,$s0,$t4
@@ -12502,18 +12502,18 @@ glabel var7f1b76bc
 /*  f162c48:	000d70c0 */ 	sll	$t6,$t5,0x3
 /*  f162c4c:	1040fe81 */ 	beqz	$v0,.L0f162654
 /*  f162c50:	020e8021 */ 	addu	$s0,$s0,$t6
-/*  f162c54:	3c01800a */ 	lui	$at,%hi(var800a65d0)
+/*  f162c54:	3c01800a */ 	lui	$at,%hi(g_PortalDisableParentExec)
 /*  f162c58:	1000fe7e */ 	beqz	$zero,.L0f162654
-/*  f162c5c:	ac3665d0 */ 	sw	$s6,%lo(var800a65d0)($at)
-/*  f162c60:	0fc58962 */ 	jal	func0f162588
+/*  f162c5c:	ac3665d0 */ 	sw	$s6,%lo(g_PortalDisableParentExec)($at)
+/*  f162c60:	0fc58962 */ 	jal	portalPopValue
 /*  f162c64:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f162c68:	920f0001 */ 	lbu	$t7,0x1($s0)
 /*  f162c6c:	00522824 */ 	and	$a1,$v0,$s2
 /*  f162c70:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f162c74:	0fc5897b */ 	jal	func0f1625ec
+/*  f162c74:	0fc5897b */ 	jal	portalCommandExecute
 /*  f162c78:	03102021 */ 	addu	$a0,$t8,$s0
-/*  f162c7c:	3c19800a */ 	lui	$t9,%hi(var800a65d0)
-/*  f162c80:	8f3965d0 */ 	lw	$t9,%lo(var800a65d0)($t9)
+/*  f162c7c:	3c19800a */ 	lui	$t9,%hi(g_PortalDisableParentExec)
+/*  f162c80:	8f3965d0 */ 	lw	$t9,%lo(g_PortalDisableParentExec)($t9)
 /*  f162c84:	00408025 */ 	or	$s0,$v0,$zero
 /*  f162c88:	5320fe73 */ 	beqzl	$t9,.L0f162658
 /*  f162c8c:	92040000 */ 	lbu	$a0,0x0($s0)
@@ -12545,16 +12545,226 @@ glabel var7f1b76bc
 /*  f162cec:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
+// Mismatch because this uses s8 to store the address of box1,
+// while goal just references the address directly without the register.
+//struct portalcmd *portalCommandExecute(struct portalcmd *cmd, bool execute)
+//{
+//	g_PortalDisableParentExec = false;
+//
+//	if (!cmd) {
+//		return cmd;
+//	}
+//
+//	while (true) {
+//		switch (cmd->type) {
+//		case PORTALCMD_END: // 00 - f1626a4
+//			return cmd;
+//		case PORTALCMD_PUSH: // 01 - f1626ac
+//			if (execute) {
+//				portalPushValue(cmd->param);
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_POP: // 02 - f1626cc
+//			if (execute) {
+//				portalPopValue();
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_AND: // 03 - f1626ec
+//			if (execute) {
+//				portalPushValue(portalPopValue() & portalPopValue());
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_OR: // 04 - f16271c
+//			if (execute) {
+//				portalPushValue(portalPopValue() | portalPopValue());
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_NOT: // 07 - f16274c
+//			if (execute) {
+//				portalPushValue(portalPopValue() == 0);
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_XOR: // 06 - f162774
+//			if (execute) {
+//				portalPushValue(portalPopValue() ^ portalPopValue());
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_14: // 14 - f1627a4 - check if player is in room range
+//			if (execute) {
+//				portalPushValue(var8007fc20 >= cmd[1].param && var8007fc20 <= cmd[2].param);
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_SETMODEVIS: // 1e - f1627e8
+//			if (execute) {
+//				var800a65c0.xmin = g_Vars.currentplayer->screenxminf;
+//				var800a65c0.ymin = g_Vars.currentplayer->screenyminf;
+//				var800a65c0.xmax = g_Vars.currentplayer->screenxmaxf;
+//				var800a65c0.ymax = g_Vars.currentplayer->screenymaxf;
+//				g_PortalMode = PORTALMODE_SHOW;
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_1F: // 1f - f162858 - set visibility to same as portal X
+//			if (execute) {
+//				if ((g_Portals[cmd[1].param].flags & PORTALFLAG_01) == 0
+//						|| (g_Portals[cmd[1].param].flags & PORTALFLAG_04)) {
+//					if (func0f15d10c(cmd[1].param, &var800a65c8) == 0) {
+//						g_PortalMode = PORTALMODE_HIDE;
+//					} else if (func0f15d570(&var800a65c0, &var800a65c8) == 0) {
+//						g_PortalMode = PORTALMODE_HIDE;
+//					} else {
+//						g_PortalMode = PORTALMODE_SHOW;
+//					}
+//				}
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_22: // 22 - f1628d4 - make visible if portal can view room
+//			if (execute) {
+//				if ((g_Portals[cmd[1].param].flags & PORTALFLAG_01) == 0
+//						|| (g_Portals[cmd[1].param].flags & PORTALFLAG_04)) {
+//					struct screenbox box1;
+//					if (func0f15d10c(cmd[1].param, &box1) && func0f15d570(&var800a65c0, &box1)) {
+//						if (g_PortalMode != PORTALMODE_SHOW) {
+//							func0f15d6c4(&var800a65c0, &box1);
+//							g_PortalMode = PORTALMODE_SHOW;
+//						} else {
+//							func0f15d63c(&var800a65c0, &box1);
+//						}
+//					}
+//				}
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_23: // 23 - f162960 - remove visibility if portal can not view room
+//			if (execute) {
+//				if (g_PortalMode == PORTALMODE_SHOW) {
+//					struct screenbox box2;
+//					if ((g_Portals[cmd[1].param].flags & PORTALFLAG_01)
+//							&& (g_Portals[cmd[1].param].flags & PORTALFLAG_04) == 0) {
+//						g_PortalMode = PORTALMODE_HIDE;
+//					} else if (func0f15d10c(cmd[1].param, &box2) == 0) {
+//						g_PortalMode = PORTALMODE_HIDE;
+//					} else if (func0f15d570(&box2, (struct screenbox *)&g_Vars.currentplayer->screenxminf) == 0) {
+//						g_PortalMode = PORTALMODE_HIDE;
+//					} else if (func0f15d570(&var800a65c8, &box2) == 0) {
+//						g_PortalMode = PORTALMODE_HIDE;
+//					}
+//				}
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_20: // 20 - f162a04 - enable room X
+//			if (execute) {
+//				if (g_PortalMode == PORTALMODE_SHOW && func0f15cd90(cmd[1].param, &var800a65c0)) {
+//					func0f157e94(cmd[1].param, 0, &var800a65c0);
+//					var800a4930[var800a4bec++] = cmd[1].param;
+//				}
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_DISABLEROOM: // 24 - f162a70
+//			if (execute) {
+//				g_RoomPtrs[cmd[1].param].flags |= ROOMFLAG_DISABLED;
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_DISABLEROOMRANGE: // 25 - f162ab4
+//			if (execute) {
+//				s32 i;
+//
+//				for (i = cmd[1].param; i <= cmd[2].param; i++) {
+//					g_RoomPtrs[i].flags |= ROOMFLAG_DISABLED;
+//				}
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_LOADROOM: // 26 - f162b1c
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_LOADROOMRANGE: // 27 - f162b2c
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_28: // 28 - f162b3c
+//			if (execute) {
+//				var800a65b8 = true;
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_29: // 29 - f162b58 - copy visible state (true/false) of portal X to stack
+//			if (execute) {
+//				portalPushValue((g_Portals[cmd[1].param].flags & PORTALFLAG_01) == 0
+//						|| !((g_Portals[cmd[1].param].flags & PORTALFLAG_04) == 0));
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_2A: // 2a - f162ba8
+//			if (execute) {
+//				g_RoomPtrs[cmd[1].param].unk07 = 0;
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_SETMODEINVIS: // 21 - f162be4
+//			if (execute) {
+//				g_PortalMode = PORTALMODE_HIDE;
+//			}
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_50: // 50 - f162c00
+//			cmd = portalCommandExecute(cmd + cmd->len, execute);
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_ENABLEPARENTEXEC: // 52 - f162c24
+//			cmd += cmd->len;
+//			g_PortalDisableParentExec = false;
+//			return cmd;
+//		case PORTALCMD_51: // 51 - f162c3c
+//			cmd += cmd->len;
+//			if (execute) {
+//				g_PortalDisableParentExec = true;
+//			}
+//			execute = false;
+//			break;
+//		case PORTALCMD_IF: // 5a - f162c60
+//			cmd = portalCommandExecute(cmd + cmd->len, portalPopValue() & execute);
+//			if (g_PortalDisableParentExec) {
+//				execute = false;
+//			}
+//			break;
+//		case PORTALCMD_TOGGLEEXEC: // 5b - f162c98
+//			execute ^= 1;
+//			cmd += cmd->len;
+//			break;
+//		case PORTALCMD_ENDIF: // 5c - f162cb0
+//			cmd += cmd->len;
+//			return cmd;
+//		default:
+//			return cmd;
+//		}
+//	}
+//
+//	g_PortalDisableParentExec = false;
+//
+//	return cmd;
+//}
+
 GLOBAL_ASM(
 glabel func0f162cf0
 /*  f162cf0:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f162cf4:	3c06800a */ 	lui	$a2,%hi(g_Vars+0x284)
-/*  f162cf8:	3c018008 */ 	lui	$at,%hi(var8007fcac)
+/*  f162cf8:	3c018008 */ 	lui	$at,%hi(g_PortalMode)
 /*  f162cfc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f162d00:	00803825 */ 	or	$a3,$a0,$zero
 /*  f162d04:	8cc6a244 */ 	lw	$a2,%lo(g_Vars+0x284)($a2)
 /*  f162d08:	14800003 */ 	bnez	$a0,.L0f162d18
-/*  f162d0c:	ac20fcac */ 	sw	$zero,%lo(var8007fcac)($at)
+/*  f162d0c:	ac20fcac */ 	sw	$zero,%lo(g_PortalMode)($at)
 /*  f162d10:	1000001e */ 	beqz	$zero,.L0f162d8c
 /*  f162d14:	00801025 */ 	or	$v0,$a0,$zero
 .L0f162d18:
@@ -12585,7 +12795,7 @@ glabel func0f162cf0
 /*  f162d78:	c4c417a0 */ 	lwc1	$f4,0x17a0($a2)
 /*  f162d7c:	4600218d */ 	trunc.w.s	$f6,$f4
 /*  f162d80:	440b3000 */ 	mfc1	$t3,$f6
-/*  f162d84:	0fc5897b */ 	jal	func0f1625ec
+/*  f162d84:	0fc5897b */ 	jal	portalCommandExecute
 /*  f162d88:	a46b0006 */ 	sh	$t3,0x6($v1)
 .L0f162d8c:
 /*  f162d8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -13154,11 +13364,11 @@ glabel func0f163528
 /*  f1635c4:	3c0c800a */ 	lui	$t4,%hi(var800a4ce0)
 /*  f1635c8:	8d8c4ce0 */ 	lw	$t4,%lo(var800a4ce0)($t4)
 /*  f1635cc:	000d7840 */ 	sll	$t7,$t5,0x1
-/*  f1635d0:	3c06800a */ 	lui	$a2,%hi(g_Portals)
+/*  f1635d0:	3c06800a */ 	lui	$a2,%hi(g_PortalThings)
 /*  f1635d4:	018f7021 */ 	addu	$t6,$t4,$t7
 /*  f1635d8:	01d5c021 */ 	addu	$t8,$t6,$s5
 /*  f1635dc:	87130000 */ 	lh	$s3,0x0($t8)
-/*  f1635e0:	24c64cec */ 	addiu	$a2,$a2,%lo(g_Portals)
+/*  f1635e0:	24c64cec */ 	addiu	$a2,$a2,%lo(g_PortalThings)
 /*  f1635e4:	8cd90000 */ 	lw	$t9,0x0($a2)
 /*  f1635e8:	3c058008 */ 	lui	$a1,%hi(var8007fc3c)
 /*  f1635ec:	00132100 */ 	sll	$a0,$s3,0x4
@@ -13210,8 +13420,8 @@ glabel func0f163528
 /*  f16369c:	8cd90000 */ 	lw	$t9,0x0($a2)
 /*  f1636a0:	03241821 */ 	addu	$v1,$t9,$a0
 .L0f1636a4:
-/*  f1636a4:	3c08800a */ 	lui	$t0,%hi(g_PortalSomethings)
-/*  f1636a8:	8d084cc8 */ 	lw	$t0,%lo(g_PortalSomethings)($t0)
+/*  f1636a4:	3c08800a */ 	lui	$t0,%hi(g_Portals)
+/*  f1636a8:	8d084cc8 */ 	lw	$t0,%lo(g_Portals)($t0)
 /*  f1636ac:	001390c0 */ 	sll	$s2,$s3,0x3
 /*  f1636b0:	86290000 */ 	lh	$t1,0x0($s1)
 /*  f1636b4:	01122821 */ 	addu	$a1,$t0,$s2
@@ -13256,8 +13466,8 @@ glabel func0f163528
 /*  f163740:	86240000 */ 	lh	$a0,0x0($s1)
 /*  f163744:	0fc58cb5 */ 	jal	func0f1632d4
 /*  f163748:	27a7005c */ 	addiu	$a3,$sp,0x5c
-/*  f16374c:	3c0e800a */ 	lui	$t6,%hi(g_PortalSomethings)
-/*  f163750:	8dce4cc8 */ 	lw	$t6,%lo(g_PortalSomethings)($t6)
+/*  f16374c:	3c0e800a */ 	lui	$t6,%hi(g_Portals)
+/*  f163750:	8dce4cc8 */ 	lw	$t6,%lo(g_Portals)($t6)
 /*  f163754:	01d22821 */ 	addu	$a1,$t6,$s2
 .L0f163758:
 /*  f163758:	0010b400 */ 	sll	$s6,$s0,0x10
@@ -13423,8 +13633,8 @@ GLOBAL_ASM(
 glabel func0f16397c
 /*  f16397c:	27bdff88 */ 	addiu	$sp,$sp,-120
 /*  f163980:	afb70030 */ 	sw	$s7,0x30($sp)
-/*  f163984:	3c17800a */ 	lui	$s7,%hi(g_PortalSomethings)
-/*  f163988:	26f74cc8 */ 	addiu	$s7,$s7,%lo(g_PortalSomethings)
+/*  f163984:	3c17800a */ 	lui	$s7,%hi(g_Portals)
+/*  f163988:	26f74cc8 */ 	addiu	$s7,$s7,%lo(g_Portals)
 /*  f16398c:	afb00014 */ 	sw	$s0,0x14($sp)
 /*  f163990:	8eea0000 */ 	lw	$t2,0x0($s7)
 /*  f163994:	3c108008 */ 	lui	$s0,%hi(var8007fc38)
@@ -13866,10 +14076,10 @@ glabel func0f163e34
 /*  f163ff0:	0fc58b3c */ 	jal	func0f162cf0
 /*  f163ff4:	8c844cd4 */ 	lw	$a0,%lo(var800a4cd4)($a0)
 /*  f163ff8:	8e180000 */ 	lw	$t8,0x0($s0)
-/*  f163ffc:	3c19800a */ 	lui	$t9,%hi(g_PortalSomethings)
+/*  f163ffc:	3c19800a */ 	lui	$t9,%hi(g_Portals)
 /*  f164000:	1700004b */ 	bnez	$t8,.L0f164130
 /*  f164004:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f164008:	8f394cc8 */ 	lw	$t9,%lo(g_PortalSomethings)($t9)
+/*  f164008:	8f394cc8 */ 	lw	$t9,%lo(g_Portals)($t9)
 /*  f16400c:	3c108008 */ 	lui	$s0,%hi(var8007fc20)
 /*  f164010:	27b10038 */ 	addiu	$s1,$sp,0x38
 /*  f164014:	97290000 */ 	lhu	$t1,0x0($t9)
@@ -14288,10 +14498,10 @@ glabel func0f1645a8
 /*  f1645dc:	00c08825 */ 	or	$s1,$a2,$zero
 /*  f1645e0:	1920002c */ 	blez	$t1,.L0f164694
 /*  f1645e4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f1645e8:	3c0d800a */ 	lui	$t5,%hi(g_PortalSomethings)
+/*  f1645e8:	3c0d800a */ 	lui	$t5,%hi(g_Portals)
 /*  f1645ec:	3c0c800a */ 	lui	$t4,%hi(var800a4ce0)
 /*  f1645f0:	258c4ce0 */ 	addiu	$t4,$t4,%lo(var800a4ce0)
-/*  f1645f4:	25ad4cc8 */ 	addiu	$t5,$t5,%lo(g_PortalSomethings)
+/*  f1645f4:	25ad4cc8 */ 	addiu	$t5,$t5,%lo(g_Portals)
 /*  f1645f8:	00002825 */ 	or	$a1,$zero,$zero
 /*  f1645fc:	8518000e */ 	lh	$t8,0xe($t0)
 .L0f164600:
@@ -14363,10 +14573,10 @@ glabel func0f1646b8
 /*  f1646dc:	00001025 */ 	or	$v0,$zero,$zero
 /*  f1646e0:	3c18800a */ 	lui	$t8,%hi(var800a4ce0)
 /*  f1646e4:	18c00015 */ 	blez	$a2,.L0f16473c
-/*  f1646e8:	3c07800a */ 	lui	$a3,%hi(g_PortalSomethings)
+/*  f1646e8:	3c07800a */ 	lui	$a3,%hi(g_Portals)
 /*  f1646ec:	8479000e */ 	lh	$t9,0xe($v1)
 /*  f1646f0:	8f184ce0 */ 	lw	$t8,%lo(var800a4ce0)($t8)
-/*  f1646f4:	8ce74cc8 */ 	lw	$a3,%lo(g_PortalSomethings)($a3)
+/*  f1646f4:	8ce74cc8 */ 	lw	$a3,%lo(g_Portals)($a3)
 /*  f1646f8:	00194840 */ 	sll	$t1,$t9,0x1
 /*  f1646fc:	03092021 */ 	addu	$a0,$t8,$t1
 .L0f164700:
@@ -14521,10 +14731,10 @@ glabel func0f1648cc
 /*  f164904:	00002825 */ 	or	$a1,$zero,$zero
 /*  f164908:	19000047 */ 	blez	$t0,.L0f164a28
 /*  f16490c:	00005025 */ 	or	$t2,$zero,$zero
-/*  f164910:	3c11800a */ 	lui	$s1,%hi(g_PortalSomethings)
+/*  f164910:	3c11800a */ 	lui	$s1,%hi(g_Portals)
 /*  f164914:	3c10800a */ 	lui	$s0,%hi(var800a4ce0)
 /*  f164918:	26104ce0 */ 	addiu	$s0,$s0,%lo(var800a4ce0)
-/*  f16491c:	26314cc8 */ 	addiu	$s1,$s1,%lo(g_PortalSomethings)
+/*  f16491c:	26314cc8 */ 	addiu	$s1,$s1,%lo(g_Portals)
 /*  f164920:	2412000c */ 	addiu	$s2,$zero,0xc
 .L0f164924:
 /*  f164924:	84ef000e */ 	lh	$t7,0xe($a3)
@@ -14603,8 +14813,8 @@ glabel func0f1648cc
 /*  f164a30:	8fb2000c */ 	lw	$s2,0xc($sp)
 /*  f164a34:	03e00008 */ 	jr	$ra
 /*  f164a38:	27bd0010 */ 	addiu	$sp,$sp,0x10
-/*  f164a3c:	3c03800a */ 	lui	$v1,%hi(g_PortalSomethings)
-/*  f164a40:	8c634cc8 */ 	lw	$v1,%lo(g_PortalSomethings)($v1)
+/*  f164a3c:	3c03800a */ 	lui	$v1,%hi(g_Portals)
+/*  f164a40:	8c634cc8 */ 	lw	$v1,%lo(g_Portals)($v1)
 /*  f164a44:	00001025 */ 	or	$v0,$zero,$zero
 /*  f164a48:	946e0000 */ 	lhu	$t6,0x0($v1)
 /*  f164a4c:	51c0000c */ 	beqzl	$t6,.L0f164a80
@@ -14629,8 +14839,8 @@ glabel func0f1648cc
 
 GLOBAL_ASM(
 glabel func0f164a88
-/*  f164a88:	3c06800a */ 	lui	$a2,%hi(g_PortalSomethings)
-/*  f164a8c:	24c64cc8 */ 	addiu	$a2,$a2,%lo(g_PortalSomethings)
+/*  f164a88:	3c06800a */ 	lui	$a2,%hi(g_Portals)
+/*  f164a8c:	24c64cc8 */ 	addiu	$a2,$a2,%lo(g_Portals)
 /*  f164a90:	8cce0000 */ 	lw	$t6,0x0($a2)
 /*  f164a94:	000418c0 */ 	sll	$v1,$a0,0x3
 /*  f164a98:	01c32821 */ 	addu	$a1,$t6,$v1
@@ -14645,8 +14855,8 @@ glabel func0f164a88
 
 GLOBAL_ASM(
 glabel func0f164ab8
-/*  f164ab8:	3c0e800a */ 	lui	$t6,%hi(g_PortalSomethings)
-/*  f164abc:	8dce4cc8 */ 	lw	$t6,%lo(g_PortalSomethings)($t6)
+/*  f164ab8:	3c0e800a */ 	lui	$t6,%hi(g_Portals)
+/*  f164abc:	8dce4cc8 */ 	lw	$t6,%lo(g_Portals)($t6)
 /*  f164ac0:	27bdffa8 */ 	addiu	$sp,$sp,-88
 /*  f164ac4:	000478c0 */ 	sll	$t7,$a0,0x3
 /*  f164ac8:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -14777,8 +14987,8 @@ glabel func0f164c64
 /*  f164ca4:	1b000062 */ 	blez	$t8,.L0f164e30
 /*  f164ca8:	00004025 */ 	or	$t0,$zero,$zero
 /*  f164cac:	3c09800a */ 	lui	$t1,%hi(var800a4ccc)
-/*  f164cb0:	3c0a800a */ 	lui	$t2,%hi(g_PortalSomethings)
-/*  f164cb4:	8d4a4cc8 */ 	lw	$t2,%lo(g_PortalSomethings)($t2)
+/*  f164cb0:	3c0a800a */ 	lui	$t2,%hi(g_Portals)
+/*  f164cb4:	8d4a4cc8 */ 	lw	$t2,%lo(g_Portals)($t2)
 /*  f164cb8:	8d294ccc */ 	lw	$t1,%lo(var800a4ccc)($t1)
 /*  f164cbc:	8ce74ce0 */ 	lw	$a3,%lo(var800a4ce0)($a3)
 /*  f164cc0:	24130014 */ 	addiu	$s3,$zero,0x14
@@ -14892,8 +15102,8 @@ glabel func0f164c64
 
 GLOBAL_ASM(
 glabel portalSetEnabled
-/*  f164e48:	3c0e800a */ 	lui	$t6,%hi(g_PortalSomethings)
-/*  f164e4c:	8dce4cc8 */ 	lw	$t6,%lo(g_PortalSomethings)($t6)
+/*  f164e48:	3c0e800a */ 	lui	$t6,%hi(g_Portals)
+/*  f164e4c:	8dce4cc8 */ 	lw	$t6,%lo(g_Portals)($t6)
 /*  f164e50:	000478c0 */ 	sll	$t7,$a0,0x3
 /*  f164e54:	0005402b */ 	sltu	$t0,$zero,$a1
 /*  f164e58:	01cf1021 */ 	addu	$v0,$t6,$t7
@@ -14919,8 +15129,8 @@ glabel var7f1b76c4
 .text
 /*  f164e8c:	27bdffb8 */ 	addiu	$sp,$sp,-72
 /*  f164e90:	afb6003c */ 	sw	$s6,0x3c($sp)
-/*  f164e94:	3c16800a */ 	lui	$s6,%hi(g_PortalSomethings)
-/*  f164e98:	26d64cc8 */ 	addiu	$s6,$s6,%lo(g_PortalSomethings)
+/*  f164e94:	3c16800a */ 	lui	$s6,%hi(g_Portals)
+/*  f164e98:	26d64cc8 */ 	addiu	$s6,$s6,%lo(g_Portals)
 /*  f164e9c:	8ece0000 */ 	lw	$t6,0x0($s6)
 /*  f164ea0:	afbf0044 */ 	sw	$ra,0x44($sp)
 /*  f164ea4:	afb70040 */ 	sw	$s7,0x40($sp)
@@ -15039,11 +15249,11 @@ glabel var7f1b76cc
 /*  f165014:	e4a00000 */ 	swc1	$f0,0x0($a1)
 /*  f165018:	e4a00004 */ 	swc1	$f0,0x4($a1)
 /*  f16501c:	e4a00008 */ 	swc1	$f0,0x8($a1)
-/*  f165020:	3c03800a */ 	lui	$v1,%hi(g_PortalSomethings)
+/*  f165020:	3c03800a */ 	lui	$v1,%hi(g_Portals)
 /*  f165024:	e4c20000 */ 	swc1	$f2,0x0($a2)
 /*  f165028:	e4c20004 */ 	swc1	$f2,0x4($a2)
 /*  f16502c:	e4c20008 */ 	swc1	$f2,0x8($a2)
-/*  f165030:	8c634cc8 */ 	lw	$v1,%lo(g_PortalSomethings)($v1)
+/*  f165030:	8c634cc8 */ 	lw	$v1,%lo(g_Portals)($v1)
 /*  f165034:	000470c0 */ 	sll	$t6,$a0,0x3
 /*  f165038:	00003825 */ 	or	$a3,$zero,$zero
 /*  f16503c:	006e7821 */ 	addu	$t7,$v1,$t6
@@ -15106,7 +15316,7 @@ glabel func0f1650d0
 /*  f1650fc:	afa600b8 */ 	sw	$a2,0xb8($sp)
 /*  f165100:	c4840000 */ 	lwc1	$f4,0x0($a0)
 /*  f165104:	2401ffff */ 	addiu	$at,$zero,-1
-/*  f165108:	3c14800a */ 	lui	$s4,%hi(g_PortalSomethings)
+/*  f165108:	3c14800a */ 	lui	$s4,%hi(g_Portals)
 /*  f16510c:	e7a4009c */ 	swc1	$f4,0x9c($sp)
 /*  f165110:	c4860004 */ 	lwc1	$f6,0x4($a0)
 /*  f165114:	00e0b825 */ 	or	$s7,$a3,$zero
@@ -15117,7 +15327,7 @@ glabel func0f1650d0
 /*  f165128:	00c09825 */ 	or	$s3,$a2,$zero
 /*  f16512c:	e7a800a4 */ 	swc1	$f8,0xa4($sp)
 /*  f165130:	c4aa0000 */ 	lwc1	$f10,0x0($a1)
-/*  f165134:	26944cc8 */ 	addiu	$s4,$s4,%lo(g_PortalSomethings)
+/*  f165134:	26944cc8 */ 	addiu	$s4,$s4,%lo(g_Portals)
 /*  f165138:	8fb900b8 */ 	lw	$t9,0xb8($sp)
 /*  f16513c:	e7aa0090 */ 	swc1	$f10,0x90($sp)
 /*  f165140:	c4b00004 */ 	lwc1	$f16,0x4($a1)

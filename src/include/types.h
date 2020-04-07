@@ -2103,10 +2103,10 @@ struct player {
 	/*0x1778*/ u32 c_lodscalezu32;
 	/*0x177c*/ struct coord c_cameratopnorm;
 	/*0x1788*/ struct coord c_cameraleftnorm;
-	/*0x1794*/ u32 unk1794;
-	/*0x1798*/ u32 unk1798;
-	/*0x179c*/ u32 unk179c;
-	/*0x17a0*/ u32 unk17a0;
+	/*0x1794*/ f32 screenxminf;
+	/*0x1798*/ f32 screenyminf;
+	/*0x179c*/ f32 screenxmaxf;
+	/*0x17a0*/ f32 screenymaxf;
 	/*0x17a4*/ u32 unk17a4;
 	/*0x17a8*/ u32 unk17a8;
 	/*0x17ac*/ u32 unk17ac;
@@ -2822,7 +2822,12 @@ struct roombitfield {
 
 struct room {
 	/*0x00*/ u16 flags;
-	/*0x04*/ u32 unk04;
+	/*0x02*/ u8 unk02;
+	/*0x03*/ u8 unk03;
+	/*0x04*/ u8 unk04;
+	/*0x05*/ u8 unk05;
+	/*0x06*/ u8 unk06;
+	/*0x07*/ u8 unk07;
 	/*0x08*/ u32 unk08;
 	/*0x0c*/ u32 unk0c;
 	/*0x10*/ u32 unk10;
@@ -4078,13 +4083,13 @@ struct scenariodata {
 	};
 };
 
-struct portalsomething {
+struct portal {
 	u32 unk00;
 	u16 unk04;
 	u8 flags;
 };
 
-struct portal {
+struct portalthing {
 	u16 unk00;
 	u16 unk02;
 	u16 unk04;
@@ -5407,6 +5412,19 @@ struct var800aabb8 {
 struct fileinfo {
 	u32 unk00;
 	u32 unk04;
+};
+
+struct portalcmd {
+	u8 type;
+	u8 len;
+	s32 param;
+};
+
+struct screenbox {
+	s16 xmin;
+	s16 ymin;
+	s16 xmax;
+	s16 ymax;
 };
 
 #endif

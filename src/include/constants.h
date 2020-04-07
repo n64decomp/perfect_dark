@@ -1807,6 +1807,41 @@
 
 #define PLAYERFLAG_NOCONTROL 0x00000002
 
+#define PORTALCMD_END              0x00
+#define PORTALCMD_PUSH             0x01
+#define PORTALCMD_POP              0x02
+#define PORTALCMD_AND              0x03
+#define PORTALCMD_OR               0x04
+#define PORTALCMD_NOT              0x05
+#define PORTALCMD_XOR              0x06
+#define PORTALCMD_14               0x14
+#define PORTALCMD_SETMODEVIS       0x1e
+#define PORTALCMD_1F               0x1f
+#define PORTALCMD_20               0x20
+#define PORTALCMD_SETMODEINVIS     0x21
+#define PORTALCMD_22               0x22
+#define PORTALCMD_23               0x23
+#define PORTALCMD_DISABLEROOM      0x24
+#define PORTALCMD_DISABLEROOMRANGE 0x25
+#define PORTALCMD_LOADROOM         0x26
+#define PORTALCMD_LOADROOMRANGE    0x27
+#define PORTALCMD_28               0x28
+#define PORTALCMD_29               0x29
+#define PORTALCMD_2A               0x2a
+#define PORTALCMD_50               0x50
+#define PORTALCMD_51               0x51
+#define PORTALCMD_ENABLEPARENTEXEC 0x52
+#define PORTALCMD_IF               0x5a
+#define PORTALCMD_TOGGLEEXEC       0x5b
+#define PORTALCMD_ENDIF            0x5c
+#define PORTALCMD_TRAILER          0x65
+
+#define PORTALFLAG_01 0x01
+#define PORTALFLAG_04 0x04
+
+#define PORTALMODE_SHOW 0
+#define PORTALMODE_HIDE 1
+
 #define PROPFLAG_02     0x02
 #define PROPFLAG_HIDDEN 0x04
 #define PROPFLAG_40     0x40
@@ -1827,9 +1862,10 @@
 #define RACE_EYESPY   3
 #define RACE_ROBOT    4
 
-#define ROOMFLAG_ACTIVE 0x0004
-#define ROOMFLAG_4000   0x4000
-#define ROOMFLAG_8000   0x8000
+#define ROOMFLAG_DISABLED 0x0001
+#define ROOMFLAG_ACTIVE   0x0004
+#define ROOMFLAG_4000     0x4000
+#define ROOMFLAG_8000     0x8000
 
 #define SAVEFILEFLAG_P1_FORWARDPITCH      0x00
 #define SAVEFILEFLAG_P1_AUTOAIM           0x01
