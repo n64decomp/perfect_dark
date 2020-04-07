@@ -11887,32 +11887,21 @@ glabel func0f162194
 /*  f162548:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-GLOBAL_ASM(
-glabel portalPushValue
-/*  f16254c:	3c058008 */ 	lui	$a1,%hi(var8007fca8)
-/*  f162550:	24a5fca8 */ 	addiu	$a1,$a1,%lo(var8007fca8)
-/*  f162554:	8ca30000 */ 	lw	$v1,0x0($a1)
-/*  f162558:	3c018008 */ 	lui	$at,%hi(var8007fc58)
-/*  f16255c:	00801025 */ 	or	$v0,$a0,$zero
-/*  f162560:	00037080 */ 	sll	$t6,$v1,0x2
-/*  f162564:	002e0821 */ 	addu	$at,$at,$t6
-/*  f162568:	ac24fc58 */ 	sw	$a0,%lo(var8007fc58)($at)
-/*  f16256c:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f162570:	246f0001 */ 	addiu	$t7,$v1,0x1
-/*  f162574:	01e1001a */ 	div	$zero,$t7,$at
-/*  f162578:	0000c010 */ 	mfhi	$t8
-/*  f16257c:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f162580:	03e00008 */ 	jr	$ra
-/*  f162584:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool portalPushValue(bool value)
+{
+	g_PortalStack[g_PortalStackIndex] = value;
+	g_PortalStackIndex = (g_PortalStackIndex + 1) % 20;
+
+	return value;
+}
 
 GLOBAL_ASM(
 glabel portalPopValue
-/*  f162588:	3c048008 */ 	lui	$a0,%hi(var8007fca8)
-/*  f16258c:	2484fca8 */ 	addiu	$a0,$a0,%lo(var8007fca8)
+/*  f162588:	3c048008 */ 	lui	$a0,%hi(g_PortalStackIndex)
+/*  f16258c:	2484fca8 */ 	addiu	$a0,$a0,%lo(g_PortalStackIndex)
 /*  f162590:	8c8e0000 */ 	lw	$t6,0x0($a0)
 /*  f162594:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f162598:	3c038008 */ 	lui	$v1,%hi(var8007fc58)
+/*  f162598:	3c038008 */ 	lui	$v1,%hi(g_PortalStack)
 /*  f16259c:	25cf0013 */ 	addiu	$t7,$t6,0x13
 /*  f1625a0:	01e1001a */ 	div	$zero,$t7,$at
 /*  f1625a4:	0000c010 */ 	mfhi	$t8
@@ -11920,15 +11909,15 @@ glabel portalPopValue
 /*  f1625ac:	00681821 */ 	addu	$v1,$v1,$t0
 /*  f1625b0:	ac980000 */ 	sw	$t8,0x0($a0)
 /*  f1625b4:	03e00008 */ 	jr	$ra
-/*  f1625b8:	8c62fc58 */ 	lw	$v0,%lo(var8007fc58)($v1)
+/*  f1625b8:	8c62fc58 */ 	lw	$v0,%lo(g_PortalStack)($v1)
 );
 
 GLOBAL_ASM(
 glabel func0f1625bc
-/*  f1625bc:	3c0e8008 */ 	lui	$t6,%hi(var8007fca8)
-/*  f1625c0:	8dcefca8 */ 	lw	$t6,%lo(var8007fca8)($t6)
+/*  f1625bc:	3c0e8008 */ 	lui	$t6,%hi(g_PortalStackIndex)
+/*  f1625c0:	8dcefca8 */ 	lw	$t6,%lo(g_PortalStackIndex)($t6)
 /*  f1625c4:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f1625c8:	3c028008 */ 	lui	$v0,%hi(var8007fc58)
+/*  f1625c8:	3c028008 */ 	lui	$v0,%hi(g_PortalStack)
 /*  f1625cc:	01c47823 */ 	subu	$t7,$t6,$a0
 /*  f1625d0:	25f80013 */ 	addiu	$t8,$t7,0x13
 /*  f1625d4:	0301001a */ 	div	$zero,$t8,$at
@@ -11936,7 +11925,7 @@ glabel func0f1625bc
 /*  f1625dc:	00194080 */ 	sll	$t0,$t9,0x2
 /*  f1625e0:	00481021 */ 	addu	$v0,$v0,$t0
 /*  f1625e4:	03e00008 */ 	jr	$ra
-/*  f1625e8:	8c42fc58 */ 	lw	$v0,%lo(var8007fc58)($v0)
+/*  f1625e8:	8c42fc58 */ 	lw	$v0,%lo(g_PortalStack)($v0)
 );
 
 GLOBAL_ASM(
