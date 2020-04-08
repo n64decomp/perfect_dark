@@ -85,7 +85,7 @@ u32 func0f1a1c98(void);
 u32 func0f1a1d10(void);
 u32 func0f1a1d68(u32 arg0);
 u32 func0f1a1de0(void);
-u32 func0f1a1e38(u32 arg0);
+u32 ciGetStageFlagByDeviceIndex(u32 deviceindex);
 u32 func0f1a1e90(void);
 u32 func0f1a1f00(void);
 u32 func0f1a1f70(void);

@@ -6023,7 +6023,7 @@ void dtBegin(void)
 	chrUnsetStageFlag(NULL, 0x00000004);
 	chrUnsetStageFlag(NULL, 0x00000008);
 	chrUnsetStageFlag(NULL, 0x00000010);
-	chrSetStageFlag(NULL, func0f1a1e38(func0f1a1d68(var80088ad8)));
+	chrSetStageFlag(NULL, ciGetStageFlagByDeviceIndex(func0f1a1d68(var80088ad8)));
 	g_Vars.currentplayer->deadtimer = 1;
 	playersSetPassiveMode(false);
 	chrSetStageFlag(NULL, 0x00000001);
@@ -6051,7 +6051,7 @@ glabel func0f1a1bec
 /*  f1a1c30:	3c048009 */ 	lui	$a0,%hi(var80088ad8)
 /*  f1a1c34:	0fc6875a */ 	jal	func0f1a1d68
 /*  f1a1c38:	90848ad8 */ 	lbu	$a0,%lo(var80088ad8)($a0)
-/*  f1a1c3c:	0fc6878e */ 	jal	func0f1a1e38
+/*  f1a1c3c:	0fc6878e */ 	jal	ciGetStageFlagByDeviceIndex
 /*  f1a1c40:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a1c44:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a1c48:	0fc127d2 */ 	jal	chrUnsetStageFlag
@@ -6206,32 +6206,12 @@ glabel func0f1a1de0
 /*  f1a1e34:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f1a1e38
-/*  f1a1e38:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a1e3c:	3c0e8009 */ 	lui	$t6,%hi(var80088b14)
-/*  f1a1e40:	27a30000 */ 	addiu	$v1,$sp,0x0
-/*  f1a1e44:	25ce8b14 */ 	addiu	$t6,$t6,%lo(var80088b14)
-/*  f1a1e48:	25d90024 */ 	addiu	$t9,$t6,0x24
-/*  f1a1e4c:	00604025 */ 	or	$t0,$v1,$zero
-.L0f1a1e50:
-/*  f1a1e50:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a1e54:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f1a1e58:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f1a1e5c:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f1a1e60:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f1a1e64:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f1a1e68:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f1a1e6c:	15d9fff8 */ 	bne	$t6,$t9,.L0f1a1e50
-/*  f1a1e70:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f1a1e74:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a1e78:	00044880 */ 	sll	$t1,$a0,0x2
-/*  f1a1e7c:	00695021 */ 	addu	$t2,$v1,$t1
-/*  f1a1e80:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f1a1e84:	8d420000 */ 	lw	$v0,0x0($t2)
-/*  f1a1e88:	03e00008 */ 	jr	$ra
-/*  f1a1e8c:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
+{
+	u32 flags[10] = g_CiDeviceStageFlags;
+
+	return flags[deviceindex];
+}
 
 GLOBAL_ASM(
 glabel func0f1a1e90

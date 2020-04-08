@@ -35,7 +35,7 @@ extern u8 var80088ad8;
 extern u32 var80088adc;
 extern u32 var80088ae0;
 extern u32 var80088aec;
-extern u32 var80088b14;
+extern u32 g_CiDeviceStageFlags[10];
 extern u32 device_descriptions[];
 extern u32 device_tips1[];
 extern u32 device_tips2[];
