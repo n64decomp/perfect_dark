@@ -2822,8 +2822,7 @@ struct roombitfield {
 
 struct room {
 	/*0x00*/ u16 flags;
-	/*0x02*/ u8 unk02;
-	/*0x03*/ u8 unk03;
+	/*0x02*/ s16 unk02;
 	/*0x04*/ u8 unk04;
 	/*0x05*/ u8 unk05;
 	/*0x06*/ u8 unk06;
