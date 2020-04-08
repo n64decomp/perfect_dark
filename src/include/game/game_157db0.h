@@ -47,7 +47,7 @@ void boxCopy(struct screenbox *dst, struct screenbox *src);
 bool roomIsActive(s32 room_id);
 u32 func0f15d744(void);
 bool roomIsVisibleByPlayer(s16 room, u32 playernum);
-u32 func0f15d808(void);
+bool roomIsVisibleByAibot(u32 room, u32 aibotindex);
 u32 func0f15d870(void);
 u32 func0f15d9a8(void);
 u32 func0f15da00(void);
