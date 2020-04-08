@@ -218,7 +218,7 @@ glabel func0f157e94
 /*  f157fb4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f157fb8:	a4e30000 */ 	sh	$v1,0x0($a3)
 .L0f157fbc:
-/*  f157fbc:	0fc5758f */ 	jal	func0f15d63c
+/*  f157fbc:	0fc5758f */ 	jal	boxExpand
 /*  f157fc0:	00c02825 */ 	or	$a1,$a2,$zero
 /*  f157fc4:	1000004d */ 	beqz	$zero,.L0f1580fc
 /*  f157fc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -6236,47 +6236,13 @@ bool boxGetIntersection(struct screenbox *a, struct screenbox *b)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f15d63c
-/*  f15d63c:	84820000 */ 	lh	$v0,0x0($a0)
-/*  f15d640:	84a30000 */ 	lh	$v1,0x0($a1)
-/*  f15d644:	0043082a */ 	slt	$at,$v0,$v1
-/*  f15d648:	50200004 */ 	beqzl	$at,.L0f15d65c
-/*  f15d64c:	a4830000 */ 	sh	$v1,0x0($a0)
-/*  f15d650:	10000002 */ 	beqz	$zero,.L0f15d65c
-/*  f15d654:	a4820000 */ 	sh	$v0,0x0($a0)
-/*  f15d658:	a4830000 */ 	sh	$v1,0x0($a0)
-.L0f15d65c:
-/*  f15d65c:	84820002 */ 	lh	$v0,0x2($a0)
-/*  f15d660:	84a30002 */ 	lh	$v1,0x2($a1)
-/*  f15d664:	0043082a */ 	slt	$at,$v0,$v1
-/*  f15d668:	50200004 */ 	beqzl	$at,.L0f15d67c
-/*  f15d66c:	a4830002 */ 	sh	$v1,0x2($a0)
-/*  f15d670:	10000002 */ 	beqz	$zero,.L0f15d67c
-/*  f15d674:	a4820002 */ 	sh	$v0,0x2($a0)
-/*  f15d678:	a4830002 */ 	sh	$v1,0x2($a0)
-.L0f15d67c:
-/*  f15d67c:	84a20004 */ 	lh	$v0,0x4($a1)
-/*  f15d680:	84830004 */ 	lh	$v1,0x4($a0)
-/*  f15d684:	0043082a */ 	slt	$at,$v0,$v1
-/*  f15d688:	50200004 */ 	beqzl	$at,.L0f15d69c
-/*  f15d68c:	a4820004 */ 	sh	$v0,0x4($a0)
-/*  f15d690:	10000002 */ 	beqz	$zero,.L0f15d69c
-/*  f15d694:	a4830004 */ 	sh	$v1,0x4($a0)
-/*  f15d698:	a4820004 */ 	sh	$v0,0x4($a0)
-.L0f15d69c:
-/*  f15d69c:	84a20006 */ 	lh	$v0,0x6($a1)
-/*  f15d6a0:	84830006 */ 	lh	$v1,0x6($a0)
-/*  f15d6a4:	0043082a */ 	slt	$at,$v0,$v1
-/*  f15d6a8:	50200004 */ 	beqzl	$at,.L0f15d6bc
-/*  f15d6ac:	a4820006 */ 	sh	$v0,0x6($a0)
-/*  f15d6b0:	03e00008 */ 	jr	$ra
-/*  f15d6b4:	a4830006 */ 	sh	$v1,0x6($a0)
-/*  f15d6b8:	a4820006 */ 	sh	$v0,0x6($a0)
-.L0f15d6bc:
-/*  f15d6bc:	03e00008 */ 	jr	$ra
-/*  f15d6c0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void boxExpand(struct screenbox *a, struct screenbox *b)
+{
+	a->xmin = a->xmin < b->xmin ? a->xmin : b->xmin;
+	a->ymin = a->ymin < b->ymin ? a->ymin : b->ymin;
+	a->xmax = a->xmax > b->xmax ? a->xmax : b->xmax;
+	a->ymax = a->ymax > b->ymax ? a->ymax : b->ymax;
+}
 
 void boxCopy(struct screenbox *dst, struct screenbox *src)
 {
@@ -12232,7 +12198,7 @@ glabel var7f1b76bc
 /*  f162940:	10000003 */ 	beqz	$zero,.L0f162950
 /*  f162944:	ae600000 */ 	sw	$zero,0x0($s3)
 .L0f162948:
-/*  f162948:	0fc5758f */ 	jal	func0f15d63c
+/*  f162948:	0fc5758f */ 	jal	boxExpand
 /*  f16294c:	27a50054 */ 	addiu	$a1,$sp,0x54
 .L0f162950:
 /*  f162950:	920f0001 */ 	lbu	$t7,0x1($s0)
@@ -12579,7 +12545,7 @@ glabel var7f1b76bc
 //							boxCopy(&var800a65c0, &box1);
 //							g_PortalMode = PORTALMODE_SHOW;
 //						} else {
-//							func0f15d63c(&var800a65c0, &box1);
+//							boxExpand(&var800a65c0, &box1);
 //						}
 //					}
 //				}
@@ -13174,7 +13140,7 @@ glabel func0f1632d4
 /*  f1633e4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1633e8:	24e40010 */ 	addiu	$a0,$a3,0x10
 /*  f1633ec:	8fa5004c */ 	lw	$a1,0x4c($sp)
-/*  f1633f0:	0fc5758f */ 	jal	func0f15d63c
+/*  f1633f0:	0fc5758f */ 	jal	boxExpand
 /*  f1633f4:	afa20024 */ 	sw	$v0,0x24($sp)
 /*  f1633f8:	8fa20024 */ 	lw	$v0,0x24($sp)
 /*  f1633fc:	87af0042 */ 	lh	$t7,0x42($sp)
@@ -13490,7 +13456,7 @@ glabel func0f163528
 /*  f163864:	a7a50062 */ 	sh	$a1,0x62($sp)
 /*  f163868:	27a4005c */ 	addiu	$a0,$sp,0x5c
 .L0f16386c:
-/*  f16386c:	0fc5758f */ 	jal	func0f15d63c
+/*  f16386c:	0fc5758f */ 	jal	boxExpand
 /*  f163870:	03c02825 */ 	or	$a1,$s8,$zero
 .L0f163874:
 /*  f163874:	26940001 */ 	addiu	$s4,$s4,0x1
