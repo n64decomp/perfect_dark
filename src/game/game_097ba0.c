@@ -21196,92 +21196,14 @@ glabel var7f1acbac
 /*  f0a92a8:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-GLOBAL_ASM(
-glabel func0f0a92ac
-/*  f0a92ac:	3c09800a */ 	lui	$t1,%hi(g_Vars)
-/*  f0a92b0:	25299fc0 */ 	addiu	$t1,$t1,%lo(g_Vars)
-/*  f0a92b4:	8d2e006c */ 	lw	$t6,0x6c($t1)
-/*  f0a92b8:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f0a92bc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0a92c0:	11c00003 */ 	beqz	$t6,.L0f0a92d0
-/*  f0a92c4:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0a92c8:	10000001 */ 	beqz	$zero,.L0f0a92d0
-/*  f0a92cc:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0a92d0:
-/*  f0a92d0:	8d2f0068 */ 	lw	$t7,0x68($t1)
-/*  f0a92d4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a92d8:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a92dc:	11e00003 */ 	beqz	$t7,.L0f0a92ec
-/*  f0a92e0:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0a92e4:	10000001 */ 	beqz	$zero,.L0f0a92ec
-/*  f0a92e8:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0a92ec:
-/*  f0a92ec:	8d380064 */ 	lw	$t8,0x64($t1)
-/*  f0a92f0:	8fae0000 */ 	lw	$t6,0x0($sp)
-/*  f0a92f4:	13000003 */ 	beqz	$t8,.L0f0a9304
-/*  f0a92f8:	31c80001 */ 	andi	$t0,$t6,0x1
-/*  f0a92fc:	10000001 */ 	beqz	$zero,.L0f0a9304
-/*  f0a9300:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0a9304:
-/*  f0a9304:	8d390070 */ 	lw	$t9,0x70($t1)
-/*  f0a9308:	00026880 */ 	sll	$t5,$v0,0x2
-/*  f0a930c:	012d3821 */ 	addu	$a3,$t1,$t5
-/*  f0a9310:	13200003 */ 	beqz	$t9,.L0f0a9320
-/*  f0a9314:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a9318:	10000001 */ 	beqz	$zero,.L0f0a9320
-/*  f0a931c:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0a9320:
-/*  f0a9320:	00c55021 */ 	addu	$t2,$a2,$a1
-/*  f0a9324:	01445821 */ 	addu	$t3,$t2,$a0
-/*  f0a9328:	01636021 */ 	addu	$t4,$t3,$v1
-/*  f0a932c:	19800026 */ 	blez	$t4,.L0f0a93c8
-/*  f0a9330:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a9334:	8ce30064 */ 	lw	$v1,0x64($a3)
-.L0f0a9338:
-/*  f0a9338:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f0a933c:	24e70004 */ 	addiu	$a3,$a3,0x4
-/*  f0a9340:	90781583 */ 	lbu	$t8,0x1583($v1)
-/*  f0a9344:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0a9348:	00002825 */ 	or	$a1,$zero,$zero
-/*  f0a934c:	3319fffe */ 	andi	$t9,$t8,0xfffe
-/*  f0a9350:	01195025 */ 	or	$t2,$t0,$t9
-/*  f0a9354:	a06a1583 */ 	sb	$t2,0x1583($v1)
-/*  f0a9358:	8d2b006c */ 	lw	$t3,0x6c($t1)
-/*  f0a935c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f0a9360:	00003025 */ 	or	$a2,$zero,$zero
-/*  f0a9364:	11600003 */ 	beqz	$t3,.L0f0a9374
-/*  f0a9368:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a936c:	10000001 */ 	beqz	$zero,.L0f0a9374
-/*  f0a9370:	24030001 */ 	addiu	$v1,$zero,0x1
-.L0f0a9374:
-/*  f0a9374:	8d2c0068 */ 	lw	$t4,0x68($t1)
-/*  f0a9378:	11800003 */ 	beqz	$t4,.L0f0a9388
-/*  f0a937c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a9380:	10000001 */ 	beqz	$zero,.L0f0a9388
-/*  f0a9384:	24040001 */ 	addiu	$a0,$zero,0x1
-.L0f0a9388:
-/*  f0a9388:	8d2d0064 */ 	lw	$t5,0x64($t1)
-/*  f0a938c:	11a00003 */ 	beqz	$t5,.L0f0a939c
-/*  f0a9390:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a9394:	10000001 */ 	beqz	$zero,.L0f0a939c
-/*  f0a9398:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f0a939c:
-/*  f0a939c:	8d2e0070 */ 	lw	$t6,0x70($t1)
-/*  f0a93a0:	11c00003 */ 	beqz	$t6,.L0f0a93b0
-/*  f0a93a4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a93a8:	10000001 */ 	beqz	$zero,.L0f0a93b0
-/*  f0a93ac:	24060001 */ 	addiu	$a2,$zero,0x1
-.L0f0a93b0:
-/*  f0a93b0:	00c57821 */ 	addu	$t7,$a2,$a1
-/*  f0a93b4:	01e4c021 */ 	addu	$t8,$t7,$a0
-/*  f0a93b8:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f0a93bc:	0059082a */ 	slt	$at,$v0,$t9
-/*  f0a93c0:	5420ffdd */ 	bnezl	$at,.L0f0a9338
-/*  f0a93c4:	8ce30064 */ 	lw	$v1,0x64($a3)
-.L0f0a93c8:
-/*  f0a93c8:	03e00008 */ 	jr	$ra
-/*  f0a93cc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void playersSetPassiveMode(bool enable)
+{
+	s32 i;
+
+	for (i = 0; i < PLAYERCOUNT(); i++) {
+		g_Vars.players[i]->passivemode = enable;
+	}
+}
 
 void currentPlayerSetAimType(u32 aimtype)
 {

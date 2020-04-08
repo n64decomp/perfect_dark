@@ -425,7 +425,7 @@
 /*0x01cb*/ bool aiFadeScreen(void);
 /*0x01cc*/ bool aiIfFadeComplete(void);
 /*0x01cd*/ bool aiSetChrHudpieceVisible(void);
-/*0x01ce*/ bool ai01ce(void);
+/*0x01ce*/ bool aiSetPassiveMode(void);
 /*0x01cf*/ bool aiChrSetFiringInCutscene(void);
 /*0x01d0*/ bool aiSetPortalFlag(void);
 /*0x01d1*/ bool aiSetObjPartVisible(void);

@@ -485,7 +485,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01cb*/ aiFadeScreen,
 	/*0x01cc*/ aiIfFadeComplete,
 	/*0x01cd*/ aiSetChrHudpieceVisible,
-	/*0x01ce*/ ai01ce,
+	/*0x01ce*/ aiSetPassiveMode,
 	/*0x01cf*/ aiChrSetFiringInCutscene,
 	/*0x01d0*/ aiSetPortalFlag,
 	/*0x01d1*/ aiSetObjPartVisible,

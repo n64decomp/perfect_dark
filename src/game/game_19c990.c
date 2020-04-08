@@ -2437,7 +2437,7 @@ glabel func0f19e9c0
 .L0f19ea60:
 /*  f19ea60:	0fc67913 */ 	jal	func0f19e44c
 /*  f19ea64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19ea68:	0fc2a4ab */ 	jal	func0f0a92ac
+/*  f19ea68:	0fc2a4ab */ 	jal	playersSetPassiveMode
 /*  f19ea6c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f19ea70:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f19ea74:	27bd0018 */ 	addiu	$sp,$sp,0x18
@@ -2704,7 +2704,7 @@ glabel func0f19ecdc
 /*  f19ed4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19ed50:	a4400010 */ 	sh	$zero,0x10($v0)
 .L0f19ed54:
-/*  f19ed54:	0fc2a4ab */ 	jal	func0f0a92ac
+/*  f19ed54:	0fc2a4ab */ 	jal	playersSetPassiveMode
 /*  f19ed58:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f19ed5c:	3c018009 */ 	lui	$at,%hi(var80088804)
 /*  f19ed60:	0fc67505 */ 	jal	func0f19d414
@@ -5814,7 +5814,7 @@ GLOBAL_ASM(
 glabel func0f1a1824
 /*  f1a1824:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a1828:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a182c:	0fc2a4ab */ 	jal	func0f0a92ac
+/*  f1a182c:	0fc2a4ab */ 	jal	playersSetPassiveMode
 /*  f1a1830:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f1a1834:	3c04800b */ 	lui	$a0,%hi(g_DeviceTrainingData+0x8)
 /*  f1a1838:	8c84d1a8 */ 	lw	$a0,%lo(g_DeviceTrainingData+0x8)($a0)
@@ -6025,7 +6025,7 @@ void dtBegin(void)
 	chrUnsetStageFlag(NULL, 0x00000010);
 	chrSetStageFlag(NULL, func0f1a1e38(func0f1a1d68(var80088ad8)));
 	g_Vars.currentplayer->deadtimer = 1;
-	func0f0a92ac(false);
+	playersSetPassiveMode(false);
 	chrSetStageFlag(NULL, 0x00000001);
 }
 
@@ -6512,7 +6512,7 @@ glabel func0f1a2220
 /*  f1a22a4:	8d29a244 */ 	lw	$t1,%lo(g_Vars+0x284)($t1)
 /*  f1a22a8:	24080001 */ 	addiu	$t0,$zero,0x1
 /*  f1a22ac:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a22b0:	0fc2a4ab */ 	jal	func0f0a92ac
+/*  f1a22b0:	0fc2a4ab */ 	jal	playersSetPassiveMode
 /*  f1a22b4:	ad281c08 */ 	sw	$t0,0x1c08($t1)
 /*  f1a22b8:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a22bc:	0fc127cb */ 	jal	chrSetStageFlag
@@ -6604,7 +6604,7 @@ glabel func0f1a22d4
 /*  f1a23fc:	0461ffee */ 	bgez	$v1,.L0f1a23b8
 /*  f1a2400:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f1a2404:
-/*  f1a2404:	0fc2a4ab */ 	jal	func0f0a92ac
+/*  f1a2404:	0fc2a4ab */ 	jal	playersSetPassiveMode
 /*  f1a2408:	24040001 */ 	addiu	$a0,$zero,0x1
 /*  f1a240c:	00002025 */ 	or	$a0,$zero,$zero
 /*  f1a2410:	0fc127d2 */ 	jal	chrUnsetStageFlag

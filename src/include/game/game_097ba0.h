@@ -144,7 +144,7 @@ u32 func0f0a895c(void);
 void func0f0a8c50(void);
 bool currentPlayerIsUsingSecondaryFunction(void);
 u32 func0f0a8d34(void);
-void func0f0a92ac(u32 arg0);
+void playersSetPassiveMode(bool enable);
 void currentPlayerSetAimType(u32 aimtype);
 void func0f0a93e0(struct coord *coord);
 void func0f0a9464(struct coord *coord);

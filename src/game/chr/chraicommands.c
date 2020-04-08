@@ -10866,10 +10866,10 @@ bool aiSetChrHudpieceVisible(void)
 /**
  * @cmd 01ce
  */
-bool ai01ce(void)
+bool aiSetPassiveMode(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	func0f0a92ac(cmd[2]);
+	playersSetPassiveMode(cmd[2]);
 	g_Vars.aioffset += 3;
 
 	return false;
