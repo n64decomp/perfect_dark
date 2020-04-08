@@ -1608,12 +1608,12 @@ glabel var7f1b8ef0
 /*  f191958:	01801825 */ 	or	$v1,$t4,$zero
 /*  f19195c:	85840028 */ 	lh	$a0,0x28($t4)
 .L0f191960:
-/*  f191960:	0fc575ba */ 	jal	roomIsActive
+/*  f191960:	0fc575ba */ 	jal	roomIsVisibleByAnyPlayer
 /*  f191964:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f191968:	14400006 */ 	bnez	$v0,.L0f191984
 /*  f19196c:	8fa30028 */ 	lw	$v1,0x28($sp)
 /*  f191970:	84640028 */ 	lh	$a0,0x28($v1)
-/*  f191974:	0fc575d1 */ 	jal	func0f15d744
+/*  f191974:	0fc575d1 */ 	jal	roomIsVisibleByAnyAibot
 /*  f191978:	afa30028 */ 	sw	$v1,0x28($sp)
 /*  f19197c:	10400005 */ 	beqz	$v0,.L0f191994
 /*  f191980:	8fa30028 */ 	lw	$v1,0x28($sp)

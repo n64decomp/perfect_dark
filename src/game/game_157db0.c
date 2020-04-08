@@ -6072,59 +6072,40 @@ void boxCopy(struct screenbox *dst, struct screenbox *src)
 	dst->ymax = src->ymax;
 }
 
-bool roomIsActive(s32 room_id)
+bool roomIsVisibleByAnyPlayer(s32 room)
 {
 	if (g_Vars.mplayerisrunning) {
-		return (g_MpRoomVisibility[room_id] & 0xf) != 0;
+		return (g_MpRoomVisibility[room] & 0xf) != 0;
 	}
 
-	return g_Rooms[room_id].flags & ROOMFLAG_ACTIVE;
+	return g_Rooms[room].flags & ROOMFLAG_VISIBLEBYPLAYER;
 }
 
-GLOBAL_ASM(
-glabel func0f15d744
-/*  f15d744:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x314)
-/*  f15d748:	8dcea2d4 */ 	lw	$t6,%lo(g_Vars+0x314)($t6)
-/*  f15d74c:	000450c0 */ 	sll	$t2,$a0,0x3
-/*  f15d750:	01445021 */ 	addu	$t2,$t2,$a0
-/*  f15d754:	11c00008 */ 	beqz	$t6,.L0f15d778
-/*  f15d758:	3c09800a */ 	lui	$t1,%hi(g_Rooms)
-/*  f15d75c:	3c0f800a */ 	lui	$t7,%hi(g_MpRoomVisibility)
-/*  f15d760:	8def492c */ 	lw	$t7,%lo(g_MpRoomVisibility)($t7)
-/*  f15d764:	01e4c021 */ 	addu	$t8,$t7,$a0
-/*  f15d768:	93020000 */ 	lbu	$v0,0x0($t8)
-/*  f15d76c:	305900f0 */ 	andi	$t9,$v0,0xf0
-/*  f15d770:	03e00008 */ 	jr	$ra
-/*  f15d774:	0019102b */ 	sltu	$v0,$zero,$t9
-.L0f15d778:
-/*  f15d778:	8d294928 */ 	lw	$t1,%lo(g_Rooms)($t1)
-/*  f15d77c:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f15d780:	01445023 */ 	subu	$t2,$t2,$a0
-/*  f15d784:	000a5080 */ 	sll	$t2,$t2,0x2
-/*  f15d788:	012a5821 */ 	addu	$t3,$t1,$t2
-/*  f15d78c:	95620000 */ 	lhu	$v0,0x0($t3)
-/*  f15d790:	304c0008 */ 	andi	$t4,$v0,0x8
-/*  f15d794:	01801025 */ 	or	$v0,$t4,$zero
-/*  f15d798:	03e00008 */ 	jr	$ra
-/*  f15d79c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool roomIsVisibleByAnyAibot(s32 room)
+{
+	if (g_Vars.mplayerisrunning) {
+		return (g_MpRoomVisibility[room] & 0xf0) != 0;
+	}
 
-bool roomIsVisibleByPlayer(u32 room, u32 playernum)
+	return g_Rooms[room].flags & ROOMFLAG_VISIBLEBYAIBOT;
+}
+
+bool roomIsVisibleByPlayer(s32 room, u32 playernum)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & (1 << playernum)) != 0;
 	}
 
-	return g_Rooms[room].flags & ROOMFLAG_ACTIVE;
+	return g_Rooms[room].flags & ROOMFLAG_VISIBLEBYPLAYER;
 }
 
-bool roomIsVisibleByAibot(u32 room, u32 aibotindex)
+bool roomIsVisibleByAibot(s32 room, u32 aibotindex)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & (0x10 << aibotindex)) != 0;
 	}
 
-	return g_Rooms[room].flags & ROOMFLAG_0008;
+	return g_Rooms[room].flags & ROOMFLAG_VISIBLEBYAIBOT;
 }
 
 GLOBAL_ASM(
@@ -14739,7 +14720,7 @@ glabel func0f164c64
 /*  f164e44:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
-void portalSetEnabled(u32 portal, bool enable)
+void portalSetEnabled(s32 portal, bool enable)
 {
 	g_Portals[portal].flags = (g_Portals[portal].flags | PORTALFLAG_ENABLED) ^ (enable != false);
 }
