@@ -14793,12 +14793,10 @@ s32 func0f164e70(s32 arg0, s32 arg1, s32 arg2)
 	return arg0;
 }
 
-GLOBAL_ASM(
-glabel func0f164e80
-/*  f164e80:	afa40000 */ 	sw	$a0,0x0($sp)
-/*  f164e84:	03e00008 */ 	jr	$ra
-/*  f164e88:	afa50004 */ 	sw	$a1,0x4($sp)
-);
+void func0f164e80(s32 arg0, s32 arg1)
+{
+	// empty
+}
 
 GLOBAL_ASM(
 glabel func0f164e8c
