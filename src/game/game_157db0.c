@@ -3884,31 +3884,19 @@ glabel func0f15b274
 /*  f15b4bc:	e4720008 */ 	swc1	$f18,0x8($v1)
 );
 
+u8 func0f15b4c0(s32 portal)
+{
+	s32 uVar2 = func0f15b274(portal) / 10000.0f;
+
+	if (uVar2 > 0xff) {
+		uVar2 = 0xff;
+	}
+
+	return uVar2;
+}
+
 GLOBAL_ASM(
-glabel func0f15b4c0
-.late_rodata
-glabel var7f1b75c8
-.word 0x461c4000
-.text
-/*  f15b4c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f15b4c4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f15b4c8:	0fc56c9d */ 	jal	func0f15b274
-/*  f15b4cc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f15b4d0:	3c017f1b */ 	lui	$at,%hi(var7f1b75c8)
-/*  f15b4d4:	c42475c8 */ 	lwc1	$f4,%lo(var7f1b75c8)($at)
-/*  f15b4d8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f15b4dc:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f15b4e0:	46040183 */ 	div.s	$f6,$f0,$f4
-/*  f15b4e4:	4600320d */ 	trunc.w.s	$f8,$f6
-/*  f15b4e8:	44034000 */ 	mfc1	$v1,$f8
-/*  f15b4ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f15b4f0:	28610100 */ 	slti	$at,$v1,0x100
-/*  f15b4f4:	14200002 */ 	bnez	$at,.L0f15b500
-/*  f15b4f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f15b4fc:	240300ff */ 	addiu	$v1,$zero,0xff
-.L0f15b500:
-/*  f15b500:	03e00008 */ 	jr	$ra
-/*  f15b504:	306200ff */ 	andi	$v0,$v1,0xff
+glabel func0f15b508
 /*  f15b508:	3c0e800a */ 	lui	$t6,%hi(var800a4cd0)
 /*  f15b50c:	8dce4cd0 */ 	lw	$t6,%lo(var800a4cd0)($t6)
 /*  f15b510:	01c47821 */ 	addu	$t7,$t6,$a0
