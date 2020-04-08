@@ -43,7 +43,7 @@ bool func0f15d10c(s32 portal, struct screenbox *arg1);
 u32 func0f15d4a8(void);
 bool boxGetIntersection(struct screenbox *a, struct screenbox *b);
 void func0f15d63c(struct screenbox *arg0, struct screenbox *arg1);
-void func0f15d6c4(struct screenbox *arg0, struct screenbox *arg1);
+void boxCopy(struct screenbox *dst, struct screenbox *src);
 bool roomIsActive(s32 room_id);
 u32 func0f15d744(void);
 bool roomIsVisibleByPlayer(s16 room, u32 playernum);

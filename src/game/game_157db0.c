@@ -6278,18 +6278,13 @@ glabel func0f15d63c
 /*  f15d6c0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f15d6c4
-/*  f15d6c4:	84ae0000 */ 	lh	$t6,0x0($a1)
-/*  f15d6c8:	a48e0000 */ 	sh	$t6,0x0($a0)
-/*  f15d6cc:	84af0002 */ 	lh	$t7,0x2($a1)
-/*  f15d6d0:	a48f0002 */ 	sh	$t7,0x2($a0)
-/*  f15d6d4:	84b80004 */ 	lh	$t8,0x4($a1)
-/*  f15d6d8:	a4980004 */ 	sh	$t8,0x4($a0)
-/*  f15d6dc:	84b90006 */ 	lh	$t9,0x6($a1)
-/*  f15d6e0:	03e00008 */ 	jr	$ra
-/*  f15d6e4:	a4990006 */ 	sh	$t9,0x6($a0)
-);
+void boxCopy(struct screenbox *dst, struct screenbox *src)
+{
+	dst->xmin = src->xmin;
+	dst->ymin = src->ymin;
+	dst->xmax = src->xmax;
+	dst->ymax = src->ymax;
+}
 
 bool roomIsActive(s32 room_id)
 {
@@ -12232,7 +12227,7 @@ glabel var7f1b76bc
 /*  f16292c:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f162930:	11c00005 */ 	beqz	$t6,.L0f162948
 /*  f162934:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f162938:	0fc575b1 */ 	jal	func0f15d6c4
+/*  f162938:	0fc575b1 */ 	jal	boxCopy
 /*  f16293c:	02a02025 */ 	or	$a0,$s5,$zero
 /*  f162940:	10000003 */ 	beqz	$zero,.L0f162950
 /*  f162944:	ae600000 */ 	sw	$zero,0x0($s3)
@@ -12581,7 +12576,7 @@ glabel var7f1b76bc
 //					struct screenbox box1;
 //					if (func0f15d10c(cmd[1].param, &box1) && boxGetIntersection(&var800a65c0, &box1)) {
 //						if (g_PortalMode != PORTALMODE_SHOW) {
-//							func0f15d6c4(&var800a65c0, &box1);
+//							boxCopy(&var800a65c0, &box1);
 //							g_PortalMode = PORTALMODE_SHOW;
 //						} else {
 //							func0f15d63c(&var800a65c0, &box1);
