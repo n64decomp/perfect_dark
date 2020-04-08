@@ -6109,36 +6109,14 @@ glabel func0f15d744
 /*  f15d79c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel roomIsVisibleByPlayer
-/*  f15d7a0:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x314)
-/*  f15d7a4:	8dcea2d4 */ 	lw	$t6,%lo(g_Vars+0x314)($t6)
-/*  f15d7a8:	000460c0 */ 	sll	$t4,$a0,0x3
-/*  f15d7ac:	01846021 */ 	addu	$t4,$t4,$a0
-/*  f15d7b0:	11c0000b */ 	beqz	$t6,.L0f15d7e0
-/*  f15d7b4:	3c0b800a */ 	lui	$t3,%hi(g_Rooms)
-/*  f15d7b8:	3c0f800a */ 	lui	$t7,%hi(g_MpRoomVisibility)
-/*  f15d7bc:	8def492c */ 	lw	$t7,%lo(g_MpRoomVisibility)($t7)
-/*  f15d7c0:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f15d7c4:	00a84804 */ 	sllv	$t1,$t0,$a1
-/*  f15d7c8:	01e4c021 */ 	addu	$t8,$t7,$a0
-/*  f15d7cc:	93190000 */ 	lbu	$t9,0x0($t8)
-/*  f15d7d0:	03291024 */ 	and	$v0,$t9,$t1
-/*  f15d7d4:	0002502b */ 	sltu	$t2,$zero,$v0
-/*  f15d7d8:	03e00008 */ 	jr	$ra
-/*  f15d7dc:	01401025 */ 	or	$v0,$t2,$zero
-.L0f15d7e0:
-/*  f15d7e0:	8d6b4928 */ 	lw	$t3,%lo(g_Rooms)($t3)
-/*  f15d7e4:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f15d7e8:	01846023 */ 	subu	$t4,$t4,$a0
-/*  f15d7ec:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f15d7f0:	016c6821 */ 	addu	$t5,$t3,$t4
-/*  f15d7f4:	95a20000 */ 	lhu	$v0,0x0($t5)
-/*  f15d7f8:	304e0004 */ 	andi	$t6,$v0,0x4
-/*  f15d7fc:	01c01025 */ 	or	$v0,$t6,$zero
-/*  f15d800:	03e00008 */ 	jr	$ra
-/*  f15d804:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool roomIsVisibleByPlayer(u32 room, u32 playernum)
+{
+	if (g_Vars.mplayerisrunning) {
+		return (g_MpRoomVisibility[room] & (1 << playernum)) != 0;
+	}
+
+	return g_Rooms[room].flags & ROOMFLAG_ACTIVE;
+}
 
 bool roomIsVisibleByAibot(u32 room, u32 aibotindex)
 {
