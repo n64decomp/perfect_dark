@@ -5736,42 +5736,23 @@ bool func0f15cd90(u32 room, struct screenbox *screen)
 	return true;
 }
 
-GLOBAL_ASM(
-glabel func0f15d08c
-/*  f15d08c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f15d090:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f15d094:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f15d098:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f15d09c:	0fc2d5be */ 	jal	currentPlayerGetUnk1740
-/*  f15d0a0:	afa40020 */ 	sw	$a0,0x20($sp)
-/*  f15d0a4:	8fa60020 */ 	lw	$a2,0x20($sp)
-/*  f15d0a8:	00402025 */ 	or	$a0,$v0,$zero
-/*  f15d0ac:	02002825 */ 	or	$a1,$s0,$zero
-/*  f15d0b0:	c4c40000 */ 	lwc1	$f4,0x0($a2)
-/*  f15d0b4:	e6040000 */ 	swc1	$f4,0x0($s0)
-/*  f15d0b8:	c4c60004 */ 	lwc1	$f6,0x4($a2)
-/*  f15d0bc:	e6060004 */ 	swc1	$f6,0x4($s0)
-/*  f15d0c0:	c4c80008 */ 	lwc1	$f8,0x8($a2)
-/*  f15d0c4:	0c0056d9 */ 	jal	func00015b64
-/*  f15d0c8:	e6080008 */ 	swc1	$f8,0x8($s0)
-/*  f15d0cc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f15d0d0:	0fc2d35a */ 	jal	func0f0b4d68
-/*  f15d0d4:	02002825 */ 	or	$a1,$s0,$zero
-/*  f15d0d8:	44805000 */ 	mtc1	$zero,$f10
-/*  f15d0dc:	c6100008 */ 	lwc1	$f16,0x8($s0)
-/*  f15d0e0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f15d0e4:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f15d0e8:	4610503c */ 	c.lt.s	$f10,$f16
-/*  f15d0ec:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f15d0f0:	45000003 */ 	bc1f	.L0f15d100
-/*  f15d0f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f15d0f8:	10000001 */ 	beqz	$zero,.L0f15d100
-/*  f15d0fc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f15d100:
-/*  f15d100:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f15d104:	03e00008 */ 	jr	$ra
-/*  f15d108:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+bool func0f15d08c(struct coord *a, struct coord *b)
+{
+	f32 *matrixmaybe = currentPlayerGetUnk1740();
+
+	b->x = a->x;
+	b->y = a->y;
+	b->z = a->z;
+
+	func00015b64(matrixmaybe, b);
+	func0f0b4d68(b, b);
+
+	if (b->z > 0) {
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f15d10c
