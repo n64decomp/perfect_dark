@@ -1836,8 +1836,8 @@
 #define PORTALCMD_ENDIF            0x5c
 #define PORTALCMD_TRAILER          0x65
 
-#define PORTALFLAG_01 0x01
-#define PORTALFLAG_04 0x04
+#define PORTALFLAG_ENABLED 0x01
+#define PORTALFLAG_04      0x04
 
 #define PORTALMODE_SHOW 0
 #define PORTALMODE_HIDE 1

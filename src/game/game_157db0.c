@@ -12305,7 +12305,7 @@ glabel var7f1b76bc
 //			break;
 //		case PORTALCMD_1F: // 1f - f162858 - set visibility to same as portal X
 //			if (execute) {
-//				if ((g_Portals[cmd[1].param].flags & PORTALFLAG_01) == 0
+//				if ((g_Portals[cmd[1].param].flags & PORTALFLAG_ENABLED) == 0
 //						|| (g_Portals[cmd[1].param].flags & PORTALFLAG_04)) {
 //					if (func0f15d10c(cmd[1].param, &var800a65c8) == 0) {
 //						g_PortalMode = PORTALMODE_HIDE;
@@ -12320,7 +12320,7 @@ glabel var7f1b76bc
 //			break;
 //		case PORTALCMD_22: // 22 - f1628d4 - make visible if portal can view room
 //			if (execute) {
-//				if ((g_Portals[cmd[1].param].flags & PORTALFLAG_01) == 0
+//				if ((g_Portals[cmd[1].param].flags & PORTALFLAG_ENABLED) == 0
 //						|| (g_Portals[cmd[1].param].flags & PORTALFLAG_04)) {
 //					struct screenbox box1;
 //					if (func0f15d10c(cmd[1].param, &box1) && boxGetIntersection(&var800a65c0, &box1)) {
@@ -12339,7 +12339,7 @@ glabel var7f1b76bc
 //			if (execute) {
 //				if (g_PortalMode == PORTALMODE_SHOW) {
 //					struct screenbox box2;
-//					if ((g_Portals[cmd[1].param].flags & PORTALFLAG_01)
+//					if ((g_Portals[cmd[1].param].flags & PORTALFLAG_ENABLED)
 //							&& (g_Portals[cmd[1].param].flags & PORTALFLAG_04) == 0) {
 //						g_PortalMode = PORTALMODE_HIDE;
 //					} else if (func0f15d10c(cmd[1].param, &box2) == 0) {
@@ -12392,7 +12392,7 @@ glabel var7f1b76bc
 //			break;
 //		case PORTALCMD_29: // 29 - f162b58 - copy visible state (true/false) of portal X to stack
 //			if (execute) {
-//				portalPushValue((g_Portals[cmd[1].param].flags & PORTALFLAG_01) == 0
+//				portalPushValue((g_Portals[cmd[1].param].flags & PORTALFLAG_ENABLED) == 0
 //						|| !((g_Portals[cmd[1].param].flags & PORTALFLAG_04) == 0));
 //			}
 //			cmd += cmd->len;
@@ -14783,18 +14783,13 @@ glabel func0f164c64
 /*  f164e44:	27bd0040 */ 	addiu	$sp,$sp,0x40
 );
 
+void portalSetEnabled(u32 portal, bool enable)
+{
+	g_Portals[portal].flags = (g_Portals[portal].flags | PORTALFLAG_ENABLED) ^ (enable != false);
+}
+
 GLOBAL_ASM(
-glabel portalSetEnabled
-/*  f164e48:	3c0e800a */ 	lui	$t6,%hi(g_Portals)
-/*  f164e4c:	8dce4cc8 */ 	lw	$t6,%lo(g_Portals)($t6)
-/*  f164e50:	000478c0 */ 	sll	$t7,$a0,0x3
-/*  f164e54:	0005402b */ 	sltu	$t0,$zero,$a1
-/*  f164e58:	01cf1021 */ 	addu	$v0,$t6,$t7
-/*  f164e5c:	90580006 */ 	lbu	$t8,0x6($v0)
-/*  f164e60:	37190001 */ 	ori	$t9,$t8,0x1
-/*  f164e64:	03284826 */ 	xor	$t1,$t9,$t0
-/*  f164e68:	03e00008 */ 	jr	$ra
-/*  f164e6c:	a0490006 */ 	sb	$t1,0x6($v0)
+glabel func0f164e70
 /*  f164e70:	afa50004 */ 	sw	$a1,0x4($sp)
 /*  f164e74:	afa60008 */ 	sw	$a2,0x8($sp)
 /*  f164e78:	03e00008 */ 	jr	$ra
