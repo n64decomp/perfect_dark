@@ -41,7 +41,7 @@ bool func0f15cd90(u32 room, struct screenbox *arg1);
 u32 func0f15d08c(void);
 bool func0f15d10c(s32 portal, struct screenbox *arg1);
 u32 func0f15d4a8(void);
-bool func0f15d570(struct screenbox *arg0, struct screenbox *arg1);
+bool boxGetIntersection(struct screenbox *a, struct screenbox *b);
 void func0f15d63c(struct screenbox *arg0, struct screenbox *arg1);
 void func0f15d6c4(struct screenbox *arg0, struct screenbox *arg1);
 bool roomIsActive(s32 room_id);

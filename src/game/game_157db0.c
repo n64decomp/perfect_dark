@@ -6216,66 +6216,25 @@ glabel func0f15d4a8
 /*  f15d56c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f15d570
-/*  f15d570:	84a20000 */ 	lh	$v0,0x0($a1)
-/*  f15d574:	84830000 */ 	lh	$v1,0x0($a0)
-/*  f15d578:	0043082a */ 	slt	$at,$v0,$v1
-/*  f15d57c:	50200004 */ 	beqzl	$at,.L0f15d590
-/*  f15d580:	a4820000 */ 	sh	$v0,0x0($a0)
-/*  f15d584:	10000002 */ 	beqz	$zero,.L0f15d590
-/*  f15d588:	a4830000 */ 	sh	$v1,0x0($a0)
-/*  f15d58c:	a4820000 */ 	sh	$v0,0x0($a0)
-.L0f15d590:
-/*  f15d590:	84a20002 */ 	lh	$v0,0x2($a1)
-/*  f15d594:	84830002 */ 	lh	$v1,0x2($a0)
-/*  f15d598:	0043082a */ 	slt	$at,$v0,$v1
-/*  f15d59c:	50200004 */ 	beqzl	$at,.L0f15d5b0
-/*  f15d5a0:	a4820002 */ 	sh	$v0,0x2($a0)
-/*  f15d5a4:	10000002 */ 	beqz	$zero,.L0f15d5b0
-/*  f15d5a8:	a4830002 */ 	sh	$v1,0x2($a0)
-/*  f15d5ac:	a4820002 */ 	sh	$v0,0x2($a0)
-.L0f15d5b0:
-/*  f15d5b0:	84830004 */ 	lh	$v1,0x4($a0)
-/*  f15d5b4:	84a20004 */ 	lh	$v0,0x4($a1)
-/*  f15d5b8:	0062082a */ 	slt	$at,$v1,$v0
-/*  f15d5bc:	50200004 */ 	beqzl	$at,.L0f15d5d0
-/*  f15d5c0:	a4820004 */ 	sh	$v0,0x4($a0)
-/*  f15d5c4:	10000002 */ 	beqz	$zero,.L0f15d5d0
-/*  f15d5c8:	a4830004 */ 	sh	$v1,0x4($a0)
-/*  f15d5cc:	a4820004 */ 	sh	$v0,0x4($a0)
-.L0f15d5d0:
-/*  f15d5d0:	84830006 */ 	lh	$v1,0x6($a0)
-/*  f15d5d4:	84a20006 */ 	lh	$v0,0x6($a1)
-/*  f15d5d8:	0062082a */ 	slt	$at,$v1,$v0
-/*  f15d5dc:	50200004 */ 	beqzl	$at,.L0f15d5f0
-/*  f15d5e0:	a4820006 */ 	sh	$v0,0x6($a0)
-/*  f15d5e4:	10000002 */ 	beqz	$zero,.L0f15d5f0
-/*  f15d5e8:	a4830006 */ 	sh	$v1,0x6($a0)
-/*  f15d5ec:	a4820006 */ 	sh	$v0,0x6($a0)
-.L0f15d5f0:
-/*  f15d5f0:	84830004 */ 	lh	$v1,0x4($a0)
-/*  f15d5f4:	848e0000 */ 	lh	$t6,0x0($a0)
-/*  f15d5f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f15d5fc:	01c3082a */ 	slt	$at,$t6,$v1
-/*  f15d600:	54200004 */ 	bnezl	$at,.L0f15d614
-/*  f15d604:	84830006 */ 	lh	$v1,0x6($a0)
-/*  f15d608:	03e00008 */ 	jr	$ra
-/*  f15d60c:	a4830000 */ 	sh	$v1,0x0($a0)
-/*  f15d610:	84830006 */ 	lh	$v1,0x6($a0)
-.L0f15d614:
-/*  f15d614:	848f0002 */ 	lh	$t7,0x2($a0)
-/*  f15d618:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f15d61c:	01e3082a */ 	slt	$at,$t7,$v1
-/*  f15d620:	14200004 */ 	bnez	$at,.L0f15d634
-/*  f15d624:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f15d628:	a4830002 */ 	sh	$v1,0x2($a0)
-/*  f15d62c:	03e00008 */ 	jr	$ra
-/*  f15d630:	00001025 */ 	or	$v0,$zero,$zero
-.L0f15d634:
-/*  f15d634:	03e00008 */ 	jr	$ra
-/*  f15d638:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool boxGetIntersection(struct screenbox *a, struct screenbox *b)
+{
+	a->xmin = a->xmin > b->xmin ? a->xmin : b->xmin;
+	a->ymin = a->ymin > b->ymin ? a->ymin : b->ymin;
+	a->xmax = b->xmax > a->xmax ? a->xmax : b->xmax;
+	a->ymax = b->ymax > a->ymax ? a->ymax : b->ymax;
+
+	if (a->xmin >= a->xmax) {
+		a->xmin = a->xmax;
+		return false;
+	}
+
+	if (a->ymax <= a->ymin) {
+		a->ymin = a->ymax;
+		return false;
+	}
+
+	return true;
+}
 
 GLOBAL_ASM(
 glabel func0f15d63c
@@ -12234,7 +12193,7 @@ glabel var7f1b76bc
 /*  f1628a0:	ae760000 */ 	sw	$s6,0x0($s3)
 .L0f1628a4:
 /*  f1628a4:	3c05800a */ 	lui	$a1,%hi(var800a65c8)
-/*  f1628a8:	0fc5755c */ 	jal	func0f15d570
+/*  f1628a8:	0fc5755c */ 	jal	boxGetIntersection
 /*  f1628ac:	24a565c8 */ 	addiu	$a1,$a1,%lo(var800a65c8)
 /*  f1628b0:	54400004 */ 	bnezl	$v0,.L0f1628c4
 /*  f1628b4:	ae600000 */ 	sw	$zero,0x0($s3)
@@ -12264,7 +12223,7 @@ glabel var7f1b76bc
 /*  f162908:	27a50054 */ 	addiu	$a1,$sp,0x54
 /*  f16290c:	10400010 */ 	beqz	$v0,.L0f162950
 /*  f162910:	02a02025 */ 	or	$a0,$s5,$zero
-/*  f162914:	0fc5755c */ 	jal	func0f15d570
+/*  f162914:	0fc5755c */ 	jal	boxGetIntersection
 /*  f162918:	27a50054 */ 	addiu	$a1,$sp,0x54
 /*  f16291c:	5040000d */ 	beqzl	$v0,.L0f162954
 /*  f162920:	920f0001 */ 	lbu	$t7,0x1($s0)
@@ -12313,7 +12272,7 @@ glabel var7f1b76bc
 .L0f1629bc:
 /*  f1629bc:	8ca5a244 */ 	lw	$a1,%lo(g_Vars+0x284)($a1)
 /*  f1629c0:	27a4004c */ 	addiu	$a0,$sp,0x4c
-/*  f1629c4:	0fc5755c */ 	jal	func0f15d570
+/*  f1629c4:	0fc5755c */ 	jal	boxGetIntersection
 /*  f1629c8:	24a51794 */ 	addiu	$a1,$a1,6036
 /*  f1629cc:	14400003 */ 	bnez	$v0,.L0f1629dc
 /*  f1629d0:	3c04800a */ 	lui	$a0,%hi(var800a65c8)
@@ -12321,7 +12280,7 @@ glabel var7f1b76bc
 /*  f1629d8:	ae760000 */ 	sw	$s6,0x0($s3)
 .L0f1629dc:
 /*  f1629dc:	248465c8 */ 	addiu	$a0,$a0,%lo(var800a65c8)
-/*  f1629e0:	0fc5755c */ 	jal	func0f15d570
+/*  f1629e0:	0fc5755c */ 	jal	boxGetIntersection
 /*  f1629e4:	27a5004c */ 	addiu	$a1,$sp,0x4c
 /*  f1629e8:	54400003 */ 	bnezl	$v0,.L0f1629f8
 /*  f1629ec:	920d0001 */ 	lbu	$t5,0x1($s0)
@@ -12606,7 +12565,7 @@ glabel var7f1b76bc
 //						|| (g_Portals[cmd[1].param].flags & PORTALFLAG_04)) {
 //					if (func0f15d10c(cmd[1].param, &var800a65c8) == 0) {
 //						g_PortalMode = PORTALMODE_HIDE;
-//					} else if (func0f15d570(&var800a65c0, &var800a65c8) == 0) {
+//					} else if (boxGetIntersection(&var800a65c0, &var800a65c8) == 0) {
 //						g_PortalMode = PORTALMODE_HIDE;
 //					} else {
 //						g_PortalMode = PORTALMODE_SHOW;
@@ -12620,7 +12579,7 @@ glabel var7f1b76bc
 //				if ((g_Portals[cmd[1].param].flags & PORTALFLAG_01) == 0
 //						|| (g_Portals[cmd[1].param].flags & PORTALFLAG_04)) {
 //					struct screenbox box1;
-//					if (func0f15d10c(cmd[1].param, &box1) && func0f15d570(&var800a65c0, &box1)) {
+//					if (func0f15d10c(cmd[1].param, &box1) && boxGetIntersection(&var800a65c0, &box1)) {
 //						if (g_PortalMode != PORTALMODE_SHOW) {
 //							func0f15d6c4(&var800a65c0, &box1);
 //							g_PortalMode = PORTALMODE_SHOW;
@@ -12641,9 +12600,9 @@ glabel var7f1b76bc
 //						g_PortalMode = PORTALMODE_HIDE;
 //					} else if (func0f15d10c(cmd[1].param, &box2) == 0) {
 //						g_PortalMode = PORTALMODE_HIDE;
-//					} else if (func0f15d570(&box2, (struct screenbox *)&g_Vars.currentplayer->screenxminf) == 0) {
+//					} else if (boxGetIntersection(&box2, (struct screenbox *)&g_Vars.currentplayer->screenxminf) == 0) {
 //						g_PortalMode = PORTALMODE_HIDE;
-//					} else if (func0f15d570(&var800a65c8, &box2) == 0) {
+//					} else if (boxGetIntersection(&var800a65c8, &box2) == 0) {
 //						g_PortalMode = PORTALMODE_HIDE;
 //					}
 //				}
@@ -13516,7 +13475,7 @@ glabel func0f163528
 .L0f163818:
 /*  f163818:	10800019 */ 	beqz	$a0,.L0f163880
 /*  f16381c:	26250010 */ 	addiu	$a1,$s1,0x10
-/*  f163820:	0fc5755c */ 	jal	func0f15d570
+/*  f163820:	0fc5755c */ 	jal	boxGetIntersection
 /*  f163824:	03c02025 */ 	or	$a0,$s8,$zero
 /*  f163828:	87a30054 */ 	lh	$v1,0x54($sp)
 /*  f16382c:	87a40058 */ 	lh	$a0,0x58($sp)
