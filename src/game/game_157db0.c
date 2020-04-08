@@ -14535,21 +14535,12 @@ glabel func0f1648cc
 /*  f164a84:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f164a88
-/*  f164a88:	3c06800a */ 	lui	$a2,%hi(g_Portals)
-/*  f164a8c:	24c64cc8 */ 	addiu	$a2,$a2,%lo(g_Portals)
-/*  f164a90:	8cce0000 */ 	lw	$t6,0x0($a2)
-/*  f164a94:	000418c0 */ 	sll	$v1,$a0,0x3
-/*  f164a98:	01c32821 */ 	addu	$a1,$t6,$v1
-/*  f164a9c:	84af0004 */ 	lh	$t7,0x4($a1)
-/*  f164aa0:	84a20002 */ 	lh	$v0,0x2($a1)
-/*  f164aa4:	a4af0002 */ 	sh	$t7,0x2($a1)
-/*  f164aa8:	8cd80000 */ 	lw	$t8,0x0($a2)
-/*  f164aac:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f164ab0:	03e00008 */ 	jr	$ra
-/*  f164ab4:	a7220004 */ 	sh	$v0,0x4($t9)
-);
+void portalSwapProps(u32 portal)
+{
+	s16 tmp = g_Portals[portal].unk02;
+	g_Portals[portal].unk02 = g_Portals[portal].unk04;
+	g_Portals[portal].unk04 = tmp;
+}
 
 GLOBAL_ASM(
 glabel func0f164ab8
@@ -14617,7 +14608,7 @@ glabel func0f164ab8
 /*  f164bac:	c7aa0028 */ 	lwc1	$f10,0x28($sp)
 /*  f164bb0:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f164bb4:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f164bb8:	0fc592a2 */ 	jal	func0f164a88
+/*  f164bb8:	0fc592a2 */ 	jal	portalSwapProps
 /*  f164bbc:	afa40058 */ 	sw	$a0,0x58($sp)
 /*  f164bc0:	c7b00028 */ 	lwc1	$f16,0x28($sp)
 /*  f164bc4:	c7a8002c */ 	lwc1	$f8,0x2c($sp)
@@ -14655,7 +14646,7 @@ glabel func0f164ab8
 /*  f164c40:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f164c44:	50400004 */ 	beqzl	$v0,.L0f164c58
 /*  f164c48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f164c4c:	0fc592a2 */ 	jal	func0f164a88
+/*  f164c4c:	0fc592a2 */ 	jal	portalSwapProps
 /*  f164c50:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f164c54:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f164c58:
