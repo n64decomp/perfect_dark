@@ -14788,12 +14788,13 @@ void portalSetEnabled(u32 portal, bool enable)
 	g_Portals[portal].flags = (g_Portals[portal].flags | PORTALFLAG_ENABLED) ^ (enable != false);
 }
 
+s32 func0f164e70(s32 arg0, s32 arg1, s32 arg2)
+{
+	return arg0;
+}
+
 GLOBAL_ASM(
-glabel func0f164e70
-/*  f164e70:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f164e74:	afa60008 */ 	sw	$a2,0x8($sp)
-/*  f164e78:	03e00008 */ 	jr	$ra
-/*  f164e7c:	00801025 */ 	or	$v0,$a0,$zero
+glabel func0f164e80
 /*  f164e80:	afa40000 */ 	sw	$a0,0x0($sp)
 /*  f164e84:	03e00008 */ 	jr	$ra
 /*  f164e88:	afa50004 */ 	sw	$a1,0x4($sp)
