@@ -5265,11 +5265,10 @@ void func0f15c850(void)
 	func00016748(1);
 }
 
-GLOBAL_ASM(
-glabel func0f15c880
-/*  f15c880:	03e00008 */ 	jr	$ra
-/*  f15c884:	e7ac0000 */ 	swc1	$f12,0x0($sp)
-);
+void func0f15c880(f32 arg0)
+{
+	// empty
+}
 
 f32 func0f15c888(void)
 {
