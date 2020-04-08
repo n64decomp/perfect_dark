@@ -5281,21 +5281,10 @@ glabel func0f15c880
 /*  f15c884:	e7ac0000 */ 	swc1	$f12,0x0($sp)
 );
 
-GLOBAL_ASM(
-glabel func0f15c888
-/*  f15c888:	3c0e8008 */ 	lui	$t6,%hi(g_StageIndex)
-/*  f15c88c:	8dcefc00 */ 	lw	$t6,%lo(g_StageIndex)($t6)
-/*  f15c890:	3c188008 */ 	lui	$t8,%hi(g_Stages)
-/*  f15c894:	2718fcc0 */ 	addiu	$t8,$t8,%lo(g_Stages)
-/*  f15c898:	000e78c0 */ 	sll	$t7,$t6,0x3
-/*  f15c89c:	01ee7823 */ 	subu	$t7,$t7,$t6
-/*  f15c8a0:	000f78c0 */ 	sll	$t7,$t7,0x3
-/*  f15c8a4:	01f81021 */ 	addu	$v0,$t7,$t8
-/*  f15c8a8:	c444001c */ 	lwc1	$f4,0x1c($v0)
-/*  f15c8ac:	c4460014 */ 	lwc1	$f6,0x14($v0)
-/*  f15c8b0:	03e00008 */ 	jr	$ra
-/*  f15c8b4:	46062003 */ 	div.s	$f0,$f4,$f6
-);
+f32 func0f15c888(void)
+{
+	return g_Stages[g_StageIndex].unk1c / g_Stages[g_StageIndex].unk14;
+}
 
 f32 currentPlayerGetScaleBg2Gfx(void)
 {
