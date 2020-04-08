@@ -38,7 +38,7 @@ u32 func0f15cbb4(void);
 u32 func0f15cc18(void);
 void func0f15cd28(void);
 bool func0f15cd90(u32 room, struct screenbox *arg1);
-u32 func0f15d08c(void);
+bool func0f15d08c(struct coord *a, struct coord *b);
 bool func0f15d10c(s32 portal, struct screenbox *arg1);
 u32 func0f15d4a8(void);
 bool boxGetIntersection(struct screenbox *a, struct screenbox *b);
