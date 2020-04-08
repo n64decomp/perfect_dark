@@ -3716,25 +3716,19 @@ glabel func0f15b1c4
 /*  f15b238:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f15b23c
-/*  f15b23c:	3c058008 */ 	lui	$a1,%hi(g_Stages)
-/*  f15b240:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f15b244:	24a5fcc0 */ 	addiu	$a1,$a1,%lo(g_Stages)
-/*  f15b248:	00001025 */ 	or	$v0,$zero,$zero
-/*  f15b24c:	2406003d */ 	addiu	$a2,$zero,0x3d
-.L0f15b250:
-/*  f15b250:	84ae0000 */ 	lh	$t6,0x0($a1)
-/*  f15b254:	548e0003 */ 	bnel	$a0,$t6,.L0f15b264
-/*  f15b258:	24420001 */ 	addiu	$v0,$v0,0x1
-/*  f15b25c:	00401825 */ 	or	$v1,$v0,$zero
-/*  f15b260:	24420001 */ 	addiu	$v0,$v0,0x1
-.L0f15b264:
-/*  f15b264:	1446fffa */ 	bne	$v0,$a2,.L0f15b250
-/*  f15b268:	24a50038 */ 	addiu	$a1,$a1,0x38
-/*  f15b26c:	03e00008 */ 	jr	$ra
-/*  f15b270:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 stageGetIndex2(s32 stagenum)
+{
+	s32 index = -1;
+	s32 i;
+
+	for (i = 0; i != ARRAYCOUNT(g_Stages); i++) {
+		if (g_Stages[i].id == stagenum) {
+			index = i;
+		}
+	}
+
+	return index;
+}
 
 GLOBAL_ASM(
 glabel func0f15b274
@@ -3958,7 +3952,7 @@ glabel func0f15b534
 /*  f15b584:	3c01800a */ 	lui	$at,%hi(var800a4bf0+0x2)
 /*  f15b588:	a4224bf2 */ 	sh	$v0,%lo(var800a4bf0+0x2)($at)
 .L0f15b58c:
-/*  f15b58c:	0fc56c8f */ 	jal	func0f15b23c
+/*  f15b58c:	0fc56c8f */ 	jal	stageGetIndex2
 /*  f15b590:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f15b594:	3c038008 */ 	lui	$v1,%hi(g_StageIndex)
 /*  f15b598:	2463fc00 */ 	addiu	$v1,$v1,%lo(g_StageIndex)

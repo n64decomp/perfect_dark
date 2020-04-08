@@ -15,7 +15,7 @@
 
 void stageLoadTiles(void)
 {
-	s32 index = func0f15b23c(g_Vars.stagenum);
+	s32 index = stageGetIndex2(g_Vars.stagenum);
 
 	if (index < 0) {
 		index = 0;
