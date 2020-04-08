@@ -11002,8 +11002,8 @@ glabel ai01d4
 /*  f05f7e8:	00095403 */ 	sra	$t2,$t1,0x10
 /*  f05f7ec:	000ac8c0 */ 	sll	$t9,$t2,0x3
 /*  f05f7f0:	032ac821 */ 	addu	$t9,$t9,$t2
-/*  f05f7f4:	3c18800a */ 	lui	$t8,%hi(g_RoomPtrs)
-/*  f05f7f8:	8f184928 */ 	lw	$t8,%lo(g_RoomPtrs)($t8)
+/*  f05f7f4:	3c18800a */ 	lui	$t8,%hi(g_Rooms)
+/*  f05f7f8:	8f184928 */ 	lw	$t8,%lo(g_Rooms)($t8)
 /*  f05f7fc:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f05f800:	032ac823 */ 	subu	$t9,$t9,$t2
 /*  f05f804:	0019c880 */ 	sll	$t9,$t9,0x2
@@ -11026,7 +11026,7 @@ glabel ai01d4
 //	s16 room_id = cmd[3] | (cmd[2] << 8);
 //	u32 value = cmd[5] | (cmd[4] << 8);
 //
-//	struct room *room = &g_RoomPtrs[room_id];
+//	struct room *room = &g_Rooms[room_id];
 //	room->unk00 |= value;
 //
 //	g_Vars.aioffset += 6;
@@ -11092,29 +11092,29 @@ bool aiMiscellaneous(void)
 		var8006ae28 = value;
 		break;
 	case 5:
-		g_RoomPtrs[room_id].flags &= ~ROOMFLAG_4000;
+		g_Rooms[room_id].flags &= ~ROOMFLAG_4000;
 		if (value) {
-			g_RoomPtrs[room_id].flags |= ROOMFLAG_4000;
+			g_Rooms[room_id].flags |= ROOMFLAG_4000;
 		}
 		break;
 	case 6:
-		g_RoomPtrs[room_id].flags &= ~ROOMFLAG_8000;
+		g_Rooms[room_id].flags &= ~ROOMFLAG_8000;
 		if (value) {
-			g_RoomPtrs[room_id].flags |= ROOMFLAG_8000;
+			g_Rooms[room_id].flags |= ROOMFLAG_8000;
 		}
 		break;
 	case 7:
-		g_RoomPtrs[room_id].bitfield.b = value;
+		g_Rooms[room_id].bitfield.b = value;
 		break;
 	case 8:
-		g_RoomPtrs[room_id].unk4d = value;
+		g_Rooms[room_id].unk4d = value;
 		break;
 	case 9:
 		for (i = 1; i < g_Vars.roomcount; i++) {
 			if (value) {
-				g_RoomPtrs[i].flags |= ROOMFLAG_4000;
+				g_Rooms[i].flags |= ROOMFLAG_4000;
 			} else {
-				g_RoomPtrs[i].flags &= ~ROOMFLAG_4000;
+				g_Rooms[i].flags &= ~ROOMFLAG_4000;
 			}
 		}
 		break;

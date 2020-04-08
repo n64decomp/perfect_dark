@@ -9788,8 +9788,8 @@ glabel func0f036c08
 /*  f036d2c:	2404ffff */ 	addiu	$a0,$zero,-1
 /*  f036d30:	108f0012 */ 	beq	$a0,$t7,.L0f036d7c
 /*  f036d34:	27a2007c */ 	addiu	$v0,$sp,0x7c
-/*  f036d38:	3c05800a */ 	lui	$a1,%hi(g_RoomPtrs)
-/*  f036d3c:	8ca54928 */ 	lw	$a1,%lo(g_RoomPtrs)($a1)
+/*  f036d38:	3c05800a */ 	lui	$a1,%hi(g_Rooms)
+/*  f036d3c:	8ca54928 */ 	lw	$a1,%lo(g_Rooms)($a1)
 /*  f036d40:	84430000 */ 	lh	$v1,0x0($v0)
 /*  f036d44:	2406008c */ 	addiu	$a2,$zero,0x8c
 .L0f036d48:

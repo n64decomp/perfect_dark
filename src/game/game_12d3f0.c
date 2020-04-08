@@ -2157,8 +2157,8 @@ glabel func0f12f230
 /*  f12f26c:	2406ffff */ 	addiu	$a2,$zero,-1
 /*  f12f270:	00001825 */ 	or	$v1,$zero,$zero
 /*  f12f274:	12060016 */ 	beq	$s0,$a2,.L0f12f2d0
-/*  f12f278:	3c04800a */ 	lui	$a0,%hi(g_RoomPtrs)
-/*  f12f27c:	8c844928 */ 	lw	$a0,%lo(g_RoomPtrs)($a0)
+/*  f12f278:	3c04800a */ 	lui	$a0,%hi(g_Rooms)
+/*  f12f27c:	8c844928 */ 	lw	$a0,%lo(g_Rooms)($a0)
 /*  f12f280:	2405008c */ 	addiu	$a1,$zero,0x8c
 .L0f12f284:
 /*  f12f284:	02050019 */ 	multu	$s0,$a1

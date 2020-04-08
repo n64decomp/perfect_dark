@@ -96,8 +96,8 @@ glabel waypointFindClosestToPos
 /*  f114340:	10ec0068 */ 	beq	$a3,$t4,.L0f1144e4
 /*  f114344:	0000a025 */ 	or	$s4,$zero,$zero
 /*  f114348:	27b50360 */ 	addiu	$s5,$sp,0x360
-/*  f11434c:	3c03800a */ 	lui	$v1,%hi(g_RoomPtrs)
-/*  f114350:	8c634928 */ 	lw	$v1,%lo(g_RoomPtrs)($v1)
+/*  f11434c:	3c03800a */ 	lui	$v1,%hi(g_Rooms)
+/*  f114350:	8c634928 */ 	lw	$v1,%lo(g_Rooms)($v1)
 /*  f114354:	86a40000 */ 	lh	$a0,0x0($s5)
 /*  f114358:	2417008c */ 	addiu	$s7,$zero,0x8c
 .L0f11435c:
@@ -190,8 +190,8 @@ glabel waypointFindClosestToPos
 /*  f114498:	26310001 */ 	addiu	$s1,$s1,0x1
 .L0f11449c:
 /*  f11449c:	86a90000 */ 	lh	$t1,0x0($s5)
-/*  f1144a0:	3c03800a */ 	lui	$v1,%hi(g_RoomPtrs)
-/*  f1144a4:	8c634928 */ 	lw	$v1,%lo(g_RoomPtrs)($v1)
+/*  f1144a0:	3c03800a */ 	lui	$v1,%hi(g_Rooms)
+/*  f1144a4:	8c634928 */ 	lw	$v1,%lo(g_Rooms)($v1)
 /*  f1144a8:	01370019 */ 	multu	$t1,$s7
 /*  f1144ac:	26730001 */ 	addiu	$s3,$s3,0x1
 /*  f1144b0:	26940002 */ 	addiu	$s4,$s4,0x2

@@ -3148,8 +3148,8 @@ glabel func0f0b6260
 /*  f0b628c:	00008825 */ 	or	$s1,$zero,$zero
 /*  f0b6290:	10d20036 */ 	beq	$a2,$s2,.L0f0b636c
 /*  f0b6294:	00808025 */ 	or	$s0,$a0,$zero
-/*  f0b6298:	3c13800a */ 	lui	$s3,%hi(g_RoomPtrs)
-/*  f0b629c:	26734928 */ 	addiu	$s3,$s3,%lo(g_RoomPtrs)
+/*  f0b6298:	3c13800a */ 	lui	$s3,%hi(g_Rooms)
+/*  f0b629c:	26734928 */ 	addiu	$s3,$s3,%lo(g_Rooms)
 /*  f0b62a0:	2414008c */ 	addiu	$s4,$zero,0x8c
 .L0f0b62a4:
 /*  f0b62a4:	00d40019 */ 	multu	$a2,$s4

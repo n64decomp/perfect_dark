@@ -893,8 +893,8 @@ glabel func0f130044
 /*  f13030c:	00008825 */ 	or	$s1,$zero,$zero
 .L0f130310:
 /*  f130310:	8e780010 */ 	lw	$t8,0x10($s3)
-/*  f130314:	3c0f800a */ 	lui	$t7,%hi(g_RoomPtrs)
-/*  f130318:	8def4928 */ 	lw	$t7,%lo(g_RoomPtrs)($t7)
+/*  f130314:	3c0f800a */ 	lui	$t7,%hi(g_Rooms)
+/*  f130318:	8def4928 */ 	lw	$t7,%lo(g_Rooms)($t7)
 /*  f13031c:	0018c8c0 */ 	sll	$t9,$t8,0x3
 /*  f130320:	0338c821 */ 	addu	$t9,$t9,$t8
 /*  f130324:	0019c880 */ 	sll	$t9,$t9,0x2

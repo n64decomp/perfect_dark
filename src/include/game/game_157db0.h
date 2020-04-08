@@ -70,7 +70,7 @@ u32 func0f15ffdc(void);
 u32 func0f160a38(void);
 u32 func0f1612e4(void);
 u32 func0f161520(void);
-u32 func0f161ab4(void);
+s32 func0f161ab4(s32 room);
 u32 func0f161adc(void);
 u32 func0f161c08(void);
 u32 func0f161d30(void);

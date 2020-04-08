@@ -21,8 +21,8 @@ GLOBAL_ASM(
 glabel func0f1668f0
 /*  f1668f0:	000578c0 */ 	sll	$t7,$a1,0x3
 /*  f1668f4:	01e57821 */ 	addu	$t7,$t7,$a1
-/*  f1668f8:	3c0e800a */ 	lui	$t6,%hi(g_RoomPtrs)
-/*  f1668fc:	8dce4928 */ 	lw	$t6,%lo(g_RoomPtrs)($t6)
+/*  f1668f8:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
+/*  f1668fc:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
 /*  f166900:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f166904:	01e57823 */ 	subu	$t7,$t7,$a1
 /*  f166908:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -40,8 +40,8 @@ GLOBAL_ASM(
 glabel func0f16692c
 /*  f16692c:	000578c0 */ 	sll	$t7,$a1,0x3
 /*  f166930:	01e57821 */ 	addu	$t7,$t7,$a1
-/*  f166934:	3c0e800a */ 	lui	$t6,%hi(g_RoomPtrs)
-/*  f166938:	8dce4928 */ 	lw	$t6,%lo(g_RoomPtrs)($t6)
+/*  f166934:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
+/*  f166938:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
 /*  f16693c:	000f7880 */ 	sll	$t7,$t7,0x2
 /*  f166940:	01e57823 */ 	subu	$t7,$t7,$a1
 /*  f166944:	000f7880 */ 	sll	$t7,$t7,0x2
@@ -259,8 +259,8 @@ GLOBAL_ASM(
 glabel func0f166c20
 /*  f166c20:	0004c0c0 */ 	sll	$t8,$a0,0x3
 /*  f166c24:	0304c021 */ 	addu	$t8,$t8,$a0
-/*  f166c28:	3c0e800a */ 	lui	$t6,%hi(g_RoomPtrs)
-/*  f166c2c:	8dce4928 */ 	lw	$t6,%lo(g_RoomPtrs)($t6)
+/*  f166c28:	3c0e800a */ 	lui	$t6,%hi(g_Rooms)
+/*  f166c2c:	8dce4928 */ 	lw	$t6,%lo(g_Rooms)($t6)
 /*  f166c30:	27bdff98 */ 	addiu	$sp,$sp,-104
 /*  f166c34:	0018c080 */ 	sll	$t8,$t8,0x2
 /*  f166c38:	0304c023 */ 	subu	$t8,$t8,$a0

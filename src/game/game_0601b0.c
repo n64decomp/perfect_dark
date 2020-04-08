@@ -3612,8 +3612,8 @@ glabel func0f06302c
 /*  f0632d8:	26070028 */ 	addiu	$a3,$s0,0x28
 /*  f0632dc:	00e01825 */ 	or	$v1,$a3,$zero
 /*  f0632e0:	1248000f */ 	beq	$s2,$t0,.L0f063320
-/*  f0632e4:	3c04800a */ 	lui	$a0,%hi(g_RoomPtrs)
-/*  f0632e8:	8c844928 */ 	lw	$a0,%lo(g_RoomPtrs)($a0)
+/*  f0632e4:	3c04800a */ 	lui	$a0,%hi(g_Rooms)
+/*  f0632e8:	8c844928 */ 	lw	$a0,%lo(g_Rooms)($a0)
 /*  f0632ec:	84620000 */ 	lh	$v0,0x0($v1)
 .L0f0632f0:
 /*  f0632f0:	00530019 */ 	multu	$v0,$s3
@@ -3678,8 +3678,8 @@ glabel func0f06302c
 .L0f0633c0:
 /*  f0633c0:	1248000f */ 	beq	$s2,$t0,.L0f063400
 /*  f0633c4:	00e01825 */ 	or	$v1,$a3,$zero
-/*  f0633c8:	3c04800a */ 	lui	$a0,%hi(g_RoomPtrs)
-/*  f0633cc:	8c844928 */ 	lw	$a0,%lo(g_RoomPtrs)($a0)
+/*  f0633c8:	3c04800a */ 	lui	$a0,%hi(g_Rooms)
+/*  f0633cc:	8c844928 */ 	lw	$a0,%lo(g_Rooms)($a0)
 /*  f0633d0:	84e20000 */ 	lh	$v0,0x0($a3)
 .L0f0633d4:
 /*  f0633d4:	00530019 */ 	multu	$v0,$s3
