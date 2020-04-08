@@ -25,7 +25,7 @@ u32 func0f15b51c(u32 arg);
 u32 xorBabebabe(u32 value);
 void func0f15b534(s32 stagenum);
 void func0f15b908(s32 stagenum);
-u32 func0f15c850(void);
+void func0f15c850(void);
 u32 func0f15c880(void);
 f32 func0f15c888(void);
 f32 currentPlayerGetScaleBg2Gfx(void);

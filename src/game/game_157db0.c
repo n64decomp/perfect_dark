@@ -5259,21 +5259,11 @@ glabel var7f1b75d0
 /*  f15c84c:	27bd0148 */ 	addiu	$sp,$sp,0x148
 );
 
-GLOBAL_ASM(
-glabel func0f15c850
-/*  f15c850:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f15c854:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f15c858:	0fc5794e */ 	jal	func0f15e538
-/*  f15c85c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f15c860:	3c013f80 */ 	lui	$at,0x3f80
-/*  f15c864:	44816000 */ 	mtc1	$at,$f12
-/*  f15c868:	0c0059d2 */ 	jal	func00016748
-/*  f15c86c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f15c870:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f15c874:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f15c878:	03e00008 */ 	jr	$ra
-/*  f15c87c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f15c850(void)
+{
+	func0f15e538();
+	func00016748(1);
+}
 
 GLOBAL_ASM(
 glabel func0f15c880
