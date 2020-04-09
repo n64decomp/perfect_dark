@@ -7754,19 +7754,14 @@ glabel func0f18e4c8
 /*  f18e554:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f18e558
-/*  f18e558:	3c03800b */ 	lui	$v1,%hi(var800acc28)
-/*  f18e55c:	3c02800b */ 	lui	$v0,%hi(var800acc70)
-/*  f18e560:	2442cc70 */ 	addiu	$v0,$v0,%lo(var800acc70)
-/*  f18e564:	2463cc28 */ 	addiu	$v1,$v1,%lo(var800acc28)
-.L0f18e568:
-/*  f18e568:	24630004 */ 	addiu	$v1,$v1,0x4
-/*  f18e56c:	1462fffe */ 	bne	$v1,$v0,.L0f18e568
-/*  f18e570:	ac60fffc */ 	sw	$zero,-0x4($v1)
-/*  f18e574:	03e00008 */ 	jr	$ra
-/*  f18e578:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f18e558(void)
+{
+	s32 i;
+
+	for (i = 0; i < ARRAYCOUNT(var800acc28); i++) {
+		var800acc28[i] = 0;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f18e57c

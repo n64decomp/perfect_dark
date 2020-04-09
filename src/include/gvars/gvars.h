@@ -821,7 +821,7 @@ extern u8 g_ActiveMenuMpBotCommands[16];
 extern struct mpsetup g_MpSetup;
 extern struct savefile_setup g_MpSetupSaveFile;
 extern s8 g_MpLockPlayerNum;
-extern u32 var800acc28;
+extern u32 var800acc28[18];
 extern u32 var800acc70;
 extern u32 var800acc74;
 extern struct chrdata *g_MpSimulantChrs[MAX_SIMULANTS];
