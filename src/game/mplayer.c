@@ -7763,15 +7763,7 @@ void func0f18e558(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f18e57c
-/*  f18e57c:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f18e580:	3c02800b */ 	lui	$v0,%hi(var800acc28)
-/*  f18e584:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f18e588:	afa50004 */ 	sw	$a1,0x4($sp)
-/*  f18e58c:	03e00008 */ 	jr	$ra
-/*  f18e590:	8c42cc28 */ 	lw	$v0,%lo(var800acc28)($v0)
-/*  f18e594:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18e598:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f18e59c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f18e57c(u32 index, u32 arg1)
+{
+	return var800acc28[index];
+}

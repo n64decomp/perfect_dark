@@ -115,6 +115,6 @@ u32 func0f18e39c(void);
 u32 func0f18e420(void);
 u32 func0f18e4c8(void);
 void func0f18e558(void);
-u32 func0f18e57c(void);
+u32 func0f18e57c(u32 index, u32 arg1);
 
 #endif
