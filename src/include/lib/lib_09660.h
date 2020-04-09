@@ -54,7 +54,7 @@ u32 func0000bdc8(void);
 u32 func0000bdd8(void);
 f32 func0000be74(void);
 u32 func0000be84(void);
-u32 func0000bee0(void);
+void func0000bee0(f32 *arg0);
 u32 func0000bf04(void);
 
 #endif

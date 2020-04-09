@@ -5644,7 +5644,7 @@ bool func0f15cd90(u32 room, struct screenbox *screen)
 		}
 
 		if (func0f15d08c(&corner, &roomscreenpos) == 0) {
-			if (var800a4cf0[3] <= -roomscreenpos.z) {
+			if (var800a4cf0.unk0c <= -roomscreenpos.z) {
 				numb++;
 			}
 
@@ -5666,7 +5666,7 @@ bool func0f15cd90(u32 room, struct screenbox *screen)
 
 			numa++;
 		} else {
-			if (var800a4cf0[3] <= -roomscreenpos.z) {
+			if (var800a4cf0.unk0c <= -roomscreenpos.z) {
 				numb++;
 			}
 
@@ -13791,6 +13791,87 @@ glabel func0f163e34
 /*  f164148:	03e00008 */ 	jr	$ra
 /*  f16414c:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
+
+//s16 var800a4ce4;
+//s16 var800a4ce6;
+
+// Mismatch because var800a4ce4 and var800a4ce6 need to be moved out of gvars.c
+// and into this file.
+//void func0f163e34(void)
+//{
+//	s32 i;
+//	s32 room;
+//	struct screenbox box;
+//	struct player *player = g_Vars.currentplayer;
+//
+//	func0f164748();
+//
+//	box.xmin = player->screenxminf;
+//	box.ymin = player->screenyminf;
+//	box.xmax = player->screenxmaxf;
+//	box.ymax = player->screenymaxf;
+//
+//	func0000bee0(&var800a4cf0.unk08);
+//	var800a4cf0.unk0c = var800a4cf0.unk0c / g_Vars.currentplayerstats->scale_bg2gfx;
+//
+//	for (i = 0; i < g_Vars.roomcount; i++) {
+//		g_Rooms[i].flags &= ~0x2d;
+//		g_Rooms[i].unk04 = 0;
+//		g_Rooms[i].unk06 = 0;
+//		g_Rooms[i].unk07 = 1;
+//	}
+//
+//	if (player->visionmode == VISIONMODE_XRAY) {
+//		func0f162d9c();
+//	} else {
+//		if (var8007fc34 < var8007fc30) {
+//			var8007fc34 = var8007fc30;
+//		}
+//
+//		var8007fc2c = 0;
+//		var8007fc30 = 0;
+//		var800a4ce4[1] = 0;
+//		var800a4ce4[0] = 32767;
+//		//var800a4ce6 = 0;
+//		//var800a4ce4 = 32767;
+//		var800a4640.unk2d0 = -1;
+//		var800a4640.unk2d3 = 255;
+//		var800a4cf0.unk00 = 0;
+//		var800a4cf0.unk02 = 0;
+//		var800a4cf0.unk04 = 0;
+//		var800a65b8 = 0;
+//		var800a4640.unk2d4.xmin = box.xmin;
+//		var800a4640.unk2d4.ymin = box.ymin;
+//		var800a4640.unk2d4.xmax = box.xmax;
+//		var800a4640.unk2d4.ymax = box.ymax;
+//
+//		func0f162cf0(var800a4cd4);
+//
+//		if (var800a65b8 == 0) {
+//			if (g_Portals[0].unk00 == 0) {
+//				for (room = 1; room < g_Vars.roomcount; room++) {
+//					if (func0f15cd90(room, &box)
+//							&& ((g_StageIndex != STAGEINDEX_INFILTRATION && g_StageIndex != STAGEINDEX_RESCUE && g_StageIndex != STAGEINDEX_ESCAPE) || room != 0xf)
+//							&& (g_StageIndex != STAGEINDEX_SKEDARRUINS || room != 0x02)
+//							&& ((g_StageIndex != STAGEINDEX_DEFECTION && g_StageIndex != STAGEINDEX_EXTRACTION) || room != 0x01)
+//							&& (g_StageIndex != STAGEINDEX_ATTACKSHIP || room != 0x71)) {
+//						func0f157e94(j, 0, &box);
+//					}
+//				}
+//			} else {
+//				func0f157e94(var8007fc20, 0, &box);
+//				var800a4cf0.unk00 = 0;
+//				var800a4cf0.unk02 = 0;
+//				var800a4cf0.unk04 = 0;
+//				func0f1632d4(var8007fc20, var8007fc20, 1, &box);
+//
+//				while (func0f163904());
+//			}
+//		}
+//
+//		func0f16397c();
+//	}
+//}
 
 GLOBAL_ASM(
 glabel func0f164150
