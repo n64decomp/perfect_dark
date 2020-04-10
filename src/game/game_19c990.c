@@ -6099,38 +6099,12 @@ glabel func0f1a1e90
 /*  f1a1efc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a1f00
-/*  f1a1f00:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f1a1f04:	3c0f8009 */ 	lui	$t7,%hi(device_tips1)
-/*  f1a1f08:	25ef8b64 */ 	addiu	$t7,$t7,%lo(device_tips1)
-/*  f1a1f0c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1f10:	25e80024 */ 	addiu	$t0,$t7,0x24
-/*  f1a1f14:	27ae0020 */ 	addiu	$t6,$sp,0x20
-.L0f1a1f18:
-/*  f1a1f18:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a1f1c:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f1a1f20:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f1a1f24:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f1a1f28:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*  f1a1f2c:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f1a1f30:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*  f1a1f34:	15e8fff8 */ 	bne	$t7,$t0,.L0f1a1f18
-/*  f1a1f38:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f1a1f3c:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a1f40:	3c048009 */ 	lui	$a0,%hi(var80088ad8)
-/*  f1a1f44:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1a1f48:	0fc6875a */ 	jal	func0f1a1d68
-/*  f1a1f4c:	90848ad8 */ 	lbu	$a0,%lo(var80088ad8)($a0)
-/*  f1a1f50:	00024880 */ 	sll	$t1,$v0,0x2
-/*  f1a1f54:	03a92021 */ 	addu	$a0,$sp,$t1
-/*  f1a1f58:	0fc5b9f1 */ 	jal	langGet
-/*  f1a1f5c:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f1a1f60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1f64:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f1a1f68:	03e00008 */ 	jr	$ra
-/*  f1a1f6c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *dtGetTip1(void)
+{
+	u32 texts[10] = device_tips1;
+
+	return langGet(texts[func0f1a1d68(var80088ad8)]);
+}
 
 GLOBAL_ASM(
 glabel func0f1a1f70
