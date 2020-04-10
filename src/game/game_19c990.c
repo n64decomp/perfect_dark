@@ -5929,50 +5929,29 @@ void dtEnd(void)
 	g_Vars.currentplayer->bondhealth = 1;
 }
 
-GLOBAL_ASM(
-glabel dtIsComplete
-/*  f1a1c98:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a1c9c:	3c0e8009 */ 	lui	$t6,%hi(var80088ae0)
-/*  f1a1ca0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1ca4:	25ce8ae0 */ 	addiu	$t6,$t6,%lo(var80088ae0)
-/*  f1a1ca8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a1cac:	27a2001c */ 	addiu	$v0,$sp,0x1c
-/*  f1a1cb0:	2485ffff */ 	addiu	$a1,$a0,-1
-/*  f1a1cb4:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f1a1cb8:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f1a1cbc:	ac590004 */ 	sw	$t9,0x4($v0)
-/*  f1a1cc0:	95c10008 */ 	lhu	$at,0x8($t6)
-/*  f1a1cc4:	a4410008 */ 	sh	$at,0x8($v0)
-/*  f1a1cc8:	28a1000a */ 	slti	$at,$a1,0xa
-/*  f1a1ccc:	14200003 */ 	bnez	$at,.L0f1a1cdc
-/*  f1a1cd0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1cd4:	1000000a */ 	beqz	$zero,.L0f1a1d00
-/*  f1a1cd8:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1a1cdc:
-/*  f1a1cdc:	04a00005 */ 	bltz	$a1,.L0f1a1cf4
-/*  f1a1ce0:	00454021 */ 	addu	$t0,$v0,$a1
-/*  f1a1ce4:	0fc43c63 */ 	jal	savefileHasFlag
-/*  f1a1ce8:	91040000 */ 	lbu	$a0,0x0($t0)
-/*  f1a1cec:	50400004 */ 	beqzl	$v0,.L0f1a1d00
-/*  f1a1cf0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a1cf4:
-/*  f1a1cf4:	10000002 */ 	beqz	$zero,.L0f1a1d00
-/*  f1a1cf8:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1a1cfc:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a1d00:
-/*  f1a1d00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1d04:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f1a1d08:	03e00008 */ 	jr	$ra
-/*  f1a1d0c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool dtIsAvailable(s32 deviceindex)
+{
+	u8 flags[10] = g_CiDeviceSaveFileFlags;
+	deviceindex--;
 
-s32 dtGetNumCompleted(void)
+	if (deviceindex >= 10) {
+		return true;
+	}
+
+	if (deviceindex < 0 || savefileHasFlag(flags[deviceindex])) {
+		return true;
+	}
+
+	return false;
+}
+
+s32 dtGetNumAvailable(void)
 {
 	s32 count = 0;
 	s32 i;
 
 	for (i = 0; i < 10; i++) {
-		if (dtIsComplete(i)) {
+		if (dtIsAvailable(i)) {
 			count++;
 		}
 	}
@@ -5986,7 +5965,7 @@ s32 func0f1a1d68(s32 wantindex)
 	s32 i;
 
 	for (i = 0; i < 10; i++) {
-		if (dtIsComplete(i)) {
+		if (dtIsAvailable(i)) {
 			index++;
 		}
 
