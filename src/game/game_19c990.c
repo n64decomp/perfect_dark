@@ -5994,43 +5994,23 @@ glabel func0f1a1d10
 /*  f1a1d64:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f1a1d68
-/*  f1a1d68:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a1d6c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1a1d70:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1a1d74:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1a1d78:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1a1d7c:	00809825 */ 	or	$s3,$a0,$zero
-/*  f1a1d80:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1a1d84:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f1a1d88:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1a1d8c:	2412000a */ 	addiu	$s2,$zero,0xa
-.L0f1a1d90:
-/*  f1a1d90:	0fc68726 */ 	jal	func0f1a1c98
-/*  f1a1d94:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a1d98:	10400002 */ 	beqz	$v0,.L0f1a1da4
-/*  f1a1d9c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1da0:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1a1da4:
-/*  f1a1da4:	56330004 */ 	bnel	$s1,$s3,.L0f1a1db8
-/*  f1a1da8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1a1dac:	10000005 */ 	beqz	$zero,.L0f1a1dc4
-/*  f1a1db0:	02001025 */ 	or	$v0,$s0,$zero
-/*  f1a1db4:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1a1db8:
-/*  f1a1db8:	1612fff5 */ 	bne	$s0,$s2,.L0f1a1d90
-/*  f1a1dbc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1dc0:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a1dc4:
-/*  f1a1dc4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1a1dc8:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1a1dcc:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1a1dd0:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f1a1dd4:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f1a1dd8:	03e00008 */ 	jr	$ra
-/*  f1a1ddc:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 func0f1a1d68(s32 wantindex)
+{
+	s32 index = -1;
+	s32 i;
+
+	for (i = 0; i < 10; i++) {
+		if (func0f1a1c98(i)) {
+			index++;
+		}
+
+		if (index == wantindex) {
+			return i;
+		}
+	}
+
+	return 0;
+}
 
 u32 dtGetWeaponByDeviceIndex(s32 deviceindex)
 {
