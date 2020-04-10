@@ -88,7 +88,7 @@ u32 func0f1a1de0(u32 arg0);
 u32 ciGetStageFlagByDeviceIndex(u32 deviceindex);
 u32 func0f1a1e90(void);
 char *dtGetTip1(void);
-u32 func0f1a1f70(void);
+char *dtGetTip2(void);
 struct trainingdata *getHoloTrainingData(void);
 void htPushEndscreen(void);
 void htTick(void);

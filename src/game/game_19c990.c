@@ -6106,38 +6106,12 @@ char *dtGetTip1(void)
 	return langGet(texts[func0f1a1d68(var80088ad8)]);
 }
 
-GLOBAL_ASM(
-glabel func0f1a1f70
-/*  f1a1f70:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f1a1f74:	3c0f8009 */ 	lui	$t7,%hi(device_tips2)
-/*  f1a1f78:	25ef8b8c */ 	addiu	$t7,$t7,%lo(device_tips2)
-/*  f1a1f7c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1f80:	25e80024 */ 	addiu	$t0,$t7,0x24
-/*  f1a1f84:	27ae0020 */ 	addiu	$t6,$sp,0x20
-.L0f1a1f88:
-/*  f1a1f88:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a1f8c:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f1a1f90:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f1a1f94:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f1a1f98:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*  f1a1f9c:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f1a1fa0:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*  f1a1fa4:	15e8fff8 */ 	bne	$t7,$t0,.L0f1a1f88
-/*  f1a1fa8:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f1a1fac:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a1fb0:	3c048009 */ 	lui	$a0,%hi(var80088ad8)
-/*  f1a1fb4:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1a1fb8:	0fc6875a */ 	jal	func0f1a1d68
-/*  f1a1fbc:	90848ad8 */ 	lbu	$a0,%lo(var80088ad8)($a0)
-/*  f1a1fc0:	00024880 */ 	sll	$t1,$v0,0x2
-/*  f1a1fc4:	03a92021 */ 	addu	$a0,$sp,$t1
-/*  f1a1fc8:	0fc5b9f1 */ 	jal	langGet
-/*  f1a1fcc:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f1a1fd0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1fd4:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f1a1fd8:	03e00008 */ 	jr	$ra
-/*  f1a1fdc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *dtGetTip2(void)
+{
+	u32 texts[10] = device_tips2;
+
+	return langGet(texts[func0f1a1d68(var80088ad8)]);
+}
 
 struct trainingdata *getHoloTrainingData(void)
 {

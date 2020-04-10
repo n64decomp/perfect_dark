@@ -38,7 +38,7 @@ extern u32 var80088aec;
 extern u32 g_CiDeviceStageFlags[10];
 extern u32 device_descriptions[];
 extern u32 device_tips1[10];
-extern u32 device_tips2[];
+extern u32 device_tips2[10];
 extern u8 var80088bb4;
 extern u8 var80088bb8;
 extern s16 g_HoloRooms[5];
