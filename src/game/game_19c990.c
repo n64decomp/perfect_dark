@@ -5930,7 +5930,7 @@ void dtEnd(void)
 }
 
 GLOBAL_ASM(
-glabel func0f1a1c98
+glabel dtIsComplete
 /*  f1a1c98:	27bdffd8 */ 	addiu	$sp,$sp,-40
 /*  f1a1c9c:	3c0e8009 */ 	lui	$t6,%hi(var80088ae0)
 /*  f1a1ca0:	afbf0014 */ 	sw	$ra,0x14($sp)
@@ -5966,33 +5966,19 @@ glabel func0f1a1c98
 /*  f1a1d0c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a1d10
-/*  f1a1d10:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a1d14:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f1a1d18:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f1a1d1c:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1a1d20:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1a1d24:	00008825 */ 	or	$s1,$zero,$zero
-/*  f1a1d28:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1a1d2c:	2412000a */ 	addiu	$s2,$zero,0xa
-.L0f1a1d30:
-/*  f1a1d30:	0fc68726 */ 	jal	func0f1a1c98
-/*  f1a1d34:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a1d38:	10400002 */ 	beqz	$v0,.L0f1a1d44
-/*  f1a1d3c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1a1d40:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1a1d44:
-/*  f1a1d44:	1612fffa */ 	bne	$s0,$s2,.L0f1a1d30
-/*  f1a1d48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1d4c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1a1d50:	02201025 */ 	or	$v0,$s1,$zero
-/*  f1a1d54:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1a1d58:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1a1d5c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1a1d60:	03e00008 */ 	jr	$ra
-/*  f1a1d64:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 dtGetNumCompleted(void)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = 0; i < 10; i++) {
+		if (dtIsComplete(i)) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 s32 func0f1a1d68(s32 wantindex)
 {
@@ -6000,7 +5986,7 @@ s32 func0f1a1d68(s32 wantindex)
 	s32 i;
 
 	for (i = 0; i < 10; i++) {
-		if (func0f1a1c98(i)) {
+		if (dtIsComplete(i)) {
 			index++;
 		}
 
