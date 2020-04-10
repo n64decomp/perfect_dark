@@ -75,7 +75,7 @@ u32 func0f1a1714(void);
 u32 func0f1a176c(void);
 u32 func0f1a17e4(void);
 struct trainingdata *getDeviceTrainingData(void);
-void dtSetUpPlayer(void);
+void dtRestorePlayer(void);
 void dtPushEndscreen(void);
 void dtTick(void);
 u32 func0f1a1ac0(void);

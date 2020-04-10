@@ -41,7 +41,7 @@ void fadeDraw(Gfx *gdl, u32 r, u32 g, u32 b, f32 frac);
 void currentPlayerDrawFade(Gfx *gdl);
 u32 func0f0bb42c(void);
 u32 func0f0bb5ec(void);
-u32 func0f0bb69c(void);
+void func0f0bb69c(void);
 u32 func0f0bb814(void);
 u32 func0f0bbf14(void);
 u32 func0f0bbf78(void);

@@ -5810,7 +5810,7 @@ struct trainingdata *getDeviceTrainingData(void)
 	return &g_DeviceTrainingData;
 }
 
-void dtSetUpPlayer(void)
+void dtRestorePlayer(void)
 {
 	playersSetPassiveMode(true);
 
@@ -5930,61 +5930,28 @@ void dtBegin(void)
 {
 	g_DeviceTrainingData.intraining = true;
 	g_DeviceTrainingData.timetaken = 0;
-	chrUnsetStageFlag(NULL, 0x00000004);
-	chrUnsetStageFlag(NULL, 0x00000008);
-	chrUnsetStageFlag(NULL, 0x00000010);
+	chrUnsetStageFlag(NULL, STAGEFLAG_CI_DEVICE_ABORTING);
+	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_SUCCESS);
+	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_FAILURE);
 	chrSetStageFlag(NULL, ciGetStageFlagByDeviceIndex(func0f1a1d68(var80088ad8)));
 	g_Vars.currentplayer->deadtimer = 1;
 	playersSetPassiveMode(false);
-	chrSetStageFlag(NULL, 0x00000001);
+	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
 }
 
-GLOBAL_ASM(
-glabel dtEnd
-/*  f1a1bec:	3c02800b */ 	lui	$v0,%hi(g_DeviceTrainingData)
-/*  f1a1bf0:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_DeviceTrainingData)
-/*  f1a1bf4:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f1a1bf8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a1bfc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1c00:	31cfff7f */ 	andi	$t7,$t6,0xff7f
-/*  f1a1c04:	0fc68609 */ 	jal	dtSetUpPlayer
-/*  f1a1c08:	a04f0000 */ 	sb	$t7,0x0($v0)
-/*  f1a1c0c:	24040014 */ 	addiu	$a0,$zero,0x14
-/*  f1a1c10:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
-/*  f1a1c14:	00002825 */ 	or	$a1,$zero,$zero
-/*  f1a1c18:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1c1c:	0fc127cb */ 	jal	chrSetStageFlag
-/*  f1a1c20:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f1a1c24:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1c28:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a1c2c:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f1a1c30:	3c048009 */ 	lui	$a0,%hi(var80088ad8)
-/*  f1a1c34:	0fc6875a */ 	jal	func0f1a1d68
-/*  f1a1c38:	90848ad8 */ 	lbu	$a0,%lo(var80088ad8)($a0)
-/*  f1a1c3c:	0fc6878e */ 	jal	ciGetStageFlagByDeviceIndex
-/*  f1a1c40:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a1c44:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1c48:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a1c4c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1a1c50:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f1a1c54:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f1a1c58:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1c5c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1a1c60:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a1c64:	af001c08 */ 	sw	$zero,0x1c08($t8)
-/*  f1a1c68:	0fc2eda7 */ 	jal	func0f0bb69c
-/*  f1a1c6c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1c70:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1a1c74:	3c19800a */ 	lui	$t9,%hi(g_Vars+0x284)
-/*  f1a1c78:	8f39a244 */ 	lw	$t9,%lo(g_Vars+0x284)($t9)
-/*  f1a1c7c:	44812000 */ 	mtc1	$at,$f4
-/*  f1a1c80:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1c84:	e72400dc */ 	swc1	$f4,0xdc($t9)
-/*  f1a1c88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1c8c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a1c90:	03e00008 */ 	jr	$ra
-/*  f1a1c94:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void dtEnd(void)
+{
+	g_DeviceTrainingData.intraining = false;
+	dtRestorePlayer();
+	currentPlayerGiveAmmo(AMMOTYPE_CLOAK, 0);
+	chrSetStageFlag(NULL, STAGEFLAG_CI_DEVICE_ABORTING);
+	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_FAILURE);
+	chrUnsetStageFlag(NULL, ciGetStageFlagByDeviceIndex(func0f1a1d68(var80088ad8)));
+	g_Vars.currentplayer->deadtimer = 0;
+	chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
+	func0f0bb69c();
+	g_Vars.currentplayer->bondhealth = 1;
+}
 
 GLOBAL_ASM(
 glabel func0f1a1c98
