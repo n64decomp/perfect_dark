@@ -778,11 +778,9 @@ u32 device_tips2[] = {
 	/*9*/ L_MISC(376),
 };
 
-u32 var80088bb4 = 0x00000000;
+u8 var80088bb4 = 0;
 u8 var80088bb8 = 0;
-u32 var80088bbc = 0x00160017;
-u32 var80088bc0 = 0x00180019;
-u32 var80088bc4 = 0xffff0000;
+s16 g_HoloRooms[5] = { 0x0016, 0x0017, 0x0018, 0x0019, -1 };
 u32 var80088bc8 = 0x0000599a;
 u32 var80088bcc = 0x0000599b;
 u32 var80088bd0 = 0x0000599c;

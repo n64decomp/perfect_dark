@@ -6327,107 +6327,43 @@ glabel func0f1a2220
 /*  f1a22d0:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel htEnd
-/*  f1a22d4:	27bdfda8 */ 	addiu	$sp,$sp,-600
-/*  f1a22d8:	3c0e8009 */ 	lui	$t6,%hi(var80088bbc)
-/*  f1a22dc:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f1a22e0:	afb40028 */ 	sw	$s4,0x28($sp)
-/*  f1a22e4:	afb30024 */ 	sw	$s3,0x24($sp)
-/*  f1a22e8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f1a22ec:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f1a22f0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1a22f4:	25ce8bbc */ 	addiu	$t6,$t6,%lo(var80088bbc)
-/*  f1a22f8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a22fc:	27b20044 */ 	addiu	$s2,$sp,0x44
-/*  f1a2300:	3c02800b */ 	lui	$v0,%hi(g_HoloTrainingData)
-/*  f1a2304:	ae410000 */ 	sw	$at,0x0($s2)
-/*  f1a2308:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f1a230c:	2442d1b0 */ 	addiu	$v0,$v0,%lo(g_HoloTrainingData)
-/*  f1a2310:	90480000 */ 	lbu	$t0,0x0($v0)
-/*  f1a2314:	ae590004 */ 	sw	$t9,0x4($s2)
-/*  f1a2318:	95c10008 */ 	lhu	$at,0x8($t6)
-/*  f1a231c:	3c10800a */ 	lui	$s0,%hi(g_StageSetup)
-/*  f1a2320:	3109ff7f */ 	andi	$t1,$t0,0xff7f
-/*  f1a2324:	a6410008 */ 	sh	$at,0x8($s2)
-/*  f1a2328:	8e10d030 */ 	lw	$s0,%lo(g_StageSetup)($s0)
-/*  f1a232c:	a0490000 */ 	sb	$t1,0x0($v0)
-/*  f1a2330:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a2334:	0fc127cb */ 	jal	chrSetStageFlag
-/*  f1a2338:	24050020 */ 	addiu	$a1,$zero,0x20
-/*  f1a233c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a2340:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a2344:	24050080 */ 	addiu	$a1,$zero,0x80
-/*  f1a2348:	3c048009 */ 	lui	$a0,%hi(var80088bb4)
-/*  f1a234c:	0fc68937 */ 	jal	func0f1a24dc
-/*  f1a2350:	90848bb4 */ 	lbu	$a0,%lo(var80088bb4)($a0)
-/*  f1a2354:	0fc68970 */ 	jal	func0f1a25c0
-/*  f1a2358:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a235c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a2360:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a2364:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1a2368:	26040200 */ 	addiu	$a0,$s0,0x200
-/*  f1a236c:	0fc4569e */ 	jal	func0f115a78
-/*  f1a2370:	26050310 */ 	addiu	$a1,$s0,0x310
-/*  f1a2374:	3c14800a */ 	lui	$s4,%hi(g_Vars)
-/*  f1a2378:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)
-/*  f1a237c:	8e8a0284 */ 	lw	$t2,0x284($s4)
-/*  f1a2380:	27b10050 */ 	addiu	$s1,$sp,0x50
-/*  f1a2384:	02202825 */ 	or	$a1,$s1,$zero
-/*  f1a2388:	02402025 */ 	or	$a0,$s2,$zero
-/*  f1a238c:	24060100 */ 	addiu	$a2,$zero,0x100
-/*  f1a2390:	0fc197e0 */ 	jal	roomGetProps
-/*  f1a2394:	ad401c08 */ 	sw	$zero,0x1c08($t2)
-/*  f1a2398:	87ab0050 */ 	lh	$t3,0x50($sp)
-/*  f1a239c:	02208025 */ 	or	$s0,$s1,$zero
-/*  f1a23a0:	27ac0050 */ 	addiu	$t4,$sp,0x50
-/*  f1a23a4:	05600017 */ 	bltz	$t3,.L0f1a2404
-/*  f1a23a8:	24130008 */ 	addiu	$s3,$zero,0x8
-/*  f1a23ac:	85830000 */ 	lh	$v1,0x0($t4)
-/*  f1a23b0:	24120004 */ 	addiu	$s2,$zero,0x4
-/*  f1a23b4:	24110048 */ 	addiu	$s1,$zero,0x48
-.L0f1a23b8:
-/*  f1a23b8:	00710019 */ 	multu	$v1,$s1
-/*  f1a23bc:	8e980338 */ 	lw	$t8,0x338($s4)
-/*  f1a23c0:	00006812 */ 	mflo	$t5
-/*  f1a23c4:	01b81021 */ 	addu	$v0,$t5,$t8
-/*  f1a23c8:	5040000b */ 	beqzl	$v0,.L0f1a23f8
-/*  f1a23cc:	86030002 */ 	lh	$v1,0x2($s0)
-/*  f1a23d0:	904f0000 */ 	lbu	$t7,0x0($v0)
-/*  f1a23d4:	564f0008 */ 	bnel	$s2,$t7,.L0f1a23f8
-/*  f1a23d8:	86030002 */ 	lh	$v1,0x2($s0)
-/*  f1a23dc:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f1a23e0:	908e0003 */ 	lbu	$t6,0x3($a0)
-/*  f1a23e4:	566e0004 */ 	bnel	$s3,$t6,.L0f1a23f8
-/*  f1a23e8:	86030002 */ 	lh	$v1,0x2($s0)
-/*  f1a23ec:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
-/*  f1a23f0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1a23f4:	86030002 */ 	lh	$v1,0x2($s0)
-.L0f1a23f8:
-/*  f1a23f8:	26100002 */ 	addiu	$s0,$s0,0x2
-/*  f1a23fc:	0461ffee */ 	bgez	$v1,.L0f1a23b8
-/*  f1a2400:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a2404:
-/*  f1a2404:	0fc2a4ab */ 	jal	playersSetPassiveMode
-/*  f1a2408:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1a240c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a2410:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a2414:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1a2418:	0fc2eda7 */ 	jal	func0f0bb69c
-/*  f1a241c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a2420:	3c013f80 */ 	lui	$at,0x3f80
-/*  f1a2424:	44812000 */ 	mtc1	$at,$f4
-/*  f1a2428:	8e990284 */ 	lw	$t9,0x284($s4)
-/*  f1a242c:	e72400dc */ 	swc1	$f4,0xdc($t9)
-/*  f1a2430:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f1a2434:	8fb40028 */ 	lw	$s4,0x28($sp)
-/*  f1a2438:	8fb30024 */ 	lw	$s3,0x24($sp)
-/*  f1a243c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1a2440:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1a2444:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1a2448:	03e00008 */ 	jr	$ra
-/*  f1a244c:	27bd0258 */ 	addiu	$sp,$sp,0x258
-);
+void htEnd(void)
+{
+	struct prop *prop;
+	s16 *propnum;
+	s16 propnums[256];
+	s16 rooms[5] = g_HoloRooms;
+	struct stagesetup00 *setup00 = g_StageSetup.unk00;
+
+	g_HoloTrainingData.intraining = false;
+	chrSetStageFlag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
+	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
+	chrUnsetStageFlag(NULL, func0f1a25c0(func0f1a24dc(var80088bb4)));
+	func0f115a78(&setup00->unk200, &setup00->unk310);
+	g_Vars.currentplayer->deadtimer = 0;
+	roomGetProps(rooms, propnums, 256);
+	propnum = &propnums[0];
+
+	// Remove dropped weapons
+	while (*propnum >= 0) {
+		prop = &g_Vars.props[*propnum];
+
+		if (prop && prop->type == PROPTYPE_WEAPON) {
+			struct defaultobj *obj = prop->obj;
+
+			if (obj->type == OBJTYPE_WEAPON) {
+				setupParseObjectWithArg2False(obj, true);
+			}
+		}
+
+		propnum++;
+	}
+
+	playersSetPassiveMode(true);
+	chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
+	func0f0bb69c();
+	g_Vars.currentplayer->bondhealth = 1;
+}
 
 bool func0f1a2450(u32 value)
 {
