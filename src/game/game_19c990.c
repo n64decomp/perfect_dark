@@ -5810,70 +5810,33 @@ struct trainingdata *getDeviceTrainingData(void)
 	return &g_DeviceTrainingData;
 }
 
-GLOBAL_ASM(
-glabel func0f1a1824
-/*  f1a1824:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a1828:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a182c:	0fc2a4ab */ 	jal	playersSetPassiveMode
-/*  f1a1830:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1a1834:	3c04800b */ 	lui	$a0,%hi(g_DeviceTrainingData+0x8)
-/*  f1a1838:	8c84d1a8 */ 	lw	$a0,%lo(g_DeviceTrainingData+0x8)($a0)
-/*  f1a183c:	10800003 */ 	beqz	$a0,.L0f1a184c
-/*  f1a1840:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1844:	0fc1acd3 */ 	jal	setupParseObjectWithArg2False
-/*  f1a1848:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f1a184c:
-/*  f1a184c:	3c01800b */ 	lui	$at,%hi(g_DeviceTrainingData+0x8)
-/*  f1a1850:	3c048009 */ 	lui	$a0,%hi(var80088ad8)
-/*  f1a1854:	ac20d1a8 */ 	sw	$zero,%lo(g_DeviceTrainingData+0x8)($at)
-/*  f1a1858:	0fc6875a */ 	jal	func0f1a1d68
-/*  f1a185c:	90848ad8 */ 	lbu	$a0,%lo(var80088ad8)($a0)
-/*  f1a1860:	0fc68778 */ 	jal	func0f1a1de0
-/*  f1a1864:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a1868:	24010035 */ 	addiu	$at,$zero,0x35
-/*  f1a186c:	14410003 */ 	bne	$v0,$at,.L0f1a187c
-/*  f1a1870:	24040020 */ 	addiu	$a0,$zero,0x20
-/*  f1a1874:	0fc2a58a */ 	jal	currentPlayerGiveAmmo
-/*  f1a1878:	00002825 */ 	or	$a1,$zero,$zero
-.L0f1a187c:
-/*  f1a187c:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f1a1880:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f1a1884:	8cee0284 */ 	lw	$t6,0x284($a3)
-/*  f1a1888:	8dc30480 */ 	lw	$v1,0x480($t6)
-/*  f1a188c:	5060001c */ 	beqzl	$v1,.L0f1a1900
-/*  f1a1890:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1894:	8c6f0000 */ 	lw	$t7,0x0($v1)
-/*  f1a1898:	24180001 */ 	addiu	$t8,$zero,0x1
-/*  f1a189c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1a18a0:	8de20004 */ 	lw	$v0,0x4($t7)
-/*  f1a18a4:	a0600035 */ 	sb	$zero,0x35($v1)
-/*  f1a18a8:	8cf90284 */ 	lw	$t9,0x284($a3)
-/*  f1a18ac:	3406ffff */ 	dli	$a2,0xffff
-/*  f1a18b0:	8f280480 */ 	lw	$t0,0x480($t9)
-/*  f1a18b4:	a1180034 */ 	sb	$t8,0x34($t0)
-/*  f1a18b8:	8ce90284 */ 	lw	$t1,0x284($a3)
-/*  f1a18bc:	8d2a0480 */ 	lw	$t2,0x480($t1)
-/*  f1a18c0:	a1400037 */ 	sb	$zero,0x37($t2)
-/*  f1a18c4:	8c4b0018 */ 	lw	$t3,0x18($v0)
-/*  f1a18c8:	356c0400 */ 	ori	$t4,$t3,0x400
-/*  f1a18cc:	ac4c0018 */ 	sw	$t4,0x18($v0)
-/*  f1a18d0:	8ced0284 */ 	lw	$t5,0x284($a3)
-/*  f1a18d4:	8dae0480 */ 	lw	$t6,0x480($t5)
-/*  f1a18d8:	0fc249af */ 	jal	func0f0926bc
-/*  f1a18dc:	8dc40000 */ 	lw	$a0,0x0($t6)
-/*  f1a18e0:	3c07800a */ 	lui	$a3,%hi(g_Vars)
-/*  f1a18e4:	24e79fc0 */ 	addiu	$a3,$a3,%lo(g_Vars)
-/*  f1a18e8:	8ce20284 */ 	lw	$v0,0x284($a3)
-/*  f1a18ec:	2401fffb */ 	addiu	$at,$zero,-5
-/*  f1a18f0:	8c4f00c4 */ 	lw	$t7,0xc4($v0)
-/*  f1a18f4:	01e1c824 */ 	and	$t9,$t7,$at
-/*  f1a18f8:	ac5900c4 */ 	sw	$t9,0xc4($v0)
-/*  f1a18fc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a1900:
-/*  f1a1900:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a1904:	03e00008 */ 	jr	$ra
-/*  f1a1908:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void dtSetUpPlayer(void)
+{
+	playersSetPassiveMode(true);
+
+	if (g_DeviceTrainingData.obj) {
+		setupParseObjectWithArg2False(g_DeviceTrainingData.obj, true);
+	}
+
+	g_DeviceTrainingData.obj = NULL;
+
+	if (func0f1a1de0(func0f1a1d68(var80088ad8)) == WEAPON_ECMMINE) {
+		currentPlayerGiveAmmo(AMMOTYPE_ECM_MINE, 0);
+	}
+
+	if (g_Vars.currentplayer->eyespy) {
+		struct chrdata *chr = g_Vars.currentplayer->eyespy->prop->chr;
+		g_Vars.currentplayer->eyespy->initialised = false;
+		g_Vars.currentplayer->eyespy->init = true;
+		g_Vars.currentplayer->eyespy->active = false;
+
+		chr->chrflags |= CHRCFLAG_HIDDEN;
+
+		func0f0926bc(g_Vars.currentplayer->eyespy->prop, 1, 0xffff);
+
+		g_Vars.currentplayer->unk00c4 &= ~0x04;
+	}
+}
 
 void dtPushEndscreen(void)
 {
@@ -6037,7 +6000,7 @@ glabel func0f1a1bec
 /*  f1a1bf8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a1bfc:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1a1c00:	31cfff7f */ 	andi	$t7,$t6,0xff7f
-/*  f1a1c04:	0fc68609 */ 	jal	func0f1a1824
+/*  f1a1c04:	0fc68609 */ 	jal	dtSetUpPlayer
 /*  f1a1c08:	a04f0000 */ 	sb	$t7,0x0($v0)
 /*  f1a1c0c:	24040014 */ 	addiu	$a0,$zero,0x14
 /*  f1a1c10:	0fc2a58a */ 	jal	currentPlayerGiveAmmo

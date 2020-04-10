@@ -4102,7 +4102,7 @@ struct trainingdata {
 	u8 holographedpc : 1;
 	u8 unk01;
 	s32 timetaken;
-	u32 unk08;
+	struct defaultobj *obj;
 	u32 unk0c;
 };
 
