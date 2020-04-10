@@ -6278,54 +6278,21 @@ glabel func0f1a2198
 /*  f1a221c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a2220
-/*  f1a2220:	3c02800b */ 	lui	$v0,%hi(g_HoloTrainingData)
-/*  f1a2224:	2442d1b0 */ 	addiu	$v0,$v0,%lo(g_HoloTrainingData)
-/*  f1a2228:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f1a222c:	3c0e800a */ 	lui	$t6,%hi(g_StageSetup)
-/*  f1a2230:	8dced030 */ 	lw	$t6,%lo(g_StageSetup)($t6)
-/*  f1a2234:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1a2238:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a223c:	37190080 */ 	ori	$t9,$t8,0x80
-/*  f1a2240:	a0590000 */ 	sb	$t9,0x0($v0)
-/*  f1a2244:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f1a2248:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a224c:	24050020 */ 	addiu	$a1,$zero,0x20
-/*  f1a2250:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a2254:	afae001c */ 	sw	$t6,0x1c($sp)
-/*  f1a2258:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a225c:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a2260:	24050040 */ 	addiu	$a1,$zero,0x40
-/*  f1a2264:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a2268:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a226c:	24050080 */ 	addiu	$a1,$zero,0x80
-/*  f1a2270:	3c048009 */ 	lui	$a0,%hi(var80088bb4)
-/*  f1a2274:	0fc68937 */ 	jal	func0f1a24dc
-/*  f1a2278:	90848bb4 */ 	lbu	$a0,%lo(var80088bb4)($a0)
-/*  f1a227c:	0fc68970 */ 	jal	func0f1a25c0
-/*  f1a2280:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a2284:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a2288:	0fc127cb */ 	jal	chrSetStageFlag
-/*  f1a228c:	00402825 */ 	or	$a1,$v0,$zero
-/*  f1a2290:	8fa2001c */ 	lw	$v0,0x1c($sp)
-/*  f1a2294:	24440200 */ 	addiu	$a0,$v0,0x200
-/*  f1a2298:	0fc45692 */ 	jal	func0f115a48
-/*  f1a229c:	24450310 */ 	addiu	$a1,$v0,0x310
-/*  f1a22a0:	3c09800a */ 	lui	$t1,%hi(g_Vars+0x284)
-/*  f1a22a4:	8d29a244 */ 	lw	$t1,%lo(g_Vars+0x284)($t1)
-/*  f1a22a8:	24080001 */ 	addiu	$t0,$zero,0x1
-/*  f1a22ac:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a22b0:	0fc2a4ab */ 	jal	playersSetPassiveMode
-/*  f1a22b4:	ad281c08 */ 	sw	$t0,0x1c08($t1)
-/*  f1a22b8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a22bc:	0fc127cb */ 	jal	chrSetStageFlag
-/*  f1a22c0:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f1a22c4:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a22c8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1a22cc:	03e00008 */ 	jr	$ra
-/*  f1a22d0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void htBegin(void)
+{
+	struct stagesetup00 *setup00 = g_StageSetup.unk00;
+
+	g_HoloTrainingData.intraining = true;
+	g_HoloTrainingData.timetaken = 0;
+	chrUnsetStageFlag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
+	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_SUCCESS);
+	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
+	chrSetStageFlag(NULL, func0f1a25c0(func0f1a24dc(var80088bb4)));
+	func0f115a48(&setup00->unk200, &setup00->unk310);
+	g_Vars.currentplayer->deadtimer = 1;
+	playersSetPassiveMode(false);
+	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
+}
 
 void htEnd(void)
 {

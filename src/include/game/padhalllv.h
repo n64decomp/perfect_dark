@@ -24,7 +24,7 @@ u32 func0f1154cc(void);
 u32 func0f1155e0(void);
 u32 func0f115784(void);
 u32 func0f11594c(void);
-u32 func0f115a48(void);
+void func0f115a48(u32 *arg0, u32 *arg1);
 void func0f115a78(u32 *arg0, u32 *arg1);
 
 #endif
