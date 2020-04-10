@@ -87,11 +87,11 @@ void playersAllocate(s32 count)
 		if (g_Vars.unk0004e0) {
 			s16 a = func0f0bc44c();
 			s16 b = func0f0bc478();
-			func0f128a9c(a, b << 1);
+			currentPlayerSetViewSize(a, b << 1);
 		} else {
 			s16 a = func0f0bc44c();
 			s16 b = func0f0bc478();
-			func0f128a9c(a, b);
+			currentPlayerSetViewSize(a, b);
 		}
 
 		g_Vars.coop = NULL;
@@ -1235,16 +1235,16 @@ glabel propGetPlayerNum
 /*  f128a98:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-void func0f128a9c(u32 arg0, u32 arg1)
+void currentPlayerSetViewSize(s32 viewx, s32 viewy)
 {
-	g_Vars.currentplayer->unk0630 = arg0;
-	g_Vars.currentplayer->unk0632 = arg1;
+	g_Vars.currentplayer->viewx = viewx;
+	g_Vars.currentplayer->viewy = viewy;
 }
 
-void func0f128ab8(u32 arg0, u32 arg1)
+void currentPlayerSetViewPosition(s32 viewleft, s32 viewtop)
 {
-	g_Vars.currentplayer->unk0634 = arg0;
-	g_Vars.currentplayer->unk0636 = arg1;
+	g_Vars.currentplayer->viewleft = viewleft;
+	g_Vars.currentplayer->viewtop = viewtop;
 }
 
 void currentPlayerSetFovY(f32 fovy)

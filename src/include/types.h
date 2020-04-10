@@ -1970,10 +1970,10 @@ struct player {
 	/*0x0624*/ u32 unk0624;
 	/*0x0628*/ u32 unk0628;
 	/*0x062c*/ u32 unk062c;
-	/*0x0630*/ u16 unk0630;
-	/*0x0632*/ u16 unk0632;
-	/*0x0634*/ u16 unk0634;
-	/*0x0636*/ u16 unk0636;
+	/*0x0630*/ s16 viewx;    // 320 lo-res, 640 hi-res
+	/*0x0632*/ s16 viewy;    // 220 regardless of res
+	/*0x0634*/ s16 viewleft; // 0
+	/*0x0636*/ s16 viewtop;  // 0
 	/*0x0638*/ struct player638 unk0638[2];
 	/*0x1580*/ s8 unk1580;
 	/*0x1581*/ u8 unk1581;

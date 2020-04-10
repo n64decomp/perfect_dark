@@ -5476,25 +5476,14 @@ glabel func0f15cae0
 /*  f15cb70:	c7000004 */ 	lwc1	$f0,0x4($t8)
 );
 
-GLOBAL_ASM(
-glabel func0f15cb74
-/*  f15cb74:	3c02800a */ 	lui	$v0,%hi(g_Vars+0x284)
-/*  f15cb78:	8c42a244 */ 	lw	$v0,%lo(g_Vars+0x284)($v0)
-/*  f15cb7c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f15cb80:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f15cb84:	844f0632 */ 	lh	$t7,0x632($v0)
-/*  f15cb88:	84460636 */ 	lh	$a2,0x636($v0)
-/*  f15cb8c:	844e0630 */ 	lh	$t6,0x630($v0)
-/*  f15cb90:	84450634 */ 	lh	$a1,0x634($v0)
-/*  f15cb94:	00cfc021 */ 	addu	$t8,$a2,$t7
-/*  f15cb98:	afb80010 */ 	sw	$t8,0x10($sp)
-/*  f15cb9c:	0fc57306 */ 	jal	func0f15cc18
-/*  f15cba0:	00ae3821 */ 	addu	$a3,$a1,$t6
-/*  f15cba4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f15cba8:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f15cbac:	03e00008 */ 	jr	$ra
-/*  f15cbb0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+Gfx *func0f15cb74(Gfx *gdl)
+{
+	return func0f15cc18(gdl,
+			g_Vars.currentplayer->viewleft,
+			g_Vars.currentplayer->viewtop,
+			g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewx,
+			g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewy);
+}
 
 GLOBAL_ASM(
 glabel func0f15cbb4
