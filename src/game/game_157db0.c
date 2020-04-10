@@ -3895,14 +3895,10 @@ u8 func0f15b4c0(s32 portal)
 	return uVar2;
 }
 
-GLOBAL_ASM(
-glabel func0f15b508
-/*  f15b508:	3c0e800a */ 	lui	$t6,%hi(var800a4cd0)
-/*  f15b50c:	8dce4cd0 */ 	lw	$t6,%lo(var800a4cd0)($t6)
-/*  f15b510:	01c47821 */ 	addu	$t7,$t6,$a0
-/*  f15b514:	03e00008 */ 	jr	$ra
-/*  f15b518:	91e20000 */ 	lbu	$v0,0x0($t7)
-);
+u8 func0f15b508(s32 index)
+{
+	return var800a4cd0[index];
+}
 
 u32 func0f15b51c(u32 arg)
 {

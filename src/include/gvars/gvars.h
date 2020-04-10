@@ -730,7 +730,7 @@ extern u32 var800a4cc0;
 extern u32 var800a4cc4;
 extern struct portal *g_Portals;
 extern u32 var800a4ccc;
-extern u32 var800a4cd0;
+extern u8 *var800a4cd0;
 extern u32 var800a4cd4;
 extern u32 var800a4cd8;
 extern u32 var800a4ce0;
