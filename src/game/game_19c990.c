@@ -6066,38 +6066,12 @@ u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
 	return flags[deviceindex];
 }
 
-GLOBAL_ASM(
-glabel func0f1a1e90
-/*  f1a1e90:	27bdffb8 */ 	addiu	$sp,$sp,-72
-/*  f1a1e94:	3c0f8009 */ 	lui	$t7,%hi(device_descriptions)
-/*  f1a1e98:	25ef8b3c */ 	addiu	$t7,$t7,%lo(device_descriptions)
-/*  f1a1e9c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1ea0:	25e80024 */ 	addiu	$t0,$t7,0x24
-/*  f1a1ea4:	27ae0020 */ 	addiu	$t6,$sp,0x20
-.L0f1a1ea8:
-/*  f1a1ea8:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a1eac:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f1a1eb0:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f1a1eb4:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f1a1eb8:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*  f1a1ebc:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f1a1ec0:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*  f1a1ec4:	15e8fff8 */ 	bne	$t7,$t0,.L0f1a1ea8
-/*  f1a1ec8:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f1a1ecc:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a1ed0:	3c048009 */ 	lui	$a0,%hi(var80088ad8)
-/*  f1a1ed4:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1a1ed8:	0fc6875a */ 	jal	func0f1a1d68
-/*  f1a1edc:	90848ad8 */ 	lbu	$a0,%lo(var80088ad8)($a0)
-/*  f1a1ee0:	00024880 */ 	sll	$t1,$v0,0x2
-/*  f1a1ee4:	03a92021 */ 	addu	$a0,$sp,$t1
-/*  f1a1ee8:	0fc5b9f1 */ 	jal	langGet
-/*  f1a1eec:	8c840020 */ 	lw	$a0,0x20($a0)
-/*  f1a1ef0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1ef4:	27bd0048 */ 	addiu	$sp,$sp,0x48
-/*  f1a1ef8:	03e00008 */ 	jr	$ra
-/*  f1a1efc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *dtGetDescription(void)
+{
+	u32 texts[10] = device_descriptions;
+
+	return langGet(texts[func0f1a1d68(var80088ad8)]);
+}
 
 char *dtGetTip1(void)
 {
