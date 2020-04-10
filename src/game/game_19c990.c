@@ -5884,47 +5884,23 @@ void dtTick(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f1a1ac0
-/*  f1a1ac0:	3c038009 */ 	lui	$v1,%hi(var80088adc)
-/*  f1a1ac4:	24638adc */ 	addiu	$v1,$v1,%lo(var80088adc)
-/*  f1a1ac8:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*  f1a1acc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a1ad0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1ad4:	15c0001b */ 	bnez	$t6,.L0f1a1b44
-/*  f1a1ad8:	3c02800b */ 	lui	$v0,%hi(g_DeviceTrainingData)
-/*  f1a1adc:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_DeviceTrainingData)
-/*  f1a1ae0:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f1a1ae4:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f1a1ae8:	a06f0000 */ 	sb	$t7,0x0($v1)
-/*  f1a1aec:	3308ff7f */ 	andi	$t0,$t8,0xff7f
-/*  f1a1af0:	310a00bf */ 	andi	$t2,$t0,0xbf
-/*  f1a1af4:	a0480000 */ 	sb	$t0,0x0($v0)
-/*  f1a1af8:	314c00df */ 	andi	$t4,$t2,0xdf
-/*  f1a1afc:	a04a0000 */ 	sb	$t2,0x0($v0)
-/*  f1a1b00:	318e00ef */ 	andi	$t6,$t4,0xef
-/*  f1a1b04:	a04c0000 */ 	sb	$t4,0x0($v0)
-/*  f1a1b08:	a04e0000 */ 	sb	$t6,0x0($v0)
-/*  f1a1b0c:	31cf00f7 */ 	andi	$t7,$t6,0xf7
-/*  f1a1b10:	a0400001 */ 	sb	$zero,0x1($v0)
-/*  f1a1b14:	a04f0000 */ 	sb	$t7,0x0($v0)
-/*  f1a1b18:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f1a1b1c:	ac400008 */ 	sw	$zero,0x8($v0)
-/*  f1a1b20:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1b24:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a1b28:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f1a1b2c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1b30:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a1b34:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f1a1b38:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1b3c:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a1b40:	24050010 */ 	addiu	$a1,$zero,0x10
-.L0f1a1b44:
-/*  f1a1b44:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1b48:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a1b4c:	03e00008 */ 	jr	$ra
-/*  f1a1b50:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f1a1ac0(void)
+{
+	if (var80088adc == false) {
+		var80088adc = true;
+		g_DeviceTrainingData.intraining = false;
+		g_DeviceTrainingData.failed = false;
+		g_DeviceTrainingData.completed = false;
+		g_DeviceTrainingData.finished = false;
+		g_DeviceTrainingData.timeleft = 0;
+		g_DeviceTrainingData.holographedpc = false;
+		g_DeviceTrainingData.timetaken = 0;
+		g_DeviceTrainingData.obj = NULL;
+		chrUnsetStageFlag(NULL, STAGEFLAG_CI_DEVICE_ABORTING);
+		chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_SUCCESS);
+		chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_FAILURE);
+	}
+}
 
 void dtBegin(void)
 {
