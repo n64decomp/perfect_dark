@@ -779,7 +779,7 @@ u32 device_tips2[] = {
 };
 
 u32 var80088bb4 = 0x00000000;
-u32 var80088bb8 = 0x00000000;
+u8 var80088bb8 = 0;
 u32 var80088bbc = 0x00160017;
 u32 var80088bc0 = 0x00180019;
 u32 var80088bc4 = 0xffff0000;

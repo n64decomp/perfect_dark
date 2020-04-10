@@ -3496,7 +3496,7 @@ s32 menuhandler001a6a34(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandler001a6a70(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		func0f1a22d4();
+		htEnd();
 	}
 
 	return 0;

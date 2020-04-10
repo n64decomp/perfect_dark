@@ -6208,89 +6208,36 @@ void htPushEndscreen(void)
 	g_HoloTrainingData.finished = false;
 }
 
-GLOBAL_ASM(
-glabel func0f1a2070
-/*  f1a2070:	3c0e8009 */ 	lui	$t6,%hi(var80088bb8)
-/*  f1a2074:	91ce8bb8 */ 	lbu	$t6,%lo(var80088bb8)($t6)
-/*  f1a2078:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a207c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a2080:	11c00041 */ 	beqz	$t6,.L0f1a2188
-/*  f1a2084:	3c03800b */ 	lui	$v1,%hi(g_HoloTrainingData)
-/*  f1a2088:	2463d1b0 */ 	addiu	$v1,$v1,%lo(g_HoloTrainingData)
-/*  f1a208c:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f1a2090:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f1a2094:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f1a2098:	00027fc2 */ 	srl	$t7,$v0,0x1f
-/*  f1a209c:	11e0002c */ 	beqz	$t7,.L0f1a2150
-/*  f1a20a0:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*  f1a20a4:	8c780004 */ 	lw	$t8,0x4($v1)
-/*  f1a20a8:	8c990038 */ 	lw	$t9,0x38($a0)
-/*  f1a20ac:	8c890284 */ 	lw	$t1,0x284($a0)
-/*  f1a20b0:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f1a20b4:	ac680004 */ 	sw	$t0,0x4($v1)
-/*  f1a20b8:	8d2a00d8 */ 	lw	$t2,0xd8($t1)
-/*  f1a20bc:	51400004 */ 	beqzl	$t2,.L0f1a20d0
-/*  f1a20c0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a20c4:	0fc688b5 */ 	jal	func0f1a22d4
-/*  f1a20c8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a20cc:	00002025 */ 	or	$a0,$zero,$zero
-.L0f1a20d0:
-/*  f1a20d0:	0fc127da */ 	jal	chrHasStageFlag
-/*  f1a20d4:	24050080 */ 	addiu	$a1,$zero,0x80
-/*  f1a20d8:	1040000d */ 	beqz	$v0,.L0f1a2110
-/*  f1a20dc:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a20e0:	0fc688b5 */ 	jal	func0f1a22d4
-/*  f1a20e4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a20e8:	3c03800b */ 	lui	$v1,%hi(g_HoloTrainingData)
-/*  f1a20ec:	2463d1b0 */ 	addiu	$v1,$v1,%lo(g_HoloTrainingData)
-/*  f1a20f0:	906c0000 */ 	lbu	$t4,0x0($v1)
-/*  f1a20f4:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f1a20f8:	a06e0001 */ 	sb	$t6,0x1($v1)
-/*  f1a20fc:	35980040 */ 	ori	$t8,$t4,0x40
-/*  f1a2100:	a0780000 */ 	sb	$t8,0x0($v1)
-/*  f1a2104:	37190010 */ 	ori	$t9,$t8,0x10
-/*  f1a2108:	1000001f */ 	beqz	$zero,.L0f1a2188
-/*  f1a210c:	a0790000 */ 	sb	$t9,0x0($v1)
-.L0f1a2110:
-/*  f1a2110:	0fc127da */ 	jal	chrHasStageFlag
-/*  f1a2114:	24050040 */ 	addiu	$a1,$zero,0x40
-/*  f1a2118:	5040001c */ 	beqzl	$v0,.L0f1a218c
-/*  f1a211c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a2120:	0fc688b5 */ 	jal	func0f1a22d4
-/*  f1a2124:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a2128:	3c03800b */ 	lui	$v1,%hi(g_HoloTrainingData)
-/*  f1a212c:	2463d1b0 */ 	addiu	$v1,$v1,%lo(g_HoloTrainingData)
-/*  f1a2130:	90690000 */ 	lbu	$t1,0x0($v1)
-/*  f1a2134:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f1a2138:	a06b0001 */ 	sb	$t3,0x1($v1)
-/*  f1a213c:	352d0020 */ 	ori	$t5,$t1,0x20
-/*  f1a2140:	a06d0000 */ 	sb	$t5,0x0($v1)
-/*  f1a2144:	35ae0010 */ 	ori	$t6,$t5,0x10
-/*  f1a2148:	1000000f */ 	beqz	$zero,.L0f1a2188
-/*  f1a214c:	a06e0000 */ 	sb	$t6,0x0($v1)
-.L0f1a2150:
-/*  f1a2150:	0703000e */ 	bgezl	$t8,.L0f1a218c
-/*  f1a2154:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a2158:	80620001 */ 	lb	$v0,0x1($v1)
-/*  f1a215c:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f1a2160:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f1a2164:	5c400006 */ 	bgtzl	$v0,.L0f1a2180
-/*  f1a2168:	8c990038 */ 	lw	$t9,0x38($a0)
-/*  f1a216c:	0fc687fb */ 	jal	htPushEndscreen
-/*  f1a2170:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a2174:	10000005 */ 	beqz	$zero,.L0f1a218c
-/*  f1a2178:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a217c:	8c990038 */ 	lw	$t9,0x38($a0)
-.L0f1a2180:
-/*  f1a2180:	00594023 */ 	subu	$t0,$v0,$t9
-/*  f1a2184:	a0680001 */ 	sb	$t0,0x1($v1)
-.L0f1a2188:
-/*  f1a2188:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a218c:
-/*  f1a218c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a2190:	03e00008 */ 	jr	$ra
-/*  f1a2194:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void htTick(void)
+{
+	if (var80088bb8) {
+		if (g_HoloTrainingData.intraining) {
+			g_HoloTrainingData.timetaken += g_Vars.lvupdate240_60;
+
+			if (g_Vars.currentplayer->isdead) {
+				htEnd();
+			}
+
+			if (chrHasStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE)) {
+				htEnd();
+				g_HoloTrainingData.failed = true;
+				g_HoloTrainingData.timeleft = 1;
+				g_HoloTrainingData.finished = true;
+			} else if (chrHasStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_SUCCESS)) {
+				htEnd();
+				g_HoloTrainingData.completed = true;
+				g_HoloTrainingData.timeleft = 1;
+				g_HoloTrainingData.finished = true;
+			}
+		} else if (g_HoloTrainingData.finished) {
+			if (g_HoloTrainingData.timeleft <= 0) {
+				htPushEndscreen();
+			} else {
+				g_HoloTrainingData.timeleft -= g_Vars.lvupdate240_60;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1a2198
@@ -6381,7 +6328,7 @@ glabel func0f1a2220
 );
 
 GLOBAL_ASM(
-glabel func0f1a22d4
+glabel htEnd
 /*  f1a22d4:	27bdfda8 */ 	addiu	$sp,$sp,-600
 /*  f1a22d8:	3c0e8009 */ 	lui	$t6,%hi(var80088bbc)
 /*  f1a22dc:	afbf002c */ 	sw	$ra,0x2c($sp)

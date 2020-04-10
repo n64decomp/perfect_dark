@@ -5472,7 +5472,7 @@ glabel func0f16b96c
 /*  f16cacc:	8fbf0044 */ 	lw	$ra,0x44($sp)
 /*  f16cad0:	0fc68666 */ 	jal	dtTick
 /*  f16cad4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f16cad8:	0fc6881c */ 	jal	func0f1a2070
+/*  f16cad8:	0fc6881c */ 	jal	htTick
 /*  f16cadc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16cae0:	8fbf0044 */ 	lw	$ra,0x44($sp)
 .L0f16cae4:
@@ -5846,7 +5846,7 @@ glabel func0f16b96c
 //
 //			if (g_Vars.lvupdate240 != 0) {
 //				dtTick();
-//				func0f1a2070();
+//				htTick();
 //			}
 //		}
 //	}
