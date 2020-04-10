@@ -11525,21 +11525,10 @@ glabel portalPopValue
 /*  f1625b8:	8c62fc58 */ 	lw	$v0,%lo(g_PortalStack)($v1)
 );
 
-GLOBAL_ASM(
-glabel func0f1625bc
-/*  f1625bc:	3c0e8008 */ 	lui	$t6,%hi(g_PortalStackIndex)
-/*  f1625c0:	8dcefca8 */ 	lw	$t6,%lo(g_PortalStackIndex)($t6)
-/*  f1625c4:	24010014 */ 	addiu	$at,$zero,0x14
-/*  f1625c8:	3c028008 */ 	lui	$v0,%hi(g_PortalStack)
-/*  f1625cc:	01c47823 */ 	subu	$t7,$t6,$a0
-/*  f1625d0:	25f80013 */ 	addiu	$t8,$t7,0x13
-/*  f1625d4:	0301001a */ 	div	$zero,$t8,$at
-/*  f1625d8:	0000c810 */ 	mfhi	$t9
-/*  f1625dc:	00194080 */ 	sll	$t0,$t9,0x2
-/*  f1625e0:	00481021 */ 	addu	$v0,$v0,$t0
-/*  f1625e4:	03e00008 */ 	jr	$ra
-/*  f1625e8:	8c42fc58 */ 	lw	$v0,%lo(g_PortalStack)($v0)
-);
+bool portalGetNthValueFromEnd(s32 n)
+{
+	return g_PortalStack[((g_PortalStackIndex - n) + 19) % 20];
+}
 
 GLOBAL_ASM(
 glabel portalCommandExecute
@@ -12372,7 +12361,7 @@ glabel func0f162cf0
 .L0f162d18:
 /*  f162d18:	00002025 */ 	or	$a0,$zero,$zero
 /*  f162d1c:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f162d20:	0fc5896f */ 	jal	func0f1625bc
+/*  f162d20:	0fc5896f */ 	jal	portalGetNthValueFromEnd
 /*  f162d24:	afa70020 */ 	sw	$a3,0x20($sp)
 /*  f162d28:	8fa6001c */ 	lw	$a2,0x1c($sp)
 /*  f162d2c:	3c03800a */ 	lui	$v1,%hi(var800a65c0)

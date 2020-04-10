@@ -78,7 +78,7 @@ u32 func0f162128(void);
 u32 func0f162194(void);
 bool portalPushValue(bool value);
 bool portalPopValue(void);
-u32 func0f1625bc(void);
+bool portalGetNthValueFromEnd(s32 offset);
 struct portalcmd *portalCommandExecute(struct portalcmd *cmd, bool s2);
 void func0f162cf0(u32 arg0);
 u32 func0f162d9c(void);
