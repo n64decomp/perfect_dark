@@ -5846,96 +5846,43 @@ void dtPushEndscreen(void)
 		func0f0f85e0(&g_DeviceTrainingStatsFailedMenuDialog, MENUROOT_TRAINING);
 	}
 
-	g_DeviceTrainingData.unk01 = 0;
+	g_DeviceTrainingData.timeleft = 0;
 	g_DeviceTrainingData.completed = false;
 	g_DeviceTrainingData.failed = false;
 	g_DeviceTrainingData.finished = false;
 	g_DeviceTrainingData.holographedpc = false;
 }
 
-GLOBAL_ASM(
-glabel func0f1a1998
-/*  f1a1998:	3c0e8009 */ 	lui	$t6,%hi(var80088adc)
-/*  f1a199c:	91ce8adc */ 	lbu	$t6,%lo(var80088adc)($t6)
-/*  f1a19a0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a19a4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a19a8:	11c00041 */ 	beqz	$t6,.L0f1a1ab0
-/*  f1a19ac:	3c03800b */ 	lui	$v1,%hi(g_DeviceTrainingData)
-/*  f1a19b0:	2463d1a0 */ 	addiu	$v1,$v1,%lo(g_DeviceTrainingData)
-/*  f1a19b4:	8c620000 */ 	lw	$v0,0x0($v1)
-/*  f1a19b8:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f1a19bc:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f1a19c0:	00027fc2 */ 	srl	$t7,$v0,0x1f
-/*  f1a19c4:	11e0002c */ 	beqz	$t7,.L0f1a1a78
-/*  f1a19c8:	0002c0c0 */ 	sll	$t8,$v0,0x3
-/*  f1a19cc:	8c780004 */ 	lw	$t8,0x4($v1)
-/*  f1a19d0:	8c990038 */ 	lw	$t9,0x38($a0)
-/*  f1a19d4:	8c890284 */ 	lw	$t1,0x284($a0)
-/*  f1a19d8:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f1a19dc:	ac680004 */ 	sw	$t0,0x4($v1)
-/*  f1a19e0:	8d2a00d8 */ 	lw	$t2,0xd8($t1)
-/*  f1a19e4:	51400004 */ 	beqzl	$t2,.L0f1a19f8
-/*  f1a19e8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a19ec:	0fc686fb */ 	jal	func0f1a1bec
-/*  f1a19f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a19f4:	00002025 */ 	or	$a0,$zero,$zero
-.L0f1a19f8:
-/*  f1a19f8:	0fc127da */ 	jal	chrHasStageFlag
-/*  f1a19fc:	24050010 */ 	addiu	$a1,$zero,0x10
-/*  f1a1a00:	1040000d */ 	beqz	$v0,.L0f1a1a38
-/*  f1a1a04:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a1a08:	0fc686fb */ 	jal	func0f1a1bec
-/*  f1a1a0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1a10:	3c03800b */ 	lui	$v1,%hi(g_DeviceTrainingData)
-/*  f1a1a14:	2463d1a0 */ 	addiu	$v1,$v1,%lo(g_DeviceTrainingData)
-/*  f1a1a18:	906c0000 */ 	lbu	$t4,0x0($v1)
-/*  f1a1a1c:	240e0001 */ 	addiu	$t6,$zero,0x1
-/*  f1a1a20:	a06e0001 */ 	sb	$t6,0x1($v1)
-/*  f1a1a24:	35980040 */ 	ori	$t8,$t4,0x40
-/*  f1a1a28:	a0780000 */ 	sb	$t8,0x0($v1)
-/*  f1a1a2c:	37190010 */ 	ori	$t9,$t8,0x10
-/*  f1a1a30:	1000001f */ 	beqz	$zero,.L0f1a1ab0
-/*  f1a1a34:	a0790000 */ 	sb	$t9,0x0($v1)
-.L0f1a1a38:
-/*  f1a1a38:	0fc127da */ 	jal	chrHasStageFlag
-/*  f1a1a3c:	24050008 */ 	addiu	$a1,$zero,0x8
-/*  f1a1a40:	5040001c */ 	beqzl	$v0,.L0f1a1ab4
-/*  f1a1a44:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1a48:	0fc686fb */ 	jal	func0f1a1bec
-/*  f1a1a4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1a50:	3c03800b */ 	lui	$v1,%hi(g_DeviceTrainingData)
-/*  f1a1a54:	2463d1a0 */ 	addiu	$v1,$v1,%lo(g_DeviceTrainingData)
-/*  f1a1a58:	90690000 */ 	lbu	$t1,0x0($v1)
-/*  f1a1a5c:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f1a1a60:	a06b0001 */ 	sb	$t3,0x1($v1)
-/*  f1a1a64:	352d0020 */ 	ori	$t5,$t1,0x20
-/*  f1a1a68:	a06d0000 */ 	sb	$t5,0x0($v1)
-/*  f1a1a6c:	35ae0010 */ 	ori	$t6,$t5,0x10
-/*  f1a1a70:	1000000f */ 	beqz	$zero,.L0f1a1ab0
-/*  f1a1a74:	a06e0000 */ 	sb	$t6,0x0($v1)
-.L0f1a1a78:
-/*  f1a1a78:	0703000e */ 	bgezl	$t8,.L0f1a1ab4
-/*  f1a1a7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1a80:	80620001 */ 	lb	$v0,0x1($v1)
-/*  f1a1a84:	3c04800a */ 	lui	$a0,%hi(g_Vars)
-/*  f1a1a88:	24849fc0 */ 	addiu	$a0,$a0,%lo(g_Vars)
-/*  f1a1a8c:	5c400006 */ 	bgtzl	$v0,.L0f1a1aa8
-/*  f1a1a90:	8c990038 */ 	lw	$t9,0x38($a0)
-/*  f1a1a94:	0fc68643 */ 	jal	dtPushEndscreen
-/*  f1a1a98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1a9c:	10000005 */ 	beqz	$zero,.L0f1a1ab4
-/*  f1a1aa0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a1aa4:	8c990038 */ 	lw	$t9,0x38($a0)
-.L0f1a1aa8:
-/*  f1a1aa8:	00594023 */ 	subu	$t0,$v0,$t9
-/*  f1a1aac:	a0680001 */ 	sb	$t0,0x1($v1)
-.L0f1a1ab0:
-/*  f1a1ab0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a1ab4:
-/*  f1a1ab4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a1ab8:	03e00008 */ 	jr	$ra
-/*  f1a1abc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void dtTick(void)
+{
+	if (var80088adc) {
+		if (g_DeviceTrainingData.intraining) {
+			g_DeviceTrainingData.timetaken += g_Vars.lvupdate240_60;
+
+			if (g_Vars.currentplayer->isdead) {
+				dtEnd();
+			}
+
+			if (chrHasStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_FAILURE)) {
+				dtEnd();
+				g_DeviceTrainingData.failed = true;
+				g_DeviceTrainingData.timeleft = 1;
+				g_DeviceTrainingData.finished = true;
+			} else if (chrHasStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_SUCCESS)) {
+				dtEnd();
+				g_DeviceTrainingData.completed = true;
+				g_DeviceTrainingData.timeleft = 1;
+				g_DeviceTrainingData.finished = true;
+			}
+		} else if (g_DeviceTrainingData.finished) {
+			if (g_DeviceTrainingData.timeleft <= 0) {
+				dtPushEndscreen();
+			} else {
+				g_DeviceTrainingData.timeleft -= g_Vars.lvupdate240_60;
+			}
+		}
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1a1ac0
@@ -5993,7 +5940,7 @@ void dtBegin(void)
 }
 
 GLOBAL_ASM(
-glabel func0f1a1bec
+glabel dtEnd
 /*  f1a1bec:	3c02800b */ 	lui	$v0,%hi(g_DeviceTrainingData)
 /*  f1a1bf0:	2442d1a0 */ 	addiu	$v0,$v0,%lo(g_DeviceTrainingData)
 /*  f1a1bf4:	904e0000 */ 	lbu	$t6,0x0($v0)
@@ -6288,7 +6235,7 @@ void htPushEndscreen(void)
 		func0f0f85e0(&g_HoloTrainingStatsFailedMenuDialog, MENUROOT_TRAINING);
 	}
 
-	g_HoloTrainingData.unk01 = 0;
+	g_HoloTrainingData.timeleft = 0;
 	g_HoloTrainingData.completed = false;
 	g_HoloTrainingData.failed = false;
 	g_HoloTrainingData.finished = false;

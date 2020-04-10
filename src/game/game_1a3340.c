@@ -3169,7 +3169,7 @@ s32 menuhandlerDtOkOrResume(u32 operation, struct menu_item *item, s32 *value)
 s32 menuhandler001a6514(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		func0f1a1bec();
+		dtEnd();
 	}
 
 	return 0;

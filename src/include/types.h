@@ -4100,7 +4100,7 @@ struct trainingdata {
 	u8 completed : 1;
 	u8 finished : 1;
 	u8 holographedpc : 1;
-	u8 unk01;
+	s8 timeleft;
 	s32 timetaken;
 	struct defaultobj *obj;
 	u32 unk0c;
