@@ -6239,44 +6239,21 @@ void htTick(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f1a2198
-/*  f1a2198:	3c038009 */ 	lui	$v1,%hi(var80088bb8)
-/*  f1a219c:	24638bb8 */ 	addiu	$v1,$v1,%lo(var80088bb8)
-/*  f1a21a0:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*  f1a21a4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a21a8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a21ac:	15c00018 */ 	bnez	$t6,.L0f1a2210
-/*  f1a21b0:	3c02800b */ 	lui	$v0,%hi(g_HoloTrainingData)
-/*  f1a21b4:	2442d1b0 */ 	addiu	$v0,$v0,%lo(g_HoloTrainingData)
-/*  f1a21b8:	90580000 */ 	lbu	$t8,0x0($v0)
-/*  f1a21bc:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f1a21c0:	a06f0000 */ 	sb	$t7,0x0($v1)
-/*  f1a21c4:	3308ff7f */ 	andi	$t0,$t8,0xff7f
-/*  f1a21c8:	310a00bf */ 	andi	$t2,$t0,0xbf
-/*  f1a21cc:	a0480000 */ 	sb	$t0,0x0($v0)
-/*  f1a21d0:	314c00df */ 	andi	$t4,$t2,0xdf
-/*  f1a21d4:	a04a0000 */ 	sb	$t2,0x0($v0)
-/*  f1a21d8:	a04c0000 */ 	sb	$t4,0x0($v0)
-/*  f1a21dc:	318d00ef */ 	andi	$t5,$t4,0xef
-/*  f1a21e0:	a04d0000 */ 	sb	$t5,0x0($v0)
-/*  f1a21e4:	a0400001 */ 	sb	$zero,0x1($v0)
-/*  f1a21e8:	ac400004 */ 	sw	$zero,0x4($v0)
-/*  f1a21ec:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a21f0:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a21f4:	24050020 */ 	addiu	$a1,$zero,0x20
-/*  f1a21f8:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a21fc:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a2200:	24050040 */ 	addiu	$a1,$zero,0x40
-/*  f1a2204:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a2208:	0fc127d2 */ 	jal	chrUnsetStageFlag
-/*  f1a220c:	24050080 */ 	addiu	$a1,$zero,0x80
-.L0f1a2210:
-/*  f1a2210:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a2214:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a2218:	03e00008 */ 	jr	$ra
-/*  f1a221c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f1a2198(void)
+{
+	if (var80088bb8 == false) {
+		var80088bb8 = true;
+		g_HoloTrainingData.intraining = false;
+		g_HoloTrainingData.failed = false;
+		g_HoloTrainingData.completed = false;
+		g_HoloTrainingData.finished = false;
+		g_HoloTrainingData.timeleft = 0;
+		g_HoloTrainingData.timetaken = 0;
+		chrUnsetStageFlag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
+		chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_SUCCESS);
+		chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
+	}
+}
 
 void htBegin(void)
 {
