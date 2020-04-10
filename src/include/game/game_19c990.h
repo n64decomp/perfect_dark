@@ -84,7 +84,7 @@ void dtEnd(void);
 u32 func0f1a1c98(void);
 u32 func0f1a1d10(void);
 u32 func0f1a1d68(u32 arg0);
-u32 func0f1a1de0(u32 arg0);
+u32 dtGetWeaponByDeviceIndex(s32 deviceindex);
 u32 ciGetStageFlagByDeviceIndex(u32 deviceindex);
 char *dtGetDescription(void);
 char *dtGetTip1(void);

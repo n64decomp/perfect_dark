@@ -5820,7 +5820,7 @@ void dtRestorePlayer(void)
 
 	g_DeviceTrainingData.obj = NULL;
 
-	if (func0f1a1de0(func0f1a1d68(var80088ad8)) == WEAPON_ECMMINE) {
+	if (dtGetWeaponByDeviceIndex(func0f1a1d68(var80088ad8)) == WEAPON_ECMMINE) {
 		currentPlayerGiveAmmo(AMMOTYPE_ECM_MINE, 0);
 	}
 
@@ -6032,32 +6032,12 @@ glabel func0f1a1d68
 /*  f1a1ddc:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f1a1de0
-/*  f1a1de0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a1de4:	3c0e8009 */ 	lui	$t6,%hi(var80088aec)
-/*  f1a1de8:	27a30000 */ 	addiu	$v1,$sp,0x0
-/*  f1a1dec:	25ce8aec */ 	addiu	$t6,$t6,%lo(var80088aec)
-/*  f1a1df0:	25d90024 */ 	addiu	$t9,$t6,0x24
-/*  f1a1df4:	00604025 */ 	or	$t0,$v1,$zero
-.L0f1a1df8:
-/*  f1a1df8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a1dfc:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f1a1e00:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f1a1e04:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f1a1e08:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f1a1e0c:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f1a1e10:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f1a1e14:	15d9fff8 */ 	bne	$t6,$t9,.L0f1a1df8
-/*  f1a1e18:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f1a1e1c:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a1e20:	00044880 */ 	sll	$t1,$a0,0x2
-/*  f1a1e24:	00695021 */ 	addu	$t2,$v1,$t1
-/*  f1a1e28:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f1a1e2c:	8d420000 */ 	lw	$v0,0x0($t2)
-/*  f1a1e30:	03e00008 */ 	jr	$ra
-/*  f1a1e34:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+u32 dtGetWeaponByDeviceIndex(s32 deviceindex)
+{
+	u32 weapons[10] = g_CiDeviceWeapons;
+
+	return weapons[deviceindex];
+}
 
 u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
 {
