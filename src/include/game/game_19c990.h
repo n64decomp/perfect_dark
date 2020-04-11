@@ -29,7 +29,7 @@ struct frdata *getFiringRangeData(void);
 u32 func0f19d7d8(void);
 u32 func0f19d8a4(void);
 u32 func0f19d90c(void);
-u32 func0f19de24(void);
+void func0f19de24(void);
 u32 func0f19def4(void);
 u32 func0f19df18(void);
 u32 func0f19df58(void);

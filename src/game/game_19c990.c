@@ -46,6 +46,19 @@
 #include "lib/lib_4a360.h"
 #include "types.h"
 
+u32 var80088800 = 0;
+u8 var80088804 = 0;
+u8 var80088808 = 0;
+u8 var8008880c = 0;
+void *var80088810 = NULL;
+
+u16 g_FrPads[] = {
+	0x00d6, 0x00d7, 0x00d9, 0x00d8, 0x00da, 0x00db, 0x00dc, 0x00dd,
+	0x00de, 0x00df, 0x00e0, 0x00e1, 0x00e2, 0x00e3, 0x00e4, 0x00e5,
+	0x00e6, 0x00e7, 0x00e8, 0x00e9, 0x00ea, 0x00eb, 0x00f4, 0x00f3,
+	0x00f2, 0x00f1, 0x00f0, 0x00ef, 0x00ee, 0x00ed, 0x00ec,
+};
+
 const char var7f1b9180[] = "%s %d\n";
 const char var7f1b9188[] = "%02d\n";
 const char var7f1b9190[] = "%03d\n";
@@ -858,8 +871,8 @@ void func0f19d4ec(void)
 	g_FiringRangeData.unk000 = 0;
 
 	for (i = 0; i < 18; i++) {
-		g_FiringRangeData.unk010[i].unk04 = 0;
-		g_FiringRangeData.unk010[i].unk00_01 = false;
+		g_FiringRangeData.targets[i].prop = NULL;
+		g_FiringRangeData.targets[i].unk00_01 = false;
 	}
 
 	var8008880c = 0;
@@ -1040,32 +1053,32 @@ glabel func0f19d5f4
 //	g_FiringRangeData.unk00c = 1;
 //
 //	for (i = 0; i < 18; i++) {
-//		g_FiringRangeData.unk010[i].unk08.x = pad.pos.x;
-//		g_FiringRangeData.unk010[i].unk08.y = pad.pos.y;
-//		g_FiringRangeData.unk010[i].unk08.z = pad.pos.z + i * 6.0f;
+//		g_FiringRangeData.targets[i].unk08.x = pad.pos.x;
+//		g_FiringRangeData.targets[i].unk08.y = pad.pos.y;
+//		g_FiringRangeData.targets[i].unk08.z = pad.pos.z + i * 6.0f;
 //
-//		g_FiringRangeData.unk010[i].unk00_01 = false;
-//		g_FiringRangeData.unk010[i].unk00_06 = false;
-//		g_FiringRangeData.unk010[i].unk00_03 = false;
-//		g_FiringRangeData.unk010[i].unk20 = 0;
-//		g_FiringRangeData.unk010[i].unk21 = 0;
+//		g_FiringRangeData.targets[i].unk00_01 = false;
+//		g_FiringRangeData.targets[i].unk00_06 = false;
+//		g_FiringRangeData.targets[i].unk00_03 = false;
+//		g_FiringRangeData.targets[i].unk20 = 0;
+//		g_FiringRangeData.targets[i].unk21 = 0;
 //
-//		g_FiringRangeData.unk010[i].unk1c = 0;
-//		g_FiringRangeData.unk010[i].unk14 = 15300;
-//		g_FiringRangeData.unk010[i].unk18 = 0;
+//		g_FiringRangeData.targets[i].unk1c = 0;
+//		g_FiringRangeData.targets[i].unk14 = 15300;
+//		g_FiringRangeData.targets[i].unk18 = 0;
 //
-//		g_FiringRangeData.unk010[i].unk00_05 = false;
-//		g_FiringRangeData.unk010[i].unk24 = 0;
-//		g_FiringRangeData.unk010[i].unk28 = 0;
-//		g_FiringRangeData.unk010[i].unk2c = 0;
-//		g_FiringRangeData.unk010[i].unk31 = 0;
-//		g_FiringRangeData.unk010[i].unk32 = 0;
-//		g_FiringRangeData.unk010[i].unk33 = 0;
-//		g_FiringRangeData.unk010[i].unk38 = 0;
-//		g_FiringRangeData.unk010[i].unk34 = -1;
+//		g_FiringRangeData.targets[i].unk00_05 = false;
+//		g_FiringRangeData.targets[i].unk24 = 0;
+//		g_FiringRangeData.targets[i].unk28 = 0;
+//		g_FiringRangeData.targets[i].unk2c = 0;
+//		g_FiringRangeData.targets[i].unk31 = 0;
+//		g_FiringRangeData.targets[i].unk32 = 0;
+//		g_FiringRangeData.targets[i].unk33 = 0;
+//		g_FiringRangeData.targets[i].unk38 = 0;
+//		g_FiringRangeData.targets[i].unk34 = -1;
 //
-//		func0f13e40c(g_FiringRangeData.unk010[i].unk04, false);
-//		func0f13e40c(g_FiringRangeData.unk010[i].unk04, true);
+//		func0f13e40c(g_FiringRangeData.targets[i].unk04, false);
+//		func0f13e40c(g_FiringRangeData.targets[i].unk04, true);
 //	}
 //
 //	g_FiringRangeData.unk465_05 = true;
@@ -1572,64 +1585,25 @@ glabel var7f1b93ec
 /*  f19de20:	27bd0068 */ 	addiu	$sp,$sp,0x68
 );
 
-GLOBAL_ASM(
-glabel func0f19de24
-/*  f19de24:	27bdff78 */ 	addiu	$sp,$sp,-136
-/*  f19de28:	3c0f8009 */ 	lui	$t7,%hi(var80088854)
-/*  f19de2c:	25ef8854 */ 	addiu	$t7,$t7,%lo(var80088854)
-/*  f19de30:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f19de34:	afb50028 */ 	sw	$s5,0x28($sp)
-/*  f19de38:	afb40024 */ 	sw	$s4,0x24($sp)
-/*  f19de3c:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f19de40:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f19de44:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f19de48:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f19de4c:	25e80048 */ 	addiu	$t0,$t7,0x48
-/*  f19de50:	27ae003c */ 	addiu	$t6,$sp,0x3c
-.L0f19de54:
-/*  f19de54:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f19de58:	25ef000c */ 	addiu	$t7,$t7,0xc
-/*  f19de5c:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f19de60:	adc1fff4 */ 	sw	$at,-0xc($t6)
-/*  f19de64:	8de1fff8 */ 	lw	$at,-0x8($t7)
-/*  f19de68:	adc1fff8 */ 	sw	$at,-0x8($t6)
-/*  f19de6c:	8de1fffc */ 	lw	$at,-0x4($t7)
-/*  f19de70:	15e8fff8 */ 	bne	$t7,$t0,.L0f19de54
-/*  f19de74:	adc1fffc */ 	sw	$at,-0x4($t6)
-/*  f19de78:	3c12800b */ 	lui	$s2,%hi(g_FiringRangeData)
-/*  f19de7c:	2652cd20 */ 	addiu	$s2,$s2,%lo(g_FiringRangeData)
-/*  f19de80:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19de84:	27b1003c */ 	addiu	$s1,$sp,0x3c
-/*  f19de88:	24150012 */ 	addiu	$s5,$zero,0x12
-/*  f19de8c:	3c140008 */ 	lui	$s4,0x8
-/*  f19de90:	2413003c */ 	addiu	$s3,$zero,0x3c
-.L0f19de94:
-/*  f19de94:	0fc2556c */ 	jal	objFindByTagId
-/*  f19de98:	8e240000 */ 	lw	$a0,0x0($s1)
-/*  f19de9c:	5040000a */ 	beqzl	$v0,.L0f19dec8
-/*  f19dea0:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19dea4:	02130019 */ 	multu	$s0,$s3
-/*  f19dea8:	8c490014 */ 	lw	$t1,0x14($v0)
-/*  f19deac:	00005012 */ 	mflo	$t2
-/*  f19deb0:	024a5821 */ 	addu	$t3,$s2,$t2
-/*  f19deb4:	ad690014 */ 	sw	$t1,0x14($t3)
-/*  f19deb8:	8c4c000c */ 	lw	$t4,0xc($v0)
-/*  f19debc:	01946825 */ 	or	$t5,$t4,$s4
-/*  f19dec0:	ac4d000c */ 	sw	$t5,0xc($v0)
-/*  f19dec4:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f19dec8:
-/*  f19dec8:	1615fff2 */ 	bne	$s0,$s5,.L0f19de94
-/*  f19decc:	26310004 */ 	addiu	$s1,$s1,0x4
-/*  f19ded0:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f19ded4:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f19ded8:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f19dedc:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f19dee0:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f19dee4:	8fb40024 */ 	lw	$s4,0x24($sp)
-/*  f19dee8:	8fb50028 */ 	lw	$s5,0x28($sp)
-/*  f19deec:	03e00008 */ 	jr	$ra
-/*  f19def0:	27bd0088 */ 	addiu	$sp,$sp,0x88
-);
+void func0f19de24(void)
+{
+	s32 i;
+	u32 targets[] = {
+		0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x11,
+		0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a,
+	};
+
+	for (i = 0; i < ARRAYCOUNT(targets); i++) {
+		struct defaultobj *obj = objFindByTagId(targets[i]);
+
+		if (obj) {
+			g_FiringRangeData.targets[i].prop = obj->prop;
+			obj->flags2 |= OBJFLAG2_INVISIBLE;
+		}
+	}
+}
+
+u32 var8008889c = 1;
 
 GLOBAL_ASM(
 glabel func0f19def4

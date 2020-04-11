@@ -4775,7 +4775,7 @@ struct hudmessage {
 	/*0x1d8*/ u32 hash;
 };
 
-struct frdata010 {
+struct frtarget {
 	/*0x00*/ u32 unk00_01 : 1;
 	/*0x00*/ u32 unk00_02 : 1;
 	/*0x00*/ u32 unk00_03 : 1;
@@ -4784,7 +4784,7 @@ struct frdata010 {
 	/*0x00*/ u32 unk00_06 : 1;
 	/*0x00*/ u32 unk00_07 : 1;
 	/*0x00*/ u32 unk00_08 : 1;
-	/*0x04*/ u32 unk04;
+	/*0x04*/ struct prop *prop;
 	/*0x08*/ struct coord unk08;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
@@ -4812,7 +4812,7 @@ struct frdata {
 	/*0x007*/ u8 sdgrenadelimit;
 	/*0x008*/ u8 goalaccuracy;
 	/*0x00c*/ f32 unk00c;
-	/*0x010*/ struct frdata010 unk010[18];
+	/*0x010*/ struct frtarget targets[18];
 	/*0x448*/ u8 difficulty;
 	/*0x44c*/ s32 timetaken;
 	/*0x450*/ u32 score;

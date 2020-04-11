@@ -168,12 +168,12 @@
 	src/game/game_17f930.o (section); \
 	src/game/mplayer.o (section); \
 	src/game/data/data_02da90.o (section); \
-	src/game/data/data_02e820.o (section); \
 	src/game/game_18e5a0.o (section); \
 	src/game/game_190260.o (section); \
 	src/game/game_197600.o (section); \
 	src/game/game_1999b0.o (section); \
 	src/game/game_19aa80.o (section); \
 	src/game/game_19c990.o (section); \
+	src/game/data/data_02e820.o (section); \
 	src/game/game_1a3340.o (section); \
 	src/game/game_1a78b0.o (section);
