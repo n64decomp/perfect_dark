@@ -243,47 +243,22 @@ glabel stageIsComplete
 /*  f19cbc8:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19cbcc
-/*  f19cbcc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19cbd0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19cbd4:	18800004 */ 	blez	$a0,.L0f19cbe8
-/*  f19cbd8:	00802825 */ 	or	$a1,$a0,$zero
-/*  f19cbdc:	2401002c */ 	addiu	$at,$zero,0x2c
-/*  f19cbe0:	54810004 */ 	bnel	$a0,$at,.L0f19cbf4
-/*  f19cbe4:	2401002f */ 	addiu	$at,$zero,0x2f
-.L0f19cbe8:
-/*  f19cbe8:	10000015 */ 	beqz	$zero,.L0f19cc40
-/*  f19cbec:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19cbf0:	2401002f */ 	addiu	$at,$zero,0x2f
-.L0f19cbf4:
-/*  f19cbf4:	14a10007 */ 	bne	$a1,$at,.L0f19cc14
-/*  f19cbf8:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f19cbfc:	0fc672e0 */ 	jal	stageIsComplete
-/*  f19cc00:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f19cc04:	10400003 */ 	beqz	$v0,.L0f19cc14
-/*  f19cc08:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f19cc0c:	1000000c */ 	beqz	$zero,.L0f19cc40
-/*  f19cc10:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19cc14:
-/*  f19cc14:	24010031 */ 	addiu	$at,$zero,0x31
-/*  f19cc18:	14a10007 */ 	bne	$a1,$at,.L0f19cc38
-/*  f19cc1c:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f19cc20:	0fc672e0 */ 	jal	stageIsComplete
-/*  f19cc24:	afa50018 */ 	sw	$a1,0x18($sp)
-/*  f19cc28:	10400003 */ 	beqz	$v0,.L0f19cc38
-/*  f19cc2c:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f19cc30:	10000003 */ 	beqz	$zero,.L0f19cc40
-/*  f19cc34:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19cc38:
-/*  f19cc38:	0fc672b5 */ 	jal	frIsWeaponFound
-/*  f19cc3c:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f19cc40:
-/*  f19cc40:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19cc44:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19cc48:	03e00008 */ 	jr	$ra
-/*  f19cc4c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool func0f19cbcc(s32 weapon)
+{
+	if (weapon <= 0 || weapon == WEAPON_PSYCHOSISGUN) {
+		return false;
+	}
+
+	if (weapon == WEAPON_XRAYSCANNER && stageIsComplete(SOLOSTAGEINDEX_INFILTRATION)) {
+		return true;
+	}
+
+	if (weapon == WEAPON_CLOAKINGDEVICE && stageIsComplete(SOLOSTAGEINDEX_CHICAGO)) {
+		return true;
+	}
+
+	return frIsWeaponFound(weapon);
+}
 
 bool frWeaponIsAvailable(s32 weapon)
 {

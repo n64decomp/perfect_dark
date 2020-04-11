@@ -12,7 +12,7 @@ u32 func0f19c9e4(void);
 u32 frIsWeaponFound(s32 weapon);
 void frSetWeaponFound(s32 weaponnum);
 bool stageIsComplete(s32 solostageindex);
-u32 func0f19cbcc(void);
+bool func0f19cbcc(s32 weapon);
 bool frWeaponIsAvailable(s32 weapon);
 u32 func0f19ccc0(u32 weaponnum);
 u32 func0f19cdf0(u32 weaponnum);
