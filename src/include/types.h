@@ -4717,6 +4717,13 @@ struct miscbio {
 	u32 description;
 };
 
+struct locationbio {
+	u32 name;
+	u32 description;
+	u32 unk08;
+	u32 unk0c;
+};
+
 struct chrbio {
 	u32 name;
 	u32 race;

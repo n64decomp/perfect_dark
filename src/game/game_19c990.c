@@ -5499,171 +5499,71 @@ glabel func0f1a14a8
 
 u32 var80088964 = 0;
 
-u32 place_bios[] = {
-	// name, description
-	L_MISC(290), L_MISC(313), 0, 0, // Carrington Institute
-	L_MISC(291), L_MISC(314), 0, 0, // Lucerne Tower
-	L_MISC(292), L_MISC(315), 0, 0, // Laboratory Basement
-	L_MISC(293), L_MISC(316), 0, 0, // Carrington Villa
-	L_MISC(294), L_MISC(317), 0, 0, // Chicago
-	L_MISC(295), L_MISC(318), 0, 0, // G5 Building
-	L_MISC(296), L_MISC(319), 0, 0, // Area 51
-	L_MISC(297), L_MISC(320), 0, 0, // Alaskan Air Base
-	L_MISC(298), L_MISC(321), 0, 0, // Air Force One
-	L_MISC(299), L_MISC(322), 0, 0, // Crash Site
-	L_MISC(300), L_MISC(323), 0, 0, // Pelagic II
-	L_MISC(301), L_MISC(324), 0, 0, // Cetan Ship
-	L_MISC(302), L_MISC(325), 0, 0, // Skedar Assault Ship
-	L_MISC(303), L_MISC(326), 0, 0, // Skedar Homeworld
-	L_MISC(304), L_MISC(327), 0, 0, // Jumpship
-	L_MISC(305), L_MISC(328), 0, 0, // HoverCrate
-	L_MISC(306), L_MISC(329), 0, 0, // HoverBike
-	L_MISC(307), L_MISC(330), 0, 0, // Cleaning Hovbot
-	L_MISC(308), L_MISC(331), 0, 0, // Hovercopter
-	L_MISC(309), L_MISC(332), 0, 0, // G5 Robot
-	L_MISC(310), L_MISC(333), 0, 0, // A51 Interceptor
-	L_MISC(311), L_MISC(334), 0, 0, // Maian Vessel
-	L_MISC(312), L_MISC(335), 0, 0, // Skedar Shuttle
-};
+struct locationbio *ciGetLocationBio(s32 index)
+{
+	struct locationbio bios[] = {
+		// name, description
+		{ L_MISC(290), L_MISC(313) }, // Carrington Institute
+		{ L_MISC(291), L_MISC(314) }, // Lucerne Tower
+		{ L_MISC(292), L_MISC(315) }, // Laboratory Basement
+		{ L_MISC(293), L_MISC(316) }, // Carrington Villa
+		{ L_MISC(294), L_MISC(317) }, // Chicago
+		{ L_MISC(295), L_MISC(318) }, // G5 Building
+		{ L_MISC(296), L_MISC(319) }, // Area 51
+		{ L_MISC(297), L_MISC(320) }, // Alaskan Air Base
+		{ L_MISC(298), L_MISC(321) }, // Air Force One
+		{ L_MISC(299), L_MISC(322) }, // Crash Site
+		{ L_MISC(300), L_MISC(323) }, // Pelagic II
+		{ L_MISC(301), L_MISC(324) }, // Cetan Ship
+		{ L_MISC(302), L_MISC(325) }, // Skedar Assault Ship
+		{ L_MISC(303), L_MISC(326) }, // Skedar Homeworld
+		{ L_MISC(304), L_MISC(327) }, // Jumpship
+		{ L_MISC(305), L_MISC(328) }, // HoverCrate
+		{ L_MISC(306), L_MISC(329) }, // HoverBike
+		{ L_MISC(307), L_MISC(330) }, // Cleaning Hovbot
+		{ L_MISC(308), L_MISC(331) }, // Hovercopter
+		{ L_MISC(309), L_MISC(332) }, // G5 Robot
+		{ L_MISC(310), L_MISC(333) }, // A51 Interceptor
+		{ L_MISC(311), L_MISC(334) }, // Maian Vessel
+		{ L_MISC(312), L_MISC(335) }, // Skedar Shuttle
+	};
+
+	switch (index) {
+		case 0:  return &bios[0];
+		case 1:  return &bios[1];
+		case 2:  return &bios[2];
+		case 3:  return &bios[3];
+		case 4:  return &bios[4];
+		case 5:  return &bios[5];
+		case 6:  return &bios[6];
+		case 7:  return &bios[7];
+		case 8:  return &bios[8];
+		case 9:  return &bios[9];
+		case 10: return &bios[10];
+		case 11: return &bios[11];
+		case 12: return &bios[12];
+		case 13: return &bios[13];
+		case 14: return &bios[14];
+		case 15: return &bios[15];
+		case 16: return &bios[16];
+		case 17: return &bios[17];
+		case 18: return &bios[18];
+		case 19: return &bios[19];
+		case 20: return &bios[20];
+		case 21: return &bios[21];
+		case 22: return &bios[22];
+	}
+
+	return NULL;
+}
 
 u8 var80088ad8 = 0;
 u8 var80088adc = 0;
 
-GLOBAL_ASM(
-glabel func0f1a14b4
-.late_rodata
-glabel var7f1b96cc
-.word func0f1a14b4+0x70 # f1a1524
-glabel var7f1b96d0
-.word func0f1a14b4+0x78 # f1a152c
-glabel var7f1b96d4
-.word func0f1a14b4+0x80 # f1a1534
-glabel var7f1b96d8
-.word func0f1a14b4+0x88 # f1a153c
-glabel var7f1b96dc
-.word func0f1a14b4+0x90 # f1a1544
-glabel var7f1b96e0
-.word func0f1a14b4+0x98 # f1a154c
-glabel var7f1b96e4
-.word func0f1a14b4+0xa0 # f1a1554
-glabel var7f1b96e8
-.word func0f1a14b4+0xa8 # f1a155c
-glabel var7f1b96ec
-.word func0f1a14b4+0xb0 # f1a1564
-glabel var7f1b96f0
-.word func0f1a14b4+0xb8 # f1a156c
-glabel var7f1b96f4
-.word func0f1a14b4+0xc0 # f1a1574
-glabel var7f1b96f8
-.word func0f1a14b4+0xc8 # f1a157c
-glabel var7f1b96fc
-.word func0f1a14b4+0xd0 # f1a1584
-glabel var7f1b9700
-.word func0f1a14b4+0xd8 # f1a158c
-glabel var7f1b9704
-.word func0f1a14b4+0xe0 # f1a1594
-glabel var7f1b9708
-.word func0f1a14b4+0xe8 # f1a159c
-glabel var7f1b970c
-.word func0f1a14b4+0xf0 # f1a15a4
-glabel var7f1b9710
-.word func0f1a14b4+0xf8 # f1a15ac
-glabel var7f1b9714
-.word func0f1a14b4+0x100 # f1a15b4
-glabel var7f1b9718
-.word func0f1a14b4+0x108 # f1a15bc
-glabel var7f1b971c
-.word func0f1a14b4+0x110 # f1a15c4
-glabel var7f1b9720
-.word func0f1a14b4+0x118 # f1a15cc
-glabel var7f1b9724
-.word func0f1a14b4+0x120 # f1a15d4
-.text
-/*  f1a14b4:	27bdfe90 */ 	addiu	$sp,$sp,-368
-/*  f1a14b8:	3c0e8009 */ 	lui	$t6,%hi(place_bios)
-/*  f1a14bc:	27a30000 */ 	addiu	$v1,$sp,0x0
-/*  f1a14c0:	25ce8968 */ 	addiu	$t6,$t6,%lo(place_bios)
-/*  f1a14c4:	25d90168 */ 	addiu	$t9,$t6,0x168
-/*  f1a14c8:	00604025 */ 	or	$t0,$v1,$zero
-.L0f1a14cc:
-/*  f1a14cc:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a14d0:	25ce000c */ 	addiu	$t6,$t6,0xc
-/*  f1a14d4:	2508000c */ 	addiu	$t0,$t0,0xc
-/*  f1a14d8:	ad01fff4 */ 	sw	$at,-0xc($t0)
-/*  f1a14dc:	8dc1fff8 */ 	lw	$at,-0x8($t6)
-/*  f1a14e0:	ad01fff8 */ 	sw	$at,-0x8($t0)
-/*  f1a14e4:	8dc1fffc */ 	lw	$at,-0x4($t6)
-/*  f1a14e8:	15d9fff8 */ 	bne	$t6,$t9,.L0f1a14cc
-/*  f1a14ec:	ad01fffc */ 	sw	$at,-0x4($t0)
-/*  f1a14f0:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a14f4:	00044880 */ 	sll	$t1,$a0,0x2
-/*  f1a14f8:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a14fc:	ad010000 */ 	sw	$at,0x0($t0)
-/*  f1a1500:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f1a1504:	2c810017 */ 	sltiu	$at,$a0,0x17
-/*  f1a1508:	10200034 */ 	beqz	$at,.L0f1a15dc
-/*  f1a150c:	ad190004 */ 	sw	$t9,0x4($t0)
-/*  f1a1510:	3c017f1c */ 	lui	$at,%hi(var7f1b96cc)
-/*  f1a1514:	00290821 */ 	addu	$at,$at,$t1
-/*  f1a1518:	8c2996cc */ 	lw	$t1,%lo(var7f1b96cc)($at)
-/*  f1a151c:	01200008 */ 	jr	$t1
-/*  f1a1520:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1524:	1000002d */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1528:	00601025 */ 	or	$v0,$v1,$zero
-/*  f1a152c:	1000002b */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1530:	27a20010 */ 	addiu	$v0,$sp,0x10
-/*  f1a1534:	10000029 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1538:	27a20020 */ 	addiu	$v0,$sp,0x20
-/*  f1a153c:	10000027 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1540:	27a20030 */ 	addiu	$v0,$sp,0x30
-/*  f1a1544:	10000025 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1548:	27a20040 */ 	addiu	$v0,$sp,0x40
-/*  f1a154c:	10000023 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1550:	27a20050 */ 	addiu	$v0,$sp,0x50
-/*  f1a1554:	10000021 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1558:	27a20060 */ 	addiu	$v0,$sp,0x60
-/*  f1a155c:	1000001f */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1560:	27a20070 */ 	addiu	$v0,$sp,0x70
-/*  f1a1564:	1000001d */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1568:	27a20080 */ 	addiu	$v0,$sp,0x80
-/*  f1a156c:	1000001b */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1570:	27a20090 */ 	addiu	$v0,$sp,0x90
-/*  f1a1574:	10000019 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1578:	27a200a0 */ 	addiu	$v0,$sp,0xa0
-/*  f1a157c:	10000017 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1580:	27a200b0 */ 	addiu	$v0,$sp,0xb0
-/*  f1a1584:	10000015 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1588:	27a200c0 */ 	addiu	$v0,$sp,0xc0
-/*  f1a158c:	10000013 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1590:	27a200d0 */ 	addiu	$v0,$sp,0xd0
-/*  f1a1594:	10000011 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a1598:	27a200e0 */ 	addiu	$v0,$sp,0xe0
-/*  f1a159c:	1000000f */ 	beqz	$zero,.L0f1a15dc
-/*  f1a15a0:	27a200f0 */ 	addiu	$v0,$sp,0xf0
-/*  f1a15a4:	1000000d */ 	beqz	$zero,.L0f1a15dc
-/*  f1a15a8:	27a20100 */ 	addiu	$v0,$sp,0x100
-/*  f1a15ac:	1000000b */ 	beqz	$zero,.L0f1a15dc
-/*  f1a15b0:	27a20110 */ 	addiu	$v0,$sp,0x110
-/*  f1a15b4:	10000009 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a15b8:	27a20120 */ 	addiu	$v0,$sp,0x120
-/*  f1a15bc:	10000007 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a15c0:	27a20130 */ 	addiu	$v0,$sp,0x130
-/*  f1a15c4:	10000005 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a15c8:	27a20140 */ 	addiu	$v0,$sp,0x140
-/*  f1a15cc:	10000003 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a15d0:	27a20150 */ 	addiu	$v0,$sp,0x150
-/*  f1a15d4:	10000001 */ 	beqz	$zero,.L0f1a15dc
-/*  f1a15d8:	27a20160 */ 	addiu	$v0,$sp,0x160
-.L0f1a15dc:
-/*  f1a15dc:	03e00008 */ 	jr	$ra
-/*  f1a15e0:	27bd0170 */ 	addiu	$sp,$sp,0x170
-);
-
-bool bioIsUnlocked(u32 bioindex)
+bool ciIsLocationBioUnlocked(u32 bioindex)
 {
 	u32 stage;
 
-	// bioindex is an index into place_bios
 	switch (bioindex) {
 	case 0:
 	case 15:
@@ -5742,7 +5642,7 @@ glabel func0f1a16a4
 /*  f1a16d4:	10000009 */ 	beqz	$zero,.L0f1a16fc
 /*  f1a16d8:	02201025 */ 	or	$v0,$s1,$zero
 .L0f1a16dc:
-/*  f1a16dc:	0fc68579 */ 	jal	bioIsUnlocked
+/*  f1a16dc:	0fc68579 */ 	jal	ciIsLocationBioUnlocked
 /*  f1a16e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a16e4:	10400002 */ 	beqz	$v0,.L0f1a16f0
 /*  f1a16e8:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5771,7 +5671,7 @@ glabel func0f1a1714
 /*  f1a172c:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a1730:	24120017 */ 	addiu	$s2,$zero,0x17
 .L0f1a1734:
-/*  f1a1734:	0fc68579 */ 	jal	bioIsUnlocked
+/*  f1a1734:	0fc68579 */ 	jal	ciIsLocationBioUnlocked
 /*  f1a1738:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a173c:	10400002 */ 	beqz	$v0,.L0f1a1748
 /*  f1a1740:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -5801,7 +5701,7 @@ glabel func0f1a176c
 /*  f1a178c:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a1790:	24120017 */ 	addiu	$s2,$zero,0x17
 .L0f1a1794:
-/*  f1a1794:	0fc68579 */ 	jal	bioIsUnlocked
+/*  f1a1794:	0fc68579 */ 	jal	ciIsLocationBioUnlocked
 /*  f1a1798:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a179c:	10400002 */ 	beqz	$v0,.L0f1a17a8
 /*  f1a17a0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -5833,7 +5733,7 @@ glabel func0f1a17e4
 /*  f1a17ec:	3c048009 */ 	lui	$a0,%hi(var80088964)
 /*  f1a17f0:	0fc685db */ 	jal	func0f1a176c
 /*  f1a17f4:	90848964 */ 	lbu	$a0,%lo(var80088964)($a0)
-/*  f1a17f8:	0fc6852d */ 	jal	func0f1a14b4
+/*  f1a17f8:	0fc6852d */ 	jal	ciGetLocationBio
 /*  f1a17fc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a1800:	0fc5b9f1 */ 	jal	langGet
 /*  f1a1804:	8c440004 */ 	lw	$a0,0x4($v0)
