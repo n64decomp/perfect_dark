@@ -6282,41 +6282,10 @@ void frGetGoalTargetsText(char *buffer)
 	sprintf(buffer, "%s %d\n", langGet(L_MISC(417)), g_FiringRangeData.goaltargets);
 }
 
-const char var7f1b9188[] = "%02d\n";
-const char var7f1b9190[] = "%03d\n";
-const char var7f1b9198[] = "%s %d\n";
-const char var7f1b91a0[] = "";
-const char var7f1b91a4[] = "%s%s%.2f%%\n";
-const char var7f1b91b0[] = "";
-const char var7f1b91b4[] = "";
-const char var7f1b91b8[] = "%s %d%%\n";
-const char var7f1b91c4[] = "%02d:%02d\n";
-const char var7f1b91d0[] = "%s";
-const char var7f1b91d4[] = "%s";
-const char var7f1b91d8[] = "%s %02d:%02d\n";
-const char var7f1b91e8[] = "010\n";
-const char var7f1b91f0[] = "%03d\n";
-const char var7f1b91f8[] = "%s";
-const char var7f1b91fc[] = "%s";
-const char var7f1b9200[] = "%s";
-const char var7f1b9204[] = "%s";
-const char var7f1b9208[] = "%s";
-const char var7f1b920c[] = "\n";
-
-GLOBAL_ASM(
-glabel func0f1a27cc
-/*  f1a27cc:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a27d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a27d4:	3c057f1c */ 	lui	$a1,%hi(var7f1b9188)
-/*  f1a27d8:	3c06800b */ 	lui	$a2,%hi(g_FiringRangeData+0x455)
-/*  f1a27dc:	90c6d175 */ 	lbu	$a2,%lo(g_FiringRangeData+0x455)($a2)
-/*  f1a27e0:	0c004dad */ 	jal	sprintf
-/*  f1a27e4:	24a59188 */ 	addiu	$a1,$a1,%lo(var7f1b9188)
-/*  f1a27e8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a27ec:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a27f0:	03e00008 */ 	jr	$ra
-/*  f1a27f4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void frGetTargetsDestroyedValue(char *buffer)
+{
+	sprintf(buffer, "%02d\n", g_FiringRangeData.targetsdestroyed);
+}
 
 GLOBAL_ASM(
 glabel func0f1a27f8
@@ -7095,7 +7064,7 @@ glabel var7f1b97cc
 /*  f1a3264:	240100ff */ 	addiu	$at,$zero,0xff
 /*  f1a3268:	1161002e */ 	beq	$t3,$at,.L0f1a3324
 /*  f1a326c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a3270:	0fc689f3 */ 	jal	func0f1a27cc
+/*  f1a3270:	0fc689f3 */ 	jal	frGetTargetsDestroyedValue
 /*  f1a3274:	27a400d8 */ 	addiu	$a0,$sp,0xd8
 /*  f1a3278:	0fc689e3 */ 	jal	frGetGoalTargetsText
 /*  f1a327c:	27a40058 */ 	addiu	$a0,$sp,0x58
@@ -7151,3 +7120,23 @@ glabel var7f1b97cc
 /*  f1a3338:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a333c:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+const char var7f1b9190[] = "%03d\n";
+const char var7f1b9198[] = "%s %d\n";
+const char var7f1b91a0[] = "";
+const char var7f1b91a4[] = "%s%s%.2f%%\n";
+const char var7f1b91b0[] = "";
+const char var7f1b91b4[] = "";
+const char var7f1b91b8[] = "%s %d%%\n";
+const char var7f1b91c4[] = "%02d:%02d\n";
+const char var7f1b91d0[] = "%s";
+const char var7f1b91d4[] = "%s";
+const char var7f1b91d8[] = "%s %02d:%02d\n";
+const char var7f1b91e8[] = "010\n";
+const char var7f1b91f0[] = "%03d\n";
+const char var7f1b91f8[] = "%s";
+const char var7f1b91fc[] = "%s";
+const char var7f1b9200[] = "%s";
+const char var7f1b9204[] = "%s";
+const char var7f1b9208[] = "%s";
+const char var7f1b920c[] = "\n";

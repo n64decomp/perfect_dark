@@ -107,7 +107,7 @@ char *htGetDescription(void);
 char *htGetTip1(void);
 char *htGetTip2(void);
 void frGetGoalTargetsText(char *buffer);
-u32 func0f1a27cc(void);
+void frGetTargetsDestroyedValue(char *buffer);
 u32 func0f1a27f8(void);
 u32 func0f1a2824(void);
 u32 func0f1a2888(void);
