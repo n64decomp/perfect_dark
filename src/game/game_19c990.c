@@ -6237,43 +6237,21 @@ char *htGetName(s32 index)
 	return langGet(texts[index]);
 }
 
-u32 var80088be4 = 0x00040000;
-u32 var80088be8 = 0x00080000;
-u32 var80088bec = 0x00100000;
-u32 var80088bf0 = 0x00200000;
-u32 var80088bf4 = 0x00400000;
-u32 var80088bf8 = 0x00800000;
-u32 var80088bfc = 0x01000000;
-u32 var80088c00 = 0x02000000;
+u32 func0f1a25c0(s32 index)
+{
+	u32 flags[] = {
+		STAGEFLAG_CI_IN_HOLO1,
+		STAGEFLAG_CI_IN_HOLO2,
+		STAGEFLAG_CI_IN_HOLO3,
+		STAGEFLAG_CI_IN_HOLO4,
+		STAGEFLAG_CI_IN_HOLO5,
+		STAGEFLAG_CI_IN_HOLO6,
+		STAGEFLAG_CI_IN_HOLO7,
+		STAGEFLAG_CI_GENERAL_PURPOSE,
+	};
 
-GLOBAL_ASM(
-glabel func0f1a25c0
-/*  f1a25c0:	3c0e8009 */ 	lui	$t6,%hi(var80088be4)
-/*  f1a25c4:	25ce8be4 */ 	addiu	$t6,$t6,%lo(var80088be4)
-/*  f1a25c8:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a25cc:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1a25d0:	27a30000 */ 	addiu	$v1,$sp,0x0
-/*  f1a25d4:	ac610000 */ 	sw	$at,0x0($v1)
-/*  f1a25d8:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f1a25dc:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f1a25e0:	00684821 */ 	addu	$t1,$v1,$t0
-/*  f1a25e4:	ac790004 */ 	sw	$t9,0x4($v1)
-/*  f1a25e8:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f1a25ec:	ac610008 */ 	sw	$at,0x8($v1)
-/*  f1a25f0:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*  f1a25f4:	ac79000c */ 	sw	$t9,0xc($v1)
-/*  f1a25f8:	8dc10010 */ 	lw	$at,0x10($t6)
-/*  f1a25fc:	ac610010 */ 	sw	$at,0x10($v1)
-/*  f1a2600:	8dd90014 */ 	lw	$t9,0x14($t6)
-/*  f1a2604:	ac790014 */ 	sw	$t9,0x14($v1)
-/*  f1a2608:	8dc10018 */ 	lw	$at,0x18($t6)
-/*  f1a260c:	ac610018 */ 	sw	$at,0x18($v1)
-/*  f1a2610:	8dd9001c */ 	lw	$t9,0x1c($t6)
-/*  f1a2614:	ac79001c */ 	sw	$t9,0x1c($v1)
-/*  f1a2618:	8d220000 */ 	lw	$v0,0x0($t1)
-/*  f1a261c:	03e00008 */ 	jr	$ra
-/*  f1a2620:	27bd0020 */ 	addiu	$sp,$sp,0x20
-);
+	return flags[index];
+}
 
 u32 var80088c04 = 0x00005950;
 u32 var80088c08 = 0x00005951;
