@@ -402,246 +402,64 @@ u32 func0f19cdf0(u32 weaponnum)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f19cf20
-.late_rodata
-glabel var7f1b939c
-.word func0f19cf20+0x30 # f19cf50
-glabel var7f1b93a0
-.word func0f19cf20+0x78 # f19cf98
-glabel var7f1b93a4
-.word func0f19cf20+0xf0 # f19d010
-glabel var7f1b93a8
-.word func0f19cf20+0x150 # f19d070
-glabel var7f1b93ac
-.word func0f19cf20+0x1c8 # f19d0e8
-glabel var7f1b93b0
-.word func0f19cf20+0x228 # f19d148
-glabel var7f1b93b4
-.word func0f19cf20+0x270 # f19d190
-glabel var7f1b93b8
-.word func0f19cf20+0x2d0 # f19d1f0
-.text
-/*  f19cf20:	248effdc */ 	addiu	$t6,$a0,-36
-/*  f19cf24:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f19cf28:	2dc10008 */ 	sltiu	$at,$t6,0x8
-/*  f19cf2c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f19cf30:	102000c1 */ 	beqz	$at,.L0f19d238
-/*  f19cf34:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19cf38:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19cf3c:	3c017f1c */ 	lui	$at,%hi(var7f1b939c)
-/*  f19cf40:	002e0821 */ 	addu	$at,$at,$t6
-/*  f19cf44:	8c2e939c */ 	lw	$t6,%lo(var7f1b939c)($at)
-/*  f19cf48:	01c00008 */ 	jr	$t6
-/*  f19cf4c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19cf50:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19cf54:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19cf58:	24100003 */ 	addiu	$s0,$zero,0x3
-/*  f19cf5c:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19cf60:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19cf64:	504000b6 */ 	beqzl	$v0,.L0f19d240
-/*  f19cf68:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19cf6c:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19cf70:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f19cf74:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19cf78:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19cf7c:	504000b0 */ 	beqzl	$v0,.L0f19d240
-/*  f19cf80:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19cf84:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19cf88:	24040002 */ 	addiu	$a0,$zero,0x2
-/*  f19cf8c:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19cf90:	100000aa */ 	beqz	$zero,.L0f19d23c
-/*  f19cf94:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19cf98:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19cf9c:	24040003 */ 	addiu	$a0,$zero,0x3
-/*  f19cfa0:	24100003 */ 	addiu	$s0,$zero,0x3
-/*  f19cfa4:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19cfa8:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19cfac:	504000a4 */ 	beqzl	$v0,.L0f19d240
-/*  f19cfb0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19cfb4:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19cfb8:	24040004 */ 	addiu	$a0,$zero,0x4
-/*  f19cfbc:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19cfc0:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19cfc4:	5040009e */ 	beqzl	$v0,.L0f19d240
-/*  f19cfc8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19cfcc:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19cfd0:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f19cfd4:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19cfd8:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19cfdc:	50400098 */ 	beqzl	$v0,.L0f19d240
-/*  f19cfe0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19cfe4:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19cfe8:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f19cfec:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19cff0:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19cff4:	50400092 */ 	beqzl	$v0,.L0f19d240
-/*  f19cff8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19cffc:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d000:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f19d004:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d008:	1000008c */ 	beqz	$zero,.L0f19d23c
-/*  f19d00c:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d010:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d014:	24040008 */ 	addiu	$a0,$zero,0x8
-/*  f19d018:	24100003 */ 	addiu	$s0,$zero,0x3
-/*  f19d01c:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d020:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d024:	50400086 */ 	beqzl	$v0,.L0f19d240
-/*  f19d028:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d02c:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d030:	24040009 */ 	addiu	$a0,$zero,0x9
-/*  f19d034:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d038:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d03c:	50400080 */ 	beqzl	$v0,.L0f19d240
-/*  f19d040:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d044:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d048:	2404000a */ 	addiu	$a0,$zero,0xa
-/*  f19d04c:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d050:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d054:	5040007a */ 	beqzl	$v0,.L0f19d240
-/*  f19d058:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d05c:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d060:	2404000b */ 	addiu	$a0,$zero,0xb
-/*  f19d064:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d068:	10000074 */ 	beqz	$zero,.L0f19d23c
-/*  f19d06c:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d070:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d074:	2404000c */ 	addiu	$a0,$zero,0xc
-/*  f19d078:	24100003 */ 	addiu	$s0,$zero,0x3
-/*  f19d07c:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d080:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d084:	5040006e */ 	beqzl	$v0,.L0f19d240
-/*  f19d088:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d08c:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d090:	2404000d */ 	addiu	$a0,$zero,0xd
-/*  f19d094:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d098:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d09c:	50400068 */ 	beqzl	$v0,.L0f19d240
-/*  f19d0a0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d0a4:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d0a8:	2404000e */ 	addiu	$a0,$zero,0xe
-/*  f19d0ac:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d0b0:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d0b4:	50400062 */ 	beqzl	$v0,.L0f19d240
-/*  f19d0b8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d0bc:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d0c0:	2404000f */ 	addiu	$a0,$zero,0xf
-/*  f19d0c4:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d0c8:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d0cc:	5040005c */ 	beqzl	$v0,.L0f19d240
-/*  f19d0d0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d0d4:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d0d8:	24040010 */ 	addiu	$a0,$zero,0x10
-/*  f19d0dc:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d0e0:	10000056 */ 	beqz	$zero,.L0f19d23c
-/*  f19d0e4:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d0e8:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d0ec:	24040011 */ 	addiu	$a0,$zero,0x11
-/*  f19d0f0:	24100003 */ 	addiu	$s0,$zero,0x3
-/*  f19d0f4:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d0f8:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d0fc:	50400050 */ 	beqzl	$v0,.L0f19d240
-/*  f19d100:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d104:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d108:	24040012 */ 	addiu	$a0,$zero,0x12
-/*  f19d10c:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d110:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d114:	5040004a */ 	beqzl	$v0,.L0f19d240
-/*  f19d118:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d11c:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d120:	24040018 */ 	addiu	$a0,$zero,0x18
-/*  f19d124:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d128:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d12c:	50400044 */ 	beqzl	$v0,.L0f19d240
-/*  f19d130:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d134:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d138:	24040019 */ 	addiu	$a0,$zero,0x19
-/*  f19d13c:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d140:	1000003e */ 	beqz	$zero,.L0f19d23c
-/*  f19d144:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d148:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d14c:	2404001d */ 	addiu	$a0,$zero,0x1d
-/*  f19d150:	24100003 */ 	addiu	$s0,$zero,0x3
-/*  f19d154:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d158:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d15c:	50400038 */ 	beqzl	$v0,.L0f19d240
-/*  f19d160:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d164:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d168:	2404001e */ 	addiu	$a0,$zero,0x1e
-/*  f19d16c:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d170:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d174:	50400032 */ 	beqzl	$v0,.L0f19d240
-/*  f19d178:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d17c:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d180:	2404001f */ 	addiu	$a0,$zero,0x1f
-/*  f19d184:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d188:	1000002c */ 	beqz	$zero,.L0f19d23c
-/*  f19d18c:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d190:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d194:	24040013 */ 	addiu	$a0,$zero,0x13
-/*  f19d198:	24100003 */ 	addiu	$s0,$zero,0x3
-/*  f19d19c:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d1a0:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d1a4:	50400026 */ 	beqzl	$v0,.L0f19d240
-/*  f19d1a8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d1ac:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d1b0:	24040014 */ 	addiu	$a0,$zero,0x14
-/*  f19d1b4:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d1b8:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d1bc:	50400020 */ 	beqzl	$v0,.L0f19d240
-/*  f19d1c0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d1c4:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d1c8:	2404001a */ 	addiu	$a0,$zero,0x1a
-/*  f19d1cc:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d1d0:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d1d4:	5040001a */ 	beqzl	$v0,.L0f19d240
-/*  f19d1d8:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d1dc:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d1e0:	2404001c */ 	addiu	$a0,$zero,0x1c
-/*  f19d1e4:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d1e8:	10000014 */ 	beqz	$zero,.L0f19d23c
-/*  f19d1ec:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d1f0:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d1f4:	24040015 */ 	addiu	$a0,$zero,0x15
-/*  f19d1f8:	24100003 */ 	addiu	$s0,$zero,0x3
-/*  f19d1fc:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d200:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d204:	5040000e */ 	beqzl	$v0,.L0f19d240
-/*  f19d208:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d20c:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d210:	24040016 */ 	addiu	$a0,$zero,0x16
-/*  f19d214:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d218:	2c420001 */ 	sltiu	$v0,$v0,0x1
-/*  f19d21c:	50400008 */ 	beqzl	$v0,.L0f19d240
-/*  f19d220:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f19d224:	0fc6726c */ 	jal	ciGetFiringRangeScore
-/*  f19d228:	24040017 */ 	addiu	$a0,$zero,0x17
-/*  f19d22c:	02021026 */ 	xor	$v0,$s0,$v0
-/*  f19d230:	10000002 */ 	beqz	$zero,.L0f19d23c
-/*  f19d234:	2c420001 */ 	sltiu	$v0,$v0,0x1
-.L0f19d238:
-/*  f19d238:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19d23c:
-/*  f19d23c:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f19d240:
-/*  f19d240:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19d244:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f19d248:	03e00008 */ 	jr	$ra
-/*  f19d24c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 frIsClassicWeaponUnlocked(u32 weapon)
+{
+	switch (weapon) {
+	case WEAPON_PP9I:
+		return ciGetFiringRangeScore(0) == 3
+			&& ciGetFiringRangeScore(1) == 3
+			&& ciGetFiringRangeScore(2) == 3;
+	case WEAPON_CC13:
+		return ciGetFiringRangeScore(3) == 3
+			&& ciGetFiringRangeScore(4) == 3
+			&& ciGetFiringRangeScore(5) == 3
+			&& ciGetFiringRangeScore(6) == 3
+			&& ciGetFiringRangeScore(7) == 3;
+	case WEAPON_KL01313:
+		return ciGetFiringRangeScore(8) == 3
+			&& ciGetFiringRangeScore(9) == 3
+			&& ciGetFiringRangeScore(10) == 3
+			&& ciGetFiringRangeScore(11) == 3;
+	case WEAPON_KF7SPECIAL:
+		return ciGetFiringRangeScore(12) == 3
+			&& ciGetFiringRangeScore(13) == 3
+			&& ciGetFiringRangeScore(14) == 3
+			&& ciGetFiringRangeScore(15) == 3
+			&& ciGetFiringRangeScore(16) == 3;
+	case WEAPON_ZZT:
+		return ciGetFiringRangeScore(17) == 3
+			&& ciGetFiringRangeScore(18) == 3
+			&& ciGetFiringRangeScore(24) == 3
+			&& ciGetFiringRangeScore(25) == 3;
+	case WEAPON_DMC:
+		return ciGetFiringRangeScore(29) == 3
+			&& ciGetFiringRangeScore(30) == 3
+			&& ciGetFiringRangeScore(31) == 3;
+	case WEAPON_AR53:
+		return ciGetFiringRangeScore(19) == 3
+			&& ciGetFiringRangeScore(20) == 3
+			&& ciGetFiringRangeScore(26) == 3
+			&& ciGetFiringRangeScore(28) == 3;
+	case WEAPON_RCP45:
+		return ciGetFiringRangeScore(21) == 3
+			&& ciGetFiringRangeScore(22) == 3
+			&& ciGetFiringRangeScore(23) == 3;
+	}
 
-u32 frGetSlot(void)
+	return false;
+}
+
+s32 frGetSlot(void)
 {
 	return g_FiringRangeData.slot;
 }
 
-void frSetSlot(u32 slot)
+void frSetSlot(s32 slot)
 {
 	g_FiringRangeData.slot = slot;
 }
 
-u32 frGetWeaponBySlot(u32 slot)
+u32 frGetWeaponBySlot(s32 slot)
 {
 	s32 index = -1;
 	s32 weapon;

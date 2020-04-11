@@ -16,10 +16,10 @@ u32 func0f19cbcc(void);
 bool func0f19cc50(u32 arg0);
 u32 func0f19ccc0(u32 weaponnum);
 u32 func0f19cdf0(u32 weaponnum);
-u32 func0f19cf20(s32 stage_index); // firing range related
-u32 frGetSlot(void);
-void frSetSlot(u32 slot);
-u32 frGetWeaponBySlot(u32 slot);
+s32 frIsClassicWeaponUnlocked(u32 weapon);
+s32 frGetSlot(void);
+void frSetSlot(s32 slot);
+u32 frGetWeaponBySlot(s32 slot);
 u32 func0f19d2e0(void);
 u32 func0f19d338(void);
 u32 func0f19d414(void);
