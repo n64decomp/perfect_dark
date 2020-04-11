@@ -6222,44 +6222,20 @@ glabel func0f1a24dc
 /*  f1a2550:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-u32 var80088bc8 = 0x0000599a;
-u32 var80088bcc = 0x0000599b;
-u32 var80088bd0 = 0x0000599c;
-u32 var80088bd4 = 0x0000599d;
-u32 var80088bd8 = 0x0000599e;
-u32 var80088bdc = 0x0000599f;
-u32 var80088be0 = 0x000059a0;
+char *htGetName(s32 index)
+{
+	u32 texts[] = {
+		L_MISC(410), // "Holo 1 - Looking Around"
+		L_MISC(411), // "Holo 2 - Movement 1"
+		L_MISC(412), // "Holo 3 - Movement 2"
+		L_MISC(413), // "Holo 4 - Unarmed Combat 1"
+		L_MISC(414), // "Holo 5 - Unarmed Combat 2"
+		L_MISC(415), // "Holo 6 - Live Combat 1"
+		L_MISC(416), // "Holo 7 - Live Combat 2"
+	};
 
-GLOBAL_ASM(
-glabel func0f1a2554
-/*  f1a2554:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1a2558:	3c0e8009 */ 	lui	$t6,%hi(var80088bc8)
-/*  f1a255c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a2560:	25ce8bc8 */ 	addiu	$t6,$t6,%lo(var80088bc8)
-/*  f1a2564:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a2568:	27a2001c */ 	addiu	$v0,$sp,0x1c
-/*  f1a256c:	00044080 */ 	sll	$t0,$a0,0x2
-/*  f1a2570:	ac410000 */ 	sw	$at,0x0($v0)
-/*  f1a2574:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f1a2578:	00484821 */ 	addu	$t1,$v0,$t0
-/*  f1a257c:	ac590004 */ 	sw	$t9,0x4($v0)
-/*  f1a2580:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f1a2584:	ac410008 */ 	sw	$at,0x8($v0)
-/*  f1a2588:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*  f1a258c:	ac59000c */ 	sw	$t9,0xc($v0)
-/*  f1a2590:	8dc10010 */ 	lw	$at,0x10($t6)
-/*  f1a2594:	ac410010 */ 	sw	$at,0x10($v0)
-/*  f1a2598:	8dd90014 */ 	lw	$t9,0x14($t6)
-/*  f1a259c:	ac590014 */ 	sw	$t9,0x14($v0)
-/*  f1a25a0:	8dc10018 */ 	lw	$at,0x18($t6)
-/*  f1a25a4:	ac410018 */ 	sw	$at,0x18($v0)
-/*  f1a25a8:	0fc5b9f1 */ 	jal	langGet
-/*  f1a25ac:	8d240000 */ 	lw	$a0,0x0($t1)
-/*  f1a25b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a25b4:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f1a25b8:	03e00008 */ 	jr	$ra
-/*  f1a25bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	return langGet(texts[index]);
+}
 
 u32 var80088be4 = 0x00040000;
 u32 var80088be8 = 0x00080000;
