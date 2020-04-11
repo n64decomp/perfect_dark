@@ -841,39 +841,29 @@ glabel func0f19d414
 /*  f19d4e8:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f19d4ec
-/*  f19d4ec:	3c018009 */ 	lui	$at,%hi(var80088800)
-/*  f19d4f0:	ac208800 */ 	sw	$zero,%lo(var80088800)($at)
-/*  f19d4f4:	3c018009 */ 	lui	$at,%hi(var80088808)
-/*  f19d4f8:	a0208808 */ 	sb	$zero,%lo(var80088808)($at)
-/*  f19d4fc:	3c018009 */ 	lui	$at,%hi(var80088804)
-/*  f19d500:	a0208804 */ 	sb	$zero,%lo(var80088804)($at)
-/*  f19d504:	3c04800b */ 	lui	$a0,%hi(g_FiringRangeData)
-/*  f19d508:	3c018009 */ 	lui	$at,%hi(var80088810)
-/*  f19d50c:	2484cd20 */ 	addiu	$a0,$a0,%lo(g_FiringRangeData)
-/*  f19d510:	ac208810 */ 	sw	$zero,%lo(var80088810)($at)
-/*  f19d514:	3c03800b */ 	lui	$v1,%hi(g_FiringRangeData)
-/*  f19d518:	3c02800b */ 	lui	$v0,%hi(g_FiringRangeData+0x438)
-/*  f19d51c:	a0800466 */ 	sb	$zero,0x466($a0)
-/*  f19d520:	a0800467 */ 	sb	$zero,0x467($a0)
-/*  f19d524:	a0800468 */ 	sb	$zero,0x468($a0)
-/*  f19d528:	ac80046c */ 	sw	$zero,0x46c($a0)
-/*  f19d52c:	a0800464 */ 	sb	$zero,0x464($a0)
-/*  f19d530:	a0800000 */ 	sb	$zero,0x0($a0)
-/*  f19d534:	2442d158 */ 	addiu	$v0,$v0,%lo(g_FiringRangeData+0x438)
-/*  f19d538:	2463cd20 */ 	addiu	$v1,$v1,%lo(g_FiringRangeData)
-.L0f19d53c:
-/*  f19d53c:	906e0010 */ 	lbu	$t6,0x10($v1)
-/*  f19d540:	2463003c */ 	addiu	$v1,$v1,0x3c
-/*  f19d544:	ac60ffd8 */ 	sw	$zero,-0x28($v1)
-/*  f19d548:	31cfff7f */ 	andi	$t7,$t6,0xff7f
-/*  f19d54c:	1462fffb */ 	bne	$v1,$v0,.L0f19d53c
-/*  f19d550:	a06fffd4 */ 	sb	$t7,-0x2c($v1)
-/*  f19d554:	3c018009 */ 	lui	$at,%hi(var8008880c)
-/*  f19d558:	03e00008 */ 	jr	$ra
-/*  f19d55c:	a020880c */ 	sb	$zero,%lo(var8008880c)($at)
-);
+void func0f19d4ec(void)
+{
+	s32 i;
+
+	var80088800 = 0;
+	var80088808 = 0;
+	var80088804 = 0;
+	var80088810 = 0;
+
+	g_FiringRangeData.unk466 = 0;
+	g_FiringRangeData.unk467 = 0;
+	g_FiringRangeData.unk468 = 0;
+	g_FiringRangeData.unk46c = 0;
+	g_FiringRangeData.unk464 = 0;
+	g_FiringRangeData.unk000 = 0;
+
+	for (i = 0; i < 18; i++) {
+		g_FiringRangeData.unk010[i].unk04 = 0;
+		g_FiringRangeData.unk010[i].unk00_01 = false;
+	}
+
+	var8008880c = 0;
+}
 
 GLOBAL_ASM(
 glabel func0f19d560

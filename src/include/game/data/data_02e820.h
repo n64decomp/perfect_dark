@@ -5,8 +5,8 @@
 
 extern u32 var80088800;
 extern u8 var80088804;
-extern u32 var80088808;
-extern u32 var8008880c;
+extern u8 var80088808;
+extern u8 var8008880c;
 extern u32 var80088810;
 extern u32 var80088854;
 extern u8 var800888a0;
