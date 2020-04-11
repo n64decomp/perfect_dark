@@ -5242,22 +5242,11 @@ struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f1a1184
-/*  f1a1184:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a1188:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a118c:	3c048009 */ 	lui	$a0,%hi(var800888a0)
-/*  f1a1190:	0fc68484 */ 	jal	func0f1a1210
-/*  f1a1194:	908488a0 */ 	lbu	$a0,%lo(var800888a0)($a0)
-/*  f1a1198:	0fc68429 */ 	jal	ciGetChrBioByBodynum
-/*  f1a119c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a11a0:	0fc5b9f1 */ 	jal	langGet
-/*  f1a11a4:	8c44000c */ 	lw	$a0,0xc($v0)
-/*  f1a11a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a11ac:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a11b0:	03e00008 */ 	jr	$ra
-/*  f1a11b4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *ciGetChrBioDescription(void)
+{
+	struct chrbio *bio = ciGetChrBioByBodynum(func0f1a1210(var800888a0));
+	return langGet(bio->description);
+}
 
 GLOBAL_ASM(
 glabel func0f1a11b8

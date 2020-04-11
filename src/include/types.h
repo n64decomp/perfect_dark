@@ -4728,7 +4728,7 @@ struct chrbio {
 	u32 name;
 	u32 race;
 	u32 age;
-	u32 profile;
+	u32 description;
 };
 
 struct mpteaminfo {
