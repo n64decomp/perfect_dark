@@ -865,35 +865,18 @@ void func0f19d4ec(void)
 	var8008880c = 0;
 }
 
-GLOBAL_ASM(
-glabel func0f19d560
-/*  f19d560:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19d564:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f19d568:	2484000f */ 	addiu	$a0,$a0,0xf
-/*  f19d56c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19d570:	348e000f */ 	ori	$t6,$a0,0xf
-/*  f19d574:	39c4000f */ 	xori	$a0,$t6,0xf
-/*  f19d578:	0c0048f2 */ 	jal	malloc
-/*  f19d57c:	24050004 */ 	addiu	$a1,$zero,0x4
-/*  f19d580:	3c038009 */ 	lui	$v1,%hi(var80088810)
-/*  f19d584:	24638810 */ 	addiu	$v1,$v1,%lo(var80088810)
-/*  f19d588:	ac620000 */ 	sw	$v0,0x0($v1)
-/*  f19d58c:	10400007 */ 	beqz	$v0,.L0f19d5ac
-/*  f19d590:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19d594:	3c05007f */ 	lui	$a1,0x7f
-/*  f19d598:	24a59d20 */ 	addiu	$a1,$a1,-25312
-/*  f19d59c:	0c003522 */ 	jal	func0000d488
-/*  f19d5a0:	8fa60018 */ 	lw	$a2,0x18($sp)
-/*  f19d5a4:	10000003 */ 	beqz	$zero,.L0f19d5b4
-/*  f19d5a8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19d5ac:
-/*  f19d5ac:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19d5b0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19d5b4:
-/*  f19d5b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19d5b8:	03e00008 */ 	jr	$ra
-/*  f19d5bc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void *func0f19d560(u32 len)
+{
+	extern u32 _addr007e9d20;
+
+	var80088810 = malloc(ALIGN16(len), 4);
+
+	if (var80088810) {
+		return func0000d488(var80088810, &_addr007e9d20, len);
+	}
+
+	return NULL;
+}
 
 void frSetDifficulty(s32 difficulty)
 {

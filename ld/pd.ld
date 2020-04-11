@@ -15,6 +15,8 @@ SECTIONS
 	_rspMicrocodeStartPlusOne = 0x80059fe1;
 	_rspMicrocodeEnd = 0x8005afe0;
 
+	_addr007e9d20 = 0x007e9d20;
+
 	_antipiracyUncloakWriteAddress = 0x7002a324;
 
 	osCicId = 0x80000310;

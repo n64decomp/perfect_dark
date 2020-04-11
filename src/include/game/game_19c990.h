@@ -21,7 +21,7 @@ u32 func0f19d2e0(void);
 u32 func0f19d338(void);
 u32 func0f19d414(void);
 void func0f19d4ec(void);
-u32 func0f19d560(void);
+void *func0f19d560(u32 len);
 void frSetDifficulty(s32 difficulty);
 u32 frGetDifficulty(void);
 u32 func0f19d5f4(void);

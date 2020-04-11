@@ -33,6 +33,6 @@ void currentPlayerInitGunsHeld(void)
 void func0f012530(s32 arg0)
 {
 	g_Vars.currentplayer->equipmaxitems = arg0 + 30;
-	g_Vars.currentplayer->equipment = malloc((g_Vars.currentplayer->equipmaxitems * sizeof(struct invitem) + 15 | 0xf) ^ 0xf, 4);
+	g_Vars.currentplayer->equipment = malloc(ALIGN16(g_Vars.currentplayer->equipmaxitems * sizeof(struct invitem)), 4);
 	currentPlayerClearInventory();
 }
