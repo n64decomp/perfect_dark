@@ -4,6 +4,7 @@
 #include "types.h"
 
 extern u8 var80088804;
+extern s32 g_FrWeaponNum;
 extern u8 var800888a0;
 
 bool ciIsTourDone(void);

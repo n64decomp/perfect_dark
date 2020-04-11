@@ -1621,8 +1621,7 @@ struct player638 {
 	/*0x0d68*/ u32 unk0d68;
 	/*0x0d6c*/ u32 unk0d6c;
 	/*0x0d70*/ u32 unk0d70;
-	/*0x0d74*/ u32 unk0d74;
-	/*0x0d78*/ u32 unk0d78;
+	/*0x0d74*/ u16 unk0d74[4];
 	/*0x0d7c*/ u32 unk0d7c;
 	/*0x0d80*/ u32 unk0d80;
 	/*0x0d84*/ void *unk0d84;

@@ -36,82 +36,47 @@
 const char var7f1b97d0[] = "\n";
 const char var7f1b97d4[] = "\n";
 
-GLOBAL_ASM(
-glabel menuhandler001a3340
-/*  f1a3340:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f1a3344:	24010006 */ 	addiu	$at,$zero,0x6
-/*  f1a3348:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a334c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f1a3350:	10810006 */ 	beq	$a0,$at,.L0f1a336c
-/*  f1a3354:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f1a3358:	2401000f */ 	addiu	$at,$zero,0xf
-/*  f1a335c:	54810036 */ 	bnel	$a0,$at,.L0f1a3438
-/*  f1a3360:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a3364:	10000034 */ 	beqz	$zero,.L0f1a3438
-/*  f1a3368:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1a336c:
-/*  f1a336c:	0fc6830c */ 	jal	frIsInTraining
-/*  f1a3370:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a3374:	1440002d */ 	bnez	$v0,.L0f1a342c
-/*  f1a3378:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a337c:	0fc67494 */ 	jal	frGetSlot
-/*  f1a3380:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a3384:	0fc6749a */ 	jal	frGetWeaponBySlot
-/*  f1a3388:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a338c:	3c048009 */ 	lui	$a0,%hi(var8008889c)
-/*  f1a3390:	8c84889c */ 	lw	$a0,%lo(var8008889c)($a0)
-/*  f1a3394:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1a3398:	afa20018 */ 	sw	$v0,0x18($sp)
-/*  f1a339c:	50810004 */ 	beql	$a0,$at,.L0f1a33b0
-/*  f1a33a0:	8fae0018 */ 	lw	$t6,0x18($sp)
-/*  f1a33a4:	0fc447a9 */ 	jal	currentPlayerRemoveWeapon
-/*  f1a33a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a33ac:	8fae0018 */ 	lw	$t6,0x18($sp)
-.L0f1a33b0:
-/*  f1a33b0:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1a33b4:	11c10003 */ 	beq	$t6,$at,.L0f1a33c4
-/*  f1a33b8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a33bc:	0fc44762 */ 	jal	currentPlayerGiveWeapon
-/*  f1a33c0:	01c02025 */ 	or	$a0,$t6,$zero
-.L0f1a33c4:
-/*  f1a33c4:	0fc44bd8 */ 	jal	currentPlayerSetEquipCurItem
-/*  f1a33c8:	24040001 */ 	addiu	$a0,$zero,0x1
-/*  f1a33cc:	0fc2866a */ 	jal	getCurrentPlayerWeaponId
-/*  f1a33d0:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a33d4:	8fa50018 */ 	lw	$a1,0x18($sp)
-/*  f1a33d8:	10450004 */ 	beq	$v0,$a1,.L0f1a33ec
-/*  f1a33dc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a33e0:	0fc28824 */ 	jal	currentPlayerEquipWeapon
-/*  f1a33e4:	00002025 */ 	or	$a0,$zero,$zero
-/*  f1a33e8:	8fa50018 */ 	lw	$a1,0x18($sp)
-.L0f1a33ec:
-/*  f1a33ec:	3c018009 */ 	lui	$at,%hi(var8008889c)
-/*  f1a33f0:	3c03800a */ 	lui	$v1,%hi(g_Vars)
-/*  f1a33f4:	ac25889c */ 	sw	$a1,%lo(var8008889c)($at)
-/*  f1a33f8:	24639fc0 */ 	addiu	$v1,$v1,%lo(g_Vars)
-/*  f1a33fc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a3400:	24040008 */ 	addiu	$a0,$zero,0x8
-.L0f1a3404:
-/*  f1a3404:	8c6f0284 */ 	lw	$t7,0x284($v1)
-/*  f1a3408:	01e2c021 */ 	addu	$t8,$t7,$v0
-/*  f1a340c:	a7000d74 */ 	sh	$zero,0xd74($t8)
-/*  f1a3410:	8c790284 */ 	lw	$t9,0x284($v1)
-/*  f1a3414:	03224021 */ 	addu	$t0,$t9,$v0
-/*  f1a3418:	24420002 */ 	addiu	$v0,$v0,0x2
-/*  f1a341c:	1444fff9 */ 	bne	$v0,$a0,.L0f1a3404
-/*  f1a3420:	a5001518 */ 	sh	$zero,0x1518($t0)
-/*  f1a3424:	0fc67a70 */ 	jal	func0f19e9c0
-/*  f1a3428:	00a02025 */ 	or	$a0,$a1,$zero
-.L0f1a342c:
-/*  f1a342c:	0fc3e048 */ 	jal	func0f0f8120
-/*  f1a3430:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a3434:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a3438:
-/*  f1a3438:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a343c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f1a3440:	03e00008 */ 	jr	$ra
-/*  f1a3444:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 frDetailsOkMenuHandler(u32 operation, struct menu_item *item, s32 *value)
+{
+	s32 i;
+
+	switch (operation) {
+	case MENUOP_CHECKPREFOCUSED:
+		return true;
+	case MENUOP_SET:
+		if (frIsInTraining() == false) {
+			s32 weapon = frGetWeaponBySlot(frGetSlot());
+
+			if (g_FrWeaponNum != 1) {
+				currentPlayerRemoveWeapon(g_FrWeaponNum);
+			}
+
+			if (weapon != WEAPON_UNARMED) {
+				currentPlayerGiveWeapon(weapon);
+			}
+
+			currentPlayerSetEquipCurItem(1);
+
+			if (getCurrentPlayerWeaponId(0) != weapon) {
+				currentPlayerEquipWeapon(0, weapon);
+			}
+
+			g_FrWeaponNum = weapon;
+
+			for (i = 0; i < 4; i++) {
+				g_Vars.currentplayer->unk0638[0].unk0d74[i] = 0;
+				g_Vars.currentplayer->unk0638[1].unk0d74[i] = 0;
+			}
+
+			func0f19e9c0(weapon);
+		}
+
+		func0f0f8120();
+		break;
+	}
+
+	return 0;
+}
 
 s32 menuhandler001a3448(u32 operation, struct menu_item *item, s32 *value)
 {

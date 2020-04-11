@@ -1312,7 +1312,7 @@ void func0f19de24(void)
 	}
 }
 
-u32 var8008889c = 1;
+s32 g_FrWeaponNum = WEAPON_UNARMED;
 
 GLOBAL_ASM(
 glabel func0f19def4
