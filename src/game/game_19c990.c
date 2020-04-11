@@ -6283,47 +6283,20 @@ char *htGetTip1(void)
 	return langGet(texts[func0f1a24dc(var80088bb4)]);
 }
 
-u32 var80088c3c = 0x0000595e;
-u32 var80088c40 = 0x0000595f;
-u32 var80088c44 = 0x00005960;
-u32 var80088c48 = 0x00005961;
-u32 var80088c4c = 0x00005962;
-u32 var80088c50 = 0x00005963;
-u32 var80088c54 = 0x00005964;
+char *htGetTip2(void)
+{
+	u32 texts[] = {
+		L_MISC(350), // "For greater precision..."
+		L_MISC(351), // "Sidestepping and strafing..."
+		L_MISC(352), // "Ducking enables you to..."
+		L_MISC(353), // "Attacking opponents from behind..."
+		L_MISC(354), // "Only stay close long enough..."
+		L_MISC(355), // "Don't hang around and wait..."
+		L_MISC(356), // "Go for the armed opponents..."
+	};
 
-GLOBAL_ASM(
-glabel func0f1a2714
-/*  f1a2714:	27bdffc8 */ 	addiu	$sp,$sp,-56
-/*  f1a2718:	3c0f8009 */ 	lui	$t7,%hi(var80088c3c)
-/*  f1a271c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a2720:	25ef8c3c */ 	addiu	$t7,$t7,%lo(var80088c3c)
-/*  f1a2724:	8de10000 */ 	lw	$at,0x0($t7)
-/*  f1a2728:	27ae001c */ 	addiu	$t6,$sp,0x1c
-/*  f1a272c:	8de80004 */ 	lw	$t0,0x4($t7)
-/*  f1a2730:	adc10000 */ 	sw	$at,0x0($t6)
-/*  f1a2734:	8de10008 */ 	lw	$at,0x8($t7)
-/*  f1a2738:	adc80004 */ 	sw	$t0,0x4($t6)
-/*  f1a273c:	8de8000c */ 	lw	$t0,0xc($t7)
-/*  f1a2740:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f1a2744:	8de10010 */ 	lw	$at,0x10($t7)
-/*  f1a2748:	adc8000c */ 	sw	$t0,0xc($t6)
-/*  f1a274c:	8de80014 */ 	lw	$t0,0x14($t7)
-/*  f1a2750:	adc10010 */ 	sw	$at,0x10($t6)
-/*  f1a2754:	8de10018 */ 	lw	$at,0x18($t7)
-/*  f1a2758:	3c048009 */ 	lui	$a0,%hi(var80088bb4)
-/*  f1a275c:	adc80014 */ 	sw	$t0,0x14($t6)
-/*  f1a2760:	adc10018 */ 	sw	$at,0x18($t6)
-/*  f1a2764:	0fc68937 */ 	jal	func0f1a24dc
-/*  f1a2768:	90848bb4 */ 	lbu	$a0,%lo(var80088bb4)($a0)
-/*  f1a276c:	00024880 */ 	sll	$t1,$v0,0x2
-/*  f1a2770:	03a92021 */ 	addu	$a0,$sp,$t1
-/*  f1a2774:	0fc5b9f1 */ 	jal	langGet
-/*  f1a2778:	8c84001c */ 	lw	$a0,0x1c($a0)
-/*  f1a277c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a2780:	27bd0038 */ 	addiu	$sp,$sp,0x38
-/*  f1a2784:	03e00008 */ 	jr	$ra
-/*  f1a2788:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	return langGet(texts[func0f1a24dc(var80088bb4)]);
+}
 
 GLOBAL_ASM(
 glabel func0f1a278c
