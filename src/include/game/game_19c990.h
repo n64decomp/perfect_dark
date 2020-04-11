@@ -44,7 +44,7 @@ u32 func0f19e754(void);
 u32 func0f19e7a8(void);
 u32 func0f19e900(void);
 u32 func0f19e9c0(void);
-u32 func0f19ea80(void);
+char *frGetWeaponDescription(void);
 void func0f19ecdc(s32 arg0);
 bool frWasTooInaccurate(void);
 void frSetFailReason(s32 failreason);

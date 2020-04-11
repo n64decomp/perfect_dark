@@ -2444,230 +2444,48 @@ glabel func0f19e9c0
 /*  f19ea7c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19ea80
-.late_rodata
-glabel var7f1b9428
-.word func0f19ea80+0x3c # f19eabc
-glabel var7f1b942c
-.word func0f19ea80+0x5c # f19eadc
-glabel var7f1b9430
-.word func0f19ea80+0x4c # f19eacc
-glabel var7f1b9434
-.word func0f19ea80+0x6c # f19eaec
-glabel var7f1b9438
-.word func0f19ea80+0x7c # f19eafc
-glabel var7f1b943c
-.word func0f19ea80+0x8c # f19eb0c
-glabel var7f1b9440
-.word func0f19ea80+0x9c # f19eb1c
-glabel var7f1b9444
-.word func0f19ea80+0xac # f19eb2c
-glabel var7f1b9448
-.word func0f19ea80+0xbc # f19eb3c
-glabel var7f1b944c
-.word func0f19ea80+0xcc # f19eb4c
-glabel var7f1b9450
-.word func0f19ea80+0xdc # f19eb5c
-glabel var7f1b9454
-.word func0f19ea80+0xec # f19eb6c
-glabel var7f1b9458
-.word func0f19ea80+0xfc # f19eb7c
-glabel var7f1b945c
-.word func0f19ea80+0x10c # f19eb8c
-glabel var7f1b9460
-.word func0f19ea80+0x11c # f19eb9c
-glabel var7f1b9464
-.word func0f19ea80+0x12c # f19ebac
-glabel var7f1b9468
-.word func0f19ea80+0x13c # f19ebbc
-glabel var7f1b946c
-.word func0f19ea80+0x14c # f19ebcc
-glabel var7f1b9470
-.word func0f19ea80+0x19c # f19ec1c
-glabel var7f1b9474
-.word func0f19ea80+0x15c # f19ebdc
-glabel var7f1b9478
-.word func0f19ea80+0x16c # f19ebec
-glabel var7f1b947c
-.word func0f19ea80+0x1ac # f19ec2c
-glabel var7f1b9480
-.word func0f19ea80+0x1bc # f19ec3c
-glabel var7f1b9484
-.word func0f19ea80+0x1cc # f19ec4c
-glabel var7f1b9488
-.word func0f19ea80+0x1dc # f19ec5c
-glabel var7f1b948c
-.word func0f19ea80+0x17c # f19ebfc
-glabel var7f1b9490
-.word func0f19ea80+0x18c # f19ec0c
-glabel var7f1b9494
-.word func0f19ea80+0x1ec # f19ec6c
-glabel var7f1b9498
-.word func0f19ea80+0x1fc # f19ec7c
-glabel var7f1b949c
-.word func0f19ea80+0x20c # f19ec8c
-glabel var7f1b94a0
-.word func0f19ea80+0x21c # f19ec9c
-glabel var7f1b94a4
-.word func0f19ea80+0x22c # f19ecac
-glabel var7f1b94a8
-.word func0f19ea80+0x23c # f19ecbc
-.text
-/*  f19ea80:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19ea84:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19ea88:	3c04800b */ 	lui	$a0,%hi(g_FiringRangeData+0x456)
-/*  f19ea8c:	0fc6749a */ 	jal	func0f19d268
-/*  f19ea90:	9484d176 */ 	lhu	$a0,%lo(g_FiringRangeData+0x456)($a0)
-/*  f19ea94:	244efffe */ 	addiu	$t6,$v0,-2
-/*  f19ea98:	2dc10021 */ 	sltiu	$at,$t6,0x21
-/*  f19ea9c:	1020008b */ 	beqz	$at,.L0f19eccc
-/*  f19eaa0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19eaa4:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19eaa8:	3c017f1c */ 	lui	$at,%hi(var7f1b9428)
-/*  f19eaac:	002e0821 */ 	addu	$at,$at,$t6
-/*  f19eab0:	8c2e9428 */ 	lw	$t6,%lo(var7f1b9428)($at)
-/*  f19eab4:	01c00008 */ 	jr	$t6
-/*  f19eab8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19eabc:	0fc5b9f1 */ 	jal	langGet
-/*  f19eac0:	24045979 */ 	addiu	$a0,$zero,0x5979
-/*  f19eac4:	10000082 */ 	beqz	$zero,.L0f19ecd0
-/*  f19eac8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eacc:	0fc5b9f1 */ 	jal	langGet
-/*  f19ead0:	2404597a */ 	addiu	$a0,$zero,0x597a
-/*  f19ead4:	1000007e */ 	beqz	$zero,.L0f19ecd0
-/*  f19ead8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eadc:	0fc5b9f1 */ 	jal	langGet
-/*  f19eae0:	2404597b */ 	addiu	$a0,$zero,0x597b
-/*  f19eae4:	1000007a */ 	beqz	$zero,.L0f19ecd0
-/*  f19eae8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eaec:	0fc5b9f1 */ 	jal	langGet
-/*  f19eaf0:	2404597c */ 	addiu	$a0,$zero,0x597c
-/*  f19eaf4:	10000076 */ 	beqz	$zero,.L0f19ecd0
-/*  f19eaf8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eafc:	0fc5b9f1 */ 	jal	langGet
-/*  f19eb00:	2404597d */ 	addiu	$a0,$zero,0x597d
-/*  f19eb04:	10000072 */ 	beqz	$zero,.L0f19ecd0
-/*  f19eb08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eb0c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eb10:	2404597e */ 	addiu	$a0,$zero,0x597e
-/*  f19eb14:	1000006e */ 	beqz	$zero,.L0f19ecd0
-/*  f19eb18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eb1c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eb20:	2404597f */ 	addiu	$a0,$zero,0x597f
-/*  f19eb24:	1000006a */ 	beqz	$zero,.L0f19ecd0
-/*  f19eb28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eb2c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eb30:	24045980 */ 	addiu	$a0,$zero,0x5980
-/*  f19eb34:	10000066 */ 	beqz	$zero,.L0f19ecd0
-/*  f19eb38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eb3c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eb40:	24045981 */ 	addiu	$a0,$zero,0x5981
-/*  f19eb44:	10000062 */ 	beqz	$zero,.L0f19ecd0
-/*  f19eb48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eb4c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eb50:	24045982 */ 	addiu	$a0,$zero,0x5982
-/*  f19eb54:	1000005e */ 	beqz	$zero,.L0f19ecd0
-/*  f19eb58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eb5c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eb60:	24045983 */ 	addiu	$a0,$zero,0x5983
-/*  f19eb64:	1000005a */ 	beqz	$zero,.L0f19ecd0
-/*  f19eb68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eb6c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eb70:	24045984 */ 	addiu	$a0,$zero,0x5984
-/*  f19eb74:	10000056 */ 	beqz	$zero,.L0f19ecd0
-/*  f19eb78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eb7c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eb80:	24045985 */ 	addiu	$a0,$zero,0x5985
-/*  f19eb84:	10000052 */ 	beqz	$zero,.L0f19ecd0
-/*  f19eb88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eb8c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eb90:	24045986 */ 	addiu	$a0,$zero,0x5986
-/*  f19eb94:	1000004e */ 	beqz	$zero,.L0f19ecd0
-/*  f19eb98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19eb9c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eba0:	24045987 */ 	addiu	$a0,$zero,0x5987
-/*  f19eba4:	1000004a */ 	beqz	$zero,.L0f19ecd0
-/*  f19eba8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ebac:	0fc5b9f1 */ 	jal	langGet
-/*  f19ebb0:	24045988 */ 	addiu	$a0,$zero,0x5988
-/*  f19ebb4:	10000046 */ 	beqz	$zero,.L0f19ecd0
-/*  f19ebb8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ebbc:	0fc5b9f1 */ 	jal	langGet
-/*  f19ebc0:	24045989 */ 	addiu	$a0,$zero,0x5989
-/*  f19ebc4:	10000042 */ 	beqz	$zero,.L0f19ecd0
-/*  f19ebc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ebcc:	0fc5b9f1 */ 	jal	langGet
-/*  f19ebd0:	2404598a */ 	addiu	$a0,$zero,0x598a
-/*  f19ebd4:	1000003e */ 	beqz	$zero,.L0f19ecd0
-/*  f19ebd8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ebdc:	0fc5b9f1 */ 	jal	langGet
-/*  f19ebe0:	2404598b */ 	addiu	$a0,$zero,0x598b
-/*  f19ebe4:	1000003a */ 	beqz	$zero,.L0f19ecd0
-/*  f19ebe8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ebec:	0fc5b9f1 */ 	jal	langGet
-/*  f19ebf0:	2404598c */ 	addiu	$a0,$zero,0x598c
-/*  f19ebf4:	10000036 */ 	beqz	$zero,.L0f19ecd0
-/*  f19ebf8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ebfc:	0fc5b9f1 */ 	jal	langGet
-/*  f19ec00:	2404598d */ 	addiu	$a0,$zero,0x598d
-/*  f19ec04:	10000032 */ 	beqz	$zero,.L0f19ecd0
-/*  f19ec08:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ec0c:	0fc5b9f1 */ 	jal	langGet
-/*  f19ec10:	2404598e */ 	addiu	$a0,$zero,0x598e
-/*  f19ec14:	1000002e */ 	beqz	$zero,.L0f19ecd0
-/*  f19ec18:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ec1c:	0fc5b9f1 */ 	jal	langGet
-/*  f19ec20:	2404598f */ 	addiu	$a0,$zero,0x598f
-/*  f19ec24:	1000002a */ 	beqz	$zero,.L0f19ecd0
-/*  f19ec28:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ec2c:	0fc5b9f1 */ 	jal	langGet
-/*  f19ec30:	24045990 */ 	addiu	$a0,$zero,0x5990
-/*  f19ec34:	10000026 */ 	beqz	$zero,.L0f19ecd0
-/*  f19ec38:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ec3c:	0fc5b9f1 */ 	jal	langGet
-/*  f19ec40:	24045991 */ 	addiu	$a0,$zero,0x5991
-/*  f19ec44:	10000022 */ 	beqz	$zero,.L0f19ecd0
-/*  f19ec48:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ec4c:	0fc5b9f1 */ 	jal	langGet
-/*  f19ec50:	24045992 */ 	addiu	$a0,$zero,0x5992
-/*  f19ec54:	1000001e */ 	beqz	$zero,.L0f19ecd0
-/*  f19ec58:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ec5c:	0fc5b9f1 */ 	jal	langGet
-/*  f19ec60:	24045993 */ 	addiu	$a0,$zero,0x5993
-/*  f19ec64:	1000001a */ 	beqz	$zero,.L0f19ecd0
-/*  f19ec68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ec6c:	0fc5b9f1 */ 	jal	langGet
-/*  f19ec70:	24045994 */ 	addiu	$a0,$zero,0x5994
-/*  f19ec74:	10000016 */ 	beqz	$zero,.L0f19ecd0
-/*  f19ec78:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ec7c:	0fc5b9f1 */ 	jal	langGet
-/*  f19ec80:	24045995 */ 	addiu	$a0,$zero,0x5995
-/*  f19ec84:	10000012 */ 	beqz	$zero,.L0f19ecd0
-/*  f19ec88:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ec8c:	0fc5b9f1 */ 	jal	langGet
-/*  f19ec90:	24045996 */ 	addiu	$a0,$zero,0x5996
-/*  f19ec94:	1000000e */ 	beqz	$zero,.L0f19ecd0
-/*  f19ec98:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ec9c:	0fc5b9f1 */ 	jal	langGet
-/*  f19eca0:	24045997 */ 	addiu	$a0,$zero,0x5997
-/*  f19eca4:	1000000a */ 	beqz	$zero,.L0f19ecd0
-/*  f19eca8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ecac:	0fc5b9f1 */ 	jal	langGet
-/*  f19ecb0:	24045998 */ 	addiu	$a0,$zero,0x5998
-/*  f19ecb4:	10000006 */ 	beqz	$zero,.L0f19ecd0
-/*  f19ecb8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ecbc:	0fc5b9f1 */ 	jal	langGet
-/*  f19ecc0:	24045999 */ 	addiu	$a0,$zero,0x5999
-/*  f19ecc4:	10000002 */ 	beqz	$zero,.L0f19ecd0
-/*  f19ecc8:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19eccc:
-/*  f19eccc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19ecd0:
-/*  f19ecd0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19ecd4:	03e00008 */ 	jr	$ra
-/*  f19ecd8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *frGetWeaponDescription(void)
+{
+	u32 weapon = func0f19d268(g_FiringRangeData.unk456);
+
+	switch (weapon) {
+	case WEAPON_FALCON2:          return langGet(L_MISC(377));
+	case WEAPON_FALCON2_SCOPE:    return langGet(L_MISC(378));
+	case WEAPON_FALCON2_SILENCER: return langGet(L_MISC(379));
+	case WEAPON_MAGSEC4:          return langGet(L_MISC(380));
+	case WEAPON_MAULER:           return langGet(L_MISC(381));
+	case WEAPON_PHOENIX:          return langGet(L_MISC(382));
+	case WEAPON_DY357MAGNUM:      return langGet(L_MISC(383));
+	case WEAPON_DY357LX:          return langGet(L_MISC(384));
+	case WEAPON_CMP150:           return langGet(L_MISC(385));
+	case WEAPON_CYCLONE:          return langGet(L_MISC(386));
+	case WEAPON_CALLISTONTG:      return langGet(L_MISC(387));
+	case WEAPON_RCP120:           return langGet(L_MISC(388));
+	case WEAPON_LAPTOPGUN:        return langGet(L_MISC(389));
+	case WEAPON_DRAGON:           return langGet(L_MISC(390));
+	case WEAPON_K7AVENGER:        return langGet(L_MISC(391));
+	case WEAPON_AR34:             return langGet(L_MISC(392));
+	case WEAPON_SUPERDRAGON:      return langGet(L_MISC(393));
+	case WEAPON_SHOTGUN:          return langGet(L_MISC(394));
+	case WEAPON_SNIPERRIFLE:      return langGet(L_MISC(395));
+	case WEAPON_FARSIGHTXR20:     return langGet(L_MISC(396));
+	case WEAPON_CROSSBOW:         return langGet(L_MISC(397));
+	case WEAPON_TRANQUILIZER:     return langGet(L_MISC(398));
+	case WEAPON_REAPER:           return langGet(L_MISC(399));
+	case WEAPON_DEVASTATOR:       return langGet(L_MISC(400));
+	case WEAPON_ROCKETLAUNCHER:   return langGet(L_MISC(401));
+	case WEAPON_SLAYER:           return langGet(L_MISC(402));
+	case WEAPON_COMBATKNIFE:      return langGet(L_MISC(403));
+	case WEAPON_LASER:            return langGet(L_MISC(404));
+	case WEAPON_GRENADE:          return langGet(L_MISC(405));
+	case WEAPON_NBOMB:            return langGet(L_MISC(406));
+	case WEAPON_TIMEDMINE:        return langGet(L_MISC(407));
+	case WEAPON_PROXIMITYMINE:    return langGet(L_MISC(408));
+	case WEAPON_REMOTEMINE:       return langGet(L_MISC(409));
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f19ecdc
