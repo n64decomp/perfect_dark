@@ -522,6 +522,12 @@
 #define FLOORFLAG_0100 0x0100
 #define FLOORFLAG_4000 0x4000
 
+#define FRZONE_RING3    1
+#define FRZONE_RING2    2
+#define FRZONE_RING1    5
+#define FRZONE_BULLSEYE 10
+#define FRZONE_EXPLODE  11
+
 // Weapon functions
 #define FUNC_PRIMARY   0
 #define FUNC_SECONDARY 1

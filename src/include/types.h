@@ -4849,8 +4849,8 @@ struct frdata {
 	/*0x468*/ u8 unk468;
 	/*0x46c*/ u32 unk46c;
 	/*0x470*/ u8 unk470;
-	/*0x471*/ u8 unk471;
-	/*0x472*/ u8 unk472;
+	/*0x471*/ u8 feedbackzone;
+	/*0x472*/ s8 feedbackttl;
 	/*0x474*/ u16 unk474;
 	/*0x476*/ s16 unk476;
 	/*0x478*/ u32 unk478;
