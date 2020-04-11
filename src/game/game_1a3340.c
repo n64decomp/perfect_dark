@@ -2703,7 +2703,7 @@ glabel var7f1b9960
 .L0f1a5e7c:
 /*  f1a5e7c:	0fc684fc */ 	jal	func0f1a13f0
 /*  f1a5e80:	00432023 */ 	subu	$a0,$v0,$v1
-/*  f1a5e84:	0fc684a2 */ 	jal	func0f1a1288
+/*  f1a5e84:	0fc684a2 */ 	jal	ciGetMiscBio
 /*  f1a5e88:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a5e8c:	0fc5b9f1 */ 	jal	langGet
 /*  f1a5e90:	8c440000 */ 	lw	$a0,0x0($v0)
@@ -3050,7 +3050,7 @@ glabel func0f1a6388
 /*  f1a639c:	91ce88a0 */ 	lbu	$t6,%lo(var800888a0)($t6)
 /*  f1a63a0:	0fc684fc */ 	jal	func0f1a13f0
 /*  f1a63a4:	01c22023 */ 	subu	$a0,$t6,$v0
-/*  f1a63a8:	0fc684a2 */ 	jal	func0f1a1288
+/*  f1a63a8:	0fc684a2 */ 	jal	ciGetMiscBio
 /*  f1a63ac:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a63b0:	0fc5b9f1 */ 	jal	langGet
 /*  f1a63b4:	8c440000 */ 	lw	$a0,0x0($v0)

@@ -5219,9 +5219,23 @@ bool ciIsChrBioUnlocked(u32 bodynum)
 	return false;
 }
 
+u8 var800888a0 = 0;
+
 struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 {
-	struct chrbio bios[10] = g_ChrBios;
+	struct chrbio bios[] = {
+		// name, race, age, profile
+		/*0*/ { L_MISC(219), L_MISC(220), L_MISC(221), L_MISC(222) }, // Joanna Dark
+		/*1*/ { L_MISC(223), L_MISC(224), L_MISC(225), L_MISC(226) }, // Jonathan
+		/*2*/ { L_MISC(227), L_MISC(228), L_MISC(229), L_MISC(230) }, // Daniel Carrington
+		/*3*/ { L_MISC(231), L_MISC(232), L_MISC(233), L_MISC(234) }, // Cassandra De Vries
+		/*4*/ { L_MISC(235), L_MISC(236), L_MISC(237), L_MISC(238) }, // Trent Easton
+		/*5*/ { L_MISC(239), L_MISC(240), L_MISC(241), L_MISC(242) }, // Dr. Caroll
+		/*6*/ { L_MISC(243), L_MISC(244), L_MISC(245), L_MISC(246) }, // Elvis
+		/*7*/ { L_MISC(247), L_MISC(248), L_MISC(249), L_MISC(250) }, // Mr. Blonde
+		/*8*/ { L_MISC(251), L_MISC(252), L_MISC(253), L_MISC(254) }, // Mr. Blonde (repeat)
+		/*9*/ { L_MISC(255), L_MISC(256), L_MISC(257), L_MISC(258) }, // The U.S. President
+	};
 
 	switch (bodynum) {
 	case BODY_DARK_COMBAT:
@@ -5333,54 +5347,25 @@ glabel func0f1a1210
 /*  f1a1284:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f1a1288
-/*  f1a1288:	3c0e8009 */ 	lui	$t6,%hi(misc_bios)
-/*  f1a128c:	25ce8944 */ 	addiu	$t6,$t6,%lo(misc_bios)
-/*  f1a1290:	8dc10000 */ 	lw	$at,0x0($t6)
-/*  f1a1294:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a1298:	27a30008 */ 	addiu	$v1,$sp,0x8
-/*  f1a129c:	ac610000 */ 	sw	$at,0x0($v1)
-/*  f1a12a0:	8dd90004 */ 	lw	$t9,0x4($t6)
-/*  f1a12a4:	ac790004 */ 	sw	$t9,0x4($v1)
-/*  f1a12a8:	8dc10008 */ 	lw	$at,0x8($t6)
-/*  f1a12ac:	ac610008 */ 	sw	$at,0x8($v1)
-/*  f1a12b0:	8dd9000c */ 	lw	$t9,0xc($t6)
-/*  f1a12b4:	ac79000c */ 	sw	$t9,0xc($v1)
-/*  f1a12b8:	8dc10010 */ 	lw	$at,0x10($t6)
-/*  f1a12bc:	ac610010 */ 	sw	$at,0x10($v1)
-/*  f1a12c0:	8dd90014 */ 	lw	$t9,0x14($t6)
-/*  f1a12c4:	ac790014 */ 	sw	$t9,0x14($v1)
-/*  f1a12c8:	8dc10018 */ 	lw	$at,0x18($t6)
-/*  f1a12cc:	ac610018 */ 	sw	$at,0x18($v1)
-/*  f1a12d0:	8dd9001c */ 	lw	$t9,0x1c($t6)
-/*  f1a12d4:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1a12d8:	10800009 */ 	beqz	$a0,.L0f1a1300
-/*  f1a12dc:	ac79001c */ 	sw	$t9,0x1c($v1)
-/*  f1a12e0:	10810009 */ 	beq	$a0,$at,.L0f1a1308
-/*  f1a12e4:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1a12e8:	10810009 */ 	beq	$a0,$at,.L0f1a1310
-/*  f1a12ec:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f1a12f0:	10810009 */ 	beq	$a0,$at,.L0f1a1318
-/*  f1a12f4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a12f8:	10000009 */ 	beqz	$zero,.L0f1a1320
-/*  f1a12fc:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a1300:
-/*  f1a1300:	10000007 */ 	beqz	$zero,.L0f1a1320
-/*  f1a1304:	00601025 */ 	or	$v0,$v1,$zero
-.L0f1a1308:
-/*  f1a1308:	10000005 */ 	beqz	$zero,.L0f1a1320
-/*  f1a130c:	27a20010 */ 	addiu	$v0,$sp,0x10
-.L0f1a1310:
-/*  f1a1310:	10000003 */ 	beqz	$zero,.L0f1a1320
-/*  f1a1314:	27a20018 */ 	addiu	$v0,$sp,0x18
-.L0f1a1318:
-/*  f1a1318:	10000001 */ 	beqz	$zero,.L0f1a1320
-/*  f1a131c:	27a20020 */ 	addiu	$v0,$sp,0x20
-.L0f1a1320:
-/*  f1a1320:	03e00008 */ 	jr	$ra
-/*  f1a1324:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+struct miscbio *ciGetMiscBio(s32 index)
+{
+	struct miscbio bios[] = {
+		// name, description
+		{ L_MISC(259), L_MISC(260) }, // Maians
+		{ L_MISC(261), L_MISC(262) }, // Skedar Warrior
+		{ L_MISC(263), L_MISC(264) }, // Background
+		{ L_MISC(265), L_MISC(266) }, // The Story
+	};
+
+	switch (index) {
+	case 0: return &bios[0];
+	case 1: return &bios[1];
+	case 2: return &bios[2];
+	case 3: return &bios[3];
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel func0f1a1328
@@ -5495,7 +5480,7 @@ glabel func0f1a1468
 /*  f1a147c:	91ce88a0 */ 	lbu	$t6,%lo(var800888a0)($t6)
 /*  f1a1480:	0fc684fc */ 	jal	func0f1a13f0
 /*  f1a1484:	01c22023 */ 	subu	$a0,$t6,$v0
-/*  f1a1488:	0fc684a2 */ 	jal	func0f1a1288
+/*  f1a1488:	0fc684a2 */ 	jal	ciGetMiscBio
 /*  f1a148c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a1490:	0fc5b9f1 */ 	jal	langGet
 /*  f1a1494:	8c440004 */ 	lw	$a0,0x4($v0)
@@ -5511,6 +5496,38 @@ glabel func0f1a14a8
 /*  f1a14ac:	03e00008 */ 	jr	$ra
 /*  f1a14b0:	38420001 */ 	xori	$v0,$v0,0x1
 );
+
+u32 var80088964 = 0;
+
+u32 place_bios[] = {
+	// name, description
+	L_MISC(290), L_MISC(313), 0, 0, // Carrington Institute
+	L_MISC(291), L_MISC(314), 0, 0, // Lucerne Tower
+	L_MISC(292), L_MISC(315), 0, 0, // Laboratory Basement
+	L_MISC(293), L_MISC(316), 0, 0, // Carrington Villa
+	L_MISC(294), L_MISC(317), 0, 0, // Chicago
+	L_MISC(295), L_MISC(318), 0, 0, // G5 Building
+	L_MISC(296), L_MISC(319), 0, 0, // Area 51
+	L_MISC(297), L_MISC(320), 0, 0, // Alaskan Air Base
+	L_MISC(298), L_MISC(321), 0, 0, // Air Force One
+	L_MISC(299), L_MISC(322), 0, 0, // Crash Site
+	L_MISC(300), L_MISC(323), 0, 0, // Pelagic II
+	L_MISC(301), L_MISC(324), 0, 0, // Cetan Ship
+	L_MISC(302), L_MISC(325), 0, 0, // Skedar Assault Ship
+	L_MISC(303), L_MISC(326), 0, 0, // Skedar Homeworld
+	L_MISC(304), L_MISC(327), 0, 0, // Jumpship
+	L_MISC(305), L_MISC(328), 0, 0, // HoverCrate
+	L_MISC(306), L_MISC(329), 0, 0, // HoverBike
+	L_MISC(307), L_MISC(330), 0, 0, // Cleaning Hovbot
+	L_MISC(308), L_MISC(331), 0, 0, // Hovercopter
+	L_MISC(309), L_MISC(332), 0, 0, // G5 Robot
+	L_MISC(310), L_MISC(333), 0, 0, // A51 Interceptor
+	L_MISC(311), L_MISC(334), 0, 0, // Maian Vessel
+	L_MISC(312), L_MISC(335), 0, 0, // Skedar Shuttle
+};
+
+u8 var80088ad8 = 0;
+u8 var80088adc = 0;
 
 GLOBAL_ASM(
 glabel func0f1a14b4

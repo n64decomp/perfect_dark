@@ -62,7 +62,7 @@ struct chrbio *ciGetChrBioByBodynum(u32 bodynum);
 u32 func0f1a1184(void);
 u32 func0f1a11b8(void);
 u32 func0f1a1210(u32 arg0);
-u32 func0f1a1288(void);
+struct miscbio *ciGetMiscBio(s32 index);
 u32 func0f1a1328(void);
 u32 func0f1a1398(void);
 u32 func0f1a13f0(void);

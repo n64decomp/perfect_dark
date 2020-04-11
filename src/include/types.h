@@ -4712,6 +4712,11 @@ struct var800705c0 {
 	u32 unk28;
 };
 
+struct miscbio {
+	u32 name;
+	u32 description;
+};
+
 struct chrbio {
 	u32 name;
 	u32 race;
