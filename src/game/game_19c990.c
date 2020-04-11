@@ -219,29 +219,12 @@ glabel frSetWeaponFound
 /*  f19cb7c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel stageIsComplete
-/*  f19cb80:	00047080 */ 	sll	$t6,$a0,0x2
-/*  f19cb84:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f19cb88:	3c0f800a */ 	lui	$t7,%hi(g_SoloSaveFile)
-/*  f19cb8c:	25ef2200 */ 	addiu	$t7,$t7,%lo(g_SoloSaveFile)
-/*  f19cb90:	000e7040 */ 	sll	$t6,$t6,0x1
-/*  f19cb94:	01cf1821 */ 	addu	$v1,$t6,$t7
-/*  f19cb98:	94620020 */ 	lhu	$v0,0x20($v1)
-/*  f19cb9c:	0002c02b */ 	sltu	$t8,$zero,$v0
-/*  f19cba0:	17000008 */ 	bnez	$t8,.L0f19cbc4
-/*  f19cba4:	03001025 */ 	or	$v0,$t8,$zero
-/*  f19cba8:	94620022 */ 	lhu	$v0,0x22($v1)
-/*  f19cbac:	0002c82b */ 	sltu	$t9,$zero,$v0
-/*  f19cbb0:	17200004 */ 	bnez	$t9,.L0f19cbc4
-/*  f19cbb4:	03201025 */ 	or	$v0,$t9,$zero
-/*  f19cbb8:	94620024 */ 	lhu	$v0,0x24($v1)
-/*  f19cbbc:	0002402b */ 	sltu	$t0,$zero,$v0
-/*  f19cbc0:	01001025 */ 	or	$v0,$t0,$zero
-.L0f19cbc4:
-/*  f19cbc4:	03e00008 */ 	jr	$ra
-/*  f19cbc8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+s32 stageIsComplete(s32 stageindex)
+{
+	return g_SoloSaveFile.besttimes[stageindex][0]
+		|| g_SoloSaveFile.besttimes[stageindex][1]
+		|| g_SoloSaveFile.besttimes[stageindex][2];
+}
 
 bool func0f19cbcc(s32 weapon)
 {

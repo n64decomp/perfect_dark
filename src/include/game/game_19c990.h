@@ -11,7 +11,7 @@ u8 ciGetFiringRangeScore(s32 weapon_id);
 u32 func0f19c9e4(void);
 u32 frIsWeaponFound(s32 weapon);
 void frSetWeaponFound(s32 weaponnum);
-bool stageIsComplete(s32 solostageindex);
+s32 stageIsComplete(s32 stageindex);
 bool func0f19cbcc(s32 weapon);
 bool frWeaponIsAvailable(s32 weapon);
 u32 func0f19ccc0(u32 weaponnum);
