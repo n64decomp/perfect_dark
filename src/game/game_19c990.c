@@ -638,12 +638,10 @@ glabel func0f19d250
 /*  f19d258:	9442d176 */ 	lhu	$v0,%lo(g_FiringRangeData+0x456)($v0)
 );
 
-GLOBAL_ASM(
-glabel func0f19d25c
-/*  f19d25c:	3c01800b */ 	lui	$at,%hi(g_FiringRangeData+0x456)
-/*  f19d260:	03e00008 */ 	jr	$ra
-/*  f19d264:	a424d176 */ 	sh	$a0,%lo(g_FiringRangeData+0x456)($at)
-);
+void frSetSlot(s32 slot)
+{
+	g_FiringRangeData.slot = slot;
+}
 
 u32 frGetWeaponBySlot(s32 slot)
 {
