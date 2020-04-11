@@ -2085,62 +2085,28 @@ glabel func0f19e900
 /*  f19e9bc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19e9c0
-/*  f19e9c0:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19e9c4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19e9c8:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f19e9cc:	0fc2556c */ 	jal	objFindByTagId
-/*  f19e9d0:	2404007f */ 	addiu	$a0,$zero,0x7f
-/*  f19e9d4:	10400005 */ 	beqz	$v0,.L0f19e9ec
-/*  f19e9d8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19e9dc:	8c4e0008 */ 	lw	$t6,0x8($v0)
-/*  f19e9e0:	3c010200 */ 	lui	$at,0x200
-/*  f19e9e4:	01c17825 */ 	or	$t7,$t6,$at
-/*  f19e9e8:	ac4f0008 */ 	sw	$t7,0x8($v0)
-.L0f19e9ec:
-/*  f19e9ec:	0fc679bf */ 	jal	frCloseAndLockDoor
-/*  f19e9f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19e9f4:	3c05800a */ 	lui	$a1,%hi(g_Vars)
-/*  f19e9f8:	24a59fc0 */ 	addiu	$a1,$a1,%lo(g_Vars)
-/*  f19e9fc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f19ea00:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f19ea04:	8ca40284 */ 	lw	$a0,0x284($a1)
-.L0f19ea08:
-/*  f19ea08:	00031080 */ 	sll	$v0,$v1,0x2
-/*  f19ea0c:	0083c021 */ 	addu	$t8,$a0,$v1
-/*  f19ea10:	831915e4 */ 	lb	$t9,0x15e4($t8)
-/*  f19ea14:	00824021 */ 	addu	$t0,$a0,$v0
-/*  f19ea18:	07220006 */ 	bltzl	$t9,.L0f19ea34
-/*  f19ea1c:	24630001 */ 	addiu	$v1,$v1,0x1
-/*  f19ea20:	ad000858 */ 	sw	$zero,0x858($t0)
-/*  f19ea24:	8ca90284 */ 	lw	$t1,0x284($a1)
-/*  f19ea28:	01225021 */ 	addu	$t2,$t1,$v0
-/*  f19ea2c:	ad400ffc */ 	sw	$zero,0xffc($t2)
-/*  f19ea30:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f19ea34:
-/*  f19ea34:	5466fff4 */ 	bnel	$v1,$a2,.L0f19ea08
-/*  f19ea38:	8ca40284 */ 	lw	$a0,0x284($a1)
-/*  f19ea3c:	0fc67a40 */ 	jal	func0f19e900
-/*  f19ea40:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f19ea44:	14400004 */ 	bnez	$v0,.L0f19ea58
-/*  f19ea48:	240b0001 */ 	addiu	$t3,$zero,0x1
-/*  f19ea4c:	3c018009 */ 	lui	$at,%hi(var80088804)
-/*  f19ea50:	10000003 */ 	beqz	$zero,.L0f19ea60
-/*  f19ea54:	a0208804 */ 	sb	$zero,%lo(var80088804)($at)
-.L0f19ea58:
-/*  f19ea58:	3c018009 */ 	lui	$at,%hi(var80088804)
-/*  f19ea5c:	a02b8804 */ 	sb	$t3,%lo(var80088804)($at)
-.L0f19ea60:
-/*  f19ea60:	0fc67913 */ 	jal	func0f19e44c
-/*  f19ea64:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19ea68:	0fc2a4ab */ 	jal	playersSetPassiveMode
-/*  f19ea6c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19ea70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ea74:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19ea78:	03e00008 */ 	jr	$ra
-/*  f19ea7c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f19e9c0(s32 weapon)
+{
+	s32 i;
+	struct defaultobj *obj = objFindByTagId(0x7f); // computer
+
+	if (obj) {
+		obj->flags |= OBJFLAG_CANNOT_ACTIVATE;
+	}
+
+	frCloseAndLockDoor();
+
+	for (i = 0; i < 2; i++) {
+		if (g_Vars.currentplayer->unk15e4[i] >= 0) {
+			g_Vars.currentplayer->unk0638[0].unk0858[i] = 0;
+			g_Vars.currentplayer->unk0638[1].unk0858[i] = 0;
+		}
+	}
+
+	var80088804 = func0f19e900(weapon) == false ? false : true;
+	func0f19e44c();
+	playersSetPassiveMode(false);
+}
 
 char *frGetWeaponDescription(void)
 {

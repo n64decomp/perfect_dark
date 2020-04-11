@@ -1296,8 +1296,7 @@ struct player638 {
 	/*0x084c*/ u32 unk084c;
 	/*0x0850*/ u32 unk0850;
 	/*0x0854*/ u32 unk0854;
-	/*0x0858*/ u32 unk0858;
-	/*0x085c*/ u32 unk085c;
+	/*0x0858*/ u32 unk0858[2];
 	/*0x0860*/ u32 unk0860;
 	/*0x0864*/ u32 unk0864;
 	/*0x0868*/ u32 unk0868;
@@ -2010,7 +2009,7 @@ struct player {
 	/*0x15d8*/ u32 unk15d8;
 	/*0x15dc*/ u32 unk15dc;
 	/*0x15e0*/ u32 unk15e0;
-	/*0x15e4*/ u32 unk15e4;
+	/*0x15e4*/ s8 unk15e4[2];
 	/*0x15e8*/ u32 unk15e8;
 	/*0x15ec*/ u32 unk15ec;
 	/*0x15f0*/ u32 unk15f0;
