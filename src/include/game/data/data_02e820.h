@@ -3,32 +3,6 @@
 #include <ultra64.h>
 #include "game/data/data_020df0.h"
 
-extern u32 var80088800;
-extern u8 var80088804;
-extern u8 var80088808;
-extern u8 var8008880c;
-extern void *var80088810;
-extern u16 g_FrPads[];
-extern u32 var80088854;
-extern u8 var800888a0;
-extern struct chrbio g_ChrBios[10];
-extern u32 misc_bios[];
-extern u32 var80088964;
-extern u32 place_bios[];
-extern u8 var80088ad8;
-extern u8 var80088adc;
-extern u8 g_CiDeviceSaveFileFlags[10];
-extern u32 g_CiDeviceWeapons[10];
-extern u32 g_CiDeviceStageFlags[10];
-extern u32 device_descriptions[10];
-extern u32 device_tips1[10];
-extern u32 device_tips2[10];
-extern u8 var80088bb4;
-extern u8 var80088bb8;
-extern s16 g_HoloRooms[5];
-extern u32 var80088bc8;
-extern u32 var80088be4;
-extern u32 var80088c04;
 extern u32 var80088c20;
 extern u32 var80088c3c;
 extern u32 var80088c58;

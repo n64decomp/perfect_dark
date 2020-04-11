@@ -3,6 +3,9 @@
 #include <ultra64.h>
 #include "types.h"
 
+extern u8 var80088804;
+extern u8 var800888a0;
+
 bool ciIsTourDone(void);
 u8 ciGetFiringRangeScore(s32 weapon_id);
 u32 func0f19c9e4(void);

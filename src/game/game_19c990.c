@@ -5869,7 +5869,19 @@ void dtEnd(void)
 
 bool dtIsAvailable(s32 deviceindex)
 {
-	u8 flags[10] = g_CiDeviceSaveFileFlags;
+	u8 flags[] = {
+		SAVEFILEFLAG_CI_UPLINK_DONE,
+		SAVEFILEFLAG_CI_ECMMINE_DONE,
+		SAVEFILEFLAG_CI_CAMSPY_DONE,
+		SAVEFILEFLAG_CI_NIGHTVISION_DONE,
+		SAVEFILEFLAG_CI_DOORDECODER_DONE,
+		SAVEFILEFLAG_CI_RTRACKER_DONE,
+		SAVEFILEFLAG_CI_IR_DONE,
+		SAVEFILEFLAG_CI_XRAY_DONE,
+		SAVEFILEFLAG_CI_DISGUISE_DONE,
+		SAVEFILEFLAG_CI_CLOAK_DONE,
+	};
+
 	deviceindex--;
 
 	if (deviceindex >= 10) {
@@ -5917,35 +5929,90 @@ s32 func0f1a1d68(s32 wantindex)
 
 u32 dtGetWeaponByDeviceIndex(s32 deviceindex)
 {
-	u32 weapons[10] = g_CiDeviceWeapons;
+	u32 weapons[] = {
+		WEAPON_DATAUPLINK,
+		WEAPON_ECMMINE,
+		WEAPON_CAMSPY,
+		WEAPON_NIGHTVISION,
+		WEAPON_DOORDECODER,
+		WEAPON_RTRACKER,
+		WEAPON_IRSCANNER,
+		WEAPON_XRAYSCANNER,
+		WEAPON_DISGUISE41,
+		WEAPON_CLOAKINGDEVICE,
+	};
 
 	return weapons[deviceindex];
 }
 
 u32 ciGetStageFlagByDeviceIndex(u32 deviceindex)
 {
-	u32 flags[10] = g_CiDeviceStageFlags;
+	u32 flags[] = {
+		STAGEFLAG_CI_TRIGGER_UPLINK,
+		STAGEFLAG_CI_TRIGGER_ECMMINE,
+		STAGEFLAG_CI_TRIGGER_CAMSPY,
+		STAGEFLAG_CI_TRIGGER_NIGHTVISION,
+		STAGEFLAG_CI_TRIGGER_DOORDECODER,
+		STAGEFLAG_CI_TRIGGER_RTRACKER,
+		STAGEFLAG_CI_TRIGGER_IR,
+		STAGEFLAG_CI_TRIGGER_XRAY,
+		STAGEFLAG_CI_TRIGGER_DISGUISE,
+		STAGEFLAG_CI_TRIGGER_CLOAK,
+	};
 
 	return flags[deviceindex];
 }
 
 char *dtGetDescription(void)
 {
-	u32 texts[10] = device_descriptions;
+	u32 texts[] = {
+		/*0*/ L_MISC(280), // Data uplink
+		/*1*/ L_MISC(279), // ECM mine
+		/*2*/ L_MISC(271), // CamSpy
+		/*3*/ L_MISC(272), // Night vision
+		/*4*/ L_MISC(273), // Door decoder
+		/*5*/ L_MISC(277), // R-tracker
+		/*6*/ L_MISC(276), // IR scanner
+		/*7*/ L_MISC(274), // X-ray scanner
+		/*8*/ L_MISC(275), // Disguise
+		/*9*/ L_MISC(278), // Cloak
+	};
 
 	return langGet(texts[func0f1a1d68(var80088ad8)]);
 }
 
 char *dtGetTip1(void)
 {
-	u32 texts[10] = device_tips1;
+	u32 texts[] = {
+		/*0*/ L_MISC(357),
+		/*1*/ L_MISC(358),
+		/*2*/ L_MISC(359),
+		/*3*/ L_MISC(360),
+		/*4*/ L_MISC(361),
+		/*5*/ L_MISC(362),
+		/*6*/ L_MISC(363),
+		/*7*/ L_MISC(364),
+		/*8*/ L_MISC(365),
+		/*9*/ L_MISC(366),
+	};
 
 	return langGet(texts[func0f1a1d68(var80088ad8)]);
 }
 
 char *dtGetTip2(void)
 {
-	u32 texts[10] = device_tips2;
+	u32 texts[] = {
+		/*0*/ L_MISC(367),
+		/*1*/ L_MISC(368),
+		/*2*/ L_MISC(369),
+		/*3*/ L_MISC(370),
+		/*4*/ L_MISC(371),
+		/*5*/ L_MISC(372),
+		/*6*/ L_MISC(373),
+		/*7*/ L_MISC(374),
+		/*8*/ L_MISC(375),
+		/*9*/ L_MISC(376),
+	};
 
 	return langGet(texts[func0f1a1d68(var80088ad8)]);
 }
@@ -5968,6 +6035,9 @@ void htPushEndscreen(void)
 	g_HoloTrainingData.failed = false;
 	g_HoloTrainingData.finished = false;
 }
+
+u8 var80088bb4 = 0;
+u8 var80088bb8 = 0;
 
 void htTick(void)
 {
@@ -6037,7 +6107,7 @@ void htEnd(void)
 	struct prop *prop;
 	s16 *propnum;
 	s16 propnums[256];
-	s16 rooms[5] = g_HoloRooms;
+	s16 rooms[5] = { 0x0016, 0x0017, 0x0018, 0x0019, -1 };
 	struct stagesetup00 *setup00 = g_StageSetup.unk00;
 
 	g_HoloTrainingData.intraining = false;
@@ -6152,6 +6222,14 @@ glabel func0f1a24dc
 /*  f1a2550:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
+u32 var80088bc8 = 0x0000599a;
+u32 var80088bcc = 0x0000599b;
+u32 var80088bd0 = 0x0000599c;
+u32 var80088bd4 = 0x0000599d;
+u32 var80088bd8 = 0x0000599e;
+u32 var80088bdc = 0x0000599f;
+u32 var80088be0 = 0x000059a0;
+
 GLOBAL_ASM(
 glabel func0f1a2554
 /*  f1a2554:	27bdffc8 */ 	addiu	$sp,$sp,-56
@@ -6183,6 +6261,15 @@ glabel func0f1a2554
 /*  f1a25bc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
+u32 var80088be4 = 0x00040000;
+u32 var80088be8 = 0x00080000;
+u32 var80088bec = 0x00100000;
+u32 var80088bf0 = 0x00200000;
+u32 var80088bf4 = 0x00400000;
+u32 var80088bf8 = 0x00800000;
+u32 var80088bfc = 0x01000000;
+u32 var80088c00 = 0x02000000;
+
 GLOBAL_ASM(
 glabel func0f1a25c0
 /*  f1a25c0:	3c0e8009 */ 	lui	$t6,%hi(var80088be4)
@@ -6211,6 +6298,33 @@ glabel func0f1a25c0
 /*  f1a261c:	03e00008 */ 	jr	$ra
 /*  f1a2620:	27bd0020 */ 	addiu	$sp,$sp,0x20
 );
+
+u32 var80088c04 = 0x00005950;
+u32 var80088c08 = 0x00005951;
+u32 var80088c0c = 0x00005952;
+u32 var80088c10 = 0x00005953;
+u32 var80088c14 = 0x00005954;
+u32 var80088c18 = 0x00005955;
+u32 var80088c1c = 0x00005956;
+u32 var80088c20 = 0x00005957;
+u32 var80088c24 = 0x00005958;
+u32 var80088c28 = 0x00005959;
+u32 var80088c2c = 0x0000595a;
+u32 var80088c30 = 0x0000595b;
+u32 var80088c34 = 0x0000595c;
+u32 var80088c38 = 0x0000595d;
+u32 var80088c3c = 0x0000595e;
+u32 var80088c40 = 0x0000595f;
+u32 var80088c44 = 0x00005960;
+u32 var80088c48 = 0x00005961;
+u32 var80088c4c = 0x00005962;
+u32 var80088c50 = 0x00005963;
+u32 var80088c54 = 0x00005964;
+u32 var80088c58 = 0x000059a7;
+u32 var80088c5c = 0x000059a8;
+u32 var80088c60 = 0x000059a9;
+u32 var80088c64 = 0x000059aa;
+u32 var80088c68 = 0x000059ab;
 
 GLOBAL_ASM(
 glabel func0f1a2624
