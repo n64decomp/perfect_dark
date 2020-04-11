@@ -54,7 +54,7 @@ glabel menuhandler001a3340
 /*  f1a3370:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a3374:	1440002d */ 	bnez	$v0,.L0f1a342c
 /*  f1a3378:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a337c:	0fc67494 */ 	jal	func0f19d250
+/*  f1a337c:	0fc67494 */ 	jal	frGetSlot
 /*  f1a3380:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a3384:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f1a3388:	00402025 */ 	or	$a0,$v0,$zero
@@ -231,7 +231,7 @@ glabel var7f1b9940
 /*  f1a3578:	24848f60 */ 	addiu	$a0,$a0,%lo(menudialog_frtraininginfo2)
 /*  f1a357c:	10000106 */ 	beqz	$zero,.L0f1a3998
 /*  f1a3580:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a3584:	0fc67494 */ 	jal	func0f19d250
+/*  f1a3584:	0fc67494 */ 	jal	frGetSlot
 /*  f1a3588:	afa600b0 */ 	sw	$a2,0xb0($sp)
 /*  f1a358c:	8fa600b0 */ 	lw	$a2,0xb0($sp)
 /*  f1a3590:	10000100 */ 	beqz	$zero,.L0f1a3994
@@ -528,7 +528,7 @@ glabel var7f1b9944
 /*  f1a39d0:	10000044 */ 	beqz	$zero,.L0f1a3ae4
 /*  f1a39d4:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f1a39d8:
-/*  f1a39d8:	0fc67494 */ 	jal	func0f19d250
+/*  f1a39d8:	0fc67494 */ 	jal	frGetSlot
 /*  f1a39dc:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a39e0:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f1a39e4:	00402025 */ 	or	$a0,$v0,$zero
@@ -648,7 +648,7 @@ glabel menudialog001a3af4
 /*  f1a3b84:	10000020 */ 	beqz	$zero,.L0f1a3c08
 /*  f1a3b88:	00001025 */ 	or	$v0,$zero,$zero
 .L0f1a3b8c:
-/*  f1a3b8c:	0fc67494 */ 	jal	func0f19d250
+/*  f1a3b8c:	0fc67494 */ 	jal	frGetSlot
 /*  f1a3b90:	afa60030 */ 	sw	$a2,0x30($sp)
 /*  f1a3b94:	0fc6726c */ 	jal	ciGetFiringRangeScore
 /*  f1a3b98:	00402025 */ 	or	$a0,$v0,$zero
@@ -704,7 +704,7 @@ glabel menuhandlerFrDifficulty
 /*  f1a3c38:	24010018 */ 	addiu	$at,$zero,0x18
 /*  f1a3c3c:	54810028 */ 	bnel	$a0,$at,.L0f1a3ce0
 /*  f1a3c40:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a3c44:	0fc67494 */ 	jal	func0f19d250
+/*  f1a3c44:	0fc67494 */ 	jal	frGetSlot
 /*  f1a3c48:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a3c4c:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f1a3c50:	00402025 */ 	or	$a0,$v0,$zero
@@ -729,7 +729,7 @@ glabel menuhandlerFrDifficulty
 /*  f1a3c98:	10000011 */ 	beqz	$zero,.L0f1a3ce0
 /*  f1a3c9c:	00001025 */ 	or	$v0,$zero,$zero
 .L0f1a3ca0:
-/*  f1a3ca0:	0fc67494 */ 	jal	func0f19d250
+/*  f1a3ca0:	0fc67494 */ 	jal	frGetSlot
 /*  f1a3ca4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a3ca8:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f1a3cac:	00402025 */ 	or	$a0,$v0,$zero
@@ -752,7 +752,7 @@ glabel menuhandlerFrDifficulty
 /*  f1a3cec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a3cf0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a3cf4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3cf8:	0fc67494 */ 	jal	func0f19d250
+/*  f1a3cf8:	0fc67494 */ 	jal	frGetSlot
 /*  f1a3cfc:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f1a3d00:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f1a3d04:	00402025 */ 	or	$a0,$v0,$zero
@@ -775,7 +775,7 @@ glabel menuhandlerFrDifficulty
 /*  f1a3d40:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a3d44:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a3d48:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a3d4c:	0fc67494 */ 	jal	func0f19d250
+/*  f1a3d4c:	0fc67494 */ 	jal	frGetSlot
 /*  f1a3d50:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f1a3d54:	0fc6749a */ 	jal	frGetWeaponBySlot
 /*  f1a3d58:	00402025 */ 	or	$a0,$v0,$zero
@@ -858,7 +858,7 @@ char *frMenuTextGoalScoreValueUnconditional(struct menu_item *item)
 
 char *frMenuTextWeaponName(struct menu_item *item)
 {
-	return weaponGetName(frGetWeaponBySlot(func0f19d250()));
+	return weaponGetName(frGetWeaponBySlot(frGetSlot()));
 }
 
 char *frMenuTextTargetsDestroyedValue(struct menu_item *item)

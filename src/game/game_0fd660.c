@@ -624,7 +624,7 @@ void activemenuApply(s32 slot)
 				pass = true;
 
 				if (var80088804 != 0) {
-					uVar6 = frGetWeaponBySlot(func0f19d250());
+					uVar6 = frGetWeaponBySlot(frGetSlot());
 
 					if (uVar6 == g_Vars.currentplayer->unk0638[0].unk0638) {
 						pass = false;

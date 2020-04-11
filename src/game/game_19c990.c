@@ -631,19 +631,17 @@ glabel var7f1b93b8
 /*  f19d24c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19d250
-/*  f19d250:	3c02800b */ 	lui	$v0,%hi(g_FiringRangeData+0x456)
-/*  f19d254:	03e00008 */ 	jr	$ra
-/*  f19d258:	9442d176 */ 	lhu	$v0,%lo(g_FiringRangeData+0x456)($v0)
-);
+u32 frGetSlot(void)
+{
+	return g_FiringRangeData.slot;
+}
 
-void frSetSlot(s32 slot)
+void frSetSlot(u32 slot)
 {
 	g_FiringRangeData.slot = slot;
 }
 
-u32 frGetWeaponBySlot(s32 slot)
+u32 frGetWeaponBySlot(u32 slot)
 {
 	s32 index = -1;
 	s32 weapon;
