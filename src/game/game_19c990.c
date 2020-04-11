@@ -6302,57 +6302,26 @@ void frGetGoalScoreText(char *buffer)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f1a2888
-/*  f1a2888:	3c02800b */ 	lui	$v0,%hi(g_FiringRangeData)
-/*  f1a288c:	2442cd20 */ 	addiu	$v0,$v0,%lo(g_FiringRangeData)
-/*  f1a2890:	944e0462 */ 	lhu	$t6,0x462($v0)
-/*  f1a2894:	944f045c */ 	lhu	$t7,0x45c($v0)
-/*  f1a2898:	9459045e */ 	lhu	$t9,0x45e($v0)
-/*  f1a289c:	94490460 */ 	lhu	$t1,0x460($v0)
-/*  f1a28a0:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f1a28a4:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f1a28a8:	01095021 */ 	addu	$t2,$t0,$t1
-/*  f1a28ac:	448a2000 */ 	mtc1	$t2,$f4
-/*  f1a28b0:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f1a28b4:	44810000 */ 	mtc1	$at,$f0
-/*  f1a28b8:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f1a28bc:	94430458 */ 	lhu	$v1,0x458($v0)
-/*  f1a28c0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a28c4:	3c057f1c */ 	lui	$a1,%hi(var7f1b91a4)
-/*  f1a28c8:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1a28cc:	24a591a4 */ 	addiu	$a1,$a1,%lo(var7f1b91a4)
-/*  f1a28d0:	46003302 */ 	mul.s	$f12,$f6,$f0
-/*  f1a28d4:	10600009 */ 	beqz	$v1,.L0f1a28fc
-/*  f1a28d8:	46000086 */ 	mov.s	$f2,$f0
-/*  f1a28dc:	44834000 */ 	mtc1	$v1,$f8
-/*  f1a28e0:	3c014f80 */ 	lui	$at,0x4f80
-/*  f1a28e4:	04610004 */ 	bgez	$v1,.L0f1a28f8
-/*  f1a28e8:	468042a0 */ 	cvt.s.w	$f10,$f8
-/*  f1a28ec:	44818000 */ 	mtc1	$at,$f16
-/*  f1a28f0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a28f4:	46105280 */ 	add.s	$f10,$f10,$f16
-.L0f1a28f8:
-/*  f1a28f8:	460a6083 */ 	div.s	$f2,$f12,$f10
-.L0f1a28fc:
-/*  f1a28fc:	4602003c */ 	c.lt.s	$f0,$f2
-/*  f1a2900:	3c067f1c */ 	lui	$a2,%hi(var7f1b91b0)
-/*  f1a2904:	3c077f1c */ 	lui	$a3,%hi(var7f1b91b4)
-/*  f1a2908:	24e791b4 */ 	addiu	$a3,$a3,%lo(var7f1b91b4)
-/*  f1a290c:	45000002 */ 	bc1f	.L0f1a2918
-/*  f1a2910:	24c691b0 */ 	addiu	$a2,$a2,%lo(var7f1b91b0)
-/*  f1a2914:	46000086 */ 	mov.s	$f2,$f0
-.L0f1a2918:
-/*  f1a2918:	460014a1 */ 	cvt.d.s	$f18,$f2
-/*  f1a291c:	e7a20020 */ 	swc1	$f2,0x20($sp)
-/*  f1a2920:	0c004dad */ 	jal	sprintf
-/*  f1a2924:	f7b20010 */ 	sdc1	$f18,0x10($sp)
-/*  f1a2928:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1a292c:	c7a20020 */ 	lwc1	$f2,0x20($sp)
-/*  f1a2930:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f1a2934:	03e00008 */ 	jr	$ra
-/*  f1a2938:	46001006 */ 	mov.s	$f0,$f2
-);
+f32 frGetAccuracy(char *buffer)
+{
+	f32 sum = (g_FiringRangeData.numhitstype4
+		+ g_FiringRangeData.numhitstype1
+		+ g_FiringRangeData.numhitstype2
+		+ g_FiringRangeData.numhitstype3) * 100.0f;
+	f32 accuracy = 100.0f;
+
+	if (g_FiringRangeData.numshots) {
+		accuracy = sum / (f32)g_FiringRangeData.numshots;
+	}
+
+	if (accuracy > 100.0f) {
+		accuracy = 100.0f;
+	}
+
+	sprintf(buffer, "%s%s%.2f%%\n", "", "", accuracy);
+
+	return accuracy;
+}
 
 GLOBAL_ASM(
 glabel func0f1a293c
@@ -6981,7 +6950,7 @@ glabel var7f1b97cc
 /*  f1a31a0:	904a0008 */ 	lbu	$t2,0x8($v0)
 /*  f1a31a4:	5940002f */ 	blezl	$t2,.L0f1a3264
 /*  f1a31a8:	904b0004 */ 	lbu	$t3,0x4($v0)
-/*  f1a31ac:	0fc68a22 */ 	jal	func0f1a2888
+/*  f1a31ac:	0fc68a22 */ 	jal	frGetAccuracy
 /*  f1a31b0:	27a400d8 */ 	addiu	$a0,$sp,0xd8
 /*  f1a31b4:	44050000 */ 	mfc1	$a1,$f0
 /*  f1a31b8:	0fc68a4f */ 	jal	func0f1a293c
@@ -7090,9 +7059,6 @@ glabel var7f1b97cc
 /*  f1a333c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-const char var7f1b91a4[] = "%s%s%.2f%%\n";
-const char var7f1b91b0[] = "";
-const char var7f1b91b4[] = "";
 const char var7f1b91b8[] = "%s %d%%\n";
 const char var7f1b91c4[] = "%02d:%02d\n";
 const char var7f1b91d0[] = "%s";

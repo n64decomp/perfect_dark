@@ -110,7 +110,7 @@ void frGetGoalTargetsText(char *buffer);
 void frGetTargetsDestroyedValue(char *buffer);
 void frGetScoreValue(char *buffer);
 void frGetGoalScoreText(char *buffer);
-u32 func0f1a2888(void);
+f32 frGetAccuracy(char *buffer);
 u32 func0f1a293c(void);
 u32 func0f1a29b8(void);
 u32 func0f1a2ad0(void);
