@@ -46,7 +46,7 @@ u32 func0f19e900(void);
 u32 func0f19e9c0(void);
 u32 func0f19ea80(void);
 void func0f19ecdc(s32 arg0);
-bool func0f19f07c(void);
+bool frWasTooInaccurate(void);
 void frSetFailReason(s32 failreason);
 u32 func0f19f18c(void);
 u32 func0f19f220(void);

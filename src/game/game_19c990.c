@@ -2923,60 +2923,29 @@ glabel func0f19ecdc
 /*  f19f078:	27bd02a0 */ 	addiu	$sp,$sp,0x2a0
 );
 
-GLOBAL_ASM(
-glabel func0f19f07c
-/*  f19f07c:	3c03800b */ 	lui	$v1,%hi(g_FiringRangeData)
-/*  f19f080:	2463cd20 */ 	addiu	$v1,$v1,%lo(g_FiringRangeData)
-/*  f19f084:	946e0462 */ 	lhu	$t6,0x462($v1)
-/*  f19f088:	946f045c */ 	lhu	$t7,0x45c($v1)
-/*  f19f08c:	9479045e */ 	lhu	$t9,0x45e($v1)
-/*  f19f090:	94690460 */ 	lhu	$t1,0x460($v1)
-/*  f19f094:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f19f098:	03194021 */ 	addu	$t0,$t8,$t9
-/*  f19f09c:	01095021 */ 	addu	$t2,$t0,$t1
-/*  f19f0a0:	448a2000 */ 	mtc1	$t2,$f4
-/*  f19f0a4:	3c0142c8 */ 	lui	$at,0x42c8
-/*  f19f0a8:	44814000 */ 	mtc1	$at,$f8
-/*  f19f0ac:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f19f0b0:	94620458 */ 	lhu	$v0,0x458($v1)
-/*  f19f0b4:	46083002 */ 	mul.s	$f0,$f6,$f8
-/*  f19f0b8:	50400018 */ 	beqzl	$v0,.L0f19f11c
-/*  f19f0bc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19f0c0:	44825000 */ 	mtc1	$v0,$f10
-/*  f19f0c4:	3c014f80 */ 	lui	$at,0x4f80
-/*  f19f0c8:	04410004 */ 	bgez	$v0,.L0f19f0dc
-/*  f19f0cc:	46805420 */ 	cvt.s.w	$f16,$f10
-/*  f19f0d0:	44819000 */ 	mtc1	$at,$f18
-/*  f19f0d4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19f0d8:	46128400 */ 	add.s	$f16,$f16,$f18
-.L0f19f0dc:
-/*  f19f0dc:	906b0008 */ 	lbu	$t3,0x8($v1)
-/*  f19f0e0:	46100083 */ 	div.s	$f2,$f0,$f16
-/*  f19f0e4:	3c014f80 */ 	lui	$at,0x4f80
-/*  f19f0e8:	448b2000 */ 	mtc1	$t3,$f4
-/*  f19f0ec:	05610004 */ 	bgez	$t3,.L0f19f100
-/*  f19f0f0:	468021a0 */ 	cvt.s.w	$f6,$f4
-/*  f19f0f4:	44814000 */ 	mtc1	$at,$f8
-/*  f19f0f8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19f0fc:	46083180 */ 	add.s	$f6,$f6,$f8
-.L0f19f100:
-/*  f19f100:	4606103c */ 	c.lt.s	$f2,$f6
-/*  f19f104:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19f108:	45020004 */ 	bc1fl	.L0f19f11c
-/*  f19f10c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19f110:	03e00008 */ 	jr	$ra
-/*  f19f114:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f19f118:	00001025 */ 	or	$v0,$zero,$zero
-.L0f19f11c:
-/*  f19f11c:	03e00008 */ 	jr	$ra
-/*  f19f120:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool frWasTooInaccurate(void)
+{
+	f32 sum = (g_FiringRangeData.numhitstype4 +
+		+ g_FiringRangeData.numhitstype1
+		+ g_FiringRangeData.numhitstype2
+		+ g_FiringRangeData.numhitstype3) * 100.0f;
+
+	if (g_FiringRangeData.numshots) {
+		f32 accuracy = sum / g_FiringRangeData.numshots;
+
+		if (accuracy < g_FiringRangeData.goalaccuracy) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 void frSetFailReason(s32 failreason)
 {
 	func0f19ecdc(0);
 
-	g_FiringRangeData.failreason = func0f19f07c() ? FRFAILREASON_INACCURATE : failreason;
+	g_FiringRangeData.failreason = frWasTooInaccurate() ? FRFAILREASON_INACCURATE : failreason;
 	g_FiringRangeData.unk465_00 = 2;
 	g_FiringRangeData.unk464 = 60;
 }
@@ -2988,7 +2957,7 @@ glabel func0f19f18c
 /*  f19f194:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f19f198:	0fc67b37 */ 	jal	func0f19ecdc
 /*  f19f19c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f19f1a0:	0fc67c1f */ 	jal	func0f19f07c
+/*  f19f1a0:	0fc67c1f */ 	jal	frWasTooInaccurate
 /*  f19f1a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19f1a8:	1040000a */ 	beqz	$v0,.L0f19f1d4
 /*  f19f1ac:	3c10800b */ 	lui	$s0,0x800b
