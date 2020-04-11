@@ -103,7 +103,7 @@ u32 func0f1a2484(void);
 u32 func0f1a24dc(u32 arg0);
 char *htGetName(s32 index);
 u32 func0f1a25c0(s32 index);
-u32 func0f1a2624(void);
+char *htGetDescription(void);
 u32 func0f1a269c(void);
 u32 func0f1a2714(void);
 u32 func0f1a278c(void);
