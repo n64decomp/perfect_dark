@@ -6287,20 +6287,10 @@ void frGetTargetsDestroyedValue(char *buffer)
 	sprintf(buffer, "%02d\n", g_FiringRangeData.targetsdestroyed);
 }
 
-GLOBAL_ASM(
-glabel func0f1a27f8
-/*  f1a27f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a27fc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a2800:	3c057f1c */ 	lui	$a1,%hi(var7f1b9190)
-/*  f1a2804:	3c06800b */ 	lui	$a2,%hi(g_FiringRangeData+0x450)
-/*  f1a2808:	8cc6d170 */ 	lw	$a2,%lo(g_FiringRangeData+0x450)($a2)
-/*  f1a280c:	0c004dad */ 	jal	sprintf
-/*  f1a2810:	24a59190 */ 	addiu	$a1,$a1,%lo(var7f1b9190)
-/*  f1a2814:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a2818:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a281c:	03e00008 */ 	jr	$ra
-/*  f1a2820:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void frGetScoreValue(char *buffer)
+{
+	sprintf(buffer, "%03d\n", g_FiringRangeData.score);
+}
 
 GLOBAL_ASM(
 glabel func0f1a2824
@@ -6945,7 +6935,7 @@ glabel var7f1b97cc
 /*  f1a3098:	0fc68b62 */ 	jal	func0f1a2d88
 /*  f1a309c:	afa90030 */ 	sw	$t1,0x30($sp)
 /*  f1a30a0:	afa20158 */ 	sw	$v0,0x158($sp)
-/*  f1a30a4:	0fc689fe */ 	jal	func0f1a27f8
+/*  f1a30a4:	0fc689fe */ 	jal	frGetScoreValue
 /*  f1a30a8:	27a400d8 */ 	addiu	$a0,$sp,0xd8
 /*  f1a30ac:	0fc68a09 */ 	jal	func0f1a2824
 /*  f1a30b0:	27a40058 */ 	addiu	$a0,$sp,0x58
@@ -7121,7 +7111,6 @@ glabel var7f1b97cc
 /*  f1a333c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-const char var7f1b9190[] = "%03d\n";
 const char var7f1b9198[] = "%s %d\n";
 const char var7f1b91a0[] = "";
 const char var7f1b91a4[] = "%s%s%.2f%%\n";
