@@ -5448,25 +5448,13 @@ glabel func0f1a13f0
 /*  f1a1464:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
-GLOBAL_ASM(
-glabel func0f1a1468
-/*  f1a1468:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a146c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1470:	0fc6846e */ 	jal	func0f1a11b8
-/*  f1a1474:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1478:	3c0e8009 */ 	lui	$t6,%hi(var800888a0)
-/*  f1a147c:	91ce88a0 */ 	lbu	$t6,%lo(var800888a0)($t6)
-/*  f1a1480:	0fc684fc */ 	jal	func0f1a13f0
-/*  f1a1484:	01c22023 */ 	subu	$a0,$t6,$v0
-/*  f1a1488:	0fc684a2 */ 	jal	ciGetMiscBio
-/*  f1a148c:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a1490:	0fc5b9f1 */ 	jal	langGet
-/*  f1a1494:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f1a1498:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a149c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a14a0:	03e00008 */ 	jr	$ra
-/*  f1a14a4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *ciGetMiscBioDescription(void)
+{
+	s32 index = func0f1a13f0(var800888a0 - func0f1a11b8());
+	struct miscbio *bio = ciGetMiscBio(index);
+
+	return langGet(bio->description);
+}
 
 GLOBAL_ASM(
 glabel func0f1a14a8
