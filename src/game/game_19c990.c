@@ -6323,42 +6323,13 @@ f32 frGetAccuracy(char *buffer)
 	return accuracy;
 }
 
-GLOBAL_ASM(
-glabel func0f1a293c
-/*  f1a293c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a2940:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a2944:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a2948:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f1a294c:	0fc5b9f1 */ 	jal	langGet
-/*  f1a2950:	240459a3 */ 	addiu	$a0,$zero,0x59a3
-/*  f1a2954:	3c057f1c */ 	lui	$a1,%hi(var7f1b91b8)
-/*  f1a2958:	3c07800b */ 	lui	$a3,%hi(g_FiringRangeData+0x8)
-/*  f1a295c:	90e7cd28 */ 	lbu	$a3,%lo(g_FiringRangeData+0x8)($a3)
-/*  f1a2960:	24a591b8 */ 	addiu	$a1,$a1,%lo(var7f1b91b8)
-/*  f1a2964:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1a2968:	0c004dad */ 	jal	sprintf
-/*  f1a296c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a2970:	3c0e800b */ 	lui	$t6,%hi(g_FiringRangeData+0x8)
-/*  f1a2974:	91cecd28 */ 	lbu	$t6,%lo(g_FiringRangeData+0x8)($t6)
-/*  f1a2978:	c7a4001c */ 	lwc1	$f4,0x1c($sp)
-/*  f1a297c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a2980:	448e3000 */ 	mtc1	$t6,$f6
-/*  f1a2984:	3c014f80 */ 	lui	$at,0x4f80
-/*  f1a2988:	05c10004 */ 	bgez	$t6,.L0f1a299c
-/*  f1a298c:	46803220 */ 	cvt.s.w	$f8,$f6
-/*  f1a2990:	44815000 */ 	mtc1	$at,$f10
-/*  f1a2994:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a2998:	460a4200 */ 	add.s	$f8,$f8,$f10
-.L0f1a299c:
-/*  f1a299c:	4608203c */ 	c.lt.s	$f4,$f8
-/*  f1a29a0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a29a4:	45000002 */ 	bc1f	.L0f1a29b0
-/*  f1a29a8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a29ac:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1a29b0:
-/*  f1a29b0:	03e00008 */ 	jr	$ra
-/*  f1a29b4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+bool frGetMinAccuracy(char *buffer, f32 accuracy)
+{
+	// "MIN ACCURACY:"
+	sprintf(buffer, "%s %d%%\n", langGet(L_MISC(419)), g_FiringRangeData.goalaccuracy);
+
+	return accuracy < g_FiringRangeData.goalaccuracy;
+}
 
 GLOBAL_ASM(
 glabel func0f1a29b8
@@ -6953,7 +6924,7 @@ glabel var7f1b97cc
 /*  f1a31ac:	0fc68a22 */ 	jal	frGetAccuracy
 /*  f1a31b0:	27a400d8 */ 	addiu	$a0,$sp,0xd8
 /*  f1a31b4:	44050000 */ 	mfc1	$a1,$f0
-/*  f1a31b8:	0fc68a4f */ 	jal	func0f1a293c
+/*  f1a31b8:	0fc68a4f */ 	jal	frGetMinAccuracy
 /*  f1a31bc:	27a40058 */ 	addiu	$a0,$sp,0x58
 /*  f1a31c0:	0c002f40 */ 	jal	func0000bd00
 /*  f1a31c4:	afa20054 */ 	sw	$v0,0x54($sp)
@@ -7059,7 +7030,6 @@ glabel var7f1b97cc
 /*  f1a333c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-const char var7f1b91b8[] = "%s %d%%\n";
 const char var7f1b91c4[] = "%02d:%02d\n";
 const char var7f1b91d0[] = "%s";
 const char var7f1b91d4[] = "%s";
