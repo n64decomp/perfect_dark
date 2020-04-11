@@ -106,7 +106,7 @@ u32 func0f1a25c0(s32 index);
 char *htGetDescription(void);
 char *htGetTip1(void);
 char *htGetTip2(void);
-u32 func0f1a278c(void);
+void frGetGoalTargetsText(char *buffer);
 u32 func0f1a27cc(void);
 u32 func0f1a27f8(void);
 u32 func0f1a2824(void);

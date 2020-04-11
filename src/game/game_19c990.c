@@ -59,28 +59,6 @@ u16 g_FrPads[] = {
 	0x00f2, 0x00f1, 0x00f0, 0x00ef, 0x00ee, 0x00ed, 0x00ec,
 };
 
-const char var7f1b9180[] = "%s %d\n";
-const char var7f1b9188[] = "%02d\n";
-const char var7f1b9190[] = "%03d\n";
-const char var7f1b9198[] = "%s %d\n";
-const char var7f1b91a0[] = "";
-const char var7f1b91a4[] = "%s%s%.2f%%\n";
-const char var7f1b91b0[] = "";
-const char var7f1b91b4[] = "";
-const char var7f1b91b8[] = "%s %d%%\n";
-const char var7f1b91c4[] = "%02d:%02d\n";
-const char var7f1b91d0[] = "%s";
-const char var7f1b91d4[] = "%s";
-const char var7f1b91d8[] = "%s %02d:%02d\n";
-const char var7f1b91e8[] = "010\n";
-const char var7f1b91f0[] = "%03d\n";
-const char var7f1b91f8[] = "%s";
-const char var7f1b91fc[] = "%s";
-const char var7f1b9200[] = "%s";
-const char var7f1b9204[] = "%s";
-const char var7f1b9208[] = "%s";
-const char var7f1b920c[] = "\n";
-
 bool ciIsTourDone(void)
 {
 	return savefileHasFlag(SAVEFILEFLAG_CI_TOUR_DONE);
@@ -6298,25 +6276,32 @@ char *htGetTip2(void)
 	return langGet(texts[func0f1a24dc(var80088bb4)]);
 }
 
-GLOBAL_ASM(
-glabel func0f1a278c
-/*  f1a278c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a2790:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a2794:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a2798:	0fc5b9f1 */ 	jal	langGet
-/*  f1a279c:	240459a1 */ 	addiu	$a0,$zero,0x59a1
-/*  f1a27a0:	3c057f1c */ 	lui	$a1,%hi(var7f1b9180)
-/*  f1a27a4:	3c07800b */ 	lui	$a3,%hi(g_FiringRangeData+0x4)
-/*  f1a27a8:	90e7cd24 */ 	lbu	$a3,%lo(g_FiringRangeData+0x4)($a3)
-/*  f1a27ac:	24a59180 */ 	addiu	$a1,$a1,%lo(var7f1b9180)
-/*  f1a27b0:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1a27b4:	0c004dad */ 	jal	sprintf
-/*  f1a27b8:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a27bc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a27c0:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a27c4:	03e00008 */ 	jr	$ra
-/*  f1a27c8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void frGetGoalTargetsText(char *buffer)
+{
+	// "GOAL TARGETS:"
+	sprintf(buffer, "%s %d\n", langGet(L_MISC(417)), g_FiringRangeData.goaltargets);
+}
+
+const char var7f1b9188[] = "%02d\n";
+const char var7f1b9190[] = "%03d\n";
+const char var7f1b9198[] = "%s %d\n";
+const char var7f1b91a0[] = "";
+const char var7f1b91a4[] = "%s%s%.2f%%\n";
+const char var7f1b91b0[] = "";
+const char var7f1b91b4[] = "";
+const char var7f1b91b8[] = "%s %d%%\n";
+const char var7f1b91c4[] = "%02d:%02d\n";
+const char var7f1b91d0[] = "%s";
+const char var7f1b91d4[] = "%s";
+const char var7f1b91d8[] = "%s %02d:%02d\n";
+const char var7f1b91e8[] = "010\n";
+const char var7f1b91f0[] = "%03d\n";
+const char var7f1b91f8[] = "%s";
+const char var7f1b91fc[] = "%s";
+const char var7f1b9200[] = "%s";
+const char var7f1b9204[] = "%s";
+const char var7f1b9208[] = "%s";
+const char var7f1b920c[] = "\n";
 
 GLOBAL_ASM(
 glabel func0f1a27cc
@@ -7112,7 +7097,7 @@ glabel var7f1b97cc
 /*  f1a326c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a3270:	0fc689f3 */ 	jal	func0f1a27cc
 /*  f1a3274:	27a400d8 */ 	addiu	$a0,$sp,0xd8
-/*  f1a3278:	0fc689e3 */ 	jal	func0f1a278c
+/*  f1a3278:	0fc689e3 */ 	jal	frGetGoalTargetsText
 /*  f1a327c:	27a40058 */ 	addiu	$a0,$sp,0x58
 /*  f1a3280:	3c014000 */ 	lui	$at,0x4000
 /*  f1a3284:	44815000 */ 	mtc1	$at,$f10
