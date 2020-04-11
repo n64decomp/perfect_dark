@@ -109,7 +109,7 @@ char *htGetTip2(void);
 void frGetGoalTargetsText(char *buffer);
 void frGetTargetsDestroyedValue(char *buffer);
 void frGetScoreValue(char *buffer);
-u32 func0f1a2824(void);
+void frGetGoalScoreText(char *buffer);
 u32 func0f1a2888(void);
 u32 func0f1a293c(void);
 u32 func0f1a29b8(void);

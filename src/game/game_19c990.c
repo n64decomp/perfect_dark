@@ -6292,36 +6292,15 @@ void frGetScoreValue(char *buffer)
 	sprintf(buffer, "%03d\n", g_FiringRangeData.score);
 }
 
-GLOBAL_ASM(
-glabel func0f1a2824
-/*  f1a2824:	3c0e800b */ 	lui	$t6,%hi(g_FiringRangeData+0x2)
-/*  f1a2828:	95cecd22 */ 	lhu	$t6,%lo(g_FiringRangeData+0x2)($t6)
-/*  f1a282c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a2830:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a2834:	11c0000c */ 	beqz	$t6,.L0f1a2868
-/*  f1a2838:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f1a283c:	0fc5b9f1 */ 	jal	langGet
-/*  f1a2840:	240459a2 */ 	addiu	$a0,$zero,0x59a2
-/*  f1a2844:	3c057f1c */ 	lui	$a1,%hi(var7f1b9198)
-/*  f1a2848:	3c07800b */ 	lui	$a3,%hi(g_FiringRangeData+0x2)
-/*  f1a284c:	94e7cd22 */ 	lhu	$a3,%lo(g_FiringRangeData+0x2)($a3)
-/*  f1a2850:	24a59198 */ 	addiu	$a1,$a1,%lo(var7f1b9198)
-/*  f1a2854:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1a2858:	0c004dad */ 	jal	sprintf
-/*  f1a285c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a2860:	10000006 */ 	beqz	$zero,.L0f1a287c
-/*  f1a2864:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a2868:
-/*  f1a2868:	3c057f1c */ 	lui	$a1,%hi(var7f1b91a0)
-/*  f1a286c:	24a591a0 */ 	addiu	$a1,$a1,%lo(var7f1b91a0)
-/*  f1a2870:	0c004dad */ 	jal	sprintf
-/*  f1a2874:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*  f1a2878:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a287c:
-/*  f1a287c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a2880:	03e00008 */ 	jr	$ra
-/*  f1a2884:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void frGetGoalScoreText(char *buffer)
+{
+	if (g_FiringRangeData.goalscore) {
+		// "GOAL SCORE:"
+		sprintf(buffer, "%s %d\n", langGet(L_MISC(418)), g_FiringRangeData.goalscore);
+	} else {
+		sprintf(buffer, "");
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f1a2888
@@ -6937,7 +6916,7 @@ glabel var7f1b97cc
 /*  f1a30a0:	afa20158 */ 	sw	$v0,0x158($sp)
 /*  f1a30a4:	0fc689fe */ 	jal	frGetScoreValue
 /*  f1a30a8:	27a400d8 */ 	addiu	$a0,$sp,0xd8
-/*  f1a30ac:	0fc68a09 */ 	jal	func0f1a2824
+/*  f1a30ac:	0fc68a09 */ 	jal	frGetGoalScoreText
 /*  f1a30b0:	27a40058 */ 	addiu	$a0,$sp,0x58
 /*  f1a30b4:	0c002f40 */ 	jal	func0000bd00
 /*  f1a30b8:	00000000 */ 	sll	$zero,$zero,0x0
@@ -7111,8 +7090,6 @@ glabel var7f1b97cc
 /*  f1a333c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-const char var7f1b9198[] = "%s %d\n";
-const char var7f1b91a0[] = "";
 const char var7f1b91a4[] = "%s%s%.2f%%\n";
 const char var7f1b91b0[] = "";
 const char var7f1b91b4[] = "";
