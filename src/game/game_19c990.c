@@ -6331,6 +6331,8 @@ bool frGetMinAccuracy(char *buffer, f32 accuracy)
 	return accuracy < g_FiringRangeData.goalaccuracy;
 }
 
+const char var7f1b91c4[] = "%02d:%02d\n";
+
 GLOBAL_ASM(
 glabel func0f1a29b8
 /*  f1a29b8:	3c06800b */ 	lui	$a2,%hi(g_FiringRangeData)
@@ -6412,77 +6414,38 @@ glabel func0f1a29b8
 /*  f1a2acc:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f1a2ad0
-/*  f1a2ad0:	3c03800b */ 	lui	$v1,%hi(g_FiringRangeData)
-/*  f1a2ad4:	2463cd20 */ 	addiu	$v1,$v1,%lo(g_FiringRangeData)
-/*  f1a2ad8:	8c62044c */ 	lw	$v0,0x44c($v1)
-/*  f1a2adc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a2ae0:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f1a2ae4:	2841ff4c */ 	slti	$at,$v0,-180
-/*  f1a2ae8:	1020000a */ 	beqz	$at,.L0f1a2b14
-/*  f1a2aec:	afa40028 */ 	sw	$a0,0x28($sp)
-/*  f1a2af0:	0fc5b9f1 */ 	jal	langGet
-/*  f1a2af4:	240459a4 */ 	addiu	$a0,$zero,0x59a4
-/*  f1a2af8:	3c057f1c */ 	lui	$a1,%hi(var7f1b91d0)
-/*  f1a2afc:	24a591d0 */ 	addiu	$a1,$a1,%lo(var7f1b91d0)
-/*  f1a2b00:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f1a2b04:	0c004dad */ 	jal	sprintf
-/*  f1a2b08:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a2b0c:	10000029 */ 	beqz	$zero,.L0f1a2bb4
-/*  f1a2b10:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a2b14:
-/*  f1a2b14:	0443000b */ 	bgezl	$v0,.L0f1a2b44
-/*  f1a2b18:	90620005 */ 	lbu	$v0,0x5($v1)
-/*  f1a2b1c:	0fc5b9f1 */ 	jal	langGet
-/*  f1a2b20:	240459a5 */ 	addiu	$a0,$zero,0x59a5
-/*  f1a2b24:	3c057f1c */ 	lui	$a1,%hi(var7f1b91d4)
-/*  f1a2b28:	24a591d4 */ 	addiu	$a1,$a1,%lo(var7f1b91d4)
-/*  f1a2b2c:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f1a2b30:	0c004dad */ 	jal	sprintf
-/*  f1a2b34:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a2b38:	1000001e */ 	beqz	$zero,.L0f1a2bb4
-/*  f1a2b3c:	24020001 */ 	addiu	$v0,$zero,0x1
-/*  f1a2b40:	90620005 */ 	lbu	$v0,0x5($v1)
-.L0f1a2b44:
-/*  f1a2b44:	240100ff */ 	addiu	$at,$zero,0xff
-/*  f1a2b48:	240459a6 */ 	addiu	$a0,$zero,0x59a6
-/*  f1a2b4c:	14410003 */ 	bne	$v0,$at,.L0f1a2b5c
-/*  f1a2b50:	00401825 */ 	or	$v1,$v0,$zero
-/*  f1a2b54:	10000017 */ 	beqz	$zero,.L0f1a2bb4
-/*  f1a2b58:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a2b5c:
-/*  f1a2b5c:	2841003c */ 	slti	$at,$v0,0x3c
-/*  f1a2b60:	14200008 */ 	bnez	$at,.L0f1a2b84
-/*  f1a2b64:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1a2b68:	2841003c */ 	slti	$at,$v0,0x3c
-/*  f1a2b6c:	54200006 */ 	bnezl	$at,.L0f1a2b88
-/*  f1a2b70:	afa30024 */ 	sw	$v1,0x24($sp)
-.L0f1a2b74:
-/*  f1a2b74:	2463ffc4 */ 	addiu	$v1,$v1,-60
-/*  f1a2b78:	2861003c */ 	slti	$at,$v1,0x3c
-/*  f1a2b7c:	1020fffd */ 	beqz	$at,.L0f1a2b74
-/*  f1a2b80:	24e70001 */ 	addiu	$a3,$a3,0x1
-.L0f1a2b84:
-/*  f1a2b84:	afa30024 */ 	sw	$v1,0x24($sp)
-.L0f1a2b88:
-/*  f1a2b88:	0fc5b9f1 */ 	jal	langGet
-/*  f1a2b8c:	afa70020 */ 	sw	$a3,0x20($sp)
-/*  f1a2b90:	8fa30024 */ 	lw	$v1,0x24($sp)
-/*  f1a2b94:	3c057f1c */ 	lui	$a1,%hi(var7f1b91d8)
-/*  f1a2b98:	24a591d8 */ 	addiu	$a1,$a1,%lo(var7f1b91d8)
-/*  f1a2b9c:	8fa70020 */ 	lw	$a3,0x20($sp)
-/*  f1a2ba0:	8fa40028 */ 	lw	$a0,0x28($sp)
-/*  f1a2ba4:	00403025 */ 	or	$a2,$v0,$zero
-/*  f1a2ba8:	0c004dad */ 	jal	sprintf
-/*  f1a2bac:	afa30010 */ 	sw	$v1,0x10($sp)
-/*  f1a2bb0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1a2bb4:
-/*  f1a2bb4:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f1a2bb8:	27bd0028 */ 	addiu	$sp,$sp,0x28
-/*  f1a2bbc:	03e00008 */ 	jr	$ra
-/*  f1a2bc0:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool frGetHudMiddleSubtext(char *buffer)
+{
+	s32 secs;
+	s32 mins;
+
+	if (g_FiringRangeData.timetaken < -180) {
+		sprintf(buffer, "%s", langGet(L_MISC(420))); // "FIRE TO START"
+		return false;
+	}
+
+	if (g_FiringRangeData.timetaken < 0) {
+		sprintf(buffer, "%s", langGet(L_MISC(421))); // "GET READY!"
+		return true;
+	}
+
+	if (g_FiringRangeData.timelimit == 255) {
+		return false;
+	}
+
+	secs = g_FiringRangeData.timelimit;
+	mins = 0;
+
+	if (secs >= 60) {
+		while (secs >= 60) {
+			secs -= 60;
+			mins++;
+		}
+	}
+
+	sprintf(buffer, "%s %02d:%02d\n", langGet(L_MISC(422)), mins, secs); // "LIMIT:"
+	return true;
+}
 
 u32 var80088c58 = 0x000059a7;
 u32 var80088c5c = 0x000059a8;
@@ -6816,7 +6779,7 @@ glabel var7f1b97cc
 /*  f1a3010:	0fc68a6e */ 	jal	func0f1a29b8
 /*  f1a3014:	27a400d8 */ 	addiu	$a0,$sp,0xd8
 /*  f1a3018:	afa20054 */ 	sw	$v0,0x54($sp)
-/*  f1a301c:	0fc68ab4 */ 	jal	func0f1a2ad0
+/*  f1a301c:	0fc68ab4 */ 	jal	frGetHudMiddleSubtext
 /*  f1a3020:	27a40058 */ 	addiu	$a0,$sp,0x58
 /*  f1a3024:	0c002f22 */ 	jal	func0000bc88
 /*  f1a3028:	afa20050 */ 	sw	$v0,0x50($sp)
@@ -7030,10 +6993,6 @@ glabel var7f1b97cc
 /*  f1a333c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-const char var7f1b91c4[] = "%02d:%02d\n";
-const char var7f1b91d0[] = "%s";
-const char var7f1b91d4[] = "%s";
-const char var7f1b91d8[] = "%s %02d:%02d\n";
 const char var7f1b91e8[] = "010\n";
 const char var7f1b91f0[] = "%03d\n";
 const char var7f1b91f8[] = "%s";

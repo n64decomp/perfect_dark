@@ -113,7 +113,7 @@ void frGetGoalScoreText(char *buffer);
 f32 frGetAccuracy(char *buffer);
 bool frGetMinAccuracy(char *buffer, f32 accuracy);
 u32 func0f1a29b8(void);
-u32 func0f1a2ad0(void);
+bool frGetHudMiddleSubtext(char *buffer);
 u32 func0f1a2bc4(void);
 u32 func0f1a2d88(void);
 u32 func0f1a2f60(void);
