@@ -285,42 +285,21 @@ glabel func0f19cbcc
 /*  f19cc4c:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f19cc50
-/*  f19cc50:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19cc54:	28810002 */ 	slti	$at,$a0,0x2
-/*  f19cc58:	1420000a */ 	bnez	$at,.L0f19cc84
-/*  f19cc5c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19cc60:	28810023 */ 	slti	$at,$a0,0x23
-/*  f19cc64:	10200007 */ 	beqz	$at,.L0f19cc84
-/*  f19cc68:	2401002c */ 	addiu	$at,$zero,0x2c
-/*  f19cc6c:	10810005 */ 	beq	$a0,$at,.L0f19cc84
-/*  f19cc70:	24010023 */ 	addiu	$at,$zero,0x23
-/*  f19cc74:	10810003 */ 	beq	$a0,$at,.L0f19cc84
-/*  f19cc78:	2401001f */ 	addiu	$at,$zero,0x1f
-/*  f19cc7c:	54810004 */ 	bnel	$a0,$at,.L0f19cc90
-/*  f19cc80:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f19cc84:
-/*  f19cc84:	1000000a */ 	beqz	$zero,.L0f19ccb0
-/*  f19cc88:	00001025 */ 	or	$v0,$zero,$zero
-/*  f19cc8c:	24010002 */ 	addiu	$at,$zero,0x2
-.L0f19cc90:
-/*  f19cc90:	10810003 */ 	beq	$a0,$at,.L0f19cca0
-/*  f19cc94:	2401000a */ 	addiu	$at,$zero,0xa
-/*  f19cc98:	14810003 */ 	bne	$a0,$at,.L0f19cca8
-/*  f19cc9c:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f19cca0:
-/*  f19cca0:	10000003 */ 	beqz	$zero,.L0f19ccb0
-/*  f19cca4:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f19cca8:
-/*  f19cca8:	0fc672b5 */ 	jal	func0f19cad4
-/*  f19ccac:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f19ccb0:
-/*  f19ccb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19ccb4:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19ccb8:	03e00008 */ 	jr	$ra
-/*  f19ccbc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool frWeaponIsAvailable(s32 weapon)
+{
+	if (weapon < WEAPON_FALCON2 || weapon > WEAPON_REMOTEMINE
+			|| weapon == WEAPON_PSYCHOSISGUN
+			|| weapon == WEAPON_COMBATBOOST
+			|| weapon == WEAPON_NBOMB) {
+		return false;
+	}
+
+	if (weapon == WEAPON_FALCON2 || weapon == WEAPON_CMP150) {
+		return true;
+	}
+
+	return func0f19cad4(weapon);
+}
 
 u32 func0f19ccc0(u32 weaponnum)
 {
@@ -465,7 +444,7 @@ u32 frGetWeaponBySlot(s32 slot)
 	s32 weapon;
 
 	for (weapon = WEAPON_NONE; weapon <= WEAPON_HORIZONSCANNER; weapon++) {
-		if (func0f19cc50(weapon)) {
+		if (frWeaponIsAvailable(weapon)) {
 			index++;
 		}
 
@@ -488,7 +467,7 @@ glabel func0f19d2e0
 /*  f19d2f8:	24100001 */ 	addiu	$s0,$zero,0x1
 /*  f19d2fc:	24120033 */ 	addiu	$s2,$zero,0x33
 .L0f19d300:
-/*  f19d300:	0fc67314 */ 	jal	func0f19cc50
+/*  f19d300:	0fc67314 */ 	jal	frWeaponIsAvailable
 /*  f19d304:	02002025 */ 	or	$a0,$s0,$zero
 /*  f19d308:	10400002 */ 	beqz	$v0,.L0f19d314
 /*  f19d30c:	26100001 */ 	addiu	$s0,$s0,0x1
