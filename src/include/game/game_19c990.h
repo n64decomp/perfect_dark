@@ -59,7 +59,7 @@ u32 func0f1a0924(void);
 u32 func0f1a0a70(void);
 s32 frIsInTraining(void);
 u32 func0f1a0cc0(void);
-u32 func0f1a0fc8(void);
+void func0f1a0fc8(void);
 bool ciIsChrBioUnlocked(u32 bodynum);
 struct chrbio *ciGetChrBioByBodynum(u32 bodynum);
 char *ciGetChrBioDescription(void);

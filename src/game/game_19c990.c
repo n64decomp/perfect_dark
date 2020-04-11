@@ -5159,18 +5159,11 @@ glabel var7f1b94e8
 /*  f1a0fc4:	27bd0070 */ 	addiu	$sp,$sp,0x70
 );
 
-GLOBAL_ASM(
-glabel func0f1a0fc8
-/*  f1a0fc8:	3c02800b */ 	lui	$v0,%hi(g_FiringRangeData)
-/*  f1a0fcc:	2442cd20 */ 	addiu	$v0,$v0,%lo(g_FiringRangeData)
-/*  f1a0fd0:	944e0458 */ 	lhu	$t6,0x458($v0)
-/*  f1a0fd4:	9058045a */ 	lbu	$t8,0x45a($v0)
-/*  f1a0fd8:	25cf0001 */ 	addiu	$t7,$t6,0x1
-/*  f1a0fdc:	27190001 */ 	addiu	$t9,$t8,0x1
-/*  f1a0fe0:	a44f0458 */ 	sh	$t7,0x458($v0)
-/*  f1a0fe4:	03e00008 */ 	jr	$ra
-/*  f1a0fe8:	a059045a */ 	sb	$t9,0x45a($v0)
-);
+void func0f1a0fc8(void)
+{
+	g_FiringRangeData.numshots++;
+	g_FiringRangeData.unk45a++;
+}
 
 bool ciIsChrBioUnlocked(u32 bodynum)
 {
