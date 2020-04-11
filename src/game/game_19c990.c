@@ -1922,31 +1922,15 @@ void frCloseAndLockDoor(void)
 	}
 }
 
-GLOBAL_ASM(
-glabel func0f19e754
-/*  f19e754:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f19e758:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19e75c:	0fc2556c */ 	jal	objFindByTagId
-/*  f19e760:	24040091 */ 	addiu	$a0,$zero,0x91
-/*  f19e764:	5040000d */ 	beqzl	$v0,.L0f19e79c
-/*  f19e768:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19e76c:	8c430014 */ 	lw	$v1,0x14($v0)
-/*  f19e770:	5060000a */ 	beqzl	$v1,.L0f19e79c
-/*  f19e774:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19e778:	906e0000 */ 	lbu	$t6,0x0($v1)
-/*  f19e77c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f19e780:	55c10006 */ 	bnel	$t6,$at,.L0f19e79c
-/*  f19e784:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19e788:	8c4f0074 */ 	lw	$t7,0x74($v0)
-/*  f19e78c:	2401ffbf */ 	addiu	$at,$zero,-65
-/*  f19e790:	01e1c024 */ 	and	$t8,$t7,$at
-/*  f19e794:	ac580074 */ 	sw	$t8,0x74($v0)
-/*  f19e798:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f19e79c:
-/*  f19e79c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f19e7a0:	03e00008 */ 	jr	$ra
-/*  f19e7a4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void frUnlockDoor(void)
+{
+	struct defaultobj *obj = objFindByTagId(0x91);
+
+	if (obj && obj->prop && obj->prop->type == PROPTYPE_DOOR) {
+		struct doorobj *door = (struct doorobj *)obj;
+		door->keyflags &= ~0x40;
+	}
+}
 
 GLOBAL_ASM(
 glabel func0f19e7a8
@@ -2224,7 +2208,7 @@ glabel func0f19ecdc
 /*  f19ed24:	01e1c024 */ 	and	$t8,$t7,$at
 /*  f19ed28:	ac580008 */ 	sw	$t8,0x8($v0)
 .L0f19ed2c:
-/*  f19ed2c:	0fc679d5 */ 	jal	func0f19e754
+/*  f19ed2c:	0fc679d5 */ 	jal	frUnlockDoor
 /*  f19ed30:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f19ed34:	3c14800a */ 	lui	$s4,%hi(g_Vars)
 /*  f19ed38:	26949fc0 */ 	addiu	$s4,$s4,%lo(g_Vars)

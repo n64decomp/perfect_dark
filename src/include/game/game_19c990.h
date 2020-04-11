@@ -40,7 +40,7 @@ u32 func0f19e090(void);
 u32 func0f19e3e0(void);
 u32 func0f19e44c(void);
 void frCloseAndLockDoor(void);
-u32 func0f19e754(void);
+void frUnlockDoor(void);
 u32 func0f19e7a8(void);
 u32 func0f19e900(void);
 u32 func0f19e9c0(void);
