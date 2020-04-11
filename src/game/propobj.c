@@ -12,6 +12,7 @@
 #include "game/data/data_01a3a0.h"
 #include "game/data/data_020df0.h"
 #include "game/data/data_02da90.h"
+#include "game/data/data_02e820.h"
 #include "game/debug.h"
 #include "game/dlights.h"
 #include "game/game_006bd0.h"
