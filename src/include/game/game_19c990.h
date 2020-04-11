@@ -24,7 +24,7 @@ void func0f19d4ec(void);
 void *func0f19d560(u32 len);
 void frSetDifficulty(s32 difficulty);
 u32 frGetDifficulty(void);
-u32 func0f19d5f4(void);
+void func0f19d5f4(void);
 struct frdata *getFiringRangeData(void);
 u32 func0f19d7d8(void);
 u32 func0f19d8a4(void);

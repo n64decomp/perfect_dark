@@ -8,6 +8,7 @@ extern u8 var80088804;
 extern u8 var80088808;
 extern u8 var8008880c;
 extern void *var80088810;
+extern u16 g_FrPads[];
 extern u32 var80088854;
 extern u8 var800888a0;
 extern struct chrbio g_ChrBios[10];
