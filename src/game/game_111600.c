@@ -425,7 +425,7 @@ bool func0f111cf8(s32 weapon1, s32 weapon2)
 
 bool currentPlayerGiveWeapon(s32 weaponnum)
 {
-	func0f19cb38(weaponnum);
+	frSetWeaponFound(weaponnum);
 
 	if (currentPlayerHasWeapon(weaponnum) == 0) {
 		struct invitem *item;

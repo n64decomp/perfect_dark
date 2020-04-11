@@ -194,8 +194,8 @@ void savefileLoadDefaults(struct savefile_solo *file)
 
 	file->unk1e = 0;
 
-	for (i = 0; i < 21; i++) {
-		for (j = 0; j < 3; j++) {
+	for (i = 0; i < ARRAYCOUNT(file->besttimes); i++) {
+		for (j = 0; j < ARRAYCOUNT(file->besttimes[0]); j++) {
 			file->besttimes[i][j] = 0;
 		}
 	}
@@ -208,16 +208,16 @@ void savefileLoadDefaults(struct savefile_solo *file)
 
 	func0f19afdc();
 
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_SoloSaveFile.coopcompletions); i++) {
 		g_SoloSaveFile.coopcompletions[i] = 0;
 	}
 
-	for (i = 0; i < 9; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_SoloSaveFile.firingrangescores); i++) {
 		g_SoloSaveFile.firingrangescores[i] = 0;
 	}
 
-	for (i = 0; i < 6; i++) {
-		g_SoloSaveFile.unkb5[i] = 0;
+	for (i = 0; i < ARRAYCOUNT(g_SoloSaveFile.weaponsfound); i++) {
+		g_SoloSaveFile.weaponsfound[i] = 0;
 	}
 
 	savefileApplyOptions(file);
@@ -481,7 +481,7 @@ glabel func0f10fac8
 /*  f10fe1c:	24040041 */ 	addiu	$a0,$zero,0x41
 /*  f10fe20:	50400004 */ 	beqzl	$v0,.L0f10fe34
 /*  f10fe24:	24040042 */ 	addiu	$a0,$zero,0x42
-/*  f10fe28:	0fc672ce */ 	jal	func0f19cb38
+/*  f10fe28:	0fc672ce */ 	jal	frSetWeaponFound
 /*  f10fe2c:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f10fe30:	24040042 */ 	addiu	$a0,$zero,0x42
 .L0f10fe34:
@@ -489,7 +489,7 @@ glabel func0f10fac8
 /*  f10fe38:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10fe3c:	50400004 */ 	beqzl	$v0,.L0f10fe50
 /*  f10fe40:	24040043 */ 	addiu	$a0,$zero,0x43
-/*  f10fe44:	0fc672ce */ 	jal	func0f19cb38
+/*  f10fe44:	0fc672ce */ 	jal	frSetWeaponFound
 /*  f10fe48:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f10fe4c:	24040043 */ 	addiu	$a0,$zero,0x43
 .L0f10fe50:
@@ -497,7 +497,7 @@ glabel func0f10fac8
 /*  f10fe54:	02002825 */ 	or	$a1,$s0,$zero
 /*  f10fe58:	10400003 */ 	beqz	$v0,.L0f10fe68
 /*  f10fe5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10fe60:	0fc672ce */ 	jal	func0f19cb38
+/*  f10fe60:	0fc672ce */ 	jal	frSetWeaponFound
 /*  f10fe64:	24040022 */ 	addiu	$a0,$zero,0x22
 .L0f10fe68:
 /*  f10fe68:	0fc35531 */ 	jal	func0f0d54c4
@@ -754,19 +754,19 @@ glabel func0f10feac
 /*  f11022c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f110230:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110234:	928604e3 */ 	lbu	$a2,0x4e3($s4)
-/*  f110238:	0fc672b5 */ 	jal	func0f19cad4
+/*  f110238:	0fc672b5 */ 	jal	frIsWeaponFound
 /*  f11023c:	24040020 */ 	addiu	$a0,$zero,0x20
 /*  f110240:	24040041 */ 	addiu	$a0,$zero,0x41
 /*  f110244:	02002825 */ 	or	$a1,$s0,$zero
 /*  f110248:	0fc4794c */ 	jal	bitSetByIndex
 /*  f11024c:	00403025 */ 	or	$a2,$v0,$zero
-/*  f110250:	0fc672b5 */ 	jal	func0f19cad4
+/*  f110250:	0fc672b5 */ 	jal	frIsWeaponFound
 /*  f110254:	24040021 */ 	addiu	$a0,$zero,0x21
 /*  f110258:	24040042 */ 	addiu	$a0,$zero,0x42
 /*  f11025c:	02002825 */ 	or	$a1,$s0,$zero
 /*  f110260:	0fc4794c */ 	jal	bitSetByIndex
 /*  f110264:	00403025 */ 	or	$a2,$v0,$zero
-/*  f110268:	0fc672b5 */ 	jal	func0f19cad4
+/*  f110268:	0fc672b5 */ 	jal	frIsWeaponFound
 /*  f11026c:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f110270:	24040043 */ 	addiu	$a0,$zero,0x43
 /*  f110274:	02002825 */ 	or	$a1,$s0,$zero

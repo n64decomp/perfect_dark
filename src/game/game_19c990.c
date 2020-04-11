@@ -164,7 +164,7 @@ s32 func0f19ca78(u32 weaponnum)
 }
 
 GLOBAL_ASM(
-glabel func0f19cad4
+glabel frIsWeaponFound
 /*  f19cad4:	28810002 */ 	slti	$at,$a0,0x2
 /*  f19cad8:	50200004 */ 	beqzl	$at,.L0f19caec
 /*  f19cadc:	28810030 */ 	slti	$at,$a0,0x30
@@ -196,7 +196,7 @@ glabel func0f19cad4
 );
 
 GLOBAL_ASM(
-glabel func0f19cb38
+glabel frSetWeaponFound
 /*  f19cb38:	28810030 */ 	slti	$at,$a0,0x30
 /*  f19cb3c:	1020000e */ 	beqz	$at,.L0f19cb78
 /*  f19cb40:	000470c3 */ 	sra	$t6,$a0,0x3
@@ -276,7 +276,7 @@ glabel func0f19cbcc
 /*  f19cc30:	10000003 */ 	beqz	$zero,.L0f19cc40
 /*  f19cc34:	24020001 */ 	addiu	$v0,$zero,0x1
 .L0f19cc38:
-/*  f19cc38:	0fc672b5 */ 	jal	func0f19cad4
+/*  f19cc38:	0fc672b5 */ 	jal	frIsWeaponFound
 /*  f19cc3c:	00a02025 */ 	or	$a0,$a1,$zero
 .L0f19cc40:
 /*  f19cc40:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -298,7 +298,7 @@ bool frWeaponIsAvailable(s32 weapon)
 		return true;
 	}
 
-	return func0f19cad4(weapon);
+	return frIsWeaponFound(weapon);
 }
 
 u32 func0f19ccc0(u32 weaponnum)

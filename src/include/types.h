@@ -3753,7 +3753,7 @@ struct savefile_solo {
 	/*0x20*/ u16 besttimes[NUM_SOLOSTAGES][3];
 	/*0xa0*/ s32 coopcompletions[3];
 	/*0xac*/ u8 firingrangescores[9];
-	/*0xb5*/ u8 unkb5[6];
+	/*0xb5*/ u8 weaponsfound[6];
 };
 
 struct propstate {
