@@ -39,7 +39,7 @@ u32 func0f19df58(void);
 u32 func0f19e090(void);
 u32 func0f19e3e0(void);
 u32 func0f19e44c(void);
-u32 func0f19e6fc(void);
+void frCloseAndLockDoor(void);
 u32 func0f19e754(void);
 u32 func0f19e7a8(void);
 u32 func0f19e900(void);
