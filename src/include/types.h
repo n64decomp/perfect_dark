@@ -4830,7 +4830,7 @@ struct frdata {
 	/*0x450*/ u32 score;
 	/*0x454*/ u8 unk454;
 	/*0x455*/ u8 targetsdestroyed;
-	/*0x456*/ u16 unk456;
+	/*0x456*/ u16 slot;
 	/*0x458*/ u16 numshots;
 	/*0x45a*/ u8 unk45a;
 	/*0x45b*/ u8 failreason;
