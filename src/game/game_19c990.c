@@ -5296,7 +5296,7 @@ void htBegin(void)
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_SUCCESS);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
-	chrSetStageFlag(NULL, func0f1a25c0(func0f1a24dc(var80088bb4)));
+	chrSetStageFlag(NULL, func0f1a25c0(htGetIndexBySlot(var80088bb4)));
 	func0f115a48(&setup00->unk200, &setup00->unk310);
 	g_Vars.currentplayer->deadtimer = 1;
 	playersSetPassiveMode(false);
@@ -5314,7 +5314,7 @@ void htEnd(void)
 	g_HoloTrainingData.intraining = false;
 	chrSetStageFlag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
-	chrUnsetStageFlag(NULL, func0f1a25c0(func0f1a24dc(var80088bb4)));
+	chrUnsetStageFlag(NULL, func0f1a25c0(htGetIndexBySlot(var80088bb4)));
 	func0f115a78(&setup00->unk200, &setup00->unk310);
 	g_Vars.currentplayer->deadtimer = 0;
 	roomGetProps(rooms, propnums, 256);
@@ -5341,7 +5341,7 @@ void htEnd(void)
 	g_Vars.currentplayer->bondhealth = 1;
 }
 
-bool func0f1a2450(u32 value)
+bool htIsUnlocked(u32 value)
 {
 	switch (value) {
 	case 0:
@@ -5357,13 +5357,13 @@ bool func0f1a2450(u32 value)
 	return false;
 }
 
-s32 func0f1a2484(void)
+s32 htGetNumUnlocked(void)
 {
 	s32 count = 0;
 	s32 i;
 
 	for (i = 0; i < 7; i++) {
-		if (func0f1a2450(i)) {
+		if (htIsUnlocked(i)) {
 			count++;
 		}
 	}
@@ -5371,43 +5371,23 @@ s32 func0f1a2484(void)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f1a24dc
-/*  f1a24dc:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a24e0:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1a24e4:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1a24e8:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1a24ec:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1a24f0:	00809825 */ 	or	$s3,$a0,$zero
-/*  f1a24f4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1a24f8:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f1a24fc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1a2500:	24120007 */ 	addiu	$s2,$zero,0x7
-.L0f1a2504:
-/*  f1a2504:	0fc68914 */ 	jal	func0f1a2450
-/*  f1a2508:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a250c:	10400002 */ 	beqz	$v0,.L0f1a2518
-/*  f1a2510:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a2514:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1a2518:
-/*  f1a2518:	56330004 */ 	bnel	$s1,$s3,.L0f1a252c
-/*  f1a251c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1a2520:	10000005 */ 	beqz	$zero,.L0f1a2538
-/*  f1a2524:	02001025 */ 	or	$v0,$s0,$zero
-/*  f1a2528:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1a252c:
-/*  f1a252c:	1612fff5 */ 	bne	$s0,$s2,.L0f1a2504
-/*  f1a2530:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a2534:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a2538:
-/*  f1a2538:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1a253c:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1a2540:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1a2544:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f1a2548:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f1a254c:	03e00008 */ 	jr	$ra
-/*  f1a2550:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 htGetIndexBySlot(s32 slot)
+{
+	s32 index = -1;
+	s32 i;
+
+	for (i = 0; i < 7; i++) {
+		if (htIsUnlocked(i)) {
+			index++;
+		}
+
+		if (index == slot) {
+			return i;
+		}
+	}
+
+	return 0;
+}
 
 char *htGetName(s32 index)
 {
@@ -5452,7 +5432,7 @@ char *htGetDescription(void)
 		L_MISC(342),
 	};
 
-	return langGet(texts[func0f1a24dc(var80088bb4)]);
+	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
 }
 
 char *htGetTip1(void)
@@ -5467,7 +5447,7 @@ char *htGetTip1(void)
 		L_MISC(349), // "Go for the armed opponents..."
 	};
 
-	return langGet(texts[func0f1a24dc(var80088bb4)]);
+	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
 }
 
 char *htGetTip2(void)
@@ -5482,7 +5462,7 @@ char *htGetTip2(void)
 		L_MISC(356), // "Go for the armed opponents..."
 	};
 
-	return langGet(texts[func0f1a24dc(var80088bb4)]);
+	return langGet(texts[htGetIndexBySlot(var80088bb4)]);
 }
 
 void frGetGoalTargetsText(char *buffer)
