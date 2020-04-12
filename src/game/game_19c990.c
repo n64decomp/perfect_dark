@@ -4756,12 +4756,10 @@ char *ciGetMiscBioDescription(void)
 	return langGet(bio->description);
 }
 
-GLOBAL_ASM(
-glabel func0f1a14a8
-/*  f1a14a8:	2882000e */ 	slti	$v0,$a0,0xe
-/*  f1a14ac:	03e00008 */ 	jr	$ra
-/*  f1a14b0:	38420001 */ 	xori	$v0,$v0,0x1
-);
+bool ciIsLocationBioAVehicle(s32 index)
+{
+	return index >= 14;
+}
 
 u32 var80088964 = 0;
 
@@ -4901,7 +4899,7 @@ glabel func0f1a16a4
 /*  f1a16bc:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a16c0:	24120017 */ 	addiu	$s2,$zero,0x17
 .L0f1a16c4:
-/*  f1a16c4:	0fc6852a */ 	jal	func0f1a14a8
+/*  f1a16c4:	0fc6852a */ 	jal	ciIsLocationBioAVehicle
 /*  f1a16c8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a16cc:	10400003 */ 	beqz	$v0,.L0f1a16dc
 /*  f1a16d0:	00000000 */ 	sll	$zero,$zero,0x0

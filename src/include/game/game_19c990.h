@@ -71,7 +71,7 @@ bool ciIsMiscBioUnlocked(s32 index);
 s32 ciGetNumUnlockedMiscBios(void);
 s32 ciGetMiscBioIndexBySlot(s32 slot);
 char *ciGetMiscBioDescription(void);
-u32 func0f1a14a8(void);
+bool ciIsLocationBioAVehicle(s32 index);
 struct locationbio *ciGetLocationBio(s32 index);
 bool ciIsLocationBioUnlocked(u32 bioindex);
 u32 func0f1a16a4(void);
