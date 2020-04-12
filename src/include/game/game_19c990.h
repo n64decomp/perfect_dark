@@ -100,7 +100,7 @@ void func0f1a2198(void);
 void htBegin(void);
 void htEnd(void);
 bool func0f1a2450(u32 value);
-u32 func0f1a2484(void);
+s32 func0f1a2484(void);
 u32 func0f1a24dc(u32 arg0);
 char *htGetName(s32 index);
 u32 func0f1a25c0(s32 index);
