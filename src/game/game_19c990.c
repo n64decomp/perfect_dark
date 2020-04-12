@@ -4888,41 +4888,23 @@ bool ciIsHangarBioUnlocked(u32 bioindex)
 	return stageIsComplete(stage);
 }
 
-GLOBAL_ASM(
-glabel func0f1a16a4
-/*  f1a16a4:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a16a8:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f1a16ac:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f1a16b0:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1a16b4:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1a16b8:	00008825 */ 	or	$s1,$zero,$zero
-/*  f1a16bc:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1a16c0:	24120017 */ 	addiu	$s2,$zero,0x17
-.L0f1a16c4:
-/*  f1a16c4:	0fc6852a */ 	jal	ciIsHangarBioAVehicle
-/*  f1a16c8:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a16cc:	10400003 */ 	beqz	$v0,.L0f1a16dc
-/*  f1a16d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a16d4:	10000009 */ 	beqz	$zero,.L0f1a16fc
-/*  f1a16d8:	02201025 */ 	or	$v0,$s1,$zero
-.L0f1a16dc:
-/*  f1a16dc:	0fc68579 */ 	jal	ciIsHangarBioUnlocked
-/*  f1a16e0:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a16e4:	10400002 */ 	beqz	$v0,.L0f1a16f0
-/*  f1a16e8:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1a16ec:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1a16f0:
-/*  f1a16f0:	1612fff4 */ 	bne	$s0,$s2,.L0f1a16c4
-/*  f1a16f4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a16f8:	02201025 */ 	or	$v0,$s1,$zero
-.L0f1a16fc:
-/*  f1a16fc:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1a1700:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1a1704:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1a1708:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1a170c:	03e00008 */ 	jr	$ra
-/*  f1a1710:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 ciGetNumUnlockedLocationBios(void)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = 0; i < 23; i++) {
+		if (ciIsHangarBioAVehicle(i)) {
+			return count;
+		}
+
+		if (ciIsHangarBioUnlocked(i)) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 GLOBAL_ASM(
 glabel func0f1a1714
