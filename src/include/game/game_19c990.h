@@ -69,7 +69,7 @@ u32 func0f1a1210(u32 arg0);
 struct miscbio *ciGetMiscBio(s32 index);
 bool ciIsMiscBioUnlocked(s32 index);
 s32 ciGetNumUnlockedMiscBios(void);
-s32 func0f1a13f0(u32 arg0);
+s32 ciGetMiscBioIndexBySlot(s32 slot);
 char *ciGetMiscBioDescription(void);
 u32 func0f1a14a8(void);
 struct locationbio *ciGetLocationBio(s32 index);

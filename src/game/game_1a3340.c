@@ -2666,7 +2666,7 @@ glabel var7f1b9960
 /*  f1a5e74:	10000031 */ 	beqz	$zero,.L0f1a5f3c
 /*  f1a5e78:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f1a5e7c:
-/*  f1a5e7c:	0fc684fc */ 	jal	func0f1a13f0
+/*  f1a5e7c:	0fc684fc */ 	jal	ciGetMiscBioIndexBySlot
 /*  f1a5e80:	00432023 */ 	subu	$a0,$v0,$v1
 /*  f1a5e84:	0fc684a2 */ 	jal	ciGetMiscBio
 /*  f1a5e88:	00402025 */ 	or	$a0,$v0,$zero
@@ -3013,7 +3013,7 @@ glabel func0f1a6388
 /*  f1a6394:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f1a6398:	3c0e8009 */ 	lui	$t6,%hi(var800888a0)
 /*  f1a639c:	91ce88a0 */ 	lbu	$t6,%lo(var800888a0)($t6)
-/*  f1a63a0:	0fc684fc */ 	jal	func0f1a13f0
+/*  f1a63a0:	0fc684fc */ 	jal	ciGetMiscBioIndexBySlot
 /*  f1a63a4:	01c22023 */ 	subu	$a0,$t6,$v0
 /*  f1a63a8:	0fc684a2 */ 	jal	ciGetMiscBio
 /*  f1a63ac:	00402025 */ 	or	$a0,$v0,$zero

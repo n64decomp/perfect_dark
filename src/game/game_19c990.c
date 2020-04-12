@@ -4730,47 +4730,27 @@ s32 ciGetNumUnlockedMiscBios(void)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f1a13f0
-/*  f1a13f0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a13f4:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1a13f8:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1a13fc:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1a1400:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1a1404:	00809825 */ 	or	$s3,$a0,$zero
-/*  f1a1408:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1a140c:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f1a1410:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1a1414:	24120004 */ 	addiu	$s2,$zero,0x4
-.L0f1a1418:
-/*  f1a1418:	0fc684ca */ 	jal	ciIsMiscBioUnlocked
-/*  f1a141c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a1420:	10400002 */ 	beqz	$v0,.L0f1a142c
-/*  f1a1424:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1428:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1a142c:
-/*  f1a142c:	56330004 */ 	bnel	$s1,$s3,.L0f1a1440
-/*  f1a1430:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1a1434:	10000005 */ 	beqz	$zero,.L0f1a144c
-/*  f1a1438:	02001025 */ 	or	$v0,$s0,$zero
-/*  f1a143c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1a1440:
-/*  f1a1440:	1612fff5 */ 	bne	$s0,$s2,.L0f1a1418
-/*  f1a1444:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1448:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a144c:
-/*  f1a144c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1a1450:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1a1454:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1a1458:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f1a145c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f1a1460:	03e00008 */ 	jr	$ra
-/*  f1a1464:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 ciGetMiscBioIndexBySlot(s32 slot)
+{
+	s32 index = -1;
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		if (ciIsMiscBioUnlocked(i)) {
+			index++;
+		}
+
+		if (index == slot) {
+			return i;
+		}
+	}
+
+	return 0;
+}
 
 char *ciGetMiscBioDescription(void)
 {
-	s32 index = func0f1a13f0(var800888a0 - func0f1a11b8());
+	s32 index = ciGetMiscBioIndexBySlot(var800888a0 - func0f1a11b8());
 	struct miscbio *bio = ciGetMiscBio(index);
 
 	return langGet(bio->description);
