@@ -67,7 +67,7 @@ char *ciGetChrBioDescription(void);
 u32 func0f1a11b8(void);
 u32 func0f1a1210(u32 arg0);
 struct miscbio *ciGetMiscBio(s32 index);
-u32 func0f1a1328(void);
+bool ciIsMiscBioUnlocked(s32 index);
 u32 func0f1a1398(void);
 s32 func0f1a13f0(u32 arg0);
 char *ciGetMiscBioDescription(void);

@@ -4685,58 +4685,36 @@ struct miscbio *ciGetMiscBio(s32 index)
 {
 	struct miscbio bios[] = {
 		// name, description
-		{ L_MISC(259), L_MISC(260) }, // Maians
-		{ L_MISC(261), L_MISC(262) }, // Skedar Warrior
-		{ L_MISC(263), L_MISC(264) }, // Background
-		{ L_MISC(265), L_MISC(266) }, // The Story
+		{ L_MISC(259), L_MISC(260) },
+		{ L_MISC(261), L_MISC(262) },
+		{ L_MISC(263), L_MISC(264) },
+		{ L_MISC(265), L_MISC(266) },
 	};
 
 	switch (index) {
-	case 0: return &bios[0];
-	case 1: return &bios[1];
-	case 2: return &bios[2];
-	case 3: return &bios[3];
+	case MISCBIO_MAIANS:     return &bios[0];
+	case MISCBIO_SKEDAR:     return &bios[1];
+	case MISCBIO_BACKGROUND: return &bios[2];
+	case MISCBIO_STORY:      return &bios[3];
 	}
 
 	return NULL;
 }
 
-GLOBAL_ASM(
-glabel func0f1a1328
-/*  f1a1328:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a132c:	1080000a */ 	beqz	$a0,.L0f1a1358
-/*  f1a1330:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a1334:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1a1338:	1081000b */ 	beq	$a0,$at,.L0f1a1368
-/*  f1a133c:	24010002 */ 	addiu	$at,$zero,0x2
-/*  f1a1340:	1081000d */ 	beq	$a0,$at,.L0f1a1378
-/*  f1a1344:	24010003 */ 	addiu	$at,$zero,0x3
-/*  f1a1348:	1081000b */ 	beq	$a0,$at,.L0f1a1378
-/*  f1a134c:	00001025 */ 	or	$v0,$zero,$zero
-/*  f1a1350:	1000000d */ 	beqz	$zero,.L0f1a1388
-/*  f1a1354:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f1a1358:
-/*  f1a1358:	0fc672e0 */ 	jal	stageIsComplete
-/*  f1a135c:	24040007 */ 	addiu	$a0,$zero,0x7
-/*  f1a1360:	1000000a */ 	beqz	$zero,.L0f1a138c
-/*  f1a1364:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a1368:
-/*  f1a1368:	0fc672e0 */ 	jal	stageIsComplete
-/*  f1a136c:	2404000f */ 	addiu	$a0,$zero,0xf
-/*  f1a1370:	10000006 */ 	beqz	$zero,.L0f1a138c
-/*  f1a1374:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a1378:
-/*  f1a1378:	0fc672e0 */ 	jal	stageIsComplete
-/*  f1a137c:	24040011 */ 	addiu	$a0,$zero,0x11
-/*  f1a1380:	10000002 */ 	beqz	$zero,.L0f1a138c
-/*  f1a1384:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a1388:
-/*  f1a1388:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f1a138c:
-/*  f1a138c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a1390:	03e00008 */ 	jr	$ra
-/*  f1a1394:	00000000 */ 	sll	$zero,$zero,0x0
-);
+bool ciIsMiscBioUnlocked(s32 index)
+{
+	switch (index) {
+	case MISCBIO_MAIANS:
+		return stageIsComplete(SOLOSTAGEINDEX_RESCUE);
+	case MISCBIO_SKEDAR:
+		return stageIsComplete(SOLOSTAGEINDEX_ATTACKSHIP);
+	case MISCBIO_BACKGROUND:
+	case MISCBIO_STORY:
+		return stageIsComplete(SOLOSTAGEINDEX_MBR);
+	}
+
+	return false;
+}
 
 GLOBAL_ASM(
 glabel func0f1a1398
@@ -4749,7 +4727,7 @@ glabel func0f1a1398
 /*  f1a13b0:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a13b4:	24120004 */ 	addiu	$s2,$zero,0x4
 .L0f1a13b8:
-/*  f1a13b8:	0fc684ca */ 	jal	func0f1a1328
+/*  f1a13b8:	0fc684ca */ 	jal	ciIsMiscBioUnlocked
 /*  f1a13bc:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a13c0:	10400002 */ 	beqz	$v0,.L0f1a13cc
 /*  f1a13c4:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -4779,7 +4757,7 @@ glabel func0f1a13f0
 /*  f1a1410:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a1414:	24120004 */ 	addiu	$s2,$zero,0x4
 .L0f1a1418:
-/*  f1a1418:	0fc684ca */ 	jal	func0f1a1328
+/*  f1a1418:	0fc684ca */ 	jal	ciIsMiscBioUnlocked
 /*  f1a141c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a1420:	10400002 */ 	beqz	$v0,.L0f1a142c
 /*  f1a1424:	00000000 */ 	sll	$zero,$zero,0x0

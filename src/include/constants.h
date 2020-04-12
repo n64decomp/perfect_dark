@@ -901,6 +901,11 @@
 #define MENUROOT_4MBMAINMENU   11
 #define MENUROOT_TRAINING      13
 
+#define MISCBIO_MAIANS     0
+#define MISCBIO_SKEDAR     1
+#define MISCBIO_BACKGROUND 2
+#define MISCBIO_STORY      3
+
 // Models
 #define MODEL_ROOFGUN               0x0000
 #define MODEL_GROUNDGUN             0x0001
