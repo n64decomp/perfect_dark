@@ -4920,50 +4920,30 @@ s32 ciGetNumUnlockedHangarBios(void)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f1a176c
-/*  f1a176c:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a1770:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1a1774:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1a1778:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1a177c:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1a1780:	00809825 */ 	or	$s3,$a0,$zero
-/*  f1a1784:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1a1788:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f1a178c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1a1790:	24120017 */ 	addiu	$s2,$zero,0x17
-.L0f1a1794:
-/*  f1a1794:	0fc68579 */ 	jal	ciIsHangarBioUnlocked
-/*  f1a1798:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a179c:	10400002 */ 	beqz	$v0,.L0f1a17a8
-/*  f1a17a0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a17a4:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1a17a8:
-/*  f1a17a8:	56330004 */ 	bnel	$s1,$s3,.L0f1a17bc
-/*  f1a17ac:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1a17b0:	10000005 */ 	beqz	$zero,.L0f1a17c8
-/*  f1a17b4:	02001025 */ 	or	$v0,$s0,$zero
-/*  f1a17b8:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1a17bc:
-/*  f1a17bc:	1612fff5 */ 	bne	$s0,$s2,.L0f1a1794
-/*  f1a17c0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a17c4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a17c8:
-/*  f1a17c8:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1a17cc:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1a17d0:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1a17d4:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f1a17d8:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f1a17dc:	03e00008 */ 	jr	$ra
-/*  f1a17e0:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 ciGetHangarBioIndexBySlot(s32 slot)
+{
+	s32 index = -1;
+	s32 i;
+
+	for (i = 0; i < 23; i++) {
+		if (ciIsHangarBioUnlocked(i)) {
+			index++;
+		}
+
+		if (index == slot) {
+			return i;
+		}
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f1a17e4
 /*  f1a17e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a17e8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f1a17ec:	3c048009 */ 	lui	$a0,%hi(var80088964)
-/*  f1a17f0:	0fc685db */ 	jal	func0f1a176c
+/*  f1a17f0:	0fc685db */ 	jal	ciGetHangarBioIndexBySlot
 /*  f1a17f4:	90848964 */ 	lbu	$a0,%lo(var80088964)($a0)
 /*  f1a17f8:	0fc6852d */ 	jal	ciGetHangarBio
 /*  f1a17fc:	00402025 */ 	or	$a0,$v0,$zero
