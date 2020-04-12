@@ -2657,7 +2657,7 @@ glabel var7f1b9960
 /*  f1a5e50:	0043082b */ 	sltu	$at,$v0,$v1
 /*  f1a5e54:	10200009 */ 	beqz	$at,.L0f1a5e7c
 /*  f1a5e58:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a5e5c:	0fc68484 */ 	jal	func0f1a1210
+/*  f1a5e5c:	0fc68484 */ 	jal	ciGetChrBioIndexBySlot
 /*  f1a5e60:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a5e64:	0fc68429 */ 	jal	ciGetChrBioByBodynum
 /*  f1a5e68:	00402025 */ 	or	$a0,$v0,$zero
@@ -2745,7 +2745,7 @@ glabel var7f1b9978
 /*  f1a5f54:	3c048009 */ 	lui	$a0,%hi(var800888a0)
 /*  f1a5f58:	afa5004c */ 	sw	$a1,0x4c($sp)
 /*  f1a5f5c:	afa60050 */ 	sw	$a2,0x50($sp)
-/*  f1a5f60:	0fc68484 */ 	jal	func0f1a1210
+/*  f1a5f60:	0fc68484 */ 	jal	ciGetChrBioIndexBySlot
 /*  f1a5f64:	908488a0 */ 	lbu	$a0,%lo(var800888a0)($a0)
 /*  f1a5f68:	3044ffff */ 	andi	$a0,$v0,0xffff
 /*  f1a5f6c:	0fc62ef6 */ 	jal	mpGetBodyIndexByBodyId
@@ -2983,7 +2983,7 @@ const char var7f1b989c[] = "%d\n";
 
 char *ciMenuTextBioName(struct menu_item *item)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(func0f1a1210(var800888a0));
+	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->name));
 
 	return g_StringPointer;
@@ -2991,7 +2991,7 @@ char *ciMenuTextBioName(struct menu_item *item)
 
 char *ciMenuTextBioAge(struct menu_item *item)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(func0f1a1210(var800888a0));
+	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->age));
 
 	return g_StringPointer;
@@ -2999,7 +2999,7 @@ char *ciMenuTextBioAge(struct menu_item *item)
 
 char *ciMenuTextBioRace(struct menu_item *item)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(func0f1a1210(var800888a0));
+	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
 	sprintf(g_StringPointer, "%s\n", langGet(bio->race));
 
 	return g_StringPointer;

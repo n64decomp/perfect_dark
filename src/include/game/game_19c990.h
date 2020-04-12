@@ -65,7 +65,7 @@ bool ciIsChrBioUnlocked(u32 bodynum);
 struct chrbio *ciGetChrBioByBodynum(u32 bodynum);
 char *ciGetChrBioDescription(void);
 s32 ciGetNumUnlockedChrBios(void);
-u32 func0f1a1210(u32 arg0);
+s32 ciGetChrBioIndexBySlot(s32 slot);
 struct miscbio *ciGetMiscBio(s32 index);
 bool ciIsMiscBioUnlocked(s32 index);
 s32 ciGetNumUnlockedMiscBios(void);

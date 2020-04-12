@@ -4603,7 +4603,7 @@ struct chrbio *ciGetChrBioByBodynum(u32 bodynum)
 
 char *ciGetChrBioDescription(void)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(func0f1a1210(var800888a0));
+	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioIndexBySlot(var800888a0));
 	return langGet(bio->description);
 }
 
@@ -4621,43 +4621,23 @@ s32 ciGetNumUnlockedChrBios(void)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f1a1210
-/*  f1a1210:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a1214:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f1a1218:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f1a121c:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f1a1220:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f1a1224:	00809825 */ 	or	$s3,$a0,$zero
-/*  f1a1228:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1a122c:	2411ffff */ 	addiu	$s1,$zero,-1
-/*  f1a1230:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1a1234:	24120097 */ 	addiu	$s2,$zero,0x97
-.L0f1a1238:
-/*  f1a1238:	0fc683fb */ 	jal	ciIsChrBioUnlocked
-/*  f1a123c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a1240:	10400002 */ 	beqz	$v0,.L0f1a124c
-/*  f1a1244:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1248:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1a124c:
-/*  f1a124c:	56330004 */ 	bnel	$s1,$s3,.L0f1a1260
-/*  f1a1250:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1a1254:	10000005 */ 	beqz	$zero,.L0f1a126c
-/*  f1a1258:	02001025 */ 	or	$v0,$s0,$zero
-/*  f1a125c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f1a1260:
-/*  f1a1260:	1612fff5 */ 	bne	$s0,$s2,.L0f1a1238
-/*  f1a1264:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1268:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1a126c:
-/*  f1a126c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1a1270:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f1a1274:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f1a1278:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f1a127c:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f1a1280:	03e00008 */ 	jr	$ra
-/*  f1a1284:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 ciGetChrBioIndexBySlot(s32 slot)
+{
+	s32 index = -1;
+	s32 bodynum;
+
+	for (bodynum = 0; bodynum < NUM_BODIES; bodynum++) {
+		if (ciIsChrBioUnlocked(bodynum)) {
+			index++;
+		}
+
+		if (index == slot) {
+			return bodynum;
+		}
+	}
+
+	return 0;
+}
 
 struct miscbio *ciGetMiscBio(s32 index)
 {
