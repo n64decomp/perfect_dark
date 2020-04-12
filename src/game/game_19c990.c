@@ -4756,16 +4756,16 @@ char *ciGetMiscBioDescription(void)
 	return langGet(bio->description);
 }
 
-bool ciIsLocationBioAVehicle(s32 index)
+bool ciIsHangarBioAVehicle(s32 index)
 {
-	return index >= 14;
+	return index >= HANGARBIO_JUMPSHIP;
 }
 
 u32 var80088964 = 0;
 
-struct locationbio *ciGetLocationBio(s32 index)
+struct hangarbio *ciGetHangarBio(s32 index)
 {
-	struct locationbio bios[] = {
+	struct hangarbio bios[] = {
 		// name, description
 		{ L_MISC(290), L_MISC(313) }, // Carrington Institute
 		{ L_MISC(291), L_MISC(314) }, // Lucerne Tower
@@ -4793,29 +4793,29 @@ struct locationbio *ciGetLocationBio(s32 index)
 	};
 
 	switch (index) {
-		case 0:  return &bios[0];
-		case 1:  return &bios[1];
-		case 2:  return &bios[2];
-		case 3:  return &bios[3];
-		case 4:  return &bios[4];
-		case 5:  return &bios[5];
-		case 6:  return &bios[6];
-		case 7:  return &bios[7];
-		case 8:  return &bios[8];
-		case 9:  return &bios[9];
-		case 10: return &bios[10];
-		case 11: return &bios[11];
-		case 12: return &bios[12];
-		case 13: return &bios[13];
-		case 14: return &bios[14];
-		case 15: return &bios[15];
-		case 16: return &bios[16];
-		case 17: return &bios[17];
-		case 18: return &bios[18];
-		case 19: return &bios[19];
-		case 20: return &bios[20];
-		case 21: return &bios[21];
-		case 22: return &bios[22];
+	case HANGARBIO_INSTITUTE:      return &bios[0];
+	case HANGARBIO_DDTOWER:        return &bios[1];
+	case HANGARBIO_LABBASEMENT:    return &bios[2];
+	case HANGARBIO_VILLA:          return &bios[3];
+	case HANGARBIO_CHICAGO:        return &bios[4];
+	case HANGARBIO_G5:             return &bios[5];
+	case HANGARBIO_AREA51:         return &bios[6];
+	case HANGARBIO_AIRBASE:        return &bios[7];
+	case HANGARBIO_AIRFORCEONE:    return &bios[8];
+	case HANGARBIO_CRASHSITE:      return &bios[9];
+	case HANGARBIO_PELAGIC:        return &bios[10];
+	case HANGARBIO_DEEPSEA:        return &bios[11];
+	case HANGARBIO_ATTACKSHIP:     return &bios[12];
+	case HANGARBIO_SKEDARRUINS:    return &bios[13];
+	case HANGARBIO_JUMPSHIP:       return &bios[14];
+	case HANGARBIO_HOVERCRATE:     return &bios[15];
+	case HANGARBIO_HOVERBIKE:      return &bios[16];
+	case HANGARBIO_HOVERBOT:       return &bios[17];
+	case HANGARBIO_HOVERCOPTER:    return &bios[18];
+	case HANGARBIO_G5ROBOT:        return &bios[19];
+	case HANGARBIO_A51INTERCEPTOR: return &bios[20];
+	case HANGARBIO_MAIANVESSEL:    return &bios[21];
+	case HANGARBIO_SKEDARSHUTTLE:  return &bios[22];
 	}
 
 	return NULL;
@@ -4824,61 +4824,61 @@ struct locationbio *ciGetLocationBio(s32 index)
 u8 var80088ad8 = 0;
 u8 var80088adc = 0;
 
-bool ciIsLocationBioUnlocked(u32 bioindex)
+bool ciIsHangarBioUnlocked(u32 bioindex)
 {
 	u32 stage;
 
 	switch (bioindex) {
-	case 0:
-	case 15:
+	case HANGARBIO_INSTITUTE:
+	case HANGARBIO_HOVERCRATE:
 		return true;
-	case 1:
+	case HANGARBIO_DDTOWER:
 		stage = SOLOSTAGEINDEX_DEFECTION;
 		break;
-	case 2:
-	case 17:
+	case HANGARBIO_LABBASEMENT:
+	case HANGARBIO_HOVERBOT:
 		stage = SOLOSTAGEINDEX_INVESTIGATION;
 		break;
-	case 18:
+	case HANGARBIO_HOVERCOPTER:
 		stage = SOLOSTAGEINDEX_EXTRACTION;
 		break;
-	case 3:
-	case 14:
+	case HANGARBIO_VILLA:
+	case HANGARBIO_JUMPSHIP:
 		stage = SOLOSTAGEINDEX_VILLA;
 		break;
-	case 4:
+	case HANGARBIO_CHICAGO:
 		stage = SOLOSTAGEINDEX_CHICAGO;
 		break;
-	case 5:
-	case 19:
+	case HANGARBIO_G5:
+	case HANGARBIO_G5ROBOT:
 		stage = SOLOSTAGEINDEX_G5BUILDING;
 		break;
-	case 6:
-	case 16:
-	case 20:
+	case HANGARBIO_AREA51:
+	case HANGARBIO_HOVERBIKE:
+	case HANGARBIO_A51INTERCEPTOR:
 		stage = SOLOSTAGEINDEX_INFILTRATION;
 		break;
-	case 7:
+	case HANGARBIO_AIRBASE:
 		stage = SOLOSTAGEINDEX_AIRBASE;
 		break;
-	case 8:
+	case HANGARBIO_AIRFORCEONE:
 		stage = SOLOSTAGEINDEX_AIRFORCEONE;
 		break;
-	case 9:
-	case 21:
+	case HANGARBIO_CRASHSITE:
+	case HANGARBIO_MAIANVESSEL:
 		stage = SOLOSTAGEINDEX_CRASHSITE;
 		break;
-	case 10:
+	case HANGARBIO_PELAGIC:
 		stage = SOLOSTAGEINDEX_PELAGIC;
 		break;
-	case 11:
+	case HANGARBIO_DEEPSEA:
 		stage = SOLOSTAGEINDEX_DEEPSEA;
 		break;
-	case 12:
-	case 22:
+	case HANGARBIO_ATTACKSHIP:
+	case HANGARBIO_SKEDARSHUTTLE:
 		stage = SOLOSTAGEINDEX_DEFENSE;
 		break;
-	case 13:
+	case HANGARBIO_SKEDARRUINS:
 		stage = SOLOSTAGEINDEX_ATTACKSHIP;
 		break;
 	default:
@@ -4899,14 +4899,14 @@ glabel func0f1a16a4
 /*  f1a16bc:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a16c0:	24120017 */ 	addiu	$s2,$zero,0x17
 .L0f1a16c4:
-/*  f1a16c4:	0fc6852a */ 	jal	ciIsLocationBioAVehicle
+/*  f1a16c4:	0fc6852a */ 	jal	ciIsHangarBioAVehicle
 /*  f1a16c8:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a16cc:	10400003 */ 	beqz	$v0,.L0f1a16dc
 /*  f1a16d0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f1a16d4:	10000009 */ 	beqz	$zero,.L0f1a16fc
 /*  f1a16d8:	02201025 */ 	or	$v0,$s1,$zero
 .L0f1a16dc:
-/*  f1a16dc:	0fc68579 */ 	jal	ciIsLocationBioUnlocked
+/*  f1a16dc:	0fc68579 */ 	jal	ciIsHangarBioUnlocked
 /*  f1a16e0:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a16e4:	10400002 */ 	beqz	$v0,.L0f1a16f0
 /*  f1a16e8:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -4935,7 +4935,7 @@ glabel func0f1a1714
 /*  f1a172c:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a1730:	24120017 */ 	addiu	$s2,$zero,0x17
 .L0f1a1734:
-/*  f1a1734:	0fc68579 */ 	jal	ciIsLocationBioUnlocked
+/*  f1a1734:	0fc68579 */ 	jal	ciIsHangarBioUnlocked
 /*  f1a1738:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a173c:	10400002 */ 	beqz	$v0,.L0f1a1748
 /*  f1a1740:	26100001 */ 	addiu	$s0,$s0,0x1
@@ -4965,7 +4965,7 @@ glabel func0f1a176c
 /*  f1a178c:	00008025 */ 	or	$s0,$zero,$zero
 /*  f1a1790:	24120017 */ 	addiu	$s2,$zero,0x17
 .L0f1a1794:
-/*  f1a1794:	0fc68579 */ 	jal	ciIsLocationBioUnlocked
+/*  f1a1794:	0fc68579 */ 	jal	ciIsHangarBioUnlocked
 /*  f1a1798:	02002025 */ 	or	$a0,$s0,$zero
 /*  f1a179c:	10400002 */ 	beqz	$v0,.L0f1a17a8
 /*  f1a17a0:	00000000 */ 	sll	$zero,$zero,0x0
@@ -4997,7 +4997,7 @@ glabel func0f1a17e4
 /*  f1a17ec:	3c048009 */ 	lui	$a0,%hi(var80088964)
 /*  f1a17f0:	0fc685db */ 	jal	func0f1a176c
 /*  f1a17f4:	90848964 */ 	lbu	$a0,%lo(var80088964)($a0)
-/*  f1a17f8:	0fc6852d */ 	jal	ciGetLocationBio
+/*  f1a17f8:	0fc6852d */ 	jal	ciGetHangarBio
 /*  f1a17fc:	00402025 */ 	or	$a0,$v0,$zero
 /*  f1a1800:	0fc5b9f1 */ 	jal	langGet
 /*  f1a1804:	8c440004 */ 	lw	$a0,0x4($v0)

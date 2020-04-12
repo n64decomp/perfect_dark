@@ -4716,7 +4716,7 @@ struct miscbio {
 	u32 description;
 };
 
-struct locationbio {
+struct hangarbio {
 	u32 name;
 	u32 description;
 	u32 unk08;
