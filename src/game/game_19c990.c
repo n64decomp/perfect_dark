@@ -4716,33 +4716,19 @@ bool ciIsMiscBioUnlocked(s32 index)
 	return false;
 }
 
-GLOBAL_ASM(
-glabel func0f1a1398
-/*  f1a1398:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a139c:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f1a13a0:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f1a13a4:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1a13a8:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1a13ac:	00008825 */ 	or	$s1,$zero,$zero
-/*  f1a13b0:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1a13b4:	24120004 */ 	addiu	$s2,$zero,0x4
-.L0f1a13b8:
-/*  f1a13b8:	0fc684ca */ 	jal	ciIsMiscBioUnlocked
-/*  f1a13bc:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a13c0:	10400002 */ 	beqz	$v0,.L0f1a13cc
-/*  f1a13c4:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1a13c8:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1a13cc:
-/*  f1a13cc:	1612fffa */ 	bne	$s0,$s2,.L0f1a13b8
-/*  f1a13d0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a13d4:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1a13d8:	02201025 */ 	or	$v0,$s1,$zero
-/*  f1a13dc:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1a13e0:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1a13e4:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1a13e8:	03e00008 */ 	jr	$ra
-/*  f1a13ec:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 ciGetNumUnlockedMiscBios(void)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = 0; i < 4; i++) {
+		if (ciIsMiscBioUnlocked(i)) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 GLOBAL_ASM(
 glabel func0f1a13f0
