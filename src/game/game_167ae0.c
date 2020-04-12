@@ -5465,7 +5465,7 @@ glabel func0f16b96c
 /*  f16cab4:	0fc127d2 */ 	jal	chrUnsetStageFlag
 /*  f16cab8:	24050001 */ 	addiu	$a1,$zero,0x1
 .L0f16cabc:
-/*  f16cabc:	0fc67e65 */ 	jal	func0f19f994
+/*  f16cabc:	0fc67e65 */ 	jal	frTick
 /*  f16cac0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f16cac4:	8e8f0034 */ 	lw	$t7,0x34($s4)
 /*  f16cac8:	51e00006 */ 	beqzl	$t7,.L0f16cae4
@@ -5842,7 +5842,7 @@ glabel func0f16b96c
 //				chrUnsetStageFlag(NULL, 0x00000001);
 //			}
 //
-//			func0f19f994();
+//			frTick();
 //
 //			if (g_Vars.lvupdate240 != 0) {
 //				dtTick();

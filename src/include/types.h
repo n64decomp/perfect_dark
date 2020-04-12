@@ -1154,8 +1154,10 @@ struct playerbond {
 
 struct player1630 {
 	struct prop *prop;
-	u32 unk04;
-	u32 unk08;
+	s16 unk04;
+	s16 unk06;
+	s16 unk08;
+	s16 unk0a;
 };
 
 struct player638 {
@@ -2273,8 +2275,7 @@ struct player {
 	/*0x1b84*/ bool tickdiefinished;
 	/*0x1b88*/ s32 introanimnum;
 	/*0x1b8c*/ u32 unk1b8c;
-	/*0x1b90*/ u32 unk1b90;
-	/*0x1b94*/ u32 unk1b94;
+	/*0x1b90*/ u16 unk1b90[4];
 	/*0x1b98*/ u32 unk1b98;
 	/*0x1b9c*/ f32 speedthetacontrol;
 	/*0x1ba0*/ s32 cam_room;

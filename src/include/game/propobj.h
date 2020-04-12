@@ -49,7 +49,7 @@ u32 func0f0679ac(void);
 u32 func0f067bc4(void);
 u32 func0f067d88(void);
 u32 func0f067dc4(void);
-u32 func0f068018(void);
+void func0f068018(struct animdata *animdata, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4);
 u32 func0f06803c(void);
 struct defaultobj *func0f0681c0(s32 pad_id);
 u32 func0f068218(void);
