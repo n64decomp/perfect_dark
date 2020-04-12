@@ -4906,33 +4906,19 @@ s32 ciGetNumUnlockedLocationBios(void)
 	return count;
 }
 
-GLOBAL_ASM(
-glabel func0f1a1714
-/*  f1a1714:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f1a1718:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f1a171c:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f1a1720:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f1a1724:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f1a1728:	00008825 */ 	or	$s1,$zero,$zero
-/*  f1a172c:	00008025 */ 	or	$s0,$zero,$zero
-/*  f1a1730:	24120017 */ 	addiu	$s2,$zero,0x17
-.L0f1a1734:
-/*  f1a1734:	0fc68579 */ 	jal	ciIsHangarBioUnlocked
-/*  f1a1738:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1a173c:	10400002 */ 	beqz	$v0,.L0f1a1748
-/*  f1a1740:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f1a1744:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f1a1748:
-/*  f1a1748:	1612fffa */ 	bne	$s0,$s2,.L0f1a1734
-/*  f1a174c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f1a1750:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f1a1754:	02201025 */ 	or	$v0,$s1,$zero
-/*  f1a1758:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f1a175c:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f1a1760:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f1a1764:	03e00008 */ 	jr	$ra
-/*  f1a1768:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 ciGetNumUnlockedHangarBios(void)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = 0; i < 23; i++) {
+		if (ciIsHangarBioUnlocked(i)) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 GLOBAL_ASM(
 glabel func0f1a176c

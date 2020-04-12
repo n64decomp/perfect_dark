@@ -75,7 +75,7 @@ bool ciIsHangarBioAVehicle(s32 index);
 struct hangarbio *ciGetHangarBio(s32 index);
 bool ciIsHangarBioUnlocked(u32 bioindex);
 s32 ciGetNumUnlockedLocationBios(void);
-u32 func0f1a1714(void);
+s32 ciGetNumUnlockedHangarBios(void);
 u32 func0f1a176c(void);
 u32 func0f1a17e4(void);
 struct trainingdata *getDeviceTrainingData(void);
