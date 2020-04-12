@@ -4761,7 +4761,7 @@ bool ciIsHangarBioAVehicle(s32 index)
 	return index >= HANGARBIO_JUMPSHIP;
 }
 
-u32 var80088964 = 0;
+u8 g_HangarBioSlot = 0;
 
 struct hangarbio *ciGetHangarBio(s32 index)
 {
@@ -4938,22 +4938,11 @@ s32 ciGetHangarBioIndexBySlot(s32 slot)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f1a17e4
-/*  f1a17e4:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1a17e8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a17ec:	3c048009 */ 	lui	$a0,%hi(var80088964)
-/*  f1a17f0:	0fc685db */ 	jal	ciGetHangarBioIndexBySlot
-/*  f1a17f4:	90848964 */ 	lbu	$a0,%lo(var80088964)($a0)
-/*  f1a17f8:	0fc6852d */ 	jal	ciGetHangarBio
-/*  f1a17fc:	00402025 */ 	or	$a0,$v0,$zero
-/*  f1a1800:	0fc5b9f1 */ 	jal	langGet
-/*  f1a1804:	8c440004 */ 	lw	$a0,0x4($v0)
-/*  f1a1808:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f1a180c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f1a1810:	03e00008 */ 	jr	$ra
-/*  f1a1814:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *ciGetHangarBioDescription(void)
+{
+	struct hangarbio *bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(g_HangarBioSlot));
+	return langGet(bio->description);
+}
 
 struct trainingdata *getDeviceTrainingData(void)
 {

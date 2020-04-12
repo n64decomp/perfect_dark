@@ -77,7 +77,7 @@ bool ciIsHangarBioUnlocked(u32 bioindex);
 s32 ciGetNumUnlockedLocationBios(void);
 s32 ciGetNumUnlockedHangarBios(void);
 s32 ciGetHangarBioIndexBySlot(s32 slot);
-u32 func0f1a17e4(void);
+char *ciGetHangarBioDescription(void);
 struct trainingdata *getDeviceTrainingData(void);
 void dtRestorePlayer(void);
 void dtPushEndscreen(void);
