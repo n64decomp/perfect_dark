@@ -2633,7 +2633,7 @@ glabel var7f1b9960
 /*  f1a5df0:	8de10008 */ 	lw	$at,0x8($t7)
 /*  f1a5df4:	adc8000c */ 	sw	$t0,0xc($t6)
 /*  f1a5df8:	adc10008 */ 	sw	$at,0x8($t6)
-/*  f1a5dfc:	0fc6846e */ 	jal	func0f1a11b8
+/*  f1a5dfc:	0fc6846e */ 	jal	ciGetNumUnlockedChrBios
 /*  f1a5e00:	afa60048 */ 	sw	$a2,0x48($sp)
 /*  f1a5e04:	0fc684e6 */ 	jal	ciGetNumUnlockedMiscBios
 /*  f1a5e08:	afa2002c */ 	sw	$v0,0x2c($sp)
@@ -3009,7 +3009,7 @@ GLOBAL_ASM(
 glabel func0f1a6388
 /*  f1a6388:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1a638c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f1a6390:	0fc6846e */ 	jal	func0f1a11b8
+/*  f1a6390:	0fc6846e */ 	jal	ciGetNumUnlockedChrBios
 /*  f1a6394:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f1a6398:	3c0e8009 */ 	lui	$t6,%hi(var800888a0)
 /*  f1a639c:	91ce88a0 */ 	lbu	$t6,%lo(var800888a0)($t6)

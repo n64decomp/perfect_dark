@@ -1562,6 +1562,7 @@
 #define MUSIC_ESCAPE_OUTRO_SHORT      0x76
 
 #define NUM_AICOMMANDS       481
+#define NUM_BODIES           151
 #define NUM_CHALLENGES       30
 #define NUM_CHEATS           42
 #define NUM_EXPLOSIONTYPES   26
