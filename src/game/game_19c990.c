@@ -414,33 +414,19 @@ u32 frGetWeaponBySlot(s32 slot)
 	return WEAPON_UNARMED;
 }
 
-GLOBAL_ASM(
-glabel func0f19d2e0
-/*  f19d2e0:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f19d2e4:	afb20020 */ 	sw	$s2,0x20($sp)
-/*  f19d2e8:	afb1001c */ 	sw	$s1,0x1c($sp)
-/*  f19d2ec:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19d2f0:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f19d2f4:	00008825 */ 	or	$s1,$zero,$zero
-/*  f19d2f8:	24100001 */ 	addiu	$s0,$zero,0x1
-/*  f19d2fc:	24120033 */ 	addiu	$s2,$zero,0x33
-.L0f19d300:
-/*  f19d300:	0fc67314 */ 	jal	frWeaponIsAvailable
-/*  f19d304:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19d308:	10400002 */ 	beqz	$v0,.L0f19d314
-/*  f19d30c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19d310:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f19d314:
-/*  f19d314:	1612fffa */ 	bne	$s0,$s2,.L0f19d300
-/*  f19d318:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19d31c:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f19d320:	02201025 */ 	or	$v0,$s1,$zero
-/*  f19d324:	8fb1001c */ 	lw	$s1,0x1c($sp)
-/*  f19d328:	8fb00018 */ 	lw	$s0,0x18($sp)
-/*  f19d32c:	8fb20020 */ 	lw	$s2,0x20($sp)
-/*  f19d330:	03e00008 */ 	jr	$ra
-/*  f19d334:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+s32 frGetNumWeaponsAvailable(void)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = WEAPON_UNARMED; i <= WEAPON_HORIZONSCANNER; i++) {
+		if (frWeaponIsAvailable(i)) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 GLOBAL_ASM(
 glabel func0f19d338

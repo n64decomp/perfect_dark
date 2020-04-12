@@ -21,7 +21,7 @@ s32 frIsClassicWeaponUnlocked(u32 weapon);
 s32 frGetSlot(void);
 void frSetSlot(s32 slot);
 u32 frGetWeaponBySlot(s32 slot);
-u32 func0f19d2e0(void);
+s32 frGetNumWeaponsAvailable(void);
 u32 func0f19d338(void);
 u32 func0f19d414(void);
 void func0f19d4ec(void);
