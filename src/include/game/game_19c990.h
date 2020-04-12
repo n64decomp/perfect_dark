@@ -34,7 +34,7 @@ u32 func0f19d7d8(void);
 u32 func0f19d8a4(void);
 u32 func0f19d90c(void);
 void func0f19de24(void);
-u32 func0f19def4(void);
+bool func0f19def4(s32 index);
 u32 func0f19df18(void);
 u32 func0f19df58(void);
 u32 func0f19e090(void);

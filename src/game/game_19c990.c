@@ -1314,18 +1314,10 @@ void func0f19de24(void)
 
 s32 g_FrWeaponNum = WEAPON_UNARMED;
 
-GLOBAL_ASM(
-glabel func0f19def4
-/*  f19def4:	00047100 */ 	sll	$t6,$a0,0x4
-/*  f19def8:	01c47023 */ 	subu	$t6,$t6,$a0
-/*  f19defc:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f19df00:	3c02800b */ 	lui	$v0,%hi(g_FiringRangeData+0x31)
-/*  f19df04:	004e1021 */ 	addu	$v0,$v0,$t6
-/*  f19df08:	9042cd51 */ 	lbu	$v0,%lo(g_FiringRangeData+0x31)($v0)
-/*  f19df0c:	2c4f0001 */ 	sltiu	$t7,$v0,0x1
-/*  f19df10:	03e00008 */ 	jr	$ra
-/*  f19df14:	01e01025 */ 	or	$v0,$t7,$zero
-);
+bool func0f19def4(s32 index)
+{
+	return g_FiringRangeData.targets[index].unk21 == false;
+}
 
 GLOBAL_ASM(
 glabel func0f19df18
