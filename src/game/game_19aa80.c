@@ -24,11 +24,6 @@
 #include "lib/lib_12dc0.h"
 #include "types.h"
 
-const char var7f1b9170[] = "";
-const u32 var7f1b9174[] = {0x00000000};
-const u32 var7f1b9178[] = {0x00000000};
-const u32 var7f1b917c[] = {0x00000000};
-
 /**
  * @cmd 0185
  */
@@ -889,46 +884,23 @@ char *mpChallengeGetName(s32 challengeindex)
 	return langGet(g_MpChallenges[challengeindex].name);
 }
 
-GLOBAL_ASM(
-glabel func0f19b6f8
-/*  f19b6f8:	27bdffd8 */ 	addiu	$sp,$sp,-40
-/*  f19b6fc:	afb30020 */ 	sw	$s3,0x20($sp)
-/*  f19b700:	afb2001c */ 	sw	$s2,0x1c($sp)
-/*  f19b704:	afb10018 */ 	sw	$s1,0x18($sp)
-/*  f19b708:	afb00014 */ 	sw	$s0,0x14($sp)
-/*  f19b70c:	00809825 */ 	or	$s3,$a0,$zero
-/*  f19b710:	afbf0024 */ 	sw	$ra,0x24($sp)
-/*  f19b714:	00008825 */ 	or	$s1,$zero,$zero
-/*  f19b718:	00008025 */ 	or	$s0,$zero,$zero
-/*  f19b71c:	2412001e */ 	addiu	$s2,$zero,0x1e
-.L0f19b720:
-/*  f19b720:	0fc66be6 */ 	jal	mpIsChallengeAvailable
-/*  f19b724:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b728:	50400009 */ 	beqzl	$v0,.L0f19b750
-/*  f19b72c:	26100001 */ 	addiu	$s0,$s0,0x1
-/*  f19b730:	56330006 */ 	bnel	$s1,$s3,.L0f19b74c
-/*  f19b734:	26310001 */ 	addiu	$s1,$s1,0x1
-/*  f19b738:	0fc66daf */ 	jal	mpChallengeGetName
-/*  f19b73c:	02002025 */ 	or	$a0,$s0,$zero
-/*  f19b740:	10000008 */ 	beqz	$zero,.L0f19b764
-/*  f19b744:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/*  f19b748:	26310001 */ 	addiu	$s1,$s1,0x1
-.L0f19b74c:
-/*  f19b74c:	26100001 */ 	addiu	$s0,$s0,0x1
-.L0f19b750:
-/*  f19b750:	1612fff3 */ 	bne	$s0,$s2,.L0f19b720
-/*  f19b754:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19b758:	3c027f1c */ 	lui	$v0,%hi(var7f1b9170)
-/*  f19b75c:	24429170 */ 	addiu	$v0,$v0,%lo(var7f1b9170)
-/*  f19b760:	8fbf0024 */ 	lw	$ra,0x24($sp)
-.L0f19b764:
-/*  f19b764:	8fb00014 */ 	lw	$s0,0x14($sp)
-/*  f19b768:	8fb10018 */ 	lw	$s1,0x18($sp)
-/*  f19b76c:	8fb2001c */ 	lw	$s2,0x1c($sp)
-/*  f19b770:	8fb30020 */ 	lw	$s3,0x20($sp)
-/*  f19b774:	03e00008 */ 	jr	$ra
-/*  f19b778:	27bd0028 */ 	addiu	$sp,$sp,0x28
-);
+char *mpGetChallengeNameBySlot(s32 slot)
+{
+	s32 index = 0;
+	s32 i;
+
+	for (i = 0; i < 30; i++) {
+		if (mpIsChallengeAvailable(i)) {
+			if (index == slot) {
+				return mpChallengeGetName(i);
+			}
+
+			index++;
+		}
+	}
+
+	return "";
+}
 
 void mpSetCurrentChallenge(s32 slotnum)
 {
@@ -1650,6 +1622,8 @@ bool mpIsVar800884b4NonZero(void)
 	return var800884b4 != 0;
 }
 
+const char var7f1b9174[] = "";
+
 GLOBAL_ASM(
 glabel func0f19c288
 /*  f19c288:	3c038009 */ 	lui	$v1,%hi(var800884b4)
@@ -1664,6 +1638,8 @@ glabel func0f19c288
 /*  f19c2a8:	03e00008 */ 	jr	$ra
 /*  f19c2ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
+
+const char var7f1b9178[] = "";
 
 GLOBAL_ASM(
 glabel func0f19c2b0

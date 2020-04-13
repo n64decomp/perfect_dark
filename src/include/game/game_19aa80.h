@@ -7,7 +7,7 @@ bool ai0176(void);
 u32 func0f19ab70(void);
 void func0f19afdc(void);
 void func0f19b540(void);
-u32 func0f19b6f8(void);
+char *mpGetChallengeNameBySlot(s32 slot);
 u32 func0f19b800(void);
 s32 mpLoadConfig(s16 arg0, char *buffer, s32 len);
 u32 func0f19bb50(void);
