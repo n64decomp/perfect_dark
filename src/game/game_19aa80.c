@@ -1036,7 +1036,7 @@ glabel func0f19b800
 );
 
 GLOBAL_ASM(
-glabel func0f19b914
+glabel mpLoadConfig
 /*  f19b914:	27bdfe38 */ 	addiu	$sp,$sp,-456
 /*  f19b918:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f19b91c:	afa401c8 */ 	sw	$a0,0x1c8($sp)
@@ -1122,12 +1122,12 @@ glabel func0f19b914
 /*  f19ba54:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s32 func0f19ba58(s32 challengeindex, s32 arg1, s32 arg2)
+s32 mpLoadChallenge(s32 challengeindex, char *buffer, s32 len)
 {
-	return func0f19b914(g_MpChallenges[challengeindex].unk02, arg1, arg2);
+	return mpLoadConfig(g_MpChallenges[challengeindex].confignum, buffer, len);
 }
 
-s32 mpGetNthAvailableChallengeSomething(s32 n, s32 arg1, s32 arg2)
+s32 mpGetNthAvailableChallengeSomething(s32 n, char *buffer, s32 len)
 {
 	s32 numavailable = 0;
 	s32 challengeindex;
@@ -1135,7 +1135,7 @@ s32 mpGetNthAvailableChallengeSomething(s32 n, s32 arg1, s32 arg2)
 	for (challengeindex = 0; challengeindex != NUM_CHALLENGES; challengeindex++) {
 		if (mpIsChallengeAvailable(challengeindex)) {
 			if (numavailable == n) {
-				return func0f19ba58(challengeindex, arg1, arg2);
+				return mpLoadChallenge(challengeindex, buffer, len);
 			}
 
 			numavailable++;
@@ -1145,9 +1145,9 @@ s32 mpGetNthAvailableChallengeSomething(s32 n, s32 arg1, s32 arg2)
 	return 0;
 }
 
-s32 func0f19bb20(s32 arg0, s32 arg1)
+s32 mpLoadCurrentChallenge(char *buffer, s32 len)
 {
-	return func0f19ba58(g_MpChallengeIndex, arg0, arg1);
+	return mpLoadChallenge(g_MpChallengeIndex, buffer, len);
 }
 
 GLOBAL_ASM(
@@ -1617,40 +1617,27 @@ void func0f19c190(void)
 	func0f19afdc();
 }
 
-GLOBAL_ASM(
-glabel func0f19c1cc
-/*  f19c1cc:	27bdfe10 */ 	addiu	$sp,$sp,-496
-/*  f19c1d0:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f19c1d4:	27a40020 */ 	addiu	$a0,$sp,0x20
-/*  f19c1d8:	0fc66ec8 */ 	jal	func0f19bb20
-/*  f19c1dc:	240501ca */ 	addiu	$a1,$zero,0x1ca
-/*  f19c1e0:	0fc6373b */ 	jal	func0f18dcec
-/*  f19c1e4:	00402025 */ 	or	$a0,$v0,$zero
-/*  f19c1e8:	24040005 */ 	addiu	$a0,$zero,0x5
-/*  f19c1ec:	0fc62fdc */ 	jal	mpSetLock
-/*  f19c1f0:	24050005 */ 	addiu	$a1,$zero,0x5
-/*  f19c1f4:	3c03800b */ 	lui	$v1,%hi(g_MpPlayers)
-/*  f19c1f8:	3c02800b */ 	lui	$v0,%hi(g_MpPlayers+0x280)
-/*  f19c1fc:	2442ca38 */ 	addiu	$v0,$v0,%lo(g_MpPlayers+0x280)
-/*  f19c200:	2463c7b8 */ 	addiu	$v1,$v1,%lo(g_MpPlayers)
-.L0f19c204:
-/*  f19c204:	246300a0 */ 	addiu	$v1,$v1,0xa0
-/*  f19c208:	1462fffe */ 	bne	$v1,$v0,.L0f19c204
-/*  f19c20c:	a060ff71 */ 	sb	$zero,-0x8f($v1)
-/*  f19c210:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f19c214:	27bd01f0 */ 	addiu	$sp,$sp,0x1f0
-/*  f19c218:	03e00008 */ 	jr	$ra
-/*  f19c21c:	00000000 */ 	sll	$zero,$zero,0x0
-);
-
-s32 func0f19c220(void)
+void func0f19c1cc(void)
 {
-	return mpSetLock(0, 0);
+	s32 i;
+	char buffer[458];
+
+	func0f18dcec(mpLoadCurrentChallenge(buffer, 458));
+	mpSetLock(MPLOCKTYPE_CHALLENGE, 5);
+
+	for (i = 0; i < 4; i++) {
+		g_MpPlayers[i].base.team = 0;
+	}
 }
 
-void mpCalculateVar800884b4(s32 arg0, s32 arg1)
+s32 mpRemoveLock(void)
 {
-	var800884b4 = func0f19bb20(arg0, arg1);
+	return mpSetLock(MPLOCKTYPE_NONE, 0);
+}
+
+void mpCalculateVar800884b4(char *buffer, s32 len)
+{
+	var800884b4 = mpLoadCurrentChallenge(buffer, len);
 }
 
 void mpResetVar800884b4(void)

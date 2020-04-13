@@ -34,7 +34,7 @@ glabel func0f00b210
 /*  f00b250:	a2000008 */ 	sb	$zero,0x8($s0)
 /*  f00b254:	02202025 */ 	or	$a0,$s1,$zero
 /*  f00b258:	02602825 */ 	or	$a1,$s3,$zero
-/*  f00b25c:	0fc66e96 */ 	jal	func0f19ba58
+/*  f00b25c:	0fc66e96 */ 	jal	mpLoadChallenge
 /*  f00b260:	240601ca */ 	addiu	$a2,$zero,0x1ca
 /*  f00b264:	00402025 */ 	or	$a0,$v0,$zero
 /*  f00b268:	02402825 */ 	or	$a1,$s2,$zero
@@ -59,7 +59,7 @@ glabel func0f00b210
 /*  f00b2b4:	8e040004 */ 	lw	$a0,0x4($s0)
 .L0f00b2b8:
 /*  f00b2b8:	02602825 */ 	or	$a1,$s3,$zero
-/*  f00b2bc:	0fc66e45 */ 	jal	func0f19b914
+/*  f00b2bc:	0fc66e45 */ 	jal	mpLoadConfig
 /*  f00b2c0:	240601ca */ 	addiu	$a2,$zero,0x1ca
 /*  f00b2c4:	00402025 */ 	or	$a0,$v0,$zero
 /*  f00b2c8:	02402825 */ 	or	$a1,$s2,$zero

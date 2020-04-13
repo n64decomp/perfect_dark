@@ -7318,7 +7318,7 @@ glabel func0f18dec4
 .L0f18df2c:
 /*  f18df2c:	8fa4002c */ 	lw	$a0,0x2c($sp)
 /*  f18df30:	27a50030 */ 	addiu	$a1,$sp,0x30
-/*  f18df34:	0fc66e45 */ 	jal	func0f19b914
+/*  f18df34:	0fc66e45 */ 	jal	mpLoadConfig
 /*  f18df38:	240601ca */ 	addiu	$a2,$zero,0x1ca
 /*  f18df3c:	0fc6373b */ 	jal	func0f18dcec
 /*  f18df40:	00402025 */ 	or	$a0,$v0,$zero

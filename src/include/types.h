@@ -4109,7 +4109,7 @@ struct savelocation {
 
 struct challenge {
 	/*0x00*/ u16 name;
-	/*0x02*/ s16 unk02;
+	/*0x02*/ s16 confignum;
 
 	// One byte for each number of players,
 	// and 4 bits in each to mark which players completed it
@@ -4373,7 +4373,7 @@ struct objectivething {
 
 struct mppreset {
 	u16 name;
-	u32 unk04;
+	u32 confignum;
 	u8 challenges[16];
 };
 

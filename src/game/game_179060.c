@@ -5683,7 +5683,7 @@ s32 menuhandlerMpAbortChallenge(u32 operation, struct menu_item *item, s32 *valu
 	}
 
 	if (operation == MENUOP_SET) {
-		func0f19c220();
+		mpRemoveLock();
 	}
 
 	return 0;
