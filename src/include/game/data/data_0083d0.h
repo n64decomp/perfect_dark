@@ -98,7 +98,7 @@ extern u32 var80062998;
 extern u32 var800629d8;
 extern u32 var800629fc;
 extern u32 var80062a3c;
-extern u32 var80062a48;
+extern u8 var80062a48[];
 extern u32 var80062a4c;
 extern u32 var80062a8c;
 extern u32 var80062a90;
