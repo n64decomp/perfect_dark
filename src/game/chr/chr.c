@@ -2446,36 +2446,19 @@ glabel var7f1a8720
 /*  f020534:	24020001 */ 	addiu	$v0,$zero,0x1
 );
 
-GLOBAL_ASM(
-glabel func0f020538
-/*  f020538:	3c048006 */ 	lui	$a0,%hi(g_NumChrsA)
-/*  f02053c:	8c84298c */ 	lw	$a0,%lo(g_NumChrsA)($a0)
-/*  f020540:	00001825 */ 	or	$v1,$zero,$zero
-/*  f020544:	00001025 */ 	or	$v0,$zero,$zero
-/*  f020548:	18800011 */ 	blez	$a0,.L0f020590
-/*  f02054c:	3c058006 */ 	lui	$a1,%hi(g_ChrsA)
-/*  f020550:	000430c0 */ 	sll	$a2,$a0,0x3
-/*  f020554:	00c43023 */ 	subu	$a2,$a2,$a0
-/*  f020558:	00063080 */ 	sll	$a2,$a2,0x2
-/*  f02055c:	00c43023 */ 	subu	$a2,$a2,$a0
-/*  f020560:	00063080 */ 	sll	$a2,$a2,0x2
-/*  f020564:	00c43021 */ 	addu	$a2,$a2,$a0
-/*  f020568:	000630c0 */ 	sll	$a2,$a2,0x3
-/*  f02056c:	8ca52988 */ 	lw	$a1,%lo(g_ChrsA)($a1)
-.L0f020570:
-/*  f020570:	84ae0000 */ 	lh	$t6,0x0($a1)
-/*  f020574:	24420368 */ 	addiu	$v0,$v0,0x368
-/*  f020578:	0046082a */ 	slt	$at,$v0,$a2
-/*  f02057c:	05c10002 */ 	bgez	$t6,.L0f020588
-/*  f020580:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f020584:	24630001 */ 	addiu	$v1,$v1,0x1
-.L0f020588:
-/*  f020588:	1420fff9 */ 	bnez	$at,.L0f020570
-/*  f02058c:	24a50368 */ 	addiu	$a1,$a1,872
-.L0f020590:
-/*  f020590:	03e00008 */ 	jr	$ra
-/*  f020594:	00601025 */ 	or	$v0,$v1,$zero
-);
+s32 chrsGetNumFree(void)
+{
+	s32 count = 0;
+	s32 i;
+
+	for (i = 0; i < g_NumChrsA; i++) {
+		if (g_ChrsA[i].chrnum < 0) {
+			count++;
+		}
+	}
+
+	return count;
+}
 
 void chrSetMaxDamage(struct chrdata *chr, f32 maxdamage)
 {

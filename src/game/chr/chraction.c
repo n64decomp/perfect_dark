@@ -30387,7 +30387,7 @@ glabel chrSpawnAtCoord
 /*  f04b2fc:	afa40078 */ 	sw	$a0,0x78($sp)
 /*  f04b300:	afa5007c */ 	sw	$a1,0x7c($sp)
 /*  f04b304:	afa60080 */ 	sw	$a2,0x80($sp)
-/*  f04b308:	0fc0814e */ 	jal	func0f020538
+/*  f04b308:	0fc0814e */ 	jal	chrsGetNumFree
 /*  f04b30c:	afa70084 */ 	sw	$a3,0x84($sp)
 /*  f04b310:	28410002 */ 	slti	$at,$v0,0x2
 /*  f04b314:	1420004d */ 	bnez	$at,.L0f04b44c
@@ -30472,7 +30472,7 @@ glabel chrSpawnAtCoord
 /*  f04b444:	0fc2cc33 */ 	jal	func0f0b30cc
 /*  f04b448:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f04b44c:
-/*  f04b44c:	0fc0814e */ 	jal	func0f020538
+/*  f04b44c:	0fc0814e */ 	jal	chrsGetNumFree
 /*  f04b450:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f04b454:	28410004 */ 	slti	$at,$v0,0x4
 /*  f04b458:	50200043 */ 	beqzl	$at,.L0f04b568
