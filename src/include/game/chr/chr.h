@@ -13,7 +13,7 @@ s32 getLowestUnusedChrId(void);
 struct prop *func0f020b14(struct prop *prop, s32 arg0, struct coord *pos, s16 *rooms, f32 arg3, u8 *ailist);
 void func0f020d44(struct prop *prop, bool arg1);
 u32 func0f021258(void);
-u32 func0f02133c(void);
+void func0f02133c(struct chrdata *chr);
 u32 func0f0213a0(void);
 u32 func0f02143c(void);
 void func0f021fa8(struct chrdata *chr, struct coord *pos, s16 *room);
