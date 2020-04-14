@@ -3146,12 +3146,10 @@ glabel func0f0211a8
 /*  f021248:	27bd0030 */ 	addiu	$sp,$sp,0x30
 );
 
-GLOBAL_ASM(
-glabel func0f02124c
-/*  f02124c:	3c018006 */ 	lui	$at,0x8006
-/*  f021250:	03e00008 */ 	jr	$ra
-/*  f021254:	c4202968 */ 	lwc1	$f0,0x2968($at)
-);
+f32 func0f02124c(void)
+{
+	return var80062968;
+}
 
 GLOBAL_ASM(
 glabel func0f021258
