@@ -2020,6 +2020,7 @@
 #define SAVEFILEFLAG_41                   0x41
 #define SAVEFILEFLAG_42                   0x42
 #define SAVEFILEFLAG_43                   0x43
+#define SAVEFILEFLAG_47                   0x47
 
 #define SCREENRATIO_NORMAL 0
 #define SCREENRATIO_16_9   1
@@ -2573,3 +2574,10 @@
 #define BODY_ELVISWAISTCOAT   0x94
 #define BODY_DARK_LEATHER     0x95
 #define BODY_DARK_NEGOTIATOR  0x96
+
+#define VERSION_NTSC_BETA  0
+#define VERSION_NTSC_1_0   1
+#define VERSION_NTSC_FINAL 2
+#define VERSION_PAL_BETA   3
+#define VERSION_PAL_FINAL  4
+#define VERSION_JAP_FINAL  5

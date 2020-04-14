@@ -1,17 +1,46 @@
 # User configurable
 
-REGION=ntsc
-RELEASE=final
+ROMID ?= ntsc-final
+PIRACYCHECKS ?= 1
+
+QEMU_IRIX ?= tools/irix/qemu-irix
+IRIX_ROOT ?= tools/irix/root
 
 ################################################################################
-# Not user configurable
 
-ROMID := $(REGION)-$(RELEASE)
+export ROMID
+
+NTSC=0
+PAL=0
+JAP=0
+
+ifeq ($(ROMID),ntsc-beta)
+	NTSC=1
+	VERSION=0
+endif
+ifeq ($(ROMID),ntsc-1.0)
+	NTSC=1
+	VERSION=1
+endif
+ifeq ($(ROMID),ntsc-final)
+	NTSC=1
+	VERSION=2
+endif
+ifeq ($(ROMID),pal-beta)
+	PAL=1
+	VERSION=3
+endif
+ifeq ($(ROMID),pal-final)
+	PAL=1
+	VERSION=4
+endif
+ifeq ($(ROMID),jap-final)
+	JAP=1
+	VERSION=5
+endif
+
 E_DIR := extracted/$(ROMID)
 B_DIR := build/$(ROMID)
-
-QEMU_IRIX := tools/irix/qemu-irix
-IRIX_ROOT := tools/irix/root
 
 ifeq ($(shell type mips64-elf-ld >/dev/null 2>/dev/null; echo $$?), 0)
     TOOLCHAIN := mips64-elf
@@ -23,27 +52,20 @@ else
     TOOLCHAIN := mips-elf
 endif
 
-ifeq ($(REGION),ntsc)
-    VERSION_CFLAGS := -DNTSC=1 -DPAL=0 -DJAP=0
-endif
-ifeq ($(REGION),pal)
-    VERSION_CFLAGS := -DNTSC=0 -DPAL=1 -DJAP=0
-endif
-ifeq ($(REGION),jap)
-    VERSION_CFLAGS := -DNTSC=0 -DPAL=0 -DJAP=1
-endif
-
-ifeq ($(RELEASE),beta)
-    RELEASE_CFLAGS := -DBETA=1 -DREL1=0 -DFINAL=0
-endif
-ifeq ($(RELEASE),1.0)
-    RELEASE_CFLAGS := -DBETA=0 -DREL1=1 -DFINAL=0
-endif
-ifeq ($(RELEASE),final)
-    RELEASE_CFLAGS := -DBETA=0 -DREL1=0 -DFINAL=1
-endif
-
-CFLAGS := $(VERSION_CFLAGS) $(RELEASE_CFLAGS) -DPIRACYCHECKS=1 -Wo,-loopunroll,0 -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm -woff 649,819,820,821,838,852 -w2 -I src/include -mips2
+CFLAGS := -DVERSION=$(VERSION) \
+	-DNTSC=$(NTSC) \
+	-DPAL=$(PAL) \
+	-DJAP=$(JAP) \
+	-DPIRACYCHECKS=$(PIRACYCHECKS) \
+	-Wo,-loopunroll,0 \
+	-Wab,-r4300_mul \
+	-non_shared \
+	-G 0 \
+	-Xcpluscomm \
+	-woff 649,819,820,821,838,852 \
+	-w2 \
+	-I src/include \
+	-mips2
 
 C_FILES := $(shell find src -name '*.c')
 O_FILES := $(patsubst %.c, %.o, $(C_FILES))
@@ -133,7 +155,7 @@ pads: $(ASSET_BG_PADS_FILES)
 # BG tile files
 
 src/files/bgdata/bg_%_tiles.o: src/files/bgdata/bg_%_tiles.s
-	$(TOOLCHAIN)-as -march=vr4300 -mabi=32 -I src/include -EB -o $@ $<
+	$(TOOLCHAIN)-as --defsym VERSION=$(VERSION) -march=vr4300 -mabi=32 -I src/include -EB -o $@ $<
 
 $(B_DIR)/files/bgdata/bg_%_tiles.elf: src/files/bgdata/bg_%_tiles.o
 	@mkdir -p $(B_DIR)/files/bgdata
@@ -268,13 +290,13 @@ gvars: $(B_DIR)/ucode/gvars.bin
 # Miscellaneous
 
 extract:
-	tools/extract $(ROMID)
+	tools/extract
 
 $(B_DIR)/ucode/gamezips.bin: $(B_DIR)/ucode/game.bin
 	tools/mkgamezips
 
 test: all
-	@md5sum --quiet -c checksums.md5
+	@md5sum --quiet -c checksums.$(ROMID).md5
 
 $(B_DIR)/files/%.o: $(B_DIR)/files/%
 	/bin/echo -e ".data\n.incbin \"$<\"" > $(B_DIR)/file.s
@@ -301,7 +323,7 @@ $(B_DIR)/ucode/filenames.bin: $(B_DIR)/ucode/filenames.elf
 	$(TOOLCHAIN)-objcopy $< $@ -O binary
 
 $(B_DIR)/pd.elf: $(O_FILES) $(ASSET_O_FILES) ld/pd.ld
-	cpp -P ld/pd.ld -o $(B_DIR)/pd.ld
+	cpp -DROMID=$(ROMID) -DVERSION=$(VERSION) -P ld/pd.ld -o $(B_DIR)/pd.ld
 	$(TOOLCHAIN)-ld --no-check-sections -T $(B_DIR)/pd.ld --print-map -o $@ > $(B_DIR)/pd.map
 
 $(B_DIR)/pd.bin: $(B_DIR)/pd.elf
@@ -312,12 +334,12 @@ all: $(UCODE_BIN_FILES) $(ASSET_O_FILES)
 
 rom: $(UCODE_BIN_FILES) $(B_DIR)/ucode/gamezips.bin $(ASSET_O_FILES)
 	TOOLCHAIN=$(TOOLCHAIN) tools/buildrom
-	tools/checksum build/ntsc-final/pd.z64 --write
+	tools/checksum $(B_DIR)/pd.z64 --write
 
 clean:
 	rm -rf build/*
 	find src -name '*.o' -delete
 
 binclean:
-	rm -f build/ntsc-final/ucode/*.bin
+	rm -f $(B_DIR)/ucode/*.bin
 	find src/{boot,game,gvars,lib,inflate} -name '*.o' -delete

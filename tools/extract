@@ -1,20 +1,6 @@
 #!/usr/bin/env python3
 
-# Extract assets from a Perfect Dark ROM.
-#
-# Place ROM in the main project directory, named pd.<romid>.z64, then run this
-# with tools/extract <romid>. The directory extracted/<romid>/ will be created
-# and populated.
-#
-# Supported ROM IDs are:
-# ntsc-beta
-# ntsc-1.0
-# ntsc-final
-# pal-beta
-# pal-final
-# jap-final
-
-import os, sys, zlib
+import os, zlib
 
 class Extractor:
     def extract(self, romid):
@@ -280,5 +266,5 @@ class Extractor:
     }
 
 extractor = Extractor()
-extractor.extract(sys.argv[1])
+extractor.extract(os.environ['ROMID'])
 

@@ -3,7 +3,7 @@
 	varname = _filesSegmentRomStart + . - _filesSegmentRamStart; \
 	__rompos = varname; \
 	.file##id : AT(__rompos) { \
-		build/ntsc-final/files/filename.o (.data); \
+		build/ROMID/files/filename.o (.data); \
 	} \
 	__rompos += SIZEOF(.file##id)
 

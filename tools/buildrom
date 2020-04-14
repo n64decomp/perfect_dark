@@ -5,7 +5,7 @@ import re
 import subprocess
 
 def main():
-    fd = open('build/ntsc-final/pd.z64', 'wb+')
+    fd = open(bdir() + '/pd.z64', 'wb+')
 
     # The retail ROM contains truncated duplicates of some segments.
     # For example, the real boot segment is at 0x1000 - 0x3050, but the tail end
@@ -56,22 +56,22 @@ def get_header():
     return binary
 
 def get_rspboot():
-    return getfilecontents('extracted/ntsc-final/ucode/rspboot.bin')
+    return getfilecontents(edir() + '/ucode/rspboot.bin')
 
 def get_boot():
-    return getfilecontents('build/ntsc-final/ucode/boot.bin')
+    return getfilecontents(bdir() + '/ucode/boot.bin')
 
 def get_lib():
-    return zip('build/ntsc-final/ucode/lib.bin')
+    return zip(bdir() + '/ucode/lib.bin')
 
 def get_gamedata():
-    return zip('build/ntsc-final/ucode/gamedata.bin')
+    return zip(bdir() + '/ucode/gamedata.bin')
 
 def get_inflate():
-    return getfilecontents('build/ntsc-final/ucode/inflate.bin')
+    return getfilecontents(bdir() + '/ucode/inflate.bin')
 
 def get_gamezips():
-    return getfilecontents('build/ntsc-final/ucode/gamezips.bin')
+    return getfilecontents(bdir() + '/ucode/gamezips.bin')
 
 def get_unknown():
     return getfrombaserom(0x157120, 0x69b268)
@@ -80,19 +80,19 @@ def get_fonts():
     return getfrombaserom(0x7f2388, 0x17ec8)
 
 def get_sfxctl():
-    return getfilecontents('extracted/ntsc-final/audio/sfx.ctl')
+    return getfilecontents(edir() + '/audio/sfx.ctl')
 
 def get_sfxtbl():
-    return getfilecontents('extracted/ntsc-final/audio/sfx.tbl')
+    return getfilecontents(edir() + '/audio/sfx.tbl')
 
 def get_seqctl():
-    return getfilecontents('extracted/ntsc-final/audio/music.ctl')
+    return getfilecontents(edir() + '/audio/music.ctl')
 
 def get_seqtbl():
-    return getfilecontents('extracted/ntsc-final/audio/music.tbl')
+    return getfilecontents(edir() + '/audio/music.tbl')
 
 def get_midi():
-    return getfilecontents('extracted/ntsc-final/audio/sequences.bin')
+    return getfilecontents(edir() + '/audio/sequences.bin')
 
 def write_files(fd):
     start = getlinkervariable('_filesSegmentRomStart')
@@ -101,7 +101,7 @@ def write_files(fd):
     write_binary(fd, 0xed83a0, getfromldbin(start, end - start))
 
 def get_filenames():
-    return getfilecontents('build/ntsc-final/ucode/filenames.bin')
+    return getfilecontents(bdir() + '/ucode/filenames.bin')
 
 def get_textures():
     return getfrombaserom(0x01d65f40, 0x29a0c0)
@@ -113,14 +113,14 @@ def getfilecontents(filename):
     return binary
 
 def getfrombaserom(offset, len):
-    fd = open('pd.ntsc-final.z64', 'rb')
+    fd = open('pd.%s.z64' % os.environ['ROMID'], 'rb')
     fd.seek(offset)
     binary = fd.read(len)
     fd.close()
     return binary
 
 def getfromldbin(offset, len):
-    fd = open('build/ntsc-final/pd.bin', 'rb')
+    fd = open(bdir() + '/pd.bin', 'rb')
     fd.seek(offset)
     binary = fd.read(len)
     fd.close()
@@ -129,13 +129,19 @@ def getfromldbin(offset, len):
 def zip(filename):
     return subprocess.check_output(['tools/rarezip', filename])
 
+def bdir():
+    return 'build/%s' % os.environ['ROMID']
+
+def edir():
+    return 'extracted/%s' % os.environ['ROMID']
+
 def getlinkervariable(varname):
     if 'TOOLCHAIN' in os.environ:
         cmd = '%s-objdump' % os.environ['TOOLCHAIN']
     else:
         cmd = 'mips64-elf-objdump'
 
-    objdump = subprocess.check_output([cmd, 'build/ntsc-final/pd.elf', '-t']).decode('utf-8')
+    objdump = subprocess.check_output([cmd, bdir() + '/pd.elf', '-t']).decode('utf-8')
 
     matches = re.findall(r'^([0-9a-f]+) .*? %s$' % varname, objdump, re.MULTILINE)
     return int(matches[0], 16)

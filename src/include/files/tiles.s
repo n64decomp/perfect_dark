@@ -4,6 +4,13 @@
 
 .data
 
+.set VERSION_NTSC_BETA,  0
+.set VERSION_NTSC_1_0,   1
+.set VERSION_NTSC_FINAL, 2
+.set VERSION_PAL_BETA,   3
+.set VERSION_PAL_FINAL,  4
+.set VERSION_JAP_FINAL,  5
+
 .macro tileabstract numverts, ai, flags, u4, u6, u8, ua, uc
 	.short \numverts
 	.byte  \ai
