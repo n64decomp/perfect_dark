@@ -62,7 +62,7 @@ CFLAGS := -DVERSION=$(VERSION) \
 	-non_shared \
 	-G 0 \
 	-Xcpluscomm \
-	-woff 649,819,820,821,838,852 \
+	-woff 581,649,819,820,821,838,852 \
 	-w2 \
 	-I src/include \
 	-mips2

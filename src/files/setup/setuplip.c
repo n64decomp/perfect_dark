@@ -2646,6 +2646,16 @@ u8 func041f_labtech_lights[] = {
 	label(0x06)
 	object_do_animation(0x025a, 0xff, 0x02, 0xffff)
 	speak(CHR_TARGET, L_LIP(37), 0x8103, CHANNEL_4, COLOR_08_RED) // "Who are you?"
+
+#if VERSION >= VERSION_JAP_FINAL
+	label(0x68)
+	if_sound_finished(CHANNEL_4, /*goto*/ 0x06)
+	yield
+	goto_first(0x68)
+
+	label(0x06)
+#endif
+
 	goto_next(0x06)
 
 	label(0x2d)

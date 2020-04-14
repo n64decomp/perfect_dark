@@ -486,11 +486,20 @@ u32 props[] = {
 };
 
 s32 intro[] = {
+#if VERSION >= VERSION_JAP_FINAL
+	ammo(AMMOTYPE_PISTOL, 10)
+	intro_weapon(WEAPON_FALCON2, -1)
+	ammo(AMMOTYPE_PISTOL, 20)
+	ammo(AMMOTYPE_KNIFE, 1)
+	ammo(AMMOTYPE_ROCKET, 2)
+	ammo(AMMOTYPE_RIFLE, 400)
+#else
 	intro_weapon(WEAPON_COMBATKNIFE, -1)
 	ammo(AMMOTYPE_KNIFE, 1)
 	ammo(AMMOTYPE_ROCKET, 2)
 	ammo(AMMOTYPE_RIFLE, 400)
 	ammo(AMMOTYPE_PISTOL, 10)
+#endif
 	outfit(OUTFIT_FROCK_RIPPED)
 	spawn(0x00d9)
 	endintro
