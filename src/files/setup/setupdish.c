@@ -3264,6 +3264,16 @@ u8 func042e_devicegirl_reply_to_carrington[] = {
 };
 
 u8 func1013_msg_hovercrate[] = {
+#if VERSION >= VERSION_PAL_FINAL
+	beginloop(0x8f)
+		if_savefile_flag_is_unset(SAVEFILEFLAG_HOWTO_HOVERCRATE, /*goto*/ 0x04)
+	endloop(0x8f)
+
+	beginloop(0x04)
+		if_savefile_flag_is_set(SAVEFILEFLAG_HOWTO_HOVERCRATE, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0141, /*goto*/ 0x2f)
+	endloop(0x04)
+#else
 	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -3271,11 +3281,15 @@ u8 func1013_msg_hovercrate[] = {
 		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0141, /*goto*/ 0x2f)
 	endloop(0x04)
+#endif
 
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2f)
+#if VERSION >= VERSION_PAL_FINAL
+	set_savefile_flag(SAVEFILEFLAG_HOWTO_HOVERCRATE)
+#endif
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(73)) // "HOVERCRATE Press B Button next to Hovcrate to grab it..."
 	restart_timer
@@ -3292,6 +3306,16 @@ u8 func1013_msg_hovercrate[] = {
 };
 
 u8 func1014_msg_hoverbike[] = {
+#if VERSION >= VERSION_PAL_FINAL
+	beginloop(0x8f)
+		if_savefile_flag_is_unset(SAVEFILEFLAG_HOWTO_HOVERBIKE, /*goto*/ 0x04)
+	endloop(0x8f)
+
+	beginloop(0x04)
+		if_savefile_flag_is_set(SAVEFILEFLAG_HOWTO_HOVERBIKE, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x01f9, /*goto*/ 0x2f)
+	endloop(0x04)
+#else
 	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -3299,11 +3323,15 @@ u8 func1014_msg_hoverbike[] = {
 		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x01f9, /*goto*/ 0x2f)
 	endloop(0x04)
+#endif
 
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2f)
+#if VERSION >= VERSION_PAL_FINAL
+	set_savefile_flag(SAVEFILEFLAG_HOWTO_HOVERBIKE)
+#endif
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(75)) // "HOVERBIKE Double tap B Button next to Hovbike to ride it..."
 	restart_timer
@@ -3320,17 +3348,30 @@ u8 func1014_msg_hoverbike[] = {
 };
 
 u8 func1015_msg_doors[] = {
+#if VERSION >= VERSION_PAL_FINAL
+	beginloop(0x8f)
+		if_savefile_flag_is_unset(SAVEFILEFLAG_HOWTO_DOORS, /*goto*/ 0x04)
+	endloop(0x8f)
+
+	beginloop(0x04)
+		if_savefile_flag_is_set(SAVEFILEFLAG_HOWTO_DOORS, /*goto*/ 0x06)
+	endloop(0x04)
+#else
 	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	beginloop(0x04)
 		if_savefile_flag_is_set(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x06)
 	endloop(0x04)
+#endif
 
 	label(0x06)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x2f)
+#if VERSION >= VERSION_PAL_FINAL
+	set_savefile_flag(SAVEFILEFLAG_HOWTO_DOORS)
+#endif
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(77)) // "OPENING DOORS Press B Button next to door to open it."
 	restart_timer
@@ -3347,6 +3388,17 @@ u8 func1015_msg_doors[] = {
 };
 
 u8 func1016_msg_elevators[] = {
+#if VERSION >= VERSION_PAL_FINAL
+	beginloop(0x8f)
+		if_savefile_flag_is_unset(SAVEFILEFLAG_HOWTO_ELEVATORS, /*goto*/ 0x04)
+	endloop(0x8f)
+
+	beginloop(0x04)
+		if_savefile_flag_is_set(SAVEFILEFLAG_HOWTO_ELEVATORS, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0160, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0162, /*goto*/ 0x2f)
+	endloop(0x04)
+#else
 	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -3355,8 +3407,12 @@ u8 func1016_msg_elevators[] = {
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0160, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0162, /*goto*/ 0x2f)
 	endloop(0x04)
+#endif
 
 	label(0x2f)
+#if VERSION >= VERSION_PAL_FINAL
+	set_savefile_flag(SAVEFILEFLAG_HOWTO_ELEVATORS)
+#endif
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(79)) // "ELEVATORS Press B Button next to door to call elevator."
 	label(0x06)
@@ -3365,6 +3421,22 @@ u8 func1016_msg_elevators[] = {
 };
 
 u8 func1017_msg_terminals[] = {
+#if VERSION >= VERSION_PAL_FINAL
+	beginloop(0x8f)
+		if_savefile_flag_is_unset(SAVEFILEFLAG_HOWTO_TERMINALS, /*goto*/ 0x04)
+	endloop(0x8f)
+
+	beginloop(0x04)
+		if_savefile_flag_is_set(SAVEFILEFLAG_HOWTO_TERMINALS, /*goto*/ 0x06)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0227, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x022a, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x021c, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x021e, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0221, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0224, /*goto*/ 0x2f)
+		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x023e, /*goto*/ 0x2f)
+	endloop(0x04)
+#else
 	if_savefile_flag_is_unset(SAVEFILEFLAG_CI_TOUR_STARTED, /*goto*/ 0x04)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -3378,8 +3450,12 @@ u8 func1017_msg_terminals[] = {
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x0224, /*goto*/ 0x2f)
 		if_chr_distance_to_pad_lt(CHR_BOND, 250, 0x023e, /*goto*/ 0x2f)
 	endloop(0x04)
+#endif
 
 	label(0x2f)
+#if VERSION >= VERSION_PAL_FINAL
+	set_savefile_flag(SAVEFILEFLAG_HOWTO_TERMINALS)
+#endif
 	remove_hudmsgs
 	show_hudmsg_middle(0x01, COLOR_04_ORANGE, L_DISH(114)) // "TERMINALS - Press B Button next to terminal to use it."
 	label(0x06)

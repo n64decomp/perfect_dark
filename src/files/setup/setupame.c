@@ -2765,6 +2765,11 @@ u8 unregistered_function6[] = {
  * 042d finishes intro
  */
 u8 func0422_intro[] = {
+#if VERSION >= VERSION_PAL_FINAL
+	yield
+	set_stage_flag(STAGEFLAG_TRIGGER_INTRO)
+	yield
+#else
 	set_sfx_track(MUSIC_DEFECTION_INTRO_SFX)
 
 	// No yield in this loop!
@@ -2785,6 +2790,8 @@ u8 func0422_intro[] = {
 	goto_first(0x08)
 
 	label(0x2c)
+#endif
+
 	set_returnlist(CHR_SELF, AILIST_INTRO_041E)
 	set_ailist(CHR_SELF, AILIST_INTRO_041B)
 	endlist
@@ -3458,6 +3465,32 @@ u8 func0422_intro_speaking[] = {
 	label(0xbf)
 	unset_stage_flag(STAGEFLAG_TRIGGER_INTRO)
 	restart_timer
+
+#if VERSION >= VERSION_PAL_FINAL
+	beginloop(0xb7)
+		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
+		if_timer_gt(60, /*goto*/ 0x2c)
+	endloop(0xb7)
+
+	label(0x2c)
+	set_sfx_track(MUSIC_DEFECTION_INTRO_SFX)
+
+	// No yield in this loop!
+	label(0xb8)
+	cmd01dd_if_something(0x10, /*goto*/ 0x2c)
+	misc_command(0x0000, 0x0b, 0x00)
+	goto_first(0xb8)
+
+	label(0x2c)
+	set_music_track(MUSIC_DEFECTION_INTRO)
+
+	label(0xb9)
+	cmd01dd_if_something(0x01, /*goto*/ 0x2c)
+	misc_command(0x0000, 0x0b, 0x00)
+	goto_first(0xb9)
+
+	label(0x2c)
+#endif
 
 	beginloop(0xb6)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)

@@ -564,7 +564,11 @@ s32 intro[] = {
 	intro_weapon(WEAPON_CAMSPY, -1)
 	outfit(OUTFIT_MRBLONDE)
 	intro_weapon(WEAPON_CLOAKINGDEVICE, -1)
-	ammo(AMMOTYPE_CLOAK, 1800)
+#if VERSION >= VERSION_PAL_FINAL
+	ammo(AMMOTYPE_CLOAK, 1500) // 25 seconds
+#else
+	ammo(AMMOTYPE_CLOAK, 1800) // 30 seconds
+#endif
 	ammo(AMMOTYPE_PISTOL, 100)
 	spawn(0x01f8)
 	endintro

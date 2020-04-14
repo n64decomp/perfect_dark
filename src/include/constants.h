@@ -2020,7 +2020,11 @@
 #define SAVEFILEFLAG_41                   0x41
 #define SAVEFILEFLAG_42                   0x42
 #define SAVEFILEFLAG_43                   0x43
-#define SAVEFILEFLAG_47                   0x47
+#define SAVEFILEFLAG_HOWTO_HOVERCRATE     0x47
+#define SAVEFILEFLAG_HOWTO_HOVERBIKE      0x48
+#define SAVEFILEFLAG_HOWTO_ELEVATORS      0x49
+#define SAVEFILEFLAG_HOWTO_DOORS          0x4a
+#define SAVEFILEFLAG_HOWTO_TERMINALS      0x4b
 
 #define SCREENRATIO_NORMAL 0
 #define SCREENRATIO_16_9   1

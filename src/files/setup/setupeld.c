@@ -1721,10 +1721,14 @@ u8 func1005_toggle_snipers[] = {
 
 	// Room 0x004e is the dock, ramp, and wooden floor at the top of the ramp.
 	// @bug: When using small characters or play as Elvis cheats, the height
-	// criteria is not met so the snipers cannot be unhidden.
+	// criteria is not met so the snipers cannot be unhidden. Fixed in PAL.
 	beginloop(0x09)
 		chr_toggle_p1p2(CHR_SELF)
+#if VERSION >= VERSION_PAL_FINAL
+		if_chr_y(CHR_P1P2, -550, OPERATOR_LESS_THAN, /*goto*/ 0x2d)
+#else
 		if_chr_y(CHR_P1P2, -500, OPERATOR_LESS_THAN, /*goto*/ 0x2d)
+#endif
 		if_chr_in_room(CHR_P1P2, 0x00, 0x004e, /*goto*/ 0x06)
 		label(0x2d)
 	endloop(0x09)

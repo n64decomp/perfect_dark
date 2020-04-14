@@ -1066,7 +1066,11 @@ u8 func1005_5e0c[] = {
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
+#if VERSION >= VERSION_PAL_FINAL
+		if_object_distance_to_pad_lt(OBJ_PUZZLEROCK, 50, 0x00d4, /*goto*/ 0x41)
+#else
 		if_object_distance_to_pad_lt(OBJ_PUZZLEROCK, 50, 0x00d4, /*goto*/ 0x2d)
+#endif
 		if_chr_distance_to_pad_lt(CHR_P1P2, 50, 0x00d4, /*goto*/ 0x2d)
 		if_chr_in_room(CHR_P1P2, 0x00, 0x005f, /*goto*/ 0x2e)
 		unset_stage_flag(STAGEFLAG_TRIGGER_BRIDGE)
@@ -1077,6 +1081,12 @@ u8 func1005_5e0c[] = {
 	label(0x2e)
 	set_stage_flag(STAGEFLAG_CROSSED_RAVINE_WITHOUT_BRIDGE)
 	set_stage_flag(STAGEFLAG_TRIGGER_BRIDGE)
+
+#if VERSION >= VERSION_PAL_FINAL
+	label(0x41)
+	if_num_human_players_lt(2, /*goto*/ 0x2d)
+	unset_object_flag3(OBJ_PUZZLEROCK, OBJFLAG3_PUSHABLE)
+#endif
 
 	// Pad pressed, or follow through from above
 	label(0x2d)

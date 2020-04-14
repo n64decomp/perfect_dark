@@ -906,7 +906,9 @@ u8 func0425_outro[] = {
 	label(0x02)
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
+#if VERSION < VERSION_PAL_FINAL
 	hide_object(OBJ_PLANE)
+#endif
 	end_level
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
