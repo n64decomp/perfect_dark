@@ -6902,18 +6902,12 @@ void func0f0246e4(u8 *arg0)
 	var80062a48[2] = arg0[2];
 }
 
-GLOBAL_ASM(
-glabel func0f024708
-/*  f024708:	3c028006 */ 	lui	$v0,%hi(var80062a48)
-/*  f02470c:	24422a48 */ 	addiu	$v0,$v0,%lo(var80062a48)
-/*  f024710:	904e0000 */ 	lbu	$t6,0x0($v0)
-/*  f024714:	a08e0000 */ 	sb	$t6,0x0($a0)
-/*  f024718:	904f0001 */ 	lbu	$t7,0x1($v0)
-/*  f02471c:	a08f0001 */ 	sb	$t7,0x1($a0)
-/*  f024720:	90580002 */ 	lbu	$t8,0x2($v0)
-/*  f024724:	03e00008 */ 	jr	$ra
-/*  f024728:	a0980002 */ 	sb	$t8,0x2($a0)
-);
+void func0f024708(u8 *arg0)
+{
+	arg0[0] = var80062a48[0];
+	arg0[1] = var80062a48[1];
+	arg0[2] = var80062a48[2];
+}
 
 void func0f02472c(void)
 {
