@@ -528,7 +528,9 @@ u8 func0402_outro_from_menu[] = {
 	set_ailist(0x03, GAILIST_IDLE)
 	set_ailist(CHR_SKEDAR, GAILIST_IDLE)
 	set_ailist(CHR_ELVIS_OUTRO, GAILIST_IDLE)
+#if VERSION >= VERSION_NTSC_FINAL
 	set_ailist(CHR_TRENT, GAILIST_IDLE)
+#endif
 	hide_chr(CHR_ROBOT1)
 	hide_chr(CHR_ROBOT2)
 	hide_chr(CHR_ROBOT3)
