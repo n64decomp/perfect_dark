@@ -5,7 +5,7 @@
 
 u32 func0003c4d0(void);
 u32 func0003c56c(void);
-u32 func0003c610(void);
+u32 alEvtqPostEvent(void);
 u32 func0003c7c0(void);
 u32 func0003c900(void);
 u32 func0003c970(void);

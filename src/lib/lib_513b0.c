@@ -242,7 +242,7 @@ glabel func000513b0
 /*    516d0:	8fa40044 */ 	lw	$a0,0x44($sp)
 .L000516d4:
 /*    516d4:	2605000c */ 	addiu	$a1,$s0,0xc
-/*    516d8:	0c012c5c */ 	jal	func0004b170
+/*    516d8:	0c012c5c */ 	jal	alCopy
 /*    516dc:	24060020 */ 	addiu	$a2,$zero,0x20
 /*    516e0:	8fab0044 */ 	lw	$t3,0x44($sp)
 /*    516e4:	24190010 */ 	addiu	$t9,$zero,0x10

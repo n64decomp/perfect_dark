@@ -135,7 +135,7 @@ glabel __osContRamWrite
 /*    4b774:	24060020 */ 	addiu	$a2,$zero,0x20
 /*    4b778:	00594025 */ 	or	$t0,$v0,$t9
 /*    4b77c:	a2080005 */ 	sb	$t0,0x5($s0)
-/*    4b780:	0c012c5c */ 	jal	func0004b170
+/*    4b780:	0c012c5c */ 	jal	alCopy
 /*    4b784:	8fa40074 */ 	lw	$a0,0x74($sp)
 /*    4b788:	24040001 */ 	addiu	$a0,$zero,0x1
 /*    4b78c:	0c012a34 */ 	jal	__osSiRawStartDma
@@ -319,7 +319,7 @@ glabel __osContRamRead
 /*    4ba18:	10000006 */ 	beqz	$zero,.L0004ba34
 /*    4ba1c:	24130004 */ 	addiu	$s3,$zero,0x4
 .L0004ba20:
-/*    4ba20:	0c012c5c */ 	jal	func0004b170
+/*    4ba20:	0c012c5c */ 	jal	alCopy
 /*    4ba24:	24060020 */ 	addiu	$a2,$zero,0x20
 /*    4ba28:	10000003 */ 	beqz	$zero,.L0004ba38
 /*    4ba2c:	24010004 */ 	addiu	$at,$zero,0x4

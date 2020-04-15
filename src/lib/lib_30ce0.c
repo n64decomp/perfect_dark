@@ -306,7 +306,7 @@ glabel func00030ce0
 /*    31124:	3c058006 */ 	lui	$a1,%hi(var8005f114)
 /*    31128:	8ca5f114 */ 	lw	$a1,%lo(var8005f114)($a1)
 /*    3112c:	8fa40034 */ 	lw	$a0,0x34($sp)
-/*    31130:	0c00c5dc */ 	jal	func00031770
+/*    31130:	0c00c5dc */ 	jal	alLink
 /*    31134:	24a50004 */ 	addiu	$a1,$a1,4
 /*    31138:	8faa0034 */ 	lw	$t2,0x34($sp)
 /*    3113c:	ad400008 */ 	sw	$zero,0x8($t2)
@@ -626,12 +626,12 @@ glabel func00031590
 /*    315a4:	11e0000d */ 	beqz	$t7,.L000315dc
 /*    315a8:	afaf001c */ 	sw	$t7,0x1c($sp)
 .L000315ac:
-/*    315ac:	0c00c5e9 */ 	jal	func000317a4
+/*    315ac:	0c00c5e9 */ 	jal	alUnlink
 /*    315b0:	8fa4001c */ 	lw	$a0,0x1c($sp)
 /*    315b4:	3c058006 */ 	lui	$a1,%hi(var8005f114)
 /*    315b8:	8ca5f114 */ 	lw	$a1,%lo(var8005f114)($a1)
 /*    315bc:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*    315c0:	0c00c5dc */ 	jal	func00031770
+/*    315c0:	0c00c5dc */ 	jal	alLink
 /*    315c4:	24a50004 */ 	addiu	$a1,$a1,4
 /*    315c8:	3c188006 */ 	lui	$t8,%hi(var8005f114)
 /*    315cc:	8f18f114 */ 	lw	$t8,%lo(var8005f114)($t8)
@@ -653,12 +653,12 @@ glabel func000315f4
 /*    315f4:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*    315f8:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*    315fc:	afa40018 */ 	sw	$a0,0x18($sp)
-/*    31600:	0c00c5e9 */ 	jal	func000317a4
+/*    31600:	0c00c5e9 */ 	jal	alUnlink
 /*    31604:	8fa40018 */ 	lw	$a0,0x18($sp)
 /*    31608:	3c058006 */ 	lui	$a1,%hi(var8005f114)
 /*    3160c:	8ca5f114 */ 	lw	$a1,%lo(var8005f114)($a1)
 /*    31610:	8fa40018 */ 	lw	$a0,0x18($sp)
-/*    31614:	0c00c5dc */ 	jal	func00031770
+/*    31614:	0c00c5dc */ 	jal	alLink
 /*    31618:	24a50014 */ 	addiu	$a1,$a1,20
 /*    3161c:	10000001 */ 	beqz	$zero,.L00031624
 /*    31620:	00000000 */ 	sll	$zero,$zero,0x0
@@ -767,7 +767,7 @@ glabel func000316d0
 );
 
 GLOBAL_ASM(
-glabel func00031770
+glabel alLink
 /*    31770:	8cae0000 */ 	lw	$t6,0x0($a1)
 /*    31774:	ac8e0000 */ 	sw	$t6,0x0($a0)
 /*    31778:	ac850004 */ 	sw	$a1,0x4($a0)
@@ -785,7 +785,7 @@ glabel func00031770
 );
 
 GLOBAL_ASM(
-glabel func000317a4
+glabel alUnlink
 /*    317a4:	8c8e0000 */ 	lw	$t6,0x0($a0)
 /*    317a8:	11c00004 */ 	beqz	$t6,.L000317bc
 /*    317ac:	00000000 */ 	sll	$zero,$zero,0x0

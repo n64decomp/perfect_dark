@@ -14,7 +14,7 @@
 #include "types.h"
 
 GLOBAL_ASM(
-glabel func00048650
+glabel osSetIntMask
 /*    48650:	400c6000 */ 	mfc0	$t4,$12
 /*    48654:	3182ff01 */ 	andi	$v0,$t4,0xff01
 /*    48658:	3c088006 */ 	lui	$t0,%hi(var8005cf70)
