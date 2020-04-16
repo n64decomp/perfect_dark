@@ -3,7 +3,7 @@
 #include <ultra64.h>
 #include "types.h"
 
-s32 menudialog0010cd0c(u32, u32, u32 *);
+void menudialogRetryMission(u32 operation, struct menu_dialog *dialog, struct menuthing **thingptr);
 s32 menudialog0010dd28(u32, u32, u32 *);
 s32 menudialog0010de58(u32, u32, u32 *);
 s32 menuhandlerDeclineMission(u32 operation, struct menu_item *item, s32 *value);

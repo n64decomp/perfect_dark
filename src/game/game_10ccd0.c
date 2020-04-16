@@ -46,105 +46,59 @@ s32 menuhandlerDeclineMission(u32 operation, struct menu_item *item, s32 *value)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel menudialog0010cd0c
-/*  f10cd0c:	27bdffc0 */ 	addiu	$sp,$sp,-64
-/*  f10cd10:	24010066 */ 	addiu	$at,$zero,0x66
-/*  f10cd14:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f10cd18:	afa40040 */ 	sw	$a0,0x40($sp)
-/*  f10cd1c:	afa60048 */ 	sw	$a2,0x48($sp)
-/*  f10cd20:	1481004c */ 	bne	$a0,$at,.L0f10ce54
-/*  f10cd24:	00a03825 */ 	or	$a3,$a1,$zero
-/*  f10cd28:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
-/*  f10cd2c:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f10cd30:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0x4f8)
-/*  f10cd34:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f10cd38:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f10cd3c:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f10cd40:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f10cd44:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f10cd48:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f10cd4c:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f10cd50:	00581021 */ 	addu	$v0,$v0,$t8
-/*  f10cd54:	8c42e4f8 */ 	lw	$v0,%lo(g_MenuStack+0x4f8)($v0)
-/*  f10cd58:	5040003f */ 	beqzl	$v0,.L0f10ce58
-/*  f10cd5c:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f10cd60:	8c440000 */ 	lw	$a0,0x0($v0)
-/*  f10cd64:	8fb90048 */ 	lw	$t9,0x48($sp)
-/*  f10cd68:	50a40007 */ 	beql	$a1,$a0,.L0f10cd88
-/*  f10cd6c:	8f240000 */ 	lw	$a0,0x0($t9)
-/*  f10cd70:	8ca30014 */ 	lw	$v1,0x14($a1)
-/*  f10cd74:	50600038 */ 	beqzl	$v1,.L0f10ce58
-/*  f10cd78:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f10cd7c:	54640036 */ 	bnel	$v1,$a0,.L0f10ce58
-/*  f10cd80:	8fa40040 */ 	lw	$a0,0x40($sp)
-/*  f10cd84:	8f240000 */ 	lw	$a0,0x0($t9)
-.L0f10cd88:
-/*  f10cd88:	00002825 */ 	or	$a1,$zero,$zero
-/*  f10cd8c:	90880003 */ 	lbu	$t0,0x3($a0)
-/*  f10cd90:	5100000b */ 	beqzl	$t0,.L0f10cdc0
-/*  f10cd94:	8089000a */ 	lb	$t1,0xa($a0)
-/*  f10cd98:	afa4003c */ 	sw	$a0,0x3c($sp)
-/*  f10cd9c:	afa00038 */ 	sw	$zero,0x38($sp)
-/*  f10cda0:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10cda4:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f10cda8:	0fc3cdb7 */ 	jal	menuPopDialog
-/*  f10cdac:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10cdb0:	8fa4003c */ 	lw	$a0,0x3c($sp)
-/*  f10cdb4:	8fa50038 */ 	lw	$a1,0x38($sp)
-/*  f10cdb8:	8fa70044 */ 	lw	$a3,0x44($sp)
-/*  f10cdbc:	8089000a */ 	lb	$t1,0xa($a0)
-.L0f10cdc0:
-/*  f10cdc0:	a0800003 */ 	sb	$zero,0x3($a0)
-/*  f10cdc4:	3c0b8007 */ 	lui	$t3,%hi(g_MpPlayerNum)
-/*  f10cdc8:	11200002 */ 	beqz	$t1,.L0f10cdd4
-/*  f10cdcc:	27a60028 */ 	addiu	$a2,$sp,0x28
-/*  f10cdd0:	24050001 */ 	addiu	$a1,$zero,0x1
-.L0f10cdd4:
-/*  f10cdd4:	908a0002 */ 	lbu	$t2,0x2($a0)
-/*  f10cdd8:	a080000a */ 	sb	$zero,0xa($a0)
-/*  f10cddc:	11400016 */ 	beqz	$t2,.L0f10ce38
-/*  f10cde0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10cde4:	8d6b1448 */ 	lw	$t3,%lo(g_MpPlayerNum)($t3)
-/*  f10cde8:	3c02800a */ 	lui	$v0,%hi(g_MenuStack+0x4f8)
-/*  f10cdec:	000b60c0 */ 	sll	$t4,$t3,0x3
-/*  f10cdf0:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f10cdf4:	000c6080 */ 	sll	$t4,$t4,0x2
-/*  f10cdf8:	018b6021 */ 	addu	$t4,$t4,$t3
-/*  f10cdfc:	000c60c0 */ 	sll	$t4,$t4,0x3
-/*  f10ce00:	018b6023 */ 	subu	$t4,$t4,$t3
-/*  f10ce04:	000c6100 */ 	sll	$t4,$t4,0x4
-/*  f10ce08:	004c1021 */ 	addu	$v0,$v0,$t4
-/*  f10ce0c:	8c42e4f8 */ 	lw	$v0,%lo(g_MenuStack+0x4f8)($v0)
-/*  f10ce10:	10400009 */ 	beqz	$v0,.L0f10ce38
-/*  f10ce14:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10ce18:	8ce30014 */ 	lw	$v1,0x14($a3)
-/*  f10ce1c:	10600006 */ 	beqz	$v1,.L0f10ce38
-/*  f10ce20:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10ce24:	8c4d0000 */ 	lw	$t5,0x0($v0)
-/*  f10ce28:	146d0003 */ 	bne	$v1,$t5,.L0f10ce38
-/*  f10ce2c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f10ce30:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f10ce34:	a0800002 */ 	sb	$zero,0x2($a0)
-.L0f10ce38:
-/*  f10ce38:	10a00006 */ 	beqz	$a1,.L0f10ce54
-/*  f10ce3c:	24040006 */ 	addiu	$a0,$zero,0x6
-/*  f10ce40:	8ce50008 */ 	lw	$a1,0x8($a3)
-/*  f10ce44:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f10ce48:	0fc40cfe */ 	jal	menuhandlerAcceptMission
-/*  f10ce4c:	24a50014 */ 	addiu	$a1,$a1,0x14
-/*  f10ce50:	8fa70044 */ 	lw	$a3,0x44($sp)
-.L0f10ce54:
-/*  f10ce54:	8fa40040 */ 	lw	$a0,0x40($sp)
-.L0f10ce58:
-/*  f10ce58:	00e02825 */ 	or	$a1,$a3,$zero
-/*  f10ce5c:	0fc40d82 */ 	jal	menudialog00103608
-/*  f10ce60:	8fa60048 */ 	lw	$a2,0x48($sp)
-/*  f10ce64:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f10ce68:	27bd0040 */ 	addiu	$sp,$sp,0x40
-/*  f10ce6c:	03e00008 */ 	jr	$ra
-/*  f10ce70:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void menudialogRetryMission(u32 operation, struct menu_dialog *dialog, struct menuthing **thingptr)
+{
+	switch (operation) {
+	case MENUOP_102:
+		{
+			/**
+			 * NTSC Final adds this check to make sure the given dialog is
+			 * either the one being displayed or its sibling. This most likely
+			 * fixes a bug - perhaps there is some way that this handler is run
+			 * when the dialog is not on screen?
+			 */
+#if VERSION >= VERSION_NTSC_FINAL
+			if (g_MenuStack[g_MpPlayerNum].curframe) {
+				if (dialog == g_MenuStack[g_MpPlayerNum].curframe->dialog
+						|| (dialog->nextsibling && dialog->nextsibling == g_MenuStack[g_MpPlayerNum].curframe->dialog)) {
+#endif
+					struct menuthing *thing = *thingptr;
+					bool pass = false;
+
+					if (thing->unk03) {
+						menuPopDialog();
+						menuPopDialog();
+					}
+
+					thing->unk03 = 0;
+
+					if (thing->unk0a) {
+						pass = true;
+					}
+
+					thing->unk0a = 0;
+
+					if (thing->unk02
+							&& g_MenuStack[g_MpPlayerNum].curframe
+							&& dialog->nextsibling
+							&& dialog->nextsibling == g_MenuStack[g_MpPlayerNum].curframe->dialog) {
+						pass = true;
+						thing->unk02 = 0;
+					}
+
+					if (pass) {
+						s32 values[4];
+						menuhandlerAcceptMission(MENUOP_SET, &dialog->items[1], values);
+					}
+#if VERSION >= VERSION_NTSC_FINAL
+				}
+			}
+#endif
+		}
+	}
+
+	menudialog00103608(operation, dialog, thingptr);
+}
 
 GLOBAL_ASM(
 glabel func0f10ce74

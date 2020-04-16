@@ -5600,4 +5600,15 @@ struct var800a4cf0 {
 	f32 unk0c;
 };
 
+struct menuthing {
+	u8 unk00;
+	u8 unk01;
+	u8 unk02;
+	u8 unk03;
+	u32 unk04;
+	u8 unk08;
+	u8 unk09;
+	s8 unk0a;
+};
+
 #endif

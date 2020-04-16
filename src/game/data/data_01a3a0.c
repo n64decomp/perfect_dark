@@ -283,7 +283,7 @@ struct menu_dialog menudialog_1b5c0 = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f10ce74,
 	menuitems_1b570,
-	menudialog0010cd0c,
+	menudialogRetryMission,
 	0x0000000c,
 	&menudialog_briefing,
 };
@@ -303,7 +303,7 @@ struct menu_dialog menudialog_promptnextmission = {
 	MENUDIALOGTYPE_DEFAULT,
 	(u32)&func0f10cf2c,
 	menuitems_promptnextmission,
-	menudialog0010cd0c,
+	menudialogRetryMission,
 	0x0000000c,
 	&menudialog_briefing,
 };

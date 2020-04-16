@@ -839,7 +839,7 @@ char *soloMenuTitleStageOverview(struct menu_dialog *dialog)
 	return g_StringPointer;
 }
 
-s32 menudialog00103608(u32 operation, struct menu_dialog *dialog, struct menustackitem *item)
+s32 menudialog00103608(u32 operation, struct menu_dialog *dialog, struct menuthing **thingptr)
 {
 	switch (operation) {
 	case MENUOP_100:
