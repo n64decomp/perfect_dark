@@ -1108,7 +1108,7 @@ struct eyespy {
 	/*0x30*/ f32 sinverta;
 	/*0x34*/ u8 init;
 	/*0x35*/ u8 initialised;
-	/*0x36*/ u8 startuptimer60;
+	/*0x36*/ s8 startuptimer60;
 	/*0x37*/ s8 active;
 	/*0x38*/ u8 buttonheld;
 	/*0x39*/ u8 camerabuttonheld;
@@ -1121,7 +1121,7 @@ struct eyespy {
 	/*0x5c*/ f32 oldground;
 	/*0x60*/ f32 height; // height above ground - 80 to 160
 	/*0x64*/ f32 gravity;
-	/*0x68*/ u8 camerashuttertime;
+	/*0x68*/ s8 camerashuttertime;
 	/*0x69*/ u8 hit;
 	/*0x6a*/ u8 opendoor;
 	/*0x6b*/ u8 mode;
@@ -1698,10 +1698,10 @@ struct player {
 	/*0x00d8*/ bool isdead;
 	/*0x00dc*/ f32 bondhealth;
 	/*0x00e0*/ u32 unk00e0;
-	/*0x00e4*/ u32 unk00e4;
-	/*0x00e8*/ u32 unk00e8;
-	/*0x00ec*/ u32 unk00ec;
-	/*0x00f0*/ u32 unk00f0;
+	/*0x00e4*/ f32 unk00e4;
+	/*0x00e8*/ f32 unk00e8;
+	/*0x00ec*/ f32 unk00ec;
+	/*0x00f0*/ f32 unk00f0;
 	/*0x00f4*/ u32 unk00f4;
 	/*0x00f8*/ u32 unk00f8;
 	/*0x00fc*/ u32 unk00fc;
@@ -1797,8 +1797,8 @@ struct player {
 	/*0x025c*/ u32 unk025c;
 	/*0x0260*/ u32 unk0260;
 	/*0x0264*/ u32 unk0264;
-	/*0x0268*/ u32 unk0268;
-	/*0x026c*/ u32 unk026c;
+	/*0x0268*/ bool eyesshut;
+	/*0x026c*/ f32 eyesshutfrac;
 	/*0x0270*/ u32 unk0270;
 	/*0x0274*/ u32 unk0274;
 	/*0x0278*/ u32 unk0278;
@@ -2169,7 +2169,7 @@ struct player {
 	/*0x1922*/ u8 invincible;
 	/*0x1924*/ u32 healthdamagetype;
 	/*0x1928*/ f32 bondleandown;
-	/*0x192c*/ u32 mpmenuon;
+	/*0x192c*/ bool mpmenuon;
 	/*0x1930*/ u32 mpmenumode;
 	/*0x1934*/ u32 mpquitconfirm;
 	/*0x1938*/ u32 mpjoywascentre;
@@ -2202,6 +2202,8 @@ struct player {
 	/*0x19a8*/ u32 unk19a8;
 	/*0x19ac*/ s32 crouchoffsetreal;
 	/*0x19b0*/ s16 floorroom;
+	/*0x19b2*/ u8 unk19b2;
+	/*0x19b3*/ u8 dostartnewlife;
 	/*0x19b4*/ f32 crouchoffsetsmall;
 	/*0x19b8*/ s32 crouchoffsetrealsmall; // 0 = standing, -90 = squatting, can be between during transition
 	/*0x19bc*/ f32 vv_height;
@@ -2301,10 +2303,10 @@ struct player {
 	/*0x1bfd*/ u8 teleporttime;
 	/*0x1bfe*/ s16 teleportpad;
 	/*0x1c00*/ u16 teleportcamerapad;
-	/*0x1c04*/ u32 training;
-	/*0x1c08*/ u32 deadtimer;
-	/*0x1c0c*/ u32 coopcanrestart;
-	/*0x1c10*/ u32 unk1c10;
+	/*0x1c04*/ u32 unk1c04;
+	/*0x1c08*/ u32 training;
+	/*0x1c0c*/ s32 deadtimer;
+	/*0x1c10*/ bool coopcanrestart;
 	/*0x1c14*/ s32 foot;
 	/*0x1c18*/ f32 footstepdist;
 	/*0x1c1c*/ u32 unk1c1c;
@@ -2323,6 +2325,7 @@ struct player {
 	/*0x1c50*/ u32 unk1c50;
 	/*0x1c54*/ u32 unk1c54;
 	/*0x1c58*/ f32 unk1c58;
+	/*0x1c5c*/ f32 stealhealth;
 };
 
 struct stagesetup00 {

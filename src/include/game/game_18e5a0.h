@@ -6,7 +6,7 @@
 u32 func0f18e5ac(void);
 s32 teamGetIndex(s32 team);
 Gfx *radarDrawDot(Gfx *gdl, struct prop *prop, struct coord *dist, u32 colour, s32 arg4, s32 arg5);
-u32 func0f18f874(void);
+Gfx *func0f18f874(Gfx *gdl);
 Gfx *radarDrawProps(Gfx *gdl);
 
 #endif

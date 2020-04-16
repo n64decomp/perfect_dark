@@ -1586,7 +1586,7 @@ glabel func0f142d74
 );
 
 GLOBAL_ASM(
-glabel func0f142e00
+glabel hudRenderEyespyView
 /*  f142e00:	27bdfed0 */ 	addiu	$sp,$sp,-304
 /*  f142e04:	afbf007c */ 	sw	$ra,0x7c($sp)
 /*  f142e08:	afb70074 */ 	sw	$s7,0x74($sp)
@@ -2298,7 +2298,7 @@ glabel func0f143678
 );
 
 GLOBAL_ASM(
-glabel func0f143888
+glabel hudRenderEyespyUi
 /*  f143888:	27bdfbf8 */ 	addiu	$sp,$sp,-1032
 /*  f14388c:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f143890:	afb5004c */ 	sw	$s5,0x4c($sp)
@@ -6396,9 +6396,9 @@ glabel func0f1472fc
 /*  f14756c:	27bd0060 */ 	addiu	$sp,$sp,0x60
 );
 
-u32 func0f147570(u32 arg)
+Gfx *func0f147570(Gfx *gdl)
 {
-	return arg;
+	return gdl;
 }
 
 GLOBAL_ASM(
@@ -6999,7 +6999,7 @@ glabel func0f147cf8
 );
 
 GLOBAL_ASM(
-glabel func0f147e24
+glabel hudRenderHorizonScanner
 /*  f147e24:	27bdfe68 */ 	addiu	$sp,$sp,-408
 /*  f147e28:	afbf0054 */ 	sw	$ra,0x54($sp)
 /*  f147e2c:	afb20050 */ 	sw	$s2,0x50($sp)

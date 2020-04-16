@@ -100,7 +100,7 @@ s32 func0f0dcdbc(void)
 		&& var80075d60 == 2
 		&& currentPlayerGetSight() == SIGHT_ZOOM
 		&& g_Vars.currentplayer->cameramode != CAMERAMODE_2
-		&& g_Vars.currentplayer->cameramode != CAMERAMODE_1;
+		&& g_Vars.currentplayer->cameramode != CAMERAMODE_CUTSCENE;
 }
 
 GLOBAL_ASM(

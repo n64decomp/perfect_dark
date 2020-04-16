@@ -17,8 +17,8 @@ void func0f009eac(void);
 u32 func0f00a168(void);
 u32 func0f00a1f8(void);
 u32 func0f00a444(void);
-u32 func0f00a490(void);
-u32 func0f00a940(void);
+Gfx *func0f00a490(Gfx *gdl);
+Gfx *hudRenderGasIfEnabled(Gfx *gdl);
 u32 func0f00b180(void);
 
 #endif

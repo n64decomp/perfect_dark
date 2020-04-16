@@ -14761,9 +14761,9 @@ glabel func0f0fd570
 /*  f0fd64c:	27bd0008 */ 	addiu	$sp,$sp,0x8
 );
 
-bool currentPlayerIsInTraining(void)
+bool currentPlayerGetUnk1c04(void)
 {
-	return g_Vars.currentplayer->training;
+	return g_Vars.currentplayer->unk1c04;
 }
 
 struct menu_item menuitems_damagedcontrollerpak[] = {

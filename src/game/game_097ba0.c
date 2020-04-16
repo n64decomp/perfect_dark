@@ -22523,7 +22523,7 @@ glabel func0f0a9fc0
 );
 
 GLOBAL_ASM(
-glabel func0f0aa86c
+glabel hudRenderAmmo
 /*  f0aa86c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f0aa870:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
 /*  f0aa874:	27bdfed0 */ 	addiu	$sp,$sp,-304

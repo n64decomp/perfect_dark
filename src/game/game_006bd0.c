@@ -4205,7 +4205,7 @@ glabel func0f00a490
 );
 
 GLOBAL_ASM(
-glabel func0f00a940
+glabel hudRenderGasIfEnabled
 /*  f00a940:	27bdfef0 */ 	addiu	$sp,$sp,-272
 /*  f00a944:	3c013f80 */ 	lui	$at,0x3f80
 /*  f00a948:	44810000 */ 	mtc1	$at,$f0

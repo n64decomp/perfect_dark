@@ -4993,7 +4993,7 @@ void dtBegin(void)
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_SUCCESS);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_FAILURE);
 	chrSetStageFlag(NULL, ciGetStageFlagByDeviceIndex(func0f1a1d68(var80088ad8)));
-	g_Vars.currentplayer->deadtimer = 1;
+	g_Vars.currentplayer->training = true;
 	playersSetPassiveMode(false);
 	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
 }
@@ -5006,7 +5006,7 @@ void dtEnd(void)
 	chrSetStageFlag(NULL, STAGEFLAG_CI_DEVICE_ABORTING);
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_DEVICE_FAILURE);
 	chrUnsetStageFlag(NULL, ciGetStageFlagByDeviceIndex(func0f1a1d68(var80088ad8)));
-	g_Vars.currentplayer->deadtimer = 0;
+	g_Vars.currentplayer->training = false;
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
 	func0f0bb69c();
 	g_Vars.currentplayer->bondhealth = 1;
@@ -5242,7 +5242,7 @@ void htBegin(void)
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
 	chrSetStageFlag(NULL, func0f1a25c0(htGetIndexBySlot(var80088bb4)));
 	func0f115a48(&setup00->unk200, &setup00->unk310);
-	g_Vars.currentplayer->deadtimer = 1;
+	g_Vars.currentplayer->training = true;
 	playersSetPassiveMode(false);
 	chrSetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
 }
@@ -5260,7 +5260,7 @@ void htEnd(void)
 	chrUnsetStageFlag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
 	chrUnsetStageFlag(NULL, func0f1a25c0(htGetIndexBySlot(var80088bb4)));
 	func0f115a78(&setup00->unk200, &setup00->unk310);
-	g_Vars.currentplayer->deadtimer = 0;
+	g_Vars.currentplayer->training = false;
 	roomGetProps(rooms, propnums, 256);
 	propnum = &propnums[0];
 

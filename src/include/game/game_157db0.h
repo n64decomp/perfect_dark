@@ -16,7 +16,7 @@ u32 func0f159f1c(void);
 u32 func0f15a0fc(void);
 u32 func0f15a2c4(void);
 u32 func0f15a6f4(void);
-u32 func0f15b114(void);
+Gfx *func0f15b114(Gfx *gdl);
 u32 func0f15b1c4(void);
 s32 stageGetIndex2(s32 stagenum);
 f32 func0f15b274(s32 portal);

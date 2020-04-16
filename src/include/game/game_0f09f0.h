@@ -78,7 +78,7 @@ u32 func0f0fd320(void);
 void func0f0fd494(struct coord *pos);
 void func0f0fd548(s32 arg0);
 u32 func0f0fd570(void);
-bool currentPlayerIsInTraining(void);
+bool currentPlayerGetUnk1c04(void);
 
 extern const char var7f1b2658[];
 extern const char var7f1b265c[];

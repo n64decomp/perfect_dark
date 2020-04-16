@@ -14,16 +14,16 @@ u32 func0f142774(void);
 u32 func0f14298c(void);
 u32 func0f142bf0(void);
 u32 func0f142d74(void);
-u32 func0f142e00(void);
+Gfx *hudRenderEyespyView(Gfx *gdl, s32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5);
 u32 func0f143678(void);
-u32 func0f143888(void);
-u32 func0f1472fc(void);
-u32 func0f147578(void);
+Gfx *hudRenderEyespyUi(Gfx *gdl);
+Gfx *func0f1472fc(Gfx *gdl);
+Gfx *func0f147578(Gfx *gdl);
 u32 func0f147cf8(void);
-u32 func0f147e24(void);
-u32 func0f14886c(void);
+Gfx *hudRenderHorizonScanner(Gfx *gdl);
+Gfx *func0f14886c(Gfx *gdl);
 u32 func0f148b40(void);
 u32 func0f148b6c(void);
-u32 func0f147570(u32 arg);
+Gfx *func0f147570(Gfx *gdl);
 
 #endif

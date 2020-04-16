@@ -27,7 +27,7 @@ void func0f0df364(void);
 void currentPlayerUnsetFlag(u32 flag);
 void currentPlayerSetFlag(u32 flag);
 void hudmsgRemoveForDeadPlayer(s32 playernum);
-u32 func0f0dfad0(void);
+Gfx *func0f0dfad0(Gfx *gdl);
 void hudmsgsReset(void);
 
 #endif

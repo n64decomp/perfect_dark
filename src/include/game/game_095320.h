@@ -14,7 +14,7 @@ u32 objectiveGetStatus(u32 arg0);
 u32 objectiveIsAllComplete(void);
 u32 func0f095bf4(void);
 u32 func0f095c04(void);
-u32 func0f095d64(void);
+void func0f095d64(void);
 void objectiveCheckRoomEntered(s32 currentroom);
 void objectiveCheckMultiroomEntered(s32 arg0, s16 *requiredrooms);
 void objectiveCheckHolograph(s32 arg0);
