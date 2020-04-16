@@ -45,7 +45,7 @@ u32 func0f117b4c(void);
 u32 func0f117c0c(void);
 u32 func0f117c80(void);
 u32 func0f117ce4(void);
-u32 func0f117d90(void);
+u32 func0f117d90(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 *arg6);
 u32 func0f117e00(void);
 u32 func0f117e58(void);
 u32 func0f117ec0(void);
