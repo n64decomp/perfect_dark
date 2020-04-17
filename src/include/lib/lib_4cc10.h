@@ -3,6 +3,6 @@
 #include <ultra64.h>
 #include "types.h"
 
-u32 func0004cc10(void);
+u32 func0004cc10(u32 arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *arg5);
 
 #endif

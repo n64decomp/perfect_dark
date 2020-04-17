@@ -330,12 +330,12 @@ glabel func0f1165f8
 /*  f116614:	24010020 */ 	addiu	$at,$zero,0x20
 /*  f116618:	14410005 */ 	bne	$v0,$at,.L0f116630
 /*  f11661c:	8fa4001c */ 	lw	$a0,0x1c($sp)
-/*  f116620:	0fc5db70 */ 	jal	func0f176dc0
+/*  f116620:	0fc5db70 */ 	jal	align32
 /*  f116624:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f116628:	10000004 */ 	beqz	$zero,.L0f11663c
 /*  f11662c:	00401825 */ 	or	$v1,$v0,$zero
 .L0f116630:
-/*  f116630:	0fc5db69 */ 	jal	func0f176da4
+/*  f116630:	0fc5db69 */ 	jal	align16
 /*  f116634:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f116638:	00401825 */ 	or	$v1,$v0,$zero
 .L0f11663c:
@@ -2101,38 +2101,42 @@ u32 func0f117e00(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4)
 	return 0;
 }
 
-GLOBAL_ASM(
-glabel func0f117e58
-/*  f117e58:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f117e5c:	afa50024 */ 	sw	$a1,0x24($sp)
-/*  f117e60:	30aeffff */ 	andi	$t6,$a1,0xffff
-/*  f117e64:	01c02825 */ 	or	$a1,$t6,$zero
-/*  f117e68:	10800008 */ 	beqz	$a0,.L0f117e8c
-/*  f117e6c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f117e70:	8faf0030 */ 	lw	$t7,0x30($sp)
-/*  f117e74:	8fb80034 */ 	lw	$t8,0x34($sp)
-/*  f117e78:	afaf0010 */ 	sw	$t7,0x10($sp)
-/*  f117e7c:	0c013304 */ 	jal	func0004cc10
-/*  f117e80:	afb80014 */ 	sw	$t8,0x14($sp)
-/*  f117e84:	1000000b */ 	beqz	$zero,.L0f117eb4
-/*  f117e88:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f117e8c:
-/*  f117e8c:	3c198007 */ 	lui	$t9,%hi(var80075cd0)
-/*  f117e90:	8f395cd0 */ 	lw	$t9,%lo(var80075cd0)($t9)
-/*  f117e94:	8fa80034 */ 	lw	$t0,0x34($sp)
-/*  f117e98:	24020080 */ 	addiu	$v0,$zero,0x80
-/*  f117e9c:	13200004 */ 	beqz	$t9,.L0f117eb0
-/*  f117ea0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f117ea4:	ad000000 */ 	sw	$zero,0x0($t0)
-/*  f117ea8:	10000001 */ 	beqz	$zero,.L0f117eb0
-/*  f117eac:	00001025 */ 	or	$v0,$zero,$zero
-.L0f117eb0:
-/*  f117eb0:	8fbf001c */ 	lw	$ra,0x1c($sp)
-.L0f117eb4:
-/*  f117eb4:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f117eb8:	03e00008 */ 	jr	$ra
-/*  f117ebc:	00000000 */ 	sll	$zero,$zero,0x0
-);
+u32 func0f117e58(u32 arg0, u16 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *arg5)
+{
+	if (arg0) {
+		return func0004cc10(arg0, arg1, arg2, arg3, arg4, arg5);
+	}
+
+	if (var80075cd0) {
+#if VERSION >= VERSION_NTSC_FINAL
+		*arg5 = 0;
+		return 0;
+#else
+		u8 sp64[8];
+		u32 a;
+		u16 sp56[2];
+		u32 b;
+		u16 sp44[4];
+
+		*arg5 = 0;
+		a = func0f11a504(4, 0, 0, 0, 0, align16(0x10), sp56);
+
+		if (func0f11c39c(a, 4, 1, 0x60f)) {
+			func0f118ae4(sp64, sp64 + sizeof(sp64), sp44);
+
+			if (sp56[0] == sp44[0] && sp56[1] == sp44[1]) {
+				return 0;
+			}
+
+			return 0x84;
+		}
+
+		return 0x84;
+#endif
+	}
+
+	return 0x80;
+}
 
 GLOBAL_ASM(
 glabel func0f117ec0
@@ -4774,14 +4778,14 @@ glabel func0f11a32c
 /*  f11a39c:	5580000c */ 	bnezl	$t4,.L0f11a3d0
 /*  f11a3a0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f11a3a4:	a06002be */ 	sb	$zero,0x2be($v1)
-/*  f11a3a8:	0fc5db70 */ 	jal	func0f176dc0
+/*  f11a3a8:	0fc5db70 */ 	jal	align32
 /*  f11a3ac:	afa30018 */ 	sw	$v1,0x18($sp)
 /*  f11a3b0:	00402025 */ 	or	$a0,$v0,$zero
 /*  f11a3b4:	0c0048f2 */ 	jal	malloc
 /*  f11a3b8:	24050006 */ 	addiu	$a1,$zero,0x6
 /*  f11a3bc:	8fa30018 */ 	lw	$v1,0x18($sp)
 /*  f11a3c0:	24040708 */ 	addiu	$a0,$zero,0x708
-/*  f11a3c4:	0fc5db70 */ 	jal	func0f176dc0
+/*  f11a3c4:	0fc5db70 */ 	jal	align32
 /*  f11a3c8:	ac6202c0 */ 	sw	$v0,0x2c0($v1)
 .L0f11a3cc:
 /*  f11a3cc:	8fbf0014 */ 	lw	$ra,0x14($sp)

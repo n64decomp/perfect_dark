@@ -4918,7 +4918,7 @@ GLOBAL_ASM(
 glabel func0f0e4fe0
 /*  f0e4fe0:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0e4fe4:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0e4fe8:	0fc5db69 */ 	jal	func0f176da4
+/*  f0e4fe8:	0fc5db69 */ 	jal	align16
 /*  f0e4fec:	24040d20 */ 	addiu	$a0,$zero,0xd20
 /*  f0e4ff0:	8fbf0014 */ 	lw	$ra,0x14($sp)
 /*  f0e4ff4:	27bd0018 */ 	addiu	$sp,$sp,0x18

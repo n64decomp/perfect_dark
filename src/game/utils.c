@@ -42,7 +42,7 @@ s32 func0f176d7c(void)
 	return var800845d8;
 }
 
-u32 func0f176d88(u32 arg0)
+u32 align4(u32 arg0)
 {
 	if (arg0 & 3) {
 		arg0 = (arg0 & 0xfffffffc) + 4;
@@ -51,7 +51,7 @@ u32 func0f176d88(u32 arg0)
 	return arg0;
 }
 
-u32 func0f176da4(u32 arg0)
+u32 align16(u32 arg0)
 {
 	if (arg0 & 0xf) {
 		arg0 = (arg0 & 0xfffffff0) + 0x10;
@@ -60,7 +60,7 @@ u32 func0f176da4(u32 arg0)
 	return arg0;
 }
 
-u32 func0f176dc0(u32 arg0)
+u32 align32(u32 arg0)
 {
 	if (arg0 & 0x1f) {
 		arg0 = (arg0 & 0xffffffe0) + 0x20;
@@ -78,7 +78,7 @@ glabel func0f176ddc
 /*  f176dec:	24050008 */ 	addiu	$a1,$zero,0x8
 /*  f176df0:	3c01800b */ 	lui	$at,%hi(var800ac0d0)
 /*  f176df4:	ac22c0d0 */ 	sw	$v0,%lo(var800ac0d0)($at)
-/*  f176df8:	0fc5db69 */ 	jal	func0f176da4
+/*  f176df8:	0fc5db69 */ 	jal	align16
 /*  f176dfc:	24043900 */ 	addiu	$a0,$zero,0x3900
 /*  f176e00:	afa20018 */ 	sw	$v0,0x18($sp)
 /*  f176e04:	00402025 */ 	or	$a0,$v0,$zero
