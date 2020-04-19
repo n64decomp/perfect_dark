@@ -23,8 +23,8 @@ SECTIONS
 
 	__rompos = 0;
 	.boot 0x70001000 : AT(__rompos) {
-		src/boot/boot.o (.text);
-		src/boot/boot.o (.data);
+		build/ROMID/boot/boot.o (.text);
+		build/ROMID/boot/boot.o (.data);
 	}
 	__rompos += SIZEOF(.boot);
 
@@ -40,7 +40,7 @@ SECTIONS
 	__rompos += SIZEOF(.gamedata);
 
 	.gvars 0x8008ae20 : AT(__rompos) {
-		src/gvars/gvars.o (.data);
+		build/ROMID/gvars/gvars.o (.data);
 	}
 	__rompos += SIZEOF(.gvars);
 
@@ -51,8 +51,8 @@ SECTIONS
 	__rompos += SIZEOF(.game);
 
 	.inflate 0x70200000 : AT(__rompos) {
-		src/inflate/inflate.o (.text);
-		src/inflate/inflate.o (.data);
+		build/ROMID/inflate/inflate.o (.text);
+		build/ROMID/inflate/inflate.o (.data);
 	}
 	__rompos += SIZEOF(.inflate);
 
