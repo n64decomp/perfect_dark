@@ -6,7 +6,7 @@
 u32 func0f1165d0(s8 arg0);
 u32 func0f1165f8(void);
 u32 func0f116658(s8 arg0, u32 arg1);
-u32 func0f116684(void);
+u32 func0f116684(u32 arg0);
 u32 func0f11668c(void);
 bool pakIsConnected(s32 paknum);
 u32 func0f1167b0(void);
@@ -66,7 +66,9 @@ u32 func0f1190bc(void);
 u32 func0f119298(s8 index);
 void func0f119340(u32 arg0);
 u32 func0f119368(void);
-u32 func0f119478(void);
+#if VERSION >= VERSION_NTSC_FINAL
+bool func0f119478(u32 arg0, u32 arg1, u32 *arg2);
+#endif
 u32 func0f1194e0(s8 arg0, u32 *arg1, u32 arg2);
 u32 func0f11970c(void);
 u32 func0f119da8(void);

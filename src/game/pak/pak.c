@@ -4021,37 +4021,16 @@ glabel func0f119368
 /*  f119474:	27bd0048 */ 	addiu	$sp,$sp,0x48
 );
 
-GLOBAL_ASM(
-glabel func0f119478
-/*  f119478:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f11947c:	afbf002c */ 	sw	$ra,0x2c($sp)
-/*  f119480:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f119484:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f119488:	8cc40008 */ 	lw	$a0,0x8($a2)
-/*  f11948c:	308e0fff */ 	andi	$t6,$a0,0xfff
-/*  f119490:	0fc459a1 */ 	jal	func0f116684
-/*  f119494:	01c02025 */ 	or	$a0,$t6,$zero
-/*  f119498:	240f0001 */ 	addiu	$t7,$zero,0x1
-/*  f11949c:	afaf0020 */ 	sw	$t7,0x20($sp)
-/*  f1194a0:	83a40033 */ 	lb	$a0,0x33($sp)
-/*  f1194a4:	8fa50034 */ 	lw	$a1,0x34($sp)
-/*  f1194a8:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f1194ac:	00003825 */ 	or	$a3,$zero,$zero
-/*  f1194b0:	afa20010 */ 	sw	$v0,0x10($sp)
-/*  f1194b4:	afa00014 */ 	sw	$zero,0x14($sp)
-/*  f1194b8:	afa00018 */ 	sw	$zero,0x18($sp)
-/*  f1194bc:	0fc46f15 */ 	jal	func0f11bc54
-/*  f1194c0:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f1194c4:	14400003 */ 	bnez	$v0,.L0f1194d4
-/*  f1194c8:	8fbf002c */ 	lw	$ra,0x2c($sp)
-/*  f1194cc:	10000002 */ 	beqz	$zero,.L0f1194d8
-/*  f1194d0:	24020001 */ 	addiu	$v0,$zero,0x1
-.L0f1194d4:
-/*  f1194d4:	00001025 */ 	or	$v0,$zero,$zero
-.L0f1194d8:
-/*  f1194d8:	03e00008 */ 	jr	$ra
-/*  f1194dc:	27bd0030 */ 	addiu	$sp,$sp,0x30
-);
+#if VERSION >= VERSION_NTSC_FINAL
+bool func0f119478(u32 arg0, u32 arg1, u32 *arg2)
+{
+	if (func0f11bc54(arg0, arg1, 2, 0, func0f116684(arg2[2] & 0xfff), 0, 0, 0, 1) == 0) {
+		return true;
+	}
+
+	return false;
+}
+#endif
 
 GLOBAL_ASM(
 glabel func0f1194e0
@@ -4207,6 +4186,15 @@ glabel func0f1194e0
 /*  f119708:	27bd0090 */ 	addiu	$sp,$sp,0x90
 );
 
+/**
+ * This version check is a temporary hack to get it to compile on ntsc-1.0.
+ * The function exists in both versions but in ntsc-final this function calls
+ * func0f119478 which doesn't exist in ntsc-1.0. func0f119478 has been
+ * decompiled and in ntsc-1.0 is ifdeffed out, hence why this function needs
+ * alterations specific to 1.0 to make it compile. So for now this function is
+ * nopped in ntsc-1.0.
+ */
+#if VERSION >= VERSION_NTSC_FINAL
 GLOBAL_ASM(
 glabel func0f11970c
 /*  f11970c:	27bdf850 */ 	addiu	$sp,$sp,-1968
@@ -4674,6 +4662,13 @@ glabel func0f11970c
 /*  f119da0:	03e00008 */ 	jr	$ra
 /*  f119da4:	27bd07b0 */ 	addiu	$sp,$sp,0x7b0
 );
+#else
+GLOBAL_ASM(
+glabel func0f11970c
+nop
+nop
+);
+#endif
 
 GLOBAL_ASM(
 glabel func0f119da8

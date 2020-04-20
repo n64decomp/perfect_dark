@@ -348,3 +348,4 @@ allclean:
 
 codeclean:
 	rm -f $(B_DIR)/ucode/*.bin
+	find $(B_DIR)/{boot,game,gvars,inflate,lib} -name '*.o' -delete
