@@ -59,7 +59,11 @@ const char var7f1b3d8c[] = "Pak %d -> Pak_AddOneCameraFile : Error - No Room\n";
 const char var7f1b3dc0[] = "Pak %d -> Pak_GameNoteResetSize : New=%u\n";
 const char var7f1b3dec[] = "bDoUpdate7\n";
 const char var7f1b3df8[] = "Pak_SetThisGameSetupFile -> Pak=%d, File=%d, EEPROM=%d\n";
+#if VERSION >= VERSION_NTSC_FINAL
 const char var7f1b3e30[] = "pak/pak.c";
+#else
+const char var7f1b3e30[] = "pak.c";
+#endif
 const char var7f1b3e3c[] = "Pak %d -> Pak_Dir - ERROR : Pak Not Ready\n";
 const char var7f1b3e68[] = "Pak %d -> Pak_Dir - Done - Pak_GetOffsetEOF\n";
 const char var7f1b3e98[] = "Pak %d -> Pak_Dir - Done - ekPakErrorHeaderCrcCheckFail\n";
@@ -74,6 +78,11 @@ const char var7f1b3ff0[] = "Pak Return Code = ekPakErrorHeaderCrcCheckFail";
 const char var7f1b4020[] = "Pak Return Code = ekPakErrorDataCrcCheckFail";
 const char var7f1b4050[] = "Pak Return Code = ekPakErrorDataNotValid";
 const char var7f1b407c[] = "Pak Return Code = Unknown - %d\n";
+#if VERSION < VERSION_NTSC_FINAL
+const char var7f1b407c_2[] = "Pak %d -> Pak_RepairAsBlank : Repairing as Blank, Offset=%u, pH=%x\n";
+const char var7f1b407c_3[] = "Pak %d -> Pak_RepairAsBlank -> Summing @ offset=%u, ret=%d\n";
+const char var7f1b407c_4[] = "Pak %d -> Pak_RepairAsBlank -> Fault Speads Over More Than One File - TERMINAL";
+#endif
 const char var7f1b409c[] = "Pak %d -> Pak_RepairAsBlank - St=%u, Ed=%u, Gap=%u, Blank Size=%u\n";
 const char var7f1b40e0[] = "Pak %d -> Pak_RepairAsBlank - Fatal Error at tOffset %u\n";
 const char var7f1b411c[] = "Pak %d -> Pak_ValidateVersion - Start - Game File Size = %d\n";
@@ -248,6 +257,9 @@ const char var7f1b4b04[] = "Pak_DownloadNextBlockToPackBuffer : eQuality=ekCapQu
 const char var7f1b4b54[] = "Pak : Doing Frame - Top    = %d\n";
 const char var7f1b4b78[] = "Pak : Doing Frame - Height = %d\n";
 const char var7f1b4b9c[] = "Pak : Doing Frame - Bottom = %d\n";
+#if VERSION < VERSION_NTSC_FINAL
+const char var7f1b4b9c_2[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
+#endif
 const char var7f1b4bc0[] = "Pak %d - ekPakInitStatusError_CorruptedPak\n";
 const char var7f1b4bec[] = "Pak %d - ekPakInitStatusInitGameBoy_PDGB_Check_Error\n";
 const char var7f1b4c24[] = "Pak %d - ekPakInitStatusError_DamagedPak\n";
@@ -255,7 +267,9 @@ const char var7f1b4c50[] = "Pak %d - ekPakInitStatusError_StuffedPak\n";
 const char var7f1b4c7c[] = "Pak %d - ekPakInitStatusError_StuffedAndCheckedPak\n";
 const char var7f1b4cb0[] = "Pak %d - ekPakInitStatusVoid\n";
 const char var7f1b4cd0[] = "Pak %d -> Unhandled Init Status - %d\n";
+#if VERSION >= VERSION_NTSC_FINAL
 const char var7f1b4cf8[] = "Pak %d - PakDamage_UjiWipedMyAss\n";
+#endif
 const char var7f1b4d1c[] = "-scrub";
 const char var7f1b4d24[] = "Pak %d -> Pak_PdGameBoySetRWByte - Fatal Error\n";
 const char var7f1b4d54[] = "0123456789012345678901234567890123456789";
@@ -10321,6 +10335,64 @@ glabel var7f1b4fd8
 #else
 GLOBAL_ASM(
 glabel func0f11df94
+.late_rodata
+glabel var7f1b4f6c
+.word func0f11df94+0x464 # f11e174
+glabel var7f1b4f70
+.word func0f11df94+0xd8 # f11dde8
+glabel var7f1b4f74
+.word func0f11df94+0x110 # f11de20
+glabel var7f1b4f78
+.word func0f11df94+0x140 # f11de50
+glabel var7f1b4f7c
+.word func0f11df94+0x1b4 # f11dec4
+glabel var7f1b4f80
+.word func0f11df94+0x1ec # f11defc
+glabel var7f1b4f84
+.word func0f11df94+0x20c # f11df1c
+glabel var7f1b4f88
+.word func0f11df94+0x18c # f11de9c
+glabel var7f1b4f8c
+.word func0f11df94+0x238 # f11df48
+glabel var7f1b4f90
+.word func0f11df94+0x258 # f11df68
+glabel var7f1b4f94
+.word func0f11df94+0x268 # f11df78
+glabel var7f1b4f98
+.word func0f11df94+0x464 # f11e174
+glabel var7f1b4f9c
+.word func0f11df94+0x28c # f11df9c
+glabel var7f1b4fa0
+.word func0f11df94+0x464 # f11e174
+glabel var7f1b4fa4
+.word func0f11df94+0x34c # f11e05c
+glabel var7f1b4fa8
+.word func0f11df94+0x298 # f11dfa8
+glabel var7f1b4fac
+.word func0f11df94+0x3c0 # f11e0d0
+glabel var7f1b4fb0
+.word func0f11df94+0x464 # f11e174
+glabel var7f1b4fb4
+.word func0f11df94+0x464 # f11e174
+glabel var7f1b4fb8
+.word func0f11df94+0x464 # f11e174
+glabel var7f1b4fbc
+.word func0f11df94+0x464 # f11e174
+glabel var7f1b4fc0
+.word func0f11df94+0x430 # f11e140
+glabel var7f1b4fc4
+.word func0f11df94+0x44c # f11e15c
+glabel var7f1b4fc8
+.word func0f11df94+0x464 # f11e174
+glabel var7f1b4fcc
+.word func0f11df94+0x274 # f11df84
+glabel var7f1b4fd0
+.word func0f11df94+0x280 # f11df90
+glabel var7f1b4fd4
+.word func0f11df94+0x308 # f11e018
+glabel var7f1b4fd8
+.word func0f11df94+0x340 # f11e050
+.text
 /*  f11dd10:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f11dd14:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f11dd18:	83ae0023 */ 	lb	$t6,0x23($sp)
