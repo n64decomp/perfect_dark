@@ -43,6 +43,7 @@
 	build/ROMID/lib/lib_2fc60.o (section); \
 	build/ROMID/lib/lib_30ce0.o (section); \
 	build/ROMID/lib/lib_317f0.o (section); \
+	build/ROMID/lib/lib_34030.o (section); \
 	build/ROMID/lib/lib_37650.o (section); \
 	build/ROMID/lib/lib_37b00.o (section); \
 	build/ROMID/lib/lib_38d10.o (section); \

@@ -6630,8 +6630,8 @@ glabel func0f15c920
 /*  f15c9a4:	1420fff7 */ 	bnez	$at,.L0f15c984
 /*  f15c9a8:	006a1826 */ 	xor	$v1,$v1,$t2
 .L0f15c9ac:
-/*  f15c9ac:	3c012c7b */ 	lui	$at,0x2c7b
-/*  f15c9b0:	342182c8 */ 	ori	$at,$at,0x82c8
+/*  f15c9ac:	3c012c7b */ 	lui	$at,%hi(_checksum7f15c9ac)
+/*  f15c9b0:	342182c8 */ 	ori	$at,$at,%lo(_checksum7f15c9ac)
 /*  f15c9b4:	1061000e */ 	beq	$v1,$at,.L0f15c9f0
 /*  f15c9b8:	3c027f16 */ 	lui	$v0,%hi(func0f15b908)
 /*  f15c9bc:	2442b908 */ 	addiu	$v0,$v0,%lo(func0f15b908)
@@ -6679,7 +6679,7 @@ glabel func0f15c920
 //			ptr++;
 //		}
 //
-//		if (checksum != 0x2c7b82c8) {
+//		if (checksum != CHECKSUM_7F15C9AC) {
 //			ptr = (s32 *)&func0f15b908 + 20;
 //			end = &ptr[4];
 //

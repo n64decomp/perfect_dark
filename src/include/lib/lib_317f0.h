@@ -26,16 +26,5 @@ u32 func00033ec4(void);
 u32 func00033f08(void);
 u32 func00033f24(void);
 u32 func00033f44(void);
-u32 func00034030(void);
-u32 func00034104(void);
-u32 func00034240(void);
-u32 func00034df8(void);
-u32 func00034f0c(void);
-u32 func00034fb8(void);
-u32 func00035110(void);
-u32 func00037220(void);
-u32 func00037460(void);
-u32 func00037554(void);
-u32 func0003759c(void);
 
 #endif

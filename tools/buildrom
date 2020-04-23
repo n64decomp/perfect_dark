@@ -12,8 +12,13 @@ def main():
     # of it is repeated at 0x2ea6c - 0x30a60. The truncated parts are not read
     # by the ROM; they are likely a side effect of Rare's linker copying things
     # around in the ROM.
-    write_binary(fd, 0x2ea1c, get_boot())
-    write_binary(fd, 0x30a6c, get_lib()[:0x8df0])
+    if os.environ['ROMID'] == 'ntsc-final':
+        write_binary(fd, 0x2ea1c, get_boot())
+        write_binary(fd, 0x30a6c, get_lib()[:0x8df0])
+    else:
+        write_binary(fd, 0x30a20, get_lib()[:0x52])
+        write_binary(fd, 0x2ea22, get_boot())
+        write_binary(fd, 0x30a72, get_lib()[:0x8df0])
     write_binary(fd, 0x157120, get_unknown())
 
     write_binary(fd, 0, get_header())
@@ -52,7 +57,7 @@ def get_header():
     binary.extend(b'\x00\x00\x00\x00')
     binary.extend(b'\x00\x00\x00')
     binary.extend(b'NPDE')
-    binary.extend(b'\x01')
+    binary.extend(b'\x01' if os.environ['ROMID'] in ['ntsc-beta', 'ntsc-final'] else b'\x00')
     return binary
 
 def get_rspboot():

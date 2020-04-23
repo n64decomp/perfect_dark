@@ -1,6 +1,13 @@
 #include "gamefiles.inc"
 #include "libfiles.inc"
 
+#define VERSION_NTSC_BETA  0
+#define VERSION_NTSC_1_0   1
+#define VERSION_NTSC_FINAL 2
+#define VERSION_PAL_BETA   3
+#define VERSION_PAL_FINAL  4
+#define VERSION_JAP_FINAL  5
+
 OUTPUT_ARCH (mips)
 
 SECTIONS
@@ -14,6 +21,48 @@ SECTIONS
 	_rspMicrocodeStart = 0x80059fe0;
 	_rspMicrocodeStartPlusOne = 0x80059fe1;
 	_rspMicrocodeEnd = 0x8005afe0;
+
+#if VERSION >= VERSION_NTSC_FINAL
+	_bssSegmentEnd = 0x7f1b99e0;
+	_val7f116f34 = 0x0339;
+	_val7f117634 = 0x0422;
+	_val7f1183f8 = 0x070a;
+	_val7f118a44 = 0x0801;
+	_val7f11a650 = 0x0d9e;
+	_val7f11a6c8 = 0x0da7;
+	_val7f11a88c = 0x0e0f;
+	_val7f11aa14 = 0x0e46;
+	_val7f11aae4 = 0x0e54;
+	_val7f11ad0c = 0x0ef5;
+	_val7f11ae0c = 0x0f19;
+	_val7f11aef4 = 0x0f31;
+	_val7f11b124 = 0x0f6c;
+	_val7f11b6c0 = 0x102c;
+	_val7f11bb48 = 0x112a;
+	_val7f11c1d0 = 0x1286;
+	_val7f11c378 = 0x12c1;
+	_checksum7f15c9ac = 0x2c7a82c8;
+#else
+	_bssSegmentEnd = 0x7f1b9870;
+	_val7f116f34 = 0x0336;
+	_val7f117634 = 0x041f;
+	_val7f1183f8 = 0x06fc;
+	_val7f118a44 = 0x07e0;
+	_val7f11a650 = 0x0cda;
+	_val7f11a6c8 = 0x0ce3;
+	_val7f11a88c = 0x0d4b;
+	_val7f11aa14 = 0x0d83;
+	_val7f11aae4 = 0x0d91;
+	_val7f11ad0c = 0x0e32;
+	_val7f11ae0c = 0x0e56;
+	_val7f11aef4 = 0x0e6e;
+	_val7f11b124 = 0x0ea9;
+	_val7f11b6c0 = 0x0f69;
+	_val7f11bb48 = 0x1067;
+	_val7f11c1d0 = 0x11c3;
+	_val7f11c378 = 0x11fe;
+	_checksum7f15c9ac = 0x2c7b42f8;
+#endif
 
 	_addr007e9d20 = 0x007e9d20;
 
