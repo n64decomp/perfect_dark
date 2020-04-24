@@ -2,68 +2,32 @@
 
 This repository contains a work-in-progress decompilation of Perfect Dark for the Nintendo 64.
 
-## Roadmap
+## Status
 
-Actual decompilation:
-
-| Segment         | Progress                                   |
-|-----------------|--------------------------------------------|
-| 0x1000 boot     | 206/2,068 words decompiled (9.96%)         |
-| 0x3050 lib      | 8,250/89,060 words decompiled (9.26%)      |
-| 0x4e850 inflate | 150/1,276 words decompiled (11.76%)        |
-| 0x4fc40 game    | 60,166/452,216 words decompiled (13.30%)   |
-| Total           | 68,772/544,620 words decompiled (12.63%)   |
-
-Assets:
-
-| Asset Type      | Progress                                  |
-|-----------------|-------------------------------------------|
-| Lang files      | Done                                      |
-| Setup files     | Done                                      |
-| Prop files      | To do                                     |
-| Character files | To do                                     |
-| Gun files       | To do                                     |
-| BG files        | To do                                     |
-| Pad files       | To do                                     |
-| Tile files      | Done                                      |
-| MIDI files      | Extracted as binaries                     |
-| Animation files | To do                                     |
-| Textures        | To do                                     |
-
-If you want to browse the stage setup files, use this table to find the filename:
-
-| Stage            | File                                       |
-|------------------|--------------------------------------------|
-| Defection        | [setupame.c](src/files/setup/setupame.c)   |
-| Investigation    | [setupear.c](src/files/setup/setupear.c)   |
-| Extraction       | [setupark.c](src/files/setup/setupark.c)   |
-| Villa            | [setupeld.c](src/files/setup/setupeld.c)   |
-| Chicago          | [setuppete.c](src/files/setup/setuppete.c) |
-| G5 Building      | [setupdepo.c](src/files/setup/setupdepo.c) |
-| Infiltration     | [setuplue.c](src/files/setup/setuplue.c)   |
-| Rescue           | [setuplip.c](src/files/setup/setuplip.c)   |
-| Escape           | [setuptra.c](src/files/setup/setuptra.c)   |
-| Air Base         | [setupcave.c](src/files/setup/setupcave.c) |
-| Air Force One    | [setuprit.c](src/files/setup/setuprit.c)   |
-| Crash Site       | [setupazt.c](src/files/setup/setupazt.c)   |
-| Pelagic II       | [setupdam.c](src/files/setup/setupdam.c)   |
-| Deep Sea         | [setuppam.c](src/files/setup/setuppam.c)   |
-| Defense          | [setupimp.c](src/files/setup/setupimp.c)   |
-| Attack Ship      | [setuplee.c](src/files/setup/setuplee.c)   |
-| Skedar Ruins     | [setupsho.c](src/files/setup/setupsho.c)   |
-| MBR              | [setupwax.c](src/files/setup/setupwax.c)   |
-| Maian SOS        | [setupsev.c](src/files/setup/setupsev.c)   |
-| WAR!             | [setupstat.c](src/files/setup/setupstat.c) |
-| The Duel         | [setupate.c](src/files/setup/setupate.c)   |
-| CI Training      | [setupdish.c](src/files/setup/setupdish.c) |
-
-There is also a stagetable.txt in the repository root which includes multiplayer stages.
+See the [Perfect Dark Decompilation Status Page](https://ryandwyer.gitlab.io/pdstatus/).
 
 ## Installation Requirements
 
 * make
 * mips build tools (Debian/Ubuntu: binutils-mips-linux-gnu, Arch: mips64-elf-binutils from AUR)
 * Python 3
+
+## ROM Versions
+
+Perfect Dark has six known versions:
+
+| ROM ID     | Description                                                   |
+|------------|---------------------------------------------------------------|
+| ntsc-final | NTSC 8.7 final - fully supported                              |
+| ntsc-1.0   | NTSC 8.7 final (the initial, buggy release) - fully supported |
+| ntsc-beta  | NTSC 6.4 beta - can extract assets only                       |
+| pal-final  | PAL 8.7 final - can extract assets only                       |
+| pal-beta   | PAL 28.7 beta - can extract assets only                       |
+| jap-final  | Japanese 8.7 final - can extract assets only                  |
+
+Currently only the ntsc-final and ntsc-1.0 versions are fully supported. The NTSC beta, PAL and JAP versions can have their assets extracted from the base ROM but no effort has been made to build those versions back into a ROM.
+
+The project uses the `$ROMID` environment variable to know which version to work with. If not set, it defaults to `ntsc-final`. You can change it by running something like `export ROMID=ntsc-1.0`.
 
 ## Extracting the base ROM
 
@@ -74,14 +38,11 @@ Before you do anything you need an existing ROM to extract assets from.
 
 ## Compiling
 
-The project can do the following:
-
-* Build individual ucode binaries (boot, lib, setup, inflate and game) which match the ones extracted from the base ROM.
-* Build a functioning ROM by splicing the C source and assets into an existing ROM. The built ROM is not byte perfect yet, but is is functionally equivalent.
-
 * Run `make` to build the assets that will be included in the ROM. These files will be written to `build/ntsc-final` and are matching what's in the `extracted/ntsc-final` folder.
 * Run `make rom` to build the ROM. The ROM will be written to `build/ntsc-final/pd.z64`.
 
 ## How do I know the built files are matching?
 
-Run `make` followed by `make test`. If `make test` produces no output then everything is matching.
+Run `make` followed by `make test`. If `make test` produces no output then all compiled segments are matching.
+
+You can also md5sum your base ROM with the built ROM and check they have the same hash: `md5sum pd.ntsc-final.z64 build/ntsc-final/pd.z64`.
