@@ -28,7 +28,7 @@ u8 *inbuf = 0;
 u8 *outbuf = 0;
 
 u32 inptr = 0;
-u32 var702012dc = 0;
+u32 wp = 0;
 u8 *var702012e0 = 0;
 
 u8 border[] = { /* Order of the bit length code lengths */
@@ -467,7 +467,7 @@ glabel inflate_codes
 /* 7020057c:	afb10008 */ 	sw	$s1,0x8($sp)
 /* 70200580:	3c087020 */ 	lui	$t0,%hi(bb)
 /* 70200584:	3c037020 */ 	lui	$v1,%hi(bk)
-/* 70200588:	3c097020 */ 	lui	$t1,%hi(var702012dc)
+/* 70200588:	3c097020 */ 	lui	$t1,%hi(wp)
 /* 7020058c:	014e7821 */ 	addu	$t7,$t2,$t6
 /* 70200590:	0158c821 */ 	addu	$t9,$t2,$t8
 /* 70200594:	3c047020 */ 	lui	$a0,%hi(inptr)
@@ -477,7 +477,7 @@ glabel inflate_codes
 /* 702005a4:	afa50014 */ 	sw	$a1,0x14($sp)
 /* 702005a8:	8d0813b4 */ 	lw	$t0,%lo(bb)($t0)
 /* 702005ac:	8c6313b8 */ 	lw	$v1,%lo(bk)($v1)
-/* 702005b0:	8d2912dc */ 	lw	$t1,%lo(var702012dc)($t1)
+/* 702005b0:	8d2912dc */ 	lw	$t1,%lo(wp)($t1)
 /* 702005b4:	95eb0000 */ 	lhu	$t3,0x0($t7)
 /* 702005b8:	972c0000 */ 	lhu	$t4,0x0($t9)
 /* 702005bc:	24c612d4 */ 	addiu	$a2,$a2,%lo(outbuf)
@@ -697,102 +697,44 @@ glabel inflate_codes
 /* 702008bc:	00001025 */ 	move	$v0,$zero
 );
 
-GLOBAL_ASM(
-glabel inflate_stored
-/* 702008c0:	3c097020 */ 	lui	$t1,%hi(bk)
-/* 702008c4:	252913b8 */ 	addiu	$t1,$t1,%lo(bk)
-/* 702008c8:	8d240000 */ 	lw	$a0,0x0($t1)
-/* 702008cc:	3c087020 */ 	lui	$t0,%hi(bb)
-/* 702008d0:	250813b4 */ 	addiu	$t0,$t0,%lo(bb)
-/* 702008d4:	30820007 */ 	andi	$v0,$a0,0x7
-/* 702008d8:	8d030000 */ 	lw	$v1,0x0($t0)
-/* 702008dc:	3c0a7020 */ 	lui	$t2,%hi(var702012dc)
-/* 702008e0:	00822023 */ 	subu	$a0,$a0,$v0
-/* 702008e4:	254a12dc */ 	addiu	$t2,$t2,%lo(var702012dc)
-/* 702008e8:	2c810010 */ 	sltiu	$at,$a0,0x10
-/* 702008ec:	8d450000 */ 	lw	$a1,0x0($t2)
-/* 702008f0:	1020000f */ 	beqz	$at,.L70200930
-/* 702008f4:	00431806 */ 	srlv	$v1,$v1,$v0
-/* 702008f8:	3c067020 */ 	lui	$a2,%hi(inbuf)
-/* 702008fc:	3c0b7020 */ 	lui	$t3,%hi(inptr)
-/* 70200900:	256b12d8 */ 	addiu	$t3,$t3,%lo(inptr)
-/* 70200904:	8cc612d0 */ 	lw	$a2,%lo(inbuf)($a2)
-.L70200908:
-/* 70200908:	8d670000 */ 	lw	$a3,0x0($t3)
-/* 7020090c:	00c77021 */ 	addu	$t6,$a2,$a3
-/* 70200910:	91cf0000 */ 	lbu	$t7,0x0($t6)
-/* 70200914:	24f90001 */ 	addiu	$t9,$a3,0x1
-/* 70200918:	ad790000 */ 	sw	$t9,0x0($t3)
-/* 7020091c:	008fc004 */ 	sllv	$t8,$t7,$a0
-/* 70200920:	24840008 */ 	addiu	$a0,$a0,0x8
-/* 70200924:	2c810010 */ 	sltiu	$at,$a0,0x10
-/* 70200928:	1420fff7 */ 	bnez	$at,.L70200908
-/* 7020092c:	00781825 */ 	or	$v1,$v1,$t8
-.L70200930:
-/* 70200930:	2484fff0 */ 	addiu	$a0,$a0,-16
-/* 70200934:	3c0b7020 */ 	lui	$t3,%hi(inptr)
-/* 70200938:	3062ffff */ 	andi	$v0,$v1,0xffff
-/* 7020093c:	00036c02 */ 	srl	$t5,$v1,0x10
-/* 70200940:	2c810010 */ 	sltiu	$at,$a0,0x10
-/* 70200944:	256b12d8 */ 	addiu	$t3,$t3,%lo(inptr)
-/* 70200948:	1020000d */ 	beqz	$at,.L70200980
-/* 7020094c:	01a01825 */ 	move	$v1,$t5
-/* 70200950:	3c067020 */ 	lui	$a2,%hi(inbuf)
-/* 70200954:	8cc612d0 */ 	lw	$a2,%lo(inbuf)($a2)
-.L70200958:
-/* 70200958:	8d670000 */ 	lw	$a3,0x0($t3)
-/* 7020095c:	00c77021 */ 	addu	$t6,$a2,$a3
-/* 70200960:	91cf0000 */ 	lbu	$t7,0x0($t6)
-/* 70200964:	24f90001 */ 	addiu	$t9,$a3,0x1
-/* 70200968:	ad790000 */ 	sw	$t9,0x0($t3)
-/* 7020096c:	008fc004 */ 	sllv	$t8,$t7,$a0
-/* 70200970:	24840008 */ 	addiu	$a0,$a0,0x8
-/* 70200974:	2c810010 */ 	sltiu	$at,$a0,0x10
-/* 70200978:	1420fff7 */ 	bnez	$at,.L70200958
-/* 7020097c:	00781825 */ 	or	$v1,$v1,$t8
-.L70200980:
-/* 70200980:	00403025 */ 	move	$a2,$v0
-/* 70200984:	00036c02 */ 	srl	$t5,$v1,0x10
-/* 70200988:	01a01825 */ 	move	$v1,$t5
-/* 7020098c:	2484fff0 */ 	addiu	$a0,$a0,-16
-/* 70200990:	1040001b */ 	beqz	$v0,.L70200a00
-/* 70200994:	2442ffff */ 	addiu	$v0,$v0,-1
-/* 70200998:	3c0c7020 */ 	lui	$t4,%hi(outbuf)
-/* 7020099c:	258c12d4 */ 	addiu	$t4,$t4,%lo(outbuf)
-.L702009a0:
-/* 702009a0:	2c810008 */ 	sltiu	$at,$a0,0x8
-/* 702009a4:	1020000c */ 	beqz	$at,.L702009d8
-/* 702009a8:	3c067020 */ 	lui	$a2,%hi(inbuf)
-/* 702009ac:	8cc612d0 */ 	lw	$a2,%lo(inbuf)($a2)
-.L702009b0:
-/* 702009b0:	8d670000 */ 	lw	$a3,0x0($t3)
-/* 702009b4:	00c77021 */ 	addu	$t6,$a2,$a3
-/* 702009b8:	91cf0000 */ 	lbu	$t7,0x0($t6)
-/* 702009bc:	24f90001 */ 	addiu	$t9,$a3,0x1
-/* 702009c0:	ad790000 */ 	sw	$t9,0x0($t3)
-/* 702009c4:	008fc004 */ 	sllv	$t8,$t7,$a0
-/* 702009c8:	24840008 */ 	addiu	$a0,$a0,0x8
-/* 702009cc:	2c810008 */ 	sltiu	$at,$a0,0x8
-/* 702009d0:	1420fff7 */ 	bnez	$at,.L702009b0
-/* 702009d4:	00781825 */ 	or	$v1,$v1,$t8
-.L702009d8:
-/* 702009d8:	8d8d0000 */ 	lw	$t5,0x0($t4)
-/* 702009dc:	00403025 */ 	move	$a2,$v0
-/* 702009e0:	00037a02 */ 	srl	$t7,$v1,0x8
-/* 702009e4:	01a57021 */ 	addu	$t6,$t5,$a1
-/* 702009e8:	a1c30000 */ 	sb	$v1,0x0($t6)
-/* 702009ec:	24a50001 */ 	addiu	$a1,$a1,0x1
-/* 702009f0:	01e01825 */ 	move	$v1,$t7
-/* 702009f4:	2484fff8 */ 	addiu	$a0,$a0,-8
-/* 702009f8:	1440ffe9 */ 	bnez	$v0,.L702009a0
-/* 702009fc:	2442ffff */ 	addiu	$v0,$v0,-1
-.L70200a00:
-/* 70200a00:	ad450000 */ 	sw	$a1,0x0($t2)
-/* 70200a04:	ad030000 */ 	sw	$v1,0x0($t0)
-/* 70200a08:	ad240000 */ 	sw	$a0,0x0($t1)
-/* 70200a0c:	03e00008 */ 	jr	$ra
-/* 70200a10:	00001025 */ 	move	$v0,$zero
-);
+u32 inflate_stored(void)
+{
+	s32 n;           /* number of bytes in block */
+	s32 w;           /* current window position */
+	register u32 b; /* bit buffer */
+	register u32 k;  /* number of bits in bit buffer */
+
+	/* make local copies of globals */
+	b = bb;                       /* initialize bit buffer */
+	k = bk;
+	w = wp;                       /* initialize window position */
+
+	/* go to byte boundary */
+	n = k & 7;
+	DUMPBITS(n);
+
+	/* get the length and its complement */
+	NEEDBITS(16)
+	n = (b & 0xffff);
+	DUMPBITS(16)
+
+	NEEDBITS(16)
+	DUMPBITS(16)
+
+	/* read and output the compressed data */
+	while (n--) {
+		NEEDBITS(8)
+		outbuf[w++] = (u8)b;
+
+		DUMPBITS(8)
+	}
+
+	/* restore the globals from the locals */
+	wp = w;                       /* restore global window pointer */
+	bb = b;                       /* restore global bit buffer */
+	bk = k;
+	return 0;
+}
 
 u32 inflate_fixed(void)
 {
@@ -1236,7 +1178,7 @@ u32 inflate(void)
 	u32 r;
 	u32 s1;
 
-	var702012dc = 0;
+	wp = 0;
 	bk = 0;
 	bb = 0;
 	s1 = 0;
@@ -1269,10 +1211,10 @@ u32 inflate1173(void *src, void *dst, void *buffer)
 	var702012e0 = buffer;
 	inbuf += 2;
 	inbuf += 3;
-	var702012dc = 0;
+	wp = 0;
 	inptr = 0;
 
 	inflate();
 
-	return var702012dc;
+	return wp;
 }
