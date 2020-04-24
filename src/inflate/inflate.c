@@ -15,6 +15,15 @@
 #define NEEDBITS(n) {while(k<(n)){b|=((u32)NEXTBYTE())<<k;k+=8;}}
 #define DUMPBITS(n) {b>>=(n);k-=(n);}
 
+struct huft {
+	u8 e;                /* number of extra bits or operation */
+	u8 b;                /* number of bits in this code or subcode */
+	union {
+		u16 n;            /* literal, length base, or distance base */
+		struct huft *t;   /* pointer to next level of table */
+	} v;
+};
+
 u8 *inbuf = 0;
 u8 *outbuf = 0;
 
@@ -60,7 +69,7 @@ u32 dbits = 6;
 u32 hufts = 0;
 
 GLOBAL_ASM(
-glabel func70200000
+glabel huft_build
 .L70200000:
 /* 70200000:	27bdfa18 */ 	addiu	$sp,$sp,-1512
 /* 70200004:	afb20010 */ 	sw	$s2,0x10($sp)
@@ -446,7 +455,7 @@ glabel func70200000
 );
 
 GLOBAL_ASM(
-glabel inflateCodes
+glabel inflate_codes
 /* 7020055c:	27bdfff0 */ 	addiu	$sp,$sp,-16
 /* 70200560:	3c0a7020 */ 	lui	$t2,%hi(inflate_mask)
 /* 70200564:	254a13bc */ 	addiu	$t2,$t2,%lo(inflate_mask)
@@ -689,7 +698,7 @@ glabel inflateCodes
 );
 
 GLOBAL_ASM(
-glabel inflateStored
+glabel inflate_stored
 /* 702008c0:	3c097020 */ 	lui	$t1,%hi(bk)
 /* 702008c4:	252913b8 */ 	addiu	$t1,$t1,%lo(bk)
 /* 702008c8:	8d240000 */ 	lw	$a0,0x0($t1)
@@ -785,100 +794,49 @@ glabel inflateStored
 /* 70200a10:	00001025 */ 	move	$v0,$zero
 );
 
-GLOBAL_ASM(
-glabel inflateFixed
-/* 70200a14:	27bdfb40 */ 	addiu	$sp,$sp,-1216
-/* 70200a18:	afbf0024 */ 	sw	$ra,0x24($sp)
-/* 70200a1c:	27a2002c */ 	addiu	$v0,$sp,0x2c
-/* 70200a20:	27a3026c */ 	addiu	$v1,$sp,0x26c
-/* 70200a24:	24050008 */ 	li	$a1,0x8
-.L70200a28:
-/* 70200a28:	24420004 */ 	addiu	$v0,$v0,0x4
-/* 70200a2c:	1443fffe */ 	bne	$v0,$v1,.L70200a28
-/* 70200a30:	ac45fffc */ 	sw	$a1,-0x4($v0)
-/* 70200a34:	27ae042c */ 	addiu	$t6,$sp,0x42c
-/* 70200a38:	004e082b */ 	sltu	$at,$v0,$t6
-/* 70200a3c:	10200007 */ 	beqz	$at,.L70200a5c
-/* 70200a40:	27af048c */ 	addiu	$t7,$sp,0x48c
-/* 70200a44:	27a4042c */ 	addiu	$a0,$sp,0x42c
-/* 70200a48:	24030009 */ 	li	$v1,0x9
-.L70200a4c:
-/* 70200a4c:	24420004 */ 	addiu	$v0,$v0,0x4
-/* 70200a50:	0044082b */ 	sltu	$at,$v0,$a0
-/* 70200a54:	1420fffd */ 	bnez	$at,.L70200a4c
-/* 70200a58:	ac43fffc */ 	sw	$v1,-0x4($v0)
-.L70200a5c:
-/* 70200a5c:	004f082b */ 	sltu	$at,$v0,$t7
-/* 70200a60:	10200007 */ 	beqz	$at,.L70200a80
-/* 70200a64:	27b804ac */ 	addiu	$t8,$sp,0x4ac
-/* 70200a68:	27a4048c */ 	addiu	$a0,$sp,0x48c
-/* 70200a6c:	24030007 */ 	li	$v1,0x7
-.L70200a70:
-/* 70200a70:	24420004 */ 	addiu	$v0,$v0,0x4
-/* 70200a74:	0044082b */ 	sltu	$at,$v0,$a0
-/* 70200a78:	1420fffd */ 	bnez	$at,.L70200a70
-/* 70200a7c:	ac43fffc */ 	sw	$v1,-0x4($v0)
-.L70200a80:
-/* 70200a80:	0058082b */ 	sltu	$at,$v0,$t8
-/* 70200a84:	10200006 */ 	beqz	$at,.L70200aa0
-/* 70200a88:	24190007 */ 	li	$t9,0x7
-/* 70200a8c:	27a304ac */ 	addiu	$v1,$sp,0x4ac
-.L70200a90:
-/* 70200a90:	24420004 */ 	addiu	$v0,$v0,0x4
-/* 70200a94:	0043082b */ 	sltu	$at,$v0,$v1
-/* 70200a98:	1420fffd */ 	bnez	$at,.L70200a90
-/* 70200a9c:	ac45fffc */ 	sw	$a1,-0x4($v0)
-.L70200aa0:
-/* 70200aa0:	3c087020 */ 	lui	$t0,%hi(cplext)
-/* 70200aa4:	25081338 */ 	addiu	$t0,$t0,%lo(cplext)
-/* 70200aa8:	3c077020 */ 	lui	$a3,%hi(cplens)
-/* 70200aac:	27a904b8 */ 	addiu	$t1,$sp,0x4b8
-/* 70200ab0:	27aa04b0 */ 	addiu	$t2,$sp,0x4b0
-/* 70200ab4:	afb904b0 */ 	sw	$t9,0x4b0($sp)
-/* 70200ab8:	afaa0018 */ 	sw	$t2,0x18($sp)
-/* 70200abc:	afa90014 */ 	sw	$t1,0x14($sp)
-/* 70200ac0:	24e712f8 */ 	addiu	$a3,$a3,%lo(cplens)
-/* 70200ac4:	afa80010 */ 	sw	$t0,0x10($sp)
-/* 70200ac8:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/* 70200acc:	24050120 */ 	li	$a1,0x120
-/* 70200ad0:	0c080000 */ 	jal	.L70200000
-/* 70200ad4:	24060101 */ 	li	$a2,0x101
-/* 70200ad8:	27a2002c */ 	addiu	$v0,$sp,0x2c
-/* 70200adc:	27a400a4 */ 	addiu	$a0,$sp,0xa4
-/* 70200ae0:	24030005 */ 	li	$v1,0x5
-.L70200ae4:
-/* 70200ae4:	24420004 */ 	addiu	$v0,$v0,0x4
-/* 70200ae8:	1444fffe */ 	bne	$v0,$a0,.L70200ae4
-/* 70200aec:	ac43fffc */ 	sw	$v1,-0x4($v0)
-/* 70200af0:	3c0c7020 */ 	lui	$t4,%hi(cpdext)
-/* 70200af4:	240b0005 */ 	li	$t3,0x5
-/* 70200af8:	258c1394 */ 	addiu	$t4,$t4,%lo(cpdext)
-/* 70200afc:	3c077020 */ 	lui	$a3,%hi(cpdist)
-/* 70200b00:	27ad04b4 */ 	addiu	$t5,$sp,0x4b4
-/* 70200b04:	27ae04ac */ 	addiu	$t6,$sp,0x4ac
-/* 70200b08:	afab04ac */ 	sw	$t3,0x4ac($sp)
-/* 70200b0c:	afae0018 */ 	sw	$t6,0x18($sp)
-/* 70200b10:	afad0014 */ 	sw	$t5,0x14($sp)
-/* 70200b14:	24e71358 */ 	addiu	$a3,$a3,%lo(cpdist)
-/* 70200b18:	afac0010 */ 	sw	$t4,0x10($sp)
-/* 70200b1c:	27a4002c */ 	addiu	$a0,$sp,0x2c
-/* 70200b20:	2405001e */ 	li	$a1,0x1e
-/* 70200b24:	0c080000 */ 	jal	.L70200000
-/* 70200b28:	00003025 */ 	move	$a2,$zero
-/* 70200b2c:	8fa404b8 */ 	lw	$a0,0x4b8($sp)
-/* 70200b30:	8fa504b4 */ 	lw	$a1,0x4b4($sp)
-/* 70200b34:	8fa604b0 */ 	lw	$a2,0x4b0($sp)
-/* 70200b38:	0c080157 */ 	jal	inflateCodes
-/* 70200b3c:	8fa704ac */ 	lw	$a3,0x4ac($sp)
-/* 70200b40:	8fbf0024 */ 	lw	$ra,0x24($sp)
-/* 70200b44:	27bd04c0 */ 	addiu	$sp,$sp,0x4c0
-/* 70200b48:	00001025 */ 	move	$v0,$zero
-/* 70200b4c:	03e00008 */ 	jr	$ra
-/* 70200b50:	00000000 */ 	nop
-);
+u32 inflate_fixed(void)
+{
+	s32 i;                /* temporary variable */
+	struct huft *tl;      /* literal/length code table */
+	struct huft *td;      /* distance code table */
+	u32 bl;               /* lookup bits for tl */
+	u32 bd;               /* lookup bits for td */
+	u32 l[288];           /* length list for huft_build */
+
+	/* set up literal table */
+	for (i = 0; i < 144; i++) {
+		l[i] = 8;
+	}
+	for (; i < 256; i++) {
+		l[i] = 9;
+	}
+	for (; i < 280; i++) {
+		l[i] = 7;
+	}
+	for (; i < 288; i++) {
+		l[i] = 8;
+	}
+
+	bl = 7;
+
+	huft_build(l, 288, 257, cplens, cplext, &tl, &bl);
+
+	/* set up distance table */
+	for (i = 0; i < 30; i++) {
+		l[i] = 5;
+	}
+
+	bd = 5;
+
+	huft_build(l, 30, 0, cpdist, cpdext, &td, &bd);
+
+	inflate_codes(tl, td, bl, bd);
+
+	return 0;
+}
 
 GLOBAL_ASM(
-glabel inflateDynamic
+glabel inflate_dynamic
 /* 70200b54:	3c087020 */ 	lui	$t0,%hi(bk)
 /* 70200b58:	8d0813b8 */ 	lw	$t0,%lo(bk)($t0)
 /* 70200b5c:	27bdfa98 */ 	addiu	$sp,$sp,-1384
@@ -1231,7 +1189,7 @@ glabel inflateDynamic
 /* 70201050:	8fa40550 */ 	lw	$a0,0x550($sp)
 /* 70201054:	8fa5054c */ 	lw	$a1,0x54c($sp)
 /* 70201058:	8fa60548 */ 	lw	$a2,0x548($sp)
-/* 7020105c:	0c080157 */ 	jal	inflateCodes
+/* 7020105c:	0c080157 */ 	jal	inflate_codes
 /* 70201060:	8fa70544 */ 	lw	$a3,0x544($sp)
 /* 70201064:	8fbf002c */ 	lw	$ra,0x2c($sp)
 /* 70201068:	8fb00028 */ 	lw	$s0,0x28($sp)
@@ -1240,7 +1198,7 @@ glabel inflateDynamic
 /* 70201074:	00001025 */ 	move	$v0,$zero
 );
 
-u32 inflateBlock(u32 *e)
+u32 inflate_block(u32 *e)
 {
 	u32 t;
 	u32 b = bb;
@@ -1258,15 +1216,15 @@ u32 inflateBlock(u32 *e)
 	bk = k;
 
 	if (t == 2) {
-		return inflateDynamic();
+		return inflate_dynamic();
 	}
 
 	if (t == 0) {
-		return inflateStored();
+		return inflate_stored();
 	}
 
 	if (t == 1) {
-		return inflateFixed();
+		return inflate_fixed();
 	}
 
 	return 2;
@@ -1285,7 +1243,7 @@ u32 inflate(void)
 
 	do {
 		hufts = 0;
-		r = inflateBlock(&sp52);
+		r = inflate_block(&sp52);
 
 		if (r != 0) {
 			return r;
