@@ -293,7 +293,7 @@ gvars: $(B_DIR)/ucode/gvars.bin
 # Miscellaneous
 
 extract:
-	tools/extract
+	ROMID=$(ROMID) tools/extract
 
 $(B_DIR)/ucode/gamezips.bin: $(B_DIR)/ucode/game.bin
 	tools/mkgamezips
@@ -317,7 +317,7 @@ $(B_DIR)/files/%.bin: $(B_DIR)/files/%.elf
 $(B_DIR)/files/%Z: $(B_DIR)/files/%.bin
 	tools/rarezip $< > $@
 
-$(B_DIR)/ucode/filenames.elf: src/filenames.o
+$(B_DIR)/ucode/filenames.elf: $(B_DIR)/filenames.o
 	@mkdir -p $(B_DIR)/ucode
 	cp $< build/zero.tmp.o
 	$(TOOLCHAIN)-ld -T ld/zero.ld -o $@
