@@ -58,7 +58,7 @@ u32 bb = 0;
 u32 bk = 0;
 
 /* And'ing with mask[n] masks the lower n bits */
-u16 inflate_mask[] = {
+u16 mask_bits[] = {
     0x0000,
     0x0001, 0x0003, 0x0007, 0x000f, 0x001f, 0x003f, 0x007f, 0x00ff,
     0x01ff, 0x03ff, 0x07ff, 0x0fff, 0x1fff, 0x3fff, 0x7fff, 0xffff
@@ -454,248 +454,83 @@ glabel huft_build
 /* 70200558:	27bd05e8 */ 	addiu	$sp,$sp,0x5e8
 );
 
-GLOBAL_ASM(
-glabel inflate_codes
-/* 7020055c:	27bdfff0 */ 	addiu	$sp,$sp,-16
-/* 70200560:	3c0a7020 */ 	lui	$t2,%hi(inflate_mask)
-/* 70200564:	254a13bc */ 	addiu	$t2,$t2,%lo(inflate_mask)
-/* 70200568:	afb00004 */ 	sw	$s0,0x4($sp)
-/* 7020056c:	00067040 */ 	sll	$t6,$a2,0x1
-/* 70200570:	00c08025 */ 	move	$s0,$a2
-/* 70200574:	afa40010 */ 	sw	$a0,0x10($sp)
-/* 70200578:	0007c040 */ 	sll	$t8,$a3,0x1
-/* 7020057c:	afb10008 */ 	sw	$s1,0x8($sp)
-/* 70200580:	3c087020 */ 	lui	$t0,%hi(bb)
-/* 70200584:	3c037020 */ 	lui	$v1,%hi(bk)
-/* 70200588:	3c097020 */ 	lui	$t1,%hi(wp)
-/* 7020058c:	014e7821 */ 	addu	$t7,$t2,$t6
-/* 70200590:	0158c821 */ 	addu	$t9,$t2,$t8
-/* 70200594:	3c047020 */ 	lui	$a0,%hi(inptr)
-/* 70200598:	3c067020 */ 	lui	$a2,%hi(outbuf)
-/* 7020059c:	00e08825 */ 	move	$s1,$a3
-/* 702005a0:	afb2000c */ 	sw	$s2,0xc($sp)
-/* 702005a4:	afa50014 */ 	sw	$a1,0x14($sp)
-/* 702005a8:	8d0813b4 */ 	lw	$t0,%lo(bb)($t0)
-/* 702005ac:	8c6313b8 */ 	lw	$v1,%lo(bk)($v1)
-/* 702005b0:	8d2912dc */ 	lw	$t1,%lo(wp)($t1)
-/* 702005b4:	95eb0000 */ 	lhu	$t3,0x0($t7)
-/* 702005b8:	972c0000 */ 	lhu	$t4,0x0($t9)
-/* 702005bc:	24c612d4 */ 	addiu	$a2,$a2,%lo(outbuf)
-/* 702005c0:	248412d8 */ 	addiu	$a0,$a0,%lo(inptr)
-.L702005c4:
-/* 702005c4:	0070082b */ 	sltu	$at,$v1,$s0
-.L702005c8:
-/* 702005c8:	1020000c */ 	beqz	$at,.L702005fc
-/* 702005cc:	3c127020 */ 	lui	$s2,%hi(inbuf)
-/* 702005d0:	8e5212d0 */ 	lw	$s2,%lo(inbuf)($s2)
-.L702005d4:
-/* 702005d4:	8c8d0000 */ 	lw	$t5,0x0($a0)
-/* 702005d8:	024d7021 */ 	addu	$t6,$s2,$t5
-/* 702005dc:	91cf0000 */ 	lbu	$t7,0x0($t6)
-/* 702005e0:	25b90001 */ 	addiu	$t9,$t5,0x1
-/* 702005e4:	ac990000 */ 	sw	$t9,0x0($a0)
-/* 702005e8:	006fc004 */ 	sllv	$t8,$t7,$v1
-/* 702005ec:	24630008 */ 	addiu	$v1,$v1,0x8
-/* 702005f0:	0070082b */ 	sltu	$at,$v1,$s0
-/* 702005f4:	1420fff7 */ 	bnez	$at,.L702005d4
-/* 702005f8:	01184025 */ 	or	$t0,$t0,$t8
-.L702005fc:
-/* 702005fc:	8fb80010 */ 	lw	$t8,0x10($sp)
-/* 70200600:	010b7024 */ 	and	$t6,$t0,$t3
-/* 70200604:	000e78c0 */ 	sll	$t7,$t6,0x3
-/* 70200608:	01f82821 */ 	addu	$a1,$t7,$t8
-/* 7020060c:	90a20000 */ 	lbu	$v0,0x0($a1)
-/* 70200610:	2c410011 */ 	sltiu	$at,$v0,0x11
-/* 70200614:	5420001f */ 	bnezl	$at,.L70200694
-/* 70200618:	90ad0001 */ 	lbu	$t5,0x1($a1)
-/* 7020061c:	90ad0001 */ 	lbu	$t5,0x1($a1)
-.L70200620:
-/* 70200620:	2442fff0 */ 	addiu	$v0,$v0,-16
-/* 70200624:	3c127020 */ 	lui	$s2,%hi(inbuf)
-/* 70200628:	006d1823 */ 	subu	$v1,$v1,$t5
-/* 7020062c:	0062082b */ 	sltu	$at,$v1,$v0
-/* 70200630:	1020000c */ 	beqz	$at,.L70200664
-/* 70200634:	01a84006 */ 	srlv	$t0,$t0,$t5
-/* 70200638:	8e5212d0 */ 	lw	$s2,%lo(inbuf)($s2)
-.L7020063c:
-/* 7020063c:	8c8d0000 */ 	lw	$t5,0x0($a0)
-/* 70200640:	024dc821 */ 	addu	$t9,$s2,$t5
-/* 70200644:	932e0000 */ 	lbu	$t6,0x0($t9)
-/* 70200648:	25b80001 */ 	addiu	$t8,$t5,0x1
-/* 7020064c:	ac980000 */ 	sw	$t8,0x0($a0)
-/* 70200650:	006e7804 */ 	sllv	$t7,$t6,$v1
-/* 70200654:	24630008 */ 	addiu	$v1,$v1,0x8
-/* 70200658:	0062082b */ 	sltu	$at,$v1,$v0
-/* 7020065c:	1420fff7 */ 	bnez	$at,.L7020063c
-/* 70200660:	010f4025 */ 	or	$t0,$t0,$t7
-.L70200664:
-/* 70200664:	0002c840 */ 	sll	$t9,$v0,0x1
-/* 70200668:	01597021 */ 	addu	$t6,$t2,$t9
-/* 7020066c:	95cf0000 */ 	lhu	$t7,0x0($t6)
-/* 70200670:	8cae0004 */ 	lw	$t6,0x4($a1)
-/* 70200674:	01e8c024 */ 	and	$t8,$t7,$t0
-/* 70200678:	0018c8c0 */ 	sll	$t9,$t8,0x3
-/* 7020067c:	032e2821 */ 	addu	$a1,$t9,$t6
-/* 70200680:	90a20000 */ 	lbu	$v0,0x0($a1)
-/* 70200684:	2c410011 */ 	sltiu	$at,$v0,0x11
-/* 70200688:	5020ffe5 */ 	beqzl	$at,.L70200620
-/* 7020068c:	90ad0001 */ 	lbu	$t5,0x1($a1)
-/* 70200690:	90ad0001 */ 	lbu	$t5,0x1($a1)
-.L70200694:
-/* 70200694:	24010010 */ 	li	$at,0x10
-/* 70200698:	3c127020 */ 	lui	$s2,%hi(inbuf)
-/* 7020069c:	01a84006 */ 	srlv	$t0,$t0,$t5
-/* 702006a0:	14410007 */ 	bne	$v0,$at,.L702006c0
-/* 702006a4:	006d1823 */ 	subu	$v1,$v1,$t5
-/* 702006a8:	8cd80000 */ 	lw	$t8,0x0($a2)
-/* 702006ac:	94af0004 */ 	lhu	$t7,0x4($a1)
-/* 702006b0:	0309c821 */ 	addu	$t9,$t8,$t1
-/* 702006b4:	25290001 */ 	addiu	$t1,$t1,0x1
-/* 702006b8:	1000ffc2 */ 	b	.L702005c4
-/* 702006bc:	a32f0000 */ 	sb	$t7,0x0($t9)
-.L702006c0:
-/* 702006c0:	2401000f */ 	li	$at,0xf
-/* 702006c4:	10410072 */ 	beq	$v0,$at,.L70200890
-/* 702006c8:	0062082b */ 	sltu	$at,$v1,$v0
-/* 702006cc:	5020000d */ 	beqzl	$at,.L70200704
-/* 702006d0:	00027040 */ 	sll	$t6,$v0,0x1
-/* 702006d4:	8e5212d0 */ 	lw	$s2,%lo(inbuf)($s2)
-.L702006d8:
-/* 702006d8:	8c8d0000 */ 	lw	$t5,0x0($a0)
-/* 702006dc:	024d7021 */ 	addu	$t6,$s2,$t5
-/* 702006e0:	91d80000 */ 	lbu	$t8,0x0($t6)
-/* 702006e4:	25b90001 */ 	addiu	$t9,$t5,0x1
-/* 702006e8:	ac990000 */ 	sw	$t9,0x0($a0)
-/* 702006ec:	00787804 */ 	sllv	$t7,$t8,$v1
-/* 702006f0:	24630008 */ 	addiu	$v1,$v1,0x8
-/* 702006f4:	0062082b */ 	sltu	$at,$v1,$v0
-/* 702006f8:	1420fff7 */ 	bnez	$at,.L702006d8
-/* 702006fc:	010f4025 */ 	or	$t0,$t0,$t7
-/* 70200700:	00027040 */ 	sll	$t6,$v0,0x1
-.L70200704:
-/* 70200704:	014ec021 */ 	addu	$t8,$t2,$t6
-/* 70200708:	970f0000 */ 	lhu	$t7,0x0($t8)
-/* 7020070c:	94ae0004 */ 	lhu	$t6,0x4($a1)
-/* 70200710:	00621823 */ 	subu	$v1,$v1,$v0
-/* 70200714:	0071082b */ 	sltu	$at,$v1,$s1
-/* 70200718:	01e8c824 */ 	and	$t9,$t7,$t0
-/* 7020071c:	00484006 */ 	srlv	$t0,$t0,$v0
-/* 70200720:	1020000d */ 	beqz	$at,.L70200758
-/* 70200724:	032e3821 */ 	addu	$a3,$t9,$t6
-/* 70200728:	3c127020 */ 	lui	$s2,%hi(inbuf)
-/* 7020072c:	8e5212d0 */ 	lw	$s2,%lo(inbuf)($s2)
-.L70200730:
-/* 70200730:	8c8d0000 */ 	lw	$t5,0x0($a0)
-/* 70200734:	024dc021 */ 	addu	$t8,$s2,$t5
-/* 70200738:	930f0000 */ 	lbu	$t7,0x0($t8)
-/* 7020073c:	25ae0001 */ 	addiu	$t6,$t5,0x1
-/* 70200740:	ac8e0000 */ 	sw	$t6,0x0($a0)
-/* 70200744:	006fc804 */ 	sllv	$t9,$t7,$v1
-/* 70200748:	24630008 */ 	addiu	$v1,$v1,0x8
-/* 7020074c:	0071082b */ 	sltu	$at,$v1,$s1
-/* 70200750:	1420fff7 */ 	bnez	$at,.L70200730
-/* 70200754:	01194025 */ 	or	$t0,$t0,$t9
-.L70200758:
-/* 70200758:	8fb90014 */ 	lw	$t9,0x14($sp)
-/* 7020075c:	010cc024 */ 	and	$t8,$t0,$t4
-/* 70200760:	001878c0 */ 	sll	$t7,$t8,0x3
-/* 70200764:	01f92821 */ 	addu	$a1,$t7,$t9
-/* 70200768:	90a20000 */ 	lbu	$v0,0x0($a1)
-/* 7020076c:	2c410011 */ 	sltiu	$at,$v0,0x11
-/* 70200770:	5420001f */ 	bnezl	$at,.L702007f0
-/* 70200774:	90ad0001 */ 	lbu	$t5,0x1($a1)
-/* 70200778:	90ad0001 */ 	lbu	$t5,0x1($a1)
-.L7020077c:
-/* 7020077c:	2442fff0 */ 	addiu	$v0,$v0,-16
-/* 70200780:	3c127020 */ 	lui	$s2,%hi(inbuf)
-/* 70200784:	006d1823 */ 	subu	$v1,$v1,$t5
-/* 70200788:	0062082b */ 	sltu	$at,$v1,$v0
-/* 7020078c:	1020000c */ 	beqz	$at,.L702007c0
-/* 70200790:	01a84006 */ 	srlv	$t0,$t0,$t5
-/* 70200794:	8e5212d0 */ 	lw	$s2,%lo(inbuf)($s2)
-.L70200798:
-/* 70200798:	8c8d0000 */ 	lw	$t5,0x0($a0)
-/* 7020079c:	024d7021 */ 	addu	$t6,$s2,$t5
-/* 702007a0:	91d80000 */ 	lbu	$t8,0x0($t6)
-/* 702007a4:	25b90001 */ 	addiu	$t9,$t5,0x1
-/* 702007a8:	ac990000 */ 	sw	$t9,0x0($a0)
-/* 702007ac:	00787804 */ 	sllv	$t7,$t8,$v1
-/* 702007b0:	24630008 */ 	addiu	$v1,$v1,0x8
-/* 702007b4:	0062082b */ 	sltu	$at,$v1,$v0
-/* 702007b8:	1420fff7 */ 	bnez	$at,.L70200798
-/* 702007bc:	010f4025 */ 	or	$t0,$t0,$t7
-.L702007c0:
-/* 702007c0:	00027040 */ 	sll	$t6,$v0,0x1
-/* 702007c4:	014ec021 */ 	addu	$t8,$t2,$t6
-/* 702007c8:	970f0000 */ 	lhu	$t7,0x0($t8)
-/* 702007cc:	8cb80004 */ 	lw	$t8,0x4($a1)
-/* 702007d0:	01e8c824 */ 	and	$t9,$t7,$t0
-/* 702007d4:	001970c0 */ 	sll	$t6,$t9,0x3
-/* 702007d8:	01d82821 */ 	addu	$a1,$t6,$t8
-/* 702007dc:	90a20000 */ 	lbu	$v0,0x0($a1)
-/* 702007e0:	2c410011 */ 	sltiu	$at,$v0,0x11
-/* 702007e4:	5020ffe5 */ 	beqzl	$at,.L7020077c
-/* 702007e8:	90ad0001 */ 	lbu	$t5,0x1($a1)
-/* 702007ec:	90ad0001 */ 	lbu	$t5,0x1($a1)
-.L702007f0:
-/* 702007f0:	3c127020 */ 	lui	$s2,%hi(inbuf)
-/* 702007f4:	006d1823 */ 	subu	$v1,$v1,$t5
-/* 702007f8:	0062082b */ 	sltu	$at,$v1,$v0
-/* 702007fc:	1020000c */ 	beqz	$at,.L70200830
-/* 70200800:	01a84006 */ 	srlv	$t0,$t0,$t5
-/* 70200804:	8e5212d0 */ 	lw	$s2,%lo(inbuf)($s2)
-.L70200808:
-/* 70200808:	8c8d0000 */ 	lw	$t5,0x0($a0)
-/* 7020080c:	024d7821 */ 	addu	$t7,$s2,$t5
-/* 70200810:	91f90000 */ 	lbu	$t9,0x0($t7)
-/* 70200814:	25b80001 */ 	addiu	$t8,$t5,0x1
-/* 70200818:	ac980000 */ 	sw	$t8,0x0($a0)
-/* 7020081c:	00797004 */ 	sllv	$t6,$t9,$v1
-/* 70200820:	24630008 */ 	addiu	$v1,$v1,0x8
-/* 70200824:	0062082b */ 	sltu	$at,$v1,$v0
-/* 70200828:	1420fff7 */ 	bnez	$at,.L70200808
-/* 7020082c:	010e4025 */ 	or	$t0,$t0,$t6
-.L70200830:
-/* 70200830:	94af0004 */ 	lhu	$t7,0x4($a1)
-/* 70200834:	00027040 */ 	sll	$t6,$v0,0x1
-/* 70200838:	014ec021 */ 	addu	$t8,$t2,$t6
-/* 7020083c:	012fc823 */ 	subu	$t9,$t1,$t7
-/* 70200840:	970f0000 */ 	lhu	$t7,0x0($t8)
-/* 70200844:	00621823 */ 	subu	$v1,$v1,$v0
-/* 70200848:	01e87024 */ 	and	$t6,$t7,$t0
-/* 7020084c:	032e6823 */ 	subu	$t5,$t9,$t6
-/* 70200850:	00484006 */ 	srlv	$t0,$t0,$v0
-/* 70200854:	00e01025 */ 	move	$v0,$a3
-.L70200858:
-/* 70200858:	00003825 */ 	move	$a3,$zero
-.L7020085c:
-/* 7020085c:	8cc50000 */ 	lw	$a1,0x0($a2)
-/* 70200860:	2442ffff */ 	addiu	$v0,$v0,-1
-/* 70200864:	01a5c021 */ 	addu	$t8,$t5,$a1
-/* 70200868:	930f0000 */ 	lbu	$t7,0x0($t8)
-/* 7020086c:	00a9c821 */ 	addu	$t9,$a1,$t1
-/* 70200870:	25290001 */ 	addiu	$t1,$t1,0x1
-/* 70200874:	25ad0001 */ 	addiu	$t5,$t5,0x1
-/* 70200878:	1440fff8 */ 	bnez	$v0,.L7020085c
-/* 7020087c:	a32f0000 */ 	sb	$t7,0x0($t9)
-/* 70200880:	54e0fff5 */ 	bnezl	$a3,.L70200858
-/* 70200884:	00e01025 */ 	move	$v0,$a3
-/* 70200888:	1000ff4f */ 	b	.L702005c8
-/* 7020088c:	0070082b */ 	sltu	$at,$v1,$s0
-.L70200890:
-/* 70200890:	3c017020 */ 	lui	$at,0x7020
-/* 70200894:	ac2912dc */ 	sw	$t1,0x12dc($at)
-/* 70200898:	3c017020 */ 	lui	$at,0x7020
-/* 7020089c:	ac2813b4 */ 	sw	$t0,0x13b4($at)
-/* 702008a0:	3c017020 */ 	lui	$at,0x7020
-/* 702008a4:	8fb00004 */ 	lw	$s0,0x4($sp)
-/* 702008a8:	8fb10008 */ 	lw	$s1,0x8($sp)
-/* 702008ac:	8fb2000c */ 	lw	$s2,0xc($sp)
-/* 702008b0:	ac2313b8 */ 	sw	$v1,0x13b8($at)
-/* 702008b4:	27bd0010 */ 	addiu	$sp,$sp,0x10
-/* 702008b8:	03e00008 */ 	jr	$ra
-/* 702008bc:	00001025 */ 	move	$v0,$zero
-);
+u32 inflate_codes(struct huft *tl, struct huft *td, int bl, int bd)
+{
+	register u32 e;  /* table entry flag/number of extra bits */
+	u32 n, d;        /* length and index for copy */
+	u32 w;           /* current window position */
+	struct huft *t;       /* pointer to table entry */
+	u32 ml, md;      /* masks for bl and bd bits */
+	register u32 b;       /* bit buffer */
+	register u32 k;  /* number of bits in bit buffer */
+
+	/* make local copies of globals */
+	b = bb;                       /* initialize bit buffer */
+	k = bk;
+	w = wp;                       /* initialize window position */
+
+	/* inflate the coded data */
+	ml = mask_bits[bl];           /* precompute masks for speed */
+	md = mask_bits[bd];
+
+	for (;;) {                    /* do until end of block */
+		NEEDBITS(bl)
+		if ((e = (t = tl + (b & ml))->e) > 16) {
+			do {
+				DUMPBITS(t->b)
+				e -= 16;
+				NEEDBITS(e)
+			} while ((e = (t = t->v.t + (b & mask_bits[e]))->e) > 16);
+		}
+		DUMPBITS(t->b)
+
+		if (e == 16) {              /* then it's a literal */
+			outbuf[w++] = (u8)t->v.n;
+		} else {                      /* it's an EOB or a length */
+			/* exit if end of block */
+			if (e == 15) {
+				break;
+			}
+
+			/* get length of block to copy */
+			NEEDBITS(e)
+			n = t->v.n + (b & mask_bits[e]);
+			DUMPBITS(e);
+
+			/* decode distance of block to copy */
+			NEEDBITS(bd)
+			if ((e = (t = td + (b & md))->e) > 16) {
+				do {
+					DUMPBITS(t->b)
+					e -= 16;
+					NEEDBITS(e)
+				} while ((e = (t = t->v.t + (b & mask_bits[e]))->e) > 16);
+			}
+			DUMPBITS(t->b)
+			NEEDBITS(e)
+			d = w - t->v.n - (b & mask_bits[e]);
+			DUMPBITS(e)
+
+			/* do the copy */
+			do {
+				e = n;
+				n = 0;
+
+				do {
+					outbuf[w++] = outbuf[d++];
+				} while (--e);
+			} while (n);
+		}
+	}
+
+	/* restore the globals from the locals */
+	wp = w;                       /* restore global window pointer */
+	bb = b;                       /* restore global bit buffer */
+	bk = k;
+
+	/* done */
+	return 0;
+}
 
 u32 inflate_stored(void)
 {
@@ -923,7 +758,7 @@ glabel inflate_dynamic
 /* 70200d58:	8fb90548 */ 	lw	$t9,0x548($sp)
 /* 70200d5c:	8fae053c */ 	lw	$t6,0x53c($sp)
 /* 70200d60:	8faf0538 */ 	lw	$t7,0x538($sp)
-/* 70200d64:	3c0b7020 */ 	lui	$t3,%hi(inflate_mask)
+/* 70200d64:	3c0b7020 */ 	lui	$t3,%hi(mask_bits)
 /* 70200d68:	0019c040 */ 	sll	$t8,$t9,0x1
 /* 70200d6c:	3c0a7020 */ 	lui	$t2,%hi(inptr)
 /* 70200d70:	01785821 */ 	addu	$t3,$t3,$t8
@@ -931,7 +766,7 @@ glabel inflate_dynamic
 /* 70200d78:	254a12d8 */ 	addiu	$t2,$t2,%lo(inptr)
 /* 70200d7c:	8fa80534 */ 	lw	$t0,0x534($sp)
 /* 70200d80:	8fa90530 */ 	lw	$t1,0x530($sp)
-/* 70200d84:	956b13bc */ 	lhu	$t3,%lo(inflate_mask)($t3)
+/* 70200d84:	956b13bc */ 	lhu	$t3,%lo(mask_bits)($t3)
 /* 70200d88:	00003025 */ 	move	$a2,$zero
 /* 70200d8c:	10e0008a */ 	beqz	$a3,.L70200fb8
 /* 70200d90:	00002825 */ 	move	$a1,$zero
