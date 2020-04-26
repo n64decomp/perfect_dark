@@ -28,6 +28,7 @@ def main():
     write_binary(fd, 0x39850, get_gamedata())
     write_binary(fd, 0x4e850, get_inflate())
     write_binary(fd, 0x4fc40, get_gamezips())
+    write_binary(fd, 0x7d0a40, get_mpconfigs())
     write_binary(fd, 0x7f2388, get_fonts())
     write_binary(fd, 0x80a250, get_sfxctl())
     write_binary(fd, 0x839dd0, get_sfxtbl())
@@ -80,6 +81,9 @@ def get_gamezips():
 
 def get_unknown():
     return getfrombaserom(0x157120, 0x69b268)
+
+def get_mpconfigs():
+    return getfilecontents(bdir() + '/ucode/mpconfigs.bin')
 
 def get_fonts():
     return getfrombaserom(0x7f2388, 0x17ec8)

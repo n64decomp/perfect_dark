@@ -5611,4 +5611,35 @@ struct menuthing {
 	s8 unk0a;
 };
 
+struct mpconfigsim {
+	u16 mphead;
+	u8 mpbody;
+	u8 team;
+	u8 difficulties[4]; // per player count
+};
+
+struct mpconfig {
+	/*0x00*/ char name[12];
+	/*0x0c*/ u32 options;
+	/*0x10*/ u8 scenario;
+	/*0x11*/ u8 stage;
+	/*0x12*/ u8 timelimit;       // minus 1, 60 = no limit
+	/*0x13*/ u8 scorelimit;      // minus 1, 100 = no limit
+	/*0x14*/ u16 teamscorelimit; // minus 1, 400 = no limit
+	/*0x16*/ u16 unk16;
+	/*0x18*/ u8 weapons[16];
+	struct mpconfigsim simulants[8];
+};
+
+struct mpweapon {
+	u8 weaponnum;
+	u8 unk01;
+	u8 unk02;
+	u8 unk03;
+	u16 unk04;
+	u16 model;
+	u8 unk08;
+	u8 unk09;
+};
+
 #endif

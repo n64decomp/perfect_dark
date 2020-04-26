@@ -112,7 +112,7 @@ void currentPlayerInsertInvItem(struct invitem *item)
 				if (override->weapon >= WEAPON_UNARMED && override->weapon <= WEAPON_NECKLACE) {
 					setflag = false;
 				}
-				if (override->weapon == WEAPON_5B) {
+				if (override->weapon == WEAPON_MPSHIELD) {
 					setflag = false;
 				}
 				if (override->weapon == WEAPON_SUICIDEPILL) {

@@ -22,6 +22,7 @@ class Extractor:
         self.extract_gamedata()
         self.extract_textures()
         self.extract_ucodes()
+        self.extract_mpconfigs()
 
     #
     # Audio
@@ -129,6 +130,14 @@ class Extractor:
         return str(self.rom[address:address + nullpos], 'utf-8')
 
     #
+    # MpConfigs
+    #
+
+    def extract_mpconfigs(self):
+        addr = self.val('mpconfigs')
+        self.write('ucode/mpconfigs.bin', self.rom[addr:addr+0x68*44])
+
+    #
     # Fonts
     #
 
@@ -225,6 +234,7 @@ class Extractor:
             'game': 0x4fc40,
             'files': 0x28080,
             'gamedata': 0x39850,
+            'mpconfigs': 0x7d0a40,
             'sfxctl': 0x80a250,
             'textures': 0x01d65f40,
         },
@@ -232,6 +242,7 @@ class Extractor:
             'game': 0x4fc40,
             'files': 0x28080,
             'gamedata': 0x39850,
+            'mpconfigs': 0x7d0a40,
             'sfxctl': 0x80a250,
             'textures': 0x01d65f40,
         },
@@ -239,6 +250,7 @@ class Extractor:
             'game': 0x43c40,
             'files': 0x29160,
             'gamedata': 0x30850,
+            'mpconfigs': 0x785130,
             'sfxctl': 0x7be940,
             'textures': 0x01d12fe0,
         },
@@ -246,6 +258,7 @@ class Extractor:
             'game': 0x4fc40,
             'files': 0x28910,
             'gamedata': 0x39850,
+            'mpconfigs': 0x7bc240,
             'sfxctl': 0x7f87e0,
             'textures': 0x01d5ca20,
         },
@@ -253,6 +266,7 @@ class Extractor:
             'game': 0x4fc40,
             'files': 0x29b90,
             'gamedata': 0x39850,
+            'mpconfigs': 0x7bc240,
             'sfxctl': 0x7f87e0,
             'textures': 0x01d5bb50,
         },
@@ -260,6 +274,7 @@ class Extractor:
             'game': 0x4fc40,
             'files': 0x28800,
             'gamedata': 0x39850,
+            'mpconfigs': 0x7c00d0,
             'sfxctl': 0x7fc670,
             'textures': 0x01d61f90,
         },

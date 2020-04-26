@@ -1032,7 +1032,7 @@ void scenarioHtbKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 
 Gfx *scenarioHtbRadar(Gfx *gdl)
 {
-	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR1) &&
+	if ((g_MpSetup.options & MPOPTION_HTB_SHOWONRADAR) &&
 			g_ScenarioData.htb.token != NULL &&
 			g_ScenarioData.htb.token->type != PROPTYPE_PLAYER &&
 			g_ScenarioData.htb.token->type != PROPTYPE_CHR) {
@@ -1048,7 +1048,7 @@ Gfx *scenarioHtbRadar(Gfx *gdl)
 
 bool scenarioHtbRadar2(Gfx **gdl, struct prop *prop)
 {
-	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR1) &&
+	if ((g_MpSetup.options & MPOPTION_HTB_SHOWONRADAR) &&
 			g_ScenarioData.htb.token &&
 			prop == g_ScenarioData.htb.token) {
 		if (prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR) {
@@ -1073,7 +1073,7 @@ bool scenarioHtbRadar2(Gfx **gdl, struct prop *prop)
 
 bool scenarioHtbHighlight(struct prop *prop, u32 *colour)
 {
-	if ((g_MpSetup.options & MPOPTION_HIGHLIGHTBRIEFCASE) && prop == g_ScenarioData.htb.token) {
+	if ((g_MpSetup.options & MPOPTION_HTB_HIGHLIGHTBRIEFCASE) && prop == g_ScenarioData.htb.token) {
 		colour[0] = 0;
 		colour[1] = 0xff;
 		colour[2] = 0;
@@ -1564,7 +1564,7 @@ void scenarioCtcKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 
 Gfx *scenarioCtcRadar(Gfx *gdl)
 {
-	if (g_MpSetup.options & MPOPTION_SHOWONRADAR2) {
+	if (g_MpSetup.options & MPOPTION_CTC_SHOWONRADAR) {
 		s32 i;
 
 		for (i = 0; i < scenarioGetMaxTeams(); i++) {
@@ -1587,7 +1587,7 @@ bool scenarioCtcRadar2(Gfx **gdl, struct prop *prop)
 {
 	s32 i;
 
-	if (g_MpSetup.options & MPOPTION_SHOWONRADAR2) {
+	if (g_MpSetup.options & MPOPTION_CTC_SHOWONRADAR) {
 		for (i = 0; i < scenarioGetMaxTeams(); i++) {
 			if (prop == g_ScenarioData.ctc.tokens[i] &&
 					(g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_CHR || g_ScenarioData.ctc.tokens[i]->type == PROPTYPE_PLAYER)) {
@@ -2796,7 +2796,7 @@ void scenarioKohKill(struct mpchr *mpchr, s32 arg1, s32 *score, s32 *arg3)
 
 Gfx *scenarioKohRadar(Gfx *gdl)
 {
-	if (g_MpSetup.options & MPOPTION_HILLONRADAR && g_ScenarioData.koh.unk08 == 0) {
+	if (g_MpSetup.options & MPOPTION_KOH_HILLONRADAR && g_ScenarioData.koh.unk08 == 0) {
 		struct coord dist;
 		u32 colour;
 		dist.x = g_ScenarioData.koh.hillpos.x - g_Vars.currentplayer->prop->pos.x;
@@ -4280,7 +4280,7 @@ glabel scenarioHtmRadar
 
 bool scenarioHtmRadar2(Gfx **gdl, struct prop *prop)
 {
-	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR3) && g_ScenarioData.htm.uplink) {
+	if ((g_MpSetup.options & MPOPTION_HTM_SHOWONRADAR) && g_ScenarioData.htm.uplink) {
 		if (prop == g_ScenarioData.htm.uplink &&
 				(prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR)) {
 			struct coord dist;
@@ -4304,7 +4304,7 @@ bool scenarioHtmRadar2(Gfx **gdl, struct prop *prop)
 
 bool scenarioHtmHighlight(struct prop *prop, u32 *colour)
 {
-	if (g_MpSetup.options & MPOPTION_HIGHLIGHTTERMINAL) {
+	if (g_MpSetup.options & MPOPTION_HTM_HIGHLIGHTTERMINAL) {
 		bool highlight = false;
 
 		if (prop == g_ScenarioData.htm.uplink) {
@@ -4509,7 +4509,7 @@ glabel scenarioPacHighlight
 
 //bool scenarioPacHighlight(struct prop *prop, u32 *colour)
 //{
-//	if ((g_MpSetup.options & MPOPTION_HIGHLIGHTTARGET) &&
+//	if ((g_MpSetup.options & MPOPTION_PAC_HIGHLIGHTTARGET) &&
 //			(prop->type == PROPTYPE_PLAYER || prop->type == PROPTYPE_CHR) &&
 //			g_ScenarioData.pac.victimindex != -1 &&
 //			prop->chr == g_MpPlayerChrs[g_ScenarioData.pac.victims[g_ScenarioData.pac.victimindex]]) {
@@ -5134,7 +5134,7 @@ glabel scenarioPacRadar2
 // while decomp loads the base pac address then uses offsets.
 //bool scenarioPacRadar2(Gfx **gdl, struct prop *prop)
 //{
-//	if ((g_MpSetup.options & MPOPTION_SHOWONRADAR4) && g_ScenarioData.pac.victimindex >= 0) {
+//	if ((g_MpSetup.options & MPOPTION_PAC_SHOWONRADAR) && g_ScenarioData.pac.victimindex >= 0) {
 //		s32 index = g_ScenarioData.pac.victimindex;
 //		struct prop *thing = g_MpPlayerChrs[g_ScenarioData.pac.victims[index]]->prop;
 //

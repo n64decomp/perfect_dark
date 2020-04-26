@@ -11339,18 +11339,18 @@ u16 mpslowmotionoptions[] = {
 
 // 2c7e8
 struct menu_item menuitems_mpcombatoptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(222), 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, L_MPMENU(223), 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(224), 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(225), L_AME(0), menuhandlerMpDisplayTeam }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(226), 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(227), 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(228), 0x00000010, menuhandlerMpCheckboxOption }, // "No Player Highlight"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(229), 0x00000020, menuhandlerMpCheckboxOption }, // "No Pickup Highlight"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(239), 0x00000000, NULL }, // "Back"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222), MPOPTION_ONEHITKILLS,       menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223), 0x00000000,                 menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224), MPOPTION_FASTMOVEMENT,      menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225), MPOPTION_DISPLAYTEAM,       menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226), MPOPTION_NORADAR,           menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227), MPOPTION_NOAUTOAIM,         menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,    0x00000000,                 NULL                        },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(228), MPOPTION_NOPLAYERHIGHLIGHT, menuhandlerMpCheckboxOption }, // "No Player Highlight"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(229), MPOPTION_NOPICKUPHIGHLIGHT, menuhandlerMpCheckboxOption }, // "No Pickup Highlight"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,    0x00000000,                 NULL                        },
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239), 0x00000000,                 NULL                        }, // "Back"
+	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,    0x00000000,                 NULL                        },
 };
 
 // 2c8d8
@@ -11365,19 +11365,19 @@ struct menu_dialog menudialog_mpcombatoptions = {
 
 // 2c8f0
 struct menu_item menuitems_mpbriefcaseoptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(222), 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, L_MPMENU(223), 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(224), 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(225), L_AME(0), menuhandlerMpDisplayTeam }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(226), 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(227), 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_OPTIONS(493), L_ARCH(0), menuhandlerMpCheckboxOption }, // "Kills Score"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(237), L_ASH(0), menuhandlerMpCheckboxOption }, // "Highlight Briefcase"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(238), L_AREC(0), menuhandlerMpCheckboxOption }, // "Show on Radar"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(239), 0x00000000, NULL }, // "Back"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222),  MPOPTION_ONEHITKILLS,            menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223),  0x00000000,                      menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224),  MPOPTION_FASTMOVEMENT,           menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225),  MPOPTION_DISPLAYTEAM,            menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226),  MPOPTION_NORADAR,                menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227),  MPOPTION_NOAUTOAIM,              menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS(493), MPOPTION_KILLSSCORE,             menuhandlerMpCheckboxOption }, // "Kills Score"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                      NULL                        },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(237),  MPOPTION_HTB_HIGHLIGHTBRIEFCASE, menuhandlerMpCheckboxOption }, // "Highlight Briefcase"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(238),  MPOPTION_HTB_SHOWONRADAR,        menuhandlerMpCheckboxOption }, // "Show on Radar"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                      NULL                        },
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239),  0x00000000,                      NULL                        }, // "Back"
+	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,     0x00000000,                      NULL                        },
 };
 
 // 2c9f4
@@ -11420,18 +11420,18 @@ u32 var80086a54 = 0x00000000;
 
 // 2ca78
 struct menu_item menuitems_mpcaptureoptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(222), 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, L_MPMENU(223), 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(224), 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(225), L_AME(0), menuhandlerMpDisplayTeam }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(226), 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(227), 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_OPTIONS(493), L_ARCH(0), menuhandlerMpCheckboxOption }, // "Kills Score"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(236), L_ELD(0), menuhandlerMpCheckboxOption }, // "Show on Radar"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(239), 0x00000000, NULL }, // "Back"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222),  MPOPTION_ONEHITKILLS,     menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223),  0x00000000,               menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224),  MPOPTION_FASTMOVEMENT,    menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225),  MPOPTION_DISPLAYTEAM,     menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226),  MPOPTION_NORADAR,         menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227),  MPOPTION_NOAUTOAIM,       menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS(493), MPOPTION_KILLSSCORE,      menuhandlerMpCheckboxOption }, // "Kills Score"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(236),  MPOPTION_CTC_SHOWONRADAR, menuhandlerMpCheckboxOption }, // "Show on Radar"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239),  0x00000000,               NULL                        }, // "Back"
+	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
 };
 
 // 2cb68
@@ -11473,20 +11473,20 @@ u32 var80086bc4 = 0x00000000;
 
 // 2cbe8
 struct menu_item menuitems_mphilloptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(222), 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, L_MPMENU(223), 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(224), 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(225), L_AME(0), menuhandlerMpDisplayTeam }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(226), 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(227), 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_OPTIONS(493), L_ARCH(0), menuhandlerMpCheckboxOption }, // "Kills Score"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(233), L_SEVXB(0), menuhandlerMpCheckboxOption }, // "Hill on Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(234), L_MP16(0), menuhandlerMpCheckboxOption }, // "Mobile Hill"
-	{ MENUITEMTYPE_SLIDER,      0, 0x00020000, L_MPMENU(235), 0x0000006e, menuhandlerMpHillTime }, // "Time"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(239), 0x00000000, NULL }, // "Back"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222),  MPOPTION_ONEHITKILLS,     menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223),  0x00000000,               menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224),  MPOPTION_FASTMOVEMENT,    menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225),  MPOPTION_DISPLAYTEAM,     menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226),  MPOPTION_NORADAR,         menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227),  MPOPTION_NOAUTOAIM,       menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS(493), MPOPTION_KILLSSCORE,      menuhandlerMpCheckboxOption }, // "Kills Score"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(233),  MPOPTION_KOH_HILLONRADAR, menuhandlerMpCheckboxOption }, // "Hill on Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(234),  MPOPTION_KOH_MOBILEHILL,  menuhandlerMpCheckboxOption }, // "Mobile Hill"
+	{ MENUITEMTYPE_SLIDER,     0, 0x00020000, L_MPMENU(235),  0x0000006e,               menuhandlerMpHillTime       }, // "Time"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239),  0x00000000,               NULL                        }, // "Back"
+	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,     0x00000000,               NULL                        },
 };
 
 // 2cd00
@@ -11501,19 +11501,19 @@ struct menu_dialog menudialog_mphilloptions = {
 
 // 2cd18
 struct menu_item menuitems_mphackeroptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(222), 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, L_MPMENU(223), 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(224), 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(225), L_AME(0), menuhandlerMpDisplayTeam }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(226), 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(227), 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_OPTIONS(493), L_ARCH(0), menuhandlerMpCheckboxOption }, // "Kills Score"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(231), 0x00020000, menuhandlerMpCheckboxOption }, // "Highlight Terminal"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(238), 0x00040000, menuhandlerMpCheckboxOption }, // "Show on Radar"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(239), 0x00000000, NULL }, // "Back"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222),  MPOPTION_ONEHITKILLS,           menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223),  0x00000000,                     menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224),  MPOPTION_FASTMOVEMENT,          menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225),  MPOPTION_DISPLAYTEAM,           menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226),  MPOPTION_NORADAR,               menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227),  MPOPTION_NOAUTOAIM,             menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS(493), MPOPTION_KILLSSCORE,            menuhandlerMpCheckboxOption }, // "Kills Score"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                     NULL                        },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(231),  MPOPTION_HTM_HIGHLIGHTTERMINAL, menuhandlerMpCheckboxOption }, // "Highlight Terminal"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(238),  MPOPTION_HTM_SHOWONRADAR,       menuhandlerMpCheckboxOption }, // "Show on Radar"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                     NULL                        },
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239),  0x00000000,                     NULL                        }, // "Back"
+	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,     0x00000000,                     NULL                        },
 };
 
 // 2ce1c
@@ -11555,19 +11555,19 @@ u32 var80086e78 = 0x00000000;
 
 // 2ce9c
 struct menu_item menuitems_mppopacapoptions[] = {
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(222), 0x00000001, menuhandlerMpOneHitKills }, // "One-Hit Kills"
-	{ MENUITEMTYPE_DROPDOWN,    0, 0x00020000, L_MPMENU(223), 0x00000000, menuhandlerMpSlowMotion }, // "Slow Motion"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(224), 0x00000100, menuhandlerMpCheckboxOption }, // "Fast Movement"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(225), L_AME(0), menuhandlerMpDisplayTeam }, // "Display Team"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(226), 0x00000004, menuhandlerMpCheckboxOption }, // "No Radar"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(227), 0x00000008, menuhandlerMpCheckboxOption }, // "No Auto-Aim"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_OPTIONS(493), L_ARCH(0), menuhandlerMpCheckboxOption }, // "Kills Score"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(230), 0x00080000, menuhandlerMpCheckboxOption }, // "Highlight Target"
-	{ MENUITEMTYPE_CHECKBOX,    0, 0x00020000, L_MPMENU(238), 0x00100000, menuhandlerMpCheckboxOption }, // "Show on Radar"
-	{ MENUITEMTYPE_SEPARATOR,   0, 0x00000000, 0x00000000, 0x00000000, NULL },
-	{ MENUITEMTYPE_SELECTABLE,  0, 0x00000008, L_MPMENU(239), 0x00000000, NULL }, // "Back"
-	{ MENUITEMTYPE_END,         0, 0x00000000, 0x00000000, 0x00000000, NULL },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(222),  MPOPTION_ONEHITKILLS,         menuhandlerMpOneHitKills    }, // "One-Hit Kills"
+	{ MENUITEMTYPE_DROPDOWN,   0, 0x00020000, L_MPMENU(223),  0x00000000,                   menuhandlerMpSlowMotion     }, // "Slow Motion"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(224),  MPOPTION_FASTMOVEMENT,        menuhandlerMpCheckboxOption }, // "Fast Movement"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(225),  MPOPTION_DISPLAYTEAM,         menuhandlerMpDisplayTeam    }, // "Display Team"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(226),  MPOPTION_NORADAR,             menuhandlerMpCheckboxOption }, // "No Radar"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(227),  MPOPTION_NOAUTOAIM,           menuhandlerMpCheckboxOption }, // "No Auto-Aim"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_OPTIONS(493), MPOPTION_KILLSSCORE,          menuhandlerMpCheckboxOption }, // "Kills Score"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                   NULL                        },
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(230),  MPOPTION_PAC_HIGHLIGHTTARGET, menuhandlerMpCheckboxOption }, // "Highlight Target"
+	{ MENUITEMTYPE_CHECKBOX,   0, 0x00020000, L_MPMENU(238),  MPOPTION_PAC_SHOWONRADAR,     menuhandlerMpCheckboxOption }, // "Show on Radar"
+	{ MENUITEMTYPE_SEPARATOR,  0, 0x00000000, 0x00000000,     0x00000000,                   NULL                        },
+	{ MENUITEMTYPE_SELECTABLE, 0, 0x00000008, L_MPMENU(239),  0x00000000,                   NULL                        }, // "Back"
+	{ MENUITEMTYPE_END,        0, 0x00000000, 0x00000000,     0x00000000,                   NULL                        },
 };
 
 // 2cfa0
@@ -11667,45 +11667,44 @@ s32 var80087260 = 0x00000000;
 u32 var80087264 = 0x00000000;
 
 // 2d288
-u16 mpweaponstable[] = {
-	/*0x00*/ 0x0000, 0x0000, 0x0080, 0x0118, 0x0100,
-	/*0x01*/ 0x0201, 0x5000, 0x0080, 0x00f5, 0x0100,
-	/*0x02*/ 0x0301, 0x5000, 0x0085, 0x00fb, 0x0100,
-	/*0x03*/ 0x0401, 0x5000, 0x0086, 0x00fc, 0x0100,
-	/*0x04*/ 0x0501, 0x5000, 0x0080, 0x00f6, 0x0100,
-	/*0x05*/ 0x0601, 0x5c00, 0x0087, 0x00f7, 0x0100,
-	/*0x06*/ 0x0701, 0x4000, 0x0088, 0x00fa, 0x0100,
-	/*0x07*/ 0x080a, 0x3200, 0x0080, 0x00f8, 0x0100,
-	/*0x08*/ 0x090a, 0x3200, 0x0089, 0x00f9, 0x0100,
-	/*0x09*/ 0x0a02, 0x6400, 0x0080, 0x00fd, 0x0100,
-	/*0x0a*/ 0x0b02, 0x9600, 0x0080, 0x0102, 0x0100,
-	/*0x0b*/ 0x0c02, 0x9600, 0x008a, 0x0103, 0x0100,
-	/*0x0c*/ 0x0d02, 0x9600, 0x008d, 0x0104, 0x0100,
-	/*0x0d*/ 0x0e02, 0x9600, 0x008b, 0x0105, 0x0100,
-	/*0x0e*/ 0x0f04, 0x9600, 0x0080, 0x00ff, 0x0100,
-	/*0x0f*/ 0x1004, 0x9600, 0x008c, 0x0101, 0x0100,
-	/*0x10*/ 0x1104, 0x6400, 0x0080, 0x00fe, 0x0100,
-	/*0x11*/ 0x1204, 0x960b, 0x1083, 0x0100, 0x0100,
-	/*0x12*/ 0x1305, 0x1000, 0x008e, 0x0106, 0x0100,
-	/*0x13*/ 0x140f, 0xc800, 0x008f, 0x0107, 0x0100,
-	/*0x14*/ 0x1504, 0x3200, 0x0080, 0x010c, 0x0100,
-	/*0x15*/ 0x1606, 0x0a00, 0x0081, 0x010b, 0x0100,
-	/*0x16*/ 0x170b, 0x1000, 0x0090, 0x0109, 0x0100,
-	/*0x17*/ 0x1808, 0x0300, 0x0080, 0x0108, 0x0100,
-	/*0x18*/ 0x1908, 0x0300, 0x0084, 0x010a, 0x0100,
-	/*0x19*/ 0x1a09, 0x0500, 0x0080, 0x010f, 0x0100,
-	/*0x1a*/ 0x1b03, 0x0a00, 0x0091, 0x010d, 0x0100,
-	/*0x1b*/ 0x1c13, 0x3200, 0x0082, 0x010e, 0x0100,
-	/*0x1c*/ 0x1e07, 0x0500, 0x0000, 0x0112, 0x0100,
-	/*0x1d*/ 0x1f12, 0x0300, 0x0012, 0x0110, 0x0100,
-	/*0x1e*/ 0x200e, 0x0500, 0x0000, 0x0113, 0x0180,
-	/*0x1f*/ 0x210d, 0x0500, 0x0013, 0x0114, 0x0180,
-	/*0x20*/ 0x220c, 0x0500, 0x0014, 0x0115, 0x0180,
-	/*0x21*/ 0x1d00, 0x0000, 0x00cf, 0x0195, 0x0200,
-	/*0x22*/ 0x2f00, 0x0000, 0x0095, 0x00f3, 0x0100,
-	/*0x23*/ 0x3100, 0x0000, 0x0097, 0x012e, 0x0100,
-	/*0x24*/ 0x2300, 0x0000, 0x0098, 0x012f, 0x0100,
-	/*0x25*/ 0x5b00, 0x0000, 0x0096, 0x00f4, 0x0100,
-	/*0x26*/ 0x5c00, 0x0000, 0x0000, 0x0000, 0x0000,
-	/*0x27*/ 0x0000,
+struct mpweapon mpweaponstable[] = {
+	/*0x00*/ { WEAPON_NONE,             0x00, 0x00, 0x00, 0x0080, MODEL_CHRTT33,          0x01, 0x00 },
+	/*0x01*/ { WEAPON_FALCON2,          0x01, 0x50, 0x00, 0x0080, MODEL_CHRFALCON2,       0x01, 0x00 },
+	/*0x02*/ { WEAPON_FALCON2_SILENCER, 0x01, 0x50, 0x00, 0x0085, MODEL_CHRFALCON2SIL,    0x01, 0x00 },
+	/*0x03*/ { WEAPON_FALCON2_SCOPE,    0x01, 0x50, 0x00, 0x0086, MODEL_CHRFALCON2SCOPE,  0x01, 0x00 },
+	/*0x04*/ { WEAPON_MAGSEC4,          0x01, 0x50, 0x00, 0x0080, MODEL_CHRLEEGUN1,       0x01, 0x00 },
+	/*0x05*/ { WEAPON_MAULER,           0x01, 0x5c, 0x00, 0x0087, MODEL_CHRMAULER,        0x01, 0x00 },
+	/*0x06*/ { WEAPON_PHOENIX,          0x01, 0x40, 0x00, 0x0088, MODEL_CHRMAIANPISTOL,   0x01, 0x00 },
+	/*0x07*/ { WEAPON_DY357MAGNUM,      0x0a, 0x32, 0x00, 0x0080, MODEL_CHRDY357,         0x01, 0x00 },
+	/*0x08*/ { WEAPON_DY357LX,          0x0a, 0x32, 0x00, 0x0089, MODEL_CHRDY357TRENT,    0x01, 0x00 },
+	/*0x09*/ { WEAPON_CMP150,           0x02, 0x64, 0x00, 0x0080, MODEL_CHRCMP150,        0x01, 0x00 },
+	/*0x0a*/ { WEAPON_CYCLONE,          0x02, 0x96, 0x00, 0x0080, MODEL_CHRCYCLONE,       0x01, 0x00 },
+	/*0x0b*/ { WEAPON_CALLISTONTG,      0x02, 0x96, 0x00, 0x008a, MODEL_CHRMAIANSMG,      0x01, 0x00 },
+	/*0x0c*/ { WEAPON_RCP120,           0x02, 0x96, 0x00, 0x008d, MODEL_CHRRCP120,        0x01, 0x00 },
+	/*0x0d*/ { WEAPON_LAPTOPGUN,        0x02, 0x96, 0x00, 0x008b, MODEL_CHRPCGUN,         0x01, 0x00 },
+	/*0x0e*/ { WEAPON_DRAGON,           0x04, 0x96, 0x00, 0x0080, MODEL_CHRDRAGON,        0x01, 0x00 },
+	/*0x0f*/ { WEAPON_K7AVENGER,        0x04, 0x96, 0x00, 0x008c, MODEL_CHRAVENGER,       0x01, 0x00 },
+	/*0x10*/ { WEAPON_AR34,             0x04, 0x64, 0x00, 0x0080, MODEL_CHRAR34,          0x01, 0x00 },
+	/*0x11*/ { WEAPON_SUPERDRAGON,      0x04, 0x96, 0x0b, 0x1083, MODEL_CHRSUPERDRAGON,   0x01, 0x00 },
+	/*0x12*/ { WEAPON_SHOTGUN,          0x05, 0x10, 0x00, 0x008e, MODEL_CHRSHOTGUN,       0x01, 0x00 },
+	/*0x13*/ { WEAPON_REAPER,           0x0f, 0xc8, 0x00, 0x008f, MODEL_CHRSKMINIGUN,     0x01, 0x00 },
+	/*0x14*/ { WEAPON_SNIPERRIFLE,      0x04, 0x32, 0x00, 0x0080, MODEL_CHRSNIPERRIFLE,   0x01, 0x00 },
+	/*0x15*/ { WEAPON_FARSIGHTXR20,     0x06, 0x0a, 0x00, 0x0081, MODEL_CHRZ2020,         0x01, 0x00 },
+	/*0x16*/ { WEAPON_DEVASTATOR,       0x0b, 0x10, 0x00, 0x0090, MODEL_CHRDEVASTATOR,    0x01, 0x00 },
+	/*0x17*/ { WEAPON_ROCKETLAUNCHER,   0x08, 0x03, 0x00, 0x0080, MODEL_CHRDYROCKET,      0x01, 0x00 },
+	/*0x18*/ { WEAPON_SLAYER,           0x08, 0x03, 0x00, 0x0084, MODEL_CHRSKROCKET,      0x01, 0x00 },
+	/*0x19*/ { WEAPON_COMBATKNIFE,      0x09, 0x05, 0x00, 0x0080, MODEL_CHRKNIFE,         0x01, 0x00 },
+	/*0x1a*/ { WEAPON_CROSSBOW,         0x03, 0x0a, 0x00, 0x0091, MODEL_CHRCROSSBOW,      0x01, 0x00 },
+	/*0x1b*/ { WEAPON_TRANQUILIZER,     0x13, 0x32, 0x00, 0x0082, MODEL_CHRDRUGGUN,       0x01, 0x00 },
+	/*0x1c*/ { WEAPON_GRENADE,          0x07, 0x05, 0x00, 0x0000, MODEL_CHRGRENADE,       0x01, 0x00 },
+	/*0x1d*/ { WEAPON_NBOMB,            0x12, 0x03, 0x00, 0x0012, MODEL_CHRNBOMB,         0x01, 0x00 },
+	/*0x1e*/ { WEAPON_TIMEDMINE,        0x0e, 0x05, 0x00, 0x0000, MODEL_CHRTIMEDMINE,     0x01, 0x80 },
+	/*0x1f*/ { WEAPON_PROXIMITYMINE,    0x0d, 0x05, 0x00, 0x0013, MODEL_CHRPROXIMITYMINE, 0x01, 0x80 },
+	/*0x20*/ { WEAPON_REMOTEMINE,       0x0c, 0x05, 0x00, 0x0014, MODEL_CHRREMOTEMINE,    0x01, 0x80 },
+	/*0x21*/ { WEAPON_LASER,            0x00, 0x00, 0x00, 0x00cf, MODEL_CHRLASER,         0x02, 0x00 },
+	/*0x22*/ { WEAPON_XRAYSCANNER,      0x00, 0x00, 0x00, 0x0095, MODEL_CHRNIGHTSIGHT,    0x01, 0x00 },
+	/*0x23*/ { WEAPON_CLOAKINGDEVICE,   0x00, 0x00, 0x00, 0x0097, MODEL_CHRCLOAKER,       0x01, 0x00 },
+	/*0x24*/ { WEAPON_COMBATBOOST,      0x00, 0x00, 0x00, 0x0098, MODEL_CHRSPEEDPILL,     0x01, 0x00 },
+	/*0x25*/ { WEAPON_MPSHIELD,         0x00, 0x00, 0x00, 0x0096, MODEL_CHRSHIELD,        0x01, 0x00 },
+	/*0x26*/ { WEAPON_DISABLED,         0x00, 0x00, 0x00, 0x0000, 0,                      0x00, 0x00 },
 };

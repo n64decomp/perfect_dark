@@ -105,6 +105,11 @@ SECTIONS
 	}
 	__rompos += SIZEOF(.inflate);
 
+	.mpconfigs : AT(__rompos) {
+		build/ROMID/mpconfigs/mpconfigs.o (.data);
+	}
+	__rompos += SIZEOF(.mpconfigs);
+
 	__rompos = 0xed83a0;
 	_filesSegmentRomStart = __rompos;
 	_filesSegmentRamStart = .;
