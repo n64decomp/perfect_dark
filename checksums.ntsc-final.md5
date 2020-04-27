@@ -2017,3 +2017,10 @@ ed0462324d1287de21611707172d316a  build/ntsc-final/ucode/game.bin
 843285fdc0e80a77576eeb73940d2fd3  build/ntsc-final/ucode/inflate.bin
 6a227624d708b43a10f220e005aef486  build/ntsc-final/ucode/lib.bin
 fe4034c01c91bd10e488fe93389b4104  build/ntsc-final/ucode/mpconfigs.bin
+529b54a03375af2ff74eb3367cbac294  build/ntsc-final/ucode/mpstringsE.bin
+302f7aa0464c781187551fcd3870aec2  build/ntsc-final/ucode/mpstringsJ.bin
+e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-final/ucode/mpstringsP.bin
+e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-final/ucode/mpstringsF.bin
+e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-final/ucode/mpstringsG.bin
+e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-final/ucode/mpstringsI.bin
+e4f45399a4f97e3fd6733f0f6919d28d  build/ntsc-final/ucode/mpstringsS.bin

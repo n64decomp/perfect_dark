@@ -2017,3 +2017,10 @@ bca5001a5dd0ef9aab24ba085f27eb40  build/pal-beta/ucode/gamedata.bin
 843285fdc0e80a77576eeb73940d2fd3  build/pal-beta/ucode/inflate.bin
 7a859fcb6e89426543b5a207cc388f82  build/pal-beta/ucode/lib.bin
 fe4034c01c91bd10e488fe93389b4104  build/pal-beta/ucode/mpconfigs.bin
+529b54a03375af2ff74eb3367cbac294  build/pal-beta/ucode/mpstringsE.bin
+bed567631daf314f79ec8a2aa994f3a0  build/pal-beta/ucode/mpstringsF.bin
+27be1b7f42826d0910b2fd549f969a63  build/pal-beta/ucode/mpstringsG.bin
+fed3dc54a3564f477fb7d548ac365514  build/pal-beta/ucode/mpstringsI.bin
+302f7aa0464c781187551fcd3870aec2  build/pal-beta/ucode/mpstringsJ.bin
+529b54a03375af2ff74eb3367cbac294  build/pal-beta/ucode/mpstringsP.bin
+d9501d67ead982fdd5cb5ffaf3091201  build/pal-beta/ucode/mpstringsS.bin

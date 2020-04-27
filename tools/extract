@@ -23,6 +23,7 @@ class Extractor:
         self.extract_textures()
         self.extract_ucodes()
         self.extract_mpconfigs()
+        self.extract_mpstrings()
 
     #
     # Audio
@@ -136,6 +137,19 @@ class Extractor:
     def extract_mpconfigs(self):
         addr = self.val('mpconfigs')
         self.write('ucode/mpconfigs.bin', self.rom[addr:addr+0x68*44])
+
+    def extract_mpstrings(self):
+        self.extract_mpstrings_lang(0, 'E')
+        self.extract_mpstrings_lang(1, 'J')
+        self.extract_mpstrings_lang(2, 'P')
+        self.extract_mpstrings_lang(3, 'G')
+        self.extract_mpstrings_lang(4, 'F')
+        self.extract_mpstrings_lang(5, 'S')
+        self.extract_mpstrings_lang(6, 'I')
+
+    def extract_mpstrings_lang(self, index, lang):
+        addr = self.val('mpconfigs') + 0x68 * 44 + 0x3700 * index
+        self.write('ucode/mpstrings%s.bin' % lang, self.rom[addr:addr+0x3700])
 
     #
     # Fonts

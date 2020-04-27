@@ -29,6 +29,13 @@ def main():
     write_binary(fd, 0x4e850, get_inflate())
     write_binary(fd, 0x4fc40, get_gamezips())
     write_binary(fd, 0x7d0a40, get_mpconfigs())
+    write_binary(fd, 0x7d1c20, get_mpstrings('E'))
+    write_binary(fd, 0x7d5320, get_mpstrings('J'))
+    write_binary(fd, 0x7d8a20, get_mpstrings('P'))
+    write_binary(fd, 0x7dc120, get_mpstrings('G'))
+    write_binary(fd, 0x7df820, get_mpstrings('F'))
+    write_binary(fd, 0x7e2f20, get_mpstrings('S'))
+    write_binary(fd, 0x7e6620, get_mpstrings('I'))
     write_binary(fd, 0x7f2388, get_fonts())
     write_binary(fd, 0x80a250, get_sfxctl())
     write_binary(fd, 0x839dd0, get_sfxtbl())
@@ -84,6 +91,9 @@ def get_unknown():
 
 def get_mpconfigs():
     return getfilecontents(bdir() + '/ucode/mpconfigs.bin')
+
+def get_mpstrings(lang):
+    return getfilecontents(bdir() + '/ucode/mpstrings%s.bin' % lang)
 
 def get_fonts():
     return getfrombaserom(0x7f2388, 0x17ec8)

@@ -8,6 +8,12 @@
 #define VERSION_PAL_FINAL  4
 #define VERSION_JAP_FINAL  5
 
+#define MPSTRINGS(lang) \
+	.mpstrings##lang : AT(__rompos) { \
+		build/ROMID/mpstrings/ROMID/mpstrings##lang.o (.data); \
+	} \
+	__rompos += SIZEOF(.mpstrings##lang);
+
 OUTPUT_ARCH (mips)
 
 SECTIONS
@@ -109,6 +115,14 @@ SECTIONS
 		build/ROMID/mpconfigs/mpconfigs.o (.data);
 	}
 	__rompos += SIZEOF(.mpconfigs);
+
+	MPSTRINGS(E)
+	MPSTRINGS(J)
+	MPSTRINGS(P)
+	MPSTRINGS(G)
+	MPSTRINGS(F)
+	MPSTRINGS(S)
+	MPSTRINGS(I)
 
 	__rompos = 0xed83a0;
 	_filesSegmentRomStart = __rompos;

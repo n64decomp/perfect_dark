@@ -5642,4 +5642,9 @@ struct mpweapon {
 	u8 unk09;
 };
 
+struct mpstrings {
+	char description[200];
+	char aibotnames[8][15];
+};
+
 #endif
