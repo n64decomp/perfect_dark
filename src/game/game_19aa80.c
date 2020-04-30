@@ -1753,19 +1753,14 @@ glabel func0f19c288
 /*  f19c2ac:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-const char var7f1b9178[] = "";
+char *mpconfigGetDescription(struct mpconfigfull *mpconfig)
+{
+	if (mpconfig) {
+		return mpconfig->strings.description;
+	}
 
-GLOBAL_ASM(
-glabel func0f19c2b0
-/*  f19c2b0:	10800003 */ 	beqz	$a0,.L0f19c2c0
-/*  f19c2b4:	3c027f1c */ 	lui	$v0,%hi(var7f1b9178)
-/*  f19c2b8:	03e00008 */ 	jr	$ra
-/*  f19c2bc:	24820068 */ 	addiu	$v0,$a0,0x68
-.L0f19c2c0:
-/*  f19c2c0:	24429178 */ 	addiu	$v0,$v0,%lo(var7f1b9178)
-/*  f19c2c4:	03e00008 */ 	jr	$ra
-/*  f19c2c8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	return "";
+}
 
 s32 mpGetNumChallengesAvailable(s32 mpchrnum)
 {
