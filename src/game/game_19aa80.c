@@ -25,7 +25,7 @@
 #include "types.h"
 
 u32 g_MpChallengeIndex = 0;
-void *g_MpCurrentChallengeConfig = NULL;
+struct mpconfigfull *g_MpCurrentChallengeConfig = NULL;
 
 // 2e4d8
 struct challenge g_MpChallenges[NUM_CHALLENGES] = {
@@ -1736,22 +1736,14 @@ bool mpIsChallengeLoaded(void)
 	return g_MpCurrentChallengeConfig != NULL;
 }
 
-const char var7f1b9174[] = "";
+char *mpGetCurrentChallengeDescription(void)
+{
+	if (g_MpCurrentChallengeConfig) {
+		return g_MpCurrentChallengeConfig->strings.description;
+	}
 
-GLOBAL_ASM(
-glabel func0f19c288
-/*  f19c288:	3c038009 */ 	lui	$v1,%hi(g_MpCurrentChallengeConfig)
-/*  f19c28c:	8c6384b4 */ 	lw	$v1,%lo(g_MpCurrentChallengeConfig)($v1)
-/*  f19c290:	3c027f1c */ 	lui	$v0,%hi(var7f1b9174)
-/*  f19c294:	24429174 */ 	addiu	$v0,$v0,%lo(var7f1b9174)
-/*  f19c298:	10600003 */ 	beqz	$v1,.L0f19c2a8
-/*  f19c29c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f19c2a0:	03e00008 */ 	jr	$ra
-/*  f19c2a4:	24620068 */ 	addiu	$v0,$v1,0x68
-.L0f19c2a8:
-/*  f19c2a8:	03e00008 */ 	jr	$ra
-/*  f19c2ac:	00000000 */ 	sll	$zero,$zero,0x0
-);
+	return "";
+}
 
 char *mpconfigGetDescription(struct mpconfigfull *mpconfig)
 {

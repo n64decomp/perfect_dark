@@ -4,7 +4,7 @@
 #include "types.h"
 
 extern u32 g_MpChallengeIndex;
-extern void *g_MpCurrentChallengeConfig;
+extern struct mpconfigfull *g_MpCurrentChallengeConfig;
 extern struct challenge g_MpChallenges[NUM_CHALLENGES];
 
 bool ai0176(void);
@@ -19,7 +19,7 @@ u32 func0f19bb98(void);
 u32 func0f19bd4c(void);
 u32 func0f19bfa0(void);
 void func0f19c1cc(void);
-u32 func0f19c288(void);
+char *mpGetCurrentChallengeDescription(void);
 char *mpconfigGetDescription(struct mpconfigfull *mpconfig);
 bool mpIsChallengeCompleteForEndscreen(void);
 bool aiMpInitSimulants(void);

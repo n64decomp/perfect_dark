@@ -12036,7 +12036,7 @@ glabel var7f1b1e8c
 /*  f0ecd4c:	0fc67091 */ 	jal	mpLoadAndStoreCurrentChallenge
 /*  f0ecd50:	8c450848 */ 	lw	$a1,0x848($v0)
 .L0f0ecd54:
-/*  f0ecd54:	0fc670a2 */ 	jal	func0f19c288
+/*  f0ecd54:	0fc670a2 */ 	jal	mpGetCurrentChallengeDescription
 /*  f0ecd58:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0ecd5c:	1000002d */ 	beqz	$zero,.L0f0ece14
 /*  f0ecd60:	8fbf0014 */ 	lw	$ra,0x14($sp)
