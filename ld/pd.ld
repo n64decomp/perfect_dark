@@ -27,6 +27,14 @@ SECTIONS
 	_rspMicrocodeStart = 0x80059fe0;
 	_rspMicrocodeStartPlusOne = 0x80059fe1;
 	_rspMicrocodeEnd = 0x8005afe0;
+	_mpconfigsSegmentRomStart = 0x7d0a40;
+	_mpstringsESegmentRomStart = 0x007d1c20; _mpstringsESegmentRomEnd = 0x007d5320;
+	_mpstringsJSegmentRomStart = 0x007d5320; _mpstringsJSegmentRomEnd = 0x007d8a20;
+	_mpstringsPSegmentRomStart = 0x007d8a20; _mpstringsPSegmentRomEnd = 0x007dc120;
+	_mpstringsGSegmentRomStart = 0x007dc120; _mpstringsGSegmentRomEnd = 0x007df820;
+	_mpstringsFSegmentRomStart = 0x007df820; _mpstringsFSegmentRomEnd = 0x007e2f20;
+	_mpstringsSSegmentRomStart = 0x007e2f20; _mpstringsSSegmentRomEnd = 0x007e6620;
+	_mpstringsISegmentRomStart = 0x007e6620; _mpstringsISegmentRomEnd = 0x007e9d20;
 
 #if VERSION >= VERSION_NTSC_FINAL
 	_bssSegmentEnd = 0x7f1b99e0;

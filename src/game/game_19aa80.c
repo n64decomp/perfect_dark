@@ -24,6 +24,43 @@
 #include "lib/lib_12dc0.h"
 #include "types.h"
 
+u32 g_MpChallengeIndex = 0;
+void *g_MpCurrentChallengeConfig = NULL;
+
+// 2e4d8
+struct challenge g_MpChallenges[NUM_CHALLENGES] = {
+	{ L_OPTIONS(406), MPCONFIG_CHALLENGE01 }, // "Challenge 1"
+	{ L_OPTIONS(407), MPCONFIG_CHALLENGE02 }, // "Challenge 2"
+	{ L_OPTIONS(408), MPCONFIG_CHALLENGE03 }, // "Challenge 3"
+	{ L_OPTIONS(409), MPCONFIG_CHALLENGE04 }, // "Challenge 4"
+	{ L_OPTIONS(410), MPCONFIG_CHALLENGE05 }, // "Challenge 5"
+	{ L_OPTIONS(411), MPCONFIG_CHALLENGE06 }, // "Challenge 6"
+	{ L_OPTIONS(412), MPCONFIG_CHALLENGE07 }, // "Challenge 7"
+	{ L_OPTIONS(413), MPCONFIG_CHALLENGE08 }, // "Challenge 8"
+	{ L_OPTIONS(414), MPCONFIG_CHALLENGE09 }, // "Challenge 9"
+	{ L_OPTIONS(415), MPCONFIG_CHALLENGE10 }, // "Challenge 10"
+	{ L_OPTIONS(416), MPCONFIG_CHALLENGE11 }, // "Challenge 11"
+	{ L_OPTIONS(417), MPCONFIG_CHALLENGE12 }, // "Challenge 12"
+	{ L_OPTIONS(418), MPCONFIG_CHALLENGE13 }, // "Challenge 13"
+	{ L_OPTIONS(419), MPCONFIG_CHALLENGE14 }, // "Challenge 14"
+	{ L_OPTIONS(420), MPCONFIG_CHALLENGE15 }, // "Challenge 15"
+	{ L_OPTIONS(421), MPCONFIG_CHALLENGE16 }, // "Challenge 16"
+	{ L_OPTIONS(422), MPCONFIG_CHALLENGE17 }, // "Challenge 17"
+	{ L_OPTIONS(423), MPCONFIG_CHALLENGE18 }, // "Challenge 18"
+	{ L_OPTIONS(424), MPCONFIG_CHALLENGE19 }, // "Challenge 19"
+	{ L_OPTIONS(425), MPCONFIG_CHALLENGE20 }, // "Challenge 20"
+	{ L_OPTIONS(426), MPCONFIG_CHALLENGE21 }, // "Challenge 21"
+	{ L_OPTIONS(427), MPCONFIG_CHALLENGE22 }, // "Challenge 22"
+	{ L_OPTIONS(428), MPCONFIG_CHALLENGE23 }, // "Challenge 23"
+	{ L_OPTIONS(429), MPCONFIG_CHALLENGE24 }, // "Challenge 24"
+	{ L_OPTIONS(430), MPCONFIG_CHALLENGE25 }, // "Challenge 25"
+	{ L_OPTIONS(431), MPCONFIG_CHALLENGE26 }, // "Challenge 26"
+	{ L_OPTIONS(432), MPCONFIG_CHALLENGE27 }, // "Challenge 27"
+	{ L_OPTIONS(433), MPCONFIG_CHALLENGE28 }, // "Challenge 28"
+	{ L_OPTIONS(434), MPCONFIG_CHALLENGE29 }, // "Challenge 29"
+	{ L_OPTIONS(435), MPCONFIG_CHALLENGE30 }, // "Challenge 30"
+};
+
 /**
  * @cmd 0185
  */
@@ -358,7 +395,7 @@ glabel func0f19afdc
 /*  f19afdc:	27bdffc8 */ 	addiu	$sp,$sp,-56
 /*  f19afe0:	afb1001c */ 	sw	$s1,0x1c($sp)
 /*  f19afe4:	3c118009 */ 	lui	$s1,%hi(g_MpChallenges)
-/*  f19afe8:	3c028009 */ 	lui	$v0,%hi(var800887c4)
+/*  f19afe8:	3c028009 */ 	lui	$v0,0x8009
 /*  f19afec:	afbf0034 */ 	sw	$ra,0x34($sp)
 /*  f19aff0:	afb60030 */ 	sw	$s6,0x30($sp)
 /*  f19aff4:	afb5002c */ 	sw	$s5,0x2c($sp)
@@ -366,7 +403,7 @@ glabel func0f19afdc
 /*  f19affc:	afb30024 */ 	sw	$s3,0x24($sp)
 /*  f19b000:	afb20020 */ 	sw	$s2,0x20($sp)
 /*  f19b004:	afb00018 */ 	sw	$s0,0x18($sp)
-/*  f19b008:	244287c4 */ 	addiu	$v0,$v0,%lo(var800887c4)
+/*  f19b008:	244287c4 */ 	addiu	$v0,$v0,-30780
 /*  f19b00c:	263184b8 */ 	addiu	$s1,$s1,%lo(g_MpChallenges)
 .L0f19b010:
 /*  f19b010:	2631001a */ 	addiu	$s1,$s1,0x1a
@@ -445,8 +482,8 @@ glabel func0f19afdc
 /*  f19b118:	3c198009 */ 	lui	$t9,%hi(g_MpChallenges)
 /*  f19b11c:	273984b8 */ 	addiu	$t9,$t9,%lo(g_MpChallenges)
 /*  f19b120:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f19b124:	3c038009 */ 	lui	$v1,%hi(var800887c4)
-/*  f19b128:	246387c4 */ 	addiu	$v1,$v1,%lo(var800887c4)
+/*  f19b124:	3c038009 */ 	lui	$v1,0x8009
+/*  f19b128:	246387c4 */ 	addiu	$v1,$v1,-30780
 /*  f19b12c:	03198821 */ 	addu	$s1,$t8,$t9
 /*  f19b130:	92220004 */ 	lbu	$v0,0x4($s1)
 .L0f19b134:
@@ -462,8 +499,8 @@ glabel func0f19afdc
 /*  f19b154:	5623fff7 */ 	bnel	$s1,$v1,.L0f19b134
 /*  f19b158:	92220004 */ 	lbu	$v0,0x4($s1)
 .L0f19b15c:
-/*  f19b15c:	3c168009 */ 	lui	$s6,%hi(var800887c4)
-/*  f19b160:	26d687c4 */ 	addiu	$s6,$s6,%lo(var800887c4)
+/*  f19b15c:	3c168009 */ 	lui	$s6,0x8009
+/*  f19b160:	26d687c4 */ 	addiu	$s6,$s6,-30780
 .L0f19b164:
 /*  f19b164:	3c118009 */ 	lui	$s1,%hi(g_MpChallenges)
 /*  f19b168:	0000a025 */ 	or	$s4,$zero,$zero
@@ -1007,6 +1044,36 @@ glabel func0f19b800
 /*  f19b910:	27bd0028 */ 	addiu	$sp,$sp,0x28
 );
 
+extern u32 _mpstringsESegmentRomStart;
+extern u32 _mpstringsJSegmentRomStart;
+extern u32 _mpstringsPSegmentRomStart;
+extern u32 _mpstringsGSegmentRomStart;
+extern u32 _mpstringsFSegmentRomStart;
+extern u32 _mpstringsSSegmentRomStart;
+extern u32 _mpstringsISegmentRomStart;
+extern u32 _mpstringsESegmentRomEnd;
+extern u32 _mpstringsJSegmentRomEnd;
+extern u32 _mpstringsPSegmentRomEnd;
+extern u32 _mpstringsGSegmentRomEnd;
+extern u32 _mpstringsFSegmentRomEnd;
+extern u32 _mpstringsSSegmentRomEnd;
+extern u32 _mpstringsISegmentRomEnd;
+
+u32 *var800887c4 = &_mpstringsESegmentRomStart;
+u32 *var800887c8 = &_mpstringsESegmentRomEnd;
+u32 *var800887cc = &_mpstringsJSegmentRomStart;
+u32 *var800887d0 = &_mpstringsJSegmentRomEnd;
+u32 *var800887d4 = &_mpstringsPSegmentRomStart;
+u32 *var800887d8 = &_mpstringsPSegmentRomEnd;
+u32 *var800887dc = &_mpstringsGSegmentRomStart;
+u32 *var800887e0 = &_mpstringsGSegmentRomEnd;
+u32 *var800887e4 = &_mpstringsFSegmentRomStart;
+u32 *var800887e8 = &_mpstringsFSegmentRomEnd;
+u32 *var800887ec = &_mpstringsSSegmentRomStart;
+u32 *var800887f0 = &_mpstringsSSegmentRomEnd;
+u32 *var800887f4 = &_mpstringsISegmentRomStart;
+u32 *var800887f8 = &_mpstringsISegmentRomEnd;
+
 GLOBAL_ASM(
 glabel mpLoadConfig
 /*  f19b914:	27bdfe38 */ 	addiu	$sp,$sp,-456
@@ -1015,8 +1082,8 @@ glabel mpLoadConfig
 /*  f19b920:	afa501cc */ 	sw	$a1,0x1cc($sp)
 /*  f19b924:	0fc5b9b5 */ 	jal	langGetLanguageId
 /*  f19b928:	afa601d0 */ 	sw	$a2,0x1d0($sp)
-/*  f19b92c:	3c0f8009 */ 	lui	$t7,%hi(var800887c4)
-/*  f19b930:	25ef87c4 */ 	addiu	$t7,$t7,%lo(var800887c4)
+/*  f19b92c:	3c0f8009 */ 	lui	$t7,0x8009
+/*  f19b930:	25ef87c4 */ 	addiu	$t7,$t7,-30780
 /*  f19b934:	afa20050 */ 	sw	$v0,0x50($sp)
 /*  f19b938:	25e80030 */ 	addiu	$t0,$t7,0x30
 /*  f19b93c:	27ae0018 */ 	addiu	$t6,$sp,0x18
@@ -1094,12 +1161,59 @@ glabel mpLoadConfig
 /*  f19ba54:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-s32 mpLoadChallenge(s32 challengeindex, char *buffer, s32 len)
+// Mismatch because the arguments to an addu instruction are swapped.
+// It's the addu for calculating &bank[confignum].
+//struct mpconfigfull *mpLoadConfig(s32 confignum, u8 *buffer, s32 len)
+//{
+//	struct mpconfigfull *mpconfig;
+//	u8 buffer2[sizeof(struct mpstrings) + 40];
+//	struct mpstrings *loadedstrings;
+//	struct mpstrings *bank;
+//	u32 language_id = langGetLanguageId();
+//	extern struct mpconfig _mpconfigsSegmentRomStart[];
+//	extern struct mpstrings _mpstringsESegmentRomStart;
+//	extern struct mpstrings _mpstringsJSegmentRomStart;
+//	extern struct mpstrings _mpstringsPSegmentRomStart;
+//	extern struct mpstrings _mpstringsGSegmentRomStart;
+//	extern struct mpstrings _mpstringsFSegmentRomStart;
+//	extern struct mpstrings _mpstringsSSegmentRomStart;
+//	extern struct mpstrings _mpstringsISegmentRomStart;
+//	extern struct mpstrings _mpstringsESegmentRomEnd;
+//	extern struct mpstrings _mpstringsJSegmentRomEnd;
+//	extern struct mpstrings _mpstringsPSegmentRomEnd;
+//	extern struct mpstrings _mpstringsGSegmentRomEnd;
+//	extern struct mpstrings _mpstringsFSegmentRomEnd;
+//	extern struct mpstrings _mpstringsSSegmentRomEnd;
+//	extern struct mpstrings _mpstringsISegmentRomEnd;
+//
+//	struct mpstrings *banks[][2] = {
+//		{ &_mpstringsESegmentRomStart, &_mpstringsESegmentRomEnd },
+//		{ &_mpstringsJSegmentRomStart, &_mpstringsJSegmentRomEnd },
+//		{ &_mpstringsPSegmentRomStart, &_mpstringsPSegmentRomEnd },
+//		{ &_mpstringsGSegmentRomStart, &_mpstringsGSegmentRomEnd },
+//		{ &_mpstringsFSegmentRomStart, &_mpstringsFSegmentRomEnd },
+//		{ &_mpstringsSSegmentRomStart, &_mpstringsSSegmentRomEnd },
+//		{ &_mpstringsISegmentRomStart, &_mpstringsISegmentRomEnd },
+//	};
+//
+//	// Load mpconfigs
+//	mpconfig = func0000d488(buffer, &_mpconfigsSegmentRomStart[confignum], sizeof(struct mpconfig));
+//
+//	// Load mpstrings
+//	bank = banks[language_id][0];
+//	loadedstrings = func0000d488(buffer2, &bank[confignum], sizeof(struct mpstrings));
+//
+//	mpconfig->strings = *loadedstrings;
+//
+//	return mpconfig;
+//}
+
+struct mpconfigfull *mpLoadChallenge(s32 challengeindex, u8 *buffer, s32 len)
 {
 	return mpLoadConfig(g_MpChallenges[challengeindex].confignum, buffer, len);
 }
 
-s32 mpGetNthAvailableChallengeSomething(s32 n, char *buffer, s32 len)
+struct mpconfigfull *mpGetNthAvailableChallengeSomething(s32 n, u8 *buffer, s32 len)
 {
 	s32 numavailable = 0;
 	s32 challengeindex;
@@ -1117,7 +1231,7 @@ s32 mpGetNthAvailableChallengeSomething(s32 n, char *buffer, s32 len)
 	return 0;
 }
 
-s32 mpLoadCurrentChallenge(char *buffer, s32 len)
+struct mpconfigfull *mpLoadCurrentChallenge(u8 *buffer, s32 len)
 {
 	return mpLoadChallenge(g_MpChallengeIndex, buffer, len);
 }
@@ -1592,7 +1706,7 @@ void func0f19c190(void)
 void func0f19c1cc(void)
 {
 	s32 i;
-	char buffer[458];
+	u8 buffer[458];
 
 	func0f18dcec(mpLoadCurrentChallenge(buffer, 458));
 	mpSetLock(MPLOCKTYPE_CHALLENGE, 5);
@@ -1607,27 +1721,27 @@ s32 mpRemoveLock(void)
 	return mpSetLock(MPLOCKTYPE_NONE, 0);
 }
 
-void mpCalculateVar800884b4(char *buffer, s32 len)
+void mpLoadAndStoreCurrentChallenge(u8 *buffer, s32 len)
 {
-	var800884b4 = mpLoadCurrentChallenge(buffer, len);
+	g_MpCurrentChallengeConfig = mpLoadCurrentChallenge(buffer, len);
 }
 
-void mpResetVar800884b4(void)
+void mpClearCurrentChallenge(void)
 {
-	var800884b4 = 0;
+	g_MpCurrentChallengeConfig = NULL;
 }
 
-bool mpIsVar800884b4NonZero(void)
+bool mpIsChallengeLoaded(void)
 {
-	return var800884b4 != 0;
+	return g_MpCurrentChallengeConfig != NULL;
 }
 
 const char var7f1b9174[] = "";
 
 GLOBAL_ASM(
 glabel func0f19c288
-/*  f19c288:	3c038009 */ 	lui	$v1,%hi(var800884b4)
-/*  f19c28c:	8c6384b4 */ 	lw	$v1,%lo(var800884b4)($v1)
+/*  f19c288:	3c038009 */ 	lui	$v1,%hi(g_MpCurrentChallengeConfig)
+/*  f19c28c:	8c6384b4 */ 	lw	$v1,%lo(g_MpCurrentChallengeConfig)($v1)
 /*  f19c290:	3c027f1c */ 	lui	$v0,%hi(var7f1b9174)
 /*  f19c294:	24429174 */ 	addiu	$v0,$v0,%lo(var7f1b9174)
 /*  f19c298:	10600003 */ 	beqz	$v1,.L0f19c2a8

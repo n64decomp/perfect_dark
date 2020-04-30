@@ -87,7 +87,7 @@ bool menudialogCombatSimulator(u32 operation, struct menu_dialog *dialog, struct
 		g_Vars.unk000490 = 2;
 		g_Vars.mpquickteam = MPQUICKTEAM_5;
 		g_Vars.unk00049c = 0;
-		mpResetVar800884b4();
+		mpClearCurrentChallenge();
 		mpRemoveLock();
 	}
 

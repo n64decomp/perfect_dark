@@ -5202,7 +5202,7 @@ glabel func0f17e318
 s32 menuhandler0017e38c(u32 operation, struct menu_item *item, s32 *value)
 {
 	if (operation == MENUOP_SET) {
-		mpResetVar800884b4();
+		mpClearCurrentChallenge();
 		menuPopDialog();
 		mpSetCurrentChallenge(g_MenuStack[g_MpPlayerNum].slotindex);
 	}
@@ -5743,7 +5743,7 @@ glabel menudialog0017eb34
 /*  f17eb98:	8c480000 */ 	lw	$t0,0x0($v0)
 /*  f17eb9c:	54a80017 */ 	bnel	$a1,$t0,.L0f17ebfc
 /*  f17eba0:	8fad0018 */ 	lw	$t5,0x18($sp)
-/*  f17eba4:	0fc6709d */ 	jal	mpIsVar800884b4NonZero
+/*  f17eba4:	0fc6709d */ 	jal	mpIsChallengeLoaded
 /*  f17eba8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17ebac:	14400012 */ 	bnez	$v0,.L0f17ebf8
 /*  f17ebb0:	3c098007 */ 	lui	$t1,%hi(g_MpPlayerNum)
@@ -5762,7 +5762,7 @@ glabel menudialog0017eb34
 /*  f17ebe4:	358c5ace */ 	ori	$t4,$t4,0x5ace
 /*  f17ebe8:	ac4c0850 */ 	sw	$t4,0x850($v0)
 /*  f17ebec:	8c440844 */ 	lw	$a0,0x844($v0)
-/*  f17ebf0:	0fc67091 */ 	jal	mpCalculateVar800884b4
+/*  f17ebf0:	0fc67091 */ 	jal	mpLoadAndStoreCurrentChallenge
 /*  f17ebf4:	8c450848 */ 	lw	$a1,0x848($v0)
 .L0f17ebf8:
 /*  f17ebf8:	8fad0018 */ 	lw	$t5,0x18($sp)
@@ -5786,7 +5786,7 @@ glabel menudialog0017eb34
 /*  f17ec3c:	34215ace */ 	ori	$at,$at,0x5ace
 /*  f17ec40:	57010004 */ 	bnel	$t8,$at,.L0f17ec54
 /*  f17ec44:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f17ec48:	0fc6709a */ 	jal	mpResetVar800884b4
+/*  f17ec48:	0fc6709a */ 	jal	mpClearCurrentChallenge
 /*  f17ec4c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f17ec50:	8fbf0014 */ 	lw	$ra,0x14($sp)
 .L0f17ec54:

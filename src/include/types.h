@@ -5647,4 +5647,9 @@ struct mpstrings {
 	char aibotnames[8][15];
 };
 
+struct mpconfigfull {
+	struct mpconfig config;
+	struct mpstrings strings;
+};
+
 #endif

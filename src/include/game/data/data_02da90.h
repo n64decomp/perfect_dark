@@ -16,9 +16,5 @@ extern u32 var80087eb0;
 extern u32 var80088490;
 extern u32 var80088494;
 extern u32 var800884a4;
-extern u32 g_MpChallengeIndex;
-extern u32 var800884b4;
-extern struct challenge g_MpChallenges[NUM_CHALLENGES];
-extern u32 var800887c4;
 
 #endif

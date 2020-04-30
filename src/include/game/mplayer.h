@@ -107,7 +107,7 @@ u32 mpGetNumPresets(void);
 bool mpIsPresetUnlocked(s32 presetnum);
 s32 mpGetNumUnlockedPresets(void);
 char *mpGetPresetNameBySlot(s32 slot);
-void func0f18dcec(s32 arg0);
+void func0f18dcec(struct mpconfigfull *mpconfig);
 u32 func0f18dec4(void);
 u32 func0f18df5c(void);
 u32 func0f18e16c(void);
