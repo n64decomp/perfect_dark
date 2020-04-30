@@ -3341,8 +3341,17 @@ struct menustackitem {
 	/*0x83e*/ u8 unk83e;
 	/*0x83f*/ u8 unk83f;
 	/*0x840*/ u8 unk840;
-	/*0x844*/ u32 unk844;
-	/*0x848*/ u32 unk848;
+
+	union {
+		/*0x844*/ u32 unk844;
+		/*0x844*/ u8 *mpconfigbuffer;
+	};
+
+	union {
+		/*0x848*/ u32 unk848;
+		/*0x848*/ u32 mpconfigbufferlen;
+	};
+
 	/*0x84c*/ u32 unk84c;
 	/*0x850*/ u32 unk850;
 	/*0x854*/ u32 unk854;
@@ -3709,7 +3718,12 @@ struct menustackitem {
 	/*0xdf8*/ u8 unkdf8;
 	/*0xdfc*/ struct menustackdfc unkdfc[4];
 	/*0xe1c*/ s32 slotindex;
-	/*0xe20*/ u32 slotcount;
+
+	union {
+		/*0xe20*/ u32 slotcount;
+		/*0xe20*/ struct mpconfigfull *mpconfig;
+	};
+
 	/*0xe24*/ u32 unke24;
 	/*0xe28*/ u32 unke28;
 	/*0xe2c*/ u32 unke2c;

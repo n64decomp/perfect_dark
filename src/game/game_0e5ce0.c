@@ -11960,136 +11960,31 @@ glabel func0f0ecbfc
 /*  f0ecc94:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel func0f0ecc98
-.late_rodata
-glabel var7f1b1e60
-.word func0f0ecc98+0x2c # f0eccc4
-glabel var7f1b1e64
-.word func0f0ecc98+0x68 # f0ecd00
-glabel var7f1b1e68
-.word func0f0ecc98+0xcc # f0ecd64
-glabel var7f1b1e6c
-.word func0f0ecc98+0xdc # f0ecd74
-glabel var7f1b1e70
-.word func0f0ecc98+0xec # f0ecd84
-glabel var7f1b1e74
-.word func0f0ecc98+0xfc # f0ecd94
-glabel var7f1b1e78
-.word func0f0ecc98+0x10c # f0ecda4
-glabel var7f1b1e7c
-.word func0f0ecc98+0x11c # f0ecdb4
-glabel var7f1b1e80
-.word func0f0ecc98+0x12c # f0ecdc4
-glabel var7f1b1e84
-.word func0f0ecc98+0x13c # f0ecdd4
-glabel var7f1b1e88
-.word func0f0ecc98+0x14c # f0ecde4
-glabel var7f1b1e8c
-.word func0f0ecc98+0x15c # f0ecdf4
-.text
-/*  f0ecc98:	248effff */ 	addiu	$t6,$a0,-1
-/*  f0ecc9c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0ecca0:	2dc1000c */ 	sltiu	$at,$t6,0xc
-/*  f0ecca4:	10200057 */ 	beqz	$at,.L0f0ece04
-/*  f0ecca8:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0eccac:	000e7080 */ 	sll	$t6,$t6,0x2
-/*  f0eccb0:	3c017f1b */ 	lui	$at,%hi(var7f1b1e60)
-/*  f0eccb4:	002e0821 */ 	addu	$at,$at,$t6
-/*  f0eccb8:	8c2e1e60 */ 	lw	$t6,%lo(var7f1b1e60)($at)
-/*  f0eccbc:	01c00008 */ 	jr	$t6
-/*  f0eccc0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0eccc4:	3c0f8007 */ 	lui	$t7,%hi(g_MpPlayerNum)
-/*  f0eccc8:	8def1448 */ 	lw	$t7,%lo(g_MpPlayerNum)($t7)
-/*  f0ecccc:	3c04800a */ 	lui	$a0,%hi(g_MenuStack+0xe20)
-/*  f0eccd0:	000fc0c0 */ 	sll	$t8,$t7,0x3
-/*  f0eccd4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f0eccd8:	0018c080 */ 	sll	$t8,$t8,0x2
-/*  f0eccdc:	030fc021 */ 	addu	$t8,$t8,$t7
-/*  f0ecce0:	0018c0c0 */ 	sll	$t8,$t8,0x3
-/*  f0ecce4:	030fc023 */ 	subu	$t8,$t8,$t7
-/*  f0ecce8:	0018c100 */ 	sll	$t8,$t8,0x4
-/*  f0eccec:	00982021 */ 	addu	$a0,$a0,$t8
-/*  f0eccf0:	0fc670ac */ 	jal	mpconfigGetDescription
-/*  f0eccf4:	8c84ee20 */ 	lw	$a0,%lo(g_MenuStack+0xe20)($a0)
-/*  f0eccf8:	10000046 */ 	beqz	$zero,.L0f0ece14
-/*  f0eccfc:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecd00:	0fc6709d */ 	jal	mpIsChallengeLoaded
-/*  f0ecd04:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecd08:	14400012 */ 	bnez	$v0,.L0f0ecd54
-/*  f0ecd0c:	3c198007 */ 	lui	$t9,%hi(g_MpPlayerNum)
-/*  f0ecd10:	8f391448 */ 	lw	$t9,%lo(g_MpPlayerNum)($t9)
-/*  f0ecd14:	3c09800a */ 	lui	$t1,0x800a
-/*  f0ecd18:	2529e000 */ 	addiu	$t1,$t1,-8192
-/*  f0ecd1c:	001940c0 */ 	sll	$t0,$t9,0x3
-/*  f0ecd20:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f0ecd24:	00084080 */ 	sll	$t0,$t0,0x2
-/*  f0ecd28:	01194021 */ 	addu	$t0,$t0,$t9
-/*  f0ecd2c:	000840c0 */ 	sll	$t0,$t0,0x3
-/*  f0ecd30:	01194023 */ 	subu	$t0,$t0,$t9
-/*  f0ecd34:	00084100 */ 	sll	$t0,$t0,0x4
-/*  f0ecd38:	01091021 */ 	addu	$v0,$t0,$t1
-/*  f0ecd3c:	3c0a4fac */ 	lui	$t2,0x4fac
-/*  f0ecd40:	354a5ace */ 	ori	$t2,$t2,0x5ace
-/*  f0ecd44:	ac4a0850 */ 	sw	$t2,0x850($v0)
-/*  f0ecd48:	8c440844 */ 	lw	$a0,0x844($v0)
-/*  f0ecd4c:	0fc67091 */ 	jal	mpLoadAndStoreCurrentChallenge
-/*  f0ecd50:	8c450848 */ 	lw	$a1,0x848($v0)
-.L0f0ecd54:
-/*  f0ecd54:	0fc670a2 */ 	jal	mpGetCurrentChallengeDescription
-/*  f0ecd58:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecd5c:	1000002d */ 	beqz	$zero,.L0f0ece14
-/*  f0ecd60:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecd64:	0fc68461 */ 	jal	ciGetChrBioDescription
-/*  f0ecd68:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecd6c:	10000029 */ 	beqz	$zero,.L0f0ece14
-/*  f0ecd70:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecd74:	0fc6851a */ 	jal	ciGetMiscBioDescription
-/*  f0ecd78:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecd7c:	10000025 */ 	beqz	$zero,.L0f0ece14
-/*  f0ecd80:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecd84:	0fc687a4 */ 	jal	dtGetDescription
-/*  f0ecd88:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecd8c:	10000021 */ 	beqz	$zero,.L0f0ece14
-/*  f0ecd90:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecd94:	0fc67aa0 */ 	jal	frGetWeaponDescription
-/*  f0ecd98:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecd9c:	1000001d */ 	beqz	$zero,.L0f0ece14
-/*  f0ecda0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecda4:	0fc685f9 */ 	jal	ciGetHangarBioDescription
-/*  f0ecda8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecdac:	10000019 */ 	beqz	$zero,.L0f0ece14
-/*  f0ecdb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecdb4:	0fc68989 */ 	jal	htGetDescription
-/*  f0ecdb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecdbc:	10000015 */ 	beqz	$zero,.L0f0ece14
-/*  f0ecdc0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecdc4:	0fc689a7 */ 	jal	htGetTip1
-/*  f0ecdc8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecdcc:	10000011 */ 	beqz	$zero,.L0f0ece14
-/*  f0ecdd0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecdd4:	0fc689c5 */ 	jal	htGetTip2
-/*  f0ecdd8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecddc:	1000000d */ 	beqz	$zero,.L0f0ece14
-/*  f0ecde0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecde4:	0fc687c0 */ 	jal	dtGetTip1
-/*  f0ecde8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecdec:	10000009 */ 	beqz	$zero,.L0f0ece14
-/*  f0ecdf0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0ecdf4:	0fc687dc */ 	jal	dtGetTip2
-/*  f0ecdf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0ecdfc:	10000005 */ 	beqz	$zero,.L0f0ece14
-/*  f0ece00:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ece04:
-/*  f0ece04:	3c04800a */ 	lui	$a0,%hi(g_Briefing)
-/*  f0ece08:	0fc5b9f1 */ 	jal	langGet
-/*  f0ece0c:	9484dfc8 */ 	lhu	$a0,%lo(g_Briefing)($a0)
-/*  f0ece10:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.L0f0ece14:
-/*  f0ece14:	27bd0018 */ 	addiu	$sp,$sp,0x18
-/*  f0ece18:	03e00008 */ 	jr	$ra
-/*  f0ece1c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+char *menuGetDescription(u32 type)
+{
+	switch (type) {
+	case DESCRIPTION_MPCONFIG:
+		return mpconfigGetDescription(g_MenuStack[g_MpPlayerNum].mpconfig);
+	case DESCRIPTION_MPCHALLENGE:
+		if (!mpIsChallengeLoaded()) {
+			g_MenuStack[g_MpPlayerNum].unk850 = 0x4fac5ace;
+			mpLoadAndStoreCurrentChallenge(g_MenuStack[g_MpPlayerNum].mpconfigbuffer, g_MenuStack[g_MpPlayerNum].mpconfigbufferlen);
+		}
+		return mpGetCurrentChallengeDescription();
+	case DESCRIPTION_CHRBIO:         return ciGetChrBioDescription();
+	case DESCRIPTION_MISCBIO:        return ciGetMiscBioDescription();
+	case DESCRIPTION_DEVICETRAINING: return dtGetDescription();
+	case DESCRIPTION_FRWEAPON:       return frGetWeaponDescription();
+	case DESCRIPTION_HANGARBIO:      return ciGetHangarBioDescription();
+	case DESCRIPTION_HOLOTRAINING:   return htGetDescription();
+	case DESCRIPTION_HOLOTIP1:       return htGetTip1();
+	case DESCRIPTION_HOLOTIP2:       return htGetTip2();
+	case DESCRIPTION_DEVICETIP1:     return dtGetTip1();
+	case DESCRIPTION_DEVICETIP2:     return dtGetTip2();
+	}
+
+	return langGet(g_Briefing.objectivenames[0]);
+}
 
 GLOBAL_ASM(
 glabel menuRenderItemScrollable
@@ -12121,7 +12016,7 @@ glabel menuRenderItemScrollable
 /*  f0ece80:	afac004c */ 	sw	$t4,0x4c($sp)
 /*  f0ece84:	afab0060 */ 	sw	$t3,0x60($sp)
 /*  f0ece88:	8e0d0008 */ 	lw	$t5,0x8($s0)
-/*  f0ece8c:	0fc3b326 */ 	jal	func0f0ecc98
+/*  f0ece8c:	0fc3b326 */ 	jal	menuGetDescription
 /*  f0ece90:	91a40001 */ 	lbu	$a0,0x1($t5)
 /*  f0ece94:	8e040008 */ 	lw	$a0,0x8($s0)
 /*  f0ece98:	0fc3c94d */ 	jal	func0f0f2534
@@ -12453,7 +12348,7 @@ glabel func0f0ed264
 /*  f0ed368:	afac004c */ 	sw	$t4,0x4c($sp)
 .L0f0ed36c:
 /*  f0ed36c:	8fad1f98 */ 	lw	$t5,0x1f98($sp)
-/*  f0ed370:	0fc3b326 */ 	jal	func0f0ecc98
+/*  f0ed370:	0fc3b326 */ 	jal	menuGetDescription
 /*  f0ed374:	91a40001 */ 	lbu	$a0,0x1($t5)
 /*  f0ed378:	10400009 */ 	beqz	$v0,.L0f0ed3a0
 /*  f0ed37c:	00402825 */ 	or	$a1,$v0,$zero
