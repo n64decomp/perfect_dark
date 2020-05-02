@@ -6344,14 +6344,14 @@ glabel var7f1ade74
 /*  f0dca78:	00801025 */ 	or	$v0,$a0,$zero
 /*  f0dca7c:	8c4f1580 */ 	lw	$t7,0x1580($v0)
 .L0f0dca80:
-/*  f0dca80:	3c198007 */ 	lui	$t9,%hi(var800706c8)
+/*  f0dca80:	3c198007 */ 	lui	$t9,%hi(g_HiResActive)
 /*  f0dca84:	31f80001 */ 	andi	$t8,$t7,0x1
 /*  f0dca88:	13000003 */ 	beqz	$t8,.L0f0dca98
 /*  f0dca8c:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0dca90:	100000c2 */ 	beqz	$zero,.L0f0dcd9c
 /*  f0dca94:	8fa20030 */ 	lw	$v0,0x30($sp)
 .L0f0dca98:
-/*  f0dca98:	8f3906c8 */ 	lw	$t9,%lo(var800706c8)($t9)
+/*  f0dca98:	8f3906c8 */ 	lw	$t9,%lo(g_HiResActive)($t9)
 /*  f0dca9c:	24080001 */ 	addiu	$t0,$zero,0x1
 /*  f0dcaa0:	24090002 */ 	addiu	$t1,$zero,0x2
 /*  f0dcaa4:	15190004 */ 	bne	$t0,$t9,.L0f0dcab8

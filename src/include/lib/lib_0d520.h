@@ -10,7 +10,7 @@ u32 mainTick(void);
 u32 func0000e324(void);
 void func0000e684(void);
 void func0000e95c(s32 stagenum);
-u32 func0000e990(void);
+void func0000e990(void);
 u32 func0000e9c0(void);
 s32 getCurrentStageId(void);
 

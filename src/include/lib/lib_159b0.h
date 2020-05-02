@@ -15,7 +15,7 @@ u32 func00015be4(void);
 u32 func00015cd8(void);
 u32 func00015d18(void);
 void func00015d54(f32 *realrot, f32 *matrix);
-u32 func00015da0(void);
+void func00015da0(f32 *arg0, f32 *arg1);
 void func00015dd4(struct coord *pos, f32 *matrix);
 u32 func00015df0(void);
 u32 func00015e24(void);

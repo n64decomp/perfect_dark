@@ -145,8 +145,8 @@ void savefileLoadDefaults(struct savefile_solo *file)
 	audioSetSfxVolume(0x5000);
 	optionsSetMusicVolume(0x5000);
 	audioSetSoundMode(SOUNDMODE_STEREO);
-	optionsSetControlMode(player1, CONTROLMODE_SINGLE);
-	optionsSetControlMode(player2, CONTROLMODE_SINGLE);
+	optionsSetControlMode(player1, CONTROLMODE_11);
+	optionsSetControlMode(player2, CONTROLMODE_11);
 	func0f11e5bc(&file->flags);
 
 	bitSetByIndex(SAVEFILEFLAG_P1_FORWARDPITCH, &file->flags, false);
@@ -731,8 +731,8 @@ glabel func0f10feac
 /*  f1101d0:	24040008 */ 	addiu	$a0,$zero,0x8
 /*  f1101d4:	0fc4794c */ 	jal	bitSetByIndex
 /*  f1101d8:	02002825 */ 	or	$a1,$s0,$zero
-/*  f1101dc:	3c188007 */ 	lui	$t8,%hi(var800706c8)
-/*  f1101e0:	8f1806c8 */ 	lw	$t8,%lo(var800706c8)($t8)
+/*  f1101dc:	3c188007 */ 	lui	$t8,%hi(g_HiResActive)
+/*  f1101e0:	8f1806c8 */ 	lw	$t8,%lo(g_HiResActive)($t8)
 /*  f1101e4:	24040022 */ 	addiu	$a0,$zero,0x22
 /*  f1101e8:	02002825 */ 	or	$a1,$s0,$zero
 /*  f1101ec:	02583026 */ 	xor	$a2,$s2,$t8

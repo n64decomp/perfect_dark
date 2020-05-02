@@ -4917,7 +4917,7 @@ void dtRestorePlayer(void)
 
 		func0f0926bc(g_Vars.currentplayer->eyespy->prop, 1, 0xffff);
 
-		g_Vars.currentplayer->unk00c4 &= ~0x04;
+		g_Vars.currentplayer->itemswitch &= ~0x04;
 	}
 }
 

@@ -48550,8 +48550,8 @@ glabel var7f1ab1a8
 /*  f090a10:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f090a14:	26100008 */ 	addiu	$s0,$s0,0x8
 .L0f090a18:
-/*  f090a18:	3c0a8007 */ 	lui	$t2,%hi(var800706c8)
-/*  f090a1c:	8d4a06c8 */ 	lw	$t2,%lo(var800706c8)($t2)
+/*  f090a18:	3c0a8007 */ 	lui	$t2,%hi(g_HiResActive)
+/*  f090a1c:	8d4a06c8 */ 	lw	$t2,%lo(g_HiResActive)($t2)
 /*  f090a20:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f090a24:	44803000 */ 	mtc1	$zero,$f6
 /*  f090a28:	55410008 */ 	bnel	$t2,$at,.L0f090a4c

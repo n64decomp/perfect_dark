@@ -99,8 +99,8 @@ s32 func0f0dcdbc(void)
 				|| g_Vars.antiplayernum >= 0)
 		&& var80075d60 == 2
 		&& currentPlayerGetSight() == SIGHT_ZOOM
-		&& g_Vars.currentplayer->cameramode != CAMERAMODE_2
-		&& g_Vars.currentplayer->cameramode != CAMERAMODE_CUTSCENE;
+		&& g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
+		&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON;
 }
 
 GLOBAL_ASM(
@@ -2674,8 +2674,8 @@ glabel hudmsgCreate
 .L0f0defbc:
 /*  f0defbc:	04c100e3 */ 	bgez	$a2,.L0f0df34c
 .L0f0defc0:
-/*  f0defc0:	3c0a8007 */ 	lui	$t2,%hi(var800706c8)
-/*  f0defc4:	8d4a06c8 */ 	lw	$t2,%lo(var800706c8)($t2)
+/*  f0defc0:	3c0a8007 */ 	lui	$t2,%hi(g_HiResActive)
+/*  f0defc4:	8d4a06c8 */ 	lw	$t2,%lo(g_HiResActive)($t2)
 /*  f0defc8:	24030001 */ 	addiu	$v1,$zero,0x1
 /*  f0defcc:	3c048007 */ 	lui	$a0,%hi(g_NumHudMessages)
 /*  f0defd0:	8c840fe8 */ 	lw	$a0,%lo(g_NumHudMessages)($a0)
@@ -2977,7 +2977,7 @@ glabel hudmsgCreate
 //			}
 //		}
 //
-//		var8007fac0 = var800706c8 == 1 ? 2 : 1;
+//		var8007fac0 = g_HiResActive == 1 ? 2 : 1;
 //
 //		// Find an unused index for the new message
 //		for (index = 0; index < g_NumHudMessages; index++) {
@@ -3090,8 +3090,8 @@ glabel var7f1aded8
 .word func0f0df364+0x604 # f0df968
 .text
 /*  f0df364:	27bdff90 */ 	addiu	$sp,$sp,-112
-/*  f0df368:	3c0e8007 */ 	lui	$t6,%hi(var800706c8)
-/*  f0df36c:	8dce06c8 */ 	lw	$t6,%lo(var800706c8)($t6)
+/*  f0df368:	3c0e8007 */ 	lui	$t6,%hi(g_HiResActive)
+/*  f0df36c:	8dce06c8 */ 	lw	$t6,%lo(g_HiResActive)($t6)
 /*  f0df370:	afb20030 */ 	sw	$s2,0x30($sp)
 /*  f0df374:	24120001 */ 	addiu	$s2,$zero,0x1
 /*  f0df378:	3c018007 */ 	lui	$at,%hi(var80070fb0)
@@ -3599,8 +3599,8 @@ glabel var7f1adef4
 .word func0f0dfad0+0x7c8 # f0e0298
 .text
 /*  f0dfad0:	27bdff00 */ 	addiu	$sp,$sp,-256
-/*  f0dfad4:	3c0f8007 */ 	lui	$t7,%hi(var800706c8)
-/*  f0dfad8:	8def06c8 */ 	lw	$t7,%lo(var800706c8)($t7)
+/*  f0dfad4:	3c0f8007 */ 	lui	$t7,%hi(g_HiResActive)
+/*  f0dfad8:	8def06c8 */ 	lw	$t7,%lo(g_HiResActive)($t7)
 /*  f0dfadc:	afb20060 */ 	sw	$s2,0x60($sp)
 /*  f0dfae0:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f0dfae4:	240e00ff */ 	addiu	$t6,$zero,0xff

@@ -22,12 +22,12 @@ void optionsSetControlMode(s32 mpchrnum, s32 mode)
 	g_MpPlayers[mpchrnum].base.controlmode = mode;
 }
 
-s32 optionsGetUnk45(s32 mpchrnum)
+s32 optionsGetContpadNum1(s32 mpchrnum)
 {
 	return g_MpPlayers[mpchrnum].base.unk45;
 }
 
-s32 optionsGetUnk46(s32 mpchrnum)
+s32 optionsGetContpadNum2(s32 mpchrnum)
 {
 	return g_MpPlayers[mpchrnum].base.unk46;
 }

@@ -1350,14 +1350,14 @@ glabel func0f18f874
 /*  f18f9c4:	17000005 */ 	bnez	$t8,.L0f18f9dc
 /*  f18f9c8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f18f9cc:	8d0f00d8 */ 	lw	$t7,0xd8($t0)
-/*  f18f9d0:	3c198007 */ 	lui	$t9,%hi(var800706c8)
+/*  f18f9d0:	3c198007 */ 	lui	$t9,%hi(g_HiResActive)
 /*  f18f9d4:	11e00003 */ 	beqz	$t7,.L0f18f9e4
 /*  f18f9d8:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f18f9dc:
 /*  f18f9dc:	1000019a */ 	beqz	$zero,.L0f190048
 /*  f18f9e0:	8fa20088 */ 	lw	$v0,0x88($sp)
 .L0f18f9e4:
-/*  f18f9e4:	8f3906c8 */ 	lw	$t9,%lo(var800706c8)($t9)
+/*  f18f9e4:	8f3906c8 */ 	lw	$t9,%lo(g_HiResActive)($t9)
 /*  f18f9e8:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f18f9ec:	14590004 */ 	bne	$v0,$t9,.L0f18fa00
 /*  f18f9f0:	240a0002 */ 	addiu	$t2,$zero,0x2

@@ -190,7 +190,7 @@ glabel activemenuTick
 /*  f01b308:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x288)
 /*  f01b30c:	8defa248 */ 	lw	$t7,%lo(g_Vars+0x288)($t7)
 /*  f01b310:	afa200d4 */ 	sw	$v0,0xd4($sp)
-/*  f01b314:	0fc549d2 */ 	jal	optionsGetUnk45
+/*  f01b314:	0fc549d2 */ 	jal	optionsGetContpadNum1
 /*  f01b318:	8de40070 */ 	lw	$a0,0x70($t7)
 /*  f01b31c:	0c005207 */ 	jal	func0001481c
 /*  f01b320:	a3a200d3 */ 	sb	$v0,0xd3($sp)
@@ -361,7 +361,7 @@ glabel activemenuTick
 /*  f01b568:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f01b56c:
 /*  f01b56c:	8d4aa248 */ 	lw	$t2,%lo(g_Vars+0x288)($t2)
-/*  f01b570:	0fc549d9 */ 	jal	optionsGetUnk46
+/*  f01b570:	0fc549d9 */ 	jal	optionsGetContpadNum2
 /*  f01b574:	8d440070 */ 	lw	$a0,0x70($t2)
 /*  f01b578:	00028600 */ 	sll	$s0,$v0,0x18
 /*  f01b57c:	00022e00 */ 	sll	$a1,$v0,0x18

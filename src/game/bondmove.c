@@ -878,7 +878,7 @@ glabel var7f1ad8e4
 /*  f0c8bf4:	24050001 */ 	addiu	$a1,$zero,0x1
 /*  f0c8bf8:	8e4f0288 */ 	lw	$t7,0x288($s2)
 /*  f0c8bfc:	afa201a8 */ 	sw	$v0,0x1a8($sp)
-/*  f0c8c00:	0fc549d2 */ 	jal	optionsGetUnk45
+/*  f0c8c00:	0fc549d2 */ 	jal	optionsGetContpadNum1
 /*  f0c8c04:	8de40070 */ 	lw	$a0,0x70($t7)
 /*  f0c8c08:	0002ae00 */ 	sll	$s5,$v0,0x18
 /*  f0c8c0c:	0015c603 */ 	sra	$t8,$s5,0x18
@@ -1110,7 +1110,7 @@ glabel var7f1ad8e4
 /*  f0c8f34:	24010002 */ 	addiu	$at,$zero,0x2
 .L0f0c8f38:
 /*  f0c8f38:	8e4d0288 */ 	lw	$t5,0x288($s2)
-/*  f0c8f3c:	0fc549d9 */ 	jal	optionsGetUnk46
+/*  f0c8f3c:	0fc549d9 */ 	jal	optionsGetContpadNum2
 /*  f0c8f40:	8da40070 */ 	lw	$a0,0x70($t5)
 /*  f0c8f44:	0002a600 */ 	sll	$s4,$v0,0x18
 /*  f0c8f48:	00022600 */ 	sll	$a0,$v0,0x18
@@ -4176,7 +4176,7 @@ void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3)
 			&& (!g_Vars.normmplayerisrunning || PLAYERCOUNT() == 1)) {
 		chr = g_Vars.currentplayer->prop->chr;
 
-		if (g_Vars.currentplayer->cameramode == CAMERAMODE_0
+		if (g_Vars.currentplayer->cameramode == CAMERAMODE_DEFAULT
 				&& g_Vars.currentplayer->bdeltapos.y >= -6.0f) {
 			xdiff = g_Vars.currentplayer->bondprevpos.x - g_Vars.currentplayer->prop->pos.x;
 			ydiff = g_Vars.currentplayer->bondprevpos.y - g_Vars.currentplayer->prop->pos.y;

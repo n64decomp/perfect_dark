@@ -10505,7 +10505,7 @@ glabel var7f1ac740
 /*  f0a02f0:	318b0800 */ 	andi	$t3,$t4,0x800
 /*  f0a02f4:	51600004 */ 	beqzl	$t3,.L0f0a0308
 /*  f0a02f8:	8e050048 */ 	lw	$a1,0x48($s0)
-/*  f0a02fc:	0fc2f52a */ 	jal	func0f0bd4a8
+/*  f0a02fc:	0fc2f52a */ 	jal	currentPlayerLaunchSlayerRocket
 /*  f0a0300:	02002025 */ 	or	$a0,$s0,$zero
 /*  f0a0304:	8e050048 */ 	lw	$a1,0x48($s0)
 .L0f0a0308:
@@ -22602,14 +22602,14 @@ glabel hudRenderAmmo
 /*  f0aa980:	8fa20130 */ 	lw	$v0,0x130($sp)
 /*  f0aa984:	8c6e000c */ 	lw	$t6,0xc($v1)
 .L0f0aa988:
-/*  f0aa988:	3c0f8007 */ 	lui	$t7,%hi(var800706c8)
+/*  f0aa988:	3c0f8007 */ 	lui	$t7,%hi(g_HiResActive)
 /*  f0aa98c:	29c10005 */ 	slti	$at,$t6,0x5
 /*  f0aa990:	10200003 */ 	beqz	$at,.L0f0aa9a0
 /*  f0aa994:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0aa998:	10000449 */ 	beqz	$zero,.L0f0abac0
 /*  f0aa99c:	8fa20130 */ 	lw	$v0,0x130($sp)
 .L0f0aa9a0:
-/*  f0aa9a0:	8def06c8 */ 	lw	$t7,%lo(var800706c8)($t7)
+/*  f0aa9a0:	8def06c8 */ 	lw	$t7,%lo(g_HiResActive)($t7)
 /*  f0aa9a4:	24020001 */ 	addiu	$v0,$zero,0x1
 /*  f0aa9a8:	144f0004 */ 	bne	$v0,$t7,.L0f0aa9bc
 /*  f0aa9ac:	24180002 */ 	addiu	$t8,$zero,0x2

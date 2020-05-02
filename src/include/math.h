@@ -8,4 +8,7 @@
 #define M_BADTAU (M_BADPI * 2)
 #define M_TAU    (M_PI * 2)
 
+#define DEG2RAD(deg) ((deg) * 0.01745f)
+#define RAD2DEG(rad) ((rad) * 57.2958f)
+
 #endif

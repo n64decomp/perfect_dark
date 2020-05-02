@@ -190,9 +190,9 @@
 #define BANK_2 2
 #define BANK_3 3
 
-#define CAMERAMODE_0        0
-#define CAMERAMODE_CUTSCENE 1
-#define CAMERAMODE_2        2
+#define CAMERAMODE_DEFAULT     0
+#define CAMERAMODE_THIRDPERSON 1
+#define CAMERAMODE_EYESPY      2
 
 #define CASING_NONE     -1
 #define CASING_STANDARD 0
@@ -438,8 +438,15 @@
 #define COLOR_08_RED    0x08
 #define COLOR_09_BLUE   0x09
 
-#define CONTROLMODE_SINGLE 0
-#define CONTROLMODE_DOUBLE 1
+// Control styles - 1.1, 1.2 etc
+#define CONTROLMODE_11 0
+#define CONTROLMODE_12 1
+#define CONTROLMODE_13 2
+#define CONTROLMODE_14 3
+#define CONTROLMODE_21 4
+#define CONTROLMODE_22 5
+#define CONTROLMODE_23 6
+#define CONTROLMODE_24 7
 
 #define COVERFLAG_0001 0x0001
 #define COVERFLAG_0002 0x0002
@@ -570,8 +577,8 @@
 #define GAILIST_HAND_COMBAT            0x000f
 #define GAILIST_CIVILIAN_SAY_COMMENT   0x0010
 #define GAILIST_FLEE_FROM_GRENADE      0x0011
-#define GAILIST_INIT_COOP_100          0x0012 // unused
-#define GAILIST_INIT_COOP_200          0x0013 // unused
+#define GAILIST_INIT_COOP_100          0x0012
+#define GAILIST_INIT_COOP_200          0x0013
 #define GAILIST_COOP_BUDDY             0x0014
 #define GAILIST_AIBUDDY_STEALTH        0x0015
 #define GAILIST_SHOW_OBJ_FAILED_MSG    0x0016
@@ -2097,6 +2104,7 @@
 
 #define PAUSEMODE_0 0
 #define PAUSEMODE_1 1
+#define PAUSEMODE_2 2
 #define PAUSEMODE_3 3
 
 #define PDMODEPROP_REACTION 0
@@ -2515,6 +2523,7 @@
 #define TICKMODE_1        1
 #define TICKMODE_3        3
 #define TICKMODE_4        4
+#define TICKMODE_5        5
 #define TICKMODE_6        6
 #define TICKMODE_AUTOWALK 7
 
@@ -2526,6 +2535,7 @@
 #define VISIONMODE_NORMAL       0
 #define VISIONMODE_XRAY         1
 #define VISIONMODE_SLAYERROCKET 2
+#define VISIONMODE_3            3
 
 #define WEAPON_NONE              0x00
 #define WEAPON_UNARMED           0x01
@@ -2796,6 +2806,11 @@
 #define VERSION_PAL_BETA   3
 #define VERSION_PAL_FINAL  4
 #define VERSION_JAP_FINAL  5
+
+#define VOICEBOX_0 0
+#define VOICEBOX_1 1
+#define VOICEBOX_2 2
+#define VOICEBOX_3 3
 
 #if VERSION == VERSION_NTSC_1_0
 #define CHECKSUM_7F0225CC 0x5874fe3a

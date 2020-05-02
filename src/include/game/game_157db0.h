@@ -75,7 +75,7 @@ u32 func0f161adc(void);
 u32 func0f161c08(void);
 u32 func0f161d30(void);
 u32 func0f162128(void);
-u32 func0f162194(void);
+void func0f162194(struct coord *arg0, s16 *rooms, s16 *arg2, s32 arg3, s16 *arg4);
 bool portalPushValue(bool value);
 bool portalPopValue(void);
 bool portalGetNthValueFromEnd(s32 offset);

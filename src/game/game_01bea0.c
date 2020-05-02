@@ -108,8 +108,8 @@ glabel var7f1a863c
 .word menuTick+0x168c # f01d5b4
 .text
 /*  f01bf28:	27bdfe98 */ 	addiu	$sp,$sp,-360
-/*  f01bf2c:	3c0e8007 */ 	lui	$t6,%hi(var800706c8)
-/*  f01bf30:	8dce06c8 */ 	lw	$t6,%lo(var800706c8)($t6)
+/*  f01bf2c:	3c0e8007 */ 	lui	$t6,%hi(g_HiResActive)
+/*  f01bf30:	8dce06c8 */ 	lw	$t6,%lo(g_HiResActive)($t6)
 /*  f01bf34:	afb60040 */ 	sw	$s6,0x40($sp)
 /*  f01bf38:	24160001 */ 	addiu	$s6,$zero,0x1
 /*  f01bf3c:	afb00028 */ 	sw	$s0,0x28($sp)

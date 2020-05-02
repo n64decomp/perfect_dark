@@ -7,7 +7,7 @@ u8 *ailistFindById(s32 ailistid);
 u32 func00016110(void);
 u32 func00016140(void);
 u32 func000161b0(void);
-u32 func00016208(void);
+void func00016208(f32 *matrix, struct coord *coord);
 u32 func00016248(void);
 u32 func000162e8(void);
 void func00016374(f32 arg0, f32 *matrix);

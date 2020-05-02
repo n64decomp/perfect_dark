@@ -5,7 +5,7 @@
 
 u32 func0f1531a0(void);
 u32 func0f1531b8(void);
-u32 func0f1531dc(void);
+void func0f1531dc(bool arg0);
 u32 func0f153204(void);
 void func0f1532ec(void);
 Gfx *func0f153628(Gfx *gdl);

@@ -5364,7 +5364,7 @@ bool aiSetCameraAnimation(void)
 
 	cameraDoAnimation(anim_id);
 
-	if (g_Vars.currentplayer->unk19c8 == 0) {
+	if (g_Vars.currentplayer->haschrbody == false) {
 		return true;
 	}
 
@@ -10253,7 +10253,7 @@ bool aiClearInventory(void)
 
 		if (g_Vars.currentplayer == g_Vars.bond || g_Vars.currentplayer == g_Vars.coop) {
 			currentPlayerClearInventory();
-			g_Vars.currentplayer->unk00c4 = 0;
+			g_Vars.currentplayer->itemswitch = 0;
 			currentPlayerGiveWeapon(WEAPON_UNARMED);
 			currentPlayerEquipWeaponInCutscene(WEAPON_UNARMED);
 		}

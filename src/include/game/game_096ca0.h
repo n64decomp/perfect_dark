@@ -4,12 +4,12 @@
 #include "types.h"
 
 u32 func0f096ca0(void);
-u32 func0f096ed4(void);
-u32 func0f097044(void);
+void func0f096ed4(f32 *arg0, f32 *arg1);
+void func0f097044(f32 *matrix, f32 *arg1);
 u32 func0f097264(void);
 u32 func0f0972b8(void);
 u32 func0f097518(void);
 u32 func0f0976c0(void);
-u32 func0f097738(void);
+void func0f097738(f32 *arg0, f32 *arg1, f32 *arg2);
 
 #endif

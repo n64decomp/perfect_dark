@@ -390,7 +390,7 @@ s32 menuhandlerHiRes(u32 operation, struct menu_item *item, bool *enable)
 		}
 		break;
 	case MENUOP_GET:
-		return g_HiRes == true;
+		return g_HiResEnabled == true;
 	case MENUOP_SET:
 		optionsSetHiRes(*enable ? 1 : 0);
 		g_Vars.unk000458 |= 1;

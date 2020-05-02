@@ -745,7 +745,7 @@ struct chrdata {
 
 struct obj48 {
 	/*0x00*/ u32 flags;
-	/*0x04*/ struct coord unk04;
+	/*0x04*/ struct coord unk04; // distance moved in last tick
 	/*0x10*/ u32 unk10;
 	/*0x14*/ u32 unk14;
 	/*0x18*/ u32 unk18;
@@ -786,7 +786,8 @@ struct obj48 {
 	/*0xa4*/ u32 unka4;
 	/*0xa8*/ u32 unka8;
 	/*0xac*/ u32 unkac;
-	/*0xb0*/ u32 unkb0;
+	/*0xb0*/ u16 unkb0;
+	/*0xb2*/ u16 unkb2;
 	/*0xb4*/ u32 unkb4;
 	/*0xb8*/ u32 unkb8;
 	/*0xbc*/ u32 unkbc;
@@ -1689,9 +1690,9 @@ struct player {
 	/*0x00b4*/ f32 crouchoffset;
 	/*0x00b8*/ f32 crouchspeed;
 	/*0x00bc*/ struct prop *prop;
-	/*0x00c0*/ u32 unk00c0;
-	/*0x00c4*/ u32 unk00c4;
-	/*0x00c8*/ u32 unk00c8;
+	/*0x00c0*/ bool bondperimenabled;
+	/*0x00c4*/ u32 itemswitch;
+	/*0x00c8*/ s32 badrockettime;
 	/*0x00cc*/ u32 unk00cc;
 	/*0x00d0*/ u32 unk00d0;
 	/*0x00d4*/ u32 unk00d4;
@@ -1796,11 +1797,11 @@ struct player {
 	/*0x0258*/ u32 unk0258;
 	/*0x025c*/ u32 unk025c;
 	/*0x0260*/ u32 unk0260;
-	/*0x0264*/ u32 unk0264;
+	/*0x0264*/ struct weaponobj *slayerrocket;
 	/*0x0268*/ bool eyesshut;
 	/*0x026c*/ f32 eyesshutfrac;
 	/*0x0270*/ u32 unk0270;
-	/*0x0274*/ u32 unk0274;
+	/*0x0274*/ bool waitforzrelease;
 	/*0x0278*/ u32 unk0278;
 	/*0x027c*/ u32 unk027c;
 	/*0x0280*/ u32 unk0280;
@@ -2209,7 +2210,7 @@ struct player {
 	/*0x19bc*/ f32 vv_height;
 	/*0x19c0*/ f32 vv_headheight;
 	/*0x19c4*/ f32 vv_eyeheight;
-	/*0x19c8*/ u32 unk19c8;
+	/*0x19c8*/ bool haschrbody;
 	/*0x19cc*/ u32 unk19cc;
 	/*0x19d0*/ u32 unk19d0;
 	/*0x19d4*/ u32 unk19d4;
@@ -2290,7 +2291,7 @@ struct player {
 	/*0x1bbc*/ struct coord cam_look;
 	/*0x1bc8*/ struct coord cam_up;
 	/*0x1bd4*/ u32 unk1bd4;
-	/*0x1bd8*/ u32 unk1bd8;
+	/*0x1bd8*/ s32 unk1bd8;
 	/*0x1bdc*/ u32 unk1bdc;
 	/*0x1be0*/ u32 unk1be0;
 	/*0x1be4*/ u16 unk1be4;

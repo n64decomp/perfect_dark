@@ -13,6 +13,6 @@ u32 func0f0cfafc(void);
 s32 func0f0cfdd0(struct coord *arg0, struct coord *arg1, struct coord *arg2);
 u32 func0f0cfe24(void);
 u32 func0f0d0310(void);
-u32 func0f0d0928(void);
+void func0f0d0928(bool arg0);
 
 #endif

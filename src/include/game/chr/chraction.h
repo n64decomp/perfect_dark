@@ -179,7 +179,7 @@ u32 func0f048fcc(void);
 u32 func0f049068(struct chrdata *chr, u32 arg1, u32 arg2);
 bool func0f04911c(struct chrdata *chr, struct coord *pos, u8 arg2);
 f32 chrGetSameFloorDistanceToPad(struct chrdata *chr, s32 pad_id);
-u32 func0f049644(void);
+void func0f049644(u32 playernum);
 s32 chrResolveId(struct chrdata *ref, s32 id);
 f32 chrGetTimer(struct chrdata *chr);
 u32 func0f049fcc(struct chrdata *chr);
