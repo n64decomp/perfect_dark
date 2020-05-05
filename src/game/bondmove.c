@@ -5459,8 +5459,8 @@ void func0f0cbf50(void)
 		g_Vars.currentplayer->vv_verta = -90;
 	}
 
-	g_Vars.currentplayer->vv_costheta = cosf(g_Vars.currentplayer->vv_theta * 0.017450513318181f);
-	g_Vars.currentplayer->vv_sintheta = sinf(g_Vars.currentplayer->vv_theta * 0.017450513318181f);
+	g_Vars.currentplayer->vv_costheta = cosf(DEG2RAD(g_Vars.currentplayer->vv_theta));
+	g_Vars.currentplayer->vv_sintheta = sinf(DEG2RAD(g_Vars.currentplayer->vv_theta));
 
 	g_Vars.currentplayer->vv_verta360 = g_Vars.currentplayer->vv_verta;
 
@@ -5468,8 +5468,8 @@ void func0f0cbf50(void)
 		g_Vars.currentplayer->vv_verta360 += 360;
 	}
 
-	g_Vars.currentplayer->vv_cosverta = cosf(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
-	g_Vars.currentplayer->vv_sinverta = sinf(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
+	g_Vars.currentplayer->vv_cosverta = cosf(DEG2RAD(g_Vars.currentplayer->vv_verta360));
+	g_Vars.currentplayer->vv_sinverta = sinf(DEG2RAD(g_Vars.currentplayer->vv_verta360));
 
 	g_Vars.currentplayer->bond2.unk00.x = -g_Vars.currentplayer->vv_sintheta;
 	g_Vars.currentplayer->bond2.unk00.y = 0;
@@ -5479,7 +5479,7 @@ void func0f0cbf50(void)
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
 		if (chr && chr->animdata) {
-			func0f03e538(chr, (360 - g_Vars.currentplayer->vv_theta) * 0.017450513318181f);
+			func0f03e538(chr, DEG2RAD(360 - g_Vars.currentplayer->vv_theta));
 		}
 	}
 }
