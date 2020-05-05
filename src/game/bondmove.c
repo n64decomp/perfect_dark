@@ -5529,7 +5529,7 @@ void func0f0cc19c(struct coord *arg)
 	}
 }
 
-void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4, u32 arg5)
+void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4)
 {
 	f32 sp244 = 0;
 	f32 sp180[16];
@@ -5586,20 +5586,10 @@ void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4, u32 arg5)
 	g_Vars.currentplayer->bond2.unk28.z = sp180[6];
 }
 
-GLOBAL_ASM(
-glabel func0f0cc654
-/*  f0cc654:	44802000 */ 	mtc1	$zero,$f4
-/*  f0cc658:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0cc65c:	afbf001c */ 	sw	$ra,0x1c($sp)
-/*  f0cc660:	afa60028 */ 	sw	$a2,0x28($sp)
-/*  f0cc664:	00003825 */ 	or	$a3,$zero,$zero
-/*  f0cc668:	0fc330ee */ 	jal	func0f0cc3b8
-/*  f0cc66c:	e7a40010 */ 	swc1	$f4,0x10($sp)
-/*  f0cc670:	8fbf001c */ 	lw	$ra,0x1c($sp)
-/*  f0cc674:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0cc678:	03e00008 */ 	jr	$ra
-/*  f0cc67c:	00000000 */ 	sll	$zero,$zero,0x0
-);
+void func0f0cc654(f32 arg0, f32 arg1, f32 arg2)
+{
+	func0f0cc3b8(arg0, arg1, arg2, NULL, 0);
+}
 
 s32 currentPlayerGetCrouchPos(void)
 {
