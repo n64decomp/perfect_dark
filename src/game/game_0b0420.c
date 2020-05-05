@@ -850,25 +850,16 @@ struct weapon *weaponFindById(s32 itemid)
 	return g_Weapons[itemid];
 }
 
-GLOBAL_ASM(
-glabel weaponGetFunctionById
-/*  f0b1004:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1008:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b100c:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b1010:	afa5001c */ 	sw	$a1,0x1c($sp)
-/*  f0b1014:	10400006 */ 	beqz	$v0,.L0f0b1030
-/*  f0b1018:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b101c:	8fae001c */ 	lw	$t6,0x1c($sp)
-/*  f0b1020:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0b1024:	004fc021 */ 	addu	$t8,$v0,$t7
-/*  f0b1028:	10000002 */ 	beqz	$zero,.L0f0b1034
-/*  f0b102c:	8f020014 */ 	lw	$v0,0x14($t8)
-.L0f0b1030:
-/*  f0b1030:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1034:
-/*  f0b1034:	03e00008 */ 	jr	$ra
-/*  f0b1038:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+struct weaponfunc *weaponGetFunctionById(u32 weaponnum, u32 which)
+{
+	struct weapon *weapon = weaponFindById(weaponnum);
+
+	if (weapon) {
+		return weapon->functions[which];
+	}
+
+	return NULL;
+}
 
 struct weaponfunc *handGetWeaponFunction2(struct hand *hand)
 {

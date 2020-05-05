@@ -18,7 +18,7 @@ void currentPlayerIncrementDeathCount(void);
 u32 func0f0b0818(void);
 s32 func0f0b09f4(s32 arg0, s32 playernum);
 struct weapon *weaponFindById(s32 itemid);
-struct weaponfunc *weaponGetFunctionById(s32 weapon_id, s32 which);
+struct weaponfunc *weaponGetFunctionById(u32 weaponnum, u32 which);
 struct weaponfunc *handGetWeaponFunction2(struct hand *hand);
 struct weaponfunc *handGetWeaponFunction(struct hand *hand);
 struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which);
