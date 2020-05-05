@@ -912,23 +912,16 @@ glabel func0f0b107c
 /*  f0b10b4:	00000000 */ 	sll	$zero,$zero,0x0
 );
 
-GLOBAL_ASM(
-glabel weaponGetFunction
-/*  f0b10b8:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f0b10bc:	3c038007 */ 	lui	$v1,%hi(g_Weapons)
-/*  f0b10c0:	0005c080 */ 	sll	$t8,$a1,0x2
-/*  f0b10c4:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0b10c8:	006f1821 */ 	addu	$v1,$v1,$t7
-/*  f0b10cc:	8c63ff18 */ 	lw	$v1,%lo(g_Weapons)($v1)
-/*  f0b10d0:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b10d4:	10600003 */ 	beqz	$v1,.L0f0b10e4
-/*  f0b10d8:	0078c821 */ 	addu	$t9,$v1,$t8
-/*  f0b10dc:	03e00008 */ 	jr	$ra
-/*  f0b10e0:	8f220014 */ 	lw	$v0,0x14($t9)
-.L0f0b10e4:
-/*  f0b10e4:	03e00008 */ 	jr	$ra
-/*  f0b10e8:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which)
+{
+	struct weapon *weapon = g_Weapons[*arg0];
+
+	if (weapon) {
+		return weapon->functions[which];
+	}
+
+	return NULL;
+}
 
 GLOBAL_ASM(
 glabel currentPlayerGetWeaponFunction

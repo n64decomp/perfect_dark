@@ -1162,7 +1162,7 @@ struct player1630 {
 };
 
 struct player638 {
-	/*0x0638*/ u8 unk0638;
+	/*0x0638*/ u8 unk0638; // weapon num
 	/*0x0639*/ u8 unk0639;
 	/*0x063a*/ u8 unk063a;
 	/*0x063b*/ u8 unk063b; // 1 if using second function
