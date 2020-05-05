@@ -870,27 +870,16 @@ glabel weaponGetFunctionById
 /*  f0b1038:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f0b103c
-/*  f0b103c:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f0b1040:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1044:	afa40018 */ 	sw	$a0,0x18($sp)
-/*  f0b1048:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b104c:	90840000 */ 	lbu	$a0,0x0($a0)
-/*  f0b1050:	10400007 */ 	beqz	$v0,.L0f0b1070
-/*  f0b1054:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1058:	8faf0018 */ 	lw	$t7,0x18($sp)
-/*  f0b105c:	91f80003 */ 	lbu	$t8,0x3($t7)
-/*  f0b1060:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0b1064:	00594021 */ 	addu	$t0,$v0,$t9
-/*  f0b1068:	10000002 */ 	beqz	$zero,.L0f0b1074
-/*  f0b106c:	8d020014 */ 	lw	$v0,0x14($t0)
-.L0f0b1070:
-/*  f0b1070:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1074:
-/*  f0b1074:	03e00008 */ 	jr	$ra
-/*  f0b1078:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
+struct weaponfunc *handGetWeaponFunction2(struct hand *hand)
+{
+	struct weapon *weapon = weaponFindById(hand->weaponnum);
+
+	if (weapon) {
+		return weapon->functions[hand->weaponfunc];
+	}
+
+	return NULL;
+}
 
 struct weaponfunc *handGetWeaponFunction(struct hand *hand)
 {
