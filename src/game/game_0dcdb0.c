@@ -512,7 +512,7 @@ glabel func0f0dd2ac
 /*  f0dd4a0:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0dd4a4:	26100008 */ 	addiu	$s0,$s0,0x8
 .L0f0dd4a8:
-/*  f0dd4a8:	0fc2c536 */ 	jal	func0f0b14d8
+/*  f0dd4a8:	0fc2c536 */ 	jal	currentPlayerGetGunZoomFov
 /*  f0dd4ac:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0dd4b0:	44803000 */ 	mtc1	$zero,$f6
 /*  f0dd4b4:	3c06800a */ 	lui	$a2,%hi(g_Vars)

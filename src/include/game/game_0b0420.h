@@ -27,7 +27,7 @@ u32 func0f0b11bc(void);
 struct inventory_ammo *weaponGetAmmoByFunction(u32 weaponnum, u32 funcnum);
 f32 handGetXOffset(u32 arg0);
 f32 func0f0b131c(u32 hand);
-f32 func0f0b14d8(void);
+f32 currentPlayerGetGunZoomFov(void);
 u32 func0f0b1588(void);
 void currentPlayerUpdateGunZoomFovs(f32 arg0);
 bool weaponHasFlag(s32 itemid, u32 flag);

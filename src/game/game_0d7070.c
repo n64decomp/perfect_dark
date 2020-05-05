@@ -3705,7 +3705,7 @@ glabel var7f1ade54
 .L0f0da420:
 /*  f0da420:	a3a400af */ 	sb	$a0,0xaf($sp)
 /*  f0da424:	afa60100 */ 	sw	$a2,0x100($sp)
-/*  f0da428:	0fc2c536 */ 	jal	func0f0b14d8
+/*  f0da428:	0fc2c536 */ 	jal	currentPlayerGetGunZoomFov
 /*  f0da42c:	afad00b4 */ 	sw	$t5,0xb4($sp)
 /*  f0da430:	44803000 */ 	mtc1	$zero,$f6
 /*  f0da434:	3c0f800a */ 	lui	$t7,%hi(g_Vars+0x284)

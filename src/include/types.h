@@ -2071,7 +2071,7 @@ struct player {
 	/*0x16e8*/ u32 unk16e8;
 	/*0x16ec*/ u32 unk16ec;
 	/*0x16f0*/ u32 unk16f0;
-	/*0x16f4*/ f32 gunzoomfovs[3];
+	/*0x16f4*/ f32 gunzoomfovs[3]; // saved zoom levels/fovs for sniper, farsight and horizon scanner
 	/*0x1700*/ u32 lastroomforoffset;
 	/*0x1704*/ f32 c_screenwidth;
 	/*0x1708*/ f32 c_screenheight;
@@ -2577,7 +2577,7 @@ struct inventory_menupos {
 };
 
 struct inventory_typee {
-	u32 unk00;
+	f32 zoomfov;
 	u32 unk04;
 	u32 unk08;
 	u32 unk0c;

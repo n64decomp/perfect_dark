@@ -1012,59 +1012,30 @@ f32 func0f0b131c(u32 hand)
 	return x;
 }
 
-GLOBAL_ASM(
-glabel func0f0b14d8
-/*  f0b14d8:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b14dc:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b14e0:	2403ffff */ 	addiu	$v1,$zero,-1
-/*  f0b14e4:	afa3001c */ 	sw	$v1,0x1c($sp)
-/*  f0b14e8:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
-/*  f0b14ec:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b14f0:	24010015 */ 	addiu	$at,$zero,0x15
-/*  f0b14f4:	10410008 */ 	beq	$v0,$at,.L0f0b1518
-/*  f0b14f8:	8fa3001c */ 	lw	$v1,0x1c($sp)
-/*  f0b14fc:	24010016 */ 	addiu	$at,$zero,0x16
-/*  f0b1500:	10410007 */ 	beq	$v0,$at,.L0f0b1520
-/*  f0b1504:	24010032 */ 	addiu	$at,$zero,0x32
-/*  f0b1508:	50410008 */ 	beql	$v0,$at,.L0f0b152c
-/*  f0b150c:	24030002 */ 	addiu	$v1,$zero,0x2
-/*  f0b1510:	10000006 */ 	beqz	$zero,.L0f0b152c
-/*  f0b1514:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0b1518:
-/*  f0b1518:	10000004 */ 	beqz	$zero,.L0f0b152c
-/*  f0b151c:	00001825 */ 	or	$v1,$zero,$zero
-.L0f0b1520:
-/*  f0b1520:	10000002 */ 	beqz	$zero,.L0f0b152c
-/*  f0b1524:	24030001 */ 	addiu	$v1,$zero,0x1
-/*  f0b1528:	24030002 */ 	addiu	$v1,$zero,0x2
-.L0f0b152c:
-/*  f0b152c:	04600006 */ 	bltz	$v1,.L0f0b1548
-/*  f0b1530:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b1534:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b1538:	00037880 */ 	sll	$t7,$v1,0x2
-/*  f0b153c:	01cfc021 */ 	addu	$t8,$t6,$t7
-/*  f0b1540:	1000000d */ 	beqz	$zero,.L0f0b1578
-/*  f0b1544:	c70016f4 */ 	lwc1	$f0,0x16f4($t8)
-.L0f0b1548:
-/*  f0b1548:	0fc2867c */ 	jal	getCurrentPlayerWeaponIdWrapper
-/*  f0b154c:	00002025 */ 	or	$a0,$zero,$zero
-/*  f0b1550:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b1554:	00402025 */ 	or	$a0,$v0,$zero
-/*  f0b1558:	50400006 */ 	beqzl	$v0,.L0f0b1574
-/*  f0b155c:	44800000 */ 	mtc1	$zero,$f0
-/*  f0b1560:	8c590024 */ 	lw	$t9,0x24($v0)
-/*  f0b1564:	c7220000 */ 	lwc1	$f2,0x0($t9)
-/*  f0b1568:	10000003 */ 	beqz	$zero,.L0f0b1578
-/*  f0b156c:	46001006 */ 	mov.s	$f0,$f2
-/*  f0b1570:	44800000 */ 	mtc1	$zero,$f0
-.L0f0b1574:
-/*  f0b1574:	00000000 */ 	sll	$zero,$zero,0x0
-.L0f0b1578:
-/*  f0b1578:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b157c:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b1580:	03e00008 */ 	jr	$ra
-/*  f0b1584:	00000000 */ 	sll	$zero,$zero,0x0
-);
+f32 currentPlayerGetGunZoomFov(void)
+{
+	s32 index = -1;
+	struct weapon *weapon;
+
+	switch (getCurrentPlayerWeaponIdWrapper(0)) {
+	case WEAPON_SNIPERRIFLE:    index = 0; break;
+	case WEAPON_FARSIGHTXR20:   index = 1; break;
+	case WEAPON_HORIZONSCANNER: index = 2; break;
+	}
+
+	if (index >= 0) {
+		return g_Vars.currentplayer->gunzoomfovs[index];
+	}
+
+	weapon = weaponFindById(getCurrentPlayerWeaponIdWrapper(0));
+
+	if (weapon) {
+		f32 fov = weapon->eptr->zoomfov;
+		return fov;
+	}
+
+	return 0;
+}
 
 GLOBAL_ASM(
 glabel func0f0b1588

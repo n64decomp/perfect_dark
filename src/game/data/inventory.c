@@ -68,7 +68,7 @@ struct inventory_menupos invmenupos_000110ac = {
 
 // 110c0
 struct inventory_typee inve_000110c0 = {
-	0x00000000,
+	0,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -80,7 +80,7 @@ struct inventory_typee inve_000110c0 = {
 
 // 110e0
 struct inventory_typee inve_000110e0 = {
-	0x00000000,
+	0,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -92,7 +92,7 @@ struct inventory_typee inve_000110e0 = {
 
 // 11100
 struct inventory_typee inve_00011100 = {
-	0x00000000,
+	0,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -104,7 +104,7 @@ struct inventory_typee inve_00011100 = {
 
 // 11120
 struct inventory_typee inve_00011120 = {
-	0x41f00000,
+	30,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -116,7 +116,7 @@ struct inventory_typee inve_00011120 = {
 
 // 11140
 struct inventory_typee inve_00011140 = {
-	0x41f00000,
+	30,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -730,7 +730,7 @@ u32 invanim_magsec_equiporshoot[] = {
 
 // 11970
 struct inventory_typee inve_00011970 = {
-	0x41c80000,
+	25,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -1404,7 +1404,7 @@ u32 invanim_cmp150_equiporshoot[] = {
 
 // 12308
 struct inventory_typee inve_00012308 = {
-	0x00000000,
+	0,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -2185,7 +2185,7 @@ u32 invanim_ar34_equiporreload[] = {
 
 // 12cc4
 struct inventory_typee inve_00012cc4 = {
-	0x41a00000,
+	20,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -2333,7 +2333,7 @@ u32 var8006ce78 = 0x00000000;
 
 // 12e9c
 struct inventory_typee inve_00012e9c = {
-	0x41a00000,
+	20,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -2893,7 +2893,7 @@ u32 invanim_rockerlauncher_equiporshoot[] = {
 
 // 135f0
 struct inventory_typee inve_000135f0 = {
-	0x00000000,
+	0,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -3752,7 +3752,7 @@ u32 invanim_farsight_equiporshoot[] = {
 
 // 13ff8
 struct inventory_typee inve_00013ff8 = {
-	0x00000000,
+	0,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -4223,7 +4223,7 @@ u32 invanim_sniperrifle_reload[] = {
 
 // 1460c
 struct inventory_typee inve_0001460c = {
-	0x00000000,
+	0,
 	0x40400000,
 	0x41000000,
 	0x41700000,
@@ -5386,7 +5386,7 @@ struct weaponfunc invfunc_horizonscanner_primary = {
 
 // 15348
 struct inventory_typee inve_00015348 = {
-	0x00000000,
+	0,
 	0x40400000,
 	0x41000000,
 	0x41700000,

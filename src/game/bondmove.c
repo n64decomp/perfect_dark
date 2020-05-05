@@ -3164,7 +3164,7 @@ glabel var7f1ad8e4
 .L0f0cacac:
 /*  f0cacac:	13000004 */ 	beqz	$t8,.L0f0cacc0
 /*  f0cacb0:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0cacb4:	0fc2c536 */ 	jal	func0f0b14d8
+/*  f0cacb4:	0fc2c536 */ 	jal	currentPlayerGetGunZoomFov
 /*  f0cacb8:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cacbc:	e7a000b0 */ 	swc1	$f0,0xb0($sp)
 .L0f0cacc0:
@@ -3178,7 +3178,7 @@ glabel var7f1ad8e4
 /*  f0cacdc:	9328063b */ 	lbu	$t0,0x63b($t9)
 /*  f0cace0:	55010005 */ 	bnel	$t0,$at,.L0f0cacf8
 /*  f0cace4:	c7ac00b0 */ 	lwc1	$f12,0xb0($sp)
-/*  f0cace8:	0fc2c536 */ 	jal	func0f0b14d8
+/*  f0cace8:	0fc2c536 */ 	jal	currentPlayerGetGunZoomFov
 /*  f0cacec:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0cacf0:	e7a000b0 */ 	swc1	$f0,0xb0($sp)
 /*  f0cacf4:	c7ac00b0 */ 	lwc1	$f12,0xb0($sp)
@@ -4881,12 +4881,12 @@ glabel var7f1ad8e4
 //		}
 //
 //		if (iStack84) {
-//			fStack432 = func0f0b14d8();
+//			fStack432 = currentPlayerGetGunZoomFov();
 //		}
 //
 //		if (getCurrentPlayerWeaponId(0) == WEAPON_AR34
 //				&& g_Vars.currentplayer->hands[0].weaponfunc == FUNC_SECONDARY) {
-//			fStack432 = func0f0b14d8();
+//			fStack432 = currentPlayerGetGunZoomFov();
 //		}
 //
 //		func0f0ba8b0(fStack432 > 0 ? fStack432 : 0);
