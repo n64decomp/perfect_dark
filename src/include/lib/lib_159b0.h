@@ -4,7 +4,7 @@
 #include "types.h"
 
 void func000159b0(u32 *obj48_20);
-u32 func000159fc(void);
+void func000159fc(f32 *matrix, f32 *arg1);
 u32 func00015a00(void);
 void func00015b10(f32 *matrix, struct coord *coord);
 void func00015b14(f32 *matrix, struct coord *coord, s32 arg2);

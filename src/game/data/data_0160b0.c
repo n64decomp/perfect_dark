@@ -338,6 +338,18 @@ bool g_PlayersWithControl[] = {
 
 bool g_PlayerInvincible = false;
 u32 var80070764 = 0x00000000;
-s16 var80070768[] = { 26, 28, 32, 33, 34, 35, 36, 37, 0 };
-u32 var8007077c = 0x00000000; // index into var80070768
+
+s16 g_DeathAnimations[] = {
+	ANIM_DEATH_001A,
+	ANIM_DEATH_001C,
+	ANIM_DEATH_0020,
+	ANIM_DEATH_0021,
+	ANIM_DEATH_0022,
+	ANIM_DEATH_0023,
+	ANIM_DEATH_0024,
+	ANIM_DEATH_0025,
+	0,
+};
+
+u32 g_NumDeathAnimations = 0;
 

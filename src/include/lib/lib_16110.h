@@ -9,7 +9,7 @@ u32 func00016140(void);
 u32 func000161b0(void);
 void func00016208(f32 *matrix, struct coord *coord);
 u32 func00016248(void);
-u32 func000162e8(void);
+void func000162e8(f32 arg0, f32 *arg1);
 void func00016374(f32 arg0, f32 *matrix);
 u32 func00016400(void);
 u32 func0001648c(void);

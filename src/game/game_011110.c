@@ -1232,13 +1232,13 @@ glabel var7f1a827c
 /*  f012384:	0fc2e688 */ 	jal	func0f0b9a20
 /*  f012388:	00000000 */ 	sll	$zero,$zero,0x0
 .L0f01238c:
-/*  f01238c:	3c048007 */ 	lui	$a0,%hi(var80070768)
-/*  f012390:	24840768 */ 	addiu	$a0,$a0,%lo(var80070768)
+/*  f01238c:	3c048007 */ 	lui	$a0,%hi(g_DeathAnimations)
+/*  f012390:	24840768 */ 	addiu	$a0,$a0,%lo(g_DeathAnimations)
 /*  f012394:	00007840 */ 	sll	$t7,$zero,0x1
 /*  f012398:	008f5021 */ 	addu	$t2,$a0,$t7
 /*  f01239c:	854e0000 */ 	lh	$t6,0x0($t2)
-/*  f0123a0:	3c038007 */ 	lui	$v1,%hi(var8007077c)
-/*  f0123a4:	2463077c */ 	addiu	$v1,$v1,%lo(var8007077c)
+/*  f0123a0:	3c038007 */ 	lui	$v1,%hi(g_NumDeathAnimations)
+/*  f0123a4:	2463077c */ 	addiu	$v1,$v1,%lo(g_NumDeathAnimations)
 /*  f0123a8:	ac600000 */ 	sw	$zero,0x0($v1)
 /*  f0123ac:	19c00009 */ 	blez	$t6,.L0f0123d4
 /*  f0123b0:	00001025 */ 	or	$v0,$zero,$zero
@@ -1607,10 +1607,10 @@ glabel var7f1a827c
 //		func0f0b9a20();
 //	}
 //
-//	var8007077c = 0;
+//	g_NumDeathAnimations = 0;
 //
-//	while (var80070768[var8007077c] > 0) {
-//		var8007077c++;
+//	while (g_DeathAnimations[g_NumDeathAnimations] > 0) {
+//		g_NumDeathAnimations++;
 //	}
 //
 //	g_Vars.currentplayer->tickdiefinished = false;

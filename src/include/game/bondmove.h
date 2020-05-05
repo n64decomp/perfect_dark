@@ -38,7 +38,7 @@ void currentPlayerUpdateMoveInitSpeed(struct coord *newpos);
 void currentPlayerUpdateFootsteps(bool arg0, bool arg1, bool arg2, bool arg3);
 void func0f0cbf50(void);
 void func0f0cc19c(struct coord *arg);
-u32 func0f0cc3b8(void);
+void func0f0cc3b8(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4, u32 arg5);
 u32 func0f0cc654(void);
 s32 currentPlayerGetCrouchPos(void);
 s32 playerGetCrouchPos(s32 playernum);

@@ -119,6 +119,14 @@
 #define ANIM_IDLE                   0x0000
 #define ANIM_TWO_GUN_HOLD           0x0001
 #define ANIM_KNEEL_TWO_HANDED_GUN   0x0008
+#define ANIM_DEATH_001A             0x001a
+#define ANIM_DEATH_001C             0x001c
+#define ANIM_DEATH_0020             0x0020
+#define ANIM_DEATH_0021             0x0021
+#define ANIM_DEATH_0022             0x0022
+#define ANIM_DEATH_0023             0x0023
+#define ANIM_DEATH_0024             0x0024
+#define ANIM_DEATH_0025             0x0025
 #define ANIM_RUNNING_TWOHANDGUN     0x002a
 #define ANIM_SURRENDER_002E         0x002e
 #define ANIM_SURRENDER_002F         0x002f
