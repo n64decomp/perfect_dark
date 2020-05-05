@@ -2698,7 +2698,7 @@ glabel var7f1ac31c
 /*  f099c58:	00c08025 */ 	or	$s0,$a2,$zero
 /*  f099c5c:	afa5003c */ 	sw	$a1,0x3c($sp)
 /*  f099c60:	afa70044 */ 	sw	$a3,0x44($sp)
-/*  f099c64:	0fc2c41f */ 	jal	func0f0b107c
+/*  f099c64:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f099c68:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f099c6c:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
 /*  f099c70:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
@@ -4097,7 +4097,7 @@ glabel var7f1ac334
 /*  f09aff0:	afa40070 */ 	sw	$a0,0x70($sp)
 /*  f09aff4:	00c08025 */ 	or	$s0,$a2,$zero
 /*  f09aff8:	afa50074 */ 	sw	$a1,0x74($sp)
-/*  f09affc:	0fc2c41f */ 	jal	func0f0b107c
+/*  f09affc:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f09b000:	00c02025 */ 	or	$a0,$a2,$zero
 /*  f09b004:	14400003 */ 	bnez	$v0,.L0f09b014
 /*  f09b008:	afa2006c */ 	sw	$v0,0x6c($sp)
@@ -4280,7 +4280,7 @@ glabel func0f09b260
 /*  f09b268:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f09b26c:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f09b270:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f09b274:	0fc2c41f */ 	jal	func0f0b107c
+/*  f09b274:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f09b278:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f09b27c:	14400003 */ 	bnez	$v0,.L0f09b28c
 /*  f09b280:	00403825 */ 	or	$a3,$v0,$zero
@@ -4479,7 +4479,7 @@ glabel var7f1ac33c
 /*  f09b508:	afb00018 */ 	sw	$s0,0x18($sp)
 /*  f09b50c:	afa40028 */ 	sw	$a0,0x28($sp)
 /*  f09b510:	00a08025 */ 	or	$s0,$a1,$zero
-/*  f09b514:	0fc2c41f */ 	jal	func0f0b107c
+/*  f09b514:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f09b518:	00a02025 */ 	or	$a0,$a1,$zero
 /*  f09b51c:	14400003 */ 	bnez	$v0,.L0f09b52c
 /*  f09b520:	00403825 */ 	or	$a3,$v0,$zero
@@ -4704,7 +4704,7 @@ GLOBAL_ASM(
 glabel func0f09b828
 /*  f09b828:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f09b82c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f09b830:	0fc2c41f */ 	jal	func0f0b107c
+/*  f09b830:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f09b834:	afa40018 */ 	sw	$a0,0x18($sp)
 /*  f09b838:	14400003 */ 	bnez	$v0,.L0f09b848
 /*  f09b83c:	8fa40018 */ 	lw	$a0,0x18($sp)
@@ -4942,7 +4942,7 @@ glabel var7f1ac450
 /*  f09b97c:	02002025 */ 	or	$a0,$s0,$zero
 /*  f09b980:	11800005 */ 	beqz	$t4,.L0f09b998
 /*  f09b984:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f09b988:	0fc2c41f */ 	jal	func0f0b107c
+/*  f09b988:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f09b98c:	afa0004c */ 	sw	$zero,0x4c($sp)
 /*  f09b990:	8fa5004c */ 	lw	$a1,0x4c($sp)
 /*  f09b994:	00401825 */ 	or	$v1,$v0,$zero
@@ -5166,7 +5166,7 @@ glabel var7f1ac480
 /*  f09bc4c:	24080001 */ 	addiu	$t0,$zero,0x1
 /*  f09bc50:	11e00005 */ 	beqz	$t7,.L0f09bc68
 /*  f09bc54:	00c02025 */ 	or	$a0,$a2,$zero
-/*  f09bc58:	0fc2c41f */ 	jal	func0f0b107c
+/*  f09bc58:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f09bc5c:	afa8001c */ 	sw	$t0,0x1c($sp)
 /*  f09bc60:	8fa8001c */ 	lw	$t0,0x1c($sp)
 /*  f09bc64:	00401825 */ 	or	$v1,$v0,$zero
@@ -13466,7 +13466,7 @@ glabel func0f0a2ae4
 /*  f0a2c04:	26920638 */ 	addiu	$s2,$s4,0x638
 /*  f0a2c08:	24130002 */ 	addiu	$s3,$zero,0x2
 .L0f0a2c0c:
-/*  f0a2c0c:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0a2c0c:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0a2c10:	02402025 */ 	or	$a0,$s2,$zero
 /*  f0a2c14:	8c4f0000 */ 	lw	$t7,0x0($v0)
 /*  f0a2c18:	31e900ff */ 	andi	$t1,$t7,0xff
@@ -20653,7 +20653,7 @@ glabel var7f1acb14
 
 void func0f0a8c50(void)
 {
-	if (g_Vars.currentplayer->unk0638[0].unk0d0f_03 == 0) {
+	if (g_Vars.currentplayer->hands[0].unk0d0f_03 == 0) {
 		g_Vars.currentplayer->invertgunfunc = false;
 	}
 }
@@ -21214,29 +21214,29 @@ void func0f0a93e0(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->unk0638[0].unk07f8.x = func0f0b12ec(0) + coord->x;
-	player->unk0638[0].unk07f8.y = coord->y;
-	player->unk0638[0].unk07f8.z = coord->z;
+	player->hands[0].unk07f8.x = func0f0b12ec(0) + coord->x;
+	player->hands[0].unk07f8.y = coord->y;
+	player->hands[0].unk07f8.z = coord->z;
 
-	player->unk0638[1].unk07f8.x = func0f0b12ec(1) + coord->x;
-	player->unk0638[1].unk07f8.y = coord->y;
-	player->unk0638[1].unk07f8.z = coord->z;
+	player->hands[1].unk07f8.x = func0f0b12ec(1) + coord->x;
+	player->hands[1].unk07f8.y = coord->y;
+	player->hands[1].unk07f8.z = coord->z;
 }
 
 void func0f0a9464(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->unk0638[1].unk0b94.x = player->unk0638[0].unk0b94.x = coord->x;
-	player->unk0638[1].unk0b94.y = player->unk0638[0].unk0b94.y = coord->y;
-	player->unk0638[1].unk0b94.z = player->unk0638[0].unk0b94.z = coord->z;
+	player->hands[1].unk0b94.x = player->hands[0].unk0b94.x = coord->x;
+	player->hands[1].unk0b94.y = player->hands[0].unk0b94.y = coord->y;
+	player->hands[1].unk0b94.z = player->hands[0].unk0b94.z = coord->z;
 }
 
 void func0f0a9494(u32 operation)
 {
 	switch (operation) {
 	case 0:
-		g_Vars.currentplayer->unk0638[1].unk0cec = g_Vars.currentplayer->unk0638[0].unk0cec = false;
+		g_Vars.currentplayer->hands[1].unk0cec = g_Vars.currentplayer->hands[0].unk0cec = false;
 		break;
 	case 1:
 		break;
@@ -21252,16 +21252,16 @@ void func0f0a94d0(u32 operation, struct coord *a, struct coord *b)
 		if (a->x > -100000.0f && a->x < 100000.0f
 				&& a->y > -100000.0f && a->y < 100000.0f
 				&& a->z > -100000.0f && a->z < 100000.0f) {
-			player->unk0638[0].unk0cec = true;
-			player->unk0638[1].unk0cec = true;
+			player->hands[0].unk0cec = true;
+			player->hands[1].unk0cec = true;
 
-			player->unk0638[1].unk0cf0.x = player->unk0638[0].unk0cf0.x = a->x;
-			player->unk0638[1].unk0cf0.y = player->unk0638[0].unk0cf0.y = a->y;
-			player->unk0638[1].unk0cf0.z = player->unk0638[0].unk0cf0.z = a->z;
+			player->hands[1].unk0cf0.x = player->hands[0].unk0cf0.x = a->x;
+			player->hands[1].unk0cf0.y = player->hands[0].unk0cf0.y = a->y;
+			player->hands[1].unk0cf0.z = player->hands[0].unk0cf0.z = a->z;
 
-			player->unk0638[1].unk0cfc.x = player->unk0638[0].unk0cfc.x = b->x;
-			player->unk0638[1].unk0cfc.y = player->unk0638[0].unk0cfc.y = b->y;
-			player->unk0638[1].unk0cfc.z = player->unk0638[0].unk0cfc.z = b->z;
+			player->hands[1].unk0cfc.x = player->hands[0].unk0cfc.x = b->x;
+			player->hands[1].unk0cfc.y = player->hands[0].unk0cfc.y = b->y;
+			player->hands[1].unk0cfc.z = player->hands[0].unk0cfc.z = b->z;
 		}
 		break;
 	case 1:

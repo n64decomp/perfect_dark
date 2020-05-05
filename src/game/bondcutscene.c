@@ -23,7 +23,7 @@ void currentPlayerSetMoveModeCutscene(void)
 
 		// @bug? Should this be < 2?
 		for (j = 0; j < 1; j++) {
-			struct player638 *thing = &g_Vars.players[i]->unk0638[j];
+			struct hand *thing = &g_Vars.players[i]->hands[j];
 
 			if (thing->unk0d84 && func000337f0(thing->unk0d84)) {
 				func00033b24(thing->unk0d84);

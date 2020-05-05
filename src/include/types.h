@@ -1161,8 +1161,8 @@ struct player1630 {
 	s16 unk0a;
 };
 
-// Suspected weapon data per hand
-struct player638 {
+// Weapon data per hand
+struct hand {
 	/*0x0638*/ u8 weaponnum;
 	/*0x0639*/ u8 unk0639;
 	/*0x063a*/ u8 unk063a;
@@ -1976,7 +1976,7 @@ struct player {
 	/*0x0632*/ s16 viewy;    // 220 regardless of res
 	/*0x0634*/ s16 viewleft; // 0
 	/*0x0636*/ s16 viewtop;  // 0
-	/*0x0638*/ struct player638 unk0638[2];
+	/*0x0638*/ struct hand hands[2];
 	/*0x1580*/ s8 unk1580;
 	/*0x1581*/ u8 unk1581;
 	/*0x1582*/ u8 unk1582;

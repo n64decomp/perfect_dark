@@ -626,7 +626,7 @@ void activemenuApply(s32 slot)
 				if (var80088804 != 0) {
 					uVar6 = frGetWeaponBySlot(frGetSlot());
 
-					if (g_Vars.currentplayer->unk0638[0].weaponnum == uVar6) {
+					if (g_Vars.currentplayer->hands[0].weaponnum == uVar6) {
 						pass = false;
 					}
 				}
@@ -747,8 +747,8 @@ void activemenuGetSlotDetails(s32 slot, u32 *flags, char *label)
 		if (slot == 4) {
 			strcpy(label, langGet(L_MISC(171))); // "Function"
 		} else if (slot == 1 || slot == 7) {
-			prifunc = weaponGetFunction(&g_Vars.currentplayer->unk0638[0].weaponnum, FUNC_PRIMARY);
-			secfunc = weaponGetFunction(&g_Vars.currentplayer->unk0638[0].weaponnum, FUNC_SECONDARY);
+			prifunc = weaponGetFunction(&g_Vars.currentplayer->hands[0].weaponnum, FUNC_PRIMARY);
+			secfunc = weaponGetFunction(&g_Vars.currentplayer->hands[0].weaponnum, FUNC_SECONDARY);
 
 			if (slot == 1) {
 				if (!secfunc

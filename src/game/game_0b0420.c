@@ -892,25 +892,16 @@ glabel func0f0b103c
 /*  f0b1078:	27bd0018 */ 	addiu	$sp,$sp,0x18
 );
 
-GLOBAL_ASM(
-glabel func0f0b107c
-/*  f0b107c:	908e0000 */ 	lbu	$t6,0x0($a0)
-/*  f0b1080:	3c038007 */ 	lui	$v1,%hi(g_Weapons)
-/*  f0b1084:	00001025 */ 	or	$v0,$zero,$zero
-/*  f0b1088:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f0b108c:	006f1821 */ 	addu	$v1,$v1,$t7
-/*  f0b1090:	8c63ff18 */ 	lw	$v1,%lo(g_Weapons)($v1)
-/*  f0b1094:	10600006 */ 	beqz	$v1,.L0f0b10b0
-/*  f0b1098:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0b109c:	90980003 */ 	lbu	$t8,0x3($a0)
-/*  f0b10a0:	0018c880 */ 	sll	$t9,$t8,0x2
-/*  f0b10a4:	00794021 */ 	addu	$t0,$v1,$t9
-/*  f0b10a8:	03e00008 */ 	jr	$ra
-/*  f0b10ac:	8d020014 */ 	lw	$v0,0x14($t0)
-.L0f0b10b0:
-/*  f0b10b0:	03e00008 */ 	jr	$ra
-/*  f0b10b4:	00000000 */ 	sll	$zero,$zero,0x0
-);
+struct weaponfunc *handGetWeaponFunction(struct hand *hand)
+{
+	struct weapon *weapon = g_Weapons[hand->weaponnum];
+
+	if (weapon) {
+		return weapon->functions[hand->weaponfunc];
+	}
+
+	return NULL;
+}
 
 struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which)
 {
@@ -925,10 +916,10 @@ struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which)
 
 struct weaponfunc *currentPlayerGetWeaponFunction(u32 hand)
 {
-	struct weapon *weapon = weaponFindById(g_Vars.currentplayer->unk0638[hand].weaponnum);
+	struct weapon *weapon = weaponFindById(g_Vars.currentplayer->hands[hand].weaponnum);
 
 	if (weapon) {
-		return weapon->functions[g_Vars.currentplayer->unk0638[hand].weaponfunc];
+		return weapon->functions[g_Vars.currentplayer->hands[hand].weaponfunc];
 	}
 
 	return NULL;
@@ -1678,7 +1669,7 @@ GLOBAL_ASM(
 glabel func0f0b1c24
 /*  f0b1c24:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0b1c28:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1c2c:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0b1c2c:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0b1c30:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f0b1c34:	8fae0020 */ 	lw	$t6,0x20($sp)
 /*  f0b1c38:	91c40000 */ 	lbu	$a0,0x0($t6)
@@ -1705,7 +1696,7 @@ GLOBAL_ASM(
 glabel func0f0b1c78
 /*  f0b1c78:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b1c7c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1c80:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0b1c80:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0b1c84:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b1c88:	10400008 */ 	beqz	$v0,.L0f0b1cac
 /*  f0b1c8c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1740,7 +1731,7 @@ GLOBAL_ASM(
 glabel func0f0b1ce8
 /*  f0b1ce8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b1cec:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1cf0:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0b1cf0:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0b1cf4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b1cf8:	44801000 */ 	mtc1	$zero,$f2
 /*  f0b1cfc:	10400007 */ 	beqz	$v0,.L0f0b1d1c
@@ -1762,7 +1753,7 @@ GLOBAL_ASM(
 glabel func0f0b1d28
 /*  f0b1d28:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0b1d2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1d30:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0b1d30:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0b1d34:	afa40020 */ 	sw	$a0,0x20($sp)
 /*  f0b1d38:	44801000 */ 	mtc1	$zero,$f2
 /*  f0b1d3c:	10400016 */ 	beqz	$v0,.L0f0b1d98
@@ -1838,7 +1829,7 @@ GLOBAL_ASM(
 glabel func0f0b1e28
 /*  f0b1e28:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b1e2c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1e30:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0b1e30:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0b1e34:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b1e38:	10400008 */ 	beqz	$v0,.L0f0b1e5c
 /*  f0b1e3c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1860,7 +1851,7 @@ GLOBAL_ASM(
 glabel func0f0b1e68
 /*  f0b1e68:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b1e6c:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1e70:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0b1e70:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0b1e74:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0b1e78:	10400008 */ 	beqz	$v0,.L0f0b1e9c
 /*  f0b1e7c:	8fbf0014 */ 	lw	$ra,0x14($sp)
@@ -1882,7 +1873,7 @@ GLOBAL_ASM(
 glabel func0f0b1ea8
 /*  f0b1ea8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b1eac:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1eb0:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0b1eb0:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0b1eb4:	afa5001c */ 	sw	$a1,0x1c($sp)
 /*  f0b1eb8:	10400006 */ 	beqz	$v0,.L0f0b1ed4
 /*  f0b1ebc:	8fa4001c */ 	lw	$a0,0x1c($sp)
@@ -1918,7 +1909,7 @@ s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex)
 
 u32 currentPlayerGetSight(void)
 {
-	struct weaponfunc *func = weaponGetFunctionById(g_Vars.currentplayer->unk0638[0].weaponnum, g_Vars.currentplayer->unk0638[0].weaponfunc);
+	struct weaponfunc *func = weaponGetFunctionById(g_Vars.currentplayer->hands[0].weaponnum, g_Vars.currentplayer->hands[0].weaponfunc);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
 		return SIGHT_NONE;
@@ -1928,7 +1919,7 @@ u32 currentPlayerGetSight(void)
 		return SIGHT_CLASSIC;
 	}
 
-	switch (g_Vars.currentplayer->unk0638[0].weaponnum) {
+	switch (g_Vars.currentplayer->hands[0].weaponnum) {
 	case WEAPON_HORIZONSCANNER:
 		return SIGHT_NONE;
 	case WEAPON_NONE:
@@ -1990,7 +1981,7 @@ glabel func0f0b201c
 /*  f0b201c:	27bdffe0 */ 	addiu	$sp,$sp,-32
 /*  f0b2020:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b2024:	afa0001c */ 	sw	$zero,0x1c($sp)
-/*  f0b2028:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0b2028:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0b202c:	afa50024 */ 	sw	$a1,0x24($sp)
 /*  f0b2030:	8fa3001c */ 	lw	$v1,0x1c($sp)
 /*  f0b2034:	10400002 */ 	beqz	$v0,.L0f0b2040

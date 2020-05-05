@@ -64,8 +64,8 @@ s32 frDetailsOkMenuHandler(u32 operation, struct menu_item *item, s32 *value)
 			g_FrWeaponNum = weapon;
 
 			for (i = 0; i < 4; i++) {
-				g_Vars.currentplayer->unk0638[0].unk0d74[i] = 0;
-				g_Vars.currentplayer->unk0638[1].unk0d74[i] = 0;
+				g_Vars.currentplayer->hands[0].unk0d74[i] = 0;
+				g_Vars.currentplayer->hands[1].unk0d74[i] = 0;
 			}
 
 			func0f19e9c0(weapon);

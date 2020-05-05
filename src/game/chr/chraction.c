@@ -7204,7 +7204,7 @@ glabel var7f1a8d98
 /*  f0347b4:	27a70114 */ 	addiu	$a3,$sp,0x114
 /*  f0347b8:	00e02025 */ 	or	$a0,$a3,$zero
 .L0f0347bc:
-/*  f0347bc:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0347bc:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0347c0:	afa7014c */ 	sw	$a3,0x14c($sp)
 /*  f0347c4:	0002182b */ 	sltu	$v1,$zero,$v0
 /*  f0347c8:	10600005 */ 	beqz	$v1,.L0f0347e0

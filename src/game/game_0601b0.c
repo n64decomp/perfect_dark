@@ -968,7 +968,7 @@ glabel var7f1a9eb8
 /*  f060e88:	c4e80008 */ 	lwc1	$f8,0x8($a3)
 /*  f060e8c:	0fc2c6bc */ 	jal	func0f0b1af0
 /*  f060e90:	e7a80210 */ 	swc1	$f8,0x210($sp)
-/*  f060e94:	0fc2c41f */ 	jal	func0f0b107c
+/*  f060e94:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f060e98:	27a40214 */ 	addiu	$a0,$sp,0x214
 /*  f060e9c:	10400013 */ 	beqz	$v0,.L0f060eec
 /*  f060ea0:	afa201f0 */ 	sw	$v0,0x1f0($sp)
@@ -2489,7 +2489,7 @@ glabel var7f1a9ec4
 .L0f0623c0:
 /*  f0623c0:	4481b000 */ 	mtc1	$at,$f22
 /*  f0623c4:	8e710004 */ 	lw	$s1,0x4($s3)
-/*  f0623c8:	0fc2c41f */ 	jal	func0f0b107c
+/*  f0623c8:	0fc2c41f */ 	jal	handGetWeaponFunction
 /*  f0623cc:	02e02025 */ 	or	$a0,$s7,$zero
 /*  f0623d0:	8c4b0000 */ 	lw	$t3,0x0($v0)
 /*  f0623d4:	24010003 */ 	addiu	$at,$zero,0x3

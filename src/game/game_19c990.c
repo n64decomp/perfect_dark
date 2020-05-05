@@ -2076,8 +2076,8 @@ void func0f19e9c0(s32 weapon)
 
 	for (i = 0; i < 2; i++) {
 		if (g_Vars.currentplayer->unk15e4[i] >= 0) {
-			g_Vars.currentplayer->unk0638[0].unk0858[i] = 0;
-			g_Vars.currentplayer->unk0638[1].unk0858[i] = 0;
+			g_Vars.currentplayer->hands[0].unk0858[i] = 0;
+			g_Vars.currentplayer->hands[1].unk0858[i] = 0;
 		}
 	}
 
