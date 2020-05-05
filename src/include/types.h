@@ -151,7 +151,7 @@ struct aibot {
 	/*0x014*/ u32 unk014;
 	/*0x018*/ u32 unk018;
 	/*0x01c*/ struct aibotammotype *ammotypes;
-	/*0x020*/ u32 unk020;
+	/*0x020*/ u32 weaponnum;
 	/*0x024*/ u32 unk024;
 	/*0x028*/ u32 unk028;
 	/*0x02c*/ u16 unk02c;
@@ -1161,11 +1161,12 @@ struct player1630 {
 	s16 unk0a;
 };
 
+// Suspected weapon data per hand
 struct player638 {
-	/*0x0638*/ u8 unk0638; // weapon num
+	/*0x0638*/ u8 weaponnum;
 	/*0x0639*/ u8 unk0639;
 	/*0x063a*/ u8 unk063a;
-	/*0x063b*/ u8 unk063b; // 1 if using second function
+	/*0x063b*/ u8 weaponfunc; // 0 or 1
 	/*0x063c*/ u8 unk063c;
 	/*0x0640*/ u32 unk0640;
 	/*0x0644*/ u32 unk0644;

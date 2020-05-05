@@ -9146,7 +9146,7 @@ void func0f036358(struct chrdata *chr, s32 arg1)
 		chr->aioffset = 0;
 
 		func0f0b09f4(arg1, mpPlayerGetIndex(chr));
-		func0f199964(chr, chr->aibot->unk020);
+		func0f199964(chr, chr->aibot->weaponnum);
 
 		chr->aibot->unk09c_00 = 0;
 		chr->aibot->unk09c_01 = 0;

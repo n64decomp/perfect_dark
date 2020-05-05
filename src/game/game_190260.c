@@ -325,7 +325,7 @@ glabel mpChrReset
 //			aibot->unk04c_03 = 0;
 //			aibot->unk09c_01 = 0;
 //			aibot->unk04c_05 = 0;
-//			aibot->unk020 = 1;
+//			aibot->weaponnum = WEAPON_UNARMED;
 //			aibot->unk024 = 0;
 //			aibot->unk028 = 0;
 //			aibot->prop = NULL;
@@ -1332,10 +1332,10 @@ glabel var7f1b8eb4
 u32 func0f1915b4(struct chrdata *chr)
 {
 	if (chr->aibot) {
-		return chr->aibot->unk020;
+		return chr->aibot->weaponnum;
 	}
 
-	return g_Vars.players[propGetPlayerNum(chr->prop)]->unk0638[0].unk0638;
+	return g_Vars.players[propGetPlayerNum(chr->prop)]->unk0638[0].weaponnum;
 }
 
 u8 func0f191600(struct chrdata *chr)

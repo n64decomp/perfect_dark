@@ -25,7 +25,7 @@ u32 func0f198e78(void);
 u32 func0f198eec(void);
 u32 func0f1994b0(void);
 u32 func0f19978c(void);
-void func0f199964(struct chrdata *chr, u32 arg1);
+void func0f199964(struct chrdata *chr, u32 weaponnum);
 u32 func0f199984(void);
 
 #endif

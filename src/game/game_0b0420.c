@@ -923,40 +923,19 @@ struct weaponfunc *weaponGetFunction(u8 *arg0, s32 which)
 	return NULL;
 }
 
+struct weaponfunc *currentPlayerGetWeaponFunction(u32 hand)
+{
+	struct weapon *weapon = weaponFindById(g_Vars.currentplayer->unk0638[hand].weaponnum);
+
+	if (weapon) {
+		return weapon->functions[g_Vars.currentplayer->unk0638[hand].weaponfunc];
+	}
+
+	return NULL;
+}
+
 GLOBAL_ASM(
-glabel currentPlayerGetWeaponFunction
-/*  f0b10ec:	00041900 */ 	sll	$v1,$a0,0x4
-/*  f0b10f0:	00641823 */ 	subu	$v1,$v1,$a0
-/*  f0b10f4:	00031880 */ 	sll	$v1,$v1,0x2
-/*  f0b10f8:	00641821 */ 	addu	$v1,$v1,$a0
-/*  f0b10fc:	3c0e800a */ 	lui	$t6,%hi(g_Vars+0x284)
-/*  f0b1100:	8dcea244 */ 	lw	$t6,%lo(g_Vars+0x284)($t6)
-/*  f0b1104:	000318c0 */ 	sll	$v1,$v1,0x3
-/*  f0b1108:	00641821 */ 	addu	$v1,$v1,$a0
-/*  f0b110c:	27bdffe0 */ 	addiu	$sp,$sp,-32
-/*  f0b1110:	00031880 */ 	sll	$v1,$v1,0x2
-/*  f0b1114:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f0b1118:	01c37821 */ 	addu	$t7,$t6,$v1
-/*  f0b111c:	91e40638 */ 	lbu	$a0,0x638($t7)
-/*  f0b1120:	0fc2c3f4 */ 	jal	weaponFindById
-/*  f0b1124:	afa30018 */ 	sw	$v1,0x18($sp)
-/*  f0b1128:	10400009 */ 	beqz	$v0,.L0f0b1150
-/*  f0b112c:	8fa30018 */ 	lw	$v1,0x18($sp)
-/*  f0b1130:	3c18800a */ 	lui	$t8,%hi(g_Vars+0x284)
-/*  f0b1134:	8f18a244 */ 	lw	$t8,%lo(g_Vars+0x284)($t8)
-/*  f0b1138:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f0b113c:	9328063b */ 	lbu	$t0,0x63b($t9)
-/*  f0b1140:	00084880 */ 	sll	$t1,$t0,0x2
-/*  f0b1144:	00495021 */ 	addu	$t2,$v0,$t1
-/*  f0b1148:	10000002 */ 	beqz	$zero,.L0f0b1154
-/*  f0b114c:	8d420014 */ 	lw	$v0,0x14($t2)
-.L0f0b1150:
-/*  f0b1150:	00001025 */ 	or	$v0,$zero,$zero
-.L0f0b1154:
-/*  f0b1154:	8fbf0014 */ 	lw	$ra,0x14($sp)
-/*  f0b1158:	27bd0020 */ 	addiu	$sp,$sp,0x20
-/*  f0b115c:	03e00008 */ 	jr	$ra
-/*  f0b1160:	00000000 */ 	sll	$zero,$zero,0x0
+glabel func0f0b1164
 /*  f0b1164:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f0b1168:	afbf0014 */ 	sw	$ra,0x14($sp)
 /*  f0b116c:	0fc2c3f4 */ 	jal	weaponFindById
@@ -1951,7 +1930,7 @@ s8 weaponGetMaxFireRatePerTick(u32 weaponnum, u32 funcindex)
 
 u32 currentPlayerGetSight(void)
 {
-	struct weaponfunc *func = weaponGetFunctionById(g_Vars.currentplayer->unk0638[0].unk0638, g_Vars.currentplayer->unk0638[0].unk063b);
+	struct weaponfunc *func = weaponGetFunctionById(g_Vars.currentplayer->unk0638[0].weaponnum, g_Vars.currentplayer->unk0638[0].weaponfunc);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_CLOSE) {
 		return SIGHT_NONE;
@@ -1961,7 +1940,7 @@ u32 currentPlayerGetSight(void)
 		return SIGHT_CLASSIC;
 	}
 
-	switch (g_Vars.currentplayer->unk0638[0].unk0638) {
+	switch (g_Vars.currentplayer->unk0638[0].weaponnum) {
 	case WEAPON_HORIZONSCANNER:
 		return SIGHT_NONE;
 	case WEAPON_NONE:

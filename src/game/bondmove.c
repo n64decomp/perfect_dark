@@ -4845,7 +4845,7 @@ glabel var7f1ad8e4
 //		if (getCurrentPlayerWeaponId(0) == WEAPON_FARSIGHTXR20
 //				&& g_Vars.currentplayer->insightaimmode
 //				&& uStack48
-//				&& g_Vars.currentplayer->unk0638[0].unk063b == 1
+//				&& g_Vars.currentplayer->unk0638[0].weaponfunc == FUNC_SECONDARY
 //				&& g_Vars.currentplayer->autoeraserdist > 0) {
 //			fVar25 = func0f0b49b8(500.0f / g_Vars.currentplayer->autoeraserdist);
 //			fStack436 = 2;
@@ -4885,7 +4885,7 @@ glabel var7f1ad8e4
 //		}
 //
 //		if (getCurrentPlayerWeaponId(0) == WEAPON_AR34
-//				&& g_Vars.currentplayer->unk0638[0].unk063b == 1) {
+//				&& g_Vars.currentplayer->unk0638[0].weaponfunc == FUNC_SECONDARY) {
 //			fStack432 = func0f0b14d8();
 //		}
 //
@@ -5132,7 +5132,7 @@ glabel var7f1ad8e4
 //					 || g_Vars.currentplayer->autoyaimprop == NULL
 //					 || func0f0b1804(iStack180, 2) == 0
 //					)
-//					&& (getCurrentPlayerWeaponId(0) != WEAPON_CMP150 || g_Vars.currentplayer->unk0638[0].unk063b != 1)) {
+//					&& (getCurrentPlayerWeaponId(0) != WEAPON_CMP150 || g_Vars.currentplayer->unk0638[0].weaponfunc != FUNC_SECONDARY)) {
 //
 //				if (g_Vars.currentplayer->unk1b68 < 0.979f) {
 //					g_Vars.currentplayer->unk1b68 += g_Vars.lvupdate240freal * 0.00032f;
@@ -5149,7 +5149,7 @@ glabel var7f1ad8e4
 //				bool followlockon = false;
 //
 //				if (getCurrentPlayerWeaponId(0) == WEAPON_CMP150
-//						&& g_Vars.currentplayer->unk0638[0].unk063b == 1) {
+//						&& g_Vars.currentplayer->unk0638[0].weaponfunc == FUNC_SECONDARY) {
 //					followlockon = true;
 //				}
 //
